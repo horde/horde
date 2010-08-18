@@ -1,5 +1,5 @@
 # Danish translations for Turba package
-# Danske oversættelser for pakke Turba.
+# Danske oversÃ¦ttelser for pakke Turba.
 # Copyright 2001-2010 The Horde Project
 # This file is distributed under the same license as the Turba package.
 # Martin List-Petersen <martin@list-petersen.dk>, 2001.
@@ -14,13 +14,13 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/prefs/imsp_opt.inc:40
 msgid " Add an IMSP Address Book"
-msgstr "Tilføj et IMSP-adressekartotek"
+msgstr "TilfÃ¸j et IMSP-adressekartotek"
 
 #: templates/prefs/imsp_opt.inc:29
 msgid " Delete IMSP Address Book"
@@ -52,7 +52,7 @@ msgstr "\"Efternavn, Fornavn\" (fx Hansen, Jens)"
 #: add.php:109
 #, php-format
 msgid "%s added."
-msgstr "%s tilføjet"
+msgstr "%s tilfÃ¸jet"
 
 #: data.php:352
 #, php-format
@@ -71,40 +71,40 @@ msgstr "%ss adressekartotek"
 
 #: lib/Block/minisearch.php:42
 msgid "A browser that supports iFrames is required"
-msgstr "En browser som understøtter <em>iFrames</em> er nødvendig"
+msgstr "En browser som understÃ¸tter <em>iFrames</em> er nÃ¸dvendig"
 
 #: config/prefs.php.dist:150
 msgid "Above search form"
-msgstr "Ovenstående søgeformular"
+msgstr "OvenstÃ¥ende sÃ¸geformular"
 
 #: view.php:52
 #, php-format
 msgid "Access denied to %s"
-msgstr "Adgang nægtet til %s"
+msgstr "Adgang nÃ¦gtet til %s"
 
 #: add.php:56 templates/browse/actions.inc:29
 msgid "Add"
-msgstr "Tilføj"
+msgstr "TilfÃ¸j"
 
 #: templates/prefs/addressbookselect.inc:174
 msgid "Add address book"
-msgstr "Tilføj adressekartotek"
+msgstr "TilfÃ¸j adressekartotek"
 
 #: templates/prefs/columnselect.inc:237
 msgid "Add column"
-msgstr "Tilføj kolonne"
+msgstr "TilfÃ¸j kolonne"
 
 #: edit.php:133 lib/Views/EditContact.php:68
 msgid "Add file"
-msgstr "Tilføj fil"
+msgstr "TilfÃ¸j fil"
 
 #: templates/browse/actions.inc:29
 msgid "Add to"
-msgstr "Tilføj til"
+msgstr "TilfÃ¸j til"
 
 #: lib/Driver.php:1137
 msgid "Adding contacts is not available."
-msgstr "Tilføjelse af kontakter er ikke tilgængelig."
+msgstr "TilfÃ¸jelse af kontakter er ikke tilgÃ¦ngelig."
 
 #: templates/addressbooks.inc:88
 msgid "Address Book"
@@ -124,7 +124,7 @@ msgstr "Adressekartotekspost"
 
 #: data.php:314
 msgid "Address book successfully purged."
-msgstr "Adressekartotek tømt."
+msgstr "Adressekartotek tÃ¸mt."
 
 #: templates/addressbooks.inc:64
 msgid "Address book to delete "
@@ -136,7 +136,7 @@ msgstr "Adressekartoteker, som ikke vil blive vist:"
 
 #: search.php:207 templates/browse/search.inc:48
 msgid "Advanced Search"
-msgstr "Udvidet søgning"
+msgstr "Udvidet sÃ¸gning"
 
 #: config/attributes.php.dist:64
 msgid "Alias"
@@ -154,11 +154,11 @@ msgstr "Findes allerede"
 #: templates/browse/javascript.inc:93
 #, php-format
 msgid "Are you sure that you want to delete %s?"
-msgstr "Er du sikker på, at du vil slette %s?"
+msgstr "Er du sikker pÃ¥, at du vil slette %s?"
 
 #: templates/browse/javascript.inc:67
 msgid "Are you sure that you want to delete the selected entries?"
-msgstr "Er du sikker på, at du vil slette de valgte poster?"
+msgstr "Er du sikker pÃ¥, at du vil slette de valgte poster?"
 
 #: config/prefs.php.dist:86
 msgid "Ascending"
@@ -166,11 +166,11 @@ msgstr "Stigende"
 
 #: search.php:204 templates/browse/search.inc:47
 msgid "Basic Search"
-msgstr "Simpel søgning"
+msgstr "Simpel sÃ¸gning"
 
 #: config/prefs.php.dist:149
 msgid "Below search form"
-msgstr "Nedenstående søgeformular"
+msgstr "NedenstÃ¥ende sÃ¸geformular"
 
 #: lib/Driver/ldap.php:84 lib/Driver/ldap.php:87
 #, php-format
@@ -179,7 +179,7 @@ msgstr "Tilkobling fejlede: (%s) %s"
 
 #: config/attributes.php.dist:178
 msgid "Birthday"
-msgstr "Fødselsdag"
+msgstr "FÃ¸dselsdag"
 
 #: templates/menu.inc:7
 msgid "Browse"
@@ -195,7 +195,7 @@ msgstr "CSV"
 
 #: lib/Object/Group.php:57
 msgid "Can't add a group to itself."
-msgstr "Kan ikke tilføje en gruppe til sig selv."
+msgstr "Kan ikke tilfÃ¸je en gruppe til sig selv."
 
 #: templates/browse/column_headers.inc:7
 msgid "Check _All/None"
@@ -203,27 +203,27 @@ msgstr "Hak alle/ingen af"
 
 #: templates/addressbooks.inc:45
 msgid "Choose a name"
-msgstr "Vælg et navn"
+msgstr "VÃ¦lg et navn"
 
 #: add.php:48
 msgid "Choose an address book"
-msgstr "Vælg et adressekartotek"
+msgstr "VÃ¦lg et adressekartotek"
 
 #: templates/prefs/columnselect.inc:221
 msgid "Choose an address book:"
-msgstr "Vælg et adressekartotek:"
+msgstr "VÃ¦lg et adressekartotek:"
 
 #: templates/prefs/addressbookselect.inc:165
 msgid "Choose which address books to display, and in what order:"
-msgstr "Vælg de adressekartoteker, der skal vises og tilhørende rækkefølge:"
+msgstr "VÃ¦lg de adressekartoteker, der skal vises og tilhÃ¸rende rÃ¦kkefÃ¸lge:"
 
 #: config/prefs.php.dist:11
 msgid "Choose which address books to use."
-msgstr "Vælg de adressekartoteker, der skal anvendes."
+msgstr "VÃ¦lg de adressekartoteker, der skal anvendes."
 
 #: templates/prefs/columnselect.inc:228
 msgid "Choose which columns to display and in what order:"
-msgstr "Vælg hvilke kolonner, der skal vises og i hvilken rækkefølge:"
+msgstr "VÃ¦lg hvilke kolonner, der skal vises og i hvilken rÃ¦kkefÃ¸lge:"
 
 #: templates/block/minisearch.inc:26
 msgid "Close"
@@ -239,11 +239,11 @@ msgstr "Kolonner, som ikke vil blive vist:"
 
 #: templates/data/export.inc:12 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr "Kommaseparerede værdier"
+msgstr "Kommaseparerede vÃ¦rdier"
 
 #: templates/data/export.inc:13
 msgid "Comma separated values (Microsoft Outlook)"
-msgstr "Kommaseparerede værdier (Microsoft Outlook)"
+msgstr "Kommaseparerede vÃ¦rdier (Microsoft Outlook)"
 
 #: config/attributes.php.dist:76
 msgid "Company"
@@ -266,7 +266,7 @@ msgstr "Forbindelsesfejl"
 
 #: lib/Block/minisearch.php:3 lib/Block/minisearch.php:26
 msgid "Contact Search"
-msgstr "Kontakt-søgning"
+msgstr "Kontakt-sÃ¸gning"
 
 #: browse.php:306
 #, php-format
@@ -332,7 +332,7 @@ msgstr "Godkend sletning"
 
 #: config/prefs.php.dist:39
 msgid "Delete button behaviour"
-msgstr "Opførsel af slette-knap"
+msgstr "OpfÃ¸rsel af slette-knap"
 
 #: lib/Driver/ldap.php:277
 #, php-format
@@ -346,7 +346,7 @@ msgstr "Slet virtueltadressekartotek, \"%s\""
 
 #: lib/Driver.php:1145
 msgid "Deleting contacts is not available."
-msgstr "Sletning af kontakter er ikke tilgængelig."
+msgstr "Sletning af kontakter er ikke tilgÃ¦ngelig."
 
 #: delete.php:38
 msgid "Deletion failed"
@@ -398,7 +398,7 @@ msgstr "Rediger"
 #: templates/browse/row.inc:26
 #, php-format
 msgid "Edit \"%s\""
-msgstr "Redigér \"%s\""
+msgstr "RedigÃ©r \"%s\""
 
 #: lib/Views/EditContact.php:28
 #, php-format
@@ -407,30 +407,30 @@ msgstr "Ret %s"
 
 #: templates/addressbooks.inc:83
 msgid "Edit Address Books"
-msgstr "Ændre adressekartoteker"
+msgstr "Ã†ndre adressekartoteker"
 
 #: templates/browse/header.inc:22
 msgid "Edit Permissions"
-msgstr "Ændre tilladelser"
+msgstr "Ã†ndre tilladelser"
 
 #: templates/browse/vbook_header.inc:2
 msgid "Edit Virtual Address Book"
-msgstr "Redigér virtuelt adressekartotek"
+msgstr "RedigÃ©r virtuelt adressekartotek"
 
 #: edit.php:84 edit.php:159
 #, php-format
 msgid "Edit entry for %s"
-msgstr "Redigér post for %s"
+msgstr "RedigÃ©r post for %s"
 
 #: templates/browse/header.inc:18
 #, php-format
 msgid "Edit permissions for virtual address book \"%s\""
-msgstr "Redigér tilladelser for virtuelt adressekartotek, \"%s\""
+msgstr "RedigÃ©r tilladelser for virtuelt adressekartotek, \"%s\""
 
 #: templates/browse/header.inc:17
 #, php-format
 msgid "Edit virtual address book definition of \"%s\""
-msgstr "Redigér definition af virtuelt adressekartotek, \"%s\""
+msgstr "RedigÃ©r definition af virtuelt adressekartotek, \"%s\""
 
 #: config/attributes.php.dist:58
 msgid "Email"
@@ -439,7 +439,7 @@ msgstr "E-post"
 #: edit.php:152
 #, php-format
 msgid "Entry for %s updated, but saving the uploaded file failed: %s"
-msgstr "Post for %s opdateret, men lagring af overført fil mislykkedes: %s"
+msgstr "Post for %s opdateret, men lagring af overfÃ¸rt fil mislykkedes: %s"
 
 #: edit.php:154 edit.php:157
 #, php-format
@@ -449,12 +449,12 @@ msgstr "Registrering for %s opdateret."
 #: browse.php:216 browse.php:264
 #, php-format
 msgid "Error adding %d contact(s) to list."
-msgstr "Fejl under tilføjelse af %d kontakt(er) til liste."
+msgstr "Fejl under tilfÃ¸jelse af %d kontakt(er) til liste."
 
 #: browse.php:218 browse.php:266
 #, php-format
 msgid "Error adding %d of %d requested contact(s) to list."
-msgstr "Fejl under tilføjelse af %d ud af %d anmodede kontakter til liste."
+msgstr "Fejl under tilfÃ¸jelse af %d ud af %d anmodede kontakter til liste."
 
 #: browse.php:86
 #, php-format
@@ -481,34 +481,34 @@ msgstr ""
 #: lib/api.php:414
 #, php-format
 msgid "Error searching the address book: %s"
-msgstr "Der opstod en fejl under søgning i adressekartoteket: %s"
+msgstr "Der opstod en fejl under sÃ¸gning i adressekartoteket: %s"
 
 #: templates/data/export.inc:41 templates/browse/actions.inc:10
 msgid "Export"
-msgstr "Eksportér"
+msgstr "EksportÃ©r"
 
 #: templates/data/export.inc:6
 msgid "Export Address Book"
-msgstr "Eksportér adressekartotek"
+msgstr "EksportÃ©r adressekartotek"
 
 #: templates/data/export.inc:21
 msgid "Export only the selected contacts."
-msgstr "Eksportér kun de valgte kontakter."
+msgstr "EksportÃ©r kun de valgte kontakter."
 
 #: templates/data/export.inc:27
 msgid "Export the following address book completely."
-msgstr "Eksportér hele følgende adressekartotek."
+msgstr "EksportÃ©r hele fÃ¸lgende adressekartotek."
 
 #: add.php:67 browse.php:35 browse.php:103 browse.php:130 data.php:143
 #: data.php:237 data.php:306 search.php:66
 #, php-format
 msgid "Failed to access the address book: %s"
-msgstr "Kunne ikke tilgå kataloget: %s"
+msgstr "Kunne ikke tilgÃ¥ kataloget: %s"
 
 #: browse.php:158
 #, php-format
 msgid "Failed to add %s to %s: %s"
-msgstr "Kunne ikke tilføje %s til %s: %s"
+msgstr "Kunne ikke tilfÃ¸je %s til %s: %s"
 
 #: browse.php:312
 msgid "Failed to browse list"
@@ -531,16 +531,16 @@ msgstr "Kunne ikke slette det virtuelle adressekartotek. %s"
 #: browse.php:134
 #, php-format
 msgid "Failed to find object to be added: %s"
-msgstr "Kunne ikke finde objektet, som skulle tilføjes: %s"
+msgstr "Kunne ikke finde objektet, som skulle tilfÃ¸jes: %s"
 
 #: search.php:198
 msgid "Failed to search the address book"
-msgstr "Kunne ikke søge i adressekartoteket"
+msgstr "Kunne ikke sÃ¸ge i adressekartoteket"
 
 #: data.php:158
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "Kunne ikke søge i kataloget: %s"
+msgstr "Kunne ikke sÃ¸ge i kataloget: %s"
 
 #: config/sources.php.dist:453
 msgid "Favourite Recipients"
@@ -617,7 +617,7 @@ msgstr "IMSP"
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Address Book, Step %d"
-msgstr "Importér adressekartotek, trin %d"
+msgstr "ImportÃ©r adressekartotek, trin %d"
 
 #: data.php:370
 msgid "Import/Export Address Books"
@@ -643,7 +643,7 @@ msgstr "Ugyldig post"
 
 #: lib/Driver/ldap.php:273
 msgid "Invalid key specified."
-msgstr "Ugyldig nøgle angivet."
+msgstr "Ugyldig nÃ¸gle angivet."
 
 #: lib/api.php:1137
 msgid "Invalid name"
@@ -657,12 +657,12 @@ msgstr "Ugyldigt objekt-id"
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"LDAP understøttelse er nødvendig men LDAP-modulet er ikke tilgængelig eller "
+"LDAP understÃ¸ttelse er nÃ¸dvendig men LDAP-modulet er ikke tilgÃ¦ngelig eller "
 "ikke lastet."
 
 #: lib/ObjectView.php:130
 msgid "Last Modified"
-msgstr "Sidst ændret"
+msgstr "Sidst Ã¦ndret"
 
 #: config/attributes.php.dist:53
 msgid "Last Name"
@@ -717,7 +717,7 @@ msgstr "Flyt til venstre"
 #: templates/prefs/columnselect.inc:249
 #: templates/prefs/addressbookselect.inc:186
 msgid "Move right"
-msgstr "Flyt til højre"
+msgstr "Flyt til hÃ¸jre"
 
 #: data.php:61 templates/data/import.inc:16
 msgid "Mulberry Address Book"
@@ -732,7 +732,7 @@ msgstr ""
 
 #: config/sources.php.dist:109 config/sources.php.dist:244
 msgid "My Address Book"
-msgstr "Importér mit adressekartotek"
+msgstr "ImportÃ©r mit adressekartotek"
 
 #: addressbooks.php:125
 msgid "My Address Books"
@@ -756,7 +756,7 @@ msgstr "Ny kontakt"
 
 #: edit.php:94 edit.php:101 edit.php:207 templates/data/import.inc:45
 msgid "Next"
-msgstr "Næste"
+msgstr "NÃ¦ste"
 
 #: config/attributes.php.dist:218
 msgid "Nickname"
@@ -771,12 +771,12 @@ msgstr "Ingen %s post fundet for %s"
 msgid ""
 "No Address Books are currently available. Import and Export is disabled."
 msgstr ""
-"Ingen adressekartoteker tilgængelige. Importering og eksportering er slået "
+"Ingen adressekartoteker tilgÃ¦ngelige. Importering og eksportering er slÃ¥et "
 "fra."
 
 #: search.php:42
 msgid "No Address Books are currently available. Searching is disabled."
-msgstr "Ingen adressekartoteker tilgængelige. Søgning er slået fra."
+msgstr "Ingen adressekartoteker tilgÃ¦ngelige. SÃ¸gning er slÃ¥et fra."
 
 #: lib/api.php:1216
 msgid "No address books found."
@@ -830,11 +830,11 @@ msgid ""
 "to \"None\"."
 msgstr ""
 "Idet du gemmer denne side vil adressekartoteket bliver slettet permanent. "
-"Hvis dette ikke er, hvad du ønsker, så skal du ændre dit valg til \"Ingen\"."
+"Hvis dette ikke er, hvad du Ã¸nsker, sÃ¥ skal du Ã¦ndre dit valg til \"Ingen\"."
 
 #: lib/api.php:813
 msgid "Only one vcard supported."
-msgstr "Kun ét vCard er understøttet."
+msgstr "Kun Ã©t vCard er understÃ¸ttet."
 
 #: config/prefs.php.dist:37
 msgid "Other Options"
@@ -842,7 +842,7 @@ msgstr "Andre indstillinger"
 
 #: config/attributes.php.dist:190
 msgid "PGP Public Key"
-msgstr "Offentlig PGP-nøgle"
+msgstr "Offentlig PGP-nÃ¸gle"
 
 #: lib/Views/DeleteContact.php:57
 msgid "Permanently delete this contact?"
@@ -851,11 +851,11 @@ msgstr "Slet denne kontakt uigenkaldeligt?"
 #: lib/api.php:518 lib/api.php:644 lib/api.php:731 lib/api.php:986
 #: lib/api.php:1150
 msgid "Permission Denied"
-msgstr "Tilladelse nægtet"
+msgstr "Tilladelse nÃ¦gtet"
 
 #: lib/Driver.php:571
 msgid "Permission denied"
-msgstr "Tilladelse nægtet"
+msgstr "Tilladelse nÃ¦gtet"
 
 #: templates/addressbooks.inc:101
 msgid "Permissions"
@@ -863,7 +863,7 @@ msgstr "Tilladelser"
 
 #: data.php:62 templates/data/import.inc:17
 msgid "Pine Address Book"
-msgstr "Importér adressekartotek fra Pine"
+msgstr "ImportÃ©r adressekartotek fra Pine"
 
 #: templates/browse/javascript.inc:28
 msgid "Please name the new contact list:"
@@ -871,7 +871,7 @@ msgstr "Navngiv venligst den nye kontaktliste:"
 
 #: edit.php:97 edit.php:100 edit.php:199
 msgid "Previous"
-msgstr "Foregående"
+msgstr "ForegÃ¥ende"
 
 #: config/sources.php.dist:417
 msgid "Private Address Book"
@@ -880,7 +880,7 @@ msgstr "Privat adressekartotek"
 #: lib/Driver/ldap.php:154
 #, php-format
 msgid "Query failed: (%s) %s"
-msgstr "Forespørgsel fejlede: (%s) %s"
+msgstr "ForespÃ¸rgsel fejlede: (%s) %s"
 
 #: templates/browse/header.inc:6
 msgid "Quick Filter: "
@@ -889,11 +889,11 @@ msgstr "Kvik-filter: "
 #: lib/Driver/ldap.php:198 lib/Driver/ldap.php:206 lib/Driver/ldap.php:436
 #, php-format
 msgid "Read failed: (%s) %s"
-msgstr "Læsefejl: (%s) %s"
+msgstr "LÃ¦sefejl: (%s) %s"
 
 #: lib/Driver.php:1129
 msgid "Reading contacts is not available."
-msgstr "Læsning af kontakter er ikke tilgængelig."
+msgstr "LÃ¦sning af kontakter er ikke tilgÃ¦ngelig."
 
 #: templates/browse/footer.inc:2
 msgid "Records displayed:"
@@ -917,7 +917,7 @@ msgid ""
 "deletes all entries in your current address book.</strong>"
 msgstr ""
 "Erstat eksisterende adressekartotek med den importerede? <strong>Advarsel: "
-"Dette sletter alle poster i dit nuværende adressekartotek.</strong>"
+"Dette sletter alle poster i dit nuvÃ¦rende adressekartotek.</strong>"
 
 #: lib/Driver.php:459
 msgid "Requested object not found."
@@ -943,86 +943,86 @@ msgstr "Gem"
 
 #: templates/browse/search_vbook.inc:20
 msgid "Save search as a virtual addressbook?"
-msgstr "Gem søgning som et virtuelt adressekartotek?"
+msgstr "Gem sÃ¸gning som et virtuelt adressekartotek?"
 
 #: lib/Driver.php:1153
 msgid "Saving contacts is not available."
-msgstr "Lagring af kontakter er ikke tilgængelig."
+msgstr "Lagring af kontakter er ikke tilgÃ¦ngelig."
 
 #: templates/browse/search.inc:120 templates/browse/search.inc:138
 #: templates/block/minisearch.inc:25 lib/Block/tree_menu.php:72
 #: config/prefs.php.dist:116
 msgid "Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: lib/api.php:1063
 msgid "Search failed"
-msgstr "Søgning fejlede"
+msgstr "SÃ¸gning fejlede"
 
 #: lib/api.php:1155 lib/api.php:1161 lib/api.php:1170 lib/api.php:1183
 #, php-format
 msgid "Search failed: %s"
-msgstr "Søgning fejlede: %s"
+msgstr "SÃ¸gning fejlede: %s"
 
 #: templates/block/minisearch.inc:23
 msgid "Search for: "
-msgstr "Søg efter: "
+msgstr "SÃ¸g efter: "
 
 #: lib/Driver.php:1121
 msgid "Searching is not available."
-msgstr "Søgning er ikke tilgængelig."
+msgstr "SÃ¸gning er ikke tilgÃ¦ngelig."
 
 #: templates/block/minisearch.inc:27
 msgid "Searching..."
-msgstr "Søger..."
+msgstr "SÃ¸ger..."
 
 #: templates/addressbooks.inc:68
 msgid "Select an address book to delete"
-msgstr "Vælg det adressekartotek, der skal slettes"
+msgstr "VÃ¦lg det adressekartotek, der skal slettes"
 
 #: templates/addressbooks.inc:92
 msgid "Select an address book to edit"
-msgstr "Vælg det adressekartotek, der skal ændres"
+msgstr "VÃ¦lg det adressekartotek, der skal Ã¦ndres"
 
 #: templates/data/export.inc:32
 msgid "Select the address book to export from:"
-msgstr "Vælg adressekartoteker, der skal eksporteres fra:"
+msgstr "VÃ¦lg adressekartoteker, der skal eksporteres fra:"
 
 #: templates/data/import.inc:26
 msgid "Select the address book to import to:"
-msgstr "Vælg adressekartoteket, der skal importeres til:"
+msgstr "VÃ¦lg adressekartoteket, der skal importeres til:"
 
 #: templates/data/import.inc:35
 msgid "Select the charset of the source file:"
-msgstr "Vælg kildefilens tegnsæt:"
+msgstr "VÃ¦lg kildefilens tegnsÃ¦t:"
 
 #: templates/data/export.inc:10
 msgid "Select the export format:"
-msgstr "Vælg formatet, der skal eksporteres i:"
+msgstr "VÃ¦lg formatet, der skal eksporteres i:"
 
 #: templates/data/import.inc:43
 msgid "Select the file to import:"
-msgstr "Vælg filen, som skal importeres:"
+msgstr "VÃ¦lg filen, som skal importeres:"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Vælg formatet af oprindelsesfilen:"
+msgstr "VÃ¦lg formatet af oprindelsesfilen:"
 
 #: config/prefs.php.dist:125
 msgid "Select the format used to display names:"
-msgstr "Vælg formatet, som navne skal vises i:"
+msgstr "VÃ¦lg formatet, som navne skal vises i:"
 
 #: config/prefs.php.dist:25
 msgid "Select view to display by default, sort options, and paging options."
-msgstr "Vælg standard visning, sortering og sideopsætning."
+msgstr "VÃ¦lg standard visning, sortering og sideopsÃ¦tning."
 
 #: config/prefs.php.dist:18
 msgid "Select which fields to display in the address lists."
-msgstr "Vælg hvilke felter, der skal vises i adresselisterne."
+msgstr "VÃ¦lg hvilke felter, der skal vises i adresselisterne."
 
 #: config/prefs.php.dist:32
 msgid "Select which format to display names."
-msgstr "Vælg formatet, som navne skal vises i."
+msgstr "VÃ¦lg formatet, som navne skal vises i."
 
 #: add.php:54
 #, php-format
@@ -1061,22 +1061,22 @@ msgstr "Kilder"
 
 #: config/prefs.php.dist:148
 msgid "Specify where you want advanced search results to appear."
-msgstr "Angiv hvor du ønsker at avancerede søgeresultater skal dukke op."
+msgstr "Angiv hvor du Ã¸nsker at avancerede sÃ¸geresultater skal dukke op."
 
 #: browse.php:214 browse.php:262
 #, php-format
 msgid "Successfully added %d contact(s) to list."
-msgstr "%d kontakt(er) tilføjet til liste."
+msgstr "%d kontakt(er) tilfÃ¸jet til liste."
 
 #: browse.php:160
 #, php-format
 msgid "Successfully added %s to %s"
-msgstr "Har tilføjet %s til %s"
+msgstr "Har tilfÃ¸jet %s til %s"
 
 #: search.php:100
 #, php-format
 msgid "Successfully changed virtual address book \"%s\""
-msgstr "Virtuelt adressekartotek \"%s\" ændret."
+msgstr "Virtuelt adressekartotek \"%s\" Ã¦ndret."
 
 #: browse.php:248
 #, php-format
@@ -1104,11 +1104,11 @@ msgstr "TSV"
 
 #: templates/data/export.inc:14 templates/data/import.inc:14
 msgid "Tab separated values"
-msgstr "Tabulator-separerede værdier"
+msgstr "Tabulator-separerede vÃ¦rdier"
 
 #: view.php:15
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "VFS motoren skal sættes op for at slå opsendelse af bilag til."
+msgstr "VFS motoren skal sÃ¦ttes op for at slÃ¥ opsendelse af bilag til."
 
 #: lib/Driver.php:1099
 #, php-format
@@ -1133,7 +1133,7 @@ msgstr "Adressekartoteket \"%s\" er opdateret."
 #: data.php:312
 #, php-format
 msgid "The address book could not be purged: %s"
-msgstr "Adressekartoteket kunne ikke tømmes: %s"
+msgstr "Adressekartoteket kunne ikke tÃ¸mmes: %s"
 
 #: edit.php:50 vcard.php:17 view.php:26 contact.php:22
 msgid "The contact you requested does not exist."
@@ -1146,7 +1146,7 @@ msgstr "Filen \"%s\" er slettet."
 
 #: data.php:293
 msgid "The import can be finished despite the warnings."
-msgstr "Importen kan gennemføres uanset advarslerne."
+msgstr "Importen kan gennemfÃ¸res uanset advarslerne."
 
 #: lib/Views/Contact.php:36 lib/Views/DeleteContact.php:36
 #: lib/Views/EditContact.php:36
@@ -1163,9 +1163,9 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"Der er ingen skrivbare adressekartoteker. Ingen af de tilgængelige "
-"adressekartoteker er konfigureret til at tillade dig at tilføje nye poster. "
-"Hvis du mener dette er en fejl, så kontakt venligst din systemadministrator."
+"Der er ingen skrivbare adressekartoteker. Ingen af de tilgÃ¦ngelige "
+"adressekartoteker er konfigureret til at tillade dig at tilfÃ¸je nye poster. "
+"Hvis du mener dette er en fejl, sÃ¥ kontakt venligst din systemadministrator."
 
 #: search.php:162
 #, php-format
@@ -1178,8 +1178,8 @@ msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
 msgstr ""
-"Der opstod en fejl ved tilføjelse af den nye kontakt. Kontakt din "
-"systemadministrator for yderligere hjælp."
+"Der opstod en fejl ved tilfÃ¸jelse af den nye kontakt. Kontakt din "
+"systemadministrator for yderligere hjÃ¦lp."
 
 #: browse.php:271
 msgid "There was an error creating a new list."
@@ -1235,15 +1235,15 @@ msgstr "Der findes ingen adresser at eksportere."
 
 #: templates/prefs/addressbookselect.inc:180
 msgid "These address books will display in this order:"
-msgstr "Disse adressekartoteker vil vises i denne rækkefølge:"
+msgstr "Disse adressekartoteker vil vises i denne rÃ¦kkefÃ¸lge:"
 
 #: templates/prefs/columnselect.inc:243
 msgid "These columns will display in this order:"
-msgstr "Disse kolonner vil vises i denne rækkefølge:"
+msgstr "Disse kolonner vil vises i denne rÃ¦kkefÃ¸lge:"
 
 #: data.php:278
 msgid "This file format is not supported."
-msgstr "Dette filformat er ikke understøttet."
+msgstr "Dette filformat er ikke understÃ¸ttet."
 
 #: lib/api.php:1174 lib/api.php:1187
 #, php-format
@@ -1254,7 +1254,7 @@ msgstr "Denne person har allerede en %s post i adressekartoteket"
 msgid ""
 "This will be the default address book when adding or importing contacts."
 msgstr ""
-"Dette vil være standard adressekartoteket ved tilføjelse eller import af "
+"Dette vil vÃ¦re standard adressekartoteket ved tilfÃ¸jelse eller import af "
 "kontakter."
 
 #: config/attributes.php.dist:70
@@ -1269,16 +1269,16 @@ msgstr "Kan ikke oprette ny deling.  Mangler kildetype."
 #: lib/Driver.php:1021
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Kan ikke indlæse definitionen af %s."
+msgstr "Kan ikke indlÃ¦se definitionen af %s."
 
 #: edit.php:94 edit.php:97 edit.php:100 edit.php:105 edit.php:201
 msgid "Undo Changes"
-msgstr "Fortryd ændringer"
+msgstr "Fortryd Ã¦ndringer"
 
 #: lib/api.php:563 lib/api.php:682 lib/api.php:818
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Ikke-understøttet Content-Type: %s"
+msgstr "Ikke-understÃ¸ttet Content-Type: %s"
 
 #: config/sources.php.dist:377
 msgid "Verisign Directory"
@@ -1295,7 +1295,7 @@ msgstr "Se kontakt"
 
 #: config/prefs.php.dist:114
 msgid "View to display by default:"
-msgstr "Vælg hvad du først vi se:"
+msgstr "VÃ¦lg hvad du fÃ¸rst vi se:"
 
 #: lib/Block/tree_menu.php:51
 msgid "Virtual Address Books"
@@ -1316,7 +1316,7 @@ msgstr "Beskrivelse af virtuelt adressekartotek"
 
 #: templates/browse/search_vbook.inc:29
 msgid "Virtual address book name"
-msgstr "Navn på virtuelt adressekartotek"
+msgstr "Navn pÃ¥ virtuelt adressekartotek"
 
 #: config/attributes.php.dist:208
 msgid "Website URL"
@@ -1357,11 +1357,11 @@ msgstr "Du har ikke tilladelse til at danne flere end %d kontakter i \"%s\"."
 
 #: lib/Driver/vbook.php:116
 msgid "You cannot add an entry to a virtual address book."
-msgstr "Du kan ikke tilføje en indgang til et virtuelt adressekartotek."
+msgstr "Du kan ikke tilfÃ¸je en indgang til et virtuelt adressekartotek."
 
 #: lib/Driver/vbook.php:100
 msgid "You cannot add new contacts to a virtual address book"
-msgstr "Du kan ikke tilføje nye kontakter til et virtuelt adressekartoteket"
+msgstr "Du kan ikke tilfÃ¸je nye kontakter til et virtuelt adressekartoteket"
 
 #: lib/Driver/vbook.php:108
 msgid "You cannot delete contacts from a virtual address book"
@@ -1386,20 +1386,20 @@ msgstr "Du skal angive et navn til virtuelle adressekartoteker."
 
 #: templates/browse/javascript.inc:55
 msgid "You must select a target address book."
-msgstr "Du skal vælge destinations-adressekartoteket."
+msgstr "Du skal vÃ¦lge destinations-adressekartoteket."
 
 #: templates/browse/javascript.inc:23
 msgid "You must select a target list."
-msgstr "Du skal vælge destinationslisten."
+msgstr "Du skal vÃ¦lge destinationslisten."
 
 #: edit.php:31
 msgid "You must select at least one contact first."
-msgstr "Først skal du vælge mindst en kontakt."
+msgstr "FÃ¸rst skal du vÃ¦lge mindst en kontakt."
 
 #: templates/browse/javascript.inc:17 templates/browse/javascript.inc:49
 #: templates/browse/javascript.inc:72
 msgid "You must select at least one entry first."
-msgstr "Først skal du vælge mindst én post."
+msgstr "FÃ¸rst skal du vÃ¦lge mindst Ã©n post."
 
 #: edit.php:76 lib/Views/DeleteContact.php:45 lib/Views/EditContact.php:45
 msgid "You only have permission to view this contact."
@@ -1411,7 +1411,7 @@ msgstr "Dit standard adressekartotek er ikke skimbar."
 
 #: templates/browse/row.inc:6
 msgid "[no value]"
-msgstr "[ingen værdi]"
+msgstr "[ingen vÃ¦rdi]"
 
 #: lib/Turba.php:602
 msgid "_Browse"
@@ -1427,7 +1427,7 @@ msgstr "Slet"
 
 #: contact.php:79
 msgid "_Edit"
-msgstr "Redigér"
+msgstr "RedigÃ©r"
 
 #: lib/Turba.php:611
 msgid "_Import/Export"
@@ -1451,7 +1451,7 @@ msgstr "Fjern fra denne liste"
 
 #: lib/Turba.php:607
 msgid "_Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: vcard.php:43
 msgid "contact"

@@ -1,5 +1,5 @@
 # Korean translations for horde package
-# horde ÆĞÅ°Áö¿¡ ´ëÇÑ ÇÑ±¹¾î ¹ø¿ª¹®.
+# horde íŒ¨í‚¤ì§€ì— ëŒ€í•œ í•œêµ­ì–´ ë²ˆì—­ë¬¸.
 # Copyright 2005-2010 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 #
@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jinhyok Heo <novembre@ournature.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/maintenance/confirm_top.inc:11
@@ -20,352 +20,352 @@ msgstr ""
 msgid ""
 " &#151; %s is ready to perform the maintenance operations checked below."
 msgstr ""
-" &#151; %sÀº(´Â) ¾Æ·¡¿¡ ¼³Á¤µÈ À¯Áö°ü¸® ÀÛ¾÷À» ¼öÇàÇÒ ÁØºñ°¡ µÇ¾ú½À´Ï´Ù."
+" &#151; %sì€(ëŠ”) ì•„ë˜ì— ì„¤ì •ëœ ìœ ì§€ê´€ë¦¬ ì‘ì—…ì„ ìˆ˜í–‰í•  ì¤€ë¹„ê°€ ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde.php:1283
 msgid " (Accesskey %s)"
-msgstr " (´ÜÃàÅ° %s)"
+msgstr " (ë‹¨ì¶•í‚¤ %s)"
 
 #: lib/Horde/Form.php:2356
 msgid " (today)"
-msgstr " (¿À´Ã)"
+msgstr " (ì˜¤ëŠ˜)"
 
 #: lib/Horde/Form.php:2358
 msgid " (tomorrow)"
-msgstr " (³»ÀÏ)"
+msgstr " (ë‚´ì¼)"
 
 #: lib/Horde/Form.php:2354
 msgid " (yesterday)"
-msgstr " (¾îÁ¦)"
+msgstr " (ì–´ì œ)"
 
 #: templates/maintenance/notice_top.inc:4
 #, fuzzy, php-format
 msgid "%s - Notice"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: templates/admin/common-header.inc:29
 msgid "%s Administration"
-msgstr "%s °ü¸®"
+msgstr "%s ê´€ë¦¬"
 
 #: templates/maintenance/confirm_top.inc:4
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s À¯Áö°ü¸® ÀÛ¾÷ - È®ÀÎ"
+msgstr "%s ìœ ì§€ê´€ë¦¬ ì‘ì—… - í™•ì¸"
 
 #: lib/VFS/ftp.php:596 lib/VFS/ftp.php:666
 msgid "%s already exists."
-msgstr "\"%s\"´Â ÀÌ¹Ì ÀÖ½À´Ï´Ù."
+msgstr "\"%s\"ëŠ” ì´ë¯¸ ìˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/icalendar.php:524
 #, fuzzy, php-format
 msgid "%s has replied to the invitation to %s."
-msgstr "%s Á¤ÀÇ¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "%s ì •ì˜ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Block/metar.php:284
 #, fuzzy, php-format
 msgid "%s minutes"
-msgstr "5ºĞ ¸¶´Ù"
+msgstr "5ë¶„ ë§ˆë‹¤"
 
 #: templates/admin/user/list.inc:6
 #, fuzzy, php-format
 msgid "%s to %s of %s"
-msgstr "%d / %d (¸Ş½ÃÁö: %d)"
+msgstr "%d / %d (ë©”ì‹œì§€: %d)"
 
 #: lib/Horde/Kolab.php:912
 #, fuzzy, php-format
 msgid "%s's Address Book"
-msgstr "ÁÖ¼Ò·Ï"
+msgstr "ì£¼ì†Œë¡"
 
 #: lib/Horde/Kolab.php:904
 #, fuzzy, php-format
 msgid "%s's Calendar"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: lib/Horde/Registry.php:582 lib/Horde/Registry.php:982
 #, php-format
 msgid "'%s' is not configured in the Horde Registry."
-msgstr "%s'ÀÌ(°¡) Horde ·¹Áö½ºÆ®¸®¿¡¼­ ¼³Á¤µÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù."
+msgstr "%s'ì´(ê°€) Horde ë ˆì§€ìŠ¤íŠ¸ë¦¬ì—ì„œ ì„¤ì •ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤."
 
 #: admin/groups.php:57
 #, fuzzy, php-format
 msgid "'%s' was added to the groups system."
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Block/time.php:20
 #, fuzzy
 msgid "12 Hour Format"
-msgstr "Á¤º¸"
+msgstr "ì •ë³´"
 
 #: lib/Block/time.php:19
 #, fuzzy
 msgid "24 Hour Format"
-msgstr "Á¤º¸"
+msgstr "ì •ë³´"
 
 #: templates/data/time.inc:28
 msgid "24 hours"
-msgstr "24 ½Ã°£"
+msgstr "24 ì‹œê°„"
 
 #: lib/Horde.php:166
 #, fuzzy
 msgid "A fatal error has occurred"
-msgstr "<b>Ä¡¸íÀûÀÎ ¿À·ù ¹ß»ı:</b>"
+msgstr "<b>ì¹˜ëª…ì ì¸ ì˜¤ë¥˜ ë°œìƒ:</b>"
 
 #: templates/data/time.inc:29
 msgid "AM/PM"
-msgstr "¿ÀÀü/¿ÀÈÄ"
+msgstr "ì˜¤ì „/ì˜¤í›„"
 
 #: templates/javascript/htmlarea_lang.js:30
 msgid "About this editor"
-msgstr "ÀÌ ¿¡µğÅÍ´Â"
+msgstr "ì´ ì—ë””í„°ëŠ”"
 
 #: config/prefs.php.dist:75
 #, fuzzy
 msgid "Account Password"
-msgstr "¾ÏÈ£ È®ÀÎ"
+msgstr "ì•”í˜¸ í™•ì¸"
 
 #: config/registry.php.dist:320
 #, fuzzy
 msgid "Accounting"
-msgstr "¿À¸§Â÷¼ø"
+msgstr "ì˜¤ë¦„ì°¨ìˆœ"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:451
 #: lib/Horde/MIME/Viewer/icalendar.php:625
 #, fuzzy
 msgid "Actions"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: admin/perms/addchild.php:54 lib/Horde/Perms/UI.php:136
 #: templates/portal/add.inc:14 templates/admin/groups/addchild.inc:16
 msgid "Add"
-msgstr "Ãß°¡"
+msgstr "ì¶”ê°€"
 
 #: templates/portal/add.inc:5
 #, fuzzy
 msgid "Add Here:"
-msgstr "»ç¿ëÀÚ Ãß°¡"
+msgstr "ì‚¬ìš©ì ì¶”ê°€"
 
 #: admin/user.php:30
 msgid "Add a new user:"
-msgstr "»õ·Î¿î »ç¿ëÀÚ Ãß°¡:"
+msgstr "ìƒˆë¡œìš´ ì‚¬ìš©ì ì¶”ê°€:"
 
 #: templates/admin/groups/edit.inc:35
 #, fuzzy
 msgid "Add new members"
-msgstr "»õ·Î¿î »ç¿ëÀÚ Ãß°¡:"
+msgstr "ìƒˆë¡œìš´ ì‚¬ìš©ì ì¶”ê°€:"
 
 #: templates/data/csvmap.inc:103
 msgid "Add pair"
-msgstr "Æä¾î(pair) Ãß°¡"
+msgstr "í˜ì–´(pair) ì¶”ê°€"
 
 #: lib/Horde/MIME/Viewer/vcard.php:74
 #, fuzzy
 msgid "Add to address book:"
-msgstr "(%s)¸¦ ÁÖ¼Ò·Ï¿¡ Ãß°¡"
+msgstr "(%s)ë¥¼ ì£¼ì†Œë¡ì— ì¶”ê°€"
 
 #: lib/Horde/MIME/Viewer/vcard.php:81
 #, fuzzy
 msgid "Add to my address book"
-msgstr "(%s)¸¦ ÁÖ¼Ò·Ï¿¡ Ãß°¡"
+msgstr "(%s)ë¥¼ ì£¼ì†Œë¡ì— ì¶”ê°€"
 
 #: admin/user.php:31
 msgid "Add user"
-msgstr "»ç¿ëÀÚ Ãß°¡"
+msgstr "ì‚¬ìš©ì ì¶”ê°€"
 
 #: templates/admin/user/noadd.inc:4
 msgid "Adding users is disabled."
-msgstr "»ç¿ëÀÚ Ãß°¡ »ç¿ë¾ÈÇÔ"
+msgstr "ì‚¬ìš©ì ì¶”ê°€ ì‚¬ìš©ì•ˆí•¨"
 
 #: lib/Horde/Form.php:1438 lib/Horde/MIME/Viewer/vcard.php:129
 #: lib/Horde/MIME/Viewer/vcard.php:176
 msgid "Address"
-msgstr "ÁÖ¼Ò"
+msgstr "ì£¼ì†Œ"
 
 #: config/registry.php.dist:134
 msgid "Address Book"
-msgstr "ÁÖ¼Ò·Ï"
+msgstr "ì£¼ì†Œë¡"
 
 #: admin/index.php:19 services/portal/sidebar.php:114
 msgid "Administration"
-msgstr "°ü¸®"
+msgstr "ê´€ë¦¬"
 
 #: config/registry.php.dist:406
 #, fuzzy
 msgid "Ads"
-msgstr "Ãß°¡"
+msgstr "ì¶”ê°€"
 
 #: lib/Horde/NLS/tld.php:21 lib/Horde/NLS/countries.php:12
 #: lib/Horde/NLS/GeoIP.php:58
 #, fuzzy
 msgid "Albania"
-msgstr "¾ó¶óÀÌ¾î½º"
+msgstr "ì–¼ë¼ì´ì–´ìŠ¤"
 
 #: lib/Horde/NLS/tld.php:74 lib/Horde/NLS/countries.php:13
 #: lib/Horde/NLS/GeoIP.php:71
 #, fuzzy
 msgid "Algeria"
-msgstr "¾ó¶óÀÌ¾î½º"
+msgstr "ì–¼ë¼ì´ì–´ìŠ¤"
 
 #: lib/Horde/MIME/Viewer/vcard.php:110
 msgid "Alias"
-msgstr "¾ó¶óÀÌ¾î½º"
+msgstr "ì–¼ë¼ì´ì–´ìŠ¤"
 
 #: templates/javascript/htmlarea_table_lang.js:16
 msgid "Align"
-msgstr "Á¤·Ä"
+msgstr "ì •ë ¬"
 
 #: templates/javascript/htmlarea_lang.js:67
 msgid "Alignment:"
-msgstr "Á¤·Ä:"
+msgstr "ì •ë ¬:"
 
 #: lib/Block/fortune.php:87
 msgid "All"
-msgstr "¸ğµÎ ¼±ÅÃ"
+msgstr "ëª¨ë‘ ì„ íƒ"
 
 #: templates/javascript/htmlarea_table_lang.js:17
 msgid "All four sides"
-msgstr "¸ğµç 4¸é"
+msgstr "ëª¨ë“  4ë©´"
 
 #: services/resetpassword.php:35
 #, fuzzy
 msgid "Alternate email address"
-msgstr "Àß¸øµÈ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
+msgstr "ì˜ëª»ëœ ì´ë©”ì¼ ì£¼ì†Œ"
 
 #: templates/javascript/htmlarea_lang.js:122
 #: templates/javascript/htmlarea_anselimage_lang.js:25
 msgid "Alternate text:"
-msgstr "´ëÃ¼ ±Û"
+msgstr "ëŒ€ì²´ ê¸€"
 
 #: lib/Horde/Prefs/UI.php:97 lib/Horde/Prefs/UI.php:117
 msgid "An illegal value was specified."
-msgstr "Àß¸øµÈ ¹®ÀÚ°¡ ÀÖ½À´Ï´Ù."
+msgstr "ì˜ëª»ëœ ë¬¸ìê°€ ìˆìŠµë‹ˆë‹¤."
 
 #: services/resetpassword.php:49
 #, fuzzy
 msgid "Answer"
-msgstr "È¸½ÅÇÑ ¸ŞÀÏ"
+msgstr "íšŒì‹ í•œ ë©”ì¼"
 
 #: admin/templates.php:74 admin/phpshell.php:30 lib/Horde/Block/UI.php:59
 #: templates/admin/setup/index.html:6
 #, fuzzy
 msgid "Application"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: lib/Horde/UI/VarRenderer/html.php:377 lib/Horde/UI/VarRenderer/html.php:414
 #: templates/javascript/open_calendar.js:68
 msgid "April"
-msgstr "4¿ù"
+msgstr "4ì›”"
 
 #: templates/admin/user/removequeued.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "°è¼Ó ÁøÇàÇÏ½Ã°Ú½À´Ï±î?"
+msgstr "ê³„ì† ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
 
 #: templates/admin/groups/delete.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
-msgstr "ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?"
+msgstr "ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
 
 #: config/prefs.php.dist:415
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "À¯Áö°ü¸®½ÇÇàÀü È®ÀÎÇÏ±â"
+msgstr "ìœ ì§€ê´€ë¦¬ì‹¤í–‰ì „ í™•ì¸í•˜ê¸°"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:577
 #, fuzzy
 msgid "Attendees"
-msgstr "ÆÄÀÏ Ã·ºÎ"
+msgstr "íŒŒì¼ ì²¨ë¶€"
 
 #: lib/Horde/UI/VarRenderer/html.php:381 lib/Horde/UI/VarRenderer/html.php:418
 #: templates/javascript/open_calendar.js:72
 msgid "August"
-msgstr "8¿ù"
+msgstr "8ì›”"
 
 #: lib/Horde/NLS/tld.php:28 lib/Horde/NLS/countries.php:24
 #: lib/Horde/NLS/GeoIP.php:60
 #, fuzzy
 msgid "Austria"
-msgstr "8¿ù"
+msgstr "8ì›”"
 
 #: lib/Horde/Auth/ldap.php:189
 #, fuzzy, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
-msgstr "ÀÓ½Ãº¸°üÇÔ ÀúÀå ¿À·ù. ¼­¹öÀÇ ¿À·ù ¸Ş½ÃÁö: %s"
+msgstr "ì„ì‹œë³´ê´€í•¨ ì €ì¥ ì˜¤ë¥˜. ì„œë²„ì˜ ì˜¤ë¥˜ ë©”ì‹œì§€: %s"
 
 #: lib/Net/SMS/clickatell_http.php:299
 #, fuzzy
 msgid "Authentication failed"
-msgstr "»èÁ¦ ½ÇÆĞ"
+msgstr "ì‚­ì œ ì‹¤íŒ¨"
 
 #: lib/Net/SMS/clickatell_http.php:69 lib/Net/SMS/clickatell_http.php:78
 #, fuzzy, php-format
 msgid "Authentication failed. %s"
-msgstr "¸ŞÀÏ Àü´Ş ¿À·ù:"
+msgstr "ë©”ì¼ ì „ë‹¬ ì˜¤ë¥˜:"
 
 #: lib/VFS/ftp.php:800
 #, fuzzy
 msgid "Authentication to FTP server failed."
-msgstr "ftp ¼­¹ö ¿¬°á ¿À·ù."
+msgstr "ftp ì„œë²„ ì—°ê²° ì˜¤ë¥˜."
 
 #: templates/data/csvmap.inc:83
 msgid "Available fields:"
-msgstr "°¡´ÉÇÑ ÇÊµå:"
+msgstr "ê°€ëŠ¥í•œ í•„ë“œ:"
 
 #: templates/javascript/htmlarea_table_lang.js:18
 msgid "Background"
-msgstr "¹è°æ"
+msgstr "ë°°ê²½"
 
 #: templates/javascript/htmlarea_lang.js:23
 msgid "Background Color"
-msgstr "¹è°æ »ö±ò"
+msgstr "ë°°ê²½ ìƒ‰ê¹”"
 
 #: lib/Horde/NLS/tld.php:50 lib/Horde/NLS/countries.php:32
 #: lib/Horde/NLS/GeoIP.php:64
 #, fuzzy
 msgid "Belize"
-msgstr "Å©±â"
+msgstr "í¬ê¸°"
 
 #: lib/Horde/MIME/Viewer/vcard.php:114
 msgid "Birthday"
-msgstr "»ıÀÏ"
+msgstr "ìƒì¼"
 
 #: lib/Horde/Block/Collection.php:326
 #, fuzzy, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
-msgstr "ÅëÁö ¸®½º³Ê %sÀ»(¸¦) Ã£À» ¼ö ¾ø½À´Ï´Ù."
+msgstr "í†µì§€ ë¦¬ìŠ¤ë„ˆ %sì„(ë¥¼) ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_lang.js:8
 msgid "Bold"
-msgstr "±½°Ô"
+msgstr "êµµê²Œ"
 
 #: templates/javascript/htmlarea_table_lang.js:20
 msgid "Border"
-msgstr "°æ°è"
+msgstr "ê²½ê³„"
 
 #: templates/javascript/htmlarea_lang.js:85
 msgid "Border thickness:"
-msgstr "°æ°è µÎ²²"
+msgstr "ê²½ê³„ ë‘ê»˜"
 
 #: templates/javascript/htmlarea_table_lang.js:21
 msgid "Borders"
-msgstr "°æ°è"
+msgstr "ê²½ê³„"
 
 #: lib/Block/fortune.php:96
 msgid "Both"
-msgstr "¸ğµÎ"
+msgstr "ëª¨ë‘"
 
 #: templates/javascript/htmlarea_table_lang.js:22
 #: templates/javascript/htmlarea_lang.js:75
 msgid "Bottom"
-msgstr "¾Æ·¡"
+msgstr "ì•„ë˜"
 
 #: lib/Horde/NLS/tld.php:44 lib/Horde/NLS/countries.php:40
 #: lib/Horde/NLS/GeoIP.php:63
 #, fuzzy
 msgid "Brazil"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:19
 msgid "Bulleted List"
-msgstr "±âÈ£ ¸®½ºÆ®"
+msgstr "ê¸°í˜¸ ë¦¬ìŠ¤íŠ¸"
 
 #: config/registry.php.dist:397
 #, fuzzy
@@ -374,27 +374,27 @@ msgstr "CVS"
 
 #: templates/javascript/htmlarea_context_lang.js:27
 msgid "C_ell Properties..."
-msgstr "_e¼¿ ¼Ó¼º..."
+msgstr "_eì…€ ì†ì„±..."
 
 #: lib/Horde/UI/VarRenderer/html.php:456 config/registry.php.dist:143
 msgid "Calendar"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: lib/Block/weatherdotcom.php:209
 #, fuzzy
 msgid "Calm"
-msgstr "Ãë¼Ò"
+msgstr "ì·¨ì†Œ"
 
 #: lib/Horde/Auth/cyrus.php:241 lib/Horde/Auth/cyrsql.php:312
 #, fuzzy, php-format
 msgid "Can't connect to IMAP server: %s"
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Horde/NLS/tld.php:51 lib/Horde/NLS/countries.php:48
 #: lib/Horde/NLS/GeoIP.php:65
 #, fuzzy
 msgid "Canada"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: admin/user.php:101 admin/user.php:120
 #: templates/javascript/htmlarea_lang.js:47
@@ -402,43 +402,43 @@ msgstr "´Ş·Â"
 #: templates/admin/groups/delete.inc:14 templates/admin/user/clear.inc:17
 #: templates/admin/user/remove.inc:17
 msgid "Cancel"
-msgstr "Ãë¼Ò"
+msgstr "ì·¨ì†Œ"
 
 #: templates/problem/problem.inc:59
 msgid "Cancel Problem Report"
-msgstr "¿À·ù º¸°íÇÏ±â Ãë¼Ò"
+msgstr "ì˜¤ë¥˜ ë³´ê³ í•˜ê¸° ì·¨ì†Œ"
 
 #: templates/javascript/htmlarea_table_lang.js:24
 msgid "Caption"
-msgstr "Ä¸¼Ç"
+msgstr "ìº¡ì…˜"
 
 #: lib/Horde/MIME/Viewer/vcard.php:197
 msgid "Cell Phone"
-msgstr "ÈŞ´ëÆù"
+msgstr "íœ´ëŒ€í°"
 
 #: templates/javascript/htmlarea_table_lang.js:25
 msgid "Cell Properties"
-msgstr "¼¿ ¼Ó¼º"
+msgstr "ì…€ ì†ì„±"
 
 #: templates/javascript/htmlarea_lang.js:114
 msgid "Cell padding:"
-msgstr "¼¿ Æäµù"
+msgstr "ì…€ í˜ë”©"
 
 #: templates/javascript/htmlarea_table_lang.js:61
 msgid "Cell properties"
-msgstr "¼¿ ¼Ó¼º"
+msgstr "ì…€ ì†ì„±"
 
 #: templates/javascript/htmlarea_lang.js:112
 msgid "Cell spacing:"
-msgstr "¼¿ °£°İ"
+msgstr "ì…€ ê°„ê²©"
 
 #: lib/Horde/Form.php:1266
 msgid "Cellphone"
-msgstr "ÈŞ´ëÆù"
+msgstr "íœ´ëŒ€í°"
 
 #: templates/javascript/htmlarea_table_lang.js:26
 msgid "Center"
-msgstr "°¡¿îµ¥"
+msgstr "ê°€ìš´ë°"
 
 #: lib/Horde/NLS/tld.php:221 lib/Horde/NLS/countries.php:52
 #: lib/Horde/NLS/GeoIP.php:109
@@ -449,18 +449,18 @@ msgstr "vCard"
 #: lib/Horde/MIME/Viewer/icalendar.php:596
 #, fuzzy
 msgid "Chair Person"
-msgstr "°³ÀÎ ¸ŞÀÏ"
+msgstr "ê°œì¸ ë©”ì¼"
 
 #: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:97
 msgid "Change"
-msgstr "º¯°æ"
+msgstr "ë³€ê²½"
 
 #: config/prefs.php.dist:66
 #, fuzzy
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
-msgstr "¸ŞÀÏÀ» º¸³¾¶§ »ç¿ëÇÒ ÀÌ¸§, ÁÖ¼Ò, ¼­¸íÀ» º¯°æÇÕ´Ï´Ù."
+msgstr "ë©”ì¼ì„ ë³´ë‚¼ë•Œ ì‚¬ìš©í•  ì´ë¦„, ì£¼ì†Œ, ì„œëª…ì„ ë³€ê²½í•©ë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_table_lang.js:27
 #, fuzzy
@@ -469,92 +469,92 @@ msgstr "vCard"
 
 #: templates/javascript/htmlarea_context_lang.js:25
 msgid "Chec_k Link..."
-msgstr "_k¸µÅ© °Ë»ç..."
+msgstr "_kë§í¬ ê²€ì‚¬..."
 
 #: templates/maintenance/confirm_top.inc:13
 msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "Áö±İ ¼öÇàÇÒ ÀÛ¾÷À» ¼±ÅÃÇÏ¼¼¿ä."
+msgstr "ì§€ê¸ˆ ìˆ˜í–‰í•  ì‘ì—…ì„ ì„ íƒí•˜ì„¸ìš”."
 
 #: lib/Horde/NLS/tld.php:59 lib/Horde/NLS/countries.php:53
 #: lib/Horde/NLS/GeoIP.php:68
 #, fuzzy
 msgid "Chile"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Horde/NLS/tld.php:61 lib/Horde/NLS/countries.php:54
 #: lib/Horde/NLS/GeoIP.php:68
 msgid "China"
-msgstr "Áß±¹"
+msgstr "ì¤‘êµ­"
 
 #: lib/Horde/Auth/Signup.php:282
 #, fuzzy
 msgid "Choose a password"
-msgstr "¾ÏÈ£ È®ÀÎ"
+msgstr "ì•”í˜¸ í™•ì¸"
 
 #: lib/Horde/Auth/Signup.php:281
 #, fuzzy
 msgid "Choose a username"
-msgstr "¸Ş½ÃÁö ÀÛ¼º"
+msgstr "ë©”ì‹œì§€ ì‘ì„±"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:452
 #: lib/Horde/MIME/Viewer/icalendar.php:626
 #, fuzzy
 msgid "Choose an action:"
-msgstr "¼±ÅÃ»çÇ×:"
+msgstr "ì„ íƒì‚¬í•­:"
 
 #: templates/javascript/htmlarea_listtype_lang.js:22
 msgid "Choose list style type (for ordered lists)"
-msgstr "¼ø¼­ ¸®½ºÆ® Á¾·ù ¼±ÅÃ"
+msgstr "ìˆœì„œ ë¦¬ìŠ¤íŠ¸ ì¢…ë¥˜ ì„ íƒ"
 
 #: lib/VFS.php:655 lib/Net/SMS.php:311
 #, fuzzy, php-format
 msgid "Class definition of %s not found."
-msgstr "ÅëÁö ¸®½º³Ê %sÀ»(¸¦) Ã£À» ¼ö ¾ø½À´Ï´Ù."
+msgstr "í†µì§€ ë¦¬ìŠ¤ë„ˆ %sì„(ë¥¼) ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Block/weatherdotcom.php:328
 #, fuzzy
 msgid "Clear"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: templates/javascript/htmlarea_lang.js:42
 msgid "Clear MSOffice tags"
-msgstr "MS¿ÀÇÇ½º Å×±× Áö¿ì±â"
+msgstr "MSì˜¤í”¼ìŠ¤ í…Œê·¸ ì§€ìš°ê¸°"
 
 #: templates/admin/user/clear.inc:16
 #, fuzzy
 msgid "Clear user"
-msgstr "°Ë»öÇ×¸ñ ÃÊ±âÈ­"
+msgstr "ê²€ìƒ‰í•­ëª© ì´ˆê¸°í™”"
 
 #: services/keyboard.php:146 templates/shares/edit.inc:12
 msgid "Close Window"
-msgstr "Ã¢ ´İ±â"
+msgstr "ì°½ ë‹«ê¸°"
 
 #: lib/Block/weatherdotcom.php:329
 #, fuzzy
 msgid "Cloudy"
-msgstr "º¹»ç"
+msgstr "ë³µì‚¬"
 
 #: templates/portal/sidebar.inc:4
 msgid "Collapse Sidebar"
-msgstr "¿ŞÂÊ¸·´ë ´İ±â"
+msgstr "ì™¼ìª½ë§‰ëŒ€ ë‹«ê¸°"
 
 #: templates/javascript/htmlarea_table_lang.js:28
 msgid "Collapsed borders"
-msgstr "ÇÕÃÄÁø °æ°è"
+msgstr "í•©ì³ì§„ ê²½ê³„"
 
 #: lib/Block/color.php:18 lib/Block/color.php:29
 #: templates/javascript/htmlarea_table_lang.js:29
 msgid "Color"
-msgstr "»ö±ò"
+msgstr "ìƒ‰ê¹”"
 
 #: lib/Horde/Form.php:2835
 #, fuzzy
 msgid "Colour selection"
-msgstr "¼±ÅÃ»çÇ×:"
+msgstr "ì„ íƒì‚¬í•­:"
 
 #: templates/javascript/htmlarea_lang.js:103
 msgid "Cols:"
-msgstr "¿­:"
+msgstr "ì—´:"
 
 #: config/registry.php.dist:289
 msgid "Comics"
@@ -563,197 +563,197 @@ msgstr "Comics"
 #: admin/cmdshell.php:25
 #, fuzzy
 msgid "Command"
-msgstr "È¸»ç"
+msgstr "íšŒì‚¬"
 
 #: po/translation.php:97
 #, fuzzy
 msgid "Commands:"
-msgstr "È¸»ç"
+msgstr "íšŒì‚¬"
 
 #: lib/Horde/NLS/tld.php:130 lib/Horde/NLS/countries.php:58
 #: lib/Horde/NLS/GeoIP.php:85
 #, fuzzy
 msgid "Comoros"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: lib/Horde/MIME/Viewer/vcard.php:242
 msgid "Company"
-msgstr "È¸»ç"
+msgstr "íšŒì‚¬"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:697
 #, fuzzy
 msgid "Completed"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: lib/Horde/Text/Filter/emails.php:81 lib/Horde/Text/Filter/emails.php:87
 #: lib/Horde/Text/Filter/emails.php:97 lib/Horde/Text/Filter/emails.php:101
 #, php-format
 msgid "Compose Message (%s)"
-msgstr "¸Ş½ÃÁö ÀÛ¼º (%s)"
+msgstr "ë©”ì‹œì§€ ì‘ì„± (%s)"
 
 #: lib/Block/fortune.php:31
 #, fuzzy
 msgid "Computers"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: lib/Block/metar.php:247
 #, fuzzy
 msgid "Conditions"
-msgstr "°á·Ğ"
+msgstr "ê²°ë¡ "
 
 #: templates/admin/user/update.inc:37
 msgid "Confirm Password"
-msgstr "¾ÏÈ£ È®ÀÎ"
+msgstr "ì•”í˜¸ í™•ì¸"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:319
 #, fuzzy
 msgid "Connection failed."
-msgstr "»èÁ¦ ½ÇÆĞ"
+msgstr "ì‚­ì œ ì‹¤íŒ¨"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:319
 #, fuzzy
 msgid "Connection failed: "
-msgstr "»èÁ¦ ½ÇÆĞ"
+msgstr "ì‚­ì œ ì‹¤íŒ¨"
 
 #: lib/Horde/Crypt/pgp.php:793
 #, fuzzy
 msgid "Connection refused to the public keyserver."
-msgstr "ftp ¼­¹ö ¿¬°á ¿À·ù."
+msgstr "ftp ì„œë²„ ì—°ê²° ì˜¤ë¥˜."
 
 #: lib/VFS/ftp.php:794
 #, fuzzy
 msgid "Connection to FTP server failed."
-msgstr "ftp ¼­¹ö ¿¬°á ¿À·ù."
+msgstr "ftp ì„œë²„ ì—°ê²° ì˜¤ë¥˜."
 
 #: lib/Horde/MIME/Viewer/vcard.php:56
 #, fuzzy
 msgid "Contacts were successfully added to your address book."
-msgstr "Ç×¸ñ \"%s\"°¡ ÁÖ¼Ò·Ï¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "í•­ëª© \"%s\"ê°€ ì£¼ì†Œë¡ì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/rar.php:59 lib/Horde/MIME/Viewer/zip.php:63
 #: lib/Horde/MIME/Viewer/tgz.php:78
 #, php-format
 msgid "Contents of '%s'"
-msgstr "'%s'ÀÇ ³»¿ë"
+msgstr "'%s'ì˜ ë‚´ìš©"
 
 #: lib/Block/fortune.php:32
 #, fuzzy
 msgid "Cookie"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/javascript/htmlarea_context_lang.js:21
 msgid "Copy"
-msgstr "º¹»ç"
+msgstr "ë³µì‚¬"
 
 #: templates/javascript/htmlarea_lang.js:36
 msgid "Copy selection"
-msgstr "º¹»ç"
+msgstr "ë³µì‚¬"
 
 #: po/translation.php:1072
 #, fuzzy, php-format
 msgid "Copying %s to %s"
-msgstr "[¶óÀÎ %s / %s]"
+msgstr "[ë¼ì¸ %s / %s]"
 
 #: lib/Horde/Crypt/pgp.php:1055
 #, fuzzy
 msgid "Could not PGP sign message."
-msgstr "1°³ÀÇ »õ·Î¿î ¸Ş½ÃÁö°¡ ÀÖ½À´Ï´Ù."
+msgstr "1ê°œì˜ ìƒˆë¡œìš´ ë©”ì‹œì§€ê°€ ìˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/ldap.php:113
 #, fuzzy
 msgid "Could not bind to LDAP server."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Net/SMS/sms2email_http.php:702 lib/Net/SMS/clickatell_http.php:354
 #, fuzzy, php-format
 msgid "Could not open %s."
-msgstr "%s¸¦ ¿±´Ï´Ù?"
+msgstr "%së¥¼ ì—½ë‹ˆë‹¤?"
 
 #: lib/Horde/Maintenance.php:415
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Maintenance_Task ¸ğµâ %s ¸¦ ¿­ ¼ö ¾ø½À´Ï´Ù."
+msgstr "Maintenance_Task ëª¨ë“ˆ %s ë¥¼ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:71
 #, fuzzy, php-format
 msgid "Could not open directory '%s'."
-msgstr "Maintenance_Task ¸ğµâ %sÀ»(¸¦) ¿­ ¼ö ¾ø½À´Ï´Ù."
+msgstr "Maintenance_Task ëª¨ë“ˆ %sì„(ë¥¼) ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Net/SMS/sms2email_http.php:279
 #, fuzzy, php-format
 msgid "Could not retrieve address book. %s"
-msgstr "¾²±â°¡´ÉÇÑ ÁÖ¼Ò·ÏÀÌ ¾ø½À´Ï´Ù."
+msgstr "ì“°ê¸°ê°€ëŠ¥í•œ ì£¼ì†Œë¡ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/setup/config.php:54
 #, fuzzy
 msgid "Could not revert configuration."
-msgstr "Horde°¡ ¹Ù¸£°Ô ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "Hordeê°€ ë°”ë¥´ê²Œ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 #: admin/setup/scripts.php:71
 #, fuzzy, php-format
 msgid "Could not save %s configuration."
-msgstr "VFS ¼³Á¤ Á¤º¸¿¡¼­ 'port'ÀÌ ¾ø½À´Ï´Ù."
+msgstr "VFS ì„¤ì • ì •ë³´ì—ì„œ 'port'ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/ldap.php:123
 #, fuzzy
 msgid "Could not search the LDAP server."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Horde/Form.php:1416
 #, fuzzy
 msgid "Counted text"
-msgstr "±³Á¤µÈ ¹®ÀÚ¿­"
+msgstr "êµì •ëœ ë¬¸ìì—´"
 
 #: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:97
 #: templates/rpcsum/rpcsum.inc:101
 msgid "Create"
-msgstr "¸¸µé±â"
+msgstr "ë§Œë“¤ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:67
 msgid "Create a link"
-msgstr "¸µÅ© ¸¸µé±â"
+msgstr "ë§í¬ ë§Œë“¤ê¸°"
 
 #: templates/prefs/identityselect.inc:89
 #, fuzzy
 msgid "Create a new one"
-msgstr "ÈŞÁöÅë »õ·Î ¸¸µé±â"
+msgstr "íœ´ì§€í†µ ìƒˆë¡œ ë§Œë“¤ê¸°"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:95
 #, fuzzy
 msgid "Create sub folders"
-msgstr "»õÆú´õ ¸¸µé±â"
+msgstr "ìƒˆí´ë” ë§Œë“¤ê¸°"
 
 #: lib/Horde/NLS/tld.php:109 lib/Horde/NLS/countries.php:64
 #: lib/Horde/NLS/GeoIP.php:80
 #, fuzzy
 msgid "Croatia"
-msgstr "¸¸µé±â"
+msgstr "ë§Œë“¤ê¸°"
 
 #: lib/Block/time.php:3 lib/Block/time.php:30
 #, fuzzy
 msgid "Current Time"
-msgstr "±³Á¤µÈ ¹®ÀÚ¿­"
+msgstr "êµì •ëœ ë¬¸ìì—´"
 
 #: templates/javascript/htmlarea_context_lang.js:53
 msgid "Current URL is"
-msgstr "ÇöÀç URLÀº"
+msgstr "í˜„ì¬ URLì€"
 
 #: templates/javascript/htmlarea_lang.js:32
 msgid "Current style"
-msgstr "ÇöÀç ½ºÅ¸ÀÏ"
+msgstr "í˜„ì¬ ìŠ¤íƒ€ì¼"
 
 #: config/prefs.php.dist:108
 #, fuzzy, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "IMP ·Î±×¿Â½Ã ½ÃÀÛµÇ´Â ÀÛ¾÷À» ¼³Á¤ÇÕ´Ï´Ù."
+msgstr "IMP ë¡œê·¸ì˜¨ì‹œ ì‹œì‘ë˜ëŠ” ì‘ì—…ì„ ì„¤ì •í•©ë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_context_lang.js:20
 msgid "Cut"
-msgstr "ÀÚ¸£±â"
+msgstr "ìë¥´ê¸°"
 
 #: templates/javascript/htmlarea_lang.js:35
 msgid "Cut selection"
-msgstr "ÀÚ¸£±â"
+msgstr "ìë¥´ê¸°"
 
 #: lib/Horde/UI/VarRenderer/html.php:423 templates/data/date.inc:47
 #: templates/data/date.inc:48 templates/data/date.inc:49
@@ -763,77 +763,77 @@ msgstr "DD"
 
 #: lib/Horde/Maintenance.php:38
 msgid "Daily"
-msgstr "ÀÏº°"
+msgstr "ì¼ë³„"
 
 #: config/registry.php.dist:423
 #, fuzzy
 msgid "Data"
-msgstr "ÀÏÀÚ"
+msgstr "ì¼ì"
 
 #: lib/Horde/Form.php:2382 lib/Horde/MIME/Viewer/rfc822.php:77
 msgid "Date"
-msgstr "³¯Â¥"
+msgstr "ë‚ ì§œ"
 
 #: templates/admin/user/approve.inc:12
 #, fuzzy
 msgid "Date Received"
-msgstr "¼ö½Å ³¯Â¥:"
+msgstr "ìˆ˜ì‹  ë‚ ì§œ:"
 
 #: lib/Block/weatherdotcom.php:277
 #, fuzzy
 msgid "Day"
-msgstr "ÀÏº°"
+msgstr "ì¼ë³„"
 
 #: templates/javascript/htmlarea_context_lang.js:35
 msgid "De_lete Column"
-msgstr "_l¿­ »èÁ¦"
+msgstr "_lì—´ ì‚­ì œ"
 
 #: lib/Horde/UI/VarRenderer/html.php:385 lib/Horde/UI/VarRenderer/html.php:422
 #: templates/javascript/open_calendar.js:76
 msgid "December"
-msgstr "12¿ù"
+msgstr "12ì›”"
 
 #: templates/javascript/htmlarea_listtype_lang.js:16
 msgid "Decimal numbers"
-msgstr "¼ıÀÚ"
+msgstr "ìˆ«ì"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:685
 #, fuzzy
 msgid "Declined"
-msgstr "»èÁ¦µÈ ¸ŞÀÏ"
+msgstr "ì‚­ì œëœ ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:20
 msgid "Decrease Indent"
-msgstr "³»¾î¾²±â"
+msgstr "ë‚´ì–´ì“°ê¸°"
 
 #: lib/prefs.php:108 lib/Horde/Prefs/UI.php:191
 msgid "Default"
-msgstr "±âº»"
+msgstr "ê¸°ë³¸"
 
 #: templates/prefs/categorymanagement.inc:47
 #: templates/prefs/categorymanagement.inc:81
 #, fuzzy
 msgid "Default Color"
-msgstr "±âº»°ª »ç¿ë"
+msgstr "ê¸°ë³¸ê°’ ì‚¬ìš©"
 
 #: lib/Horde/Identity.php:92
 msgid "Default Identity"
-msgstr "±âº» ½Äº°ÀÚ"
+msgstr "ê¸°ë³¸ ì‹ë³„ì"
 
 #: lib/Block/fortune.php:33
 #, fuzzy
 msgid "Definitions"
-msgstr "±ÔÄ¢ Á¤ÀÇ"
+msgstr "ê·œì¹™ ì •ì˜"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:643
 #, fuzzy
 msgid "Delegate position"
-msgstr "¸Ş½ÃÁö ÀÛ¼º"
+msgstr "ë©”ì‹œì§€ ì‘ì„±"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:693
 #, fuzzy
 msgid "Delegated"
-msgstr "»èÁ¦µÈ ¸ŞÀÏ"
+msgstr "ì‚­ì œëœ ë©”ì¼"
 
 #: admin/groups.php:72 admin/perms/delete.php:46 admin/perms/delete.php:52
 #: lib/Horde/Perms.php:297 lib/Horde/Perms/UI.php:327
@@ -844,111 +844,111 @@ msgstr "»èÁ¦µÈ ¸ŞÀÏ"
 #: templates/rpcsum/rpcsum.inc:99 templates/admin/groups/delete.inc:13
 #: templates/admin/user/list.inc:34
 msgid "Delete"
-msgstr "»èÁ¦"
+msgstr "ì‚­ì œ"
 
 #: admin/groups.php:189 admin/groups.php:217
 #, fuzzy
 msgid "Delete Group"
-msgstr "»èÁ¦"
+msgstr "ì‚­ì œ"
 
 #: lib/Horde/Perms/UI.php:60 lib/Horde/Perms/UI.php:84
 #, fuzzy
 msgid "Delete Permission"
-msgstr "¸Ş½ÃÁö »èÁ¦"
+msgstr "ë©”ì‹œì§€ ì‚­ì œ"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:96
 #, fuzzy
 msgid "Delete and purge messages"
-msgstr "»èÁ¦µÈ ¸ŞÀÏ"
+msgstr "ì‚­ì œëœ ë©”ì¼"
 
 #: templates/javascript/htmlarea_table_lang.js:57
 msgid "Delete cell"
-msgstr "¼¿ »èÁ¦"
+msgstr "ì…€ ì‚­ì œ"
 
 #: templates/javascript/htmlarea_table_lang.js:63
 msgid "Delete column"
-msgstr "¿­ »èÁ¦"
+msgstr "ì—´ ì‚­ì œ"
 
 #: templates/javascript/htmlarea_table_lang.js:67
 msgid "Delete row"
-msgstr "Çà »èÁ¦"
+msgstr "í–‰ ì‚­ì œ"
 
 #: templates/prefs/deleteidentity.inc:15
 #, fuzzy
 msgid "Delete selected identity"
-msgstr "½Äº°ÀÚ ¼±ÅÃ"
+msgstr "ì‹ë³„ì ì„ íƒ"
 
 #: templates/javascript/htmlarea_context_lang.js:66
 msgid "Delete the current column"
-msgstr "ÇöÀç ¿­ Áö¿ò"
+msgstr "í˜„ì¬ ì—´ ì§€ì›€"
 
 #: templates/javascript/htmlarea_context_lang.js:62
 msgid "Delete the current row"
-msgstr "ÇöÀç Çà Áö¿ò"
+msgstr "í˜„ì¬ í–‰ ì§€ì›€"
 
 #: lib/Net/SMS/sms2email_http.php:585 lib/Net/SMS/sms2email_http.php:619
 #: lib/Net/SMS/clickatell_http.php:227 lib/Net/SMS/clickatell_http.php:261
 #, fuzzy
 msgid "Delivery time"
-msgstr "»èÁ¦"
+msgstr "ì‚­ì œ"
 
 #: services/problem.php:95 services/problem.php:99 services/problem.php:109
 msgid "Describe the Problem"
-msgstr "¿À·ù ¼³¸í"
+msgstr "ì˜¤ë¥˜ ì„¤ëª…"
 
 #: lib/Horde/Form.php:933 lib/Horde/MIME/Viewer/icalendar.php:565
 #: templates/javascript/htmlarea_table_lang.js:30
 msgid "Description"
-msgstr "¼³¸í:"
+msgstr "ì„¤ëª…:"
 
 #: lib/Horde.php:205
 msgid "Details have been logged for the administrator."
-msgstr "¼¼ºÎÁ¤º¸°¡ °ü¸®ÀÚ¸¦ À§ÇØ ±â·ÏµÇ¾îÁ³½À´Ï´Ù."
+msgstr "ì„¸ë¶€ì •ë³´ê°€ ê´€ë¦¬ìë¥¼ ìœ„í•´ ê¸°ë¡ë˜ì–´ì¡ŒìŠµë‹ˆë‹¤."
 
 #: lib/Block/google.php:39
 msgid "Directory"
-msgstr "µğ·ºÅä¸®"
+msgstr "ë””ë ‰í† ë¦¬"
 
 #: config/prefs.php.dist:97
 msgid "Display Options"
-msgstr "È­¸é ¼³Á¤"
+msgstr "í™”ë©´ ì„¤ì •"
 
 #: lib/Horde/Form.php:2806
 #, fuzzy
 msgid "Display format"
-msgstr "È­¸é ¼³Á¤"
+msgstr "í™”ë©´ ì„¤ì •"
 
 #: admin/perms/delete.php:46 lib/Horde/Perms/UI.php:327
 #, fuzzy
 msgid "Do not delete"
-msgstr "º¹±¸"
+msgstr "ë³µêµ¬"
 
 #: services/maintenance.php:24
 msgid "Do not directly access maintenance.php"
-msgstr "maintenance.php¿¡ Á÷Á¢ Á¢±ÙÇÏÁö ¸¶¼¼¿ä."
+msgstr "maintenance.phpì— ì§ì ‘ ì ‘ê·¼í•˜ì§€ ë§ˆì„¸ìš”."
 
 #: templates/data/tsvinfo.inc:19 templates/data/csvinfo.inc:19
 msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Ã¹¹øÂ° ÇàÀº Ç×¸ñ ÀÌ¸§À» °®°í ÀÖ½À´Ï±î? ±×·¸´Ù¸é, ¿©±â¸¦ Ã¼Å©ÇÏ¼¼¿ä:"
+msgstr "ì²«ë²ˆì§¸ í–‰ì€ í•­ëª© ì´ë¦„ì„ ê°–ê³  ìˆìŠµë‹ˆê¹Œ? ê·¸ë ‡ë‹¤ë©´, ì—¬ê¸°ë¥¼ ì²´í¬í•˜ì„¸ìš”:"
 
 #: lib/Horde/MIME/Contents.php:868
 msgid "Download"
-msgstr "³»·Á¹Ş±â"
+msgstr "ë‚´ë ¤ë°›ê¸°"
 
 #: lib/Horde/MIME/Contents.php:868
 #, php-format
 msgid "Download %s"
-msgstr "%s ³»·Á¹Ş±â"
+msgstr "%s ë‚´ë ¤ë°›ê¸°"
 
 #: lib/Block/fortune.php:34
 #, fuzzy
 msgid "Drugs"
-msgstr "¹ú·¹µé"
+msgstr "ë²Œë ˆë“¤"
 
 #: lib/Horde/Crypt/pgp.php:399
 #, fuzzy
 msgid "E-Mail"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: lib/Horde/Perms.php:296 templates/shares/edit.inc:35
 #: templates/shares/edit.inc:69 templates/shares/edit.inc:92
@@ -956,24 +956,24 @@ msgstr "À¥¸ŞÀÏ"
 #: templates/shares/edit.inc:181 templates/rpcsum/rpcsum.inc:72
 #: templates/portal/edit.inc:22
 msgid "Edit"
-msgstr "¼öÁ¤"
+msgstr "ìˆ˜ì •"
 
 #: services/shares/edit.php:239
 msgid "Edit Permissions for %s"
-msgstr "%s ±ÇÇÑ ¼öÁ¤"
+msgstr "%s ê¶Œí•œ ìˆ˜ì •"
 
 #: templates/prefs/app.inc:9
 msgid "Edit options for:"
-msgstr "¼±ÅÃ»çÇ× ¼öÁ¤:"
+msgstr "ì„ íƒì‚¬í•­ ìˆ˜ì •:"
 
 #: lib/Block/fortune.php:35
 #, fuzzy
 msgid "Education"
-msgstr "¼Ò°³"
+msgstr "ì†Œê°œ"
 
 #: templates/javascript/htmlarea_context_lang.js:42
 msgid "Element..."
-msgstr "¿ä¼Ò..."
+msgstr "ìš”ì†Œ..."
 
 #: templates/javascript/htmlarea_lang.js:109
 msgid "Em"
@@ -981,331 +981,331 @@ msgstr "em"
 
 #: lib/Horde/Form.php:1853 lib/Horde/MIME/Viewer/vcard.php:227
 msgid "Email"
-msgstr "ÀÌ¸ŞÀÏ"
+msgstr "ì´ë©”ì¼"
 
 #: lib/Horde/Crypt/smime.php:589 templates/admin/groups/edit.inc:12
 #: templates/admin/user/update.inc:40
 #, fuzzy
 msgid "Email Address"
-msgstr "ÀÌ¸ŞÀÏ ÁÖ¼Ò:"
+msgstr "ì´ë©”ì¼ ì£¼ì†Œ:"
 
 #: lib/Horde/Form.php:1947
 #, fuzzy
 msgid "Email addresses must match."
-msgstr "¾ÏÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù."
+msgstr "ì•”í˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Form.php:1973
 #, fuzzy
 msgid "Email with confirmation"
-msgstr "±âÅ¸ Á¤º¸"
+msgstr "ê¸°íƒ€ ì •ë³´"
 
 #: lib/Horde/UI/VarRenderer/html.php:280
 msgid "Emoticons"
-msgstr "ÀÌ¸ğÆ¼ÄÜ"
+msgstr "ì´ëª¨í‹°ì½˜"
 
 #: lib/Net/SMS/clickatell_http.php:311
 #, fuzzy
 msgid "Empty message."
-msgstr "Áß¿äÇÑ ¸ŞÀÏ"
+msgstr "ì¤‘ìš”í•œ ë©”ì¼"
 
 #: lib/Horde/Auth/ldap.php:131
 msgid "Empty result."
-msgstr "°á°ú ¾øÀ½"
+msgstr "ê²°ê³¼ ì—†ìŒ"
 
 #: templates/javascript/htmlarea_lang.js:29
 msgid "Enlarge Editor"
-msgstr "ÆíÁı±â È®´ë"
+msgstr "í¸ì§‘ê¸° í™•ëŒ€"
 
 #: templates/javascript/htmlarea_lang.js:119
 #: templates/javascript/htmlarea_anselimage_lang.js:22
 msgid "Enter the image URL here"
-msgstr "±×¸² URL ÀÔ·Â"
+msgstr "ê·¸ë¦¼ URL ì…ë ¥"
 
 #: lib/Horde/Notification/Listener/status.php:29
 #: lib/Block/weatherdotcom.php:41 lib/Block/weatherdotcom.php:51
 #: lib/Block/metar.php:36 services/portal/index.php:78
 msgid "Error"
-msgstr "¿À·ù"
+msgstr "ì˜¤ë¥˜"
 
 #: po/translation.php:413 po/translation.php:522 po/translation.php:1358
 #: po/translation.php:1419 po/translation.php:1482
 #, fuzzy
 msgid "Error: "
-msgstr "¿À·ù"
+msgstr "ì˜¤ë¥˜"
 
 #: config/prefs.php.dist:329
 msgid "Every 15 minutes"
-msgstr "15ºĞ ¸¶´Ù"
+msgstr "15ë¶„ ë§ˆë‹¤"
 
 #: config/prefs.php.dist:379
 #, fuzzy
 msgid "Every 2 minutes"
-msgstr "5ºĞ ¸¶´Ù"
+msgstr "5ë¶„ ë§ˆë‹¤"
 
 #: config/prefs.php.dist:326 config/prefs.php.dist:377
 msgid "Every 30 seconds"
-msgstr "30ÃÊ ¸¶´Ù"
+msgstr "30ì´ˆ ë§ˆë‹¤"
 
 #: config/prefs.php.dist:328 config/prefs.php.dist:380
 msgid "Every 5 minutes"
-msgstr "5ºĞ ¸¶´Ù"
+msgstr "5ë¶„ ë§ˆë‹¤"
 
 #: lib/Horde/Maintenance.php:39
 msgid "Every Login"
-msgstr "¸ğµç ·Î±×ÀÎ"
+msgstr "ëª¨ë“  ë¡œê·¸ì¸"
 
 #: config/prefs.php.dist:330
 msgid "Every half hour"
-msgstr "30ºĞ ¸¶´Ù"
+msgstr "30ë¶„ ë§ˆë‹¤"
 
 #: config/prefs.php.dist:327 config/prefs.php.dist:378
 msgid "Every minute"
-msgstr "¸ÅºĞ"
+msgstr "ë§¤ë¶„"
 
 #: templates/data/datemap.inc:28
 msgid "Example values:"
-msgstr "¿¹:"
+msgstr "ì˜ˆ:"
 
 #: lib/Horde/Block/Layout.php:386
 #, fuzzy
 msgid "Expand"
-msgstr "¸ğµÎ È®Àå"
+msgstr "ëª¨ë‘ í™•ì¥"
 
 #: templates/portal/sidebar.inc:31
 msgid "Expand Sidebar"
-msgstr "¿ŞÂÊ¸·´ë È®Àå"
+msgstr "ì™¼ìª½ë§‰ëŒ€ í™•ì¥"
 
 #: lib/Horde/Crypt/smime.php:700
 #, fuzzy
 msgid "Exponent"
-msgstr "¿¢½ºÆ÷Æ®"
+msgstr "ì—‘ìŠ¤í¬íŠ¸"
 
 #: templates/javascript/htmlarea_table_lang.js:31
 msgid "FG Color"
-msgstr "Àü°æ»ö"
+msgstr "ì „ê²½ìƒ‰"
 
 #: lib/Horde/Prefs/sql.php:240
 msgid "Failed retrieving preferences."
-msgstr "È¯°æ¼³Á¤ ÀĞ±â ¿À·ù."
+msgstr "í™˜ê²½ì„¤ì • ì½ê¸° ì˜¤ë¥˜."
 
 #: lib/Horde/Auth/ldap.php:103
 msgid "Failed to connect to LDAP server."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Horde/Auth/smb.php:103
 #, fuzzy
 msgid "Failed to connect to SMB server."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/VFS/ftp.php:636
 #, fuzzy, php-format
 msgid "Failed to copy to \"%s\"."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Horde/Auth/sasl.php:92
 #, fuzzy
 msgid "Failed to create new SASL connection."
-msgstr "LDAP ¿¬°á %s ½ÇÆĞ"
+msgstr "LDAP ì—°ê²° %s ì‹¤íŒ¨"
 
 #: lib/VFS/ftp.php:671
 #, fuzzy, php-format
 msgid "Failed to move to \"%s\"."
-msgstr "LDAP ¼­¹ö Á¢¼Ó ½ÇÆĞ"
+msgstr "LDAP ì„œë²„ ì ‘ì† ì‹¤íŒ¨"
 
 #: lib/Block/weatherdotcom.php:330
 #, fuzzy
 msgid "Fair"
-msgstr "ÇÊÅÍ"
+msgstr "í•„í„°"
 
 #: lib/Horde/CLI.php:235
 #, fuzzy
 msgid "Fatal Error:"
-msgstr "ÀĞ¾î¿À±â(ÀÓÆ÷Æ®) ¿À·ù: "
+msgstr "ì½ì–´ì˜¤ê¸°(ì„í¬íŠ¸) ì˜¤ë¥˜: "
 
 #: lib/Horde/MIME/Viewer/vcard.php:190
 msgid "Fax"
-msgstr "ÆÑ½º"
+msgstr "íŒ©ìŠ¤"
 
 #: lib/Horde/UI/VarRenderer/html.php:375 lib/Horde/UI/VarRenderer/html.php:412
 #: templates/javascript/open_calendar.js:66
 msgid "February"
-msgstr "2¿ù"
+msgstr "2ì›”"
 
 #: config/registry.php.dist:349
 msgid "File Manager"
-msgstr "ÆÄÀÏ °ü¸®ÀÚ"
+msgstr "íŒŒì¼ ê´€ë¦¬ì"
 
 #: lib/Horde/MIME/Viewer/rar.php:66 lib/Horde/MIME/Viewer/zip.php:70
 #: lib/Horde/MIME/Viewer/tgz.php:85
 #, fuzzy
 msgid "File Name"
-msgstr "ÇÊµåÀÌ¸§"
+msgstr "í•„ë“œì´ë¦„"
 
 #: lib/Horde/Form.php:2980
 #, fuzzy
 msgid "File selection"
-msgstr "±ÔÄ¢(·ü) ¼±ÅÃ ¿À·ù"
+msgstr "ê·œì¹™(ë¥ ) ì„ íƒ ì˜¤ë¥˜"
 
 #: lib/Horde/Form.php:1483
 #, fuzzy
 msgid "File upload"
-msgstr "ÇÊµå"
+msgstr "í•„ë“œ"
 
 #: config/registry.php.dist:86
 msgid "Filters"
-msgstr "ÇÊÅÍ"
+msgstr "í•„í„°"
 
 #: lib/Horde/NLS/tld.php:82 lib/Horde/NLS/countries.php:82
 #: lib/Horde/NLS/GeoIP.php:72
 #, fuzzy
 msgid "Finland"
-msgstr "Ã£±â"
+msgstr "ì°¾ê¸°"
 
 #: lib/Block/moon.php:171
 #, fuzzy
 msgid "First Half"
-msgstr "Ã¹ÆäÀÌÁö"
+msgstr "ì²«í˜ì´ì§€"
 
 #: lib/Block/moon.php:74 lib/Block/moon.php:76
 #, fuzzy
 msgid "First Quarter"
-msgstr "Ã¹ÆäÀÌÁö"
+msgstr "ì²«í˜ì´ì§€"
 
 #: templates/javascript/htmlarea_lang.js:22
 msgid "Font Color"
-msgstr "±ÛÀÚ »ö±ò"
+msgstr "ê¸€ì ìƒ‰ê¹”"
 
 #: config/registry.php.dist:431
 #, fuzzy
 msgid "Forms"
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 #: lib/Block/fortune.php:38
 #, fuzzy
 msgid "Fortunes"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: config/registry.php.dist:414
 #, fuzzy
 msgid "Forums"
-msgstr "¸ŞÀÏÇÔ"
+msgstr "ë©”ì¼í•¨"
 
 #: config/registry.php.dist:358
 #, fuzzy
 msgid "Forwards"
-msgstr "Àü´Ş"
+msgstr "ì „ë‹¬"
 
 #: templates/javascript/open_calendar.js:60
 #, fuzzy
 msgid "Fr"
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 #: templates/javascript/htmlarea_table_lang.js:33
 msgid "Frames"
-msgstr "ÇÁ·¹ÀÓ"
+msgstr "í”„ë ˆì„"
 
 #: lib/Horde/NLS/tld.php:87 lib/Horde/NLS/countries.php:83
 #: lib/Horde/NLS/GeoIP.php:74
 #, fuzzy
 msgid "France"
-msgstr "Ãë¼Ò"
+msgstr "ì·¨ì†Œ"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:417
 #, fuzzy
 msgid "Free/Busy Information"
-msgstr "¸ŞÀÏ ¼­¹ö Á¤º¸»çÇ×"
+msgstr "ë©”ì¼ ì„œë²„ ì •ë³´ì‚¬í•­"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:79
 msgid "From"
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 #: lib/Block/weatherdotcom.php:211
 #, fuzzy
 msgid "From the "
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 #: templates/problem/problem.inc:48
 #, fuzzy
 msgid "Full Description"
-msgstr "ÀüÃ¼ ¼³¸í:"
+msgstr "ì „ì²´ ì„¤ëª…:"
 
 #: templates/admin/user/update.inc:39
 #, fuzzy
 msgid "Full Name"
-msgstr "ÀÌ¸§:"
+msgstr "ì´ë¦„:"
 
 #: lib/Horde/NLS/tld.php:69 lib/Horde/NLS/countries.php:90
 #: lib/Horde/NLS/GeoIP.php:70
 msgid "Germany"
-msgstr "µ¶ÀÏ"
+msgstr "ë…ì¼"
 
 #: po/translation.php:1352
 #, fuzzy
 msgid "Getopt Error: "
-msgstr "ÀĞ¾î¿À±â(ÀÓÆ÷Æ®) ¿À·ù: "
+msgstr "ì½ì–´ì˜¤ê¸°(ì„í¬íŠ¸) ì˜¤ë¥˜: "
 
 #: lib/Horde/Crypt/smime.php:599
 #, fuzzy
 msgid "Given Name"
-msgstr "ÇÊµåÀÌ¸§"
+msgstr "í•„ë“œì´ë¦„"
 
 #: templates/prefs/app.inc:16
 msgid "Go"
-msgstr "°¡±â"
+msgstr "ê°€ê¸°"
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 #, fuzzy
 msgid "Google Search"
-msgstr "°Ë»öÇ×¸ñ ÃÊ±âÈ­"
+msgstr "ê²€ìƒ‰í•­ëª© ì´ˆê¸°í™”"
 
 #: lib/Horde/NLS/tld.php:89 lib/Horde/NLS/countries.php:95
 #: lib/Horde/NLS/GeoIP.php:75
 #, fuzzy
 msgid "Grenada"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼"
 
 #: admin/groups.php:170
 #, fuzzy
 msgid "Group Administration"
-msgstr "°ü¸®"
+msgstr "ê´€ë¦¬"
 
 #: config/registry.php.dist:439
 #, fuzzy
 msgid "Guestbook"
-msgstr "ÁÖ¼Ò·Ï"
+msgstr "ì£¼ì†Œë¡"
 
 #: lib/Horde/NLS/tld.php:97 lib/Horde/NLS/countries.php:99
 #: lib/Horde/NLS/GeoIP.php:76
 #, fuzzy
 msgid "Guinea"
-msgstr "6¿ù"
+msgstr "6ì›”"
 
 #: lib/Horde/Form.php:914 lib/Horde/Form.php:2921
 #, fuzzy
 msgid "Header"
-msgstr "Çìµå¶óÀÎ"
+msgstr "í—¤ë“œë¼ì¸"
 
 #: templates/javascript/htmlarea_table_lang.js:34
 msgid "Height"
-msgstr "³ôÀÌ"
+msgstr "ë†’ì´"
 
 #: lib/Horde/Help.php:179 lib/Horde/Help.php:186 services/help/index.php:17
 #: templates/help/index.inc:3
 msgid "Help"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 #: templates/javascript/htmlarea_lang.js:31
 msgid "Help using editor"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 #: lib/Horde/Form.php:1368
 #, fuzzy
 msgid "Helper"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 #: templates/data/tsvinfo.inc:17 templates/data/csvinfo.inc:17
 msgid "Here is the beginning of the file:"
-msgstr "ÆÄÀÏÀÇ ½ÃÀÛÀÌ ´ÙÀ½°ú °°½À´Ï´Ù:"
+msgstr "íŒŒì¼ì˜ ì‹œì‘ì´ ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤:"
 
 #: templates/portal/menu.inc:6 templates/admin/common-header.inc:4
 #, fuzzy
@@ -1319,11 +1319,11 @@ msgstr "Horde"
 
 #: lib/Horde/MIME/Viewer/vcard.php:125 lib/Horde/MIME/Viewer/vcard.php:158
 msgid "Home Address"
-msgstr "Áı ÁÖ¼Ò"
+msgstr "ì§‘ ì£¼ì†Œ"
 
 #: lib/Horde/MIME/Viewer/vcard.php:193
 msgid "Home Phone"
-msgstr "Áı ÀüÈ­¹øÈ£"
+msgstr "ì§‘ ì „í™”ë²ˆí˜¸"
 
 #: config/registry.php.dist:62
 msgid "Horde"
@@ -1332,98 +1332,98 @@ msgstr "Horde"
 #: lib/Horde/Kolab.php:1236
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully removed %s \"%s\""
-msgstr "¸ŞÀÏÇÔ \"%s\"ÀÌ \"%s\"·Î º¯°æµÇ¾ú½À´Ï´Ù."
+msgstr "ë©”ì¼í•¨ \"%s\"ì´ \"%s\"ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Kolab.php:1182
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully synchronised %s \"%s\""
-msgstr "\"%s\" ¸ŞÀÏÇÔÀ» »ç¿ëÇÕ´Ï´Ù."
+msgstr "\"%s\" ë©”ì¼í•¨ì„ ì‚¬ìš©í•©ë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_lang.js:24
 msgid "Horizontal Rule"
-msgstr "¼öÆò¼±"
+msgstr "ìˆ˜í‰ì„ "
 
 #: templates/javascript/htmlarea_lang.js:82
 msgid "Horizontal padding"
-msgstr "°¡·Î Ã¤¿ò"
+msgstr "ê°€ë¡œ ì±„ì›€"
 
 #: templates/javascript/htmlarea_lang.js:81
 msgid "Horizontal:"
-msgstr "°¡·Î:"
+msgstr "ê°€ë¡œ:"
 
 #: templates/javascript/htmlarea_table_lang.js:35
 msgid "How many columns would you like to merge?"
-msgstr "ÇÕÄ¡°í ½ÍÀº ¿­ÀÇ ¼ö"
+msgstr "í•©ì¹˜ê³  ì‹¶ì€ ì—´ì˜ ìˆ˜"
 
 #: templates/data/csvinfo.inc:28
 msgid "How many fields (columns) are there?"
-msgstr "Ç×¸ñ(¿­)ÀÇ ¼ö?"
+msgstr "í•­ëª©(ì—´)ì˜ ìˆ˜?"
 
 #: templates/javascript/htmlarea_table_lang.js:36
 msgid "How many rows would you like to merge?"
-msgstr "ÇÕÄ¡°í ½ÍÀº ÇàÀÇ ¼ö"
+msgstr "í•©ì¹˜ê³  ì‹¶ì€ í–‰ì˜ ìˆ˜"
 
 #: lib/Horde/Form.php:1312
 #, fuzzy
 msgid "IP Address"
-msgstr "ÁÖ¼Ò"
+msgstr "ì£¼ì†Œ"
 
 #: templates/javascript/htmlarea_context_lang.js:29
 msgid "I_nsert Row Before"
-msgstr "_n¾Õ¿¡ Çà Ãß°¡"
+msgstr "_nì•ì— í–‰ ì¶”ê°€"
 
 #: config/prefs.php.dist:366
 msgid "Icons Only"
-msgstr "¾ÆÀÌÄÜ"
+msgstr "ì•„ì´ì½˜"
 
 #: util/icon_browser.php:49
 #, fuzzy, php-format
 msgid "Icons for %s"
-msgstr "%s¿¡°Ô ¼Ò°³"
+msgstr "%sì—ê²Œ ì†Œê°œ"
 
 #: config/prefs.php.dist:367
 msgid "Icons with text"
-msgstr "¾ÆÀÌÄÜ°ú ¹®ÀÚ"
+msgstr "ì•„ì´ì½˜ê³¼ ë¬¸ì"
 
 #: config/prefs.php.dist:180
 msgid "Identity's name:"
-msgstr "½Äº°ÀÚ ÀÌ¸§:"
+msgstr "ì‹ë³„ì ì´ë¦„:"
 
 #: templates/javascript/htmlarea_lang.js:125
 #: templates/javascript/htmlarea_anselimage_lang.js:28
 msgid "Image Preview:"
-msgstr "±×¸² ¹Ì¸®º¸±â:"
+msgstr "ê·¸ë¦¼ ë¯¸ë¦¬ë³´ê¸°:"
 
 #: templates/javascript/htmlarea_table_lang.js:37
 msgid "Image URL"
-msgstr "±×¸² URL"
+msgstr "ê·¸ë¦¼ URL"
 
 #: templates/javascript/htmlarea_lang.js:118
 #: templates/javascript/htmlarea_anselimage_lang.js:21
 msgid "Image URL:"
-msgstr "±×¸² URL:"
+msgstr "ê·¸ë¦¼ URL:"
 
 #: templates/data/tsvinfo.inc:10 templates/data/datemap.inc:10
 #: templates/data/csvmap.inc:57 templates/data/csvinfo.inc:10
 msgid "Import, Step %d"
-msgstr "°¡Á®¿À±â, ´Ü°è %s"
+msgstr "ê°€ì ¸ì˜¤ê¸°, ë‹¨ê³„ %s"
 
 #: templates/data/datemap.inc:20
 msgid "Imported field: %s"
-msgstr "°¡Á®¿Â Ç×¸ñ: %s"
+msgstr "ê°€ì ¸ì˜¨ í•­ëª©: %s"
 
 #: templates/data/csvmap.inc:73
 msgid "Imported fields:"
-msgstr "°¡Á®¿Â Ç×¸ñ:"
+msgstr "ê°€ì ¸ì˜¨ í•­ëª©:"
 
 #: templates/javascript/htmlarea_context_lang.js:30
 msgid "In_sert Row After"
-msgstr "_s´ÙÀ½¿¡ Çà Ãß°¡"
+msgstr "_së‹¤ìŒì— í–‰ ì¶”ê°€"
 
 #: lib/Net/SMS/sms2email_http.php:657
 #, fuzzy
 msgid "Incorrect username and/or password."
-msgstr "»ç¿ëÀÚÀÌ¸§°ú ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä"
+msgstr "ì‚¬ìš©ìì´ë¦„ê³¼ ì•”í˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”"
 
 #: services/resetpassword.php:51
 #, fuzzy
@@ -1431,400 +1431,400 @@ msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
 msgstr ""
-"Ãß°¡ÇÏ´Âµ¥ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù. ½Ã½ºÅÛ°ü¸®ÀÚ¿¡°Ô µµ¿òÀ» ¿äÃ»ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù."
+"ì¶”ê°€í•˜ëŠ”ë° ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤. ì‹œìŠ¤í…œê´€ë¦¬ìì—ê²Œ ë„ì›€ì„ ìš”ì²­í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_lang.js:21
 msgid "Increase Indent"
-msgstr "µé¿©¾²±â"
+msgstr "ë“¤ì—¬ì“°ê¸°"
 
 #: lib/Horde/NLS/tld.php:112 lib/Horde/NLS/countries.php:110
 #: lib/Horde/NLS/GeoIP.php:81
 #, fuzzy
 msgid "Indonesia"
-msgstr "¾øÀ½"
+msgstr "ì—†ìŒ"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:72
 #, fuzzy
 msgid "Info"
-msgstr "¹«½Ã"
+msgstr "ë¬´ì‹œ"
 
 #: config/registry.php.dist:249
 #, fuzzy
 msgid "Information"
-msgstr "Á¤º¸"
+msgstr "ì •ë³´"
 
 #: templates/javascript/htmlarea_context_lang.js:34
 msgid "Insert C_olumn After"
-msgstr "_o´ÙÀ½¿¡ ¿­ Ãß°¡"
+msgstr "_oë‹¤ìŒì— ì—´ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_lang.js:117
 #: templates/javascript/htmlarea_anselimage_lang.js:20
 msgid "Insert Image"
-msgstr "±×¸² Ãß°¡"
+msgstr "ê·¸ë¦¼ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_lang.js:27
 #: templates/javascript/htmlarea_lang.js:100
 msgid "Insert Table"
-msgstr "Ç¥ Ãß°¡"
+msgstr "í‘œ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_lang.js:25
 msgid "Insert Web Link"
-msgstr "À¥ ¸µÅ© Ãß°¡"
+msgstr "ì›¹ ë§í¬ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:33
 msgid "Insert _Column Before"
-msgstr "_c¾Õ¿¡ ¿­ Ãß°¡"
+msgstr "_cì•ì— ì—´ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:65
 msgid "Insert a new column after the current one"
-msgstr "ÇöÀç ¿­ µÚ¿¡ »õ ¿­ Ãß°¡"
+msgstr "í˜„ì¬ ì—´ ë’¤ì— ìƒˆ ì—´ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:64
 msgid "Insert a new column before the current one"
-msgstr "ÇöÀç ¿­ ¾Õ¿¡ »õ ¿­ Ãß°¡"
+msgstr "í˜„ì¬ ì—´ ì•ì— ìƒˆ ì—´ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:61
 msgid "Insert a new row after the current one"
-msgstr "ÇöÀç Çà µÚ¿¡ »õ Çà Ãß°¡"
+msgstr "í˜„ì¬ í–‰ ë’¤ì— ìƒˆ í–‰ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:60
 msgid "Insert a new row before the current one"
-msgstr "ÇöÀç Çà ¾Õ¿¡ »õ Çà Ãß°¡"
+msgstr "í˜„ì¬ í–‰ ì•ì— ìƒˆ í–‰ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:69
 msgid "Insert a paragraph after the current node"
-msgstr "ÇöÀç ÁöÁ¡ µÚ¿¡ ´Ü¶ô Ãß°¡"
+msgstr "í˜„ì¬ ì§€ì  ë’¤ì— ë‹¨ë½ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:68
 msgid "Insert a paragraph before the current node"
-msgstr "ÇöÀç ÁöÁ¡ ¾Õ¿¡ ´Ü¶ô Ãß°¡"
+msgstr "í˜„ì¬ ì§€ì  ì•ì— ë‹¨ë½ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:58
 msgid "Insert cell after"
-msgstr "µÚ¿¡ ¼¿ Ãß°¡"
+msgstr "ë’¤ì— ì…€ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:59
 msgid "Insert cell before"
-msgstr "¾Õ¿¡ ¼¿ Ãß°¡"
+msgstr "ì•ì— ì…€ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:64
 msgid "Insert column after"
-msgstr "µÚ¿¡ ¿­ Ãß°¡"
+msgstr "ë’¤ì— ì—´ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:65
 msgid "Insert column before"
-msgstr "¾Õ¿¡ ¿­ Ãß°¡"
+msgstr "ì•ì— ì—´ ì¶”ê°€"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:93
 #, fuzzy
 msgid "Insert messages"
-msgstr "È¸½ÅÇÑ ¸ŞÀÏ"
+msgstr "íšŒì‹ í•œ ë©”ì¼"
 
 #: templates/javascript/htmlarea_context_lang.js:44
 msgid "Insert paragraph after"
-msgstr "µÚ¿¡ ´Ü¶ô Ãß°¡"
+msgstr "ë’¤ì— ë‹¨ë½ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_context_lang.js:43
 msgid "Insert paragraph before"
-msgstr "¾Õ¿¡ ´Ü¶ô Ãß°¡"
+msgstr "ì•ì— ë‹¨ë½ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:69
 msgid "Insert row after"
-msgstr "µÚ¿¡ Çà Ãß°¡"
+msgstr "ë’¤ì— í–‰ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_table_lang.js:68
 msgid "Insert row before"
-msgstr "¾Õ¿¡ Çà Ãß°¡"
+msgstr "ì•ì— í–‰ ì¶”ê°€"
 
 #: templates/javascript/htmlarea_lang.js:26
 msgid "Insert/Modify Image"
-msgstr "±×¸² Ãß°¡/¼öÁ¤"
+msgstr "ê·¸ë¦¼ ì¶”ê°€/ìˆ˜ì •"
 
 #: templates/javascript/htmlarea_lang.js:89
 msgid "Insert/Modify Link"
-msgstr "¸µÅ© Ãß°¡/¼öÁ¤"
+msgstr "ë§í¬ ì¶”ê°€/ìˆ˜ì •"
 
 #: admin/setup/config.php:34
 #, fuzzy
 msgid "Invalid application."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Net/SMS/clickatell_http.php:321
 #, fuzzy
 msgid "Invalid batch ID."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Horde/Form.php:2071 lib/Horde/Form.php:2142 lib/Horde/Form.php:2216
 #: lib/Horde/Form.php:2281
 #, fuzzy
 msgid "Invalid data submitted."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Net/SMS/clickatell_http.php:309
 #, fuzzy
 msgid "Invalid destination address."
-msgstr "Àß¸øµÈ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
+msgstr "ì˜ëª»ëœ ì´ë©”ì¼ ì£¼ì†Œ"
 
 #: lib/Net/SMS/clickatell_http.php:316
 #, fuzzy
 msgid "Invalid msg_type."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Net/SMS/clickatell_http.php:305
 #, fuzzy
 msgid "Invalid or missing parameters."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: admin/perms/addchild.php:43
 #, fuzzy
 msgid "Invalid parent permission."
-msgstr "Àß¸øµÈ ÁÖ¼Ò·Ï"
+msgstr "ì˜ëª»ëœ ì£¼ì†Œë¡"
 
 #: lib/Net/SMS/clickatell_http.php:315
 #, fuzzy
 msgid "Invalid protocol."
-msgstr "Àß¸øµÈ ÁÖ¼Ò·Ï"
+msgstr "ì˜ëª»ëœ ì£¼ì†Œë¡"
 
 #: lib/Horde/Kolab.php:1071 lib/Horde/Kolab.php:1248
 #, fuzzy
 msgid "Invalid share object"
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Net/SMS/clickatell_http.php:310
 #, fuzzy
 msgid "Invalid source address."
-msgstr "Àß¸øµÈ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
+msgstr "ì˜ëª»ëœ ì´ë©”ì¼ ì£¼ì†Œ"
 
 #: lib/Net/SMS/clickatell_http.php:320
 #, fuzzy
 msgid "Invalid unicode data."
-msgstr "Àß¸øµÈ ÀÌ¸§."
+msgstr "ì˜ëª»ëœ ì´ë¦„."
 
 #: lib/Horde/NLS/tld.php:113 lib/Horde/NLS/countries.php:113
 #: lib/Horde/NLS/GeoIP.php:81
 #, fuzzy
 msgid "Ireland"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:9
 msgid "Italic"
-msgstr "±â¿ïÀÌ±â"
+msgstr "ê¸°ìš¸ì´ê¸°"
 
 #: lib/Horde/NLS/tld.php:121 lib/Horde/NLS/countries.php:115
 #: lib/Horde/NLS/GeoIP.php:83
 #, fuzzy
 msgid "Italy"
-msgstr "ÀÏº°"
+msgstr "ì¼ë³„"
 
 #: lib/Horde/UI/VarRenderer/html.php:374 lib/Horde/UI/VarRenderer/html.php:411
 #: templates/javascript/open_calendar.js:65
 msgid "January"
-msgstr "1¿ù"
+msgstr "1ì›”"
 
 #: lib/Horde/NLS/tld.php:125 lib/Horde/NLS/countries.php:117
 #: lib/Horde/NLS/GeoIP.php:84
 msgid "Japan"
-msgstr "ÀÏº»"
+msgstr "ì¼ë³¸"
 
 #: config/nls.php.dist:183
 msgid "Japanese (ISO-2022-JP)"
-msgstr "ÀÏº»¾î (ISO-2022-JP)"
+msgstr "ì¼ë³¸ì–´ (ISO-2022-JP)"
 
 #: lib/Horde/UI/VarRenderer/html.php:380 lib/Horde/UI/VarRenderer/html.php:417
 #: templates/javascript/open_calendar.js:71
 msgid "July"
-msgstr "7¿ù"
+msgstr "7ì›”"
 
 #: lib/Horde/UI/VarRenderer/html.php:379 lib/Horde/UI/VarRenderer/html.php:416
 #: templates/javascript/open_calendar.js:70
 msgid "June"
-msgstr "6¿ù"
+msgstr "6ì›”"
 
 #: templates/javascript/htmlarea_table_lang.js:38
 msgid "Justify"
-msgstr "Á¤·Ä"
+msgstr "ì •ë ¬"
 
 #: templates/javascript/htmlarea_context_lang.js:37
 #: templates/javascript/htmlarea_lang.js:15
 msgid "Justify Center"
-msgstr "°¡¿îµ¥ Á¤·Ä"
+msgstr "ê°€ìš´ë° ì •ë ¬"
 
 #: templates/javascript/htmlarea_context_lang.js:39
 #: templates/javascript/htmlarea_lang.js:17
 msgid "Justify Full"
-msgstr "¾çÂÊ Á¤·Ä"
+msgstr "ì–‘ìª½ ì •ë ¬"
 
 #: templates/javascript/htmlarea_context_lang.js:36
 #: templates/javascript/htmlarea_lang.js:14
 msgid "Justify Left"
-msgstr "¿ŞÂÊ Á¤·Ä"
+msgstr "ì™¼ìª½ ì •ë ¬"
 
 #: templates/javascript/htmlarea_context_lang.js:38
 #: templates/javascript/htmlarea_lang.js:16
 msgid "Justify Right"
-msgstr "¿À¸¥ÂÊ Á¤·Ä"
+msgstr "ì˜¤ë¥¸ìª½ ì •ë ¬"
 
 #: lib/Horde/Crypt/smime.php:622
 #, fuzzy
 msgid "Key Usage"
-msgstr "¸Ş½ÃÁö"
+msgstr "ë©”ì‹œì§€"
 
 #: lib/Horde/NLS/tld.php:133 lib/Horde/NLS/countries.php:123
 #: lib/Horde/NLS/GeoIP.php:86
 msgid "Korea, Republic of"
-msgstr "´ëÇÑ¹Î±¹"
+msgstr "ëŒ€í•œë¯¼êµ­"
 
 #: config/nls.php.dist:184
 msgid "Korean (EUC-KR)"
-msgstr "ÇÑ±¹¾î (EUC-KR)"
+msgstr "í•œêµ­ì–´ (EUC-KR)"
 
 #: templates/portal/menu.inc:8
 #, fuzzy
 msgid "La_yout"
-msgstr "·Î±×¾Æ¿ô"
+msgstr "ë¡œê·¸ì•„ì›ƒ"
 
 #: templates/login/login.inc:76 po/translation.php:657
 msgid "Language"
-msgstr "¾ğ¾î"
+msgstr "ì–¸ì–´"
 
 #: lib/Block/moon.php:174
 #, fuzzy
 msgid "Last Half"
-msgstr "¸¶Áö¸· ÆäÀÌÁö"
+msgstr "ë§ˆì§€ë§‰ í˜ì´ì§€"
 
 #: lib/Block/moon.php:88 lib/Block/moon.php:90
 #, fuzzy
 msgid "Last Quarter"
-msgstr "¸¶Áö¸· ÆäÀÌÁö"
+msgstr "ë§ˆì§€ë§‰ í˜ì´ì§€"
 
 #: lib/Block/metar.php:149
 #, fuzzy
 msgid "Last Updated:"
-msgstr "¸¶Áö¸· ÆäÀÌÁö"
+msgstr "ë§ˆì§€ë§‰ í˜ì´ì§€"
 
 #: lib/Horde/Auth.php:691
 msgid "Last login: %s"
-msgstr "¸¶Áö¸· ·Î±×ÀÎ: %s"
+msgstr "ë§ˆì§€ë§‰ ë¡œê·¸ì¸: %s"
 
 #: lib/Horde/Auth.php:693
 msgid "Last login: %s from %s"
-msgstr "¸¶Áö¸· ·Î±×ÀÎ: %s, Á¢¼Ó À§Ä¡: %s"
+msgstr "ë§ˆì§€ë§‰ ë¡œê·¸ì¸: %s, ì ‘ì† ìœ„ì¹˜: %s"
 
 #: lib/Horde/Auth.php:688
 msgid "Last login: Never"
-msgstr "¸¶Áö¸· ·Î±×ÀÎ: ¾øÀ½"
+msgstr "ë§ˆì§€ë§‰ ë¡œê·¸ì¸: ì—†ìŒ"
 
 #: templates/javascript/htmlarea_table_lang.js:39
 #: templates/javascript/htmlarea_lang.js:79
 msgid "Layout"
-msgstr "·¹ÀÌ¾Æ¿ô"
+msgstr "ë ˆì´ì•„ì›ƒ"
 
 #: templates/javascript/htmlarea_table_lang.js:40
 #: templates/javascript/htmlarea_lang.js:69
 msgid "Left"
-msgstr "¿ŞÂÊ"
+msgstr "ì™¼ìª½"
 
 #: lib/Horde/Form.php:3100
 #, fuzzy
 msgid "Left values"
-msgstr "¿¹:"
+msgstr "ì˜ˆ:"
 
 #: lib/Block/weatherdotcom.php:337
 #, fuzzy
 msgid "Light Rain"
-msgstr "·Î±×ÀÎ"
+msgstr "ë¡œê·¸ì¸"
 
 #: lib/Horde/Form.php:1802
 #, fuzzy
 msgid "Link"
-msgstr "·Î±×ÀÎ"
+msgstr "ë¡œê·¸ì¸"
 
 #: lib/Horde/Text/Filter/html2text.php:181
 #, fuzzy
 msgid "Links"
-msgstr "·Î±×ÀÎ ½ÃÀÛÀÛ¾÷"
+msgstr "ë¡œê·¸ì¸ ì‹œì‘ì‘ì—…"
 
 #: services/help/index.php:50
 msgid "List Help Topics"
-msgstr "µµ¿ò¾Ë ¸ñÂ÷"
+msgstr "ë„ì›€ì•Œ ëª©ì°¨"
 
 #: admin/sqlshell.php:137
 #, fuzzy
 msgid "List Tables"
-msgstr "¸¶Áö¸· ÆäÀÌÁö"
+msgstr "ë§ˆì§€ë§‰ í˜ì´ì§€"
 
 #: lib/Horde/MIME/Headers.php:632
 #, fuzzy
 msgid "List-Help"
-msgstr "µµ¿ò¾Ë ¸ñÂ÷"
+msgstr "ë„ì›€ì•Œ ëª©ì°¨"
 
 #: lib/Horde/MIME/Headers.php:634
 #, fuzzy
 msgid "List-Subscribe"
-msgstr "»ç¿ëÇÏÁö ¾Ê´Â ¸ŞÀÏÇÔ ¼û±è"
+msgstr "ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ë©”ì¼í•¨ ìˆ¨ê¹€"
 
 #: lib/Horde/MIME/Headers.php:633
 #, fuzzy
 msgid "List-Unsubscribe"
-msgstr "»ç¿ëÇÏÁö ¾Ê´Â ¸ŞÀÏÇÔ ¼û±è"
+msgstr "ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ë©”ì¼í•¨ ìˆ¨ê¹€"
 
 #: templates/admin/user/nolist.inc:4
 msgid "Listing users is disabled."
-msgstr "»ç¿ëÇÒ ¼ö ¾ø´Â »ç¿ëÀÚ ¸ñ·Ï."
+msgstr "ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì‚¬ìš©ì ëª©ë¡."
 
 #: lib/Horde/Crypt/smime.php:595 lib/Horde/MIME/Viewer/icalendar.php:570
 #: lib/Block/weatherdotcom.php:60 lib/Block/sunrise.php:22
 #: lib/Block/metar.php:63
 #, fuzzy
 msgid "Location"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: login.php:155 services/portal/sidebar.php:165 templates/login/mobile.inc:3
 #: templates/login/mobile.inc:15 templates/login/login.inc:83
 msgid "Log in"
-msgstr "·Î±×ÀÎ"
+msgstr "ë¡œê·¸ì¸"
 
 #: services/portal/sidebar.php:159
 msgid "Log out"
-msgstr "·Î±×¾Æ¿ô"
+msgstr "ë¡œê·¸ì•„ì›ƒ"
 
 #: config/prefs.php.dist:107
 msgid "Login Tasks"
-msgstr "·Î±×ÀÎ ½ÃÀÛÀÛ¾÷"
+msgstr "ë¡œê·¸ì¸ ì‹œì‘ì‘ì—…"
 
 #: lib/Horde/Auth.php:952
 #, fuzzy
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
-"¾î¶² ÀÌÀ¯·Î ·Î±×ÀÎÀÌ ½ÇÆĞÇß½À´Ï´Ù. ´ëºÎºĞÀÇ °æ¿ì »ç¿ëÀÚ ÀÌ¸§ ¶Ç´Â ¾ÏÈ£°¡ Àß"
-"¸ø ÀÔ·ÂµÈ °æ¿ì ¹ß»ıÇÕ´Ï´Ù."
+"ì–´ë–¤ ì´ìœ ë¡œ ë¡œê·¸ì¸ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ëŒ€ë¶€ë¶„ì˜ ê²½ìš° ì‚¬ìš©ì ì´ë¦„ ë˜ëŠ” ì•”í˜¸ê°€ ì˜"
+"ëª» ì…ë ¥ëœ ê²½ìš° ë°œìƒí•©ë‹ˆë‹¤."
 
 #: lib/Horde/Auth.php:948
 #, fuzzy
 msgid "Login failed."
-msgstr "»èÁ¦ ½ÇÆĞ"
+msgstr "ì‚­ì œ ì‹¤íŒ¨"
 
 #: lib/Horde/Form.php:1362
 #, fuzzy
 msgid "Long text"
-msgstr "·Î±×¾Æ¿ô"
+msgstr "ë¡œê·¸ì•„ì›ƒ"
 
 #: lib/Block/fortune.php:48
 #, fuzzy
 msgid "Love"
-msgstr "ÀÌµ¿"
+msgstr "ì´ë™"
 
 #: templates/javascript/htmlarea_listtype_lang.js:21
 msgid "Lower greek letters"
-msgstr "±×¸®½º ¼Ò¹®ÀÚ"
+msgstr "ê·¸ë¦¬ìŠ¤ ì†Œë¬¸ì"
 
 #: templates/javascript/htmlarea_listtype_lang.js:19
 msgid "Lower latin letters"
-msgstr "¶óÆ¾ ¼Ò¹®ÀÚ"
+msgstr "ë¼í‹´ ì†Œë¬¸ì"
 
 #: templates/javascript/htmlarea_listtype_lang.js:17
 msgid "Lower roman numbers"
-msgstr "·Î¸¶ ¼Ò¹®ÀÚ ¼ıÀÚ"
+msgstr "ë¡œë§ˆ ì†Œë¬¸ì ìˆ«ì"
 
 #: lib/Horde/UI/VarRenderer/html.php:342 lib/Horde/UI/VarRenderer/html.php:373
 #: lib/Horde/UI/VarRenderer/html.php:410 templates/data/date.inc:47
@@ -1836,375 +1836,375 @@ msgstr "MM"
 #: lib/Horde/MIME/Viewer/tnef.php:39
 #, fuzzy
 msgid "MS-TNEF Attachment contained no data."
-msgstr "ÆÄÀÏ¿¡ ¾Æ¹«·± ÀÚ·á°¡ ¾ø½À´Ï´Ù."
+msgstr "íŒŒì¼ì— ì•„ë¬´ëŸ° ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/NLS/tld.php:157 lib/Horde/NLS/countries.php:135
 #: lib/Horde/NLS/GeoIP.php:93
 #, fuzzy
 msgid "Macao"
-msgstr "3¿ù"
+msgstr "3ì›”"
 
 #: lib/Block/fortune.php:49
 #, fuzzy
 msgid "Magic"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: config/registry.php.dist:71
 msgid "Mail"
-msgstr "¸ŞÀÏ"
+msgstr "ë©”ì¼"
 
 #: templates/javascript/htmlarea_context_lang.js:40
 msgid "Make lin_k..."
-msgstr "_k¸µÅ© ¸¸µé±â..."
+msgstr "_kë§í¬ ë§Œë“¤ê¸°..."
 
 #: lib/Horde/NLS/tld.php:165 lib/Horde/NLS/countries.php:138
 #: lib/Horde/NLS/GeoIP.php:95
 #, fuzzy
 msgid "Malawi"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: lib/Horde/NLS/tld.php:164 lib/Horde/NLS/countries.php:140
 #: lib/Horde/NLS/GeoIP.php:95
 #, fuzzy
 msgid "Maldives"
-msgstr "¸ŞÀÏ ÇÊÅÍ"
+msgstr "ë©”ì¼ í•„í„°"
 
 #: lib/Horde/NLS/tld.php:154 lib/Horde/NLS/countries.php:141
 #: lib/Horde/NLS/GeoIP.php:93
 #, fuzzy
 msgid "Mali"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: lib/Horde/NLS/tld.php:162 lib/Horde/NLS/countries.php:142
 #: lib/Horde/NLS/GeoIP.php:95
 #, fuzzy
 msgid "Malta"
-msgstr "À¥¸ŞÀÏ"
+msgstr "ì›¹ë©”ì¼"
 
 #: lib/Horde/UI/VarRenderer/html.php:376 lib/Horde/UI/VarRenderer/html.php:413
 #: templates/javascript/open_calendar.js:67
 msgid "March"
-msgstr "3¿ù"
+msgstr "3ì›”"
 
 #: templates/javascript/htmlarea_table_lang.js:41
 msgid "Margin"
-msgstr "°¡ÀåÀÚ¸®"
+msgstr "ê°€ì¥ìë¦¬"
 
 #: templates/data/csvmap.inc:111
 msgid "Matching fields"
-msgstr "ÀÏÄ¡ÇÏ´Â Ç×¸ñ"
+msgstr "ì¼ì¹˜í•˜ëŠ” í•­ëª©"
 
 #: lib/Horde/UI/VarRenderer/html.php:378 lib/Horde/UI/VarRenderer/html.php:415
 #: templates/javascript/open_calendar.js:69
 msgid "May"
-msgstr "5¿ù"
+msgstr "5ì›”"
 
 #: lib/Horde/NLS/tld.php:253 lib/Horde/NLS/countries.php:147
 #: lib/Horde/NLS/GeoIP.php:118
 #, fuzzy
 msgid "Mayotte"
-msgstr "5¿ù"
+msgstr "5ì›”"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:503
 #, fuzzy
 msgid "Meeting Information"
-msgstr "¸ŞÀÏ ¼­¹ö Á¤º¸»çÇ×"
+msgstr "ë©”ì¼ ì„œë²„ ì •ë³´ì‚¬í•­"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:514
 #, fuzzy
 msgid "Meeting Update"
-msgstr "½ÃÀÛÇÏ±â"
+msgstr "ì‹œì‘í•˜ê¸°"
 
 #: templates/admin/groups/edit.inc:19
 #, fuzzy
 msgid "Members"
-msgstr "11¿ù"
+msgstr "11ì›”"
 
 #: config/prefs.php.dist:368
 msgid "Menu mode:"
-msgstr "¸Ş´º ¸ğµå"
+msgstr "ë©”ë‰´ ëª¨ë“œ"
 
 #: templates/javascript/htmlarea_table_lang.js:60
 msgid "Merge cells"
-msgstr "¼¿ ÇÕÄ¡±â"
+msgstr "ì…€ í•©ì¹˜ê¸°"
 
 #: lib/Horde/Notification/Listener/status.php:32
 msgid "Message"
-msgstr "¸Ş½ÃÁö"
+msgstr "ë©”ì‹œì§€"
 
 #: lib/Net/SMS/clickatell_http.php:319
 #, fuzzy
 msgid "Message expired."
-msgstr "¸Ş½ÃÁö Ç×¸ñ"
+msgstr "ë©”ì‹œì§€ í•­ëª©"
 
 #: lib/Net/SMS/sms2email_http.php:591 lib/Net/SMS/sms2email_http.php:626
 #: lib/Net/SMS/clickatell_http.php:233 lib/Net/SMS/clickatell_http.php:268
 #, fuzzy
 msgid "Message type"
-msgstr "¸Ş½ÃÁö ÀÏÀÚ"
+msgstr "ë©”ì‹œì§€ ì¼ì"
 
 #: lib/Block/metar.php:110
 #, fuzzy
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
-msgstr "¼¼ºÎÁ¤º¸°¡ °ü¸®ÀÚ¸¦ À§ÇØ ±â·ÏµÇ¾îÁ³½À´Ï´Ù."
+msgstr "ì„¸ë¶€ì •ë³´ê°€ ê´€ë¦¬ìë¥¼ ìœ„í•´ ê¸°ë¡ë˜ì–´ì¡ŒìŠµë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_table_lang.js:42
 #: templates/javascript/htmlarea_lang.js:76
 msgid "Middle"
-msgstr "°¡¿îµ¥"
+msgstr "ê°€ìš´ë°"
 
 #: lib/Horde/UI/VarRenderer/html.php:217
 #, fuzzy
 msgid "Mirror"
-msgstr "¿À·ù"
+msgstr "ì˜¤ë¥˜"
 
 #: lib/Net/SMS/clickatell_http.php:313
 #, fuzzy
 msgid "Missing message ID."
-msgstr "¸Ş½ÃÁö ÀÌµ¿ÇÏ±â"
+msgstr "ë©”ì‹œì§€ ì´ë™í•˜ê¸°"
 
 #: templates/javascript/open_calendar.js:56
 #, fuzzy
 msgid "Mo"
-msgstr "ÀÌµ¿"
+msgstr "ì´ë™"
 
 #: config/registry.php.dist:122
 #, fuzzy
 msgid "Mobile Mail"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/javascript/htmlarea_context_lang.js:52
 msgid "Modify URL"
-msgstr "URL ¼öÁ¤"
+msgstr "URL ìˆ˜ì •"
 
 #: po/translation.php:657
 #, fuzzy
 msgid "Module"
-msgstr "¿ªÇÒ"
+msgstr "ì—­í• "
 
 #: lib/Horde/Maintenance.php:36
 msgid "Monthly"
-msgstr "¸Å¿ù"
+msgstr "ë§¤ì›”"
 
 #: lib/Horde/Block/Layout.php:420
 msgid "Move Down"
-msgstr "¾Æ·¡·Î ÀÌµ¿"
+msgstr "ì•„ë˜ë¡œ ì´ë™"
 
 #: lib/Horde/Block/Layout.php:424
 #, fuzzy
 msgid "Move Left"
-msgstr "À§·Î ÀÌµ¿"
+msgstr "ìœ„ë¡œ ì´ë™"
 
 #: lib/Horde/Block/Layout.php:416
 msgid "Move Up"
-msgstr "À§·Î ÀÌµ¿"
+msgstr "ìœ„ë¡œ ì´ë™"
 
 #: lib/Horde/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move down"
-msgstr "¾Æ·¡·Î ÀÌµ¿"
+msgstr "ì•„ë˜ë¡œ ì´ë™"
 
 #: lib/Horde/UI/VarRenderer/html.php:496 lib/Horde/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move up"
-msgstr "À§·Î ÀÌµ¿"
+msgstr "ìœ„ë¡œ ì´ë™"
 
 #: lib/Horde/Crypt/pgp.php:397 lib/Horde/MIME/Viewer/vcard.php:105
 #: lib/Horde/MIME/Viewer/tnef.php:41 lib/Horde/MIME/Viewer/icalendar.php:583
 msgid "Name"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:706
 #, fuzzy
 msgid "Needs Action"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: lib/Horde/NLS/tld.php:177 lib/Horde/NLS/countries.php:159
 #: lib/Horde/NLS/GeoIP.php:98
 #, fuzzy
 msgid "Nepal"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: config/registry.php.dist:242
 msgid "Network"
-msgstr "³×Æ®¿öÅ©"
+msgstr "ë„¤íŠ¸ì›Œí¬"
 
 #: lib/Horde/Crypt/pgp.php:411 config/prefs.php.dist:325
 #: config/prefs.php.dist:376
 msgid "Never"
-msgstr "»ç¿ë¾ÈÇÔ"
+msgstr "ì‚¬ìš©ì•ˆí•¨"
 
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
 #, fuzzy
 msgid "New Moon"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/admin/user/update.inc:35
 #, fuzzy
 msgid "New Username (optional)"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 #: lib/Horde/NLS/tld.php:180 lib/Horde/NLS/countries.php:163
 #: lib/Horde/NLS/GeoIP.php:99
 #, fuzzy
 msgid "New Zealand"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:91
 msgid "New window (_blank)"
-msgstr "»õ Ã¢(_blank)"
+msgstr "ìƒˆ ì°½(_blank)"
 
 #: lib/Block/google.php:40 lib/Block/fortune.php:52
 #: config/registry.php.dist:264
 #, fuzzy
 msgid "News"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/data/tsvinfo.inc:21 templates/data/datemap.inc:46
 #: templates/data/csvmap.inc:137 templates/data/csvinfo.inc:32
 msgid "Next"
-msgstr "´ÙÀ½"
+msgstr "ë‹¤ìŒ"
 
 #: lib/Horde/UI/Pager.php:115 lib/Horde/UI/Pager.php:116
 msgid "Next Page"
-msgstr "´ÙÀ½ ÆäÀÌÁö"
+msgstr "ë‹¤ìŒ í˜ì´ì§€"
 
 #: lib/Block/moon.php:27
 #, fuzzy
 msgid "Next Phase"
-msgstr "´ÙÀ½ ÆäÀÌÁö"
+msgstr "ë‹¤ìŒ í˜ì´ì§€"
 
 #: lib/Horde/Prefs/UI.php:366 lib/Horde/Prefs/UI.php:370
 #, fuzzy
 msgid "Next options"
-msgstr "¿É¼ÇÀ¸·Î µ¹¾Æ°¡±â"
+msgstr "ì˜µì…˜ìœ¼ë¡œ ëŒì•„ê°€ê¸°"
 
 #: lib/Horde/NLS/tld.php:171 lib/Horde/NLS/countries.php:165
 #: lib/Horde/NLS/GeoIP.php:97
 #, fuzzy
 msgid "Niger"
-msgstr "»ç¿ë¾ÈÇÔ"
+msgstr "ì‚¬ìš©ì•ˆí•¨"
 
 #: lib/Horde/NLS/tld.php:179 lib/Horde/NLS/countries.php:167
 #: lib/Horde/NLS/GeoIP.php:98
 #, fuzzy
 msgid "Niue"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: lib/Horde/UI/VarRenderer/html.php:888
 msgid "No"
-msgstr "¾Æ´Ï¿À"
+msgstr "ì•„ë‹ˆì˜¤"
 
 #: lib/Horde/Auth/mcal.php:54
 #, fuzzy
 msgid "No calendar name provided for MCAL authentication."
-msgstr "SQL ÀÎÁõ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¸ì¦ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/setup/diff.php:55
 #, fuzzy
 msgid "No change."
-msgstr "º¯°æ»çÇ× µÇµ¹¸®±â"
+msgstr "ë³€ê²½ì‚¬í•­ ë˜ëŒë¦¬ê¸°"
 
 #: po/translation.php:1358
 #, fuzzy
 msgid "No command specified."
-msgstr "Æú´õ¸¦ ¼±ÅÃÇÏ¼¼¿ä"
+msgstr "í´ë”ë¥¼ ì„ íƒí•˜ì„¸ìš”"
 
 #: lib/Horde.php:173 lib/Horde.php:493 lib/Horde/Util.php:753
 #, fuzzy, php-format
 msgid "No configuration information specified for %s."
-msgstr "SQL VFS ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL VFS ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:773
 msgid "No configuration information specified for FTP VFS."
-msgstr "FTP VFS¸¦ À§ÇÑ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "FTP VFSë¥¼ ìœ„í•œ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:595
 msgid "No configuration information specified for SQL VFS."
-msgstr "SQL VFS ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL VFS ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql_file.php:757
 msgid "No configuration information specified for SQL-File VFS."
-msgstr "SQL-File VFS ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL-File VFS ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: po/translation.php:413 po/translation.php:522
 #, fuzzy
 msgid "No locale specified."
-msgstr "Æú´õ¸¦ ¼±ÅÃÇÏ¼¼¿ä"
+msgstr "í´ë”ë¥¼ ì„ íƒí•˜ì„¸ìš”"
 
 #: lib/Net/SMS/sms2email_http.php:658
 #, fuzzy
 msgid "No message supplied."
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: lib/Net/SMS/sms2email_http.php:661
 #, fuzzy
 msgid "No name specified."
-msgstr "¹®ÀÚ¿­ ÀÔ·Â ¿À·ù"
+msgstr "ë¬¸ìì—´ ì…ë ¥ ì˜¤ë¥˜"
 
 #: lib/Net/SMS/sms2email_http.php:662
 #, fuzzy
 msgid "No number specified."
-msgstr "¹®ÀÚ¿­ ÀÔ·Â ¿À·ù"
+msgstr "ë¬¸ìì—´ ì…ë ¥ ì˜¤ë¥˜"
 
 #: lib/Horde/Auth/ldap.php:97
 #, fuzzy
 msgid "No password provided for LDAP authentication."
-msgstr "SQL ÀÎÁõ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¸ì¦ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/sasl.php:82 lib/Horde/Auth/login.php:88
 #: lib/Horde/Auth/pam.php:79
 #, fuzzy
 msgid "No password provided for Login authentication."
-msgstr "SQL ÀÎÁõ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¸ì¦ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/passwd.php:139
 #, fuzzy
 msgid "No password provided for PASSWD authentication."
-msgstr "SQL ÀÎÁõ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¸ì¦ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/smb.php:89
 #, fuzzy
 msgid "No password provided for SMB authentication."
-msgstr "SQL ÀÎÁõ ¼³Á¤Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¸ì¦ ì„¤ì •ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_table_lang.js:43
 #, fuzzy
 msgid "No rules"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: templates/javascript/htmlarea_table_lang.js:44
 #, fuzzy
 msgid "No sides"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: lib/Net/SMS/sms2email_http.php:656
 #, fuzzy
 msgid "No username and/or password sent."
-msgstr "»ç¿ëÀÚÀÌ¸§°ú ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä"
+msgstr "ì‚¬ìš©ìì´ë¦„ê³¼ ì•”í˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”"
 
 #: lib/Horde/Crypt/pgp.php:413 lib/Horde/MIME/Viewer/icalendar.php:560
 #: templates/javascript/htmlarea_table_lang.js:45
 #: templates/prefs/identityselect.inc:88
 msgid "None"
-msgstr "¼±ÅÃÇÏÁö ¾ÊÀ½"
+msgstr "ì„ íƒí•˜ì§€ ì•ŠìŒ"
 
 #: lib/Horde/NLS/tld.php:176 lib/Horde/NLS/countries.php:170
 #: lib/Horde/NLS/GeoIP.php:98
 #, fuzzy
 msgid "Norway"
-msgstr "Àü´Ş"
+msgstr "ì „ë‹¬"
 
 #: lib/Horde/Crypt/smime.php:664
 #, fuzzy
 msgid "Not After"
-msgstr "ÀÓ½Ãº¸°üµÇÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì„ì‹œë³´ê´€ë˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/VFS/file.php:356
 #, fuzzy
 msgid "Not a directory"
-msgstr "µğ·ºÅä¸®"
+msgstr "ë””ë ‰í† ë¦¬"
 
 #: lib/VFS/ISOWriter.php:67 lib/VFS/ISOWriter/RealOutputStrategy.php:84
 #: lib/VFS/ISOWriter/RealOutputStrategy.php:95
@@ -2212,90 +2212,90 @@ msgstr "µğ·ºÅä¸®"
 #: lib/VFS/ISOWriter/RealInputStrategy.php:60
 #, fuzzy
 msgid "Not implemented."
-msgstr "»èÁ¦µÇÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì‚­ì œë˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:68
 #, fuzzy
 msgid "Not set"
-msgstr "Á¦¸ñ ¾øÀ½"
+msgstr "ì œëª© ì—†ìŒ"
 
 #: lib/Horde/MIME/Viewer/vcard.php:247 config/registry.php.dist:159
 msgid "Notes"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: templates/maintenance/confirm_top.inc:10
 msgid "Notice"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: lib/Horde/UI/VarRenderer/html.php:384 lib/Horde/UI/VarRenderer/html.php:421
 #: templates/javascript/open_calendar.js:75
 msgid "November"
-msgstr "11¿ù"
+msgstr "11ì›”"
 
 #: lib/Horde/Form.php:1041
 #, fuzzy
 msgid "Number"
-msgstr "11¿ù"
+msgstr "11ì›”"
 
 #: lib/Horde/Form.php:1366 lib/Horde/Form.php:1420 lib/Horde/Form.php:1442
 #: templates/javascript/htmlarea_lang.js:104
 msgid "Number of columns"
-msgstr "¿­ÀÇ ¼ö"
+msgstr "ì—´ì˜ ìˆ˜"
 
 #: lib/Horde/Form.php:1364 lib/Horde/Form.php:1418 lib/Horde/Form.php:1440
 #: templates/javascript/htmlarea_lang.js:102
 msgid "Number of rows"
-msgstr "ÇàÀÇ ¼ö"
+msgstr "í–‰ì˜ ìˆ˜"
 
 #: lib/Horde/UI/VarRenderer/html.php:814
 #, fuzzy
 msgid "Object"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Horde/UI/VarRenderer/html.php:383 lib/Horde/UI/VarRenderer/html.php:420
 #: templates/javascript/open_calendar.js:74
 msgid "October"
-msgstr "10¿ù"
+msgstr "10ì›”"
 
 #: lib/Horde/Form.php:1835 lib/Horde/Form.php:1955
 #, fuzzy
 msgid "Only one email address allowed."
-msgstr "Àß¸øµÈ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
+msgstr "ì˜ëª»ëœ ì´ë©”ì¼ ì£¼ì†Œ"
 
 #: templates/javascript/htmlarea_context_lang.js:54
 msgid "Opens this link in a new window"
-msgstr "»õ Ã¢¿¡ ¸µÅ© ¿­±â"
+msgstr "ìƒˆ ì°½ì— ë§í¬ ì—´ê¸°"
 
 #: services/portal/sidebar.php:152
 msgid "Options"
-msgstr "¼±ÅÃ»çÇ×"
+msgstr "ì„ íƒì‚¬í•­"
 
 #: services/prefs.php:29 templates/prefs/app.inc:4
 msgid "Options for %s"
-msgstr "%s ¼±ÅÃ»çÇ×"
+msgstr "%s ì„ íƒì‚¬í•­"
 
 #: po/translation.php:112
 msgid "Options:"
-msgstr "¼±ÅÃ»çÇ×:"
+msgstr "ì„ íƒì‚¬í•­:"
 
 #: templates/javascript/htmlarea_lang.js:18
 msgid "Ordered List"
-msgstr "¼ıÀÚ ¸ñ·Ï"
+msgstr "ìˆ«ì ëª©ë¡"
 
 #: lib/Horde/Crypt/smime.php:591
 msgid "Organisation"
-msgstr "´ÜÃ¼"
+msgstr "ë‹¨ì²´"
 
 #: lib/Horde/NLS/GeoIP.php:120 services/keyboard.php:117
 #: templates/javascript/htmlarea_lang.js:94
 msgid "Other"
-msgstr "±âÅ¸"
+msgstr "ê¸°íƒ€"
 
 #: config/prefs.php.dist:96 config/prefs.php.dist:106
 #: config/prefs.php.dist:113 config/prefs.php.dist:121
 #: config/prefs.php.dist:129
 msgid "Other Information"
-msgstr "±âÅ¸ Á¤º¸"
+msgstr "ê¸°íƒ€ ì •ë³´"
 
 #: admin/phpshell.php:63
 #, fuzzy
@@ -2304,169 +2304,169 @@ msgstr "Horde"
 
 #: templates/javascript/htmlarea_table_lang.js:46
 msgid "Padding"
-msgstr "Æäµù"
+msgstr "í˜ë”©"
 
 #: lib/Horde/NLS/tld.php:182 lib/Horde/NLS/countries.php:175
 #: lib/Horde/NLS/GeoIP.php:99
 #, fuzzy
 msgid "Panama"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 #: admin/user.php:36 admin/setup/index.php:174 lib/Horde/Form.php:2002
 #: lib/Net/SMS/sms2email_http.php:557 lib/Net/SMS/clickatell_http.php:203
 #: templates/login/login.inc:70 templates/admin/user/update.inc:36
 #: config/registry.php.dist:367
 msgid "Password"
-msgstr "¾ÏÈ£"
+msgstr "ì•”í˜¸"
 
 #: lib/Horde/Crypt/smime.php:1354
 #, fuzzy
 msgid "Password incorrect"
-msgstr "¾ÏÈ£"
+msgstr "ì•”í˜¸"
 
 #: templates/rpcsum/rpcsum.inc:90
 #, fuzzy
 msgid "Password:"
-msgstr "¾ÏÈ£"
+msgstr "ì•”í˜¸"
 
 #: templates/login/mobile.inc:11
 #, fuzzy
 msgid "Password: "
-msgstr "¾ÏÈ£"
+msgstr "ì•”í˜¸"
 
 #: admin/user.php:150 lib/Horde/Form.php:2018
 #: templates/admin/user/update.inc:15
 msgid "Passwords must match."
-msgstr "¾ÏÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù."
+msgstr "ì•”í˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
 
 #: admin/sqlshell.php:128 templates/javascript/htmlarea_context_lang.js:22
 msgid "Paste"
-msgstr "ºÙÀÌ±â"
+msgstr "ë¶™ì´ê¸°"
 
 #: templates/javascript/htmlarea_lang.js:37
 msgid "Paste from clipboard"
-msgstr "Å¬¸³º¸µå¿¡¼­ ºÙÀÌ±â"
+msgstr "í´ë¦½ë³´ë“œì—ì„œ ë¶™ì´ê¸°"
 
 #: templates/javascript/htmlarea_lang.js:51
 msgid "Path"
-msgstr "°æ·Î"
+msgstr "ê²½ë¡œ"
 
 #: lib/Block/fortune.php:54
 #, fuzzy
 msgid "People"
-msgstr "¿ªÇÒ"
+msgstr "ì—­í• "
 
 #: templates/javascript/htmlarea_lang.js:107
 msgid "Percent"
-msgstr "ÆÛ¼¾Æ®"
+msgstr "í¼ì„¼íŠ¸"
 
 #: templates/maintenance/confirm_bottom.inc:6
 msgid "Perform Maintenance Operations"
-msgstr "À¯Áö °ü¸® ÀÛ¾÷ ½ÇÇà"
+msgstr "ìœ ì§€ ê´€ë¦¬ ì‘ì—… ì‹¤í–‰"
 
 #: config/prefs.php.dist:396
 #, fuzzy
 msgid "Perform maintenance operations on login?"
-msgstr "À¯Áö °ü¸® ÀÛ¾÷ ½ÇÇà"
+msgstr "ìœ ì§€ ê´€ë¦¬ ì‘ì—… ì‹¤í–‰"
 
 #: admin/perms/addchild.php:61 admin/perms/addchild.php:64
 #: admin/perms/addchild.php:67
 #, fuzzy
 msgid "Permission"
-msgstr "°³ÀÎ ¸ŞÀÏ"
+msgstr "ê°œì¸ ë©”ì¼"
 
 #: admin/perms/edit.php:224 admin/perms/addchild.php:93
 #: admin/perms/index.php:22 admin/perms/delete.php:74
 #, fuzzy
 msgid "Permissions Administration"
-msgstr "°ü¸®"
+msgstr "ê´€ë¦¬"
 
 #: config/prefs.php.dist:65
 msgid "Personal Information"
-msgstr "°³ÀÎ Á¤º¸"
+msgstr "ê°œì¸ ì •ë³´"
 
 #: lib/Horde/MIME/Viewer/vcard.php:199
 msgid "Phone"
-msgstr "ÀüÈ­¹øÈ£"
+msgstr "ì „í™”ë²ˆí˜¸"
 
 #: templates/javascript/htmlarea_lang.js:108
 msgid "Pixels"
-msgstr "ÇÈ¼¿"
+msgstr "í”½ì…€"
 
 #: lib/Horde/Form.php:2556
 #, fuzzy
 msgid "Please enter a month and a year."
-msgstr "»õ·Î¿î ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:"
+msgstr "ìƒˆë¡œìš´ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:"
 
 #: templates/prefs/categorymanagement.inc:12
 #, fuzzy
 msgid "Please enter a name for the new category:"
-msgstr "\\n»õ·Î¿î ¸ŞÀÏÇÔÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:\\n"
+msgstr "\\nìƒˆë¡œìš´ ë©”ì¼í•¨ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:\\n"
 
 #: lib/Horde/Form.php:1299
 #, fuzzy
 msgid "Please enter a valid IP address."
-msgstr "¿Ã¹Ù¸¥ °Ë»ö ¹üÁÖ¸¦ ÀÔ·ÂÇÏ¼¼¿ä."
+msgstr "ì˜¬ë°”ë¥¸ ê²€ìƒ‰ ë²”ì£¼ë¥¼ ì…ë ¥í•˜ì„¸ìš”."
 
 #: lib/Horde/Form.php:2434
 #, fuzzy
 msgid "Please enter a valid time."
-msgstr "¿Ã¹Ù¸¥ °Ë»ö ¹üÁÖ¸¦ ÀÔ·ÂÇÏ¼¼¿ä."
+msgstr "ì˜¬ë°”ë¥¸ ê²€ìƒ‰ ë²”ì£¼ë¥¼ ì…ë ¥í•˜ì„¸ìš”."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
-msgstr "¹®Á¦¿¡ ´ëÇÑ ¿ä¾àÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
+msgstr "ë¬¸ì œì— ëŒ€í•œ ìš”ì•½ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”."
 
 #: templates/login/login.inc:18 templates/login/login.inc:22
 msgid "Please provide your username and password"
-msgstr "»ç¿ëÀÚÀÌ¸§°ú ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä"
+msgstr "ì‚¬ìš©ìì´ë¦„ê³¼ ì•”í˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:435
 #, fuzzy
 msgid "Please select an action from the menu below."
-msgstr "°Ë»öÇÒ ÃÖ¼ÒÇÑ ÇÑ°³ÀÇ ¸ŞÀÏÇÔÀ» ¼±ÅÃÇÏ¼¼¿ä."
+msgstr "ê²€ìƒ‰í•  ìµœì†Œí•œ í•œê°œì˜ ë©”ì¼í•¨ì„ ì„ íƒí•˜ì„¸ìš”."
 
 #: lib/Horde/Prefs/CategoryManager.php:72
 #, fuzzy
 msgid "Please type the new category name:"
-msgstr "»õ·Î¿î ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:"
+msgstr "ìƒˆë¡œìš´ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:"
 
 #: config/registry.php.dist:298
 msgid "Presentations"
-msgstr "È¯°æ¼³Á¤"
+msgstr "í™˜ê²½ì„¤ì •"
 
 #: lib/Horde/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_lang.js:120
 #: templates/javascript/htmlarea_anselimage_lang.js:23
 msgid "Preview"
-msgstr "¹Ì¸®º¸±â"
+msgstr "ë¯¸ë¦¬ë³´ê¸°"
 
 #: templates/javascript/htmlarea_lang.js:121
 #: templates/javascript/htmlarea_anselimage_lang.js:24
 msgid "Preview the image in a new window"
-msgstr "»õ Ã¢¿¡ ¹Ì¸®º¸±â"
+msgstr "ìƒˆ ì°½ì— ë¯¸ë¦¬ë³´ê¸°"
 
 #: lib/Horde/UI/Pager.php:71 lib/Horde/UI/Pager.php:72
 msgid "Previous Page"
-msgstr "ÀÌÀü ÆäÀÌÁö"
+msgstr "ì´ì „ í˜ì´ì§€"
 
 #: lib/Horde/Prefs/UI.php:356 lib/Horde/Prefs/UI.php:360
 #, fuzzy
 msgid "Previous options"
-msgstr "ÀÌÀü ¸Ş½ÃÁö"
+msgstr "ì´ì „ ë©”ì‹œì§€"
 
 #: templates/javascript/htmlarea_lang.js:41
 msgid "Print document"
-msgstr "¹®¼­ ÀÎ¼â"
+msgstr "ë¬¸ì„œ ì¸ì‡„"
 
 #: lib/Horde/Menu.php:175
 #, fuzzy
 msgid "Problem"
-msgstr "¹®Á¦ ¹ß»ı?"
+msgstr "ë¬¸ì œ ë°œìƒ?"
 
 #: services/problem.php:112
 msgid "Problem Description"
-msgstr "¹®Á¦ ¼³¸í"
+msgstr "ë¬¸ì œ ì„¤ëª…"
 
 #: lib/Horde/Perms.php:295 templates/shares/edit.inc:34
 #: templates/shares/edit.inc:68 templates/shares/edit.inc:91
@@ -2474,603 +2474,603 @@ msgstr "¹®Á¦ ¼³¸í"
 #: templates/shares/edit.inc:180
 #, fuzzy
 msgid "Read"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:90
 #, fuzzy
 msgid "Read messages"
-msgstr "»õ ¸ŞÀÏ"
+msgstr "ìƒˆ ë©”ì¼"
 
 #: templates/javascript/htmlarea_lang.js:34
 msgid "Redoes your last action"
-msgstr "¸¶Áö¸· ¸í·É ¹İº¹"
+msgstr "ë§ˆì§€ë§‰ ëª…ë ¹ ë°˜ë³µ"
 
 #: config/prefs.php.dist:331
 #, fuzzy
 msgid "Refresh Portal View:"
-msgstr "¸ŞÀÏÇÔ »õ·Î ÀĞ±â:"
+msgstr "ë©”ì¼í•¨ ìƒˆë¡œ ì½ê¸°:"
 
 #: lib/Horde/Form.php:889 lib/Horde/Form.php:1205 lib/Horde/Form.php:1227
 #, fuzzy
 msgid "Regex"
-msgstr "Àç¼³Á¤"
+msgstr "ì¬ì„¤ì •"
 
 #: config/prefs.php.dist:114
 #, fuzzy
 msgid "Remote Servers"
-msgstr "¼±ÅÃµÈ ¸ŞÀÏ »èÁ¦"
+msgstr "ì„ íƒëœ ë©”ì¼ ì‚­ì œ"
 
 #: templates/admin/groups/edit.inc:21 templates/admin/user/approve.inc:40
 #: templates/admin/user/removequeued.inc:15
 #, fuzzy
 msgid "Remove"
-msgstr "Æä¾î(pair) »èÁ¦"
+msgstr "í˜ì–´(pair) ì‚­ì œ"
 
 #: templates/portal/layout.inc:11
 #, fuzzy
 msgid "Remove Block"
-msgstr "¼±ÅÃµÈ ¸ŞÀÏ »èÁ¦"
+msgstr "ì„ íƒëœ ë©”ì¼ ì‚­ì œ"
 
 #: lib/Horde/UI/VarRenderer/html.php:532
 #, fuzzy
 msgid "Remove column"
-msgstr "¾Æ·¡·Î ÀÌµ¿"
+msgstr "ì•„ë˜ë¡œ ì´ë™"
 
 #: templates/data/csvmap.inc:136
 msgid "Remove pair"
-msgstr "Æä¾î(pair) »èÁ¦"
+msgstr "í˜ì–´(pair) ì‚­ì œ"
 
 #: templates/javascript/htmlarea_context_lang.js:41
 #, fuzzy
 msgid "Remove the"
-msgstr "¼±ÅÃµÈ ¸ŞÀÏ »èÁ¦"
+msgstr "ì„ íƒëœ ë©”ì¼ ì‚­ì œ"
 
 #: templates/admin/user/remove.inc:16
 #, fuzzy
 msgid "Remove user"
-msgstr "Æä¾î(pair) »èÁ¦"
+msgstr "í˜ì–´(pair) ì‚­ì œ"
 
 #: templates/admin/user/remove.inc:7
 #, fuzzy, php-format
 msgid "Remove user: %s"
-msgstr "Æä¾î(pair) »èÁ¦"
+msgstr "í˜ì–´(pair) ì‚­ì œ"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:197
 #: lib/Horde/MIME/Viewer/icalendar.php:280
 #: lib/Horde/MIME/Viewer/icalendar.php:349
 #, fuzzy
 msgid "Reply Sent."
-msgstr "È¸½Å:"
+msgstr "íšŒì‹ :"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:189
 #, fuzzy, php-format
 msgid "Reply: %s"
-msgstr "È¸½Å:"
+msgstr "íšŒì‹ :"
 
 #: lib/Horde.php:180 lib/Horde.php:503
 #, fuzzy, php-format
 msgid "Required '%s' not specified in %s configuration."
-msgstr "VFS ¼³Á¤ Á¤º¸¿¡¼­ 'port'ÀÌ ¾ø½À´Ï´Ù."
+msgstr "VFS ì„¤ì • ì •ë³´ì—ì„œ 'port'ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:601 lib/VFS/ftp.php:779 lib/VFS/sql_file.php:763
 #, fuzzy, php-format
 msgid "Required '%s' not specified in VFS configuration."
-msgstr "VFS ¼³Á¤ Á¤º¸¿¡¼­ 'port'ÀÌ ¾ø½À´Ï´Ù."
+msgstr "VFS ì„¤ì • ì •ë³´ì—ì„œ 'port'ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Util.php:761
 #, fuzzy, php-format
 msgid "Required '%s' not specified in configuration."
-msgstr "VFS ¼³Á¤ Á¤º¸¿¡¼­ 'port'ÀÌ ¾ø½À´Ï´Ù."
+msgstr "VFS ì„¤ì • ì •ë³´ì—ì„œ 'port'ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/user.php:31 lib/Horde/Form.php:339 lib/Horde/Form/Renderer.php:316
 #: templates/rpcsum/rpcsum.inc:101 templates/admin/user/update.inc:44
 msgid "Reset"
-msgstr "ÀÔ·Â Ãë¼Ò"
+msgstr "ì…ë ¥ ì·¨ì†Œ"
 
 #: services/resetpassword.php:46
 #, fuzzy
 msgid "Reset Password"
-msgstr "¾ÏÈ£"
+msgstr "ì•”í˜¸"
 
 #: services/resetpassword.php:27
 #, fuzzy
 msgid "Reset Your Password"
-msgstr "¾ÏÈ£ È®ÀÎ"
+msgstr "ì•”í˜¸ í™•ì¸"
 
 #: admin/phpshell.php:66 admin/cmdshell.php:28 admin/sqlshell.php:73
 #, fuzzy
 msgid "Results"
-msgstr "°Ë»ö °á°ú"
+msgstr "ê²€ìƒ‰ ê²°ê³¼"
 
 #: po/translation.php:819
 #, fuzzy
 msgid "Results:"
-msgstr "°Ë»ö °á°ú"
+msgstr "ê²€ìƒ‰ ê²°ê³¼"
 
 #: templates/rpcsum/rpcsum.inc:102 templates/prefs/end.inc:7
 msgid "Return to Options"
-msgstr "¿É¼ÇÀ¸·Î µ¹¾Æ°¡±â"
+msgstr "ì˜µì…˜ìœ¼ë¡œ ëŒì•„ê°€ê¸°"
 
 #: admin/setup/config.php:44 admin/setup/config.php:48
 #, fuzzy
 msgid "Revert Configuration"
-msgstr "¸ŞÀÏ ¼­¹ö Á¤º¸»çÇ×"
+msgstr "ë©”ì¼ ì„œë²„ ì •ë³´ì‚¬í•­"
 
 #: config/prefs.php.dist:130
 #, fuzzy
 msgid "Rich Text Editor Options"
-msgstr "¿É¼ÇÀ¸·Î µ¹¾Æ°¡±â"
+msgstr "ì˜µì…˜ìœ¼ë¡œ ëŒì•„ê°€ê¸°"
 
 #: templates/javascript/htmlarea_table_lang.js:48
 #: templates/javascript/htmlarea_lang.js:70
 msgid "Right"
-msgstr "¿À¸¥ÂÊ"
+msgstr "ì˜¤ë¥¸ìª½"
 
 #: templates/javascript/htmlarea_context_lang.js:28
 msgid "Ro_w Properties..."
-msgstr "_wÇà ¼Ó¼º..."
+msgstr "_wí–‰ ì†ì„±..."
 
 #: lib/Horde/MIME/Viewer/vcard.php:237 lib/Horde/MIME/Viewer/icalendar.php:583
 msgid "Role"
-msgstr "¿ªÇÒ"
+msgstr "ì—­í• "
 
 #: templates/javascript/htmlarea_table_lang.js:49
 msgid "Row Properties"
-msgstr "Çà ¼Ó¼º"
+msgstr "í–‰ ì†ì„±"
 
 #: templates/javascript/htmlarea_table_lang.js:70
 msgid "Row properties"
-msgstr "Çà ¼Ó¼º"
+msgstr "í–‰ ì†ì„±"
 
 #: templates/javascript/htmlarea_lang.js:101
 msgid "Rows:"
-msgstr "Çà:"
+msgstr "í–‰:"
 
 #: templates/javascript/htmlarea_table_lang.js:53
 #, fuzzy
 msgid "Rules"
-msgstr "¿ªÇÒ"
+msgstr "ì—­í• "
 
 #: lib/Horde/Crypt/smime.php:341
 #, fuzzy
 msgid "S/MIME Encrypted Message"
-msgstr "¸Ş½ÃÁö Àü¼Û"
+msgstr "ë©”ì‹œì§€ ì „ì†¡"
 
 #: config/registry.php.dist:481
 #, fuzzy
 msgid "SMS Messaging"
-msgstr "¸Ş½ÃÁö º¸±â"
+msgstr "ë©”ì‹œì§€ ë³´ê¸°"
 
 #: templates/javascript/open_calendar.js:61
 #, fuzzy
 msgid "Sa"
-msgstr "ÀúÀå"
+msgstr "ì €ì¥"
 
 #: templates/javascript/htmlarea_lang.js:92
 msgid "Same frame (_self)"
-msgstr "°°Àº ÇÁ·¹ÀÓ(_self)"
+msgstr "ê°™ì€ í”„ë ˆì„(_self)"
 
 #: templates/portal/layout.inc:98
 msgid "Save"
-msgstr "ÀúÀå"
+msgstr "ì €ì¥"
 
 #: templates/shares/edit.inc:216
 #, fuzzy, php-format
 msgid "Save %s"
-msgstr "´Ù¸¥ÀÌ¸§À¸·Î ÀúÀå"
+msgstr "ë‹¤ë¥¸ì´ë¦„ìœ¼ë¡œ ì €ì¥"
 
 #: templates/admin/groups/edit.inc:49
 #, fuzzy, php-format
 msgid "Save '%s'"
-msgstr "´Ù¸¥ÀÌ¸§À¸·Î ÀúÀå"
+msgstr "ë‹¤ë¥¸ì´ë¦„ìœ¼ë¡œ ì €ì¥"
 
 #: templates/prefs/end.inc:5
 msgid "Save Options"
-msgstr "¼±ÅÃ»çÇ× ÀúÀå"
+msgstr "ì„ íƒì‚¬í•­ ì €ì¥"
 
 #: templates/admin/user/list.inc:15 templates/admin/user/list.inc:17
 msgid "Search"
-msgstr "°Ë»ö"
+msgstr "ê²€ìƒ‰"
 
 #: config/registry.php.dist:281
 #, fuzzy
 msgid "Search Engines"
-msgstr "°Ë»ö °á°ú"
+msgstr "ê²€ìƒ‰ ê²°ê³¼"
 
 #: lib/Horde/Form.php:2958
 #, fuzzy
 msgid "Select Files"
-msgstr "¸ğµÎ ¼±ÅÃ"
+msgstr "ëª¨ë‘ ì„ íƒ"
 
 #: lib/Horde/UI/VarRenderer/html.php:456
 #, fuzzy
 msgid "Select a date"
-msgstr "½Äº°ÀÚ ¼±ÅÃ"
+msgstr "ì‹ë³„ì ì„ íƒ"
 
 #: templates/shares/edit.inc:43
 #, fuzzy
 msgid "Select a new owner"
-msgstr "¼±ÅÃ Ãë¼Ò"
+msgstr "ì„ íƒ ì·¨ì†Œ"
 
 #: templates/rpcsum/rpcsum.inc:60
 #, fuzzy
 msgid "Select a server"
-msgstr "¹®ÀÚ¿­ ¼±ÅÃ:"
+msgstr "ë¬¸ìì—´ ì„ íƒ:"
 
 #: templates/shares/edit.inc:156
 #, fuzzy
 msgid "Select a user to add"
-msgstr "¹®ÀÚ¿­ ¼±ÅÃ:"
+msgstr "ë¬¸ìì—´ ì„ íƒ:"
 
 #: lib/Horde/Form.php:2655
 #, fuzzy
 msgid "Select all date components."
-msgstr "³¯ÀÚ Çü½Ä ¼±ÅÃ"
+msgstr "ë‚ ì í˜•ì‹ ì„ íƒ"
 
 #: lib/Horde/UI/VarRenderer/html.php:814
 #, fuzzy
 msgid "Select an object"
-msgstr "¼±ÅÃ Ãë¼Ò"
+msgstr "ì„ íƒ ì·¨ì†Œ"
 
 #: services/keyboard.php:37
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
-msgstr "¾Æ·¡ »óÀÚ¿¡¼­ ÇÊ¿äÇÑ ¹®ÀÚ¸¦ ¼±ÅÃÇÏ°í º¹»çÇÏ¿© ºÙ¿©³ÖÀ¸¼¼¿ä."
+msgstr "ì•„ë˜ ìƒìì—ì„œ í•„ìš”í•œ ë¬¸ìë¥¼ ì„ íƒí•˜ê³  ë³µì‚¬í•˜ì—¬ ë¶™ì—¬ë„£ìœ¼ì„¸ìš”."
 
 #: templates/data/date.inc:34
 msgid "Select the date delimiter:"
-msgstr "³¯ÀÚ ±¸ºĞÇ¥½Ã ¼±ÅÃ:"
+msgstr "ë‚ ì êµ¬ë¶„í‘œì‹œ ì„ íƒ:"
 
 #: templates/data/date.inc:44
 msgid "Select the date format:"
-msgstr "³¯ÀÚ Çü½Ä ¼±ÅÃ"
+msgstr "ë‚ ì í˜•ì‹ ì„ íƒ"
 
 #: templates/prefs/identityselect.inc:85
 #, fuzzy
 msgid "Select the identity you want to change:"
-msgstr "ÀÓÆ÷Æ®ÇÒ À§Ä¡ ¼±ÅÃ:"
+msgstr "ì„í¬íŠ¸í•  ìœ„ì¹˜ ì„ íƒ:"
 
 #: templates/data/time.inc:16
 #, fuzzy
 msgid "Select the time delimiter:"
-msgstr "³¯ÀÚ ±¸ºĞÇ¥½Ã ¼±ÅÃ:"
+msgstr "ë‚ ì êµ¬ë¶„í‘œì‹œ ì„ íƒ:"
 
 #: templates/data/time.inc:25
 msgid "Select the time format:"
-msgstr "½Ã°£ Çü½Ä ¼±ÅÃ"
+msgstr "ì‹œê°„ í˜•ì‹ ì„ íƒ"
 
 #: templates/data/csvmap.inc:64
 msgid "Select two matching fields."
-msgstr "µÎ°³ÀÇ ÀÏÄ¡ÇÏ´Â Ç×¸ñ ¼±ÅÃ"
+msgstr "ë‘ê°œì˜ ì¼ì¹˜í•˜ëŠ” í•­ëª© ì„ íƒ"
 
 #: config/prefs.php.dist:238
 msgid "Select your preferred language:"
-msgstr "ÀÚÁÖ»ç¿ëÇÏ´Â ¾ğ¾î¸¦ ¼±ÅÃÇÏ¼¼¿ä."
+msgstr "ìì£¼ì‚¬ìš©í•˜ëŠ” ì–¸ì–´ë¥¼ ì„ íƒí•˜ì„¸ìš”."
 
 #: lib/Horde/MIME/Viewer/icalendar.php:653
 #, fuzzy
 msgid "Send Latest Information"
-msgstr "¸ŞÀÏ ¼­¹ö Á¤º¸»çÇ×"
+msgstr "ë©”ì¼ ì„œë²„ ì •ë³´ì‚¬í•­"
 
 #: templates/problem/problem.inc:58
 msgid "Send Problem Report"
-msgstr "¹®Á¦¹ß»ı º¸°í¼­ Àü¼ÛÇÏ±â"
+msgstr "ë¬¸ì œë°œìƒ ë³´ê³ ì„œ ì „ì†¡í•˜ê¸°"
 
 #: lib/Horde/UI/VarRenderer/html.php:964
 #, fuzzy
 msgid "Send SMS"
-msgstr "¸Ş½ÃÁö Àü¼Û"
+msgstr "ë©”ì‹œì§€ ì „ì†¡"
 
 #: lib/Horde/UI/VarRenderer/html.php:382 lib/Horde/UI/VarRenderer/html.php:419
 #: templates/javascript/open_calendar.js:73
 msgid "September"
-msgstr "9¿ù"
+msgstr "9ì›”"
 
 #: lib/Horde/Form.php:2296
 #, fuzzy
 msgid "Set"
-msgstr "¸Ş½ÃÁö ¼±ÅÃ"
+msgstr "ë©”ì‹œì§€ ì„ íƒ"
 
 #: config/prefs.php.dist:84
 #, fuzzy
 msgid "Set your preferred language, timezone and date options."
-msgstr "ÆäÀÌÁö °»½ÅÁÖ±â ¹× ±âÅ¸ È­¸é ¼³Á¤À» ÇÏ¼¼¿ä."
+msgstr "í˜ì´ì§€ ê°±ì‹ ì£¼ê¸° ë° ê¸°íƒ€ í™”ë©´ ì„¤ì •ì„ í•˜ì„¸ìš”."
 
 #: config/prefs.php.dist:98
 #, fuzzy
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
-msgstr "ÆäÀÌÁö °»½ÅÁÖ±â ¹× ±âÅ¸ È­¸é ¼³Á¤À» ÇÏ¼¼¿ä."
+msgstr "í˜ì´ì§€ ê°±ì‹ ì£¼ê¸° ë° ê¸°íƒ€ í™”ë©´ ì„¤ì •ì„ í•˜ì„¸ìš”."
 
 #: templates/problem/problem.inc:43
 #, fuzzy
 msgid "Short Summary"
-msgstr "°£´ÜÇÑ ¿ä¾à:"
+msgstr "ê°„ë‹¨í•œ ìš”ì•½:"
 
 #: config/prefs.php.dist:480
 #, fuzzy
 msgid "Show last login time when logging in?"
-msgstr "·Î±×ÀÎ½Ã ÃÖÁ¾ ·Î±×ÀÎ ½Ã°£ º¸¿©ÁÖ±â"
+msgstr "ë¡œê·¸ì¸ì‹œ ìµœì¢… ë¡œê·¸ì¸ ì‹œê°„ ë³´ì—¬ì£¼ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:58
 msgid "Show the Table Cell Properties dialog"
-msgstr "¼¿ ¼Ó¼ºÃ¢ º¸±â"
+msgstr "ì…€ ì†ì„±ì°½ ë³´ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:63
 msgid "Show the Table Properties dialog"
-msgstr "Ç¥ ¼Ó¼ºÃ¢ º¸±â"
+msgstr "í‘œ ì†ì„±ì°½ ë³´ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:59
 msgid "Show the Table Row Properties dialog"
-msgstr "¿­ ¼Ó¼ºÃ¢ º¸±â"
+msgstr "ì—´ ì†ì„±ì°½ ë³´ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:51
 msgid "Show the image properties dialog"
-msgstr "±×¸² ¼Ó¼ºÃ¢ º¸±â"
+msgstr "ê·¸ë¦¼ ì†ì„±ì°½ ë³´ê¸°"
 
 #: lib/Horde/Form.php:1751
 #, fuzzy
 msgid "Show upload"
-msgstr "³»·Á¹Ş±â"
+msgstr "ë‚´ë ¤ë°›ê¸°"
 
 #: lib/Horde/Crypt/smime.php:736
 #, fuzzy
 msgid "Signature"
-msgstr "¼­¸í:"
+msgstr "ì„œëª…:"
 
 #: lib/Horde/Form.php:891 lib/Horde/Form.php:1207 lib/Horde/Form.php:1229
 #: lib/Horde/Form.php:2230 lib/Horde/Form.php:2919 lib/Horde/Form.php:3108
 #: lib/Horde/MIME/Viewer/rar.php:68 lib/Horde/MIME/Viewer/zip.php:72
 #: lib/Horde/MIME/Viewer/tgz.php:87
 msgid "Size"
-msgstr "Å©±â"
+msgstr "í¬ê¸°"
 
 #: templates/maintenance/confirm_bottom.inc:9
 msgid "Skip Maintenance"
-msgstr "À¯Áö°ü¸® »ı·«"
+msgstr "ìœ ì§€ê´€ë¦¬ ìƒëµ"
 
 #: lib/Horde/Form.php:2915
 #, fuzzy
 msgid "Sort order selection"
-msgstr "Á¤·Ä ¹æ¹ı"
+msgstr "ì •ë ¬ ë°©ë²•"
 
 #: lib/Net/SMS/sms2email_http.php:581 lib/Net/SMS/sms2email_http.php:613
 #: lib/Net/SMS/clickatell_http.php:223 lib/Net/SMS/clickatell_http.php:255
 #, fuzzy
 msgid "Source address"
-msgstr "Á÷Àå ÁÖ¼Ò"
+msgstr "ì§ì¥ ì£¼ì†Œ"
 
 #: templates/javascript/htmlarea_lang.js:113
 msgid "Space between adjacent cells"
-msgstr "¼¿°£°İ"
+msgstr "ì…€ê°„ê²©"
 
 #: templates/javascript/htmlarea_lang.js:115
 msgid "Space between content and border in cell"
-msgstr "¼¿ °æ°è¿Í ³»¿ë »çÀÌÀÇ °£°İ"
+msgstr "ì…€ ê²½ê³„ì™€ ë‚´ìš© ì‚¬ì´ì˜ ê°„ê²©"
 
 #: lib/Horde/Form.php:815
 #, fuzzy
 msgid "Spacer"
-msgstr "ÀúÀå"
+msgstr "ì €ì¥"
 
 #: templates/javascript/htmlarea_table_lang.js:55
 #: templates/javascript/htmlarea_lang.js:80
 msgid "Spacing"
-msgstr "°Å¸®"
+msgstr "ê±°ë¦¬"
 
 #: templates/javascript/htmlarea_table_lang.js:54
 msgid "Spacing and padding"
-msgstr "°Å¸®¿Í Ã¤¿ì±â"
+msgstr "ê±°ë¦¬ì™€ ì±„ìš°ê¸°"
 
 #: services/keyboard.php:14
 msgid "Special Character Input"
-msgstr "Æ¯¼ö ¹®ÀÚ ÀÔ·Â"
+msgstr "íŠ¹ìˆ˜ ë¬¸ì ì…ë ¥"
 
 #: templates/javascript/htmlarea_table_lang.js:62
 msgid "Split cell"
-msgstr "¼¿ ºĞÇÒ"
+msgstr "ì…€ ë¶„í• "
 
 #: templates/javascript/htmlarea_table_lang.js:66
 msgid "Split column"
-msgstr "¿­ ºĞÇÒ"
+msgstr "ì—´ ë¶„í• "
 
 #: templates/javascript/htmlarea_table_lang.js:71
 msgid "Split row"
-msgstr "Çà ºĞÇÒ"
+msgstr "í–‰ ë¶„í• "
 
 #: lib/Block/fortune.php:61
 #, fuzzy
 msgid "Sports"
-msgstr "ÀĞ¾î¿À±â(ÀÓÆ÷Æ®)"
+msgstr "ì½ì–´ì˜¤ê¸°(ì„í¬íŠ¸)"
 
 #: lib/Block/weatherdotcom.php:68 lib/Block/metar.php:72
 #, fuzzy
 msgid "Standard"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: lib/Horde/Form.php:2804
 #, fuzzy
 msgid "Storage format"
-msgstr "¸ŞÀÏ ¼­¹ö Á¤º¸»çÇ×"
+msgstr "ë©”ì¼ ì„œë²„ ì •ë³´ì‚¬í•­"
 
 #: lib/Horde/Crypt/smime.php:596
 #, fuzzy
 msgid "Street Address"
-msgstr "Á÷Àå ÁÖ¼Ò"
+msgstr "ì§ì¥ ì£¼ì†Œ"
 
 #: templates/javascript/htmlarea_lang.js:11
 msgid "Strikethrough"
-msgstr "°¡¿îµ¥ÁÙ"
+msgstr "ê°€ìš´ë°ì¤„"
 
 #: templates/javascript/htmlarea_table_lang.js:23
 msgid "Style [CSS]"
-msgstr "½ºÅ¸ÀÏ[CSS]"
+msgstr "ìŠ¤íƒ€ì¼[CSS]"
 
 #: util/icon_browser.php:37
 #, fuzzy, php-format
 msgid "Subdirectory '%s' not found."
-msgstr "ÅëÁö ¸®½º³Ê %sÀ»(¸¦) Ã£À» ¼ö ¾ø½À´Ï´Ù."
+msgstr "í†µì§€ ë¦¬ìŠ¤ë„ˆ %sì„(ë¥¼) ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Crypt/smime.php:635 lib/Horde/MIME/Viewer/rfc822.php:78
 msgid "Subject"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Horde/Form.php:332 lib/Horde/Form/Renderer.php:313
 msgid "Submit"
-msgstr "Á¦Ãâ"
+msgstr "ì œì¶œ"
 
 #: templates/javascript/htmlarea_lang.js:12
 msgid "Subscript"
-msgstr "¾Æ·¡Ã·ÀÚ"
+msgstr "ì•„ë˜ì²¨ì"
 
 #: admin/sqlshell.php:113 lib/Horde/Notification/Listener/status.php:30
 msgid "Success"
-msgstr "¼º°ø"
+msgstr "ì„±ê³µ"
 
 #: admin/user.php:85
 #, php-format
 msgid "Successfully added '%s' to the system."
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/user.php:124
 #, fuzzy, php-format
 msgid "Successfully cleared data for user '%s' from the system."
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡¼­ »èÁ¦µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì—ì„œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/groups.php:81 admin/perms/delete.php:61
 #, fuzzy, php-format
 msgid "Successfully deleted '%s'."
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/user.php:105
 #, php-format
 msgid "Successfully removed '%s' from the system."
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡¼­ »èÁ¦µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì—ì„œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/user.php:168
 #, fuzzy, php-format
 msgid "Successfully updated '%s'"
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/setup/config.php:71 admin/setup/index.php:72
 #, fuzzy, php-format
 msgid "Successfully wrote %s"
-msgstr "'%s'°¡ ½Ã½ºÅÛ¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "'%s'ê°€ ì‹œìŠ¤í…œì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/icalendar.php:558
 #: lib/Horde/MIME/Viewer/icalendar.php:560
 #: templates/javascript/htmlarea_table_lang.js:56
 msgid "Summary"
-msgstr "¿ä¾à"
+msgstr "ìš”ì•½"
 
 #: lib/Block/weatherdotcom.php:182
 #, fuzzy
 msgid "Sunset"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Block/weatherdotcom.php:181
 #, fuzzy
 msgid "Sunset: "
-msgstr " Á¦¸ñ: "
+msgstr " ì œëª©: "
 
 #: templates/javascript/htmlarea_lang.js:13
 msgid "Superscript"
-msgstr "À­Ã·ÀÚ"
+msgstr "ìœ—ì²¨ì"
 
 #: config/registry.php.dist:465
 #, fuzzy
 msgid "Support"
-msgstr "ÀĞ¾î¿À±â(ÀÓÆ÷Æ®)"
+msgstr "ì½ì–´ì˜¤ê¸°(ì„í¬íŠ¸)"
 
 #: lib/Horde/NLS/tld.php:215 lib/Horde/NLS/countries.php:212
 #: lib/Horde/NLS/GeoIP.php:107
 #, fuzzy
 msgid "Suriname"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 #: lib/Horde/Crypt/smime.php:598
 #, fuzzy
 msgid "Surname"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 #: lib/Horde/NLS/tld.php:205 lib/Horde/NLS/countries.php:215
 #: lib/Horde/NLS/GeoIP.php:105
 #, fuzzy
 msgid "Sweden"
-msgstr "ÀĞÀº ¸ŞÀÏ"
+msgstr "ì½ì€ ë©”ì¼"
 
 #: lib/Horde/Data/tsv.php:171
 #, fuzzy
 msgid "TSV file"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Horde/UI/Table.php:135
 #, fuzzy
 msgid "Table"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: templates/javascript/htmlarea_table_lang.js:73
 msgid "Table Properties"
-msgstr "Ç¥ ¼Ó¼º"
+msgstr "í‘œ ì†ì„±"
 
 #: templates/javascript/htmlarea_table_lang.js:72
 msgid "Table properties"
-msgstr "Ç¥ ¼Ó¼º"
+msgstr "í‘œ ì†ì„±"
 
 #: config/registry.php.dist:168
 msgid "Tasks"
-msgstr "ÀÛ¾÷"
+msgstr "ì‘ì—…"
 
 #: admin/templates.php:169
 #, fuzzy
 msgid "Template Administration"
-msgstr "°ü¸®"
+msgstr "ê´€ë¦¬"
 
 #: lib/Horde/Form.php:1203
 msgid "Text"
-msgstr "¹®ÀÚ¿­"
+msgstr "ë¬¸ìì—´"
 
 #: config/prefs.php.dist:365
 msgid "Text Only"
-msgstr "¹®ÀÚ"
+msgstr "ë¬¸ì"
 
 #: templates/javascript/htmlarea_table_lang.js:74
 msgid "Text align"
-msgstr "¹®ÀÚ Á¤·Ä"
+msgstr "ë¬¸ì ì •ë ¬"
 
 #: templates/javascript/htmlarea_lang.js:71
 #, fuzzy
 msgid "Texttop"
-msgstr "¹®ÀÚ¿­"
+msgstr "ë¬¸ìì—´"
 
 #: lib/Horde/Auth.php:944
 msgid "Thank you for using the system."
-msgstr "»ç¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù."
+msgstr "ì‚¬ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/vcard.php:54
 #, fuzzy
 msgid "The contact was successfully added to your address book."
-msgstr "Ç×¸ñ \"%s\"°¡ ÁÖ¼Ò·Ï¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù."
+msgstr "í•­ëª© \"%s\"ê°€ ì£¼ì†Œë¡ì— ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:164
 #, fuzzy
 msgid "The file can not be copied onto itself."
-msgstr "ÆÄÀÏ¿¡ ¾Æ¹«·± ÀÚ·á°¡ ¾ø½À´Ï´Ù."
+msgstr "íŒŒì¼ì— ì•„ë¬´ëŸ° ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Data.php:264
 msgid "The file contained no data."
-msgstr "ÆÄÀÏ¿¡ ¾Æ¹«·± ÀÚ·á°¡ ¾ø½À´Ï´Ù."
+msgstr "íŒŒì¼ì— ì•„ë¬´ëŸ° ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/rfc822.php:72
 msgid "The following are the headers for this message/rfc822 message."
-msgstr "¾Æ·¡´Â ÀÌ message/rfc822 ÆíÁöÀÇ ¸Ó¸´¸»ÀÔ´Ï´Ù."
+msgstr "ì•„ë˜ëŠ” ì´ message/rfc822 í¸ì§€ì˜ ë¨¸ë¦¿ë§ì…ë‹ˆë‹¤."
 
 #: services/prefs.php:88
 #, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "½Äº°ÀÚ \"%s\" °¡ »èÁ¦µÇ¾ú½À´Ï´Ù."
+msgstr "ì‹ë³„ì \"%s\" ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/deb.php:35 lib/Horde/MIME/Viewer/enscript.php:37
 #: lib/Horde/MIME/Viewer/mspowerpoint.php:35
@@ -3081,65 +3081,65 @@ msgstr "½Äº°ÀÚ \"%s\" °¡ »èÁ¦µÇ¾ú½À´Ï´Ù."
 #, fuzzy, php-format
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
-msgstr "ÀÌ ¸Ş½ÃÁö ÇüÅÂ(%s)¸¦ º¸±â À§ÇÑ ÇÁ·Î±×·¥À» Ã£À» ¼ö ¾ø½À´Ï´Ù."
+msgstr "ì´ ë©”ì‹œì§€ í˜•íƒœ(%s)ë¥¼ ë³´ê¸° ìœ„í•œ í”„ë¡œê·¸ë¨ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: services/portal/rpcsum.php:78
 #, fuzzy, php-format
 msgid "The server \"%s\" has been deleted."
-msgstr "½Äº°ÀÚ \"%s\" °¡ »èÁ¦µÇ¾ú½À´Ï´Ù."
+msgstr "ì‹ë³„ì \"%s\" ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: services/portal/rpcsum.php:49
 #, fuzzy, php-format
 msgid "The server \"%s\" has been saved."
-msgstr "½Äº°ÀÚ \"%s\" °¡ ÀúÀåµÇ¾ú½À´Ï´Ù."
+msgstr "ì‹ë³„ì \"%s\" ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: admin/user.php:198
 #, fuzzy, php-format
 msgid "The signup request for %s has been removed."
-msgstr "½Äº°ÀÚ \"%s\" °¡ ÀúÀåµÇ¾ú½À´Ï´Ù."
+msgstr "ì‹ë³„ì \"%s\" ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Data/csv.php:250 lib/Horde/Data/tsv.php:177
 #, fuzzy
 msgid "The uploaded file could not be saved."
-msgstr "¼­¸íÀ» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "ì„œëª…ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/icalendar.php:93
 #, fuzzy
 msgid "The user's free/busy information was sucessfully stored."
-msgstr "¼­¸íÀÌ º¯°æµÇ¾ú½À´Ï´Ù."
+msgstr "ì„œëª…ì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Prefs/UI.php:182
 msgid "There are no options available."
-msgstr "ÀÌ¿ë°¡´ÉÇÑ ¼±ÅÃ»çÇ×ÀÌ ¾ø½À´Ï´Ù."
+msgstr "ì´ìš©ê°€ëŠ¥í•œ ì„ íƒì‚¬í•­ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: signup.php:55
 #, fuzzy, php-format
 msgid "There was a problem adding '%s' to the system. %s."
-msgstr "'%s'¸¦ ½Ã½ºÅÛ¿¡ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "'%s'ë¥¼ ì‹œìŠ¤í…œì— ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/user.php:73
 #, fuzzy, php-format
 msgid "There was a problem adding '%s' to the system: %s"
-msgstr "'%s'¸¦ ½Ã½ºÅÛ¿¡ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "'%s'ë¥¼ ì‹œìŠ¤í…œì— ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/user.php:122
 #, fuzzy, php-format
 msgid "There was a problem clearing data for user '%s' from the system: "
-msgstr "'%s'¸¦ ½Ã½ºÅÛ¿¡¼­ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "'%s'ë¥¼ ì‹œìŠ¤í…œì—ì„œ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/user.php:103
 #, fuzzy, php-format
 msgid "There was a problem removing '%s' from the system: "
-msgstr "'%s'¸¦ ½Ã½ºÅÛ¿¡¼­ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "'%s'ë¥¼ ì‹œìŠ¤í…œì—ì„œ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/user.php:159
 #, fuzzy, php-format
 msgid "There was a problem updating '%s': %s"
-msgstr "'%s'¸¦ ½Ã½ºÅÛ¿¡ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "'%s'ë¥¼ ì‹œìŠ¤í…œì— ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Browser.php:899
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "ÆÄÀÏ ¿Ã¸®±â¿¡ ¹®Á¦°¡ ÀÖ½À´Ï´Ù. %s ÆÄÀÏÀÌ ¾÷·ÎµåµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "íŒŒì¼ ì˜¬ë¦¬ê¸°ì— ë¬¸ì œê°€ ìˆìŠµë‹ˆë‹¤. %s íŒŒì¼ì´ ì—…ë¡œë“œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Browser.php:904
 #, fuzzy, php-format
@@ -3147,135 +3147,135 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"ÆÄÀÏ ¾÷·Îµå ¿À·ù. ÀÌÆÄÀÏÀº ¾÷·Îµå Çã¿ëµÈ ÃÖ´ë Å©±â(%d MB)º¸´Ù Å«°Í °°½À´Ï´Ù."
+"íŒŒì¼ ì—…ë¡œë“œ ì˜¤ë¥˜. ì´íŒŒì¼ì€ ì—…ë¡œë“œ í—ˆìš©ëœ ìµœëŒ€ í¬ê¸°(%d MB)ë³´ë‹¤ í°ê²ƒ ê°™ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Browser.php:906
 #, fuzzy, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"¾÷·Îµå ÆÄÀÏ¿¡ ¹®Á¦°¡ ÀÖ½À´Ï´Ù. ÀÌÆÄÀÏÀº ¾÷·Îµå ÃÖ´ëÇã¿ëÅ©±â¸¦ ÃÊ°úÇÕ´Ï´Ù."
+"ì—…ë¡œë“œ íŒŒì¼ì— ë¬¸ì œê°€ ìˆìŠµë‹ˆë‹¤. ì´íŒŒì¼ì€ ì—…ë¡œë“œ ìµœëŒ€í—ˆìš©í¬ê¸°ë¥¼ ì´ˆê³¼í•©ë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/rfc822.php:38
 #, fuzzy
 msgid "There was an error displaying this message part"
-msgstr "¸Ş½ÃÁö Àü¼Û ¿À·ù"
+msgstr "ë©”ì‹œì§€ ì „ì†¡ ì˜¤ë¥˜"
 
 #: lib/Horde/MIME/Viewer/vcard.php:42 lib/Horde/MIME/Viewer/vcard.php:51
 #, fuzzy
 msgid "There was an error importing the contact data."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:75
 #, fuzzy, php-format
 msgid "There was an error importing the event: %s."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Horde/Data/imc.php:32
 #, fuzzy
 msgid "There was an error importing the iCalendar data."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:105
 #, fuzzy, php-format
 msgid "There was an error importing the task: %s."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:91
 #, fuzzy, php-format
 msgid "There was an error importing user's free/busy information: %s."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Net/SMS/sms2email_http.php:665
 #, fuzzy
 msgid ""
 "There was an error updating the contact details. Please try again later."
-msgstr "¾÷·Îµå ÆÄÀÏ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ì—…ë¡œë“œ íŒŒì¼ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Net/SMS/sms2email_http.php:670
 #, fuzzy
 msgid ""
 "There was an error updating the distribution list. Please try again later."
-msgstr "¿äÃ»µÈ ¸Ş½ÃÁö ÀĞ±â ¿À·ù"
+msgstr "ìš”ì²­ëœ ë©”ì‹œì§€ ì½ê¸° ì˜¤ë¥˜"
 
 #: lib/Horde/Form.php:3130
 #, fuzzy
 msgid "This does not seem to be a valid card number."
-msgstr "ÀÌ °ªÀº ¼ıÀÚ¿©¾ß ÇÕ´Ï´Ù."
+msgstr "ì´ ê°’ì€ ìˆ«ìì—¬ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Form.php:984
 #, fuzzy
 msgid "This field must be a valid number."
-msgstr "ÀÌ °ªÀº ¼ıÀÚ¿©¾ß ÇÕ´Ï´Ù."
+msgstr "ì´ ê°’ì€ ìˆ«ìì—¬ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Form.php:561
 #, fuzzy
 msgid "This form has already been processed."
-msgstr "ÀÌ¹Ì ÁÖ¼Ò·Ï¿¡ µî·ÏµÇ¾î ÀÖ½À´Ï´Ù."
+msgstr "ì´ë¯¸ ì£¼ì†Œë¡ì— ë“±ë¡ë˜ì–´ ìˆìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Prefs/UI.php:128
 msgid "This number must be at least one."
-msgstr "ÀÌ ¼ıÀÚ´Â ÃÖ¼ÒÇÑ 1ÀÚ¸® ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù."
+msgstr "ì´ ìˆ«ìëŠ” ìµœì†Œí•œ 1ìë¦¬ ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Prefs/UI.php:126
 msgid "This value must be a number."
-msgstr "ÀÌ °ªÀº ¼ıÀÚ¿©¾ß ÇÕ´Ï´Ù."
+msgstr "ì´ ê°’ì€ ìˆ«ìì—¬ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Form.php:2411
 #, fuzzy
 msgid "Time"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Block/time.php:17
 #, fuzzy
 msgid "Time format"
-msgstr "½Ã°£ ¼³Á¤"
+msgstr "ì‹œê°„ ì„¤ì •"
 
 #: lib/Horde/Form.php:2522
 #, fuzzy
 msgid "Time selection"
-msgstr "½Ã°£ ¼³Á¤"
+msgstr "ì‹œê°„ ì„¤ì •"
 
 #: lib/Horde/MIME/Viewer/vcard.php:232 lib/Block/iframe.php:20
 msgid "Title"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: templates/javascript/htmlarea_lang.js:96
 msgid "Title (tooltip):"
-msgstr "Å¸ÀÌÆ²(ÅøÆÁ):"
+msgstr "íƒ€ì´í‹€(íˆ´íŒ):"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:80
 msgid "To"
-msgstr "¹Ş´Â »ç¶÷"
+msgstr "ë°›ëŠ” ì‚¬ëŒ"
 
 #: lib/Block/weatherdotcom.php:251
 #, fuzzy
 msgid "Today"
-msgstr "º»¹®"
+msgstr "ë³¸ë¬¸"
 
 #: templates/javascript/htmlarea_lang.js:28
 msgid "Toggle HTML Source"
-msgstr "HTML ¼Ò½º º¸±â"
+msgstr "HTML ì†ŒìŠ¤ ë³´ê¸°"
 
 #: lib/Horde/NLS/tld.php:223 lib/Horde/NLS/countries.php:223
 #: lib/Horde/NLS/GeoIP.php:110
 #, fuzzy
 msgid "Togo"
-msgstr "¹Ş´Â »ç¶÷"
+msgstr "ë°›ëŠ” ì‚¬ëŒ"
 
 #: templates/javascript/htmlarea_table_lang.js:81
 #: templates/javascript/htmlarea_lang.js:77
 msgid "Top"
-msgstr "À§"
+msgstr "ìœ„"
 
 #: templates/javascript/htmlarea_lang.js:93
 msgid "Top frame (_top)"
-msgstr "»óÀ§ ÇÁ·¹ÀÓ(_top)"
+msgstr "ìƒìœ„ í”„ë ˆì„(_top)"
 
 #: lib/Block/fortune.php:63
 #, fuzzy
 msgid "Translations"
-msgstr "È¯°æ¼³Á¤"
+msgstr "í™˜ê²½ì„¤ì •"
 
 #: lib/Horde/MIME/Viewer/vcard.php:252 lib/Block/iframe.php:17
 msgid "URL"
@@ -3284,356 +3284,356 @@ msgstr "URL"
 #: lib/VFS/file.php:360
 #, fuzzy
 msgid "Unable to access VFS directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:346
 #, fuzzy, php-format
 msgid "Unable to change permission for VFS file \"%s\"."
-msgstr "VFS ÆÄÀÏ %s/%sÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:330 lib/VFS/musql.php:502
 #, php-format
 msgid "Unable to change permission for VFS file %s/%s."
-msgstr "VFS ÆÄÀÏ %s/%sÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:704
 #, fuzzy, php-format
 msgid "Unable to change to %s."
-msgstr "SQL ¼­¹ö¿¡ Á¢¼ÓÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "SQL ì„œë²„ì— ì ‘ì†í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth/sql.php:375
 msgid "Unable to connect to SQL server."
-msgstr "SQL ¼­¹ö¿¡ Á¢¼ÓÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "SQL ì„œë²„ì— ì ‘ì†í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:788
 #, fuzzy
 msgid "Unable to connect with SSL."
-msgstr "SQL ¼­¹ö¿¡ Á¢¼ÓÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "SQL ì„œë²„ì— ì ‘ì†í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:170 lib/VFS/file.php:175 lib/VFS/sql_file.php:197
 #: lib/VFS/sql_file.php:202 lib/VFS/sql_file.php:210
 #, fuzzy
 msgid "Unable to copy VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:320
 #, fuzzy, php-format
 msgid "Unable to create VFS directory \"%s\"."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:295 lib/VFS/musql.php:273 lib/VFS/sql_file.php:270
 #, fuzzy
 msgid "Unable to create VFS directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/musql.php:126
 #, fuzzy
 msgid "Unable to create VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:212
 #, fuzzy
 msgid "Unable to create empty VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:249
 #, fuzzy, php-format
 msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:270 lib/VFS/sql.php:323 lib/VFS/musql.php:335
 #: lib/VFS/sql_file.php:362
 #, fuzzy, php-format
 msgid "Unable to delete %s, the directory is not empty"
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: admin/groups.php:79 admin/perms/delete.php:59
 #, fuzzy, php-format
 msgid "Unable to delete '%s': %s."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql_file.php:378 lib/VFS/sql_file.php:382
 #, fuzzy
 msgid "Unable to delete VFS directory recursively."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:276 lib/VFS/musql.php:348 lib/VFS/musql.php:361
 #: lib/VFS/musql.php:369 lib/VFS/sql_file.php:374
 #, fuzzy
 msgid "Unable to delete VFS directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:348 lib/VFS/sql.php:360
 #, fuzzy, php-format
 msgid "Unable to delete VFS directory: %s."
-msgstr "µğ·ºÅä¸® °Ë»ö¿À·ù: %s"
+msgstr "ë””ë ‰í† ë¦¬ ê²€ìƒ‰ì˜¤ë¥˜: %s"
 
 #: lib/VFS/ftp.php:179
 #, fuzzy, php-format
 msgid "Unable to delete VFS file \"%s\"."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:242 lib/VFS/sql.php:213 lib/VFS/musql.php:173
 #: lib/VFS/musql.php:186 lib/VFS/musql.php:193 lib/VFS/sql_file.php:412
 #: lib/VFS/sql_file.php:420
 #, fuzzy
 msgid "Unable to delete VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:337
 #, fuzzy, php-format
 msgid "Unable to delete VFS recursively: %s."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:752
 #, fuzzy
 msgid "Unable to determine current directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Net/IMSP.php:460 lib/Net/IMSP/Auth.php:119
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s Á¤ÀÇ¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "%s ì •ì˜ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:139 lib/VFS/file.php:144 lib/VFS/sql_file.php:165
 #: lib/VFS/sql_file.php:170
 #, fuzzy
 msgid "Unable to move VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:79
 #, fuzzy, php-format
 msgid "Unable to open VFS file \"%s\"."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:219 lib/VFS/sql_file.php:127 lib/VFS/sql_file.php:130
 #, fuzzy
 msgid "Unable to open VFS file for writing."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:73 lib/VFS/sql_file.php:73
 #, fuzzy
 msgid "Unable to open VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/tgz.php:47
 #, fuzzy
 msgid "Unable to open compressed archive."
-msgstr "È¯°æ¼³Á¤À» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "í™˜ê²½ì„¤ì •ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:622
 msgid "Unable to read the vfsroot directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql_file.php:316
 #, fuzzy
 msgid "Unable to rename VFS directory."
-msgstr "vfsroot µğ·ºÅä¸®¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "vfsroot ë””ë ‰í† ë¦¬ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:255
 #, fuzzy, php-format
 msgid "Unable to rename VFS directory: %s."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:296
 #, fuzzy, php-format
 msgid "Unable to rename VFS file \"%s\"."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:563 lib/VFS/musql.php:241
 #, php-format
 msgid "Unable to rename VFS file %s/%s."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/sql.php:249 lib/VFS/musql.php:222 lib/VFS/musql.php:485
 #: lib/VFS/sql_file.php:305 lib/VFS/sql_file.php:327
 #, fuzzy
 msgid "Unable to rename VFS file."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ISOWriter/mkisofs.php:51
 #, fuzzy
 msgid "Unable to run 'mkisofs'."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/MIME/Viewer/msword.php:62
 msgid "Unable to translate this Word document"
-msgstr "ÀÌ ¿öµå¹®¼­¸¦ º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "ì´ ì›Œë“œë¬¸ì„œë¥¼ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/ftp.php:127 lib/VFS/ftp.php:130
 #, fuzzy, php-format
 msgid "Unable to write VFS file \"%s\"."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:120
 #, fuzzy
 msgid "Unable to write VFS file (copy() failed)."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/VFS/file.php:223 lib/VFS/sql_file.php:135 lib/VFS/sql_file.php:140
 #, fuzzy
 msgid "Unable to write VFS file data."
-msgstr "VFS ÆÄÀÏ %s/%sÀ»(¸¦) º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "VFS íŒŒì¼ %s/%sì„(ë¥¼) ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_lang.js:10
 msgid "Underline"
-msgstr "¹ØÁÙ"
+msgstr "ë°‘ì¤„"
 
 #: templates/prefs/end.inc:6
 msgid "Undo Changes"
-msgstr "º¯°æ»çÇ× µÇµ¹¸®±â"
+msgstr "ë³€ê²½ì‚¬í•­ ë˜ëŒë¦¬ê¸°"
 
 #: templates/javascript/htmlarea_lang.js:33
 msgid "Undoes your last action"
-msgstr "¸¶Áö¸· ¸í·É Ãë¼Ò"
+msgstr "ë§ˆì§€ë§‰ ëª…ë ¹ ì·¨ì†Œ"
 
 #: lib/Horde/Prefs/CategoryManager.php:58
 #: templates/prefs/categorymanagement.inc:64
 #, fuzzy
 msgid "Unfiled"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/Horde/NLS/tld.php:238 lib/Horde/NLS/countries.php:235
 #: lib/Horde/NLS/GeoIP.php:75
 msgid "United Kingdom"
-msgstr "¿µ±¹"
+msgstr "ì˜êµ­"
 
 #: lib/Horde/NLS/tld.php:240 lib/Horde/NLS/countries.php:236
 #: lib/Horde/NLS/GeoIP.php:114
 msgid "United States"
-msgstr "¹Ì±¹"
+msgstr "ë¯¸êµ­"
 
 #: po/translation.php:1482
 #, fuzzy, php-format
 msgid "Unknown command: %s"
-msgstr "%s ³»·Á¹Ş±â"
+msgstr "%s ë‚´ë ¤ë°›ê¸°"
 
 #: templates/javascript/htmlarea_context_lang.js:57
 msgid "Unlink the current element"
-msgstr "ÇöÀç ¿ä¼Ò¿¡ ¸µÅ© Á¦°Å"
+msgstr "í˜„ì¬ ìš”ì†Œì— ë§í¬ ì œê±°"
 
 #: lib/Horde/Identity.php:298
 msgid "Unnamed"
-msgstr "ÀÌ¸§ ¾øÀ½"
+msgstr "ì´ë¦„ ì—†ìŒ"
 
 #: templates/javascript/htmlarea_table_lang.js:82
 msgid "Unset color"
-msgstr "»ö±ò Á¦°Å"
+msgstr "ìƒ‰ê¹” ì œê±°"
 
 #: po/translation.php:657
 #, fuzzy
 msgid "Untranslated"
-msgstr "È¸½ÅÇÏÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "íšŒì‹ í•˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: admin/perms/edit.php:106 lib/Horde/Perms/UI.php:191
 #: templates/admin/user/list.inc:36
 #, fuzzy
 msgid "Update"
-msgstr "ÀÏÀÚ"
+msgstr "ì¼ì"
 
 #: templates/admin/user/update.inc:43
 #, fuzzy
 msgid "Update user"
-msgstr "»ç¿ëÀÚ Ãß°¡"
+msgstr "ì‚¬ìš©ì ì¶”ê°€"
 
 #: templates/javascript/htmlarea_listtype_lang.js:20
 msgid "Upper latin letters"
-msgstr "¶óÆ¾¾î ´ë¹®ÀÚ"
+msgstr "ë¼í‹´ì–´ ëŒ€ë¬¸ì"
 
 #: templates/javascript/htmlarea_listtype_lang.js:18
 msgid "Upper roman numbers"
-msgstr "·Î¸¶ ´ë¹®ÀÚ ¼ıÀÚ"
+msgstr "ë¡œë§ˆ ëŒ€ë¬¸ì ìˆ«ì"
 
 #: po/translation.php:35 po/translation.php:92 po/translation.php:93
 #, fuzzy
 msgid "Usage:"
-msgstr "¸Ş½ÃÁö"
+msgstr "ë©”ì‹œì§€"
 
 #: admin/user.php:204
 #, fuzzy
 msgid "User Administration"
-msgstr "Horde »ç¿ëÀÚ °ü¸®"
+msgstr "Horde ì‚¬ìš©ì ê´€ë¦¬"
 
 #: lib/Horde/Prefs/UI.php:251
 msgid "User Options"
-msgstr "»ç¿ëÀÚ ¼±ÅÃ»çÇ×"
+msgstr "ì‚¬ìš©ì ì„ íƒì‚¬í•­"
 
 #: signup.php:64
 #, fuzzy
 msgid "User Registration"
-msgstr "Horde »ç¿ëÀÚ °ü¸®"
+msgstr "Horde ì‚¬ìš©ì ê´€ë¦¬"
 
 #: admin/perms/edit.php:172 lib/Horde/Perms/UI.php:254
 msgid "User permissions"
-msgstr "»ç¿ëÀÚ ±ÇÇÑ"
+msgstr "ì‚¬ìš©ì ê¶Œí•œ"
 
 #: admin/user.php:35 admin/setup/index.php:173
 #: lib/Net/SMS/sms2email_http.php:556 lib/Net/SMS/vodafoneitaly_smtp.php:97
 #: lib/Net/SMS/clickatell_http.php:202 services/resetpassword.php:33
 #: templates/login/login.inc:65 templates/admin/user/approve.inc:11
 msgid "Username"
-msgstr "»ç¿ëÀÚ¸í"
+msgstr "ì‚¬ìš©ìëª…"
 
 #: lib/Horde/Auth/Signup.php:131
 #, fuzzy, php-format
 msgid "Username '%s' already exists."
-msgstr "¸ŞÀÏÇÔ \"%s\"°¡ ÀÌ¹Ì »ç¿ëÁßÀÔ´Ï´Ù."
+msgstr "ë©”ì¼í•¨ \"%s\"ê°€ ì´ë¯¸ ì‚¬ìš©ì¤‘ì…ë‹ˆë‹¤."
 
 #: templates/rpcsum/rpcsum.inc:87
 #, fuzzy
 msgid "Username:"
-msgstr "»ç¿ëÀÚ¸í"
+msgstr "ì‚¬ìš©ìëª…"
 
 #: templates/login/mobile.inc:8
 #, fuzzy
 msgid "Username: "
-msgstr "»ç¿ëÀÚ¸í"
+msgstr "ì‚¬ìš©ìëª…"
 
 #: lib/Horde/Perms/UI.php:227
 #, fuzzy
 msgid "Users"
-msgstr "»ç¿ëÀÚ¸í"
+msgstr "ì‚¬ìš©ìëª…"
 
 #: templates/admin/user/list.inc:4
 msgid "Users in the system:"
-msgstr "½Ã½ºÅÛÀÇ »ç¿ëÀÚ:"
+msgstr "ì‹œìŠ¤í…œì˜ ì‚¬ìš©ì:"
 
 #: config/registry.php.dist:383
 #, fuzzy
 msgid "Vacation"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: lib/Horde/Crypt/smime.php:724
 #, fuzzy
 msgid "Version"
-msgstr "°³ÀÎ ¸ŞÀÏ"
+msgstr "ê°œì¸ ë©”ì¼"
 
 #: templates/javascript/htmlarea_table_lang.js:83
 msgid "Vertical align"
-msgstr "¼öÁ÷ Á¤·Ä"
+msgstr "ìˆ˜ì§ ì •ë ¬"
 
 #: templates/javascript/htmlarea_lang.js:84
 msgid "Vertical padding"
-msgstr "¼öÁ÷ Ã¤¿ò"
+msgstr "ìˆ˜ì§ ì±„ì›€"
 
 #: lib/Horde/MIME/Contents.php:994
 #, php-format
 msgid "View %s"
-msgstr "%s º¸±â"
+msgstr "%s ë³´ê¸°"
 
 #: lib/Horde/MIME/Contents.php:845
 #, fuzzy, php-format
 msgid "View as %s"
-msgstr "%s º¸±â"
+msgstr "%s ë³´ê¸°"
 
 #: lib/Horde/MIME/Viewer/icalendar.php:109
 #, fuzzy
 msgid "View task"
-msgstr "%s º¸±â"
+msgstr "%s ë³´ê¸°"
 
 #: lib/Horde/Notification/Listener/status.php:31
 msgid "Warning"
-msgstr "°æ°í"
+msgstr "ê²½ê³ "
 
 #: po/translation.php:145 po/translation.php:681 po/translation.php:711
 #: po/translation.php:725 po/translation.php:1048 po/translation.php:1057
@@ -3642,77 +3642,77 @@ msgstr "°æ°í"
 #: po/translation.php:1226 po/translation.php:1232 po/translation.php:1252
 #, fuzzy
 msgid "Warning: "
-msgstr "°æ°í"
+msgstr "ê²½ê³ "
 
 #: lib/Horde/Maintenance.php:37
 msgid "Weekly"
-msgstr "¸ÅÁÖ"
+msgstr "ë§¤ì£¼"
 
 #: services/portal/mobile.php:28
 msgid "Welcome"
-msgstr "È¯¿µ"
+msgstr "í™˜ì˜"
 
 #: templates/login/mobile.inc:4 templates/login/login.inc:50
 #, php-format
 msgid "Welcome to %s"
-msgstr "È¯¿µÇÕ´Ï´Ù! %s ÀÔ´Ï´Ù."
+msgstr "í™˜ì˜í•©ë‹ˆë‹¤! %s ì…ë‹ˆë‹¤."
 
 #: services/portal/mobile.php:29 templates/portal/menu.inc:2
 #, php-format
 msgid "Welcome, %s"
-msgstr "È¯¿µÇÕ´Ï´Ù, %s"
+msgstr "í™˜ì˜í•©ë‹ˆë‹¤, %s"
 
 #: templates/data/csvinfo.inc:21
 msgid "What is the delimiter character?"
-msgstr "±¸ºĞ ¹®ÀÚ´Â ¹«¾ùÀÔ´Ï±î?"
+msgstr "êµ¬ë¶„ ë¬¸ìëŠ” ë¬´ì—‡ì…ë‹ˆê¹Œ?"
 
 #: templates/data/csvinfo.inc:24
 msgid "What is the quote character?"
-msgstr "ÀÎ¿ë ºÎÈ£´Â ¹«¾ùÀÔ´Ï±î?"
+msgstr "ì¸ìš© ë¶€í˜¸ëŠ” ë¬´ì—‡ì…ë‹ˆê¹Œ?"
 
 #: templates/javascript/htmlarea_table_lang.js:84
 msgid "Width"
-msgstr "³Êºñ"
+msgstr "ë„ˆë¹„"
 
 #: templates/javascript/htmlarea_lang.js:106
 msgid "Width of the table"
-msgstr "Ç¥ÀÇ ³Êºñ"
+msgstr "í‘œì˜ ë„ˆë¹„"
 
 #: templates/javascript/htmlarea_lang.js:110
 msgid "Width unit"
-msgstr "³Êºñ ´ÜÀ§"
+msgstr "ë„ˆë¹„ ë‹¨ìœ„"
 
 #: templates/javascript/htmlarea_lang.js:105
 msgid "Width:"
-msgstr "³Êºñ:"
+msgstr "ë„ˆë¹„:"
 
 #: lib/Block/weatherdotcom.php:372
 #, fuzzy
 msgid "Wind"
-msgstr "Ã£±â"
+msgstr "ì°¾ê¸°"
 
 #: lib/Block/metar.php:154
 #, fuzzy
 msgid "Wind:"
-msgstr "Ã£±â"
+msgstr "ì°¾ê¸°"
 
 #: lib/Block/weatherdotcom.php:205
 #, fuzzy
 msgid "Wind: "
-msgstr "Ã£±â"
+msgstr "ì°¾ê¸°"
 
 #: lib/Block/fortune.php:65
 #, fuzzy
 msgid "Work"
-msgstr "¶Ç´Â"
+msgstr "ë˜ëŠ”"
 
 #: lib/Horde/MIME/Viewer/vcard.php:127 lib/Horde/MIME/Viewer/vcard.php:167
 msgid "Work Address"
-msgstr "Á÷Àå ÁÖ¼Ò:"
+msgstr "ì§ì¥ ì£¼ì†Œ:"
 
 #: lib/Horde/MIME/Viewer/vcard.php:195
 msgid "Work Phone"
-msgstr "Á÷Àå ÀüÈ­¹øÈ£"
+msgstr "ì§ì¥ ì „í™”ë²ˆí˜¸"
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -3726,323 +3726,323 @@ msgstr "YY"
 
 #: lib/Horde/Maintenance.php:35
 msgid "Yearly"
-msgstr "¸Å³â"
+msgstr "ë§¤ë…„"
 
 #: lib/Horde/NLS/tld.php:252 lib/Horde/NLS/countries.php:247
 #: lib/Horde/NLS/GeoIP.php:118
 #, fuzzy
 msgid "Yemen"
-msgstr "ÀĞÀº ¸ŞÀÏ"
+msgstr "ì½ì€ ë©”ì¼"
 
 #: lib/Horde/UI/VarRenderer/html.php:888
 msgid "Yes"
-msgstr "¿¹"
+msgstr "ì˜ˆ"
 
 #: templates/javascript/htmlarea_lang.js:52
 msgid "You are in TEXT MODE.  Use the [<>] button to switch back to WYSIWYG."
-msgstr "TEXT¸ğµåÀÔ´Ï´Ù. [<>] ¹öÆ°À» ´©¸£¸é WYSIWYG ¸ğµå·Î µ¹¾Æ°©´Ï´Ù."
+msgstr "TEXTëª¨ë“œì…ë‹ˆë‹¤. [<>] ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ WYSIWYG ëª¨ë“œë¡œ ëŒì•„ê°‘ë‹ˆë‹¤."
 
 #: lib/Horde/Form.php:1839 lib/Horde/Form.php:1959
 #, fuzzy
 msgid "You did not enter a valid email address."
-msgstr "Àß¸øµÈ ÀÌ¸ŞÀÏ ÁÖ¼Ò"
+msgstr "ì˜ëª»ëœ ì´ë©”ì¼ ì£¼ì†Œ"
 
 #: lib/Horde/Data.php:274
 #, fuzzy, php-format
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in %s."
-msgstr "ÀÓÆ÷Æ®µÈ ÆÄÀÏÀÇ ¾î¶² Ç×¸ñµµ TurbaÀÇ Ç×¸ñ¿¡ ¸Â°Ô ¼³Á¤ÇÏÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì„í¬íŠ¸ëœ íŒŒì¼ì˜ ì–´ë–¤ í•­ëª©ë„ Turbaì˜ í•­ëª©ì— ë§ê²Œ ì„¤ì •í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Auth.php:944
 msgid "You have been logged out."
-msgstr "·Î±×¾Æ¿ô ÇÏ¿´½À´Ï´Ù."
+msgstr "ë¡œê·¸ì•„ì›ƒ í•˜ì˜€ìŠµë‹ˆë‹¤."
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
-msgstr "¹®Á¦ º¸°í¼­¸¦ º¸³»±âÀü¿¡ ÀÌ¹®Á¦¿¡ ´ëÇÑ ¼³¸íÀ» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ë¬¸ì œ ë³´ê³ ì„œë¥¼ ë³´ë‚´ê¸°ì „ì— ì´ë¬¸ì œì— ëŒ€í•œ ì„¤ëª…ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: templates/javascript/htmlarea_lang.js:98
 msgid "You must enter the URL where this link points to"
-msgstr "ÀÌ ¸µÅ©°¡ °¡¸®Ä¡´Â URLÀ» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì´ ë§í¬ê°€ ê°€ë¦¬ì¹˜ëŠ” URLì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: services/portal/rpcsum.php:80
 #, fuzzy
 msgid "You must select an server to be deleted."
-msgstr "¸ÕÀú »èÁ¦ÇÒ ½Äº°ÀÚ¸¦ ¼±ÅÃÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ë¨¼ì € ì‚­ì œí•  ì‹ë³„ìë¥¼ ì„ íƒí•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: admin/user.php:119
 #, fuzzy
 msgid "You must specify a username to clear out."
-msgstr "»èÁ¦ÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì‚­ì œí•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: admin/user.php:100
 msgid "You must specify a username to remove."
-msgstr "»èÁ¦ÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì‚­ì œí•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: admin/user.php:62 templates/admin/user/update.inc:8
 msgid "You must specify the username to add."
-msgstr "Ãß°¡ÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì¶”ê°€í•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: admin/user.php:146
 #, fuzzy
 msgid "You must specify the username to update."
-msgstr "Ãß°¡ÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì¶”ê°€í•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Compress/zip.php:144
 #, fuzzy
 msgid "You must specify what action to perform."
-msgstr "¼ö½ÅÀÎÀÌ ¾ø½À´Ï´Ù."
+msgstr "ìˆ˜ì‹ ì¸ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Horde/Prefs/CategoryManager.php:73
 #, fuzzy
 msgid "You must type a new category name."
-msgstr "»èÁ¦ÇÒ »ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù."
+msgstr "ì‚­ì œí•  ì‚¬ìš©ì ì´ë¦„ì„ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤."
 
 #: lib/Horde/Auth.php:932
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "%s ¼¼¼ÇÀÌ ¸¸·áµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇÏ¼¼¿ä."
+msgstr "%s ì„¸ì…˜ì´ ë§Œë£Œë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•˜ì„¸ìš”."
 
 #: templates/problem/problem.inc:38
 msgid "Your Email Address"
-msgstr "ÀÌ¸ŞÀÏ ÁÖ¼Ò:"
+msgstr "ì´ë©”ì¼ ì£¼ì†Œ:"
 
 #: config/prefs.php.dist:202
 msgid "Your From: address:"
-msgstr "¸ŞÀÏ ÁÖ¼Ò:"
+msgstr "ë©”ì¼ ì£¼ì†Œ:"
 
 #: config/prefs.php.dist:64 config/prefs.php.dist:74 config/prefs.php.dist:82
 #: config/prefs.php.dist:89
 msgid "Your Information"
-msgstr "Á¤º¸"
+msgstr "ì •ë³´"
 
 #: templates/problem/problem.inc:33
 msgid "Your Name"
-msgstr "ÀÌ¸§:"
+msgstr "ì´ë¦„:"
 
 #: templates/admin/user/noadd.inc:9
 msgid ""
 "Your authentication backend does not support adding users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"´ç½ÅÀÇ ÀÎÁõÅ¬¶óÀÌ¾ğÆ®°¡ »ç¿ëÀÚ¸¦ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù. ¶Ç´Â ´Ù¸¥ ÀÌÀ¯·Î »ç¿ëÀÚ "
-"Ãß°¡±â´ÉÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+"ë‹¹ì‹ ì˜ ì¸ì¦í´ë¼ì´ì–¸íŠ¸ê°€ ì‚¬ìš©ìë¥¼ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ë˜ëŠ” ë‹¤ë¥¸ ì´ìœ ë¡œ ì‚¬ìš©ì "
+"ì¶”ê°€ê¸°ëŠ¥ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/admin/user/nolist.inc:9
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"´ç½ÅÀÇ ÀÎÁõÅ¬¶óÀÌ¾ğÆ®°¡ »ç¿ëÀÚ ¸ñ·Ïº¸±â¸¦ Áö¿øÇÏÁö ¾Ê½À´Ï´Ù. ¶Ç´Â ´Ù¸¥ ÀÌÀ¯"
-"·Î »ç¿ëÀÚ ¸ñ·Ïº¸±â¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+"ë‹¹ì‹ ì˜ ì¸ì¦í´ë¼ì´ì–¸íŠ¸ê°€ ì‚¬ìš©ì ëª©ë¡ë³´ê¸°ë¥¼ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ë˜ëŠ” ë‹¤ë¥¸ ì´ìœ "
+"ë¡œ ì‚¬ìš©ì ëª©ë¡ë³´ê¸°ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: lib/Block/iframe.php:50
 msgid "Your browser does not support this feature."
-msgstr "ºê¶ó¿ìÀú°¡ ÀÌ ±â´ÉÀ» Áö¿øÇÏÁö ¾Ê½À´Ï´Ù."
+msgstr "ë¸Œë¼ìš°ì €ê°€ ì´ ê¸°ëŠ¥ì„ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
 
 #: templates/javascript/print.js:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"»ç¿ëÇÏ°í °è½Å ºê¶ó¿ìÀú´Â ÀÎ¼â ¿É¼ÇÀ» Áö¿øÇÏÁö ¾Ê½À´Ï´Ù. ÀÎ¼âÇÏ±â À§ÇØ¼­´Â ÄÁ"
-"Æ®·Ñ/¿É¼ÇÅ°¿Í P¸¦ ´©¸£¼¼¿ä."
+"ì‚¬ìš©í•˜ê³  ê³„ì‹  ë¸Œë¼ìš°ì €ëŠ” ì¸ì‡„ ì˜µì…˜ì„ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì¸ì‡„í•˜ê¸° ìœ„í•´ì„œëŠ” ì»¨"
+"íŠ¸ë¡¤/ì˜µì…˜í‚¤ì™€ Pë¥¼ ëˆ„ë¥´ì„¸ìš”."
 
 #: config/prefs.php.dist:247
 msgid "Your current time zone:"
-msgstr "ÇöÀç ½Ã°£´ë:"
+msgstr "í˜„ì¬ ì‹œê°„ëŒ€:"
 
 #: config/prefs.php.dist:148
 msgid "Your default identity:"
-msgstr "±âº» ½Äº°ÀÚ:"
+msgstr "ê¸°ë³¸ ì‹ë³„ì:"
 
 #: config/prefs.php.dist:191
 msgid "Your full name:"
-msgstr "ÀüÃ¼ ÀÌ¸§:"
+msgstr "ì „ì²´ ì´ë¦„:"
 
 #: lib/Horde/Prefs/UI.php:156
 msgid "Your options have been updated for the duration of this session."
-msgstr "ÀÌ ¼¼¼Ç µ¿¾È ¿É¼ÇÀÌ ÀúÀåµË´Ï´Ù."
+msgstr "ì´ ì„¸ì…˜ ë™ì•ˆ ì˜µì…˜ì´ ì €ì¥ë©ë‹ˆë‹¤."
 
 #: lib/Horde/Prefs/UI.php:158
 msgid "Your options have been updated."
-msgstr "¿É¼ÇÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù."
+msgstr "ì˜µì…˜ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: templates/rpcsum/rpcsum.inc:58
 #, fuzzy
 msgid "Your remote servers:"
-msgstr "¸ŞÀÏ ÁÖ¼Ò:"
+msgstr "ë©”ì¼ ì£¼ì†Œ:"
 
 #: lib/Horde/Text/Filter/highlightquotes.php:172
 #: templates/javascript/quoteBlocks.js:12
 msgid "[Hide Quoted Text]"
-msgstr "[ÀÎ¿ë ¼û±â±â]"
+msgstr "[ì¸ìš© ìˆ¨ê¸°ê¸°]"
 
 #: services/problem.php:56
 msgid "[Problem Report]"
-msgstr "[¿À·ù º¸°íÇÏ±â]"
+msgstr "[ì˜¤ë¥˜ ë³´ê³ í•˜ê¸°]"
 
 #: templates/javascript/quoteBlocks.js:13
 msgid "[Show Quoted Text -"
-msgstr "[ÀÎ¿ë º¸±â -"
+msgstr "[ì¸ìš© ë³´ê¸° -"
 
 #: lib/Horde/Text/Filter/highlightquotes.php:172
 msgid "[Show Quoted Text - %s lines]"
-msgstr "[ÀÎ¿ë º¸±â - %s ÁÙ]"
+msgstr "[ì¸ìš© ë³´ê¸° - %s ì¤„]"
 
 #: lib/Horde.php:199
 #, php-format
 msgid "[line %s of %s]"
-msgstr "[¶óÀÎ %s / %s]"
+msgstr "[ë¼ì¸ %s / %s]"
 
 #: lib/Horde.php:1472 templates/portal/menu.inc:11
 msgid "_Administration"
-msgstr "_A°ü¸®"
+msgstr "_Aê´€ë¦¬"
 
 #: lib/api.php:122
 #, fuzzy
 msgid "_DataTree"
-msgstr "ÀÏÀÚ"
+msgstr "ì¼ì"
 
 #: templates/javascript/htmlarea_context_lang.js:31
 msgid "_Delete Row"
-msgstr "_DÇà Áö¿ò"
+msgstr "_Dí–‰ ì§€ì›€"
 
 #: lib/Horde/Menu.php:181
 msgid "_Help"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 #: templates/javascript/htmlarea_context_lang.js:23
 msgid "_Image Properties..."
-msgstr "_I±×¸² ¼Ó¼º..."
+msgstr "_Iê·¸ë¦¼ ì†ì„±..."
 
 #: lib/Horde/Menu.php:200
 #, fuzzy
 msgid "_Log in"
-msgstr "·Î±×ÀÎ"
+msgstr "ë¡œê·¸ì¸"
 
 #: lib/Horde/Menu.php:196
 msgid "_Log out"
-msgstr "_L·Î±×¾Æ¿ô"
+msgstr "_Lë¡œê·¸ì•„ì›ƒ"
 
 #: templates/javascript/htmlarea_context_lang.js:24
 msgid "_Modify Link..."
-msgstr "_m¸µÅ© ¼öÁ¤..."
+msgstr "_më§í¬ ìˆ˜ì •..."
 
 #: lib/Horde/Menu.php:170
 msgid "_Options"
-msgstr "_O¼±ÅÃ»çÇ×"
+msgstr "_Oì„ íƒì‚¬í•­"
 
 #: lib/api.php:118
 #, fuzzy
 msgid "_Permissions"
-msgstr "Åä·Ğ"
+msgstr "í† ë¡ "
 
 #: templates/javascript/htmlarea_context_lang.js:26
 msgid "_Remove Link..."
-msgstr "_r¸µÅ© »èÁ¦.."
+msgstr "_rë§í¬ ì‚­ì œ.."
 
 #: templates/javascript/htmlarea_context_lang.js:32
 msgid "_Table Properties..."
-msgstr "_tÇ¥ ¼Ó¼º..."
+msgstr "_tí‘œ ì†ì„±..."
 
 #: lib/Horde/Kolab.php:911
 #, fuzzy
 msgid "address book"
-msgstr "ÁÖ¼Ò·Ï"
+msgstr "ì£¼ì†Œë¡"
 
 #: po/translation.php:711
 #, fuzzy
 msgid "an error has occured:"
-msgstr "<b>Ä¡¸íÀûÀÎ ¿À·ù ¹ß»ı:</b>"
+msgstr "<b>ì¹˜ëª…ì ì¸ ì˜¤ë¥˜ ë°œìƒ:</b>"
 
 #: lib/Horde/Kolab.php:903
 #, fuzzy
 msgid "calendar"
-msgstr "´Ş·Â"
+msgstr "ë‹¬ë ¥"
 
 #: po/translation.php:445 po/translation.php:550 po/translation.php:611
 #: po/translation.php:749 po/translation.php:810 po/translation.php:887
 #, fuzzy
 msgid "done"
-msgstr "¿Ï·á"
+msgstr "ì™„ë£Œ"
 
 #: po/translation.php:552 po/translation.php:584 po/translation.php:613
 #: po/translation.php:778 po/translation.php:812 po/translation.php:889
 #, fuzzy
 msgid "failed"
-msgstr "»õ·Î¿î ¿¬¶ôÃ³ Ãß°¡ ½ÇÆĞ"
+msgstr "ìƒˆë¡œìš´ ì—°ë½ì²˜ ì¶”ê°€ ì‹¤íŒ¨"
 
 #: lib/Horde/Browser.php:870
 #, fuzzy
 msgid "file"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: admin/setup/diff.php:68 admin/setup/diff.php:76
 #, fuzzy
 msgid "inline"
-msgstr "¾øÀ½"
+msgstr "ì—†ìŒ"
 
 #: templates/javascript/quoteBlocks.js:13
 msgid "lines]"
-msgstr "ÁÙ]"
+msgstr "ì¤„]"
 
 #: lib/Horde/Prefs/UI.php:288 services/portal/sidebar.php:207
 msgid "name"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 #: po/translation.php:378
 #, fuzzy
 msgid "not changed"
-msgstr "º¯°æ»çÇ× µÇµ¹¸®±â"
+msgstr "ë³€ê²½ì‚¬í•­ ë˜ëŒë¦¬ê¸°"
 
 #: lib/Horde/RPC.php:122
 #, fuzzy
 msgid "not implemented"
-msgstr "»èÁ¦µÇÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì‚­ì œë˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/Horde/Crypt/smime.php:1245
 #, fuzzy
 msgid "not yet implemented"
-msgstr "»èÁ¦µÇÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì‚­ì œë˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/Horde/Kolab.php:895
 #, fuzzy
 msgid "notepad"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼"
 
 #: templates/javascript/htmlarea_table_lang.js:88
 msgid "percent"
-msgstr "ÆÛ¼¾Æ®"
+msgstr "í¼ì„¼íŠ¸"
 
 #: templates/javascript/htmlarea_table_lang.js:89
 msgid "pixels"
-msgstr "ÇÈ¼¿"
+msgstr "í”½ì…€"
 
 #: lib/Block/weatherdotcom.php:380
 #, fuzzy
 msgid "rising"
-msgstr "°æ°í"
+msgstr "ê²½ê³ "
 
 #: admin/setup/config.php:98
 #, fuzzy
 msgid "show differences"
-msgstr "»ç¿ëÀÚ È¯°æ"
+msgstr "ì‚¬ìš©ì í™˜ê²½"
 
 #: lib/Horde/Kolab.php:919
 #, fuzzy
 msgid "task list"
-msgstr "¼ö½Å°ÅºÎ"
+msgstr "ìˆ˜ì‹ ê±°ë¶€"
 
 #: lib/Horde/MIME/Part.php:17
 msgid "unnamed"
-msgstr "ÀÌ¸§ ¾øÀ½"
+msgstr "ì´ë¦„ ì—†ìŒ"
 
 #: lib/Net/SMS/sms2email_http.php:587 lib/Net/SMS/clickatell_http.php:229
 #, fuzzy
 msgid "user select"
-msgstr "±ÔÄ¢(·ü) ¼±ÅÃ ¿À·ù"
+msgstr "ê·œì¹™(ë¥ ) ì„ íƒ ì˜¤ë¥˜"
 
 #: lib/Horde/MIME/Viewer/vcard.php:38
 msgid "vCard"
@@ -4051,4 +4051,4 @@ msgstr "vCard"
 #: lib/Horde/UI/VarRenderer/html.php:224
 #, fuzzy
 msgid "w:"
-msgstr "Àü´Ş:"
+msgstr "ì „ë‹¬:"

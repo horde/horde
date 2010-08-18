@@ -12,338 +12,338 @@ msgstr ""
 "Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
 "Language-Team: Arabic <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1256\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: config/prefs.php.dist:90
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "\"ÇáÇÓã ¡ ÇááŞÈ\"  (ãËÇá: ãÍãÏ ÇáÚÑÈí)"
+msgstr "\"Ø§Ù„Ø§Ø³Ù… ØŒ Ø§Ù„Ù„Ù‚Ø¨\"  (Ù…Ø«Ø§Ù„: Ù…Ø­Ù…Ø¯ Ø§Ù„Ø¹Ø±Ø¨ÙŠ)"
 
 #: config/prefs.php.dist:98
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "\"ÇááŞÈ ¡ ÇáÇÓã\"  (ãËÇá: ÇáÚÑÈí ãÍãÏ)"
+msgstr "\"Ø§Ù„Ù„Ù‚Ø¨ ØŒ Ø§Ù„Ø§Ø³Ù…\"  (Ù…Ø«Ø§Ù„: Ø§Ù„Ø¹Ø±Ø¨ÙŠ Ù…Ø­Ù…Ø¯)"
 
 #: data.php:145 data.php:310
 #, c-format
 msgid "%s file successfully imported"
-msgstr "Êã ÇÓÊíÑÇÏ Çáãáİ %s ÈäÌÇÍ"
+msgstr "ØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù…Ù„Ù %s Ø¨Ù†Ø¬Ø§Ø­"
 
 #: templates/menu/menu.inc:11
 msgid "Add"
-msgstr "ÅÖÇİÉ"
+msgstr "Ø¥Ø¶Ø§ÙØ©"
 
 #: templates/add/select.inc:12
 msgid "Add Contact ..."
-msgstr "ÅÖÇİÉ ÇÊÕÇá..."
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø§ØªØµØ§Ù„..."
 
 #: templates/add/add.inc:10 addobject.php:19
 msgid "Add a new contact"
-msgstr "ÅÖÇİÉ ÇÊÕÇá ÌÏíÏ"
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø§ØªØµØ§Ù„ Ø¬Ø¯ÙŠØ¯"
 
 #: addobjectaction.php:44
 msgid "Add failed"
-msgstr "ÎØÃ ÎáÇá ÇáÅÖÇİÉ"
+msgstr "Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø¥Ø¶Ø§ÙØ©"
 
 #: templates/browse/actions.inc:16
 msgid "Add to"
-msgstr "ÅÖÇİÉ Åáì"
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰"
 
 #: browse.php:31 config/prefs.php.dist:87
 msgid "Address Book Listing"
-msgstr "ŞÇÆãÉ ÏİÊÑ ÇáÚäÇæíä"
+msgstr "Ù‚Ø§Ø¦Ù…Ø© Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: lib/api.php:25 lib/api.php:179 lib/api.php:259
 msgid "Address book is read-only."
-msgstr "ÏİÊÑ ÇáÚäÇæíä ááŞÑÇÁÉ İŞØ"
+msgstr "Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† Ù„Ù„Ù‚Ø±Ø§Ø¡Ø© ÙÙ‚Ø·"
 
 #: browse.php:202
 #, c-format
 msgid "Addresses in list: %s"
-msgstr "ÚÏÏ ÇáÚäÇæíä İí ÇáŞÇÆãÉ: %s"
+msgstr "Ø¹Ø¯Ø¯ Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† ÙÙŠ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©: %s"
 
 #: templates/menu/menu.inc:13 templates/advanced/head.inc:8 advanced.php:19
 msgid "Advanced Search"
-msgstr "ÈÍË ãÊŞÏã"
+msgstr "Ø¨Ø­Ø« Ù…ØªÙ‚Ø¯Ù…"
 
 #: config/attributes.php.dist:22
 msgid "Alias"
-msgstr "ÇÓã ÈÏíá"
+msgstr "Ø§Ø³Ù… Ø¨Ø¯ÙŠÙ„"
 
 #: templates/browse/actions.inc:8
 msgid "All"
-msgstr "ÇáÌãíÚ"
+msgstr "Ø§Ù„Ø¬Ù…ÙŠØ¹"
 
 #: prefs.php:77
 msgid "An illegal value was specified."
-msgstr "Êã ÊÍÏíÏ ŞíãÉ ÛíÑ ãŞÈæáÉ"
+msgstr "ØªÙ… ØªØ­Ø¯ÙŠØ¯ Ù‚ÙŠÙ…Ø© ØºÙŠØ± Ù…Ù‚Ø¨ÙˆÙ„Ø©"
 
 #: config/prefs.php.dist:75
 msgid "Ascending"
-msgstr "ÊÕÇÚÏí"
+msgstr "ØªØµØ§Ø¹Ø¯ÙŠ"
 
 #: templates/prefs/columnselect.inc:235
 msgid "Available Columns:"
-msgstr "ÇáÃÚãÏÉ ÇáãÊÇÍÉ:"
+msgstr "Ø§Ù„Ø£Ø¹Ù…Ø¯Ø© Ø§Ù„Ù…ØªØ§Ø­Ø©:"
 
 #: templates/browse/actions.inc:44
 #, c-format
 msgid "Back to %s"
-msgstr "ÚæÏÉ Åáì %s"
+msgstr "Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ %s"
 
 #: templates/menu/menu.inc:10
 msgid "Browse"
-msgstr "ÊÕİÍ"
+msgstr "ØªØµÙØ­"
 
 #: templates/edit/edit.inc:15 templates/edit/edit.inc:70
 msgid "Cancel"
-msgstr "ÅáÛÇÁ"
+msgstr "Ø¥Ù„ØºØ§Ø¡"
 
 #: templates/browse/column_headers.inc:7
 msgid "Checkbox"
-msgstr "ãÑÈÚ ÇÎÊíÇÑ"
+msgstr "Ù…Ø±Ø¨Ø¹ Ø§Ø®ØªÙŠØ§Ø±"
 
 #: templates/prefs/columnselect.inc:229
 msgid "Choose the order of the columns to display in the address list."
-msgstr "ÇÎÊÑ ÊæÖÚ ÇáÃÚãÏÉ áÅÙåÇÑåÇ İí ŞÇÆãÉ ÇáÚäÇæíä"
+msgstr "Ø§Ø®ØªØ± ØªÙˆØ¶Ø¹ Ø§Ù„Ø£Ø¹Ù…Ø¯Ø© Ù„Ø¥Ø¸Ù‡Ø§Ø±Ù‡Ø§ ÙÙŠ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: templates/search/head.inc:77 templates/advanced/results_head.inc:18
 #: templates/browse/actions.inc:46
 msgid "Clear Search"
-msgstr "ãÓÍ ÇáÈÍË"
+msgstr "Ù…Ø³Ø­ Ø§Ù„Ø¨Ø­Ø«"
 
 #: config/prefs.php.dist:12
 msgid "Column Options"
-msgstr "ÎíÇÑÇÊ ÇáÃÚãÏÉ"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ø£Ø¹Ù…Ø¯Ø©"
 
 #: templates/data/import.inc:16 templates/data/export.inc:16
 msgid "Comma separated values"
-msgstr "Şíã ãİÕæáÉ ÈİÇÑÒÉ"
+msgstr "Ù‚ÙŠÙ… Ù…ÙØµÙˆÙ„Ø© Ø¨ÙØ§Ø±Ø²Ø©"
 
 #: config/attributes.php.dist:34
 msgid "Company"
-msgstr "ÇáÔÑßÉ"
+msgstr "Ø§Ù„Ø´Ø±ÙƒØ©"
 
 #: browse.php:80
 msgid "Contact removed from list."
-msgstr "ÇÊÕÇá ãÍĞæİ ãä ÇáŞÇÆãÉ."
+msgstr "Ø§ØªØµØ§Ù„ Ù…Ø­Ø°ÙˆÙ Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©."
 
 #: browse.php:225
 #, c-format
 msgid "Contents of %s"
-msgstr "ãÍÊæíÇÊ %s"
+msgstr "Ù…Ø­ØªÙˆÙŠØ§Øª %s"
 
 #: config/prefs.php.dist:18
 msgid "Default Display"
-msgstr "ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí"
+msgstr "Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠ"
 
 #: config/prefs.php.dist:77
 msgid "Default sorting direction:"
-msgstr "ÇÊÌÇå ÇáİÑÒ ÇáÇİÊÑÇÖí:"
+msgstr "Ø§ØªØ¬Ø§Ù‡ Ø§Ù„ÙØ±Ø² Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠ:"
 
 #: templates/display/display.inc:20 templates/display/display.inc:86
 #: templates/browse/actions.inc:34
 msgid "Delete"
-msgstr "ÍĞİ"
+msgstr "Ø­Ø°Ù"
 
 #: deleteobject.php:37
 msgid "Deletion failed"
-msgstr "ÎØÃ ÎáÇá ÇáÍĞİ"
+msgstr "Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø­Ø°Ù"
 
 #: config/prefs.php.dist:76
 msgid "Descending"
-msgstr "ÊäÇÒáí"
+msgstr "ØªÙ†Ø§Ø²Ù„ÙŠ"
 
 #: advanced.php:46
 msgid "Directory"
-msgstr "ãÌáÏ"
+msgstr "Ù…Ø¬Ù„Ø¯"
 
 #: config/prefs.php.dist:11 config/prefs.php.dist:17 config/prefs.php.dist:23
 msgid "Display Options"
-msgstr "ÎíÇÑÇÊ ÇáÅÙåÇÑ"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø±"
 
 #: templates/edit/edit.inc:10 templates/display/display.inc:19
 #: templates/display/display.inc:85
 msgid "Edit"
-msgstr "ÊÍÑíÑ"
+msgstr "ØªØ­Ø±ÙŠØ±"
 
 #: templates/search/row.inc:48 templates/browse/contactrow.inc:55
 #: templates/browse/contactrow.inc:60
 #, c-format
 msgid "Edit '%s'"
-msgstr "ÊÍÑíÑ « %s »"
+msgstr "ØªØ­Ø±ÙŠØ± Â«Â %sÂ Â»"
 
 #: config/attributes.php.dist:26
 msgid "Email"
-msgstr "ÈÑíÏ ÅáßÊÑæäí"
+msgstr "Ø¨Ø±ÙŠØ¯ Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ"
 
 #: status.php:19
 msgid "Error"
-msgstr "ÎØÃ"
+msgstr "Ø®Ø·Ø£"
 
 #: lib/api.php:265 lib/api.php:269
 msgid "Error while searching directory."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÈÍË İí ÇáãÌáÏÇÊ"
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø¨Ø­Ø« ÙÙŠ Ø§Ù„Ù…Ø¬Ù„Ø¯Ø§Øª"
 
 #: templates/miniwindow/menu.inc:1
 msgid "Exit Address Book"
-msgstr "ÎÑæÌ ãä ÏİÊÑ ÇáÚäÇæíä"
+msgstr "Ø®Ø±ÙˆØ¬ Ù…Ù† Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: templates/data/export.inc:27
 msgid "Export"
-msgstr "ÊÕÏíÑ"
+msgstr "ØªØµØ¯ÙŠØ±"
 
 #: templates/data/export.inc:7
 msgid "Export Address Book"
-msgstr "ÊÕÏíÑ ÏİÊÑ ÇáÚäÇæíä"
+msgstr "ØªØµØ¯ÙŠØ± Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: browse.php:59
 msgid "Failed to access the specified address book."
-msgstr "ÎØÃ İí İÊÍ ÏİÊÑ ÇáÚäÇæíä ÇáãØáæÈ."
+msgstr "Ø®Ø·Ø£ ÙÙŠ ÙØªØ­ Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† Ø§Ù„Ù…Ø·Ù„ÙˆØ¨."
 
 #: browse.php:206
 msgid "Failed to browse list"
-msgstr "ÎØÃ İí ÊÕİÍ ÇáŞÇÆãÉ"
+msgstr "Ø®Ø·Ø£ ÙÙŠ ØªØµÙØ­ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©"
 
 #: browse.php:239
 msgid "Failed to browse the directory"
-msgstr "ÎØÃ İí ÊÕİÍ ÇáãÌáÏ"
+msgstr "Ø®Ø·Ø£ ÙÙŠ ØªØµÙØ­ Ø§Ù„Ù…Ø¬Ù„Ø¯"
 
 #: lib/api.php:82 lib/api.php:308 lib/api.php:356 lib/api.php:399
 #: advanced.php:63 data.php:96 data.php:230 data.php:324 data.php:378
 #: data.php:445 data.php:481 search.php:47 addobject.php:44
 msgid "Failed to connect to the specified directory."
-msgstr "ÎØÃ İí ÇáÇÊÕÇá ÈÇáãÌáÏ ÇáãØáæÈ."
+msgstr "Ø®Ø·Ø£ ÙÙŠ Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ù…Ø¬Ù„Ø¯ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨."
 
 #: advanced.php:85 data.php:449 data.php:485 search.php:63
 #, c-format
 msgid "Failed to search the directory: %s"
-msgstr "ÎØÃ ÎáÇá ÇáÈÍË İí ÇáãÌáÏ: %s"
+msgstr "Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø¨Ø­Ø« ÙÙŠ Ø§Ù„Ù…Ø¬Ù„Ø¯: %s"
 
 #: lib/api.php:320 lib/api.php:367
 msgid "Failed to search the specified directory."
-msgstr "ÎØÃ ÎáÇá ÇáÈÍË İí ÇáãÌáÏ ÇáãØáæÈ."
+msgstr "Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø¨Ø­Ø« ÙÙŠ Ø§Ù„Ù…Ø¬Ù„Ø¯ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨."
 
 #: config/attributes.php.dist:58
 msgid "Fax"
-msgstr "İÇßÓ"
+msgstr "ÙØ§ÙƒØ³"
 
 #: templates/search/head.inc:37 templates/browse/search.inc:65
 msgid "Find"
-msgstr "ÃæÌÏ"
+msgstr "Ø£ÙˆØ¬Ø¯"
 
 #: templates/search/head.inc:50 templates/browse/search.inc:78
 msgid "From"
-msgstr "ãä"
+msgstr "Ù…Ù†"
 
 #: templates/browse/contactrow.inc:70
 msgid "Group"
-msgstr "ãÌãæÚÉ"
+msgstr "Ù…Ø¬Ù…ÙˆØ¹Ø©"
 
 #: templates/menu/menu.inc:35
 msgid "Help"
-msgstr "ÇáãÓÇÚÏÉ"
+msgstr "Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©"
 
 #: config/attributes.php.dist:38
 msgid "Home Address"
-msgstr "ÚäæÇä ÇáãäÒá"
+msgstr "Ø¹Ù†ÙˆØ§Ù† Ø§Ù„Ù…Ù†Ø²Ù„"
 
 #: config/attributes.php.dist:46
 msgid "Home Phone"
-msgstr "åÇÊİ ÇáãäÒá"
+msgstr "Ù‡Ø§ØªÙ Ø§Ù„Ù…Ù†Ø²Ù„"
 
 #: templates/data/import.inc:28
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "ÎáÇá ÇÓÊíÑÇÏ ãáİ 'CVS': åá íÍÊæí ÇáÓØÑ ÇáÃæá Úáì ÇÓãÇÁ ÇáÍŞæá¿"
+msgstr "Ø®Ù„Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ù…Ù„Ù 'CVS': Ù‡Ù„ ÙŠØ­ØªÙˆÙŠ Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø£ÙˆÙ„ Ø¹Ù„Ù‰ Ø§Ø³Ù…Ø§Ø¡ Ø§Ù„Ø­Ù‚ÙˆÙ„ØŸ"
 
 #: data.php:157
 msgid "Illegal or malformed form data."
-msgstr "ÊäÓíŞ ÛíÑ ãŞÈæá Ãæ ÎØÃ İí ÇáÈíÇäÇÊ."
+msgstr "ØªÙ†Ø³ÙŠÙ‚ ØºÙŠØ± Ù…Ù‚Ø¨ÙˆÙ„ Ø£Ùˆ Ø®Ø·Ø£ ÙÙŠ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª."
 
 #: templates/data/import.inc:35
 msgid "Import"
-msgstr "ÇÓÊíÑÇÏ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯"
 
 #: templates/data/import.inc:7
 msgid "Import Address Book"
-msgstr "ÇÓÊíÑÇÏ ÏİÊÑ ÚäÇæíä"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: templates/menu/menu.inc:17
 msgid "Import/Export"
-msgstr "ÇÓÊíÑÇÏ/ÊÕÏíÑ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯/ØªØµØ¯ÙŠØ±"
 
 #: data.php:510
 msgid "Import/Export Addressbooks"
-msgstr "ÇÓÊíÑÇÏ/ÊÕÏíÑ ÏİÇÊÑ ÚäÇæíä"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯/ØªØµØ¯ÙŠØ± Ø¯ÙØ§ØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: lib/api.php:19 lib/api.php:165 lib/api.php:218 lib/api.php:241
 msgid "Invalid address book."
-msgstr "ÏİÊÑ ÚäÇæíä ÛíÑ ÕÍíÍ"
+msgstr "Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† ØºÙŠØ± ØµØ­ÙŠØ­"
 
 #: lib/api.php:173 lib/api.php:245
 msgid "Invalid e-mail address."
-msgstr "ÚäæÇä ÈÑíÏ ÅáßÊÑæäí ÛíÑ ÕÍíÍ"
+msgstr "Ø¹Ù†ÙˆØ§Ù† Ø¨Ø±ÙŠØ¯ Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ØºÙŠØ± ØµØ­ÙŠØ­"
 
 #: lib/api.php:292 lib/api.php:384
 msgid "Invalid email."
-msgstr "ÈÑíÏ ÅáßÊÑæäí ÛíÑ ÕÍíÍ"
+msgstr "Ø¨Ø±ÙŠØ¯ Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ØºÙŠØ± ØµØ­ÙŠØ­"
 
 #: lib/api.php:253
 msgid "Invalid entry."
-msgstr "ÎØÃ İí Şíã ÇáÅÏÎÇá"
+msgstr "Ø®Ø·Ø£ ÙÙŠ Ù‚ÙŠÙ… Ø§Ù„Ø¥Ø¯Ø®Ø§Ù„"
 
 #: lib/api.php:169 lib/api.php:249
 msgid "Invalid name."
-msgstr "ÎØÃ İí ÇáÇÓã"
+msgstr "Ø®Ø·Ø£ ÙÙŠ Ø§Ù„Ø§Ø³Ù…"
 
 #: config/prefs.php.dist:6
 msgid "Language"
-msgstr "ÇááÛÉ"
+msgstr "Ø§Ù„Ù„ØºØ©"
 
 #: templates/search/head.inc:44 templates/browse/search.inc:72
 msgid "Matching"
-msgstr "ãØÇÈŞÉ ÕÍíÍÉ"
+msgstr "Ù…Ø·Ø§Ø¨Ù‚Ø© ØµØ­ÙŠØ­Ø©"
 
 #: status.php:32
 msgid "Message"
-msgstr "ÑÓÇáÉ"
+msgstr "Ø±Ø³Ø§Ù„Ø©"
 
 #: config/attributes.php.dist:54
 msgid "Mobile Phone"
-msgstr "ÇáåÇÊİ ÇáãÍãæá"
+msgstr "Ø§Ù„Ù‡Ø§ØªÙ Ø§Ù„Ù…Ø­Ù…ÙˆÙ„"
 
 #: lib/api.php:327 lib/api.php:404
 msgid "More than 1 entry returned."
-msgstr "Êã ÅÑÌÇÚ ÃßËÑ ãä ŞíãÉ"
+msgstr "ØªÙ… Ø¥Ø±Ø¬Ø§Ø¹ Ø£ÙƒØ«Ø± Ù…Ù† Ù‚ÙŠÙ…Ø©"
 
 #: templates/data/import.inc:23
 msgid "Mulberry Address Book"
-msgstr "ÏİÊÑ ÚäÇæíä ÇáÊæÊí"
+msgstr "Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ø§Ù„ØªÙˆØªÙŠ"
 
 #: data.php:364
 msgid "Mulberry addressbook sucessfully imported"
-msgstr "Êã ÇÓÊíÑÇÏ ÏİÊÑ ÚäÇæíä ÇáÊæÊí ÈäÌÇÍ"
+msgstr "ØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ø§Ù„ØªÙˆØªÙŠ Ø¨Ù†Ø¬Ø§Ø­"
 
 #: config/attributes.php.dist:18
 msgid "Name"
-msgstr "ÇÓã"
+msgstr "Ø§Ø³Ù…"
 
 #: config/prefs.php.dist:24
 msgid "Name Format"
-msgstr "ÊäÓíŞ ÇáÇÓã"
+msgstr "ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø§Ø³Ù…"
 
 #: templates/browse/actions.inc:20
 msgid "New List"
-msgstr "ŞÇÆãÉ ÌÏíÏÉ"
+msgstr "Ù‚Ø§Ø¦Ù…Ø© Ø¬Ø¯ÙŠØ¯Ø©"
 
 #: lib/api.php:329 lib/api.php:411
 #, c-format
 msgid "No %s entry found for %s."
-msgstr "áÇ ÊæÌÏ ÈíÇäÇÊ %s ãä ÃÌá %s"
+msgstr "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª %s Ù…Ù† Ø£Ø¬Ù„ %s"
 
 #: templates/browse/actions.inc:9
 msgid "None"
-msgstr "áÇíæÌÏ"
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯"
 
 #: templates/add/noadd.inc:9
 msgid ""
@@ -351,256 +351,256 @@ msgid ""
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"áÇíæÌÏ ÏİÊÑ ÚäÇæíä ãÚÏ áÅÏÎÇá ÈíÇäÇÊ ÌÏíÏÉ. ÅĞÇ ßäÊ ÊÚÊŞÏ Ãäå ÎØÃ ãÇ¡ ÇáÑÌÇÁ "
-"ÅÈáÇÛ ãÏíÑ ÇáäÙÇã."
+"Ù„Ø§ÙŠÙˆØ¬Ø¯ Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ù…Ø¹Ø¯ Ù„Ø¥Ø¯Ø®Ø§Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø¬Ø¯ÙŠØ¯Ø©. Ø¥Ø°Ø§ ÙƒÙ†Øª ØªØ¹ØªÙ‚Ø¯ Ø£Ù†Ù‡ Ø®Ø·Ø£ Ù…Ø§ØŒ Ø§Ù„Ø±Ø¬Ø§Ø¡ "
+"Ø¥Ø¨Ù„Ø§Øº Ù…Ø¯ÙŠØ± Ø§Ù„Ù†Ø¸Ø§Ù…."
 
 #: config/attributes.php.dist:62
 msgid "Notes"
-msgstr "ãáÇÍÙÇÊ"
+msgstr "Ù…Ù„Ø§Ø­Ø¸Ø§Øª"
 
 #: templates/menu/menu.inc:22
 msgid "Options"
-msgstr "ÎíÇÑÇÊ"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª"
 
 #: templates/data/import.inc:20
 msgid "Outlook"
-msgstr "ÃæÊáæß"
+msgstr "Ø£ÙˆØªÙ„ÙˆÙƒ"
 
 #: templates/data/import.inc:24
 msgid "Pine Address Book"
-msgstr "ÏİÊÑ ÇáÚäÇæíä ÇáÕäæÈÑí"
+msgstr "Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† Ø§Ù„ØµÙ†ÙˆØ¨Ø±ÙŠ"
 
 #: data.php:418
 msgid "Pine addressbook sucessfully imported"
-msgstr "Êã ÇÓÊíÑÇÏ ÏİÊÑ ÇáÚäÇæíä ÇáÕäæÈÑí ÈäÌÇÍ"
+msgstr "ØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† Ø§Ù„ØµÙ†ÙˆØ¨Ø±ÙŠ Ø¨Ù†Ø¬Ø§Ø­"
 
 #: templates/add/select.inc:6
 msgid "Please choose an address book to add a contact to."
-msgstr "ÇáÑÌÇÁ ÇÎÊíÇÑ ÏİÊÑ ÚäÇæíä áÅÖÇİÉ ÇÊÕÇá Åáíå."
+msgstr "Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ø®ØªÙŠØ§Ø± Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ù„Ø¥Ø¶Ø§ÙØ© Ø§ØªØµØ§Ù„ Ø¥Ù„ÙŠÙ‡."
 
 #: templates/browse/javascript.inc:18
 msgid "Please enter the name of the new list:"
-msgstr "ÇáÑÌÇÁ ÅÏÎÇá ÇÓã ÇáŞÇÆãÉ ÇáÌÏíÏÉ:"
+msgstr "Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©:"
 
 #: templates/prefs/columnselect.inc:220
 msgid "Please select a directory:"
-msgstr "ÇáÑÌÇÁ ÇÎÊíÇÑ ãÌáÏ:"
+msgstr "Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ø®ØªÙŠØ§Ø± Ù…Ø¬Ù„Ø¯:"
 
 #: templates/menu/menu.inc:27
 msgid "Problem?"
-msgstr "ãÔßáÉ¿"
+msgstr "Ù…Ø´ÙƒÙ„Ø©ØŸ"
 
 #: templates/browse/actions.inc:34
 msgid "Remove from this list"
-msgstr "ÇÍĞİ ãä ÇáŞÇÆãÉ"
+msgstr "Ø§Ø­Ø°Ù Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©"
 
 #: templates/add/add.inc:14 templates/add/add.inc:69
 #: templates/edit/edit.inc:14 templates/edit/edit.inc:69
 #: templates/advanced/results_head.inc:5 templates/advanced/head.inc:15
 msgid "Reset"
-msgstr "ÅÚÇÏÉ ÊåíÆÉ"
+msgstr "Ø¥Ø¹Ø§Ø¯Ø© ØªÙ‡ÙŠØ¦Ø©"
 
 #: templates/add/add.inc:13 templates/add/add.inc:68
 msgid "Save"
-msgstr "ÍİÙ"
+msgstr "Ø­ÙØ¸"
 
 #: templates/edit/edit.inc:13 templates/edit/edit.inc:68
 msgid "Save Changes"
-msgstr "ÍİÙ ÇáÊÛííÑÇÊ"
+msgstr "Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª"
 
 #: templates/menu/menu.inc:12 templates/search/head.inc:31
 #: templates/browse/search.inc:59 search.php:18 config/prefs.php.dist:88
 msgid "Search"
-msgstr "ÈÍË"
+msgstr "Ø¨Ø­Ø«"
 
 #: templates/advanced/results_head.inc:15 browse.php:185
 msgid "Search Results"
-msgstr "äÊÇÆÌ ÇáÈÍË"
+msgstr "Ù†ØªØ§Ø¦Ø¬ Ø§Ù„Ø¨Ø­Ø«"
 
 #: templates/search/head.inc:74
 msgid "Search&nbsp;Results"
-msgstr "äÊÇÆÌ ÇáÈÍË"
+msgstr "Ù†ØªØ§Ø¦Ø¬ Ø§Ù„Ø¨Ø­Ø«"
 
 #: templates/browse/actions.inc:7
 msgid "Select"
-msgstr "ÇÎÊíÇÑ"
+msgstr "Ø§Ø®ØªÙŠØ§Ø±"
 
 #: templates/browse/select.inc:8
 msgid "Select Address Book"
-msgstr "ÇÎÊÑ ÏİÊÑ ÚäÇæíä"
+msgstr "Ø§Ø®ØªØ± Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: templates/browse/actions.inc:18
 msgid "Select List"
-msgstr "ÇÎÊÑ ŞÇÆãÉ"
+msgstr "Ø§Ø®ØªØ± Ù‚Ø§Ø¦Ù…Ø©"
 
 #: templates/data/import.inc:29
 msgid "Select the destination to import to:"
-msgstr "ÇÎÊÑ ÇáæÌåÉ ÇáÊí ÊÑíÏ ÇáÅÓÊíÑÇÏ ÅáíåÇ:"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„ÙˆØ¬Ù‡Ø© Ø§Ù„ØªÙŠ ØªØ±ÙŠØ¯ Ø§Ù„Ø¥Ø³ØªÙŠØ±Ø§Ø¯ Ø¥Ù„ÙŠÙ‡Ø§:"
 
 #: templates/data/import.inc:33
 msgid "Select the file to import:"
-msgstr "ÇÎÊÑ ãáİ áíÊã ÇÓÊíÑÇÏå:"
+msgstr "Ø§Ø®ØªØ± Ù…Ù„Ù Ù„ÙŠØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯Ù‡:"
 
 #: templates/data/export.inc:14
 msgid "Select the format to export to:"
-msgstr "ÇÎÊÑ ÊäÓíŞ ÇáÊÕÏíÑ:"
+msgstr "Ø§Ø®ØªØ± ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„ØªØµØ¯ÙŠØ±:"
 
 #: templates/data/import.inc:14
 msgid "Select the format to import from:"
-msgstr "ÇÎÊÑ ÊäÓíŞ ÇáÇÓÊíÑÇÏ ãä:"
+msgstr "Ø§Ø®ØªØ± ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ù…Ù†:"
 
 #: config/prefs.php.dist:97
 msgid "Select the format used to display names:"
-msgstr "ÇÎÊÑ ÊäÓíŞ ÅÙåÇÑ ÇáÃÓãÇÁ:"
+msgstr "Ø§Ø®ØªØ± ØªÙ†Ø³ÙŠÙ‚ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø£Ø³Ù…Ø§Ø¡:"
 
 #: templates/data/export.inc:23
 msgid "Select the source to export from:"
-msgstr "ÇÎÊÑ ÇáãÕÏÑ ááÊÕÏíÑ ãäå:"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„Ù…ØµØ¯Ø± Ù„Ù„ØªØµØ¯ÙŠØ± Ù…Ù†Ù‡:"
 
 #: config/prefs.php.dist:19
 msgid "Select view to display by default."
-msgstr "ÇÎÊÑ Ôßá ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí."
+msgstr "Ø§Ø®ØªØ± Ø´ÙƒÙ„ Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠ."
 
 #: config/prefs.php.dist:13
 msgid "Select which fields to display in the address lists."
-msgstr "ÇÎÊÑ ÍŞæáÇğ áíÊã ÅÙåÇÑåÇ İí ŞÇÆãÉ ÇáÚäÇæíä."
+msgstr "Ø§Ø®ØªØ± Ø­Ù‚ÙˆÙ„Ø§Ù‹ Ù„ÙŠØªÙ… Ø¥Ø¸Ù‡Ø§Ø±Ù‡Ø§ ÙÙŠ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†."
 
 #: config/prefs.php.dist:25
 msgid "Select which format to display names."
-msgstr "ÇÎÊÑ ÊäÓíŞ ÅÙåÇÑ ÇáÃÓãÇÁ."
+msgstr "Ø§Ø®ØªØ± ØªÙ†Ø³ÙŠÙ‚ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø£Ø³Ù…Ø§Ø¡."
 
 #: config/prefs.php.dist:34
 msgid "Select your preferred language:"
-msgstr "ÇÎÊÑ áÛÊß ÇáãİÖáÉ:"
+msgstr "Ø§Ø®ØªØ± Ù„ØºØªÙƒ Ø§Ù„Ù…ÙØ¶Ù„Ø©:"
 
 #: templates/prefs/columnselect.inc:245
 msgid "Selected Columns:"
-msgstr "ÇÎÊÑ ÃÚãÏÉ:"
+msgstr "Ø§Ø®ØªØ± Ø£Ø¹Ù…Ø¯Ø©:"
 
 #: templates/display/display.inc:53
 #, c-format
 msgid "Send mail to %s"
-msgstr "ÃÑÓá ÑÓÇáÉ Åáì %s"
+msgstr "Ø£Ø±Ø³Ù„ Ø±Ø³Ø§Ù„Ø© Ø¥Ù„Ù‰ %s"
 
 #: config/prefs.php.dist:7
 msgid "Set your preferred display language."
-msgstr "ÇÎÊÑ áÛÉ ÇáÅÙåÇÑ ÇáãİÖáÉ."
+msgstr "Ø§Ø®ØªØ± Ù„ØºØ© Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù…ÙØ¶Ù„Ø©."
 
 #: templates/browse/select.inc:13
 msgid "Show"
-msgstr "ÅÙåÇÑ"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø±"
 
 #: templates/browse/actions.inc:42
 msgid "Show All"
-msgstr "ÅÙåÇÑ Çáßá"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„ÙƒÙ„"
 
 #: templates/browse/actions.inc:41
 msgid "Show Contacts"
-msgstr "ÅÙåÇÑ ÇáÇÊÕÇáÇÊ"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø§ØªØµØ§Ù„Ø§Øª"
 
 #: templates/browse/actions.inc:40
 msgid "Show Lists"
-msgstr "ÅÙåÇÑ ÇáŞæÇÆã"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù‚ÙˆØ§Ø¦Ù…"
 
 #: templates/index/notconfigured.inc:13
 msgid "Some of Turba's configuration files are missing:"
-msgstr "Certains fichiers de configuration de Turba sont absents :"
+msgstr "Certains fichiers de configuration de Turba sont absentsÂ :"
 
 #: templates/browse/column_headers.inc:9
 #: templates/browse/column_headers.inc:14
 msgid "Sort Direction"
-msgstr "ÇÊÌÇå ÇáİÑÒ"
+msgstr "Ø§ØªØ¬Ø§Ù‡ Ø§Ù„ÙØ±Ø²"
 
 #: status.php:23
 msgid "Success"
-msgstr "Êã ÈäÌÇÍ"
+msgstr "ØªÙ… Ø¨Ù†Ø¬Ø§Ø­"
 
 #: templates/data/import.inc:18 templates/data/export.inc:18
 msgid "Tab separated values"
-msgstr "Şíã ãİÕæáÉ ÈãÓÇÍÉ"
+msgstr "Ù‚ÙŠÙ… Ù…ÙØµÙˆÙ„Ø© Ø¨Ù…Ø³Ø§Ø­Ø©"
 
 #: data.php:77
 msgid "The data got lost"
-msgstr "ÇáÈíÇäÇÊ ãİŞæÏÉ"
+msgstr "Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…ÙÙ‚ÙˆØ¯Ø©"
 
 #: data.php:37 data.php:331 data.php:385
 msgid "The data got lost."
-msgstr "Êã İŞÏÇä ÇáÈíÇäÇÊ"
+msgstr "ØªÙ… ÙÙ‚Ø¯Ø§Ù† Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª"
 
 #: data.php:426
 msgid "The file contained no data."
-msgstr "Çáãáİ ÎÇá ãä ÇáÈíÇäÇÊ."
+msgstr "Ø§Ù„Ù…Ù„Ù Ø®Ø§Ù„ Ù…Ù† Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª."
 
 #: browse.php:55
 msgid "There are no browseable address books."
-msgstr "áÇíæÌÏ ÏİÊÑ ÚäÇæíä ŞÇÈá ááÊÕİÍ."
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯ Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ù‚Ø§Ø¨Ù„ Ù„Ù„ØªØµÙØ­."
 
 #: templates/add/noadd.inc:4
 msgid "There are no writeable address books."
-msgstr "áÇíæÌÏ ÏİÊÑ ÚäÇæíä ŞÇÈá ááßÊÇÈÉ."
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯ Ø¯ÙØªØ± Ø¹Ù†Ø§ÙˆÙŠÙ† Ù‚Ø§Ø¨Ù„ Ù„Ù„ÙƒØªØ§Ø¨Ø©."
 
 #: data.php:154
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ÊæÌÏ ãÔßáÉ İí ÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÃßÈÑ ãä  ÇáÍÌã ÇáÃŞÕì ÇáãÓãæÍ "
-"Èå."
+"ØªÙˆØ¬Ø¯ Ù…Ø´ÙƒÙ„Ø© ÙÙŠ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù„Ù. Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø­Ø¬Ù… Ø§Ù„Ù…Ù„Ù Ø£ÙƒØ¨Ø± Ù…Ù†  Ø§Ù„Ø­Ø¬Ù… Ø§Ù„Ø£Ù‚ØµÙ‰ Ø§Ù„Ù…Ø³Ù…ÙˆØ­ "
+"Ø¨Ù‡."
 
 #: addobjectaction.php:42
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÅÖÇİÉ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã áØáÈ ÇáãÓÇÚÏÉ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø¥Ø¶Ø§ÙØ©. Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø³Ø¤Ø§Ù„ Ù…Ø¯ÙŠØ± Ø§Ù„Ù†Ø¸Ø§Ù… Ù„Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©."
 
 #: browse.php:143
 msgid "There was an error creating a new list."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÅäÔÇÁ ŞÇÆãÉ ÌÏíÏÉ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø¥Ù†Ø´Ø§Ø¡ Ù‚Ø§Ø¦Ù…Ø© Ø¬Ø¯ÙŠØ¯Ø©."
 
 #: browse.php:87
 msgid "There was an error deleting this object."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø­Ø°Ù."
 
 #: deleteobject.php:35
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã áØáÈ ÇáãÓÇÚÏÉ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø­Ø°Ù. Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø³Ø¤Ø§Ù„ Ù…Ø¯ÙŠØ± Ø§Ù„Ù†Ø¸Ø§Ù… Ù„Ø·Ù„Ø¨ Ø§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©."
 
 #: browse.php:220
 msgid "There was an error displaying the select List"
-msgstr "ÍÕá ÎØÃ ÎáÇá ÅÙåÇÑ ÇáŞÇÆãÉ ÇáãÎÊÇÑÉ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø®ØªØ§Ø±Ø©."
 
 #: data.php:131 data.php:308 data.php:362 data.php:416
 msgid "There was an error importing the data."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇÓÊíÑÇÏ ÇáÈíÇäÇÊ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª."
 
 #: data.php:176 data.php:204 data.php:321 data.php:375
 msgid "There was an error importing the uploaded file"
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇÓÊíÑÇÏ Çáãáİ ÇáãÍãá."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ù…Ø­Ù…Ù„."
 
 #: lib/api.php:30 lib/api.php:53
 msgid "There was an error importing the vCard data."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇÓÊíÑÇÏ ÈíÇäÇÊ ãä vCard"
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù† vCard"
 
 #: browse.php:78
 msgid "There was an error removing this object."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ù„Ø­Ø°Ù."
 
 #: templates/index/notconfigured.inc:32
 msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ ÈÇáÅÚÏÇÏÇÊ ÇáÇİÊÑÇÖíÉ áÈÑíãÌÇÊ ÊæÑÈÇ¡ ßãÇ íÍÏÏ ÇáÅÚÏÇÏÇÊ "
-"ÇáÊí íãßä ááãÓÊÎÏã ÊÚÏíáåÇ."
+"ÙŠØªØ­ÙƒÙ… Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¨Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠØ© Ù„Ø¨Ø±ÙŠÙ…Ø¬Ø§Øª ØªÙˆØ±Ø¨Ø§ØŒ ÙƒÙ…Ø§ ÙŠØ­Ø¯Ø¯ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª "
+"Ø§Ù„ØªÙŠ ÙŠÙ…ÙƒÙ† Ù„Ù„Ù…Ø³ØªØ®Ø¯Ù… ØªØ¹Ø¯ÙŠÙ„Ù‡Ø§."
 
 #: templates/index/notconfigured.inc:25
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ ÈáæÇÆÍ ÇáÃáæÇä æÇáÎØæØ ÅÖÇİÉ Ãæ ÈÏáÇğ ãä ÅÚÏÇÏÇÊ åæÑÏí "
+"ÙŠØªØ­ÙƒÙ… Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¨Ù„ÙˆØ§Ø¦Ø­ Ø§Ù„Ø£Ù„ÙˆØ§Ù† ÙˆØ§Ù„Ø®Ø·ÙˆØ· Ø¥Ø¶Ø§ÙØ© Ø£Ùˆ Ø¨Ø¯Ù„Ø§Ù‹ Ù…Ù† Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ù‡ÙˆØ±Ø¯ÙŠ "
 "'Horde'."
 
 #: templates/index/notconfigured.inc:46
@@ -608,126 +608,126 @@ msgid ""
 "This file defines the Turba global attribute names and types - names, email "
 "addresses, etc."
 msgstr ""
-"íÍÊæí åĞÇ Çáãáİ Úáì ÇáÊÚÑíİÇÊ ÇáÚÇãÉ áÊæÑÈÇ ÇÓãÇÁ ÇáãßæäÇÊ æäãØåÇ¡ ÚäÇæíä "
-"ÇáÈÑíÏ ¡ ÃáÎ."
+"ÙŠØ­ØªÙˆÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¹Ù„Ù‰ Ø§Ù„ØªØ¹Ø±ÙŠÙØ§Øª Ø§Ù„Ø¹Ø§Ù…Ø© Ù„ØªÙˆØ±Ø¨Ø§ Ø§Ø³Ù…Ø§Ø¡ Ø§Ù„Ù…ÙƒÙˆÙ†Ø§Øª ÙˆÙ†Ù…Ø·Ù‡Ø§ØŒ Ø¹Ù†Ø§ÙˆÙŠÙ† "
+"Ø§Ù„Ø¨Ø±ÙŠØ¯ ØŒ Ø£Ù„Ø®."
 
 #: templates/index/notconfigured.inc:39
 msgid "This file defines the list of available sources for Turba."
-msgstr "íÍÊæí åĞÇ Çáãáİ Úáì ŞÇÆãÉ ÇáãÕÇÏÑ ÇáãÊÇÎÉ áÊæÑÈÇ."
+msgstr "ÙŠØ­ØªÙˆÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¹Ù„Ù‰ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…ØµØ§Ø¯Ø± Ø§Ù„Ù…ØªØ§Ø®Ø© Ù„ØªÙˆØ±Ø¨Ø§."
 
 #: templates/index/notconfigured.inc:18
 msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí áÊæÑÈÇ æíÍæí ãÓÇÑÇÊ æ ÎíÇÑÇÊ ÌãíÚ ÈíÑãÌÇÊ ÊæÑÈÇ"
+"Ù‡Ø°Ø§ Ù…Ù„Ù Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ Ù„ØªÙˆØ±Ø¨Ø§ ÙˆÙŠØ­ÙˆÙŠ Ù…Ø³Ø§Ø±Ø§Øª Ùˆ Ø®ÙŠØ§Ø±Ø§Øª Ø¬Ù…ÙŠØ¹ Ø¨ÙŠØ±Ù…Ø¬Ø§Øª ØªÙˆØ±Ø¨Ø§"
 
 #: prefs.php:86
 msgid "This number must be at least one."
-msgstr "íÌÈ Ãä íßæä åĞÇ ÇáÑŞã ÃßÈÑ ãä ÇáÕİÑ."
+msgstr "ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† Ù‡Ø°Ø§ Ø§Ù„Ø±Ù‚Ù… Ø£ÙƒØ¨Ø± Ù…Ù† Ø§Ù„ØµÙØ±."
 
 #: lib/api.php:271
 #, c-format
 msgid "This person already has a %s entry in the address book."
-msgstr "íÍÊæí ÏİÊÑ ÇáÚäÇæíä ÅÏÎÇáÇÊ ÚÏÏ %s áåĞÇ ÇáÔÎÕ ."
+msgstr "ÙŠØ­ØªÙˆÙŠ Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ† Ø¥Ø¯Ø®Ø§Ù„Ø§Øª Ø¹Ø¯Ø¯ %s Ù„Ù‡Ø°Ø§ Ø§Ù„Ø´Ø®Øµ ."
 
 #: lib/api.php:41 lib/api.php:185
 msgid "This person is already in your address book."
-msgstr "åĞÇ ÇáÔÎÕ ãÏÑÌ İí ÏİÊÑ ÇáÚäÇæíä"
+msgstr "Ù‡Ø°Ø§ Ø§Ù„Ø´Ø®Øµ Ù…Ø¯Ø±Ø¬ ÙÙŠ Ø¯ÙØªØ± Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†"
 
 #: prefs.php:84
 msgid "This value must be a number."
-msgstr "íÌÈ Ãä Êßæä åĞå ÇáŞíãÉ ÑŞãÇğ."
+msgstr "ÙŠØ¬Ø¨ Ø£Ù† ØªÙƒÙˆÙ† Ù‡Ø°Ù‡ Ø§Ù„Ù‚ÙŠÙ…Ø© Ø±Ù‚Ù…Ø§Ù‹."
 
 #: config/attributes.php.dist:30
 msgid "Title"
-msgstr "ÇááŞÈ"
+msgstr "Ø§Ù„Ù„Ù‚Ø¨"
 
 #: templates/index/notconfigured.inc:4
 msgid "Turba is not properly configured"
-msgstr "íæÌÏ ÎØÃ İí ÅÚÏÇÏÇÊ ÊæÑÈÇ"
+msgstr "ÙŠÙˆØ¬Ø¯ Ø®Ø·Ø£ ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª ØªÙˆØ±Ø¨Ø§"
 
 #: lib/Driver.php:44
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "ÊÚĞÑ ÊÍãíá ÊÚÑíİ: %s."
+msgstr "ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ ØªØ¹Ø±ÙŠÙ: %s."
 
 #: lib/api.php:46
 msgid "Unnamed Contact"
-msgstr "ÇÊÕÇá Ïæä ÇÓã"
+msgstr "Ø§ØªØµØ§Ù„ Ø¯ÙˆÙ† Ø§Ø³Ù…"
 
 #: prefs.php:143
 msgid "User Options"
-msgstr "ÎíÇÑÇÊ ÇáãÓÊÎÏã"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…"
 
 #: templates/display/display.inc:77
 msgid "View map"
-msgstr "ÅÙåÇÑ ÇáÎÑíØÉ"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø®Ø±ÙŠØ·Ø©"
 
 #: config/prefs.php.dist:86
 msgid "View to display by default:"
-msgstr "Ôßá ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí:"
+msgstr "Ø´ÙƒÙ„ Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠ:"
 
 #: status.php:27
 msgid "Warning"
-msgstr "ÊÍĞíÑ"
+msgstr "ØªØ­Ø°ÙŠØ±"
 
 #: config/attributes.php.dist:42
 msgid "Work Address"
-msgstr "åÇÊİ ÇáÚãá"
+msgstr "Ù‡Ø§ØªÙ Ø§Ù„Ø¹Ù…Ù„"
 
 #: config/attributes.php.dist:50
 msgid "Work Phone"
-msgstr "åÇÊİ ÇáÚãá"
+msgstr "Ù‡Ø§ØªÙ Ø§Ù„Ø¹Ù…Ù„"
 
 #: templates/browse/javascript.inc:18
 msgid "You are creating a distribution list."
-msgstr "íÊ ÅäÔÇÁ ŞÇÆãÉ ÊæÒíÚ."
+msgstr "ÙŠØª Ø¥Ù†Ø´Ø§Ø¡ Ù‚Ø§Ø¦Ù…Ø© ØªÙˆØ²ÙŠØ¹."
 
 #: data.php:44
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"áã íÊã ÊÍÏíÏ ÏáÇáÇÊ ÇáÍŞæá ãä Çáãáİ ÇáãÓÊæÑÏ áÊÏá Úáì ÇáÍŞæá ÇáãØÇÈŞÉ İí "
-"ÊæÑÈÇ."
+"Ù„Ù… ÙŠØªÙ… ØªØ­Ø¯ÙŠØ¯ Ø¯Ù„Ø§Ù„Ø§Øª Ø§Ù„Ø­Ù‚ÙˆÙ„ Ù…Ù† Ø§Ù„Ù…Ù„Ù Ø§Ù„Ù…Ø³ØªÙˆØ±Ø¯ Ù„ØªØ¯Ù„ Ø¹Ù„Ù‰ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ø§Ù„Ù…Ø·Ø§Ø¨Ù‚Ø© ÙÙŠ "
+"ØªÙˆØ±Ø¨Ø§."
 
 #: templates/browse/javascript.inc:33
 msgid "You must select at least one contact first."
-msgstr "íÌÈ ÊÍÏíÏ ÇÊÕÇá æÇÍÏ Úáì ÇáÃŞá."
+msgstr "ÙŠØ¬Ø¨ ØªØ­Ø¯ÙŠØ¯ Ø§ØªØµØ§Ù„ ÙˆØ§Ø­Ø¯ Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„."
 
 #: config/prefs.php.dist:5
 msgid "Your Information"
-msgstr "ÇáÈíÇäÇÊ ÇáÔÎÕíÉ"
+msgstr "Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø´Ø®ØµÙŠØ©"
 
 #: prefs.php:128
 msgid "Your options have been updated."
-msgstr "Êã ÊÍÏíË ÇáÎíÇÑÇÊ."
+msgstr "ØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª."
 
 #: templates/search/row.inc:48 templates/browse/contactrow.inc:43
 #: templates/browse/contactrow.inc:61
 msgid "[Edit]"
-msgstr "[ÊÍÑíÑ]"
+msgstr "[ØªØ­Ø±ÙŠØ±]"
 
 #: templates/prefs/columnselect.inc:239
 msgid "add column"
-msgstr "ÅÖÇİÉ ÚãæÏ"
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø¹Ù…ÙˆØ¯"
 
 #: config/prefs.php.dist:43
 msgid "from"
-msgstr "ãä"
+msgstr "Ù…Ù†"
 
 #: templates/prefs/columnselect.inc:249
 msgid "move left"
-msgstr "ÊÍÑíß äÍæ ÇáíÓÇÑ"
+msgstr "ØªØ­Ø±ÙŠÙƒ Ù†Ø­Ùˆ Ø§Ù„ÙŠØ³Ø§Ø±"
 
 #: templates/prefs/columnselect.inc:251
 msgid "move right"
-msgstr "ÊÍÑíß äÍæ Çáíãíä"
+msgstr "ØªØ­Ø±ÙŠÙƒ Ù†Ø­Ùˆ Ø§Ù„ÙŠÙ…ÙŠÙ†"
 
 #: templates/prefs/columnselect.inc:241
 msgid "remove column"
-msgstr "ÍĞİ ÚãæÏ"
+msgstr "Ø­Ø°Ù Ø¹Ù…ÙˆØ¯"
 
 #: templates/data/import.inc:21 templates/data/export.inc:21
 msgid "vCard"

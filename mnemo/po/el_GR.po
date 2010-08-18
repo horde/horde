@@ -13,152 +13,152 @@ msgstr ""
 "Last-Translator: Konstantinos C. Milosis <kmilosis@yahoo.com>\n"
 "Language-Team: Greek <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #, c-format
 msgid "%d memos"
-msgstr "%d σημειώσεις"
+msgstr "%d ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚"
 
 msgid "%d notes"
-msgstr "%d σημειώσεις"
+msgstr "%d ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:98
 #, c-format
 msgid "%s file successfully imported"
-msgstr "Το αρχείο %s εισήχθη επιτυχώς"
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ %s ΞµΞΉΟƒΞ®Ο‡ΞΈΞ· ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚"
 
 msgid "1 memo"
-msgstr "1 σημείωση"
+msgstr "1 ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:17
 msgid "1 note"
-msgstr "1 σημείωση"
+msgstr "1 ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:144
 msgid "Access denied deleting note."
-msgstr "Αρνηση πρόσβασης κατά τη διαγραφή σημείωσης."
+msgstr "Ξ‘ΟΞ½Ξ·ΟƒΞ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:92
 msgid "Access denied removing the note."
-msgstr "Αρνηση πρόσβασης κατά τη διαγραφή σημείωσης."
+msgstr "Ξ‘ΟΞ½Ξ·ΟƒΞ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:28
 msgid "Add, remove, and edit categories."
-msgstr "Προσθήκη, διαγραφή και επεξεργασία κατηγορίας."
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·, Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±ΞΉ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚."
 
 msgid "Adding A New Memo"
-msgstr "Προσθήκη μίας νέας σημείωσης"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞΌΞ―Ξ±Ο‚ Ξ½Ξ­Ξ±Ο‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:33
 msgid "Adding A New Note"
-msgstr "Προσθήκη μίας νέας σημείωσης"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞΌΞ―Ξ±Ο‚ Ξ½Ξ­Ξ±Ο‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:41
 msgid "Any notes in a category that is deleted will become %s."
-msgstr "Όλες οι σημειώσεις της κατηγορίας που διαγράφεται θα γίνουν %s."
+msgstr "ΞΞ»ΞµΟ‚ ΞΏΞΉ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ Ο„Ξ·Ο‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ Ο€ΞΏΟ… Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΟ„Ξ±ΞΉ ΞΈΞ± Ξ³Ξ―Ξ½ΞΏΟ…Ξ½ %s."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:55
 msgid "Ascending"
-msgstr "Αύξουσα"
+msgstr "Ξ‘ΟΞΎΞΏΟ…ΟƒΞ±"
 
 msgid "Back to Memo List"
-msgstr "Πίσω στη λίστα με τις σημειώσεις"
+msgstr "Ξ Ξ―ΟƒΟ‰ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞµ Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:28
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/navbar.inc:21
 msgid "Back to Notepad"
-msgstr "Πίσω στο Σημειωματάριο"
+msgstr "Ξ Ξ―ΟƒΟ‰ ΟƒΟ„ΞΏ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "Back to Notepad Options"
-msgstr "Πίσω στις επιλογές Σημειωματαρίου"
+msgstr "Ξ Ξ―ΟƒΟ‰ ΟƒΟ„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ±ΟΞ―ΞΏΟ…"
 
 msgid "Browse..."
-msgstr "Αναζήτηση..."
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·..."
 
 msgid "Business"
-msgstr "Επιχειρήσεις"
+msgstr "Ξ•Ο€ΞΉΟ‡ΞµΞΉΟΞ®ΟƒΞµΞΉΟ‚"
 
 msgid "CVS"
-msgstr "Τιμές χωρισμένες με κόμα (CVS)"
+msgstr "Ξ¤ΞΉΞΌΞ­Ο‚ Ο‡Ο‰ΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ ΞΊΟΞΌΞ± (CVS)"
 
 msgid "CSV file successfully imported"
-msgstr "Το αρχείο CVS εισάχθηκε επιτυχώς"
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ CVS ΞµΞΉΟƒΞ¬Ο‡ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚"
 
 msgid "Category"
-msgstr "Κατηγορία"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:27
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:88
 msgid "Category Management"
-msgstr "Διαχείριση Κατηγοριών"
+msgstr "Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½"
 
 msgid "Change your memo sorting and display options."
-msgstr "Αλλαγή του τρόπου ταξινόμησης και των επιλογών εμφάνισης."
+msgstr "Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο„ΞΏΟ… Ο„ΟΟΟ€ΞΏΟ… Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³ΟΞ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚."
 
 msgid "Change your note sorting and display options."
-msgstr "Αλλαγή του τρόπου ταξινόμησης και των επιλογών εμφάνισης."
+msgstr "Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο„ΞΏΟ… Ο„ΟΟΟ€ΞΏΟ… Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³ΟΞ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚."
 
 msgid "Checkbox"
-msgstr "Πλαίσιο Επιλογής"
+msgstr "Ξ Ξ»Ξ±Ξ―ΟƒΞΉΞΏ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ®Ο‚"
 
 msgid "Choose Action:"
-msgstr "Επιλέξτε ενέργεια:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞµΞ½Ξ­ΟΞ³ΞµΞΉΞ±:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:72
 msgid "Choose Color"
-msgstr "Επιλέξτε Χρώμα"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ§ΟΟΞΌΞ±"
 
 msgid "Choose your default Notepad."
-msgstr "Επιλέξτε το προκαθορισμένο σας Σημειωματάριο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟƒΞ±Ο‚ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "Clear Form"
-msgstr "Καθαρισμός φόρμας"
+msgstr "ΞΞ±ΞΈΞ±ΟΞΉΟƒΞΌΟΟ‚ Ο†ΟΟΞΌΞ±Ο‚"
 
 msgid "Create"
-msgstr "Δημιουργία"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:47
 msgid "Create New Category"
-msgstr "Δημιουργία Νέας Κατηγορίας"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΞ­Ξ±Ο‚ ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚"
 
 msgid "Created"
-msgstr "Δημιουργήθηκε"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ"
 
 msgid "Current Memos"
-msgstr "Οι Σημειώσεις"
+msgstr "ΞΞΉ Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚"
 
 msgid "Default Notepad"
-msgstr "Προεπιλεγμένο Σημειωματάριο"
+msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "Default sorting criteria:"
-msgstr "Προεπιλεγμένο κριτήριο ταξινόμησης:"
+msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ ΞΊΟΞΉΟ„Ξ®ΟΞΉΞΏ Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚:"
 
 msgid "Default sorting direction:"
-msgstr "Προεπιλεγμένη κατεύθυνση ταξινόμησης:"
+msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚:"
 
 msgid "Delete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 #: config/prefs.php.dist:28
 msgid "Delete Confirmation"
-msgstr "Επιβεβαίωση Διαγραφής"
+msgstr "Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚"
 
 #: config/prefs.php.dist:29
 msgid "Delete button behaviour"
-msgstr "Συμπεριφορά πλήκτρου διαγραφής"
+msgstr "Ξ£Ο…ΞΌΟ€ΞµΟΞΉΟ†ΞΏΟΞ¬ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏΟ… Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚"
 
 msgid "Delete Memo"
-msgstr "Διαγραφή Σημείωσης"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 msgid "Delete Memos"
-msgstr "Διαγραφή Σημειώσεων"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Deleted %d memos."
-msgstr "Διαγράφηκαν %d σημειώσεις."
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞ±Ξ½ %d ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Deleted 1 memo."
-msgstr "Διαγράφηκε 1 σημείωση."
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ 1 ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/memo_headers.inc:9
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/memo_summaries.inc:4
@@ -166,235 +166,235 @@ msgstr "Διαγράφηκε 1 σημείωση."
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:25
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/navbar.inc:17
 msgid "Delete Note"
-msgstr "Διαγραφή Σημείωσης"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/actions.inc:7
 msgid "Delete Notes"
-msgstr "Διαγραφή Σημειώσεων"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 #: templates/memo/memo.inc:67
 msgid "Delete this note"
-msgstr "Διαγραφή αυτής της σημείωσης"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:56
 msgid "Descending"
-msgstr "Φθίνουσα"
+msgstr "Ξ¦ΞΈΞ―Ξ½ΞΏΟ…ΟƒΞ±"
 
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®"
 
 msgid "Description:"
-msgstr "Περιγραφή:"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®:"
 
 msgid "Display Options"
-msgstr "Επιλογές Εμφάνισης"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚"
 
 msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Περιέχει η πρώτη γραμμή τα ονόματα των πεδίων; Αν ναι τσεκάρισε εδώ:"
+msgstr "Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ· Ο€ΟΟΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½; Ξ‘Ξ½ Ξ½Ξ±ΞΉ Ο„ΟƒΞµΞΊΞ¬ΟΞΉΟƒΞµ ΞµΞ΄Ο:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:43
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:106
 msgid "Edit your notepads."
-msgstr "Επεξεργασία των σημειώσεών σας."
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„Ο‰Ξ½ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟΞ½ ΟƒΞ±Ο‚."
 
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/export.inc:7
 msgid "Export Notes"
-msgstr "Εξαγωγή Σημειώσεων"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "F_ull Text"
-msgstr "Πλήρες Κείμενο"
+msgstr "Ξ Ξ»Ξ®ΟΞµΟ‚ ΞΞµΞ―ΞΌΞµΞ½ΞΏ"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:124
 msgid "Flags"
-msgstr "'Σημαίες' (Flags)"
+msgstr "'Ξ£Ξ·ΞΌΞ±Ξ―ΞµΟ‚' (Flags)"
 
 msgid "Full Text"
-msgstr "Πλήρες Κείμενο"
+msgstr "Ξ Ξ»Ξ®ΟΞµΟ‚ ΞΞµΞ―ΞΌΞµΞ½ΞΏ"
 
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid "Here is the beginning of the file:"
-msgstr "Αυτή είναι η αρχή του αρχείου:"
+msgstr "Ξ‘Ο…Ο„Ξ® ΞµΞ―Ξ½Ξ±ΞΉ Ξ· Ξ±ΟΟ‡Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…:"
 
 msgid "How many fields (columns) are there?"
-msgstr "Πόσα πεδία (στήλες υπάρχουν;"
+msgstr "Ξ ΟΟƒΞ± Ο€ΞµΞ΄Ξ―Ξ± (ΟƒΟ„Ξ®Ξ»ΞµΟ‚ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½;"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:1
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "Αν εισάγετε CSV δεδομένα: Περιέχει η πρώτη γραμμή ονόματα πεδίων;"
+msgstr "Ξ‘Ξ½ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ CSV Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±: Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ· Ο€ΟΟΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο€ΞµΞ΄Ξ―Ο‰Ξ½;"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:107
 msgid "Illegal or malformed form data."
-msgstr "Μη έγκυρα ή μη έγκυρης μορφής δεδομένα."
+msgstr "ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞ± Ξ® ΞΌΞ· Ξ­Ξ³ΞΊΟ…ΟΞ·Ο‚ ΞΌΞΏΟΟ†Ξ®Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±."
 
 msgid "Import Notes"
-msgstr "Εισαγωγή Σημειώσεων"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Import Notes,"
-msgstr "Εισαγωγή Σημειώσεων,"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½,"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:15
 msgid "Import/Export"
-msgstr "Εισαγωγή/Εξαγωή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ®"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:169
 msgid "Import/Export Notes"
-msgstr "Εισαγωγή/Εξαγωή Σημειώσεων"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Introduction"
-msgstr "Εισαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "Language"
-msgstr "Γλώσσα"
+msgstr "Ξ“Ξ»ΟΟƒΟƒΞ±"
 
 msgid "List Memos"
-msgstr "Λίστα Σημειώσεων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:6
 msgid "List Notes"
-msgstr "Λίστα Σημειώσεων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:22
 msgid "Manage multiple notepads."
-msgstr "Διαχείριση πολλαπλών σημειώσεων."
+msgstr "Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»ΟΞ½ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:36
 msgid "Member's Permission:"
-msgstr "Εξουσιοδοτήσεις Μελών:"
+msgstr "Ξ•ΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚ ΞΞµΞ»ΟΞ½:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:25
 msgid "Member's email address:"
-msgstr "email διευθύνσεις Μελών:"
+msgstr "email Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΞΞµΞ»ΟΞ½:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:111
 msgid "Members List"
-msgstr "Λίστα Μελών"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± ΞΞµΞ»ΟΞ½"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:6
 msgid "Members List for Notepad"
-msgstr "Λίστα Μελών για το Σημειωματάριο"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± ΞΞµΞ»ΟΞ½ Ξ³ΞΉΞ± Ο„ΞΏ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "Memo Category"
-msgstr "Κατηγορία Σημειώσεων"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Memo Description"
-msgstr "Περιγραφή Σημειώσεων"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Memo Details"
-msgstr "Λεπτομέρειες Σημειώσεων"
+msgstr "Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Menou Items"
-msgstr "Αντικείμενα Μενού"
+msgstr "Ξ‘Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½Ξ± ΞΞµΞ½ΞΏΟ"
 
 msgid "Memo Text"
-msgstr "Κείμενο Σημειώσεων"
+msgstr "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "Mnemo is not properly configured"
-msgstr "Το πρόγραμμα Mnemo δεν έχει ρυθμιστεί σωστά"
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Mnemo Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟΟ…ΞΈΞΌΞΉΟƒΟ„ΞµΞ― ΟƒΟ‰ΟƒΟ„Ξ¬"
 
 msgid "Modify Memo"
-msgstr "Επεξεργασία Σημείωσης"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 msgid "Modify Note"
-msgstr "Επεξεργασία Σημείωσης"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #, c-format
 msgid "Modifying %s"
-msgstr "Επεξεργασία του %s"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ… %s"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/lib/base.php:92
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:109
 msgid "My Notepad"
-msgstr "Το σημειωματάριό μου"
+msgstr "Ξ¤ΞΏ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΟ ΞΌΞΏΟ…"
 
 msgid "My Notes"
-msgstr "Οι Σημειώσεις μου"
+msgstr "ΞΞΉ Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ ΞΌΞΏΟ…"
 
 msgid "New Memo"
-msgstr "Νέα Σημείωση"
+msgstr "ΞΞ­Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "New Note"
-msgstr "Νέα Σημείωση"
+msgstr "ΞΞ­Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "Next"
-msgstr "Επόμενο"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½ΞΏ"
 
 msgid "No configuration information specified for SQL Memos."
-msgstr "Δεν έχουν προσδιοριστεί πληροφορίες για τις σημειώσεις σε SQL."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΟ„ΞµΞ― Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ ΟƒΞµ SQL."
 
 msgid "No events to display"
-msgstr "Καμία σημείωση για εμφάνιση"
+msgstr "ΞΞ±ΞΌΞ―Ξ± ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ξ³ΞΉΞ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "No memos were deleted."
-msgstr "Καμία σημείωση δεν διαγράφηκε."
+msgstr "ΞΞ±ΞΌΞ―Ξ± ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ξ΄ΞµΞ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 msgid "No memos"
-msgstr "Καμία σημείωση"
+msgstr "ΞΞ±ΞΌΞ―Ξ± ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "No notes"
-msgstr "Καμία σημείωση"
+msgstr "ΞΞ±ΞΌΞ―Ξ± ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "No notes match the current criteria."
-msgstr "Καμία Σημείωση δεν ταιριάζει με τα τρέχοντα κριτήρια."
+msgstr "ΞΞ±ΞΌΞ―Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ξ΄ΞµΞ½ Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ ΞΌΞµ Ο„Ξ± Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΊΟΞΉΟ„Ξ®ΟΞΉΞ±."
 
 msgid "No notes to display"
-msgstr "Καμία Σημείωση για εμφάνιση"
+msgstr "ΞΞ±ΞΌΞ―Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ξ³ΞΉΞ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "No_te"
-msgstr "Σημείωση"
+msgstr "Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "None specified"
-msgstr "Δεν προσδιορίστηκε κανένα"
+msgstr "Ξ”ΞµΞ½ Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞ―ΟƒΟ„Ξ·ΞΊΞµ ΞΊΞ±Ξ½Ξ­Ξ½Ξ±"
 
 msgid "Note Category"
-msgstr "Κατηγορία Σημείωσης"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:45
 msgid "Note Description"
-msgstr "Περιγραφή Σημείωσης"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/view.php:26
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:9
 msgid "Note Details"
-msgstr "Λεπτομέρειες Σημείωσης"
+msgstr "Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:126
 msgid "Note Lists"
-msgstr "Λίστα Σημειώσεων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/memo/memo.inc:3
 msgid "Note Text"
-msgstr "Κείμενο Σημείωσης"
+msgstr "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 msgid "Note _Text"
-msgstr "Κείμενο Σημείωσης"
+msgstr "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/memo/memo.inc:10
 msgid "Notepad"
-msgstr "Σημειωματάριο"
+msgstr "Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:33
 msgid "Notepad's Type:"
-msgstr "Τύπος Σημειωματαρίου:"
+msgstr "Ξ¤ΟΟ€ΞΏΟ‚ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ±ΟΞ―ΞΏΟ…:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:23
 msgid "Notepad's name:"
-msgstr "Ονομα Σημειωματαρίου:"
+msgstr "ΞΞ½ΞΏΞΌΞ± Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ±ΟΞ―ΞΏΟ…:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:5
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:21
 msgid "Notepads"
-msgstr "Σημειωματάρια"
+msgstr "Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞ±"
 
 msgid "Notes List: Actions"
-msgstr "Λίστες Σημειώσεων: Ενέργειες"
+msgstr "Ξ›Ξ―ΟƒΟ„ΞµΟ‚ Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½: Ξ•Ξ½Ξ­ΟΞ³ΞµΞΉΞµΟ‚"
 
 msgid ""
 "Notes is an application which allows you to create the computer equivalent "
@@ -402,380 +402,380 @@ msgid ""
 "can also search on your notes to locate information. Support for importing "
 "and exporting notes is also available."
 msgstr ""
-"Οι σημειώσεις είναι μια εφαρμογή που σας επιτρέπει να δημιουργήσετε το "
-"αντίστοιχο των κίτρινων μικρών χαρτιών στον υπολογιστή. Μπορείτε να "
-"δημιουργήσετε, να τροποποιήσετε, να διαγράψετε και να τυπώσετε. Μπορείτε "
-"επίσης να ψάξετε στις σημείωσεις σας για να εντοπίσετε μια πληροφορία. "
-"Υποστηρίζεται και εισαγωγή - εξαγωγή των σημειώσεων."
+"ΞΞΉ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞΉΞ± ΞµΟ†Ξ±ΟΞΌΞΏΞ³Ξ® Ο€ΞΏΟ… ΟƒΞ±Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ "
+"Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞΏ Ο„Ο‰Ξ½ ΞΊΞ―Ο„ΟΞΉΞ½Ο‰Ξ½ ΞΌΞΉΞΊΟΟΞ½ Ο‡Ξ±ΟΟ„ΞΉΟΞ½ ΟƒΟ„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ®. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± "
+"Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ, Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ, Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ ΞΊΞ±ΞΉ Ξ½Ξ± Ο„Ο…Ο€ΟΟƒΞµΟ„Ξµ. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ "
+"ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± ΟΞ¬ΞΎΞµΟ„Ξµ ΟƒΟ„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞµΞΉΟ‚ ΟƒΞ±Ο‚ Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ½Ο„ΞΏΟ€Ξ―ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ξ±. "
+"Ξ¥Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΊΞ±ΞΉ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® - ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ο‰Ξ½ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½."
 
 msgid "Options"
-msgstr "Επιλογές"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Options for"
-msgstr "Επιλογές για"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ±"
 
 msgid "Other Options"
-msgstr "Αλλες Επιλογές"
+msgstr "Ξ‘Ξ»Ξ»ΞµΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Overview"
-msgstr "Γενικά"
+msgstr "Ξ“ΞµΞ½ΞΉΞΊΞ¬"
 
 msgid "Permissions"
-msgstr "Εξουσιοδοτήσεις"
+msgstr "Ξ•ΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚"
 
 msgid "Personal"
-msgstr "Προσωπικό"
+msgstr "Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ"
 
 msgid "Problem?"
-msgstr "Πρόβλημα;"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ±;"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:20
 msgid "Print"
-msgstr "Εκτύπωση"
+msgstr "Ξ•ΞΊΟ„ΟΟ€Ο‰ΟƒΞ·"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:35
 msgid "Private"
-msgstr "Προσωπικό"
+msgstr "Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:42
 msgid "Read"
-msgstr "Ανάγνωση"
+msgstr "Ξ‘Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:12
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:13
 msgid "Refresh List"
-msgstr "Ανανέωση Λίστας"
+msgstr "Ξ‘Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ· Ξ›Ξ―ΟƒΟ„Ξ±Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:63
 msgid "Rename"
-msgstr "Μετονομασία"
+msgstr "ΞΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ±"
 
 msgid "Required 'database' not specified in memos configuration."
-msgstr "Η απαιτούμενη βάση δεδομένων δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ— Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Required 'hostspec' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'hostspec' δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'hostspec' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Required 'password' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'password' δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'password' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Required 'phptype' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'phptype' δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'phptype' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Required 'table' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'table' δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'table' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Required 'username' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'username' δεν έχει καθοριστεί για τις σημειώσεις."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'username' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "Reset"
-msgstr "Καθαρισμός"
+msgstr "ΞΞ±ΞΈΞ±ΟΞΉΟƒΞΌΟΟ‚"
 
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Search Results"
-msgstr "Αποτελέσματα Αναζήτησης"
+msgstr "Ξ‘Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Search Scope"
-msgstr "Πεδία στα οποία θα γίνει αναζήτηση"
+msgstr "Ξ ΞµΞ΄Ξ―Ξ± ΟƒΟ„Ξ± ΞΏΟ€ΞΏΞ―Ξ± ΞΈΞ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Search Text"
-msgstr "Κείμενο που θα αναζητηθεί"
+msgstr "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ο€ΞΏΟ… ΞΈΞ± Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ·ΞΈΞµΞ―"
 
 msgid "Search _Text"
-msgstr "Κείμενο που θα αναζητηθεί"
+msgstr "ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ο€ΞΏΟ… ΞΈΞ± Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ·ΞΈΞµΞ―"
 
 msgid "Save"
-msgstr "Αποθήκευση"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·"
 
 msgid "Save Memo"
-msgstr "Αποθήκευση Σημείωσης"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/lib/Mnemo.php:126
 msgid "Select Category"
-msgstr "Επιλέξτε Κατηγορία"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:12
 msgid "Select a member"
-msgstr "Επιλέξτε ένα μέλος"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ­Ξ»ΞΏΟ‚"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:11
 msgid "Select a notepad"
-msgstr "Επιλέξτε σημειωματάριο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "Select the export format:"
-msgstr "Επιλέξτε τη μορφή εξόδου:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® ΞµΞΎΟΞ΄ΞΏΟ…:"
 
 msgid "Select the file to import:"
-msgstr "Επιλέξτε το αρχείο εισόδου:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞΉΟƒΟΞ΄ΞΏΟ…:"
 
 msgid "Select the format of the source file:"
-msgstr "Επιλέξτε τη μορφή του πηγαίου αρχείου:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® Ο„ΞΏΟ… Ο€Ξ·Ξ³Ξ±Ξ―ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/export.inc:14
 msgid "Select the format to export to:"
-msgstr "Επιλέξτε τη μορφή για εξαγωγή σε:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® Ξ³ΞΉΞ± ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ® ΟƒΞµ:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:1
 msgid "Select the source to import from:"
-msgstr "Επιλέξτε το αρχείο από το οποίο θα γίνει εισαγωγή:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ±Ο€Ο Ο„ΞΏ ΞΏΟ€ΞΏΞ―ΞΏ ΞΈΞ± Ξ³Ξ―Ξ½ΞµΞΉ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®:"
 
 msgid "Select your preferred language:"
-msgstr "Επιλέξτε την προτιμούμενη γλώσσα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΞΏΟ„ΞΉΞΌΞΏΟΞΌΞµΞ½Ξ· Ξ³Ξ»ΟΟƒΟƒΞ±:"
 
 msgid "Set the your preferred display language."
-msgstr "Καθορίστε την προτιμούμενη γλώσσα που θα εμφανίζεται."
+msgstr "ΞΞ±ΞΈΞΏΟΞ―ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΞΏΟ„ΞΉΞΌΞΏΟΞΌΞµΞ½Ξ· Ξ³Ξ»ΟΟƒΟƒΞ± Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:36
 msgid "Shared"
-msgstr "Κοινόχρηστα"
+msgstr "ΞΞΏΞΉΞ½ΟΟ‡ΟΞ·ΟƒΟ„Ξ±"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:38
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:41
 msgid "Show"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 #: lib/Block/summary.php:38
 msgid "Show action buttons?"
-msgstr "Εμφάνιση πλήκτρων λειτουργιών;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€Ξ»Ξ®ΞΊΟ„ΟΟ‰Ξ½ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³ΞΉΟΞ½;"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:80
 msgid "Show highlight colors in the summary view?"
-msgstr "Εμφάνιση χρωμάτων έμφασης στην εμφάνιση περίληψης;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο‡ΟΟ‰ΞΌΞ¬Ο„Ο‰Ξ½ Ξ­ΞΌΟ†Ξ±ΟƒΞ·Ο‚ ΟƒΟ„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΞµΟΞ―Ξ»Ξ·ΟΞ·Ο‚;"
 
 msgid "Show notepad name?"
-msgstr "Εμφάνιση ονόματος σημειωματαρίου;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ±ΟΞ―ΞΏΟ…;"
 
 msgid "Show notes from these categories"
-msgstr "Εμφάνιση σημειώσεων αυτών των κατηγοριών"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½ Ξ±Ο…Ο„ΟΞ½ Ο„Ο‰Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½"
 
 msgid "Some of Mnemo's configuration files are missing:"
-msgstr "Ορισμένα από τα αρχεία ρυθμίσεων του προγράμματος mnemo δεν υπάρχουν:"
+msgstr "ΞΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ξ±Ο€Ο Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ mnemo Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½:"
 
 msgid "Sort Direction"
-msgstr "Κατεύθυνση Ταξινόμησης"
+msgstr "ΞΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚"
 
 msgid "Sort by Category"
-msgstr "Ταξινόμηση κατά Κατηγορία"
+msgstr "Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· ΞΊΞ±Ο„Ξ¬ ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 msgid "Sort by Description"
-msgstr "Ταξινόμηση κατά Περιγραφή"
+msgstr "Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· ΞΊΞ±Ο„Ξ¬ Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®"
 
 msgid "Successfully saved '%s'."
-msgstr "Η Σημείωση '%s' αποθηκεύθηκε."
+msgstr "Ξ— Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· '%s' Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞΈΞ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:33
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:52
 msgid "The data was lost."
-msgstr "Τα δεδομένα χάθηκαν."
+msgstr "Ξ¤Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο‡Ξ¬ΞΈΞ·ΞΊΞ±Ξ½."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:133
 msgid "The file contained no data."
-msgstr "Το αρχείο δεν περιέχει δεδομένα."
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:104
 msgid "The member \"%s\" has been deleted."
-msgstr "Το μέλος '%s' διαγράφηκε."
+msgstr "Ξ¤ΞΏ ΞΌΞ­Ξ»ΞΏΟ‚ '%s' Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:94
 msgid "The member \"%s\" has been saved."
-msgstr "Το μέλος '%s' αποθηκεύθηκε."
+msgstr "Ξ¤ΞΏ ΞΌΞ­Ξ»ΞΏΟ‚ '%s' Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞΈΞ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:141
 msgid "The note was deleted."
-msgstr "Η σημείωση διαγράφηκε."
+msgstr "Ξ— ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:64
 msgid "The notepad \"%s\" has been created."
-msgstr "Το σημειωματάριο '%s' δημιουργήθηκε."
+msgstr "Ξ¤ΞΏ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ '%s' Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:97
 msgid "The notepad \"%s\" has been deleted."
-msgstr "Το σημειωματάριο '%s' διαγράφηκε."
+msgstr "Ξ¤ΞΏ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ '%s' Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:71
 msgid "The notepad \"%s\" has been saved."
-msgstr "Το σημειωματάριο '%s' αποθηκεύθηκε."
+msgstr "Ξ¤ΞΏ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ '%s' Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞΈΞ·ΞΊΞµ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:50
 msgid "The notepad name is empty."
-msgstr "Το όνομα του σημειωματαριου είναι κενό."
+msgstr "Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ±ΟΞΉΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ο."
 
 msgid "The requested memo does not exist."
-msgstr "Η σημείωση που ζητήθηκε δεν υπάρχει."
+msgstr "Ξ— ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ο€ΞΏΟ… Ξ¶Ξ·Ο„Ξ®ΞΈΞ·ΞΊΞµ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/no-memo.inc:3
 msgid "The requested note does not exist."
-msgstr "Η σημείωση που ζητήθηκε δεν υπάρχει."
+msgstr "Ξ— ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· Ο€ΞΏΟ… Ξ¶Ξ·Ο„Ξ®ΞΈΞ·ΞΊΞµ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ."
 
 msgid "There was a problem deleting memos."
-msgstr "Παρουσιάστηκε πρόβλημα κατά την διαγραφή των σημειώσεων."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ Ο€ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:104
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Πρόβλημα κατά τη φόρτωση του αρχείου. Μάλλον το αρχείο είναι μεγαλύτερο από "
-"το μέγιστο επιτρεπόμενο μέγεθος."
+"Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ο†ΟΟΟ„Ο‰ΟƒΞ· Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…. ΞΞ¬Ξ»Ξ»ΞΏΞ½ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ±Ο€Ο "
+"Ο„ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:90
 msgid "There was an error importing the data."
-msgstr "Πρόβλημα κατά την εισαγωγή δεδομένων."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:117
 msgid "There was an error importing the uploaded file"
-msgstr "Πρόβλημα κατά την εισαγωγή του αρχείου που φορτώθηκε"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο€ΞΏΟ… Ο†ΞΏΟΟ„ΟΞΈΞ·ΞΊΞµ"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:83
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:139
 msgid "There was an error removing the note."
-msgstr "Πρόβλημα κατά τη διαγραφή της σημείωσης."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ξ·Ο‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:114
 msgid "There was an error saving the note."
-msgstr "Πρόβλημα κατά την αποθήκευση της σημείωσης."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ο„Ξ·Ο‚ ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/data.php:152
 msgid "There were no memos to export."
-msgstr "Δεν υπάρχουν σημειώσεις για εξαγωγή."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ®."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:72
 msgid "These changes can not be undone!"
-msgstr "Οι αλλαγές δε μπορούν να ανεραιθούν!"
+msgstr "ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ΄Ξµ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ±Ξ½ΞµΟΞ±ΞΉΞΈΞΏΟΞ½!"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/index/notconfigured.inc:25
 msgid "This file contains preferences for Mnemo."
-msgstr "Αυτό το αρχείο περιέχει τις ρυθμίσεις για το πρόγραμμα Mnemo."
+msgstr "Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Mnemo."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Αυτό το αρχείο περιέχει τις ρυθμίσεις για τα χρώματα και τις γραμματοσειρές, "
-"με τα οποία μπορούν να παρακαμφθούν τα προκαθορισμένα από το σύστημα."
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„Ξ± Ο‡ΟΟΞΌΞ±Ο„Ξ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ξ³ΟΞ±ΞΌΞΌΞ±Ο„ΞΏΟƒΞµΞΉΟΞ­Ο‚, "
+"ΞΌΞµ Ο„Ξ± ΞΏΟ€ΞΏΞ―Ξ± ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο€Ξ±ΟΞ±ΞΊΞ±ΞΌΟ†ΞΈΞΏΟΞ½ Ο„Ξ± Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ξ±Ο€Ο Ο„ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ±."
 
 msgid ""
 "This is the main Mnemo configuration file. It contains options for all Mnemo "
 "scripts."
 msgstr ""
-"Αυτό είναι το βασικό αρχείο ρυθμίσεων του Mnemo. Περιέχει τα μονοπάτια και "
-"τις επιλογές για τα Mnemo scripts."
+"Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ Ξ²Ξ±ΟƒΞΉΞΊΟ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Mnemo. Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„Ξ± ΞΌΞΏΞ½ΞΏΟ€Ξ¬Ο„ΞΉΞ± ΞΊΞ±ΞΉ "
+"Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ± Ο„Ξ± Mnemo scripts."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:64
 msgid "Unable to create to category: %s"
-msgstr "Αδύνατη η δημιουργία στη κατηγορία: %s"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΟƒΟ„Ξ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±: %s"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:93
 msgid "Unable to delete \"%s\": %s"
-msgstr "Αδύνατη η διαγραφή '%s': %s"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® '%s': %s"
 
 msgid "Undo changes"
-msgstr "Ακύρωση Αλλαγών"
+msgstr "Ξ‘ΞΊΟΟΟ‰ΟƒΞ· Ξ‘Ξ»Ξ»Ξ±Ξ³ΟΞ½"
 
 msgid "Unfiled"
-msgstr "Μη Κατηγοριοποιημένο"
+msgstr "ΞΞ· ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏ"
 
 msgid "Unknown memo"
-msgstr "Αγνωστη σημείωση"
+msgstr "Ξ‘Ξ³Ξ½Ο‰ΟƒΟ„Ξ· ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "Unknown note"
-msgstr "Αγνωστη σημείωση"
+msgstr "Ξ‘Ξ³Ξ½Ο‰ΟƒΟ„Ξ· ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "User Options"
-msgstr "Επιλογές Χρήστη"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ§ΟΞ®ΟƒΟ„Ξ·"
 
 msgid "View Memo Details"
-msgstr "Εμφάνιση Λεπτομερειών Σημείωσης"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ›ΞµΟ€Ο„ΞΏΞΌΞµΟΞµΞΉΟΞ½ Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 msgid "View Note Details"
-msgstr "Εμφάνιση Λεπτομερειών Σημείωσης"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ›ΞµΟ€Ο„ΞΏΞΌΞµΟΞµΞΉΟΞ½ Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·Ο‚"
 
 msgid "What is the delimiter character?"
-msgstr "Ποιός είναι ο διαχωριστικος χαρακτήρας;"
+msgstr "Ξ ΞΏΞΉΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΞΏΟ‚ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞ±Ο‚;"
 
 msgid "What is the quote character?"
-msgstr "Ποιός είναι ο χαρακτήρας 'εισαγωγικά';"
+msgstr "Ξ ΞΏΞΉΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞ±Ο‚ 'ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΞ¬';"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:2
 msgid "Which Notepad should the notes be added to?"
-msgstr "Σε ποιό Σημειωματάριο θα προστεθούν οι σημειώσεις;"
+msgstr "Ξ£Ξµ Ο€ΞΏΞΉΟ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ ΞΈΞ± Ο€ΟΞΏΟƒΟ„ΞµΞΈΞΏΟΞ½ ΞΏΞΉ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚;"
 
 msgid "You have no memos."
-msgstr "Δεν έχετε σημειώσεις."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 msgid "You have no notes."
-msgstr "Δεν έχετε σημειώσεις."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:100
 msgid "You must select a notepad to be deleted."
-msgstr "Πρέπει να επιλέξετε ένα σημειωματάριο για διαγραφή."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ­Ξ½Ξ± ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®."
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:106
 msgid "You must select an member to be deleted."
-msgstr "Πρέπει να επιλέξετε ένα μέλος για διαγραφή."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ­Ξ»ΞΏΟ‚ Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®."
 
 msgid "You must select at least one memo first."
-msgstr "Πρέπει πρώτα να επιλέξετε τουλάχιστον μία σημείωση."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ο€ΟΟΟ„Ξ± Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ ΞΌΞ―Ξ± ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·."
 
 msgid "Your Information"
-msgstr "Οι Πληροφορίες Σας"
+msgstr "ΞΞΉ Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ£Ξ±Ο‚"
 
 msgid "Your default notepad:"
-msgstr "Το προκαθορισμένο σας Σημειωματάριο:"
+msgstr "Ξ¤ΞΏ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟƒΞ±Ο‚ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ:"
 
 #: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:10
 msgid "Your members:"
-msgstr "Τα μέλη σας:"
+msgstr "Ξ¤Ξ± ΞΌΞ­Ξ»Ξ· ΟƒΞ±Ο‚:"
 
 msgid "Your notepads:"
-msgstr "Τα σημειωματάριά σου:"
+msgstr "Ξ¤Ξ± ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞ¬ ΟƒΞΏΟ…:"
 
 msgid "Save Options"
-msgstr "Αποθήκευση Επιλογών"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ•Ο€ΞΉΞ»ΞΏΞ³ΟΞ½"
 
 msgid "Return to Options"
-msgstr "Επιστροφή στις Επιλογές"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΉΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid ""
 "Unlike real sticky notes, your computer notes can be shared with others in "
 "different physical locations. Notes can be organized into different "
 "notepads, and assigned categories."
 msgstr ""
-"Σε αντίθεση με τα κίτρινα χαρτάκια, οι σημειώσεις του υπολογιστή σας μπορούν "
-"να διαμοιρασθούν με άλλους σε διαφορετικές τοποθεσίες. Μπορούν να οργανωθούν "
-"σε διαφορετικά σημειωματάρια και να κατηγοριοποιηθούν."
+"Ξ£Ξµ Ξ±Ξ½Ο„Ξ―ΞΈΞµΟƒΞ· ΞΌΞµ Ο„Ξ± ΞΊΞ―Ο„ΟΞΉΞ½Ξ± Ο‡Ξ±ΟΟ„Ξ¬ΞΊΞΉΞ±, ΞΏΞΉ ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ® ΟƒΞ±Ο‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ "
+"Ξ½Ξ± Ξ΄ΞΉΞ±ΞΌΞΏΞΉΟΞ±ΟƒΞΈΞΏΟΞ½ ΞΌΞµ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ ΟƒΞµ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ­Ο‚ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―ΞµΟ‚. ΞΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞΏΟΞ³Ξ±Ξ½Ο‰ΞΈΞΏΟΞ½ "
+"ΟƒΞµ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ¬ ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞ± ΞΊΞ±ΞΉ Ξ½Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½."
 
 msgid "Use Default Value"
-msgstr "Χρήση προκαθορισμένης τιμής"
+msgstr "Ξ§ΟΞ®ΟƒΞ· Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ·Ο‚ Ο„ΞΉΞΌΞ®Ο‚"
 
 msgid "_Back to Notepad"
-msgstr "Πίσω στο Σημειωματάριο"
+msgstr "Ξ Ξ―ΟƒΟ‰ ΟƒΟ„ΞΏ Ξ£Ξ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞΏ"
 
 msgid "_Category"
-msgstr "Κατηγορία"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 msgid "_Delete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 msgid "_Edit"
-msgstr "Διόρθωση"
+msgstr "Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·"
 
 msgid "_First Line"
-msgstr "Πρώτη Γραμμή"
+msgstr "Ξ ΟΟΟ„Ξ· Ξ“ΟΞ±ΞΌΞΌΞ®"
 
 msgid "_Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "_List Notes"
-msgstr "Λίστα Σημειώσεων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½"
 
 msgid "_My Notepads"
-msgstr "Τα σημειωματάριά μου"
+msgstr "Ξ¤Ξ± ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ±Ο„Ξ¬ΟΞΉΞ¬ ΞΌΞΏΟ…"
 
 msgid "_New Note"
-msgstr "Νέα Σημείωση"
+msgstr "ΞΞ­Ξ± Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·"
 
 msgid "_Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"

@@ -9,10 +9,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-06-14 22:08+0200\n"
 "PO-Revision-Date: 2005-06-16 15:54+0100\n"
-"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Last-Translator: Andreas DahlÃ©n <andreas@dahlen.ws>\n"
 "Language-Team: Swedish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/list/header.inc:9
@@ -28,7 +28,7 @@ msgstr "Filen %s importerades"
 #: notepads.php:94 lib/base.php:95
 #, php-format
 msgid "%s's Notepad"
-msgstr "Anteckningar för %s"
+msgstr "Anteckningar fÃ¶r %s"
 
 #: templates/list/header.inc:9
 msgid "1 note"
@@ -36,29 +36,29 @@ msgstr "1 anteckning"
 
 #: memo.php:158
 msgid "Access denied deleting note."
-msgstr "Behörighet saknas att radera anteckning."
+msgstr "BehÃ¶righet saknas att radera anteckning."
 
 #: memo.php:108 memo.php:111
 msgid "Access denied moving the note."
-msgstr "Behörighet saknas att flytta anteckning."
+msgstr "BehÃ¶righet saknas att flytta anteckning."
 
 #: memo.php:80
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "Behörighet saknas att spara anteckning till %s."
+msgstr "BehÃ¶righet saknas att spara anteckning till %s."
 
 #: memo.php:78
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "Behörighet saknas att spara anteckning: %s"
+msgstr "BehÃ¶righet saknas att spara anteckning: %s"
 
 #: templates/prefs/showsummaryselect.inc:103
 msgid "Add category"
-msgstr "Lägg till kategorier"
+msgstr "LÃ¤gg till kategorier"
 
 #: memo.php:48
 msgid "Adding A New Note"
-msgstr "Lägger till en anteckning"
+msgstr "LÃ¤gger till en anteckning"
 
 #: config/prefs.php.dist:44
 msgid "Ascending"
@@ -66,7 +66,7 @@ msgstr "Stigande"
 
 #: templates/prefs/showsummaryselect.inc:99
 msgid "Available Categories:"
-msgstr "Tillgängliga kategorier:"
+msgstr "TillgÃ¤ngliga kategorier:"
 
 #: templates/view/memo.inc:28 templates/view/memo.inc:67
 msgid "Back to Notepad"
@@ -74,7 +74,7 @@ msgstr "Tillbaka till anteckningsblock"
 
 #: templates/notepads/notepads.inc:97
 msgid "Back to Notepad Options"
-msgstr "Tillbaka till inställningar för anteckningsblock"
+msgstr "Tillbaka till instÃ¤llningar fÃ¶r anteckningsblock"
 
 #: data.php:28 templates/data/import.inc:17
 msgid "CSV"
@@ -86,27 +86,27 @@ msgstr "Kategori"
 
 #: templates/notepads/notepads.inc:22
 msgid "Change"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: templates/list/memo_headers.inc:6 templates/list/memo_headers.inc:10
 msgid "Change sort direction"
-msgstr "Ändra sorteringsriktning"
+msgstr "Ã„ndra sorteringsriktning"
 
 #: config/prefs.php.dist:15
 msgid "Change your note sorting and display options."
-msgstr "Ändra sorterings- och visningsinställningar för anteckningar."
+msgstr "Ã„ndra sorterings- och visningsinstÃ¤llningar fÃ¶r anteckningar."
 
 #: templates/prefs/showsummaryselect.inc:93
 msgid "Choose the memo categories to list in the summary view."
-msgstr "Välj anteckningskategorier som skall visas i sammanställningsvyn."
+msgstr "VÃ¤lj anteckningskategorier som skall visas i sammanstÃ¤llningsvyn."
 
 #: config/prefs.php.dist:22
 msgid "Choose your default Notepad."
-msgstr "Välj ditt förvalda anteckningsblockk."
+msgstr "VÃ¤lj ditt fÃ¶rvalda anteckningsblockk."
 
 #: templates/search/search.inc:32
 msgid "Clear Form"
-msgstr "Rensa formulär"
+msgstr "Rensa formulÃ¤r"
 
 #: templates/notepads/notepads.inc:17 templates/notepads/notepads.inc:94
 #: templates/notepads/notepads.inc:96
@@ -119,15 +119,15 @@ msgstr "Skapad"
 
 #: config/prefs.php.dist:21
 msgid "Default Notepad"
-msgstr "Förvalt anteckningsblock"
+msgstr "FÃ¶rvalt anteckningsblock"
 
 #: config/prefs.php.dist:35
 msgid "Default sorting criteria:"
-msgstr "Förvald sorteringskrietria:"
+msgstr "FÃ¶rvald sorteringskrietria:"
 
 #: config/prefs.php.dist:46
 msgid "Default sorting direction:"
-msgstr "Förvald sorteringsordning"
+msgstr "FÃ¶rvald sorteringsordning"
 
 #: templates/notepads/notepads.inc:95 templates/view/memo.inc:25
 #: templates/view/memo.inc:64
@@ -148,20 +148,20 @@ msgstr "Beskrivning:"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "Visningsinställningar"
+msgstr "VisningsinstÃ¤llningar"
 
 #: templates/view/memo.inc:21 templates/view/memo.inc:60
 msgid "Edit"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: lib/Block/summary.php:83 templates/list/memo_headers.inc:4
 #: templates/list/memo_summaries.inc:4 templates/list/memo_summaries.inc:5
 msgid "Edit Note"
-msgstr "Ändra anteckning"
+msgstr "Ã„ndra anteckning"
 
 #: templates/list/memo_headers.inc:16
 msgid "Edit categories and colors"
-msgstr "Ändra kategorier och färger"
+msgstr "Ã„ndra kategorier och fÃ¤rger"
 
 #: templates/list/memo_summaries.inc:9
 msgid "Empty Note"
@@ -190,7 +190,7 @@ msgstr "Importera/exportera anteckningar"
 
 #: templates/view/memo.inc:43
 msgid "Last Modified"
-msgstr "Senast ändrad"
+msgstr "Senast Ã¤ndrad"
 
 #: lib/api.php:57
 msgid "Maximum Number of Notes"
@@ -203,7 +203,7 @@ msgstr "Anteckningstext"
 #: memo.php:64
 #, php-format
 msgid "Modifying %s"
-msgstr "Ändrar %s:"
+msgstr "Ã„ndrar %s:"
 
 #: list.php:31
 msgid "My Notes"
@@ -215,11 +215,11 @@ msgstr "Ny anteckning"
 
 #: templates/data/import.inc:40
 msgid "Next"
-msgstr "Nästa"
+msgstr "NÃ¤sta"
 
 #: templates/menu.inc:7
 msgid "No notepads are available to guests."
-msgstr "Inga anteckningsblock tillgängliga för gäster."
+msgstr "Inga anteckningsblock tillgÃ¤ngliga fÃ¶r gÃ¤ster."
 
 #: templates/list/header.inc:9
 msgid "No notes"
@@ -275,7 +275,7 @@ msgstr "Anteckningsblock"
 
 #: notepads.php:28
 msgid "Notepads must have a name."
-msgstr "Anteckningsblock måste ha ett namn."
+msgstr "Anteckningsblock mÃ¥ste ha ett namn."
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
@@ -283,15 +283,15 @@ msgstr "Antecknings summering"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20
 msgid "Other Options"
-msgstr "Andra inställningar"
+msgstr "Andra instÃ¤llningar"
 
 #: lib/api.php:154 lib/api.php:225 lib/api.php:296 lib/api.php:325
 msgid "Permission Denied"
-msgstr "Behörighet nekades"
+msgstr "BehÃ¶righet nekades"
 
 #: templates/notepads/notepads.inc:82
 msgid "Permissions"
-msgstr "behörigheter"
+msgstr "behÃ¶righeter"
 
 #: templates/list/header.inc:4 templates/list/header.inc:5
 msgid "Refresh List"
@@ -303,7 +303,7 @@ msgstr "Radera kategorier"
 
 #: templates/notepads/notepads.inc:96
 msgid "Reset"
-msgstr "Återställ"
+msgstr "Ã…terstÃ¤ll"
 
 #: templates/memo/memo.inc:45
 msgid "Save"
@@ -311,23 +311,23 @@ msgstr "Spara"
 
 #: search.php:13 templates/search/search.inc:4 templates/search/search.inc:31
 msgid "Search"
-msgstr "Sök"
+msgstr "SÃ¶k"
 
 #: list.php:53
 msgid "Search Results"
-msgstr "Sökresultat"
+msgstr "SÃ¶kresultat"
 
 #: templates/search/search.inc:17
 msgid "Search Scope"
-msgstr "Urval för sökning"
+msgstr "Urval fÃ¶r sÃ¶kning"
 
 #: templates/search/search.inc:9
 msgid "Search _Text"
-msgstr "Sökt _text"
+msgstr "SÃ¶kt _text"
 
 #: templates/notepads/notepads.inc:67
 msgid "Select a notepad"
-msgstr "Välj ett anteckningsblock"
+msgstr "VÃ¤lj ett anteckningsblock"
 
 #: templates/menu.inc:16
 msgid "Select notepads to display:"
@@ -335,15 +335,15 @@ msgstr "Ange anteckningsblock att visa:"
 
 #: templates/data/export.inc:15
 msgid "Select the export format:"
-msgstr "Välj exportformat:"
+msgstr "VÃ¤lj exportformat:"
 
 #: templates/data/import.inc:37
 msgid "Select the file to import:"
-msgstr "Välj fil som skall importeras:"
+msgstr "VÃ¤lj fil som skall importeras:"
 
 #: templates/data/import.inc:15
 msgid "Select the format of the source file:"
-msgstr "Välj format på importfilen:"
+msgstr "VÃ¤lj format pÃ¥ importfilen:"
 
 #: templates/prefs/showsummaryselect.inc:109
 msgid "Selected Categories:"
@@ -363,11 +363,11 @@ msgstr "Visa anteckningar med dessa kategorier"
 
 #: templates/list/memo_headers.inc:11
 msgid "Sort by Category"
-msgstr "Sortera på kategori"
+msgstr "Sortera pÃ¥ kategori"
 
 #: templates/list/memo_headers.inc:7
 msgid "Sort by Note Text"
-msgstr "Sortera på anteckningstext"
+msgstr "Sortera pÃ¥ anteckningstext"
 
 #: memo.php:131
 #, php-format
@@ -428,7 +428,7 @@ msgstr "Inga anteckning att exportera."
 
 #: data.php:101
 msgid "This file format is not supported."
-msgstr "Filformatet stöds inte."
+msgstr "Filformatet stÃ¶ds inte."
 
 #: notepads.php:75
 #, php-format
@@ -437,7 +437,7 @@ msgstr "Kunde inte radera '%s': %s"
 
 #: templates/memo/memo.inc:47
 msgid "Undo changes"
-msgstr "Ångra ändringar"
+msgstr "Ã…ngra Ã¤ndringar"
 
 #: lib/Block/summary.php:105 templates/list/memo_summaries.inc:11
 #: templates/view/memo.inc:16
@@ -448,7 +448,7 @@ msgstr "Ej kategoriserad"
 #: lib/api.php:187 lib/api.php:260 lib/api.php:352
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Content-Type stöds inte: %s"
+msgstr "Content-Type stÃ¶ds inte: %s"
 
 #: templates/list/memo_summaries.inc:9
 msgid "View Note Details"
@@ -456,25 +456,25 @@ msgstr "Visa anteckningsdetaljer"
 
 #: templates/data/import.inc:22
 msgid "Which Notepad should the notes be added to?"
-msgstr "Till vilket anteckningsblock skall anteckningar läggas till?"
+msgstr "Till vilket anteckningsblock skall anteckningar lÃ¤ggas till?"
 
 #: memo.php:31 data.php:38 data.php:121
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Du har inte behörighet att skapa mer än %d anteckningar."
+msgstr "Du har inte behÃ¶righet att skapa mer Ã¤n %d anteckningar."
 
 #: view.php:28
 #, php-format
 msgid "You do not have permission to view the notepad %s."
-msgstr "Du har inte behörig att visa anteckningsblock '%s'."
+msgstr "Du har inte behÃ¶rig att visa anteckningsblock '%s'."
 
 #: notepads.php:60
 msgid "You must select a notepad to be deleted."
-msgstr "Du måste ange ett anteckningsblock som skall raderas."
+msgstr "Du mÃ¥ste ange ett anteckningsblock som skall raderas."
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
-msgstr "Ditt förvalda anteckningsblock:"
+msgstr "Ditt fÃ¶rvalda anteckningsblock:"
 
 #: templates/notepads/notepads.inc:65
 msgid "Your notepads:"
@@ -494,11 +494,11 @@ msgstr "_Radera"
 
 #: templates/view/memo.inc:21 templates/view/memo.inc:60
 msgid "_Edit"
-msgstr "_Ändra"
+msgstr "_Ã„ndra"
 
 #: templates/search/search.inc:20
 msgid "_First Line"
-msgstr "_Första raden"
+msgstr "_FÃ¶rsta raden"
 
 #: lib/Mnemo.php:265
 msgid "_Import/Export"
@@ -522,7 +522,7 @@ msgstr "_Skriv ut"
 
 #: lib/Mnemo.php:256
 msgid "_Search"
-msgstr "_Sök"
+msgstr "_SÃ¶k"
 
 #: data.php:87 templates/data/export.inc:1
 msgid "notes.csv"

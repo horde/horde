@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jordi Giralt <projectek2@upcnet.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/calendars/search.inc:16
@@ -59,7 +59,7 @@ msgstr "* Agregar aquests fent clic a Afegir *"
 
 #: templates/contacts/contacts.inc:151
 msgid "* Please select address(es) *"
-msgstr "* Si us plau, seleccioni la(es) adreça(es) * "
+msgstr "* Si us plau, seleccioni la(es) adreÃ§a(es) * "
 
 #: lib/Driver.php:1804
 msgid "1 attendee"
@@ -91,7 +91,7 @@ msgstr "<b>Assistents</b> (opcional)"
 
 #: templates/edit/edit.inc:147
 msgid "<strong>Descri_ption</strong> (optional)"
-msgstr "<b>Descripció</b> (opcional)"
+msgstr "<b>DescripciÃ³</b> (opcional)"
 
 #: templates/edit/edit.inc:274
 msgid "<strong>Keywords</strong> (optional)"
@@ -99,7 +99,7 @@ msgstr "<b>Paraules clau</b> (opcional)"
 
 #: templates/edit/edit.inc:192
 msgid "<strong>Recurrence</strong> (optional)"
-msgstr "<b>Repetició</b> (opcional)"
+msgstr "<b>RepeticiÃ³</b> (opcional)"
 
 #: templates/data/export.inc:113 templates/data/export.inc:193
 msgid "AM"
@@ -111,7 +111,7 @@ msgstr "Acceptat"
 
 #: templates/search/search.inc:11
 msgid "Ad_vanced Search"
-msgstr "Cerca avançada"
+msgstr "Cerca avanÃ§ada"
 
 #: templates/contacts/contacts.inc:160
 msgid "Add"
@@ -144,7 +144,7 @@ msgstr "Llibreta d'adreces"
 
 #: templates/search/search_advanced.inc:8 templates/search/search.inc:11
 msgid "Advanced Search"
-msgstr "Cerca avançada"
+msgstr "Cerca avanÃ§ada"
 
 #: templates/view/view.inc:53
 msgid "Alarm"
@@ -252,13 +252,13 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"S'adjunta un arxiu iCalendar amb més informació sobre l'esdeveniment. Si el "
-"seu client de correu suporta sol·licituds iTip, pot utilitzar l'arxiu per a "
-"actualitzar fàcilment la seva còpia local de l'esdeveniment. "
+"S'adjunta un arxiu iCalendar amb mÃ©s informaciÃ³ sobre l'esdeveniment. Si el "
+"seu client de correu suporta solÂ·licituds iTip, pot utilitzar l'arxiu per a "
+"actualitzar fÃ cilment la seva cÃ²pia local de l'esdeveniment. "
 
 #: templates/attendees/attendees.inc:42 templates/view/view.inc:165
 msgid "Attendance"
-msgstr "Assistència"
+msgstr "AssistÃ¨ncia"
 
 #: templates/view/view.inc:161
 msgid "Attendees"
@@ -317,16 +317,16 @@ msgstr "No es pot crear un acte nou."
 #: templates/delete/one.inc:33 templates/delete/delete.inc:35
 #: templates/edit/edit.inc:31 templates/edit/edit.inc:307
 msgid "Cancel"
-msgstr "Anul·la"
+msgstr "AnulÂ·la"
 
 #: lib/Kronolith.php:578
 msgid "Cancelled"
-msgstr "Anul·lat"
+msgstr "AnulÂ·lat"
 
 #: lib/Kronolith.php:1021
 #, php-format
 msgid "Cancelled: %s"
-msgstr "Anul·lat: %s"
+msgstr "AnulÂ·lat: %s"
 
 #: templates/search/search_advanced.inc:63 templates/edit/edit.inc:67
 msgid "Categor_y"
@@ -341,7 +341,7 @@ msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
-"Trii si desitja que se li notifiquin per correu electrònic els esdeveniments "
+"Trii si desitja que se li notifiquin per correu electrÃ²nic els esdeveniments "
 "nous, modificats o eliminats: "
 
 #: config/prefs.php.dist:52
@@ -358,19 +358,19 @@ msgstr ""
 #: templates/prefs/search_abook_select.inc:19 config/prefs.php.dist:312
 msgid "Choose the address books to search for free/busy URLs:"
 msgstr ""
-"Trii les llibretes d'adreces en les quals buscar URLs d'informació de temps "
+"Trii les llibretes d'adreces en les quals buscar URLs d'informaciÃ³ de temps "
 "disponible"
 
 #: templates/prefs/fb_cals_select.inc:16
 msgid "Choose the calendars to include in your free/busy information:"
 msgstr ""
-"Trii les agendes que vol que s'incloguin en la informació de Temps "
+"Trii les agendes que vol que s'incloguin en la informaciÃ³ de Temps "
 "Disponible: "
 
 #: config/prefs.php.dist:324
 msgid "Choose the calendars to include when generating free/busy URLs:"
 msgstr ""
-"Trii les llibretes d'adreces on voleu cercar URL amb informació sobre el "
+"Trii les llibretes d'adreces on voleu cercar URL amb informaciÃ³ sobre el "
 "temps disponible"
 
 #: config/prefs.php.dist:38
@@ -392,7 +392,7 @@ msgstr "Valors separats per comes"
 
 #: config/prefs.php.dist:73
 msgid "Confirm deletion of events?"
-msgstr "Confirmar eliminació d'esdeveniments? "
+msgstr "Confirmar eliminaciÃ³ d'esdeveniments? "
 
 #: lib/Kronolith.php:575
 msgid "Confirmed"
@@ -401,7 +401,7 @@ msgstr "Confirmat"
 #: templates/calendars/calendars.inc:217
 msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
 msgstr ""
-"Copiï la següent URL per a usar-la sempre que necessiti la seva URL de temps "
+"CopiÃ¯ la segÃ¼ent URL per a usar-la sempre que necessiti la seva URL de temps "
 "disponible: "
 
 #: lib/Kronolith.php:163
@@ -432,7 +432,7 @@ msgstr "Actual"
 
 #: templates/view/view.inc:112 templates/edit/edit.inc:206
 msgid "Daily: Recurs every"
-msgstr "Diàriament: Es repeteix cada"
+msgstr "DiÃ riament: Es repeteix cada"
 
 #: attendees.php:106 lib/Kronolith.php:1311 lib/Block/tree_menu.php:21
 #: config/prefs.php.dist:82
@@ -479,17 +479,17 @@ msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"Eliminar només l'esdeveniment actual, aquesta aparició i les futures, o "
+"Eliminar nomÃ©s l'esdeveniment actual, aquesta apariciÃ³ i les futures, o "
 "totes les aparicions? "
 
 #: templates/search/search_advanced.inc:103 templates/search/search.inc:28
 msgid "Descri_ption"
-msgstr "Descripc_ó"
+msgstr "Descripc_Ã³"
 
 #: data.php:61 templates/calendars/calendars.inc:178
 #: templates/view/view.inc:96
 msgid "Description"
-msgstr "Descripció"
+msgstr "DescripciÃ³"
 
 #: templates/contacts/contacts.inc:174
 msgid "Display"
@@ -501,11 +501,11 @@ msgstr "Mostrar agendes"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:20 config/prefs.php.dist:28
 msgid "Display Options"
-msgstr "Opcions de visualització"
+msgstr "Opcions de visualitzaciÃ³"
 
 #: config/prefs.php.dist:30
 msgid "Do you want to show tasks which are due on your calendar?"
-msgstr "Seleccioni com mostrar en l'agenda les tasques vençudes "
+msgstr "Seleccioni com mostrar en l'agenda les tasques venÃ§udes "
 
 #: lib/Kronolith.php:545
 msgid "Does not recur"
@@ -514,7 +514,7 @@ msgstr "No es repeteix"
 #: lib/Kronolith.php:326
 #, php-format
 msgid "Due: %s"
-msgstr "Vençut: %s"
+msgstr "VenÃ§ut: %s"
 
 #: templates/edit/edit_timespan.inc:115
 msgid "Duration"
@@ -552,7 +552,7 @@ msgstr "Edita les categories i els colors"
 #: templates/contacts/contacts.inc:177 templates/attendees/attendees.inc:41
 #: templates/view/view.inc:164
 msgid "Email Address"
-msgstr "Adreça electrònica"
+msgstr "AdreÃ§a electrÃ²nica"
 
 #: templates/edit/edit_timespan.inc:60
 msgid "En_d"
@@ -560,7 +560,7 @@ msgstr "_Fi"
 
 #: data.php:56
 msgid "End Date"
-msgstr "Data de finalització"
+msgstr "Data de finalitzaciÃ³"
 
 #: templates/search/event_headers.inc:8 templates/view/view.inc:47
 #: templates/data/export.inc:120
@@ -569,13 +569,13 @@ msgstr "Acaba el"
 
 #: data.php:57
 msgid "End Time"
-msgstr "Hora de finalització"
+msgstr "Hora de finalitzaciÃ³"
 
 #: attendees.php:120 attendees.php:131 attendees.php:138
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
 msgstr ""
-"S'ha produït un error en recuperar la informació sobre el temps disponible "
+"S'ha produÃ¯t un error en recuperar la informaciÃ³ sobre el temps disponible "
 "de %s: %s"
 
 #: lib/Kronolith.php:1113
@@ -605,7 +605,7 @@ msgstr "Els actes han de tenir una data d'inici."
 
 #: lib/Driver.php:734
 msgid "Events must have a title."
-msgstr "Els actes han de portar títol."
+msgstr "Els actes han de portar tÃ­tol."
 
 #: templates/attendees/attendees.inc:75
 msgid "Expand Names"
@@ -639,7 +639,7 @@ msgstr "lliure"
 
 #: config/prefs.php.dist:58
 msgid "Free/Busy Information"
-msgstr "Informació sobre el temps disponible"
+msgstr "InformaciÃ³ sobre el temps disponible"
 
 #: templates/month/head.inc:20 templates/view/view.inc:119
 #: templates/edit/javascript.inc:72
@@ -680,11 +680,11 @@ msgstr "Hora(es)"
 
 #: config/prefs.php.dist:133
 msgid "How long should the time slots on the day and week views be?"
-msgstr "Grandària de les divisions horàries en les vistes de dia i setmana? "
+msgstr "GrandÃ ria de les divisions horÃ ries en les vistes de dia i setmana? "
 
 #: config/prefs.php.dist:301
 msgid "How many days of free/busy information should we generate?"
-msgstr "De quants dies es generarà la informació de temps disponible? "
+msgstr "De quants dies es generarÃ  la informaciÃ³ de temps disponible? "
 
 #: lib/Kronolith.php:1050
 #, php-format
@@ -702,7 +702,7 @@ msgid ""
 "%s"
 msgstr ""
 "Si el seu client de correu no suporta peticions iTip, pot usar un dels "
-"vincles següents per a acceptar o rebutjar l'esdeveniment.\n"
+"vincles segÃ¼ents per a acceptar o rebutjar l'esdeveniment.\n"
 " \n"
 " Per a acceptar-lo:\n"
 "%s\n"
@@ -744,7 +744,7 @@ msgstr "Les darreres 24 hores"
 
 #: templates/view/view.inc:87
 msgid "Last Modified"
-msgstr "Darrera modificació"
+msgstr "Darrera modificaciÃ³"
 
 #: templates/month/head_side_by_side.inc:4
 #: templates/month/head_side_by_side.inc:10
@@ -766,14 +766,14 @@ msgstr "Limita l'espai de temps que s'ha d'exportar:"
 
 #: templates/search/search_advanced.inc:85 templates/edit/edit.inc:74
 msgid "Lo_cation"
-msgstr "Ubicació"
+msgstr "UbicaciÃ³"
 
 #: data.php:63 templates/search/event_headers.inc:5
 #: templates/prefs/remote_cal_management.inc:18
 #: templates/prefs/remote_cal_management.inc:52 templates/view/view.inc:21
 #: lib/Driver.php:1884
 msgid "Location"
-msgstr "Ubicació"
+msgstr "UbicaciÃ³"
 
 #: config/prefs.php.dist:45
 msgid "Manage remote calendars."
@@ -781,11 +781,11 @@ msgstr "Gestiona les agendes remotes."
 
 #: templates/javascript/goto.inc:70
 msgid "March"
-msgstr "Març"
+msgstr "MarÃ§"
 
 #: lib/api.php:100
 msgid "Maximum Number of Events"
-msgstr "Nombre màxim d'events"
+msgstr "Nombre mÃ xim d'events"
 
 #: templates/javascript/goto.inc:72
 msgid "May"
@@ -797,15 +797,15 @@ msgstr "Jo"
 
 #: config/keywords.php.dist:17
 msgid "Meeting"
-msgstr "Reunió"
+msgstr "ReuniÃ³"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "Menú d'alarma"
+msgstr "MenÃº d'alarma"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Llista de menús"
+msgstr "Llista de menÃºs"
 
 #: templates/view/view.inc:68 templates/edit/edit.inc:135
 msgid "Minute(s)"
@@ -827,7 +827,7 @@ msgstr "Mes"
 
 #: lib/Block/month.php:3
 msgid "Month View"
-msgstr "Visualització del mes"
+msgstr "VisualitzaciÃ³ del mes"
 
 #: lib/Block/monthlist.php:3 lib/Block/monthlist.php:43
 msgid "Monthly Events List"
@@ -848,7 +848,7 @@ msgstr "Mesos anteriors"
 
 #: lib/api.php:633
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "S'han trobat diversos elements iCalendar; només s'accepta un #vEvent#."
+msgstr "S'han trobat diversos elements iCalendar; nomÃ©s s'accepta un #vEvent#."
 
 #: calendars.php:128 templates/calendars/calendars.inc:70
 msgid "My Calendars"
@@ -860,7 +860,7 @@ msgstr "Les meves agendes:"
 
 #: templates/calendars/calendars.inc:213
 msgid "My Free/Busy URL"
-msgstr "El meu URL amb informació sobre el temps disponible"
+msgstr "El meu URL amb informaciÃ³ sobre el temps disponible"
 
 #: templates/calendars/calendars.inc:120 templates/calendars/calendars.inc:162
 #: templates/contacts/contacts.inc:176
@@ -880,12 +880,12 @@ msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
 msgstr ""
-"Agenda creada i compartida de forma automàtica amb/l'els següent(s) grup(s): "
+"Agenda creada i compartida de forma automÃ tica amb/l'els segÃ¼ent(s) grup(s): "
 "%s. "
 
 #: templates/data/import.inc:33
 msgid "Next"
-msgstr "Següent"
+msgstr "SegÃ¼ent"
 
 #: templates/search/search.inc:57
 msgid "Next 24 hours"
@@ -937,7 +937,7 @@ msgstr "No hi ha agendes disponibles per als visitants."
 
 #: templates/view/view.inc:136 templates/edit/edit.inc:252
 msgid "No end date"
-msgstr "Sense data de finalització"
+msgstr "Sense data de finalitzaciÃ³"
 
 #: lib/Block/prevmonthlist.php:164 lib/Block/monthlist.php:163
 #: lib/Block/summary.php:194
@@ -947,7 +947,7 @@ msgstr "No hi ha actes per mostrar"
 #: lib/Storage/kolab.php:48
 #, php-format
 msgid "No free/busy information is available for %s"
-msgstr "No hi ha informació sobre el temps disponible de %s"
+msgstr "No hi ha informaciÃ³ sobre el temps disponible de %s"
 
 #: lib/api.php:344 lib/api.php:623
 msgid "No iCalendar data was found."
@@ -955,11 +955,11 @@ msgstr "No s'han trobat dades iCalendar."
 
 #: templates/edit/edit.inc:201
 msgid "No recurrence"
-msgstr "Sense repetició"
+msgstr "Sense repeticiÃ³"
 
 #: lib/Kronolith.php:902
 msgid "No valid email address found"
-msgstr "No s'han trobat adreces electròniques vàlides"
+msgstr "No s'han trobat adreces electrÃ²niques vÃ lides"
 
 #: lib/Kronolith.php:612 lib/Kronolith.php:633
 msgid "None"
@@ -993,7 +993,7 @@ msgstr "A"
 
 #: config/prefs.php.dist:278 config/prefs.php.dist:291
 msgid "On all calendars I have read access to"
-msgstr "De tots els calendaris als quals tinc accés "
+msgstr "De tots els calendaris als quals tinc accÃ©s "
 
 #: config/prefs.php.dist:277 config/prefs.php.dist:290
 msgid "On all shown calendars"
@@ -1001,7 +1001,7 @@ msgstr "De totes les agendes visibles "
 
 #: config/prefs.php.dist:276 config/prefs.php.dist:289
 msgid "On my calendars only"
-msgstr "Només a les meves agendes"
+msgstr "NomÃ©s a les meves agendes"
 
 #: lib/Kronolith.php:630
 msgid "Optional"
@@ -1035,7 +1035,7 @@ msgstr "Llista d'actes passats"
 
 #: templates/view/view.inc:109 templates/edit/edit.inc:196
 msgid "Pattern"
-msgstr "Patró"
+msgstr "PatrÃ³"
 
 #: templates/delete/one.inc:30
 msgid "Permanently delete this event?"
@@ -1044,7 +1044,7 @@ msgstr "Eliminar permanentment aquest esdeveniment? "
 #: lib/api.php:325 lib/api.php:421 lib/api.php:493 lib/api.php:573
 #: lib/api.php:605 lib/api.php:691 lib/api.php:727
 msgid "Permission Denied"
-msgstr "S'ha denegat el permís"
+msgstr "S'ha denegat el permÃ­s"
 
 #: templates/calendars/calendars.inc:170
 msgid "Permissions"
@@ -1072,23 +1072,23 @@ msgstr "Es repeteix fins"
 
 #: templates/view/view.inc:106
 msgid "Recurrence"
-msgstr "Repetició"
+msgstr "RepeticiÃ³"
 
 #: data.php:68
 msgid "Recurrence Data"
-msgstr "Data de la repetició"
+msgstr "Data de la repeticiÃ³"
 
 #: data.php:66
 msgid "Recurrence End Date"
-msgstr "Data de finalització de la repetició"
+msgstr "Data de finalitzaciÃ³ de la repeticiÃ³"
 
 #: data.php:67
 msgid "Recurrence Interval"
-msgstr "Interval de repetició"
+msgstr "Interval de repeticiÃ³"
 
 #: data.php:65
 msgid "Recurrence Type"
-msgstr "Tipus de repetició"
+msgstr "Tipus de repeticiÃ³"
 
 #: lib/Kronolith.php:548
 msgid "Recurs daily"
@@ -1121,7 +1121,7 @@ msgstr "Agendes remotes:"
 
 #: templates/calendars/calendars.inc:194
 msgid "Remote Subscription URL"
-msgstr "URL de subscripció remota"
+msgstr "URL de subscripciÃ³ remota"
 
 #: templates/contacts/contacts.inc:161
 #, fuzzy
@@ -1142,16 +1142,16 @@ msgid ""
 "Replace existing calendar with the imported one? <strong>Warning: This "
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
-"Substituir l'agenda existent amb la importada?  <strong>Avís: Ésto eliminarà "
+"Substituir l'agenda existent amb la importada?  <strong>AvÃ­s: Ã‰sto eliminarÃ  "
 "totes les entrades de l'agenda actual. </strong>"
 
 #: lib/Kronolith.php:637
 msgid "Required"
-msgstr "Sol·licitat"
+msgstr "SolÂ·licitat"
 
 #: lib/FBView.php:98 lib/FBView.php:139 lib/FBView.php:142 lib/FBView.php:145
 msgid "Required Attendees"
-msgstr "Assistents sol·licitats"
+msgstr "Assistents solÂ·licitats"
 
 #: templates/edit/edit.inc:32 templates/edit/edit.inc:308
 msgid "Reset to Defaults"
@@ -1224,7 +1224,7 @@ msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Seleccioni opcions de confirmació, com mostrar les diferents vistes i "
+"Seleccioni opcions de confirmaciÃ³, com mostrar les diferents vistes i "
 "escojer la vista per defecte."
 
 #: templates/data/import.inc:18
@@ -1237,7 +1237,7 @@ msgstr "Seleccioni la(es) agenda(es) des de la(es) que exportar "
 
 #: templates/data/export.inc:12
 msgid "Select the export format:"
-msgstr "Seleccioni el format d'exportació:"
+msgstr "Seleccioni el format d'exportaciÃ³:"
 
 #: templates/data/import.inc:27
 msgid "Select the file to import:"
@@ -1257,7 +1257,7 @@ msgstr "Seleccioni la durada que voleu mostrar:"
 
 #: config/prefs.php.dist:86
 msgid "Select the view to display on startup:"
-msgstr "Seleccioni la visualització que es mostra a l'inici:"
+msgstr "Seleccioni la visualitzaciÃ³ que es mostra a l'inici:"
 
 #: config/prefs.php.dist:22
 msgid "Select which events to show in the portal."
@@ -1266,13 +1266,13 @@ msgstr "Seleccioni quins actes es mostren en el portal."
 #: templates/delete/one.inc:27 templates/delete/delete.inc:27
 msgid "Send a cancel notification to all attendees when deleting this event"
 msgstr ""
-"A l'esborrar aquest esdeveniment, enviar un avís d'anul·lació a tots els "
+"A l'esborrar aquest esdeveniment, enviar un avÃ­s d'anulÂ·laciÃ³ a tots els "
 "assistents "
 
 #: templates/view/view.inc:170
 #, php-format
 msgid "Send an email to %s"
-msgstr "Enviar un correu electrònic a %s"
+msgstr "Enviar un correu electrÃ²nic a %s"
 
 #: templates/edit/edit.inc:179
 msgid "Send updates/invitations to all attendees when saving this event"
@@ -1290,7 +1290,7 @@ msgstr "Establir data final "
 
 #: templates/edit/edit.inc:265
 msgid "Set recurrence end date"
-msgstr "Establir la data de finalització de la repetició"
+msgstr "Establir la data de finalitzaciÃ³ de la repeticiÃ³"
 
 #: templates/edit/edit_timespan.inc:31
 msgid "Set start date"
@@ -1328,11 +1328,11 @@ msgstr "Mostrar comentaris de les categories? "
 #: config/prefs.php.dist:146
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
 msgstr ""
-"En les vistes d'agenda mostrar les icones eliminar, alarma i repetició? "
+"En les vistes d'agenda mostrar les icones eliminar, alarma i repeticiÃ³? "
 
 #: config/prefs.php.dist:212
 msgid "Show due tasks in the calendar?"
-msgstr "Mostrar les tasques vençudes en l'agenda? "
+msgstr "Mostrar les tasques venÃ§udes en l'agenda? "
 
 #: config/prefs.php.dist:166
 msgid "Show free/busy legend?"
@@ -1340,7 +1340,7 @@ msgstr "Mostrar comentaris de temps disponible? "
 
 #: config/prefs.php.dist:203
 msgid "Show only events that have an alarm set?"
-msgstr "Mostrar només els esdeveniments amb alarma? "
+msgstr "Mostrar nomÃ©s els esdeveniments amb alarma? "
 
 #: config/prefs.php.dist:175
 msgid "Show shared calendars side-by-side?"
@@ -1356,7 +1356,7 @@ msgstr "Mostrar les hores entre cada dia en les vistes setmanals?"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
-msgstr "_Comença el"
+msgstr "_ComenÃ§a el"
 
 #: data.php:54
 msgid "Start Date"
@@ -1365,7 +1365,7 @@ msgstr "Data d'inici"
 #: templates/search/event_headers.inc:7 templates/view/view.inc:41
 #: templates/data/export.inc:37
 msgid "Start On"
-msgstr "Comença el"
+msgstr "ComenÃ§a el"
 
 #: data.php:55
 msgid "Start Time"
@@ -1406,7 +1406,7 @@ msgstr "Dj."
 #: templates/contacts/contacts.inc:70
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr ""
-"La pantalla d'edició d'assistents ja no està disponible. S'està sortint del "
+"La pantalla d'ediciÃ³ d'assistents ja no estÃ  disponible. S'estÃ  sortint del "
 "sistema."
 
 #: calendars.php:70
@@ -1441,7 +1441,7 @@ msgstr "El directori %S no s'ha pogut crear"
 
 #: templates/edit/javascript.inc:163
 msgid "The end date must be later than the start date."
-msgstr "La data de finalització ha de ser posterior a la data d'inici."
+msgstr "La data de finalitzaciÃ³ ha de ser posterior a la data d'inici."
 
 #: lib/Kronolith.php:1114
 #, php-format
@@ -1467,18 +1467,18 @@ msgstr ""
 #: lib/Kronolith.php:1087
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "S'ha enviat correctament a %s la notificació de l'acte."
+msgstr "S'ha enviat correctament a %s la notificaciÃ³ de l'acte."
 
 #: lib/Kronolith.php:1044
 msgid "The following is a more detailed description of the event:"
-msgstr "A continuació es presenta una descripció més detallada de l'acte:"
+msgstr "A continuaciÃ³ es presenta una descripciÃ³ mÃ©s detallada de l'acte:"
 
 #: attend.php:41
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"La petició estava incompleta. Manca de diversos dels paràmetres necessaris "
+"La peticiÃ³ estava incompleta. Manca de diversos dels parÃ metres necessaris "
 "per a acceptar o rebutjar un esdeveniment. "
 
 #: templates/search/empty.inc:3
@@ -1488,31 +1488,31 @@ msgstr "No hi ha actes que coincideixin amb els criteris actuals."
 #: addeventaction.php:18 editeventaction.php:35
 #, php-format
 msgid "There was an error accessing the calendar: %s"
-msgstr "S'ha produït un error en accedir a l'agenda: %s"
+msgstr "S'ha produÃ¯t un error en accedir a l'agenda: %s"
 
 #: addeventaction.php:34
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "S'ha produït un error en afegir l'acte: %s"
+msgstr "S'ha produÃ¯t un error en afegir l'acte: %s"
 
 #: editeventaction.php:83
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "S'ha produït un error en editar l'acte: %s"
+msgstr "S'ha produÃ¯t un error en editar l'acte: %s"
 
 #: lib/api.php:338 lib/api.php:617
 msgid "There was an error importing the iCalendar data."
-msgstr "S'ha produït un error en importar les dades iCalendar."
+msgstr "S'ha produÃ¯t un error en importar les dades iCalendar."
 
 #: editeventaction.php:63
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr "S'ha produït un error en moure l'acte: %s"
+msgstr "S'ha produÃ¯t un error en moure l'acte: %s"
 
 #: lib/Kronolith.php:1092
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "S'ha produït un error en enviar una notificació d'acte a %s: %s"
+msgstr "S'ha produÃ¯t un error en enviar una notificaciÃ³ d'acte a %s: %s"
 
 #: data.php:108
 msgid "There were no events to export."
@@ -1520,12 +1520,12 @@ msgstr "No hi ha actes per exportar."
 
 #: data.php:187
 msgid "This file format is not supported."
-msgstr "No està permès aquest format d'arxiu."
+msgstr "No estÃ  permÃ¨s aquest format d'arxiu."
 
 #: data.php:250
 #, php-format
 msgid "This is what the server said: %s"
-msgstr "Això és el que ha dit el servidor: %s"
+msgstr "AixÃ² Ã©s el que ha dit el servidor: %s"
 
 #: templates/month/head.inc:19 templates/view/view.inc:118
 #: templates/edit/javascript.inc:71
@@ -1542,12 +1542,12 @@ msgstr "Espai de temps"
 
 #: templates/search/search_advanced.inc:34 templates/edit/edit.inc:38
 msgid "Tit_le"
-msgstr "Títol"
+msgstr "TÃ­tol"
 
 #: data.php:53 templates/search/search.inc:20
 #: templates/search/event_headers.inc:3
 msgid "Title"
-msgstr "Títol"
+msgstr "TÃ­tol"
 
 #: lib/Block/prevmonthlist.php:122 lib/Block/monthlist.php:121
 #: lib/Block/summary.php:127
@@ -1557,7 +1557,7 @@ msgstr "Avui"
 #: lib/Block/prevmonthlist.php:124 lib/Block/monthlist.php:123
 #: lib/Block/summary.php:129
 msgid "Tomorrow"
-msgstr "Demà"
+msgstr "DemÃ "
 
 #: year.php:81 templates/javascript/goto.inc:60 templates/edit/edit.inc:216
 #: lib/Block/month.php:105
@@ -1590,7 +1590,7 @@ msgstr "No s'ha pogut eliminar \"%s\": %s"
 #: lib/Driver.php:182
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "No s'ha pogut carregar la definició de %s."
+msgstr "No s'ha pogut carregar la definiciÃ³ de %s."
 
 #: calendars.php:51
 #, php-format
@@ -1600,7 +1600,7 @@ msgstr "No s'ha pogut canviar el nom de \"%s\": %s"
 #: lib/Storage/kolab.php:39
 #, php-format
 msgid "Unable to retrieve free/busy information for %s"
-msgstr "No s'ha pogut recuperar la informació sobre el temps disponible de %s"
+msgstr "No s'ha pogut recuperar la informaciÃ³ sobre el temps disponible de %s"
 
 #: templates/view/view.inc:15
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:53
@@ -1619,7 +1619,7 @@ msgstr "Actualitzat: %s."
 
 #: config/prefs.php.dist:10
 msgid "User Interface"
-msgstr "Interfície d'usuari"
+msgstr "InterfÃ­cie d'usuari"
 
 #: year.php:160 year.php:166 lib/Block/month.php:159 lib/Block/month.php:162
 msgid "View Day"
@@ -1664,7 +1664,7 @@ msgstr ""
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"A quina hora han de començar les visualitzacions del dia i la setmana, si no "
+"A quina hora han de comenÃ§ar les visualitzacions del dia i la setmana, si no "
 "hi ha actes previs?"
 
 #: attendees.php:107 lib/Kronolith.php:1312 lib/Block/tree_menu.php:22
@@ -1683,16 +1683,16 @@ msgstr "Cada any: es repeteix cada"
 #: data.php:39 data.php:239 editeventaction.php:46 addevent.php:17
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "No disposa de permisos per a crear més de %d esdeveniments. "
+msgstr "No disposa de permisos per a crear mÃ©s de %d esdeveniments. "
 
 #: attend.php:49
 msgid "You are not an attendee of the specified event."
-msgstr "No és un assistent de l'esdeveniment indicat. "
+msgstr "No Ã©s un assistent de l'esdeveniment indicat. "
 
 #: templates/contacts/contacts.inc:76
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr ""
-"Aquest formulari només es pot utilitzar des de la pantalla d'edició "
+"Aquest formulari nomÃ©s es pot utilitzar des de la pantalla d'ediciÃ³ "
 "d'assistents."
 
 #: lib/Kronolith.php:988
@@ -1701,8 +1701,8 @@ msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"No ha configurat una adreça de correu en les preferències de la seva "
-"identitat. Ha d'indicar una %saquí%s per a poder enviar avisos "
+"No ha configurat una adreÃ§a de correu en les preferÃ¨ncies de la seva "
+"identitat. Ha d'indicar una %saquÃ­%s per a poder enviar avisos "
 "d'esdeveniments. "
 
 #: addeventaction.php:20
@@ -1724,19 +1724,19 @@ msgstr "No disposa de permisos per a editar aquest acte."
 
 #: data.php:192
 msgid "You have specified an invalid calendar."
-msgstr "Ha especificat una agenda no vàlida. "
+msgstr "Ha especificat una agenda no vÃ lida. "
 
 #: attend.php:21
 msgid "You have successfully accepted attendence to this event."
-msgstr "Ha acceptat l'assistència a aquest esdeveniment. "
+msgstr "Ha acceptat l'assistÃ¨ncia a aquest esdeveniment. "
 
 #: attend.php:26
 msgid "You have successfully declined attendence to this event."
-msgstr "Ha declinat l'assistència a aquest esdeveniment. "
+msgstr "Ha declinat l'assistÃ¨ncia a aquest esdeveniment. "
 
 #: attend.php:31
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Ha acceptat condicionalment l'assistència a aquest esdeveniment. "
+msgstr "Ha acceptat condicionalment l'assistÃ¨ncia a aquest esdeveniment. "
 
 #: calendars.php:91
 msgid "You must select a calendar to be deleted."
@@ -1744,36 +1744,36 @@ msgstr "Ha de seleccionar una agenda a eliminar. "
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
-msgstr "Primer ha de seleccionar una adreça."
+msgstr "Primer ha de seleccionar una adreÃ§a."
 
 #: templates/calendars/calendars.inc:173
 msgid "You need to select a calendar first"
-msgstr "Ha de fer una selecció"
+msgstr "Ha de fer una selecciÃ³"
 
 #: lib/Kronolith.php:1114
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
-"Ha sol·licitat la notificació de l'addició d'esdeveniments als seus "
+"Ha solÂ·licitat la notificaciÃ³ de l'addiciÃ³ d'esdeveniments als seus "
 "calendaris. "
 
 #: lib/Kronolith.php:1124
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr ""
-"Ha sol·licitat la notificació de l'eliminació d'esdeveniments dels seus "
+"Ha solÂ·licitat la notificaciÃ³ de l'eliminaciÃ³ d'esdeveniments dels seus "
 "calendaris. "
 
 #: lib/Kronolith.php:1119
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr ""
-"Ha sol·licitat la notificació de la modificació d'esdeveniments dels seus "
+"Ha solÂ·licitat la notificaciÃ³ de la modificaciÃ³ d'esdeveniments dels seus "
 "calendaris. "
 
 #: lib/Scheduler/kronolith.php:211
 #, php-format
 msgid "You requested to be reminded about %s, which is on %s at %s."
 msgstr ""
-"Ha sol·licitat que se li enviïn  recordatoris de %s, que estarà en %s a les %"
+"Ha solÂ·licitat que se li enviÃ¯n  recordatoris de %s, que estarÃ  en %s a les %"
 "s. "
 
 #: templates/prefs/shareselect.inc:10

@@ -10,313 +10,313 @@ msgstr ""
 "Last-Translator: Peter Wang <whw@oulink.net>\n"
 "Language-Team: Simplified Chinese <whw@oulink.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=GB2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #, c-format
 msgid "%d tasks"
-msgstr "%d ¸ö´ı°ìÊÂÏî"
+msgstr "%d ä¸ªå¾…åŠäº‹é¡¹"
 
 msgid "1 task"
-msgstr "1 ¸ö´ı°ìÊÂÏî"
+msgstr "1 ä¸ªå¾…åŠäº‹é¡¹"
 
 msgid "Adding A New Task"
-msgstr "ĞÂÔö´ı°ìÊÂÏîÖĞ"
+msgstr "æ–°å¢å¾…åŠäº‹é¡¹ä¸­"
 
 msgid "Are you sure you want to permanently delete these tasks?"
-msgstr "ÄãÈ·¶¨ÒªÓÀÔ¶µÄÉ¾³ıÕâĞ©´ı°ìÊÂÏî?"
+msgstr "ä½ ç¡®å®šè¦æ°¸è¿œçš„åˆ é™¤è¿™äº›å¾…åŠäº‹é¡¹?"
 
 msgid "Ascending"
-msgstr "ÉıÃİ"
+msgstr "å‡å¹‚"
 
 msgid "Back to Task List"
-msgstr "·µ»Ø´ı°ìÊÂÏîÇåµ¥"
+msgstr "è¿”å›å¾…åŠäº‹é¡¹æ¸…å•"
 
 msgid "Category"
-msgstr "Àà±ğ"
+msgstr "ç±»åˆ«"
 
 msgid "Change your task sorting and display options."
-msgstr "¸Ä±äÄãµÄ´ı°ìÊÂÏîÅÅĞò·½Ê½ÒÔ¼°ÏÔÊ¾Ñ¡Ïî."
+msgstr "æ”¹å˜ä½ çš„å¾…åŠäº‹é¡¹æ’åºæ–¹å¼ä»¥åŠæ˜¾ç¤ºé€‰é¡¹."
 
 #, c-format
 msgid "Changed %d tasks to priority %d."
-msgstr "ÒÑ¸Ä±ä %d ¸ö´ı°ìÊÂÏîµÄÓÅÏÈÈ¨Îª %d."
+msgstr "å·²æ”¹å˜ %d ä¸ªå¾…åŠäº‹é¡¹çš„ä¼˜å…ˆæƒä¸º %d."
 
 #, c-format
 msgid "Changed 1 task to priority %d."
-msgstr "ÒÑ¸Ä±ä 1 ¸ö´ı°ìÊÂÏîµÄÓÅÏÈÈ¨Îª %d."
+msgstr "å·²æ”¹å˜ 1 ä¸ªå¾…åŠäº‹é¡¹çš„ä¼˜å…ˆæƒä¸º %d."
 
 msgid "Choose Action:"
-msgstr "Ñ¡Ôñ²Ù×÷:"
+msgstr "é€‰æ‹©æ“ä½œ:"
 
 msgid "Clear Form"
-msgstr "Çå³ı±íµ¥"
+msgstr "æ¸…é™¤è¡¨å•"
 
 msgid "Complete Task"
-msgstr "Íê³É´ı°ìÊÂÏî"
+msgstr "å®Œæˆå¾…åŠäº‹é¡¹"
 
 msgid "Complete Tasks"
-msgstr "Íê³É´ı°ìÊÂÏî"
+msgstr "å®Œæˆå¾…åŠäº‹é¡¹"
 
 msgid "Completed?"
-msgstr "Íê³É?"
+msgstr "å®Œæˆ?"
 
 msgid "Completion Status"
-msgstr "Íê³É×´Ì¬"
+msgstr "å®ŒæˆçŠ¶æ€"
 
 msgid "Default sorting criteria:"
-msgstr "Ä¬ÈÏÅÅĞò±ê×¼:"
+msgstr "é»˜è®¤æ’åºæ ‡å‡†:"
 
 msgid "Default sorting direction:"
-msgstr "Ä¬ÈÏÅÅĞò·½Ïò:"
+msgstr "é»˜è®¤æ’åºæ–¹å‘:"
 
 msgid "Delete Task"
-msgstr "É¾³ı´ı°ìÊÂÏî"
+msgstr "åˆ é™¤å¾…åŠäº‹é¡¹"
 
 msgid "Delete Tasks"
-msgstr "É¾³ı´ı°ìÊÂÏî"
+msgstr "åˆ é™¤å¾…åŠäº‹é¡¹"
 
 #, c-format
 msgid "Deleted %d tasks."
-msgstr "%d ¸ö´ı°ìÊÂÏîÒÑÉ¾³ı."
+msgstr "%d ä¸ªå¾…åŠäº‹é¡¹å·²åˆ é™¤."
 
 msgid "Deleted 1 task."
-msgstr "ÒÑÉ¾³ı 1 ¸ö´ı°ìÊÂÏî."
+msgstr "å·²åˆ é™¤ 1 ä¸ªå¾…åŠäº‹é¡¹."
 
 msgid "Descending"
-msgstr "½µĞò"
+msgstr "é™åº"
 
 msgid "Description"
-msgstr "ÃèÊö"
+msgstr "æè¿°"
 
 msgid "Display Options"
-msgstr "ÏÔÊ¾Ñ¡Ïî"
+msgstr "æ˜¾ç¤ºé€‰é¡¹"
 
 msgid "Due By"
-msgstr "µ½ÆÚÊ±¼ä"
+msgstr "åˆ°æœŸæ—¶é—´"
 
 msgid "Due Date"
-msgstr "ÓĞĞ§ÆÚ"
+msgstr "æœ‰æ•ˆæœŸ"
 
 msgid "Help"
-msgstr "°ïÖú"
+msgstr "å¸®åŠ©"
 
 msgid "Language"
-msgstr "ÓïÑÔ"
+msgstr "è¯­è¨€"
 
 msgid "List Tasks"
-msgstr "ÁĞ³ö´ı°ìÊÂÏî"
+msgstr "åˆ—å‡ºå¾…åŠäº‹é¡¹"
 
 #, c-format
 msgid "Marked %d tasks as completed."
-msgstr "ÒÑ±ä¸ü %d ¸ö´ı°ìÊÂÏîµÄÍê³É×´Ì¬Îª."
+msgstr "å·²å˜æ›´ %d ä¸ªå¾…åŠäº‹é¡¹çš„å®ŒæˆçŠ¶æ€ä¸º."
 
 msgid "Marked 1 task as completed."
-msgstr "ÒÑ±ä¸ü 1 ¸ö´ı°ìÊÂÏîµÄÍê³É×´Ì¬."
+msgstr "å·²å˜æ›´ 1 ä¸ªå¾…åŠäº‹é¡¹çš„å®ŒæˆçŠ¶æ€."
 
 msgid "Modify Task"
-msgstr "ĞŞ¸Ä´ı°ìÊÂÏî"
+msgstr "ä¿®æ”¹å¾…åŠäº‹é¡¹"
 
 msgid "Modifying:"
-msgstr "ĞŞ¸ÄÖĞ:"
+msgstr "ä¿®æ”¹ä¸­:"
 
 msgid "Nag is not properly configured"
-msgstr "Nag ÉĞÎ´Íê³ÉÉè¶¨."
+msgstr "Nag å°šæœªå®Œæˆè®¾å®š."
 
 msgid "Name"
-msgstr "Ãû³Æ"
+msgstr "åç§°"
 
 msgid "New Task"
-msgstr "ĞÂÔö´ı°ìÊÂÏî"
+msgstr "æ–°å¢å¾…åŠäº‹é¡¹"
 
 msgid "No configuration information specified for SQL Tasks."
-msgstr "Ã»ÓĞ´ı°ìÊÂÏî(SQLĞÍÌ¬)µÄÉè¶¨×ÊÑ¶."
+msgstr "æ²¡æœ‰å¾…åŠäº‹é¡¹(SQLå‹æ€)çš„è®¾å®šèµ„è®¯."
 
 msgid "No due date."
-msgstr "ÓÀÔ¶."
+msgstr "æ°¸è¿œ."
 
 msgid "No tasks were changed."
-msgstr "Ã»ÓĞ´ı°ìÊÂÏî±»ĞŞ¸Ä."
+msgstr "æ²¡æœ‰å¾…åŠäº‹é¡¹è¢«ä¿®æ”¹."
 
 msgid "No tasks were deleted."
-msgstr "Ã»ÓĞ´ı°ìÊÂÏî±»É¾³ı."
+msgstr "æ²¡æœ‰å¾…åŠäº‹é¡¹è¢«åˆ é™¤."
 
 msgid "No"
-msgstr "ÎŞ"
+msgstr "æ— "
 
 msgid "None specified"
-msgstr "Î´Ö¸¶¨"
+msgstr "æœªæŒ‡å®š"
 
 msgid "Options"
-msgstr "Ñ¡Ïî"
+msgstr "é€‰é¡¹"
 
 msgid "Other Options"
-msgstr "ÆäËûÑ¡Ïî"
+msgstr "å…¶ä»–é€‰é¡¹"
 
 msgid "Please enter the task priority (1-5):"
-msgstr "ÇëÊäÈë´ı°ìÊÂÏîµÄÓÅÏÈÈ¨(1-5):"
+msgstr "è¯·è¾“å…¥å¾…åŠäº‹é¡¹çš„ä¼˜å…ˆæƒ(1-5):"
 
 msgid "Pri"
-msgstr "ÓÅÏÈ"
+msgstr "ä¼˜å…ˆ"
 
 msgid "Priorities must be between 1 and 5. Please enter a valid priority:"
-msgstr "ÓÅÏÈÈ¨±ØĞë½éì¶ 1 µ½ 5 .ÇëÖØĞÂÊäÈë:"
+msgstr "ä¼˜å…ˆæƒå¿…é¡»ä»‹æ–¼ 1 åˆ° 5 .è¯·é‡æ–°è¾“å…¥:"
 
 msgid "Priority"
-msgstr "ÓÅÏÈÈ¨"
+msgstr "ä¼˜å…ˆæƒ"
 
 msgid "Problem?"
-msgstr "ÎÊÌâ?"
+msgstr "é—®é¢˜?"
 
 msgid "Refresh List"
-msgstr "ÖØĞÂÕûÀíÇåµ¥"
+msgstr "é‡æ–°æ•´ç†æ¸…å•"
 
 msgid "Required 'database' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'database'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'database'è®¾å®šèµ„æ–™."
 
 msgid "Required 'hostspec' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'hostspec'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'hostspec'è®¾å®šèµ„æ–™."
 
 msgid "Required 'password' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'password'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'password'è®¾å®šèµ„æ–™."
 
 msgid "Required 'phptype' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'phptype'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'phptype'è®¾å®šèµ„æ–™."
 
 msgid "Required 'table' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'table'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'table'è®¾å®šèµ„æ–™."
 
 msgid "Required 'username' not specified in tasks configuration."
-msgstr "´ı°ìÊÂÏîÉè¶¨×ÊÁÏÖĞ,ÕÒ²»µ½¹Øì¶ 'username'Éè¶¨×ÊÁÏ."
+msgstr "å¾…åŠäº‹é¡¹è®¾å®šèµ„æ–™ä¸­,æ‰¾ä¸åˆ°å…³æ–¼ 'username'è®¾å®šèµ„æ–™."
 
 msgid "Save Task"
-msgstr "´¢´æ´ı°ìÊÂÏî"
+msgstr "å‚¨å­˜å¾…åŠäº‹é¡¹"
 
 msgid "Search Results"
-msgstr "ËÑÑ°½á¹û"
+msgstr "æœå¯»ç»“æœ"
 
 msgid "Search Scope"
-msgstr "ËÑÑ°·¶Î§"
+msgstr "æœå¯»èŒƒå›´"
 
 msgid "Search Text"
-msgstr "ËÑÑ°±¾ÎÄ"
+msgstr "æœå¯»æœ¬æ–‡"
 
 msgid "Search"
-msgstr "ËÑÑ°"
+msgstr "æœå¯»"
 
 msgid "Select your preferred language:"
-msgstr "Ñ¡ÔñÆ«ºÃÓïÑÔ:"
+msgstr "é€‰æ‹©åå¥½è¯­è¨€:"
 
 msgid "Selected?"
-msgstr "ÒÑÑ¡Ôñ?"
+msgstr "å·²é€‰æ‹©?"
 
 msgid "Set Task Priority"
-msgstr "Éè¶¨´ı°ìÊÂÏîµÄÓÅÏÈÈ¨"
+msgstr "è®¾å®šå¾…åŠäº‹é¡¹çš„ä¼˜å…ˆæƒ"
 
 msgid "Set the your preferred display language."
-msgstr " Éè¶¨ÏÔÊ¾Æ«ºÃÓïÏµ."
+msgstr " è®¾å®šæ˜¾ç¤ºåå¥½è¯­ç³»."
 
 msgid "Show completed tasks in the task list?"
-msgstr "ÏÔÊ¾ÒÑÍê³ÉÊÂÏîì¶Çåµ¥ÖĞ?"
+msgstr "æ˜¾ç¤ºå·²å®Œæˆäº‹é¡¹æ–¼æ¸…å•ä¸­?"
 
 msgid "Some of Nag's configuration files are missing:"
-msgstr "²¿·ÖµÄ NAG Éè¶¨µµ°¸ÒÅÊ§:"
+msgstr "éƒ¨åˆ†çš„ NAG è®¾å®šæ¡£æ¡ˆé—å¤±:"
 
 msgid "Sort Direction"
-msgstr "ÅÅĞò·½Ïò"
+msgstr "æ’åºæ–¹å‘"
 
 msgid "Sort by Category"
-msgstr "ÒÔÀà±ğÅÅĞò"
+msgstr "ä»¥ç±»åˆ«æ’åº"
 
 msgid "Sort by Completion Status"
-msgstr "ÒÀÍê³É×´Ì¬ÅÅĞò"
+msgstr "ä¾å®ŒæˆçŠ¶æ€æ’åº"
 
 msgid "Sort by Due Date"
-msgstr "ÒÀÓĞĞ§ÆÚÅÅĞò"
+msgstr "ä¾æœ‰æ•ˆæœŸæ’åº"
 
 msgid "Sort by Name"
-msgstr "ÒÔÃû³ÆÅÅĞò"
+msgstr "ä»¥åç§°æ’åº"
 
 msgid "Sort by Priority"
-msgstr "ÒÔÓÅÏÈÈ¨ÅÅĞò"
+msgstr "ä»¥ä¼˜å…ˆæƒæ’åº"
 
 msgid "Task Details"
-msgstr "´ı°ìÊÂÏîÏ¸½Ú"
+msgstr "å¾…åŠäº‹é¡¹ç»†èŠ‚"
 
 msgid "Task List"
-msgstr "ÏÔÊ¾´ı°ìÊÂÏî"
+msgstr "æ˜¾ç¤ºå¾…åŠäº‹é¡¹"
 
 msgid "Task Name"
-msgstr "´ı°ìÊÂÏîÃû³Æ"
+msgstr "å¾…åŠäº‹é¡¹åç§°"
 
 msgid "Task Note"
-msgstr "´ı°ìÊÂÏî±¸×¢"
+msgstr "å¾…åŠäº‹é¡¹å¤‡æ³¨"
 
 msgid "Task Note?"
-msgstr "´ı°ìÊÂÏî×¢½â?"
+msgstr "å¾…åŠäº‹é¡¹æ³¨è§£?"
 
 msgid "The requested task does not exist."
-msgstr "ĞëÒªµÄ´ı°ìÊÂÏî²¢²»´æÔÚ."
+msgstr "é¡»è¦çš„å¾…åŠäº‹é¡¹å¹¶ä¸å­˜åœ¨."
 
 msgid "The task was saved."
-msgstr "´ËÊÂÏîÒÑ´¢´æ."
+msgstr "æ­¤äº‹é¡¹å·²å‚¨å­˜."
 
 msgid "There was a problem deleting tasks."
-msgstr "É¾³ı´ı°ìÊÂÏîÊ±·¢Éú´íÎó."
+msgstr "åˆ é™¤å¾…åŠäº‹é¡¹æ—¶å‘ç”Ÿé”™è¯¯."
 
 msgid "There was a problem saving the task."
-msgstr "´¢´æ´ı°ìÊÂÏîÊ±·¢Éú´íÎó."
+msgstr "å‚¨å­˜å¾…åŠäº‹é¡¹æ—¶å‘ç”Ÿé”™è¯¯."
 
 msgid "There was a problem setting task completion status."
-msgstr "Éè¶¨´ı°ìÊÂÏîÍê³É×´Ì¬Ê±·¢ÉúÒ»Ğ©ÎÊÌâ."
+msgstr "è®¾å®šå¾…åŠäº‹é¡¹å®ŒæˆçŠ¶æ€æ—¶å‘ç”Ÿä¸€äº›é—®é¢˜."
 
 msgid "There was a problem setting task priority."
-msgstr "Éè¶¨´ı°ìÊÂÏîÓÅÏÈÈ¨Ê±·¢ÉúÒ»Ğ©ÎÊÌâ."
+msgstr "è®¾å®šå¾…åŠäº‹é¡¹ä¼˜å…ˆæƒæ—¶å‘ç”Ÿä¸€äº›é—®é¢˜."
 
 msgid "This file contains preferences for Nag."
-msgstr "Õâ¸öµµ°¸°üº¬´ı°ìÊÂÏîµÄÒ»Ğ©Æ«ºÃÉè¶¨×ÊÁÏ."
+msgstr "è¿™ä¸ªæ¡£æ¡ˆåŒ…å«å¾…åŠäº‹é¡¹çš„ä¸€äº›åå¥½è®¾å®šèµ„æ–™."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Õâ¸öµµ°¸¿ØÖÆÎÄ¼şÖĞ¹Øì¶ÑÕÉ«Óë×ÖÌåµÄÕ¹ÏÖ·ç¸ñ.²¢ÒÔĞÂÔö»ò¸²¸Ç Horde µÄ·½Ê½ÎªÔ¤Éè"
-"Öµ."
+"è¿™ä¸ªæ¡£æ¡ˆæ§åˆ¶æ–‡ä»¶ä¸­å…³æ–¼é¢œè‰²ä¸å­—ä½“çš„å±•ç°é£æ ¼.å¹¶ä»¥æ–°å¢æˆ–è¦†ç›– Horde çš„æ–¹å¼ä¸ºé¢„è®¾"
+"å€¼."
 
 msgid ""
 "This is the main Nag configuration file. It contains options for all Nag "
 "scripts."
-msgstr "ÕâÊÇ NAG µÄÖ÷ÒªÉè¶¨µµ.²¢°üº¬Æä³ÌÊ½ËùĞèµÄÂ·¾¶ÓëÑ¡Ïî."
+msgstr "è¿™æ˜¯ NAG çš„ä¸»è¦è®¾å®šæ¡£.å¹¶åŒ…å«å…¶ç¨‹å¼æ‰€éœ€çš„è·¯å¾„ä¸é€‰é¡¹."
 
 msgid "Undo Changes"
-msgstr "»Ö¸´±ä¸ü"
+msgstr "æ¢å¤å˜æ›´"
 
 msgid "Unfiled"
-msgstr "Î´¹éµµ"
+msgstr "æœªå½’æ¡£"
 
 msgid "Unknown task"
-msgstr "Î´ÖªµÄ´ı°ìÊÂÏî"
+msgstr "æœªçŸ¥çš„å¾…åŠäº‹é¡¹"
 
 msgid "Unknown"
-msgstr "Î´Öª"
+msgstr "æœªçŸ¥"
 
 msgid "User Options"
-msgstr "ÓÃ»§Ñ¡Ïî"
+msgstr "ç”¨æˆ·é€‰é¡¹"
 
 msgid "View Task Details"
-msgstr "¼ìÊÓ´ı°ìÊÂÏîÏ¸½Ú"
+msgstr "æ£€è§†å¾…åŠäº‹é¡¹ç»†èŠ‚"
 
 msgid "Yes"
-msgstr "ÊÇ"
+msgstr "æ˜¯"
 
 msgid "You must select at least one task first."
-msgstr "Äã±ØĞëÑ¡ÔñÖÁÉÙÒ»¸ö´ı°ìÊÂÏî."
+msgstr "ä½ å¿…é¡»é€‰æ‹©è‡³å°‘ä¸€ä¸ªå¾…åŠäº‹é¡¹."
 
 msgid "Your Information"
-msgstr "ÄãµÄ¸öÈË×ÊÁÏ"
+msgstr "ä½ çš„ä¸ªäººèµ„æ–™"
 
 msgid "Your task list is empty."
-msgstr "ÄãµÄ´ı°ìÊÂÏîÇåµ¥¿Õ°×."
+msgstr "ä½ çš„å¾…åŠäº‹é¡¹æ¸…å•ç©ºç™½."
 
 msgid "at"
-msgstr "ÔÚ"
+msgstr "åœ¨"

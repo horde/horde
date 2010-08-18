@@ -11,187 +11,187 @@ msgstr ""
 "Last-Translator: Anna Chen <annachen2008@yahoo.com.cn>\n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=GB2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,175,-1,-1\n"
 
 #: templates/prefs/imsp_opt.inc:40
 msgid " Add an IMSP Address Book"
-msgstr "Ìí¼Ó IMSP µØÖ·²¾"
+msgstr "æ·»åŠ  IMSP åœ°å€ç°¿"
 
 #: templates/prefs/imsp_opt.inc:29
 msgid " Delete IMSP Address Book"
-msgstr "É¾³ı IMSP µØÖ·²¾"
+msgstr "åˆ é™¤ IMSP åœ°å€ç°¿"
 
 #: data.php:342
 #, php-format
 msgid "\"%s\" already exists and was not imported."
-msgstr "¡°%s¡±ÒÑ´æÔÚ£¬ÇÒÎ´µ¼Èë¡£"
+msgstr "â€œ%sâ€å·²å­˜åœ¨ï¼Œä¸”æœªå¯¼å…¥ã€‚"
 
 #: lib/Forms/EditContact.php:76
 #, php-format
 msgid "\"%s\" updated, but saving the uploaded file failed: %s"
-msgstr "¡°%s¡±ÒÑ¸üĞÂ£¬µ«±£´æËùÉÏ´«µÄÎÄ¼şÊ§°Ü£º%s"
+msgstr "â€œ%sâ€å·²æ›´æ–°ï¼Œä½†ä¿å­˜æ‰€ä¸Šä¼ çš„æ–‡ä»¶å¤±è´¥ï¼š%s"
 
 #: lib/Forms/EditContact.php:78 lib/Forms/EditContact.php:81
 #, php-format
 msgid "\"%s\" updated."
-msgstr "¡°%s¡±ÒÑ¸üĞÂ¡£"
+msgstr "â€œ%sâ€å·²æ›´æ–°ã€‚"
 
 #: lib/Views/Browse.php:191
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
-msgstr "¡°%s¡±Î´¸´ÖÆ£¬ÒòËüÊÇÁĞ±í¡£"
+msgstr "â€œ%sâ€æœªå¤åˆ¶ï¼Œå› å®ƒæ˜¯åˆ—è¡¨ã€‚"
 
 #: lib/Views/Browse.php:189
 #, php-format
 msgid "\"%s\" was not moved because it is a list."
-msgstr "¡°%s¡±Î´ÒÆ¶¯£¬ÒòËüÊÇÁĞ±í¡£"
+msgstr "â€œ%sâ€æœªç§»åŠ¨ï¼Œå› å®ƒæ˜¯åˆ—è¡¨ã€‚"
 
 #: config/prefs.php.dist:118
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "\"Firstname Lastname\"  (ÀıÈç£ºJohn Doe)"
+msgstr "\"Firstname Lastname\"  (ä¾‹å¦‚ï¼šJohn Doe)"
 
 #: config/prefs.php.dist:117
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "\"Lastname, Firstname\" (ÀıÈç£ºDoe, John)"
+msgstr "\"Lastname, Firstname\" (ä¾‹å¦‚ï¼šDoe, John)"
 
 #: lib/Forms/AddContact.php:84
 #, php-format
 msgid "%s added."
-msgstr "%s ÒÑÌí¼Ó¡£"
+msgstr "%s å·²æ·»åŠ ã€‚"
 
 #: data.php:366
 #, php-format
 msgid "%s file successfully imported"
-msgstr "ÒÑ³É¹¦µ¼Èë %s ÎÄ¼ş"
+msgstr "å·²æˆåŠŸå¯¼å…¥ %s æ–‡ä»¶"
 
 #: templates/list/numPager.inc:6
 #, php-format
 msgid "%s to %s of %s"
-msgstr "%s ÖÁ %s/%s"
+msgstr "%s è‡³ %s/%s"
 
 #: lib/Turba.php:531
 #, php-format
 msgid "%s's Address Book"
-msgstr "%s µÄµØÖ·²¾"
+msgstr "%s çš„åœ°å€ç°¿"
 
 #: lib/Block/minisearch.php:42
 msgid "A browser that supports iFrames is required"
-msgstr "ĞèÒªÖ§³Ö iFrames µÄä¯ÀÀÆ÷"
+msgstr "éœ€è¦æ”¯æŒ iFrames çš„æµè§ˆå™¨"
 
 #: view.php:52
 #, php-format
 msgid "Access denied to %s"
-msgstr "·ÃÎÊ %s ±»¾Ü"
+msgstr "è®¿é—® %s è¢«æ‹’"
 
 #: templates/browse/actions.inc:30 lib/Forms/AddContact.php:25
 msgid "Add"
-msgstr "Ôö¼Ó"
+msgstr "å¢åŠ "
 
 #: lib/Forms/AddContact.php:22
 msgid "Add Contact"
-msgstr "Ìí¼ÓÁªÏµÈË"
+msgstr "æ·»åŠ è”ç³»äºº"
 
 #: templates/prefs/addressbookselect.inc:175
 msgid "Add address book"
-msgstr "Ìí¼ÓµØÖ·²¾"
+msgstr "æ·»åŠ åœ°å€ç°¿"
 
 #: templates/prefs/columnselect.inc:239
 msgid "Add column"
-msgstr "Ìí¼ÓÁĞ"
+msgstr "æ·»åŠ åˆ—"
 
 #: lib/Forms/EditContact.php:34
 msgid "Add file"
-msgstr "Ìí¼ÓÎÄ¼ş"
+msgstr "æ·»åŠ æ–‡ä»¶"
 
 #: templates/browse/actions.inc:30
 msgid "Add to"
-msgstr "Ìí¼Óµ½"
+msgstr "æ·»åŠ åˆ°"
 
 #: lib/Driver.php:1223
 msgid "Adding contacts is not available."
-msgstr "Ìí¼ÓÁªÏµÈË¹¦ÄÜ²»¿ÉÓÃ¡£"
+msgstr "æ·»åŠ è”ç³»äººåŠŸèƒ½ä¸å¯ç”¨ã€‚"
 
 #: templates/addressbooks.inc:95
 msgid "Address Book"
-msgstr "µØÖ·²¾"
+msgstr "åœ°å€ç°¿"
 
 #: lib/Views/Browse.php:77 config/prefs.php.dist:106
 msgid "Address Book Listing"
-msgstr "µØÖ·²¾ÁĞ±í"
+msgstr "åœ°å€ç°¿åˆ—è¡¨"
 
 #: config/prefs.php.dist:10
 msgid "Address Books"
-msgstr "µØÖ·²¾"
+msgstr "åœ°å€ç°¿"
 
 #: data.php:322
 msgid "Address book successfully purged."
-msgstr "³É¹¦Çå³ıµØÖ·²¾¡£"
+msgstr "æˆåŠŸæ¸…é™¤åœ°å€ç°¿ã€‚"
 
 #: templates/addressbooks.inc:71
 msgid "Address book to delete "
-msgstr "´ıÉ¾³ıµÄµØÖ·²¾"
+msgstr "å¾…åˆ é™¤çš„åœ°å€ç°¿"
 
 #: templates/prefs/addressbookselect.inc:169
 #: templates/prefs/addressbookselect.inc:171
 msgid "Address books that will not be displayed:"
-msgstr "½«ÒªÏÔÊ¾µÄµØÖ·²¾£º"
+msgstr "å°†è¦æ˜¾ç¤ºçš„åœ°å€ç°¿ï¼š"
 
 #: search.php:201 templates/browse/search.inc:48
 msgid "Advanced Search"
-msgstr "¸ß¼¶ËÑË÷"
+msgstr "é«˜çº§æœç´¢"
 
 #: config/attributes.php.dist:64
 msgid "Alias"
-msgstr "±ğÃû"
+msgstr "åˆ«å"
 
 #: templates/browse/actions.inc:50 templates/list/alphaPager.inc:7
 #: templates/list/alphaPager.inc:10
 msgid "All"
-msgstr "È«²¿"
+msgstr "å…¨éƒ¨"
 
 #: lib/api.php:655
 msgid "Already Exists"
-msgstr "ÒÑ´æÔÚ"
+msgstr "å·²å­˜åœ¨"
 
 #: templates/browse/javascript.inc:85
 #, php-format
 msgid "Are you sure that you want to delete %s?"
-msgstr "ÄúÈ·¶¨ÒªÉ¾³ı %s Âğ£¿"
+msgstr "æ‚¨ç¡®å®šè¦åˆ é™¤ %s å—ï¼Ÿ"
 
 #: templates/browse/javascript.inc:66
 msgid "Are you sure that you want to delete the selected entries?"
-msgstr "ÄúÈ·¶¨ÒªÉ¾³ıËùÑ¡ÌõÄ¿Âğ£¿"
+msgstr "æ‚¨ç¡®å®šè¦åˆ é™¤æ‰€é€‰æ¡ç›®å—ï¼Ÿ"
 
 #: addressbook_perms.php:56
 msgid "Attempt to edit a non-existent share."
-msgstr "³¢ÊÔ±à¼­²»´æÔÚµÄ¹²ÏíÄÚÈİ¡£"
+msgstr "å°è¯•ç¼–è¾‘ä¸å­˜åœ¨çš„å…±äº«å†…å®¹ã€‚"
 
 #: search.php:198 templates/browse/search.inc:47
 msgid "Basic Search"
-msgstr "»ù±¾ËÑË÷"
+msgstr "åŸºæœ¬æœç´¢"
 
 #: lib/Driver/ldap.php:92 lib/Driver/ldap.php:95
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "°ó¶¨Ê§°Ü£º(%s) %s"
+msgstr "ç»‘å®šå¤±è´¥ï¼š(%s) %s"
 
 #: config/attributes.php.dist:178
 msgid "Birthday"
-msgstr "ÉúÈÕ"
+msgstr "ç”Ÿæ—¥"
 
 #: contact.php:92 templates/browse/row.inc:6
 msgid "Blank name"
-msgstr "Ãû³ÆÎª¿Õ"
+msgstr "åç§°ä¸ºç©º"
 
 #: templates/menu.inc:8
 msgid "Browse"
-msgstr "ä¯ÀÀ"
+msgstr "æµè§ˆ"
 
 #: config/attributes.php.dist:173
 msgid "Business Category"
-msgstr "ÉÌÒµÀà±ğ"
+msgstr "å•†ä¸šç±»åˆ«"
 
 #: data.php:58
 msgid "CSV"
@@ -199,356 +199,356 @@ msgstr "CSV"
 
 #: lib/Object/Group.php:68
 msgid "Can't add a group to itself."
-msgstr "ÎŞ·¨½«×éÌí¼Óµ½×ÔÉí¡£"
+msgstr "æ— æ³•å°†ç»„æ·»åŠ åˆ°è‡ªèº«ã€‚"
 
 #: templates/browse/column_headers.inc:24
 #, php-format
 msgid "Change %s sort to %s"
-msgstr "½« %s Ë³Ğò¸ü¸ÄÎª %s"
+msgstr "å°† %s é¡ºåºæ›´æ”¹ä¸º %s"
 
 #: templates/browse/column_headers.inc:7
 msgid "Check All/None"
-msgstr "Ñ¡ÖĞÈ«²¿/È«²¿²»Ñ¡"
+msgstr "é€‰ä¸­å…¨éƒ¨/å…¨éƒ¨ä¸é€‰"
 
 #: templates/browse/column_headers.inc:7
 msgid "Check _All/None"
-msgstr "Ñ¡ÖĞÈ«²¿_A/È«²¿²»Ñ¡"
+msgstr "é€‰ä¸­å…¨éƒ¨_A/å…¨éƒ¨ä¸é€‰"
 
 #: templates/addressbooks.inc:52
 msgid "Choose a name"
-msgstr "Ñ¡ÔñĞÕÃû"
+msgstr "é€‰æ‹©å§“å"
 
 #: lib/Forms/AddContact.php:36
 msgid "Choose an address book"
-msgstr "Ñ¡ÔñµØÖ·²¾"
+msgstr "é€‰æ‹©åœ°å€ç°¿"
 
 #: templates/prefs/columnselect.inc:220 templates/prefs/columnselect.inc:222
 msgid "Choose an address book:"
-msgstr "Ñ¡ÔñµØÖ·²¾£º"
+msgstr "é€‰æ‹©åœ°å€ç°¿ï¼š"
 
 #: templates/prefs/addressbookselect.inc:165
 msgid "Choose which address books to display, and in what order:"
-msgstr "Ñ¡ÔñÒªÏÔÊ¾µÄµØÖ·²¾ÒÔ¼°ÏÔÊ¾Ë³Ğò£º"
+msgstr "é€‰æ‹©è¦æ˜¾ç¤ºçš„åœ°å€ç°¿ä»¥åŠæ˜¾ç¤ºé¡ºåºï¼š"
 
 #: config/prefs.php.dist:11
 msgid "Choose which address books to use."
-msgstr "Ñ¡Ôñ´ıÓÃµÄµØÖ·²¾¡£"
+msgstr "é€‰æ‹©å¾…ç”¨çš„åœ°å€ç°¿ã€‚"
 
 #: templates/prefs/columnselect.inc:229
 msgid "Choose which columns to display and in what order:"
-msgstr "Ñ¡ÔñÒªÏÔÊ¾µÄÁĞÒÔ¼°ÏÔÊ¾Ë³Ğò£º"
+msgstr "é€‰æ‹©è¦æ˜¾ç¤ºçš„åˆ—ä»¥åŠæ˜¾ç¤ºé¡ºåºï¼š"
 
 #: templates/block/minisearch.inc:27
 msgid "Close"
-msgstr "¹Ø±Õ"
+msgstr "å…³é—­"
 
 #: templates/browse/header.inc:27
 msgid "Close Search"
-msgstr "¹Ø±ÕËÑË÷"
+msgstr "å…³é—­æœç´¢"
 
 #: config/prefs.php.dist:17
 msgid "Column Options"
-msgstr "ÁĞÑ¡Ïî"
+msgstr "åˆ—é€‰é¡¹"
 
 #: templates/prefs/columnselect.inc:233 templates/prefs/columnselect.inc:235
 msgid "Columns that will not be displayed:"
-msgstr "²»»áÏÔÊ¾µÄÁĞ£º"
+msgstr "ä¸ä¼šæ˜¾ç¤ºçš„åˆ—ï¼š"
 
 #: templates/data/import.inc:13 templates/data/export.inc:12
 msgid "Comma separated values"
-msgstr "¶ººÅ·Ö¸ô(CSV)"
+msgstr "é€—å·åˆ†éš”(CSV)"
 
 #: templates/data/export.inc:13
 msgid "Comma separated values (Microsoft Outlook)"
-msgstr "¶ººÅ·Ö¸ô(CSV)(Microsoft Outlook)"
+msgstr "é€—å·åˆ†éš”(CSV)(Microsoft Outlook)"
 
 #: config/attributes.php.dist:76
 msgid "Company"
-msgstr "¹«Ë¾"
+msgstr "å…¬å¸"
 
 #: config/attributes.php.dist:144
 msgid "Company Address"
-msgstr "¹«Ë¾µØÖ·"
+msgstr "å…¬å¸åœ°å€"
 
 #: lib/api.php:366 lib/api.php:411 lib/api.php:461 lib/api.php:593
 #: lib/api.php:708 lib/api.php:795 lib/api.php:853 lib/api.php:936
 #: lib/api.php:1131 lib/api.php:1220
 #, php-format
 msgid "Connection failed: %s"
-msgstr "Á¬½ÓÊ§°Ü£º%s"
+msgstr "è¿æ¥å¤±è´¥ï¼š%s"
 
 #: lib/Driver/ldap.php:68
 msgid "Connection failure"
-msgstr "Á¬½ÓÊ§°Ü"
+msgstr "è¿æ¥å¤±è´¥"
 
 #: lib/Block/minisearch.php:3 lib/Block/minisearch.php:26
 msgid "Contact Search"
-msgstr "ËÑË÷ÁªÏµÈË"
+msgstr "æœç´¢è”ç³»äºº"
 
 #: templates/list/numPager.inc:3
 msgid "Contacts displayed:"
-msgstr "ËùÏÔÊ¾µÄÁªÏµÈË£º"
+msgstr "æ‰€æ˜¾ç¤ºçš„è”ç³»äººï¼š"
 
 #: lib/Views/Browse.php:350
 #, php-format
 msgid "Contacts in list: %s"
-msgstr "ÁĞ±íÖĞµÄÁªÏµÈË£º%s"
+msgstr "åˆ—è¡¨ä¸­çš„è”ç³»äººï¼š%s"
 
 #: templates/browse/actions.inc:18
 msgid "Copy"
-msgstr "¸´ÖÆ"
+msgstr "å¤åˆ¶"
 
 #: lib/VBook.php:284 lib/VBook.php:342
 #, php-format
 msgid "Could not find the virtual address book \"%s\""
-msgstr "ÎŞ·¨ÕÒµ½ĞéÄâµØÖ·²¾¡°%s¡±"
+msgstr "æ— æ³•æ‰¾åˆ°è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€"
 
 #: search.php:96
 #, php-format
 msgid "Could not update the virtual address book \"%s\""
-msgstr "ÎŞ·¨¸üĞÂĞéÄâµØÖ·²¾¡°%s¡±"
+msgstr "æ— æ³•æ›´æ–°è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€"
 
 #: templates/addressbooks.inc:61
 msgid "Create"
-msgstr "´´½¨"
+msgstr "åˆ›å»º"
 
 #: templates/addressbooks.inc:48
 msgid "Create Address Book"
-msgstr "´´½¨µØÖ·²¾"
+msgstr "åˆ›å»ºåœ°å€ç°¿"
 
 #: lib/ListView.php:445
 msgid "Create a new Contact List in:"
-msgstr "´´½¨ĞÂµÄÁªÏµÈËÁĞ±í£¬Î»ÖÃ£º"
+msgstr "åˆ›å»ºæ–°çš„è”ç³»äººåˆ—è¡¨ï¼Œä½ç½®ï¼š"
 
 #: lib/Views/Contact.php:58
 msgid "Created"
-msgstr "ÒÑ´´½¨"
+msgstr "å·²åˆ›å»º"
 
 #: contact.php:81
 msgid "De_lete"
-msgstr "É¾³ı_L"
+msgstr "åˆ é™¤_L"
 
 #: templates/addressbooks.inc:85 templates/browse/actions.inc:3
 #: templates/browse/header.inc:20 lib/Views/DeleteContact.php:58
 msgid "Delete"
-msgstr "É¾³ı"
+msgstr "åˆ é™¤"
 
 #: lib/Views/DeleteContact.php:28
 #, php-format
 msgid "Delete %s"
-msgstr "É¾³ı %s"
+msgstr "åˆ é™¤ %s"
 
 #: templates/addressbooks.inc:67
 msgid "Delete Address Book"
-msgstr "´´½¨µØÖ·²¾"
+msgstr "åˆ›å»ºåœ°å€ç°¿"
 
 #: lib/Driver/ldap.php:285
 #, php-format
 msgid "Delete failed: (%s) %s"
-msgstr "É¾³ıÊ§°Ü£º(%s) %s"
+msgstr "åˆ é™¤å¤±è´¥ï¼š(%s) %s"
 
 #: templates/browse/header.inc:16
 #, php-format
 msgid "Delete virtual address book \"%s\""
-msgstr "É¾³ıĞéÄâµØÖ·²¾¡°%s¡±"
+msgstr "åˆ é™¤è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€"
 
 #: lib/Driver.php:1231
 msgid "Deleting contacts is not available."
-msgstr "É¾³ıÁªÏµÈË¹¦ÄÜ²»¿ÉÓÃ¡£"
+msgstr "åˆ é™¤è”ç³»äººåŠŸèƒ½ä¸å¯ç”¨ã€‚"
 
 #: delete.php:38
 msgid "Deletion failed"
-msgstr "É¾³ıÊ§°Ü"
+msgstr "åˆ é™¤å¤±è´¥"
 
 #: config/attributes.php.dist:213
 msgid "Department"
-msgstr "²¿ÃÅ"
+msgstr "éƒ¨é—¨"
 
 #: templates/addressbooks.inc:124
 msgid "Description"
-msgstr "ÃèÊö"
+msgstr "æè¿°"
 
 #: templates/browse/search.inc:146
 msgid "Directory"
-msgstr "Ä¿Â¼"
+msgstr "ç›®å½•"
 
 #: config/prefs.php.dist:24
 msgid "Display"
-msgstr "ÏÔÊ¾"
+msgstr "æ˜¾ç¤º"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
 #: config/prefs.php.dist:30
 msgid "Display Options"
-msgstr "ÏÔÊ¾Ñ¡Ïî"
+msgstr "æ˜¾ç¤ºé€‰é¡¹"
 
 #: lib/Object.php:334
 msgid "Download"
-msgstr "ÏÂÔØ"
+msgstr "ä¸‹è½½"
 
 #: templates/browse/row.inc:13
 msgid "Download vCard"
-msgstr "ÏÂÔØ vCard"
+msgstr "ä¸‹è½½ vCard"
 
 #: templates/addressbooks.inc:111 templates/browse/row.inc:21
 #: templates/browse/column_headers.inc:10 templates/browse/actions.inc:6
 #: templates/browse/header.inc:17
 msgid "Edit"
-msgstr "±à¼­"
+msgstr "ç¼–è¾‘"
 
 #: edit.php:97
 #, php-format
 msgid "Edit \"%s\""
-msgstr "±à¼­¡°%s¡±"
+msgstr "ç¼–è¾‘â€œ%sâ€"
 
 #: lib/Views/EditContact.php:35
 #, php-format
 msgid "Edit %s"
-msgstr "±à¼­ %s"
+msgstr "ç¼–è¾‘ %s"
 
 #: templates/addressbooks.inc:90
 msgid "Edit Address Books"
-msgstr "±à¼­µØÖ·²¾"
+msgstr "ç¼–è¾‘åœ°å€ç°¿"
 
 #: addressbook_perms.php:246 templates/browse/header.inc:19
 msgid "Edit Permissions"
-msgstr "±à¼­È¨ÏŞ"
+msgstr "ç¼–è¾‘æƒé™"
 
 #: addressbook_perms.php:248
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "±à¼­ %s È¨ÏŞ"
+msgstr "ç¼–è¾‘ %s æƒé™"
 
 #: templates/browse/vbook_header.inc:2
 msgid "Edit Virtual Address Book"
-msgstr "±à¼­ĞéÄâµØÖ·²¾"
+msgstr "ç¼–è¾‘è™šæ‹Ÿåœ°å€ç°¿"
 
 #: templates/browse/header.inc:15
 #, php-format
 msgid "Edit permissions for virtual address book \"%s\""
-msgstr "±à¼­ĞéÄâµØÖ·²¾¡°%s¡±µÄÈ¨ÏŞ"
+msgstr "ç¼–è¾‘è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€çš„æƒé™"
 
 #: templates/browse/header.inc:14
 #, php-format
 msgid "Edit virtual address book definition of \"%s\""
-msgstr "±à¼­ĞéÄâµØÖ·²¾¡°%s¡±µÄ¶¨Òå"
+msgstr "ç¼–è¾‘è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€çš„å®šä¹‰"
 
 #: config/attributes.php.dist:58
 msgid "Email"
-msgstr "µç×ÓÓÊ¼ş"
+msgstr "ç”µå­é‚®ä»¶"
 
 #: lib/Views/Browse.php:267 lib/Views/Browse.php:315
 #, php-format
 msgid "Error adding %d contact(s) to list."
-msgstr "½« %d ÁªÏµÈËÌí¼Óµ½ÁĞ±íÊ±³ö´í¡£"
+msgstr "å°† %d è”ç³»äººæ·»åŠ åˆ°åˆ—è¡¨æ—¶å‡ºé”™ã€‚"
 
 #: lib/Views/Browse.php:269 lib/Views/Browse.php:317
 #, php-format
 msgid "Error adding %d of %d requested contact(s) to list."
-msgstr "½« %d ÇëÇóµÄ %d ÁªÏµÈËÌí¼Óµ½ÁĞ±íÊ±³ö´í¡£"
+msgstr "å°† %d è¯·æ±‚çš„ %d è”ç³»äººæ·»åŠ åˆ°åˆ—è¡¨æ—¶å‡ºé”™ã€‚"
 
 #: lib/Views/Browse.php:137
 #, php-format
 msgid "Error deleting %d contact(s)."
-msgstr "É¾³ı %d ÁªÏµÈËÊ±³ö´í¡£"
+msgstr "åˆ é™¤ %d è”ç³»äººæ—¶å‡ºé”™ã€‚"
 
 #: lib/Views/Browse.php:139
 #, php-format
 msgid "Error deleting %d of %d requested contacts(s)."
-msgstr "É¾³ı %d ÇëÇóµÄ %d ÁªÏµÈËÊ±³ö´í¡£"
+msgstr "åˆ é™¤ %d è¯·æ±‚çš„ %d è”ç³»äººæ—¶å‡ºé”™ã€‚"
 
 #: lib/Views/Browse.php:117
 #, php-format
 msgid "Error removing %d contact(s) from list."
-msgstr "´ÓÁĞ±íÖĞÉ¾³ı %d ÁªÏµÈËÊ±³ö´í¡£"
+msgstr "ä»åˆ—è¡¨ä¸­åˆ é™¤ %d è”ç³»äººæ—¶å‡ºé”™ã€‚"
 
 #: lib/Views/Browse.php:119
 #, php-format
 msgid "Error removing %d of %d requested contact(s) from list."
-msgstr "´ÓÁĞ±íÖĞÉ¾³ı %d ÇëÇóµÄ %d ÁªÏµÈËÊ±³ö´í¡£"
+msgstr "ä»åˆ—è¡¨ä¸­åˆ é™¤ %d è¯·æ±‚çš„ %d è”ç³»äººæ—¶å‡ºé”™ã€‚"
 
 #: lib/api.php:467
 #, php-format
 msgid "Error searching the address book: %s"
-msgstr "ËÑË÷µØÖ·²¾Ê±³ö´í£º%s"
+msgstr "æœç´¢åœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: templates/browse/actions.inc:10 templates/data/export.inc:41
 msgid "Export"
-msgstr "µ¼³ö"
+msgstr "å¯¼å‡º"
 
 #: templates/data/export.inc:6
 msgid "Export Address Book"
-msgstr "µ¼³öµØÖ·²¾"
+msgstr "å¯¼å‡ºåœ°å€ç°¿"
 
 #: templates/data/export.inc:21
 msgid "Export only the selected contacts."
-msgstr "½öµ¼³öËùÑ¡ÁªÏµÈË¡£"
+msgstr "ä»…å¯¼å‡ºæ‰€é€‰è”ç³»äººã€‚"
 
 #: templates/data/export.inc:27
 msgid "Export the following address book completely."
-msgstr "ÍêÈ«µ¼³öÏÂÁĞµØÖ·²¾¡£"
+msgstr "å®Œå…¨å¯¼å‡ºä¸‹åˆ—åœ°å€ç°¿ã€‚"
 
 #: data.php:143 data.php:237 data.php:311 add.php:40 search.php:65
 #: lib/Views/Browse.php:83 lib/Views/Browse.php:154 lib/Views/Browse.php:181
 #, php-format
 msgid "Failed to access the address book: %s"
-msgstr "·ÃÎÊµØÖ·²¾Ê±³ö´í£º%s"
+msgstr "è®¿é—®åœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: lib/Views/Browse.php:209
 #, php-format
 msgid "Failed to add %s to %s: %s"
-msgstr "½« %s Ìí¼Óµ½ %s Ê±³ö´í£º%s"
+msgstr "å°† %s æ·»åŠ åˆ° %s æ—¶å‡ºé”™ï¼š%s"
 
 #: lib/Views/Browse.php:356
 msgid "Failed to browse list"
-msgstr "ä¯ÀÀÁĞ±íÊ§°Ü"
+msgstr "æµè§ˆåˆ—è¡¨å¤±è´¥"
 
 #: lib/Views/Browse.php:387
 msgid "Failed to browse the directory"
-msgstr "ä¯ÀÀÄ¿Â¼Ê§°Ü£º%s"
+msgstr "æµè§ˆç›®å½•å¤±è´¥ï¼š%s"
 
 #: lib/Driver/ldap.php:318
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
-msgstr "¸ü¸ÄÃû³ÆÊ§°Ü£º(%s) %s£»¾É DN = %s¡¢ĞÂ DN = %s¡¢Root = %s"
+msgstr "æ›´æ”¹åç§°å¤±è´¥ï¼š(%s) %sï¼›æ—§ DN = %sã€æ–° DN = %sã€Root = %s"
 
 #: search.php:129
 #, php-format
 msgid "Failed to delete the virtual address book. %s"
-msgstr "É¾³ıĞéÄâµØÖ·²¾Ê§°Ü¡£%s"
+msgstr "åˆ é™¤è™šæ‹Ÿåœ°å€ç°¿å¤±è´¥ã€‚%s"
 
 #: lib/Views/Browse.php:185
 #, php-format
 msgid "Failed to find object to be added: %s"
-msgstr "Ñ°ÕÒ´ıÌí¼ÓµÄ¶ÔÏóÊ§°Ü£º%s"
+msgstr "å¯»æ‰¾å¾…æ·»åŠ çš„å¯¹è±¡å¤±è´¥ï¼š%s"
 
 #: search.php:192
 msgid "Failed to search the address book"
-msgstr "ËÑË÷µØÖ·²¾Ê§°Ü£º%s"
+msgstr "æœç´¢åœ°å€ç°¿å¤±è´¥ï¼š%s"
 
 #: data.php:158
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "ËÑË÷Ä¿Â¼Ê§°Ü:£º%s"
+msgstr "æœç´¢ç›®å½•å¤±è´¥:ï¼š%s"
 
 #: config/attributes.php.dist:167
 msgid "Fax"
-msgstr "´«Õæ"
+msgstr "ä¼ çœŸ"
 
 #: lib/Forms/Contact.php:40
 msgid "Files"
-msgstr "ÎÄ¼ş"
+msgstr "æ–‡ä»¶"
 
 #: templates/browse/search.inc:96
 msgid "Find"
-msgstr "²éÕÒ"
+msgstr "æŸ¥æ‰¾"
 
 #: lib/Forms/EditContact.php:119 lib/Forms/EditContact.php:155
 msgid "Finish"
-msgstr "Íê³É"
+msgstr "å®Œæˆ"
 
 #: config/attributes.php.dist:48
 msgid "First Name"
-msgstr "Ãû×Ö"
+msgstr "åå­—"
 
 #: config/attributes.php.dist:202
 msgid "Freebusy URL"
@@ -556,43 +556,43 @@ msgstr "Freebusy URL"
 
 #: templates/browse/search.inc:109
 msgid "From"
-msgstr "·¢¼şÈË"
+msgstr "å‘ä»¶äºº"
 
 #: config/sources.php.dist:684
 msgid "Global Address Book"
-msgstr "È«¾ÖµØÖ·²¾"
+msgstr "å…¨å±€åœ°å€ç°¿"
 
 #: templates/browse/row.inc:39
 msgid "Group"
-msgstr "×é"
+msgstr "ç»„"
 
 #: config/attributes.php.dist:82
 msgid "Home Address"
-msgstr "¼ÒÍ¥µØÖ·"
+msgstr "å®¶åº­åœ°å€"
 
 #: config/attributes.php.dist:93
 msgid "Home City"
-msgstr "¼ÒÍ¥×¡Ö· ³ÇÊĞ"
+msgstr "å®¶åº­ä½å€ åŸå¸‚"
 
 #: config/attributes.php.dist:108
 msgid "Home Country"
-msgstr "×¡Õ¬µØÖ· ¹ú¼Ò/µØÇø"
+msgstr "ä½å®…åœ°å€ å›½å®¶/åœ°åŒº"
 
 #: config/attributes.php.dist:150
 msgid "Home Phone"
-msgstr "¼ÒÍ¥µç»°"
+msgstr "å®¶åº­ç”µè¯"
 
 #: config/attributes.php.dist:103
 msgid "Home Postal Code"
-msgstr "×¡Õ¬µØÖ· ÓÊÕş±àÂë"
+msgstr "ä½å®…åœ°å€ é‚®æ”¿ç¼–ç "
 
 #: config/attributes.php.dist:98
 msgid "Home State/Province"
-msgstr "×¡Õ¬µØÖ· Ê¡·İ"
+msgstr "ä½å®…åœ°å€ çœä»½"
 
 #: config/attributes.php.dist:88
 msgid "Home Street Address"
-msgstr "×¡Õ¬µØÖ· ½ÖµÀµØÖ·"
+msgstr "ä½å®…åœ°å€ è¡—é“åœ°å€"
 
 #: config/sources.php.dist:575
 msgid "IMSP"
@@ -601,219 +601,219 @@ msgstr "IMSP"
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Address Book, Step %d"
-msgstr "µ¼ÈëµØÖ·²¾£¬²½Öè %d"
+msgstr "å¯¼å…¥åœ°å€ç°¿ï¼Œæ­¥éª¤ %d"
 
 #: data.php:384
 msgid "Import/Export Address Books"
-msgstr "µ¼Èë/µ¼³öµØÖ·²¾"
+msgstr "å¯¼å…¥/å¯¼å‡ºåœ°å€ç°¿"
 
 #: config/attributes.php.dist:228
 msgid "Initials"
-msgstr "Ê××ÖÄ¸"
+msgstr "é¦–å­—æ¯"
 
 #: lib/api.php:703 lib/api.php:790
 msgid "Invalid ID"
-msgstr "ID ÎŞĞ§ "
+msgstr "ID æ— æ•ˆ "
 
 #: lib/api.php:278 lib/api.php:456 lib/api.php:588 lib/api.php:699
 #: lib/api.php:786 lib/api.php:843 lib/api.php:1203
 #, php-format
 msgid "Invalid address book: %s"
-msgstr "ÎŞĞ§µÄµØÖ·²¾£º%s"
+msgstr "æ— æ•ˆçš„åœ°å€ç°¿ï¼š%s"
 
 #: lib/api.php:1207 lib/api.php:1281 lib/api.php:1337
 msgid "Invalid email"
-msgstr "µç×ÓÓÊ¼şÎŞĞ§"
+msgstr "ç”µå­é‚®ä»¶æ— æ•ˆ"
 
 #: lib/api.php:1215
 msgid "Invalid entry"
-msgstr "ÌõÄ¿ÎŞĞ§"
+msgstr "æ¡ç›®æ— æ•ˆ"
 
 #: lib/Driver/ldap.php:281
 msgid "Invalid key specified."
-msgstr "ËùÖ¸¶¨µÄ¼üÖµÎŞĞ§¡£"
+msgstr "æ‰€æŒ‡å®šçš„é”®å€¼æ— æ•ˆã€‚"
 
 #: lib/api.php:1211
 msgid "Invalid name"
-msgstr "Ãû³ÆÎŞĞ§"
+msgstr "åç§°æ— æ•ˆ"
 
 #: lib/api.php:847
 msgid "Invalid objectId"
-msgstr "¶ÔÏó ID ÎŞĞ§"
+msgstr "å¯¹è±¡ ID æ— æ•ˆ"
 
 #: lib/Driver/ldap.php:64
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
-msgstr "ĞèÒª LDAP Ö§³Ö£¬µ« LDAP Î´°²×°»òÎ´¼ÓÔØ¡£"
+msgstr "éœ€è¦ LDAP æ”¯æŒï¼Œä½† LDAP æœªå®‰è£…æˆ–æœªåŠ è½½ã€‚"
 
 #: lib/Views/Contact.php:64
 msgid "Last Modified"
-msgstr "ÉÏ´ÎĞŞ¸Ä"
+msgstr "ä¸Šæ¬¡ä¿®æ”¹"
 
 #: config/attributes.php.dist:53
 msgid "Last Name"
-msgstr "ĞÕÊÏ"
+msgstr "å§“æ°"
 
 #: templates/browse/column_headers.inc:16
 msgid "List"
-msgstr "ÁĞ±í"
+msgstr "åˆ—è¡¨"
 
 #: templates/browse/search.inc:103
 msgid "Matching"
-msgstr "Æ¥Åä"
+msgstr "åŒ¹é…"
 
 #: lib/api.php:253
 msgid "Maximum Number of Contacts"
-msgstr "ÁªÏµÈË×î´óÊıÁ¿"
+msgstr "è”ç³»äººæœ€å¤§æ•°é‡"
 
 #: config/prefs.php.dist:88
 msgid "Maximum number of pages"
-msgstr "Ò³Ãæ×î´óÊı"
+msgstr "é¡µé¢æœ€å¤§æ•°"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "²Ëµ¥ÁĞ±í"
+msgstr "èœå•åˆ—è¡¨"
 
 #: lib/Driver/ldap.php:311
 msgid "Missing DN in LDAP source configuration."
-msgstr "LDAP Ô´ÅäÖÃÖĞ¶ªÊ§ DN¡£"
+msgstr "LDAP æºé…ç½®ä¸­ä¸¢å¤± DNã€‚"
 
 #: config/attributes.php.dist:162
 msgid "Mobile Phone"
-msgstr "ĞĞ¶¯µç»°"
+msgstr "è¡ŒåŠ¨ç”µè¯"
 
 #: lib/Driver/ldap.php:340 lib/Driver/ldap.php:356
 #, php-format
 msgid "Modify failed: (%s) %s"
-msgstr "ĞŞ¸ÄÊ§°Ü£º(%s) %s"
+msgstr "ä¿®æ”¹å¤±è´¥ï¼š(%s) %s"
 
 #: templates/browse/header.inc:28
 msgid "More Options..."
-msgstr "¸ü¶àÑ¡Ïî..."
+msgstr "æ›´å¤šé€‰é¡¹..."
 
 #: lib/api.php:1322
 msgid "More than 1 entry found"
-msgstr "ÕÒµ½¶à¸öÌõÄ¿"
+msgstr "æ‰¾åˆ°å¤šä¸ªæ¡ç›®"
 
 #: templates/browse/actions.inc:16
 msgid "Move"
-msgstr "ÒÆ¶¯"
+msgstr "ç§»åŠ¨"
 
 #: templates/prefs/columnselect.inc:250
 #: templates/prefs/addressbookselect.inc:186
 msgid "Move left"
-msgstr "×óÒÆ"
+msgstr "å·¦ç§»"
 
 #: templates/prefs/columnselect.inc:252
 #: templates/prefs/addressbookselect.inc:188
 msgid "Move right"
-msgstr "ÓÒÒÆ"
+msgstr "å³ç§»"
 
 #: data.php:61 templates/data/import.inc:16
 msgid "Mulberry Address Book"
-msgstr "Mulberry µØÖ·²¾"
+msgstr "Mulberry åœ°å€ç°¿"
 
 #: lib/api.php:1239
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
-msgstr "¶àÈËÊ¹ÓÃµØÖ·[%s]£¬µ«ÎŞÈËÊ¹ÓÃÒÑ´æÔÚµÄĞÕÃû [%s]"
+msgstr "å¤šäººä½¿ç”¨åœ°å€[%s]ï¼Œä½†æ— äººä½¿ç”¨å·²å­˜åœ¨çš„å§“å [%s]"
 
 #: config/sources.php.dist:143
 msgid "My Address Book"
-msgstr "ÎÒµÄµØÖ·²¾"
+msgstr "æˆ‘çš„åœ°å€ç°¿"
 
 #: addressbooks.php:130
 msgid "My Address Books"
-msgstr "ÎÒµÄµØÖ·²¾"
+msgstr "æˆ‘çš„åœ°å€ç°¿"
 
 #: templates/addressbooks.inc:116 config/attributes.php.dist:42
 msgid "Name"
-msgstr "Ãû³Æ"
+msgstr "åç§°"
 
 #: config/prefs.php.dist:31
 msgid "Name Format"
-msgstr "ĞÕÃû¸ñÊ½"
+msgstr "å§“åæ ¼å¼"
 
 #: add.php:68 lib/Block/tree_menu.php:27
 msgid "New Contact"
-msgstr "ĞÂ½¨ÁªÏµÈË"
+msgstr "æ–°å»ºè”ç³»äºº"
 
 #: templates/data/import.inc:45 lib/Forms/EditContact.php:110
 #: lib/Forms/EditContact.php:117 lib/Forms/EditContact.php:170
 msgid "Next"
-msgstr "ÏÂÒ»²½"
+msgstr "ä¸‹ä¸€æ­¥"
 
 #: config/attributes.php.dist:218
 msgid "Nickname"
-msgstr "êÇ³Æ"
+msgstr "æ˜µç§°"
 
 #: lib/api.php:1325 lib/api.php:1374
 #, php-format
 msgid "No %s entry found for %s"
-msgstr "Î´ÕÒµ½ %s ÏîÄ¿ %s"
+msgstr "æœªæ‰¾åˆ° %s é¡¹ç›® %s"
 
 #: data.php:50
 msgid ""
 "No Address Books are currently available. Import and Export is disabled."
-msgstr "µ±Ç°ÎŞ¿ÉÓÃµÄµØÖ·²¾¡£¡°µ¼Èë¡±ºÍ¡°µ¼³ö¡±Ñ¡ÏîÒÑ½ûÓÃ¡£"
+msgstr "å½“å‰æ— å¯ç”¨çš„åœ°å€ç°¿ã€‚â€œå¯¼å…¥â€å’Œâ€œå¯¼å‡ºâ€é€‰é¡¹å·²ç¦ç”¨ã€‚"
 
 #: search.php:41
 msgid "No Address Books are currently available. Searching is disabled."
-msgstr "µ±Ç°ÎŞ¿ÉÓÃµÄµØÖ·²¾¡£ËÑË÷¹¦ÄÜÒÑ½ûÓÃ¡£"
+msgstr "å½“å‰æ— å¯ç”¨çš„åœ°å€ç°¿ã€‚æœç´¢åŠŸèƒ½å·²ç¦ç”¨ã€‚"
 
 #: lib/api.php:1290
 msgid "No address books found."
-msgstr "Î´ÕÒµ½µØÖ·²¾¡£"
+msgstr "æœªæ‰¾åˆ°åœ°å€ç°¿ã€‚"
 
 #: minisearch.php:78
 msgid "No contacts found"
-msgstr "Î´ÕÒµ½ÁªÏµÈË"
+msgstr "æœªæ‰¾åˆ°è”ç³»äºº"
 
 #: templates/browse/column_headers.inc:43
 msgid "No contacts match the current filter."
-msgstr "ÎŞÁªÏµÈËÆ¥Åäµ±Ç°¹ıÂËÆ÷¡£"
+msgstr "æ— è”ç³»äººåŒ¹é…å½“å‰è¿‡æ»¤å™¨ã€‚"
 
 #: lib/ListView.php:248
 msgid "No matching contacts"
-msgstr "ÎŞÆ¥ÅäµÄÁªÏµÈË"
+msgstr "æ— åŒ¹é…çš„è”ç³»äºº"
 
 #: lib/Driver/favourites.php:121
 msgid "No source for favourite recipients exists."
-msgstr "Ï²°®µÄÊÕ¼şÈËÎŞÀ´Ô´¡£"
+msgstr "å–œçˆ±çš„æ”¶ä»¶äººæ— æ¥æºã€‚"
 
 #: lib/api.php:614 lib/api.php:879
 msgid "No vCard data was found."
-msgstr "Î´ÕÒµ½ vCard Êı¾İ¡£"
+msgstr "æœªæ‰¾åˆ° vCard æ•°æ®ã€‚"
 
 #: templates/list/numPager.inc:8
 msgid "None"
-msgstr "ÎŞ"
+msgstr "æ— "
 
 #: lib/Views/EditContact.php:33 lib/Views/Contact.php:33
 #: lib/Views/DeleteContact.php:26
 msgid "Not Found"
-msgstr "Î´ÕÒµ½"
+msgstr "æœªæ‰¾åˆ°"
 
 #: edit.php:50 deletefile.php:20
 msgid "Not found"
-msgstr "Î´ÕÒµ½"
+msgstr "æœªæ‰¾åˆ°"
 
 #: config/attributes.php.dist:184
 msgid "Notes"
-msgstr "±¸×¢"
+msgstr "å¤‡æ³¨"
 
 #: config/prefs.php.dist:96
 msgid "Number of items per page"
-msgstr "Ã¿Ò³ÏîÄ¿Êı"
+msgstr "æ¯é¡µé¡¹ç›®æ•°"
 
 #: lib/api.php:719 lib/api.php:859
 msgid "Object not found"
-msgstr "Î´ÕÒµ½¶ÔÏó"
+msgstr "æœªæ‰¾åˆ°å¯¹è±¡"
 
 #: config/attributes.php.dist:223
 msgid "Office"
-msgstr "°ì¹«ÊÒ"
+msgstr "åŠå…¬å®¤"
 
 #: templates/prefs/imsp_opt.inc:22
 msgid ""
@@ -821,285 +821,285 @@ msgid ""
 "deleted. If this is not what you want, then you must change your selection "
 "to \"None\"."
 msgstr ""
-"±£´æ´ËÑ¡ÏîÒ³ÃæÖ®ºó£¬Ôò»áÓÀ¾ÃÉ¾³ıµØÖ·²¾¡£Èç¹û²»Ï£Íû³öÏÖÕâÖÖÇé¿ö£¬Ôò±ØĞë½«Ñ¡Ôñ"
-"¸ü¸ÄÎª¡°ÎŞ¡±¡£"
+"ä¿å­˜æ­¤é€‰é¡¹é¡µé¢ä¹‹åï¼Œåˆ™ä¼šæ°¸ä¹…åˆ é™¤åœ°å€ç°¿ã€‚å¦‚æœä¸å¸Œæœ›å‡ºç°è¿™ç§æƒ…å†µï¼Œåˆ™å¿…é¡»å°†é€‰æ‹©"
+"æ›´æ”¹ä¸ºâ€œæ— â€ã€‚"
 
 #: lib/api.php:887
 msgid "Only one vcard supported."
-msgstr "½öÖ§³ÖÒ»ÖÖ vcard¡£"
+msgstr "ä»…æ”¯æŒä¸€ç§ vcardã€‚"
 
 #: addressbook_perms.php:68
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
-msgstr "½öÓĞËùÓĞÕß»òÏµÍ³¹ÜÀíÔ±¿ÉÒÔ¸ü¸Ä¹²ÏíÄÚÈİµÄËùÓĞÈ¨»òËùÓĞÕßÈ¨ÏŞ"
+msgstr "ä»…æœ‰æ‰€æœ‰è€…æˆ–ç³»ç»Ÿç®¡ç†å‘˜å¯ä»¥æ›´æ”¹å…±äº«å†…å®¹çš„æ‰€æœ‰æƒæˆ–æ‰€æœ‰è€…æƒé™"
 
 #: config/attributes.php.dist:190
 msgid "PGP Public Key"
-msgstr "PGP ¹«Ô¿"
+msgstr "PGP å…¬é’¥"
 
 #: lib/Views/DeleteContact.php:57
 msgid "Permanently delete this contact?"
-msgstr "ÓÀ¾ÃÉ¾³ı´ËÁªÏµÈË£¿"
+msgstr "æ°¸ä¹…åˆ é™¤æ­¤è”ç³»äººï¼Ÿ"
 
 #: deletefile.php:40 lib/Driver.php:574 lib/api.php:597 lib/api.php:712
 #: lib/api.php:799 lib/api.php:1059 lib/api.php:1224 lib/Driver/sql.php:488
 msgid "Permission denied"
-msgstr "È¨ÏŞ²»×ã"
+msgstr "æƒé™ä¸è¶³"
 
 #: templates/addressbooks.inc:108
 msgid "Permissions"
-msgstr "È¨ÏŞ"
+msgstr "æƒé™"
 
 #: data.php:62 templates/data/import.inc:17
 msgid "Pine Address Book"
-msgstr "Pine µØÖ·²¾"
+msgstr "Pine åœ°å€ç°¿"
 
 #: templates/browse/javascript.inc:27
 msgid "Please name the new contact list:"
-msgstr "ÇëÃüÃûĞÂÁªÏµÈËÁĞ±í£º"
+msgstr "è¯·å‘½åæ–°è”ç³»äººåˆ—è¡¨ï¼š"
 
 #: lib/Forms/EditContact.php:113 lib/Forms/EditContact.php:116
 #: lib/Forms/EditContact.php:162
 msgid "Previous"
-msgstr "ÉÏÒ»²½"
+msgstr "ä¸Šä¸€æ­¥"
 
 #: lib/Driver/ldap.php:162
 #, php-format
 msgid "Query failed: (%s) %s"
-msgstr "²éÑ¯Ê§°Ü£º(%s) %s"
+msgstr "æŸ¥è¯¢å¤±è´¥ï¼š(%s) %s"
 
 #: lib/Driver/ldap.php:206 lib/Driver/ldap.php:214 lib/Driver/ldap.php:450
 #, php-format
 msgid "Read failed: (%s) %s"
-msgstr "¶ÁÈ¡Ê§°Ü£º(%s) %s"
+msgstr "è¯»å–å¤±è´¥ï¼š(%s) %s"
 
 #: lib/Driver.php:1215
 msgid "Reading contacts is not available."
-msgstr "¶ÁÈ¡ÁªÏµÈË¹¦ÄÜ²»¿ÉÓÃ¡£"
+msgstr "è¯»å–è”ç³»äººåŠŸèƒ½ä¸å¯ç”¨ã€‚"
 
 #: templates/prefs/addressbookselect.inc:177
 msgid "Remove address book"
-msgstr "É¾³ıµØÖ·²¾"
+msgstr "åˆ é™¤åœ°å€ç°¿"
 
 #: templates/prefs/columnselect.inc:241
 msgid "Remove column"
-msgstr "É¾³ıÁĞ"
+msgstr "åˆ é™¤åˆ—"
 
 #: templates/browse/actions.inc:3
 msgid "Remove from this list"
-msgstr "´ÓÁĞ±íÖĞÉ¾³ı"
+msgstr "ä»åˆ—è¡¨ä¸­åˆ é™¤"
 
 #: lib/Driver.php:1248
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
-msgstr "µ±Ç°µØÖ·²¾´æ´¢Çı¶¯³ÌĞò²»Ö§³ÖÉ¾³ıÓÃ»§Êı¾İ¹¦ÄÜ¡£"
+msgstr "å½“å‰åœ°å€ç°¿å­˜å‚¨é©±åŠ¨ç¨‹åºä¸æ”¯æŒåˆ é™¤ç”¨æˆ·æ•°æ®åŠŸèƒ½ã€‚"
 
 #: templates/data/import.inc:21
 msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"ÊÇ·ñÊ¹ÓÃµ¼ÈëµÄµØÖ·²¾Ìæ»»ÏÖÓĞµÄµØÖ·²¾£¿<strong>¾¯¸æ£º´Ë²Ù×÷»áÉ¾³ıÏÖÓĞµØÖ·²¾ÖĞ"
-"µÄËùÓĞÌõÄ¿¡£</strong>"
+"æ˜¯å¦ä½¿ç”¨å¯¼å…¥çš„åœ°å€ç°¿æ›¿æ¢ç°æœ‰çš„åœ°å€ç°¿ï¼Ÿ<strong>è­¦å‘Šï¼šæ­¤æ“ä½œä¼šåˆ é™¤ç°æœ‰åœ°å€ç°¿ä¸­"
+"çš„æ‰€æœ‰æ¡ç›®ã€‚</strong>"
 
 #: lib/Driver.php:462
 msgid "Requested object not found."
-msgstr "Î´ÕÒµ½ÇëÇóµÄ¶ÔÏó¡£"
+msgstr "æœªæ‰¾åˆ°è¯·æ±‚çš„å¯¹è±¡ã€‚"
 
 #: templates/browse/search.inc:141
 msgid "Reset to Defaults"
-msgstr "ÖØÖÃÎªÄ¬ÈÏÏî"
+msgstr "é‡ç½®ä¸ºé»˜è®¤é¡¹"
 
 #: config/attributes.php.dist:196
 msgid "S/MIME Public Certificate"
-msgstr "S/MIME ¹«Ô¿Ö¤Êé"
+msgstr "S/MIME å…¬é’¥è¯ä¹¦"
 
 #: lib/Driver/ldap.php:84
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "STARTTLS Ê§°Ü£º(%s) %s"
+msgstr "STARTTLS å¤±è´¥ï¼š(%s) %s"
 
 #: config/attributes.php.dist:233
 msgid "Salutation"
-msgstr "³ÆºôÓï"
+msgstr "ç§°å‘¼è¯­"
 
 #: templates/addressbooks.inc:133 templates/browse/search.inc:122
 #: templates/browse/search.inc:140 lib/Forms/EditContact.php:26
 msgid "Save"
-msgstr "±£´æ"
+msgstr "ä¿å­˜"
 
 #: templates/browse/search_vbook.inc:20
 msgid "Save search as a virtual addressbook?"
-msgstr "½«ËÑË÷Áí´æÎªµØÖ·²¾£¿"
+msgstr "å°†æœç´¢å¦å­˜ä¸ºåœ°å€ç°¿ï¼Ÿ"
 
 #: lib/Driver.php:1239
 msgid "Saving contacts is not available."
-msgstr "±£´æÁªÏµÈË¹¦ÄÜ²»¿ÉÓÃ¡£"
+msgstr "ä¿å­˜è”ç³»äººåŠŸèƒ½ä¸å¯ç”¨ã€‚"
 
 #: templates/browse/search.inc:122 templates/browse/search.inc:140
 #: templates/browse/header.inc:23 templates/block/minisearch.inc:26
 #: lib/Block/tree_menu.php:72 config/prefs.php.dist:107
 msgid "Search"
-msgstr "ËÑË÷"
+msgstr "æœç´¢"
 
 #: lib/api.php:1136
 msgid "Search failed"
-msgstr "ËÑË÷Ê§°Ü"
+msgstr "æœç´¢å¤±è´¥"
 
 #: lib/api.php:1229 lib/api.php:1235 lib/api.php:1244 lib/api.php:1257
 #, php-format
 msgid "Search failed: %s"
-msgstr "ËÑË÷Ê§°Ü£º%s"
+msgstr "æœç´¢å¤±è´¥ï¼š%s"
 
 #: templates/block/minisearch.inc:24
 msgid "Search for: "
-msgstr "ËÑË÷£º"
+msgstr "æœç´¢ï¼š"
 
 #: lib/Driver.php:1207
 msgid "Searching is not available."
-msgstr "ËÑË÷¹¦ÄÜ²»¿ÉÓÃ¡£"
+msgstr "æœç´¢åŠŸèƒ½ä¸å¯ç”¨ã€‚"
 
 #: templates/block/minisearch.inc:28
 msgid "Searching..."
-msgstr "ËÑË÷ÖĞ..."
+msgstr "æœç´¢ä¸­..."
 
 #: templates/addressbooks.inc:75
 msgid "Select an address book to delete"
-msgstr "Ñ¡ÔñÒªÉ¾³ıµÄµØÖ·²¾"
+msgstr "é€‰æ‹©è¦åˆ é™¤çš„åœ°å€ç°¿"
 
 #: templates/addressbooks.inc:99
 msgid "Select an address book to edit"
-msgstr "Ñ¡ÔñÒª±à¼­µÄµØÖ·²¾"
+msgstr "é€‰æ‹©è¦ç¼–è¾‘çš„åœ°å€ç°¿"
 
 #: templates/browse/row.inc:30
 msgid "Select contact"
-msgstr "Ñ¡ÔñÁªÏµÈË"
+msgstr "é€‰æ‹©è”ç³»äºº"
 
 #: templates/data/export.inc:32
 msgid "Select the address book to export from:"
-msgstr "Ñ¡Ôñ´ıµ¼³öµÄµØÖ·²¾£º"
+msgstr "é€‰æ‹©å¾…å¯¼å‡ºçš„åœ°å€ç°¿ï¼š"
 
 #: templates/data/import.inc:26
 msgid "Select the address book to import to:"
-msgstr "Ñ¡Ôñ´ıµ¼ÈëµÄµØÖ·²¾£º"
+msgstr "é€‰æ‹©å¾…å¯¼å…¥çš„åœ°å€ç°¿ï¼š"
 
 #: templates/data/import.inc:35
 msgid "Select the charset of the source file:"
-msgstr "Ñ¡ÔñÔ´ÎÄ¼ş×Ö·û¼¯£º"
+msgstr "é€‰æ‹©æºæ–‡ä»¶å­—ç¬¦é›†ï¼š"
 
 #: templates/data/export.inc:10
 msgid "Select the export format:"
-msgstr "Ñ¡Ôñµ¼³ö¸ñÊ½£º"
+msgstr "é€‰æ‹©å¯¼å‡ºæ ¼å¼ï¼š"
 
 #: templates/data/import.inc:43
 msgid "Select the file to import:"
-msgstr "Ñ¡Ôñ´ıµ¼³öµÄÎÄ¼ş£º"
+msgstr "é€‰æ‹©å¾…å¯¼å‡ºçš„æ–‡ä»¶ï¼š"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Ñ¡ÔñÔ´ÎÄ¼ş¸ñÊ½£º"
+msgstr "é€‰æ‹©æºæ–‡ä»¶æ ¼å¼ï¼š"
 
 #: config/prefs.php.dist:116
 msgid "Select the format used to display names:"
-msgstr "Ñ¡ÔñÓÃÓÚÏÔÊ¾ĞÕÃûµÄ¸ñÊ½£º"
+msgstr "é€‰æ‹©ç”¨äºæ˜¾ç¤ºå§“åçš„æ ¼å¼ï¼š"
 
 #: config/prefs.php.dist:25
 msgid "Select view to display by default, sort options, and paging options."
-msgstr "Ñ¡ÔñÄ¬ÈÏµÄÏÔÊ¾ÊÓÍ¼¡¢ÅÅĞòÑ¡ÏîºÍÒ³ÃæÑ¡Ïî¡£"
+msgstr "é€‰æ‹©é»˜è®¤çš„æ˜¾ç¤ºè§†å›¾ã€æ’åºé€‰é¡¹å’Œé¡µé¢é€‰é¡¹ã€‚"
 
 #: config/prefs.php.dist:18
 msgid "Select which fields to display in the address lists."
-msgstr "Ñ¡ÔñµØÖ·²¾ÖĞÏÔÊ¾ÄÚÈİµÄ×Ö¶Î¡£"
+msgstr "é€‰æ‹©åœ°å€ç°¿ä¸­æ˜¾ç¤ºå†…å®¹çš„å­—æ®µã€‚"
 
 #: config/prefs.php.dist:32
 msgid "Select which format to display names."
-msgstr "Ñ¡ÔñÓÃÓÚÏÔÊ¾ĞÕÃûµÄ¸ñÊ½£º"
+msgstr "é€‰æ‹©ç”¨äºæ˜¾ç¤ºå§“åçš„æ ¼å¼ï¼š"
 
 #: lib/Forms/AddContact.php:42
 #, php-format
 msgid "Selected address book \"%s\"."
-msgstr "ËùÑ¡µØÖ·²¾¡°%s¡±¡£"
+msgstr "æ‰€é€‰åœ°å€ç°¿â€œ%sâ€ã€‚"
 
 #: templates/browse/actions.inc:48
 #, php-format
 msgid "Show %s"
-msgstr "ÏÔÊ¾ %s"
+msgstr "æ˜¾ç¤º %s"
 
 #: templates/browse/actions.inc:50
 msgid "Show All"
-msgstr "ÏÔÊ¾È«²¿"
+msgstr "æ˜¾ç¤ºå…¨éƒ¨"
 
 #: templates/browse/actions.inc:49
 msgid "Show Contacts"
-msgstr "ÏÔÊ¾ÁªÏµÈË"
+msgstr "æ˜¾ç¤ºè”ç³»äºº"
 
 #: templates/browse/actions.inc:48
 msgid "Show Lists"
-msgstr "ÏÔÊ¾ÁĞ±í"
+msgstr "æ˜¾ç¤ºåˆ—è¡¨"
 
 #: lib/ListView.php:317 lib/ListView.php:323
 msgid "Sort Direction"
-msgstr "ÅÅĞò·½Ïò"
+msgstr "æ’åºæ–¹å‘"
 
 #: templates/browse/column_headers.inc:31
 #, php-format
 msgid "Sort by %s"
-msgstr "°´ %s ÅÅĞò"
+msgstr "æŒ‰ %s æ’åº"
 
 #: templates/browse/column_headers.inc:26
 #, php-format
 msgid "Sort by %s only"
-msgstr "½ö°´ %s ÅÅĞò"
+msgstr "ä»…æŒ‰ %s æ’åº"
 
 #: templates/browse/column_headers.inc:29
 #, php-format
 msgid "Sort by %s, then by %s"
-msgstr "°´ %s ÅÅĞò£¬È»ºó°´ %s ÅÅĞò"
+msgstr "æŒ‰ %s æ’åºï¼Œç„¶åæŒ‰ %s æ’åº"
 
 #: templates/menu.inc:6
 msgid "Source:"
-msgstr "À´Ô´£º"
+msgstr "æ¥æºï¼š"
 
 #: lib/api.php:246
 msgid "Sources"
-msgstr "À´Ô´"
+msgstr "æ¥æº"
 
 #: lib/Views/Browse.php:265 lib/Views/Browse.php:313
 #, php-format
 msgid "Successfully added %d contact(s) to list."
-msgstr "³É¹¦½« %s Ìí¼Óµ½ %s¡£"
+msgstr "æˆåŠŸå°† %s æ·»åŠ åˆ° %sã€‚"
 
 #: lib/Views/Browse.php:211
 #, php-format
 msgid "Successfully added %s to %s"
-msgstr "³É¹¦½« %s Ìí¼Óµ½ %s"
+msgstr "æˆåŠŸå°† %s æ·»åŠ åˆ° %s"
 
 #: search.php:99
 #, php-format
 msgid "Successfully changed virtual address book \"%s\""
-msgstr "³É¹¦¸ü¸ÄĞéÄâµØÖ·²¾¡°%s¡±"
+msgstr "æˆåŠŸæ›´æ”¹è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€"
 
 #: lib/Views/Browse.php:299
 #, php-format
 msgid "Successfully created the contact list \"%s\"."
-msgstr "³É¹¦´´½¨ÁªÏµÈËÁĞ±í¡°%s¡±¡£"
+msgstr "æˆåŠŸåˆ›å»ºè”ç³»äººåˆ—è¡¨â€œ%sâ€ã€‚"
 
 #: search.php:167
 #, php-format
 msgid "Successfully created virtual address book \"%s\""
-msgstr "³É¹¦´´½¨ĞéÄâµØÖ·²¾¡°%s¡±"
+msgstr "æˆåŠŸåˆ›å»ºè™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€"
 
 #: lib/Views/Browse.php:135
 #, php-format
 msgid "Successfully deleted %d contact(s)."
-msgstr "³É¹¦É¾³ı %d ÁªÏµÈË¡£"
+msgstr "æˆåŠŸåˆ é™¤ %d è”ç³»äººã€‚"
 
 #: lib/Views/Browse.php:115
 #, php-format
 msgid "Successfully removed %d contact(s) from list."
-msgstr "´ÓÁĞ±íÖĞ³É¹¦É¾³ı %d ÁªÏµÈË¡£"
+msgstr "ä»åˆ—è¡¨ä¸­æˆåŠŸåˆ é™¤ %d è”ç³»äººã€‚"
 
 #: data.php:59
 msgid "TSV"
@@ -1107,71 +1107,71 @@ msgstr "TSV"
 
 #: templates/data/import.inc:14 templates/data/export.inc:14
 msgid "Tab separated values"
-msgstr "Tab ·Ö¸ô(TSV) "
+msgstr "Tab åˆ†éš”(TSV) "
 
 #: templates/browse/actions.inc:20
 msgid "Target Address Book"
-msgstr "Ä¿±êµØÖ·²¾"
+msgstr "ç›®æ ‡åœ°å€ç°¿"
 
 #: templates/browse/actions.inc:31
 msgid "Target Contact List"
-msgstr "Ä¿±êÁªÏµÈËÁĞ±í"
+msgstr "ç›®æ ‡è”ç³»äººåˆ—è¡¨"
 
 #: data.php:313
 #, php-format
 msgid "The %s file didn't contain any contacts."
-msgstr "%s ÎÄ¼ş²»°üº¬ÈÎºÎÁªÏµÈË¡£"
+msgstr "%s æ–‡ä»¶ä¸åŒ…å«ä»»ä½•è”ç³»äººã€‚"
 
 #: view.php:15
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "ÈôÒªÆôÓÃ¸½¼şÉÏ´«¹¦ÄÜ£¬ÔòĞèÒªÅäÖÃ VFS ºó¶Ë¡£"
+msgstr "è‹¥è¦å¯ç”¨é™„ä»¶ä¸Šä¼ åŠŸèƒ½ï¼Œåˆ™éœ€è¦é…ç½® VFS åç«¯ã€‚"
 
 #: lib/Driver.php:1185
 #, php-format
 msgid "The address book \"%s\" does not exist."
-msgstr "´ËµØÖ·²¾¡°%s¡±²»´æÔÚ¡£"
+msgstr "æ­¤åœ°å€ç°¿â€œ%sâ€ä¸å­˜åœ¨ã€‚"
 
 #: addressbooks.php:52
 #, php-format
 msgid "The address book \"%s\" was created successfully."
-msgstr "³É¹¦´´½¨´ËµØÖ·²¾¡°%s¡±¡£"
+msgstr "æˆåŠŸåˆ›å»ºæ­¤åœ°å€ç°¿â€œ%sâ€ã€‚"
 
 #: addressbooks.php:73
 #, php-format
 msgid "The address book \"%s\" was removed successfully."
-msgstr "³É¹¦É¾³ı´ËµØÖ·²¾¡°%s¡±¡£"
+msgstr "æˆåŠŸåˆ é™¤æ­¤åœ°å€ç°¿â€œ%sâ€ã€‚"
 
 #: addressbooks.php:94
 #, php-format
 msgid "The address book \"%s\" was successfully updated."
-msgstr "³É¹¦¸üĞÂ´ËµØÖ·²¾¡°%s¡±¡£"
+msgstr "æˆåŠŸæ›´æ–°æ­¤åœ°å€ç°¿â€œ%sâ€ã€‚"
 
 #: data.php:320
 #, php-format
 msgid "The address book could not be purged: %s"
-msgstr "ÎŞ·¨Çå³ı´ËµØÖ·²¾£º%s"
+msgstr "æ— æ³•æ¸…é™¤æ­¤åœ°å€ç°¿ï¼š%s"
 
 #: vcard.php:17 contact.php:21 view.php:26
 msgid "The contact you requested does not exist."
-msgstr "ËùÇëÇóµÄÁªÏµÈË²»´æÔÚ¡£"
+msgstr "æ‰€è¯·æ±‚çš„è”ç³»äººä¸å­˜åœ¨ã€‚"
 
 #: deletefile.php:50
 #, php-format
 msgid "The file \"%s\" has been deleted."
-msgstr "ÒÑÉ¾³ıÎÄ¼ş¡°%s¡±¡£"
+msgstr "å·²åˆ é™¤æ–‡ä»¶â€œ%sâ€ã€‚"
 
 #: data.php:293
 msgid "The import can be finished despite the warnings."
-msgstr "ºöÂÔ¾¯¸æ£¬Íê³Éµ¼Èë¡£"
+msgstr "å¿½ç•¥è­¦å‘Šï¼Œå®Œæˆå¯¼å…¥ã€‚"
 
 #: lib/Views/EditContact.php:43 lib/Views/Contact.php:43
 #: lib/Views/DeleteContact.php:36
 msgid "The requested contact was not found."
-msgstr "Î´ÕÒµ½ÇëÇóµÄÁªÏµÈË¡£"
+msgstr "æœªæ‰¾åˆ°è¯·æ±‚çš„è”ç³»äººã€‚"
 
 #: lib/Views/Browse.php:79
 msgid "There are no browseable address books."
-msgstr "ÎŞ¿É¹©ä¯ÀÀµÄµØÖ·²¾¡£"
+msgstr "æ— å¯ä¾›æµè§ˆçš„åœ°å€ç°¿ã€‚"
 
 #: add.php:30
 msgid ""
@@ -1179,295 +1179,295 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"ÎŞ¿É¹©Ğ´ÈëµÄµØÖ·²¾¡£ÎŞÒ»µØÖ·²¾ÔÊĞíÄúÌí¼ÓĞÂÌõÄ¿¡£Èç¹ûÄúÈÏÎªÕâÖÖÇé¿ö²»Õı³££¬Çë"
-"ÁªÏµÏµÍ³¹ÜÀíÔ±¡£"
+"æ— å¯ä¾›å†™å…¥çš„åœ°å€ç°¿ã€‚æ— ä¸€åœ°å€ç°¿å…è®¸æ‚¨æ·»åŠ æ–°æ¡ç›®ã€‚å¦‚æœæ‚¨è®¤ä¸ºè¿™ç§æƒ…å†µä¸æ­£å¸¸ï¼Œè¯·"
+"è”ç³»ç³»ç»Ÿç®¡ç†å‘˜ã€‚"
 
 #: search.php:163
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
-msgstr "´´½¨ĞéÄâµØÖ·²¾Ê±³ö´í£º%s"
+msgstr "åˆ›å»ºè™šæ‹Ÿåœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: lib/Forms/AddContact.php:90
 msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
-msgstr "Ìí¼ÓÁªÏµÈËÊ±³ö´í¡£ÇëÁªÏµÏµÍ³¹ÜÀíÔ±Ñ°ÇóĞ­Öú¡£"
+msgstr "æ·»åŠ è”ç³»äººæ—¶å‡ºé”™ã€‚è¯·è”ç³»ç³»ç»Ÿç®¡ç†å‘˜å¯»æ±‚ååŠ©ã€‚"
 
 #: lib/Views/Browse.php:322
 msgid "There was an error creating a new list."
-msgstr "´´½¨ĞÂÁĞ±íÊ±³ö´í¡£"
+msgstr "åˆ›å»ºæ–°åˆ—è¡¨æ—¶å‡ºé”™ã€‚"
 
 #: addressbooks.php:39 addressbooks.php:42
 #, php-format
 msgid "There was an error creating this address book: %s"
-msgstr "´´½¨´ËµØÖ·²¾Ê±³ö´í£º%s"
+msgstr "åˆ›å»ºæ­¤åœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: lib/Views/Browse.php:217
 #, php-format
 msgid "There was an error deleting \"%s\" from the source address book."
-msgstr "´ÓÔ´µØÖ·²¾ÖĞÉ¾³ı¡°%s¡±Ê±³ö´í¡£"
+msgstr "ä»æºåœ°å€ç°¿ä¸­åˆ é™¤â€œ%sâ€æ—¶å‡ºé”™ã€‚"
 
 #: delete.php:37
 #, php-format
 msgid "There was an error deleting this contact: %s"
-msgstr "É¾³ı´ËÁªÏµÈËÊ±³ö´í£º%s"
+msgstr "åˆ é™¤æ­¤è”ç³»äººæ—¶å‡ºé”™ï¼š%s"
 
 #: lib/Views/Browse.php:362
 msgid "There was an error displaying the list"
-msgstr "ÏÔÊ¾ÁĞ±íÊ±³ö´í"
+msgstr "æ˜¾ç¤ºåˆ—è¡¨æ—¶å‡ºé”™"
 
 #: data.php:352
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "µ¼ÈëÊı¾İÊ±³ö´í£º%s"
+msgstr "å¯¼å…¥æ•°æ®æ—¶å‡ºé”™ï¼š%s"
 
 #: lib/api.php:610 lib/api.php:874
 msgid "There was an error importing the iCalendar data."
-msgstr "µ¼Èë iCalendar Êı¾İÊ±³ö´í¡£"
+msgstr "å¯¼å…¥ iCalendar æ•°æ®æ—¶å‡ºé”™ã€‚"
 
 #: lib/api.php:199
 #, php-format
 msgid "There was an error removing an address book for %s"
-msgstr "É¾³ı %s µØÖ·²¾Ê±³ö´í"
+msgstr "åˆ é™¤ %s åœ°å€ç°¿æ—¶å‡ºé”™"
 
 #: addressbooks.php:60 addressbooks.php:65 addressbooks.php:71
 #, php-format
 msgid "There was an error removing this address book: %s"
-msgstr "É¾³ı´ËµØÖ·²¾Ê±³ö´í£º%s"
+msgstr "åˆ é™¤æ­¤åœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: addressbooks.php:92
 #, php-format
 msgid "There was an error updating this address book: %s"
-msgstr "¸üĞÂ´ËµØÖ·²¾Ê±³ö´í£º%s"
+msgstr "æ›´æ–°æ­¤åœ°å€ç°¿æ—¶å‡ºé”™ï¼š%s"
 
 #: data.php:188
 msgid "There were no addresses to export."
-msgstr "ÎŞ´ıµ¼ÈëµÄµØÖ·¡£"
+msgstr "æ— å¾…å¯¼å…¥çš„åœ°å€ã€‚"
 
 #: templates/prefs/addressbookselect.inc:180
 #: templates/prefs/addressbookselect.inc:182
 msgid "These address books will display in this order:"
-msgstr "ÕâĞ©µØÖ·²¾½«ÒÔ´ËË³ĞòÏÔÊ¾£º"
+msgstr "è¿™äº›åœ°å€ç°¿å°†ä»¥æ­¤é¡ºåºæ˜¾ç¤ºï¼š"
 
 #: templates/prefs/columnselect.inc:244 templates/prefs/columnselect.inc:246
 msgid "These columns will display in this order:"
-msgstr "ÕâĞ©µØÁĞ½«ÒÔ´ËË³ĞòÏÔÊ¾£º"
+msgstr "è¿™äº›åœ°åˆ—å°†ä»¥æ­¤é¡ºåºæ˜¾ç¤ºï¼š"
 
 #: data.php:278
 msgid "This file format is not supported."
-msgstr "²»Ö§³Ö´ËÎÄ¼ş¸ñÊ½¡£"
+msgstr "ä¸æ”¯æŒæ­¤æ–‡ä»¶æ ¼å¼ã€‚"
 
 #: lib/api.php:1248 lib/api.php:1261
 #, php-format
 msgid "This person already has a %s entry in the address book"
-msgstr "´ËÈËÒÑÔÚÄúµÄµØÖ·²¾ÖĞ£¬ÌõÄ¿Îª %s ¡£"
+msgstr "æ­¤äººå·²åœ¨æ‚¨çš„åœ°å€ç°¿ä¸­ï¼Œæ¡ç›®ä¸º %s ã€‚"
 
 #: config/prefs.php.dist:129
 msgid ""
 "This will be the default address book when adding or importing contacts."
-msgstr "´ËÎªÌí¼Ó»òµ¼ÈëÁªÏµÈËÊ±µÄÄ¬ÈÏµØÖ·²¾¡£"
+msgstr "æ­¤ä¸ºæ·»åŠ æˆ–å¯¼å…¥è”ç³»äººæ—¶çš„é»˜è®¤åœ°å€ç°¿ã€‚"
 
 #: config/attributes.php.dist:70
 msgid "Title"
-msgstr "±êÌâ"
+msgstr "æ ‡é¢˜"
 
 #: lib/Turba.php:516
 #, php-format
 msgid "Unable to create new share. Missing source type."
-msgstr "ÎŞ·¨´´½¨ĞÂµÄ¹²ÏíÎÄ¼ş¼Ğ¡£¶ªÊ§Ô´ÀàĞÍ¡£"
+msgstr "æ— æ³•åˆ›å»ºæ–°çš„å…±äº«æ–‡ä»¶å¤¹ã€‚ä¸¢å¤±æºç±»å‹ã€‚"
 
 #: lib/Driver.php:1107
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "ÎŞ·¨¼ÓÔØ %s ¶¨Òå¡£"
+msgstr "æ— æ³•åŠ è½½ %s å®šä¹‰ã€‚"
 
 #: lib/Driver/kolab.php:244
 msgid "Unable to search."
-msgstr "ÎŞ·¨ËÑË÷¡£"
+msgstr "æ— æ³•æœç´¢ã€‚"
 
 #: lib/Forms/EditContact.php:26 lib/Forms/EditContact.php:110
 #: lib/Forms/EditContact.php:113 lib/Forms/EditContact.php:116
 #: lib/Forms/EditContact.php:164
 msgid "Undo Changes"
-msgstr "È¡Ïû¸ü¸Ä"
+msgstr "å–æ¶ˆæ›´æ”¹"
 
 #: lib/api.php:643 lib/api.php:744 lib/api.php:892
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "²»ÊÜÖ§³ÖµÄÄÚÈİÀàĞÍ£º%s"
+msgstr "ä¸å—æ”¯æŒçš„å†…å®¹ç±»å‹ï¼š%s"
 
 #: addressbook_perms.php:239
 #, php-format
 msgid "Updated \"%s\"."
-msgstr "ÒÑ¸üĞÂ¡°%s¡±¡£"
+msgstr "å·²æ›´æ–°â€œ%sâ€ã€‚"
 
 #: minisearch.php:73
 msgid "View Contact"
-msgstr "²é¿´ÁªÏµÈË"
+msgstr "æŸ¥çœ‹è”ç³»äºº"
 
 #: config/prefs.php.dist:105
 msgid "View to display by default:"
-msgstr "Ä¬ÈÏ·½Ê½ÏÔÊ¾ÊÓÍ¼£º"
+msgstr "é»˜è®¤æ–¹å¼æ˜¾ç¤ºè§†å›¾ï¼š"
 
 #: templates/browse/search_vbook.inc:15 lib/Block/tree_menu.php:51
 msgid "Virtual Address Books"
-msgstr "ĞéÄâµØÖ·²¾"
+msgstr "è™šæ‹Ÿåœ°å€ç°¿"
 
 #: search.php:132
 #, php-format
 msgid "Virtual address book \"%s\" deleted."
-msgstr "ÒÑÉ¾³ıĞéÄâµØÖ·²¾¡°%s¡±¡£"
+msgstr "å·²åˆ é™¤è™šæ‹Ÿåœ°å€ç°¿â€œ%sâ€ã€‚"
 
 #: templates/browse/search_vbook.inc:37
 msgid "Virtual address book description:"
-msgstr "ĞéÄâµØÖ·²¾ÃèÊö£º"
+msgstr "è™šæ‹Ÿåœ°å€ç°¿æè¿°ï¼š"
 
 #: templates/browse/search_vbook.inc:29
 msgid "Virtual address book name:"
-msgstr "ĞéÄâµØÖ·²¾Ãû³Æ£º"
+msgstr "è™šæ‹Ÿåœ°å€ç°¿åç§°ï¼š"
 
 #: config/attributes.php.dist:208
 msgid "Website URL"
-msgstr "ÍøÕ¾ URL"
+msgstr "ç½‘ç«™ URL"
 
 #: config/attributes.php.dist:113
 msgid "Work Address"
-msgstr "¹¤×÷µØÖ·"
+msgstr "å·¥ä½œåœ°å€"
 
 #: config/attributes.php.dist:124
 msgid "Work City"
-msgstr "¹¤×÷³ÇÊĞ"
+msgstr "å·¥ä½œåŸå¸‚"
 
 #: config/attributes.php.dist:139
 msgid "Work Country"
-msgstr "¹¤×÷µØÖ· ¹ú¼Ò/µØÇø"
+msgstr "å·¥ä½œåœ°å€ å›½å®¶/åœ°åŒº"
 
 #: config/attributes.php.dist:156
 msgid "Work Phone"
-msgstr "¹¤×÷µç»°"
+msgstr "å·¥ä½œç”µè¯"
 
 #: config/attributes.php.dist:134
 msgid "Work Postal Code"
-msgstr "¹¤×÷µØÖ· ÓÊÕş±àÂë"
+msgstr "å·¥ä½œåœ°å€ é‚®æ”¿ç¼–ç "
 
 #: config/attributes.php.dist:129
 msgid "Work State/Province"
-msgstr "¹¤×÷µØÖ· Ê¡·İ"
+msgstr "å·¥ä½œåœ°å€ çœä»½"
 
 #: config/attributes.php.dist:119
 msgid "Work Street Address"
-msgstr "¹¤×÷µØÖ· ½ÖµÀµØÖ·"
+msgstr "å·¥ä½œåœ°å€ è¡—é“åœ°å€"
 
 #: data.php:246 add.php:46 lib/Views/Browse.php:157 lib/Views/Browse.php:278
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
-msgstr "²»ÔÊĞí´´½¨µÄÁªÏµÈË¶àÓÚ %d Î»(ÔÚ¡°%s¡± ÖĞ)¡£"
+msgstr "ä¸å…è®¸åˆ›å»ºçš„è”ç³»äººå¤šäº %d ä½(åœ¨â€œ%sâ€ ä¸­)ã€‚"
 
 #: lib/Driver/vbook.php:116
 msgid "You cannot add an entry to a virtual address book."
-msgstr "ÄúÎŞ·¨½«ÌõÄ¿Ìí¼Óµ½ĞéÄâµØÖ·²¾ÖĞ¡£"
+msgstr "æ‚¨æ— æ³•å°†æ¡ç›®æ·»åŠ åˆ°è™šæ‹Ÿåœ°å€ç°¿ä¸­ã€‚"
 
 #: lib/Driver/vbook.php:100
 msgid "You cannot add new contacts to a virtual address book"
-msgstr "ÄúÎŞ·¨½«ĞÂÁªÏµÈËÌí¼Óµ½ĞéÄâµØÖ·²¾ÖĞ"
+msgstr "æ‚¨æ— æ³•å°†æ–°è”ç³»äººæ·»åŠ åˆ°è™šæ‹Ÿåœ°å€ç°¿ä¸­"
 
 #: lib/Driver/vbook.php:108
 msgid "You cannot delete contacts from a virtual address book"
-msgstr "ÄúÎŞ·¨´ÓĞéÄâµØÖ·²¾ÖĞÉ¾³ıÁªÏµÈË"
+msgstr "æ‚¨æ— æ³•ä»è™šæ‹Ÿåœ°å€ç°¿ä¸­åˆ é™¤è”ç³»äºº"
 
 #: edit.php:72 view.php:36 lib/Views/EditContact.php:49
 #: lib/Views/DeleteContact.php:42
 msgid "You do not have permission to view this contact."
-msgstr "Äú²»¾ßÓĞ²é¿´´ËÁªÏµÈËµÄÈ¨ÏŞ¡£"
+msgstr "æ‚¨ä¸å…·æœ‰æŸ¥çœ‹æ­¤è”ç³»äººçš„æƒé™ã€‚"
 
 #: vcard.php:35
 msgid "You do not have permission to view this object."
-msgstr "Äú²»¾ßÓĞ²é¿´´Ë¶ÔÏóµÄÈ¨ÏŞ¡£"
+msgstr "æ‚¨ä¸å…·æœ‰æŸ¥çœ‹æ­¤å¯¹è±¡çš„æƒé™ã€‚"
 
 #: lib/Turba.php:606
 msgid "You do not have permissions to delete this source."
-msgstr "Äú²»¾ßÓĞÉ¾³ı´ËÀ´Ô´µÄÈ¨ÏŞ¡£"
+msgstr "æ‚¨ä¸å…·æœ‰åˆ é™¤æ­¤æ¥æºçš„æƒé™ã€‚"
 
 #: search.php:149
 msgid "You must provide a name for virtual address books."
-msgstr "ÄúĞèÒªÌá¹©ĞéÄâµØÖ·²¾Ãû³Æ¡£"
+msgstr "æ‚¨éœ€è¦æä¾›è™šæ‹Ÿåœ°å€ç°¿åç§°ã€‚"
 
 #: templates/browse/javascript.inc:54
 msgid "You must select a target address book."
-msgstr "Äú±ØĞëÑ¡ÔñÄ¿±êµØÖ·²¾¡£"
+msgstr "æ‚¨å¿…é¡»é€‰æ‹©ç›®æ ‡åœ°å€ç°¿ã€‚"
 
 #: templates/browse/javascript.inc:22
 msgid "You must select a target list."
-msgstr "Äú±ØĞëÑ¡ÔñÄ¿±êÁĞ±í¡£"
+msgstr "æ‚¨å¿…é¡»é€‰æ‹©ç›®æ ‡åˆ—è¡¨ã€‚"
 
 #: edit.php:29
 msgid "You must select at least one contact first."
-msgstr "Äú±ØĞëÏÈÑ¡ÔñÖÁÉÙÒ»Î»ÁªÏµÈË¡£"
+msgstr "æ‚¨å¿…é¡»å…ˆé€‰æ‹©è‡³å°‘ä¸€ä½è”ç³»äººã€‚"
 
 #: templates/browse/javascript.inc:16 templates/browse/javascript.inc:48
 #: templates/browse/javascript.inc:71
 msgid "You must select at least one entry first."
-msgstr "Äú±ØĞëÏÈÑ¡ÔñÖÁÉÙÒ»¸öÌõÄ¿¡£"
+msgstr "æ‚¨å¿…é¡»å…ˆé€‰æ‹©è‡³å°‘ä¸€ä¸ªæ¡ç›®ã€‚"
 
 #: edit.php:76 lib/Views/EditContact.php:52 lib/Views/DeleteContact.php:45
 msgid "You only have permission to view this contact."
-msgstr "Äú½öÓĞÈ¨ÏŞ²é¿´´ËÁªÏµÈË¡£"
+msgstr "æ‚¨ä»…æœ‰æƒé™æŸ¥çœ‹æ­¤è”ç³»äººã€‚"
 
 #: lib/Views/Browse.php:369
 msgid "Your default address book is not browseable."
-msgstr "ÎŞ·¨ä¯ÀÀÄúµÄÄ¬ÈÏµØÖ·²¾¡£"
+msgstr "æ— æ³•æµè§ˆæ‚¨çš„é»˜è®¤åœ°å€ç°¿ã€‚"
 
 #: lib/Turba.php:629
 msgid "_Browse"
-msgstr "ä¯ÀÀ_B"
+msgstr "æµè§ˆ_B"
 
 #: templates/browse/actions.inc:49
 msgid "_Contacts"
-msgstr "ÁªÏµÈË_C"
+msgstr "è”ç³»äºº_C"
 
 #: templates/browse/actions.inc:3
 msgid "_Delete"
-msgstr "É¾³ı_D"
+msgstr "åˆ é™¤_D"
 
 #: contact.php:77
 msgid "_Edit"
-msgstr "±à¼­_E"
+msgstr "ç¼–è¾‘_E"
 
 #: lib/Turba.php:638
 msgid "_Import/Export"
-msgstr "µ¼Èë/µ¼³ö_I"
+msgstr "å¯¼å…¥/å¯¼å‡º_I"
 
 #: templates/browse/actions.inc:48
 msgid "_Lists"
-msgstr "ÁĞ±í_L"
+msgstr "åˆ—è¡¨_L"
 
 #: lib/Turba.php:626
 msgid "_My Address Books"
-msgstr "ÎÒµÄµØÖ·²¾_M"
+msgstr "æˆ‘çš„åœ°å€ç°¿_M"
 
 #: lib/Turba.php:632
 msgid "_New Contact"
-msgstr "ĞÂ½¨ÁªÏµÈË_N"
+msgstr "æ–°å»ºè”ç³»äºº_N"
 
 #: templates/browse/actions.inc:3
 msgid "_Remove from this list"
-msgstr "´Ó´ËÁĞ±íÖĞÉ¾³ı_R"
+msgstr "ä»æ­¤åˆ—è¡¨ä¸­åˆ é™¤_R"
 
 #: lib/Turba.php:634
 msgid "_Search"
-msgstr "ËÑË÷_S"
+msgstr "æœç´¢_S"
 
 #: contact.php:74
 msgid "_View"
-msgstr "²é¿´_V"
+msgstr "æŸ¥çœ‹_V"
 
 #: templates/browse/column_headers.inc:24
 msgid "ascending"
-msgstr "ÉıĞò"
+msgstr "å‡åº"
 
 #: vcard.php:43
 msgid "contact"
-msgstr "ÁªÏµÈË"
+msgstr "è”ç³»äºº"
 
 #: data.php:208 data.php:213 templates/data/export.inc:1
 msgid "contacts.csv"
@@ -1483,23 +1483,23 @@ msgstr "contacts.vcf"
 
 #: templates/browse/column_headers.inc:24
 msgid "descending"
-msgstr "½µĞò"
+msgstr "é™åº"
 
 #: config/prefs.php.dist:119
 msgid "no formatting"
-msgstr "ÎŞĞè¸ñÊ½»¯"
+msgstr "æ— éœ€æ ¼å¼åŒ–"
 
 #: templates/prefs/imsp_opt.inc:32
 msgid "none"
-msgstr "ÎŞ"
+msgstr "æ— "
 
 #: templates/browse/actions.inc:33
 msgid "to a Contact List"
-msgstr "µ½ÁªÏµÈËÁĞ±í"
+msgstr "åˆ°è”ç³»äººåˆ—è¡¨"
 
 #: templates/browse/actions.inc:22
 msgid "to a different Address Book"
-msgstr "µ½²»Í¬µÄµØÖ·²¾"
+msgstr "åˆ°ä¸åŒçš„åœ°å€ç°¿"
 
 #: data.php:60 templates/browse/column_headers.inc:13
 #: templates/data/import.inc:15 templates/data/export.inc:15

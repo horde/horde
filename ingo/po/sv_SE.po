@@ -1,8 +1,8 @@
 # Swedish translations for Ingo package
-# Svenska översättningar för paket Ingo.
+# Svenska Ã¶versÃ¤ttningar fÃ¶r paket Ingo.
 # Copyright 2004 Anders Norrbring.
 # Anders Norrbring <anders@norrbring.biz>, 2004.
-# Andreas Dahlén <andreas@dahlen.ws>, 2005.
+# Andreas DahlÃ©n <andreas@dahlen.ws>, 2005.
 #
 msgid ""
 msgstr ""
@@ -10,10 +10,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-03-29 14:44+0200\n"
 "PO-Revision-Date: 2005-03-30 08:48+0100\n"
-"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Last-Translator: Andreas DahlÃ©n <andreas@dahlen.ws>\n"
 "Language-Team: Swedish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -27,7 +27,7 @@ msgstr " eller"
 
 #: templates/blacklist/blacklist.inc:18
 msgid "Action for blacklisted addresses:"
-msgstr "Åtgärd för svartlistade adresser"
+msgstr "Ã…tgÃ¤rd fÃ¶r svartlistade adresser"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
@@ -35,11 +35,11 @@ msgstr "Aktivera skript"
 
 #: templates/filters/settings.inc:7
 msgid "Additional Settings"
-msgstr "Ytterligare inställningar"
+msgstr "Ytterligare instÃ¤llningar"
 
 #: templates/rule/header.inc:46
 msgid "All of the following"
-msgstr "Alla följande"
+msgstr "Alla fÃ¶ljande"
 
 #: templates/rule/footer.inc:33
 msgid "Answered"
@@ -47,19 +47,19 @@ msgstr "Besvarat"
 
 #: templates/rule/header.inc:47
 msgid "Any of the following"
-msgstr "Någon av följande"
+msgstr "NÃ¥gon av fÃ¶ljande"
 
 #: templates/filters/footer.inc:16
 msgid "Apply Filters"
-msgstr "Verkställ filter"
+msgstr "VerkstÃ¤ll filter"
 
 #: filters.php:196
 msgid "Are you sure you want to delete this rule?"
-msgstr "Är du säker att du vill radera aktuell regel?"
+msgstr "Ã„r du sÃ¤ker att du vill radera aktuell regel?"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Uppdatera skriptet efter varje ändring?"
+msgstr "Uppdatera skriptet efter varje Ã¤ndring?"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
@@ -67,27 +67,27 @@ msgstr "Bcc"
 
 #: lib/Storage.php:349
 msgid "Begins with"
-msgstr "Börjar med"
+msgstr "BÃ¶rjar med"
 
 #: filters.php:126 templates/blacklist/blacklist.inc:9
 msgid "Blacklist"
-msgstr "Spärrade adresser"
+msgstr "SpÃ¤rrade adresser"
 
 #: blacklist.php:100
 msgid "Blacklist Edit"
-msgstr "Ändra spärrade adresser"
+msgstr "Ã„ndra spÃ¤rrade adresser"
 
 #: blacklist.php:17
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "Spärrning av adresser stöds inte av aktuell filterdrivrutin."
+msgstr "SpÃ¤rrning av adresser stÃ¶ds inte av aktuell filterdrivrutin."
 
 #: lib/Script/procmail.php:209
 msgid "Blacklisted Address"
-msgstr "Spärrade adresser"
+msgstr "SpÃ¤rrade adresser"
 
 #: lib/Script/sieve.php:245
 msgid "Blacklisted Addresses"
-msgstr "Spärrade adresser"
+msgstr "SpÃ¤rrade adresser"
 
 #: config/fields.php.dist:88
 msgid "Body"
@@ -95,7 +95,7 @@ msgstr "Meddelandetext"
 
 #: rule.php:238 filters.php:164
 msgid "Case Sensitive"
-msgstr "Skiftlägeskänslig"
+msgstr "SkiftlÃ¤geskÃ¤nslig"
 
 #: config/fields.php.dist:43
 msgid "Cc"
@@ -104,11 +104,11 @@ msgstr "Cc"
 #: blacklist.php:69 vacation.php:41 whitelist.php:36 rule.php:105
 #: forward.php:33
 msgid "Changes saved."
-msgstr "Ändringar sparade."
+msgstr "Ã„ndringar sparade."
 
 #: lib/Storage.php:345
 msgid "Contains"
-msgstr "Innehåller"
+msgstr "InnehÃ¥ller"
 
 #: filters.php:204 filters.php:205
 #, php-format
@@ -126,11 +126,11 @@ msgstr "Skapa ny mapp"
 
 #: templates/filters/filter.html:16
 msgid "DISABLED"
-msgstr "AVSTÄNGD"
+msgstr "AVSTÃ„NGD"
 
 #: lib/Script/procmail.php:354
 msgid "DISABLED: "
-msgstr "AVSTÄNGD: "
+msgstr "AVSTÃ„NGD: "
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
@@ -182,23 +182,23 @@ msgstr "Avaktiverad"
 
 #: templates/filters/settings.inc:13
 msgid "Display detailed notification when each filter is applied?"
-msgstr "Visa detaljerad notifiering för varje filter när det körs?"
+msgstr "Visa detaljerad notifiering fÃ¶r varje filter nÃ¤r det kÃ¶rs?"
 
 #: templates/vacation/vacation.inc:33
 msgid "Do _not send responses to bulk or list messages"
-msgstr "Skicka _inga svar på list- och bulkmeddelanden"
+msgstr "Skicka _inga svar pÃ¥ list- och bulkmeddelanden"
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
-msgstr "Gör detta:"
+msgstr "GÃ¶r detta:"
 
 #: lib/Storage.php:350
 msgid "Doesn't begin with"
-msgstr "Inte börjar med"
+msgstr "Inte bÃ¶rjar med"
 
 #: lib/Storage.php:346
 msgid "Doesn't contain"
-msgstr "Inte innehåller"
+msgstr "Inte innehÃ¥ller"
 
 #: lib/Storage.php:352
 msgid "Doesn't end with"
@@ -210,12 +210,12 @@ msgstr "Finns inte"
 
 #: templates/filters/header.inc:18
 msgid "Edit"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: filters.php:185 filters.php:187 filters.php:191 filters.php:192
 #, php-format
 msgid "Edit %s"
-msgstr "Ändra %s"
+msgstr "Ã„ndra %s"
 
 #: filters.php:222 filters.php:223
 #, php-format
@@ -248,15 +248,15 @@ msgstr "Filtrera alla meddelanden"
 
 #: templates/filters/settings.inc:22
 msgid "Filter Only Seen Messages"
-msgstr "Filtrera enbart lästa meddelanden"
+msgstr "Filtrera enbart lÃ¤sta meddelanden"
 
 #: templates/filters/settings.inc:21
 msgid "Filter Only Unseen Messages"
-msgstr "Filtrera enbart olästa meddelanden"
+msgstr "Filtrera enbart olÃ¤sta meddelanden"
 
 #: templates/filters/settings.inc:18
 msgid "Filter Options"
-msgstr "Filterinställningar"
+msgstr "FilterinstÃ¤llningar"
 
 #: templates/rule/header.inc:28
 msgid "Filter Rule"
@@ -268,7 +268,7 @@ msgstr "Filterregler"
 
 #: script.php:52
 msgid "Filter Script Display"
-msgstr "Scriptfilterinställningar"
+msgstr "ScriptfilterinstÃ¤llningar"
 
 #: lib/Ingo.php:269
 msgid "Filter _Rules"
@@ -301,12 +301,12 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
-"Filteraktivitet: Meddelandet '%s' från '%s' har kopierats till mappen '%s'."
+"Filteraktivitet: Meddelandet '%s' frÃ¥n '%s' har kopierats till mappen '%s'."
 
 #: lib/Script/imap.php:303
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Filteraktivitet: Meddelandet '%s'  från '%s' har raderats."
+msgstr "Filteraktivitet: Meddelandet '%s'  frÃ¥n '%s' har raderats."
 
 #: lib/Script/imap.php:280
 #, php-format
@@ -314,7 +314,7 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Filteraktivitet: Meddelandet '%s' från '%s' har flyttats till mappen '%s'."
+"Filteraktivitet: Meddelandet '%s' frÃ¥n '%s' har flyttats till mappen '%s'."
 
 #: rule.php:133
 msgid "Filter not found."
@@ -322,7 +322,7 @@ msgstr "Filter saknas."
 
 #: templates/rule/header.inc:44
 msgid "For an incoming message that matches:"
-msgstr "För inkommande meddelanden som matchar:"
+msgstr "FÃ¶r inkommande meddelanden som matchar:"
 
 #: filters.php:144 templates/forward/forward.inc:8
 msgid "Forward"
@@ -330,7 +330,7 @@ msgstr "Vidarbefordra"
 
 #: forward.php:16
 msgid "Forward is not supported in the current filtering driver."
-msgstr "Vidarbordran stöds inte av aktuell filterdrivrutin."
+msgstr "Vidarbordran stÃ¶ds inte av aktuell filterdrivrutin."
 
 #: lib/Script/procmail.php:296
 msgid "Forwards"
@@ -338,19 +338,19 @@ msgstr "Vidarbefordrar"
 
 #: forward.php:46
 msgid "Forwards Edit"
-msgstr "Ändra vidarbefordran"
+msgstr "Ã„ndra vidarbefordran"
 
 #: config/fields.php.dist:39
 msgid "From"
-msgstr "Från"
+msgstr "FrÃ¥n"
 
 #: lib/Storage.php:360
 msgid "Greater than"
-msgstr "Större än"
+msgstr "StÃ¶rre Ã¤n"
 
 #: lib/Storage.php:361
 msgid "Greater than or equal to"
-msgstr "Större än eller lika med"
+msgstr "StÃ¶rre Ã¤n eller lika med"
 
 #: templates/rule/footer.inc:31
 msgid "Important"
@@ -358,27 +358,27 @@ msgstr "Viktigt"
 
 #: rule.php:26
 msgid "Individual rules are not supported in the current filtering driver."
-msgstr "Personliga regler stöds inte av aktuell filtreringsrutin."
+msgstr "Personliga regler stÃ¶ds inte av aktuell filtreringsrutin."
 
 #: lib/Script/sieve.php:1848
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "Angiven mapp för e-Post leverans saknas."
+msgstr "Angiven mapp fÃ¶r e-Post leverans saknas."
 
 #: lib/Storage.php:347
 msgid "Is"
-msgstr "Är"
+msgstr "Ã„r"
 
 #: lib/Storage.php:348
 msgid "Isn't"
-msgstr "Är inte"
+msgstr "Ã„r inte"
 
 #: lib/Storage.php:358
 msgid "Less than"
-msgstr "Mindre än"
+msgstr "Mindre Ã¤n"
 
 #: lib/Storage.php:359
 msgid "Less than or equal to"
-msgstr "Mindre än eller lika med"
+msgstr "Mindre Ã¤n eller lika med"
 
 #: config/fields.php.dist:59
 msgid "List-ID"
@@ -398,8 +398,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Maximalt antal svartlistade adresser är överskriden (Totalt: %s, Maximalt: %"
-"s). Kan inte lägga till adressen i listan över svartlistade  adresser."
+"Maximalt antal svartlistade adresser Ã¤r Ã¶verskriden (Totalt: %s, Maximalt: %"
+"s). Kan inte lÃ¤gga till adressen i listan Ã¶ver svartlistade  adresser."
 
 #: lib/Storage.php:541
 #, php-format
@@ -407,8 +407,8 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Maximalt antal betrodda adresser är överskriden (Totalt: %s, Maximalt: %s). "
-"Kan inte lägga till adressen listan över betrodda adresser."
+"Maximalt antal betrodda adresser Ã¤r Ã¶verskriden (Totalt: %s, Maximalt: %s). "
+"Kan inte lÃ¤gga till adressen listan Ã¶ver betrodda adresser."
 
 #: lib/Script/sieve.php:1711
 msgid "Missing address to redirect message to"
@@ -416,7 +416,7 @@ msgstr "Adress att skicka vidare till saknas"
 
 #: lib/Script/sieve.php:1745
 msgid "Missing reason for reject"
-msgstr "Anledning till att förkasta saknas"
+msgstr "Anledning till att fÃ¶rkasta saknas"
 
 #: lib/Script/sieve.php:1915
 msgid "Missing reason in vacation."
@@ -450,7 +450,7 @@ msgstr "Inget '%s' objekt finns i 'backend' konfigurationen"
 
 #: lib/Ingo.php:202
 msgid "No backend configured for this host"
-msgstr "Ingen 'backend' konfigurerade för denna värd"
+msgstr "Ingen 'backend' konfigurerade fÃ¶r denna vÃ¤rd"
 
 #: lib/Ingo.php:179
 msgid "No backends configured in backends.php"
@@ -459,7 +459,7 @@ msgstr "Inga 'backends' konfigurerade"
 #: templates/filters/filter-none.inc:4
 #, php-format
 msgid "No filters. Click '%s' to create a new filter."
-msgstr "Filter saknas. Klicka på '%s' för att skapa ett nytt."
+msgstr "Filter saknas. Klicka pÃ¥ '%s' fÃ¶r att skapa ett nytt."
 
 #: lib/Script/sieve.php:1298 lib/Script/sieve.php:1398
 #: lib/Script/sieve.php:1580
@@ -472,7 +472,7 @@ msgstr "Skriptet skapades inte"
 
 #: lib/Script/sieve.php:1595
 msgid "No strings specified"
-msgstr "Inga strängar specificerade"
+msgstr "Inga strÃ¤ngar specificerade"
 
 #: lib/Storage.php:363
 msgid "Not equal to"
@@ -484,11 +484,11 @@ msgstr "Alternativ om uppdatering av skript"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "Andra inställningar"
+msgstr "Andra instÃ¤llningar"
 
 #: templates/javascript/new_folder.js:6
 msgid "Please enter the name of the new folder:"
-msgstr "Ange namn på ny mapp:"
+msgstr "Ange namn pÃ¥ ny mapp:"
 
 #: templates/vacation/vacation.inc:53
 msgid "R_eason"
@@ -500,32 +500,32 @@ msgstr "Mottaget"
 
 #: lib/Storage.php:306
 msgid "Redirect to"
-msgstr "Eftersänd till"
+msgstr "EftersÃ¤nd till"
 
 #: lib/Storage.php:355
 msgid "Regular expression"
-msgstr "Reguljära uttryck"
+msgstr "ReguljÃ¤ra uttryck"
 
 #: lib/Storage.php:321
 msgid "Reject with reason"
-msgstr "Förkasta med orsaken"
+msgstr "FÃ¶rkasta med orsaken"
 
 #: config/fields.php.dist:55
 msgid "Resent To"
-msgstr "Återsänt till"
+msgstr "Ã…tersÃ¤nt till"
 
 #: config/fields.php.dist:51
 msgid "Resent-from"
-msgstr "Återsänt från"
+msgstr "Ã…tersÃ¤nt frÃ¥n"
 
 #: templates/rule/footer.inc:60
 msgid "Return to Filters List"
-msgstr "Återvänt till filterlista"
+msgstr "Ã…tervÃ¤nt till filterlista"
 
 #: templates/vacation/vacation.inc:62 templates/whitelist/whitelist.inc:24
 #: templates/blacklist/blacklist.inc:38 templates/forward/forward.inc:34
 msgid "Return to Rules List"
-msgstr "Återvänd till regellista"
+msgstr "Ã…tervÃ¤nd till regellista"
 
 #: templates/filters/header.inc:19
 msgid "Rule"
@@ -559,7 +559,7 @@ msgstr "Spara"
 
 #: templates/filters/settings.inc:29
 msgid "Save Settings"
-msgstr "Spara inställningar"
+msgstr "Spara instÃ¤llningar"
 
 #: templates/script/header.inc:2
 msgid "Script"
@@ -587,11 +587,11 @@ msgstr "Sedd"
 
 #: rule.php:163
 msgid "Select a field"
-msgstr "Välj ett fält"
+msgstr "VÃ¤lj ett fÃ¤lt"
 
 #: lib/Ingo.php:50
 msgid "Select target folder"
-msgstr "Välj målmapp"
+msgstr "VÃ¤lj mÃ¥lmapp"
 
 #: rule.php:184
 msgid "Self-Defined Header"
@@ -599,11 +599,11 @@ msgstr "Egendefinierade rubriker"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "Avsändare"
+msgstr "AvsÃ¤ndare"
 
 #: filters.php:78
 msgid "Settings successfully updated."
-msgstr "Inställningar uppdaterade."
+msgstr "InstÃ¤llningar uppdaterade."
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
@@ -623,11 +623,11 @@ msgstr "Sluta kontrollera om denna regel matchar?"
 
 #: templates/vacation/vacation.inc:46
 msgid "Subje_ct of vacation message:"
-msgstr "Ä_mne för svarsmeddelande:"
+msgstr "Ã„_mne fÃ¶r svarsmeddelande:"
 
 #: config/fields.php.dist:31
 msgid "Subject"
-msgstr "Ärende"
+msgstr "Ã„rende"
 
 #: lib/api.php:68
 #, php-format
@@ -637,7 +637,7 @@ msgstr "Adressen '%s' har lagts till i din svartlista."
 #: lib/api.php:87
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
-msgstr "Adressen '%s' har lagts till i din lista över betrodda."
+msgstr "Adressen '%s' har lagts till i din lista Ã¶ver betrodda."
 
 #: lib/Ingo.php:131
 msgid "The driver said: "
@@ -667,7 +667,7 @@ msgstr "Semester"
 
 #: vacation.php:66
 msgid "Vacation Edit"
-msgstr "Ändra semester"
+msgstr "Ã„ndra semester"
 
 #: lib/Script/sieve.php:353
 msgid "Vacation Message"
@@ -675,7 +675,7 @@ msgstr "Semestermeddelande"
 
 #: vacation.php:16
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "Semester stöds inte av aktuell filterdrivrutin."
+msgstr "Semester stÃ¶ds inte av aktuell filterdrivrutin."
 
 #: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
@@ -687,11 +687,11 @@ msgstr "Betrodda"
 
 #: whitelist.php:55
 msgid "Whitelist Edit"
-msgstr "Ändra betrodda"
+msgstr "Ã„ndra betrodda"
 
 #: whitelist.php:18
 msgid "Whitelist is not supported in the current filtering driver."
-msgstr "'Betrodda adresser' stöds inte av aktuell fulterdrivrutin."
+msgstr "'Betrodda adresser' stÃ¶ds inte av aktuell fulterdrivrutin."
 
 #: lib/Script/procmail.php:240 lib/Script/sieve.php:299
 msgid "Whitelisted Addresses"
@@ -718,12 +718,12 @@ msgid ""
 "You must specify at least one email address for which the vacation messages "
 "should be activated."
 msgstr ""
-"Du måste ange minst en e-postadress för vilken semestermeddelande skall "
+"Du mÃ¥ste ange minst en e-postadress fÃ¶r vilken semestermeddelande skall "
 "aktiveras."
 
 #: lib/Script/imap.php:281 lib/Script/imap.php:304 lib/Script/imap.php:318
 msgid "[No Subject]"
-msgstr "[Inget ärende]"
+msgstr "[Inget Ã¤rende]"
 
 #: templates/forward/forward.inc:24
 msgid "_Address(es) to forward to:"
@@ -735,7 +735,7 @@ msgstr "_Adresser att inte skicka svar till"
 
 #: lib/Ingo.php:274
 msgid "_Blacklist"
-msgstr "_Spärrade adresser"
+msgstr "_SpÃ¤rrade adresser"
 
 #: templates/blacklist/blacklist.inc:19
 msgid "_Delete message completely"
@@ -743,7 +743,7 @@ msgstr "_Radera meddelande helt"
 
 #: templates/blacklist/blacklist.inc:30
 msgid "_Enter each address on a new line:"
-msgstr "_Ange varje adress på en ny rad"
+msgstr "_Ange varje adress pÃ¥ en ny rad"
 
 #: lib/Ingo.php:280
 msgid "_Forward"
@@ -751,7 +751,7 @@ msgstr "_Vidarbefordra"
 
 #: templates/forward/forward.inc:17
 msgid "_Keep a copy of messages in this account?"
-msgstr "_Spara en kopia av meddelandet för det här kontot?"
+msgstr "_Spara en kopia av meddelandet fÃ¶r det hÃ¤r kontot?"
 
 #: templates/blacklist/blacklist.inc:23
 msgid "_Move message to folder:"
@@ -779,7 +779,7 @@ msgstr "och"
 
 #: filters.php:162
 msgid "field"
-msgstr "fält"
+msgstr "fÃ¤lt"
 
 #: filters.php:162
 msgid "match"

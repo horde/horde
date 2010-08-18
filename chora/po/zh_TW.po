@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Lin Zhemin <ljm@ljm.idv.tw>\n"
 "Language-Team: Greenworld Chinese <ljm@sunup.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=Big5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/log/request.inc:5
@@ -20,8 +20,8 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-"§A¥i¥H¦b¥»ªí³æ¿ï¾Ü¥ô·N¨â­Óª©¥»¡A²£¥Í¥¦­Ìªº diff ÀÉ. ½Ğ¦b¿ï³æ¤¤¿ï¾Ü symbolic "
-"ª©¥»©Î¦b¤å¦r®Ø¸Ì¿é¤Jª©¥»¼Æ¦r. "
+"ä½ å¯ä»¥åœ¨æœ¬è¡¨å–®é¸æ“‡ä»»æ„å…©å€‹ç‰ˆæœ¬ï¼Œç”¢ç”Ÿå®ƒå€‘çš„ diff æª”. è«‹åœ¨é¸å–®ä¸­é¸æ“‡ symbolic "
+"ç‰ˆæœ¬æˆ–åœ¨æ–‡å­—æ¡†è£¡è¼¸å…¥ç‰ˆæœ¬æ•¸å­—. "
 
 #: templates/annotate/header.inc:4
 msgid "#"
@@ -30,424 +30,424 @@ msgstr "#"
 #: templates/log/rev.inc:14
 #, php-format
 msgid "%s ago"
-msgstr "%s ¥H«e"
+msgstr "%s ä»¥å‰"
 
 #: templates/diff/hr/footer.inc:19
 #, php-format
 msgid "Added in v.%s"
-msgstr "¦b v.%s ·s¼W"
+msgstr "åœ¨ v.%s æ–°å¢"
 
 #: templates/log/request.inc:57
 msgid "All Branches"
-msgstr "¨C­Ó¤ÀªK"
+msgstr "æ¯å€‹åˆ†æ"
 
 #: prefs.php:77
 msgid "An illegal value was specified."
-msgstr "§A«ü©w¤F¿ù»~ªº­È."
+msgstr "ä½ æŒ‡å®šäº†éŒ¯èª¤çš„å€¼."
 
 #: co.php:65 templates/log/rev.inc:8
 msgid "Annotate"
-msgstr "¥[µù"
+msgstr "åŠ è¨»"
 
 #: templates/annotate/header.inc:5 templates/directory/header.inc:17
 msgid "Author"
-msgstr "§@ªÌ"
+msgstr "ä½œè€…"
 
 #: templates/log/rev.inc:16
 msgid "Branch:"
-msgstr "¤ÀªK:"
+msgstr "åˆ†æ:"
 
 #: annotate.php:26
 #, php-format
 msgid "CVS Annotation of %s for version %s"
-msgstr "CVS µù¸Ñ - %s v.%s"
+msgstr "CVS è¨»è§£ - %s v.%s"
 
 #: history.php:153
 #, php-format
 msgid "CVS Branching View for %s"
-msgstr "CVS ¤ÀªK°O¿ı - %s"
+msgstr "CVS åˆ†æè¨˜éŒ„ - %s"
 
 #: co.php:63
 #, php-format
 msgid "CVS Checkout of %s (revision %s)"
-msgstr "¬d¬İ CVS ÀÉ - %s (%s ª©)"
+msgstr "æŸ¥çœ‹ CVS æª” - %s (%s ç‰ˆ)"
 
 #: cvs.php:35
 #, php-format
 msgid "CVS Directory of /%s"
-msgstr "CVS ¥Ø¿ı /%s"
+msgstr "CVS ç›®éŒ„ /%s"
 
 #: cvs.php:123
 #, php-format
 msgid "CVS Log for %s"
-msgstr "CVS °O¿ı - %s"
+msgstr "CVS è¨˜éŒ„ - %s"
 
 #: templates/log/rev.inc:19
 msgid "CVS Tags:"
-msgstr "CVS ¼Ğ°O:"
+msgstr "CVS æ¨™è¨˜:"
 
 #: templates/log/rev.inc:27
 #, php-format
 msgid "Changed since <b>%s</b>"
-msgstr "¬Û¹ï©ó <b>v.%s</b> §ó°Ê¤F"
+msgstr "ç›¸å°æ–¼ <b>v.%s</b> æ›´å‹•äº†"
 
 #: templates/history/rev.inc:8
 #, php-format
 msgid "Changed: %s"
-msgstr "§ó°Ê¦æ¼Æ %s"
+msgstr "æ›´å‹•è¡Œæ•¸ %s"
 
 #: templates/headerbar.inc:11
 msgid "Chora Homepage"
-msgstr "Chora ­º­¶"
+msgstr "Chora é¦–é "
 
 #: templates/index/notconfigured.inc:4
 msgid "Chora is not properly configured"
-msgstr "Chora ¨S¦³³]©w¦n"
+msgstr "Chora æ²’æœ‰è¨­å®šå¥½"
 
 #: templates/log/request.inc:28
 msgid "Context"
-msgstr "¥]¬A¤W¤U¼Æ¦æ"
+msgstr "åŒ…æ‹¬ä¸Šä¸‹æ•¸è¡Œ"
 
 #: lib/CVSLib/Checkout.php:43
 msgid "Couldn't perform checkout of the requested file"
-msgstr "¤£¯à checkout ÀÉ®×"
+msgstr "ä¸èƒ½ checkout æª”æ¡ˆ"
 
 #: config/prefs.php.dist:7
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "µn¤J Chora «á­n°õ¦æªº¤u§@"
+msgstr "ç™»å…¥ Chora å¾Œè¦åŸ·è¡Œçš„å·¥ä½œ"
 
 #: templates/directory/header.inc:21
 msgid "Date"
-msgstr "®É¶¡"
+msgstr "æ™‚é–“"
 
 #: templates/directory/file.inc:6 templates/directory/file.inc:18
 msgid "Deleted File"
-msgstr "ÀÉ®×¤w§R°£"
+msgstr "æª”æ¡ˆå·²åˆªé™¤"
 
 #: diff.php:66
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Diff ÀÉ - %s v.%s ©M v.%s ªº®t²§"
+msgstr "Diff æª” - %s v.%s å’Œ v.%s çš„å·®ç•°"
 
 #: templates/log/rev.inc:42
 #, php-format
 msgid "Diffs ignoring whitespace to version %s"
-msgstr "¹ï v.%s ªº diff(©¿²¤ªÅ¥Õ)"
+msgstr "å° v.%s çš„ diff(å¿½ç•¥ç©ºç™½)"
 
 #: templates/log/rev.inc:48
 #, php-format
 msgid "Diffs to selected version %s"
-msgstr "¹ï©Ò¿ïªº v.%s ªº diff"
+msgstr "å°æ‰€é¸çš„ v.%s çš„ diff"
 
 #: templates/log/rev.inc:38
 #, php-format
 msgid "Diffs to version %s"
-msgstr "¹ï v.%s ªº diff"
+msgstr "å° v.%s çš„ diff"
 
 #: templates/directory/dir.inc:5 templates/directory/dir.inc:7
 msgid "Directory"
-msgstr "¥Ø¿ı"
+msgstr "ç›®éŒ„"
 
 #: annotate.php:29 co.php:66 templates/log/rev.inc:10
 msgid "Download"
-msgstr "¤U¸ü"
+msgstr "ä¸‹è¼‰"
 
 #: templates/log/request.inc:30
 msgid "Ed Script"
-msgstr "Ed ¸}¥»"
+msgstr "Ed è…³æœ¬"
 
 #: status.php:19 templates/error_page.inc:4
 msgid "Error"
-msgstr "¿ù»~"
+msgstr "éŒ¯èª¤"
 
 #: templates/error_page.inc:7
 msgid "Error Encountered"
-msgstr "¹J¨ì¤F¿ù»~"
+msgstr "é‡åˆ°äº†éŒ¯èª¤"
 
 #: lib/CVSLib/File.php:218
 msgid "Failed to spawn rlog to retrieve file log information"
-msgstr "µLªk°õ¦æ rlog ¨ú¦^ÀÉ®×°O¿ı"
+msgstr "ç„¡æ³•åŸ·è¡Œ rlog å–å›æª”æ¡ˆè¨˜éŒ„"
 
 #: templates/directory/file.inc:8 templates/directory/file.inc:20
 #: templates/directory/header.inc:9
 msgid "File"
-msgstr "ÀÉ®×"
+msgstr "æª”æ¡ˆ"
 
 #: templates/log/request.inc:44
 msgid "Get Diffs"
-msgstr "¨ú¦^ diff ÀÉ"
+msgstr "å–å› diff æª”"
 
 #: templates/menu/menu.inc:26
 msgid "Help"
-msgstr "¨D§U"
+msgstr "æ±‚åŠ©"
 
 #: cvs.php:39
 msgid "Hide Deleted Files"
-msgstr "ÁôÂÃ§R°£ªºÀÉ®×"
+msgstr "éš±è—åˆªé™¤çš„æª”æ¡ˆ"
 
 #: templates/log/request.inc:26
 msgid "Human Readable"
-msgstr "¤H¬İ±oÀ´ªº®æ¦¡"
+msgstr "äººçœ‹å¾—æ‡‚çš„æ ¼å¼"
 
 #: lib/CVSLib/Checkout.php:30
 msgid "Invalid revision number"
-msgstr "ª©¥»¸¹½X¤£¹ï"
+msgstr "ç‰ˆæœ¬è™Ÿç¢¼ä¸å°"
 
 #: templates/directory/header.inc:23
 msgid "Last Log"
-msgstr "³Ì«á¤@¦¸°O¿ı"
+msgstr "æœ€å¾Œä¸€æ¬¡è¨˜éŒ„"
 
 #: templates/diff/hr/header.inc:5
 #, php-format
 msgid "Last Log Message for rev %s:"
-msgstr "v.%s ªº³Ì«á«H®§:"
+msgstr "v.%s çš„æœ€å¾Œä¿¡æ¯:"
 
 #: templates/diff/hr/footer.inc:5
 msgid "Legend:"
-msgstr "¹Ï¨Ò:"
+msgstr "åœ–ä¾‹:"
 
 #: templates/annotate/header.inc:7
 msgid "Line"
-msgstr "¦æ"
+msgstr "è¡Œ"
 
 #: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
 #, php-format
 msgid "Line %s"
-msgstr "²Ä %s ¦æ"
+msgstr "ç¬¬ %s è¡Œ"
 
 #: templates/headerbar.inc:26
 msgid "Location:"
-msgstr "¦ì¸m:"
+msgstr "ä½ç½®:"
 
 #: config/prefs.php.dist:6
 msgid "Login Tasks"
-msgstr "µn¤J¤u§@"
+msgstr "ç™»å…¥å·¥ä½œ"
 
 #: status.php:32
 msgid "Message"
-msgstr "«H®§"
+msgstr "ä¿¡æ¯"
 
 #: templates/diff/hr/nochange.inc:6
 msgid "No Viewable Change"
-msgstr "¨S¦³¥iÂsÄıªº§ó°Ê"
+msgstr "æ²’æœ‰å¯ç€è¦½çš„æ›´å‹•"
 
 #: lib/CVSLib/File.php:124 lib/CVSLib/File.php:147
 msgid "No revisions"
-msgstr "¨S¦³ª©¥»"
+msgstr "æ²’æœ‰ç‰ˆæœ¬"
 
 #: templates/menu/menu.inc:13
 msgid "Options"
-msgstr "¿ï¶µ"
+msgstr "é¸é …"
 
 #: config/prefs.php.dist:5
 msgid "Other Options"
-msgstr "¨ä¥L¿ï¶µ"
+msgstr "å…¶ä»–é¸é …"
 
 #: lib/Chora.php:349
 msgid "Other Repositories"
-msgstr "¨ä¥L¥Ø¿ı"
+msgstr "å…¶ä»–ç›®éŒ„"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
-msgstr "¤W¼h¥Ø¿ı"
+msgstr "ä¸Šå±¤ç›®éŒ„"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
-msgstr "½Ğ³sµ¸"
+msgstr "è«‹é€£çµ¡"
 
 #: templates/menu/menu.inc:18
 msgid "Problem?"
-msgstr "¦³°İÃD¶Ü?"
+msgstr "æœ‰å•é¡Œå—?"
 
 #: templates/diff/hr/footer.inc:11
 #, php-format
 msgid "Removed in v.%s"
-msgstr "±q v.%s §R°£"
+msgstr "å¾ v.%s åˆªé™¤"
 
 #: templates/log/request.inc:14
 msgid "Retrieve diffs between:"
-msgstr "²£¥Í³oª©:"
+msgstr "ç”¢ç”Ÿé€™ç‰ˆ:"
 
 #: templates/annotate/header.inc:6 templates/directory/header.inc:13
 msgid "Rev"
-msgstr "ª©¥»"
+msgstr "ç‰ˆæœ¬"
 
 #: templates/log/rev.inc:33
 msgid "Select for Diff"
-msgstr "¿ï¾Ü°µdiffÀÉ"
+msgstr "é¸æ“‡åšdiffæª”"
 
 #: cvs.php:41
 msgid "Show Deleted Files"
-msgstr "Åã¥Ü§R°£ªºÀÉ®×"
+msgstr "é¡¯ç¤ºåˆªé™¤çš„æª”æ¡ˆ"
 
 #: templates/log/request.inc:29
 msgid "Side-by-Side"
-msgstr "¨âÃä¤À¦C"
+msgstr "å…©é‚Šåˆ†åˆ—"
 
 #: templates/index/notconfigured.inc:13
 msgid "Some of Chora's configuration files are missing:"
-msgstr "³o¨Ç Chora ³]©wÀÉ¤£¨£¤F:"
+msgstr "é€™äº› Chora è¨­å®šæª”ä¸è¦‹äº†:"
 
 #: templates/directory/header.inc:8 templates/directory/header.inc:12
 #: templates/directory/header.inc:16 templates/directory/header.inc:20
 msgid "Sort Order"
-msgstr "±Æ§Ç"
+msgstr "æ’åº"
 
 #: status.php:23
 msgid "Success"
-msgstr "¦n¤F"
+msgstr "å¥½äº†"
 
 #: cvs.php:131
 msgid "Switch to Branch View"
-msgstr "¤Á¨ì¤ÀªK°O¿ı"
+msgstr "åˆ‡åˆ°åˆ†æè¨˜éŒ„"
 
 #: history.php:155
 msgid "Switch to Log View"
-msgstr "¤Á¨ìª©¥»°O¿ı"
+msgstr "åˆ‡åˆ°ç‰ˆæœ¬è¨˜éŒ„"
 
 #: prefs.php:86
 msgid "This number must be at least one."
-msgstr "³o­Ó¼Æ¦r­n¤j©óµ¥©ó 1."
+msgstr "é€™å€‹æ•¸å­—è¦å¤§æ–¼ç­‰æ–¼ 1."
 
 #: prefs.php:84
 msgid "This value must be a number."
-msgstr "½Ğ¶ñ¤J¼Æ¦r."
+msgstr "è«‹å¡«å…¥æ•¸å­—."
 
 #: templates/log/request.inc:23
 msgid "Type:"
-msgstr "®æ¦¡:"
+msgstr "æ ¼å¼:"
 
 #: templates/log/request.inc:27
 msgid "Unified"
-msgstr "²Î¤@®æ¦¡"
+msgstr "çµ±ä¸€æ ¼å¼"
 
 #: templates/log/rev.inc:31
 msgid "Unselect"
-msgstr "¨ú®ø¿ï¾Ü"
+msgstr "å–æ¶ˆé¸æ“‡"
 
 #: templates/log/request.inc:18 templates/log/request.inc:38
 msgid "Use Text Field"
-msgstr "½Ğ¿ï¾Ü©Î¦b¥kÃä¿é¤J"
+msgstr "è«‹é¸æ“‡æˆ–åœ¨å³é‚Šè¼¸å…¥"
 
 #: config/prefs.php.dist:33
 msgid "Use last viewed file or directory at login time"
-msgstr "µn¤J®Éª½±µÂsÄı¤W¦¸¬İ¹LªºÀÉ®×©Î¥Ø¿ı"
+msgstr "ç™»å…¥æ™‚ç›´æ¥ç€è¦½ä¸Šæ¬¡çœ‹éçš„æª”æ¡ˆæˆ–ç›®éŒ„"
 
 #: prefs.php:133
 msgid "User Options"
-msgstr "¿ï¶µ"
+msgstr "é¸é …"
 
 #: annotate.php:28 templates/log/rev.inc:9
 msgid "View"
-msgstr "¬d¬İ"
+msgstr "æŸ¥çœ‹"
 
 #: templates/log/request.inc:60
 msgid "View Branch"
-msgstr "ÂsÄı¤ÀªK°O¿ı"
+msgstr "ç€è¦½åˆ†æè¨˜éŒ„"
 
 #: templates/log/request.inc:54
 msgid "View revisions on:"
-msgstr "ÂsÄıª©¥»°O¿ı:"
+msgstr "ç€è¦½ç‰ˆæœ¬è¨˜éŒ„:"
 
 #: status.php:27
 msgid "Warning"
-msgstr "Äµ§i"
+msgstr "è­¦å‘Š"
 
 #: prefs.php:118
 msgid "Your options have been updated."
-msgstr "¿ï¶µ§ó·s¦n¤F."
+msgstr "é¸é …æ›´æ–°å¥½äº†."
 
 #: templates/log/request.inc:35
 msgid "and:"
-msgstr "©M³oª©ªº diff ÀÉ:"
+msgstr "å’Œé€™ç‰ˆçš„ diff æª”:"
 
 #: templates/log/rev.inc:6 templates/history/rev.inc:4
 #, php-format
 msgid "by %s"
-msgstr "§@ªÌ %s"
+msgstr "ä½œè€… %s"
 
 #: templates/diff/hr/footer.inc:15
 msgid "changed lines"
-msgstr "§ó°Ê"
+msgstr "æ›´å‹•"
 
 #: lib/CVSLib/File.php:292
 msgid "day"
-msgstr "¤Ñ"
+msgstr "å¤©"
 
 #: lib/CVSLib/File.php:292
 msgid "days"
-msgstr "¤Ñ"
+msgstr "å¤©"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "¥HÀò±o¶i¤@¨Bªº«H®§."
+msgstr "ä»¥ç²å¾—é€²ä¸€æ­¥çš„ä¿¡æ¯."
 
 #: lib/CVSLib/File.php:291
 msgid "hour"
-msgstr "¤p®É"
+msgstr "å°æ™‚"
 
 #: lib/CVSLib/File.php:291
 msgid "hours"
-msgstr "¤p®É"
+msgstr "å°æ™‚"
 
 #: templates/log/rev.inc:39 templates/log/rev.inc:43 templates/log/rev.inc:49
 msgid "long"
-msgstr "ªø®æ¦¡"
+msgstr "é•·æ ¼å¼"
 
 #: lib/CVSLib/File.php:290
 msgid "minute"
-msgstr "¤À"
+msgstr "åˆ†"
 
 #: lib/CVSLib/File.php:290
 msgid "minutes"
-msgstr "¤À"
+msgstr "åˆ†"
 
 #: lib/CVSLib/File.php:294
 msgid "month"
-msgstr "­Ó¤ë"
+msgstr "å€‹æœˆ"
 
 #: lib/CVSLib/File.php:294
 msgid "months"
-msgstr "­Ó¤ë"
+msgstr "å€‹æœˆ"
 
 #: templates/history/branch_cell.inc:6
 #, php-format
 msgid "revision %s"
-msgstr "ª©¥» %s"
+msgstr "ç‰ˆæœ¬ %s"
 
 #: lib/CVSLib/File.php:289
 msgid "second"
-msgstr "¬í"
+msgstr "ç§’"
 
 #: lib/CVSLib/File.php:289
 msgid "seconds"
-msgstr "¬í"
+msgstr "ç§’"
 
 #: templates/log/rev.inc:40 templates/log/rev.inc:44 templates/log/rev.inc:50
 msgid "unified"
-msgstr "²Î¤@®æ¦¡"
+msgstr "çµ±ä¸€æ ¼å¼"
 
 #: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
 #, php-format
 msgid "version %s"
-msgstr "%s ª©"
+msgstr "%s ç‰ˆ"
 
 #: lib/CVSLib/File.php:303
 msgid "very little time"
-msgstr "¤£¤["
+msgstr "ä¸ä¹…"
 
 #: lib/CVSLib/File.php:293
 msgid "week"
-msgstr "¶g"
+msgstr "é€±"
 
 #: lib/CVSLib/File.php:293
 msgid "weeks"
-msgstr "¶g"
+msgstr "é€±"
 
 #: lib/CVSLib/File.php:295
 msgid "year"
-msgstr "¦~"
+msgstr "å¹´"
 
 #: lib/CVSLib/File.php:295
 msgid "years"
-msgstr "¦~"
+msgstr "å¹´"

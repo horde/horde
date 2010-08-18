@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: manager.php:52
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
-msgstr "\"%s\" перейменовано на \"%s\""
+msgstr "\"%s\" РїРµСЂРµР№РјРµРЅРѕРІР°РЅРѕ РЅР° \"%s\""
 
 #: quota.php:56
 #, php-format
@@ -35,12 +35,12 @@ msgstr "%d items"
 #: manager.php:437
 #, php-format
 msgid "%s Folders and %s Files (%s Kb)"
-msgstr "%s папок і %s файлів (%s Кб)"
+msgstr "%s РїР°РїРѕРє С– %s С„Р°Р№Р»С–РІ (%s РљР±)"
 
 #: manager.php:435
 #, php-format
 msgid "%s Folders and 1 File (%s Kb)"
-msgstr "%s папок і 1 файл (%s Кб)"
+msgstr "%s РїР°РїРѕРє С– 1 С„Р°Р№Р» (%s РљР±)"
 
 #: login.php:144
 #, php-format
@@ -50,22 +50,22 @@ msgstr ""
 #: edit.php:35
 #, php-format
 msgid "%s successfully saved."
-msgstr "%s успішно збережено."
+msgstr "%s СѓСЃРїС–С€РЅРѕ Р·Р±РµСЂРµР¶РµРЅРѕ."
 
 #: manager.php:167
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s успішно вставлено."
+msgstr "%s СѓСЃРїС–С€РЅРѕ РІСЃС‚Р°РІР»РµРЅРѕ."
 
 #: manager.php:432
 #, php-format
 msgid "1 Folder and %s Files (%s Kb)"
-msgstr "1 папка і %s файлів (%s Кб)"
+msgstr "1 РїР°РїРєР° С– %s С„Р°Р№Р»С–РІ (%s РљР±)"
 
 #: manager.php:430
 #, php-format
 msgid "1 Folder and 1 File (%s Kb)"
-msgstr "1 папка і 1 файл (%s Кб)"
+msgstr "1 РїР°РїРєР° С– 1 С„Р°Р№Р» (%s РљР±)"
 
 #: manager.php:271
 msgid "1 item"
@@ -80,53 +80,53 @@ msgstr ""
 #: edit.php:33 edit.php:43 view.php:33
 #, php-format
 msgid "Access denied to %s"
-msgstr "Доступ до %s заборонено"
+msgstr "Р”РѕСЃС‚СѓРї РґРѕ %s Р·Р°Р±РѕСЂРѕРЅРµРЅРѕ"
 
 #: lib/Gollem.php:109 lib/Gollem.php:383 lib/Gollem.php:445 lib/Gollem.php:466
 #: lib/Gollem.php:483
 #, php-format
 msgid "Access denied to folder \"%s\"."
-msgstr "Доступ до папки \"%s\" заборонений."
+msgstr "Р”РѕСЃС‚СѓРї РґРѕ РїР°РїРєРё \"%s\" Р·Р°Р±РѕСЂРѕРЅРµРЅРёР№."
 
 #: templates/manager/manager.html:124
 msgid "Actions:"
-msgstr "Дії:"
+msgstr "Р”С–С—:"
 
 #: selectlist.php:99
 msgid "Add"
-msgstr "Додати"
+msgstr "Р”РѕРґР°С‚Рё"
 
 #: templates/prefs/columnselect.inc:43
 msgid "Add column"
-msgstr "Додати колонку"
+msgstr "Р”РѕРґР°С‚Рё РєРѕР»РѕРЅРєСѓ"
 
 #: templates/manager/manager.html:11
 msgid "All"
-msgstr "Всі"
+msgstr "Р’СЃС–"
 
 #: gollem.js.php:55
 msgid "Are you sure you wish to continue?"
-msgstr " Впевнені, що хочете продовжити?"
+msgstr " Р’РїРµРІРЅРµРЅС–, С‰Рѕ С…РѕС‡РµС‚Рµ РїСЂРѕРґРѕРІР¶РёС‚Рё?"
 
 #: gollem.js.php:53
 msgid "Are you sure?"
-msgstr "Ви впевнені?"
+msgstr "Р’Рё РІРїРµРІРЅРµРЅС–?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
-msgstr "По зростанню"
+msgstr "РџРѕ Р·СЂРѕСЃС‚Р°РЅРЅСЋ"
 
 #: config/prefs.php.dist:93
 msgid "Ask"
-msgstr "Питати"
+msgstr "РџРёС‚Р°С‚Рё"
 
 #: templates/manager/manager.html:5
 msgid "Attributes"
-msgstr "Атрибути"
+msgstr "РђС‚СЂРёР±СѓС‚Рё"
 
 #: templates/prefs/columnselect.html:20
 msgid "Available Columns:"
-msgstr "Доступні колонки:"
+msgstr "Р”РѕСЃС‚СѓРїРЅС– РєРѕР»РѕРЅРєРё:"
 
 #: lib/api.php:50
 msgid "Backends"
@@ -139,7 +139,7 @@ msgstr ""
 #: clipboard.php:38 manager.php:266 selectlist.php:101
 #: templates/edit/edit.inc:13
 msgid "Cancel"
-msgstr "Відмінити"
+msgstr "Р’С–РґРјС–РЅРёС‚Рё"
 
 #: manager.php:72
 #, php-format
@@ -153,7 +153,7 @@ msgstr ""
 #: manager.php:200
 #, php-format
 msgid "Cannot create home directory: %s"
-msgstr "Не можу створити домашню папку: %s"
+msgstr "РќРµ РјРѕР¶Сѓ СЃС‚РІРѕСЂРёС‚Рё РґРѕРјР°С€РЅСЋ РїР°РїРєСѓ: %s"
 
 #: manager.php:143
 msgid "Cannot cut items onto clipboard."
@@ -166,19 +166,19 @@ msgstr ""
 
 #: templates/manager/manager.html:70
 msgid "Change Folder"
-msgstr "Змінити папку"
+msgstr "Р—РјС–РЅРёС‚Рё РїР°РїРєСѓ"
 
 #: templates/manager/manager.html:126
 msgid "Change Permissions"
-msgstr "Змінити права"
+msgstr "Р—РјС–РЅРёС‚Рё РїСЂР°РІР°"
 
 #: selectlist.php:109 lib/Gollem.php:813
 msgid "Change Server"
-msgstr "Змінити сервер"
+msgstr "Р—РјС–РЅРёС‚Рё СЃРµСЂРІРµСЂ"
 
 #: lib/Gollem.php:770
 msgid "Change _Folder"
-msgstr "Змінити папку"
+msgstr "Р—РјС–РЅРёС‚Рё РїР°РїРєСѓ"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
@@ -186,7 +186,7 @@ msgstr ""
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Змініть опції сортування файлів."
+msgstr "Р—РјС–РЅС–С‚СЊ РѕРїС†С–С— СЃРѕСЂС‚СѓРІР°РЅРЅСЏ С„Р°Р№Р»С–РІ."
 
 #: lib/Gollem.php:788
 msgid "Check Quota"
@@ -194,7 +194,7 @@ msgstr ""
 
 #: manager.php:528
 msgid "Check _All/None"
-msgstr "Вибрати всі/жодного"
+msgstr "Р’РёР±СЂР°С‚Рё РІСЃС–/Р¶РѕРґРЅРѕРіРѕ"
 
 #: manager.php:70
 msgid "Chmod done: "
@@ -206,7 +206,7 @@ msgstr ""
 
 #: clipboard.php:39
 msgid "Clear"
-msgstr "Ясно"
+msgstr "РЇСЃРЅРѕ"
 
 #: clipboard.php:18 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
@@ -214,25 +214,25 @@ msgstr ""
 
 #: quota.php:32
 msgid "Close"
-msgstr "Закрити"
+msgstr "Р—Р°РєСЂРёС‚Рё"
 
 #: login.php:258
 #, php-format
 msgid "Connect to: %s"
-msgstr "З'єднання з: %s"
+msgstr "Р—'С”РґРЅР°РЅРЅСЏ Р·: %s"
 
 #: clipboard.php:42 templates/manager/manager.html:129
 msgid "Copy"
-msgstr "Копіювати"
+msgstr "РљРѕРїС–СЋРІР°С‚Рё"
 
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "Не можу зберегти скомпільований файл шаблону '%s'."
+msgstr "РќРµ РјРѕР¶Сѓ Р·Р±РµСЂРµРіС‚Рё СЃРєРѕРјРїС–Р»СЊРѕРІР°РЅРёР№ С„Р°Р№Р» С€Р°Р±Р»РѕРЅСѓ '%s'."
 
 #: templates/manager/manager.html:58
 msgid "Create Folder"
-msgstr "Створити папку"
+msgstr "РЎС‚РІРѕСЂРёС‚Рё РїР°РїРєСѓ"
 
 #: permissions.php:47
 #, php-format
@@ -243,7 +243,7 @@ msgstr ""
 
 #: templates/clipboard/clipboard.html:17
 msgid "Current directory:"
-msgstr "Поточна папка:"
+msgstr "РџРѕС‚РѕС‡РЅР° РїР°РїРєР°:"
 
 #: clipboard.php:41 templates/manager/manager.html:130
 msgid "Cut"
@@ -251,15 +251,15 @@ msgstr ""
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Типовий критерій сортування:"
+msgstr "РўРёРїРѕРІРёР№ РєСЂРёС‚РµСЂС–Р№ СЃРѕСЂС‚СѓРІР°РЅРЅСЏ:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Типовий напрям сортування:"
+msgstr "РўРёРїРѕРІРёР№ РЅР°РїСЂСЏРј СЃРѕСЂС‚СѓРІР°РЅРЅСЏ:"
 
 #: templates/manager/manager.html:133
 msgid "Delete"
-msgstr "Витерти"
+msgstr "Р’РёС‚РµСЂС‚Рё"
 
 #: config/prefs.php.dist:95
 msgid "Delete folders recursively?"
@@ -267,7 +267,7 @@ msgstr ""
 
 #: config/prefs.php.dist:70
 msgid "Descending"
-msgstr "По спаданню"
+msgstr "РџРѕ СЃРїР°РґР°РЅРЅСЋ"
 
 #: selectlist.php:100
 msgid "Done"
@@ -275,12 +275,12 @@ msgstr ""
 
 #: manager.php:226
 msgid "Download"
-msgstr "Скачати"
+msgstr "РЎРєР°С‡Р°С‚Рё"
 
 #: manager.php:404
 #, php-format
 msgid "Download %s"
-msgstr "Скачати %s"
+msgstr "РЎРєР°С‡Р°С‚Рё %s"
 
 #: templates/quota/quota.html:7
 msgid "ERROR:"
@@ -288,24 +288,24 @@ msgstr ""
 
 #: manager.php:225
 msgid "Edit"
-msgstr "Редагувати"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё"
 
 #: templates/edit/edit.inc:8
 #, php-format
 msgid "Edit %s"
-msgstr "Редагувати %s"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё %s"
 
 #: config/credentials.php.dist:28
 msgid "Email"
-msgstr "Е-пошта"
+msgstr "Р•-РїРѕС€С‚Р°"
 
 #: templates/manager/manager.html:26
 msgid "Execute"
-msgstr "Виконати"
+msgstr "Р’РёРєРѕРЅР°С‚Рё"
 
 #: gollem.js.php:57 templates/manager/manager.html:203
 msgid "File"
-msgstr "Файл"
+msgstr "Р¤Р°Р№Р»"
 
 #: config/prefs.php.dist:13
 msgid "File Display"
@@ -313,28 +313,28 @@ msgstr ""
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "Час зміни файлу"
+msgstr "Р§Р°СЃ Р·РјС–РЅРё С„Р°Р№Р»Сѓ"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
-msgstr "Назва файлу"
+msgstr "РќР°Р·РІР° С„Р°Р№Р»Сѓ"
 
 #: config/prefs.php.dist:57
 msgid "File Size"
-msgstr "Об'єм файлу"
+msgstr "РћР±'С”Рј С„Р°Р№Р»Сѓ"
 
 #: config/prefs.php.dist:54
 msgid "File Type"
-msgstr "Тип файлу"
+msgstr "РўРёРї С„Р°Р№Р»Сѓ"
 
 #: manager.php:87
 msgid "File deleted: "
-msgstr "Файл витерто: "
+msgstr "Р¤Р°Р№Р» РІРёС‚РµСЂС‚Рѕ: "
 
 #: manager.php:109
 #, php-format
 msgid "File received: %s"
-msgstr "Файл отримано: %s"
+msgstr "Р¤Р°Р№Р» РѕС‚СЂРёРјР°РЅРѕ: %s"
 
 #: manager.php:80
 msgid "Folder removed: "
@@ -350,7 +350,7 @@ msgstr ""
 
 #: manager.php:508 templates/manager/manager.html:10
 msgid "Group"
-msgstr "Група"
+msgstr "Р“СЂСѓРїР°"
 
 #: manager.php:56
 msgid "Incorrect number of items."
@@ -368,7 +368,7 @@ msgstr ""
 
 #: templates/login/login.html:68
 msgid "Language"
-msgstr "Мова"
+msgstr "РњРѕРІР°"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
@@ -376,11 +376,11 @@ msgstr ""
 
 #: login.php:307
 msgid "Login"
-msgstr "Вхід"
+msgstr "Р’С…С–Рґ"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Список меню"
+msgstr "РЎРїРёСЃРѕРє РјРµРЅСЋ"
 
 #: manager.php:478
 msgid "Modified"
@@ -388,15 +388,15 @@ msgstr ""
 
 #: templates/prefs/columnselect.inc:45
 msgid "Move left"
-msgstr "Посунути вліво"
+msgstr "РџРѕСЃСѓРЅСѓС‚Рё РІР»С–РІРѕ"
 
 #: templates/prefs/columnselect.inc:46
 msgid "Move right"
-msgstr "Посунути вправо"
+msgstr "РџРѕСЃСѓРЅСѓС‚Рё РІРїСЂР°РІРѕ"
 
 #: manager.php:456
 msgid "Name"
-msgstr "Ім'я"
+msgstr "Р†Рј'СЏ"
 
 #: templates/manager/manager.html:46 templates/manager/manager.html:60
 msgid "Name:"
@@ -404,53 +404,53 @@ msgstr ""
 
 #: manager.php:35
 msgid "New folder created: "
-msgstr "Нову папку створено: "
+msgstr "РќРѕРІСѓ РїР°РїРєСѓ СЃС‚РІРѕСЂРµРЅРѕ: "
 
 #: config/prefs.php.dist:91
 msgid "No"
-msgstr "Ні"
+msgstr "РќС–"
 
 #: templates/quota/quota.html:12
 msgid "No quota found."
-msgstr "Квоту не знайдено."
+msgstr "РљРІРѕС‚Сѓ РЅРµ Р·РЅР°Р№РґРµРЅРѕ."
 
 #: manager.php:267
 msgid "OK"
-msgstr "ОК"
+msgstr "РћРљ"
 
 #: manager.php:501 templates/manager/manager.html:9
 msgid "Owner"
-msgstr "Власник"
+msgstr "Р’Р»Р°СЃРЅРёРє"
 
 #: config/credentials.php.dist:23
 msgid "Password"
-msgstr "Пароль"
+msgstr "РџР°СЂРѕР»СЊ"
 
 #: clipboard.php:40
 msgid "Paste"
-msgstr "Вставити"
+msgstr "Р’СЃС‚Р°РІРёС‚Рё"
 
 #: manager.php:494
 msgid "Permission"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 #: selectlist.php:64
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "Доступ до %s заборонено: %s"
+msgstr "Р”РѕСЃС‚СѓРї РґРѕ %s Р·Р°Р±РѕСЂРѕРЅРµРЅРѕ: %s"
 
 #: manager.php:208
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
-msgstr "Доступ до папки \"%s\" заборонено: %s"
+msgstr "Р”РѕСЃС‚СѓРї РґРѕ РїР°РїРєРё \"%s\" Р·Р°Р±РѕСЂРѕРЅРµРЅРѕ: %s"
 
 #: gollem.js.php:48
 msgid "Please provide your password."
-msgstr "Будь-ласка, введіть пароль."
+msgstr "Р‘СѓРґСЊ-Р»Р°СЃРєР°, РІРІРµРґС–С‚СЊ РїР°СЂРѕР»СЊ."
 
 #: gollem.js.php:47
 msgid "Please provide your username."
-msgstr "Будь-ласка, вкажіть назву користувача."
+msgstr "Р‘СѓРґСЊ-Р»Р°СЃРєР°, РІРєР°Р¶С–С‚СЊ РЅР°Р·РІСѓ РєРѕСЂРёСЃС‚СѓРІР°С‡Р°."
 
 #: templates/prefs/columnselect.html:5
 msgid "Please select a backend:"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: gollem.js.php:56
 msgid "Please specify at least one file to upload."
-msgstr "Будь-ласка, вкажіть хоча б один файл для підвантаження."
+msgstr "Р‘СѓРґСЊ-Р»Р°СЃРєР°, РІРєР°Р¶С–С‚СЊ С…РѕС‡Р° Р± РѕРґРёРЅ С„Р°Р№Р» РґР»СЏ РїС–РґРІР°РЅС‚Р°Р¶РµРЅРЅСЏ."
 
 #: quota.php:19 templates/quota/quota.html:2
 msgid "Quota Display"
@@ -470,23 +470,23 @@ msgstr ""
 
 #: templates/manager/manager.html:14
 msgid "Read"
-msgstr "Читати"
+msgstr "Р§РёС‚Р°С‚Рё"
 
 #: manager.php:273
 msgid "Refresh"
-msgstr "Оновити"
+msgstr "РћРЅРѕРІРёС‚Рё"
 
 #: templates/prefs/columnselect.inc:44
 msgid "Remove column"
-msgstr "Видалити колонку"
+msgstr "Р’РёРґР°Р»РёС‚Рё РєРѕР»РѕРЅРєСѓ"
 
 #: templates/manager/manager.html:44 templates/manager/manager.html:136
 msgid "Rename"
-msgstr "Перейменувати"
+msgstr "РџРµСЂРµР№РјРµРЅСѓРІР°С‚Рё"
 
 #: templates/edit/edit.inc:12
 msgid "Reset"
-msgstr "Очистити"
+msgstr "РћС‡РёСЃС‚РёС‚Рё"
 
 #: lib/Gollem.php:727 lib/Gollem.php:732
 msgid "Root"
@@ -494,19 +494,19 @@ msgstr ""
 
 #: manager.php:265 templates/edit/edit.inc:11
 msgid "Save"
-msgstr "Зберегти"
+msgstr "Р—Р±РµСЂРµРіС‚Рё"
 
 #: templates/prefs/columnselect.html:30
 msgid "Selected Columns:"
-msgstr "Вибрані колонки:"
+msgstr "Р’РёР±СЂР°РЅС– РєРѕР»РѕРЅРєРё:"
 
 #: templates/login/login.html:32
 msgid "Server"
-msgstr "Сервер"
+msgstr "РЎРµСЂРІРµСЂ"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "Налаштування"
+msgstr "РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
@@ -514,7 +514,7 @@ msgstr ""
 
 #: manager.php:486
 msgid "Size"
-msgstr "Об'єм"
+msgstr "РћР±'С”Рј"
 
 #: gollem.js.php:54
 msgid "The following item(s) are folders:"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: selectlist.php:199 templates/manager/manager.html:147
 msgid "There are no files in this folder."
-msgstr "В цій папці нема файлів."
+msgstr "Р’ С†С–Р№ РїР°РїС†С– РЅРµРјР° С„Р°Р№Р»С–РІ."
 
 #: templates/clipboard/clipboard.html:15
 msgid ""
@@ -550,7 +550,7 @@ msgstr ""
 
 #: manager.php:448
 msgid "Type"
-msgstr "Тип"
+msgstr "РўРёРї"
 
 #: permissions.php:42
 #, php-format
@@ -560,12 +560,12 @@ msgstr ""
 #: manager.php:85
 #, php-format
 msgid "Unable to delete file %s: %s"
-msgstr "Не можу витерти файл %s: %s"
+msgstr "РќРµ РјРѕР¶Сѓ РІРёС‚РµСЂС‚Рё С„Р°Р№Р» %s: %s"
 
 #: manager.php:78
 #, php-format
 msgid "Unable to delete folder %s: %s"
-msgstr "Не можу витерти папку %s: %s"
+msgstr "РќРµ РјРѕР¶Сѓ РІРёС‚РµСЂС‚Рё РїР°РїРєСѓ %s: %s"
 
 #: lib/Gollem.php:732 lib/Gollem.php:742
 #, php-format
@@ -578,11 +578,11 @@ msgstr ""
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "Інтерфейс користувача"
+msgstr "Р†РЅС‚РµСЂС„РµР№СЃ РєРѕСЂРёСЃС‚СѓРІР°С‡Р°"
 
 #: config/credentials.php.dist:18
 msgid "Username"
-msgstr "Назва користувача"
+msgstr "РќР°Р·РІР° РєРѕСЂРёСЃС‚СѓРІР°С‡Р°"
 
 #: manager.php:281
 msgid "View Clipboard"
@@ -591,7 +591,7 @@ msgstr ""
 #: login.php:201
 #, php-format
 msgid "Welcome to %s"
-msgstr "Вас вітає %s"
+msgstr "Р’Р°СЃ РІС–С‚Р°С” %s"
 
 #: templates/manager/manager.html:20
 msgid "Write"
@@ -599,7 +599,7 @@ msgstr ""
 
 #: config/prefs.php.dist:92
 msgid "Yes"
-msgstr "Так"
+msgstr "РўР°Рє"
 
 #: permissions.php:25
 msgid "You need at least one backend defined to set permissions."
@@ -607,7 +607,7 @@ msgstr ""
 
 #: lib/MIME/Viewer/images.php:35
 msgid "Your browser does not support inline display of this image type"
-msgstr "Ваш броузер не підтримує відображення по тексту зображень цього типу"
+msgstr "Р’Р°С€ Р±СЂРѕСѓР·РµСЂ РЅРµ РїС–РґС‚СЂРёРјСѓС” РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ РїРѕ С‚РµРєСЃС‚Сѓ Р·РѕР±СЂР°Р¶РµРЅСЊ С†СЊРѕРіРѕ С‚РёРїСѓ"
 
 #: lib/Gollem.php:811 lib/Gollem.php:814
 msgid "_Change Server"
@@ -615,7 +615,7 @@ msgstr ""
 
 #: lib/Gollem.php:767
 msgid "_Create Folder"
-msgstr "Створити папку"
+msgstr "РЎС‚РІРѕСЂРёС‚Рё РїР°РїРєСѓ"
 
 #: lib/Gollem.php:763
 msgid "_My Home"
@@ -623,11 +623,11 @@ msgstr ""
 
 #: lib/Gollem.php:777
 msgid "_Permissions"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 #: manager.php:227 selectlist.php:75
 msgid "folder"
-msgstr "папка"
+msgstr "РїР°РїРєР°"
 
 #: manager.php:228 selectlist.php:76
 msgid "symlink"

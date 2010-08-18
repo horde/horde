@@ -9,32 +9,32 @@ msgstr ""
 "Last-Translator: Kaspars Kapenieks <kaspars@rcc.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1257\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #, c-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s Uzturçğanas operâcijas - apstiprinâjums"
+msgstr "%s UzturÄ“Å¡anas operÄcijas - apstiprinÄjums"
 
 #, c-format
 msgid "%s is ready to perform the maintenance operations checked below."
-msgstr "%s ir gatavs izpildît atzîmçtâs uzturçğanas operâcijas."
+msgstr "%s ir gatavs izpildÄ«t atzÄ«mÄ“tÄs uzturÄ“Å¡anas operÄcijas."
 
 #, c-format
 msgid "'%s' is not configured in the Horde Registry."
-msgstr "'%s' nav norâdîts Horde reìistrâ"
+msgstr "'%s' nav norÄdÄ«ts Horde reÄ£istrÄ"
 
 msgid "24 hours"
 msgstr "24 stundas"
 
 msgid "<b>A fatal error has occurred:</b>"
-msgstr "<b>Ir notikusi kritiska kïûme:</b>"
+msgstr "<b>Ir notikusi kritiska kÄ¼Å«me:</b>"
 
 msgid "AM/PM"
 msgstr "AM/PM"
 
 msgid "Add pair"
-msgstr "Pievienot pâri"
+msgstr "Pievienot pÄri"
 
 msgid "Address"
 msgstr "Adrese"
@@ -43,54 +43,54 @@ msgid "Addressbook"
 msgstr "Kontakti"
 
 msgid "Alias"
-msgstr "Aizstâjvârds"
+msgstr "AizstÄjvÄrds"
 
 msgid "An illegal value was specified."
-msgstr "Norâdîta nederîga vçrtîba"
+msgstr "NorÄdÄ«ta nederÄ«ga vÄ“rtÄ«ba"
 
 msgid "Available fields:"
 msgstr "Pieejamie lauki:"
 
 msgid "Birthday"
-msgstr "Dzimğanas diena"
+msgstr "DzimÅ¡anas diena"
 
 msgid "CVS"
 msgstr "CVS"
 
 msgid "Calendar"
-msgstr "Kalendârs"
+msgstr "KalendÄrs"
 
 msgid "Cancel Problem Report"
-msgstr "Atcelt problçmas pieteikumu"
+msgstr "Atcelt problÄ“mas pieteikumu"
 
 msgid "Cell Phone"
-msgstr "Mobilais tâlrunis"
+msgstr "Mobilais tÄlrunis"
 
 msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "Atzîmçjiet darbîbas, ko vçlaties veikt."
+msgstr "AtzÄ«mÄ“jiet darbÄ«bas, ko vÄ“laties veikt."
 
 msgid "Close Help Window"
-msgstr "Aizvçrt palîdzîbas logu"
+msgstr "AizvÄ“rt palÄ«dzÄ«bas logu"
 
 msgid "Close Help"
-msgstr "Aizvçrt palîdzîbu"
+msgstr "AizvÄ“rt palÄ«dzÄ«bu"
 
 msgid "Close Window"
-msgstr "Aizvçrt logu"
+msgstr "AizvÄ“rt logu"
 
 msgid "Company"
-msgstr "Uzòçmums"
+msgstr "UzÅ†Ä“mums"
 
 #, c-format
 msgid "Contents of '%s'"
 msgstr "'%s' saturs"
 
 msgid "Contents of the RAR archive"
-msgstr "RAR arhîva saturs"
+msgstr "RAR arhÄ«va saturs"
 
 #, c-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Neizdevâs atvçrt Maintenance_Task moduli %s"
+msgstr "NeizdevÄs atvÄ“rt Maintenance_Task moduli %s"
 
 msgid "DD"
 msgstr "DD"
@@ -99,66 +99,66 @@ msgid "Daily"
 msgstr "Ikdienas"
 
 msgid "Database query failed."
-msgstr "Neizdevâs datu bâzes pieprasîjums."
+msgstr "NeizdevÄs datu bÄzes pieprasÄ«jums."
 
 msgid "Default Identity"
-msgstr "Parastâ identitâte"
+msgstr "ParastÄ identitÄte"
 
 msgid "Describe the Problem"
-msgstr "Aprakstiet problçmu"
+msgstr "Aprakstiet problÄ“mu"
 
 msgid "Details have been logged for the administrator."
-msgstr "Sîkâka informâcija ir nosûtîta administratoram."
+msgstr "SÄ«kÄka informÄcija ir nosÅ«tÄ«ta administratoram."
 
 msgid "Display Options"
-msgstr "Ekrâna iestatîjumi"
+msgstr "EkrÄna iestatÄ«jumi"
 
 msgid "Do not directly access maintenance.php"
-msgstr "Nav tieğas pieejas maintenance.php"
+msgstr "Nav tieÅ¡as pieejas maintenance.php"
 
 msgid "Email"
 msgstr "E-pasts"
 
 msgid "Empty result."
-msgstr "Tukğs rezultâts."
+msgstr "TukÅ¡s rezultÄts."
 
 msgid "Error"
-msgstr "Kïûda"
+msgstr "KÄ¼Å«da"
 
 msgid "Every 15 minutes"
-msgstr "Katras 15 minûtes"
+msgstr "Katras 15 minÅ«tes"
 
 msgid "Every 30 seconds"
 msgstr "Katras 30 sekundes"
 
 msgid "Every 5 minutes"
-msgstr "Katras 5 minûtes"
+msgstr "Katras 5 minÅ«tes"
 
 msgid "Every Login"
-msgstr "Katrâ pieslçgğanâs reizç"
+msgstr "KatrÄ pieslÄ“gÅ¡anÄs reizÄ“"
 
 msgid "Every half hour"
 msgstr "Katru pusstundu"
 
 msgid "Every minute"
-msgstr "Katru minûti"
+msgstr "Katru minÅ«ti"
 
 msgid "Example values:"
-msgstr "Paraugvçrtîbas"
+msgstr "ParaugvÄ“rtÄ«bas"
 
 #, c-format
 msgid "Expected \"BEGIN\" in the line %d."
-msgstr "Jâbût \"BEGIN\"rindâ %d."
+msgstr "JÄbÅ«t \"BEGIN\"rindÄ %d."
 
 #, c-format
 msgid "Expected \"END:%s\" in line %d."
-msgstr "Jâbût \"END:%s\" rindâ %d."
+msgstr "JÄbÅ«t \"END:%s\" rindÄ %d."
 
 msgid "Failed retrieving preferences."
-msgstr "Neizdevâs saòemt iestatîjumus."
+msgstr "NeizdevÄs saÅ†emt iestatÄ«jumus."
 
 msgid "Failed to connect to LDAP server."
-msgstr "Neizdevâs pieslçgties LDAP serverim."
+msgstr "NeizdevÄs pieslÄ“gties LDAP serverim."
 
 msgid "Fax"
 msgstr "Fakss"
@@ -167,50 +167,50 @@ msgid "Full Description:"
 msgstr "Pilns apraksts:"
 
 msgid "Help"
-msgstr "Palîdzîba"
+msgstr "PalÄ«dzÄ«ba"
 
 msgid "Home Address"
-msgstr "Mâjas adrese"
+msgstr "MÄjas adrese"
 
 msgid "Home Phone"
-msgstr "Mâjas telefons"
+msgstr "MÄjas telefons"
 
 msgid "Horde Login"
-msgstr "Pieslçgğanâs"
+msgstr "PieslÄ“gÅ¡anÄs"
 
 msgid "Horde System"
-msgstr "Horde sistçma"
+msgstr "Horde sistÄ“ma"
 
 msgid "Horde Wireless"
 msgstr "Horde Wireless"
 
 msgid "Horde is not properly configured"
-msgstr "Horde nav korekti konfigurçta"
+msgstr "Horde nav korekti konfigurÄ“ta"
 
 msgid "Horde"
 msgstr "Horde"
 
 msgid "Import Error: "
-msgstr "Ielâdes klûda:"
+msgstr "IelÄdes klÅ«da:"
 
 msgid "Import"
-msgstr "Ielâde"
+msgstr "IelÄde"
 
 #, c-format
 msgid "Imported field: %s"
-msgstr "Ielâdçtais lauks: %s"
+msgstr "IelÄdÄ“tais lauks: %s"
 
 msgid "Imported fields:"
-msgstr "Ielâdçtie lauki:"
+msgstr "IelÄdÄ“tie lauki:"
 
 msgid "Language"
 msgstr "Valoda"
 
 msgid "List Help Topics"
-msgstr "Parâdît palîdzîbas tematus"
+msgstr "ParÄdÄ«t palÄ«dzÄ«bas tematus"
 
 msgid "Log in"
-msgstr "Pieslçgties"
+msgstr "PieslÄ“gties"
 
 msgid "Log out"
 msgstr "Iziet"
@@ -218,7 +218,7 @@ msgstr "Iziet"
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
-msgstr "Pieslçgties neizdevâsi.Nepareizs lietotâja vârds vai parole."
+msgstr "PieslÄ“gties neizdevÄsi.Nepareizs lietotÄja vÄrds vai parole."
 
 msgid "MM"
 msgstr "MM"
@@ -227,204 +227,204 @@ msgid "Mail"
 msgstr "Pasts"
 
 msgid "Map Date and Time Fields"
-msgstr "Saskaòot datuma un laika laukus"
+msgstr "SaskaÅ†ot datuma un laika laukus"
 
 msgid "Map Import Fields"
-msgstr "Saskaòot ielâdes laukus"
+msgstr "SaskaÅ†ot ielÄdes laukus"
 
 msgid "Matching fields"
-msgstr "Saskanoğie lauki"
+msgstr "SaskanoÅ¡ie lauki"
 
 msgid "Memos"
 msgstr "Teksti"
 
 msgid "Message"
-msgstr "Ziòa"
+msgstr "ZiÅ†a"
 
 msgid "Monthly"
-msgstr "Katru mçnesi"
+msgstr "Katru mÄ“nesi"
 
 msgid "My Summary"
 msgstr "Mans kopsavilkums"
 
 msgid "Name"
-msgstr "Vârds"
+msgstr "VÄrds"
 
 msgid "Never"
 msgstr "Nekad"
 
 msgid "No configuration information specified for LDAP Preferences."
-msgstr "LDAP iestatîjumos nav norâdîta konfigurâcijas informâcija."
+msgstr "LDAP iestatÄ«jumos nav norÄdÄ«ta konfigurÄcijas informÄcija."
 
 msgid "No configuration information specified for SQL Categories."
-msgstr "SQL kategorijâm nav norâdîta konfigurâcijas informâcija."
+msgstr "SQL kategorijÄm nav norÄdÄ«ta konfigurÄcijas informÄcija."
 
 msgid "No configuration information specified for SQL Preferences."
-msgstr "SQL iestatîjumos nav norâdîta konfigurâcijas informâcija."
+msgstr "SQL iestatÄ«jumos nav norÄdÄ«ta konfigurÄcijas informÄcija."
 
 msgid "No configuration information specified for SQL authentication."
-msgstr "SQL autentifikâcijai nav norâdîta konfigurâcijas informâcija."
+msgstr "SQL autentifikÄcijai nav norÄdÄ«ta konfigurÄcijas informÄcija."
 
 msgid "No preferences are available."
-msgstr "Iestatîjumi nav pieejami"
+msgstr "IestatÄ«jumi nav pieejami"
 
 msgid "Notes"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #, c-format
 msgid "Notification listener %s not found."
-msgstr "Nav strodams paziòojumu klausîtâjs %s"
+msgstr "Nav strodams paziÅ†ojumu klausÄ«tÄjs %s"
 
 msgid "Options"
 msgstr "Opcijas"
 
 msgid "Other Information"
-msgstr "Cita informâcija"
+msgstr "Cita informÄcija"
 
 msgid "Password"
 msgstr "Parole"
 
 msgid "Perform Maintenance Operations"
-msgstr "Izpildît uzturçğanas operâcijas"
+msgstr "IzpildÄ«t uzturÄ“Å¡anas operÄcijas"
 
 msgid "Phone"
-msgstr "Tâlrunis"
+msgstr "TÄlrunis"
 
 msgid "Please provide a summary of the problem."
-msgstr "Lûdzu norâdiet problçmas anotâciju."
+msgstr "LÅ«dzu norÄdiet problÄ“mas anotÄciju."
 
 msgid "Please provide your username and password"
-msgstr "Lûdzu norâdiet savu lietotâja vârdu un paroli"
+msgstr "LÅ«dzu norÄdiet savu lietotÄja vÄrdu un paroli"
 
 msgid "Problem Description"
-msgstr "Problçmas apraksts"
+msgstr "ProblÄ“mas apraksts"
 
 msgid "Refresh Summary View:"
 msgstr "Atjaunot kopsavilkuma skatu:"
 
 msgid "Remove pair"
-msgstr "Izdzçst pâri"
+msgstr "IzdzÄ“st pÄri"
 
 msgid "Required 'basedn' not specified in authentication configuration."
-msgstr "Pieprasîtais 'basedn' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'basedn' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'basedn' not specified in preferences configuration."
-msgstr "Pieprasîtais 'basedn' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'basedn' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'database' not specified in authentication configuration."
-msgstr "Pieprasîtais 'database' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'database' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'database' not specified in categories configuration."
-msgstr "Pieprasîtais 'database' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'database' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'database' not specified in preferences configuration."
-msgstr "Pieprasîtais 'database' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'database' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "Pieprasîtais 'hostspec' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'hostspec' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'hostspec' not specified in categories configuration."
-msgstr "Pieprasîtais 'hostspec' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'hostspec' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "Pieprasîtais 'hostspec' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'hostspec' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'password' not specified in authentication configuration."
-msgstr "Pieprasîtais 'password' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'password' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'password' not specified in categories configuration."
-msgstr "Pieprasîtais 'password' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'password' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'password' not specified in preferences configuration."
-msgstr "Pieprasîtais 'password' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'password' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "Pieprasîtais 'phptype' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'phptype' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'phptype' not specified in categories configuration."
-msgstr "Pieprasîtais 'phptype' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'phptype' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "Pieprasîtais 'phptype' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'phptype' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'table' not specified in authentication configuration."
-msgstr "Pieprasîtais 'table' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'table' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'table' not specified in categories configuration."
-msgstr "Pieprasîtais 'table' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'table' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'table' not specified in preferences configuration."
-msgstr "Pieprasîtais 'table' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'table' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'tableRelations' not specified in categories configuration."
-msgstr "Pieprasîtais 'tableRelations' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'tableRelations' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'uid' not specified in authentication configuration."
-msgstr "Pieprasîtais 'uid' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'uid' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'uid' not specified in preferences configuration."
-msgstr "Pieprasîtais 'uid' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'uid' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Required 'username' not specified in authentication configuration."
-msgstr "Pieprasîtais 'username' nav norâdîts autentifikâcijas konfigurâcijâ."
+msgstr "PieprasÄ«tais 'username' nav norÄdÄ«ts autentifikÄcijas konfigurÄcijÄ."
 
 msgid "Required 'username' not specified in categories configuration."
-msgstr "Pieprasîtais 'username' nav norâdîts kategoriju konfigurâcijâ."
+msgstr "PieprasÄ«tais 'username' nav norÄdÄ«ts kategoriju konfigurÄcijÄ."
 
 msgid "Required 'username' not specified in preferences configuration."
-msgstr "Pieprasîtais 'username' nav norâdîts iestatîjumu konfigurâcijâ."
+msgstr "PieprasÄ«tais 'username' nav norÄdÄ«ts iestatÄ«jumu konfigurÄcijÄ."
 
 msgid "Return to Options"
-msgstr "Atgriezties pie opcijâm"
+msgstr "Atgriezties pie opcijÄm"
 
 msgid "Role"
 msgstr "Loma"
 
 msgid "Save Options"
-msgstr "Saglabât opcijas"
+msgstr "SaglabÄt opcijas"
 
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the textarea."
 msgstr ""
-"Izvçlieties simbolus no zemâk redzamajâm izvçlnçm. Pçc tam jûs viòus varat "
-"pârnest ar copy/paste"
+"IzvÄ“lieties simbolus no zemÄk redzamajÄm izvÄ“lnÄ“m. PÄ“c tam jÅ«s viÅ†us varat "
+"pÄrnest ar copy/paste"
 
 msgid "Select the date delimiter:"
-msgstr "Izvçlieties datuma atdalîtâju:"
+msgstr "IzvÄ“lieties datuma atdalÄ«tÄju:"
 
 msgid "Select the date format:"
-msgstr "Izvçlieties datuma formâtu:"
+msgstr "IzvÄ“lieties datuma formÄtu:"
 
 msgid "Select the time format:"
-msgstr "Izvçlieties laika formâtu:"
+msgstr "IzvÄ“lieties laika formÄtu:"
 
 msgid "Select two matching fields."
-msgstr "Izvçlieties divus saderîgus laukus."
+msgstr "IzvÄ“lieties divus saderÄ«gus laukus."
 
 msgid "Select your preferred language:"
-msgstr "Izvçlieties valodu:"
+msgstr "IzvÄ“lieties valodu:"
 
 msgid "Send Problem Report"
-msgstr "Nosûtît problçmas pieteikumu"
+msgstr "NosÅ«tÄ«t problÄ“mas pieteikumu"
 
 msgid "Set your page refreshing, and other display options."
-msgstr "Iestâdît lapuatjaunoğanâs un citas ekrâna opcijas."
+msgstr "IestÄdÄ«t lapuatjaunoÅ¡anÄs un citas ekrÄna opcijas."
 
 msgid "Set your preferred display language."
-msgstr "Iestâdît saskarnes valodu."
+msgstr "IestÄdÄ«t saskarnes valodu."
 
 msgid "Short Summary:"
-msgstr "Îsa anotâcija:"
+msgstr "Äªsa anotÄcija:"
 
 msgid "Skip Maintenance"
-msgstr "Izlaist uzturçğanu"
+msgstr "Izlaist uzturÄ“Å¡anu"
 
 msgid "Some of Horde's configuration files are missing:"
-msgstr "Trûkst daşi no konfigurâcijas failiem:"
+msgstr "TrÅ«kst daÅ¾i no konfigurÄcijas failiem:"
 
 msgid "Special Character Input"
-msgstr "Îpağo simbolu ievade"
+msgstr "ÄªpaÅ¡o simbolu ievade"
 
 msgid "Success"
 msgstr "Veiksme"
@@ -435,94 +435,94 @@ msgstr "Uzdevumi"
 msgid ""
 "The registry is how Horde applications find out how to talk to each other. "
 "You should list any installed Horde applications that you have here."
-msgstr "Reìistrâ Horde applikâcijas uzzina, kâ komunicçties vienai ar otru."
+msgstr "ReÄ£istrÄ Horde applikÄcijas uzzina, kÄ komunicÄ“ties vienai ar otru."
 
 msgid ""
 "This file controls the global set of MIME drivers for the Horde framework, "
 "allowing applications to make use of programs such as enscript or mswordview "
 "to render content into HTML for viewing in a browser."
 msgstr ""
-"Ğis vails kontrolç vispârîgo MIME dziòu kopu Horde aplikâcijâm, lai varçtu "
-"daşâdu failu saturu parâdît pârlûkprogrammâ HTML formâtâ."
+"Å is vails kontrolÄ“ vispÄrÄ«go MIME dziÅ†u kopu Horde aplikÄcijÄm, lai varÄ“tu "
+"daÅ¾Ädu failu saturu parÄdÄ«t pÄrlÅ«kprogrammÄ HTML formÄtÄ."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts for "
 "the Horde framework and all applications that do not provide their own "
 "settings."
-msgstr "Ğis fails kontrolç stilus, kas tiek lietoti Horde aplikâcijâs"
+msgstr "Å is fails kontrolÄ“ stilus, kas tiek lietoti Horde aplikÄcijÄs"
 
 msgid ""
 "This file maps file extensions to logical MIME types, enabling Horde "
 "applications to figure out how to handle some content such as email "
 "attachments or CVS checkouts."
-msgstr "Ğis fails saskaòo failu paplağinâjumus ar MIME tipiem."
+msgstr "Å is fails saskaÅ†o failu paplaÅ¡inÄjumus ar MIME tipiem."
 
 msgid ""
 "This is the main Horde configuration file. It contains paths and basic items "
 "that apply to the core framework and all Horde applications."
-msgstr "Ğis ir galvenais konfigurâcijas fails"
+msgstr "Å is ir galvenais konfigurÄcijas fails"
 
 msgid "This number must be at least one."
-msgstr "Ğim skaitlim ir jâbût vismaz 1."
+msgstr "Å im skaitlim ir jÄbÅ«t vismaz 1."
 
 msgid "This value must be a number."
-msgstr "Ğai vçrtîbai ir jâbût skaitlim."
+msgstr "Å ai vÄ“rtÄ«bai ir jÄbÅ«t skaitlim."
 
 msgid "Title"
 msgstr "Virsraksts"
 
 msgid "Type mismatch."
-msgstr "Drukas kïûda."
+msgstr "Drukas kÄ¼Å«da."
 
 msgid "URL"
 msgstr "URL"
 
 msgid "Unable to connect to SQL server."
-msgstr "Nav iespçjams pieslçgties SQL serverim."
+msgstr "Nav iespÄ“jams pieslÄ“gties SQL serverim."
 
 msgid "Unable to register preferences in session."
-msgstr "Nav iespçjams sesijâ reìistrçt iestatîjumus."
+msgstr "Nav iespÄ“jams sesijÄ reÄ£istrÄ“t iestatÄ«jumus."
 
 msgid "Unable to translate this Word document"
-msgstr "Nav iespçjams interpretçt ğo Word dokumentu"
+msgstr "Nav iespÄ“jams interpretÄ“t Å¡o Word dokumentu"
 
 msgid "Undo Changes"
-msgstr "Atcelt izmaiòas"
+msgstr "Atcelt izmaiÅ†as"
 
 msgid "Unexpected end of file."
-msgstr "Negaidîtas faila beigas."
+msgstr "NegaidÄ«tas faila beigas."
 
 msgid "Use Default Value"
-msgstr "Izmantot noklusçto vçrtîbu"
+msgstr "Izmantot noklusÄ“to vÄ“rtÄ«bu"
 
 msgid "User Options"
-msgstr "Lietotâja opcijas"
+msgstr "LietotÄja opcijas"
 
 msgid "Username"
-msgstr "Lietotâja vârds"
+msgstr "LietotÄja vÄrds"
 
 msgid "Warning!"
-msgstr "Brîdinâjums!"
+msgstr "BrÄ«dinÄjums!"
 
 msgid "Warning"
-msgstr "Brîdinâjums"
+msgstr "BrÄ«dinÄjums"
 
 msgid "Weekly"
-msgstr "Katru nedçïu"
+msgstr "Katru nedÄ“Ä¼u"
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "Laipni lûdzam %s"
+msgstr "Laipni lÅ«dzam %s"
 
 #, c-format
 msgid "Welcome, %s"
-msgstr "Laipni lûdzm, %s"
+msgstr "Laipni lÅ«dzm, %s"
 
 msgid "Work Address"
 msgstr "Darba adrese"
 
 msgid "Work Phone"
-msgstr "Darba tâlrunis"
+msgstr "Darba tÄlrunis"
 
 msgid "YY"
 msgstr "GG"
@@ -531,29 +531,29 @@ msgid "Yearly"
 msgstr "Katru gadu"
 
 msgid "You have been logged out.<br />Thank you for using the system."
-msgstr "Jûs esat izgâjis no sistçmas.<br />Paldies par sistçmas lietoğanu."
+msgstr "JÅ«s esat izgÄjis no sistÄ“mas.<br />Paldies par sistÄ“mas lietoÅ¡anu."
 
 msgid "You must describe the problem before you can send the problem report."
-msgstr "Aprakstiet problçmu pirms pieteikuma sûtîğanas."
+msgstr "Aprakstiet problÄ“mu pirms pieteikuma sÅ«tÄ«Å¡anas."
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Jûsu %s sesija ir beigusies. Lûdzu pieslçdzieties atkârtoti."
+msgstr "JÅ«su %s sesija ir beigusies. LÅ«dzu pieslÄ“dzieties atkÄrtoti."
 
 msgid "Your Email Address:"
-msgstr "Jûsu e-pasta adrese:"
+msgstr "JÅ«su e-pasta adrese:"
 
 msgid "Your Information"
-msgstr "Jûsu informâcija"
+msgstr "JÅ«su informÄcija"
 
 msgid "Your Name:"
-msgstr "Jûsu vârds:"
+msgstr "JÅ«su vÄrds:"
 
 msgid "Your options have been updated."
-msgstr "Jûsu opcijas ir saglabâtas."
+msgstr "JÅ«su opcijas ir saglabÄtas."
 
 msgid "[Problem Report]"
-msgstr "[Problçmas ziòojums]"
+msgstr "[ProblÄ“mas ziÅ†ojums]"
 
 #, c-format
 msgid "[line %s of %s]"

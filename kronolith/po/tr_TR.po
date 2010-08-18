@@ -1,5 +1,5 @@
 # Turkish translations for Kronolith package
-# PACKAGE paketi için Türkçe çeviriler.
+# PACKAGE paketi iÃ§in TÃ¼rkÃ§e Ã§eviriler.
 # Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the Kronolith package.
 # Automatically generated, 2008.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -44,17 +44,17 @@ msgstr "%d kez"
 #: templates/edit/edit_timespan.inc:120
 #, php-format
 msgid "%s Day(s) %s Hour(s) %s Minutes"
-msgstr "%s Gün %s Saat %s Dakika"
+msgstr "%s GÃ¼n %s Saat %s Dakika"
 
 #: lib/Driver.php:2218
 #, php-format
 msgid "%s attendees"
-msgstr "%s katılımcı"
+msgstr "%s katÄ±lÄ±mcÄ±"
 
 #: data.php:310
 #, php-format
 msgid "%s file successfully imported"
-msgstr "%s dosyası başarıyla içeri aktarıldı"
+msgstr "%s dosyasÄ± baÅŸarÄ±yla iÃ§eri aktarÄ±ldÄ±"
 
 #: calendars.php:123 lib/api.php:221 lib/Kronolith.php:367
 #: lib/Forms/DeleteCalendar.php:85
@@ -67,8 +67,8 @@ msgid ""
 "(Click on calendar name to switch the calendar's visibility in the main "
 "window)"
 msgstr ""
-"(Takvimin görünürlüğünü değiştirmek için ana pencerede takvim adına "
-"tıklayınız)"
+"(Takvimin gÃ¶rÃ¼nÃ¼rlÃ¼ÄŸÃ¼nÃ¼ deÄŸiÅŸtirmek iÃ§in ana pencerede takvim adÄ±na "
+"tÄ±klayÄ±nÄ±z)"
 
 #: templates/contacts/contacts.inc:177
 msgid "* Add these by clicking Add *"
@@ -76,7 +76,7 @@ msgstr "* Ekleye basarak ekleyin *"
 
 #: templates/contacts/contacts.inc:162
 msgid "* Please select address(es) *"
-msgstr "* Lütfen adres seçin *"
+msgstr "* LÃ¼tfen adres seÃ§in *"
 
 #: templates/edit/edit.inc:211
 #, php-format
@@ -85,7 +85,7 @@ msgstr ", %d kez"
 
 #: lib/Driver.php:2217
 msgid "1 attendee"
-msgstr "1 katılımcı"
+msgstr "1 katÄ±lÄ±mcÄ±"
 
 #: templates/search/header.inc:4
 msgid "1 event"
@@ -113,11 +113,11 @@ msgstr "AM"
 
 #: lib/Kronolith.php:1172
 msgid "Accepted"
-msgstr "Onaylandı"
+msgstr "OnaylandÄ±"
 
 #: templates/search/search.inc:11
 msgid "Ad_vanced Search"
-msgstr "Gelişm_iş Arama"
+msgstr "GeliÅŸm_iÅŸ Arama"
 
 #: templates/contacts/contacts.inc:171
 msgid "Add"
@@ -137,7 +137,7 @@ msgstr "Yeni etkinlik ekle:"
 
 #: templates/attendees/attendees.inc:78
 msgid "Add attendees"
-msgstr "Katılımcı ekle"
+msgstr "KatÄ±lÄ±mcÄ± ekle"
 
 #: templates/prefs/sourceselect.inc:298
 msgid "Add source"
@@ -145,7 +145,7 @@ msgstr "Kaynak Ekle"
 
 #: templates/contacts/contacts.inc:197
 msgid "Add to attendees"
-msgstr "Katılımcılara ekle"
+msgstr "KatÄ±lÄ±mcÄ±lara ekle"
 
 #: contacts.php:76 templates/contacts/contacts.inc:138
 #: templates/attendees/attendees.inc:85
@@ -158,7 +158,7 @@ msgstr "Adres Defterleri"
 
 #: templates/search/search.inc:11 templates/search/search_advanced.inc:8
 msgid "Advanced Search"
-msgstr "Gelişmiş Arama"
+msgstr "GeliÅŸmiÅŸ Arama"
 
 #: templates/view/view.inc:47
 msgid "Alarm"
@@ -167,50 +167,50 @@ msgstr "Alarm"
 #: lib/Driver.php:2184
 #, php-format
 msgid "Alarm %d days before"
-msgstr "%d gün önce alarm"
+msgstr "%d gÃ¼n Ã¶nce alarm"
 
 #: lib/Driver.php:2189
 #, php-format
 msgid "Alarm %d hours before"
-msgstr "%d saat önce alarm"
+msgstr "%d saat Ã¶nce alarm"
 
 #: lib/Driver.php:2194
 #, php-format
 msgid "Alarm %d minutes before"
-msgstr "%d dakika önce alarm"
+msgstr "%d dakika Ã¶nce alarm"
 
 #: lib/Driver.php:2179
 #, php-format
 msgid "Alarm %d weeks before"
-msgstr "%d hafta önce alarm"
+msgstr "%d hafta Ã¶nce alarm"
 
 #: lib/Driver.php:2183
 msgid "Alarm 1 day before"
-msgstr "Bir gün önce alarm"
+msgstr "Bir gÃ¼n Ã¶nce alarm"
 
 #: lib/Driver.php:2188
 msgid "Alarm 1 hour before"
-msgstr "Bir saat önce alarm"
+msgstr "Bir saat Ã¶nce alarm"
 
 #: lib/Driver.php:2193
 msgid "Alarm 1 minute before"
-msgstr "Bir dakika önce alarm"
+msgstr "Bir dakika Ã¶nce alarm"
 
 #: lib/Driver.php:2178
 msgid "Alarm 1 week before"
-msgstr "Bir hafta önce alarm"
+msgstr "Bir hafta Ã¶nce alarm"
 
 #: data.php:61
 msgid "Alarm Date"
-msgstr "Alarm Günü"
+msgstr "Alarm GÃ¼nÃ¼"
 
 #: data.php:60
 msgid "Alarm Span (minutes)"
-msgstr "Alarm Aralığı (dakika)"
+msgstr "Alarm AralÄ±ÄŸÄ± (dakika)"
 
 #: data.php:62
 msgid "Alarm Time"
-msgstr "Alarm Zamanı"
+msgstr "Alarm ZamanÄ±"
 
 #: templates/prefs/default_alarm_management.inc:24 templates/edit/edit.inc:166
 msgid "Alarm Unit"
@@ -218,7 +218,7 @@ msgstr "Alarm Birimi"
 
 #: templates/prefs/default_alarm_management.inc:22 templates/edit/edit.inc:164
 msgid "Alarm Value"
-msgstr "Alarm Değeri"
+msgstr "Alarm DeÄŸeri"
 
 #: templates/edit/edit.inc:159
 msgid "Alarm enabled"
@@ -226,47 +226,47 @@ msgstr "Alarm etkin"
 
 #: templates/edit/edit.inc:39 templates/delete/delete.inc:27
 msgid "All"
-msgstr "Tümü"
+msgstr "TÃ¼mÃ¼"
 
 #: lib/FBView.php:127 lib/FBView.php:130 lib/FBView.php:133
 msgid "All Attendees"
-msgstr "Tüm Katılımcılar"
+msgstr "TÃ¼m KatÄ±lÄ±mcÄ±lar"
 
 #: templates/perms/perms.inc:84
 msgid "All Authenticated Users"
-msgstr "Tüm Doğrulanmış Kullanıcılar"
+msgstr "TÃ¼m DoÄŸrulanmÄ±ÅŸ KullanÄ±cÄ±lar"
 
 #: lib/Block/month.php:42
 msgid "All Calendars"
-msgstr "Tüm Takvimler"
+msgstr "TÃ¼m Takvimler"
 
 #: templates/search/search.inc:59
 msgid "All Future"
-msgstr "Tüm Gelecek"
+msgstr "TÃ¼m Gelecek"
 
 #: templates/search/search.inc:53
 msgid "All Past"
-msgstr "Tüm Geçmiş"
+msgstr "TÃ¼m GeÃ§miÅŸ"
 
 #: lib/Block/month.php:24 lib/Block/summary.php:28 lib/Block/monthlist.php:30
 #: lib/Block/prevmonthlist.php:27
 msgid "All Visible"
-msgstr "Tüm Görünenler"
+msgstr "TÃ¼m GÃ¶rÃ¼nenler"
 
 #: templates/edit/edit_timespan.inc:119 lib/Driver.php:2287 lib/DayView.php:90
 #: lib/DayView.php:93 lib/WeekView.php:127 lib/WeekView.php:134
 #: lib/Views/Week.php:148 lib/Views/Week.php:155 lib/Views/Day.php:97
 #: lib/Views/Day.php:100
 msgid "All day"
-msgstr "Tüm gün"
+msgstr "TÃ¼m gÃ¼n"
 
 #: lib/Block/summary.php:177
 msgid "All day event"
-msgstr "Tüm etkinlik günü"
+msgstr "TÃ¼m etkinlik gÃ¼nÃ¼"
 
 #: templates/data/export.inc:33
 msgid "All events"
-msgstr "Tüm etkinlikler"
+msgstr "TÃ¼m etkinlikler"
 
 #: lib/api.php:664 lib/api.php:675
 msgid "Already Exists"
@@ -292,30 +292,30 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"Ekte etkinlik hakkında daha fazla bilginin yer aldığı iCalendar dosyası "
-"bulunmaktadır.Eğer eposta istemciniz iTip isteklerini destekliyorsa bu dosya "
-"ile kolayca etkinliğin yerel kopyanısını düzenleyebilirsiniz."
+"Ekte etkinlik hakkÄ±nda daha fazla bilginin yer aldÄ±ÄŸÄ± iCalendar dosyasÄ± "
+"bulunmaktadÄ±r.EÄŸer eposta istemciniz iTip isteklerini destekliyorsa bu dosya "
+"ile kolayca etkinliÄŸin yerel kopyanÄ±sÄ±nÄ± dÃ¼zenleyebilirsiniz."
 
 #: perms.php:45
 msgid "Attempt to edit a non-existent share."
-msgstr "Varolmayan bir paylaşımı silmeye çalışıyorsunuz."
+msgstr "Varolmayan bir paylaÅŸÄ±mÄ± silmeye Ã§alÄ±ÅŸÄ±yorsunuz."
 
 #: templates/attendees/attendees.inc:48 templates/attendees/attendees.inc:60
 #: templates/view/view.inc:172
 msgid "Attendance"
-msgstr "Katılım"
+msgstr "KatÄ±lÄ±m"
 
 #: templates/attendees/attendees.inc:47 templates/view/view.inc:171
 msgid "Attendee"
-msgstr "Katılımcılar"
+msgstr "KatÄ±lÄ±mcÄ±lar"
 
 #: templates/edit/edit.inc:193 templates/view/view.inc:168
 msgid "Attendees"
-msgstr "Katılımcılar"
+msgstr "KatÄ±lÄ±mcÄ±lar"
 
 #: templates/javascript/goto.js:75
 msgid "August"
-msgstr "Ağustos"
+msgstr "AÄŸustos"
 
 #: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
 msgid "Available Address books:"
@@ -327,11 +327,11 @@ msgstr "Basit Arama"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
-msgstr "Doğum günü"
+msgstr "DoÄŸum gÃ¼nÃ¼"
 
 #: lib/FBView.php:89 lib/FBView.php:110 templates/fbview/legend.html:9
 msgid "Busy"
-msgstr "Meşgul"
+msgstr "MeÅŸgul"
 
 #: templates/search/search_advanced.inc:42
 msgid "C_alendar"
@@ -357,11 +357,11 @@ msgstr "Takvim Listesi"
 
 #: lib/Block/summary.php:3
 msgid "Calendar Summary"
-msgstr "Takvim Özeti"
+msgstr "Takvim Ã–zeti"
 
 #: data.php:254
 msgid "Calendar successfully purged."
-msgstr "Takvim başarıyla boşaltıldı."
+msgstr "Takvim baÅŸarÄ±yla boÅŸaltÄ±ldÄ±."
 
 #: templates/panel.inc:23 templates/panel.inc:24 config/prefs.php.dist:27
 #: config/prefs.php.dist:35 config/prefs.php.dist:60
@@ -370,15 +370,15 @@ msgstr "Takvimler"
 
 #: templates/calendar_titles.inc:8
 msgid "Calendars Printed: "
-msgstr "Yazdırılan Takvimler: "
+msgstr "YazdÄ±rÄ±lan Takvimler: "
 
 #: calendars.php:27
 msgid "Calendars must have a name."
-msgstr "Takvimlerin başlığı olmalı."
+msgstr "Takvimlerin baÅŸlÄ±ÄŸÄ± olmalÄ±."
 
 #: data.php:270
 msgid "Can't create a new event."
-msgstr "Yeni etkinlik yaratılamıyor."
+msgstr "Yeni etkinlik yaratÄ±lamÄ±yor."
 
 #: templates/edit/edit.inc:51 templates/edit/edit.inc:382
 #: templates/delete/one.inc:25 templates/delete/delete.inc:28
@@ -386,11 +386,11 @@ msgstr "Yeni etkinlik yaratılamıyor."
 #: lib/Forms/UnsubscribeRemoteCalendar.php:39
 #: lib/Forms/UnsubscribeRemoteCalendar.php:45
 msgid "Cancel"
-msgstr "İptal"
+msgstr "Ä°ptal"
 
 #: lib/Kronolith.php:1148
 msgid "Cancelled"
-msgstr "İptal edildi"
+msgstr "Ä°ptal edildi"
 
 #: lib/Kronolith.php:1406
 #, php-format
@@ -400,7 +400,7 @@ msgstr "%s iptal edildi."
 #: lib/Driver/kolab.php:1332
 #, php-format
 msgid "Cannot delete event: %s"
-msgstr "%s etkinliği silinemedi"
+msgstr "%s etkinliÄŸi silinemedi"
 
 #: templates/edit/edit.inc:94 templates/search/search_advanced.inc:63
 msgid "Categor_y"
@@ -412,84 +412,84 @@ msgstr "Kategori"
 
 #: calendars/index.php:65 templates/calendar_list.php:54
 msgid "Change Permissions"
-msgstr "İzinleri Değiştir"
+msgstr "Ä°zinleri DeÄŸiÅŸtir"
 
 #: config/prefs.php.dist:52
 msgid ""
 "Choose how you want to be notified about event changes, event alarms and "
 "upcoming events."
 msgstr ""
-"Etkinlik değişimleri, etkinlik alarmları ve yaklaşan etkinliklere ilişkin ne "
-"şekilde bildirim almak istediğinizi seçiniz."
+"Etkinlik deÄŸiÅŸimleri, etkinlik alarmlarÄ± ve yaklaÅŸan etkinliklere iliÅŸkin ne "
+"ÅŸekilde bildirim almak istediÄŸinizi seÃ§iniz."
 
 #: config/prefs.php.dist:383
 msgid "Choose how you want to receive reminders for events with alarms:"
-msgstr "Alarm kurulmuş etkinlikler için hatırlatma yöntemini seçin:"
+msgstr "Alarm kurulmuÅŸ etkinlikler iÃ§in hatÄ±rlatma yÃ¶ntemini seÃ§in:"
 
 #: config/prefs.php.dist:340
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
-"Eposta aracılığı ile yeni, düzenlenmiş veya silinmiş takvimlerden haberdar "
-"edilmek için seçiniz."
+"Eposta aracÄ±lÄ±ÄŸÄ± ile yeni, dÃ¼zenlenmiÅŸ veya silinmiÅŸ takvimlerden haberdar "
+"edilmek iÃ§in seÃ§iniz."
 
 #: config/prefs.php.dist:353
 msgid "Choose if you want to receive daily agenda email reminders:"
-msgstr "Günlük olarak eposta ile ajanda hatırlatması için seçiniz:"
+msgstr "GÃ¼nlÃ¼k olarak eposta ile ajanda hatÄ±rlatmasÄ± iÃ§in seÃ§iniz:"
 
 #: config/prefs.php.dist:374
 msgid "Choose if you want to receive reminders for events with alarms:"
-msgstr "Alarmlı etkinlikler için hatırlatma iletilmesi için seçiniz:"
+msgstr "AlarmlÄ± etkinlikler iÃ§in hatÄ±rlatma iletilmesi iÃ§in seÃ§iniz:"
 
 #: templates/prefs/search_abook_select.inc:19
 msgid "Choose the address books to search for free/busy URLs:"
-msgstr "Serbest/meşgul URL lerinin aranacağı adres defterlerini seçin."
+msgstr "Serbest/meÅŸgul URL lerinin aranacaÄŸÄ± adres defterlerini seÃ§in."
 
 #: templates/prefs/fb_cals_select.inc:28
 msgid "Choose the calendars to include in the above Free/Busy URL:"
-msgstr "Yukarıdaki serbest/meşgul URL sine eklenecek takvimleri seçiniz:"
+msgstr "YukarÄ±daki serbest/meÅŸgul URL sine eklenecek takvimleri seÃ§iniz:"
 
 #: config/prefs.php.dist:440
 msgid "Choose the calendars to include when generating Free/Busy URLs:"
-msgstr "Serbest/meşgul URL yaratırken eklenecek takvimleri seçiniz:"
+msgstr "Serbest/meÅŸgul URL yaratÄ±rken eklenecek takvimleri seÃ§iniz:"
 
 #: templates/prefs/sourceselect.inc:287
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Adresleri açarken aranacak adres defterini seçin."
+msgstr "Adresleri aÃ§arken aranacak adres defterini seÃ§in."
 
 #: config/prefs.php.dist:188
 msgid "Choose the views to show event locations in:"
-msgstr "Etkinlik yerlerini göstermek için görünüm seçin:"
+msgstr "Etkinlik yerlerini gÃ¶stermek iÃ§in gÃ¶rÃ¼nÃ¼m seÃ§in:"
 
 #: config/prefs.php.dist:176
 msgid "Choose the views to show event start and end times in:"
-msgstr "Etkinlik başlama ve bitiş saatlerini göstermek için görünüm seçin:"
+msgstr "Etkinlik baÅŸlama ve bitiÅŸ saatlerini gÃ¶stermek iÃ§in gÃ¶rÃ¼nÃ¼m seÃ§in:"
 
 #: config/prefs.php.dist:37
 msgid "Choose which holidays to display"
-msgstr "Gösterilecek tatilleri seçin"
+msgstr "GÃ¶sterilecek tatilleri seÃ§in"
 
 #: config/prefs.php.dist:29
 msgid "Choose your default calendar."
-msgstr "Öntanımlı takviminizi seçiniz."
+msgstr "Ã–ntanÄ±mlÄ± takviminizi seÃ§iniz."
 
 #: templates/attendees/attendees.inc:95
 msgid "Clear all attendees"
-msgstr "Bütün katılımcıları sil"
+msgstr "BÃ¼tÃ¼n katÄ±lÄ±mcÄ±larÄ± sil"
 
 #: templates/prefs/sourceselect.inc:317
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Seçilmiş adres defterlerinizden birine tıklayın ve bütün alanları aramak "
-"için seçin."
+"SeÃ§ilmiÅŸ adres defterlerinizden birine tÄ±klayÄ±n ve bÃ¼tÃ¼n alanlarÄ± aramak "
+"iÃ§in seÃ§in."
 
 #: templates/calendar_list.php:40 templates/calendar_list.php:41
 #: templates/calendar_list.php:50 templates/calendar_list.php:51
 msgid "Click or copy this URL to display this calendar"
-msgstr "Bu takvimi görüntülemek için tıklayınız ya da bu URL'yi kopyalayın"
+msgstr "Bu takvimi gÃ¶rÃ¼ntÃ¼lemek iÃ§in tÄ±klayÄ±nÄ±z ya da bu URL'yi kopyalayÄ±n"
 
 #: templates/javascript_defs.php:17
 msgid "Close"
@@ -505,28 +505,28 @@ msgstr "Pencereyi Kapat"
 
 #: data.php:30 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr "Virgül ile ayrılmış değerler"
+msgstr "VirgÃ¼l ile ayrÄ±lmÄ±ÅŸ deÄŸerler"
 
 #: config/prefs.php.dist:81
 msgid "Confirm deletion of events?"
-msgstr "Silinecek etkinliği doğruluyor musunuz?"
+msgstr "Silinecek etkinliÄŸi doÄŸruluyor musunuz?"
 
 #: lib/Kronolith.php:1145
 msgid "Confirmed"
-msgstr "Onaylandı"
+msgstr "OnaylandÄ±"
 
 #: templates/calendars/calendars.inc:220
 msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
-msgstr "Heryerden ulaşabildiğiniz bu Serbest/Meşgul URLnizi yapıştırınız:"
+msgstr "Heryerden ulaÅŸabildiÄŸiniz bu Serbest/MeÅŸgul URLnizi yapÄ±ÅŸtÄ±rÄ±nÄ±z:"
 
 #: templates/prefs/fb_cals_select.inc:6
 msgid "Copy this URL for use wherever you need your Free/Busy URL:"
-msgstr "Her yerden ulaşabileceğiniz bu Serbest/Meşgul URL nizi kopyalayın:"
+msgstr "Her yerden ulaÅŸabileceÄŸiniz bu Serbest/MeÅŸgul URL nizi kopyalayÄ±n:"
 
 #: lib/Kronolith.php:459
 #, php-format
 msgid "Could not open %s."
-msgstr "%s açılamadı."
+msgstr "%s aÃ§Ä±lamadÄ±."
 
 #: templates/calendars/calendars.inc:129 lib/Forms/CreateCalendar.php:39
 msgid "Create"
@@ -547,29 +547,29 @@ msgstr "Yeni bir Yerel Takvim yarat"
 
 #: templates/view/view.inc:74
 msgid "Created"
-msgstr "Yaratıldı"
+msgstr "YaratÄ±ldÄ±"
 
 #: templates/edit/edit.inc:37 templates/delete/delete.inc:25
 msgid "Current"
-msgstr "Şu Anki Zaman"
+msgstr "Åu Anki Zaman"
 
 #: lib/Recurrence.php:192
 msgid "Daily"
-msgstr "Günlük"
+msgstr "GÃ¼nlÃ¼k"
 
 #: templates/edit/edit.inc:226 templates/view/view.inc:96
 msgid "Daily: Recurs every"
-msgstr "Günlük: Tekrarlama sıklığı"
+msgstr "GÃ¼nlÃ¼k: Tekrarlama sÄ±klÄ±ÄŸÄ±"
 
 #: attendees.php:170 lib/Kronolith.php:1738 lib/Block/tree_menu.php:21
 #: config/prefs.php.dist:90
 msgid "Day"
-msgstr "Gün"
+msgstr "GÃ¼n"
 
 #: templates/prefs/default_alarm_management.inc:28 templates/edit/edit.inc:170
 #: templates/view/view.inc:56
 msgid "Day(s)"
-msgstr "Gün"
+msgstr "GÃ¼n"
 
 #: viewevent.php:113 lib/Kronolith.php:1780
 msgid "De_lete"
@@ -577,7 +577,7 @@ msgstr "Si_l"
 
 #: templates/javascript/goto.js:79
 msgid "December"
-msgstr "Aralık"
+msgstr "AralÄ±k"
 
 #: lib/Kronolith.php:1175
 msgid "Declined"
@@ -585,11 +585,11 @@ msgstr "Reddedildi"
 
 #: templates/prefs/default_alarm_management.inc:21
 msgid "Default Alarm Setting:"
-msgstr "Varsayılan Alarm Ayarları:"
+msgstr "VarsayÄ±lan Alarm AyarlarÄ±:"
 
 #: config/prefs.php.dist:28
 msgid "Default Calendar"
-msgstr "Ön Tanımlı Takvim"
+msgstr "Ã–n TanÄ±mlÄ± Takvim"
 
 #: templates/perms/perms.inc:34 templates/perms/perms.inc:73
 #: templates/perms/perms.inc:90 templates/perms/perms.inc:114
@@ -623,53 +623,53 @@ msgstr "%s Sil"
 
 #: editevent.php:72
 msgid "Delete Event"
-msgstr "Etkinliği Sil"
+msgstr "EtkinliÄŸi Sil"
 
 #: lib/Driver.php:1302
 #, php-format
 msgid "Delete exception on %s"
-msgstr "%s için istisnaları sil"
+msgstr "%s iÃ§in istisnalarÄ± sil"
 
 #: templates/edit/edit.inc:180 templates/search/search_advanced.inc:103
 msgid "Descri_ption"
-msgstr "Açık_lama"
+msgstr "AÃ§Ä±k_lama"
 
 #: templates/search/search.inc:28
 msgid "Descri_ption:"
-msgstr "_Tanım:"
+msgstr "_TanÄ±m:"
 
 #: data.php:63 templates/calendars/calendars.inc:179
 #: templates/view/view.inc:155 lib/Forms/CreateCalendar.php:37
 #: lib/Forms/EditCalendar.php:44
 msgid "Description"
-msgstr "Tanım"
+msgstr "TanÄ±m"
 
 #: templates/contacts/contacts.inc:186
 msgid "Display"
-msgstr "Göster"
+msgstr "GÃ¶ster"
 
 #: templates/calendars/calendars.inc:61
 msgid "Display Calendars"
-msgstr "Takvimleri Görüntüle"
+msgstr "Takvimleri GÃ¶rÃ¼ntÃ¼le"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:20
 msgid "Display Options"
-msgstr "Görüntüleme Seçenekleri"
+msgstr "GÃ¶rÃ¼ntÃ¼leme SeÃ§enekleri"
 
 #: templates/calendar_list.php:24
 msgid "Display URL"
-msgstr "URL'i Göster"
+msgstr "URL'i GÃ¶ster"
 
 #: lib/Kronolith.php:1113
 msgid "Does not recur"
-msgstr "Özyinelemiyor"
+msgstr "Ã–zyinelemiyor"
 
 #: config/prefs.php.dist:361
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the event?"
 msgstr ""
-"Etkinlik eklediğimde, değiştirdiğimde ya da sildiğimde bildirim "
-"gönderilmesin mi?"
+"Etkinlik eklediÄŸimde, deÄŸiÅŸtirdiÄŸimde ya da sildiÄŸimde bildirim "
+"gÃ¶nderilmesin mi?"
 
 #: lib/Kronolith.php:677
 #, php-format
@@ -678,19 +678,19 @@ msgstr "Gereken: %s"
 
 #: templates/edit/edit_timespan.inc:112
 msgid "Duration"
-msgstr "Süre"
+msgstr "SÃ¼re"
 
 #: lib/Driver.php:1976
 msgid "Duration Day"
-msgstr "Süre (gün)"
+msgstr "SÃ¼re (gÃ¼n)"
 
 #: lib/Driver.php:1988
 msgid "Duration Hour"
-msgstr "Süre (saat)"
+msgstr "SÃ¼re (saat)"
 
 #: lib/Driver.php:1999
 msgid "Duration Minute"
-msgstr "Süre"
+msgstr "SÃ¼re"
 
 #: calendars/index.php:64 templates/calendar_list.php:42
 #: templates/calendar_list.php:52 templates/calendars/calendars.inc:174
@@ -703,48 +703,48 @@ msgstr "Süre"
 #: templates/perms/perms.inc:311 templates/perms/perms.inc:345
 #: lib/Driver.php:2239
 msgid "Edit"
-msgstr "Düzenle"
+msgstr "DÃ¼zenle"
 
 #: editevent.php:33 templates/attendees/attendees.inc:57 lib/Driver.php:2238
 #: lib/Views/EditEvent.php:29 lib/Forms/EditCalendar.php:40
 #: lib/Forms/EditRemoteCalendar.php:34
 #, php-format
 msgid "Edit %s"
-msgstr "Düzenle %s"
+msgstr "DÃ¼zenle %s"
 
 #: templates/edit/edit.inc:202
 msgid "Edit Attendees"
-msgstr "Katılımcıları Düzenle"
+msgstr "KatÄ±lÄ±mcÄ±larÄ± DÃ¼zenle"
 
 #: templates/calendars/calendars.inc:144
 msgid "Edit Calendars"
-msgstr "Takvimleri Düzenle"
+msgstr "Takvimleri DÃ¼zenle"
 
 #: perms.php:262
 msgid "Edit Permissions"
-msgstr "İzinleri Düzenle"
+msgstr "Ä°zinleri DÃ¼zenle"
 
 #: perms.php:264
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "'%s' için izinleri düzenle"
+msgstr "'%s' iÃ§in izinleri dÃ¼zenle"
 
 #: templates/attendees/attendees.inc:78
 msgid "Edit attendee"
-msgstr "Katılımcıları düzenle"
+msgstr "KatÄ±lÄ±mcÄ±larÄ± dÃ¼zenle"
 
 #: attendees.php:234
 msgid "Edit attendees"
-msgstr "Katılımcıları Düzenle"
+msgstr "KatÄ±lÄ±mcÄ±larÄ± DÃ¼zenle"
 
 #: templates/category_legend.inc:20
 msgid "Edit categories and colors"
-msgstr "Sınıf ve renkleri düzenle"
+msgstr "SÄ±nÄ±f ve renkleri dÃ¼zenle"
 
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "%s için izinleri düzenle"
+msgstr "%s iÃ§in izinleri dÃ¼zenle"
 
 #: templates/contacts/contacts.inc:189
 msgid "Email Address"
@@ -756,50 +756,50 @@ msgstr "S_on"
 
 #: data.php:58
 msgid "End Date"
-msgstr "Bitiş Tarihi"
+msgstr "BitiÅŸ Tarihi"
 
 #: templates/data/export.inc:161 lib/Driver.php:1947
 msgid "End Day"
-msgstr "Bitiş Tarihi"
+msgstr "BitiÅŸ Tarihi"
 
 #: templates/data/export.inc:178 lib/Driver.php:1960
 msgid "End Hour"
-msgstr "Bitiş Saati"
+msgstr "BitiÅŸ Saati"
 
 #: templates/data/export.inc:190 lib/Driver.php:1971
 msgid "End Minute"
-msgstr "Bitiş Dakikası"
+msgstr "BitiÅŸ DakikasÄ±"
 
 #: templates/data/export.inc:148 lib/Driver.php:1938
 msgid "End Month"
-msgstr "Bitiş Ayı"
+msgstr "BitiÅŸ AyÄ±"
 
 #: templates/data/export.inc:125 templates/view/view.inc:41
 #: templates/search/event_headers.inc:8
 msgid "End On"
-msgstr "Bitiş"
+msgstr "BitiÅŸ"
 
 #: data.php:59
 msgid "End Time"
-msgstr "Bitiş Tarihi"
+msgstr "BitiÅŸ Tarihi"
 
 #: templates/data/export.inc:134 lib/Driver.php:1927
 msgid "End Year"
-msgstr "Bitiş yılı"
+msgstr "BitiÅŸ yÄ±lÄ±"
 
 #: attendees.php:216
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
-msgstr "%s için serbest/meşgul bilgilerinin aktarımı sırasında hata oluştu: %s"
+msgstr "%s iÃ§in serbest/meÅŸgul bilgilerinin aktarÄ±mÄ± sÄ±rasÄ±nda hata oluÅŸtu: %s"
 
 #: attendees.php:196
 #, php-format
 msgid "Error retrieving your free/busy information: %s"
-msgstr "Serbest/meşgul bilgirinin aktarımında hata oluştur: %s"
+msgstr "Serbest/meÅŸgul bilgirinin aktarÄ±mÄ±nda hata oluÅŸtur: %s"
 
 #: config/prefs.php.dist:44
 msgid "Event Defaults"
-msgstr "Etkinlik Varsayılan Ayarları"
+msgstr "Etkinlik VarsayÄ±lan AyarlarÄ±"
 
 #: lib/Kronolith.php:1585
 msgid "Event added:"
@@ -811,7 +811,7 @@ msgstr "Silinen etkinlik:"
 
 #: lib/Kronolith.php:1590
 msgid "Event edited:"
-msgstr "Düzenlenen etkinlik:"
+msgstr "DÃ¼zenlenen etkinlik:"
 
 #: lib/Driver.php:1426
 #, php-format
@@ -820,13 +820,13 @@ msgstr "%sden itibaren %se kadar etkinlik"
 
 #: lib/Driver/sql.php:390
 msgid "Event not found"
-msgstr "Etkinlik bulunamadı"
+msgstr "Etkinlik bulunamadÄ±"
 
 #: lib/Driver/kolab.php:431 lib/Driver/kolab.php:1158
 #: lib/Driver/kolab.php:1185 lib/Driver/kolab.php:1314
 #, php-format
 msgid "Event not found: %s"
-msgstr "Etkinlik bulunamadı: %s"
+msgstr "Etkinlik bulunamadÄ±: %s"
 
 #: config/prefs.php.dist:43 config/prefs.php.dist:50
 msgid "Events"
@@ -834,31 +834,31 @@ msgstr "Etkinlikler"
 
 #: lib/Driver.php:1034
 msgid "Events must have a start date."
-msgstr "Etkinliğin başlangıç tarihi olmalı."
+msgstr "EtkinliÄŸin baÅŸlangÄ±Ã§ tarihi olmalÄ±."
 
 #: lib/Driver.php:996
 msgid "Events must have a title."
-msgstr "Etkinliğin başlığı olmalı."
+msgstr "EtkinliÄŸin baÅŸlÄ±ÄŸÄ± olmalÄ±."
 
 #: templates/edit/edit.inc:323 templates/view/view.inc:130
 msgid "Exceptions"
-msgstr "İstisnalar"
+msgstr "Ä°stisnalar"
 
 #: templates/data/export.inc:209
 msgid "Export"
-msgstr "Dışarı Aktar"
+msgstr "DÄ±ÅŸarÄ± Aktar"
 
 #: templates/data/export.inc:8
 msgid "Export Calendar"
-msgstr "Takvimi Dışarı Aktar"
+msgstr "Takvimi DÄ±ÅŸarÄ± Aktar"
 
 #: templates/panel.inc:59
 msgid "External Events:"
-msgstr "Dış Etkinlikler:"
+msgstr "DÄ±ÅŸ Etkinlikler:"
 
 #: templates/javascript/goto.js:69
 msgid "February"
-msgstr "Şubat"
+msgstr "Åubat"
 
 #: templates/prefs/sourceselect.inc:327
 msgid "Fields to search"
@@ -879,7 +879,7 @@ msgstr "Serbest"
 
 #: config/prefs.php.dist:61
 msgid "Free/Busy Information"
-msgstr "Serbest/Meşgul Bilgisi"
+msgstr "Serbest/MeÅŸgul Bilgisi"
 
 #: templates/month/head.inc:21 templates/edit/javascript.inc:71
 #: templates/view/view.inc:103
@@ -909,7 +909,7 @@ msgstr "Gruplar"
 
 #: templates/perms/perms.inc:125
 msgid "Guest Permissions"
-msgstr "Konuk İzinleri"
+msgstr "Konuk Ä°zinleri"
 
 #: templates/edit/javascript.inc:256
 msgid "Hide"
@@ -926,11 +926,11 @@ msgstr "Saat"
 
 #: config/prefs.php.dist:150
 msgid "How long should the time slots on the day and week views be?"
-msgstr "Gün ve Hafta görüntülerinde zaman aralıkları ne kadar uzun olsun?"
+msgstr "GÃ¼n ve Hafta gÃ¶rÃ¼ntÃ¼lerinde zaman aralÄ±klarÄ± ne kadar uzun olsun?"
 
 #: config/prefs.php.dist:392
 msgid "How many days of Free/Busy information should be generated?"
-msgstr "Kaç günlük Serbest/Meşgul bilgisi yaratılmalı?"
+msgstr "KaÃ§ gÃ¼nlÃ¼k Serbest/MeÅŸgul bilgisi yaratÄ±lmalÄ±?"
 
 #: lib/Kronolith.php:1436
 #, php-format
@@ -947,30 +947,30 @@ msgid ""
 "To decline the event:\n"
 "%s\n"
 msgstr ""
-"Eğer eposta istemciniz iTip isteklerine cevap veremiyorsa bağlantılardan "
-"birini etkinliği kabul veya red için kullanabilirsiniz.\n"
+"EÄŸer eposta istemciniz iTip isteklerine cevap veremiyorsa baÄŸlantÄ±lardan "
+"birini etkinliÄŸi kabul veya red iÃ§in kullanabilirsiniz.\n"
 "\n"
-"Etkinliği kabul etmek için:\n"
+"EtkinliÄŸi kabul etmek iÃ§in:\n"
 "%s\n"
 "\n"
-"Etkinliği geçici olarak kabul etmek için:\n"
+"EtkinliÄŸi geÃ§ici olarak kabul etmek iÃ§in:\n"
 "%s\n"
 "\n"
-"Etkinliği reddetmek için:\n"
+"EtkinliÄŸi reddetmek iÃ§in:\n"
 "%s\n"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Calendar, Step %d"
-msgstr "İçeri Aktar, Adım %d"
+msgstr "Ä°Ã§eri Aktar, AdÄ±m %d"
 
 #: data.php:316
 msgid "Import/Export Calendar"
-msgstr "İçeri/Dışarı Takvim Aktar"
+msgstr "Ä°Ã§eri/DÄ±ÅŸarÄ± Takvim Aktar"
 
 #: templates/perms/perms.inc:207
 msgid "Individual Users"
-msgstr "Bireysel Kullanıcılar"
+msgstr "Bireysel KullanÄ±cÄ±lar"
 
 #: templates/javascript/goto.js:68
 msgid "January"
@@ -990,7 +990,7 @@ msgstr "Anahtar Kelimeler"
 
 #: templates/calendar_list.php:23
 msgid "Kind"
-msgstr "Tür"
+msgstr "TÃ¼r"
 
 #: templates/search/search.inc:55
 msgid "Last 24 hours"
@@ -998,7 +998,7 @@ msgstr "Son 24 saat"
 
 #: templates/view/view.inc:81
 msgid "Last Modified"
-msgstr "Son Değişim"
+msgstr "Son DeÄŸiÅŸim"
 
 #: templates/month/head_side_by_side.inc:5 templates/month/head.inc:5
 msgid "Last Month"
@@ -1006,7 +1006,7 @@ msgstr "Son Ay"
 
 #: templates/year/head.inc:3
 msgid "Last Year"
-msgstr "Son Yıl"
+msgstr "Son YÄ±l"
 
 #: templates/week/head.inc:6 templates/search/search.inc:54
 msgid "Last week"
@@ -1014,16 +1014,16 @@ msgstr "Son hafta"
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
-msgstr "Dışarı aktarılacak zaman aralığını sınırlandırınız:"
+msgstr "DÄ±ÅŸarÄ± aktarÄ±lacak zaman aralÄ±ÄŸÄ±nÄ± sÄ±nÄ±rlandÄ±rÄ±nÄ±z:"
 
 #: config/prefs.php.dist:403
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Iletişim noktaları ekranını yüklerken tüm iletişim noktalarıda listelensin "
-"mi? (Eğer  seçilmez kılınmışsa, sadece açıkça aradığınız iletişim "
-"noktalarını göreceksiniz. "
+"IletiÅŸim noktalarÄ± ekranÄ±nÄ± yÃ¼klerken tÃ¼m iletiÅŸim noktalarÄ±da listelensin "
+"mi? (EÄŸer  seÃ§ilmez kÄ±lÄ±nmÄ±ÅŸsa, sadece aÃ§Ä±kÃ§a aradÄ±ÄŸÄ±nÄ±z iletiÅŸim "
+"noktalarÄ±nÄ± gÃ¶receksiniz. "
 
 #: templates/edit/edit.inc:101 templates/search/search_advanced.inc:85
 msgid "Lo_cation"
@@ -1031,11 +1031,11 @@ msgstr "Ye_r"
 
 #: templates/javascript_defs.php:16
 msgid "Loading ..."
-msgstr "Yükleniyor..."
+msgstr "YÃ¼kleniyor..."
 
 #: templates/attendees/attendees.inc:81
 msgid "Loading..."
-msgstr "Yükleniyor..."
+msgstr "YÃ¼kleniyor..."
 
 #: templates/calendar_list.php:49
 msgid "Local"
@@ -1054,7 +1054,7 @@ msgstr "Yer"
 
 #: calendars/index.php:70 templates/calendar_list.php:4
 msgid "Manage Calendars"
-msgstr "Takvimleri Yönet"
+msgstr "Takvimleri YÃ¶net"
 
 #: templates/javascript/goto.js:70
 msgid "March"
@@ -1062,15 +1062,15 @@ msgstr "Mart"
 
 #: lib/api.php:133
 msgid "Maximum Number of Events"
-msgstr "Azami Etkinlik Sayısı"
+msgstr "Azami Etkinlik SayÄ±sÄ±"
 
 #: lib/Block/summary.php:25 lib/Block/monthlist.php:27
 msgid "Maximum number of events to display (0 = no limit)"
-msgstr "Gösterilecek azami etkinlik sayısı (0 = sınırsız)"
+msgstr "GÃ¶sterilecek azami etkinlik sayÄ±sÄ± (0 = sÄ±nÄ±rsÄ±z)"
 
 #: templates/javascript/goto.js:72
 msgid "May"
-msgstr "Mayıs"
+msgstr "MayÄ±s"
 
 #: lib/Driver.php:2265
 msgid "Me"
@@ -1078,15 +1078,15 @@ msgstr "Ben"
 
 #: config/keywords.php.dist:17
 msgid "Meeting"
-msgstr "Toplantı"
+msgstr "ToplantÄ±"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "Menü Alarmları"
+msgstr "MenÃ¼ AlarmlarÄ±"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menü Listesi"
+msgstr "MenÃ¼ Listesi"
 
 #: templates/prefs/default_alarm_management.inc:26 templates/edit/edit.inc:168
 #: templates/view/view.inc:62
@@ -1110,20 +1110,20 @@ msgstr "Ay"
 
 #: config/prefs.php.dist:173
 msgid "Month and Week Views"
-msgstr "Ay ve Hafta Görünümleri"
+msgstr "Ay ve Hafta GÃ¶rÃ¼nÃ¼mleri"
 
 #: config/prefs.php.dist:185
 msgid "Month, Week, and Day Views"
-msgstr "Ay, Hafta ve Gün Görünümleri"
+msgstr "Ay, Hafta ve GÃ¼n GÃ¶rÃ¼nÃ¼mleri"
 
 #: lib/Recurrence.php:195
 msgid "Monthly"
-msgstr "Aylık"
+msgstr "AylÄ±k"
 
 #: templates/edit/edit.inc:246 templates/edit/edit.inc:252
 #: templates/view/view.inc:108 templates/view/view.inc:110
 msgid "Monthly: Recurs every"
-msgstr "Aylık: Tekrarlama sıklığı"
+msgstr "AylÄ±k: Tekrarlama sÄ±klÄ±ÄŸÄ±"
 
 #: lib/Block/monthlist.php:24
 msgid "Months Ahead"
@@ -1131,19 +1131,19 @@ msgstr "Gelecek Aylar"
 
 #: lib/Block/prevmonthlist.php:24
 msgid "Months Before"
-msgstr "Önceki Aylar"
+msgstr "Ã–nceki Aylar"
 
 #: templates/prefs/sourceselect.inc:312
 msgid "Move down"
-msgstr "Aşagı taşı"
+msgstr "AÅŸagÄ± taÅŸÄ±"
 
 #: templates/prefs/sourceselect.inc:310
 msgid "Move up"
-msgstr "Yukarı taşı"
+msgstr "YukarÄ± taÅŸÄ±"
 
 #: lib/api.php:935
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Birçok iCalendar bileşeni bulundu; sadece bir vEvent destekleniyor."
+msgstr "BirÃ§ok iCalendar bileÅŸeni bulundu; sadece bir vEvent destekleniyor."
 
 #: calendars.php:146 templates/calendars/calendars.inc:68
 msgid "My Calendars"
@@ -1155,7 +1155,7 @@ msgstr "Takvimlerim:"
 
 #: templates/prefs/fb_cals_select.inc:2 templates/calendars/calendars.inc:216
 msgid "My Free/Busy URL"
-msgstr "Serbest/Meşgul URLlerim"
+msgstr "Serbest/MeÅŸgul URLlerim"
 
 #: templates/prefs/remote_cal_management.inc:17
 #: templates/prefs/remote_cal_management.inc:44
@@ -1176,7 +1176,7 @@ msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
 msgstr ""
-"Yeni takvim yaratıldı ve otomatik olarak şu gruplarla paylaştırıldı: %s"
+"Yeni takvim yaratÄ±ldÄ± ve otomatik olarak ÅŸu gruplarla paylaÅŸtÄ±rÄ±ldÄ±: %s"
 
 #: templates/data/import.inc:33
 msgid "Next"
@@ -1188,7 +1188,7 @@ msgstr "Gelecek 24 saat"
 
 #: lib/FBView/day.php:28
 msgid "Next Day"
-msgstr "Sonraki Gün"
+msgstr "Sonraki GÃ¼n"
 
 #: templates/month/head_side_by_side.inc:7 templates/month/head.inc:7
 #: lib/FBView/month.php:31
@@ -1205,7 +1205,7 @@ msgstr "Sonraki Sene"
 
 #: templates/day/head.inc:5
 msgid "Next day"
-msgstr "Sonraki gün"
+msgstr "Sonraki gÃ¼n"
 
 #: templates/week/head.inc:8 templates/search/search.inc:58
 msgid "Next week"
@@ -1214,7 +1214,7 @@ msgstr "Sonraki hafta"
 #: config/prefs.php.dist:336 config/prefs.php.dist:349
 #: config/prefs.php.dist:370
 msgid "No"
-msgstr "Hayır"
+msgstr "HayÄ±r"
 
 #: templates/fbview/legend.html:13
 msgid "No Information"
@@ -1226,19 +1226,19 @@ msgstr "Alarm yok"
 
 #: templates/attendees/attendees.inc:54
 msgid "No attendees"
-msgstr "Katılımcı yok"
+msgstr "KatÄ±lÄ±mcÄ± yok"
 
 #: lib/api.php:1084
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
 msgstr ""
-"Hiçbir katılımcı güncellenemedi çünkü sağlanan eposta adreslerininhiçbiri "
-"etkinliğin katılımcı listesinde yer almıyordu."
+"HiÃ§bir katÄ±lÄ±mcÄ± gÃ¼ncellenemedi Ã§Ã¼nkÃ¼ saÄŸlanan eposta adreslerininhiÃ§biri "
+"etkinliÄŸin katÄ±lÄ±mcÄ± listesinde yer almÄ±yordu."
 
 #: lib/Kronolith.php:1937
 msgid "No calendars are available to guests."
-msgstr "Konuklar için takvim bulunamamıştır."
+msgstr "Konuklar iÃ§in takvim bulunamamÄ±ÅŸtÄ±r."
 
 #: templates/edit/edit.inc:284 templates/view/view.inc:124
 msgid "No end date"
@@ -1247,26 +1247,26 @@ msgstr "Son tarih yok"
 #: lib/Block/summary.php:208 lib/Block/monthlist.php:175
 #: lib/Block/prevmonthlist.php:166
 msgid "No events to display"
-msgstr "Görüntülenecek etkinlik yok"
+msgstr "GÃ¶rÃ¼ntÃ¼lenecek etkinlik yok"
 
 #: lib/FreeBusy.php:223
 #, php-format
 msgid "No free/busy information found at the free/busy url of %s."
-msgstr "%s'nin serbest/meşgul urlsinde hiç serbest/meşgul bilgisi bulunamadı."
+msgstr "%s'nin serbest/meÅŸgul urlsinde hiÃ§ serbest/meÅŸgul bilgisi bulunamadÄ±."
 
 #: lib/Storage/kolab.php:67
 #, php-format
 msgid "No free/busy information is available for %s"
-msgstr "%s için serbest/meşgul bilgisi bulunamadı."
+msgstr "%s iÃ§in serbest/meÅŸgul bilgisi bulunamadÄ±."
 
 #: lib/FreeBusy.php:224
 #, php-format
 msgid "No free/busy url found for %s."
-msgstr "%s için serbest/meşgul url bulunamadı."
+msgstr "%s iÃ§in serbest/meÅŸgul url bulunamadÄ±."
 
 #: lib/api.php:391 lib/api.php:649 lib/api.php:688 lib/api.php:942
 msgid "No iCalendar data was found."
-msgstr "Hiç iCalendar verisi bulunamadı."
+msgstr "HiÃ§ iCalendar verisi bulunamadÄ±."
 
 #: templates/edit/edit.inc:221 lib/Driver.php:1287 lib/Recurrence.php:191
 msgid "No recurrence"
@@ -1274,21 +1274,21 @@ msgstr "Tekrar yok"
 
 #: lib/FreeBusy.php:166
 msgid "No valid email address found"
-msgstr "Geçerli eposta adresi bulunamadı."
+msgstr "GeÃ§erli eposta adresi bulunamadÄ±."
 
 #: templates/prefs/sourceselect.inc:35 lib/Kronolith.php:1182
 #: lib/Kronolith.php:1203
 msgid "None"
-msgstr "Hiçbiri"
+msgstr "HiÃ§biri"
 
 #: lib/Views/Event.php:26 lib/Views/DeleteEvent.php:27
 #: lib/Views/EditEvent.php:27
 msgid "Not Found"
-msgstr "Bulunamadı"
+msgstr "BulunamadÄ±"
 
 #: lib/Storage/sql.php:155
 msgid "Not found"
-msgstr "Bulunamadı"
+msgstr "BulunamadÄ±"
 
 #: config/prefs.php.dist:51
 msgid "Notifications"
@@ -1296,15 +1296,15 @@ msgstr "Bildirimler"
 
 #: templates/javascript/goto.js:78
 msgid "November"
-msgstr "Kasım"
+msgstr "KasÄ±m"
 
 #: templates/search/search.inc:56
 msgid "Now"
-msgstr "Şimdi"
+msgstr "Åimdi"
 
 #: templates/perms/perms.inc:166
 msgid "Object Creator"
-msgstr "Nesne Yaratıcısı"
+msgstr "Nesne YaratÄ±cÄ±sÄ±"
 
 #: templates/javascript/goto.js:77
 msgid "October"
@@ -1317,12 +1317,12 @@ msgstr "Tam"
 #: config/prefs.php.dist:339 config/prefs.php.dist:352
 #: config/prefs.php.dist:373
 msgid "On all calendars I have read access to"
-msgstr "Tüm takvimlerde okuma hakkına sahibim"
+msgstr "TÃ¼m takvimlerde okuma hakkÄ±na sahibim"
 
 #: config/prefs.php.dist:338 config/prefs.php.dist:351
 #: config/prefs.php.dist:372
 msgid "On all shown calendars"
-msgstr "Gösterilen tüm takvimlerde"
+msgstr "GÃ¶sterilen tÃ¼m takvimlerde"
 
 #: config/prefs.php.dist:337 config/prefs.php.dist:350
 #: config/prefs.php.dist:371
@@ -1334,24 +1334,24 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Yalnızca paylaşımın sahibi ya da sistem yöneticisi, paylaşım için sahiplik "
-"hakları ve izinlerini değiştirebilir"
+"YalnÄ±zca paylaÅŸÄ±mÄ±n sahibi ya da sistem yÃ¶neticisi, paylaÅŸÄ±m iÃ§in sahiplik "
+"haklarÄ± ve izinlerini deÄŸiÅŸtirebilir"
 
 #: lib/Kronolith.php:1200
 msgid "Optional"
-msgstr "Seçimli"
+msgstr "SeÃ§imli"
 
 #: lib/FBView.php:118
 msgid "Optional Attendees"
-msgstr "Seçimli Katılımcılar"
+msgstr "SeÃ§imli KatÄ±lÄ±mcÄ±lar"
 
 #: config/prefs.php.dist:68
 msgid "Other Options"
-msgstr "Diğer Seçenekler"
+msgstr "DiÄŸer SeÃ§enekler"
 
 #: lib/FBView.php:153
 msgid "Overview"
-msgstr "Önizleme"
+msgstr "Ã–nizleme"
 
 #: templates/view/view.inc:28
 msgid "Owner"
@@ -1377,11 +1377,11 @@ msgstr "PM"
 #: lib/Forms/EditRemoteCalendar.php:39
 #: lib/Forms/SubscribeRemoteCalendar.php:39
 msgid "Password"
-msgstr "Şifre"
+msgstr "Åifre"
 
 #: templates/edit/edit.inc:216 templates/view/view.inc:93
 msgid "Pattern"
-msgstr "Tekrar Şekli"
+msgstr "Tekrar Åekli"
 
 #: templates/delete/one.inc:22
 msgid "Permanently delete this event?"
@@ -1393,64 +1393,64 @@ msgstr "Daimi olarak etkinlik silinsin mi?"
 #: lib/Kronolith.php:1866 lib/Kronolith.php:1881 lib/Kronolith.php:1892
 #: lib/Driver/sql.php:782
 msgid "Permission Denied"
-msgstr "İzin Yok"
+msgstr "Ä°zin Yok"
 
 #: lib/Forms/DeleteCalendar.php:56
 msgid "Permission denied"
-msgstr "İzin yok"
+msgstr "Ä°zin yok"
 
 #: templates/calendars/calendars.inc:171
 msgid "Permissions"
-msgstr "İzinler"
+msgstr "Ä°zinler"
 
 #: lib/Imple/ContactAutoCompleter.php:227
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Lütfen geçersiz yada belirsiz adresleri çözün."
+msgstr "LÃ¼tfen geÃ§ersiz yada belirsiz adresleri Ã§Ã¶zÃ¼n."
 
 #: config/prefs.php.dist:21
 msgid "Portal Options"
-msgstr "Genel Seçenekler"
+msgstr "Genel SeÃ§enekler"
 
 #: templates/fbview/legend.html:11
 msgid "Possible Meeting Time"
-msgstr "Olası Toplantı Saati"
+msgstr "OlasÄ± ToplantÄ± Saati"
 
 #: lib/FBView/day.php:24
 msgid "Previous Day"
-msgstr "Önceki Gün"
+msgstr "Ã–nceki GÃ¼n"
 
 #: lib/FBView/month.php:25
 msgid "Previous Month"
-msgstr "Önceki Ay"
+msgstr "Ã–nceki Ay"
 
 #: lib/FBView/week.php:25
 msgid "Previous Week"
-msgstr "Önceki Hafta"
+msgstr "Ã–nceki Hafta"
 
 #: templates/day/head.inc:3
 msgid "Previous day"
-msgstr "Önceki gün"
+msgstr "Ã–nceki gÃ¼n"
 
 #: config/prefs.php.dist:174 config/prefs.php.dist:186
 msgid "Print Views"
-msgstr "Baskı Görünümleri"
+msgstr "BaskÄ± GÃ¶rÃ¼nÃ¼mleri"
 
 #: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
 msgid "Prior Events"
-msgstr "Önceki Etkinlikler"
+msgstr "Ã–nceki Etkinlikler"
 
 #: lib/Driver.php:1422
 #, php-format
 msgid "Private Event from %s to %s"
-msgstr "%s ile %s arasında Özel Etkinlik"
+msgstr "%s ile %s arasÄ±nda Ã–zel Etkinlik"
 
 #: lib/Driver.php:2209 lib/Driver.php:2210
 msgid "Private event"
-msgstr "Özel Etkinlik"
+msgstr "Ã–zel Etkinlik"
 
 #: templates/edit/edit.inc:120
 msgid "Private?"
-msgstr "Kişisel?"
+msgstr "KiÅŸisel?"
 
 #: templates/perms/perms.inc:31 templates/perms/perms.inc:61
 #: templates/perms/perms.inc:87 templates/perms/perms.inc:102
@@ -1468,17 +1468,17 @@ msgid ""
 "Really delete the calendar \"%s\"? This cannot be undone and all data on "
 "this calendar will be permanently removed."
 msgstr ""
-"\"%s\" adlı takvim gerçekten silinsin mi? Bu geri çevrilemez. Bu "
-"takvimdekiveriler kalıcı olarak silinecek."
+"\"%s\" adlÄ± takvim gerÃ§ekten silinsin mi? Bu geri Ã§evrilemez. Bu "
+"takvimdekiveriler kalÄ±cÄ± olarak silinecek."
 
 #: lib/Forms/UnsubscribeRemoteCalendar.php:37
 #, php-format
 msgid "Really unsubscribe from the calendar \"%s\" (%s)?"
-msgstr "Gerçekten \"%s\" (%s) takvim üyeliğinizi sonlandırmak istiyor musunuz?"
+msgstr "GerÃ§ekten \"%s\" (%s) takvim Ã¼yeliÄŸinizi sonlandÄ±rmak istiyor musunuz?"
 
 #: templates/edit/edit.inc:281 templates/view/view.inc:123
 msgid "Recur Until"
-msgstr "Tekrarın Sonlanacağı Tarih"
+msgstr "TekrarÄ±n SonlanacaÄŸÄ± Tarih"
 
 #: templates/edit/edit.inc:210 templates/view/view.inc:90
 msgid "Recurrence"
@@ -1494,44 +1494,44 @@ msgstr "Tekrar Son Tarihi"
 
 #: lib/Driver.php:2042
 msgid "Recurrence End Day"
-msgstr "Tekrarın Son Günü"
+msgstr "TekrarÄ±n Son GÃ¼nÃ¼"
 
 #: lib/Driver.php:2027
 msgid "Recurrence End Month"
-msgstr "Tekrarın Son Ayı"
+msgstr "TekrarÄ±n Son AyÄ±"
 
 #: lib/Driver.php:2010
 msgid "Recurrence End Year"
-msgstr "Tekrarın Son Yılı"
+msgstr "TekrarÄ±n Son YÄ±lÄ±"
 
 #: data.php:69
 msgid "Recurrence Interval"
-msgstr "Tekrarlama Aralığı"
+msgstr "Tekrarlama AralÄ±ÄŸÄ±"
 
 #: data.php:67
 msgid "Recurrence Type"
-msgstr "Tekrar Türü"
+msgstr "Tekrar TÃ¼rÃ¼"
 
 #: lib/Kronolith.php:1116
 msgid "Recurs daily"
-msgstr "Günlük tekrar"
+msgstr "GÃ¼nlÃ¼k tekrar"
 
 #: lib/Kronolith.php:1123
 msgid "Recurs monthly"
-msgstr "Aylık tekrar"
+msgstr "AylÄ±k tekrar"
 
 #: lib/Kronolith.php:1119
 msgid "Recurs weekly"
-msgstr "Haftalık tekrar"
+msgstr "HaftalÄ±k tekrar"
 
 #: lib/Kronolith.php:1128
 msgid "Recurs yearly"
-msgstr "Yıllık tekrar"
+msgstr "YÄ±llÄ±k tekrar"
 
 #: lib/Scheduler/kronolith.php:261
 #, php-format
 msgid "Reminder: %s"
-msgstr "Hatırlatma: %s"
+msgstr "HatÄ±rlatma: %s"
 
 #: templates/calendar_list.php:39
 msgid "Remote"
@@ -1551,7 +1551,7 @@ msgstr "Uzaktaki Takvimler:"
 
 #: templates/calendars/calendars.inc:195
 msgid "Remote Subscription URL"
-msgstr "Uzak Üyelik URLsi"
+msgstr "Uzak Ãœyelik URLsi"
 
 #: templates/contacts/contacts.inc:172
 msgid "Remove"
@@ -1564,26 +1564,26 @@ msgstr "%s Sil"
 
 #: attendees.php:164
 msgid "Remove Attendee"
-msgstr "Katılımcıyı Sil"
+msgstr "KatÄ±lÄ±mcÄ±yÄ± Sil"
 
 #: templates/prefs/sourceselect.inc:300
 msgid "Remove source"
-msgstr "Kaynağı çıkar"
+msgstr "KaynaÄŸÄ± Ã§Ä±kar"
 
 #: lib/Driver.php:258
 msgid ""
 "Removing user data is not supported with the current calendar storage "
 "backend."
 msgstr ""
-"Geçerli takvim saklama sürücüsü, kullanıcı verisi silmeyi desteklemiyor."
+"GeÃ§erli takvim saklama sÃ¼rÃ¼cÃ¼sÃ¼, kullanÄ±cÄ± verisi silmeyi desteklemiyor."
 
 #: templates/data/import.inc:31
 msgid ""
 "Replace existing calendar with the imported one? <strong>Warning: This "
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
-"Dışarıdan aktarılan takvimi varolan ile değiştirilsin mi? <b>Uyarı: Bu işlem "
-"şu anki takviminizdeki tüm girişleri siler.</b>"
+"DÄ±ÅŸarÄ±dan aktarÄ±lan takvimi varolan ile deÄŸiÅŸtirilsin mi? <b>UyarÄ±: Bu iÅŸlem "
+"ÅŸu anki takviminizdeki tÃ¼m giriÅŸleri siler.</b>"
 
 #: lib/Kronolith.php:1207
 msgid "Required"
@@ -1591,23 +1591,23 @@ msgstr "Gerekli Alan"
 
 #: lib/FBView.php:97 lib/FBView.php:138 lib/FBView.php:141 lib/FBView.php:144
 msgid "Required Attendees"
-msgstr "Gereken Katılımcılar"
+msgstr "Gereken KatÄ±lÄ±mcÄ±lar"
 
 #: templates/edit/edit.inc:52 templates/edit/edit.inc:383
 msgid "Reset to Defaults"
-msgstr "Öntanımlı değerlere geri dön"
+msgstr "Ã–ntanÄ±mlÄ± deÄŸerlere geri dÃ¶n"
 
 #: templates/attendees/attendees.inc:49 templates/view/view.inc:173
 msgid "Response"
-msgstr "Yanıt"
+msgstr "YanÄ±t"
 
 #: config/prefs.php.dist:141
 msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
-"Daha önce ya da daha sonra etkinlikler olsa da, gün ve hafta görünümlerini "
-"buzaman aralığına kısıtlamak istediğinizden emin misiniz?"
+"Daha Ã¶nce ya da daha sonra etkinlikler olsa da, gÃ¼n ve hafta gÃ¶rÃ¼nÃ¼mlerini "
+"buzaman aralÄ±ÄŸÄ±na kÄ±sÄ±tlamak istediÄŸinizden emin misiniz?"
 
 #: templates/edit/edit.inc:240 templates/javascript/goto.js:64
 #: lib/Block/month.php:107 lib/Views/Year.php:82
@@ -1637,15 +1637,15 @@ msgstr "Yeni Olarak Kaydet"
 
 #: templates/attendees/attendees.inc:93
 msgid "Save Attendees"
-msgstr "Katılımcıları Kaydet"
+msgstr "KatÄ±lÄ±mcÄ±larÄ± Kaydet"
 
 #: addevent.php:55 editevent.php:52 new.php:56 lib/Views/EditEvent.php:81
 msgid "Save Event"
-msgstr "Etkinliği kaydet"
+msgstr "EtkinliÄŸi kaydet"
 
 #: templates/attendees/attendees.inc:94
 msgid "Save and Finish"
-msgstr "Kaydet ve Sonlandır"
+msgstr "Kaydet ve SonlandÄ±r"
 
 #: search.php:91 templates/contacts/contacts.inc:155
 #: templates/calendars/search.inc:8 templates/search/search.inc:67
@@ -1659,7 +1659,7 @@ msgstr "Takvimleri Ara"
 
 #: templates/search/header.inc:6
 msgid "Search Results"
-msgstr "Arama Sonuçları"
+msgstr "Arama SonuÃ§larÄ±"
 
 #: templates/panel.inc:29
 msgid "Search for Calendars:"
@@ -1667,159 +1667,159 @@ msgstr "Takvim Ara"
 
 #: templates/calendars/search.inc:6
 msgid "Search for calendars containing:"
-msgstr "Şu sözü içeren takvimleri ara:"
+msgstr "Åu sÃ¶zÃ¼ iÃ§eren takvimleri ara:"
 
 #: templates/contacts/contacts.inc:160
 msgid "Search results"
-msgstr "Arama Sonuçları"
+msgstr "Arama SonuÃ§larÄ±"
 
 #: lib/Storage.php:135
 msgid "Searching free/busy is not available."
-msgstr "Serbest/meşgul araması şu anda kullanılabilir değil."
+msgstr "Serbest/meÅŸgul aramasÄ± ÅŸu anda kullanÄ±labilir deÄŸil."
 
 #: templates/calendars/calendars.inc:154
 msgid "Select a calendar to edit"
-msgstr "Düzenlenecek takvimi seçiniz"
+msgstr "DÃ¼zenlenecek takvimi seÃ§iniz"
 
 #: templates/edit/edit.inc:302 templates/edit/edit_timespan.inc:29
 #: templates/edit/edit_timespan.inc:79
 msgid "Select a date"
-msgstr "Bir tarih seçin"
+msgstr "Bir tarih seÃ§in"
 
 #: templates/perms/perms.inc:329
 msgid "Select a group to add"
-msgstr "Eklenecek grubu seçin:"
+msgstr "Eklenecek grubu seÃ§in:"
 
 #: templates/perms/perms.inc:327
 msgid "Select a group to add:"
-msgstr "Eklenecek grubu seçin:"
+msgstr "Eklenecek grubu seÃ§in:"
 
 #: templates/perms/perms.inc:42
 msgid "Select a new owner:"
-msgstr "Bir sahip seçin:"
+msgstr "Bir sahip seÃ§in:"
 
 #: templates/perms/perms.inc:246 templates/perms/perms.inc:248
 msgid "Select a user to add:"
-msgstr "Eklenecek kullanıcıyı seçin"
+msgstr "Eklenecek kullanÄ±cÄ±yÄ± seÃ§in"
 
 #: config/prefs.php.dist:70
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Adres ekleme ve arama için adres defteri kaynaklarını seçin."
+msgstr "Adres ekleme ve arama iÃ§in adres defteri kaynaklarÄ±nÄ± seÃ§in."
 
 #: templates/prefs/sourceselect.inc:319
 msgid "Select all fields to search when expanding addresses."
-msgstr "Adresleri genişletirken arama için bütün alanları seç."
+msgstr "Adresleri geniÅŸletirken arama iÃ§in bÃ¼tÃ¼n alanlarÄ± seÃ§."
 
 #: config/prefs.php.dist:11
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Onay seçeneklerini belirleyiniz (farklı olan gösterme şekllerini ve "
-"öntanımlı olanı seçiniz)."
+"Onay seÃ§eneklerini belirleyiniz (farklÄ± olan gÃ¶sterme ÅŸekllerini ve "
+"Ã¶ntanÄ±mlÄ± olanÄ± seÃ§iniz)."
 
 #: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
-msgstr "İçeri aktarılacak bir takvim seçiniz:"
+msgstr "Ä°Ã§eri aktarÄ±lacak bir takvim seÃ§iniz:"
 
 #: templates/data/export.inc:19
 msgid "Select the calendar(s) to export from"
-msgstr "Dışarı aktarılacak takvim(ler)i seçiniz:"
+msgstr "DÄ±ÅŸarÄ± aktarÄ±lacak takvim(ler)i seÃ§iniz:"
 
 #: templates/data/export.inc:12
 msgid "Select the export format:"
-msgstr "Dışarı aktarma biçimini seçin:"
+msgstr "DÄ±ÅŸarÄ± aktarma biÃ§imini seÃ§in:"
 
 #: templates/data/import.inc:27
 msgid "Select the file to import:"
-msgstr "İçeri aktarılacak dosyayı seçin:"
+msgstr "Ä°Ã§eri aktarÄ±lacak dosyayÄ± seÃ§in:"
 
 #: config/prefs.php.dist:112
 msgid "Select the first weekday:"
-msgstr "Haftanın ilk gününü seçiniz:"
+msgstr "HaftanÄ±n ilk gÃ¼nÃ¼nÃ¼ seÃ§iniz:"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Kaynak dosyanın biçimini seçin:"
+msgstr "Kaynak dosyanÄ±n biÃ§imini seÃ§in:"
 
 #: config/prefs.php.dist:236
 msgid "Select the time span to show:"
-msgstr "Gösterilecek saat aralığını seçiniz:"
+msgstr "GÃ¶sterilecek saat aralÄ±ÄŸÄ±nÄ± seÃ§iniz:"
 
 #: config/prefs.php.dist:94
 msgid "Select the view to display on startup:"
-msgstr "Başlangıçta yer alacak görüntüyü seçiniz:"
+msgstr "BaÅŸlangÄ±Ã§ta yer alacak gÃ¶rÃ¼ntÃ¼yÃ¼ seÃ§iniz:"
 
 #: config/prefs.php.dist:22
 msgid "Select which events to show in the portal."
-msgstr "Portalda gösterilecek etkinlikleri seçiniz."
+msgstr "Portalda gÃ¶sterilecek etkinlikleri seÃ§iniz."
 
 #: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
 msgid "Selected Address books:"
-msgstr "Seçilmiş Adres Defterleri:"
+msgstr "SeÃ§ilmiÅŸ Adres Defterleri:"
 
 #: templates/contacts/contacts.inc:175
 msgid "Selected addresses"
-msgstr "Seçilmiş Adresler"
+msgstr "SeÃ§ilmiÅŸ Adresler"
 
 #: templates/delete/one.inc:19 templates/delete/delete.inc:21
 msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr ""
-"Etkinliğin silinmesi ile bütün katılımcılara iptal bilgilendirmesi yollansın "
-"mı?"
+"EtkinliÄŸin silinmesi ile bÃ¼tÃ¼n katÄ±lÄ±mcÄ±lara iptal bilgilendirmesi yollansÄ±n "
+"mÄ±?"
 
 #: templates/view/view.inc:177
 #, php-format
 msgid "Send an email to %s"
-msgstr "%s'e eposta yollansın"
+msgstr "%s'e eposta yollansÄ±n"
 
 #: templates/edit/edit.inc:375
 msgid "Send invitations to all attendees?"
-msgstr "Tüm katılımcılara davetiye gönderilsin mi?"
+msgstr "TÃ¼m katÄ±lÄ±mcÄ±lara davetiye gÃ¶nderilsin mi?"
 
 #: templates/edit/edit.inc:375
 msgid "Send updates to all attendees?"
-msgstr "Tüm katılımcılara güncelleme bilgisi gönderilsin mi?"
+msgstr "TÃ¼m katÄ±lÄ±mcÄ±lara gÃ¼ncelleme bilgisi gÃ¶nderilsin mi?"
 
 #: templates/javascript/goto.js:76
 msgid "September"
-msgstr "Eylül"
+msgstr "EylÃ¼l"
 
 #: config/prefs.php.dist:45
 msgid "Set default values for new events."
-msgstr "Yeni görevler için öntanımlı değerleri ayarla."
+msgstr "Yeni gÃ¶revler iÃ§in Ã¶ntanÄ±mlÄ± deÄŸerleri ayarla."
 
 #: templates/edit/edit_timespan.inc:79
 msgid "Set end date"
-msgstr "Bitiş tarihi belirtiniz"
+msgstr "BitiÅŸ tarihi belirtiniz"
 
 #: templates/edit/edit.inc:302
 msgid "Set recurrence end date"
-msgstr "Özyilemeli son tarihi belirtiniz"
+msgstr "Ã–zyilemeli son tarihi belirtiniz"
 
 #: templates/edit/edit_timespan.inc:29
 msgid "Set start date"
-msgstr "Başlama tarihi belirtiniz"
+msgstr "BaÅŸlama tarihi belirtiniz"
 
 #: config/prefs.php.dist:62
 msgid ""
 "Set your Free/Busy calendars and your own and other users' Free/Busy options."
 msgstr ""
-"Kendinizin ve diğerlerinin serbest/meşgul seçeneklerini ve kendinizin "
-"serbest/meşgul takvimlerini ayarlayınız."
+"Kendinizin ve diÄŸerlerinin serbest/meÅŸgul seÃ§eneklerini ve kendinizin "
+"serbest/meÅŸgul takvimlerini ayarlayÄ±nÄ±z."
 
 #: calendars.php:91
 #, php-format
 msgid "Share not found: %s"
-msgstr "Paylaşım bulunamadı: %s"
+msgstr "PaylaÅŸÄ±m bulunamadÄ±: %s"
 
 #: templates/calendars/calendars.inc:80
 msgid "Shared Calendars"
-msgstr "Paylaşılan Takvimler"
+msgstr "PaylaÅŸÄ±lan Takvimler"
 
 #: templates/panel.inc:50
 msgid "Shared Calendars:"
-msgstr "Paylaşılan Takvimler:"
+msgstr "PaylaÅŸÄ±lan Takvimler:"
 
 #: templates/edit/javascript.inc:262 templates/perms/perms.inc:30
 #: templates/perms/perms.inc:57 templates/perms/perms.inc:86
@@ -1830,80 +1830,80 @@ msgstr "Paylaşılan Takvimler:"
 #: templates/perms/perms.inc:291 templates/perms/perms.inc:303
 #: templates/perms/perms.inc:337
 msgid "Show"
-msgstr "Göster"
+msgstr "GÃ¶ster"
 
 #: calendar_search.php:25
 msgid "Show Calendar"
-msgstr "Takvimi Göster"
+msgstr "Takvimi GÃ¶ster"
 
 #: config/prefs.php.dist:218
 msgid "Show Free/Busy legend?"
-msgstr "Serbest/meşgul göstergesi gösterilsin mi?"
+msgstr "Serbest/meÅŸgul gÃ¶stergesi gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:208
 msgid "Show calendar options panel?"
-msgstr "Takvim seçenek paneli gösterilsin mi?"
+msgstr "Takvim seÃ§enek paneli gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:198
 msgid "Show category legend?"
-msgstr "Kategori açıklaması gösterilsin mi?"
+msgstr "Kategori aÃ§Ä±klamasÄ± gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:164
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr "Sil, alarm ve tekrar simgeleri takvimde görünsün mü?"
+msgstr "Sil, alarm ve tekrar simgeleri takvimde gÃ¶rÃ¼nsÃ¼n mÃ¼?"
 
 #: config/prefs.php.dist:265
 msgid "Show external events using category colors?"
-msgstr "Dış etkinlikler kategori renkleri kullanılarak gösterilsin mi?"
+msgstr "DÄ±ÅŸ etkinlikler kategori renkleri kullanÄ±larak gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:256
 msgid "Show only events that have an alarm set?"
-msgstr "Sadece alarmı kurulmuş etkinlikler mi gösterilsin?"
+msgstr "Sadece alarmÄ± kurulmuÅŸ etkinlikler mi gÃ¶sterilsin?"
 
 #: config/prefs.php.dist:227
 msgid "Show shared calendars side-by-side?"
-msgstr "Paylaştırılan takvimler yan yana gösterilsin mi?"
+msgstr "PaylaÅŸtÄ±rÄ±lan takvimler yan yana gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:103
 msgid "Show time of day between each day in week views?"
-msgstr "Hafta görüntüsü içinde her gün içi zamanları göstersin mi?"
+msgstr "Hafta gÃ¶rÃ¼ntÃ¼sÃ¼ iÃ§inde her gÃ¼n iÃ§i zamanlarÄ± gÃ¶stersin mi?"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
-msgstr "Başla_ma"
+msgstr "BaÅŸla_ma"
 
 #: data.php:56
 msgid "Start Date"
-msgstr "Başlama Tarihi"
+msgstr "BaÅŸlama Tarihi"
 
 #: templates/data/export.inc:68 lib/Driver.php:1902
 msgid "Start Day"
-msgstr "Başlama Günü"
+msgstr "BaÅŸlama GÃ¼nÃ¼"
 
 #: templates/data/export.inc:87 lib/Driver.php:1913
 msgid "Start Hour"
-msgstr "Başlangıç Saati"
+msgstr "BaÅŸlangÄ±Ã§ Saati"
 
 #: templates/data/export.inc:102 lib/Driver.php:1923
 msgid "Start Minute"
-msgstr "Başlangıç Dakikası"
+msgstr "BaÅŸlangÄ±Ã§ DakikasÄ±"
 
 #: templates/data/export.inc:54 lib/Driver.php:1893
 msgid "Start Month"
-msgstr "Başlangıç Ayı"
+msgstr "BaÅŸlangÄ±Ã§ AyÄ±"
 
 #: templates/data/export.inc:37 templates/view/view.inc:35
 #: templates/search/event_headers.inc:7
 msgid "Start On"
-msgstr "Başlama"
+msgstr "BaÅŸlama"
 
 #: data.php:57
 msgid "Start Time"
-msgstr "Başlama Zamanı"
+msgstr "BaÅŸlama ZamanÄ±"
 
 #: templates/data/export.inc:39 lib/Driver.php:1882
 msgid "Start Year"
-msgstr "Başlangıç yılı"
+msgstr "BaÅŸlangÄ±Ã§ yÄ±lÄ±"
 
 #: templates/edit/edit.inc:110 templates/search/search_advanced.inc:94
 msgid "Stat_us"
@@ -1915,7 +1915,7 @@ msgstr "Durum"
 
 #: lib/Storage.php:143
 msgid "Storing free/busy is not available."
-msgstr "Serbest/meşgul bilgisinin saklanması kullanılabilir değil."
+msgstr "Serbest/meÅŸgul bilgisinin saklanmasÄ± kullanÄ±labilir deÄŸil."
 
 #: templates/edit/edit.inc:241 templates/javascript/goto.js:65
 #: lib/Block/month.php:109 lib/Block/month.php:111 lib/Views/Year.php:75
@@ -1925,7 +1925,7 @@ msgstr "Pzr"
 
 #: lib/Forms/SubscribeRemoteCalendar.php:41
 msgid "Subscribe"
-msgstr "Üye ol"
+msgstr "Ãœye ol"
 
 #: templates/calendar_list.php:15 lib/Forms/SubscribeRemoteCalendar.php:34
 msgid "Subscribe to a Remote Calendar"
@@ -1943,30 +1943,30 @@ msgstr "Pazar"
 
 #: lib/Kronolith.php:1155 lib/Kronolith.php:1178
 msgid "Tentative"
-msgstr "Geçici"
+msgstr "GeÃ§ici"
 
 #: templates/edit/edit.inc:238 templates/javascript/goto.js:62
 #: lib/Block/month.php:107 lib/Views/Year.php:80
 msgid "Th"
-msgstr "Prş"
+msgstr "PrÅŸ"
 
 #: data.php:244
 #, php-format
 msgid "The %s file didn't contain any events."
-msgstr "%s dosyası herhangi bir etkinlik içermiyor."
+msgstr "%s dosyasÄ± herhangi bir etkinlik iÃ§ermiyor."
 
 #: lib/Driver.php:48
 msgid "The Calendar backend is not currently available."
-msgstr "Alarm arka aracı şu anda kullanılabilir değil."
+msgstr "Alarm arka aracÄ± ÅŸu anda kullanÄ±labilir deÄŸil."
 
 #: lib/Driver.php:203
 #, php-format
 msgid "The Calendar backend is not currently available: %s"
-msgstr "Takvim arka aracı şu anda kullanılabilir değil: %s"
+msgstr "Takvim arka aracÄ± ÅŸu anda kullanÄ±labilir deÄŸil: %s"
 
 #: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
-msgstr "Katılımcıları Düzenle ekranı bulunmuyor. Çıkıyorum."
+msgstr "KatÄ±lÄ±mcÄ±larÄ± DÃ¼zenle ekranÄ± bulunmuyor. Ã‡Ä±kÄ±yorum."
 
 #: calendars.php:84
 #, php-format
@@ -1976,7 +1976,7 @@ msgstr "Takvim \"%s\" silinemiyor."
 #: calendars.php:45 calendars/create.php:33
 #, php-format
 msgid "The calendar \"%s\" has been created."
-msgstr "\"%s\" takvimi yaratıldı."
+msgstr "\"%s\" takvimi yaratÄ±ldÄ±."
 
 #: calendars.php:106 calendars/delete.php:50
 #, php-format
@@ -1986,7 +1986,7 @@ msgstr "\"%s\" takvimi silindi."
 #: calendars.php:68 calendars/edit.php:44
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "\"%s\" takvimi %s ismi adında kaydedildi."
+msgstr "\"%s\" takvimi %s ismi adÄ±nda kaydedildi."
 
 #: calendars.php:70 calendars/edit.php:46 calendars/remote_edit.php:49
 #, php-format
@@ -1996,18 +1996,18 @@ msgstr "\"%s\" takvimi kaydedildi."
 #: data.php:252
 #, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Takvim boşaltılamadı: %s"
+msgstr "Takvim boÅŸaltÄ±lamadÄ±: %s"
 
 #: templates/edit/javascript.inc:156
 msgid "The end date must be later than the start date."
-msgstr "Sonlandırma tarihi başlama tarihinden sonra olmalı."
+msgstr "SonlandÄ±rma tarihi baÅŸlama tarihinden sonra olmalÄ±."
 
 #: lib/Kronolith.php:1586
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
 msgstr ""
-"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliği \"%s\" takvimine "
+"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliÄŸi \"%s\" takvimine "
 "eklendi. "
 
 #: lib/Kronolith.php:1596
@@ -2016,7 +2016,7 @@ msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
 msgstr ""
-"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliği \"%s\" takviminden "
+"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliÄŸi \"%s\" takviminden "
 "silindi. "
 
 #: lib/Kronolith.php:1591
@@ -2024,77 +2024,77 @@ msgstr ""
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
 msgstr ""
-"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliği \"%s\" takviminde "
-"düzenlendi. "
+"Saat %s'de ve yer olarak %s'de yer alan \"%s\" etkinliÄŸi \"%s\" takviminde "
+"dÃ¼zenlendi. "
 
 #: lib/Kronolith.php:1476
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "%s'e etkinlik bilgisi başarılı bir şekide gönderildi."
+msgstr "%s'e etkinlik bilgisi baÅŸarÄ±lÄ± bir ÅŸekide gÃ¶nderildi."
 
 #: lib/Kronolith.php:1430
 msgid "The following is a more detailed description of the event:"
-msgstr "Etkinliğin daha detaylı açıklaması:"
+msgstr "EtkinliÄŸin daha detaylÄ± aÃ§Ä±klamasÄ±:"
 
 #: lib/FreeBusy.php:191
 #, php-format
 msgid "The free/busy url for %s cannot be retrieved."
-msgstr "%s için olan serbest/meşgul url bulunamadı."
+msgstr "%s iÃ§in olan serbest/meÅŸgul url bulunamadÄ±."
 
 #: calendars/remote_edit.php:36 calendars/remote_unsubscribe.php:36
 msgid "The remote calendar was not found."
-msgstr "Uzaktaki takvim bulunamadı."
+msgstr "Uzaktaki takvim bulunamadÄ±."
 
 #: attend.php:43
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"İstek eksik. Bir etkinliği kabul veya red için gerekli olan bazı "
+"Ä°stek eksik. Bir etkinliÄŸi kabul veya red iÃ§in gerekli olan bazÄ± "
 "parametreler bulunmuyor."
 
 #: lib/Views/Event.php:41 lib/Views/DeleteEvent.php:40
 #: lib/Views/EditEvent.php:43
 msgid "The requested event was not found."
-msgstr "Belirtilen etkinlik bulunamadı."
+msgstr "Belirtilen etkinlik bulunamadÄ±."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
-msgstr "Geçerli ölçütlere uyan bir etkinlik bulunamadı."
+msgstr "GeÃ§erli Ã¶lÃ§Ã¼tlere uyan bir etkinlik bulunamadÄ±."
 
 #: addeventaction.php:18 edit.php:46 edit.php:68 editeventaction.php:35
 #: add.php:24
 #, php-format
 msgid "There was an error accessing the calendar: %s"
-msgstr "Takvime erişimde hata oluştu: %s."
+msgstr "Takvime eriÅŸimde hata oluÅŸtu: %s."
 
 #: addeventaction.php:34 add.php:44
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "Etkinliğin eklenmesinde hata oluştu: %s."
+msgstr "EtkinliÄŸin eklenmesinde hata oluÅŸtu: %s."
 
 #: edit.php:17 editeventaction.php:82
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Etkinliğin düzenlenmesinde hata oluştu: %s."
+msgstr "EtkinliÄŸin dÃ¼zenlenmesinde hata oluÅŸtu: %s."
 
 #: lib/api.php:383 lib/api.php:641 lib/api.php:927
 msgid "There was an error importing the iCalendar data."
-msgstr "iCalendar verisini içeri aktarılırken hata oluştu."
+msgstr "iCalendar verisini iÃ§eri aktarÄ±lÄ±rken hata oluÅŸtu."
 
 #: edit.php:145 editeventaction.php:62
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr "Etkinliğin aktarımı sırasında hata oluştu: %s"
+msgstr "EtkinliÄŸin aktarÄ±mÄ± sÄ±rasÄ±nda hata oluÅŸtu: %s"
 
 #: lib/Kronolith.php:1481
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "%s'e etkinlik bildiriminin gönderiminde sorun çıktı: %s."
+msgstr "%s'e etkinlik bildiriminin gÃ¶nderiminde sorun Ã§Ä±ktÄ±: %s."
 
 #: data.php:109
 msgid "There were no events to export."
-msgstr "Dışarı aktarılacak bir etkinlik bulunamadı."
+msgstr "DÄ±ÅŸarÄ± aktarÄ±lacak bir etkinlik bulunamadÄ±."
 
 #: lib/Block/month.php:3
 msgid "This Month"
@@ -2106,7 +2106,7 @@ msgstr "Bu takvim silinemez."
 
 #: data.php:200
 msgid "This file format is not supported."
-msgstr "Bu dosya biçimi desteklenmiyor."
+msgstr "Bu dosya biÃ§imi desteklenmiyor."
 
 #: templates/delete/delete.inc:18
 msgid ""
@@ -2114,69 +2114,69 @@ msgid ""
 ">occurrence and all future occurences, or all occurences?"
 msgstr ""
 "Bu tekrar eden bir etkinliktir. Sadece bu etkinlik mi silisin,<br>yoksa "
-"gelecek tüm tekrarları ile beraber mi silinsin?"
+"gelecek tÃ¼m tekrarlarÄ± ile beraber mi silinsin?"
 
 #: templates/edit/edit.inc:36
 msgid ""
 "This is a recurring event. Edit the current event only, this occurrence<br /"
 ">and all future occurences, all occurences, or save this event as new?"
 msgstr ""
-"Bu tekrar eden bir etkinliktir. Sadece seçilen etkinlik ve gelecek tüm "
-"tekrarları , tüm tekrarları düzenlenebilir. Ya da bu, yeni bir etkinlik "
-"olarak saklanabilir. Seçiniz."
+"Bu tekrar eden bir etkinliktir. Sadece seÃ§ilen etkinlik ve gelecek tÃ¼m "
+"tekrarlarÄ± , tÃ¼m tekrarlarÄ± dÃ¼zenlenebilir. Ya da bu, yeni bir etkinlik "
+"olarak saklanabilir. SeÃ§iniz."
 
 #: data.php:272
 #, php-format
 msgid "This is what the server said: %s"
-msgstr "Sunucunun verdiği bilgi: %s"
+msgstr "Sunucunun verdiÄŸi bilgi: %s"
 
 #: templates/month/head.inc:20 templates/edit/javascript.inc:70
 #: templates/view/view.inc:102
 msgid "Thursday"
-msgstr "Perşembe"
+msgstr "PerÅŸembe"
 
 #: templates/search/search.inc:37
 msgid "Time Sp_an:"
-msgstr "Zaman Ar_alığı:"
+msgstr "Zaman Ar_alÄ±ÄŸÄ±:"
 
 #: templates/edit/edit_timespan.inc:4
 msgid "Time span"
-msgstr "Zaman Aralığı"
+msgstr "Zaman AralÄ±ÄŸÄ±"
 
 #: templates/edit/edit.inc:58 templates/search/search_advanced.inc:34
 msgid "Tit_le"
-msgstr "Baş_lık"
+msgstr "BaÅŸ_lÄ±k"
 
 #: data.php:55 templates/search/event_headers.inc:3
 msgid "Title"
-msgstr "Başlık"
+msgstr "BaÅŸlÄ±k"
 
 #: templates/search/search.inc:20
 msgid "Title:"
-msgstr "Başlık:"
+msgstr "BaÅŸlÄ±k:"
 
 #: templates/prefs/sourceselect.inc:322
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Birden fazla alan seçebilmek için, tıklarken Control(PC) yada Command(Mac) "
-"tuşlarını basılı tutun."
+"Birden fazla alan seÃ§ebilmek iÃ§in, tÄ±klarken Control(PC) yada Command(Mac) "
+"tuÅŸlarÄ±nÄ± basÄ±lÄ± tutun."
 
 #: templates/calendar_info.php:17
 msgid ""
 "To subscribe to this calendar from another calendar program, use this URL: "
-msgstr "Bu takvime başka bir uygulamadan üye olmak için; bu URL'i kullanınız: "
+msgstr "Bu takvime baÅŸka bir uygulamadan Ã¼ye olmak iÃ§in; bu URL'i kullanÄ±nÄ±z: "
 
 #: lib/Block/summary.php:140 lib/Block/monthlist.php:132
 #: lib/Block/prevmonthlist.php:125
 msgid "Today"
-msgstr "Bugün"
+msgstr "BugÃ¼n"
 
 #: lib/Block/summary.php:142 lib/Block/monthlist.php:134
 #: lib/Block/prevmonthlist.php:127
 msgid "Tomorrow"
-msgstr "Yarın"
+msgstr "YarÄ±n"
 
 #: templates/edit/edit.inc:236 templates/javascript/goto.js:60
 #: lib/Block/month.php:107 lib/Views/Year.php:78
@@ -2186,11 +2186,11 @@ msgstr "Sa"
 #: templates/month/head.inc:18 templates/edit/javascript.inc:68
 #: templates/view/view.inc:100
 msgid "Tuesday"
-msgstr "Salı"
+msgstr "SalÄ±"
 
 #: config/keywords.php.dist:17
 msgid "Type"
-msgstr "Tür"
+msgstr "TÃ¼r"
 
 #: templates/calendars/calendars.inc:187 lib/Forms/EditRemoteCalendar.php:37
 #: lib/Forms/SubscribeRemoteCalendar.php:37
@@ -2199,7 +2199,7 @@ msgstr "URL"
 
 #: lib/Storage/sql.php:75
 msgid "Unable to connect to SQL server."
-msgstr "SQL sunucusuna bağlanılamıyor."
+msgstr "SQL sunucusuna baÄŸlanÄ±lamÄ±yor."
 
 #: calendars.php:102 lib/Forms/DeleteCalendar.php:62
 #, php-format
@@ -2209,12 +2209,12 @@ msgstr "\"%s\" silinemiyor: %s"
 #: lib/Storage.php:58 lib/Driver.php:206
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s in tanımı yüklenemedi."
+msgstr "%s in tanÄ±mÄ± yÃ¼klenemedi."
 
 #: attendees.php:57
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
-msgstr "\"%s\" bir eposta adresi olarak tanınamadı."
+msgstr "\"%s\" bir eposta adresi olarak tanÄ±namadÄ±."
 
 #: calendars.php:65 lib/Forms/EditCalendar.php:58
 #, php-format
@@ -2224,73 +2224,73 @@ msgstr "\"%s\" yeniden isimlendirilemiyor: %s"
 #: lib/Storage/kolab.php:57
 #, php-format
 msgid "Unable to retrieve free/busy information for %s"
-msgstr "%s için serbest/meşgul bilgisi aktarılamıyor."
+msgstr "%s iÃ§in serbest/meÅŸgul bilgisi aktarÄ±lamÄ±yor."
 
 #: lib/Forms/EditCalendar.php:64
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
-msgstr "Takvim \"%s\" saklanamadı: %s"
+msgstr "Takvim \"%s\" saklanamadÄ±: %s"
 
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:53
 #: templates/view/view.inc:8
 msgid "Unfiled"
-msgstr "Doldurulmamış"
+msgstr "DoldurulmamÄ±ÅŸ"
 
 #: lib/api.php:1215 lib/api.php:1244
 msgid "Unknown calendar protocol"
-msgstr "Bilinmeyen takvim iletişim kuralı"
+msgstr "Bilinmeyen takvim iletiÅŸim kuralÄ±"
 
 #: templates/calendar_list.php:46 lib/Forms/UnsubscribeRemoteCalendar.php:39
 msgid "Unsubscribe"
-msgstr "Üyelikten Çık"
+msgstr "Ãœyelikten Ã‡Ä±k"
 
 #: lib/Forms/UnsubscribeRemoteCalendar.php:34
 #, php-format
 msgid "Unsubscribe from %s"
-msgstr "%s üyeliğinden çık"
+msgstr "%s Ã¼yeliÄŸinden Ã§Ä±k"
 
 #: lib/api.php:456 lib/api.php:695 lib/api.php:751 lib/api.php:814
 #: lib/api.php:947
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Desteklenmeyen İçerik Türü: %s"
+msgstr "Desteklenmeyen Ä°Ã§erik TÃ¼rÃ¼: %s"
 
 #: lib/Block/monthlist.php:3 lib/Block/monthlist.php:46
 msgid "Upcoming Events"
-msgstr "Yaklaşan Etkinlikler"
+msgstr "YaklaÅŸan Etkinlikler"
 
 #: perms.php:256
 #, php-format
 msgid "Updated \"%s\"."
-msgstr "\"%s\" Güncellendi."
+msgstr "\"%s\" GÃ¼ncellendi."
 
 #: lib/Kronolith.php:1420
 #, php-format
 msgid "Updated: %s."
-msgstr "\"%s\": Güncellendi."
+msgstr "\"%s\": GÃ¼ncellendi."
 
 #: config/prefs.php.dist:10
 msgid "User Interface"
-msgstr "Kullanıcı Ara Yüzü"
+msgstr "KullanÄ±cÄ± Ara YÃ¼zÃ¼"
 
 #: templates/perms/perms.inc:256
 msgid "User to add:"
-msgstr "Eklenecek kullanıcı:"
+msgstr "Eklenecek kullanÄ±cÄ±:"
 
 #: lib/Forms/EditRemoteCalendar.php:38
 #: lib/Forms/SubscribeRemoteCalendar.php:38
 msgid "Username"
-msgstr "Kullanıcı Adı"
+msgstr "KullanÄ±cÄ± AdÄ±"
 
 #: lib/Block/month.php:164 lib/Block/month.php:167 lib/Views/Year.php:156
 #: lib/Views/Year.php:162
 msgid "View Day"
-msgstr "Günü Görüntüle"
+msgstr "GÃ¼nÃ¼ GÃ¶rÃ¼ntÃ¼le"
 
 #: templates/edit/edit.inc:237 templates/javascript/goto.js:61
 #: lib/Block/month.php:107 lib/Views/Year.php:79
 msgid "We"
-msgstr "Çrş"
+msgstr "Ã‡rÅŸ"
 
 #: lib/Driver.php:1160 lib/Scheduler/kronolith.php:265
 #, php-format
@@ -2306,7 +2306,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Size yaklaşan şu etkinliği hatırlatmak istiyoruz:\n"
+"Size yaklaÅŸan ÅŸu etkinliÄŸi hatÄ±rlatmak istiyoruz:\n"
 "\n"
 "%s\n"
 "\n"
@@ -2320,7 +2320,7 @@ msgstr ""
 #: templates/month/head.inc:19 templates/edit/javascript.inc:69
 #: templates/view/view.inc:101
 msgid "Wednesday"
-msgstr "Çarşamba"
+msgstr "Ã‡arÅŸamba"
 
 #: attendees.php:172 lib/Kronolith.php:1742 lib/Block/tree_menu.php:23
 #: config/prefs.php.dist:91
@@ -2339,74 +2339,74 @@ msgstr "Hafta"
 
 #: lib/Recurrence.php:193
 msgid "Weekly"
-msgstr "Haftalık"
+msgstr "HaftalÄ±k"
 
 #: templates/edit/edit.inc:232 templates/view/view.inc:106
 msgid "Weekly: Recurs every"
-msgstr "Haftalık: Tekrarlama sıklığı"
+msgstr "HaftalÄ±k: Tekrarlama sÄ±klÄ±ÄŸÄ±"
 
 #: config/prefs.php.dist:132
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"Eğer daha sonrasında bir etkinlik bulunmuyorsa, gün ve hafta görüntüleri "
+"EÄŸer daha sonrasÄ±nda bir etkinlik bulunmuyorsa, gÃ¼n ve hafta gÃ¶rÃ¼ntÃ¼leri "
 "hangi zamanda bitsin."
 
 #: config/prefs.php.dist:123
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"Eğer daha öncesinde bir etkinlik bulunmuyorsa, gün ve hafta görüntüleri "
-"hangi zamanda başlasın."
+"EÄŸer daha Ã¶ncesinde bir etkinlik bulunmuyorsa, gÃ¼n ve hafta gÃ¶rÃ¼ntÃ¼leri "
+"hangi zamanda baÅŸlasÄ±n."
 
 #: config/prefs.php.dist:286
 msgid "Which kind of holidays do you want to get displayed?"
-msgstr "Ne tür tatillerin görüntülenmesini istiyorsunuz?"
+msgstr "Ne tÃ¼r tatillerin gÃ¶rÃ¼ntÃ¼lenmesini istiyorsunuz?"
 
 #: attendees.php:171 lib/Kronolith.php:1740 lib/Block/tree_menu.php:22
 #: config/prefs.php.dist:92
 msgid "Work Week"
-msgstr "Hafta içi"
+msgstr "Hafta iÃ§i"
 
 #: lib/Kronolith.php:1746 lib/Block/tree_menu.php:25
 msgid "Year"
-msgstr "Yıl"
+msgstr "YÄ±l"
 
 #: lib/Recurrence.php:198
 msgid "Yearly"
-msgstr "Yıllık"
+msgstr "YÄ±llÄ±k"
 
 #: templates/edit/edit.inc:258 templates/edit/edit.inc:264
 #: templates/edit/edit.inc:270 templates/view/view.inc:112
 #: templates/view/view.inc:114 templates/view/view.inc:116
 msgid "Yearly: Recurs every"
-msgstr "Yıllık: Tekrar sıklığı"
+msgstr "YÄ±llÄ±k: Tekrar sÄ±klÄ±ÄŸÄ±"
 
 #: calendars.php:54 calendars/edit.php:30
 msgid "You are not allowed to change this calendar."
-msgstr "Bu takvimi değiştirme hakkınız bulunmuyor."
+msgstr "Bu takvimi deÄŸiÅŸtirme hakkÄ±nÄ±z bulunmuyor."
 
 #: addevent.php:17 edit.php:27 data.php:41 data.php:261 editeventaction.php:45
 #: new.php:19
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "%dden fazla etkinlik yaratamazsınız."
+msgstr "%dden fazla etkinlik yaratamazsÄ±nÄ±z."
 
 #: calendars.php:95 calendars/delete.php:37
 msgid "You are not allowed to delete this calendar."
-msgstr "Bu takvimi silme hakkınız bulunmuyor."
+msgstr "Bu takvimi silme hakkÄ±nÄ±z bulunmuyor."
 
 #: lib/api.php:142
 msgid "You are not allowed to remove user data."
-msgstr "Kişi iletişim bilgilerini silme izniniz yok."
+msgstr "KiÅŸi iletiÅŸim bilgilerini silme izniniz yok."
 
 #: attend.php:51
 msgid "You are not an attendee of the specified event."
-msgstr "Belirtilen etkinliğe davetli değilsiniz."
+msgstr "Belirtilen etkinliÄŸe davetli deÄŸilsiniz."
 
 #: templates/contacts/contacts.inc:78
 msgid "You can only use this form from the Edit Attendees screen."
-msgstr "Bu formu sadece Katılımcıları Düzenle sayfasından kullanabilirsiniz."
+msgstr "Bu formu sadece KatÄ±lÄ±mcÄ±larÄ± DÃ¼zenle sayfasÄ±ndan kullanabilirsiniz."
 
 #: lib/Kronolith.php:1369
 #, php-format
@@ -2414,103 +2414,103 @@ msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"Kişisel Bilgiler Seçeneklerinde bir eposta adresi belirtilmemiş.Bir %stane%s "
-"etkinlik duyurusu gönderilmesi için burada belirtilmesi gerekmektedir."
+"KiÅŸisel Bilgiler SeÃ§eneklerinde bir eposta adresi belirtilmemiÅŸ.Bir %stane%s "
+"etkinlik duyurusu gÃ¶nderilmesi iÃ§in burada belirtilmesi gerekmektedir."
 
 #: addeventaction.php:20 add.php:30
 #, php-format
 msgid "You do not have permission to add events to %s."
-msgstr "%s içine etkinlik eklemeye hakkınız yok."
+msgstr "%s iÃ§ine etkinlik eklemeye hakkÄ±nÄ±z yok."
 
 #: data.php:209
 msgid "You do not have permission to add events to the selected calendar."
-msgstr "Seçilmiş takvime etkinlik eklemeye hakkınız bulunamamaktadır."
+msgstr "SeÃ§ilmiÅŸ takvime etkinlik eklemeye hakkÄ±nÄ±z bulunamamaktadÄ±r."
 
 #: edit.php:162 add.php:27
 #, php-format
 msgid "You do not have permission to delegate events to %s."
-msgstr "%s içine etkinlik eklemeye hakkınız yok."
+msgstr "%s iÃ§ine etkinlik eklemeye hakkÄ±nÄ±z yok."
 
 #: delete.php:28 deleventaction.php:26
 msgid "You do not have permission to delete this event."
-msgstr "Bu etkinliği silmeye hakkınız yok."
+msgstr "Bu etkinliÄŸi silmeye hakkÄ±nÄ±z yok."
 
 #: edit.php:165 editeventaction.php:77
 msgid "You do not have permission to edit this event."
-msgstr "Bu etkiniği düzenlemeye hakkınız yok."
+msgstr "Bu etkiniÄŸi dÃ¼zenlemeye hakkÄ±nÄ±z yok."
 
 #: edit.php:159
 msgid "You do not have permission to move this event."
-msgstr "Bu etkiniği taşımaya hakkınız yok."
+msgstr "Bu etkiniÄŸi taÅŸÄ±maya hakkÄ±nÄ±z yok."
 
 #: calendars/remote_subscribe.php:33
 #, php-format
 msgid "You have been subscribed to \"%s\" (%s)."
-msgstr "\"%s\" (%s) üyeliğiniz başladı."
+msgstr "\"%s\" (%s) Ã¼yeliÄŸiniz baÅŸladÄ±."
 
 #: calendars/remote_unsubscribe.php:49
 #, php-format
 msgid "You have been unsubscribed from \"%s\" (%s)."
-msgstr "\"%s\" (%s) üyeliğinden çıktınız."
+msgstr "\"%s\" (%s) Ã¼yeliÄŸinden Ã§Ä±ktÄ±nÄ±z."
 
 #: data.php:206
 msgid "You have specified an invalid calendar."
-msgstr "Geçersiz bir takvim belirttiniz."
+msgstr "GeÃ§ersiz bir takvim belirttiniz."
 
 #: attend.php:23
 msgid "You have successfully accepted attendence to this event."
-msgstr "Başarılı bir şekilde etkinliğe katılımı kabul ettiniz."
+msgstr "BaÅŸarÄ±lÄ± bir ÅŸekilde etkinliÄŸe katÄ±lÄ±mÄ± kabul ettiniz."
 
 #: attend.php:28
 msgid "You have successfully declined attendence to this event."
-msgstr "Başarılı bir şekilde etkinliğe katılımı reddettiniz."
+msgstr "BaÅŸarÄ±lÄ± bir ÅŸekilde etkinliÄŸe katÄ±lÄ±mÄ± reddettiniz."
 
 #: attend.php:33
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Geçici olarak etkinliğe katılımı kabul ettiniz."
+msgstr "GeÃ§ici olarak etkinliÄŸe katÄ±lÄ±mÄ± kabul ettiniz."
 
 #: calendars.php:109
 msgid "You must select a calendar to be deleted."
-msgstr "Silinecek bir takvim seçmelisiniz."
+msgstr "Silinecek bir takvim seÃ§melisiniz."
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
-msgstr "Önce bir adres seçmelisiniz."
+msgstr "Ã–nce bir adres seÃ§melisiniz."
 
 #: templates/calendars/calendars.inc:174
 msgid "You need to select a calendar first"
-msgstr "Önce bir takvim seçmelisiniz."
+msgstr "Ã–nce bir takvim seÃ§melisiniz."
 
 #: lib/Kronolith.php:1586
 msgid "You requested to be notified when events are added to your calendars."
-msgstr "Takviminize etkinlik eklenince bildirimde bulunulmasını istediniz."
+msgstr "Takviminize etkinlik eklenince bildirimde bulunulmasÄ±nÄ± istediniz."
 
 #: lib/Kronolith.php:1596
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
-msgstr "Takviminizden etkinlik silinince bildirimde bulunulmasını istediniz."
+msgstr "Takviminizden etkinlik silinince bildirimde bulunulmasÄ±nÄ± istediniz."
 
 #: lib/Kronolith.php:1591
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr ""
-"Takviminizde bir etkinlik düzenlenince bildirimde bulunulmasını istediniz."
+"Takviminizde bir etkinlik dÃ¼zenlenince bildirimde bulunulmasÄ±nÄ± istediniz."
 
 #: lib/Scheduler/kronolith.php:406 lib/Scheduler/kronolith.php:408
 #, php-format
 msgid "Your daily agenda for %s"
-msgstr "%s için gündeminiz"
+msgstr "%s iÃ§in gÃ¼ndeminiz"
 
 #: templates/prefs/shareselect.inc:10
 msgid "Your default calendar"
-msgstr "Ön tanımlı takviminiz"
+msgstr "Ã–n tanÄ±mlÄ± takviminiz"
 
 #: templates/panel.inc:36
 msgid "[Manage Calendars]"
-msgstr "[Takvimleri Yönet]"
+msgstr "[Takvimleri YÃ¶net]"
 
 #: lib/Driver.php:1408 lib/Driver.php:1424
 msgid "[Unnamed event]"
-msgstr "[İsimsiz etkinlik]"
+msgstr "[Ä°simsiz etkinlik]"
 
 #: templates/edit/edit.inc:132
 msgid "_Alarm"
@@ -2522,7 +2522,7 @@ msgstr "_Basit Arama"
 
 #: viewevent.php:137 lib/Kronolith.php:1775
 msgid "_Edit"
-msgstr "_Düzenle"
+msgstr "_DÃ¼zenle"
 
 #: lib/Kronolith.php:1952
 msgid "_Goto"
@@ -2530,7 +2530,7 @@ msgstr "_Git"
 
 #: lib/Kronolith.php:1958
 msgid "_Import/Export"
-msgstr "İçeri/_Dışarı Aktar"
+msgstr "Ä°Ã§eri/_DÄ±ÅŸarÄ± Aktar"
 
 #: lib/Kronolith.php:1948
 msgid "_New Event"
@@ -2538,7 +2538,7 @@ msgstr "Ye_ni Etkinlik"
 
 #: lib/Kronolith.php:1963
 msgid "_Print"
-msgstr "_Yazdır"
+msgstr "_YazdÄ±r"
 
 #: lib/Kronolith.php:1954
 msgid "_Search"
@@ -2546,7 +2546,7 @@ msgstr "_Arama"
 
 #: lib/Kronolith.php:1943
 msgid "_Today"
-msgstr "_Bugün"
+msgstr "_BugÃ¼n"
 
 #: templates/edit/edit.inc:77
 #, php-format
@@ -2555,27 +2555,27 @@ msgstr "%s de"
 
 #: templates/edit/edit.inc:173
 msgid "before the event starts"
-msgstr "etkinlik başlamadan önce"
+msgstr "etkinlik baÅŸlamadan Ã¶nce"
 
 #: templates/prefs/default_alarm_management.inc:31
 msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr ""
-"etkinlik başlamadan önce.  \"0\" değeri öntanımlı alarm olmadığı anlamını "
-"taşır."
+"etkinlik baÅŸlamadan Ã¶nce.  \"0\" deÄŸeri Ã¶ntanÄ±mlÄ± alarm olmadÄ±ÄŸÄ± anlamÄ±nÄ± "
+"taÅŸÄ±r."
 
 #: config/prefs.php.dist:237
 msgid "day"
-msgstr "gün"
+msgstr "gÃ¼n"
 
 #: templates/edit/edit.inc:227 templates/view/view.inc:96
 msgid "day(s)"
-msgstr "günde bir"
+msgstr "gÃ¼nde bir"
 
 #: config/prefs.php.dist:238 config/prefs.php.dist:239
 #: config/prefs.php.dist:240 config/prefs.php.dist:241
 #: config/prefs.php.dist:242
 msgid "days"
-msgstr "gün"
+msgstr "gÃ¼n"
 
 #: data.php:158 templates/data/export.inc:1
 msgid "events.csv"
@@ -2587,7 +2587,7 @@ msgstr "etkinlik.ics"
 
 #: templates/contacts/contacts.inc:146
 msgid "in"
-msgstr "içinde"
+msgstr "iÃ§inde"
 
 #: templates/edit/edit.inc:247 templates/edit/edit.inc:253
 #: templates/view/view.inc:108 templates/view/view.inc:110
@@ -2601,11 +2601,11 @@ msgstr "%sde %sde"
 
 #: templates/edit/edit.inc:247 templates/view/view.inc:108
 msgid "on the same date"
-msgstr ", ayın aynı gününde"
+msgstr ", ayÄ±n aynÄ± gÃ¼nÃ¼nde"
 
 #: templates/edit/edit.inc:253 templates/view/view.inc:110
 msgid "on the same weekday"
-msgstr ", haftanın aynı günü"
+msgstr ", haftanÄ±n aynÄ± gÃ¼nÃ¼"
 
 #: templates/edit/edit.inc:312
 msgid "recurrences"
@@ -2621,7 +2621,7 @@ msgstr "hafta"
 
 #: templates/edit/edit.inc:234 templates/view/view.inc:106
 msgid "week(s) on:"
-msgstr "haftada bir, haftanın şu günleri:"
+msgstr "haftada bir, haftanÄ±n ÅŸu gÃ¼nleri:"
 
 #: config/prefs.php.dist:244 config/prefs.php.dist:245
 #: config/prefs.php.dist:246
@@ -2630,12 +2630,12 @@ msgstr "haftalar"
 
 #: templates/edit/edit.inc:259 templates/view/view.inc:112
 msgid "year(s) on the same date"
-msgstr "aynı tarihte, yıl(lar)"
+msgstr "aynÄ± tarihte, yÄ±l(lar)"
 
 #: templates/edit/edit.inc:265 templates/view/view.inc:114
 msgid "year(s) on the same day of the year"
-msgstr "yılın aynı günü, yıl(lar)"
+msgstr "yÄ±lÄ±n aynÄ± gÃ¼nÃ¼, yÄ±l(lar)"
 
 #: templates/edit/edit.inc:271 templates/view/view.inc:116
 msgid "year(s) on the same weekday and month of the year"
-msgstr "aynı hafta günü ve ay, yıl(lar)"
+msgstr "aynÄ± hafta gÃ¼nÃ¼ ve ay, yÄ±l(lar)"

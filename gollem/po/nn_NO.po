@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid " to: "
@@ -31,7 +31,7 @@ msgstr "'%s' endra namn til '%s'"
 
 msgid "<b>Note:</b> These settings won't take effect until your next login."
 msgstr ""
-"<b>Merk:</b> Desse endringane vil ikkje setjast i verk før neste innlogging."
+"<b>Merk:</b> Desse endringane vil ikkje setjast i verk fÃ¸r neste innlogging."
 
 msgid "Are you sure?"
 msgstr "Er du sikker?"
@@ -66,7 +66,7 @@ msgid "Checkbox"
 msgstr "Avkryssingboks"
 
 msgid "Cherry"
-msgstr "Kirsebær"
+msgstr "KirsebÃ¦r"
 
 msgid "Chmod Items"
 msgstr "Chmod-element"
@@ -84,7 +84,7 @@ msgid "Default sorting criteria:"
 msgstr "Standard sorteringskriterium:"
 
 msgid "Default sorting direction:"
-msgstr "Standard sorteringsrekkefølgje:"
+msgstr "Standard sorteringsrekkefÃ¸lgje:"
 
 msgid "Delete Items"
 msgstr "Slett element"
@@ -102,7 +102,7 @@ msgid ""
 "Either you have logged in incorrectly or your login has expired. Please "
 "login again."
 msgstr ""
-"Enten logga du inn feil, eller så har økta di gått ut på tid. Logg inn på "
+"Enten logga du inn feil, eller sÃ¥ har Ã¸kta di gÃ¥tt ut pÃ¥ tid. Logg inn pÃ¥ "
 "nytt."
 
 msgid "Error creating new folder: "
@@ -137,10 +137,10 @@ msgid "Gollem is not properly configured"
 msgstr "Gollem er ikkje ordentleg konfigurert"
 
 msgid "Green"
-msgstr "Grøn"
+msgstr "GrÃ¸n"
 
 msgid "Grey"
-msgstr "Grå"
+msgstr "GrÃ¥"
 
 msgid "Group"
 msgstr "Gruppe"
@@ -152,13 +152,13 @@ msgid "Home"
 msgstr "Heim"
 
 msgid "Incorrect number of items."
-msgstr "Feil tal på element."
+msgstr "Feil tal pÃ¥ element."
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "Light Blue"
-msgstr "Lys blå"
+msgstr "Lys blÃ¥"
 
 msgid "Log in"
 msgstr "Logg inn"
@@ -207,7 +207,7 @@ msgid "Please enter the mode in numeric format:"
 msgstr "Skriv inn modus i numerisk format:"
 
 msgid "Please enter the name of the new folder:"
-msgstr "Skriv inn namnet på den nye mappa:"
+msgstr "Skriv inn namnet pÃ¥ den nye mappa:"
 
 msgid "Please provide your password."
 msgstr "Skriv inn ditt passord."
@@ -216,7 +216,7 @@ msgid "Please provide your username."
 msgstr "Skriv inn ditt brukarnamn."
 
 msgid "Please select an item before this action."
-msgstr "Vel eit element før denne handlinga."
+msgstr "Vel eit element fÃ¸r denne handlinga."
 
 msgid "Please specify a file to upload."
 msgstr "Spesifiser ei fil for opplasting."
@@ -237,13 +237,13 @@ msgid "Select your color scheme."
 msgstr "Vel fargeskjema."
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Server"
 msgstr "Tenar"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Vel språk for menyar, forklaringar og hjelp."
+msgstr "Vel sprÃ¥k for menyar, forklaringar og hjelp."
 
 msgid "Size"
 msgstr "Storleik"
@@ -252,13 +252,13 @@ msgid "Some of Gollem's configuration files are missing:"
 msgstr "Nokre av Gollem sine konfigurasjonsfiler manglar:"
 
 msgid "Sort Direction"
-msgstr "Sorteringsrekkefølgje"
+msgstr "SorteringsrekkefÃ¸lgje"
 
 msgid "Sun"
 msgstr "Sol"
 
 msgid "The following items will be permenantly deleted: "
-msgstr "Følgjande element vil bli sletta permanent:"
+msgstr "FÃ¸lgjande element vil bli sletta permanent:"
 
 msgid "There are no files in this directory."
 msgstr "Ingen filer i denne katalogen."
@@ -268,13 +268,13 @@ msgid ""
 "which preferences users can alter."
 msgstr ""
 "Denne fila kontrollerer standardinnstillingane for Gollem, og kontrollerer "
-"også kva innstillingar brukarane kan endre."
+"ogsÃ¥ kva innstillingar brukarane kan endre."
 
 msgid ""
 "This file controls the default settings for Gollem, and also defines the "
 "list of available servers if you are using the server list."
 msgstr ""
-"Denne fila kontrollerer standardvala for Gollem, og definerer også lista "
+"Denne fila kontrollerer standardvala for Gollem, og definerer ogsÃ¥ lista "
 "over tilgjengelege tenarar dersom du brukar tenarlista."
 
 msgid ""
@@ -301,7 +301,7 @@ msgstr "Brukarnamn"
 
 #, c-format
 msgid "Warning: %s requires Javascript to perform certain functions."
-msgstr "Åtvaring: %s krever Javascript for å utføre enkelte funksjonar."
+msgstr "Ã…tvaring: %s krever Javascript for Ã¥ utfÃ¸re enkelte funksjonar."
 
 #, c-format
 msgid "Welcome to %s"
@@ -315,14 +315,14 @@ msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
 msgstr ""
-"Du er logga ut av %s. Takk for at du brukar dette systemet. Om du ønskjer å "
+"Du er logga ut av %s. Takk for at du brukar dette systemet. Om du Ã¸nskjer Ã¥ "
 "logge inn igjen, bruk skjemaet under."
 
 msgid "Your Information"
 msgstr "Din informasjon"
 
 msgid "Your preferred FTP server:"
-msgstr "Føretrekt FTP-tenar:"
+msgstr "FÃ¸retrekt FTP-tenar:"
 
 msgid "[home]"
 msgstr "[heim]"

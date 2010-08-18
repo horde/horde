@@ -1,5 +1,5 @@
 # NAG Traditional Chinese Translation
-# Copyright 2001 David Chang. ±i¨}¤å,¥xÆW
+# Copyright 2001 David Chang. å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2001.
 #
 msgid ""
@@ -11,624 +11,624 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/view/task.inc:35
 #, php-format
 msgid " (%s including sub-tasks)"
-msgstr " (%s ¥]§t¦¸¨Æ¶µ)"
+msgstr " (%s åŒ…å«æ¬¡äº‹é …)"
 
 #: lib/Nag.php:71
 #, php-format
 msgid "%d hour"
-msgstr "%d ®É"
+msgstr "%d æ™‚"
 
 #: lib/Nag.php:73
 #, php-format
 msgid "%d hour, %d minute"
-msgstr "%d ®É, %d ¤À"
+msgstr "%d æ™‚, %d åˆ†"
 
 #: lib/Nag.php:75
 #, php-format
 msgid "%d hour, %d minutes"
-msgstr "%d ®É, %d ¤À"
+msgstr "%d æ™‚, %d åˆ†"
 
 #: lib/Nag.php:63
 #, php-format
 msgid "%d hours"
-msgstr "%d ®É"
+msgstr "%d æ™‚"
 
 #: lib/Nag.php:65
 #, php-format
 msgid "%d hours, %d minute"
-msgstr "%d ®É, %d ¤À"
+msgstr "%d æ™‚, %d åˆ†"
 
 #: lib/Nag.php:67
 #, php-format
 msgid "%d hours, %d minutes"
-msgstr "%d ®É, %d ¤À"
+msgstr "%d æ™‚, %d åˆ†"
 
 #: lib/Nag.php:81
 #, php-format
 msgid "%d minute"
-msgstr "%d ¤À"
+msgstr "%d åˆ†"
 
 #: lib/Nag.php:83
 #, php-format
 msgid "%d minutes"
-msgstr "%d ¤À"
+msgstr "%d åˆ†"
 
 #: lib/Nag.php:364
 #, php-format
 msgid "%s at %s"
-msgstr "%s ¦b %s"
+msgstr "%s åœ¨ %s"
 
 #: lib/Nag.php:590 lib/Block/tree_alarms.php:41 lib/Block/summary.php:106
 #, php-format
 msgid "%s is due in %s"
-msgstr "%s ±N©ó %s «á¨ì´Á"
+msgstr "%s å°‡æ–¼ %s å¾Œåˆ°æœŸ"
 
 #: lib/Nag.php:588 lib/Block/tree_alarms.php:43 lib/Block/summary.php:104
 #, php-format
 msgid "%s is due now."
-msgstr "%s ²{¦b¤w¨ì´Á"
+msgstr "%s ç¾åœ¨å·²åˆ°æœŸ"
 
 #: task.php:231
 #, php-format
 msgid "%s is now incomplete."
-msgstr "%s ²{¦b§ï¬°¥¼§¹¦¨."
+msgstr "%s ç¾åœ¨æ”¹ç‚ºæœªå®Œæˆ."
 
 #: data.php:199
 #, php-format
 msgid "%s successfully imported"
-msgstr "%s ÀÉ¤w¶×¤J§¹¦¨"
+msgstr "%s æª”å·²åŒ¯å…¥å®Œæˆ"
 
 #: lib/Nag.php:516 lib/Forms/DeleteTaskList.php:86
 #, php-format
 msgid "%s's Task List"
-msgstr "%sªº«İ¿ìÃ¯"
+msgstr "%sçš„å¾…è¾¦ç°¿"
 
 #: lib/Nag.php:315 lib/Forms/task.php:58
 msgid "(highest)"
-msgstr "(³Ì°ª)"
+msgstr "(æœ€é«˜)"
 
 #: lib/Nag.php:315 lib/Forms/task.php:59
 msgid "(lowest)"
-msgstr "(³Ì§C)"
+msgstr "(æœ€ä½)"
 
 #: task.php:215
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "±N«İ¿ì¨Æ¶µ %s ³]©w¬°§¹¦¨ª¬ºA®É,¦s¨ú¾D©Ú"
+msgstr "å°‡å¾…è¾¦äº‹é … %s è¨­å®šç‚ºå®Œæˆç‹€æ…‹æ™‚,å­˜å–é­æ‹’"
 
 #: task.php:24
 #, php-format
 msgid "Access denied deleting %s"
-msgstr "§R°£ %s ®É,¦s¨ú¾D©Ú"
+msgstr "åˆªé™¤ %s æ™‚,å­˜å–é­æ‹’"
 
 #: task.php:84 task.php:90
 msgid "Access denied editing task."
-msgstr "½s¿è«İ¿ì¨Æ¶µ®É,¦s¨ú¾D©Ú."
+msgstr "ç·¨è¼¯å¾…è¾¦äº‹é …æ™‚,å­˜å–é­æ‹’."
 
 #: task.php:82
 #, php-format
 msgid "Access denied editing task: %s"
-msgstr "½s¿è«İ¿ì¨Æ¶µ: %s ®É,¦s¨ú¾D©Ú."
+msgstr "ç·¨è¼¯å¾…è¾¦äº‹é …: %s æ™‚,å­˜å–é­æ‹’."
 
 #: task.php:163
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "±N«İ¿ì¨Æ¶µ·h²¾¨ì %s ®É,¦s¨ú¾D©Ú."
+msgstr "å°‡å¾…è¾¦äº‹é …æ¬ç§»åˆ° %s æ™‚,å­˜å–é­æ‹’."
 
 #: task.php:166
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "±N«İ¿ì¨Æ¶µ¦Û %s ²¾°£®É,¦s¨ú¾D©Ú."
+msgstr "å°‡å¾…è¾¦äº‹é …è‡ª %s ç§»é™¤æ™‚,å­˜å–é­æ‹’."
 
 #: task.php:125
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "±N«İ¿ì¨Æ¶µÀx¦s¨ì %s ®É,¦s¨ú¾D©Ú."
+msgstr "å°‡å¾…è¾¦äº‹é …å„²å­˜åˆ° %s æ™‚,å­˜å–é­æ‹’."
 
 #: task.php:121
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "Àx¦s«İ¿ì¨Æ¶µ: %s ®É,¦s¨ú¾D©Ú."
+msgstr "å„²å­˜å¾…è¾¦äº‹é …: %s æ™‚,å­˜å–é­æ‹’."
 
 #: templates/view/task.inc:26 lib/Forms/task.php:88
 msgid "Alarm"
-msgstr "Äµ¥Ü"
+msgstr "è­¦ç¤º"
 
 #: config/prefs.php.dist:200
 msgid "All tasks"
-msgstr "¥ş³¡"
+msgstr "å…¨éƒ¨"
 
 #: lib/Block/summary.php:63
 msgid "Always show completed tasks?"
-msgstr "¥Ã»·Åã¥Ü¤w§¹¦¨ªº¨Æ¶µ?"
+msgstr "æ°¸é é¡¯ç¤ºå·²å®Œæˆçš„äº‹é …?"
 
 #: lib/Block/summary.php:60
 msgid "Always show overdue tasks?"
-msgstr "¥Ã»·Åã¥Ü¹L´Á¨Æ¶µ?"
+msgstr "æ°¸é é¡¯ç¤ºéæœŸäº‹é …?"
 
 #: config/prefs.php.dist:117
 msgid "Ascending"
-msgstr "¤W¤É"
+msgstr "ä¸Šå‡"
 
 #: lib/Block/summary.php:39
 msgid "Block title"
-msgstr "°Ï¶ô¼ĞÃD"
+msgstr "å€å¡Šæ¨™é¡Œ"
 
 #: data.php:30
 msgid "CSV"
-msgstr "³rÂI¤À¹j®æ¦¡ .csv"
+msgstr "é€—é»åˆ†éš”æ ¼å¼ .csv"
 
 #: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
 msgid "Calendar"
-msgstr "¦æ¨Æ¾ä"
+msgstr "è¡Œäº‹æ›†"
 
 #: lib/Forms/DeleteTaskList.php:45 lib/Forms/DeleteTaskList.php:51
 msgid "Cancel"
-msgstr "¨ú®ø"
+msgstr "å–æ¶ˆ"
 
 #: templates/list/task_headers.inc:53
 msgid "Cat_egory"
-msgstr "¤ÀÃş_e"
+msgstr "åˆ†é¡_e"
 
 #: data.php:54 templates/view/task.inc:8 lib/Forms/task.php:76
 #: lib/Forms/task.php:82 config/prefs.php.dist:89 config/prefs.php.dist:104
 msgid "Category"
-msgstr "¤ÀÃş"
+msgstr "åˆ†é¡"
 
 #: tasklists/index.php:56 templates/tasklist_list.php:35
 msgid "Change Permissions"
-msgstr "ÅÜ§ó¦s¨ú¼Ò¦¡"
+msgstr "è®Šæ›´å­˜å–æ¨¡å¼"
 
 #: config/prefs.php.dist:14
 msgid "Change your task sorting and display options."
-msgstr "ÅÜ§ó§Aªº«İ¿ì¨Æ¶µ±Æ§Ç¤è¦¡¥H¤ÎÅã¥Ü¿ï¶µ."
+msgstr "è®Šæ›´ä½ çš„å¾…è¾¦äº‹é …æ’åºæ–¹å¼ä»¥åŠé¡¯ç¤ºé¸é …."
 
 #: config/prefs.php.dist:179
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr "§A¥´ºâ¥H¦óºØ¤è¦¡±µ¨ü¨Ó¦Û«İ¿ì¨Æ¶µªºÄµ¥Ü:"
+msgstr "ä½ æ‰“ç®—ä»¥ä½•ç¨®æ–¹å¼æ¥å—ä¾†è‡ªå¾…è¾¦äº‹é …çš„è­¦ç¤º:"
 
 #: config/prefs.php.dist:170
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
-msgstr "«İ¿ìÃ¯³Q·s¼W, ½s¿è, »P§R°£¨Æ¶µ®É¬O§_¥H¶l¥ó³qª¾§Ú?"
+msgstr "å¾…è¾¦ç°¿è¢«æ–°å¢, ç·¨è¼¯, èˆ‡åˆªé™¤äº‹é …æ™‚æ˜¯å¦ä»¥éƒµä»¶é€šçŸ¥æˆ‘?"
 
 #: config/prefs.php.dist:42
 msgid "Choose if you want to be notified of task changes and task alarms."
-msgstr "³]©w¨Æ¶µÄµ¥Ü»PÅÜ§ó³qª¾."
+msgstr "è¨­å®šäº‹é …è­¦ç¤ºèˆ‡è®Šæ›´é€šçŸ¥."
 
 #: config/prefs.php.dist:35
 msgid "Choose your default task list."
-msgstr "¿ï¾Ü§Aªº¹w³]«İ¿ìÃ¯."
+msgstr "é¸æ“‡ä½ çš„é è¨­å¾…è¾¦ç°¿."
 
 #: templates/tasklist_list.php:31 templates/tasklist_list.php:32
 msgid "Click or copy this URL to display this task list"
-msgstr "ÂI¿ï©Î½Æ»s¦¹ºô§}¥H«KÅã¥Ü«İ¿ìÃ¯"
+msgstr "é»é¸æˆ–è¤‡è£½æ­¤ç¶²å€ä»¥ä¾¿é¡¯ç¤ºå¾…è¾¦ç°¿"
 
 #: templates/panel.inc:43
 msgid "Close"
-msgstr "Ãö³¬"
+msgstr "é—œé–‰"
 
 #: templates/list/header.inc:8
 msgid "Close Search"
-msgstr "Ãö³¬·j´M"
+msgstr "é—œé–‰æœå°‹"
 
 #: view.php:99
 msgid "Complete"
-msgstr "§¹¦¨"
+msgstr "å®Œæˆ"
 
 #: templates/list/task_summaries.inc:11 lib/Block/summary.php:175
 #, php-format
 msgid "Complete \"%s\""
-msgstr "§¹¦¨ \"%s\""
+msgstr "å®Œæˆ \"%s\""
 
 #: templates/view/task.inc:42
 msgid "Complete Task"
-msgstr "¼Ğ°O¬°§¹¦¨"
+msgstr "æ¨™è¨˜ç‚ºå®Œæˆ"
 
 #: config/prefs.php.dist:202
 msgid "Complete tasks"
-msgstr "¤w§¹¦¨"
+msgstr "å·²å®Œæˆ"
 
 #: lib/Nag.php:379 lib/Block/summary.php:173
 msgid "Completed"
-msgstr "¤w§¹¦¨"
+msgstr "å·²å®Œæˆ"
 
 #: task.php:229
 #, php-format
 msgid "Completed %s."
-msgstr "¤w§¹¦¨ %s."
+msgstr "å·²å®Œæˆ %s."
 
 #: templates/search/search.inc:27
 msgid "Completed Tasks"
-msgstr "¤w§¹¦¨"
+msgstr "å·²å®Œæˆ"
 
 #: templates/list/task_summaries.inc:16
 msgid "Completed parent task, mark it as incomplete first"
-msgstr "¤÷¨Æ¶µ¬°§¹¦¨ª¬ºA, ½Ğ¥ı±N¥¦¼Ğ¥Ü¬°¥¼§¹¦¨"
+msgstr "çˆ¶äº‹é …ç‚ºå®Œæˆç‹€æ…‹, è«‹å…ˆå°‡å®ƒæ¨™ç¤ºç‚ºæœªå®Œæˆ"
 
 #: templates/view/task.inc:38 templates/list/task_headers.inc:31
 #: lib/Forms/task.php:94 config/prefs.php.dist:91 config/prefs.php.dist:106
 msgid "Completed?"
-msgstr "¬O§_§¹¦¨?"
+msgstr "æ˜¯å¦å®Œæˆ?"
 
 #: data.php:58
 msgid "Completion Status"
-msgstr "§¹¦¨ª¬ºA"
+msgstr "å®Œæˆç‹€æ…‹"
 
 #: lib/api.php:317 lib/api.php:544
 #, php-format
 msgid "Connection failed: %s"
-msgstr "³sµ²¥¢±Ñ: %s"
+msgstr "é€£çµå¤±æ•—: %s"
 
 #: lib/Forms/CreateTaskList.php:39
 msgid "Create"
-msgstr "«Ø¥ß"
+msgstr "å»ºç«‹"
 
 #: lib/Forms/CreateTaskList.php:34
 msgid "Create Task List"
-msgstr "«Ø¥ß«İ¿ìÃ¯"
+msgstr "å»ºç«‹å¾…è¾¦ç°¿"
 
 #: templates/tasklist_list.php:8
 msgid "Create a new Task List"
-msgstr "«Ø¥ß·s«İ¿ìÃ¯"
+msgstr "å»ºç«‹æ–°å¾…è¾¦ç°¿"
 
 #: templates/view/task.inc:57
 msgid "Created"
-msgstr "«Ø¥ß"
+msgstr "å»ºç«‹"
 
 #: lib/UI/VarRenderer/nag.php:51 lib/UI/VarRenderer/nag.php:100
 msgid "Day"
-msgstr "¤Ñ"
+msgstr "å¤©"
 
 #: lib/Nag.php:411 lib/UI/VarRenderer/nag.php:136
 msgid "Day(s)"
-msgstr "¤Ñ"
+msgstr "å¤©"
 
 #: config/prefs.php.dist:34
 msgid "Default Task List"
-msgstr "¹w³]«İ¿ìÃ¯"
+msgstr "é è¨­å¾…è¾¦ç°¿"
 
 #: config/prefs.php.dist:28
 msgid "Defaults for new tasks"
-msgstr "·s¼W¨Æ¶µ®Éªº¹w³]¸ê®Æ"
+msgstr "æ–°å¢äº‹é …æ™‚çš„é è¨­è³‡æ–™"
 
 #: lib/Forms/task.php:87
 msgid "Delay Start Until"
-msgstr "©µ«á¨ì³o­Ó¤é´Á¤~¶}©l"
+msgstr "å»¶å¾Œåˆ°é€™å€‹æ—¥æœŸæ‰é–‹å§‹"
 
 #: view.php:106 tasklists/index.php:57 templates/tasklist_list.php:37
 #: lib/Forms/DeleteTaskList.php:45
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: lib/Forms/DeleteTaskList.php:40
 #, php-format
 msgid "Delete %s"
-msgstr "§R°£ %s"
+msgstr "åˆªé™¤ %s"
 
 #: config/prefs.php.dist:20
 msgid "Delete Confirmation"
-msgstr "§R°£½T»{"
+msgstr "åˆªé™¤ç¢ºèª"
 
 #: config/prefs.php.dist:21
 msgid "Delete button behaviour"
-msgstr "§R°£«ö¶sªº¦æ¬°"
+msgstr "åˆªé™¤æŒ‰éˆ•çš„è¡Œç‚º"
 
 #: task.php:105 lib/Forms/task.php:99
 msgid "Delete this task"
-msgstr "§R°£³o­Ó¨Æ¶µ"
+msgstr "åˆªé™¤é€™å€‹äº‹é …"
 
 #: task.php:32
 #, php-format
 msgid "Deleted %s."
-msgstr "¤w§R°£ %s."
+msgstr "å·²åˆªé™¤ %s."
 
 #: config/prefs.php.dist:118
 msgid "Descending"
-msgstr "¤U­°"
+msgstr "ä¸‹é™"
 
 #: data.php:53 lib/Forms/task.php:95 lib/Forms/CreateTaskList.php:37
 #: lib/Forms/EditTaskList.php:44
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: config/prefs.php.dist:13
 msgid "Display Options"
-msgstr "Åã¥Ü¿ï¶µ"
+msgstr "é¡¯ç¤ºé¸é …"
 
 #: templates/tasklist_list.php:16
 msgid "Display URL"
-msgstr "Åã¥Üºô§}"
+msgstr "é¡¯ç¤ºç¶²å€"
 
 #: config/prefs.php.dist:128
 msgid "Do you want to confirm deleting entries?"
-msgstr "§R°£¨Æ¶µ®É»İ­n½T»{?"
+msgstr "åˆªé™¤äº‹é …æ™‚éœ€è¦ç¢ºèª?"
 
 #: data.php:55 templates/view/task.inc:22 lib/Forms/task.php:86
 msgid "Due By"
-msgstr "¦³®Ä´Á"
+msgstr "æœ‰æ•ˆæœŸ"
 
 #: config/prefs.php.dist:90 config/prefs.php.dist:105
 msgid "Due Date"
-msgstr "¦³®Ä´Á"
+msgstr "æœ‰æ•ˆæœŸ"
 
 #: lib/UI/VarRenderer/nag.php:99
 msgid "Due date specified."
-msgstr "¤w«ü©w¦³®Ä´Á."
+msgstr "å·²æŒ‡å®šæœ‰æ•ˆæœŸ."
 
 #: view.php:102 tasklists/index.php:55 templates/tasklist_list.php:33
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: templates/list/task_summaries.inc:38 lib/Block/summary.php:166
 #, php-format
 msgid "Edit \"%s\""
-msgstr "½s¿è \"%s\""
+msgstr "ç·¨è¼¯ \"%s\""
 
 #: lib/Forms/EditTaskList.php:40
 #, php-format
 msgid "Edit %s"
-msgstr "½s¿è %s"
+msgstr "ç·¨è¼¯ %s"
 
 #: templates/list/task_headers.inc:42
 msgid "Edit Task"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: templates/list/task_headers.inc:58
 msgid "Edit categories and colors"
-msgstr "½s¿è¤ÀÃş»PÃC¦â"
+msgstr "ç·¨è¼¯åˆ†é¡èˆ‡é¡è‰²"
 
 #: task.php:95 task.php:109
 #, php-format
 msgid "Edit: %s"
-msgstr "½s¿è: %s"
+msgstr "ç·¨è¼¯: %s"
 
 #: task.php:19
 #, php-format
 msgid "Error deleting task: %s"
-msgstr "§R°£¨Æ¶µ®Éµo¥Í¿ù»~: %s"
+msgstr "åˆªé™¤äº‹é …æ™‚ç™¼ç”ŸéŒ¯èª¤: %s"
 
 #: templates/view/task.inc:34 lib/Forms/task.php:93
 msgid "Estimated Time"
-msgstr "¹w¦ô®É¶¡"
+msgstr "é ä¼°æ™‚é–“"
 
 #: templates/data/export.inc:17
 msgid "Export"
-msgstr "¶×¥X"
+msgstr "åŒ¯å‡º"
 
 #: templates/data/export.inc:6
 msgid "Export Tasks"
-msgstr "¶×¥X«İ¿ì¨Æ¶µ"
+msgstr "åŒ¯å‡ºå¾…è¾¦äº‹é …"
 
 #: config/prefs.php.dist:56
 msgid "External Data"
-msgstr "¥~³¡¸ê®Æ"
+msgstr "å¤–éƒ¨è³‡æ–™"
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
 msgid "General Options"
-msgstr "¤@¯ë¿ï¶µ"
+msgstr "ä¸€èˆ¬é¸é …"
 
 #: lib/UI/VarRenderer/nag.php:111
 msgid "Hour"
-msgstr "®É"
+msgstr "æ™‚"
 
 #: lib/Nag.php:414 lib/UI/VarRenderer/nag.php:135
 msgid "Hour(s)"
-msgstr "®É"
+msgstr "æ™‚"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "¶×¤J«İ¿ì¨Æ¶µ,¨BÆJ %d"
+msgstr "åŒ¯å…¥å¾…è¾¦äº‹é …,æ­¥é©Ÿ %d"
 
 #: data.php:205
 msgid "Import/Export Tasks"
-msgstr "¶×¤J/¶×¥X«İ¿ì¨Æ¶µ"
+msgstr "åŒ¯å…¥/åŒ¯å‡ºå¾…è¾¦äº‹é …"
 
 #: list.php:112
 msgid "Incom_plete tasks"
-msgstr "¥¼§¹¦¨_p"
+msgstr "æœªå®Œæˆ_p"
 
 #: templates/search/search.inc:26
 msgid "Incomplete Tasks"
-msgstr "¥¼§¹¦¨"
+msgstr "æœªå®Œæˆ"
 
 #: templates/list/task_summaries.inc:8
 msgid "Incomplete sub tasks, complete them first"
-msgstr "½Ğ¥ı±N¦¸¨Æ¶µ§¹¦¨"
+msgstr "è«‹å…ˆå°‡æ¬¡äº‹é …å®Œæˆ"
 
 #: config/prefs.php.dist:201
 msgid "Incomplete tasks"
-msgstr "¥¼§¹¦¨"
+msgstr "æœªå®Œæˆ"
 
 #: templates/view/task.inc:64
 msgid "Last Modified"
-msgstr "³Ìªñ¤@¦¸§ó·s"
+msgstr "æœ€è¿‘ä¸€æ¬¡æ›´æ–°"
 
 #: tasklists/index.php:61 templates/tasklist_list.php:2
 msgid "Manage Task Lists"
-msgstr "[ºŞ²z«İ¿ìÃ¯]"
+msgstr "[ç®¡ç†å¾…è¾¦ç°¿]"
 
 #: templates/list/task_summaries.inc:19
 #, php-format
 msgid "Mark \"%s\" as incomplete"
-msgstr "±N \"%s\" ¼Ğ°O¬°¥¼§¹¦¨"
+msgstr "å°‡ \"%s\" æ¨™è¨˜ç‚ºæœªå®Œæˆ"
 
 #: templates/view/task.inc:44
 msgid "Mark as incomplete"
-msgstr "¼Ğ°O¬°¥¼§¹¦¨"
+msgstr "æ¨™è¨˜ç‚ºæœªå®Œæˆ"
 
 #: lib/api.php:120
 msgid "Maximum Number of Tasks"
-msgstr "«İ¿ì¨Æ¶µ¤W­­¼Æ¥Ø"
+msgstr "å¾…è¾¦äº‹é …ä¸Šé™æ•¸ç›®"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "¥Ø¿ıÄµ¥Ü"
+msgstr "ç›®éŒ„è­¦ç¤º"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "¥\¯àªí"
+msgstr "åŠŸèƒ½è¡¨"
 
 #: lib/UI/VarRenderer/nag.php:112
 msgid "Minute"
-msgstr "¤ÀÄÁ"
+msgstr "åˆ†é˜"
 
 #: lib/Nag.php:417 lib/UI/VarRenderer/nag.php:135
 msgid "Minute(s)"
-msgstr "¤ÀÄÁ"
+msgstr "åˆ†é˜"
 
 #: lib/UI/VarRenderer/nag.php:52 lib/UI/VarRenderer/nag.php:101
 msgid "Month"
-msgstr "¤ë"
+msgstr "æœˆ"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
-msgstr "§ó¦h¿ï¶µ..."
+msgstr "æ›´å¤šé¸é …..."
 
 #: lib/api.php:1001
 msgid "Multiple iCalendar components found; only one vTodo is supported."
-msgstr "µo²{¦h­Ó iCalendar ¤¸¥ó; ¶È¥u¤ä´© vTodo."
+msgstr "ç™¼ç¾å¤šå€‹ iCalendar å…ƒä»¶; åƒ…åªæ”¯æ´ vTodo."
 
 #: templates/panel.inc:70
 msgid "My Task Lists:"
-msgstr "§Úªº«İ¿ìÃ¯:"
+msgstr "æˆ‘çš„å¾…è¾¦ç°¿:"
 
 #: list.php:34
 msgid "My Tasks"
-msgstr "§Úªº¨Æ¶µ"
+msgstr "æˆ‘çš„äº‹é …"
 
 #: templates/search/search.inc:18
 msgid "N_ame"
-msgstr "¦WºÙ_a"
+msgstr "åç¨±_a"
 
 #: templates/list/task_headers.inc:45
 msgid "Na_me"
-msgstr "¦WºÙ_m"
+msgstr "åç¨±_m"
 
 #: lib/Driver/kolab.php:741
 #, php-format
 msgid "Nag/kolab: Did not find task %s"
-msgstr "Nag/kolab: §ä¤£¨ì¨Æ¶µ %s."
+msgstr "Nag/kolab: æ‰¾ä¸åˆ°äº‹é … %s."
 
 #: data.php:52 lib/Forms/task.php:65 lib/Forms/CreateTaskList.php:36
 #: lib/Forms/EditTaskList.php:43
 msgid "Name"
-msgstr "¦WºÙ"
+msgstr "åç¨±"
 
 #: task.php:74 task.php:109 lib/Block/tree_menu.php:26
 msgid "New Task"
-msgstr "·s¼W"
+msgstr "æ–°å¢"
 
 #: templates/data/import.inc:39
 msgid "Next"
-msgstr "¤U¤@¨B"
+msgstr "ä¸‹ä¸€æ­¥"
 
 #: config/prefs.php.dist:166
 msgid "No"
-msgstr "§_"
+msgstr "å¦"
 
 #: lib/UI/VarRenderer/nag.php:46
 msgid "No delay"
-msgstr "¤£©µ«á"
+msgstr "ä¸å»¶å¾Œ"
 
 #: lib/UI/VarRenderer/nag.php:95
 msgid "No due date."
-msgstr "¥Ã»·."
+msgstr "æ°¸é ."
 
 #: lib/api.php:405 lib/api.php:724 lib/api.php:782 lib/api.php:994
 msgid "No iCalendar data was found."
-msgstr "§ä¤£¨ì iCalendar ¸ê®Æ."
+msgstr "æ‰¾ä¸åˆ° iCalendar è³‡æ–™."
 
 #: lib/Forms/task.php:50
 msgid "No parent task"
-msgstr "¨S¦³¤÷¨Æ¶µ"
+msgstr "æ²’æœ‰çˆ¶äº‹é …"
 
 #: lib/Nag.php:605
 msgid "No task lists are available to guests."
-msgstr "¤£´£¨Ñ«İ¿ìÃ¯µ¹¨Ó»«¨Ï¥Î."
+msgstr "ä¸æä¾›å¾…è¾¦ç°¿çµ¦ä¾†è³“ä½¿ç”¨."
 
 #: templates/list/task_footers.inc:5
 msgid "No tasks match"
-msgstr "¨S¦³¨Æ¶µ²Å¦X"
+msgstr "æ²’æœ‰äº‹é …ç¬¦åˆ"
 
 #: lib/Block/summary.php:229
 msgid "No tasks to display"
-msgstr "¨S¦³«İ¿ì¨Æ¶µ."
+msgstr "æ²’æœ‰å¾…è¾¦äº‹é …."
 
 #: lib/Nag.php:421 lib/UI/VarRenderer/nag.php:151
 msgid "None"
-msgstr "µL"
+msgstr "ç„¡"
 
 #: lib/Nag.php:380
 msgid "Not Completed"
-msgstr "¥¼§¹¦¨"
+msgstr "æœªå®Œæˆ"
 
 #: templates/view/task.inc:14
 msgid "Not Private"
-msgstr "«D¨p¤H"
+msgstr "éç§äºº"
 
 #: lib/Driver/sql.php:100 lib/Driver/sql.php:136
 msgid "Not found"
-msgstr "§ä¤£¨ì"
+msgstr "æ‰¾ä¸åˆ°"
 
 #: config/prefs.php.dist:41
 msgid "Notifications"
-msgstr "³qª¾¿ï¶µ"
+msgstr "é€šçŸ¥é¸é …"
 
 #: config/prefs.php.dist:168
 msgid "On all shown tasklists"
-msgstr "©Ò¦³Åã¥Ü¤¤ªº«İ¿ìÃ¯"
+msgstr "æ‰€æœ‰é¡¯ç¤ºä¸­çš„å¾…è¾¦ç°¿"
 
 #: config/prefs.php.dist:169
 msgid "On all tasklists I have read access to"
-msgstr "©Ò¦³§Ú¥i¥HÅª¨úªº«İ¿ìÃ¯"
+msgstr "æ‰€æœ‰æˆ‘å¯ä»¥è®€å–çš„å¾…è¾¦ç°¿"
 
 #: config/prefs.php.dist:167
 msgid "On my tasklists only"
-msgstr "¥u­­©ó§Úªº«İ¿ìÃ¯"
+msgstr "åªé™æ–¼æˆ‘çš„å¾…è¾¦ç°¿"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
-msgstr "Àu¥ı_r"
+msgstr "å„ªå…ˆ_r"
 
 #: lib/Forms/task.php:72
 msgid "Parent task"
-msgstr "¤÷¨Æ¶µ"
+msgstr "çˆ¶äº‹é …"
 
 #: lib/api.php:591 lib/api.php:629 lib/api.php:662 lib/api.php:698
 #: lib/api.php:820 lib/api.php:875 lib/api.php:939 lib/api.php:976
 #: lib/api.php:1087 lib/api.php:1134
 msgid "Permission Denied"
-msgstr "¦s¨ú¾D©Ú"
+msgstr "å­˜å–é­æ‹’"
 
 #: lib/api.php:178 lib/Forms/DeleteTaskList.php:56
 msgid "Permission denied"
-msgstr "¦s¨ú¾D©Ú"
+msgstr "å­˜å–é­æ‹’"
 
 #: data.php:57 templates/view/task.inc:30 lib/Forms/task.php:90
 #: config/prefs.php.dist:87 config/prefs.php.dist:102
 msgid "Priority"
-msgstr "Àu¥ı¶¶§Ç"
+msgstr "å„ªå…ˆé †åº"
 
 #: templates/view/task.inc:14 lib/Driver.php:907
 msgid "Private"
-msgstr "¨p¤H"
+msgstr "ç§äºº"
 
 #: lib/Driver.php:905
 msgid "Private Task"
-msgstr "¨p¤H«İ¿ì¨Æ¶µ"
+msgstr "ç§äººå¾…è¾¦äº‹é …"
 
 #: templates/view/task.inc:12 lib/Forms/task.php:85
 msgid "Private?"
-msgstr "¨p¤H?"
+msgstr "ç§äºº?"
 
 #: lib/Forms/DeleteTaskList.php:43
 #, php-format
@@ -636,384 +636,384 @@ msgid ""
 "Really delete the task list \"%s\"? This cannot be undone and all data on "
 "this task list will be permanently removed."
 msgstr ""
-"¯uªº­n§R°£¦¹«İ¿ìÃ¯ \"%s\"¶Ü? ³o¶µ¾Ş§@±NµLªk«ì´_¦Ó¥B¸Ó«İ¿ìÃ¯¤¤ªº¨Æ¶µ¥ç±N¥Ã»·®ø"
-"¥¢."
+"çœŸçš„è¦åˆªé™¤æ­¤å¾…è¾¦ç°¿ \"%s\"å—? é€™é …æ“ä½œå°‡ç„¡æ³•æ¢å¾©è€Œä¸”è©²å¾…è¾¦ç°¿ä¸­çš„äº‹é …äº¦å°‡æ°¸é æ¶ˆ"
+"å¤±."
 
 #: view.php:106
 msgid "Really delete this task?"
-msgstr "½T©w§R°£¦¹¨Æ¶µ?"
+msgstr "ç¢ºå®šåˆªé™¤æ­¤äº‹é …?"
 
 #: templates/panel.inc:88 lib/Forms/task.php:97 lib/Forms/EditTaskList.php:46
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: task.php:194
 #, php-format
 msgid "Saved %s."
-msgstr "Àx¦s %s."
+msgstr "å„²å­˜ %s."
 
 #: search.php:14 templates/search/search.inc:31 templates/list/header.inc:4
 #: lib/Block/tree_menu.php:46
 msgid "Search"
-msgstr "·j´M"
+msgstr "æœå°‹"
 
 #: templates/search/search.inc:17
 msgid "Search In:"
-msgstr "·j´MÄæ¦ì:"
+msgstr "æœå°‹æ¬„ä½:"
 
 #: templates/search/search.inc:12
 msgid "Search _Text:"
-msgstr "·j´M¤º®e_T:"
+msgstr "æœå°‹å…§å®¹_T:"
 
 #: templates/panel.inc:58
 msgid "Search for Task Lists:"
-msgstr "·j´M«İ¿ìÃ¯:"
+msgstr "æœå°‹å¾…è¾¦ç°¿:"
 
 #: templates/search/search.inc:24
 msgid "Search:"
-msgstr "·j´M:"
+msgstr "æœå°‹:"
 
 #: list.php:73
 #, php-format
 msgid "Search: Results for \"%s\""
-msgstr "·j´M: \"%s\" ªºµ²ªG"
+msgstr "æœå°‹: \"%s\" çš„çµæœ"
 
 #: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
 msgid "Select a date"
-msgstr "¿ï¾Ü¤@­Ó¤é´Á"
+msgstr "é¸æ“‡ä¸€å€‹æ—¥æœŸ"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "¿ï¾Ü¶×¥X®æ¦¡:"
+msgstr "é¸æ“‡åŒ¯å‡ºæ ¼å¼:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "¿ï¾Ü¶×¤JÀÉ®×:"
+msgstr "é¸æ“‡åŒ¯å…¥æª”æ¡ˆ:"
 
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
-msgstr "¿ï¾Ü¨Ó·½ÀÉ®×®æ¦¡:"
+msgstr "é¸æ“‡ä¾†æºæª”æ¡ˆæ ¼å¼:"
 
 #: templates/panel.inc:79
 msgid "Shared Task Lists:"
-msgstr "¤w¦@¨Éªº«İ¿ìÃ¯:"
+msgstr "å·²å…±äº«çš„å¾…è¾¦ç°¿:"
 
 #: config/prefs.php.dist:68
 msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "¦b²M³æÀËµøµe­±¤¤Åã¥Ü©ÒÄİªº¥N¿ìÃ¯¦WºÙ?"
+msgstr "åœ¨æ¸…å–®æª¢è¦–ç•«é¢ä¸­é¡¯ç¤ºæ‰€å±¬çš„ä»£è¾¦ç°¿åç¨±?"
 
 #: lib/Block/summary.php:45
 msgid "Show action buttons?"
-msgstr "Åã¥Ü§@¥Î«ö¶s?"
+msgstr "é¡¯ç¤ºä½œç”¨æŒ‰éˆ•?"
 
 #: config/prefs.php.dist:203
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "Åã¥Ü¤w§¹¦¨,¥¼§¹¦¨¨Æ¶µ©ó²M³æ¤¤?"
+msgstr "é¡¯ç¤ºå·²å®Œæˆ,æœªå®Œæˆäº‹é …æ–¼æ¸…å–®ä¸­?"
 
 #: config/prefs.php.dist:190
 msgid "Show data from any of these other applications in your task list?"
-msgstr "Åã¥Ü«İ¿ìÃ¯¤¤¨ä¥LÀ³¥Îµ{¦¡ªº¸ê®Æ?"
+msgstr "é¡¯ç¤ºå¾…è¾¦ç°¿ä¸­å…¶ä»–æ‡‰ç”¨ç¨‹å¼çš„è³‡æ–™?"
 
 #: config/prefs.php.dist:57
 msgid "Show data from other applications or sources."
-msgstr "Åã¥Ü¨ä¥LÀ³¥Îµ{¦¡©Î¨Ó·½ªº¸ê®Æ."
+msgstr "é¡¯ç¤ºå…¶ä»–æ‡‰ç”¨ç¨‹å¼æˆ–ä¾†æºçš„è³‡æ–™."
 
 #: lib/Block/summary.php:48
 msgid "Show due dates?"
-msgstr "Åã¥Ü¨ì´Á¤é?"
+msgstr "é¡¯ç¤ºåˆ°æœŸæ—¥?"
 
 #: lib/Block/summary.php:42
 msgid "Show priorities?"
-msgstr "Åã¥ÜÀu¥ı?"
+msgstr "é¡¯ç¤ºå„ªå…ˆ?"
 
 #: lib/Block/summary.php:54
 msgid "Show task alarms?"
-msgstr "Åã¥ÜÄµ¥Ü?"
+msgstr "é¡¯ç¤ºè­¦ç¤º?"
 
 #: lib/Block/summary.php:57
 msgid "Show task category?"
-msgstr "Äµ¥Ü¤ÀÃş?"
+msgstr "è­¦ç¤ºåˆ†é¡?"
 
 #: config/prefs.php.dist:78
 msgid "Show task list options panel?"
-msgstr "Åã¥Ü¶i¶¥¥\¯à­±ªO?"
+msgstr "é¡¯ç¤ºé€²éšåŠŸèƒ½é¢æ¿?"
 
 #: lib/Block/summary.php:51
 msgid "Show tasklist name?"
-msgstr "Åã¥Ü«İ¿ìÃ¯¦WºÙ?"
+msgstr "é¡¯ç¤ºå¾…è¾¦ç°¿åç¨±?"
 
 #: lib/Block/summary.php:70
 msgid "Show tasks from these categories"
-msgstr "Åã¥Ü³o¨Ç¤ÀÃş¤¤ªº¨Æ¶µ"
+msgstr "é¡¯ç¤ºé€™äº›åˆ†é¡ä¸­çš„äº‹é …"
 
 #: lib/Block/summary.php:66
 msgid "Show tasks from these tasklists"
-msgstr "Åã¥Ü³o¨Ç«İ¿ìÃ¯¤¤ªº¨Æ¶µ"
+msgstr "é¡¯ç¤ºé€™äº›å¾…è¾¦ç°¿ä¸­çš„äº‹é …"
 
 #: templates/list/task_headers.inc:53
 msgid "Sort by Category"
-msgstr "¥H¤ÀÃş±Æ§Ç"
+msgstr "ä»¥åˆ†é¡æ’åº"
 
 #: templates/list/task_headers.inc:31
 msgid "Sort by Completion Status"
-msgstr "¨Ì§¹¦¨ª¬ºA±Æ§Ç"
+msgstr "ä¾å®Œæˆç‹€æ…‹æ’åº"
 
 #: templates/list/task_headers.inc:50
 msgid "Sort by Due Date"
-msgstr "¨Ì¦³®Ä´Á±Æ§Ç"
+msgstr "ä¾æœ‰æ•ˆæœŸæ’åº"
 
 #: templates/list/task_headers.inc:45
 msgid "Sort by Name"
-msgstr "¥H¦WºÙ±Æ§Ç"
+msgstr "ä»¥åç¨±æ’åº"
 
 #: templates/list/task_headers.inc:39
 msgid "Sort by Priority"
-msgstr "¥HÀu¥ıÅv±Æ§Ç"
+msgstr "ä»¥å„ªå…ˆæ¬Šæ’åº"
 
 #: templates/list/task_headers.inc:35
 msgid "Sort by User Name"
-msgstr "¥H¨Ï¥ÎªÌ¦WºÙ±Æ§Ç"
+msgstr "ä»¥ä½¿ç”¨è€…åç¨±æ’åº"
 
 #: config/prefs.php.dist:119
 msgid "Sort direction:"
-msgstr "±Æ§Ç¤è¦V:"
+msgstr "æ’åºæ–¹å‘:"
 
 #: config/prefs.php.dist:93
 msgid "Sort tasks by:"
-msgstr "±Æ§Ç¨Æ¶µ¨Ì:"
+msgstr "æ’åºäº‹é …ä¾:"
 
 #: data.php:56
 msgid "Start"
-msgstr "±Ò°Ê"
+msgstr "å•Ÿå‹•"
 
 #: templates/view/task.inc:18
 msgid "Start Date"
-msgstr "±Ò©l¤é´Á"
+msgstr "å•Ÿå§‹æ—¥æœŸ"
 
 #: lib/UI/VarRenderer/nag.php:50
 msgid "Start date specified."
-msgstr "¤w«ü©w±Ò©l¤é´Á."
+msgstr "å·²æŒ‡å®šå•Ÿå§‹æ—¥æœŸ."
 
 #: templates/tasklist_list.php:17
 msgid "Subscription URL"
-msgstr "­q¾\ºô§}"
+msgstr "è¨‚é–±ç¶²å€"
 
 #: templates/list/task_summaries.inc:57
 msgid "Task Alarm"
-msgstr "Äµ¥Ü"
+msgstr "è­¦ç¤º"
 
 #: templates/list/task_headers.inc:48
 msgid "Task Alarm?"
-msgstr "Äµ¥Ü?"
+msgstr "è­¦ç¤º?"
 
 #: config/prefs.php.dist:27
 msgid "Task Defaults"
-msgstr "¹w³]¿ï¶µ"
+msgstr "é è¨­é¸é …"
 
 #: templates/tasklist_list.php:15 lib/Forms/task.php:68
 msgid "Task List"
-msgstr "«İ¿ìÃ¯"
+msgstr "å¾…è¾¦ç°¿"
 
 #: templates/panel.inc:5
 msgid "Task List Information"
-msgstr "«İ¿ìÃ¯¸ê°T"
+msgstr "å¾…è¾¦ç°¿è³‡è¨Š"
 
 #: templates/tasklist_list.php:12
 msgid "Task List List"
-msgstr "ÂsÄı"
+msgstr "ç€è¦½"
 
 #: config/prefs.php.dist:33 config/prefs.php.dist:40 config/prefs.php.dist:55
 msgid "Task List and Share Options"
-msgstr "«İ¿ìÃ¯¥H¤Î¤À¨É¿ï¶µ"
+msgstr "å¾…è¾¦ç°¿ä»¥åŠåˆ†äº«é¸é …"
 
 #: templates/tasklist_info.php:6
 #, php-format
 msgid "Task List owned by %s."
-msgstr "«İ¿ìÃ¯¾Ö¦³ªÌ %s."
+msgstr "å¾…è¾¦ç°¿æ“æœ‰è€… %s."
 
 #: templates/panel.inc:52 templates/panel.inc:53
 msgid "Task Lists"
-msgstr "«İ¿ìÃ¯"
+msgstr "å¾…è¾¦ç°¿"
 
 #: config/prefs.php.dist:88 config/prefs.php.dist:103
 msgid "Task Name"
-msgstr "«İ¿ì¨Æ¶µ¦WºÙ"
+msgstr "å¾…è¾¦äº‹é …åç¨±"
 
 #: templates/list/task_summaries.inc:55
 msgid "Task Note"
-msgstr "³Æµù"
+msgstr "å‚™è¨»"
 
 #: templates/list/task_headers.inc:47
 msgid "Task Note?"
-msgstr "³Æ¸Ñ?"
+msgstr "å‚™è§£?"
 
 #: templates/search/search.inc:6
 msgid "Task Search"
-msgstr "«İ¿ì¨Æ¶µ·j´M"
+msgstr "å¾…è¾¦äº‹é …æœå°‹"
 
 #: lib/Nag.php:630
 msgid "Task added:"
-msgstr "«İ¿ì¨Æ¶µ¤w·s¼W:"
+msgstr "å¾…è¾¦äº‹é …å·²æ–°å¢:"
 
 #: lib/Nag.php:640
 msgid "Task deleted:"
-msgstr "«İ¿ì¨Æ¶µ¤w§R°£:"
+msgstr "å¾…è¾¦äº‹é …å·²åˆªé™¤:"
 
 #: lib/Nag.php:635
 msgid "Task modified:"
-msgstr "«İ¿ì¨Æ¶µ¤w§ó·s:"
+msgstr "å¾…è¾¦äº‹é …å·²æ›´æ–°:"
 
 #: task.php:88 view.php:44
 msgid "Task not found."
-msgstr "§ä¤£¨ì«İ¿ì¨Æ¶µ."
+msgstr "æ‰¾ä¸åˆ°å¾…è¾¦äº‹é …."
 
 #: config/prefs.php.dist:92 config/prefs.php.dist:107
 msgid "Tasklist"
-msgstr "«İ¿ìÃ¯"
+msgstr "å¾…è¾¦ç°¿"
 
 #: lib/api.php:1056
 msgid "Tasks"
-msgstr "«İ¿ì¨Æ¶µ"
+msgstr "å¾…è¾¦äº‹é …"
 
 #: lib/Block/summary.php:3
 msgid "Tasks Summary"
-msgstr "«İ¿ì¨Æ¶µºK­n"
+msgstr "å¾…è¾¦äº‹é …æ‘˜è¦"
 
 #: data.php:193
 #, php-format
 msgid "The %s file didn't contain any tasks."
-msgstr "%s ÀÉ®×¤¤¥¼¥]§t¥ô¦ó¨Æ¶µ."
+msgstr "%s æª”æ¡ˆä¸­æœªåŒ…å«ä»»ä½•äº‹é …."
 
 #: lib/Driver.php:56
 msgid "The Tasks backend is not currently available."
-msgstr "¥Ø«e¨S¦³¥i¥Îªº«İ¿ì¨Æ¶µ¦øªAºİ."
+msgstr "ç›®å‰æ²’æœ‰å¯ç”¨çš„å¾…è¾¦äº‹é …ä¼ºæœç«¯."
 
 #: lib/Driver.php:137
 #, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "¥Ø«e¨S¦³¥i¥Îªº«İ¿ì¨Æ¶µ¦øªAºİ: %s"
+msgstr "ç›®å‰æ²’æœ‰å¯ç”¨çš„å¾…è¾¦äº‹é …ä¼ºæœç«¯: %s"
 
 #: lib/Forms/task.php:133
 msgid "The alarm value must not be empty."
-msgstr "Äµ¥Ü³]©w­È¤£±oªÅ¥Õ."
+msgstr "è­¦ç¤ºè¨­å®šå€¼ä¸å¾—ç©ºç™½."
 
 #: templates/prefs/defaultduetimeselect.inc:8
 msgid "The current hour"
-msgstr "¥Ø«eªº®É¶¡"
+msgstr "ç›®å‰çš„æ™‚é–“"
 
 #: lib/Nag.php:631
 #, php-format
 msgid ""
 "The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
-msgstr "¨ì´Á¤é¬° %3$s ªº«İ¿ì¨Æ¶µ \"%1$s\" ¤w·s¼W¨ì«İ¿ìÃ¯ \"%2$s\" ¤¤."
+msgstr "åˆ°æœŸæ—¥ç‚º %3$s çš„å¾…è¾¦äº‹é … \"%1$s\" å·²æ–°å¢åˆ°å¾…è¾¦ç°¿ \"%2$s\" ä¸­."
 
 #: lib/Nag.php:641
 #, php-format
 msgid ""
 "The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
 "s."
-msgstr "¨ì´Á¤é¬° %3$s ªº«İ¿ì¨Æ¶µ \"%1$s\" ¤w¦Û«İ¿ìÃ¯ \"%2$s\" ¤¤§R°£."
+msgstr "åˆ°æœŸæ—¥ç‚º %3$s çš„å¾…è¾¦äº‹é … \"%1$s\" å·²è‡ªå¾…è¾¦ç°¿ \"%2$s\" ä¸­åˆªé™¤."
 
 #: lib/Nag.php:636
 #, php-format
 msgid ""
 "The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
-msgstr "«İ¿ìÃ¯ \"%2$s\" ¤¤¨ì´Á¤é¬° %3$s ªº«İ¿ì¨Æ¶µ \"%1$s\" ¤w½s¿è§¹¦¨."
+msgstr "å¾…è¾¦ç°¿ \"%2$s\" ä¸­åˆ°æœŸæ—¥ç‚º %3$s çš„å¾…è¾¦äº‹é … \"%1$s\" å·²ç·¨è¼¯å®Œæˆ."
 
 #: tasklists/create.php:31
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "¦¹«İ¿ì¨Æ¶µ \"%s\" ¤w³Q«Ø¥ß."
+msgstr "æ­¤å¾…è¾¦äº‹é … \"%s\" å·²è¢«å»ºç«‹."
 
 #: tasklists/delete.php:48
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "¦¹«İ¿ì¨Æ¶µ \"%s\" ¤w³Q§R°£."
+msgstr "æ­¤å¾…è¾¦äº‹é … \"%s\" å·²è¢«åˆªé™¤."
 
 #: tasklists/edit.php:42
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "«İ¿ìÃ¯ \"%s\" ¤w§ó¦W¬° \"%s\"."
+msgstr "å¾…è¾¦ç°¿ \"%s\" å·²æ›´åç‚º \"%s\"."
 
 #: tasklists/edit.php:44
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "¦¹«İ¿ì¨Æ¶µ \"%s\" ¤w³QÀx¦s."
+msgstr "æ­¤å¾…è¾¦äº‹é … \"%s\" å·²è¢«å„²å­˜."
 
 #: config/prefs.php.dist:108
 msgid "Then:"
-msgstr "¦A¨Ì:"
+msgstr "å†ä¾:"
 
 #: templates/list/empty.inc:2
 msgid "There are no tasks matching the current criteria."
-msgstr "¨S¦³¨Æ¶µ²Å¦X³o­Ó·j´M±ø¥ó."
+msgstr "æ²’æœ‰äº‹é …ç¬¦åˆé€™å€‹æœå°‹æ¢ä»¶."
 
 #: task.php:225
 #, php-format
 msgid "There was a problem completing %s: %s"
-msgstr "¼Ğ°O %s: %s ¬°§¹¦¨®Éµo¥Í¤@­Ó°İÃD"
+msgstr "æ¨™è¨˜ %s: %s ç‚ºå®Œæˆæ™‚ç™¼ç”Ÿä¸€å€‹å•é¡Œ"
 
 #: task.php:29
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "§R°£ %s: %s ®Éµo¥Í¤@­Ó°İÃD"
+msgstr "åˆªé™¤ %s: %s æ™‚ç™¼ç”Ÿä¸€å€‹å•é¡Œ"
 
 #: task.php:192
 #, php-format
 msgid "There was a problem saving the task: %s."
-msgstr "Àx¦s«İ¿ì¨Æ¶µ®Éµo¥Í¿ù»~: %s."
+msgstr "å„²å­˜å¾…è¾¦äº‹é …æ™‚ç™¼ç”ŸéŒ¯èª¤: %s."
 
 #: data.php:196
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "¶×¤J¸ê®Æ: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åŒ¯å…¥è³‡æ–™: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: lib/api.php:397 lib/api.php:716 lib/api.php:988
 msgid "There was an error importing the iCalendar data."
-msgstr "¶×¤J iCalendar ¸ê®Æ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åŒ¯å…¥ iCalendar è³‡æ–™æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: data.php:80
 msgid "There were no tasks to export."
-msgstr "¨S¦³«İ¿ì¨Æ¶µ³Q¶×¥X."
+msgstr "æ²’æœ‰å¾…è¾¦äº‹é …è¢«åŒ¯å‡º."
 
 #: data.php:126
 msgid "This file format is not supported."
-msgstr "¦¹ºØÀÉ®×®æ¦¡¨Ã¥¼³Q¤ä´©."
+msgstr "æ­¤ç¨®æª”æ¡ˆæ ¼å¼ä¸¦æœªè¢«æ”¯æ´."
 
 #: tasklists/delete.php:24
 msgid "This task list cannot be deleted."
-msgstr "¦¹«İ¿ìÃ¯µLªk³Q§R°£."
+msgstr "æ­¤å¾…è¾¦ç°¿ç„¡æ³•è¢«åˆªé™¤."
 
 #: templates/tasklist_info.php:7
 msgid "To subscribe to this task list from another program, use this URL: "
-msgstr "±ı¸g¥Ñ¨ä¥Lµ{¦¡­q¾\¦¹«İ¿ìÃ¯, ½Ğ¨Ï¥Î³o­Óºô§}: "
+msgstr "æ¬²ç¶“ç”±å…¶ä»–ç¨‹å¼è¨‚é–±æ­¤å¾…è¾¦ç°¿, è«‹ä½¿ç”¨é€™å€‹ç¶²å€: "
 
 #: lib/Forms/DeleteTaskList.php:63
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "µLªk§R°£ \"%s\": %s"
+msgstr "ç„¡æ³•åˆªé™¤ \"%s\": %s"
 
 #: lib/Driver.php:140
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "µLªk¸ü¤J %s ªº©w¸q."
+msgstr "ç„¡æ³•è¼‰å…¥ %s çš„å®šç¾©."
 
 #: lib/Forms/EditTaskList.php:55
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
-msgstr "µLªkÀx¦s«İ¿ìÃ¯ \"%s\": %s"
+msgstr "ç„¡æ³•å„²å­˜å¾…è¾¦ç°¿ \"%s\": %s"
 
 #: templates/view/task.inc:9 templates/list/task_summaries.inc:62
 #: lib/Nag.php:850 lib/Nag.php:851 lib/Nag.php:865 lib/Nag.php:866
 #: lib/Forms/task.php:81 lib/Block/summary.php:31 lib/Block/summary.php:222
 msgid "Unfiled"
-msgstr "¥¼¤ÀÃş"
+msgstr "æœªåˆ†é¡"
 
 #: lib/api.php:502 lib/api.php:789 lib/api.php:847 lib/api.php:901
 #: lib/api.php:1026
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "¥¼¤ä´©ªº¤º®e«¬ºA: %s"
+msgstr "æœªæ”¯æ´çš„å…§å®¹å‹æ…‹: %s"
 
 #: lib/Driver.php:1084
 #, php-format
@@ -1027,152 +1027,152 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"§Ú­Ì·Q­n³qª¾§A,³o­Ó§Y±N¨ì¨Óªº¨Æ¶µ.\n"
+"æˆ‘å€‘æƒ³è¦é€šçŸ¥ä½ ,é€™å€‹å³å°‡åˆ°ä¾†çš„äº‹é ….\n"
 "\n"
 "%s\n"
 "\n"
 "\n"
-"¤é´Á: %s\n"
-"®É¶¡: %s\n"
+"æ—¥æœŸ: %s\n"
+"æ™‚é–“: %s\n"
 "\n"
 "%s"
 
 #: lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
 msgid "Week(s)"
-msgstr "¶g"
+msgstr "é€±"
 
 #: templates/prefs/defaultduetimeselect.inc:6
 msgid "What do you want to be the default due time for tasks?"
-msgstr "¨Æ¶µªº¹w³]¨ì´Á®É¶¡?"
+msgstr "äº‹é …çš„é è¨­åˆ°æœŸæ™‚é–“?"
 
 #: config/prefs.php.dist:146
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
-msgstr "·í«Ø¥ß·s¨Æ¶µ®É,¥Ñ·í¤Ñ°_ºâªº¦h¤Ö¤Ñ¼Æ¬°¹w³]ªº¨ì´Á¤é (0 ªí¥Ü·í¤Ñ)?"
+msgstr "ç•¶å»ºç«‹æ–°äº‹é …æ™‚,ç”±ç•¶å¤©èµ·ç®—çš„å¤šå°‘å¤©æ•¸ç‚ºé è¨­çš„åˆ°æœŸæ—¥ (0 è¡¨ç¤ºç•¶å¤©)?"
 
 #: config/prefs.php.dist:137
 msgid "When creating a new task, should it default to having a due date?"
-msgstr "·í«Ø¥ß·s¨Æ¶µ®É,¹w³]¦³¨ì´Á¤é?"
+msgstr "ç•¶å»ºç«‹æ–°äº‹é …æ™‚,é è¨­æœ‰åˆ°æœŸæ—¥?"
 
 #: templates/data/import.inc:21
 msgid "Which tasklist should the tasks be added to?"
-msgstr "­n±N¨Æ¶µ¼W¥[¦Ü­ş¤@¥»«İ¿ìÃ¯¤¤©O?"
+msgstr "è¦å°‡äº‹é …å¢åŠ è‡³å“ªä¸€æœ¬å¾…è¾¦ç°¿ä¸­å‘¢?"
 
 #: lib/UI/VarRenderer/nag.php:53 lib/UI/VarRenderer/nag.php:102
 msgid "Year"
-msgstr "¦~"
+msgstr "å¹´"
 
 #: tasklists/edit.php:28
 msgid "You are not allowed to change this task list."
-msgstr "§A¨S¦³ÅÜ§ó¦¹«İ¿ìÃ¯ªºÅv­­."
+msgstr "ä½ æ²’æœ‰è®Šæ›´æ­¤å¾…è¾¦ç°¿çš„æ¬Šé™."
 
 #: data.php:41 data.php:151 task.php:61
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "§A¨S¦³«Ø¥ß¶W¹L %d ­Ó¨Æ¶µªºÅv­­."
+msgstr "ä½ æ²’æœ‰å»ºç«‹è¶…é %d å€‹äº‹é …çš„æ¬Šé™."
 
 #: tasklists/delete.php:35
 msgid "You are not allowed to delete this task list."
-msgstr "§A¨S¦³§R°£¦¹«İ¿ìÃ¯ªºÅv­­."
+msgstr "ä½ æ²’æœ‰åˆªé™¤æ­¤å¾…è¾¦ç°¿çš„æ¬Šé™."
 
 #: view.php:52
 msgid "You do not have permission to view this tasklist."
-msgstr "§A¨S¦³¨¬°÷ªºÅv­­ÀËµø¦¹«İ¿ìÃ¯."
+msgstr "ä½ æ²’æœ‰è¶³å¤ çš„æ¬Šé™æª¢è¦–æ­¤å¾…è¾¦ç°¿."
 
 #: lib/Nag.php:631
 msgid "You requested to be notified when tasks are added to your tasklists."
-msgstr "À³§Aªº­n¨D,¨C·í§Aªº«İ¿ìÃ¯³Q·s¼W¨Æ¶µ®Éµo°e³qª¾."
+msgstr "æ‡‰ä½ çš„è¦æ±‚,æ¯ç•¶ä½ çš„å¾…è¾¦ç°¿è¢«æ–°å¢äº‹é …æ™‚ç™¼é€é€šçŸ¥."
 
 #: lib/Nag.php:641
 msgid ""
 "You requested to be notified when tasks are deleted from your tasklists."
-msgstr "À³§Aªº­n¨D,¨C·í§Aªº«İ¿ìÃ¯³Q§R°£¨Æ¶µ®Éµo°e³qª¾."
+msgstr "æ‡‰ä½ çš„è¦æ±‚,æ¯ç•¶ä½ çš„å¾…è¾¦ç°¿è¢«åˆªé™¤äº‹é …æ™‚ç™¼é€é€šçŸ¥."
 
 #: lib/Nag.php:636
 msgid "You requested to be notified when tasks are edited on your tasklists."
-msgstr "À³§Aªº­n¨D,¨C·í§Aªº«İ¿ìÃ¯³Q½s¿è¨Æ¶µ®Éµo°e³qª¾."
+msgstr "æ‡‰ä½ çš„è¦æ±‚,æ¯ç•¶ä½ çš„å¾…è¾¦ç°¿è¢«ç·¨è¼¯äº‹é …æ™‚ç™¼é€é€šçŸ¥."
 
 #: templates/prefs/tasklistselect.inc:10
 msgid "Your default task list:"
-msgstr "§Aªº¹w³]«İ¿ìÃ¯:"
+msgstr "ä½ çš„é è¨­å¾…è¾¦ç°¿:"
 
 #: templates/panel.inc:65
 msgid "[Manage Task Lists]"
-msgstr "[ºŞ²z«İ¿ìÃ¯]"
+msgstr "[ç®¡ç†å¾…è¾¦ç°¿]"
 
 #: templates/list/task_summaries.inc:46 lib/Block/summary.php:101
 #: lib/Block/summary.php:206
 msgid "[none]"
-msgstr "[µL]"
+msgstr "[ç„¡]"
 
 #: templates/search/search.inc:25
 msgid "_All Tasks"
-msgstr "¥ş³¡_A"
+msgstr "å…¨éƒ¨_A"
 
 #: list.php:111
 msgid "_All tasks"
-msgstr "¥ş³¡_A"
+msgstr "å…¨éƒ¨_A"
 
 #: templates/search/search.inc:20
 msgid "_Category"
-msgstr "¤ÀÃş_C"
+msgstr "åˆ†é¡_C"
 
 #: view.php:99
 msgid "_Complete"
-msgstr "§¹¦¨_C"
+msgstr "å®Œæˆ_C"
 
 #: list.php:114
 msgid "_Completed tasks"
-msgstr "¤w§¹¦¨_C"
+msgstr "å·²å®Œæˆ_C"
 
 #: view.php:106
 msgid "_Delete"
-msgstr "§R°£_D"
+msgstr "åˆªé™¤_D"
 
 #: templates/search/search.inc:19
 msgid "_Description"
-msgstr "´y­z_D"
+msgstr "æè¿°_D"
 
 #: templates/list/task_headers.inc:50
 msgid "_Due Date"
-msgstr "¦³®Ä´Á_D"
+msgstr "æœ‰æ•ˆæœŸ_D"
 
 #: view.php:102
 msgid "_Edit"
-msgstr "½s¿è_E"
+msgstr "ç·¨è¼¯_E"
 
 #: list.php:113
 msgid "_Future tasks"
-msgstr "¥¼¨Ó_F"
+msgstr "æœªä¾†_F"
 
 #: lib/Nag.php:553
 msgid "_Import/Export"
-msgstr "¶×¤J/¶×¥X_I"
+msgstr "åŒ¯å…¥/åŒ¯å‡º_I"
 
 #: lib/Nag.php:540
 msgid "_List Tasks"
-msgstr "¦C¥X_L"
+msgstr "åˆ—å‡º_L"
 
 #: lib/Nag.php:545
 msgid "_New Task"
-msgstr "·s¼W_N"
+msgstr "æ–°å¢_N"
 
 #: lib/Nag.php:558
 msgid "_Print"
-msgstr "¦C¦L_P"
+msgstr "åˆ—å°_P"
 
 #: lib/Nag.php:549
 msgid "_Search"
-msgstr "·j´M_S"
+msgstr "æœå°‹_S"
 
 #: templates/list/task_headers.inc:35
 msgid "_Task List"
-msgstr "«İ¿ìÃ¯_T"
+msgstr "å¾…è¾¦ç°¿_T"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 msgid "am"
-msgstr "¦­¤W"
+msgstr "æ—©ä¸Š"
 
 #: data.php:31
 msgid "iCalendar (vTodo)"
@@ -1181,15 +1181,15 @@ msgstr "iCalendar (vTodo)"
 #: lib/Block/tree_menu.php:36
 #, php-format
 msgid "in %s"
-msgstr "©ó %s"
+msgstr "æ–¼ %s"
 
 #: lib/Nag.php:79
 msgid "no time"
-msgstr "µL®É¶¡"
+msgstr "ç„¡æ™‚é–“"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 msgid "pm"
-msgstr "¤U¤È"
+msgstr "ä¸‹åˆ"
 
 #: data.php:100 templates/data/export.inc:1
 msgid "tasks.csv"

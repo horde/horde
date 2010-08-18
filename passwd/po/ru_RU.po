@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Illya Belov <belov@iop.irkps.ru>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,222 +20,222 @@ msgstr ""
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s не существует или не исполняемый"
+msgstr "%s РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё РЅРµ РёСЃРїРѕР»РЅСЏРµРјС‹Р№"
 
 #: lib/Driver/composite.php:59
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: невозможно загрузить драйвер: %s"
+msgstr "%s: РЅРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РґСЂР°Р№РІРµСЂ: %s"
 
 #: lib/Driver/adsi.php:54
 #, php-format
 msgid "ADSI error %s."
-msgstr "Ошибка ADSI %s"
+msgstr "РћС€РёР±РєР° ADSI %s"
 
 #: lib/Driver/adsi.php:57 lib/Driver/pspasswd.php:97
 msgid "Access Denied."
-msgstr "Доступ запрещен"
+msgstr "Р”РѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ"
 
 #: lib/Driver.php:80
 msgid "Backend not correctly implemented."
-msgstr "Backend не корректно настроен"
+msgstr "Backend РЅРµ РєРѕСЂСЂРµРєС‚РЅРѕ РЅР°СЃС‚СЂРѕРµРЅ"
 
 #: main.php:246 templates/main/main.inc:142
 msgid "Change Password"
-msgstr "Сменить пароль"
+msgstr "РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ"
 
 #: templates/main/main.inc:127
 msgid "Change password on:"
-msgstr "Сменить пароль на:"
+msgstr "РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ РЅР°:"
 
 #: templates/main/main.inc:62
 msgid "Change your password"
-msgstr "Сменить пароль"
+msgstr "РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ"
 
 #: templates/main/main.inc:69
 #, php-format
 msgid "Changing password on %s"
-msgstr "Сменить пароль на %s"
+msgstr "РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ РЅР° %s"
 
 #: templates/main/main.inc:114
 msgid "Confirm new password:"
-msgstr "Подтвердите новый пароль:"
+msgstr "РџРѕРґС‚РІРµСЂРґРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ:"
 
 #: lib/Driver/ldap.php:93 lib/Driver/ldap.php:240 lib/Driver/smbldap.php:90
 #: lib/Driver/smbldap.php:171 lib/Driver/kolab.php:48
 msgid "Could not bind to ldap server"
-msgstr "Невозможно связаться с ldap сервером."
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРІСЏР·Р°С‚СЊСЃСЏ СЃ ldap СЃРµСЂРІРµСЂРѕРј."
 
 #: lib/Driver/ldap.php:64 lib/Driver/smbldap.php:67 lib/Driver/kolab.php:40
 msgid "Could not connect to ldap server"
-msgstr "Невозможно соединится с ldap сервером."
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕРµРґРёРЅРёС‚СЃСЏ СЃ ldap СЃРµСЂРІРµСЂРѕРј."
 
 #: lib/Driver/smbpasswd.php:53
 msgid "Could not open pipe to smbpasswd."
-msgstr "Невозможно открыть pipe для smbpasswd."
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ pipe РґР»СЏ smbpasswd."
 
 #: lib/Driver/smbpasswd.php:75
 msgid "Error sending data to smbpasswd."
-msgstr "Ошибка отправки данных для smbpasswd."
+msgstr "РћС€РёР±РєР° РѕС‚РїСЂР°РІРєРё РґР°РЅРЅС‹С… РґР»СЏ smbpasswd."
 
 #: lib/Driver/pspasswd.php:85
 msgid "Failed to verify old password."
-msgstr "Неудалось подтвердить старый пароль"
+msgstr "РќРµСѓРґР°Р»РѕСЃСЊ РїРѕРґС‚РІРµСЂРґРёС‚СЊ СЃС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: main.php:203 lib/Driver/composite.php:93
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "Не удается сменить пароль на %s: %s"
+msgstr "РќРµ СѓРґР°РµС‚СЃСЏ СЃРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ РЅР° %s: %s"
 
 #: lib/Driver.php:51 lib/Driver/ldap.php:241 lib/Driver/poppassd.php:109
 #: lib/Driver/smbldap.php:172 lib/Driver/vmailmgr.php:35
 #: lib/Driver/kolab.php:72
 msgid "Incorrect Password"
-msgstr "Неверный пароль"
+msgstr "РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: lib/Driver/ldap.php:223
 msgid "Minimum password age has not yet expired"
-msgstr "Минимальный срок действия пароля еще не истек"
+msgstr "РњРёРЅРёРјР°Р»СЊРЅС‹Р№ СЃСЂРѕРє РґРµР№СЃС‚РІРёСЏ РїР°СЂРѕР»СЏ РµС‰Рµ РЅРµ РёСЃС‚РµРє"
 
 #: templates/main/main.inc:102
 msgid "New password:"
-msgstr "Новый пароль"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: lib/Driver.php:107
 #, php-format
 msgid "No such backend '%s' found."
-msgstr "Не найден backend %s"
+msgstr "РќРµ РЅР°Р№РґРµРЅ backend %s"
 
 #: templates/main/main.inc:90
 msgid "Old password:"
-msgstr "Старый пароль:"
+msgstr "РЎС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ:"
 
 #: lib/Driver/smbpasswd.php:43
 msgid "Passwd is not properly configured."
-msgstr "Passwd не сконфигурирован должным образом"
+msgstr "Passwd РЅРµ СЃРєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅ РґРѕР»Р¶РЅС‹Рј РѕР±СЂР°Р·РѕРј"
 
 #: main.php:195
 #, php-format
 msgid "Password changed on %s."
-msgstr "Пароль изменен на %s"
+msgstr "РџР°СЂРѕР»СЊ РёР·РјРµРЅРµРЅ РЅР° %s"
 
 #: lib/Driver/pspasswd.php:67
 msgid "Password module can't find the supplied bin."
-msgstr "Passwd модуль не может найти необходимые"
+msgstr "Passwd РјРѕРґСѓР»СЊ РЅРµ РјРѕР¶РµС‚ РЅР°Р№С‚Рё РЅРµРѕР±С…РѕРґРёРјС‹Рµ"
 
 #: lib/Driver/pspasswd.php:65
 msgid "Password module is missing required parameters."
-msgstr "Passwd модуль. Отсутствуют необходимые параметры"
+msgstr "Passwd РјРѕРґСѓР»СЊ. РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїР°СЂР°РјРµС‚СЂС‹"
 
 #: lib/Driver/adsi.php:44
 msgid "Password module is missing target parameter."
-msgstr "Passwd модуль. Отсутствуют выходные параметры"
+msgstr "Passwd РјРѕРґСѓР»СЊ. РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РІС‹С…РѕРґРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹"
 
 #: main.php:176 lib/Driver/servuftp.php:66
 msgid "Password module is not properly configured"
-msgstr "Passwd модуль не настроен должным образом"
+msgstr "Passwd РјРѕРґСѓР»СЊ РЅРµ РЅР°СЃС‚СЂРѕРµРЅ РґРѕР»Р¶РЅС‹Рј РѕР±СЂР°Р·РѕРј"
 
 #: lib/Driver/servuftp.php:93
 msgid "Password module is not properly configured."
-msgstr "Passwd модуль не настроен должным образом"
+msgstr "Passwd РјРѕРґСѓР»СЊ РЅРµ РЅР°СЃС‚СЂРѕРµРЅ РґРѕР»Р¶РЅС‹Рј РѕР±СЂР°Р·РѕРј"
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Необходим новый пароль"
+msgstr "РќРµРѕР±С…РѕРґРёРј РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Необходим текущий пароль"
+msgstr "РќРµРѕР±С…РѕРґРёРј С‚РµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Вы должны подтвердить новый пароль"
+msgstr "Р’С‹ РґРѕР»Р¶РЅС‹ РїРѕРґС‚РІРµСЂРґРёС‚СЊ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: lib/Driver/composite.php:35
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
-"Требуемые драйвера не сконфигурированы в составной (Composite) конфигурации"
+"РўСЂРµР±СѓРµРјС‹Рµ РґСЂР°Р№РІРµСЂР° РЅРµ СЃРєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅС‹ РІ СЃРѕСЃС‚Р°РІРЅРѕР№ (Composite) РєРѕРЅС„РёРіСѓСЂР°С†РёРё"
 
 #: lib/Driver/sql.php:41
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Требуемый 'phptype' не определен в конфигурации Passwd SQL"
+msgstr "РўСЂРµР±СѓРµРјС‹Р№ 'phptype' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё Passwd SQL"
 
 #: lib/Driver/vpopmail.php:44
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Требуемый 'phptype' не определен в конфигурации SQL"
+msgstr "РўСЂРµР±СѓРµРјС‹Р№ 'phptype' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё SQL"
 
 #: templates/main/main.inc:143
 msgid "Reset"
-msgstr "Сбросить"
+msgstr "РЎР±СЂРѕСЃРёС‚СЊ"
 
 #: lib/Driver/sql.php:70 lib/Driver/vpopmail.php:78
 msgid "Unable to connect to SQL server."
-msgstr "Не могу соединится с SQL сервером"
+msgstr "РќРµ РјРѕРіСѓ СЃРѕРµРґРёРЅРёС‚СЃСЏ СЃ SQL СЃРµСЂРІРµСЂРѕРј"
 
 #: lib/Driver/poppassd.php:103 lib/Driver/sql.php:120
 #: lib/Driver/vpopmail.php:138
 msgid "User not found"
-msgstr "Пользователь не найден"
+msgstr "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ"
 
 #: lib/Driver/ldap.php:130 lib/Driver/pine.php:225 lib/Driver/smbldap.php:127
 #: lib/Driver/kolab.php:64
 msgid "User not found."
-msgstr "Пользователь не найден"
+msgstr "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ"
 
 #: templates/main/main.inc:77
 msgid "Username:"
-msgstr "Имя пользователя:"
+msgstr "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ:"
 
 #: main.php:45
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "Вы не можете менять пароль для пользователя %s"
+msgstr "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РјРµРЅСЏС‚СЊ РїР°СЂРѕР»СЊ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ %s"
 
 #: main.php:53
 msgid "You must give your current password"
-msgstr "Необходим текущий пароль"
+msgstr "РќРµРѕР±С…РѕРґРёРј С‚РµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ"
 
 #: main.php:62
 msgid "You must give your new password"
-msgstr "Необходим новый пароль"
+msgstr "РќРµРѕР±С…РѕРґРёРј РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: main.php:66
 msgid "You must verify your new password"
-msgstr "Вы должны подтвердить новый пароль"
+msgstr "Р’С‹ РґРѕР»Р¶РЅС‹ РїРѕРґС‚РІРµСЂРґРёС‚СЊ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ"
 
 #: main.php:86
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "Пароль слишком длинный; пароль не должне привышать длинну %d символов"
+msgstr "РџР°СЂРѕР»СЊ СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№; РїР°СЂРѕР»СЊ РЅРµ РґРѕР»Р¶РЅРµ РїСЂРёРІС‹С€Р°С‚СЊ РґР»РёРЅРЅСѓ %d СЃРёРјРІРѕР»РѕРІ"
 
 #: main.php:165
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Пароль слишком легкий! Изменений не произведено"
+msgstr "РџР°СЂРѕР»СЊ СЃР»РёС€РєРѕРј Р»РµРіРєРёР№! РР·РјРµРЅРµРЅРёР№ РЅРµ РїСЂРѕРёР·РІРµРґРµРЅРѕ"
 
 #: main.php:156
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Пароль слишком легкий! Изменений не произведено"
+msgstr "РџР°СЂРѕР»СЊ СЃР»РёС€РєРѕРј Р»РµРіРєРёР№! РР·РјРµРЅРµРЅРёР№ РЅРµ РїСЂРѕРёР·РІРµРґРµРЅРѕ"
 
 #: main.php:81
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Пароль должен быть более %d символов"
+msgstr "РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Р±РѕР»РµРµ %d СЃРёРјРІРѕР»РѕРІ"
 
 #: main.php:74
 msgid "Your new password must be different from your current password"
-msgstr "Новый пароль должен отличаться от текущего"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ РѕС‚Р»РёС‡Р°С‚СЊСЃСЏ РѕС‚ С‚РµРєСѓС‰РµРіРѕ"
 
 #: main.php:126
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Новый пароль должен содержать как минимум %d алфавитных символов"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј %d Р°Р»С„Р°РІРёС‚РЅС‹С… СЃРёРјРІРѕР»РѕРІ"
 
 #: main.php:131
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "Новый пароль должен содержать как минимум %d алфавитных символов"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј %d Р°Р»С„Р°РІРёС‚РЅС‹С… СЃРёРјРІРѕР»РѕРІ"
 
 #: main.php:136
 #, php-format
@@ -248,36 +248,36 @@ msgstr ""
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
 msgstr ""
-"Новый пароль должен содержать как минимум %d символов в нижнем регистре"
+"РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј %d СЃРёРјРІРѕР»РѕРІ РІ РЅРёР¶РЅРµРј СЂРµРіРёСЃС‚СЂРµ"
 
 #: main.php:121
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "Новый пароль должен содержать как минимум %d числовых символов"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј %d С‡РёСЃР»РѕРІС‹С… СЃРёРјРІРѕР»РѕРІ"
 
 #: main.php:111
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
 msgstr ""
-"Новый пароль должен содержать как минимум %d символов в верхнем регистре"
+"РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєР°Рє РјРёРЅРёРјСѓРј %d СЃРёРјРІРѕР»РѕРІ РІ РІРµСЂС…РЅРµРј СЂРµРіРёСЃС‚СЂРµ"
 
 #: main.php:142
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Новый пароль должен содержать пробелы. Как минимум %d шт."
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСЂРѕР±РµР»С‹. РљР°Рє РјРёРЅРёРјСѓРј %d С€С‚."
 
 #: main.php:144
 msgid "Your new password must not contain whitespace characters."
-msgstr "Новый пароль должен не должен содержать пробелов"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ РЅРµ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСЂРѕР±РµР»РѕРІ"
 
 #: main.php:70
 msgid "Your new passwords didn't match"
-msgstr "Новый пароль не совпадает"
+msgstr "РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РЅРµ СЃРѕРІРїР°РґР°РµС‚"
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Пароли не совпадают"
+msgstr "РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚"
 
 #: lib/Driver/ldap.php:70 lib/Driver/smbldap.php:73
 msgid "ldap_start_tls failed"
-msgstr "ldap_start_tls неудался"
+msgstr "ldap_start_tls РЅРµСѓРґР°Р»СЃСЏ"

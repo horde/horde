@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: liaobin <liaobin@jite.net>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=gb2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/annotate/header.inc:4
@@ -22,336 +22,336 @@ msgstr "#"
 #: templates/patchsets/ps.inc:12 templates/log/rev.inc:24
 #, php-format
 msgid "%s ago"
-msgstr "%s ÒÔÇ°"
+msgstr "%s ä»¥å‰"
 
 #: templates/diff/hr/footer.inc:19
 #, php-format
 msgid "Added in v.%s"
-msgstr "ÒÑÌí¼ÓÔÚv.%s"
+msgstr "å·²æ·»åŠ åœ¨v.%s"
 
 #: templates/log/request.inc:57
 msgid "All Branches"
-msgstr "ËùÓĞ·ÖÖ§"
+msgstr "æ‰€æœ‰åˆ†æ”¯"
 
 #: co.php:60 templates/log/rev.inc:8
 msgid "Annotate"
-msgstr "×¢ÊÍ"
+msgstr "æ³¨é‡Š"
 
 #: templates/directory/header.inc:18 templates/stats/stats.inc:3
 #: templates/annotate/header.inc:5
 msgid "Author"
-msgstr "×÷Õß"
+msgstr "ä½œè€…"
 
 #: templates/directory/back.inc:4
 msgid "Back"
-msgstr "·µ»Ø"
+msgstr "è¿”å›"
 
 #: templates/checkout/checkout.inc:27 templates/log/rev.inc:29
 msgid "Branch Point for:"
-msgstr "·ÖÖ§µã: "
+msgstr "åˆ†æ”¯ç‚¹: "
 
 #: templates/checkout/checkout.inc:11 templates/patchsets/ps.inc:14
 #: templates/log/rev.inc:26
 msgid "Branch:"
-msgstr "·ÖÖ§£º"
+msgstr "åˆ†æ”¯ï¼š"
 
 #: lib/Chora.php:395
 msgid "Branches"
-msgstr "ËùÓĞ·ÖÖ§"
+msgstr "æ‰€æœ‰åˆ†æ”¯"
 
 #: templates/history/branch_cell.inc:2
 msgid "Branching to"
-msgstr "·ÖÖ§µ½"
+msgstr "åˆ†æ”¯åˆ°"
 
 #: cvsgraph.php:48
 #, php-format
 msgid "CVS Graph for %s"
-msgstr "%s µÄCVSÍ¼"
+msgstr "%s çš„CVSå›¾"
 
 #: templates/checkout/checkout.inc:19 templates/patchsets/ps.inc:17
 msgid "CVS Tags:"
-msgstr "CVS ±êÇ©£º"
+msgstr "CVS æ ‡ç­¾ï¼š"
 
 #: templates/checkout/checkout.inc:35 templates/log/rev.inc:35
 #, php-format
 msgid "Changed since <b>%s</b>"
-msgstr "×Ô<b>%s</b>µÄ±ä¸ü"
+msgstr "è‡ª<b>%s</b>çš„å˜æ›´"
 
 #: templates/history/rev.inc:8
 #, php-format
 msgid "Changed: %s"
-msgstr "ÒÑ±ä¸ü£º%s"
+msgstr "å·²å˜æ›´ï¼š%s"
 
 #: co.php:58
 #, php-format
 msgid "Checkout of %s (revision %s)"
-msgstr "%s µÄCVSÈ¡³ö(°æ±¾ %s)"
+msgstr "%s çš„CVSå–å‡º(ç‰ˆæœ¬ %s)"
 
 #: templates/cvsgraph/cvsgraph.inc:11
 msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
-msgstr "µã»÷°æ±¾Ö®¼äµÄ²é¿´»ñÈ¡°æ±¾¼äµÄ²»Í¬¡£"
+msgstr "ç‚¹å‡»ç‰ˆæœ¬ä¹‹é—´çš„æŸ¥çœ‹è·å–ç‰ˆæœ¬é—´çš„ä¸åŒã€‚"
 
 #: templates/cvsgraph/cvsgraph.inc:10
 msgid "Click on the revisions and branches to display the file."
-msgstr "µã»÷ÌØ¶¨°æ±¾ºÍ·ÖÖ§ÏÔÊ¾ÎÄ¼ş¡£"
+msgstr "ç‚¹å‡»ç‰¹å®šç‰ˆæœ¬å’Œåˆ†æ”¯æ˜¾ç¤ºæ–‡ä»¶ã€‚"
 
 #: templates/log/rev.inc:40 templates/log/rev.inc:49
 msgid "Colored"
-msgstr "Ê¹ÓÃÑÕÉ«±ê¼Ç"
+msgstr "ä½¿ç”¨é¢œè‰²æ ‡è®°"
 
 #: templates/stats/stats.inc:4
 msgid "Commits"
-msgstr "Ìá½»"
+msgstr "æäº¤"
 
 #: templates/log/request.inc:28
 msgid "Context"
-msgstr "ÉÏÏÂÎÄ"
+msgstr "ä¸Šä¸‹æ–‡"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "¿Í»§»¯ÈÎÎñÒÔ±ãÔÚµÇÂ¼µ½choraºóÔËĞĞ¡£"
+msgstr "å®¢æˆ·åŒ–ä»»åŠ¡ä»¥ä¾¿åœ¨ç™»å½•åˆ°choraåè¿è¡Œã€‚"
 
 #: templates/directory/header.inc:23
 msgid "Date"
-msgstr "ÈÕÆÚ"
+msgstr "æ—¥æœŸ"
 
 #: patchsets.php:65
 msgid "Deleted"
-msgstr "ÒÑÉ¾³ı"
+msgstr "å·²åˆ é™¤"
 
 #: templates/directory/file.inc:6 templates/directory/file.inc:18
 msgid "Deleted File"
-msgstr "ÒÑÉ¾³ıÎÄ¼ş"
+msgstr "å·²åˆ é™¤æ–‡ä»¶"
 
 #: templates/log/rev.inc:13
 msgid "Deselect"
-msgstr "È¡ÏûÑ¡Ôñ"
+msgstr "å–æ¶ˆé€‰æ‹©"
 
 #: patchsets.php:62
 msgid "Diff"
-msgstr "°æ±¾±È½Ï"
+msgstr "ç‰ˆæœ¬æ¯”è¾ƒ"
 
 #: patchsets.php:45
 msgid "Diff All Files"
-msgstr "±È½ÏËùÓĞÎÄ¼ş"
+msgstr "æ¯”è¾ƒæ‰€æœ‰æ–‡ä»¶"
 
 #: diff.php:68
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "¶Ô %s ÔÚ°æ±¾ %s ºÍ %s ¼ä±È½Ï"
+msgstr "å¯¹ %s åœ¨ç‰ˆæœ¬ %s å’Œ %s é—´æ¯”è¾ƒ"
 
 #: templates/log/rev.inc:48
 #, php-format
 msgid "Diffs to <b>%s</b>"
-msgstr "Í¬<b>%s</b>±È½Ï"
+msgstr "åŒ<b>%s</b>æ¯”è¾ƒ"
 
 #: templates/log/rev.inc:39
 #, php-format
 msgid "Diffs to version %s"
-msgstr "Í¬°æ±¾ %s µÄ±È½Ï"
+msgstr "åŒç‰ˆæœ¬ %s çš„æ¯”è¾ƒ"
 
 #: templates/directory/dir.inc:5 templates/directory/dir.inc:7
 msgid "Directory"
-msgstr "Ä¿Â¼"
+msgstr "ç›®å½•"
 
 #: annotate.php:29 co.php:61 templates/log/rev.inc:10
 msgid "Download"
-msgstr "ÏÂÔØ"
+msgstr "ä¸‹è½½"
 
 #: templates/log/request.inc:30
 msgid "Ed Script"
-msgstr "±à¼­½Å±¾"
+msgstr "ç¼–è¾‘è„šæœ¬"
 
 #: templates/error_page.inc:4
 msgid "Error"
-msgstr "´íÎó"
+msgstr "é”™è¯¯"
 
 #: templates/error_page.inc:7
 msgid "Error Encountered"
-msgstr "Óöµ½Ò»¸ö´íÎó"
+msgstr "é‡åˆ°ä¸€ä¸ªé”™è¯¯"
 
 #: templates/directory/file.inc:8 templates/directory/file.inc:20
 #: templates/directory/header.inc:8
 msgid "File"
-msgstr "ÎÄ¼ş"
+msgstr "æ–‡ä»¶"
 
 #: templates/patchsets/ps.inc:21
 msgid "Files Changed:"
-msgstr "ÒÑ±ä¸üµÄÎÄ¼ş£º"
+msgstr "å·²å˜æ›´çš„æ–‡ä»¶ï¼š"
 
 #: templates/log/request.inc:44
 msgid "Get Diffs"
-msgstr "»ñÈ¡²»Í¬"
+msgstr "è·å–ä¸åŒ"
 
 #: lib/Chora.php:398
 msgid "Graph"
-msgstr "°æ±¾Í¼"
+msgstr "ç‰ˆæœ¬å›¾"
 
 #: templates/menu/menu.inc:21
 msgid "Help"
-msgstr "°ïÖú"
+msgstr "å¸®åŠ©"
 
 #: cvs.php:40
 msgid "Hide Deleted Files"
-msgstr "Òş²ØÉ¾³ıµÄÎÄ¼ş"
+msgstr "éšè—åˆ é™¤çš„æ–‡ä»¶"
 
 #: templates/log/request.inc:26
 msgid "Human Readable"
-msgstr "ÈË¿ÉÔÄ¶Á"
+msgstr "äººå¯é˜…è¯»"
 
 #: templates/directory/header.inc:25
 msgid "Last Log"
-msgstr "×îºóÈÕÖ¾"
+msgstr "æœ€åæ—¥å¿—"
 
 #: templates/diff/hr/header.inc:5
 #, php-format
 msgid "Last Log Message for rev %s:"
-msgstr "°æ±¾ %s µÄ×îºóÈÕÖ¾ĞÅÏ¢£º"
+msgstr "ç‰ˆæœ¬ %s çš„æœ€åæ—¥å¿—ä¿¡æ¯ï¼š"
 
 #: templates/diff/hr/footer.inc:5
 msgid "Legend:"
-msgstr "Í¼Àı£º"
+msgstr "å›¾ä¾‹ï¼š"
 
 #: templates/annotate/header.inc:7
 msgid "Line"
-msgstr "ĞĞ"
+msgstr "è¡Œ"
 
 #: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
 #, php-format
 msgid "Line %s"
-msgstr "ĞĞ %s"
+msgstr "è¡Œ %s"
 
 #: templates/headerbar.inc:12
 msgid "Location:"
-msgstr "Î»ÖÃ£º"
+msgstr "ä½ç½®ï¼š"
 
 #: templates/checkout/checkout.inc:42
 msgid "Log:"
-msgstr "ÈÕÖ¾£º"
+msgstr "æ—¥å¿—ï¼š"
 
 #: config/prefs.php.dist:10
 msgid "Login Tasks"
-msgstr "µÇÂ¼ÈÎÎñ"
+msgstr "ç™»å½•ä»»åŠ¡"
 
 #: lib/Chora.php:389
 msgid "Logs"
-msgstr "ÈÕÖ¾"
+msgstr "æ—¥å¿—"
 
 #: templates/log/rev.inc:41 templates/log/rev.inc:50
 msgid "Long"
-msgstr "³¤¸ñÊ½"
+msgstr "é•¿æ ¼å¼"
 
 #: diff.php:60
 msgid "Malformed Query"
-msgstr "²»ÍêÕûµÄ²éÑ¯"
+msgstr "ä¸å®Œæ•´çš„æŸ¥è¯¢"
 
 #: patchsets.php:58
 msgid "New File"
-msgstr "ÎÄ¼şÎÄ¼ş"
+msgstr "æ–‡ä»¶æ–‡ä»¶"
 
 #: templates/diff/hr/nochange.inc:6
 msgid "No Viewable Change"
-msgstr "Ã»ÓĞ¿ÉÒÔ²é¿´µÄ¸ü¸Ä"
+msgstr "æ²¡æœ‰å¯ä»¥æŸ¥çœ‹çš„æ›´æ”¹"
 
 #: templates/log/rev.inc:42 templates/log/rev.inc:51
 msgid "NoWhitespaceChanges"
-msgstr "Ã»ÓĞ¿Õ¸ñµÄ¸ü¸Ä"
+msgstr "æ²¡æœ‰ç©ºæ ¼çš„æ›´æ”¹"
 
 #: templates/menu/menu.inc:13
 msgid "Options"
-msgstr "Ñ¡Ïî"
+msgstr "é€‰é¡¹"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "ÆäËûÑ¡Ïî"
+msgstr "å…¶ä»–é€‰é¡¹"
 
 #: lib/Chora.php:304
 msgid "Other Repositories"
-msgstr "ÆäËû²Ö¿â"
+msgstr "å…¶ä»–ä»“åº“"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
-msgstr "ÉÏ¼¶Ä¿Â¼"
+msgstr "ä¸Šçº§ç›®å½•"
 
 #: templates/patchsets/ps.inc:6
 #, php-format
 msgid "PatchSet %s</span> by %s"
-msgstr "²¹¶¡%s</span>ÓÉ%s²úÉú"
+msgstr "è¡¥ä¸%s</span>ç”±%säº§ç”Ÿ"
 
 #: lib/Chora.php:392
 msgid "Patchsets"
-msgstr "²¹¶¡"
+msgstr "è¡¥ä¸"
 
 #: patchsets.php:26
 #, php-format
 msgid "Patchsets for %s"
-msgstr "%sµÄ²¹¶¡"
+msgstr "%sçš„è¡¥ä¸"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
-msgstr "ÇëÁªÏµ"
+msgstr "è¯·è”ç³»"
 
 #: templates/diff/hr/footer.inc:11
 #, php-format
 msgid "Removed in v.%s"
-msgstr "É¾³ıÔÚ v.%s"
+msgstr "åˆ é™¤åœ¨ v.%s"
 
 #: templates/log/request.inc:14
 msgid "Retrieve diffs between:"
-msgstr "ÔÚ°æ±¾Ö®¼ä»Ö¸´²î±ğ£º"
+msgstr "åœ¨ç‰ˆæœ¬ä¹‹é—´æ¢å¤å·®åˆ«ï¼š"
 
 #: templates/directory/header.inc:13 templates/annotate/header.inc:6
 msgid "Rev"
-msgstr "°æ±¾"
+msgstr "ç‰ˆæœ¬"
 
 #: co.php:65
 #, php-format
 msgid "Revision %s for file %s not found."
-msgstr "°æ±¾%s(ÎÄ¼ş%s)Ã»ÓĞÕÒµ½¡£"
+msgstr "ç‰ˆæœ¬%s(æ–‡ä»¶%s)æ²¡æœ‰æ‰¾åˆ°ã€‚"
 
 #: templates/checkout/checkout.inc:4
 #, php-format
 msgid "Revision <b>%s</b>, <i>%s</i> (%s ago) by %s"
-msgstr "°æ±¾ <b>%s</b>, <i>%s</i> (%s ÒÔÇ°) ±» %s ²úÉú"
+msgstr "ç‰ˆæœ¬ <b>%s</b>, <i>%s</i> (%s ä»¥å‰) è¢« %s äº§ç”Ÿ"
 
 #: templates/log/rev.inc:15
 msgid "Select for Diff"
-msgstr "Ñ¡Ôñºó²ì¿´¸ü¸Ä"
+msgstr "é€‰æ‹©åå¯Ÿçœ‹æ›´æ”¹"
 
 #: cvs.php:42
 msgid "Show Deleted Files"
-msgstr "ÏÔÊ¾ÒÑ¾­É¾³ıµÄÎÄ¼ş"
+msgstr "æ˜¾ç¤ºå·²ç»åˆ é™¤çš„æ–‡ä»¶"
 
 #: templates/log/request.inc:29
 msgid "Side-by-Side"
-msgstr "²¢¼çÏÔÊ¾"
+msgstr "å¹¶è‚©æ˜¾ç¤º"
 
 #: templates/directory/header.inc:7 templates/directory/header.inc:12
 #: templates/directory/header.inc:17 templates/directory/header.inc:22
 msgid "Sort Order"
-msgstr "ÅÅĞòË³Ğò"
+msgstr "æ’åºé¡ºåº"
 
 #: annotate.php:26
 #, php-format
 msgid "Source Annotation of %s for version %s"
-msgstr "%s µÄ×¢ÊÍ(°æ±¾ %s)"
+msgstr "%s çš„æ³¨é‡Š(ç‰ˆæœ¬ %s)"
 
 #: history.php:159
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "%s µÄ°æ±¾·ÖÖ§Í¼"
+msgstr "%s çš„ç‰ˆæœ¬åˆ†æ”¯å›¾"
 
 #: cvs.php:32
 #, php-format
 msgid "Source Directory of /%s"
-msgstr "/%s µÄÄ¿Â¼"
+msgstr "/%s çš„ç›®å½•"
 
 #: cvs.php:125
 #, php-format
 msgid "Source Log for %s"
-msgstr "%s µÄÈÕÖ¾"
+msgstr "%s çš„æ—¥å¿—"
 
 #: lib/Chora.php:125
 msgid ""
@@ -359,21 +359,21 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"Ô´¸ùÄ¿Â¼Ã»ÓĞÕÒµ½£¡Õâ¿ÉÄÜÊÇ·şÎñÆ÷¹ÜÀíÔ±µÄ´íÎóÅäÖÃ»ò·şÎñÆ÷ÁãÊ±ÎÊÌâÔì³ÉµÄ¡£ÇëÉÔ"
-"ºòÔÙÊÔ¡£"
+"æºæ ¹ç›®å½•æ²¡æœ‰æ‰¾åˆ°ï¼è¿™å¯èƒ½æ˜¯æœåŠ¡å™¨ç®¡ç†å‘˜çš„é”™è¯¯é…ç½®æˆ–æœåŠ¡å™¨é›¶æ—¶é—®é¢˜é€ æˆçš„ã€‚è¯·ç¨"
+"å€™å†è¯•ã€‚"
 
 #: lib/Chora.php:400
 msgid "Statistics"
-msgstr "Í³¼Æ"
+msgstr "ç»Ÿè®¡"
 
 #: stats.php:26
 #, php-format
 msgid "Statistics for %s"
-msgstr "Îª%sÍ³¼Æ"
+msgstr "ä¸º%sç»Ÿè®¡"
 
 #: templates/log/rev.inc:32
 msgid "Tags:"
-msgstr "±êÇ©£º"
+msgstr "æ ‡ç­¾ï¼š"
 
 #: templates/log/request.inc:5
 msgid ""
@@ -381,72 +381,72 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-"Õâ¸ö±í¸ñÔÊĞíÄú²éÑ¯Ò»¸öÎÄ¼şµÄ²»Í¬°æ±¾Ö®¼äµÄ²îÒì¡£Äú¿ÉÒÔÊ¹ÓÃÑ¡Ôñ¿òÑ¡ÔñÒ»¸ö°æ±¾"
-"Ãû³Æ»òÄú¿ÉÒÔÔÚÎÄ±¾¿òÖĞÊäÈëÒ»¸ö°æ±¾ºÅ¡£"
+"è¿™ä¸ªè¡¨æ ¼å…è®¸æ‚¨æŸ¥è¯¢ä¸€ä¸ªæ–‡ä»¶çš„ä¸åŒç‰ˆæœ¬ä¹‹é—´çš„å·®å¼‚ã€‚æ‚¨å¯ä»¥ä½¿ç”¨é€‰æ‹©æ¡†é€‰æ‹©ä¸€ä¸ªç‰ˆæœ¬"
+"åç§°æˆ–æ‚¨å¯ä»¥åœ¨æ–‡æœ¬æ¡†ä¸­è¾“å…¥ä¸€ä¸ªç‰ˆæœ¬å·ã€‚"
 
 #: templates/headerbar.inc:17
 msgid "Tracking Branch"
-msgstr "¸ú×Ù·ÖÖ§"
+msgstr "è·Ÿè¸ªåˆ†æ”¯"
 
 #: templates/log/request.inc:23
 msgid "Type:"
-msgstr "ÀàĞÍ£º"
+msgstr "ç±»å‹ï¼š"
 
 #: templates/log/request.inc:27
 msgid "Unified"
-msgstr "Í³Ò»µÄ"
+msgstr "ç»Ÿä¸€çš„"
 
 #: templates/log/request.inc:18 templates/log/request.inc:38
 msgid "Use Text Field"
-msgstr "Ê¹ÓÃÎÄ±¾Óò"
+msgstr "ä½¿ç”¨æ–‡æœ¬åŸŸ"
 
 #: config/prefs.php.dist:37
 msgid "Use last viewed file or directory at login time"
-msgstr "ÔÚµÇÂ¼ºóÊ¹ÓÃ×îºó²é¿´µÄÎÄ¼ş»òÄ¿Â¼"
+msgstr "åœ¨ç™»å½•åä½¿ç”¨æœ€åæŸ¥çœ‹çš„æ–‡ä»¶æˆ–ç›®å½•"
 
 #: prefs.php:24
 msgid "User Options"
-msgstr "ÓÃ»§Ñ¡Ïî"
+msgstr "ç”¨æˆ·é€‰é¡¹"
 
 #: annotate.php:28 templates/log/rev.inc:9
 msgid "View"
-msgstr "²ì¿´"
+msgstr "å¯Ÿçœ‹"
 
 #: templates/log/request.inc:60
 msgid "View Branch"
-msgstr "²ì¿´·ÖÖ§"
+msgstr "å¯Ÿçœ‹åˆ†æ”¯"
 
 #: templates/log/request.inc:54
 msgid "View revisions on:"
-msgstr "²ì¿´°æ±¾ÔÚ£º"
+msgstr "å¯Ÿçœ‹ç‰ˆæœ¬åœ¨ï¼š"
 
 #: lib/Chora.php:402
 msgid "View:"
-msgstr "²ì¿´:"
+msgstr "å¯Ÿçœ‹:"
 
 #: templates/log/request.inc:35
 msgid "and:"
-msgstr "ºÍ£º"
+msgstr "å’Œï¼š"
 
 #: templates/history/rev.inc:4 templates/log/rev.inc:5
 #, php-format
 msgid "by %s"
-msgstr "ÓÉ %s"
+msgstr "ç”± %s"
 
 #: templates/diff/hr/footer.inc:15
 msgid "changed lines"
-msgstr "¸ü¸ÄµÄĞĞÊı"
+msgstr "æ›´æ”¹çš„è¡Œæ•°"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "ÎªÎ´À´ĞÅÏ¢¡£"
+msgstr "ä¸ºæœªæ¥ä¿¡æ¯ã€‚"
 
 #: templates/history/branch_cell.inc:6
 #, php-format
 msgid "revision %s"
-msgstr "°æ±¾ %s"
+msgstr "ç‰ˆæœ¬ %s"
 
 #: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
 #, php-format
 msgid "version %s"
-msgstr "°æ±¾ %s"
+msgstr "ç‰ˆæœ¬ %s"

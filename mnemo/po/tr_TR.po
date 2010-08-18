@@ -1,5 +1,5 @@
 # Turkish translations for Mnemo package
-# Not defteri paketi için Türkçe çeviriler.
+# Not defteri paketi iÃ§in TÃ¼rkÃ§e Ã§eviriler.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the Mnemo package.
 # horde-tr at metu.edu.tr, 2007-2008.
@@ -10,10 +10,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-04-15 12:57+0300\n"
 "PO-Revision-Date: 2008-04-15 12:57+0300\n"
-"Last-Translator: Altay Şeref Özaygen\n"
+"Last-Translator: Altay Åeref Ã–zaygen\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -25,12 +25,12 @@ msgstr "%s karakter"
 #: data.php:199
 #, php-format
 msgid "%s file successfully imported"
-msgstr "Dosya %s başarı ile alındı"
+msgstr "Dosya %s baÅŸarÄ± ile alÄ±ndÄ±"
 
 #: lib/Mnemo.php:429 lib/Forms/DeleteNotepad.php:86
 #, php-format
 msgid "%s's Notepad"
-msgstr "%s kullanıcısının not defteri"
+msgstr "%s kullanÄ±cÄ±sÄ±nÄ±n not defteri"
 
 #: memo.php:199
 msgid "Access denied deleting note."
@@ -38,7 +38,7 @@ msgstr "Notun silinmesine izin verilmedi."
 
 #: memo.php:150 memo.php:153
 msgid "Access denied moving the note."
-msgstr "Notun taşınmasına izin verilmedi."
+msgstr "Notun taÅŸÄ±nmasÄ±na izin verilmedi."
 
 #: memo.php:120
 #, php-format
@@ -48,7 +48,7 @@ msgstr "Notun, %s a saklanmasina izin verilmedi."
 #: memo.php:118
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "Notun saklanmasına izin verilmedi: %s"
+msgstr "Notun saklanmasÄ±na izin verilmedi: %s"
 
 #: config/prefs.php.dist:70
 msgid "Ascending"
@@ -60,27 +60,27 @@ msgstr "CSV"
 
 #: lib/Forms/DeleteNotepad.php:45 lib/Forms/DeleteNotepad.php:51
 msgid "Cancel"
-msgstr "İptal"
+msgstr "Ä°ptal"
 
 #: data.php:54 templates/view/memo.inc:26
 msgid "Category"
-msgstr "Sınıf"
+msgstr "SÄ±nÄ±f"
 
 #: notepads/index.php:32 templates/notepad_list.php:31
 msgid "Change Permissions"
-msgstr "İzinleri Değiştir"
+msgstr "Ä°zinleri DeÄŸiÅŸtir"
 
 #: config/prefs.php.dist:14
 msgid "Change your note sorting and display options."
-msgstr "Not sıralama ve görüntüleme seçeneklerinizi değiştirin."
+msgstr "Not sÄ±ralama ve gÃ¶rÃ¼ntÃ¼leme seÃ§eneklerinizi deÄŸiÅŸtirin."
 
 #: config/prefs.php.dist:21
 msgid "Choose your default Notepad."
-msgstr "Varsayılan Not Defterinizi seçiniz."
+msgstr "VarsayÄ±lan Not Defterinizi seÃ§iniz."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
-msgstr "Aramayı Kapat"
+msgstr "AramayÄ± Kapat"
 
 #: lib/Forms/CreateNotepad.php:39
 msgid "Create"
@@ -96,23 +96,23 @@ msgstr "Yeni bir Not Defteri yarat"
 
 #: templates/view/memo.inc:32
 msgid "Created"
-msgstr "Yaratıldı"
+msgstr "YaratÄ±ldÄ±"
 
 #: templates/view/memo.inc:54 templates/memo/memo.inc:23
 msgid "Decrypt"
-msgstr "Şifreyi aç"
+msgstr "Åifreyi aÃ§"
 
 #: config/prefs.php.dist:20
 msgid "Default Notepad"
-msgstr "Varsayılan Not Defteri"
+msgstr "VarsayÄ±lan Not Defteri"
 
 #: config/prefs.php.dist:61
 msgid "Default sorting criteria:"
-msgstr "Varsayılan sıralama ölçütü:"
+msgstr "VarsayÄ±lan sÄ±ralama Ã¶lÃ§Ã¼tÃ¼:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Varsayılan sıralama yönü:"
+msgstr "VarsayÄ±lan sÄ±ralama yÃ¶nÃ¼:"
 
 #: notepads/index.php:33 templates/notepad_list.php:33
 #: templates/view/memo.inc:16 lib/Forms/DeleteNotepad.php:45
@@ -126,11 +126,11 @@ msgstr "%s Sil"
 
 #: config/prefs.php.dist:27
 msgid "Delete Confirmation"
-msgstr "Silme Onayı"
+msgstr "Silme OnayÄ±"
 
 #: config/prefs.php.dist:28
 msgid "Delete button behaviour"
-msgstr "Silme tuşu davranışı."
+msgstr "Silme tuÅŸu davranÄ±ÅŸÄ±."
 
 #: templates/memo/memo.inc:11
 msgid "Delete this note"
@@ -142,16 +142,16 @@ msgstr "Azalan"
 
 #: lib/Forms/EditNotepad.php:44 lib/Forms/CreateNotepad.php:37
 msgid "Description"
-msgstr "Tanım"
+msgstr "TanÄ±m"
 
 #: lib/Driver/kolab.php:556
 #, php-format
 msgid "Did not find note %s"
-msgstr "%s notu bulunamadı"
+msgstr "%s notu bulunamadÄ±"
 
 #: config/prefs.php.dist:13
 msgid "Display Options"
-msgstr "Görüntüleme Seçenekleri"
+msgstr "GÃ¶rÃ¼ntÃ¼leme SeÃ§enekleri"
 
 #: config/prefs.php.dist:117
 msgid "Do you want to confirm deleting entries?"
@@ -160,63 +160,63 @@ msgstr "Silinecekleri onaylamak istiyor musunuz?"
 #: notepads/index.php:31 templates/notepad_list.php:29
 #: templates/view/memo.inc:13
 msgid "Edit"
-msgstr "Düzenle"
+msgstr "DÃ¼zenle"
 
 #: templates/list/memo_summaries.inc:5
 #, php-format
 msgid "Edit \"%s\""
-msgstr "Düzenle \"%s\""
+msgstr "DÃ¼zenle \"%s\""
 
 #: lib/Forms/EditNotepad.php:40
 #, php-format
 msgid "Edit %s"
-msgstr "%s Düzenle"
+msgstr "%s DÃ¼zenle"
 
 #: templates/list/memo_headers.inc:30 lib/Block/summary.php:74
 msgid "Edit Note"
-msgstr "Notu Düzenle"
+msgstr "Notu DÃ¼zenle"
 
 #: templates/list/memo_headers.inc:45
 msgid "Edit categories and colors"
-msgstr "Sınıf ve renkleri düzenle"
+msgstr "SÄ±nÄ±f ve renkleri dÃ¼zenle"
 
 #: memo.php:104
 #, php-format
 msgid "Edit: %s"
-msgstr "Düzenle: %s"
+msgstr "DÃ¼zenle: %s"
 
 #: templates/list/memo_summaries.inc:15 lib/Block/summary.php:93
 msgid "Empty Note"
-msgstr "Notu Boşalt"
+msgstr "Notu BoÅŸalt"
 
 #: lib/Driver.php:118
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
 msgstr ""
-"Şifreleme desteği yapılandırılmadı. Lütfen sistem yöneticiniz ile temasa "
-"geçiniz."
+"Åifreleme desteÄŸi yapÄ±landÄ±rÄ±lmadÄ±. LÃ¼tfen sistem yÃ¶neticiniz ile temasa "
+"geÃ§iniz."
 
 #: templates/data/export.inc:16
 msgid "Export"
-msgstr "Dışarı Aktar"
+msgstr "DÄ±ÅŸarÄ± Aktar"
 
 #: templates/data/export.inc:2
 msgid "Export Notes"
-msgstr "Notları Dışarı Aktar"
+msgstr "NotlarÄ± DÄ±ÅŸarÄ± Aktar"
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
 msgid "General Options"
-msgstr "Genel Seçenekler"
+msgstr "Genel SeÃ§enekler"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Notları Dışarı Aktarma Adımı %d"
+msgstr "NotlarÄ± DÄ±ÅŸarÄ± Aktarma AdÄ±mÄ± %d"
 
 #: data.php:205
 msgid "Import/Export Notes"
-msgstr "Notları İçeri/Dışarı Aktar"
+msgstr "NotlarÄ± Ä°Ã§eri/DÄ±ÅŸarÄ± Aktar"
 
 #: templates/search/search.inc:17
 msgid "In: "
@@ -224,27 +224,27 @@ msgstr ": "
 
 #: templates/view/memo.inc:39
 msgid "Last Modified"
-msgstr "Son Değişim"
+msgstr "Son DeÄŸiÅŸim"
 
 #: notepads/index.php:37 templates/notepad_list.php:2
 msgid "Manage Notepads"
-msgstr "Not Defterini Yönet"
+msgstr "Not Defterini YÃ¶net"
 
 #: lib/api.php:77
 msgid "Maximum Number of Notes"
-msgstr "En Fazla Not Sayısı"
+msgstr "En Fazla Not SayÄ±sÄ±"
 
 #: data.php:53
 msgid "Memo Text"
-msgstr "Hatırlatma Metni"
+msgstr "HatÄ±rlatma Metni"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menü Listesi"
+msgstr "MenÃ¼ Listesi"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
-msgstr "Daha Fazla Seçenek..."
+msgstr "Daha Fazla SeÃ§enek..."
 
 #: templates/panel.inc:50
 msgid "My Notepads:"
@@ -252,7 +252,7 @@ msgstr "Not Defterlerim:"
 
 #: list.php:31
 msgid "My Notes"
-msgstr "Notlarım"
+msgstr "NotlarÄ±m"
 
 #: lib/Forms/EditNotepad.php:43 lib/Forms/CreateNotepad.php:36
 msgid "Name"
@@ -268,19 +268,19 @@ msgstr "Sonraki"
 
 #: lib/api.php:272
 msgid "No iCalendar data was found."
-msgstr "Hiç iCalendar verisi bulunamadı."
+msgstr "HiÃ§ iCalendar verisi bulunamadÄ±."
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
-msgstr "Hiç uyan not yok"
+msgstr "HiÃ§ uyan not yok"
 
 #: templates/list/empty.inc:1
 msgid "No notes match the current criteria."
-msgstr "Geçerli ölçüte uyan not yok."
+msgstr "GeÃ§erli Ã¶lÃ§Ã¼te uyan not yok."
 
 #: lib/Block/summary.php:101
 msgid "No notes to display"
-msgstr "Görüntülenecek not yok"
+msgstr "GÃ¶rÃ¼ntÃ¼lenecek not yok"
 
 #: templates/list/memo_headers.inc:37
 msgid "No_te"
@@ -288,15 +288,15 @@ msgstr "No_t"
 
 #: lib/Driver/sql.php:195
 msgid "Not found"
-msgstr "Bulunamadı"
+msgstr "BulunamadÄ±"
 
 #: config/prefs.php.dist:59
 msgid "Note Category"
-msgstr "Not Sınıfı"
+msgstr "Not SÄ±nÄ±fÄ±"
 
 #: view.php:108
 msgid "Note Details"
-msgstr "Not Detayı"
+msgstr "Not DetayÄ±"
 
 #: config/prefs.php.dist:58
 msgid "Note Text"
@@ -308,7 +308,7 @@ msgstr "Not _Metni"
 
 #: memo.php:67 view.php:56 note/pdf.php:57
 msgid "Note not found."
-msgstr "Not bulunamadı."
+msgstr "Not bulunamadÄ±."
 
 #: templates/memo/memo.inc:59
 msgid "Note_pad"
@@ -329,16 +329,16 @@ msgstr "Not Defterleri"
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
-msgstr "Not Özeti"
+msgstr "Not Ã–zeti"
 
 #: lib/api.php:147 lib/api.php:187 lib/api.php:220 lib/api.php:250
 #: lib/api.php:337 lib/api.php:396 lib/api.php:425
 msgid "Permission Denied"
-msgstr "İzin Yok"
+msgstr "Ä°zin Yok"
 
 #: lib/Forms/DeleteNotepad.php:56
 msgid "Permission denied"
-msgstr "İzin yok"
+msgstr "Ä°zin yok"
 
 #: lib/Forms/DeleteNotepad.php:43
 #, php-format
@@ -346,12 +346,12 @@ msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
 "notepad will be permanently removed."
 msgstr ""
-"\"%s\" adlı not defteri gerçekten silinsin mi? Bu geri çevrilemez. Bu not "
-"defterindeki veriler kalıcı olarak silinecek"
+"\"%s\" adlÄ± not defteri gerÃ§ekten silinsin mi? Bu geri Ã§evrilemez. Bu not "
+"defterindeki veriler kalÄ±cÄ± olarak silinecek"
 
 #: templates/view/memo.inc:16
 msgid "Really delete this note?"
-msgstr "Bu not gerçekten silinsin mi?"
+msgstr "Bu not gerÃ§ekten silinsin mi?"
 
 #: templates/panel.inc:68 templates/memo/memo.inc:57
 #: lib/Forms/EditNotepad.php:46
@@ -369,7 +369,7 @@ msgstr "Ara"
 
 #: list.php:54
 msgid "Search Results"
-msgstr "Arama Sonuçları"
+msgstr "Arama SonuÃ§larÄ±"
 
 #: templates/panel.inc:38
 msgid "Search for Notepads:"
@@ -377,79 +377,79 @@ msgstr "Not Defteri Ara:"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
-msgstr "Dışarı aktarma biçimi:"
+msgstr "DÄ±ÅŸarÄ± aktarma biÃ§imi:"
 
 #: templates/data/import.inc:31
 msgid "Select the file to import:"
-msgstr "İçeri aktarılacak dosyayı seç:"
+msgstr "Ä°Ã§eri aktarÄ±lacak dosyayÄ± seÃ§:"
 
 #: templates/data/import.inc:9
 msgid "Select the format of the source file:"
-msgstr "Kaynak dosyanın biçimini seçin:"
+msgstr "Kaynak dosyanÄ±n biÃ§imini seÃ§in:"
 
 #: templates/panel.inc:59
 msgid "Shared Notepads:"
-msgstr "Paylaşılan Not Defterleri:"
+msgstr "PaylaÅŸÄ±lan Not Defterleri:"
 
 #: config/prefs.php.dist:39
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr "Liste görüntüsünde, Not Defteri kendi kolonunda görünsün mü? "
+msgstr "Liste gÃ¶rÃ¼ntÃ¼sÃ¼nde, Not Defteri kendi kolonunda gÃ¶rÃ¼nsÃ¼n mÃ¼? "
 
 #: lib/Block/summary.php:34
 msgid "Show action buttons?"
-msgstr "Eylem tuşları gösterilsin mi?"
+msgstr "Eylem tuÅŸlarÄ± gÃ¶sterilsin mi?"
 
 #: lib/Block/summary.php:37
 msgid "Show notepad name?"
-msgstr "Not defteri adı gösterilsin mi?"
+msgstr "Not defteri adÄ± gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:49
 msgid "Show notepad options panel?"
-msgstr "Not defteri seçenek paneli gösterilsin mi?"
+msgstr "Not defteri seÃ§enek paneli gÃ¶sterilsin mi?"
 
 #: lib/Block/summary.php:40
 msgid "Show notes from these categories"
-msgstr "Bu sınıflardan notları göster"
+msgstr "Bu sÄ±nÄ±flardan notlarÄ± gÃ¶ster"
 
 #: templates/list/memo_headers.inc:41
 msgid "Sort by Category"
-msgstr "Sınıfa Göre Sırala"
+msgstr "SÄ±nÄ±fa GÃ¶re SÄ±rala"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
-msgstr "Not Metnine Göre Sırala"
+msgstr "Not Metnine GÃ¶re SÄ±rala"
 
 #: templates/list/memo_headers.inc:33
 msgid "Sort by Notepad"
-msgstr "Not Defterine Göre Sırala"
+msgstr "Not Defterine GÃ¶re SÄ±rala"
 
 #: memo.php:173
 #, php-format
 msgid "Successfully saved \"%s\"."
-msgstr "\"%s\" başarı ile saklandı."
+msgstr "\"%s\" baÅŸarÄ± ile saklandÄ±."
 
 #: data.php:193
 #, php-format
 msgid "The %s file didn't contain any notes."
-msgstr "%s dosyası hiç not içermiyor."
+msgstr "%s dosyasÄ± hiÃ§ not iÃ§ermiyor."
 
 #: lib/Driver.php:53
 msgid "The Notes backend is not currently available."
-msgstr "Not arka aracı şu anda kullanılabilir değil."
+msgstr "Not arka aracÄ± ÅŸu anda kullanÄ±labilir deÄŸil."
 
 #: lib/Driver.php:227
 #, php-format
 msgid "The Notes backend is not currently available: %s"
-msgstr "Not arka aracı şu anda kullanılabilir değil: %s"
+msgstr "Not arka aracÄ± ÅŸu anda kullanÄ±labilir deÄŸil: %s"
 
 #: memo.php:196
 msgid "The note was deleted."
-msgstr "Not silinmiş."
+msgstr "Not silinmiÅŸ."
 
 #: notepads/create.php:31
 #, php-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Not defteri \"%s\" yaratıldı."
+msgstr "Not defteri \"%s\" yaratÄ±ldÄ±."
 
 #: notepads/delete.php:48
 #, php-format
@@ -459,61 +459,61 @@ msgstr "Not defteri \"%s\" silindi."
 #: notepads/edit.php:42
 #, php-format
 msgid "The notepad \"%s\" has been renamed to \"%s\"."
-msgstr "Not defteri \"%s\", \"%s\" olarak yeniden adlandırıldı."
+msgstr "Not defteri \"%s\", \"%s\" olarak yeniden adlandÄ±rÄ±ldÄ±."
 
 #: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Not defteri \"%s\" sakladı."
+msgstr "Not defteri \"%s\" sakladÄ±."
 
 #: data.php:196
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "%s tarihini içeri aktarmada hata oluştu"
+msgstr "%s tarihini iÃ§eri aktarmada hata oluÅŸtu"
 
 #: lib/api.php:266
 msgid "There was an error importing the iCalendar data."
-msgstr "iCalendar verisini içeri taşımada hata oluştu."
+msgstr "iCalendar verisini iÃ§eri taÅŸÄ±mada hata oluÅŸtu."
 
 #: lib/api.php:444
 msgid "There was an error importing the vNote data."
-msgstr "vNote verisini içeri taşımada hata oluştu."
+msgstr "vNote verisini iÃ§eri taÅŸÄ±mada hata oluÅŸtu."
 
 #: memo.php:194
 #, php-format
 msgid "There was an error removing the note: %s"
-msgstr "Notu silerken hata oluştu: %s"
+msgstr "Notu silerken hata oluÅŸtu: %s"
 
 #: memo.php:171
 #, php-format
 msgid "There was an error saving the note: %s"
-msgstr "Notu saklarken hata oluştu: %s"
+msgstr "Notu saklarken hata oluÅŸtu: %s"
 
 #: view.php:45 note/pdf.php:46
 #, php-format
 msgid "There was an error viewing this notepad: %s"
-msgstr "Bu not defterini görüntülerken hata oluştu: %s"
+msgstr "Bu not defterini gÃ¶rÃ¼ntÃ¼lerken hata oluÅŸtu: %s"
 
 #: data.php:78
 msgid "There were no memos to export."
-msgstr "Dışarı taşınacak hatırlatma bulunamadı."
+msgstr "DÄ±ÅŸarÄ± taÅŸÄ±nacak hatÄ±rlatma bulunamadÄ±."
 
 #: data.php:104
 msgid "This file format is not supported."
-msgstr "Bu dosya biçimi desteklenmiyor."
+msgstr "Bu dosya biÃ§imi desteklenmiyor."
 
 #: memo.php:91 view.php:98
 msgid "This note cannot be decrypted:"
-msgstr "Bu notun şifresi açılamaz:"
+msgstr "Bu notun ÅŸifresi aÃ§Ä±lamaz:"
 
 #: memo.php:83 view.php:90
 msgid "This note has been encrypted, please provide the password below."
-msgstr "Bu not şifrelenmiştir. Lütfen şifreyi aşağıya giriniz"
+msgstr "Bu not ÅŸifrelenmiÅŸtir. LÃ¼tfen ÅŸifreyi aÅŸaÄŸÄ±ya giriniz"
 
 #: memo.php:80 memo.php:88 view.php:87 view.php:95 lib/Driver/sql.php:448
 #: lib/Driver/kolab.php:752
 msgid "This note has been encrypted."
-msgstr "Bu not şifrelenmiştir."
+msgstr "Bu not ÅŸifrelenmiÅŸtir."
 
 #: notepads/delete.php:24
 msgid "This notepad cannot be deleted"
@@ -527,23 +527,23 @@ msgstr "\"%s\" silinemedi: %s"
 #: lib/Driver.php:230
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s için tanım yüklenemedi."
+msgstr "%s iÃ§in tanÄ±m yÃ¼klenemedi."
 
 #: lib/Forms/EditNotepad.php:55
 #, php-format
 msgid "Unable to save notepad \"%s\": %s"
-msgstr "Not defteri \"%s\" saklanamadı: %s"
+msgstr "Not defteri \"%s\" saklanamadÄ±: %s"
 
 #: templates/list/memo_summaries.inc:17 templates/view/memo.inc:27
 #: lib/Mnemo.php:245 lib/Mnemo.php:246 lib/Mnemo.php:260 lib/Mnemo.php:261
 #: lib/Block/summary.php:96
 msgid "Unfiled"
-msgstr "Doldurulmamış"
+msgstr "DoldurulmamÄ±ÅŸ"
 
 #: lib/api.php:302 lib/api.php:359 lib/api.php:452
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Desteklenmeyen İçerik Türü: %s"
+msgstr "Desteklenmeyen Ä°Ã§erik TÃ¼rÃ¼: %s"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
@@ -551,12 +551,12 @@ msgstr "Notlar hangi Not Defterine eklensin?"
 
 #: notepads/edit.php:28
 msgid "You are not allowed to change this notepad."
-msgstr "Bu not defterini değiştirme izniniz yok."
+msgstr "Bu not defterini deÄŸiÅŸtirme izniniz yok."
 
 #: memo.php:37 data.php:42 data.php:128
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "%d adetten fazla not yaratma hakkınız yok."
+msgstr "%d adetten fazla not yaratma hakkÄ±nÄ±z yok."
 
 #: notepads/delete.php:35
 msgid "You are not allowed to delete this notepad."
@@ -565,15 +565,15 @@ msgstr "Bu not defterini silme izniniz yok."
 #: view.php:49 note/pdf.php:50
 #, php-format
 msgid "You do not have permission to view the notepad %s."
-msgstr "%s not defterini görüntüleme izniniz yok."
+msgstr "%s not defterini gÃ¶rÃ¼ntÃ¼leme izniniz yok."
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
-msgstr "Varsayılan not defteriniz:"
+msgstr "VarsayÄ±lan not defteriniz:"
 
 #: templates/panel.inc:45
 msgid "[Manage Notepads]"
-msgstr "[Not Defterlerini Yönet]"
+msgstr "[Not Defterlerini YÃ¶net]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
@@ -581,7 +581,7 @@ msgstr "_Metin"
 
 #: templates/list/memo_headers.inc:41 templates/memo/memo.inc:70
 msgid "_Category"
-msgstr "Sını_f"
+msgstr "SÄ±nÄ±_f"
 
 #: templates/view/memo.inc:16
 msgid "_Delete"
@@ -589,7 +589,7 @@ msgstr "_Sil"
 
 #: templates/view/memo.inc:13
 msgid "_Edit"
-msgstr "_Düzenle"
+msgstr "_DÃ¼zenle"
 
 #: templates/memo/memo.inc:74
 msgid "_Encrypt?"
@@ -601,11 +601,11 @@ msgstr "Ara_ma: "
 
 #: lib/Mnemo.php:466
 msgid "_Import/Export"
-msgstr "İçeri/Dışarı _Aktar"
+msgstr "Ä°Ã§eri/DÄ±ÅŸarÄ± _Aktar"
 
 #: lib/Mnemo.php:453
 msgid "_List Notes"
-msgstr "Notları _Listele"
+msgstr "NotlarÄ± _Listele"
 
 #: lib/Mnemo.php:458
 msgid "_New Note"
@@ -614,11 +614,11 @@ msgstr "_Yeni Not"
 #: templates/view/memo.inc:52 templates/memo/memo.inc:21
 #: templates/memo/memo.inc:79
 msgid "_Password"
-msgstr "_Şifre"
+msgstr "_Åifre"
 
 #: lib/Mnemo.php:471
 msgid "_Print"
-msgstr "_Yazdır"
+msgstr "_YazdÄ±r"
 
 #: lib/Mnemo.php:462
 msgid "_Search"
@@ -626,12 +626,12 @@ msgstr "_Arama"
 
 #: templates/search/search.inc:20
 msgid "_Title"
-msgstr "_Başlık"
+msgstr "_BaÅŸlÄ±k"
 
 #: lib/Block/tree_menu.php:33
 #, php-format
 msgid "in %s"
-msgstr "%s içinde"
+msgstr "%s iÃ§inde"
 
 #: data.php:90 templates/data/export.inc:4
 msgid "notes.csv"

@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Andreas Gunleikskaas <andreas@gunleikskaas.no>\n"
 "Language-Team: Norwegian (Bokmal) <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -53,11 +53,11 @@ msgstr "%s filen ble importert"
 
 #, c-format
 msgid "%s is in progress."
-msgstr "%s pågår."
+msgstr "%s pÃ¥gÃ¥r."
 
 #, c-format
 msgid "%s is starting now."
-msgstr "%s starter nå."
+msgstr "%s starter nÃ¥."
 
 #, c-format
 msgid "%s starts in %s"
@@ -142,7 +142,7 @@ msgid "Create a New Event"
 msgstr "Lag et ny hendelse"
 
 msgid "Current"
-msgstr "Nåværende"
+msgstr "NÃ¥vÃ¦rende"
 
 msgid "Daily: Recurs every"
 msgstr "Hver dag: Skjer hver dag"
@@ -234,7 +234,7 @@ msgid "Game"
 msgstr "Spill"
 
 msgid "Goto"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 msgid "Help"
 msgstr "Hjelp"
@@ -244,7 +244,7 @@ msgstr "Time(r)"
 
 msgid "If importing CSV data: does the first row contain the field names?"
 msgstr ""
-"Dersom du importerer CSV-data; inneholder den første raden da feltnavn?"
+"Dersom du importerer CSV-data; inneholder den fÃ¸rste raden da feltnavn?"
 
 msgid "Illegal or malformed form data."
 msgstr "Ulovlig eller feil utformet data."
@@ -277,10 +277,10 @@ msgid "Kronolith is not properly configured"
 msgstr "Kronolith er ikke riktig konfigurert"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "Last month"
-msgstr "Forrige måned"
+msgstr "Forrige mÃ¥ned"
 
 msgid "Last week"
 msgstr "Forrige uke"
@@ -301,13 +301,13 @@ msgid "May"
 msgstr "mai"
 
 msgid "Meeting"
-msgstr "Møte"
+msgstr "MÃ¸te"
 
 msgid "Minute(s)"
 msgstr "Minutt(er)"
 
 msgid "Minutes before"
-msgstr "Minutter før"
+msgstr "Minutter fÃ¸r"
 
 msgid "Minutes"
 msgstr "Minutter"
@@ -319,16 +319,16 @@ msgid "Monday"
 msgstr "Mandag"
 
 msgid "Month"
-msgstr "Måned"
+msgstr "MÃ¥ned"
 
 msgid "Monthly: Recurs every"
-msgstr "Hver måned: Skjer hver"
+msgstr "Hver mÃ¥ned: Skjer hver"
 
 msgid "New Event"
 msgstr "Ny hendelse"
 
 msgid "Next Month"
-msgstr "Neste måned"
+msgstr "Neste mÃ¥ned"
 
 msgid "Next day"
 msgstr "Neste dag"
@@ -362,7 +362,7 @@ msgid "Options"
 msgstr "Valg"
 
 msgid "Pattern"
-msgstr "Mønster"
+msgstr "MÃ¸nster"
 
 msgid "Permanently delete this event?"
 msgstr "Slett denne hendelsen permanent?"
@@ -395,7 +395,7 @@ msgid "Recurs daily"
 msgstr "Skjer daglig"
 
 msgid "Recurs monthly"
-msgstr "Skjer månedlig"
+msgstr "Skjer mÃ¥nedlig"
 
 msgid "Recurs not"
 msgstr "Skjer ikke"
@@ -404,31 +404,31 @@ msgid "Recurs weekly"
 msgstr "Skjer ukentlig"
 
 msgid "Recurs yearly"
-msgstr "Skjer årlig"
+msgstr "Skjer Ã¥rlig"
 
 msgid "Required 'database' not specified in calendar configuration."
-msgstr "Nødvendig 'database' ikke spesifisert i konfigurasjon for kalender."
+msgstr "NÃ¸dvendig 'database' ikke spesifisert i konfigurasjon for kalender."
 
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "Nødvendig 'hostspec' ikke spesifisert i konfigurasjon for kalender."
+msgstr "NÃ¸dvendig 'hostspec' ikke spesifisert i konfigurasjon for kalender."
 
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "Nødvendig 'passord' ikke spesifisert i konfigurasjon for kalender."
+msgstr "NÃ¸dvendig 'passord' ikke spesifisert i konfigurasjon for kalender."
 
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "Nødvendig 'phptype' ikke spesifisert i konfigurasjon for kalender."
+msgstr "NÃ¸dvendig 'phptype' ikke spesifisert i konfigurasjon for kalender."
 
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "Nødvendig 'brukernavn' ikke spesifisert i konfigurasjon for kalender."
+msgstr "NÃ¸dvendig 'brukernavn' ikke spesifisert i konfigurasjon for kalender."
 
 msgid "Reset to Defaults"
 msgstr "Nullstill til standardverdier"
 
 msgid "Sa"
-msgstr "Lø"
+msgstr "LÃ¸"
 
 msgid "Saturday"
-msgstr "Lørdag"
+msgstr "LÃ¸rdag"
 
 msgid "Save As New"
 msgstr "Lagre som ny"
@@ -453,7 +453,7 @@ msgid "Select the file to import:"
 msgstr "Velg fil som skal importeres:"
 
 msgid "Select the first weekday:"
-msgstr "Velg første ukedag:"
+msgstr "Velg fÃ¸rste ukedag:"
 
 msgid "Select the format to export to:"
 msgstr "Velg formatet som det skal eksporteres til:"
@@ -477,10 +477,10 @@ msgid "Set the current time zone."
 msgstr "Velg gjeldende tidssone."
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Velg språk for menyer, forklaringer og hjelp."
+msgstr "Velg sprÃ¥k for menyer, forklaringer og hjelp."
 
 msgid "Set your preferred display language."
-msgstr "Velg ønsket språk."
+msgstr "Velg Ã¸nsket sprÃ¥k."
 
 msgid "Show due tasks in the calendar?"
 msgstr "Vis oppgaver til forfall i kalenderen?"
@@ -504,13 +504,13 @@ msgid "Start Time"
 msgstr "Start tid"
 
 msgid "Su"
-msgstr "Sø"
+msgstr "SÃ¸"
 
 msgid "Summary"
 msgstr "Sammendrag"
 
 msgid "Sunday"
-msgstr "Søndag"
+msgstr "SÃ¸ndag"
 
 msgid "Tasks"
 msgstr "Oppgaver"
@@ -522,7 +522,7 @@ msgid "The data was lost."
 msgstr "Dataene forsvant."
 
 msgid "The end date must be later than the start date."
-msgstr "Kan ikke avslutte før start."
+msgstr "Kan ikke avslutte fÃ¸r start."
 
 msgid "The file contained no data."
 msgstr "Denne filen inneholder ingen data."
@@ -531,8 +531,8 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Problem ved opplasting av fil. Filen er kanskje større enn maksimalt tillatt "
-"størrelse."
+"Problem ved opplasting av fil. Filen er kanskje stÃ¸rre enn maksimalt tillatt "
+"stÃ¸rrelse."
 
 msgid "There was an error importing the data."
 msgstr "Det skjedde en feil ved import av data."
@@ -541,20 +541,20 @@ msgid "There was an error importing the uploaded file"
 msgstr "Det skjedde en feil ved importering av den opplastede filen"
 
 msgid "There were no events to export."
-msgstr "Det er ingen hendelser å eksportere."
+msgstr "Det er ingen hendelser Ã¥ eksportere."
 
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
 "Denne filen kontrollerer standardinnstillingene for Kronolith, og "
-"kontrollerer også hvilke innstillinger brukeren kan endre."
+"kontrollerer ogsÃ¥ hvilke innstillinger brukeren kan endre."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Denne filen kontrollerer stilarket som blir brukt til å definere farger og "
+"Denne filen kontrollerer stilarket som blir brukt til Ã¥ definere farger og "
 "skrifttyper, som tillegg eller overstyring av standardverdier i Horde."
 
 msgid ""
@@ -637,7 +637,7 @@ msgid "Work&nbsp;Week"
 msgstr "Arbeidsuke"
 
 msgid "Yearly: Recurs every"
-msgstr "Årlig: Skjer hvert"
+msgstr "Ã…rlig: Skjer hvert"
 
 msgid "Your Information"
 msgstr "Din informasjon"
@@ -658,28 +658,28 @@ msgid "iCalendar file successfully imported"
 msgstr "iCalendar fil ble importert"
 
 msgid "month(s)"
-msgstr "måned(er)"
+msgstr "mÃ¥ned(er)"
 
 msgid "no time"
 msgstr "ingen tid"
 
 msgid "on the same date"
-msgstr "på samme dato"
+msgstr "pÃ¥ samme dato"
 
 msgid "on the same weekday"
-msgstr "på samme uke dag"
+msgstr "pÃ¥ samme uke dag"
 
 msgid "week"
 msgstr "uke"
 
 msgid "week(s) on:"
-msgstr "uke(r) på:"
+msgstr "uke(r) pÃ¥:"
 
 msgid "weeks"
 msgstr "uker"
 
 msgid "year(s)"
-msgstr "år"
+msgstr "Ã¥r"
 
 msgid "Print"
 msgstr "Skriv ut"
@@ -721,7 +721,7 @@ msgid "Show delete, alarm, and recurrence icons in calendar views?"
 msgstr "Vis slett-, alarm- og gjentagelsesikoner i kalendervisning?"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "_Today"
 msgstr "I dag"
@@ -730,10 +730,10 @@ msgid "_New Event"
 msgstr "Ny hendelse"
 
 msgid "_Goto"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 msgid "_Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "_My Calendars"
 msgstr "Mine kalendere"
@@ -748,10 +748,10 @@ msgid "_Organizing"
 msgstr "Organisering"
 
 msgid "Basic Search"
-msgstr "Standard søk"
+msgstr "Standard sÃ¸k"
 
 msgid "_Basic Search"
-msgstr "Standard søk"
+msgstr "Standard sÃ¸k"
 
 msgid "Descri_ption"
 msgstr "Beskrivelse"
@@ -760,16 +760,16 @@ msgid "Time Sp_an"
 msgstr "Tidsperiode"
 
 msgid "Now"
-msgstr "Nå"
+msgstr "NÃ¥"
 
 msgid "Ad_vanced Search"
-msgstr "Avansert Søk"
+msgstr "Avansert SÃ¸k"
 
 msgid "Clear Form"
-msgstr "Tøm Skjema"
+msgstr "TÃ¸m Skjema"
 
 msgid "Advanced Search"
-msgstr "Avansert Søk"
+msgstr "Avansert SÃ¸k"
 
 msgid "Tit_le"
 msgstr "Tittel"
@@ -793,7 +793,7 @@ msgid "Time span"
 msgstr "Tidsperiode"
 
 msgid "Sta_rt On"
-msgstr "Start på"
+msgstr "Start pÃ¥"
 
 msgid "_At"
 msgstr "Klokken"
@@ -805,7 +805,7 @@ msgid "Confirmed"
 msgstr "Bekreftet"
 
 msgid "Tentative"
-msgstr "Foreløpig"
+msgstr "ForelÃ¸pig"
 
 msgid "Cancelled"
 msgstr "Avbrutt"
@@ -814,7 +814,7 @@ msgid "Cancelled: %s"
 msgstr "Avbrutt: %s"
 
 msgid "before the event starts"
-msgstr "før hendelsen starter"
+msgstr "fÃ¸r hendelsen starter"
 
 msgid "<b>Descri_ption</b> (optional)"
 msgstr "Beskrivelse ( valgfritt )"
@@ -840,7 +840,7 @@ msgid "Add these people"
 msgstr "Legg til disse personene"
 
 msgid "* Add these by clicking Add *"
-msgstr "* Legg til disse ved å klikke 'Legg til' *"
+msgstr "* Legg til disse ved Ã¥ klikke 'Legg til' *"
 
 msgid "No attendees"
 msgstr "Ingen deltakere"
@@ -852,10 +852,10 @@ msgid "Attendance"
 msgstr "Deltakere"
 
 msgid "Possible Meeting Time"
-msgstr "Mulig møtetidspunkt"
+msgstr "Mulig mÃ¸tetidspunkt"
 
 msgid "Possible Meeting Times"
-msgstr "Mulige møtetidspunkt"
+msgstr "Mulige mÃ¸tetidspunkt"
 
 msgid "Dismiss"
 msgstr "Lukk"
@@ -876,7 +876,7 @@ msgid "Required Attendees"
 msgstr "Obligatoriske deltakere"
 
 msgid "Required to attend"
-msgstr "Obligatoriskt å delta"
+msgstr "Obligatoriskt Ã¥ delta"
 
 msgid "Find"
 msgstr "Finn"
@@ -915,7 +915,7 @@ msgid "Calendar Summary"
 msgstr "Kalender sammendrag"
 
 msgid "Reset"
-msgstr "Tøm"
+msgstr "TÃ¸m"
 
 msgid "Create"
 msgstr "Opprett"
@@ -927,7 +927,7 @@ msgid "Import Calendar, Step %d"
 msgstr "Importer kalender, steg %d"
 
 msgid "Select the format of the source file:"
-msgstr "Velg formatet på filen som skal importeres:"
+msgstr "Velg formatet pÃ¥ filen som skal importeres:"
 
 msgid "Comma separated values"
 msgstr "Komma separerte verdier"

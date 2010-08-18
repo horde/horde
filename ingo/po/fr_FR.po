@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the ingo package.
 #
 # AIDE Florent <faide@alphacent.com>, 2003.
-# Pierre Lachance <pl@pierrelachance.net> et Benoit St-André  <ben@benoitst-andre.net>, 2003, 2004.
+# Pierre Lachance <pl@pierrelachance.net> et Benoit St-AndrÃ©  <ben@benoitst-andre.net>, 2003, 2004.
 # Yannick Sebastia <yannick.sebastia@ecole-navale.fr>, 2008.
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Yannick Sebastia <yannick.sebastia@ecole-navale.fr>\n"
 "Language-Team: Francais <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -38,24 +38,24 @@ msgstr "Activer ce script "
 #: lib/Driver/ldap.php:229
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "Activation du script pour \"%s\" échoué : (%d) %s"
+msgstr "Activation du script pour \"%s\" Ã©chouÃ© : (%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
-msgstr "Options supplémentaires"
+msgstr "Options supplÃ©mentaires"
 
 #: forward.php:43
 #, fuzzy
 msgid "Address(es) to forward to:"
-msgstr "Adresse(s) vers où rediriger:"
+msgstr "Adresse(s) vers oÃ¹ rediriger:"
 
 #: vacation.php:56
 msgid "Addresses to not send responses to:"
-msgstr "Adresses auxquelles ne pas envoyer de réponses:"
+msgstr "Adresses auxquelles ne pas envoyer de rÃ©ponses:"
 
 #: vacation.php:50
 msgid "Advanced Settings"
-msgstr "Paramètres avancés"
+msgstr "ParamÃ¨tres avancÃ©s"
 
 #: templates/rule/header.inc:44
 msgid "All of the following"
@@ -63,11 +63,11 @@ msgstr "Tout ce qui suit"
 
 #: lib/api.php:68
 msgid "Allow Rules"
-msgstr "Autoriser les règles"
+msgstr "Autoriser les rÃ¨gles"
 
 #: templates/rule/footer.inc:34
 msgid "Answered"
-msgstr "Répondu"
+msgstr "RÃ©pondu"
 
 #: templates/rule/header.inc:45
 msgid "Any of the following"
@@ -79,15 +79,15 @@ msgstr "Appliquer les filtres"
 
 #: filters.php:252
 msgid "Are you sure you want to delete this rule?"
-msgstr "Êtes-vous certain de vouloir supprimer cette règle ?"
+msgstr "ÃŠtes-vous certain de vouloir supprimer cette rÃ¨gleÂ ?"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Mettre à jour le script automatiquement après chaque changement?"
+msgstr "Mettre Ã  jour le script automatiquement aprÃ¨s chaque changement?"
 
 #: vacation.php:41
 msgid "Basic Settings"
-msgstr "Paramètres de base"
+msgstr "ParamÃ¨tres de base"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
@@ -100,7 +100,7 @@ msgstr "Commence par"
 #: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "Liaison échouée : (%s) %s"
+msgstr "Liaison Ã©chouÃ©e : (%s) %s"
 
 #: filters.php:174 lib/Block/overview.php:95 lib/Block/overview.php:98
 #: templates/blacklist/blacklist.inc:7
@@ -109,11 +109,11 @@ msgstr "Liste Noire"
 
 #: blacklist.php:104
 msgid "Blacklist Edit"
-msgstr "Éditer la Liste Noire"
+msgstr "Ã‰diter la Liste Noire"
 
 #: blacklist.php:19
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "La liste noire n'est pas supporté dans le filtre actuel."
+msgstr "La liste noire n'est pas supportÃ© dans le filtre actuel."
 
 #: lib/Script/procmail.php:209 lib/Script/maildrop.php:197
 #: lib/Script/sieve.php:269
@@ -135,11 +135,11 @@ msgstr "Cc"
 #: blacklist.php:70 spam.php:90 forward.php:56 whitelist.php:38 rule.php:141
 #: vacation.php:81
 msgid "Changes saved."
-msgstr "Changements enregistrés."
+msgstr "Changements enregistrÃ©s."
 
 #: lib/Driver/ldap.php:73
 msgid "Connection failure"
-msgstr "Échec de connexion"
+msgstr "Ã‰chec de connexion"
 
 #: lib/Storage.php:342
 msgid "Contains"
@@ -158,19 +158,19 @@ msgstr "Copie de %s"
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "N'a pas pu sauvegardé le fichier de gabarit compilé '%s'."
+msgstr "N'a pas pu sauvegardÃ© le fichier de gabarit compilÃ© '%s'."
 
 #: lib/Ingo.php:62
 msgid "Create new folder"
-msgstr "Créer un nouveau dossier"
+msgstr "CrÃ©er un nouveau dossier"
 
 #: lib/Script/procmail.php:342 lib/Script/maildrop.php:362
 msgid "DISABLED: "
-msgstr "DÉSACTIVÉ:"
+msgstr "DÃ‰SACTIVÃ‰:"
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
-msgstr "Désactiver ce script"
+msgstr "DÃ©sactiver ce script"
 
 #: filters.php:252 filters.php:253
 #, php-format
@@ -183,26 +183,26 @@ msgstr "Efface la condition"
 
 #: lib/Storage.php:290
 msgid "Delete message completely"
-msgstr "Supprimer le message complètement"
+msgstr "Supprimer le message complÃ¨tement"
 
 #: templates/rule/footer.inc:36
 msgid "Deleted"
-msgstr "Effacé"
+msgstr "EffacÃ©"
 
 #: lib/Storage.php:278
 #, fuzzy
 msgid "Deliver into my Inbox"
-msgstr "Déposer ce message dans ma boite de réception"
+msgstr "DÃ©poser ce message dans ma boite de rÃ©ception"
 
 #: lib/Storage.php:304
 #, fuzzy
 msgid "Deliver into my Inbox and copy to"
-msgstr "Déposer dans ma Boite de réception et copier dans"
+msgstr "DÃ©poser dans ma Boite de rÃ©ception et copier dans"
 
 #: lib/Storage.php:299
 #, fuzzy
 msgid "Deliver into my Inbox and redirect to"
-msgstr "Déposer dans ma Boite de réception et rediriger vers"
+msgstr "DÃ©poser dans ma Boite de rÃ©ception et rediriger vers"
 
 #: lib/Storage.php:284
 msgid "Deliver to folder"
@@ -215,21 +215,21 @@ msgstr "Destination (A,Cc, Cci, etc)"
 #: filters.php:277 filters.php:278
 #, php-format
 msgid "Disable %s"
-msgstr "Désactiver %s "
+msgstr "DÃ©sactiver %s "
 
 #: spam.php:149 forward.php:99 vacation.php:153 templates/rule/header.inc:26
 #: templates/whitelist/whitelist.inc:10 templates/blacklist/blacklist.inc:10
 msgid "Disabled"
-msgstr "Désactivé"
+msgstr "DÃ©sactivÃ©"
 
 #: templates/filters/settings.inc:15
 msgid "Display detailed notification when each filter is applied?"
-msgstr "Afficher le message après l'application des filtres ? "
+msgstr "Afficher le message aprÃ¨s l'application des filtresÂ ? "
 
 #: vacation.php:58
 msgid "Do not send responses to bulk or list messages?"
 msgstr ""
-"Ne pas envoyer de réponses aux messages provenant de listes ou d'envois "
+"Ne pas envoyer de rÃ©ponses aux messages provenant de listes ou d'envois "
 "massifs ?"
 
 #: templates/rule/footer.inc:10
@@ -274,7 +274,7 @@ msgstr "Activer %s"
 
 #: templates/filters/header.inc:28
 msgid "Enabled"
-msgstr "Activé"
+msgstr "ActivÃ©"
 
 #: vacation.php:45
 msgid "End of vacation:"
@@ -286,13 +286,13 @@ msgstr " Finit par"
 
 #: lib/Storage.php:359
 msgid "Equal to"
-msgstr "Égal à"
+msgstr "Ã‰gal Ã "
 
 #: lib/Driver/ldap.php:138 lib/Driver/ldap.php:148 lib/Driver/ldap.php:157
 #: lib/Driver/ldap.php:167
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
-msgstr "Erreur lors de la récupération du script actuel : (%d) %s"
+msgstr "Erreur lors de la rÃ©cupÃ©ration du script actuel : (%d) %s"
 
 #: blacklist.php:68
 msgid "Error saving changes."
@@ -300,7 +300,7 @@ msgstr "Erreur lors de la sauvegarde des changements"
 
 #: templates/filters/header.inc:20
 msgid "Existing Rules"
-msgstr "Règles existantes"
+msgstr "RÃ¨gles existantes"
 
 #: lib/Storage.php:350
 msgid "Exists"
@@ -309,7 +309,7 @@ msgstr "Existe"
 #: lib/Driver/ldap.php:143
 #, php-format
 msgid "Expected 1 object, got %d."
-msgstr "1 objet attendu, %d trouvé(s)."
+msgstr "1 objet attendu, %d trouvÃ©(s)."
 
 #: lib/Driver/sivtest.php:204
 msgid "Failed to read from socket: "
@@ -317,11 +317,11 @@ msgstr "Erreur de lecture du socket :"
 
 #: lib/Driver/sivtest.php:199
 msgid "Failed to write to socket: "
-msgstr "Erreur d'écriture du socket : "
+msgstr "Erreur d'Ã©criture du socket : "
 
 #: lib/Driver/sivtest.php:194
 msgid "Failed to write to socket: (connection lost!)"
-msgstr "Erreur d'écriture du socket : (connexion perdue !)"
+msgstr "Erreur d'Ã©criture du socket : (connexion perdue !)"
 
 #: templates/rule/filter.inc:10
 msgid "Field"
@@ -345,11 +345,11 @@ msgstr "Options de filtrage"
 
 #: templates/rule/header.inc:25
 msgid "Filter Rule"
-msgstr "Règle de filtrage"
+msgstr "RÃ¨gle de filtrage"
 
 #: filters.php:139
 msgid "Filter Rules"
-msgstr "Règles de filtrage"
+msgstr "RÃ¨gles de filtrage"
 
 #: script.php:54
 msgid "Filter Script Display"
@@ -357,31 +357,31 @@ msgstr "Affichage du script de filtre"
 
 #: lib/Ingo.php:379
 msgid "Filter _Rules"
-msgstr "_Règles de filtrage"
+msgstr "_RÃ¨gles de filtrage"
 
 #: lib/Script/imap.php:348
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr ""
-"Activité du filtre : %s message(s) ont été déplacés vers le dossier « %s »."
+"ActivitÃ© du filtreÂ : %s message(s) ont Ã©tÃ© dÃ©placÃ©s vers le dossier Â«Â %sÂ Â»."
 
 #: lib/Script/imap.php:334
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "Activité du filtre : %s message(s) ont été effacés."
+msgstr "ActivitÃ© du filtreÂ : %s message(s) ont Ã©tÃ© effacÃ©s."
 
 #: lib/Script/imap.php:312
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr ""
-"Activité du filtre : %s message(s) ont été déplacés vers le dossier « %s »."
+"ActivitÃ© du filtreÂ : %s message(s) ont Ã©tÃ© dÃ©placÃ©s vers le dossier Â«Â %sÂ Â»."
 
 #: lib/Script/imap.php:206
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
-"Activité du filtre : %s message(s) correspondant à la liste noire ont été "
-"effacés."
+"ActivitÃ© du filtreÂ : %s message(s) correspondant Ã  la liste noire ont Ã©tÃ© "
+"effacÃ©s."
 
 #: lib/Script/imap.php:345
 #, php-format
@@ -389,13 +389,13 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
-"Activité du filtre : le message « %s » de « %s » a été copié vers le dossier « %"
-"s ». "
+"ActivitÃ© du filtreÂ : le message Â«Â %sÂ Â» de Â«Â %sÂ Â» a Ã©tÃ© copiÃ© vers le dossier Â«Â %"
+"sÂ Â». "
 
 #: lib/Script/imap.php:329
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Activité du filtre : le message « %s » de « %s » a été effacé. "
+msgstr "ActivitÃ© du filtreÂ : le message Â«Â %sÂ Â» de Â«Â %sÂ Â» a Ã©tÃ© effacÃ©. "
 
 #: lib/Script/imap.php:306
 #, php-format
@@ -403,16 +403,16 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Activité du filtre : le message « %s » de « %s » a été déplacé vers le dossier "
-"« %s ». "
+"ActivitÃ© du filtreÂ : le message Â«Â %sÂ Â» de Â«Â %sÂ Â» a Ã©tÃ© dÃ©placÃ© vers le dossier "
+"Â«Â %sÂ Â». "
 
 #: rule.php:188
 msgid "Filter not found."
-msgstr "Filtre non trouvé"
+msgstr "Filtre non trouvÃ©"
 
 #: templates/rule/footer.inc:32
 msgid "Flagged For Followup"
-msgstr "Marqué pour remonter"
+msgstr "MarquÃ© pour remonter"
 
 #: spam.php:74
 msgid "Folder to receive spam:"
@@ -429,7 +429,7 @@ msgstr "Transfert"
 
 #: forward.php:18
 msgid "Forward is not supported in the current filtering driver."
-msgstr "La redirection n'est pas supportée dans le présent filtre."
+msgstr "La redirection n'est pas supportÃ©e dans le prÃ©sent filtre."
 
 #: lib/Script/procmail.php:288 lib/Script/maildrop.php:246
 #: lib/Script/sieve.php:232
@@ -438,7 +438,7 @@ msgstr "Transmettre"
 
 #: forward.php:104
 msgid "Forwards Edit"
-msgstr "Éditer la redirection"
+msgstr "Ã‰diter la redirection"
 
 #: config/fields.php.dist:39
 msgid "From"
@@ -450,7 +450,7 @@ msgstr "De:"
 
 #: lib/Script/sieve.php:118
 msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "Généré par Ingo (http://www.horde.org/ingo/)"
+msgstr "GÃ©nÃ©rÃ© par Ingo (http://www.horde.org/ingo/)"
 
 #: lib/Storage.php:357
 msgid "Greater than"
@@ -458,15 +458,15 @@ msgstr "Plus grand que "
 
 #: lib/Storage.php:358
 msgid "Greater than or equal to"
-msgstr "Plus grand ou égale à"
+msgstr "Plus grand ou Ã©gale Ã "
 
 #: rule.php:38
 msgid "Individual rules are not supported in the current filtering driver."
-msgstr "Les règles individuelles ne sont pas supportées."
+msgstr "Les rÃ¨gles individuelles ne sont pas supportÃ©es."
 
 #: lib/Script/sieve.php:2521
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "La boîte spécifiée est inexistante"
+msgstr "La boÃ®te spÃ©cifiÃ©e est inexistante"
 
 #: lib/Storage.php:344
 msgid "Is"
@@ -485,7 +485,7 @@ msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
 "Le support LDAP est requis mais le module LDAP n'est pas disponible ou n'est "
-"pas chargé."
+"pas chargÃ©."
 
 #: lib/Storage.php:355
 msgid "Less than"
@@ -493,7 +493,7 @@ msgstr "Plus petit que"
 
 #: lib/Storage.php:356
 msgid "Less than or equal to"
-msgstr "Plus petit ou égale à"
+msgstr "Plus petit ou Ã©gale Ã "
 
 #: config/fields.php.dist:59
 msgid "List-ID"
@@ -501,7 +501,7 @@ msgstr "List-ID"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "Mar_k message as deleted"
-msgstr "Mar_quer le message comme supprimé"
+msgstr "Mar_quer le message comme supprimÃ©"
 
 #: templates/rule/footer.inc:25
 msgid "Mark message as:"
@@ -517,7 +517,7 @@ msgstr "Correspond"
 
 #: lib/api.php:71
 msgid "Maximum Number of Rules"
-msgstr "Nombre maximum de règles"
+msgstr "Nombre maximum de rÃ¨gles"
 
 #: lib/Storage.php:507
 #, php-format
@@ -525,7 +525,7 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Nombre maximum d'adresses en liste noire dépassé (Nombre total: %s, Nombre "
+"Nombre maximum d'adresses en liste noire dÃ©passÃ© (Nombre total: %s, Nombre "
 "maximum d'adresses: %s). Impossible d'ajouter plus d'adresses en liste noire."
 
 #: lib/Storage.php:560
@@ -534,7 +534,7 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Nombre maximum d'adresses en liste blanche dépassé (Nombre total: %s, Nombre "
+"Nombre maximum d'adresses en liste blanche dÃ©passÃ© (Nombre total: %s, Nombre "
 "maximum d'adresses: %s). Impossible d'ajouter plus d'adresses en liste "
 "blanche."
 
@@ -543,7 +543,7 @@ msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
 msgstr ""
-"Message avec un score supérieur ou égale à ce nombre seront traités comme du "
+"Message avec un score supÃ©rieur ou Ã©gale Ã  ce nombre seront traitÃ©s comme du "
 "spam."
 
 #: lib/Script/sieve.php:2941
@@ -560,19 +560,19 @@ msgstr "Raison de rejet manquante "
 
 #: lib/Script/sieve.php:2671
 msgid "Missing reason in vacation."
-msgstr "Raison manquante dans la règle d'absence"
+msgstr "Raison manquante dans la rÃ¨gle d'absence"
 
 #: templates/filters/header.inc:32
 msgid "Move"
-msgstr "Déplacer"
+msgstr "DÃ©placer"
 
 #: filters.php:156 filters.php:273
 msgid "Move Rule Down"
-msgstr "Descendre la règle"
+msgstr "Descendre la rÃ¨gle"
 
 #: filters.php:157 filters.php:272
 msgid "Move Rule Up"
-msgstr "Monter la règle"
+msgstr "Monter la rÃ¨gle"
 
 #: vacation.php:53
 msgid "My email addresses:"
@@ -581,21 +581,21 @@ msgstr "Mes adresses courriel:"
 #: lib/Storage.php:889 templates/filters/footer.inc:6
 #: templates/filters/filter-none.inc:3
 msgid "New Rule"
-msgstr "Nouvelle règle"
+msgstr "Nouvelle rÃ¨gle"
 
 #: lib/Ingo.php:230 lib/Ingo.php:232
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr ""
-"Le paramètre obligatoire \"%s\" n'est pas spécifié dans la configuration."
+"Le paramÃ¨tre obligatoire \"%s\" n'est pas spÃ©cifiÃ© dans la configuration."
 
 #: lib/Ingo.php:223
 msgid "No backend configured for this host"
-msgstr "Pas de Backend configuré pour ce serveur"
+msgstr "Pas de Backend configurÃ© pour ce serveur"
 
 #: lib/Ingo.php:199
 msgid "No backends configured in backends.php"
-msgstr "Pas de Backend configuré pour ce serveur "
+msgstr "Pas de Backend configurÃ© pour ce serveur "
 
 #: templates/filters/filter-none.inc:3
 #, php-format
@@ -605,19 +605,19 @@ msgstr "Pas de filtre. Cliquez '%s' pour creer un nouveau filtre."
 #: lib/Script/sieve.php:1679 lib/Script/sieve.php:1828
 #: lib/Script/sieve.php:2044
 msgid "No headers specified"
-msgstr "Pas d'en tête spécifié"
+msgstr "Pas d'en tÃªte spÃ©cifiÃ©"
 
 #: script.php:69
 msgid "No script generated."
-msgstr "Aucun script généré."
+msgstr "Aucun script gÃ©nÃ©rÃ©."
 
 #: lib/Script/sieve.php:2060 lib/Script/sieve.php:2144
 msgid "No strings specified"
-msgstr "Pas de chaine spécifiée"
+msgstr "Pas de chaine spÃ©cifiÃ©e"
 
 #: lib/Storage.php:360
 msgid "Not equal to"
-msgstr "Non égale à"
+msgstr "Non Ã©gale Ã "
 
 #: lib/Storage.php:320
 msgid "Notify email address"
@@ -633,7 +633,7 @@ msgstr "Seulement marquer le message"
 
 #: config/prefs.php.dist:19
 msgid "Options about script updating."
-msgstr "Options de mise à jour des scripts"
+msgstr "Options de mise Ã  jour des scripts"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
@@ -657,7 +657,7 @@ msgstr "Raison:"
 
 #: config/fields.php.dist:63
 msgid "Received"
-msgstr "Reçu"
+msgstr "ReÃ§u"
 
 #: lib/Storage.php:295
 msgid "Redirect to"
@@ -665,7 +665,7 @@ msgstr "Rediriger vers"
 
 #: lib/Storage.php:352
 msgid "Regular expression"
-msgstr "Expression régulière"
+msgstr "Expression rÃ©guliÃ¨re"
 
 #: lib/Storage.php:310
 msgid "Reject with reason"
@@ -673,12 +673,12 @@ msgstr "Rejeter avec la raison"
 
 #: config/fields.php.dist:51
 msgid "Resent-From"
-msgstr "Renvoyé depuis"
+msgstr "RenvoyÃ© depuis"
 
 #: config/fields.php.dist:55
 #, fuzzy
 msgid "Resent-To"
-msgstr "Renvoyé vers"
+msgstr "RenvoyÃ© vers"
 
 #: templates/rule/footer.inc:61
 msgid "Return to Filters List"
@@ -688,40 +688,40 @@ msgstr "Retour vers la liste des filtres"
 #: vacation.php:117 templates/whitelist/whitelist.inc:24
 #: templates/blacklist/blacklist.inc:42
 msgid "Return to Rules List"
-msgstr "Retour vers la liste des règles"
+msgstr "Retour vers la liste des rÃ¨gles"
 
 #: templates/filters/header.inc:27
 msgid "Rule"
-msgstr "Règle"
+msgstr "RÃ¨gle"
 
 #: filters.php:78
 msgid "Rule Copied"
-msgstr "Règle copiée"
+msgstr "RÃ¨gle copiÃ©e"
 
 #: filters.php:57
 msgid "Rule Deleted"
-msgstr "Règle effacée"
+msgstr "RÃ¨gle effacÃ©e"
 
 #: spam.php:106 filters.php:94 forward.php:72 vacation.php:97
 msgid "Rule Disabled"
-msgstr "Règle désactivée"
+msgstr "RÃ¨gle dÃ©sactivÃ©e"
 
 #: spam.php:97 filters.php:99 forward.php:63 vacation.php:88
 msgid "Rule Enabled"
-msgstr "Règle désactivé"
+msgstr "RÃ¨gle dÃ©sactivÃ©"
 
 #: templates/rule/header.inc:33
 msgid "Rule Name:"
-msgstr "Nom de la règle :"
+msgstr "Nom de la rÃ¨gle :"
 
 #: lib/Script/sieve.php:2929
 msgid "Rule:"
-msgstr "Règle:"
+msgstr "RÃ¨gle:"
 
 #: lib/Driver/ldap.php:86
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "STARTTLS échoué : (%s) %s"
+msgstr "STARTTLS Ã©chouÃ© : (%s) %s"
 
 #: lib/Ingo.php:393
 msgid "S_pam"
@@ -739,7 +739,7 @@ msgstr "Enregistrer les options"
 #: spam.php:100 spam.php:126 forward.php:66 forward.php:84 vacation.php:91
 #: vacation.php:113
 msgid "Save and Disable"
-msgstr "Sauvegarder et Désactiver"
+msgstr "Sauvegarder et DÃ©sactiver"
 
 #: spam.php:91 spam.php:128 forward.php:57 forward.php:86 vacation.php:82
 #: vacation.php:115
@@ -752,19 +752,19 @@ msgstr "Script"
 
 #: config/prefs.php.dist:18
 msgid "Script Updating"
-msgstr "Mise à jour du script"
+msgstr "Mise Ã  jour du script"
 
 #: lib/Ingo.php:175
 msgid "Script not updated."
-msgstr "Script non mis à jour"
+msgstr "Script non mis Ã  jour"
 
 #: lib/Ingo.php:146
 msgid "Script successfully activated."
-msgstr "Script activé avec succès."
+msgstr "Script activÃ© avec succÃ¨s."
 
 #: lib/Ingo.php:145
 msgid "Script successfully deactivated."
-msgstr "Script désactivé avec succès."
+msgstr "Script dÃ©sactivÃ© avec succÃ¨s."
 
 #: templates/rule/footer.inc:30
 msgid "Seen"
@@ -776,7 +776,7 @@ msgstr "Choisissez un champ"
 
 #: templates/menu.inc:6 templates/menu.inc:8
 msgid "Select ruleset to display:"
-msgstr "Sélectionner les règles à afficher: "
+msgstr "SÃ©lectionner les rÃ¨gles Ã  afficher: "
 
 #: rule.php:347 lib/Ingo.php:59 templates/blacklist/blacklist.inc:23
 msgid "Select target folder"
@@ -784,15 +784,15 @@ msgstr "Choisissez un dossier cible"
 
 #: rule.php:255
 msgid "Self-Defined Header"
-msgstr "En-tête auto-définissable"
+msgstr "En-tÃªte auto-dÃ©finissable"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "Expéditeur"
+msgstr "ExpÃ©diteur"
 
 #: filters.php:118
 msgid "Settings successfully updated."
-msgstr "Les préférences ont bien été mises à jour."
+msgstr "Les prÃ©fÃ©rences ont bien Ã©tÃ© mises Ã  jour."
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
@@ -805,7 +805,7 @@ msgstr "Afficher le script courant"
 #: spam.php:18
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
-"Le filtrage simple du spam n'est pas supporté avec le pilote de filtrage "
+"Le filtrage simple du spam n'est pas supportÃ© avec le pilote de filtrage "
 "actuel."
 
 #: config/fields.php.dist:95
@@ -814,7 +814,7 @@ msgstr "Taille"
 
 #: config/fields.php.dist:87
 msgid "Source (From,Reply-to,etc)"
-msgstr "Source (De,Réponse à,etc)"
+msgstr "Source (De,RÃ©ponse Ã ,etc)"
 
 #: filters.php:198 lib/Block/overview.php:105 lib/Block/overview.php:108
 #: lib/Script/maildrop.php:301 lib/Script/sieve.php:425
@@ -831,11 +831,11 @@ msgstr "Niveau de spam"
 
 #: vacation.php:43
 msgid "Start of vacation:"
-msgstr "Début d'abscence: "
+msgstr "DÃ©but d'abscence: "
 
 #: templates/rule/footer.inc:50
 msgid "Stop checking if this rule matches?"
-msgstr "Arreter la vérification lorsque la règle correspond?"
+msgstr "Arreter la vÃ©rification lorsque la rÃ¨gle correspond?"
 
 #: config/fields.php.dist:31
 msgid "Subject"
@@ -852,12 +852,12 @@ msgstr "Sujet :"
 #: lib/api.php:103
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
-msgstr "L'adresse \"%s\" a été ajoutée à votre liste noire."
+msgstr "L'adresse \"%s\" a Ã©tÃ© ajoutÃ©e Ã  votre liste noire."
 
 #: lib/api.php:126
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
-msgstr "L'adresse \"%s\" a été ajoutée à votre liste blanche."
+msgstr "L'adresse \"%s\" a Ã©tÃ© ajoutÃ©e Ã  votre liste blanche."
 
 #: lib/Ingo.php:141
 msgid "The driver said: "
@@ -869,24 +869,24 @@ msgstr "Une erreur s'est produite lors de l'activation du script."
 
 #: lib/Ingo.php:139
 msgid "There was an error deactivating the script."
-msgstr "Une erreur s'est produite lors de la désactivation du script."
+msgstr "Une erreur s'est produite lors de la dÃ©sactivation du script."
 
 #: config/fields.php.dist:27
 msgid "To"
-msgstr "à"
+msgstr "Ã "
 
 #: templates/filters/filter.html:32
 msgid "To:"
-msgstr "à :"
+msgstr "Ã  :"
 
 #: lib/Script.php:126
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Impossible de charger la définition de %s."
+msgstr "Impossible de charger la dÃ©finition de %s."
 
 #: templates/rule/filter.inc:15
 msgid "User header"
-msgstr "Entête utilisateur"
+msgstr "EntÃªte utilisateur"
 
 #: filters.php:186 vacation.php:151 lib/Block/overview.php:61
 #: lib/Block/overview.php:64 lib/Script/procmail.php:268
@@ -896,11 +896,11 @@ msgstr "Absence"
 
 #: vacation.php:158
 msgid "Vacation Edit"
-msgstr "Éditer absence"
+msgstr "Ã‰diter absence"
 
 #: vacation.php:18
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "Absence n'est pas supporté par le pilote actuel."
+msgstr "Absence n'est pas supportÃ© par le pilote actuel."
 
 #: rule.php:353
 msgid "Value"
@@ -917,11 +917,11 @@ msgstr "Liste blanche"
 
 #: whitelist.php:57
 msgid "Whitelist Edit"
-msgstr "Éditer Liste blanche"
+msgstr "Ã‰diter Liste blanche"
 
 #: whitelist.php:20
 msgid "Whitelist is not supported in the current filtering driver."
-msgstr "Liste blanche n'est pas supportée pas le présent filtre."
+msgstr "Liste blanche n'est pas supportÃ©e pas le prÃ©sent filtre."
 
 #: lib/Script/procmail.php:236 lib/Script/maildrop.php:224
 #: lib/Script/sieve.php:329
@@ -947,31 +947,31 @@ msgstr "X-Spam-Status"
 #: filters.php:71 rule.php:172
 #, php-format
 msgid "You are not allowed to create more than %d rules."
-msgstr "Vous n'êtes pas autorisés à créer plus de %d règles."
+msgstr "Vous n'Ãªtes pas autorisÃ©s Ã  crÃ©er plus de %d rÃ¨gles."
 
 #: filters.php:63 rule.php:23
 msgid "You are not allowed to create or edit custom rules."
 msgstr ""
-"Vous n'êtes pas autorisés à créer ou à éditer des règles personnalisées."
+"Vous n'Ãªtes pas autorisÃ©s Ã  crÃ©er ou Ã  Ã©diter des rÃ¨gles personnalisÃ©es."
 
 #: rule.php:96
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr ""
-"Vous ne pouvez créer des conditions vides. Merci de saisir une valeur pour "
+"Vous ne pouvez crÃ©er des conditions vides. Merci de saisir une valeur pour "
 "\"%s\"."
 
 #: filters.php:52 rule.php:151
 msgid "You do not have permission to delete filter rules."
-msgstr "Vous n'avez pas la permission de supprimer les règles de filtrage."
+msgstr "Vous n'avez pas la permission de supprimer les rÃ¨gles de filtrage."
 
 #: filters.php:45 filters.php:112 filters.php:123 rule.php:58 rule.php:165
 msgid "You do not have permission to edit filter rules."
-msgstr "Vous n'avez pas la permission d'éditer les règles de filtrage."
+msgstr "Vous n'avez pas la permission d'Ã©diter les rÃ¨gles de filtrage."
 
 #: lib/Script/sieve.php:2926
 msgid "You have received a new message"
-msgstr "Vous avez reçu un nouveau message"
+msgstr "Vous avez reÃ§u un nouveau message"
 
 #: lib/Script/imap.php:307 lib/Script/imap.php:330 lib/Script/imap.php:345
 msgid "[No Subject]"
@@ -983,11 +983,11 @@ msgstr "Liste _noire"
 
 #: templates/blacklist/blacklist.inc:18
 msgid "_Delete message completely"
-msgstr "_Supprimer le message complètement"
+msgstr "_Supprimer le message complÃ¨tement"
 
 #: templates/blacklist/blacklist.inc:32
 msgid "_Enter each address on a new line:"
-msgstr "_Entrer chaque adresse sur une ligne séparée:"
+msgstr "_Entrer chaque adresse sur une ligne sÃ©parÃ©e:"
 
 #: lib/Ingo.php:390
 msgid "_Forward"
@@ -995,7 +995,7 @@ msgstr "Trans_fert"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "_Move message to folder:"
-msgstr "Déplacer le _message vers le dossier"
+msgstr "DÃ©placer le _message vers le dossier"
 
 #: lib/Ingo.php:399
 msgid "_Permissions"
@@ -1023,7 +1023,7 @@ msgstr "et"
 
 #: templates/filters/filter.html:19
 msgid "disabled - click to enable"
-msgstr "désactivé - cliquer pour activer"
+msgstr "dÃ©sactivÃ© - cliquer pour activer"
 
 #: filters.php:218
 msgid "field"
@@ -1035,7 +1035,7 @@ msgstr "inactif"
 
 #: lib/Script/maildrop.php:134
 msgid "maildrop script generated by Ingo"
-msgstr "Script maildrop généré par Ingo"
+msgstr "Script maildrop gÃ©nÃ©rÃ© par Ingo"
 
 #: filters.php:218
 msgid "match"
@@ -1047,4 +1047,4 @@ msgstr "ou"
 
 #: lib/Script/procmail.php:130
 msgid "procmail script generated by Ingo"
-msgstr "Script procmail généré par Ingo"
+msgstr "Script procmail gÃ©nÃ©rÃ© par Ingo"

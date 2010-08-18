@@ -11,135 +11,135 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid ""
 "  -M, --message=MESSAGE  Use this commit message instead of the default ones."
 msgstr ""
-"-M, --message=MESSAGE  Използвай това като съобщение, вместо "
-"подразбиращото   се."
+"-M, --message=MESSAGE  РР·РїРѕР»Р·РІР°Р№ С‚РѕРІР° РєР°С‚Рѕ СЃСЉРѕР±С‰РµРЅРёРµ, РІРјРµСЃС‚Рѕ "
+"РїРѕРґСЂР°Р·Р±РёСЂР°С‰РѕС‚Рѕ   СЃРµ."
 
 msgid ""
 "  -a, --add=FILE        Add this PO file to the compendium. Useful to\n"
 "                        include a compendium from a different branch to\n"
 "                        the generated compendium."
 msgstr ""
-"  -a, --add=FILE        Добави този PO файл към compendium. Полезно е при\n"
-"                        добавяне на compendium от различен бранш към общ\n"
+"  -a, --add=FILE        Р”РѕР±Р°РІРё С‚РѕР·Рё PO С„Р°Р№Р» РєСЉРј compendium. РџРѕР»РµР·РЅРѕ Рµ РїСЂРё\n"
+"                        РґРѕР±Р°РІСЏРЅРµ РЅР° compendium РѕС‚ СЂР°Р·Р»РёС‡РµРЅ Р±СЂР°РЅС€ РєСЉРј РѕР±С‰\n"
 "                        compendium."
 
 msgid ""
 "  -b, --base=/PATH  Full path to the (Horde) base directory that should be\n"
 "                    used."
-msgstr "  -b, --base=/PATH  Пълен път до базовата директория на Horde"
+msgstr "  -b, --base=/PATH  РџСЉР»РµРЅ РїСЉС‚ РґРѕ Р±Р°Р·РѕРІР°С‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ РЅР° Horde"
 
 msgid ""
 "  -c, --compendium=FILE  Merge new translations to this compendium file\n"
 "                         instead of the default one (compendium.po in the\n"
 "                         horde/po directory."
 msgstr ""
-"  -c, --compendium=FILE  Смеси новите преводи с този compendium файл\n"
-".                         вместо с подразбиращият се (compendium.po в\n"
-"                         horde/po директория."
+"  -c, --compendium=FILE  РЎРјРµСЃРё РЅРѕРІРёС‚Рµ РїСЂРµРІРѕРґРё СЃ С‚РѕР·Рё compendium С„Р°Р№Р»\n"
+".                         РІРјРµСЃС‚Рѕ СЃ РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёСЏС‚ СЃРµ (compendium.po РІ\n"
+"                         horde/po РґРёСЂРµРєС‚РѕСЂРёСЏ."
 
 msgid ""
 "  -c, --compendium=FILE  Use this compendium file instead of the default\n"
 "                         one (compendium.po in the horde/po directory)."
 msgstr ""
-"  -c, --compendium=FILE  Използвай този compendium файл вмeсто \n"
-"                         подразбиращият се compendium.po в horde/po."
+"  -c, --compendium=FILE  РР·РїРѕР»Р·РІР°Р№ С‚РѕР·Рё compendium С„Р°Р№Р» РІРјeСЃС‚Рѕ \n"
+"                         РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёСЏС‚ СЃРµ compendium.po РІ horde/po."
 
 msgid "  -d, --debug       Show error messages from the executed binaries."
 msgstr ""
-"  -d, --debug      Показвай съобщенията за грешки от "
-"изпълнените                           файлове."
+"  -d, --debug      РџРѕРєР°Р·РІР°Р№ СЃСЉРѕР±С‰РµРЅРёСЏС‚Р° Р·Р° РіСЂРµС€РєРё РѕС‚ "
+"РёР·РїСЉР»РЅРµРЅРёС‚Рµ                           С„Р°Р№Р»РѕРІРµ."
 
 msgid "  -d, --directory=DIR   Create compendium in this directory."
-msgstr "  -d, --directory=DIR   Създай compendium в тази директория."
+msgstr "  -d, --directory=DIR   РЎСЉР·РґР°Р№ compendium РІ С‚Р°Р·Рё РґРёСЂРµРєС‚РѕСЂРёСЏ."
 
 msgid "  -h, --help        Show this help message."
-msgstr "  -h, --help        Покажи това помощно съобщение."
+msgstr "  -h, --help        РџРѕРєР°Р¶Рё С‚РѕРІР° РїРѕРјРѕС‰РЅРѕ СЃСЉРѕР±С‰РµРЅРёРµ."
 
 msgid "  -l, --locale=ll_CC     Use only this locale."
-msgstr "  -l, --locale=ll_CC     Използвай само това локализиране."
+msgstr "  -l, --locale=ll_CC     РР·РїРѕР»Р·РІР°Р№ СЃР°РјРѕ С‚РѕРІР° Р»РѕРєР°Р»РёР·РёСЂР°РЅРµ."
 
 msgid "  -l, --locale=ll_CC     Use this locale."
-msgstr "  -l, --locale=ll_CC     Използвай това локализиране."
+msgstr "  -l, --locale=ll_CC     РР·РїРѕР»Р·РІР°Р№ С‚РѕРІР° Р»РѕРєР°Р»РёР·РёСЂР°РЅРµ."
 
 msgid "  -l, --locale=ll_CC    Use this locale."
-msgstr "  -l, --locale=ll_CC    Използвай това локализиране."
+msgstr "  -l, --locale=ll_CC    РР·РїРѕР»Р·РІР°Р№ С‚РѕРІР° Р»РѕРєР°Р»РёР·РёСЂР°РЅРµ."
 
 msgid "  -m, --module=MODULE    Build MO files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Компилирай MO файлове само за този модул."
+msgstr "  -m, --module=MODULE    РљРѕРјРїРёР»РёСЂР°Р№ MO С„Р°Р№Р»РѕРІРµ СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid ""
 "  -m, --module=MODULE    Commit translations only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Изпрати преводи само за този модул."
+msgstr "  -m, --module=MODULE    РР·РїСЂР°С‚Рё РїСЂРµРІРѕРґРё СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "  -m, --module=MODULE    Merge PO files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Смеси PO файлове само за този модул."
+msgstr "  -m, --module=MODULE    РЎРјРµСЃРё PO С„Р°Р№Р»РѕРІРµ СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid ""
 "  -m, --module=MODULE    Update help files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Опресни помощните файлове само за този модул."
+msgstr "  -m, --module=MODULE    РћРїСЂРµСЃРЅРё РїРѕРјРѕС‰РЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "  -m, --module=MODULE    Update only this (Horde) module."
-msgstr "  -m, --module=MODULE    Опресни само този модул."
+msgstr "  -m, --module=MODULE    РћРїСЂРµСЃРЅРё СЃР°РјРѕ С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "  -m, --module=MODULE   Create a PO file only for this (Horde) module."
-msgstr "  -m, --module=MODULE   Създай PO файл само за този модул."
+msgstr "  -m, --module=MODULE   РЎСЉР·РґР°Р№ PO С„Р°Р№Р» СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "  -m, --module=MODULE  Generate POT file only for this (Horde) module."
-msgstr "  -m, --module=MODULE  Генерирай POT файл само за този модул."
+msgstr "  -m, --module=MODULE  Р“РµРЅРµСЂРёСЂР°Р№ POT С„Р°Р№Р» СЃР°РјРѕ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid ""
 "  -n, --new              This is a new translation, commit also CREDITS,\n"
 "                         CHANGES and lang.php.dist or nls.php.dist."
 msgstr ""
-"  -n, --new               Това е нов превод, изпратете също CREDITS, "
+"  -n, --new               РўРѕРІР° Рµ РЅРѕРІ РїСЂРµРІРѕРґ, РёР·РїСЂР°С‚РµС‚Рµ СЃСЉС‰Рѕ CREDITS, "
 "CHANGES\n"
-"                           и lang.php.dist или nls.php.dist."
+"                           Рё lang.php.dist РёР»Рё nls.php.dist."
 
 msgid ""
 "  -n, --no-compendium    Don't merge new translations to the compendium."
-msgstr "  -n, --no-compendium    Не смесвай нови преводи към compendium."
+msgstr "  -n, --no-compendium    РќРµ СЃРјРµСЃРІР°Р№ РЅРѕРІРё РїСЂРµРІРѕРґРё РєСЉРј compendium."
 
 msgid "  -n, --no-compendium    Don't use a compendium."
-msgstr "  -n, --no-compendium    Не използвай compendium."
+msgstr "  -n, --no-compendium    РќРµ РёР·РїРѕР»Р·РІР°Р№ compendium."
 
 msgid "  -t, --test        Show the executed commands but don't run anything."
 msgstr ""
-"  -t, --test        Показвай изпълнените команди, но не изпълнявай нищо"
+"  -t, --test        РџРѕРєР°Р·РІР°Р№ РёР·РїСЉР»РЅРµРЅРёС‚Рµ РєРѕРјР°РЅРґРё, РЅРѕ РЅРµ РёР·РїСЉР»РЅСЏРІР°Р№ РЅРёС‰Рѕ"
 
 msgid "  commit      Commit translations to the CVS server."
-msgstr "  commit      Изпрати преводите в CVS сървър."
+msgstr "  commit      РР·РїСЂР°С‚Рё РїСЂРµРІРѕРґРёС‚Рµ РІ CVS СЃСЉСЂРІСЉСЂ."
 
 msgid "  commit-help Commit help files to the CVS server."
-msgstr "  commit-help Изпрати помощните файлове в CVS сървър"
+msgstr "  commit-help РР·РїСЂР°С‚Рё РїРѕРјРѕС‰РЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РІ CVS СЃСЉСЂРІСЉСЂ"
 
 msgid ""
 "  compendium  Rebuild the compendium file. Warning: This overwrites the\n"
 "              current compendium."
 msgstr ""
-"  compendium  Изгради наново compendium файла. Внимание: това ще заличи\n"
-"               текущия compendium."
+"  compendium  РР·РіСЂР°РґРё РЅР°РЅРѕРІРѕ compendium С„Р°Р№Р»Р°. Р’РЅРёРјР°РЅРёРµ: С‚РѕРІР° С‰Рµ Р·Р°Р»РёС‡Рё\n"
+"               С‚РµРєСѓС‰РёСЏ compendium."
 
 msgid "  extract     Generate PO template (.pot) files."
-msgstr "  extract     Генерирай PO шаблонен (.pot) файл."
+msgstr "  extract     Р“РµРЅРµСЂРёСЂР°Р№ PO С€Р°Р±Р»РѕРЅРµРЅ (.pot) С„Р°Р№Р»."
 
 msgid "  help        Show this help message."
-msgstr "  help        Покажи това помощно съобщение."
+msgstr "  help        РџРѕРєР°Р¶Рё С‚РѕРІР° РїРѕРјРѕС‰РЅРѕ СЃСЉРѕР±С‰РµРЅРёРµ."
 
 msgid ""
 "  init        Create one or more PO files for a new locale. Warning: This\n"
 "              overwrites the existing PO files of this locale."
 msgstr ""
-"  init        Създай един или повече PO файла за нова локализация.Внимание:\n"
-"              това ще покрие съществуващите PO файлове за тази локализация."
+"  init        РЎСЉР·РґР°Р№ РµРґРёРЅ РёР»Рё РїРѕРІРµС‡Рµ PO С„Р°Р№Р»Р° Р·Р° РЅРѕРІР° Р»РѕРєР°Р»РёР·Р°С†РёСЏ.Р’РЅРёРјР°РЅРёРµ:\n"
+"              С‚РѕРІР° С‰Рµ РїРѕРєСЂРёРµ СЃСЉС‰РµСЃС‚РІСѓРІР°С‰РёС‚Рµ PO С„Р°Р№Р»РѕРІРµ Р·Р° С‚Р°Р·Рё Р»РѕРєР°Р»РёР·Р°С†РёСЏ."
 
 msgid "  make        Build binary MO files from the specified PO files."
-msgstr "  make        Компилирай бинарни MO файлове от зададените PO файлове."
+msgstr "  make        РљРѕРјРїРёР»РёСЂР°Р№ Р±РёРЅР°СЂРЅРё MO С„Р°Р№Р»РѕРІРµ РѕС‚ Р·Р°РґР°РґРµРЅРёС‚Рµ PO С„Р°Р№Р»РѕРІРµ."
 
 msgid ""
 "  make-help   Mark all entries in the XML help file being up-to-date and\n"
@@ -147,301 +147,301 @@ msgid ""
 "              should only run make-help AFTER update-help and revising the\n"
 "              help file."
 msgstr ""
-"  make-help   Маркирай всичко в XML помощният файл като опреснени и \n"
-"              подготви файла за следващо изпълнение на update-help\n"
-"              Необходимо е да стартирате make-help САМО след update-help и\n"
-"              и редактиране на help файла."
+"  make-help   РњР°СЂРєРёСЂР°Р№ РІСЃРёС‡РєРѕ РІ XML РїРѕРјРѕС‰РЅРёСЏС‚ С„Р°Р№Р» РєР°С‚Рѕ РѕРїСЂРµСЃРЅРµРЅРё Рё \n"
+"              РїРѕРґРіРѕС‚РІРё С„Р°Р№Р»Р° Р·Р° СЃР»РµРґРІР°С‰Рѕ РёР·РїСЉР»РЅРµРЅРёРµ РЅР° update-help\n"
+"              РќРµРѕР±С…РѕРґРёРјРѕ Рµ РґР° СЃС‚Р°СЂС‚РёСЂР°С‚Рµ make-help РЎРђРњРћ СЃР»РµРґ update-help Рё\n"
+"              Рё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° help С„Р°Р№Р»Р°."
 
 msgid ""
 "  merge       Merge the current PO file with the current PO template file."
-msgstr "  merge       Смесване на текущ PO файл с текущ PO шаблонен файл."
+msgstr "  merge       РЎРјРµСЃРІР°РЅРµ РЅР° С‚РµРєСѓС‰ PO С„Р°Р№Р» СЃ С‚РµРєСѓС‰ PO С€Р°Р±Р»РѕРЅРµРЅ С„Р°Р№Р»."
 
 msgid "  update      Run extract and merge sequent."
-msgstr "  update      Изпълни extract и merge последователно."
+msgstr "  update      РР·РїСЉР»РЅРё extract Рё merge РїРѕСЃР»РµРґРѕРІР°С‚РµР»РЅРѕ."
 
 msgid ""
 "  update-help Extract all new and changed entries from the English XML help\n"
 "              file and merge them with the existing ones."
 msgstr ""
-" update-help Екстракт на всички нови и променени редове от English XML help\n"
-"              файл и ги смеси със съществуващите."
+" update-help Р•РєСЃС‚СЂР°РєС‚ РЅР° РІСЃРёС‡РєРё РЅРѕРІРё Рё РїСЂРѕРјРµРЅРµРЅРё СЂРµРґРѕРІРµ РѕС‚ English XML help\n"
+"              С„Р°Р№Р» Рё РіРё СЃРјРµСЃРё СЃСЉСЃ СЃСЉС‰РµСЃС‚РІСѓРІР°С‰РёС‚Рµ."
 
 #, c-format
 msgid ""
 " &#151; %s is ready to perform the maintenance operations checked below."
 msgstr ""
-" &#151; %s е готов за извършване на избраните операции по обслужването."
+" &#151; %s Рµ РіРѕС‚РѕРІ Р·Р° РёР·РІСЉСЂС€РІР°РЅРµ РЅР° РёР·Р±СЂР°РЅРёС‚Рµ РѕРїРµСЂР°С†РёРё РїРѕ РѕР±СЃР»СѓР¶РІР°РЅРµС‚Рѕ."
 
 #, c-format
 msgid " (%s days ago)"
-msgstr " (%s дни назад)"
+msgstr " (%s РґРЅРё РЅР°Р·Р°Рґ)"
 
 msgid " (today)"
-msgstr " (днес)"
+msgstr " (РґРЅРµСЃ)"
 
 msgid " (yesterday)"
-msgstr " (вчера)"
+msgstr " (РІС‡РµСЂР°)"
 
 #, c-format
 msgid "%d bytes written."
-msgstr "%d записани байта."
+msgstr "%d Р·Р°РїРёСЃР°РЅРё Р±Р°Р№С‚Р°."
 
 #, c-format
 msgid "%d of %d entries marked as up-to-date"
-msgstr "%d от %d маркирани като опреснени"
+msgstr "%d РѕС‚ %d РјР°СЂРєРёСЂР°РЅРё РєР°С‚Рѕ РѕРїСЂРµСЃРЅРµРЅРё"
 
 #, c-format
 msgid "%s - Notice"
-msgstr "%s - Забележка"
+msgstr "%s - Р—Р°Р±РµР»РµР¶РєР°"
 
 #, c-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s Обслужващи операции - Потвърждение"
+msgstr "%s РћР±СЃР»СѓР¶РІР°С‰Рё РѕРїРµСЂР°С†РёРё - РџРѕС‚РІСЉСЂР¶РґРµРЅРёРµ"
 
 #, c-format
 msgid "%s Standard"
-msgstr "%s Стандарт"
+msgstr "%s РЎС‚Р°РЅРґР°СЂС‚"
 
 #, c-format
 msgid "%s Terms of Agreement"
-msgstr "%s Условия по Споразумението"
+msgstr "%s РЈСЃР»РѕРІРёСЏ РїРѕ РЎРїРѕСЂР°Р·СѓРјРµРЅРёРµС‚Рѕ"
 
 #, c-format
 msgid "%s is required"
-msgstr "%s необходим"
+msgstr "%s РЅРµРѕР±С…РѕРґРёРј"
 
 #, c-format
 msgid "%s not found. Run 'translation extract' first."
-msgstr "%s не е намерен. Изпълнете 'translation extract'"
+msgstr "%s РЅРµ Рµ РЅР°РјРµСЂРµРЅ. РР·РїСЉР»РЅРµС‚Рµ 'translation extract'"
 
 #, c-format
 msgid "%s%s Guest Services</a>"
-msgstr "%s%s Услуги за гости</а>"
+msgstr "%s%s РЈСЃР»СѓРіРё Р·Р° РіРѕСЃС‚Рё</Р°>"
 
 #, c-format
 msgid ""
 "%sWarning:%s This program was only tested on gettext 0.11. There is no\n"
 "guarantee that it will work with your version of gettext."
 msgstr ""
-"%sВнимание:%s Тази програма е тествана само с gettext 0.11. Няма гаранция,\n"
-"че ще работи с вашата версия на gettext"
+"%sР’РЅРёРјР°РЅРёРµ:%s РўР°Р·Рё РїСЂРѕРіСЂР°РјР° Рµ С‚РµСЃС‚РІР°РЅР° СЃР°РјРѕ СЃ gettext 0.11. РќСЏРјР° РіР°СЂР°РЅС†РёСЏ,\n"
+"С‡Рµ С‰Рµ СЂР°Р±РѕС‚Рё СЃ РІР°С€Р°С‚Р° РІРµСЂСЃРёСЏ РЅР° gettext"
 
 #, c-format
 msgid "%sfound:%s %s"
-msgstr "%sнамерен:%s %s"
+msgstr "%sРЅР°РјРµСЂРµРЅ:%s %s"
 
 #, c-format
 msgid "'%s' is not configured in the Horde Registry."
-msgstr "'%s' не е конфигуриран в Horde Registry."
+msgstr "'%s' РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РІ Horde Registry."
 
 #, c-format
 msgid "'%s' was added to the groups system."
-msgstr "'%s'беше добавена към групите."
+msgstr "'%s'Р±РµС€Рµ РґРѕР±Р°РІРµРЅР° РєСЉРј РіСЂСѓРїРёС‚Рµ."
 
 #, c-format
 msgid "'%s' was added to the permissions system."
-msgstr "'%s' беше добавен към системата за права на потребителите."
+msgstr "'%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅ РєСЉРј СЃРёСЃС‚РµРјР°С‚Р° Р·Р° РїСЂР°РІР° РЅР° РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ."
 
 #, c-format
 msgid "'%s' was not created: %s."
-msgstr "'%s'не беше създаден: %s."
+msgstr "'%s'РЅРµ Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅ: %s."
 
 msgid ", trying C++ instead"
-msgstr ", опит със C++"
+msgstr ", РѕРїРёС‚ СЃСЉСЃ C++"
 
 msgid "---------------------------"
 msgstr "---------------------------"
 
 msgid "24 hours"
-msgstr "24 часа"
+msgstr "24 С‡Р°СЃР°"
 
 msgid "<b>A fatal error has occurred:</b>"
-msgstr "<b>Непреодолима грешка:</b>"
+msgstr "<b>РќРµРїСЂРµРѕРґРѕР»РёРјР° РіСЂРµС€РєР°:</b>"
 
 #, c-format
 msgid "<b>The calendar data is invalid:<br />%s</b>"
-msgstr "<b>Данните за календара са невалидни:<br />%s</b>"
+msgstr "<b>Р”Р°РЅРЅРёС‚Рµ Р·Р° РєР°Р»РµРЅРґР°СЂР° СЃР° РЅРµРІР°Р»РёРґРЅРё:<br />%s</b>"
 
 msgid "A public PGP key is required to encrypt a message."
-msgstr "За да криптирате писмо е необходим публичен PGP ключ."
+msgstr "Р—Р° РґР° РєСЂРёРїС‚РёСЂР°С‚Рµ РїРёСЃРјРѕ Рµ РЅРµРѕР±С…РѕРґРёРј РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡."
 
 msgid "A public PGP key is required to verify a signed message."
-msgstr "За да проверите подписано писмо е необходим PGP ключ."
+msgstr "Р—Р° РґР° РїСЂРѕРІРµСЂРёС‚Рµ РїРѕРґРїРёСЃР°РЅРѕ РїРёСЃРјРѕ Рµ РЅРµРѕР±С…РѕРґРёРј PGP РєР»СЋС‡."
 
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to decrypt a "
 "message."
 msgstr ""
-"За да декриптирате писмо са необходими: публичен ключ, личен ключ и ключова "
-"фраза."
+"Р—Р° РґР° РґРµРєСЂРёРїС‚РёСЂР°С‚Рµ РїРёСЃРјРѕ СЃР° РЅРµРѕР±С…РѕРґРёРјРё: РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡, Р»РёС‡РµРЅ РєР»СЋС‡ Рё РєР»СЋС‡РѕРІР° "
+"С„СЂР°Р·Р°."
 
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"За да подпишете писмо са необходими: публичен ключ, личен ключ и ключова "
-"фраза."
+"Р—Р° РґР° РїРѕРґРїРёС€РµС‚Рµ РїРёСЃРјРѕ СЃР° РЅРµРѕР±С…РѕРґРёРјРё: РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡, Р»РёС‡РµРЅ РєР»СЋС‡ Рё РєР»СЋС‡РѕРІР° "
+"С„СЂР°Р·Р°."
 
 msgid "A public SMIME key is required to encrypt a message."
-msgstr "За да криптирате писмо е необходим публичен SMIME ключ."
+msgstr "Р—Р° РґР° РєСЂРёРїС‚РёСЂР°С‚Рµ РїРёСЃРјРѕ Рµ РЅРµРѕР±С…РѕРґРёРј РїСѓР±Р»РёС‡РµРЅ SMIME РєР»СЋС‡."
 
 msgid "A public SMIME key is required to verify a signed message."
-msgstr "За да проверите подписано писмо е необходим публичен SMIME ключ."
+msgstr "Р—Р° РґР° РїСЂРѕРІРµСЂРёС‚Рµ РїРѕРґРїРёСЃР°РЅРѕ РїРёСЃРјРѕ Рµ РЅРµРѕР±С…РѕРґРёРј РїСѓР±Р»РёС‡РµРЅ SMIME РєР»СЋС‡."
 
 msgid ""
 "A public SMIME key, private SMIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"За да декриптирате писмо са необходими: публичен SMIME ключ, личен SMIME "
-"ключ и ключова фраза."
+"Р—Р° РґР° РґРµРєСЂРёРїС‚РёСЂР°С‚Рµ РїРёСЃРјРѕ СЃР° РЅРµРѕР±С…РѕРґРёРјРё: РїСѓР±Р»РёС‡РµРЅ SMIME РєР»СЋС‡, Р»РёС‡РµРЅ SMIME "
+"РєР»СЋС‡ Рё РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°."
 
 msgid ""
 "A public SMIME key, private SMIME key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"За да подпишете писмо са необходими: публичен SMIME ключ, личен SMIME ключ и "
-"ключова фраза."
+"Р—Р° РґР° РїРѕРґРїРёС€РµС‚Рµ РїРёСЃРјРѕ СЃР° РЅРµРѕР±С…РѕРґРёРјРё: РїСѓР±Р»РёС‡РµРЅ SMIME РєР»СЋС‡, Р»РёС‡РµРЅ SMIME РєР»СЋС‡ Рё "
+"РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°."
 
 msgid "AM/PM"
 msgstr "AM/PM"
 
 msgid "Add New Group"
-msgstr "Добавяне на нова група"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІР° РіСЂСѓРїР°"
 
 msgid "Add New Permission"
-msgstr "Добавяне на нови права"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІРё РїСЂР°РІР°"
 
 msgid "Add Sub-group"
-msgstr "Добавяне на под група"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РїРѕРґ РіСЂСѓРїР°"
 
 msgid "Add Sub-permission"
-msgstr "Добави под-права"
+msgstr "Р”РѕР±Р°РІРё РїРѕРґ-РїСЂР°РІР°"
 
 #, c-format
 msgid "Add a child group to '%s'"
-msgstr "Добави наследена група към '%s'"
+msgstr "Р”РѕР±Р°РІРё РЅР°СЃР»РµРґРµРЅР° РіСЂСѓРїР° РєСЉРј '%s'"
 
 #, c-format
 msgid "Add a child permission to '%s'"
-msgstr "Добави наследени права към '%s'"
+msgstr "Р”РѕР±Р°РІРё РЅР°СЃР»РµРґРµРЅРё РїСЂР°РІР° РєСЉРј '%s'"
 
 msgid "Add a new member"
-msgstr "Добави нов член"
+msgstr "Р”РѕР±Р°РІРё РЅРѕРІ С‡Р»РµРЅ"
 
 msgid "Add a new user:"
-msgstr "Добави нов потребител:"
+msgstr "Р”РѕР±Р°РІРё РЅРѕРІ РїРѕС‚СЂРµР±РёС‚РµР»:"
 
 msgid "Add summary"
-msgstr "Добави резюме"
+msgstr "Р”РѕР±Р°РІРё СЂРµР·СЋРјРµ"
 
 msgid "Add this to my calendar"
-msgstr "Добави това към моя календар"
+msgstr "Р”РѕР±Р°РІРё С‚РѕРІР° РєСЉРј РјРѕСЏ РєР°Р»РµРЅРґР°СЂ"
 
 msgid "Add to my address book:"
-msgstr "Добави към моята адресна книга:"
+msgstr "Р”РѕР±Р°РІРё РєСЉРј РјРѕСЏС‚Р° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°:"
 
 msgid "Adding new files to repository:"
-msgstr "Добавяне на нови файлове към хранилището:"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІРё С„Р°Р№Р»РѕРІРµ РєСЉРј С…СЂР°РЅРёР»РёС‰РµС‚Рѕ:"
 
 msgid "Adding users is disabled."
-msgstr "Добавянето на потребители е забранено."
+msgstr "Р”РѕР±Р°РІСЏРЅРµС‚Рѕ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»Рё Рµ Р·Р°Р±СЂР°РЅРµРЅРѕ."
 
 msgid "Address"
-msgstr "Адрес"
+msgstr "РђРґСЂРµСЃ"
 
 msgid "Address Book"
-msgstr "Адресен бележник"
+msgstr "РђРґСЂРµСЃРµРЅ Р±РµР»РµР¶РЅРёРє"
 
 msgid "Administration"
-msgstr "Администриране"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 msgid "Ads"
-msgstr "Добавки"
+msgstr "Р”РѕР±Р°РІРєРё"
 
 msgid "Alias"
-msgstr "Псевдоним"
+msgstr "РџСЃРµРІРґРѕРЅРёРј"
 
 msgid "All Groups"
-msgstr "Всички групи"
+msgstr "Р’СЃРёС‡РєРё РіСЂСѓРїРё"
 
 msgid "All Permissions"
-msgstr "Всички права"
+msgstr "Р’СЃРёС‡РєРё РїСЂР°РІР°"
 
 msgid "An illegal value was specified."
-msgstr "Въведената стойност не е допустима."
+msgstr "Р’СЉРІРµРґРµРЅР°С‚Р° СЃС‚РѕР№РЅРѕСЃС‚ РЅРµ Рµ РґРѕРїСѓСЃС‚РёРјР°."
 
 msgid "Archive File Size"
-msgstr "Размер на архивния файл"
+msgstr "Р Р°Р·РјРµСЂ РЅР° Р°СЂС…РёРІРЅРёСЏ С„Р°Р№Р»"
 
 msgid "Archive Name"
-msgstr "Име на архива"
+msgstr "РРјРµ РЅР° Р°СЂС…РёРІР°"
 
 #, c-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
-msgstr "Сигурни ли сте, че искате да изтриете '%s' и всички подгрупи?"
+msgstr "РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ '%s' Рё РІСЃРёС‡РєРё РїРѕРґРіСЂСѓРїРё?"
 
 #, c-format
 msgid "Are you sure you wish to delete '%s' and any sub-permissions?"
-msgstr "Сигурни ли сте, че искате да изтриете '%s' и всички подправа?"
+msgstr "РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ '%s' Рё РІСЃРёС‡РєРё РїРѕРґРїСЂР°РІР°?"
 
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Да се иска ли потвърждение преди обслужващите операции?"
+msgstr "Р”Р° СЃРµ РёСЃРєР° Р»Рё РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ РїСЂРµРґРё РѕР±СЃР»СѓР¶РІР°С‰РёС‚Рµ РѕРїРµСЂР°С†РёРё?"
 
 msgid "Attempt to delete a non-existent group."
-msgstr "Грешка при изтриване на несъществуваща група."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РЅРµСЃСЉС‰РµСЃС‚РІСѓРІР°С‰Р° РіСЂСѓРїР°."
 
 msgid "Attempt to delete a non-existent permission."
-msgstr "Грешка при изтриване не несъществуващи права."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅРµ РЅРµСЃСЉС‰РµСЃС‚РІСѓРІР°С‰Рё РїСЂР°РІР°."
 
 msgid "Attempt to edit a non-existent permission."
-msgstr "Грешка при редактиране на несъществуващи права."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РЅРµСЃСЉС‰РµСЃС‚РІСѓРІР°С‰Рё РїСЂР°РІР°."
 
 msgid "Attributes"
-msgstr "Атрибути"
+msgstr "РђС‚СЂРёР±СѓС‚Рё"
 
 msgid "Authentication failed"
-msgstr "Грешка при идентификация"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ"
 
 msgid "Authentication rejected by RADIUS server."
-msgstr "Идентификацията беше отхвърлена от RADIUS сървъра."
+msgstr "РРґРµРЅС‚РёС„РёРєР°С†РёСЏС‚Р° Р±РµС€Рµ РѕС‚С…РІСЉСЂР»РµРЅР° РѕС‚ RADIUS СЃСЉСЂРІСЉСЂР°."
 
 msgid "Available Columns:"
-msgstr "Налични колони:"
+msgstr "РќР°Р»РёС‡РЅРё РєРѕР»РѕРЅРё:"
 
 msgid "Available fields:"
-msgstr "Налични полета:"
+msgstr "РќР°Р»РёС‡РЅРё РїРѕР»РµС‚Р°:"
 
 msgid "Bad kerberos password."
-msgstr "Невалидна kerberos  парола."
+msgstr "РќРµРІР°Р»РёРґРЅР° kerberos  РїР°СЂРѕР»Р°."
 
 msgid "Bad kerberos username."
-msgstr "Невалидно kerberos потребителско име."
+msgstr "РќРµРІР°Р»РёРґРЅРѕ kerberos РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ."
 
 msgid "Barbie"
 msgstr "Barbie"
 
 msgid "Birthday"
-msgstr "Рожден ден"
+msgstr "Р РѕР¶РґРµРЅ РґРµРЅ"
 
 msgid "Bold"
-msgstr "Удебелени"
+msgstr "РЈРґРµР±РµР»РµРЅРё"
 
 msgid "Bookmarks"
-msgstr "Отметки"
+msgstr "РћС‚РјРµС‚РєРё"
 
 msgid "Brown"
 msgstr "Brown"
 
 msgid "Bugs"
-msgstr "Бъгове"
+msgstr "Р‘СЉРіРѕРІРµ"
 
 #, c-format
 msgid "Building MO files for module %s%s%s..."
-msgstr "Компилирай MO файлове за модул %s%s%s..."
+msgstr "РљРѕРјРїРёР»РёСЂР°Р№ MO С„Р°Р№Р»РѕРІРµ Р·Р° РјРѕРґСѓР» %s%s%s..."
 
 #, c-format
 msgid "Building locale %s%s%s... "
-msgstr "Компилиране на локализация %s%s%s..."
+msgstr "РљРѕРјРїРёР»РёСЂР°РЅРµ РЅР° Р»РѕРєР°Р»РёР·Р°С†РёСЏ %s%s%s..."
 
 msgid "Burnt Orange"
 msgstr "Burnt Orange"
@@ -456,38 +456,38 @@ msgid "CVS"
 msgstr "CVS"
 
 msgid "Calendar"
-msgstr "Календар"
+msgstr "РљР°Р»РµРЅРґР°СЂ"
 
 msgid "Camouflage"
 msgstr "Camouflage"
 
 #, c-format
 msgid "Can't connect to IMAP server: %s"
-msgstr "Грешка при свързване с мейл сървър: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃ РјРµР№Р» СЃСЉСЂРІСЉСЂ: %s"
 
 #, c-format
 msgid "Can't connect to RPC server: %s"
-msgstr "Грешка при свързване с RPC сървър: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃ RPC СЃСЉСЂРІСЉСЂ: %s"
 
 #, c-format
 msgid "Can't get summary list from the server %s: %s"
-msgstr "Грешка при изтегляне на обобщения списък от сървъра %s: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚РµРіР»СЏРЅРµ РЅР° РѕР±РѕР±С‰РµРЅРёСЏ СЃРїРёСЃСЉРє РѕС‚ СЃСЉСЂРІСЉСЂР° %s: %s"
 
 msgid "Cancel"
-msgstr "Откажи"
+msgstr "РћС‚РєР°Р¶Рё"
 
 #, c-format
 msgid "Cannot remove; children exist (%s)"
-msgstr "Грешка при премахване; (%s) вече съществува"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјР°С…РІР°РЅРµ; (%s) РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°"
 
 msgid "Cell Phone"
-msgstr "Мобилен телефон"
+msgstr "РњРѕР±РёР»РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "Centered"
-msgstr "Центриран"
+msgstr "Р¦РµРЅС‚СЂРёСЂР°РЅ"
 
 msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "Изберете операциите, който искате да извършите сега."
+msgstr "РР·Р±РµСЂРµС‚Рµ РѕРїРµСЂР°С†РёРёС‚Рµ, РєРѕР№С‚Рѕ РёСЃРєР°С‚Рµ РґР° РёР·РІСЉСЂС€РёС‚Рµ СЃРµРіР°."
 
 msgid "Checkbook"
 msgstr "Checkbook"
@@ -496,249 +496,249 @@ msgid "Cherry"
 msgstr "Cherry"
 
 msgid "Choose the order of the summaries to display in the summary page."
-msgstr "Изберете реда на показване на извлеченията в резюме страницата."
+msgstr "РР·Р±РµСЂРµС‚Рµ СЂРµРґР° РЅР° РїРѕРєР°Р·РІР°РЅРµ РЅР° РёР·РІР»РµС‡РµРЅРёСЏС‚Р° РІ СЂРµР·СЋРјРµ СЃС‚СЂР°РЅРёС†Р°С‚Р°."
 
 msgid "Close Help"
-msgstr "Затвори Помощ"
+msgstr "Р—Р°С‚РІРѕСЂРё РџРѕРјРѕС‰"
 
 msgid "Close Help Window"
-msgstr "Затвори прозорец \"Помощ\""
+msgstr "Р—Р°С‚РІРѕСЂРё РїСЂРѕР·РѕСЂРµС† \"РџРѕРјРѕС‰\""
 
 msgid "Color Picker"
-msgstr "Избиране на цвят"
+msgstr "РР·Р±РёСЂР°РЅРµ РЅР° С†РІСЏС‚"
 
 msgid "Comics"
-msgstr "Комикси"
+msgstr "РљРѕРјРёРєСЃРё"
 
 msgid "Command options:"
-msgstr "Командни опции:"
+msgstr "РљРѕРјР°РЅРґРЅРё РѕРїС†РёРё:"
 
 msgid "Commands:"
-msgstr "Команди:"
+msgstr "РљРѕРјР°РЅРґРё:"
 
 msgid "Committing:"
-msgstr "Изпращане:"
+msgstr "РР·РїСЂР°С‰Р°РЅРµ:"
 
 msgid "Company"
-msgstr "Компания"
+msgstr "РљРѕРјРїР°РЅРёСЏ"
 
 msgid "Configuration"
-msgstr "Конфигурация"
+msgstr "РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ"
 
 msgid "Confirm Password"
-msgstr "Потвърдете паролата"
+msgstr "РџРѕС‚РІСЉСЂРґРµС‚Рµ РїР°СЂРѕР»Р°С‚Р°"
 
 msgid "Connection refused to the public keyserver."
-msgstr "Достъпа до публичния сървър беше отказан."
+msgstr "Р”РѕСЃС‚СЉРїР° РґРѕ РїСѓР±Р»РёС‡РЅРёСЏ СЃСЉСЂРІСЉСЂ Р±РµС€Рµ РѕС‚РєР°Р·Р°РЅ."
 
 msgid "Connection to ftp server failed."
-msgstr "Връзката със FTP сървъра се провали."
+msgstr "Р’СЂСЉР·РєР°С‚Р° СЃСЉСЃ FTP СЃСЉСЂРІСЉСЂР° СЃРµ РїСЂРѕРІР°Р»Рё."
 
 msgid "Console_Getopt not found."
-msgstr "Console_Getopt не е намерен."
+msgstr "Console_Getopt РЅРµ Рµ РЅР°РјРµСЂРµРЅ."
 
 #, c-format
 msgid "Contents of '%s'"
-msgstr "Съдържание на '%s'"
+msgstr "РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° '%s'"
 
 msgid "Copy"
-msgstr "Копирай"
+msgstr "РљРѕРїРёСЂР°Р№"
 
 #, c-format
 msgid "Copying %s to %s"
-msgstr "копиране на %s от %s"
+msgstr "РєРѕРїРёСЂР°РЅРµ РЅР° %s РѕС‚ %s"
 
 msgid "Could not PGP encrypt message."
-msgstr "Грешка при PGP криптирането на писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё PGP РєСЂРёРїС‚РёСЂР°РЅРµС‚Рѕ РЅР° РїРёСЃРјРѕ."
 
 msgid "Could not PGP sign message."
-msgstr "Грешка при PGP подписването на писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё PGP РїРѕРґРїРёСЃРІР°РЅРµС‚Рѕ РЅР° РїРёСЃРјРѕ."
 
 msgid "Could not SMIME encrypt message."
-msgstr "Грешка при SMIME криптирането на писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё SMIME РєСЂРёРїС‚РёСЂР°РЅРµС‚Рѕ РЅР° РїРёСЃРјРѕ."
 
 msgid "Could not SMIME sign message."
-msgstr "Грешка при SMIME подписването на писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё SMIME РїРѕРґРїРёСЃРІР°РЅРµС‚Рѕ РЅР° РїРёСЃРјРѕ."
 
 #, c-format
 msgid "Could not copy %s to %s"
-msgstr "Невъзможност да се копира %s то %s."
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ РґР° СЃРµ РєРѕРїРёСЂР° %s С‚Рѕ %s."
 
 #, c-format
 msgid "Could not create locale directory for locale %s:"
-msgstr "Грешка при създаване на локална директория за локализация %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° Р»РѕРєР°Р»РЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ Р·Р° Р»РѕРєР°Р»РёР·Р°С†РёСЏ %s"
 
 msgid "Could not decrypt PGP data."
-msgstr "Грешка при декриптирането на PGP данни."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРµРєСЂРёРїС‚РёСЂР°РЅРµС‚Рѕ РЅР° PGP РґР°РЅРЅРё."
 
 msgid "Could not decrypt SMIME data."
-msgstr "Грешка при декриптирането на SMIME данни."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРµРєСЂРёРїС‚РёСЂР°РЅРµС‚Рѕ РЅР° SMIME РґР°РЅРЅРё."
 
 msgid "Could not determine the recipient's e-mail address."
-msgstr "Некоректен email адрес на получателя."
+msgstr "РќРµРєРѕСЂРµРєС‚РµРЅ email Р°РґСЂРµСЃ РЅР° РїРѕР»СѓС‡Р°С‚РµР»СЏ."
 
 msgid "Could not obtain public key from the keyserver."
-msgstr "Грешка при получаването на публичния ключ от ключ-сървъра."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїРѕР»СѓС‡Р°РІР°РЅРµС‚Рѕ РЅР° РїСѓР±Р»РёС‡РЅРёСЏ РєР»СЋС‡ РѕС‚ РєР»СЋС‡-СЃСЉСЂРІСЉСЂР°."
 
 #, c-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Невъзможност да се отвори Обслужващи_задачи модул %s "
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ РґР° СЃРµ РѕС‚РІРѕСЂРё РћР±СЃР»СѓР¶РІР°С‰Рё_Р·Р°РґР°С‡Рё РјРѕРґСѓР» %s "
 
 msgid "Cut"
-msgstr "изрежи"
+msgstr "РёР·СЂРµР¶Рё"
 
 msgid "DD"
-msgstr "ДД"
+msgstr "Р”Р”"
 
 msgid "DHTML Rich Text Editor"
-msgstr "DHTML Rich Text редактор"
+msgstr "DHTML Rich Text СЂРµРґР°РєС‚РѕСЂ"
 
 msgid "Daily"
-msgstr "Ежедневно"
+msgstr "Р•Р¶РµРґРЅРµРІРЅРѕ"
 
 msgid "Data"
-msgstr "Данни"
+msgstr "Р”Р°РЅРЅРё"
 
 msgid "Decrease Indentation"
-msgstr "Намали уеднаквяването"
+msgstr "РќР°РјР°Р»Рё СѓРµРґРЅР°РєРІСЏРІР°РЅРµС‚Рѕ"
 
 msgid "Default Identity"
-msgstr "Идентичност по подразбиране"
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ"
 
 msgid "Default Permissions"
-msgstr "Права по подразбиране"
+msgstr "РџСЂР°РІР° РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 msgid "Deny"
-msgstr "Забрани"
+msgstr "Р—Р°Р±СЂР°РЅРё"
 
 msgid "Details have been logged for the administrator."
-msgstr "Детайлите бяха регистрирани за администратора."
+msgstr "Р”РµС‚Р°Р№Р»РёС‚Рµ Р±СЏС…Р° СЂРµРіРёСЃС‚СЂРёСЂР°РЅРё Р·Р° Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°."
 
 msgid "Discussions"
-msgstr "Дискусии"
+msgstr "Р”РёСЃРєСѓСЃРёРё"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Edit"
-msgstr "Редакция"
+msgstr "Р РµРґР°РєС†РёСЏ"
 
 #, c-format
 msgid "Edit permissions for '%s'"
-msgstr "Редакция на правата за '%s'"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РїСЂР°РІР°С‚Р° Р·Р° '%s'"
 
 msgid "Edit remote content for the Horde summary."
-msgstr "Редакция на нелокалното съдържание за обобщението на Horde."
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РЅРµР»РѕРєР°Р»РЅРѕС‚Рѕ СЃСЉРґСЉСЂР¶Р°РЅРёРµ Р·Р° РѕР±РѕР±С‰РµРЅРёРµС‚Рѕ РЅР° Horde."
 
 msgid "Email"
-msgstr "Писмо"
+msgstr "РџРёСЃРјРѕ"
 
 msgid "Email Address"
-msgstr "Еmail адрес"
+msgstr "Р•mail Р°РґСЂРµСЃ"
 
 msgid "Email addresses must match."
-msgstr "Email адресите трябва да съвпадат."
+msgstr "Email Р°РґСЂРµСЃРёС‚Рµ С‚СЂСЏР±РІР° РґР° СЃСЉРІРїР°РґР°С‚."
 
 msgid "Empty result."
-msgstr "Празен резултат."
+msgstr "РџСЂР°Р·РµРЅ СЂРµР·СѓР»С‚Р°С‚."
 
 msgid "End this row"
-msgstr "Край на реда"
+msgstr "РљСЂР°Р№ РЅР° СЂРµРґР°"
 
 #, c-format
 msgid "Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown"
-msgstr "Редове: %d общо, %d опреснени, %d нови, %d променени, %d неизвестни"
+msgstr "Р РµРґРѕРІРµ: %d РѕР±С‰Рѕ, %d РѕРїСЂРµСЃРЅРµРЅРё, %d РЅРѕРІРё, %d РїСЂРѕРјРµРЅРµРЅРё, %d РЅРµРёР·РІРµСЃС‚РЅРё"
 
 msgid "Error"
-msgstr "Грешка"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Error: "
-msgstr "Грешка"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Every 15 minutes"
-msgstr "Всеки 15 минути"
+msgstr "Р’СЃРµРєРё 15 РјРёРЅСѓС‚Рё"
 
 msgid "Every 30 seconds"
-msgstr "Всеки 30 секунди"
+msgstr "Р’СЃРµРєРё 30 СЃРµРєСѓРЅРґРё"
 
 msgid "Every 5 minutes"
-msgstr "Всеки 5 минути"
+msgstr "Р’СЃРµРєРё 5 РјРёРЅСѓС‚Рё"
 
 msgid "Every Login"
-msgstr "Всяко логване"
+msgstr "Р’СЃСЏРєРѕ Р»РѕРіРІР°РЅРµ"
 
 msgid "Every half hour"
-msgstr "На всеки половин час"
+msgstr "РќР° РІСЃРµРєРё РїРѕР»РѕРІРёРЅ С‡Р°СЃ"
 
 msgid "Every minute"
-msgstr "Всяка минута"
+msgstr "Р’СЃСЏРєР° РјРёРЅСѓС‚Р°"
 
 msgid "Example values:"
-msgstr "Примерни стойности:"
+msgstr "РџСЂРёРјРµСЂРЅРё СЃС‚РѕР№РЅРѕСЃС‚Рё:"
 
 msgid "Executing:"
-msgstr "Изпълняване на:"
+msgstr "РР·РїСЉР»РЅСЏРІР°РЅРµ РЅР°:"
 
 #, c-format
 msgid "Extracting from %s... "
-msgstr "Екстракт от %s ..."
+msgstr "Р•РєСЃС‚СЂР°РєС‚ РѕС‚ %s ..."
 
 msgid "Failed retrieving preferences."
-msgstr "Невъзможност да се заредят преференциите."
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ РґР° СЃРµ Р·Р°СЂРµРґСЏС‚ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Failed to connect to LDAP server."
-msgstr "Невъзможност да се осъществи връзка с LDAP сървър."
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ РґР° СЃРµ РѕСЃСЉС‰РµСЃС‚РІРё РІСЂСЉР·РєР° СЃ LDAP СЃСЉСЂРІСЉСЂ."
 
 msgid "Failed to connect to SMB server."
-msgstr "Грешка при свързване със SMB сървър."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃСЉСЃ SMB СЃСЉСЂРІСЉСЂ."
 
 msgid "Fax"
-msgstr "Факс"
+msgstr "Р¤Р°РєСЃ"
 
 #, c-format
 msgid "File Count: %s file"
-msgstr "Брой файлове: %s файл"
+msgstr "Р‘СЂРѕР№ С„Р°Р№Р»РѕРІРµ: %s С„Р°Р№Р»"
 
 #, c-format
 msgid "File Count: %s files"
-msgstr "Брой файлове: %s файла"
+msgstr "Р‘СЂРѕР№ С„Р°Р№Р»РѕРІРµ: %s С„Р°Р№Р»Р°"
 
 msgid "File Manager"
-msgstr "Файл менажер"
+msgstr "Р¤Р°Р№Р» РјРµРЅР°Р¶РµСЂ"
 
 msgid "File Name"
-msgstr "Име на файл"
+msgstr "РРјРµ РЅР° С„Р°Р№Р»"
 
 msgid "File uploads not supported."
-msgstr "Изпращането на файлове не се поддържа."
+msgstr "РР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»РѕРІРµ РЅРµ СЃРµ РїРѕРґРґСЉСЂР¶Р°."
 
 msgid "Filters"
-msgstr "Филтър"
+msgstr "Р¤РёР»С‚СЉСЂ"
 
 msgid "Forums"
-msgstr "Форуми"
+msgstr "Р¤РѕСЂСѓРјРё"
 
 msgid "Forwardings"
-msgstr "Препращания"
+msgstr "РџСЂРµРїСЂР°С‰Р°РЅРёСЏ"
 
 #, c-format
 msgid "Found applications: %s"
-msgstr "Намерени приложения: %s"
+msgstr "РќР°РјРµСЂРµРЅРё РїСЂРёР»РѕР¶РµРЅРёСЏ: %s"
 
 msgid "Found directories:"
-msgstr "Намерени директории:"
+msgstr "РќР°РјРµСЂРµРЅРё РґРёСЂРµРєС‚РѕСЂРёРё:"
 
 msgid "Full Description:"
-msgstr "Пълно описание:"
+msgstr "РџСЉР»РЅРѕ РѕРїРёСЃР°РЅРёРµ:"
 
 msgid "Full Name"
-msgstr "Име на файл"
+msgstr "РРјРµ РЅР° С„Р°Р№Р»"
 
 msgid "Getopt Error: "
-msgstr "Getopt грешка: "
+msgstr "Getopt РіСЂРµС€РєР°: "
 
 msgid "Green"
 msgstr "Green"
@@ -747,575 +747,575 @@ msgid "Grey"
 msgstr "Grey"
 
 msgid "Group Administration"
-msgstr "Администриране на групи"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ РЅР° РіСЂСѓРїРё"
 
 msgid "Groups"
-msgstr "Групи"
+msgstr "Р“СЂСѓРїРё"
 
 msgid "Guest Permissions"
-msgstr "Права за гости"
+msgstr "РџСЂР°РІР° Р·Р° РіРѕСЃС‚Рё"
 
 msgid "Guest Services"
-msgstr "Услуги за гости"
+msgstr "РЈСЃР»СѓРіРё Р·Р° РіРѕСЃС‚Рё"
 
 msgid "HTTP Authentication not found."
-msgstr "HTTP идентификация не е намерена."
+msgstr "HTTP РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ РЅРµ Рµ РЅР°РјРµСЂРµРЅР°."
 
 msgid "HTTPS is currently not supported."
-msgstr "HTTPS не се поддържа."
+msgstr "HTTPS РЅРµ СЃРµ РїРѕРґРґСЉСЂР¶Р°."
 
 msgid "Headlines"
-msgstr "Заглавия"
+msgstr "Р—Р°РіР»Р°РІРёСЏ"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid ""
 "Helper application to create and maintain translations for the Horde\n"
 "framework and its applications.\n"
 "For an introduction read the file README in this directory."
 msgstr ""
-"Помощно приложение за създаване на преводи за Horde\n"
-"и съпътстващите приложения. За въведение прочетете README в тази директория."
+"РџРѕРјРѕС‰РЅРѕ РїСЂРёР»РѕР¶РµРЅРёРµ Р·Р° СЃСЉР·РґР°РІР°РЅРµ РЅР° РїСЂРµРІРѕРґРё Р·Р° Horde\n"
+"Рё СЃСЉРїСЉС‚СЃС‚РІР°С‰РёС‚Рµ РїСЂРёР»РѕР¶РµРЅРёСЏ. Р—Р° РІСЉРІРµРґРµРЅРёРµ РїСЂРѕС‡РµС‚РµС‚Рµ README РІ С‚Р°Р·Рё РґРёСЂРµРєС‚РѕСЂРёСЏ."
 
 msgid "Home"
-msgstr "Начало"
+msgstr "РќР°С‡Р°Р»Рѕ"
 
 msgid "Home Address"
-msgstr "Домашен адрес"
+msgstr "Р”РѕРјР°С€РµРЅ Р°РґСЂРµСЃ"
 
 msgid "Home Phone"
-msgstr "Домашен телефон"
+msgstr "Р”РѕРјР°С€РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "Horde"
 msgstr "Horde"
 
 msgid "Horde Administration"
-msgstr "Horde Администриране"
+msgstr "Horde РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 msgid "Horde is not properly configured"
-msgstr "Horde не е конфигуриран коректно"
+msgstr "Horde РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "Horde translation generator"
-msgstr "Horde генератор на преводи"
+msgstr "Horde РіРµРЅРµСЂР°С‚РѕСЂ РЅР° РїСЂРµРІРѕРґРё"
 
 #, c-format
 msgid "IMAP mailbox creation failed: %s"
-msgstr "Грешка при създаване на IMAP пощенска кутия: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° IMAP РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ: %s"
 
 #, c-format
 msgid "IMAP mailbox deletion failed: %s"
-msgstr "Грешка при изтриване на IMAP пощенска кутия: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° IMAP РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ: %s"
 
 #, c-format
 msgid "IMAP mailbox quota creation failed: %s"
-msgstr "Грешка поради квота при създаване на IMAP пощенска кутия: %s"
+msgstr "Р“СЂРµС€РєР° РїРѕСЂР°РґРё РєРІРѕС‚Р° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° IMAP РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ: %s"
 
 msgid "IP Address not within allowed CIDR block."
-msgstr "IP адреса не е в позволения CIDR блок."
+msgstr "IP Р°РґСЂРµСЃР° РЅРµ Рµ РІ РїРѕР·РІРѕР»РµРЅРёСЏ CIDR Р±Р»РѕРє."
 
 msgid "Icons Only"
-msgstr "Само икони"
+msgstr "РЎР°РјРѕ РёРєРѕРЅРё"
 
 msgid "Icons with text"
-msgstr "Икони с текст"
+msgstr "РРєРѕРЅРё СЃ С‚РµРєСЃС‚"
 
 #, c-format
 msgid "Import Error: Expected \"BEGIN\" on line %d."
-msgstr "Грешка при импорт: Очаква се \"BEGIN\" на ред %d."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚: РћС‡Р°РєРІР° СЃРµ \"BEGIN\" РЅР° СЂРµРґ %d."
 
 #, c-format
 msgid "Import Error: Expected \"BEGIN\" on the line %d."
-msgstr "Грешка при импорт: Очаква се \"BEGIN\" в реда %d."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚: РћС‡Р°РєРІР° СЃРµ \"BEGIN\" РІ СЂРµРґР° %d."
 
 msgid "Import Error: Malformed line."
-msgstr "Грешка при импорт: Лошо форматиран ред."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚: Р›РѕС€Рѕ С„РѕСЂРјР°С‚РёСЂР°РЅ СЂРµРґ."
 
 #, c-format
 msgid "Import Error: Type mismatch. Expected \"END:%s\" on line %d."
-msgstr "Грешка при импорт: Некоректен тип. Очакван \"END:%s\" на ред %d."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚: РќРµРєРѕСЂРµРєС‚РµРЅ С‚РёРї. РћС‡Р°РєРІР°РЅ \"END:%s\" РЅР° СЂРµРґ %d."
 
 msgid "Import Error: Unexpected end of file."
-msgstr "Грешка при импорт: Неочакван край на файла."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚: РќРµРѕС‡Р°РєРІР°РЅ РєСЂР°Р№ РЅР° С„Р°Р№Р»Р°."
 
 msgid "Import to my calendar"
-msgstr "Импортирай в моя календар"
+msgstr "РРјРїРѕСЂС‚РёСЂР°Р№ РІ РјРѕСЏ РєР°Р»РµРЅРґР°СЂ"
 
 #, c-format
 msgid "Imported field: %s"
-msgstr "Импортирано поле: %s"
+msgstr "РРјРїРѕСЂС‚РёСЂР°РЅРѕ РїРѕР»Рµ: %s"
 
 msgid "Imported fields:"
-msgstr "Импортирани полета:"
+msgstr "РРјРїРѕСЂС‚РёСЂР°РЅРё РїРѕР»РµС‚Р°:"
 
 msgid "Increase Indentation"
-msgstr "Увеличаване на уеднаквяването"
+msgstr "РЈРІРµР»РёС‡Р°РІР°РЅРµ РЅР° СѓРµРґРЅР°РєРІСЏРІР°РЅРµС‚Рѕ"
 
 #, c-format
 msgid "Initializing module %s... "
-msgstr "Инициализиране на модул %s..."
+msgstr "РРЅРёС†РёР°Р»РёР·РёСЂР°РЅРµ РЅР° РјРѕРґСѓР» %s..."
 
 msgid "Insert Ruler"
-msgstr "Вмъкни подравнител"
+msgstr "Р’РјСЉРєРЅРё РїРѕРґСЂР°РІРЅРёС‚РµР»"
 
 msgid "Invalid data submitted."
-msgstr "Изпратените данни са невалидни."
+msgstr "РР·РїСЂР°С‚РµРЅРёС‚Рµ РґР°РЅРЅРё СЃР° РЅРµРІР°Р»РёРґРЅРё."
 
 msgid "Invalid response from server"
-msgstr "Невалиден отговор от сървъра"
+msgstr "РќРµРІР°Р»РёРґРµРЅ РѕС‚РіРѕРІРѕСЂ РѕС‚ СЃСЉСЂРІСЉСЂР°"
 
 msgid "Italic"
-msgstr "Наклонени"
+msgstr "РќР°РєР»РѕРЅРµРЅРё"
 
 msgid "Justify Full"
-msgstr "пълно подравняване"
+msgstr "РїСЉР»РЅРѕ РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ"
 
 msgid "Justify Left"
-msgstr "ляво подравняване"
+msgstr "Р»СЏРІРѕ РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ"
 
 msgid "Justify Right"
-msgstr "дясно подравняване"
+msgstr "РґСЏСЃРЅРѕ РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ"
 
 msgid "Kerberos server rejected authentication."
-msgstr "Kerberos сървъра отхвърли идентификацията."
+msgstr "Kerberos СЃСЉСЂРІСЉСЂР° РѕС‚С…РІСЉСЂР»Рё РёРґРµРЅС‚РёС„РёРєР°С†РёСЏС‚Р°."
 
 msgid "Key already exists on the public keyserver."
-msgstr "Ключа вече съществува в публичния ключсървър."
+msgstr "РљР»СЋС‡Р° РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ РїСѓР±Р»РёС‡РЅРёСЏ РєР»СЋС‡СЃСЉСЂРІСЉСЂ."
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "Light Blue"
 msgstr "Light Blue"
 
 msgid "List Help Topics"
-msgstr "Помощ теми"
+msgstr "РџРѕРјРѕС‰ С‚РµРјРё"
 
 msgid "Listing users is disabled."
-msgstr "Списъка с потребители е забранен."
+msgstr "РЎРїРёСЃСЉРєР° СЃ РїРѕС‚СЂРµР±РёС‚РµР»Рё Рµ Р·Р°Р±СЂР°РЅРµРЅ."
 
 msgid "Loading libraries..."
-msgstr "зареждане на библиотеките..."
+msgstr "Р·Р°СЂРµР¶РґР°РЅРµ РЅР° Р±РёР±Р»РёРѕС‚РµРєРёС‚Рµ..."
 
 msgid "Log in"
-msgstr "Вход"
+msgstr "Р’С…РѕРґ"
 
 msgid "Log out"
-msgstr "Изход"
+msgstr "РР·С…РѕРґ"
 
 msgid "Logout"
-msgstr "Изход"
+msgstr "РР·С…РѕРґ"
 
 msgid "MM"
-msgstr "ММ"
+msgstr "РњРњ"
 
 msgid "MS-TNEF Attachment contained no data."
-msgstr "MS-TNEF прикрепеният файл не съдържаше данни."
+msgstr "MS-TNEF РїСЂРёРєСЂРµРїРµРЅРёСЏС‚ С„Р°Р№Р» РЅРµ СЃСЉРґСЉСЂР¶Р°С€Рµ РґР°РЅРЅРё."
 
 msgid "Mail"
-msgstr "Поща"
+msgstr "РџРѕС‰Р°"
 
 msgid "Make sure that you have PEAR installed and in your include path."
-msgstr "Уверете се, че имате PEAR инсталиран и достъпен."
+msgstr "РЈРІРµСЂРµС‚Рµ СЃРµ, С‡Рµ РёРјР°С‚Рµ PEAR РёРЅСЃС‚Р°Р»РёСЂР°РЅ Рё РґРѕСЃС‚СЉРїРµРЅ."
 
 #, c-format
 msgid "Making directory %s"
-msgstr "Създаване на директория %s"
+msgstr "РЎСЉР·РґР°РІР°РЅРµ РЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ %s"
 
 msgid "Map Date and Time Fields"
-msgstr "Съвпадащи Дата и Час Полета"
+msgstr "РЎСЉРІРїР°РґР°С‰Рё Р”Р°С‚Р° Рё Р§Р°СЃ РџРѕР»РµС‚Р°"
 
 msgid "Map Import Fields"
-msgstr "Съвпадащи Импорт Полета"
+msgstr "РЎСЉРІРїР°РґР°С‰Рё РРјРїРѕСЂС‚ РџРѕР»РµС‚Р°"
 
 msgid "Matching fields"
-msgstr "Съвпадащи полета"
+msgstr "РЎСЉРІРїР°РґР°С‰Рё РїРѕР»РµС‚Р°"
 
 msgid "Members"
-msgstr "Членове"
+msgstr "Р§Р»РµРЅРѕРІРµ"
 
 msgid "Menu mode:"
-msgstr "Вид на менюто:"
+msgstr "Р’РёРґ РЅР° РјРµРЅСЋС‚Рѕ:"
 
 #, c-format
 msgid "Merging all %s.po files to the compendium... "
-msgstr "Смесване на всички %s.po файлове в compendium..."
+msgstr "РЎРјРµСЃРІР°РЅРµ РЅР° РІСЃРёС‡РєРё %s.po С„Р°Р№Р»РѕРІРµ РІ compendium..."
 
 #, c-format
 msgid "Merging the PO file for %s%s%s to the compendium... "
-msgstr "Смесване на PO файлове за %s%s%s в compendium..."
+msgstr "РЎРјРµСЃРІР°РЅРµ РЅР° PO С„Р°Р№Р»РѕРІРµ Р·Р° %s%s%s РІ compendium..."
 
 #, c-format
 msgid "Merging translation for module %s..."
-msgstr "Смесване на преводите за модул %s..."
+msgstr "РЎРјРµСЃРІР°РЅРµ РЅР° РїСЂРµРІРѕРґРёС‚Рµ Р·Р° РјРѕРґСѓР» %s..."
 
 msgid "Message"
-msgstr "Писмо"
+msgstr "РџРёСЃРјРѕ"
 
 msgid ""
 "Message Verified Successfully but the signer's certificated could not be "
 "verified."
 msgstr ""
-"Писмото беше проверено успешно, но сертификата на подписа не беше потвърден."
+"РџРёСЃРјРѕС‚Рѕ Р±РµС€Рµ РїСЂРѕРІРµСЂРµРЅРѕ СѓСЃРїРµС€РЅРѕ, РЅРѕ СЃРµСЂС‚РёС„РёРєР°С‚Р° РЅР° РїРѕРґРїРёСЃР° РЅРµ Р±РµС€Рµ РїРѕС‚РІСЉСЂРґРµРЅ."
 
 msgid "Method"
-msgstr "Метод"
+msgstr "РњРµС‚РѕРґ"
 
 #, c-format
 msgid "Method '%s' is not defined"
-msgstr "Метод '%s' не е дефиниран"
+msgstr "РњРµС‚РѕРґ '%s' РЅРµ Рµ РґРµС„РёРЅРёСЂР°РЅ"
 
 msgid "Mime Type"
-msgstr "Mime тип"
+msgstr "Mime С‚РёРї"
 
 msgid "Modified Date"
-msgstr "Дата на променяне"
+msgstr "Р”Р°С‚Р° РЅР° РїСЂРѕРјРµРЅСЏРЅРµ"
 
 msgid "Monthly"
-msgstr "Месечно"
+msgstr "РњРµСЃРµС‡РЅРѕ"
 
 msgid "Move down/right"
-msgstr "премести на долу/дясно"
+msgstr "РїСЂРµРјРµСЃС‚Рё РЅР° РґРѕР»Сѓ/РґСЏСЃРЅРѕ"
 
 msgid "Move up/left"
-msgstr "премести на горе/ляво"
+msgstr "РїСЂРµРјРµСЃС‚Рё РЅР° РіРѕСЂРµ/Р»СЏРІРѕ"
 
 msgid "Mozilla"
 msgstr "Mozilla"
 
 msgid "My Account"
-msgstr "Моята Поща"
+msgstr "РњРѕСЏС‚Р° РџРѕС‰Р°"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "NeXT"
 msgstr "NeXt"
 
 msgid "Network"
-msgstr "Мрежа"
+msgstr "РњСЂРµР¶Р°"
 
 msgid "Never"
-msgstr "Никога"
+msgstr "РќРёРєРѕРіР°"
 
 msgid "New Username (optional)"
-msgstr "Ново потребителско име (опционално)"
+msgstr "РќРѕРІРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ (РѕРїС†РёРѕРЅР°Р»РЅРѕ)"
 
 msgid "No"
-msgstr "Не"
+msgstr "РќРµ"
 
 msgid "No configuration information specified for FTP VFS."
-msgstr "Няма зададена конфигурация за FTP VFS."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° FTP VFS."
 
 msgid "No configuration information specified for LDAP Preferences."
-msgstr "Няма зададена конфигурация за LDAP преференции."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° LDAP РїСЂРµС„РµСЂРµРЅС†РёРё."
 
 msgid "No configuration information specified for SQL Categories."
-msgstr "Няма конфигурационна информация за SQL категориите"
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° SQL РєР°С‚РµРіРѕСЂРёРёС‚Рµ"
 
 msgid "No configuration information specified for SQL Preferences."
-msgstr "Няма конфигурационна информация за SQL преференции."
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° SQL РїСЂРµС„РµСЂРµРЅС†РёРё."
 
 msgid "No configuration information specified for SQL SessionHandler."
-msgstr "Няма зададена конфигурация за SQL SessionHandler."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL SessionHandler."
 
 msgid "No configuration information specified for SQL Tokens."
-msgstr "Няма зададена конфигурация за SQL Tokens."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL Tokens."
 
 msgid "No configuration information specified for SQL VFS."
-msgstr "Няма зададена конфигурация за SQL VFS."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL VFS."
 
 msgid "No configuration information specified for SQL authentication."
-msgstr "Няма конфигурационна информация за SQL идентификация."
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° SQL РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No configuration information specified for SQL-File VFS."
-msgstr "Няма зададена конфигурация за SQL-File VFS."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL-File VFS."
 
 #, c-format
 msgid "No entry with the id '%s' exists in the original help file."
-msgstr "Няма ред с това id '%s' в оригиналния help файл."
+msgstr "РќСЏРјР° СЂРµРґ СЃ С‚РѕРІР° id '%s' РІ РѕСЂРёРіРёРЅР°Р»РЅРёСЏ help С„Р°Р№Р»."
 
 msgid "No locale specified."
-msgstr "Няма зададена локализация."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° Р»РѕРєР°Р»РёР·Р°С†РёСЏ."
 
 msgid "No password provided for IMAP authentication."
-msgstr "Няма зададена парола за IMAP идентификация."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РїР°СЂРѕР»Р° Р·Р° IMAP РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No password provided for Kerberos authentication."
-msgstr "Няма зададена парола за Kerberos идентификация."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РїР°СЂРѕР»Р° Р·Р° Kerberos РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No password provided for LDAP authentication."
-msgstr "Няма конфигурационна информация за LDAP идентификация."
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° LDAP РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No password provided for RADIUS authentication."
-msgstr "Няма конфигурационна информация за RADIUS идентификация."
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° RADIUS РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No password provided for SMB authentication."
-msgstr "Няма конфигурационна информация за SMB идентификация."
+msgstr "РќСЏРјР° РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° SMB РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "No preferences are available."
-msgstr "Няма налични преференции."
+msgstr "РќСЏРјР° РЅР°Р»РёС‡РЅРё РїСЂРµС„РµСЂРµРЅС†РёРё."
 
 msgid "No valid XML data returned"
-msgstr "Върнатите данни не са XML"
+msgstr "Р’СЉСЂРЅР°С‚РёС‚Рµ РґР°РЅРЅРё РЅРµ СЃР° XML"
 
 msgid "No values"
-msgstr "Няма стойности"
+msgstr "РќСЏРјР° СЃС‚РѕР№РЅРѕСЃС‚Рё"
 
 msgid "Notes"
-msgstr "Бележки"
+msgstr "Р‘РµР»РµР¶РєРё"
 
 msgid "Notice"
-msgstr "Съобщение"
+msgstr "РЎСЉРѕР±С‰РµРЅРёРµ"
 
 #, c-format
 msgid "Notification listener %s not found."
-msgstr "Слушателят %s не е намерен."
+msgstr "РЎР»СѓС€Р°С‚РµР»СЏС‚ %s РЅРµ Рµ РЅР°РјРµСЂРµРЅ."
 
 msgid "OK"
-msgstr "ОК"
+msgstr "РћРљ"
 
 msgid "Off"
-msgstr "Изкл."
+msgstr "РР·РєР»."
 
 msgid "On"
-msgstr "Вкл."
+msgstr "Р’РєР»."
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Options:"
-msgstr "Опции:"
+msgstr "РћРїС†РёРё:"
 
 msgid "Orange"
 msgstr "Orange"
 
 msgid "Ordered List"
-msgstr "Подреден списък"
+msgstr "РџРѕРґСЂРµРґРµРЅ СЃРїРёСЃСЉРє"
 
 msgid "Other Information"
-msgstr "Друга информация"
+msgstr "Р”СЂСѓРіР° РёРЅС„РѕСЂРјР°С†РёСЏ"
 
 msgid "Owner Permissions"
-msgstr "Права на притежателя"
+msgstr "РџСЂР°РІР° РЅР° РїСЂРёС‚РµР¶Р°С‚РµР»СЏ"
 
 msgid "PHP Shell"
 msgstr "PGP Shell"
 
 msgid "PHP support in xgettext: "
-msgstr "PHP поддръжка в xgettext: "
+msgstr "PHP РїРѕРґРґСЂСЉР¶РєР° РІ xgettext: "
 
 msgid "Password"
-msgstr "Парола"
+msgstr "РџР°СЂРѕР»Р°"
 
 msgid "Password:"
-msgstr "Парола:"
+msgstr "РџР°СЂРѕР»Р°:"
 
 msgid "Password: "
-msgstr "Парола: "
+msgstr "РџР°СЂРѕР»Р°: "
 
 msgid "Passwords cannot be blank."
-msgstr "Паролата не може да е празна."
+msgstr "РџР°СЂРѕР»Р°С‚Р° РЅРµ РјРѕР¶Рµ РґР° Рµ РїСЂР°Р·РЅР°."
 
 msgid "Passwords must match."
-msgstr "Некоректна парола."
+msgstr "РќРµРєРѕСЂРµРєС‚РЅР° РїР°СЂРѕР»Р°."
 
 msgid "Paste"
-msgstr "Вмъкни"
+msgstr "Р’РјСЉРєРЅРё"
 
 msgid "Perform maintenance operations on login?"
-msgstr "Да се извършват ли обслужващите операции при Вход?"
+msgstr "Р”Р° СЃРµ РёР·РІСЉСЂС€РІР°С‚ Р»Рё РѕР±СЃР»СѓР¶РІР°С‰РёС‚Рµ РѕРїРµСЂР°С†РёРё РїСЂРё Р’С…РѕРґ?"
 
 msgid "Permissions"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 msgid "Permissions Administration"
-msgstr "Администриране на правата"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ РЅР° РїСЂР°РІР°С‚Р°"
 
 msgid "Phone"
-msgstr "Телефон"
+msgstr "РўРµР»РµС„РѕРЅ"
 
 msgid "Please enter a month and a year."
-msgstr "Моля, въведете месец и година."
+msgstr "РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РјРµСЃРµС† Рё РіРѕРґРёРЅР°."
 
 msgid "Please enter a month, day, and year."
-msgstr "Моля, въведете месец, ден и година."
+msgstr "РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РјРµСЃРµС†, РґРµРЅ Рё РіРѕРґРёРЅР°."
 
 msgid ""
 "Please read the following text.  You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Моля, прочетете следният текст.  Вие ТРЯБВА да се съгласите с условията за "
-"използване на системата."
+"РњРѕР»СЏ, РїСЂРѕС‡РµС‚РµС‚Рµ СЃР»РµРґРЅРёСЏС‚ С‚РµРєСЃС‚.  Р’РёРµ РўР РЇР‘Р’Рђ РґР° СЃРµ СЃСЉРіР»Р°СЃРёС‚Рµ СЃ СѓСЃР»РѕРІРёСЏС‚Р° Р·Р° "
+"РёР·РїРѕР»Р·РІР°РЅРµ РЅР° СЃРёСЃС‚РµРјР°С‚Р°."
 
 msgid "Please report any bugs to i18n@lists.horde.org."
-msgstr "Моля, изпращайте информацията за бъгове в i18n@lists.horde.orг"
+msgstr "РњРѕР»СЏ, РёР·РїСЂР°С‰Р°Р№С‚Рµ РёРЅС„РѕСЂРјР°С†РёСЏС‚Р° Р·Р° Р±СЉРіРѕРІРµ РІ i18n@lists.horde.orРі"
 
 msgid "Presentations"
-msgstr "Презентации"
+msgstr "РџСЂРµР·РµРЅС‚Р°С†РёРё"
 
 msgid "Problem?"
-msgstr "Проблем?"
+msgstr "РџСЂРѕР±Р»РµРј?"
 
 msgid "Public/Private keypair not generated successfully."
-msgstr "Ключова двойка публичен/частен ключ не беше генерирана."
+msgstr "РљР»СЋС‡РѕРІР° РґРІРѕР№РєР° РїСѓР±Р»РёС‡РµРЅ/С‡Р°СЃС‚РµРЅ РєР»СЋС‡ РЅРµ Р±РµС€Рµ РіРµРЅРµСЂРёСЂР°РЅР°."
 
 msgid "Ratio"
-msgstr "Коефициент"
+msgstr "РљРѕРµС„РёС†РёРµРЅС‚"
 
 msgid "Read"
-msgstr "Четене"
+msgstr "Р§РµС‚РµРЅРµ"
 
 #, c-format
 msgid "Really delete %s? This operation cannot be undone."
-msgstr "Искате да изтриете %s ли? Тази операция не може да се върне назад."
+msgstr "РСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ %s Р»Рё? РўР°Р·Рё РѕРїРµСЂР°С†РёСЏ РЅРµ РјРѕР¶Рµ РґР° СЃРµ РІСЉСЂРЅРµ РЅР°Р·Р°Рґ."
 
 msgid "Refresh Summary View:"
-msgstr "Опресни Резюме изгледа:"
+msgstr "РћРїСЂРµСЃРЅРё Р РµР·СЋРјРµ РёР·РіР»РµРґР°:"
 
 msgid "Remote URL (http://www.example.com/horde):"
-msgstr "Адрес URL (http://www.example.com/horde):"
+msgstr "РђРґСЂРµСЃ URL (http://www.example.com/horde):"
 
 msgid "Remote summaries"
-msgstr "Премахни обобщенията"
+msgstr "РџСЂРµРјР°С…РЅРё РѕР±РѕР±С‰РµРЅРёСЏС‚Р°"
 
 msgid "Remove"
-msgstr "Премахни"
+msgstr "РџСЂРµРјР°С…РЅРё"
 
 msgid "Remove summary"
-msgstr "Премахни резюме"
+msgstr "РџСЂРµРјР°С…РЅРё СЂРµР·СЋРјРµ"
 
 #, c-format
 msgid "Remove user: %s"
-msgstr "Премахни потребител: %s"
+msgstr "РџСЂРµРјР°С…РЅРё РїРѕС‚СЂРµР±РёС‚РµР»: %s"
 
 msgid "Request couldn't be answered: "
-msgstr "На запитването не беше отговорено: "
+msgstr "РќР° Р·Р°РїРёС‚РІР°РЅРµС‚Рѕ РЅРµ Р±РµС€Рµ РѕС‚РіРѕРІРѕСЂРµРЅРѕ: "
 
 msgid "Required 'basedn' not specified in authentication configuration."
-msgstr "Необходимия 'basedn' не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'basedn' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'basedn' not specified in preferences configuration."
-msgstr "Необходимия 'basedn' не е зададен в преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'basedn' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'bdc_hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'bdc_hostspec' не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'bdc_hostspec' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'database' not specified in SessionHandler configuration."
 msgstr ""
-"Необходимата 'database' не е зададена в конфигурацията на  SessionHandler."
+"РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР°  SessionHandler."
 
 msgid "Required 'database' not specified in VFS configuration."
-msgstr "Необходимата 'database' не е зададена във конфигурацията на VFS."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІСЉРІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР° VFS."
 
 msgid "Required 'database' not specified in authentication configuration."
-msgstr "Необходимата 'database'не е зададена в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database'РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'database' not specified in categories configuration."
-msgstr "Необходимата 'database' не е зададена в категориите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєР°С‚РµРіРѕСЂРёРёС‚Рµ."
 
 msgid "Required 'database' not specified in preferences configuration."
-msgstr "Необходимата 'database' не е зададена в преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'database' not specified in token configuration."
-msgstr "Необходимата 'database' не е зададена във token конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІСЉРІ token РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'domain' not specified in authentication configuration."
-msgstr "Необходимият 'domain' не е зададен в конфигурацията за идентификация."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏС‚ 'domain' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "Required 'hostspec' not specified in SessionHandler configuration."
 msgstr ""
-"Необходимата 'hostspec' не е зададена в конфигурацията на SessionHandler."
+"РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'hostspec' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР° SessionHandler."
 
 msgid "Required 'hostspec' not specified in VFS configuration."
-msgstr "Необходимия 'hostspec' не е указан в VFS конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ СѓРєР°Р·Р°РЅ РІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'hostspec' не е зададен в конфигурацията за идентификация."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РёРґРµРЅС‚РёС„РёРєР°С†РёСЏ."
 
 msgid "Required 'hostspec' not specified in categories configuration."
-msgstr "Необходимия 'hostspec' не е зададен в категориите"
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєР°С‚РµРіРѕСЂРёРёС‚Рµ"
 
 msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "Нeобходимия 'hostspec' не е зададен в префенрециите."
+msgstr "РќeРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РїСЂРµС„РµРЅСЂРµС†РёРёС‚Рµ."
 
 msgid "Required 'hostspec' not specified in token configuration."
-msgstr "Необходимия 'hostspec' не е указан в token конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ СѓРєР°Р·Р°РЅ РІ token РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'password' not specified in SessionHandler configuration."
 msgstr ""
-"Необходимата 'password' не е зададена в конфигурацията на SessionHandler."
+"РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР° SessionHandler."
 
 msgid "Required 'password' not specified in VFS configuration."
-msgstr "Необходимата 'password' не съществува във VFS конфигурация."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІСЉРІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ."
 
 msgid "Required 'password' not specified in authentication configuration."
-msgstr "Необходимата 'password' не е зададена в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'password' not specified in categories configuration."
-msgstr "Необходимата 'password' не е зададена в категориите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєР°С‚РµРіРѕСЂРёРёС‚Рµ."
 
 msgid "Required 'password' not specified in preferences configuration."
-msgstr "Необходимата 'password' не е зададена в преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'password' not specified in token configuration."
-msgstr "Необходимата 'password' не съществува в token конфигурация."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ token РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ."
 
 msgid "Required 'pdc_hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'pdc_hostspec'не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'pdc_hostspec'РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'phptype' not specified in SessionHandler configuration."
 msgstr ""
-"Необходимият 'phptype' не е зададен в конфигурацията на SessionHandler."
+"РќРµРѕР±С…РѕРґРёРјРёСЏС‚ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР° SessionHandler."
 
 msgid "Required 'phptype' not specified in VFS configuration."
-msgstr "Необходимия 'phptype' не е зададен във VFS конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІСЉРІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "Необходимия 'phptype' не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'phptype' not specified in categories configuration."
-msgstr "Необходимия 'phptype' не е зададен в категориите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєР°С‚РµРіРѕСЂРёРёС‚Рµ."
 
 msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "Необходимия 'phptype' не е зададен в преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'phptype' not specified in token configuration."
-msgstr "Необходимия 'phptype' не е зададен във token конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІСЉРІ token РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'port' not specified in VFS configuration."
-msgstr "Необходимия 'port' не е зададен във VFS конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'port' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІСЉРІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'uid' not specified in authentication configuration."
-msgstr "Необходимия 'uid' не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'uid' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'uid' not specified in preferences configuration."
-msgstr "Необходимия 'uid' не е зададен преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'uid' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'username' not specified in SessionHandler configuration."
 msgstr ""
-"Необходимото 'username' не е зададено в конфигурацията на SessionHandler."
+"РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° РЅР° SessionHandler."
 
 msgid "Required 'username' not specified in VFS configuration."
-msgstr "Необходимото 'username' не е зададено в VFS конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'username' not specified in authentication configuration."
-msgstr "Необходимия 'username' не е зададен в идентификациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РёРґРµРЅС‚РёС„РёРєР°С†РёРёС‚Рµ."
 
 msgid "Required 'username' not specified in categories configuration."
-msgstr "Необходимия 'username' не е зададен в конфигурациите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРёС‚Рµ."
 
 msgid "Required 'username' not specified in preferences configuration."
-msgstr "Необходимия 'username' не е зададен в преференциите."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РїСЂРµС„РµСЂРµРЅС†РёРёС‚Рµ."
 
 msgid "Required 'username' not specified in token configuration."
-msgstr "Необходимото 'username' не е зададено в token конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ token РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'vfsroot' not specified in VFS configuration."
-msgstr "Необходимия 'vfsroot' не е зададен във VFS конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'vfsroot' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІСЉРІ VFS РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Role"
-msgstr "Роля"
+msgstr "Р РѕР»СЏ"
 
 msgid "SQL Shell"
 msgstr "SQL Shell"
@@ -1324,492 +1324,492 @@ msgid "SSH"
 msgstr "SSH"
 
 msgid "Searching Horde applications..."
-msgstr "Търсене на Horde приложенията..."
+msgstr "РўСЉСЂСЃРµРЅРµ РЅР° Horde РїСЂРёР»РѕР¶РµРЅРёСЏС‚Р°..."
 
 msgid "Searching gettext binaries..."
-msgstr "Търсене на gettext изпълними файлове..."
+msgstr "РўСЉСЂСЃРµРЅРµ РЅР° gettext РёР·РїСЉР»РЅРёРјРё С„Р°Р№Р»РѕРІРµ..."
 
 msgid "Select"
-msgstr "Избери"
+msgstr "РР·Р±РµСЂРё"
 
 msgid "Select a group to add"
-msgstr "Изберете група за добавяне"
+msgstr "РР·Р±РµСЂРµС‚Рµ РіСЂСѓРїР° Р·Р° РґРѕР±Р°РІСЏРЅРµ"
 
 msgid "Select a new owner"
-msgstr "Изберете нов притежател на група"
+msgstr "РР·Р±РµСЂРµС‚Рµ РЅРѕРІ РїСЂРёС‚РµР¶Р°С‚РµР» РЅР° РіСЂСѓРїР°"
 
 msgid "Select a server"
-msgstr "Изберете сървър"
+msgstr "РР·Р±РµСЂРµС‚Рµ СЃСЉСЂРІСЉСЂ"
 
 msgid "Select a user to add"
-msgstr "Избери потребител за добавяне"
+msgstr "РР·Р±РµСЂРё РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РґРѕР±Р°РІСЏРЅРµ"
 
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the textarea."
 msgstr ""
-"Изберете необходимите Ви символи. След това ги копирайте от текстовото поле."
+"РР·Р±РµСЂРµС‚Рµ РЅРµРѕР±С…РѕРґРёРјРёС‚Рµ Р’Рё СЃРёРјРІРѕР»Рё. РЎР»РµРґ С‚РѕРІР° РіРё РєРѕРїРёСЂР°Р№С‚Рµ РѕС‚ С‚РµРєСЃС‚РѕРІРѕС‚Рѕ РїРѕР»Рµ."
 
 msgid "Select the date delimiter:"
-msgstr "Изберете Дата разделител:"
+msgstr "РР·Р±РµСЂРµС‚Рµ Р”Р°С‚Р° СЂР°Р·РґРµР»РёС‚РµР»:"
 
 msgid "Select the date format:"
-msgstr "Изберете формат за Датата:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚ Р·Р° Р”Р°С‚Р°С‚Р°:"
 
 msgid "Select the time format:"
-msgstr "Изберете формат за Часа:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚ Р·Р° Р§Р°СЃР°:"
 
 msgid "Select two matching fields."
-msgstr "Изберете две съвпадащи полета:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РґРІРµ СЃСЉРІРїР°РґР°С‰Рё РїРѕР»РµС‚Р°:"
 
 msgid "Select your color scheme."
-msgstr "Изберете вашата схема за цветовете."
+msgstr "РР·Р±РµСЂРµС‚Рµ РІР°С€Р°С‚Р° СЃС…РµРјР° Р·Р° С†РІРµС‚РѕРІРµС‚Рµ."
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Selected Columns:"
-msgstr "Изберете колони:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РєРѕР»РѕРЅРё:"
 
 msgid "Set your preferred display language."
-msgstr "Изберете предпочитаният от Вас език за дисплея."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє Р·Р° РґРёСЃРїР»РµСЏ."
 
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"Задайте Вашето начално приложение, схема за цветове, опресняване на "
-"страницата и други опции за дисплея."
+"Р—Р°РґР°Р№С‚Рµ Р’Р°С€РµС‚Рѕ РЅР°С‡Р°Р»РЅРѕ РїСЂРёР»РѕР¶РµРЅРёРµ, СЃС…РµРјР° Р·Р° С†РІРµС‚РѕРІРµ, РѕРїСЂРµСЃРЅСЏРІР°РЅРµ РЅР° "
+"СЃС‚СЂР°РЅРёС†Р°С‚Р° Рё РґСЂСѓРіРё РѕРїС†РёРё Р·Р° РґРёСЃРїР»РµСЏ."
 
 msgid "Short Summary:"
-msgstr "Кратко резюме:"
+msgstr "РљСЂР°С‚РєРѕ СЂРµР·СЋРјРµ:"
 
 msgid "Show"
-msgstr "Показване"
+msgstr "РџРѕРєР°Р·РІР°РЅРµ"
 
 msgid "Size"
-msgstr "Размер"
+msgstr "Р Р°Р·РјРµСЂ"
 
 msgid "Skipped..."
-msgstr "Прескочено..."
+msgstr "РџСЂРµСЃРєРѕС‡РµРЅРѕ..."
 
 msgid "Some of Horde's configuration files are missing:"
-msgstr "Някои от конфигурационните файлове на Horde липсват:"
+msgstr "РќСЏРєРѕРё РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° Horde Р»РёРїСЃРІР°С‚:"
 
 msgid "SpamAssassin"
-msgstr "Унищожител на Спам"
+msgstr "РЈРЅРёС‰РѕР¶РёС‚РµР» РЅР° РЎРїР°Рј"
 
 msgid "Special Character Input"
-msgstr "Въвеждане на специални символи"
+msgstr "Р’СЉРІРµР¶РґР°РЅРµ РЅР° СЃРїРµС†РёР°Р»РЅРё СЃРёРјРІРѕР»Рё"
 
 msgid "Submit"
-msgstr "Изпрати"
+msgstr "РР·РїСЂР°С‚Рё"
 
 msgid "Success"
-msgstr "Успех"
+msgstr "РЈСЃРїРµС…"
 
 #, c-format
 msgid "Successfully added '%s' to the system."
-msgstr "Успешно добавен '%s' към системата."
+msgstr "РЈСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅ '%s' РєСЉРј СЃРёСЃС‚РµРјР°С‚Р°."
 
 #, c-format
 msgid "Successfully deleted '%s'."
-msgstr "Успешно изтрит '%s'."
+msgstr "РЈСЃРїРµС€РЅРѕ РёР·С‚СЂРёС‚ '%s'."
 
 #, c-format
 msgid "Successfully removed '%s' from the system."
-msgstr "Успешно премахнат '%s' от системата."
+msgstr "РЈСЃРїРµС€РЅРѕ РїСЂРµРјР°С…РЅР°С‚ '%s' РѕС‚ СЃРёСЃС‚РµРјР°С‚Р°."
 
 #, c-format
 msgid "Successfully updated '%s'"
-msgstr "Успешно беше обновен '%s'."
+msgstr "РЈСЃРїРµС€РЅРѕ Р±РµС€Рµ РѕР±РЅРѕРІРµРЅ '%s'."
 
 msgid "Sun"
 msgstr "Sun"
 
 msgid "Tasks"
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 msgid "Text Only"
-msgstr "Само текст"
+msgstr "РЎР°РјРѕ С‚РµРєСЃС‚"
 
 #, c-format
 msgid "The %s help file for %s doesn't yet exist. Creating a new one."
-msgstr "%s help файл за %s не съществува все още. Създаване на нов."
+msgstr "%s help С„Р°Р№Р» Р·Р° %s РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІСЃРµ РѕС‰Рµ. РЎСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІ."
 
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Прикрепеният PGP подпис е необходим за да се провери подписаното писмо."
+"РџСЂРёРєСЂРµРїРµРЅРёСЏС‚ PGP РїРѕРґРїРёСЃ Рµ РЅРµРѕР±С…РѕРґРёРј Р·Р° РґР° СЃРµ РїСЂРѕРІРµСЂРё РїРѕРґРїРёСЃР°РЅРѕС‚Рѕ РїРёСЃРјРѕ."
 
 msgid ""
 "The detached SMIME signature block is required to verify the signed message."
 msgstr ""
-"Прикрепеният SMIME подпис е необходим за да се провери подписаното писмо."
+"РџСЂРёРєСЂРµРїРµРЅРёСЏС‚ SMIME РїРѕРґРїРёСЃ Рµ РЅРµРѕР±С…РѕРґРёРј Р·Р° РґР° СЃРµ РїСЂРѕРІРµСЂРё РїРѕРґРїРёСЃР°РЅРѕС‚Рѕ РїРёСЃРјРѕ."
 
 msgid "The encryption features require a secure web connection."
-msgstr "Криптирането изисква криптирана web връзка."
+msgstr "РљСЂРёРїС‚РёСЂР°РЅРµС‚Рѕ РёР·РёСЃРєРІР° РєСЂРёРїС‚РёСЂР°РЅР° web РІСЂСЉР·РєР°."
 
 #, c-format
 msgid "The help file %s didn't start with <?xml"
-msgstr "Help файла %s не започва с <?xml"
+msgstr "Help С„Р°Р№Р»Р° %s РЅРµ Р·Р°РїРѕС‡РІР° СЃ <?xml"
 
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
 msgstr ""
-"Местоположението на GnuPG файла трябва да бъде даденo на Crypt_pgp:: clas"
+"РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµС‚Рѕ РЅР° GnuPG С„Р°Р№Р»Р° С‚СЂСЏР±РІР° РґР° Р±СЉРґРµ РґР°РґРµРЅo РЅР° Crypt_pgp:: clas"
 
 msgid "The openssl module is required for the Crypt_smime:: class."
-msgstr "Модулът OpenSSL е необходим за Crypt_smime:: class."
+msgstr "РњРѕРґСѓР»СЉС‚ OpenSSL Рµ РЅРµРѕР±С…РѕРґРёРј Р·Р° Crypt_smime:: class."
 
 #, c-format
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr ""
-"Програмата, която служи за показване на този тип данни (%s) не беше открита "
-"в системата"
+"РџСЂРѕРіСЂР°РјР°С‚Р°, РєРѕСЏС‚Рѕ СЃР»СѓР¶Рё Р·Р° РїРѕРєР°Р·РІР°РЅРµ РЅР° С‚РѕР·Рё С‚РёРї РґР°РЅРЅРё (%s) РЅРµ Р±РµС€Рµ РѕС‚РєСЂРёС‚Р° "
+"РІ СЃРёСЃС‚РµРјР°С‚Р°"
 
 msgid ""
 "The registry is how Horde applications find out how to talk to each other. "
 "You should list any installed Horde applications that you have here."
 msgstr ""
-"The Registry (Регистратурата) е начинът по който Horde приложенията разбират "
-"как да комуникират по между си. Би трябвало да опишете инсталираните "
-"приложения тук."
+"The Registry (Р РµРіРёСЃС‚СЂР°С‚СѓСЂР°С‚Р°) Рµ РЅР°С‡РёРЅСЉС‚ РїРѕ РєРѕР№С‚Рѕ Horde РїСЂРёР»РѕР¶РµРЅРёСЏС‚Р° СЂР°Р·Р±РёСЂР°С‚ "
+"РєР°Рє РґР° РєРѕРјСѓРЅРёРєРёСЂР°С‚ РїРѕ РјРµР¶РґСѓ СЃРё. Р‘Рё С‚СЂСЏР±РІР°Р»Рѕ РґР° РѕРїРёС€РµС‚Рµ РёРЅСЃС‚Р°Р»РёСЂР°РЅРёС‚Рµ "
+"РїСЂРёР»РѕР¶РµРЅРёСЏ С‚СѓРє."
 
 msgid "There are no parts that can be displayed inline."
-msgstr "Няма двойки, които да бъдат показани в линията."
+msgstr "РќСЏРјР° РґРІРѕР№РєРё, РєРѕРёС‚Рѕ РґР° Р±СЉРґР°С‚ РїРѕРєР°Р·Р°РЅРё РІ Р»РёРЅРёСЏС‚Р°."
 
 #, c-format
 msgid ""
 "There are too many characters in this field. You have entered %s characters; "
 "you must enter less than %s."
 msgstr ""
-"Има твърде много символи в това поле. Въвели сте %s символа; трябва да "
-"въведете по-малко от %s."
+"РРјР° С‚РІСЉСЂРґРµ РјРЅРѕРіРѕ СЃРёРјРІРѕР»Рё РІ С‚РѕРІР° РїРѕР»Рµ. Р’СЉРІРµР»Рё СЃС‚Рµ %s СЃРёРјРІРѕР»Р°; С‚СЂСЏР±РІР° РґР° "
+"РІСЉРІРµРґРµС‚Рµ РїРѕ-РјР°Р»РєРѕ РѕС‚ %s."
 
 #, c-format
 msgid "There doesn't yet exist a help file for %s."
-msgstr "Не съществува help файл с това име за %s."
+msgstr "РќРµ СЃСЉС‰РµСЃС‚РІСѓРІР° help С„Р°Р№Р» СЃ С‚РѕРІР° РёРјРµ Р·Р° %s."
 
 #, c-format
 msgid "There was a problem adding '%s' to the system."
-msgstr "Грешка при добавяне на '%s' към системата."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° '%s' РєСЉРј СЃРёСЃС‚РµРјР°С‚Р°."
 
 #, c-format
 msgid "There was a problem removing '%s' from the system."
-msgstr "Грешка при премахването на '%s' от системата."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјР°С…РІР°РЅРµС‚Рѕ РЅР° '%s' РѕС‚ СЃРёСЃС‚РµРјР°С‚Р°."
 
 #, c-format
 msgid "There was a problem updating '%s': %s"
-msgstr "Грешка при опресняване на '%s': %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РѕРїСЂРµСЃРЅСЏРІР°РЅРµ РЅР° '%s': %s"
 
 #, c-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "Грешка при изпращането на файла: %s не беше изпратен."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°: %s РЅРµ Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅ."
 
 #, c-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Имаше проблем при изпращането на файла. %s е по-голям от максимално "
-"допустимия размер (%d байта)."
+"РРјР°С€Рµ РїСЂРѕР±Р»РµРј РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. %s Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ РјР°РєСЃРёРјР°Р»РЅРѕ "
+"РґРѕРїСѓСЃС‚РёРјРёСЏ СЂР°Р·РјРµСЂ (%d Р±Р°Р№С‚Р°)."
 
 #, c-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
-msgstr "Грешка при изпращането на файла. %s беше само отчасти изпратен."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. %s Р±РµС€Рµ СЃР°РјРѕ РѕС‚С‡Р°СЃС‚Рё РёР·РїСЂР°С‚РµРЅ."
 
 msgid "There was an error importing the calendar data."
-msgstr "Грешка при импортиране на избраните данни за календар."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РёР·Р±СЂР°РЅРёС‚Рµ РґР°РЅРЅРё Р·Р° РєР°Р»РµРЅРґР°СЂ."
 
 msgid "There was an error importing the contact data."
-msgstr "Грешка при импорт на данни за контакти."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚ РЅР° РґР°РЅРЅРё Р·Р° РєРѕРЅС‚Р°РєС‚Рё."
 
 #, c-format
 msgid ""
 "There was an error opening the file %s. Try running translation.php with the "
 "flag -d to see any error messages from the xml parser."
 msgstr ""
-"Грешка при отварянето на файл %s. Опитайте да стартирате translation.php с "
-"опция -d за да видите съобщениeто за грешка от xml парсерa."
+"Р“СЂРµС€РєР° РїСЂРё РѕС‚РІР°СЂСЏРЅРµС‚Рѕ РЅР° С„Р°Р№Р» %s. РћРїРёС‚Р°Р№С‚Рµ РґР° СЃС‚Р°СЂС‚РёСЂР°С‚Рµ translation.php СЃ "
+"РѕРїС†РёСЏ -d Р·Р° РґР° РІРёРґРёС‚Рµ СЃСЉРѕР±С‰РµРЅРёeС‚Рѕ Р·Р° РіСЂРµС€РєР° РѕС‚ xml РїР°СЂСЃРµСЂa."
 
 msgid "There was an unknown error verifying this message."
-msgstr "Грешка при проверката на това писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРѕРІРµСЂРєР°С‚Р° РЅР° С‚РѕРІР° РїРёСЃРјРѕ."
 
 msgid ""
 "This calendar data has been successfully added to your schedule. Click below "
 "to view:"
 msgstr ""
-"Тези данни за календара бяха успешно добавени към Вашата програма. Кликнете "
-"по-долу за да видите:"
+"РўРµР·Рё РґР°РЅРЅРё Р·Р° РєР°Р»РµРЅРґР°СЂР° Р±СЏС…Р° СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅРё РєСЉРј Р’Р°С€Р°С‚Р° РїСЂРѕРіСЂР°РјР°. РљР»РёРєРЅРµС‚Рµ "
+"РїРѕ-РґРѕР»Сѓ Р·Р° РґР° РІРёРґРёС‚Рµ:"
 
 msgid ""
 "This contact data has been successfully added to your address book. Click "
 "below to view:"
 msgstr ""
-"Тези данни за контакт бяха успешно добавени към Вашата програма. Кликнете по-"
-"долу за да видите:"
+"РўРµР·Рё РґР°РЅРЅРё Р·Р° РєРѕРЅС‚Р°РєС‚ Р±СЏС…Р° СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅРё РєСЉРј Р’Р°С€Р°С‚Р° РїСЂРѕРіСЂР°РјР°. РљР»РёРєРЅРµС‚Рµ РїРѕ-"
+"РґРѕР»Сѓ Р·Р° РґР° РІРёРґРёС‚Рµ:"
 
 msgid "This does not appear to be a valid rar archive."
-msgstr "Това не е валиден rar архив."
+msgstr "РўРѕРІР° РЅРµ Рµ РІР°Р»РёРґРµРЅ rar Р°СЂС…РёРІ."
 
 msgid "This does not appear to be a valid zip file."
-msgstr "Това не е валиден zip файл."
+msgstr "РўРѕРІР° РЅРµ Рµ РІР°Р»РёРґРµРЅ zip С„Р°Р№Р»."
 
 msgid "This field is required."
-msgstr "Това поле е необходимо."
+msgstr "РўРѕРІР° РїРѕР»Рµ Рµ РЅРµРѕР±С…РѕРґРёРјРѕ."
 
 msgid "This field may only contain integers."
-msgstr "Това поле може да съдържа само цели числа."
+msgstr "РўРѕРІР° РїРѕР»Рµ РјРѕР¶Рµ РґР° СЃСЉРґСЉСЂР¶Р° СЃР°РјРѕ С†РµР»Рё С‡РёСЃР»Р°."
 
 msgid "This field may only contain numbers and the colon."
-msgstr "Това поле може да съдържа само числа и двоеточие."
+msgstr "РўРѕРІР° РїРѕР»Рµ РјРѕР¶Рµ РґР° СЃСЉРґСЉСЂР¶Р° СЃР°РјРѕ С‡РёСЃР»Р° Рё РґРІРѕРµС‚РѕС‡РёРµ."
 
 msgid "This field may only contain numbers."
-msgstr "Това поле може да съдържа само номера."
+msgstr "РўРѕРІР° РїРѕР»Рµ РјРѕР¶Рµ РґР° СЃСЉРґСЉСЂР¶Р° СЃР°РјРѕ РЅРѕРјРµСЂР°."
 
 msgid "This field must be a comma or space separated list of integers"
-msgstr "Това поле трябва да е запетая или интервал разделен списък променливи"
+msgstr "РўРѕРІР° РїРѕР»Рµ С‚СЂСЏР±РІР° РґР° Рµ Р·Р°РїРµС‚Р°СЏ РёР»Рё РёРЅС‚РµСЂРІР°Р» СЂР°Р·РґРµР»РµРЅ СЃРїРёСЃСЉРє РїСЂРѕРјРµРЅР»РёРІРё"
 
 msgid ""
 "This file controls the global set of MIME drivers for the Horde framework, "
 "allowing applications to make use of programs such as enscript or mswordview "
 "to render content into HTML for viewing in a browser."
 msgstr ""
-"Този файл контролира Глобалните настройки за MIME типовете за Horde, което е "
-"необходимо за да могат програми като enscript или mswordview да показват "
-"съдържанието като HTML във вашия браузер (IE, Netscape и т.н.)"
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° Р“Р»РѕР±Р°Р»РЅРёС‚Рµ РЅР°СЃС‚СЂРѕР№РєРё Р·Р° MIME С‚РёРїРѕРІРµС‚Рµ Р·Р° Horde, РєРѕРµС‚Рѕ Рµ "
+"РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р° РґР° РјРѕРіР°С‚ РїСЂРѕРіСЂР°РјРё РєР°С‚Рѕ enscript РёР»Рё mswordview РґР° РїРѕРєР°Р·РІР°С‚ "
+"СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ РєР°С‚Рѕ HTML РІСЉРІ РІР°С€РёСЏ Р±СЂР°СѓР·РµСЂ (IE, Netscape Рё С‚.РЅ.)"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts for "
 "the Horde framework and all applications that do not provide their own "
 "settings."
 msgstr ""
-"Този файл съдържа стиловете определящи цветовете и шрифтовете за Horde, "
-"както и за всички приложения, които нямат свои настройки."
+"РўРѕР·Рё С„Р°Р№Р» СЃСЉРґСЉСЂР¶Р° СЃС‚РёР»РѕРІРµС‚Рµ РѕРїСЂРµРґРµР»СЏС‰Рё С†РІРµС‚РѕРІРµС‚Рµ Рё С€СЂРёС„С‚РѕРІРµС‚Рµ Р·Р° Horde, "
+"РєР°РєС‚Рѕ Рё Р·Р° РІСЃРёС‡РєРё РїСЂРёР»РѕР¶РµРЅРёСЏ, РєРѕРёС‚Рѕ РЅСЏРјР°С‚ СЃРІРѕРё РЅР°СЃС‚СЂРѕР№РєРё."
 
 msgid ""
 "This file maps file extensions to logical MIME types, enabling Horde "
 "applications to figure out how to handle some content such as email "
 "attachments or CVS checkouts."
 msgstr ""
-"Този файл съпоставя файловите разширения на логични MIME типове позволявайки "
-"на Horde да определи как да се справи със закачени към писмото файлове или "
-"CVS проверки."
+"РўРѕР·Рё С„Р°Р№Р» СЃСЉРїРѕСЃС‚Р°РІСЏ С„Р°Р№Р»РѕРІРёС‚Рµ СЂР°Р·С€РёСЂРµРЅРёСЏ РЅР° Р»РѕРіРёС‡РЅРё MIME С‚РёРїРѕРІРµ РїРѕР·РІРѕР»СЏРІР°Р№РєРё "
+"РЅР° Horde РґР° РѕРїСЂРµРґРµР»Рё РєР°Рє РґР° СЃРµ СЃРїСЂР°РІРё СЃСЉСЃ Р·Р°РєР°С‡РµРЅРё РєСЉРј РїРёСЃРјРѕС‚Рѕ С„Р°Р№Р»РѕРІРµ РёР»Рё "
+"CVS РїСЂРѕРІРµСЂРєРё."
 
 msgid "This form has already been processed."
-msgstr "Тази форма вече беше обработена."
+msgstr "РўР°Р·Рё С„РѕСЂРјР° РІРµС‡Рµ Р±РµС€Рµ РѕР±СЂР°Р±РѕС‚РµРЅР°."
 
 msgid ""
 "This is the main Horde configuration file. It contains paths and basic items "
 "that apply to the core framework and all Horde applications."
 msgstr ""
-"Това е главния конфигурационен файл на Horde. Той съдържа пътища и основните "
-"неща както за Horde така и за целият пакет приложения."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ С„Р°Р№Р» РЅР° Horde. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р° Рё РѕСЃРЅРѕРІРЅРёС‚Рµ "
+"РЅРµС‰Р° РєР°РєС‚Рѕ Р·Р° Horde С‚Р°РєР° Рё Р·Р° С†РµР»РёСЏС‚ РїР°РєРµС‚ РїСЂРёР»РѕР¶РµРЅРёСЏ."
 
 msgid "This number must be at least one."
-msgstr "Това число трябва да е поне единица."
+msgstr "РўРѕРІР° С‡РёСЃР»Рѕ С‚СЂСЏР±РІР° РґР° Рµ РїРѕРЅРµ РµРґРёРЅРёС†Р°."
 
 msgid "This server can't uncompress zip and gzip files."
-msgstr "Този сървър не може да декомпресира zip и gzip файлове."
+msgstr "РўРѕР·Рё СЃСЉСЂРІСЉСЂ РЅРµ РјРѕР¶Рµ РґР° РґРµРєРѕРјРїСЂРµСЃРёСЂР° zip Рё gzip С„Р°Р№Р»РѕРІРµ."
 
 msgid "This value must be a number."
-msgstr "Тази стойност трябва да е число."
+msgstr "РўР°Р·Рё СЃС‚РѕР№РЅРѕСЃС‚ С‚СЂСЏР±РІР° РґР° Рµ С‡РёСЃР»Рѕ."
 
 msgid "Time Tracking"
-msgstr "Проследяване не време"
+msgstr "РџСЂРѕСЃР»РµРґСЏРІР°РЅРµ РЅРµ РІСЂРµРјРµ"
 
 msgid "Title"
-msgstr "Длъжност"
+msgstr "Р”Р»СЉР¶РЅРѕСЃС‚"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "Unable to connect to SQL server."
-msgstr "Невъзможност за връзка с SQL сървър."
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ Р·Р° РІСЂСЉР·РєР° СЃ SQL СЃСЉСЂРІСЉСЂ."
 
 #, c-format
 msgid "Unable to delete '%s': %s."
-msgstr "Грешка при изтриване '%s': %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ '%s': %s."
 
 msgid "Unable to open compressed archive."
-msgstr "Грешка при отварянето на компресиран архив."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РѕС‚РІР°СЂСЏРЅРµС‚Рѕ РЅР° РєРѕРјРїСЂРµСЃРёСЂР°РЅ Р°СЂС…РёРІ."
 
 msgid "Unable to read the vfsroot directory."
-msgstr "Грешка при четенето на vfsroot папка."
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‡РµС‚РµРЅРµС‚Рѕ РЅР° vfsroot РїР°РїРєР°."
 
 msgid "Unable to translate this Word document"
-msgstr "Грешка при превода на този Word документ"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРІРѕРґР° РЅР° С‚РѕР·Рё Word РґРѕРєСѓРјРµРЅС‚"
 
 msgid "Underline"
-msgstr "Подчертани"
+msgstr "РџРѕРґС‡РµСЂС‚Р°РЅРё"
 
 #, c-format
 msgid "Unknown command: %s"
-msgstr "Неизвестна команда: %s"
+msgstr "РќРµРёР·РІРµСЃС‚РЅР° РєРѕРјР°РЅРґР°: %s"
 
 msgid "Unordered List"
-msgstr "Неподреден списък"
+msgstr "РќРµРїРѕРґСЂРµРґРµРЅ СЃРїРёСЃСЉРє"
 
 msgid "Update"
-msgstr "Опресни"
+msgstr "РћРїСЂРµСЃРЅРё"
 
 #, c-format
 msgid "Update %s"
-msgstr "Опресни %s"
+msgstr "РћРїСЂРµСЃРЅРё %s"
 
 #, c-format
 msgid "Updated '%s'."
-msgstr "Опресненa '%s'."
+msgstr "РћРїСЂРµСЃРЅРµРЅa '%s'."
 
 #, c-format
 msgid "Updating %s help file for %s."
-msgstr "Опресняване на %s help файл за %s."
+msgstr "РћРїСЂРµСЃРЅСЏРІР°РЅРµ РЅР° %s help С„Р°Р№Р» Р·Р° %s."
 
 msgid "Usage:"
-msgstr "Използване::"
+msgstr "РР·РїРѕР»Р·РІР°РЅРµ::"
 
 msgid "Use Default Value"
-msgstr "Използвай подразбиращата се стойност"
+msgstr "РР·РїРѕР»Р·РІР°Р№ РїРѕРґСЂР°Р·Р±РёСЂР°С‰Р°С‚Р° СЃРµ СЃС‚РѕР№РЅРѕСЃС‚"
 
 msgid "User Administration"
-msgstr "Администриране на потребителите"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ"
 
 msgid "Username"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "Username and/or password not correct."
-msgstr "Некоректна парола или потребителско име!"
+msgstr "РќРµРєРѕСЂРµРєС‚РЅР° РїР°СЂРѕР»Р° РёР»Рё РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ!"
 
 msgid "Username:"
-msgstr "Име:"
+msgstr "РРјРµ:"
 
 msgid "Username: "
-msgstr "Име: "
+msgstr "РРјРµ: "
 
 msgid "Users"
-msgstr "Потребители"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»Рё"
 
 msgid "Users in the system:"
-msgstr "Потребители в системата:"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»Рё РІ СЃРёСЃС‚РµРјР°С‚Р°:"
 
 msgid "Vacation"
-msgstr "Ваканция"
+msgstr "Р’Р°РєР°РЅС†РёСЏ"
 
 msgid "Verification failed - this message may have been tampered with."
-msgstr "Грешка при проверката - това писмо може да е било подправено."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРѕРІРµСЂРєР°С‚Р° - С‚РѕРІР° РїРёСЃРјРѕ РјРѕР¶Рµ РґР° Рµ Р±РёР»Рѕ РїРѕРґРїСЂР°РІРµРЅРѕ."
 
 msgid "Warning"
-msgstr "Внимание"
+msgstr "Р’РЅРёРјР°РЅРёРµ"
 
 msgid "Warning: "
-msgstr "Внимание: "
+msgstr "Р’РЅРёРјР°РЅРёРµ: "
 
 msgid "Weekly"
-msgstr "Седмично"
+msgstr "РЎРµРґРјРёС‡РЅРѕ"
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "Добре Дошли в %s"
+msgstr "Р”РѕР±СЂРµ Р”РѕС€Р»Рё РІ %s"
 
 #, c-format
 msgid "Welcome, %s"
-msgstr "Добре дошли, %s"
+msgstr "Р”РѕР±СЂРµ РґРѕС€Р»Рё, %s"
 
 #, c-format
 msgid "What application should %s display after login?"
-msgstr "Изберете приложението, което %s да покаже след вход."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРёР»РѕР¶РµРЅРёРµС‚Рѕ, РєРѕРµС‚Рѕ %s РґР° РїРѕРєР°Р¶Рµ СЃР»РµРґ РІС…РѕРґ."
 
 msgid "Work Address"
-msgstr "Бизнес адрес"
+msgstr "Р‘РёР·РЅРµСЃ Р°РґСЂРµСЃ"
 
 msgid "Work Phone"
-msgstr "Бизнес телефон"
+msgstr "Р‘РёР·РЅРµСЃ С‚РµР»РµС„РѕРЅ"
 
 #, c-format
 msgid "Writing updated help file to %s."
-msgstr "Запис на опресненият помощен файл в %s."
+msgstr "Р—Р°РїРёСЃ РЅР° РѕРїСЂРµСЃРЅРµРЅРёСЏС‚ РїРѕРјРѕС‰РµРЅ С„Р°Р№Р» РІ %s."
 
 msgid "YY"
-msgstr "ГГ"
+msgstr "Р“Р“"
 
 msgid "Yearly"
-msgstr "Годишно"
+msgstr "Р“РѕРґРёС€РЅРѕ"
 
 msgid "Yes"
-msgstr "Да"
+msgstr "Р”Р°"
 
 msgid "You did not enter a valid email address."
-msgstr "Не въведохте валиден email адрес."
+msgstr "РќРµ РІСЉРІРµРґРѕС…С‚Рµ РІР°Р»РёРґРµРЅ email Р°РґСЂРµСЃ."
 
 msgid "You must specify a username to remove."
-msgstr "Трябва да зададете потребител за изтриване."
+msgstr "РўСЂСЏР±РІР° РґР° Р·Р°РґР°РґРµС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РёР·С‚СЂРёРІР°РЅРµ."
 
 msgid "You must specify the username to add."
-msgstr "Трябва да зададете потребител за добавяне."
+msgstr "РўСЂСЏР±РІР° РґР° Р·Р°РґР°РґРµС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РґРѕР±Р°РІСЏРЅРµ."
 
 msgid "You must specify the username to update."
-msgstr "Трябва да зададете потребител за опресняване."
+msgstr "РўСЂСЏР±РІР° РґР° Р·Р°РґР°РґРµС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР» Р·Р° РѕРїСЂРµСЃРЅСЏРІР°РЅРµ."
 
 msgid "Your Email Address:"
-msgstr "Вашия Email адрес:"
+msgstr "Р’Р°С€РёСЏ Email Р°РґСЂРµСЃ:"
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your Name:"
-msgstr "Вашето име:"
+msgstr "Р’Р°С€РµС‚Рѕ РёРјРµ:"
 
 msgid ""
 "Your authentication backend does not support adding users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Вашият идентификационен драйвер не поддържа добавяне на потребители, или "
-"тази възможност е забранена."
+"Р’Р°С€РёСЏС‚ РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРµРЅ РґСЂР°Р№РІРµСЂ РЅРµ РїРѕРґРґСЉСЂР¶Р° РґРѕР±Р°РІСЏРЅРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»Рё, РёР»Рё "
+"С‚Р°Р·Рё РІСЉР·РјРѕР¶РЅРѕСЃС‚ Рµ Р·Р°Р±СЂР°РЅРµРЅР°."
 
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Вашият идентификационен драйвер не поддържа списък на потребителите, или "
-"тази възможност е забранена."
+"Р’Р°С€РёСЏС‚ РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРµРЅ РґСЂР°Р№РІРµСЂ РЅРµ РїРѕРґРґСЉСЂР¶Р° СЃРїРёСЃСЉРє РЅР° РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ, РёР»Рё "
+"С‚Р°Р·Рё РІСЉР·РјРѕР¶РЅРѕСЃС‚ Рµ Р·Р°Р±СЂР°РЅРµРЅР°."
 
 msgid "Your options have been updated."
-msgstr "Вашите конфигурационни опции бяха обновени."
+msgstr "Р’Р°С€РёС‚Рµ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРё РѕРїС†РёРё Р±СЏС…Р° РѕР±РЅРѕРІРµРЅРё."
 
 msgid "Your remote servers:"
-msgstr "Вашите сървъри:"
+msgstr "Р’Р°С€РёС‚Рµ СЃСЉСЂРІСЉСЂРё:"
 
 #, c-format
 msgid "[line %s of %s]"
-msgstr "[линия %s от %s]"
+msgstr "[Р»РёРЅРёСЏ %s РѕС‚ %s]"
 
 msgid "an error has occured:"
-msgstr "непреодолима грешка:"
+msgstr "РЅРµРїСЂРµРѕРґРѕР»РёРјР° РіСЂРµС€РєР°:"
 
 msgid "done"
-msgstr "Направено"
+msgstr "РќР°РїСЂР°РІРµРЅРѕ"
 
 msgid "failed"
-msgstr "провалено"
+msgstr "РїСЂРѕРІР°Р»РµРЅРѕ"
 
 msgid "file"
-msgstr "файл"
+msgstr "С„Р°Р№Р»"
 
 msgid "i18n"
 msgstr "i18n"
 
 msgid "not found"
-msgstr "не беше намерен"
+msgstr "РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ"
 
 #, c-format
 msgid "the Horde PO file for the locale %s does not exist:"
-msgstr "Horde PO файл за локализация %s не съществува:"
+msgstr "Horde PO С„Р°Р№Р» Р·Р° Р»РѕРєР°Р»РёР·Р°С†РёСЏ %s РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°:"
 
 msgid "unnamed"
-msgstr "без име"
+msgstr "Р±РµР· РёРјРµ"
 
 msgid "vCard"
 msgstr "vCard"

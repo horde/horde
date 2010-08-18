@@ -1,4 +1,4 @@
-# Traducció al catala del módul de canvi de password
+# TraducciÃ³ al catala del mÃ³dul de canvi de password
 # Copyright 2002 Free Software Foundation, Inc.
 # FIRST AUTHOR <joan.jorba@rusc.net>, 2004.
 #
@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Joan Jorba Calsina <joan.jorba@rusc.net>\n"
 "Language-Team: Catala ca_ES <info@rusc.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/Driver/expect.php:34
@@ -111,7 +111,7 @@ msgstr "Antiga Contrasenya"
 #: lib/Driver/smbpasswd.php:47
 #, fuzzy
 msgid "Passwd is not properly configured."
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: main.php:203
 #, fuzzy, php-format
@@ -126,26 +126,26 @@ msgstr ""
 #: lib/Driver/pspasswd.php:75
 #, fuzzy
 msgid "Password module can't find the supplied bin."
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: lib/Driver/pspasswd.php:73
 #, fuzzy
 msgid "Password module is missing required parameters."
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: lib/Driver/adsi.php:51
 #, fuzzy
 msgid "Password module is missing target parameter."
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: lib/Driver/servuftp.php:98
 #, fuzzy
 msgid "Password module is not properly configured."
-msgstr "Mòdul de canvi de Clau no configurat adecuadament"
+msgstr "MÃ²dul de canvi de Clau no configurat adecuadament"
 
 #: templates/main/main.inc:11
 #, fuzzy
@@ -197,7 +197,7 @@ msgstr "Usuari:"
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "Vostè no pot canviar la clau pel usuari %s"
+msgstr "VostÃ¨ no pot canviar la clau pel usuari %s"
 
 #: main.php:55
 #, fuzzy

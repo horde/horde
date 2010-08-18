@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Marko Djukic <marko@oblo.com>\n"
 "Language-Team: Italian <tech@oblo.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: users/edit.php:47
@@ -293,7 +293,7 @@ msgid ""
 "This is the main Vilma configuration file. It contains options for all Vilma "
 "scripts."
 msgstr ""
-"Questo è il file principale di configurazione di Nag. Contiene le opzioni "
+"Questo Ã¨ il file principale di configurazione di Nag. Contiene le opzioni "
 "per tutti gli scripts di Nag."
 
 #: domains/edit.php:42
@@ -352,7 +352,7 @@ msgstr "Valore in MB"
 #: templates/index/notconfigured.inc:4
 #, fuzzy
 msgid "Vilma is not properly configured"
-msgstr "Nag non è configurato correttamente."
+msgstr "Nag non Ã¨ configurato correttamente."
 
 #: virtuals/delete.php:49
 msgid "Virtual email deleted."

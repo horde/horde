@@ -13,920 +13,920 @@ msgstr ""
 "Last-Translator: Konstantinos C. Milosis <kmilosis@yahoo.com>\n"
 "Language-Team: Greek <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "\"Όνομα Επώνυμο\" (π.χ. Κώστας Μυλώσης)"
+msgstr "\"ΞΞ½ΞΏΞΌΞ± Ξ•Ο€ΟΞ½Ο…ΞΌΞΏ\" (Ο€.Ο‡. ΞΟΟƒΟ„Ξ±Ο‚ ΞΟ…Ξ»ΟΟƒΞ·Ο‚)"
 
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "\"Επώνυμο, Όνομα\" (π.χ. Μυλώσης, Κώστας)"
+msgstr "\"Ξ•Ο€ΟΞ½Ο…ΞΌΞΏ, ΞΞ½ΞΏΞΌΞ±\" (Ο€.Ο‡. ΞΟ…Ξ»ΟΟƒΞ·Ο‚, ΞΟΟƒΟ„Ξ±Ο‚)"
 
 msgid "%s added"
-msgstr "%s Επιτυχώς εισαγωγή του αρχείου"
+msgstr "%s Ξ•Ο€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "Το αρχείο %s εισάχθηκε επιτυχώς"
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ %s ΞµΞΉΟƒΞ¬Ο‡ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚"
 
 #: templates/browse/footer.inc:9
 msgid "%s to %s of %s"
-msgstr "%s σε %s από %s"
+msgstr "%s ΟƒΞµ %s Ξ±Ο€Ο %s"
 
 msgid "A"
-msgstr "Α"
+msgstr "Ξ‘"
 
 #: lib/Block/minisearch.php:45
 msgid "A browser that supports iFrames is required"
-msgstr "Απαιτείται εξερευνητής (browser) που να υποστηρίζει iFrames"
+msgstr "Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ ΞµΞΎΞµΟΞµΟ…Ξ½Ξ·Ο„Ξ®Ο‚ (browser) Ο€ΞΏΟ… Ξ½Ξ± Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΞΉ iFrames"
 
 msgid "Above search form"
-msgstr "Μετά τη φόρμα αναζήτησης"
+msgstr "ΞΞµΟ„Ξ¬ Ο„Ξ· Ο†ΟΟΞΌΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Ad_vanced Search"
-msgstr "Ειδική Αναζήτηση"
+msgstr "Ξ•ΞΉΞ΄ΞΉΞΊΞ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·"
 
 msgid "Add Contact ..."
-msgstr "Νέα καρτέλα ..."
+msgstr "ΞΞ­Ξ± ΞΊΞ±ΟΟ„Ξ­Ξ»Ξ± ..."
 
 msgid "Add a new contact"
-msgstr "Προσθήκη νέας καρτέλας"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­Ξ±Ο‚ ΞΊΞ±ΟΟ„Ξ­Ξ»Ξ±Ο‚"
 
 #: templates/prefs/columnselect.inc:238
 msgid "Add column"
-msgstr "Προσθήκη στήλης"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΟƒΟ„Ξ®Ξ»Ξ·Ο‚"
 
 msgid "Add failed"
-msgstr "Η προσθήκη απέτυχε"
+msgstr "Ξ— Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ"
 
 msgid "Add to"
-msgstr "Προσθήκη στο"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΟƒΟ„ΞΏ"
 
 msgid "Address Book Listing"
-msgstr "Λίστα Διευθύνσεων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½"
 
 msgid "Address Book entry"
-msgstr "Εγγραφή Διευθυνσιογράφου"
+msgstr "Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…"
 
 msgid "Address Books"
-msgstr "Διευθυνσιογράφοι"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ"
 
 msgid "Address book is read-only."
-msgstr "Ο διευθυνσιογράφος είναι μόνο για ανάγνωση."
+msgstr "Ξ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·."
 
 #: data.php:236
 msgid "Address book successfully purged."
-msgstr "Ο Διευθυνσιογράφος διαγράφηκε επιτυχώς."
+msgstr "Ξ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚."
 
 #, c-format
 msgid "Addresses in list: %s"
-msgstr "Διευθύνσεις στη λίστα: %s"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±: %s"
 
 msgid "Advanced Search"
-msgstr "Ειδική Αναζήτηση"
+msgstr "Ξ•ΞΉΞ΄ΞΉΞΊΞ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Alias"
-msgstr "Ψευδώνυμο"
+msgstr "Ξ¨ΞµΟ…Ξ΄ΟΞ½Ο…ΞΌΞΏ"
 
 msgid "All"
-msgstr "Όλα"
+msgstr "ΞΞ»Ξ±"
 
 #: lib/api.php:372
 msgid "Already Exists"
-msgstr "Υπάρχει ήδη"
+msgstr "Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ·"
 
 msgid "An illegal value was specified."
-msgstr "Ορίστηκε μία μη επιτρεπόμενη τιμή."
+msgstr "ΞΟΞ―ΟƒΟ„Ξ·ΞΊΞµ ΞΌΞ―Ξ± ΞΌΞ· ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½Ξ· Ο„ΞΉΞΌΞ®."
 
 #: templates/browse/javascript.inc:79
 msgid "Are you sure that you want to delete %s?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε %s;"
+msgstr "Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΞΉ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ %s;"
 
 #: templates/browse/javascript.inc:53
 msgid "Are you sure that you want to delete the selected entries?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε τις επιλεγμένες εγγραφές;"
+msgstr "Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΞΉ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞµΟ‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚;"
 
 msgid "Ascending"
-msgstr "Αύξουσα"
+msgstr "Ξ‘ΟΞΎΞΏΟ…ΟƒΞ±"
 
 msgid "Available Columns:"
-msgstr "Διαθέσιμα Πεδία:"
+msgstr "Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ± Ξ ΞµΞ΄Ξ―Ξ±:"
 
 msgid "B"
-msgstr "Β"
+msgstr "Ξ’"
 
 #, c-format
 msgid "Ba_ck to %s"
-msgstr "Επιστροφή στο %s"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΏ %s"
 
 #, c-format
 msgid "Back to %s"
-msgstr "Επιστροφή στο %s"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΏ %s"
 
 msgid "Basi_c Search"
-msgstr "Απλή Αναζήτηση"
+msgstr "Ξ‘Ο€Ξ»Ξ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Basic Search"
-msgstr "Απλή Αναζήτηση"
+msgstr "Ξ‘Ο€Ξ»Ξ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Below search form"
-msgstr "Πριν από τη φόρμα αναζήτησης"
+msgstr "Ξ ΟΞΉΞ½ Ξ±Ο€Ο Ο„Ξ· Ο†ΟΟΞΌΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 #: lib/Driver/ldap.php:75 lib/Driver/ldap.php:78
 msgid "Bind failed: (%s) %s"
-msgstr "Η σύνδεση απέτυχε: (%s) %s"
+msgstr "Ξ— ΟƒΟΞ½Ξ΄ΞµΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: (%s) %s"
 
 #: config/attributes.php.dist:168
 msgid "Birthday"
-msgstr "Γενέθλια"
+msgstr "Ξ“ΞµΞ½Ξ­ΞΈΞ»ΞΉΞ±"
 
 msgid "Browse"
-msgstr "Λίστα"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ±"
 
 msgid "Browse..."
-msgstr "Λίστα..."
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ±..."
 
 #: config/attributes.php.dist:163
 msgid "Business Category"
-msgstr "Επαγγελματική Κατηγορία"
+msgstr "Ξ•Ο€Ξ±Ξ³Ξ³ΞµΞ»ΞΌΞ±Ο„ΞΉΞΊΞ® ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 msgid "C"
-msgstr "Γ"
+msgstr "Ξ“"
 
 #: templates/browse/actions.inc:59
 msgid "C_lear Search"
-msgstr "Καθαρισμός Αναζήτησης"
+msgstr "ΞΞ±ΞΈΞ±ΟΞΉΟƒΞΌΟΟ‚ Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Cancel"
-msgstr "Ακύρωση"
+msgstr "Ξ‘ΞΊΟΟΟ‰ΟƒΞ·"
 
 #: templates/browse/column_headers.inc:7
 msgid "Check _All/None"
-msgstr "Επιλογή Όλων/Κανενός"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® ΞΞ»Ο‰Ξ½/ΞΞ±Ξ½ΞµΞ½ΟΟ‚"
 
 msgid "Checkbox"
-msgstr "Επιλογή των διευθύνσεων"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ο„Ο‰Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½"
 
 msgid ""
 "Choose a default directory for your personal addressbook, contact lists, and "
 "searches."
 msgstr ""
-"Επιλέξτε τον προκαθορισμένο κατάλογο για τον προσωπικό σας Διευθυνσιογράφο, "
-"τις ομάδες και τις αναζητήσεις."
+"Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏΞ½ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Ξ³ΞΉΞ± Ο„ΞΏΞ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ ΟƒΞ±Ο‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ, "
+"Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚."
 
 #: templates/addressbooks.inc:44
 msgid "Choose a name"
-msgstr "Επιλέξτε ένα όνομα"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± ΟΞ½ΞΏΞΌΞ±"
 
 msgid "Choose an address book"
-msgstr "Επιλέξτε Διευθυνσιογράφο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ"
 
 msgid "Choose an address book:"
-msgstr "Επιλέξτε Διευθυνσιογράφο:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ:"
 
 msgid "Choose the order of the columns to display in the address list."
 msgstr ""
-"Επιλογή της σειράς των στηλών κατά την προβολή της λίστας των διευθύνσεων."
+"Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ο„Ξ·Ο‚ ΟƒΞµΞΉΟΞ¬Ο‚ Ο„Ο‰Ξ½ ΟƒΟ„Ξ·Ξ»ΟΞ½ ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ο„Ξ·Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ Ο„Ο‰Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½."
 
 #: templates/prefs/addressbookselect.inc:165
 msgid "Choose which address books to display, and in what order:"
-msgstr "Επιλέξτε ποιοί διευθυνσιογράφοι θα εμφανίζονται και με ποιά σειρά:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΞΉΞΏΞ― Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΉ ΞΌΞµ Ο€ΞΏΞΉΞ¬ ΟƒΞµΞΉΟΞ¬:"
 
 #: config/prefs.php.dist:11
 msgid "Choose which address books to use."
-msgstr "Επιλέξτε ποιούς διευθυνσιογράφους θα χρησιμοποιείτε."
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΞΉΞΏΟΟ‚ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…Ο‚ ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξµ."
 
 #: templates/prefs/columnselect.inc:228
 msgid "Choose which columns to display and in what order:"
-msgstr "Επιλέξτε ποιές στήλες θα εμφανίζονται και με ποιά σειρά:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΞΉΞ­Ο‚ ΟƒΟ„Ξ®Ξ»ΞµΟ‚ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΉ ΞΌΞµ Ο€ΞΏΞΉΞ¬ ΟƒΞµΞΉΟΞ¬:"
 
 msgid "Clear Search"
-msgstr "Ακύρωση Αναζήτησης"
+msgstr "Ξ‘ΞΊΟΟΟ‰ΟƒΞ· Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Column Options"
-msgstr "Επιλογές Στηλών"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ£Ο„Ξ·Ξ»ΟΞ½"
 
 #: templates/prefs/columnselect.inc:233
 msgid "Columns that will not be displayed:"
-msgstr "Στήλες που δε θα εμφανίζονται:"
+msgstr "Ξ£Ο„Ξ®Ξ»ΞµΟ‚ Ο€ΞΏΟ… Ξ΄Ξµ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ:"
 
 msgid "Comma separated values"
-msgstr "Τιμές διαχωρισμένες με κόμμα"
+msgstr "Ξ¤ΞΉΞΌΞ­Ο‚ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ ΞΊΟΞΌΞΌΞ±"
 
 #: templates/data/export.inc:17
 msgid "Comma separated values (Microsoft Outlook)"
-msgstr "Τιμές διαχωρισμένες με κόμμα (Microsoft Outlook)"
+msgstr "Ξ¤ΞΉΞΌΞ­Ο‚ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ ΞΊΟΞΌΞΌΞ± (Microsoft Outlook)"
 
 msgid "Company"
-msgstr "Εταιρία"
+msgstr "Ξ•Ο„Ξ±ΞΉΟΞ―Ξ±"
 
 msgid "Company Address"
-msgstr "Διεύθυνση Εταιρίας"
+msgstr "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ•Ο„Ξ±ΞΉΟΞ―Ξ±Ο‚"
 
 #: lib/api.php:611 lib/api.php:781
 msgid "Connection failed: %s"
-msgstr "Η Σύνδεση απέτυχε: %s"
+msgstr "Ξ— Ξ£ΟΞ½Ξ΄ΞµΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: %s"
 
 #: lib/Driver/ldap.php:64
 msgid "Connection failure"
-msgstr "Αποτυχία Σύνδεσης"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ£ΟΞ½Ξ΄ΞµΟƒΞ·Ο‚"
 
 msgid "Contact removed from list."
-msgstr "Η καρτέλα αφαιρέθηκε από τη λίστα."
+msgstr "Ξ— ΞΊΞ±ΟΟ„Ξ­Ξ»Ξ± Ξ±Ο†Ξ±ΞΉΟΞ­ΞΈΞ·ΞΊΞµ Ξ±Ο€Ο Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±."
 
 #: browse.php:267
 msgid "Contacts in list: %s"
-msgstr "Επαφές στη Λίστα: %s"
+msgstr "Ξ•Ο€Ξ±Ο†Ξ­Ο‚ ΟƒΟ„Ξ· Ξ›Ξ―ΟƒΟ„Ξ±: %s"
 
 #, c-format
 msgid "Contents of %s"
-msgstr "Περιεχόμενα του %s"
+msgstr "Ξ ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± Ο„ΞΏΟ… %s"
 
 msgid "Copy"
-msgstr "Αντιγραφή"
+msgstr "Ξ‘Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ®"
 
 #: templates/addressbooks.inc:53
 msgid "Create"
-msgstr "Δημιουργία"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±"
 
 #: templates/addressbooks.inc:40
 msgid "Create Address Book"
-msgstr "Δημιουργία Διευθυνσιογράφου"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…"
 
 #: lib/ListView.php:348
 msgid "Create a new Contact List in:"
-msgstr "Δημιουργία νέας Λίστας Επαφών σε:"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚ Ξ•Ο€Ξ±Ο†ΟΞ½ ΟƒΞµ:"
 
 msgid "Created"
-msgstr "Δημιουργήθηκε"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ"
 
 msgid "Default Display"
-msgstr "Προεπιλεγμένη Εμφάνιση"
+msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid ""
 "Default directory for your personal addressbook, contact lists, and searches."
 msgstr ""
-"Προεπιλεγμένη εμφάνιση για τον προσωπικό σας Διευθυνσιογράφο, ομάδες,και "
-"αναζητήσεις."
+"Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ³ΞΉΞ± Ο„ΞΏΞ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ ΟƒΞ±Ο‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ, ΞΏΞΌΞ¬Ξ΄ΞµΟ‚,ΞΊΞ±ΞΉ "
+"Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚."
 
 msgid "Default sorting direction:"
-msgstr "Προεπιλεγμένη κατεύθυνση ταξινόμησης:"
+msgstr "Ξ ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚:"
 
 msgid "Delete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 msgid "Delete Confirmation"
-msgstr "Επιβεβαίωση Διαγραφής"
+msgstr "Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚"
 
 msgid "Delete button behaviour"
-msgstr "Συμπεριφορά πλήκτρου Διαγραφής"
+msgstr "Ξ£Ο…ΞΌΟ€ΞµΟΞΉΟ†ΞΏΟΞ¬ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏΟ… Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚"
 
 #: lib/Driver/ldap.php:267
 msgid "Delete failed: (%s) %s"
-msgstr "Διαγραφή απέτυχε: (%s) %s"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: (%s) %s"
 
 msgid "Deletion failed"
-msgstr "Διαγραφή απέτυχε"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ"
 
 #: config/attributes.php.dist:203
 msgid "Department"
-msgstr "Τμήμα"
+msgstr "Ξ¤ΞΌΞ®ΞΌΞ±"
 
 msgid "Descending"
-msgstr "Φθίνουσα"
+msgstr "Ξ¦ΞΈΞ―Ξ½ΞΏΟ…ΟƒΞ±"
 
 msgid "Directory"
-msgstr "Κατάλογος"
+msgstr "ΞΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚"
 
 msgid "Display"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "Display Options"
-msgstr "Επιλογές Εμφάνισης"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚"
 
 msgid "Do you want to confirm deleting entries?"
-msgstr "Να ζητείται επιβεβαίωση κατά τη διαγραφή επαφών;"
+msgstr "ΞΞ± Ξ¶Ξ·Ο„ΞµΞ―Ο„Ξ±ΞΉ ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€Ξ±Ο†ΟΞ½;"
 
 msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Περιέχει η πρώτη γραμμή τα ονόματα των πεδίων; Αν ναι επέλεξε αυτό:"
+msgstr "Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ· Ο€ΟΟΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½; Ξ‘Ξ½ Ξ½Ξ±ΞΉ ΞµΟ€Ξ­Ξ»ΞµΞΎΞµ Ξ±Ο…Ο„Ο:"
 
 #: templates/browse/contactrow.inc:29
 msgid "Download VCard"
-msgstr "Κατέβασμα στο PC σε μορφή VCard"
+msgstr "ΞΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± ΟƒΟ„ΞΏ PC ΟƒΞµ ΞΌΞΏΟΟ†Ξ® VCard"
 
 #: templates/browse/contactrow.inc:25
 msgid "Download vCard"
-msgstr "Κατέβασμα στο PC σε μορφή vCard"
+msgstr "ΞΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± ΟƒΟ„ΞΏ PC ΟƒΞµ ΞΌΞΏΟΟ†Ξ® vCard"
 
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 #, c-format
 msgid "Edit '%s'"
-msgstr "Επεξεργασία '%s'"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± '%s'"
 
 #: templates/addressbooks.inc:81
 msgid "Edit Address Books"
-msgstr "Επεξεργασία Διευθυνσιογράφων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†Ο‰Ξ½"
 
 #: edit.php:53 edit.php:80
 msgid "Edit entry for %s"
-msgstr "Επεξεργασία εγγραφής για %s"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ Ξ³ΞΉΞ± %s"
 
 msgid "Edit options for:"
-msgstr "Επεξεργασία επιλογών για:"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΟ€ΞΉΞ»ΞΏΞ³ΟΞ½ Ξ³ΞΉΞ±:"
 
 msgid "Email"
 msgstr "Email"
 
 msgid "Entry for %s updated."
-msgstr "Η εγγραφή για %s ενημερώθηκε."
+msgstr "Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ξ³ΞΉΞ± %s ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ."
 
 msgid "Error while searching directory."
-msgstr "Παρουσιάστηκε σφάλμα κατά την αναζήτηση στον κατάλογο."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ."
 
 msgid "Error"
-msgstr "Λάθος"
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚"
 
 msgid "Exit Address Book"
-msgstr "Έξοδος από το Διευθυνσιογράφο"
+msgstr "ΞΞΎΞΏΞ΄ΞΏΟ‚ Ξ±Ο€Ο Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ"
 
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "Export Address Book"
-msgstr "Εξαγωγή Βιβλίου Διευθύνσεων"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ’ΞΉΞ²Ξ»Ξ―ΞΏΟ… Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½"
 
 #: templates/data/export.inc:26
 msgid "Export only the selected contacts."
-msgstr "Εξαγωγή μόνο των επιλεγμένων επαφών."
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® ΞΌΟΞ½ΞΏ Ο„Ο‰Ξ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ ΞµΟ€Ξ±Ο†ΟΞ½."
 
 #: templates/data/export.inc:32
 msgid "Export the following address book completely."
-msgstr "Η εξαγωγή των παρακάτω Διευθυνσιογράφων ολοκληρώθηκε."
+msgstr "Ξ— ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ο‰Ξ½ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†Ο‰Ξ½ ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ."
 
 msgid "Failed to access the address book: %s"
-msgstr "Αποτυχία κατά τη σύνδεση στον διευθυνσιογράφο: %s"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΟƒΟ„ΞΏΞ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ: %s"
 
 msgid "Failed to access the specified address book."
-msgstr "Αποτυχία κατά τη σύνδεση στον επιλεγμένο διευθυνσιογράφο."
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΟƒΟ„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ."
 
 #: browse.php:145
 msgid "Failed to add %s to %s: %s"
-msgstr "Αποτυχία προσθήκης %s σε %s: %s"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ·Ο‚ %s ΟƒΞµ %s: %s"
 
 msgid "Failed to browse list"
-msgstr "Αποτυχία κατά την εμφάνιση της λίστας"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ξ·Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚"
 
 msgid "Failed to browse the directory"
-msgstr "Αποτυχία κατά την προβολή του καταλόγου"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ο„ΞΏΟ… ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…"
 
 #: lib/Driver/ldap.php:304
 msgid "Failed to change name: (%s) %s, %s"
-msgstr "Αποτυχία αλλαγής του ονόματος (%s) %s, %s"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®Ο‚ Ο„ΞΏΟ… ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚ (%s) %s, %s"
 
 msgid "Failed to connect to the specified directory."
-msgstr "Αποτυχία σύνδεσης στον επιλεγμένο κατάλογο."
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ·Ο‚ ΟƒΟ„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ."
 
 #: browse.php:140
 msgid "Failed to find object to be added: %s"
-msgstr "Αποτυχία ανεύρεσης αντικειμένου για προσθήκη: %s"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ±Ξ½ΞµΟΟΞµΟƒΞ·Ο‚ Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ³ΞΉΞ± Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ·: %s"
 
 #, c-format
 msgid "Failed to search the directory: %s"
-msgstr "Αποτυχία κατά την αναζήτηση στον κατάλογο : %s"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ : %s"
 
 msgid "Failed to search the specified directory."
-msgstr "Αποτυχία κατά την αναζήτηση στον επιλεγμένο κατάλογο."
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ."
 
 msgid "Fax"
-msgstr "Φαξ"
+msgstr "Ξ¦Ξ±ΞΎ"
 
 msgid "Find"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: config/attributes.php.dist:48
 msgid "First Name"
-msgstr "Μικρό Όνομα"
+msgstr "ΞΞΉΞΊΟΟ ΞΞ½ΞΏΞΌΞ±"
 
 msgid "Freebusy URL"
-msgstr "Ιστοσελίδα Διαθεσιμότητας"
+msgstr "Ξ™ΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ”ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚"
 
 msgid "From"
-msgstr "Από"
+msgstr "Ξ‘Ο€Ο"
 
 #: config/sources.php.dist:521
 msgid "Global Address Book"
-msgstr "Κοινός Διευθυνσιογράφος"
+msgstr "ΞΞΏΞΉΞ½ΟΟ‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚"
 
 msgid "Group"
-msgstr "Ομάδα"
+msgstr "ΞΞΌΞ¬Ξ΄Ξ±"
 
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid " Here is the beginning of the file:"
-msgstr "Αυτή είναι η αρχή του αρχείου:"
+msgstr "Ξ‘Ο…Ο„Ξ® ΞµΞ―Ξ½Ξ±ΞΉ Ξ· Ξ±ΟΟ‡Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…:"
 
 msgid "Home Address"
-msgstr "Διεύθυνση Κατοικίας"
+msgstr "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:88
 msgid "Home City"
-msgstr "Πόλη (Κατοικίας)"
+msgstr "Ξ ΟΞ»Ξ· (ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚)"
 
 #: config/attributes.php.dist:103
 msgid "Home Country"
-msgstr "Χώρα (Κατοικίας)"
+msgstr "Ξ§ΟΟΞ± (ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚)"
 
 #: config/attributes.php.dist:140
 msgid "Home Phone"
-msgstr "Τηλέφωνο Κατοικίας"
+msgstr "Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:98
 msgid "Home Postal Code"
-msgstr "Ταχ. Κώδικας (Κατοικίας)"
+msgstr "Ξ¤Ξ±Ο‡. ΞΟΞ΄ΞΉΞΊΞ±Ο‚ (ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚)"
 
 #: config/attributes.php.dist:93
 msgid "Home State/Province"
-msgstr "Επαρχία (Κατοικίας)"
+msgstr "Ξ•Ο€Ξ±ΟΟ‡Ξ―Ξ± (ΞΞ±Ο„ΞΏΞΉΞΊΞ―Ξ±Ο‚)"
 
 msgid "How many fields (columns) are there?"
-msgstr "Πόσα πεδία (στήλες) υπάρχουν;"
+msgstr "Ξ ΟΟƒΞ± Ο€ΞµΞ΄Ξ―Ξ± (ΟƒΟ„Ξ®Ξ»ΞµΟ‚) Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½;"
 
 msgid "If importing CSV data: does the first row contain the field names?"
 msgstr ""
-"Αν εισάγετε διευθύνσεις από αρχείο CVS, η πρώτη γραμμή περιέχει τα ονόματα "
-"των πεδίων;"
+"Ξ‘Ξ½ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ±Ο€Ο Ξ±ΟΟ‡ΞµΞ―ΞΏ CVS, Ξ· Ο€ΟΟΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± "
+"Ο„Ο‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½;"
 
 msgid "Illegal or malformed form data."
-msgstr "Λανθασμένη μορφή ή τύπος δεδομένων."
+msgstr "Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· ΞΌΞΏΟΟ†Ξ® Ξ® Ο„ΟΟ€ΞΏΟ‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
 
 msgid "Import"
-msgstr "Εισαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "Import Address Book"
-msgstr "Εισαγωγή Βιβλίου Διευθύνσεων"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ’ΞΉΞ²Ξ»Ξ―ΞΏΟ… Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½"
 
 msgid "Import Address Book, Step %s"
-msgstr "Εισαγωγή Βιβλίου Διευθύνσεων, Βήμα %s"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ’ΞΉΞ²Ξ»Ξ―ΞΏΟ… Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½, Ξ’Ξ®ΞΌΞ± %s"
 
 msgid "Import/Export Addressbooks"
-msgstr "Εισαγωγή/Εξαγωγή Διευθυνσιογράφου"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…"
 
 msgid "Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 #: lib/api.php:358 lib/api.php:577
 msgid "Invalid Content-Type"
-msgstr "Μη έγκυρος τύπος περιεχομένων"
+msgstr "ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏΟ‚ Ο„ΟΟ€ΞΏΟ‚ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
 
 #: lib/api.php:419 lib/api.php:508
 msgid "Invalid ID"
-msgstr "Μη έγκυρο ID"
+msgstr "ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ ID"
 
 #: lib/api.php:191 lib/api.php:316 lib/api.php:415 lib/api.php:504
 #: lib/api.php:556 lib/api.php:852
 msgid "Invalid address book."
-msgstr "Λανθασμένο Βιβλίο Διευθύνσεων."
+msgstr "Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏ Ξ’ΞΉΞ²Ξ»Ξ―ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½."
 
 msgid "Invalid e-mail address."
-msgstr "Λάθος 'e-mail' διεύθυνση"
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚ 'e-mail' Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·"
 
 msgid "Invalid email."
-msgstr "Λάθος email."
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚ email."
 
 msgid "Invalid entry."
-msgstr "Λάθος Καταχώριση."
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚ ΞΞ±Ο„Ξ±Ο‡ΟΟΞΉΟƒΞ·."
 
 #: lib/Driver/ldap.php:263
 msgid "Invalid key specified."
-msgstr "Καθορίσθηκε μη έγκυρο κλειδί."
+msgstr "ΞΞ±ΞΈΞΏΟΞ―ΟƒΞΈΞ·ΞΊΞµ ΞΌΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ―."
 
 #: lib/api.php:860
 msgid "Invalid name."
-msgstr "Λάθος όνομα"
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚ ΟΞ½ΞΏΞΌΞ±"
 
 #: lib/api.php:560
 msgid "Invalid objectId"
-msgstr "Μη έγκυρο ID αντικειμένου"
+msgstr "ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ ID Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…"
 
 #: lib/Driver/ldap.php:39
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"Απαιτείται υποστήριξη LDAP. Η μονάδα αυτή δεν είναι διαθέσιμη, ηδεν έχει "
-"φορτωθεί."
+"Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ· LDAP. Ξ— ΞΌΞΏΞ½Ξ¬Ξ΄Ξ± Ξ±Ο…Ο„Ξ® Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ·, Ξ·Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ "
+"Ο†ΞΏΟΟ„Ο‰ΞΈΞµΞ―."
 
 msgid "Language"
-msgstr "Γλώσσα"
+msgstr "Ξ“Ξ»ΟΟƒΟƒΞ±"
 
 msgid "Last Modified"
-msgstr "Τελευταία Τροποποίηση"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ¤ΟΞΏΟ€ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 #: config/attributes.php.dist:53
 msgid "Last Name"
-msgstr "Επίθετο"
+msgstr "Ξ•Ο€Ξ―ΞΈΞµΟ„ΞΏ"
 
 msgid "Matching"
-msgstr "Ταιριάζει με"
+msgstr "Ξ¤Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ ΞΌΞµ"
 
 msgid "Maximum number of pages"
-msgstr "Μέγιστος αριθμός σελίδων"
+msgstr "ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½"
 
 msgid "Message"
-msgstr "Μήνυμα"
+msgstr "ΞΞ®Ξ½Ο…ΞΌΞ±"
 
 #: lib/Block/minisearch.php:3
 msgid "Mini Search"
-msgstr "Γρήγορη Αναζήτηση"
+msgstr "Ξ“ΟΞ®Ξ³ΞΏΟΞ· Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: lib/Driver/ldap.php:298
 msgid "Missing DN in LDAP source configuration."
-msgstr "Λείπει το DN από την παραμετροποίηση του LDAP"
+msgstr "Ξ›ΞµΞ―Ο€ΞµΞΉ Ο„ΞΏ DN Ξ±Ο€Ο Ο„Ξ·Ξ½ Ο€Ξ±ΟΞ±ΞΌΞµΟ„ΟΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… LDAP"
 
 msgid "Mobile Phone"
-msgstr "Κινητό Τηλέφωνο"
+msgstr "ΞΞΉΞ½Ξ·Ο„Ο Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ"
 
 #: lib/Driver/ldap.php:326 lib/Driver/ldap.php:343
 msgid "Modify failed: (%s) %s"
-msgstr "Η αλλαγή απέτυχε: (%s) %s"
+msgstr "Ξ— Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: (%s) %s"
 
 #: lib/api.php:965
 msgid "More than 1 entry found"
-msgstr "Βρέθηκαν περισσότερες από 1 εγγραφές"
+msgstr "Ξ’ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο 1 ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚"
 
 msgid "More than 1 entry returned."
-msgstr "Επιστράφηκαν περισσότερες από μία καταχωρήσεις."
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞ¬Ο†Ξ·ΞΊΞ±Ξ½ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο ΞΌΞ―Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΟƒΞµΞΉΟ‚."
 
 msgid "Move"
-msgstr "Μετακίνηση"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ·"
 
 #: templates/prefs/columnselect.inc:248
 msgid "Move left"
-msgstr "Μετακίνηση αριστερά"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬"
 
 #: templates/prefs/columnselect.inc:250
 msgid "Move right"
-msgstr "Μετακίνηση δεξιά"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ΄ΞµΞΎΞΉΞ¬"
 
 #: data.php:31 templates/data/import.inc:21
 msgid "Mulberry Address Book"
-msgstr "Διευθυνσιογράφος Mulberry"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ Mulberry"
 
 msgid "Mulberry addressbook sucessfully imported"
-msgstr "Έγινε επιτυχώς εισαγωγή του διευθυνσιογράφου Mulberry"
+msgstr "ΞΞ³ΞΉΞ½Ξµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ… Mulberry"
 
 #: lib/api.php:886
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
-msgstr "Υπάρχουν πολλά άτομα με διεύθυνση [%s], κανένα όμως με όνομα [%s]"
+msgstr "Ξ¥Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ο€ΞΏΞ»Ξ»Ξ¬ Ξ¬Ο„ΞΏΞΌΞ± ΞΌΞµ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· [%s], ΞΊΞ±Ξ½Ξ­Ξ½Ξ± ΟΞΌΟ‰Ο‚ ΞΌΞµ ΟΞ½ΞΏΞΌΞ± [%s]"
 
 #: config/sources.php.dist:165 config/sources.php.dist:294
 msgid "My Addressbook"
-msgstr "Ο Διευθυνσιογράφος μου"
+msgstr "Ξ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ ΞΌΞΏΟ…"
 
 #: addressbooks.php:119
 msgid "My Address Books"
-msgstr "Οι Διευθυνσιογράφοι μου"
+msgstr "ΞΞΉ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΞΌΞΏΟ…"
 
 msgid "Name"
-msgstr "Όνομα"
+msgstr "ΞΞ½ΞΏΞΌΞ±"
 
 msgid "Name Format"
-msgstr "Μορφή Ονομάτων"
+msgstr "ΞΞΏΟΟ†Ξ® ΞΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½"
 
 #: config/sources.php.dist:72
 msgid "Netcenter Member Directory"
-msgstr "Διευθυνσιογράφος μέλους Netcenter"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ ΞΌΞ­Ξ»ΞΏΟ…Ο‚ Netcenter"
 
 msgid "New Contact"
-msgstr "Νέα Επαφή"
+msgstr "ΞΞ­Ξ± Ξ•Ο€Ξ±Ο†Ξ®"
 
 msgid "New List"
-msgstr "Νέα Λίστα"
+msgstr "ΞΞ­Ξ± Ξ›Ξ―ΟƒΟ„Ξ±"
 
 msgid "Next"
-msgstr "Επόμενο"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½ΞΏ"
 
 #: config/attributes.php.dist:208
 msgid "Nickname"
-msgstr "Ψευδώνυμο"
+msgstr "Ξ¨ΞµΟ…Ξ΄ΟΞ½Ο…ΞΌΞΏ"
 
 #, c-format
 msgid "No %s entry found for %s."
-msgstr "Δε βρέθηκε %s καταχώριση για %s."
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ %s ΞΊΞ±Ο„Ξ±Ο‡ΟΟΞΉΟƒΞ· Ξ³ΞΉΞ± %s."
 
 #: lib/api.php:936
 msgid "No address books found."
-msgstr "Δε βρέθηκε Διευθυνσιογράφος."
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚."
 
 msgid "No contacts found"
-msgstr "Δε βρέθηκαν επαφές"
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ ΞµΟ€Ξ±Ο†Ξ­Ο‚"
 
 #: lib/api.php:338
 msgid "No vCard data was found."
-msgstr "Δε βρέθηκαν δεδομένα vCard."
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± vCard."
 
 msgid "None"
-msgstr "Κανένα"
+msgstr "ΞΞ±Ξ½Ξ­Ξ½Ξ±"
 
 msgid ""
 "None of the available address books are configured to allow you to add new "
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"Κανένας από τους διαθέσιμους διευθυνσιογράφους δεν έχει ρυθμιστεί ώστε να "
-"μπορεί να καταχωρεί εγγραφές. Μπορείτε να ενημερώσετε το διαχειριστή του "
-"συστήματος σας."
+"ΞΞ±Ξ½Ξ­Ξ½Ξ±Ο‚ Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΟ…Ο‚ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…Ο‚ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟΟ…ΞΈΞΌΞΉΟƒΟ„ΞµΞ― ΟΟƒΟ„Ξµ Ξ½Ξ± "
+"ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞµΞ― ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟΟƒΞµΟ„Ξµ Ο„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„ΞΏΟ… "
+"ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞ±Ο‚."
 
 msgid "Notes"
-msgstr "Σημειώσεις"
+msgstr "Ξ£Ξ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚"
 
 msgid "Number of items per page"
-msgstr "Αριθμός ονομάτων ανά σελίδα"
+msgstr "Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΏΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±"
 
 #: lib/api.php:436
 msgid "Object not found"
-msgstr "Δε βρέθηκε το αντικείμενο"
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ"
 
 #: config/attributes.php.dist:213
 msgid "Office"
-msgstr "Γραφείο"
+msgstr "Ξ“ΟΞ±Ο†ΞµΞ―ΞΏ"
 
 msgid "Options"
-msgstr "Επιλογές"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Options for"
-msgstr "Επιλογές για"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ±"
 
 msgid "Other Options"
-msgstr "Αλλες Επιλογές"
+msgstr "Ξ‘Ξ»Ξ»ΞµΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 msgid "Outlook"
-msgstr "Πρόγραμμα Outlook"
+msgstr "Ξ ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Outlook"
 
 #: config/attributes.php.dist:180
 msgid "PGP Public Key"
-msgstr "Δημόσιο κλειδί PGP"
+msgstr "Ξ”Ξ·ΞΌΟΟƒΞΉΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ― PGP"
 
 #: lib/Driver.php:453
 msgid "Permission denied"
-msgstr "Αρνηση πρόσβασης"
+msgstr "Ξ‘ΟΞ½Ξ·ΟƒΞ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚"
 
 msgid "Pine Address Book"
-msgstr "Διευθυνσιογράφος Pine"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ Pine"
 
 msgid "Pine addressbook sucessfully imported"
-msgstr "Έγινε επιτυχώς εισαγωγή του διευθυνσιογράφου Pine"
+msgstr "ΞΞ³ΞΉΞ½Ξµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ… Pine"
 
 msgid "Please choose an address book to add a contact to."
 msgstr ""
-"Παρακαλώ επιλέξτε ένα διευθυνσιογράφο για να προσθέσετε μία καρτέλα σε αυτόν."
+"Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ ΞΌΞ―Ξ± ΞΊΞ±ΟΟ„Ξ­Ξ»Ξ± ΟƒΞµ Ξ±Ο…Ο„ΟΞ½."
 
 msgid "Please enter the name of the new list:"
-msgstr "Παρακαλώ δώστε το όνομα για τη νέα λίστα:"
+msgstr "Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ΄ΟΟƒΟ„Ξµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ξ³ΞΉΞ± Ο„Ξ· Ξ½Ξ­Ξ± Ξ»Ξ―ΟƒΟ„Ξ±:"
 
 msgid "Please select a directory:"
-msgstr "Παρακαλώ επιλέξτε ένα κατάλογο:"
+msgstr "Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ:"
 
 #: config/sources.php.dist:373
 msgid "Private Address Book"
-msgstr "Προσωπικός Διευθυνσιογράφος"
+msgstr "Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟΟ‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚"
 
 msgid "Problem"
-msgstr "Πρόβλημα"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ±"
 
 msgid "Problem?"
-msgstr "Πρόβλημα;"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ±;"
 
 #: lib/Driver/ldap.php:139
 msgid "Query failed: (%s) %s"
-msgstr "Η αναζήτηση απέτυχε: (%s) %s"
+msgstr "Ξ— Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: (%s) %s"
 
 msgid "Quick Search"
-msgstr "Γρήγορη Αναζήτηση"
+msgstr "Ξ“ΟΞ®Ξ³ΞΏΟΞ· Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: lib/Driver/ldap.php:183 lib/Driver/ldap.php:191 lib/Driver/ldap.php:423
 msgid "Read failed: (%s) %s"
-msgstr "Η ανάγνωση απέτυχε: (%s) %s"
+msgstr "Ξ— Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ: (%s) %s"
 
 #: templates/browse/footer.inc:6
 msgid "Records displayed:"
-msgstr "Εμφανίσθηκαν εγγραφές:"
+msgstr "Ξ•ΞΌΟ†Ξ±Ξ½Ξ―ΟƒΞΈΞ·ΞΊΞ±Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚:"
 
 #: templates/prefs/columnselect.inc:240
 msgid "Remove column"
-msgstr "Αφαίρεση στήλης"
+msgstr "Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· ΟƒΟ„Ξ®Ξ»Ξ·Ο‚"
 
 #: templates/browse/actions.inc:5
 msgid "Remove from this list"
-msgstr "Αφαίρεση από τη Λίστα"
+msgstr "Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ±Ο€Ο Ο„Ξ· Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: templates/data/import.inc:26
 msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"Να αντικατασταθεί ο υπάρχων Διευθυνσιογράφος με αυτόν που εισάγετε; "
-"<strong>ΠΡΟΣΟΧΗ: Αυτό θα διαγράψει όλες τις εγγραφές σε αυτό το "
-"Διευθυνσιογράφο.</strong>"
+"ΞΞ± Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ― ΞΏ Ο…Ο€Ξ¬ΟΟ‡Ο‰Ξ½ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ ΞΌΞµ Ξ±Ο…Ο„ΟΞ½ Ο€ΞΏΟ… ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ; "
+"<strong>Ξ Ξ΅ΞΞ£ΞΞ§Ξ—: Ξ‘Ο…Ο„Ο ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ "
+"Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ.</strong>"
 
 #: lib/Driver.php:343
 msgid "Requested object not found."
-msgstr "Το αντικείμενο που ζητήθηκε δεν βρέθηκε."
+msgstr "Ξ¤ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο€ΞΏΟ… Ξ¶Ξ·Ο„Ξ®ΞΈΞ·ΞΊΞµ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ."
 
 msgid "Reset"
-msgstr "Επαναφορά"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬"
 
 #: add.php:46 templates/browse/search.inc:126
 msgid "Reset to Defaults"
-msgstr "Επαναφορά στα Προκαθορισμένα"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ ΟƒΟ„Ξ± Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ±"
 
 #: config/attributes.php.dist:186
 msgid "S/MIME Public Certificate"
-msgstr "Δημόσιο Πιστοποιητικό S/MIME"
+msgstr "Ξ”Ξ·ΞΌΟΟƒΞΉΞΏ Ξ ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ·Ο„ΞΉΞΊΟ S/MIME"
 
 #: add.php:46 edit.php:57
 msgid "Save"
-msgstr "Αποθήκευση"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·"
 
 msgid "Save Changes"
-msgstr "Αποθήκευση αλλαγών"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ±Ξ»Ξ»Ξ±Ξ³ΟΞ½"
 
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "Search Results"
-msgstr "Αποτελέσματα Αναζήτησης"
+msgstr "Ξ‘Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Search failed"
-msgstr "Αναζήτηση απέτυχε"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ"
 
 msgid "Search failed %s"
-msgstr "Αναζήτηση απέτυχε %s"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ %s"
 
 msgid "Searching Options"
-msgstr "Επιλογές Αναζήτησης"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Searching ..."
-msgstr "Αναζήτηση ..."
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ..."
 
 msgid "Search&nbsp;Results"
-msgstr "Αποτελέσματα&nbsp;Αναζήτησης"
+msgstr "Ξ‘Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ±&nbsp;Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Select"
-msgstr "Επιλογή"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ®"
 
 msgid "Select Address Book"
-msgstr "Επιλέξτε Διευθυνσιογράφο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ"
 
 msgid "Select List"
-msgstr "Λίστα Επιλογής"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ®Ο‚"
 
 #: templates/addressbooks.inc:66
 msgid "Select an address book to delete"
-msgstr "Επιλέξτε ένα διευθυνσιογράφο για διαγραφή"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 #: templates/addressbooks.inc:90
 msgid "Select an address book to edit"
-msgstr "Επιλέξτε ένα διευθυνσιογράφο για επεξεργασία"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ³ΞΉΞ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 msgid "Select the address book to export from:"
-msgstr "Επιλέξτε το Διευθυνσιογράφο από τον οποίο θα γίνει η εξαγωγή:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ±Ο€Ο Ο„ΞΏΞ½ ΞΏΟ€ΞΏΞ―ΞΏ ΞΈΞ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ· ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ®:"
 
 msgid "Select the address book to import to:"
-msgstr "Επιλέξτε το Διευθυνσιογράφο που θα εισαχθούν:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ο€ΞΏΟ… ΞΈΞ± ΞµΞΉΟƒΞ±Ο‡ΞΈΞΏΟΞ½:"
 
 msgid "Select the destination to import to:"
-msgstr "Επιλέξτε που θα γίνει η εισαγωγή:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΟ… ΞΈΞ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ· ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®:"
 
 msgid "Select the export format:"
-msgstr "Επιλέξτε τη μορφή του αρχείου Εξαγωγής:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®Ο‚:"
 
 msgid "Select the file to import:"
-msgstr "Επιλέξτε το αρχείο που θα εισαχθεί:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… ΞΈΞ± ΞµΞΉΟƒΞ±Ο‡ΞΈΞµΞ―:"
 
 msgid "Select the format of the source file:"
-msgstr "Επιλέξτε την μορφή του αρχείου Εισαγωγής:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ ΞΌΞΏΟΟ†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®Ο‚:"
 
 msgid "Select the format to export to:"
-msgstr "Επιλέξτε την μορφή εξαγωγής των δεδομένων:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ ΞΌΞΏΟΟ†Ξ® ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ®Ο‚ Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½:"
 
 msgid "Select the format to import from:"
-msgstr "Επιλέξτε τη μορφή εισαγωγής των δεδομένων:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®Ο‚ Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½:"
 
 msgid "Select the format used to display names:"
-msgstr "Επιλέξτε τη μορφή που θα εμφανίζονται τα ονόματα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ±:"
 
 msgid "Select the source to export from:"
-msgstr "Επιλέξτε από που θα εξάγετε τα δεδομένα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±Ο€Ο Ο€ΞΏΟ… ΞΈΞ± ΞµΞΎΞ¬Ξ³ΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±:"
 
 msgid "Select view to display by default."
-msgstr "Επιλογή της προεπιλεγμένης προβολής."
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ο„Ξ·Ο‚ Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ·Ο‚ Ο€ΟΞΏΞ²ΞΏΞ»Ξ®Ο‚."
 
 #: config/prefs.php.dist:25
 msgid "Select view to display by default, sort options, and paging options."
-msgstr "Επιλογή της προεπιλεγμένης προγολής, ταξινόμησης και σελιδοποίησης."
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ο„Ξ·Ο‚ Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ·Ο‚ Ο€ΟΞΏΞ³ΞΏΞ»Ξ®Ο‚, Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ ΟƒΞµΞ»ΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚."
 
 msgid "Select which fields to display in the address lists."
-msgstr "Επιλογή των πεδίων που θα εμφανίζονται στη λίστα των διευθύνσεων."
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ο„Ο‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½ Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½."
 
 msgid "Select which format to display names."
-msgstr "Επιλέξτε με ποιά μορφή θα εμφανίζονται τα ονόματα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞµ Ο€ΞΏΞΉΞ¬ ΞΌΞΏΟΟ†Ξ® ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ±:"
 
 msgid "Select your preferred language:"
-msgstr "Επιλέξτε την προτιμούμενη γλώσσα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΞΏΟ„ΞΉΞΌΞΏΟΞΌΞµΞ½Ξ· Ξ³Ξ»ΟΟƒΟƒΞ±:"
 
 msgid "Selected Columns:"
-msgstr "Επιλεγμένες Στήλες:"
+msgstr "Ξ•Ο€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞµΟ‚ Ξ£Ο„Ξ®Ξ»ΞµΟ‚:"
 
 #: add.php:59
 msgid "Selected address book '%s'."
-msgstr "Επιλεγμένος Διευθυνσιογράφος '%s'."
+msgstr "Ξ•Ο€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ '%s'."
 
 #, c-format
 msgid "Send mail to %s"
-msgstr "Αποστολή email προς %s"
+msgstr "Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® email Ο€ΟΞΏΟ‚ %s"
 
 msgid "Set your preferred display language."
-msgstr "Ρυθμίστε την γλώσσα προτίμησης σας."
+msgstr "Ξ΅Ο…ΞΈΞΌΞ―ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ± Ο€ΟΞΏΟ„Ξ―ΞΌΞ·ΟƒΞ·Ο‚ ΟƒΞ±Ο‚."
 
 #: config/sources.php.dist:230
 msgid "Shared Directory"
-msgstr "Κοινόχρηστος Κατάλογος"
+msgstr "ΞΞΏΞΉΞ½ΟΟ‡ΟΞ·ΟƒΟ„ΞΏΟ‚ ΞΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚"
 
 msgid "Sho_w All"
-msgstr "Εμφάνιση Όλων"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΞ»Ο‰Ξ½"
 
 msgid "Show"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "Show All"
-msgstr "Εμφάνιση Όλων"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΞ»Ο‰Ξ½"
 
 msgid "Show Contacts"
-msgstr "Εμφάνιση Επαφών"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ•Ο€Ξ±Ο†ΟΞ½"
 
 msgid "Show Lists"
-msgstr "Εμφάνιση Ομάδων"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΞΌΞ¬Ξ΄Ο‰Ξ½"
 
 msgid "Show _Contacts"
-msgstr "Εμφάνιση Επαφών"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ•Ο€Ξ±Ο†ΟΞ½"
 
 msgid "Show _Lists"
-msgstr "Εμφάνιση Ομάδων"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΞΌΞ¬Ξ΄Ο‰Ξ½"
 
 msgid "Some of Turba's configuration files are missing:"
-msgstr "Κάποια από τα αρχεία ρυθμίσεων του Turba's λείπουν:"
+msgstr "ΞΞ¬Ο€ΞΏΞΉΞ± Ξ±Ο€Ο Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Turba's Ξ»ΞµΞ―Ο€ΞΏΟ…Ξ½:"
 
 msgid "Sort Direction"
-msgstr "Κατεύθυνση Ταξινόμησης"
+msgstr "ΞΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ·Ο‚"
 
 #: lib/api.php:154
 msgid "Sources"
-msgstr "Πηγές"
+msgstr "Ξ Ξ·Ξ³Ξ­Ο‚"
 
 msgid "Specify where you want advanced search results to appear."
 msgstr ""
-"Καθορίστε που θα εμφανίζονται τα αποτελέσματα των ειδικών (advanced) "
-"αναζητήσεων."
+"ΞΞ±ΞΈΞΏΟΞ―ΟƒΟ„Ξµ Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ ΞµΞΉΞ΄ΞΉΞΊΟΞ½ (advanced) "
+"Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½."
 
 msgid "Success"
-msgstr "Επιτυχία"
+msgstr "Ξ•Ο€ΞΉΟ„Ο…Ο‡Ξ―Ξ±"
 
 #: browse.php:147
 msgid "Successfully added %s to %s"
-msgstr "%s προστέθηκε επιτυχώς στο %s"
+msgstr "%s Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΟƒΟ„ΞΏ %s"
 
 msgid "Tab separated values"
-msgstr "Τιμής διαχωρισμένες με 'Tab'"
+msgstr "Ξ¤ΞΉΞΌΞ®Ο‚ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ 'Tab'"
 
 #: data.php:234
 msgid "The address book could not be purged: %s"
-msgstr "Ο Διευθυνσιογράφος δεν μπορεί να διαγραφεί: %s"
+msgstr "Ξ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―: %s"
 
 #: display.php:23 edit.php:24 vcard.php:22
 msgid "The contact you requested does not exist."
-msgstr "Η επαφή που ζητήσατε δεν υπάρχει."
+msgstr "Ξ— ΞµΟ€Ξ±Ο†Ξ® Ο€ΞΏΟ… Ξ¶Ξ·Ο„Ξ®ΟƒΞ±Ο„Ξµ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ."
 
 msgid "The data got lost"
-msgstr "Τα δεδομένα χάθηκαν"
+msgstr "Ξ¤Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο‡Ξ¬ΞΈΞ·ΞΊΞ±Ξ½"
 
 msgid "The data got lost."
-msgstr "Τα δεδομένα χάθηκαν."
+msgstr "Ξ¤Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο‡Ξ¬ΞΈΞ·ΞΊΞ±Ξ½."
 
 msgid "The file contained no data."
-msgstr "Το αρχείο δεν περιείχε δεδομένα."
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ο€ΞµΟΞΉΞµΞ―Ο‡Ξµ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±."
 
 msgid "There are no browseable address books."
-msgstr "Δεν υπάρχουν διευθυνσιογράφοι τους οποίους μπορείτε να δείτε."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ Ο„ΞΏΟ…Ο‚ ΞΏΟ€ΞΏΞ―ΞΏΟ…Ο‚ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ."
 
 msgid "There are no writeable address books."
-msgstr "Δεν υπάρχουν διευθυνσιογράφοι στους οποίους μπορείτε να γράψετε."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΟƒΟ„ΞΏΟ…Ο‚ ΞΏΟ€ΞΏΞ―ΞΏΟ…Ο‚ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ³ΟΞ¬ΟΞµΟ„Ξµ."
 
 #: add.php:38
 msgid ""
@@ -934,350 +934,350 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"Δεν υπάρχουν διευθυνσιογράφοι στους οποίους μπορείτε να γράψετε. Κανένας από "
-"τους διαθέσιμους Διευθυνσιογράφους δεν έχει ρυθμιστεί να σας επιτρέπει να "
-"προσθέσετε εγγραφές. Αν νομίζεται ότι αυτό είναι λάθος, παρακαλώ "
-"επικοινωνήστε με το διαχειριστή του συστήματος."
+"Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΟƒΟ„ΞΏΟ…Ο‚ ΞΏΟ€ΞΏΞ―ΞΏΟ…Ο‚ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ³ΟΞ¬ΟΞµΟ„Ξµ. ΞΞ±Ξ½Ξ­Ξ½Ξ±Ο‚ Ξ±Ο€Ο "
+"Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΟ…Ο‚ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…Ο‚ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟΟ…ΞΈΞΌΞΉΟƒΟ„ΞµΞ― Ξ½Ξ± ΟƒΞ±Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± "
+"Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚. Ξ‘Ξ½ Ξ½ΞΏΞΌΞ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟΟ„ΞΉ Ξ±Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ξ»Ξ¬ΞΈΞΏΟ‚, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»Ο "
+"ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Υπήρξε πρόβλημα κατά την μεταφορά του αρχείου. Το αρχείο μπορεί να είναι "
-"μεγαλύτερο από το επιτρεπόμενο μέγεθος."
+"Ξ¥Ο€Ξ®ΟΞΎΞµ Ο€ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞΌΞµΟ„Ξ±Ο†ΞΏΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…. Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ "
+"ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ±Ο€Ο Ο„ΞΏ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚."
 
 #: add.php:107
 msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
 msgstr ""
-"Πρόβλημα κατά την προσθήκη της νέας επαφής. Επικοινωνήστε με το διαχειριστή "
-"του συστήματος."
+"Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ο„Ξ·Ο‚ Ξ½Ξ­Ξ±Ο‚ ΞµΟ€Ξ±Ο†Ξ®Ο‚. Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® "
+"Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚."
 
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
 msgstr ""
-"Υπήρξε πρόβλημα στην προσθήκη του αντικειμένου. Επικοινωνήστε με τον "
-"διαχειριστή."
+"Ξ¥Ο€Ξ®ΟΞΎΞµ Ο€ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΟƒΟ„Ξ·Ξ½ Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…. Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ "
+"Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®."
 
 msgid "There was an error creating a new list."
-msgstr "Παρουσιάστηκε σφάλμα κατά την δημιουργία της νέας λίστας."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„Ξ·Ο‚ Ξ½Ξ­Ξ±Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚."
 
 #: browse.php:154
 msgid "There was an error deleting %s from the source address book."
-msgstr "Πρόβλημα κατά τη διαγραφή %s από το Διευθυνσιογράφο."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® %s Ξ±Ο€Ο Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ."
 
 #
 #: delete.php:31
 msgid "There was an error deleting this contact: %s"
-msgstr "Πρόβλημα κατά τη διαγραφή αυτής της επαφής: %s."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΟ€Ξ±Ο†Ξ®Ο‚: %s."
 
 #: browse.php:93
 msgid "There was an error deleting this object."
-msgstr "Παρουσιάστηκε σφάλμα κατά την διαγραφή αυτού του αντικειμένου."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…."
 
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
 msgstr ""
-"Παρουσιάστηκε πρόβλημα κατά την διαγραφή αυτού του αντικειμένου. "
-"Επικοινωνήστε με τον διαχειριστή για περισσότερες πληροφορίες."
+"Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ Ο€ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…. "
+"Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ξ³ΞΉΞ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚."
 
 msgid "There was an error displaying the select List"
-msgstr "Παρουσιάστηκε σφάλμα κατά εμφάνιση της λίστας"
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ξ·Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚"
 
 msgid "There was an error importing the data."
-msgstr "Παρουσιάστηκε σφάλμα κατά την εισαγωγή δεδομένων."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
 
 #: data.php:249
 msgid "There was an error importing the data: %s"
-msgstr "Πρόβλημα κατά την εισαγωγή δεδομένων: %s"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½: %s"
 
 #: lib/api.php:334
 msgid "There was an error importing the iCalendar data."
-msgstr "Παρουσιάσθηκε σφάλμα κατά την εισαγωγή δεδομένων iCalendar."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΞΈΞ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ iCalendar."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Παρουσιάστηκε σφάλμα κατά μεταφορά του αρχείου στον server"
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ ΞΌΞµΟ„Ξ±Ο†ΞΏΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏΞ½ server"
 
 msgid "There was an error importing the vCard data."
-msgstr "Παρουσιάστηκε σφάλμα κατά την εισαγωγή της Ψηφιακής Κάρτας."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ξ·Ο‚ Ξ¨Ξ·Ο†ΞΉΞ±ΞΊΞ®Ο‚ ΞΞ¬ΟΟ„Ξ±Ο‚."
 
 msgid "There was an error removing this object."
-msgstr "Παρουσιάστηκε σφάλμα κατά την διαγραφή αυτού του αντικειμένου."
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…."
 
 #: edit.php:84
 msgid "There was an error updating this entry: %s"
-msgstr "Παρουσιάσθηκε σφάλμα κατά την ενημέρωση αυτής της εγγραφής: %s"
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΞΈΞ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚: %s"
 
 #: data.php:151
 msgid "There were no addresses to export."
-msgstr "Δεν υπάρχουν διευθύνσεις για εξαγωγή."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ®."
 
 #: templates/prefs/addressbookselect.inc:180
 msgid "These address books will display in this order:"
-msgstr "Αυτοί οι διευθυνσιογράφοι θα εμφανίζονται και με αυτή τη σειρά:"
+msgstr "Ξ‘Ο…Ο„ΞΏΞ― ΞΏΞΉ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΉ ΞΌΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞΉΟΞ¬:"
 
 #: templates/prefs/columnselect.inc:243
 msgid "These columns will display in this order:"
-msgstr "Αυθές οι στήλες θα εμφανίζονται και με αυτή τη σειρά:"
+msgstr "Ξ‘Ο…ΞΈΞ­Ο‚ ΞΏΞΉ ΟƒΟ„Ξ®Ξ»ΞµΟ‚ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΉ ΞΌΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞΉΟΞ¬:"
 
 #: lib/Driver.php:403 lib/Driver.php:444
 msgid "This address book is read-only"
-msgstr "Αυτός ο Διευθυνσιογράφος είναι μόνο για ανάγνωση"
+msgstr "Ξ‘Ο…Ο„ΟΟ‚ ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·"
 
 msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Αυτό το αρχείο ελέγχει τις προκαθορισμένες ρυθμίσεις του Turba, και επίσης "
-"ποιες από αυτές μπορούν να τροποποιήσουν οι χρήστες."
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ»Ξ­Ξ³Ο‡ΞµΞΉ Ο„ΞΉΟ‚ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Turba, ΞΊΞ±ΞΉ ΞµΟ€Ξ―ΟƒΞ·Ο‚ "
+"Ο€ΞΏΞΉΞµΟ‚ Ξ±Ο€Ο Ξ±Ο…Ο„Ξ­Ο‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞΏΟ…Ξ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Αυτό το αρχείο περιέχει τις ρυθμίσεις για τα χρώματα και τις γραμματοσειρές."
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„Ξ± Ο‡ΟΟΞΌΞ±Ο„Ξ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ξ³ΟΞ±ΞΌΞΌΞ±Ο„ΞΏΟƒΞµΞΉΟΞ­Ο‚."
 
 msgid ""
 "This file defines the Turba global attribute names and types - names, email "
 "addresses, etc."
 msgstr ""
-"Αυτό το αρχείο ορίζει τις γενικές ιδιότητες του προγράμματος Turba - τους "
-"τύπους, το όνομα, το email, κ.τ.λ"
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΏΟΞ―Ξ¶ΞµΞΉ Ο„ΞΉΟ‚ Ξ³ΞµΞ½ΞΉΞΊΞ­Ο‚ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ Turba - Ο„ΞΏΟ…Ο‚ "
+"Ο„ΟΟ€ΞΏΟ…Ο‚, Ο„ΞΏ ΟΞ½ΞΏΞΌΞ±, Ο„ΞΏ email, ΞΊ.Ο„.Ξ»"
 
 msgid "This file defines the list of available sources for Turba."
-msgstr "Αυτό το αρχείο ορίζει την λίστα με τις διαθέσιμες πηγές του Turba."
+msgstr "Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΏΟΞ―Ξ¶ΞµΞΉ Ο„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞµ Ο„ΞΉΟ‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞµΟ‚ Ο€Ξ·Ξ³Ξ­Ο‚ Ο„ΞΏΟ… Turba."
 
 #: data.php:211
 msgid "This file format is not supported."
-msgstr "Αυτη η μορφή αρχείου δεν υποστηρίζεται."
+msgstr "Ξ‘Ο…Ο„Ξ· Ξ· ΞΌΞΏΟΟ†Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ."
 
 msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"Αυτό είναι το βασικό αρχείο ρυθμίσεων του προγράμματος Turba. Περιλαμβάνει "
-"τα μονοπάτια και τις επιλογές για όλα του τα script."
+"Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ Ξ²Ξ±ΟƒΞΉΞΊΟ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ Turba. Ξ ΞµΟΞΉΞ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΞΉ "
+"Ο„Ξ± ΞΌΞΏΞ½ΞΏΟ€Ξ¬Ο„ΞΉΞ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ± ΟΞ»Ξ± Ο„ΞΏΟ… Ο„Ξ± script."
 
 msgid "This number must be at least one."
-msgstr "Αυτός ο αριθμός πρέπει να είναι τουλάχιστον ένα."
+msgstr "Ξ‘Ο…Ο„ΟΟ‚ ΞΏ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ Ξ­Ξ½Ξ±."
 
 #, c-format
 msgid "This person already has a %s entry in the address book."
-msgstr "Αυτή η επαφή %s έχει ήδη καταχωρηθεί στο διευθυνσιογράφο."
+msgstr "Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€Ξ±Ο†Ξ® %s Ξ­Ο‡ΞµΞΉ Ξ®Ξ΄Ξ· ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ― ΟƒΟ„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ."
 
 msgid "This person is already in your address book."
-msgstr "Αυτή η επαφή υπάρχει ήδη στο διευθυνσιογράφο σας."
+msgstr "Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€Ξ±Ο†Ξ® Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ· ΟƒΟ„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ ΟƒΞ±Ο‚."
 
 msgid "This value must be a number."
-msgstr "Αυτή η τιμή πρέπει να είναι αριθμός."
+msgstr "Ξ‘Ο…Ο„Ξ® Ξ· Ο„ΞΉΞΌΞ® Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΞΉΞΈΞΌΟΟ‚."
 
 msgid "Title"
-msgstr "Τίτλος"
+msgstr "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚"
 
 msgid "Turba is not properly configured"
-msgstr "Το πρόγραμμα Turba δεν έχει ρυθμιστεί πλήρως."
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Turba Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟΟ…ΞΈΞΌΞΉΟƒΟ„ΞµΞ― Ο€Ξ»Ξ®ΟΟ‰Ο‚."
 
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "Δεν μπορούν να γίνουν οι ρυθμίσεις του %s."
+msgstr "Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ³Ξ―Ξ½ΞΏΟ…Ξ½ ΞΏΞΉ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… %s."
 
 #: edit.php:57
 msgid "Undo Changes"
-msgstr "Αναίρεση Αλλαγών"
+msgstr "Ξ‘Ξ½Ξ±Ξ―ΟΞµΟƒΞ· Ξ‘Ξ»Ξ»Ξ±Ξ³ΟΞ½"
 
 msgid "Unnamed Contact"
-msgstr "Στην επαφή δεν έχει συμπληρωθεί όνομα."
+msgstr "Ξ£Ο„Ξ·Ξ½ ΞµΟ€Ξ±Ο†Ξ® Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΈΞµΞ― ΟΞ½ΞΏΞΌΞ±."
 
 #: lib/api.php:466
 msgid "Unsupported Content-Type."
-msgstr "Μή υποστηριζόμενος τύπος Περιεχομένου."
+msgstr "ΞΞ® Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞΉΞ¶ΟΞΌΞµΞ½ΞΏΟ‚ Ο„ΟΟ€ΞΏΟ‚ Ξ ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ…."
 
 msgid "User Options"
-msgstr "Επιλογές Χρήστη"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ§ΟΞ®ΟƒΟ„Ξ·"
 
 #: config/sources.php.dist:131
 msgid "Verisign Directory"
-msgstr "Κατάλογος Verisign"
+msgstr "ΞΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Verisign"
 
 #: templates/browse/contactrow.inc:31
 msgid "View '%s'"
-msgstr "Εμφάνιση '%s'"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· '%s'"
 
 #: minisearch.php:80
 msgid "View Contact"
-msgstr "Εμφάνιση Επαφής"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ•Ο€Ξ±Ο†Ξ®Ο‚"
 
 msgid "View map"
-msgstr "Εμφάνιση Χάρτη"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ§Ξ¬ΟΟ„Ξ·"
 
 msgid "View to display by default:"
-msgstr "Η προβολή που θα εμφανίζεται:"
+msgstr "Ξ— Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ:"
 
 msgid "Warning"
-msgstr "Προειδοποίηση"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "Warning: This deletes all entries in your current address book."
 msgstr ""
-"ΠΡΟΣΟΧΗ: Αυτό θα διαγράψει όλες τις εγγραφές στον επιλεγμένο Διευθυνσιογράφο."
+"Ξ Ξ΅ΞΞ£ΞΞ§Ξ—: Ξ‘Ο…Ο„Ο ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚ ΟƒΟ„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ."
 
 msgid "Web Site"
-msgstr "Ηλεκτρονική Διεύθυνση(URL)"
+msgstr "Ξ—Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞ® Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·(URL)"
 
 #: config/attributes.php.dist:198
 msgid "Website URL"
-msgstr "Σύνδεση Δικτυακού Τόπου (Website)"
+msgstr "Ξ£ΟΞ½Ξ΄ΞµΟƒΞ· Ξ”ΞΉΞΊΟ„Ο…Ξ±ΞΊΞΏΟ Ξ¤ΟΟ€ΞΏΟ… (Website)"
 
 msgid "What is the delimiter character?"
-msgstr "Ποιός είναι ο διαχωριστικός χαρακτήρας;"
+msgstr "Ξ ΞΏΞΉΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏ Ξ΄ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΟΟ‚ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞ±Ο‚;"
 
 msgid "Work Address"
-msgstr "Διεύθυνση Εργασίας"
+msgstr "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:114
 msgid "Work City"
-msgstr "Πόλη Εργασίας"
+msgstr "Ξ ΟΞ»Ξ· Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:129
 msgid "Work Country"
-msgstr "Χώρα Εργασίας"
+msgstr "Ξ§ΟΟΞ± Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:146
 msgid "Work Phone"
-msgstr "Τηλέφωνο Εργασίας"
+msgstr "Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:124
 msgid "Work Postal Code"
-msgstr "Ταχ. Κώδικας Εργασίας"
+msgstr "Ξ¤Ξ±Ο‡. ΞΟΞ΄ΞΉΞΊΞ±Ο‚ Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 #: config/attributes.php.dist:119
 msgid "Work State/Province"
-msgstr "Επαρχία Εργασίας"
+msgstr "Ξ•Ο€Ξ±ΟΟ‡Ξ―Ξ± Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 msgid "You are creating a distribution list."
-msgstr "Δημιουργείτε μία λίστα διανομής."
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ―Ο„Ξµ ΞΌΞ―Ξ± Ξ»Ξ―ΟƒΟ„Ξ± Ξ΄ΞΉΞ±Ξ½ΞΏΞΌΞ®Ο‚."
 
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"Δεν αντιστοιχήθηκαν πεδία από το αρχείο που εισήχθη στα αντίστοιχα του "
-"διευθυνσιογράφου."
+"Ξ”ΞµΞ½ Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞΉΟ‡Ξ®ΞΈΞ·ΞΊΞ±Ξ½ Ο€ΞµΞ΄Ξ―Ξ± Ξ±Ο€Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… ΞµΞΉΟƒΞ®Ο‡ΞΈΞ· ΟƒΟ„Ξ± Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡Ξ± Ο„ΞΏΟ… "
+"Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…."
 
 #: display.php:48 edit.php:44
 msgid "You do not have permission to view this contact."
-msgstr "Δεν έχετε εξουσιοδότηση να δείτε αυτή την επαφή."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟ€Ξ±Ο†Ξ®."
 
 #: vcard.php:40
 msgid "You do not have permission to view this object."
-msgstr "Δεν έχετε εξουσιοδότηση να δείτε αυτό το αντικείμενο."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ."
 
 #: templates/browse/javascript.inc:41
 msgid "You must select a target address book."
-msgstr "Πρέπει να επιλέξετε το Διευθυνσιογράφο κατεύθυνσης."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚."
 
 #: templates/browse/javascript.inc:18
 msgid "You must select a target list."
-msgstr "Πρέπει να επιλέξετε Λίστα κατεύθυνσης."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ›Ξ―ΟƒΟ„Ξ± ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚."
 
 msgid "You must select at least one contact first."
-msgstr "Πρέπει πρώτα να επιλέξετε μία επαφή."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ο€ΟΟΟ„Ξ± Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ ΞΌΞ―Ξ± ΞµΟ€Ξ±Ο†Ξ®."
 
 #: templates/browse/javascript.inc:58
 msgid "You must select at least one entry first."
-msgstr "Πρέπει να επιλέξετε πρώτα τουλάχιστον μια εγγραφή."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο€ΟΟΟ„Ξ± Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ ΞΌΞΉΞ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ®."
 
 #: edit.php:48
 msgid "You only have permission to view this contact."
-msgstr "Έχετε εξουσιοδότηση να δείτε μόνο αυτή την επαφή."
+msgstr "ΞΟ‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ ΞΌΟΞ½ΞΏ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟ€Ξ±Ο†Ξ®."
 
 msgid "Your Information"
-msgstr "Οι πληροφορίες Σας"
+msgstr "ΞΞΉ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ£Ξ±Ο‚"
 
 msgid "Your options have been updated."
-msgstr "Οι επιλογές σας έχουν αποθηκευτεί."
+msgstr "ΞΞΉ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ ΟƒΞ±Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…Ο„ΞµΞ―."
 
 msgid "[Edit]"
-msgstr "[Επεξεργασία]"
+msgstr "[Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±]"
 
 #: templates/browse/contactrow.inc:12
 msgid "[no value]"
-msgstr "[χωρίς τιμή]"
+msgstr "[Ο‡Ο‰ΟΞ―Ο‚ Ο„ΞΉΞΌΞ®]"
 
 msgid "_Add"
-msgstr "Προσθήκη"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·"
 
 msgid "_Browse"
-msgstr "Λίστα"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ±"
 
 msgid "_Delete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 msgid "_Help"
-msgstr "Βοήθεια"
+msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid "_Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 #: templates/browse/actions.inc:46
 msgid "_Lists"
-msgstr "Λίστες"
+msgstr "Ξ›Ξ―ΟƒΟ„ΞµΟ‚"
 
 #: lib/IMP.php:947
 msgid "_Log out"
-msgstr "Εξοδος"
+msgstr "Ξ•ΞΎΞΏΞ΄ΞΏΟ‚"
 
 #: lib/Turba.php:551
 msgid "_My Address Books"
-msgstr "Οι Διευθυνσιογράφοι μου"
+msgstr "ΞΞΉ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ ΞΌΞΏΟ…"
 
 #: lib/Turba.php:557
 msgid "_New Contact"
-msgstr "Νέα Επαφή"
+msgstr "ΞΞ­Ξ± Ξ•Ο€Ξ±Ο†Ξ®"
 
 #: templates/message/navbar_actions.inc:31
 msgid "_Options"
-msgstr "Επιλογές"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 #: templates/browse/actions.inc:5
 msgid "_Remove from this list"
-msgstr "Αφαίρεση από αυτή τη λίστα"
+msgstr "Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ±Ο€Ο Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±"
 
 msgid "_Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "add column"
-msgstr "προσθήκη στήλης"
+msgstr "Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΟƒΟ„Ξ®Ξ»Ξ·Ο‚"
 
 msgid "businesscategory"
-msgstr "Κατηγορία Εργασίας"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚"
 
 msgid "move left"
-msgstr "Μετακίνηση Αριστερά"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ‘ΟΞΉΟƒΟ„ΞµΟΞ¬"
 
 msgid "move right"
-msgstr "Μετακίνηση Δεξιά"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ”ΞµΞΎΞΉΞ¬"
 
 #: config/prefs.php.dist:138
 msgid "no formatting"
-msgstr "Χωρίς μορφοποίηση"
+msgstr "Ξ§Ο‰ΟΞ―Ο‚ ΞΌΞΏΟΟ†ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "remove column"
-msgstr "Αφαίρεση Στήλης"
+msgstr "Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ£Ο„Ξ®Ξ»Ξ·Ο‚"
 
 #: templates/browse/actions.inc:22
 msgid "to Selected Address Book"
-msgstr "στον επιλεγμένο Διευθυνσιογράφο"
+msgstr "ΟƒΟ„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ"
 
 #: templates/browse/actions.inc:31
 msgid "to a Contact List"
-msgstr "σε λίστα Επαφών"
+msgstr "ΟƒΞµ Ξ»Ξ―ΟƒΟ„Ξ± Ξ•Ο€Ξ±Ο†ΟΞ½"
 
 #: templates/browse/actions.inc:21
 msgid "to a different Address Book"
-msgstr "σε διαφορετικό Διευθυνσιογράφο"
+msgstr "ΟƒΞµ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΟ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ"
 
 msgid "vCard"
-msgstr "Ψηφιακή Κάρτα"
+msgstr "Ξ¨Ξ·Ο†ΞΉΞ±ΞΊΞ® ΞΞ¬ΟΟ„Ξ±"

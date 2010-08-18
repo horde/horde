@@ -11,23 +11,23 @@ msgstr ""
 "Last-Translator: Bjorn Davidsson <bjossi@snerpa.is>\n"
 "Language-Team: Icelandic <support@snerpa.is>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/maintenance/confirm_top.inc:4
 #, fuzzy, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "Viğhaldsağgerğir"
+msgstr "ViÃ°haldsaÃ°gerÃ°ir"
 
 #: framework/VFS/VFS/ftp.php:568 framework/VFS/VFS/ftp.php:636
 #, fuzzy, php-format
 msgid "%s already exists."
-msgstr "Mappan \"%s\" er nú şegar til"
+msgstr "Mappan \"%s\" er nÃº Ã¾egar til"
 
 #: lib/Block/metar.php:284
 #, fuzzy, php-format
 msgid "%s minutes"
-msgstr "Á fimm mínútna fresti"
+msgstr "Ã fimm mÃ­nÃºtna fresti"
 
 #: templates/admin/user/list.inc:4
 #, fuzzy, php-format
@@ -37,48 +37,48 @@ msgstr "%d til %d af %d skeytum"
 #: framework/Kolab/Kolab.php:891
 #, fuzzy, php-format
 msgid "%s's Address Book"
-msgstr "Netfangabók"
+msgstr "NetfangabÃ³k"
 
 #: lib/Block/time.php:20
 #, fuzzy
 msgid "12 Hour Format"
-msgstr "Upplısingar"
+msgstr "UpplÃ½singar"
 
 #: lib/Block/time.php:19
 #, fuzzy
 msgid "24 Hour Format"
-msgstr "Upplısingar"
+msgstr "UpplÃ½singar"
 
 #: framework/UI/UI/Pager.php:69
 #, fuzzy
 msgid "<Previous"
-msgstr "Fyrri blağsíğa"
+msgstr "Fyrri blaÃ°sÃ­Ã°a"
 
 #: config/prefs.php.dist:75
 #, fuzzy
 msgid "Account Password"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: config/registry.php.dist:314
 #, fuzzy
 msgid "Accounting"
-msgstr "Hækkandi"
+msgstr "HÃ¦kkandi"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:451
 #: framework/MIME/MIME/Viewer/icalendar.php:625
 #, fuzzy
 msgid "Actions"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: framework/MIME/MIME/Viewer/vcard.php:71
 #, fuzzy
 msgid "Add to address book:"
-msgstr "Bæta í netfangabók (%s)"
+msgstr "BÃ¦ta Ã­ netfangabÃ³k (%s)"
 
 #: framework/MIME/MIME/Viewer/vcard.php:78
 #, fuzzy
 msgid "Add to my address book"
-msgstr "Bæta í netfangabók (%s)"
+msgstr "BÃ¦ta Ã­ netfangabÃ³k (%s)"
 
 #: framework/MIME/MIME/Viewer/vcard.php:126
 #: framework/MIME/MIME/Viewer/vcard.php:173 framework/Form/Form.php:1446
@@ -88,11 +88,11 @@ msgstr "Sendandanetfang"
 
 #: config/registry.php.dist:136
 msgid "Address Book"
-msgstr "Netfangabók"
+msgstr "NetfangabÃ³k"
 
 #: lib/Block/fortune.php:87
 msgid "All"
-msgstr "Öll skeyti"
+msgstr "Ã–ll skeyti"
 
 #: services/resetpassword.php:35
 #, fuzzy
@@ -101,114 +101,114 @@ msgstr "Netfang"
 
 #: framework/Prefs/Prefs/UI.php:95 framework/Prefs/Prefs/UI.php:115
 msgid "An illegal value was specified."
-msgstr "Ótækt gildi tilgreint."
+msgstr "Ã“tÃ¦kt gildi tilgreint."
 
 #: services/resetpassword.php:49
 #, fuzzy
 msgid "Answer"
-msgstr "Svarağ"
+msgstr "SvaraÃ°"
 
 #: admin/templates.php:74 admin/phpshell.php:35
 #: framework/Block/Block/UI.php:58 templates/admin/setup/index.html:6
 #, fuzzy
 msgid "Application"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: framework/UI/UI/VarRenderer/html.php:377
 #: framework/UI/UI/VarRenderer/html.php:414
 #: templates/javascript/open_calendar.js:68
 msgid "April"
-msgstr "apríl"
+msgstr "aprÃ­l"
 
 #: templates/admin/user/removequeued.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "Ert şú viss um ağ şú viljir gera şetta?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir gera Ã¾etta?"
 
 #: templates/admin/groups/delete.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
-msgstr "Ert şú viss um ağ şú viljir tæma şessa möppu?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir tÃ¦ma Ã¾essa mÃ¶ppu?"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:577
 #, fuzzy
 msgid "Attendees"
-msgstr "Viğhengi"
+msgstr "ViÃ°hengi"
 
 #: framework/UI/UI/VarRenderer/html.php:381
 #: framework/UI/UI/VarRenderer/html.php:418
 #: templates/javascript/open_calendar.js:72
 msgid "August"
-msgstr "ágúst"
+msgstr "Ã¡gÃºst"
 
 #: framework/NLS/NLS/tld.php:28 framework/NLS/NLS/countries.php:24
 #: framework/NLS/NLS/GeoIP.php:59
 #, fuzzy
 msgid "Austria"
-msgstr "ágúst"
+msgstr "Ã¡gÃºst"
 
 #: framework/Auth/Auth/ldap.php:144
 #, fuzzy, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
 msgstr ""
-"Vistun uppkastsins mistókst. Netşjónninn kom meğ eftirfarandi villu: %s"
+"Vistun uppkastsins mistÃ³kst. NetÃ¾jÃ³nninn kom meÃ° eftirfarandi villu: %s"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:289
 #, fuzzy
 msgid "Authentication failed"
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:67
 #: framework/Net_SMS/SMS/clickatell_http.php:76
 #, fuzzy, php-format
 msgid "Authentication failed. %s"
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: templates/data/csvmap.inc:83
 #, fuzzy
 msgid "Available fields:"
-msgstr "Tiltækar netfangabækur:"
+msgstr "TiltÃ¦kar netfangabÃ¦kur:"
 
 #: framework/NLS/NLS/tld.php:50 framework/NLS/NLS/countries.php:32
 #: framework/NLS/NLS/GeoIP.php:63
 #, fuzzy
 msgid "Belize"
-msgstr "Stærğ"
+msgstr "StÃ¦rÃ°"
 
 #: templates/javascript/htmlarea_lang.js:8
 #, fuzzy
 msgid "Bold"
-msgstr "Meginmál"
+msgstr "MeginmÃ¡l"
 
 #: templates/javascript/htmlarea_table_lang.js:20
 #, fuzzy
 msgid "Border"
-msgstr "Möppur"
+msgstr "MÃ¶ppur"
 
 #: templates/javascript/htmlarea_table_lang.js:21
 #, fuzzy
 msgid "Borders"
-msgstr "Möppur"
+msgstr "MÃ¶ppur"
 
 #: lib/Block/fortune.php:96
 msgid "Both"
-msgstr "Bæği"
+msgstr "BÃ¦Ã°i"
 
 #: templates/javascript/htmlarea_table_lang.js:22
 #: templates/javascript/htmlarea_lang.js:75
 #, fuzzy
 msgid "Bottom"
-msgstr "Bæği"
+msgstr "BÃ¦Ã°i"
 
 #: po/translation.php:673
 #, php-format
 msgid "Building locale %s... "
-msgstr "Byggi nú locale %s ..."
+msgstr "Byggi nÃº locale %s ..."
 
 #: lib/Block/weatherdotcom.php:213
 #, fuzzy
 msgid "Calm"
-msgstr "Hætta viğ"
+msgstr "HÃ¦tta viÃ°"
 
 #: admin/user.php:101 admin/user.php:120
 #: templates/javascript/htmlarea_lang.js:47
@@ -216,7 +216,7 @@ msgstr "Hætta viğ"
 #: templates/admin/groups/delete.inc:14 templates/admin/user/clear.inc:17
 #: templates/admin/user/remove.inc:17
 msgid "Cancel"
-msgstr "Hætta viğ"
+msgstr "HÃ¦tta viÃ°"
 
 #: templates/javascript/htmlarea_table_lang.js:24
 #, fuzzy
@@ -226,18 +226,18 @@ msgstr "Valstillingar"
 #: templates/javascript/htmlarea_table_lang.js:26
 #, fuzzy
 msgid "Center"
-msgstr "Búa til"
+msgstr "BÃºa til"
 
 #: framework/NLS/NLS/tld.php:221 framework/NLS/NLS/countries.php:52
 #: framework/NLS/NLS/GeoIP.php:108
 #, fuzzy
 msgid "Chad"
-msgstr "Efnisşráğur"
+msgstr "EfnisÃ¾rÃ¡Ã°ur"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:596
 #, fuzzy
 msgid "Chair Person"
-msgstr "Persónulegt"
+msgstr "PersÃ³nulegt"
 
 #: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:97
 msgid "Change"
@@ -249,8 +249,8 @@ msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Hér getur şú breytt şví hvağa nafn, netfang og skeytisbotn kemur fram í "
-"skeytum şínum."
+"HÃ©r getur Ã¾Ãº breytt Ã¾vÃ­ hvaÃ°a nafn, netfang og skeytisbotn kemur fram Ã­ "
+"skeytum Ã¾Ã­num."
 
 #: templates/javascript/htmlarea_table_lang.js:27
 #, fuzzy
@@ -260,18 +260,18 @@ msgstr "Breyta"
 #: framework/Auth/Auth/Signup.php:268
 #, fuzzy
 msgid "Choose a username"
-msgstr "Semja nıtt skeyti"
+msgstr "Semja nÃ½tt skeyti"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:452
 #: framework/MIME/MIME/Viewer/icalendar.php:626
 #, fuzzy
 msgid "Choose an action:"
-msgstr "Veldu ağgerğ:"
+msgstr "Veldu aÃ°gerÃ°:"
 
 #: po/translation.php:867
 #, php-format
 msgid "Cleaning up locale %s... "
-msgstr "Hreinsa til í locale %s ..."
+msgstr "Hreinsa til Ã­ locale %s ..."
 
 #: lib/Block/weatherdotcom_strings.php:15
 #, fuzzy
@@ -281,17 +281,17 @@ msgstr "Afrit"
 #: templates/portal/sidebar.inc:4
 #, fuzzy
 msgid "Collapse Sidebar"
-msgstr "Loka möppu"
+msgstr "Loka mÃ¶ppu"
 
 #: templates/javascript/htmlarea_table_lang.js:28
 #, fuzzy
 msgid "Collapsed borders"
-msgstr "Loka möppu"
+msgstr "Loka mÃ¶ppu"
 
 #: framework/Form/Form.php:2850
 #, fuzzy
 msgid "Colour selection"
-msgstr "Veldu ağgerğ:"
+msgstr "Veldu aÃ°gerÃ°:"
 
 #: config/registry.php.dist:283
 #, fuzzy
@@ -330,24 +330,24 @@ msgstr "Semja"
 #: templates/admin/user/update.inc:37
 #, fuzzy
 msgid "Confirm Password"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:199
 #: framework/IMAP/IMAP/ACL/rfc2086.php:310
 #, fuzzy
 msgid "Connection failed."
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:199
 #: framework/IMAP/IMAP/ACL/rfc2086.php:310
 #, fuzzy
 msgid "Connection failed: "
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: framework/MIME/MIME/Viewer/vcard.php:53
 #, fuzzy
 msgid "Contacts were successfully added to your address book."
-msgstr "Netfangiğ \"%s\" var bætt í netfangabókina"
+msgstr "NetfangiÃ° \"%s\" var bÃ¦tt Ã­ netfangabÃ³kina"
 
 #: lib/Block/fortune.php:32
 #, fuzzy
@@ -361,7 +361,7 @@ msgstr "Afrit"
 #: templates/javascript/htmlarea_lang.js:36
 #, fuzzy
 msgid "Copy selection"
-msgstr "Veldu ağgerğ:"
+msgstr "Veldu aÃ°gerÃ°:"
 
 #: po/translation.php:1084
 #, fuzzy, php-format
@@ -371,78 +371,78 @@ msgstr "Tengjast %s"
 #: framework/Crypt/Crypt/pgp.php:1030
 #, fuzzy
 msgid "Could not PGP sign message."
-msgstr "Şú átt 1 nıtt skeyti."
+msgstr "ÃÃº Ã¡tt 1 nÃ½tt skeyti."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:245
 #, fuzzy, php-format
 msgid "Could not delete contact. %s"
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:355
 #, fuzzy, php-format
 msgid "Could not delete distribution list. %s"
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: admin/setup/scripts.php:37
 #, fuzzy, php-format
 msgid "Could not delete setup upgrade script '%s'."
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:273
 #, fuzzy, php-format
 msgid "Could not retrieve address book. %s"
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: admin/setup/index.php:70
 #, fuzzy, php-format
 msgid "Could not write configuration for '%s': %s"
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: framework/Form/Form.php:1424
 #, fuzzy
 msgid "Counted text"
-msgstr "Leiğréttur texti"
+msgstr "LeiÃ°rÃ©ttur texti"
 
 #: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:97
 #: templates/rpcsum/rpcsum.inc:101
 msgid "Create"
-msgstr "Búa til"
+msgstr "BÃºa til"
 
 #: templates/javascript/htmlarea_context_lang.js:67
 #, fuzzy
 msgid "Create a link"
-msgstr "Búa til"
+msgstr "BÃºa til"
 
 #: templates/prefs/identityselect.inc:93
 #, fuzzy
 msgid "Create a new one"
-msgstr "Búa til nıja möppu (ruslakörfu) undir eydd skeyti"
+msgstr "BÃºa til nÃ½ja mÃ¶ppu (ruslakÃ¶rfu) undir eydd skeyti"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:92
 #, fuzzy
 msgid "Create sub folders"
-msgstr "Búa til möppu"
+msgstr "BÃºa til mÃ¶ppu"
 
 #: framework/NLS/NLS/tld.php:109 framework/NLS/NLS/countries.php:64
 #: framework/NLS/NLS/GeoIP.php:79
 #, fuzzy
 msgid "Croatia"
-msgstr "Búa til"
+msgstr "BÃºa til"
 
 #: lib/Block/time.php:3 lib/Block/time.php:30
 #, fuzzy
 msgid "Current Time"
-msgstr "Leiğréttur texti"
+msgstr "LeiÃ°rÃ©ttur texti"
 
 #: config/prefs.php.dist:108
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Stilla ağgerğir sem eru framkvæmdar şegar şú tengist %s."
+msgstr "Stilla aÃ°gerÃ°ir sem eru framkvÃ¦mdar Ã¾egar Ã¾Ãº tengist %s."
 
 #: framework/Maintenance/Maintenance.php:59
 #, fuzzy
 msgid "Daily"
-msgstr "Útlit"
+msgstr "Ãštlit"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:72 framework/Form/Form.php:2397
 msgid "Date"
@@ -451,17 +451,17 @@ msgstr "Dags"
 #: templates/admin/user/approve.inc:13
 #, fuzzy
 msgid "Date Received"
-msgstr "Móttekiğ şann:"
+msgstr "MÃ³ttekiÃ° Ã¾ann:"
 
 #: lib/Block/weatherdotcom.php:281
 #, fuzzy
 msgid "Day"
-msgstr "maí"
+msgstr "maÃ­"
 
 #: templates/javascript/htmlarea_context_lang.js:35
 #, fuzzy
 msgid "De_lete Column"
-msgstr "Eyğa möppu(m)"
+msgstr "EyÃ°a mÃ¶ppu(m)"
 
 #: framework/UI/UI/VarRenderer/html.php:385
 #: framework/UI/UI/VarRenderer/html.php:422
@@ -482,27 +482,27 @@ msgstr "Eytt"
 #: framework/Prefs/Prefs/UI.php:187 lib/prefs.php:111
 #, fuzzy
 msgid "Default"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: templates/prefs/categorymanagement.inc:47
 #: templates/prefs/categorymanagement.inc:81
 #, fuzzy
 msgid "Default Color"
-msgstr "Nota sjálfgefiğ gildi"
+msgstr "Nota sjÃ¡lfgefiÃ° gildi"
 
 #: framework/Identity/Identity.php:91
 msgid "Default Identity"
-msgstr "Sjálfgefiğ kennimark"
+msgstr "SjÃ¡lfgefiÃ° kennimark"
 
 #: lib/Block/fortune.php:33
 #, fuzzy
 msgid "Definitions"
-msgstr "Skilgreining á síureglu"
+msgstr "Skilgreining Ã¡ sÃ­ureglu"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:643
 #, fuzzy
 msgid "Delegate position"
-msgstr "Semja nıtt skeyti"
+msgstr "Semja nÃ½tt skeyti"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:693
 #, fuzzy
@@ -518,17 +518,17 @@ msgstr "Eytt"
 #: templates/rpcsum/rpcsum.inc:99 templates/admin/groups/delete.inc:13
 #: templates/admin/user/list.inc:31
 msgid "Delete"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: admin/groups.php:189 admin/groups.php:217
 #, fuzzy
 msgid "Delete Group"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: framework/Perms/Perms/UI.php:63 framework/Perms/Perms/UI.php:87
 #, fuzzy
 msgid "Delete Permission"
-msgstr "Eyğa skeytum"
+msgstr "EyÃ°a skeytum"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:93
 #, fuzzy
@@ -538,17 +538,17 @@ msgstr "Eydd skeyti"
 #: templates/javascript/htmlarea_table_lang.js:57
 #, fuzzy
 msgid "Delete cell"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: templates/javascript/htmlarea_table_lang.js:63
 #, fuzzy
 msgid "Delete column"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: templates/javascript/htmlarea_table_lang.js:67
 #, fuzzy
 msgid "Delete row"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: templates/prefs/deleteidentity.inc:15
 #, fuzzy
@@ -558,12 +558,12 @@ msgstr "Veldu kenni"
 #: templates/javascript/htmlarea_context_lang.js:66
 #, fuzzy
 msgid "Delete the current column"
-msgstr "Stilla núverandi tímabelti."
+msgstr "Stilla nÃºverandi tÃ­mabelti."
 
 #: templates/javascript/htmlarea_context_lang.js:62
 #, fuzzy
 msgid "Delete the current row"
-msgstr "Stilla núverandi tímabelti."
+msgstr "Stilla nÃºverandi tÃ­mabelti."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:562
 #: framework/Net_SMS/SMS/sms2email_http.php:594
@@ -571,7 +571,7 @@ msgstr "Stilla núverandi tímabelti."
 #: framework/Net_SMS/SMS/clickatell_http.php:252
 #, fuzzy
 msgid "Delivery time"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:565 framework/Form/Form.php:938
 #: templates/javascript/htmlarea_table_lang.js:30
@@ -583,22 +583,22 @@ msgstr "Valkostir notanda"
 #, fuzzy
 msgid "Details have been logged for the administrator."
 msgstr ""
-"Şetta skeyti hefur veriğ sent til kerfisumsjónar sem tilkynning um ruslpóst "
+"Ãetta skeyti hefur veriÃ° sent til kerfisumsjÃ³nar sem tilkynning um ruslpÃ³st "
 "(SPAM)."
 
 #: lib/Block/google.php:39
 #, fuzzy
 msgid "Directory"
-msgstr "Röğunarátt"
+msgstr "RÃ¶Ã°unarÃ¡tt"
 
 #: config/prefs.php.dist:97
 msgid "Display Options"
-msgstr "Útlitsstillingar"
+msgstr "Ãštlitsstillingar"
 
 #: framework/Form/Form.php:2821
 #, fuzzy
 msgid "Display format"
-msgstr "Útlit"
+msgstr "Ãštlit"
 
 #: admin/perms/delete.php:46 framework/Perms/Perms/UI.php:315
 #, fuzzy
@@ -607,17 +607,17 @@ msgstr "Endurvekja"
 
 #: framework/MIME/MIME/Contents.php:835
 msgid "Download"
-msgstr "Sækja yfir á vinnustöğ"
+msgstr "SÃ¦kja yfir Ã¡ vinnustÃ¶Ã°"
 
 #: framework/MIME/MIME/Contents.php:835
 #, php-format
 msgid "Download %s"
-msgstr "Sækja %s yfir á vinnustöğ"
+msgstr "SÃ¦kja %s yfir Ã¡ vinnustÃ¶Ã°"
 
 #: framework/Crypt/Crypt/pgp.php:399
 #, fuzzy
 msgid "E-Mail"
-msgstr "Póstmappa"
+msgstr "PÃ³stmappa"
 
 #: framework/Perms/Perms.php:294 templates/shares/edit.inc:35
 #: templates/shares/edit.inc:69 templates/shares/edit.inc:92
@@ -630,7 +630,7 @@ msgstr "Breyta"
 #: lib/Block/fortune.php:35
 #, fuzzy
 msgid "Education"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: framework/Crypt/Crypt/smime.php:565 templates/admin/groups/edit.inc:12
 #: templates/admin/user/update.inc:40
@@ -650,17 +650,17 @@ msgstr "Valstillingar"
 #: framework/Net_SMS/SMS/clickatell_http.php:301
 #, fuzzy
 msgid "Empty message."
-msgstr "Áríğandi skeyti"
+msgstr "ÃrÃ­Ã°andi skeyti"
 
 #: framework/Auth/Auth/ldap.php:88
 #, fuzzy
 msgid "Empty result."
-msgstr "Tæma ruslakörfu"
+msgstr "TÃ¦ma ruslakÃ¶rfu"
 
 #: framework/SQL/SQL/Keywords.php:113
 #, fuzzy
 msgid "Empty search terms"
-msgstr "Tæma ruslakörfumöppu"
+msgstr "TÃ¦ma ruslakÃ¶rfumÃ¶ppu"
 
 #: framework/Notification/Notification/Listener/status.php:27
 #: lib/Block/weatherdotcom.php:45 lib/Block/weatherdotcom.php:55
@@ -676,33 +676,33 @@ msgstr "Villa"
 
 #: config/prefs.php.dist:329
 msgid "Every 15 minutes"
-msgstr "Á korters fresti"
+msgstr "Ã korters fresti"
 
 #: config/prefs.php.dist:379
 #, fuzzy
 msgid "Every 2 minutes"
-msgstr "Á fimm mínútna fresti"
+msgstr "Ã fimm mÃ­nÃºtna fresti"
 
 #: config/prefs.php.dist:326 config/prefs.php.dist:377
 msgid "Every 30 seconds"
-msgstr "Á 30 sek. fresti"
+msgstr "Ã 30 sek. fresti"
 
 #: config/prefs.php.dist:328 config/prefs.php.dist:380
 msgid "Every 5 minutes"
-msgstr "Á fimm mínútna fresti"
+msgstr "Ã fimm mÃ­nÃºtna fresti"
 
 #: framework/Maintenance/Maintenance.php:60
 #, fuzzy
 msgid "Every Login"
-msgstr "Á mínútu fresti"
+msgstr "Ã mÃ­nÃºtu fresti"
 
 #: config/prefs.php.dist:330
 msgid "Every half hour"
-msgstr "Á hálftíma fresti"
+msgstr "Ã hÃ¡lftÃ­ma fresti"
 
 #: config/prefs.php.dist:327 config/prefs.php.dist:378
 msgid "Every minute"
-msgstr "Á mínútu fresti"
+msgstr "Ã mÃ­nÃºtu fresti"
 
 #: framework/Block/Block/Layout.php:394
 #, fuzzy
@@ -712,24 +712,24 @@ msgstr "Opna allar"
 #: templates/portal/sidebar.inc:31
 #, fuzzy
 msgid "Expand Sidebar"
-msgstr "Opna möppu"
+msgstr "Opna mÃ¶ppu"
 
 #: framework/UI/UI/VarRenderer/html.php:375
 #: framework/UI/UI/VarRenderer/html.php:412
 #: templates/javascript/open_calendar.js:66
 msgid "February"
-msgstr "febrúar"
+msgstr "febrÃºar"
 
 #: config/registry.php.dist:343
 #, fuzzy
 msgid "File Manager"
-msgstr "Skrárnafn"
+msgstr "SkrÃ¡rnafn"
 
 #: framework/MIME/MIME/Viewer/rar.php:63 framework/MIME/MIME/Viewer/zip.php:67
 #: framework/MIME/MIME/Viewer/tgz.php:85
 #, fuzzy
 msgid "File Name"
-msgstr "Skrárnafn"
+msgstr "SkrÃ¡rnafn"
 
 #: framework/Form/Form.php:2999
 #, fuzzy
@@ -743,7 +743,7 @@ msgstr "Reitur"
 
 #: config/registry.php.dist:86
 msgid "Filters"
-msgstr "Síur"
+msgstr "SÃ­ur"
 
 #: framework/NLS/NLS/tld.php:82 framework/NLS/NLS/countries.php:82
 #: framework/NLS/NLS/GeoIP.php:71
@@ -754,32 +754,32 @@ msgstr "Finna"
 #: lib/Block/moon.php:171
 #, fuzzy
 msgid "First Half"
-msgstr "Fyrsta síğa"
+msgstr "Fyrsta sÃ­Ã°a"
 
 #: lib/Block/moon.php:74 lib/Block/moon.php:76
 #, fuzzy
 msgid "First Quarter"
-msgstr "Fyrsta síğa"
+msgstr "Fyrsta sÃ­Ã°a"
 
 #: config/registry.php.dist:399
 #, fuzzy
 msgid "Forms"
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: config/registry.php.dist:390
 #, fuzzy
 msgid "Forums"
-msgstr "Möppur"
+msgstr "MÃ¶ppur"
 
 #: config/registry.php.dist:106
 #, fuzzy
 msgid "Forwards"
-msgstr "Áframsenda"
+msgstr "Ãframsenda"
 
 #: templates/javascript/open_calendar.js:60
 #, fuzzy
 msgid "Fr"
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: templates/javascript/htmlarea_table_lang.js:33
 #, fuzzy
@@ -790,26 +790,26 @@ msgstr "Nafn"
 #: framework/NLS/NLS/GeoIP.php:73
 #, fuzzy
 msgid "France"
-msgstr "Hætta viğ"
+msgstr "HÃ¦tta viÃ°"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:417
 #, fuzzy
 msgid "Free/Busy Information"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:74
 msgid "From"
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: lib/Block/weatherdotcom.php:215
 #, fuzzy
 msgid "From the "
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: templates/problem/problem.inc:48
 #, fuzzy
 msgid "Full Description"
-msgstr "Skilgreining á síureglu"
+msgstr "Skilgreining Ã¡ sÃ­ureglu"
 
 #: templates/admin/user/update.inc:39
 #, fuzzy
@@ -819,34 +819,34 @@ msgstr "Nafn"
 #: framework/Crypt/Crypt/smime.php:575
 #, fuzzy
 msgid "Given Name"
-msgstr "Skrárnafn"
+msgstr "SkrÃ¡rnafn"
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 #, fuzzy
 msgid "Google Search"
-msgstr "Leita í skeytum"
+msgstr "Leita Ã­ skeytum"
 
 #: framework/NLS/NLS/tld.php:89 framework/NLS/NLS/countries.php:95
 #: framework/NLS/NLS/GeoIP.php:74
 #, fuzzy
 msgid "Grenada"
-msgstr "Efnisşráğur"
+msgstr "EfnisÃ¾rÃ¡Ã°ur"
 
 #: framework/NLS/NLS/tld.php:97 framework/NLS/NLS/countries.php:99
 #: framework/NLS/NLS/GeoIP.php:75
 #, fuzzy
 msgid "Guinea"
-msgstr "júní"
+msgstr "jÃºnÃ­"
 
 #: framework/Horde/Horde/Help.php:178 framework/Horde/Horde/Help.php:185
 #: services/help/index.php:17 templates/help/index.inc:3
 msgid "Help"
-msgstr "Hjálp"
+msgstr "HjÃ¡lp"
 
 #: framework/Form/Form.php:1376
 #, fuzzy
 msgid "Helper"
-msgstr "Hjálp"
+msgstr "HjÃ¡lp"
 
 #: framework/MIME/MIME/Viewer/vcard.php:122
 #: framework/MIME/MIME/Viewer/vcard.php:155
@@ -857,7 +857,7 @@ msgstr "Sendandanetfang"
 #: framework/MIME/MIME/Viewer/vcard.php:190
 #, fuzzy
 msgid "Home Phone"
-msgstr "Tímabelti"
+msgstr "TÃ­mabelti"
 
 #: framework/Kolab/Kolab.php:1208
 #, fuzzy, php-format
@@ -867,7 +867,7 @@ msgstr "Mappan \"%s\" var endurnefnd \"%s\"."
 #: framework/Kolab/Kolab.php:1154
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully synchronised %s \"%s\""
-msgstr "\"%s\" var gerğ virk"
+msgstr "\"%s\" var gerÃ° virk"
 
 #: framework/Form/Form.php:1320
 #, fuzzy
@@ -881,7 +881,7 @@ msgstr "Kenninafn:"
 #: framework/Net_SMS/SMS/sms2email_http.php:631
 #, fuzzy
 msgid "Incorrect username and/or password."
-msgstr "Sláğu inn notandanafn og lykliorğ"
+msgstr "SlÃ¡Ã°u inn notandanafn og lykliorÃ°"
 
 #: framework/NLS/NLS/tld.php:112 framework/NLS/NLS/countries.php:110
 #: framework/NLS/NLS/GeoIP.php:80
@@ -897,47 +897,47 @@ msgstr "Hundsa"
 #: config/registry.php.dist:243
 #, fuzzy
 msgid "Information"
-msgstr "Upplısingar"
+msgstr "UpplÃ½singar"
 
 #: templates/javascript/htmlarea_lang.js:117
 #: templates/javascript/htmlarea_anselimage_lang.js:20
 #, fuzzy
 msgid "Insert Image"
-msgstr "Skeyti sem búiğ er ağ svara"
+msgstr "Skeyti sem bÃºiÃ° er aÃ° svara"
 
 #: templates/javascript/htmlarea_table_lang.js:59
 #, fuzzy
 msgid "Insert cell before"
-msgstr "Móttekiğ fyrir:"
+msgstr "MÃ³ttekiÃ° fyrir:"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:90
 #, fuzzy
 msgid "Insert messages"
-msgstr "Skeyti sem búiğ er ağ svara"
+msgstr "Skeyti sem bÃºiÃ° er aÃ° svara"
 
 #: framework/NLS/NLS/tld.php:113 framework/NLS/NLS/countries.php:113
 #: framework/NLS/NLS/GeoIP.php:80
 #, fuzzy
 msgid "Ireland"
-msgstr "Efnisşráğur"
+msgstr "EfnisÃ¾rÃ¡Ã°ur"
 
 #: framework/UI/UI/VarRenderer/html.php:374
 #: framework/UI/UI/VarRenderer/html.php:411
 #: templates/javascript/open_calendar.js:65
 msgid "January"
-msgstr "janúar"
+msgstr "janÃºar"
 
 #: framework/UI/UI/VarRenderer/html.php:380
 #: framework/UI/UI/VarRenderer/html.php:417
 #: templates/javascript/open_calendar.js:71
 msgid "July"
-msgstr "júlí"
+msgstr "jÃºlÃ­"
 
 #: framework/UI/UI/VarRenderer/html.php:379
 #: framework/UI/UI/VarRenderer/html.php:416
 #: templates/javascript/open_calendar.js:70
 msgid "June"
-msgstr "júní"
+msgstr "jÃºnÃ­"
 
 #: framework/Crypt/Crypt/smime.php:598
 #, fuzzy
@@ -951,35 +951,35 @@ msgstr "Aftengjast"
 
 #: templates/login/login.inc:76 po/translation.php:657
 msgid "Language"
-msgstr "Tungumál"
+msgstr "TungumÃ¡l"
 
 #: lib/Block/moon.php:174
 #, fuzzy
 msgid "Last Half"
-msgstr "síğasta bls."
+msgstr "sÃ­Ã°asta bls."
 
 #: lib/Block/moon.php:88 lib/Block/moon.php:90
 #, fuzzy
 msgid "Last Quarter"
-msgstr "síğasta bls."
+msgstr "sÃ­Ã°asta bls."
 
 #: lib/Block/metar.php:149
 msgid "Last Updated:"
-msgstr "síğast uppfært:"
+msgstr "sÃ­Ã°ast uppfÃ¦rt:"
 
 #: framework/Auth/Auth.php:666
 #, php-format
 msgid "Last login: %s"
-msgstr "Síğast tengst: %s"
+msgstr "SÃ­Ã°ast tengst: %s"
 
 #: framework/Auth/Auth.php:668
 #, php-format
 msgid "Last login: %s from %s"
-msgstr "Síğast tengst: %s frá %s"
+msgstr "SÃ­Ã°ast tengst: %s frÃ¡ %s"
 
 #: framework/Auth/Auth.php:663
 msgid "Last login: Never"
-msgstr "Síğast tengst: Aldrei"
+msgstr "SÃ­Ã°ast tengst: Aldrei"
 
 #: framework/NLS/NLS/tld.php:146 framework/NLS/NLS/countries.php:127
 #: framework/NLS/NLS/GeoIP.php:89
@@ -994,7 +994,7 @@ msgstr "Framsetning"
 #: framework/NLS/NLS/tld.php:138 framework/NLS/NLS/countries.php:128
 #: framework/NLS/NLS/GeoIP.php:87
 msgid "Lebanon"
-msgstr "Líbanon"
+msgstr "LÃ­banon"
 
 #: templates/javascript/htmlarea_table_lang.js:40
 #: templates/javascript/htmlarea_lang.js:69
@@ -1004,24 +1004,24 @@ msgstr "Vinstri"
 #: framework/NLS/NLS/tld.php:142 framework/NLS/NLS/countries.php:130
 #: framework/NLS/NLS/GeoIP.php:88
 msgid "Liberia"
-msgstr "Líbería"
+msgstr "LÃ­berÃ­a"
 
 #: framework/MIME/MIME/Headers.php:589
 #, fuzzy
 msgid "List-Help"
-msgstr "Hjálp"
+msgstr "HjÃ¡lp"
 
 #: framework/NLS/NLS/tld.php:144 framework/NLS/NLS/countries.php:133
 #: framework/NLS/NLS/GeoIP.php:89
 msgid "Lithuania"
-msgstr "Litháen"
+msgstr "LithÃ¡en"
 
 #: framework/Crypt/Crypt/smime.php:571
 #: framework/MIME/MIME/Viewer/icalendar.php:570 lib/Block/weatherdotcom.php:64
 #: lib/Block/sunrise.php:22 lib/Block/metar.php:63
 #, fuzzy
 msgid "Location"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: login.php:155 services/portal/sidebar.php:164 templates/login/mobile.inc:3
 #: templates/login/mobile.inc:15 templates/login/login.inc:83
@@ -1030,46 +1030,46 @@ msgstr "Tengjast"
 
 #: services/portal/sidebar.php:158
 msgid "Log out"
-msgstr "Útskrá"
+msgstr "ÃštskrÃ¡"
 
 #: config/prefs.php.dist:107
 msgid "Login Tasks"
-msgstr "Verkefni viğ tengingu"
+msgstr "Verkefni viÃ° tengingu"
 
 #: framework/Auth/Auth.php:911
 #, fuzzy
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
-"Tenging mistókst. Líklega er notandanafn şitt eğa lykilorğ rangt innslegiğ."
+"Tenging mistÃ³kst. LÃ­klega er notandanafn Ã¾itt eÃ°a lykilorÃ° rangt innslegiÃ°."
 
 #: framework/Auth/Auth.php:907
 #, fuzzy
 msgid "Login failed."
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: config/registry.php.dist:78
 msgid "Mail"
-msgstr "Vefpóstur"
+msgstr "VefpÃ³stur"
 
 #: framework/NLS/NLS/tld.php:165 framework/NLS/NLS/countries.php:138
 #: framework/NLS/NLS/GeoIP.php:94
 msgid "Malawi"
-msgstr "Malaví"
+msgstr "MalavÃ­"
 
 #: framework/NLS/NLS/tld.php:167 framework/NLS/NLS/countries.php:139
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "Malaysia"
-msgstr "Malaísía"
+msgstr "MalaÃ­sÃ­a"
 
 #: framework/NLS/NLS/tld.php:164 framework/NLS/NLS/countries.php:140
 #: framework/NLS/NLS/GeoIP.php:94
 msgid "Maldives"
-msgstr "Grænhöfğaeyjar"
+msgstr "GrÃ¦nhÃ¶fÃ°aeyjar"
 
 #: framework/NLS/NLS/tld.php:154 framework/NLS/NLS/countries.php:141
 #: framework/NLS/NLS/GeoIP.php:92
 msgid "Mali"
-msgstr "Malí"
+msgstr "MalÃ­"
 
 #: framework/UI/UI/VarRenderer/html.php:376
 #: framework/UI/UI/VarRenderer/html.php:413
@@ -1079,7 +1079,7 @@ msgstr "mars"
 
 #: templates/javascript/htmlarea_table_lang.js:41
 msgid "Margin"
-msgstr "Spássía"
+msgstr "SpÃ¡ssÃ­a"
 
 #: framework/NLS/NLS/tld.php:152 framework/NLS/NLS/countries.php:143
 #: framework/NLS/NLS/GeoIP.php:91
@@ -1089,29 +1089,29 @@ msgstr "Marshalleyjar"
 #: templates/data/csvmap.inc:111
 #, fuzzy
 msgid "Matching fields"
-msgstr "Svæği"
+msgstr "SvÃ¦Ã°i"
 
 #: framework/NLS/NLS/tld.php:160 framework/NLS/NLS/countries.php:145
 #: framework/NLS/NLS/GeoIP.php:93
 msgid "Mauritania"
-msgstr "Márítanía"
+msgstr "MÃ¡rÃ­tanÃ­a"
 
 #: framework/UI/UI/VarRenderer/html.php:378
 #: framework/UI/UI/VarRenderer/html.php:415
 #: templates/javascript/open_calendar.js:69
 msgid "May"
-msgstr "maí"
+msgstr "maÃ­"
 
 #: framework/NLS/NLS/tld.php:253 framework/NLS/NLS/countries.php:147
 #: framework/NLS/NLS/GeoIP.php:117
 #, fuzzy
 msgid "Mayotte"
-msgstr "maí"
+msgstr "maÃ­"
 
 #: po/translation.php:425
 #, php-format
 msgid "Merging translation for module %s..."
-msgstr "Sameina şığingar fyrir %s eininguna..."
+msgstr "Sameina Ã¾Ã½Ã°ingar fyrir %s eininguna..."
 
 #: framework/Notification/Notification/Listener/status.php:30
 msgid "Message"
@@ -1120,12 +1120,12 @@ msgstr "Skeyti"
 #: framework/NLS/NLS/tld.php:166 framework/NLS/NLS/countries.php:148
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "Mexico"
-msgstr "Mexíkó"
+msgstr "MexÃ­kÃ³"
 
 #: framework/NLS/NLS/tld.php:85 framework/NLS/NLS/countries.php:149
 #: framework/NLS/NLS/GeoIP.php:72
 msgid "Micronesia, Federated States of"
-msgstr "Míkrónesía"
+msgstr "MÃ­krÃ³nesÃ­a"
 
 #: framework/UI/UI/VarRenderer/html.php:217
 msgid "Mirror"
@@ -1133,15 +1133,15 @@ msgstr "Spegla"
 
 #: lib/Block/fortune.php:51
 msgid "Miscellaneous"
-msgstr "İmislegt"
+msgstr "Ãmislegt"
 
 #: templates/javascript/open_calendar.js:56
 msgid "Mo"
-msgstr "Má"
+msgstr "MÃ¡"
 
 #: templates/javascript/htmlarea_context_lang.js:52
 msgid "Modify URL"
-msgstr "Breyta slóğ"
+msgstr "Breyta slÃ³Ã°"
 
 #: po/translation.php:657
 msgid "Module"
@@ -1150,11 +1150,11 @@ msgstr "Eining"
 #: framework/NLS/NLS/tld.php:149 framework/NLS/NLS/countries.php:151
 #: framework/NLS/NLS/GeoIP.php:90
 msgid "Monaco"
-msgstr "Mónakó"
+msgstr "MÃ³nakÃ³"
 
 #: framework/Block/Block/Layout.php:428
 msgid "Move Down"
-msgstr "Flytja niğur"
+msgstr "Flytja niÃ°ur"
 
 #: framework/Block/Block/Layout.php:432
 #, fuzzy
@@ -1168,13 +1168,13 @@ msgstr "Flytja upp"
 #: framework/UI/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move down"
-msgstr "færa niğur"
+msgstr "fÃ¦ra niÃ°ur"
 
 #: framework/UI/UI/VarRenderer/html.php:496
 #: framework/UI/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move up"
-msgstr "færa upp"
+msgstr "fÃ¦ra upp"
 
 #: framework/Crypt/Crypt/pgp.php:397 framework/MIME/MIME/Viewer/vcard.php:102
 #: framework/MIME/MIME/Viewer/tnef.php:38
@@ -1185,18 +1185,18 @@ msgstr "Nafn"
 #: framework/MIME/MIME/Viewer/icalendar.php:706
 #, fuzzy
 msgid "Needs Action"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: framework/NLS/NLS/tld.php:177 framework/NLS/NLS/countries.php:159
 #: framework/NLS/NLS/GeoIP.php:97
 #, fuzzy
 msgid "Nepal"
-msgstr "Nır póstur"
+msgstr "NÃ½r pÃ³stur"
 
 #: config/registry.php.dist:236
 #, fuzzy
 msgid "Network"
-msgstr "Nıtt"
+msgstr "NÃ½tt"
 
 #: framework/Crypt/Crypt/pgp.php:411 config/prefs.php.dist:325
 #: config/prefs.php.dist:376
@@ -1206,29 +1206,29 @@ msgstr "Aldrei"
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
 #, fuzzy
 msgid "New Moon"
-msgstr "Nır póstur"
+msgstr "NÃ½r pÃ³stur"
 
 #: framework/NLS/NLS/tld.php:180 framework/NLS/NLS/countries.php:163
 #: framework/NLS/NLS/GeoIP.php:98
 #, fuzzy
 msgid "New Zealand"
-msgstr "Nır póstur"
+msgstr "NÃ½r pÃ³stur"
 
 #: lib/Block/google.php:40 lib/Block/fortune.php:52
 #: config/registry.php.dist:258
 #, fuzzy
 msgid "News"
-msgstr "Nıtt"
+msgstr "NÃ½tt"
 
 #: templates/data/tsvinfo.inc:21 templates/data/datemap.inc:46
 #: templates/data/csvmap.inc:137 templates/data/csvinfo.inc:32
 msgid "Next"
-msgstr "Næsta"
+msgstr "NÃ¦sta"
 
 #: lib/Block/moon.php:27
 #, fuzzy
 msgid "Next Phase"
-msgstr "Næsta síğa"
+msgstr "NÃ¦sta sÃ­Ã°a"
 
 #: framework/Prefs/Prefs/UI.php:368 framework/Prefs/Prefs/UI.php:372
 #, fuzzy
@@ -1238,7 +1238,7 @@ msgstr "Valkostir notanda"
 #: framework/UI/UI/Pager.php:103
 #, fuzzy
 msgid "Next>"
-msgstr "Næsta"
+msgstr "NÃ¦sta"
 
 #: framework/NLS/NLS/tld.php:171 framework/NLS/NLS/countries.php:165
 #: framework/NLS/NLS/GeoIP.php:96
@@ -1268,7 +1268,7 @@ msgstr "Engin mappa var tilgreind"
 #: framework/Net_SMS/SMS/sms2email_http.php:632
 #, fuzzy
 msgid "No message supplied."
-msgstr "Nı skeyti"
+msgstr "NÃ½ skeyti"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:635
 #, fuzzy
@@ -1283,7 +1283,7 @@ msgstr "enginn texti tilgreindur"
 #: framework/Net_SMS/SMS/sms2email_http.php:630
 #, fuzzy
 msgid "No username and/or password sent."
-msgstr "Sláğu inn notandanafn og lykliorğ"
+msgstr "SlÃ¡Ã°u inn notandanafn og lykliorÃ°"
 
 #: framework/Crypt/Crypt/pgp.php:413
 #: framework/MIME/MIME/Viewer/icalendar.php:560
@@ -1296,7 +1296,7 @@ msgstr "Engin"
 #: framework/NLS/NLS/GeoIP.php:97
 #, fuzzy
 msgid "Norway"
-msgstr "Áframsenda"
+msgstr "Ãframsenda"
 
 #: framework/Crypt/Crypt/smime.php:640
 #, fuzzy
@@ -1306,7 +1306,7 @@ msgstr "Ekki uppkast"
 #: framework/VFS/VFS/file.php:331
 #, fuzzy
 msgid "Not a directory"
-msgstr "Röğunarátt"
+msgstr "RÃ¶Ã°unarÃ¡tt"
 
 #: framework/VFS_ISOWriter/ISOWriter.php:63
 #: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy.php:83
@@ -1336,12 +1336,12 @@ msgstr "Engin"
 #: framework/UI/UI/VarRenderer/html.php:421
 #: templates/javascript/open_calendar.js:75
 msgid "November"
-msgstr "nóvember"
+msgstr "nÃ³vember"
 
 #: framework/Form/Form.php:1046
 #, fuzzy
 msgid "Number"
-msgstr "nóvember"
+msgstr "nÃ³vember"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:483
 #: framework/MIME/MIME/Viewer/icalendar.php:663
@@ -1349,7 +1349,7 @@ msgstr "nóvember"
 #: templates/javascript/htmlarea_lang.js:64 po/translation.php:148
 #: po/translation.php:1348
 msgid "OK"
-msgstr "Í lagi"
+msgstr "Ã lagi"
 
 #: framework/UI/UI/VarRenderer/html.php:814
 #, fuzzy
@@ -1360,7 +1360,7 @@ msgstr "Efni"
 #: framework/UI/UI/VarRenderer/html.php:420
 #: templates/javascript/open_calendar.js:74
 msgid "October"
-msgstr "október"
+msgstr "oktÃ³ber"
 
 #: services/portal/sidebar.php:151
 msgid "Options"
@@ -1380,19 +1380,19 @@ msgstr "Valstillingar"
 #: templates/javascript/htmlarea_lang.js:94
 #, fuzzy
 msgid "Other"
-msgstr "október"
+msgstr "oktÃ³ber"
 
 #: config/prefs.php.dist:96 config/prefs.php.dist:106
 #: config/prefs.php.dist:113 config/prefs.php.dist:121
 #: config/prefs.php.dist:129
 #, fuzzy
 msgid "Other Information"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: framework/Crypt/Crypt/pgp.php:1250
 #, fuzzy
 msgid "PGP Digital Signature"
-msgstr "Hafa undirskriftir meğ daufum lit?"
+msgstr "Hafa undirskriftir meÃ° daufum lit?"
 
 #: admin/user.php:36 admin/setup/index.php:183
 #: framework/Net_SMS/SMS/sms2email_http.php:536
@@ -1400,22 +1400,22 @@ msgstr "Hafa undirskriftir meğ daufum lit?"
 #: templates/login/login.inc:70 templates/admin/user/update.inc:36
 #: config/registry.php.dist:352
 msgid "Password"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: framework/Crypt/Crypt/smime.php:1322
 #, fuzzy
 msgid "Password incorrect"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: templates/rpcsum/rpcsum.inc:90
 #, fuzzy
 msgid "Password:"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: templates/login/mobile.inc:11
 #, fuzzy
 msgid "Password: "
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: admin/sqlshell.php:120 templates/javascript/htmlarea_context_lang.js:22
 #, fuzzy
@@ -1430,28 +1430,28 @@ msgstr "Prenta"
 #: templates/maintenance/confirm_bottom.inc:6
 #, fuzzy
 msgid "Perform Maintenance Operations"
-msgstr "Viğhaldsağgerğir"
+msgstr "ViÃ°haldsaÃ°gerÃ°ir"
 
 #: config/prefs.php.dist:396
 #, fuzzy
 msgid "Perform maintenance operations on login?"
-msgstr "Framkvæma viğhaldsağgerğir viğ tengingu"
+msgstr "FramkvÃ¦ma viÃ°haldsaÃ°gerÃ°ir viÃ° tengingu"
 
 #: admin/perms/addchild.php:61 admin/perms/addchild.php:64
 #: admin/perms/addchild.php:67
 #, fuzzy
 msgid "Permission"
-msgstr "Persónulegt"
+msgstr "PersÃ³nulegt"
 
 #: admin/perms/edit.php:224 admin/perms/addchild.php:93
 #: admin/perms/index.php:22 admin/perms/delete.php:74
 #, fuzzy
 msgid "Permissions Administration"
-msgstr "Upplısingar um notanda"
+msgstr "UpplÃ½singar um notanda"
 
 #: config/prefs.php.dist:65
 msgid "Personal Information"
-msgstr "Upplısingar um notanda"
+msgstr "UpplÃ½singar um notanda"
 
 #: framework/MIME/MIME/Viewer/vcard.php:196
 #, fuzzy
@@ -1461,43 +1461,43 @@ msgstr "enginn"
 #: framework/Form/Form.php:2571
 #, fuzzy
 msgid "Please enter a month and a year."
-msgstr "Sláğu inn nıja nafniğ:"
+msgstr "SlÃ¡Ã°u inn nÃ½ja nafniÃ°:"
 
 #: templates/prefs/categorymanagement.inc:12
 #, fuzzy
 msgid "Please enter a name for the new category:"
-msgstr "Sláğu inn nıtt möppunafn:"
+msgstr "SlÃ¡Ã°u inn nÃ½tt mÃ¶ppunafn:"
 
 #: framework/Form/Form.php:1307
 #, fuzzy
 msgid "Please enter a valid IP address."
-msgstr "Sláğu inn gildar leitarforsendur."
+msgstr "SlÃ¡Ã°u inn gildar leitarforsendur."
 
 #: framework/Form/Form.php:2449
 #, fuzzy
 msgid "Please enter a valid time."
-msgstr "Sláğu inn gildar leitarforsendur."
+msgstr "SlÃ¡Ã°u inn gildar leitarforsendur."
 
 #: templates/login/login.inc:18 templates/login/login.inc:22
 msgid "Please provide your username and password"
-msgstr "Sláğu inn notandanafn og lykliorğ"
+msgstr "SlÃ¡Ã°u inn notandanafn og lykliorÃ°"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:435
 #, fuzzy
 msgid "Please select an action from the menu below."
-msgstr "Veldu a.m.k eina möppu til ağ leita í."
+msgstr "Veldu a.m.k eina mÃ¶ppu til aÃ° leita Ã­."
 
 #: framework/Prefs/Prefs/CategoryManager.php:71
 #, fuzzy
 msgid "Please type the new category name:"
-msgstr "Sláğu inn nıja nafniğ:"
+msgstr "SlÃ¡Ã°u inn nÃ½ja nafniÃ°:"
 
 #: framework/UI/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_lang.js:120
 #: templates/javascript/htmlarea_anselimage_lang.js:23
 #, fuzzy
 msgid "Preview"
-msgstr "Fyrri blağsíğa"
+msgstr "Fyrri blaÃ°sÃ­Ã°a"
 
 #: framework/Prefs/Prefs/UI.php:358 framework/Prefs/Prefs/UI.php:362
 #, fuzzy
@@ -1507,7 +1507,7 @@ msgstr "Fyrra skeyti"
 #: framework/Horde/Horde/Menu.php:169
 #, fuzzy
 msgid "Problem"
-msgstr "Vandamál?"
+msgstr "VandamÃ¡l?"
 
 #: framework/Perms/Perms.php:293 templates/shares/edit.inc:34
 #: templates/shares/edit.inc:68 templates/shares/edit.inc:91
@@ -1515,17 +1515,17 @@ msgstr "Vandamál?"
 #: templates/shares/edit.inc:180
 #, fuzzy
 msgid "Read"
-msgstr "Ólesiğ"
+msgstr "Ã“lesiÃ°"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:87
 #, fuzzy
 msgid "Read messages"
-msgstr "Nı skeyti"
+msgstr "NÃ½ skeyti"
 
 #: config/prefs.php.dist:331
 #, fuzzy
 msgid "Refresh Portal View:"
-msgstr "Endurhlağa möppuham:"
+msgstr "EndurhlaÃ°a mÃ¶ppuham:"
 
 #: framework/Form/Form.php:894 framework/Form/Form.php:1213
 #: framework/Form/Form.php:1235
@@ -1536,43 +1536,43 @@ msgstr "Endursetja"
 #: config/prefs.php.dist:114
 #, fuzzy
 msgid "Remote Servers"
-msgstr "Fjarlægja valin"
+msgstr "FjarlÃ¦gja valin"
 
 #: templates/admin/groups/edit.inc:21 templates/admin/user/approve.inc:28
 #: templates/admin/user/removequeued.inc:15
 #, fuzzy
 msgid "Remove"
-msgstr "Halda áfram"
+msgstr "Halda Ã¡fram"
 
 #: templates/portal/layout.inc:11
 #, fuzzy
 msgid "Remove Block"
-msgstr "Fjarlægja valin"
+msgstr "FjarlÃ¦gja valin"
 
 #: framework/UI/UI/VarRenderer/html.php:532
 #, fuzzy
 msgid "Remove column"
-msgstr "færa niğur"
+msgstr "fÃ¦ra niÃ°ur"
 
 #: templates/javascript/htmlarea_lang.js:40
 #, fuzzy
 msgid "Remove formatting"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: templates/data/csvmap.inc:136
 #, fuzzy
 msgid "Remove pair"
-msgstr "færa upp"
+msgstr "fÃ¦ra upp"
 
 #: templates/javascript/htmlarea_context_lang.js:41
 #, fuzzy
 msgid "Remove the"
-msgstr "Fjarlægja valin"
+msgstr "FjarlÃ¦gja valin"
 
 #: templates/admin/user/remove.inc:16
 #, fuzzy
 msgid "Remove user"
-msgstr "fjarlægja handrit"
+msgstr "fjarlÃ¦gja handrit"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:197
 #: framework/MIME/MIME/Viewer/icalendar.php:280
@@ -1595,17 +1595,17 @@ msgstr "Endursetja"
 #: services/resetpassword.php:46
 #, fuzzy
 msgid "Reset Password"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: admin/phpshell.php:71 admin/cmdshell.php:28 admin/sqlshell.php:65
 #, fuzzy
 msgid "Results"
-msgstr "Niğurstağa leitar"
+msgstr "NiÃ°urstaÃ°a leitar"
 
 #: po/translation.php:819
 #, fuzzy
 msgid "Results:"
-msgstr "Niğurstağa leitar"
+msgstr "NiÃ°urstaÃ°a leitar"
 
 #: templates/rpcsum/rpcsum.inc:102 templates/prefs/end.inc:7
 #, fuzzy
@@ -1615,12 +1615,12 @@ msgstr "Valkostir notanda"
 #: admin/setup/config.php:44 admin/setup/config.php:48
 #, fuzzy
 msgid "Revert Configuration"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: framework/UI/UI/VarRenderer/html.php:205
 #, fuzzy
 msgid "Rotate Left"
-msgstr "Tengiliğalisti"
+msgstr "TengiliÃ°alisti"
 
 #: templates/javascript/htmlarea_table_lang.js:53
 #, fuzzy
@@ -1635,7 +1635,7 @@ msgstr "Senda skeyti"
 #: config/registry.php.dist:449
 #, fuzzy
 msgid "SMS Messaging"
-msgstr "Skoğa skeyti"
+msgstr "SkoÃ°a skeyti"
 
 #: templates/portal/layout.inc:98
 #, fuzzy
@@ -1664,7 +1664,7 @@ msgstr "Leita"
 #: config/registry.php.dist:275
 #, fuzzy
 msgid "Search Engines"
-msgstr "Niğurstağa leitar"
+msgstr "NiÃ°urstaÃ°a leitar"
 
 #: framework/Form/Form.php:2977
 #, fuzzy
@@ -1694,7 +1694,7 @@ msgstr "Veldu stafasett:"
 #: framework/Form/Form.php:2670
 #, fuzzy
 msgid "Select all date components."
-msgstr "Eyğa viğhengi."
+msgstr "EyÃ°a viÃ°hengi."
 
 #: framework/UI/UI/VarRenderer/html.php:814
 #, fuzzy
@@ -1708,12 +1708,12 @@ msgstr "Veldu stafasett:"
 
 #: config/prefs.php.dist:238
 msgid "Select your preferred language:"
-msgstr "Veldu sjálfgefiğ tungumál:"
+msgstr "Veldu sjÃ¡lfgefiÃ° tungumÃ¡l:"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:653
 #, fuzzy
 msgid "Send Latest Information"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: framework/UI/UI/VarRenderer/html.php:964
 #, fuzzy
@@ -1734,22 +1734,22 @@ msgstr "Velja"
 #: config/prefs.php.dist:84
 #, fuzzy
 msgid "Set your preferred language, timezone and date options."
-msgstr "Veldu sjálfgefiğ tungumál:"
+msgstr "Veldu sjÃ¡lfgefiÃ° tungumÃ¡l:"
 
 #: config/prefs.php.dist:480
 #, fuzzy
 msgid "Show last login time when logging in?"
-msgstr "Sına hvenær şú tengdist síğast"
+msgstr "SÃ½na hvenÃ¦r Ã¾Ãº tengdist sÃ­Ã°ast"
 
 #: framework/Form/Form.php:1767
 #, fuzzy
 msgid "Show upload"
-msgstr "Sækja yfir á vinnustöğ"
+msgstr "SÃ¦kja yfir Ã¡ vinnustÃ¶Ã°"
 
 #: framework/Crypt/Crypt/smime.php:712
 #, fuzzy
 msgid "Signature"
-msgstr "Undirskrift şín:"
+msgstr "Undirskrift Ã¾Ã­n:"
 
 #: framework/MIME/MIME/Viewer/rar.php:65 framework/MIME/MIME/Viewer/zip.php:69
 #: framework/MIME/MIME/Viewer/tgz.php:87 framework/Form/Form.php:896
@@ -1757,12 +1757,12 @@ msgstr "Undirskrift şín:"
 #: framework/Form/Form.php:2246 framework/Form/Form.php:2934
 #: framework/Form/Form.php:3127
 msgid "Size"
-msgstr "Stærğ"
+msgstr "StÃ¦rÃ°"
 
 #: framework/Form/Form.php:2930
 #, fuzzy
 msgid "Sort order selection"
-msgstr "Röğunarátt"
+msgstr "RÃ¶Ã°unarÃ¡tt"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:558
 #: framework/Net_SMS/SMS/sms2email_http.php:588
@@ -1770,12 +1770,12 @@ msgstr "Röğunarátt"
 #: framework/Net_SMS/SMS/clickatell_http.php:246
 #, fuzzy
 msgid "Source address"
-msgstr "Fullt netfang şitt (Frá:) :"
+msgstr "Fullt netfang Ã¾itt (FrÃ¡:) :"
 
 #: services/keyboard.php:14
 #, fuzzy
 msgid "Special Character Input"
-msgstr "Sértákn"
+msgstr "SÃ©rtÃ¡kn"
 
 #: templates/javascript/htmlarea_table_lang.js:62
 #, fuzzy
@@ -1785,7 +1785,7 @@ msgstr "Velja allt"
 #: framework/Form/Form.php:2819
 #, fuzzy
 msgid "Storage format"
-msgstr "Upplısingar netşjóns"
+msgstr "UpplÃ½singar netÃ¾jÃ³ns"
 
 #: framework/Crypt/Crypt/smime.php:572
 #, fuzzy
@@ -1810,12 +1810,12 @@ msgstr "Efni"
 #: admin/sqlshell.php:105
 #: framework/Notification/Notification/Listener/status.php:28
 msgid "Success"
-msgstr "Framkvæmt"
+msgstr "FramkvÃ¦mt"
 
 #: admin/user.php:85
 #, fuzzy, php-format
 msgid "Successfully added '%s' to the system."
-msgstr "Netfangiğ \"%s\" var bætt í netfangabókina"
+msgstr "NetfangiÃ° \"%s\" var bÃ¦tt Ã­ netfangabÃ³kina"
 
 #: lib/Block/weatherdotcom.php:186
 #, fuzzy
@@ -1825,13 +1825,13 @@ msgstr "Efni"
 #: lib/Block/weatherdotcom.php:185
 #, fuzzy
 msgid "Sunset: "
-msgstr " Efnislína: "
+msgstr " EfnislÃ­na: "
 
 #: framework/NLS/NLS/tld.php:215 framework/NLS/NLS/countries.php:212
 #: framework/NLS/NLS/GeoIP.php:106
 #, fuzzy
 msgid "Suriname"
-msgstr "Skrárnafn"
+msgstr "SkrÃ¡rnafn"
 
 #: framework/Crypt/Crypt/smime.php:574
 #, fuzzy
@@ -1842,12 +1842,12 @@ msgstr "Notandanafn"
 #: framework/NLS/NLS/GeoIP.php:104
 #, fuzzy
 msgid "Sweden"
-msgstr "Lesiğ"
+msgstr "LesiÃ°"
 
 #: config/registry.php.dist:170
 #, fuzzy
 msgid "Tasks"
-msgstr "Verkefni viğ tengingu"
+msgstr "Verkefni viÃ° tengingu"
 
 #: framework/Form/Form.php:1211
 msgid "Text"
@@ -1861,7 +1861,7 @@ msgstr "Texti"
 #: templates/javascript/htmlarea_table_lang.js:74
 #, fuzzy
 msgid "Text align"
-msgstr "Næsta síğa"
+msgstr "NÃ¦sta sÃ­Ã°a"
 
 #: templates/javascript/htmlarea_lang.js:71
 #, fuzzy
@@ -1872,92 +1872,92 @@ msgstr "Texti"
 #, fuzzy
 msgid "Thank you for using the system."
 msgstr ""
-"Şú hefur nú aftengst %s. Takk fyrir notkunina. Şegar şú vilt tengjast aftur, "
-"notağu şá reitina hér ağ neğan."
+"ÃÃº hefur nÃº aftengst %s. Takk fyrir notkunina. Ãegar Ã¾Ãº vilt tengjast aftur, "
+"notaÃ°u Ã¾Ã¡ reitina hÃ©r aÃ° neÃ°an."
 
 #: services/images/colorpicker.php:29
 #, fuzzy
 msgid "The Options window has closed. Exiting."
-msgstr "Skeytinu sem veriğ var ağ semja hefur veriğ lokağ."
+msgstr "Skeytinu sem veriÃ° var aÃ° semja hefur veriÃ° lokaÃ°."
 
 #: framework/MIME/MIME/Viewer/vcard.php:51
 #, fuzzy
 msgid "The contact was successfully added to your address book."
-msgstr "Netfangiğ \"%s\" var bætt í netfangabókina"
+msgstr "NetfangiÃ° \"%s\" var bÃ¦tt Ã­ netfangabÃ³kina"
 
 #: services/prefs.php:90
 #, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "Kenninu \"%s\" hefur veriğ eytt."
+msgstr "Kenninu \"%s\" hefur veriÃ° eytt."
 
 #: services/portal/rpcsum.php:78
 #, fuzzy, php-format
 msgid "The server \"%s\" has been deleted."
-msgstr "Kenninu \"%s\" hefur veriğ eytt."
+msgstr "Kenninu \"%s\" hefur veriÃ° eytt."
 
 #: services/portal/rpcsum.php:49
 #, fuzzy, php-format
 msgid "The server \"%s\" has been saved."
-msgstr "Kenniğ  \"%s\" hefur veriğ vistağ."
+msgstr "KenniÃ°  \"%s\" hefur veriÃ° vistaÃ°."
 
 #: admin/user.php:198
 #, fuzzy, php-format
 msgid "The signup request for %s has been removed."
-msgstr "Kenniğ  \"%s\" hefur veriğ vistağ."
+msgstr "KenniÃ°  \"%s\" hefur veriÃ° vistaÃ°."
 
 #: framework/Data/Data/csv.php:240 framework/Data/Data/tsv.php:172
 #, fuzzy
 msgid "The uploaded file could not be saved."
-msgstr "Ekki var hægt ağ skipta um undirskrift."
+msgstr "Ekki var hÃ¦gt aÃ° skipta um undirskrift."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:93
 #, fuzzy
 msgid "The user's free/busy information was sucessfully stored."
-msgstr "Undirskrift hefur veriğ breytt."
+msgstr "Undirskrift hefur veriÃ° breytt."
 
 #: framework/Prefs/Prefs/UI.php:178
 #, fuzzy
 msgid "There are no options available."
-msgstr "Şağ eru engin skeyti í şessu pósthólfi."
+msgstr "ÃaÃ° eru engin skeyti Ã­ Ã¾essu pÃ³sthÃ³lfi."
 
 #: signup.php:53
 #, fuzzy, php-format
 msgid "There was a problem adding '%s' to the system. %s."
 msgstr ""
-"Vandamál kom upp viğ tæmingu á %s. Villutilkynning netşjónsins fylgir hér á "
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu Ã¡ %s. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ "
 "eftir"
 
 #: admin/user.php:73
 #, fuzzy, php-format
 msgid "There was a problem adding '%s' to the system: %s"
 msgstr ""
-"Vandamál kom upp viğ tæmingu á %s. Villutilkynning netşjónsins fylgir hér á "
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu Ã¡ %s. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ "
 "eftir"
 
 #: admin/user.php:122
 #, fuzzy, php-format
 msgid "There was a problem clearing data for user '%s' from the system: "
 msgstr ""
-"Vandamál kom upp viğ tæmingu pósthólfs. Villutilkynning netşjónsins fylgir "
-"hér á eftir"
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu pÃ³sthÃ³lfs. Villutilkynning netÃ¾jÃ³nsins fylgir "
+"hÃ©r Ã¡ eftir"
 
 #: admin/user.php:103
 #, fuzzy, php-format
 msgid "There was a problem removing '%s' from the system: "
 msgstr ""
-"Vandamál kom upp viğ tæmingu á %s. Villutilkynning netşjónsins fylgir hér á "
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu Ã¡ %s. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ "
 "eftir"
 
 #: admin/user.php:159
 #, fuzzy, php-format
 msgid "There was a problem updating '%s': %s"
-msgstr "Ekki tókst ağ senda skeytiğ: %s"
+msgstr "Ekki tÃ³kst aÃ° senda skeytiÃ°: %s"
 
 #: framework/Browser/Browser.php:878
 #, fuzzy, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
-"Vandamál kom upp viğ upphleğslu skrár. Skráin er e.t.v. stærri en leyfilegt "
+"VandamÃ¡l kom upp viÃ° upphleÃ°slu skrÃ¡r. SkrÃ¡in er e.t.v. stÃ¦rri en leyfilegt "
 "er."
 
 #: framework/Browser/Browser.php:883
@@ -1966,7 +1966,7 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Vandamál kom upp viğ upphleğslu skrár. Skráin er e.t.v. stærri en leyfilegt "
+"VandamÃ¡l kom upp viÃ° upphleÃ°slu skrÃ¡r. SkrÃ¡in er e.t.v. stÃ¦rri en leyfilegt "
 "er (%d MB)."
 
 #: framework/Browser/Browser.php:885
@@ -1974,89 +1974,89 @@ msgstr ""
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Vandamál kom upp viğ upphleğslu skrár. Skráin er e.t.v. stærri en leyfilegt "
+"VandamÃ¡l kom upp viÃ° upphleÃ°slu skrÃ¡r. SkrÃ¡in er e.t.v. stÃ¦rri en leyfilegt "
 "er."
 
 #: framework/MIME/MIME/Viewer/rfc822.php:35
 msgid "There was an error displaying this message part"
-msgstr "Villa kom upp viğ birtingu şessa hluta skeytisins"
+msgstr "Villa kom upp viÃ° birtingu Ã¾essa hluta skeytisins"
 
 #: framework/MIME/MIME/Viewer/vcard.php:39
 #: framework/MIME/MIME/Viewer/vcard.php:48
 #, fuzzy
 msgid "There was an error importing the contact data."
-msgstr "Villa kom upp şegar átti ağ vista uppkastiğ."
+msgstr "Villa kom upp Ã¾egar Ã¡tti aÃ° vista uppkastiÃ°."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:75
 #, fuzzy, php-format
 msgid "There was an error importing the event: %s."
-msgstr "Villa kom upp şegar átti ağ sına umbeğiğ skeyti."
+msgstr "Villa kom upp Ã¾egar Ã¡tti aÃ° sÃ½na umbeÃ°iÃ° skeyti."
 
 #: framework/Data/Data/imc.php:32
 #, fuzzy
 msgid "There was an error importing the iCalendar data."
-msgstr "Villa kom upp şegar átti ağ vista uppkastiğ."
+msgstr "Villa kom upp Ã¾egar Ã¡tti aÃ° vista uppkastiÃ°."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:105
 #, fuzzy, php-format
 msgid "There was an error importing the task: %s."
-msgstr "Villa kom upp şegar átti ağ sına umbeğiğ skeyti."
+msgstr "Villa kom upp Ã¾egar Ã¡tti aÃ° sÃ½na umbeÃ°iÃ° skeyti."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:91
 #, fuzzy, php-format
 msgid "There was an error importing user's free/busy information: %s."
-msgstr "Ekki tókst ağ senda skeytiğ: %s"
+msgstr "Ekki tÃ³kst aÃ° senda skeytiÃ°: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:639
 #, fuzzy
 msgid ""
 "There was an error updating the contact details. Please try again later."
-msgstr "Villa kom upp viğ birtingu şessa hluta skeytisins"
+msgstr "Villa kom upp viÃ° birtingu Ã¾essa hluta skeytisins"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:644
 #, fuzzy
 msgid ""
 "There was an error updating the distribution list. Please try again later."
-msgstr "Villa kom upp şegar átti ağ sına umbeğiğ skeyti."
+msgstr "Villa kom upp Ã¾egar Ã¡tti aÃ° sÃ½na umbeÃ°iÃ° skeyti."
 
 #: framework/Form/Form.php:3149
 #, fuzzy
 msgid "This does not seem to be a valid card number."
-msgstr "Şetta gildi verğur ağ vera tala."
+msgstr "Ãetta gildi verÃ°ur aÃ° vera tala."
 
 #: framework/Form/Form.php:989
 #, fuzzy
 msgid "This field must be a valid number."
-msgstr "Şetta gildi verğur ağ vera tala."
+msgstr "Ãetta gildi verÃ°ur aÃ° vera tala."
 
 #: framework/Prefs/Prefs/UI.php:126
 msgid "This number must be at least one."
-msgstr "Talan verğur ağ vera ağ lágmarki 1."
+msgstr "Talan verÃ°ur aÃ° vera aÃ° lÃ¡gmarki 1."
 
 #: framework/Prefs/Prefs/UI.php:124
 msgid "This value must be a number."
-msgstr "Şetta gildi verğur ağ vera tala."
+msgstr "Ãetta gildi verÃ°ur aÃ° vera tala."
 
 #: services/images/colorpicker.php:35
 #, fuzzy
 msgid "This window must be called from an Options window"
 msgstr ""
-"Şessi gluggi şarf ağ vera vísun frá glugganum şar sem nı skeyti eru samin."
+"Ãessi gluggi Ã¾arf aÃ° vera vÃ­sun frÃ¡ glugganum Ã¾ar sem nÃ½ skeyti eru samin."
 
 #: framework/Form/Form.php:2426
 #, fuzzy
 msgid "Time"
-msgstr "Tímabelti"
+msgstr "TÃ­mabelti"
 
 #: lib/Block/time.php:17
 #, fuzzy
 msgid "Time format"
-msgstr "Tímabelti"
+msgstr "TÃ­mabelti"
 
 #: framework/Form/Form.php:2537
 #, fuzzy
 msgid "Time selection"
-msgstr "Tímabelti"
+msgstr "TÃ­mabelti"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:75
 msgid "To"
@@ -2065,7 +2065,7 @@ msgstr "Til"
 #: lib/Block/weatherdotcom.php:255
 #, fuzzy
 msgid "Today"
-msgstr "Meginmál"
+msgstr "MeginmÃ¡l"
 
 #: framework/NLS/NLS/tld.php:223 framework/NLS/NLS/countries.php:223
 #: framework/NLS/NLS/GeoIP.php:109
@@ -2093,26 +2093,26 @@ msgstr "Breyta"
 #: templates/prefs/categorymanagement.inc:64
 #, fuzzy
 msgid "Unfiled"
-msgstr "Ólesiğ"
+msgstr "Ã“lesiÃ°"
 
 #: po/translation.php:1501
 #, fuzzy, php-format
 msgid "Unknown command: %s"
-msgstr "Sækja %s yfir á vinnustöğ"
+msgstr "SÃ¦kja %s yfir Ã¡ vinnustÃ¶Ã°"
 
 #: templates/javascript/htmlarea_context_lang.js:57
 #, fuzzy
 msgid "Unlink the current element"
-msgstr "Stilla núverandi tímabelti."
+msgstr "Stilla nÃºverandi tÃ­mabelti."
 
 #: framework/Identity/Identity.php:296
 msgid "Unnamed"
-msgstr "Ónefnt"
+msgstr "Ã“nefnt"
 
 #: po/translation.php:657
 #, fuzzy
 msgid "Untranslated"
-msgstr "Ósvarağ"
+msgstr "Ã“svaraÃ°"
 
 #: admin/perms/edit.php:106 framework/Perms/Perms/UI.php:183
 #: templates/admin/user/list.inc:33
@@ -2150,7 +2150,7 @@ msgstr "Notandanafn"
 #: framework/Auth/Auth/Signup.php:124
 #, fuzzy, php-format
 msgid "Username '%s' already exists."
-msgstr "Mappan \"%s\" er nú şegar til"
+msgstr "Mappan \"%s\" er nÃº Ã¾egar til"
 
 #: templates/rpcsum/rpcsum.inc:87
 #, fuzzy
@@ -2170,31 +2170,31 @@ msgstr "Notandanafn"
 #: config/registry.php.dist:115
 #, fuzzy
 msgid "Vacation"
-msgstr "Ağgerğ"
+msgstr "AÃ°gerÃ°"
 
 #: framework/Crypt/Crypt/smime.php:700
 #, fuzzy
 msgid "Version"
-msgstr "Persónulegt"
+msgstr "PersÃ³nulegt"
 
 #: framework/MIME/MIME/Contents.php:953
 #, php-format
 msgid "View %s"
-msgstr "Sına %s"
+msgstr "SÃ½na %s"
 
 #: framework/MIME/MIME/Contents.php:812
 #, fuzzy, php-format
 msgid "View as %s"
-msgstr "Sına %s"
+msgstr "SÃ½na %s"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:109
 #, fuzzy
 msgid "View task"
-msgstr "Sına %s"
+msgstr "SÃ½na %s"
 
 #: framework/Notification/Notification/Listener/status.php:29
 msgid "Warning"
-msgstr "Ağvörun"
+msgstr "AÃ°vÃ¶run"
 
 #: po/translation.php:145 po/translation.php:681 po/translation.php:711
 #: po/translation.php:725 po/translation.php:1060 po/translation.php:1069
@@ -2203,27 +2203,27 @@ msgstr "Ağvörun"
 #: po/translation.php:1245 po/translation.php:1251 po/translation.php:1271
 #, fuzzy
 msgid "Warning: "
-msgstr "Ağvörun"
+msgstr "AÃ°vÃ¶run"
 
 #: services/portal/mobile.php:28
 #, fuzzy
 msgid "Welcome"
-msgstr "Velkomin(n) í %s"
+msgstr "Velkomin(n) Ã­ %s"
 
 #: templates/login/mobile.inc:4 templates/login/login.inc:50
 #, php-format
 msgid "Welcome to %s"
-msgstr "Velkomin(n) í %s"
+msgstr "Velkomin(n) Ã­ %s"
 
 #: services/portal/mobile.php:29 templates/portal/menu.inc:2
 #, fuzzy, php-format
 msgid "Welcome, %s"
-msgstr "Velkomin(n) í %s"
+msgstr "Velkomin(n) Ã­ %s"
 
 #: config/prefs.php.dist:427
 #, fuzzy, php-format
 msgid "What application should %s display after login?"
-msgstr "Mappa eğa hamur sem á ağ sına í upphafi:"
+msgstr "Mappa eÃ°a hamur sem Ã¡ aÃ° sÃ½na Ã­ upphafi:"
 
 #: lib/Block/weatherdotcom_strings.php:61
 #, fuzzy
@@ -2243,7 +2243,7 @@ msgstr "Finna"
 #: lib/Block/fortune.php:65
 #, fuzzy
 msgid "Work"
-msgstr "eğa"
+msgstr "eÃ°a"
 
 #: framework/MIME/MIME/Viewer/vcard.php:124
 #: framework/MIME/MIME/Viewer/vcard.php:164
@@ -2255,56 +2255,56 @@ msgstr "Sendandanetfang"
 #: framework/NLS/NLS/GeoIP.php:117
 #, fuzzy
 msgid "Yemen"
-msgstr "Lesiğ"
+msgstr "LesiÃ°"
 
 #: framework/UI/UI/VarRenderer/html.php:888
 msgid "Yes"
-msgstr "Já"
+msgstr "JÃ¡"
 
 #: framework/Auth/Auth.php:903
 #, fuzzy
 msgid "You have been logged out."
-msgstr "Stillingar şínar hafa veriğ uppfærğar."
+msgstr "Stillingar Ã¾Ã­nar hafa veriÃ° uppfÃ¦rÃ°ar."
 
 #: services/portal/rpcsum.php:80
 #, fuzzy
 msgid "You must select an server to be deleted."
-msgstr "Veldu hvağa kenni şú vilt eyğa."
+msgstr "Veldu hvaÃ°a kenni Ã¾Ãº vilt eyÃ°a."
 
 #: admin/user.php:119
 #, fuzzy
 msgid "You must specify a username to clear out."
-msgstr "Tilgreindu viğtakanda."
+msgstr "Tilgreindu viÃ°takanda."
 
 #: admin/user.php:100
 #, fuzzy
 msgid "You must specify a username to remove."
-msgstr "Tilgreindu viğtakanda."
+msgstr "Tilgreindu viÃ°takanda."
 
 #: admin/user.php:62 templates/admin/user/update.inc:8
 #, fuzzy
 msgid "You must specify the username to add."
-msgstr "Şú şarft fyrst ağ velja şau viğhengi sem şú vilt senda meğ skeytinu."
+msgstr "ÃÃº Ã¾arft fyrst aÃ° velja Ã¾au viÃ°hengi sem Ã¾Ãº vilt senda meÃ° skeytinu."
 
 #: admin/user.php:146
 #, fuzzy
 msgid "You must specify the username to update."
-msgstr "Şú şarft fyrst ağ velja şau viğhengi sem şú vilt senda meğ skeytinu."
+msgstr "ÃÃº Ã¾arft fyrst aÃ° velja Ã¾au viÃ°hengi sem Ã¾Ãº vilt senda meÃ° skeytinu."
 
 #: framework/Compress/Compress/zip.php:137
 #, fuzzy
 msgid "You must specify what action to perform."
-msgstr "Tilgreindu viğtakanda."
+msgstr "Tilgreindu viÃ°takanda."
 
 #: framework/Prefs/Prefs/CategoryManager.php:72
 #, fuzzy
 msgid "You must type a new category name."
-msgstr "Tilgreindu viğtakanda."
+msgstr "Tilgreindu viÃ°takanda."
 
 #: framework/Auth/Auth.php:891
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Lotan %s er runnin út á tíma. Tengdu şig aftur."
+msgstr "Lotan %s er runnin Ãºt Ã¡ tÃ­ma. Tengdu Ã¾ig aftur."
 
 #: templates/problem/problem.inc:38
 #, fuzzy
@@ -2313,58 +2313,58 @@ msgstr "Netfang"
 
 #: config/prefs.php.dist:202
 msgid "Your From: address:"
-msgstr "Fullt netfang şitt (Frá:) :"
+msgstr "Fullt netfang Ã¾itt (FrÃ¡:) :"
 
 #: config/prefs.php.dist:64 config/prefs.php.dist:74 config/prefs.php.dist:82
 #: config/prefs.php.dist:89
 msgid "Your Information"
-msgstr "Upplısingar"
+msgstr "UpplÃ½singar"
 
 #: templates/problem/problem.inc:33
 #, fuzzy
 msgid "Your Name"
-msgstr "Fullt nafn şitt:"
+msgstr "Fullt nafn Ã¾itt:"
 
 #: lib/Block/iframe.php:50
 #, fuzzy
 msgid "Your browser does not support this feature."
 msgstr ""
-"Vefskoğari şinn styğur ekki şessa prentağgerğ. Notağu CTRL/Option og P til "
-"ağ prenta."
+"VefskoÃ°ari Ã¾inn styÃ°ur ekki Ã¾essa prentaÃ°gerÃ°. NotaÃ°u CTRL/Option og P til "
+"aÃ° prenta."
 
 #: templates/javascript/print.js:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Vefskoğari şinn styğur ekki şessa prentağgerğ. Notağu CTRL/Option og P til "
-"ağ prenta."
+"VefskoÃ°ari Ã¾inn styÃ°ur ekki Ã¾essa prentaÃ°gerÃ°. NotaÃ°u CTRL/Option og P til "
+"aÃ° prenta."
 
 #: config/prefs.php.dist:247
 msgid "Your current time zone:"
-msgstr "Núverandi tímabelti:"
+msgstr "NÃºverandi tÃ­mabelti:"
 
 #: config/prefs.php.dist:148
 msgid "Your default identity:"
-msgstr "Sjálfgefiğ kenni şitt:"
+msgstr "SjÃ¡lfgefiÃ° kenni Ã¾itt:"
 
 #: config/prefs.php.dist:191
 msgid "Your full name:"
-msgstr "Fullt nafn şitt:"
+msgstr "Fullt nafn Ã¾itt:"
 
 #: framework/Prefs/Prefs/UI.php:154
 #, fuzzy
 msgid "Your options have been updated for the duration of this session."
-msgstr "Stillingar şínar hafa veriğ uppfærğar."
+msgstr "Stillingar Ã¾Ã­nar hafa veriÃ° uppfÃ¦rÃ°ar."
 
 #: framework/Prefs/Prefs/UI.php:156
 msgid "Your options have been updated."
-msgstr "Stillingar şínar hafa veriğ uppfærğar."
+msgstr "Stillingar Ã¾Ã­nar hafa veriÃ° uppfÃ¦rÃ°ar."
 
 #: templates/rpcsum/rpcsum.inc:58
 #, fuzzy
 msgid "Your remote servers:"
-msgstr "Fullt netfang şitt (Frá:) :"
+msgstr "Fullt netfang Ã¾itt (FrÃ¡:) :"
 
 #: lib/api.php:122
 #, fuzzy
@@ -2374,11 +2374,11 @@ msgstr "Dags"
 #: templates/javascript/htmlarea_context_lang.js:31
 #, fuzzy
 msgid "_Delete Row"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: framework/Horde/Horde/Menu.php:175
 msgid "_Help"
-msgstr "Hjálp"
+msgstr "HjÃ¡lp"
 
 #: framework/Horde/Horde/Menu.php:194
 #, fuzzy
@@ -2387,7 +2387,7 @@ msgstr "Tengjast"
 
 #: framework/Horde/Horde/Menu.php:190
 msgid "_Log out"
-msgstr "Útskrá"
+msgstr "ÃštskrÃ¡"
 
 #: framework/Horde/Horde/Menu.php:164
 msgid "_Options"
@@ -2396,17 +2396,17 @@ msgstr "Valkostir"
 #: framework/Kolab/Kolab.php:890
 #, fuzzy
 msgid "address book"
-msgstr "Netfangabók"
+msgstr "NetfangabÃ³k"
 
 #: po/translation.php:445 po/translation.php:550 po/translation.php:611
 #: po/translation.php:749 po/translation.php:810 po/translation.php:887
 msgid "done"
-msgstr "lokiğ"
+msgstr "lokiÃ°"
 
 #: po/translation.php:552 po/translation.php:584 po/translation.php:613
 #: po/translation.php:778 po/translation.php:812 po/translation.php:890
 msgid "failed"
-msgstr "klikkaği"
+msgstr "klikkaÃ°i"
 
 #: admin/setup/diff.php:68 admin/setup/diff.php:76
 #, fuzzy
@@ -2431,12 +2431,12 @@ msgstr "Ekki eytt"
 #: framework/Kolab/Kolab.php:874
 #, fuzzy
 msgid "notepad"
-msgstr "Ólesiğ"
+msgstr "Ã“lesiÃ°"
 
 #: lib/Block/weatherdotcom_strings.php:69
 #, fuzzy
 msgid "rising"
-msgstr "Ağvörun"
+msgstr "AÃ°vÃ¶run"
 
 #: framework/Kolab/Kolab.php:898
 #, fuzzy
@@ -2446,7 +2446,7 @@ msgstr "Svartlisti"
 #: framework/MIME/MIME/Part.php:27
 #, fuzzy
 msgid "unnamed"
-msgstr "Ónefnt"
+msgstr "Ã“nefnt"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:564
 #: framework/Net_SMS/SMS/clickatell_http.php:222
@@ -2457,4 +2457,4 @@ msgstr "engin regla valin"
 #: framework/UI/UI/VarRenderer/html.php:224
 #, fuzzy
 msgid "w:"
-msgstr "Áframs.:"
+msgstr "Ãframs.:"

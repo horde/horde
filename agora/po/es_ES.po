@@ -1,5 +1,5 @@
 # Spanish translations for agora package
-# Traducciones al español para el paquete agora.
+# Traducciones al espaÃ±ol para el paquete agora.
 # Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the agora package.
 # Automatically generated, 2008.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -58,7 +58,7 @@ msgstr "-t, --phorum_table[=table]   nombre de tabla de mensajes de Phorum"
 
 #: lib/api.php:817
 msgid "Add a comment"
-msgstr "Añadir comentario"
+msgstr "AÃ±adir comentario"
 
 #: lib/api.php:153
 msgid "Admin"
@@ -74,11 +74,11 @@ msgstr "Todos los foros"
 
 #: lib/Forms/Forum.php:40
 msgid "Allow attachments in this forum?"
-msgstr "¿Permitir adjuntos en este foro?"
+msgstr "Â¿Permitir adjuntos en este foro?"
 
 #: messages/lock.php:51
 msgid "Allow replies in this thread"
-msgstr "Permitir respuestas en esta conversación"
+msgstr "Permitir respuestas en esta conversaciÃ³n"
 
 #: moderate.php:33 moderate.php:69
 msgid "Approve"
@@ -107,8 +107,8 @@ msgstr "Imagen personal"
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
 msgstr ""
-"Las imágenes personales tienen que medir menos de %s por %s píxeles y tener "
-"un tamaño menor de %sKb."
+"Las imÃ¡genes personales tienen que medir menos de %s por %s pÃ­xeles y tener "
+"un tamaÃ±o menor de %sKb."
 
 #: ban.php:58 lib/Messages.php:1457
 msgid "Ban"
@@ -134,7 +134,7 @@ msgstr "No se puede crear un foro con un nombre en blanco."
 
 #: templates/prefs/avatarselect.inc:8
 msgid "Choose from a gallery of avatars: "
-msgstr "Elija de una galería de imágenes personales: "
+msgstr "Elija de una galerÃ­a de imÃ¡genes personales: "
 
 #: lib/api.php:446 lib/Comments.php:81
 msgid "Comments"
@@ -172,7 +172,7 @@ msgstr "No se pueden listar las conversaciones. %s"
 #: messages/lock.php:60
 #, php-format
 msgid "Could not lock the thread. %s"
-msgstr "No se puede bloquear la conversación. %s"
+msgstr "No se puede bloquear la conversaciÃ³n. %s"
 
 #: messages/index.php:34 messages/delete.php:33 messages/move.php:31
 #: messages/merge.php:31 messages/split.php:31 messages/lock.php:33
@@ -187,7 +187,7 @@ msgstr "No se pudo enviar el mensaje: "
 
 #: scripts/phorum2agora.php:65
 msgid "Couldn't read command-line options."
-msgstr "No se pudieron lees las opciones de línea de comandos."
+msgstr "No se pudieron lees las opciones de lÃ­nea de comandos."
 
 #: lib/Forms/Forum.php:26
 msgid "Create"
@@ -207,24 +207,24 @@ msgstr "Fecha"
 
 #: config/.bak/prefs.php.dist:248
 msgid "Default comments view sort:"
-msgstr "Clasificación por omisión de la vista de comentarios:"
+msgstr "ClasificaciÃ³n por omisiÃ³n de la vista de comentarios:"
 
 #: config/.bak/prefs.php.dist:84
 msgid "Default forums view sort:"
-msgstr "Clasificación por omisión de la vista de foros:"
+msgstr "ClasificaciÃ³n por omisiÃ³n de la vista de foros:"
 
 #: config/.bak/prefs.php.dist:94 config/.bak/prefs.php.dist:129
 #: config/.bak/prefs.php.dist:170 config/.bak/prefs.php.dist:258
 msgid "Default sorting direction:"
-msgstr "Sentido de clasificación por omisión:"
+msgstr "Sentido de clasificaciÃ³n por omisiÃ³n:"
 
 #: config/.bak/prefs.php.dist:160
 msgid "Default thread view sort:"
-msgstr "Clasificación por omisión de la vista de conversaciones:"
+msgstr "ClasificaciÃ³n por omisiÃ³n de la vista de conversaciones:"
 
 #: config/.bak/prefs.php.dist:119
 msgid "Default threads view sort:"
-msgstr "Clasificación por omisión de la vista de conversaciones:"
+msgstr "ClasificaciÃ³n por omisiÃ³n de la vista de conversaciones:"
 
 #: deleteforum.php:45 deleteforum.php:63 ban.php:55 moderators.php:66
 #: moderate.php:39 moderate.php:69 messages/index.php:122
@@ -236,7 +236,7 @@ msgstr "Eliminar"
 #: messages/delete.php:48 lib/api.php:737
 #, php-format
 msgid "Delete \"%s\" and all replies?"
-msgstr "¿Eliminar \"%s\" y todas las respuestas?"
+msgstr "Â¿Eliminar \"%s\" y todas las respuestas?"
 
 #: deleteforum.php:43 lib/Messages.php:1455
 msgid "Delete Forum"
@@ -252,7 +252,7 @@ msgstr "Eliminar mensaje"
 
 #: lib/Messages.php:1507
 msgid "Delete the existing attachment?"
-msgstr "¿Eliminar el adjunto existente?"
+msgstr "Â¿Eliminar el adjunto existente?"
 
 #: lib/Comments.php:74 config/.bak/prefs.php.dist:93
 #: config/.bak/prefs.php.dist:128 config/.bak/prefs.php.dist:169
@@ -262,25 +262,25 @@ msgstr "Descendente"
 
 #: forums.php:55
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: config/.bak/prefs.php.dist:18 config/.bak/prefs.php.dist:25
 #: config/.bak/prefs.php.dist:32 config/.bak/prefs.php.dist:40
 #: config/.bak/prefs.php.dist:47
 msgid "Display Options"
-msgstr "Opciones de Visualización"
+msgstr "Opciones de VisualizaciÃ³n"
 
 #: config/.bak/prefs.php.dist:237
 msgid "Display full message bodies in the comments view?"
-msgstr "¿Mostrar los mensajes completos en la vista de comentarios?"
+msgstr "Â¿Mostrar los mensajes completos en la vista de comentarios?"
 
 #: config/.bak/prefs.php.dist:181
 msgid "Display full message bodies in the thread list view?"
-msgstr "¿Mostrar los mensajes completos en el listado de conversaciones?"
+msgstr "Â¿Mostrar los mensajes completos en el listado de conversaciones?"
 
 #: config/.bak/prefs.php.dist:200
 msgid "Display graphical emoticons?"
-msgstr "¿Mostrar emoticones gráficos?"
+msgstr "Â¿Mostrar emoticones grÃ¡ficos?"
 
 #: messages/index.php:119 lib/Messages.php:923 lib/Messages.php:1757
 msgid "Edit"
@@ -313,7 +313,7 @@ msgstr "Modificar mensaje"
 
 #: lib/Forms/Forum.php:37
 msgid "Enter a brief description of this forum"
-msgstr "Introduzca una descripción breve del foro"
+msgstr "Introduzca una descripciÃ³n breve del foro"
 
 #: messages/index.php:168 lib/Comments.php:60 config/.bak/prefs.php.dist:235
 msgid "Flat"
@@ -372,7 +372,7 @@ msgstr "De"
 
 #: templates/threads/threads.php:44
 msgid "Goto page:"
-msgstr "Ir a la página:"
+msgstr "Ir a la pÃ¡gina:"
 
 #: messages/index.php:158 messages/index.php:167
 msgid "Hide bodies"
@@ -380,22 +380,22 @@ msgstr "Ocultar cuerpos"
 
 #: lib/Messages.php:841
 msgid "Hot thread"
-msgstr "Conversación caliente"
+msgstr "ConversaciÃ³n caliente"
 
 #: lib/Forms/Forum.php:40
 msgid "If selected users will be able to attach files to their messages."
-msgstr "Si se selecciona los usuarios podrán adjuntar archivos a sus mensajes."
+msgstr "Si se selecciona los usuarios podrÃ¡n adjuntar archivos a sus mensajes."
 
 #: messages/edit.php:112
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
 msgstr ""
-"Mensaje padre no válido, estará enviando este mensaje como una conversación "
+"Mensaje padre no vÃ¡lido, estarÃ¡ enviando este mensaje como una conversaciÃ³n "
 "nueva."
 
 #: lib/Forms/Forum.php:38
 msgid "Is this a moderated forum?"
-msgstr "¿El foro está moderado?"
+msgstr "Â¿El foro estÃ¡ moderado?"
 
 #: lib/Forms/Search.php:43
 msgid "Keywords"
@@ -403,15 +403,15 @@ msgstr "Palabras clave"
 
 #: config/.bak/prefs.php.dist:81
 msgid "Last Message"
-msgstr "Último mensaje"
+msgstr "Ãšltimo mensaje"
 
 #: forums.php:55 lib/Block/forums.php:86
 msgid "Last Post"
-msgstr "Último envío"
+msgstr "Ãšltimo envÃ­o"
 
 #: threads.php:61 config/.bak/prefs.php.dist:118
 msgid "Last post"
-msgstr "Último envío"
+msgstr "Ãšltimo envÃ­o"
 
 #: lib/Messages.php:931
 msgid "Lock"
@@ -419,12 +419,12 @@ msgstr "Bloquear"
 
 #: messages/index.php:125
 msgid "Lock thread"
-msgstr "Bloquear conversación"
+msgstr "Bloquear conversaciÃ³n"
 
 #: messages/lock.php:48
 #, php-format
 msgid "Locking thread \"%s\""
-msgstr "Bloqueando conversación \"%s\""
+msgstr "Bloqueando conversaciÃ³n \"%s\""
 
 #: lib/Agora.php:347
 msgid "Malformed avatar."
@@ -438,7 +438,7 @@ msgstr "Entrada de base de datos defectuosa."
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Los argumentos requeridos de las opciones extendidas también son requeridos "
+"Los argumentos requeridos de las opciones extendidas tambiÃ©n son requeridos "
 "en las opciones abreviadas."
 
 #: messages/merge.php:47 messages/merge.php:73 lib/Messages.php:942
@@ -448,7 +448,7 @@ msgstr "Combinar"
 #: messages/merge.php:46
 #, php-format
 msgid "Merge \"%s\" with another thread"
-msgstr "Combinar \"%s\" con otra conversación"
+msgstr "Combinar \"%s\" con otra conversaciÃ³n"
 
 #: lib/Messages.php:1502
 msgid "Message"
@@ -462,7 +462,7 @@ msgstr "Se ha considerado el mensaje %s como correo abusivo."
 #: lib/Messages.php:503
 #, php-format
 msgid "Message ID \"%d\" not found"
-msgstr "No se encontró el ID de mensaje \"%d\""
+msgstr "No se encontrÃ³ el ID de mensaje \"%d\""
 
 #: config/.bak/prefs.php.dist:41
 msgid "Message View"
@@ -486,7 +486,7 @@ msgstr "Mensajes"
 
 #: moderate.php:82 templates/moderate/moderate.php:11
 msgid "Messages Awaiting Moderation"
-msgstr "Mensajes pendientes de moderación"
+msgstr "Mensajes pendientes de moderaciÃ³n"
 
 #: lib/Messages.php:1782
 msgid "Moderate"
@@ -515,23 +515,23 @@ msgstr "Trasladar \"%s\" a otro foro"
 
 #: config/.bak/prefs.php.dist:10
 msgid "My Information"
-msgstr "Mi información"
+msgstr "Mi informaciÃ³n"
 
 #: editforum.php:25
 msgid "New Forum"
-msgstr "Añadir foro"
+msgstr "AÃ±adir foro"
 
 #: lib/Messages.php:1752
 msgid "New Post"
-msgstr "Añadir envío"
+msgstr "AÃ±adir envÃ­o"
 
 #: lib/Agora.php:253
 msgid "New Thread"
-msgstr "Añadir conversación"
+msgstr "AÃ±adir conversaciÃ³n"
 
 #: lib/Messages.php:842
 msgid "New posts"
-msgstr "Envíos nuevos"
+msgstr "EnvÃ­os nuevos"
 
 #: config/.bak/prefs.php.dist:178
 msgid "No"
@@ -547,23 +547,23 @@ msgstr "No se ha seleccionado un foro."
 
 #: templates/forums/forums.php:60
 msgid "No forums have been created."
-msgstr "No se ha creado ningún foro."
+msgstr "No se ha creado ningÃºn foro."
 
 #: config/.bak/prefs.php.dist:198
 msgid "No graphical emoticons"
-msgstr "No hay emoticones gráficos"
+msgstr "No hay emoticones grÃ¡ficos"
 
 #: moderate.php:54
 msgid "No messages are waiting for moderation."
-msgstr "No hay mensajes pendientes de moderación."
+msgstr "No hay mensajes pendientes de moderaciÃ³n."
 
 #: messages/abuse.php:39
 msgid "No moderators are associated with this forum."
-msgstr "No se ha asociado ningún moderador a este foro."
+msgstr "No se ha asociado ningÃºn moderador a este foro."
 
 #: templates/moderators/moderators.php:27
 msgid "No moderators have been created."
-msgstr "No se ha creado ningún moderador."
+msgstr "No se ha creado ningÃºn moderador."
 
 #: templates/block/threads.php:32
 msgid "No threads"
@@ -575,29 +575,29 @@ msgstr "No, no permitir respuestas"
 
 #: config/.bak/prefs.php.dist:103
 msgid "Number of forums to display on each page"
-msgstr "Número de foros mostrado en cada página"
+msgstr "NÃºmero de foros mostrado en cada pÃ¡gina"
 
 #: config/.bak/prefs.php.dist:190
 msgid "Number of message to display on each page"
-msgstr "Número de mensajes mostrados en cada página"
+msgstr "NÃºmero de mensajes mostrados en cada pÃ¡gina"
 
 #: config/.bak/prefs.php.dist:146 config/.bak/prefs.php.dist:267
 msgid "Number of messages to display on each page"
-msgstr "Número de mensajes mostrados en cada página"
+msgstr "NÃºmero de mensajes mostrados en cada pÃ¡gina"
 
 #: config/.bak/prefs.php.dist:137
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
 msgstr ""
-"Número de opiniones en 24 horas que activen una 'conversación-caliente':"
+"NÃºmero de opiniones en 24 horas que activen una 'conversaciÃ³n-caliente':"
 
 #: lib/Block/forums.php:35
 msgid "Only display this many forums (0 to display all forums)"
-msgstr "Mostrar sólo este número de foros (0 para mostrar todos los foros)"
+msgstr "Mostrar sÃ³lo este nÃºmero de foros (0 para mostrar todos los foros)"
 
 #: lib/Block/threads.php:52
 msgid "Only display this many threads (0 to display all threads)"
 msgstr ""
-"Mostrar sólo este número de conversaciones (0 para mostrar todas las "
+"Mostrar sÃ³lo este nÃºmero de conversaciones (0 para mostrar todas las "
 "conversaciones)"
 
 #: templates/forums/forums.php:34
@@ -607,7 +607,7 @@ msgstr "Opciones"
 #: lib/Messages.php:889
 #, php-format
 msgid "Page %d"
-msgstr "Página %d"
+msgstr "PÃ¡gina %d"
 
 #: lib/Forms/Forum.php:32
 msgid "Parent forum"
@@ -619,17 +619,17 @@ msgstr "Enviar"
 
 #: lib/api.php:614
 msgid "Post a New Message"
-msgstr "Añadir un mensaje"
+msgstr "AÃ±adir un mensaje"
 
 #: messages/edit.php:71
 #, php-format
 msgid "Post a New Message to \"%s\""
-msgstr "Añadir un mensaje a \"%s\""
+msgstr "AÃ±adir un mensaje a \"%s\""
 
 #: messages/index.php:213 messages/edit.php:69
 #, php-format
 msgid "Post a Reply to \"%s\""
-msgstr "Añadir una respuesta a \"%s\""
+msgstr "AÃ±adir una respuesta a \"%s\""
 
 #: lib/Messages.php:1447 lib/Messages.php:1752
 msgid "Post message"
@@ -652,7 +652,7 @@ msgstr "Enviado por %s de %s"
 #: forums.php:55 threads.php:61 lib/Block/forums.php:86
 #: config/.bak/prefs.php.dist:116
 msgid "Posts"
-msgstr "Envíos"
+msgstr "EnvÃ­os"
 
 #: lib/Messages.php:1494
 msgid "Quote"
@@ -672,7 +672,7 @@ msgstr "Considerar como correo abusivo"
 
 #: lib/Forms/Search.php:44
 msgid "Require all keywords?"
-msgstr "¿Requerir todas las palabras claves?"
+msgstr "Â¿Requerir todas las palabras claves?"
 
 #: lib/Messages.php:1471
 msgid "Save"
@@ -688,15 +688,15 @@ msgstr "Buscar foros"
 
 #: templates/search/search.php:5
 msgid "Search Results"
-msgstr "Resultados de la búsqueda"
+msgstr "Resultados de la bÃºsqueda"
 
 #: lib/Forms/Search.php:52
 msgid "Search in message contents?"
-msgstr "¿Buscar en contenido de los mensajes?"
+msgstr "Â¿Buscar en contenido de los mensajes?"
 
 #: lib/Forms/Search.php:48
 msgid "Search in subjects?"
-msgstr "¿Buscar en los asuntos?"
+msgstr "Â¿Buscar en los asuntos?"
 
 #: lib/Forms/Search.php:37
 msgid "Search in these forums"
@@ -704,14 +704,14 @@ msgstr "Buscar en estos foros"
 
 #: config/.bak/prefs.php.dist:12
 msgid "Set the avatar image that is shown with your posts."
-msgstr "Define la imagen personal mostrada con sus envíos."
+msgstr "Define la imagen personal mostrada con sus envÃ­os."
 
 #: lib/Forms/Forum.php:38
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
 msgstr ""
-"Active ésto si desea que un moderador examine todos los mensajes antes de "
+"Active Ã©sto si desea que un moderador examine todos los mensajes antes de "
 "enviarlos."
 
 #: config/.bak/prefs.php.dist:20
@@ -724,7 +724,7 @@ msgstr "Define las opciones de la vista de mensajes."
 
 #: config/.bak/prefs.php.dist:34 config/.bak/prefs.php.dist:49
 msgid "Set your options for the single thread view."
-msgstr "Define las opciones de la vista de conversación."
+msgstr "Define las opciones de la vista de conversaciÃ³n."
 
 #: config/.bak/prefs.php.dist:27
 msgid "Set your options for the threads view."
@@ -732,15 +732,15 @@ msgstr "Define las opciones de la vista de conversaciones."
 
 #: config/.bak/prefs.php.dist:199
 msgid "Show graphical emoticons"
-msgstr "Mostrar emoticones gráficos"
+msgstr "Mostrar emoticones grÃ¡ficos"
 
 #: lib/Block/thread.php:3 lib/Block/thread.php:52
 msgid "Single Thread"
-msgstr "Conversación única"
+msgstr "ConversaciÃ³n Ãºnica"
 
 #: config/.bak/prefs.php.dist:33
 msgid "Single Thread View"
-msgstr "Conversación única"
+msgstr "ConversaciÃ³n Ãºnica"
 
 #: lib/Agora.php:192
 msgid "Sort Ascending"
@@ -761,11 +761,11 @@ msgstr "Ordenar por %s"
 
 #: lib/Comments.php:71
 msgid "Sort direction"
-msgstr "Sentido de clasificación"
+msgstr "Sentido de clasificaciÃ³n"
 
 #: lib/Messages.php:1516 lib/Forms/Message.php:24
 msgid "Spam protection"
-msgstr "Protección anti spam"
+msgstr "ProtecciÃ³n anti spam"
 
 #: messages/split.php:47 messages/split.php:55 lib/Messages.php:947
 msgid "Split"
@@ -798,7 +798,7 @@ msgstr "Para activar la carga de adjuntos hay que configurar el motor VFS."
 
 #: config/.bak/prefs.php.dist:61
 msgid "The location of your avatar image."
-msgstr "Ubicación de su imagen personal."
+msgstr "UbicaciÃ³n de su imagen personal."
 
 #: lib/Block/forums.php:77
 msgid "There are no forums."
@@ -810,12 +810,12 @@ msgstr "No hay conversaciones en este foro."
 
 #: lib/Messages.php:162
 msgid "This thread has been locked."
-msgstr "Esta conversación se ha bloqueado."
+msgstr "Esta conversaciÃ³n se ha bloqueado."
 
 #: deleteforum.php:48
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
-"Ésto eliminará el foro, cualquier foro secundario y todos los mensajes que "
+"Ã‰sto eliminarÃ¡ el foro, cualquier foro secundario y todos los mensajes que "
 "contengan."
 
 #: messages/index.php:146 messages/index.php:159 lib/Comments.php:61
@@ -823,18 +823,18 @@ msgstr ""
 #: config/.bak/prefs.php.dist:113 config/.bak/prefs.php.dist:156
 #: config/.bak/prefs.php.dist:236
 msgid "Thread"
-msgstr "Conversación"
+msgstr "ConversaciÃ³n"
 
 #: messages/merge.php:78
 #, php-format
 msgid "Thread %s merged with thread %s after message %s."
 msgstr ""
-"Se ha combinado la conversación %s con la conversación %s tras el mensaje %s."
+"Se ha combinado la conversaciÃ³n %s con la conversaciÃ³n %s tras el mensaje %s."
 
 #: messages/move.php:64
 #, php-format
 msgid "Thread %s moved to from forum %s to %s."
-msgstr "Se ha trasladado la conversación %s al foro %s desde el foro %s."
+msgstr "Se ha trasladado la conversaciÃ³n %s al foro %s desde el foro %s."
 
 #: templates/messages/index.php:10 lib/Block/thread.php:89
 msgid "Thread List"
@@ -842,24 +842,24 @@ msgstr "Lista de conversaciones"
 
 #: templates/messages/message.php:34
 msgid "Thread Summary"
-msgstr "Resumen de la conversación"
+msgstr "Resumen de la conversaciÃ³n"
 
 #: messages/delete.php:70
 msgid "Thread deleted."
-msgstr "Conversación eliminada."
+msgstr "ConversaciÃ³n eliminada."
 
 #: messages/index.php:205 messages/lock.php:63
 msgid "Thread locked."
-msgstr "Conversación bloqueada."
+msgstr "ConversaciÃ³n bloqueada."
 
 #: messages/split.php:60
 #, php-format
 msgid "Thread splitted by message %s."
-msgstr "Se ha dividido la conversación a partir del mensaje %s."
+msgstr "Se ha dividido la conversaciÃ³n a partir del mensaje %s."
 
 #: messages/lock.php:65
 msgid "Thread unlocked."
-msgstr "Conversación desbloqueada."
+msgstr "ConversaciÃ³n desbloqueada."
 
 #: forums.php:55 templates/threads/threads.php:1 lib/Comments.php:77
 #: lib/Block/threads.php:3 lib/Block/threads.php:70 lib/Block/threads.php:76
@@ -882,7 +882,7 @@ msgstr "Conversaciones en %s"
 
 #: lib/Block/thread.php:70
 msgid "Unable to fetch selected thread."
-msgstr "Incapaz de traer la conversación seleccionada."
+msgstr "Incapaz de traer la conversaciÃ³n seleccionada."
 
 #: lib/Block/threads.php:103
 msgid "Unable to fetch threads for selected forum."
@@ -894,7 +894,7 @@ msgstr "Desbloquear"
 
 #: messages/index.php:125
 msgid "Unlock thread"
-msgstr "Desbloquear conversación"
+msgstr "Desbloquear conversaciÃ³n"
 
 #: messages/lock.php:49 lib/Forms/Forum.php:26
 msgid "Update"
@@ -923,19 +923,19 @@ msgstr "Vistas"
 
 #: messages/merge.php:57
 msgid "With Thread: "
-msgstr "Con la conversación: "
+msgstr "Con la conversaciÃ³n: "
 
 #: config/.bak/prefs.php.dist:179
 msgid "Yes"
-msgstr "Sí"
+msgstr "SÃ­"
 
 #: messages/lock.php:51
 msgid "Yes, allow replies"
-msgstr "Sí, permitir respuestas"
+msgstr "SÃ­, permitir respuestas"
 
 #: config/.bak/prefs.php.dist:180
 msgid "Yes, and don't thread them"
-msgstr "Sí, y no mostrar las conversaciones"
+msgstr "SÃ­, y no mostrar las conversaciones"
 
 #: lib/Messages.php:1660
 #, php-format
@@ -994,7 +994,7 @@ msgstr "Mo_deradores"
 
 #: lib/Agora.php:258
 msgid "_New Forum"
-msgstr "_Añadir foro"
+msgstr "_AÃ±adir foro"
 
 #: lib/Agora.php:271
 msgid "_Search"
@@ -1020,7 +1020,7 @@ msgstr "en: "
 #: lib/Messages.php:1610
 #, php-format
 msgid "size: %s"
-msgstr "tamaño: %s"
+msgstr "tamaÃ±o: %s"
 
 #: lib/Messages.php:1610
 #, php-format

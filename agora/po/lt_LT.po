@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,16 +20,16 @@ msgstr ""
 #: moderate.php:51
 #, php-format
 msgid "%d messages was approved."
-msgstr "Patvirtintos(a) %d şinutës(iø)."
+msgstr "Patvirtintos(a) %d Å¾inutÄ—s(iÅ³)."
 
 #: moderate.php:57
 #, php-format
 msgid "%d messages was deleted."
-msgstr "Iğtrintos(a) %d şinutës(iø)."
+msgstr "IÅ¡trintos(a) %d Å¾inutÄ—s(iÅ³)."
 
 #: lib/api.php:813
 msgid "Add a comment"
-msgstr "Pridëti komentarà"
+msgstr "PridÄ—ti komentarÄ…"
 
 #: lib/api.php:147
 msgid "Admin"
@@ -37,7 +37,7 @@ msgstr "Valdymas"
 
 #: messages/merge.php:69
 msgid "After Message: "
-msgstr "Po şinutës: "
+msgstr "Po Å¾inutÄ—s: "
 
 #: forums.php:74
 msgid "All Forums"
@@ -45,11 +45,11 @@ msgstr "Visi forumai"
 
 #: lib/Forms/Forum.php:44
 msgid "Allow attachments in this forum?"
-msgstr "Leisti prikabinti failus ğiame forume?"
+msgstr "Leisti prikabinti failus Å¡iame forume?"
 
 #: messages/lock.php:53
 msgid "Allow replies in this thread"
-msgstr "Leiti atsakinëti ğioje temoje"
+msgstr "Leiti atsakinÄ—ti Å¡ioje temoje"
 
 #: moderate.php:48 moderate.php:69
 msgid "Approve"
@@ -58,7 +58,7 @@ msgstr "Patvirtinti"
 #: lib/Comments.php:71 config/prefs.php.dist:103 config/prefs.php.dist:138
 #: config/prefs.php.dist:179 config/prefs.php.dist:267
 msgid "Ascending"
-msgstr "Didëjimo tvarka"
+msgstr "DidÄ—jimo tvarka"
 
 #: lib/Messages.php:1552
 msgid "Attachment"
@@ -76,7 +76,7 @@ msgstr "Avataras"
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
-msgstr "Avatarai turi bûti maşesni nei %s ir %s pikseliø ir maşesni nei %sKb."
+msgstr "Avatarai turi bÅ«ti maÅ¾esni nei %s ir %s pikseliÅ³ ir maÅ¾esni nei %sKb."
 
 #: ban.php:58 lib/Messages.php:1497
 msgid "Ban"
@@ -94,7 +94,7 @@ msgstr "Turinys"
 #: messages/delete.php:52 messages/split.php:49 messages/merge.php:50
 #: messages/abuse.php:50 messages/abuse.php:58
 msgid "Cancel"
-msgstr "Atğaukti"
+msgstr "AtÅ¡aukti"
 
 #: lib/Messages.php:1964
 msgid "Cannot create a forum with an empty name."
@@ -102,7 +102,7 @@ msgstr "Nepavyko sukurti forumo be pavadinimo."
 
 #: templates/prefs/avatarselect.inc:8
 msgid "Choose from a gallery of avatars: "
-msgstr "Pasirinkite iğ avatarø galerijos: "
+msgstr "Pasirinkite iÅ¡ avatarÅ³ galerijos: "
 
 #: lib/Comments.php:77 lib/api.php:440
 msgid "Comments"
@@ -110,7 +110,7 @@ msgstr "Komentarai"
 
 #: config/prefs.php.dist:51
 msgid "Comments view"
-msgstr "Komentarø vaizdavimas"
+msgstr "KomentarÅ³ vaizdavimas"
 
 #: editforum.php:44
 #, php-format
@@ -120,12 +120,12 @@ msgstr "Nepavyko sukurti forumo. %s"
 #: deleteforum.php:68
 #, php-format
 msgid "Could not delete the forum. %s"
-msgstr "Nepavyko iğtrinti forumo. %s"
+msgstr "Nepavyko iÅ¡trinti forumo. %s"
 
 #: lib/api.php:717 lib/api.php:728 lib/api.php:742 messages/delete.php:66
 #, php-format
 msgid "Could not delete the message. %s"
-msgstr "Nepavyko iğtrinti şinutës. %s"
+msgstr "Nepavyko iÅ¡trinti Å¾inutÄ—s. %s"
 
 #: threads.php:33
 #, php-format
@@ -135,18 +135,18 @@ msgstr "Nepavyko parodyti temos. %s"
 #: messages/lock.php:62
 #, php-format
 msgid "Could not lock the thread. %s"
-msgstr "Nepavyko uşrakinti temos. %s"
+msgstr "Nepavyko uÅ¾rakinti temos. %s"
 
 #: messages/move.php:33 messages/index.php:36 messages/delete.php:36
 #: messages/lock.php:35 messages/split.php:33 messages/merge.php:34
 #: messages/abuse.php:33
 #, php-format
 msgid "Could not open the message. %s"
-msgstr "Nepavyko parodyti şinutës. %s"
+msgstr "Nepavyko parodyti Å¾inutÄ—s. %s"
 
 #: lib/api.php:581 lib/api.php:634 messages/edit.php:33 messages/edit.php:85
 msgid "Could not post the message: "
-msgstr "Nepavyko árağyti şinutës: "
+msgstr "Nepavyko Ä¯raÅ¡yti Å¾inutÄ—s: "
 
 #: lib/Forms/Forum.php:30
 msgid "Create"
@@ -166,61 +166,61 @@ msgstr "Data"
 
 #: config/prefs.php.dist:259
 msgid "Default comments view sort:"
-msgstr "Standartinis komentarø rûğiavimas:"
+msgstr "Standartinis komentarÅ³ rÅ«Å¡iavimas:"
 
 #: config/prefs.php.dist:95
 msgid "Default forums view sort:"
-msgstr "Standartinis forumø rûğiavimas:"
+msgstr "Standartinis forumÅ³ rÅ«Å¡iavimas:"
 
 #: config/prefs.php.dist:105 config/prefs.php.dist:140
 #: config/prefs.php.dist:181 config/prefs.php.dist:269
 msgid "Default sorting direction:"
-msgstr "Standartinë rûğiavimo kryptis:"
+msgstr "StandartinÄ— rÅ«Å¡iavimo kryptis:"
 
 #: config/prefs.php.dist:171
 msgid "Default thread view sort:"
-msgstr "Standartinis vienos temos rûğiavimas:"
+msgstr "Standartinis vienos temos rÅ«Å¡iavimas:"
 
 #: config/prefs.php.dist:130
 msgid "Default threads view sort:"
-msgstr "Standartinis temø rûğiavimas:"
+msgstr "Standartinis temÅ³ rÅ«Å¡iavimas:"
 
 #: ban.php:55 moderate.php:54 moderate.php:69 moderators.php:67
 #: deleteforum.php:47 deleteforum.php:65 lib/api.php:734 lib/api.php:739
 #: lib/Messages.php:918 lib/Messages.php:1799 messages/index.php:124
 #: messages/delete.php:52 messages/delete.php:57
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: lib/api.php:733 messages/delete.php:51
 #, php-format
 msgid "Delete \"%s\" and all replies?"
-msgstr "Iğtrinti \"%s\" ir visus atsakymus?"
+msgstr "IÅ¡trinti \"%s\" ir visus atsakymus?"
 
 #: deleteforum.php:45 lib/Messages.php:1495
 msgid "Delete Forum"
-msgstr "Iğtrinti forumà"
+msgstr "IÅ¡trinti forumÄ…"
 
 #: lib/Messages.php:1799
 msgid "Delete forum"
-msgstr "Iğtrinti forumà"
+msgstr "IÅ¡trinti forumÄ…"
 
 #: lib/Messages.php:918
 msgid "Delete message"
-msgstr "Iğtrinti şinutæ"
+msgstr "IÅ¡trinti Å¾inutÄ™"
 
 #: lib/Messages.php:1547
 msgid "Delete the existing attachment?"
-msgstr "Iğtrinti egzistuojantá prikabintà failà?"
+msgstr "IÅ¡trinti egzistuojantÄ¯ prikabintÄ… failÄ…?"
 
 #: lib/Comments.php:72 config/prefs.php.dist:104 config/prefs.php.dist:139
 #: config/prefs.php.dist:180 config/prefs.php.dist:268
 msgid "Descending"
-msgstr "Maşëjimo tvarka"
+msgstr "MaÅ¾Ä—jimo tvarka"
 
 #: forums.php:57
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: config/prefs.php.dist:21 config/prefs.php.dist:28 config/prefs.php.dist:35
 #: config/prefs.php.dist:43 config/prefs.php.dist:50
@@ -229,15 +229,15 @@ msgstr "Vaizdavimo nustatymai"
 
 #: config/prefs.php.dist:248
 msgid "Display full message bodies in the comments view?"
-msgstr "Rodyti pilnà şinutës tekstà komentarø sàrağe?"
+msgstr "Rodyti pilnÄ… Å¾inutÄ—s tekstÄ… komentarÅ³ sÄ…raÅ¡e?"
 
 #: config/prefs.php.dist:192
 msgid "Display full message bodies in the thread list view?"
-msgstr "Rodyti pilnà şinutæ temos şinuèiø sàrağe?"
+msgstr "Rodyti pilnÄ… Å¾inutÄ™ temos Å¾inuÄiÅ³ sÄ…raÅ¡e?"
 
 #: config/prefs.php.dist:211
 msgid "Display graphical emoticons?"
-msgstr "Rodyti grafines ğypsenëles?"
+msgstr "Rodyti grafines Å¡ypsenÄ—les?"
 
 #: lib/Messages.php:914 lib/Messages.php:1793 messages/index.php:121
 msgid "Edit"
@@ -249,32 +249,32 @@ msgstr "Forumo redagavimas"
 
 #: lib/api.php:609
 msgid "Edit Message"
-msgstr "Şinutës redagavimas"
+msgstr "Å½inutÄ—s redagavimas"
 
 #: messages/edit.php:72
 #, php-format
 msgid "Edit Message in \"%s\""
-msgstr "Şinutës redagavimas forume \"%s\""
+msgstr "Å½inutÄ—s redagavimas forume \"%s\""
 
 #: lib/api.php:811
 msgid "Edit a comment"
-msgstr "Redaguoti komentarà"
+msgstr "Redaguoti komentarÄ…"
 
 #: lib/Messages.php:1793
 msgid "Edit forum"
-msgstr "Redaguoti forumà"
+msgstr "Redaguoti forumÄ…"
 
 #: lib/Messages.php:914
 msgid "Edit message"
-msgstr "Redaguoti şinutæ"
+msgstr "Redaguoti Å¾inutÄ™"
 
 #: lib/Forms/Forum.php:41
 msgid "Enter a brief description of this forum"
-msgstr "Árağykite trumpà forumo aprağymà"
+msgstr "Ä®raÅ¡ykite trumpÄ… forumo apraÅ¡ymÄ…"
 
 #: lib/Comments.php:58 messages/index.php:170 config/prefs.php.dist:246
 msgid "Flat"
-msgstr "Plokğèias"
+msgstr "PlokÅ¡Äias"
 
 #: moderate.php:62 moderators.php:79 moderators.php:82 forums.php:57
 #: lib/Block/threads.php:46 lib/Block/forums.php:87
@@ -298,7 +298,7 @@ msgstr "Forumas sukurtas."
 
 #: deleteforum.php:70
 msgid "Forum deleted."
-msgstr "Forumas iğtrintas."
+msgstr "Forumas iÅ¡trintas."
 
 #: deleteforum.php:51 lib/Forms/Forum.php:33
 #: templates/moderators/moderators.php:9
@@ -307,7 +307,7 @@ msgstr "Forumo pavadinimas"
 
 #: deleteforum.php:73
 msgid "Forum not deleted."
-msgstr "Forumas neiğtrintas."
+msgstr "Forumas neiÅ¡trintas."
 
 #: lib/api.php:148 lib/Block/forums.php:3 lib/Block/forums.php:28
 #: templates/forums/forums.php:9
@@ -324,25 +324,25 @@ msgstr "Nuo"
 
 #: templates/threads/threads.php:43
 msgid "Goto page:"
-msgstr "Eiti á puslapá:"
+msgstr "Eiti Ä¯ puslapÄ¯:"
 
 #: messages/index.php:160 messages/index.php:169
 msgid "Hide bodies"
-msgstr "Paslëpti şinuèiø tekstà"
+msgstr "PaslÄ—pti Å¾inuÄiÅ³ tekstÄ…"
 
 #: lib/Messages.php:832
 msgid "Hot thread"
-msgstr "Daşna tema"
+msgstr "DaÅ¾na tema"
 
 #: lib/Forms/Forum.php:44
 msgid "If selected users will be able to attach files to their messages."
 msgstr ""
-"Jeigu pasirinksite, vartotojai galës prikabinti failus prie savo şinuèiø."
+"Jeigu pasirinksite, vartotojai galÄ—s prikabinti failus prie savo Å¾inuÄiÅ³."
 
 #: messages/edit.php:114
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
-msgstr "Neteisinga tëviğkoji şinutë, ği şinutë bus paskelbta kaip nauja tema."
+msgstr "Neteisinga tÄ—viÅ¡koji Å¾inutÄ—, Å¡i Å¾inutÄ— bus paskelbta kaip nauja tema."
 
 #: lib/Forms/Forum.php:42
 msgid "Is this a moderated forum?"
@@ -350,27 +350,27 @@ msgstr "Ar tai moderuojamas forumas?"
 
 #: lib/Forms/Search.php:46
 msgid "Keywords"
-msgstr "Şodşiai"
+msgstr "Å½odÅ¾iai"
 
 #: config/prefs.php.dist:92
 msgid "Last Message"
-msgstr "Paskutinë şinutë"
+msgstr "PaskutinÄ— Å¾inutÄ—"
 
 #: forums.php:57 lib/Block/forums.php:87
 msgid "Last Post"
-msgstr "Paskutinë şinutë"
+msgstr "PaskutinÄ— Å¾inutÄ—"
 
 #: threads.php:62 config/prefs.php.dist:129
 msgid "Last post"
-msgstr "Paskutinë şinutë"
+msgstr "PaskutinÄ— Å¾inutÄ—"
 
 #: lib/Messages.php:922
 msgid "Lock"
-msgstr "Uşrakinti"
+msgstr "UÅ¾rakinti"
 
 #: messages/index.php:127
 msgid "Lock thread"
-msgstr "Uşrakinti temà"
+msgstr "UÅ¾rakinti temÄ…"
 
 #: messages/lock.php:50
 #, php-format
@@ -383,7 +383,7 @@ msgstr "Neteisingas avataras."
 
 #: lib/Agora.php:384
 msgid "Malformed database entry."
-msgstr "Neteisingas duomenø bazës árağas."
+msgstr "Neteisingas duomenÅ³ bazÄ—s Ä¯raÅ¡as."
 
 #: lib/Messages.php:933 messages/merge.php:50 messages/merge.php:76
 msgid "Merge"
@@ -396,41 +396,41 @@ msgstr "Sujungti \"%s\" su kita tema"
 
 #: lib/Messages.php:1542
 msgid "Message"
-msgstr "Şinutë"
+msgstr "Å½inutÄ—"
 
 #: messages/abuse.php:80
 #, php-format
 msgid "Message %s reported as abuse"
-msgstr "Şinutë %s paskelbta kaip nepageidaujama."
+msgstr "Å½inutÄ— %s paskelbta kaip nepageidaujama."
 
 #: lib/Messages.php:500
 #, php-format
 msgid "Message ID \"%d\" not found"
-msgstr "Şinutë, kurios ID \"%d\", nërasta"
+msgstr "Å½inutÄ—, kurios ID \"%d\", nÄ—rasta"
 
 #: config/prefs.php.dist:44
 msgid "Message View"
-msgstr "Şinutës rodymas"
+msgstr "Å½inutÄ—s rodymas"
 
 #: lib/api.php:744 messages/delete.php:68
 msgid "Message deleted."
-msgstr "Şinutë iğtrinta."
+msgstr "Å½inutÄ— iÅ¡trinta."
 
 #: lib/api.php:749 messages/delete.php:58
 msgid "Message not deleted."
-msgstr "Şinutë neiğtrinta."
+msgstr "Å½inutÄ— neiÅ¡trinta."
 
 #: lib/api.php:636 messages/edit.php:87
 msgid "Message posted."
-msgstr "Şinutë árağyta."
+msgstr "Å½inutÄ— Ä¯raÅ¡yta."
 
 #: config/prefs.php.dist:91
 msgid "Messages"
-msgstr "Şinutës"
+msgstr "Å½inutÄ—s"
 
 #: moderate.php:81 templates/moderate/moderate.php:9
 msgid "Messages Awaiting Moderation"
-msgstr "Şinutës laukianèios patvirtinimo"
+msgstr "Å½inutÄ—s laukianÄios patvirtinimo"
 
 #: lib/Messages.php:1818
 msgid "Moderate"
@@ -454,7 +454,7 @@ msgstr "Perkelti"
 #: messages/move.php:48
 #, php-format
 msgid "Move \"%s\" to another forum"
-msgstr "Perkelti \"%s\" á kità forumà"
+msgstr "Perkelti \"%s\" Ä¯ kitÄ… forumÄ…"
 
 #: config/prefs.php.dist:10
 msgid "My Information"
@@ -466,7 +466,7 @@ msgstr "Naujas forumas"
 
 #: lib/Messages.php:1788
 msgid "New Post"
-msgstr "Nauja şinutë"
+msgstr "Nauja Å¾inutÄ—"
 
 #: lib/Agora.php:267
 msgid "New Thread"
@@ -474,7 +474,7 @@ msgstr "Nauja tema"
 
 #: lib/Messages.php:833
 msgid "New posts"
-msgstr "Naujos şinutës"
+msgstr "Naujos Å¾inutÄ—s"
 
 #: config/prefs.php.dist:189
 msgid "No"
@@ -482,7 +482,7 @@ msgstr "Ne"
 
 #: lib/Block/threads.php:121
 msgid "No available threads."
-msgstr "Temø nëra."
+msgstr "TemÅ³ nÄ—ra."
 
 #: lib/Block/threads.php:100
 msgid "No forum selected"
@@ -490,55 +490,55 @@ msgstr "Nepasirinktas forumas"
 
 #: templates/forums/forums.php:64
 msgid "No forums have been created."
-msgstr "Forumø nëra."
+msgstr "ForumÅ³ nÄ—ra."
 
 #: config/prefs.php.dist:209
 msgid "No graphical emoticons"
-msgstr "Nerodyti grafiniø ğypsenëliø"
+msgstr "Nerodyti grafiniÅ³ Å¡ypsenÄ—liÅ³"
 
 #: moderate.php:40
 msgid "No messages are waiting for moderation."
-msgstr "Şinuèiø laukianèiø moderavimo nëra."
+msgstr "Å½inuÄiÅ³ laukianÄiÅ³ moderavimo nÄ—ra."
 
 #: messages/abuse.php:41
 msgid "No moderators are associated with this forum."
-msgstr "Ğiam forumui nepaskirtas joks moderatorius."
+msgstr "Å iam forumui nepaskirtas joks moderatorius."
 
 #: templates/moderators/moderators.php:27
 msgid "No moderators have been created."
-msgstr "Moderatoriø nëra."
+msgstr "ModeratoriÅ³ nÄ—ra."
 
 #: templates/block/threads.php:32
 msgid "No threads"
-msgstr "Temø nëra"
+msgstr "TemÅ³ nÄ—ra"
 
 #: messages/lock.php:53
 msgid "No, do not allow replies"
-msgstr "Ne, neleisti atsakinëti"
+msgstr "Ne, neleisti atsakinÄ—ti"
 
 #: config/prefs.php.dist:114
 msgid "Number of forums to display on each page"
-msgstr "Forumø skaièius viename puslapyje"
+msgstr "ForumÅ³ skaiÄius viename puslapyje"
 
 #: config/prefs.php.dist:201
 msgid "Number of message to display on each page"
-msgstr "Şinuèiø skaièius viename puslapyje"
+msgstr "Å½inuÄiÅ³ skaiÄius viename puslapyje"
 
 #: config/prefs.php.dist:157 config/prefs.php.dist:278
 msgid "Number of messages to display on each page"
-msgstr "Şinuèiø skaièius viename puslapyje"
+msgstr "Å½inuÄiÅ³ skaiÄius viename puslapyje"
 
 #: config/prefs.php.dist:148
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
-msgstr "Parodymø skaièius per 24 val., kad tema bûtø paskelbta kaip 'daşna':"
+msgstr "ParodymÅ³ skaiÄius per 24 val., kad tema bÅ«tÅ³ paskelbta kaip 'daÅ¾na':"
 
 #: lib/Block/forums.php:35
 msgid "Only display this many forums (0 to display all forums)"
-msgstr "Rodyti tik tiek forumø (0 rodo visus)"
+msgstr "Rodyti tik tiek forumÅ³ (0 rodo visus)"
 
 #: lib/Block/threads.php:53
 msgid "Only display this many threads (0 to display all threads)"
-msgstr "Rodyti tik tiek temø (0 rodo visas)"
+msgstr "Rodyti tik tiek temÅ³ (0 rodo visas)"
 
 #: templates/forums/forums.php:34
 msgid "Options"
@@ -551,29 +551,29 @@ msgstr "%d puslapis"
 
 #: lib/Forms/Forum.php:36
 msgid "Parent forum"
-msgstr "Tëviğkasis forumas"
+msgstr "TÄ—viÅ¡kasis forumas"
 
 #: lib/Messages.php:1511
 msgid "Post"
-msgstr "Árağyti"
+msgstr "Ä®raÅ¡yti"
 
 #: lib/api.php:609
 msgid "Post a New Message"
-msgstr "Sukurti naujà şinutæ"
+msgstr "Sukurti naujÄ… Å¾inutÄ™"
 
 #: messages/edit.php:73
 #, php-format
 msgid "Post a New Message to \"%s\""
-msgstr "Naujos şinutës rağymas forume \"%s\""
+msgstr "Naujos Å¾inutÄ—s raÅ¡ymas forume \"%s\""
 
 #: messages/index.php:215 messages/edit.php:71
 #, php-format
 msgid "Post a Reply to \"%s\""
-msgstr "Atsakymo rağymas á \"%s\""
+msgstr "Atsakymo raÅ¡ymas Ä¯ \"%s\""
 
 #: lib/Messages.php:1487 lib/Messages.php:1788
 msgid "Post message"
-msgstr "Sukurti şinutæ"
+msgstr "Sukurti Å¾inutÄ™"
 
 #: moderate.php:62 forums.php:57 lib/Comments.php:82 lib/Comments.php:98
 #: lib/api.php:427 lib/Block/threads.php:125 lib/Block/thread.php:84
@@ -592,7 +592,7 @@ msgstr "Autorius %s %s"
 #: threads.php:62 forums.php:57 lib/Block/forums.php:87
 #: config/prefs.php.dist:127
 msgid "Posts"
-msgstr "Şinutës"
+msgstr "Å½inutÄ—s"
 
 #: lib/Messages.php:1534
 msgid "Quote"
@@ -604,75 +604,75 @@ msgstr "Atsakyti"
 
 #: lib/Messages.php:902
 msgid "Reply to message"
-msgstr "Atsakyti á şinutæ"
+msgstr "Atsakyti Ä¯ Å¾inutÄ™"
 
 #: lib/Messages.php:908 messages/abuse.php:49 messages/abuse.php:50
 msgid "Report as abuse"
-msgstr "Paskelbti kaip nepageidaujamà"
+msgstr "Paskelbti kaip nepageidaujamÄ…"
 
 #: lib/Forms/Search.php:47
 msgid "Require all keywords?"
-msgstr "Reikalauti visø raktiniø şodşiø?"
+msgstr "Reikalauti visÅ³ raktiniÅ³ Å¾odÅ¾iÅ³?"
 
 #: lib/Messages.php:1511
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: lib/Forms/Search.php:60
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: search.php:71 lib/Forms/Search.php:36
 msgid "Search Forums"
-msgstr "Paieğka forumuose"
+msgstr "PaieÅ¡ka forumuose"
 
 #: templates/search/search.php:5
 msgid "Search Results"
-msgstr "Paieğkos rezultatai"
+msgstr "PaieÅ¡kos rezultatai"
 
 #: lib/Forms/Search.php:55
 msgid "Search in message contents?"
-msgstr "Ieğkoti şinutës tekste?"
+msgstr "IeÅ¡koti Å¾inutÄ—s tekste?"
 
 #: lib/Forms/Search.php:51
 msgid "Search in subjects?"
-msgstr "Ieğkoti pavadinimuose?"
+msgstr "IeÅ¡koti pavadinimuose?"
 
 #: lib/Forms/Search.php:40
 msgid "Search in these forums"
-msgstr "Ieğkoti ğiuose forumuose"
+msgstr "IeÅ¡koti Å¡iuose forumuose"
 
 #: config/prefs.php.dist:12
 msgid "Set the avatar image that is shown with your posts."
-msgstr "Avataro paveiksliuko, kuris rodomas jûsø şinutëse, nustatymas."
+msgstr "Avataro paveiksliuko, kuris rodomas jÅ«sÅ³ Å¾inutÄ—se, nustatymas."
 
 #: lib/Forms/Forum.php:42
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
 msgstr ""
-"Paşymëkite tai, jeigu norite, kad visos şinutës prieğ patekdamos á forumà, "
-"bûtø patikrinamos moderatoriø."
+"PaÅ¾ymÄ—kite tai, jeigu norite, kad visos Å¾inutÄ—s prieÅ¡ patekdamos Ä¯ forumÄ…, "
+"bÅ«tÅ³ patikrinamos moderatoriÅ³."
 
 #: config/prefs.php.dist:23
 msgid "Set your options for the forums view."
-msgstr "Forumø vaizdavimo nustatymø keitimas."
+msgstr "ForumÅ³ vaizdavimo nustatymÅ³ keitimas."
 
 #: config/prefs.php.dist:45
 msgid "Set your options for the message view."
-msgstr "Şinutës vaizdavimo nustatymø keitimas."
+msgstr "Å½inutÄ—s vaizdavimo nustatymÅ³ keitimas."
 
 #: config/prefs.php.dist:37 config/prefs.php.dist:52
 msgid "Set your options for the single thread view."
-msgstr "Vienos temos vaizdavimo nustatymø keitimas."
+msgstr "Vienos temos vaizdavimo nustatymÅ³ keitimas."
 
 #: config/prefs.php.dist:30
 msgid "Set your options for the threads view."
-msgstr "Temø vaizdavimo nustatymø keitimas."
+msgstr "TemÅ³ vaizdavimo nustatymÅ³ keitimas."
 
 #: config/prefs.php.dist:210
 msgid "Show graphical emoticons"
-msgstr "Rodyti grafines ğypsenëles"
+msgstr "Rodyti grafines Å¡ypsenÄ—les"
 
 #: lib/Block/thread.php:3 lib/Block/thread.php:53
 msgid "Single Thread"
@@ -684,37 +684,37 @@ msgstr "Vienos temos rodymas"
 
 #: lib/Agora.php:206
 msgid "Sort Ascending"
-msgstr "Surûğiuoti didëjanèia tvarka"
+msgstr "SurÅ«Å¡iuoti didÄ—janÄia tvarka"
 
 #: lib/Agora.php:206
 msgid "Sort Descending"
-msgstr "Surûğiuoti maşëjanèia tvarka"
+msgstr "SurÅ«Å¡iuoti maÅ¾Ä—janÄia tvarka"
 
 #: lib/Comments.php:63
 msgid "Sort by"
-msgstr "Rûğiuoti pagal"
+msgstr "RÅ«Å¡iuoti pagal"
 
 #: lib/Agora.php:214 lib/Agora.php:221
 #, php-format
 msgid "Sort by %s"
-msgstr "Rûğiuoti pagal %s"
+msgstr "RÅ«Å¡iuoti pagal %s"
 
 #: lib/Comments.php:69
 msgid "Sort direction"
-msgstr "Rûğiavimo kryptis"
+msgstr "RÅ«Å¡iavimo kryptis"
 
 #: lib/Messages.php:1556 lib/Forms/Message.php:26
 msgid "Spam protection"
-msgstr "Apsauga nuo ğiukğliø"
+msgstr "Apsauga nuo Å¡iukÅ¡liÅ³"
 
 #: lib/Messages.php:938 messages/split.php:49 messages/split.php:57
 msgid "Split"
-msgstr "Iğskirti"
+msgstr "IÅ¡skirti"
 
 #: messages/split.php:48
 #, php-format
 msgid "Split \"%s\""
-msgstr "Iğskirti \"%s\""
+msgstr "IÅ¡skirti \"%s\""
 
 #: threads.php:62
 msgid "Started"
@@ -734,50 +734,50 @@ msgstr "Tema"
 
 #: lib/Agora.php:243
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Prikabintø failø galimybei turi bûti ájungta VFS posistemë."
+msgstr "PrikabintÅ³ failÅ³ galimybei turi bÅ«ti Ä¯jungta VFS posistemÄ—."
 
 #: config/prefs.php.dist:64
 msgid "The location of your avatar image."
-msgstr "Jûsø avataro paveiksliuko vieta."
+msgstr "JÅ«sÅ³ avataro paveiksliuko vieta."
 
 #: lib/Block/forums.php:78
 msgid "There are no forums."
-msgstr "Forumø nëra."
+msgstr "ForumÅ³ nÄ—ra."
 
 #: templates/threads/threads.php:72
 msgid "There are no threads in this forum."
-msgstr "Ğiame forume temø nëra."
+msgstr "Å iame forume temÅ³ nÄ—ra."
 
 #: lib/Messages.php:166
 msgid "This thread has been locked."
-msgstr "Ği tema yra uşrakinta."
+msgstr "Å i tema yra uÅ¾rakinta."
 
 #: deleteforum.php:50
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
-"Tai iğtrins ğá forumà, bet kokius gilesnius forumus ir visas susijusias "
-"şinutes."
+"Tai iÅ¡trins Å¡Ä¯ forumÄ…, bet kokius gilesnius forumus ir visas susijusias "
+"Å¾inutes."
 
 #: lib/Comments.php:59 lib/Comments.php:96 lib/Block/thread.php:33
 #: lib/Block/thread.php:84 messages/index.php:148 messages/index.php:161
 #: config/prefs.php.dist:124 config/prefs.php.dist:167
 #: config/prefs.php.dist:247
 msgid "Thread"
-msgstr "Temø grupës"
+msgstr "TemÅ³ grupÄ—s"
 
 #: messages/merge.php:81
 #, php-format
 msgid "Thread %s merged with thread %s after message %s."
-msgstr "Tema %s sujungta su tema %s po şinutës %s."
+msgstr "Tema %s sujungta su tema %s po Å¾inutÄ—s %s."
 
 #: messages/move.php:66
 #, php-format
 msgid "Thread %s moved to from forum %s to %s."
-msgstr "Tema %s perkelta iğ forumo %s á %s."
+msgstr "Tema %s perkelta iÅ¡ forumo %s Ä¯ %s."
 
 #: lib/Block/thread.php:91 templates/messages/index.php:9
 msgid "Thread List"
-msgstr "Şinuèiø sàrağas"
+msgstr "Å½inuÄiÅ³ sÄ…raÅ¡as"
 
 #: templates/messages/message.php:34
 msgid "Thread Summary"
@@ -785,16 +785,16 @@ msgstr "Temos santrumpa"
 
 #: messages/delete.php:73
 msgid "Thread deleted."
-msgstr "Tema iğtrinta."
+msgstr "Tema iÅ¡trinta."
 
 #: messages/index.php:207 messages/lock.php:65
 msgid "Thread locked."
-msgstr "Tema uşrakinta."
+msgstr "Tema uÅ¾rakinta."
 
 #: messages/split.php:62
 #, php-format
 msgid "Thread splitted by message %s."
-msgstr "Tema iğskirta şinute %s."
+msgstr "Tema iÅ¡skirta Å¾inute %s."
 
 #: messages/lock.php:67
 msgid "Thread unlocked."
@@ -807,7 +807,7 @@ msgstr "Temos"
 
 #: config/prefs.php.dist:29
 msgid "Threads View"
-msgstr "Temø rodymas"
+msgstr "TemÅ³ rodymas"
 
 #: lib/Block/threads.php:82
 #, php-format
@@ -825,7 +825,7 @@ msgstr "Nepavyko parodyti pasirinktos temos."
 
 #: lib/Block/threads.php:106
 msgid "Unable to fetch threads for selected forum."
-msgstr "Nepavyko parodyti temø pasirinktame forume."
+msgstr "Nepavyko parodyti temÅ³ pasirinktame forume."
 
 #: lib/Messages.php:922
 msgid "Unlock"
@@ -833,7 +833,7 @@ msgstr "Atrakinti"
 
 #: messages/index.php:127
 msgid "Unlock thread"
-msgstr "Atrakinti temà"
+msgstr "Atrakinti temÄ…"
 
 #: lib/Forms/Forum.php:30 messages/lock.php:51
 msgid "Update"
@@ -841,7 +841,7 @@ msgstr "Atnaujinti"
 
 #: config/prefs.php.dist:79
 msgid "Upload your own avatar image."
-msgstr "Ákelkite savo avataro paveiksliukà."
+msgstr "Ä®kelkite savo avataro paveiksliukÄ…."
 
 #: ban.php:65
 msgid "User"
@@ -853,7 +853,7 @@ msgstr "Rodyti"
 
 #: messages/index.php:187
 msgid "View bodies"
-msgstr "Rodyti şinuèiø turiná"
+msgstr "Rodyti Å¾inuÄiÅ³ turinÄ¯"
 
 #: threads.php:62
 msgid "Views"
@@ -869,54 +869,54 @@ msgstr "Taip"
 
 #: messages/lock.php:53
 msgid "Yes, allow replies"
-msgstr "Taip, leisti atsakinëti"
+msgstr "Taip, leisti atsakinÄ—ti"
 
 #: config/prefs.php.dist:191
 msgid "Yes, and don't thread them"
-msgstr "Taip, ir nerodo sàryğiø"
+msgstr "Taip, ir nerodo sÄ…ryÅ¡iÅ³"
 
 #: lib/Messages.php:1696
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
-msgstr "Jûs neturite teisiø perşiûrëti şinutes forume %s."
+msgstr "JÅ«s neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¾inutes forume %s."
 
 #: lib/api.php:722 lib/Messages.php:566 lib/Messages.php:730
 #: messages/move.php:40 messages/delete.php:43 messages/lock.php:42
 #: messages/split.php:40 messages/merge.php:41
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
-msgstr "Jûs neturite teisiø iğtrinti şinutes iğ forumo %s."
+msgstr "JÅ«s neturite teisiÅ³ iÅ¡trinti Å¾inutes iÅ¡ forumo %s."
 
 #: lib/api.php:587 lib/Messages.php:171 messages/index.php:201
 #: messages/edit.php:41
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
-msgstr "Jûs neturite teisiø rağyti şinuèiø á forumà %s."
+msgstr "JÅ«s neturite teisiÅ³ raÅ¡yti Å¾inuÄiÅ³ Ä¯ forumÄ… %s."
 
 #: lib/Messages.php:804
 #, php-format
 msgid "You don't have permission to read messages in forum %s."
-msgstr "Jûs neturite teisiø skaityti şinutes forume %s."
+msgstr "JÅ«s neturite teisiÅ³ skaityti Å¾inutes forume %s."
 
 #: ban.php:30
 #, php-format
 msgid "You don't have permissions to ban users from forum %s."
-msgstr "Jûs neturite teisiø blokuoti vartotojø forume %s."
+msgstr "JÅ«s neturite teisiÅ³ blokuoti vartotojÅ³ forume %s."
 
 #: editforum.php:35
 #, php-format
 msgid "You don't have permissions to create a new forum in %s"
-msgstr "Jûs neturite teisiø kurti naujø forumø forume %s"
+msgstr "JÅ«s neturite teisiÅ³ kurti naujÅ³ forumÅ³ forume %s"
 
 #: deleteforum.php:29
 #, php-format
 msgid "You don't have permissions to delete forums in %s"
-msgstr "Jûs neturite teisiø trinti forumø iğ forumo %s"
+msgstr "JÅ«s neturite teisiÅ³ trinti forumÅ³ iÅ¡ forumo %s"
 
 #: editforum.php:31
 #, php-format
 msgid "You don't have permissions to edit forum %s"
-msgstr "Jûs neturite teisiø keisti forumo %s"
+msgstr "JÅ«s neturite teisiÅ³ keisti forumo %s"
 
 #: lib/Agora.php:260
 msgid "_Forums"
@@ -936,7 +936,7 @@ msgstr "Naujas forumas"
 
 #: lib/Agora.php:285
 msgid "_Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: lib/Agora.php:265
 msgid "_Threads"
@@ -948,7 +948,7 @@ msgstr " "
 
 #: lib/Messages.php:1645
 msgid "download"
-msgstr "atsisiøsti"
+msgstr "atsisiÅ³sti"
 
 #: lib/Tree/flat.php:113 templates/messages/flat_thread.php:8
 #: templates/messages/flat.php:22

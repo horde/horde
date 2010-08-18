@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the Horde package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 #
-# margin: Außenabstand
+# margin: AuÃŸenabstand
 # padding: Innenabstand
 # History: Chronik
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -69,14 +69,14 @@ msgstr "\"%s\" existiert bereits."
 #: ../framework/Cli/lib/Horde/Cli.php:364
 #, php-format
 msgid "\"%s\" is not a valid choice."
-msgstr "\"%s\" ist keine gültige Auswahl."
+msgstr "\"%s\" ist keine gÃ¼ltige Auswahl."
 
 #: ../framework/Model/lib/Horde/Form.php:1238
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:88
 #: ../framework/Form/Form/Type.php:1441
 #, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
+msgstr "\"%s\" ist keine gÃ¼ltige E-Mail-Adresse."
 
 #: ../framework/Core/lib/Horde/Registry.php:1068
 #: ../framework/Core/lib/Horde/Registry.php:1509
@@ -92,12 +92,12 @@ msgstr "\"%s\"-Share-Treiber nicht gefunden."
 #: admin/groups.php:50
 #, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "\"%s\" wurde zum Gruppensystem hinzugefügt."
+msgstr "\"%s\" wurde zum Gruppensystem hinzugefÃ¼gt."
 
 #: admin/perms/addchild.php:43
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "\"%s\" wurde zum Rechtesystem hinzugefügt."
+msgstr "\"%s\" wurde zum Rechtesystem hinzugefÃ¼gt."
 
 #: admin/groups.php:56 admin/perms/addchild.php:47
 #, php-format
@@ -123,15 +123,15 @@ msgstr "%d %s und %s"
 #, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
-msgstr[0] "%d Kontakt wurde erfolgreich Ihrem Adressbuch hinzugefügt."
-msgstr[1] "%d Kontakte wurden erfolgreich Ihrem Adressbuch hinzugefügt."
+msgstr[0] "%d Kontakt wurde erfolgreich Ihrem Adressbuch hinzugefÃ¼gt."
+msgstr[1] "%d Kontakte wurden erfolgreich Ihrem Adressbuch hinzugefÃ¼gt."
 
 #: ../framework/Core/lib/Horde/Core/Auth/Application.php:580
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
-msgstr[0] "In %d Tag wird Ihr Passwort ungültig."
-msgstr[1] "In %d Tagen wird Ihr Passwort ungültig."
+msgstr[0] "In %d Tag wird Ihr Passwort ungÃ¼ltig."
+msgstr[1] "In %d Tagen wird Ihr Passwort ungÃ¼ltig."
 
 #: ../framework/Date/lib/Horde/Date/Utils.php:100
 #, php-format
@@ -141,7 +141,7 @@ msgstr "vor %d Tagen"
 #: lib/Block/account.php:708 lib/Block/account.php:720
 #, php-format
 msgid "%d days until your password expires."
-msgstr "In %d Tagen wird Ihr Passwort ungültig."
+msgstr "In %d Tagen wird Ihr Passwort ungÃ¼ltig."
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:271
 #, php-format
@@ -182,8 +182,8 @@ msgstr "%d pro Einheit"
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] "%d Person gefällt das"
-msgstr[1] "%d Personen gefällt das"
+msgstr[0] "%d Person gefÃ¤llt das"
+msgstr[1] "%d Personen gefÃ¤llt das"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:285
 #, php-format
@@ -247,7 +247,7 @@ msgstr "%s Registrierung"
 #: services/logintasks.php:47
 #, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "%s-Aufgaben - Bestätigung"
+msgstr "%s-Aufgaben - BestÃ¤tigung"
 
 #: services/logintasks.php:57
 #, php-format
@@ -300,7 +300,7 @@ msgstr ""
 #: ../framework/Core/lib/Horde/Registry.php:1166
 #, php-format
 msgid "%s is not authorized for %s."
-msgstr "%s ist für %s nicht autorisiert."
+msgstr "%s ist fÃ¼r %s nicht autorisiert."
 
 #: services/logintasks.php:46
 #, php-format
@@ -308,8 +308,8 @@ msgid ""
 "%s is ready to perform the tasks checked below. Check the box for any "
 "operation(s) you want to perform at this time."
 msgstr ""
-"%s möchte die Aufgaben durchführen, die unten angezeigt sind. Markieren Sie "
-"alle Arbeiten, die jetzt durchgeführt werden sollen."
+"%s mÃ¶chte die Aufgaben durchfÃ¼hren, die unten angezeigt sind. Markieren Sie "
+"alle Arbeiten, die jetzt durchgefÃ¼hrt werden sollen."
 
 #: ../framework/Model/lib/Horde/Form.php:2017
 #: ../framework/Form/Form/Type.php:2456
@@ -342,16 +342,16 @@ msgstr "Option %s erweitert ein Argument"
 #: ../framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:391
 #, php-format
 msgid "(UNTRUSTED, sender <%s> is not authenticated)"
-msgstr "(NICHT VERTRAUENSWÜRDIG, Absender <%s> ist nicht authentifiziert)"
+msgstr "(NICHT VERTRAUENSWÃœRDIG, Absender <%s> ist nicht authentifiziert)"
 
 #: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
 msgid ", gusting "
-msgstr ", böig "
+msgstr ", bÃ¶ig "
 
 #: lib/Block/metar.php:183 lib/Block/metar.php:188
 #, php-format
 msgid ", gusting %s %s"
-msgstr ", böig %s %s"
+msgstr ", bÃ¶ig %s %s"
 
 #: lib/Block/metar.php:196
 #, php-format
@@ -366,7 +366,7 @@ msgstr ", schwankend von %s bis %s"
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:387
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:829
 msgid "-- select --"
-msgstr "-- Auswählen --"
+msgstr "-- AuswÃ¤hlen --"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:101
 msgid "/10s"
@@ -460,33 +460,33 @@ msgstr "9-Bereichs-Fokus"
 #: ../framework/Image/lib/Horde/Image/Exif.php:300
 #, php-format
 msgid "90 deg CCW"
-msgstr "90° gegen UZS"
+msgstr "90Â° gegen UZS"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:302
 #, php-format
 msgid "90 deg CCW Mirrored"
-msgstr "90° gegen UZS, gespiegelt"
+msgstr "90Â° gegen UZS, gespiegelt"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:304
 #, php-format
 msgid "90 deg CW"
-msgstr "90° im UZS"
+msgstr "90Â° im UZS"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:298
 #, php-format
 msgid "90 deg CW Mirrored"
-msgstr "90° im UZS, gespiegelt"
+msgstr "90Â° im UZS, gespiegelt"
 
 #: ../framework/Core/lib/Horde/Core/Ui/Pager.php:77
 msgid "<Previous"
-msgstr "<Zurück"
+msgstr "<ZurÃ¼ck"
 
 #: templates/prefs/facebook.html:15
 msgid ""
 "<tag:app_name /> can interact with your Facebook account, but you must login "
 "to Facebook manually each time."
 msgstr ""
-"<tag:app_name /> kann mit Ihrem Facebook-Konto arbeiten, aber Sie müssen "
+"<tag:app_name /> kann mit Ihrem Facebook-Konto arbeiten, aber Sie mÃ¼ssen "
 "sich jedesmal bei Facebook anmelden."
 
 #: templates/prefs/facebook.html:38
@@ -499,7 +499,7 @@ msgid ""
 "Facebook."
 msgstr ""
 "<tag:app_name /> kann keine Statusmeldungen oder andere Inhalte bei Facebook "
-"veröffentlichen."
+"verÃ¶ffentlichen."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
@@ -515,15 +515,15 @@ msgstr "A Zeichen"
 
 #: lib/Block/metar.php:117
 msgid "A database backend is required for this block."
-msgstr "Für diesen Block wird eine Datenbank benötigt."
+msgstr "FÃ¼r diesen Block wird eine Datenbank benÃ¶tigt."
 
 #: admin/activesync.php:35
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
-"Eine Geräte-Löschung wurde gestartet. Das Gerät wird während der nächsten "
-"Synchronisation gelöscht."
+"Eine GerÃ¤te-LÃ¶schung wurde gestartet. Das GerÃ¤t wird wÃ¤hrend der nÃ¤chsten "
+"Synchronisation gelÃ¶scht."
 
 #: ../framework/Core/lib/Horde.php:108
 msgid "A fatal error has occurred"
@@ -536,16 +536,16 @@ msgid ""
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
-"Eine Nachricht wurde an \"%s\" verschickt, um zu überprüfen, ob es sich "
+"Eine Nachricht wurde an \"%s\" verschickt, um zu Ã¼berprÃ¼fen, ob es sich "
 "dabei wirklich um Ihre Adresse handelt. Die neue E-Mail-Adresse wird "
-"aktiviert, sobald Sie diese Nachricht bestätigen."
+"aktiviert, sobald Sie diese Nachricht bestÃ¤tigen."
 
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Base.php:81
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
 msgstr ""
-"Für den Benutzer \"%s\" wurde über das Registrierungsformular ein neues "
+"FÃ¼r den Benutzer \"%s\" wurde Ã¼ber das Registrierungsformular ein neues "
 "Konto beantragt."
 
 #: admin/setup/index.php:92 admin/setup/index.php:124
@@ -555,50 +555,50 @@ msgstr "Eine neuere Version (%s) existiert."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1229
 msgid "A passphrase is required to decrypt a message."
-msgstr "Ein Passwort wird für die Entschlüsselung einer Nachricht benötigt."
+msgstr "Ein Passwort wird fÃ¼r die EntschlÃ¼sselung einer Nachricht benÃ¶tigt."
 
 #: ../framework/Core/lib/Horde/Script/Files.php:112
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr ""
-"Ein Popup-Fenster konnte nicht geöffnet werden. Vielleicht haben Sie Ihren "
+"Ein Popup-Fenster konnte nicht geÃ¶ffnet werden. Vielleicht haben Sie Ihren "
 "Browser so eingestellt, dass er Popup-Fenster blockiert?"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1296
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
-"Ein öffentlicher PGP-Schlüssel wird für die Überprüfung einer "
-"unterzeichneten Nachricht benötigt."
+"Ein Ã¶ffentlicher PGP-SchlÃ¼ssel wird fÃ¼r die ÃœberprÃ¼fung einer "
+"unterzeichneten Nachricht benÃ¶tigt."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1153
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"Ein öffentlicher und ein privater PGP-Schlüssel sowie ein Passwort wird für "
-"die Unterzeichnung einer Nachricht benötigt."
+"Ein Ã¶ffentlicher und ein privater PGP-SchlÃ¼ssel sowie ein Passwort wird fÃ¼r "
+"die Unterzeichnung einer Nachricht benÃ¶tigt."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:308
 msgid "A public S/MIME key is required to encrypt a message."
 msgstr ""
-"Ein öffentlicher S/MIME-Schlüssel wird für die Verschlüsselung einer "
-"Nachricht benötigt."
+"Ein Ã¶ffentlicher S/MIME-SchlÃ¼ssel wird fÃ¼r die VerschlÃ¼sselung einer "
+"Nachricht benÃ¶tigt."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:419
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"Ein öffentlicher und ein privater S/MIME-Schlüssel sowie ein Passwort wird "
-"für die Entschlüsselung einer Nachricht benötigt."
+"Ein Ã¶ffentlicher und ein privater S/MIME-SchlÃ¼ssel sowie ein Passwort wird "
+"fÃ¼r die EntschlÃ¼sselung einer Nachricht benÃ¶tigt."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:357
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"Ein öffentlicher und ein privater S/MIME-Schlüssel sowie ein Passwort wird "
-"für die Unterzeichnung einer Nachricht benötigt."
+"Ein Ã¶ffentlicher und ein privater S/MIME-SchlÃ¼ssel sowie ein Passwort wird "
+"fÃ¼r die Unterzeichnung einer Nachricht benÃ¶tigt."
 
 #: lib/Prefs/Ui.php:780
 #, php-format
@@ -606,12 +606,12 @@ msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
-"Eine ferngesteuerte Löschung für das Gerät mit der ID %s wurde gestartet. "
-"Das Gerät wird während der nächsten Synchronisation gelöscht."
+"Eine ferngesteuerte LÃ¶schung fÃ¼r das GerÃ¤t mit der ID %s wurde gestartet. "
+"Das GerÃ¤t wird wÃ¤hrend der nÃ¤chsten Synchronisation gelÃ¶scht."
 
 #: ../framework/Form/Form/Type.php:824 ../framework/Form/Form/Type.php:867
 msgid "A temporary directory"
-msgstr "Ein temporäres Verzeichnis"
+msgstr "Ein temporÃ¤res Verzeichnis"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:173
 msgid "AE Good"
@@ -724,11 +724,11 @@ msgstr "ActiveSync"
 
 #: admin/activesync.php:71
 msgid "ActiveSync Device Administration"
-msgstr "ActiveSync-Geräteverwaltung"
+msgstr "ActiveSync-GerÃ¤teverwaltung"
 
 #: admin/activesync.php:162 lib/Api.php:73
 msgid "ActiveSync Devices"
-msgstr "ActiveSync-Geräte"
+msgstr "ActiveSync-GerÃ¤te"
 
 #: admin/activesync.php:20 lib/Prefs/Ui.php:414
 msgid "ActiveSync not activated."
@@ -738,77 +738,77 @@ msgstr "ActiveSync ist nicht aktiviert."
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:633
 #: templates/portal/add.inc:14 templates/admin/groups/addchild.inc:12
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:120
 msgid "Add Child Permission"
-msgstr "Neue Unterrechte hinzufügen"
+msgstr "Neue Unterrechte hinzufÃ¼gen"
 
 #: services/portal/index.php:68
 msgid "Add Content"
-msgstr "Inhalt hinzufügen"
+msgstr "Inhalt hinzufÃ¼gen"
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Hier hinzufügen:"
+msgstr "Hier hinzufÃ¼gen:"
 
 #: templates/admin/groups/edit.inc:49
 msgid "Add Members"
-msgstr "Mitglieder hinzufügen"
+msgstr "Mitglieder hinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:90
 msgid "Add New Permission"
-msgstr "Neue Rechte hinzufügen"
+msgstr "Neue Rechte hinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:71
 msgid "Add Permission"
-msgstr "Recht hinzufügen"
+msgstr "Recht hinzufÃ¼gen"
 
 #: admin/groups.php:238 templates/admin/groups/addchild.inc:7
 #, php-format
 msgid "Add a child group to \"%s\""
-msgstr "Untergruppe zu \"%s\" hinzufügen"
+msgstr "Untergruppe zu \"%s\" hinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:181
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Unterrechte zu \"%s\" hinzufügen"
+msgstr "Unterrechte zu \"%s\" hinzufÃ¼gen"
 
 #: admin/groups.php:231
 msgid "Add a new group"
-msgstr "Eine neue Gruppe hinzufügen"
+msgstr "Eine neue Gruppe hinzufÃ¼gen"
 
 #: admin/user.php:21
 msgid "Add a new user:"
-msgstr "Fügen Sie einen neuen Benutzer hinzu:"
+msgstr "FÃ¼gen Sie einen neuen Benutzer hinzu:"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:437
 msgid "Add column"
-msgstr "Spalte hinzufügen"
+msgstr "Spalte hinzufÃ¼gen"
 
 #: admin/alarms.php:22
 msgid "Add new alarm"
-msgstr "Neuen Alarm hinzufügen"
+msgstr "Neuen Alarm hinzufÃ¼gen"
 
 #: templates/data/csvmap.inc:92
 msgid "Add pair"
-msgstr "Paar hinzufügen"
+msgstr "Paar hinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:90
 msgid "Add source"
-msgstr "Quelle hinzufügen"
+msgstr "Quelle hinzufÃ¼gen"
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:406
 msgid "Add to address book:"
-msgstr "Zum Adressbuch hinzufügen:"
+msgstr "Zum Adressbuch hinzufÃ¼gen:"
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:421
 msgid "Add to my address book"
-msgstr "Zu meinem Adressbuch hinzufügen"
+msgstr "Zu meinem Adressbuch hinzufÃ¼gen"
 
 #: admin/user.php:22 ../framework/Model/www/test.php:82
 msgid "Add user"
-msgstr "Benutzer hinzufügen"
+msgstr "Benutzer hinzufÃ¼gen"
 
 #: admin/signup_confirm.php:80 admin/user.php:89
 #, php-format
@@ -816,17 +816,17 @@ msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"\"%s\" wurde zum System hinzugefügt, aber die zusätzlichen "
+"\"%s\" wurde zum System hinzugefÃ¼gt, aber die zusÃ¤tzlichen "
 "Anmeldeinformationen konnten nicht gespeichert werden: %s."
 
 #: signup.php:44
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "\"%s\" wurde zum System hinzugefügt. Sie können sich jetzt anmelden."
+msgstr "\"%s\" wurde zum System hinzugefÃ¼gt. Sie kÃ¶nnen sich jetzt anmelden."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
-msgstr "Das Hinzufügen von Benutzern ist nicht möglich."
+msgstr "Das HinzufÃ¼gen von Benutzern ist nicht mÃ¶glich."
 
 #: ../framework/Model/lib/Horde/Form.php:1061
 #: ../framework/Form/Form/Type.php:754
@@ -860,7 +860,7 @@ msgstr "Afghanistan"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:29
 msgid "Aland Islands"
-msgstr "Åland"
+msgstr "Ã…land"
 
 #: ../framework/Core/lib/Horde/Core/Notification/Status.php:89
 msgid "Alarm"
@@ -924,19 +924,19 @@ msgstr "Alle Rechte"
 
 #: admin/activesync.php:50
 msgid "All policy keys successfully reset."
-msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
+msgstr "Alle Richtlinien-SchlÃ¼ssel wurden zurÃ¼ckgesetzt."
 
 #: lib/Prefs/Ui.php:790
 msgid ""
 "All state removed for your devices. They will resynchronize next time they "
 "connect to the server."
 msgstr ""
-"Der Status aller Ihrer Geräte wurde zurückgesetzt. Bei der nächsten "
+"Der Status aller Ihrer GerÃ¤te wurde zurÃ¼ckgesetzt. Bei der nÃ¤chsten "
 "Verbindung mit dem Server werden sie neu synchronisiert."
 
 #: lib/Prefs/Ui.php:761
 msgid "All synchronization sessions deleted."
-msgstr "Alle Synchronisationssitzungen gelöscht."
+msgstr "Alle Synchronisationssitzungen gelÃ¶scht."
 
 #: ../framework/Model/lib/Horde/Form.php:1425
 #: ../framework/Form/Form/Type.php:1601
@@ -967,7 +967,7 @@ msgstr "Amerikanisch-Samoa"
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:241
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:257
 msgid "An illegal value was specified."
-msgstr "Es wurde ein ungültiger Wert angegeben."
+msgstr "Es wurde ein ungÃ¼ltiger Wert angegeben."
 
 #: lib/Block/weatherdotcom.php:170
 msgid "An unknown error has occured."
@@ -1047,11 +1047,11 @@ msgstr "Anwendung ist aktuell."
 
 #: templates/admin/user/approve.inc:33
 msgid "Approve"
-msgstr "Bestätigen"
+msgstr "BestÃ¤tigen"
 
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Base.php:83
 msgid "Approve the account:"
-msgstr "Das Konto bestätigen:"
+msgstr "Das Konto bestÃ¤tigen:"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:282
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:321
@@ -1069,7 +1069,7 @@ msgstr "Arabisch (Windows-1256)"
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Zip.php:106
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Tgz.php:108
 msgid "Archive File Size"
-msgstr "Archivgröße"
+msgstr "ArchivgrÃ¶ÃŸe"
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Rar.php:85
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Zip.php:105
@@ -1080,20 +1080,20 @@ msgstr "Archivname"
 #: admin/alarms.php:123
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr "Sind Sie sicher, dass Sie '%s' löschen möchten?"
+msgstr "Sind Sie sicher, dass Sie '%s' lÃ¶schen mÃ¶chten?"
 
 #: templates/admin/user/removequeued.inc:10
 #, php-format
 msgid "Are you sure you want to remove the signup request for \"%s\"?"
 msgstr ""
-"Sind Sie sicher, dass Sie die Registrierungsanfrage von \"%s\" löschen "
-"möchten?"
+"Sind Sie sicher, dass Sie die Registrierungsanfrage von \"%s\" lÃ¶schen "
+"mÃ¶chten?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
 msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
 msgstr ""
-"Sind Sie sicher, dass Sie \"%s\" und alle Untergruppen löschen möchten?"
+"Sind Sie sicher, dass Sie \"%s\" und alle Untergruppen lÃ¶schen mÃ¶chten?"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:24
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:17
@@ -1115,7 +1115,7 @@ msgstr "Kunst"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:119
 msgid "Artist"
-msgstr "Künstler"
+msgstr "KÃ¼nstler"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:28
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:19
@@ -1145,11 +1145,11 @@ msgstr "Anhang"
 
 #: admin/groups.php:72
 msgid "Attempt to delete a non-existent group."
-msgstr "Es wurde versucht, eine nicht existierende Gruppe zu löschen."
+msgstr "Es wurde versucht, eine nicht existierende Gruppe zu lÃ¶schen."
 
 #: admin/perms/delete.php:24
 msgid "Attempt to delete a non-existent permission."
-msgstr "Es wurde versucht, ein nicht existierendes Recht zu löschen."
+msgstr "Es wurde versucht, ein nicht existierendes Recht zu lÃ¶schen."
 
 #: admin/perms/edit.php:92
 msgid "Attempt to edit a non-existent permission."
@@ -1181,7 +1181,7 @@ msgstr "Australien"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:26
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:21
 msgid "Austria"
-msgstr "Österreich"
+msgstr "Ã–sterreich"
 
 #: admin/sessions.php:40
 msgid "Authenticated to:"
@@ -1230,7 +1230,7 @@ msgstr "Autofokus erfolgreich"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:255
 msgid "Auto Selected"
-msgstr "Automatisch ausgewählt"
+msgstr "Automatisch ausgewÃ¤hlt"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:250
 msgid "Auto bracket"
@@ -1258,11 +1258,11 @@ msgstr "Av"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:195
 msgid "Available address books:"
-msgstr "Verfügbare Adressbücher:"
+msgstr "VerfÃ¼gbare AdressbÃ¼cher:"
 
 #: templates/data/csvmap.inc:70
 msgid "Available fields:"
-msgstr "Verfügbare Felder:"
+msgstr "VerfÃ¼gbare Felder:"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:378
 msgid "Average"
@@ -1329,7 +1329,7 @@ msgstr "Bcc"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:48
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:27
 msgid "Belarus"
-msgstr "Weißruland"
+msgstr "WeiÃŸruland"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:34
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:28
@@ -1362,12 +1362,12 @@ msgstr "Geburtstag"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:166
 msgid "Black & White"
-msgstr "Schwarz & Weiß"
+msgstr "Schwarz & WeiÃŸ"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:144
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:254
 msgid "Black and White"
-msgstr "Schwarz und Weiß"
+msgstr "Schwarz und WeiÃŸ"
 
 #: ../framework/Block/lib/Horde/Block/Collection.php:412
 #, php-format
@@ -1388,7 +1388,7 @@ msgstr "Blauer Mond"
 
 #: themes/bluewhite/info.php:2
 msgid "Blue and White"
-msgstr "Blau und Weiß"
+msgstr "Blau und WeiÃŸ"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:42
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:33
@@ -1541,16 +1541,16 @@ msgstr "Problembericht abbrechen"
 
 #: admin/activesync.php:148 templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
-msgstr "Löschen abbrechen"
+msgstr "LÃ¶schen abbrechen"
 
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:42
 #: ../framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy/copy.php:48
 msgid "Cannot find a temporary directory."
-msgstr "Kein temporäres Verzeichnis gefunden."
+msgstr "Kein temporÃ¤res Verzeichnis gefunden."
 
 #: ../framework/VFS_ISOWriter/ISOWriter.php:85
 msgid "Cannot proceed without 'targetFile' parameter."
-msgstr "Fortsetzung ohne \"targetFile\"-Parameter nicht möglich."
+msgstr "Fortsetzung ohne \"targetFile\"-Parameter nicht mÃ¶glich."
 
 #: ../framework/DataTree/DataTree.php:124
 #, php-format
@@ -1569,13 +1569,13 @@ msgid ""
 "Cannot reorder, number of entries supplied for reorder does not match number "
 "stored."
 msgstr ""
-"Umsortieren nicht möglich. Die Anzahl der Einträge, die umsortiert werden "
-"sollen, stimmt nicht mit der Anzahl der gespeicherten Einträge überein."
+"Umsortieren nicht mÃ¶glich. Die Anzahl der EintrÃ¤ge, die umsortiert werden "
+"sollen, stimmt nicht mit der Anzahl der gespeicherten EintrÃ¤ge Ã¼berein."
 
 #: services/resetpassword.php:17
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
-"Passwort kann nicht automatisch zurückgesetzt werden, bitte wenden Sie sich "
+"Passwort kann nicht automatisch zurÃ¼ckgesetzt werden, bitte wenden Sie sich "
 "an Ihren Administrator."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:315
@@ -1646,7 +1646,7 @@ msgstr "Zentralafrikanische Republik"
 
 #: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
-msgstr "Mitteleuropäisch (ISO-8859-2)"
+msgstr "MitteleuropÃ¤isch (ISO-8859-2)"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:606
 msgid "Certificate Details"
@@ -1667,18 +1667,18 @@ msgstr "Tschad"
 
 #: templates/prefs/rpc.html:33
 msgid "Change"
-msgstr "Ändern"
+msgstr "Ã„ndern"
 
 #: services/changepassword.php:23
 msgid "Change Your Password"
-msgstr "Ändern Sie Ihr Passwort"
+msgstr "Ã„ndern Sie Ihr Passwort"
 
 #: config/prefs.php.dist:214
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Ändern Sie den Namen oder die Adresse, die die Empfänger Ihrer E-Mail-"
+"Ã„ndern Sie den Namen oder die Adresse, die die EmpfÃ¤nger Ihrer E-Mail-"
 "Nachrichten sehen, wenn sie diese lesen oder darauf anworten."
 
 #: services/changepassword.php:17
@@ -1686,8 +1686,8 @@ msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
 msgstr ""
-"Das Ändern Ihres Passworts wird von diesem System zur Zeit nicht "
-"unterstützt. Bitte wenden Sie sich an Ihren Administrator."
+"Das Ã„ndern Ihres Passworts wird von diesem System zur Zeit nicht "
+"unterstÃ¼tzt. Bitte wenden Sie sich an Ihren Administrator."
 
 #: ../framework/Model/lib/Horde/Form.php:1433
 #: ../framework/Form/Form/Type.php:1613
@@ -1696,11 +1696,11 @@ msgstr "Zeichen, durch das mehrere E-Mail-Adressen getrenn werden sollen"
 
 #: lib/Block/vatid.php:45
 msgid "Check"
-msgstr "Überprüfen"
+msgstr "ÃœberprÃ¼fen"
 
 #: templates/admin/setup/index.html:4
 msgid "Check for newer versions"
-msgstr "Auf aktuellere Versionen überprüfen"
+msgstr "Auf aktuellere Versionen Ã¼berprÃ¼fen"
 
 #: ../framework/Model/www/test.php:60
 msgid "Checkbox Group"
@@ -1708,7 +1708,7 @@ msgstr "Checkbox-Gruppe"
 
 #: lib/Block/vatid.php:47
 msgid "Checking"
-msgstr "Überprüfe"
+msgstr "ÃœberprÃ¼fe"
 
 #: templates/admin/groups/addchild.inc:10
 msgid "Child"
@@ -1735,17 +1735,17 @@ msgstr "Chinesisch traditionell (Big5)"
 #: services/obrowser/index.php:92
 #, php-format
 msgid "Choose %s"
-msgstr "%s auswählen"
+msgstr "%s auswÃ¤hlen"
 
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:45
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "Choose a password"
-msgstr "Wählen Sie ein Passwort"
+msgstr "WÃ¤hlen Sie ein Passwort"
 
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:42
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:58
 msgid "Choose a username"
-msgstr "Wählen Sie einen Benutzernamen"
+msgstr "WÃ¤hlen Sie einen Benutzernamen"
 
 #: config/prefs.php.dist:376
 msgid "Choose how to display dates:"
@@ -1754,7 +1754,7 @@ msgstr "Legen Sie fest, wie das Datum angezeigt werden soll:"
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:189
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr ""
-"Legen Sie die Reihenfolge der Adressbücher fest, in denen nach passenden "
+"Legen Sie die Reihenfolge der AdressbÃ¼cher fest, in denen nach passenden "
 "Adressen gesucht werden soll."
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:65
@@ -1764,20 +1764,20 @@ msgstr "Weihnachtsinsel"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:113
 msgid "Chroma Saturation High"
-msgstr "Hohe Farbsättigung"
+msgstr "Hohe FarbsÃ¤ttigung"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:114
 msgid "Chroma Saturation Low(ORG)"
-msgstr "Niedrige Farbsättigung (ORG)"
+msgstr "Niedrige FarbsÃ¤ttigung (ORG)"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:112
 msgid "Chroma Saturation Normal(STD)"
-msgstr "Normale Farbsättigung (STD)"
+msgstr "Normale FarbsÃ¤ttigung (STD)"
 
 #: ../framework/Net_SMS/SMS.php:289
 #, php-format
 msgid "Class definition of %s not found."
-msgstr "Klassendefinition für %s nicht gefunden."
+msgstr "Klassendefinition fÃ¼r %s nicht gefunden."
 
 #: lib/Block/weatherdotcom_strings.php:19
 msgid "Clear"
@@ -1785,20 +1785,20 @@ msgstr "Heiter"
 
 #: admin/sqlshell.php:123
 msgid "Clear Query"
-msgstr "Abfrage zurücksetzen"
+msgstr "Abfrage zurÃ¼cksetzen"
 
 #: templates/admin/user/clear.inc:5
 #, php-format
 msgid "Clear out user: %s"
-msgstr "Benutzerdaten löschen: %s"
+msgstr "Benutzerdaten lÃ¶schen: %s"
 
 #: templates/admin/user/clear.inc:11
 msgid "Clear user"
-msgstr "Benutzerdaten löschen"
+msgstr "Benutzerdaten lÃ¶schen"
 
 #: templates/admin/user/list.inc:34
 msgid "Clear user data"
-msgstr "Benutzerdaten löschen"
+msgstr "Benutzerdaten lÃ¶schen"
 
 #: lib/Block/weatherdotcom_strings.php:20
 msgid "Clearing Early"
@@ -1806,14 +1806,14 @@ msgstr "Anfangs aufklarend"
 
 #: lib/Block/weatherdotcom_strings.php:21
 msgid "Clearing Late"
-msgstr "Später aufklarend"
+msgstr "SpÃ¤ter aufklarend"
 
 #: templates/prefs/addressbooks.html:3
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Klicken Sie auf eines Ihrer ausgewählten Adressbücher und markieren Sie alle "
+"Klicken Sie auf eines Ihrer ausgewÃ¤hlten AdressbÃ¼cher und markieren Sie alle "
 "Felder, die durchsucht werden sollen."
 
 #: templates/logintasks/logintasks.html:38
@@ -1830,7 +1830,7 @@ msgstr "Client-Anker"
 
 #: services/keyboard.php:154 templates/shares/edit.inc:12
 msgid "Close Window"
-msgstr "Fenster schließen"
+msgstr "Fenster schlieÃŸen"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:247
 msgid "Close-up (Macro)"
@@ -1846,7 +1846,7 @@ msgstr "Anfangs Wolken"
 
 #: lib/Block/weatherdotcom_strings.php:23
 msgid "Clouds Late"
-msgstr "Später Wolken"
+msgstr "SpÃ¤ter Wolken"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Nikon.php:156
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:136
@@ -1854,7 +1854,7 @@ msgstr "Später Wolken"
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:352
 #: lib/Block/weatherdotcom_strings.php:24
 msgid "Cloudy"
-msgstr "Bewölkt"
+msgstr "BewÃ¶lkt"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:396
 msgid "Cloudy weather"
@@ -1867,11 +1867,11 @@ msgstr "Kokosinseln"
 
 #: admin/sessions.php:31
 msgid "Collapse"
-msgstr "Schließen"
+msgstr "SchlieÃŸen"
 
 #: templates/sidebar/sidebar.inc:3
 msgid "Collapse Sidebar"
-msgstr "Menü einfahren"
+msgstr "MenÃ¼ einfahren"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:61
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:54
@@ -1911,7 +1911,7 @@ msgstr "Farbwahl"
 #: ../framework/Model/lib/Horde/Form.php:1645
 #: ../framework/Form/Form/Type.php:2053
 msgid "Column titles"
-msgstr "Spaltenüberschriften"
+msgstr "SpaltenÃ¼berschriften"
 
 #: config/registry.php.dist:287
 msgid "Comics"
@@ -1994,11 +1994,11 @@ msgstr "%s konfigurieren"
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
-msgstr "Passwort bestätigen"
+msgstr "Passwort bestÃ¤tigen"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Identity.php:54
 msgid "Confirm new email address"
-msgstr "Bestätigung der neuen E-Mail-Adresse"
+msgstr "BestÃ¤tigung der neuen E-Mail-Adresse"
 
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:56
 msgid "Congo"
@@ -2015,13 +2015,13 @@ msgstr "Demokratische Republic Kongo"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:937
 msgid "Connection refused to the public keyserver."
-msgstr "Verbindung zum öffentlichen Schlüsselserver wurde abgewiesen."
+msgstr "Verbindung zum Ã¶ffentlichen SchlÃ¼sselserver wurde abgewiesen."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:939
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr ""
-"Verbindung zum öffentlichen Schlüsselserver wurde abgewiesen. Grund: %s (%s)"
+"Verbindung zum Ã¶ffentlichen SchlÃ¼sselserver wurde abgewiesen. Grund: %s (%s)"
 
 #: ../framework/Share/lib/Horde/Share/Object/Kolab.php:112
 #: ../framework/Kolab/Kolab.php:753
@@ -2069,11 +2069,11 @@ msgstr "Cookie"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:252
 msgid "Cool"
-msgstr "Kühl"
+msgstr "KÃ¼hl"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:400
 msgid "Cool white fluorescent"
-msgstr "Kühl-weiße Leuchtstoffröhre"
+msgstr "KÃ¼hl-weiÃŸe LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:74
 #: ../framework/Image/lib/Horde/Image/Exif.php:118
@@ -2097,11 +2097,11 @@ msgstr "Costa Rica"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:56
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:60
 msgid "Cote d'Ivoire"
-msgstr "Elfenbeinküste"
+msgstr "ElfenbeinkÃ¼ste"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1121
 msgid "Could not PGP encrypt message: "
-msgstr "Die Nachricht konnte nicht mit PGP verschlüsselt werden: "
+msgstr "Die Nachricht konnte nicht mit PGP verschlÃ¼sselt werden: "
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1190
 msgid "Could not PGP sign message: "
@@ -2109,7 +2109,7 @@ msgstr "Die Nachricht konnte nicht mit PGP unterzeichnet werden: "
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:327
 msgid "Could not S/MIME encrypt message."
-msgstr "Die Nachricht konnte nicht mit S/MIME verschlüsselt werden."
+msgstr "Die Nachricht konnte nicht mit S/MIME verschlÃ¼sselt werden."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:388
 msgid "Could not S/MIME sign message."
@@ -2129,7 +2129,7 @@ msgstr "Anbindung an LDAP-Server fehlgeschlagen."
 #: ../framework/Net_SMS/SMS/textmagic_http.php:393
 #, php-format
 msgid "Could not check balance. %s"
-msgstr "Kontostand konnte nicht überprüft werden. %s"
+msgstr "Kontostand konnte nicht Ã¼berprÃ¼ft werden. %s"
 
 #: lib/Block/account.php:463
 msgid "Could not connect to LDAP server."
@@ -2143,7 +2143,7 @@ msgstr "FTP-Verbindung zum Server \"%s\" konnte nicht hergestellt werden: %s"
 #: admin/setup/index.php:66
 msgid "Could not contact server. Try again later."
 msgstr ""
-"Der Server konnte nicht erreicht werden, bitte versuchen Sie es später noch "
+"Der Server konnte nicht erreicht werden, bitte versuchen Sie es spÃ¤ter noch "
 "einmal."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:329
@@ -2153,30 +2153,30 @@ msgstr "Verteilerliste konnte nicht erstellt werden. %s"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1265
 msgid "Could not decrypt PGP data: "
-msgstr "PGP-Daten konnten nicht entschlüsselt werden: "
+msgstr "PGP-Daten konnten nicht entschlÃ¼sselt werden: "
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:437
 msgid "Could not decrypt S/MIME data."
-msgstr "S/MIME-Daten konnten nicht entschlüsselt werden."
+msgstr "S/MIME-Daten konnten nicht entschlÃ¼sselt werden."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:253
 #, php-format
 msgid "Could not delete contact. %s"
-msgstr "Kontakt konnte nicht gelöscht werden. %s"
+msgstr "Kontakt konnte nicht gelÃ¶scht werden. %s"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:363
 #, php-format
 msgid "Could not delete distribution list. %s"
-msgstr "Verteilerliste konnte nicht gelöscht werden. %s"
+msgstr "Verteilerliste konnte nicht gelÃ¶scht werden. %s"
 
 #: admin/setup/scripts.php:33
 #, php-format
 msgid "Could not delete setup upgrade script \"%s\"."
-msgstr "Das Aktualisierungsskript \"%s\" konnte nicht gelöscht werden."
+msgstr "Das Aktualisierungsskript \"%s\" konnte nicht gelÃ¶scht werden."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:657
 msgid "Could not determine the recipient's e-mail address."
-msgstr "Die E-Mail-Adresse des Empfängers konnte nicht ermittelt werden."
+msgstr "Die E-Mail-Adresse des EmpfÃ¤ngers konnte nicht ermittelt werden."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:290
 msgid "Could not fetch complete address book."
@@ -2195,8 +2195,8 @@ msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
-"Es wurde keine Autorisierung für <tag:appname /> gefunden, um mit Ihrem "
-"Twitter-Konto arbeiten zu können."
+"Es wurde keine Autorisierung fÃ¼r <tag:appname /> gefunden, um mit Ihrem "
+"Twitter-Konto arbeiten zu kÃ¶nnen."
 
 #: ../framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy.php:65
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy.php:81
@@ -2213,12 +2213,12 @@ msgstr "Das Verzeichnis \"%s\" konnte nicht angelegt werden."
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:757
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:846
 msgid "Could not obtain public key from the keyserver."
-msgstr "Öffentlicher Schlüssel konnte nicht vom Schlüsselserver geholt werden."
+msgstr "Ã–ffentlicher SchlÃ¼ssel konnte nicht vom SchlÃ¼sselserver geholt werden."
 
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:135
 #, php-format
 msgid "Could not open \"%s\" for writing."
-msgstr "\"%s\" konnte nicht zum Schreiben geöffnet werden."
+msgstr "\"%s\" konnte nicht zum Schreiben geÃ¶ffnet werden."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:681
 #: ../framework/Net_SMS/SMS/clickatell_http.php:348
@@ -2231,7 +2231,7 @@ msgstr "%s konnte nicht gelesen werden."
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:66
 #, php-format
 msgid "Could not open directory \"%s\"."
-msgstr "Verzeichnis \"%s\" konnte nicht geöffnet werden."
+msgstr "Verzeichnis \"%s\" konnte nicht geÃ¶ffnet werden."
 
 #: ../framework/Net_SMS/SMS/generic_smpp.php:141
 msgid "Could not read response PDU"
@@ -2243,9 +2243,9 @@ msgid ""
 "details are not correct. Try again or contact your administrator if you need "
 "further help."
 msgstr ""
-"Das Passwort für den angegebenen Benutzer konnte nicht zurückgesetzt werden, "
+"Das Passwort fÃ¼r den angegebenen Benutzer konnte nicht zurÃ¼ckgesetzt werden, "
 "weil einige Angaben nicht richtig waren. Versuchen Sie es erneut oder wenden "
-"Sie sich an Ihren Administrator, wenn Sie weitere Hilfe benötigen."
+"Sie sich an Ihren Administrator, wenn Sie weitere Hilfe benÃ¶tigen."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:281
 #, php-format
@@ -2264,12 +2264,12 @@ msgstr "Verteilerlisten konnte nicht ausgelesen werden. %s"
 
 #: admin/setup/config.php:43
 msgid "Could not revert configuration."
-msgstr "Konfiguration konnte nicht zurückgesetzt werden."
+msgstr "Konfiguration konnte nicht zurÃ¼ckgesetzt werden."
 
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:90
 #, php-format
 msgid "Could not rmdir \"%s\"."
-msgstr "Verzeichnis \"%s\" konnte nicht gelöscht werden."
+msgstr "Verzeichnis \"%s\" konnte nicht gelÃ¶scht werden."
 
 #: admin/setup/index.php:41
 #, php-format
@@ -2292,14 +2292,14 @@ msgid ""
 "Could not save the configuration file %s. You can either use one of the "
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
-"Die Konfiguration %s konnte nicht gespeichert werden. Sie können entweder "
-"eine der Möglichkeiten unter %s verwenden, um den Code zu speichern, oder "
+"Die Konfiguration %s konnte nicht gespeichert werden. Sie kÃ¶nnen entweder "
+"eine der MÃ¶glichkeiten unter %s verwenden, um den Code zu speichern, oder "
 "den untenstehenden Code manuell nach %s kopieren."
 
 #: ../framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:82
 #, php-format
 msgid "Could not unlink \"%s\"."
-msgstr "\"%s\" konnte nicht gelöscht werden."
+msgstr "\"%s\" konnte nicht gelÃ¶scht werden."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:226
 #, php-format
@@ -2314,7 +2314,7 @@ msgstr "Verteilerliste konnte nicht aktualisiert werden. %s"
 #: admin/setup/index.php:51
 #, php-format
 msgid "Could not write configuration for \"%s\": %s"
-msgstr "Die Konfiguration für \"%s\" konnte nicht gespeichert werden: %s"
+msgstr "Die Konfiguration fÃ¼r \"%s\" konnte nicht gespeichert werden: %s"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Bundled.php:265
 msgid "Couldnt Find IFD1"
@@ -2331,7 +2331,7 @@ msgstr "SubIFD nicht gefunden<"
 #: ../framework/Model/lib/Horde/Form.php:1041
 #: ../framework/Form/Form/Type.php:643
 msgid "Counted text"
-msgstr "Gezählter Text"
+msgstr "GezÃ¤hlter Text"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:475 lib/Block/vatid.php:92
 msgid "Country"
@@ -2339,7 +2339,7 @@ msgstr "Land"
 
 #: ../framework/Form/Form/Type.php:890
 msgid "Country drop down list"
-msgstr "Länder-Auswahlliste"
+msgstr "LÃ¤nder-Auswahlliste"
 
 #: templates/prefs/rpc.html:34
 msgid "Create"
@@ -2347,7 +2347,7 @@ msgstr "Erstellen"
 
 #: templates/prefs/identityselect.html:22
 msgid "Create New Identity"
-msgstr "Neue Identität anlegen"
+msgstr "Neue IdentitÃ¤t anlegen"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:260
 msgid "Creative"
@@ -2449,11 +2449,11 @@ msgstr ""
 #: ../framework/LoginTasks/lib/Horde/LoginTasks.php:259
 #: ../framework/Date/lib/Horde/Date/Recurrence.php:212
 msgid "Daily"
-msgstr "Täglich"
+msgstr "TÃ¤glich"
 
 #: ../framework/Net_SMS/SMS/textmagic_http.php:498
 msgid "Daily API requests limit exceeded"
-msgstr "Tägliche API-Anfragebegrenzung überschritten"
+msgstr "TÃ¤gliche API-Anfragebegrenzung Ã¼berschritten"
 
 #: templates/data/csvmap.inc:101
 msgid "Data"
@@ -2463,7 +2463,7 @@ msgstr "Daten"
 #: ../framework/Kolab_Format/lib/Horde/Kolab/Format/Xml.php:714
 #, php-format
 msgid "Data value for %s is empty in Kolab XML object!"
-msgstr "Der Datenwert für %s ist leer im Kolab-XML-Objekt!"
+msgstr "Der Datenwert fÃ¼r %s ist leer im Kolab-XML-Objekt!"
 
 #: admin/datatree.php:62
 msgid "DataTree"
@@ -2494,7 +2494,7 @@ msgstr "Digitalisierungsdatum"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:85
 msgid "Date Photo Modified"
-msgstr "Änderungsdatum"
+msgstr "Ã„nderungsdatum"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:86
 msgid "Date Photo Taken"
@@ -2525,7 +2525,7 @@ msgstr "Tag"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:399
 msgid "Day white fluorescent"
-msgstr "Tages-weiße Leuchtstoffröhre"
+msgstr "Tages-weiÃŸe LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:391
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Nikon.php:153
@@ -2536,15 +2536,15 @@ msgstr "Tageslicht"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:398
 msgid "Daylight fluorescent"
-msgstr "Tageslicht-Leuchtstoffröhre"
+msgstr "Tageslicht-LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:104
 msgid "DaylightColor-fluorescence"
-msgstr "DaylightColor-Leuchtstoffröhre"
+msgstr "DaylightColor-LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:105
 msgid "DaywhiteColor-fluorescence"
-msgstr "DaywhiteColor-Leuchtstoffröhre"
+msgstr "DaywhiteColor-LeuchtstoffrÃ¶hre"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:290
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:329
@@ -2568,7 +2568,7 @@ msgstr "Standardfarbe"
 
 #: ../framework/Prefs/lib/Horde/Prefs/Identity.php:112
 msgid "Default Identity"
-msgstr "Standardidentität"
+msgstr "StandardidentitÃ¤t"
 
 #: lib/Block/account.php:78
 msgid "Default Shell"
@@ -2592,46 +2592,46 @@ msgstr "Definitionen"
 #: templates/prefs/identityselect.html:34 templates/prefs/syncml.html:14
 #: templates/prefs/syncml.html:23
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: admin/groups.php:239 admin/alarms.php:122
 #, php-format
 msgid "Delete \"%s\""
-msgstr "\"%s\" löschen"
+msgstr "\"%s\" lÃ¶schen"
 
 #: templates/prefs/syncml.html:30
 msgid "Delete All SyncML Data"
-msgstr "Alle SyncML-Daten löschen"
+msgstr "Alle SyncML-Daten lÃ¶schen"
 
 #: admin/groups.php:215
 msgid "Delete Group"
-msgstr "Gruppe löschen"
+msgstr "Gruppe lÃ¶schen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:75
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:128
 msgid "Delete Permission"
-msgstr "Rechte löschen"
+msgstr "Rechte lÃ¶schen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:472
 #, php-format
 msgid "Delete permissions for \"%s\""
-msgstr "Rechte für \"%s\" löschen"
+msgstr "Rechte fÃ¼r \"%s\" lÃ¶schen"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:475
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
-msgstr "Rechte für \"%s\" und alle Unterrechte löschen?"
+msgstr "Rechte fÃ¼r \"%s\" und alle Unterrechte lÃ¶schen?"
 
 #: admin/setup/scripts.php:31
 #, php-format
 msgid "Deleted setup upgrade script \"%s\"."
-msgstr "Das Aktualisierungsskript \"%s\" wurde gelöscht."
+msgstr "Das Aktualisierungsskript \"%s\" wurde gelÃ¶scht."
 
 #: lib/Prefs/Ui.php:754
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
-"Synchronisationssitzung für Gerät \"%s\" und Datenbank \"%s\" gelöscht."
+"Synchronisationssitzung fÃ¼r GerÃ¤t \"%s\" und Datenbank \"%s\" gelÃ¶scht."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:570
 #: ../framework/Net_SMS/SMS/sms2email_http.php:602
@@ -2643,7 +2643,7 @@ msgstr "Auslieferungszeit"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:70
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:65
 msgid "Denmark"
-msgstr "Dänemark"
+msgstr "DÃ¤nemark"
 
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Deny the account:"
@@ -2675,7 +2675,7 @@ msgstr "Details"
 
 #: ../framework/Core/lib/Horde.php:131
 msgid "Details have been logged for the administrator."
-msgstr "Details wurden für den Administrator mitgeloggt."
+msgstr "Details wurden fÃ¼r den Administrator mitgeloggt."
 
 #: config/registry.php.dist:236
 msgid "Development"
@@ -2683,31 +2683,31 @@ msgstr "Entwicklung"
 
 #: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
 msgid "Device"
-msgstr "Gerät"
+msgstr "GerÃ¤t"
 
 #: admin/activesync.php:99
 msgid "Device ID"
-msgstr "Geräte-ID"
+msgstr "GerÃ¤te-ID"
 
 #: templates/prefs/activesync.html:11
 msgid "Device Management"
-msgstr "Geräteverwaltung"
+msgstr "GerÃ¤teverwaltung"
 
 #: lib/Prefs/Ui.php:470
 msgid "Device id:"
-msgstr "Geräte-ID:"
+msgstr "GerÃ¤te-ID:"
 
 #: admin/activesync.php:132 lib/Prefs/Ui.php:458
 msgid "Device is wiped"
-msgstr "Gerät wurde gelöscht"
+msgstr "GerÃ¤t wurde gelÃ¶scht"
 
 #: admin/activesync.php:45
 msgid "Device successfully removed."
-msgstr "Gerät erfolgreich entfernt."
+msgstr "GerÃ¤t erfolgreich entfernt."
 
 #: admin/activesync.php:40
 msgid "Device wipe successfully canceled."
-msgstr "Gerätelöschung erfolgreich abgebrochen."
+msgstr "GerÃ¤telÃ¶schung erfolgreich abgebrochen."
 
 #: lib/Block/metar.php:212
 msgid "Dew Point"
@@ -2725,11 +2725,11 @@ msgstr "Taupunkt: "
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:1170
 #, php-format
 msgid "Dial %s"
-msgstr "%s wählen"
+msgstr "%s wÃ¤hlen"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Nikon.php:196
 msgid "Did Not Fire"
-msgstr "Nicht ausgelöst"
+msgstr "Nicht ausgelÃ¶st"
 
 #: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
 #: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
@@ -2764,7 +2764,7 @@ msgstr "Anzeigeformat"
 
 #: ../framework/Mime/lib/Horde/Mime/Mdn.php:188
 msgid "Disposition Notification"
-msgstr "Empfangsbestätigung"
+msgstr "EmpfangsbestÃ¤tigung"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:69
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:66
@@ -2773,12 +2773,12 @@ msgstr "Dschibuti"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:473
 msgid "Do not delete"
-msgstr "Nicht löschen"
+msgstr "Nicht lÃ¶schen"
 
 #: templates/data/tsvinfo.inc:12 templates/data/csvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
-"Enthält die erste Zeile die Feldnamen? Wenn ja, dieses Auswahlkästchen "
+"EnthÃ¤lt die erste Zeile die Feldnamen? Wenn ja, dieses AuswahlkÃ¤stchen "
 "markieren:"
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:207
@@ -2875,7 +2875,7 @@ msgstr "Gruppe bearbeiten"
 
 #: templates/prefs/app.html:7
 msgid "Edit Options for"
-msgstr "Einstellungen bearbeiten für"
+msgstr "Einstellungen bearbeiten fÃ¼r"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:74
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:126
@@ -2890,7 +2890,7 @@ msgstr "Rechte bearbeiten"
 #: services/shares/edit.php:264 templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Rechte für \"%s\" bearbeiten"
+msgstr "Rechte fÃ¼r \"%s\" bearbeiten"
 
 #: lib/Block/fortune.php:42
 msgid "Education"
@@ -2899,7 +2899,7 @@ msgstr "Bildung"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:76
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:70
 msgid "Egypt"
-msgstr "Ägypten"
+msgstr "Ã„gypten"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:221
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:71
@@ -2927,16 +2927,16 @@ msgstr "E-Mail-Adresse (optional)"
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:429
 #: ../framework/Form/Form/Type.php:2069
 msgid "Email addresses must match."
-msgstr "Die E-Mail-Adressen müssen gleich sein."
+msgstr "Die E-Mail-Adressen mÃ¼ssen gleich sein."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Identity.php:87
 msgid "Email addresses to confirm not found."
-msgstr "Zu bestätigende E-Mail-Adressen nicht gefunden."
+msgstr "Zu bestÃ¤tigende E-Mail-Adressen nicht gefunden."
 
 #: ../framework/Model/lib/Horde/Form.php:1687
 #: ../framework/Form/Form/Type.php:2096
 msgid "Email with confirmation"
-msgstr "E-Mail-Adresse mit Bestätigung"
+msgstr "E-Mail-Adresse mit BestÃ¤tigung"
 
 #: ../framework/Net_SMS/SMS/generic_smtp.php:88
 msgid "Email-to-SMS Gateway"
@@ -2966,7 +2966,7 @@ msgstr "Endjahr"
 
 #: lib/Prefs/Ui.php:262
 msgid "Enter a name for the new category:"
-msgstr "Geben Sie einen Namen für die neue Kategorie an:"
+msgstr "Geben Sie einen Namen fÃ¼r die neue Kategorie an:"
 
 #: config/prefs.php.dist:288
 msgid ""
@@ -2974,7 +2974,7 @@ msgid ""
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
 "Geben Sie eine Sicherheitsfrage ein, die Ihnen gestellt wird, wenn Sie Ihr "
-"Passwort zurücksetzen möchten, z. B. \"Wie lautet der Name Ihres Haustiers?"
+"Passwort zurÃ¼cksetzen mÃ¶chten, z. B. \"Wie lautet der Name Ihres Haustiers?"
 "\":"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:775
@@ -2986,7 +2986,7 @@ msgstr "Geben Sie die folgenden Buchstaben ein:"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:100
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:72
 msgid "Equatorial Guinea"
-msgstr "Äquatorial-Guinea"
+msgstr "Ã„quatorial-Guinea"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:78
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:73
@@ -3006,7 +3006,7 @@ msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
 msgstr ""
-"Fehler bei der Verbindung mit Twitter: %s Details wurden für den "
+"Fehler bei der Verbindung mit Twitter: %s Details wurden fÃ¼r den "
 "Administrator mitgeloggt."
 
 #: ../framework/SyncML/SyncML/Device/Sync4j.php:614
@@ -3017,16 +3017,16 @@ msgstr "Fehler beim Umwandeln der Notizen."
 #, php-format
 msgid "Error deleting from path %s; must be [app]/[path]"
 msgstr ""
-"Im Verzeichnis %s konnte nicht gelöscht werden; richtiges Format: "
+"Im Verzeichnis %s konnte nicht gelÃ¶scht werden; richtiges Format: "
 "[anwendung]/[pfad]"
 
 #: lib/Prefs/Ui.php:752
 msgid "Error deleting synchronization session:"
-msgstr "Fehler beim Löschen der Synchronisationssitzung:"
+msgstr "Fehler beim LÃ¶schen der Synchronisationssitzung:"
 
 #: lib/Prefs/Ui.php:759
 msgid "Error deleting synchronization sessions:"
-msgstr "Fehler beim Löschen der Synchronisationssitzungen:"
+msgstr "Fehler beim LÃ¶schen der Synchronisationssitzungen:"
 
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:540
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:545
@@ -3041,7 +3041,7 @@ msgstr "Fehler beim Senden der PDU"
 #: services/changepassword.php:61
 #, php-format
 msgid "Error updating password: %s"
-msgstr "Fehler beim Ändern des Passworts: %s"
+msgstr "Fehler beim Ã„ndern des Passworts: %s"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1573
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1581
@@ -3075,7 +3075,7 @@ msgstr "Estland"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:80
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:75
 msgid "Ethiopia"
-msgstr "Äthiopien"
+msgstr "Ã„thiopien"
 
 #: lib/Block/fortune.php:43
 msgid "Ethnic"
@@ -3087,7 +3087,7 @@ msgstr "Europa"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:81
 msgid "European Union"
-msgstr "Europäische Union"
+msgstr "EuropÃ¤ische Union"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:237
 msgid "Evaluative"
@@ -3138,12 +3138,12 @@ msgstr "Beispielwerte:"
 
 #: admin/phpshell.php:55 admin/cmdshell.php:48 admin/sqlshell.php:122
 msgid "Execute"
-msgstr "Ausführen"
+msgstr "AusfÃ¼hren"
 
 #: admin/sessions.php:30
 #: ../framework/Block/lib/Horde/Block/Layout/Manager.php:575
 msgid "Expand"
-msgstr "Vergrößern"
+msgstr "VergrÃ¶ÃŸern"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:423
 msgid "Expiration Date"
@@ -3183,7 +3183,7 @@ msgstr "Externer Blitz"
 
 #: lib/Block/iframe.php:29
 msgid "Extra Large"
-msgstr "Extra groß"
+msgstr "Extra groÃŸ"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:106
 msgid "F-Number"
@@ -3203,7 +3203,7 @@ msgstr "Facebook-Integration"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
-msgstr "Grüner Übergang"
+msgstr "GrÃ¼ner Ãœbergang"
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Report.php:45
 #, php-format
@@ -3245,7 +3245,7 @@ msgstr "Falklandinseln"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:86
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:77
 msgid "Faroe Islands"
-msgstr "Faröer"
+msgstr "FarÃ¶er"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:163
 msgid "Fast Shutter"
@@ -3277,11 +3277,11 @@ msgstr "Feedadresse"
 
 #: lib/Block/metar.php:215
 msgid "Feels Like"
-msgstr "Gefühlte Temperatur"
+msgstr "GefÃ¼hlte Temperatur"
 
 #: lib/Block/weatherdotcom.php:235
 msgid "Feels like: "
-msgstr "Gefühlte Temperatur: "
+msgstr "GefÃ¼hlte Temperatur: "
 
 #: lib/Block/weatherdotcom_strings.php:27
 msgid "Few Showers"
@@ -3340,7 +3340,7 @@ msgstr "Dateiname"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:95
 msgid "File Size"
-msgstr "Dateigröße"
+msgstr "DateigrÃ¶ÃŸe"
 
 #: ../framework/Model/lib/Horde/Form.php:2778
 #: ../framework/Form/Form/Type.php:3328
@@ -3367,7 +3367,7 @@ msgstr "Fein"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:395
 msgid "Fine weather"
-msgstr "Schönes Wetter"
+msgstr "SchÃ¶nes Wetter"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:82
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:79
@@ -3380,7 +3380,7 @@ msgstr "Feuerwerk"
 
 #: lib/Block/moon.php:164
 msgid "First Half"
-msgstr "Erste Hälfte"
+msgstr "Erste HÃ¤lfte"
 
 #: lib/Block/moon.php:72 lib/Block/moon.php:74
 msgid "First Quarter"
@@ -3392,7 +3392,7 @@ msgstr "Fischauge"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:260
 msgid "Fix ratio"
-msgstr "Verhältnis zurücksetzen"
+msgstr "VerhÃ¤ltnis zurÃ¼cksetzen"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:574
 #: ../framework/Net_SMS/SMS/clickatell_http.php:231
@@ -3405,11 +3405,11 @@ msgstr "Flash"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:292
 msgid "Flash Did Not Fire"
-msgstr "Blitz hat nicht ausgelöst"
+msgstr "Blitz hat nicht ausgelÃ¶st"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:293
 msgid "Flash Fired"
-msgstr "Blitz hat ausgelöst"
+msgstr "Blitz hat ausgelÃ¶st"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:112
 msgid "Flash Setting"
@@ -3441,12 +3441,12 @@ msgstr "Umdrehen"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Nikon.php:155
 msgid "Flourescence"
-msgstr "Leuchtstoffröhre"
+msgstr "LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:392
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:354
 msgid "Fluorescent"
-msgstr "Leuchtstoffröhre"
+msgstr "LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:103
 msgid "Focal Length"
@@ -3466,7 +3466,7 @@ msgstr "Anfangs Nebel"
 
 #: lib/Block/weatherdotcom_strings.php:31
 msgid "Fog Late"
-msgstr "Später Nebel"
+msgstr "SpÃ¤ter Nebel"
 
 #: lib/Block/weatherdotcom_strings.php:32
 msgid "Foggy"
@@ -3500,8 +3500,8 @@ msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
-"Vorhergesagte Tage (Vorhersagen enthalten Tage und Nächte, ein hoher Wert "
-"kann zu einem sehr großen Block führen)"
+"Vorhergesagte Tage (Vorhersagen enthalten Tage und NÃ¤chte, ein hoher Wert "
+"kann zu einem sehr groÃŸen Block fÃ¼hren)"
 
 #: templates/login/login.inc:81
 msgid "Forgot your password?"
@@ -3513,19 +3513,19 @@ msgstr "Formulare"
 
 #: lib/Block/fortune.php:28
 msgid "Fortune"
-msgstr "Glückskeks"
+msgstr "GlÃ¼ckskeks"
 
 #: lib/Block/fortune.php:106
 msgid "Fortune type"
-msgstr "Glückskekstyp"
+msgstr "GlÃ¼ckskekstyp"
 
 #: lib/Block/fortune.php:45
 msgid "Fortunes"
-msgstr "Glückskekse"
+msgstr "GlÃ¼ckskekse"
 
 #: lib/Block/fortune.php:46
 msgid "Fortunes 2"
-msgstr "Glückskekse 2"
+msgstr "GlÃ¼ckskekse 2"
 
 #: config/registry.php.dist:426
 msgid "Forums"
@@ -3551,17 +3551,17 @@ msgstr "Gefrierender Regen"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:92
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:81
 msgid "French Guiana"
-msgstr "Französisch-Guayana"
+msgstr "FranzÃ¶sisch-Guayana"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:186
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:82
 msgid "French Polynesia"
-msgstr "Französisch-Polynesien"
+msgstr "FranzÃ¶sisch-Polynesien"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:226
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:83
 msgid "French Southern Territories"
-msgstr "Französische Gebiete im südlichen Indischen Ozean"
+msgstr "FranzÃ¶sische Gebiete im sÃ¼dlichen Indischen Ozean"
 
 #: ../framework/Core/lib/Horde/Core/Ui/JsCalendar.php:114
 msgid "Friday"
@@ -3586,7 +3586,7 @@ msgstr "Vollautomatik"
 
 #: templates/problem/problem.inc:48
 msgid "Full Description"
-msgstr "Vollständige Beschreibung"
+msgstr "VollstÃ¤ndige Beschreibung"
 
 #: lib/Block/moon.php:79 lib/Block/moon.php:174
 msgid "Full Moon"
@@ -3594,7 +3594,7 @@ msgstr "Vollmond"
 
 #: lib/Block/account.php:68 templates/admin/user/update.inc:37
 msgid "Full Name"
-msgstr "Vollständiger Name"
+msgstr "VollstÃ¤ndiger Name"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:88
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:84
@@ -3684,12 +3684,12 @@ msgstr "Griechisch (ISO-8859-7)"
 
 #: themes/green/info.php:2
 msgid "Green"
-msgstr "Grün"
+msgstr "GrÃ¼n"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:96
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:91
 msgid "Greenland"
-msgstr "Grönland"
+msgstr "GrÃ¶nland"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:90
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:92
@@ -3740,7 +3740,7 @@ msgstr "Gastrechte"
 
 #: config/registry.php.dist:443
 msgid "Guestbook"
-msgstr "Gästebuch"
+msgstr "GÃ¤stebuch"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:98
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:96
@@ -3790,11 +3790,11 @@ msgstr "Diesig"
 #: ../framework/Model/lib/Horde/Form.php:2716
 #: ../framework/Form/Form/Type.php:96 ../framework/Form/Form/Type.php:3266
 msgid "Header"
-msgstr "Überschrift"
+msgstr "Ãœberschrift"
 
 #: ../framework/Form/Form/Type/tableset.php:58
 msgid "Headers"
-msgstr "Kopfeinträge"
+msgstr "KopfeintrÃ¤ge"
 
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:100
 msgid "Heard Island and McDonald Islands"
@@ -3814,15 +3814,15 @@ msgstr "Starke Gewitter"
 
 #: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
-msgstr "Hebräisch (ISO-8859-8-I)"
+msgstr "HebrÃ¤isch (ISO-8859-8-I)"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:97 lib/Block/iframe.php:24
 msgid "Height"
-msgstr "Höhe"
+msgstr "HÃ¶he"
 
 #: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
 msgid "Height of map (width automatically adjusts to block)"
-msgstr "Höhe der Karte (Breite passt sich automatisch an den Block an)"
+msgstr "HÃ¶he der Karte (Breite passt sich automatisch an den Block an)"
 
 #: ../framework/Core/lib/Horde/Help.php:217
 #: ../framework/Core/lib/Horde/Help.php:218
@@ -3833,7 +3833,7 @@ msgstr "Hilfe"
 
 #: services/help/index.php:70
 msgid "Help _Topics"
-msgstr "_Hilfeeinträge"
+msgstr "_HilfeeintrÃ¤ge"
 
 #: ../framework/Model/lib/Horde/Form.php:1002
 msgid "Helper?"
@@ -3928,7 +3928,7 @@ msgstr "Wieviele Felder (Spalten) gibt es?"
 
 #: lib/Block/feed.php:21
 msgid "How many seconds before we check for new articles?"
-msgstr "Nach wie vielen Sekunden soll nach neuen Beiträgen geschaut werden?"
+msgstr "Nach wie vielen Sekunden soll nach neuen BeitrÃ¤gen geschaut werden?"
 
 #: lib/Block/weatherdotcom.php:303 lib/Block/metar.php:225
 msgid "Humidity"
@@ -3988,7 +3988,7 @@ msgstr "Nur Bilder"
 #: util/icon_browser.php:53
 #, php-format
 msgid "Icons for %s"
-msgstr "Icons für %s"
+msgstr "Icons fÃ¼r %s"
 
 #: config/prefs.php.dist:503
 msgid "Icons with text"
@@ -4005,7 +4005,7 @@ msgstr "Ideas"
 
 #: config/prefs.php.dist:226
 msgid "Identity's name:"
-msgstr "Bezeichnung der Identität"
+msgstr "Bezeichnung der IdentitÃ¤t"
 
 #: ../framework/Model/www/test.php:24
 msgid "If other, please describe"
@@ -4013,15 +4013,15 @@ msgstr "Falls anderes, bitte beschreiben"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Bundled.php:284
 msgid "Illegal size for IFD1"
-msgstr "Ungültige Größe für IFD1"
+msgstr "UngÃ¼ltige GrÃ¶ÃŸe fÃ¼r IFD1"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Bundled.php:331
 msgid "Illegal size for InteroperabilityIFD"
-msgstr "Ungültige Größe für InteroperabilityIFD"
+msgstr "UngÃ¼ltige GrÃ¶ÃŸe fÃ¼r InteroperabilityIFD"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Bundled.php:247
 msgid "Illegal size for SubIFD"
-msgstr "Ungültige Größe für SubIFD"
+msgstr "UngÃ¼ltige GrÃ¶ÃŸe fÃ¼r SubIFD"
 
 #: ../framework/Form/Form/Type.php:3696
 msgid "Image CAPTCHA"
@@ -4041,7 +4041,7 @@ msgstr "Bildtitel"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:71
 msgid "Image keywords"
-msgstr "Bild-Stichwörter"
+msgstr "Bild-StichwÃ¶rter"
 
 #: ../framework/Form/Form/Type.php:1273
 msgid "Image upload"
@@ -4073,15 +4073,15 @@ msgid ""
 "Then hit \"Add pair\" to mark them for the import. Once your are finished "
 "hit \"Next\"."
 msgstr ""
-"Wählen Sie in der untenstehenden Liste jeweils ein Feld aus der importierten "
+"WÃ¤hlen Sie in der untenstehenden Liste jeweils ein Feld aus der importierten "
 "Datei auf der linken Seite und ein Feld aus Ihrem Adressbuch auf der rechten "
-"Seite aus. Dann drücken Sie \"Paar hinzufügen\", um dieses Paar für den "
-"Import zu verwenden. Wenn sie fertig sind, drücken Sie \"Weiter\"."
+"Seite aus. Dann drÃ¼cken Sie \"Paar hinzufÃ¼gen\", um dieses Paar fÃ¼r den "
+"Import zu verwenden. Wenn sie fertig sind, drÃ¼cken Sie \"Weiter\"."
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Nikon.php:154
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:107
 msgid "Incandescense"
-msgstr "Glühlampe"
+msgstr "GlÃ¼hlampe"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:278
 msgid "Inch"
@@ -4089,7 +4089,7 @@ msgstr "Inch"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:639
 msgid "Incorrect username and/or password."
-msgstr "Ungültiger Benutzername und/oder Passwort."
+msgstr "UngÃ¼ltiger Benutzername und/oder Passwort."
 
 #: services/resetpassword.php:50
 msgid ""
@@ -4098,7 +4098,7 @@ msgid ""
 msgstr ""
 "Falscher Benutzername oder E-Mail-Adresse. Versuchen Sie es erneut oder "
 "wenden Sie sich an Ihren Systemadministrator, wenn Sie weitere Hilfe "
-"benötigen."
+"benÃ¶tigen."
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:117
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:106
@@ -4129,7 +4129,7 @@ msgstr "Informationen"
 
 #: lib/Block/weatherdotcom.php:332
 msgid "Information no longer available."
-msgstr "Informationen nicht mehr verfügbar."
+msgstr "Informationen nicht mehr verfÃ¼gbar."
 
 #: templates/admin/groups/edit.inc:36
 msgid "Inherited Members"
@@ -4147,11 +4147,11 @@ msgstr ""
 
 #: ../framework/Model/www/test.php:44
 msgid "Insert some text"
-msgstr "Text einfügen"
+msgstr "Text einfÃ¼gen"
 
 #: ../framework/Model/www/test.php:44
 msgid "Insert some text in this box"
-msgstr "Text in diese Box einfügen"
+msgstr "Text in diese Box einfÃ¼gen"
 
 #: config/prefs.php.dist:296
 msgid "Insert the required answer to the security question:"
@@ -4182,7 +4182,7 @@ msgstr "Interner Blitz"
 
 #: ../framework/Prefs/lib/Horde/Prefs/Ldap.php:142
 msgid "Internal LDAP error.  Details have been logged for the administrator."
-msgstr "Interner LDAP-Fehler. Details wurden für den Administrator mitgeloggt."
+msgstr "Interner LDAP-Fehler. Details wurden fÃ¼r den Administrator mitgeloggt."
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:211
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:275
@@ -4191,50 +4191,50 @@ msgstr "Internationale Adresse"
 
 #: ../framework/Compress/lib/Horde/Compress/Rar.php:54
 msgid "Invalid RAR data."
-msgstr "Ungültige RAR-Daten."
+msgstr "UngÃ¼ltige RAR-Daten."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:303
 msgid "Invalid UDH. (User Data Header)."
-msgstr "Ungültiger UDH. (User Data Header)."
+msgstr "UngÃ¼ltiger UDH. (User Data Header)."
 
 #: lib/Block/vatid.php:52
 msgid "Invalid VAT identification number format."
-msgstr "Ungültiges Format der UStId-Nummer."
+msgstr "UngÃ¼ltiges Format der UStId-Nummer."
 
 #: ../framework/Compress/lib/Horde/Compress/Zip.php:197
 #: ../framework/Compress/lib/Horde/Compress/Zip.php:224
 #: ../framework/Compress/lib/Horde/Compress/Zip.php:244
 msgid "Invalid ZIP data"
-msgstr "Ungültige ZIP-Daten."
+msgstr "UngÃ¼ltige ZIP-Daten."
 
 #: admin/signup_confirm.php:43
 #, php-format
 msgid "Invalid action %s"
-msgstr "Ungültige Aktion %s"
+msgstr "UngÃ¼ltige Aktion %s"
 
 #: admin/setup/config.php:24
 msgid "Invalid application."
-msgstr "Ungültige Anwendung."
+msgstr "UngÃ¼ltige Anwendung."
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Driver/Base.php:182
 #, php-format
 msgid "Invalid authentication for user %s!"
-msgstr "Ungültige Authentifizierung für Benutzer %s!"
+msgstr "UngÃ¼ltige Authentifizierung fÃ¼r Benutzer %s!"
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:318
 msgid "Invalid batch ID."
-msgstr "Ungültige Batch-ID."
+msgstr "UngÃ¼ltige Batch-ID."
 
 #: ../framework/Mime/lib/Horde/Mime/Mail.php:396
 #, php-format
 msgid "Invalid character in e-mail address: %s."
-msgstr "Ungültiges Zeichen in der E-Mail-Adresse: %s."
+msgstr "UngÃ¼ltiges Zeichen in der E-Mail-Adresse: %s."
 
 #: ../framework/Form/Form/Type.php:2189 ../framework/Form/Form/Type.php:2264
 #: ../framework/Form/Form/Type.php:2337 ../framework/Form/Form/Type.php:2416
 #: ../framework/Form/Form/Type/tableset.php:34
 msgid "Invalid data submitted."
-msgstr "Ungültige Daten eingegeben."
+msgstr "UngÃ¼ltige Daten eingegeben."
 
 #: ../framework/Model/lib/Horde/Form.php:1780
 #: ../framework/Model/lib/Horde/Form.php:1840
@@ -4244,76 +4244,76 @@ msgstr "Ungültige Daten eingegeben."
 #: ../framework/Model/lib/Horde/Form/Type/Set.php:30
 #: ../framework/Model/lib/Horde/Form/Type/Set.php:62
 msgid "Invalid data."
-msgstr "Ungültige Daten."
+msgstr "UngÃ¼ltige Daten."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:306
 msgid "Invalid destination address."
-msgstr "Ungültige Zieladresse."
+msgstr "UngÃ¼ltige Zieladresse."
 
 #: ../framework/Compress/lib/Horde/Compress/Dbx.php:128
 #: ../framework/Compress/lib/Horde/Compress/Dbx.php:157
 #: ../framework/Compress/lib/Horde/Compress/Dbx.php:238
 msgid "Invalid file format"
-msgstr "Ungültiges Dateiformat"
+msgstr "UngÃ¼ltiges Dateiformat"
 
 #: admin/signup_confirm.php:33
 msgid "Invalid hash."
-msgstr "Ungültiger Hash."
+msgstr "UngÃ¼ltiger Hash."
 
 #: lib/Block/weatherdotcom.php:180
 msgid "Invalid license key."
-msgstr "Ungültiger Lizenzschlüssel."
+msgstr "UngÃ¼ltiger LizenzschlÃ¼ssel."
 
 #: lib/Block/weatherdotcom.php:174
 msgid "Invalid location provided."
-msgstr "Ungültiger Ort angegeben."
+msgstr "UngÃ¼ltiger Ort angegeben."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:313
 msgid "Invalid msg_type."
-msgstr "Ungültiger msg_type."
+msgstr "UngÃ¼ltiger msg_type."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:309
 msgid "Invalid or missing api_id."
-msgstr "Ungültige oder fehlende api_id."
+msgstr "UngÃ¼ltige oder fehlende api_id."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:302
 msgid "Invalid or missing parameters."
-msgstr "Ungültige oder fehlende Parameter."
+msgstr "UngÃ¼ltige oder fehlende Parameter."
 
 #: admin/perms/addchild.php:23
 msgid "Invalid parent permission."
-msgstr "Ungültiges Überrecht."
+msgstr "UngÃ¼ltiges Ãœberrecht."
 
 #: lib/Block/weatherdotcom.php:176
 msgid "Invalid partner id."
-msgstr "Ungültige Partner-ID."
+msgstr "UngÃ¼ltige Partner-ID."
 
 #: lib/Block/weatherdotcom.php:178
 msgid "Invalid product code."
-msgstr "Ungültiger Produktcode."
+msgstr "UngÃ¼ltiger Produktcode."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:312
 msgid "Invalid protocol."
-msgstr "Ungültiges Protokoll."
+msgstr "UngÃ¼ltiges Protokoll."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:100
 #: ../framework/Net_SMS/SMS/win_http.php:78
 #: ../framework/Net_SMS/SMS/win_http.php:87
 #, php-format
 msgid "Invalid recipient: \"%s\""
-msgstr "Ungültiger Empfänger: \"%s\""
+msgstr "UngÃ¼ltiger EmpfÃ¤nger: \"%s\""
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:307
 msgid "Invalid source address."
-msgstr "Ungültige Ursprungsadresse."
+msgstr "UngÃ¼ltige Ursprungsadresse."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:317
 msgid "Invalid unicode data."
-msgstr "Ungültige Unicode-Daten."
+msgstr "UngÃ¼ltige Unicode-Daten."
 
 #: ../framework/Net_SMS/SMS/textmagic_http.php:492
 msgid "Invalid username/password combination"
-msgstr "Ungültige Benutzer-Passwort-Kombination"
+msgstr "UngÃ¼ltige Benutzer-Passwort-Kombination"
 
 #: config/registry.php.dist:349
 msgid "Inventory"
@@ -4433,32 +4433,32 @@ msgstr "Kernel-Neulinge"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:422
 msgid "Key Creation"
-msgstr "Schlüsselerzeugung"
+msgstr "SchlÃ¼sselerzeugung"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:425
 msgid "Key Fingerprint"
-msgstr "Fingerabdruck des Schlüssels"
+msgstr "Fingerabdruck des SchlÃ¼ssels"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:425
 msgid "Key ID"
-msgstr "Schlüssel-Id"
+msgstr "SchlÃ¼ssel-Id"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:423
 msgid "Key Length"
-msgstr "Schlüssellänge"
+msgstr "SchlÃ¼ssellÃ¤nge"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:422
 msgid "Key Type"
-msgstr "Schlüsseltyp"
+msgstr "SchlÃ¼sseltyp"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:504
 msgid "Key Usage"
-msgstr "Schlüsselzweck"
+msgstr "SchlÃ¼sselzweck"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:780
 msgid "Key already exists on the public keyserver."
 msgstr ""
-"Der Schlüssel befindet sich bereits auf dem öffentlichen Schlüsselserver."
+"Der SchlÃ¼ssel befindet sich bereits auf dem Ã¶ffentlichen SchlÃ¼sselserver."
 
 #: services/help/index.php:139
 msgid "Keyword"
@@ -4525,15 +4525,15 @@ msgstr "Laos"
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:152
 #: lib/Block/iframe.php:28
 msgid "Large"
-msgstr "Groß"
+msgstr "GroÃŸ"
 
 #: lib/Block/moon.php:167
 msgid "Last Half"
-msgstr "Letzte Hälfte"
+msgstr "Letzte HÃ¤lfte"
 
 #: lib/Block/account.php:91
 msgid "Last Password Change"
-msgstr "Letzte Passwortänderung"
+msgstr "Letzte PasswortÃ¤nderung"
 
 #: lib/Block/moon.php:84 lib/Block/moon.php:86
 msgid "Last Quarter"
@@ -4595,7 +4595,7 @@ msgstr "Links"
 #: ../framework/Model/lib/Horde/Form.php:2895
 #: ../framework/Form/Form/Type.php:3460
 msgid "Left header"
-msgstr "Linke Überschrift"
+msgstr "Linke Ãœberschrift"
 
 #: ../framework/Model/lib/Horde/Form.php:2891
 #: ../framework/Form/Form/Type.php:3456
@@ -4632,7 +4632,7 @@ msgstr "Hellblau"
 
 #: lib/Block/weatherdotcom_strings.php:38
 msgid "Light Drizzle"
-msgstr "Sprühregen"
+msgstr "SprÃ¼hregen"
 
 #: lib/Block/weatherdotcom_strings.php:39
 msgid "Light Rain"
@@ -4644,7 +4644,7 @@ msgstr "Anfangs leichter Regen"
 
 #: lib/Block/weatherdotcom_strings.php:41
 msgid "Light Rain Late"
-msgstr "Später leichter Regen"
+msgstr "SpÃ¤ter leichter Regen"
 
 #: lib/Block/weatherdotcom_strings.php:42
 msgid "Light Rain Shower"
@@ -4664,7 +4664,7 @@ msgstr "Anfangs leichter Schneefall"
 
 #: lib/Block/weatherdotcom_strings.php:46
 msgid "Light Snow Late"
-msgstr "Später leichter Schneefall"
+msgstr "SpÃ¤ter leichter Schneefall"
 
 #: lib/Block/weatherdotcom_strings.php:47
 msgid "Light Snow Shower"
@@ -4676,7 +4676,7 @@ msgstr "Lichtquelle"
 
 #: services/facebook.php:105
 msgid "Like"
-msgstr "Gefällt mir"
+msgstr "GefÃ¤llt mir"
 
 #: lib/Block/fortune.php:52
 msgid "Limerick"
@@ -4717,7 +4717,7 @@ msgstr "Link-Text"
 #: ../framework/Form/Form/Type.php:1607
 msgid "Link the email address to the compose page when displaying?"
 msgstr ""
-"E-Mail-Adresse beim Anzeigen zum Fenster für neue Nachrichten verlinken?"
+"E-Mail-Adresse beim Anzeigen zum Fenster fÃ¼r neue Nachrichten verlinken?"
 
 #: ../framework/Model/lib/Horde/Form.php:1183
 #: ../framework/Form/Form/Type.php:1348
@@ -4731,7 +4731,7 @@ msgstr "Links"
 
 #: lib/Block/fortune.php:53
 msgid "Linux Cookie"
-msgstr "Linux-Glückskekse"
+msgstr "Linux-GlÃ¼ckskekse"
 
 #: admin/sqlshell.php:128
 msgid "List Databases"
@@ -4781,7 +4781,7 @@ msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "Das Anzeigen der Benutzer ist nicht möglich."
+msgstr "Das Anzeigen der Benutzer ist nicht mÃ¶glich."
 
 #: lib/Block/fortune.php:54
 msgid "Literature"
@@ -4850,7 +4850,7 @@ msgstr "Langer Text"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:89
 msgid "Longitude"
-msgstr "Längengrad"
+msgstr "LÃ¤ngengrad"
 
 #: lib/Block/fortune.php:55
 msgid "Love"
@@ -4871,7 +4871,7 @@ msgstr "Niedriger Kontostand"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:265
 msgid "Low/High Quality"
-msgstr "Niedrige/Hohe Qualität"
+msgstr "Niedrige/Hohe QualitÃ¤t"
 
 #: themes/luc/info.php:2
 msgid "Loyola"
@@ -4971,12 +4971,12 @@ msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Verwalten Sie die Kategorien, mit denen Sie Elemente und Einträge "
-"kennzeichnen können, sowie die zugehörigen Farben."
+"Verwalten Sie die Kategorien, mit denen Sie Elemente und EintrÃ¤ge "
+"kennzeichnen kÃ¶nnen, sowie die zugehÃ¶rigen Farben."
 
 #: config/prefs.php.dist:634
 msgid "Manage your ActiveSync devices."
-msgstr "Verwaltung Ihrer ActiveSync-Geräte."
+msgstr "Verwaltung Ihrer ActiveSync-GerÃ¤te."
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:256
 #: ../framework/Image/lib/Horde/Image/Exif.php:417
@@ -5023,7 +5023,7 @@ msgstr "MapQuest-Karte"
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:443
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:481
 msgid "March"
-msgstr "März"
+msgstr "MÃ¤rz"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:154
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:140
@@ -5055,7 +5055,7 @@ msgstr "Maximal erlaubter Kredit."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:314
 msgid "Max message parts exceeded."
-msgstr "Maximale Nachtichtenteile überschritten."
+msgstr "Maximale Nachtichtenteile Ã¼berschritten."
 
 #: ../framework/Net_SMS/SMS/textmagic_http.php:439
 #: ../framework/Net_SMS/SMS/textmagic_http.php:462
@@ -5064,26 +5064,26 @@ msgstr "Maximale Nachrichtenanzahl"
 
 #: lib/Block/metar.php:301
 msgid "Max temp last 24 hours: "
-msgstr "Höchsttemperatur der letzten 24 Stunden: "
+msgstr "HÃ¶chsttemperatur der letzten 24 Stunden: "
 
 #: lib/Block/metar.php:293
 msgid "Max temp last 6 hours: "
-msgstr "Höchsttemperatur der letzten 6 Stunden: "
+msgstr "HÃ¶chsttemperatur der letzten 6 Stunden: "
 
 #: lib/Application.php:39
 msgid "Maximum Number of Portal Blocks"
-msgstr "Maximale Anzahl an Portalblöcken"
+msgstr "Maximale Anzahl an PortalblÃ¶cken"
 
 #: ../framework/Form/Form/Type.php:1279
 msgid "Maximum file size in bytes"
-msgstr "Maximale Dateigröße in Bytes"
+msgstr "Maximale DateigrÃ¶ÃŸe in Bytes"
 
 #: ../framework/Model/lib/Horde/Form.php:847
 #: ../framework/Model/lib/Horde/Form.php:867
 #: ../framework/Form/Form/Type.php:381 ../framework/Form/Form/Type.php:401
 #: ../framework/Form/Form/Type.php:427
 msgid "Maximum length"
-msgstr "Maximale Länge"
+msgstr "Maximale LÃ¤nge"
 
 #: ../framework/Net_SMS/SMS/textmagic_http.php:421
 msgid "Maximum messages to be sent at once"
@@ -5091,7 +5091,7 @@ msgstr "Maximale Anzahl gleichzeitig zu verschickender Nachrichten"
 
 #: lib/Block/fb_stream.php:86
 msgid "Maximum number of entries to display"
-msgstr "Maximale Anzahl der anzuzeigenden Einträge"
+msgstr "Maximale Anzahl der anzuzeigenden EintrÃ¤ge"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:283
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:322
@@ -5121,7 +5121,7 @@ msgstr "Mitglieder"
 
 #: config/prefs.php.dist:505
 msgid "Menu mode:"
-msgstr "Menümodus:"
+msgstr "MenÃ¼modus:"
 
 #: ../framework/Core/lib/Horde/Core/Notification/Status.php:100
 msgid "Message"
@@ -5132,12 +5132,12 @@ msgid ""
 "Message Verified Successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
-"Die Nachricht konnte erfolgreich überprüft werden aber nicht das Zertifikat "
+"Die Nachricht konnte erfolgreich Ã¼berprÃ¼ft werden aber nicht das Zertifikat "
 "des Absenders."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:316
 msgid "Message expired."
-msgstr "Nachricht nicht mehr gültig."
+msgstr "Nachricht nicht mehr gÃ¼ltig."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:576
 #: ../framework/Net_SMS/SMS/sms2email_http.php:609
@@ -5156,13 +5156,13 @@ msgstr "Metar Wetter"
 
 #: lib/Block/metar.php:42
 msgid "Metar block not available."
-msgstr "Metarblock nicht verfügbar."
+msgstr "Metarblock nicht verfÃ¼gbar."
 
 #: lib/Block/metar.php:110
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr ""
-"Metarblock nicht verfügbar. Details wurden für den Administrator mitgeloggt."
+"Metarblock nicht verfÃ¼gbar. Details wurden fÃ¼r den Administrator mitgeloggt."
 
 #: lib/Block/weatherdotcom.php:168
 msgid "MetarDB is not connected."
@@ -5197,7 +5197,7 @@ msgstr "Mexiko"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:85
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:146
 msgid "Micronesia, Federated States of"
-msgstr "Föderierte Staaten von Mikronesien"
+msgstr "FÃ¶derierte Staaten von Mikronesien"
 
 #: lib/Block/metar.php:305
 msgid "Min temp last 24 hours: "
@@ -5228,8 +5228,8 @@ msgstr "PEAR-Paket HTTP_Request fehlt."
 msgid ""
 "Missing configuration. You must generate it before using this application."
 msgstr ""
-"Fehlende Konfiguration. Sie müssen diese erzeugen, bevor Sie die Anwendung "
-"verwenden können."
+"Fehlende Konfiguration. Sie mÃ¼ssen diese erzeugen, bevor Sie die Anwendung "
+"verwenden kÃ¶nnen."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:310
 msgid "Missing message ID."
@@ -5262,13 +5262,13 @@ msgstr "Modus 2"
 
 #: lib/Block/weatherdotcom_strings.php:99
 msgid "Moderate"
-msgstr "Mäßig"
+msgstr "MÃ¤ÃŸig"
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Rar.php:105
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Zip.php:113
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Tgz.php:123
 msgid "Modified Date"
-msgstr "Änderungsdatum"
+msgstr "Ã„nderungsdatum"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:580
 msgid "Modulus"
@@ -5333,19 +5333,19 @@ msgstr "Marokko"
 
 #: lib/Block/weatherdotcom_strings.php:49
 msgid "Mostly Clear"
-msgstr "Überwiegend heiter"
+msgstr "Ãœberwiegend heiter"
 
 #: lib/Block/weatherdotcom_strings.php:50
 msgid "Mostly Cloudy"
-msgstr "Überwiegend bewölkt"
+msgstr "Ãœberwiegend bewÃ¶lkt"
 
 #: lib/Block/weatherdotcom_strings.php:51
 msgid "Mostly Cloudy and Windy"
-msgstr "Überwiegend bewölkt und windig"
+msgstr "Ãœberwiegend bewÃ¶lkt und windig"
 
 #: lib/Block/weatherdotcom_strings.php:52
 msgid "Mostly Sunny"
-msgstr "Überwiegend sonnig"
+msgstr "Ãœberwiegend sonnig"
 
 #: ../framework/Block/lib/Horde/Block/Layout/Manager.php:609
 msgid "Move Down"
@@ -5452,7 +5452,7 @@ msgstr "Namibia"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:320
 msgid "Natural"
-msgstr "Natürlich"
+msgstr "NatÃ¼rlich"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:180
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:155
@@ -5476,7 +5476,7 @@ msgstr "Niederlande"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:21
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:158
 msgid "Netherlands Antilles"
-msgstr "Niederländische Antillen"
+msgstr "NiederlÃ¤ndische Antillen"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:487
 msgid "Netscape Base URL"
@@ -5553,7 +5553,7 @@ msgstr "Neues Passwort"
 
 #: services/changepassword.php:40
 msgid "New passwords don't match."
-msgstr "Die neuen Passwörter stimmen nicht überein."
+msgstr "Die neuen PasswÃ¶rter stimmen nicht Ã¼berein."
 
 #: lib/Block/fortune.php:59 config/registry.php.dist:304
 msgid "News"
@@ -5566,7 +5566,7 @@ msgstr "Weiter"
 
 #: lib/Block/moon.php:25
 msgid "Next 4 Phases"
-msgstr "Nächste 4 Phasen"
+msgstr "NÃ¤chste 4 Phasen"
 
 #: ../framework/Core/lib/Horde/Core/Ui/Pager.php:120
 msgid "Next>"
@@ -5595,7 +5595,7 @@ msgstr "Nachts"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:194
 msgid "Night Portrait"
-msgstr "Nachtporträt"
+msgstr "NachtportrÃ¤t"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:483
 msgid "Night Scene"
@@ -5626,7 +5626,7 @@ msgstr "Kein Blitz"
 
 #: ../framework/Core/lib/Horde/Core/Binder/Twitter.php:42
 msgid "No OAuth Key or Secret found for the Twitter API"
-msgstr "OAuth-Schlüssel oder -Passwort für die Twitter-API nicht gefunden"
+msgstr "OAuth-SchlÃ¼ssel oder -Passwort fÃ¼r die Twitter-API nicht gefunden"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:550
 #: templates/prefs/alarm.html:32
@@ -5639,15 +5639,15 @@ msgstr "Keine Warnung"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:227
 msgid "No address book selected."
-msgstr "Kein Adressbuch ausgewählt."
+msgstr "Kein Adressbuch ausgewÃ¤hlt."
 
 #: templates/admin/setup/diff.html:9
 msgid "No available configuration data to show differences for."
-msgstr "Keine Konfigurationsdaten verfügbar, um Unterschiede anzuzeigen."
+msgstr "Keine Konfigurationsdaten verfÃ¼gbar, um Unterschiede anzuzeigen."
 
 #: ../framework/VFS_ISOWriter/ISOWriter.php:100
 msgid "No available strategy for making ISO images."
-msgstr "Keine Strategie zum Erstellen von ISO-Abbildern verfügbar."
+msgstr "Keine Strategie zum Erstellen von ISO-Abbildern verfÃ¼gbar."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:319
 msgid "No batch template."
@@ -5659,25 +5659,25 @@ msgstr "Es existiert kein Block an der angegebenen Position"
 
 #: admin/setup/diff.php:39
 msgid "No change."
-msgstr "Keine Änderungen."
+msgstr "Keine Ã„nderungen."
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:190
 msgid "No children can be added to this permission."
 msgstr ""
-"Unterhalb dieser Ebene können keine weiteren Unterrechte hinzugefügt werden."
+"Unterhalb dieser Ebene kÃ¶nnen keine weiteren Unterrechte hinzugefÃ¼gt werden."
 
 #: ../framework/Core/lib/Horde.php:887
 #, php-format
 msgid "No configuration information specified for %s."
-msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
+msgstr "FÃ¼r %s wurden keine Konfigurationsinformationen angegeben."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:320
 msgid "No credit left."
-msgstr "Kein Kredit mehr übrig."
+msgstr "Kein Kredit mehr Ã¼brig."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:641
 msgid "No destination supplied."
-msgstr "Kein Empfänger angegeben."
+msgstr "Kein EmpfÃ¤nger angegeben."
 
 #: util/icon_browser.php:83
 msgid "No icons found."
@@ -5706,7 +5706,7 @@ msgstr "Keine Nummer angegeben."
 
 #: lib/Block/fortune.php:101
 msgid "No offensive fortunes"
-msgstr "Keine anstößigen Glückskekse"
+msgstr "Keine anstÃ¶ÃŸigen GlÃ¼ckskekse"
 
 #: ../framework/Kolab_Format/lib/Horde/Kolab/Format/Xml.php:443
 #: ../framework/Kolab_Format/lib/Horde/Kolab/Format/Xml.php:598
@@ -5719,7 +5719,7 @@ msgid ""
 "work with PKCS 12 data."
 msgstr ""
 "Kein Pfad zum OpenSSL-Programm angegeben. Das OpenSSL-Programm wird "
-"benötigt, um PKCS-12-Daten verarbeiten zu können."
+"benÃ¶tigt, um PKCS-12-Daten verarbeiten zu kÃ¶nnen."
 
 #: templates/admin/user/approve.inc:15
 msgid "No pending signups."
@@ -5737,7 +5737,7 @@ msgstr "Keine Wiederholung"
 
 #: admin/setup/index.php:89 admin/setup/index.php:121
 msgid "No stable version exists yet."
-msgstr "Noch keine stabile Version verfügbar."
+msgstr "Noch keine stabile Version verfÃ¼gbar."
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
 #, php-format
@@ -5755,11 +5755,11 @@ msgstr "Ordner %s nicht gefunden"
 
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:633
 msgid "No summary available"
-msgstr "Keine Zusammenfassung verfügbar"
+msgstr "Keine Zusammenfassung verfÃ¼gbar"
 
 #: lib/Block/weatherdotcom.php:143
 msgid "No temporary directory available for cache."
-msgstr "Keine temporäres Verzeichnis für den Cache gefunden."
+msgstr "Keine temporÃ¤res Verzeichnis fÃ¼r den Cache gefunden."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:638
 #: ../framework/Net_SMS/SMS/win_http.php:228
@@ -5772,11 +5772,11 @@ msgstr "Kein Benutzername angegeben."
 
 #: ../framework/Rpc/lib/Horde/Rpc/Phpgw.php:160
 msgid "No valid XML data returned:"
-msgstr "Keine gültigen XML-Daten zurückgegeben:"
+msgstr "Keine gÃ¼ltigen XML-Daten zurÃ¼ckgegeben:"
 
 #: ../framework/Core/lib/Horde/Core/Ajax/Application.php:174
 msgid "No valid email address found"
-msgstr "Keine gültige E-Mail-Adresse gefunden"
+msgstr "Keine gÃ¼ltige E-Mail-Adresse gefunden"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:855
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:865
@@ -5836,7 +5836,7 @@ msgstr "Normal"
 #: ../framework/Image/lib/Horde/Image/Exif.php:290
 #, php-format
 msgid "Normal (O deg)"
-msgstr "Normal (0°)"
+msgstr "Normal (0Â°)"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:257
 msgid "Normal Program"
@@ -5844,12 +5844,12 @@ msgstr "Normalprogramm"
 
 #: lib/Block/moon.php:30 lib/Block/moon.php:58
 msgid "Northern Hemisphere"
-msgstr "Nördliche Hemisphere"
+msgstr "NÃ¶rdliche Hemisphere"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:160
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:166
 msgid "Northern Mariana Islands"
-msgstr "Nördliche Marianen"
+msgstr "NÃ¶rdliche Marianen"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:178
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:167
@@ -5858,11 +5858,11 @@ msgstr "Norwegen"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:546
 msgid "Not After"
-msgstr "Gültig bis"
+msgstr "GÃ¼ltig bis"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:545
 msgid "Not Before"
-msgstr "Gültig ab"
+msgstr "GÃ¼ltig ab"
 
 #: ../framework/Exception/lib/Horde/Exception/NotFound.php:27
 msgid "Not Found"
@@ -5870,7 +5870,7 @@ msgstr "Nicht gefunden"
 
 #: admin/activesync.php:136 lib/Prefs/Ui.php:464
 msgid "Not Provisioned"
-msgstr "Nicht verknüpft"
+msgstr "Nicht verknÃ¼pft"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:462
 msgid "Not defined"
@@ -5897,7 +5897,7 @@ msgstr "Notizen"
 
 #: services/obrowser/index.php:32
 msgid "Nothing to browse, go back."
-msgstr "Nichts anzuzeigen, bitte zurückgehen."
+msgstr "Nichts anzuzeigen, bitte zurÃ¼ckgehen."
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:289
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:328
@@ -5914,7 +5914,7 @@ msgstr "Zahl"
 
 #: lib/Block/feed.php:18
 msgid "Number of articles to display"
-msgstr "Anzahl der anzuzeigenden Beiträge"
+msgstr "Anzahl der anzuzeigenden BeitrÃ¤ge"
 
 #: ../framework/Model/lib/Horde/Form.php:1047
 #: ../framework/Form/Form/Type.php:649
@@ -5945,7 +5945,7 @@ msgstr "Wartezeit zwischen Aktualisierungen in Sekunden"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:651
 msgid "Numbers not specified for updating in distribution list."
-msgstr "Keine Nummern für die Verteilerliste angegeben."
+msgstr "Keine Nummern fÃ¼r die Verteilerliste angegeben."
 
 #: services/keyboard.php:92
 msgid "O characters"
@@ -5994,11 +5994,11 @@ msgstr "Aus"
 
 #: lib/Block/fortune.php:99
 msgid "Offense filter"
-msgstr "Filter für anstößige Inhalte"
+msgstr "Filter fÃ¼r anstÃ¶ÃŸige Inhalte"
 
 #: config/registry.php.dist:326
 msgid "Office"
-msgstr "Büro"
+msgstr "BÃ¼ro"
 
 #: services/changepassword.php:42
 msgid "Old and new passwords must be different."
@@ -6059,7 +6059,7 @@ msgstr "One-Shot"
 
 #: lib/Block/fortune.php:102
 msgid "Only offensive fortunes"
-msgstr "Nur anstößige Glückskekse"
+msgstr "Nur anstÃ¶ÃŸige GlÃ¼ckskekse"
 
 #: ../framework/Model/lib/Horde/Form.php:1670
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:441
@@ -6079,7 +6079,7 @@ msgid ""
 "permissions for a share"
 msgstr ""
 "Nur der Besitzer oder der Systemadministrator kann den Besitzer oder die "
-"Besitzerrechte ändern"
+"Besitzerrechte Ã¤ndern"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:228
 msgid "OpenSSL error: Could not extract data from signed S/MIME part."
@@ -6097,7 +6097,7 @@ msgstr "Einstellungen"
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:581
 #, php-format
 msgid "Options for %s"
-msgstr "Einstellungen für %s"
+msgstr "Einstellungen fÃ¼r %s"
 
 #: templates/shares/edit.inc:238
 msgid "Or enter a user name:"
@@ -6137,7 +6137,7 @@ msgstr "Unscharf"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:174
 msgid "Over Exposure"
-msgstr "Überbelichtung"
+msgstr "Ãœberbelichtung"
 
 #: templates/shares/edit.inc:32
 msgid "Owner"
@@ -6153,19 +6153,19 @@ msgstr "Digitale PGP-Signatur"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1439
 msgid "PGP Encrypted Data"
-msgstr "PGP-verschlüsselte Daten"
+msgstr "PGP-verschlÃ¼sselte Daten"
 
 #: ../framework/Form/Form/Type.php:820
 msgid "PGP Key"
-msgstr "PGP-Schlüssel"
+msgstr "PGP-SchlÃ¼ssel"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1500
 msgid "PGP Public Key"
-msgstr "Öffentlicher PGP-Schlüssel"
+msgstr "Ã–ffentlicher PGP-SchlÃ¼ssel"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1482
 msgid "PGP Signed/Encrypted Data"
-msgstr "Mit PGP unterzeichnete/verschlüsselte Daten"
+msgstr "Mit PGP unterzeichnete/verschlÃ¼sselte Daten"
 
 #: admin/phpshell.php:51
 msgid "PHP"
@@ -6248,7 +6248,7 @@ msgstr "Palau"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:194
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:171
 msgid "Palestinian Territory, Occupied"
-msgstr "Besetzte Palästinensische Gebiete"
+msgstr "Besetzte PalÃ¤stinensische Gebiete"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:171
 msgid "Pan Focus"
@@ -6285,7 +6285,7 @@ msgstr "Teilbereich"
 
 #: lib/Block/weatherdotcom_strings.php:53
 msgid "Partly Cloudy"
-msgstr "Teilweise bewölkt"
+msgstr "Teilweise bewÃ¶lkt"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:212
 msgid "Party"
@@ -6305,7 +6305,7 @@ msgstr "Passwort"
 
 #: services/changepassword.php:52
 msgid "Password changed successfully."
-msgstr "Passwort erfolgreich geändert."
+msgstr "Passwort erfolgreich geÃ¤ndert."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:1253
 msgid "Password incorrect"
@@ -6315,7 +6315,7 @@ msgstr "Falsches Passwort"
 #: ../framework/Model/lib/Horde/Form.php:1747
 #: ../framework/Form/Form/Type.php:2156
 msgid "Password with confirmation"
-msgstr "Passwort mit Bestätigung"
+msgstr "Passwort mit BestÃ¤tigung"
 
 #: lib/Prefs/Ui.php:364
 msgid "Password:"
@@ -6326,11 +6326,11 @@ msgstr "Passwort:"
 #: ../framework/Model/lib/Horde/Form/Type/Password.php:38
 #: ../framework/Form/Form/Type.php:2138
 msgid "Passwords must match."
-msgstr "Die Passwörter müssen gleich sein."
+msgstr "Die PasswÃ¶rter mÃ¼ssen gleich sein."
 
 #: admin/sqlshell.php:113
 msgid "Paste"
-msgstr "Einfügen"
+msgstr "EinfÃ¼gen"
 
 #: ../framework/Form/Form/Type.php:822
 msgid "Path to the GnuPG binary"
@@ -6346,7 +6346,7 @@ msgstr "Personen"
 
 #: templates/logintasks/logintasks.html:30
 msgid "Perform Login Tasks"
-msgstr "Anmeldeaufgaben durchführen"
+msgstr "Anmeldeaufgaben durchfÃ¼hren"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:190
 msgid "Permission"
@@ -6355,7 +6355,7 @@ msgstr "Rechte"
 #: admin/perms/delete.php:42
 #, php-format
 msgid "Permission \"%s\" not deleted."
-msgstr "Recht \"%s\" wurde nicht gelöscht."
+msgstr "Recht \"%s\" wurde nicht gelÃ¶scht."
 
 #: ../framework/Exception/lib/Horde/Exception/PermissionDenied.php:27
 #: ../framework/VFS/lib/VFS/smb.php:576
@@ -6374,7 +6374,7 @@ msgstr "Rechteverwaltung"
 
 #: config/prefs.php.dist:213
 msgid "Personal Information"
-msgstr "Persönliche Angaben"
+msgstr "PersÃ¶nliche Angaben"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:185
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:175
@@ -6451,7 +6451,7 @@ msgstr "Bitte anmelden!"
 
 #: ../framework/Form/Form/Type.php:3172
 msgid "Please choose a sound."
-msgstr "Bitte wählen Sie einen Klang aus:"
+msgstr "Bitte wÃ¤hlen Sie einen Klang aus:"
 
 #: ../framework/Model/lib/Horde/Form.php:2244
 #: ../framework/Form/Form/Type.php:2701
@@ -6469,19 +6469,19 @@ msgstr "Bitte geben Sie einen Benutzernamen ein."
 #: ../framework/Model/lib/Horde/Form.php:938
 #: ../framework/Form/Form/Type.php:494 ../framework/Form/Form/Type.php:524
 msgid "Please enter a valid IP address."
-msgstr "Bitte eine gültige IP-Adresse eingeben."
+msgstr "Bitte eine gÃ¼ltige IP-Adresse eingeben."
 
 #: ../framework/Model/lib/Horde/Form.php:2322
 #: ../framework/Form/Form/Type.php:2781
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr ""
-"Bitte geben Sie ein gültiges Datum an; überprüfen Sie die Zahl der Tage in "
+"Bitte geben Sie ein gÃ¼ltiges Datum an; Ã¼berprÃ¼fen Sie die Zahl der Tage in "
 "dem Monat."
 
 #: ../framework/Model/lib/Horde/Form.php:2127
 #: ../framework/Form/Form/Type.php:2579
 msgid "Please enter a valid time."
-msgstr "Bitte einen gültigen Zeitwert eingeben."
+msgstr "Bitte einen gÃ¼ltigen Zeitwert eingeben."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
@@ -6492,8 +6492,8 @@ msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Bitte lesen Sie sich den folgenden Text sorgfältig durch. Sie MÜSSEN diesen "
-"Bedingungen zustimmen, wenn Sie dieses System benutzen möchten."
+"Bitte lesen Sie sich den folgenden Text sorgfÃ¤ltig durch. Sie MÃœSSEN diesen "
+"Bedingungen zustimmen, wenn Sie dieses System benutzen mÃ¶chten."
 
 #: ../framework/Prefs/lib/Horde/Prefs/CategoryManager.php:82
 msgid "Please type the new category name:"
@@ -6510,11 +6510,11 @@ msgstr "Polen"
 
 #: admin/activesync.php:95
 msgid "Policy Key"
-msgstr "Richtlinien-Schlüssel"
+msgstr "Richtlinien-SchlÃ¼ssel"
 
 #: lib/Prefs/Ui.php:470
 msgid "Policy Key:"
-msgstr "Richtlinien-Schlüssel:"
+msgstr "Richtlinien-SchlÃ¼ssel:"
 
 #: lib/Block/fortune.php:64
 msgid "Politics"
@@ -6554,7 +6554,7 @@ msgstr "Erstellt %s"
 #: templates/block/twitter_tweet.html.php:26
 #, php-format
 msgid "Posted %s via %s"
-msgstr "Erstellt %s über %s"
+msgstr "Erstellt %s Ã¼ber %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
@@ -6579,7 +6579,7 @@ msgstr "Benutzereinstellungen"
 #: ../framework/admintools/horde-remove-pref.php:33
 #, php-format
 msgid "Preferences \"%s\" deleted in scope \"%s\"."
-msgstr "Benutzereinstellungen \"%s\" im Bereich \"%s\" gelöscht."
+msgstr "Benutzereinstellungen \"%s\" im Bereich \"%s\" gelÃ¶scht."
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:223
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:287
@@ -6596,7 +6596,7 @@ msgstr "Luftdruck"
 
 #: lib/Block/metar.php:254
 msgid "Pressure at sea level: "
-msgstr "Luftdruck auf Seehöhe: "
+msgstr "Luftdruck auf SeehÃ¶he: "
 
 #: lib/Block/weatherdotcom.php:239
 msgid "Pressure: "
@@ -6609,7 +6609,7 @@ msgstr "Vorschau"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:445
 msgid "Private Key"
-msgstr "Privater Schlüssel"
+msgstr "Privater SchlÃ¼ssel"
 
 #: ../framework/Core/lib/Horde/Menu.php:173
 msgid "Problem"
@@ -6639,31 +6639,31 @@ msgstr "Nachfragetext"
 #: ../framework/Model/lib/Horde/Form.php:1427
 #: ../framework/Form/Form/Type.php:1604
 msgid "Protect address from spammers?"
-msgstr "Adresse vor Spammern schützen?"
+msgstr "Adresse vor Spammern schÃ¼tzen?"
 
 #: admin/activesync.php:136 lib/Prefs/Ui.php:463
 msgid "Provisioned"
-msgstr "Verknüpft"
+msgstr "VerknÃ¼pft"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:445
 msgid "Public Key"
-msgstr "Öffentlicher Schlüssel"
+msgstr "Ã–ffentlicher SchlÃ¼ssel"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:551
 msgid "Public Key Algorithm"
-msgstr "Algorithmus des öffentlichen Schlüssels"
+msgstr "Algorithmus des Ã¶ffentlichen SchlÃ¼ssels"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:550
 msgid "Public Key Info"
-msgstr "Informationen zum öffentlichen Schlüssel"
+msgstr "Informationen zum Ã¶ffentlichen SchlÃ¼ssel"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:223
 msgid "Public/Private keypair not generated successfully."
-msgstr "Das öffentliche/private Schlüsselpaar konnte nicht erstellt werden."
+msgstr "Das Ã¶ffentliche/private SchlÃ¼sselpaar konnte nicht erstellt werden."
 
 #: templates/prefs/facebook.html:21
 msgid "Publish enabled."
-msgstr "Veröffentlichungen aktiviert."
+msgstr "VerÃ¶ffentlichungen aktiviert."
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:193
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:180
@@ -6694,7 +6694,7 @@ msgstr "RAW"
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:569
 #, php-format
 msgid "RSA Public Key (%d bit)"
-msgstr "Öffentlicher RSA Schlüssel (%d Bit)"
+msgstr "Ã–ffentlicher RSA SchlÃ¼ssel (%d Bit)"
 
 #: ../framework/Model/www/test.php:55
 msgid "Radio Group"
@@ -6715,7 +6715,7 @@ msgstr "Anfangs Regen"
 
 #: lib/Block/weatherdotcom_strings.php:68
 msgid "Rain Late"
-msgstr "Später Regen"
+msgstr "SpÃ¤ter Regen"
 
 #: lib/Block/weatherdotcom_strings.php:69
 msgid "Rain Shower"
@@ -6727,16 +6727,16 @@ msgstr "Schneeregen"
 
 #: lib/Block/weatherdotcom_strings.php:71
 msgid "Rain to Snow"
-msgstr "Regen in Schnee übergehend"
+msgstr "Regen in Schnee Ã¼bergehend"
 
 #: lib/Block/fortune.php:6
 msgid "Random Fortune"
-msgstr "Glückskeks"
+msgstr "GlÃ¼ckskeks"
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Rar.php:107
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Zip.php:115
 msgid "Ratio"
-msgstr "Verhältnis"
+msgstr "VerhÃ¤ltnis"
 
 #: ../framework/Perms/lib/Horde/Perms.php:516 templates/shares/edit.inc:63
 #: templates/shares/edit.inc:77 templates/shares/edit.inc:98
@@ -6756,19 +6756,19 @@ msgstr "Lesen aktiviert"
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr ""
-"\"%s\" wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden."
+"\"%s\" wirklich lÃ¶schen? Dieser Vorgang kann nicht rÃ¼ckgÃ¤ngig gemacht werden."
 
 #: ../framework/Block/lib/Horde/Block/Layout.php:116
 msgid "Really delete this block?"
-msgstr "Diesen Block wirklich löschen?"
+msgstr "Diesen Block wirklich lÃ¶schen?"
 
 #: templates/admin/user/clear.inc:8
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Daten des Benutzers \"%s\" wirklich löschen? Dieser Vorgang kann nicht "
-"rückgängig gemacht werden."
+"Daten des Benutzers \"%s\" wirklich lÃ¶schen? Dieser Vorgang kann nicht "
+"rÃ¼ckgÃ¤ngig gemacht werden."
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:440
 msgid "Red Eye"
@@ -6816,7 +6816,7 @@ msgstr "Rote-Augen-Reduzierung"
 
 #: config/prefs.php.dist:519
 msgid "Refresh Dynamic Menu Elements:"
-msgstr "Dynamische Menüelemente aktualisieren:"
+msgstr "Dynamische MenÃ¼elemente aktualisieren:"
 
 #: config/prefs.php.dist:480
 msgid "Refresh Portal View:"
@@ -6831,11 +6831,11 @@ msgstr "Aktualisierungsrhythmus:"
 #: ../framework/Form/Form/Type.php:377 ../framework/Form/Form/Type.php:397
 #: ../framework/Form/Form/Type.php:423
 msgid "Regex"
-msgstr "Regulärer Ausdruck"
+msgstr "RegulÃ¤rer Ausdruck"
 
 #: admin/activesync.php:107
 msgid "Registered User Devices"
-msgstr "Registrierte Geräte"
+msgstr "Registrierte GerÃ¤te"
 
 #: ../framework/Model/lib/Horde/Form.php:3021
 #: ../framework/Form/Form/Type.php:3586
@@ -6868,15 +6868,15 @@ msgstr "Entfernen"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:440
 msgid "Remove column"
-msgstr "Spalte löschen"
+msgstr "Spalte lÃ¶schen"
 
 #: templates/data/csvmap.inc:118
 msgid "Remove pair"
-msgstr "Paar löschen"
+msgstr "Paar lÃ¶schen"
 
 #: admin/setup/index.php:211
 msgid "Remove saved script from server's temporary directory."
-msgstr "Gespeichertes Skript aus dem temporären Verzeichnis entfernen."
+msgstr "Gespeichertes Skript aus dem temporÃ¤ren Verzeichnis entfernen."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:91
 msgid "Remove source"
@@ -6884,12 +6884,12 @@ msgstr "Quelle entfernen"
 
 #: templates/admin/user/remove.inc:11
 msgid "Remove user"
-msgstr "Benutzer löschen"
+msgstr "Benutzer lÃ¶schen"
 
 #: templates/admin/user/remove.inc:5
 #, php-format
 msgid "Remove user: %s"
-msgstr "Benutzer löschen: %s"
+msgstr "Benutzer lÃ¶schen: %s"
 
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
@@ -6901,20 +6901,20 @@ msgstr "Antwort an"
 
 #: admin/activesync.php:111
 msgid "Reprovision All Devices"
-msgstr "Alle Geräte neu verknüpfen"
+msgstr "Alle GerÃ¤te neu verknÃ¼pfen"
 
 #: ../framework/Rpc/lib/Horde/Rpc/Phpgw.php:158
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "Anfrage konnte nicht beantwortet werden. Zurückgegebener Fehlercode: "
+msgstr "Anfrage konnte nicht beantwortet werden. ZurÃ¼ckgegebener Fehlercode: "
 
 #: lib/Block/weatherdotcom.php:160
 msgid "Requested service could not be found."
-msgstr "Der gewünschte Dienst konnte nicht gefunden werden."
+msgstr "Der gewÃ¼nschte Dienst konnte nicht gefunden werden."
 
 #: ../framework/Core/lib/Horde.php:896
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
-msgstr "\"%s\" wurde in der Konfiguration für %s nicht angegeben."
+msgstr "\"%s\" wurde in der Konfiguration fÃ¼r %s nicht angegeben."
 
 #: ../framework/Model/lib/Horde/Form/Renderer/Xhtml.php:298
 #: ../framework/Form/Form/Renderer.php:329
@@ -6924,7 +6924,7 @@ msgstr "Notwendiges Feld"
 #: ../framework/Form/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
-"Benötigter Sicherheitscode ist ungültig - möglicherweise bösartige Anfrage."
+"BenÃ¶tigter Sicherheitscode ist ungÃ¼ltig - mÃ¶glicherweise bÃ¶sartige Anfrage."
 
 #: admin/user.php:22 ../framework/Model/www/test.php:82
 #: ../framework/Model/lib/Horde/Form/Renderer.php:73
@@ -6933,31 +6933,31 @@ msgstr ""
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:223
 #: templates/admin/user/update.inc:54 templates/prefs/rpc.html:36
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "ZurÃ¼cksetzen"
 
 #: services/resetpassword.php:45
 msgid "Reset Password"
-msgstr "Passwort zurücksetzen"
+msgstr "Passwort zurÃ¼cksetzen"
 
 #: services/resetpassword.php:23
 msgid "Reset Your Password"
-msgstr "Setzen Sie Ihr Passwort zurück"
+msgstr "Setzen Sie Ihr Passwort zurÃ¼ck"
 
 #: templates/prefs/activesync.html:6
 msgid ""
 "Reset all device state. This will cause your devices to resyncronize all "
 "items."
 msgstr ""
-"Status aller Geräte zurücksetzen. Damit werden alle Einträge auf Ihren "
-"Geräten neu synchronisiert."
+"Status aller GerÃ¤te zurÃ¼cksetzen. Damit werden alle EintrÃ¤ge auf Ihren "
+"GerÃ¤ten neu synchronisiert."
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:100
 msgid "Resolution Unit"
-msgstr "Auflösungseinheit"
+msgstr "AuflÃ¶sungseinheit"
 
 #: admin/sqlshell.php:125
 msgid "Restore Last Query"
-msgstr "Letzte Abfrage einfügen"
+msgstr "Letzte Abfrage einfÃ¼gen"
 
 #: admin/phpshell.php:74 admin/cmdshell.php:23 admin/sqlshell.php:59
 msgid "Results"
@@ -6966,15 +6966,15 @@ msgstr "Ergebnisse"
 #: services/portal/cloud_search.php:30
 #, php-format
 msgid "Results for %s"
-msgstr "Ergebnisse für %s"
+msgstr "Ergebnisse fÃ¼r %s"
 
 #: templates/prefs/end.html:7
 msgid "Return to Options"
-msgstr "Zurück zu Einstellungen"
+msgstr "ZurÃ¼ck zu Einstellungen"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:225
 msgid "Returned error message:"
-msgstr "Zurückgelieferte Fehlermeldung:"
+msgstr "ZurÃ¼ckgelieferte Fehlermeldung:"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -6991,23 +6991,23 @@ msgstr "Neues Passwort erneut eingeben"
 
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:182
 msgid "Reunion"
-msgstr "Réunion"
+msgstr "RÃ©union"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:199
 msgid "Reunion Island"
-msgstr "Réunion"
+msgstr "RÃ©union"
 
 #: admin/setup/config.php:33 admin/setup/config.php:37
 msgid "Revert Configuration"
-msgstr "Konfiguration zurücksetzen"
+msgstr "Konfiguration zurÃ¼cksetzen"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1633
 msgid "Revocation key not generated successfully."
-msgstr "Der Rückrufschlüssel konnte nicht erstellt werden."
+msgstr "Der RÃ¼ckrufschlÃ¼ssel konnte nicht erstellt werden."
 
 #: lib/Block/fortune.php:65
 msgid "Riddles"
-msgstr "Rätsel"
+msgstr "RÃ¤tsel"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:256
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:375
@@ -7017,7 +7017,7 @@ msgstr "Rechts"
 #: ../framework/Model/lib/Horde/Form.php:2897
 #: ../framework/Form/Form/Type.php:3462
 msgid "Right header"
-msgstr "Rechte Überschrift"
+msgstr "Rechte Ãœberschrift"
 
 #: ../framework/Model/lib/Horde/Form.php:2893
 #: ../framework/Form/Form/Type.php:3458
@@ -7035,19 +7035,19 @@ msgstr "Rolle"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:200
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:183
 msgid "Romania"
-msgstr "Rumänien"
+msgstr "RumÃ¤nien"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:229
 msgid "Rotate 180"
-msgstr "Um 180° drehen"
+msgstr "Um 180Â° drehen"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:311
 msgid "Rotate 270 CW"
-msgstr "270° im Uhrzeigersinn gedreht"
+msgstr "270Â° im Uhrzeigersinn gedreht"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Panasonic.php:309
 msgid "Rotate 90 CW"
-msgstr "90° im Uhrzeigersinn gedreht"
+msgstr "90Â° im Uhrzeigersinn gedreht"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:226
 msgid "Rotate Left"
@@ -7064,7 +7064,7 @@ msgstr "Starten"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:202
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:184
 msgid "Russian Federation"
-msgstr "Russische Förderation"
+msgstr "Russische FÃ¶rderation"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:203
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:185
@@ -7077,11 +7077,11 @@ msgstr "S/MIME Signatur"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:280
 msgid "S/MIME Encrypted Message"
-msgstr "Mit S/MIME verschlüsselte Nachricht"
+msgstr "Mit S/MIME verschlÃ¼sselte Nachricht"
 
 #: ../framework/Form/Form/Type.php:865
 msgid "S/MIME Key"
-msgstr "S/MIME-Schlüssel"
+msgstr "S/MIME-SchlÃ¼ssel"
 
 #: ../framework/Net_SMS/SMS/generic_smpp.php:83
 msgid "SMPP Gateway"
@@ -7195,7 +7195,7 @@ msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
 msgstr ""
-"Erzeugte Konfiguration als PHP-Skript im temporären Verzeichnis Ihres "
+"Erzeugte Konfiguration als PHP-Skript im temporÃ¤ren Verzeichnis Ihres "
 "Servers speichern."
 
 #: admin/setup/scripts.php:93
@@ -7246,33 +7246,33 @@ msgstr "Suche:"
 #: ../framework/Model/lib/Horde/Form.php:2757
 #: ../framework/Form/Form/Type.php:3307
 msgid "Select Files"
-msgstr "Dateien auswählen"
+msgstr "Dateien auswÃ¤hlen"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:524
 msgid "Select a date"
-msgstr "Datum auswählen"
+msgstr "Datum auswÃ¤hlen"
 
 #: templates/shares/edit.inc:300 templates/shares/edit.inc:302
 msgid "Select a group to add:"
-msgstr "Hinzuzufügende Gruppe auswählen:"
+msgstr "HinzuzufÃ¼gende Gruppe auswÃ¤hlen:"
 
 #: templates/shares/edit.inc:40
 msgid "Select a new owner:"
-msgstr "Neuen Besitzer auswählen:"
+msgstr "Neuen Besitzer auswÃ¤hlen:"
 
 #: templates/prefs/rpc.html:4
 msgid "Select a server"
-msgstr "Server auswählen"
+msgstr "Server auswÃ¤hlen"
 
 #: templates/shares/edit.inc:204 templates/shares/edit.inc:206
 msgid "Select a user to add:"
-msgstr "Hinzuzufügenden Benutzer auswählen:"
+msgstr "HinzuzufÃ¼genden Benutzer auswÃ¤hlen:"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:560
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:757
 msgid "Select all"
-msgstr "Alle auswählen"
+msgstr "Alle auswÃ¤hlen"
 
 #: ../framework/Model/lib/Horde/Form.php:2325
 #: ../framework/Form/Form/Type.php:2784
@@ -7281,70 +7281,70 @@ msgstr "Legen Sie alle Datumskomponenten fest."
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr "Wählen Sie die Felder aus, in denen nach Namen gesucht werden soll."
+msgstr "WÃ¤hlen Sie die Felder aus, in denen nach Namen gesucht werden soll."
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:758
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:951
 msgid "Select an object"
-msgstr "Objekt auswählen"
+msgstr "Objekt auswÃ¤hlen"
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:561
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:758
 msgid "Select none"
-msgstr "Keinen auswählen"
+msgstr "Keinen auswÃ¤hlen"
 
 #: ../framework/Model/www/test.php:22
 msgid "Select something"
-msgstr "Etwas auswählen"
+msgstr "Etwas auswÃ¤hlen"
 
 #: ../framework/Model/www/test.php:48
 msgid "Select something2"
-msgstr "Etwas auswählen 2"
+msgstr "Etwas auswÃ¤hlen 2"
 
 #: services/keyboard.php:38
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
 msgstr ""
-"Wählen Sie die benötigten Zeichen aus den jeweiligen Feldern aus. Dann "
-"können Sie diese aus dem Textfeld kopieren und in Ihre Nachricht einfügen."
+"WÃ¤hlen Sie die benÃ¶tigten Zeichen aus den jeweiligen Feldern aus. Dann "
+"kÃ¶nnen Sie diese aus dem Textfeld kopieren und in Ihre Nachricht einfÃ¼gen."
 
 #: templates/data/datetime.inc:57
 msgid "Select the date and time format:"
-msgstr "Wählen Sie das Datums- und Zeitformat:"
+msgstr "WÃ¤hlen Sie das Datums- und Zeitformat:"
 
 #: templates/data/date.inc:34 templates/data/datetime.inc:76
 msgid "Select the date delimiter:"
-msgstr "Wählen Sie das Datumstrennzeichen:"
+msgstr "WÃ¤hlen Sie das Datumstrennzeichen:"
 
 #: templates/data/date.inc:44 templates/data/datetime.inc:86
 msgid "Select the date format:"
-msgstr "Wählen Sie das Datumsformat:"
+msgstr "WÃ¤hlen Sie das Datumsformat:"
 
 #: templates/data/datetime.inc:66
 msgid "Select the day and time order:"
-msgstr "Wählen Sie die Reihenfolge von Datum und Zeit:"
+msgstr "WÃ¤hlen Sie die Reihenfolge von Datum und Zeit:"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:737
 msgid "Select the identity you want to change:"
-msgstr "Wählen Sie die Identität, die Sie ändern möchten:"
+msgstr "WÃ¤hlen Sie die IdentitÃ¤t, die Sie Ã¤ndern mÃ¶chten:"
 
 #: templates/data/time.inc:16 templates/data/datetime.inc:97
 msgid "Select the time delimiter:"
-msgstr "Wählen Sie das Zeittrennzeichen:"
+msgstr "WÃ¤hlen Sie das Zeittrennzeichen:"
 
 #: templates/data/time.inc:25 templates/data/datetime.inc:106
 msgid "Select the time format:"
-msgstr "Wählen Sie das Zeitformat:"
+msgstr "WÃ¤hlen Sie das Zeitformat:"
 
 #: config/prefs.php.dist:466
 msgid "Select your color scheme."
-msgstr "Wählen Sie ein Farbschema."
+msgstr "WÃ¤hlen Sie ein Farbschema."
 
 #: config/prefs.php.dist:327
 msgid "Select your preferred language:"
-msgstr "Wählen Sie Ihre bevorzugte Sprache:"
+msgstr "WÃ¤hlen Sie Ihre bevorzugte Sprache:"
 
 #: ../framework/Model/www/test.php:33
 msgid "Select:"
@@ -7352,7 +7352,7 @@ msgstr "Auswahl:"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:190
 msgid "Selected address books:"
-msgstr "Ausgewählte Adressbücher:"
+msgstr "AusgewÃ¤hlte AdressbÃ¼cher:"
 
 #: templates/problem/problem.inc:57
 msgid "Send Problem Report"
@@ -7427,12 +7427,12 @@ msgstr "Serverzeit"
 
 #: lib/Block/weatherdotcom.php:164
 msgid "Server data wrong or not available."
-msgstr "Serverdaten ungültig oder nicht verfügbar."
+msgstr "Serverdaten ungÃ¼ltig oder nicht verfÃ¼gbar."
 
 #: ../framework/Service_Facebook/lib/Horde/Service/Facebook/Request.php:86
 msgid "Service is unavailable. Please try again later."
 msgstr ""
-"Der Dienst ist zur Zeit nicht verfügbar. Probieren Sie es später noch einmal."
+"Der Dienst ist zur Zeit nicht verfÃ¼gbar. Probieren Sie es spÃ¤ter noch einmal."
 
 #: admin/sessions.php:14
 msgid "Session Admin"
@@ -7459,7 +7459,7 @@ msgstr "Auswahl-Satz"
 msgid "Set options to allow you to reset your password if you ever forget it."
 msgstr ""
 "Legen Sie die Einstellungen fest, die es Ihnen erlauben Ihr Passwort "
-"zurückzusetzen, falls sie es einmal vergessen sollten."
+"zurÃ¼ckzusetzen, falls sie es einmal vergessen sollten."
 
 #: config/prefs.php.dist:562
 msgid "Set up integration with your Facebook account."
@@ -7473,11 +7473,11 @@ msgstr "Integration mit Ihrem Twitter-Konto eingerichtet."
 msgid "Set up remote servers that you want to access from your portal."
 msgstr ""
 "Legen Sie entfernte Server fest, auf die Sie von Ihrem Portal aus zugreifen "
-"möchten."
+"mÃ¶chten."
 
 #: config/prefs.php.dist:314
 msgid "Set your preferred language, timezone and date options."
-msgstr "Wählen Sie Ihre bevorzugte Sprache, Zeitzone und Datumseinstellungen."
+msgstr "WÃ¤hlen Sie Ihre bevorzugte Sprache, Zeitzone und Datumseinstellungen."
 
 #: config/prefs.php.dist:426
 msgid ""
@@ -7493,7 +7493,7 @@ msgstr "Konfiguration"
 
 #: templates/admin/setup/index.html:61
 msgid "Setup upgrade scripts available"
-msgstr "Aktualisierungsskripte sind verfügbar"
+msgstr "Aktualisierungsskripte sind verfÃ¼gbar"
 
 # Mehrere passende Orte mit diesem Parameter: 
 #: lib/Block/weatherdotcom.php:190
@@ -7522,7 +7522,7 @@ msgstr "Share-ID %d existiert nicht."
 
 #: ../framework/Share/lib/Horde/Share/Sql/Hierarchical.php:547
 msgid "Share names are not supported in this driver"
-msgstr "Sharenamen werden von diesem Treiber nicht unterstützt"
+msgstr "Sharenamen werden von diesem Treiber nicht unterstÃ¼tzt"
 
 #: config/registry.php.dist:469
 msgid "Shopping"
@@ -7534,7 +7534,7 @@ msgstr "Kurze Zusammenfassung"
 
 #: config/prefs.php.dist:527
 msgid "Should access keys be defined for most links?"
-msgstr "Sollen Tastenkombinationen für die meisten Links aktiviert werden?"
+msgstr "Sollen Tastenkombinationen fÃ¼r die meisten Links aktiviert werden?"
 
 #: ../framework/Perms/lib/Horde/Perms.php:515 templates/shares/edit.inc:62
 #: templates/shares/edit.inc:73 templates/shares/edit.inc:97
@@ -7577,13 +7577,13 @@ msgstr "Benachrichtigungen anzeigen"
 
 #: ../framework/Form/Form/Type.php:1277
 msgid "Show option to keep original?"
-msgstr "Erhalten des Originals ermöglichen?"
+msgstr "Erhalten des Originals ermÃ¶glichen?"
 
 #: ../framework/Model/lib/Horde/Form.php:2476
 #: ../framework/Model/lib/Horde/Form.php:2615
 #: ../framework/Form/Form/Type.php:2945 ../framework/Form/Form/Type.php:3108
 msgid "Show picker?"
-msgstr "Auswähler anzeigen?"
+msgstr "AuswÃ¤hler anzeigen?"
 
 #: ../framework/Model/lib/Horde/Form.php:2212
 #: ../framework/Model/lib/Horde/Form.php:2621
@@ -7594,11 +7594,11 @@ msgstr "Sekunden anzeigen?"
 #: config/prefs.php.dist:487
 #, php-format
 msgid "Show the %s Menu on the left?"
-msgstr "Das %s-Menü auf der linken Seite anzeigen?"
+msgstr "Das %s-MenÃ¼ auf der linken Seite anzeigen?"
 
 #: ../framework/Form/Form/Type.php:1275
 msgid "Show upload?"
-msgstr "Hochladen ermöglichen?"
+msgstr "Hochladen ermÃ¶glichen?"
 
 #: lib/Block/weatherdotcom_strings.php:74
 msgid "Showers"
@@ -7610,7 +7610,7 @@ msgstr "Anfangs Schauer"
 
 #: lib/Block/weatherdotcom_strings.php:76
 msgid "Showers Late"
-msgstr "Später Schauer"
+msgstr "SpÃ¤ter Schauer"
 
 #: lib/Block/weatherdotcom_strings.php:77
 msgid "Showers in the Vicinity"
@@ -7685,11 +7685,11 @@ msgstr "Einzeln/Timer"
 #: ../framework/Form/Form/Type.php:425 ../framework/Form/Form/Type.php:2351
 #: ../framework/Form/Form/Type.php:3264 ../framework/Form/Form/Type.php:3464
 msgid "Size"
-msgstr "Größe"
+msgstr "GrÃ¶ÃŸe"
 
 #: templates/logintasks/logintasks.html:31
 msgid "Skip Login Tasks"
-msgstr "Anmeldeaufgaben überspringen"
+msgstr "Anmeldeaufgaben Ã¼berspringen"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:213
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:200
@@ -7729,7 +7729,7 @@ msgstr "Anfangs Schnee"
 
 #: lib/Block/weatherdotcom_strings.php:80
 msgid "Snow Late"
-msgstr "Später Schnee"
+msgstr "SpÃ¤ter Schnee"
 
 #: lib/Block/weatherdotcom_strings.php:81
 msgid "Snow Shower"
@@ -7745,11 +7745,11 @@ msgstr "Anfangs Schneeschauer"
 
 #: lib/Block/weatherdotcom_strings.php:84
 msgid "Snow Showers Late"
-msgstr "Später Schneeschauer"
+msgstr "SpÃ¤ter Schneeschauer"
 
 #: lib/Block/metar.php:273
 msgid "Snow depth: "
-msgstr "Schneehöhe: "
+msgstr "SchneehÃ¶he: "
 
 #: lib/Block/metar.php:277
 msgid "Snow equivalent in water: "
@@ -7799,20 +7799,20 @@ msgstr "Ursprungsadresse"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:260
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:204
 msgid "South Africa"
-msgstr "Südafrika"
+msgstr "SÃ¼dafrika"
 
 #: config/nls.php:183
 msgid "South European (ISO-8859-3)"
-msgstr "Südeuropäisch (ISO-8859-3)"
+msgstr "SÃ¼deuropÃ¤isch (ISO-8859-3)"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:102
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:205
 msgid "South Georgia and the South Sandwich Islands"
-msgstr "Südgeorgien und die Südlichen Sandwichinseln"
+msgstr "SÃ¼dgeorgien und die SÃ¼dlichen Sandwichinseln"
 
 #: lib/Block/moon.php:31 lib/Block/moon.php:60
 msgid "Southern Hemisphere"
-msgstr "Südliche Hemisphere"
+msgstr "SÃ¼dliche Hemisphere"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:220
 msgid "Soviet Union"
@@ -7925,7 +7925,7 @@ msgstr "Speicherformat"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:478
 msgid "Street Address"
-msgstr "Straße"
+msgstr "StraÃŸe"
 
 #: ../framework/Model/lib/Horde/Form.php:861
 #: ../framework/Form/Form/Type.php:395
@@ -7934,7 +7934,7 @@ msgstr "Zeichenliste"
 
 #: ../framework/Form/Form/Type.php:421
 msgid "String list returning an array"
-msgstr "Zeichenliste die einen Array zurückliefert"
+msgstr "Zeichenliste die einen Array zurÃ¼ckliefert"
 
 #: ../framework/Core/lib/Horde/Core/Ui/JsCalendar.php:91
 msgid "Su"
@@ -7961,8 +7961,8 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"Die Registrierungsanfrage für \"%s\" wurde abgeschickt. Sie können sich noch "
-"nicht anmelden, solange die Anfrage noch nicht bestätigt wurde."
+"Die Registrierungsanfrage fÃ¼r \"%s\" wurde abgeschickt. Sie kÃ¶nnen sich noch "
+"nicht anmelden, solange die Anfrage noch nicht bestÃ¤tigt wurde."
 
 #: services/facebook.php:38
 msgid "Succesfully connected your Facebook account."
@@ -7976,21 +7976,21 @@ msgstr "Erfolg"
 #: admin/signup_confirm.php:85 admin/user.php:95
 #, php-format
 msgid "Successfully added \"%s\" to the system."
-msgstr "\"%s\" wurde erfolgreich hinzugefügt."
+msgstr "\"%s\" wurde erfolgreich hinzugefÃ¼gt."
 
 #: admin/user.php:134
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
-msgstr "Daten des Benutzers \"%s\" wurde erfolgreich gelöscht."
+msgstr "Daten des Benutzers \"%s\" wurde erfolgreich gelÃ¶scht."
 
 #: admin/groups.php:78 admin/perms/delete.php:36
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "\"%s\" wurde erfolgreich gelöscht."
+msgstr "\"%s\" wurde erfolgreich gelÃ¶scht."
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Report.php:61
 msgid "Successfully regenerated all calendar caches!"
-msgstr "Alle Kalender-Zwischenspeicher erfolgreich gefüllt!"
+msgstr "Alle Kalender-Zwischenspeicher erfolgreich gefÃ¼llt!"
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Report.php:38
 #, php-format
@@ -8000,12 +8000,12 @@ msgstr "Der Kalender \"%s\" wurde erfolgreich neu erzeugt!"
 #: admin/user.php:115
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
-msgstr "\"%s\" wurde erfolgreich gelöscht."
+msgstr "\"%s\" wurde erfolgreich gelÃ¶scht."
 
 #: admin/setup/config.php:40
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
-"Konfiguration erfolgreich zurückgesetzt. Seite neu laden, um die Änderungen "
+"Konfiguration erfolgreich zurÃ¼ckgesetzt. Seite neu laden, um die Ã„nderungen "
 "anzuzeigen."
 
 #: admin/setup/index.php:39
@@ -8129,7 +8129,7 @@ msgstr "Anfangs Gewitterschauer"
 
 #: lib/Block/weatherdotcom_strings.php:88
 msgid "T-Showers Late"
-msgstr "Später Gewitterschauer"
+msgstr "SpÃ¤ter Gewitterschauer"
 
 #: lib/Block/weatherdotcom_strings.php:89
 msgid "T-Storm"
@@ -8149,7 +8149,7 @@ msgstr "Anfangs Gewitter"
 
 #: lib/Block/weatherdotcom_strings.php:93
 msgid "T-Storms Late"
-msgstr "Später Gewitter"
+msgstr "SpÃ¤ter Gewitter"
 
 #: ../framework/Data/lib/Horde/Data/Tsv.php:203
 msgid "TSV file"
@@ -8219,12 +8219,12 @@ msgstr "Temperatur<br />(%sMax%s/%sMin%s) &deg;%s"
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr ""
 "Verbindung zu Facebook kurzzeitig unterbrochen, bitte versuchen Sie es "
-"später noch einmal."
+"spÃ¤ter noch einmal."
 
 #: lib/Block/twitter_timeline.php:122
 msgid "Temporarily unable to contact Twitter. Please try again later."
 msgstr ""
-"Verbindung zu Twitter kurzzeitig unterbrochen, bitte versuchen Sie es später "
+"Verbindung zu Twitter kurzzeitig unterbrochen, bitte versuchen Sie es spÃ¤ter "
 "noch einmal."
 
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:703
@@ -8256,7 +8256,7 @@ msgstr "Do"
 
 #: config/nls.php:184
 msgid "Thai (TIS-620)"
-msgstr "Thailändisch (TIS-620)"
+msgstr "ThailÃ¤ndisch (TIS-620)"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:228
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:218
@@ -8265,13 +8265,13 @@ msgstr "Thailand"
 
 #: ../framework/Core/lib/Horde/Core/Binder/History.php:12
 msgid "The History system is disabled."
-msgstr "Die Chronik steht nicht zur Verfügung."
+msgstr "Die Chronik steht nicht zur VerfÃ¼gung."
 
 #: ../framework/Share/lib/Horde/Share/Kolab.php:81
 #: ../framework/Kolab/Kolab.php:780
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr "Die Horde/Kolab Integrationsfunktionen unterstützen \"%s\" nicht"
+msgstr "Die Horde/Kolab Integrationsfunktionen unterstÃ¼tzen \"%s\" nicht"
 
 #: ../framework/Net_IMSP/IMSP/Book.php:1296
 msgid "The IMSP log could not be initialized."
@@ -8285,11 +8285,11 @@ msgstr "Das Kolab-Shareobjekt wurde noch nicht instialisiert!"
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
-"Das ferngesteuerte Löschen für das Gerät mit der ID %s wurde abgebrochen."
+"Das ferngesteuerte LÃ¶schen fÃ¼r das GerÃ¤t mit der ID %s wurde abgebrochen."
 
 #: admin/alarms.php:81
 msgid "The alarm has been deleted."
-msgstr "Der Alarm wurde gelöscht."
+msgstr "Der Alarm wurde gelÃ¶scht."
 
 #: admin/alarms.php:70
 msgid "The alarm has been saved."
@@ -8305,14 +8305,14 @@ msgstr ""
 
 #: config/prefs.php.dist:246
 msgid "The default e-mail address to use with this identity:"
-msgstr "Die Standard-E-Mail-Adresse für diese Identität:"
+msgstr "Die Standard-E-Mail-Adresse fÃ¼r diese IdentitÃ¤t:"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Pgp.php:1300
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Der PGP-Signaturblock wird benötigt, um die unterzeichnete Nachricht zu "
-"überprüfen."
+"Der PGP-Signaturblock wird benÃ¶tigt, um die unterzeichnete Nachricht zu "
+"Ã¼berprÃ¼fen."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:648
 msgid ""
@@ -8332,13 +8332,13 @@ msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
 msgstr ""
-"Die E-Mail-Adresse %s wurde zu Ihren Identitäten hinzugefügt. Sie können "
-"dieses Fenster jetzt schließen."
+"Die E-Mail-Adresse %s wurde zu Ihren IdentitÃ¤ten hinzugefÃ¼gt. Sie kÃ¶nnen "
+"dieses Fenster jetzt schlieÃŸen."
 
 #: ../framework/Core/lib/Horde.php:672
 msgid "The encryption features require a secure web connection."
 msgstr ""
-"Die Verschlüsselungsfunktionen benötigen eine sichere Serververbindung."
+"Die VerschlÃ¼sselungsfunktionen benÃ¶tigen eine sichere Serververbindung."
 
 #: ../framework/Core/lib/Horde.php:897
 #, php-format
@@ -8348,7 +8348,7 @@ msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 #: ../framework/Core/lib/Horde.php:888
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "Die Datei %s sollte einige %s Einträge enthalten."
+msgstr "Die Datei %s sollte einige %s EintrÃ¤ge enthalten."
 
 #: ../framework/Data/lib/Horde/Data/Base.php:272
 msgid "The file contained no data."
@@ -8362,7 +8362,7 @@ msgstr "Die Datei konnte nicht gefunden werden."
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
-"Bei den folgenden Anwendungen sind Fehler aufgetreten, während die "
+"Bei den folgenden Anwendungen sind Fehler aufgetreten, wÃ¤hrend die "
 "Benutzerdaten entfernt wurden: %s"
 
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:560
@@ -8379,27 +8379,27 @@ msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
 msgstr ""
-"Die vollständige Fehlermeldung wurde in Hordes Logdatei geschrieben und für "
+"Die vollstÃ¤ndige Fehlermeldung wurde in Hordes Logdatei geschrieben und fÃ¼r "
 "Administratoren weiter unten ausgegeben. Benutzer, die keine Administratoren "
 "sind, bekommen diese Details nicht zu sehen."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:804
 #, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "Die Identität \"%s\" wurde gelöscht."
+msgstr "Die IdentitÃ¤t \"%s\" wurde gelÃ¶scht."
 
 #: ../framework/Form/Form/Type.php:1037
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
-"Die Dateigröße des Bildes konnte nicht bestimmt werden, oder das Bild war "
+"Die DateigrÃ¶ÃŸe des Bildes konnte nicht bestimmt werden, oder das Bild war "
 "leer. Vielleicht wurde der Hochladevorgang unterbrochen."
 
 #: ../framework/Form/Form/Type.php:1041
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
-msgstr "Das Bild war größer als die maximal erlaubte Größe (%d Bytes)."
+msgstr "Das Bild war grÃ¶ÃŸer als die maximal erlaubte GrÃ¶ÃŸe (%d Bytes)."
 
 #: lib/Block/vatid.php:77
 msgid ""
@@ -8407,7 +8407,7 @@ msgid ""
 "with a different member state."
 msgstr ""
 "Der Dienst des Mitgliedslandes konnte in der vorgesehenen Zeit nicht "
-"erreicht werden. Probieren Sie es später noch einmal, oder verwenden Sie ein "
+"erreicht werden. Probieren Sie es spÃ¤ter noch einmal, oder verwenden Sie ein "
 "anderes Mitgliedsland."
 
 #: lib/Block/vatid.php:74
@@ -8415,8 +8415,8 @@ msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
 msgstr ""
-"Der Dienst des Mitgliedslandes ist zur Zeit nicht verfügbar. Probieren Sie "
-"es später noch einmal, oder verwenden Sie ein anderes Mitgliedsland."
+"Der Dienst des Mitgliedslandes ist zur Zeit nicht verfÃ¼gbar. Probieren Sie "
+"es spÃ¤ter noch einmal, oder verwenden Sie ein anderes Mitgliedsland."
 
 #: ../framework/Mime/lib/Horde/Mime/Mdn.php:199
 #, php-format
@@ -8428,7 +8428,7 @@ msgstr ""
 "Die Nachricht mit dem Betreff \"%3$s\", die am %1$s an %2$s geschickt wurde, "
 "ist angezeigt worden.\n"
 "\n"
-"Das heißt nicht, dass die Nachricht auch gelesen oder verstanden wurde."
+"Das heiÃŸt nicht, dass die Nachricht auch gelesen oder verstanden wurde."
 
 #: ../framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder/Base.php:832
 #, php-format
@@ -8438,23 +8438,23 @@ msgid ""
 "edits have been lost."
 msgstr ""
 "Die Nachricht mit der ID %s existiert nicht. Das liegt vermutlich daran, "
-"dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
-"bearbeitet haben. Ihre Änderungen sind verloren."
+"dass dieses Kolab-Object von jemand anderem verÃ¤ndert wurde, wÃ¤hrend Sie es "
+"bearbeitet haben. Ihre Ã„nderungen sind verloren."
 
 #: ../framework/Model/lib/Horde/Form.php:1431
 #: ../framework/Form/Form/Type.php:1610
 msgid "The name to use when linking to the compose page"
-msgstr "Name für den Link zur Nachrichtenerstellung"
+msgstr "Name fÃ¼r den Link zur Nachrichtenerstellung"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:850
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
-"Die neue E-Mail-Adresse kann zur Zeit nicht bestätigt werden, probieren Sie "
-"es später noch einmal: "
+"Die neue E-Mail-Adresse kann zur Zeit nicht bestÃ¤tigt werden, probieren Sie "
+"es spÃ¤ter noch einmal: "
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:1143
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
-msgstr "Das OpenSSL-Modul wird für die Horde_Crypt_Smime:: Klasse benötigt."
+msgstr "Das OpenSSL-Modul wird fÃ¼r die Horde_Crypt_Smime:: Klasse benÃ¶tigt."
 
 #: ../framework/Core/lib/Horde/Core/Factory/Prefs.php:152
 #, php-format
@@ -8463,20 +8463,20 @@ msgid ""
 "maximum allowable size"
 msgstr ""
 "Die Benutzereinstellung \"%s\" konnte nicht gespeichert werden, weil ihre "
-"Daten die maximal erlaubte Größe überschreiten"
+"Daten die maximal erlaubte GrÃ¶ÃŸe Ã¼berschreiten"
 
 #: ../framework/Core/lib/Horde/Core/Factory/Prefs.php:120
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default settings."
 msgstr ""
-"Das System für die Benutzereinstellungen ist zur Zeit nicht verfügbar, Ihre "
-"Einstellungen wurden nicht geladen. Sie können aber fortfahren mit den "
+"Das System fÃ¼r die Benutzereinstellungen ist zur Zeit nicht verfÃ¼gbar, Ihre "
+"Einstellungen wurden nicht geladen. Sie kÃ¶nnen aber fortfahren mit den "
 "Standardeinstellungen des Systems."
 
 #: lib/Block/vatid.php:68
 msgid "The provided country code is invalid."
-msgstr "Der angegebene Ländercode ist ungültig"
+msgstr "Der angegebene LÃ¤ndercode ist ungÃ¼ltig"
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/View.php:206
 #, php-format
@@ -8496,12 +8496,12 @@ msgstr "Der Server \"%s\" wurde gespeichert."
 #: lib/Block/vatid.php:71
 msgid "The service is currently not available. Try again later."
 msgstr ""
-"Der Dienst ist zur Zeit nicht verfügbar. Probieren Sie es später noch einmal."
+"Der Dienst ist zur Zeit nicht verfÃ¼gbar. Probieren Sie es spÃ¤ter noch einmal."
 
 #: lib/Block/vatid.php:80
 msgid "The service is currently too busy. Try again later."
 msgstr ""
-"Der Dienst ist zur Zeit überlastet. Probieren Sie es später noch einmal."
+"Der Dienst ist zur Zeit Ã¼berlastet. Probieren Sie es spÃ¤ter noch einmal."
 
 #: ../framework/Share/lib/Horde/Share/Object/Kolab.php:138
 msgid "The share has already been initialized!"
@@ -8522,7 +8522,7 @@ msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
-"Das Testskript ist noch aktiv. Aus Sicherheitsgründen sollten Sie die "
+"Das Testskript ist noch aktiv. Aus SicherheitsgrÃ¼nden sollten Sie die "
 "Testskripte deaktivieren, wenn Sie mit allen Tests abgeschlossen haben "
 "(siehe horde/docs/INSTALL)."
 
@@ -8545,11 +8545,11 @@ msgstr "Der Benutzer \"%s\" existiert nicht."
 
 #: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
 msgid "The weather.com block is not available."
-msgstr "Der weather.com Block ist nicht verfügbar."
+msgstr "Der weather.com Block ist nicht verfÃ¼gbar."
 
 #: lib/Prefs/Ui.php:46
 msgid "Theme directory can't be opened"
-msgstr "Themen-Verzeichnis konnte nicht geöffnet werden"
+msgstr "Themen-Verzeichnis konnte nicht geÃ¶ffnet werden"
 
 #: util/icon_browser.php:28
 #, php-format
@@ -8559,11 +8559,11 @@ msgstr "Themen-Verzeichnis \"%s\" nicht gefunden."
 #: ../framework/Core/lib/Horde/Core/Prefs/Identity.php:78
 #: ../framework/Core/lib/Horde/Core/Prefs/Identity.php:84
 msgid "There are no email addresses to confirm."
-msgstr "Keine zu bestätigende E-Mail-Adressen gefunden."
+msgstr "Keine zu bestÃ¤tigende E-Mail-Adressen gefunden."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:375
 msgid "There are no options available."
-msgstr "Es sind keine Einstellungen verfügbar."
+msgstr "Es sind keine Einstellungen verfÃ¼gbar."
 
 #: ../framework/Form/Form/Type.php:625
 #, php-format
@@ -8572,9 +8572,9 @@ msgid ""
 msgid_plural ""
 "There are too many characters in this field. You have entered %d characters; "
 msgstr[0] ""
-"Dieses Feld enthält zu viele Zeichen. Sie haben %d Zeichen angegeben; "
+"Dieses Feld enthÃ¤lt zu viele Zeichen. Sie haben %d Zeichen angegeben; "
 msgstr[1] ""
-"Dieses Feld enthält zu viele Zeichen. Sie haben %d Zeichen angegeben; "
+"Dieses Feld enthÃ¤lt zu viele Zeichen. Sie haben %d Zeichen angegeben; "
 
 #: ../framework/Model/lib/Horde/Form.php:1029
 #, php-format
@@ -8582,24 +8582,24 @@ msgid ""
 "There are too many characters in this field. You have entered %s characters; "
 "you must enter less than %s."
 msgstr ""
-"Dieses Feld enthält zu viele Zeichen. Sie haben %s Zeichen eingegeben; Sie "
-"müssen weniger als %s eingeben."
+"Dieses Feld enthÃ¤lt zu viele Zeichen. Sie haben %s Zeichen eingegeben; Sie "
+"mÃ¼ssen weniger als %s eingeben."
 
 #: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:83
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "Beim Hinzufügen von \"%s\" zum System ist ein Problem aufgetreten: %s"
+msgstr "Beim HinzufÃ¼gen von \"%s\" zum System ist ein Problem aufgetreten: %s"
 
 #: admin/user.php:132
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
-"Beim Löschen der Daten von Benutzer \"%s\" ist ein Problem aufgetreten: "
+"Beim LÃ¶schen der Daten von Benutzer \"%s\" ist ein Problem aufgetreten: "
 
 #: admin/user.php:113
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
-msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
+msgstr "Beim LÃ¶schen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 
 #: admin/user.php:170
 #, php-format
@@ -8634,8 +8634,8 @@ msgid ""
 "There was an error performing the specified address book function. Please "
 "try again later."
 msgstr ""
-"Beim Ausführen der angegebenen Adressbuchfunktion ist ein Fehler "
-"aufgetreten. Bitte versuchen Sie es später noch einmal."
+"Beim AusfÃ¼hren der angegebenen Adressbuchfunktion ist ein Fehler "
+"aufgetreten. Bitte versuchen Sie es spÃ¤ter noch einmal."
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:106
 msgid "There was an error reading the contact data."
@@ -8646,7 +8646,7 @@ msgstr "Beim Lesen der Kontaktdaten ist ein Fehler aufgetreten."
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
-"Beim Löschen der allgemeinen Daten von %s ist ein Fehler aufgetreten. "
+"Beim LÃ¶schen der allgemeinen Daten von %s ist ein Fehler aufgetreten. "
 "Details wurden protokolliert."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:647
@@ -8654,7 +8654,7 @@ msgid ""
 "There was an error updating the contact details. Please try again later."
 msgstr ""
 "Bei der Aktualisierung der Kontaktdetails ist ein Fehler aufgetreten. Bitte "
-"versuchen Sie es später noch einmal."
+"versuchen Sie es spÃ¤ter noch einmal."
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:652
 #: ../framework/Net_SMS/SMS/win_http.php:229
@@ -8662,21 +8662,21 @@ msgid ""
 "There was an error updating the distribution list. Please try again later."
 msgstr ""
 "Bei der Aktualisierung der Verteilerliste ist ein Fehler aufgetreten. Bitte "
-"versuchen Sie es später noch einmal."
+"versuchen Sie es spÃ¤ter noch einmal."
 
 #: lib/Block/vatid.php:90
 msgid "This VAT identification number is invalid."
-msgstr "Diese UStId-Nummer ist ungültig."
+msgstr "Diese UStId-Nummer ist ungÃ¼ltig."
 
 #: lib/Block/vatid.php:87
 msgid "This VAT identification number is valid."
-msgstr "Diese UStId-Nummer ist gültig."
+msgstr "Diese UStId-Nummer ist gÃ¼ltig."
 
 #: ../framework/Model/lib/Horde/Form.php:2920
 #: ../framework/Model/lib/Horde/Form/Type/CreditCard.php:18
 #: ../framework/Form/Form/Type.php:3485
 msgid "This does not seem to be a valid card number."
-msgstr "Dies scheint keine gültige Kartennummer zu sein."
+msgstr "Dies scheint keine gÃ¼ltige Kartennummer zu sein."
 
 #: ../framework/Net_SMS/SMS/generic_smpp.php:84
 msgid "This driver allows sending of messages through an SMPP gateway."
@@ -8690,7 +8690,7 @@ msgid ""
 "carriers which provide this service."
 msgstr ""
 "Dieser Treiber erlaubt das Verschicken von Nachrichten durch einen E-Mail-"
-"nach-SMS-Gateway für Provider, die einen solchen Dienst unterstützen."
+"nach-SMS-Gateway fÃ¼r Provider, die einen solchen Dienst unterstÃ¼tzen."
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:193
 msgid ""
@@ -8731,8 +8731,8 @@ msgid ""
 "Vodafone Italy (http://www.190.it)."
 msgstr ""
 "Dieser Treiber erlaubt das Verschicken von Nachrichten per SMTP durch den "
-"Vodafone-Italien-Gateway ausschließlich an Vodafone-Nummern. Dafür wird ein "
-"E-Mail-Konto bei Vodafone Italien (http://www.190.it) benötigt."
+"Vodafone-Italien-Gateway ausschlieÃŸlich an Vodafone-Nummern. DafÃ¼r wird ein "
+"E-Mail-Konto bei Vodafone Italien (http://www.190.it) benÃ¶tigt."
 
 #: ../framework/Model/lib/Horde/Form.php:631
 #: ../framework/Model/lib/Horde/Form.php:707
@@ -8816,7 +8816,7 @@ msgstr ""
 #: ../framework/Model/lib/Horde/Form/Type/Number.php:25
 #: ../framework/Form/Form/Type.php:161
 msgid "This field must be a valid number."
-msgstr "Dieses Feld muss eine gültige Zahl enthalten."
+msgstr "Dieses Feld muss eine gÃ¼ltige Zahl enthalten."
 
 #: ../framework/Model/lib/Horde/Form.php:2640
 #: ../framework/Model/lib/Horde/Form/Type/Color.php:18
@@ -8839,8 +8839,8 @@ msgid ""
 "client that understands the Kolab Groupware format. For a list of such email "
 "clients please visit %s"
 msgstr ""
-"Die ist ein Kolab-Groupware-Objekt. Um dieses Objekt anzuzeigen, benötigen "
-"Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
+"Die ist ein Kolab-Groupware-Objekt. Um dieses Objekt anzuzeigen, benÃ¶tigen "
+"Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstÃ¼tzt. Eine "
 "Liste solcher Programme finden Sie unter %s"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:271
@@ -8853,8 +8853,8 @@ msgid ""
 "This request cannot be completed because the link you followed or the form "
 "you submitted was only valid for %s minutes. Please try again now."
 msgstr ""
-"Diese Anfrage konnte nicht durchgeführt werden, weil der Link oder das "
-"Formular, das Sie abgeschickt haben, nur %s Minuten gültig war. Bitte "
+"Diese Anfrage konnte nicht durchgefÃ¼hrt werden, weil der Link oder das "
+"Formular, das Sie abgeschickt haben, nur %s Minuten gÃ¼ltig war. Bitte "
 "versuchen Sie es jetzt noch einmal."
 
 #: ../framework/Compress/lib/Horde/Compress/Zip.php:93
@@ -8934,17 +8934,17 @@ msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
-"Um ein bestimmtes Feld vom Import auszuschließen, oder eine falsche "
-"Zuordnung zu korrigieren, wählen Sie ein Feld in der untenstehenden Liste "
-"aus und drücken Sie \"Paar löschen\"."
+"Um ein bestimmtes Feld vom Import auszuschlieÃŸen, oder eine falsche "
+"Zuordnung zu korrigieren, wÃ¤hlen Sie ein Feld in der untenstehenden Liste "
+"aus und drÃ¼cken Sie \"Paar lÃ¶schen\"."
 
 #: templates/prefs/addressbooks.html:10
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Halten Sie beim Klicken Strg (PC) bzw. Command (Mac) gedrückt, um mehrere "
-"Einträge auszuwählen."
+"Halten Sie beim Klicken Strg (PC) bzw. Command (Mac) gedrÃ¼ckt, um mehrere "
+"EintrÃ¤ge auszuwÃ¤hlen."
 
 #: ../framework/Model/lib/Horde/Form/VarRenderer/Xhtml.php:532
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:730
@@ -8952,8 +8952,8 @@ msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
-"Halten Sie beim Klicken Strg bzw. (PC) Command (Mac) gedrückt, um mehrere "
-"Einträge auszuwählen."
+"Halten Sie beim Klicken Strg bzw. (PC) Command (Mac) gedrÃ¼ckt, um mehrere "
+"EintrÃ¤ge auszuwÃ¤hlen."
 
 #: lib/Block/weatherdotcom.php:313
 msgid "Today"
@@ -8984,11 +8984,11 @@ msgstr "Nachricht zu lang"
 
 #: ../framework/Net_SMS/SMS/textmagic_http.php:499
 msgid "Too many items per request"
-msgstr "Zu viele Einträge pro Anfrage"
+msgstr "Zu viele EintrÃ¤ge pro Anfrage"
 
 #: lib/Block/fortune.php:70
 msgid "Translations"
-msgstr "Übersetzungen"
+msgstr "Ãœbersetzungen"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:467
 msgid "Trilinear Sensor"
@@ -9015,7 +9015,7 @@ msgstr "Dienstag"
 #: ../framework/Image/lib/Horde/Image/Exif.php:393
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Canon.php:353
 msgid "Tungsten"
-msgstr "Glühlampen"
+msgstr "GlÃ¼hlampen"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:233
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:224
@@ -9025,11 +9025,11 @@ msgstr "Tunesien"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:236
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:225
 msgid "Turkey"
-msgstr "Türkei"
+msgstr "TÃ¼rkei"
 
 #: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
-msgstr "Türkisch (ISO-8859-9)"
+msgstr "TÃ¼rkisch (ISO-8859-9)"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:232
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:226
@@ -9067,7 +9067,7 @@ msgstr "Twitter-Zeitleiste"
 #: lib/Block/twitter_timeline.php:70
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr "Twitter-Zeitleiste für %s"
+msgstr "Twitter-Zeitleiste fÃ¼r %s"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:464
 msgid "Two Chip Color Area Sensor"
@@ -9096,7 +9096,7 @@ msgstr "Homepage"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:548
 msgid "URL for your script delivery status report"
-msgstr "URL Ihres Skripts für den Versandstatusbericht"
+msgstr "URL Ihres Skripts fÃ¼r den Versandstatusbericht"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:242
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:229
@@ -9111,14 +9111,14 @@ msgstr "Ukraine"
 #: ../framework/Kolab_Resource/lib/Horde/Kolab/Resource.php:539
 #, php-format
 msgid "Unable to access %s's calendar:"
-msgstr "Zugriff auf %ss Kalender nicht möglich:"
+msgstr "Zugriff auf %ss Kalender nicht mÃ¶glich:"
 
 #: services/twitter.php:64
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
 "Verbindung zu Twitter konnte nicht hergestellt werden, bitte versuchen Sie "
-"es später noch einmal. Fehlermeldung: %s"
+"es spÃ¤ter noch einmal. Fehlermeldung: %s"
 
 #: ../framework/Rpc/lib/Horde/Rpc/Webdav.php:415
 #, php-format
@@ -9136,12 +9136,12 @@ msgstr "Die Daten konnten nicht dekomprimiert werden."
 #: admin/groups.php:82 admin/perms/delete.php:39
 #, php-format
 msgid "Unable to delete \"%s\": %s."
-msgstr "\"%s\" kann nicht gelöscht werden: %s."
+msgstr "\"%s\" kann nicht gelÃ¶scht werden: %s."
 
 #: ../framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
 msgid "Unable to determine owner of the free/busy data!"
 msgstr ""
-"Der Eigentümer der Frei/Gebucht-Informationen konnte nicht bestimmt werden!"
+"Der EigentÃ¼mer der Frei/Gebucht-Informationen konnte nicht bestimmt werden!"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:509
 msgid "Unable to extract certificate details"
@@ -9170,7 +9170,7 @@ msgid ""
 "Unable to rename %s; must be [app]/[path] and within the same application."
 msgstr ""
 "%s konnte nicht umbenannt werden; Das richtige Format ist [anwendung]/"
-"[pfad], und Quelle und Ziel müssen in der gleichen Anwendung sein."
+"[pfad], und Quelle und Ziel mÃ¼ssen in der gleichen Anwendung sein."
 
 #: ../framework/VFS/lib/VFS/sql_file.php:264
 msgid "Unable to rename VFS file."
@@ -9178,23 +9178,23 @@ msgstr "Die VFS-Datei konnte nicht umbenannt werden."
 
 #: ../framework/VFS_ISOWriter/ISOWriter/mkisofs.php:46
 msgid "Unable to run 'mkisofs'."
-msgstr "\"mkisofs\" konnte nicht ausgeführt werden."
+msgstr "\"mkisofs\" konnte nicht ausgefÃ¼hrt werden."
 
 #: services/facebook.php:175
 msgid "Unable to set like."
-msgstr "\"Gefällt mir\" konnte nicht durchgeführt werden."
+msgstr "\"GefÃ¤llt mir\" konnte nicht durchgefÃ¼hrt werden."
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Rtf.php:75
 msgid "Unable to translate this RTF document"
-msgstr "Dieses RTF-Dokument lässt sich nicht anzeigen"
+msgstr "Dieses RTF-Dokument lÃ¤sst sich nicht anzeigen"
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Msword.php:76
 msgid "Unable to translate this Word document"
-msgstr "Dieses Word-Dokument lässt sich nicht anzeigen"
+msgstr "Dieses Word-Dokument lÃ¤sst sich nicht anzeigen"
 
 #: ../framework/Mime_Viewer/lib/Horde/Mime/Viewer/Wordperfect.php:75
 msgid "Unable to translate this WordPerfect document"
-msgstr "Dieses WordPerfect-Dokument lässt sich nicht anzeigen"
+msgstr "Dieses WordPerfect-Dokument lÃ¤sst sich nicht anzeigen"
 
 #: ../framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
 #, php-format
@@ -9215,7 +9215,7 @@ msgstr "Unterwasser"
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
-msgstr "Änderungen rückgängig machen"
+msgstr "Ã„nderungen rÃ¼ckgÃ¤ngig machen"
 
 #: ../framework/Prefs/lib/Horde/Prefs/CategoryManager.php:63
 #: lib/Prefs/Ui.php:303
@@ -9245,7 +9245,7 @@ msgstr "Vereinigte Arabische Emirate"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:243
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:232
 msgid "United Kingdom"
-msgstr "Vereinigtes Königreich"
+msgstr "Vereinigtes KÃ¶nigreich"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:245
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:233
@@ -9255,7 +9255,7 @@ msgstr "Vereinigte Staaten"
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:244
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:234
 msgid "United States Minor Outlying Islands"
-msgstr "Kleinere Amerikanische Überseeinseln"
+msgstr "Kleinere Amerikanische Ãœberseeinseln"
 
 #: lib/Block/weatherdotcom.php:64 lib/Block/metar.php:70
 msgid "Units"
@@ -9386,7 +9386,7 @@ msgstr "Unbenannt"
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:841
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:847
 msgid "Unsupported Extension"
-msgstr "Erweiterung nicht unterstützt"
+msgstr "Erweiterung nicht unterstÃ¼tzt"
 
 #: ../framework/Core/lib/Horde/Core/Perms/Ui.php:233
 #: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:33
@@ -9463,7 +9463,7 @@ msgstr "SSL benutzen"
 #: config/prefs.php.dist:602
 msgid "Use if name/password is different for IMSP server."
 msgstr ""
-"Bitte ausfüllen, wenn Sie einen anderen Benutzernamen/Passwort für den IMSP-"
+"Bitte ausfÃ¼llen, wenn Sie einen anderen Benutzernamen/Passwort fÃ¼r den IMSP-"
 "Server haben."
 
 #: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
@@ -9510,7 +9510,7 @@ msgstr "Benutzerkonto nicht gefunden"
 
 #: templates/shares/edit.inc:240
 msgid "User to add:"
-msgstr "Hinzuzufügender Benutzer:"
+msgstr "HinzuzufÃ¼gender Benutzer:"
 
 #: login.php:112 admin/user.php:32 admin/user.php:48 admin/setup/index.php:191
 #: ../framework/Net_SMS/SMS/sms2email_http.php:543
@@ -9547,7 +9547,7 @@ msgstr "Usbekistan"
 
 #: lib/Block/vatid.php:19
 msgid "VAT id number verification"
-msgstr "UStIdNr-Überprüfung"
+msgstr "UStIdNr-ÃœberprÃ¼fung"
 
 #: lib/Block/vatid.php:42
 msgid "VAT identification number:"
@@ -9575,7 +9575,7 @@ msgstr "Abwesenheit"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:544
 msgid "Validity"
-msgstr "Gültigkeit"
+msgstr "GÃ¼ltigkeit"
 
 #: ../framework/Net_SMS/SMS/sms2email_http.php:604
 #: ../framework/Net_SMS/SMS/clickatell_http.php:261
@@ -9585,13 +9585,13 @@ msgstr "Wert in Minuten von jetzt an."
 #: ../framework/Form/Form/Type.php:341
 #, php-format
 msgid "Value is over the maximum length of %d."
-msgstr "Der Wert ist über der maximalen Länge von %d."
+msgstr "Der Wert ist Ã¼ber der maximalen LÃ¤nge von %d."
 
 #: ../framework/Model/lib/Horde/Form.php:821
 #: ../framework/Model/lib/Horde/Form/Type/String.php:29
 #, php-format
 msgid "Value is over the maximum length of %s."
-msgstr "Der Wert ist über der maximalen Länge von %s."
+msgstr "Der Wert ist Ã¼ber der maximalen LÃ¤nge von %s."
 
 #: ../framework/Model/lib/Horde/Form.php:1915
 #: ../framework/Model/lib/Horde/Form.php:1950
@@ -9607,7 +9607,7 @@ msgstr "Werte"
 #: ../framework/Model/lib/Horde/Form.php:1858
 #: ../framework/Form/Form/Type.php:2216 ../framework/Form/Form/Type.php:2292
 msgid "Values to select from"
-msgstr "Werte, aus denen ausgewählt werden kann"
+msgstr "Werte, aus denen ausgewÃ¤hlt werden kann"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:254
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:237
@@ -9625,12 +9625,12 @@ msgstr "Venezuela"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:188
 msgid "Verification failed - an unknown error has occurred."
-msgstr "Überprüfung fehlgeschlagen - ein unbekannter Fehler ist aufgetreten."
+msgstr "ÃœberprÃ¼fung fehlgeschlagen - ein unbekannter Fehler ist aufgetreten."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:190
 msgid "Verification failed - this message may have been tampered with."
 msgstr ""
-"Überprüfung fehlgeschlagen - diese Nachricht könnte manipuliert worden sein."
+"ÃœberprÃ¼fung fehlgeschlagen - diese Nachricht kÃ¶nnte manipuliert worden sein."
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:607
 msgid "Version"
@@ -9713,8 +9713,8 @@ msgid ""
 "now."
 msgstr ""
 "Es konnte nicht sichergestellt werden, dass diese Anfrage wirklich von Ihnen "
-"ausgelöst wurde. Es könnte sich möglicherweise um eine böswillige Anfrage "
-"handeln. Wenn Sie diese Aktion durchführen wollten, versuchen Sie es bitte "
+"ausgelÃ¶st wurde. Es kÃ¶nnte sich mÃ¶glicherweise um eine bÃ¶swillige Anfrage "
+"handeln. Wenn Sie diese Aktion durchfÃ¼hren wollten, versuchen Sie es bitte "
 "jetzt noch einmal."
 
 #: lib/Block/weatherdotcom.php:32
@@ -9736,7 +9736,7 @@ msgstr "Mittwoch"
 #: ../framework/LoginTasks/lib/Horde/LoginTasks.php:258
 #: ../framework/Date/lib/Horde/Date/Recurrence.php:213
 msgid "Weekly"
-msgstr "Wöchentlich"
+msgstr "WÃ¶chentlich"
 
 #: services/portal/mobile.php:29
 msgid "Welcome"
@@ -9754,11 +9754,11 @@ msgstr "Willkommen, %s"
 
 #: config/nls.php:188
 msgid "Western (ISO-8859-1)"
-msgstr "Westeuropäisch (ISO-8859-1)"
+msgstr "WesteuropÃ¤isch (ISO-8859-1)"
 
 #: config/nls.php:189
 msgid "Western (ISO-8859-15)"
-msgstr "Westeuropäisch (ISO-8859-15)"
+msgstr "WesteuropÃ¤isch (ISO-8859-15)"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:77
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:243
@@ -9780,11 +9780,11 @@ msgstr "Welches Trennzeichen wird verwendet?"
 
 #: templates/data/csvinfo.inc:17
 msgid "What is the quote character?"
-msgstr "Welche Anführungszeichen werden verwendet?"
+msgstr "Welche AnfÃ¼hrungszeichen werden verwendet?"
 
 #: ../framework/admintools/horde-create-sequence.php:30
 msgid "What sequence do you want to create (_seq will be added automatically)?"
-msgstr "Welche Sequenz möchten Sie erzeugen (_seq wird automatisch angehängt)?"
+msgstr "Welche Sequenz mÃ¶chten Sie erzeugen (_seq wird automatisch angehÃ¤ngt)?"
 
 #: lib/Block/fb_stream.php:165
 msgid "What's on your mind?"
@@ -9805,15 +9805,15 @@ msgstr "Welche Phasen"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:116
 msgid "White Balance"
-msgstr "Weißabgleich"
+msgstr "WeiÃŸabgleich"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:401
 msgid "White fluorescent"
-msgstr "Weiße Leuchtstoffröhre"
+msgstr "WeiÃŸe LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif/Parser/Fujifilm.php:106
 msgid "White-fluorescence"
-msgstr "Weiße Leuchtstoffröhre"
+msgstr "WeiÃŸe LeuchtstoffrÃ¶hre"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:96
 msgid "Width"
@@ -9827,7 +9827,7 @@ msgstr "Breite in CSS-Einheiten"
 #: config/prefs.php.dist:493
 #, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Breite des %s-Menüs links:"
+msgstr "Breite des %s-MenÃ¼s links:"
 
 #: config/registry.php.dist:478
 msgid "Wiki"
@@ -9843,7 +9843,7 @@ msgstr "Anfangs windig"
 
 #: lib/Block/weatherdotcom_strings.php:97
 msgid "Wind Late"
-msgstr "Später windig"
+msgstr "SpÃ¤ter windig"
 
 #: lib/Block/metar.php:79
 msgid "Wind speed in knots"
@@ -9863,11 +9863,11 @@ msgstr "Windows"
 
 #: admin/activesync.php:146 templates/prefs/activesync.html:28
 msgid "Wipe"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: admin/activesync.php:127 lib/Prefs/Ui.php:453
 msgid "Wipe is pending"
-msgstr "Löschung steht an"
+msgstr "LÃ¶schung steht an"
 
 #: lib/Block/fortune.php:71
 msgid "Wisdom"
@@ -9884,11 +9884,11 @@ msgstr "Arbeit"
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:203
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:267
 msgid "Work Address"
-msgstr "Adresse geschäftlich"
+msgstr "Adresse geschÃ¤ftlich"
 
 #: ../framework/Core/lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Work Phone"
-msgstr "Telefon geschäftlich"
+msgstr "Telefon geschÃ¤ftlich"
 
 #: ../framework/File_Csv/lib/Horde/File/Csv.php:198
 #, php-format
@@ -9905,7 +9905,7 @@ msgstr "Falsches Telefonnummernformat"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:98
 msgid "X Resolution"
-msgstr "X-Auflösung"
+msgstr "X-AuflÃ¶sung"
 
 #: config/registry.php.dist:274
 msgid "X-Ref"
@@ -9913,11 +9913,11 @@ msgstr "Querverweise"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:499
 msgid "X509v3 Basic Constraints"
-msgstr "X509v3 Generelle Einschränkung"
+msgstr "X509v3 Generelle EinschrÃ¤nkung"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:498
 msgid "X509v3 Extended Key Usage"
-msgstr "X509v3 Erweiterter Schlüsselzweck"
+msgstr "X509v3 Erweiterter SchlÃ¼sselzweck"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:500
 msgid "X509v3 Subject Alternative Name"
@@ -9925,7 +9925,7 @@ msgstr "X509v3 Alternativer Name des Zertifikatinhabers"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:501
 msgid "X509v3 Subject Key Identifier"
-msgstr "X509v3 Identität des Zertifikatschlüssels"
+msgstr "X509v3 IdentitÃ¤t des ZertifikatschlÃ¼ssels"
 
 #: ../framework/Crypt/lib/Horde/Crypt/Smime.php:589
 msgid "X509v3 extensions"
@@ -9933,7 +9933,7 @@ msgstr "X509v3 Erweiterungen"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:99
 msgid "Y Resolution"
-msgstr "Y-Auflösung"
+msgstr "Y-AuflÃ¶sung"
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -9957,7 +9957,7 @@ msgstr "Yahoo! Karte"
 #: ../framework/LoginTasks/lib/Horde/LoginTasks.php:256
 #: ../framework/Date/lib/Horde/Date/Recurrence.php:218
 msgid "Yearly"
-msgstr "Jährlich"
+msgstr "JÃ¤hrlich"
 
 #: ../framework/Nls/lib/Horde/Nls/Tld.php:257
 #: ../framework/Nls/lib/Horde/Nls/Countries.php:244
@@ -9979,63 +9979,63 @@ msgstr "Ja, ich stimme zu"
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] "Dir und %d anderen Person gefällt das"
-msgstr[1] "Dir und %d anderen Personen gefällt das"
+msgstr[0] "Dir und %d anderen Person gefÃ¤llt das"
+msgstr[1] "Dir und %d anderen Personen gefÃ¤llt das"
 
 #: lib/Api.php:314
 msgid "You are not allowed to add groups."
-msgstr "Sie dürfen keine Gruppen erstellen."
+msgstr "Sie dÃ¼rfen keine Gruppen erstellen."
 
 #: lib/Api.php:489
 msgid "You are not allowed to add shares."
-msgstr "Sie dürfen keine Shares erstellen."
+msgstr "Sie dÃ¼rfen keine Shares erstellen."
 
 #: lib/Api.php:363 lib/Api.php:386 lib/Api.php:412 lib/Api.php:435
 msgid "You are not allowed to change groups."
-msgstr "Sie dürfen keine Gruppen ändern."
+msgstr "Sie dÃ¼rfen keine Gruppen Ã¤ndern."
 
 #: lib/Api.php:574 lib/Api.php:611 lib/Api.php:653 lib/Api.php:680
 msgid "You are not allowed to change shares."
-msgstr "Sie dürfen keine Shares ändern."
+msgstr "Sie dÃ¼rfen keine Shares Ã¤ndern."
 
 #: ../framework/Block/lib/Horde/Block/Layout/Manager.php:244
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
-msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
-msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
+msgstr[0] "Sie dÃ¼rfen nicht mehr als %d Block erstellen."
+msgstr[1] "Sie dÃ¼rfen nicht mehr als %d BlÃ¶cke erstellen."
 
 #: lib/Api.php:340
 msgid "You are not allowed to delete groups."
-msgstr "Sie dürfen keine Gruppen löschen."
+msgstr "Sie dÃ¼rfen keine Gruppen lÃ¶schen."
 
 #: lib/Api.php:518
 msgid "You are not allowed to delete shares."
-msgstr "Sie dürfen keine Shares löschen."
+msgstr "Sie dÃ¼rfen keine Shares lÃ¶schen."
 
 #: lib/Api.php:833
 msgid "You are not allowed to list groups of shares."
-msgstr "Sie dürfen die Gruppen eines Shares nicht anzeigen."
+msgstr "Sie dÃ¼rfen die Gruppen eines Shares nicht anzeigen."
 
 #: lib/Api.php:715 lib/Api.php:757
 msgid "You are not allowed to list share permissions."
-msgstr "Sie dürfen die Rechte eines Shares nicht anzeigen."
+msgstr "Sie dÃ¼rfen die Rechte eines Shares nicht anzeigen."
 
 #: lib/Api.php:545
 msgid "You are not allowed to list shares."
-msgstr "Sie dürfen Shares nicht anzeigen."
+msgstr "Sie dÃ¼rfen Shares nicht anzeigen."
 
 #: lib/Api.php:461
 msgid "You are not allowed to list users of groups."
-msgstr "Sie dürfen die Benutzer von Gruppen nicht anzeigen."
+msgstr "Sie dÃ¼rfen die Benutzer von Gruppen nicht anzeigen."
 
 #: lib/Api.php:799
 msgid "You are not allowed to list users of shares."
-msgstr "Sie dürfen die Benutzer eines Shares nicht anzeigen."
+msgstr "Sie dÃ¼rfen die Benutzer eines Shares nicht anzeigen."
 
 #: lib/Api.php:207 lib/Api.php:280
 msgid "You are not allowed to remove user data."
-msgstr "Sie dürfen keine Benutzerdaten löschen."
+msgstr "Sie dÃ¼rfen keine Benutzerdaten lÃ¶schen."
 
 #: ../framework/Core/lib/Horde/Registry.php:1768
 msgid "You are not authenticated."
@@ -10049,14 +10049,14 @@ msgstr "Sie sind nicht autorisiert, auf die angefragte URL zuzugreifen."
 #: services/facebook.php:55 services/facebook.php:72
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr "Sie können die Facebook-Einstellungen in Ihren %s überprüfen."
+msgstr "Sie kÃ¶nnen die Facebook-Einstellungen in Ihren %s Ã¼berprÃ¼fen."
 
 #: lib/LoginTasks/Task/TosAgreement.php:54
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
 msgstr ""
-"Sie haben den Benutzungsbedingungen nicht zugestimmt und dürfen sich "
+"Sie haben den Benutzungsbedingungen nicht zugestimmt und dÃ¼rfen sich "
 "deswegen nicht anmelden."
 
 #: ../framework/Rpc/lib/Horde/Rpc/Phpgw.php:99
@@ -10067,7 +10067,7 @@ msgstr "Sie sind nicht angemeldet."
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:445
 #: ../framework/Form/Form/Type.php:2083
 msgid "You did not enter a valid email address."
-msgstr "Sie haben keine gültige E-Mail-Adresse angegeben."
+msgstr "Sie haben keine gÃ¼ltige E-Mail-Adresse angegeben."
 
 #: login.php:62
 msgid "You have been logged out."
@@ -10080,7 +10080,7 @@ msgid ""
 "check your Facebook settings in your %s."
 msgstr ""
 "Sie haben Ihr Facebook-Konto nicht richtig mit Horde verbunden. Sie sollten "
-"Ihre Facebook-Einstellungen in Ihren %s überprüfen."
+"Ihre Facebook-Einstellungen in Ihren %s Ã¼berprÃ¼fen."
 
 #: lib/Block/twitter_timeline.php:183
 #, php-format
@@ -10089,7 +10089,7 @@ msgid ""
 "check your Twitter settings in your %s."
 msgstr ""
 "Sie haben Ihr Twitter-Konto nicht richtig mit Horde verbunden. Sie sollten "
-"Ihre Twitter-Einstellungen in Ihren %s überprüfen."
+"Ihre Twitter-Einstellungen in Ihren %s Ã¼berprÃ¼fen."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Identity.php:44
 #, php-format
@@ -10102,39 +10102,39 @@ msgid ""
 "\n"
 "If you don't know what this message means, you can delete it."
 msgstr ""
-"Sie möchten die E-Mail-Adresse \"%s\" zu der Liste Ihrer persönlichen "
-"Adressen hinzufügen.\n"
+"Sie mÃ¶chten die E-Mail-Adresse \"%s\" zu der Liste Ihrer persÃ¶nlichen "
+"Adressen hinzufÃ¼gen.\n"
 "\n"
-"Gehen Sie zu dem folgenden Link, um zu bestätigen, dass dies wirklich Ihre "
+"Gehen Sie zu dem folgenden Link, um zu bestÃ¤tigen, dass dies wirklich Ihre "
 "Adresse ist:\n"
 "%s\n"
 "\n"
-"Wenn Sie mit diese Nachricht nichts anfangen können, bitte löschen."
+"Wenn Sie mit diese Nachricht nichts anfangen kÃ¶nnen, bitte lÃ¶schen."
 
 #: ../framework/Model/www/test.php:57
 msgid "You have to fill in some long text here"
-msgstr "Sie müssen hier einen langen Text eingeben"
+msgstr "Sie mÃ¼ssen hier einen langen Text eingeben"
 
 #: services/facebook.php:112 services/facebook.php:163
 #: services/facebook.php:171
 msgid "You like this"
-msgstr "Ihnen gefällt das"
+msgstr "Ihnen gefÃ¤llt das"
 
 #: ../framework/Form/Form/Type.php:3009
 msgid "You must choose a date."
-msgstr "Sie müssen ein Datum auswählen."
+msgstr "Sie mÃ¼ssen ein Datum auswÃ¤hlen."
 
 #: ../framework/Form/Form/Type.php:3007
 msgid "You must choose a time."
-msgstr "Sie müssen eine Uhrzeit auswählen."
+msgstr "Sie mÃ¼ssen eine Uhrzeit auswÃ¤hlen."
 
 #: ../framework/Core/lib/Horde/Core/Factory/Vfs.php:81
 msgid "You must configure a VFS backend."
-msgstr "Sie müssen ein VFS-Backend konfigurieren."
+msgstr "Sie mÃ¼ssen ein VFS-Backend konfigurieren."
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
-msgstr "Sie müssen das Problem beschreiben, um den Bericht abzuschicken."
+msgstr "Sie mÃ¼ssen das Problem beschreiben, um den Bericht abzuschicken."
 
 #: ../framework/Model/lib/Horde/Form.php:888
 #: ../framework/Model/lib/Horde/Form/Type/Phone.php:19
@@ -10143,60 +10143,60 @@ msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
-"Sie müssen eine gültige Telefonnummer angeben, nur aus Zahlen und ggf. einem "
-"\"+\" für internationale Vorwahlen bestehend."
+"Sie mÃ¼ssen eine gÃ¼ltige Telefonnummer angeben, nur aus Zahlen und ggf. einem "
+"\"+\" fÃ¼r internationale Vorwahlen bestehend."
 
 #: ../framework/Model/lib/Horde/Form.php:828
 #: ../framework/Model/lib/Horde/Form/Type/String.php:36
 #: ../framework/Form/Form/Type.php:352
 msgid "You must enter a valid value."
-msgstr "Sie müssen einen gültigen Wert angegeben."
+msgstr "Sie mÃ¼ssen einen gÃ¼ltigen Wert angegeben."
 
 #: ../framework/Model/lib/Horde/Form.php:1248
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:98
 #: ../framework/Form/Form/Type.php:1451
 msgid "You must enter an email address."
-msgstr "Sie müssen eine E-Mail-Adresse angeben."
+msgstr "Sie mÃ¼ssen eine E-Mail-Adresse angeben."
 
 #: ../framework/Model/lib/Horde/Form.php:1246
 #: ../framework/Model/lib/Horde/Form/Type/Email.php:96
 #: ../framework/Form/Form/Type.php:1449
 msgid "You must enter at least one email address."
-msgstr "Sie müssen mindestens eine E-Mail-Adresse angeben."
+msgstr "Sie mÃ¼ssen mindestens eine E-Mail-Adresse angeben."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui/Widgets.php:392
 #, php-format
 msgid "You must provide a setting for \"%s\"."
-msgstr "Sie müssen eine Einstellung für \"%s\" angeben."
+msgstr "Sie mÃ¼ssen eine Einstellung fÃ¼r \"%s\" angeben."
 
 #: lib/Prefs/Ui.php:716
 msgid "You must select an server to be deleted."
-msgstr "Sie müssen erst den zu entfernenden Server auswählen."
+msgstr "Sie mÃ¼ssen erst den zu entfernenden Server auswÃ¤hlen."
 
 #: admin/user.php:129
 msgid "You must specify a username to clear out."
 msgstr ""
-"Sie müssen einen Benutzernamen angeben, dessen Daten gelöscht werden sollen."
+"Sie mÃ¼ssen einen Benutzernamen angeben, dessen Daten gelÃ¶scht werden sollen."
 
 #: admin/user.php:110
 msgid "You must specify a username to remove."
-msgstr "Sie müssen einen zu löschenden Benutzernamen angeben."
+msgstr "Sie mÃ¼ssen einen zu lÃ¶schenden Benutzernamen angeben."
 
 #: admin/user.php:71
 msgid "You must specify the username to add."
-msgstr "Sie müssen einen hinzuzufügenden Benutzernamen angeben."
+msgstr "Sie mÃ¼ssen einen hinzuzufÃ¼genden Benutzernamen angeben."
 
 #: admin/user.php:157
 msgid "You must specify the username to update."
-msgstr "Sie müssen den zu aktualisierenden Benutzernamen angeben."
+msgstr "Sie mÃ¼ssen den zu aktualisierenden Benutzernamen angeben."
 
 #: ../framework/Prefs/lib/Horde/Prefs/CategoryManager.php:83
 msgid "You must type a new category name."
-msgstr "Sie müssen einen neuen Kategorienamen angeben."
+msgstr "Sie mÃ¼ssen einen neuen Kategorienamen angeben."
 
 #: ../framework/Net_SMS/SMS/vodafoneitaly_smtp.php:67
 msgid "You need to provide an Italian phone number"
-msgstr "Sie müssen eine Italienische Telefonnummer angeben"
+msgstr "Sie mÃ¼ssen eine Italienische Telefonnummer angeben"
 
 #: templates/problem/problem.inc:34
 msgid "Your Email Address"
@@ -10212,8 +10212,8 @@ msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Ihre Internetadresse hat sich geändert, seit Sie die Sitzung begonnen haben. "
-"Zum Schutz Ihrer Sicherheit müssen Sie sich neu anmelden."
+"Ihre Internetadresse hat sich geÃ¤ndert, seit Sie die Sitzung begonnen haben. "
+"Zum Schutz Ihrer Sicherheit mÃ¼ssen Sie sich neu anmelden."
 
 #: templates/problem/problem.inc:30
 msgid "Your Name"
@@ -10229,8 +10229,8 @@ msgid ""
 "use Horde to administer user accounts, you must use a different "
 "authentication backend."
 msgstr ""
-"Ihr Authentifizierungssystem erlaubt kein Hinzufügen von neuen Benutzern. "
-"Wenn Sie Horde benutzen möchten, um Ihre Benutzer zu verwalten, müssen Sie "
+"Ihr Authentifizierungssystem erlaubt kein HinzufÃ¼gen von neuen Benutzern. "
+"Wenn Sie Horde benutzen mÃ¶chten, um Ihre Benutzer zu verwalten, mÃ¼ssen Sie "
 "einen anderen Authentifizierungstreiber benutzen."
 
 #: templates/admin/user/nolist.inc:5
@@ -10239,19 +10239,19 @@ msgid ""
 "has been disabled for some other reason."
 msgstr ""
 "Ihr Authentifizierungssystem erlaubt das Anzeigen der Benutzer nicht, oder "
-"diese Möglichkeit wurde ausgeschaltet."
+"diese MÃ¶glichkeit wurde ausgeschaltet."
 
 #: login.php:59
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Ihr Browser hat sich anscheinend geändert, seit Sie die Sitzung begonnen "
-"haben. Zu Ihrer Sicherheit müssen Sie sich neu anmelden."
+"Ihr Browser hat sich anscheinend geÃ¤ndert, seit Sie die Sitzung begonnen "
+"haben. Zu Ihrer Sicherheit mÃ¼ssen Sie sich neu anmelden."
 
 #: lib/Block/iframe.php:58
 msgid "Your browser does not support this feature."
-msgstr "Ihr Browser unterstützt diese Funktion nicht."
+msgstr "Ihr Browser unterstÃ¼tzt diese Funktion nicht."
 
 #: config/prefs.php.dist:336
 msgid "Your current time zone:"
@@ -10259,15 +10259,15 @@ msgstr "Ihre aktuelle Zeitzone:"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:818
 msgid "Your default identity has been changed."
-msgstr "Ihre Standardidentität wurde geändert."
+msgstr "Ihre StandardidentitÃ¤t wurde geÃ¤ndert."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:736
 msgid "Your default identity:"
-msgstr "Ihre Standardidentität:"
+msgstr "Ihre StandardidentitÃ¤t:"
 
 #: config/prefs.php.dist:236
 msgid "Your full name:"
-msgstr "Ihr vollständiger Name:"
+msgstr "Ihr vollstÃ¤ndiger Name:"
 
 #: login.php:71
 msgid "Your login has expired."
@@ -10276,11 +10276,11 @@ msgstr "Ihr Zugang ist abgelaufen."
 #: services/resetpassword.php:74
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Ihr neues Passwort für %s lautet: %s"
+msgstr "Ihr neues Passwort fÃ¼r %s lautet: %s"
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:305
 msgid "Your options have been updated for the duration of this session."
-msgstr "Ihre Einstellungen wurden für die Dauer dieser Sitzung gespeichert."
+msgstr "Ihre Einstellungen wurden fÃ¼r die Dauer dieser Sitzung gespeichert."
 
 #: ../framework/Core/lib/Horde/Core/Prefs/Ui.php:307
 msgid "Your options have been updated."
@@ -10288,14 +10288,14 @@ msgstr "Ihre Einstellungen wurden gespeichert."
 
 #: services/resetpassword.php:73
 msgid "Your password has been reset"
-msgstr "Ihr Passwort wurde zurückgesetzt"
+msgstr "Ihr Passwort wurde zurÃ¼ckgesetzt"
 
 #: services/resetpassword.php:87
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"Ihr Passwort wurde zurückgesetzt, konnte Ihnen aber nicht zugeschickt "
+"Ihr Passwort wurde zurÃ¼ckgesetzt, konnte Ihnen aber nicht zugeschickt "
 "werden. Bitte wenden Sie sich an den Administrator."
 
 #: services/resetpassword.php:82
@@ -10303,7 +10303,7 @@ msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Ihr Passwort wurde zurückgesetzt. Rufen Sie Ihre E-Mail-Nachrichten ab und "
+"Ihr Passwort wurde zurÃ¼ckgesetzt. Rufen Sie Ihre E-Mail-Nachrichten ab und "
 "melden Sie sich mit Ihrem neuen Passwort an."
 
 #: lib/Block/account.php:689 lib/Block/account.php:704
@@ -10438,7 +10438,7 @@ msgstr "aus %s (%s) mit %s %s"
 
 #: lib/Block/weatherdotcom.php:254
 msgid "gusting"
-msgstr "böig"
+msgstr "bÃ¶ig"
 
 #: ../framework/Core/lib/Horde/Core/Ui/VarRenderer/Html.php:253
 msgid "h:"
@@ -10485,22 +10485,22 @@ msgstr "Option %s: %s"
 #: ../framework/Argv/lib/Horde/Argv/Option.php:122
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
-msgstr "Option %s: ungültige Auswahl: '%s' (gültige Werte: %s)"
+msgstr "Option %s: ungÃ¼ltige Auswahl: '%s' (gÃ¼ltige Werte: %s)"
 
 #: ../framework/Argv/lib/Horde/Argv/Option.php:104
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
-msgstr "Option %s: ungültiger Fließkomma-Wert: '%s'"
+msgstr "Option %s: ungÃ¼ltiger FlieÃŸkomma-Wert: '%s'"
 
 #: ../framework/Argv/lib/Horde/Argv/Option.php:94
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
-msgstr "Option %s: ungültiger Ganzzahl-Wert: '%s'"
+msgstr "Option %s: ungÃ¼ltiger Ganzzahl-Wert: '%s'"
 
 #: ../framework/Argv/lib/Horde/Argv/Option.php:95
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
-msgstr "Option %s: ungültiger Lange-Ganzzahl-Wert: '%s'"
+msgstr "Option %s: ungÃ¼ltiger Lange-Ganzzahl-Wert: '%s'"
 
 #: ../framework/Image/lib/Horde/Image/Exif.php:410
 msgid "other light source"
@@ -10549,7 +10549,7 @@ msgstr "gleichbleibend"
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:45
 #: ../framework/Core/lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "type the password twice to confirm"
-msgstr "Geben Sie das Passwort ein zweites Mal zur Bestätigung ein"
+msgstr "Geben Sie das Passwort ein zweites Mal zur BestÃ¤tigung ein"
 
 #: admin/setup/diff.php:52 admin/setup/diff.php:64
 msgid "unified"
@@ -10591,4 +10591,4 @@ msgstr "gestern um %s"
 #: ../framework/Form/Form/Type.php:626
 #, php-format
 msgid "you must enter less than %d."
-msgstr "Sie müssen weniger als %d angeben."
+msgstr "Sie mÃ¼ssen weniger als %d angeben."

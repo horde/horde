@@ -11,495 +11,495 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s файл беше импортиран успешно"
+msgstr "%s С„Р°Р№Р» Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ СѓСЃРїРµС€РЅРѕ"
 
 msgid "Add"
-msgstr "Добави"
+msgstr "Р”РѕР±Р°РІРё"
 
 msgid "Add a new contact"
-msgstr "Добави нов контакт"
+msgstr "Р”РѕР±Р°РІРё РЅРѕРІ РєРѕРЅС‚Р°РєС‚"
 
 msgid "Add failed"
-msgstr "Грешка при добавяне"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ"
 
 msgid "Address Book Listing"
-msgstr "Адресен списък"
+msgstr "РђРґСЂРµСЃРµРЅ СЃРїРёСЃСЉРє"
 
 msgid "Address book is read-only."
-msgstr "Адресната книга е в режим четене."
+msgstr "РђРґСЂРµСЃРЅР°С‚Р° РєРЅРёРіР° Рµ РІ СЂРµР¶РёРј С‡РµС‚РµРЅРµ."
 
 #, c-format
 msgid "Addresses in list: %s"
-msgstr "Адреси в списък: %s"
+msgstr "РђРґСЂРµСЃРё РІ СЃРїРёСЃСЉРє: %s"
 
 msgid "Advanced Search"
-msgstr "Разширено търсене"
+msgstr "Р Р°Р·С€РёСЂРµРЅРѕ С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Alias"
-msgstr "Псевдоним"
+msgstr "РџСЃРµРІРґРѕРЅРёРј"
 
 msgid "All"
-msgstr "Всички"
+msgstr "Р’СЃРёС‡РєРё"
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Available Columns:"
-msgstr "Налични колони:"
+msgstr "РќР°Р»РёС‡РЅРё РєРѕР»РѕРЅРё:"
 
 #, c-format
 msgid "Back to %s"
-msgstr "Обратно в %s"
+msgstr "РћР±СЂР°С‚РЅРѕ РІ %s"
 
 msgid "Browse"
-msgstr "Прегледай"
+msgstr "РџСЂРµРіР»РµРґР°Р№"
 
 msgid "Checkbox"
 msgstr "Checkbox"
 
 msgid "Choose the order of the columns to display in the address list."
-msgstr "Изберете реда на показване на колоните в адресния списък."
+msgstr "РР·Р±РµСЂРµС‚Рµ СЂРµРґР° РЅР° РїРѕРєР°Р·РІР°РЅРµ РЅР° РєРѕР»РѕРЅРёС‚Рµ РІ Р°РґСЂРµСЃРЅРёСЏ СЃРїРёСЃСЉРє."
 
 msgid "Clear Search"
-msgstr "Изчисти търсене"
+msgstr "РР·С‡РёСЃС‚Рё С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Column Options"
-msgstr "Опции за колоните"
+msgstr "РћРїС†РёРё Р·Р° РєРѕР»РѕРЅРёС‚Рµ"
 
 msgid "Comma separated values"
-msgstr "CSV - разделени със запетая стойности"
+msgstr "CSV - СЂР°Р·РґРµР»РµРЅРё СЃСЉСЃ Р·Р°РїРµС‚Р°СЏ СЃС‚РѕР№РЅРѕСЃС‚Рё"
 
 msgid "Company"
-msgstr "Компания"
+msgstr "РљРѕРјРїР°РЅРёСЏ"
 
 msgid "Contact removed from list."
-msgstr "Контактът беше премахнат от списъка."
+msgstr "РљРѕРЅС‚Р°РєС‚СЉС‚ Р±РµС€Рµ РїСЂРµРјР°С…РЅР°С‚ РѕС‚ СЃРїРёСЃСЉРєР°."
 
 #, c-format
 msgid "Contents of %s"
-msgstr "Съдържание на %s"
+msgstr "РЎСЉРґСЉСЂР¶Р°РЅРёРµ РЅР° %s"
 
 msgid "Default Display"
-msgstr "Изглед по подразбиране"
+msgstr "РР·РіР»РµРґ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 msgid "Deletion failed"
-msgstr "Грешка при триене"
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‚СЂРёРµРЅРµ"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Directory"
-msgstr "Директория"
+msgstr "Р”РёСЂРµРєС‚РѕСЂРёСЏ"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Edit"
-msgstr "Редакция"
+msgstr "Р РµРґР°РєС†РёСЏ"
 
 #, c-format
 msgid "Edit '%s'"
-msgstr "Редактирай '%s'"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ '%s'"
 
 msgid "Email"
-msgstr "Писмо"
+msgstr "РџРёСЃРјРѕ"
 
 msgid "Error while searching directory."
-msgstr "Грешка при търсенето в каталога."
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‚СЉСЂСЃРµРЅРµС‚Рѕ РІ РєР°С‚Р°Р»РѕРіР°."
 
 msgid "Exit Address Book"
-msgstr "Изход адресна книга"
+msgstr "РР·С…РѕРґ Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Export Address Book"
-msgstr "Експорт на адресна книга"
+msgstr "Р•РєСЃРїРѕСЂС‚ РЅР° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Failed to access the specified address book."
-msgstr "Грешка при достъпа до зададената адресна книга"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕСЃС‚СЉРїР° РґРѕ Р·Р°РґР°РґРµРЅР°С‚Р° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Failed to browse list"
-msgstr "Грешка при преглеждане на списъка"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРіР»РµР¶РґР°РЅРµ РЅР° СЃРїРёСЃСЉРєР°"
 
 msgid "Failed to browse the directory"
-msgstr "Грешка при преглеждане на папката"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРіР»РµР¶РґР°РЅРµ РЅР° РїР°РїРєР°С‚Р°"
 
 msgid "Failed to connect to the specified directory."
-msgstr "Грешка при свързване към зададената директория"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ РєСЉРј Р·Р°РґР°РґРµРЅР°С‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ"
 
 #, c-format
 msgid "Failed to search the directory: %s"
-msgstr "Невъзможност за търсене в директория: %s"
+msgstr "РќРµРІСЉР·РјРѕР¶РЅРѕСЃС‚ Р·Р° С‚СЉСЂСЃРµРЅРµ РІ РґРёСЂРµРєС‚РѕСЂРёСЏ: %s"
 
 msgid "Failed to search the specified directory."
-msgstr "Грешка при търсене в зададената папка."
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‚СЉСЂСЃРµРЅРµ РІ Р·Р°РґР°РґРµРЅР°С‚Р° РїР°РїРєР°."
 
 msgid "Fax"
-msgstr "Факс"
+msgstr "Р¤Р°РєСЃ"
 
 msgid "Find"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "From"
-msgstr "От"
+msgstr "РћС‚"
 
 msgid "Group"
-msgstr "Група"
+msgstr "Р“СЂСѓРїР°"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "Home Address"
-msgstr "Домашен адрес"
+msgstr "Р”РѕРјР°С€РµРЅ Р°РґСЂРµСЃ"
 
 msgid "Home Phone"
-msgstr "Домашен телефон"
+msgstr "Р”РѕРјР°С€РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "При импорт на CSV данни: първия ли ред съдържа имената на полетата?"
+msgstr "РџСЂРё РёРјРїРѕСЂС‚ РЅР° CSV РґР°РЅРЅРё: РїСЉСЂРІРёСЏ Р»Рё СЂРµРґ СЃСЉРґСЉСЂР¶Р° РёРјРµРЅР°С‚Р° РЅР° РїРѕР»РµС‚Р°С‚Р°?"
 
 msgid "Illegal or malformed form data."
-msgstr "Недопустими или повредени данни."
+msgstr "РќРµРґРѕРїСѓСЃС‚РёРјРё РёР»Рё РїРѕРІСЂРµРґРµРЅРё РґР°РЅРЅРё."
 
 msgid "Import Address Book"
-msgstr "Импорт на адресна книга"
+msgstr "РРјРїРѕСЂС‚ РЅР° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Import/Export"
-msgstr "Импорт/Експорт"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚"
 
 msgid "Import/Export Address books"
-msgstr "Импорт/Експорт на адресни книги"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚ РЅР° Р°РґСЂРµСЃРЅРё РєРЅРёРіРё"
 
 msgid "Invalid address book."
-msgstr "Невалидна адресна книга."
+msgstr "РќРµРІР°Р»РёРґРЅР° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°."
 
 msgid "Invalid e-mail address."
-msgstr "Невалиден e-mail адрес."
+msgstr "РќРµРІР°Р»РёРґРµРЅ e-mail Р°РґСЂРµСЃ."
 
 msgid "Invalid email."
-msgstr "Невалиден email"
+msgstr "РќРµРІР°Р»РёРґРµРЅ email"
 
 msgid "Invalid entry."
-msgstr "Невалидни данни."
+msgstr "РќРµРІР°Р»РёРґРЅРё РґР°РЅРЅРё."
 
 msgid "Invalid name."
-msgstr "Невалидно име."
+msgstr "РќРµРІР°Р»РёРґРЅРѕ РёРјРµ."
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "Matching"
-msgstr "Съдържащи"
+msgstr "РЎСЉРґСЉСЂР¶Р°С‰Рё"
 
 msgid "Mobile Phone"
-msgstr "Мобилен телефон"
+msgstr "РњРѕР±РёР»РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "More than 1 entry returned."
-msgstr "Беше върнат повече от 1 ред."
+msgstr "Р‘РµС€Рµ РІСЉСЂРЅР°С‚ РїРѕРІРµС‡Рµ РѕС‚ 1 СЂРµРґ."
 
 msgid "Mulberry Address Book"
-msgstr "Mulberry адресна книга"
+msgstr "Mulberry Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Mulberry address book sucessfully imported"
-msgstr "Mulberry адресна книга беше импортирана успешно"
+msgstr "Mulberry Р°РґСЂРµСЃРЅР° РєРЅРёРіР° Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅР° СѓСЃРїРµС€РЅРѕ"
 
 msgid "My Addressbook"
-msgstr "Моята адресна книга"
+msgstr "РњРѕСЏС‚Р° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "Netcenter Member Directory"
 msgstr "Netcenter Member Directory"
 
 msgid "New List"
-msgstr "Нов списък"
+msgstr "РќРѕРІ СЃРїРёСЃСЉРє"
 
 #, c-format
 msgid "No %s entry found for %s."
-msgstr "Няма %s намерени данни  за %s."
+msgstr "РќСЏРјР° %s РЅР°РјРµСЂРµРЅРё РґР°РЅРЅРё  Р·Р° %s."
 
 msgid "None"
-msgstr "Няма"
+msgstr "РќСЏРјР°"
 
 msgid ""
 "None of the available address books are configured to allow you to add new "
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"Никоя от наличните адресни книги не е конфигурирана да добавяте данни към "
-"нея. Ако смятате, че това не е вярно, моля консултирайте се със Системния "
-"Администратор."
+"РќРёРєРѕСЏ РѕС‚ РЅР°Р»РёС‡РЅРёС‚Рµ Р°РґСЂРµСЃРЅРё РєРЅРёРіРё РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅР° РґР° РґРѕР±Р°РІСЏС‚Рµ РґР°РЅРЅРё РєСЉРј "
+"РЅРµСЏ. РђРєРѕ СЃРјСЏС‚Р°С‚Рµ, С‡Рµ С‚РѕРІР° РЅРµ Рµ РІСЏСЂРЅРѕ, РјРѕР»СЏ РєРѕРЅСЃСѓР»С‚РёСЂР°Р№С‚Рµ СЃРµ СЃСЉСЃ РЎРёСЃС‚РµРјРЅРёСЏ "
+"РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 msgid "Notes"
-msgstr "Бележки"
+msgstr "Р‘РµР»РµР¶РєРё"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Outlook"
 msgstr "Outlook"
 
 msgid "PGP Public Key"
-msgstr "PGP Публичен ключ"
+msgstr "PGP РџСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Pine Address Book"
-msgstr "Pine Адресна книга"
+msgstr "Pine РђРґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Pine address book sucessfully imported"
-msgstr "Pine адресна книга беше импортирана успешно"
+msgstr "Pine Р°РґСЂРµСЃРЅР° РєРЅРёРіР° Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅР° СѓСЃРїРµС€РЅРѕ"
 
 msgid "Please choose an address book to add a contact to."
-msgstr "Моля, изберете към коя адресна книга да добавите контакт."
+msgstr "РњРѕР»СЏ, РёР·Р±РµСЂРµС‚Рµ РєСЉРј РєРѕСЏ Р°РґСЂРµСЃРЅР° РєРЅРёРіР° РґР° РґРѕР±Р°РІРёС‚Рµ РєРѕРЅС‚Р°РєС‚."
 
 msgid "Please select a directory:"
-msgstr "Моля, изберете директория:"
+msgstr "РњРѕР»СЏ, РёР·Р±РµСЂРµС‚Рµ РґРёСЂРµРєС‚РѕСЂРёСЏ:"
 
 msgid "Private Address Book"
-msgstr "Частна Адресна книга"
+msgstr "Р§Р°СЃС‚РЅР° РђРґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Remove from this list"
-msgstr "Премахване от този списък."
+msgstr "РџСЂРµРјР°С…РІР°РЅРµ РѕС‚ С‚РѕР·Рё СЃРїРёСЃСЉРє."
 
 msgid "Search"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "Search Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Search&nbsp;Results"
-msgstr "Резултати&nbsp;от&nbsp;търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё&nbsp;РѕС‚&nbsp;С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Select"
-msgstr "Избери"
+msgstr "РР·Р±РµСЂРё"
 
 msgid "Select Address Book"
-msgstr "Избери адресна книга"
+msgstr "РР·Р±РµСЂРё Р°РґСЂРµСЃРЅР° РєРЅРёРіР°"
 
 msgid "Select List"
-msgstr "Избери списък"
+msgstr "РР·Р±РµСЂРё СЃРїРёСЃСЉРє"
 
 msgid "Select the destination to import to:"
-msgstr "Изберете къде да се извърши импорта:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РєСЉРґРµ РґР° СЃРµ РёР·РІСЉСЂС€Рё РёРјРїРѕСЂС‚Р°:"
 
 msgid "Select the file to import:"
-msgstr "Изберете файл за импорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„Р°Р№Р» Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select the format to export to:"
-msgstr "Изберете формат, към който да се експортира:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚, РєСЉРј РєРѕР№С‚Рѕ РґР° СЃРµ РµРєСЃРїРѕСЂС‚РёСЂР°:"
 
 msgid "Select the format to import from:"
-msgstr "Изберете формат, от който да се импортира:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚, РѕС‚ РєРѕР№С‚Рѕ РґР° СЃРµ РёРјРїРѕСЂС‚РёСЂР°:"
 
 msgid "Select the source to export from:"
-msgstr "Изберете източник за експорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РёР·С‚РѕС‡РЅРёРє Р·Р° РµРєСЃРїРѕСЂС‚:"
 
 msgid "Select view to display by default."
-msgstr "Изберете изглед по подразбиране."
+msgstr "РР·Р±РµСЂРµС‚Рµ РёР·РіР»РµРґ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ."
 
 msgid "Select which fields to display in the address lists."
-msgstr "Изберете кои полета да са показани в списъка с адреси."
+msgstr "РР·Р±РµСЂРµС‚Рµ РєРѕРё РїРѕР»РµС‚Р° РґР° СЃР° РїРѕРєР°Р·Р°РЅРё РІ СЃРїРёСЃСЉРєР° СЃ Р°РґСЂРµСЃРё."
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Selected Columns:"
-msgstr "Изберете колони:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РєРѕР»РѕРЅРё:"
 
 #, c-format
 msgid "Send mail to %s"
-msgstr "Изпрати писмо до %s"
+msgstr "РР·РїСЂР°С‚Рё РїРёСЃРјРѕ РґРѕ %s"
 
 msgid "Set your preferred display language."
-msgstr "Изберете предпочитаният от Вас език за дисплея."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє Р·Р° РґРёСЃРїР»РµСЏ."
 
 msgid "Shared Directory"
-msgstr "Споделена Директория"
+msgstr "РЎРїРѕРґРµР»РµРЅР° Р”РёСЂРµРєС‚РѕСЂРёСЏ"
 
 msgid "Show All"
-msgstr "Покажи всички"
+msgstr "РџРѕРєР°Р¶Рё РІСЃРёС‡РєРё"
 
 msgid "Show Contacts"
-msgstr "Покажи контактите"
+msgstr "РџРѕРєР°Р¶Рё РєРѕРЅС‚Р°РєС‚РёС‚Рµ"
 
 msgid "Show Lists"
-msgstr "Покажи списъците"
+msgstr "РџРѕРєР°Р¶Рё СЃРїРёСЃСЉС†РёС‚Рµ"
 
 msgid "Some of Turba's configuration files are missing:"
-msgstr "Някои от конфигурационните файлове на Turba липсват:"
+msgstr "РќСЏРєРѕРё РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° Turba Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 msgid "Tab separated values"
-msgstr "Tab (табулация) разделени стойности"
+msgstr "Tab (С‚Р°Р±СѓР»Р°С†РёСЏ) СЂР°Р·РґРµР»РµРЅРё СЃС‚РѕР№РЅРѕСЃС‚Рё"
 
 msgid "The data got lost."
-msgstr "Данните бяха загубени."
+msgstr "Р”Р°РЅРЅРёС‚Рµ Р±СЏС…Р° Р·Р°РіСѓР±РµРЅРё."
 
 msgid "The data was lost"
-msgstr "Данните бяха загубени"
+msgstr "Р”Р°РЅРЅРёС‚Рµ Р±СЏС…Р° Р·Р°РіСѓР±РµРЅРё"
 
 msgid "The file contained no data."
-msgstr "Файлът не съдържа данни."
+msgstr "Р¤Р°Р№Р»СЉС‚ РЅРµ СЃСЉРґСЉСЂР¶Р° РґР°РЅРЅРё."
 
 msgid "The object you requested does not exist."
-msgstr "Обекта, който изисквате не съществува."
+msgstr "РћР±РµРєС‚Р°, РєРѕР№С‚Рѕ РёР·РёСЃРєРІР°С‚Рµ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°."
 
 msgid "There are no browseable address books."
-msgstr "Няма адресни книги за преглеждане."
+msgstr "РќСЏРјР° Р°РґСЂРµСЃРЅРё РєРЅРёРіРё Р·Р° РїСЂРµРіР»РµР¶РґР°РЅРµ."
 
 msgid "There are no writeable address books."
-msgstr "Няма адресни книги, в които можете да пишете."
+msgstr "РќСЏРјР° Р°РґСЂРµСЃРЅРё РєРЅРёРіРё, РІ РєРѕРёС‚Рѕ РјРѕР¶РµС‚Рµ РґР° РїРёС€РµС‚Рµ."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Грешка при изпращането на файла. Възможно е файлът да е по-голям от "
-"максимално допустимият размер."
+"Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. Р’СЉР·РјРѕР¶РЅРѕ Рµ С„Р°Р№Р»СЉС‚ РґР° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕРїСѓСЃС‚РёРјРёСЏС‚ СЂР°Р·РјРµСЂ."
 
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
 msgstr ""
-"Грешка при добавянето на този обект. Консултирайте се със Системния "
-"Администратор."
+"Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµС‚Рѕ РЅР° С‚РѕР·Рё РѕР±РµРєС‚. РљРѕРЅСЃСѓР»С‚РёСЂР°Р№С‚Рµ СЃРµ СЃСЉСЃ РЎРёСЃС‚РµРјРЅРёСЏ "
+"РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 msgid "There was an error creating a new list."
-msgstr "Грешка при създаване на нов списък."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІ СЃРїРёСЃСЉРє."
 
 msgid "There was an error deleting this object."
-msgstr "Грешка при изтриването на този обект."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° С‚РѕР·Рё РѕР±РµРєС‚."
 
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
 msgstr ""
-"Грешка при изтриването на този обект. Консултирайте се със Системния "
-"Администратор."
+"Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° С‚РѕР·Рё РѕР±РµРєС‚. РљРѕРЅСЃСѓР»С‚РёСЂР°Р№С‚Рµ СЃРµ СЃСЉСЃ РЎРёСЃС‚РµРјРЅРёСЏ "
+"РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 msgid "There was an error displaying the select List"
-msgstr "Грешка при показването на избрания списък"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµС‚Рѕ РЅР° РёР·Р±СЂР°РЅРёСЏ СЃРїРёСЃСЉРє"
 
 msgid "There was an error importing the data."
-msgstr "Грешка при импорт на данните."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚ РЅР° РґР°РЅРЅРёС‚Рµ."
 
 #, c-format
 msgid "There was an error importing the data: %s."
-msgstr "Грешка при импортиране на данните: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РґР°РЅРЅРёС‚Рµ: %s."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Грешка при импортиране на изпратения файл"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РёР·РїСЂР°С‚РµРЅРёСЏ С„Р°Р№Р»"
 
 msgid "There was an error importing the vCard data."
-msgstr "Грешка при импорт на vCard данни."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚ РЅР° vCard РґР°РЅРЅРё."
 
 msgid "There was an error removing this object."
-msgstr "Грешка при преместване на обекта."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚РІР°РЅРµ РЅР° РѕР±РµРєС‚Р°."
 
 msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Този файл съдържа настройките по подразбиране на Turba и контролира кои от "
-"тях потребителят може да променя."
+"РўРѕР·Рё С„Р°Р№Р» СЃСЉРґСЉСЂР¶Р° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ РЅР° Turba Рё РєРѕРЅС‚СЂРѕР»РёСЂР° РєРѕРё РѕС‚ "
+"С‚СЏС… РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РјРѕР¶Рµ РґР° РїСЂРѕРјРµРЅСЏ."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Този файл контролира стиловете, който се използват за цветовете и шрифтовете "
-"в допълнение към подразбиращите стилове на Horde."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚РёР»РѕРІРµС‚Рµ, РєРѕР№С‚Рѕ СЃРµ РёР·РїРѕР»Р·РІР°С‚ Р·Р° С†РІРµС‚РѕРІРµС‚Рµ Рё С€СЂРёС„С‚РѕРІРµС‚Рµ "
+"РІ РґРѕРїСЉР»РЅРµРЅРёРµ РєСЉРј РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёС‚Рµ СЃС‚РёР»РѕРІРµ РЅР° Horde."
 
 msgid ""
 "This file defines the Turba global attribute names and types - names, email "
 "addresses, etc."
 msgstr ""
-"Този файл задава глобалните стойности за имена и типовe - имена, email "
-"адреси и т.н."
+"РўРѕР·Рё С„Р°Р№Р» Р·Р°РґР°РІР° РіР»РѕР±Р°Р»РЅРёС‚Рµ СЃС‚РѕР№РЅРѕСЃС‚Рё Р·Р° РёРјРµРЅР° Рё С‚РёРїРѕРІe - РёРјРµРЅР°, email "
+"Р°РґСЂРµСЃРё Рё С‚.РЅ."
 
 msgid "This file defines the list of available sources for Turba."
-msgstr "Този файл задава списъка с наличните сорсове за Turba."
+msgstr "РўРѕР·Рё С„Р°Р№Р» Р·Р°РґР°РІР° СЃРїРёСЃСЉРєР° СЃ РЅР°Р»РёС‡РЅРёС‚Рµ СЃРѕСЂСЃРѕРІРµ Р·Р° Turba."
 
 msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"Това е главния конфигурационен файл на Turba. Той съдържа пътища и опции за "
-"скриптовете на Turba."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ С„Р°Р№Р» РЅР° Turba. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р° Рё РѕРїС†РёРё Р·Р° "
+"СЃРєСЂРёРїС‚РѕРІРµС‚Рµ РЅР° Turba."
 
 #, c-format
 msgid "This person already has a %s entry in the address book."
-msgstr "Този човек вече съществува като %s във адресната книга."
+msgstr "РўРѕР·Рё С‡РѕРІРµРє РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР° РєР°С‚Рѕ %s РІСЉРІ Р°РґСЂРµСЃРЅР°С‚Р° РєРЅРёРіР°."
 
 msgid "This person is already in your address book."
-msgstr "Този човек вече съществува във Вашата адресна книга."
+msgstr "РўРѕР·Рё С‡РѕРІРµРє РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІСЉРІ Р’Р°С€Р°С‚Р° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°."
 
 msgid "Title"
-msgstr "Длъжност"
+msgstr "Р”Р»СЉР¶РЅРѕСЃС‚"
 
 msgid "Turba is not properly configured"
-msgstr "Turba не е конфигурирана коректно"
+msgstr "Turba РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅР° РєРѕСЂРµРєС‚РЅРѕ"
 
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "Грешка при зареждане на дефинициите на %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ РЅР° РґРµС„РёРЅРёС†РёРёС‚Рµ РЅР° %s."
 
 msgid "Unnamed Contact"
-msgstr "Безименен контакт"
+msgstr "Р‘РµР·РёРјРµРЅРµРЅ РєРѕРЅС‚Р°РєС‚"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 msgid "Verisign Directory"
 msgstr "Verisign Directory"
 
 msgid "View map"
-msgstr "Виж карта"
+msgstr "Р’РёР¶ РєР°СЂС‚Р°"
 
 msgid "View to display by default:"
-msgstr "Изглед, които да бъде показан по подразбиране:"
+msgstr "РР·РіР»РµРґ, РєРѕРёС‚Рѕ РґР° Р±СЉРґРµ РїРѕРєР°Р·Р°РЅ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Work Address"
-msgstr "Бизнес адрес"
+msgstr "Р‘РёР·РЅРµСЃ Р°РґСЂРµСЃ"
 
 msgid "Work Phone"
-msgstr "Бизнес телефон"
+msgstr "Р‘РёР·РЅРµСЃ С‚РµР»РµС„РѕРЅ"
 
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"Вие не съпоставихте никакви полета от импортирания файл към съответните "
-"полета в Turba."
+"Р’РёРµ РЅРµ СЃСЉРїРѕСЃС‚Р°РІРёС…С‚Рµ РЅРёРєР°РєРІРё РїРѕР»РµС‚Р° РѕС‚ РёРјРїРѕСЂС‚РёСЂР°РЅРёСЏ С„Р°Р№Р» РєСЉРј СЃСЉРѕС‚РІРµС‚РЅРёС‚Рµ "
+"РїРѕР»РµС‚Р° РІ Turba."
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "[Edit]"
-msgstr "[Редакция]"
+msgstr "[Р РµРґР°РєС†РёСЏ]"
 
 msgid "add column"
-msgstr "добави колона"
+msgstr "РґРѕР±Р°РІРё РєРѕР»РѕРЅР°"
 
 msgid "move left"
-msgstr "премести на ляво"
+msgstr "РїСЂРµРјРµСЃС‚Рё РЅР° Р»СЏРІРѕ"
 
 msgid "move right"
-msgstr "премести на дясно"
+msgstr "РїСЂРµРјРµСЃС‚Рё РЅР° РґСЏСЃРЅРѕ"
 
 msgid "remove column"
-msgstr "премахни колона"
+msgstr "РїСЂРµРјР°С…РЅРё РєРѕР»РѕРЅР°"
 
 msgid "vCard"
 msgstr "vCard"

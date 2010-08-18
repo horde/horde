@@ -13,266 +13,266 @@ msgstr ""
 "Last-Translator: Konstantinos C. Milosis <kmilosis@yahoo.com>\n"
 "Language-Team: Greek <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: templates/search/header.inc:8
 msgid "%d events"
-msgstr "%d Γεγονότα"
+msgstr "%d Ξ“ΞµΞ³ΞΏΞ½ΟΟ„Ξ±"
 
 #, c-format
 msgid "%d hour"
-msgstr "%d ώρα"
+msgstr "%d ΟΟΞ±"
 
 #, c-format
 msgid "%d hour, %d minute"
-msgstr "%d ώρα, %d λεπτό"
+msgstr "%d ΟΟΞ±, %d Ξ»ΞµΟ€Ο„Ο"
 
 #, c-format
 msgid "%d hour, %d minutes"
-msgstr "%d ώρα, %d λεπτά"
+msgstr "%d ΟΟΞ±, %d Ξ»ΞµΟ€Ο„Ξ¬"
 
 #, c-format
 msgid "%d hours"
-msgstr "%d ώρες"
+msgstr "%d ΟΟΞµΟ‚"
 
 #, c-format
 msgid "%d hours, %d minute"
-msgstr "%d ώρες, %d λεπτό"
+msgstr "%d ΟΟΞµΟ‚, %d Ξ»ΞµΟ€Ο„Ο"
 
 #, c-format
 msgid "%d hours, %d minutes"
-msgstr "%d ώρες, %d λεπτά"
+msgstr "%d ΟΟΞµΟ‚, %d Ξ»ΞµΟ€Ο„Ξ¬"
 
 #, c-format
 msgid "%d minute"
-msgstr "%d λεπτό"
+msgstr "%d Ξ»ΞµΟ€Ο„Ο"
 
 #, c-format
 msgid "%d minutes"
-msgstr "%d λεπτά"
+msgstr "%d Ξ»ΞµΟ€Ο„Ξ¬"
 
 #: templates/edit/edit_timespan.inc:127
 msgid "%s Day(s) %s Hour(s) %s Minutes"
-msgstr "%s Ημερα(ες) %s Ώρα(ες) %s Λεπτά"
+msgstr "%s Ξ—ΞΌΞµΟΞ±(ΞµΟ‚) %s ΞΟΞ±(ΞµΟ‚) %s Ξ›ΞµΟ€Ο„Ξ¬"
 
 #: lib/Driver.php:1698
 msgid "%s attendees"
-msgstr "%s συμμετέχοντες"
+msgstr "%s ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚"
 
 # data.php:236, c-format
 #: data.php:236
 msgid "%s file successfully imported"
-msgstr "%s, έγινε επιτυχώς η εισαγωγή του αρχείου"
+msgstr "%s, Ξ­Ξ³ΞΉΞ½Ξµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ Ξ· ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…"
 
 #, c-format
 msgid "%s is in progress."
-msgstr "%s είναι σε λειτουργία."
+msgstr "%s ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΞµ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±."
 
 #, c-format
 msgid "%s is starting now."
-msgstr "%s αρχίζει τώρα."
+msgstr "%s Ξ±ΟΟ‡Ξ―Ξ¶ΞµΞΉ Ο„ΟΟΞ±."
 
 #, c-format
 msgid "%s starts in %s"
-msgstr "%s ξεκινά σε %s"
+msgstr "%s ΞΎΞµΞΊΞΉΞ½Ξ¬ ΟƒΞµ %s"
 
 #: calendars.php:105 lib/base.php:126
 msgid "%s's Calendar"
-msgstr "%ss Ημερολόγιο"
+msgstr "%ss Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "(optional)"
-msgstr "(Προαιρετικά)"
+msgstr "(Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬)"
 
 #: templates/contacts/contacts.inc:166
 msgid "* Add these by clicking Add *"
-msgstr "* Προσθέστε αυτά κάνοντας κλικ στο 'Προσθήκη' *"
+msgstr "* Ξ ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ Ξ±Ο…Ο„Ξ¬ ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·' *"
 
 #: templates/contacts/contacts.inc:152
 msgid "* Please select address(es) *"
-msgstr "* Παρακαλώ επιλέξτε διεύθυνση (εις *"
+msgstr "* Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· (ΞµΞΉΟ‚ *"
 
 msgid "-- No attendees --"
-msgstr "-- Δεν υπάρχουν συμμετέχοντες --"
+msgstr "-- Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ --"
 
 #: lib/Driver.php:1698
 msgid "1 attendee"
-msgstr "1 συμμετέχων"
+msgstr "1 ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡Ο‰Ξ½"
 
 #: templates/search/header.inc:8
 msgid "1 event"
-msgstr "1 γεγονός"
+msgstr "1 Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚"
 
 msgid "<b>Attendees</b> (optional)"
-msgstr "<b>Συμμετέχοντες</b> (προαιρετικό)"
+msgstr "<b>Ξ£Ο…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚</b> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 msgid "<b>Descri_ption</b> (optional)"
-msgstr "<b>Περιγραφή</b> (προαιρετικό)"
+msgstr "<b>Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®</b> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 msgid "<b>Description</b>"
-msgstr "<b>Περιγραφή</b>"
+msgstr "<b>Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®</b>"
 
 msgid "<b>Keywords</b> (optional)"
-msgstr "<b>Λέξεις κλειδιά</b> (προαιρετικό)"
+msgstr "<b>Ξ›Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬</b> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 msgid "<b>Keywords</b>"
-msgstr "<b>Λέξεις κλειδιά</b>"
+msgstr "<b>Ξ›Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬</b>"
 
 msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>Επανάληψη</b> (προαιρετικό)"
+msgstr "<b>Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·</b> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 msgid "<b>Recurrence</b>"
-msgstr "<b>Επανάληψη</b>"
+msgstr "<b>Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·</b>"
 
 #: templates/edit/edit.inc:169
 msgid "<strong>Attendees</strong> (optional)"
-msgstr "<strong>Συμμετέχοντες</strong> (προαιρετικό)"
+msgstr "<strong>Ξ£Ο…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚</strong> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 #: templates/edit/edit.inc:147
 msgid "<strong>Descri_ption</strong> (optional)"
-msgstr "<strong>Περιγραφή</strong> (προαιρετικό)"
+msgstr "<strong>Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®</strong> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)"
 
 #: templates/edit/edit.inc:192
 msgid "<strong>Recurrence</strong> (optional)"
-msgstr "<strong>Επανάληψη</strong> (προαιρετικά)"
+msgstr "<strong>Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·</strong> (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬)"
 
 msgid "AM"
-msgstr "πμ"
+msgstr "Ο€ΞΌ"
 
 #: lib/Kronolith.php:520
 msgid "Accepted"
-msgstr "Αποδεκτό"
+msgstr "Ξ‘Ο€ΞΏΞ΄ΞµΞΊΟ„Ο"
 
 #: templates/search/search.inc:10
 msgid "Ad_vanced Search"
-msgstr "Επεκταμένη Αναζήτηση"
+msgstr "Ξ•Ο€ΞµΞΊΟ„Ξ±ΞΌΞ­Ξ½Ξ· Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: templates/contacts/contacts.inc:163 templates/contacts/contacts.inc:192
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·"
 
 #: templates/edit/edit.inc:25
 msgid "Add Event"
-msgstr "Προσθήκη Γεγονότος"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ“ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 #: templates/prefs/remote_cal_management.inc:35
 msgid "Add a new Remote Calendar"
-msgstr "Προσθήκη νέου Απομακρυσμένου Ημερολογίου"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­ΞΏΟ… Ξ‘Ο€ΞΏΞΌΞ±ΞΊΟΟ…ΟƒΞΌΞ­Ξ½ΞΏΟ… Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 #: addevent.php:50
 msgid "Add a new event"
-msgstr "Προσθήκη νέου Γεγονότος"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­ΞΏΟ… Ξ“ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 msgid "Add attendees"
-msgstr "Προσθήκη Συμμετεχόντων"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ£Ο…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½"
 
 msgid "Add people from my Address Book"
-msgstr "Προσθήκη ανθρώπων από το Διευθυνσιογράφο μου"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ±Ξ½ΞΈΟΟΟ€Ο‰Ξ½ Ξ±Ο€Ο Ο„ΞΏ Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ ΞΌΞΏΟ…"
 
 msgid "Add these people"
-msgstr "Προσθήκη αυτών των ανθρώπων"
+msgstr "Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ±Ο…Ο„ΟΞ½ Ο„Ο‰Ξ½ Ξ±Ξ½ΞΈΟΟΟ€Ο‰Ξ½"
 
 #: contacts.php:85 templates/contacts/contacts.inc:122
 msgid "Address Book"
-msgstr "Διευθυνσιογράφος"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ‚"
 
 #: config/prefs.php.dist:50
 msgid "Address Books"
-msgstr "Διευθυνσιογράφοι"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΞΉ"
 
 #: templates/search/search_advanced.inc:7 templates/search/search.inc:10
 msgid "Advanced Search"
-msgstr "Επεκταμένη Αναζήτηση"
+msgstr "Ξ•Ο€ΞµΞΊΟ„Ξ±ΞΌΞ­Ξ½Ξ· Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: lib/Driver.php:1678
 msgid "Alarm %d days before"
-msgstr "Προειδοποίηση %d μέρες πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· %d ΞΌΞ­ΟΞµΟ‚ Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1683
 msgid "Alarm %d hours before"
-msgstr "Προειδοποιηση %d ώρες πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞΉΞ·ΟƒΞ· %d ΟΟΞµΟ‚ Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1688
 msgid "Alarm %d minutes before"
-msgstr "Προειδοποίηση %d λεπτά πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· %d Ξ»ΞµΟ€Ο„Ξ¬ Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1673
 msgid "Alarm %d weeks before"
-msgstr "Προειδοποίηση %d εβδομάδες πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· %d ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1677
 msgid "Alarm 1 day before"
-msgstr "Προειδοποίηση 1 ημέρα πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· 1 Ξ·ΞΌΞ­ΟΞ± Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1682
 msgid "Alarm 1 hour before"
-msgstr "Προειδοποίηση 1 ώρα πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· 1 ΟΟΞ± Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1687
 msgid "Alarm 1 minute before"
-msgstr "Προειδοποίηση 1 λεπτό πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· 1 Ξ»ΞµΟ€Ο„Ο Ο€ΟΞΉΞ½"
 
 #: lib/Driver.php:1672
 msgid "Alarm 1 week before"
-msgstr "Προειδοποίηση 1 εβδομάδα πριν"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· 1 ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ± Ο€ΟΞΉΞ½"
 
 #: data.php:50
 msgid "Alarm Date"
-msgstr "Ημερομηνία Προειδοποίησης"
+msgstr "Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚"
 
 msgid "Alarm Span (minutes)"
-msgstr "Διάρκεια Προειδοποίησης (λεπτά)"
+msgstr "Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ (Ξ»ΞµΟ€Ο„Ξ¬)"
 
 msgid "Alarm Time"
-msgstr "Ημερομηνία Προειδοποίησης"
+msgstr "Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚"
 
 msgid "Alarm"
-msgstr "Προειδοποίηση"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "All Attendees"
-msgstr "Ολοι οι συμμετέχοντες"
+msgstr "ΞΞ»ΞΏΞΉ ΞΏΞΉ ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚"
 
 #: templates/search/search.inc:58
 msgid "All Future"
-msgstr "Όλα τα Μελλοντικά"
+msgstr "ΞΞ»Ξ± Ο„Ξ± ΞΞµΞ»Ξ»ΞΏΞ½Ο„ΞΉΞΊΞ¬"
 
 #: templates/search/search.inc:52
 msgid "All Past"
-msgstr "Όλα τα περασμένα"
+msgstr "ΞΞ»Ξ± Ο„Ξ± Ο€ΞµΟΞ±ΟƒΞΌΞ­Ξ½Ξ±"
 
 #: lib/Block/prevmonthlist.php:27 lib/Block/month.php:24
 #: lib/Block/monthlist.php:27 lib/Block/summary.php:25
 msgid "All Visible"
-msgstr "Όλα τα εμφανή"
+msgstr "ΞΞ»Ξ± Ο„Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ®"
 
 msgid "All day event"
-msgstr "Γεγονός που διαρκεί όλη την μέρα"
+msgstr "Ξ“ΞµΞ³ΞΏΞ½ΟΟ‚ Ο€ΞΏΟ… Ξ΄ΞΉΞ±ΟΞΊΞµΞ― ΟΞ»Ξ· Ο„Ξ·Ξ½ ΞΌΞ­ΟΞ±"
 
 msgid "All day"
-msgstr "Όλες τις μέρες"
+msgstr "ΞΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞΌΞ­ΟΞµΟ‚"
 
 msgid "All events"
-msgstr "Όλα τα γεγονότα"
+msgstr "ΞΞ»Ξ± Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ±"
 
 msgid "All"
-msgstr "Όλα"
+msgstr "ΞΞ»Ξ±"
 
 #: templates/search/search_advanced.inc:48
 #: templates/search/search_advanced.inc:70 lib/Kronolith.php:610
 msgid "Any"
-msgstr "Οποιοδήποτε"
+msgstr "ΞΟ€ΞΏΞΉΞΏΞ΄Ξ®Ο€ΞΏΟ„Ξµ"
 
 msgid "An illegal value was specified."
-msgstr "Ορίστηκε μία μη επιτρεπόμενη τιμή."
+msgstr "ΞΟΞ―ΟƒΟ„Ξ·ΞΊΞµ ΞΌΞ―Ξ± ΞΌΞ· ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½Ξ· Ο„ΞΉΞΌΞ®."
 
 msgid "April"
-msgstr "Απρίλιος"
+msgstr "Ξ‘Ο€ΟΞ―Ξ»ΞΉΞΏΟ‚"
 
 msgid "Are you sure you want to delete the event \"%s\"?"
-msgstr "Θέλετε να διαγράψετε το γεγονός \"%s\";"
+msgstr "ΞΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ \"%s\";"
 
 msgid "At"
-msgstr "Την"
+msgstr "Ξ¤Ξ·Ξ½"
 
 #: lib/Kronolith.php:966
 msgid ""
@@ -280,1437 +280,1437 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"Το συνημμένο είναι ένα αρχείο iCalendar με περισσότερες πληροφορίες για αυτό "
-"το γεγονός. Αν το πρόγραμμα mail σας υποστηρίζει αιτήματα iTip μπορείτε να "
-"το χρησιμοποιήσετε για να ενημερώσετε εύκολα το δικό αντίγραφο του γεγονότος."
+"Ξ¤ΞΏ ΟƒΟ…Ξ½Ξ·ΞΌΞΌΞ­Ξ½ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ iCalendar ΞΌΞµ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ³ΞΉΞ± Ξ±Ο…Ο„Ο "
+"Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚. Ξ‘Ξ½ Ο„ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± mail ΟƒΞ±Ο‚ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΞΉ Ξ±ΞΉΟ„Ξ®ΞΌΞ±Ο„Ξ± iTip ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± "
+"Ο„ΞΏ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟΟƒΞµΟ„Ξµ ΞµΟΞΊΞΏΞ»Ξ± Ο„ΞΏ Ξ΄ΞΉΞΊΟ Ξ±Ξ½Ο„Ξ―Ξ³ΟΞ±Ο†ΞΏ Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚."
 
 msgid "Attendance"
-msgstr "Παρακολούθηση"
+msgstr "Ξ Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·"
 
 msgid "Attendees"
-msgstr "Συμμετέχοντες"
+msgstr "Ξ£Ο…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚"
 
 msgid "August"
-msgstr "Αύγουστος"
+msgstr "Ξ‘ΟΞ³ΞΏΟ…ΟƒΟ„ΞΏΟ‚"
 
 msgid "Back to Calendar Options"
-msgstr "Επιστροφή στις Επιλογές"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΉΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 #: templates/search/search_advanced.inc:10 templates/search/search.inc:7
 msgid "Basic Search"
-msgstr "Βασική Αναζήτηση"
+msgstr "Ξ’Ξ±ΟƒΞΉΞΊΞ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
-msgstr "Γενέθλια"
+msgstr "Ξ“ΞµΞ½Ξ­ΞΈΞ»ΞΉΞ±"
 
 msgid "Busy"
-msgstr "Απασχολημένος"
+msgstr "Ξ‘Ο€Ξ±ΟƒΟ‡ΞΏΞ»Ξ·ΞΌΞ­Ξ½ΞΏΟ‚"
 
 msgid "Business"
-msgstr "Επιχείρηση"
+msgstr "Ξ•Ο€ΞΉΟ‡ΞµΞ―ΟΞ·ΟƒΞ·"
 
 #: templates/search/search_advanced.inc:43
 msgid "C_alendar"
-msgstr "Ημερολόγιο"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 #: templates/edit/edit.inc:48
 msgid "Cal_endar"
-msgstr "Ημερολόγιο"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Cal_endar Name"
-msgstr "Ονομα Ημερολογίου"
+msgstr "ΞΞ½ΞΏΞΌΞ± Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Calendar Description"
-msgstr "Περιγραφή Ημερολογίου"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Calendar Name"
-msgstr "Ονομα Ημερολογίου"
+msgstr "ΞΞ½ΞΏΞΌΞ± Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 #: lib/Block/summary.php:3
 msgid "Calendar Summary"
-msgstr "Σύνοψη Ημερολογίου"
+msgstr "Ξ£ΟΞ½ΞΏΟΞ· Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Calendar"
-msgstr "Ημερολόγιο"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Calendars"
-msgstr "Ημερολόγια"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ±"
 
 #: calendars.php:27
 msgid "Calendars must have a name."
-msgstr "Τα ημερολόγια πρέπει να έχουν όνομα."
+msgstr "Ξ¤Ξ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ ΟΞ½ΞΏΞΌΞ±."
 
 #: data.php:211
 msgid "Can't create a new event."
-msgstr "Αδύνατη η δημιουργία νέου γεγονότος."
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚."
 
 #: templates/contacts/contacts.inc:193 templates/delete/one.inc:42
 #: templates/delete/delete.inc:44 templates/edit/edit.inc:32
 #: templates/edit/edit.inc:292
 msgid "Cancel"
-msgstr "Ακυρο"
+msgstr "Ξ‘ΞΊΟ…ΟΞΏ"
 
 msgid "Cancelled"
-msgstr "Ακυρώθηκε"
+msgstr "Ξ‘ΞΊΟ…ΟΟΞΈΞ·ΞΊΞµ"
 
 #: lib/Kronolith.php:943
 msgid "Cancelled: %s"
-msgstr "Ακυρώθηκε: %s"
+msgstr "Ξ‘ΞΊΟ…ΟΟΞΈΞ·ΞΊΞµ: %s"
 
 #: templates/search/search_advanced.inc:63 templates/edit/edit.inc:68
 msgid "Categor_y"
-msgstr "Κατηγορία"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 msgid "Category"
-msgstr "Κατηγορία"
+msgstr "ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±"
 
 #: templates/calendars/calendars.inc:22 templates/calendars/calendars.inc:123
 msgid "Change"
-msgstr "Αλλαγή"
+msgstr "Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ®"
 
 msgid "Change the way dates and times are formatted."
-msgstr "Αλλαγή του τρόπου μορφοποίησης της ημερομηνίας και της ώρας."
+msgstr "Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο„ΞΏΟ… Ο„ΟΟΟ€ΞΏΟ… ΞΌΞΏΟΟ†ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ Ο„Ξ·Ο‚ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚ ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ ΟΟΞ±Ο‚."
 
 msgid "Choose the address books to search for free/busy URLs:"
-msgstr "Επιλέξτε το διευθυνσιογράφο για αναζήτηση ιστοσελίων διαθεσιμότητας:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ³ΞΉΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ο‰Ξ½ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚:"
 
 msgid ""
 "Choose the calendars that you want to be included in your Free/Busy listings:"
 msgstr ""
-"Επιλέξτε τα ημερολόγια που επιθυμείτε να συμπεριληφθούν στη λιστα "
-"διαθεσιμότητας:"
+"Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ± Ο€ΞΏΟ… ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ…ΞΌΟ€ΞµΟΞΉΞ»Ξ·Ο†ΞΈΞΏΟΞ½ ΟƒΟ„Ξ· Ξ»ΞΉΟƒΟ„Ξ± "
+"Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚:"
 
 msgid "Choose your default calendar."
-msgstr "Επιλέξτε το προκαθορισμένο ημερολόγιό σας."
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΟ ΟƒΞ±Ο‚."
 
 #: templates/search/search_advanced.inc:116 templates/search/search.inc:68
 msgid "Clear Form"
-msgstr "Καθάρισμα Φόρμας"
+msgstr "ΞΞ±ΞΈΞ¬ΟΞΉΟƒΞΌΞ± Ξ¦ΟΟΞΌΞ±Ο‚"
 
 #: templates/attendees/attendees.inc:84
 msgid "Clear all attendees"
-msgstr "Διαγραφή όλων των συμμετεχόντων"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΟƒΟ…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½"
 
 #: data.php:28 templates/data/import.inc:21
 msgid "Comma separated values"
-msgstr "Τιμές χωρισμένες με Ελληνικό Ερωτηματικό (CVS)"
+msgstr "Ξ¤ΞΉΞΌΞ­Ο‚ Ο‡Ο‰ΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ Ξ•Ξ»Ξ»Ξ·Ξ½ΞΉΞΊΟ Ξ•ΟΟ‰Ο„Ξ·ΞΌΞ±Ο„ΞΉΞΊΟ (CVS)"
 
 #: config/prefs.php.dist:142
 msgid "Confirm deletion of events?"
-msgstr "Να ζητείται επιβεβαίωση κατά τη διαγραφή των γεγονότων;"
+msgstr "ΞΞ± Ξ¶Ξ·Ο„ΞµΞ―Ο„Ξ±ΞΉ ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½;"
 
 msgid "Confirmed"
-msgstr "Επιβεβαιωμένο"
+msgstr "Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟ‰ΞΌΞ­Ξ½ΞΏ"
 
 msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
 msgstr ""
-"Αντιγράψτε το URL που θα χρησιμοποιείτε όταν χρειάζεστε URL διαθεσιμότητας:"
+"Ξ‘Ξ½Ο„ΞΉΞ³ΟΞ¬ΟΟ„Ξµ Ο„ΞΏ URL Ο€ΞΏΟ… ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξµ ΟΟ„Ξ±Ξ½ Ο‡ΟΞµΞΉΞ¬Ξ¶ΞµΟƒΟ„Ξµ URL Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚:"
 
 #: lib/Kronolith.php:158
 msgid "Could not open %s."
-msgstr "Δε μπορώ να ανοίξω %s."
+msgstr "Ξ”Ξµ ΞΌΟ€ΞΏΟΟ Ξ½Ξ± Ξ±Ξ½ΞΏΞ―ΞΎΟ‰ %s."
 
 msgid "Create a New Event"
-msgstr "Δημιουργία νέου γεγονότος"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 msgid "Create"
-msgstr "Δημιουργία"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±"
 
 msgid "Created"
-msgstr "Δημιουργήθηκε"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ"
 
 msgid "Current"
-msgstr "Τρέχων"
+msgstr "Ξ¤ΟΞ­Ο‡Ο‰Ξ½"
 
 msgid "Daily: Recurs every"
-msgstr "Καθημερινά: Επαναλαμβανόμενο κάθε"
+msgstr "ΞΞ±ΞΈΞ·ΞΌΞµΟΞΉΞ½Ξ¬: Ξ•Ο€Ξ±Ξ½Ξ±Ξ»Ξ±ΞΌΞ²Ξ±Ξ½ΟΞΌΞµΞ½ΞΏ ΞΊΞ¬ΞΈΞµ"
 
 msgid "Date and Time Options"
-msgstr "Ρυθμίσεις Ημερομηνίας και Ώρας"
+msgstr "Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚ ΞΊΞ±ΞΉ ΞΟΞ±Ο‚"
 
 msgid "Day"
-msgstr "Ημέρα"
+msgstr "Ξ—ΞΌΞ­ΟΞ±"
 
 msgid "Day(s) "
-msgstr "Ημέρα(ες)"
+msgstr "Ξ—ΞΌΞ­ΟΞ±(ΞµΟ‚)"
 
 msgid "De_lete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 msgid "December"
-msgstr "Δεκέμβριος"
+msgstr "Ξ”ΞµΞΊΞ­ΞΌΞ²ΟΞΉΞΏΟ‚"
 
 #: lib/Kronolith.php:523
 msgid "Declined"
-msgstr "Αρνήθηκε"
+msgstr "Ξ‘ΟΞ½Ξ®ΞΈΞ·ΞΊΞµ"
 
 #: config/prefs.php.dist:35
 msgid "Default Calendar"
-msgstr "Προκαθορισμένο Ημερολόγιο"
+msgstr "Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Delete"
-msgstr "Διαγραφή"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 #, c-format
 msgid "Delete %s"
-msgstr "Διαγραφή %s"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® %s"
 
 #, c-format
 msgid "Delete '%s'"
-msgstr "Διαγραφή '%s'"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® '%s'"
 
 msgid "Delete Event"
-msgstr "Διαγραφή Γεγονότος"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ“ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"Διαγράψτε το τρέχων γεγονός μόνο, αυτό το περιστατικό και όλες τις "
-"μελλοντικές εμφανίσεις του, ήόλες τις εμφανίσεις του;"
+"Ξ”ΞΉΞ±Ξ³ΟΞ¬ΟΟ„Ξµ Ο„ΞΏ Ο„ΟΞ­Ο‡Ο‰Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ ΞΌΟΞ½ΞΏ, Ξ±Ο…Ο„Ο Ο„ΞΏ Ο€ΞµΟΞΉΟƒΟ„Ξ±Ο„ΞΉΞΊΟ ΞΊΞ±ΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ "
+"ΞΌΞµΞ»Ξ»ΞΏΞ½Ο„ΞΉΞΊΞ­Ο‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ…, Ξ®ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ…;"
 
 msgid "Deny Request"
-msgstr "Αρνηση Αιτήματος"
+msgstr "Ξ‘ΟΞ½Ξ·ΟƒΞ· Ξ‘ΞΉΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚"
 
 msgid "Descri_ption (Optional)"
-msgstr "Περιγραφή (Προαιρετικά)"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® (Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬)"
 
 msgid "Descri_ption"
-msgstr "Περιγραφή"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®"
 
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®"
 
 msgid "Dismiss"
-msgstr "Κλείσιμο"
+msgstr "ΞΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ"
 
 msgid "Display 24-hour times?"
-msgstr "Εμφάνιση της ώρας σε 24ωρη μορφή?"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ξ·Ο‚ ΟΟΞ±Ο‚ ΟƒΞµ 24Ο‰ΟΞ· ΞΌΞΏΟΟ†Ξ®?"
 
 msgid "Display Options"
-msgstr "Εμφάνιση Ρυθμίσεων"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½"
 
 msgid "Display"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "Do you want to show tasks which are due on your calendar?"
-msgstr "Θέλετε να εμφανίζονται οι εργασίες που έχουν λήξει στο ημερολόγιό σας;"
+msgstr "ΞΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΏΞΉ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ Ο€ΞΏΟ… Ξ­Ο‡ΞΏΟ…Ξ½ Ξ»Ξ®ΞΎΞµΞΉ ΟƒΟ„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΟ ΟƒΞ±Ο‚;"
 
 #: lib/Kronolith.php:466
 msgid "Does not recur"
-msgstr "Δεν επαναλαμβάνεται"
+msgstr "Ξ”ΞµΞ½ ΞµΟ€Ξ±Ξ½Ξ±Ξ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΟ„Ξ±ΞΉ"
 
 # lib/Kronolith.php:312, c-format
 #: lib/Kronolith.php:312
 msgid "Due: %s"
-msgstr "Διάρκεια: %s"
+msgstr "Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ±: %s"
 
 msgid "Duration"
-msgstr "Διάρκεια"
+msgstr "Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ±"
 
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 #, c-format
 msgid "Edit %s"
-msgstr "Επεξεργασία %s"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± %s"
 
 #, c-format
 msgid "Edit '%s'"
-msgstr "Επεξεργασία '%s'"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± '%s'"
 
 msgid "Edit Attendees"
-msgstr "Επεξεργασία Συμμετεχόντων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ£Ο…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½"
 
 #: config/prefs.php.dist:223
 msgid "Edit Remote Calendars"
-msgstr "Επεξεργασία Απομακρυσμένων Ημερολογίων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ‘Ο€ΞΏΞΌΞ±ΞΊΟΟ…ΟƒΞΌΞ­Ξ½Ο‰Ξ½ Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―Ο‰Ξ½"
 
 #: attendees.php:146
 msgid "Edit attendees"
-msgstr "Επεξεργασία συμμετεχόντων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΟƒΟ…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½"
 
 #: templates/category_legend.inc:25
 msgid "Edit categories and colors"
-msgstr "Επεξεργασία κατηγοριών και χρωμάτων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½ ΞΊΞ±ΞΉ Ο‡ΟΟ‰ΞΌΞ¬Ο„Ο‰Ξ½"
 
 msgid "Edit permissions for %s Calendar"
-msgstr "Επεξεργασία Εξουσιοδοτήσεων για το ημερολόγιο του %s"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ•ΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΟ‰Ξ½ Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ο„ΞΏΟ… %s"
 
 msgid "Email Address"
-msgstr "Διεύθυνση Email"
+msgstr "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Email"
 
 msgid "En_d"
-msgstr "Λήξη"
+msgstr "Ξ›Ξ®ΞΎΞ·"
 
 msgid "End Date"
-msgstr "Ημερομηνία Λήξης"
+msgstr "Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ›Ξ®ΞΎΞ·Ο‚"
 
 msgid "End On"
-msgstr "Λήξη Στις"
+msgstr "Ξ›Ξ®ΞΎΞ· Ξ£Ο„ΞΉΟ‚"
 
 msgid "End Time"
-msgstr "Ώρα Λήξης"
+msgstr "ΞΟΞ± Ξ›Ξ®ΞΎΞ·Ο‚"
 
 #: attendees.php:120 attendees.php:131 attendees.php:138
 msgid "Error retrieving free/busy information for %s: %s"
-msgstr "Λάθος κατά την ανάκτηση πλοροφοριών διαθεσιμότητας για %s: %s"
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο€Ξ»ΞΏΟΞΏΟ†ΞΏΟΞΉΟΞ½ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ³ΞΉΞ± %s: %s"
 
 msgid "Error"
-msgstr "Λάθος"
+msgstr "Ξ›Ξ¬ΞΈΞΏΟ‚"
 
 #: lib/Driver.php:934
 msgid "Event from %s to %s"
-msgstr "Γεγονός από %s ως %s"
+msgstr "Ξ“ΞµΞ³ΞΏΞ½ΟΟ‚ Ξ±Ο€Ο %s Ο‰Ο‚ %s"
 
 #: templates/attendees/attendees.inc:75
 msgid "Expand Names"
-msgstr "Ανάπτυξη Ονομάτων"
+msgstr "Ξ‘Ξ½Ξ¬Ο€Ο„Ο…ΞΎΞ· ΞΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½"
 
 msgid "Export Calendar"
-msgstr "Εξαγωγή Ημερολογίου"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr "Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "February"
-msgstr "Φεβρουάριος"
+msgstr "Ξ¦ΞµΞ²ΟΞΏΟ…Ξ¬ΟΞΉΞΏΟ‚"
 
 msgid "Fr"
-msgstr "Πα"
+msgstr "Ξ Ξ±"
 
 msgid "Friday"
-msgstr "Παρασκευή"
+msgstr "Ξ Ξ±ΟΞ±ΟƒΞΊΞµΟ…Ξ®"
 
 msgid "Future"
-msgstr "Μελλοντικά"
+msgstr "ΞΞµΞ»Ξ»ΞΏΞ½Ο„ΞΉΞΊΞ¬"
 
 msgid "Game"
-msgstr "Παιχνίδι"
+msgstr "Ξ Ξ±ΞΉΟ‡Ξ½Ξ―Ξ΄ΞΉ"
 
 #: templates/search/search_advanced.inc:22
 msgid "General"
-msgstr "Γενικά"
+msgstr "Ξ“ΞµΞ½ΞΉΞΊΞ¬"
 
 #: lib/Block/summary.php:127
 msgid "Goto %s"
-msgstr "Μεταφορά %s"
+msgstr "ΞΞµΟ„Ξ±Ο†ΞΏΟΞ¬ %s"
 
 msgid "Goto"
-msgstr "Μεταφορά"
+msgstr "ΞΞµΟ„Ξ±Ο†ΞΏΟΞ¬"
 
 msgid "Groups"
-msgstr "Ομάδες"
+msgstr "ΞΞΌΞ¬Ξ΄ΞµΟ‚"
 
 msgid "Guest Permissions"
-msgstr "Εξουσιοδοτήσεις Φιλοξενούμενου"
+msgstr "Ξ•ΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚ Ξ¦ΞΉΞ»ΞΏΞΎΞµΞ½ΞΏΟΞΌΞµΞ½ΞΏΟ…"
 
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid "Hour(s)"
-msgstr "Ώρα(ες)"
+msgstr "ΞΟΞ±(ΞµΟ‚)"
 
 #: config/prefs.php.dist:197
 msgid ""
 "How many days into the future should we generate free/busy information for?"
-msgstr "Για πόσες ημέρες θέλετε να δημιουργήσετε πληροφορίες διαθεσιμότητας;"
+msgstr "Ξ“ΞΉΞ± Ο€ΟΟƒΞµΟ‚ Ξ·ΞΌΞ­ΟΞµΟ‚ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚;"
 
 msgid "If importing CSV data: does the first row contain the field names?"
 msgstr ""
-"Αν εισάγετε διευθύνσεις από αρχείο χαρακτήρων, η πρώτη γραμμή περιέχει τα "
-"ονόματα των πεδίων;"
+"Ξ‘Ξ½ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ±Ο€Ο Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΟ‰Ξ½, Ξ· Ο€ΟΟΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„Ξ± "
+"ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ Ο€ΞµΞ΄Ξ―Ο‰Ξ½;"
 
 msgid "Illegal or malformed form data."
-msgstr "Λανθασμένη μορφή ή τύπος δεδομένων."
+msgstr "Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· ΞΌΞΏΟΟ†Ξ® Ξ® Ο„ΟΟ€ΞΏΟ‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
 
 msgid "Import Calendar"
-msgstr "Εισαγωγή Ημερολογίου"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 #: templates/data/import.inc:9
 msgid "Import Calendar, Step %d"
-msgstr "Εισαγωγή Ημερολογίου,Βήμα %d"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…,Ξ’Ξ®ΞΌΞ± %d"
 
 msgid "Import"
-msgstr "Εισαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "Import/Export Calendar"
-msgstr "Εισαγωγή/Εξαγωγή Ημερολογίου"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 msgid "January"
-msgstr "Ιανουάριος"
+msgstr "Ξ™Ξ±Ξ½ΞΏΟ…Ξ¬ΟΞΉΞΏΟ‚"
 
 msgid "July"
-msgstr "Ιούλιος"
+msgstr "Ξ™ΞΏΟΞ»ΞΉΞΏΟ‚"
 
 msgid "June"
-msgstr "Ιούνιος"
+msgstr "Ξ™ΞΏΟΞ½ΞΉΞΏΟ‚"
 
 msgid "Keywords"
-msgstr "Λέξη κλειδί"
+msgstr "Ξ›Ξ­ΞΎΞ· ΞΊΞ»ΞµΞΉΞ΄Ξ―"
 
 msgid "Kronolith is not properly configured"
-msgstr "Το πρόγραμμα Kronolith δεν είναι πλήρως ρυθμισμένο."
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Kronolith Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ»Ξ®ΟΟ‰Ο‚ ΟΟ…ΞΈΞΌΞΉΟƒΞΌΞ­Ξ½ΞΏ."
 
 msgid "Kronolith"
-msgstr "Ημερολόγιο"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Language"
-msgstr "Γλώσσα"
+msgstr "Ξ“Ξ»ΟΟƒΟƒΞ±"
 
 #: templates/view/view.inc:95
 msgid "Last Modified"
-msgstr "Τελευταία Αλαγμένο"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ‘Ξ»Ξ±Ξ³ΞΌΞ­Ξ½ΞΏ"
 
 #: templates/month/head_side_by_side.inc:4
 #: templates/month/head_side_by_side.inc:10
 #: templates/month/head_side_by_side.inc:16 templates/month/head.inc:4
 msgid "Last Month"
-msgstr "Τελευταίος μήνας"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏΟ‚ ΞΌΞ®Ξ½Ξ±Ο‚"
 
 msgid "Last month"
-msgstr "Τελευταίος μήνας"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏΟ‚ ΞΌΞ®Ξ½Ξ±Ο‚"
 
 msgid "Last week"
-msgstr "Τελευταία Εβδομάδα"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "Lasts"
-msgstr "Τελευταία"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ±"
 
 msgid "Limit the time span to export:"
-msgstr "Επιλέξτε το εύρος του χρόνου που θα εξάγετε:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ ΞµΟΟΞΏΟ‚ Ο„ΞΏΟ… Ο‡ΟΟΞ½ΞΏΟ… Ο€ΞΏΟ… ΞΈΞ± ΞµΞΎΞ¬Ξ³ΞµΟ„Ξµ:"
 
 msgid "Lo_cation"
-msgstr "Τοποθεσία"
+msgstr "Ξ¤ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±"
 
 msgid "Location"
-msgstr "Τοποθεσία"
+msgstr "Ξ¤ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±"
 
 msgid "Manage remote calendars."
-msgstr "Διαχείριση απομακρυσμένων ημερολογίων"
+msgstr "Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ξ±Ο€ΞΏΞΌΞ±ΞΊΟΟ…ΟƒΞΌΞ­Ξ½Ο‰Ξ½ Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―Ο‰Ξ½"
 
 msgid "March"
-msgstr "Μάρτιος"
+msgstr "ΞΞ¬ΟΟ„ΞΉΞΏΟ‚"
 
 msgid "May"
-msgstr "Μάιος"
+msgstr "ΞΞ¬ΞΉΞΏΟ‚"
 
 msgid "Meeting"
-msgstr "Συνάντηση"
+msgstr "Ξ£Ο…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞ·"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Λίστα Μενού"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± ΞΞµΞ½ΞΏΟ"
 
 msgid "Message"
-msgstr "Μήνυμα"
+msgstr "ΞΞ®Ξ½Ο…ΞΌΞ±"
 
 #: templates/view/view.inc:76 templates/edit/edit.inc:125
 msgid "Minute(s)"
-msgstr "Λεπτό(ά)"
+msgstr "Ξ›ΞµΟ€Ο„Ο(Ξ¬)"
 
 msgid "Minutes before"
-msgstr "Λεπτά πριν"
+msgstr "Ξ›ΞµΟ€Ο„Ξ¬ Ο€ΟΞΉΞ½"
 
 msgid "Minutes"
-msgstr "Λεπτά"
+msgstr "Ξ›ΞµΟ€Ο„Ξ¬"
 
 #: lib/Block/prevmonthlist.php:44
 msgid "Missed Events List"
-msgstr "Χαμένη Λίστα Γεγονότων"
+msgstr "Ξ§Ξ±ΞΌΞ­Ξ½Ξ· Ξ›Ξ―ΟƒΟ„Ξ± Ξ“ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½"
 
 msgid "Mo"
-msgstr "Δε"
+msgstr "Ξ”Ξµ"
 
 msgid "Monday"
-msgstr "Δευτέρα"
+msgstr "Ξ”ΞµΟ…Ο„Ξ­ΟΞ±"
 
 msgid "Month"
-msgstr "Μήνας"
+msgstr "ΞΞ®Ξ½Ξ±Ο‚"
 
 #: lib/Block/month.php:3
 msgid "Month View"
-msgstr "Εμφάνιση Μήνα"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΞ®Ξ½Ξ±"
 
 msgid "Monthly: Recurs every"
-msgstr "Μηνιαία: Κάθε"
+msgstr "ΞΞ·Ξ½ΞΉΞ±Ξ―Ξ±: ΞΞ¬ΞΈΞµ"
 
 #: lib/Block/monthlist.php:24
 msgid "Months Ahead"
-msgstr "Μήνες Μετά"
+msgstr "ΞΞ®Ξ½ΞµΟ‚ ΞΞµΟ„Ξ¬"
 
 #: lib/Block/prevmonthlist.php:24
 msgid "Months Before"
-msgstr "Μήνες Πρίν"
+msgstr "ΞΞ®Ξ½ΞµΟ‚ Ξ ΟΞ―Ξ½"
 
 msgid "More than %s entry fount"
-msgstr "Βρέθηκαν περισσότερες από %s εγγραφές"
+msgstr "Ξ’ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο %s ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚"
 
 #: lib/api.php:174 lib/api.php:347
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Πολλαπλά στοιχεία iCalendar βρέθηκαν, μόνο vEvent υποστηρίζονται."
+msgstr "Ξ ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ¬ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± iCalendar Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½, ΞΌΟΞ½ΞΏ vEvent Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ."
 
 msgid "My Calendar"
-msgstr "Το Ημερολόγιό μου"
+msgstr "Ξ¤ΞΏ Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΟ ΞΌΞΏΟ…"
 
 #: templates/calendars/calendars.inc:84
 msgid "My Calendars"
-msgstr "Τα Ημερολόγιά μου"
+msgstr "Ξ¤Ξ± Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ¬ ΞΌΞΏΟ…"
 
 msgid "My Calendars:"
-msgstr "Τα Ημερολόγιά μου:"
+msgstr "Ξ¤Ξ± Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ¬ ΞΌΞΏΟ…:"
 
 msgid "My Free/Busy URL"
-msgstr "Τοποθεσίες διαθεσιμότητάς μου"
+msgstr "Ξ¤ΞΏΟ€ΞΏΞΈΞµΟƒΞ―ΞµΟ‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ¬Ο‚ ΞΌΞΏΟ…"
 
 #: templates/contacts/contacts.inc:177
 #: templates/prefs/remote_cal_management.inc:17
 #: templates/prefs/remote_cal_management.inc:44
 msgid "Name"
-msgstr "Όνομα"
+msgstr "ΞΞ½ΞΏΞΌΞ±"
 
 #: lib/Block/month.php:43 lib/Block/monthlist.php:45 lib/Block/summary.php:43
 #: lib/Block/tree_menu.php:20
 msgid "New Event"
-msgstr "Νέο Γεγονός"
+msgstr "ΞΞ­ΞΏ Ξ“ΞµΞ³ΞΏΞ½ΟΟ‚"
 
 msgid "New meeting"
-msgstr "Νέο Γεγονός"
+msgstr "ΞΞ­ΞΏ Ξ“ΞµΞ³ΞΏΞ½ΟΟ‚"
 
 msgid "Next"
-msgstr "Επόμενο"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½ΞΏ"
 
 #: templates/search/search.inc:56
 msgid "Next 24 hours"
-msgstr "Επόμενες 24 ώρες"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½ΞµΟ‚ 24 ΟΟΞµΟ‚"
 
 #: lib/FBView/day.php:78
 msgid "Next Day"
-msgstr "Επόμενη μέρα"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½Ξ· ΞΌΞ­ΟΞ±"
 
 #: templates/month/head_side_by_side.inc:6
 #: templates/month/head_side_by_side.inc:12
 #: templates/month/head_side_by_side.inc:18 templates/month/head.inc:6
 msgid "Next Month"
-msgstr "Επόμενος Μήνας"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½ΞΏΟ‚ ΞΞ®Ξ½Ξ±Ο‚"
 
 #: lib/FBView/week.php:32
 msgid "Next Week"
-msgstr "Επόμενη Εβδομάδα"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½Ξ· Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "Next day"
-msgstr "Επόμενη Μέρα"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½Ξ· ΞΞ­ΟΞ±"
 
 msgid "Next week"
-msgstr "Επόμενη εβδομάδα"
+msgstr "Ξ•Ο€ΟΞΌΞµΞ½Ξ· ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "No Information"
-msgstr "Δεν υπάρχουν Πληροφορίες"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚"
 
 #: templates/attendees/attendees.inc:53
 msgid "No attendees"
-msgstr "Χωρίς συμμετέχοντες"
+msgstr "Ξ§Ο‰ΟΞ―Ο‚ ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚"
 
 #: lib/Kronolith.php:1066
 msgid "No calendars are available to guests."
-msgstr "Δεν υπάρχουν διαθέσιμα ημερολόγια για φιλοξενία."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ± Ξ³ΞΉΞ± Ο†ΞΉΞ»ΞΏΞΎΞµΞ½Ξ―Ξ±."
 
 msgid "No configuration information specified for SQL Calendar."
-msgstr "Δεν έχει ρυθμιστεί το ημερολόγιο για την SQL."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΟΟ…ΞΈΞΌΞΉΟƒΟ„ΞµΞ― Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ SQL."
 
 msgid "No end date"
-msgstr "Δεν υπάρχει ημερομηνία λήξης"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚"
 
 msgid "No events to display"
-msgstr "Δεν υπάρχουν γεγονότα γι εμφάνιση"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ξ³ΞΉ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 #: lib/Storage/kolab.php:44
 msgid "No free/busy information is available for %s"
-msgstr "Δεν υπάρχουν πληροφορίες διαθεσιμότητας για %s"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ³ΞΉΞ± %s"
 
 #: lib/api.php:164 lib/api.php:337
 msgid "No iCalendar data was found."
-msgstr "Δε βρέθηκαν δεδομένα iCalendar."
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± iCalendar."
 
 #: templates/edit/edit.inc:201
 msgid "No recurrence"
-msgstr "Χωρίς επανάληψη"
+msgstr "Ξ§Ο‰ΟΞ―Ο‚ ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·"
 
 #: lib/Kronolith.php:836
 msgid "No valid email address found"
-msgstr "Δε βρέθηκε έγγυρη Email διεύθυνση"
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ Ξ­Ξ³Ξ³Ο…ΟΞ· Email Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·"
 
 #: templates/view/view.inc:81 templates/edit/edit.inc:121
 #: templates/edit/edit.inc:189 lib/Kronolith.php:530 lib/Kronolith.php:550
 msgid "None"
-msgstr "Κανένα"
+msgstr "ΞΞ±Ξ½Ξ­Ξ½Ξ±"
 
 #: lib/Storage/sql.php:127
 msgid "Not found"
-msgstr "Δε βρέθηκε"
+msgstr "Ξ”Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ"
 
 #: templates/data/import.inc:17
 msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"Σημείωση: Δεν μπορεί να πραγματοποιηθεί η εισαγωγή λόγο λάθους που οφείλεται "
-"σε ένα driver του ημερολογίου."
+"Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ·: Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― Ξ· ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ»ΟΞ³ΞΏ Ξ»Ξ¬ΞΈΞΏΟ…Ο‚ Ο€ΞΏΟ… ΞΏΟ†ΞµΞ―Ξ»ΞµΟ„Ξ±ΞΉ "
+"ΟƒΞµ Ξ­Ξ½Ξ± driver Ο„ΞΏΟ… Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…."
 
 msgid "November"
-msgstr "Νοέμβριος"
+msgstr "ΞΞΏΞ­ΞΌΞ²ΟΞΉΞΏΟ‚"
 
 #: templates/search/search.inc:55
 msgid "Now"
-msgstr "Τώρα"
+msgstr "Ξ¤ΟΟΞ±"
 
 msgid "October"
-msgstr "Οκτώβριος"
+msgstr "ΞΞΊΟ„ΟΞ²ΟΞΉΞΏΟ‚"
 
 msgid "Optional"
-msgstr "Προαιρετικό"
+msgstr "Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ"
 
 #: lib/FBView.php:117
 msgid "Optional to attend"
-msgstr "Προαιρετικά για συμμετοχή"
+msgstr "Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬ Ξ³ΞΉΞ± ΟƒΟ…ΞΌΞΌΞµΟ„ΞΏΟ‡Ξ®"
 
 msgid "Options"
-msgstr "Ρυθμίσεις"
+msgstr "Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚"
 
 msgid "Owner"
-msgstr "Ιδιοκτήτης"
+msgstr "Ξ™Ξ΄ΞΉΞΏΞΊΟ„Ξ®Ο„Ξ·Ο‚"
 
 #: lib/Driver.php:1880
 msgid "Owner: %s"
-msgstr "Ιδιοκτήτης: %s"
+msgstr "Ξ™Ξ΄ΞΉΞΏΞΊΟ„Ξ®Ο„Ξ·Ο‚: %s"
 
 msgid "PM"
-msgstr "μμ"
+msgstr "ΞΌΞΌ"
 
 #: data.php:29 templates/data/import.inc:22
 msgid "Palm DateBook"
-msgstr "Ημερολόγιο Χειρός (Palm DateBook)"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ξ§ΞµΞΉΟΟΟ‚ (Palm DateBook)"
 
 #: lib/Block/prevmonthlist.php:3
 msgid "Past Events List"
-msgstr "Λίστα περασμένων Γεγονότων"
+msgstr "Ξ›Ξ―ΟƒΟ„Ξ± Ο€ΞµΟΞ±ΟƒΞΌΞ­Ξ½Ο‰Ξ½ Ξ“ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½"
 
 #: templates/view/view.inc:119 templates/edit/edit.inc:183
 msgid "Pattern"
-msgstr "Μοτίβο"
+msgstr "ΞΞΏΟ„Ξ―Ξ²ΞΏ"
 
 msgid "Permanently delete this event?"
-msgstr "Να διαγραφεί ΜΟΝΙΜΑ αυτό το γεγονός;"
+msgstr "ΞΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― ΞΞΞΞ™ΞΞ‘ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚;"
 
 #: lib/api.php:145 lib/api.php:222 lib/api.php:289 lib/api.php:319
 #: lib/api.php:402 lib/api.php:436
 msgid "Permission Denied"
-msgstr "Αρνηση Πρόσβασης"
+msgstr "Ξ‘ΟΞ½Ξ·ΟƒΞ· Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚"
 
 #: templates/calendars/calendars.inc:107
 msgid "Permissions"
-msgstr "Εξουσιοδοτήσεις"
+msgstr "Ξ•ΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚"
 
 msgid "Personal"
-msgstr "Προσωπικό"
+msgstr "Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ"
 
 msgid "Portal Options"
-msgstr "Επιλογές για την Πύλη"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ ΟΞ»Ξ·"
 
 msgid "Possible Meeting Time"
-msgstr "Πιθανή ώρα συνάντησης"
+msgstr "Ξ ΞΉΞΈΞ±Ξ½Ξ® ΟΟΞ± ΟƒΟ…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Possible Meeting Times"
-msgstr "Πιθανές ώρες συνάντησης"
+msgstr "Ξ ΞΉΞΈΞ±Ξ½Ξ­Ο‚ ΟΟΞµΟ‚ ΟƒΟ…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞ·Ο‚"
 
 msgid "Previous Day"
-msgstr "Προηγούμενη Ημέρα"
+msgstr "Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ—ΞΌΞ­ΟΞ±"
 
 #: lib/FBView/week.php:26
 msgid "Previous Week"
-msgstr "Προηγούμενη Εβδομάδα"
+msgstr "Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "Previous day"
-msgstr "Προηγούμενη ημέρα"
+msgstr "Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ·ΞΌΞ­ΟΞ±"
 
 msgid "Problem"
-msgstr "Πρόβλημα"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ±"
 
 msgid "Problem?"
-msgstr "Πρόβλημα;"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ±;"
 
 msgid "Read"
-msgstr "Ανάγνωση"
+msgstr "Ξ‘Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·"
 
 msgid "Recur Until"
-msgstr "Επανάληψη έως"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ­Ο‰Ο‚"
 
 msgid "Recurrence"
-msgstr "Επανάληψη"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·"
 
 msgid "Recurrence Data"
-msgstr "Επανάληψη δεδομένων"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
 
 msgid "Recurrence End Date"
-msgstr "*Ημερομηνία Τέλους"
+msgstr "*Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ¤Ξ­Ξ»ΞΏΟ…Ο‚"
 
 msgid "Recurrence Interval"
-msgstr "*Επανάληψη έως"
+msgstr "*Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ­Ο‰Ο‚"
 
 msgid "Recurrence Type"
-msgstr "*Επαναλαμβανόμενος Τύπος"
+msgstr "*Ξ•Ο€Ξ±Ξ½Ξ±Ξ»Ξ±ΞΌΞ²Ξ±Ξ½ΟΞΌΞµΞ½ΞΏΟ‚ Ξ¤ΟΟ€ΞΏΟ‚"
 
 msgid "Recurs daily"
-msgstr "Καθημερινώς"
+msgstr "ΞΞ±ΞΈΞ·ΞΌΞµΟΞΉΞ½ΟΟ‚"
 
 msgid "Recurs monthly"
-msgstr "Επανάληψη ανά μήνα"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ±Ξ½Ξ¬ ΞΌΞ®Ξ½Ξ±"
 
 msgid "Recurs not"
-msgstr "Χωρίς επανάληψη"
+msgstr "Ξ§Ο‰ΟΞ―Ο‚ ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·"
 
 msgid "Recurs weekly"
-msgstr "Επανάληψη ανά εβδομάδα"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ±Ξ½Ξ¬ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "Recurs yearly"
-msgstr "Επανάληψη ανά χρόνο"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· Ξ±Ξ½Ξ¬ Ο‡ΟΟΞ½ΞΏ"
 
 #: lib/Scheduler/kronolith.php:166
 msgid "Reminder: %s"
-msgstr "Υπενθυμιστής: %s"
+msgstr "Ξ¥Ο€ΞµΞ½ΞΈΟ…ΞΌΞΉΟƒΟ„Ξ®Ο‚: %s"
 
 #: config/prefs.php.dist:42
 msgid "Remote Calendars"
-msgstr "Απομακρυσμένα Ημερολόγια"
+msgstr "Ξ‘Ο€ΞΏΞΌΞ±ΞΊΟΟ…ΟƒΞΌΞ­Ξ½Ξ± Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ±"
 
 #: templates/menu.inc:48
 msgid "Remote Calendars:"
-msgstr "Απομακρυσμένα Ημερολόγια:"
+msgstr "Ξ‘Ο€ΞΏΞΌΞ±ΞΊΟΟ…ΟƒΞΌΞ­Ξ½Ξ± Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ±:"
 
 #: templates/attendees/attendees.inc:57
 msgid "Remove %s"
-msgstr "Διαγραφή %s"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® %s"
 
 #: attendees.php:37
 msgid "Remove Attendee"
-msgstr "Διαγραφή Συμμετέχοντα"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ο…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„Ξ±"
 
 msgid "Required 'database' not specified in calendar configuration."
-msgstr "Η απαιτούμενη βάση δεδομένων δεν έχει καθοριστεί για το ημερολόγιο."
+msgstr "Ξ— Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "Το απαιτούμενο 'hostspec' δεν έχει καθοριστεί για το ημερολόγιο."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'hostspec' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "Το απαιτούμενο 'password' δεν έχει καθοριστεί για το ημερολόγιο."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'password' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "Το απαιτούμενο 'phptype' δεν έχει καθοριστεί για το ημερολόγιο."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'phptype' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "Το απαιτούμενο 'username' δεν έχει καθοριστεί για το ημερολόγιο."
+msgstr "Ξ¤ΞΏ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ 'username' Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 msgid "Required Attendees"
-msgstr "Απαιτούμενοι Συμμετέχοντες"
+msgstr "Ξ‘Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏΞΉ Ξ£Ο…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚"
 
 #: lib/FBView.php:98
 msgid "Required to attend"
-msgstr "Απαιτείται για συμμετοχή"
+msgstr "Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ξ³ΞΉΞ± ΟƒΟ…ΞΌΞΌΞµΟ„ΞΏΟ‡Ξ®"
 
 msgid "Required"
-msgstr "Απαιτούμενοι"
+msgstr "Ξ‘Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏΞΉ"
 
 msgid "Reset"
-msgstr "Επαναφορά"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬"
 
 msgid "Reset to Defaults"
-msgstr "Επαναφορά των προεπιλεγμένων ρυθμίσεων"
+msgstr "Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ Ο„Ο‰Ξ½ Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½"
 
 msgid "Response"
-msgstr "Απάντηση"
+msgstr "Ξ‘Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·"
 
 msgid "Return to Options"
-msgstr "Επιστροφή στις Επιλογές"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΉΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 #: viewevent.php:120
 msgid "S_ave '%s' As New"
-msgstr "Αποθήκευση '%s' σαν Νέο"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· '%s' ΟƒΞ±Ξ½ ΞΞ­ΞΏ"
 
 #: templates/javascript/goto.inc:64 templates/edit/edit.inc:208
 #: lib/Block/month.php:109
 msgid "Sa"
-msgstr "Σα"
+msgstr "Ξ£Ξ±"
 
 msgid "Saturday"
-msgstr "Σάββατο"
+msgstr "Ξ£Ξ¬Ξ²Ξ²Ξ±Ο„ΞΏ"
 
 msgid "Save %s Calendar"
-msgstr "Αποθήκευση %s Ημερολόγιο"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· %s Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Save As New"
-msgstr "Αποθήκευση ως νέο"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ο‰Ο‚ Ξ½Ξ­ΞΏ"
 
 #: templates/attendees/attendees.inc:83
 msgid "Save Attendees"
-msgstr "Αποθήκευση Συμμετεχόντων"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ£Ο…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½"
 
 msgid "Save Event"
-msgstr "Αποθήκευση Γεγονότος"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ“ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 #: search.php:14 templates/search/search_advanced.inc:115
 #: templates/search/search.inc:67 templates/contacts/contacts.inc:142
 #: lib/Block/tree_menu.php:25
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 #: templates/calendars/search.inc:1
 msgid "Search Calendars"
-msgstr "Αναζήτηση Ημερολογίων"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―Ο‰Ξ½"
 
 #: templates/search/header.inc:6
 msgid "Search Results"
-msgstr "Αποτελέσματα Αναζήτησης"
+msgstr "Ξ‘Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚"
 
 #: templates/calendars/search.inc:6
 msgid "Search for calendars containing:"
-msgstr "Αναζήτηση για ημερολόγια που περιέχουν:"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ³ΞΉΞ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ± Ο€ΞΏΟ… Ο€ΞµΟΞΉΞ­Ο‡ΞΏΟ…Ξ½:"
 
 #: templates/calendars/calendars.inc:86
 msgid "Select a Calendar"
-msgstr "Επιλέξτε Ημερολόγιο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 #: templates/calendars/calendars.inc:153
 msgid "Select a calendar to edit"
-msgstr "Επιλέξτε ένα ημερολόγιο για επεξεργασία"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ξ³ΞΉΞ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 #: templates/edit/edit.inc:253 templates/edit/edit_timespan.inc:30
 #: templates/edit/edit_timespan.inc:85
 msgid "Select a date"
-msgstr "Επιλέξτε μια ημερομηνία"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞΉΞ± Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±"
 
 msgid "Select a group to add:"
-msgstr "Επιλέξτε ομάδα για προσθήκη:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΏΞΌΞ¬Ξ΄Ξ± Ξ³ΞΉΞ± Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ·:"
 
 #: config/prefs.php.dist:51
 msgid "Select address book sources for searching for addresses."
-msgstr "Επιλέξτε διευθυνσιογράφους για αναζήτηση διευθύνσεων."
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞΉΞΏΞ³ΟΞ¬Ο†ΞΏΟ…Ο‚ Ξ³ΞΉΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½."
 
 #: templates/menu.inc:30
 msgid "Select calendars to display:"
-msgstr "Επιλέξτε ημερολόγια για εμφάνιση:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ± Ξ³ΞΉΞ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·:"
 
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Επιλέξτε τον τρόπο εμφάνισης, και τον τρόπο επιβεβαίωσης των ενεργειών."
+"Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏΞ½ Ο„ΟΟΟ€ΞΏ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚, ΞΊΞ±ΞΉ Ο„ΞΏΞ½ Ο„ΟΟΟ€ΞΏ ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ·Ο‚ Ο„Ο‰Ξ½ ΞµΞ½ΞµΟΞ³ΞµΞΉΟΞ½."
 
 msgid "Select how to display Dates:"
-msgstr "Επιλέξτε τον τρόπο εμφάνισης των Ημερομηνιών:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏΞ½ Ο„ΟΟΟ€ΞΏ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο„Ο‰Ξ½ Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½ΞΉΟΞ½:"
 
 msgid "Select if to show due tasks in the calendar."
-msgstr "*Επιλέξτε αν θα εμφανίζονται τα γεγονότα του ημερολογίου"
+msgstr "*Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±Ξ½ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ο„ΞΏΟ… Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 #: templates/data/import.inc:27
 msgid "Select the calendar to import to:"
-msgstr "Επιλέξτε το ημερολόγιο από το οποίο θα γίνει η εισαγωγή:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ξ±Ο€Ο Ο„ΞΏ ΞΏΟ€ΞΏΞ―ΞΏ ΞΈΞ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ· ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®:"
 
 #: templates/data/export.inc:16
 msgid "Select the export format:"
-msgstr "Επιλέξτε τη μορφή εγαγωγής:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® ΞµΞ³Ξ±Ξ³Ο‰Ξ³Ξ®Ο‚:"
 
 msgid "Select the file to import:"
-msgstr "Επιλέξτε το αρχείο που θα εισάγετε:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… ΞΈΞ± ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ:"
 
 msgid "Select the first weekday:"
-msgstr "Επιλέξτε την πρώτη ημέρα της εβδομάδος:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΟΟ„Ξ· Ξ·ΞΌΞ­ΟΞ± Ο„Ξ·Ο‚ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄ΞΏΟ‚:"
 
 #: templates/data/import.inc:19
 msgid "Select the format of the source file:"
-msgstr "Επιλέξτε τη μορφή του αρχείου εισαγωγής:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· ΞΌΞΏΟΟ†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®Ο‚:"
 
 msgid "Select the format to export to:"
-msgstr "Επιλέξτε την μορφή των δεδομένων εξόδου:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ ΞΌΞΏΟΟ†Ξ® Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ ΞµΞΎΟΞ΄ΞΏΟ…:"
 
 msgid "Select the source to import from:"
-msgstr "Επιλέξτε από που θα εισάγετε τα δεδομένα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±Ο€Ο Ο€ΞΏΟ… ΞΈΞ± ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±:"
 
 msgid "Select the time span to show:"
-msgstr "Επιλέξτε το εύρος του χρόνου που θα εμφανίζεται:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ ΞµΟΟΞΏΟ‚ Ο„ΞΏΟ… Ο‡ΟΟΞ½ΞΏΟ… Ο€ΞΏΟ… ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ:"
 
 msgid "Select the view to display after login:"
-msgstr "Επιλέξτε την εμφάνιση που θα χρησιμοποιείται μετά την είσοδο σας:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΞΏΟ… ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ―ΟƒΞΏΞ΄ΞΏ ΟƒΞ±Ο‚:"
 
 msgid "Select the view to display on startup:"
-msgstr "Επιλέξτε την εμφάνιση που θα χρησιμοποιείται στην εκκίνηση:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΞΏΟ… ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ ΞµΞΊΞΊΞ―Ξ½Ξ·ΟƒΞ·:"
 
 msgid "Select what events to show in the Horde summary."
 msgstr ""
-"Επιλέξτε ποια γεγονότα θα εμφανίζονται στην πρώτη σελίδα (περίληψη) της "
-"υπηρεσίας."
+"Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΞΉΞ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€ΟΟΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± (Ο€ΞµΟΞ―Ξ»Ξ·ΟΞ·) Ο„Ξ·Ο‚ "
+"Ο…Ο€Ξ·ΟΞµΟƒΞ―Ξ±Ο‚."
 
 msgid "Select which events to show in the portal."
-msgstr "Επιλέξτε ποια γεγονότα θα εμφανίζονται στην πύλη"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΞΏΞΉΞ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€ΟΞ»Ξ·"
 
 msgid "Select your preferred language:"
-msgstr "Επιλέξτε την προτιμούμενη γλώσσα:"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΞΏΟ„ΞΉΞΌΞΏΟΞΌΞµΞ½Ξ· Ξ³Ξ»ΟΟƒΟƒΞ±:"
 
 msgid "Send a cancel notification to all attendees when deleting this event"
 msgstr ""
-"Αποστολή μηνύματος ακύρωσης σε όλους τους συμμετέχοντες με τη διαγραφή αυτού "
-"του γεγονότος"
+"Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ξ±ΞΊΟΟΟ‰ΟƒΞ·Ο‚ ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ ΞΌΞµ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ "
+"Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 #: templates/attendees/attendees.inc:60 templates/view/view.inc:186
 msgid "Send an email to %s"
-msgstr "Αποστολή Email σε %s"
+msgstr "Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® Email ΟƒΞµ %s"
 
 #: templates/edit/edit.inc:166
 msgid "Send updates/invitations to all attendees when saving this event"
 msgstr ""
-"Αποστολή ενημερώσεων/προσκλήσεων σε όλους τους συμμετέχοντες με την "
-"αποθήκευση αυτού του γεγονότος"
+"Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟΟƒΞµΟ‰Ξ½/Ο€ΟΞΏΟƒΞΊΞ»Ξ®ΟƒΞµΟ‰Ξ½ ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ ΞΌΞµ Ο„Ξ·Ξ½ "
+"Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚"
 
 msgid "September"
-msgstr "Σεπτέμβριος"
+msgstr "Ξ£ΞµΟ€Ο„Ξ­ΞΌΞ²ΟΞΉΞΏΟ‚"
 
 #: templates/edit/edit_timespan.inc:85
 msgid "Set end date"
-msgstr "Θέστε ημερομηνία τέλους"
+msgstr "ΞΞ­ΟƒΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο„Ξ­Ξ»ΞΏΟ…Ο‚"
 
 #: templates/edit/edit.inc:253
 msgid "Set recurrence end date"
-msgstr "Θέστε ημερομηνία τέλους επανάληψης"
+msgstr "ΞΞ­ΟƒΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο„Ξ­Ξ»ΞΏΟ…Ο‚ ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·Ο‚"
 
 #: templates/edit/edit_timespan.inc:30
 msgid "Set start date"
-msgstr "Θέστε ημερομηνία έναρξης"
+msgstr "ΞΞ­ΟƒΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚"
 
 msgid "Set the current time zone."
-msgstr "Επιλέξτε τη Ζώνη Ώρας στην οποία βρίσκεστε :"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ· Ξ–ΟΞ½Ξ· ΞΟΞ±Ο‚ ΟƒΟ„Ξ·Ξ½ ΞΏΟ€ΞΏΞ―Ξ± Ξ²ΟΞ―ΟƒΞΊΞµΟƒΟ„Ξµ :"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Ορίστε την γλώσσα για τα μενού, τις οδηγίες και την βοήθεια"
+msgstr "ΞΟΞ―ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ± Ξ³ΞΉΞ± Ο„Ξ± ΞΌΞµΞ½ΞΏΟ, Ο„ΞΉΟ‚ ΞΏΞ΄Ξ·Ξ³Ξ―ΞµΟ‚ ΞΊΞ±ΞΉ Ο„Ξ·Ξ½ Ξ²ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid "Set your preferred display language."
-msgstr "Ορίστε την γλώσσα προτίμησής σας."
+msgstr "ΞΟΞ―ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ± Ο€ΟΞΏΟ„Ξ―ΞΌΞ·ΟƒΞ®Ο‚ ΟƒΞ±Ο‚."
 
 #: calendars.php:77
 msgid "Share not found: %s"
-msgstr "Το κοινόχρηστο δε βρέθηκε: %s"
+msgstr "Ξ¤ΞΏ ΞΊΞΏΞΉΞ½ΟΟ‡ΟΞ·ΟƒΟ„ΞΏ Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ: %s"
 
 #: templates/menu.inc:42
 msgid "Shared Calendars:"
-msgstr "Κοινόχρηστα Ημερολόγια:"
+msgstr "ΞΞΏΞΉΞ½ΟΟ‡ΟΞ·ΟƒΟ„Ξ± Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ±:"
 
 msgid "Show"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 msgid "Show category legend?"
-msgstr "Εμφάνιση περιγραφής κατηγοριών;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½;"
 
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
 msgstr ""
-"Εμφάνιση εικονιδίων διαγραφής, συναγερμού και επανάληψης στις οθόνες "
-"ημερολογίων;"
+"Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞµΞΉΞΊΞΏΞ½ΞΉΞ΄Ξ―Ο‰Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚, ΟƒΟ…Ξ½Ξ±Ξ³ΞµΟΞΌΞΏΟ ΞΊΞ±ΞΉ ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·Ο‚ ΟƒΟ„ΞΉΟ‚ ΞΏΞΈΟΞ½ΞµΟ‚ "
+"Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―Ο‰Ξ½;"
 
 msgid "Show due tasks in the calendar?"
-msgstr "Να εμφανίζονται τα γεγονότα στο Ημερολόγιο"
+msgstr "ΞΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΟƒΟ„ΞΏ Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Show free/busy legend?"
-msgstr "Εμφάνιση περιγραφής διαθεσιμότητας;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚;"
 
 msgid "Show half hour slots in day and week views?"
 msgstr ""
-"Να γίνεται χωρισμός ανά μισή ώρα στη λίστα της ημέρας και της εβδομάδας;"
+"ΞΞ± Ξ³Ξ―Ξ½ΞµΟ„Ξ±ΞΉ Ο‡Ο‰ΟΞΉΟƒΞΌΟΟ‚ Ξ±Ξ½Ξ¬ ΞΌΞΉΟƒΞ® ΟΟΞ± ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ξ·Ο‚ Ξ·ΞΌΞ­ΟΞ±Ο‚ ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚;"
 
 msgid "Show only events that have an alarm set?"
-msgstr "Να εμφανιστούν μόνο τα γεγονότα στα οποία έχει οριστεί υπενθύμιση;"
+msgstr "ΞΞ± ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞΏΟΞ½ ΞΌΟΞ½ΞΏ Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΟƒΟ„Ξ± ΞΏΟ€ΞΏΞ―Ξ± Ξ­Ο‡ΞµΞΉ ΞΏΟΞΉΟƒΟ„ΞµΞ― Ο…Ο€ΞµΞ½ΞΈΟΞΌΞΉΟƒΞ·;"
 
 msgid "Show shared calendars side-by-side"
-msgstr "Εμφάνιση διαμοιρασμένων ημερολογίων πλάι-πλάι"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ΄ΞΉΞ±ΞΌΞΏΞΉΟΞ±ΟƒΞΌΞ­Ξ½Ο‰Ξ½ Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―Ο‰Ξ½ Ο€Ξ»Ξ¬ΞΉ-Ο€Ξ»Ξ¬ΞΉ"
 
 msgid "Show tasks using category colors?"
-msgstr "Εμφάνιση εργασιών με χρήση των χρωμάτων κατηγοριών;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½ ΞΌΞµ Ο‡ΟΞ®ΟƒΞ· Ο„Ο‰Ξ½ Ο‡ΟΟ‰ΞΌΞ¬Ο„Ο‰Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½;"
 
 msgid "Show time of day between each day in week views?"
-msgstr "Εμφάνιση τρέχουσας ώρας μεταξύ κάθε μέρας στις εμφανίσεις εβδομάδας;"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΟΞ­Ο‡ΞΏΟ…ΟƒΞ±Ο‚ ΟΟΞ±Ο‚ ΞΌΞµΟ„Ξ±ΞΎΟ ΞΊΞ¬ΞΈΞµ ΞΌΞ­ΟΞ±Ο‚ ΟƒΟ„ΞΉΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΞµΞΉΟ‚ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚;"
 
 msgid "Some of Kronolith's configuration files are missing:"
-msgstr "Κάποια αρχεία ρυθμίσεων του προγράμματος Kronolith λείπουν:"
+msgstr "ΞΞ¬Ο€ΞΏΞΉΞ± Ξ±ΟΟ‡ΞµΞ―Ξ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ Kronolith Ξ»ΞµΞ―Ο€ΞΏΟ…Ξ½:"
 
 msgid "Sta_rt"
-msgstr "Εναρξη"
+msgstr "Ξ•Ξ½Ξ±ΟΞΎΞ·"
 
 msgid "Sta_rt On"
-msgstr "Εναρξη στις"
+msgstr "Ξ•Ξ½Ξ±ΟΞΎΞ· ΟƒΟ„ΞΉΟ‚"
 
 msgid "Start Date"
-msgstr "Ημερομηνία Έναρξης"
+msgstr "Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞΞ½Ξ±ΟΞΎΞ·Ο‚"
 
 msgid "Start On"
-msgstr "Εναρξη στις"
+msgstr "Ξ•Ξ½Ξ±ΟΞΎΞ· ΟƒΟ„ΞΉΟ‚"
 
 msgid "Start Time"
-msgstr "Ώρα Έναρξης"
+msgstr "ΞΟΞ± ΞΞ½Ξ±ΟΞΎΞ·Ο‚"
 
 msgid "Stat_us"
-msgstr "Κατάσταση"
+msgstr "ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·"
 
 msgid "Status"
-msgstr "Κατάσταση"
+msgstr "ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·"
 
 msgid "Su"
-msgstr "Κυ"
+msgstr "ΞΟ…"
 
 msgid "Success"
-msgstr "Επιτυχία"
+msgstr "Ξ•Ο€ΞΉΟ„Ο…Ο‡Ξ―Ξ±"
 
 msgid "Summary"
-msgstr "Περίληψη"
+msgstr "Ξ ΞµΟΞ―Ξ»Ξ·ΟΞ·"
 
 msgid "Sunday"
-msgstr "Κυριακή"
+msgstr "ΞΟ…ΟΞΉΞ±ΞΊΞ®"
 
 msgid "Tasks"
-msgstr "Γεγονότα"
+msgstr "Ξ“ΞµΞ³ΞΏΞ½ΟΟ„Ξ±"
 
 msgid "Tentative"
-msgstr "Προσωρινό"
+msgstr "Ξ ΟΞΏΟƒΟ‰ΟΞΉΞ½Ο"
 
 msgid "Th"
-msgstr "Πέ"
+msgstr "Ξ Ξ­"
 
 #: templates/contacts/contacts.inc:73
 msgid "The Edit Attendees screen is no longer present. Exiting."
-msgstr "Η σελίδα επεξεργασίας συμμετεχόντων δεν υπάρχει. Έξοδος."
+msgstr "Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ ΟƒΟ…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ. ΞΞΎΞΏΞ΄ΞΏΟ‚."
 
 #: calendars.php:70
 msgid "The calendar \"%s\" cannot be deleted."
-msgstr "Το ημερολόγιο \"%s\" δε μπορεί να διαγραφεί."
+msgstr "Ξ¤ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ \"%s\" Ξ΄Ξµ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―."
 
 #: calendars.php:40
 msgid "The calendar \"%s\" has been created."
-msgstr "Το Ημερολόγιο \"%s\" δεν μπορεί να δημιουργηθεί."
+msgstr "Ξ¤ΞΏ Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ \"%s\" Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ―."
 
 #: calendars.php:88
 msgid "The calendar \"%s\" has been deleted."
-msgstr "Το ημερολόγιο \"%s\" διαγράφηκε."
+msgstr "Ξ¤ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ \"%s\" Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 #: calendars.php:54
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "Το ημερολόγιο \"%s\" μετονομάσθηκε σε \"%s\"."
+msgstr "Ξ¤ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ \"%s\" ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ¬ΟƒΞΈΞ·ΞΊΞµ ΟƒΞµ \"%s\"."
 
 #: calendars.php:56
 msgid "The calendar \"%s\" has been saved."
-msgstr "Το ημερολόγιο \"%s\" αποθηκεύθηκε."
+msgstr "Ξ¤ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ \"%s\" Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞΈΞ·ΞΊΞµ."
 
 msgid "The data was lost."
-msgstr "Τα δεδομένα χάθηκαν."
+msgstr "Ξ¤Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο‡Ξ¬ΞΈΞ·ΞΊΞ±Ξ½."
 
 msgid "The end date must be later than the start date."
 msgstr ""
-"Η ημερομηνία τέλους πρέπει να είναι μεταγενέστερη της ημερομηνίας αρχής."
+"Ξ— Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο„Ξ­Ξ»ΞΏΟ…Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞµΟ„Ξ±Ξ³ΞµΞ½Ξ­ΟƒΟ„ΞµΟΞ· Ο„Ξ·Ο‚ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚ Ξ±ΟΟ‡Ξ®Ο‚."
 
 #: lib/Kronolith.php:1003
 msgid "The event notification to %s was successfully sent."
-msgstr "Η ενημέρωση γεγονότος σε %s στάλθηκε επιτυχώς."
+msgstr "Ξ— ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚ ΟƒΞµ %s ΟƒΟ„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚."
 
 msgid "The file contained no data."
-msgstr "Το αρχείο δεν περιέχει δεδομένα."
+msgstr "Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±."
 
 #: lib/Kronolith.php:964
 msgid "The following is a more detailed description of the event:"
-msgstr "Το παρακάτω είναι λεπτομερέστερη περιγραφή του γεγονότος:"
+msgstr "Ξ¤ΞΏ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΞµΞ―Ξ½Ξ±ΞΉ Ξ»ΞµΟ€Ο„ΞΏΞΌΞµΟΞ­ΟƒΟ„ΞµΟΞ· Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚:"
 
 #: templates/search/empty.inc:4
 msgid "There are no events matching the current criteria."
-msgstr "Δεν υπάρχουν γεγονότα να πληρούν τα συγκεκριμένα κριτήρια."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ξ½Ξ± Ο€Ξ»Ξ·ΟΞΏΟΞ½ Ο„Ξ± ΟƒΟ…Ξ³ΞΊΞµΞΊΟΞΉΞΌΞ­Ξ½Ξ± ΞΊΟΞΉΟ„Ξ®ΟΞΉΞ±."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Υπήρξε πρόβλημα κατά την μεταφορά του αρχείου. Το αρχείο μπορεί να είναι "
-"μεγαλύτερο από το επιτρεπόμενο μέγεθος."
+"Ξ¥Ο€Ξ®ΟΞΎΞµ Ο€ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞΌΞµΟ„Ξ±Ο†ΞΏΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…. Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ "
+"ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ±Ο€Ο Ο„ΞΏ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚."
 
 #: addeventaction.php:18 editeventaction.php:35
 msgid "There was an error accessing the calendar: %s"
-msgstr "Πρόβλημα κατά την πρόσβαση στο ημερολόγιο: %s."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ: %s."
 
 #: addeventaction.php:33
 msgid "There was an error adding the event: %s"
-msgstr "Πρόβλημα κατά τη προσθήκη του γεγονότος: %s."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚: %s."
 
 #: editeventaction.php:73
 msgid "There was an error editing the event: %s"
-msgstr "Πρόβλημα κατά την επεξεργασία του γεγονότος: %s."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚: %s."
 
 #: lib/api.php:158 lib/api.php:331
 msgid "There was an error importing the iCalendar data."
-msgstr "Πρόβλημα κατά την εισαγωγή iCalendar δεδομένων."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® iCalendar Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½."
 
 msgid "There was an error importing the data."
-msgstr "Παρουσιάστηκε σφάλμα κατά την εισαγωγή των δεδομένων"
+msgstr "Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½"
 
 msgid "There was an error importing the uploaded file"
-msgstr "Υπήρξε σφάλμα κατά την εισαγωγή του αρχείου"
+msgstr "Ξ¥Ο€Ξ®ΟΞΎΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…"
 
 #: editeventaction.php:54
 msgid "There was an error moving the event: %s"
-msgstr "Πρόβλημα κατά τη μεταφορά του γεγονότος: %s."
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· ΞΌΞµΟ„Ξ±Ο†ΞΏΟΞ¬ Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚: %s."
 
 #: lib/Kronolith.php:1008
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "Πρόβλημα κατά την αποστολή ενημέρωσης γεγονοτος σε %s: %s"
+msgstr "Ξ ΟΟΞ²Ξ»Ξ·ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ·Ο‚ Ξ³ΞµΞ³ΞΏΞ½ΞΏΟ„ΞΏΟ‚ ΟƒΞµ %s: %s"
 
 msgid "There were no events to export."
-msgstr "Δεν υπάρχουν γεγονότα προς εξαγωγή."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ο€ΟΞΏΟ‚ ΞµΞΎΞ±Ξ³Ο‰Ξ³Ξ®."
 
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Αυτό το αρχείο ελέγχει τις προεπιλεγμένες προτιμήσεις του προγράμματος "
-"Kronolith, και ελέγχει επίσης ποιες προτιμήσεις μπορούν οι χρήστες  να "
-"μεταβάλλουν"
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ»Ξ­Ξ³Ο‡ΞµΞΉ Ο„ΞΉΟ‚ Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞµΟ‚ Ο€ΟΞΏΟ„ΞΉΞΌΞ®ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ "
+"Kronolith, ΞΊΞ±ΞΉ ΞµΞ»Ξ­Ξ³Ο‡ΞµΞΉ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ο€ΞΏΞΉΞµΟ‚ Ο€ΟΞΏΟ„ΞΉΞΌΞ®ΟƒΞµΞΉΟ‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚  Ξ½Ξ± "
+"ΞΌΞµΟ„Ξ±Ξ²Ξ¬Ξ»Ξ»ΞΏΟ…Ξ½"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Αυτό το αρχείο ρυθμίζει τα χρώματα και τις γραμματοσειρές για οτιδήποτε δεν "
-"περιέχεται στις ρυθμίσεις του προγράμματος Horde."
+"Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟΟ…ΞΈΞΌΞ―Ξ¶ΞµΞΉ Ο„Ξ± Ο‡ΟΟΞΌΞ±Ο„Ξ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ξ³ΟΞ±ΞΌΞΌΞ±Ο„ΞΏΟƒΞµΞΉΟΞ­Ο‚ Ξ³ΞΉΞ± ΞΏΟ„ΞΉΞ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ΄ΞµΞ½ "
+"Ο€ΞµΟΞΉΞ­Ο‡ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ Horde."
 
 #: data.php:173
 msgid "This file format is not supported."
-msgstr "Αυτή η μορφή αρχείου δεν υποστηρίζεται."
+msgstr "Ξ‘Ο…Ο„Ξ® Ξ· ΞΌΞΏΟΟ†Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ."
 
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
 msgstr ""
-"Αυτό είναι το βασικό αρχείο ρυθμίσεων του προγράμματος Kronolith. Περιέχει "
-"τα μονοπάτια και τις ρυθμίσεις για τα scripts του προγράμματος."
+"Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ Ξ²Ξ±ΟƒΞΉΞΊΟ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ Kronolith. Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ "
+"Ο„Ξ± ΞΌΞΏΞ½ΞΏΟ€Ξ¬Ο„ΞΉΞ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„Ξ± scripts Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚."
 
 #: data.php:213
 msgid "This is what the server said: %s"
-msgstr "Αυτό είναι το μήνυμα του εξυπηρετητή: %s"
+msgstr "Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο„ΞΏΟ… ΞµΞΎΟ…Ο€Ξ·ΟΞµΟ„Ξ·Ο„Ξ®: %s"
 
 msgid "This number must be at least one."
-msgstr "Αυτός ο αριθμός πρέπει να είναι τουλάχιστον ένα."
+msgstr "Ξ‘Ο…Ο„ΟΟ‚ ΞΏ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ Ξ­Ξ½Ξ±."
 
 msgid "This value must be a number."
-msgstr "Αυτή η τιμή πρέπει να είναι αριθμός."
+msgstr "Ξ‘Ο…Ο„Ξ® Ξ· Ο„ΞΉΞΌΞ® Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΞΉΞΈΞΌΟΟ‚."
 
 msgid "Thursday"
-msgstr "Πέμπτη"
+msgstr "Ξ Ξ­ΞΌΟ€Ο„Ξ·"
 
 msgid "Time Sp_an"
-msgstr "Ορισμός Χρόνου"
+msgstr "ΞΟΞΉΟƒΞΌΟΟ‚ Ξ§ΟΟΞ½ΞΏΟ…"
 
 msgid "Time span"
-msgstr "Ορισμός Χρόνου"
+msgstr "ΞΟΞΉΟƒΞΌΟΟ‚ Ξ§ΟΟΞ½ΞΏΟ…"
 
 msgid "Time Zone"
-msgstr "Ζώνη Ώρας"
+msgstr "Ξ–ΟΞ½Ξ· ΞΟΞ±Ο‚"
 
 msgid "Tit_le"
-msgstr "Τίτλος"
+msgstr "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚"
 
 msgid "Title"
-msgstr "Τίτλος"
+msgstr "Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚"
 
 msgid "Today"
-msgstr "Σήμερα"
+msgstr "Ξ£Ξ®ΞΌΞµΟΞ±"
 
 #: lib/Block/prevmonthlist.php:133 lib/Block/monthlist.php:129
 #: lib/Block/summary.php:119
 msgid "Tomorrow"
-msgstr "Αύριο"
+msgstr "Ξ‘ΟΟΞΉΞΏ"
 
 msgid "Tu"
-msgstr "Τρί"
+msgstr "Ξ¤ΟΞ―"
 
 msgid "Tuesday"
-msgstr "Τρίτη"
+msgstr "Ξ¤ΟΞ―Ο„Ξ·"
 
 msgid "Type"
-msgstr "Τύπος"
+msgstr "Ξ¤ΟΟ€ΞΏΟ‚"
 
 #: lib/Storage/sql.php:54
 msgid "Unable to connect to SQL server."
-msgstr "Αδύνατη η σύνδεση με τον SQL εξυπηρετητή."
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ Ο„ΞΏΞ½ SQL ΞµΞΎΟ…Ο€Ξ·ΟΞµΟ„Ξ·Ο„Ξ®."
 
 #: calendars.php:84
 msgid "Unable to delete \"%s\": %s"
-msgstr "Αδύνατη η διαγραφή \"%s\": %s"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® \"%s\": %s"
 
 #: lib/Driver/mcal.php:135
 msgid "Unable to delete %s."
-msgstr "Αδύνατη η διαγραφή %s."
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® %s."
 
 # lib/Driver.php:174, c-format
 #: lib/Driver.php:174
 msgid "Unable to load the definition of %s."
-msgstr "Δεν είναι δυνατόν να φορτωθούν οι ρυθμίσεις του %s."
+msgstr "Ξ”ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄Ο…Ξ½Ξ±Ο„ΟΞ½ Ξ½Ξ± Ο†ΞΏΟΟ„Ο‰ΞΈΞΏΟΞ½ ΞΏΞΉ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… %s."
 
 #: calendars.php:51
 msgid "Unable to rename \"%s\": %s"
-msgstr "Αδύνατη η μετονομασία \"%s\": %s"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ± \"%s\": %s"
 
 #: lib/Storage/kolab.php:35
 msgid "Unable to retrieve free/busy information for %s"
-msgstr "Αδύνατη η ανάκτηση πληροφοριών διαθεσιμότητας για %s"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ³ΞΉΞ± %s"
 
 msgid "Undo Changes"
-msgstr "Ακύρωση Επιλογών"
+msgstr "Ξ‘ΞΊΟΟΟ‰ΟƒΞ· Ξ•Ο€ΞΉΞ»ΞΏΞ³ΟΞ½"
 
 #: templates/view/view.inc:23
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:53
 msgid "Unfiled"
-msgstr "Μη αρχειοθετημένο"
+msgstr "ΞΞ· Ξ±ΟΟ‡ΞµΞΉΞΏΞΈΞµΟ„Ξ·ΞΌΞ­Ξ½ΞΏ"
 
 #: lib/FBView/day.php:48 lib/FBView/day.php:58
 msgid "Unknown"
-msgstr "Αγνωστο"
+msgstr "Ξ‘Ξ³Ξ½Ο‰ΟƒΟ„ΞΏ"
 
 #: lib/api.php:184 lib/api.php:253 lib/api.php:356
 msgid "Unsupported Content-Type."
-msgstr "Μη υποστηριζόμενο τύπος περιεχομένου."
+msgstr "ΞΞ· Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞΉΞ¶ΟΞΌΞµΞ½ΞΏ Ο„ΟΟ€ΞΏΟ‚ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ…."
 
 #: lib/Kronolith.php:956
 msgid "Updated: %s."
-msgstr "Ενημερώθηκε: %s."
+msgstr "Ξ•Ξ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ: %s."
 
 #: config/prefs.php.dist:10
 msgid "User Interface"
-msgstr "Περιβάλλον Χρήστη"
+msgstr "Ξ ΞµΟΞΉΞ²Ξ¬Ξ»Ξ»ΞΏΞ½ Ξ§ΟΞ®ΟƒΟ„Ξ·"
 
 msgid "User Options"
-msgstr "Επιλογές Χρήστη"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ§ΟΞ®ΟƒΟ„Ξ·"
 
 msgid "User Preferences"
-msgstr "Προτιμήσεις Χρήστη"
+msgstr "Ξ ΟΞΏΟ„ΞΉΞΌΞ®ΟƒΞµΞΉΟ‚ Ξ§ΟΞ®ΟƒΟ„Ξ·"
 
 #, c-format
 msgid "View %s"
-msgstr "Εμφάνιση %s"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· %s"
 
 #: lib/Block/month.php:163 lib/Block/month.php:166
 msgid "View Day"
-msgstr "Εμφάνιση Ημέρας"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ—ΞΌΞ­ΟΞ±Ο‚"
 
 msgid "Warning"
-msgstr "Προειδοποίηση"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "We"
-msgstr "Τε"
+msgstr "Ξ¤Ξµ"
 
 msgid "Wednesday"
-msgstr "Τετάρτη"
+msgstr "Ξ¤ΞµΟ„Ξ¬ΟΟ„Ξ·"
 
 #, c-format
 msgid "Week %d"
-msgstr "Εβδομάδα %d"
+msgstr "Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ± %d"
 
 msgid "Week"
-msgstr "Εβδομάδα"
+msgstr "Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 #, c-format
 msgid "Week&nbsp;%d"
-msgstr "Εβδομάδα&nbsp;%d"
+msgstr "Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±&nbsp;%d"
 
 msgid "Week(s)"
-msgstr "Εβδομάδα(ες)"
+msgstr "Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±(ΞµΟ‚)"
 
 msgid "Weekly: Recurs every"
-msgstr "Εβδομαδιαία: Κάθε"
+msgstr "Ξ•Ξ²Ξ΄ΞΏΞΌΞ±Ξ΄ΞΉΞ±Ξ―Ξ±: ΞΞ¬ΞΈΞµ"
 
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"Ποια θα είναι η τελική ώρα στην εμφάνιση ανά ημέρα και ανά εβδομάδα, όταν "
-"δενυπάρχουν άλλα γεγονότα προσδιορισμένα αργότερα από αυτή;"
+"Ξ ΞΏΞΉΞ± ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ· Ο„ΞµΞ»ΞΉΞΊΞ® ΟΟΞ± ΟƒΟ„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ±Ξ½Ξ¬ Ξ·ΞΌΞ­ΟΞ± ΞΊΞ±ΞΉ Ξ±Ξ½Ξ¬ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±, ΟΟ„Ξ±Ξ½ "
+"Ξ΄ΞµΞ½Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ¬Ξ»Ξ»Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ξ±ΟΞ³ΟΟ„ΞµΟΞ± Ξ±Ο€Ο Ξ±Ο…Ο„Ξ®;"
 
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"Ποια θα είναι η ώρα έναρξης στην εμφάνιση ανά ημέρα και ανά εβδομάδα, όταν "
-"δενυπάρχουν άλλα γεγονότα προσδιορισμένα νωρίτερα από αυτή;"
+"Ξ ΞΏΞΉΞ± ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ· ΟΟΞ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚ ΟƒΟ„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ±Ξ½Ξ¬ Ξ·ΞΌΞ­ΟΞ± ΞΊΞ±ΞΉ Ξ±Ξ½Ξ¬ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±, ΟΟ„Ξ±Ξ½ "
+"Ξ΄ΞµΞ½Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ¬Ξ»Ξ»Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ξ½Ο‰ΟΞ―Ο„ΞµΟΞ± Ξ±Ο€Ο Ξ±Ο…Ο„Ξ®;"
 
 msgid "Work Week"
-msgstr "Πενθήμερο"
+msgstr "Ξ ΞµΞ½ΞΈΞ®ΞΌΞµΟΞΏ"
 
 msgid "Work&nbsp;Week"
-msgstr "Πενθήμερο"
+msgstr "Ξ ΞµΞ½ΞΈΞ®ΞΌΞµΟΞΏ"
 
 #: lib/Kronolith.php:1315 lib/Block/tree_menu.php:25
 msgid "Year"
-msgstr "Έτος"
+msgstr "ΞΟ„ΞΏΟ‚"
 
 msgid "Yearly: Recurs every"
-msgstr "Ετησίως: Επανάληψη Κάθε"
+msgstr "Ξ•Ο„Ξ·ΟƒΞ―Ο‰Ο‚: Ξ•Ο€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ· ΞΞ¬ΞΈΞµ"
 
 #: templates/contacts/contacts.inc:79
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr ""
-"Αυτή τη φόρμα μπορείτε να τη χρησιμοποιήσετε από την οθόνη επεξε-σίας "
-"Συμμετεχόντων."
+"Ξ‘Ο…Ο„Ξ® Ο„Ξ· Ο†ΟΟΞΌΞ± ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο„Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ξ±Ο€Ο Ο„Ξ·Ξ½ ΞΏΞΈΟΞ½Ξ· ΞµΟ€ΞµΞΎΞµ-ΟƒΞ―Ξ±Ο‚ "
+"Ξ£Ο…ΞΌΞΌΞµΟ„ΞµΟ‡ΟΞ½Ο„Ο‰Ξ½."
 
 #: lib/Kronolith.php:920
 msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"Δεν έχετε ορίσει email διεύθυνση στις Επιλογές 'Προσωπικές Πληροφορίες'. "
-"Πρέπει να ορίσετε μια %sεδώ%s για να μπορούν να σταλούν πληροφορίες για τα "
-"γεγονότα."
+"Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞΏΟΞ―ΟƒΞµΞΉ email Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· ΟƒΟ„ΞΉΟ‚ Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ 'Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ­Ο‚ Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚'. "
+"Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± %sΞµΞ΄Ο%s Ξ³ΞΉΞ± Ξ½Ξ± ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΟƒΟ„Ξ±Ξ»ΞΏΟΞ½ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ³ΞΉΞ± Ο„Ξ± "
+"Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ±."
 
 #: addeventaction.php:20
 msgid "You do not have permission to add events to %s."
-msgstr "Δεν έχετε εξουσιοδότηση να προσθέσετε γεγονότα στο %s."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΟƒΟ„ΞΏ %s."
 
 #: data.php:183
 msgid "You do not have permission to add events to the selected calendar."
 msgstr ""
-"Δεν έχετε εξουσιοδότηση να προσθέσετε γεγονότα στο επιλεγμένο ημερολόγιο."
+"Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΟƒΟ„ΞΏ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 #: deleventaction.php:26
 msgid "You do not have permission to delete this event."
-msgstr "Δεν έχετε εξουσιοδότηση να διαγράψετε αυτό το γεγονός."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚."
 
 #: editeventaction.php:68
 msgid "You do not have permission to edit this event."
-msgstr "Δεν έχετε εξουσιοδότηση να επεξεργασθείτε αυτό το γεγονός."
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞΈΞµΞ―Ο„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚."
 
 #: data.php:178
 msgid "You have specified an invalid calendar."
-msgstr "Έχετε ορίσει μη έγκυρο ημερολόγιο."
+msgstr "ΞΟ‡ΞµΟ„Ξµ ΞΏΟΞ―ΟƒΞµΞΉ ΞΌΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ."
 
 #: calendars.php:91
 msgid "You must select a calendar to be deleted."
-msgstr "Πρέπει να επιλέξετε ένα ημερολόγιο για διαγραφή."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®."
 
 #: templates/contacts/contacts.inc:57
 msgid "You must select an address first."
-msgstr "Πρέπει να επιλέξετε μια διεύθυνση πρώτα."
+msgstr "Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ ΞΌΞΉΞ± Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο€ΟΟΟ„Ξ±."
 
 #: lib/Scheduler/kronolith.php:168
 msgid "You requested to be reminded about %s, which is at %s."
-msgstr "Ζητήσατε υπενθίμιση για %s το οποίο είναι στις %s."
+msgstr "Ξ–Ξ·Ο„Ξ®ΟƒΞ±Ο„Ξµ Ο…Ο€ΞµΞ½ΞΈΞ―ΞΌΞΉΟƒΞ· Ξ³ΞΉΞ± %s Ο„ΞΏ ΞΏΟ€ΞΏΞ―ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„ΞΉΟ‚ %s."
 
 msgid "Your Information"
-msgstr "Οι Πληροφορίες σας"
+msgstr "ΞΞΉ Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΟƒΞ±Ο‚"
 
 msgid "Your default calendar"
-msgstr "Το προκαθορισμένο σας ημερολόγιο"
+msgstr "Ξ¤ΞΏ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟƒΞ±Ο‚ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ"
 
 msgid "Your current time zone:"
-msgstr "Η Ζώνη Ώρας σας:"
+msgstr "Ξ— Ξ–ΟΞ½Ξ· ΞΟΞ±Ο‚ ΟƒΞ±Ο‚:"
 
 msgid "Your preferences have been updated."
-msgstr "Οι προτιμήσεις σου έχουν ενημερωθεί."
+msgstr "ΞΞΉ Ο€ΟΞΏΟ„ΞΉΞΌΞ®ΟƒΞµΞΉΟ‚ ΟƒΞΏΟ… Ξ­Ο‡ΞΏΟ…Ξ½ ΞµΞ½Ξ·ΞΌΞµΟΟ‰ΞΈΞµΞ―."
 
 msgid "before the event starts"
-msgstr "πριν αρχίσει το γεγονός"
+msgstr "Ο€ΟΞΉΞ½ Ξ±ΟΟ‡Ξ―ΟƒΞµΞΉ Ο„ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚"
 
 msgid "day"
-msgstr "ημέρα"
+msgstr "Ξ·ΞΌΞ­ΟΞ±"
 
 msgid "day(s)"
-msgstr "ημέρα(ες)"
+msgstr "Ξ·ΞΌΞ­ΟΞ±(ΞµΟ‚)"
 
 msgid "days"
-msgstr "ημέρες"
+msgstr "Ξ·ΞΌΞ­ΟΞµΟ‚"
 
 #: templates/contacts/contacts.inc:133
 msgid "from"
-msgstr "από"
+msgstr "Ξ±Ο€Ο"
 
 msgid "iCalendar file successfully imported"
-msgstr "Επιτυχής εισαγωγή του Ημερολογίου"
+msgstr "Ξ•Ο€ΞΉΟ„Ο…Ο‡Ξ®Ο‚ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„ΞΏΟ… Ξ—ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…"
 
 msgid "month(s)"
-msgstr "μήνα(ες)"
+msgstr "ΞΌΞ®Ξ½Ξ±(ΞµΟ‚)"
 
 msgid "no time"
-msgstr "χωρίς χρόνο"
+msgstr "Ο‡Ο‰ΟΞ―Ο‚ Ο‡ΟΟΞ½ΞΏ"
 
 msgid "on the same date"
-msgstr "την ίδια ημέρα"
+msgstr "Ο„Ξ·Ξ½ Ξ―Ξ΄ΞΉΞ± Ξ·ΞΌΞ­ΟΞ±"
 
 msgid "on the same weekday"
-msgstr "την ίδια ημέρα της εβδομάδας"
+msgstr "Ο„Ξ·Ξ½ Ξ―Ξ΄ΞΉΞ± Ξ·ΞΌΞ­ΟΞ± Ο„Ξ·Ο‚ ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚"
 
 #: lib/api.php:169 lib/api.php:342
 msgid "vEvent not found."
-msgstr "Το vEvent δε βρέθηκε."
+msgstr "Ξ¤ΞΏ vEvent Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ."
 
 msgid "week"
-msgstr "εβδομάδα"
+msgstr "ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±"
 
 msgid "week(s) on:"
-msgstr "εβδομάδα(ες) την(το):"
+msgstr "ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±(ΞµΟ‚) Ο„Ξ·Ξ½(Ο„ΞΏ):"
 
 msgid "weeks"
-msgstr "εβδομάδες"
+msgstr "ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄ΞµΟ‚"
 
 msgid "year(s)"
-msgstr "έτος(η)"
+msgstr "Ξ­Ο„ΞΏΟ‚(Ξ·)"
 
 #: lib/Driver.php:922 lib/Driver.php:931
 msgid "[Unnamed event]"
-msgstr "[Γεγονός χωρίς όνομα]"
+msgstr "[Ξ“ΞµΞ³ΞΏΞ½ΟΟ‚ Ο‡Ο‰ΟΞ―Ο‚ ΟΞ½ΞΏΞΌΞ±]"
 
 msgid "_Alarm"
-msgstr "Προειδοποίηση"
+msgstr "Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "_At"
-msgstr "Την"
+msgstr "Ξ¤Ξ·Ξ½"
 
 #: templates/search/search_advanced.inc:10
 msgid "_Basic Search"
-msgstr "Βασική Αναζήτηση"
+msgstr "Ξ’Ξ±ΟƒΞΉΞΊΞ® Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "_Edit"
-msgstr "Επεξεργασία"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 msgid "_Goto"
-msgstr "Μετάβαση"
+msgstr "ΞΞµΟ„Ξ¬Ξ²Ξ±ΟƒΞ·"
 
 msgid "_Help"
-msgstr "Βοήθεια"
+msgstr "Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±"
 
 msgid "_Import/Export"
-msgstr "Εισαγωγή/Εξαγωγή"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®/Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ®"
 
 #: lib/IMP.php:947
 msgid "_Log out"
-msgstr "Εξοδος"
+msgstr "Ξ•ΞΎΞΏΞ΄ΞΏΟ‚"
 
 msgid "_My Calendars"
-msgstr "Ημερολόγιά μου"
+msgstr "Ξ—ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞ¬ ΞΌΞΏΟ…"
 
 msgid "_New Event"
-msgstr "Νέο Συμβάν"
+msgstr "ΞΞ­ΞΏ Ξ£Ο…ΞΌΞ²Ξ¬Ξ½"
 
 msgid "_Options"
-msgstr "Επιλογές"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 #: lib/Kronolith.php:1094
 msgid "_Print"
-msgstr "Εκτύπωση"
+msgstr "Ξ•ΞΊΟ„ΟΟ€Ο‰ΟƒΞ·"
 
 msgid "_Search"
-msgstr "Αναζήτηση"
+msgstr "Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·"
 
 msgid "_Show"
-msgstr "Εμφάνιση"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·"
 
 #: lib/IMP.php:908
 msgid "_Today"
-msgstr "Σήμερα"
+msgstr "Ξ£Ξ®ΞΌΞµΟΞ±"

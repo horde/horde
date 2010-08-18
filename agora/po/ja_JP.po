@@ -5,202 +5,202 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Agora 1.0-cvs\n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-02-07 11:24+0900\n"
-"PO-Revision-Date: 2008-01-02 12:27+0100\n"
-"Last-Translator: Takeshi Taguchi <taguchi@tcltk.jp>\n"
-"Language-Team: i18n@lists.horde.org\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=SHIFT_JIS\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: Agora 1.0-cvsÂ¥n"
+"Report-Msgid-Bugs-To: dev@lists.horde.orgÂ¥n"
+"POT-Creation-Date: 2008-02-07 11:24+0900Â¥n"
+"PO-Revision-Date: 2008-01-02 12:27+0100Â¥n"
+"Last-Translator: Takeshi Taguchi <taguchi@tcltk.jp>Â¥n"
+"Language-Team: i18n@lists.horde.orgÂ¥n"
+"MIME-Version: 1.0Â¥n"
+"Content-Type: text/plain; charset=UTF-8Â¥n"
+"Content-Transfer-Encoding: 8bitÂ¥n"
 
 #: moderate.php:51
 #, php-format
 msgid "%d messages was approved."
-msgstr "%d ’Ê‚ÌƒƒbƒZ[ƒW‚ğ³”F‚µ‚Ü‚µ‚½B"
+msgstr "%d é€šã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ‰¿èªã—ã¾ã—ãŸã€‚"
 
 #: moderate.php:57
 #, php-format
 msgid "%d messages was deleted."
-msgstr "%d ’Ê‚ÌƒƒbƒZ[ƒW‚ğíœ‚µ‚Ü‚µ‚½B"
+msgstr "%d é€šã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚"
 
 #: scripts/phorum2agora.php:218
 msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
-msgstr "-a, --agora_id[=aid]         ƒƒbƒZ[ƒW‚ğ•Û‘¶‚·‚é agoraƒtƒH[ƒ‰ƒ€ID"
+msgstr "-a, --agora_id[=aid]         ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ä¿å­˜ã™ã‚‹ agoraãƒ•ã‚©ãƒ¼ãƒ©ãƒ ID"
 
 #: scripts/phorum2agora.php:221
 msgid "-c, --count[=messages]       Number of messages to move at once"
-msgstr "-c, --count[=messages]       ˆê“x‚ÉˆÚ“®‚·‚éƒƒbƒZ[ƒW”"
+msgstr "-c, --count[=messages]       ä¸€åº¦ã«ç§»å‹•ã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ•°"
 
 #: scripts/phorum2agora.php:220
 msgid ""
 "-f, --from[=offset]          Offset from where to start to read messages"
-msgstr "-f, --from[=offset]          ƒƒbƒZ[ƒW‚ğ“Ç‚İn‚ß‚éŠ‚Ü‚Å‚ÌƒIƒtƒZƒbƒg"
+msgstr "-f, --from[=offset]          ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’èª­ã¿å§‹ã‚ã‚‹æ‰€ã¾ã§ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 #: scripts/phorum2agora.php:216
 msgid "-h, --help                   Show this help"
-msgstr "-h, --help                   ‚±‚Ìƒwƒ‹ƒv‚ğ•\¦"
+msgstr "-h, --help                   ã“ã®ãƒ˜ãƒ«ãƒ—ã‚’è¡¨ç¤º"
 
 #: scripts/phorum2agora.php:217
 msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
-msgstr "-p, --phorum_id[=pid]        ƒƒbƒZ[ƒW‚ğ“Ç‚ŞPhorum ƒtƒH[ƒ‰ƒ€ID"
+msgstr "-p, --phorum_id[=pid]        ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’èª­ã‚€Phorum ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ID"
 
 #: scripts/phorum2agora.php:219
 msgid "-t, --phorum_table[=table]   Phorum messages tablename"
-msgstr "-t, --phorum_table[=table]   Phorum ƒƒbƒZ[ƒW‚Ìƒe[ƒuƒ‹–¼"
+msgstr "-t, --phorum_table[=table]   Phorum ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ†ãƒ¼ãƒ–ãƒ«å"
 
 #
 #: lib/api.php:813
 msgid "Add a comment"
-msgstr "ƒRƒƒ“ƒg‚ğ’Ç‰Á"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆã‚’è¿½åŠ "
 
 #
 #: lib/api.php:148
 msgid "Admin"
-msgstr "ŠÇ—"
+msgstr "ç®¡ç†"
 
 #
 #: messages/merge.php:69
 msgid "After Message: "
-msgstr "ˆ—ŒãƒƒbƒZ[ƒWF"
+msgstr "å‡¦ç†å¾Œãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼š"
 
 #
 #: forums.php:75
 msgid "All Forums"
-msgstr "‘S‚Ä‚ÌƒtƒH[ƒ‰ƒ€"
+msgstr "å…¨ã¦ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #
 #: lib/Forms/Forum.php:44
 msgid "Allow attachments in this forum?"
-msgstr "“Y•t‚ğ‚±‚ÌƒtƒH[ƒ‰ƒ€‚Å‹–‰Â‚µ‚Ü‚·‚©?"
+msgstr "æ·»ä»˜ã‚’ã“ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã§è¨±å¯ã—ã¾ã™ã‹?"
 
 #: messages/lock.php:53
 msgid "Allow replies in this thread"
-msgstr "‚±‚ÌƒXƒŒƒbƒh‚ÅƒŠƒvƒ‰ƒC‚ğ‹–‰Â"
+msgstr "ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã§ãƒªãƒ—ãƒ©ã‚¤ã‚’è¨±å¯"
 
 #: moderate.php:48 moderate.php:70
 msgid "Approve"
-msgstr "³”F"
+msgstr "æ‰¿èª"
 
 #: lib/View.php:72 config/prefs.php.dist:103 config/prefs.php.dist:138
 #: config/prefs.php.dist:179 config/prefs.php.dist:267
 msgid "Ascending"
-msgstr "¸‡"
+msgstr "æ˜‡é †"
 
 #: lib/Messages.php:1454
 msgid "Attachment"
-msgstr "“Y•t"
+msgstr "æ·»ä»˜"
 
 #: lib/View.php:67 lib/Forms/Search.php:58
 msgid "Author"
-msgstr "ì¬Ò"
+msgstr "ä½œæˆè€…"
 
 #
 #: config/prefs.php.dist:11
 msgid "Avatar"
-msgstr "‰»g"
+msgstr "åŒ–èº«"
 
 #: config/prefs.php.dist:67
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
-msgstr "‰»g‚Í %s ~ %sƒsƒNƒZƒ‹ˆÈ‰º‚Å‚ ‚èA%sKbˆÈ‰º‚Ì—e—Ê‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB"
+msgstr "åŒ–èº«ã¯ %s Ã— %sãƒ”ã‚¯ã‚»ãƒ«ä»¥ä¸‹ã§ã‚ã‚Šã€%sKbä»¥ä¸‹ã®å®¹é‡ã§ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: ban.php:58 lib/Messages.php:1399
 msgid "Ban"
-msgstr "’Ç•ú"
+msgstr "è¿½æ”¾"
 
 #: templates/forums/ban.html:10
 msgid "Banned"
-msgstr "’Ç•úÏ‚İ"
+msgstr "è¿½æ”¾æ¸ˆã¿"
 
 #: moderate.php:62
 msgid "Body"
-msgstr "–{•¶"
+msgstr "æœ¬æ–‡"
 
 #
 #: deleteforum.php:47 messages/split.php:49 messages/delete.php:52
 #: messages/merge.php:50 messages/move.php:49 messages/abuse.php:50
 #: messages/abuse.php:58 lib/api.php:734
 msgid "Cancel"
-msgstr "ƒLƒƒƒ“ƒZƒ‹"
+msgstr "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
 #
 #: lib/Messages.php:1882
 msgid "Cannot create a forum with an empty name."
-msgstr "–¼‘O‚ª‹ó‚ÌƒtƒH[ƒ‰ƒ€‚Íì¬‚Å‚«‚Ü‚¹‚ñB"
+msgstr "åå‰ãŒç©ºã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯ä½œæˆã§ãã¾ã›ã‚“ã€‚"
 
 #: templates/prefs/avatarselect.inc:8
 msgid "Choose from a gallery of avatars: "
-msgstr "‰»gˆê——‚©‚ç‘I‘ğ:"
+msgstr "åŒ–èº«ä¸€è¦§ã‹ã‚‰é¸æŠ:"
 
 #
 #: lib/View.php:78 lib/api.php:440
 msgid "Comments"
-msgstr "ƒRƒƒ“ƒg"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆ"
 
 #
 #: config/prefs.php.dist:51
 msgid "Comments view"
-msgstr "ƒRƒƒ“ƒg•\¦"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆè¡¨ç¤º"
 
 #: editforum.php:44
 #, php-format
 msgid "Could not create the forum. %s"
-msgstr "ƒtƒH[ƒ‰ƒ€‚ğì¬‚Å‚«‚Ü‚¹‚ñ:%s"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’ä½œæˆã§ãã¾ã›ã‚“:%s"
 
 #: deleteforum.php:68
 #, php-format
 msgid "Could not delete the forum. %s"
-msgstr "ƒtƒH[ƒ‰ƒ€‚ğíœ‚Å‚«‚Ü‚¹‚ñ:%s"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“:%s"
 
 #: messages/delete.php:66 lib/api.php:717 lib/api.php:728 lib/api.php:742
 #, php-format
 msgid "Could not delete the message. %s"
-msgstr "ƒƒbƒZ[ƒW‚ğíœ‚Å‚«‚Ü‚¹‚ñ:%s"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“:%s"
 
 #: threads.php:33
 #, php-format
 msgid "Could not list threads. %s"
-msgstr "ƒXƒŒƒbƒh•\¦‚Å‚«‚Ü‚¹‚ñ:%s"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºã§ãã¾ã›ã‚“:%s"
 
 #: messages/lock.php:62
 #, php-format
 msgid "Could not lock the thread. %s"
-msgstr "ƒXƒŒƒbƒh‚ğƒƒbƒN‚Å‚«‚Ü‚¹‚ñ:%s"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ãƒ­ãƒƒã‚¯ã§ãã¾ã›ã‚“:%s"
 
 #: messages/split.php:33 messages/delete.php:36 messages/index.php:36
 #: messages/lock.php:35 messages/merge.php:34 messages/move.php:33
 #: messages/abuse.php:33
 #, php-format
 msgid "Could not open the message. %s"
-msgstr "ƒƒbƒZ[ƒW‚ğŠJ‚¯‚Ü‚¹‚ñ:%s"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é–‹ã‘ã¾ã›ã‚“:%s"
 
 #
 #: messages/edit.php:33 messages/edit.php:83 lib/api.php:581 lib/api.php:634
 msgid "Could not post the message: "
-msgstr "ƒƒbƒZ[ƒW‚ğ“Še‚Å‚«‚Ü‚¹‚ñ:"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æŠ•ç¨¿ã§ãã¾ã›ã‚“:"
 
 #: lib/Template.php:234
 #, php-format
-msgid "Could not save the compiled template file \"%s\"."
-msgstr "ƒRƒ“ƒpƒCƒ‹‚µ‚½—Œ`ƒtƒ@ƒCƒ‹ '%s' ‚ğ•Û‘¶‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B"
+msgid "Could not save the compiled template file Â¥"%sÂ¥"."
+msgstr "ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ãŸé››å½¢ãƒ•ã‚¡ã‚¤ãƒ« '%s' ã‚’ä¿å­˜ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #
 #: scripts/phorum2agora.php:65
 msgid "Couldn't read command-line options."
-msgstr "ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒIƒvƒVƒ‡ƒ“‚ğ“Ç‚ß‚Ü‚¹‚ñB"
+msgstr "ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’èª­ã‚ã¾ã›ã‚“ã€‚"
 
 #: lib/Forms/Forum.php:30
 msgid "Create"
-msgstr "ì¬"
+msgstr "ä½œæˆ"
 
 #
 #: lib/Messages.php:1450
 msgid "Current attachment"
-msgstr "Œ»İ‚Ì“Y•t"
+msgstr "ç¾åœ¨ã®æ·»ä»˜"
 
 #: moderate.php:62 forums.php:57 messages/index.php:146 lib/View.php:66
 #: lib/View.php:85 lib/View.php:100 lib/api.php:429 lib/Block/forums.php:87
@@ -208,256 +208,256 @@ msgstr "Œ»İ‚Ì“Y•t"
 #: config/prefs.php.dist:128 config/prefs.php.dist:170
 #: config/prefs.php.dist:258
 msgid "Date"
-msgstr "“ú•t"
+msgstr "æ—¥ä»˜"
 
 #
 #: config/prefs.php.dist:259
 msgid "Default comments view sort:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚ÌƒRƒƒ“ƒg•\¦‡:"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚³ãƒ¡ãƒ³ãƒˆè¡¨ç¤ºé †:"
 
 #
 #: config/prefs.php.dist:95
 msgid "Default forums view sort:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚ÌƒtƒH[ƒ‰ƒ€•\¦‡:"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ è¡¨ç¤ºé †:"
 
 #
 #: config/prefs.php.dist:105 config/prefs.php.dist:140
 #: config/prefs.php.dist:181 config/prefs.php.dist:269
 msgid "Default sorting direction:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚Ì•À‚Ñ‘Ö‚¦‡:"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ä¸¦ã³æ›¿ãˆé †:"
 
 #
 #: config/prefs.php.dist:171
 msgid "Default thread view sort:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚ÌƒXƒŒƒbƒh•\¦‡:"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºé †:"
 
 #
 #: config/prefs.php.dist:130
 msgid "Default threads view sort:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚ÌƒXƒŒƒbƒhŒQ•\¦‡:"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¹ãƒ¬ãƒƒãƒ‰ç¾¤è¡¨ç¤ºé †:"
 
 #: ban.php:55 moderators.php:67 moderate.php:54 moderate.php:70
 #: deleteforum.php:47 deleteforum.php:65 messages/delete.php:52
 #: messages/delete.php:57 messages/index.php:122 lib/api.php:734
 #: lib/api.php:739 lib/Messages.php:801 lib/Messages.php:1700
 msgid "Delete"
-msgstr "íœ"
+msgstr "å‰Šé™¤"
 
 #: messages/delete.php:51 lib/api.php:733
 #, php-format
-msgid "Delete \"%s\" and all replies?"
-msgstr " \"%s\"‚Æ‘S‚Ä‚ÌƒŠƒvƒ‰ƒC‚ğíœ‚µ‚Ü‚·‚©?"
+msgid "Delete Â¥"%sÂ¥" and all replies?"
+msgstr " Â¥"%sÂ¥"ã¨å…¨ã¦ã®ãƒªãƒ—ãƒ©ã‚¤ã‚’å‰Šé™¤ã—ã¾ã™ã‹?"
 
 #
 #: deleteforum.php:45 lib/Messages.php:1397
 msgid "Delete Forum"
-msgstr "ƒtƒH[ƒ‰ƒ€‚ğíœ"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’å‰Šé™¤"
 
 #
 #: lib/Messages.php:1700
 msgid "Delete forum"
-msgstr "ƒtƒH[ƒ‰ƒ€‚ğíœ"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’å‰Šé™¤"
 
 #
 #: lib/Messages.php:801
 msgid "Delete message"
-msgstr "ƒƒbƒZ[ƒW‚ğíœ"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤"
 
 #
 #: lib/Messages.php:1449
 msgid "Delete the existing attachment?"
-msgstr "Šù‘¶‚Ì“Y•t‚ğíœ‚µ‚Ü‚·‚©?"
+msgstr "æ—¢å­˜ã®æ·»ä»˜ã‚’å‰Šé™¤ã—ã¾ã™ã‹?"
 
 #: lib/View.php:73 config/prefs.php.dist:104 config/prefs.php.dist:139
 #: config/prefs.php.dist:180 config/prefs.php.dist:268
 msgid "Descending"
-msgstr "~‡"
+msgstr "é™é †"
 
 #: forums.php:57
 msgid "Description"
-msgstr "à–¾"
+msgstr "èª¬æ˜"
 
 #: config/prefs.php.dist:21 config/prefs.php.dist:28 config/prefs.php.dist:35
 #: config/prefs.php.dist:43 config/prefs.php.dist:50
 msgid "Display Options"
-msgstr "•\¦ƒIƒvƒVƒ‡ƒ“"
+msgstr "è¡¨ç¤ºã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: config/prefs.php.dist:248
 msgid "Display full message bodies in the comments view?"
-msgstr "ƒRƒƒ“ƒg•\¦‚ÅƒƒbƒZ[ƒW–{•¶‚·‚×‚Ä‚ğ•\¦‚µ‚Ü‚·‚©?"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆè¡¨ç¤ºã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æœ¬æ–‡ã™ã¹ã¦ã‚’è¡¨ç¤ºã—ã¾ã™ã‹?"
 
 #: config/prefs.php.dist:192
 msgid "Display full message bodies in the thread list view?"
-msgstr "ƒXƒŒƒbƒh•\¦‚ÅƒƒbƒZ[ƒW–{•¶‚·‚×‚Ä‚ğ•\¦‚µ‚Ü‚·‚©?"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æœ¬æ–‡ã™ã¹ã¦ã‚’è¡¨ç¤ºã—ã¾ã™ã‹?"
 
 #
 #: config/prefs.php.dist:211
 msgid "Display graphical emoticons?"
-msgstr "ƒOƒ‰ƒtƒBƒJƒ‹Šç•¶š‚ğ•\¦‚µ‚Ü‚·‚©?"
+msgstr "ã‚°ãƒ©ãƒ•ã‚£ã‚«ãƒ«é¡”æ–‡å­—ã‚’è¡¨ç¤ºã—ã¾ã™ã‹?"
 
 #: messages/index.php:119 lib/Messages.php:797 lib/Messages.php:1694
 msgid "Edit"
-msgstr "•ÒW"
+msgstr "ç·¨é›†"
 
 #
 #: editforum.php:25 lib/Messages.php:1394
 msgid "Edit Forum"
-msgstr "ƒtƒH[ƒ‰ƒ€•ÒW"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ç·¨é›†"
 
 #
 #: lib/api.php:609
 msgid "Edit Message"
-msgstr "ƒƒbƒZ[ƒW•ÒW"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç·¨é›†"
 
 #: messages/edit.php:70
 #, php-format
-msgid "Edit Message in \"%s\""
-msgstr "\"%s\" ‚Ö‚ÌƒƒbƒZ[ƒW•ÒW"
+msgid "Edit Message in Â¥"%sÂ¥""
+msgstr "Â¥"%sÂ¥" ã¸ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç·¨é›†"
 
 #
 #: lib/api.php:811
 msgid "Edit a comment"
-msgstr "ƒRƒƒ“ƒg•ÒW"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆç·¨é›†"
 
 #
 #: lib/Messages.php:1694
 msgid "Edit forum"
-msgstr "ƒtƒH[ƒ‰ƒ€•ÒW"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ç·¨é›†"
 
 #
 #: lib/Messages.php:797
 msgid "Edit message"
-msgstr "ƒƒbƒZ[ƒW•ÒW"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç·¨é›†"
 
 #
 #: lib/Forms/Forum.php:41
 msgid "Enter a brief description of this forum"
-msgstr "‚±‚ÌƒtƒH[ƒ‰ƒ€‚Ìà–¾‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢"
+msgstr "ã“ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã®èª¬æ˜ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„"
 
 #: messages/index.php:168 lib/View.php:59 config/prefs.php.dist:246
 msgid "Flat"
-msgstr "ƒtƒ‰ƒbƒg"
+msgstr "ãƒ•ãƒ©ãƒƒãƒˆ"
 
 #
 #: moderators.php:79 moderators.php:82 moderate.php:62 forums.php:57
 #: messages/move.php:54 lib/Block/forums.php:87 lib/Block/threads.php:46
 #: config/prefs.php.dist:90 templates/moderators/moderators.html:8
 msgid "Forum"
-msgstr "ƒtƒH[ƒ‰ƒ€"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #: lib/api.php:711 lib/Messages.php:1612
 #, php-format
 msgid "Forum %s does not exist."
-msgstr "ƒtƒH[ƒ‰ƒ€ %s ‚Í‘¶İ‚µ‚Ü‚¹‚ñB"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ  %s ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚"
 
 #
 #: editforum.php:47
 msgid "Forum Modified"
-msgstr "ƒtƒH[ƒ‰ƒ€•ÏX“ú"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ å¤‰æ›´æ—¥æ™‚"
 
 #: editforum.php:47
 msgid "Forum created."
-msgstr "ƒtƒH[ƒ‰ƒ€‚Í¶¬‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯ç”Ÿæˆã•ã‚Œã¾ã—ãŸã€‚"
 
 #
 #: deleteforum.php:70
 msgid "Forum deleted."
-msgstr "ƒtƒH[ƒ‰ƒ€‚Ííœ‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯å‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #
 #: deleteforum.php:51 lib/Forms/Forum.php:33
 #: templates/moderators/moderators.html:9
 msgid "Forum name"
-msgstr "ƒtƒH[ƒ‰ƒ€–¼"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ å"
 
 #
 #: deleteforum.php:73
 msgid "Forum not deleted."
-msgstr "ƒtƒH[ƒ‰ƒ€‚Ííœ‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯å‰Šé™¤ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #: lib/api.php:149 lib/Block/forums.php:3 lib/Block/forums.php:28
 #: templates/forums/forums.html:9
 msgid "Forums"
-msgstr "ƒtƒH[ƒ‰ƒ€"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #
 #: config/prefs.php.dist:22
 msgid "Forums View"
-msgstr "ƒtƒH[ƒ‰ƒ€•\¦"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ è¡¨ç¤º"
 
 #: lib/Messages.php:1431
 msgid "From"
-msgstr "·ol"
+msgstr "å·®å‡ºäºº"
 
 #: templates/threads/threads.html:43
 msgid "Goto page:"
-msgstr "ƒy[ƒW‚ÖˆÚ“®:"
+msgstr "ãƒšãƒ¼ã‚¸ã¸ç§»å‹•:"
 
 #
 #: messages/index.php:158 messages/index.php:167
 msgid "Hide bodies"
-msgstr "–{•¶‚ğ‰B‚·"
+msgstr "æœ¬æ–‡ã‚’éš ã™"
 
 #
 #: lib/Messages.php:718
 msgid "Hot thread"
-msgstr "”M‚¢ƒXƒŒƒbƒh"
+msgstr "ç†±ã„ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #: lib/Forms/Forum.php:44
 msgid "If selected users will be able to attach files to their messages."
-msgstr "‘I‘ğ‚³‚ê‚½ƒ†[ƒU‚ªƒƒbƒZ[ƒW‚Éƒtƒ@ƒCƒ‹“Y•t‚Å‚«‚é‚È‚ç‚ÎB"
+msgstr "é¸æŠã•ã‚ŒãŸãƒ¦ãƒ¼ã‚¶ãŒãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«ãƒ•ã‚¡ã‚¤ãƒ«æ·»ä»˜ã§ãã‚‹ãªã‚‰ã°ã€‚"
 
 #: messages/edit.php:113
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
-msgstr "•s³‚ÈeƒƒbƒZ[ƒW‚Å‚·B‚ ‚È‚½‚Ì“Še‚ÍV‹KƒXƒŒƒbƒh‚Æ‚µ‚Äˆµ‚í‚ê‚Ü‚·B"
+msgstr "ä¸æ­£ãªè¦ªãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã§ã™ã€‚ã‚ãªãŸã®æŠ•ç¨¿ã¯æ–°è¦ã‚¹ãƒ¬ãƒƒãƒ‰ã¨ã—ã¦æ‰±ã‚ã‚Œã¾ã™ã€‚"
 
 #
 #: lib/Forms/Forum.php:42
 msgid "Is this a moderated forum?"
-msgstr "‚±‚ê‚Íƒ‚ƒfƒŒ[ƒ^ŠÇ—‰º‚É‚ ‚éƒtƒH[ƒ‰ƒ€‚Å‚·‚©H"
+msgstr "ã“ã‚Œã¯ãƒ¢ãƒ‡ãƒ¬ãƒ¼ã‚¿ç®¡ç†ä¸‹ã«ã‚ã‚‹ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã§ã™ã‹ï¼Ÿ"
 
 #: lib/Forms/Search.php:46
 msgid "Keywords"
-msgstr "ƒL[ƒ[ƒh"
+msgstr "ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰"
 
 #
 #: config/prefs.php.dist:92
 msgid "Last Message"
-msgstr "ÅŒã‚ÌƒƒbƒZ[ƒW"
+msgstr "æœ€å¾Œã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸"
 
 #
 #: forums.php:57 lib/Block/forums.php:87
 msgid "Last Post"
-msgstr "ÅV‚Ì“Še"
+msgstr "æœ€æ–°ã®æŠ•ç¨¿"
 
 #
 #: threads.php:62 config/prefs.php.dist:129
 msgid "Last post"
-msgstr "ÅV‚Ì“Še"
+msgstr "æœ€æ–°ã®æŠ•ç¨¿"
 
 #
 #: lib/Messages.php:805
 msgid "Lock"
-msgstr "ƒƒbƒN"
+msgstr "ãƒ­ãƒƒã‚¯"
 
 #
 #: messages/index.php:125
 msgid "Lock thread"
-msgstr "ƒXƒŒƒbƒh‚ğƒƒbƒN"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ãƒ­ãƒƒã‚¯"
 
 #: messages/lock.php:50
 #, php-format
-msgid "Locking thread \"%s\""
-msgstr "ƒƒbƒN‚³‚ê‚½ƒXƒŒƒbƒh \"%s\""
+msgid "Locking thread Â¥"%sÂ¥""
+msgstr "ãƒ­ãƒƒã‚¯ã•ã‚ŒãŸã‚¹ãƒ¬ãƒƒãƒ‰ Â¥"%sÂ¥""
 
 #: lib/Agora.php:361
 msgid "Malformed avatar."
-msgstr "‰ó‚ê‚½‰»gB"
+msgstr "å£Šã‚ŒãŸåŒ–èº«ã€‚"
 
 #: lib/Agora.php:384
 msgid "Malformed database entry."
-msgstr "‰ó‚ê‚½ƒf[ƒ^ƒx[ƒX€–ÚB"
+msgstr "å£Šã‚ŒãŸãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹é …ç›®ã€‚"
 
 #: scripts/phorum2agora.php:214
 msgid ""
@@ -467,217 +467,217 @@ msgstr ""
 
 #: messages/merge.php:50 messages/merge.php:76 lib/Messages.php:816
 msgid "Merge"
-msgstr "ƒ}[ƒW"
+msgstr "ãƒãƒ¼ã‚¸"
 
 #: messages/merge.php:49
 #, php-format
-msgid "Merge \"%s\" with another thread"
-msgstr "•Ê‚ÌƒXƒŒƒbƒh‚Å\"%s\"‚ğƒ}[ƒW"
+msgid "Merge Â¥"%sÂ¥" with another thread"
+msgstr "åˆ¥ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã§Â¥"%sÂ¥"ã‚’ãƒãƒ¼ã‚¸"
 
 #
 #: lib/Messages.php:1444
 msgid "Message"
-msgstr "ƒƒbƒZ[ƒW"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸"
 
 #: messages/abuse.php:80
 #, php-format
 msgid "Message %s reported as abuse"
-msgstr "ƒƒbƒZ[ƒW %s ‚Í•s³‚È‚à‚Ì‚Æ‚µ‚Ä•ñ‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ %s ã¯ä¸æ­£ãªã‚‚ã®ã¨ã—ã¦å ±å‘Šã•ã‚Œã¾ã—ãŸã€‚"
 
 #: lib/Messages.php:456
 #, php-format
-msgid "Message ID \"%d\" not found"
-msgstr "ƒƒbƒZ[ƒWID \"%d\" ‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñB"
+msgid "Message ID Â¥"%dÂ¥" not found"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ID Â¥"%dÂ¥" ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: config/prefs.php.dist:44
 msgid "Message View"
-msgstr "ƒƒbƒZ[ƒW•\¦"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º"
 
 #
 #: messages/delete.php:68 lib/api.php:744
 msgid "Message deleted."
-msgstr "ƒƒbƒZ[ƒW‚Ííœ‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯å‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #
 #: messages/delete.php:58 lib/api.php:749
 msgid "Message not deleted."
-msgstr "ƒƒbƒZ[ƒW‚Ííœ‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯å‰Šé™¤ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #
 #: messages/edit.php:85 lib/api.php:636
 msgid "Message posted."
-msgstr "ƒƒbƒZ[ƒW‚Í“Še‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯æŠ•ç¨¿ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: config/prefs.php.dist:91
 msgid "Messages"
-msgstr "ƒƒbƒZ[ƒW"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸"
 
 #: moderate.php:82 templates/moderate/moderate.html:9
 msgid "Messages Awaiting Moderation"
-msgstr "ƒƒbƒZ[ƒW‚Í³”F‘Ò‚¿‚Å‚·"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯æ‰¿èªå¾…ã¡ã§ã™"
 
 #: lib/Messages.php:1719
 msgid "Moderate"
-msgstr "³”FŠÇ—"
+msgstr "æ‰¿èªç®¡ç†"
 
 #
 #: moderators.php:77 lib/Tree/flat.php:117 templates/messages/flat.html:25
 #: templates/messages/flat_thread.html:10 templates/messages/message.html:21
 msgid "Moderator"
-msgstr "³”FÒ"
+msgstr "æ‰¿èªè€…"
 
 #
 #: moderators.php:71 templates/moderators/moderators.html:4
 #: templates/moderators/moderators.html:10 templates/forums/forums.html:40
 msgid "Moderators"
-msgstr "³”FÒ"
+msgstr "æ‰¿èªè€…"
 
 #: messages/move.php:49 messages/move.php:61 lib/Messages.php:812
 msgid "Move"
-msgstr "ˆÚ“®"
+msgstr "ç§»å‹•"
 
 #: messages/move.php:48
 #, php-format
-msgid "Move \"%s\" to another forum"
-msgstr "\"%s\"‚ğ•Ê‚ÌƒtƒH[ƒ‰ƒ€‚ÉˆÚ“®"
+msgid "Move Â¥"%sÂ¥" to another forum"
+msgstr "Â¥"%sÂ¥"ã‚’åˆ¥ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã«ç§»å‹•"
 
 #
 #: config/prefs.php.dist:10
 msgid "My Information"
-msgstr "„‚Ìî•ñ"
+msgstr "ç§ã®æƒ…å ±"
 
 #
 #: editforum.php:25
 msgid "New Forum"
-msgstr "V‹KƒtƒH[ƒ‰ƒ€"
+msgstr "æ–°è¦ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #
 #: lib/Messages.php:1689
 msgid "New Post"
-msgstr "V‹K“Še"
+msgstr "æ–°è¦æŠ•ç¨¿"
 
 #
 #: lib/Agora.php:267
 msgid "New Thread"
-msgstr "V‹KƒXƒŒƒbƒh"
+msgstr "æ–°è¦ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #
 #: lib/Messages.php:719
 msgid "New posts"
-msgstr "V‹K“Še"
+msgstr "æ–°è¦æŠ•ç¨¿"
 
 #
 #: config/prefs.php.dist:189
 msgid "No"
-msgstr "‚¢‚¢‚¦"
+msgstr "ã„ã„ãˆ"
 
 #
 #: lib/Block/threads.php:121
 msgid "No available threads."
-msgstr "ƒXƒŒƒbƒh‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: lib/Block/threads.php:100
 msgid "No forum selected"
-msgstr "ƒtƒH[ƒ‰ƒ€‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ãŒé¸æŠã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #
 #: templates/forums/forums.html:65
 msgid "No forums have been created."
-msgstr "ƒtƒH[ƒ‰ƒ€‚Í¶¬‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯ç”Ÿæˆã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #: config/prefs.php.dist:209
 msgid "No graphical emoticons"
-msgstr "ƒOƒ‰ƒtƒBƒbƒNŠç•¶š”ñ•\¦"
+msgstr "ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯é¡”æ–‡å­—éè¡¨ç¤º"
 
 #: moderate.php:40
 msgid "No messages are waiting for moderation."
-msgstr "³”F‘Ò‚¿‚ÌƒƒbƒZ[ƒW‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgstr "æ‰¿èªå¾…ã¡ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: messages/abuse.php:41
 msgid "No moderators are associated with this forum."
-msgstr "‚±‚ÌƒtƒH[ƒ‰ƒ€‚É‚Í³”FÒ‚ª‹‚Ü‚¹‚ñB"
+msgstr "ã“ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã«ã¯æ‰¿èªè€…ãŒå±…ã¾ã›ã‚“ã€‚"
 
 #
 #: templates/moderators/moderators.html:27
 msgid "No moderators have been created."
-msgstr "³”FÒ‚Í¶¬‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½B"
+msgstr "æ‰¿èªè€…ã¯ç”Ÿæˆã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #
 #: templates/block/threads.html:32
 msgid "No threads"
-msgstr "”ñƒXƒŒƒbƒh"
+msgstr "éã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #: messages/lock.php:53
 msgid "No, do not allow replies"
-msgstr "ƒŠƒvƒ‰ƒC‚Í‹–‚³‚ê‚Ü‚¹‚ñ"
+msgstr "ãƒªãƒ—ãƒ©ã‚¤ã¯è¨±ã•ã‚Œã¾ã›ã‚“"
 
 #
 #: config/prefs.php.dist:114
 msgid "Number of forums to display on each page"
-msgstr "Šeƒy[ƒW‚É•\¦‚·‚éƒtƒH[ƒ‰ƒ€”"
+msgstr "å„ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹ãƒ•ã‚©ãƒ¼ãƒ©ãƒ æ•°"
 
 #
 #: config/prefs.php.dist:201
 msgid "Number of message to display on each page"
-msgstr "Šeƒy[ƒW‚É•\¦‚·‚éƒƒbƒZ[ƒW”"
+msgstr "å„ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ•°"
 
 #
 #: config/prefs.php.dist:157 config/prefs.php.dist:278
 msgid "Number of messages to display on each page"
-msgstr "Šeƒy[ƒW‚É•\¦‚·‚éƒƒbƒZ[ƒW”"
+msgstr "å„ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ•°"
 
 #: config/prefs.php.dist:148
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
-msgstr "u”M‚¢ƒXƒŒƒbƒhv‚Æ”F’è‚·‚é24ŠÔ‚ÌƒAƒNƒZƒX”:"
+msgstr "ã€Œç†±ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã€ã¨èªå®šã™ã‚‹24æ™‚é–“ã®ã‚¢ã‚¯ã‚»ã‚¹æ•°:"
 
 #: lib/Block/forums.php:35
 msgid "Only display this many forums (0 to display all forums)"
-msgstr "‚±‚Ì”‚¾‚¯‚ÌƒtƒH[ƒ‰ƒ€‚ğ•\¦(0‚Å‘SƒtƒH[ƒ‰ƒ€‚ğ•\¦)"
+msgstr "ã“ã®æ•°ã ã‘ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’è¡¨ç¤º(0ã§å…¨ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’è¡¨ç¤º)"
 
 #: lib/Block/threads.php:53
 msgid "Only display this many threads (0 to display all threads)"
-msgstr "‚±‚Ì”‚¾‚¯‚ÌƒXƒŒƒbƒh‚ğ•\¦(0‚Å‘SƒXƒŒƒbƒh‚ğ•\¦)"
+msgstr "ã“ã®æ•°ã ã‘ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’è¡¨ç¤º(0ã§å…¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’è¡¨ç¤º)"
 
 #: templates/forums/forums.html:35
 msgid "Options"
-msgstr "ƒIƒvƒVƒ‡ƒ“"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: lib/Messages.php:763
 #, php-format
 msgid "Page %d"
-msgstr "ƒy[ƒW %d"
+msgstr "ãƒšãƒ¼ã‚¸ %d"
 
 #
 #: lib/Forms/Forum.php:36
 msgid "Parent forum"
-msgstr "eƒtƒH[ƒ‰ƒ€"
+msgstr "è¦ªãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #
 #: lib/Messages.php:1413
 msgid "Post"
-msgstr "“Še"
+msgstr "æŠ•ç¨¿"
 
 #
 #: lib/api.php:609
 msgid "Post a New Message"
-msgstr "V‹KƒƒbƒZ[ƒW‚ğ“Še"
+msgstr "æ–°è¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æŠ•ç¨¿"
 
 #: messages/edit.php:71
 #, php-format
-msgid "Post a New Message to \"%s\""
-msgstr "%s ‚Ö‚ÌV‹KƒƒbƒZ[ƒW“Še"
+msgid "Post a New Message to Â¥"%sÂ¥""
+msgstr "%s ã¸ã®æ–°è¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æŠ•ç¨¿"
 
 #: messages/edit.php:69 messages/index.php:213
 #, php-format
-msgid "Post a Reply to \"%s\""
-msgstr "\"%s\"‚Ö‚ÌƒŠƒvƒ‰ƒC‚ğ“Še"
+msgid "Post a Reply to Â¥"%sÂ¥""
+msgstr "Â¥"%sÂ¥"ã¸ã®ãƒªãƒ—ãƒ©ã‚¤ã‚’æŠ•ç¨¿"
 
 #
 #: lib/Messages.php:1389 lib/Messages.php:1689
 msgid "Post message"
-msgstr "ƒƒbƒZ[ƒW‚ğ“Še"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æŠ•ç¨¿"
 
 #: moderate.php:62 forums.php:57 messages/index.php:146 lib/View.php:83
 #: lib/View.php:99 lib/api.php:427 lib/Tree/flat.php:112
@@ -686,163 +686,163 @@ msgstr "ƒƒbƒZ[ƒW‚ğ“Še"
 #: config/prefs.php.dist:169 config/prefs.php.dist:257
 #: templates/messages/flat.html:21 templates/messages/flat_thread.html:7
 msgid "Posted by"
-msgstr "“ŠeÒ"
+msgstr "æŠ•ç¨¿è€…"
 
 #: messages/index.php:90 lib/Messages.php:501
 #, php-format
 msgid "Posted by %s on %s"
-msgstr "%s ‚Ì %s‚©‚ç‚Ì“Še"
+msgstr "%s ã® %sã‹ã‚‰ã®æŠ•ç¨¿"
 
 #
 #: threads.php:62 forums.php:57 lib/Block/forums.php:87
 #: config/prefs.php.dist:127
 msgid "Posts"
-msgstr "“Še"
+msgstr "æŠ•ç¨¿"
 
 #
 #: lib/Messages.php:1436
 msgid "Quote"
-msgstr "—e—Ê§ŒÀ"
+msgstr "å®¹é‡åˆ¶é™"
 
 #: messages/index.php:113 lib/Messages.php:785
 msgid "Reply"
-msgstr "ƒŠƒvƒ‰ƒC"
+msgstr "ãƒªãƒ—ãƒ©ã‚¤"
 
 #
 #: lib/Messages.php:785
 msgid "Reply to message"
-msgstr "‘—MÒ‚ÉƒŠƒvƒ‰ƒC"
+msgstr "é€ä¿¡è€…ã«ãƒªãƒ—ãƒ©ã‚¤"
 
 #
 #: messages/abuse.php:49 messages/abuse.php:50 lib/Messages.php:791
 msgid "Report as abuse"
-msgstr "•s³g—p‚Æ•ñ"
+msgstr "ä¸æ­£ä½¿ç”¨ã¨å ±å‘Š"
 
 #: lib/Forms/Search.php:47
 msgid "Require all keywords?"
-msgstr "‘S‚Ä‚ÌƒL[ƒ[ƒh‚ğ‹‚ß‚Ü‚·‚©?"
+msgstr "å…¨ã¦ã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã‚’æ±‚ã‚ã¾ã™ã‹?"
 
 #: lib/Messages.php:1413
 msgid "Save"
-msgstr "•Û‘¶"
+msgstr "ä¿å­˜"
 
 #: lib/Forms/Search.php:60
 msgid "Search"
-msgstr "ŒŸõ"
+msgstr "æ¤œç´¢"
 
 #
 #: search.php:70 lib/Forms/Search.php:36
 msgid "Search Forums"
-msgstr "ƒtƒH[ƒ‰ƒ€ŒŸõ"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ æ¤œç´¢"
 
 #: templates/search/search.html:5
 msgid "Search Results"
-msgstr "ŒŸõŒ‹‰Ê"
+msgstr "æ¤œç´¢çµæœ"
 
 #: lib/Forms/Search.php:55
 msgid "Search in message contents?"
-msgstr "ƒƒbƒZ[ƒW“àŒŸõ"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å†…æ¤œç´¢"
 
 #
 #: lib/Forms/Search.php:51
 msgid "Search in subjects?"
-msgstr "Œ–¼ŒŸõ"
+msgstr "ä»¶åæ¤œç´¢"
 
 #
 #: lib/Forms/Search.php:40
 msgid "Search in these forums"
-msgstr "•¡”ƒtƒH[ƒ‰ƒ€ŠÔŒŸõ"
+msgstr "è¤‡æ•°ãƒ•ã‚©ãƒ¼ãƒ©ãƒ é–“æ¤œç´¢"
 
 #: config/prefs.php.dist:12
 msgid "Set the avatar image that is shown with your posts."
-msgstr "‚ ‚È‚½‚ª“Še‚·‚é‰æ‘œ‚Å‰»g‚ğİ’è‚µ‚Ü‚·B"
+msgstr "ã‚ãªãŸãŒæŠ•ç¨¿ã™ã‚‹ç”»åƒã§åŒ–èº«ã‚’è¨­å®šã—ã¾ã™ã€‚"
 
 #: lib/Forms/Forum.php:42
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
 msgstr ""
-"“Še‚³‚ê‚é‘O‚É³”FÒ‚É‚æ‚Á‚Ä‚·‚×‚Ä‚ÌƒƒbƒZ[ƒW‚ªƒ`ƒFƒbƒN‚³‚ê‚é‚æ‚¤‚É‚·‚é‚È‚ç"
-"‚Îİ’èB"
+"æŠ•ç¨¿ã•ã‚Œã‚‹å‰ã«æ‰¿èªè€…ã«ã‚ˆã£ã¦ã™ã¹ã¦ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒãƒã‚§ãƒƒã‚¯ã•ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹ãªã‚‰"
+"ã°è¨­å®šã€‚"
 
 #: config/prefs.php.dist:23
 msgid "Set your options for the forums view."
-msgstr "ƒtƒH[ƒ‰ƒ€•\¦‚ÌƒIƒvƒVƒ‡ƒ“‚ğİ’èB"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ è¡¨ç¤ºã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®šã€‚"
 
 #: config/prefs.php.dist:45
 msgid "Set your options for the message view."
-msgstr "ƒƒbƒZ[ƒW•\¦‚ÌƒIƒvƒVƒ‡ƒ“‚ğİ’èB"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®šã€‚"
 
 #: config/prefs.php.dist:37 config/prefs.php.dist:52
 msgid "Set your options for the single thread view."
-msgstr "ƒXƒŒƒbƒh’P‘Ì•\¦‚ÌƒIƒvƒVƒ‡ƒ“‚ğİ’èB"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰å˜ä½“è¡¨ç¤ºã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®šã€‚"
 
 #: config/prefs.php.dist:30
 msgid "Set your options for the threads view."
-msgstr "ƒXƒŒƒbƒh•\¦‚ÌƒIƒvƒVƒ‡ƒ“‚ğİ’èB"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®šã€‚"
 
 #: config/prefs.php.dist:210
 msgid "Show graphical emoticons"
-msgstr "ƒOƒ‰ƒtƒBƒJƒ‹Šç•¶š‚ğ•\¦"
+msgstr "ã‚°ãƒ©ãƒ•ã‚£ã‚«ãƒ«é¡”æ–‡å­—ã‚’è¡¨ç¤º"
 
 #
 #: lib/Block/thread.php:3 lib/Block/thread.php:53
 msgid "Single Thread"
-msgstr "’P‘ÌƒXƒŒƒbƒh"
+msgstr "å˜ä½“ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #
 #: config/prefs.php.dist:36
 msgid "Single Thread View"
-msgstr "’P‘ÌƒXƒŒƒbƒh•\¦"
+msgstr "å˜ä½“ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤º"
 
 #
 #: lib/Agora.php:206
 msgid "Sort Ascending"
-msgstr "¸‡•À‚Ñ‘Ö‚¦"
+msgstr "æ˜‡é †ä¸¦ã³æ›¿ãˆ"
 
 #
 #: lib/Agora.php:206
 msgid "Sort Descending"
-msgstr "~‡•À‚Ñ‘Ö‚¦"
+msgstr "é™é †ä¸¦ã³æ›¿ãˆ"
 
 #
 #: lib/View.php:64
 msgid "Sort by"
-msgstr "ˆÈ‰º‚Å•À‚×‘Ö‚¦"
+msgstr "ä»¥ä¸‹ã§ä¸¦ã¹æ›¿ãˆ"
 
 #: lib/Agora.php:214 lib/Agora.php:221
 #, php-format
 msgid "Sort by %s"
-msgstr "%s ‚Å•À‚×‘Ö‚¦"
+msgstr "%s ã§ä¸¦ã¹æ›¿ãˆ"
 
 #
 #: lib/View.php:70
 msgid "Sort direction"
-msgstr "•À‚Ñ‘Ö‚¦•ûŒüF"
+msgstr "ä¸¦ã³æ›¿ãˆæ–¹å‘ï¼š"
 
 #
 #: lib/Messages.php:1458 lib/Forms/Message.php:26
 msgid "Spam protection"
-msgstr "SPAM–hŒä"
+msgstr "SPAMé˜²å¾¡"
 
 #: messages/split.php:49 messages/split.php:57 lib/Messages.php:821
 msgid "Split"
-msgstr "•ªŠ„"
+msgstr "åˆ†å‰²"
 
 #: messages/split.php:48
 #, php-format
-msgid "Split \"%s\""
-msgstr "•ªŠ„ \"%s\""
+msgid "Split Â¥"%sÂ¥""
+msgstr "åˆ†å‰² Â¥"%sÂ¥""
 
 #
 #: threads.php:62
 msgid "Started"
-msgstr "ŠJn"
+msgstr "é–‹å§‹"
 
 #
 #: deleteforum.php:59
 msgid "Subforums"
-msgstr "ƒTƒuƒtƒH[ƒ‰ƒ€"
+msgstr "ã‚µãƒ–ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #: threads.php:62 moderate.php:62 messages/index.php:146 lib/View.php:68
 #: lib/View.php:81 lib/View.php:98 lib/api.php:425 lib/Messages.php:1438
@@ -850,246 +850,246 @@ msgstr "ƒTƒuƒtƒH[ƒ‰ƒ€"
 #: config/prefs.php.dist:125 config/prefs.php.dist:168
 #: config/prefs.php.dist:256
 msgid "Subject"
-msgstr "Œ–¼"
+msgstr "ä»¶å"
 
 #: lib/Agora.php:243
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
-"VFS ƒoƒbƒNƒGƒ“ƒh‚Í“Y•t‚ÌƒAƒbƒvƒ[ƒh‚ğ‹–‰Â‚·‚é‚æ‚¤İ’è‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚è‚Ü"
-"‚¹‚ñB"
+"VFS ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã¯æ·»ä»˜ã®ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã‚’è¨±å¯ã™ã‚‹ã‚ˆã†è¨­å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°ãªã‚Šã¾"
+"ã›ã‚“ã€‚"
 
 #: config/prefs.php.dist:64
 msgid "The location of your avatar image."
-msgstr "‚ ‚È‚½‚Ì‰»g‰æ‘œ‚ÌêŠB"
+msgstr "ã‚ãªãŸã®åŒ–èº«ç”»åƒã®å ´æ‰€ã€‚"
 
 #
 #: lib/Block/forums.php:78
 msgid "There are no forums."
-msgstr "ƒtƒH[ƒ‰ƒ€‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: templates/threads/threads.html:72
 msgid "There are no threads in this forum."
-msgstr "‚±‚ÌƒtƒH[ƒ‰ƒ€‚É‚ÍƒXƒŒƒbƒh‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã“ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã«ã¯ã‚¹ãƒ¬ãƒƒãƒ‰ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: lib/Messages.php:166
 msgid "This thread has been locked."
-msgstr "‚±‚ÌƒXƒŒƒbƒh‚ÍƒƒbƒN‚³‚ê‚Ü‚µ‚½B"
+msgstr "ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¯ãƒ­ãƒƒã‚¯ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: deleteforum.php:50
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
-"‚±‚ÌƒtƒH[ƒ‰ƒ€‚Ííœ‚³‚ê‚Ü‚·B‰½‚ÌƒTƒuƒtƒH[ƒ‰ƒ€‚àƒƒbƒZ[ƒW‚à‘¶İ‚µ‚Ü‚¹‚ñB"
+"ã“ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã¯å‰Šé™¤ã•ã‚Œã¾ã™ã€‚ä½•ã®ã‚µãƒ–ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚‚ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚‚å­˜åœ¨ã—ã¾ã›ã‚“ã€‚"
 
 #: messages/index.php:146 messages/index.php:159 lib/View.php:60
 #: lib/View.php:97 lib/Block/thread.php:33 lib/Block/thread.php:84
 #: config/prefs.php.dist:124 config/prefs.php.dist:167
 #: config/prefs.php.dist:247
 msgid "Thread"
-msgstr "ƒXƒŒƒbƒh"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #: messages/merge.php:81
 #, php-format
 msgid "Thread %s merged with thread %s after message %s."
-msgstr "ƒƒbƒZ[ƒW %s ‚ÌŒã‚ÌƒXƒŒƒbƒh%s‚ÅAƒXƒŒƒbƒh%s‚Í“‡‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ %s ã®å¾Œã®ã‚¹ãƒ¬ãƒƒãƒ‰%sã§ã€ã‚¹ãƒ¬ãƒƒãƒ‰%sã¯çµ±åˆã•ã‚Œã¾ã—ãŸã€‚"
 
 #: messages/move.php:66
 #, php-format
 msgid "Thread %s moved to from forum %s to %s."
-msgstr "ƒXƒŒƒbƒh%s‚ÍAƒtƒH[ƒ‰ƒ€%s‚©‚ç%s‚ÖˆÚ“®‚µ‚Ü‚µ‚½B"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰%sã¯ã€ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã‹ã‚‰%sã¸ç§»å‹•ã—ã¾ã—ãŸã€‚"
 
 #
 #: lib/Block/thread.php:91 templates/messages/index.html:9
 msgid "Thread List"
-msgstr "ƒXƒŒƒbƒhˆê——"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§"
 
 #
 #: templates/messages/message.html:34
 msgid "Thread Summary"
-msgstr "ƒXƒŒƒbƒhŠT—vF"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰æ¦‚è¦ï¼š"
 
 #
 #: messages/delete.php:73
 msgid "Thread deleted."
-msgstr "ƒXƒŒƒbƒh‚Ííœ‚³‚ê‚Ü‚µ‚½B"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ã¯å‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #
 #: messages/index.php:205 messages/lock.php:65
 msgid "Thread locked."
-msgstr "ƒXƒŒƒbƒh‚ÍƒƒbƒN‚³‚ê‚Ü‚µ‚½B"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ã¯ãƒ­ãƒƒã‚¯ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: messages/split.php:62
 #, php-format
 msgid "Thread splitted by message %s."
-msgstr "ƒXƒŒƒbƒh‚ÍƒƒbƒZ[ƒW%s ‚Å•ªŠ„‚³‚ê‚Ü‚µ‚½B"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ã¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸%s ã§åˆ†å‰²ã•ã‚Œã¾ã—ãŸã€‚"
 
 #
 #: messages/lock.php:67
 msgid "Thread unlocked."
-msgstr "ƒXƒŒƒbƒhƒƒbƒN‰ğœ"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ­ãƒƒã‚¯è§£é™¤"
 
 #
 #: forums.php:57 lib/Block/threads.php:3 lib/Block/threads.php:72
 #: lib/Block/threads.php:78
 msgid "Threads"
-msgstr "ƒXƒŒƒbƒh"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #
 #: config/prefs.php.dist:29
 msgid "Threads View"
-msgstr "ƒXƒŒƒbƒh•\¦"
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤º"
 
 #: lib/Block/threads.php:82
 #, php-format
-msgid "Threads in \"%s\""
-msgstr "\"%s\"‚ÌƒXƒŒƒbƒh"
+msgid "Threads in Â¥"%sÂ¥""
+msgstr "Â¥"%sÂ¥"ã®ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #: threads.php:70 threads.php:82
 #, php-format
 msgid "Threads in %s"
-msgstr "%s‚ÌƒXƒŒƒbƒh"
+msgstr "%sã®ã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #
 #: lib/Block/thread.php:72
 msgid "Unable to fetch selected thread."
-msgstr "‘I‘ğ‚³‚ê‚½ƒXƒŒƒbƒh‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñB"
+msgstr "é¸æŠã•ã‚ŒãŸã‚¹ãƒ¬ãƒƒãƒ‰ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã€‚"
 
 #
 #: lib/Block/threads.php:106
 msgid "Unable to fetch threads for selected forum."
-msgstr "‘I‘ğ‚³‚ê‚½ƒtƒH[ƒ‰ƒ€‚ÌƒXƒŒƒbƒh‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñB"
+msgstr "é¸æŠã•ã‚ŒãŸãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã€‚"
 
 #
 #: lib/Messages.php:805
 msgid "Unlock"
-msgstr "ƒƒbƒN‰ğœ"
+msgstr "ãƒ­ãƒƒã‚¯è§£é™¤"
 
 #
 #: messages/index.php:125
 msgid "Unlock thread"
-msgstr "ƒƒbƒN‰ğœ"
+msgstr "ãƒ­ãƒƒã‚¯è§£é™¤"
 
 #: messages/lock.php:51 lib/Forms/Forum.php:30
 msgid "Update"
-msgstr "XV"
+msgstr "æ›´æ–°"
 
 #: config/prefs.php.dist:79
 msgid "Upload your own avatar image."
-msgstr "‰»g‰æ‘œ‚ğXV"
+msgstr "åŒ–èº«ç”»åƒã‚’æ›´æ–°"
 
 #: scripts/phorum2agora.php:212
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
-msgstr "g—p–@: %s [OPTIONS]..."
+msgstr "ä½¿ç”¨æ³•: %s [OPTIONS]..."
 
 #: ban.php:65
 msgid "User"
-msgstr "ƒ†[ƒU"
+msgstr "ãƒ¦ãƒ¼ã‚¶"
 
 #: lib/View.php:58
 msgid "View"
-msgstr "•\¦"
+msgstr "è¡¨ç¤º"
 
 #
 #: messages/index.php:185
 msgid "View bodies"
-msgstr "–{•¶•\¦"
+msgstr "æœ¬æ–‡è¡¨ç¤º"
 
 #
 #: threads.php:62
 msgid "Views"
-msgstr "•\¦"
+msgstr "è¡¨ç¤º"
 
 #
 #: messages/merge.php:60
 msgid "With Thread: "
-msgstr "ƒXƒŒƒbƒh•\¦: "
+msgstr "ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤º: "
 
 #: config/prefs.php.dist:190
 msgid "Yes"
-msgstr "‚Í‚¢"
+msgstr "ã¯ã„"
 
 #
 #: messages/lock.php:53
 msgid "Yes, allow replies"
-msgstr "‚Í‚¢AƒŠƒvƒ‰ƒC‚ğ‹–‰Â‚µ‚Ü‚·B"
+msgstr "ã¯ã„ã€ãƒªãƒ—ãƒ©ã‚¤ã‚’è¨±å¯ã—ã¾ã™ã€‚"
 
 #: config/prefs.php.dist:191
 msgid "Yes, and don't thread them"
-msgstr "‚Í‚¢AƒXƒŒƒbƒh‰»‚µ‚Ü‚¹‚ñ"
+msgstr "ã¯ã„ã€ã‚¹ãƒ¬ãƒƒãƒ‰åŒ–ã—ã¾ã›ã‚“"
 
 #: lib/Messages.php:1597
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚ÌƒƒbƒZ[ƒW‚ÉƒAƒNƒZƒX‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: messages/split.php:40 messages/delete.php:43 messages/lock.php:42
 #: messages/merge.php:41 messages/move.php:40 lib/api.php:722
 #: lib/Messages.php:522 lib/Messages.php:619
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚ÌƒƒbƒZ[ƒW‚ğíœ‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: messages/edit.php:41 messages/index.php:199 lib/api.php:587
 #: lib/Messages.php:171
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚É“Še‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã«æŠ•ç¨¿ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Messages.php:690
 #, php-format
 msgid "You don't have permission to read messages in forum %s."
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚ÌƒƒbƒZ[ƒW‚ğ“Ç‚ŞŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’èª­ã‚€æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: ban.php:30
 #, php-format
 msgid "You don't have permissions to ban users from forum %s."
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚©‚çƒ†[ƒU‚ğ’Ç•ú‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã‹ã‚‰ãƒ¦ãƒ¼ã‚¶ã‚’è¿½æ”¾ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: editforum.php:35
 #, php-format
 msgid "You don't have permissions to create a new forum in %s"
-msgstr "‚ ‚È‚½‚É‚Í%s‚ÉV‚µ‚¢ƒtƒH[ƒ‰ƒ€‚ğì¬‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯%sã«æ–°ã—ã„ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’ä½œæˆã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: deleteforum.php:29
 #, php-format
 msgid "You don't have permissions to delete forums in %s"
-msgstr "‚ ‚È‚½‚É‚Í%s‚ÅƒtƒH[ƒ‰ƒ€‚ğíœ‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯%sã§ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã‚’å‰Šé™¤ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: editforum.php:31
 #, php-format
 msgid "You don't have permissions to edit forum %s"
-msgstr "‚ ‚È‚½‚É‚ÍƒtƒH[ƒ‰ƒ€%s‚ğ•ÒW‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ•ã‚©ãƒ¼ãƒ©ãƒ %sã‚’ç·¨é›†ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: lib/Agora.php:260
 msgid "_Forums"
-msgstr "_FƒtƒH[ƒ‰ƒ€"
+msgstr "_Fãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #
 #: lib/Agora.php:277
 msgid "_Moderate"
-msgstr "_M³”F‹Æ–±"
+msgstr "_Mæ‰¿èªæ¥­å‹™"
 
 #
 #: lib/Agora.php:281
 msgid "_Moderators"
-msgstr "³”FÒŠÇ—"
+msgstr "æ‰¿èªè€…ç®¡ç†"
 
 #
 #: lib/Agora.php:272
 msgid "_New Forum"
-msgstr "_NV‹KƒtƒH[ƒ‰ƒ€"
+msgstr "_Næ–°è¦ãƒ•ã‚©ãƒ¼ãƒ©ãƒ "
 
 #: lib/Agora.php:285
 msgid "_Search"
-msgstr "_SŒŸõ"
+msgstr "_Sæ¤œç´¢"
 
 #
 #: lib/Agora.php:265
 msgid "_Threads"
-msgstr "_TƒXƒŒƒbƒh"
+msgstr "_Tã‚¹ãƒ¬ãƒƒãƒ‰"
 
 #: templates/threads/threads.html:59 templates/forums/forums.html:52
 msgid "by"
@@ -1098,7 +1098,7 @@ msgstr "by"
 #
 #: lib/Messages.php:1546
 msgid "download"
-msgstr "ƒ_ƒEƒ“ƒ[ƒh"
+msgstr "ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰"
 
 #: lib/Tree/flat.php:113 templates/messages/flat.html:22
 #: templates/messages/flat_thread.html:8
@@ -1108,9 +1108,9 @@ msgstr "on: "
 #: lib/Messages.php:1547
 #, php-format
 msgid "size: %s"
-msgstr "—e—Ê: %s"
+msgstr "å®¹é‡: %s"
 
 #: lib/Messages.php:1547
 #, php-format
 msgid "type: %s"
-msgstr "Œ`®: %s"
+msgstr "å½¢å¼: %s"

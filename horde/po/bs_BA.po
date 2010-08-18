@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Vedran Ljubovic <vljubovic@smartnet.ba>\n"
 "Language-Team: Bosnian <lokal@linux.org.ba>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
 
@@ -23,7 +23,7 @@ msgstr ""
 #, php-format
 msgid ""
 " &#151; %s is ready to perform the maintenance operations checked below."
-msgstr " &#151; %s Êe sada izvrπiti servisne operacije navedene ispod."
+msgstr " &#151; %s ƒáe sada izvr≈°iti servisne operacije navedene ispod."
 
 #: framework/Form/Form.php:2351
 #, php-format
@@ -45,7 +45,7 @@ msgstr " (sutra)"
 
 #: framework/Form/Form.php:2353
 msgid " (yesterday)"
-msgstr " (juËe)"
+msgstr " (juƒçe)"
 
 #: lib/Block/weatherdotcom.php:200
 msgid " at "
@@ -84,7 +84,7 @@ msgstr "%s Servisne operacije - potvrda"
 #: admin/setup/config.php:30 admin/setup/index.php:209
 #, php-format
 msgid "%s Setup"
-msgstr "%s podeπavanje"
+msgstr "%s pode≈°avanje"
 
 #: framework/Auth/Auth/Signup.php:276
 #, php-format
@@ -99,7 +99,7 @@ msgstr "%s uslovi ugovora"
 #: framework/VFS/VFS/ftp.php:596 framework/VFS/VFS/ftp.php:666
 #, php-format
 msgid "%s already exists."
-msgstr "%s veÊ postoji."
+msgstr "%s veƒá postoji."
 
 #: lib/Block/metar.php:157 lib/Block/metar.php:163 lib/Block/metar.php:237
 #: lib/Block/metar.php:343 lib/Block/metar.php:349
@@ -115,12 +115,12 @@ msgstr "%s minuta"
 #: framework/Block/Block/Collection.php:123 po/translation.php:1326
 #, php-format
 msgid "%s not found."
-msgstr "%s nije pronaen."
+msgstr "%s nije pronaƒëen."
 
 #: po/translation.php:585
 #, php-format
 msgid "%s not found. Run 'translation extract' first."
-msgstr "%s nije pronaen. Najprije izvrπite 'translation extract'."
+msgstr "%s nije pronaƒëen. Najprije izvr≈°ite 'translation extract'."
 
 #: templates/admin/user/list.inc:6
 #, php-format
@@ -130,7 +130,7 @@ msgstr "%s za %s od %s"
 #: framework/MIME/MIME/Viewer/icalendar.php:513
 #, php-format
 msgid "%s wishes to add to %s."
-msgstr "%s æeli dodati na %s."
+msgstr "%s ≈æeli dodati na %s."
 
 #: framework/Kolab/Kolab.php:912
 #, php-format
@@ -145,7 +145,7 @@ msgstr "%s kalendar"
 #: framework/Kolab/Kolab.php:896
 #, php-format
 msgid "%s's Notepad"
-msgstr "%s biljeænica"
+msgstr "%s bilje≈ænica"
 
 #: framework/Kolab/Kolab.php:920
 #, php-format
@@ -166,7 +166,7 @@ msgstr "'%s' nije dozvoljen izbor."
 #: framework/Horde/Horde/Registry.php:982
 #, php-format
 msgid "'%s' is not configured in the Horde Registry."
-msgstr "'%s' nije podeπen u registry-ju aplikacije."
+msgstr "'%s' nije pode≈°en u registry-ju aplikacije."
 
 #: framework/Form/Form.php:2052 framework/Form/Form.php:2111
 #: framework/UI/UI/VarRenderer/html.php:691
@@ -191,7 +191,7 @@ msgstr "24 sata"
 
 #: framework/Horde/Horde.php:166
 msgid "A fatal error has occurred"
-msgstr "Doπlo je do fatalne greπke"
+msgstr "Do≈°lo je do fatalne gre≈°ke"
 
 #: templates/data/time.inc:29
 msgid "AM/PM"
@@ -207,7 +207,7 @@ msgstr "O programu..."
 
 #: config/prefs.php.dist:75
 msgid "Account Password"
-msgstr "©ifra korisniËkog naloga"
+msgstr "≈†ifra korisniƒçkog naloga"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:302
 msgid "Account frozen."
@@ -215,7 +215,7 @@ msgstr "Nalog je zamrznut."
 
 #: config/registry.php.dist:320
 msgid "Accounting"
-msgstr "RaËunovodstvo"
+msgstr "Raƒçunovodstvo"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:451
 #: framework/MIME/MIME/Viewer/icalendar.php:625
@@ -265,7 +265,7 @@ msgstr "Imenik"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:97
 msgid "Administer - set permissions for other users"
-msgstr "Administriranje - podeπavanje dozvola drugih korisnika"
+msgstr "Administriranje - pode≈°avanje dozvola drugih korisnika"
 
 #: framework/NLS/NLS/tld.php:18 framework/NLS/NLS/countries.php:11
 #: framework/NLS/NLS/GeoIP.php:57
@@ -280,7 +280,7 @@ msgstr "Albanija"
 #: framework/NLS/NLS/tld.php:74 framework/NLS/NLS/countries.php:13
 #: framework/NLS/NLS/GeoIP.php:71
 msgid "Algeria"
-msgstr "Alæir"
+msgstr "Al≈æir"
 
 #: lib/Block/fortune.php:87
 msgid "All"
@@ -296,11 +296,11 @@ msgstr "Alternativni IMSP login"
 
 #: config/prefs.php.dist:490
 msgid "Alternate IMSP Password"
-msgstr "Alternativna IMSP πifra"
+msgstr "Alternativna IMSP ≈°ifra"
 
 #: config/prefs.php.dist:482
 msgid "Alternate IMSP Username"
-msgstr "Alternativno IMSP korisniËko ime"
+msgstr "Alternativno IMSP korisniƒçko ime"
 
 #: services/resetpassword.php:35
 #, fuzzy
@@ -309,7 +309,7 @@ msgstr "Nedozvoljena slova u email adresi."
 
 #: framework/Prefs/Prefs/UI.php:98 framework/Prefs/Prefs/UI.php:118
 msgid "An illegal value was specified."
-msgstr "Uneπena je ilegalna vrijednost."
+msgstr "Une≈°ena je ilegalna vrijednost."
 
 #: services/resetpassword.php:49
 #, fuzzy
@@ -331,12 +331,12 @@ msgstr "April"
 #: templates/admin/user/removequeued.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "Da li ste sigurni da æelite isprazniti folder korpa?"
+msgstr "Da li ste sigurni da ≈æelite isprazniti folder korpa?"
 
 #: templates/admin/groups/delete.inc:9
 #, fuzzy, php-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
-msgstr "Da li ste sigurni da æelite obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ove poruke?"
 
 #: config/prefs.php.dist:409
 msgid "Ask for confirmation before doing maintenance operations?"
@@ -362,7 +362,7 @@ msgstr "August"
 #: framework/Auth/Auth/ldap.php:189
 #, fuzzy, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
-msgstr "Nije uspelo spaπavanje nezavrπene poruke. Ovo je poruka servera: %s"
+msgstr "Nije uspelo spa≈°avanje nezavr≈°ene poruke. Ovo je poruka servera: %s"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:299
 #, fuzzy
@@ -378,17 +378,17 @@ msgstr "Usmjerenje nije uspelo."
 #: templates/data/csvmap.inc:83
 #, fuzzy
 msgid "Available fields:"
-msgstr "Na raspolaganju su sljedeÊi imenici:"
+msgstr "Na raspolaganju su sljedeƒái imenici:"
 
 #: config/nls.php.dist:173
 msgid "Baltic (ISO-8859-13)"
-msgstr "BaltiËki (ISO-8859-13)"
+msgstr "Baltiƒçki (ISO-8859-13)"
 
 #: framework/NLS/NLS/tld.php:50 framework/NLS/NLS/countries.php:32
 #: framework/NLS/NLS/GeoIP.php:64
 #, fuzzy
 msgid "Belize"
-msgstr "VeliËina"
+msgstr "Veliƒçina"
 
 #: templates/portal/layout.inc:74
 msgid "Block Type"
@@ -405,7 +405,7 @@ msgstr "Bolivija"
 
 #: config/registry.php.dist:186
 msgid "Bookmarks"
-msgstr "Zabiljeπke"
+msgstr "Zabilje≈°ke"
 
 #: templates/javascript/htmlarea_table_lang.js:20
 msgid "Border"
@@ -465,7 +465,7 @@ msgstr "Bugarska"
 
 #: templates/javascript/htmlarea_lang.js:19
 msgid "Bulleted List"
-msgstr "Lista sa taËkama"
+msgstr "Lista sa taƒçkama"
 
 #: framework/NLS/NLS/tld.php:36 framework/NLS/NLS/countries.php:44
 #: framework/NLS/NLS/GeoIP.php:62
@@ -487,7 +487,7 @@ msgstr "CRC"
 
 #: templates/javascript/htmlarea_context_lang.js:27
 msgid "C_ell Properties..."
-msgstr "Osobine Ê_elije..."
+msgstr "Osobine ƒá_elije..."
 
 #: framework/UI/UI/VarRenderer/html.php:456 config/registry.php.dist:143
 msgid "Calendar"
@@ -496,7 +496,7 @@ msgstr "Kalendar"
 #: framework/NLS/NLS/tld.php:128 framework/NLS/NLS/countries.php:46
 #: framework/NLS/NLS/GeoIP.php:84
 msgid "Cambodia"
-msgstr "Kamboa"
+msgstr "Kamboƒëa"
 
 #: framework/NLS/NLS/tld.php:60 framework/NLS/NLS/countries.php:47
 #: framework/NLS/NLS/GeoIP.php:68
@@ -541,7 +541,7 @@ msgstr "Keltski (ISO-8859-14)"
 #: framework/NLS/NLS/tld.php:54 framework/NLS/NLS/countries.php:51
 #: framework/NLS/NLS/GeoIP.php:66
 msgid "Central African Republic"
-msgstr "Centralno-AfriËka Republika"
+msgstr "Centralno-Afriƒçka Republika"
 
 #: config/nls.php.dist:175
 msgid "Central European (ISO-8859-2)"
@@ -556,7 +556,7 @@ msgstr "Tok teme"
 #: framework/MIME/MIME/Viewer/icalendar.php:596
 #, fuzzy
 msgid "Chair Person"
-msgstr "LiËno"
+msgstr "Liƒçno"
 
 #: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:97
 msgid "Change"
@@ -567,13 +567,13 @@ msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Promijenite ime i adresu koje vide drugi kada Ëitaju i odgovaraju na vaπe "
+"Promijenite ime i adresu koje vide drugi kada ƒçitaju i odgovaraju na va≈°e "
 "poruke."
 
 #: framework/NLS/NLS/tld.php:59 framework/NLS/NLS/countries.php:53
 #: framework/NLS/NLS/GeoIP.php:68
 msgid "Chile"
-msgstr "»ile"
+msgstr "ƒåile"
 
 #: framework/NLS/NLS/tld.php:61 framework/NLS/NLS/countries.php:54
 #: framework/NLS/NLS/GeoIP.php:68
@@ -590,11 +590,11 @@ msgstr "Kineski tradicionalni (Big5)"
 
 #: framework/Auth/Auth/Signup.php:282
 msgid "Choose a password"
-msgstr "Izaberite πifru"
+msgstr "Izaberite ≈°ifru"
 
 #: framework/Auth/Auth/Signup.php:281
 msgid "Choose a username"
-msgstr "Izaberite korisniËko ime"
+msgstr "Izaberite korisniƒçko ime"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:452
 #: framework/MIME/MIME/Viewer/icalendar.php:626
@@ -612,15 +612,15 @@ msgstr "Izaberite vrstu stila (za numerisane liste)"
 #: framework/NLS/NLS/tld.php:66 framework/NLS/NLS/countries.php:55
 #: framework/NLS/NLS/GeoIP.php:69
 msgid "Christmas Island"
-msgstr "Uskrπnje ostrvo"
+msgstr "Uskr≈°nje ostrvo"
 
 #: lib/Block/weatherdotcom.php:314
 msgid "Clear"
-msgstr "OËisti"
+msgstr "Oƒçisti"
 
 #: templates/javascript/htmlarea_lang.js:42
 msgid "Clear MSOffice tags"
-msgstr "OËisti MSOffice tagove"
+msgstr "Oƒçisti MSOffice tagove"
 
 #: lib/Block/weatherdotcom.php:315
 #, fuzzy
@@ -661,7 +661,7 @@ msgstr "Kompanija"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:697
 msgid "Completed"
-msgstr "Zavrπeno"
+msgstr "Zavr≈°eno"
 
 #: framework/Text_Filter/Filter/emails.php:81
 #: framework/Text_Filter/Filter/emails.php:87
@@ -771,7 +771,7 @@ msgstr "Ispravljen tekst"
 #: config/prefs.php.dist:108
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Podesite zadatke koji Êe se izvrπavati nakon prijave na %s."
+msgstr "Podesite zadatke koji ƒáe se izvr≈°avati nakon prijave na %s."
 
 #: framework/Maintenance/Maintenance.php:38
 msgid "Daily"
@@ -799,7 +799,7 @@ msgstr "Maj"
 #: templates/javascript/htmlarea_context_lang.js:35
 #, fuzzy
 msgid "De_lete Column"
-msgstr "Obriπi folder(e)"
+msgstr "Obri≈°i folder(e)"
 
 #: framework/UI/UI/VarRenderer/html.php:385
 #: framework/UI/UI/VarRenderer/html.php:422
@@ -856,17 +856,17 @@ msgstr "Obrisana"
 #: templates/rpcsum/rpcsum.inc:99 templates/admin/groups/delete.inc:13
 #: templates/admin/user/list.inc:34
 msgid "Delete"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: admin/groups.php:189 admin/groups.php:217
 #, fuzzy
 msgid "Delete Group"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: framework/Perms/Perms/UI.php:60 framework/Perms/Perms/UI.php:84
 #, fuzzy
 msgid "Delete Permission"
-msgstr "Obriπi poruke"
+msgstr "Obri≈°i poruke"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:96
 msgid "Delete and purge messages"
@@ -875,21 +875,21 @@ msgstr "Brisanje i izbacivanje poruka"
 #: templates/javascript/htmlarea_table_lang.js:57
 #, fuzzy
 msgid "Delete cell"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: templates/javascript/htmlarea_table_lang.js:63
 #, fuzzy
 msgid "Delete column"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: templates/javascript/htmlarea_table_lang.js:67
 #, fuzzy
 msgid "Delete row"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: templates/prefs/deleteidentity.inc:15
 msgid "Delete selected identity"
-msgstr "Obriπi izabrani identitet"
+msgstr "Obri≈°i izabrani identitet"
 
 #: templates/javascript/htmlarea_context_lang.js:66
 #, fuzzy
@@ -907,11 +907,11 @@ msgstr "Podesi vremensku zonu."
 #: framework/Net_SMS/SMS/clickatell_http.php:261
 #, fuzzy
 msgid "Delivery time"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: services/problem.php:95 services/problem.php:99 services/problem.php:109
 msgid "Describe the Problem"
-msgstr "Opiπite probleme u radu sa webmailom"
+msgstr "Opi≈°ite probleme u radu sa webmailom"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:565 framework/Form/Form.php:932
 #: templates/javascript/htmlarea_table_lang.js:30
@@ -929,7 +929,7 @@ msgstr "Direktorij"
 
 #: config/prefs.php.dist:250
 msgid "Display 24-hour times?"
-msgstr "Prikaæi vrijeme u 24-satnom formatu?"
+msgstr "Prika≈æi vrijeme u 24-satnom formatu?"
 
 #: config/prefs.php.dist:97
 msgid "Display Options"
@@ -937,12 +937,12 @@ msgstr "Opcije prikaza"
 
 #: lib/Block/metar.php:83
 msgid "Display forecast (TAF)"
-msgstr "Prikaæi prognozu (TAF)"
+msgstr "Prika≈æi prognozu (TAF)"
 
 #: framework/Form/Form.php:2805
 #, fuzzy
 msgid "Display format"
-msgstr "Prikaæi"
+msgstr "Prika≈æi"
 
 #: admin/perms/delete.php:46 framework/Perms/Perms/UI.php:327
 #, fuzzy
@@ -1010,7 +1010,7 @@ msgstr "Smajliji"
 #: framework/Net_SMS/SMS/clickatell_http.php:311
 #, fuzzy
 msgid "Empty message."
-msgstr "Vaæne poruke"
+msgstr "Va≈æne poruke"
 
 #: framework/Auth/Auth/ldap.php:131
 #, fuzzy
@@ -1045,12 +1045,12 @@ msgstr "Eritreja"
 #: lib/Block/weatherdotcom.php:41 lib/Block/metar.php:36
 #: services/portal/index.php:78
 msgid "Error"
-msgstr "Greπka"
+msgstr "Gre≈°ka"
 
 #: po/translation.php:413 po/translation.php:522 po/translation.php:1353
 #: po/translation.php:1414 po/translation.php:1477
 msgid "Error: "
-msgstr "Greπka: "
+msgstr "Gre≈°ka: "
 
 #: framework/NLS/NLS/tld.php:76 framework/NLS/NLS/countries.php:77
 #: framework/NLS/NLS/GeoIP.php:71
@@ -1064,7 +1064,7 @@ msgstr "Etiopija"
 
 #: lib/Block/fortune.php:36
 msgid "Ethnic"
-msgstr "EtniËki"
+msgstr "Etniƒçki"
 
 #: framework/NLS/NLS/GeoIP.php:56
 msgid "Europe"
@@ -1105,12 +1105,12 @@ msgstr "Vrijednosti primjeri:"
 #: framework/Block/Block/Layout.php:386
 #, fuzzy
 msgid "Expand"
-msgstr "Proπiri sve"
+msgstr "Pro≈°iri sve"
 
 #: templates/portal/sidebar.inc:31
 #, fuzzy
 msgid "Expand Sidebar"
-msgstr "Proπiri folder"
+msgstr "Pro≈°iri folder"
 
 #: framework/UI/UI/VarRenderer/html.php:375
 #: framework/UI/UI/VarRenderer/html.php:412
@@ -1147,7 +1147,7 @@ msgstr "Filteri"
 #: framework/NLS/NLS/GeoIP.php:72
 #, fuzzy
 msgid "Finland"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: lib/Block/moon.php:171
 #, fuzzy
@@ -1222,7 +1222,7 @@ msgstr "Google pretraga"
 
 #: config/nls.php.dist:181
 msgid "Greek (ISO-8859-7)"
-msgstr "GrËki (ISO-8859-7)"
+msgstr "Grƒçki (ISO-8859-7)"
 
 #: framework/NLS/NLS/tld.php:89 framework/NLS/NLS/countries.php:95
 #: framework/NLS/NLS/GeoIP.php:75
@@ -1243,29 +1243,29 @@ msgstr "Hebrejski (ISO-8859-8-I)"
 #: framework/Horde/Horde/Help.php:179 framework/Horde/Horde/Help.php:186
 #: services/help/index.php:17 templates/help/index.inc:3
 msgid "Help"
-msgstr "PomoÊ"
+msgstr "Pomoƒá"
 
 #: framework/Form/Form.php:1367
 #, fuzzy
 msgid "Helper"
-msgstr "PomoÊ"
+msgstr "Pomoƒá"
 
 #: templates/portal/menu.inc:6 templates/admin/common-header.inc:4
 msgid "Ho_me"
-msgstr "PoË_etak"
+msgstr "Poƒç_etak"
 
 #: framework/Horde/Horde.php:1460
 msgid "Home"
-msgstr "PoËetak"
+msgstr "Poƒçetak"
 
 #: framework/MIME/MIME/Viewer/vcard.php:125
 #: framework/MIME/MIME/Viewer/vcard.php:158
 msgid "Home Address"
-msgstr "Adresa (kuÊi)"
+msgstr "Adresa (kuƒái)"
 
 #: framework/MIME/MIME/Viewer/vcard.php:193
 msgid "Home Phone"
-msgstr "Telefon (kuÊi)"
+msgstr "Telefon (kuƒái)"
 
 #: framework/NLS/NLS/tld.php:108 framework/NLS/NLS/countries.php:105
 #: framework/NLS/NLS/GeoIP.php:80
@@ -1284,12 +1284,12 @@ msgstr "Horde"
 #: framework/Kolab/Kolab.php:1236
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully removed %s \"%s\""
-msgstr "Ime foldera \"%s\" je uspjeπno promjenjeno u \"%s\"."
+msgstr "Ime foldera \"%s\" je uspje≈°no promjenjeno u \"%s\"."
 
 #: framework/Kolab/Kolab.php:1182
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully synchronised %s \"%s\""
-msgstr "Uspjeπno ste prijavljeni na \"%s\""
+msgstr "Uspje≈°no ste prijavljeni na \"%s\""
 
 #: framework/Form/Form.php:1311
 msgid "IP Address"
@@ -1334,7 +1334,7 @@ msgstr "none"
 #: framework/MIME/MIME/Viewer/rfc822.php:72
 #, fuzzy
 msgid "Info"
-msgstr "Ignoriπi"
+msgstr "Ignori≈°i"
 
 #: config/registry.php.dist:249
 #, fuzzy
@@ -1472,12 +1472,12 @@ msgstr "Liberija"
 #: framework/NLS/NLS/tld.php:147 framework/NLS/NLS/countries.php:131
 #: framework/NLS/NLS/GeoIP.php:90
 msgid "Libyan Arab Jamahiriya"
-msgstr "Libijska Arapska Dæamahirija"
+msgstr "Libijska Arapska D≈æamahirija"
 
 #: framework/NLS/NLS/tld.php:140 framework/NLS/NLS/countries.php:132
 #: framework/NLS/NLS/GeoIP.php:89
 msgid "Liechtenstein"
-msgstr "Lihtenπtajn"
+msgstr "Lihten≈°tajn"
 
 #: framework/Text_Filter/Filter/html2text.php:162
 msgid "Links"
@@ -1485,7 +1485,7 @@ msgstr "Linkovi"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:89
 msgid "List - user can see the folder"
-msgstr "Listanje - korisnik moæe vidjeti folder"
+msgstr "Listanje - korisnik mo≈æe vidjeti folder"
 
 #: admin/sqlshell.php:137
 #, fuzzy
@@ -1495,7 +1495,7 @@ msgstr "Zadnja strana"
 #: framework/MIME/MIME/Headers.php:632
 #, fuzzy
 msgid "List-Help"
-msgstr "PomoÊ"
+msgstr "Pomoƒá"
 
 #: framework/MIME/MIME/Headers.php:634
 #, fuzzy
@@ -1514,7 +1514,7 @@ msgstr "Litva"
 
 #: framework/MIME/MIME/Viewer/images.php:86
 msgid "Loading..."
-msgstr "UËitavam..."
+msgstr "Uƒçitavam..."
 
 #: lib/Block/weatherdotcom.php:160
 msgid "Local time: "
@@ -1546,8 +1546,8 @@ msgstr "Zadaci prijave"
 #: framework/Auth/Auth.php:952
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
-"Prijava nije uspjela. Najverovatnije je pogreπno uneseno korisniËko ime ili "
-"πifra."
+"Prijava nije uspjela. Najverovatnije je pogre≈°no uneseno korisniƒçko ime ili "
+"≈°ifra."
 
 #: framework/Auth/Auth.php:948
 msgid "Login failed."
@@ -1582,14 +1582,14 @@ msgstr "Sanduce"
 #: framework/NLS/NLS/GeoIP.php:95
 #, fuzzy
 msgid "Maldives"
-msgstr "Filteri poπte"
+msgstr "Filteri po≈°te"
 
 #: config/prefs.php.dist:91
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Napravite kategorije stavki i za svaku od njih odredite odgovarajuÊu boju."
+"Napravite kategorije stavki i za svaku od njih odredite odgovarajuƒáu boju."
 
 #: framework/UI/UI/VarRenderer/html.php:376
 #: framework/UI/UI/VarRenderer/html.php:413
@@ -1604,16 +1604,16 @@ msgstr "Upozorenje"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:91
 msgid "Mark with Seen/Unseen flags"
-msgstr "OznaËavanje kao proËitano/neproËitano"
+msgstr "Oznaƒçavanje kao proƒçitano/neproƒçitano"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:92
 msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr "OznaËavanje drugim oznakama (npr. vaæno ili odgovoreno)"
+msgstr "Oznaƒçavanje drugim oznakama (npr. va≈æno ili odgovoreno)"
 
 #: framework/NLS/NLS/tld.php:152 framework/NLS/NLS/countries.php:143
 #: framework/NLS/NLS/GeoIP.php:92
 msgid "Marshall Islands"
-msgstr "Marπalova ostrva"
+msgstr "Mar≈°alova ostrva"
 
 #: framework/NLS/NLS/tld.php:159 framework/NLS/NLS/countries.php:144
 #: framework/NLS/NLS/GeoIP.php:94
@@ -1622,7 +1622,7 @@ msgstr "Martinik"
 
 #: templates/data/csvmap.inc:111
 msgid "Matching fields"
-msgstr "OdgovarajuÊa polja"
+msgstr "Odgovarajuƒáa polja"
 
 #: framework/NLS/NLS/tld.php:160 framework/NLS/NLS/countries.php:145
 #: framework/NLS/NLS/GeoIP.php:94
@@ -1653,7 +1653,7 @@ msgstr "Informacije servisa"
 
 #: templates/admin/groups/edit.inc:19
 msgid "Members"
-msgstr "»lanovi"
+msgstr "ƒålanovi"
 
 #: config/prefs.php.dist:362
 msgid "Menu mode:"
@@ -1687,7 +1687,7 @@ msgstr "Mime tip"
 #: framework/UI/UI/VarRenderer/html.php:217
 #, fuzzy
 msgid "Mirror"
-msgstr "Greπka"
+msgstr "Gre≈°ka"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:313
 #, fuzzy
@@ -1702,7 +1702,7 @@ msgstr "Prebaci"
 #: config/registry.php.dist:122
 #, fuzzy
 msgid "Mobile Mail"
-msgstr "Nova poπta"
+msgstr "Nova po≈°ta"
 
 #: po/translation.php:657
 #, fuzzy
@@ -1711,12 +1711,12 @@ msgstr "Prebaci"
 
 #: framework/Maintenance/Maintenance.php:36
 msgid "Monthly"
-msgstr "MjeseËno"
+msgstr "Mjeseƒçno"
 
 #: framework/Block/Block/Layout.php:420
 #, fuzzy
 msgid "Move Down"
-msgstr "pomjeri niæe"
+msgstr "pomjeri ni≈æe"
 
 #: framework/Block/Block/Layout.php:424
 #, fuzzy
@@ -1731,13 +1731,13 @@ msgstr "Prebaci"
 #: framework/UI/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move down"
-msgstr "pomjeri niæe"
+msgstr "pomjeri ni≈æe"
 
 #: framework/UI/UI/VarRenderer/html.php:496
 #: framework/UI/UI/VarRenderer/html.php:497
 #, fuzzy
 msgid "Move up"
-msgstr "pomjeri viπe"
+msgstr "pomjeri vi≈°e"
 
 #: services/portal/edit.php:124
 msgid "My Portal Layout"
@@ -1758,11 +1758,11 @@ msgstr "Akcija"
 #: framework/NLS/NLS/GeoIP.php:98
 #, fuzzy
 msgid "Nepal"
-msgstr "Nova poπta"
+msgstr "Nova po≈°ta"
 
 #: config/registry.php.dist:242
 msgid "Network"
-msgstr "Mreæa"
+msgstr "Mre≈æa"
 
 #: framework/Crypt/Crypt/pgp.php:411 config/prefs.php.dist:319
 #: config/prefs.php.dist:370
@@ -1785,7 +1785,7 @@ msgstr "Novi mjesec"
 
 #: templates/admin/user/update.inc:35
 msgid "New Username (optional)"
-msgstr "Novo korisniËko ime (nije obavezno)"
+msgstr "Novo korisniƒçko ime (nije obavezno)"
 
 #: framework/NLS/NLS/tld.php:180 framework/NLS/NLS/countries.php:163
 #: framework/NLS/NLS/GeoIP.php:99
@@ -1812,15 +1812,15 @@ msgstr "Dalje"
 
 #: framework/UI/UI/Pager.php:115 framework/UI/UI/Pager.php:116
 msgid "Next Page"
-msgstr "SljedeÊa stranica"
+msgstr "Sljedeƒáa stranica"
 
 #: lib/Block/moon.php:27
 msgid "Next Phase"
-msgstr "SljedeÊa faza"
+msgstr "Sljedeƒáa faza"
 
 #: framework/Prefs/Prefs/UI.php:366 framework/Prefs/Prefs/UI.php:370
 msgid "Next options"
-msgstr "SljedeÊe opcije"
+msgstr "Sljedeƒáe opcije"
 
 #: framework/NLS/NLS/tld.php:174 framework/NLS/NLS/countries.php:164
 #: framework/NLS/NLS/GeoIP.php:97
@@ -1839,7 +1839,7 @@ msgstr "Nigerija"
 
 #: lib/Block/weatherdotcom.php:275
 msgid "Night"
-msgstr "NoÊ"
+msgstr "Noƒá"
 
 #: framework/NLS/NLS/tld.php:179 framework/NLS/NLS/countries.php:167
 #: framework/NLS/NLS/GeoIP.php:98
@@ -1882,7 +1882,7 @@ msgstr "nikakav tekst nije specificiran"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:656
 msgid "No username and/or password sent."
-msgstr "Nije poslano korisniËko ime i/ili πifra."
+msgstr "Nije poslano korisniƒçko ime i/ili ≈°ifra."
 
 #: framework/Crypt/Crypt/pgp.php:413
 #: framework/MIME/MIME/Viewer/icalendar.php:560
@@ -1996,7 +1996,7 @@ msgstr "Zatamni potpise?"
 #: templates/login/login.inc:70 templates/admin/user/update.inc:36
 #: config/registry.php.dist:367
 msgid "Password"
-msgstr "©ifra"
+msgstr "≈†ifra"
 
 #: framework/Crypt/Crypt/smime.php:1354
 #, fuzzy
@@ -2028,11 +2028,11 @@ msgstr "Procenat"
 
 #: templates/maintenance/confirm_bottom.inc:6
 msgid "Perform Maintenance Operations"
-msgstr "Izvrπi servisne operacije"
+msgstr "Izvr≈°i servisne operacije"
 
 #: config/prefs.php.dist:390
 msgid "Perform maintenance operations on login?"
-msgstr "Izvrπi servisne operacije prilikom logiranja?"
+msgstr "Izvr≈°i servisne operacije prilikom logiranja?"
 
 #: admin/perms/addchild.php:61 admin/perms/addchild.php:64
 #: admin/perms/addchild.php:67
@@ -2051,7 +2051,7 @@ msgstr "Dozvole za"
 
 #: config/prefs.php.dist:65
 msgid "Personal Information"
-msgstr "LiËne informacije"
+msgstr "Liƒçne informacije"
 
 #: framework/MIME/MIME/Viewer/vcard.php:199
 #, fuzzy
@@ -2065,11 +2065,11 @@ msgstr "Molim te popravi dvosmislene odnosno invalidne adrese."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
-msgstr "Molimo dajte kratak opis vaπeg problema sa webmailom."
+msgstr "Molimo dajte kratak opis va≈°eg problema sa webmailom."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:94
 msgid "Post to this folder (not enforced by IMAP)"
-msgstr "Slanje u ovaj folder (nije prinueno od strane IMAPa)"
+msgstr "Slanje u ovaj folder (nije prinuƒëeno od strane IMAPa)"
 
 #: framework/UI/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_lang.js:120
@@ -2100,19 +2100,19 @@ msgstr "Opis problema"
 #: templates/shares/edit.inc:186
 #, fuzzy
 msgid "Read"
-msgstr "Ne proËitane"
+msgstr "Ne proƒçitane"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:90
 msgid "Read messages"
-msgstr "»itanje poruka"
+msgstr "ƒåitanje poruka"
 
 #: config/prefs.php.dist:375
 msgid "Refresh Dynamic Menu Elements:"
-msgstr "Aæuriraj dinamiËke elemente menija:"
+msgstr "A≈æuriraj dinamiƒçke elemente menija:"
 
 #: config/prefs.php.dist:325
 msgid "Refresh Portal View:"
-msgstr "Aæuriraj poËetnu stranicu:"
+msgstr "A≈æuriraj poƒçetnu stranicu:"
 
 #: config/prefs.php.dist:114
 msgid "Remote Servers"
@@ -2136,7 +2136,7 @@ msgstr "Ukloni odabrani"
 #: framework/UI/UI/VarRenderer/html.php:532
 #, fuzzy
 msgid "Remove column"
-msgstr "pomjeri niæe"
+msgstr "pomjeri ni≈æe"
 
 #: templates/javascript/htmlarea_lang.js:40
 #, fuzzy
@@ -2146,7 +2146,7 @@ msgstr "Informacije servisa"
 #: templates/data/csvmap.inc:136
 #, fuzzy
 msgid "Remove pair"
-msgstr "pomjeri viπe"
+msgstr "pomjeri vi≈°e"
 
 #: templates/javascript/htmlarea_context_lang.js:41
 #, fuzzy
@@ -2174,7 +2174,7 @@ msgstr "Odgovori:"
 #: framework/Form/Form/Renderer.php:315 templates/rpcsum/rpcsum.inc:101
 #: templates/admin/user/update.inc:44
 msgid "Reset"
-msgstr "Poniπti"
+msgstr "Poni≈°ti"
 
 #: services/resetpassword.php:46
 #, fuzzy
@@ -2221,25 +2221,25 @@ msgstr "Pregledavanje poruke"
 #: templates/portal/layout.inc:98
 #, fuzzy
 msgid "Save"
-msgstr "SaËuvaj kao"
+msgstr "Saƒçuvaj kao"
 
 #: templates/shares/edit.inc:222
 #, fuzzy, php-format
 msgid "Save %s"
-msgstr "SaËuvaj kao"
+msgstr "Saƒçuvaj kao"
 
 #: templates/admin/groups/edit.inc:49
 #, fuzzy, php-format
 msgid "Save '%s'"
-msgstr "SaËuvaj kao"
+msgstr "Saƒçuvaj kao"
 
 #: templates/prefs/end.inc:5
 msgid "Save Options"
-msgstr "SaËuvaj opcije"
+msgstr "Saƒçuvaj opcije"
 
 #: templates/admin/user/list.inc:15 templates/admin/user/list.inc:17
 msgid "Search"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: config/registry.php.dist:281
 #, fuzzy
@@ -2287,23 +2287,23 @@ msgstr "Odaberi kodni raspored slova:"
 
 #: templates/prefs/identityselect.inc:85
 msgid "Select the identity you want to change:"
-msgstr "Izaberite identitet koji æelite promijeniti:"
+msgstr "Izaberite identitet koji ≈æelite promijeniti:"
 
 #: config/prefs.php.dist:290
 msgid "Select your color scheme."
-msgstr "Izaberite πemu boja."
+msgstr "Izaberite ≈°emu boja."
 
 #: config/prefs.php.dist:232
 msgid "Select your preferred language:"
-msgstr "Izaberite æeljeni jezik:"
+msgstr "Izaberite ≈æeljeni jezik:"
 
 #: templates/problem/problem.inc:58
 msgid "Send Problem Report"
-msgstr "Poπalji prijavu problema"
+msgstr "Po≈°alji prijavu problema"
 
 #: framework/UI/UI/VarRenderer/html.php:964
 msgid "Send SMS"
-msgstr "Poπalji SMS"
+msgstr "Po≈°alji SMS"
 
 #: framework/NLS/NLS/tld.php:213 framework/NLS/NLS/countries.php:198
 #: framework/NLS/NLS/GeoIP.php:107
@@ -2339,24 +2339,24 @@ msgstr "Odaberi"
 #: config/prefs.php.dist:76
 msgid "Set options to allow you to reset your password if you ever forget it."
 msgstr ""
-"Podesite opcije koje vam omoguÊuju da poniπtite πifru ako je zaboravite."
+"Podesite opcije koje vam omoguƒáuju da poni≈°tite ≈°ifru ako je zaboravite."
 
 #: config/prefs.php.dist:115
 msgid "Set up remote servers that you want to access from your portal."
 msgstr ""
-"Podesite udaljene servere kojima æelite pristupiti putem vaπeg portala."
+"Podesite udaljene servere kojima ≈æelite pristupiti putem va≈°eg portala."
 
 #: config/prefs.php.dist:84
 msgid "Set your preferred language, timezone and date options."
-msgstr "Odaberite æeljeni jezik, vremensku zonu i postavke za datum."
+msgstr "Odaberite ≈æeljeni jezik, vremensku zonu i postavke za datum."
 
 #: config/prefs.php.dist:98
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"Podesite startnu komponentu, πemu boja, osvjeæavanje stranice i druge opcije "
-"koje se tiËu prikaza."
+"Podesite startnu komponentu, ≈°emu boja, osvje≈æavanje stranice i druge opcije "
+"koje se tiƒçu prikaza."
 
 #: admin/setup/config.php:74
 msgid "Setup"
@@ -2365,7 +2365,7 @@ msgstr "Postavke"
 #: framework/NLS/NLS/tld.php:203 framework/NLS/NLS/countries.php:200
 #: framework/NLS/NLS/GeoIP.php:105
 msgid "Seychelles"
-msgstr "Sejπeli"
+msgstr "Sej≈°eli"
 
 #: templates/problem/problem.inc:43
 msgid "Short Summary"
@@ -2380,20 +2380,20 @@ msgstr "Da li definisati pristupne tipke za linkove?"
 #: templates/shares/edit.inc:119 templates/shares/edit.inc:142
 #: templates/shares/edit.inc:185
 msgid "Show"
-msgstr "Prikaæi"
+msgstr "Prika≈æi"
 
 #: config/prefs.php.dist:474
 msgid "Show last login time when logging in?"
-msgstr "Prikaæi vrijeme zadnje prijave nakon logiranja?"
+msgstr "Prika≈æi vrijeme zadnje prijave nakon logiranja?"
 
 #: config/prefs.php.dist:509
 msgid "Show table operations menu bar?"
-msgstr "Prikaæi meni za manipulacije tabelama?"
+msgstr "Prika≈æi meni za manipulacije tabelama?"
 
 #: config/prefs.php.dist:333
 #, php-format
 msgid "Show the %s Menu on the left?"
-msgstr "Prikaæi %s meni lijevo?"
+msgstr "Prika≈æi %s meni lijevo?"
 
 #: framework/Form/Form.php:1750
 #, fuzzy
@@ -2403,7 +2403,7 @@ msgstr "Download"
 #: framework/Crypt/Crypt/smime.php:736
 #, fuzzy
 msgid "Signature"
-msgstr "Vaπ potpis:"
+msgstr "Va≈° potpis:"
 
 #: framework/MIME/MIME/Viewer/rar.php:68 framework/MIME/MIME/Viewer/zip.php:72
 #: framework/MIME/MIME/Viewer/tgz.php:87 framework/Form/Form.php:890
@@ -2411,11 +2411,11 @@ msgstr "Vaπ potpis:"
 #: framework/Form/Form.php:2229 framework/Form/Form.php:2918
 #: framework/Form/Form.php:3107
 msgid "Size"
-msgstr "VeliËina"
+msgstr "Veliƒçina"
 
 #: templates/maintenance/confirm_bottom.inc:9
 msgid "Skip Maintenance"
-msgstr "PreskoËi servis"
+msgstr "Preskoƒçi servis"
 
 #: framework/Form/Form.php:2914
 #, fuzzy
@@ -2428,11 +2428,11 @@ msgstr "Pravac sortiranja"
 #: framework/Net_SMS/SMS/clickatell_http.php:255
 #, fuzzy
 msgid "Source address"
-msgstr "Vaπa e-mail adresa:"
+msgstr "Va≈°a e-mail adresa:"
 
 #: config/nls.php.dist:186
 msgid "South European (ISO-8859-3)"
-msgstr "Juæno-evropski (ISO-8859-3)"
+msgstr "Ju≈æno-evropski (ISO-8859-3)"
 
 #: services/keyboard.php:14
 #, fuzzy
@@ -2472,7 +2472,7 @@ msgstr "Tema"
 #: admin/sqlshell.php:113
 #: framework/Notification/Notification/Listener/status.php:30
 msgid "Success"
-msgstr "Uspjeπno"
+msgstr "Uspje≈°no"
 
 #: admin/user.php:85
 #, fuzzy, php-format
@@ -2532,7 +2532,7 @@ msgstr "Tekst"
 
 #: framework/Auth/Auth.php:944
 msgid "Thank you for using the system."
-msgstr "Hvala πto koristite Energodata webmail."
+msgstr "Hvala ≈°to koristite Energodata webmail."
 
 #: services/images/colorpicker.php:29
 msgid "The Options window has closed. Exiting."
@@ -2556,12 +2556,12 @@ msgstr "Identitet \"%s\" je obrisan."
 #: services/portal/rpcsum.php:49
 #, fuzzy, php-format
 msgid "The server \"%s\" has been saved."
-msgstr "Identitet \"%s\" je saËuvan."
+msgstr "Identitet \"%s\" je saƒçuvan."
 
 #: admin/user.php:198
 #, fuzzy, php-format
 msgid "The signup request for %s has been removed."
-msgstr "Identitet \"%s\" je saËuvan."
+msgstr "Identitet \"%s\" je saƒçuvan."
 
 #: framework/Prefs/Prefs/UI.php:183
 msgid "There are no options available."
@@ -2570,13 +2570,13 @@ msgstr "Nema dostupnih opcija."
 #: admin/user.php:159
 #, fuzzy, php-format
 msgid "There was a problem updating '%s': %s"
-msgstr "Desila se greπka tokom slanja poruke: %s"
+msgstr "Desila se gre≈°ka tokom slanja poruke: %s"
 
 #: framework/Browser/Browser.php:899
 #, fuzzy, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
-"Javio se problem sa dodavanja datoteke. MoguÊi problem, datoteka je veÊa od "
+"Javio se problem sa dodavanja datoteke. Moguƒái problem, datoteka je veƒáa od "
 "max dozvoljenih MB."
 
 #: framework/Browser/Browser.php:904
@@ -2585,58 +2585,58 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Javio se problem sa dodavanjem datoteke. MoguÊi problem, veliËina datoteke "
-"je veÊa od max. dozvoljenih (%d MB)."
+"Javio se problem sa dodavanjem datoteke. Moguƒái problem, veliƒçina datoteke "
+"je veƒáa od max. dozvoljenih (%d MB)."
 
 #: framework/Browser/Browser.php:906
 #, fuzzy, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Javio se problem sa dodavanja datoteke. MoguÊi problem, datoteka je veÊa od "
+"Javio se problem sa dodavanja datoteke. Moguƒái problem, datoteka je veƒáa od "
 "max dozvoljenih MB."
 
 #: framework/MIME/MIME/Viewer/rfc822.php:38
 msgid "There was an error displaying this message part"
-msgstr "Desila se greπka tokom prikaza ovog dijela poruke"
+msgstr "Desila se gre≈°ka tokom prikaza ovog dijela poruke"
 
 #: framework/MIME/MIME/Viewer/vcard.php:42
 #: framework/MIME/MIME/Viewer/vcard.php:51
 #, fuzzy
 msgid "There was an error importing the contact data."
-msgstr "Desila se greπka tokom spaπavanja nezavrπene poruke."
+msgstr "Desila se gre≈°ka tokom spa≈°avanja nezavr≈°ene poruke."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:75
 #, fuzzy, php-format
 msgid "There was an error importing the event: %s."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: framework/Data/Data/imc.php:32
 #, fuzzy
 msgid "There was an error importing the iCalendar data."
-msgstr "Desila se greπka tokom spaπavanja nezavrπene poruke."
+msgstr "Desila se gre≈°ka tokom spa≈°avanja nezavr≈°ene poruke."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:105
 #, fuzzy, php-format
 msgid "There was an error importing the task: %s."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:91
 #, fuzzy, php-format
 msgid "There was an error importing user's free/busy information: %s."
-msgstr "Desila se greπka tokom slanja poruke: %s"
+msgstr "Desila se gre≈°ka tokom slanja poruke: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:665
 #, fuzzy
 msgid ""
 "There was an error updating the contact details. Please try again later."
-msgstr "Desila se greπka tokom prikaza ovog dijela poruke"
+msgstr "Desila se gre≈°ka tokom prikaza ovog dijela poruke"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:670
 #, fuzzy
 msgid ""
 "There was an error updating the distribution list. Please try again later."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: framework/MIME/MIME/Viewer/rar.php:51
 #, fuzzy
@@ -2717,7 +2717,7 @@ msgstr "Undelete"
 
 #: templates/prefs/end.inc:6
 msgid "Undo Changes"
-msgstr "Poniπti izmjene"
+msgstr "Poni≈°ti izmjene"
 
 #: framework/Prefs/Prefs/CategoryManager.php:58
 #: templates/prefs/categorymanagement.inc:64
@@ -2740,7 +2740,7 @@ msgstr "Download %s"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:300
 msgid "Unknown username or password."
-msgstr "Nepoznato korisniËko ime ili πifra."
+msgstr "Nepoznato korisniƒçko ime ili ≈°ifra."
 
 #: templates/javascript/htmlarea_context_lang.js:57
 #, fuzzy
@@ -2769,7 +2769,7 @@ msgstr "Poruka"
 
 #: config/prefs.php.dist:123
 msgid "Use if name/password is different for IMSP server."
-msgstr "Koristite ovo ako se ime/πifra razlikuju za IMSP server."
+msgstr "Koristite ovo ako se ime/≈°ifra razlikuju za IMSP server."
 
 #: framework/Horde/Horde/Registry.php:651
 #, php-format
@@ -2778,7 +2778,7 @@ msgstr "Korisnik %s nema dozvolu za %s."
 
 #: framework/Prefs/Prefs/UI.php:251
 msgid "User Options"
-msgstr "KorisniËke opcije"
+msgstr "Korisniƒçke opcije"
 
 #: signup.php:64
 msgid "User Registration"
@@ -2787,7 +2787,7 @@ msgstr "Registracija korisnika"
 #: admin/perms/edit.php:172 framework/Perms/Perms/UI.php:254
 #, fuzzy
 msgid "User permissions"
-msgstr "KorisniËke opcije"
+msgstr "Korisniƒçke opcije"
 
 #: admin/user.php:35 admin/setup/index.php:173
 #: framework/Net_SMS/SMS/sms2email_http.php:556
@@ -2795,12 +2795,12 @@ msgstr "KorisniËke opcije"
 #: framework/Net_SMS/SMS/clickatell_http.php:202 services/resetpassword.php:33
 #: templates/login/login.inc:65 templates/admin/user/approve.inc:11
 msgid "Username"
-msgstr "KorisniËko ime"
+msgstr "Korisniƒçko ime"
 
 #: framework/Auth/Auth/Signup.php:131
 #, fuzzy, php-format
 msgid "Username '%s' already exists."
-msgstr "Folder \"%s\" veÊ postoji"
+msgstr "Folder \"%s\" veƒá postoji"
 
 #: templates/rpcsum/rpcsum.inc:87
 #, fuzzy
@@ -2825,7 +2825,7 @@ msgstr "Akcija"
 #: framework/Crypt/Crypt/smime.php:724
 #, fuzzy
 msgid "Version"
-msgstr "LiËno"
+msgstr "Liƒçno"
 
 #: framework/MIME/MIME/Contents.php:992
 #, php-format
@@ -2857,21 +2857,21 @@ msgstr "Upozorenje"
 
 #: framework/Maintenance/Maintenance.php:37
 msgid "Weekly"
-msgstr "SedmiËno"
+msgstr "Sedmiƒçno"
 
 #: services/portal/mobile.php:28
 msgid "Welcome"
-msgstr "Dobro doπli"
+msgstr "Dobro do≈°li"
 
 #: templates/login/mobile.inc:4 templates/login/login.inc:50
 #, php-format
 msgid "Welcome to %s"
-msgstr "Dobro doπli na %s"
+msgstr "Dobro do≈°li na %s"
 
 #: services/portal/mobile.php:29 templates/portal/menu.inc:2
 #, php-format
 msgid "Welcome, %s"
-msgstr "Dobro doπli, %s"
+msgstr "Dobro do≈°li, %s"
 
 #: config/nls.php.dist:191
 msgid "Western (ISO-8859-1)"
@@ -2889,32 +2889,32 @@ msgstr "Zapadna Sahara"
 #: config/prefs.php.dist:421
 #, php-format
 msgid "What application should %s display after login?"
-msgstr "Koju komponentu Êe %s prikazati nakon ulaza?"
+msgstr "Koju komponentu ƒáe %s prikazati nakon ulaza?"
 
 #: config/prefs.php.dist:131
 msgid "Which plugins to enable for the Rich Text editor."
-msgstr "Koje dodatke æelite aktivirati za editor formatiranog (rich) teksta."
+msgstr "Koje dodatke ≈æelite aktivirati za editor formatiranog (rich) teksta."
 
 #: config/prefs.php.dist:341
 #, php-format
 msgid "Width of the %s menu on the left (takes effect on next log-in):"
 msgstr ""
-"©irina %s menija sa lijeve stranice (stupa na snagu kod sljedeÊe prijave):"
+"≈†irina %s menija sa lijeve stranice (stupa na snagu kod sljedeƒáe prijave):"
 
 #: lib/Block/weatherdotcom.php:357
 #, fuzzy
 msgid "Wind"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: lib/Block/metar.php:154
 #, fuzzy
 msgid "Wind:"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: lib/Block/weatherdotcom.php:191
 #, fuzzy
 msgid "Wind: "
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: lib/Block/fortune.php:65
 #, fuzzy
@@ -2929,7 +2929,7 @@ msgstr "Od adrese"
 
 #: framework/Maintenance/Maintenance.php:35
 msgid "Yearly"
-msgstr "Godiπnje"
+msgstr "Godi≈°nje"
 
 #: framework/NLS/NLS/tld.php:252 framework/NLS/NLS/countries.php:247
 #: framework/NLS/NLS/GeoIP.php:118
@@ -2943,7 +2943,7 @@ msgstr "Da"
 
 #: framework/Identity/Identity.php:304
 msgid "You can not have the '\\' character in your full name."
-msgstr "Ne moæe sadræavati '\\' karakter u tvom punom imenu."
+msgstr "Ne mo≈æe sadr≈æavati '\\' karakter u tvom punom imenu."
 
 #: framework/Form/Form.php:1838 framework/Form/Form.php:1958
 #, fuzzy
@@ -2952,22 +2952,22 @@ msgstr "Nedozvoljena slova u email adresi."
 
 #: framework/Auth/Auth.php:944
 msgid "You have been logged out."
-msgstr "Odjavljivanje je uspjeπno izvrπeno."
+msgstr "Odjavljivanje je uspje≈°no izvr≈°eno."
 
 #: services/portal/rpcsum.php:80
 #, fuzzy
 msgid "You must select an server to be deleted."
-msgstr "Morate odabrati identitet koji æelite brisati."
+msgstr "Morate odabrati identitet koji ≈æelite brisati."
 
 #: admin/user.php:119
 #, fuzzy
 msgid "You must specify a username to clear out."
-msgstr "Morate odabrati identitet koji æelite brisati."
+msgstr "Morate odabrati identitet koji ≈æelite brisati."
 
 #: admin/user.php:100
 #, fuzzy
 msgid "You must specify a username to remove."
-msgstr "Morate odabrati identitet koji æelite brisati."
+msgstr "Morate odabrati identitet koji ≈æelite brisati."
 
 #: framework/Auth/Auth.php:932
 #, php-format
@@ -2976,16 +2976,16 @@ msgstr " %s sesija je istekla. Molimo da se ponovo prijavite."
 
 #: templates/problem/problem.inc:38
 msgid "Your Email Address"
-msgstr "Vaπa e-mail adresa"
+msgstr "Va≈°a e-mail adresa"
 
 #: config/prefs.php.dist:196
 msgid "Your From: address:"
-msgstr "Vaπa From: adresa:"
+msgstr "Va≈°a From: adresa:"
 
 #: config/prefs.php.dist:64 config/prefs.php.dist:74 config/prefs.php.dist:82
 #: config/prefs.php.dist:89
 msgid "Your Information"
-msgstr "Vaπe informacije"
+msgstr "Va≈°e informacije"
 
 #: framework/Auth/Auth.php:936
 #, php-format
@@ -2993,24 +2993,24 @@ msgid ""
 "Your Internet Address has changed since the beginning of your %s session. To "
 "protect your security, you must login again."
 msgstr ""
-"Vaπa Internet adresa je promijenjena nakon prijavljivanja na %s. Da bi vaπa "
-"sigurnost bila saËuvana, morate se ponovo prijaviti."
+"Va≈°a Internet adresa je promijenjena nakon prijavljivanja na %s. Da bi va≈°a "
+"sigurnost bila saƒçuvana, morate se ponovo prijaviti."
 
 #: templates/problem/problem.inc:33
 msgid "Your Name"
-msgstr "Vaπe ime"
+msgstr "Va≈°e ime"
 
 #: lib/Block/iframe.php:50
 msgid "Your browser does not support this feature."
-msgstr "Vaπ browser ne podræava ovu moguÊnost."
+msgstr "Va≈° browser ne podr≈æava ovu moguƒánost."
 
 #: templates/javascript/print.js:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Vaπ browser ne podræava opciju πtampanja. Pritisnite tipke Control+P ili "
-"Option+P za πtampanje."
+"Va≈° browser ne podr≈æava opciju ≈°tampanja. Pritisnite tipke Control+P ili "
+"Option+P za ≈°tampanje."
 
 #: config/prefs.php.dist:241
 msgid "Your current time zone:"
@@ -3018,40 +3018,40 @@ msgstr "Trenutna vremenska zona:"
 
 #: config/prefs.php.dist:148
 msgid "Your default identity:"
-msgstr "Vaπ default identitet:"
+msgstr "Va≈° default identitet:"
 
 #: config/prefs.php.dist:187
 msgid "Your full name:"
-msgstr "Vaπe ime i prezime:"
+msgstr "Va≈°e ime i prezime:"
 
 #: services/resetpassword.php:76
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Vaπa nova πifra za %s je: %s"
+msgstr "Va≈°a nova ≈°ifra za %s je: %s"
 
 #: framework/Prefs/Prefs/UI.php:157
 msgid "Your options have been updated for the duration of this session."
-msgstr "Vaπe opcije su saËuvane tokom trajanja ove sesije."
+msgstr "Va≈°e opcije su saƒçuvane tokom trajanja ove sesije."
 
 #: framework/Prefs/Prefs/UI.php:159
 msgid "Your options have been updated."
-msgstr "Opcije su saËuvane."
+msgstr "Opcije su saƒçuvane."
 
 #: services/resetpassword.php:75
 msgid "Your password has been reset"
-msgstr "Vaπa πifra je poniπtena"
+msgstr "Va≈°a ≈°ifra je poni≈°tena"
 
 #: services/resetpassword.php:79
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Vaπa πifra je poniπtena, provjerite vaπ e-mail i prijavite se sa novom "
-"πifrom."
+"Va≈°a ≈°ifra je poni≈°tena, provjerite va≈° e-mail i prijavite se sa novom "
+"≈°ifrom."
 
 #: templates/rpcsum/rpcsum.inc:58
 msgid "Your remote servers:"
-msgstr "Vaπi udaljeni serveri:"
+msgstr "Va≈°i udaljeni serveri:"
 
 #: framework/NLS/NLS/tld.php:254 framework/NLS/NLS/GeoIP.php:119
 msgid "Yugoslavia"
@@ -3086,12 +3086,12 @@ msgstr "[Prijava problema]"
 
 #: templates/javascript/quoteBlocks.js:13
 msgid "[Show Quoted Text -"
-msgstr "[Prikaæi citirani tekst -"
+msgstr "[Prika≈æi citirani tekst -"
 
 #: framework/Text_Filter/Filter/highlightquotes.php:172
 #, php-format
 msgid "[Show Quoted Text - %s lines]"
-msgstr "[Prikaæi citirani tekst - %s redova]"
+msgstr "[Prika≈æi citirani tekst - %s redova]"
 
 #: framework/Horde/Horde.php:199
 #, php-format
@@ -3112,7 +3112,7 @@ msgstr "_DataTree"
 
 #: templates/javascript/htmlarea_context_lang.js:31
 msgid "_Delete Row"
-msgstr "_Obriπi red"
+msgstr "_Obri≈°i red"
 
 #: lib/api.php:114
 msgid "_Groups"
@@ -3120,7 +3120,7 @@ msgstr "_Grupe"
 
 #: framework/Horde/Horde/Menu.php:181
 msgid "_Help"
-msgstr "_PomoÊ"
+msgstr "_Pomoƒá"
 
 #: templates/javascript/htmlarea_context_lang.js:23
 msgid "_Image Properties..."
@@ -3195,7 +3195,7 @@ msgstr "Ne izbrisana"
 #: framework/Kolab/Kolab.php:895
 #, fuzzy
 msgid "notepad"
-msgstr "Ne proËitane"
+msgstr "Ne proƒçitane"
 
 #: lib/Block/weatherdotcom.php:365
 #, fuzzy

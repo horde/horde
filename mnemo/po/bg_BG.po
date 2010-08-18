@@ -11,373 +11,373 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d notes"
-msgstr "%d бележки"
+msgstr "%d Р±РµР»РµР¶РєРё"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s файл беше импортиран успешно"
+msgstr "%s С„Р°Р№Р» Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ СѓСЃРїРµС€РЅРѕ"
 
 msgid "1 note"
-msgstr "1 бележка"
+msgstr "1 Р±РµР»РµР¶РєР°"
 
 msgid "Access denied deleting note."
-msgstr "Отказан достъп за изтриване на бележка"
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї Р·Р° РёР·С‚СЂРёРІР°РЅРµ РЅР° Р±РµР»РµР¶РєР°"
 
 msgid "Access denied removing the note."
-msgstr "Отказан достъп за премахване на бележка"
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї Р·Р° РїСЂРµРјР°С…РІР°РЅРµ РЅР° Р±РµР»РµР¶РєР°"
 
 msgid "Add, remove, and edit categories."
-msgstr "Добавяне, преместване и редактиране на категории."
+msgstr "Р”РѕР±Р°РІСЏРЅРµ, РїСЂРµРјРµСЃС‚РІР°РЅРµ Рё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Adding A New Note"
-msgstr "Добавяне на нова бележка"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІР° Р±РµР»РµР¶РєР°"
 
 #, c-format
 msgid "Any notes in a category that is deleted will become %s."
-msgstr "Всички бележки в избраната за изтриване категория ще станат %s."
+msgstr "Р’СЃРёС‡РєРё Р±РµР»РµР¶РєРё РІ РёР·Р±СЂР°РЅР°С‚Р° Р·Р° РёР·С‚СЂРёРІР°РЅРµ РєР°С‚РµРіРѕСЂРёСЏ С‰Рµ СЃС‚Р°РЅР°С‚ %s."
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Back to Notepad"
-msgstr "Обратно в бележника"
+msgstr "РћР±СЂР°С‚РЅРѕ РІ Р±РµР»РµР¶РЅРёРєР°"
 
 msgid "Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Category Management"
-msgstr "Категории Управление"
+msgstr "РљР°С‚РµРіРѕСЂРёРё РЈРїСЂР°РІР»РµРЅРёРµ"
 
 msgid "Change your note sorting and display options."
-msgstr "Установете предпочитаните сортиране и опции на дисплея."
+msgstr "РЈСЃС‚Р°РЅРѕРІРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёС‚Рµ СЃРѕСЂС‚РёСЂР°РЅРµ Рё РѕРїС†РёРё РЅР° РґРёСЃРїР»РµСЏ."
 
 msgid "Choose Action:"
-msgstr "Избери действие:"
+msgstr "РР·Р±РµСЂРё РґРµР№СЃС‚РІРёРµ:"
 
 msgid "Choose Color"
-msgstr "Избери цвят"
+msgstr "РР·Р±РµСЂРё С†РІСЏС‚"
 
 msgid "Create New Category"
-msgstr "Създай нова категория"
+msgstr "РЎСЉР·РґР°Р№ РЅРѕРІР° РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Current Notepad"
-msgstr "Текущ бележник"
+msgstr "РўРµРєСѓС‰ Р±РµР»РµР¶РЅРёРє"
 
 msgid "Default sorting criteria:"
-msgstr "Критерии за сортиране по подразбиране:"
+msgstr "РљСЂРёС‚РµСЂРёРё Р·Р° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 msgid "Delete Note"
-msgstr "Изтрий бележка"
+msgstr "РР·С‚СЂРёР№ Р±РµР»РµР¶РєР°"
 
 msgid "Delete Notes"
-msgstr "Изтрий бележки"
+msgstr "РР·С‚СЂРёР№ Р±РµР»РµР¶РєРё"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 msgid "Description:"
-msgstr "Описание:"
+msgstr "РћРїРёСЃР°РЅРёРµ:"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Edit your notepads."
-msgstr "Редактирай бележките си"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ Р±РµР»РµР¶РєРёС‚Рµ СЃРё"
 
 msgid "Export Notes"
-msgstr "Експорт бележки"
+msgstr "Р•РєСЃРїРѕСЂС‚ Р±РµР»РµР¶РєРё"
 
 msgid "Flags"
-msgstr "Флагове"
+msgstr "Р¤Р»Р°РіРѕРІРµ"
 
 msgid "Full Text"
-msgstr "Пълен текст"
+msgstr "РџСЉР»РµРЅ С‚РµРєСЃС‚"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "При импорт на CSV данни: първия ли ред съдържа имената на полетата?"
+msgstr "РџСЂРё РёРјРїРѕСЂС‚ РЅР° CSV РґР°РЅРЅРё: РїСЉСЂРІРёСЏ Р»Рё СЂРµРґ СЃСЉРґСЉСЂР¶Р° РёРјРµРЅР°С‚Р° РЅР° РїРѕР»РµС‚Р°С‚Р°?"
 
 msgid "Illegal or malformed form data."
-msgstr "Недопустими или повредени данни."
+msgstr "РќРµРґРѕРїСѓСЃС‚РёРјРё РёР»Рё РїРѕРІСЂРµРґРµРЅРё РґР°РЅРЅРё."
 
 msgid "Import Notes"
-msgstr "Импорт бележки"
+msgstr "РРјРїРѕСЂС‚ Р±РµР»РµР¶РєРё"
 
 msgid "Import/Export"
-msgstr "Импорт/Експорт"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚"
 
 msgid "Import/Export Notes"
-msgstr "Импорт/Експорт на бележки"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚ РЅР° Р±РµР»РµР¶РєРё"
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "List Notes"
-msgstr "Списък с бележки"
+msgstr "РЎРїРёСЃСЉРє СЃ Р±РµР»РµР¶РєРё"
 
 msgid "Manage multiple notepads."
-msgstr "Управляване на множество бележници."
+msgstr "РЈРїСЂР°РІР»СЏРІР°РЅРµ РЅР° РјРЅРѕР¶РµСЃС‚РІРѕ Р±РµР»РµР¶РЅРёС†Рё."
 
 msgid "Memo Text"
-msgstr "Текст"
+msgstr "РўРµРєСЃС‚"
 
 msgid "Mnemo is not properly configured"
-msgstr "Mnemo не е конфигуриран коректно"
+msgstr "Mnemo РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "Modify Note"
-msgstr "Модифицирай бележка"
+msgstr "РњРѕРґРёС„РёС†РёСЂР°Р№ Р±РµР»РµР¶РєР°"
 
 #, c-format
 msgid "Modifying %s"
-msgstr "Модифицирай %s"
+msgstr "РњРѕРґРёС„РёС†РёСЂР°Р№ %s"
 
 msgid "My Notepad"
-msgstr "Моят Бележник"
+msgstr "РњРѕСЏС‚ Р‘РµР»РµР¶РЅРёРє"
 
 msgid "New Category"
-msgstr "Нова категория"
+msgstr "РќРѕРІР° РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "New Note"
-msgstr "Нова бележка"
+msgstr "РќРѕРІР° Р±РµР»РµР¶РєР°"
 
 msgid "No configuration information specified for SQL Memos."
-msgstr "Няма зададена конфигурация за SQL бележки."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL Р±РµР»РµР¶РєРё."
 
 msgid "No notes"
-msgstr "Няма бележки"
+msgstr "РќСЏРјР° Р±РµР»РµР¶РєРё"
 
 msgid "None specified"
-msgstr "Няма зададен"
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅ"
 
 msgid "Note Category"
-msgstr "Бележка категория"
+msgstr "Р‘РµР»РµР¶РєР° РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Note Description"
-msgstr "Бележка описание"
+msgstr "Р‘РµР»РµР¶РєР° РѕРїРёСЃР°РЅРёРµ"
 
 msgid "Note Details"
-msgstr "Бележка детайли"
+msgstr "Р‘РµР»РµР¶РєР° РґРµС‚Р°Р№Р»Рё"
 
 msgid "Note Lists"
-msgstr "Списък бележки"
+msgstr "РЎРїРёСЃСЉРє Р±РµР»РµР¶РєРё"
 
 msgid "Note Text"
-msgstr "Бележка текст"
+msgstr "Р‘РµР»РµР¶РєР° С‚РµРєСЃС‚"
 
 msgid "Notepad"
-msgstr "Бележник"
+msgstr "Р‘РµР»РµР¶РЅРёРє"
 
 msgid "Notepad's Type:"
-msgstr "Тип на бележника:"
+msgstr "РўРёРї РЅР° Р±РµР»РµР¶РЅРёРєР°:"
 
 msgid "Notepad's name:"
-msgstr "Име на бележника:"
+msgstr "РРјРµ РЅР° Р±РµР»РµР¶РЅРёРєР°:"
 
 msgid "Notepads"
-msgstr "Бележници"
+msgstr "Р‘РµР»РµР¶РЅРёС†Рё"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Other Options"
-msgstr "Други Опции"
+msgstr "Р”СЂСѓРіРё РћРїС†РёРё"
 
 msgid "Print"
-msgstr "Отпечатай"
+msgstr "РћС‚РїРµС‡Р°С‚Р°Р№"
 
 msgid "Private"
-msgstr "Частен"
+msgstr "Р§Р°СЃС‚РµРЅ"
 
 msgid "Refresh List"
-msgstr "Опресни списъка"
+msgstr "РћРїСЂРµСЃРЅРё СЃРїРёСЃСЉРєР°"
 
 msgid "Rename"
-msgstr "Преименувай"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°Р№"
 
 msgid "Required 'database' not specified in memos configuration."
-msgstr "Необходимата 'database' не е зададена в конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'hostspec' not specified in memos configuration."
-msgstr "Необходимия 'hostspec' не е указан в конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ СѓРєР°Р·Р°РЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'password' not specified in memos configuration."
-msgstr "Необходимата 'password' не съществува в конфигурация."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ."
 
 msgid "Required 'phptype' not specified in memos configuration."
-msgstr "Необходимия 'phptype' не е зададен в конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Required 'table' not specified in memos configuration."
-msgstr "Необходимата 'table' не е зададена в категориите."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'table' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєР°С‚РµРіРѕСЂРёРёС‚Рµ."
 
 msgid "Required 'username' not specified in memos configuration."
-msgstr "Необходимото 'username' не е зададено в конфигурацията."
+msgstr "РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р°."
 
 msgid "Search"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "Search Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Search Scope"
-msgstr "Обхват на търсене"
+msgstr "РћР±С…РІР°С‚ РЅР° С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Search Text"
-msgstr "Текст за търсене"
+msgstr "РўРµРєСЃС‚ Р·Р° С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Select Category"
-msgstr "Избери Категория"
+msgstr "РР·Р±РµСЂРё РљР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Select a notepad"
-msgstr "Избери бележник"
+msgstr "РР·Р±РµСЂРё Р±РµР»РµР¶РЅРёРє"
 
 msgid "Select the file to import:"
-msgstr "Изберете файл за импорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„Р°Р№Р» Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select the format to export to:"
-msgstr "Изберете формат, към който да се експортира:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚, РєСЉРј РєРѕР№С‚Рѕ РґР° СЃРµ РµРєСЃРїРѕСЂС‚РёСЂР°:"
 
 msgid "Select the source to import from:"
-msgstr "Изберете източника за импорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РёР·С‚РѕС‡РЅРёРєР° Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Set the your preferred display language."
-msgstr "Изберете предпочитаният от Вас език."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє."
 
 msgid "Shared"
-msgstr "Поделен"
+msgstr "РџРѕРґРµР»РµРЅ"
 
 msgid "Show"
-msgstr "Показване"
+msgstr "РџРѕРєР°Р·РІР°РЅРµ"
 
 msgid "Show highlight colors in the summary view?"
-msgstr "Да се показват ли засветени колони в обобщеният изглед?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё Р·Р°СЃРІРµС‚РµРЅРё РєРѕР»РѕРЅРё РІ РѕР±РѕР±С‰РµРЅРёСЏС‚ РёР·РіР»РµРґ?"
 
 msgid "Some of Mnemo's configuration files are missing:"
-msgstr "Някой от конфигурационните файлове на Mnemo липсват:"
+msgstr "РќСЏРєРѕР№ РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° Mnemo Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 msgid "Sort by Category"
-msgstr "Сортирай по категория"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Sort by Description"
-msgstr "Сортирай по описание"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РѕРїРёСЃР°РЅРёРµ"
 
 msgid "The data was lost."
-msgstr "Данните бяха изгубени."
+msgstr "Р”Р°РЅРЅРёС‚Рµ Р±СЏС…Р° РёР·РіСѓР±РµРЅРё."
 
 msgid "The file contained no data."
-msgstr "Файлът не съдържа данни."
+msgstr "Р¤Р°Р№Р»СЉС‚ РЅРµ СЃСЉРґСЉСЂР¶Р° РґР°РЅРЅРё."
 
 msgid "The note was deleted."
-msgstr "Бележката беше изтрита."
+msgstr "Р‘РµР»РµР¶РєР°С‚Р° Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 #, c-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Бележника \"%s\" беше създаден."
+msgstr "Р‘РµР»РµР¶РЅРёРєР° \"%s\" Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅ."
 
 #, c-format
 msgid "The notepad \"%s\" has been deleted."
-msgstr "Бележника \"%s\" беше премахнат."
+msgstr "Р‘РµР»РµР¶РЅРёРєР° \"%s\" Р±РµС€Рµ РїСЂРµРјР°С…РЅР°С‚."
 
 #, c-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Бележника \"%s\" беше записан."
+msgstr "Р‘РµР»РµР¶РЅРёРєР° \"%s\" Р±РµС€Рµ Р·Р°РїРёСЃР°РЅ."
 
 msgid "The notepad name is empty."
-msgstr "Името на Бележника е празно."
+msgstr "РРјРµС‚Рѕ РЅР° Р‘РµР»РµР¶РЅРёРєР° Рµ РїСЂР°Р·РЅРѕ."
 
 msgid "The requested note does not exist."
-msgstr "Бележката, която изисквате не съществува."
+msgstr "Р‘РµР»РµР¶РєР°С‚Р°, РєРѕСЏС‚Рѕ РёР·РёСЃРєРІР°С‚Рµ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Грешка при изпращането на файла. Възможно е файлът да е по-голям от "
-"максимално допустимият размер."
+"Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. Р’СЉР·РјРѕР¶РЅРѕ Рµ С„Р°Р№Р»СЉС‚ РґР° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕРїСѓСЃС‚РёРјРёСЏС‚ СЂР°Р·РјРµСЂ."
 
 msgid "There was an error importing the data."
-msgstr "Грешка при импорт на данните."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚ РЅР° РґР°РЅРЅРёС‚Рµ."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Грешка при импортиране на изпратения файл"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РёР·РїСЂР°С‚РµРЅРёСЏ С„Р°Р№Р»"
 
 msgid "There was an error removing the note."
-msgstr "Грешка при преместване на бележката."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚РІР°РЅРµ РЅР° Р±РµР»РµР¶РєР°С‚Р°."
 
 msgid "There was an error saving the note."
-msgstr "Грешка при записа на бележката."
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°РїРёСЃР° РЅР° Р±РµР»РµР¶РєР°С‚Р°."
 
 msgid "There were no memos to export."
-msgstr "Няма бележки за експорт."
+msgstr "РќСЏРјР° Р±РµР»РµР¶РєРё Р·Р° РµРєСЃРїРѕСЂС‚."
 
 msgid "These changes can not be undone!"
-msgstr "Тези промени не могат да бъдат върнати!"
+msgstr "РўРµР·Рё РїСЂРѕРјРµРЅРё РЅРµ РјРѕРіР°С‚ РґР° Р±СЉРґР°С‚ РІСЉСЂРЅР°С‚Рё!"
 
 msgid "This file contains preferences for Mnemo."
-msgstr "Този файл съдържа настройки за Mnemo."
+msgstr "РўРѕР·Рё С„Р°Р№Р» СЃСЉРґСЉСЂР¶Р° РЅР°СЃС‚СЂРѕР№РєРё Р·Р° Mnemo."
 
 msgid ""
 "This is the main Mnemo configuration file. It contains options for all Mnemo "
 "scripts."
 msgstr ""
-"Това е главния файл за конфигуриране на Mnemo. Той съдържа пътищата и "
-"опциите за Mnemo скриптовете."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ С„Р°Р№Р» Р·Р° РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅРµ РЅР° Mnemo. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р°С‚Р° Рё "
+"РѕРїС†РёРёС‚Рµ Р·Р° Mnemo СЃРєСЂРёРїС‚РѕРІРµС‚Рµ."
 
 #, c-format
 msgid "Unable to create to category: %s"
-msgstr "Грешка при създаването на категория: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµС‚Рѕ РЅР° РєР°С‚РµРіРѕСЂРёСЏ: %s"
 
 #, c-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Грешка при изтриване \"%s\": %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ \"%s\": %s."
 
 msgid "Unfiled"
-msgstr "Непопълнен"
+msgstr "РќРµРїРѕРїСЉР»РЅРµРЅ"
 
 msgid "Unknown note"
-msgstr "Неизвестна бележка"
+msgstr "РќРµРёР·РІРµСЃС‚РЅР° Р±РµР»РµР¶РєР°"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 msgid "View Note Details"
-msgstr "Детайли за бележката"
+msgstr "Р”РµС‚Р°Р№Р»Рё Р·Р° Р±РµР»РµР¶РєР°С‚Р°"
 
 msgid "Which Notepad should the notes be added to?"
-msgstr "Към кой бележник да бъде добавена бележката?"
+msgstr "РљСЉРј РєРѕР№ Р±РµР»РµР¶РЅРёРє РґР° Р±СЉРґРµ РґРѕР±Р°РІРµРЅР° Р±РµР»РµР¶РєР°С‚Р°?"
 
 msgid "You have no notes."
-msgstr "Нямате бележки."
+msgstr "РќСЏРјР°С‚Рµ Р±РµР»РµР¶РєРё."
 
 msgid "You must select a notepad to be deleted."
-msgstr "Трябва да изберете бележник, който да бъде изтрит."
+msgstr "РўСЂСЏР±РІР° РґР° РёР·Р±РµСЂРµС‚Рµ Р±РµР»РµР¶РЅРёРє, РєРѕР№С‚Рѕ РґР° Р±СЉРґРµ РёР·С‚СЂРёС‚."
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your default notepad:"
-msgstr "Вашият бележник по подразбиране:"
+msgstr "Р’Р°С€РёСЏС‚ Р±РµР»РµР¶РЅРёРє РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Your notepads:"
-msgstr "Вашите бележници::"
+msgstr "Р’Р°С€РёС‚Рµ Р±РµР»РµР¶РЅРёС†Рё::"

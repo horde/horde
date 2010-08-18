@@ -11,34 +11,34 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d items in %s"
-msgstr "%d неща в %s"
+msgstr "%d РЅРµС‰Р° РІ %s"
 
 #, c-format
 msgid "%s Login"
-msgstr "%s Вход"
+msgstr "%s Р’С…РѕРґ"
 
 #, c-format
 msgid "%s Standard"
-msgstr "%s Стандарт"
+msgstr "%s РЎС‚Р°РЅРґР°СЂС‚"
 
 #, c-format
 msgid "'%s' renamed to '%s'"
-msgstr "'%s' преименувано на '%s'"
+msgstr "'%s' РїСЂРµРёРјРµРЅСѓРІР°РЅРѕ РЅР° '%s'"
 
 #, c-format
 msgid "Access denied to %s"
-msgstr "Отказан достъп до %s"
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї РґРѕ %s"
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Back To Folder"
-msgstr "Обратно към папка"
+msgstr "РћР±СЂР°С‚РЅРѕ РєСЉРј РїР°РїРєР°"
 
 msgid "Barbie"
 msgstr "Barbie"
@@ -54,14 +54,14 @@ msgstr "Camouflage"
 
 #, c-format
 msgid "Cannot chmod %s"
-msgstr "Грешка при chmod %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё chmod %s"
 
 #, c-format
 msgid "Cannot delete '%s'"
-msgstr "Грешка при изтриване на '%s'"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° '%s'"
 
 msgid "Change your file sorting options and theme setting."
-msgstr "Сменете начина на сортиране на файловете и настройките за темата."
+msgstr "РЎРјРµРЅРµС‚Рµ РЅР°С‡РёРЅР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РЅР° С„Р°Р№Р»РѕРІРµС‚Рµ Рё РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ Р·Р° С‚РµРјР°С‚Р°."
 
 msgid "Checkbox"
 msgstr "Checkbox"
@@ -70,88 +70,88 @@ msgid "Cherry"
 msgstr "Cherry"
 
 msgid "Chmod Items"
-msgstr "Chmod неща"
+msgstr "Chmod РЅРµС‰Р°"
 
 msgid "Chmod done: "
-msgstr "Chmod извършен:"
+msgstr "Chmod РёР·РІСЉСЂС€РµРЅ:"
 
 msgid "Choose Action:"
-msgstr "Избери действие:"
+msgstr "РР·Р±РµСЂРё РґРµР№СЃС‚РІРёРµ:"
 
 #, c-format
 msgid "Connect to: %s"
-msgstr "Свързване към %s"
+msgstr "РЎРІСЉСЂР·РІР°РЅРµ РєСЉРј %s"
 
 msgid "Create Folder"
-msgstr "Създай папка"
+msgstr "РЎСЉР·РґР°Р№ РїР°РїРєР°"
 
 msgid "Default sorting criteria:"
-msgstr "Критерии за сортиране по подразбиране:"
+msgstr "РљСЂРёС‚РµСЂРёРё Р·Р° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 #, c-format
 msgid "Defaulted to: %s"
-msgstr "Подразбиращо се: %s"
+msgstr "РџРѕРґСЂР°Р·Р±РёСЂР°С‰Рѕ СЃРµ: %s"
 
 msgid "Delete Items"
-msgstr "Изтрий неща"
+msgstr "РР·С‚СЂРёР№ РЅРµС‰Р°"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Directory removed: "
-msgstr "Директорията преместена:"
+msgstr "Р”РёСЂРµРєС‚РѕСЂРёСЏС‚Р° РїСЂРµРјРµСЃС‚РµРЅР°:"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Download"
-msgstr "Изтегли"
+msgstr "РР·С‚РµРіР»Рё"
 
 msgid ""
 "Either you have logged in incorrectly or your login has expired. Please "
 "login again."
 msgstr ""
-"Грешка при вход или времето за вашата сесия е изтекло. Моля регистрирайте се "
-"отново."
+"Р“СЂРµС€РєР° РїСЂРё РІС…РѕРґ РёР»Рё РІСЂРµРјРµС‚Рѕ Р·Р° РІР°С€Р°С‚Р° СЃРµСЃРёСЏ Рµ РёР·С‚РµРєР»Рѕ. РњРѕР»СЏ СЂРµРіРёСЃС‚СЂРёСЂР°Р№С‚Рµ СЃРµ "
+"РѕС‚РЅРѕРІРѕ."
 
 msgid "Email"
-msgstr "Писмо"
+msgstr "РџРёСЃРјРѕ"
 
 #, c-format
 msgid "Error uploading %s: %s"
-msgstr "Грешка при изпращане на файла %s: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµ РЅР° С„Р°Р№Р»Р° %s: %s"
 
 #, c-format
 msgid "Error uploading file: %s"
-msgstr "Грешка при изпращане на файла: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµ РЅР° С„Р°Р№Р»Р°: %s"
 
 msgid "File Modification Time"
-msgstr "Дата на модификация на файла"
+msgstr "Р”Р°С‚Р° РЅР° РјРѕРґРёС„РёРєР°С†РёСЏ РЅР° С„Р°Р№Р»Р°"
 
 msgid "File Name"
-msgstr "Име на файл"
+msgstr "РРјРµ РЅР° С„Р°Р№Р»"
 
 msgid "File Size"
-msgstr "Размер на файла"
+msgstr "Р Р°Р·РјРµСЂ РЅР° С„Р°Р№Р»Р°"
 
 msgid "File Type"
-msgstr "Файл тип"
+msgstr "Р¤Р°Р№Р» С‚РёРї"
 
 msgid "File deleted: "
-msgstr "Изтрит файл: "
+msgstr "РР·С‚СЂРёС‚ С„Р°Р№Р»: "
 
 #, c-format
 msgid "File received: %s"
-msgstr "Изтеглен файл: %s"
+msgstr "РР·С‚РµРіР»РµРЅ С„Р°Р№Р»: %s"
 
 msgid "File type can't be viewed inline, download the file instead"
-msgstr "Файл от този тип не може да се преглежда, изтеглете го"
+msgstr "Р¤Р°Р№Р» РѕС‚ С‚РѕР·Рё С‚РёРї РЅРµ РјРѕР¶Рµ РґР° СЃРµ РїСЂРµРіР»РµР¶РґР°, РёР·С‚РµРіР»РµС‚Рµ РіРѕ"
 
 msgid "Gollem is not properly configured"
-msgstr "Gollem не е конфигуриран коректно"
+msgstr "Gollem РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "Green"
 msgstr "Green"
@@ -160,166 +160,166 @@ msgid "Grey"
 msgstr "Grey"
 
 msgid "Group"
-msgstr "Група"
+msgstr "Р“СЂСѓРїР°"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "Home"
-msgstr "Начало"
+msgstr "РќР°С‡Р°Р»Рѕ"
 
 msgid "Incorrect number of items."
-msgstr "Некоректен брой."
+msgstr "РќРµРєРѕСЂРµРєС‚РµРЅ Р±СЂРѕР№."
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "Light Blue"
 msgstr "Light Blue"
 
 msgid "Locked"
-msgstr "Заключен"
+msgstr "Р—Р°РєР»СЋС‡РµРЅ"
 
 msgid "Log in"
-msgstr "Вход"
+msgstr "Р’С…РѕРґ"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"Регистрирането се провали поради неизвестна причина. Вероятно грешно "
-"въведено потребителско име или парола."
+"Р РµРіРёСЃС‚СЂРёСЂР°РЅРµС‚Рѕ СЃРµ РїСЂРѕРІР°Р»Рё РїРѕСЂР°РґРё РЅРµРёР·РІРµСЃС‚РЅР° РїСЂРёС‡РёРЅР°. Р’РµСЂРѕСЏС‚РЅРѕ РіСЂРµС€РЅРѕ "
+"РІСЉРІРµРґРµРЅРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ РёР»Рё РїР°СЂРѕР»Р°."
 
 msgid "Logout"
-msgstr "Изход"
+msgstr "РР·С…РѕРґ"
 
 msgid "Modified"
-msgstr "Променен"
+msgstr "РџСЂРѕРјРµРЅРµРЅ"
 
 msgid "Mozilla"
 msgstr "Mozilla"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "Name:"
-msgstr "Име:"
+msgstr "РРјРµ:"
 
 msgid "New folder created: "
-msgstr "Създадена е нова папка: "
+msgstr "РЎСЉР·РґР°РґРµРЅР° Рµ РЅРѕРІР° РїР°РїРєР°: "
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Orange"
 msgstr "Orange"
 
 msgid "Other Options"
-msgstr "Други Опции"
+msgstr "Р”СЂСѓРіРё РћРїС†РёРё"
 
 msgid "Owner"
-msgstr "Притежател"
+msgstr "РџСЂРёС‚РµР¶Р°С‚РµР»"
 
 msgid "Password"
-msgstr "Парола"
+msgstr "РџР°СЂРѕР»Р°"
 
 msgid "Permission"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 #, c-format
 msgid "Permission denied to %s: %s."
-msgstr "Право на достъп до %s отказан: %s"
+msgstr "РџСЂР°РІРѕ РЅР° РґРѕСЃС‚СЉРї РґРѕ %s РѕС‚РєР°Р·Р°РЅ: %s"
 
 msgid "Refresh"
-msgstr "Опресни"
+msgstr "РћРїСЂРµСЃРЅРё"
 
 msgid "Rename Items"
-msgstr "Преименуване"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°РЅРµ"
 
 msgid "Select your color scheme."
-msgstr "Изберете вашата схема за цветовете."
+msgstr "РР·Р±РµСЂРµС‚Рµ РІР°С€Р°С‚Р° СЃС…РµРјР° Р·Р° С†РІРµС‚РѕРІРµС‚Рµ."
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Server"
-msgstr "Сървър"
+msgstr "РЎСЉСЂРІСЉСЂ"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Изберете езика, на които се показват менюта, обяснения и помощ."
+msgstr "РР·Р±РµСЂРµС‚Рµ РµР·РёРєР°, РЅР° РєРѕРёС‚Рѕ СЃРµ РїРѕРєР°Р·РІР°С‚ РјРµРЅСЋС‚Р°, РѕР±СЏСЃРЅРµРЅРёСЏ Рё РїРѕРјРѕС‰."
 
 msgid "Size"
-msgstr "Размер"
+msgstr "Р Р°Р·РјРµСЂ"
 
 msgid "Some of Gollem's configuration files are missing:"
-msgstr "Някои от конфигурационните файлове на Gollem липсват:"
+msgstr "РќСЏРєРѕРё РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° Gollem Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 msgid "Sun"
 msgstr "Sun"
 
 msgid "There are no files in this directory."
-msgstr "Няма файлове в тази директория."
+msgstr "РќСЏРјР° С„Р°Р№Р»РѕРІРµ РІ С‚Р°Р·Рё РґРёСЂРµРєС‚РѕСЂРёСЏ."
 
 msgid "There was an error viewing this file"
-msgstr "Грешка при преглеждането на този файл."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРіР»РµР¶РґР°РЅРµС‚Рѕ РЅР° С‚РѕР·Рё С„Р°Р№Р»."
 
 msgid ""
 "This file controls the default preferences for Gollem, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Този файл контролира настройките по подразбиране на Gollem, а също и кои "
-"настройки потребителите могат да се променят."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ РЅР° Gollem, Р° СЃСЉС‰Рѕ Рё РєРѕРё "
+"РЅР°СЃС‚СЂРѕР№РєРё РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ РјРѕРіР°С‚ РґР° СЃРµ РїСЂРѕРјРµРЅСЏС‚."
 
 msgid "This file controls what backends are available from Gollem."
-msgstr "Този файл контролира какви backends са възможни за Gollem."
+msgstr "РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° РєР°РєРІРё backends СЃР° РІСЉР·РјРѕР¶РЅРё Р·Р° Gollem."
 
 msgid "This file defines types of credentials that a backend might request."
 msgstr ""
-"Този файл дефинира типовете акредитации, които backend-a може да изиска"
+"РўРѕР·Рё С„Р°Р№Р» РґРµС„РёРЅРёСЂР° С‚РёРїРѕРІРµС‚Рµ Р°РєСЂРµРґРёС‚Р°С†РёРё, РєРѕРёС‚Рѕ backend-a РјРѕР¶Рµ РґР° РёР·РёСЃРєР°"
 
 msgid ""
 "This is the main Gollem configuration file. It contains options for the "
 "Gollem scripts."
 msgstr ""
-"Това е главния файл за конфигуриране на Gollem. Той съдържа пътищата и "
-"опциите за Gollem скриптовете."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ С„Р°Р№Р» Р·Р° РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅРµ РЅР° Gollem. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р°С‚Р° Рё "
+"РѕРїС†РёРёС‚Рµ Р·Р° Gollem СЃРєСЂРёРїС‚РѕРІРµС‚Рµ."
 
 msgid "Type"
-msgstr "Тип"
+msgstr "РўРёРї"
 
 msgid "Up to parent"
-msgstr "Обратно"
+msgstr "РћР±СЂР°С‚РЅРѕ"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 msgid "Username"
-msgstr "Име"
+msgstr "РРјРµ"
 
 #, c-format
 msgid "Warning: %s requires Javascript to perform certain functions."
-msgstr "Внимание: %s изисква Javascript за някои функции."
+msgstr "Р’РЅРёРјР°РЅРёРµ: %s РёР·РёСЃРєРІР° Javascript Р·Р° РЅСЏРєРѕРё С„СѓРЅРєС†РёРё."
 
 #, c-format
 msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
-msgstr "Вие излязохте от %s.Благодарим Ви, че използвахте системата."
+msgstr "Р’РёРµ РёР·Р»СЏР·РѕС…С‚Рµ РѕС‚ %s.Р‘Р»Р°РіРѕРґР°СЂРёРј Р’Рё, С‡Рµ РёР·РїРѕР»Р·РІР°С…С‚Рµ СЃРёСЃС‚РµРјР°С‚Р°."
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your browser does not support inline display of this image type"
-msgstr "Вашият browser не подържа редово показване на този тип файл"
+msgstr "Р’Р°С€РёСЏС‚ browser РЅРµ РїРѕРґСЉСЂР¶Р° СЂРµРґРѕРІРѕ РїРѕРєР°Р·РІР°РЅРµ РЅР° С‚РѕР·Рё С‚РёРї С„Р°Р№Р»"
 
 msgid "[home]"
 msgstr "[home]"
 
 msgid "folder"
-msgstr "папка"
+msgstr "РїР°РїРєР°"
 
 msgid "symlink"
 msgstr "symlink"

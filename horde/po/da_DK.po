@@ -1,5 +1,5 @@
 # Danish translations for Horde package
-# Danske oversættelser for pakke Horde.
+# Danske oversÃ¦ttelser for pakke Horde.
 # Copyright 2001-2010 The Horde Project (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Martin List-Petersen <martin@list-petersen.dk>, 2001
@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -43,7 +43,7 @@ msgstr " (i morgen)"
 
 #: framework/Form/Form.php:2376 lib/Horde/Form.php:2376
 msgid " (yesterday)"
-msgstr " (i går)"
+msgstr " (i gÃ¥r)"
 
 #: lib/Block/weatherdotcom.php:250 lib/Block/weatherdotcom.php:353
 #: lib/Block/weatherdotcom.php:399
@@ -70,17 +70,17 @@ msgstr "\"%s\" er ikke konfigureret i Hordes fortegnelse."
 #: framework/Tree/Tree.php:171 lib/Horde/Tree.php:171
 #, php-format
 msgid "\"%s\" tree renderer not found."
-msgstr "\"%s\" træ-opbygger ikke fundet."
+msgstr "\"%s\" trÃ¦-opbygger ikke fundet."
 
 #: admin/groups.php:55
 #, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "\"%s\" blev tilføjet i gruppe-systemet."
+msgstr "\"%s\" blev tilfÃ¸jet i gruppe-systemet."
 
 #: admin/perms/addchild.php:51
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "\"%s\" blev tilføjet tilladelses-systemet."
+msgstr "\"%s\" blev tilfÃ¸jet tilladelses-systemet."
 
 #: admin/groups.php:53 admin/perms/addchild.php:49
 #, php-format
@@ -101,7 +101,7 @@ msgstr "%d %s og %s"
 #: lib/Block/account.php:594
 #, php-format
 msgid "%d days until your password expires."
-msgstr "%d dage til dit kodeord udløber."
+msgstr "%d dage til dit kodeord udlÃ¸ber."
 
 #: lib/Block/weatherdotcom.php:278
 #, php-format
@@ -133,12 +133,12 @@ msgstr "%s MB"
 #: services/maintenance.php:49
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s Vedligeholdelse - Bekræftelse"
+msgstr "%s Vedligeholdelse - BekrÃ¦ftelse"
 
 #: admin/setup/config.php:30 admin/setup/index.php:214
 #, php-format
 msgid "%s Setup"
-msgstr "%s opsætning"
+msgstr "%s opsÃ¦tning"
 
 #: framework/Auth/Auth/Signup.php:265 lib/Horde/Auth/Signup.php:265
 #, php-format
@@ -171,13 +171,13 @@ msgid ""
 "%s is ready to perform the maintenance operations checked below. Check the "
 "box for any operation(s) you want to perform at this time."
 msgstr ""
-"%s er parat til at udføre de vedligeholdelseshandlinger, som er markeret "
-"nedenfor.  Sæt hak ud for de handlinger, som du ønsker udført nu."
+"%s er parat til at udfÃ¸re de vedligeholdelseshandlinger, som er markeret "
+"nedenfor.  SÃ¦t hak ud for de handlinger, som du Ã¸nsker udfÃ¸rt nu."
 
 #: framework/Form/Form.php:2345 lib/Horde/Form.php:2345
 #, php-format
 msgid "%s is required"
-msgstr "%s krævet"
+msgstr "%s krÃ¦vet"
 
 #: lib/Block/metar.php:298
 #, php-format
@@ -226,8 +226,8 @@ msgid ""
 "%s: This message may not be from whom it claims to be. Beware of following "
 "any links in it or of providing the sender with any personal information."
 msgstr ""
-"%s: Denne besked er muligvis fra den person, som den hævder at være fra.  "
-"Vær varsom med at følge henvisninger eller forsyne afsenderen med personlige "
+"%s: Denne besked er muligvis fra den person, som den hÃ¦vder at vÃ¦re fra.  "
+"VÃ¦r varsom med at fÃ¸lge henvisninger eller forsyne afsenderen med personlige "
 "informationer."
 
 #: lib/Block/weatherdotcom.php:357 lib/Block/weatherdotcom.php:402
@@ -237,7 +237,7 @@ msgstr ", diset "
 #: lib/Block/metar.php:200 lib/Block/metar.php:205
 #, php-format
 msgid ", gusting %s %s"
-msgstr ", blæsende %s %s"
+msgstr ", blÃ¦sende %s %s"
 
 #: lib/Block/metar.php:213
 #, php-format
@@ -250,7 +250,7 @@ msgstr ", skriftende fra %s til %s"
 #: lib/Horde/Form.php:2133 lib/Horde/UI/VarRenderer/html.php:752
 #: lib/Horde/Perms/UI.php:294 lib/Horde/Perms/UI.php:348
 msgid "-- select --"
-msgstr "-- vælg --"
+msgstr "-- vÃ¦lg --"
 
 #: lib/Block/time.php:25
 msgid "12 Hour Format"
@@ -266,15 +266,15 @@ msgstr "24 timer"
 
 #: framework/UI/UI/Pager.php:69 lib/Horde/UI/Pager.php:69
 msgid "<Previous"
-msgstr "<Foregående dag"
+msgstr "<ForegÃ¥ende dag"
 
 #: lib/Block/metar.php:131
 msgid "A database backend is required for this block."
-msgstr "En database-backend er krævet for denne blok."
+msgstr "En database-backend er krÃ¦vet for denne blok."
 
 #: framework/Horde/Horde.php:171 lib/Horde.php:171
 msgid "A fatal error has occurred"
-msgstr "Der er opstået en graverende fejl"
+msgstr "Der er opstÃ¥et en graverende fejl"
 
 #: framework/Identity/Identity.php:429 lib/Horde/Identity.php:429
 #, php-format
@@ -284,23 +284,23 @@ msgid ""
 "message."
 msgstr ""
 "Der er blevet sendt en besked til \"%s\" for at verificere, at dette "
-"virkeligt er din adresse. Den nye adresse vil blive aktiveret i det øjeblik "
-"at du bekræfter denne besked."
+"virkeligt er din adresse. Den nye adresse vil blive aktiveret i det Ã¸jeblik "
+"at du bekrÃ¦fter denne besked."
 
 #: framework/Crypt/Crypt/pgp.php:935 lib/Horde/Crypt/pgp.php:935
 msgid "A public PGP key is required to encrypt a message."
-msgstr "En offentlig PGP-nøgle er krævet for at kryptere en besked."
+msgstr "En offentlig PGP-nÃ¸gle er krÃ¦vet for at kryptere en besked."
 
 #: framework/Crypt/Crypt/pgp.php:1168 lib/Horde/Crypt/pgp.php:1168
 msgid "A public PGP key is required to verify a signed message."
-msgstr "En offentlig PGP-nøgle er krævet for at verificere en signeret besked."
+msgstr "En offentlig PGP-nÃ¸gle er krÃ¦vet for at verificere en signeret besked."
 
 #: framework/Crypt/Crypt/pgp.php:1099 lib/Horde/Crypt/pgp.php:1099
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to decrypt a "
 "message."
 msgstr ""
-"En offentlig PGP-nøgle, privat PGP-nøgle og et løsen er krævet for at "
+"En offentlig PGP-nÃ¸gle, privat PGP-nÃ¸gle og et lÃ¸sen er krÃ¦vet for at "
 "dekryptere en besked."
 
 #: framework/Crypt/Crypt/pgp.php:1016 lib/Horde/Crypt/pgp.php:1016
@@ -308,7 +308,7 @@ msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"En offentlig PGP-nøgle, privat PGP-nøgle og et løsen er krævet, for at "
+"En offentlig PGP-nÃ¸gle, privat PGP-nÃ¸gle og et lÃ¸sen er krÃ¦vet, for at "
 "signere en besked."
 
 #: framework/Crypt/Crypt/smime.php:506 lib/Horde/Crypt/smime.php:506
@@ -316,7 +316,7 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"En offentlig S/MIME-nøgle, privat S/MIME-nøgle og et løsen er krævet, for at "
+"En offentlig S/MIME-nÃ¸gle, privat S/MIME-nÃ¸gle og et lÃ¸sen er krÃ¦vet, for at "
 "dekryptere en besked."
 
 #: framework/Crypt/Crypt/smime.php:431 lib/Horde/Crypt/smime.php:431
@@ -324,12 +324,12 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"En offentlig S/MIME-nøgle, personlig S/MIME-nøgle og løsen er krævet for at "
+"En offentlig S/MIME-nÃ¸gle, personlig S/MIME-nÃ¸gle og lÃ¸sen er krÃ¦vet for at "
 "signere en besked."
 
 #: framework/Crypt/Crypt/smime.php:364 lib/Horde/Crypt/smime.php:364
 msgid "A public SMIME key is required to encrypt a message."
-msgstr "En offentlig S/MIME-nøgle er krævet for at kryptere en besked."
+msgstr "En offentlig S/MIME-nÃ¸gle er krÃ¦vet for at kryptere en besked."
 
 #: lib/Block/weatherdotcom_strings.php:9
 msgid "AM Clouds"
@@ -366,11 +366,11 @@ msgstr "Om..."
 
 #: framework/VFS/VFS/musql.php:270 lib/VFS/musql.php:270
 msgid "Access denied creating VFS directory."
-msgstr "Adgang nægtet ved dannelse af VFS-katalog."
+msgstr "Adgang nÃ¦gtet ved dannelse af VFS-katalog."
 
 #: framework/VFS/VFS/musql.php:136 lib/VFS/musql.php:136
 msgid "Access denied creating VFS file."
-msgstr "Adgang nægtet ved dannelse af VFS-fil."
+msgstr "Adgang nÃ¦gtet ved dannelse af VFS-fil."
 
 #: lib/Block/account.php:3
 msgid "Account Information"
@@ -392,43 +392,43 @@ msgstr "Kontering."
 #: framework/Perms/Perms/UI.php:148 lib/Horde/Perms/UI.php:148
 #: templates/portal/add.inc:14 templates/admin/groups/addchild.inc:11
 msgid "Add"
-msgstr "Tilføj"
+msgstr "TilfÃ¸j"
 
 #: admin/groups.php:222 admin/groups.php:223
 msgid "Add Child Group"
-msgstr "Tilføj undergruppe"
+msgstr "TilfÃ¸j undergruppe"
 
 #: framework/Perms/Perms/UI.php:98 framework/Perms/Perms/UI.php:99
 #: lib/Horde/Perms/UI.php:98 lib/Horde/Perms/UI.php:99
 msgid "Add Child Permission"
-msgstr "Tilføj underordnede tilladelse"
+msgstr "TilfÃ¸j underordnede tilladelse"
 
 #: services/portal/index.php:70
 msgid "Add Content"
-msgstr "Tilføj indhold"
+msgstr "TilfÃ¸j indhold"
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Tilføj her:"
+msgstr "TilfÃ¸j her:"
 
 #: admin/groups.php:216 admin/groups.php:217
 msgid "Add New Group"
-msgstr "Tilføj ny gruppe"
+msgstr "TilfÃ¸j ny gruppe"
 
 #: framework/Perms/Perms/UI.php:87 framework/Perms/Perms/UI.php:88
 #: lib/Horde/Perms/UI.php:87 lib/Horde/Perms/UI.php:88
 msgid "Add New Permission"
-msgstr "Tilføj ny rettighed"
+msgstr "TilfÃ¸j ny rettighed"
 
 #: templates/admin/groups/addchild.inc:7
 #, php-format
 msgid "Add a child group to \"%s\""
-msgstr "Tilføj undergruppe til \"%s\""
+msgstr "TilfÃ¸j undergruppe til \"%s\""
 
 #: framework/Perms/Perms/UI.php:147 lib/Horde/Perms/UI.php:147
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Tilføj en underrettighed til \"%s\""
+msgstr "TilfÃ¸j en underrettighed til \"%s\""
 
 #: admin/user.php:29
 msgid "Add a new user:"
@@ -437,11 +437,11 @@ msgstr "Oprette en ny bruger:"
 #: framework/UI/UI/VarRenderer/html.php:560
 #: lib/Horde/UI/VarRenderer/html.php:560
 msgid "Add column"
-msgstr "Tilføj kolonne"
+msgstr "TilfÃ¸j kolonne"
 
 #: templates/admin/groups/edit.inc:34
 msgid "Add new members"
-msgstr "Tilføj nye medlemmer"
+msgstr "TilfÃ¸j nye medlemmer"
 
 #: templates/data/csvmap.inc:95
 msgid "Add pair"
@@ -450,15 +450,15 @@ msgstr "Opret par"
 #: config/prefs.php.dist:371
 #, php-format
 msgid "Add the %s Menu as a Mozilla Sidebar"
-msgstr "Tilføj %s-menuen som en Mozilla Sidebar"
+msgstr "TilfÃ¸j %s-menuen som en Mozilla Sidebar"
 
 #: framework/MIME/MIME/Viewer/vcard.php:71 lib/Horde/MIME/Viewer/vcard.php:71
 msgid "Add to address book:"
-msgstr "Tilføj til adressekartotek:"
+msgstr "TilfÃ¸j til adressekartotek:"
 
 #: framework/MIME/MIME/Viewer/vcard.php:78 lib/Horde/MIME/Viewer/vcard.php:78
 msgid "Add to my address book"
-msgstr "Tilføj til mit adressekartotek"
+msgstr "TilfÃ¸j til mit adressekartotek"
 
 #: admin/user.php:30
 msgid "Add user"
@@ -470,17 +470,17 @@ msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"Har tilføjet \"%s\" til systemet, men kunne ikke tilføje ekstra "
+"Har tilfÃ¸jet \"%s\" til systemet, men kunne ikke tilfÃ¸je ekstra "
 "opskrivningsinformation: %s."
 
 #: signup.php:45
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "Tilføjet \"%s\" til systemet. Du kan logge ind nu."
+msgstr "TilfÃ¸jet \"%s\" til systemet. Du kan logge ind nu."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
-msgstr "Oprettelse af brugere er slået fra"
+msgstr "Oprettelse af brugere er slÃ¥et fra"
 
 #: framework/MIME/MIME/Viewer/vcard.php:126
 #: framework/MIME/MIME/Viewer/vcard.php:173 framework/Form/Form.php:1446
@@ -497,7 +497,7 @@ msgstr "Adressekartotek"
 #: framework/IMAP/IMAP/ACL/rfc4314.php:56 lib/Horde/IMAP/ACL/rfc4314.php:56
 #: lib/Horde/IMAP/ACL/rfc2086.php:94
 msgid "Administer - set permissions for other users"
-msgstr "Administrér - indstil tilladelser for andre brugere"
+msgstr "AdministrÃ©r - indstil tilladelser for andre brugere"
 
 #: services/portal/sidebar.php:113
 msgid "Administration"
@@ -537,7 +537,7 @@ msgstr "Alle"
 #: framework/Perms/Perms/UI.php:207 lib/Horde/Perms/UI.php:207
 #: templates/shares/edit.inc:65
 msgid "All Authenticated Users"
-msgstr "Alle ægtede brugere"
+msgstr "Alle Ã¦gtede brugere"
 
 #: admin/groups.php:32 admin/groups.php:220
 msgid "All Groups"
@@ -589,11 +589,11 @@ msgstr "Amerikansk Samoa"
 #: framework/Prefs/Prefs/UI.php:95 framework/Prefs/Prefs/UI.php:115
 #: lib/Horde/Prefs/UI.php:95 lib/Horde/Prefs/UI.php:115
 msgid "An illegal value was specified."
-msgstr "Den værdi, der blev angivet, var ikke gyldig."
+msgstr "Den vÃ¦rdi, der blev angivet, var ikke gyldig."
 
 #: lib/Block/weatherdotcom.php:160
 msgid "An unknown error has occured."
-msgstr "Der er opstået en ukendt fejl."
+msgstr "Der er opstÃ¥et en ukendt fejl."
 
 #: framework/NLS/NLS/GeoIP.php:55 framework/NLS/NLS/countries.php:15
 #: framework/NLS/NLS/tld.php:16 lib/Horde/NLS/countries.php:15
@@ -649,7 +649,7 @@ msgstr "Applikation er parat."
 
 #: templates/shares/edit.inc:218
 msgid "Apply to Child Shares"
-msgstr "Påfør underdelinger"
+msgstr "PÃ¥fÃ¸r underdelinger"
 
 #: templates/admin/user/approve.inc:21
 msgid "Approve"
@@ -670,7 +670,7 @@ msgstr "Arabisk (Windows-1256)"
 #: framework/MIME/MIME/Viewer/zip.php:66 lib/Horde/MIME/Viewer/rar.php:59
 #: lib/Horde/MIME/Viewer/tgz.php:78 lib/Horde/MIME/Viewer/zip.php:66
 msgid "Archive File Size"
-msgstr "Arkiv-filstørrelse"
+msgstr "Arkiv-filstÃ¸rrelse"
 
 #: framework/MIME/MIME/Viewer/rar.php:58 framework/MIME/MIME/Viewer/tgz.php:77
 #: framework/MIME/MIME/Viewer/zip.php:65 lib/Horde/MIME/Viewer/rar.php:58
@@ -681,12 +681,12 @@ msgstr "Arkivnavn"
 #: templates/admin/user/removequeued.inc:10
 #, php-format
 msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "Er du sikker på, at du vil slette opskrivningsanmodningen for %s ?"
+msgstr "Er du sikker pÃ¥, at du vil slette opskrivningsanmodningen for %s ?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
 msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Er du sikker, at du ønsker at slette \"%s\" og enhver undergruppe?"
+msgstr "Er du sikker, at du Ã¸nsker at slette \"%s\" og enhver undergruppe?"
 
 #: framework/NLS/NLS/GeoIP.php:58 framework/NLS/NLS/countries.php:20
 #: framework/NLS/NLS/tld.php:26 lib/Horde/NLS/countries.php:20
@@ -716,7 +716,7 @@ msgstr "Aruba"
 
 #: framework/NLS/NLS/tld.php:15 lib/Horde/NLS/tld.php:15
 msgid "Ascension Island"
-msgstr "Ascensionøen"
+msgstr "AscensionÃ¸en"
 
 #: lib/Block/fortune.php:34
 msgid "Ascii Art"
@@ -728,7 +728,7 @@ msgstr "Asiatisk/stillehavsregion"
 
 #: config/prefs.php.dist:429
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Spørg efter bekræftelse før udførelse af vedligeholdelseshandlinger?"
+msgstr "SpÃ¸rg efter bekrÃ¦ftelse fÃ¸r udfÃ¸relse af vedligeholdelseshandlinger?"
 
 #: framework/Form/Form.php:3100 lib/Horde/Form.php:3100
 msgid "Assignment columns"
@@ -736,19 +736,19 @@ msgstr "Tildel kolonner"
 
 #: admin/groups.php:73
 msgid "Attempt to delete a non-existent group."
-msgstr "Forsøg på at slette en ikke-eksisterende gruppe."
+msgstr "ForsÃ¸g pÃ¥ at slette en ikke-eksisterende gruppe."
 
 #: admin/perms/delete.php:28
 msgid "Attempt to delete a non-existent permission."
-msgstr "Forsøg på at slette en ikke-eksisterende tilladelse."
+msgstr "ForsÃ¸g pÃ¥ at slette en ikke-eksisterende tilladelse."
 
 #: admin/perms/edit.php:86
 msgid "Attempt to edit a non-existent permission."
-msgstr "Forsøg på at ændre en ikke-eksisterende tilladelse."
+msgstr "ForsÃ¸g pÃ¥ at Ã¦ndre en ikke-eksisterende tilladelse."
 
 #: services/shares/edit.php:58
 msgid "Attempt to edit a non-existent share."
-msgstr "Forsøg på at ændre en ikke-eksisterende deling."
+msgstr "ForsÃ¸g pÃ¥ at Ã¦ndre en ikke-eksisterende deling."
 
 #: framework/MIME/MIME/Viewer/rar.php:64 framework/MIME/MIME/Viewer/tgz.php:83
 #: framework/MIME/MIME/Viewer/zip.php:71 lib/Horde/MIME/Viewer/rar.php:64
@@ -773,54 +773,54 @@ msgstr "Australien"
 #: framework/NLS/NLS/tld.php:28 lib/Horde/NLS/countries.php:24
 #: lib/Horde/NLS/tld.php:28 lib/Horde/NLS/GeoIP.php:59
 msgid "Austria"
-msgstr "Østrig"
+msgstr "Ã˜strig"
 
 #: framework/Auth/Auth/cyrsql.php:316 lib/Horde/Auth/cyrsql.php:316
 msgid "Auth_cyrsql: Required imap extension not found."
-msgstr "Auth_cyrsql: Krævet IMAP-udviddelse ikke fundet."
+msgstr "Auth_cyrsql: KrÃ¦vet IMAP-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/cyrus.php:131 lib/Horde/Auth/cyrus.php:131
 msgid "Auth_cyrus: Backend does not have required capabilites."
-msgstr "Auth_cyrus: Backend har ikke de nødvendige evner."
+msgstr "Auth_cyrus: Backend har ikke de nÃ¸dvendige evner."
 
 #: framework/Auth/Auth/cyrus.php:234 lib/Horde/Auth/cyrus.php:234
 msgid "Auth_cyrus: Required imap extension not found."
-msgstr "Auth_cyrus: Krævet IMAP-udviddelse ikke fundet."
+msgstr "Auth_cyrus: KrÃ¦vet IMAP-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/ftp.php:56 lib/Horde/Auth/ftp.php:56
 msgid ""
 "Auth_ftp: Required FTP extension not found. Compile PHP with the --enable-"
 "ftp switch."
 msgstr ""
-"Auth_ftp: Krævet FTP-udviddelse ikke fundet. Oversæt PHP med --enable-ftp-"
+"Auth_ftp: KrÃ¦vet FTP-udviddelse ikke fundet. OversÃ¦t PHP med --enable-ftp-"
 "flaget."
 
 #: framework/Auth/Auth/imap.php:104 lib/Horde/Auth/imap.php:104
 msgid "Auth_imap: Required IMAP extension not found."
-msgstr "Auth_imap: Krævet IMAP-udviddelse ikke fundet."
+msgstr "Auth_imap: KrÃ¦vet IMAP-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/krb5.php:73 lib/Horde/Auth/krb5.php:73
 msgid "Auth_krb5: Required krb5 extension not found."
-msgstr "Auth_krb5: Krævet KRB5-udviddelse ikke fundet."
+msgstr "Auth_krb5: KrÃ¦vet KRB5-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/ldap.php:301 lib/Horde/Auth/ldap.php:301
 msgid "Auth_ldap: Adding users is not supported for Active Directory"
 msgstr ""
-"Auth_ldap: Tilføjelse brugere er ikke understøttet for Active Directory"
+"Auth_ldap: TilfÃ¸jelse brugere er ikke understÃ¸ttet for Active Directory"
 
 #: framework/Auth/Auth/ldap.php:356 lib/Horde/Auth/ldap.php:356
 msgid "Auth_ldap: Removing users is not supported for Active Directory"
 msgstr ""
-"Auth_ldap: Sletning af brugere er ikke understøttet ved Active Directory"
+"Auth_ldap: Sletning af brugere er ikke understÃ¸ttet ved Active Directory"
 
 #: framework/Auth/Auth/ldap.php:92 lib/Horde/Auth/ldap.php:92
 msgid "Auth_ldap: Required LDAP extension not found."
-msgstr "Auth_ldap: Krævet LDAP-udviddelse ikke fundet."
+msgstr "Auth_ldap: KrÃ¦vet LDAP-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/ldap.php:338 lib/Horde/Auth/ldap.php:338
 #, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
-msgstr "Auth_ldap: Kunne ikke tilføje bruger %s. Serveren sagde: "
+msgstr "Auth_ldap: Kunne ikke tilfÃ¸je bruger %s. Serveren sagde: "
 
 #: framework/Auth/Auth/ldap.php:384 lib/Horde/Auth/ldap.php:384
 #, php-format
@@ -835,51 +835,51 @@ msgstr "Auth_ldap: Kan ikke opdatere bruger %s"
 #: framework/Auth/Auth/ldap.php:404 lib/Horde/Auth/ldap.php:404
 msgid "Auth_ldap: Updating users is not supported for Active Directory."
 msgstr ""
-"Auth_ldap: Opdatering af brugere er ikke understøttet ved Active Directory."
+"Auth_ldap: Opdatering af brugere er ikke understÃ¸ttet ved Active Directory."
 
 #: framework/Auth/Auth/mcal.php:62 lib/Horde/Auth/mcal.php:62
 msgid "Auth_mcal: Required MCAL extension not found."
-msgstr "Auth_mcal: Krævet MCAL-udviddelse ikke fundet."
+msgstr "Auth_mcal: KrÃ¦vet MCAL-udviddelse ikke fundet."
 
 #: framework/Auth/Auth/smb.php:86 lib/Horde/Auth/smb.php:86
 msgid "Auth_smbauth: Required smbauth extension not found."
-msgstr "Auth_smbauth: Krævet SMBAUTH-udviddelse ikke fundet."
+msgstr "Auth_smbauth: KrÃ¦vet SMBAUTH-udviddelse ikke fundet."
 
 #: framework/IMAP/IMAP/Admin.php:106 lib/Horde/IMAP/Admin.php:106
 msgid "Authentication at IMAP server failed."
-msgstr "Ægtning ved IMAP-server fejlede."
+msgstr "Ã†gtning ved IMAP-server fejlede."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:290
 #: lib/Net/SMS/clickatell_http.php:290
 msgid "Authentication failed"
-msgstr "Ægtning fejlede"
+msgstr "Ã†gtning fejlede"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:67
 #: framework/Net_SMS/SMS/clickatell_http.php:76
 #: lib/Net/SMS/clickatell_http.php:67 lib/Net/SMS/clickatell_http.php:76
 #, php-format
 msgid "Authentication failed. %s"
-msgstr "Ægtning fejlede. %s"
+msgstr "Ã†gtning fejlede. %s"
 
 #: framework/Auth/Auth/radius.php:182 lib/Horde/Auth/radius.php:182
 msgid "Authentication rejected by RADIUS server."
-msgstr "Ægtning afvist af RADIUS-server."
+msgstr "Ã†gtning afvist af RADIUS-server."
 
 #: framework/VFS/VFS/ftp.php:860 lib/VFS/ftp.php:860
 msgid "Authentication to FTP server failed."
-msgstr "Ægtning overfor FTP-server fejlede."
+msgstr "Ã†gtning overfor FTP-server fejlede."
 
 #: framework/VFS/VFS/ssh2.php:875 lib/VFS/ssh2.php:875
 msgid "Authentication to SSH2 server failed."
-msgstr "Ægtning overfor SSH2-server fejlede."
+msgstr "Ã†gtning overfor SSH2-server fejlede."
 
 #: framework/VFS/VFS/smb.php:70 lib/VFS/smb.php:70
 msgid "Authentication to the SMB server failed."
-msgstr "Ægtning overfor SMB-server fejlede."
+msgstr "Ã†gtning overfor SMB-server fejlede."
 
 #: templates/data/csvmap.inc:75
 msgid "Available fields:"
-msgstr "Felter til rådighed:"
+msgstr "Felter til rÃ¥dighed:"
 
 #: framework/NLS/NLS/GeoIP.php:59 framework/NLS/NLS/countries.php:25
 #: framework/NLS/NLS/tld.php:31 lib/Horde/NLS/countries.php:25
@@ -893,11 +893,11 @@ msgstr "BOFH-undskyldninger"
 
 #: framework/Auth/Auth/krb5.php:82 lib/Horde/Auth/krb5.php:82
 msgid "Bad kerberos password."
-msgstr "Dårligt kerberos-kodeord."
+msgstr "DÃ¥rligt kerberos-kodeord."
 
 #: framework/Auth/Auth/krb5.php:84 lib/Horde/Auth/krb5.php:84
 msgid "Bad kerberos username."
-msgstr "Dårligt kerberos-brugernavn."
+msgstr "DÃ¥rligt kerberos-brugernavn."
 
 #: framework/NLS/NLS/GeoIP.php:62 framework/NLS/NLS/countries.php:26
 #: framework/NLS/NLS/tld.php:45 lib/Horde/NLS/countries.php:26
@@ -971,7 +971,7 @@ msgstr "Bhutan"
 #: framework/MIME/MIME/Viewer/vcard.php:111
 #: lib/Horde/MIME/Viewer/vcard.php:111
 msgid "Birthday"
-msgstr "Fødselsdag"
+msgstr "FÃ¸dselsdag"
 
 #: framework/Block/Block/Collection.php:369 lib/Horde/Block/Collection.php:369
 #, php-format
@@ -994,7 +994,7 @@ msgstr "Bolivien"
 
 #: config/registry.php.dist:221
 msgid "Bookmarks"
-msgstr "Bogmærker"
+msgstr "BogmÃ¦rker"
 
 #: framework/NLS/NLS/GeoIP.php:60 framework/NLS/NLS/countries.php:37
 #: framework/NLS/NLS/tld.php:32 lib/Horde/NLS/countries.php:37
@@ -1016,7 +1016,7 @@ msgstr "Botsvana"
 #: framework/NLS/NLS/tld.php:47 lib/Horde/NLS/countries.php:39
 #: lib/Horde/NLS/tld.php:47 lib/Horde/NLS/GeoIP.php:63
 msgid "Bouvet Island"
-msgstr "Bouvetøen"
+msgstr "BouvetÃ¸en"
 
 #: framework/NLS/NLS/GeoIP.php:62 framework/NLS/NLS/countries.php:40
 #: framework/NLS/NLS/tld.php:44 lib/Horde/NLS/countries.php:40
@@ -1028,7 +1028,7 @@ msgstr "Brasilien"
 #: framework/NLS/NLS/tld.php:117 lib/Horde/NLS/countries.php:41
 #: lib/Horde/NLS/tld.php:117 lib/Horde/NLS/GeoIP.php:81
 msgid "British Indian Ocean Territory"
-msgstr "Britisk-Indien Oceanområde"
+msgstr "Britisk-Indien OceanomrÃ¥de"
 
 #: framework/NLS/NLS/GeoIP.php:62 framework/NLS/NLS/countries.php:42
 #: framework/NLS/NLS/tld.php:42 lib/Horde/NLS/countries.php:42
@@ -1068,7 +1068,7 @@ msgstr "CRL distributionssteder"
 
 #: lib/Block/weatherdotcom.php:156
 msgid "Cache init was not completed."
-msgstr "Initialisering af midlertidigt lager ikke færdiggjort."
+msgstr "Initialisering af midlertidigt lager ikke fÃ¦rdiggjort."
 
 #: framework/UI/UI/VarRenderer/html.php:489 framework/Kolab/Kolab.php:916
 #: lib/Horde/Kolab.php:916 lib/Horde/UI/VarRenderer/html.php:489
@@ -1103,7 +1103,7 @@ msgstr "Kan ikke skrive til fil \"%s\""
 
 #: admin/sessions.php:21
 msgid "Can't administer external session handlers."
-msgstr "Kan ikke håndtere eksterne sessionshåndtag."
+msgstr "Kan ikke hÃ¥ndtere eksterne sessionshÃ¥ndtag."
 
 #: framework/Auth/Auth/cyrsql.php:330 framework/Auth/Auth/cyrus.php:241
 #: lib/Horde/Auth/cyrsql.php:330 lib/Horde/Auth/cyrus.php:241
@@ -1114,7 +1114,7 @@ msgstr "Kan ikke forbinde til IMAP server. %s"
 #: framework/File_CSV/CSV.php:446 lib/File/CSV.php:446
 #, php-format
 msgid "Can't open file \"%s\"."
-msgstr "Kan ikke åbne fil \"%s\"."
+msgstr "Kan ikke Ã¥bne fil \"%s\"."
 
 #: framework/NLS/NLS/GeoIP.php:64 framework/NLS/NLS/countries.php:48
 #: framework/NLS/NLS/tld.php:51 lib/Horde/NLS/countries.php:48
@@ -1146,7 +1146,7 @@ msgstr "Kan ikke finde et midlertidigt katalog."
 
 #: framework/VFS_ISOWriter/ISOWriter.php:91 lib/VFS/ISOWriter.php:91
 msgid "Cannot proceed without 'targetFile' parameter."
-msgstr "Kan ikke fortsætte uden 'targetFile'-parametren."
+msgstr "Kan ikke fortsÃ¦tte uden 'targetFile'-parametren."
 
 #: framework/VFS/VFS/ftp.php:319 framework/VFS/VFS/ssh2.php:311
 #: lib/VFS/ftp.php:319 lib/VFS/ssh2.php:311
@@ -1158,7 +1158,7 @@ msgstr "Kan ikke fjerne katalog \"%s\"."
 #: lib/Horde/DataTree.php:128 lib/Horde/DataTree/sql.php:694
 #, php-format
 msgid "Cannot remove, %d children exist."
-msgstr "Kan ikke fjerne, %d børn eksisterer."
+msgstr "Kan ikke fjerne, %d bÃ¸rn eksisterer."
 
 #: framework/DataTree/DataTree/sql.php:622 lib/Horde/DataTree/sql.php:622
 msgid ""
@@ -1185,13 +1185,13 @@ msgstr "Udbyder"
 
 #: config/prefs.php.dist:93
 msgid "Categories and Labels"
-msgstr "Kategorier og Mærker"
+msgstr "Kategorier og MÃ¦rker"
 
 #: framework/NLS/NLS/GeoIP.php:86 framework/NLS/NLS/countries.php:50
 #: framework/NLS/NLS/tld.php:135 lib/Horde/NLS/countries.php:50
 #: lib/Horde/NLS/tld.php:135 lib/Horde/NLS/GeoIP.php:86
 msgid "Cayman Islands"
-msgstr "Caymanøerne"
+msgstr "CaymanÃ¸erne"
 
 #: framework/MIME/MIME/Viewer/vcard.php:194
 #: lib/Horde/MIME/Viewer/vcard.php:194
@@ -1214,7 +1214,7 @@ msgstr "Den centralafrikanske Republik"
 
 #: config/nls.php.dist:182
 msgid "Central European (ISO-8859-2)"
-msgstr "Central-europæisk (ISO-8859-2)"
+msgstr "Central-europÃ¦isk (ISO-8859-2)"
 
 #: framework/Crypt/Crypt/smime.php:700 lib/Horde/Crypt/smime.php:700
 msgid "Certificate Details"
@@ -1236,26 +1236,26 @@ msgstr "Tchad"
 
 #: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:96
 msgid "Change"
-msgstr "Ændre"
+msgstr "Ã†ndre"
 
 #: services/changepassword.php:31
 msgid "Change Your Password"
-msgstr "Ændre dit kodeord"
+msgstr "Ã†ndre dit kodeord"
 
 #: config/prefs.php.dist:69
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Her kan du ændre det navn og den adresse, som andre ser, når de læser og "
-"svarer på dine e-mail."
+"Her kan du Ã¦ndre det navn og den adresse, som andre ser, nÃ¥r de lÃ¦ser og "
+"svarer pÃ¥ dine e-mail."
 
 #: services/changepassword.php:24
 msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
 msgstr ""
-"Kodeordsændring er ikke understøttet af den nuværende opsætning.  Kontakt "
+"KodeordsÃ¦ndring er ikke understÃ¸ttet af den nuvÃ¦rende opsÃ¦tning.  Kontakt "
 "din administrator."
 
 #: framework/NLS/NLS/GeoIP.php:67 framework/NLS/NLS/countries.php:53
@@ -1280,25 +1280,25 @@ msgstr "Traditionelt kinesisk (Big5)"
 
 #: templates/prefs/app.inc:7
 msgid "Choose Application:"
-msgstr "Vælg applikation:"
+msgstr "VÃ¦lg applikation:"
 
 #: framework/Auth/Auth/Signup.php:271 lib/Horde/Auth/Signup.php:271
 msgid "Choose a password"
-msgstr "Vælg et kodeord"
+msgstr "VÃ¦lg et kodeord"
 
 #: framework/Auth/Auth/Signup.php:270 lib/Horde/Auth/Signup.php:270
 msgid "Choose a username"
-msgstr "Vælg et brugernavn"
+msgstr "VÃ¦lg et brugernavn"
 
 #: config/prefs.php.dist:302
 msgid "Choose how to display dates:"
-msgstr "Vælg hvordan datoer skal vises:"
+msgstr "VÃ¦lg hvordan datoer skal vises:"
 
 #: framework/NLS/NLS/GeoIP.php:68 framework/NLS/NLS/countries.php:55
 #: framework/NLS/NLS/tld.php:66 lib/Horde/NLS/countries.php:55
 #: lib/Horde/NLS/tld.php:66 lib/Horde/NLS/GeoIP.php:68
 msgid "Christmas Island"
-msgstr "Juleøen"
+msgstr "JuleÃ¸en"
 
 #: framework/VFS/VFS.php:979 framework/Net_SMS/SMS.php:294 lib/VFS.php:979
 #: lib/Net/SMS.php:294
@@ -1312,7 +1312,7 @@ msgstr "Klart"
 
 #: admin/sqlshell.php:127
 msgid "Clear Query"
-msgstr "Nulstil forespørgsel"
+msgstr "Nulstil forespÃ¸rgsel"
 
 #: templates/admin/user/clear.inc:5
 #, php-format
@@ -1333,7 +1333,7 @@ msgstr "Sen opklaring"
 
 #: templates/maintenance/maintenance.html:60
 msgid "Click to Continue"
-msgstr "Klik for at fortsætte"
+msgstr "Klik for at fortsÃ¦tte"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:184
 #: lib/Net/SMS/clickatell_http.php:184
@@ -1360,7 +1360,7 @@ msgstr "Skyet"
 #: framework/NLS/NLS/tld.php:52 lib/Horde/NLS/countries.php:56
 #: lib/Horde/NLS/tld.php:52 lib/Horde/NLS/GeoIP.php:64
 msgid "Cocos (Keeling) Islands"
-msgstr "Cocos (Keeling) Øerne"
+msgstr "Cocos (Keeling) Ã˜erne"
 
 #: templates/portal/sidebar.inc:24
 msgid "Collapse Sidebar"
@@ -1388,7 +1388,7 @@ msgstr "Farve"
 #: templates/prefs/categorymanagement.inc:81
 #: templates/prefs/categorymanagement.inc:82
 msgid "Color Picker"
-msgstr "Farvevælger"
+msgstr "FarvevÃ¦lger"
 
 #: framework/Form/Form.php:2833 lib/Horde/Form.php:2833
 msgid "Colour selection"
@@ -1451,20 +1451,20 @@ msgstr "Konfiguration til synkronisering med PDAer, Smartphones og Outlook."
 
 #: admin/setup/index.php:135
 msgid "Configuration is out of date."
-msgstr "Konfigurationen er forældet."
+msgstr "Konfigurationen er forÃ¦ldet."
 
 #: admin/setup/index.php:100
 #, php-format
 msgid "Configure %s"
-msgstr "Konfigurér %s"
+msgstr "KonfigurÃ©r %s"
 
 #: templates/admin/user/update.inc:52
 msgid "Confirm Password"
-msgstr "Bekræft kodeord"
+msgstr "BekrÃ¦ft kodeord"
 
 #: framework/Identity/Identity.php:407 lib/Horde/Identity.php:407
 msgid "Confirm new email address"
-msgstr "Brkræft ny e-post-adresse"
+msgstr "BrkrÃ¦ft ny e-post-adresse"
 
 #: framework/NLS/NLS/GeoIP.php:66 framework/NLS/NLS/countries.php:59
 #: framework/NLS/NLS/tld.php:55 lib/Horde/NLS/countries.php:59
@@ -1492,12 +1492,12 @@ msgstr "Forbindelse mislykkedes: "
 
 #: framework/Crypt/Crypt/pgp.php:790 lib/Horde/Crypt/pgp.php:790
 msgid "Connection refused to the public keyserver."
-msgstr "Forbindelse til offentlig nøgleserver nægtet."
+msgstr "Forbindelse til offentlig nÃ¸gleserver nÃ¦gtet."
 
 #: framework/Crypt/Crypt/pgp.php:792 lib/Horde/Crypt/pgp.php:792
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
-msgstr "Forbindelse til offentlig nøgleserver nægtet. Årsag: %s (%s)"
+msgstr "Forbindelse til offentlig nÃ¸gleserver nÃ¦gtet. Ã…rsag: %s (%s)"
 
 #: framework/VFS/VFS/ftp.php:854 lib/VFS/ftp.php:854
 msgid "Connection to FTP server failed."
@@ -1514,7 +1514,7 @@ msgstr "Kontakter"
 
 #: framework/MIME/MIME/Viewer/vcard.php:53 lib/Horde/MIME/Viewer/vcard.php:53
 msgid "Contacts were successfully added to your address book."
-msgstr "Kontakter blev tilføjet til dit adressekartoteket"
+msgstr "Kontakter blev tilfÃ¸jet til dit adressekartoteket"
 
 #: framework/MIME/MIME/Viewer/tgz.php:60 lib/Horde/MIME/Viewer/tgz.php:60
 msgid "Content type of compressed file: "
@@ -1529,7 +1529,7 @@ msgstr "Indhold af \"%s\""
 
 #: services/resetpassword.php:29 services/changepassword.php:33
 msgid "Continue"
-msgstr "Fortsæt"
+msgstr "FortsÃ¦t"
 
 #: framework/NLS/NLS/GeoIP.php:66 framework/NLS/NLS/countries.php:61
 #: framework/NLS/NLS/tld.php:58 lib/Horde/NLS/countries.php:61
@@ -1539,7 +1539,7 @@ msgstr "Cook Islands"
 
 #: lib/Block/fortune.php:37
 msgid "Cookie"
-msgstr "Småkage"
+msgstr "SmÃ¥kage"
 
 #: framework/VFS/VFS/smb.php:453 lib/VFS/smb.php:453
 #, php-format
@@ -1566,11 +1566,11 @@ msgstr "Elfenbenskysten"
 
 #: framework/Crypt/Crypt/pgp.php:977 lib/Horde/Crypt/pgp.php:977
 msgid "Could not PGP encrypt message: "
-msgstr "Kunne ikke PGP-kryptére besked: "
+msgstr "Kunne ikke PGP-kryptÃ©re besked: "
 
 #: framework/Crypt/Crypt/pgp.php:1055 lib/Horde/Crypt/pgp.php:1055
 msgid "Could not PGP sign message: "
-msgstr "Kunne ikke PGP-signére besked: "
+msgstr "Kunne ikke PGP-signÃ©re besked: "
 
 #: framework/Crypt/Crypt/smime.php:393 lib/Horde/Crypt/smime.php:393
 msgid "Could not S/MIME encrypt message."
@@ -1578,13 +1578,13 @@ msgstr "Kunne ikke S/MIME-kryptere besked."
 
 #: framework/Crypt/Crypt/smime.php:467 lib/Horde/Crypt/smime.php:467
 msgid "Could not S/MIME sign message."
-msgstr "Kunne ikke S/MIME-signére besked."
+msgstr "Kunne ikke S/MIME-signÃ©re besked."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:184
 #: lib/Net/SMS/sms2email_http.php:184
 #, php-format
 msgid "Could not add contact. %s"
-msgstr "Kunne ikke tilføje kontakt. %s"
+msgstr "Kunne ikke tilfÃ¸je kontakt. %s"
 
 #: framework/Group/Group/ldap.php:96 framework/Auth/Auth/ldap.php:121
 #: lib/Horde/Group/ldap.php:96 lib/Horde/Auth/ldap.php:121
@@ -1637,7 +1637,7 @@ msgstr "Kunne ikke slette distributionsliste. %s"
 #: admin/setup/scripts.php:38
 #, php-format
 msgid "Could not delete setup upgrade script \"%s\"."
-msgstr "Kunne ikke slette <em>script</em> \"%s\" til opgradering af opsætning."
+msgstr "Kunne ikke slette <em>script</em> \"%s\" til opgradering af opsÃ¦tning."
 
 #: framework/Crypt/Crypt/pgp.php:953 framework/Crypt/Crypt/smime.php:381
 #: lib/Horde/Crypt/smime.php:381 lib/Horde/Crypt/pgp.php:953
@@ -1657,7 +1657,7 @@ msgstr "Kunne ikke hente hele distributionsliste."
 #: framework/Net_SMS/SMS/sms2email_http.php:446
 #: lib/Net/SMS/sms2email_http.php:446
 msgid "Could not fetch the complete list of distribution lists."
-msgstr "Kunne ikke hente fuldstændig fortegnelse over distributionslister."
+msgstr "Kunne ikke hente fuldstÃ¦ndig fortegnelse over distributionslister."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy.php:84
 #: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy.php:68
@@ -1677,13 +1677,13 @@ msgstr "Kunne ikke mkdir \"%s\"."
 
 #: framework/Crypt/Crypt/pgp.php:719 lib/Horde/Crypt/pgp.php:719
 msgid "Could not obtain public key from the keyserver."
-msgstr "Kunne ikke hente offentlig nøgle fra nøgleserver."
+msgstr "Kunne ikke hente offentlig nÃ¸gle fra nÃ¸gleserver."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:139
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
 msgid "Could not open \"%s\" for writing."
-msgstr "Kunne ikke åbne \"%s\" for skrivning."
+msgstr "Kunne ikke Ã¥bne \"%s\" for skrivning."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:345
 #: framework/Net_SMS/SMS/sms2email_http.php:677
@@ -1691,18 +1691,18 @@ msgstr "Kunne ikke åbne \"%s\" for skrivning."
 #: lib/Net/SMS/win_http.php:262 lib/Net/SMS/clickatell_http.php:345
 #, php-format
 msgid "Could not open %s."
-msgstr "Kunne ikke åbne %s."
+msgstr "Kunne ikke Ã¥bne %s."
 
 #: framework/Maintenance/Maintenance.php:420 lib/Horde/Maintenance.php:420
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Kunne ikke åbne modul til vedligeholdelse %s"
+msgstr "Kunne ikke Ã¥bne modul til vedligeholdelse %s"
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:70
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
 msgid "Could not open directory \"%s\"."
-msgstr "Kunne ikke åbne katalog \"%s\"."
+msgstr "Kunne ikke Ã¥bne katalog \"%s\"."
 
 #: framework/Group/Group/ldap.php:111 framework/Group/Group/ldap.php:144
 #: framework/Group/Group/ldap.php:237 framework/Group/Group/ldap.php:478
@@ -1713,12 +1713,12 @@ msgstr "Kunne ikke åbne katalog \"%s\"."
 #: lib/Horde/Group/ldap.php:516 lib/Horde/Group/ldap.php:612
 #: lib/Horde/Group/ldap.php:656 lib/Horde/Group/ldap.php:699
 msgid "Could not reach the LDAP server."
-msgstr "Kunne ikke nå LDAP-serveren."
+msgstr "Kunne ikke nÃ¥ LDAP-serveren."
 
 #: framework/VFS/VFS/Object.php:240 lib/VFS/Object.php:240
 #, php-format
 msgid "Could not read %s."
-msgstr "Kunne ikke læse %s."
+msgstr "Kunne ikke lÃ¦se %s."
 
 #: services/resetpassword.php:85
 msgid ""
@@ -1727,8 +1727,8 @@ msgid ""
 "further help."
 msgstr ""
 "Kunne ikke nulstille kodeordet for den anmodede bruger.  Nogle eller alle "
-"detaljer er ukorrekte. Prøv igen eller kontakt din administrator, hvis du "
-"har behov for yderligere hjælp."
+"detaljer er ukorrekte. PrÃ¸v igen eller kontakt din administrator, hvis du "
+"har behov for yderligere hjÃ¦lp."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:307
 #: framework/IMAP/IMAP/ACL/rfc2086.php:338
@@ -1792,7 +1792,7 @@ msgstr "Kunne ikke gemme en backup-konfiguration: %s"
 #: admin/setup/scripts.php:101
 #, php-format
 msgid "Could not save setup upgrade script to: \"%s\"."
-msgstr "Kunne ikke gemme script til opgradering af opsætning til: \"%s\"."
+msgstr "Kunne ikke gemme script til opgradering af opsÃ¦tning til: \"%s\"."
 
 #: admin/setup/config.php:64
 #, php-format
@@ -1806,12 +1806,12 @@ msgid ""
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
 "Kunne ikke gemme konfigurationsfilen %s. Du kan enten anvende en af "
-"mulighederne for at gemme koden tilbage på %s eller manuelt kopiere koden "
+"mulighederne for at gemme koden tilbage pÃ¥ %s eller manuelt kopiere koden "
 "nedenfor til %s."
 
 #: framework/Auth/Auth/ldap.php:143 lib/Horde/Auth/ldap.php:143
 msgid "Could not search the LDAP server."
-msgstr "Kunne ikke søge LDAP-serveren."
+msgstr "Kunne ikke sÃ¸ge LDAP-serveren."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:86
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:86
@@ -1838,14 +1838,14 @@ msgstr "Kunne ikke skrive konfiguration for \"%s\": %s"
 
 #: config/prefs.php.dist:370
 msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
-msgstr "Kunne ikke finde Mozilla Sidebar. Forvis dig om at sidebaren er åben."
+msgstr "Kunne ikke finde Mozilla Sidebar. Forvis dig om at sidebaren er Ã¥ben."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:154 lib/Horde/IMAP/ACL/rfc2086.php:154
 #, php-format
 msgid ""
 "Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"
 msgstr ""
-"Kunne ikke give bruger \"%s\" følgende rettigheder til mappen \"%s\": %s"
+"Kunne ikke give bruger \"%s\" fÃ¸lgende rettigheder til mappen \"%s\": %s"
 
 #: framework/Form/Form.php:1424 lib/Horde/Form.php:1424
 msgid "Counted text"
@@ -1896,11 +1896,11 @@ msgstr "Cuba"
 
 #: lib/Block/moon.php:26
 msgid "Current 4 Phases"
-msgstr "Nuværende 4 faser"
+msgstr "NuvÃ¦rende 4 faser"
 
 #: admin/sessions.php:48
 msgid "Current Sessions"
-msgstr "Indeværende session"
+msgstr "IndevÃ¦rende session"
 
 #: lib/Block/time.php:3 lib/Block/time.php:35
 msgid "Current Time"
@@ -1908,7 +1908,7 @@ msgstr "Aktuel tid"
 
 #: admin/sessions.php:33
 msgid "Current Users"
-msgstr "Nuværende brugere"
+msgstr "NuvÃ¦rende brugere"
 
 #: lib/Block/metar.php:30
 msgid "Current Weather"
@@ -1916,12 +1916,12 @@ msgstr "Aktuelt vejr"
 
 #: lib/Block/weatherdotcom.php:269
 msgid "Current condition: "
-msgstr "Nuværende vejr: "
+msgstr "NuvÃ¦rende vejr: "
 
 #: config/prefs.php.dist:111
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Tilpas opgaver, der bliver udført, når du logger ind i %s."
+msgstr "Tilpas opgaver, der bliver udfÃ¸rt, nÃ¥r du logger ind i %s."
 
 #: framework/NLS/NLS/GeoIP.php:68 framework/NLS/NLS/countries.php:66
 #: framework/NLS/NLS/tld.php:67 lib/Horde/NLS/countries.php:66
@@ -2103,7 +2103,7 @@ msgstr "Beskrivelse"
 
 #: framework/Horde/Horde.php:206 lib/Horde.php:206
 msgid "Details (also in Horde's logfile):"
-msgstr "Detaljer (også i Horde's logfil):"
+msgstr "Detaljer (ogsÃ¥ i Horde's logfil):"
 
 #: framework/Horde/Horde.php:210 lib/Horde.php:210
 msgid "Details have been logged for the administrator."
@@ -2165,11 +2165,11 @@ msgstr "Fortryd sletning"
 
 #: services/maintenance.php:25
 msgid "Do not directly access maintenance.php"
-msgstr "Du må ikke kalde maintenance.php direkte"
+msgstr "Du mÃ¥ ikke kalde maintenance.php direkte"
 
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Indeholder den første række feltnavne? Hvis ja, markér denne boks:"
+msgstr "Indeholder den fÃ¸rste rÃ¦kke feltnavne? Hvis ja, markÃ©r denne boks:"
 
 #: framework/NLS/NLS/GeoIP.php:69 framework/NLS/NLS/countries.php:70
 #: framework/NLS/NLS/tld.php:72 lib/Horde/NLS/countries.php:70
@@ -2215,7 +2215,7 @@ msgstr "E-mail"
 #: framework/Net_SMS/SMS/generic_smtp.php:92 lib/Net/SMS/generic_smtp.php:92
 msgid "EMail-to-SMS gateway driver, for carriers which provide this service."
 msgstr ""
-"EMail-til-SMS gateway-driver, for operatører, som udbyder denne service."
+"EMail-til-SMS gateway-driver, for operatÃ¸rer, som udbyder denne service."
 
 #: framework/Notification/Notification/Listener/mobile.php:34
 #: lib/Horde/Notification/Listener/mobile.php:34
@@ -2238,39 +2238,39 @@ msgstr "Rediger"
 
 #: framework/Block/Block/UI.php:50 lib/Horde/Block/UI.php:50
 msgid "Edit Block"
-msgstr "Ændre blok"
+msgstr "Ã†ndre blok"
 
 #: admin/groups.php:196 admin/groups.php:224
 msgid "Edit Group"
-msgstr "Ændre gruppe"
+msgstr "Ã†ndre gruppe"
 
 #: framework/Perms/Perms/UI.php:76 framework/Perms/Perms/UI.php:100
 #: lib/Horde/Perms/UI.php:76 lib/Horde/Perms/UI.php:100
 msgid "Edit Permission"
-msgstr "Ændre tilladelse"
+msgstr "Ã†ndre tilladelse"
 
 #: services/shares/edit.php:242
 msgid "Edit Permissions"
-msgstr "Ændre tilladelser"
+msgstr "Ã†ndre tilladelser"
 
 #: services/shares/edit.php:244
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Ændre tilladelser for %s"
+msgstr "Ã†ndre tilladelser for %s"
 
 #: templates/prefs/app.inc:5
 msgid "Edit options for:"
-msgstr "Ændre valg for:"
+msgstr "Ã†ndre valg for:"
 
 #: framework/Perms/Perms/UI.php:367 lib/Horde/Perms/UI.php:367
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Ændre tilladelser for \"%s\""
+msgstr "Ã†ndre tilladelser for \"%s\""
 
 #: templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "Ændre tilladelser for %s"
+msgstr "Ã†ndre tilladelser for %s"
 
 #: lib/Block/fortune.php:40
 msgid "Education"
@@ -2280,7 +2280,7 @@ msgstr "Uddannelse"
 #: framework/NLS/NLS/tld.php:77 lib/Horde/NLS/countries.php:73
 #: lib/Horde/NLS/tld.php:77 lib/Horde/NLS/GeoIP.php:70
 msgid "Egypt"
-msgstr "Ægypten"
+msgstr "Ã†gypten"
 
 #: framework/NLS/NLS/GeoIP.php:107 framework/NLS/NLS/countries.php:74
 #: framework/NLS/NLS/tld.php:217 lib/Horde/NLS/countries.php:74
@@ -2304,11 +2304,11 @@ msgstr "E-mail-adresser skal passe."
 
 #: framework/Identity/Identity.php:450 lib/Horde/Identity.php:450
 msgid "Email addresses to confirm not found."
-msgstr "De e-post-adresser, som skal bekræftes, er fundet."
+msgstr "De e-post-adresser, som skal bekrÃ¦ftes, er fundet."
 
 #: framework/Form/Form.php:1994 lib/Horde/Form.php:1994
 msgid "Email with confirmation"
-msgstr "E-mail med bekræftelse"
+msgstr "E-mail med bekrÃ¦ftelse"
 
 #: framework/Net_SMS/SMS/generic_smtp.php:91 lib/Net/SMS/generic_smtp.php:91
 msgid "Email-to-SMS Gateway"
@@ -2338,24 +2338,24 @@ msgstr "Tomt udtryk"
 
 #: config/prefs.php.dist:545
 msgid "Enable insertion of images from Photo Galleries in text?"
-msgstr "Aktivér indsættelse af billeder fra Fotogallerier i tekst?"
+msgstr "AktivÃ©r indsÃ¦ttelse af billeder fra Fotogallerier i tekst?"
 
 #: config/prefs.php.dist:512
 msgid "Enable right click context menu?"
-msgstr "Aktivér højre-klik context-menu?"
+msgstr "AktivÃ©r hÃ¸jre-klik context-menu?"
 
 #: framework/Form/Form.php:2593 framework/Form/Form.php:2798
 #: lib/Horde/Form.php:2593 lib/Horde/Form.php:2798
 msgid "End year"
-msgstr "Slut-år"
+msgstr "Slut-Ã¥r"
 
 #: config/prefs.php.dist:224
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
-"Indtast et sikkerhedsspørgsmål, som du vil blive spurgt, når du har brug for "
-"at ændre dit kodeord, fx 'hvad er dit kæledyrs navn?':"
+"Indtast et sikkerhedsspÃ¸rgsmÃ¥l, som du vil blive spurgt, nÃ¥r du har brug for "
+"at Ã¦ndre dit kodeord, fx 'hvad er dit kÃ¦ledyrs navn?':"
 
 #: framework/UI/UI/VarRenderer/html.php:896
 #: lib/Horde/UI/VarRenderer/html.php:896
@@ -2366,13 +2366,13 @@ msgstr "Indtast bogstaver nedenfor:"
 #: framework/NLS/NLS/tld.php:99 lib/Horde/NLS/countries.php:75
 #: lib/Horde/NLS/tld.php:99 lib/Horde/NLS/GeoIP.php:76
 msgid "Equatorial Guinea"
-msgstr "Ækvatorial Guinea"
+msgstr "Ã†kvatorial Guinea"
 
 #: framework/NLS/NLS/GeoIP.php:71 framework/NLS/NLS/countries.php:76
 #: framework/NLS/NLS/tld.php:79 lib/Horde/NLS/countries.php:76
 #: lib/Horde/NLS/tld.php:79 lib/Horde/NLS/GeoIP.php:71
 msgid "Eritrea"
-msgstr "Æritrea"
+msgstr "Ã†ritrea"
 
 #: framework/Notification/Notification/Listener/status.php:27
 #: framework/Block/Block/Layout/View.php:94
@@ -2390,7 +2390,7 @@ msgstr "Fejl ved dannelse af blok: %s"
 #: services/portal/syncml.php:72
 #, php-format
 msgid "Error deleting sync anchor: %s"
-msgstr "Fejl under sletning af sync-hægte: %s"
+msgstr "Fejl under sletning af sync-hÃ¦gte: %s"
 
 #: services/portal/syncml.php:83
 #, php-format
@@ -2428,7 +2428,7 @@ msgstr "Estland"
 #: framework/NLS/NLS/tld.php:81 lib/Horde/NLS/countries.php:78
 #: lib/Horde/NLS/tld.php:81 lib/Horde/NLS/GeoIP.php:71
 msgid "Ethiopia"
-msgstr "Ætiopien"
+msgstr "Ã†tiopien"
 
 #: lib/Block/fortune.php:41
 msgid "Ethnic"
@@ -2475,11 +2475,11 @@ msgstr "Hver minut"
 
 #: templates/data/datemap.inc:24
 msgid "Example values:"
-msgstr "Eksempelværdier:"
+msgstr "EksempelvÃ¦rdier:"
 
 #: admin/cmdshell.php:49 admin/phpshell.php:80 admin/sqlshell.php:126
 msgid "Execute"
-msgstr "Udfør"
+msgstr "UdfÃ¸r"
 
 #: framework/Block/Block/Layout/Manager.php:614 lib/Horde/Block/Layout.php:475
 #: lib/Horde/Block/Layout/Manager.php:614
@@ -2496,11 +2496,11 @@ msgstr "Forventede ')'"
 
 #: framework/SQL/SQL/Keywords.php:175 lib/Horde/SQL/Keywords.php:175
 msgid "Expected bare word or quoted search term"
-msgstr "Forventede rent ord eller citeret søgeterm"
+msgstr "Forventede rent ord eller citeret sÃ¸geterm"
 
 #: framework/Crypt/Crypt/pgp.php:412 lib/Horde/Crypt/pgp.php:412
 msgid "Expiration Date"
-msgstr "Forældelsesdato"
+msgstr "ForÃ¦ldelsesdato"
 
 #: framework/Crypt/Crypt/smime.php:677 lib/Horde/Crypt/smime.php:677
 msgid "Exponent"
@@ -2508,16 +2508,16 @@ msgstr "Eksponent"
 
 #: admin/setup/index.php:177
 msgid "FTP upload of setup"
-msgstr "FTP-lagring af opsætning"
+msgstr "FTP-lagring af opsÃ¦tning"
 
 #: framework/Prefs/Prefs/sql.php:246 lib/Horde/Prefs/sql.php:246
 msgid "Failed retrieving preferences."
-msgstr "Kunne ikke ændre indstillingerne."
+msgstr "Kunne ikke Ã¦ndre indstillingerne."
 
 #: framework/Group/Group/ldap.php:75 framework/Auth/Auth/ldap.php:98
 #: lib/Horde/Group/ldap.php:75 lib/Horde/Auth/ldap.php:98
 msgid "Failed to connect to LDAP server."
-msgstr "Kunne ikke få forbindelse til LDAP serveren."
+msgstr "Kunne ikke fÃ¥ forbindelse til LDAP serveren."
 
 #: framework/Auth/Auth/smb.php:101 lib/Horde/Auth/smb.php:101
 msgid "Failed to connect to SMB server."
@@ -2559,17 +2559,17 @@ msgstr "Smukt"
 #: framework/NLS/NLS/tld.php:84 lib/Horde/NLS/countries.php:79
 #: lib/Horde/NLS/tld.php:84 lib/Horde/NLS/GeoIP.php:72
 msgid "Falkland Islands (Malvinas)"
-msgstr "Falklandsøerne (Malvinas)"
+msgstr "FalklandsÃ¸erne (Malvinas)"
 
 #: framework/NLS/NLS/GeoIP.php:73 framework/NLS/NLS/countries.php:80
 #: framework/NLS/NLS/tld.php:86 lib/Horde/NLS/countries.php:80
 #: lib/Horde/NLS/tld.php:86 lib/Horde/NLS/GeoIP.php:73
 msgid "Faroe Islands"
-msgstr "Færøerne"
+msgstr "FÃ¦rÃ¸erne"
 
 #: framework/CLI/CLI.php:238 lib/Horde/CLI.php:238
 msgid "Fatal Error:"
-msgstr "Dødelig fejl:"
+msgstr "DÃ¸delig fejl:"
 
 #: framework/MIME/MIME/Viewer/vcard.php:187
 #: lib/Horde/MIME/Viewer/vcard.php:187
@@ -2589,19 +2589,19 @@ msgstr "Februar"
 
 #: lib/Block/metar.php:232
 msgid "Feels Like"
-msgstr "Føles"
+msgstr "FÃ¸les"
 
 #: lib/Block/weatherdotcom.php:225
 msgid "Feels like: "
-msgstr "Føles: "
+msgstr "FÃ¸les: "
 
 #: lib/Block/weatherdotcom_strings.php:19
 msgid "Few Showers"
-msgstr "Få byger"
+msgstr "FÃ¥ byger"
 
 #: lib/Block/weatherdotcom_strings.php:20
 msgid "Few Snow Showers"
-msgstr "Få snebyger"
+msgstr "FÃ¥ snebyger"
 
 #: framework/Form/Form.php:1949 lib/Horde/Form.php:1949
 msgid "Field matrix"
@@ -2641,7 +2641,7 @@ msgstr "Antal filer: %s filer"
 
 #: config/registry.php.dist:430
 msgid "File Manager"
-msgstr "Filhåndtering"
+msgstr "FilhÃ¥ndtering"
 
 #: framework/MIME/MIME/Viewer/rar.php:63 framework/MIME/MIME/Viewer/tgz.php:82
 #: framework/MIME/MIME/Viewer/zip.php:70 lib/Horde/MIME/Viewer/rar.php:63
@@ -2659,7 +2659,7 @@ msgstr "Fillagring"
 
 #: framework/Browser/Browser.php:909 lib/Horde/Browser.php:909
 msgid "File uploads not supported."
-msgstr "Fillagring ikke understøttet."
+msgstr "Fillagring ikke understÃ¸ttet."
 
 #: config/registry.php.dist:98
 msgid "Filters"
@@ -2673,16 +2673,16 @@ msgstr "Finland"
 
 #: lib/Block/moon.php:166
 msgid "First Half"
-msgstr "Første halvdel"
+msgstr "FÃ¸rste halvdel"
 
 #: lib/Block/moon.php:74 lib/Block/moon.php:76
 msgid "First Quarter"
-msgstr "Første kvartal"
+msgstr "FÃ¸rste kvartal"
 
 #: framework/UI/UI/VarRenderer/html.php:257
 #: lib/Horde/UI/VarRenderer/html.php:257
 msgid "Fix ratio"
-msgstr "Fiksér størrelsesforhold"
+msgstr "FiksÃ©r stÃ¸rrelsesforhold"
 
 #: framework/UI/UI/VarRenderer/html.php:232
 #: lib/Horde/UI/VarRenderer/html.php:232
@@ -2691,7 +2691,7 @@ msgstr "Flip"
 
 #: lib/Block/weatherdotcom_strings.php:21
 msgid "Fog"
-msgstr "Tåge"
+msgstr "TÃ¥ge"
 
 #: framework/VFS/VFS/musql.php:107 framework/VFS/VFS/sql.php:260
 #: lib/VFS/musql.php:107 lib/VFS/sql.php:260
@@ -2712,7 +2712,7 @@ msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
-"Udsigtsdage (bemærk at den returnere vejrudsigt vedrører både dag og nat; et "
+"Udsigtsdage (bemÃ¦rk at den returnere vejrudsigt vedrÃ¸rer bÃ¥de dag og nat; et "
 "stort antal her kan resultere i en meget bred blok)"
 
 #: templates/login/login.inc:94
@@ -2795,7 +2795,7 @@ msgstr "Fuld beskrivelse"
 
 #: lib/Block/moon.php:81 lib/Block/moon.php:176
 msgid "Full Moon"
-msgstr "Fuldmåne"
+msgstr "FuldmÃ¥ne"
 
 #: lib/Block/account.php:65 templates/admin/user/update.inc:61
 msgid "Full Name"
@@ -2816,7 +2816,7 @@ msgstr "Gambia"
 #: admin/setup/config.php:42
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Generér %s-konfiguration"
+msgstr "GenerÃ©r %s-konfiguration"
 
 #: templates/admin/setup/config.html:6
 msgid "Generated Code"
@@ -2853,15 +2853,15 @@ msgstr "Fornavn"
 #: services/portal/sidebar.php:175 templates/prefs/app.inc:10
 #: templates/prefs/app.inc:19
 msgid "Global Options"
-msgstr "Grundlæggende indstillinger"
+msgstr "GrundlÃ¦ggende indstillinger"
 
 #: templates/prefs/app.inc:17
 msgid "Go"
-msgstr "Udfør"
+msgstr "UdfÃ¸r"
 
 #: lib/Block/fortune.php:45
 msgid "Goedel"
-msgstr "Gödel"
+msgstr "GÃ¶del"
 
 #: framework/UI/UI/VarRenderer/html.php:1135
 #: lib/Horde/UI/VarRenderer/html.php:1135
@@ -2870,28 +2870,28 @@ msgstr "Google Maps"
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 msgid "Google Search"
-msgstr "Google-søgning"
+msgstr "Google-sÃ¸gning"
 
 #: framework/UI/UI/VarRenderer/html.php:238
 #: lib/Horde/UI/VarRenderer/html.php:238
 msgid "Grayscale"
-msgstr "Gråtoner"
+msgstr "GrÃ¥toner"
 
 #: framework/NLS/NLS/GeoIP.php:76 framework/NLS/NLS/countries.php:93
 #: framework/NLS/NLS/tld.php:100 lib/Horde/NLS/countries.php:93
 #: lib/Horde/NLS/tld.php:100 lib/Horde/NLS/GeoIP.php:76
 msgid "Greece"
-msgstr "Grækenland"
+msgstr "GrÃ¦kenland"
 
 #: config/nls.php.dist:188
 msgid "Greek (ISO-8859-7)"
-msgstr "Græsk (ISO-8859-7)"
+msgstr "GrÃ¦sk (ISO-8859-7)"
 
 #: framework/NLS/NLS/GeoIP.php:75 framework/NLS/NLS/countries.php:94
 #: framework/NLS/NLS/tld.php:95 lib/Horde/NLS/countries.php:94
 #: lib/Horde/NLS/tld.php:95 lib/Horde/NLS/GeoIP.php:75
 msgid "Greenland"
-msgstr "Grønland"
+msgstr "GrÃ¸nland"
 
 #: framework/NLS/NLS/GeoIP.php:74 framework/NLS/NLS/countries.php:95
 #: framework/NLS/NLS/tld.php:89 lib/Horde/NLS/countries.php:95
@@ -2906,12 +2906,12 @@ msgstr "Gruppe-administration"
 #: framework/Group/Group.php:59 framework/Group/Group/ldap.php:169
 #: lib/Horde/Group.php:59 lib/Horde/Group/ldap.php:169
 msgid "Group names must be non-empty"
-msgstr "Gruppenavne må ikke være tomme"
+msgstr "Gruppenavne mÃ¥ ikke vÃ¦re tomme"
 
 #: framework/Group/Group/ldap.php:307 lib/Horde/Group/ldap.php:307
 #, php-format
 msgid "Group_ldap: Unable to add group %s. This is what the server said: "
-msgstr "Group_ldap: Kan ikke tilføje gruppe %s. Serveren melder: "
+msgstr "Group_ldap: Kan ikke tilfÃ¸je gruppe %s. Serveren melder: "
 
 #: framework/Group/Group/ldap.php:118 framework/Group/Group/ldap.php:124
 #: framework/Group/Group/ldap.php:418 lib/Horde/Group/ldap.php:118
@@ -2956,11 +2956,11 @@ msgstr "Guernsey"
 #: framework/Perms/Perms/UI.php:226 lib/Horde/Perms/UI.php:226
 #: templates/shares/edit.inc:88
 msgid "Guest Permissions"
-msgstr "Gæstetilladelser"
+msgstr "GÃ¦stetilladelser"
 
 #: config/registry.php.dist:493
 msgid "Guestbook"
-msgstr "Gæstebog"
+msgstr "GÃ¦stebog"
 
 #: framework/NLS/NLS/GeoIP.php:75 framework/NLS/NLS/countries.php:99
 #: framework/NLS/NLS/tld.php:97 lib/Horde/NLS/countries.php:99
@@ -2986,13 +2986,13 @@ msgstr "HTML"
 
 #: framework/Auth/Auth/http.php:154 lib/Horde/Auth/http.php:154
 msgid "HTTP Authentication not found."
-msgstr "HTTP-ægtning ikke fundet."
+msgstr "HTTP-Ã¦gtning ikke fundet."
 
 #: framework/NLS/NLS/GeoIP.php:80 framework/NLS/NLS/countries.php:102
 #: framework/NLS/NLS/tld.php:110 lib/Horde/NLS/countries.php:102
 #: lib/Horde/NLS/tld.php:110 lib/Horde/NLS/GeoIP.php:80
 msgid "Haiti"
-msgstr "Haïti"
+msgstr "HaÃ¯ti"
 
 #: framework/Crypt/Crypt/pgp.php:413 lib/Horde/Crypt/pgp.php:413
 msgid "Hash-Algorithm"
@@ -3001,7 +3001,7 @@ msgstr "Hash-algoritme"
 #: config/prefs.php.dist:536
 msgid ""
 "Have a button in the toolbar that pops up a window with special characters?"
-msgstr "Vis en knap i værktøjslinien, som åbner et vindue med special-tegn?"
+msgstr "Vis en knap i vÃ¦rktÃ¸jslinien, som Ã¥bner et vindue med special-tegn?"
 
 #: lib/Block/weatherdotcom_strings.php:22
 msgid "Haze"
@@ -3033,21 +3033,21 @@ msgstr "Hebraisk (ISO-8859-8-I)"
 
 #: lib/Block/iframe.php:22
 msgid "Height"
-msgstr "Højde"
+msgstr "HÃ¸jde"
 
 #: framework/Horde/Horde/Help.php:181 framework/Horde/Horde/Help.php:182
 #: lib/Horde/Help.php:181 lib/Horde/Help.php:182 services/help/index.php:17
 #: templates/help/index.inc:4
 msgid "Help"
-msgstr "Hjælp"
+msgstr "HjÃ¦lp"
 
 #: framework/Form/Form.php:1376 lib/Horde/Form.php:1376
 msgid "Helper"
-msgstr "Hjælper"
+msgstr "HjÃ¦lper"
 
 #: lib/Block/moon.php:29
 msgid "Hemisphere"
-msgstr "Hemisfære"
+msgstr "HemisfÃ¦re"
 
 #: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
 msgid "Here is the beginning of the file:"
@@ -3055,7 +3055,7 @@ msgstr "Her er starten af filen:"
 
 #: lib/Block/weatherdotcom_strings.php:71
 msgid "High"
-msgstr "Høj"
+msgstr "HÃ¸j"
 
 #: templates/menu/menu.inc:7
 msgid "Ho_me"
@@ -3065,7 +3065,7 @@ msgstr "Hjem"
 #: framework/NLS/NLS/tld.php:243 lib/Horde/NLS/countries.php:104
 #: lib/Horde/NLS/tld.php:243 lib/Horde/NLS/GeoIP.php:114
 msgid "Holy See (Vatican City State)"
-msgstr "Helligsø (Vatikanstaten)"
+msgstr "HelligsÃ¸ (Vatikanstaten)"
 
 #: framework/Horde/Horde.php:1557 lib/Horde.php:1557
 msgid "Home"
@@ -3105,7 +3105,7 @@ msgstr "Horde"
 #: framework/Kolab/Kolab.php:452 lib/Horde/Kolab.php:452
 #, php-format
 msgid "Horde/Kolab: Invalid %s XML data encountered in message %s"
-msgstr "Horde/Kolab: Ugyldig %s XML data påtruffet i besked %s"
+msgstr "Horde/Kolab: Ugyldig %s XML data pÃ¥truffet i besked %s"
 
 #: framework/Kolab/Kolab.php:299 lib/Horde/Kolab.php:299
 #, php-format
@@ -3124,12 +3124,12 @@ msgstr "Horde/Kolab: Slettede %s \"%s\""
 
 #: framework/Kolab/Kolab.php:223 lib/Horde/Kolab.php:223
 msgid "Horde/Kolab: The integration engine requires the 'domxml' PHP extension"
-msgstr "Horde/Kolab: Integrationsmaskinen kræver PHP-udviddelse 'domxml'"
+msgstr "Horde/Kolab: Integrationsmaskinen krÃ¦ver PHP-udviddelse 'domxml'"
 
 #: framework/Kolab/Kolab.php:512 lib/Horde/Kolab.php:512
 #, php-format
 msgid "Horde/Kolab: Unable to create new XML tree for object %s"
-msgstr "Horde/Kolab: Kan ikke danne nyt XML-træ for objekt %s"
+msgstr "Horde/Kolab: Kan ikke danne nyt XML-trÃ¦ for objekt %s"
 
 #: framework/Kolab/Kolab.php:1248 lib/Horde/Kolab.php:1248
 #, php-format
@@ -3202,7 +3202,7 @@ msgstr "IP-adresse"
 
 #: framework/Auth/Auth/ipbasic.php:77 lib/Horde/Auth/ipbasic.php:77
 msgid "IP Address not available."
-msgstr "IP-adresse ikke tilgængelige."
+msgstr "IP-adresse ikke tilgÃ¦ngelige."
 
 #: framework/Auth/Auth/ipbasic.php:89 lib/Horde/Auth/ipbasic.php:89
 msgid "IP Address not within allowed CIDR block."
@@ -3239,7 +3239,7 @@ msgstr "Identitetsnavn:"
 #: framework/MIME/MIME/Contents.php:599 lib/Horde/MIME/Contents.php:599
 #, php-format
 msgid "If it is not displayed correctly, %s to open it in a new window."
-msgstr "Hvis den ikke vist korrekt, %s for at åbne den i et nyt vindue."
+msgstr "Hvis den ikke vist korrekt, %s for at Ã¥bne den i et nyt vindue."
 
 #: framework/UI/UI/VarRenderer/html.php:172
 #: lib/Horde/UI/VarRenderer/html.php:172
@@ -3247,12 +3247,12 @@ msgid ""
 "If you see this message but no image, the image you want to upload can't be "
 "displayed by your browser."
 msgstr ""
-"Hvis du ser denne besked i stedet for et billede, så vil du ikke kunne se "
-"det i din net-læser efter oplægning."
+"Hvis du ser denne besked i stedet for et billede, sÃ¥ vil du ikke kunne se "
+"det i din net-lÃ¦ser efter oplÃ¦gning."
 
 #: framework/Form/Form.php:1766 lib/Horde/Form.php:1766
 msgid "Image upload"
-msgstr "Billed-oplægning"
+msgstr "Billed-oplÃ¦gning"
 
 #: lib/Block/google.php:37
 msgid "Images"
@@ -3287,8 +3287,8 @@ msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
 msgstr ""
-"Ukorrekt brugernavn eller alternativ adresse. Prøv igen eller kontakt din "
-"administrator, hvis du har brug for yderligere hjælp."
+"Ukorrekt brugernavn eller alternativ adresse. PrÃ¸v igen eller kontakt din "
+"administrator, hvis du har brug for yderligere hjÃ¦lp."
 
 #: framework/NLS/NLS/GeoIP.php:81 framework/NLS/NLS/countries.php:109
 #: framework/NLS/NLS/tld.php:116 lib/Horde/NLS/countries.php:109
@@ -3313,11 +3313,11 @@ msgstr "Information"
 
 #: lib/Block/weatherdotcom.php:322
 msgid "Information no longer available."
-msgstr "Information ikke længere tilgængelig"
+msgstr "Information ikke lÃ¦ngere tilgÃ¦ngelig"
 
 #: admin/templates.php:149
 msgid "Insert alternate template"
-msgstr "Indsæt alternativ skabelon"
+msgstr "IndsÃ¦t alternativ skabelon"
 
 #: config/prefs.php.dist:242
 msgid "Insert an email address to which you can receive the new password:"
@@ -3327,21 +3327,21 @@ msgstr "Indtast en e-mail-adresse, hvortil du kan modtage det nye kodeord:"
 #: framework/IMAP/IMAP/ACL/rfc4314.php:50 lib/Horde/IMAP/ACL/rfc4314.php:50
 #: lib/Horde/IMAP/ACL/rfc2086.php:90
 msgid "Insert messages"
-msgstr "Indsæt beskeder"
+msgstr "IndsÃ¦t beskeder"
 
 #: config/prefs.php.dist:233
 msgid "Insert the required answer to the security question:"
-msgstr "Indtast det krævede svar til sikkerhedsspørgsmålet:"
+msgstr "Indtast det krÃ¦vede svar til sikkerhedsspÃ¸rgsmÃ¥let:"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:643
 #: lib/Net/SMS/sms2email_http.php:643
 msgid "Insufficient credit to send to the distribution list."
-msgstr "Utilstrækkelig kredit til at sende til distributionslisten."
+msgstr "UtilstrÃ¦kkelig kredit til at sende til distributionslisten."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:635
 #: lib/Net/SMS/sms2email_http.php:635
 msgid "Insufficient credit."
-msgstr "Utilstrækkelige kredit."
+msgstr "UtilstrÃ¦kkelige kredit."
 
 #: framework/Form/Form.php:1076 lib/Horde/Form.php:1076
 msgid "Integer"
@@ -3394,7 +3394,7 @@ msgstr "Ugyldigt filformat"
 
 #: lib/Block/weatherdotcom.php:170
 msgid "Invalid license key."
-msgstr "Ugyldig licensnøgle."
+msgstr "Ugyldig licensnÃ¸gle."
 
 #: lib/Block/weatherdotcom.php:164
 msgid "Invalid location provided."
@@ -3417,7 +3417,7 @@ msgstr "Ugyldige eller manglende parametre."
 
 #: admin/perms/addchild.php:26
 msgid "Invalid parent permission."
-msgstr "Ugyldige forældre-tilladelser."
+msgstr "Ugyldige forÃ¦ldre-tilladelser."
 
 #: lib/Block/weatherdotcom.php:166
 msgid "Invalid partner id."
@@ -3462,7 +3462,7 @@ msgstr "Indbo"
 #: framework/UI/UI/VarRenderer/html.php:682
 #: lib/Horde/UI/VarRenderer/html.php:682
 msgid "Invert selection"
-msgstr "Invertér markering"
+msgstr "InvertÃ©r markering"
 
 #: framework/NLS/NLS/GeoIP.php:82 framework/NLS/NLS/countries.php:111
 #: framework/NLS/NLS/tld.php:119 lib/Horde/NLS/countries.php:111
@@ -3580,31 +3580,31 @@ msgstr "Kerne-<em>Newbies</em>"
 
 #: framework/Crypt/Crypt/pgp.php:411 lib/Horde/Crypt/pgp.php:411
 msgid "Key Creation"
-msgstr "Nøgle-skabelse"
+msgstr "NÃ¸gle-skabelse"
 
 #: framework/Crypt/Crypt/pgp.php:414 lib/Horde/Crypt/pgp.php:414
 msgid "Key Fingerprint"
-msgstr "Nøgle-fingeraftryk"
+msgstr "NÃ¸gle-fingeraftryk"
 
 #: framework/Crypt/Crypt/pgp.php:412 lib/Horde/Crypt/pgp.php:412
 msgid "Key Length"
-msgstr "Nøglelængde"
+msgstr "NÃ¸glelÃ¦ngde"
 
 #: framework/Crypt/Crypt/pgp.php:411 lib/Horde/Crypt/pgp.php:411
 msgid "Key Type"
-msgstr "Nøgletype"
+msgstr "NÃ¸gletype"
 
 #: framework/Crypt/Crypt/smime.php:599 lib/Horde/Crypt/smime.php:599
 msgid "Key Usage"
-msgstr "Nøgleanvendelse"
+msgstr "NÃ¸gleanvendelse"
 
 #: framework/Crypt/Crypt/pgp.php:740 lib/Horde/Crypt/pgp.php:740
 msgid "Key already exists on the public keyserver."
-msgstr "Nøgle eksisterer allerede på den offentlige nøgleserver."
+msgstr "NÃ¸gle eksisterer allerede pÃ¥ den offentlige nÃ¸gleserver."
 
 #: lib/Block/fortune.php:48
 msgid "Kids"
-msgstr "Børn"
+msgstr "BÃ¸rn"
 
 #: framework/NLS/NLS/GeoIP.php:84 framework/NLS/NLS/countries.php:121
 #: framework/NLS/NLS/tld.php:129 lib/Horde/NLS/countries.php:121
@@ -3656,7 +3656,7 @@ msgstr "Sidste halvdel"
 
 #: lib/Block/account.php:88
 msgid "Last Password Change"
-msgstr "Sidste kodeordsændring"
+msgstr "Sidste kodeordsÃ¦ndring"
 
 #: lib/Block/moon.php:86 lib/Block/moon.php:88
 msgid "Last Quarter"
@@ -3702,7 +3702,7 @@ msgstr "Venstre toptekst"
 
 #: framework/Form/Form.php:3102 lib/Horde/Form.php:3102
 msgid "Left values"
-msgstr "Venstre værdier"
+msgstr "Venstre vÃ¦rdier"
 
 #: framework/NLS/NLS/GeoIP.php:88 framework/NLS/NLS/countries.php:129
 #: framework/NLS/NLS/tld.php:143 lib/Horde/NLS/countries.php:129
@@ -3734,7 +3734,7 @@ msgstr "Liechtenstein"
 
 #: lib/Block/weatherdotcom_strings.php:25
 msgid "Light Drizzle"
-msgstr "Støvregn"
+msgstr "StÃ¸vregn"
 
 #: lib/Block/weatherdotcom_strings.php:26
 msgid "Light Rain"
@@ -3797,7 +3797,7 @@ msgstr "List databaser"
 
 #: services/help/index.php:51
 msgid "List Help Topics"
-msgstr "Oplistning af hjælpeemner"
+msgstr "Oplistning af hjÃ¦lpeemner"
 
 #: admin/sqlshell.php:131
 msgid "List Tables"
@@ -3843,7 +3843,7 @@ msgstr "Listning af brugere fejlede: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "Visning af brugere er slået fra."
+msgstr "Visning af brugere er slÃ¥et fra."
 
 #: lib/Block/fortune.php:52
 msgid "Literature"
@@ -3910,7 +3910,7 @@ msgstr "Lang tekst"
 
 #: lib/Block/fortune.php:53
 msgid "Love"
-msgstr "Kærlighed"
+msgstr "KÃ¦rlighed"
 
 #: lib/Block/weatherdotcom_strings.php:69
 msgid "Low"
@@ -4008,7 +4008,7 @@ msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Håndtér listen af kategorier, som du skal markere emner med, og farverne, "
+"HÃ¥ndtÃ©r listen af kategorier, som du skal markere emner med, og farverne, "
 "der skal knyttes til disse kategorier."
 
 #: framework/UI/UI/VarRenderer/html.php:1160
@@ -4025,7 +4025,7 @@ msgstr "MapQuest-kort"
 
 #: services/portal/syncml.php:105
 msgid "Mappings stored."
-msgstr "Kortlægning gemt."
+msgstr "KortlÃ¦gning gemt."
 
 #: framework/UI/UI/VarRenderer/html.php:408
 #: framework/UI/UI/VarRenderer/html.php:446
@@ -4038,19 +4038,19 @@ msgstr "Marts"
 #: framework/IMAP/IMAP/ACL/rfc4314.php:48 lib/Horde/IMAP/ACL/rfc4314.php:48
 #: lib/Horde/IMAP/ACL/rfc2086.php:88
 msgid "Mark with Seen/Unseen flags"
-msgstr "Markér med Set/Uset-flag"
+msgstr "MarkÃ©r med Set/Uset-flag"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:89
 #: framework/IMAP/IMAP/ACL/rfc4314.php:49 lib/Horde/IMAP/ACL/rfc4314.php:49
 #: lib/Horde/IMAP/ACL/rfc2086.php:89
 msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr "Markér med andre flag (fx Vigtig/Besvaret)"
+msgstr "MarkÃ©r med andre flag (fx Vigtig/Besvaret)"
 
 #: framework/NLS/NLS/GeoIP.php:91 framework/NLS/NLS/countries.php:143
 #: framework/NLS/NLS/tld.php:152 lib/Horde/NLS/countries.php:143
 #: lib/Horde/NLS/tld.php:152 lib/Horde/NLS/GeoIP.php:91
 msgid "Marshall Islands"
-msgstr "Marshalløerne"
+msgstr "MarshallÃ¸erne"
 
 #: framework/NLS/NLS/GeoIP.php:93 framework/NLS/NLS/countries.php:144
 #: framework/NLS/NLS/tld.php:159 lib/Horde/NLS/countries.php:144
@@ -4100,7 +4100,7 @@ msgstr "Maksimum antal af portalblokke"
 #: framework/Form/Form.php:1240 lib/Horde/Form.php:899 lib/Horde/Form.php:1218
 #: lib/Horde/Form.php:1240
 msgid "Maximum length"
-msgstr "Maksimumlængde"
+msgstr "MaksimumlÃ¦ngde"
 
 #: framework/UI/UI/VarRenderer/html.php:410
 #: framework/UI/UI/VarRenderer/html.php:448
@@ -4144,7 +4144,7 @@ msgstr ""
 #: framework/Net_SMS/SMS/clickatell_http.php:310
 #: lib/Net/SMS/clickatell_http.php:310
 msgid "Message expired."
-msgstr "Besked udløbet."
+msgstr "Besked udlÃ¸bet."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:227
 #: framework/Net_SMS/SMS/clickatell_http.php:260
@@ -4161,13 +4161,13 @@ msgstr "Metar Weather"
 
 #: lib/Block/metar.php:42
 msgid "Metar block not available."
-msgstr "Metarblok ikke tilgængelig."
+msgstr "Metarblok ikke tilgÃ¦ngelig."
 
 #: lib/Block/metar.php:124
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr ""
-"Metarblok ikke tilgængelig. Detaljer er blevet noteret til brug for "
+"Metarblok ikke tilgÃ¦ngelig. Detaljer er blevet noteret til brug for "
 "administratoren."
 
 #: lib/Block/weatherdotcom.php:158
@@ -4194,7 +4194,7 @@ msgstr "Metode ikke defined. Metode kaldt: %s"
 
 #: lib/Block/metar.php:87 lib/Block/weatherdotcom.php:72
 msgid "Metric"
-msgstr "Måleenhed"
+msgstr "MÃ¥leenhed"
 
 #: framework/NLS/NLS/GeoIP.php:95 framework/NLS/NLS/countries.php:148
 #: framework/NLS/NLS/tld.php:166 lib/Horde/NLS/countries.php:148
@@ -4222,7 +4222,7 @@ msgstr "Min. temp. sidste 6 timer: "
 
 #: framework/Auth/Auth/ldap.php:438 lib/Horde/Auth/ldap.php:438
 msgid "Minimum password age has not yet expired"
-msgstr "Minimum kodeordsalder er endnu ikke udstået"
+msgstr "Minimum kodeordsalder er endnu ikke udstÃ¥et"
 
 #: framework/UI/UI/VarRenderer/html.php:235
 #: lib/Horde/UI/VarRenderer/html.php:235
@@ -4244,7 +4244,7 @@ msgstr "Mangler PEAR-pakke HTTP_Request."
 msgid ""
 "Missing configuration. You must generate it before using this application."
 msgstr ""
-"Konfiguration mangler. Du skal generere den, før du kan bruge denne "
+"Konfiguration mangler. Du skal generere den, fÃ¸r du kan bruge denne "
 "applikation."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:304
@@ -4255,7 +4255,7 @@ msgstr "Mangler besked-id."
 #: framework/Net_SMS/SMS/vodafoneitaly_smtp.php:58
 #: lib/Net/SMS/vodafoneitaly_smtp.php:58
 msgid "Missing required PEAR package Mail."
-msgstr "Mangler krævet PEAR-pakke Mail."
+msgstr "Mangler krÃ¦vet PEAR-pakke Mail."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:294
 #: lib/Net/SMS/clickatell_http.php:294
@@ -4272,13 +4272,13 @@ msgstr "Mobil E-post"
 
 #: lib/Block/weatherdotcom_strings.php:70
 msgid "Moderate"
-msgstr "Jævn"
+msgstr "JÃ¦vn"
 
 #: framework/MIME/MIME/Viewer/rar.php:66 framework/MIME/MIME/Viewer/tgz.php:85
 #: framework/MIME/MIME/Viewer/zip.php:73 lib/Horde/MIME/Viewer/rar.php:66
 #: lib/Horde/MIME/Viewer/tgz.php:85 lib/Horde/MIME/Viewer/zip.php:73
 msgid "Modified Date"
-msgstr "Ændringsdato"
+msgstr "Ã†ndringsdato"
 
 #: framework/Crypt/Crypt/smime.php:674 lib/Horde/Crypt/smime.php:674
 msgid "Modulus"
@@ -4304,11 +4304,11 @@ msgstr "Mongolien"
 
 #: framework/Form/Form.php:2589 lib/Horde/Form.php:2589
 msgid "Month and year"
-msgstr "Måned og år"
+msgstr "MÃ¥ned og Ã¥r"
 
 #: framework/Maintenance/Maintenance.php:57 lib/Horde/Maintenance.php:57
 msgid "Monthly"
-msgstr "Månedlig"
+msgstr "MÃ¥nedlig"
 
 #: framework/NLS/NLS/GeoIP.php:94 framework/NLS/NLS/countries.php:153
 #: framework/NLS/NLS/tld.php:161 lib/Horde/NLS/countries.php:153
@@ -4318,7 +4318,7 @@ msgstr "Montserrat"
 
 #: lib/Block/moon.php:3 lib/Block/moon.php:16
 msgid "Moon Phases"
-msgstr "Månefaser"
+msgstr "MÃ¥nefaser"
 
 #: framework/File_CSV/CSV.php:196 framework/File_CSV/CSV.php:280
 #: lib/File/CSV.php:196 lib/File/CSV.php:280
@@ -4342,7 +4342,7 @@ msgstr "Mest skyet"
 
 #: lib/Block/weatherdotcom_strings.php:35
 msgid "Mostly Cloudy and Windy"
-msgstr "Mest skyet og blæsende"
+msgstr "Mest skyet og blÃ¦sende"
 
 #: lib/Block/weatherdotcom_strings.php:36
 msgid "Mostly Sunny"
@@ -4361,7 +4361,7 @@ msgstr "Flyt til venstre"
 #: framework/Block/Block/Layout/Manager.php:656 lib/Horde/Block/Layout.php:517
 #: lib/Horde/Block/Layout/Manager.php:656
 msgid "Move Right"
-msgstr "Mod højre"
+msgstr "Mod hÃ¸jre"
 
 #: framework/Block/Block/Layout/Manager.php:644 lib/Horde/Block/Layout.php:505
 #: lib/Horde/Block/Layout/Manager.php:644
@@ -4495,7 +4495,7 @@ msgstr "Netscape certificte type"
 
 #: config/registry.php.dist:267
 msgid "Network"
-msgstr "Netværk"
+msgstr "NetvÃ¦rk"
 
 #: framework/Crypt/Crypt/pgp.php:425 lib/Horde/Crypt/pgp.php:425
 #: templates/portal/layout.inc:97 config/prefs.php.dist:339
@@ -4517,7 +4517,7 @@ msgstr "Ny kategori"
 
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:174
 msgid "New Moon"
-msgstr "Nymåne"
+msgstr "NymÃ¥ne"
 
 #: templates/admin/user/update.inc:36
 msgid "New Username (optional)"
@@ -4536,7 +4536,7 @@ msgstr "Nyt kodeord"
 #: framework/Auth/Auth/sql.php:249 lib/Horde/Auth/sql.php:249
 #, php-format
 msgid "New password will expire on %x."
-msgstr "Nyt kodeord vil udløbe den %x."
+msgstr "Nyt kodeord vil udlÃ¸be den %x."
 
 #: services/changepassword.php:52
 msgid "New passwords don't match."
@@ -4554,20 +4554,20 @@ msgstr "Nyhedsgrupper"
 #: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:129
 #: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
 msgid "Next"
-msgstr "Næste"
+msgstr "NÃ¦ste"
 
 #: lib/Block/moon.php:27
 msgid "Next 4 Phases"
-msgstr "Næste 4 faser"
+msgstr "NÃ¦ste 4 faser"
 
 #: framework/Prefs/Prefs/UI.php:362 framework/Prefs/Prefs/UI.php:366
 #: lib/Horde/Prefs/UI.php:362 lib/Horde/Prefs/UI.php:366
 msgid "Next options"
-msgstr "Næste tilvalg"
+msgstr "NÃ¦ste tilvalg"
 
 #: framework/UI/UI/Pager.php:103 lib/Horde/UI/Pager.php:103
 msgid "Next>"
-msgstr "Næste>"
+msgstr "NÃ¦ste>"
 
 #: framework/NLS/NLS/GeoIP.php:96 framework/NLS/NLS/countries.php:164
 #: framework/NLS/NLS/tld.php:174 lib/Horde/NLS/countries.php:164
@@ -4604,11 +4604,11 @@ msgstr "Nej"
 
 #: templates/admin/setup/diff.html:9
 msgid "No available configuration data to show differences for."
-msgstr "Ingen tilgængelige konfigurationdata at vise forskelle for."
+msgstr "Ingen tilgÃ¦ngelige konfigurationdata at vise forskelle for."
 
 #: framework/VFS_ISOWriter/ISOWriter.php:106 lib/VFS/ISOWriter.php:106
 msgid "No available strategy for making ISO images."
-msgstr "Ingen tilgængelig strategi til at lave ISO-billeder."
+msgstr "Ingen tilgÃ¦ngelig strategi til at lave ISO-billeder."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:313
 #: lib/Net/SMS/clickatell_http.php:313
@@ -4623,19 +4623,19 @@ msgstr "Ingen skript-skabelon."
 #: lib/Horde/Block/Layout/Manager.php:385
 #: lib/Horde/Block/Layout/Manager.php:407
 msgid "No block exists at the requested position"
-msgstr "Der eksisterer ikke nogen blok på den forespurgte position"
+msgstr "Der eksisterer ikke nogen blok pÃ¥ den forespurgte position"
 
 #: framework/Auth/Auth/mcal.php:67 lib/Horde/Auth/mcal.php:67
 msgid "No calendar name provided for MCAL authentication."
-msgstr "Ingen kalender angivet til MCAL-ægtning."
+msgstr "Ingen kalender angivet til MCAL-Ã¦gtning."
 
 #: admin/setup/diff.php:54
 msgid "No change."
-msgstr "Ingen ændring."
+msgstr "Ingen Ã¦ndring."
 
 #: framework/Perms/Perms/UI.php:156 lib/Horde/Perms/UI.php:156
 msgid "No children can be added to this permission."
-msgstr "Der kan ikke tilføjes børn til denne tilladelse."
+msgstr "Der kan ikke tilfÃ¸jes bÃ¸rn til denne tilladelse."
 
 #: framework/Util/Util.php:768 framework/Horde/Horde.php:178
 #: framework/Horde/Horde.php:529 lib/Horde.php:178 lib/Horde.php:529
@@ -4663,7 +4663,7 @@ msgstr "Ingen konfiguration-information angivet for SQL VFS."
 #: framework/Net_SMS/SMS/clickatell_http.php:314
 #: lib/Net/SMS/clickatell_http.php:314
 msgid "No credit left."
-msgstr "Kredit udtømt."
+msgstr "Kredit udtÃ¸mt."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:634
 #: lib/Net/SMS/sms2email_http.php:634
@@ -4704,15 +4704,15 @@ msgstr "Intet nummer angivet."
 
 #: lib/Block/fortune.php:99
 msgid "No offensive fortunes"
-msgstr "Ingen anstødelige epigrammer"
+msgstr "Ingen anstÃ¸delige epigrammer"
 
 #: framework/Crypt/Crypt/smime.php:1287 lib/Horde/Crypt/smime.php:1287
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
 msgstr ""
-"Sti til OpenSSL-biblioteket mangler.  OpenSSL-biblioteket er nødvendigt for "
-"at håndtere PKCS12-data."
+"Sti til OpenSSL-biblioteket mangler.  OpenSSL-biblioteket er nÃ¸dvendigt for "
+"at hÃ¥ndtere PKCS12-data."
 
 #: templates/admin/user/approve.inc:6
 msgid "No pending signups."
@@ -4728,7 +4728,7 @@ msgstr "Ingen skilletegn angivet."
 
 #: framework/VFS/VFS/smb.php:563 lib/VFS/smb.php:563
 msgid "No such file"
-msgstr "Ingen sådan fil"
+msgstr "Ingen sÃ¥dan fil"
 
 #: lib/Block/weatherdotcom.php:131
 msgid "No temporary directory available for cache."
@@ -4753,16 +4753,16 @@ msgstr "Ingen gyldige XML-data returneret"
 #: lib/Horde/UI/VarRenderer/html.php:999
 #: lib/Horde/UI/VarRenderer/html.php:1016
 msgid "No values"
-msgstr "Ingen værdier"
+msgstr "Ingen vÃ¦rdier"
 
 #: admin/setup/index.php:120
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
-"Original konfiguration mangler versionsnummer. Regenerér konfiguration."
+"Original konfiguration mangler versionsnummer. RegenerÃ©r konfiguration."
 
 #: admin/setup/index.php:128
 msgid "No version found in your configuration. Regenerate configuration."
-msgstr "Din konfiguration mangler versionsnummer. Regenerér konfiguration."
+msgstr "Din konfiguration mangler versionsnummer. RegenerÃ©r konfiguration."
 
 #: framework/Crypt/Crypt/pgp.php:427 lib/Horde/Crypt/pgp.php:427
 #: templates/prefs/identityselect.inc:95
@@ -4787,7 +4787,7 @@ msgstr "Nordlige halvkugle"
 #: framework/NLS/NLS/tld.php:158 lib/Horde/NLS/countries.php:169
 #: lib/Horde/NLS/tld.php:158 lib/Horde/NLS/GeoIP.php:93
 msgid "Northern Mariana Islands"
-msgstr "Nordlige Marianaøer"
+msgstr "Nordlige MarianaÃ¸er"
 
 #: framework/NLS/NLS/GeoIP.php:97 framework/NLS/NLS/countries.php:170
 #: framework/NLS/NLS/tld.php:176 lib/Horde/NLS/countries.php:170
@@ -4801,7 +4801,7 @@ msgstr "Ikke senere end"
 
 #: framework/Crypt/Crypt/smime.php:640 lib/Horde/Crypt/smime.php:640
 msgid "Not Before"
-msgstr "Ikke før"
+msgstr "Ikke fÃ¸r"
 
 #: framework/VFS/VFS/file.php:441 lib/VFS/file.php:441
 msgid "Not a directory"
@@ -4842,7 +4842,7 @@ msgstr "Ikke implementeret."
 #: lib/Horde/SessionHandler.php:175 lib/Horde/SessionHandler.php:189
 #: lib/Horde/SessionHandler.php:236
 msgid "Not supported."
-msgstr "Ikke understøttet."
+msgstr "Ikke understÃ¸ttet."
 
 #: framework/MIME/MIME/Viewer/vcard.php:244 framework/Kolab/Kolab.php:908
 #: lib/Horde/Kolab.php:908 lib/Horde/MIME/Viewer/vcard.php:244
@@ -4879,7 +4879,7 @@ msgstr "Antal kolonner"
 #: framework/Form/Form.php:1448 lib/Horde/Form.php:1372
 #: lib/Horde/Form.php:1426 lib/Horde/Form.php:1448
 msgid "Number of rows"
-msgstr "Antal rækker"
+msgstr "Antal rÃ¦kker"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:644
 #: lib/Net/SMS/sms2email_http.php:644
@@ -4908,7 +4908,7 @@ msgstr "Oktober"
 
 #: lib/Block/fortune.php:97
 msgid "Offense filter"
-msgstr "Anstødende filter"
+msgstr "AnstÃ¸dende filter"
 
 #: config/registry.php.dist:342
 msgid "Office"
@@ -4916,7 +4916,7 @@ msgstr "Kontor"
 
 #: services/changepassword.php:58
 msgid "Old and new passwords must be different."
-msgstr "Gammelt og nyt kodeord skal være forskellige."
+msgstr "Gammelt og nyt kodeord skal vÃ¦re forskellige."
 
 #: services/changepassword.php:36
 msgid "Old password"
@@ -4934,28 +4934,28 @@ msgstr "Oman"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:73 lib/Horde/IMAP/ACL/rfc2086.php:73
 msgid "Only IMAP servers support shared folders."
-msgstr "Delte mapper understøttes kun af IMAP-servere."
+msgstr "Delte mapper understÃ¸ttes kun af IMAP-servere."
 
 #: lib/Block/fortune.php:100
 msgid "Only offensive fortunes"
-msgstr "Kun anstødelige epigrammer"
+msgstr "Kun anstÃ¸delige epigrammer"
 
 #: framework/Form/Form.php:1856 framework/Form/Form.php:1976
 #: lib/Horde/Form.php:1856 lib/Horde/Form.php:1976
 msgid "Only one email address allowed."
-msgstr "Kun én e-post-adresse tilladt."
+msgstr "Kun Ã©n e-post-adresse tilladt."
 
 #: services/shares/edit.php:70
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"En delings ejerskab og ejertilladelser må kun ændre af en "
+"En delings ejerskab og ejertilladelser mÃ¥ kun Ã¦ndre af en "
 "systemadministrator eller ejeren selv"
 
 #: lib/Block/iframe.php:36
 msgid "Open in a new window"
-msgstr "Åben i et nyt vindue"
+msgstr "Ã…ben i et nyt vindue"
 
 #: framework/Crypt/Crypt/smime.php:245 lib/Horde/Crypt/smime.php:245
 msgid "OpenSSL error: Could not extract data from signed S/MIME part."
@@ -5012,7 +5012,7 @@ msgstr "Ejerrettigheder"
 
 #: framework/Auth/Auth/pam.php:80 lib/Horde/Auth/pam.php:80
 msgid "PAM authentication is not available."
-msgstr "PAM-ægtning er ikke tilgængelige."
+msgstr "PAM-Ã¦gtning er ikke tilgÃ¦ngelige."
 
 #: framework/Net_SMS/SMS/generic_smtp.php:105 lib/Net/SMS/generic_smtp.php:105
 msgid "PEAR::Mail backend"
@@ -5028,7 +5028,7 @@ msgstr "PGP-krypteret data"
 
 #: framework/Crypt/Crypt/pgp.php:1374 lib/Horde/Crypt/pgp.php:1374
 msgid "PGP Public Key"
-msgstr "Offentlig PGP-nøgle"
+msgstr "Offentlig PGP-nÃ¸gle"
 
 #: framework/Crypt/Crypt/pgp.php:1356 lib/Horde/Crypt/pgp.php:1356
 msgid "PGP Signed/Encrypted Data"
@@ -5094,7 +5094,7 @@ msgstr "Palau"
 #: framework/NLS/NLS/tld.php:192 lib/Horde/NLS/countries.php:174
 #: lib/Horde/NLS/tld.php:192 lib/Horde/NLS/GeoIP.php:101
 msgid "Palestinian Territory, Occupied"
-msgstr "Palæstina"
+msgstr "PalÃ¦stina"
 
 #: framework/NLS/NLS/GeoIP.php:98 framework/NLS/NLS/countries.php:175
 #: framework/NLS/NLS/tld.php:182 lib/Horde/NLS/countries.php:175
@@ -5131,7 +5131,7 @@ msgstr "Kodeord"
 
 #: services/changepassword.php:82
 msgid "Password changed successfully."
-msgstr "Kodeord ændret."
+msgstr "Kodeord Ã¦ndret."
 
 #: framework/Crypt/Crypt/smime.php:1323 lib/Horde/Crypt/smime.php:1323
 msgid "Password incorrect"
@@ -5139,11 +5139,11 @@ msgstr "Kodeord forkert"
 
 #: framework/Auth/Auth/radius.php:157 lib/Horde/Auth/radius.php:157
 msgid "Password required for RADIUS authentication."
-msgstr "Kodeord krævet ved RADIUS-ægtning."
+msgstr "Kodeord krÃ¦vet ved RADIUS-Ã¦gtning."
 
 #: framework/Form/Form.php:2058 lib/Horde/Form.php:2058
 msgid "Password with confirmation"
-msgstr "Kodeord med bekræftelse"
+msgstr "Kodeord med bekrÃ¦ftelse"
 
 #: templates/rpcsum/rpcsum.inc:90
 msgid "Password:"
@@ -5156,11 +5156,11 @@ msgstr "Kodeord: "
 #: admin/user.php:149 framework/Form/Form.php:2039 lib/Horde/Form.php:2039
 #: templates/admin/user/update.inc:15
 msgid "Passwords must match."
-msgstr "Kodeordene skal være ens."
+msgstr "Kodeordene skal vÃ¦re ens."
 
 #: admin/sqlshell.php:118
 msgid "Paste"
-msgstr "Indsæt"
+msgstr "IndsÃ¦t"
 
 #: templates/admin/user/approve.inc:2 templates/admin/user/removequeued.inc:7
 msgid "Pending Signups:"
@@ -5172,11 +5172,11 @@ msgstr "Folk"
 
 #: templates/maintenance/maintenance.html:49
 msgid "Perform Maintenance Operations"
-msgstr "Udfør vedligeholdelse"
+msgstr "UdfÃ¸r vedligeholdelse"
 
 #: config/prefs.php.dist:410
 msgid "Perform maintenance operations on login?"
-msgstr "Udfør vedligeholdelse ved log ind?"
+msgstr "UdfÃ¸r vedligeholdelse ved log ind?"
 
 #: framework/Perms/Perms/UI.php:156 lib/Horde/Perms/UI.php:156
 msgid "Permission"
@@ -5189,7 +5189,7 @@ msgstr "Tilladelse \"%s\" ikke slettet."
 
 #: framework/VFS/VFS/smb.php:566 lib/VFS/smb.php:566
 msgid "Permission Denied"
-msgstr "Tilladelse nægtet"
+msgstr "Tilladelse nÃ¦gtet"
 
 #: framework/Perms/Perms/UI.php:161 framework/Perms/Perms/UI.php:164
 #: lib/Horde/Perms/UI.php:161 lib/Horde/Perms/UI.php:164
@@ -5213,7 +5213,7 @@ msgstr "Peru"
 
 #: lib/Block/fortune.php:60
 msgid "Pets"
-msgstr "Kæledyr"
+msgstr "KÃ¦ledyr"
 
 #: framework/NLS/NLS/GeoIP.php:99 framework/NLS/NLS/countries.php:179
 #: framework/NLS/NLS/tld.php:186 lib/Horde/NLS/countries.php:179
@@ -5242,7 +5242,7 @@ msgstr "Banaliteter"
 
 #: framework/Form/Form.php:2567 lib/Horde/Form.php:2567
 msgid "Please enter a month and a year."
-msgstr "Indtast en måned og et årstal."
+msgstr "Indtast en mÃ¥ned og et Ã¥rstal."
 
 #: templates/prefs/categorymanagement.inc:12
 msgid "Please enter a name for the new category:"
@@ -5254,7 +5254,7 @@ msgstr "Indtast en gyldig IP-adresse."
 
 #: framework/Form/Form.php:2645 lib/Horde/Form.php:2645
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr "Indtast en gyldig dato, tjek antallet af dage i måneden."
+msgstr "Indtast en gyldig dato, tjek antallet af dage i mÃ¥neden."
 
 #: framework/Form/Form.php:2452 lib/Horde/Form.php:2452
 msgid "Please enter a valid time."
@@ -5262,7 +5262,7 @@ msgstr "Indtast en gyldig tidsangivelse."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
-msgstr "Skriv venligst, hvad problemet går ud på og hvad der sker."
+msgstr "Skriv venligst, hvad problemet gÃ¥r ud pÃ¥ og hvad der sker."
 
 #: templates/login/login.inc:22 templates/login/login.inc:26
 msgid "Please provide your username and password"
@@ -5273,7 +5273,7 @@ msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Læs følgende tekst. Du SKAL være enig i betingelserne for at bruge systemet."
+"LÃ¦s fÃ¸lgende tekst. Du SKAL vÃ¦re enig i betingelserne for at bruge systemet."
 
 #: framework/Prefs/Prefs/CategoryManager.php:70
 #: lib/Horde/Prefs/CategoryManager.php:70
@@ -5292,7 +5292,7 @@ msgstr "Politik"
 
 #: config/registry.php.dist:510
 msgid "Polls"
-msgstr "Meningsmålinger"
+msgstr "MeningsmÃ¥linger"
 
 #: framework/NLS/NLS/GeoIP.php:101 framework/NLS/NLS/countries.php:182
 #: framework/NLS/NLS/tld.php:193 lib/Horde/NLS/countries.php:182
@@ -5309,15 +5309,15 @@ msgstr "Send til denne mappe (ikke gennemtvunget af IMAP)"
 #: lib/Block/metar.php:278 lib/Block/metar.php:283
 #, php-format
 msgid "Precipitation for last %s hour(s): "
-msgstr "Nedbør gennem senest %s timer: "
+msgstr "NedbÃ¸r gennem senest %s timer: "
 
 #: lib/Block/weatherdotcom.php:291
 msgid "Precipitation<br />chance"
-msgstr "Nedbør<br />chance"
+msgstr "NedbÃ¸r<br />chance"
 
 #: framework/Prefs/Prefs/ldap.php:133 lib/Horde/Prefs/ldap.php:133
 msgid "Prefs_ldap: Required LDAP extension not found."
-msgstr "Prefs_ldap: Krævet LDAP-udviddel ikke fundet."
+msgstr "Prefs_ldap: KrÃ¦vet LDAP-udviddel ikke fundet."
 
 #: lib/Block/metar.php:237
 msgid "Pressure"
@@ -5343,7 +5343,7 @@ msgstr "Forrige tilvalg"
 
 #: framework/Crypt/Crypt/pgp.php:423 lib/Horde/Crypt/pgp.php:423
 msgid "Private Key"
-msgstr "Privat nøgle"
+msgstr "Privat nÃ¸gle"
 
 #: framework/Horde/Horde/Menu.php:169 lib/Horde/Menu.php:169
 msgid "Problem"
@@ -5365,19 +5365,19 @@ msgstr "Stikordstekst"
 
 #: framework/Crypt/Crypt/pgp.php:423 lib/Horde/Crypt/pgp.php:423
 msgid "Public Key"
-msgstr "Offentlige nøgle"
+msgstr "Offentlige nÃ¸gle"
 
 #: framework/Crypt/Crypt/smime.php:646 lib/Horde/Crypt/smime.php:646
 msgid "Public Key Algorithm"
-msgstr "Offentlig-nøgle-algoritme"
+msgstr "Offentlig-nÃ¸gle-algoritme"
 
 #: framework/Crypt/Crypt/smime.php:645 lib/Horde/Crypt/smime.php:645
 msgid "Public Key Info"
-msgstr "Offentlig nøgle information"
+msgstr "Offentlig nÃ¸gle information"
 
 #: framework/Crypt/Crypt/pgp.php:241 lib/Horde/Crypt/pgp.php:241
 msgid "Public/Private keypair not generated successfully."
-msgstr "Offentlig/privat-nøglesæt-generering mislykkedes."
+msgstr "Offentlig/privat-nÃ¸glesÃ¦t-generering mislykkedes."
 
 #: framework/NLS/NLS/GeoIP.php:100 framework/NLS/NLS/countries.php:183
 #: framework/NLS/NLS/tld.php:191 lib/Horde/NLS/countries.php:183
@@ -5397,7 +5397,7 @@ msgstr "Qatar"
 
 #: admin/sqlshell.php:62
 msgid "Query"
-msgstr "Forespørgsel"
+msgstr "ForespÃ¸rgsel"
 
 #: lib/Block/account.php:80
 msgid "Quota"
@@ -5406,7 +5406,7 @@ msgstr "Kvote"
 #: framework/Crypt/Crypt/smime.php:664 lib/Horde/Crypt/smime.php:664
 #, php-format
 msgid "RSA Public Key (%d bit)"
-msgstr "Offentlig RSA-nøgle (%d bit)"
+msgstr "Offentlig RSA-nÃ¸gle (%d bit)"
 
 #: framework/Form/Form.php:2269 lib/Horde/Form.php:2269
 msgid "Radio selection"
@@ -5438,7 +5438,7 @@ msgstr "Slud"
 
 #: lib/Block/fortune.php:3
 msgid "Random Fortune"
-msgstr "Tilfældigt epigram"
+msgstr "TilfÃ¦ldigt epigram"
 
 #: framework/MIME/MIME/Viewer/rar.php:68 framework/MIME/MIME/Viewer/zip.php:76
 #: lib/Horde/MIME/Viewer/rar.php:68 lib/Horde/MIME/Viewer/zip.php:76
@@ -5450,13 +5450,13 @@ msgstr "Forhold"
 #: templates/shares/edit.inc:91 templates/shares/edit.inc:114
 #: templates/shares/edit.inc:137 templates/shares/edit.inc:180
 msgid "Read"
-msgstr "Læs"
+msgstr "LÃ¦s"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:87
 #: framework/IMAP/IMAP/ACL/rfc4314.php:47 lib/Horde/IMAP/ACL/rfc4314.php:47
 #: lib/Horde/IMAP/ACL/rfc2086.php:87
 msgid "Read messages"
-msgstr "Læs beskeder"
+msgstr "LÃ¦s beskeder"
 
 #: templates/admin/user/remove.inc:8
 #, php-format
@@ -5490,11 +5490,11 @@ msgstr "Genopfrisksrate:"
 #: framework/Form/Form.php:1236 lib/Horde/Form.php:895 lib/Horde/Form.php:1214
 #: lib/Horde/Form.php:1236
 msgid "Regex"
-msgstr "Regulært udtryk"
+msgstr "RegulÃ¦rt udtryk"
 
 #: framework/Form/Form.php:3236 lib/Horde/Form.php:3236
 msgid "Relationship Browser"
-msgstr "Relationslæser"
+msgstr "RelationslÃ¦ser"
 
 #: services/portal/syncml.php:147 services/portal/syncml.php:208
 msgid "Reload"
@@ -5552,7 +5552,7 @@ msgstr "Anmodet tjeneste kunne ikke findes."
 #: lib/Horde.php:185 lib/Horde.php:539
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
-msgstr "Krævede '%s' er ikke angivet i %s-konfiguration."
+msgstr "KrÃ¦vede '%s' er ikke angivet i %s-konfiguration."
 
 #: framework/VFS/VFS/ftp.php:839 framework/VFS/VFS/sql.php:704
 #: framework/VFS/VFS/sql_file.php:753 framework/VFS/VFS/horde.php:41
@@ -5560,16 +5560,16 @@ msgstr "Krævede '%s' er ikke angivet i %s-konfiguration."
 #: lib/VFS/sql_file.php:753 lib/VFS/ssh2.php:862
 #, php-format
 msgid "Required \"%s\" not specified in VFS configuration."
-msgstr "Krævet \"%s\" er ikke angivet i VFS konfiguration."
+msgstr "KrÃ¦vet \"%s\" er ikke angivet i VFS konfiguration."
 
 #: framework/Util/Util.php:776 lib/Horde/Util.php:776
 #, php-format
 msgid "Required \"%s\" not specified in configuration."
-msgstr "Krævede \"%s\" er ikke angivet i konfigurationen."
+msgstr "KrÃ¦vede \"%s\" er ikke angivet i konfigurationen."
 
 #: framework/Form/Form/Renderer.php:335 lib/Horde/Form/Renderer.php:335
 msgid "Required Field"
-msgstr "Krævet felt"
+msgstr "KrÃ¦vet felt"
 
 #: admin/user.php:30 framework/UI/UI/VarRenderer/html.php:220
 #: framework/Form/Form.php:339 framework/Form/Form/Renderer.php:320
@@ -5589,7 +5589,7 @@ msgstr "Nulstil dit kodeord"
 
 #: admin/sqlshell.php:129
 msgid "Restore Last Query"
-msgstr "Genskab sidste forespørgsel"
+msgstr "Genskab sidste forespÃ¸rgsel"
 
 #: admin/cmdshell.php:27 admin/phpshell.php:70 admin/sqlshell.php:65
 msgid "Results"
@@ -5619,15 +5619,15 @@ msgstr "Indstillinger for Rich Text-redigering"
 
 #: lib/Block/fortune.php:63
 msgid "Riddles"
-msgstr "Gåder"
+msgstr "GÃ¥der"
 
 #: framework/Form/Form.php:3108 lib/Horde/Form.php:3108
 msgid "Right header"
-msgstr "Højre toptekst"
+msgstr "HÃ¸jre toptekst"
 
 #: framework/Form/Form.php:3104 lib/Horde/Form.php:3104
 msgid "Right values"
-msgstr "Højre værdier"
+msgstr "HÃ¸jre vÃ¦rdier"
 
 #: framework/MIME/MIME/Viewer/vcard.php:234
 #: lib/Horde/MIME/Viewer/vcard.php:234
@@ -5638,26 +5638,26 @@ msgstr "Regel"
 #: framework/NLS/NLS/tld.php:198 lib/Horde/NLS/countries.php:186
 #: lib/Horde/NLS/tld.php:198 lib/Horde/NLS/GeoIP.php:102
 msgid "Romania"
-msgstr "Rumænien"
+msgstr "RumÃ¦nien"
 
 #: framework/UI/UI/VarRenderer/html.php:226
 #: lib/Horde/UI/VarRenderer/html.php:226
 msgid "Rotate 180"
-msgstr "Rotér 180"
+msgstr "RotÃ©r 180"
 
 #: framework/UI/UI/VarRenderer/html.php:223
 #: lib/Horde/UI/VarRenderer/html.php:223
 msgid "Rotate Left"
-msgstr "Rotér venstre"
+msgstr "RotÃ©r venstre"
 
 #: framework/UI/UI/VarRenderer/html.php:229
 #: lib/Horde/UI/VarRenderer/html.php:229
 msgid "Rotate Right"
-msgstr "Rotér højre"
+msgstr "RotÃ©r hÃ¸jre"
 
 #: admin/sqlshell.php:119
 msgid "Run"
-msgstr "Udfør"
+msgstr "UdfÃ¸r"
 
 #: framework/NLS/NLS/GeoIP.php:103 framework/NLS/NLS/countries.php:187
 #: framework/NLS/NLS/tld.php:199 lib/Horde/NLS/countries.php:187
@@ -5681,7 +5681,7 @@ msgstr "S/MIME-signeret besked"
 
 #: framework/Auth/Auth/sasl.php:82 lib/Horde/Auth/sasl.php:82
 msgid "SASL authentication is not available."
-msgstr "SASL-ægtning er ikke tilgængelig."
+msgstr "SASL-Ã¦gtning er ikke tilgÃ¦ngelig."
 
 #: config/registry.php.dist:527
 msgid "SMS Messaging"
@@ -5693,7 +5693,7 @@ msgstr "SQL-fortolker"
 
 #: framework/Form/Form.php:3279 lib/Horde/Form.php:3279
 msgid "SQL statement for value lookups"
-msgstr "SQL-udtryk for opslag af værdier"
+msgstr "SQL-udtryk for opslag af vÃ¦rdier"
 
 #: config/registry.php.dist:454
 msgid "SSH"
@@ -5710,7 +5710,7 @@ msgstr "SQL-fortolker"
 
 #: templates/javascript/open_calendar.js:61
 msgid "Sa"
-msgstr "Lør"
+msgstr "LÃ¸r"
 
 #: framework/NLS/NLS/GeoIP.php:104 framework/NLS/NLS/countries.php:189
 #: framework/NLS/NLS/tld.php:207 lib/Horde/NLS/countries.php:189
@@ -5804,7 +5804,7 @@ msgstr "Gemt %s-konfiguration."
 #: admin/setup/scripts.php:99
 #, php-format
 msgid "Saved setup upgrade script to: \"%s\"."
-msgstr "Gemte skript for opgradering af opsætning til: \"%s\"."
+msgstr "Gemte skript for opgradering af opsÃ¦tning til: \"%s\"."
 
 #: lib/Block/weatherdotcom_strings.php:51
 msgid "Scattered T-Storms"
@@ -5816,95 +5816,95 @@ msgstr "Videnskab"
 
 #: templates/admin/user/list.inc:14 templates/admin/user/list.inc:16
 msgid "Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: config/registry.php.dist:336
 msgid "Search Engines"
-msgstr "Søgemaskiner"
+msgstr "SÃ¸gemaskiner"
 
 #: framework/Form/Form.php:2960 lib/Horde/Form.php:2960
 msgid "Select Files"
-msgstr "Vælg filer"
+msgstr "VÃ¦lg filer"
 
 #: framework/UI/UI/VarRenderer/html.php:489
 #: lib/Horde/UI/VarRenderer/html.php:489
 msgid "Select a date"
-msgstr "Vælg en dato"
+msgstr "VÃ¦lg en dato"
 
 #: templates/shares/edit.inc:198
 msgid "Select a group to add"
-msgstr "Vælg en gruppe at tilføje"
+msgstr "VÃ¦lg en gruppe at tilfÃ¸je"
 
 #: templates/shares/edit.inc:43
 msgid "Select a new owner"
-msgstr "Vælg en ny ejer"
+msgstr "VÃ¦lg en ny ejer"
 
 #: templates/rpcsum/rpcsum.inc:60
 msgid "Select a server"
-msgstr "Vælg en server"
+msgstr "VÃ¦lg en server"
 
 #: templates/shares/edit.inc:156
 msgid "Select a user to add"
-msgstr "Vælg en bruger at tilføje"
+msgstr "VÃ¦lg en bruger at tilfÃ¸je"
 
 #: framework/UI/UI/VarRenderer/html.php:680
 #: lib/Horde/UI/VarRenderer/html.php:680
 msgid "Select all"
-msgstr "Vælg alle"
+msgstr "VÃ¦lg alle"
 
 #: framework/Form/Form.php:2648 lib/Horde/Form.php:2648
 msgid "Select all date components."
-msgstr "Vælg alle dato-komponenter."
+msgstr "VÃ¦lg alle dato-komponenter."
 
 #: framework/UI/UI/VarRenderer/html.php:877
 #: lib/Horde/UI/VarRenderer/html.php:877
 msgid "Select an object"
-msgstr "Vælg et objekt"
+msgstr "VÃ¦lg et objekt"
 
 #: framework/UI/UI/VarRenderer/html.php:681
 #: lib/Horde/UI/VarRenderer/html.php:681
 msgid "Select none"
-msgstr "Vælg ingen"
+msgstr "VÃ¦lg ingen"
 
 #: services/keyboard.php:37
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
 msgstr ""
-"Vælg de tegn du har brug for fra kasserne nedenfor. De kan så klippes og "
+"VÃ¦lg de tegn du har brug for fra kasserne nedenfor. De kan sÃ¥ klippes og "
 "kopieres fra textfeltet."
 
 #: templates/data/date.inc:34
 msgid "Select the date delimiter:"
-msgstr "Vælg dato-adskilleren:"
+msgstr "VÃ¦lg dato-adskilleren:"
 
 #: templates/data/date.inc:44
 msgid "Select the date format:"
-msgstr "Vælg datoformat:"
+msgstr "VÃ¦lg datoformat:"
 
 #: templates/prefs/identityselect.inc:92
 msgid "Select the identity you want to change:"
-msgstr "Vælg den identitet, som du vil ændre:"
+msgstr "VÃ¦lg den identitet, som du vil Ã¦ndre:"
 
 #: templates/data/time.inc:16
 msgid "Select the time delimiter:"
-msgstr "Vælg tids-adskilleren:"
+msgstr "VÃ¦lg tids-adskilleren:"
 
 #: templates/data/time.inc:25
 msgid "Select the time format:"
-msgstr "Vælg tidsformat:"
+msgstr "VÃ¦lg tidsformat:"
 
 #: templates/data/csvmap.inc:57
 msgid "Select two matching fields."
-msgstr "Vælg to felter, der svarer til hinanden."
+msgstr "VÃ¦lg to felter, der svarer til hinanden."
 
 #: config/prefs.php.dist:310
 msgid "Select your color scheme."
-msgstr "Vælg din farvesammensætning."
+msgstr "VÃ¦lg din farvesammensÃ¦tning."
 
 #: config/prefs.php.dist:252
 msgid "Select your preferred language:"
-msgstr "Vælg dit foretrukne sprog:"
+msgstr "VÃ¦lg dit foretrukne sprog:"
 
 #: templates/problem/problem.inc:51
 msgid "Send Problem Report"
@@ -5923,7 +5923,7 @@ msgstr "Senegal"
 
 #: lib/Block/metar.php:328
 msgid "Sensor: "
-msgstr "Føler: "
+msgstr "FÃ¸ler: "
 
 #: framework/UI/UI/VarRenderer/html.php:414
 #: framework/UI/UI/VarRenderer/html.php:452
@@ -5942,7 +5942,7 @@ msgstr "Serienummer"
 
 #: lib/Block/weatherdotcom.php:154
 msgid "Server data wrong or not available."
-msgstr "Server-data forkert eller ikke tilgængelig."
+msgstr "Server-data forkert eller ikke tilgÃ¦ngelig."
 
 #: admin/sessions.php:26
 msgid "Session Admin"
@@ -5951,7 +5951,7 @@ msgstr "Sessionsadministrator"
 #: framework/Net_SMS/SMS/clickatell_http.php:292
 #: lib/Net/SMS/clickatell_http.php:292
 msgid "Session ID expired."
-msgstr "Session-ID udløbet."
+msgstr "Session-ID udlÃ¸bet."
 
 #: lib/api.php:145
 msgid "Sessions"
@@ -5959,7 +5959,7 @@ msgstr "Sessioner"
 
 #: framework/Form/Form.php:2319 lib/Horde/Form.php:2319
 msgid "Set"
-msgstr "Mængde"
+msgstr "MÃ¦ngde"
 
 #: config/prefs.php.dist:79
 msgid "Set options to allow you to reset your password if you ever forget it."
@@ -5969,7 +5969,7 @@ msgstr ""
 
 #: config/prefs.php.dist:118
 msgid "Set up remote servers that you want to access from your portal."
-msgstr "Indstil fjerne servere, som du ønsker at tilgå fra din portal."
+msgstr "Indstil fjerne servere, som du Ã¸nsker at tilgÃ¥ fra din portal."
 
 #: config/prefs.php.dist:87
 msgid "Set your preferred language, timezone and date options."
@@ -5980,7 +5980,7 @@ msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"Indstil dine opstartsapplikationer, farvesammensætning, sideopfrisknin og "
+"Indstil dine opstartsapplikationer, farvesammensÃ¦tning, sideopfrisknin og "
 "andre visningstilvalg."
 
 #: admin/setup/config.php:77
@@ -5989,7 +5989,7 @@ msgstr "Indstilling"
 
 #: templates/admin/setup/index.html:35
 msgid "Setup upgrade scripts available"
-msgstr "Skripts til opgradering af opsætning tilgængelige"
+msgstr "Skripts til opgradering af opsÃ¦tning tilgÃ¦ngelige"
 
 #: lib/Block/weatherdotcom.php:180
 msgid "Several locations possible with the parameter: "
@@ -6011,7 +6011,7 @@ msgstr "Kort opsummering"
 
 #: config/prefs.php.dist:450
 msgid "Should access keys be defined for most links?"
-msgstr "Skal hurtig-taster defineres for de fleste henvisninger? (÷)"
+msgstr "Skal hurtig-taster defineres for de fleste henvisninger? (Ã·)"
 
 #: framework/Perms/Perms.php:323 lib/Horde/Perms.php:323
 #: templates/shares/edit.inc:33 templates/shares/edit.inc:67
@@ -6029,7 +6029,7 @@ msgstr ""
 
 #: config/prefs.php.dist:485
 msgid "Show last login time when logging in?"
-msgstr "Vis tidspunkt for seneste tilgang ved pålogning?"
+msgstr "Vis tidspunkt for seneste tilgang ved pÃ¥logning?"
 
 #: framework/Form/Form.php:1770 lib/Horde/Form.php:1770
 msgid "Show option to keep original"
@@ -6066,7 +6066,7 @@ msgstr "Byger sent"
 
 #: lib/Block/weatherdotcom_strings.php:55
 msgid "Showers in the Vicinity"
-msgstr "Byger i nærheden"
+msgstr "Byger i nÃ¦rheden"
 
 #: framework/Block/Block/Layout/Manager.php:619 lib/Horde/Block/Layout.php:480
 #: lib/Horde/Block/Layout/Manager.php:619
@@ -6094,7 +6094,7 @@ msgstr "Skrump"
 #: lib/Horde/Block/Layout/Manager.php:1252
 #: lib/Horde/Block/Layout/Manager.php:1285
 msgid "Shrink or move neighbouring block(s) out of the way first"
-msgstr "Skrump eller flyt naboblokke af vejen først"
+msgstr "Skrump eller flyt naboblokke af vejen fÃ¸rst"
 
 #: framework/NLS/NLS/GeoIP.php:105 framework/NLS/NLS/countries.php:201
 #: framework/NLS/NLS/tld.php:211 lib/Horde/NLS/countries.php:201
@@ -6129,7 +6129,7 @@ msgstr "Singapore"
 #: lib/Horde/Form.php:3110 lib/Horde/MIME/Viewer/rar.php:65
 #: lib/Horde/MIME/Viewer/tgz.php:84 lib/Horde/MIME/Viewer/zip.php:72
 msgid "Size"
-msgstr "Størrelse"
+msgstr "StÃ¸rrelse"
 
 #: templates/maintenance/maintenance.html:52
 msgid "Skip Maintenance"
@@ -6173,13 +6173,13 @@ msgstr "Snedybde: "
 
 #: lib/Block/metar.php:294
 msgid "Snow equivalent in water: "
-msgstr "Sneækvivalent i vand: "
+msgstr "SneÃ¦kvivalent i vand: "
 
 #: framework/NLS/NLS/GeoIP.php:103 framework/NLS/NLS/countries.php:205
 #: framework/NLS/NLS/tld.php:202 lib/Horde/NLS/countries.php:205
 #: lib/Horde/NLS/tld.php:202 lib/Horde/NLS/GeoIP.php:103
 msgid "Solomon Islands"
-msgstr "Salomonøerne"
+msgstr "SalomonÃ¸erne"
 
 #: framework/NLS/NLS/GeoIP.php:106 framework/NLS/NLS/countries.php:206
 #: framework/NLS/NLS/tld.php:214 lib/Horde/NLS/countries.php:206
@@ -6215,13 +6215,13 @@ msgstr "Sydafrika"
 
 #: config/nls.php.dist:193
 msgid "South European (ISO-8859-3)"
-msgstr "Sydeuropæisk (ISO-8859-3)"
+msgstr "SydeuropÃ¦isk (ISO-8859-3)"
 
 #: framework/NLS/NLS/GeoIP.php:77 framework/NLS/NLS/countries.php:208
 #: framework/NLS/NLS/tld.php:101 lib/Horde/NLS/countries.php:208
 #: lib/Horde/NLS/tld.php:101 lib/Horde/NLS/GeoIP.php:77
 msgid "South Georgia and the South Sandwich Islands"
-msgstr "Syd Georgia og De sydlige Sandwichøer"
+msgstr "Syd Georgia og De sydlige SandwichÃ¸er"
 
 #: lib/Block/moon.php:33 lib/Block/moon.php:62
 msgid "Southern Hemisphere"
@@ -6266,7 +6266,7 @@ msgstr "Star Trek"
 #: framework/Form/Form.php:2591 framework/Form/Form.php:2796
 #: lib/Horde/Form.php:2591 lib/Horde/Form.php:2796
 msgid "Start year"
-msgstr "Begyndelsesår"
+msgstr "BegyndelsesÃ¥r"
 
 #: framework/Crypt/Crypt/smime.php:571 lib/Horde/Crypt/smime.php:571
 msgid "State or Province"
@@ -6290,11 +6290,11 @@ msgstr "Liste af strenge"
 
 #: framework/Form/Form.php:1878 lib/Horde/Form.php:1878
 msgid "Strip domain from the address"
-msgstr "Fjern domæne fra adressen"
+msgstr "Fjern domÃ¦ne fra adressen"
 
 #: templates/javascript/open_calendar.js:62
 msgid "Su"
-msgstr "Søn"
+msgstr "SÃ¸n"
 
 #: util/icon_browser.php:37
 #, php-format
@@ -6317,19 +6317,19 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"Anmodning om at tilføje \"%s\" til system afsendt.  Du kan ikke logge på før "
+"Anmodning om at tilfÃ¸je \"%s\" til system afsendt.  Du kan ikke logge pÃ¥ fÃ¸r "
 "din anmodning er blevet anerkendt."
 
 #: admin/sqlshell.php:103
 #: framework/Notification/Notification/Listener/status.php:28
 #: lib/Horde/Notification/Listener/status.php:28
 msgid "Success"
-msgstr "Udført"
+msgstr "UdfÃ¸rt"
 
 #: admin/user.php:84
 #, php-format
 msgid "Successfully added \"%s\" to the system."
-msgstr "\"%s\" blev tilføjet til systemet."
+msgstr "\"%s\" blev tilfÃ¸jet til systemet."
 
 #: admin/user.php:123
 #, php-format
@@ -6348,7 +6348,7 @@ msgstr "\"%s\" slettet fra systemet."
 
 #: admin/setup/config.php:51
 msgid "Successfully reverted configuration. Reload to see changes."
-msgstr "Konfiguration tilbageført. Genindlæs for at se ændringerne."
+msgstr "Konfiguration tilbagefÃ¸rt. GenindlÃ¦s for at se Ã¦ndringerne."
 
 #: admin/setup/index.php:59 admin/setup/scripts.php:57
 msgid "Successfully saved backup configuration."
@@ -6409,7 +6409,7 @@ msgstr "Solnedgang: "
 
 #: config/registry.php.dist:394
 msgid "Support"
-msgstr "Hjælp"
+msgstr "HjÃ¦lp"
 
 #: framework/NLS/NLS/GeoIP.php:106 framework/NLS/NLS/countries.php:212
 #: framework/NLS/NLS/tld.php:215 lib/Horde/NLS/countries.php:212
@@ -6455,7 +6455,7 @@ msgstr "SyncML"
 
 #: framework/SQL/SQL/Keywords.php:97 lib/Horde/SQL/Keywords.php:97
 msgid "Syntax error in search terms"
-msgstr "Syntaksfejl i søgeled"
+msgstr "Syntaksfejl i sÃ¸geled"
 
 #: framework/NLS/NLS/GeoIP.php:107 framework/NLS/NLS/countries.php:217
 #: framework/NLS/NLS/tld.php:218 lib/Horde/NLS/countries.php:217
@@ -6490,7 +6490,7 @@ msgstr "Tabel"
 #: framework/Form/Form/Type/tableset.php:57
 #: lib/Horde/Form/Type/tableset.php:57
 msgid "Table Set"
-msgstr "Tabelmængde"
+msgstr "TabelmÃ¦ngde"
 
 #: framework/NLS/NLS/GeoIP.php:111 framework/NLS/NLS/tld.php:234
 #: lib/Horde/NLS/tld.php:234 lib/Horde/NLS/GeoIP.php:111
@@ -6537,7 +6537,7 @@ msgstr "Temperatur: "
 #: lib/Block/weatherdotcom.php:286
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
-msgstr "Temperatur<br />(%sHøj%s/%sLav%s) &deg;%s"
+msgstr "Temperatur<br />(%sHÃ¸j%s/%sLav%s) &deg;%s"
 
 #: framework/Template/Template.php:695 lib/Horde/Template.php:695
 #, php-format
@@ -6573,24 +6573,24 @@ msgstr "Thailand"
 
 #: framework/VFS/VFS/ftp.php:829 lib/VFS/ftp.php:829
 msgid "The FTP extension is not available."
-msgstr "FTP-udviddelsen er ikke tilgængelig."
+msgstr "FTP-udviddelsen er ikke tilgÃ¦ngelig."
 
 #: framework/History/History.php:63 lib/Horde/History.php:63
 msgid "The History system is disabled."
-msgstr "Historik-systemet er slået fra."
+msgstr "Historik-systemet er slÃ¥et fra."
 
 #: framework/Kolab/Kolab.php:938 lib/Horde/Kolab.php:938
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr "Horde/Kolab-integrationsmotoren understøtter ikke \"%s\""
+msgstr "Horde/Kolab-integrationsmotoren understÃ¸tter ikke \"%s\""
 
 #: framework/Net_IMSP/IMSP/Book.php:1298 lib/Net/IMSP/Book.php:1298
 msgid "The IMSP log could not be initialized."
-msgstr "IMSP-loggen kunne ikke klargøres."
+msgstr "IMSP-loggen kunne ikke klargÃ¸res."
 
 #: services/maintenance.php:31
 msgid "The Maintenance:: class did not load successfully"
-msgstr "Maintenance::-klassen blev ikke indlæst"
+msgstr "Maintenance::-klassen blev ikke indlÃ¦st"
 
 #: services/images/colorpicker.php:29
 msgid "The Options window has closed. Exiting."
@@ -6598,7 +6598,7 @@ msgstr "Tilvalgsvinduet er blevet lukket. Afslutter."
 
 #: framework/VFS/VFS/ssh2.php:852 lib/VFS/ssh2.php:852
 msgid "The SSH2 PECL extension is not available."
-msgstr "PECL-udviddelsen SSH2 er ikke tilgængelig."
+msgstr "PECL-udviddelsen SSH2 er ikke tilgÃ¦ngelig."
 
 #: framework/Perms/Perms.php:189 framework/Perms/Perms.php:200
 #: framework/Perms/Perms.php:211 framework/Perms/Perms.php:223
@@ -6611,7 +6611,7 @@ msgid ""
 "The administrator needs to configure a permanent Permissions backend if you "
 "want to use Permissions."
 msgstr ""
-"Administratoren bliver nødt til at konfigurere en permanent Tilladelses-"
+"Administratoren bliver nÃ¸dt til at konfigurere en permanent Tilladelses-"
 "backend, hvis du vil anvende Tilladelser."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:639
@@ -6625,13 +6625,13 @@ msgstr ""
 
 #: framework/MIME/MIME/Viewer/vcard.php:51 lib/Horde/MIME/Viewer/vcard.php:51
 msgid "The contact was successfully added to your address book."
-msgstr "Kontakten blev tilføjet til dit adressekartoteket."
+msgstr "Kontakten blev tilfÃ¸jet til dit adressekartoteket."
 
 #: framework/Crypt/Crypt/pgp.php:1172 lib/Horde/Crypt/pgp.php:1172
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Den løsgjorte PGP-signatur-blok er krævet for at kunne verificere den "
+"Den lÃ¸sgjorte PGP-signatur-blok er krÃ¦vet for at kunne verificere den "
 "signerede besked."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:641
@@ -6654,28 +6654,28 @@ msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
 msgstr ""
-"E-post-adressen \"%s\" er føjet til din identiteter. Du kan nu lukke dette "
+"E-post-adressen \"%s\" er fÃ¸jet til din identiteter. Du kan nu lukke dette "
 "vindue."
 
 #: framework/Crypt/Crypt.php:116 lib/Horde/Crypt.php:116
 msgid "The encryption features require a secure web connection."
-msgstr "Krypteringsfaciliteterne kræver en sikker web-forbindelse."
+msgstr "Krypteringsfaciliteterne krÃ¦ver en sikker web-forbindelse."
 
 #: framework/Horde/Horde.php:186 framework/Horde/Horde.php:540
 #: lib/Horde.php:186 lib/Horde.php:540
 #, php-format
 msgid "The file %s should contain a %s setting."
-msgstr "Filen %s bør indeholde en %s-indstilling."
+msgstr "Filen %s bÃ¸r indeholde en %s-indstilling."
 
 #: framework/Horde/Horde.php:179 framework/Horde/Horde.php:530
 #: lib/Horde.php:179 lib/Horde.php:530
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "Filen %s bør indeholde nogle %s-indstillinger."
+msgstr "Filen %s bÃ¸r indeholde nogle %s-indstillinger."
 
 #: framework/VFS/VFS/file.php:242 lib/VFS/file.php:242
 msgid "The file cannot be copied onto itself."
-msgstr "Filen kan ikke kopieres ovenpå sigselv."
+msgstr "Filen kan ikke kopieres ovenpÃ¥ sigselv."
 
 #: framework/Data/Data.php:280 lib/Horde/Data.php:280
 msgid "The file contained no data."
@@ -6698,24 +6698,24 @@ msgid ""
 "This is no guarantee that the message has been read or understood."
 msgstr ""
 "Beskeden, som er sendt den %s til %s med emnet \"%s\" er blevet vist.\n"
-"Dette er ingen garanti for, at beskeden rent faktisk er blevet læst eller "
-"forstået."
+"Dette er ingen garanti for, at beskeden rent faktisk er blevet lÃ¦st eller "
+"forstÃ¥et."
 
 #: framework/Form/Form.php:1882 lib/Horde/Form.php:1882
 msgid "The name to use when linking to the compose page"
-msgstr "Navnet, der skal bruge, når der henvises til skrivesiden"
+msgstr "Navnet, der skal bruge, nÃ¥r der henvises til skrivesiden"
 
 #: services/prefs.php:106
 msgid "The new from address can't be verified, try again later: "
-msgstr "Den nye adresse kan ikke verificeres; prøv igen senere: "
+msgstr "Den nye adresse kan ikke verificeres; prÃ¸v igen senere: "
 
 #: framework/File_CSV/CSV.php:474 lib/File/CSV.php:474
 msgid "The number of fields must be numeric."
-msgstr "Antallet af felter skal være et tal."
+msgstr "Antallet af felter skal vÃ¦re et tal."
 
 #: framework/Crypt/Crypt/smime.php:1232 lib/Horde/Crypt/smime.php:1232
 msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr "openssl-modulet er krævet af Horde_Crypt_smime::-klassen."
+msgstr "openssl-modulet er krÃ¦vet af Horde_Crypt_smime::-klassen."
 
 #: framework/Prefs/Prefs.php:300 lib/Horde/Prefs.php:300
 #, php-format
@@ -6723,8 +6723,8 @@ msgid ""
 "The preference \"%s\" could not be saved because its data exceeded the "
 "maximum allowable size"
 msgstr ""
-"Præferencen \"%s\" kunne ikke gemmes fordi dens data overskrider den "
-"maksimalt tilladte størrelse"
+"PrÃ¦ferencen \"%s\" kunne ikke gemmes fordi dens data overskrider den "
+"maksimalt tilladte stÃ¸rrelse"
 
 #: framework/Prefs/Prefs/ldap.php:299 framework/Prefs/Prefs/sql.php:140
 #: lib/Horde/Prefs/ldap.php:299 lib/Horde/Prefs/sql.php:140
@@ -6732,8 +6732,8 @@ msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default settings."
 msgstr ""
-"Præference-backenden er for tiden ikke tilgængelig og dine præferencer er "
-"ikke hentet. Du kan fortsætte anvendelsen af system med standard-"
+"PrÃ¦ference-backenden er for tiden ikke tilgÃ¦ngelig og dine prÃ¦ferencer er "
+"ikke hentet. Du kan fortsÃ¦tte anvendelsen af system med standard-"
 "indstillinger."
 
 #: framework/MIME/MIME/Viewer/deb.php:32
@@ -6754,15 +6754,15 @@ msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr ""
 "Programmet, der bruges til at betragte denne datatype (%s), blevet ikke "
-"fundet på systemet."
+"fundet pÃ¥ systemet."
 
 #: framework/File_CSV/CSV.php:487 lib/File/CSV.php:487
 msgid "The quote character must be one single character."
-msgstr "Citationstegnet skal være et enkelt tegn."
+msgstr "Citationstegnet skal vÃ¦re et enkelt tegn."
 
 #: framework/File_CSV/CSV.php:479 lib/File/CSV.php:479
 msgid "The separator must be one single character."
-msgstr "Adskillelsestegnet skal være et enkelt tegn."
+msgstr "Adskillelsestegnet skal vÃ¦re et enkelt tegn."
 
 #: services/portal/rpcsum.php:78
 #, php-format
@@ -6783,11 +6783,11 @@ msgstr "Opskrivningsanmodningen for %s er slettet."
 #: lib/Horde/Block/Layout/Manager.php:470
 #, php-format
 msgid "The specified row (%d) does not exist."
-msgstr "Den angivne række (%d) eksisterer ikke."
+msgstr "Den angivne rÃ¦kke (%d) eksisterer ikke."
 
 #: lib/Horde/Block/Layout.php:330
 msgid "The specified row does not exist."
-msgstr "Den angivne række eksisterer ikke."
+msgstr "Den angivne rÃ¦kke eksisterer ikke."
 
 #: framework/VFS/VFS/sql.php:202 lib/VFS/sql.php:202
 #, php-format
@@ -6796,7 +6796,7 @@ msgstr "Den midlertidige fil \"%s\" findes ikke."
 
 #: framework/Form/Form.php:3307 lib/Horde/Form.php:3307
 msgid "The text you entered did not match the text on the screen."
-msgstr "Den tekst, som du indtastede, passer ikke til teksten på skærmen."
+msgstr "Den tekst, som du indtastede, passer ikke til teksten pÃ¥ skÃ¦rmen."
 
 #: framework/Data/Data.php:327 lib/Horde/Data.php:327
 msgid "The uploaded data was lost since the previous step."
@@ -6805,11 +6805,11 @@ msgstr "Den afsendte information er tabt siden sidste trin."
 #: framework/Data/Data/csv.php:262 framework/Data/Data/tsv.php:172
 #: lib/Horde/Data/tsv.php:172 lib/Horde/Data/csv.php:262
 msgid "The uploaded file could not be saved."
-msgstr "Den overførte fil kunne ikke gemmes."
+msgstr "Den overfÃ¸rte fil kunne ikke gemmes."
 
 #: lib/Block/weatherdotcom.php:54 lib/Block/weatherdotcom.php:115
 msgid "The weather.com block is not available."
-msgstr "weather.com-blokken er ikke tilgængelig."
+msgstr "weather.com-blokken er ikke tilgÃ¦ngelig."
 
 #: util/icon_browser.php:25
 #, php-format
@@ -6819,11 +6819,11 @@ msgstr "Tema-kataloget \"%s\" ikke fundet."
 #: framework/Identity/Identity.php:444 framework/Identity/Identity.php:448
 #: lib/Horde/Identity.php:444 lib/Horde/Identity.php:448
 msgid "There are no email addresses to confirm."
-msgstr "Der er ingen adresser at bekræfte."
+msgstr "Der er ingen adresser at bekrÃ¦fte."
 
 #: framework/Prefs/Prefs/UI.php:178 lib/Horde/Prefs/UI.php:178
 msgid "There are no options available."
-msgstr "Ingen tilvalg til rådighed."
+msgstr "Ingen tilvalg til rÃ¥dighed."
 
 #: framework/MIME/MIME/Contents.php:344 lib/Horde/MIME/Contents.php:344
 msgid "There are no parts that can be displayed inline."
@@ -6841,7 +6841,7 @@ msgstr ""
 #: signup.php:53 admin/user.php:72
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "Der opstod et problem under tilføjelsen af '%s' til systemet: %s"
+msgstr "Der opstod et problem under tilfÃ¸jelsen af '%s' til systemet: %s"
 
 #: admin/user.php:121
 #, php-format
@@ -6863,7 +6863,7 @@ msgstr "Der opstod et problem under opdatering af \"%s\": %s"
 #: framework/Browser/Browser.php:934 lib/Horde/Browser.php:934
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "Der opstod et problem under filoverførslen: Ingen %s blev overført."
+msgstr "Der opstod et problem under filoverfÃ¸rslen: Ingen %s blev overfÃ¸rt."
 
 #: framework/Browser/Browser.php:939 lib/Horde/Browser.php:939
 #, php-format
@@ -6871,15 +6871,15 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Der opstod et problem under filoverførslen: %s var større end den maksimalt "
-"tilladte størrelse (%d bytes)."
+"Der opstod et problem under filoverfÃ¸rslen: %s var stÃ¸rre end den maksimalt "
+"tilladte stÃ¸rrelse (%d bytes)."
 
 #: framework/Browser/Browser.php:941 lib/Horde/Browser.php:941
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Der opstod et problem under filoverførslen: %s blev kun delvist overført."
+"Der opstod et problem under filoverfÃ¸rslen: %s blev kun delvist overfÃ¸rt."
 
 #: framework/MIME/MIME/Viewer/rfc822.php:35
 #: lib/Horde/MIME/Viewer/rfc822.php:35
@@ -6902,7 +6902,7 @@ msgid ""
 "required field."
 msgstr ""
 "Der opstod en fejl i konfigurationsformularen. Nuligvis har du udeladt et "
-"krævet felt."
+"krÃ¦vet felt."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:638
 #: lib/Net/SMS/sms2email_http.php:638
@@ -6910,37 +6910,37 @@ msgid ""
 "There was an error performing the specified address book function. Please "
 "try again later."
 msgstr ""
-"Der opstod et problem under udførelse af den angivne "
-"adressekartoteksfunktion. Prøv igen."
+"Der opstod et problem under udfÃ¸relse af den angivne "
+"adressekartoteksfunktion. PrÃ¸v igen."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:640
 #: lib/Net/SMS/sms2email_http.php:640
 msgid ""
 "There was an error updating the contact details. Please try again later."
-msgstr "Der opstod en fejl under opdatering af kontakt-detaljerne. Prøv igen."
+msgstr "Der opstod en fejl under opdatering af kontakt-detaljerne. PrÃ¸v igen."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:645
 #: framework/Net_SMS/SMS/win_http.php:222 lib/Net/SMS/sms2email_http.php:645
 #: lib/Net/SMS/win_http.php:222
 msgid ""
 "There was an error updating the distribution list. Please try again later."
-msgstr "Der opstod en fejl under opdatering af distributionslisten. Prøv igen."
+msgstr "Der opstod en fejl under opdatering af distributionslisten. PrÃ¸v igen."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:148 lib/Horde/IMAP/ACL/rfc2086.php:148
 msgid "This IMAP server does not support sharing folders."
-msgstr "Denne IMAP-server understøtter ikke deling af mapper."
+msgstr "Denne IMAP-server understÃ¸tter ikke deling af mapper."
 
 #: framework/MIME/MIME/Viewer/rar.php:48 lib/Horde/MIME/Viewer/rar.php:48
 msgid "This does not appear to be a valid rar archive."
-msgstr "Dette tyder ikke på at være et gyldigt rar-arkiv."
+msgstr "Dette tyder ikke pÃ¥ at vÃ¦re et gyldigt rar-arkiv."
 
 #: framework/MIME/MIME/Viewer/zip.php:52 lib/Horde/MIME/Viewer/zip.php:52
 msgid "This does not appear to be a valid zip file."
-msgstr "Denne tyder ikke på at være en gyldig zip-fil."
+msgstr "Denne tyder ikke pÃ¥ at vÃ¦re en gyldig zip-fil."
 
 #: framework/Form/Form.php:3132 lib/Horde/Form.php:3132
 msgid "This does not seem to be a valid card number."
-msgstr "Dette tyder ikke på at være et gyldigt kortnummer."
+msgstr "Dette tyder ikke pÃ¥ at vÃ¦re et gyldigt kortnummer."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:185
 #: lib/Net/SMS/clickatell_http.php:185
@@ -6976,7 +6976,7 @@ msgid ""
 "Vodafone Italy (http://www.190.it)."
 msgstr ""
 "Denne driver tillader afsendelse af beskeder via SMTP igennem Vodafone "
-"Italien adgangspunktet, dog kun til Vodafone-numre. Den kræver en e-"
+"Italien adgangspunktet, dog kun til Vodafone-numre. Den krÃ¦ver en e-"
 "mailkonto hos Vodafone Italien (http://www.190.it)."
 
 #: framework/Form/Form.php:979 framework/Form/Form.php:1058
@@ -7000,28 +7000,28 @@ msgstr ""
 #: lib/Horde/Form.php:2642 lib/Horde/Form.php:2815 lib/Horde/Form.php:3124
 #: lib/Horde/Form.php:3302 lib/Horde/Form.php:3810 lib/Horde/Form.php:3818
 msgid "This field is required."
-msgstr "Dette felt er krævet."
+msgstr "Dette felt er krÃ¦vet."
 
 #: framework/Form/Form.php:1066 lib/Horde/Form.php:1066
 msgid "This field may only contain integers."
-msgstr "Dette felt må kun indeholde heltal."
+msgstr "Dette felt mÃ¥ kun indeholde heltal."
 
 #: framework/Form/Form.php:2421 lib/Horde/Form.php:2421
 msgid "This field may only contain numbers and the colon."
-msgstr "Dette felt må kun indeholde numre og kolon."
+msgstr "Dette felt mÃ¥ kun indeholde numre og kolon."
 
 #: framework/Form/Form.php:1095 lib/Horde/Form.php:1095
 msgid "This field may only contain octal values."
-msgstr "Dette felt må kun indeholde oktale værdier."
+msgstr "Dette felt mÃ¥ kun indeholde oktale vÃ¦rdier."
 
 #: framework/Form/Form.php:1124 lib/Horde/Form.php:1124
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
-"Dette felt skal være en komma- eller mellemrumsadskildt liste af heltal"
+"Dette felt skal vÃ¦re en komma- eller mellemrumsadskildt liste af heltal"
 
 #: framework/Form/Form.php:990 lib/Horde/Form.php:990
 msgid "This field must be a valid number."
-msgstr "Dette felt skal være et gyldigt nummer."
+msgstr "Dette felt skal vÃ¦re et gyldigt nummer."
 
 #: framework/Form/Form.php:2823 lib/Horde/Form.php:2823
 msgid ""
@@ -7046,17 +7046,17 @@ msgid ""
 "clients please visit %s"
 msgstr ""
 "Dette er et Kolab Groupware-objekt. For at se dette objekt har du brug for "
-"en e-mail-klient, som forstår Kolab Groupware-formatet. Besøg %s for en "
+"en e-mail-klient, som forstÃ¥r Kolab Groupware-formatet. BesÃ¸g %s for en "
 "liste af klienter."
 
 #: framework/MIME/MIME/Contents.php:598 lib/Horde/MIME/Contents.php:598
 #, php-format
 msgid "This message was written in a character set (%s) other than your own."
-msgstr "Denne besked er skrevet med et andet tegnsæt (%s) end dit eget."
+msgstr "Denne besked er skrevet med et andet tegnsÃ¦t (%s) end dit eget."
 
 #: framework/Prefs/Prefs/UI.php:126 lib/Horde/Prefs/UI.php:126
 msgid "This number must be at least one."
-msgstr "Tallet skal være min. 1."
+msgstr "Tallet skal vÃ¦re min. 1."
 
 #: framework/Compress/Compress/gzip.php:45 lib/Horde/Compress/gzip.php:45
 msgid "This server can't uncompress zip and gzip files."
@@ -7068,7 +7068,7 @@ msgstr "Dette system er deaktiveret."
 
 #: framework/Prefs/Prefs/UI.php:124 lib/Horde/Prefs/UI.php:124
 msgid "This value must be a number."
-msgstr "Denne værdi skal være et tal."
+msgstr "Denne vÃ¦rdi skal vÃ¦re et tal."
 
 #: services/images/colorpicker.php:35
 msgid "This window must be called from an Options window"
@@ -7089,7 +7089,7 @@ msgstr "Tid"
 
 #: config/registry.php.dist:402
 msgid "Time Tracking"
-msgstr "Tidsopgørelse"
+msgstr "TidsopgÃ¸relse"
 
 #: lib/Block/time.php:22
 msgid "Time format"
@@ -7121,7 +7121,7 @@ msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
-"For at vælge multiple indgange skal Ctrl- (PC) eller Command (Mac)-tasten "
+"For at vÃ¦lge multiple indgange skal Ctrl- (PC) eller Command (Mac)-tasten "
 "holdes nede medens der klikkes."
 
 #: lib/Block/weatherdotcom.php:303
@@ -7152,11 +7152,11 @@ msgstr "Tonga"
 
 #: framework/Auth/Auth/kolab.php:104 lib/Horde/Auth/kolab.php:104
 msgid "Too many invalid logins during the last minutes."
-msgstr "For mange ugyldige logind-forsøg i løbet af de sidste minutter."
+msgstr "For mange ugyldige logind-forsÃ¸g i lÃ¸bet af de sidste minutter."
 
 #: lib/Block/fortune.php:68
 msgid "Translations"
-msgstr "Oversættelser"
+msgstr "OversÃ¦ttelser"
 
 #: framework/NLS/NLS/GeoIP.php:111 framework/NLS/NLS/countries.php:226
 #: framework/NLS/NLS/tld.php:232 lib/Horde/NLS/countries.php:226
@@ -7198,7 +7198,7 @@ msgstr "Turkmenistan"
 #: framework/NLS/NLS/tld.php:220 lib/Horde/NLS/countries.php:230
 #: lib/Horde/NLS/tld.php:220 lib/Horde/NLS/GeoIP.php:108
 msgid "Turks and Caicos Islands"
-msgstr "Turks og Caicos Øerne"
+msgstr "Turks og Caicos Ã˜erne"
 
 #: framework/NLS/NLS/GeoIP.php:111 framework/NLS/NLS/countries.php:231
 #: framework/NLS/NLS/tld.php:233 lib/Horde/NLS/countries.php:231
@@ -7238,19 +7238,19 @@ msgstr "Ukraine"
 
 #: framework/VFS/VFS/file.php:445 lib/VFS/file.php:445
 msgid "Unable to access VFS directory."
-msgstr "Kunne ikke tilgå VFS-katalog."
+msgstr "Kunne ikke tilgÃ¥ VFS-katalog."
 
 #: framework/VFS/VFS/ftp.php:393 framework/VFS/VFS/ssh2.php:385
 #: lib/VFS/ftp.php:393 lib/VFS/ssh2.php:385
 #, php-format
 msgid "Unable to change permission for VFS file \"%s\"."
-msgstr "Kan ikke ændre tilladelser for VFS-fil \"%s\"."
+msgstr "Kan ikke Ã¦ndre tilladelser for VFS-fil \"%s\"."
 
 #: framework/VFS/VFS/file.php:418 framework/VFS/VFS/musql.php:468
 #: lib/VFS/file.php:418 lib/VFS/musql.php:468
 #, php-format
 msgid "Unable to change permission for VFS file %s/%s."
-msgstr "Kan ikke ændre tilladelser for VFS-fil %s/%s."
+msgstr "Kan ikke Ã¦ndre tilladelser for VFS-fil %s/%s."
 
 #: framework/VFS/VFS/ftp.php:783 framework/VFS/VFS/ssh2.php:797
 #: lib/VFS/ftp.php:783 lib/VFS/ssh2.php:797
@@ -7262,18 +7262,18 @@ msgstr "Kan ikke skifte til %s."
 #: lib/VFS/ftp.php:237 lib/VFS/ssh2.php:237
 #, php-format
 msgid "Unable to check file size of \"%s\"."
-msgstr "Kan ikke tjekke filstørrelsen af \"%s\"."
+msgstr "Kan ikke tjekke filstÃ¸rrelsen af \"%s\"."
 
 #: framework/VFS/VFS/file.php:721 framework/VFS/VFS/sql.php:1063
 #: framework/VFS/VFS/sql_file.php:872 lib/VFS/file.php:721
 #: lib/VFS/sql.php:1063 lib/VFS/sql_file.php:872
 #, php-format
 msgid "Unable to check file size of \"%s/%s\"."
-msgstr "Kan ikke tjekke filstørrelsen af \"%s/%s\"."
+msgstr "Kan ikke tjekke filstÃ¸rrelsen af \"%s/%s\"."
 
 #: framework/VFS/VFS/ftp.php:848 lib/VFS/ftp.php:848
 msgid "Unable to connect with SSL."
-msgstr "Kan ikke få forbindelse med SSL."
+msgstr "Kan ikke fÃ¥ forbindelse med SSL."
 
 #: framework/VFS/VFS/file.php:258 framework/VFS/VFS/file.php:263
 #: framework/VFS/VFS/sql_file.php:226 framework/VFS/VFS/sql_file.php:231
@@ -7390,7 +7390,7 @@ msgstr "Kan ikke uddrage certifikat-detaljer"
 #: lib/Net/IMSP.php:437 lib/Net/IMSP/Auth.php:123
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Kan ikke indlæse definitionen af %s."
+msgstr "Kan ikke indlÃ¦se definitionen af %s."
 
 #: framework/VFS/VFS/file.php:218 framework/VFS/VFS/file.php:223
 #: framework/VFS/VFS/sql_file.php:185 framework/VFS/VFS/sql_file.php:190
@@ -7405,68 +7405,68 @@ msgstr "Kan ikke flytte VFS-fil."
 #: lib/VFS/smb.php:106 lib/VFS/smb.php:628 lib/VFS/ssh2.php:97
 #, php-format
 msgid "Unable to open VFS file \"%s\"."
-msgstr "Kan ikke åbne VFS-fil \"%s\"."
+msgstr "Kan ikke Ã¥bne VFS-fil \"%s\"."
 
 #: framework/VFS/VFS/file.php:310 framework/VFS/VFS/sql_file.php:138
 #: framework/VFS/VFS/sql_file.php:141 lib/VFS/file.php:310
 #: lib/VFS/sql_file.php:138 lib/VFS/sql_file.php:141
 msgid "Unable to open VFS file for writing."
-msgstr "Kan ikke åbne VFS-fil til skrivning."
+msgstr "Kan ikke Ã¥bne VFS-fil til skrivning."
 
 #: framework/VFS/VFS/file.php:81 framework/VFS/VFS/file.php:86
 #: framework/VFS/VFS/file.php:140 framework/VFS/VFS/sql_file.php:76
 #: lib/VFS/file.php:81 lib/VFS/file.php:86 lib/VFS/file.php:140
 #: lib/VFS/sql_file.php:76
 msgid "Unable to open VFS file."
-msgstr "Kan ikke åbne VFS-fil."
+msgstr "Kan ikke Ã¥bne VFS-fil."
 
 #: framework/MIME/MIME/Viewer/tgz.php:45 lib/Horde/MIME/Viewer/tgz.php:45
 msgid "Unable to open compressed archive."
-msgstr "Kan ikke åbne komprimeret arkiv."
+msgstr "Kan ikke Ã¥bne komprimeret arkiv."
 
 #: framework/VFS/VFS.php:903 lib/VFS.php:903
 msgid "Unable to read VFS file (filesize() failed)."
-msgstr "Kan ikke læse VFS-fil (filesize() fejlede)."
+msgstr "Kan ikke lÃ¦se VFS-fil (filesize() fejlede)."
 
 #: framework/VFS/VFS.php:934 lib/VFS.php:934
 msgid "Unable to read VFS file (getFileSize() failed)."
-msgstr "Kan ikke læse VFS-fil (getFileSize() fejlede)."
+msgstr "Kan ikke lÃ¦se VFS-fil (getFileSize() fejlede)."
 
 #: framework/SessionHandler/SessionHandler/none.php:38
 #: lib/Horde/SessionHandler/none.php:38
 msgid "Unable to read file: "
-msgstr "Kan ikke læse fil: "
+msgstr "Kan ikke lÃ¦se fil: "
 
 #: framework/VFS/VFS/file.php:702 lib/VFS/file.php:702
 msgid "Unable to read the vfsroot directory."
-msgstr "Kan ikke læse vfsroot-kataloget."
+msgstr "Kan ikke lÃ¦se vfsroot-kataloget."
 
 #: framework/Kolab/Kolab.php:1109 lib/Horde/Kolab.php:1109
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
-msgstr "Kan ikke omdøbe %s til %s: målmappen findes allerede"
+msgstr "Kan ikke omdÃ¸be %s til %s: mÃ¥lmappen findes allerede"
 
 #: framework/VFS/VFS/sql_file.php:323 lib/VFS/sql_file.php:323
 msgid "Unable to rename VFS directory."
-msgstr "Kan ikke omdøbe VFS-katalog."
+msgstr "Kan ikke omdÃ¸be VFS-katalog."
 
 #: framework/VFS/VFS/sql.php:355 lib/VFS/sql.php:355
 #, php-format
 msgid "Unable to rename VFS directory: %s."
-msgstr "Kan ikke omdøbe VFS-katalog: %s."
+msgstr "Kan ikke omdÃ¸be VFS-katalog: %s."
 
 #: framework/VFS/VFS/ftp.php:348 framework/VFS/VFS/smb.php:262
 #: framework/VFS/VFS/ssh2.php:340 lib/VFS/ftp.php:348 lib/VFS/smb.php:262
 #: lib/VFS/ssh2.php:340
 #, php-format
 msgid "Unable to rename VFS file \"%s\"."
-msgstr "Kan ikke omdøbe VFS-fil \"%s\"."
+msgstr "Kan ikke omdÃ¸be VFS-fil \"%s\"."
 
 #: framework/VFS/VFS/file.php:643 framework/VFS/VFS/musql.php:229
 #: lib/VFS/file.php:643 lib/VFS/musql.php:229
 #, php-format
 msgid "Unable to rename VFS file %s/%s."
-msgstr "Kan ikke omdøbe VFS-fil %s/%s."
+msgstr "Kan ikke omdÃ¸be VFS-fil %s/%s."
 
 #: framework/VFS/VFS/musql.php:213 framework/VFS/VFS/musql.php:452
 #: framework/VFS/VFS/sql.php:349 framework/VFS/VFS/sql_file.php:315
@@ -7474,7 +7474,7 @@ msgstr "Kan ikke omdøbe VFS-fil %s/%s."
 #: lib/VFS/musql.php:452 lib/VFS/sql.php:349 lib/VFS/sql_file.php:315
 #: lib/VFS/sql_file.php:331
 msgid "Unable to rename VFS file."
-msgstr "Kan ikke omdøbe VFS-fil."
+msgstr "Kan ikke omdÃ¸be VFS-fil."
 
 #: framework/VFS_ISOWriter/ISOWriter/mkisofs.php:50
 #: lib/VFS/ISOWriter/mkisofs.php:50
@@ -7484,7 +7484,7 @@ msgstr "Kan ikke afvikle 'mkisofs'."
 #: framework/MIME/MIME/Viewer/msword.php:59
 #: lib/Horde/MIME/Viewer/msword.php:59
 msgid "Unable to translate this Word document"
-msgstr "Kunne ikke oversætte dette Word dokument"
+msgstr "Kunne ikke oversÃ¦tte dette Word dokument"
 
 #: framework/VFS/VFS/ftp.php:154 framework/VFS/VFS/ftp.php:157
 #: framework/VFS/VFS/ssh2.php:149 framework/VFS/VFS/ssh2.php:152
@@ -7510,13 +7510,13 @@ msgstr "Kan ikke skrive VFS-fil; kvoten vil blive overskredet."
 
 #: templates/prefs/end.inc:6
 msgid "Undo Changes"
-msgstr "Fortryd ændringer"
+msgstr "Fortryd Ã¦ndringer"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:221
 #: framework/IMAP/IMAP/ACL/rfc2086.php:388 lib/Horde/IMAP/ACL/rfc2086.php:221
 #: lib/Horde/IMAP/ACL/rfc2086.php:388
 msgid "Unexpected response from server on connection: "
-msgstr "Uventet reaktion fra server på forbindelsen: "
+msgstr "Uventet reaktion fra server pÃ¥ forbindelsen: "
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:217
 #: framework/IMAP/IMAP/ACL/rfc2086.php:339
@@ -7525,7 +7525,7 @@ msgstr "Uventet reaktion fra server på forbindelsen: "
 #: lib/Horde/IMAP/ACL/rfc2086.php:339 lib/Horde/IMAP/ACL/rfc2086.php:376
 #: lib/Horde/IMAP/ACL/rfc2086.php:382
 msgid "Unexpected response from server to: "
-msgstr "Uventet reaktion fra server på: "
+msgstr "Uventet reaktion fra server pÃ¥: "
 
 #: framework/Prefs/Prefs/CategoryManager.php:57
 #: lib/Horde/Prefs/CategoryManager.php:57
@@ -7559,7 +7559,7 @@ msgstr "USA"
 #: framework/NLS/NLS/tld.php:239 lib/Horde/NLS/countries.php:237
 #: lib/Horde/NLS/tld.php:239 lib/Horde/NLS/GeoIP.php:113
 msgid "United States Minor Outlying Islands"
-msgstr "USAs underordnede øer"
+msgstr "USAs underordnede Ã¸er"
 
 #: lib/Block/metar.php:83 lib/Block/weatherdotcom.php:67
 msgid "Units"
@@ -7598,21 +7598,21 @@ msgstr "Ikke navngivet"
 #: framework/Crypt/Crypt/smime.php:933 lib/Horde/Crypt/smime.php:687
 #: lib/Horde/Crypt/smime.php:927 lib/Horde/Crypt/smime.php:933
 msgid "Unsupported Extension"
-msgstr "Udviddelse ikke understøttet"
+msgstr "Udviddelse ikke understÃ¸ttet"
 
 #: framework/Perms/Perms/UI.php:197 lib/Horde/Perms/UI.php:197
 #: templates/admin/user/list.inc:33
 msgid "Update"
-msgstr "Opdatér"
+msgstr "OpdatÃ©r"
 
 #: templates/admin/user/update.inc:30
 #, php-format
 msgid "Update %s"
-msgstr "Opdatér %s"
+msgstr "OpdatÃ©r %s"
 
 #: templates/admin/user/update.inc:77
 msgid "Update user"
-msgstr "Opdatér bruger"
+msgstr "OpdatÃ©r bruger"
 
 #: admin/groups.php:143 admin/perms/edit.php:101 services/shares/edit.php:235
 #, php-format
@@ -7630,7 +7630,7 @@ msgstr "Upload"
 
 #: admin/setup/index.php:186
 msgid "Uploaded all application setup files to the server."
-msgstr "Opsætningsfiler til alle applikationer lagt op på server."
+msgstr "OpsÃ¦tningsfiler til alle applikationer lagt op pÃ¥ server."
 
 #: framework/NLS/NLS/GeoIP.php:113 framework/NLS/NLS/countries.php:238
 #: framework/NLS/NLS/tld.php:241 lib/Horde/NLS/countries.php:238
@@ -7642,7 +7642,7 @@ msgstr "Uruguay"
 #: lib/Horde/Prefs/CategoryManager.php:45
 #, php-format
 msgid "Use Current: %s"
-msgstr "Anvend nuværende: %s"
+msgstr "Anvend nuvÃ¦rende: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:538
 #: lib/Net/SMS/sms2email_http.php:538
@@ -7676,7 +7676,7 @@ msgstr "Bruger-registrering"
 
 #: signup.php:22
 msgid "User Registration has been disabled for this site."
-msgstr "Bruger-registrering er blevet slået fra på dette websted."
+msgstr "Bruger-registrering er blevet slÃ¥et fra pÃ¥ dette websted."
 
 #: lib/Block/account.php:494
 msgid "User account not found"
@@ -7737,13 +7737,13 @@ msgstr "Gyldighed"
 #: framework/Net_SMS/SMS/sms2email_http.php:597
 #: lib/Net/SMS/sms2email_http.php:597 lib/Net/SMS/clickatell_http.php:255
 msgid "Value in minutes from now."
-msgstr "Værdi er minutter fra nu."
+msgstr "VÃ¦rdi er minutter fra nu."
 
 #: framework/Form/Form.php:857 framework/Form/Form.php:1178
 #: lib/Horde/Form.php:857 lib/Horde/Form.php:1178
 #, php-format
 msgid "Value is over the maximum length of %s."
-msgstr "Værdi er mere end den maksimale længde af %s."
+msgstr "VÃ¦rdi er mere end den maksimale lÃ¦ngde af %s."
 
 #: framework/Form/Form.php:2249 framework/Form/Form.php:2271
 #: framework/Form/Form.php:2321 framework/Form/Form.php:2915
@@ -7751,12 +7751,12 @@ msgstr "Værdi er mere end den maksimale længde af %s."
 #: lib/Horde/Form.php:2271 lib/Horde/Form.php:2321 lib/Horde/Form.php:2915
 #: lib/Horde/Form/Type/tableset.php:59
 msgid "Values"
-msgstr "Værdier"
+msgstr "VÃ¦rdier"
 
 #: framework/Form/Form.php:2114 framework/Form/Form.php:2191
 #: lib/Horde/Form.php:2114 lib/Horde/Form.php:2191
 msgid "Values to select from"
-msgstr "Værdier, der kan vælges iblandt"
+msgstr "VÃ¦rdier, der kan vÃ¦lges iblandt"
 
 #: framework/NLS/NLS/GeoIP.php:117 framework/NLS/NLS/countries.php:240
 #: framework/NLS/NLS/tld.php:249 lib/Horde/NLS/countries.php:240
@@ -7776,7 +7776,7 @@ msgstr "Venezuela"
 
 #: framework/Crypt/Crypt/smime.php:218 lib/Horde/Crypt/smime.php:218
 msgid "Verification failed - this message may have been tampered with."
-msgstr "Efterprøvning fejlede - der er blevet pillet ved denne besked."
+msgstr "EfterprÃ¸vning fejlede - der er blevet pillet ved denne besked."
 
 #: framework/Crypt/Crypt/smime.php:701 lib/Horde/Crypt/smime.php:701
 msgid "Version"
@@ -7788,7 +7788,7 @@ msgstr "Versionskontrol"
 
 #: lib/Block/weatherdotcom_strings.php:72
 msgid "Very High"
-msgstr "Meget høj"
+msgstr "Meget hÃ¸j"
 
 #: framework/NLS/NLS/GeoIP.php:116 framework/NLS/NLS/countries.php:242
 #: framework/NLS/NLS/tld.php:248 lib/Horde/NLS/countries.php:242
@@ -7812,19 +7812,19 @@ msgstr "Vis %s [%s]"
 
 #: lib/Block/iframe.php:3
 msgid "View an external web page"
-msgstr "Se på ekstern webside"
+msgstr "Se pÃ¥ ekstern webside"
 
 #: framework/NLS/NLS/GeoIP.php:116 framework/NLS/NLS/countries.php:243
 #: framework/NLS/NLS/tld.php:246 lib/Horde/NLS/countries.php:243
 #: lib/Horde/NLS/tld.php:246 lib/Horde/NLS/GeoIP.php:116
 msgid "Virgin Islands, British"
-msgstr "Jomfruøer, Britiske"
+msgstr "JomfruÃ¸er, Britiske"
 
 #: framework/NLS/NLS/GeoIP.php:116 framework/NLS/NLS/countries.php:244
 #: framework/NLS/NLS/tld.php:247 lib/Horde/NLS/countries.php:244
 #: lib/Horde/NLS/tld.php:247 lib/Horde/NLS/GeoIP.php:116
 msgid "Virgin Islands, U.S."
-msgstr "Jomfruøer, Amerikanske"
+msgstr "JomfruÃ¸er, Amerikanske"
 
 #: lib/Block/metar.php:221
 msgid "Visibility"
@@ -7876,7 +7876,7 @@ msgstr "Vejrudsigt"
 
 #: lib/Block/weatherdotcom.php:419
 msgid "Weather data provided by"
-msgstr "Vejrinformation stillet tilrådighed af"
+msgstr "Vejrinformation stillet tilrÃ¥dighed af"
 
 #: framework/Form/Form.php:893 lib/Horde/Form.php:893
 msgid "Weather.com"
@@ -7946,7 +7946,7 @@ msgstr "Hvilke faser"
 
 #: config/prefs.php.dist:136
 msgid "Which plugins to enable for the Rich Text editor."
-msgstr "Hvilke plugins skal aktiveres for Rich Text-værktøjet."
+msgstr "Hvilke plugins skal aktiveres for Rich Text-vÃ¦rktÃ¸jet."
 
 #: framework/Form/Form.php:3112 lib/Horde/Form.php:3112
 msgid "Width in CSS units"
@@ -7955,7 +7955,7 @@ msgstr "Bredde i CSS-enheder"
 #: config/prefs.php.dist:361
 #, php-format
 msgid "Width of the %s menu on the left (takes effect on next log-in):"
-msgstr "Bredde af %s-menuen til venstre (bliver aktiveret ved næste logind):"
+msgstr "Bredde af %s-menuen til venstre (bliver aktiveret ved nÃ¦ste logind):"
 
 #: config/registry.php.dist:536
 msgid "Wiki"
@@ -7967,7 +7967,7 @@ msgstr "Vind"
 
 #: lib/Block/weatherdotcom_strings.php:68
 msgid "Wind Early"
-msgstr "Blæst tidligt"
+msgstr "BlÃ¦st tidligt"
 
 #: lib/Block/metar.php:92
 msgid "Wind speed in knots"
@@ -7987,7 +7987,7 @@ msgstr "Visdom"
 
 #: config/registry.php.dist:212
 msgid "Wishlist"
-msgstr "Ønskeliste"
+msgstr "Ã˜nskeliste"
 
 #: lib/Block/fortune.php:70
 msgid "Work"
@@ -8018,7 +8018,7 @@ msgstr "Forkert antal felter. Forventede %d, fandt %d."
 #: framework/VFS/VFS/file.php:124 lib/VFS/file.php:124
 #, php-format
 msgid "Wrong offset %d while reading a VFS file."
-msgstr "Forkert forskydning %d under indlæsning af en VFS-fil."
+msgstr "Forkert forskydning %d under indlÃ¦sning af en VFS-fil."
 
 #: config/registry.php.dist:259
 msgid "X-Ref"
@@ -8047,13 +8047,13 @@ msgstr "X509v3 udviddelser"
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "YY"
-msgstr "ÅÅ"
+msgstr "Ã…Ã…"
 
 #: framework/UI/UI/VarRenderer/html.php:418
 #: framework/UI/UI/VarRenderer/html.php:460
 #: lib/Horde/UI/VarRenderer/html.php:418 lib/Horde/UI/VarRenderer/html.php:460
 msgid "YYYY"
-msgstr "ÅÅÅÅ"
+msgstr "Ã…Ã…Ã…Ã…"
 
 #: framework/UI/UI/VarRenderer/html.php:1115
 #: lib/Horde/UI/VarRenderer/html.php:1115
@@ -8062,7 +8062,7 @@ msgstr "Yahoo!-kort"
 
 #: framework/Maintenance/Maintenance.php:56 lib/Horde/Maintenance.php:56
 msgid "Yearly"
-msgstr "Årlig"
+msgstr "Ã…rlig"
 
 #: framework/NLS/NLS/GeoIP.php:117 framework/NLS/NLS/countries.php:247
 #: framework/NLS/NLS/tld.php:252 lib/Horde/NLS/countries.php:247
@@ -8087,7 +8087,7 @@ msgstr "Du har ikke tilladelse til at oprette mere end %d blokke."
 
 #: framework/Horde/Horde.php:1427 lib/Horde.php:1427
 msgid "You are not authenticated."
-msgstr "Du er ikke ægtet."
+msgstr "Du er ikke Ã¦gtet."
 
 #: framework/Identity/Identity.php:325 lib/Horde/Identity.php:325
 msgid "You cannot have the '\\' character in your full name."
@@ -8095,7 +8095,7 @@ msgstr "Du kan ikke have '\\'-tegnet i dit fulde navn."
 
 #: framework/RPC/RPC/phpgw.php:117 lib/Horde/RPC/phpgw.php:117
 msgid "You did not authenticate."
-msgstr "Du er ikke ægtet."
+msgstr "Du er ikke Ã¦gtet."
 
 #: framework/Form/Form.php:1860 framework/Form/Form.php:1980
 #: lib/Horde/Form.php:1860 lib/Horde/Form.php:1980
@@ -8126,14 +8126,14 @@ msgid ""
 "\n"
 "If you don't know what this message means, you can delete it."
 msgstr ""
-"Du har anmodet om at tilføje e-post-adressen \"%s\" til listen over dine "
+"Du har anmodet om at tilfÃ¸je e-post-adressen \"%s\" til listen over dine "
 "personlige e-post-adresser.\n"
 "\n"
-"Gå til følgende henvisning for at bekræfte at dette virkeligt er din "
+"GÃ¥ til fÃ¸lgende henvisning for at bekrÃ¦fte at dette virkeligt er din "
 "adresse:\n"
 "%s\n"
 "\n"
-"Hvis du ikke ved, hvad denne besked betyder, så slet den."
+"Hvis du ikke ved, hvad denne besked betyder, sÃ¥ slet den."
 
 #: framework/Form/Form.php:1262 lib/Horde/Form.php:1262
 msgid ""
@@ -8145,7 +8145,7 @@ msgstr ""
 
 #: framework/Form/Form.php:1189 lib/Horde/Form.php:1189
 msgid "You have to enter a valid value."
-msgstr "Du skal indtaste en gyldig værdi."
+msgstr "Du skal indtaste en gyldig vÃ¦rdi."
 
 #: framework/Auth/Auth/Signup.php:37 lib/Horde/Auth/Signup.php:37
 msgid "You must configure a DataTree backend to use Signups."
@@ -8159,11 +8159,11 @@ msgstr "Du skal konfigurere end VFS-backend."
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr ""
-"Du bliver nød til at lave en problembeskrivelse, før du kan sende den ind."
+"Du bliver nÃ¸d til at lave en problembeskrivelse, fÃ¸r du kan sende den ind."
 
 #: services/portal/rpcsum.php:80
 msgid "You must select an server to be deleted."
-msgstr "Du skal vælge den server, som skal slettes."
+msgstr "Du skal vÃ¦lge den server, som skal slettes."
 
 #: admin/user.php:118
 msgid "You must specify a username to clear out."
@@ -8175,7 +8175,7 @@ msgstr "Du skal angive brugernavnet, som du vil fjerne."
 
 #: admin/user.php:61 templates/admin/user/update.inc:8
 msgid "You must specify the username to add."
-msgstr "Du skal angive brugernavnet, som du vil tilføje."
+msgstr "Du skal angive brugernavnet, som du vil tilfÃ¸je."
 
 #: admin/user.php:145
 msgid "You must specify the username to update."
@@ -8183,7 +8183,7 @@ msgstr "Du skal angive brugernavnet, som du vil opdatere."
 
 #: framework/Compress/Compress/zip.php:138 lib/Horde/Compress/zip.php:138
 msgid "You must specify what action to perform."
-msgstr "Du skal angive den handling, som skal udføres."
+msgstr "Du skal angive den handling, som skal udfÃ¸res."
 
 #: framework/Prefs/Prefs/CategoryManager.php:71
 #: lib/Horde/Prefs/CategoryManager.php:71
@@ -8193,12 +8193,12 @@ msgstr "Du skal angive et nyt kategorinavn."
 #: framework/Net_SMS/SMS/vodafoneitaly_smtp.php:73
 #: lib/Net/SMS/vodafoneitaly_smtp.php:73
 msgid "You need to provide an Italian phone number"
-msgstr "Du bliver nødt til at angive et italienske telefonnummer"
+msgstr "Du bliver nÃ¸dt til at angive et italienske telefonnummer"
 
 #: framework/Auth/Auth.php:975 lib/Horde/Auth.php:975
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Din %s session er udløbet. Log venligst ind igen."
+msgstr "Din %s session er udlÃ¸bet. Log venligst ind igen."
 
 #: templates/problem/problem.inc:34
 msgid "Your Email Address"
@@ -8220,7 +8220,7 @@ msgid ""
 "protect your security, you must login again."
 msgstr ""
 "Din Internet-adresse er skiftet siden begyndelsen af din %s-session. For at "
-"beskytte din sikkerhed bliver du nødt til at logge ind igen."
+"beskytte din sikkerhed bliver du nÃ¸dt til at logge ind igen."
 
 #: templates/problem/problem.inc:30
 msgid "Your Name"
@@ -8232,17 +8232,17 @@ msgid ""
 "use Horde to administer user accounts, you must use a different "
 "authentication backend."
 msgstr ""
-"Din ægtnings-backend understøtter ikke tilføjelsen af brugere. Hvis du "
-"ønsker at bruge Horde til at administrere brugerkonti, bliver du nødt til at "
-"bruge en anden ægtnings-backend."
+"Din Ã¦gtnings-backend understÃ¸tter ikke tilfÃ¸jelsen af brugere. Hvis du "
+"Ã¸nsker at bruge Horde til at administrere brugerkonti, bliver du nÃ¸dt til at "
+"bruge en anden Ã¦gtnings-backend."
 
 #: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Din autorisations-backend understøtter ikke oplistningen af brugere eller er "
-"den funktion af en eller anden grund blevet slået fra."
+"Din autorisations-backend understÃ¸tter ikke oplistningen af brugere eller er "
+"den funktion af en eller anden grund blevet slÃ¥et fra."
 
 #: framework/Auth/Auth.php:983 lib/Horde/Auth.php:983
 #, php-format
@@ -8250,19 +8250,19 @@ msgid ""
 "Your browser appears to have changed since the beginning of your %s session. "
 "To protect your security, you must login again."
 msgstr ""
-"Din browser synes at være skiftet siden begyndelsen af din %s-session. For "
+"Din browser synes at vÃ¦re skiftet siden begyndelsen af din %s-session. For "
 "at beskytte din sikkerhed, skal du logge ind igen."
 
 #: lib/Block/iframe.php:50
 msgid "Your browser does not support this feature."
-msgstr "Din browser understøtter ikke denne funktionalitet."
+msgstr "Din browser understÃ¸tter ikke denne funktionalitet."
 
 #: templates/javascript/print.js:42
 msgid ""
 "Your browser does not support this print option. Press Control/Command + P "
 "to print."
 msgstr ""
-"Din browser understøtter ikke denne print-mulighed. Tryk Ctrl/Command + P "
+"Din browser understÃ¸tter ikke denne print-mulighed. Tryk Ctrl/Command + P "
 "for at printe."
 
 #: config/prefs.php.dist:261
@@ -8271,7 +8271,7 @@ msgstr "Din aktuelle tidszone:"
 
 #: services/prefs.php:130
 msgid "Your default identity has been changed."
-msgstr "Din forvalgte identitet er ændret."
+msgstr "Din forvalgte identitet er Ã¦ndret."
 
 #: config/prefs.php.dist:161
 msgid "Your default identity:"
@@ -8283,7 +8283,7 @@ msgstr "Dit fulde navn:"
 
 #: framework/Auth/Auth.php:999 lib/Horde/Auth.php:999
 msgid "Your login has expired."
-msgstr "Dit logind er udløbet."
+msgstr "Dit logind er udlÃ¸bet."
 
 #: services/resetpassword.php:76
 #, php-format
@@ -8307,12 +8307,12 @@ msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Dit kodeord er blevet nulstille; kontrollér din indbakke og log ind med dit "
+"Dit kodeord er blevet nulstille; kontrollÃ©r din indbakke og log ind med dit "
 "nye kodeord."
 
 #: framework/Auth/Auth.php:733 lib/Horde/Auth.php:733
 msgid "Your password has expired."
-msgstr "Dit kodeord er udløbet."
+msgstr "Dit kodeord er udlÃ¸bet."
 
 #: templates/rpcsum/rpcsum.inc:58
 msgid "Your remote servers:"
@@ -8325,7 +8325,7 @@ msgstr "Jugoslavien"
 
 #: framework/NLS/NLS/GeoIP.php:118 lib/Horde/NLS/GeoIP.php:118
 msgid "Zaire"
-msgstr "Zaïre"
+msgstr "ZaÃ¯re"
 
 #: framework/NLS/NLS/GeoIP.php:118 framework/NLS/NLS/countries.php:248
 #: framework/NLS/NLS/tld.php:256 lib/Horde/NLS/countries.php:248
@@ -8386,7 +8386,7 @@ msgstr "Grupper"
 
 #: framework/Horde/Horde/Menu.php:175 lib/Horde/Menu.php:175
 msgid "_Help"
-msgstr "Hjælp"
+msgstr "HjÃ¦lp"
 
 #: framework/Horde/Horde/Menu.php:194 lib/Horde/Menu.php:194
 msgid "_Log in"
@@ -8406,7 +8406,7 @@ msgstr "Tilladelser"
 
 #: lib/api.php:125
 msgid "_Setup"
-msgstr "Opsætning"
+msgstr "OpsÃ¦tning"
 
 #: lib/api.php:129
 msgid "_Users"
@@ -8435,7 +8435,7 @@ msgstr "kan ikke danne uddata-fil"
 
 #: framework/MIME/MIME/Message.php:130 lib/Horde/MIME/Message.php:130
 msgid "cannot open input"
-msgstr "kan ikke åbne inddata"
+msgstr "kan ikke Ã¥bne inddata"
 
 #: framework/MIME/MIME/Contents.php:599 lib/Horde/MIME/Contents.php:599
 msgid "click here"
@@ -8500,7 +8500,7 @@ msgstr "ukendt maskinnavn"
 #: framework/Net_SMS/SMS/sms2email_http.php:565
 #: lib/Net/SMS/sms2email_http.php:565 lib/Net/SMS/clickatell_http.php:223
 msgid "immediate"
-msgstr "øjeblikkeligt"
+msgstr "Ã¸jeblikkeligt"
 
 #: admin/setup/diff.php:67 admin/setup/diff.php:79
 msgid "inline"
@@ -8548,7 +8548,7 @@ msgstr "notesblok"
 
 #: framework/MIME/MIME/Message.php:174 lib/Horde/MIME/Message.php:174
 msgid "permission denied"
-msgstr "tilladelse nægtet"
+msgstr "tilladelse nÃ¦gtet"
 
 #: framework/MIME/MIME/Message.php:170 lib/Horde/MIME/Message.php:170
 msgid "remote error in protocol"
@@ -8560,7 +8560,7 @@ msgstr "stigende"
 
 #: framework/MIME/MIME/Message.php:142 lib/Horde/MIME/Message.php:142
 msgid "service unavailable"
-msgstr "tjeneste utilgængelig"
+msgstr "tjeneste utilgÃ¦ngelig"
 
 #: admin/setup/config.php:102
 msgid "show differences"
@@ -8595,7 +8595,7 @@ msgstr "midlertidig fejltilstand"
 #: admin/user.php:35 framework/Auth/Auth/Signup.php:271
 #: lib/Horde/Auth/Signup.php:271
 msgid "type the password twice to confirm"
-msgstr "indtast kodeordet to gange for at bekræfte"
+msgstr "indtast kodeordet to gange for at bekrÃ¦fte"
 
 #: admin/setup/diff.php:67 admin/setup/diff.php:79
 msgid "unified"

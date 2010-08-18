@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -34,16 +34,16 @@ msgstr "Kopie von %s konnte nicht erstellt werden."
 #: lib/Files/plain.php:85
 #, php-format
 msgid "Can't open directory %s"
-msgstr "Verzeichnis %s konnte nicht geöffnet werden"
+msgstr "Verzeichnis %s konnte nicht geÃ¶ffnet werden"
 
 #: lib/Lang/Generic.php:115
 #, php-format
 msgid "Can't open file %s."
-msgstr "Datei %s konnte nicht geöffnet werden."
+msgstr "Datei %s konnte nicht geÃ¶ffnet werden."
 
 #: lib/Lang/Generic.php:73
 msgid "Can't run ectags."
-msgstr "ectags konnte nicht ausgeführt werden."
+msgstr "ectags konnte nicht ausgefÃ¼hrt werden."
 
 #: source.php:84
 #, php-format
@@ -79,7 +79,7 @@ msgstr "Verzeichnis :: %s"
 #: lib/Lang/Generic.php:63
 #, php-format
 msgid "Exuberant ctags version 5 or above required, found version %s"
-msgstr "Exuberant ctags Version 5 oder höher wird benötigt, %s wurde gefunden"
+msgstr "Exuberant ctags Version 5 oder hÃ¶her wird benÃ¶tigt, %s wurde gefunden"
 
 #: symbol.php:45 symbol.php:69
 #, php-format
@@ -113,7 +113,7 @@ msgstr "Referenziert in"
 
 #: templates/directory.html.php:5
 msgid "Size"
-msgstr "Größe"
+msgstr "GrÃ¶ÃŸe"
 
 #: templates/menu.inc:13
 msgid "Symbol Search"
@@ -131,7 +131,7 @@ msgstr "Symbol nicht gefunden"
 #: source.php:78
 #, php-format
 msgid "The file %s can't be opened or doesn't exist."
-msgstr "Die Datei %s konnte nicht geöffnet werden oder existiert nicht."
+msgstr "Die Datei %s konnte nicht geÃ¶ffnet werden oder existiert nicht."
 
 #: templates/headerbar.inc:10
 msgid "Tracking Branch"
@@ -139,12 +139,12 @@ msgstr "Branch beobachten"
 
 #: lib/Luxor.php:151
 msgid "Up to parent"
-msgstr "Ein Verzeichnis höher"
+msgstr "Ein Verzeichnis hÃ¶her"
 
 #: source.php:36
 #, php-format
 msgid "You do not have permission to view %s."
-msgstr "Sie haben nicht genügend Rechte, um %s anzuzeigen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um %s anzuzeigen."
 
 #: lib/Luxor.php:454
 msgid "_Browse"

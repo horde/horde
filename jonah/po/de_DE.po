@@ -13,18 +13,18 @@ msgstr ""
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Block/news_popular.php:66 lib/Block/news_popular.php:69
 msgid " - Most read stories"
-msgstr " - Am häufigsten gelesene Beiträge"
+msgstr " - Am hÃ¤ufigsten gelesene BeitrÃ¤ge"
 
 #: lib/Block/delivery.php:39
 #, php-format
 msgid "\"%s\" stories in HTML"
-msgstr "\"%s\"-Beiträge als HTML"
+msgstr "\"%s\"-BeitrÃ¤ge als HTML"
 
 #: lib/News.php:427 lib/Driver.php:316
 msgid "1 hour"
@@ -60,15 +60,15 @@ msgstr "Einen Link zum Beitrag"
 
 #: channels/aggregate.php:54
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: lib/Forms/Story.php:35
 msgid "Add New Story"
-msgstr "Neuen Beitrag hinzufügen"
+msgstr "Neuen Beitrag hinzufÃ¼gen"
 
 #: channels/index.php:62
 msgid "Add story"
-msgstr "Beitrag hinzufügen"
+msgstr "Beitrag hinzufÃ¼gen"
 
 #: lib/Application.php:58
 msgid "Administrator"
@@ -81,16 +81,16 @@ msgstr "Gesammelter Feed"
 #: channels/aggregate.php:53
 #, php-format
 msgid "Aggregated channels for channel \"%s\""
-msgstr "Gesammelte Kanäle für Kanal \"%s\""
+msgstr "Gesammelte KanÃ¤le fÃ¼r Kanal \"%s\""
 
 #: channels/delete.php:52
 msgid "All stories created in this channel will be lost!"
-msgstr "Alle Beiträge, die für diesen Kanal erstellt wurden, gehen verloren!"
+msgstr "Alle BeitrÃ¤ge, die fÃ¼r diesen Kanal erstellt wurden, gehen verloren!"
 
 #: stories/results.php:107
 #, php-format
 msgid "All stories tagged with %s"
-msgstr "Alle mit %s getaggte Beiträge"
+msgstr "Alle mit %s getaggte BeitrÃ¤ge"
 
 #: channels/index.php:32
 #, php-format
@@ -99,7 +99,7 @@ msgstr "Beim Empfangen dieses Kanals ist ein Fehler aufgetreten: %s"
 
 #: channels/delete.php:54
 msgid "Any cached stories for this channel will be lost!"
-msgstr "Alle zwischengespeicherten Beiträge für diesen Kanal gehen verloren!"
+msgstr "Alle zwischengespeicherten BeitrÃ¤ge fÃ¼r diesen Kanal gehen verloren!"
 
 #: lib/Forms/Feed.php:88 lib/Forms/Feed.php:99
 msgid "Caching"
@@ -107,7 +107,7 @@ msgstr "Caching"
 
 #: stories/pdf.php:41
 msgid "Cannot generate PDFs of remote stories."
-msgstr "Von externen Beiträgen können keine PDF-Dateien erzeugt werden."
+msgstr "Von externen BeitrÃ¤gen kÃ¶nnen keine PDF-Dateien erzeugt werden."
 
 #: lib/Driver/Sql.php:644 lib/News/sql.php:496
 #, php-format
@@ -127,7 +127,7 @@ msgid ""
 "Channel URL for further pages, if not the default one. %c gets replaced by "
 "the feed ID, %n by the story offset."
 msgstr ""
-"Kanal-URL für weiterführende Seiten, falls nicht die Standard-URL. %c wird "
+"Kanal-URL fÃ¼r weiterfÃ¼hrende Seiten, falls nicht die Standard-URL. %c wird "
 "durch die Feed-ID und %s durch die Beitragsnummer ersetzt."
 
 #: lib/Forms/Feed.php:117
@@ -198,25 +198,25 @@ msgstr "Datum"
 #: stories/delete.php:55 stories/delete.php:60 channels/delete.php:47
 #: channels/delete.php:58
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: channels/delete.php:44
 #, php-format
 msgid "Delete News Channel \"%s\"?"
-msgstr "Nachrichtenkanal \"%s\" löschen?"
+msgstr "Nachrichtenkanal \"%s\" lÃ¶schen?"
 
 #: stories/delete.php:51
 #, php-format
 msgid "Delete News Story \"%s\"?"
-msgstr "Nachrichtenbeitrag \"%s\" löschen?"
+msgstr "Nachrichtenbeitrag \"%s\" lÃ¶schen?"
 
 #: channels/index.php:46
 msgid "Delete channel"
-msgstr "Kanal löschen"
+msgstr "Kanal lÃ¶schen"
 
 #: stories/index.php:92 stories/results.php:87
 msgid "Delete story"
-msgstr "Beitrag löschen"
+msgstr "Beitrag lÃ¶schen"
 
 #: lib/Forms/Feed.php:73 lib/Forms/Feed.php:98 lib/Forms/Feed.php:116
 msgid "Description"
@@ -224,7 +224,7 @@ msgstr "Beschreibung"
 
 #: stories/delete.php:55 channels/delete.php:47
 msgid "Do not delete"
-msgstr "Nicht löschen"
+msgstr "Nicht lÃ¶schen"
 
 #: lib/Forms/Feed.php:38
 msgid "Edit Feed"
@@ -253,7 +253,7 @@ msgstr "Beitrag bearbeiten"
 
 #: lib/Forms/Story.php:77
 msgid "Enter keywords to tag this story, separated by commas"
-msgstr "Kommagetrennte Stichwörter für diesen Beitrag"
+msgstr "Kommagetrennte StichwÃ¶rter fÃ¼r diesen Beitrag"
 
 #: lib/News.php:507 lib/Driver.php:351
 #, php-format
@@ -273,7 +273,7 @@ msgstr "Fehler bei der Verarbeitung des externen Feeds von %s: %s"
 
 #: lib/Application.php:64
 msgid "External Channels"
-msgstr "Externe Kanäle"
+msgstr "Externe KanÃ¤le"
 
 #: lib/News.php:459 lib/Jonah.php:104
 msgid "External Feed"
@@ -281,7 +281,7 @@ msgstr "Externer Feed"
 
 #: lib/Forms/Feed.php:49
 msgid "Extra information for this feed type"
-msgstr "Zusätzliche Informationen für diesen Feedtyp"
+msgstr "ZusÃ¤tzliche Informationen fÃ¼r diesen Feedtyp"
 
 #: lib/Block/news_popular.php:27 lib/Block/news.php:3 lib/Block/news.php:26
 #: lib/Block/story.php:36
@@ -295,7 +295,7 @@ msgstr "Der Feed \"%s\" wird nicht auf diesem System erzeugt."
 
 #: channels/edit.php:54
 msgid "Feed type changed."
-msgstr "Feedtyp geändert."
+msgstr "Feedtyp geÃ¤ndert."
 
 #: channels/index.php:94 lib/Block/delivery.php:3 lib/Block/delivery.php:23
 msgid "Feeds"
@@ -311,12 +311,12 @@ msgstr "Von"
 
 #: lib/Forms/Story.php:72 lib/Forms/Story.php:74
 msgid "Full Story Text"
-msgstr "Vollständiger Beitragstext"
+msgstr "VollstÃ¤ndiger Beitragstext"
 
 #: delivery/html.php:45
 #, php-format
 msgid "HTML Delivery for \"%s\""
-msgstr "HTML-Auslieferung für \"%s\""
+msgstr "HTML-Auslieferung fÃ¼r \"%s\""
 
 #: lib/News.php:645 lib/Driver.php:492
 msgid "HTML Version of Story"
@@ -338,11 +338,11 @@ msgstr "Bild"
 
 #: stories/share.php:84
 msgid "Include"
-msgstr "Einfügen"
+msgstr "EinfÃ¼gen"
 
 #: lib/Forms/Feed.php:80
 msgid "Include full story content in syndicated feeds?"
-msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?"
+msgstr "Den vollstÃ¤ndigen Beitragstext in den verÃ¶ffentlichten Feed verwenden?"
 
 #: config/templates.php.dist:31
 msgid "Internal"
@@ -350,20 +350,20 @@ msgstr "Intern"
 
 #: lib/Application.php:62
 msgid "Internal Channels"
-msgstr "Interne Kanäle"
+msgstr "Interne KanÃ¤le"
 
 #: stories/index.php:37 stories/results.php:44
 #, php-format
 msgid "Invalid channel requested. %s"
-msgstr "Ungültiger Kanal angefordert. %s"
+msgstr "UngÃ¼ltiger Kanal angefordert. %s"
 
 #: channels/delete.php:28
 msgid "Invalid channel specified for deletion."
-msgstr "Kein gültiger Kanal zum Löschen ausgewählt."
+msgstr "Kein gÃ¼ltiger Kanal zum LÃ¶schen ausgewÃ¤hlt."
 
 #: delivery/html.php:41
 msgid "Invalid channel."
-msgstr "Ungültiger Kanal."
+msgstr "UngÃ¼ltiger Kanal."
 
 #: channels/index.php:84
 msgid "Last Update"
@@ -371,7 +371,7 @@ msgstr "Letzte Aktualisierung"
 
 #: lib/Block/latest.php:3 lib/Block/latest.php:55
 msgid "Latest News"
-msgstr "Neueste Beiträge"
+msgstr "Neueste BeitrÃ¤ge"
 
 #: channels/aggregate.php:58 lib/Forms/Feed.php:91
 msgid "Link"
@@ -387,7 +387,7 @@ msgstr "Feeds verwalten"
 
 #: lib/Block/news_popular.php:47 lib/Block/news.php:45
 msgid "Maximum Stories"
-msgstr "Maximale Beiträge"
+msgstr "Maximale BeitrÃ¤ge"
 
 #: config/templates.php.dist:20
 msgid "Media"
@@ -395,7 +395,7 @@ msgstr "Multimedia"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüliste"
+msgstr "MenÃ¼liste"
 
 #: stories/share.php:85
 msgid "Message"
@@ -407,7 +407,7 @@ msgstr "Kanal-ID fehlt."
 
 #: lib/Block/news_popular.php:3
 msgid "Most Popular Stories"
-msgstr "Populärste Beiträge"
+msgstr "PopulÃ¤rste BeitrÃ¤ge"
 
 #: channels/index.php:82 lib/Forms/Feed.php:48
 msgid "Name"
@@ -431,7 +431,7 @@ msgstr "Nachrichten sind nicht aktiviert."
 
 #: stories/index.php:43 stories/results.php:50
 msgid "No available stories."
-msgstr "Keine Beiträge verfügbar."
+msgstr "Keine BeitrÃ¤ge verfÃ¼gbar."
 
 #: stories/index.php:19
 msgid "No channel requested."
@@ -443,7 +443,7 @@ msgstr "Kein Kanal angegeben."
 
 #: templates/channels/index.html:55
 msgid "No channels are available."
-msgstr "Keine Kanäle sind verfügbar."
+msgstr "Keine KanÃ¤le sind verfÃ¼gbar."
 
 #: lib/Block/news_popular.php:78 lib/Block/news.php:80
 msgid "No feed specified."
@@ -451,7 +451,7 @@ msgstr "Kein Feed angegeben."
 
 #: lib/Block/delivery.php:58
 msgid "No feeds are available."
-msgstr "Keine Feeds verfügbar."
+msgstr "Keine Feeds verfÃ¼gbar."
 
 #: templates/channels/index.html:51
 msgid "No feeds match"
@@ -459,11 +459,11 @@ msgstr "Keine Treffer"
 
 #: lib/News.php:537 lib/Driver.php:381
 msgid "No stories are currently available."
-msgstr "Zur Zeit sind keine Beiträge verfügbar."
+msgstr "Zur Zeit sind keine BeitrÃ¤ge verfÃ¼gbar."
 
 #: lib/Block/story.php:72
 msgid "No story is selected."
-msgstr "Kein Beitrag ausgewählt."
+msgstr "Kein Beitrag ausgewÃ¤hlt."
 
 #: lib/News.php:695 lib/Injector/Factory/Driver.php:62
 #, php-format
@@ -476,11 +476,11 @@ msgstr "Kein Tag angefragt."
 
 #: feed.php:39
 msgid "No valid feed name or ID requested."
-msgstr "Ungültiger Feedname oder Feed-ID angefordert."
+msgstr "UngÃ¼ltiger Feedname oder Feed-ID angefordert."
 
 #: stories/delete.php:42
 msgid "No valid story requested for deletion."
-msgstr "Kein gültiger Beitrag zum Löschen ausgewählt.<"
+msgstr "Kein gÃ¼ltiger Beitrag zum LÃ¶schen ausgewÃ¤hlt.<"
 
 #: stories/share.php:26
 msgid "Note"
@@ -488,7 +488,7 @@ msgstr "Notiz"
 
 #: lib/Forms/Story.php:53
 msgid "Or publish on this date:"
-msgstr "Oder zu diesem Datum veröffentlichen:"
+msgstr "Oder zu diesem Datum verÃ¶ffentlichen:"
 
 #: stories/index.php:81 stories/results.php:74
 msgid "PDF version"
@@ -508,12 +508,12 @@ msgstr "Textversion des Beitrags"
 
 #: lib/Forms/Story.php:43
 msgid "Publish Now?"
-msgstr "Jetzt veröffentlichen?"
+msgstr "Jetzt verÃ¶ffentlichen?"
 
 #: lib/Block/delivery.php:49
 #, php-format
 msgid "RSS Feed of \"%s\""
-msgstr "RSS-Feed für \"%s\""
+msgstr "RSS-Feed fÃ¼r \"%s\""
 
 #: templates/stories/index.html:22
 msgid "Read"
@@ -521,11 +521,11 @@ msgstr "Gelesen"
 
 #: channels/delete.php:50
 msgid "Really delete this News Channel?"
-msgstr "Diesen Nachrichtenkanal wirlich löschen?"
+msgstr "Diesen Nachrichtenkanal wirlich lÃ¶schen?"
 
 #: stories/delete.php:58
 msgid "Really delete this News Story?"
-msgstr "Diesen Nachrichtenbeitrag wirklich löschen?"
+msgstr "Diesen Nachrichtenbeitrag wirklich lÃ¶schen?"
 
 #: stories/index.php:115
 msgid "Refresh Channel"
@@ -558,7 +558,7 @@ msgstr "Suche"
 
 #: templates/delivery/html.html:13
 msgid "Select a format:"
-msgstr "Wählen Sie ein Format:"
+msgstr "WÃ¤hlen Sie ein Format:"
 
 #: stories/share.php:75
 msgid "Send"
@@ -586,8 +586,8 @@ msgid ""
 "Slugs allows direct access to this channel's content by visiting: %s. <br /> "
 "Slug names may contain only letters, numbers or the _ (underscore) character."
 msgstr ""
-"Kurznamen ermöglichen den direkten Zugriff auf diesen Feed über: %s.<br /"
-">Kurznamen dürfen Buchstaben, Zahlen und Unterstriche enthalten."
+"Kurznamen ermÃ¶glichen den direkten Zugriff auf diesen Feed Ã¼ber: %s.<br /"
+">Kurznamen dÃ¼rfen Buchstaben, Zahlen und Unterstriche enthalten."
 
 #: channels/aggregate.php:57 lib/Forms/Feed.php:90
 msgid "Source URL"
@@ -604,7 +604,7 @@ msgstr "Standard"
 #: delivery/rss.php:69 stories/results.php:105
 #, php-format
 msgid "Stories tagged with %s in %s"
-msgstr "Mit %s getaggte Beiträge in %s"
+msgstr "Mit %s getaggte BeitrÃ¤ge in %s"
 
 #: stories/index.php:116 stories/results.php:109 lib/Block/story.php:3
 #: lib/Block/story.php:40 lib/Block/story.php:55
@@ -622,7 +622,7 @@ msgstr "Beitrags-URL"
 
 #: lib/Forms/Story.php:41
 msgid "Story Title (Headline)"
-msgstr "Beitragstitel (Überschrift)"
+msgstr "Beitragstitel (Ãœberschrift)"
 
 #: lib/Forms/Story.php:80
 msgid "Story URL"
@@ -653,7 +653,7 @@ msgstr "Bearbeiten des Beitrags fehlgeschlagen: %s"
 
 #: stories/delete.php:74
 msgid "Story has not been deleted."
-msgstr "Der Beitrag wurde nicht gelöscht."
+msgstr "Der Beitrag wurde nicht gelÃ¶scht."
 
 #: lib/Driver/Sql.php:558 lib/News/sql.php:410
 #, php-format
@@ -672,7 +672,7 @@ msgstr "Tagwolke"
 #: lib/News.php:823 lib/Driver.php:520 lib/Driver.php:525 lib/Driver.php:530
 #: lib/Driver.php:536 lib/Driver.php:541
 msgid "Tag support not enabled in backend."
-msgstr "Tags sind für dieses Backend nicht aktiviert."
+msgstr "Tags sind fÃ¼r dieses Backend nicht aktiviert."
 
 #: lib/Forms/Story.php:77
 msgid "Tags"
@@ -703,7 +703,7 @@ msgstr "Der Kanal \"%s\" wurde aktualisiert."
 
 #: channels/delete.php:65
 msgid "The channel has been deleted."
-msgstr "Der Kanal wurde gelöscht."
+msgstr "Der Kanal wurde gelÃ¶scht."
 
 #: stories/share.php:84
 msgid "The complete text of the story"
@@ -719,17 +719,17 @@ msgid ""
 "The interval before stories aggregated into this feeds are rechecked for "
 "updates. If none, then stories will always be refetched from the sources."
 msgstr ""
-"Der Intervall, in dem die Beiträge, die in diesem Feed gesammelt werden, auf "
-"Aktualisierungen überprüft werden sollen. Falls nicht angegeben, werden die "
-"Beiträge bei jedem Zugriff von ihrer Quelle geladen."
+"Der Intervall, in dem die BeitrÃ¤ge, die in diesem Feed gesammelt werden, auf "
+"Aktualisierungen Ã¼berprÃ¼ft werden sollen. Falls nicht angegeben, werden die "
+"BeitrÃ¤ge bei jedem Zugriff von ihrer Quelle geladen."
 
 #: lib/Forms/Feed.php:88
 msgid ""
 "The interval before stories in this feed are rechecked for updates. If none, "
 "then stories will always be refetched from the source."
 msgstr ""
-"Der Intervall, in dem die Beiträge dieses Feeds auf Aktualisierungen "
-"überprüft werden sollen. Falls nicht angegeben, werden die Beiträge bei "
+"Der Intervall, in dem die BeitrÃ¤ge dieses Feeds auf Aktualisierungen "
+"Ã¼berprÃ¼ft werden sollen. Falls nicht angegeben, werden die BeitrÃ¤ge bei "
 "jedem Zugriff von ihrer Quelle geladen."
 
 #: stories/edit.php:58
@@ -739,7 +739,7 @@ msgstr "Der Beitrag \"%s\" wurde gespeichert."
 
 #: stories/delete.php:67
 msgid "The story has been deleted."
-msgstr "Der Beitrag wurde gelöscht."
+msgstr "Der Beitrag wurde gelÃ¶scht."
 
 #: stories/share.php:118
 msgid "The story was sent successfully."
@@ -750,18 +750,18 @@ msgid ""
 "The url to use to fetch the stories, for example 'http://www.example.com/"
 "stories.rss'"
 msgstr ""
-"Die URL, die benutzt werden soll, um die Beiträge herunterzuladen, zum "
+"Die URL, die benutzt werden soll, um die BeitrÃ¤ge herunterzuladen, zum "
 "Beispiel 'http://www.example.com/stories.rss'."
 
 #: channels/delete.php:63
 #, php-format
 msgid "There was an error deleting the channel: %s"
-msgstr "Beim Löschen des Kanals ist ein Fehler aufgetreten: %s"
+msgstr "Beim LÃ¶schen des Kanals ist ein Fehler aufgetreten: %s"
 
 #: stories/delete.php:65
 #, php-format
 msgid "There was an error deleting the story: %s"
-msgstr "Beim Löschen des Beitrags ist ein Fehler aufgetreten: %s"
+msgstr "Beim LÃ¶schen des Beitrags ist ein Fehler aufgetreten: %s"
 
 #: channels/aggregate.php:94
 #, php-format
@@ -825,11 +825,11 @@ msgstr "Sie sind zu dieser Aktion nicht autorisiert."
 
 #: channels/edit.php:70
 msgid "You can now edit the sub-feeds."
-msgstr "Sie können jetzt die Unter-Feeds bearbeiten."
+msgstr "Sie kÃ¶nnen jetzt die Unter-Feeds bearbeiten."
 
 #: lib/News.php:758
 msgid "[No title]"
-msgstr "[Keine Überschrift]"
+msgstr "[Keine Ãœberschrift]"
 
 #: lib/Jonah.php:245
 msgid "_Feeds"

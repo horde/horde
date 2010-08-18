@@ -1,5 +1,5 @@
 # Spanish translations for hermes package
-# Traducciones al español para el paquete hermes.
+# Traducciones al espaÃ±ol para el paquete hermes.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the hermes package.
 # Automatically generated, 2008.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -63,15 +63,15 @@ msgstr "Se ha denegado el acceso: el usuario no puede modificar este periodo."
 
 #: lib/Forms/Deliverable.php:59
 msgid "Active?"
-msgstr "¿Activa?"
+msgstr "Â¿Activa?"
 
 #: admin.php:59 admin.php:221
 msgid "Add Job Type"
-msgstr "Añadir tipo de trabajo"
+msgstr "AÃ±adir tipo de trabajo"
 
 #: config/.bak/prefs.php.dist:21
 msgid "Add stop watch name to the description of the time entry?"
-msgstr "¿Añadir nombre del cronómetro a la descripción del registro de tiempo?"
+msgstr "Â¿AÃ±adir nombre del cronÃ³metro a la descripciÃ³n del registro de tiempo?"
 
 #: lib/Forms/Time.php:224 lib/Forms/Time.php:306
 msgid "Additional Notes"
@@ -79,7 +79,7 @@ msgstr "Observaciones adicionales"
 
 #: admin.php:35
 msgid "Administration"
-msgstr "Administración"
+msgstr "AdministraciÃ³n"
 
 #: lib/Forms/Time.php:57 lib/Forms/Search.php:81 lib/Forms/Deliverable.php:37
 #, php-format
@@ -107,7 +107,7 @@ msgstr "Aprobado por:"
 
 #: lib/api.php:108
 msgid "Bill?"
-msgstr "¿Facturar?"
+msgstr "Â¿Facturar?"
 
 #: lib/api.php:285 lib/api.php:311
 msgid "Billable Hours"
@@ -116,7 +116,7 @@ msgstr "Horas facturables"
 #: lib/Admin.php:30 lib/Admin.php:102 lib/Forms/Time.php:213
 #: lib/Forms/Time.php:302 lib/Forms/Search.php:71
 msgid "Billable?"
-msgstr "¿Facturables?"
+msgstr "Â¿Facturables?"
 
 #: lib/Hermes.php:230
 msgid "By Client"
@@ -140,11 +140,11 @@ msgstr "Por tipos de trabajos"
 
 #: lib/Driver/sql.php:578
 msgid "Cannot delete deliverable; it has children."
-msgstr "No se puede eliminar la prestación; tiene descendientes."
+msgstr "No se puede eliminar la prestaciÃ³n; tiene descendientes."
 
 #: lib/Driver/sql.php:593
 msgid "Cannot delete deliverable; there is time entered on it."
-msgstr "No se puede eliminar la prestación; se han introducido horas."
+msgstr "No se puede eliminar la prestaciÃ³n; se han introducido horas."
 
 #: invoicing.php:38 lib/api.php:94 lib/Admin.php:187 lib/Forms/Time.php:197
 #: lib/Forms/Time.php:292 lib/Forms/Deliverable.php:28
@@ -161,7 +161,7 @@ msgstr "Clientes"
 
 #: invoicing.php:75
 msgid "Combine same clients in one invoice"
-msgstr "Combinar los mismos clientes en una única factura"
+msgstr "Combinar los mismos clientes en una Ãºnica factura"
 
 #: lib/Forms/Export.php:37
 msgid "Comma-Separated Variable (.csv)"
@@ -198,33 +198,33 @@ msgstr "Eliminar tipo de trabajo"
 
 #: admin.php:93 admin.php:208
 msgid "Delete Job Type: Confirmation"
-msgstr "Eliminar tipo de trabajo: confirmación"
+msgstr "Eliminar tipo de trabajo: confirmaciÃ³n"
 
 #: deliverables.php:107
 msgid "Delete This Deliverable"
-msgstr "Eliminar esta prestación"
+msgstr "Eliminar esta prestaciÃ³n"
 
 #: scripts/purge.php:26
 #, php-format
 msgid "Deleting data that was exported/billed more than %s days ago.\n"
-msgstr "Eliminando datos exportados/facturados hace más de %s días.\n"
+msgstr "Eliminando datos exportados/facturados hace mÃ¡s de %s dÃ­as.\n"
 
 #: lib/Driver.php:85
 #, php-format
 msgid "Deliverable %d not found."
-msgstr "No se encontró la prestación %d."
+msgstr "No se encontrÃ³ la prestaciÃ³n %d."
 
 #: lib/Forms/Deliverable.php:52
 msgid "Deliverable Detail"
-msgstr "Detalles de la prestación"
+msgstr "Detalles de la prestaciÃ³n"
 
 #: deliverables.php:42
 msgid "Deliverable saved successfully."
-msgstr "Se ha guardado correctamente la prestación."
+msgstr "Se ha guardado correctamente la prestaciÃ³n."
 
 #: deliverables.php:55
 msgid "Deliverable successfully deleted."
-msgstr "Se ha eliminado correctamente la prestación."
+msgstr "Se ha eliminado correctamente la prestaciÃ³n."
 
 #: deliverables.php:61 lib/api.php:54 lib/api.php:397
 msgid "Deliverables"
@@ -233,7 +233,7 @@ msgstr "Prestaciones"
 #: invoicing.php:45 lib/api.php:114 lib/Forms/Time.php:222
 #: lib/Forms/Time.php:305 lib/Forms/Deliverable.php:61
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: lib/Forms/Deliverable.php:58
 msgid "Display Name"
@@ -298,16 +298,16 @@ msgstr "Empleados"
 
 #: lib/Admin.php:28 lib/Admin.php:100
 msgid "Enabled?"
-msgstr "¿Activado?"
+msgstr "Â¿Activado?"
 
 #: lib/Block/tree_menu.php:3 lib/Block/tree_menu.php:21
 msgid "Enter Time"
-msgstr "Añadir"
+msgstr "AÃ±adir"
 
 #: deliverables.php:52
 #, php-format
 msgid "Error deleting deliverable: %s"
-msgstr "Se produjo un error al eliminar la prestación: %s"
+msgstr "Se produjo un error al eliminar la prestaciÃ³n: %s"
 
 #: lib/Forms/Time.php:91 lib/Forms/Search.php:130
 #, php-format
@@ -317,7 +317,7 @@ msgstr "Error al recuperar objetos de gastos de \"%s\": %s"
 #: deliverables.php:38
 #, php-format
 msgid "Error saving deliverable: %s"
-msgstr "Error al guardar la prestación: %s"
+msgstr "Error al guardar la prestaciÃ³n: %s"
 
 #: lib/Driver/sql.php:295
 #, php-format
@@ -334,11 +334,11 @@ msgstr "Exportar"
 
 #: lib/Forms/Export.php:35
 msgid "Export Search Results"
-msgstr "Resultados de la búsqueda"
+msgstr "Resultados de la bÃºsqueda"
 
 #: lib/Forms/Search.php:68
 msgid "Exported?"
-msgstr "¿Exportadas?"
+msgstr "Â¿Exportadas?"
 
 #: config/.bak/prefs.php.dist:9
 msgid "General Options"
@@ -363,20 +363,20 @@ msgstr ""
 
 #: lib/api.php:471
 msgid "Invalid entry: check data and retry."
-msgstr "Entrada no válida: compruebe los datos y vuelva a intentarlo."
+msgstr "Entrada no vÃ¡lida: compruebe los datos y vuelva a intentarlo."
 
 #: invoicing.php:122
 #, php-format
 msgid "Invoice for client %s successfuly created."
-msgstr "Se creó correctamente la factura del cliente %s."
+msgstr "Se creÃ³ correctamente la factura del cliente %s."
 
 #: lib/api.php:56
 msgid "Invoicing"
-msgstr "Facturación"
+msgstr "FacturaciÃ³n"
 
 #: invoicing.php:32
 msgid "Invoicing system is not installed."
-msgstr "EL sistema de facturación no está instalado."
+msgstr "EL sistema de facturaciÃ³n no estÃ¡ instalado."
 
 #: invoicing.php:40 lib/api.php:98 lib/Admin.php:27 lib/Admin.php:95
 #: lib/Admin.php:129 lib/Forms/Time.php:203 lib/Forms/Time.php:297
@@ -393,7 +393,7 @@ msgstr "Tipo de trabajo"
 
 #: lib/Forms/Export.php:50
 msgid "Mark the time as exported?"
-msgstr "¿Señalar la hora como exportada?"
+msgstr "Â¿SeÃ±alar la hora como exportada?"
 
 #: lib/Forms/Export.php:38
 msgid "Microsoft Excel (.xls)"
@@ -413,15 +413,15 @@ msgstr "Mis _horas"
 
 #: deliverables.php:105
 msgid "New Sub-deliverable"
-msgstr "Añadir subprestación"
+msgstr "AÃ±adir subprestaciÃ³n"
 
 #: entry.php:84 lib/Forms/Time.php:177
 msgid "New Time"
-msgstr "Añadir"
+msgstr "AÃ±adir"
 
 #: templates/deliverables/list.inc:10
 msgid "New Top-level Deliverable"
-msgstr "Añadir prestación principal"
+msgstr "AÃ±adir prestaciÃ³n principal"
 
 #: invoicing.php:74 lib/api.php:73 lib/Admin.php:125 lib/Forms/Time.php:212
 #: lib/Forms/Time.php:301 lib/Forms/Export.php:49 lib/Forms/Search.php:64
@@ -431,19 +431,19 @@ msgstr "No"
 #: lib/Driver.php:28
 #, php-format
 msgid "No job type with ID \"%s\"."
-msgstr "No hay ningún tipo de trabajo con el ID \"%s\"."
+msgstr "No hay ningÃºn tipo de trabajo con el ID \"%s\"."
 
 #: search.php:54 search.php:60
 msgid "No search to export!"
-msgstr "¡No hay búsquedas a exportar!"
+msgstr "Â¡No hay bÃºsquedas a exportar!"
 
 #: search.php:70
 msgid "No time to export!"
-msgstr "¡No hay horas a exportar!"
+msgstr "Â¡No hay horas a exportar!"
 
 #: time.php:38
 msgid "No timeslices were selected to submit."
-msgstr "No se seleccionaron períodos a enviar."
+msgstr "No se seleccionaron perÃ­odos a enviar."
 
 #: lib/api.php:291 lib/api.php:322
 msgid "Non-billable Hours"
@@ -451,7 +451,7 @@ msgstr "Horas no facturables"
 
 #: lib/Hermes.php:217
 msgid "Not found."
-msgstr "No se encontró."
+msgstr "No se encontrÃ³."
 
 #: lib/Driver.php:49 lib/Driver.php:66 lib/Driver.php:115 lib/Driver.php:133
 #: lib/Driver.php:146
@@ -473,7 +473,7 @@ msgstr "Tasa"
 #: lib/Admin.php:132
 msgid "Really delete this job type? This may cause data problems!!"
 msgstr ""
-"¿Eliminar realmente este tipo de trabajo? ¡Puede ocasionar problemas de "
+"Â¿Eliminar realmente este tipo de trabajo? Â¡Puede ocasionar problemas de "
 "datos!"
 
 #: lib/Forms/Time.php:179
@@ -490,7 +490,7 @@ msgstr "Buscar horas"
 
 #: search.php:123 lib/api.php:140
 msgid "Search Results"
-msgstr "Resultados de la búsqueda"
+msgstr "Resultados de la bÃºsqueda"
 
 #: lib/Block/tree_menu.php:29
 msgid "Search Time"
@@ -514,11 +514,11 @@ msgstr "Seleccionar las horas a facturar"
 
 #: lib/Forms/Export.php:43
 msgid "Select the export format"
-msgstr "Seleccione el formato de exportación"
+msgstr "Seleccione el formato de exportaciÃ³n"
 
 #: config/.bak/prefs.php.dist:11
 msgid "Set preferences on the stop watch timer."
-msgstr "Define opciones del cronómetro."
+msgstr "Define opciones del cronÃ³metro."
 
 #: lib/Admin.php:190
 #, php-format
@@ -526,8 +526,8 @@ msgid ""
 "Should users enter descriptions of their timeslices for this client? If not, "
 "the description will automatically be \"%s\"."
 msgstr ""
-"¿Hay que introducir la descripción de los periodos del cliente? Si no es el "
-"caso, de forma automática la descripción será \"%s\"."
+"Â¿Hay que introducir la descripciÃ³n de los periodos del cliente? Si no es el "
+"caso, de forma automÃ¡tica la descripciÃ³n serÃ¡ \"%s\"."
 
 #: lib/Block/tree_stopwatch.php:28
 msgid "Start Watch"
@@ -535,11 +535,11 @@ msgstr "Iniciar"
 
 #: start.php:20 start.php:44 lib/Block/tree_stopwatch.php:3
 msgid "Stop Watch"
-msgstr "Cronómetro"
+msgstr "CronÃ³metro"
 
 #: start.php:21
 msgid "Stop watch description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: templates/time/form.html:5
 msgid "Submit Selected Time"
@@ -547,7 +547,7 @@ msgstr "Enviar tiempo seleccionado"
 
 #: lib/Forms/Search.php:65
 msgid "Submitted?"
-msgstr "¿Enviadas?"
+msgstr "Â¿Enviadas?"
 
 #: lib/Hermes.php:227
 msgid "Summary"
@@ -568,7 +568,7 @@ msgstr "Se han modificado las opciones del cliente."
 #: admin.php:51
 #, php-format
 msgid "The job type \"%s\" has been added."
-msgstr "Se ha añadido el tipo de trabajo \"%s\"."
+msgstr "Se ha aÃ±adido el tipo de trabajo \"%s\"."
 
 #: admin.php:197
 msgid "The job type has been deleted."
@@ -580,7 +580,7 @@ msgstr "Se ha modificado el tipo de trabajo."
 
 #: admin.php:202
 msgid "The job type was not deleted."
-msgstr "No se eliminó el tipo de trabajo."
+msgstr "No se eliminÃ³ el tipo de trabajo."
 
 #: start.php:40
 #, php-format
@@ -588,13 +588,13 @@ msgid ""
 "The stop watch \"%s\" has been started and will appear in the sidebar at the "
 "next refresh."
 msgstr ""
-"Se ha iniciado el cronómetro \"%s\" y aparecerá en la barra lateral en la "
-"próxima actualización de la pantalla."
+"Se ha iniciado el cronÃ³metro \"%s\" y aparecerÃ¡ en la barra lateral en la "
+"prÃ³xima actualizaciÃ³n de la pantalla."
 
 #: entry.php:30
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
-msgstr "Se ha detenido el cronómetro \"%s\"."
+msgstr "Se ha detenido el cronÃ³metro \"%s\"."
 
 #: time.php:28 search.php:32
 msgid "The time entry was successfully deleted."
@@ -618,12 +618,12 @@ msgstr "No hay tipos de trabajos a modificar."
 
 #: invoicing.php:28
 msgid "There is no submitted billable hours."
-msgstr "No se ha enviado ningún tiempo facturable."
+msgstr "No se ha enviado ningÃºn tiempo facturable."
 
 #: admin.php:53
 #, php-format
 msgid "There was an error adding the job type: %s."
-msgstr "Se produjo un error al añadir el tipo de trabajo: %s."
+msgstr "Se produjo un error al aÃ±adir el tipo de trabajo: %s."
 
 #: admin.php:199
 #, php-format
@@ -657,19 +657,19 @@ msgstr "Se produjo un error al enviar la hora: %s"
 
 #: lib/Admin.php:180
 msgid "This is not a valid client."
-msgstr "Éste no es un cliente válido."
+msgstr "Ã‰ste no es un cliente vÃ¡lido."
 
 #: lib/Admin.php:87
 msgid "This is not a valid job type."
-msgstr "Éste no es un tipo de trabajo válido."
+msgstr "Ã‰ste no es un tipo de trabajo vÃ¡lido."
 
 #: lib/api.php:52
 msgid "Time Review Screen"
-msgstr "Pantalla de visualización de hora"
+msgstr "Pantalla de visualizaciÃ³n de hora"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Timer Options"
-msgstr "Opciones de temporización"
+msgstr "Opciones de temporizaciÃ³n"
 
 #: invoicing.php:43
 msgid "Total"
@@ -699,12 +699,12 @@ msgstr "Actualizar hora"
 #: entry.php:28
 #, php-format
 msgid "Using the \"%s\" stop watch"
-msgstr "Utilizando el cronómetro \"%s\""
+msgstr "Utilizando el cronÃ³metro \"%s\""
 
 #: invoicing.php:74 lib/api.php:72 lib/Admin.php:125 lib/Forms/Time.php:212
 #: lib/Forms/Time.php:301 lib/Forms/Export.php:48 lib/Forms/Search.php:63
 msgid "Yes"
-msgstr "Sí"
+msgstr "SÃ­"
 
 #: entry.php:46
 msgid "Your time was successfully entered."
@@ -712,11 +712,11 @@ msgstr "Se introdujo correctamente su tiempo."
 
 #: time.php:48
 msgid "Your time was successfully submitted."
-msgstr "Se envió correctamente su tiempo."
+msgstr "Se enviÃ³ correctamente su tiempo."
 
 #: entry.php:42
 msgid "Your time was successfully updated."
-msgstr "Se actualizó correctamente su tiempo."
+msgstr "Se actualizÃ³ correctamente su tiempo."
 
 #: lib/Hermes.php:82
 msgid "_Admin"
@@ -728,11 +728,11 @@ msgstr "_Prestaciones"
 
 #: lib/Hermes.php:72
 msgid "_Invoicing"
-msgstr "_Facturación"
+msgstr "_FacturaciÃ³n"
 
 #: lib/Hermes.php:64
 msgid "_New Time"
-msgstr "_Añadir"
+msgstr "_AÃ±adir"
 
 #: lib/Hermes.php:77
 msgid "_Print"

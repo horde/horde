@@ -11,460 +11,460 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d tasks"
-msgstr "%d Задачи"
+msgstr "%d Р—Р°РґР°С‡Рё"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s файл беше импортиран успешно"
+msgstr "%s С„Р°Р№Р» Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ СѓСЃРїРµС€РЅРѕ"
 
 msgid "1 task"
-msgstr "1 задача"
+msgstr "1 Р·Р°РґР°С‡Р°"
 
 #, c-format
 msgid "Access denied deleteing task: %s"
-msgstr "Отказан достъп за изтриване на задача: %s"
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї Р·Р° РёР·С‚СЂРёРІР°РЅРµ РЅР° Р·Р°РґР°С‡Р°: %s"
 
 #, c-format
 msgid "Access denied modifying task: %s"
-msgstr "Отказан достъп за модифициране на задача: %s"
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї Р·Р° РјРѕРґРёС„РёС†РёСЂР°РЅРµ РЅР° Р·Р°РґР°С‡Р°: %s"
 
 #, c-format
 msgid "Access denied removing task from %s."
-msgstr "Отказан достъп за премахване на задача от %s."
+msgstr "РћС‚РєР°Р·Р°РЅ РґРѕСЃС‚СЉРї Р·Р° РїСЂРµРјР°С…РІР°РЅРµ РЅР° Р·Р°РґР°С‡Р° РѕС‚ %s."
 
 msgid "Adding A New Task"
-msgstr "Добавяне на нова задача"
+msgstr "Р”РѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІР° Р·Р°РґР°С‡Р°"
 
 msgid "All tasks"
-msgstr "Всички задачи"
+msgstr "Р’СЃРёС‡РєРё Р·Р°РґР°С‡Рё"
 
 msgid "Allows categories to be added/removed/renamed."
-msgstr "Позволява да се добавят/премахват/преименуват/ категории."
+msgstr "РџРѕР·РІРѕР»СЏРІР° РґР° СЃРµ РґРѕР±Р°РІСЏС‚/РїСЂРµРјР°С…РІР°С‚/РїСЂРµРёРјРµРЅСѓРІР°С‚/ РєР°С‚РµРіРѕСЂРёРё."
 
 #, c-format
 msgid "Any tasks in a category that is deleted will become %s."
-msgstr "Всички задачи в избраната категория ще станат %s."
+msgstr "Р’СЃРёС‡РєРё Р·Р°РґР°С‡Рё РІ РёР·Р±СЂР°РЅР°С‚Р° РєР°С‚РµРіРѕСЂРёСЏ С‰Рµ СЃС‚Р°РЅР°С‚ %s."
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Back to Task List"
-msgstr "Обратно към задачи"
+msgstr "РћР±СЂР°С‚РЅРѕ РєСЉРј Р·Р°РґР°С‡Рё"
 
 msgid "Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Category Management"
-msgstr "Категории Управление"
+msgstr "РљР°С‚РµРіРѕСЂРёРё РЈРїСЂР°РІР»РµРЅРёРµ"
 
 msgid "Change your task sorting and display options."
-msgstr "Установете предпочитаните сортиране и опресняване на страницата."
+msgstr "РЈСЃС‚Р°РЅРѕРІРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёС‚Рµ СЃРѕСЂС‚РёСЂР°РЅРµ Рё РѕРїСЂРµСЃРЅСЏРІР°РЅРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°."
 
 msgid "Choose Action:"
-msgstr "Избери действие:"
+msgstr "РР·Р±РµСЂРё РґРµР№СЃС‚РІРёРµ:"
 
 msgid "Complete Task"
-msgstr "Извърши задачата"
+msgstr "РР·РІСЉСЂС€Рё Р·Р°РґР°С‡Р°С‚Р°"
 
 msgid "Complete Tasks"
-msgstr "Извърши задачите"
+msgstr "РР·РІСЉСЂС€Рё Р·Р°РґР°С‡РёС‚Рµ"
 
 msgid "Complete tasks"
-msgstr "Извърши задачите"
+msgstr "РР·РІСЉСЂС€Рё Р·Р°РґР°С‡РёС‚Рµ"
 
 msgid "Completed?"
-msgstr "Извършено ли е?"
+msgstr "РР·РІСЉСЂС€РµРЅРѕ Р»Рё Рµ?"
 
 msgid "Completion Status"
-msgstr "Статус"
+msgstr "РЎС‚Р°С‚СѓСЃ"
 
 msgid "Create New Category"
-msgstr "Създай нова категория"
+msgstr "РЎСЉР·РґР°Р№ РЅРѕРІР° РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Default sorting criteria:"
-msgstr "Критерии за сортиране по подразбиране:"
+msgstr "РљСЂРёС‚РµСЂРёРё Р·Р° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 msgid "Delete Task"
-msgstr "Изтрий задача"
+msgstr "РР·С‚СЂРёР№ Р·Р°РґР°С‡Р°"
 
 msgid "Delete Tasks"
-msgstr "Изтрий задачи"
+msgstr "РР·С‚СЂРёР№ Р·Р°РґР°С‡Рё"
 
 msgid "Deleted 1 task."
-msgstr "Изтрита 1 задача"
+msgstr "РР·С‚СЂРёС‚Р° 1 Р·Р°РґР°С‡Р°"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 msgid "Description:"
-msgstr "Описание:"
+msgstr "РћРїРёСЃР°РЅРёРµ:"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Due By"
-msgstr "Задължение"
+msgstr "Р—Р°РґСЉР»Р¶РµРЅРёРµ"
 
 msgid "Due Date"
-msgstr "Задължение дата"
+msgstr "Р—Р°РґСЉР»Р¶РµРЅРёРµ РґР°С‚Р°"
 
 msgid "Edit your task lists."
-msgstr "Редактирай списъка със задачи."
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ СЃРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё."
 
 msgid "Export Tasks"
-msgstr "Експорт на задачи"
+msgstr "Р•РєСЃРїРѕСЂС‚ РЅР° Р·Р°РґР°С‡Рё"
 
 msgid "Flags"
-msgstr "Флагове"
+msgstr "Р¤Р»Р°РіРѕРІРµ"
 
 msgid "Group tasks by owner?"
-msgstr "Да се групират ли задачите по притежател?"
+msgstr "Р”Р° СЃРµ РіСЂСѓРїРёСЂР°С‚ Р»Рё Р·Р°РґР°С‡РёС‚Рµ РїРѕ РїСЂРёС‚РµР¶Р°С‚РµР»?"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "При импорт на CSV данни: първия ли ред съдържа имената на полетата?"
+msgstr "РџСЂРё РёРјРїРѕСЂС‚ РЅР° CSV РґР°РЅРЅРё: РїСЉСЂРІРёСЏ Р»Рё СЂРµРґ СЃСЉРґСЉСЂР¶Р° РёРјРµРЅР°С‚Р° РЅР° РїРѕР»РµС‚Р°С‚Р°?"
 
 msgid "Illegal or malformed form data."
-msgstr "Недопустими или повредени данни."
+msgstr "РќРµРґРѕРїСѓСЃС‚РёРјРё РёР»Рё РїРѕРІСЂРµРґРµРЅРё РґР°РЅРЅРё."
 
 msgid "Import Tasks"
-msgstr "Импорт на задачи"
+msgstr "РРјРїРѕСЂС‚ РЅР° Р·Р°РґР°С‡Рё"
 
 msgid "Import/Export"
-msgstr "Импорт/Експорт"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚"
 
 msgid "Import/Export Tasks"
-msgstr "Импорт/Експорт на задачи"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚ РЅР° Р·Р°РґР°С‡Рё"
 
 msgid "Incomplete tasks"
-msgstr "Недовършени задачи"
+msgstr "РќРµРґРѕРІСЉСЂС€РµРЅРё Р·Р°РґР°С‡Рё"
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "List Tasks"
-msgstr "Списък със Задачи"
+msgstr "РЎРїРёСЃСЉРє СЃСЉСЃ Р—Р°РґР°С‡Рё"
 
 msgid "Manage multiple task lists."
-msgstr "Управляване на множество списъци със задачи."
+msgstr "РЈРїСЂР°РІР»СЏРІР°РЅРµ РЅР° РјРЅРѕР¶РµСЃС‚РІРѕ СЃРїРёСЃСЉС†Рё СЃСЉСЃ Р·Р°РґР°С‡Рё."
 
 msgid "Marked task as completed."
-msgstr "Маркирана като извършена задача."
+msgstr "РњР°СЂРєРёСЂР°РЅР° РєР°С‚Рѕ РёР·РІСЉСЂС€РµРЅР° Р·Р°РґР°С‡Р°."
 
 msgid "Modify Task"
-msgstr "Промени задача"
+msgstr "РџСЂРѕРјРµРЅРё Р·Р°РґР°С‡Р°"
 
 msgid "Modifying:"
-msgstr "Промени:"
+msgstr "РџСЂРѕРјРµРЅРё:"
 
 msgid "My Task List"
-msgstr "Моите задачи"
+msgstr "РњРѕРёС‚Рµ Р·Р°РґР°С‡Рё"
 
 msgid "Nag is not properly configured"
-msgstr "Nag не е конфигуриран коректно"
+msgstr "Nag РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "New Category"
-msgstr "Нова категория"
+msgstr "РќРѕРІР° РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "New Task"
-msgstr "Нова задача"
+msgstr "РќРѕРІР° Р·Р°РґР°С‡Р°"
 
 msgid "No"
-msgstr "Не"
+msgstr "РќРµ"
 
 msgid "No configuration information specified for SQL Tasks."
-msgstr "Няма зададена конфигурация за SQL задачи."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL Р·Р°РґР°С‡Рё."
 
 msgid "No due date."
-msgstr "Няма дата."
+msgstr "РќСЏРјР° РґР°С‚Р°."
 
 msgid "None specified"
-msgstr "Няма зададен"
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅ"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Other Options"
-msgstr "Други Опции"
+msgstr "Р”СЂСѓРіРё РћРїС†РёРё"
 
 msgid "Owner"
-msgstr "Притежател"
+msgstr "РџСЂРёС‚РµР¶Р°С‚РµР»"
 
 msgid "Pri"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Print"
-msgstr "Отпечатай"
+msgstr "РћС‚РїРµС‡Р°С‚Р°Р№"
 
 msgid "Priority"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Private"
-msgstr "Частен"
+msgstr "Р§Р°СЃС‚РµРЅ"
 
 msgid "Refresh List"
-msgstr "Опресни списъка"
+msgstr "РћРїСЂРµСЃРЅРё СЃРїРёСЃСЉРєР°"
 
 msgid "Rename"
-msgstr "Преименувай"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°Р№"
 
 msgid "Required 'database' not specified in tasks configuration."
-msgstr "Необходимата 'database' не е зададена в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Required 'hostspec' not specified in tasks configuration."
-msgstr "Необходимия 'hostspec' не е указан в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ СѓРєР°Р·Р°РЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Required 'password' not specified in tasks configuration."
-msgstr "Необходимата 'password' не съществува в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Required 'phptype' not specified in tasks configuration."
-msgstr "Необходимия 'phptype' не е зададен в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Required 'table' not specified in tasks configuration."
-msgstr "Необходимия 'table' не е зададен в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'table' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Required 'username' not specified in tasks configuration."
-msgstr "Необходимото 'username' не е зададено в конфигурацията за задачи."
+msgstr "РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° Р·Р°РґР°С‡Рё."
 
 msgid "Search"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "Search Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Search Scope"
-msgstr "Обхват на търсене"
+msgstr "РћР±С…РІР°С‚ РЅР° С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Search Text"
-msgstr "Текст за търсене"
+msgstr "РўРµРєСЃС‚ Р·Р° С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Select Category"
-msgstr "Избери Категория"
+msgstr "РР·Р±РµСЂРё РљР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Select a task list"
-msgstr "Избери списък със задачи"
+msgstr "РР·Р±РµСЂРё СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё"
 
 msgid "Select the file to import:"
-msgstr "Изберете файл за импорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„Р°Р№Р» Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select the format to export to:"
-msgstr "Изберете формат, към който да се експортира:"
+msgstr "РР·Р±РµСЂРµС‚Рµ С„РѕСЂРјР°С‚, РєСЉРј РєРѕР№С‚Рѕ РґР° СЃРµ РµРєСЃРїРѕСЂС‚РёСЂР°:"
 
 msgid "Select the source to import from:"
-msgstr "Изберете източника за импорт:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РёР·С‚РѕС‡РЅРёРєР° Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Set Task Priority"
-msgstr "Изберете приоритет на задачата"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРёРѕСЂРёС‚РµС‚ РЅР° Р·Р°РґР°С‡Р°С‚Р°"
 
 msgid "Set the your preferred display language."
-msgstr "Изберете предпочитаният от Вас език."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє."
 
 msgid "Shared"
-msgstr "Поделен"
+msgstr "РџРѕРґРµР»РµРЅ"
 
 msgid "Show"
-msgstr "Показване"
+msgstr "РџРѕРєР°Р·РІР°РЅРµ"
 
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "Да се показват извършените или всички задачи в списъка?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ РёР·РІСЉСЂС€РµРЅРёС‚Рµ РёР»Рё РІСЃРёС‡РєРё Р·Р°РґР°С‡Рё РІ СЃРїРёСЃСЉРєР°?"
 
 msgid "Show due dates in the summary view?"
-msgstr "Да се показват ли датите на задълженията в обобщения изглед?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё РґР°С‚РёС‚Рµ РЅР° Р·Р°РґСЉР»Р¶РµРЅРёСЏС‚Р° РІ РѕР±РѕР±С‰РµРЅРёСЏ РёР·РіР»РµРґ?"
 
 msgid "Show owner in the summary view?"
-msgstr "Да се показва ли притежателят в обобщения изглед?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё РїСЂРёС‚РµР¶Р°С‚РµР»СЏС‚ РІ РѕР±РѕР±С‰РµРЅРёСЏ РёР·РіР»РµРґ?"
 
 msgid "Show priorities in the summary view?"
-msgstr "Да се показват ли приоритетите в обобщеният изглед?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё РїСЂРёРѕСЂРёС‚РµС‚РёС‚Рµ РІ РѕР±РѕР±С‰РµРЅРёСЏС‚ РёР·РіР»РµРґ?"
 
 msgid "Show: "
-msgstr "Покажи:"
+msgstr "РџРѕРєР°Р¶Рё:"
 
 msgid "Some of Nag's configuration files are missing:"
-msgstr "Някои от конфигурационните файлове на Nag липсват:"
+msgstr "РќСЏРєРѕРё РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° Nag Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 msgid "Sort by Category"
-msgstr "Сортирай по категория"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Sort by Completion Status"
-msgstr "Сортирай по статус на изпълнение"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ СЃС‚Р°С‚СѓСЃ РЅР° РёР·РїСЉР»РЅРµРЅРёРµ"
 
 msgid "Sort by Due Date"
-msgstr "Сортирай по дата на задължението"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РґР°С‚Р° РЅР° Р·Р°РґСЉР»Р¶РµРЅРёРµС‚Рѕ"
 
 msgid "Sort by Name"
-msgstr "Сортирай по име"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РёРјРµ"
 
 msgid "Sort by Priority"
-msgstr "Сортирай по приоритет"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Sort by User Name"
-msgstr "Сортирай по потребителско име"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ"
 
 msgid "Task Details"
-msgstr "Детайли"
+msgstr "Р”РµС‚Р°Р№Р»Рё"
 
 msgid "Task List"
-msgstr "Списък със задачи"
+msgstr "РЎРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё"
 
 msgid "Task Lists"
-msgstr "Списък със задачи"
+msgstr "РЎРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё"
 
 msgid "Task Lists's Type:"
-msgstr "Тип на списъка със задачи"
+msgstr "РўРёРї РЅР° СЃРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё"
 
 msgid "Task Lists's name:"
-msgstr "Име на списъка със задачи"
+msgstr "РРјРµ РЅР° СЃРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё"
 
 msgid "Task Name"
-msgstr "Име на задачата"
+msgstr "РРјРµ РЅР° Р·Р°РґР°С‡Р°С‚Р°"
 
 msgid "Task Note"
-msgstr "Бележка"
+msgstr "Р‘РµР»РµР¶РєР°"
 
 msgid "Task Note?"
-msgstr "Бележка за задачата?"
+msgstr "Р‘РµР»РµР¶РєР° Р·Р° Р·Р°РґР°С‡Р°С‚Р°?"
 
 msgid "The data was lost."
-msgstr "Данните бяха изгубени."
+msgstr "Р”Р°РЅРЅРёС‚Рµ Р±СЏС…Р° РёР·РіСѓР±РµРЅРё."
 
 msgid "The file contained no data."
-msgstr "Файлът не съдържа данни."
+msgstr "Р¤Р°Р№Р»СЉС‚ РЅРµ СЃСЉРґСЉСЂР¶Р° РґР°РЅРЅРё."
 
 msgid "The requested task does not exist."
-msgstr "Задачата, която изисквате не съществува."
+msgstr "Р—Р°РґР°С‡Р°С‚Р°, РєРѕСЏС‚Рѕ РёР·РёСЃРєРІР°С‚Рµ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°."
 
 #, c-format
 msgid "The task list \"%s\" has been created."
-msgstr "Списъка със задачи \"%s\" беше създаден."
+msgstr "РЎРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё \"%s\" Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅ."
 
 #, c-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "Списъка със задачи \"%s\" беше изтрит."
+msgstr "РЎРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё \"%s\" Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 #, c-format
 msgid "The task list \"%s\" has been saved."
-msgstr "Списъка със задачи \"%s\" беше записан."
+msgstr "РЎРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё \"%s\" Р±РµС€Рµ Р·Р°РїРёСЃР°РЅ."
 
 msgid "The task list name is empty."
-msgstr "Името на списъка със задачи е празно"
+msgstr "РРјРµС‚Рѕ РЅР° СЃРїРёСЃСЉРєР° СЃСЉСЃ Р·Р°РґР°С‡Рё Рµ РїСЂР°Р·РЅРѕ"
 
 msgid "The task was saved."
-msgstr "Задачата беше записана."
+msgstr "Р—Р°РґР°С‡Р°С‚Р° Р±РµС€Рµ Р·Р°РїРёСЃР°РЅР°."
 
 msgid "There was a problem deleting tasks."
-msgstr "Грешка при изтриването на задачи."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° Р·Р°РґР°С‡Рё."
 
 #, c-format
 msgid "There was a problem removing the task from %s."
-msgstr "Грешка при премахването на задачата от %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјР°С…РІР°РЅРµС‚Рѕ РЅР° Р·Р°РґР°С‡Р°С‚Р° РѕС‚ %s."
 
 msgid "There was a problem saving the task."
-msgstr "Грешка при запис на задачата."
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°РїРёСЃ РЅР° Р·Р°РґР°С‡Р°С‚Р°."
 
 msgid "There was a problem setting task completion status."
-msgstr "Грешка при регистриране на статуса на задачата."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРіРёСЃС‚СЂРёСЂР°РЅРµ РЅР° СЃС‚Р°С‚СѓСЃР° РЅР° Р·Р°РґР°С‡Р°С‚Р°."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Грешка при изпращането на файла. Възможно е файлът да е по-голям от "
-"максимално допустимият размер."
+"Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. Р’СЉР·РјРѕР¶РЅРѕ Рµ С„Р°Р№Р»СЉС‚ РґР° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕРїСѓСЃС‚РёРјРёСЏС‚ СЂР°Р·РјРµСЂ."
 
 msgid "There was an error importing the data."
-msgstr "Грешка при импорт на данните."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚ РЅР° РґР°РЅРЅРёС‚Рµ."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Грешка при импортиране на изпратения файл"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РёР·РїСЂР°С‚РµРЅРёСЏ С„Р°Р№Р»"
 
 msgid "There were no tasks to export."
-msgstr "Няма задачи за експорт."
+msgstr "РќСЏРјР° Р·Р°РґР°С‡Рё Р·Р° РµРєСЃРїРѕСЂС‚."
 
 msgid "These changes can not be undone!"
-msgstr "Тези промени не могат да бъдат върнати!"
+msgstr "РўРµР·Рё РїСЂРѕРјРµРЅРё РЅРµ РјРѕРіР°С‚ РґР° Р±СЉРґР°С‚ РІСЉСЂРЅР°С‚Рё!"
 
 msgid "This file contains preferences for Nag."
-msgstr "Този файл съдържа настройки за Nag."
+msgstr "РўРѕР·Рё С„Р°Р№Р» СЃСЉРґСЉСЂР¶Р° РЅР°СЃС‚СЂРѕР№РєРё Р·Р° Nag."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Този файл контролира стиловете, който се използват за цветовете и шрифтовете "
-"в допълнение към подразбиращите стилове на Horde."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚РёР»РѕРІРµС‚Рµ, РєРѕР№С‚Рѕ СЃРµ РёР·РїРѕР»Р·РІР°С‚ Р·Р° С†РІРµС‚РѕРІРµС‚Рµ Рё С€СЂРёС„С‚РѕРІРµС‚Рµ "
+"РІ РґРѕРїСЉР»РЅРµРЅРёРµ РєСЉРј РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёС‚Рµ СЃС‚РёР»РѕРІРµ РЅР° Horde."
 
 msgid ""
 "This is the main Nag configuration file. It contains options for all Nag "
 "scripts."
 msgstr ""
-"Това е главния конфигурационен файл на Turba. Той съдържа пътища и опции за "
-"скриптовете на Nag."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ С„Р°Р№Р» РЅР° Turba. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р° Рё РѕРїС†РёРё Р·Р° "
+"СЃРєСЂРёРїС‚РѕРІРµС‚Рµ РЅР° Nag."
 
 #, c-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Грешка при изтриване \"%s\": %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ \"%s\": %s."
 
 msgid "Unfiled"
-msgstr "Непопълнен"
+msgstr "РќРµРїРѕРїСЉР»РЅРµРЅ"
 
 msgid "Unknown"
-msgstr "Неизвестен"
+msgstr "РќРµРёР·РІРµСЃС‚РµРЅ"
 
 msgid "Unknown task"
-msgstr "Неизвестна задача"
+msgstr "РќРµРёР·РІРµСЃС‚РЅР° Р·Р°РґР°С‡Р°"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 msgid "View Task Details"
-msgstr "Детайли за задачата"
+msgstr "Р”РµС‚Р°Р№Р»Рё Р·Р° Р·Р°РґР°С‡Р°С‚Р°"
 
 msgid "Which Task List should the tasks be added to?"
-msgstr "Към кой списък със задачи да бъдат добавени задачите?"
+msgstr "РљСЉРј РєРѕР№ СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё РґР° Р±СЉРґР°С‚ РґРѕР±Р°РІРµРЅРё Р·Р°РґР°С‡РёС‚Рµ?"
 
 msgid "Yes"
-msgstr "Да"
+msgstr "Р”Р°"
 
 msgid "You must select a task list to be deleted."
-msgstr "Трябва да изберете кой списък със задачи да бъде изтрит."
+msgstr "РўСЂСЏР±РІР° РґР° РёР·Р±РµСЂРµС‚Рµ РєРѕР№ СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё РґР° Р±СЉРґРµ РёР·С‚СЂРёС‚."
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your default task list:"
-msgstr "Вашият списък със задачи по подразбиране:"
+msgstr "Р’Р°С€РёСЏС‚ СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Your task list is empty."
-msgstr "Вашият списък със задачи е празен"
+msgstr "Р’Р°С€РёСЏС‚ СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё Рµ РїСЂР°Р·РµРЅ"
 
 msgid "Your task lists:"
-msgstr "Вашият списък със задачи:"
+msgstr "Р’Р°С€РёСЏС‚ СЃРїРёСЃСЉРє СЃСЉСЃ Р·Р°РґР°С‡Рё:"
 
 msgid "at"
-msgstr "на"
+msgstr "РЅР°"

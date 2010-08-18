@@ -11,558 +11,558 @@ msgstr ""
 "Last-Translator: Stojan Pesov <ssp@eureka.com.mk>\n"
 "Language-Team: Macedonian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.1\n"
 
 #, c-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s ѕЯХаРжШШ ЧР ЮФаЦгТРъХ - їЮвТаФР"
+msgstr "%s РћРїРµСЂР°С†РёРё Р·Р° РѕРґСЂР¶СѓРІР°СљРµ - РџРѕС‚РІСЂРґР°"
 
 #, c-format
 msgid "%s is ready to perform the maintenance operations checked below."
-msgstr "%s Х бЯаХЬХЭ ФР УШ ШЧТаиШ ЮЯХаРжШШвХ ЧР ЮФаЦгТРъХ ШЧСаРЭШ ЯЮФЮЫг."
+msgstr "%s Рµ СЃРїСЂРµРјРµРЅ РґР° РіРё РёР·РІСЂС€Рё РѕРїРµСЂР°С†РёРёС‚Рµ Р·Р° РѕРґСЂР¶СѓРІР°СљРµ РёР·Р±СЂР°РЅРё РїРѕРґРѕР»Сѓ."
 
 msgid "24 hours"
-msgstr "24 зРбР"
+msgstr "24 С‡Р°СЃР°"
 
 msgid "AM/PM"
 msgstr "AM/PM"
 
 msgid "Add a new user:"
-msgstr "ґЮФРФШ ЭЮТ ЪЮаШбЭШЪ:"
+msgstr "Р”РѕРґР°РґРё РЅРѕРІ РєРѕСЂРёСЃРЅРёРє:"
 
 msgid "Add pair"
-msgstr "ґЮФРФШ ЯРа"
+msgstr "Р”РѕРґР°РґРё РїР°СЂ"
 
 msgid "Add user"
-msgstr "ґЮФРФШ ЪЮаШбЭШЪ"
+msgstr "Р”РѕРґР°РґРё РєРѕСЂРёСЃРЅРёРє"
 
 msgid "Adding users is disabled."
-msgstr "ґЮФРТРъХвЮ ЭР ЪЮаШбЭШжШ Х ЮЭХТЮЧЬЮЦХЭЮ."
+msgstr "Р”РѕРґР°РІР°СљРµС‚Рѕ РЅР° РєРѕСЂРёСЃРЅРёС†Рё Рµ РѕРЅРµРІРѕР·РјРѕР¶РµРЅРѕ."
 
 msgid "Address"
-msgstr "°ФаХбР"
+msgstr "РђРґСЂРµСЃР°"
 
 msgid "Addressbook"
-msgstr "°ФаХбРа"
+msgstr "РђРґСЂРµСЃР°СЂ"
 
 msgid "Administration"
-msgstr "°ФЬШЭШбваРжШшР"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂР°С†РёСР°"
 
 msgid "Alias"
 msgstr "Alias"
 
 #, c-format
 msgid "Attempt to bind failed: no entry found for %s."
-msgstr "ЅХгбЯХиХЭ ЮСШФ ЧР ЯЮТаЧгТРъХ: ЭХ ХЯаЮЭРшФХЭ ЧРЯШб ЧР %s."
+msgstr "РќРµСѓСЃРїРµС€РµРЅ РѕР±РёРґ Р·Р° РїРѕРІСЂР·СѓРІР°СљРµ: РЅРµ РµРїСЂРѕРЅР°СРґРµРЅ Р·Р°РїРёСЃ Р·Р° %s."
 
 msgid "Attempt to bind without a valid connection."
-msgstr "ѕСШФ ЧР ЯЮТаЧгТРъХ СХЧ ТРЫШФЭР ЪЮЭХЪжШшР."
+msgstr "РћР±РёРґ Р·Р° РїРѕРІСЂР·СѓРІР°СљРµ Р±РµР· РІР°Р»РёРґРЅР° РєРѕРЅРµРєС†РёСР°."
 
 msgid "Available fields:"
-msgstr "ґЮбвРЯЭШ ЯЮЫШъР:"
+msgstr "Р”РѕСЃС‚Р°РїРЅРё РїРѕР»РёСљР°:"
 
 #, c-format
 msgid "Bind to server %s, dn %s as %s failed: [%d] %s"
-msgstr "їЮТаЧгТРъХвЮ бЮ бХаТХаЮв %s, dn %s ЪРЪЮ %s ЭХгбЯХиЭЮ: [%d] %s"
+msgstr "РџРѕРІСЂР·СѓРІР°СљРµС‚Рѕ СЃРѕ СЃРµСЂРІРµСЂРѕС‚ %s, dn %s РєР°РєРѕ %s РЅРµСѓСЃРїРµС€РЅРѕ: [%d] %s"
 
 msgid "Birthday"
-msgstr "АЮФХЭФХЭ"
+msgstr "Р РѕРґРµРЅРґРµРЅ"
 
 msgid "CVS"
 msgstr "CVS"
 
 msgid "Cancel Problem Report"
-msgstr "ѕвЪРЦШ їаЮСЫХЬ АХЯЮав"
+msgstr "РћС‚РєР°Р¶Рё РџСЂРѕР±Р»РµРј Р РµРїРѕСЂС‚"
 
 msgid "Cell Phone"
-msgstr "јЮСШЫХЭ"
+msgstr "РњРѕР±РёР»РµРЅ"
 
 msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "ІЪЫгзШ РЪЮ бРЪРи ФР ШЧТаиШи ЭХЪЮШ ЮЯХаРжШШ ТЮ ЬЮЬХЭвЮТ."
+msgstr "Р’РєР»СѓС‡Рё Р°РєРѕ СЃР°РєР°С€ РґР° РёР·РІСЂС€РёС€ РЅРµРєРѕРё РѕРїРµСЂР°С†РёРё РІРѕ РјРѕРјРµРЅС‚РѕРІ."
 
 msgid "Close Help Window"
-msgstr "·РвТЮаШ УЮ ЯЮЬЮиЭШЮв ЯаЮЧЮаХж"
+msgstr "Р—Р°С‚РІРѕСЂРё РіРѕ РїРѕРјРѕС€РЅРёРѕС‚ РїСЂРѕР·РѕСЂРµС†"
 
 msgid "Close Help"
-msgstr "·РвТЮаШ ЯЮЬЮи"
+msgstr "Р—Р°С‚РІРѕСЂРё РїРѕРјРѕС€"
 
 msgid "Close Window"
-msgstr "·РвТЮаШ УЮ ЯаЮЧЮаХжЮв"
+msgstr "Р—Р°С‚РІРѕСЂРё РіРѕ РїСЂРѕР·РѕСЂРµС†РѕС‚"
 
 msgid "Company"
-msgstr "ДШаЬР"
+msgstr "Р¤РёСЂРјР°"
 
 msgid "Confirm Password"
-msgstr "їЮвТаФШ ЫЮЧШЭЪР"
+msgstr "РџРѕС‚РІСЂРґРё Р»РѕР·РёРЅРєР°"
 
 #, c-format
 msgid "Contents of '%s'"
-msgstr "БЮФаЦШЭР ЭР '%s'"
+msgstr "РЎРѕРґСЂР¶РёРЅР° РЅР° '%s'"
 
 msgid "Contents of the RAR archive"
-msgstr "БЮФаЦШЭР ЭР RAR РаеШТРвР"
+msgstr "РЎРѕРґСЂР¶РёРЅР° РЅР° RAR Р°СЂС…РёРІР°С‚Р°"
 
 #, c-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "јЮФгЫЮв ЭР ЧРФРзРвР ЧР ЮФаЦгТРъХ %s ЭХ ЬЮЦХ ФР СШФХ ЮвТЮаХЭ"
+msgstr "РњРѕРґСѓР»РѕС‚ РЅР° Р·Р°РґР°С‡Р°С‚Р° Р·Р° РѕРґСЂР¶СѓРІР°СљРµ %s РЅРµ РјРѕР¶Рµ РґР° Р±РёРґРµ РѕС‚РІРѕСЂРµРЅ"
 
 msgid "DD"
 msgstr "DD"
 
 msgid "Daily"
-msgstr "ґЭХТЭЮ"
+msgstr "Р”РЅРµРІРЅРѕ"
 
 msgid "Database query failed."
-msgstr "їаХваРЦгТРъХвЮ Х ЭХгбЯХиЭЮ."
+msgstr "РџСЂРµС‚СЂР°Р¶СѓРІР°СљРµС‚Рѕ Рµ РЅРµСѓСЃРїРµС€РЅРѕ."
 
 msgid "Default Identity"
-msgstr "БвРЭФРаФХЭ ШФХЭвШвХв"
+msgstr "РЎС‚Р°РЅРґР°СЂРґРµРЅ РёРґРµРЅС‚РёС‚РµС‚"
 
 msgid "Delete"
-msgstr "ёЧСаШиШ"
+msgstr "РР·Р±СЂРёС€Рё"
 
 msgid "Describe the Problem"
-msgstr "ѕЯШб ЭР ЯаЮСЫХЬЮв"
+msgstr "РћРїРёСЃ РЅР° РїСЂРѕР±Р»РµРјРѕС‚"
 
 msgid "Do not directly access maintenance.php"
-msgstr "ЅХ ЯаШбвРЯгТРш ФШаХЪвЭЮ ФЮ maintenance.php"
+msgstr "РќРµ РїСЂРёСЃС‚Р°РїСѓРІР°С РґРёСЂРµРєС‚РЅРѕ РґРѕ maintenance.php"
 
 msgid "Email"
-msgstr "Х-ЯЮивР"
+msgstr "Рµ-РїРѕС€С‚Р°"
 
 msgid "Empty result."
-msgstr "їаРЧХЭ аХЧгЫвРв."
+msgstr "РџСЂР°Р·РµРЅ СЂРµР·СѓР»С‚Р°С‚."
 
 msgid "Error"
-msgstr "іаХиЪР"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Every Login"
-msgstr "БХЪЮХ ЯаШшРТгТРъХ"
+msgstr "РЎРµРєРѕРµ РїСЂРёСР°РІСѓРІР°СљРµ"
 
 msgid "Example values:"
-msgstr "їаШЬХа:"
+msgstr "РџСЂРёРјРµСЂ:"
 
 #, c-format
 msgid "Expected \"BEGIN\" in the line %d."
-msgstr "ѕзХЪгТРЭЮ \"БВ°АВ\" ТЮ ЫШЭШшРвР %d."
+msgstr "РћС‡РµРєСѓРІР°РЅРѕ \"РЎРўРђР Рў\" РІРѕ Р»РёРЅРёСР°С‚Р° %d."
 
 #, c-format
 msgid "Expected \"END:%s\" in line %d."
-msgstr "ѕзХЪгТРЭЮ \"єА°Ё:%s\" \" ТЮ ЫШЭШшРвР %d."
+msgstr "РћС‡РµРєСѓРІР°РЅРѕ \"РљР РђР€:%s\" \" РІРѕ Р»РёРЅРёСР°С‚Р° %d."
 
 msgid "Failed to connect to LDAP preferences server."
-msgstr "ЅХгбЯХиЭР ЪЮЭХЪжШшР ФЮ LDAP бХаТХаЮв бЮ ЯЮФХбгТРъР."
+msgstr "РќРµСѓСЃРїРµС€РЅР° РєРѕРЅРµРєС†РёСР° РґРѕ LDAP СЃРµСЂРІРµСЂРѕС‚ СЃРѕ РїРѕРґРµСЃСѓРІР°СљР°."
 
 msgid "Failed to connect to LDAP server."
-msgstr "ЅХгбЯХиЭР ЪЮЭХЪжШшР бЮ LDAP бХаТХаЮв."
+msgstr "РќРµСѓСЃРїРµС€РЅР° РєРѕРЅРµРєС†РёСР° СЃРѕ LDAP СЃРµСЂРІРµСЂРѕС‚."
 
 #, c-format
 msgid "Failed to open an LDAP connection to %s."
-msgstr "LDAP ЪЮЭХЪжШшРвР ФЮ %s Х ЭХгбЯХиЭР."
+msgstr "LDAP РєРѕРЅРµРєС†РёСР°С‚Р° РґРѕ %s Рµ РЅРµСѓСЃРїРµС€РЅР°."
 
 msgid "Fax"
-msgstr "ДРЪб"
+msgstr "Р¤Р°РєСЃ"
 
 msgid "Full Description:"
-msgstr "єЮЬЯЫХвХЭ ЮЯШб:"
+msgstr "РљРѕРјРїР»РµС‚РµРЅ РѕРїРёСЃ:"
 
 msgid "Help"
-msgstr "їЮЬЮи"
+msgstr "РџРѕРјРѕС€"
 
 msgid "Home Address"
-msgstr "ґЮЬРиЭР РФаХбР:"
+msgstr "Р”РѕРјР°С€РЅР° Р°РґСЂРµСЃР°:"
 
 msgid "Home Phone"
-msgstr "ґЮЬРиХЭ вХЫХдЮЭ"
+msgstr "Р”РѕРјР°С€РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "Horde Login"
-msgstr "їаШшРТгТРъХ ТЮ Horde"
+msgstr "РџСЂРёСР°РІСѓРІР°СљРµ РІРѕ Horde"
 
 msgid "Horde System"
-msgstr "БШбвХЬ Horde"
+msgstr "РЎРёСЃС‚РµРј Horde"
 
 msgid "Horde User Administration"
-msgstr "Horde °ФЬШЭШбваРвЮа"
+msgstr "Horde РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ"
 
 msgid "Horde Wireless"
-msgstr "Horde СХЧЦШзЭЮ"
+msgstr "Horde Р±РµР·Р¶РёС‡РЅРѕ"
 
 msgid "Horde is not properly configured"
-msgstr "Horde ЭХ Х ЯаРТШЫЭЮ ЪЮЭдШУгаШаРЭ"
+msgstr "Horde РЅРµ Рµ РїСЂР°РІРёР»РЅРѕ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ"
 
 msgid "Horde"
 msgstr "Horde"
 
 msgid "Import Error: "
-msgstr "іаХиЪР ЯаШ ШЬЯЮав:"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚:"
 
 msgid "Import"
-msgstr "ёЬЯЮав"
+msgstr "РРјРїРѕСЂС‚"
 
 #, c-format
 msgid "Imported field: %s"
-msgstr "ёЬЯЮавШаРЭЮ ЯЮЫХ: %s"
+msgstr "РРјРїРѕСЂС‚РёСЂР°РЅРѕ РїРѕР»Рµ: %s"
 
 msgid "Imported fields:"
-msgstr "ёЬЯЮавШаРЭШ ЯЮЫШъР:"
+msgstr "РРјРїРѕСЂС‚РёСЂР°РЅРё РїРѕР»РёСљР°:"
 
 msgid "List Help Topics"
-msgstr "ёЧЫШбвРш вХЬШ ЧР ЯЮЬЮи"
+msgstr "РР·Р»РёСЃС‚Р°С С‚РµРјРё Р·Р° РїРѕРјРѕС€"
 
 msgid "Listing users is disabled."
-msgstr "»ШбвРъХвЮ ЭР ЪЮаШбЭШжШ Х ЮЭХТЮЧЬЮЦХЭЮ."
+msgstr "Р›РёСЃС‚Р°СљРµС‚Рѕ РЅР° РєРѕСЂРёСЃРЅРёС†Рё Рµ РѕРЅРµРІРѕР·РјРѕР¶РµРЅРѕ."
 
 msgid "Log in"
-msgstr "»ЮУШаРъХ"
+msgstr "Р›РѕРіРёСЂР°СљРµ"
 
 msgid "Log out"
-msgstr "ёЧЫХЧ"
+msgstr "РР·Р»РµР·"
 
 msgid "MM"
 msgstr "MM"
 
 msgid "Mail"
-msgstr "їЮивР"
+msgstr "РџРѕС€С‚Р°"
 
 msgid "Map Date and Time Fields"
-msgstr "јРЯШаРш УШ ЯЮЫШъРвР ЧР ФРвгЬ Ш ТаХЬХ"
+msgstr "РњР°РїРёСЂР°С РіРё РїРѕР»РёСљР°С‚Р° Р·Р° РґР°С‚СѓРј Рё РІСЂРµРјРµ"
 
 msgid "Map Import Fields"
-msgstr "јРЯШаРш УШ ЯЮЫШъРвР ЧР ШЬЯЮав"
+msgstr "РњР°РїРёСЂР°С РіРё РїРѕР»РёСљР°С‚Р° Р·Р° РёРјРїРѕСЂС‚"
 
 msgid "Matching fields"
-msgstr "єЮаХбЯЮЭФШаРзЪШ ЯЮЫШъР"
+msgstr "РљРѕСЂРµСЃРїРѕРЅРґРёСЂР°С‡РєРё РїРѕР»РёСљР°"
 
 msgid "Message"
-msgstr "їЮаРЪР"
+msgstr "РџРѕСЂР°РєР°"
 
 msgid "Monthly"
-msgstr "јХбХзЭЮ"
+msgstr "РњРµСЃРµС‡РЅРѕ"
 
 msgid "Name"
-msgstr "ёЬХ"
+msgstr "РРјРµ"
 
 msgid "No configuration information specified for LDAP Preferences."
-msgstr "ЅХЬР ШЭдЮаЬРжШШ ЧР ЯЮФХбгТРъХ ЭР LDAP ЬЮЦЭЮбвШвХ."
+msgstr "РќРµРјР° РёРЅС„РѕСЂРјР°С†РёРё Р·Р° РїРѕРґРµСЃСѓРІР°СљРµ РЅР° LDAP РјРѕР¶РЅРѕСЃС‚РёС‚Рµ."
 
 msgid "No configuration information specified for SQL Categories."
-msgstr "ЅХЬР ШЭдЮаЬРжШШ ЧР ЯЮФХбгТРъХ ЭР SQL ЪРвХУЮаШШвХ."
+msgstr "РќРµРјР° РёРЅС„РѕСЂРјР°С†РёРё Р·Р° РїРѕРґРµСЃСѓРІР°СљРµ РЅР° SQL РєР°С‚РµРіРѕСЂРёРёС‚Рµ."
 
 msgid "No configuration information specified for SQL Preferences."
-msgstr "ЅХЬР ШЭдЮаЬРжШШ ЧР ЯЮФХбгТРъХ ЭР SQL ЬЮЦЭЮбвШвХ."
+msgstr "РќРµРјР° РёРЅС„РѕСЂРјР°С†РёРё Р·Р° РїРѕРґРµСЃСѓРІР°СљРµ РЅР° SQL РјРѕР¶РЅРѕСЃС‚РёС‚Рµ."
 
 msgid "No configuration information specified for SQL authentication."
-msgstr "ЅХЬР ШЭдЮаЬРжШШ ЧР ЯЮФХбгТРъХ ЭР SQL ШФХЭвШвХвШвХ."
+msgstr "РќРµРјР° РёРЅС„РѕСЂРјР°С†РёРё Р·Р° РїРѕРґРµСЃСѓРІР°СљРµ РЅР° SQL РёРґРµРЅС‚РёС‚РµС‚РёС‚Рµ."
 
 #, c-format
 msgid "No entry found for %s."
-msgstr "ЅХ Х ЯаЮЭРшФХЭ ЧРЯШб ЧР %s."
+msgstr "РќРµ Рµ РїСЂРѕРЅР°СРґРµРЅ Р·Р°РїРёСЃ Р·Р° %s."
 
 msgid "No preferences are available."
-msgstr "ЅХЬР ФЮбвРЯЭШ ЯЮФХбгТРъР."
+msgstr "РќРµРјР° РґРѕСЃС‚Р°РїРЅРё РїРѕРґРµСЃСѓРІР°СљР°."
 
 msgid "No preferences were retrieved."
-msgstr "ЅХЬР ЯЮФХбгТРъР."
+msgstr "РќРµРјР° РїРѕРґРµСЃСѓРІР°СљР°."
 
 msgid "Notes"
-msgstr "·РСХЫХиЪШ"
+msgstr "Р—Р°Р±РµР»РµС€РєРё"
 
 msgid "Password"
-msgstr "»ЮЧШЭЪР"
+msgstr "Р›РѕР·РёРЅРєР°"
 
 msgid "Passwords cannot be blank."
-msgstr "ІЭХбШ ЫЮЧШЭЪР."
+msgstr "Р’РЅРµСЃРё Р»РѕР·РёРЅРєР°."
 
 msgid "Passwords must match."
-msgstr "»ЮЧШЭЪШвХ ЬЮаР ФР СШФРв ШбвШ."
+msgstr "Р›РѕР·РёРЅРєРёС‚Рµ РјРѕСЂР° РґР° Р±РёРґР°С‚ РёСЃС‚Рё."
 
 msgid "Perform Maintenance Operations"
-msgstr "ёЧТаиШ ЮЯХаРжШШ ЧР ЮФаЦгТРъХ"
+msgstr "РР·РІСЂС€Рё РѕРїРµСЂР°С†РёРё Р·Р° РѕРґСЂР¶СѓРІР°СљРµ"
 
 msgid "Phone"
-msgstr "ВХЫХдЮЭ"
+msgstr "РўРµР»РµС„РѕРЅ"
 
 msgid "Please log in"
-msgstr "їаШшРТХвХ бХ"
+msgstr "РџСЂРёСР°РІРµС‚Рµ СЃРµ"
 
 msgid "Please provide a summary of the problem."
-msgstr "ІХ ЬЮЫШЬХ ЭРТХФХвХ УЮ ЯаЮСЫХЬЮв."
+msgstr "Р’Рµ РјРѕР»РёРјРµ РЅР°РІРµРґРµС‚Рµ РіРѕ РїСЂРѕР±Р»РµРјРѕС‚."
 
 msgid "Please provide your username and password"
-msgstr "ІХ ЬЮЫШЬХ ЭРТХФХвХ ТРиХ ЪЮаШбЭШзЪЮ ШЬХ Ш ЫЮЧШЭЪР"
+msgstr "Р’Рµ РјРѕР»РёРјРµ РЅР°РІРµРґРµС‚Рµ РІР°С€Рµ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ Рё Р»РѕР·РёРЅРєР°"
 
 msgid "Problem Description"
-msgstr "ѕЯШб ЭР ЯаЮСЫХЬЮв"
+msgstr "РћРїРёСЃ РЅР° РїСЂРѕР±Р»РµРјРѕС‚"
 
 msgid "Remove pair"
-msgstr "ѕФбваРЭШ ЯРа"
+msgstr "РћРґСЃС‚СЂР°РЅРё РїР°СЂ"
 
 msgid "Required 'basedn' not specified in authentication configuration."
-msgstr "±РаРЭРвР 'basedn' ЭХ Х ЭРТХФХЭР ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'basedn' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'basedn' not specified in preferences configuration."
-msgstr "±РаРЭРвР 'basedn' ЭХ Х ЭРТХФХЭР ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'basedn' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'database' not specified in authentication configuration."
-msgstr "±РаРЭРвР 'database' ЭХ Х ЭРТХФХЭР ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'database' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'database' not specified in categories configuration."
-msgstr "±РаРЭРвР 'database' ЭХ Х ЭРТХФХЭР ТЮ ЪЮЭдШУгаРжШшР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'database' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'database' not specified in preferences configuration."
-msgstr "±РаРЭРвР 'database' ЭХ Х ЭРТХФХЭР ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'database' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "±РаРЭРвР 'hostspec' ЭХ Х ЭРТХФХЭР ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'hostspec' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'hostspec' not specified in categories configuration."
-msgstr "±РаРЭРвР 'hostspec' ЭХ Х ЭРТХФХЭР ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'hostspec' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "±РаРЭРвР 'hostspec' ЭХ Х ЭРТХФХЭР ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'hostspec' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'password' not specified in authentication configuration."
-msgstr "±РаРЭРвР 'password' ЭХ Х ЭРТХФХЭР ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'password' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'password' not specified in categories configuration."
-msgstr "±РаРЭРвР 'password' ЭХ Х ЭРТХФХЭР ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'password' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'password' not specified in preferences configuration."
-msgstr "±РаРЭРвР 'password' ЭХ Х ЭРТХФХЭР ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'password' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "±РаРЭШЮв 'phptype' ЭХ Х ЭРТХФХЭ ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅРёРѕС‚ 'phptype' РЅРµ Рµ РЅР°РІРµРґРµРЅ РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'phptype' not specified in categories configuration."
-msgstr "±РаРЭШЮв 'phptype' ЭХ Х ЭРТХФХЭ ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅРёРѕС‚ 'phptype' РЅРµ Рµ РЅР°РІРµРґРµРЅ РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "±РаРЭШЮв 'phptype' ЭХ Х ЭРТХФХЭ ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅРёРѕС‚ 'phptype' РЅРµ Рµ РЅР°РІРµРґРµРЅ РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'table' not specified in authentication configuration."
-msgstr "±РаРЭРвР 'table' ЭХ Х ЭРТХФХЭР ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'table' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'table' not specified in categories configuration."
-msgstr "±РаРЭРвР 'table' ЭХ Х ЭРТХФХЭР ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'table' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'table' not specified in preferences configuration."
-msgstr "±РаРЭРвР 'table' ЭХ Х ЭРТХФХЭР ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅР°С‚Р° 'table' РЅРµ Рµ РЅР°РІРµРґРµРЅР° РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'tableRelations' not specified in categories configuration."
 msgstr ""
-"±РаРЭШвХ 'tableRelations' ЭХ бХ ЭРТХФХЭШ ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+"Р‘Р°СЂР°РЅРёС‚Рµ 'tableRelations' РЅРµ СЃРµ РЅР°РІРµРґРµРЅРё РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'uid' not specified in authentication configuration."
-msgstr "±РаРЭШЮв 'uid' ЭХ Х ЭРТХФХЭ ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅРёРѕС‚ 'uid' РЅРµ Рµ РЅР°РІРµРґРµРЅ РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'uid' not specified in preferences configuration."
-msgstr "±РаРЭШЮв 'uid' ЭХ Х ЭРТХФХЭ ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅРёРѕС‚ 'uid' РЅРµ Рµ РЅР°РІРµРґРµРЅ РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Required 'username' not specified in authentication configuration."
-msgstr "±РаРЭЮвo 'username' ЭХ Х ЭРТХФХЭo ТЮ РТвЮаШЧРжШЮЭРвР ЪЮЭдШУгаРжШшР."
+msgstr "Р‘Р°СЂР°РЅРѕС‚o 'username' РЅРµ Рµ РЅР°РІРµРґРµРЅo РІРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅР°С‚Р° РєРѕРЅС„РёРіСѓСЂР°С†РёСР°."
 
 msgid "Required 'username' not specified in categories configuration."
-msgstr "±РаРЭЮвo 'username' ЭХ Х ЭРТХФХЭo ТЮ ЪЮЭдШУгаРжШшРвР ЭР ЪРвХУЮаШШ."
+msgstr "Р‘Р°СЂР°РЅРѕС‚o 'username' РЅРµ Рµ РЅР°РІРµРґРµРЅo РІРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° РєР°С‚РµРіРѕСЂРёРё."
 
 msgid "Required 'username' not specified in preferences configuration."
-msgstr "±РаРЭЮвo 'username' ЭХ Х ЭРТХФХЭo ТЮ ЯЮФХбгТРъРвР."
+msgstr "Р‘Р°СЂР°РЅРѕС‚o 'username' РЅРµ Рµ РЅР°РІРµРґРµРЅo РІРѕ РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Reset"
 msgstr "Reset"
 
 msgid "Return to Options"
-msgstr "ЅРЧРФ ЪЮЭ ЮЯжШШвХ"
+msgstr "РќР°Р·Р°Рґ РєРѕРЅ РѕРїС†РёРёС‚Рµ"
 
 msgid "Role"
-msgstr "ГЫЮУР"
+msgstr "РЈР»РѕРіР°"
 
 msgid "Save Options"
-msgstr "·РзгТРш ЮЯжШШ"
+msgstr "Р—Р°С‡СѓРІР°С РѕРїС†РёРё"
 
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the textarea."
 msgstr ""
-"ёЧСХаШ ЪЮШ ЪРаРЪвХаШ вШ ваХСРРв. јЮЦХи ЯЮвЮР ЭШТ ФР УШ ШбЪЮЯШаРи ЮФ ЯЮЫХвЮ "
-"ЧР вХЪбв."
+"РР·Р±РµСЂРё РєРѕРё РєР°СЂР°РєС‚РµСЂРё С‚Рё С‚СЂРµР±Р°Р°С‚. РњРѕР¶РµС€ РїРѕС‚РѕР° РЅРёРІ РґР° РіРё РёСЃРєРѕРїРёСЂР°С€ РѕРґ РїРѕР»РµС‚Рѕ "
+"Р·Р° С‚РµРєСЃС‚."
 
 msgid "Select the date delimiter:"
-msgstr "ёЧСХаШ бХЯРаРвЮа ЧР ФРвгЬЮв:"
+msgstr "РР·Р±РµСЂРё СЃРµРїР°СЂР°С‚РѕСЂ Р·Р° РґР°С‚СѓРјРѕС‚:"
 
 msgid "Select the date format:"
-msgstr "ёЧСХаШ дЮаЬРв ЧР ФРвгЬЮв:"
+msgstr "РР·Р±РµСЂРё С„РѕСЂРјР°С‚ Р·Р° РґР°С‚СѓРјРѕС‚:"
 
 msgid "Select the time format:"
-msgstr "ёЧСХаШ дЮаЬРв ЧР ТаХЬХвЮ:"
+msgstr "РР·Р±РµСЂРё С„РѕСЂРјР°С‚ Р·Р° РІСЂРµРјРµС‚Рѕ:"
 
 msgid "Select two matching fields."
-msgstr "ёЧСХаШ ФТХ ЮФУЮТРаРзЪШ ЯЮЫШъР."
+msgstr "РР·Р±РµСЂРё РґРІРµ РѕРґРіРѕРІР°СЂР°С‡РєРё РїРѕР»РёСљР°."
 
 msgid "Send Problem Report"
-msgstr "їаРвШ ШЧТХивРш ЧР ЯаЮСЫХЬЮв"
+msgstr "РџСЂР°С‚Рё РёР·РІРµС€С‚Р°С Р·Р° РїСЂРѕР±Р»РµРјРѕС‚"
 
 msgid "Short Summary:"
-msgstr "єаРвЪЮ аХЧШЬХ:"
+msgstr "РљСЂР°С‚РєРѕ СЂРµР·РёРјРµ:"
 
 msgid "Skip Maintenance"
-msgstr "їаХбЪЮЪЭШ ЮФаЦгТРъХ"
+msgstr "РџСЂРµСЃРєРѕРєРЅРё РѕРґСЂР¶СѓРІР°СљРµ"
 
 msgid "Some of Horde's configuration files are missing:"
-msgstr "ЅХЪЮШ ЪЮЭдШУгаРжШЮЭШ дРшЫЮТШ ЮФ Horde ЭХФЮбвРбгТРРв:"
+msgstr "РќРµРєРѕРё РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРё С„Р°СР»РѕРІРё РѕРґ Horde РЅРµРґРѕСЃС‚Р°СЃСѓРІР°Р°С‚:"
 
 msgid "Special Character Input"
-msgstr "ІЭХбгТРъХ ЭР бЯХжШшРЫЭШ ЧЭРжШ"
+msgstr "Р’РЅРµСЃСѓРІР°СљРµ РЅР° СЃРїРµС†РёСР°Р»РЅРё Р·РЅР°С†Рё"
 
 msgid "Success"
-msgstr "ГбЯХиЭЮ"
+msgstr "РЈСЃРїРµС€РЅРѕ"
 
 #, c-format
 msgid "Successfully added '%s' to the system."
-msgstr "'%s' гбЯХиЭЮ ФЮФРФХЭ ЭР бШбвХЬЮв."
+msgstr "'%s' СѓСЃРїРµС€РЅРѕ РґРѕРґР°РґРµРЅ РЅР° СЃРёСЃС‚РµРјРѕС‚."
 
 #, c-format
 msgid "Successfully removed '%s' from the system."
-msgstr "'%s' гбЯХиЭЮ ЮвбваРЭХв ЮФ бШбвХЬЮв."
+msgstr "'%s' СѓСЃРїРµС€РЅРѕ РѕС‚СЃС‚СЂР°РЅРµС‚ РѕРґ СЃРёСЃС‚РµРјРѕС‚."
 
 msgid ""
 "The registry is how Horde applications find out how to talk to each other. "
 "You should list any installed Horde applications that you have here."
 msgstr ""
-"АХУШбваРжШшРвР Х ЪРЪЮ Horde РЯЫШЪРжШШвХ ЪЮЬгЭШжШаРРв ЬХугбХСХ. ВаХСР ЮТФХ ФР "
-"УШ ЭРТХФХи бШвХ Horde РЯЫШЪРжШШ ивЮ УШ ШЬРи."
+"Р РµРіРёСЃС‚СЂР°С†РёСР°С‚Р° Рµ РєР°РєРѕ Horde Р°РїР»РёРєР°С†РёРёС‚Рµ РєРѕРјСѓРЅРёС†РёСЂР°Р°С‚ РјРµС“СѓСЃРµР±Рµ. РўСЂРµР±Р° РѕРІРґРµ РґР° "
+"РіРё РЅР°РІРµРґРµС€ СЃРёС‚Рµ Horde Р°РїР»РёРєР°С†РёРё С€С‚Рѕ РіРё РёРјР°С€."
 
 #, c-format
 msgid "There was a problem adding '%s' to the system."
-msgstr "ЅРбвРЭР ЯаЮСЫХЬ ЯаШ ФЮФРТРъХ ЭР %s ТЮ бШбвХЬЮв."
+msgstr "РќР°СЃС‚Р°РЅР° РїСЂРѕР±Р»РµРј РїСЂРё РґРѕРґР°РІР°СљРµ РЅР° %s РІРѕ СЃРёСЃС‚РµРјРѕС‚."
 
 #, c-format
 msgid "There was a problem removing '%s' from the system."
-msgstr "ЅРбвРЭР ЯаЮСЫХЬ ЯаШ ЮвбваРЭгТРъХ ЭР %s ЮФ бШбвХЬЮв."
+msgstr "РќР°СЃС‚Р°РЅР° РїСЂРѕР±Р»РµРј РїСЂРё РѕС‚СЃС‚СЂР°РЅСѓРІР°СљРµ РЅР° %s РѕРґ СЃРёСЃС‚РµРјРѕС‚."
 
 msgid ""
 "This file controls the global set of MIME drivers for the Horde framework, "
 "allowing applications to make use of programs such as enscript or mswordview "
 "to render content into HTML for viewing in a browser."
 msgstr ""
-"ѕТЮш дРшЫ УШ ЪЮЭваЮЫШаР MIME ФаРшТХаШвХ ЧР Horde бШбвХЬЮв, ЮТЮЧЬЮЦгТРшьШ "
-"РЯЫШЪРжШШвХ ФР ЪЮаШбвРв ЯаЮУаРЬШ ЪРЪЮ enscript ШЫШ mswordview ЧР аХЭФХаШаРъХ "
-"ЭР бЮФаЦШЭРвР ТЮ HTML ЧР ЯаХУЫХФ ТЮ ЯаХСРагТРз."
+"РћРІРѕС С„Р°СР» РіРё РєРѕРЅС‚СЂРѕР»РёСЂР° MIME РґСЂР°СРІРµСЂРёС‚Рµ Р·Р° Horde СЃРёСЃС‚РµРјРѕС‚, РѕРІРѕР·РјРѕР¶СѓРІР°ССњРё "
+"Р°РїР»РёРєР°С†РёРёС‚Рµ РґР° РєРѕСЂРёСЃС‚Р°С‚ РїСЂРѕРіСЂР°РјРё РєР°РєРѕ enscript РёР»Рё mswordview Р·Р° СЂРµРЅРґРµСЂРёСЂР°СљРµ "
+"РЅР° СЃРѕРґСЂР¶РёРЅР°С‚Р° РІРѕ HTML Р·Р° РїСЂРµРіР»РµРґ РІРѕ РїСЂРµР±Р°СЂСѓРІР°С‡."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts for "
 "the Horde framework and all applications that do not provide their own "
 "settings.."
 msgstr ""
-"ѕТЮш дРшЫ ШЬР ЪЮЭваЮЫР ЭРФ бвШЫЮв (stylesheet) ЭР СЮШвХ Ш дЮЭвЮТШвХ ЧР Horde "
-"бШбвХЬЮв Ш бШвХ РЯЫШЪРжШШ ивЮ ЭХЬРРв бТЮШ ЯЮФХбгТРъР..."
+"РћРІРѕС С„Р°СР» РёРјР° РєРѕРЅС‚СЂРѕР»Р° РЅР°Рґ СЃС‚РёР»РѕС‚ (stylesheet) РЅР° Р±РѕРёС‚Рµ Рё С„РѕРЅС‚РѕРІРёС‚Рµ Р·Р° Horde "
+"СЃРёСЃС‚РµРјРѕС‚ Рё СЃРёС‚Рµ Р°РїР»РёРєР°С†РёРё С€С‚Рѕ РЅРµРјР°Р°С‚ СЃРІРѕРё РїРѕРґРµСЃСѓРІР°СљР°..."
 
 msgid ""
 "This file maps file extensions to logical MIME types, enabling Horde "
 "applications to figure out how to handle some content such as email "
 "attachments or CVS checkouts."
 msgstr ""
-"ѕТЮш дРшЫ УШ ЬРЯШаР ХЪбвХЭЧШШвХ ТЮ ЫЮУШзЪШ MIME вШЯЮТШ, ЮТЮЧЬЮЦгТРшьШ "
-"РЯЫШЪРжШШвХ ФР бХ бЯаРТРв бЮ ЯаШЪРзХЭШвХ дРшЫЮТШ ЭР ЯЮаРЪШвХ ШЫШ бЮ CVS "
-"ЮФшРТШвХ."
+"РћРІРѕС С„Р°СР» РіРё РјР°РїРёСЂР° РµРєСЃС‚РµРЅР·РёРёС‚Рµ РІРѕ Р»РѕРіРёС‡РєРё MIME С‚РёРїРѕРІРё, РѕРІРѕР·РјРѕР¶СѓРІР°ССњРё "
+"Р°РїР»РёРєР°С†РёРёС‚Рµ РґР° СЃРµ СЃРїСЂР°РІР°С‚ СЃРѕ РїСЂРёРєР°С‡РµРЅРёС‚Рµ С„Р°СР»РѕРІРё РЅР° РїРѕСЂР°РєРёС‚Рµ РёР»Рё СЃРѕ CVS "
+"РѕРґСР°РІРёС‚Рµ."
 
 msgid ""
 "This is the main Horde configuration file. It contains paths and basic items "
 "that apply to the core framework and all Horde applications."
 msgstr ""
-"ѕТР Х УЫРТЭШЮв ЪЮЭдШУгаРжШЮЭХЭ дРшЫ ЧР Horde. БЮФаЦШ ЯРвХЪШ Ш ЮбЭЮТЭШ ФХЫЮТШ "
-"ЪЮШ ТРЦРв ЧР шРФаЮвЮ ЭР бШбвХЬЮв Ш бШвХ ЭХУЮТШ РЯЫШЪРжШШ."
+"РћРІР° Рµ РіР»Р°РІРЅРёРѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ С„Р°СР» Р·Р° Horde. РЎРѕРґСЂР¶Рё РїР°С‚РµРєРё Рё РѕСЃРЅРѕРІРЅРё РґРµР»РѕРІРё "
+"РєРѕРё РІР°Р¶Р°С‚ Р·Р° СР°РґСЂРѕС‚Рѕ РЅР° СЃРёСЃС‚РµРјРѕС‚ Рё СЃРёС‚Рµ РЅРµРіРѕРІРё Р°РїР»РёРєР°С†РёРё."
 
 msgid "Title"
-msgstr "ЅРбЫЮТ"
+msgstr "РќР°СЃР»РѕРІ"
 
 msgid "Type mismatch."
-msgstr "ЅХбЮЮФТХвХЭ вШЯ."
+msgstr "РќРµСЃРѕРѕРґРІРµС‚РµРЅ С‚РёРї."
 
 msgid "URL"
 msgstr "URL"
 
 msgid "Unable to connect to SQL server."
-msgstr "ЅХ ЬЮЦХТ ФР бХ ЪЮЭХЪвШаРЬ бЮ SQL бХаТХаЮв."
+msgstr "РќРµ РјРѕР¶РµРІ РґР° СЃРµ РєРѕРЅРµРєС‚РёСЂР°Рј СЃРѕ SQL СЃРµСЂРІРµСЂРѕС‚."
 
 msgid "Unable to modified preferences."
-msgstr "ЅХ ЬЮЦХТ ФР УШ ШЧЬХЭРЬ ЯЮФХбгТРъРвР."
+msgstr "РќРµ РјРѕР¶РµРІ РґР° РіРё РёР·РјРµРЅР°Рј РїРѕРґРµСЃСѓРІР°СљР°С‚Р°."
 
 msgid "Unable to register preferences in session."
-msgstr "ЅХгбЯХиЭЮ аХУШбваШаРъХ ЭР ЯЮФХбгТРъРвР ТЮ бХбШшРвР."
+msgstr "РќРµСѓСЃРїРµС€РЅРѕ СЂРµРіРёСЃС‚СЂРёСЂР°СљРµ РЅР° РїРѕРґРµСЃСѓРІР°СљР°С‚Р° РІРѕ СЃРµСЃРёСР°С‚Р°."
 
 msgid "Unable to translate this Word document"
-msgstr "ЅХ ЬЮЦХТ ФР УЮ ЯаХТХФРЬ ЮТЮш Word ФЮЪгЬХЭв."
+msgstr "РќРµ РјРѕР¶РµРІ РґР° РіРѕ РїСЂРµРІРµРґР°Рј РѕРІРѕС Word РґРѕРєСѓРјРµРЅС‚."
 
 msgid "Undo Changes"
-msgstr "ѕвЪРЦШ УШ ЯаЮЬХЭШвХ"
+msgstr "РћС‚РєР°Р¶Рё РіРё РїСЂРѕРјРµРЅРёС‚Рµ"
 
 msgid "Unexpected end of file."
-msgstr "ЅХЮзХЪгТРЭ ЪаРш ЭР дРшЫЮв."
+msgstr "РќРµРѕС‡РµРєСѓРІР°РЅ РєСЂР°С РЅР° С„Р°СР»РѕС‚."
 
 msgid "Use Default Value"
-msgstr "єЮаШбвШ бвРЭФРаФЭР ТаХФЭЮбв"
+msgstr "РљРѕСЂРёСЃС‚Рё СЃС‚Р°РЅРґР°СЂРґРЅР° РІСЂРµРґРЅРѕСЃС‚"
 
 msgid "Username"
-msgstr "єЮаШбЭШзЪЮ ШЬХ"
+msgstr "РљРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ"
 
 msgid "Users in the system:"
-msgstr "єЮаШбЭШжШ ТЮ бШбвХЬЮв:"
+msgstr "РљРѕСЂРёСЃРЅРёС†Рё РІРѕ СЃРёСЃС‚РµРјРѕС‚:"
 
 msgid "Warning!"
-msgstr "ІЭШЬРЭШХ!"
+msgstr "Р’РЅРёРјР°РЅРёРµ!"
 
 msgid "Warning"
-msgstr "ІЭШЬРЭШХ"
+msgstr "Р’РЅРёРјР°РЅРёРµ"
 
 msgid "Weekly"
-msgstr "ЅХФХЫЭЮ"
+msgstr "РќРµРґРµР»РЅРѕ"
 
 #, c-format
 msgid "Welcome, %s"
-msgstr "ґЮСаХФЮшФХ, %s"
+msgstr "Р”РѕР±СЂРµРґРѕСРґРµ, %s"
 
 msgid "Work Address"
-msgstr "°ФаХбР ЭР аРСЮвР"
+msgstr "РђРґСЂРµСЃР° РЅР° СЂР°Р±РѕС‚Р°"
 
 msgid "Work Phone"
-msgstr "ВХЫХдЮЭ ЭР аРСЮвР"
+msgstr "РўРµР»РµС„РѕРЅ РЅР° СЂР°Р±РѕС‚Р°"
 
 msgid "YY"
-msgstr "іі"
+msgstr "Р“Р“"
 
 msgid "Yearly"
-msgstr "іЮФШиЭЮ"
+msgstr "Р“РѕРґРёС€РЅРѕ"
 
 msgid "You must describe the problem before you can send the problem report."
-msgstr "ѕЯШиХвХ УЮ ЯаЮСЫХЬЮв ЯаХФ ФР ШбЯаРвХвХ ШЧТХивРш."
+msgstr "РћРїРёС€РµС‚Рµ РіРѕ РїСЂРѕР±Р»РµРјРѕС‚ РїСЂРµРґ РґР° РёСЃРїСЂР°С‚РµС‚Рµ РёР·РІРµС€С‚Р°С."
 
 msgid "You must specify a username to remove."
-msgstr "ЅРТХФХвХ ЪЮХ ЪЮаШбЭШзЪЮ ШЬХ ФР бХ ЮвбваРЭШ."
+msgstr "РќР°РІРµРґРµС‚Рµ РєРѕРµ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ РґР° СЃРµ РѕС‚СЃС‚СЂР°РЅРё."
 
 msgid "You must specify the username to add."
-msgstr "ЅРТХФХвХ ЪЮХ ЪЮаШбЭШзЪЮ ШЬХ ФР бХ ФЮФРФХ."
+msgstr "РќР°РІРµРґРµС‚Рµ РєРѕРµ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ РґР° СЃРµ РґРѕРґР°РґРµ."
 
 msgid "Your Email Address:"
-msgstr "ІРиР Email РФаХбР:"
+msgstr "Р’Р°С€Р° Email Р°РґСЂРµСЃР°:"
 
 msgid "Your Name:"
-msgstr "ІРиХ ШЬХ:"
+msgstr "Р’Р°С€Рµ РёРјРµ:"
 
 msgid ""
 "Your authentication backend does not support adding users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"ІРиШЮв РТвЮаШЧРжШЮЭХЭ ЯаЮвЮЪЮЫ ЭХ ЯЮФаЦгТР ФЮФРТРъХ ЪЮаШбЭШжШ, ШЫШ вРР "
-"ЬЮЦЭЮбв Х ЮЭХТЮЧЬЮЦХЭР ЮФ ФагУШ ЯаШзШЭШ."
+"Р’Р°С€РёРѕС‚ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅРµРЅ РїСЂРѕС‚РѕРєРѕР» РЅРµ РїРѕРґСЂР¶СѓРІР° РґРѕРґР°РІР°СљРµ РєРѕСЂРёСЃРЅРёС†Рё, РёР»Рё С‚Р°Р° "
+"РјРѕР¶РЅРѕСЃС‚ Рµ РѕРЅРµРІРѕР·РјРѕР¶РµРЅР° РѕРґ РґСЂСѓРіРё РїСЂРёС‡РёРЅРё."
 
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"ІРиШЮв РТвЮаШЧРжШЮЭХЭ ЯаЮвЮЪЮЫ ЭХ ЯЮФаЦгТР ЫШбвРъХ ЪЮаШбЭШжШ, ШЫШ вРР "
-"ЬЮЦЭЮбв Х ЮЭХТЮЧЬЮЦХЭР ЮФ ФагУШ ЯаШзШЭШ."
+"Р’Р°С€РёРѕС‚ Р°РІС‚РѕСЂРёР·Р°С†РёРѕРЅРµРЅ РїСЂРѕС‚РѕРєРѕР» РЅРµ РїРѕРґСЂР¶СѓРІР° Р»РёСЃС‚Р°СљРµ РєРѕСЂРёСЃРЅРёС†Рё, РёР»Рё С‚Р°Р° "
+"РјРѕР¶РЅРѕСЃС‚ Рµ РѕРЅРµРІРѕР·РјРѕР¶РµРЅР° РѕРґ РґСЂСѓРіРё РїСЂРёС‡РёРЅРё."
 
 msgid "[Problem Report]"
-msgstr "[ёЧТХивРш ЧР ЯаЮСЫХЬЮв]"
+msgstr "[РР·РІРµС€С‚Р°С Р·Р° РїСЂРѕР±Р»РµРјРѕС‚]"

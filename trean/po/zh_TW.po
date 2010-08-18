@@ -12,376 +12,376 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: edit.php:216
 #, php-format
 msgid "\"%s\" was not renamed: %s."
-msgstr "'\"%s\" ¨Ã¥¼§ó¦W: %s."
+msgstr "'\"%s\" ä¸¦æœªæ›´å: %s."
 
 #: data.php:155
 #, php-format
 msgid "%d Folders and %d Bookmarks imported."
-msgstr "¤w¶×¤J %d ­Ó¸ê®Æ§¨©M %d µ§®ÑÅÒ"
+msgstr "å·²åŒ¯å…¥ %d å€‹è³‡æ–™å¤¾å’Œ %d ç­†æ›¸ç±¤"
 
 #: templates/reports.php:104
 #, php-format
 msgid "%s Bookmarks"
-msgstr "%s ­Ó®ÑÅÒ"
+msgstr "%s å€‹æ›¸ç±¤"
 
 #: reports.php:24
 #, php-format
 msgid "%s Response Codes"
-msgstr "%s ¦^À³½X"
+msgstr "%s å›æ‡‰ç¢¼"
 
 #: lib/base.php:74
 #, php-format
 msgid "%s's Bookmarks"
-msgstr "%sªº®ÑÅÒ"
+msgstr "%sçš„æ›¸ç±¤"
 
 #: lib/Block/bookmarks.php:63 lib/Block/highestrated.php:38
 #: lib/Block/mostclicked.php:38
 msgid "1 Line"
-msgstr "1 ¦æ"
+msgstr "1 è¡Œ"
 
 #: templates/star_rating_helper.php:20
 msgid "1 star out of 5"
-msgstr "¤@¬PµûÅ²"
+msgstr "ä¸€æ˜Ÿè©•é‘‘"
 
 #: lib/Block/bookmarks.php:55 lib/Block/highestrated.php:30
 #: lib/Block/mostclicked.php:30
 msgid "10 rows"
-msgstr "10 ¦æ"
+msgstr "10 è¡Œ"
 
 #: lib/Block/bookmarks.php:56 lib/Block/highestrated.php:31
 #: lib/Block/mostclicked.php:31
 msgid "15 rows"
-msgstr "15 ¦æ"
+msgstr "15 è¡Œ"
 
 #: templates/reports.php:36
 #, php-format
 msgid "1xx Response Codes (%s)"
-msgstr "1xx ¦^À³½X (%s)"
+msgstr "1xx å›æ‡‰ç¢¼ (%s)"
 
 #: lib/Block/bookmarks.php:62 lib/Block/highestrated.php:37
 #: lib/Block/mostclicked.php:37
 msgid "2 Line"
-msgstr "2 ¦æ"
+msgstr "2 è¡Œ"
 
 #: templates/star_rating_helper.php:21
 msgid "2 stars out of 5"
-msgstr "¤G¬PµûÅ²"
+msgstr "äºŒæ˜Ÿè©•é‘‘"
 
 #: lib/Block/bookmarks.php:57 lib/Block/highestrated.php:32
 #: lib/Block/mostclicked.php:32
 msgid "25 rows"
-msgstr "25 ¦æ"
+msgstr "25 è¡Œ"
 
 #: templates/reports.php:42
 #, php-format
 msgid "2xx Response Codes (%s)"
-msgstr "2xx ¦^À³½X (%s)"
+msgstr "2xx å›æ‡‰ç¢¼ (%s)"
 
 #: lib/Block/bookmarks.php:61 lib/Block/highestrated.php:36
 #: lib/Block/mostclicked.php:36
 msgid "3 Line"
-msgstr "3 ¦æ"
+msgstr "3 è¡Œ"
 
 #: templates/star_rating_helper.php:22
 msgid "3 stars out of 5"
-msgstr "¤T¬PµûÅ²"
+msgstr "ä¸‰æ˜Ÿè©•é‘‘"
 
 #: templates/reports.php:53
 #, php-format
 msgid "3xx Response Codes (%s)"
-msgstr "3xx ¦^À³½X (%s)"
+msgstr "3xx å›æ‡‰ç¢¼ (%s)"
 
 #: templates/star_rating_helper.php:23
 msgid "4 stars out of 5"
-msgstr "¥|¬PµûÅ²"
+msgstr "å››æ˜Ÿè©•é‘‘"
 
 #: templates/reports.php:64
 #, php-format
 msgid "4xx Response Codes (%s)"
-msgstr "4xx ¦^À³½X (%s)"
+msgstr "4xx å›æ‡‰ç¢¼ (%s)"
 
 #: templates/star_rating_helper.php:24
 msgid "5 stars out of 5"
-msgstr "¤­¬PµûÅ²"
+msgstr "äº”æ˜Ÿè©•é‘‘"
 
 #: templates/reports.php:86
 #, php-format
 msgid "5xx Response Codes (%s)"
-msgstr "5xx ¦^À³½X (%s)"
+msgstr "5xx å›æ‡‰ç¢¼ (%s)"
 
 #: lib/Trean.php:176
 msgid "Accepted"
-msgstr "¤w±µ¨ü"
+msgstr "å·²æ¥å—"
 
 #: templates/add/add.inc:64 lib/Block/tree_menu.php:24
 msgid "Add"
-msgstr "·s¼W"
+msgstr "æ–°å¢"
 
 #: templates/add/add.inc:91
 msgid "Add to Bookmarks"
-msgstr "¥[¤J®ÑÅÒ"
+msgstr "åŠ å…¥æ›¸ç±¤"
 
 #: templates/browse.php:220 templates/search.php:65
 msgid "All"
-msgstr "©Ò¦³"
+msgstr "æ‰€æœ‰"
 
 #: browse.php:31 data.php:38 perms.php:239 lib/Block/bookmarks.php:32
 #, php-format
 msgid "An error occured listing folders: %s"
-msgstr "¦b¦C¥X¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åœ¨åˆ—å‡ºè³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Trean.php:49
 #, php-format
 msgid "An error occurred counting folders: %s"
-msgstr "¦b­pºâ¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åœ¨è¨ˆç®—è³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: search.php:31
 msgid "Any Part of the field"
-msgstr "Äæ¦ì¥ô¤@³¡¥÷"
+msgstr "æ¬„ä½ä»»ä¸€éƒ¨ä»½"
 
 #: templates/search.php:29
 msgid "Are you sure you want to delete the selected bookmarks?"
-msgstr "§A½T©w­n§R°£©Ò¿ï¾Üªº®ÑÅÒ¶Ü?"
+msgstr "ä½ ç¢ºå®šè¦åˆªé™¤æ‰€é¸æ“‡çš„æ›¸ç±¤å—?"
 
 #: templates/browse.php:115
 msgid "Are you sure you want to delete the selected items?"
-msgstr "§A½T©w­n§R°£©Ò¿ï¾Üªº¶µ¥Ø¶Ü?"
+msgstr "ä½ ç¢ºå®šè¦åˆªé™¤æ‰€é¸æ“‡çš„é …ç›®å—?"
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "À|¸Õ½s¿è¤@­Ó¤£¦s¦bªº¦@¨É."
+msgstr "åšè©¦ç·¨è¼¯ä¸€å€‹ä¸å­˜åœ¨çš„å…±äº«."
 
 #: lib/Trean.php:208
 msgid "Bad Gateway"
-msgstr "Web ¦øªA¾¹¦b§@¬°¹h¹D©Î¥N²z¦øªA¾¹ Proxy ®É¦¬¨ìµL®Äªº¦^À³"
+msgstr "Web ä¼ºæœå™¨åœ¨ä½œç‚ºé–˜é“æˆ–ä»£ç†ä¼ºæœå™¨ Proxy æ™‚æ”¶åˆ°ç„¡æ•ˆçš„å›æ‡‰"
 
 #: lib/Trean.php:188
 msgid "Bad Request"
-msgstr "¿ù»~ªº­n¨D"
+msgstr "éŒ¯èª¤çš„è¦æ±‚"
 
 #: add.php:64
 msgid "Bookmark Added"
-msgstr "®ÑÅÒ¤w¼W¥["
+msgstr "æ›¸ç±¤å·²å¢åŠ "
 
 #: data.php:17 templates/browse.php:223 lib/Block/bookmarks.php:3
 #: lib/Block/bookmarks.php:81
 msgid "Bookmarks"
-msgstr "®ÑÅÒ"
+msgstr "æ›¸ç±¤"
 
 #: browse.php:35
 msgid "Browse"
-msgstr "ÂsÄı"
+msgstr "ç€è¦½"
 
 #: templates/edit/footer.inc:2
 msgid "Cancel"
-msgstr "¨ú®ø"
+msgstr "å–æ¶ˆ"
 
 #: config/prefs.php.dist:11
 msgid "Change the number of columns to display in browse and search results."
-msgstr "­×§ïÂsÄı©Î·j´M®É§e²{µe­±ªºÄæ¼Æ."
+msgstr "ä¿®æ”¹ç€è¦½æˆ–æœå°‹æ™‚å‘ˆç¾ç•«é¢çš„æ¬„æ•¸."
 
 #: templates/add/add.inc:86
 msgid "Close"
-msgstr "Ãö³¬"
+msgstr "é—œé–‰"
 
 #: search.php:30
 msgid "Combine"
-msgstr "ÅŞ¿è"
+msgstr "é‚è¼¯"
 
 #: config/prefs.php.dist:46
 msgid "Completely collapsed"
-msgstr "§¹¥ş§éÅ|"
+msgstr "å®Œå…¨æŠ˜ç–Š"
 
 #: config/prefs.php.dist:48
 msgid "Completely expanded"
-msgstr "§¹¥ş®i¶}"
+msgstr "å®Œå…¨å±•é–‹"
 
 #: lib/Trean.php:197
 msgid "Conflict"
-msgstr "»P¨ä¥L½Ğ¨Dµo¥Í½Ä¬ğ"
+msgstr "èˆ‡å…¶ä»–è«‹æ±‚ç™¼ç”Ÿè¡çª"
 
 #: lib/Trean.php:172
 msgid "Continue"
-msgstr "Ä~Äò"
+msgstr "ç¹¼çºŒ"
 
 #: edit.php:192
 msgid "Copied bookmark: "
-msgstr "®ÑÅÒ½Æ»s§¹¦¨: "
+msgstr "æ›¸ç±¤è¤‡è£½å®Œæˆ: "
 
 #: templates/browse.php:242 templates/search.php:72
 msgid "Copy"
-msgstr "½Æ»s"
+msgstr "è¤‡è£½"
 
 #: edit.php:201
 #, php-format
 msgid "Copying folders is not supported."
-msgstr "¤£¤ä´©¸ê®Æ§¨½Æ»s."
+msgstr "ä¸æ”¯æ´è³‡æ–™å¤¾è¤‡è£½."
 
 #: lib/Trean.php:175
 msgid "Created"
-msgstr "¤w«Ø¥ß"
+msgstr "å·²å»ºç«‹"
 
 #: templates/reports.php:96
 #, php-format
 msgid "DNS Failure or Other Error (%s)"
-msgstr "DNS ¦WºÙ¸ÑªR©Î¨ä¥L¿ù»~ (%s)"
+msgstr "DNS åç¨±è§£ææˆ–å…¶ä»–éŒ¯èª¤ (%s)"
 
 #: templates/browse.php:233 templates/search.php:70
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: templates/browse.php:33
 msgid "Delete current folder?"
-msgstr "§R°£¥Ø«eªº¸ê®Æ§¨?"
+msgstr "åˆªé™¤ç›®å‰çš„è³‡æ–™å¤¾?"
 
 #: templates/browse.php:260 templates/browse.php:360
 msgid "Delete this Folder"
-msgstr "§R°£³o­Ó¸ê®Æ§¨"
+msgstr "åˆªé™¤é€™å€‹è³‡æ–™å¤¾"
 
 #: edit.php:32 edit.php:84
 msgid "Deleted bookmark: "
-msgstr "®ÑÅÒ§R°£§¹¦¨: "
+msgstr "æ›¸ç±¤åˆªé™¤å®Œæˆ: "
 
 #: edit.php:98
 msgid "Deleted folder: "
-msgstr "¸ê®Æ§¨§R°£§¹¦¨:"
+msgstr "è³‡æ–™å¤¾åˆªé™¤å®Œæˆ:"
 
 #: search.php:28 templates/edit/bookmark.inc:15 templates/add/add.inc:47
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Åã¥Ü¿ï¶µ"
+msgstr "é¡¯ç¤ºé¸é …"
 
 #: lib/Block/bookmarks.php:52
 msgid "Display Rows"
-msgstr "Åã¥Ü¦æ"
+msgstr "é¡¯ç¤ºè¡Œ"
 
 #: config/prefs.php.dist:76
 msgid "Display bookmark rating in browse/search view?"
-msgstr "¦bÂsÄı/·j´Mªºµe­±¤¤Åã¥Ü®ÑÅÒ³QÂI¿ïªº¦¸¼Æ?"
+msgstr "åœ¨ç€è¦½/æœå°‹çš„ç•«é¢ä¸­é¡¯ç¤ºæ›¸ç±¤è¢«é»é¸çš„æ¬¡æ•¸?"
 
 #: config/prefs.php.dist:58
 msgid "Display edit buttons when displaying Bookmarks?"
-msgstr "·íÅã¥Ü®ÑÅÒ®É¤]Åã¥Ü½s¿è¹Ï¥Ü?"
+msgstr "ç•¶é¡¯ç¤ºæ›¸ç±¤æ™‚ä¹Ÿé¡¯ç¤ºç·¨è¼¯åœ–ç¤º?"
 
 #: templates/data/export.inc:11
 msgid "Download Folder"
-msgstr "¤U¸ü¸ê®Æ§¨"
+msgstr "ä¸‹è¼‰è³‡æ–™å¤¾"
 
 #: templates/add/add.inc:77
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
-msgstr "±N¤U¤èªº\"¥[¤J®ÑÅÒ\"³sµ²©Ô¨ì§Aªº\"³sµ²\"¤u¨ã¦C"
+msgstr "å°‡ä¸‹æ–¹çš„\"åŠ å…¥æ›¸ç±¤\"é€£çµæ‹‰åˆ°ä½ çš„\"é€£çµ\"å·¥å…·åˆ—"
 
 #: templates/add/add.inc:75
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
-msgstr "±N¤U¤èªº\"¥[¤J®ÑÅÒ\"³sµ²©Ô¨ì§Aªº\"­Ó¤H¤u¨ã¦C\"."
+msgstr "å°‡ä¸‹æ–¹çš„\"åŠ å…¥æ›¸ç±¤\"é€£çµæ‹‰åˆ°ä½ çš„\"å€‹äººå·¥å…·åˆ—\"."
 
 #: templates/browse.php:227 templates/search.php:69
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: edit.php:245
 msgid "Edit Bookmark"
-msgstr "½s¿è®ÑÅÒ"
+msgstr "ç·¨è¼¯æ›¸ç±¤"
 
 #: perms.php:235
 msgid "Edit Permissions"
-msgstr "½s¿èÅv­­"
+msgstr "ç·¨è¼¯æ¬Šé™"
 
 #: perms.php:242
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "½s¿è %s ªºÅv­­"
+msgstr "ç·¨è¼¯ %s çš„æ¬Šé™"
 
 #: lib/Trean.php:205
 msgid "Expectation Failed"
-msgstr "°õ¦æ¥¢±Ñ"
+msgstr "åŸ·è¡Œå¤±æ•—"
 
 #: templates/data/export.inc:4
 msgid "Export Bookmarks"
-msgstr "¶×¥X®ÑÅÒ"
+msgstr "åŒ¯å‡ºæ›¸ç±¤"
 
 #: templates/data/import.inc:9
 msgid "File to import:"
-msgstr "¿ï¾ÜÀÉ®×¥H¶×¤J:"
+msgstr "é¸æ“‡æª”æ¡ˆä»¥åŒ¯å…¥:"
 
 #: config/prefs.php.dist:47
 msgid "First level shown"
-msgstr "Åã¥Ü²Ä¤@¼h"
+msgstr "é¡¯ç¤ºç¬¬ä¸€å±¤"
 
 #: templates/edit/bookmark.inc:25 templates/add/add.inc:52
 #: lib/Block/bookmarks.php:42
 msgid "Folder"
-msgstr "¸ê®Æ§¨"
+msgstr "è³‡æ–™å¤¾"
 
 #: lib/Bookmarks.php:353
 msgid "Folder names must be non-empty"
-msgstr "¸ê®Æ§¨¦WºÙ¤£¥iªÅ¥Õ"
+msgstr "è³‡æ–™å¤¾åç¨±ä¸å¯ç©ºç™½"
 
 #: templates/data/import.inc:11
 msgid "Folder to import into:"
-msgstr "¶×¤J¨ì¸ê®Æ§¨:"
+msgstr "åŒ¯å…¥åˆ°è³‡æ–™å¤¾:"
 
 #: templates/browse.php:222
 msgid "Folders"
-msgstr "¸ê®Æ§¨"
+msgstr "è³‡æ–™å¤¾"
 
 #: lib/Trean.php:191
 msgid "Forbidden"
-msgstr "¸T¤î¨Ï¥Î"
+msgstr "ç¦æ­¢ä½¿ç”¨"
 
 #: lib/Trean.php:183
 msgid "Found"
-msgstr "ª«¥ó¤w²¾°Ê"
+msgstr "ç‰©ä»¶å·²ç§»å‹•"
 
 #: lib/Trean.php:210
 msgid "Gateway Time-out"
-msgstr "¹h¹D¹O®É"
+msgstr "é–˜é“é€¾æ™‚"
 
 #: lib/Trean.php:198
 msgid "Gone"
-msgstr "½Ğ¨Dªº¸ê·½¤w¤£¦s¦b©ó¦øªA¾¹¤¤"
+msgstr "è«‹æ±‚çš„è³‡æºå·²ä¸å­˜åœ¨æ–¼ä¼ºæœå™¨ä¸­"
 
 #: reports.php:24 templates/reports.php:33
 msgid "HTTP Status"
-msgstr "HTTP ª¬ºA"
+msgstr "HTTP ç‹€æ…‹"
 
 #: lib/Trean.php:211
 msgid "HTTP Version not supported"
-msgstr "¤£¤ä´©ªº HTTP ª©¥»"
+msgstr "ä¸æ”¯æ´çš„ HTTP ç‰ˆæœ¬"
 
 #: lib/Block/bookmarks.php:50 config/prefs.php.dist:35
 msgid "Highest Rated"
-msgstr "³Ì¨üÅwªï"
+msgstr "æœ€å—æ­¡è¿"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
 msgid "Highest-rated Bookmarks"
-msgstr "³Ì¨üÅwªïªº®ÑÅÒ"
+msgstr "æœ€å—æ­¡è¿çš„æ›¸ç±¤"
 
 #: templates/data/import.inc:16
 msgid "Import"
-msgstr "¶×¤J"
+msgstr "åŒ¯å…¥"
 
 #: data.php:183 templates/data/import.inc:4
 msgid "Import Bookmarks"
-msgstr "¶×¤J®ÑÅÒ"
+msgstr "åŒ¯å…¥æ›¸ç±¤"
 
 #: templates/data/export.inc:9
 msgid "Include Subfolders"
-msgstr "¥]§t¦¸¸ê®Æ§¨"
+msgstr "åŒ…å«æ¬¡è³‡æ–™å¤¾"
 
 #: lib/Trean.php:206
 msgid "Internal Server Error"
-msgstr "¤º³¡¦øªA¾¹¿ù»~"
+msgstr "å…§éƒ¨ä¼ºæœå™¨éŒ¯èª¤"
 
 #: templates/add/add.inc:76
 msgid "Internet Explorer"
@@ -392,59 +392,59 @@ msgid ""
 "Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
-"Internet Explorer ¨Ï¥ÎªÌ­n¿é¥X§Úªº³Ì·R¥²¶·¨ì\"ÀÉ®×\"¿ï³æ¨Ã¿ï¾Ü\"¶×¤J©M¶×¥X\"."
+"Internet Explorer ä½¿ç”¨è€…è¦è¼¸å‡ºæˆ‘çš„æœ€æ„›å¿…é ˆåˆ°\"æª”æ¡ˆ\"é¸å–®ä¸¦é¸æ“‡\"åŒ¯å…¥å’ŒåŒ¯å‡º\"."
 
 #: lib/Trean.php:199
 msgid "Length Required"
-msgstr "¥²¶·¦b½Ğ¨D¤¤´£¨Ñ Content-Length ªíÀY"
+msgstr "å¿…é ˆåœ¨è«‹æ±‚ä¸­æä¾› Content-Length è¡¨é ­"
 
 #: search.php:31
 msgid "Match"
-msgstr "§k¦X"
+msgstr "å»åˆ"
 
 #: lib/api.php:30
 msgid "Maximum Number of Bookmarks"
-msgstr "®ÑÅÒ¤W­­¼Æ¥Ø"
+msgstr "æ›¸ç±¤ä¸Šé™æ•¸ç›®"
 
 #: lib/api.php:27
 msgid "Maximum Number of Folders"
-msgstr "¸ê®Æ§¨¤W­­¼Æ¥Ø"
+msgstr "è³‡æ–™å¤¾ä¸Šé™æ•¸ç›®"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "¥\¯àªí"
+msgstr "åŠŸèƒ½è¡¨"
 
 #: lib/Trean.php:193
 msgid "Method Not Allowed"
-msgstr "¤£±µ¨ü«È¤áºİªº½Ğ¨D¤èªk"
+msgstr "ä¸æ¥å—å®¢æˆ¶ç«¯çš„è«‹æ±‚æ–¹æ³•"
 
 #: templates/browse.php:248
 msgid "More Actions"
-msgstr "¨ä¥L§@¥Î¤è¦¡"
+msgstr "å…¶ä»–ä½œç”¨æ–¹å¼"
 
 #: lib/Block/bookmarks.php:51 config/prefs.php.dist:36
 msgid "Most Clicked"
-msgstr "³Ì¦hÂI¿ï"
+msgstr "æœ€å¤šé»é¸"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
 msgid "Most-clicked Bookmarks"
-msgstr "³Ì¦hÂI¿ïªº®ÑÅÒ"
+msgstr "æœ€å¤šé»é¸çš„æ›¸ç±¤"
 
 #: templates/browse.php:235 templates/search.php:71
 msgid "Move"
-msgstr "·h²¾"
+msgstr "æ¬ç§»"
 
 #: lib/Trean.php:182
 msgid "Moved Permanently"
-msgstr "½Ğ¨Dªº¸ê·½¤w¤£¦s¦b"
+msgstr "è«‹æ±‚çš„è³‡æºå·²ä¸å­˜åœ¨"
 
 #: edit.php:137
 msgid "Moved bookmark: "
-msgstr "®ÑÅÒ·h²¾§¹¦¨: "
+msgstr "æ›¸ç±¤æ¬ç§»å®Œæˆ: "
 
 #: edit.php:151
 msgid "Moved folder: "
-msgstr "¸ê®Æ§¨·h²¾§¹¦¨: "
+msgstr "è³‡æ–™å¤¾æ¬ç§»å®Œæˆ: "
 
 #: templates/add/add.inc:74
 msgid "Mozilla"
@@ -455,82 +455,82 @@ msgid ""
 "Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
-"Mozilla/Firefox ¨Ï¥ÎªÌ­n¶×¥X¥Ø«eªº®ÑÅÒ³]©w¥²¶·¨ì\"®ÑÅÒºŞ²zªÌ\"¨Ã±q\"¤u¨ã\"¿ï"
-"³æ¿ï¾Ü\"¶×¥X\"."
+"Mozilla/Firefox ä½¿ç”¨è€…è¦åŒ¯å‡ºç›®å‰çš„æ›¸ç±¤è¨­å®šå¿…é ˆåˆ°\"æ›¸ç±¤ç®¡ç†è€…\"ä¸¦å¾\"å·¥å…·\"é¸"
+"å–®é¸æ“‡\"åŒ¯å‡º\"."
 
 #: lib/Trean.php:181
 msgid "Multiple Choices"
-msgstr "½Ğ¨D¤¤ªº¸ê·½«ü¦V¤@¸s¤å¥ó"
+msgstr "è«‹æ±‚ä¸­çš„è³‡æºæŒ‡å‘ä¸€ç¾¤æ–‡ä»¶"
 
 #: templates/edit/folder.inc:9
 msgid "Name"
-msgstr "¦WºÙ"
+msgstr "åç¨±"
 
 #: add.php:111 templates/browse.php:250 templates/browse.php:344
 #: templates/add/add.inc:32
 msgid "New Bookmark"
-msgstr "·s¼W®ÑÅÒ"
+msgstr "æ–°å¢æ›¸ç±¤"
 
 #: lib/Trean.php:85
 msgid "New Folder"
-msgstr "·s¼W¸ê®Æ§¨"
+msgstr "æ–°å¢è³‡æ–™å¤¾"
 
 #: templates/browse.php:257 templates/browse.php:353
 msgid "New Subfolder"
-msgstr "·s¼W¦¸¸ê®Æ§¨"
+msgstr "æ–°å¢æ¬¡è³‡æ–™å¤¾"
 
 #: templates/search.php:76
 msgid "No Bookmarks found"
-msgstr "§ä¤£¨ì®ÑÅÒ"
+msgstr "æ‰¾ä¸åˆ°æ›¸ç±¤"
 
 #: lib/Trean.php:178
 msgid "No Content"
-msgstr "µL¤º®e"
+msgstr "ç„¡å…§å®¹"
 
 #: lib/Block/bookmarks.php:128 lib/Block/highestrated.php:73
 #: lib/Block/mostclicked.php:73
 msgid "No bookmarks to display"
-msgstr "µL®ÑÅÒ¥iÅã¥Ü"
+msgstr "ç„¡æ›¸ç±¤å¯é¡¯ç¤º"
 
 #: lib/Trean.php:177
 msgid "Non-Authoritative Information"
-msgstr "«D±ÂÅv¸ê°T"
+msgstr "éæˆæ¬Šè³‡è¨Š"
 
 #: templates/browse.php:221 templates/search.php:66
 msgid "None"
-msgstr "µL"
+msgstr "ç„¡"
 
 #: lib/Trean.php:194
 msgid "Not Acceptable"
-msgstr "¥Î¤áºİÂsÄı¾¹¤£±µ¨ü­n¨D­¶­±ªº MIME Ãş«¬"
+msgstr "ç”¨æˆ¶ç«¯ç€è¦½å™¨ä¸æ¥å—è¦æ±‚é é¢çš„ MIME é¡å‹"
 
 #: lib/Trean.php:192
 msgid "Not Found"
-msgstr "½Ğ¨Dªº¤å¥ó¤£¦s¦b"
+msgstr "è«‹æ±‚çš„æ–‡ä»¶ä¸å­˜åœ¨"
 
 #: lib/Trean.php:207
 msgid "Not Implemented"
-msgstr "¦øªA¾¹µLªk¤ä´©½Ğ¨D¤¤ªº¥\¯à"
+msgstr "ä¼ºæœå™¨ç„¡æ³•æ”¯æ´è«‹æ±‚ä¸­çš„åŠŸèƒ½"
 
 #: lib/Trean.php:185
 msgid "Not Modified"
-msgstr "¥¼­×§ï"
+msgstr "æœªä¿®æ”¹"
 
 #: templates/add/add.inc:80
 msgid "Note:"
-msgstr "³Æµù:"
+msgstr "å‚™è¨»:"
 
 #: edit.php:239
 msgid "Nothing to edit."
-msgstr "¤°»ò¤]¤£½s¿è"
+msgstr "ä»€éº¼ä¹Ÿä¸ç·¨è¼¯"
 
 #: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
 msgid "Number of bookmarks to show"
-msgstr "®ÑÅÒÅã¥Ü¼Æ¥Ø"
+msgstr "æ›¸ç±¤é¡¯ç¤ºæ•¸ç›®"
 
 #: lib/Trean.php:174
 msgid "OK"
-msgstr "½T»{"
+msgstr "ç¢ºèª"
 
 #: templates/add/add.inc:81
 #, php-format
@@ -538,339 +538,339 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"¦b¤ñ¸û·sª©ªº I.E ÂsÄı¾¹, §A¥i¯à»İ­n±N %s://%s ¥[¤J¨ì«H¥ôªººô¯¸¤¤¤~¯à¥Í®Ä.(¤è"
-"ªk¡GÂI¿ïI.E ÂsÄı¾¹ -&gt ¤u¨ã -&gt ºô»Úºô¸ô¿ï¶µ -&gt ¦w¥ş©Ê -&gt «H¥ôªººô¯¸ -"
-"&gt ºô¯¸)"
+"åœ¨æ¯”è¼ƒæ–°ç‰ˆçš„ I.E ç€è¦½å™¨, ä½ å¯èƒ½éœ€è¦å°‡ %s://%s åŠ å…¥åˆ°ä¿¡ä»»çš„ç¶²ç«™ä¸­æ‰èƒ½ç”Ÿæ•ˆ.(æ–¹"
+"æ³•ï¼šé»é¸I.E ç€è¦½å™¨ -&gt å·¥å…· -&gt ç¶²éš›ç¶²è·¯é¸é … -&gt å®‰å…¨æ€§ -&gt ä¿¡ä»»çš„ç¶²ç«™ -"
+"&gt ç¶²ç«™)"
 
 #: perms.php:56
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
-msgstr "¥u¦³¾Ö¦³ªÌ»P¨t²ÎºŞ²z­û¥i¥HÅÜ§ó¦@¨ÉÅv­­"
+msgstr "åªæœ‰æ“æœ‰è€…èˆ‡ç³»çµ±ç®¡ç†å“¡å¯ä»¥è®Šæ›´å…±äº«æ¬Šé™"
 
 #: templates/menu.inc:2 templates/menu.inc:5
 msgid "Open Fo_lder"
-msgstr "¶}±Ò¸ê®Æ§¨_l"
+msgstr "é–‹å•Ÿè³‡æ–™å¤¾_l"
 
 #: config/prefs.php.dist:67
 msgid "Open links in a new window?"
-msgstr "¦b·sªºµøµ¡¶}±Ò³sµ²"
+msgstr "åœ¨æ–°çš„è¦–çª—é–‹å•Ÿé€£çµ"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "¨ä¥L¿ï¶µ"
+msgstr "å…¶ä»–é¸é …"
 
 #: lib/Trean.php:180
 msgid "Partial Content"
-msgstr "³¡¤À¤º®e"
+msgstr "éƒ¨åˆ†å…§å®¹"
 
 #: lib/Trean.php:190
 msgid "Payment Required"
-msgstr "«O¯d"
+msgstr "ä¿ç•™"
 
 #: templates/browse.php:134 templates/browse.php:169 templates/add/add.inc:5
 msgid "Please enter a name for the new folder:"
-msgstr "½Ğ¿é¤J¤@­Ó·s¸ê®Æ§¨ªº¦WºÙ:"
+msgstr "è«‹è¼¸å…¥ä¸€å€‹æ–°è³‡æ–™å¤¾çš„åç¨±:"
 
 #: templates/browse.php:26
 msgid "Please enter the name of the new folder:"
-msgstr "½Ğ¿é¤J·s¸ê®Æ§¨ªº¦WºÙ:"
+msgstr "è«‹è¼¸å…¥æ–°è³‡æ–™å¤¾çš„åç¨±:"
 
 #: templates/browse.php:40
 msgid "Please modify the name accordingly"
-msgstr "½Ğ·r°u­×§ï¦WºÙ"
+msgstr "è«‹æ–Ÿé…Œä¿®æ”¹åç¨±"
 
 #: templates/browse.php:98 templates/browse.php:113 templates/browse.php:153
 #: templates/browse.php:188
 msgid "Please select an item first"
-msgstr "½Ğ¥ı¿ï¾Ü¤@­Ó¶µ¥Ø"
+msgstr "è«‹å…ˆé¸æ“‡ä¸€å€‹é …ç›®"
 
 #: lib/Trean.php:200
 msgid "Precondition Failed"
-msgstr "«ü©w±ø¥ó¥¢±Ñ"
+msgstr "æŒ‡å®šæ¢ä»¶å¤±æ•—"
 
 #: lib/Trean.php:195
 msgid "Proxy Authentication Required"
-msgstr "»İ­n¥N²z¦øªA¾¹ Proxy ÅçÃÒ"
+msgstr "éœ€è¦ä»£ç†ä¼ºæœå™¨ Proxy é©—è­‰"
 
 #: templates/browse.php:261 templates/browse.php:361
 msgid "Rename this Folder"
-msgstr "§ó¦W³o­Ó¸ê®Æ§¨"
+msgstr "æ›´åé€™å€‹è³‡æ–™å¤¾"
 
 #: reports.php:17
 msgid "Reports"
-msgstr "³øªí"
+msgstr "å ±è¡¨"
 
 #: lib/Trean.php:201
 msgid "Request Entity Too Large"
-msgstr "½Ğ¨Dªº°T®§¥DÅé¹L©óÃe¤j"
+msgstr "è«‹æ±‚çš„è¨Šæ¯ä¸»é«”éæ–¼é¾å¤§"
 
 #: lib/Trean.php:196
 msgid "Request Time-out"
-msgstr "«È¤áºİµLªk©ó¦³®Ä®É­­¤º§¹¦¨§@·~"
+msgstr "å®¢æˆ¶ç«¯ç„¡æ³•æ–¼æœ‰æ•ˆæ™‚é™å…§å®Œæˆä½œæ¥­"
 
 #: lib/Trean.php:202
 msgid "Request-URI Too Large"
-msgstr "½Ğ¨Dªº URI ¤Óªø"
+msgstr "è«‹æ±‚çš„ URI å¤ªé•·"
 
 #: lib/Trean.php:204
 msgid "Requested range not satisfiable"
-msgstr "µLªkº¡¨¬­n¨Dªº½d³ò"
+msgstr "ç„¡æ³•æ»¿è¶³è¦æ±‚çš„ç¯„åœ"
 
 #: lib/Trean.php:179
 msgid "Reset Content"
-msgstr "­«³]¤º®e"
+msgstr "é‡è¨­å…§å®¹"
 
 #: templates/edit/footer.inc:1
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: search.php:19 search.php:26 lib/Block/tree_menu.php:33
 msgid "Search"
-msgstr "·j´M"
+msgstr "æœå°‹"
 
 #: search.php:25
 msgid "Search Bookmarks"
-msgstr "·j´M®ÑÅÒ"
+msgstr "æœå°‹æ›¸ç±¤"
 
 #: search.php:61
 #, php-format
 msgid "Search Results (%s)"
-msgstr "·j´Mµ²ªG (%s)"
+msgstr "æœå°‹çµæœ (%s)"
 
 #: lib/Trean.php:184
 msgid "See Other"
-msgstr "½Ğ¨Dªº¸ê·½¥i¥H¦b§Oªº¦ì¸m§ä¨ì"
+msgstr "è«‹æ±‚çš„è³‡æºå¯ä»¥åœ¨åˆ¥çš„ä½ç½®æ‰¾åˆ°"
 
 #: templates/browse.php:220 templates/search.php:65
 msgid "Select All"
-msgstr "¥ş¿ï"
+msgstr "å…¨é¸"
 
 #: templates/browse.php:223
 msgid "Select All Bookmarks"
-msgstr "¿ï¾Ü©Ò¦³®ÑÅÒ"
+msgstr "é¸æ“‡æ‰€æœ‰æ›¸ç±¤"
 
 #: templates/browse.php:222
 msgid "Select All Folders"
-msgstr "¿ï¾Ü©Ò¦³¸ê®Æ§¨"
+msgstr "é¸æ“‡æ‰€æœ‰è³‡æ–™å¤¾"
 
 #: templates/browse.php:221 templates/search.php:66
 msgid "Select None"
-msgstr "¤£¿ï"
+msgstr "ä¸é¸"
 
 #: templates/search.php:64
 #, php-format
 msgid "Select: %s, %s"
-msgstr "¿ï¾Ü: %s, %s"
+msgstr "é¸æ“‡: %s, %s"
 
 #: templates/browse.php:219
 #, php-format
 msgid "Select: %s, %s, %s, %s"
-msgstr "¿ï¾Ü: %s, %s, %s, %s"
+msgstr "é¸æ“‡: %s, %s, %s, %s"
 
 #: lib/Trean.php:209
 msgid "Service Unavailable"
-msgstr "ªA°ÈµLªk¨Ï¥Î"
+msgstr "æœå‹™ç„¡æ³•ä½¿ç”¨"
 
 #: templates/browse.php:264 templates/browse.php:368
 msgid "Set Permissions"
-msgstr "³]©wÅv­­"
+msgstr "è¨­å®šæ¬Šé™"
 
 #: config/prefs.php.dist:49
 msgid "Should your list of bookmark folders be open when you log in?"
-msgstr "µn¤J«áÅã¥Ü©Ò¦³¸ê®Æ§¨¤¤ªº®ÑÅÒ?"
+msgstr "ç™»å…¥å¾Œé¡¯ç¤ºæ‰€æœ‰è³‡æ–™å¤¾ä¸­çš„æ›¸ç±¤?"
 
 #: config/prefs.php.dist:37
 msgid "Sort bookmarks by:"
-msgstr "±Æ§Ç®ÑÅÒ¨Ì:"
+msgstr "æ’åºæ›¸ç±¤ä¾:"
 
 #: lib/Block/bookmarks.php:46
 msgid "Sort by"
-msgstr "±Æ¦C¨Ì"
+msgstr "æ’åˆ—ä¾"
 
 #: lib/Trean.php:173
 msgid "Switching Protocols"
-msgstr "¤Á´«³q°T¨ó©w"
+msgstr "åˆ‡æ›é€šè¨Šå”å®š"
 
 #: lib/Block/bookmarks.php:58 lib/Block/highestrated.php:33
 #: lib/Block/mostclicked.php:33
 msgid "Template"
-msgstr "¼ËªO"
+msgstr "æ¨£æ¿"
 
 #: config/prefs.php.dist:25
 msgid "Template to use when displaying bookmarks:"
-msgstr "Åã¥Ü®ÑÅÒ®É©Ò¥Îªº¼ËªO:"
+msgstr "é¡¯ç¤ºæ›¸ç±¤æ™‚æ‰€ç”¨çš„æ¨£æ¿:"
 
 #: lib/Trean.php:187
 msgid "Temporary Redirect"
-msgstr "¼È®É­«·s¾É¦V"
+msgstr "æš«æ™‚é‡æ–°å°å‘"
 
 #: templates/browse.php:372
 msgid "There are no bookmarks in this folder"
-msgstr "¦¹¸ê®Æ§¨¤¤¨S¦³¥ô¦ó®ÑÅÒ"
+msgstr "æ­¤è³‡æ–™å¤¾ä¸­æ²’æœ‰ä»»ä½•æ›¸ç±¤"
 
 #: edit.php:194
 #, php-format
 msgid "There was a problem copying the bookmark: %s"
-msgstr "½Æ»s®ÑÅÒ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "è¤‡è£½æ›¸ç±¤: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: edit.php:34 edit.php:86
 #, php-format
 msgid "There was a problem deleting the bookmark: %s"
-msgstr "§R°£®ÑÅÒ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆªé™¤æ›¸ç±¤: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: edit.php:100
 #, php-format
 msgid "There was a problem deleting the folder: %s"
-msgstr "§R°£¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆªé™¤è³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: edit.php:139
 #, php-format
 msgid "There was a problem moving the bookmark: %s"
-msgstr "·h²¾®ÑÅÒ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "æ¬ç§»æ›¸ç±¤: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: edit.php:153
 #, php-format
 msgid "There was a problem moving the folder: %s"
-msgstr "·h²¾¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "æ¬ç§»è³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: add.php:59
 #, php-format
 msgid "There was an error adding the bookmark: %s"
-msgstr "·s¼W®ÑÅÒ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "æ–°å¢æ›¸ç±¤: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: add.php:43 add.php:100 edit.php:122 edit.php:178
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "·s¼W¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "æ–°å¢è³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: edit.php:55
 #, php-format
 msgid "There was an error saving the bookmark: %s"
-msgstr "Àx¦s®ÑÅÒ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "å„²å­˜æ›¸ç±¤: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: edit.php:68
 #, php-format
 msgid "There was an error saving the folder: %s"
-msgstr "Àx¦s¸ê®Æ§¨: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "å„²å­˜è³‡æ–™å¤¾: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: search.php:27 templates/edit/bookmark.inc:10 templates/add/add.inc:42
 #: lib/Block/bookmarks.php:49 config/prefs.php.dist:34
 msgid "Title"
-msgstr "¼ĞÃD"
+msgstr "æ¨™é¡Œ"
 
 #: config/prefs.php.dist:24
 msgid "Title Only"
-msgstr "¶È­­¼ĞÃD"
+msgstr "åƒ…é™æ¨™é¡Œ"
 
 #: config/prefs.php.dist:23
 msgid "Title and Description"
-msgstr "¼ĞÃD»P´y­z"
+msgstr "æ¨™é¡Œèˆ‡æè¿°"
 
 #: config/prefs.php.dist:22
 msgid "Title, URL, and Description"
-msgstr "¼ĞÃD,ºô§}»P´y­z"
+msgstr "æ¨™é¡Œ,ç¶²å€èˆ‡æè¿°"
 
 #: templates/add/add.inc:73
 msgid "To be able to quickly add bookmarks from your web browser:"
-msgstr "¬°¤F¯à°÷§Ö³tªº±q§AªºÂsÄı¾¹·s¼W®ÑÅÒ:"
+msgstr "ç‚ºäº†èƒ½å¤ å¿«é€Ÿçš„å¾ä½ çš„ç€è¦½å™¨æ–°å¢æ›¸ç±¤:"
 
 #: templates/reports.php:103
 msgid "Total"
-msgstr "Á`­p"
+msgstr "ç¸½è¨ˆ"
 
 #: search.php:29 templates/edit/bookmark.inc:20 templates/add/add.inc:37
 msgid "URL"
-msgstr "ºô§}"
+msgstr "ç¶²å€"
 
 #: lib/Trean.php:189
 msgid "Unauthorized"
-msgstr "©Úµ´¦s¨ú"
+msgstr "æ‹’çµ•å­˜å–"
 
 #: templates/reports.php:100
 #, php-format
 msgid "Unknown (%s)"
-msgstr "¥¼ª¾ªº (%s)"
+msgstr "æœªçŸ¥çš„ (%s)"
 
 #: lib/Trean.php:203
 msgid "Unsupported Media Type"
-msgstr "¤£¤ä´©ªº´CÅéÃş«¬"
+msgstr "ä¸æ”¯æ´çš„åª’é«”é¡å‹"
 
 #: perms.php:228
 #, php-format
 msgid "Updated %s."
-msgstr "%s ¤w§ó·s."
+msgstr "%s å·²æ›´æ–°."
 
 #: lib/Trean.php:186
 msgid "Use Proxy"
-msgstr "¨Ï¥Î¥N²z¦øªA¾¹ Proxy"
+msgstr "ä½¿ç”¨ä»£ç†ä¼ºæœå™¨ Proxy"
 
 #: templates/add/add.inc:78
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
-msgstr "·í§A¦bÂsÄıºô­¶®É,§A¥i¥HÂI¿ï\"¥[¤J®ÑÅÒ\"ªº±¶®|¥H·s¼W®ÑÅÒ"
+msgstr "ç•¶ä½ åœ¨ç€è¦½ç¶²é æ™‚,ä½ å¯ä»¥é»é¸\"åŠ å…¥æ›¸ç±¤\"çš„æ·å¾‘ä»¥æ–°å¢æ›¸ç±¤"
 
 #: search.php:31
 msgid "Whole Field"
-msgstr "§¹¥ş²Å¦X"
+msgstr "å®Œå…¨ç¬¦åˆ"
 
 #: templates/browse.php:26
 msgid "You are creating a new folder."
-msgstr "§A¥¿¦b«Ø¥ß¤@­Ó·sªº¸ê®Æ§¨."
+msgstr "ä½ æ­£åœ¨å»ºç«‹ä¸€å€‹æ–°çš„è³‡æ–™å¤¾."
 
 #: add.php:21 data.php:64 data.php:131
 #, php-format
 msgid "You are not allowed to create more than %d bookmarks."
-msgstr "§A¨S¦³«Ø¥ß¶W¹L %d ­Ó®ÑÅÒªºÅv­­."
+msgstr "ä½ æ²’æœ‰å»ºç«‹è¶…é %d å€‹æ›¸ç±¤çš„æ¬Šé™."
 
 #: add.php:84 data.php:55 data.php:106
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "¤£¤¹³\§A«Ø¥ß %d ­Ó¥H¤Wªº¸ê®Æ§¨."
+msgstr "ä¸å…è¨±ä½ å»ºç«‹ %d å€‹ä»¥ä¸Šçš„è³‡æ–™å¤¾."
 
 #: templates/browse.php:40
 msgid "You are renaming the current folder."
-msgstr "§A¥¿¦b¬°¥Ø«eªº¸ê®Æ§¨§ó·s¦WºÙ."
+msgstr "ä½ æ­£åœ¨ç‚ºç›®å‰çš„è³‡æ–™å¤¾æ›´æ–°åç¨±."
 
 #: browse.php:21
 msgid "You do not have permission to view this folder."
-msgstr "§A¨S¦³ÀËµø¦¹¸ê®Æ§¨ªºÅv­­."
+msgstr "ä½ æ²’æœ‰æª¢è¦–æ­¤è³‡æ–™å¤¾çš„æ¬Šé™."
 
 #: templates/browse.php:144 templates/browse.php:179 templates/add/add.inc:13
 msgid "You must select a target folder first"
-msgstr "½Ğ¥ı¿ï¾Ü¤@­Ó¥Ø¼Ğ¸ê®Æ§¨"
+msgstr "è«‹å…ˆé¸æ“‡ä¸€å€‹ç›®æ¨™è³‡æ–™å¤¾"
 
 #: lib/Trean.php:144
 msgid "_Browse"
-msgstr "ÂsÄı_B"
+msgstr "ç€è¦½_B"
 
 #: lib/Trean.php:155
 msgid "_Import/Export"
-msgstr "¶×¤J/¶×¥X_I"
+msgstr "åŒ¯å…¥/åŒ¯å‡º_I"
 
 #: lib/Trean.php:148
 msgid "_New Bookmark"
-msgstr "·s¼W®ÑÅÒ_N"
+msgstr "æ–°å¢æ›¸ç±¤_N"
 
 #: lib/Trean.php:151
 msgid "_Reports"
-msgstr "³øªí_R"
+msgstr "å ±è¡¨_R"
 
 #: lib/Trean.php:150
 msgid "_Search"
-msgstr "·j´M_S"
+msgstr "æœå°‹_S"
 
 #: templates/search.php:111 templates/bookmark/1line.inc:27
 #: templates/bookmark/2line.inc:38 templates/bookmark/standard.inc:42
 #: templates/block/1line.inc:22 templates/block/2line.inc:26
 #: templates/block/standard.inc:24
 msgid "click"
-msgstr "ÂI¿ï"
+msgstr "é»é¸"
 
 #: templates/search.php:111 templates/bookmark/1line.inc:27
 #: templates/bookmark/2line.inc:38 templates/bookmark/standard.inc:42
 #: templates/block/1line.inc:22 templates/block/2line.inc:26
 #: templates/block/standard.inc:24
 msgid "clicks"
-msgstr "ÂI¿ï"
+msgstr "é»é¸"

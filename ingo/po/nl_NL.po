@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -146,7 +146,7 @@ msgstr "Bevat"
 #: filters.php:263 filters.php:264
 #, php-format
 msgid "Copy %s"
-msgstr "%s kopiëren"
+msgstr "%s kopiÃ«ren"
 
 #: lib/Storage.php:992 lib/Storage/sql.php:618
 #, php-format
@@ -193,7 +193,7 @@ msgstr "In mijn INBOX afleveren"
 
 #: lib/Storage.php:304
 msgid "Deliver into my Inbox and copy to"
-msgstr "Afleveren in mijn INBOX en kopiëren naar"
+msgstr "Afleveren in mijn INBOX en kopiÃ«ren naar"
 
 #: lib/Storage.php:299
 msgid "Deliver into my Inbox and redirect to"

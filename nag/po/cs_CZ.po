@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -60,7 +60,7 @@ msgstr "%d minut"
 #: templates/list/header.inc:9
 #, php-format
 msgid "%d tasks"
-msgstr "%d úkoly"
+msgstr "%d Ãºkoly"
 
 #: lib/Nag.php:341
 #, php-format
@@ -70,68 +70,68 @@ msgstr "%s na %s"
 #: lib/Nag.php:462 lib/Block/summary.php:92
 #, php-format
 msgid "%s is due in %s"
-msgstr "%s je po¾adováno v %s"
+msgstr "%s je poÅ¾adovÃ¡no v %s"
 
 #: lib/Nag.php:460 lib/Block/summary.php:90
 #, php-format
 msgid "%s is due now."
-msgstr "%s po¾adováno nyní."
+msgstr "%s poÅ¾adovÃ¡no nynÃ­."
 
 #: data.php:140
 #, php-format
 msgid "%s successfully imported"
-msgstr "%s úspì¹nì importováno"
+msgstr "%s ÃºspÄ›Å¡nÄ› importovÃ¡no"
 
 #: tasklists.php:100 lib/base.php:97
 #, php-format
 msgid "%s's Task List"
-msgstr "%s - Seznam Úkolù"
+msgstr "%s - Seznam ÃškolÅ¯"
 
 #: lib/Nag.php:289
 msgid "(highest)"
-msgstr "(nejvy¹í)"
+msgstr "(nejvyÅ¡Ã­)"
 
 #: lib/Nag.php:289
 msgid "(lowest)"
-msgstr "(nejni¾¹í)"
+msgstr "(nejniÅ¾Å¡Ã­)"
 
 #: templates/list/header.inc:9
 msgid "1 task"
-msgstr "1 úkol"
+msgstr "1 Ãºkol"
 
 #: task.php:258
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "Zamezen pøístup pro dokonèení úkolu %s."
+msgstr "Zamezen pÅ™Ã­stup pro dokonÄenÃ­ Ãºkolu %s."
 
 #: task.php:232
 #, php-format
 msgid "Access denied deleting %s."
-msgstr "Zamezen pøístup pro smazání úkolu %s."
+msgstr "Zamezen pÅ™Ã­stup pro smazÃ¡nÃ­ Ãºkolu %s."
 
 #: task.php:198
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "Zamezen pøístup pro posun úkolu %s."
+msgstr "Zamezen pÅ™Ã­stup pro posun Ãºkolu %s."
 
 #: task.php:201
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "Zamezen pøístup pro odstranìní úkolu %s."
+msgstr "Zamezen pÅ™Ã­stup pro odstranÄ›nÃ­ Ãºkolu %s."
 
 #: task.php:133
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "Zamezen pøístup pro ulo¾ení úkolu %s."
+msgstr "Zamezen pÅ™Ã­stup pro uloÅ¾enÃ­ Ãºkolu %s."
 
 #: task.php:131
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "Zamezen pøístup pro ulo¾ení úkolu: %s."
+msgstr "Zamezen pÅ™Ã­stup pro uloÅ¾enÃ­ Ãºkolu: %s."
 
 #: task.php:58
 msgid "Adding A New Task"
-msgstr "Pøidát Novı Úkol"
+msgstr "PÅ™idÃ¡t NovÃ½ Ãškol"
 
 #: templates/task/task.inc:68
 msgid "Ala_rm"
@@ -143,23 +143,23 @@ msgstr "Alarm"
 
 #: config/prefs.php.dist:98
 msgid "All tasks"
-msgstr "V¹echny úkoly"
+msgstr "VÅ¡echny Ãºkoly"
 
 #: lib/Block/summary.php:55
 msgid "Always show completed tasks?"
-msgstr "V¾dy zobrazit dokonèené úkoly?"
+msgstr "VÅ¾dy zobrazit dokonÄenÃ© Ãºkoly?"
 
 #: lib/Block/summary.php:52
 msgid "Always show overdue tasks?"
-msgstr "V¾dy zobrazit zpo¾dìné úkoly?"
+msgstr "VÅ¾dy zobrazit zpoÅ¾dÄ›nÃ© Ãºkoly?"
 
 #: config/prefs.php.dist:75
 msgid "Ascending"
-msgstr "Vzestupnì"
+msgstr "VzestupnÄ›"
 
 #: templates/tasklists/tasklists.inc:102
 msgid "Back to Task List Options"
-msgstr "Zpìt do Mo¾ností pro Seznam Úkolù"
+msgstr "ZpÄ›t do MoÅ¾nostÃ­ pro Seznam ÃškolÅ¯"
 
 #: data.php:28
 msgid "CSV"
@@ -167,7 +167,7 @@ msgstr "CSV"
 
 #: templates/task/task.inc:57
 msgid "Calendar"
-msgstr "Kalendáø"
+msgstr "KalendÃ¡Å™"
 
 #: templates/list/task_headers.inc:30
 msgid "Cat_egory"
@@ -180,68 +180,68 @@ msgstr "Kategorie"
 
 #: templates/tasklists/tasklists.inc:22
 msgid "Change"
-msgstr "Zmìnit"
+msgstr "ZmÄ›nit"
 
 #: templates/list/task_headers.inc:4 templates/list/task_headers.inc:8
 #: templates/list/task_headers.inc:12 templates/list/task_headers.inc:19
 #: templates/list/task_headers.inc:25 templates/list/task_headers.inc:29
 msgid "Change sort direction"
-msgstr "Zmìnit Typ Tøídìní"
+msgstr "ZmÄ›nit Typ TÅ™Ã­dÄ›nÃ­"
 
 #: config/prefs.php.dist:15
 msgid "Change your task sorting and display options."
-msgstr "Zmìò mo¾nosti tøídení a zobrazení."
+msgstr "ZmÄ›Åˆ moÅ¾nosti tÅ™Ã­denÃ­ a zobrazenÃ­."
 
 #: config/prefs.php.dist:22
 msgid "Choose your default task list."
-msgstr "Zvolit implicitní seznam úkolù."
+msgstr "Zvolit implicitnÃ­ seznam ÃºkolÅ¯."
 
 #: templates/search/search.inc:33
 msgid "Clear Form"
-msgstr "Vyèisti Formuláø"
+msgstr "VyÄisti FormulÃ¡Å™"
 
 #: templates/task/task.inc:89
 msgid "Co_mpleted?"
-msgstr "Do_konèeno?"
+msgstr "Do_konÄeno?"
 
 #: templates/view/task.inc:13
 msgid "Complete"
-msgstr "Dokonèit"
+msgstr "DokonÄit"
 
 #: templates/list/task_summaries.inc:4 lib/Block/summary.php:146
 msgid "Complete Task"
-msgstr "Dokonèit Úkol"
+msgstr "DokonÄit Ãškol"
 
 #: config/prefs.php.dist:100
 msgid "Complete tasks"
-msgstr "Dokonèit úkoly"
+msgstr "DokonÄit Ãºkoly"
 
 #: lib/Nag.php:356 lib/Block/summary.php:144
 msgid "Completed"
-msgstr "Dokonèeno"
+msgstr "DokonÄeno"
 
 #: task.php:267
 #, php-format
 msgid "Completed %s."
-msgstr "%s dokonèeno."
+msgstr "%s dokonÄeno."
 
 #: templates/view/task.inc:45 templates/list/task_headers.inc:5
 #: config/prefs.php.dist:49 config/prefs.php.dist:64
 msgid "Completed?"
-msgstr "Dokonèeno?"
+msgstr "DokonÄeno?"
 
 #: data.php:45
 msgid "Completion Status"
-msgstr "Stav Dokonèení"
+msgstr "Stav DokonÄenÃ­"
 
 #: templates/tasklists/tasklists.inc:17 templates/tasklists/tasklists.inc:99
 #: templates/tasklists/tasklists.inc:101
 msgid "Create"
-msgstr "Vytvoøit"
+msgstr "VytvoÅ™it"
 
 #: templates/view/task.inc:51
 msgid "Created"
-msgstr "Vytvoøeno"
+msgstr "VytvoÅ™eno"
 
 #: templates/task/task.inc:77 lib/Nag.php:387
 msgid "Day(s)"
@@ -249,7 +249,7 @@ msgstr "Den(Dny)"
 
 #: config/prefs.php.dist:21
 msgid "Default Task List"
-msgstr "Implicitní Seznam Úkolù"
+msgstr "ImplicitnÃ­ Seznam ÃškolÅ¯"
 
 #: templates/view/task.inc:18 templates/tasklists/tasklists.inc:100
 msgid "Delete"
@@ -262,7 +262,7 @@ msgstr "Smazat %s."
 
 #: config/prefs.php.dist:76
 msgid "Descending"
-msgstr "Sestupnì"
+msgstr "SestupnÄ›"
 
 #: data.php:41
 msgid "Description"
@@ -274,19 +274,19 @@ msgstr "Popis:"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "Mo¾nosti Zobrazení"
+msgstr "MoÅ¾nosti ZobrazenÃ­"
 
 #: data.php:43 templates/view/task.inc:33
 msgid "Due By"
-msgstr "Po¾adováno"
+msgstr "PoÅ¾adovÃ¡no"
 
 #: config/prefs.php.dist:48 config/prefs.php.dist:63
 msgid "Due Date"
-msgstr "Datum Po¾adovaného Dokonèení"
+msgstr "Datum PoÅ¾adovanÃ©ho DokonÄenÃ­"
 
 #: templates/task/task.inc:43
 msgid "Due _By"
-msgstr "Po¾adová_no"
+msgstr "PoÅ¾adovÃ¡_no"
 
 #: templates/view/task.inc:15
 msgid "Edit"
@@ -295,7 +295,7 @@ msgstr "Upravit"
 #: templates/list/task_headers.inc:16 templates/list/task_summaries.inc:15
 #: lib/Block/summary.php:142
 msgid "Edit Task"
-msgstr "Upravit Úkol"
+msgstr "Upravit Ãškol"
 
 #: templates/data/export.inc:22
 msgid "Export"
@@ -303,15 +303,15 @@ msgstr "Exportovat"
 
 #: templates/data/export.inc:8
 msgid "Export Tasks"
-msgstr "Exportovat Úkoly"
+msgstr "Exportovat Ãškoly"
 
 #: config/prefs.php.dist:33
 msgid "External Data"
-msgstr "Externí Data"
+msgstr "ExternÃ­ Data"
 
 #: config/prefs.php.dist:13
 msgid "General Options"
-msgstr "V¹eobecné Mo¾nosti"
+msgstr "VÅ¡eobecnÃ© MoÅ¾nosti"
 
 #: templates/task/task.inc:76 lib/Nag.php:390
 msgid "Hour(s)"
@@ -320,23 +320,23 @@ msgstr "Hodin(a)"
 #: templates/data/import.inc:9
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "Importovat Úkoly, Krok %d"
+msgstr "Importovat Ãškoly, Krok %d"
 
 #: data.php:146
 msgid "Import/Export Tasks"
-msgstr "Importovat/Exportovat Úkoly"
+msgstr "Importovat/Exportovat Ãškoly"
 
 #: list.php:77
 msgid "Incom_plete tasks"
-msgstr "Nedoko_nèené úkoly"
+msgstr "Nedoko_nÄenÃ© Ãºkoly"
 
 #: config/prefs.php.dist:99
 msgid "Incomplete tasks"
-msgstr "Nedokonèené úkoly"
+msgstr "NedokonÄenÃ© Ãºkoly"
 
 #: templates/view/task.inc:58
 msgid "Last Modified"
-msgstr "Zmìnìn Poslední"
+msgstr "ZmÄ›nÄ›n PoslednÃ­"
 
 #: templates/task/task.inc:75 lib/Nag.php:393
 msgid "Minute(s)"
@@ -344,35 +344,35 @@ msgstr "Minut(a)"
 
 #: task.php:115
 msgid "Modifying:"
-msgstr "Modifikování:"
+msgstr "ModifikovÃ¡nÃ­:"
 
 #: lib/api.php:282 lib/api.php:465
 msgid "Multiple iCalendar components found; only one vTodo is supported."
-msgstr "Nalezeno nìkolik èástí iCalendar; je mo¾né pou¾ít pouze jednu vTodo."
+msgstr "Nalezeno nÄ›kolik ÄÃ¡stÃ­ iCalendar; je moÅ¾nÃ© pouÅ¾Ã­t pouze jednu vTodo."
 
 #: list.php:40
 msgid "My Tasks"
-msgstr "Úkoly"
+msgstr "Ãškoly"
 
 #: templates/task/task.inc:12 templates/search/search.inc:21
 msgid "N_ame"
-msgstr "N_ázev"
+msgstr "N_Ã¡zev"
 
 #: templates/list/task_headers.inc:20
 msgid "Na_me"
-msgstr "Ná_zev"
+msgstr "NÃ¡_zev"
 
 #: data.php:40
 msgid "Name"
-msgstr "Název"
+msgstr "NÃ¡zev"
 
 #: lib/Block/summary.php:18
 msgid "New Task"
-msgstr "Novı Úkol"
+msgstr "NovÃ½ Ãškol"
 
 #: templates/data/import.inc:43
 msgid "Next"
-msgstr "Dal¹í"
+msgstr "DalÅ¡Ã­"
 
 #: lib/Nag.php:19
 msgid "No"
@@ -380,52 +380,52 @@ msgstr "Ne"
 
 #: templates/task/task.inc:46
 msgid "No due date."
-msgstr "Bez po¾adovaného dokoèení."
+msgstr "Bez poÅ¾adovanÃ©ho dokoÄenÃ­."
 
 #: lib/api.php:275 lib/api.php:458
 msgid "No iCalendar data was found."
-msgstr "Nebyla nalezena ¾ádna data v iCalendar."
+msgstr "Nebyla nalezena Å¾Ã¡dna data v iCalendar."
 
 #: lib/Nag.php:476
 msgid "No task lists are available to guests."
-msgstr "®ádnı seznam úkolù není dostupnı pro hosty."
+msgstr "Å½Ã¡dnÃ½ seznam ÃºkolÅ¯ nenÃ­ dostupnÃ½ pro hosty."
 
 #: lib/Block/summary.php:186
 msgid "No tasks to display"
-msgstr "®ádné úkoly k zobrazení"
+msgstr "Å½Ã¡dnÃ© Ãºkoly k zobrazenÃ­"
 
 #: templates/task/task.inc:71 lib/Nag.php:397
 msgid "None"
-msgstr "®ádnı"
+msgstr "Å½Ã¡dnÃ½"
 
 #: lib/Nag.php:357
 msgid "Not Completed"
-msgstr "Nedokonèeno"
+msgstr "NedokonÄeno"
 
 #: config/prefs.php.dist:50 config/prefs.php.dist:65
 msgid "Owner"
-msgstr "Vlastník"
+msgstr "VlastnÃ­k"
 
 #: templates/list/task_headers.inc:13
 msgid "P_ri"
-msgstr "D_ùl"
+msgstr "D_Å¯l"
 
 #: templates/tasklists/tasklists.inc:87
 msgid "Permission"
-msgstr "Práva"
+msgstr "PrÃ¡va"
 
 #: lib/api.php:254 lib/api.php:339 lib/api.php:410 lib/api.php:441
 msgid "Permission Denied"
-msgstr "Nepovolenı pøístup"
+msgstr "NepovolenÃ½ pÅ™Ã­stup"
 
 #: lib/api.php:86
 msgid "Permission denied"
-msgstr "Nepovolenı pøístup"
+msgstr "NepovolenÃ½ pÅ™Ã­stup"
 
 #: data.php:44 templates/view/task.inc:41 config/prefs.php.dist:45
 #: config/prefs.php.dist:60
 msgid "Priority"
-msgstr "Dùle¾itost"
+msgstr "DÅ¯leÅ¾itost"
 
 #: templates/list/header.inc:5 templates/list/header.inc:6
 msgid "Refresh List"
@@ -437,12 +437,12 @@ msgstr "Smazat"
 
 #: templates/task/task.inc:103
 msgid "Save Task"
-msgstr "Ulo¾it Úkol"
+msgstr "UloÅ¾it Ãškol"
 
 #: task.php:215
 #, php-format
 msgid "Saved %s."
-msgstr "Ulo¾eno %s."
+msgstr "UloÅ¾eno %s."
 
 #: search.php:14 templates/search/search.inc:5 templates/search/search.inc:32
 msgid "Search"
@@ -450,7 +450,7 @@ msgstr "Hledat"
 
 #: list.php:63
 msgid "Search Results"
-msgstr "Vısledky Vyhledávání"
+msgstr "VÃ½sledky VyhledÃ¡vÃ¡nÃ­"
 
 #: templates/search/search.inc:18
 msgid "Search Scope"
@@ -458,7 +458,7 @@ msgstr "Hledat v Oblasti"
 
 #: templates/search/search.inc:10
 msgid "Search _Text"
-msgstr "Hledanı _Text"
+msgstr "HledanÃ½ _Text"
 
 #: templates/task/task.inc:57
 msgid "Select a date"
@@ -466,19 +466,19 @@ msgstr "Vybrat datum"
 
 #: templates/tasklists/tasklists.inc:72
 msgid "Select a task list"
-msgstr "Vybrat seznam úkolù"
+msgstr "Vybrat seznam ÃºkolÅ¯"
 
 #: templates/data/export.inc:15
 msgid "Select the export format:"
-msgstr "Zvolit formát exportu:"
+msgstr "Zvolit formÃ¡t exportu:"
 
 #: templates/data/import.inc:40
 msgid "Select the file to import:"
-msgstr "Vybrat soubor k importování:"
+msgstr "Vybrat soubor k importovÃ¡nÃ­:"
 
 #: templates/data/import.inc:16
 msgid "Select the format of the source file:"
-msgstr "Vybrat formát zdrojového souboru:"
+msgstr "Vybrat formÃ¡t zdrojovÃ©ho souboru:"
 
 #: templates/menu.inc:8
 msgid "Show"
@@ -486,156 +486,156 @@ msgstr "Zobrazit"
 
 #: templates/menu.inc:14
 msgid "Show Tasklists:"
-msgstr "Zobrazit Seznam Úkolù:"
+msgstr "Zobrazit Seznam ÃškolÅ¯:"
 
 #: lib/Block/summary.php:37
 msgid "Show action buttons?"
-msgstr "Zobrazit akèní tlaèítka?"
+msgstr "Zobrazit akÄnÃ­ tlaÄÃ­tka?"
 
 #: config/prefs.php.dist:101
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "Zobrazit dokonèené, nedokonèené nebo v¹echny úkoly v seznamu úkolù?"
+msgstr "Zobrazit dokonÄenÃ©, nedokonÄenÃ© nebo vÅ¡echny Ãºkoly v seznamu ÃºkolÅ¯?"
 
 #: config/prefs.php.dist:88
 msgid "Show data from any of these other applications in your task list?"
-msgstr "Zobrazit data z jakékoliv jinıch aplikací v seznamu úkolù?"
+msgstr "Zobrazit data z jakÃ©koliv jinÃ½ch aplikacÃ­ v seznamu ÃºkolÅ¯?"
 
 #: config/prefs.php.dist:34
 msgid "Show data from other applications or sources."
-msgstr "Zobrazit data z jinıch aplikací a zdrojù."
+msgstr "Zobrazit data z jinÃ½ch aplikacÃ­ a zdrojÅ¯."
 
 #: lib/Block/summary.php:40
 msgid "Show due dates?"
-msgstr "Zobrazit datum po¾adovaného dokoèení?"
+msgstr "Zobrazit datum poÅ¾adovanÃ©ho dokoÄenÃ­?"
 
 #: lib/Block/summary.php:34
 msgid "Show priorities?"
-msgstr "Zobrazit dùle¾itost?"
+msgstr "Zobrazit dÅ¯leÅ¾itost?"
 
 #: lib/Block/summary.php:46
 msgid "Show task alarms?"
-msgstr "Zobrazit Alarmy pro úkoly?"
+msgstr "Zobrazit Alarmy pro Ãºkoly?"
 
 #: lib/Block/summary.php:49
 msgid "Show task category?"
-msgstr "Zobrazit kategorie úkolù?"
+msgstr "Zobrazit kategorie ÃºkolÅ¯?"
 
 #: lib/Block/summary.php:43
 msgid "Show tasklist name?"
-msgstr "Zobrazit název seznamu úkolù?"
+msgstr "Zobrazit nÃ¡zev seznamu ÃºkolÅ¯?"
 
 #: lib/Block/summary.php:58
 msgid "Show tasks from these categories"
-msgstr "Zobrazit úkoly v tìchto kategoriích"
+msgstr "Zobrazit Ãºkoly v tÄ›chto kategoriÃ­ch"
 
 #: templates/list/task_headers.inc:30
 msgid "Sort by Category"
-msgstr "Setøídit podle Kategorií"
+msgstr "SetÅ™Ã­dit podle KategoriÃ­"
 
 #: templates/list/task_headers.inc:5
 msgid "Sort by Completion Status"
-msgstr "Tøidìní podle Stavu Dokonèení"
+msgstr "TÅ™idÄ›nÃ­ podle Stavu DokonÄenÃ­"
 
 #: templates/list/task_headers.inc:26
 msgid "Sort by Due Date"
-msgstr "Tøídìní podle Datumu Po¾adovaného Dokonèení"
+msgstr "TÅ™Ã­dÄ›nÃ­ podle Datumu PoÅ¾adovanÃ©ho DokonÄenÃ­"
 
 #: templates/list/task_headers.inc:20
 msgid "Sort by Name"
-msgstr "Tøídìní podle Názvu"
+msgstr "TÅ™Ã­dÄ›nÃ­ podle NÃ¡zvu"
 
 #: templates/list/task_headers.inc:13
 msgid "Sort by Priority"
-msgstr "Tøídìní podle Dùle¾itosti"
+msgstr "TÅ™Ã­dÄ›nÃ­ podle DÅ¯leÅ¾itosti"
 
 #: templates/list/task_headers.inc:9
 msgid "Sort by User Name"
-msgstr "Tøídìní podle U¾ivatelského Jména"
+msgstr "TÅ™Ã­dÄ›nÃ­ podle UÅ¾ivatelskÃ©ho JmÃ©na"
 
 #: config/prefs.php.dist:77
 msgid "Sort direction:"
-msgstr "Smìr Tøídìní:"
+msgstr "SmÄ›r TÅ™Ã­dÄ›nÃ­:"
 
 #: config/prefs.php.dist:51
 msgid "Sort tasks by:"
-msgstr "Tøídìní Úkolù podle:"
+msgstr "TÅ™Ã­dÄ›nÃ­ ÃškolÅ¯ podle:"
 
 #: templates/list/task_summaries.inc:22
 msgid "Task Alarm"
-msgstr "Alarm Úkolu"
+msgstr "Alarm Ãškolu"
 
 #: templates/list/task_headers.inc:23
 msgid "Task Alarm?"
-msgstr "Alarm Úkolu?"
+msgstr "Alarm Ãškolu?"
 
 #: view.php:74
 msgid "Task Details"
-msgstr "Detaily Úkolu"
+msgstr "Detaily Ãškolu"
 
 #: templates/tasklists/tasklists.inc:66
 msgid "Task List"
-msgstr "Seznam Úkolù"
+msgstr "Seznam ÃškolÅ¯"
 
 #: config/prefs.php.dist:20 config/prefs.php.dist:32
 msgid "Task List and Share Options"
-msgstr "Seznam Úkolù a Mo¾nosti Sdílení"
+msgstr "Seznam ÃškolÅ¯ a MoÅ¾nosti SdÃ­lenÃ­"
 
 #: templates/tasklists/tasklists.inc:84
 msgid "Task List's name:"
-msgstr "Název Seznamu Úkolù"
+msgstr "NÃ¡zev Seznamu ÃškolÅ¯"
 
 #: tasklists.php:111
 msgid "Task Lists"
-msgstr "Seznam Úkolù"
+msgstr "Seznam ÃškolÅ¯"
 
 #: config/prefs.php.dist:46 config/prefs.php.dist:61
 msgid "Task Name"
-msgstr "Název Úkolu"
+msgstr "NÃ¡zev Ãškolu"
 
 #: templates/list/task_summaries.inc:20
 msgid "Task Note"
-msgstr "Poznámka Úkolu"
+msgstr "PoznÃ¡mka Ãškolu"
 
 #: templates/list/task_headers.inc:22
 msgid "Task Note?"
-msgstr "Poznámku Úkolu?"
+msgstr "PoznÃ¡mku Ãškolu?"
 
 #: tasklists.php:28
 msgid "Task lists must have a name."
-msgstr "Seznam Úkolù musí mít název."
+msgstr "Seznam ÃškolÅ¯ musÃ­ mÃ­t nÃ¡zev."
 
 #: task.php:117 view.php:43
 msgid "Task not found."
-msgstr "Úkol nebyl nalezen."
+msgstr "Ãškol nebyl nalezen."
 
 #: lib/Block/summary.php:3
 msgid "Tasks Summary"
-msgstr "Shrnutí Úkolù"
+msgstr "ShrnutÃ­ ÃškolÅ¯"
 
 #: tasklists.php:45
 #, php-format
 msgid "The task list \"%s\" couldn't be created: %s"
-msgstr "Nelze vytvoøit seznam úkolù \"%s\": %s"
+msgstr "Nelze vytvoÅ™it seznam ÃºkolÅ¯ \"%s\": %s"
 
 #: tasklists.php:56
 #, php-format
 msgid "The task list \"%s\" couldn't be saved: %s"
-msgstr "Nelze ulo¾it seznam úkolù \"%s\": %s"
+msgstr "Nelze uloÅ¾it seznam ÃºkolÅ¯ \"%s\": %s"
 
 #: tasklists.php:47
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "Byl vytvoøen seznam úkolù \"%s\"."
+msgstr "Byl vytvoÅ™en seznam ÃºkolÅ¯ \"%s\"."
 
 #: tasklists.php:81
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "Byl´smazán seznam úkolù \"%s\"."
+msgstr "BylÂ´smazÃ¡n seznam ÃºkolÅ¯ \"%s\"."
 
 #: tasklists.php:58
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "Byl ulo¾en seznam úkolù \"%s\"."
+msgstr "Byl uloÅ¾en seznam ÃºkolÅ¯ \"%s\"."
 
 #: config/prefs.php.dist:66
 msgid "Then:"
@@ -643,39 +643,39 @@ msgstr "Pak:"
 
 #: templates/list/empty.inc:3
 msgid "There are no tasks matching the current criteria."
-msgstr "®ádné úkoly se neshodují se souèasnım kritériem."
+msgstr "Å½Ã¡dnÃ© Ãºkoly se neshodujÃ­ se souÄasnÃ½m kritÃ©riem."
 
 #: task.php:264
 #, php-format
 msgid "There was a problem completing %s: %s"
-msgstr "Problém se vyskytl pøi dokonèování %s: %s"
+msgstr "ProblÃ©m se vyskytl pÅ™i dokonÄovÃ¡nÃ­ %s: %s"
 
 #: task.php:237
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "Problém se vyskytl pøi smazávání %s: %s"
+msgstr "ProblÃ©m se vyskytl pÅ™i smazÃ¡vÃ¡nÃ­ %s: %s"
 
 #: task.php:213
 #, php-format
 msgid "There was a problem saving the task: %s."
-msgstr "Problém se vyskytl pøi ukádání úkolu: %s."
+msgstr "ProblÃ©m se vyskytl pÅ™i ukÃ¡dÃ¡nÃ­ Ãºkolu: %s."
 
 #: data.php:137
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Nastala chyba pøi importování dat: %s."
+msgstr "Nastala chyba pÅ™i importovÃ¡nÃ­ dat: %s."
 
 #: lib/api.php:269 lib/api.php:452
 msgid "There was an error importing the iCalendar data."
-msgstr "Pøi importování iCalendar dat do¹lo k chybì."
+msgstr "PÅ™i importovÃ¡nÃ­ iCalendar dat doÅ¡lo k chybÄ›."
 
 #: data.php:66
 msgid "There were no tasks to export."
-msgstr "®ádné úkoly k exportování."
+msgstr "Å½Ã¡dnÃ© Ãºkoly k exportovÃ¡nÃ­."
 
 #: data.php:105
 msgid "This file format is not supported."
-msgstr "Tento formát souboru nelze pou¾ít."
+msgstr "Tento formÃ¡t souboru nelze pouÅ¾Ã­t."
 
 #: tasklists.php:77
 #, php-format
@@ -684,29 +684,29 @@ msgstr "Nelze smazat \"%s\": %s."
 
 #: templates/task/task.inc:104
 msgid "Undo Changes"
-msgstr "Storno Zmìny"
+msgstr "Storno ZmÄ›ny"
 
 #: templates/view/task.inc:30 templates/list/task_summaries.inc:27
 #: scripts/upgrades/2004-05-13_convert_categories_to_strings.php:50
 #: lib/Block/summary.php:179
 msgid "Unfiled"
-msgstr "Nevyplnìno"
+msgstr "NevyplnÄ›no"
 
 #: lib/api.php:301 lib/api.php:374 lib/api.php:485
 msgid "Unsupported Content-Type."
-msgstr "Nepodporovanı Typ Obsahu."
+msgstr "NepodporovanÃ½ Typ Obsahu."
 
 #: templates/list/task_summaries.inc:19
 msgid "View Task Details"
-msgstr "Prohlídni Detaily Úkolu"
+msgstr "ProhlÃ­dni Detaily Ãškolu"
 
 #: templates/task/task.inc:78 lib/Nag.php:384
 msgid "Week(s)"
-msgstr "Tıden(y)"
+msgstr "TÃ½den(y)"
 
 #: templates/data/import.inc:24
 msgid "Which tasklist should the tasks be added to?"
-msgstr "Do kterého Seznamu Úkolù se mají úkoly ukládat?"
+msgstr "Do kterÃ©ho Seznamu ÃškolÅ¯ se majÃ­ Ãºkoly uklÃ¡dat?"
 
 #: lib/Nag.php:20
 msgid "Yes"
@@ -714,28 +714,28 @@ msgstr "Ano"
 
 #: view.php:51
 msgid "You do not have permission to view this tasklist."
-msgstr "Nedostateèná práva pro prohlí¾ení toho to seznamu úkolù."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro prohlÃ­Å¾enÃ­ toho to seznamu ÃºkolÅ¯."
 
 #: tasklists.php:84 templates/tasklists/tasklists.inc:48
 msgid "You must select a task list to be deleted."
-msgstr "Musíte vybrat, kterı seznam úkolù bude smazán."
+msgstr "MusÃ­te vybrat, kterÃ½ seznam ÃºkolÅ¯ bude smazÃ¡n."
 
 #: templates/prefs/tasklistselect.inc:10
 msgid "Your default task list:"
-msgstr "Implicitní seznam úkolù"
+msgstr "ImplicitnÃ­ seznam ÃºkolÅ¯"
 
 #: templates/tasklists/tasklists.inc:70
 msgid "Your task lists:"
-msgstr "Vá¹ Seznam Úkolù:"
+msgstr "VÃ¡Å¡ Seznam ÃškolÅ¯:"
 
 #: templates/list/task_summaries.inc:19 lib/Block/summary.php:88
 #: lib/Block/summary.php:169
 msgid "[none]"
-msgstr "[¾ádnı]"
+msgstr "[Å¾Ã¡dnÃ½]"
 
 #: list.php:76
 msgid "_All tasks"
-msgstr "_V¹echny úkoly"
+msgstr "_VÅ¡echny Ãºkoly"
 
 #: templates/task/task.inc:39 templates/search/search.inc:23
 msgid "_Category"
@@ -743,11 +743,11 @@ msgstr "_Kategorie"
 
 #: templates/view/task.inc:13
 msgid "_Complete"
-msgstr "_Dokonèit"
+msgstr "_DokonÄit"
 
 #: list.php:78
 msgid "_Completed tasks"
-msgstr "_Dokonèené úkoly"
+msgstr "_DokonÄenÃ© Ãºkoly"
 
 #: templates/view/task.inc:18
 msgid "_Delete"
@@ -759,7 +759,7 @@ msgstr "_Popis"
 
 #: templates/list/task_headers.inc:26
 msgid "_Due Date"
-msgstr "_Datum Po¾adovaného Dokonèení"
+msgstr "_Datum PoÅ¾adovanÃ©ho DokonÄenÃ­"
 
 #: templates/view/task.inc:15
 msgid "_Edit"
@@ -771,15 +771,15 @@ msgstr "_Importovat/Exportovat"
 
 #: lib/Nag.php:414
 msgid "_List Tasks"
-msgstr "_Seznam Úkolù"
+msgstr "_Seznam ÃškolÅ¯"
 
 #: lib/Nag.php:421
 msgid "_My Tasklists"
-msgstr "_Úkoly"
+msgstr "_Ãškoly"
 
 #: lib/Nag.php:416
 msgid "_New Task"
-msgstr "_Novı Úkol"
+msgstr "_NovÃ½ Ãškol"
 
 #: lib/Nag.php:431
 msgid "_Print"
@@ -787,7 +787,7 @@ msgstr "_Tisk"
 
 #: templates/task/task.inc:83
 msgid "_Priority"
-msgstr "Dùle¾itost"
+msgstr "DÅ¯leÅ¾itost"
 
 #: lib/Nag.php:418
 msgid "_Search"
@@ -795,7 +795,7 @@ msgstr "_Vyhledat"
 
 #: templates/task/task.inc:20 templates/list/task_headers.inc:9
 msgid "_Task List"
-msgstr "_Seznam Úkolù"
+msgstr "_Seznam ÃškolÅ¯"
 
 #: data.php:29
 msgid "iCalendar (vTodo)"
@@ -803,7 +803,7 @@ msgstr "iCalendar (vTodo)"
 
 #: lib/Nag.php:56
 msgid "no time"
-msgstr "bez èasového údaje"
+msgstr "bez ÄasovÃ©ho Ãºdaje"
 
 #: data.php:78 templates/data/export.inc:1
 msgid "tasks.csv"

@@ -10,309 +10,309 @@ msgstr ""
 "Last-Translator: J.I Kim <aporie@netian.com>\n"
 "Language-Team: Korean <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid " to: "
-msgstr "ÀÇ ÆÄÀÏÀÌ¸§ º¯°æ:"
+msgstr "ì˜ íŒŒì¼ì´ë¦„ ë³€ê²½:"
 
 #, c-format
 msgid "%d items in %s"
-msgstr "%d Ç×¸ñ (%s)"
+msgstr "%d í•­ëª© (%s)"
 
 #, c-format
 msgid "%s renamed to %s"
-msgstr "%s´Â %s·Î ÀÌ¸§ º¯°æµÇ¾ú½À´Ï´Ù."
+msgstr "%sëŠ” %së¡œ ì´ë¦„ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 msgid "<b>Note:</b> These settings won't take effect until your next login."
-msgstr "<b>ÂüÁ¶:</b> ÀÌ ¼³Á¤°ªÀº ´ÙÀ½ ·Î±×ÀÎ½Ã¿¡ ¹İ¿µµË´Ï´Ù."
+msgstr "<b>ì°¸ì¡°:</b> ì´ ì„¤ì •ê°’ì€ ë‹¤ìŒ ë¡œê·¸ì¸ì‹œì— ë°˜ì˜ë©ë‹ˆë‹¤."
 
 msgid "An illegal value was specified."
-msgstr "Àß¸øµÈ °ªÀÔ´Ï´Ù."
+msgstr "ì˜ëª»ëœ ê°’ì…ë‹ˆë‹¤."
 
 msgid "Are you sure?"
-msgstr "È®½ÇÇÕ´Ï±î?"
+msgstr "í™•ì‹¤í•©ë‹ˆê¹Œ?"
 
 msgid "Ascending"
-msgstr "¿À¸§Â÷¼ø"
+msgstr "ì˜¤ë¦„ì°¨ìˆœ"
 
 #, c-format
 msgid "Cannot chmod %s"
-msgstr "%sÀÇ Á¢±Ù¼³Á¤À» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "%sì˜ ì ‘ê·¼ì„¤ì •ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #, c-format
 msgid "Cannot delete %s"
-msgstr "%s¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù."
+msgstr "%së¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 msgid "Change your file sorting options."
-msgstr "ÆÄÀÏ Á¤·Ä ¿É¼Ç º¯°æ"
+msgstr "íŒŒì¼ ì •ë ¬ ì˜µì…˜ ë³€ê²½"
 
 msgid "Checkbox"
-msgstr "Ã¼Å©¹Ú½º"
+msgstr "ì²´í¬ë°•ìŠ¤"
 
 msgid "Chmod Items"
-msgstr "Á¢±Ù¼³Á¤°ª º¯°æ"
+msgstr "ì ‘ê·¼ì„¤ì •ê°’ ë³€ê²½"
 
 msgid "Chmod done: "
-msgstr "Á¢±Ù¼³Á¤°ª º¯°æ ¿Ï·á: "
+msgstr "ì ‘ê·¼ì„¤ì •ê°’ ë³€ê²½ ì™„ë£Œ: "
 
 msgid "Choose Action:"
-msgstr "¸í·É¾î ¼±ÅÃ:"
+msgstr "ëª…ë ¹ì–´ ì„ íƒ:"
 
 msgid "Create Folder"
-msgstr "»õ·Î¿î Æú´õ ¸¸µé±â"
+msgstr "ìƒˆë¡œìš´ í´ë” ë§Œë“¤ê¸°"
 
 msgid "Default sorting criteria:"
-msgstr "±âº» Á¤·Ä ¹üÁÖ:"
+msgstr "ê¸°ë³¸ ì •ë ¬ ë²”ì£¼:"
 
 msgid "Default sorting direction:"
-msgstr "±âº» Á¤·Ä ¹æÇâ:"
+msgstr "ê¸°ë³¸ ì •ë ¬ ë°©í–¥:"
 
 msgid "Delete Items"
-msgstr "ÆÄÀÏ »èÁ¦"
+msgstr "íŒŒì¼ ì‚­ì œ"
 
 msgid "Descending"
-msgstr "³»¸²Â÷¼ø"
+msgstr "ë‚´ë¦¼ì°¨ìˆœ"
 
 msgid "Directory removed: "
-msgstr "µğ·ºÅä¸® »èÁ¦: "
+msgstr "ë””ë ‰í† ë¦¬ ì‚­ì œ: "
 
 msgid "Display Options"
-msgstr "È­¸é Ãâ·Â ¿É¼Ç"
+msgstr "í™”ë©´ ì¶œë ¥ ì˜µì…˜"
 
 msgid ""
 "Either you have logged in incorrectly or your login has expired. Please "
 "login again."
 msgstr ""
-"Á¤È®ÇÏ°Ô ·Î±×ÀÎÇÏÁö ¾Ê¾Ò°Å³ª ·Î±×ÀÎÀÌ ¸¸·á µÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇÏ¼¼¿ä."
+"ì •í™•í•˜ê²Œ ë¡œê·¸ì¸í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ë¡œê·¸ì¸ì´ ë§Œë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•˜ì„¸ìš”."
 
 msgid "Error creating new folder: "
-msgstr "»õ·Î¿î Æú´õ ¸¸µé±â ¿À·ù: "
+msgstr "ìƒˆë¡œìš´ í´ë” ë§Œë“¤ê¸° ì˜¤ë¥˜: "
 
 msgid "Error renaming: "
-msgstr "ÆÄÀÏ ÀÌ¸§ º¯°æ ¿À·ù: "
+msgstr "íŒŒì¼ ì´ë¦„ ë³€ê²½ ì˜¤ë¥˜: "
 
 msgid "Error uploading file: "
-msgstr "ÆÄÀÏ ¾÷·Îµå ¿À·ù: "
+msgstr "íŒŒì¼ ì—…ë¡œë“œ ì˜¤ë¥˜: "
 
 msgid "Error"
-msgstr "¿À·ù"
+msgstr "ì˜¤ë¥˜"
 
 msgid "File Modification Time"
-msgstr "ÆÄÀÏ º¯°æ ½Ã°£"
+msgstr "íŒŒì¼ ë³€ê²½ ì‹œê°„"
 
 msgid "File Name"
-msgstr "ÆÄÀÏ ÀÌ¸§"
+msgstr "íŒŒì¼ ì´ë¦„"
 
 msgid "File Size"
-msgstr "ÆÄÀÏ Å©±â"
+msgstr "íŒŒì¼ í¬ê¸°"
 
 msgid "File Type"
-msgstr "ÆÄÀÏ À¯Çü"
+msgstr "íŒŒì¼ ìœ í˜•"
 
 msgid "File deleted: "
-msgstr "ÆÄÀÏ »èÁ¦: "
+msgstr "íŒŒì¼ ì‚­ì œ: "
 
 msgid "File received: "
-msgstr "ÆÄÀÏ ¿Ã¸®±â: "
+msgstr "íŒŒì¼ ì˜¬ë¦¬ê¸°: "
 
 msgid "Gollem is not properly configured"
-msgstr "GollemÀÌ Á¤»ó ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "Gollemì´ ì •ìƒ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Group"
-msgstr "±×·ì"
+msgstr "ê·¸ë£¹"
 
 msgid "Help"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 msgid "Home"
-msgstr "È¨"
+msgstr "í™ˆ"
 
 msgid "Incorrect number of items."
-msgstr "Àß¸øµÈ Ç×¸ñ¼ö"
+msgstr "ì˜ëª»ëœ í•­ëª©ìˆ˜"
 
 msgid "Language"
-msgstr "¾ğ¾î"
+msgstr "ì–¸ì–´"
 
 msgid "Log in"
-msgstr "·Î±×ÀÎ"
+msgstr "ë¡œê·¸ì¸"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"¾î¶² ÀÌÀ¯·Î ·Î±×ÀÎÀÌ ½ÇÆĞÇß½À´Ï´Ù. ´ëºÎºĞÀÇ °æ¿ì »ç¿ëÀÚÀÌ¸§ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ "
-"¿Ã¹Ù¸£Áö ¾Ê±â ¶§¹®ÀÔ´Ï´Ù."
+"ì–´ë–¤ ì´ìœ ë¡œ ë¡œê·¸ì¸ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ëŒ€ë¶€ë¶„ì˜ ê²½ìš° ì‚¬ìš©ìì´ë¦„ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ "
+"ì˜¬ë°”ë¥´ì§€ ì•Šê¸° ë•Œë¬¸ì…ë‹ˆë‹¤."
 
 msgid "Logout"
-msgstr "Á¾·á"
+msgstr "ì¢…ë£Œ"
 
 msgid "Message"
-msgstr "¸Ş¼¼Áö"
+msgstr "ë©”ì„¸ì§€"
 
 msgid "Modified"
-msgstr "º¯°æÀÏÀÚ"
+msgstr "ë³€ê²½ì¼ì"
 
 msgid "Name"
-msgstr "ÀÌ¸§"
+msgstr "ì´ë¦„"
 
 msgid "New User Introduction"
-msgstr "»õ·Î¿î »ç¿ëÀÚ¸¦ À§ÇÑ µµ¿ò¸»"
+msgstr "ìƒˆë¡œìš´ ì‚¬ìš©ìë¥¼ ìœ„í•œ ë„ì›€ë§"
 
 msgid "New folder created: "
-msgstr "»õ·Î¿î Æú´õ »ı¼º: "
+msgstr "ìƒˆë¡œìš´ í´ë” ìƒì„±: "
 
 msgid "No such directory: "
-msgstr "µğ·ºÅä¸®°¡ ¾ø½À´Ï´Ù: "
+msgstr "ë””ë ‰í† ë¦¬ê°€ ì—†ìŠµë‹ˆë‹¤: "
 
 msgid "Options"
-msgstr "¿É¼Ç"
+msgstr "ì˜µì…˜"
 
 msgid "Other Options"
-msgstr "´Ù¸¥ ¿É¼Ç"
+msgstr "ë‹¤ë¥¸ ì˜µì…˜"
 
 msgid "Owner"
-msgstr "¼ÒÀ¯ÀÚ"
+msgstr "ì†Œìœ ì"
 
 msgid "Password"
-msgstr "ºñ¹Ğ ¹øÈ£"
+msgstr "ë¹„ë°€ ë²ˆí˜¸"
 
 msgid "Permission"
-msgstr "ÆÄÀÏÁ¢±Ù¸ğµå"
+msgstr "íŒŒì¼ì ‘ê·¼ëª¨ë“œ"
 
 msgid "Please enter the mode in numeric format:"
-msgstr "¼ıÀÚÇü½ÄÀ¸·Î ÀÔ·ÂÇÏ¼¼¿ä:"
+msgstr "ìˆ«ìí˜•ì‹ìœ¼ë¡œ ì…ë ¥í•˜ì„¸ìš”:"
 
 msgid "Please enter the name of the new folder:"
-msgstr "»õ·Î¿î Æú´õÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:"
+msgstr "ìƒˆë¡œìš´ í´ë”ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:"
 
 msgid "Please provide your password."
-msgstr "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä."
+msgstr "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”."
 
 msgid "Please provide your username."
-msgstr "»ç¿ëÀÚÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä."
+msgstr "ì‚¬ìš©ìì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”."
 
 msgid "Please select an item before this action."
-msgstr "½ÇÇàÇÒ Ç×¸ñÀ» ¼±ÅÃÇÏ¼¼¿ä"
+msgstr "ì‹¤í–‰í•  í•­ëª©ì„ ì„ íƒí•˜ì„¸ìš”"
 
 msgid "Please specify a file to upload."
-msgstr "¾÷·ÎµåÇÒ ÆÄÀÏÀ» ¼±ÅÃÇÏ¼¼¿ä."
+msgstr "ì—…ë¡œë“œí•  íŒŒì¼ì„ ì„ íƒí•˜ì„¸ìš”."
 
 msgid "Problem?"
-msgstr "¹®Á¦?"
+msgstr "ë¬¸ì œ?"
 
 msgid "Refresh"
-msgstr "´Ù½Ã ÀĞ±â"
+msgstr "ë‹¤ì‹œ ì½ê¸°"
 
 msgid "Rename "
-msgstr "ÀÌ¸§ º¯°æ "
+msgstr "ì´ë¦„ ë³€ê²½ "
 
 msgid "Rename Items"
-msgstr "ÆÄÀÏ ÀÌ¸§ º¯°æ"
+msgstr "íŒŒì¼ ì´ë¦„ ë³€ê²½"
 
 msgid "Select your preferred language:"
-msgstr "ÀÚÁÖ »ç¿ëÇÏ´Â ¾ğ¾î¸¦ ¼±ÅÃÇÏ¼¼¿ä:"
+msgstr "ìì£¼ ì‚¬ìš©í•˜ëŠ” ì–¸ì–´ë¥¼ ì„ íƒí•˜ì„¸ìš”:"
 
 msgid "Server"
-msgstr "¼­¹ö"
+msgstr "ì„œë²„"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "¸Ş´º, ¼³¸í, µµ¿ò¸»À» Ç¥½ÃÇÒ ¾ğ¾î¸¦ ¼±ÅÃÇÏ¼¼¿ä."
+msgstr "ë©”ë‰´, ì„¤ëª…, ë„ì›€ë§ì„ í‘œì‹œí•  ì–¸ì–´ë¥¼ ì„ íƒí•˜ì„¸ìš”."
 
 msgid "Size"
-msgstr "Å©±â"
+msgstr "í¬ê¸°"
 
 msgid "Some of Gollem's configuration files are missing:"
-msgstr "ÀÏºÎ GollemÀÇ ¼³Á¤ÆÄÀÏÀÌ ¾ø½À´Ï´Ù:"
+msgstr "ì¼ë¶€ Gollemì˜ ì„¤ì •íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤:"
 
 msgid "Sort Direction"
-msgstr "Á¤·Ä ¼ø¼­"
+msgstr "ì •ë ¬ ìˆœì„œ"
 
 msgid "Success"
-msgstr "¿Ï·á"
+msgstr "ì™„ë£Œ"
 
 msgid "The following items will be permenantly deleted: "
-msgstr "´ÙÀ½ÀÇ Ç×¸ñÀÌ ¿µ±¸ »èÁ¦µÉ°ÍÀÔ´Ï´Ù:"
+msgstr "ë‹¤ìŒì˜ í•­ëª©ì´ ì˜êµ¬ ì‚­ì œë ê²ƒì…ë‹ˆë‹¤:"
 
 msgid "There are no files in this directory."
-msgstr "µğ·ºÅä¸®¿¡ ÆÄÀÏÀÌ ¾ø½À´Ï´Ù."
+msgstr "ë””ë ‰í† ë¦¬ì— íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤."
 
 msgid ""
 "This file controls the default preferences for Gollem, and also controls "
 "which preferences users can alter."
 msgstr ""
-"ÀÌÆÄÀÏÀº GollemÀÇ ±âº» È¯°æ¼³Á¤°ú »ç¿ëÀÚ°¡ º¯°æÇÒ ¼ö ÀÖ´Â È¯°æ ¼³Á¤À» Á¦¾îÇÕ"
-"´Ï´Ù."
+"ì´íŒŒì¼ì€ Gollemì˜ ê¸°ë³¸ í™˜ê²½ì„¤ì •ê³¼ ì‚¬ìš©ìê°€ ë³€ê²½í•  ìˆ˜ ìˆëŠ” í™˜ê²½ ì„¤ì •ì„ ì œì–´í•©"
+"ë‹ˆë‹¤."
 
 msgid ""
 "This file controls the default settings for Gollem, and also defines the "
 "list of available servers if you are using the server list."
-msgstr "ÀÌÆÄÀÏÀº GollemÀÇ ±âº» ¼³Á¤°ª°ú »ç¿ë°¡´ÉÇÑ ¼­¹ö ¸ñ·ÏÀ» ¸í½ÃÇÕ´Ï´Ù."
+msgstr "ì´íŒŒì¼ì€ Gollemì˜ ê¸°ë³¸ ì„¤ì •ê°’ê³¼ ì‚¬ìš©ê°€ëŠ¥í•œ ì„œë²„ ëª©ë¡ì„ ëª…ì‹œí•©ë‹ˆë‹¤."
 
 msgid ""
 "This is the main Gollem configuration file. It contains paths and options "
 "for the Gollem scripts."
 msgstr ""
-"ÀÌÆÄÀÏÀº ±âº» GollemÈ¯°æ¼³Á¤ ÆÄÀÏÀÔ´Ï´Ù. Gollem ½ºÅ©¸³Æ®ÀÇ °æ·Î¿Í ¿É¼ÇÀ» °®"
-"°í ÀÖ½À´Ï´Ù."
+"ì´íŒŒì¼ì€ ê¸°ë³¸ Gollemí™˜ê²½ì„¤ì • íŒŒì¼ì…ë‹ˆë‹¤. Gollem ìŠ¤í¬ë¦½íŠ¸ì˜ ê²½ë¡œì™€ ì˜µì…˜ì„ ê°–"
+"ê³  ìˆìŠµë‹ˆë‹¤."
 
 msgid "This number must be at least one."
-msgstr "ÃÖ¼ÒÇÑ 1ÀÌ»óÀÇ °ªÀÌ¾î¾ß ÇÕ´Ï´Ù."
+msgstr "ìµœì†Œí•œ 1ì´ìƒì˜ ê°’ì´ì–´ì•¼ í•©ë‹ˆë‹¤."
 
 msgid "This value must be a number."
-msgstr "¼ıÀÚ·Î µÈ °ªÀÌ¾î¾ß ÇÕ´Ï´Ù."
+msgstr "ìˆ«ìë¡œ ëœ ê°’ì´ì–´ì•¼ í•©ë‹ˆë‹¤."
 
 msgid "Type"
-msgstr "Á¾·ù"
+msgstr "ì¢…ë¥˜"
 
 msgid "Up to parent"
-msgstr "»óÀ§·Î"
+msgstr "ìƒìœ„ë¡œ"
 
 msgid "Upload File"
-msgstr "ÆÄÀÏ ¿Ã¸®±â"
+msgstr "íŒŒì¼ ì˜¬ë¦¬ê¸°"
 
 msgid "User Preferences"
-msgstr "»ç¿ëÀÚ È¯°æ¼³Á¤"
+msgstr "ì‚¬ìš©ì í™˜ê²½ì„¤ì •"
 
 msgid "Username"
-msgstr "»ç¿ëÀÚ ÀÌ¸§"
+msgstr "ì‚¬ìš©ì ì´ë¦„"
 
 msgid "Warning"
-msgstr "°æ°í"
+msgstr "ê²½ê³ "
 
 #, c-format
 msgid "Warning: %s requires Javascript to perform certain functions."
-msgstr "°æ°í: %s°¡ ½ÇÇàµÇ±â À§ÇØ¼­´Â ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ ÇÊ¿ä·Î ÇÕ´Ï´Ù."
+msgstr "ê²½ê³ : %sê°€ ì‹¤í–‰ë˜ê¸° ìœ„í•´ì„œëŠ” ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ í•„ìš”ë¡œ í•©ë‹ˆë‹¤."
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "È¯¿µÇÕ´Ï´Ù. %s ÀÔ´Ï´Ù."
+msgstr "í™˜ì˜í•©ë‹ˆë‹¤. %s ì…ë‹ˆë‹¤."
 
 msgid "Welcome"
-msgstr "È¯¿µÇÕ´Ï´Ù."
+msgstr "í™˜ì˜í•©ë‹ˆë‹¤."
 
 #, c-format
 msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
 msgstr ""
-"%s¿¡¼­ ·Î±×¾Æ¿ôÇÏ¼Ì½À´Ï´Ù. ÀÌ ½Ã½ºÅÛÀ» »ç¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇÏ"
-"½Ã·Á¸é, ¾Æ·¡ÀÇ ÆûÀ» »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù."
+"%sì—ì„œ ë¡œê·¸ì•„ì›ƒí•˜ì…¨ìŠµë‹ˆë‹¤. ì´ ì‹œìŠ¤í…œì„ ì‚¬ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•˜"
+"ì‹œë ¤ë©´, ì•„ë˜ì˜ í¼ì„ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤."
 
 msgid "Your Information"
-msgstr "»ç¿ëÀÚ Á¤º¸"
+msgstr "ì‚¬ìš©ì ì •ë³´"
 
 msgid "Your preferences have been updated."
-msgstr "È¯°æ¼³Á¤ÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù."
+msgstr "í™˜ê²½ì„¤ì •ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 msgid "Your preferred FTP server:"
-msgstr "ÀÚÁÖ »ç¿ëÇÏ´Â FTP ¼­¹ö:"
+msgstr "ìì£¼ ì‚¬ìš©í•˜ëŠ” FTP ì„œë²„:"
 
 msgid "[home]"
-msgstr "[È¨]"
+msgstr "[í™ˆ]"
 
 msgid "folder"
-msgstr "Æú´õ"
+msgstr "í´ë”"
 
 msgid "symlink"
-msgstr "½Éº¼ ¸µÅ©"
+msgstr "ì‹¬ë³¼ ë§í¬"

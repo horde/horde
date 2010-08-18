@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -55,38 +55,38 @@ msgstr "%.2fMB"
 #: thread.php:152
 #, php-format
 msgid "%d Messages"
-msgstr "%d laiğkai(ø)"
+msgstr "%d laiÅ¡kai(Å³)"
 
 #: lib/Spam.php:220
 #, php-format
 msgid "%d messages have been deleted."
-msgstr "Iğtrinta %d laiğkas(ai, ø)."
+msgstr "IÅ¡trinta %d laiÅ¡kas(ai, Å³)."
 
 #: lib/Spam.php:199
 #, php-format
 msgid ""
 "%d messages have been reported as not spam to your system administrator."
-msgstr "%d laiğkai(ø) nusiøsta administratoriui kaip ne nepageidaujami (spam)."
+msgstr "%d laiÅ¡kai(Å³) nusiÅ³sta administratoriui kaip ne nepageidaujami (spam)."
 
 #: lib/Spam.php:179
 #, php-format
 msgid "%d messages have been reported as not spam."
-msgstr "%d laiğkai(ø) paskelbti ne nepageidaujamais (spam)."
+msgstr "%d laiÅ¡kai(Å³) paskelbti ne nepageidaujamais (spam)."
 
 #: lib/Spam.php:191
 #, php-format
 msgid "%d messages have been reported as spam to your system administrator."
-msgstr "%d laiğkai(ø) nusiøsta administratoriui kaip nepageidaujami (spam)."
+msgstr "%d laiÅ¡kai(Å³) nusiÅ³sta administratoriui kaip nepageidaujami (spam)."
 
 #: lib/Spam.php:171
 #, php-format
 msgid "%d messages have been reported as spam."
-msgstr "%d laiğkai(ø) paskelbti nepageidaujamais (spam)."
+msgstr "%d laiÅ¡kai(Å³) paskelbti nepageidaujamais (spam)."
 
 #: mailbox.php:256
 #, php-format
 msgid "%d to %d of %d Messages"
-msgstr "Laiğkai nuo %d iki %d iğ %d"
+msgstr "LaiÅ¡kai nuo %d iki %d iÅ¡ %d"
 
 #: lib/MIME/Contents.php:563
 #, php-format
@@ -106,17 +106,17 @@ msgstr "%s MB"
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:39
 #, php-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s jau egzistuoja. Jûsø katalogas %s nepervardintas."
+msgstr "%s jau egzistuoja. JÅ«sÅ³ katalogas %s nepervardintas."
 
 #: lib/MIME/Contents.php:556
 #, php-format
 msgid "%s bytes"
-msgstr "%s baitai(ø)"
+msgstr "%s baitai(Å³)"
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:37
 #, php-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "%s katalogas pervadinamas mënesio pradşioje."
+msgstr "%s katalogas pervadinamas mÄ—nesio pradÅ¾ioje."
 
 #: lib/MIME/Viewer/itip.php:260
 #, php-format
@@ -126,27 +126,27 @@ msgstr "%s priimtas."
 #: lib/MIME/Viewer/itip.php:666
 #, php-format
 msgid "%s has cancelled \"%s\"."
-msgstr "%s nutraukë \"%s\"."
+msgstr "%s nutraukÄ— \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:266
 #, php-format
 msgid "%s has declined."
-msgstr "%s baigësi."
+msgstr "%s baigÄ—si."
 
 #: lib/MIME/Viewer/itip.php:506
 #, php-format
 msgid "%s has replied to a free/busy request."
-msgstr "%s atsakë á uşimtumo uşklausà."
+msgstr "%s atsakÄ— Ä¯ uÅ¾imtumo uÅ¾klausÄ…."
 
 #: lib/MIME/Viewer/itip.php:658
 #, php-format
 msgid "%s has replied to the invitation to \"%s\"."
-msgstr "%s atsakë á pakvietimà á \"%s\"."
+msgstr "%s atsakÄ— Ä¯ pakvietimÄ… Ä¯ \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:497
 #, php-format
 msgid "%s has sent you free/busy information."
-msgstr "%s atsiuntë uşimtumo informacijà."
+msgstr "%s atsiuntÄ— uÅ¾imtumo informacijÄ…."
 
 #: lib/MIME/Viewer/itip.php:272
 #, php-format
@@ -156,17 +156,17 @@ msgstr "%s laikinai priimtas."
 #: lib/MIME/Viewer/itip.php:502
 #, php-format
 msgid "%s requests your free/busy information."
-msgstr "%s prağo jûsø uşimtumo informacijos."
+msgstr "%s praÅ¡o jÅ«sÅ³ uÅ¾imtumo informacijos."
 
 #: lib/MIME/Viewer/itip.php:621
 #, php-format
 msgid "%s requests your presence at \"%s\"."
-msgstr "%s prağo jus dalyvauti \"%s\"."
+msgstr "%s praÅ¡o jus dalyvauti \"%s\"."
 
 #: lib/Message.php:468
 #, php-format
 msgid "%s was successfully added to \"%s\"."
-msgstr "%s sëkmingai pridëtas á \"%s\"."
+msgstr "%s sÄ—kmingai pridÄ—tas Ä¯ \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:638
 #, php-format
@@ -177,17 +177,17 @@ msgstr "%s nori papildyti \"%s\"."
 #: lib/MIME/Viewer/itip.php:806
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
-msgstr "%s nori jums praneğti apie artëjantá \"%s\"."
+msgstr "%s nori jums praneÅ¡ti apie artÄ—jantÄ¯ \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:645
 #, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
-msgstr "%s nori gauti naujausià informacijà apie \"%s\"."
+msgstr "%s nori gauti naujausiÄ… informacijÄ… apie \"%s\"."
 
 #: compose.php:1143
 #, php-format
 msgid "%s%% of allowed size"
-msgstr "%s%% leistino dydşio"
+msgstr "%s%% leistino dydÅ¾io"
 
 #: message.php:272 message.php:277
 #, php-format
@@ -197,17 +197,17 @@ msgstr "%s: %s"
 #: message.php:490
 #, php-format
 msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
-msgstr "%s: %s (%d&nbsp;iğ&nbsp;%d)"
+msgstr "%s: %s (%d&nbsp;iÅ¡&nbsp;%d)"
 
 #: lib/Compose.php:1677
 #, php-format
 msgid "%u Forwarded Messages"
-msgstr "%u persiøsti laiğkai"
+msgstr "%u persiÅ³sti laiÅ¡kai"
 
 #: rss.php:94
 #, php-format
 msgid "%u of %u messages in %s unread."
-msgstr "%u iğ %u laiğkø kataloge %s neskaityti."
+msgstr "%u iÅ¡ %u laiÅ¡kÅ³ kataloge %s neskaityti."
 
 #: stationery.php:133
 msgid "(HTML)"
@@ -219,11 +219,11 @@ msgstr "(Paprastas tekstas)"
 
 #: templates/contacts/contacts.html:49
 msgid "* Add these by clicking OK *"
-msgstr "* Norëdami pridëtá spauskite OK *"
+msgstr "* NorÄ—dami pridÄ—tÄ¯ spauskite OK *"
 
 #: templates/contacts/contacts.html:33
 msgid "* Please select address(es) *"
-msgstr "* Pasirinkite adresà(us) *"
+msgstr "* Pasirinkite adresÄ…(us) *"
 
 #: lib/MIME/Contents.php:561
 #, php-format
@@ -232,32 +232,32 @@ msgstr "1 prikabintas failas, %s"
 
 #: config/prefs.php.dist:986
 msgid "100 characters"
-msgstr "100 simboliø"
+msgstr "100 simboliÅ³"
 
 #: config/prefs.php.dist:989
 msgid "1000 characters"
-msgstr "1000 simboliø"
+msgstr "1000 simboliÅ³"
 
 #: config/prefs.php.dist:987
 msgid "250 characters"
-msgstr "250 simboliø"
+msgstr "250 simboliÅ³"
 
 #: config/prefs.php.dist:988
 msgid "500 characters"
-msgstr "500 simboliø"
+msgstr "500 simboliÅ³"
 
 #: lib/MIME/Viewer/notification.php:49
 msgid ""
 "A message you have sent has resulted in a return notification from the "
 "recipient."
-msgstr "Atëjo patvirtinimas, kad adresatas gavo jûsø laiğkà."
+msgstr "AtÄ—jo patvirtinimas, kad adresatas gavo jÅ«sÅ³ laiÅ¡kÄ…."
 
 #: templates/javascript_defs.php:72
 msgid ""
 "A popup window could not be opened. Perhaps you have set your browser to "
 "block popup windows?"
 msgstr ""
-"Nepavyko atidaryti rağymo lango. Galbût jûsø narğyklë blokuoja naujus langus?"
+"Nepavyko atidaryti raÅ¡ymo lango. GalbÅ«t jÅ«sÅ³ narÅ¡yklÄ— blokuoja naujus langus?"
 
 #: templates/search/search.html:61
 msgid "AND"
@@ -265,15 +265,15 @@ msgstr "IR"
 
 #: config/prefs.php.dist:854
 msgid "Above the message text"
-msgstr "Virğ laiğko teksto"
+msgstr "VirÅ¡ laiÅ¡ko teksto"
 
 #: lib/MIME/Viewer/itip.php:625
 msgid "Accept and add to my calendar"
-msgstr "Priimti ir árağyti tai á mano kalendoriø"
+msgstr "Priimti ir Ä¯raÅ¡yti tai Ä¯ mano kalendoriÅ³"
 
 #: lib/MIME/Viewer/itip.php:630
 msgid "Accept request"
-msgstr "Priimti uşklausà"
+msgstr "Priimti uÅ¾klausÄ…"
 
 #: lib/MIME/Viewer/itip.php:917
 msgid "Accepted"
@@ -285,7 +285,7 @@ msgstr "Priimta: "
 
 #: templates/fetchmail/fetchmailprefs.html:43
 msgid "Account's name:"
-msgstr "Pağto dëşutës pavadinimas:"
+msgstr "PaÅ¡to dÄ—Å¾utÄ—s pavadinimas:"
 
 #: lib/MIME/Viewer/itip.php:536 lib/MIME/Viewer/itip.php:768
 #: lib/MIME/Viewer/itip.php:769 lib/MIME/Viewer/itip.php:896
@@ -295,23 +295,23 @@ msgstr "Veiksmai"
 #: lib/MIME/Headers.php:201 lib/MIME/Headers.php:202
 #, php-format
 msgid "Add %s to my Address Book"
-msgstr "Átraukti %s á mano adresø knygelæ"
+msgstr "Ä®traukti %s Ä¯ mano adresÅ³ knygelÄ™"
 
 #: templates/prefs/sourceselect.inc:300
 msgid "Add source"
-msgstr "Pridëti ğaltiná"
+msgstr "PridÄ—ti Å¡altinÄ¯"
 
 #: lib/MIME/Viewer/itip.php:595
 msgid "Add this to my calendar"
-msgstr "Árağyti tai á mano kalendoriø"
+msgstr "Ä®raÅ¡yti tai Ä¯ mano kalendoriÅ³"
 
 #: lib/MIME/Viewer/itip.php:808
 msgid "Add this to my tasklist"
-msgstr "Árağyti tai á mano darbø sàrağà"
+msgstr "Ä®raÅ¡yti tai Ä¯ mano darbÅ³ sÄ…raÅ¡Ä…"
 
 #: lib/MIME/Viewer/itip.php:627
 msgid "Add to my calendar"
-msgstr "Árağyti á mano kalendoriø"
+msgstr "Ä®raÅ¡yti Ä¯ mano kalendoriÅ³"
 
 #: lib/Compose.php:2689
 #, php-format
@@ -323,13 +323,13 @@ msgid ""
 "Additional headers to display when viewing: <em>(optional, enter each header "
 "on a new line)</em>"
 msgstr ""
-"Papildomos antrağtës: <em>(nebûtina, kiekvienà antrağtæ rağykite naujoje "
-"eilutëje)</em>"
+"Papildomos antraÅ¡tÄ—s: <em>(nebÅ«tina, kiekvienÄ… antraÅ¡tÄ™ raÅ¡ykite naujoje "
+"eilutÄ—je)</em>"
 
 #: lib/MIME/Viewer/notification.php:60
 #, php-format
 msgid "Additional information can be viewed %s."
-msgstr "Papildomos informacijos perşiûra %s."
+msgstr "Papildomos informacijos perÅ¾iÅ«ra %s."
 
 #: lib/MIME/Viewer/notification.php:60
 msgid "Additional information details"
@@ -337,49 +337,49 @@ msgstr "Papildoma informacija detaliau"
 
 #: lib/MIME/Viewer/status.php:92
 msgid "Additional message details"
-msgstr "Papildoma laiğko informacija"
+msgstr "Papildoma laiÅ¡ko informacija"
 
 #: lib/MIME/Viewer/status.php:91
 #, php-format
 msgid "Additional message details can be viewed %s."
-msgstr "Papildomos informacijos perşiûra %s."
+msgstr "Papildomos informacijos perÅ¾iÅ«ra %s."
 
 #: lib/MIME/Viewer/status.php:77
 msgid "Additional message error details"
-msgstr "Detali informacija apie klaidà"
+msgstr "Detali informacija apie klaidÄ…"
 
 #: lib/MIME/Viewer/status.php:76
 #, php-format
 msgid "Additional message error details can be viewed %s."
-msgstr "Papildomos informacijos apie klaidà perşiûra %s."
+msgstr "Papildomos informacijos apie klaidÄ… perÅ¾iÅ«ra %s."
 
 #: compose.php:775 compose.php:1011 contacts.php:119
 #: templates/contacts/contacts.html:8
 msgid "Address Book"
-msgstr "Adresø knygelë"
+msgstr "AdresÅ³ knygelÄ—"
 
 #: config/prefs.php.dist:142
 msgid "Address Books"
-msgstr "Adresø knygelës"
+msgstr "AdresÅ³ knygelÄ—s"
 
 #: templates/prefs/sourceselect.inc:345
 msgid "Address book to add addresses to"
-msgstr "Adresø knygelë á kurià árağyti naujus adresus"
+msgstr "AdresÅ³ knygelÄ— Ä¯ kuriÄ… Ä¯raÅ¡yti naujus adresus"
 
 #: config/prefs.php.dist:197
 msgid ""
 "Addresses to BCC all messages: <em>(optional, enter each address on a new "
 "line)</em>"
 msgstr ""
-"BCC adresai: <em>(nebûtina, kiekvienà adresà rağykite naujoje eilutëje)</em>"
+"BCC adresai: <em>(nebÅ«tina, kiekvienÄ… adresÄ… raÅ¡ykite naujoje eilutÄ—je)</em>"
 
 #: config/prefs.php.dist:189
 msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
 msgstr ""
-"Pağto adresai susijæ su ğiuo aprağu: <em>(nebûtina, kiekvienà adresà "
-"rağykite naujoje eilutëje)</em>"
+"PaÅ¡to adresai susijÄ™ su Å¡iuo apraÅ¡u: <em>(nebÅ«tina, kiekvienÄ… adresÄ… "
+"raÅ¡ykite naujoje eilutÄ—je)</em>"
 
 #: lib/IMAP/ACL/rfc4314.php:59 lib/IMAP/ACL/rfc2086.php:57
 msgid "Administer"
@@ -387,22 +387,22 @@ msgstr "Valdyti"
 
 #: templates/mailbox/navbar.html:10
 msgid "All"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #: lib/Maintenance/Task/purge_sentmail.php:82
 #, php-format
 msgid ""
 "All messages in the folder(s) \"%s\" older than %s days will be permanently "
 "deleted."
-msgstr "Visi laiğkai kataloge(uose) \"%s\" senesni nei %s dienø bus iğtrinti."
+msgstr "Visi laiÅ¡kai kataloge(uose) \"%s\" senesni nei %s dienÅ³ bus iÅ¡trinti."
 
 #: templates/javascript_defs.php:62
 msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Visi laiğkai sekanèiame(iuose) kataloge(uose) bus perkelti á vienà MBOX "
-"failà:"
+"Visi laiÅ¡kai sekanÄiame(iuose) kataloge(uose) bus perkelti Ä¯ vienÄ… MBOX "
+"failÄ…:"
 
 #: lib/Maintenance/Task/purge_spam.php:79
 #: lib/Maintenance/Task/purge_trash.php:78
@@ -410,22 +410,22 @@ msgstr ""
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
-msgstr "Visi laiğkai kataloge \"%s\" senesni nei %s dienø bus iğtrinti."
+msgstr "Visi laiÅ¡kai kataloge \"%s\" senesni nei %s dienÅ³ bus iÅ¡trinti."
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:59
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
-msgstr "Visi senesni nei %s mënesiai susijæ prikabinti failai bus iğtrinti."
+msgstr "Visi senesni nei %s mÄ—nesiai susijÄ™ prikabinti failai bus iÅ¡trinti."
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:72
 #, php-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr "Visi senesni nei %s mënesiai siøstø laiğkø katalogai bus iğtrinti."
+msgstr "Visi senesni nei %s mÄ—nesiai siÅ³stÅ³ laiÅ¡kÅ³ katalogai bus iÅ¡trinti."
 
 #: acl.php:88 acl.php:129
 #, php-format
 msgid "All rights on folder \"%s\" successfully removed for user \"%s\"."
-msgstr "Visos katalogo \"%s\" teisës vartotojui \"%s\" iğtrintos."
+msgstr "Visos katalogo \"%s\" teisÄ—s vartotojui \"%s\" iÅ¡trintos."
 
 #: lib/api.php:93
 msgid "Allow Folder Creation?"
@@ -445,32 +445,32 @@ msgstr "Visada"
 
 #: config/prefs.php.dist:694
 msgid "Always save attachments"
-msgstr "Visada iğsaugoti prikabintus failus"
+msgstr "Visada iÅ¡saugoti prikabintus failus"
 
 #: lib/Message.php:577
 msgid ""
 "An error occured while attempting to strip the attachment. The IMAP server "
 "said: "
-msgstr "Klaida bandant iğtinti prikabintà failà. IMAP serverio klaida:"
+msgstr "Klaida bandant iÅ¡tinti prikabintÄ… failÄ…. IMAP serverio klaida:"
 
 #: lib/MIME/Viewer/images.php:153
 #, php-format
 msgid "An image named %s is attached to this message. A thumbnail is below."
 msgstr ""
-"Prie ğio laiğko prikabintas didelis paveikslëlis %s. Sumaşinta jo versijà "
-"galite matyti apaèioje."
+"Prie Å¡io laiÅ¡ko prikabintas didelis paveikslÄ—lis %s. SumaÅ¾inta jo versijÄ… "
+"galite matyti apaÄioje."
 
 #: lib/Message.php:442
 msgid "An unknown error occured while creating the new note."
-msgstr "Pridedant naujà uşrağà ávyko neşinoma klaida."
+msgstr "Pridedant naujÄ… uÅ¾raÅ¡Ä… Ä¯vyko neÅ¾inoma klaida."
 
 #: lib/Message.php:441
 msgid "An unknown error occured while creating the new task."
-msgstr "Pridedant naujà darbà ávyko neşinoma klaida."
+msgstr "Pridedant naujÄ… darbÄ… Ä¯vyko neÅ¾inoma klaida."
 
 #: lib/MIME/Viewer/itip.php:794
 msgid "An unknown person"
-msgstr "Neşinomas asmuo"
+msgstr "NeÅ¾inomas asmuo"
 
 #: mailbox.php:751 message.php:462 lib/Block/mailbox.php:296
 #: templates/mailbox/navbar.html:18 templates/mailbox/navbar.html:34
@@ -480,7 +480,7 @@ msgstr "Atsakyti"
 
 #: search.php:329
 msgid "Answered messages"
-msgstr "Atsakyti laiğkai"
+msgstr "Atsakyti laiÅ¡kai"
 
 #: mailbox.php:410
 msgid "Apply Filters"
@@ -493,28 +493,28 @@ msgstr "Panaudoti filtrus katalogui %s"
 
 #: filterprefs.php:107
 msgid "Apply filter rules upon logging on?"
-msgstr "Ar filtruoti laiğkus prisijungimo metu?"
+msgstr "Ar filtruoti laiÅ¡kus prisijungimo metu?"
 
 #: filterprefs.php:108
 msgid "Apply filter rules whenever Inbox is displayed?"
-msgstr "Ar filtruoti laiğkus kiekvienà kartà kai parodomas Inbox katalogas?"
+msgstr "Ar filtruoti laiÅ¡kus kiekvienÄ… kartÄ… kai parodomas Inbox katalogas?"
 
 #: filterprefs.php:109
 msgid "Apply filter rules whenever sidebar is refreshed?"
-msgstr "Ar filtruoti laiğkus kiekvienà kartà kai atnaujinamas ğoninis meniu?"
+msgstr "Ar filtruoti laiÅ¡kus kiekvienÄ… kartÄ… kai atnaujinamas Å¡oninis meniu?"
 
 #: mailbox.php:419
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
-msgstr "Ar tikrai norite iğtrinti ğá virtualø katalogà?"
+msgstr "Ar tikrai norite iÅ¡trinti Å¡Ä¯ virtualÅ³ katalogÄ…?"
 
 #: smime.php:314 pgp.php:406
 msgid "Are you sure you want to delete this public key?"
-msgstr "Ar tikrai norite iğtrinti ğá vieğàjá raktà?"
+msgstr "Ar tikrai norite iÅ¡trinti Å¡Ä¯ vieÅ¡Ä…jÄ¯ raktÄ…?"
 
 #: smime.php:340 pgp.php:436
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
-msgstr "Ar tikrai norite iğtrinti savo raktø porà? (NEREKOMENDUOJAMA!)"
+msgstr "Ar tikrai norite iÅ¡trinti savo raktÅ³ porÄ…? (NEREKOMENDUOJAMA!)"
 
 #: templates/javascript_defs.php:34
 msgid "Are you sure you want to do this?"
@@ -522,39 +522,39 @@ msgstr "Ar tikrai norite tai padaryti?"
 
 #: message.php:667
 msgid "Are you sure you wish to PERMANENTLY all attachments?"
-msgstr "Ar tikrai norite IĞTRINTI visus prikabintus failus?"
+msgstr "Ar tikrai norite IÅ TRINTI visus prikabintus failus?"
 
 #: message.php:537 templates/javascript_defs.php:46
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "Ar tikrai norite IĞTRINTI ğiuos laiğkus?"
+msgstr "Ar tikrai norite IÅ TRINTI Å¡iuos laiÅ¡kus?"
 
 #: lib/MIME/Contents.php:261
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
-msgstr "Ar tikrai norite IĞTRINTI prikabintà failà?"
+msgstr "Ar tikrai norite IÅ TRINTI prikabintÄ… failÄ…?"
 
 #: mailbox.php:415
 msgid "Are you sure you wish to delete all mail in this folder?"
-msgstr "Ar tikrai norite iğtrinti visus laiğkus ğiame kataloge?"
+msgstr "Ar tikrai norite iÅ¡trinti visus laiÅ¡kus Å¡iame kataloge?"
 
 #: lib/IMP.php:809
 msgid "Are you sure you wish to empty your spam folder?"
-msgstr "Ar tikrai norite iğvalyti nepageidaujamø laiğkø katalogà?"
+msgstr "Ar tikrai norite iÅ¡valyti nepageidaujamÅ³ laiÅ¡kÅ³ katalogÄ…?"
 
 #: lib/IMP.php:801
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "Ar tikrai norite iğvalyti ğiukğliadëşæ?"
+msgstr "Ar tikrai norite iÅ¡valyti Å¡iukÅ¡liadÄ—Å¾Ä™?"
 
 #: mailbox.php:499
 msgid "Are you sure you wish to permanently delete these messages?"
-msgstr "Ar tikrai norite iğtrinti ğiuos laiğkus?"
+msgstr "Ar tikrai norite iÅ¡trinti Å¡iuos laiÅ¡kus?"
 
 #: templates/javascript_defs.php:80
 msgid "Are you sure you wish to report this message as innocent?"
-msgstr "Ar tikrai norite paskelbti ğá laiğkà kaip ne nepageidaujamà?"
+msgstr "Ar tikrai norite paskelbti Å¡Ä¯ laiÅ¡kÄ… kaip ne nepageidaujamÄ…?"
 
 #: templates/javascript_defs.php:79
 msgid "Are you sure you wish to report this message as spam?"
-msgstr "Ar tikrai norite paskelbti ğá laiğkà kaip nepageidaujamà?"
+msgstr "Ar tikrai norite paskelbti Å¡Ä¯ laiÅ¡kÄ… kaip nepageidaujamÄ…?"
 
 #: config/prefs.php.dist:1082
 msgid "Arrival Time"
@@ -562,7 +562,7 @@ msgstr "Gauta"
 
 #: config/prefs.php.dist:1097
 msgid "Ascending"
-msgstr "Didëjimo tvarka"
+msgstr "DidÄ—jimo tvarka"
 
 #: config/prefs.php.dist:708
 msgid "Ask"
@@ -574,7 +574,7 @@ msgstr "Prikabinti failus"
 
 #: compose.php:1074
 msgid "Attach a copy of your PGP public key to your message?"
-msgstr "Ar prikabinti jûsø vieğàjá PGP raktà prie laiğko?"
+msgstr "Ar prikabinti jÅ«sÅ³ vieÅ¡Ä…jÄ¯ PGP raktÄ… prie laiÅ¡ko?"
 
 #: lib/MIME/Viewer/tnef.php:110
 msgid "Attached File:"
@@ -584,11 +584,11 @@ msgstr "Prikabinta:"
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
-msgstr "Failas \"%s\" virğyjo leistinà dydá. Failas NEPRIKABINTAS."
+msgstr "Failas \"%s\" virÅ¡yjo leistinÄ… dydÄ¯. Failas NEPRIKABINTAS."
 
 #: lib/MIME/Viewer/itip.php:386
 msgid "Attached is a reply to a calendar request you sent."
-msgstr "Prikabintas failas yra atsakymas á jûsø iCalendar uşklausà."
+msgstr "Prikabintas failas yra atsakymas Ä¯ jÅ«sÅ³ iCalendar uÅ¾klausÄ…."
 
 #: templates/javascript_defs.php:41 templates/compose/compose.html:266
 #: templates/compose/compose.html:325
@@ -598,15 +598,15 @@ msgstr "Failas"
 #: attachment.php:72
 #, php-format
 msgid "Attachment %s deleted."
-msgstr "Prikabintas failas %s iğtrintas."
+msgstr "Prikabintas failas %s iÅ¡trintas."
 
 #: lib/Compose.php:2403
 msgid "Attachment Information"
-msgstr "Duomenys apie prikabintà failà"
+msgstr "Duomenys apie prikabintÄ… failÄ…"
 
 #: lib/Compose.php:766
 msgid "Attachment stripped: Original attachment type"
-msgstr "Prikabintas failas iğtrintas: failo tipas"
+msgstr "Prikabintas failas iÅ¡trintas: failo tipas"
 
 #: compose.php:1023 lib/Compose.php:2371 templates/compose/compose.html:242
 msgid "Attachments"
@@ -622,7 +622,7 @@ msgstr "Dalyviai"
 
 #: lib/MIME/Viewer/notification.php:52
 msgid "Attention"
-msgstr "Dëmesio"
+msgstr "DÄ—mesio"
 
 #: lib/Auth/imp.php:33
 msgid "Auth_imp: Required IMAP extension not found."
@@ -633,12 +633,12 @@ msgid ""
 "Automatically show images in HTML messages when the sender is in my address "
 "book?"
 msgstr ""
-"Automatiğkai rodyti paveikslëlius HTML laiğkuose, jeigu siuntëjas yra mano "
-"adresø knygelëje?"
+"AutomatiÅ¡kai rodyti paveikslÄ—lius HTML laiÅ¡kuose, jeigu siuntÄ—jas yra mano "
+"adresÅ³ knygelÄ—je?"
 
 #: templates/prefs/sourceselect.inc:293 templates/prefs/sourceselect.inc:295
 msgid "Available Address books:"
-msgstr "Galimos adresø knygelës:"
+msgstr "Galimos adresÅ³ knygelÄ—s:"
 
 #: lib/MIME/Viewer/itip.php:757 lib/MIME/Viewer/itip.php:885
 msgid "Awaiting Response"
@@ -647,35 +647,35 @@ msgstr "Laukiama atsakymo"
 #: thread.php:137 message.php:507
 #, php-format
 msgid "Bac_k to %s"
-msgstr "Gráş_ti á %s"
+msgstr "GrÄ¯Å¾_ti Ä¯ %s"
 
 #: thread.php:137 message.php:507
 #, php-format
 msgid "Back to %s"
-msgstr "Gráşti á %s"
+msgstr "GrÄ¯Å¾ti Ä¯ %s"
 
 #: thread.php:134
 msgid "Back to Multiple Message View Index"
-msgstr "Atgal á laiğkø rodyklæ"
+msgstr "Atgal Ä¯ laiÅ¡kÅ³ rodyklÄ™"
 
 #: thread.php:132
 msgid "Back to Thread Display"
-msgstr "Atgal á grupiø rodymà"
+msgstr "Atgal Ä¯ grupiÅ³ rodymÄ…"
 
 #: lib/IMAP/Client.php:478
 #, php-format
 msgid "Bad login name or password."
-msgstr "Blogas vartotojo vardas arba slaptaşodis."
+msgstr "Blogas vartotojo vardas arba slaptaÅ¾odis."
 
 #: lib/IMAP/Client.php:195
 #, php-format
 msgid "Bad or malformed request. Server Responded: %s"
-msgstr "Bloga arba neteisingai suformuluota uşklaisa. Serverio atsakymas: %s"
+msgstr "Bloga arba neteisingai suformuluota uÅ¾klaisa. Serverio atsakymas: %s"
 
 #: lib/IMAP/Client.php:482
 #, php-format
 msgid "Bad request: %s"
-msgstr "Bloga uşklausa: %s"
+msgstr "Bloga uÅ¾klausa: %s"
 
 #: lib/Search.php:666 lib/UI/Message.php:28 templates/login/recompose.html:32
 #: templates/contacts/contacts.html:43
@@ -684,15 +684,15 @@ msgstr "Bcc"
 
 #: config/prefs.php.dist:529
 msgid "Before Signature"
-msgstr "Prieğ parağà"
+msgstr "PrieÅ¡ paraÅ¡Ä…"
 
 #: lib/MIME/Viewer/status.php:160
 msgid "Below is the raw text of the status information message."
-msgstr "Detalus laiğko tekstas"
+msgstr "Detalus laiÅ¡ko tekstas"
 
 #: config/prefs.php.dist:855
 msgid "Below the message text"
-msgstr "Po laiğko tekstu"
+msgstr "Po laiÅ¡ko tekstu"
 
 #: mailbox.php:517 message.php:563
 msgid "Blacklist"
@@ -701,15 +701,15 @@ msgstr "Blokuoti"
 #: config/prefs.php.dist:754
 msgid "Block images in HTML messages unless they are specifically requested?"
 msgstr ""
-"Blokuoti paveikslëlius HTML laiğkuose, nebent buvo pareikalauta kitaip?"
+"Blokuoti paveikslÄ—lius HTML laiÅ¡kuose, nebent buvo pareikalauta kitaip?"
 
 #: lib/Search.php:674
 msgid "Body"
-msgstr "Laiğko turinys"
+msgstr "LaiÅ¡ko turinys"
 
 #: message.php:553 config/prefs.php.dist:603
 msgid "Body Text Only"
-msgstr "Tik tekstà"
+msgstr "Tik tekstÄ…"
 
 #: search.php:326 search.php:331 search.php:336 search.php:341
 msgid "Both"
@@ -717,22 +717,22 @@ msgstr "Abu"
 
 #: config/prefs.php.dist:820
 msgid "Both Header Listing and Body of Message"
-msgstr "Ir antrağtës ir laiğko tekstas"
+msgstr "Ir antraÅ¡tÄ—s ir laiÅ¡ko tekstas"
 
 #: config/prefs.php.dist:528
 msgid "Bottom"
-msgstr "Apaèioje"
+msgstr "ApaÄioje"
 
 #: lib/IMAP/Client.php:407
 msgid ""
 "CRAM-MD5 or DIGEST-MD5 requires PEAR's Auth_SASL package to be installed."
 msgstr ""
-"CRAM-MD5 arba DIGEST-MD5 autentifikacijos bûdui reikalingas Auth_SASL PEAR "
+"CRAM-MD5 arba DIGEST-MD5 autentifikacijos bÅ«dui reikalingas Auth_SASL PEAR "
 "modulis."
 
 #: compose.php:969
 msgid "C_harset"
-msgstr "K_oduotë"
+msgstr "K_oduotÄ—"
 
 #: search.php:312 config/hooks.php.dist:404
 msgid "Calendar"
@@ -740,69 +740,69 @@ msgstr "Kalendorius"
 
 #: lib/IMAP/Tree.php:2434
 msgid "Can not directly create mailbox in this folder."
-msgstr "Ğiame kataloge tiesiogiai negalima kurti katalogø."
+msgstr "Å iame kataloge tiesiogiai negalima kurti katalogÅ³."
 
 #: lib/Message.php:196
 msgid "Can not move messages to Trash - no Trash mailbox set in preferences."
 msgstr ""
-"Nepavyko perlekti laiğkø á ğiukğliadëşæ - nustatymuose nenustatytas "
-"ğiukğliadëşës katalogas."
+"Nepavyko perlekti laiÅ¡kÅ³ Ä¯ Å¡iukÅ¡liadÄ—Å¾Ä™ - nustatymuose nenustatytas "
+"Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas."
 
 #: templates/pgp/import_key.html:49 templates/pgp/passphrase.html:22
 #: templates/smime/import_key.html:70 templates/smime/passphrase.html:24
 #: templates/folders/import.html:17 templates/folders/folders_confirm.html:23
 #: templates/contacts/contacts.html:76 templates/saveimage/saveimage.html:20
 msgid "Cancel"
-msgstr "Atğaukti"
+msgstr "AtÅ¡aukti"
 
 #: templates/compose/compose.html:21 templates/compose/compose.html:208
 #: templates/compose/redirect.html:83
 msgid "Cancel Message"
-msgstr "Atsisakyti laiğko"
+msgstr "Atsisakyti laiÅ¡ko"
 
 #: templates/javascript_defs.php:34
 msgid "Cancelling this message will permanently discard its contents."
-msgstr "Atsisakydami laiğko jûs prarasite visà jo turiná."
+msgstr "Atsisakydami laiÅ¡ko jÅ«s prarasite visÄ… jo turinÄ¯."
 
 #: lib/prefs.php:151
 msgid ""
 "Cannot activate both a Trash folder and Virtual Trash. A Trash folder will "
 "be used."
 msgstr ""
-"Tuo paèiu metu negalima ájungti ğiukğliadëşës ir virtualios ğiukğliadëşës "
-"katalogø. Bus naudojamas paprastas ğiukğliadëşës katalogas."
+"Tuo paÄiu metu negalima Ä¯jungti Å¡iukÅ¡liadÄ—Å¾Ä—s ir virtualios Å¡iukÅ¡liadÄ—Å¾Ä—s "
+"katalogÅ³. Bus naudojamas paprastas Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas."
 
 #: lib/prefs.php:154
 msgid ""
 "Cannot activate both a Trash folder and Virtual Trash. A Virtual Trash "
 "folder will be used."
 msgstr ""
-"Tuo paèiu metu negalima ájungti ğiukğliadëşës ir virtualios ğiukğliadëşës "
-"katalogø. Bus naudojamas virtualios ğiukğliadëşës katalogas."
+"Tuo paÄiu metu negalima Ä¯jungti Å¡iukÅ¡liadÄ—Å¾Ä—s ir virtualios Å¡iukÅ¡liadÄ—Å¾Ä—s "
+"katalogÅ³. Bus naudojamas virtualios Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas."
 
 #: lib/Fetchmail/imap.php:151
 msgid "Cannot connect to the remote mail server."
-msgstr "Nepavyko prisijungti prie nutolusio pağto serverio."
+msgstr "Nepavyko prisijungti prie nutolusio paÅ¡to serverio."
 
 #: lib/Fetchmail/imap.php:149
 msgid "Cannot connect to the remote mail server: "
-msgstr "Nepavyko prisijungti prie nutolusio pağto serverio: "
+msgstr "Nepavyko prisijungti prie nutolusio paÅ¡to serverio: "
 
 #: lib/prefs.php:165
 msgid "Cannot delete to trash unless a Trash folder is defined."
 msgstr ""
-"Iğtrinti á ğiukğliadëşæ nepavyks kol nebus nurodytas ğiukğliadëşës katalogas."
+"IÅ¡trinti Ä¯ Å¡iukÅ¡liadÄ—Å¾Ä™ nepavyks kol nebus nurodytas Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas."
 
 #: lib/MIME/Viewer/partial.php:47
 #, php-format
 msgid ""
 "Cannot display - found only %s of %s parts of this message in the current "
 "mailbox."
-msgstr "Ğio laiğko parodyti negalima - ğiame kataloge rasta %s dalis iğ %s."
+msgstr "Å io laiÅ¡ko parodyti negalima - Å¡iame kataloge rasta %s dalis iÅ¡ %s."
 
 #: pgp.php:271
 msgid "Cannot retrieve public key from cache."
-msgstr "Iğ keğo nepavyko gauti vieğojo rakto."
+msgstr "IÅ¡ keÅ¡o nepavyko gauti vieÅ¡ojo rakto."
 
 #: lib/Search.php:662 lib/UI/Message.php:27 templates/login/recompose.html:23
 #: templates/contacts/contacts.html:42
@@ -814,7 +814,7 @@ msgid ""
 "Certificate import is not available. File upload is not enabled on this "
 "server."
 msgstr ""
-"Sertifikatø ákelti negalima. Failø ákëlimas ğiame serveryje yra iğjungtas."
+"SertifikatÅ³ Ä¯kelti negalima. FailÅ³ Ä¯kÄ—limas Å¡iame serveryje yra iÅ¡jungtas."
 
 #: lib/MIME/Viewer/itip.php:739 lib/MIME/Viewer/itip.php:867
 msgid "Chair Person"
@@ -822,27 +822,27 @@ msgstr "Vadovas"
 
 #: acl.php:173 acl.php:174 templates/acl/acl.html:13
 msgid "Change Folder"
-msgstr "Pakeisti katalogà"
+msgstr "Pakeisti katalogÄ…"
 
 #: config/prefs.php.dist:120
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"Vaizdavimo, tokiø kaip, kiek laiğkø rodyti viename lange ir kaip laiğkai "
-"turi bûti surûğiuoti, nustatymai."
+"Vaizdavimo, tokiÅ³ kaip, kiek laiÅ¡kÅ³ rodyti viename lange ir kaip laiÅ¡kai "
+"turi bÅ«ti surÅ«Å¡iuoti, nustatymai."
 
 #: config/prefs.php.dist:24
 msgid "Change mail server and folder settings."
-msgstr "Pağto serverio ir katalogø nustatymai."
+msgstr "PaÅ¡to serverio ir katalogÅ³ nustatymai."
 
 #: config/prefs.php.dist:15
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Vardo, adreso ir parağo, kuriuos matys şmonës, skaitantys ir atsakinëjantys "
-"á Jûsø laiğkus nustatymai."
+"Vardo, adreso ir paraÅ¡o, kuriuos matys Å¾monÄ—s, skaitantys ir atsakinÄ—jantys "
+"Ä¯ JÅ«sÅ³ laiÅ¡kus nustatymai."
 
 #: config/prefs.php.dist:990
 msgid "Characters to display:"
@@ -850,23 +850,23 @@ msgstr "Rodyti:"
 
 #: templates/mailbox/message_headers.html:12
 msgid "Check All/None"
-msgstr "Paşymëti visus/nieko"
+msgstr "PaÅ¾ymÄ—ti visus/nieko"
 
 #: lib/UI/Compose.php:135
 msgid "Check Spelling"
-msgstr "Patikrinti rağybà"
+msgstr "Patikrinti raÅ¡ybÄ…"
 
 #: folders.php:356 mailbox.php:647 lib/Block/mailbox.php:218
 msgid "Check _All/None"
-msgstr "Pa_şymëti visus/nieko"
+msgstr "Pa_Å¾ymÄ—ti visus/nieko"
 
 #: templates/folders/actions.html:27
 msgid "Check for New Mail"
-msgstr "Tikrinti ar yra naujø laiğkø"
+msgstr "Tikrinti ar yra naujÅ³ laiÅ¡kÅ³"
 
 #: config/prefs.php.dist:569
 msgid "Check spelling before sending a message?"
-msgstr "Tikrinti klaidas prieğ iğsiunèiant laiğkà?"
+msgstr "Tikrinti klaidas prieÅ¡ iÅ¡siunÄiant laiÅ¡kÄ…?"
 
 #: lib/UI/Compose.php:136
 msgid "Checking ..."
@@ -874,88 +874,88 @@ msgstr "Tikrinama ..."
 
 #: templates/folders/actions.html:11
 msgid "Choose Action"
-msgstr "Pasirinkite veiksmà"
+msgstr "Pasirinkite veiksmÄ…"
 
 #: config/servers.php.dist:212
 msgid "Choose a mail server:"
-msgstr "Pasirinkite pağto serverá:"
+msgstr "Pasirinkite paÅ¡to serverÄ¯:"
 
 #: templates/compose/compose.html:65
 msgid "Choose a match or edit the address to the right:"
-msgstr "Pasirinkite arba redaguokite adresà değinëje:"
+msgstr "Pasirinkite arba redaguokite adresÄ… deÅ¡inÄ—je:"
 
 #: templates/prefs/sourceselect.inc:343
 msgid "Choose the address book to use when adding addresses."
-msgstr "Pasirinkite adresø knygelæ, kurià naudosite pridëdami adresus."
+msgstr "Pasirinkite adresÅ³ knygelÄ™, kuriÄ… naudosite pridÄ—dami adresus."
 
 #: templates/prefs/sourceselect.inc:289
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Pasirinkite adresø knygeliø tvarkà, naudojamà adresø patikrinimui."
+msgstr "Pasirinkite adresÅ³ knygeliÅ³ tvarkÄ…, naudojamÄ… adresÅ³ patikrinimui."
 
 #: lib/MIME/Viewer/images.php:103
 #, php-format
 msgid "Click %s to convert the image file into a format your browser can view."
 msgstr ""
-"Norëdami pakeisti paveikslëlá á formatà, kurá supranta jûsø narğyklë, "
+"NorÄ—dami pakeisti paveikslÄ—lÄ¯ Ä¯ formatÄ…, kurÄ¯ supranta jÅ«sÅ³ narÅ¡yklÄ—, "
 "spauskite %s."
 
 #: lib/MIME/Contents.php:425
 #, php-format
 msgid "Click %s to download the data."
-msgstr "Norëdami atsiøsti duomenis, spauskite %s."
+msgstr "NorÄ—dami atsiÅ³sti duomenis, spauskite %s."
 
 #: lib/MIME/Viewer/images.php:92
 #, php-format
 msgid "Click %s to download the image."
-msgstr "Norëdami atsiøsti paveikslëlá, spauskite %s."
+msgstr "NorÄ—dami atsiÅ³sti paveikslÄ—lÄ¯, spauskite %s."
 
 #: lib/Filter.php:131
 #, php-format
 msgid "Click %s to go to %s management page."
-msgstr "Spauskite %s, norëdami patekti á %s valdymo puslapá."
+msgstr "Spauskite %s, norÄ—dami patekti Ä¯ %s valdymo puslapÄ¯."
 
 #: lib/MIME/Viewer/pkcs7.php:477
 #, php-format
 msgid "Click %s to view the attachment in a separate window."
-msgstr "Norëdami pamatyti prikabintà failà atskirame lange, spauskite %s."
+msgstr "NorÄ—dami pamatyti prikabintÄ… failÄ… atskirame lange, spauskite %s."
 
 #: lib/MIME/Viewer/related.php:85
 #, php-format
 msgid "Click %s to view this multipart/related part in a separate window."
-msgstr "Norëdami pamatyti susijusias dalis atskirame lange, spauskite %s."
+msgstr "NorÄ—dami pamatyti susijusias dalis atskirame lange, spauskite %s."
 
 #: lib/MIME/Viewer/pgp.php:245 lib/MIME/Viewer/pgp.php:270
 #: lib/MIME/Viewer/pkcs7.php:217
 msgid "Click HERE to verify the message."
-msgstr "Norëdami patikrinti laiğkà, spauskite ÈIA."
+msgstr "NorÄ—dami patikrinti laiÅ¡kÄ…, spauskite ÄŒIA."
 
 #: templates/prefs/sourceselect.inc:319
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Pele paşymëkite vienà iğ Jûsø adresø knygeliø, o po to pasirinkite laukus "
-"paieğkai."
+"Pele paÅ¾ymÄ—kite vienÄ… iÅ¡ JÅ«sÅ³ adresÅ³ knygeliÅ³, o po to pasirinkite laukus "
+"paieÅ¡kai."
 
 #: config/prefs.php.dist:1123
 msgid "Clicking on the address will compose a new message to the sender"
-msgstr "Paspaudæ ant adreso, sukursite naujà laiğkà adresatui"
+msgstr "PaspaudÄ™ ant adreso, sukursite naujÄ… laiÅ¡kÄ… adresatui"
 
 #: config/prefs.php.dist:1124
 msgid "Clicking on the address will open the message to be read"
-msgstr "Paspaudæ ant adreso, atidarysite laiğkà skaitymui"
+msgstr "PaspaudÄ™ ant adreso, atidarysite laiÅ¡kÄ… skaitymui"
 
 #: templates/newmsg/alert.html:17 templates/fetchmail/fetchmail.html:33
 msgid "Close"
-msgstr "Uşdaryti"
+msgstr "UÅ¾daryti"
 
 #: compose.php:34
 msgid "Close this window"
-msgstr "Uşdaryti ğá langà"
+msgstr "UÅ¾daryti Å¡Ä¯ langÄ…"
 
 #: lib/IMAP/Tree.php:2377
 msgid "Closed Folder"
-msgstr "Uşdarytas katalogas"
+msgstr "UÅ¾darytas katalogas"
 
 #: folders.php:437
 msgid "Collapse"
@@ -963,7 +963,7 @@ msgstr "Suskleisti"
 
 #: folders.php:372
 msgid "Collapse All"
-msgstr "Suskleisti viskà"
+msgstr "Suskleisti viskÄ…"
 
 #: folders.php:372
 msgid "Collapse All Folders"
@@ -971,7 +971,7 @@ msgstr "Suskleisti visus katalogus"
 
 #: folders.php:437
 msgid "Collapse Folder"
-msgstr "Suskleisti katalogà"
+msgstr "Suskleisti katalogÄ…"
 
 #: templates/fetchmail/fetchmailprefs.html:94
 msgid "Color Indicator:"
@@ -991,25 +991,25 @@ msgstr "Atlikta"
 
 #: compose.php:33
 msgid "Compose another message"
-msgstr "Rağyti dar vienà laiğkà"
+msgstr "RaÅ¡yti dar vienÄ… laiÅ¡kÄ…"
 
 #: config/prefs.php.dist:490
 msgid "Compose messages in a separate window?"
-msgstr "Rağyti laiğkus atskirame lange?"
+msgstr "RaÅ¡yti laiÅ¡kus atskirame lange?"
 
 #: config/prefs.php.dist:500
 msgid ""
 "Compose messages with an HTML GUI by default (if browser supports the "
 "feature)?"
-msgstr "Rağyti laiğkus HTML formatu (jeigu narğyklë palaiko ğià funkcijà)?"
+msgstr "RaÅ¡yti laiÅ¡kus HTML formatu (jeigu narÅ¡yklÄ— palaiko Å¡iÄ… funkcijÄ…)?"
 
 #: config/prefs.php.dist:73
 msgid "Configure how messages are displayed."
-msgstr "Laiğkø rodymo nustatymai."
+msgstr "LaiÅ¡kÅ³ rodymo nustatymai."
 
 #: config/prefs.php.dist:105
 msgid "Configure mail preview options."
-msgstr "Iğankstinës laiğkø perşiûros nustatymai."
+msgstr "IÅ¡ankstinÄ—s laiÅ¡kÅ³ perÅ¾iÅ«ros nustatymai."
 
 #: config/hooks.php.dist:428
 msgid "Contacts"
@@ -1027,17 +1027,17 @@ msgstr "%s S/MIME palaikymo valdymas."
 
 #: config/prefs.php.dist:129
 msgid "Control options relating to messages searching."
-msgstr "Paieğkos laiğkuose nustatymai."
+msgstr "PaieÅ¡kos laiÅ¡kuose nustatymai."
 
 #: config/prefs.php.dist:97
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
-msgstr "Naujo pağto tikrinimo ir praneğimø apie tai nustatymai."
+msgstr "Naujo paÅ¡to tikrinimo ir praneÅ¡imÅ³ apie tai nustatymai."
 
 #: config/prefs.php.dist:810
 msgid "Convert textual emoticons into graphical ones?"
-msgstr "Konvertuoti tekstines ğypsenëles á grafines?"
+msgstr "Konvertuoti tekstines Å¡ypsenÄ—les Ä¯ grafines?"
 
 #: mailbox.php:477 mailbox.php:869 message.php:503 message.php:690
 msgid "Copy"
@@ -1045,47 +1045,47 @@ msgstr "Kopijuoti"
 
 #: mailbox.php:477 mailbox.php:869 message.php:503 message.php:690
 msgid "Copy to folder"
-msgstr "Kopijuoti á katalogà"
+msgstr "Kopijuoti Ä¯ katalogÄ…"
 
 #: lib/Compose.php:1861
 #, php-format
 msgid "Could not attach %s to the message."
-msgstr "%s prikabinti prie laiğko nepavyko."
+msgstr "%s prikabinti prie laiÅ¡ko nepavyko."
 
 #: lib/IMAP/Client.php:189
 #, php-format
 msgid "Could not complete request. Reason Given: %s"
-msgstr "Nepavyko pabaigti uşklausos. Prieşastis: %s"
+msgstr "Nepavyko pabaigti uÅ¾klausos. PrieÅ¾astis: %s"
 
 #: attachment.php:50
 #, php-format
 msgid "Could not create the VFS backend: %s"
-msgstr "Nepavyko sukurti VFS posistemës: %s"
+msgstr "Nepavyko sukurti VFS posistemÄ—s: %s"
 
 #: lib/Message.php:784
 #, php-format
 msgid "Could not delete messages from %s. The server said: %s"
-msgstr "Nepavyko iğtrinti laiğkø iğ %s. Serverio klaida: %s"
+msgstr "Nepavyko iÅ¡trinti laiÅ¡kÅ³ iÅ¡ %s. Serverio klaida: %s"
 
 #: lib/Session.php:324
 msgid "Could not execute maintenance operations."
-msgstr "Nepavyko atlikti profilaktikos veiksmø."
+msgstr "Nepavyko atlikti profilaktikos veiksmÅ³."
 
 #: lib/MIME/Viewer/tnef.php:53
 msgid "Could not extract the requested file from the MS-TNEF attachment."
-msgstr "Nepavyko iğarchyvuoti nurodyto failo iğ MS-TNEF formato."
+msgstr "Nepavyko iÅ¡archyvuoti nurodyto failo iÅ¡ MS-TNEF formato."
 
 #: lib/MIME/Viewer/zip.php:56
 msgid "Could not extract the requested file from the Zip archive."
-msgstr "Nepavyko iğarchyvuoti Zip archyvo."
+msgstr "Nepavyko iÅ¡archyvuoti Zip archyvo."
 
 #: lib/Spam.php:231
 msgid ""
 "Could not move message to spam mailbox - no spam mailbox defined in "
 "preferences."
 msgstr ""
-"Nepavyko perlekti laiğko á nepageidaujamø laiğkø katalogà - nustatymuose "
-"nenustatytas nepageidaujamø laiğkø katalogas."
+"Nepavyko perlekti laiÅ¡ko Ä¯ nepageidaujamÅ³ laiÅ¡kÅ³ katalogÄ… - nustatymuose "
+"nenustatytas nepageidaujamÅ³ laiÅ¡kÅ³ katalogas."
 
 #: lib/IMAP/Client.php:318
 msgid "Could not open secure connection to the IMAP server."
@@ -1093,21 +1093,21 @@ msgstr "Nepavyko saugiai prisijungti prie IMAP serverio."
 
 #: lib/Session.php:279
 msgid "Could not retrieve namespace information from IMAP server."
-msgstr "Iğ IMAP serverio nepavyko gauti duomenø apie katalogus."
+msgstr "IÅ¡ IMAP serverio nepavyko gauti duomenÅ³ apie katalogus."
 
 #: compose.php:51
 msgid "Could not retrieve the message from the mail server."
-msgstr "Nepavyko gauti laiğko iğ pağto serverio."
+msgstr "Nepavyko gauti laiÅ¡ko iÅ¡ paÅ¡to serverio."
 
 #: lib/Compose.php:1023
 #, php-format
 msgid "Could not save recipients: %s"
-msgstr "Nepavyko iğsaugoti adresatø: %s"
+msgstr "Nepavyko iÅ¡saugoti adresatÅ³: %s"
 
 #: lib/Template.php:230
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "Nepavyko iğsaugoti sukompiliuoto ğablono failo '%s'."
+msgstr "Nepavyko iÅ¡saugoti sukompiliuoto Å¡ablono failo '%s'."
 
 #: templates/fetchmail/fetchmailprefs.html:121
 #: templates/folders/actions.html:14
@@ -1116,7 +1116,7 @@ msgstr "Sukurti"
 
 #: lib/IMAP/ACL/rfc2086.php:55
 msgid "Create Folder"
-msgstr "Sukurti katalogà"
+msgstr "Sukurti katalogÄ…"
 
 #: lib/IMAP/ACL/rfc4314.php:55
 msgid "Create Folders"
@@ -1128,43 +1128,43 @@ msgstr "Sukurti raktus"
 
 #: templates/fetchmail/fetchmailprefs.html:28
 msgid "Create a New Account"
-msgstr "Sukurti naujà sàskaità"
+msgstr "Sukurti naujÄ… sÄ…skaitÄ…"
 
 #: templates/prefs/spamselect.inc:11 templates/prefs/spamselect.inc:20
 msgid "Create a new Spam folder"
-msgstr "Sukurti naujà nepageidaujamø laiğkø katalogà"
+msgstr "Sukurti naujÄ… nepageidaujamÅ³ laiÅ¡kÅ³ katalogÄ…"
 
 #: templates/prefs/folderselect.inc:11 templates/prefs/folderselect.inc:22
 msgid "Create a new drafts folder"
-msgstr "Sukurti naujà paruoğiniø katalogà"
+msgstr "Sukurti naujÄ… paruoÅ¡iniÅ³ katalogÄ…"
 
 #: templates/prefs/sentmailselect.inc:25 templates/prefs/sentmailselect.inc:40
 msgid "Create a new sent mail folder"
-msgstr "Sukurti naujà siøstø laiğkø katalogà"
+msgstr "Sukurti naujÄ… siÅ³stÅ³ laiÅ¡kÅ³ katalogÄ…"
 
 #: templates/prefs/trashselect.inc:11 templates/prefs/trashselect.inc:20
 msgid "Create a new trash folder"
-msgstr "Sukurti naujà ğiukğliadëşæ"
+msgstr "Sukurti naujÄ… Å¡iukÅ¡liadÄ—Å¾Ä™"
 
 #: templates/fetchmail/fetchmail.html:23
 msgid "Create an account"
-msgstr "Sukurti sàskaità"
+msgstr "Sukurti sÄ…skaitÄ…"
 
 #: config/prefs.php.dist:136
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"Filtravimo taisykliø sukurimas, ateinanèio pağto tvarkymas, iğrûğiuojant já "
-"á katalogus ir iğtrinant nepageidaujamus."
+"Filtravimo taisykliÅ³ sukurimas, ateinanÄio paÅ¡to tvarkymas, iÅ¡rÅ«Å¡iuojant jÄ¯ "
+"Ä¯ katalogus ir iÅ¡trinant nepageidaujamus."
 
 #: templates/stationery/stationery.html:14
 msgid "Create new stationery"
-msgstr "Sukurti naujà laiğko ğablonà"
+msgstr "Sukurti naujÄ… laiÅ¡ko Å¡ablonÄ…"
 
 #: config/prefs.php.dist:555
 msgid "Create stationery and form responses."
-msgstr "Sukurti laiğko ğablonà ir suformuoti atsakymus."
+msgstr "Sukurti laiÅ¡ko Å¡ablonÄ… ir suformuoti atsakymus."
 
 #: templates/compose/compose.html:307
 msgid "Current Attachments"
@@ -1173,24 +1173,24 @@ msgstr "Jau prikabinti failai"
 #: acl.php:176
 #, php-format
 msgid "Current access to %s"
-msgstr "Dabartinës teisës á %s"
+msgstr "DabartinÄ—s teisÄ—s Ä¯ %s"
 
 #: config/prefs.php.dist:1174
 msgid "Current expanded status in the folders view"
-msgstr "Atsiminti esamà katalogø iğskleidimà"
+msgstr "Atsiminti esamÄ… katalogÅ³ iÅ¡skleidimÄ…"
 
 #: config/prefs.php.dist:113
 msgid "Customize accounts for fetching mail from other accounts."
-msgstr "Laiğkø paëmimo iğ kitø pağto dëşuèiø nustatymai."
+msgstr "LaiÅ¡kÅ³ paÄ—mimo iÅ¡ kitÅ³ paÅ¡to dÄ—Å¾uÄiÅ³ nustatymai."
 
 #: config/prefs.php.dist:55
 msgid "Customize how you send mail."
-msgstr "Siunèiamø laiğkø nustatymai."
+msgstr "SiunÄiamÅ³ laiÅ¡kÅ³ nustatymai."
 
 #: config/prefs.php.dist:41
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Veiksmø, atliekamø prisijungus prie %s, nustatymai."
+msgstr "VeiksmÅ³, atliekamÅ³ prisijungus prie %s, nustatymai."
 
 #: mailbox.php:573 lib/Block/mailbox.php:147
 msgid "Dat_e"
@@ -1230,23 +1230,23 @@ msgstr "Atmestas: "
 
 #: config/prefs.php.dist:674
 msgid "Default"
-msgstr "Standartinë reikğmë"
+msgstr "StandartinÄ— reikÅ¡mÄ—"
 
 #: config/prefs.php.dist:843
 msgid "Default (US-ASCII)"
-msgstr "Standartinë (US-ACSII)"
+msgstr "StandartinÄ— (US-ACSII)"
 
 #: config/prefs.php.dist:605
 msgid "Default forwarding method:"
-msgstr "Standartinis persiuntimo bûdas:"
+msgstr "Standartinis persiuntimo bÅ«das:"
 
 #: config/prefs.php.dist:1089
 msgid "Default sorting criteria:"
-msgstr "Rûğiuoti pagal:"
+msgstr "RÅ«Å¡iuoti pagal:"
 
 #: config/prefs.php.dist:1099
 msgid "Default sorting direction:"
-msgstr "Rûğiavimo kryptis:"
+msgstr "RÅ«Å¡iavimo kryptis:"
 
 #: lib/MIME/Viewer/itip.php:929
 msgid "Delegated"
@@ -1257,103 +1257,103 @@ msgstr "Atstovaujamas"
 #: templates/smime/smime.html:31 templates/fetchmail/fetchmailprefs.html:122
 #: templates/folders/actions.html:17 templates/contacts/contacts.html:66
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: smime.php:314 pgp.php:406
 #, php-format
 msgid "Delete %s Public Key"
-msgstr "Iğtrinti %s vieğàjá raktà"
+msgstr "IÅ¡trinti %s vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: templates/pgp/pgp.html:89 templates/smime/smime.html:79
 msgid "Delete Current Keys"
-msgstr "Iğtrinti dabartinius raktus"
+msgstr "IÅ¡trinti dabartinius raktus"
 
 #: lib/IMAP/ACL/rfc4314.php:56
 msgid "Delete Folders"
-msgstr "Iğtrinti katalogus"
+msgstr "IÅ¡trinti katalogus"
 
 #: templates/folders/folders_confirm.html:22
 msgid "Delete Selected Folders"
-msgstr "Iğtrinti pasirinktus katalogus"
+msgstr "IÅ¡trinti pasirinktus katalogus"
 
 #: templates/stationery/stationery.html:44
 msgid "Delete Stationery"
-msgstr "Iğtrinti laiğko ğablonà"
+msgstr "IÅ¡trinti laiÅ¡ko Å¡ablonÄ…"
 
 #: folders.php:402
 msgid "Delete Virtual Folder"
-msgstr "Iğtrinti virtualø katalogà"
+msgstr "IÅ¡trinti virtualÅ³ katalogÄ…"
 
 #: mailbox.php:419
 #, php-format
 msgid "Delete Virtual Folder Definition for %s"
-msgstr "Iğtrinti %s virtualaus katalogo aprağymà"
+msgstr "IÅ¡trinti %s virtualaus katalogo apraÅ¡ymÄ…"
 
 #: templates/fetchmail/fetchmailprefs.html:86
 msgid "Delete fetched messages from remote server?"
-msgstr "Iğtrinti paimtus laiğkus iğ nutolusio serverio?"
+msgstr "IÅ¡trinti paimtus laiÅ¡kus iÅ¡ nutolusio serverio?"
 
 #: lib/MIME/Viewer/itip.php:668
 msgid "Delete from my calendar"
-msgstr "Iğtrinti iğ mano kalendoriaus"
+msgstr "IÅ¡trinti iÅ¡ mano kalendoriaus"
 
 #: config/prefs.php.dist:396
 msgid "Delete old linked attachments at beginning of month?"
-msgstr "Iğtrinti senus susijusius prikabintus failus mënesio pradşioje?"
+msgstr "IÅ¡trinti senus susijusius prikabintus failus mÄ—nesio pradÅ¾ioje?"
 
 #: config/prefs.php.dist:350
 msgid "Delete old sent-mail folders at beginning of month?"
-msgstr "Iğtrinti senus siøstø laiğkø katalogus mënesio pradşioje?"
+msgstr "IÅ¡trinti senus siÅ³stÅ³ laiÅ¡kÅ³ katalogus mÄ—nesio pradÅ¾ioje?"
 
 #: config/prefs.php.dist:742
 msgid "Delete spam messages"
-msgstr "Iğtrinti nepageidaujamus laiğkus"
+msgstr "IÅ¡trinti nepageidaujamus laiÅ¡kus"
 
 #: lib/IMAP/ACL/rfc2086.php:56
 msgid "Delete/purge"
-msgstr "Iğtrinti/iğvalyti"
+msgstr "IÅ¡trinti/iÅ¡valyti"
 
 #: templates/compose/compose.html:335
 msgid "Delete?"
-msgstr "Iğtrinti?"
+msgstr "IÅ¡trinti?"
 
 #: mailbox.php:774 message.php:465 lib/Block/mailbox.php:319
 #: templates/mailbox/navbar.html:20 templates/mailbox/navbar.html:37
 msgid "Deleted"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: search.php:339
 msgid "Deleted messages"
-msgstr "Iğtrinti laiğkai"
+msgstr "IÅ¡trinti laiÅ¡kai"
 
 #: compose.php:214
 #, php-format
 msgid "Deleted the attachment \"%s\"."
-msgstr "Failas \"%s\" iğtrintas."
+msgstr "Failas \"%s\" iÅ¡trintas."
 
 #: config/prefs.php.dist:87
 msgid "Deleting and Moving Messages"
-msgstr "Laiğkø trynimas ir perkëlimas"
+msgstr "LaiÅ¡kÅ³ trynimas ir perkÄ—limas"
 
 #: lib/MIME/Viewer/itip.php:632
 msgid "Deny request"
-msgstr "Uşdrausti uşklausà"
+msgstr "UÅ¾drausti uÅ¾klausÄ…"
 
 #: lib/MIME/Viewer/itip.php:556
 msgid "Deny request for free/busy information"
-msgstr "Uşdrausti uşklausà dël uşimtumo informacijos"
+msgstr "UÅ¾drausti uÅ¾klausÄ… dÄ—l uÅ¾imtumo informacijos"
 
 #: config/prefs.php.dist:1098
 msgid "Descending"
-msgstr "Maşëjimo tvarka"
+msgstr "MaÅ¾Ä—jimo tvarka"
 
 #: lib/MIME/Viewer/itip.php:715 lib/MIME/Viewer/itip.php:842
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: templates/compose/compose.html:331
 msgid "Description:"
-msgstr "Aprağymas:"
+msgstr "ApraÅ¡ymas:"
 
 #: templates/pgp/pgp.html:38 templates/pgp/pgp.html:75
 #: templates/pgp/pgp.html:80 templates/smime/smime.html:31
@@ -1364,20 +1364,20 @@ msgstr "Smulkiau"
 #: lib/Compose.php:2671
 #, php-format
 msgid "Did not attach \"%s\" as it was only partially uploaded."
-msgstr "Prikabinti \"%s\" nepavyko, kadangi jis buvo tik dalinai ákeltas."
+msgstr "Prikabinti \"%s\" nepavyko, kadangi jis buvo tik dalinai Ä¯keltas."
 
 #: lib/Compose.php:2680
 #, php-format
 msgid "Did not attach \"%s\" as the file was empty."
-msgstr "Prikabinti \"%s\" nepavyko, kadangi jis buvo tuğèias."
+msgstr "Prikabinti \"%s\" nepavyko, kadangi jis buvo tuÅ¡Äias."
 
 #: lib/Compose.php:2667
 #, php-format
 msgid ""
 "Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
 msgstr ""
-"Prikabinti \"%s\" nepavyko, kadangi jis virğyjo maksimalø ákeliamo failo "
-"dydá."
+"Prikabinti \"%s\" nepavyko, kadangi jis virÅ¡yjo maksimalÅ³ Ä¯keliamo failo "
+"dydÄ¯."
 
 #: lib/Compose.php:2675
 #, php-format
@@ -1385,12 +1385,12 @@ msgid ""
 "Did not attach \"%s\" as the server configuration did not allow the file to "
 "be uploaded."
 msgstr ""
-"Prikabinti \"%s\" nepavyko, kadangi tokio failo neleidşia ákelti serverio "
+"Prikabinti \"%s\" nepavyko, kadangi tokio failo neleidÅ¾ia Ä¯kelti serverio "
 "nustatymai."
 
 #: config/prefs.php.dist:802
 msgid "Dim signatures?"
-msgstr "Blukinti parağus?"
+msgstr "Blukinti paraÅ¡us?"
 
 #: templates/contacts/contacts.html:58
 msgid "Display"
@@ -1398,31 +1398,31 @@ msgstr "Rodyti"
 
 #: config/prefs.php.dist:255
 msgid "Display Virtual Inbox?"
-msgstr "Rodyti virtualø Inbox katalogà?"
+msgstr "Rodyti virtualÅ³ Inbox katalogÄ…?"
 
 #: config/prefs.php.dist:577
 msgid "Display confirmation after sending a message?"
-msgstr "Rodyti siøsto laiğko patvirtinimà?"
+msgstr "Rodyti siÅ³sto laiÅ¡ko patvirtinimÄ…?"
 
 #: config/prefs.php.dist:819
 msgid "Display in Body of Message"
-msgstr "Rodyti laiğko tekste"
+msgstr "Rodyti laiÅ¡ko tekste"
 
 #: config/prefs.php.dist:954
 msgid "Display pop-up notification of new mail?"
-msgstr "Rodyti iğğokantá praneğimà apie gautà naujà laiğkà?"
+msgstr "Rodyti iÅ¡Å¡okantÄ¯ praneÅ¡imÄ… apie gautÄ… naujÄ… laiÅ¡kÄ…?"
 
 #: config/prefs.php.dist:919
 msgid "Display the \"Empty Spam\" link in the menubar?"
-msgstr "Rodyti \"Iğvalyti nepageidaujamus laiğkus\" mygtukà meniu juostoje?"
+msgstr "Rodyti \"IÅ¡valyti nepageidaujamus laiÅ¡kus\" mygtukÄ… meniu juostoje?"
 
 #: config/prefs.php.dist:911
 msgid "Display the \"Empty Trash\" link in the menubar?"
-msgstr "Rodyti \"Iğvalyti ğiukğliadëşæ\" mygtukà meniu juostoje?"
+msgstr "Rodyti \"IÅ¡valyti Å¡iukÅ¡liadÄ—Å¾Ä™\" mygtukÄ… meniu juostoje?"
 
 #: templates/compose/compose.html:322
 msgid "Disposition:"
-msgstr "Iğsidëstymas:"
+msgstr "IÅ¡sidÄ—stymas:"
 
 #: templates/search/search.html:82
 msgid "Do NOT match"
@@ -1430,7 +1430,7 @@ msgstr "NEATITINKA"
 
 #: templates/folders/actions.html:28
 msgid "Do Not Check for New Mail"
-msgstr "Netikrinti naujø laiğkø"
+msgstr "Netikrinti naujÅ³ laiÅ¡kÅ³"
 
 #: config/prefs.php.dist:1125
 msgid "Do not generate a link in the From: column"
@@ -1438,46 +1438,46 @@ msgstr "Negeneruoti nuorodos laukelyje Nuo:"
 
 #: templates/javascript_defs.php:35
 msgid "Doing so will discard this message permanently."
-msgstr "Atsisakydami laiğko jûs prarasite visà jo turiná."
+msgstr "Atsisakydami laiÅ¡ko jÅ«s prarasite visÄ… jo turinÄ¯."
 
 #: login.php:405
 msgid "Don't have an account? Sign up."
-msgstr "Neturite vartotojo vardo? Uşsiregistruokite."
+msgstr "Neturite vartotojo vardo? UÅ¾siregistruokite."
 
 #: templates/folders/actions.html:32
 msgid "Download"
-msgstr "Atsisiøsti"
+msgstr "AtsisiÅ³sti"
 
 #: lib/MIME/Contents.php:239
 #, php-format
 msgid "Download %s in .zip Format"
-msgstr "Atsisiøsti %s .zip formatu"
+msgstr "AtsisiÅ³sti %s .zip formatu"
 
 #: message.php:662
 msgid "Download All Attachments (in .zip file)"
-msgstr "Atsisiøsti visus prikabintus failus (.zip formatu)"
+msgstr "AtsisiÅ³sti visus prikabintus failus (.zip formatu)"
 
 #: templates/folders/actions.html:33
 msgid "Download [.zip format]"
-msgstr "Atsisiøsti [.zip formatu]"
+msgstr "AtsisiÅ³sti [.zip formatu]"
 
 #: lib/MIME/Contents.php:239
 msgid "Download in .zip Format"
-msgstr "Atsisiøsti .zip formatu"
+msgstr "AtsisiÅ³sti .zip formatu"
 
 #: mailbox.php:756 message.php:463 lib/Block/mailbox.php:301
 #: templates/mailbox/navbar.html:22 templates/mailbox/navbar.html:40
 #: templates/message/navbar_navigate.html:14
 msgid "Draft"
-msgstr "Paruoğiniai"
+msgstr "ParuoÅ¡iniai"
 
 #: lib/IMAP/Tree.php:2332
 msgid "Draft folder"
-msgstr "Paruoğiniø katalogas"
+msgstr "ParuoÅ¡iniÅ³ katalogas"
 
 #: templates/prefs/folderselect.inc:19
 msgid "Drafts folder:"
-msgstr "Paruoğiniø katalogas:"
+msgstr "ParuoÅ¡iniÅ³ katalogas:"
 
 #: login.php:282
 msgid "Dynamic"
@@ -1485,7 +1485,7 @@ msgstr "Dinaminis"
 
 #: templates/pgp/pgp.html:105
 msgid "E-mail Address:"
-msgstr "El. pağto adresas:"
+msgstr "El. paÅ¡to adresas:"
 
 #: mailbox.php:808 lib/Block/mailbox.php:353
 msgid "END"
@@ -1493,7 +1493,7 @@ msgstr "PABAIGA"
 
 #: lib/MIME/Viewer/status.php:73
 msgid "ERROR: Your message could not be delivered."
-msgstr "KLAIDA: Jûsø laiğkas nepasiekë adresato."
+msgstr "KLAIDA: JÅ«sÅ³ laiÅ¡kas nepasiekÄ— adresato."
 
 #: folders.php:403 templates/stationery/stationery.html:19
 msgid "Edit"
@@ -1501,20 +1501,20 @@ msgstr "Redaguoti"
 
 #: mailbox.php:422
 msgid "Edit Search Query"
-msgstr "Redaguoti paieğkos uşklausà"
+msgstr "Redaguoti paieÅ¡kos uÅ¾klausÄ…"
 
 #: folders.php:403 templates/search/search.html:17
 msgid "Edit Virtual Folder"
-msgstr "Redaguoti virtualø katalogà"
+msgstr "Redaguoti virtualÅ³ katalogÄ…"
 
 #: mailbox.php:418
 #, php-format
 msgid "Edit Virtual Folder Definition for %s"
-msgstr "Redaguoti %s virtualaus katalogo aprağymà"
+msgstr "Redaguoti %s virtualaus katalogo apraÅ¡ymÄ…"
 
 #: filterprefs.php:90
 msgid "Edit your Blacklist"
-msgstr "Redaguoti juodàjá sàrağà"
+msgstr "Redaguoti juodÄ…jÄ¯ sÄ…raÅ¡Ä…"
 
 #: filterprefs.php:89
 msgid "Edit your Filter Rules"
@@ -1522,56 +1522,56 @@ msgstr "Redaguoti filtravimo taisykles"
 
 #: filterprefs.php:91
 msgid "Edit your Whitelist"
-msgstr "Redaguoti baltàjá sàrağà"
+msgstr "Redaguoti baltÄ…jÄ¯ sÄ…raÅ¡Ä…"
 
 #: config/prefs.php.dist:1027
 msgid "Edit your preferences for accessing other mail accounts."
-msgstr "Redaguoti kitø el. pağto dëşuèiø nustatymus."
+msgstr "Redaguoti kitÅ³ el. paÅ¡to dÄ—Å¾uÄiÅ³ nustatymus."
 
 #: templates/contacts/contacts.html:61
 msgid "Email Address"
-msgstr "El. pağto adresas"
+msgstr "El. paÅ¡to adresas"
 
 #: lib/Message.php:801
 #, php-format
 msgid "Emptied all messages from %s."
-msgstr "Katalogas %s iğvalytas."
+msgstr "Katalogas %s iÅ¡valytas."
 
 #: lib/Message.php:777
 msgid "Emptied all messages from Virtual Trash Folder."
-msgstr "Virtualus ğiukğliadëşës katalogas iğvalytas."
+msgstr "Virtualus Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas iÅ¡valytas."
 
 #: templates/folders/actions.html:18
 msgid "Empty"
-msgstr "Iğvalyti"
+msgstr "IÅ¡valyti"
 
 #: templates/folders/folders_confirm.html:22
 msgid "Empty Selected Folders"
-msgstr "Iğvalyti pasirinktus katalogus"
+msgstr "IÅ¡valyti pasirinktus katalogus"
 
 #: lib/IMP.php:809
 msgid "Empty _Spam"
-msgstr "Iğvalyti nepageidaujamus laiğkus"
+msgstr "IÅ¡valyti nepageidaujamus laiÅ¡kus"
 
 #: lib/IMP.php:801
 msgid "Empty _Trash"
-msgstr "Iğ_valyti ğiukğliadëşæ"
+msgstr "IÅ¡_valyti Å¡iukÅ¡liadÄ—Å¾Ä™"
 
 #: mailbox.php:415
 msgid "Empty folder"
-msgstr "Iğvalyti katalogà"
+msgstr "IÅ¡valyti katalogÄ…"
 
 #: pgp.php:457 templates/pgp/pgp.html:2
 msgid "Enable PGP functionality?"
-msgstr "Ájungti PGP galimybes?"
+msgstr "Ä®jungti PGP galimybes?"
 
 #: smime.php:350 templates/smime/smime.html:2
 msgid "Enable S/MIME functionality?"
-msgstr "Ájungti S/MIME galimybes?"
+msgstr "Ä®jungti S/MIME galimybes?"
 
 #: config/prefs.php.dist:978
 msgid "Enable message previews?"
-msgstr "Ájungti laiğkø iğankstiná perşiûrëjimà?"
+msgstr "Ä®jungti laiÅ¡kÅ³ iÅ¡ankstinÄ¯ perÅ¾iÅ«rÄ—jimÄ…?"
 
 #: compose.php:1068
 msgid "Encr_yption Options"
@@ -1584,45 +1584,45 @@ msgstr "Pabaiga"
 
 #: lib/Compose.php:1580
 msgid "End forwarded message"
-msgstr "Persiøsto laiğko pabaiga"
+msgstr "PersiÅ³sto laiÅ¡ko pabaiga"
 
 #: lib/Compose.php:1470
 msgid "End message"
-msgstr "Laiğko pabaiga"
+msgstr "LaiÅ¡ko pabaiga"
 
 #: lib/Compose.php:1468
 #, php-format
 msgid "End message from %s"
-msgstr "Laiğko nuo %s pabaiga"
+msgstr "LaiÅ¡ko nuo %s pabaiga"
 
 #: smime.php:338 pgp.php:432
 msgid "Enter Passphrase"
-msgstr "Áveskite slaptàjà frazæ"
+msgstr "Ä®veskite slaptÄ…jÄ… frazÄ™"
 
 #: templates/prefs/spamselect.inc:8
 msgid "Enter the name for your new Spam folder"
-msgstr "Áveskite naujo nepageidaujamø laiğkø katalogo pavadinimà"
+msgstr "Ä®veskite naujo nepageidaujamÅ³ laiÅ¡kÅ³ katalogo pavadinimÄ…"
 
 #: templates/prefs/folderselect.inc:8
 msgid "Enter the name for your new drafts folder"
-msgstr "Áveskite naujo paruoğiniø katalogo pavadinimà"
+msgstr "Ä®veskite naujo paruoÅ¡iniÅ³ katalogo pavadinimÄ…"
 
 #: templates/prefs/sentmailselect.inc:22
 msgid "Enter the name for your new sent mail folder"
-msgstr "Áveskite naujo siøstø laiğkø katalogo pavadinimà"
+msgstr "Ä®veskite naujo siÅ³stÅ³ laiÅ¡kÅ³ katalogo pavadinimÄ…"
 
 #: templates/prefs/trashselect.inc:8
 msgid "Enter the name for your new trash folder"
-msgstr "Áveskite naujos ğiukğliadëşës pavadinimà"
+msgstr "Ä®veskite naujos Å¡iukÅ¡liadÄ—Å¾Ä—s pavadinimÄ…"
 
 #: message.php:552 lib/Search.php:678 config/prefs.php.dist:602
 msgid "Entire Message"
-msgstr "Visà laiğkà"
+msgstr "VisÄ… laiÅ¡kÄ…"
 
 #: thread.php:71 message.php:168 lib/Compose.php:1064
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
-msgstr "Árağas \"%s\" sëkmingai árağytas á adresø knygelæ"
+msgstr "Ä®raÅ¡as \"%s\" sÄ—kmingai Ä¯raÅ¡ytas Ä¯ adresÅ³ knygelÄ™"
 
 #: lib/MIME/Viewer/status.php:71 lib/MIME/Viewer/status.php:162
 #: lib/MIME/Viewer/pgp.php:435 lib/MIME/Viewer/pkcs7.php:434
@@ -1636,12 +1636,12 @@ msgstr "Klaida jungiantis prie IMAP serverio: [%s] %s."
 
 #: lib/MIME/Contents.php:142
 msgid "Error displaying message."
-msgstr "Klaida rodant laiğkà."
+msgstr "Klaida rodant laiÅ¡kÄ…."
 
 #: lib/MIME/Viewer/itip.php:314 lib/MIME/Viewer/itip.php:418
 #, php-format
 msgid "Error sending reply: %s."
-msgstr "Klaida siunèiant atsakymà: %s."
+msgstr "Klaida siunÄiant atsakymÄ…: %s."
 
 #: templates/pgp/pgp.html:32 templates/smime/smime.html:25
 msgid "Error:"
@@ -1649,15 +1649,15 @@ msgstr "Klaida:"
 
 #: lib/MIME/Viewer/itip.php:104
 msgid "Event successfully deleted."
-msgstr "Ávykis sëkmingai iğtrintas."
+msgstr "Ä®vykis sÄ—kmingai iÅ¡trintas."
 
 #: config/prefs.php.dist:943
 msgid "Every 15 minutes"
-msgstr "Kas 15 minuèiø"
+msgstr "Kas 15 minuÄiÅ³"
 
 #: config/prefs.php.dist:940
 msgid "Every 30 seconds"
-msgstr "Kas 30 sekundşiø"
+msgstr "Kas 30 sekundÅ¾iÅ³"
 
 #: config/prefs.php.dist:656 config/prefs.php.dist:942
 msgid "Every 5 minutes"
@@ -1665,74 +1665,74 @@ msgstr "Kas 5 minutes"
 
 #: config/prefs.php.dist:944
 msgid "Every half hour"
-msgstr "Kas 30 minuèiø"
+msgstr "Kas 30 minuÄiÅ³"
 
 #: config/prefs.php.dist:941
 msgid "Every minute"
-msgstr "Kas minutæ"
+msgstr "Kas minutÄ™"
 
 #: folders.php:448
 msgid "Expand"
-msgstr "Iğskleisti"
+msgstr "IÅ¡skleisti"
 
 #: folders.php:371
 msgid "Expand All"
-msgstr "Iğskleisti viskà"
+msgstr "IÅ¡skleisti viskÄ…"
 
 #: folders.php:371
 msgid "Expand All Folders"
-msgstr "Iğskleisti visus katalogus"
+msgstr "IÅ¡skleisti visus katalogus"
 
 #: folders.php:448
 msgid "Expand Folder"
-msgstr "Iğskleisti katalogà"
+msgstr "IÅ¡skleisti katalogÄ…"
 
 #: compose.php:777 compose.php:1013
 msgid "Expand Names"
-msgstr "Adresø iğskleidimas"
+msgstr "AdresÅ³ iÅ¡skleidimas"
 
 #: config/prefs.php.dist:1153
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "Katalogø sàrağe rodyti iğskleistà katalogø medá?"
+msgstr "KatalogÅ³ sÄ…raÅ¡e rodyti iÅ¡skleistÄ… katalogÅ³ medÄ¯?"
 
 #: config/prefs.php.dist:1175
 msgid "Expand the entire folder tree by default in the sidebar?"
-msgstr "Ğoniniame meniu rodyti iğskleistà katalogø medá?"
+msgstr "Å oniniame meniu rodyti iÅ¡skleistÄ… katalogÅ³ medÄ¯?"
 
 #: lib/IMP.php:820 lib/IMP.php:822
 msgid "F_etch Mail"
-msgstr "Paimti laiğkus"
+msgstr "Paimti laiÅ¡kus"
 
 #: fetchmail.php:50 config/prefs.php.dist:112
 #: templates/fetchmail/fetchmail.html:6 templates/fetchmail/fetchmail.html:30
 msgid "Fetch Mail"
-msgstr "Paimti laiğkus"
+msgstr "Paimti laiÅ¡kus"
 
 #: config/prefs.php.dist:1035
 msgid "Fetch Mail in a separate window?"
-msgstr "Paimti laiğkus atskirame lange?"
+msgstr "Paimti laiÅ¡kus atskirame lange?"
 
 #: templates/fetchmail/fetchmailprefs.html:89
 msgid "Fetch messages upon logging on?"
-msgstr "Paimti laiğkus prisijungimo metu?"
+msgstr "Paimti laiÅ¡kus prisijungimo metu?"
 
 #: lib/Fetchmail.php:285
 #, php-format
 msgid "Fetched %d messages from %s"
-msgstr "Paimti %d laiğkai iğ %s."
+msgstr "Paimti %d laiÅ¡kai iÅ¡ %s."
 
 #: lib/Fetchmail.php:283
 #, php-format
 msgid "Fetched 1 message from %s"
-msgstr "Paimtas 1 laiğkas iğ %s."
+msgstr "Paimtas 1 laiÅ¡kas iÅ¡ %s."
 
 #: lib/Fetchmail.php:281 lib/Fetchmail.php:283 lib/Fetchmail.php:285
 msgid "Fetchmail: "
-msgstr "Paimti laiğkai: "
+msgstr "Paimti laiÅ¡kai: "
 
 #: lib/Fetchmail.php:287
 msgid "Fetchmail: no new messages."
-msgstr "Paimti laiğkai: nëra."
+msgstr "Paimti laiÅ¡kai: nÄ—ra."
 
 #: lib/IMP.php:826
 msgid "Fi_lters"
@@ -1740,7 +1740,7 @@ msgstr "_Filtrai"
 
 #: templates/prefs/sourceselect.inc:329
 msgid "Fields to search"
-msgstr "Paieğkos laukai"
+msgstr "PaieÅ¡kos laukai"
 
 #: templates/javascript_defs.php:40 templates/compose/compose.html:261
 msgid "File"
@@ -1748,19 +1748,19 @@ msgstr "Failas"
 
 #: templates/filters/prefs.html:48
 msgid "Filter Options"
-msgstr "Filtrø parametrai"
+msgstr "FiltrÅ³ parametrai"
 
 #: templates/filters/prefs.html:36
 msgid "Filter Settings"
-msgstr "Filtrø nustatymai"
+msgstr "FiltrÅ³ nustatymai"
 
 #: config/prefs.php.dist:725
 msgid "Filter message content for profanity?"
-msgstr "Filtruoti neğvankius laiğkus?"
+msgstr "Filtruoti neÅ¡vankius laiÅ¡kus?"
 
 #: templates/filters/prefs.html:11
 msgid "Filter support is disabled on this system."
-msgstr "Filtrai ğioje sistemoje iğjungti."
+msgstr "Filtrai Å¡ioje sistemoje iÅ¡jungti."
 
 #: config/prefs.php.dist:135
 msgid "Filters"
@@ -1768,7 +1768,7 @@ msgstr "Filtrai"
 
 #: templates/filters/prefs.html:3
 msgid "Filters NOT Active"
-msgstr "Filtrai NEAKTYVÛS"
+msgstr "Filtrai NEAKTYVÅªS"
 
 #: lib/Filter.php:130
 #, php-format
@@ -1777,11 +1777,11 @@ msgstr "Filtrai: %s valdymo puslapis"
 
 #: templates/contacts/contacts.html:13
 msgid "Find:"
-msgstr "Ieğkoti:"
+msgstr "IeÅ¡koti:"
 
 #: config/prefs.php.dist:1071
 msgid "First Mailbox Page"
-msgstr "Pirmasis pağto dëşutës puslapis"
+msgstr "Pirmasis paÅ¡to dÄ—Å¾utÄ—s puslapis"
 
 #: mailbox.php:269
 msgid "First Page"
@@ -1790,15 +1790,15 @@ msgstr "Pirmas puslapis"
 #: mailbox.php:769 message.php:464 templates/mailbox/navbar.html:32
 #: templates/message/navbar_navigate.html:10
 msgid "Flagged For Followup"
-msgstr "Paşymëta priminimui"
+msgstr "PaÅ¾ymÄ—ta priminimui"
 
 #: search.php:334
 msgid "Flagged messages"
-msgstr "Paşimëti laiğkai"
+msgstr "PaÅ¾imÄ—ti laiÅ¡kai"
 
 #: mailbox.php:524 message.php:551
 msgid "Fo_rward"
-msgstr "_Persiøsti"
+msgstr "_PersiÅ³sti"
 
 #: lib/IMAP/Tree.php:2377 lib/Block/mailbox.php:455
 #: templates/folders/folders_size.html:5
@@ -1812,7 +1812,7 @@ msgstr "Veiksmai su katalogai - patvirtinimas"
 #: folders.php:311 templates/prefs/initialpageselect.inc:11
 #: templates/folders/head.html:2
 msgid "Folder Navigator"
-msgstr "Katalogø narğyklë"
+msgstr "KatalogÅ³ narÅ¡yklÄ—"
 
 #: folders.php:273 templates/folders/folders_size.html:1
 msgid "Folder Sizes"
@@ -1824,40 +1824,40 @@ msgstr "Trumpas turinys"
 
 #: acl.php:25
 msgid "Folder sharing is not enabled."
-msgstr "Katalogø dalijimasis iğjungtas."
+msgstr "KatalogÅ³ dalijimasis iÅ¡jungtas."
 
 #: folders.php:47
 msgid "Folder use is not enabled."
-msgstr "Katalogai iğjungti."
+msgstr "Katalogai iÅ¡jungti."
 
 #: config/prefs.php.dist:1142
 msgid "Format of message dates in the mailbox view for messages dated today"
-msgstr "Ğiandien gautø laiğkø datos formatas"
+msgstr "Å iandien gautÅ³ laiÅ¡kÅ³ datos formatas"
 
 #: mailbox.php:524 message.php:551 lib/Compose.php:1563
 msgid "Forward"
-msgstr "Persiøsti"
+msgstr "PersiÅ³sti"
 
 #: lib/Compose.php:1549
 msgid "Forward:"
-msgstr "Persiøsti:"
+msgstr "PersiÅ³sti:"
 
 #: lib/Compose.php:1663
 msgid "Forwarded Message:"
-msgstr "Persiøstas laiğkas:"
+msgstr "PersiÅ³stas laiÅ¡kas:"
 
 #: lib/Compose.php:1576
 msgid "Forwarded message"
-msgstr "Persiøstas laiğkas"
+msgstr "PersiÅ³stas laiÅ¡kas"
 
 #: lib/Compose.php:1574
 #, php-format
 msgid "Forwarded message from %s"
-msgstr "Persiøstas laiğkas nuo %s"
+msgstr "PersiÅ³stas laiÅ¡kas nuo %s"
 
 #: lib/MIME/Viewer/itip.php:412
 msgid "Free/Busy Request Response"
-msgstr "Atsakymas uşimtumo informacijos uşklausai"
+msgstr "Atsakymas uÅ¾imtumo informacijos uÅ¾klausai"
 
 #: mailbox.php:583 lib/Block/mailbox.php:157
 msgid "Fro_m"
@@ -1883,7 +1883,7 @@ msgstr "Pagrindiniai nustatymai"
 
 #: templates/fetchmail/fetchmailprefs.html:80
 msgid "Get only new messages? (IMAP only)"
-msgstr "Paimti tik naujus laiğkus? (tik IMAP)"
+msgstr "Paimti tik naujus laiÅ¡kus? (tik IMAP)"
 
 #: folders.php:358 lib/MIME/Viewer/itip.php:568 lib/MIME/Viewer/itip.php:772
 #: lib/MIME/Viewer/itip.php:899
@@ -1892,16 +1892,16 @@ msgstr "Rodyti"
 
 #: thread.php:136
 msgid "Go to Message"
-msgstr "Rodytá laiğkà"
+msgstr "RodytÄ¯ laiÅ¡kÄ…"
 
 #: templates/newmsg/alert.html:11
 msgid "Go to Virtual Inbox"
-msgstr "Eiti á virtualø Inbox katalogà"
+msgstr "Eiti Ä¯ virtualÅ³ Inbox katalogÄ…"
 
 #: lib/IMP.php:353
 #, php-format
 msgid "Go to address book entry of \"%s\""
-msgstr "Eiti á \"%s\" adresø knygelës árağà"
+msgstr "Eiti Ä¯ \"%s\" adresÅ³ knygelÄ—s Ä¯raÅ¡Ä…"
 
 #: message.php:432 lib/Filter.php:130 lib/MIME/Contents.php:425
 #: lib/MIME/Viewer/appledouble.php:40 lib/MIME/Viewer/status.php:119
@@ -1910,7 +1910,7 @@ msgstr "Eiti á \"%s\" adresø knygelës árağà"
 #: lib/MIME/Viewer/notification.php:60 lib/MIME/Viewer/notification.php:66
 #: lib/MIME/Viewer/pkcs7.php:477 lib/MIME/Viewer/related.php:85
 msgid "HERE"
-msgstr "ÈIA"
+msgstr "ÄŒIA"
 
 #: lib/MIME/Viewer/related.php:86 templates/stationery/stationery.html:32
 msgid "HTML"
@@ -1918,39 +1918,39 @@ msgstr "HTML"
 
 #: lib/Compose.php:450
 msgid "HTML Version of Message"
-msgstr "Laiğko HTML versija"
+msgstr "LaiÅ¡ko HTML versija"
 
 #: message.php:601
 msgid "Headers"
-msgstr "Antrağtës"
+msgstr "AntraÅ¡tÄ—s"
 
 #: templates/login/recompose.html:7
 msgid "Here is the message you were composing:"
-msgstr "Laiğkas kurá rağëte iğsaugotas èia:"
+msgstr "LaiÅ¡kas kurÄ¯ raÅ¡Ä—te iÅ¡saugotas Äia:"
 
 #: config/prefs.php.dist:793
 msgid "Hidden"
-msgstr "Paslëpti"
+msgstr "PaslÄ—pti"
 
 #: config/prefs.php.dist:792
 msgid "Hidden in Thread View"
-msgstr "Paslëpti vaizduojant gijà (thread)"
+msgstr "PaslÄ—pti vaizduojant gijÄ… (thread)"
 
 #: templates/javascript_defs.php:29
 msgid "Hide Addresses"
-msgstr "Paslëpti adresus"
+msgstr "PaslÄ—pti adresus"
 
 #: lib/Block/mailbox.php:459
 msgid "Hide Columns"
-msgstr "Paslëpti stulpelius"
+msgstr "PaslÄ—pti stulpelius"
 
 #: mailbox.php:250
 msgid "Hide Deleted"
-msgstr "Paslëpti iğtrintus"
+msgstr "PaslÄ—pti iÅ¡trintus"
 
 #: folders.php:364
 msgid "Hide Unsubscribed"
-msgstr "Paslëpti atsisakytus"
+msgstr "PaslÄ—pti atsisakytus"
 
 #: compose.php:985
 msgid "High"
@@ -1966,15 +1966,15 @@ msgstr "Labai svarbu"
 
 #: config/prefs.php.dist:821
 msgid "How do you want to display attachments?"
-msgstr "Kaip norite perşiûrëti prikabintus failus?"
+msgstr "Kaip norite perÅ¾iÅ«rÄ—ti prikabintus failus?"
 
 #: config/prefs.php.dist:1163
 msgid "How should namespaces be displayed in the folder tree view?"
-msgstr "Kaip rodyti katalogus katalogø medyje?"
+msgstr "Kaip rodyti katalogus katalogÅ³ medyje?"
 
 #: config/prefs.php.dist:630
 msgid "How to attribute quoted lines in a reply"
-msgstr "Kaip paşymëti cituojamà tekstà atsakyme"
+msgstr "Kaip paÅ¾ymÄ—ti cituojamÄ… tekstÄ… atsakyme"
 
 #: lib/IMAP.php:305
 msgid "IMAP"
@@ -1982,12 +1982,12 @@ msgstr "IMAP"
 
 #: lib/Fetchmail/imap.php:97
 msgid "IMAP (Auto Detect Protocols)"
-msgstr "IMAP (Automatinis protokolo atpaşinimas)"
+msgstr "IMAP (Automatinis protokolo atpaÅ¾inimas)"
 
 #: lib/IMAP/Client.php:200
 #, php-format
 msgid "IMAP Server closed the connection. Server Responded: %s"
-msgstr "IMAP serveris atsijungë. Serverio atsakymas: %s"
+msgstr "IMAP serveris atsijungÄ—. Serverio atsakymas: %s"
 
 #: lib/IMAP.php:317
 msgid "IMAP over SSL"
@@ -2003,100 +2003,100 @@ msgstr "IMAP, be TLS"
 
 #: lib/Fetchmail/imap.php:47
 msgid "IMAP/POP3 Mail Servers"
-msgstr "IMAP/POP3 pağto serveriai"
+msgstr "IMAP/POP3 paÅ¡to serveriai"
 
 #: lib/IMAP/Client.php:283
 msgid "If using SSL or TLS, you must have the PHP openssl extension loaded."
-msgstr "Jeigu naudojate SSL arba TLS, turite uşkrauti PHP openssl modulá."
+msgstr "Jeigu naudojate SSL arba TLS, turite uÅ¾krauti PHP openssl modulÄ¯."
 
 #: templates/folders/folders_confirm.html:12
 msgid "If you continue, all messages in the folder(s) will be lost!"
-msgstr "Jeigu tæsite, visi laiğkai kataloge(uose) bus iğtrinti!"
+msgstr "Jeigu tÄ™site, visi laiÅ¡kai kataloge(uose) bus iÅ¡trinti!"
 
 #: saveimage.php:48
 msgid "Image"
-msgstr "Paveikslëlis"
+msgstr "PaveikslÄ—lis"
 
 #: lib/MIME/Viewer/html.php:156
 msgid "Images have been blocked to protect your privacy."
-msgstr "Norint iğsaugoti jûsø privatumà paveikslëlis buvo uşblokuotas."
+msgstr "Norint iÅ¡saugoti jÅ«sÅ³ privatumÄ… paveikslÄ—lis buvo uÅ¾blokuotas."
 
 #: templates/folders/import.html:16
 msgid "Import"
-msgstr "Ákelti"
+msgstr "Ä®kelti"
 
 #: templates/pgp/import_key.html:48 templates/smime/import_key.html:69
 msgid "Import Key"
-msgstr "Ákelti raktà"
+msgstr "Ä®kelti raktÄ…"
 
 #: templates/pgp/pgp.html:137 templates/smime/smime.html:85
 msgid "Import Keypair"
-msgstr "Ákelti raktø porà"
+msgstr "Ä®kelti raktÅ³ porÄ…"
 
 #: templates/folders/actions.html:35
 msgid "Import Messages"
-msgstr "Ákelti laiğkus"
+msgstr "Ä®kelti laiÅ¡kus"
 
 #: pgp.php:50
 msgid "Import PGP Key"
-msgstr "Ákelti PGP raktà"
+msgstr "Ä®kelti PGP raktÄ…"
 
 #: templates/pgp/import_key.html:11
 msgid "Import Personal Private PGP Key"
-msgstr "Ákelti asmeniná slaptàjá PGP raktà"
+msgstr "Ä®kelti asmeninÄ¯ slaptÄ…jÄ¯ PGP raktÄ…"
 
 #: templates/pgp/import_key.html:18
 msgid "Import Personal Private PGP Key Here:"
-msgstr "Èia ákelkite asmeniná slaptàjá PGP raktà:"
+msgstr "ÄŒia Ä¯kelkite asmeninÄ¯ slaptÄ…jÄ¯ PGP raktÄ…:"
 
 #: templates/pgp/import_key.html:11
 msgid "Import Personal Public PGP Key"
-msgstr "Ákelti asmeniná vieğàjá PGP raktà"
+msgstr "Ä®kelti asmeninÄ¯ vieÅ¡Ä…jÄ¯ PGP raktÄ…"
 
 #: templates/pgp/import_key.html:18
 msgid "Import Personal Public PGP Key Here:"
-msgstr "Èia ákelkite asmeniná vieğàjá PGP raktà:"
+msgstr "ÄŒia Ä¯kelkite asmeninÄ¯ vieÅ¡Ä…jÄ¯ PGP raktÄ…:"
 
 #: templates/smime/import_key.html:11
 msgid "Import Personal S/MIME Certificates"
-msgstr "Ákelti asmeniná S/MIME sertifikatà"
+msgstr "Ä®kelti asmeninÄ¯ S/MIME sertifikatÄ…"
 
 #: templates/pgp/pgp.html:54 templates/smime/smime.html:47
 msgid "Import Public Key"
-msgstr "Ákelti vieğàjá raktà"
+msgstr "Ä®kelti vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: templates/pgp/import_key.html:11
 msgid "Import Public PGP Key"
-msgstr "Ákelti vieğàjá PGP raktà"
+msgstr "Ä®kelti vieÅ¡Ä…jÄ¯ PGP raktÄ…"
 
 #: templates/pgp/import_key.html:18
 msgid "Import Public PGP Key Here:"
-msgstr "Èia ákelkite vieğàjá PGP raktà:"
+msgstr "ÄŒia Ä¯kelkite vieÅ¡Ä…jÄ¯ PGP raktÄ…:"
 
 #: templates/smime/import_key.html:11
 msgid "Import Public S/MIME Key"
-msgstr "Ákelti vieğàjá S/MIME raktà"
+msgstr "Ä®kelti vieÅ¡Ä…jÄ¯ S/MIME raktÄ…"
 
 #: smime.php:16
 msgid "Import S/MIME Key"
-msgstr "Ákelti S/MIME raktà"
+msgstr "Ä®kelti S/MIME raktÄ…"
 
 #: templates/folders/import.html:6
 msgid "Import mbox File"
-msgstr "mbox failo ákëlimas"
+msgstr "mbox failo Ä¯kÄ—limas"
 
 #: templates/folders/import.html:11
 msgid "Import mbox file"
-msgstr "Ákelkite mbox failà"
+msgstr "Ä®kelkite mbox failÄ…"
 
 #: lib/Block/mailbox.php:314 templates/mailbox/navbar.html:16
 msgid "Important"
-msgstr "Svarbûs"
+msgstr "SvarbÅ«s"
 
 #: folders.php:142
 #, php-format
 msgid "Imported %d messages from %s."
-msgstr "Ákelta %d laiğkø iğ %s."
+msgstr "Ä®kelta %d laiÅ¡kÅ³ iÅ¡ %s."
 
 #: lib/MIME/Viewer/itip.php:937
 msgid "In Process"
@@ -2109,15 +2109,15 @@ msgstr "Inbox"
 
 #: config/prefs.php.dist:618
 msgid "Include a brief summary of the header in a reply?"
-msgstr "Ar atsakant áterpti laiğko pagrindines antrağtes?"
+msgstr "Ar atsakant Ä¯terpti laiÅ¡ko pagrindines antraÅ¡tes?"
 
 #: config/prefs.php.dist:613
 msgid "Include body text in forward message by default?"
-msgstr "Standartiğkai átraukti laiğko tekstà á persiunèiamà laiğkà?"
+msgstr "StandartiÅ¡kai Ä¯traukti laiÅ¡ko tekstÄ… Ä¯ persiunÄiamÄ… laiÅ¡kÄ…?"
 
 #: config/prefs.php.dist:585
 msgid "Include original message in a reply?"
-msgstr "Ar atsakant áterpti laiğko tekstà?"
+msgstr "Ar atsakant Ä¯terpti laiÅ¡ko tekstÄ…?"
 
 #: lib/MIME/Viewer/status.php:131 lib/MIME/Viewer/notification.php:59
 msgid "Info"
@@ -2126,45 +2126,45 @@ msgstr "Informacija"
 #: smime.php:313 pgp.php:405
 #, php-format
 msgid "Information on %s Public Key"
-msgstr "Informacija apie %s vieğàjá raktà"
+msgstr "Informacija apie %s vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: pgp.php:434
 msgid "Information on Personal Private Key"
-msgstr "Informacija apie asmeniná slaptàjá raktà"
+msgstr "Informacija apie asmeninÄ¯ slaptÄ…jÄ¯ raktÄ…"
 
 #: smime.php:336 pgp.php:428
 msgid "Information on Personal Public Key"
-msgstr "Informacija apie asmeniná vieğàjá raktà"
+msgstr "Informacija apie asmeninÄ¯ vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: templates/javascript_defs.php:42 templates/compose/compose.html:267
 #: templates/compose/compose.html:326
 msgid "Inline"
-msgstr "Kaip tekstà"
+msgstr "Kaip tekstÄ…"
 
 #: lib/IMAP/ACL/rfc4314.php:53 lib/IMAP/ACL/rfc2086.php:53
 msgid "Insert"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
 
 #: templates/smime/import_key.html:19
 msgid "Insert Certificate Here:"
-msgstr "Èia áterpkite sertifikatà:"
+msgstr "ÄŒia Ä¯terpkite sertifikatÄ…:"
 
 #: lib/MIME/Viewer/itip.php:423
 msgid "Invalid Action selected for this component."
-msgstr "Pasirinktas neteisingas veiksmas ğiam komponentui."
+msgstr "Pasirinktas neteisingas veiksmas Å¡iam komponentui."
 
 #: lib/UI/Mailbox.php:61 lib/UI/Mailbox.php:111
 msgid "Invalid Address"
-msgstr "Neteisinga adresø knygelë."
+msgstr "Neteisinga adresÅ³ knygelÄ—."
 
 #: lib/Fetchmail/imap.php:225
 msgid "Invalid Remote Mailbox"
-msgstr "Neteisinga nutolusi pağto dëşutë"
+msgstr "Neteisinga nutolusi paÅ¡to dÄ—Å¾utÄ—"
 
 #: lib/Compose.php:1109 lib/Compose.php:1128
 #, php-format
 msgid "Invalid character in e-mail address: %s."
-msgstr "Neleistinas simbolis el. pağto adrese: %s."
+msgstr "Neleistinas simbolis el. paÅ¡to adrese: %s."
 
 #: lib/Compose.php:1124
 msgid "Invalid hostname."
@@ -2176,7 +2176,7 @@ msgstr "Neteisingas raktas"
 
 #: lib/Compose.php:282
 msgid "Invalid message, cannot resume draft."
-msgstr "Laiğkas sugadintas, pratæsti laiğko nepavyks."
+msgstr "LaiÅ¡kas sugadintas, pratÄ™sti laiÅ¡ko nepavyks."
 
 #: pgp.php:202
 msgid "Invalid personal PGP private key."
@@ -2184,7 +2184,7 @@ msgstr "Neteisingas asmeninis PGP slaptasis raktas."
 
 #: pgp.php:177
 msgid "Invalid personal PGP public key."
-msgstr "Neteisingas asmeninis PGP vieğasis raktas."
+msgstr "Neteisingas asmeninis PGP vieÅ¡asis raktas."
 
 #: templates/mailbox/navbar.html:12
 msgid "Invert"
@@ -2202,22 +2202,22 @@ msgstr "Rakto ilgis:"
 msgid ""
 "Key generation may take a long time to complete.  Continue with key "
 "generation?"
-msgstr "Rakto generavimas gali uştrukti. Ar tikrai norite tæsti?"
+msgstr "Rakto generavimas gali uÅ¾trukti. Ar tikrai norite tÄ™sti?"
 
 #: templates/pgp/pgp.html:49 templates/smime/smime.html:42
 msgid "Key import is not available. File upload is not enabled on this server."
-msgstr "Ákelti rakto negalima. Failø ákëlimas ğiame serveryje iğjungtas."
+msgstr "Ä®kelti rakto negalima. FailÅ³ Ä¯kÄ—limas Å¡iame serveryje iÅ¡jungtas."
 
 #: templates/pgp/pgp.html:52 templates/smime/smime.html:45
 msgid ""
 "Key import is not available. You have no address book defined to add your "
 "contacts."
 msgstr ""
-"Ákelti rakto negalima. Savo kontaktams nenurodëte jokios adresø knygelës."
+"Ä®kelti rakto negalima. Savo kontaktams nenurodÄ—te jokios adresÅ³ knygelÄ—s."
 
 #: pgp.php:344
 msgid "Key successfully sent to the public keyserver."
-msgstr "Raktas sëkmingai nusiøstas á vieğøjø raktø serverá."
+msgstr "Raktas sÄ—kmingai nusiÅ³stas Ä¯ vieÅ¡Å³jÅ³ raktÅ³ serverÄ¯."
 
 #: templates/login/login.html:116
 msgid "Language"
@@ -2225,7 +2225,7 @@ msgstr "Kalba"
 
 #: config/prefs.php.dist:1072
 msgid "Last Mailbox Page"
-msgstr "Paskutinis pağto dëşutës puslapis"
+msgstr "Paskutinis paÅ¡to dÄ—Å¾utÄ—s puslapis"
 
 #: mailbox.php:281
 msgid "Last Page"
@@ -2237,7 +2237,7 @@ msgstr "Susieti prikabintus _failus?"
 
 #: attachment.php:34 lib/Compose.php:2362
 msgid "Linked attachments are forbidden."
-msgstr "Susieti prikabinti failai draudşiami."
+msgstr "Susieti prikabinti failai draudÅ¾iami."
 
 #: lib/Compose.php:2378
 #, php-format
@@ -2246,19 +2246,19 @@ msgstr "Nuoroda nebebus prieinama %s."
 
 #: lib/IMAP/ACL/rfc4314.php:49 lib/IMAP/ACL/rfc2086.php:49
 msgid "List"
-msgstr "Matyti sàrağà"
+msgstr "Matyti sÄ…raÅ¡Ä…"
 
 #: config/prefs.php.dist:1261
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Rodyti visus adresus, adresø knygelëje? (jeigu iğjungsite, matysite tik "
-"adresus, kuriø ieğkojote)"
+"Rodyti visus adresus, adresÅ³ knygelÄ—je? (jeigu iÅ¡jungsite, matysite tik "
+"adresus, kuriÅ³ ieÅ¡kojote)"
 
 #: config/prefs.php.dist:818
 msgid "Listing in the Header"
-msgstr "Antrağèiø sàrağas"
+msgstr "AntraÅ¡ÄiÅ³ sÄ…raÅ¡as"
 
 #: compose.php:763
 msgid "Loading..."
@@ -2266,7 +2266,7 @@ msgstr "Krauna..."
 
 #: templates/fetchmail/fetchmailprefs.html:72
 msgid "Local Mailbox:"
-msgstr "Vietinë pağto dëşutë:"
+msgstr "VietinÄ— paÅ¡to dÄ—Å¾utÄ—:"
 
 #: lib/MIME/Viewer/itip.php:720
 msgid "Location"
@@ -2295,11 +2295,11 @@ msgstr "Nesvarbu"
 
 #: mailbox.php:764 message.php:284 lib/Block/mailbox.php:309
 msgid "Low Priority"
-msgstr "Nesvarbûs"
+msgstr "NesvarbÅ«s"
 
 #: compose.php:988
 msgid "Lowest"
-msgstr "Visiğkai nesvarbu"
+msgstr "VisiÅ¡kai nesvarbu"
 
 #: lib/MIME/Viewer/appledouble.php:43
 msgid "Macintosh File"
@@ -2307,11 +2307,11 @@ msgstr "Machintosh failas"
 
 #: config/prefs.php.dist:104
 msgid "Mail Previews"
-msgstr "Iğankstinë laiğkø perşiûra"
+msgstr "IÅ¡ankstinÄ— laiÅ¡kÅ³ perÅ¾iÅ«ra"
 
 #: templates/fetchmail/fetchmailprefs.html:31
 msgid "Mail server type to connect to:"
-msgstr "Pağto serverio prisijungimo tipas:"
+msgstr "PaÅ¡to serverio prisijungimo tipas:"
 
 #: lib/IMAP/Tree.php:2322 lib/IMAP/Tree.php:2349
 msgid "Mailbox"
@@ -2323,149 +2323,149 @@ msgstr "Katalogas"
 
 #: config/prefs.php.dist:119
 msgid "Mailbox and Folder Display Options"
-msgstr "Pağto dëşutës ir katalogø vaizdavimo nustatymai"
+msgstr "PaÅ¡to dÄ—Å¾utÄ—s ir katalogÅ³ vaizdavimo nustatymai"
 
 #: lib/IMAP/ACL/rfc4314.php:52 lib/IMAP/ACL/rfc2086.php:52
 msgid "Mark (Other)"
-msgstr "Paşymëti (kita)"
+msgstr "PaÅ¾ymÄ—ti (kita)"
 
 #: lib/IMAP/ACL/rfc4314.php:51 lib/IMAP/ACL/rfc2086.php:51
 msgid "Mark (Seen)"
-msgstr "Paşymëti (kaip perskaitytus)"
+msgstr "PaÅ¾ymÄ—ti (kaip perskaitytus)"
 
 #: templates/folders/actions.html:30
 msgid "Mark All Messages as Seen"
-msgstr "Paşymëti visus laiğkus kaip skaitytus"
+msgstr "PaÅ¾ymÄ—ti visus laiÅ¡kus kaip skaitytus"
 
 #: templates/folders/actions.html:31
 msgid "Mark All Messages as Unseen"
-msgstr "Paşymëti visus laiğkus kaip neskaitytus"
+msgstr "PaÅ¾ymÄ—ti visus laiÅ¡kus kaip neskaitytus"
 
 #: templates/mailbox/navbar.html:27 templates/mailbox/navbar.html:29
 #: templates/message/navbar_navigate.html:6
 #: templates/message/navbar_navigate.html:8
 msgid "Mark as:"
-msgstr "Paşymëti kaip:"
+msgstr "PaÅ¾ymÄ—ti kaip:"
 
 #: config/prefs.php.dist:775
 msgid "Mark different levels of quoting with different colors?"
-msgstr "Cituojamà tekstà spalvinti skirtingomis spalvomis?"
+msgstr "CituojamÄ… tekstÄ… spalvinti skirtingomis spalvomis?"
 
 #: templates/fetchmail/fetchmailprefs.html:83
 msgid "Mark messages as seen? (IMAP only)"
-msgstr "Paşymëti laiğkus kaip skaitytus? (tik IMAP)"
+msgstr "PaÅ¾ymÄ—ti laiÅ¡kus kaip skaitytus? (tik IMAP)"
 
 #: config/prefs.php.dist:783
 msgid "Mark simple markup?"
-msgstr "Suşymëti paprastai?"
+msgstr "SuÅ¾ymÄ—ti paprastai?"
 
 #: search.php:214
 msgid "Match All Queries"
-msgstr "Atitinka visus şodşius"
+msgstr "Atitinka visus Å¾odÅ¾ius"
 
 #: search.php:212
 msgid "Match Any Query"
-msgstr "Atitinka bet kurá şodşá"
+msgstr "Atitinka bet kurÄ¯ Å¾odÅ¾Ä¯"
 
 #: templates/compose/compose.html:273
 msgid "Maximum Attachment Size"
-msgstr "Maksimalus prikabintø failø dydis"
+msgstr "Maksimalus prikabintÅ³ failÅ³ dydis"
 
 #: lib/api.php:94
 msgid "Maximum Number of Folders"
-msgstr "Maksimalus katalogø skaièius"
+msgstr "Maksimalus katalogÅ³ skaiÄius"
 
 #: lib/api.php:95
 msgid "Maximum Number of Recipients per Message"
-msgstr "Maksimalus adresatø viename laiğke skaièius."
+msgstr "Maksimalus adresatÅ³ viename laiÅ¡ke skaiÄius."
 
 #: lib/api.php:96
 msgid "Maximum Number of Recipients per Time Period"
-msgstr "Maksimalus adresatø per laiko tarpà skaièius."
+msgstr "Maksimalus adresatÅ³ per laiko tarpÄ… skaiÄius."
 
 #: templates/compose/compose.html:255
 msgid "Maximum number of attachments reached."
-msgstr "Pasiektas maksimalus prikabintø failø skaièius."
+msgstr "Pasiektas maksimalus prikabintÅ³ failÅ³ skaiÄius."
 
 #: templates/compose/compose.html:252
 msgid "Maximum total attachment size reached."
-msgstr "Pasiektas maksimalus prikabintø failø dydis."
+msgstr "Pasiektas maksimalus prikabintÅ³ failÅ³ dydis."
 
 #: lib/Block/tree_folders.php:3
 msgid "Menu Folder List"
-msgstr "Meniu katalogø sàrağas"
+msgstr "Meniu katalogÅ³ sÄ…raÅ¡as"
 
 #: lib/Compose.php:1461
 msgid "Message"
-msgstr "Laiğkas"
+msgstr "LaiÅ¡kas"
 
 #: config/prefs.php.dist:54
 msgid "Message Composition"
-msgstr "Laiğko rağymas"
+msgstr "LaiÅ¡ko raÅ¡ymas"
 
 #: config/prefs.php.dist:1083
 msgid "Message Date"
-msgstr "Laiğko data"
+msgstr "LaiÅ¡ko data"
 
 #: config/prefs.php.dist:53 config/prefs.php.dist:71 config/prefs.php.dist:86
 #: config/prefs.php.dist:95 config/prefs.php.dist:103
 #: config/prefs.php.dist:111
 msgid "Message Options"
-msgstr "Laiğko nustatymai"
+msgstr "LaiÅ¡ko nustatymai"
 
 #: search.php:407
 msgid "Message Search"
-msgstr "Laiğko paieğka"
+msgstr "LaiÅ¡ko paieÅ¡ka"
 
 #: config/prefs.php.dist:1087
 msgid "Message Size"
-msgstr "Laiğko dydis"
+msgstr "LaiÅ¡ko dydis"
 
 #: message.php:572
 msgid "Message Source"
-msgstr "Laiğko kodas"
+msgstr "LaiÅ¡ko kodas"
 
 #: config/prefs.php.dist:72
 msgid "Message Viewing"
-msgstr "Laiğko perşiûra"
+msgstr "LaiÅ¡ko perÅ¾iÅ«ra"
 
 #: lib/Compose.php:1459
 #, php-format
 msgid "Message from %s"
-msgstr "Laiğkas nuo %s"
+msgstr "LaiÅ¡kas nuo %s"
 
 #: lib/UI/Mailbox.php:148
 msgid "Message has attachments"
-msgstr "Laiğkas turi prikabintø failø"
+msgstr "LaiÅ¡kas turi prikabintÅ³ failÅ³"
 
 #: lib/UI/Mailbox.php:147
 msgid "Message is encrypted"
-msgstr "Laiğkas uşkoduotas"
+msgstr "LaiÅ¡kas uÅ¾koduotas"
 
 #: lib/UI/Mailbox.php:146
 msgid "Message is signed"
-msgstr "Laiğkas pasirağytas"
+msgstr "LaiÅ¡kas pasiraÅ¡ytas"
 
 #: compose.php:355 compose.php:362
 msgid "Message redirected successfully."
-msgstr "Laiğkas persiøstas sëkmingai."
+msgstr "LaiÅ¡kas persiÅ³stas sÄ—kmingai."
 
 #: lib/Compose.php:784
 #, php-format
 msgid "Message sent successfully, but not saved to %s"
-msgstr "Laiğkas iğsiøstas sëkmingai, taèiau neiğsaugotas á %s"
+msgstr "LaiÅ¡kas iÅ¡siÅ³stas sÄ—kmingai, taÄiau neiÅ¡saugotas Ä¯ %s"
 
 #: compose.php:420 compose.php:428
 msgid "Message sent successfully."
-msgstr "Laiğkas iğsiøstas sëkmingai."
+msgstr "LaiÅ¡kas iÅ¡siÅ³stas sÄ—kmingai."
 
 #: config/prefs.php.dist:1114
 msgid "Messages per page in the mailbox view."
-msgstr "Laiğkø skaièius katalogo puslapyje."
+msgstr "LaiÅ¡kÅ³ skaiÄius katalogo puslapyje."
 
 #: mailbox.php:215
 msgid "Messages to"
-msgstr "laiğkus á"
+msgstr "laiÅ¡kus Ä¯"
 
 #: login.php:285
 msgid "Minimalist"
@@ -2473,11 +2473,11 @@ msgstr "Minimalistinis"
 
 #: templates/login/login.html:129
 msgid "Mode"
-msgstr "Reşimas"
+msgstr "ReÅ¾imas"
 
 #: templates/search/search.html:87
 msgid "Month"
-msgstr "Mënuo"
+msgstr "MÄ—nuo"
 
 #: mailbox.php:476 mailbox.php:868 message.php:502 message.php:689
 msgid "Move"
@@ -2485,21 +2485,21 @@ msgstr "Perkelti"
 
 #: templates/prefs/sourceselect.inc:314
 msgid "Move down"
-msgstr "Perkelti şemyn"
+msgstr "Perkelti Å¾emyn"
 
 #: config/prefs.php.dist:743
 msgid "Move spam messages to spam folder and innocent messages to INBOX"
 msgstr ""
-"Perkelti nepageidaujamas laiğkus á nepageidaujamø laiğkø katalogà or "
-"nekaltus laiğkus á Inbox katalogà"
+"Perkelti nepageidaujamas laiÅ¡kus Ä¯ nepageidaujamÅ³ laiÅ¡kÅ³ katalogÄ… or "
+"nekaltus laiÅ¡kus Ä¯ Inbox katalogÄ…"
 
 #: mailbox.php:476 mailbox.php:868 message.php:502 message.php:689
 msgid "Move to folder"
-msgstr "Perkelti á katalogà"
+msgstr "Perkelti Ä¯ katalogÄ…"
 
 #: templates/prefs/sourceselect.inc:312
 msgid "Move up"
-msgstr "Perkelti aukğtyn"
+msgstr "Perkelti aukÅ¡tyn"
 
 #: lib/MIME/Viewer/alternative.php:97
 msgid "Multipart/alternative"
@@ -2507,7 +2507,7 @@ msgstr "Kitos dalys"
 
 #: thread.php:158
 msgid "Multiple Message View"
-msgstr "Keletos laiğkø perşiûra"
+msgstr "Keletos laiÅ¡kÅ³ perÅ¾iÅ«ra"
 
 #: templates/pgp/pgp.html:4 templates/smime/smime.html:4
 #: templates/fetchmail/fetchmailprefs.html:91
@@ -2521,7 +2521,7 @@ msgstr "Vardas"
 
 #: pgp.php:116
 msgid "Name and/or email cannot be empty"
-msgstr "Vardas ir/arba el. pağto adresas negali bûti tuğti"
+msgstr "Vardas ir/arba el. paÅ¡to adresas negali bÅ«ti tuÅ¡ti"
 
 #: lib/MIME/Viewer/itip.php:942
 msgid "Needs Action"
@@ -2533,7 +2533,7 @@ msgstr "Niekada"
 
 #: config/prefs.php.dist:697
 msgid "Never save attachments"
-msgstr "Niekada neiğsaugoti prikabintø failø"
+msgstr "Niekada neiÅ¡saugoti prikabintÅ³ failÅ³"
 
 #: lib/IMP.php:440
 msgid "New Folder"
@@ -2541,24 +2541,24 @@ msgstr "Naujas katalogas"
 
 #: config/prefs.php.dist:96
 msgid "New Mail"
-msgstr "Naujas pağtas"
+msgstr "Naujas paÅ¡tas"
 
 #: compose.php:226 lib/Block/tree_folders.php:36
 msgid "New Message"
-msgstr "Naujas laiğkas"
+msgstr "Naujas laiÅ¡kas"
 
 #: mailbox.php:828 lib/Block/mailbox.php:373 lib/MIME/Headers.php:193
 #, php-format
 msgid "New Message to %s"
-msgstr "Rağyti naujà laiğkà %s"
+msgstr "RaÅ¡yti naujÄ… laiÅ¡kÄ… %s"
 
 #: search.php:325
 msgid "New messages"
-msgstr "Nauji laiğkai"
+msgstr "Nauji laiÅ¡kai"
 
 #: message.php:518
 msgid "Next Message"
-msgstr "Sekantis laiğkas"
+msgstr "Sekantis laiÅ¡kas"
 
 #: mailbox.php:279
 msgid "Next Page"
@@ -2576,28 +2576,28 @@ msgstr "Sertifikatas nerastas"
 
 #: lib/IMP.php:1347
 msgid "No Encryption"
-msgstr "Kodavimo nëra"
+msgstr "Kodavimo nÄ—ra"
 
 #: templates/pgp/pgp.html:29 templates/smime/smime.html:22
 msgid "No Keys in Keyring"
-msgstr "Saugykloje nëra raktø"
+msgstr "Saugykloje nÄ—ra raktÅ³"
 
 #: mailbox.php:258 rss.php:93
 #, php-format
 msgid "No Messages"
-msgstr "Laiğkø nëra"
+msgstr "LaiÅ¡kÅ³ nÄ—ra"
 
 #: pgp.php:143
 msgid "No PGP public key imported."
-msgstr "Neákelti jokie PGP vieğieji raktai."
+msgstr "NeÄ¯kelti jokie PGP vieÅ¡ieji raktai."
 
 #: mailbox.php:789 lib/Block/mailbox.php:334
 msgid "No Preview Text"
-msgstr "Teksto nëra"
+msgstr "Teksto nÄ—ra"
 
 #: smime.php:166
 msgid "No S/MIME public key imported."
-msgstr "Neákelti jokie S/MIME vieğieji raktai."
+msgstr "NeÄ¯kelti jokie S/MIME vieÅ¡ieji raktai."
 
 #: templates/prefs/soundselect.inc:5
 msgid "No Sound"
@@ -2605,11 +2605,11 @@ msgstr "Be garso"
 
 #: lib/MIME/Viewer/tnef.php:91
 msgid "No attachments found."
-msgstr "Prikabintø failø nëra."
+msgstr "PrikabintÅ³ failÅ³ nÄ—ra."
 
 #: lib/Crypt/SMIME.php:131
 msgid "No email information located in the public key."
-msgstr "Vieğajame rakte nëra jokiø duomenø susijusiø su el. pağtu."
+msgstr "VieÅ¡ajame rakte nÄ—ra jokiÅ³ duomenÅ³ susijusiÅ³ su el. paÅ¡tu."
 
 #: acl.php:76
 msgid "No folder selected."
@@ -2617,7 +2617,7 @@ msgstr "Nepasirinktas katalogas."
 
 #: lib/Block/summary.php:134
 msgid "No folders are being checked for new mail."
-msgstr "Nei vienas katalogas nenustatytas tikrinti naujus laiğkus."
+msgstr "Nei vienas katalogas nenustatytas tikrinti naujus laiÅ¡kus."
 
 #: folders.php:191 lib/Folder.php:437 lib/Folder.php:485
 msgid "No folders were specified"
@@ -2625,44 +2625,44 @@ msgstr "Nenurodytas joks katalogas"
 
 #: lib/Block/summary.php:138
 msgid "No folders with new messages"
-msgstr "Naujø laiğkø nëra"
+msgstr "NaujÅ³ laiÅ¡kÅ³ nÄ—ra"
 
 #: lib/Block/summary.php:136
 msgid "No folders with unseen messages"
-msgstr "Neperskaitytø laiğkø nëra"
+msgstr "NeperskaitytÅ³ laiÅ¡kÅ³ nÄ—ra"
 
 #: lib/Compose.php:1499
 msgid "No message body text"
-msgstr "Laiğke nëra teksto"
+msgstr "LaiÅ¡ke nÄ—ra teksto"
 
 #: lib/IMAP/Client.php:474
 msgid "No message returned."
-msgstr "Laiğkas nerastas."
+msgstr "LaiÅ¡kas nerastas."
 
 #: mailbox.php:230
 msgid "No messages matched your search."
-msgstr "Nerastas nei vienas laiğkas atitinkantis jûsø paieğkà."
+msgstr "Nerastas nei vienas laiÅ¡kas atitinkantis jÅ«sÅ³ paieÅ¡kÄ…."
 
 #: pgp.php:195
 msgid "No personal PGP private key imported."
-msgstr "Neákelti jokie PGP slaptieji raktai."
+msgstr "NeÄ¯kelti jokie PGP slaptieji raktai."
 
 #: pgp.php:171
 msgid "No personal PGP public key imported."
-msgstr "Neákelti jokie PGP vieğieji raktai."
+msgstr "NeÄ¯kelti jokie PGP vieÅ¡ieji raktai."
 
 #: smime.php:216
 msgid "No personal S/MIME certificates imported."
-msgstr "Neákelti jokie S/MIME sertifikatai."
+msgstr "NeÄ¯kelti jokie S/MIME sertifikatai."
 
 #: lib/MIME/Viewer/pkcs7.php:299
 msgid ""
 "No personal private key exists so the message is unable to be decrypted."
-msgstr "Atkoduoti laiğko negalima, nes nëra asmeninio privataus rakto."
+msgstr "Atkoduoti laiÅ¡ko negalima, nes nÄ—ra asmeninio privataus rakto."
 
 #: lib/IMAP/Client.php:374
 msgid "No supported IMAP authentication method could be found."
-msgstr "Neaptiktas joks tinkamas IMAP autentifikacijos bûdas."
+msgstr "Neaptiktas joks tinkamas IMAP autentifikacijos bÅ«das."
 
 #: acl.php:108
 msgid "No user specified."
@@ -2685,20 +2685,20 @@ msgstr "Normalu"
 
 #: templates/mailbox/navbar.html:21 templates/mailbox/navbar.html:38
 msgid "Not Deleted"
-msgstr "Neiğtrinti"
+msgstr "NeiÅ¡trinti"
 
 #: templates/mailbox/navbar.html:23 templates/mailbox/navbar.html:41
 #: templates/message/navbar_navigate.html:15
 msgid "Not Draft"
-msgstr "Ne paruoğiniai"
+msgstr "Ne paruoÅ¡iniai"
 
 #: templates/mailbox/navbar.html:33 templates/message/navbar_navigate.html:11
 msgid "Not Flagged"
-msgstr "Nepaşymëti"
+msgstr "NepaÅ¾ymÄ—ti"
 
 #: templates/mailbox/navbar.html:17
 msgid "Not Important"
-msgstr "Nesvarbûs"
+msgstr "NesvarbÅ«s"
 
 #: templates/mailbox/navbar.html:25
 msgid "Not Personal"
@@ -2706,23 +2706,23 @@ msgstr "Ne asmeniniai"
 
 #: lib/Crypt/PGP.php:136 lib/Crypt/SMIME.php:125 lib/Crypt/SMIME.php:140
 msgid "Not a valid public key."
-msgstr "Netinkamas vieğasis raktas."
+msgstr "Netinkamas vieÅ¡asis raktas."
 
 #: config/prefs.php.dist:856
 msgid "Not at all"
-msgstr "Visiğkai ne"
+msgstr "VisiÅ¡kai ne"
 
 #: lib/Maintenance/Task/fetchmail_login.php:70
 msgid "Note that this can take some time"
-msgstr "Tai gali uştrukti"
+msgstr "Tai gali uÅ¾trukti"
 
 #: lib/IMP.php:492
 msgid "Notepads"
-msgstr "Uşrağø knygelës"
+msgstr "UÅ¾raÅ¡Å³ knygelÄ—s"
 
 #: config/hooks.php.dist:420
 msgid "Notes"
-msgstr "Uşrağai"
+msgstr "UÅ¾raÅ¡ai"
 
 #: config/prefs.php.dist:741
 msgid "Nothing"
@@ -2730,21 +2730,21 @@ msgstr "Nieko"
 
 #: attachment.php:108
 msgid "Notification: Linked attachment downloaded"
-msgstr "Praneğimas: susieti prikabinti failai buvo atsisiøsti"
+msgstr "PraneÅ¡imas: susieti prikabinti failai buvo atsisiÅ³sti"
 
 #: lib/Block/mailbox.php:451
 msgid "Number of messages to display"
-msgstr "Rodomø laiğkø skaièius"
+msgstr "RodomÅ³ laiÅ¡kÅ³ skaiÄius"
 
 #: config/prefs.php.dist:405
 msgid "Number of months to keep old linked attachments if deleting monthly."
 msgstr ""
-"Kiek mënesiø laikyti susijusius prikabintus failus jeigu trinama kas mënesá."
+"Kiek mÄ—nesiÅ³ laikyti susijusius prikabintus failus jeigu trinama kas mÄ—nesÄ¯."
 
 #: config/prefs.php.dist:359
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"Senø siøstø laiğkø katalogø skaièius iğsaugomas jei trinama kas mënesá."
+"SenÅ³ siÅ³stÅ³ laiÅ¡kÅ³ katalogÅ³ skaiÄius iÅ¡saugomas jei trinama kas mÄ—nesÄ¯."
 
 #: templates/contacts/contacts.html:75
 msgid "OK"
@@ -2757,27 +2757,27 @@ msgstr "ARBA"
 
 #: search.php:324
 msgid "Old messages"
-msgstr "Seni laiğkai"
+msgstr "Seni laiÅ¡kai"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:51
 msgid "Old sent-mail folders being purged."
-msgstr "Seni siøstø laiğkø katalogai bus iğvalyti."
+msgstr "Seni siÅ³stÅ³ laiÅ¡kÅ³ katalogai bus iÅ¡valyti."
 
 #: lib/Block/summary.php:27
 msgid "Only display folders with unread messages in them?"
-msgstr "Rodyti tik katalogus su neperskaitytais laiğkais?"
+msgstr "Rodyti tik katalogus su neperskaitytais laiÅ¡kais?"
 
 #: templates/javascript_defs.php:58
 msgid "Only one folder should be selected for this action."
-msgstr "Pasirinkite tik vienà katalogà ğiam veiksmui."
+msgstr "Pasirinkite tik vienÄ… katalogÄ… Å¡iam veiksmui."
 
 #: lib/IMP.php:877 lib/IMP.php:882
 msgid "Open Fo_lder"
-msgstr "Atidaryti katalogà"
+msgstr "Atidaryti katalogÄ…"
 
 #: lib/IMP.php:882
 msgid "Open Folder"
-msgstr "Atidaryti katalogà"
+msgstr "Atidaryti katalogÄ…"
 
 #: lib/IMAP/Tree.php:2373
 msgid "Opened Folder"
@@ -2789,7 +2789,7 @@ msgstr "Pagalbiniai dalyviai"
 
 #: templates/fetchmail/fetchmailprefs.html:3
 msgid "Other Mail Accounts"
-msgstr "Kitos pağto dëşutës"
+msgstr "Kitos paÅ¡to dÄ—Å¾utÄ—s"
 
 #: config/prefs.php.dist:118 config/prefs.php.dist:127
 #: config/prefs.php.dist:134 config/prefs.php.dist:141
@@ -2799,11 +2799,11 @@ msgstr "Kiti nustatymai"
 
 #: lib/IMAP/Tree.php:94
 msgid "Other Users' Folders"
-msgstr "Kitø vartotojø katalogai"
+msgstr "KitÅ³ vartotojÅ³ katalogai"
 
 #: templates/login/login.html:103
 msgid "Outbound Server"
-msgstr "Iğsiuntimo serveris"
+msgstr "IÅ¡siuntimo serveris"
 
 #: pgp.php:44 lib/MIME/Viewer/pgp.php:164 lib/MIME/Viewer/pgp.php:212
 #: lib/MIME/Viewer/pgp.php:304
@@ -2812,11 +2812,11 @@ msgstr "PGP"
 
 #: lib/IMP.php:1350
 msgid "PGP Encrypt Message"
-msgstr "Uşkoduoti laiğkà PGP pagalba"
+msgstr "UÅ¾koduoti laiÅ¡kÄ… PGP pagalba"
 
 #: lib/IMP.php:1355
 msgid "PGP Encrypt Message with passphrase"
-msgstr "Uşkoduoti laiğkà PGP ir slaptos frazës pagalba"
+msgstr "UÅ¾koduoti laiÅ¡kÄ… PGP ir slaptos frazÄ—s pagalba"
 
 #: lib/Compose.php:1241
 msgid "PGP Error: "
@@ -2828,56 +2828,56 @@ msgstr "PGP nustatymai"
 
 #: pgp.php:30
 msgid "PGP Passphrase Input"
-msgstr "PGP slaptos frazës ávedimas"
+msgstr "PGP slaptos frazÄ—s Ä¯vedimas"
 
 #: templates/pgp/pgp.html:68
 msgid "PGP Personal Keypair support requires a secure web connection."
-msgstr "PGP raktø poros operacijos reikalauja saugaus prisijungimo."
+msgstr "PGP raktÅ³ poros operacijos reikalauja saugaus prisijungimo."
 
 #: pgp.php:155
 #, php-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "PGP vieğasis raktas \"%s (%s)\" buvo sëkmingai prijungtas."
+msgstr "PGP vieÅ¡asis raktas \"%s (%s)\" buvo sÄ—kmingai prijungtas."
 
 #: pgp.php:251
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "PGP vieğasis raktas \"%s\" buvo sëkmingai iğtrintas."
+msgstr "PGP vieÅ¡asis raktas \"%s\" buvo sÄ—kmingai iÅ¡trintas."
 
 #: templates/pgp/pgp.html:24
 msgid "PGP Public Keyring"
-msgstr "PGP vieğøjø raktø saugykla"
+msgstr "PGP vieÅ¡Å³jÅ³ raktÅ³ saugykla"
 
 #: lib/IMP.php:1351
 msgid "PGP Sign Message"
-msgstr "Pasirağyti laiğkà PGP pagalba"
+msgstr "PasiraÅ¡yti laiÅ¡kÄ… PGP pagalba"
 
 #: lib/IMP.php:1352
 msgid "PGP Sign/Encrypt Message"
-msgstr "Pasirağyti ir uşkoduoti laiğkà PGP pagalba"
+msgstr "PasiraÅ¡yti ir uÅ¾koduoti laiÅ¡kÄ… PGP pagalba"
 
 #: lib/IMP.php:1356
 msgid "PGP Sign/Encrypt Message with passphrase"
-msgstr "Pasirağyti ir uşkoduoti laiğkà PGP ir slaptos frazës pagalba"
+msgstr "PasiraÅ¡yti ir uÅ¾koduoti laiÅ¡kÄ… PGP ir slaptos frazÄ—s pagalba"
 
 #: compose.php:684
 msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
 msgstr ""
-"Naudoti PGP kodavimo negalima, nes rasti ne visø adresatø vieğieji raktai."
+"Naudoti PGP kodavimo negalima, nes rasti ne visÅ³ adresatÅ³ vieÅ¡ieji raktai."
 
 #: pgp.php:208
 msgid "PGP private key successfully added."
-msgstr "PGP slaptasis raktas sëkmingai prijungtas."
+msgstr "PGP slaptasis raktas sÄ—kmingai prijungtas."
 
 #: pgp.php:183
 msgid "PGP public key successfully added."
-msgstr "PGP vieğasis raktas sëkmingai prijungtas."
+msgstr "PGP vieÅ¡asis raktas sÄ—kmingai prijungtas."
 
 #: templates/pgp/pgp.html:144
 msgid "PGP support is disabled on this system."
-msgstr "PGP palaikymas iğjungtas."
+msgstr "PGP palaikymas iÅ¡jungtas."
 
 #: templates/pgp/pgp.html:4
 msgid ""
@@ -2885,17 +2885,17 @@ msgid ""
 "set to disable popup windows, you must change this setting or else the PGP "
 "features will not work correctly."
 msgstr ""
-"PGP galimybë reikalauja iğğokanèio lango. Jeigu jûsø narğyklë nustatyta "
-"blokuoti iğğokanèius langus, jûs turite iğjungti ğià funkcijà. Prieğingu "
+"PGP galimybÄ— reikalauja iÅ¡Å¡okanÄio lango. Jeigu jÅ«sÅ³ narÅ¡yklÄ— nustatyta "
+"blokuoti iÅ¡Å¡okanÄius langus, jÅ«s turite iÅ¡jungti Å¡iÄ… funkcijÄ…. PrieÅ¡ingu "
 "atveju PGP veiks neteisingai."
 
 #: lib/Compose.php:1201
 msgid "PGP: Need passphrase for personal private key."
-msgstr "PGP: asmeniniam slaptam raktui reikalinga slapta frazë."
+msgstr "PGP: asmeniniam slaptam raktui reikalinga slapta frazÄ—."
 
 #: lib/Compose.php:1210
 msgid "PGP: Need passphrase to encrypt your message with."
-msgstr "PGP: laiğko uşkodavimui reikalinga slapta frazë."
+msgstr "PGP: laiÅ¡ko uÅ¾kodavimui reikalinga slapta frazÄ—."
 
 #: lib/IMAP.php:281
 msgid "POP3"
@@ -2903,7 +2903,7 @@ msgstr "POP3"
 
 #: lib/Fetchmail/imap.php:92
 msgid "POP3 (Auto Detect Protocols)"
-msgstr "POP3 (Automatinis protokolo atpaşinimas)"
+msgstr "POP3 (Automatinis protokolo atpaÅ¾inimas)"
 
 #: lib/IMAP.php:293
 msgid "POP3 over SSL"
@@ -2920,15 +2920,15 @@ msgstr "POP3, be TLS"
 #: mailbox.php:431
 #, php-format
 msgid "Page %d of %d"
-msgstr "Puslapis %d iğ %d"
+msgstr "Puslapis %d iÅ¡ %d"
 
 #: config/prefs.php.dist:1069
 msgid "Page with the First Unseen Message"
-msgstr "Puslapis su pirma neperskaityta şinute"
+msgstr "Puslapis su pirma neperskaityta Å¾inute"
 
 #: config/prefs.php.dist:1070
 msgid "Page with the Last Unseen Message"
-msgstr "Puslapis su paskutine neperskaityta şinute"
+msgstr "Puslapis su paskutine neperskaityta Å¾inute"
 
 #: templates/mailbox/navbar.html:67
 msgid "Page:"
@@ -2940,37 +2940,37 @@ msgstr "Dalis(ys)"
 
 #: templates/pgp/pgp.html:125
 msgid "Passphrase (Again):"
-msgstr "Slapta frazë (dar kartà):"
+msgstr "Slapta frazÄ— (dar kartÄ…):"
 
 #: smime.php:250 pgp.php:336
 msgid "Passphrase successfully unloaded."
-msgstr "Slapta frazë sëkmingai atjungta."
+msgstr "Slapta frazÄ— sÄ—kmingai atjungta."
 
 #: templates/pgp/pgp.html:120 templates/pgp/passphrase.html:19
 #: templates/smime/passphrase.html:21
 msgid "Passphrase:"
-msgstr "Slapta frazë:"
+msgstr "Slapta frazÄ—:"
 
 #: pgp.php:118
 msgid "Passphrases cannot be empty"
-msgstr "Slaptos frazës negali bûti tuğèios"
+msgstr "Slaptos frazÄ—s negali bÅ«ti tuÅ¡Äios"
 
 #: pgp.php:120
 msgid "Passphrases do not match"
-msgstr "Slaptos frazës nesutampa"
+msgstr "Slaptos frazÄ—s nesutampa"
 
 #: templates/login/login.html:92
 msgid "Password"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #: templates/smime/import_key.html:54
 #: templates/fetchmail/fetchmailprefs.html:59
 msgid "Password:"
-msgstr "Slaptaşodis:"
+msgstr "SlaptaÅ¾odis:"
 
 #: templates/login/mobile.inc:17
 msgid "Password: "
-msgstr "Slaptaşodis: "
+msgstr "SlaptaÅ¾odis: "
 
 #: mailbox.php:739 message.php:450 lib/Block/mailbox.php:284
 #: templates/mailbox/navbar.html:24
@@ -2979,31 +2979,31 @@ msgstr "Asmeniniai"
 
 #: config/prefs.php.dist:14
 msgid "Personal Information"
-msgstr "Asmeninë informacija"
+msgstr "AsmeninÄ— informacija"
 
 #: pgp.php:126
 msgid "Personal PGP keypair generated successfully."
-msgstr "Asmeninë PGP raktø pora sëkmingai sugeneruota."
+msgstr "AsmeninÄ— PGP raktÅ³ pora sÄ—kmingai sugeneruota."
 
 #: pgp.php:133
 msgid "Personal PGP keys deleted successfully."
-msgstr "Asmeniniai PGP raktai sëkmingai iğtrinti."
+msgstr "Asmeniniai PGP raktai sÄ—kmingai iÅ¡trinti."
 
 #: smime.php:222
 msgid "Personal S/MIME certificates NOT imported: "
-msgstr "Asmeniniai S/MIME sertifikatai NEÁKELTI: "
+msgstr "Asmeniniai S/MIME sertifikatai NEÄ®KELTI: "
 
 #: smime.php:147
 msgid "Personal S/MIME keys deleted successfully."
-msgstr "Asmeniniai S/MIME raktai sëkmingai iğtrinti."
+msgstr "Asmeniniai S/MIME raktai sÄ—kmingai iÅ¡trinti."
 
 #: config/prefs.php.dist:221
 msgid "Place your signature before replies and forwards?"
-msgstr "Pridëti parağà prieğ tekstà atsakinëjant ir persiunèiant?"
+msgstr "PridÄ—ti paraÅ¡Ä… prieÅ¡ tekstÄ… atsakinÄ—jant ir persiunÄiant?"
 
 #: lib/Compose.php:448
 msgid "Plaintext Version of Message"
-msgstr "Tekstinë laiğko versija"
+msgstr "TekstinÄ— laiÅ¡ko versija"
 
 #: templates/prefs/soundselect.inc:3
 msgid ""
@@ -3011,41 +3011,41 @@ msgid ""
 "sound files.  Almost all do on Windows and Mac, but other platforms may "
 "require a plugin."
 msgstr ""
-"Groti garsiná failà kai yra naujø laiğkø? Ği funkcija reikalauja, kad jûsø "
-"narğyklë palaikytø vidinius garsinius failus.  Beveik visos Windows ir Mac "
-"narğyklës tai palaiko, taèiau kitoms platformoms gali prireikti modifikacijø."
+"Groti garsinÄ¯ failÄ… kai yra naujÅ³ laiÅ¡kÅ³? Å i funkcija reikalauja, kad jÅ«sÅ³ "
+"narÅ¡yklÄ— palaikytÅ³ vidinius garsinius failus.  Beveik visos Windows ir Mac "
+"narÅ¡yklÄ—s tai palaiko, taÄiau kitoms platformoms gali prireikti modifikacijÅ³."
 
 #: templates/javascript_defs.php:81
 msgid "Please enter a name for the new folder:"
-msgstr "Áveskite naujo katalogo pavadinimà:"
+msgstr "Ä®veskite naujo katalogo pavadinimÄ…:"
 
 #: templates/javascript_defs.php:60 templates/javascript_defs.php:61
 msgid "Please enter the name of the new folder:"
-msgstr "Áveskite naujo katalogo pavadinimà:"
+msgstr "Ä®veskite naujo katalogo pavadinimÄ…:"
 
 #: templates/javascript_defs.php:65
 msgid "Please enter the new name:"
-msgstr "Áveskite naujà vardà:"
+msgstr "Ä®veskite naujÄ… vardÄ…:"
 
 #: templates/pgp/passphrase.html:12
 msgid "Please enter the passphrase for this message."
-msgstr "Áveskite slaptàjà frazæ ğiam laiğkui."
+msgstr "Ä®veskite slaptÄ…jÄ… frazÄ™ Å¡iam laiÅ¡kui."
 
 #: templates/pgp/passphrase.html:14
 msgid ""
 "Please enter the passphrase for your PGP private key. You will only need to "
 "enter this passphrase once per session."
 msgstr ""
-"Áveskite savo privataus PGP rakto slaptàjà frazæ. Jà reikës ávedinëti tik "
-"kartà per sesijà."
+"Ä®veskite savo privataus PGP rakto slaptÄ…jÄ… frazÄ™. JÄ… reikÄ—s Ä¯vedinÄ—ti tik "
+"kartÄ… per sesijÄ…."
 
 #: templates/smime/passphrase.html:15
 msgid ""
 "Please enter the passphrase for your S/MIME private key. You will only need "
 "to enter this passphrase once per session."
 msgstr ""
-"Áveskite savo privataus S/MIME rakto slaptàjà frazæ. Jà reikës ávedinëti tik "
-"kartà per sesijà."
+"Ä®veskite savo privataus S/MIME rakto slaptÄ…jÄ… frazÄ™. JÄ… reikÄ—s Ä¯vedinÄ—ti tik "
+"kartÄ… per sesijÄ…."
 
 #: login.php:181
 msgid ""
@@ -3054,38 +3054,38 @@ msgid ""
 "log in again in your main window as well. This is to keep attackers from "
 "hijacking your session ID. We apologize for any inconvenience."
 msgstr ""
-"Norëdami tæsti, prisijunkite iğ naujo. Jeigu jûs NENAUDOJATE 'sausainëliø' "
-"IR rağote laiğkus atskirame lange, taip pat turësite prisijungti ir "
-"pagrindiname lange. Taip daroma, norint apsaugoti jûsø sesijos ID nuo galimø "
-"ásilauşëliø. Atsiprağome uş nepatogumus."
+"NorÄ—dami tÄ™sti, prisijunkite iÅ¡ naujo. Jeigu jÅ«s NENAUDOJATE 'sausainÄ—liÅ³' "
+"IR raÅ¡ote laiÅ¡kus atskirame lange, taip pat turÄ—site prisijungti ir "
+"pagrindiname lange. Taip daroma, norint apsaugoti jÅ«sÅ³ sesijos ID nuo galimÅ³ "
+"Ä¯silauÅ¾Ä—liÅ³. AtsipraÅ¡ome uÅ¾ nepatogumus."
 
 #: templates/javascript_defs.php:76
 msgid "Please provide your password."
-msgstr "Nurodykite savo slaptaşodá."
+msgstr "Nurodykite savo slaptaÅ¾odÄ¯."
 
 #: templates/javascript_defs.php:75
 msgid "Please provide your username."
-msgstr "Nurodykite savo vartotojo vardà."
+msgstr "Nurodykite savo vartotojo vardÄ…."
 
 #: lib/Compose.php:2548 lib/UI/Compose.php:26
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Iğtaisykite neteisingus adresus."
+msgstr "IÅ¡taisykite neteisingus adresus."
 
 #: templates/javascript_defs.php:57
 msgid "Please select a folder before you perform this action."
-msgstr "Prieğ atlikdami ğá veiksmà turite pasirinkti katalogà."
+msgstr "PrieÅ¡ atlikdami Å¡Ä¯ veiksmÄ… turite pasirinkti katalogÄ…."
 
 #: templates/javascript_defs.php:69
 msgid "Please select at least one folder to search."
-msgstr "Pasirinkite bent vienà katalogà paieğkai."
+msgstr "Pasirinkite bent vienÄ… katalogÄ… paieÅ¡kai."
 
 #: templates/compose/redirect.html:39
 msgid "Please select or edit in the box to the right:"
-msgstr "Pasirinkite arba redaguokite laukà değinëje:"
+msgstr "Pasirinkite arba redaguokite laukÄ… deÅ¡inÄ—je:"
 
 #: config/prefs.php.dist:1183
 msgid "Poll all folders for new mail?"
-msgstr "Tikrinti visus katalogus ar yra naujø laiğkø?"
+msgstr "Tikrinti visus katalogus ar yra naujÅ³ laiÅ¡kÅ³?"
 
 #: templates/login/login.html:67
 msgid "Port"
@@ -3093,7 +3093,7 @@ msgstr "Portas"
 
 #: lib/IMAP/ACL/rfc4314.php:54 lib/IMAP/ACL/rfc2086.php:54
 msgid "Post"
-msgstr "Árağyti"
+msgstr "Ä®raÅ¡yti"
 
 #: config/motd.php.dist:41
 msgid "Powered by Horde"
@@ -3101,19 +3101,19 @@ msgstr "Serveryje veikia Horde"
 
 #: config/prefs.php.dist:213
 msgid "Precede your signature with dashes ('-- ')?"
-msgstr "Pradëti parağà brûkğneliais ('-- ')?"
+msgstr "PradÄ—ti paraÅ¡Ä… brÅ«kÅ¡neliais ('-- ')?"
 
 #: smime.php:257 pgp.php:260 filterprefs.php:53
 msgid "Preferences successfully updated."
-msgstr "Nustatymai sëkmingai atnaujinti."
+msgstr "Nustatymai sÄ—kmingai atnaujinti."
 
 #: compose.php:1127
 msgid "Preview"
-msgstr "Perşiûra"
+msgstr "PerÅ¾iÅ«ra"
 
 #: message.php:511
 msgid "Previous Message"
-msgstr "Ankstesnis laiğkas"
+msgstr "Ankstesnis laiÅ¡kas"
 
 #: mailbox.php:271
 msgid "Previous Page"
@@ -3133,22 +3133,22 @@ msgstr "Svarba"
 
 #: templates/smime/import_key.html:59
 msgid "Private Key Password:"
-msgstr "Privataus rakto slaptaşodis:"
+msgstr "Privataus rakto slaptaÅ¾odis:"
 
 #: config/prefs.php.dist:696
 msgid "Prompt every time an attachment is sent; default to NO"
-msgstr "Klausti kiekvienà kartà kai siunèiamas prikabintas failas; pradinis NE"
+msgstr "Klausti kiekvienÄ… kartÄ… kai siunÄiamas prikabintas failas; pradinis NE"
 
 #: config/prefs.php.dist:695
 msgid "Prompt every time an attachment is sent; default to YES"
 msgstr ""
-"Klausti kiekvienà kartà kai siunèiamas prikabintas failas; pradinis TAIP"
+"Klausti kiekvienÄ… kartÄ… kai siunÄiamas prikabintas failas; pradinis TAIP"
 
 #: config/prefs.php.dist:864
 msgid "Prompt to send read receipt when requested by the sender?"
 msgstr ""
-"Klausti ar siøsti praneğimà, kad laiğkas perskaitytas kai to prağo jo "
-"siuntëjas?"
+"Klausti ar siÅ³sti praneÅ¡imÄ…, kad laiÅ¡kas perskaitytas kai to praÅ¡o jo "
+"siuntÄ—jas?"
 
 #: templates/login/login.html:72
 msgid "Protocol"
@@ -3160,90 +3160,90 @@ msgstr "Protokolas:"
 
 #: lib/Crypt/PGP.php:489
 msgid "Public PGP keyserver support has been disabled."
-msgstr "Vieğosios PGP raktø saugyklos palaikymas iğjungtas."
+msgstr "VieÅ¡osios PGP raktÅ³ saugyklos palaikymas iÅ¡jungtas."
 
 #: mailbox.php:445 mailbox.php:513
 msgid "Pur_ge Deleted"
-msgstr "Iğvalyti iğtrintus"
+msgstr "IÅ¡valyti iÅ¡trintus"
 
 #: lib/IMAP/ACL/rfc4314.php:58 templates/folders/actions.html:20
 msgid "Purge"
-msgstr "Iğvalyti"
+msgstr "IÅ¡valyti"
 
 #: mailbox.php:445 mailbox.php:513
 msgid "Purge Deleted"
-msgstr "Iğvalyti iğtrintus"
+msgstr "IÅ¡valyti iÅ¡trintus"
 
 #: config/prefs.php.dist:424
 msgid "Purge Spam how often:"
-msgstr "Nepageidaujamø laiğkø katalogo valymo daşnumas:"
+msgstr "NepageidaujamÅ³ laiÅ¡kÅ³ katalogo valymo daÅ¾numas:"
 
 #: config/prefs.php.dist:452
 msgid "Purge Trash how often:"
-msgstr "Ğiukğliadëşës valymo daşnumas:"
+msgstr "Å iukÅ¡liadÄ—Å¾Ä—s valymo daÅ¾numas:"
 
 #: config/prefs.php.dist:433
 msgid "Purge messages in Spam folder older than this amount of days."
 msgstr ""
-"Iğtrinti laiğkus iğ nepageidaujamø laiğkø katalogo senesnius nei tiek dienø."
+"IÅ¡trinti laiÅ¡kus iÅ¡ nepageidaujamÅ³ laiÅ¡kÅ³ katalogo senesnius nei tiek dienÅ³."
 
 #: config/prefs.php.dist:461
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Iğtrinti laiğkus iğ ğiukğliadëşës senesnius nei tiek dienø."
+msgstr "IÅ¡trinti laiÅ¡kus iÅ¡ Å¡iukÅ¡liadÄ—Å¾Ä—s senesnius nei tiek dienÅ³."
 
 #: config/prefs.php.dist:387
 msgid "Purge messages in sent-mail folder(s) older than this amount of days."
 msgstr ""
-"Iğtrinti laiğkus iğ siøstø laiğkø katalogo(ø) senesnius nei tiek dienø."
+"IÅ¡trinti laiÅ¡kus iÅ¡ siÅ³stÅ³ laiÅ¡kÅ³ katalogo(Å³) senesnius nei tiek dienÅ³."
 
 #: config/prefs.php.dist:414
 msgid "Purge old messages in the Spam folder?"
-msgstr "Iğtrinti senus laiğkus nepageidaujamø laiğkø kataloge?"
+msgstr "IÅ¡trinti senus laiÅ¡kus nepageidaujamÅ³ laiÅ¡kÅ³ kataloge?"
 
 #: config/prefs.php.dist:442
 msgid "Purge old messages in the Trash folder?"
-msgstr "Iğtrinti senus laiğkus ğiukğliadëşëje?"
+msgstr "IÅ¡trinti senus laiÅ¡kus Å¡iukÅ¡liadÄ—Å¾Ä—je?"
 
 #: config/prefs.php.dist:368
 msgid "Purge old messages in the sent-mail folder(s)?"
-msgstr "Iğtrinti senus laiğkus siøstø laiğkø kataloge(uose)?"
+msgstr "IÅ¡trinti senus laiÅ¡kus siÅ³stÅ³ laiÅ¡kÅ³ kataloge(uose)?"
 
 #: config/prefs.php.dist:378
 msgid "Purge sent-mail how often:"
-msgstr "Siøstø laiğkø katalogo valymo daşnumas:"
+msgstr "SiÅ³stÅ³ laiÅ¡kÅ³ katalogo valymo daÅ¾numas:"
 
 #: lib/Maintenance/Task/purge_spam.php:64
 #, php-format
 msgid "Purging %d messages from Spam folder."
-msgstr "Trinami %d laiğkai(ø) iğ nepageidaujamø laiğkø katalogo."
+msgstr "Trinami %d laiÅ¡kai(Å³) iÅ¡ nepageidaujamÅ³ laiÅ¡kÅ³ katalogo."
 
 #: lib/Maintenance/Task/purge_trash.php:63
 #, php-format
 msgid "Purging %d messages from Trash folder."
-msgstr "Trinami %d laiğkai(ø) iğ ğiukğliadëşës."
+msgstr "Trinami %d laiÅ¡kai(Å³) iÅ¡ Å¡iukÅ¡liadÄ—Å¾Ä—s."
 
 #: lib/Maintenance/Task/purge_sentmail.php:63
 #, php-format
 msgid "Purging %d messages from sent-mail folder."
-msgstr "Trinami %d laiğkai(ø) iğ siøstø laiğkø katalogo."
+msgstr "Trinami %d laiÅ¡kai(Å³) iÅ¡ siÅ³stÅ³ laiÅ¡kÅ³ katalogo."
 
 #: lib/Maintenance/Task/purge_spam.php:62
 msgid "Purging 1 message from Spam folder."
-msgstr "Trinamas 1 laiğkas iğ nepageidaujamø laiğkø katalogo."
+msgstr "Trinamas 1 laiÅ¡kas iÅ¡ nepageidaujamÅ³ laiÅ¡kÅ³ katalogo."
 
 #: lib/Maintenance/Task/purge_trash.php:61
 msgid "Purging 1 message from Trash folder."
-msgstr "Trinamas 1 laiğkas iğ ğiukğliadëşës."
+msgstr "Trinamas 1 laiÅ¡kas iÅ¡ Å¡iukÅ¡liadÄ—Å¾Ä—s."
 
 #: lib/Maintenance/Task/purge_sentmail.php:61
 #, php-format
 msgid "Purging 1 message from sent-mail folder %s."
-msgstr "Trinamas 1 laiğkas iğ siøstø laiğkø katalogo %s."
+msgstr "Trinamas 1 laiÅ¡kas iÅ¡ siÅ³stÅ³ laiÅ¡kÅ³ katalogo %s."
 
 #: lib/IMP.php:942
 #, php-format
 msgid "Quota status: %.2fMB / %.2fMB  (%.2f%%)"
-msgstr "Naudojama vieta: %.2fMB iğ %.2fMB  (%.2f%%)"
+msgstr "Naudojama vieta: %.2fMB iÅ¡ %.2fMB  (%.2f%%)"
 
 #: lib/IMP.php:946
 #, php-format
@@ -3258,7 +3258,7 @@ msgstr "Naudojama vieta: NEAPRIBOTA"
 #: config/prefs.php.dist:626
 #, php-format
 msgid "Quoting %f:"
-msgstr "%f rağë:"
+msgstr "%f raÅ¡Ä—:"
 
 #: lib/IMAP/ACL/rfc4314.php:50 lib/IMAP/ACL/rfc2086.php:50
 msgid "Read"
@@ -3266,15 +3266,15 @@ msgstr "Skaityti"
 
 #: templates/folders/actions.html:38
 msgid "Rebuild Folder Tree"
-msgstr "Atnaujinti katalogø medá"
+msgstr "Atnaujinti katalogÅ³ medÄ¯"
 
 #: templates/search/search.html:31
 msgid "Recent Searches"
-msgstr "Paskutinës paieğkos"
+msgstr "PaskutinÄ—s paieÅ¡kos"
 
 #: templates/search/search.html:35 templates/search/search.html:37
 msgid "Recent Searches:"
-msgstr "Paskutinës paieğkos:"
+msgstr "PaskutinÄ—s paieÅ¡kos:"
 
 #: message.php:556 message.php:599
 msgid "Redirec_t"
@@ -3286,11 +3286,11 @@ msgstr "Nukreipti"
 
 #: templates/compose/redirect.html:82
 msgid "Redirect Message"
-msgstr "Nukreipti laiğkà"
+msgstr "Nukreipti laiÅ¡kÄ…"
 
 #: compose.php:339
 msgid "Redirect this message"
-msgstr "Laiğko nukreipimas"
+msgstr "LaiÅ¡ko nukreipimas"
 
 #: folders.php:346
 msgid "Refresh"
@@ -3298,7 +3298,7 @@ msgstr "Atnaujinti"
 
 #: config/prefs.php.dist:945
 msgid "Refresh Folder Views:"
-msgstr "Atnaujinti katalogo vaizdà:"
+msgstr "Atnaujinti katalogo vaizdÄ…:"
 
 #: mailbox.php:408
 msgid "Reload"
@@ -3306,27 +3306,27 @@ msgstr "Atnaujinti"
 
 #: folders.php:336
 msgid "Reload View"
-msgstr "Atnaujinti vaizdà"
+msgstr "Atnaujinti vaizdÄ…"
 
 #: lib/MIME/Viewer/itip.php:542 lib/MIME/Viewer/itip.php:561
 msgid "Remember the free/busy information."
-msgstr "Prisiminti uşimtumo informacijà."
+msgstr "Prisiminti uÅ¾imtumo informacijÄ…."
 
 #: config/prefs.php.dist:1152
 msgid "Remember the last view"
-msgstr "Prisiminti paskutiná vaizdà"
+msgstr "Prisiminti paskutinÄ¯ vaizdÄ…"
 
 #: templates/fetchmail/fetchmailprefs.html:68
 msgid "Remote Mailbox:"
-msgstr "Nutolusi pağto dëşutë:"
+msgstr "Nutolusi paÅ¡to dÄ—Å¾utÄ—:"
 
 #: search.php:320
 msgid "Remove Field From Search"
-msgstr "Pağalinti laukus iğ paieğkos"
+msgstr "PaÅ¡alinti laukus iÅ¡ paieÅ¡kos"
 
 #: templates/prefs/sourceselect.inc:302
 msgid "Remove source"
-msgstr "Panaikinti ğaltiná"
+msgstr "Panaikinti Å¡altinÄ¯"
 
 #: templates/folders/actions.html:16
 msgid "Rename"
@@ -3334,12 +3334,12 @@ msgstr "Pervadinti"
 
 #: config/prefs.php.dist:341
 msgid "Rename sent-mail folder at beginning of month?"
-msgstr "Pervardinti siøstø laiğkø katalogà mënesio pradşioje?"
+msgstr "Pervardinti siÅ³stÅ³ laiÅ¡kÅ³ katalogÄ… mÄ—nesio pradÅ¾ioje?"
 
 #: lib/Folder.php:373
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "Pervadinimas iğ \"%s\" á \"%s\" nepavyko. Serverio praneğimas toks"
+msgstr "Pervadinimas iÅ¡ \"%s\" Ä¯ \"%s\" nepavyko. Serverio praneÅ¡imas toks"
 
 #: message.php:540
 msgid "Reply"
@@ -3347,7 +3347,7 @@ msgstr "Atsakyti"
 
 #: lib/MIME/Viewer/itip.php:316 lib/MIME/Viewer/itip.php:420
 msgid "Reply Sent."
-msgstr "Atsakymas iğsiøstas."
+msgstr "Atsakymas iÅ¡siÅ³stas."
 
 #: compose.php:307
 msgid "Reply to All:"
@@ -3355,20 +3355,20 @@ msgstr "Atsakyti visiems:"
 
 #: compose.php:309
 msgid "Reply to List:"
-msgstr "Atsakyti á konferencijà:"
+msgstr "Atsakyti Ä¯ konferencijÄ…:"
 
 #: lib/MIME/Viewer/itip.php:544 lib/MIME/Viewer/itip.php:553
 #: lib/MIME/Viewer/itip.php:563
 msgid "Reply with Not Supported Message"
-msgstr "Atsakymo laiğko tipas nepalaikomas"
+msgstr "Atsakymo laiÅ¡ko tipas nepalaikomas"
 
 #: lib/MIME/Viewer/itip.php:551
 msgid "Reply with free/busy for next 2 months."
-msgstr "Atsakyti su uşimtumo informacija sekantiems 2 mënesiams."
+msgstr "Atsakyti su uÅ¾imtumo informacija sekantiems 2 mÄ—nesiams."
 
 #: lib/MIME/Viewer/itip.php:550
 msgid "Reply with requested free/busy information."
-msgstr "Atsakyti su uşimtumo informacija."
+msgstr "Atsakyti su uÅ¾imtumo informacija."
 
 #: lib/UI/Message.php:29
 msgid "Reply-To"
@@ -3400,7 +3400,7 @@ msgstr "Reikalauti perskaitymo patvirtinimo?"
 
 #: mailbox.php:108
 msgid "Requested message not found."
-msgstr "Nurodytas laiğkas nerastas."
+msgstr "Nurodytas laiÅ¡kas nerastas."
 
 #: lib/MIME/Viewer/itip.php:735 lib/MIME/Viewer/itip.php:863
 msgid "Required Participant"
@@ -3409,7 +3409,7 @@ msgstr "Reikalingas dalyvis"
 #: templates/acl/acl.html:80 templates/search/search.html:26
 #: templates/search/search.html:201
 msgid "Reset"
-msgstr "Iğvalyti"
+msgstr "IÅ¡valyti"
 
 #: lib/MIME/Viewer/itip.php:118
 msgid "Respondent Status Updated."
@@ -3421,39 +3421,39 @@ msgstr "Redaguoti"
 
 #: lib/UI/Compose.php:137
 msgid "Resume Editing"
-msgstr "Tæsti redagavimà"
+msgstr "TÄ™sti redagavimÄ…"
 
 #: login.php:182
 msgid "Resume your session"
-msgstr "Tæsti jûsø sesijà"
+msgstr "TÄ™sti jÅ«sÅ³ sesijÄ…"
 
 #: templates/fetchmail/fetchmailprefs.html:125
 msgid "Return to Fetch Mail"
-msgstr "Gráşti á laiğkø paëmimà"
+msgstr "GrÄ¯Å¾ti Ä¯ laiÅ¡kÅ³ paÄ—mimÄ…"
 
 #: stationery.php:147
 msgid "Return to Message Composition"
-msgstr "Gráşti á laiğko rağymo langà"
+msgstr "GrÄ¯Å¾ti Ä¯ laiÅ¡ko raÅ¡ymo langÄ…"
 
 #: filterprefs.php:65 templates/pgp/pgp.html:155 templates/acl/acl.html:35
 #: templates/acl/acl.html:81 templates/acl/acl.html:95
 #: templates/smime/smime.html:102
 msgid "Return to Options"
-msgstr "Gráşti á nustatymus"
+msgstr "GrÄ¯Å¾ti Ä¯ nustatymus"
 
 #: config/prefs.php.dist:879
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
-msgstr "Gráşti á pağto dëşutæ po laiğko trynimo, perkëlimo ar kopijavimo?"
+msgstr "GrÄ¯Å¾ti Ä¯ paÅ¡to dÄ—Å¾utÄ™ po laiÅ¡ko trynimo, perkÄ—limo ar kopijavimo?"
 
 #: acl.php:114
 #, php-format
 msgid "Rights for user \"%s\" cannot be modified."
-msgstr "Keisti vartotojo \"%s\" teisiø negalima."
+msgstr "Keisti vartotojo \"%s\" teisiÅ³ negalima."
 
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:854
 msgid "Role"
-msgstr "Rolë"
+msgstr "RolÄ—"
 
 #: smime.php:67 lib/MIME/Viewer/pkcs7.php:172 lib/MIME/Viewer/pkcs7.php:290
 #: lib/MIME/Viewer/pkcs7.php:478
@@ -3462,7 +3462,7 @@ msgstr "S/MIME"
 
 #: lib/IMP.php:1360
 msgid "S/MIME Encrypt Message"
-msgstr "Uşkoduoti laiğkà S/MIME pagalba"
+msgstr "UÅ¾koduoti laiÅ¡kÄ… S/MIME pagalba"
 
 #: lib/Compose.php:1273
 msgid "S/MIME Error: "
@@ -3470,7 +3470,7 @@ msgstr "S/MIME klaida: "
 
 #: lib/Compose.php:1252
 msgid "S/MIME Error: Need passphrase for personal private key."
-msgstr "S/MIME klaida: asmeniniam slaptam raktui reikalinga slapta frazë."
+msgstr "S/MIME klaida: asmeniniam slaptam raktui reikalinga slapta frazÄ—."
 
 #: config/prefs.php.dist:159
 msgid "S/MIME Options"
@@ -3478,62 +3478,62 @@ msgstr "S/MIME nustatymai"
 
 #: smime.php:54
 msgid "S/MIME Passphrase Input"
-msgstr "S/MIME slaptos frazës ávedimas"
+msgstr "S/MIME slaptos frazÄ—s Ä¯vedimas"
 
 #: templates/smime/smime.html:61
 msgid "S/MIME Personal Keypair support requires a secure web connection."
-msgstr "S/MIME raktø poros operacijos reikalauja saugaus prisijungimo."
+msgstr "S/MIME raktÅ³ poros operacijos reikalauja saugaus prisijungimo."
 
 #: smime.php:155
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
-msgstr "S/MIME vieğasis raktas \"%s\" buvo sëkmingai iğtrintas."
+msgstr "S/MIME vieÅ¡asis raktas \"%s\" buvo sÄ—kmingai iÅ¡trintas."
 
 #: smime.php:177
 msgid "S/MIME Public Key successfully added."
-msgstr "S/MIME vieğasis raktas sëkmingai pridëtas."
+msgstr "S/MIME vieÅ¡asis raktas sÄ—kmingai pridÄ—tas."
 
 #: templates/smime/smime.html:17
 msgid "S/MIME Public Keyring"
-msgstr "S/MIME vieğøjø raktø saugykla"
+msgstr "S/MIME vieÅ¡Å³jÅ³ raktÅ³ saugykla"
 
 #: smime.php:226
 msgid "S/MIME Public/Private Keypair successfully added."
-msgstr "S/MIME vieğoji/saugi raktø pora sëkmingai prijungta."
+msgstr "S/MIME vieÅ¡oji/saugi raktÅ³ pora sÄ—kmingai prijungta."
 
 #: lib/IMP.php:1361
 msgid "S/MIME Sign Message"
-msgstr "Pasirağyti laiğkà S/MIME pagalba"
+msgstr "PasiraÅ¡yti laiÅ¡kÄ… S/MIME pagalba"
 
 #: lib/IMP.php:1362
 msgid "S/MIME Sign/Encrypt Message"
-msgstr "Pasirağyti ir uşkoduoti laiğkà S/MIME pagalba"
+msgstr "PasiraÅ¡yti ir uÅ¾koduoti laiÅ¡kÄ… S/MIME pagalba"
 
 #: templates/smime/smime.html:91
 msgid "S/MIME support is disabled on this system."
-msgstr "S/MIME galimybë iğjungta."
+msgstr "S/MIME galimybÄ— iÅ¡jungta."
 
 #: lib/MIME/Viewer/pkcs7.php:294
 msgid ""
 "S/MIME support is not currently enabled so the message is unable to be "
 "decrypted."
-msgstr "Atkoduoti laiğko negalima, nes S/MIME galimybë iğjungta."
+msgstr "Atkoduoti laiÅ¡ko negalima, nes S/MIME galimybÄ— iÅ¡jungta."
 
 #: lib/MIME/Viewer/pkcs7.php:203
 msgid ""
 "S/MIME support is not enabled so the contents of this signed message cannot "
 "be displayed."
-msgstr "Parodyti ğio pasirağyto laiğko negalima, nes S/MIME galimybë iğjungta."
+msgstr "Parodyti Å¡io pasiraÅ¡yto laiÅ¡ko negalima, nes S/MIME galimybÄ— iÅ¡jungta."
 
 #: lib/MIME/Viewer/pkcs7.php:176
 msgid ""
 "S/MIME support is not enabled so the digital signature is unable to be "
 "verified."
-msgstr "Patikrinti skaitmeninio parağo negalima, nes S/MIME galimybë iğjungta."
+msgstr "Patikrinti skaitmeninio paraÅ¡o negalima, nes S/MIME galimybÄ— iÅ¡jungta."
 
 #: lib/MIME/Viewer/pkcs7.php:133
 msgid "S/MIME support is not enabled."
-msgstr "S/MIME galimybë iğjungta."
+msgstr "S/MIME galimybÄ— iÅ¡jungta."
 
 #: templates/smime/smime.html:4
 msgid ""
@@ -3541,8 +3541,8 @@ msgid ""
 "currently set to disable popup windows, you must change this setting or else "
 "the S/MIME features will not work correctly."
 msgstr ""
-"S/MIME galimybë reikalauja iğğokanèio lango. Jeigu jûsø narğyklë nustatyta "
-"blokuoti iğğokanèius langus, jûs turite iğjungti ğià funkcijà. Prieğingu "
+"S/MIME galimybÄ— reikalauja iÅ¡Å¡okanÄio lango. Jeigu jÅ«sÅ³ narÅ¡yklÄ— nustatyta "
+"blokuoti iÅ¡Å¡okanÄius langus, jÅ«s turite iÅ¡jungti Å¡iÄ… funkcijÄ…. PrieÅ¡ingu "
 "atveju S/MIME veiks neteisingai."
 
 #: templates/login/login.html:108
@@ -3559,81 +3559,81 @@ msgstr "_Tema"
 
 #: compose.php:1031
 msgid "Sa_ve a copy in "
-msgstr "Iğsau_goti kopijà kataloge "
+msgstr "IÅ¡sau_goti kopijÄ… kataloge "
 
 #: message.php:583
 msgid "Sa_ve as"
-msgstr "Iğsaug_oti kaip"
+msgstr "IÅ¡saug_oti kaip"
 
 #: templates/acl/acl.html:79 templates/fetchmail/fetchmailprefs.html:121
 #: templates/search/search.html:25 templates/search/search.html:200
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: compose.php:1103
 msgid "Save Attachments with message in sent-mail folder?"
-msgstr "Iğsaugoti prikabintus failus kartu su laiğku siøstø laiğkø kataloge?"
+msgstr "IÅ¡saugoti prikabintus failus kartu su laiÅ¡ku siÅ³stÅ³ laiÅ¡kÅ³ kataloge?"
 
 #: templates/compose/compose.html:19 templates/compose/compose.html:206
 msgid "Save Draft"
-msgstr "Iğsaugoti paruoğiná"
+msgstr "IÅ¡saugoti paruoÅ¡inÄ¯"
 
 #: saveimage.php:53
 msgid "Save Image"
-msgstr "Iğsaugoti paveikslëlá"
+msgstr "IÅ¡saugoti paveikslÄ—lÄ¯"
 
 #: lib/MIME/Contents.php:250
 msgid "Save Image in Gallery"
-msgstr "Iğsaugoti paveikslëlá galerijoje"
+msgstr "IÅ¡saugoti paveikslÄ—lÄ¯ galerijoje"
 
 #: filterprefs.php:126 templates/pgp/pgp.html:154
 #: templates/smime/smime.html:101
 msgid "Save Options"
-msgstr "Iğsaugoti nustatymus"
+msgstr "IÅ¡saugoti nustatymus"
 
 #: templates/stationery/stationery.html:42
 msgid "Save Stationery"
-msgstr "Iğsaugoti laiğko ğablonà"
+msgstr "IÅ¡saugoti laiÅ¡ko Å¡ablonÄ…"
 
 #: compose.php:876
 msgid "Save _Draft"
-msgstr "Iğsaugoti _paruoğiná"
+msgstr "IÅ¡saugoti _paruoÅ¡inÄ¯"
 
 #: message.php:583
 msgid "Save as"
-msgstr "Iğsaugoti kaip"
+msgstr "IÅ¡saugoti kaip"
 
 #: config/prefs.php.dist:647
 msgid "Save drafts as unseen?"
-msgstr "Iğsaugoti paruoğiná kaip neperskaitytà?"
+msgstr "IÅ¡saugoti paruoÅ¡inÄ¯ kaip neperskaitytÄ…?"
 
 #: config/prefs.php.dist:657
 msgid "Save drafts automatically while composing?"
-msgstr "Iğsaugoti paruoğinius automatiğkai kol laiğkas rağomas?"
+msgstr "IÅ¡saugoti paruoÅ¡inius automatiÅ¡kai kol laiÅ¡kas raÅ¡omas?"
 
 #: lib/MIME/Viewer/pkcs7.php:254
 msgid "Save in your Address Book"
-msgstr "Iğsaugoti savo adresø knygelëje"
+msgstr "IÅ¡saugoti savo adresÅ³ knygelÄ—je"
 
 #: config/prefs.php.dist:1251
 msgid "Save recipients automatically to the default address book?"
-msgstr "Iğsaugoti gavëjus automatiğkai á adresø knygelæ?"
+msgstr "IÅ¡saugoti gavÄ—jus automatiÅ¡kai Ä¯ adresÅ³ knygelÄ™?"
 
 #: templates/search/search.html:191
 msgid "Save search as a virtual folder?"
-msgstr "Iğsaugoti paieğkos rezultatus virtualiame kataloge?"
+msgstr "IÅ¡saugoti paieÅ¡kos rezultatus virtualiame kataloge?"
 
 #: config/prefs.php.dist:229
 msgid "Save sent mail?"
-msgstr "Iğsaugoti iğsiøstus laiğkus?"
+msgstr "IÅ¡saugoti iÅ¡siÅ³stus laiÅ¡kus?"
 
 #: lib/Compose.php:233
 msgid "Saving the draft failed. Could not create a drafts folder."
-msgstr "Iğsaugoti paruoğinio nepavyko. Nepavyko sukurti paruoğiniø katalogo."
+msgstr "IÅ¡saugoti paruoÅ¡inio nepavyko. Nepavyko sukurti paruoÅ¡iniÅ³ katalogo."
 
 #: lib/Compose.php:172
 msgid "Saving the draft failed. No draft folder specified."
-msgstr "Iğsaugoti paruoğinio nepavyko. Nenurodytas paruoğiniø katalogas."
+msgstr "IÅ¡saugoti paruoÅ¡inio nepavyko. Nenurodytas paruoÅ¡iniÅ³ katalogas."
 
 #: lib/Compose.php:203
 #, php-format
@@ -3641,47 +3641,47 @@ msgid ""
 "Saving the draft failed. The %s header contains an invalid e-mail address: %"
 "s."
 msgstr ""
-"Iğsaugoti paruoğinio nepavyko. Antrağtëje %s yra neteisingas el. pağto "
+"IÅ¡saugoti paruoÅ¡inio nepavyko. AntraÅ¡tÄ—je %s yra neteisingas el. paÅ¡to "
 "adresas: %s."
 
 #: lib/Compose.php:240
 #, php-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "Iğsaugoti paruoğinio nepavyko. Serverio praneğimas toks: %s"
+msgstr "IÅ¡saugoti paruoÅ¡inio nepavyko. Serverio praneÅ¡imas toks: %s"
 
 #: mailbox.php:414 lib/Search.php:533 lib/Block/tree_folders.php:44
 #: templates/contacts/contacts.html:25
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: search.php:207 mailbox.php:414
 #, php-format
 msgid "Search %s"
-msgstr "Ieğkoti kataloge %s"
+msgstr "IeÅ¡koti kataloge %s"
 
 #: templates/search/search.html:46
 msgid "Search Criteria"
-msgstr "Paieğkos kriterijus"
+msgstr "PaieÅ¡kos kriterijus"
 
 #: templates/search/search.html:130
 msgid "Search Flags"
-msgstr "Paieğkos şymës"
+msgstr "PaieÅ¡kos Å¾ymÄ—s"
 
 #: templates/search/search.html:155
 msgid "Search Folders"
-msgstr "Paieğkos katalogai"
+msgstr "PaieÅ¡kos katalogai"
 
 #: config/prefs.php.dist:128
 msgid "Search Options"
-msgstr "Paieğkos nustatymai"
+msgstr "PaieÅ¡kos nustatymai"
 
 #: search.php:154 templates/contacts/contacts.html:31
 msgid "Search Results"
-msgstr "Paieğkos rezultatai"
+msgstr "PaieÅ¡kos rezultatai"
 
 #: templates/search/search.html:80
 msgid "Search Text"
-msgstr "Paieğkos tekstas"
+msgstr "PaieÅ¡kos tekstas"
 
 #: templates/mailbox/navbar.html:14 templates/mailbox/navbar.html:30
 msgid "Seen"
@@ -3689,55 +3689,55 @@ msgstr "Skaityti"
 
 #: templates/fetchmail/fetchmailprefs.html:123
 msgid "Select Another Account"
-msgstr "Pasirinkite kità sàskaità"
+msgstr "Pasirinkite kitÄ… sÄ…skaitÄ…"
 
 #: search.php:311
 msgid "Select a date"
-msgstr "Pasirinkite datà"
+msgstr "Pasirinkite datÄ…"
 
 #: templates/search/search.html:65 templates/search/search.html:68
 msgid "Select a field"
-msgstr "Pasirinkite laukelá"
+msgstr "Pasirinkite laukelÄ¯"
 
 #: templates/fetchmail/fetchmail.html:11
 msgid "Select accounts to fetch mail from:"
-msgstr "Pasirinkite sàskaitas iğ kuriø norite paimti laiğkus:"
+msgstr "Pasirinkite sÄ…skaitas iÅ¡ kuriÅ³ norite paimti laiÅ¡kus:"
 
 #: config/prefs.php.dist:143
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Pasirinkite adresø knygelæ adresø paieğkai ir pridëjimui."
+msgstr "Pasirinkite adresÅ³ knygelÄ™ adresÅ³ paieÅ¡kai ir pridÄ—jimui."
 
 #: templates/search/search.html:159
 msgid "Select all"
-msgstr "Paşymëti viskà"
+msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #: templates/prefs/sourceselect.inc:321
 msgid "Select all fields to search when expanding addresses."
-msgstr "Pasirinkite laukelius, kuriuos naudosite adresø iğskleidimui."
+msgstr "Pasirinkite laukelius, kuriuos naudosite adresÅ³ iÅ¡skleidimui."
 
 #: templates/fetchmail/fetchmailprefs.html:21
 msgid "Select an account:"
-msgstr "Pasirinkite sàskaità:"
+msgstr "Pasirinkite sÄ…skaitÄ…:"
 
 #: templates/folders/folders.html:3
 msgid "Select mailbox"
-msgstr "Pasirinkite katalogà"
+msgstr "Pasirinkite katalogÄ…"
 
 #: templates/search/search.html:160
 msgid "Select none"
-msgstr "Nepaşymëti nieko"
+msgstr "NepaÅ¾ymÄ—ti nieko"
 
 #: templates/compose/compose.html:134
 msgid "Select stationery:"
-msgstr "Pasirinkite laiğko ğablonà:"
+msgstr "Pasirinkite laiÅ¡ko Å¡ablonÄ…:"
 
 #: templates/saveimage/saveimage.html:8
 msgid "Select the gallery to save the image in."
-msgstr "Pasirinkite galerijà á kurià norite iğsaugoti paveikslëlá."
+msgstr "Pasirinkite galerijÄ… Ä¯ kuriÄ… norite iÅ¡saugoti paveikslÄ—lÄ¯."
 
 #: templates/fetchmail/fetchmailprefs.html:34
 msgid "Select the mail server type:"
-msgstr "Pasirinkite pağto serverio tipà:"
+msgstr "Pasirinkite paÅ¡to serverio tipÄ…:"
 
 #: templates/mailbox/navbar.html:7 templates/mailbox/navbar.html:9
 msgid "Select:"
@@ -3745,7 +3745,7 @@ msgstr "Pasirinkite:"
 
 #: templates/prefs/sourceselect.inc:305 templates/prefs/sourceselect.inc:307
 msgid "Selected Address books:"
-msgstr "Pasirinktos adresø knygelës:"
+msgstr "Pasirinktos adresÅ³ knygelÄ—s:"
 
 #: templates/contacts/contacts.html:47
 msgid "Selected Addresses"
@@ -3753,27 +3753,27 @@ msgstr "Pasirinkti adresai"
 
 #: pgp.php:429 templates/pgp/pgp.html:75
 msgid "Send Key to Public Keyserver"
-msgstr "Nusiøsti raktà á vieğà raktø serverá"
+msgstr "NusiÅ³sti raktÄ… Ä¯ vieÅ¡Ä… raktÅ³ serverÄ¯"
 
 #: lib/MIME/Viewer/itip.php:646
 msgid "Send Latest Information"
-msgstr "Siøsti naujausià informacijà"
+msgstr "SiÅ³sti naujausiÄ… informacijÄ…"
 
 #: templates/compose/compose.html:17 templates/compose/compose.html:204
 msgid "Send Message"
-msgstr "Siøsti laiğkà"
+msgstr "SiÅ³sti laiÅ¡kÄ…"
 
 #: templates/javascript_defs.php:39
 msgid "Send message without a Subject?"
-msgstr "Siøsti laiğkà be Temos antrağtës?"
+msgstr "SiÅ³sti laiÅ¡kÄ… be Temos antraÅ¡tÄ—s?"
 
 #: lib/IMAP/Tree.php:2345
 msgid "Sent mail folder"
-msgstr "Siøstø laiğkø katalogas"
+msgstr "SiÅ³stÅ³ laiÅ¡kÅ³ katalogas"
 
 #: templates/prefs/sentmailselect.inc:36
 msgid "Sent mail folder:"
-msgstr "Siøstø laiğkø katalogas:"
+msgstr "SiÅ³stÅ³ laiÅ¡kÅ³ katalogas:"
 
 #: templates/login/login.html:36 templates/login/login.html:50
 #: templates/login/login.html:62
@@ -3782,7 +3782,7 @@ msgstr "Serveris"
 
 #: config/prefs.php.dist:23
 msgid "Server and Folder Information"
-msgstr "Serverio ir katalogø informacija"
+msgstr "Serverio ir katalogÅ³ informacija"
 
 #: templates/fetchmail/fetchmailprefs.html:63
 msgid "Server:"
@@ -3790,11 +3790,11 @@ msgstr "Serveris:"
 
 #: config/prefs.php.dist:88
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr "Kas bus vykdoma su jûsø laiğkais kai jie trinami arba perkeliami."
+msgstr "Kas bus vykdoma su jÅ«sÅ³ laiÅ¡kais kai jie trinami arba perkeliami."
 
 #: config/prefs.php.dist:666
 msgid "Set the X-Priority header when composing messages?"
-msgstr "Ar naudoti svarbos antrağtæ siunèiant laiğkus?"
+msgstr "Ar naudoti svarbos antraÅ¡tÄ™ siunÄiant laiÅ¡kus?"
 
 #: config/prefs.php.dist:32
 msgid "Share Folders"
@@ -3802,42 +3802,42 @@ msgstr "Dalinimasis katalogais"
 
 #: templates/acl/acl.html:7
 msgid "Share mail folders"
-msgstr "Dalintis pağto katalogais"
+msgstr "Dalintis paÅ¡to katalogais"
 
 #: config/prefs.php.dist:33
 msgid "Share your mail folders with other users."
-msgstr "Dalintis pağto katalogais su kitais vartotojais."
+msgstr "Dalintis paÅ¡to katalogais su kitais vartotojais."
 
 #: lib/IMAP/Tree.php:92
 msgid "Shared Folders"
-msgstr "Pavieğinti katalogai"
+msgstr "PavieÅ¡inti katalogai"
 
 #: templates/pgp/pgp.html:15
 msgid "Should PGP signed messages automatically be verified when viewed?"
-msgstr "Ar automatiğkai tikrinti PGP pagalba pasirağytus laiğkus?"
+msgstr "Ar automatiÅ¡kai tikrinti PGP pagalba pasiraÅ¡ytus laiÅ¡kus?"
 
 #: templates/smime/smime.html:7
 msgid "Should S/MIME signed messages automatically be verified when viewed?"
-msgstr "Ar automatiğkai tikrinti S/MIME pagalba pasirağytus laiğkus?"
+msgstr "Ar automatiÅ¡kai tikrinti S/MIME pagalba pasiraÅ¡ytus laiÅ¡kus?"
 
 #: config/prefs.php.dist:794
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
-msgstr "Ar dideli citatos blokai standartiğkai turi bûti rodomi ar paslëpti?"
+msgstr "Ar dideli citatos blokai standartiÅ¡kai turi bÅ«ti rodomi ar paslÄ—pti?"
 
 #: templates/pgp/pgp.html:11
 msgid "Should the body of text/plain messages be scanned for PGP data?"
-msgstr "Ar norite laiğko tekste ieğkoti PGP informacijos?"
+msgstr "Ar norite laiÅ¡ko tekste ieÅ¡koti PGP informacijos?"
 
 #: config/prefs.php.dist:639
 msgid "Should the compose window be closed after saving a draft?"
-msgstr "Ar rağymo langas turi uşsidaryti po paruoğinio iğsaugojimo?"
+msgstr "Ar raÅ¡ymo langas turi uÅ¾sidaryti po paruoÅ¡inio iÅ¡saugojimo?"
 
 #: templates/pgp/pgp.html:7
 msgid "Should your PGP public key to be attached to your messages by default?"
 msgstr ""
-"Ar norite prie kiekvieno siunèiamo laiğko prikabinti savo PGP vieğàjá raktà?"
+"Ar norite prie kiekvieno siunÄiamo laiÅ¡ko prikabinti savo PGP vieÅ¡Ä…jÄ¯ raktÄ…?"
 
 #: templates/javascript_defs.php:30
 msgid "Show Addresses"
@@ -3849,39 +3849,39 @@ msgstr "Rodyti visus katalogus"
 
 #: message.php:606
 msgid "Show All Headers"
-msgstr "Rodyti visas antrağtes"
+msgstr "Rodyti visas antraÅ¡tes"
 
 #: message.php:603
 msgid "Show Common Headers"
-msgstr "Rodyti bendrines antrağtes"
+msgstr "Rodyti bendrines antraÅ¡tes"
 
 #: mailbox.php:248
 msgid "Show Deleted"
-msgstr "Rodyti iğtrintus"
+msgstr "Rodyti iÅ¡trintus"
 
 #: lib/MIME/Viewer/html.php:156
 msgid "Show Images?"
-msgstr "Parodyti paveikslëlius?"
+msgstr "Parodyti paveikslÄ—lius?"
 
 #: message.php:609
 msgid "Show Mailing List Information"
-msgstr "Rodyti konferencijos informacijà"
+msgstr "Rodyti konferencijos informacijÄ…"
 
 #: templates/search/search.html:162
 msgid "Show Only Subscribed Folders"
-msgstr "Rodyti tik uşprenumeruotus katalogus"
+msgstr "Rodyti tik uÅ¾prenumeruotus katalogus"
 
 #: templates/folders/actions.html:37
 msgid "Show Size"
-msgstr "Rodyti dydá"
+msgstr "Rodyti dydÄ¯"
 
 #: folders.php:364
 msgid "Show Unsubscribed"
-msgstr "Rodyti neuşprenumeruotus"
+msgstr "Rodyti neuÅ¾prenumeruotus"
 
 #: config/prefs.php.dist:733
 msgid "Show an icon to allow stripping of attachments from messages?"
-msgstr "Rodyti trynimo piktogramà prie kiekvieno prikabinto failo laiğke?"
+msgstr "Rodyti trynimo piktogramÄ… prie kiekvieno prikabinto failo laiÅ¡ke?"
 
 #: config/prefs.php.dist:1162
 msgid "Show non-private mailboxes in separate folders"
@@ -3889,35 +3889,35 @@ msgstr "Rodyti ne asmeninius katalogus atskirame medyje"
 
 #: config/prefs.php.dist:1006
 msgid "Show previews for unread messages only?"
-msgstr "Iğankstinis perşiûrëjimas tik neperskaitytoms şinutëms?"
+msgstr "IÅ¡ankstinis perÅ¾iÅ«rÄ—jimas tik neperskaitytoms Å¾inutÄ—ms?"
 
 #: config/prefs.php.dist:1014
 msgid "Show previews in tooltips?"
-msgstr "Alternatyvus naujo pağto perşiûrëjimas?"
+msgstr "Alternatyvus naujo paÅ¡to perÅ¾iÅ«rÄ—jimas?"
 
 #: config/prefs.php.dist:548
 msgid "Show the Bcc: header field when composing mail?"
-msgstr "Rodyti Bcc: antrağtæ kai rağomas laiğkas?"
+msgstr "Rodyti Bcc: antraÅ¡tÄ™ kai raÅ¡omas laiÅ¡kas?"
 
 #: config/prefs.php.dist:539
 msgid "Show the Cc: header field when composing mail?"
-msgstr "Rodyti Cc: antrağtæ kai rağomas laiğkas?"
+msgstr "Rodyti Cc: antraÅ¡tÄ™ kai raÅ¡omas laiÅ¡kas?"
 
 #: config/prefs.php.dist:1043
 msgid "Show the Fetch Mail icon on the menubar?"
-msgstr "Rodyti \"Paimti laiğkus\" mygtukà meniu juostoje?"
+msgstr "Rodyti \"Paimti laiÅ¡kus\" mygtukÄ… meniu juostoje?"
 
 #: filterprefs.php:111
 msgid "Show the filter icon on the menubar?"
-msgstr "Rodyti filtrø mygtukà meniu juostoje?"
+msgstr "Rodyti filtrÅ³ mygtukÄ… meniu juostoje?"
 
 #: lib/MIME/Viewer/html.php:171
 msgid "Show this HTML in a new window?"
-msgstr "Rodyti ğá HTML turiná naujame lange?"
+msgstr "Rodyti Å¡Ä¯ HTML turinÄ¯ naujame lange?"
 
 #: lib/Block/summary.php:30
 msgid "Show total number of mails in folder?"
-msgstr "Rodyti bendrà laiğkø skaièiø kataloge?"
+msgstr "Rodyti bendrÄ… laiÅ¡kÅ³ skaiÄiÅ³ kataloge?"
 
 #: config/prefs.php.dist:791
 msgid "Shown"
@@ -3937,43 +3937,43 @@ msgstr "Dydis:"
 
 #: mailbox.php:567 lib/Block/mailbox.php:141
 msgid "Sort by Arrival"
-msgstr "Rûğiuoti pagal gavimo datà"
+msgstr "RÅ«Å¡iuoti pagal gavimo datÄ…"
 
 #: mailbox.php:572 lib/Block/mailbox.php:146
 msgid "Sort by Date"
-msgstr "Rûğiuoti pagal parağymo datà"
+msgstr "RÅ«Å¡iuoti pagal paraÅ¡ymo datÄ…"
 
 #: mailbox.php:582 lib/Block/mailbox.php:156
 msgid "Sort by From Address"
-msgstr "Rûğiuoti pagal siuntëjà"
+msgstr "RÅ«Å¡iuoti pagal siuntÄ—jÄ…"
 
 #: mailbox.php:597 lib/Block/mailbox.php:171
 msgid "Sort by Message Size"
-msgstr "Rûğiuoti pagal laiğko dydá"
+msgstr "RÅ«Å¡iuoti pagal laiÅ¡ko dydÄ¯"
 
 #: mailbox.php:592 lib/Block/mailbox.php:166
 msgid "Sort by Subject"
-msgstr "Rûğiuoti pagal pavadinimà"
+msgstr "RÅ«Å¡iuoti pagal pavadinimÄ…"
 
 #: mailbox.php:587 lib/Block/mailbox.php:161
 msgid "Sort by Thread"
-msgstr "Rûğiuoti pagal temà"
+msgstr "RÅ«Å¡iuoti pagal temÄ…"
 
 #: mailbox.php:577 lib/Block/mailbox.php:151
 msgid "Sort by To Address"
-msgstr "Rûğiuoti pagal adresatà"
+msgstr "RÅ«Å¡iuoti pagal adresatÄ…"
 
 #: lib/IMAP/Tree.php:2338
 msgid "Spam folder"
-msgstr "Nepageidaujamø (spam) laiğkø katalogas"
+msgstr "NepageidaujamÅ³ (spam) laiÅ¡kÅ³ katalogas"
 
 #: templates/prefs/spamselect.inc:19
 msgid "Spam folder:"
-msgstr "Nepageidaujamø (spam) laiğkø katalogas:"
+msgstr "NepageidaujamÅ³ (spam) laiÅ¡kÅ³ katalogas:"
 
 #: compose.php:1020
 msgid "Special Characters"
-msgstr "Specialûs simboliai"
+msgstr "SpecialÅ«s simboliai"
 
 #: search.php:48
 msgid "Special Virtual Folders cannot be edited."
@@ -3981,29 +3981,29 @@ msgstr "Redaguoti virtualaus katalogo negalima."
 
 #: lib/UI/Compose.php:138
 msgid "Spell Check Failed"
-msgstr "Patikrinti klaidø nepavyko"
+msgstr "Patikrinti klaidÅ³ nepavyko"
 
 #: lib/MIME/Viewer/itip.php:521 lib/MIME/Viewer/itip.php:523
 #: lib/MIME/Viewer/itip.php:691 lib/MIME/Viewer/itip.php:693
 msgid "Start"
-msgstr "Pradëti"
+msgstr "PradÄ—ti"
 
 #: compose.php:1000 templates/stationery/stationery.html:8
 #: templates/stationery/stationery.html:12
 msgid "Stationery"
-msgstr "Laiğko ğablonas"
+msgstr "LaiÅ¡ko Å¡ablonas"
 
 #: stationery.php:139
 msgid "Stationery name:"
-msgstr "Laiğko ğablono pavadinimas:"
+msgstr "LaiÅ¡ko Å¡ablono pavadinimas:"
 
 #: stationery.php:141
 msgid "Stationery type:"
-msgstr "Laiğko ğablono tipas:"
+msgstr "LaiÅ¡ko Å¡ablono tipas:"
 
 #: stationery.php:144
 msgid "Stationery:"
-msgstr "Laiğko ğablonas:"
+msgstr "LaiÅ¡ko Å¡ablonas:"
 
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:854
 msgid "Status"
@@ -4011,19 +4011,19 @@ msgstr "Statusas"
 
 #: message.php:667
 msgid "Strip All Attachments"
-msgstr "Iğtrinti pvisus prikabintus failus"
+msgstr "IÅ¡trinti pvisus prikabintus failus"
 
 #: lib/MIME/Contents.php:261
 msgid "Strip Attachment"
-msgstr "Iğtrinti prikabintà failà"
+msgstr "IÅ¡trinti prikabintÄ… failÄ…"
 
 #: message.php:667
 msgid "Strip Attachments"
-msgstr "Iğtrinti prikabintus failus"
+msgstr "IÅ¡trinti prikabintus failus"
 
 #: config/prefs.php.dist:998
 msgid "Strip linebreaks?"
-msgstr "Iğvalyti tuğèias eilutes?"
+msgstr "IÅ¡valyti tuÅ¡Äias eilutes?"
 
 #: mailbox.php:593 lib/Block/mailbox.php:167
 msgid "Sub_ject"
@@ -4045,7 +4045,7 @@ msgstr "Tema:"
 #: templates/search/search.html:25 templates/search/search.html:200
 #: templates/saveimage/saveimage.html:19
 msgid "Submit"
-msgstr "Ávesti"
+msgstr "Ä®vesti"
 
 #: templates/folders/actions.html:23
 msgid "Subscribe"
@@ -4054,7 +4054,7 @@ msgstr "Prenumeruoti"
 #: lib/MIME/Viewer/status.php:86 lib/MIME/Viewer/pgp.php:438
 #: lib/MIME/Viewer/pkcs7.php:438
 msgid "Success"
-msgstr "Sëkminga"
+msgstr "SÄ—kminga"
 
 #: templates/folders/folders_size.html:19
 msgid "Sum"
@@ -4067,15 +4067,15 @@ msgstr "Turinys"
 
 #: compose.php:1057 compose.php:1058
 msgid "Switch Composition Method"
-msgstr "Laiğko rağymo bûdo perjungimas"
+msgstr "LaiÅ¡ko raÅ¡ymo bÅ«do perjungimas"
 
 #: templates/compose/compose.html:189
 msgid "Switch to HTML composition"
-msgstr "Perjungti á HTML"
+msgstr "Perjungti Ä¯ HTML"
 
 #: templates/compose/compose.html:189
 msgid "Switch to plain text composition"
-msgstr "Perjungti á paprastà tekstà"
+msgstr "Perjungti Ä¯ paprastÄ… tekstÄ…"
 
 #: templates/message/navbar_navigate.html:27
 msgid "Target Folder"
@@ -4087,7 +4087,7 @@ msgstr "Tikslo katalogas:"
 
 #: lib/IMP.php:475
 msgid "Task Lists"
-msgstr "Darbø sàrağai"
+msgstr "DarbÅ³ sÄ…raÅ¡ai"
 
 #: config/hooks.php.dist:412
 msgid "Tasks"
@@ -4103,7 +4103,7 @@ msgstr "Laikinas: "
 
 #: lib/MIME/Viewer/itip.php:631
 msgid "Tentatively Accept request"
-msgstr "Laikinai priimti uşklausà"
+msgstr "Laikinai priimti uÅ¾klausÄ…"
 
 #: lib/MIME/Viewer/itip.php:925
 msgid "Tentatively Accepted"
@@ -4112,7 +4112,7 @@ msgstr "Laikinai priimtas"
 #: lib/Maintenance/Task/tos_agreement.php:46
 #, php-format
 msgid "Terms of Service file not specified in conf.php"
-msgstr "Registracijos sàlygos nenurodytos conf.php faile"
+msgstr "Registracijos sÄ…lygos nenurodytos conf.php faile"
 
 #: templates/stationery/stationery.html:31
 msgid "Text"
@@ -4120,24 +4120,24 @@ msgstr "Tekstas"
 
 #: config/prefs.php.dist:1127
 msgid "The From: column of the message should be linked:"
-msgstr "Laiğko Nuo: laukelis turi bûti susietas:"
+msgstr "LaiÅ¡ko Nuo: laukelis turi bÅ«ti susietas:"
 
 #: lib/IMAP/Client.php:432
 msgid ""
 "The IMAP server does not appear to support the authentication method "
 "selected. Please contact your system administrator."
 msgstr ""
-"IMAP serveris nepalaiko autentifikacijos bûdo kurá pasirinkote. Susisiekite "
-"su savo sistemø administratoriumi."
+"IMAP serveris nepalaiko autentifikacijos bÅ«do kurÄ¯ pasirinkote. Susisiekite "
+"su savo sistemÅ³ administratoriumi."
 
 #: lib/MIME/Viewer/appledouble.php:40
 msgid "The Macintosh resource fork"
-msgstr "Macintosh resursinë failo dalis"
+msgstr "Macintosh resursinÄ— failo dalis"
 
 #: lib/MIME/Viewer/appledouble.php:40
 #, php-format
 msgid "The Macintosh resource fork can be downloaded %s."
-msgstr "Macintosh resursai gali bûti atsiøsti iğ %s."
+msgstr "Macintosh resursai gali bÅ«ti atsiÅ³sti iÅ¡ %s."
 
 #: lib/MIME/Viewer/pkcs7.php:252
 #, php-format
@@ -4147,12 +4147,12 @@ msgstr "%s S/MIME sertifikatas: "
 #: fetchmailprefs.php:85
 #, php-format
 msgid "The account \"%s\" has been deleted."
-msgstr "Sàskaita \"%s\" iğtrinta."
+msgstr "SÄ…skaita \"%s\" iÅ¡trinta."
 
 #: fetchmailprefs.php:78
 #, php-format
 msgid "The account \"%s\" has been saved."
-msgstr "Sàskaita \"%s\" iğsaugota."
+msgstr "SÄ…skaita \"%s\" iÅ¡saugota."
 
 #: attachment.php:43
 msgid "The attachment was not found."
@@ -4160,7 +4160,7 @@ msgstr "Prikabintas failas nerastas."
 
 #: config/prefs.php.dist:518
 msgid "The buttons NOT to show when using Xinha."
-msgstr "Kuriø mygtukø NERODYTI Xinha teksto redaktoriuje."
+msgstr "KuriÅ³ mygtukÅ³ NERODYTI Xinha teksto redaktoriuje."
 
 #: lib/MIME/Viewer/itip.php:70
 msgid "The calendar data is invalid"
@@ -4168,30 +4168,30 @@ msgstr "Kalendoriaus duomenys neteisingi"
 
 #: lib/MIME/Viewer/appledouble.php:41
 msgid "The contents of the Macintosh file are below."
-msgstr "Macintosh failo turinys iğdëstytas apaèioje."
+msgstr "Macintosh failo turinys iÅ¡dÄ—stytas apaÄioje."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:73
 #, php-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "Esamas(i) katalogas(ai) \"%s\" bus pervardintas(i) á \"%s\"."
+msgstr "Esamas(i) katalogas(ai) \"%s\" bus pervardintas(i) Ä¯ \"%s\"."
 
 #: templates/acl/acl.html:29
 msgid ""
 "The current list of users with access to this folder could not be retrieved."
-msgstr "Nepavyko gauti vartotojø teisiø sàrağo ğiam katalogui."
+msgstr "Nepavyko gauti vartotojÅ³ teisiÅ³ sÄ…raÅ¡o Å¡iam katalogui."
 
 #: config/prefs.php.dist:845
 msgid "The default charset for messages with no charset information:"
-msgstr "Standartinë koduotë laiğkams be koduotës informacijos:"
+msgstr "StandartinÄ— koduotÄ— laiÅ¡kams be koduotÄ—s informacijos:"
 
 #: lib/Compose.php:250
 #, php-format
 msgid "The draft has been saved to the \"%s\" folder."
-msgstr "Paruoğinys iğsaugotas kataloge \"%s\"."
+msgstr "ParuoÅ¡inys iÅ¡saugotas kataloge \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:142
 msgid "The event was added to your calendar."
-msgstr "Ávykis árağytas á jûsø kalendoriø."
+msgstr "Ä®vykis Ä¯raÅ¡ytas Ä¯ jÅ«sÅ³ kalendoriÅ³."
 
 #: lib/Compose.php:1814
 #, php-format
@@ -4206,7 +4206,7 @@ msgstr "Katalogas \"%s\" jau egzistuoja"
 #: folders.php:240 lib/Folder.php:190
 #, php-format
 msgid "The folder \"%s\" may not be deleted."
-msgstr "Katalogas \"%s\" neiğtrintas."
+msgstr "Katalogas \"%s\" neiÅ¡trintas."
 
 #: lib/Folder.php:351
 #, php-format
@@ -4216,17 +4216,17 @@ msgstr "Katalogas \"%s\" nepervadintas."
 #: lib/Folder.php:294
 #, php-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "Katalogas \"%s\" sukurtas, taèiau neaktyvuotas."
+msgstr "Katalogas \"%s\" sukurtas, taÄiau neaktyvuotas."
 
 #: lib/Folder.php:281
 #, php-format
 msgid "The folder \"%s\" was not created. This is what the server said"
-msgstr "Katalogas \"%s\" nesukurtas. Serverio praneğimas toks"
+msgstr "Katalogas \"%s\" nesukurtas. Serverio praneÅ¡imas toks"
 
 #: lib/Folder.php:194
 #, php-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
-msgstr "Katalogas \"%s\" neiğtrintas. Serverio praneğimas toks"
+msgstr "Katalogas \"%s\" neiÅ¡trintas. Serverio praneÅ¡imas toks"
 
 #: lib/Folder.php:297
 #, php-format
@@ -4236,171 +4236,171 @@ msgstr "Katalogas \"%s\" sukurtas."
 #: lib/Folder.php:199
 #, php-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "Katalogas \"%s\" iğtrintas."
+msgstr "Katalogas \"%s\" iÅ¡trintas."
 
 #: lib/Folder.php:376
 #, php-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "Katalogas \"%s\" pervardintas á \"%s\"."
+msgstr "Katalogas \"%s\" pervardintas Ä¯ \"%s\"."
 
 #: lib/MIME/Viewer/tnef.php:93
 msgid "The following files were attached to this part:"
-msgstr "Prie ğios dalies prikabinti ğie failai:"
+msgstr "Prie Å¡ios dalies prikabinti Å¡ie failai:"
 
 #: config/prefs.php.dist:510
 msgid "The javascript editor to use on the compose page."
-msgstr "Javascript redaktorius, kurá naudosite laiğko rağymo lange."
+msgstr "Javascript redaktorius, kurÄ¯ naudosite laiÅ¡ko raÅ¡ymo lange."
 
 #: lib/MIME/Viewer/status.php:74
 msgid "The mail server generated the following error message:"
-msgstr "Pağto serverio klaida:"
+msgstr "PaÅ¡to serverio klaida:"
 
 #: lib/MIME/Viewer/notification.php:50
 msgid "The mail server generated the following informational message:"
-msgstr "Pağto serverio informacija:"
+msgstr "PaÅ¡to serverio informacija:"
 
 #: lib/MIME/Viewer/status.php:89
 msgid "The mail server generated the following message:"
-msgstr "Pağto serverio şinutë:"
+msgstr "PaÅ¡to serverio Å¾inutÄ—:"
 
 #: lib/Message.php:791
 #, php-format
 msgid "The mailbox %s is already empty."
-msgstr "Katalogas %s jau tuğèias."
+msgstr "Katalogas %s jau tuÅ¡Äias."
 
 #: lib/Fetchmail.php:238
 #, php-format
 msgid "The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."
-msgstr "Laiğkas \"%s\" nuo \"%s\" (%d baitai) virğyja paimamø laiğkø dydá."
+msgstr "LaiÅ¡kas \"%s\" nuo \"%s\" (%d baitai) virÅ¡yja paimamÅ³ laiÅ¡kÅ³ dydÄ¯."
 
 #: templates/javascript_defs.php:53
 msgid "The message being composed has been closed. Exiting."
-msgstr "Rağomas laiğkas uşdarytas. Iğeinu."
+msgstr "RaÅ¡omas laiÅ¡kas uÅ¾darytas. IÅ¡einu."
 
 #: lib/MIME/Viewer/pgp.php:363
 msgid ""
 "The message below does not appear to be a valid PGP encrypted message. "
 "Error: "
-msgstr "Atrodo, kad tai netvarkingas PGP raktu uşkoduotas laiğkas. Klaida: "
+msgstr "Atrodo, kad tai netvarkingas PGP raktu uÅ¾koduotas laiÅ¡kas. Klaida: "
 
 #: lib/MIME/Viewer/pgp.php:249 lib/MIME/Viewer/pgp.php:398
 msgid ""
 "The message below does not appear to be in the correct PGP format (according "
 "to RFC 2015)."
-msgstr "Laiğkas neatitinka teisingo PGP RFC2015 formato."
+msgstr "LaiÅ¡kas neatitinka teisingo PGP RFC2015 formato."
 
 #: lib/MIME/Viewer/pgp.php:358
 msgid "The message below has been compressed with PGP."
-msgstr "Ğis laiğkas yra uşkoduotas PGP pagalba."
+msgstr "Å is laiÅ¡kas yra uÅ¾koduotas PGP pagalba."
 
 #: lib/MIME/Viewer/pgp.php:200
 msgid ""
 "The message below has been digitally signed and encrypted with PGP, but the "
 "signature cannot be verified."
 msgstr ""
-"Ğis laiğkas yra pasirağytas ir uşkoduotas PGP pagalba, taèiau nepavyko "
-"patvirtinti jo parağo."
+"Å is laiÅ¡kas yra pasiraÅ¡ytas ir uÅ¾koduotas PGP pagalba, taÄiau nepavyko "
+"patvirtinti jo paraÅ¡o."
 
 #: lib/MIME/Viewer/pgp.php:206
 msgid "The message below has been digitally signed and encrypted with PGP."
-msgstr "Ğis laiğkas yra pasirağytas ir uşkoduotas PGP pagalba."
+msgstr "Å is laiÅ¡kas yra pasiraÅ¡ytas ir uÅ¾koduotas PGP pagalba."
 
 #: lib/MIME/Viewer/pgp.php:202
 msgid ""
 "The message below has been digitally signed with PGP, but the signature "
 "cannot be verified."
 msgstr ""
-"Ğis laiğkas yra pasirağytas PGP pagalba, taèiau nepavyko patvirtinti jo "
-"parağo."
+"Å is laiÅ¡kas yra pasiraÅ¡ytas PGP pagalba, taÄiau nepavyko patvirtinti jo "
+"paraÅ¡o."
 
 #: lib/MIME/Viewer/pgp.php:208
 msgid "The message below has been digitally signed with PGP."
-msgstr "Ğis laiğkas yra pasirağytas PGP pagalba."
+msgstr "Å is laiÅ¡kas yra pasiraÅ¡ytas PGP pagalba."
 
 #: lib/MIME/Viewer/pgp.php:308
 msgid ""
 "The message below has been encrypted with PGP, however, PGP support is "
 "disabled so the message cannot be decrypted."
 msgstr ""
-"Ğis laiğkas uşkoduotas PGP pagalba, taèiau PGP palaikymas yra iğjungtas, "
-"todël atkoduoti jo nepavyks."
+"Å is laiÅ¡kas uÅ¾koduotas PGP pagalba, taÄiau PGP palaikymas yra iÅ¡jungtas, "
+"todÄ—l atkoduoti jo nepavyks."
 
 #: lib/MIME/Viewer/pgp.php:346
 msgid ""
 "The message below has been encrypted with PGP, however, no personal private "
 "key exists so the message cannot be decrypted."
 msgstr ""
-"Ğis laiğkas uşkoduotas PGP pagalba, taèiau nëra asmeninio slaptojo rakto, "
-"todël atkoduoti jo nepavyks."
+"Å is laiÅ¡kas uÅ¾koduotas PGP pagalba, taÄiau nÄ—ra asmeninio slaptojo rakto, "
+"todÄ—l atkoduoti jo nepavyks."
 
 #: lib/MIME/Viewer/pgp.php:358
 msgid "The message below has been encrypted with PGP."
-msgstr "Ğis laiğkas yra uşkoduotas PGP pagalba."
+msgstr "Å is laiÅ¡kas yra uÅ¾koduotas PGP pagalba."
 
 #: lib/MIME/Viewer/pgp.php:353
 msgid ""
 "The message below has been encrypted with PGP. You must enter the passphrase "
 "for your PGP private key before it can be decrypted."
 msgstr ""
-"Ğis laiğkas uşkoduotas PGP pagalba. Norëdami perşiûrëti ğá laiğkà, áveskite "
-"PGP asmeninio rakto slaptàjà frazæ."
+"Å is laiÅ¡kas uÅ¾koduotas PGP pagalba. NorÄ—dami perÅ¾iÅ«rÄ—ti Å¡Ä¯ laiÅ¡kÄ…, Ä¯veskite "
+"PGP asmeninio rakto slaptÄ…jÄ… frazÄ™."
 
 #: lib/MIME/Viewer/pgp.php:340
 msgid ""
 "The message below has been encrypted with PGP. You must enter the passphrase "
 "that was used to encrypt this message."
 msgstr ""
-"Ğis laiğkas uşkoduotas PGP pagalba. Norëdami perşiûrëti ği laiğkà, áveskite "
-"slaptàjà frazæ, su kuria jis uşkoduotas."
+"Å is laiÅ¡kas uÅ¾koduotas PGP pagalba. NorÄ—dami perÅ¾iÅ«rÄ—ti Å¡i laiÅ¡kÄ…, Ä¯veskite "
+"slaptÄ…jÄ… frazÄ™, su kuria jis uÅ¾koduotas."
 
 #: lib/MIME/Viewer/pgp.php:442
 msgid "The message below has been verified."
-msgstr "Laiğkas patvirtintas."
+msgstr "LaiÅ¡kas patvirtintas."
 
 #: lib/Crypt/PGP.php:380
 msgid "The message below has not been digitally signed or encrypted with PGP."
-msgstr "Ğis laiğkas nëra pasirağytas arba uşkoduotas PGP pagalba."
+msgstr "Å is laiÅ¡kas nÄ—ra pasiraÅ¡ytas arba uÅ¾koduotas PGP pagalba."
 
 #: templates/javascript_defs.php:39
 msgid "The message does not have a Subject entered."
-msgstr "Laiğkas neturi Temos antrağtës."
+msgstr "LaiÅ¡kas neturi Temos antraÅ¡tÄ—s."
 
 #: lib/Spam.php:218 lib/Filter.php:72
 msgid "The message has been deleted."
-msgstr "Laiğkas iğtrintas."
+msgstr "LaiÅ¡kas iÅ¡trintas."
 
 #: lib/Spam.php:201
 msgid "The message has been reported as not spam to your system administrator."
-msgstr "Laiğkas nusiøstas administratoriui kaip ne nepageidaujamas (spam)."
+msgstr "LaiÅ¡kas nusiÅ³stas administratoriui kaip ne nepageidaujamas (spam)."
 
 #: lib/Spam.php:181
 msgid "The message has been reported as not spam."
-msgstr "Laiğkas paskelbtas kaip ne nepageidaujamas (spam)."
+msgstr "LaiÅ¡kas paskelbtas kaip ne nepageidaujamas (spam)."
 
 #: lib/Spam.php:193
 msgid "The message has been reported as spam to your system administrator."
-msgstr "Laiğkas nusiøstas administratoriui kaip nepageidaujamas (spam)."
+msgstr "LaiÅ¡kas nusiÅ³stas administratoriui kaip nepageidaujamas (spam)."
 
 #: lib/Spam.php:173
 msgid "The message has been reported as spam."
-msgstr "Laiğkas paskelbtas kaip nepageidaujamas (spam)."
+msgstr "LaiÅ¡kas paskelbtas kaip nepageidaujamas (spam)."
 
 #: lib/MIME/Viewer/pkcs7.php:443
 #, php-format
 msgid "The message has been verified. Sender: %s."
-msgstr "Laiğkas patikrintas. Siuntëjas: %s."
+msgstr "LaiÅ¡kas patikrintas. SiuntÄ—jas: %s."
 
 #: lib/Filter.php:74
 msgid "The messages have been deleted."
-msgstr "Laiğkai iğtrinti."
+msgstr "LaiÅ¡kai iÅ¡trinti."
 
 #: lib/MIME/Viewer/tnef.php:59
 msgid "The requested file does not exist in the MS-TNEF attachment."
-msgstr "Ğio failo nëra MS-TNEF prikabintoje dalyje."
+msgstr "Å io failo nÄ—ra MS-TNEF prikabintoje dalyje."
 
 #: lib/MIME/Viewer/zip.php:62
 msgid "The requested file does not exist in the Zip attachment."
-msgstr "Ğios bylos nëra Zip archyve."
+msgstr "Å ios bylos nÄ—ra Zip archyve."
 
 #: message.php:433
 #, php-format
@@ -4409,24 +4409,24 @@ msgid ""
 "from you when you have read this message. Please click %s to send the "
 "notification message."
 msgstr ""
-"Laiğko siuntëjas reikalauja atsakymo apie laiğko gavimà, kai tik já "
-"perskaitysite. Norëdami taip padaryti, spauskite %s."
+"LaiÅ¡ko siuntÄ—jas reikalauja atsakymo apie laiÅ¡ko gavimÄ…, kai tik jÄ¯ "
+"perskaitysite. NorÄ—dami taip padaryti, spauskite %s."
 
 #: templates/javascript_defs.php:38
 msgid "The signature could not be replaced."
-msgstr "Nepavyko pakeisti parağo."
+msgstr "Nepavyko pakeisti paraÅ¡o."
 
 #: templates/javascript_defs.php:37
 msgid "The signature was successfully replaced."
-msgstr "Parağas sëkmingai pakeistas."
+msgstr "ParaÅ¡as sÄ—kmingai pakeistas."
 
 #: attachment.php:59
 msgid ""
 "The specified attachment does not exist. It may have been deleted by the "
 "original sender."
 msgstr ""
-"Nurodytas prikabintas failas neegzistuoja. Galbût já iğtrynë laiğko "
-"siuntëjas."
+"Nurodytas prikabintas failas neegzistuoja. GalbÅ«t jÄ¯ iÅ¡trynÄ— laiÅ¡ko "
+"siuntÄ—jas."
 
 #: attachment.php:128
 msgid "The specified file cannot be read."
@@ -4435,64 +4435,64 @@ msgstr "Nepavyko perskaityti nurodyto failo."
 #: stationery.php:87
 #, php-format
 msgid "The stationery \"%s\" has been added."
-msgstr "Laiğko ğablobas \"%s\" sukurtas."
+msgstr "LaiÅ¡ko Å¡ablobas \"%s\" sukurtas."
 
 #: stationery.php:63
 #, php-format
 msgid "The stationery \"%s\" has been deleted."
-msgstr "Laiğko ğablonas \"%s\" iğtrintas."
+msgstr "LaiÅ¡ko Å¡ablonas \"%s\" iÅ¡trintas."
 
 #: stationery.php:90
 #, php-format
 msgid "The stationery \"%s\" has been updated."
-msgstr "Laiğko ğablonas \"%s\" atnaujintas."
+msgstr "LaiÅ¡ko Å¡ablonas \"%s\" atnaujintas."
 
 #: lib/MIME/Viewer/itip.php:172
 msgid "The task has been added to your tasklist."
-msgstr "Uşduotis árağyta á jûsø darbø sàrağà."
+msgstr "UÅ¾duotis Ä¯raÅ¡yta Ä¯ jÅ«sÅ³ darbÅ³ sÄ…raÅ¡Ä…."
 
 #: lib/MIME/Viewer/status.php:94
 msgid "The text of the message"
-msgstr "Laiğko tekstas"
+msgstr "LaiÅ¡ko tekstas"
 
 #: lib/MIME/Viewer/status.php:93
 #, php-format
 msgid "The text of the message can be viewed %s."
-msgstr "Laiğko tekstas gali bûti perşiûrëtas %s."
+msgstr "LaiÅ¡ko tekstas gali bÅ«ti perÅ¾iÅ«rÄ—tas %s."
 
 #: lib/MIME/Viewer/status.php:79
 msgid "The text of the returned message"
-msgstr "Graşinto laiğko tekstas"
+msgstr "GraÅ¾into laiÅ¡ko tekstas"
 
 #: lib/MIME/Viewer/status.php:78
 #, php-format
 msgid "The text of the returned message can be viewed %s."
-msgstr "Graşinto laiğko tekstas gali bûti perşiûrëtas %s."
+msgstr "GraÅ¾into laiÅ¡ko tekstas gali bÅ«ti perÅ¾iÅ«rÄ—tas %s."
 
 #: lib/MIME/Viewer/notification.php:66
 msgid "The text of the sent message"
-msgstr "Nusiøsto laiğko tekstas"
+msgstr "NusiÅ³sto laiÅ¡ko tekstas"
 
 #: lib/MIME/Viewer/notification.php:66
 #, php-format
 msgid "The text of the sent message can be viewed %s."
-msgstr "Nusiøsto laiğko tekstas gali bûti perşiûrëtas %s."
+msgstr "NusiÅ³sto laiÅ¡ko tekstas gali bÅ«ti perÅ¾iÅ«rÄ—tas %s."
 
 #: lib/MIME/Viewer/itip.php:157
 msgid "The user's free/busy information was sucessfully stored."
-msgstr "Vartotojo uşimtumo informacija sëkmingai iğsaugota."
+msgstr "Vartotojo uÅ¾imtumo informacija sÄ—kmingai iÅ¡saugota."
 
 #: lib/MIME/Viewer/alternative.php:56
 msgid "There are no alternative parts that can be displayed."
-msgstr "Kitø laiğko daliø, kurias galima bûtø parodyti, nëra."
+msgstr "KitÅ³ laiÅ¡ko daliÅ³, kurias galima bÅ«tÅ³ parodyti, nÄ—ra."
 
 #: templates/mailbox/empty_mailbox.html:2
 msgid "There are no messages in this mailbox."
-msgstr "Ğiame kataloge nëra laiğkø."
+msgstr "Å iame kataloge nÄ—ra laiÅ¡kÅ³."
 
 #: thread.php:104
 msgid "There is no text that can be displayed inline."
-msgstr "Laiğko daliø, kurias galima rodyti tekste, nëra."
+msgstr "LaiÅ¡ko daliÅ³, kurias galima rodyti tekste, nÄ—ra."
 
 #: lib/Message.php:140
 #, php-format
@@ -4500,71 +4500,71 @@ msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Klaida kopijuojant laiğkus iğ \"%s\" á \"%s\". Serverio praneğimas toks"
+"Klaida kopijuojant laiÅ¡kus iÅ¡ \"%s\" Ä¯ \"%s\". Serverio praneÅ¡imas toks"
 
 #: lib/Message.php:268
 #, php-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
-msgstr "Klaida trinant laiğkus iğ katalogo \"%s\". Serverio praneğimas toks"
+msgstr "Klaida trinant laiÅ¡kus iÅ¡ katalogo \"%s\". Serverio praneÅ¡imas toks"
 
 #: lib/MIME/Viewer/itip.php:102
 #, php-format
 msgid "There was an error deleting the event: %s."
-msgstr "Klaida iğtrinant ávyká: %s."
+msgstr "Klaida iÅ¡trinant Ä¯vykÄ¯: %s."
 
 #: lib/MIME/Viewer/plain.php:50 lib/MIME/Viewer/enriched.php:36
 msgid "There was an error displaying this message part"
-msgstr "Nepavyko parodyti ğios laiğko dalies"
+msgstr "Nepavyko parodyti Å¡ios laiÅ¡ko dalies"
 
 #: lib/Message.php:630
 #, php-format
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
-msgstr "Klaida paşymint laiğkus kataloge \"%s\". Serverio praneğimas toks"
+msgstr "Klaida paÅ¾ymint laiÅ¡kus kataloge \"%s\". Serverio praneÅ¡imas toks"
 
 #: folders.php:140
 #, php-format
 msgid "There was an error importing %s."
-msgstr "Klaida ákeliant %s."
+msgstr "Klaida Ä¯keliant %s."
 
 #: lib/MIME/Viewer/itip.php:139
 #, php-format
 msgid "There was an error importing the event: %s."
-msgstr "Klaida ákeliant ávykio duomenis: %s."
+msgstr "Klaida Ä¯keliant Ä¯vykio duomenis: %s."
 
 #: lib/MIME/Viewer/itip.php:169
 #, php-format
 msgid "There was an error importing the task: %s."
-msgstr "Klaida ákeliant darbà: %s."
+msgstr "Klaida Ä¯keliant darbÄ…: %s."
 
 #: lib/MIME/Viewer/itip.php:155
 #, php-format
 msgid "There was an error importing user's free/busy information: %s."
-msgstr "Klaida ákeliant vartotojo uşimtumo informacijà: %s."
+msgstr "Klaida Ä¯keliant vartotojo uÅ¾imtumo informacijÄ…: %s."
 
 #: lib/Message.php:136
 #, php-format
 msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "Klaida perkeliant laiğkus iğ \"%s\" á \"%s\". Serverio praneğimas toks"
+msgstr "Klaida perkeliant laiÅ¡kus iÅ¡ \"%s\" Ä¯ \"%s\". Serverio praneÅ¡imas toks"
 
 #: lib/Compose.php:698
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Klaida siunèiant laiğkà: %s"
+msgstr "Klaida siunÄiant laiÅ¡kÄ…: %s"
 
 #: lib/MIME/Viewer/itip.php:116
 #, php-format
 msgid "There was an error updating the event: %s."
-msgstr "Klaida atnaujinant ávyká: %s."
+msgstr "Klaida atnaujinant Ä¯vykÄ¯: %s."
 
 #: lib/MIME/Viewer/pgp.php:165
 msgid "This PGP Public Key was attached to the message."
-msgstr "Ğis PGP vieğasis raktas buvo prikabintas prie laiğko."
+msgstr "Å is PGP vieÅ¡asis raktas buvo prikabintas prie laiÅ¡ko."
 
 #: lib/MIME/Viewer/itip.php:107 lib/MIME/Viewer/itip.php:121
 #: lib/MIME/Viewer/itip.php:146 lib/MIME/Viewer/itip.php:160
@@ -4574,79 +4574,79 @@ msgstr "Veiksmas nepalaikomas."
 
 #: lib/MIME/Viewer/itip.php:182 lib/MIME/Viewer/itip.php:430
 msgid "This action is not yet implemented."
-msgstr "Ğis veiksmas dar nerealizuotas."
+msgstr "Å is veiksmas dar nerealizuotas."
 
 #: templates/javascript_defs.php:66
 msgid "This folder may not be renamed:"
-msgstr "Ğio katalogo pervadinti negalima:"
+msgstr "Å io katalogo pervadinti negalima:"
 
 #: templates/javascript_defs.php:63
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr "Tai gali uştrukti. Ar jûs tikrai norite testi?"
+msgstr "Tai gali uÅ¾trukti. Ar jÅ«s tikrai norite testi?"
 
 #: lib/MIME/Viewer/appledouble.php:39
 msgid "This message contains a Macintosh file."
-msgstr "Laiğkas turi prikabintà Machintosh failà."
+msgstr "LaiÅ¡kas turi prikabintÄ… Machintosh failÄ…."
 
 #: lib/MIME/Viewer/pkcs7.php:469
 msgid ""
 "This message contains an attachment that has been digitally signed via S/"
 "MIME."
 msgstr ""
-"Vienas iğ prie ğio laiğko prikabintø failø yra pasirağytas S/MIME pagalba."
+"Vienas iÅ¡ prie Å¡io laiÅ¡ko prikabintÅ³ failÅ³ yra pasiraÅ¡ytas S/MIME pagalba."
 
 #: lib/MIME/Viewer/pkcs7.php:473
 msgid "This message contains an attachment that has been encrypted via S/MIME."
 msgstr ""
-"Vienas iğ prie ğio laiğko prikabintø failø yra uşkoduotas S/MIME pagalba."
+"Vienas iÅ¡ prie Å¡io laiÅ¡ko prikabintÅ³ failÅ³ yra uÅ¾koduotas S/MIME pagalba."
 
 #: lib/MIME/Viewer/status.php:159
 msgid ""
 "This message contains mail delivery status information, but the format of "
 "this message is unknown."
 msgstr ""
-"Ğiame laiğke yra informacija apie laiğkø pristatymà, taèiau neşinomas jos "
+"Å iame laiÅ¡ke yra informacija apie laiÅ¡kÅ³ pristatymÄ…, taÄiau neÅ¾inomas jos "
 "formatas."
 
 #: lib/MIME/Viewer/pkcs7.php:200
 msgid "This message does not appear to be in the correct S/MIME format."
-msgstr "Laiğkas neatitinka teisingo S/MIME formato."
+msgstr "LaiÅ¡kas neatitinka teisingo S/MIME formato."
 
 #: lib/MIME/Viewer/pkcs7.php:173
 msgid "This message has been digitally signed via S/MIME."
-msgstr "Ğis laiğkas yra pasirağytas S/MIME parağu."
+msgstr "Å is laiÅ¡kas yra pasiraÅ¡ytas S/MIME paraÅ¡u."
 
 #: lib/MIME/Viewer/pkcs7.php:169 lib/MIME/Viewer/pkcs7.php:291
 msgid "This message has been encrypted via S/MIME."
-msgstr "Ğis laiğkas yra uşkoduotas su S/MIME."
+msgstr "Å is laiÅ¡kas yra uÅ¾koduotas su S/MIME."
 
 #: lib/MIME/Contents.php:425
 msgid "This message part cannot be viewed because it is too large."
-msgstr "Ğios laiğko dalies parodyti negalima, kadangi ji yra per didelë."
+msgstr "Å ios laiÅ¡ko dalies parodyti negalima, kadangi ji yra per didelÄ—."
 
 #: message.php:504
 msgid "This message to"
-msgstr "ğá laiğkà á"
+msgstr "Å¡Ä¯ laiÅ¡kÄ… Ä¯"
 
 #: acl.php:47
 msgid "This server does not support sharing folders."
-msgstr "Ğis serveris nepalaiko katalogø dalijimosi."
+msgstr "Å is serveris nepalaiko katalogÅ³ dalijimosi."
 
 #: templates/javascript_defs.php:54
 msgid "This window must be called from a compose window."
-msgstr "Ğá langà reikia atidarinëti iğ laiğko rağymo lango."
+msgstr "Å Ä¯ langÄ… reikia atidarinÄ—ti iÅ¡ laiÅ¡ko raÅ¡ymo lango."
 
 #: templates/thread/thread.html:2
 msgid "Thread Display:"
-msgstr "Şinuèiø sàrağas:"
+msgstr "Å½inuÄiÅ³ sÄ…raÅ¡as:"
 
 #: thread.php:158 config/prefs.php.dist:1088
 msgid "Thread View"
-msgstr "Grupuojami laiğkai"
+msgstr "Grupuojami laiÅ¡kai"
 
 #: lib/MIME/Viewer/images.php:172
 msgid "Thumbnail of attached image"
-msgstr "Sumaşintas prikabinto paveikslëlio vaizdas"
+msgstr "SumaÅ¾intas prikabinto paveikslÄ—lio vaizdas"
 
 #: compose.php:781 mailbox.php:578 lib/Search.php:658
 #: lib/Block/mailbox.php:152 lib/UI/Mailbox.php:88 lib/UI/Message.php:26
@@ -4664,11 +4664,11 @@ msgstr "Visiems"
 
 #: message.php:544
 msgid "To List"
-msgstr "Á konferencijà"
+msgstr "Ä® konferencijÄ…"
 
 #: message.php:541
 msgid "To Sender"
-msgstr "Siuntëjui"
+msgstr "SiuntÄ—jui"
 
 #: message.php:548
 msgid "To _All"
@@ -4676,7 +4676,7 @@ msgstr "Visiems"
 
 #: message.php:544
 msgid "To _List"
-msgstr "Á konferencijà"
+msgstr "Ä® konferencijÄ…"
 
 #: templates/compose/redirect.html:46
 msgid "To field"
@@ -4687,16 +4687,16 @@ msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Norëdami pasirinkti keletà reikğmiø, laikykite Control (PC) arba Command "
-"(Mac) klaviğà, ir pasirinkite pele."
+"NorÄ—dami pasirinkti keletÄ… reikÅ¡miÅ³, laikykite Control (PC) arba Command "
+"(Mac) klaviÅ¡Ä…, ir pasirinkite pele."
 
 #: lib/IMAP/Client.php:131
 msgid ""
 "To use a TLS connection, you must be running a version of PHP 5.1.0 or "
 "higher."
 msgstr ""
-"Jeigu norite naudoti TLS prisijungimà, turite turëti 5.1.0 arba aukğtesnæ "
-"PHP versijà."
+"Jeigu norite naudoti TLS prisijungimÄ…, turite turÄ—ti 5.1.0 arba aukÅ¡tesnÄ™ "
+"PHP versijÄ…."
 
 #: thread.php:117 templates/thread/thread.html:32
 msgid "To:"
@@ -4704,7 +4704,7 @@ msgstr "Kam:"
 
 #: config/prefs.php.dist:527
 msgid "Top"
-msgstr "Virğuje"
+msgstr "VirÅ¡uje"
 
 #: templates/compose/compose.html:307
 msgid "Total Size:"
@@ -4716,11 +4716,11 @@ msgstr "Paprastas"
 
 #: lib/IMAP/Tree.php:2325
 msgid "Trash folder"
-msgstr "Ğiukğliadëşë"
+msgstr "Å iukÅ¡liadÄ—Å¾Ä—"
 
 #: templates/prefs/trashselect.inc:19
 msgid "Trash folder:"
-msgstr "Ğiukğliadëşë:"
+msgstr "Å iukÅ¡liadÄ—Å¾Ä—:"
 
 #: lib/Quota/sql.php:79
 msgid "Unable to connect to SQL server."
@@ -4730,7 +4730,7 @@ msgstr "Nepavyko prisijungti prie SQL serverio."
 #: lib/Quota/mdaemon.php:45 lib/Quota/imap.php:42 lib/Quota/command.php:93
 #: lib/Quota/maildir.php:113
 msgid "Unable to retrieve quota"
-msgstr "Nepavyko apskaièiuoti naudojamos vietos"
+msgstr "Nepavyko apskaiÄiuoti naudojamos vietos"
 
 #: templates/mailbox/navbar.html:19 templates/mailbox/navbar.html:35
 #: templates/message/navbar_navigate.html:13
@@ -4739,15 +4739,15 @@ msgstr "Neatsakyti"
 
 #: search.php:330
 msgid "Unanswered messages"
-msgstr "Neatsakyti laiğkai"
+msgstr "Neatsakyti laiÅ¡kai"
 
 #: mailbox.php:505 message.php:535
 msgid "Undelete"
-msgstr "Atstatyti iğtrintus"
+msgstr "Atstatyti iÅ¡trintus"
 
 #: search.php:340
 msgid "Undeleted messages"
-msgstr "Neiğtrinti laiğkai"
+msgstr "NeiÅ¡trinti laiÅ¡kai"
 
 #: lib/MIME/Headers.php:213 lib/UI/Mailbox.php:66 lib/UI/Mailbox.php:84
 msgid "Undisclosed Recipients"
@@ -4755,15 +4755,15 @@ msgstr "Adresatai nerodomi"
 
 #: lib/IMAP/Client.php:462
 msgid "Unexpected response from server to AUTHENTICATE command."
-msgstr "Netikëtas serverio atsakymas á komandà AUTHENTICATE."
+msgstr "NetikÄ—tas serverio atsakymas Ä¯ komandÄ… AUTHENTICATE."
 
 #: lib/IMAP/Client.php:428
 msgid "Unexpected response from server to Digest-MD5 response."
-msgstr "Netikëtas serverio atsakymas á Digest-MD5 uşklausà."
+msgstr "NetikÄ—tas serverio atsakymas Ä¯ Digest-MD5 uÅ¾klausÄ…."
 
 #: search.php:335
 msgid "Unflagged messages"
-msgstr "Nepaşymëti laiğkai"
+msgstr "NepaÅ¾ymÄ—ti laiÅ¡kai"
 
 #: lib/MIME/Viewer/itip.php:462
 #, php-format
@@ -4772,36 +4772,36 @@ msgstr "Nepalaikomas komponento tipas: %s"
 
 #: lib/MIME/Viewer/itip.php:729
 msgid "Unknown"
-msgstr "Neşinomas"
+msgstr "NeÅ¾inomas"
 
 #: lib/UI/Mailbox.php:176
 msgid "Unknown Date"
-msgstr "Data neşinoma"
+msgstr "Data neÅ¾inoma"
 
 #: lib/IMAP/Client.php:205
 #, php-format
 msgid "Unknown IMAP response from the server. Server Responded: %s"
-msgstr "Neşinomas IMAP serverio atsakymas. Serveris atsakë: %s"
+msgstr "NeÅ¾inomas IMAP serverio atsakymas. Serveris atsakÄ—: %s"
 
 #: lib/MIME/Viewer/itip.php:675
 msgid "Unknown Meeting"
-msgstr "Neşinomas susirinkimas"
+msgstr "NeÅ¾inomas susirinkimas"
 
 #: lib/UI/Mailbox.php:103
 msgid "Unknown Recipient"
-msgstr "Neşinomas adresatas"
+msgstr "NeÅ¾inomas adresatas"
 
 #: lib/MIME/Viewer/itip.php:815
 msgid "Unknown Task"
-msgstr "Neşinomas darbas"
+msgstr "NeÅ¾inomas darbas"
 
 #: smime.php:338 pgp.php:432
 msgid "Unload Passphrase"
-msgstr "Atjungti slaptà frazæ"
+msgstr "Atjungti slaptÄ… frazÄ™"
 
 #: fetchmailprefs.php:69
 msgid "Unnamed"
-msgstr "Neávardintas"
+msgstr "NeÄ¯vardintas"
 
 #: mailbox.php:744 message.php:459 lib/Block/mailbox.php:289
 #: templates/mailbox/navbar.html:15 templates/mailbox/navbar.html:31
@@ -4819,27 +4819,27 @@ msgstr "Atnaujinti"
 
 #: lib/MIME/Viewer/itip.php:661
 msgid "Update respondent status"
-msgstr "Atnaujinti atsakovø statusà"
+msgstr "Atnaujinti atsakovÅ³ statusÄ…"
 
 #: lib/MIME/Viewer/itip.php:640
 msgid "Update this event on my calendar"
-msgstr "Atnaujintá ğá ávyká mano kalendoriuje"
+msgstr "AtnaujintÄ¯ Å¡Ä¯ Ä¯vykÄ¯ mano kalendoriuje"
 
 #: templates/pgp/import_key.html:38 templates/smime/import_key.html:40
 msgid "Upload:"
-msgstr "Nusiøsti:"
+msgstr "NusiÅ³sti:"
 
 #: templates/prefs/sentmailselect.inc:39
 msgid "Use Default Value"
-msgstr "Naudoti standartinæ reikğmæ"
+msgstr "Naudoti standartinÄ™ reikÅ¡mÄ™"
 
 #: config/prefs.php.dist:263
 msgid "Use IMAP folder subscriptions?"
-msgstr "Naudoti IMAP katalogø prenumeratà?"
+msgstr "Naudoti IMAP katalogÅ³ prenumeratÄ…?"
 
 #: config/prefs.php.dist:896
 msgid "Use Virtual Trash Folder?"
-msgstr "Naudoti virtualià ğiukğliadëşæ?"
+msgstr "Naudoti virtualiÄ… Å¡iukÅ¡liadÄ—Å¾Ä™?"
 
 #: templates/acl/acl.html:42
 msgid "User"
@@ -4849,7 +4849,7 @@ msgstr "Vartotojas"
 #, php-format
 msgid ""
 "User \"%s\" successfully given the specified rights for the folder \"%s\"."
-msgstr "Vartotojui \"%s\" sëkmingai suteiktos teisës kataloge \"%s\"."
+msgstr "Vartotojui \"%s\" sÄ—kmingai suteiktos teisÄ—s kataloge \"%s\"."
 
 #: templates/login/login.html:85
 msgid "Username"
@@ -4878,52 +4878,52 @@ msgstr "Rodyti %s"
 #: smime.php:312 pgp.php:404
 #, php-format
 msgid "View %s Public Key"
-msgstr "Rodyti %s vieğàjá raktà"
+msgstr "Rodyti %s vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: lib/MIME/Viewer/images.php:162 lib/MIME/Viewer/images.php:167
 msgid "View Attachment"
-msgstr "Rodyti prikabintà failà"
+msgstr "Rodyti prikabintÄ… failÄ…"
 
 #: mailbox.php:538
 msgid "View Messages"
-msgstr "Rodyti laiğkus"
+msgstr "Rodyti laiÅ¡kus"
 
 #: smime.php:339 pgp.php:433
 msgid "View Personal Private Key"
-msgstr "Rodyti slaptàjá raktà"
+msgstr "Rodyti slaptÄ…jÄ¯ raktÄ…"
 
 #: smime.php:335 pgp.php:427
 msgid "View Personal Public Key"
-msgstr "Rodyti vieğàjá raktà"
+msgstr "Rodyti vieÅ¡Ä…jÄ¯ raktÄ…"
 
 #: message.php:559 lib/IMAP/Thread.php:172
 msgid "View Thread"
-msgstr "Rodyti grupæ"
+msgstr "Rodyti grupÄ™"
 
 #: lib/MIME/Viewer/pkcs7.php:477
 msgid "View attachment in a separate window"
-msgstr "Rodyti prikabintà failà atskirame lange"
+msgstr "Rodyti prikabintÄ… failÄ… atskirame lange"
 
 #: lib/MIME/Viewer/related.php:85
 msgid "View content in a separate window"
-msgstr "Rodyti turiná atskirame lange"
+msgstr "Rodyti turinÄ¯ atskirame lange"
 
 #: lib/MIME/Viewer/itip.php:143
 msgid "View event"
-msgstr "Perşiûrëti ávyká"
+msgstr "PerÅ¾iÅ«rÄ—ti Ä¯vykÄ¯"
 
 #: folders.php:420 mailbox.php:680
 #, php-format
 msgid "View messages in %s"
-msgstr "Perşiûrëti laiğkus kataloge %s"
+msgstr "PerÅ¾iÅ«rÄ—ti laiÅ¡kus kataloge %s"
 
 #: templates/prefs/initialpageselect.inc:16
 msgid "View or mailbox to display after login:"
-msgstr "Prisijungus rodyti ğá katalogà:"
+msgstr "Prisijungus rodyti Å¡Ä¯ katalogÄ…:"
 
 #: lib/MIME/Viewer/itip.php:173
 msgid "View task"
-msgstr "Perşiûrëti darbà"
+msgstr "PerÅ¾iÅ«rÄ—ti darbÄ…"
 
 #: mailbox.php:357 mailbox.php:358
 msgid "Virtual Folder"
@@ -4932,11 +4932,11 @@ msgstr "Virtualus katalogas"
 #: search.php:151
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
-msgstr "Virtualus katalogas \"%s\" sukurtas sëkmingai."
+msgstr "Virtualus katalogas \"%s\" sukurtas sÄ—kmingai."
 
 #: lib/IMAP/Tree.php:88 templates/search/search.html:184
 msgid "Virtual Folders"
-msgstr "Virtualûs katalogai"
+msgstr "VirtualÅ«s katalogai"
 
 #: search.php:146
 msgid "Virtual Folders require a label."
@@ -4952,11 +4952,11 @@ msgstr "Virtualus INBOX katalogas"
 
 #: lib/Search.php:345
 msgid "Virtual Trash"
-msgstr "Virtuali ğiukğliadëşë"
+msgstr "Virtuali Å¡iukÅ¡liadÄ—Å¾Ä—"
 
 #: lib/IMAP/Tree.php:2361
 msgid "Virtual Trash Folder"
-msgstr "Virtualios ğiukğliadëşës katalogas"
+msgstr "Virtualios Å¡iukÅ¡liadÄ—Å¾Ä—s katalogas"
 
 #: templates/search/search.html:195
 msgid "Virtual folder label:"
@@ -4964,19 +4964,19 @@ msgstr "Virtualaus katalogo pavadinimas:"
 
 #: lib/MIME/Viewer/pkcs7.php:432 lib/Crypt/PGP.php:380
 msgid "Warning"
-msgstr "Dëmesio"
+msgstr "DÄ—mesio"
 
 #: login.php:185 login.php:330 templates/login/mobile.inc:11
 #, php-format
 msgid "Welcome to %s"
-msgstr "Sveiki atvykæ á %s"
+msgstr "Sveiki atvykÄ™ Ä¯ %s"
 
 #: config/prefs.php.dist:744
 msgid ""
 "What should we do with spam messages after they have been reported as spam "
 "or innocent?"
 msgstr ""
-"Kà daryti su laiğkais, kai jie paşymimi kaip nepageidaujami (spam) arba kaip "
+"KÄ… daryti su laiÅ¡kais, kai jie paÅ¾ymimi kaip nepageidaujami (spam) arba kaip "
 "ne nepageidaujami?"
 
 #: config/prefs.php.dist:888
@@ -4984,41 +4984,41 @@ msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted?"
 msgstr ""
-"Kai laiğkas iğtrinamas, jis perkeliamas á ğiukğliadëşæ, o ne şymimas kaip "
-"iğtrintas?"
+"Kai laiÅ¡kas iÅ¡trinamas, jis perkeliamas Ä¯ Å¡iukÅ¡liadÄ—Å¾Ä™, o ne Å¾ymimas kaip "
+"iÅ¡trintas?"
 
 #: config/prefs.php.dist:1073
 msgid ""
 "When opening a new mailbox for the first time, which page do you want to "
 "start on?"
-msgstr "Kurá puslapá norite matyti, pirmà kartà atidarant katalogà?"
+msgstr "KurÄ¯ puslapÄ¯ norite matyti, pirmÄ… kartÄ… atidarant katalogÄ…?"
 
 #: config/prefs.php.dist:594
 msgid ""
 "When replying/forwarding to a message, should we use the same format as the "
 "original message?"
-msgstr "Ar naudoti pradinio laiğko formatà atsakant/persiunèiant laiğkus?"
+msgstr "Ar naudoti pradinio laiÅ¡ko formatÄ… atsakant/persiunÄiant laiÅ¡kus?"
 
 #: config/prefs.php.dist:698
 msgid "When saving sent-mail, should we save attachment data?"
-msgstr "Kai iğsaugomas iğsiøstas laiğkas, ar iğsaugoti ir prikabintus failus?"
+msgstr "Kai iÅ¡saugomas iÅ¡siÅ³stas laiÅ¡kas, ar iÅ¡saugoti ir prikabintus failus?"
 
 #: config/prefs.php.dist:482
 msgid ""
 "When sending mail or expanding addresses, what domain should we append to "
 "unqualified addresses (email addresses without \"@\")?"
 msgstr ""
-"Koká internetiná adresà pridëti prie el. pağto adresø (adresø be \"@\"), "
-"siunèiant pağtà arba iğskleidşiant adresus?"
+"KokÄ¯ internetinÄ¯ adresÄ… pridÄ—ti prie el. paÅ¡to adresÅ³ (adresÅ³ be \"@\"), "
+"siunÄiant paÅ¡tÄ… arba iÅ¡skleidÅ¾iant adresus?"
 
 #: config/prefs.php.dist:857
 msgid "Where do you want to display links to alternative formats of a message?"
 msgstr ""
-"Kurioje vietoje norite rodyti nuorodas á alternatyviø formatø laiğko dalis?"
+"Kurioje vietoje norite rodyti nuorodas Ä¯ alternatyviÅ³ formatÅ³ laiÅ¡ko dalis?"
 
 #: config/prefs.php.dist:530
 msgid "Where should the cursor be located in the compose text area by default?"
-msgstr "Kurioje vietoje rodyti kursoriø laiğko rağymo lange?"
+msgstr "Kurioje vietoje rodyti kursoriÅ³ laiÅ¡ko raÅ¡ymo lange?"
 
 #: mailbox.php:521 message.php:567
 msgid "Whitelist"
@@ -5039,241 +5039,241 @@ msgstr "Taip"
 
 #: lib/Maintenance/Task/fetchmail_login.php:57
 msgid "You are about to fetch email from the following account(s):"
-msgstr "Jûs bandote paimti laiğkus iğ ğios(iø) sàskaitos(ø):"
+msgstr "JÅ«s bandote paimti laiÅ¡kus iÅ¡ Å¡ios(iÅ³) sÄ…skaitos(Å³):"
 
 #: templates/folders/folders_confirm.html:10
 msgid ""
 "You are attempting to delete all messages contained in the following folder"
 "(s)."
-msgstr "Jûs bandote iğtrinti visus laiğkus ğiame(iuose) kataloge(uose)."
+msgstr "JÅ«s bandote iÅ¡trinti visus laiÅ¡kus Å¡iame(iuose) kataloge(uose)."
 
 #: templates/folders/folders_confirm.html:9
 msgid "You are attempting to delete the following folder(s)."
-msgstr "Jûs bandote iğtrinti ğá(uos) katalogà(us)."
+msgstr "JÅ«s bandote iÅ¡trinti Å¡Ä¯(uos) katalogÄ…(us)."
 
 #: templates/javascript_defs.php:81
 msgid "You are copying/moving to a new folder."
-msgstr "Jûs kopijuojate/perkeliate á kità katalogà."
+msgstr "JÅ«s kopijuojate/perkeliate Ä¯ kitÄ… katalogÄ…."
 
 #: templates/javascript_defs.php:59
 msgid "You are creating a sub-folder to"
-msgstr "Jûs kuriate pakatologá kataloge"
+msgstr "JÅ«s kuriate pakatologÄ¯ kataloge"
 
 #: templates/javascript_defs.php:61
 msgid "You are creating a top-level folder."
-msgstr "Jûs kuriate katalogà."
+msgstr "JÅ«s kuriate katalogÄ…."
 
 #: lib/Folder.php:253
 msgid "You are not allowed to create folders."
-msgstr "Jûs neturite teisiø kurti katalogø."
+msgstr "JÅ«s neturite teisiÅ³ kurti katalogÅ³."
 
 #: lib/Folder.php:260
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Jûs neturite teisiø kurti daugiau nei %d katalogø(o)."
+msgstr "JÅ«s neturite teisiÅ³ kurti daugiau nei %d katalogÅ³(o)."
 
 #: lib/Compose.php:912
 #, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
-msgstr "Jûs negalite siøsti laiğkø daugiau nei %d adresatø per %d valandø(à)."
+msgstr "JÅ«s negalite siÅ³sti laiÅ¡kÅ³ daugiau nei %d adresatÅ³ per %d valandÅ³(Ä…)."
 
 #: lib/Compose.php:1154
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
-msgstr "Jûs negalite siøsti laiğkø daugiau nei %d adresatø vienu metu."
+msgstr "JÅ«s negalite siÅ³sti laiÅ¡kÅ³ daugiau nei %d adresatÅ³ vienu metu."
 
 #: templates/javascript_defs.php:64
 msgid "You are renaming the folder:"
-msgstr "Jûs pervardinate katalogà:"
+msgstr "JÅ«s pervardinate katalogÄ…:"
 
 #: templates/stationery/stationery.html:39
 msgid ""
 "You can use the following placeholders in the stationery text: %c for the "
 "current message content; %s for the signature."
 msgstr ""
-"Laiğko ğablone galite naudoti ğiuos kintamuosius: %c laiğko turiniui; %s "
-"parağui."
+"LaiÅ¡ko Å¡ablone galite naudoti Å¡iuos kintamuosius: %c laiÅ¡ko turiniui; %s "
+"paraÅ¡ui."
 
 #: lib/Folder.php:494
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
-msgstr "Jûs negalite atsiprenumeruoti \"%s\"."
+msgstr "JÅ«s negalite atsiprenumeruoti \"%s\"."
 
 #: lib/Maintenance/Task/tos_agreement.php:33
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
-msgstr "Jûs nesutikote su registracijos sàlygomis, todël prisijungti negalite."
+msgstr "JÅ«s nesutikote su registracijos sÄ…lygomis, todÄ—l prisijungti negalite."
 
 #: templates/acl/acl.html:88
 msgid "You do not have permission to change access to this folder."
-msgstr "Jûs neturite teisiø keisti teisiø á ğá katalogà."
+msgstr "JÅ«s neturite teisiÅ³ keisti teisiÅ³ Ä¯ Å¡Ä¯ katalogÄ…."
 
 #: lib/Maillog.php:130
 #, php-format
 msgid "You forwarded this message on %%s to the following recipients: %s."
-msgstr "%%s jûs persiuntëte ğá laiğkà ğiems adresatams: %s."
+msgstr "%%s jÅ«s persiuntÄ—te Å¡Ä¯ laiÅ¡kÄ… Å¡iems adresatams: %s."
 
 #: lib/IMP.php:994
 #, php-format
 msgid "You have %s new messages."
-msgstr "Jûs gavote %s naujus laiğkus."
+msgstr "JÅ«s gavote %s naujus laiÅ¡kus."
 
 #: lib/IMP.php:994
 msgid "You have 1 new message."
-msgstr "Jûs gavote 1 naujà laiğkà."
+msgstr "JÅ«s gavote 1 naujÄ… laiÅ¡kÄ…."
 
 #: compose.php:126
 msgid "You have already submitted this page."
-msgstr "Jûs jau iğsiuntëte ğá laiğkà."
+msgstr "JÅ«s jau iÅ¡siuntÄ—te Å¡Ä¯ laiÅ¡kÄ…."
 
 #: templates/newmsg/alert.html:3
 msgid "You have new mail in:"
-msgstr "Naujø laiğkø yra:"
+msgstr "NaujÅ³ laiÅ¡kÅ³ yra:"
 
 #: templates/fetchmail/fetchmail.html:22
 msgid "You have not configured any external mail accounts."
-msgstr "Jûs nesikonfigûravote nei vienos iğorinës el. pağto sàskaitos."
+msgstr "JÅ«s nesikonfigÅ«ravote nei vienos iÅ¡orinÄ—s el. paÅ¡to sÄ…skaitos."
 
 #: lib/Compose.php:1141
 msgid "You must enter at least one recipient."
-msgstr "Turite nurodyti bent vienà gavëjà."
+msgstr "Turite nurodyti bent vienÄ… gavÄ—jÄ…."
 
 #: lib/MIME/Viewer/pgp.php:353
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message."
 msgstr ""
-"Norëdami perşiûrëti ğá laiğkà, áveskite savo PGP privataus rakto slaptàjà "
-"frazæ."
+"NorÄ—dami perÅ¾iÅ«rÄ—ti Å¡Ä¯ laiÅ¡kÄ…, Ä¯veskite savo PGP privataus rakto slaptÄ…jÄ… "
+"frazÄ™."
 
 #: lib/MIME/Viewer/pkcs7.php:307
 msgid ""
 "You must enter the passphrase for your S/MIME private key to view this "
 "message"
 msgstr ""
-"Norëdami perşiûrëti ğá laiğkà, áveskite S/MIME privataus rakto slaptàjà frazæ"
+"NorÄ—dami perÅ¾iÅ«rÄ—ti Å¡Ä¯ laiÅ¡kÄ…, Ä¯veskite S/MIME privataus rakto slaptÄ…jÄ… frazÄ™"
 
 #: lib/MIME/Viewer/pgp.php:340
 msgid "You must enter the passphrase that was used to encrypt this message."
 msgstr ""
-"Norëdami perşiûrëti ğá laiğkà, áveskite slaptàjà frazæ, kurios pagalba ğis "
-"laiğkas buvo uşkoduotas."
+"NorÄ—dami perÅ¾iÅ«rÄ—ti Å¡Ä¯ laiÅ¡kÄ…, Ä¯veskite slaptÄ…jÄ… frazÄ™, kurios pagalba Å¡is "
+"laiÅ¡kas buvo uÅ¾koduotas."
 
 #: templates/javascript_defs.php:82
 msgid "You must select a target mailbox first."
-msgstr "Primiausia reikia nurodyti katalogà."
+msgstr "Primiausia reikia nurodyti katalogÄ…."
 
 #: fetchmailprefs.php:89
 msgid "You must select an account to be deleted."
-msgstr "Nurodykite sàskaità, kurià norite iğtrinti."
+msgstr "Nurodykite sÄ…skaitÄ…, kuriÄ… norite iÅ¡trinti."
 
 #: templates/javascript_defs.php:52
 msgid "You must select an address first."
-msgstr "Visø pirma reikia nurodyti adresà."
+msgstr "VisÅ³ pirma reikia nurodyti adresÄ…."
 
 #: templates/javascript_defs.php:45 templates/javascript_defs.php:47
 msgid "You must select at least one message first."
-msgstr "Reikia pasirinkti bent vienà laiğkà."
+msgstr "Reikia pasirinkti bent vienÄ… laiÅ¡kÄ…."
 
 #: lib/Compose.php:835
 msgid "You must separate e-mail addresses with commas (,) not semicolons (;)."
 msgstr ""
-"El. pağto adresus privalote atskirti kableliais (,) o ne kabliatağkiais (;)."
+"El. paÅ¡to adresus privalote atskirti kableliais (,) o ne kabliataÅ¡kiais (;)."
 
 #: templates/javascript_defs.php:36
 msgid "You must specify a recipient."
-msgstr "Reikia nurodyti gavëjà."
+msgstr "Reikia nurodyti gavÄ—jÄ…."
 
 #: templates/fetchmail/fetchmailprefs.html:91
 msgid ""
 "You need to have \"Perform maintenance operations on login?\" enabled in "
 "your maintenance options."
 msgstr ""
-"Savo profilaktikos veiksmø nustatymuose turite ájungti \"Vykdyti "
-"profilaktikà prisijungimo metu?\"."
+"Savo profilaktikos veiksmÅ³ nustatymuose turite Ä¯jungti \"Vykdyti "
+"profilaktikÄ… prisijungimo metu?\"."
 
 #: lib/Maillog.php:138
 #, php-format
 msgid "You redirected this message to %s on %%s."
-msgstr "Jûs nukreipëte ğá laiğkà %s %%s."
+msgstr "JÅ«s nukreipÄ—te Å¡Ä¯ laiÅ¡kÄ… %s %%s."
 
 #: lib/Maillog.php:142
 #, php-format
 msgid "You replied to this message on %s."
-msgstr "Jûs atsakëte á ğá laiğkà %s."
+msgstr "JÅ«s atsakÄ—te Ä¯ Å¡Ä¯ laiÅ¡kÄ… %s."
 
 #: lib/Folder.php:446
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "Jûs neuşsiprenumeravote \"%s\". Serverio praneğimas toks"
+msgstr "JÅ«s neuÅ¾siprenumeravote \"%s\". Serverio praneÅ¡imas toks"
 
 #: lib/Folder.php:496
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "Jûs neatsiprenumeravote \"%s\". Serverio praneğimas toks"
+msgstr "JÅ«s neatsiprenumeravote \"%s\". Serverio praneÅ¡imas toks"
 
 #: lib/Folder.php:449
 #, php-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "Jûs sëkmingai uşsiprenumeravote \"%s\""
+msgstr "JÅ«s sÄ—kmingai uÅ¾siprenumeravote \"%s\""
 
 #: lib/Folder.php:499
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "Jûs sëkmingai atsiprenumeravote \"%s\""
+msgstr "JÅ«s sÄ—kmingai atsiprenumeravote \"%s\""
 
 #: templates/pgp/pgp.html:95
 msgid "Your Name:"
-msgstr "Jûsø vardas/pavardë:"
+msgstr "JÅ«sÅ³ vardas/pavardÄ—:"
 
 #: templates/pgp/pgp.html:63
 msgid "Your PGP Public/Private Keys"
-msgstr "Jûsø PGP vieğieji/spaltieji raktai"
+msgstr "JÅ«sÅ³ PGP vieÅ¡ieji/spaltieji raktai"
 
 #: templates/pgp/pgp.html:79 templates/smime/smime.html:70
 msgid "Your Private Key:"
-msgstr "Jûsø slaptasis raktas:"
+msgstr "JÅ«sÅ³ slaptasis raktas:"
 
 #: templates/pgp/pgp.html:74 templates/smime/smime.html:66
 msgid "Your Public Key:"
-msgstr "Jûsø vieğasis raktas:"
+msgstr "JÅ«sÅ³ vieÅ¡asis raktas:"
 
 #: config/prefs.php.dist:173
 msgid "Your Reply-to: address: <em>(optional)</em>"
-msgstr "Reply-To: adresas: <em>(nebûtina)</em>"
+msgstr "Reply-To: adresas: <em>(nebÅ«tina)</em>"
 
 #: templates/smime/smime.html:56
 msgid "Your S/MIME Public/Private Certificates"
-msgstr "Jûsø S/MIME vieğieji/slaptieji sertifikatai"
+msgstr "JÅ«sÅ³ S/MIME vieÅ¡ieji/slaptieji sertifikatai"
 
 #: fetchmail.php:22
 msgid "Your account does not support fetching external mail."
-msgstr "Jûsø sàskaita nepalaiko iğorinio laiğkø paëmimo."
+msgstr "JÅ«sÅ³ sÄ…skaita nepalaiko iÅ¡orinio laiÅ¡kÅ³ paÄ—mimo."
 
 #: templates/fetchmail/fetchmailprefs.html:18
 msgid "Your accounts:"
-msgstr "Jûsø sàskaitos:"
+msgstr "JÅ«sÅ³ sÄ…skaitos:"
 
 #: config/prefs.php.dist:181
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
 msgstr ""
-"Kiti jûsø adresai: <em>(nebûtina, kiekvienà adresà rağykite naujoje eilutëje)"
+"Kiti jÅ«sÅ³ adresai: <em>(nebÅ«tina, kiekvienÄ… adresÄ… raÅ¡ykite naujoje eilutÄ—je)"
 "</em>"
 
 #: lib/MIME/Viewer/images.php:89
 msgid "Your browser does not support inline display of this image type."
-msgstr "Jûsø narğyklë negali parodyti ğio paveikslëlio laiğko tekste."
+msgstr "JÅ«sÅ³ narÅ¡yklÄ— negali parodyti Å¡io paveikslÄ—lio laiÅ¡ko tekste."
 
 #: config/prefs.php.dist:676
 msgid "Your default charset for sending messages:"
-msgstr "Standartinë koduotë siunèiamiems laiğkais:"
+msgstr "StandartinÄ— koduotÄ— siunÄiamiems laiÅ¡kais:"
 
 #: templates/prefs/encryptselect.inc:1
 msgid "Your default encryption method for sending messages:"
-msgstr "Standartinis kodavimo metodas siunèiamiems laiğkais:"
+msgstr "Standartinis kodavimo metodas siunÄiamiems laiÅ¡kais:"
 
 #: attachment.php:114
 #, php-format
@@ -5286,26 +5286,26 @@ msgid ""
 "Click on the following link to permanently delete the attachment:\n"
 "%s"
 msgstr ""
-"Susietà prikabintà failà atsisiuntë bent vienas vartotojas.\n"
+"SusietÄ… prikabintÄ… failÄ… atsisiuntÄ— bent vienas vartotojas.\n"
 "\n"
 "Prikabinto failo pavadinimas: %s\n"
 "Prikabinto failo data: %s\n"
 "\n"
-"Norëdami iğtrinti susietà prikabintà failà paspauskite ant ğios nuorodos:\n"
+"NorÄ—dami iÅ¡trinti susietÄ… prikabintÄ… failÄ… paspauskite ant Å¡ios nuorodos:\n"
 "%s"
 
 #: lib/MIME/Viewer/status.php:88
 msgid "Your message was successfully delivered."
-msgstr "Laiğkas sëkmingai pristatytas."
+msgstr "LaiÅ¡kas sÄ—kmingai pristatytas."
 
 #: config/prefs.php.dist:205
 msgid "Your signature:"
-msgstr "Jûsø parağas:"
+msgstr "JÅ«sÅ³ paraÅ¡as:"
 
 #: lib/Message.php:530
 #, php-format
 msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
-msgstr "[Prikabintas failas iğtrintas: failo tipas: %s, pavadinimas: %s]"
+msgstr "[Prikabintas failas iÅ¡trintas: failo tipas: %s, pavadinimas: %s]"
 
 #: mailbox.php:704 message.php:275 rss.php:82 lib/Compose.php:1660
 #: lib/Compose.php:2131 lib/Block/mailbox.php:249
@@ -5314,12 +5314,12 @@ msgstr "[be pavadinimo]"
 
 #: lib/MIME/Viewer/pgp.php:169
 msgid "[Save the key to your Address book]"
-msgstr "[Iğsaugoti raktà savo adresø knygelëje]"
+msgstr "[IÅ¡saugoti raktÄ… savo adresÅ³ knygelÄ—je]"
 
 #: lib/MIME/Headers.php:223
 #, php-format
 msgid "[Show addresses - %s recipients]"
-msgstr "[Rodyti adresus - %s adresatø]"
+msgstr "[Rodyti adresus - %s adresatÅ³]"
 
 #: lib/Compose.php:2745
 msgid "[Truncated Text]"
@@ -5327,7 +5327,7 @@ msgstr "[Taisytas tekstas]"
 
 #: lib/MIME/Viewer/pgp.php:171
 msgid "[View the raw key]"
-msgstr "[Rodyti rakto kodà]"
+msgstr "[Rodyti rakto kodÄ…]"
 
 #: compose.php:912
 msgid "_Bcc"
@@ -5343,7 +5343,7 @@ msgstr "_Cc"
 
 #: mailbox.php:499 mailbox.php:501 message.php:537
 msgid "_Delete"
-msgstr "_Iğtrinti"
+msgstr "_IÅ¡trinti"
 
 #: lib/IMP.php:815
 msgid "_Folders"
@@ -5351,7 +5351,7 @@ msgstr "_Katalogai"
 
 #: compose.php:889
 msgid "_Identity"
-msgstr "Ap_rağas"
+msgstr "Ap_raÅ¡as"
 
 #: lib/IMP.php:784
 msgid "_Inbox"
@@ -5363,11 +5363,11 @@ msgstr "Atsi_jungti"
 
 #: message.php:572
 msgid "_Message Source"
-msgstr "Laiğko kodas"
+msgstr "LaiÅ¡ko kodas"
 
 #: lib/IMP.php:812
 msgid "_New Message"
-msgstr "Naujas laiğkas"
+msgstr "Naujas laiÅ¡kas"
 
 #: message.php:585
 msgid "_Print"
@@ -5388,15 +5388,15 @@ msgstr "Atsak_yti"
 
 #: lib/IMP.php:817
 msgid "_Search"
-msgstr "I_eğkoti"
+msgstr "I_eÅ¡koti"
 
 #: compose.php:874
 msgid "_Send Message"
-msgstr "_Siøsti laiğkà"
+msgstr "_SiÅ³sti laiÅ¡kÄ…"
 
 #: mailbox.php:588 lib/Block/mailbox.php:162
 msgid "_Thread"
-msgstr "Grupës"
+msgstr "GrupÄ—s"
 
 #: compose.php:905 compose.php:907
 msgid "_To"
@@ -5408,7 +5408,7 @@ msgstr "Atstatyti"
 
 #: message.php:559
 msgid "_View Thread"
-msgstr "Rodyti grupæ"
+msgstr "Rodyti grupÄ™"
 
 #: mailbox.php:521 message.php:567
 msgid "_Whitelist"
@@ -5416,7 +5416,7 @@ msgstr "Visada _leisti"
 
 #: lib/Compose.php:939
 msgid "addressee unknown"
-msgstr "neşinomas adresatas"
+msgstr "neÅ¾inomas adresatas"
 
 #: lib/Search.php:542
 msgid "and"
@@ -5444,11 +5444,11 @@ msgstr "nepavyko atidaryti failo"
 
 #: lib/Compose.php:927
 msgid "command line usage error"
-msgstr "komandinës eilutës panaudojimo klaida"
+msgstr "komandinÄ—s eilutÄ—s panaudojimo klaida"
 
 #: lib/Compose.php:983
 msgid "configuration error"
-msgstr "konfigûracijos klaida"
+msgstr "konfigÅ«racijos klaida"
 
 #: lib/Compose.php:959
 msgid "critical system file missing"
@@ -5456,11 +5456,11 @@ msgstr "nerastas kritinis sisteminis failas"
 
 #: lib/Compose.php:931
 msgid "data format error"
-msgstr "duomenø formato klaida"
+msgstr "duomenÅ³ formato klaida"
 
 #: lib/Compose.php:987
 msgid "entry not found"
-msgstr "árağas nerastas"
+msgstr "Ä¯raÅ¡as nerastas"
 
 #: templates/contacts/contacts.html:16
 msgid "from"
@@ -5468,7 +5468,7 @@ msgstr "nuo"
 
 #: lib/Compose.php:943
 msgid "host name unknown"
-msgstr "adresas neşinomas"
+msgstr "adresas neÅ¾inomas"
 
 #: lib/Search.php:545
 msgid "in"
@@ -5476,15 +5476,15 @@ msgstr "kataloge"
 
 #: lib/Compose.php:967
 msgid "input/output error"
-msgstr "ávesties/iğvesties klaida"
+msgstr "Ä¯vesties/iÅ¡vesties klaida"
 
 #: lib/Compose.php:951
 msgid "internal software error"
-msgstr "vidinë programinës árangos klaida"
+msgstr "vidinÄ— programinÄ—s Ä¯rangos klaida"
 
 #: templates/folders/import.html:13
 msgid "into folder"
-msgstr "á katalogà"
+msgstr "Ä¯ katalogÄ…"
 
 #: smime.php:39 pgp.php:79
 msgid "key"
@@ -5500,7 +5500,7 @@ msgstr "vardas"
 
 #: lib/Search.php:539
 msgid "not"
-msgstr "nëra"
+msgstr "nÄ—ra"
 
 #: lib/Search.php:542 templates/fetchmail/fetchmailprefs.html:26
 msgid "or"
@@ -5508,11 +5508,11 @@ msgstr "arba"
 
 #: lib/Compose.php:979
 msgid "permission denied"
-msgstr "nëra teisiø"
+msgstr "nÄ—ra teisiÅ³"
 
 #: templates/javascript_defs.php:31
 msgid "recipients"
-msgstr "gavëjai"
+msgstr "gavÄ—jai"
 
 #: lib/Compose.php:975
 msgid "remote error in protocol"
@@ -5532,8 +5532,8 @@ msgstr "laikina klaida"
 
 #: lib/Filter.php:65
 msgid "your blacklist"
-msgstr "jûsø juodasis sàrağas"
+msgstr "jÅ«sÅ³ juodasis sÄ…raÅ¡as"
 
 #: lib/Filter.php:91
 msgid "your whitelist"
-msgstr "jûsø baltasis sàrağas"
+msgstr "jÅ«sÅ³ baltasis sÄ…raÅ¡as"

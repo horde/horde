@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -116,11 +116,11 @@ msgstr "Angenommen"
 
 #: templates/add.html.php:59 lib/Block/tree_menu.php:20
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: templates/add.html.php:82
 msgid "Add to Bookmarks"
-msgstr "Zu Lesezeichen hinzufügen"
+msgstr "Zu Lesezeichen hinzufÃ¼gen"
 
 #: templates/search.php:65
 msgid "All"
@@ -134,7 +134,7 @@ msgstr "Beim Anzeigen der Ordner ist ein Fehler aufgetreten: %s"
 #: lib/Trean.php:65
 #, php-format
 msgid "An error occurred counting folders: %s"
-msgstr "Beim Zählen der Ordner ist ein Fehler aufgetreten: %s"
+msgstr "Beim ZÃ¤hlen der Ordner ist ein Fehler aufgetreten: %s"
 
 #: lib/Forms/Search.php:25
 msgid "Any Part of the field"
@@ -143,7 +143,7 @@ msgstr "beliebigen Feldteil"
 #: templates/search.php:29
 msgid "Are you sure you want to delete the selected bookmarks?"
 msgstr ""
-"Sind Sie sicher, dass Sie die ausgewählten Lesezeichen löschen möchten?"
+"Sind Sie sicher, dass Sie die ausgewÃ¤hlten Lesezeichen lÃ¶schen mÃ¶chten?"
 
 #: config/prefs.php.dist:33
 msgid "Ascending (A to Z)"
@@ -159,11 +159,11 @@ msgstr "Gateway-Fehler"
 
 #: lib/Trean.php:200
 msgid "Bad Request"
-msgstr "Ungültige Anfrage"
+msgstr "UngÃ¼ltige Anfrage"
 
 #: add.php:65
 msgid "Bookmark Added"
-msgstr "Lesezeichen hinzugefügt"
+msgstr "Lesezeichen hinzugefÃ¼gt"
 
 #: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:79
 msgid "Bookmarks"
@@ -187,11 +187,11 @@ msgstr "Klicks"
 
 #: lib/Api.php:338
 msgid "Close"
-msgstr "Schließen"
+msgstr "SchlieÃŸen"
 
 #: lib/Forms/Search.php:24
 msgid "Combine"
-msgstr "Verknüpfung"
+msgstr "VerknÃ¼pfung"
 
 #: config/prefs.php.dist:63
 msgid "Completely collapsed"
@@ -199,11 +199,11 @@ msgstr "Alle geschlossen"
 
 #: config/prefs.php.dist:65
 msgid "Completely expanded"
-msgstr "Alle geöffnet"
+msgstr "Alle geÃ¶ffnet"
 
 #: edit.php:240
 msgid "Confirm Deletion"
-msgstr "Löschen bestätigen"
+msgstr "LÃ¶schen bestÃ¤tigen"
 
 #: lib/Trean.php:209
 msgid "Conflict"
@@ -228,7 +228,7 @@ msgstr "Kopieren"
 #: edit.php:219
 #, php-format
 msgid "Copying folders is not supported."
-msgstr "Ordner können nicht kopiert werden."
+msgstr "Ordner kÃ¶nnen nicht kopiert werden."
 
 #: lib/Trean.php:187
 msgid "Created"
@@ -241,28 +241,28 @@ msgstr "DNS- oder andere Fehler (%s)"
 
 #: templates/browse.php:93 templates/search.php:70
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: templates/browse.php:170
 msgid "Delete Bookmark"
-msgstr "Lesezeichen löschen "
+msgstr "Lesezeichen lÃ¶schen "
 
 #: templates/browse.php:94
 msgid "Delete this folder"
-msgstr "Diesen Ordner löschen"
+msgstr "Diesen Ordner lÃ¶schen"
 
 #: edit.php:51 edit.php:111
 msgid "Deleted bookmark: "
-msgstr "Lesezeichen gelöscht: "
+msgstr "Lesezeichen gelÃ¶scht: "
 
 #: edit.php:124
 msgid "Deleted folder: "
-msgstr "Ordner gelöscht: "
+msgstr "Ordner gelÃ¶scht: "
 
 #: edit.php:264
 #, php-format
 msgid "Deleted the folder \"%s\""
-msgstr "Ordner \"%s\" wurde gelöscht"
+msgstr "Ordner \"%s\" wurde gelÃ¶scht"
 
 #: config/prefs.php.dist:34
 msgid "Descending (9 to 1)"
@@ -288,14 +288,14 @@ msgstr "Ordner herunterladen"
 #: templates/add.html.php:73
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
-"Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Links\"-"
+"Ziehen Sie den \"Zu Lesezeichen hinzufÃ¼gen\" Link auf die \"Links\"-"
 "Symbolleiste"
 
 #: templates/add.html.php:71
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
-"Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Persönliche "
+"Ziehen Sie den \"Zu Lesezeichen hinzufÃ¼gen\" Link auf die \"PersÃ¶nliche "
 "Symbolleiste\""
 
 #: templates/search.php:69
@@ -317,7 +317,7 @@ msgstr "Rechte bearbeiten"
 #: perms.php:242
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Rechte für '%s' bearbeiten"
+msgstr "Rechte fÃ¼r '%s' bearbeiten"
 
 #: lib/Trean.php:217
 msgid "Expectation Failed"
@@ -350,7 +350,7 @@ msgstr "Ordneraktionen"
 
 #: lib/Bookmarks.php:350
 msgid "Folder names must be non-empty"
-msgstr "Ordnernamen dürfen nicht leer sein"
+msgstr "Ordnernamen dÃ¼rfen nicht leer sein"
 
 #: templates/data/import.inc:11
 msgid "Folder to import into:"
@@ -362,11 +362,11 @@ msgstr "Nicht erlaubt"
 
 #: lib/Trean.php:195
 msgid "Found"
-msgstr "Vorübergehend verschoben"
+msgstr "VorÃ¼bergehend verschoben"
 
 #: lib/Trean.php:222
 msgid "Gateway Time-out"
-msgstr "Zeit überschritten beim Gateway"
+msgstr "Zeit Ã¼berschritten beim Gateway"
 
 #: lib/Trean.php:210
 msgid "Gone"
@@ -378,11 +378,11 @@ msgstr "HTTP-Status"
 
 #: lib/Trean.php:223
 msgid "HTTP Version not supported"
-msgstr "HTTP-Version nicht unterstützt"
+msgstr "HTTP-Version nicht unterstÃ¼tzt"
 
 #: lib/Block/bookmarks.php:48 config/prefs.php.dist:22
 msgid "Highest Rated"
-msgstr "Höchste Bewertungen"
+msgstr "HÃ¶chste Bewertungen"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:46
 msgid "Highest-rated Bookmarks"
@@ -413,12 +413,12 @@ msgid ""
 "Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
-"Benutzer des Internet Explorers können ihre Favoriten exportieren, indem sie "
-"im \"Datei\"-Menü auf \"Importieren und Exportieren\" klicken."
+"Benutzer des Internet Explorers kÃ¶nnen ihre Favoriten exportieren, indem sie "
+"im \"Datei\"-MenÃ¼ auf \"Importieren und Exportieren\" klicken."
 
 #: lib/Trean.php:211
 msgid "Length Required"
-msgstr "Längenangabe erforderlich"
+msgstr "LÃ¤ngenangabe erforderlich"
 
 #: lib/Forms/Search.php:25
 msgid "Match"
@@ -434,7 +434,7 @@ msgstr "Maximale Anzahl an Ordnern"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüliste"
+msgstr "MenÃ¼liste"
 
 #: lib/Trean.php:205
 msgid "Method Not Allowed"
@@ -442,7 +442,7 @@ msgstr "Methode nicht erlaubt"
 
 #: lib/Block/bookmarks.php:49 config/prefs.php.dist:23
 msgid "Most Clicked"
-msgstr "Am häufigsten geklickt"
+msgstr "Am hÃ¤ufigsten geklickt"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:46
 msgid "Most-clicked Bookmarks"
@@ -469,13 +469,13 @@ msgid ""
 "Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
-"Mozilla-Benutzer können ihre Lesezeichen exportieren, indem sie die "
-"\"Lesezeichen-Verwaltung\" öffnen und \"Exportieren\" im \"Extras\"-Menü "
-"auswählen."
+"Mozilla-Benutzer kÃ¶nnen ihre Lesezeichen exportieren, indem sie die "
+"\"Lesezeichen-Verwaltung\" Ã¶ffnen und \"Exportieren\" im \"Extras\"-MenÃ¼ "
+"auswÃ¤hlen."
 
 #: lib/Trean.php:193
 msgid "Multiple Choices"
-msgstr "Mehrere Möglichkeiten"
+msgstr "Mehrere MÃ¶glichkeiten"
 
 #: templates/edit/folder.inc:9
 msgid "Name"
@@ -532,7 +532,7 @@ msgstr "Nicht implementiert"
 
 #: lib/Trean.php:197
 msgid "Not Modified"
-msgstr "Nicht geändert"
+msgstr "Nicht geÃ¤ndert"
 
 #: templates/add.html.php:76
 msgid "Note:"
@@ -560,8 +560,8 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"In neueren Versionen des Internet Explorer müssen Sie unter Umständen %s://%"
-"s zur Vertrauenswürdigen Zone hinzufügen."
+"In neueren Versionen des Internet Explorer mÃ¼ssen Sie unter UmstÃ¤nden %s://%"
+"s zur VertrauenswÃ¼rdigen Zone hinzufÃ¼gen."
 
 #: perms.php:56
 msgid ""
@@ -569,11 +569,11 @@ msgid ""
 "permissions for a share"
 msgstr ""
 "Nur der Besitzer oder der Systemadministrator kann den Besitzer oder die "
-"Besitzerrechte ändern"
+"Besitzerrechte Ã¤ndern"
 
 #: config/prefs.php.dist:54
 msgid "Open links in a new window?"
-msgstr "Links in neuem Fenster öffnen?"
+msgstr "Links in neuem Fenster Ã¶ffnen?"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
@@ -589,11 +589,11 @@ msgstr "Zahlung erforderlich"
 
 #: templates/add.html.php:4
 msgid "Please enter a name for the new folder:"
-msgstr "Bitte geben Sie einen Namen für den neuen Ordner an:"
+msgstr "Bitte geben Sie einen Namen fÃ¼r den neuen Ordner an:"
 
 #: lib/Trean.php:212
 msgid "Precondition Failed"
-msgstr "Bedingung nicht erfüllt"
+msgstr "Bedingung nicht erfÃ¼llt"
 
 #: lib/Trean.php:207
 msgid "Proxy Authentication Required"
@@ -606,7 +606,7 @@ msgstr "Bewertung"
 #: templates/edit/delete_folder_confirmation.inc:3
 #, php-format
 msgid "Really delete \"%s\" and all of its bookmarks?"
-msgstr "\"%s\" und alle enthaltenen Lesezeichen wirklich löschen?"
+msgstr "\"%s\" und alle enthaltenen Lesezeichen wirklich lÃ¶schen?"
 
 #: templates/browse.php:102
 msgid "Rename this folder"
@@ -618,11 +618,11 @@ msgstr "Berichte"
 
 #: lib/Trean.php:213
 msgid "Request Entity Too Large"
-msgstr "Anfrage zu groß"
+msgstr "Anfrage zu groÃŸ"
 
 #: lib/Trean.php:208
 msgid "Request Time-out"
-msgstr "Anfragezeit überschritten"
+msgstr "Anfragezeit Ã¼berschritten"
 
 #: lib/Trean.php:214
 msgid "Request-URI Too Large"
@@ -630,11 +630,11 @@ msgstr "Angeforderte Adresse zu lang"
 
 #: lib/Trean.php:216
 msgid "Requested range not satisfiable"
-msgstr "Gewünschter Bereich nicht vorhanden"
+msgstr "GewÃ¼nschter Bereich nicht vorhanden"
 
 #: lib/Trean.php:191
 msgid "Reset Content"
-msgstr "Inhalt zurückgesetzt"
+msgstr "Inhalt zurÃ¼ckgesetzt"
 
 #: templates/edit/footer.inc:1
 msgid "Save"
@@ -659,15 +659,15 @@ msgstr "Siehe unter"
 
 #: templates/search.php:65
 msgid "Select All"
-msgstr "Alle auswählen"
+msgstr "Alle auswÃ¤hlen"
 
 #: templates/views/BookmarkList.php:24
 msgid "Select All/Select None"
-msgstr "Alle/Keine auswählen"
+msgstr "Alle/Keine auswÃ¤hlen"
 
 #: templates/search.php:66
 msgid "Select None"
-msgstr "Keine auswählen"
+msgstr "Keine auswÃ¤hlen"
 
 #: templates/search.php:64
 #, php-format
@@ -676,18 +676,18 @@ msgstr "Auswahl: %s, %s"
 
 #: lib/Trean.php:221
 msgid "Service Unavailable"
-msgstr "Service nicht verfügbar"
+msgstr "Service nicht verfÃ¼gbar"
 
 #: config/prefs.php.dist:11
 msgid "Set how to display bookmark listings and how to open links."
 msgstr ""
-"Legen Sie fest wie die Lesezeichenlisten angezeigt und wie Links geöffnet "
+"Legen Sie fest wie die Lesezeichenlisten angezeigt und wie Links geÃ¶ffnet "
 "werden."
 
 #: config/prefs.php.dist:66
 msgid "Should your list of bookmark folders be open when you log in?"
 msgstr ""
-"Soll die Liste Ihrer Lesezeichenordner geöffnet werden, wenn Sie sich "
+"Soll die Liste Ihrer Lesezeichenordner geÃ¶ffnet werden, wenn Sie sich "
 "anmelden?"
 
 #: config/prefs.php.dist:45
@@ -717,7 +717,7 @@ msgstr "Vorlage"
 
 #: lib/Trean.php:199
 msgid "Temporary Redirect"
-msgstr "Vorübergehende Weiterleitung"
+msgstr "VorÃ¼bergehende Weiterleitung"
 
 #: templates/browse.php:181
 msgid "There are no bookmarks in this folder"
@@ -731,12 +731,12 @@ msgstr "Beim Kopieren des Lesezeichens ist ein Fehler aufgetreten: %s"
 #: edit.php:53 edit.php:113
 #, php-format
 msgid "There was a problem deleting the bookmark: %s"
-msgstr "Beim Löschen des Lesezeichens ist ein Fehler aufgetreten: %s"
+msgstr "Beim LÃ¶schen des Lesezeichens ist ein Fehler aufgetreten: %s"
 
 #: edit.php:126
 #, php-format
 msgid "There was a problem deleting the folder: %s"
-msgstr "Beim Löschen des Ordners ist ein Fehler aufgetreten: %s"
+msgstr "Beim LÃ¶schen des Ordners ist ein Fehler aufgetreten: %s"
 
 #: edit.php:162
 #, php-format
@@ -751,12 +751,12 @@ msgstr "Beim Verschieben des Ordners ist ein Fehler aufgetreten: %s"
 #: add.php:60
 #, php-format
 msgid "There was an error adding the bookmark: %s"
-msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
+msgstr "Beim HinzufÃ¼gen des Lesezeichens ist ein Fehler aufgetreten: %s"
 
 #: edit.php:146 edit.php:198 add.php:44 add.php:103
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "Beim Hinzufügen des Ordners ist ein Fehler aufgetreten: %s."
+msgstr "Beim HinzufÃ¼gen des Ordners ist ein Fehler aufgetreten: %s."
 
 #: edit.php:74
 #, php-format
@@ -776,7 +776,7 @@ msgstr "Titel"
 
 #: templates/add.html.php:69
 msgid "To be able to quickly add bookmarks from your web browser:"
-msgstr "Um schnell Lesezeichen von Ihrem Browser hinzuzufügen:"
+msgstr "Um schnell Lesezeichen von Ihrem Browser hinzuzufÃ¼gen:"
 
 #: templates/reports.php:103
 msgid "Total"
@@ -798,7 +798,7 @@ msgstr "Unbekannt (%s)"
 
 #: lib/Trean.php:215
 msgid "Unsupported Media Type"
-msgstr "Nicht unterstützter Inhaltstyp"
+msgstr "Nicht unterstÃ¼tzter Inhaltstyp"
 
 #: perms.php:228
 #, php-format
@@ -814,8 +814,8 @@ msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
 msgstr ""
-"Während des Browsens können sie neue Lesezeichen hinzufügen, indem Sie auf "
-"die Verknüpfung \"Zu Lesezeichen hinzufügen\" klicken."
+"WÃ¤hrend des Browsens kÃ¶nnen sie neue Lesezeichen hinzufÃ¼gen, indem Sie auf "
+"die VerknÃ¼pfung \"Zu Lesezeichen hinzufÃ¼gen\" klicken."
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"
@@ -828,20 +828,20 @@ msgstr "Ja"
 #: data.php:65 data.php:132 add.php:23
 #, php-format
 msgid "You are not allowed to create more than %d bookmarks."
-msgstr "Sie dürfen nicht mehr als %d Lesezeichen erstellen."
+msgstr "Sie dÃ¼rfen nicht mehr als %d Lesezeichen erstellen."
 
 #: data.php:56 data.php:107 add.php:86
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Sie dürfen nicht mehr als %d Ordner erstellen."
+msgstr "Sie dÃ¼rfen nicht mehr als %d Ordner erstellen."
 
 #: browse.php:46
 msgid "You do not have permission to view this folder."
-msgstr "Sie haben nicht die nötigen Rechte um diesen Ordner anzuzeigen."
+msgstr "Sie haben nicht die nÃ¶tigen Rechte um diesen Ordner anzuzeigen."
 
 #: templates/add.html.php:11
 msgid "You must select a target folder first"
-msgstr "Sie müssen erst einen Zielordner angeben"
+msgstr "Sie mÃ¼ssen erst einen Zielordner angeben"
 
 #: lib/Trean.php:161
 msgid "_Browse"
@@ -849,7 +849,7 @@ msgstr "_Liste"
 
 #: templates/browse.php:171
 msgid "_Delete Bookmarks"
-msgstr "Lesezeichen lös_chen "
+msgstr "Lesezeichen lÃ¶s_chen "
 
 #: templates/browse.php:166
 msgid "_Edit Bookmarks"

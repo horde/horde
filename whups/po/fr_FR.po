@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: Thierry Thomas <thierry@pompo.net>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
 msgid "%s added to those responsible for '%s'"
-msgstr "%s fait désormais partie des responsables de « %s »"
+msgstr "%s fait dÃ©sormais partie des responsables de Â«Â %sÂ Â»"
 
 #, c-format
 msgid "%s days"
@@ -25,56 +25,56 @@ msgstr " (il y a %s jours)"
 
 #, c-format
 msgid "'%s' is no longer among those responsible for '%s'"
-msgstr "« %s » ne fait plus partie des responsables de « %s »"
+msgstr "Â«Â %sÂ Â» ne fait plus partie des responsables de Â«Â %sÂ Â»"
 
 msgid "- Stage 1"
-msgstr "- Étape 1"
+msgstr "- Ã‰tape 1"
 
 msgid "- Stage 2"
-msgstr "- Étape 2"
+msgstr "- Ã‰tape 2"
 
 #, c-format
 msgid "-Added By: %s\n"
-msgstr "-Ajouté par : %s\n"
+msgstr "-AjoutÃ© parÂ : %s\n"
 
 #, c-format
 msgid "-Assigned By: %s"
-msgstr "-Assigné par : %s"
+msgstr "-AssignÃ© parÂ : %s"
 
 #, c-format
 msgid "-Assigned To: %s"
-msgstr "-Assigner à  : %s"
+msgstr "-Assigner Ã  Â : %s"
 
 #, c-format
 msgid "-Comment by %s on %s:"
-msgstr "-Commentaire par %s sur %s :"
+msgstr "-Commentaire par %s sur %sÂ :"
 
 #, c-format
 msgid "-Created By: %s\n"
-msgstr "-Créé par : %s\n"
+msgstr "-CrÃ©Ã© parÂ : %s\n"
 
 #, c-format
 msgid "-Queue: %s"
-msgstr "-Queue : %s"
+msgstr "-QueueÂ : %s"
 
 #, c-format
 msgid "-Queue: %s\n"
-msgstr "-Queue : %s\n"
+msgstr "-QueueÂ : %s\n"
 
 #, c-format
 msgid "-New Priority: %s"
-msgstr "-Nouvelle priorité : %s"
+msgstr "-Nouvelle prioritÃ©Â : %s"
 
 #, c-format
 msgid "-New State: %s"
-msgstr "-Nouvel état : %s"
+msgstr "-Nouvel Ã©tatÂ : %s"
 
 #, c-format
 msgid "-State: %s"
-msgstr "-État  : %s"
+msgstr "-Ã‰tat Â : %s"
 
 msgid "-Summary:"
-msgstr "-Résumé :"
+msgstr "-RÃ©sumÃ©Â :"
 
 #, c-format
 msgid "-Ticket %s"
@@ -94,46 +94,46 @@ msgid "3. High"
 msgstr "3. Haut"
 
 msgid "<i>No summary</i>"
-msgstr "<i>Pas de résumé</i>"
+msgstr "<i>Pas de rÃ©sumÃ©</i>"
 
 msgid "A ticket has been reported but not yet analyzed."
-msgstr "Un ticket a été pris en compte mais pas encore analysé."
+msgstr "Un ticket a Ã©tÃ© pris en compte mais pas encore analysÃ©."
 
 msgid "Accepted"
-msgstr "Accepté"
+msgstr "AcceptÃ©"
 
 msgid "Add Attribute Criterion"
-msgstr "Ajouter un critère sur l'attribut"
+msgstr "Ajouter un critÃ¨re sur l'attribut"
 
 msgid "Add Attribute"
 msgstr "Ajouter un attribut"
 
 msgid "Add Comment Succeeded"
-msgstr "Commentaire ajouté"
+msgstr "Commentaire ajoutÃ©"
 
 msgid "Add Comment"
 msgstr "Ajouter un commentaire"
 
 msgid "Add Criterion"
-msgstr "Ajouter un critère"
+msgstr "Ajouter un critÃ¨re"
 
 msgid "Add Queue"
 msgstr "Ajouter un module"
 
 msgid "Add Priority"
-msgstr "Ajouter une priorité"
+msgstr "Ajouter une prioritÃ©"
 
 msgid "Add Property Criterion"
-msgstr "Ajouter un critère sur la propriété"
+msgstr "Ajouter un critÃ¨re sur la propriÃ©tÃ©"
 
 msgid "Add State"
-msgstr "Ajouter un état"
+msgstr "Ajouter un Ã©tat"
 
 msgid "Add Subject"
 msgstr "Ajouter un sujet"
 
 msgid "Add Text Criterion"
-msgstr "Ajouter un critère sur le texte"
+msgstr "Ajouter un critÃ¨re sur le texte"
 
 #, c-format
 msgid "Add Type %s"
@@ -143,7 +143,7 @@ msgid "Add Type"
 msgstr "Ajouter un type"
 
 msgid "Add User Criterion"
-msgstr "Ajouter un critère sur l'utilisateur"
+msgstr "Ajouter un critÃ¨re sur l'utilisateur"
 
 msgid "Add Users"
 msgstr "Ajouter des utilisateurs"
@@ -153,7 +153,7 @@ msgstr "Ajouter une version"
 
 #, c-format
 msgid "Adding your ticket failed: %s."
-msgstr "L'ajout de votre ticket a échoué : %s."
+msgstr "L'ajout de votre ticket a Ã©chouÃ©Â : %s."
 
 msgid "Additional Comment"
 msgstr "Commentaire additionnel"
@@ -165,7 +165,7 @@ msgid "Administration"
 msgstr "Administration"
 
 msgid "An appropriate person has been notified of this request."
-msgstr "Cette requête a été notifiée à la personne appropriée."
+msgstr "Cette requÃªte a Ã©tÃ© notifiÃ©e Ã  la personne appropriÃ©e."
 
 msgid "And"
 msgstr "Et"
@@ -180,26 +180,26 @@ msgid "Ascending"
 msgstr "Croissant"
 
 msgid "Assign Ticket Succeeded"
-msgstr "Assignation du ticket réussie"
+msgstr "Assignation du ticket rÃ©ussie"
 
 msgid "Assign Ticket"
 msgstr "Assigner un ticket"
 
 #, c-format
 msgid "Assigned ticket to %s"
-msgstr "Assigner un ticket à %s"
+msgstr "Assigner un ticket Ã  %s"
 
 msgid "Assigned"
-msgstr "Assigné"
+msgstr "AssignÃ©"
 
 msgid "Assignee"
 msgstr "Responsable"
 
 msgid "Associations updated successfully."
-msgstr "Associations mises à jour."
+msgstr "Associations mises Ã  jour."
 
 msgid "Attribute Criteria"
-msgstr "Critère d'attribut"
+msgstr "CritÃ¨re d'attribut"
 
 msgid "Attribute Description"
 msgstr "Description de l'attribut"
@@ -214,53 +214,53 @@ msgid "Autolink to other tickets in comments"
 msgstr "Lien vers d'autres tickets dans les commentaires"
 
 msgid "Average days to close by Queue"
-msgstr "Délai moyen de clôture par modules"
+msgstr "DÃ©lai moyen de clÃ´ture par modules"
 
 msgid "Average days to close by Owner"
-msgstr "Délai moyen de clôture par propriétaires"
+msgstr "DÃ©lai moyen de clÃ´ture par propriÃ©taires"
 
 msgid "Average days to close by Requester"
-msgstr "Délai moyen de clôture par demandeurs"
+msgstr "DÃ©lai moyen de clÃ´ture par demandeurs"
 
 msgid "Average time a ticket is unresolved"
-msgstr "Délai moyen des tickets non résolus"
+msgstr "DÃ©lai moyen des tickets non rÃ©solus"
 
 msgid "Branch Type"
 msgstr "Type de branche"
 
 msgid "Canceled"
-msgstr "Annulé"
+msgstr "AnnulÃ©"
 
 msgid "Case Insensitive Substring"
-msgstr "Sous-chaîne non sensible à la casse"
+msgstr "Sous-chaÃ®ne non sensible Ã  la casse"
 
 msgid "Case Sensitive Substring"
-msgstr "Sous-chaîne sensible à la casse"
+msgstr "Sous-chaÃ®ne sensible Ã  la casse"
 
 msgid "Change Ticket Type"
 msgstr "Modifier le type du ticket"
 
 msgid "Change display options such as how search results are sorted."
 msgstr ""
-"Changer les options d'affichage de la même manière que l'ordre des résultats "
+"Changer les options d'affichage de la mÃªme maniÃ¨re que l'ordre des rÃ©sultats "
 "de recherches."
 
 msgid ""
 "Change display options such as the color scheme and how search results are "
 "sorted."
 msgstr ""
-"Changer les options d'affichage tels que le thème coloré et la manière dont "
-"les résultats de recherches sont classés."
+"Changer les options d'affichage tels que le thÃ¨me colorÃ© et la maniÃ¨re dont "
+"les rÃ©sultats de recherches sont classÃ©s."
 
 msgid "Change options for email notifications of ticket activity."
 msgstr ""
-"Changer les options de notifications par courrier de l'activité des tickets."
+"Changer les options de notifications par courrier de l'activitÃ© des tickets."
 
 msgid "Change"
 msgstr "Modifier"
 
 msgid "Choose Action:"
-msgstr "Choisir une action :"
+msgstr "Choisir une actionÂ :"
 
 msgid "Chronological (oldest first)"
 msgstr "Chronologique (les plus ancien en premier)"
@@ -292,49 +292,49 @@ msgid "Copy of %s"
 msgstr "Copie de %s"
 
 msgid "Create Default Priorities"
-msgstr "Créer les priorités par défaut"
+msgstr "CrÃ©er les prioritÃ©s par dÃ©faut"
 
 msgid "Create Default States"
-msgstr "Créer les états par défaut"
+msgstr "CrÃ©er les Ã©tats par dÃ©faut"
 
 msgid "Create Ticket - Stage 1"
-msgstr "Créer un ticket - Étape 1"
+msgstr "CrÃ©er un ticket - Ã‰tape 1"
 
 msgid "Create Ticket - Stage 2"
-msgstr "Créer un ticket - Étape 2"
+msgstr "CrÃ©er un ticket - Ã‰tape 2"
 
 msgid "Create Ticket - Stage 3"
-msgstr "Créer un ticket - Étape 3"
+msgstr "CrÃ©er un ticket - Ã‰tape 3"
 
 msgid "Create Ticket - Stage 4"
-msgstr "Créer un ticket - Étape 4"
+msgstr "CrÃ©er un ticket - Ã‰tape 4"
 
 msgid "Create Ticket"
-msgstr "Créer un ticket"
+msgstr "CrÃ©er un ticket"
 
 msgid "Create Tickets"
-msgstr "Créer des tickets"
+msgstr "CrÃ©er des tickets"
 
 msgid "Created"
-msgstr "Créé"
+msgstr "CrÃ©Ã©"
 
 msgid "Current Query"
-msgstr "Requête courante"
+msgstr "RequÃªte courante"
 
 msgid "Current Type"
 msgstr "Type courant"
 
 msgid "Date Criteria"
-msgstr "Critère sur la date"
+msgstr "CritÃ¨re sur la date"
 
 msgid "Date/Time format for search results"
-msgstr "Format de la date et de l'heure pour les résultats de recherche"
+msgstr "Format de la date et de l'heure pour les rÃ©sultats de recherche"
 
 msgid "Default sorting criteria:"
-msgstr "Critère de classement par défaut"
+msgstr "CritÃ¨re de classement par dÃ©faut"
 
 msgid "Default sorting direction:"
-msgstr "Sens de classement par défaut"
+msgstr "Sens de classement par dÃ©faut"
 
 msgid "Delete Attribute Confirmation"
 msgstr "Confirmation de la suppression de l'attribut"
@@ -349,16 +349,16 @@ msgid "Delete Queue"
 msgstr "Supprimer le module"
 
 msgid "Delete Priority Confirmation"
-msgstr "Confirmation de la suppression de priorité"
+msgstr "Confirmation de la suppression de prioritÃ©"
 
 msgid "Delete Priority"
-msgstr "Supprimer la priorité"
+msgstr "Supprimer la prioritÃ©"
 
 msgid "Delete State Confirmation"
-msgstr "Confirmation de la suppression de l'état"
+msgstr "Confirmation de la suppression de l'Ã©tat"
 
 msgid "Delete State"
-msgstr "Supprimer l'état"
+msgstr "Supprimer l'Ã©tat"
 
 msgid "Delete Subject Confirmation"
 msgstr "Confirmation de la suppression du sujet"
@@ -367,7 +367,7 @@ msgid "Delete Subject"
 msgstr "Supprimer le sujet"
 
 msgid "Delete Ticket Succeeded"
-msgstr "Suppression du ticket effectué"
+msgstr "Suppression du ticket effectuÃ©"
 
 msgid "Delete Ticket"
 msgstr "Supprimer un ticket"
@@ -388,7 +388,7 @@ msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Descending"
-msgstr "Décroissant"
+msgstr "DÃ©croissant"
 
 msgid "Description"
 msgstr "Description"
@@ -398,94 +398,94 @@ msgstr "Options d'affichage"
 
 #, c-format
 msgid "Edit %s"
-msgstr "Éditer %s"
+msgstr "Ã‰diter %s"
 
 msgid "Edit Attribute"
-msgstr "Éditer l'attribut"
+msgstr "Ã‰diter l'attribut"
 
 msgid "Edit Attributes"
-msgstr "Éditer les attributs"
+msgstr "Ã‰diter les attributs"
 
 msgid "Edit Queue"
-msgstr "Éditer le module"
+msgstr "Ã‰diter le module"
 
 msgid "Edit Queues"
-msgstr "Éditer des modules"
+msgstr "Ã‰diter des modules"
 
 msgid "Edit Priorities"
-msgstr "Éditer les priorités"
+msgstr "Ã‰diter les prioritÃ©s"
 
 msgid "Edit Priority"
-msgstr "Éditer la priorité"
+msgstr "Ã‰diter la prioritÃ©"
 
 msgid "Edit Query"
-msgstr "Éditer une requête"
+msgstr "Ã‰diter une requÃªte"
 
 msgid "Edit State"
-msgstr "Éditer l'état"
+msgstr "Ã‰diter l'Ã©tat"
 
 msgid "Edit States"
-msgstr "Éditer les états"
+msgstr "Ã‰diter les Ã©tats"
 
 msgid "Edit Subject"
-msgstr "Éditer le sujet"
+msgstr "Ã‰diter le sujet"
 
 msgid "Edit Subjects"
-msgstr "Éditer les sujets"
+msgstr "Ã‰diter les sujets"
 
 msgid "Edit Type"
-msgstr "Éditer le type"
+msgstr "Ã‰diter le type"
 
 msgid "Edit Types"
-msgstr "Éditer les types"
+msgstr "Ã‰diter les types"
 
 msgid "Edit Version"
-msgstr "Éditer la version"
+msgstr "Ã‰diter la version"
 
 msgid "Edit or Delete Attributes"
-msgstr "Éditer ou supprimer les attributs"
+msgstr "Ã‰diter ou supprimer les attributs"
 
 msgid "Edit or Delete Queues"
-msgstr "Éditer ou supprimer les modules"
+msgstr "Ã‰diter ou supprimer les modules"
 
 msgid "Edit or Delete Priorities"
-msgstr "Éditer ou supprimer les priorités"
+msgstr "Ã‰diter ou supprimer les prioritÃ©s"
 
 msgid "Edit or Delete States"
-msgstr "Éditer ou supprimer les états"
+msgstr "Ã‰diter ou supprimer les Ã©tats"
 
 msgid "Edit or Delete Subjects"
-msgstr "Éditer ou supprimer les sujets"
+msgstr "Ã‰diter ou supprimer les sujets"
 
 msgid "Edit or Delete Types"
-msgstr "Éditer ou supprimer les types"
+msgstr "Ã‰diter ou supprimer les types"
 
 msgid "Edit or Delete Versions"
-msgstr "Éditer ou supprimer les versions"
+msgstr "Ã‰diter ou supprimer les versions"
 
 msgid "Edit the permissions on this module"
-msgstr "Éditer les permissions de ce module"
+msgstr "Ã‰diter les permissions de ce module"
 
 msgid "Edit the users responsible for this module"
-msgstr "Éditer les utilisateurs responsables pour ce module"
+msgstr "Ã‰diter les utilisateurs responsables pour ce module"
 
 msgid "Edit the versions for this module"
-msgstr "Éditer les versions de ce module"
+msgstr "Ã‰diter les versions de ce module"
 
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Ã‰diter"
 
 #, c-format
 msgid "Error: Unknown query form %s, defaulting to properties"
 msgstr ""
-"Erreur : formulaire de recherche %s inconnu, utilisation des propriétés par "
-"défaut"
+"ErreurÂ : formulaire de recherche %s inconnu, utilisation des propriÃ©tÃ©s par "
+"dÃ©faut"
 
 msgid "Exact Match"
 msgstr "Correspondance exacte"
 
 msgid "Execute Query"
-msgstr "Exécution de la requête"
+msgstr "ExÃ©cution de la requÃªte"
 
 msgid "For tickets from these modules"
 msgstr "Pour les tickets de ce module"
@@ -500,16 +500,16 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "Hide Assigned"
-msgstr "Cacher les tickets affectés"
+msgstr "Cacher les tickets affectÃ©s"
 
 msgid "Hide New"
 msgstr "Cacher les nouveaux"
 
 msgid "Hide Resolved"
-msgstr "Cacher les résolus"
+msgstr "Cacher les rÃ©solus"
 
 msgid "Hide Unconfirmed"
-msgstr "Cacher les non-confirmés"
+msgstr "Cacher les non-confirmÃ©s"
 
 msgid "Hoist"
 msgstr "Monter"
@@ -519,58 +519,58 @@ msgstr "Id."
 
 #, c-format
 msgid "If you believe you have recieved this mail in error, please contact %s."
-msgstr "Si vous avez reçu ce courrier par erreur, veuillez contacter %s."
+msgstr "Si vous avez reÃ§u ce courrier par erreur, veuillez contacter %s."
 
 msgid ""
 "If you don't select any categories, no filtering will be done on ticket "
 "category."
 msgstr ""
-"Si vous ne sélectionnez aucune catégorie, aucun filtre ne sera appliqué sur "
-"la catégorie."
+"Si vous ne sÃ©lectionnez aucune catÃ©gorie, aucun filtre ne sera appliquÃ© sur "
+"la catÃ©gorie."
 
 msgid ""
 "If you don't select any types, no filtering will be done on ticket type."
 msgstr ""
-"Si vous ne sélectionnez aucun type, aucun filtre ne sera appliqué sur le "
+"Si vous ne sÃ©lectionnez aucun type, aucun filtre ne sera appliquÃ© sur le "
 "type de ticket."
 
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
 msgstr ""
-"Si vous sélectionnez un ticket sans propriétaire, à qui envoyer le courrier ?"
+"Si vous sÃ©lectionnez un ticket sans propriÃ©taire, Ã  qui envoyer le courrierÂ ?"
 
 #, c-format
 msgid "Initial priority of '%s' set by %s on %s."
-msgstr "Priorité initiale de « %s » modifié par %s sur %s."
+msgstr "PrioritÃ© initiale de Â«Â %sÂ Â» modifiÃ© par %s sur %s."
 
 #, c-format
 msgid "Initial state of '%s' set by %s on %s"
-msgstr "État initial de « %s » modifié par %s sur %s"
+msgstr "Ã‰tat initial de Â«Â %sÂ Â» modifiÃ© par %s sur %s"
 
 msgid "Insert And"
-msgstr "Insérer « Et »"
+msgstr "InsÃ©rer Â«Â EtÂ Â»"
 
 msgid "Insert Branch"
-msgstr "Insérer une branche"
+msgstr "InsÃ©rer une branche"
 
 msgid "Insert Not"
-msgstr "Insérer « Non »"
+msgstr "InsÃ©rer Â«Â NonÂ Â»"
 
 msgid "Insert Or"
-msgstr "Insérer « Ou »"
+msgstr "InsÃ©rer Â«Â OuÂ Â»"
 
 msgid "Insert Query"
-msgstr "Insérer une requête »"
+msgstr "InsÃ©rer une requÃªteÂ Â»"
 
 msgid "Keep a set of versions for this queue?"
-msgstr "Conserver un jeu de versions pour ce module ?"
+msgstr "Conserver un jeu de versions pour ce moduleÂ ?"
 
 msgid "Language"
 msgstr "Langue"
 
 msgid "Load Query"
-msgstr "Charger une requête"
+msgstr "Charger une requÃªte"
 
 msgid "Login"
 msgstr "Connexion"
@@ -586,7 +586,7 @@ msgid "Make a clone of %s"
 msgstr "Dupliquer %s"
 
 msgid "Match Operator"
-msgstr "Faire correspondre l'opérateur"
+msgstr "Faire correspondre l'opÃ©rateur"
 
 msgid "Match Pattern"
 msgstr "Faire correspondre le motif"
@@ -598,10 +598,10 @@ msgid "Match"
 msgstr "Correspond"
 
 msgid "Maximum time a ticket is unresolved"
-msgstr "Temps maximum pour un ticket non résolu"
+msgstr "Temps maximum pour un ticket non rÃ©solu"
 
 msgid "Minimum time a ticket is unresolved"
-msgstr "Temps minimum pour un ticket non résolu"
+msgstr "Temps minimum pour un ticket non rÃ©solu"
 
 msgid "Queue Description"
 msgstr "Description du module"
@@ -620,29 +620,29 @@ msgstr "Matrice Queue/Type"
 
 #, c-format
 msgid "Queue: %s, Ticket: %s, Category: %s, Type: %s"
-msgstr "Queue : %s, Ticket : %s, Catégorie : %s, Type : %s"
+msgstr "QueueÂ : %s, TicketÂ : %s, CatÃ©gorieÂ : %s, TypeÂ : %s"
 
 msgid "Most recent first"
-msgstr "Les plus récent en premier"
+msgstr "Les plus rÃ©cent en premier"
 
 msgid "Move"
-msgstr "Déplacer"
+msgstr "DÃ©placer"
 
 #, c-format
 msgid "My %s"
 msgstr "Mon %s"
 
 msgid "My Assigned Tickets"
-msgstr "Les tickets qui me sont assignés"
+msgstr "Les tickets qui me sont assignÃ©s"
 
 msgid "My Bugs"
 msgstr "Mes tickets"
 
 msgid "My Open Requests"
-msgstr "Mes requête en cours"
+msgstr "Mes requÃªte en cours"
 
 msgid "My Searches"
-msgstr "Mes requêtes"
+msgstr "Mes requÃªtes"
 
 msgid "Name of the cloned copy"
 msgstr "Nom du clone"
@@ -654,13 +654,13 @@ msgid "Name, Email Report"
 msgstr "Nom, rapport par courrier"
 
 msgid "New Priority"
-msgstr "Nouvelle priorité"
+msgstr "Nouvelle prioritÃ©"
 
 msgid "New Query"
-msgstr "Nouvelle requête"
+msgstr "Nouvelle requÃªte"
 
 msgid "New State"
-msgstr "Nouvel état"
+msgstr "Nouvel Ã©tat"
 
 msgid "New Ticket"
 msgstr "Nouveau tickets"
@@ -671,26 +671,26 @@ msgstr "Nouveau commentaire pour le ticket %s"
 
 #, c-format
 msgid "New ticket (%s): %s"
-msgstr "Nouveau ticket (%s) : %s"
+msgstr "Nouveau ticket (%s)Â : %s"
 
 msgid "New"
 msgstr "Nouveau"
 
 msgid "No configuration information specified for SQL Bugs."
-msgstr "Pas d'information de configuration spécifiée pour la base de Whups."
+msgstr "Pas d'information de configuration spÃ©cifiÃ©e pour la base de Whups."
 
 msgid "No stats available."
-msgstr "Aucun état disponible."
+msgstr "Aucun Ã©tat disponible."
 
 #, c-format
 msgid "No such backend '%s' found"
-msgstr "Aucune interface « %s »"
+msgstr "Aucune interface Â«Â %sÂ Â»"
 
 msgid "No such ticket."
 msgstr "Aucun ticket de ce type."
 
 msgid "No tickets matched your search criteria."
-msgstr "Aucun ticket ne correspond à vos critères de recherche."
+msgstr "Aucun ticket ne correspond Ã  vos critÃ¨res de recherche."
 
 msgid "No tickets to display"
 msgstr "Aucun ticket a afficher"
@@ -702,7 +702,7 @@ msgid "None"
 msgstr "Aucun"
 
 msgid "Not yet implemented..."
-msgstr "Pas encore implémenté..."
+msgstr "Pas encore implÃ©mentÃ©..."
 
 msgid "Not"
 msgstr "Non"
@@ -719,16 +719,16 @@ msgid "Open Tickets by Queue"
 msgstr "Mes ticket ouvert par module"
 
 msgid "Open Tickets by Owner"
-msgstr "Tickets ouvert par propriétaire"
+msgstr "Tickets ouvert par propriÃ©taire"
 
 msgid "Open Tickets by Priority"
-msgstr "Ticket ouvert par priorité"
+msgstr "Ticket ouvert par prioritÃ©"
 
 msgid "Open Tickets by Requester"
 msgstr "Ticket ouvert par demandeur"
 
 msgid "Open Tickets by State"
-msgstr "Ticket ouvert par état"
+msgstr "Ticket ouvert par Ã©tat"
 
 msgid "Open Tickets by Type"
 msgstr "Ticket ouvert par type"
@@ -746,88 +746,88 @@ msgid "Other Options"
 msgstr "Autres options"
 
 msgid "Owners"
-msgstr "Propriétaire"
+msgstr "PropriÃ©taire"
 
 msgid "Path"
 msgstr "Chemin"
 
 msgid "Permission Denied."
-msgstr "Permission refusée."
+msgstr "Permission refusÃ©e."
 
 msgid "Priorities for this Type"
-msgstr "Priorités pour ce type"
+msgstr "PrioritÃ©s pour ce type"
 
 msgid "Priority Description"
-msgstr "Description de la priorité"
+msgstr "Description de la prioritÃ©"
 
 msgid "Priority Name"
-msgstr "Nom de la priorité"
+msgstr "Nom de la prioritÃ©"
 
 #, c-format
 msgid "Priority changed to '%s' by %s on %s."
-msgstr "Priorité passée à « %s » par %s sur %s."
+msgstr "PrioritÃ© passÃ©e Ã  Â«Â %sÂ Â» par %s sur %s."
 
 msgid "Priority"
-msgstr "Priorité"
+msgstr "PrioritÃ©"
 
 msgid "Private"
-msgstr "Privé"
+msgstr "PrivÃ©"
 
 msgid "Property Criteria"
-msgstr "critère de priorité"
+msgstr "critÃ¨re de prioritÃ©"
 
 msgid "Query Builder"
-msgstr "Construction de requête"
+msgstr "Construction de requÃªte"
 
 msgid "Query Parameters"
-msgstr "Paramètre de recherche"
+msgstr "ParamÃ¨tre de recherche"
 
 msgid "Query Results"
-msgstr "Résultat de la recherche"
+msgstr "RÃ©sultat de la recherche"
 
 msgid "Re-execute Query"
-msgstr "Ré-exécution de la requête"
+msgstr "RÃ©-exÃ©cution de la requÃªte"
 
 msgid "Really delete this attribute? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de cet état ? Cela peut provoquer des problèmes avec "
-"les données !"
+"Suppression dÃ©finitive de cet Ã©tatÂ ? Cela peut provoquer des problÃ¨mes avec "
+"les donnÃ©esÂ !"
 
 msgid "Really delete this queue? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de ce module ? Cela peut provoquer des problèmes avec "
-"les données !"
+"Suppression dÃ©finitive de ce moduleÂ ? Cela peut provoquer des problÃ¨mes avec "
+"les donnÃ©esÂ !"
 
 msgid "Really delete this priority? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de cette priorité ? Cela peut provoquer des problèmes "
-"avec les données !"
+"Suppression dÃ©finitive de cette prioritÃ©Â ? Cela peut provoquer des problÃ¨mes "
+"avec les donnÃ©esÂ !"
 
 msgid "Really delete this state? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de cet état ? Cela peut provoquer des problèmes avec "
-"les données !"
+"Suppression dÃ©finitive de cet Ã©tatÂ ? Cela peut provoquer des problÃ¨mes avec "
+"les donnÃ©esÂ !"
 
 msgid "Really delete this subject? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de ce sujet ? Cela peut provoquer des problèmes avec "
-"les données !"
+"Suppression dÃ©finitive de ce sujetÂ ? Cela peut provoquer des problÃ¨mes avec "
+"les donnÃ©esÂ !"
 
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"Suppression définitive de ce ticket ? Il NE sera PAS archivé, et sera perdu "
-"définitivement."
+"Suppression dÃ©finitive de ce ticketÂ ? Il NE sera PAS archivÃ©, et sera perdu "
+"dÃ©finitivement."
 
 msgid "Really delete this type? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de ce type ? Cela peut provoquer des problèmes avec "
-"les données !"
+"Suppression dÃ©finitive de ce typeÂ ? Cela peut provoquer des problÃ¨mes avec "
+"les donnÃ©esÂ !"
 
 msgid "Really delete this version? This may cause data problems!!"
 msgstr ""
-"Suppression définitive de cette version ? Cela peut provoquer des problèmes "
-"avec les données !"
+"Suppression dÃ©finitive de cette versionÂ ? Cela peut provoquer des problÃ¨mes "
+"avec les donnÃ©esÂ !"
 
 msgid "Refine Search"
 msgstr "Affiner la recherche"
@@ -836,7 +836,7 @@ msgid "Refine search"
 msgstr "Affiner la recherche"
 
 msgid "Reminders were sent."
-msgstr "Les rappels on été envoyés."
+msgstr "Les rappels on Ã©tÃ© envoyÃ©s."
 
 msgid "Remove User"
 msgstr "Retirer un utilisateur"
@@ -849,43 +849,43 @@ msgstr "Demandeur"
 
 msgid "Required 'database' not specified in bugs configuration."
 msgstr ""
-"Le paramètre obligatoire 'database' n'est pas spécifié dans la configuration "
+"Le paramÃ¨tre obligatoire 'database' n'est pas spÃ©cifiÃ© dans la configuration "
 "de Whups."
 
 msgid "Required 'hostspec' not specified in bugs configuration."
 msgstr ""
-"Le paramètre obligatoire 'hostspec' n'est pas spécifié dans la configuration "
+"Le paramÃ¨tre obligatoire 'hostspec' n'est pas spÃ©cifiÃ© dans la configuration "
 "de Whups."
 
 msgid "Required 'password' not specified in bugs configuration."
 msgstr ""
-"Le paramètre obligatoire 'password' n'est pas spécifié dans la configuration "
+"Le paramÃ¨tre obligatoire 'password' n'est pas spÃ©cifiÃ© dans la configuration "
 "de Whups."
 
 msgid "Required 'phptype' not specified in bugs configuration."
 msgstr ""
-"Le paramètre obligatoire 'phptype' n'est pas spécifié dans la configuration "
+"Le paramÃ¨tre obligatoire 'phptype' n'est pas spÃ©cifiÃ© dans la configuration "
 "de Whups."
 
 msgid "Required 'username' not specified in bugs configuration."
 msgstr ""
-"Le paramètre obligatoire 'username' n'est pas spécifié dans la configuration "
+"Le paramÃ¨tre obligatoire 'username' n'est pas spÃ©cifiÃ© dans la configuration "
 "de Whups."
 
 msgid "Resolved"
-msgstr "Résolu"
+msgstr "RÃ©solu"
 
 msgid "Responsible Users"
 msgstr "Utilisateurs responsables"
 
 msgid "Restrict ticket subjects to a specified list?"
-msgstr "Restreindre les sujets des tickets à une liste définie ?"
+msgstr "Restreindre les sujets des tickets Ã  une liste dÃ©finieÂ ?"
 
 msgid "Save Query"
-msgstr "Enregistrer la requête ?"
+msgstr "Enregistrer la requÃªteÂ ?"
 
 msgid "Save these results as: "
-msgstr "Sauver ses résultats en : "
+msgstr "Sauver ses rÃ©sultats enÂ : "
 
 msgid "Save"
 msgstr "Enregistrer"
@@ -895,7 +895,7 @@ msgid "Search %s Attribute"
 msgstr "Rechercher l'attribut %s"
 
 msgid "Search Assignee"
-msgstr "Rechercher une personne affectée"
+msgstr "Rechercher une personne affectÃ©e"
 
 msgid "Search Attribute"
 msgstr "Attribut de recherche"
@@ -907,10 +907,10 @@ msgid "Search Requester"
 msgstr "Rechercher un demandeur"
 
 msgid "Search Results"
-msgstr "Résultats de recherche"
+msgstr "RÃ©sultats de recherche"
 
 msgid "Search Summary"
-msgstr "Rechercher un résumé"
+msgstr "Rechercher un rÃ©sumÃ©"
 
 msgid "Search Tickets"
 msgstr "Rechercher des tickets"
@@ -919,10 +919,10 @@ msgid "Search"
 msgstr "Recherche"
 
 msgid "Select the view to display after login:"
-msgstr "Sélectionnez la vue à afficher après l'identification"
+msgstr "SÃ©lectionnez la vue Ã  afficher aprÃ¨s l'identification"
 
 msgid "Select your preferred language:"
-msgstr "Sélectionnez votre langue de travail :"
+msgstr "SÃ©lectionnez votre langue de travailÂ :"
 
 msgid "Send Reminders"
 msgstr "Envoyer des rappels"
@@ -931,47 +931,47 @@ msgid "Send only for this list of ticket ids"
 msgstr "Envoyer seulement pour cette liste d'identifiants de tickets"
 
 msgid "Set Priority"
-msgstr "Affecter une priorité"
+msgstr "Affecter une prioritÃ©"
 
 msgid "Set State"
-msgstr "Affecter un état"
+msgstr "Affecter un Ã©tat"
 
 msgid "Set Ticket Attributes"
 msgstr "Affecter un attribut au ticket"
 
 msgid "Set Ticket Priority"
-msgstr "Affecter une priorité au ticket"
+msgstr "Affecter une prioritÃ© au ticket"
 
 msgid "Set Ticket State Succeeded"
-msgstr "État du ticket mis à jour"
+msgstr "Ã‰tat du ticket mis Ã  jour"
 
 msgid "Set your preferred display language."
-msgstr "Affecter la langue utilisée pour l'affichage."
+msgstr "Affecter la langue utilisÃ©e pour l'affichage."
 
 msgid "Show \"(X Days Ago)\" in Date field of search results?"
 msgstr ""
-"Afficher « (Il y a n jours) » dans les champs de type date des résultats de "
-"recherche ?"
+"Afficher Â«Â (Il y a n jours)Â Â» dans les champs de type date des rÃ©sultats de "
+"rechercheÂ ?"
 
 msgid "Show comments in chronological order, or most recent first?"
 msgstr ""
-"Afficher les commentaires par ordre chronologique, ou les plus récents en "
-"premier ?"
+"Afficher les commentaires par ordre chronologique, ou les plus rÃ©cents en "
+"premierÂ ?"
 
 msgid "Show ticket IDs in the summary view?"
-msgstr "Afficher les identifiants des tickets sur la vue du sommaire ?"
+msgstr "Afficher les identifiants des tickets sur la vue du sommaireÂ ?"
 
 msgid "Show tickets you have requested in the summary view?"
-msgstr "Afficher les tickets demandés sur la vue du sommaire ?"
+msgstr "Afficher les tickets demandÃ©s sur la vue du sommaireÂ ?"
 
 msgid "Simple HTML Report"
 msgstr "Rapport HTML simple"
 
 msgid "Some of Whups' configuration files are missing:"
-msgstr "Il manque certains fichiers de configuration de WHUPS :"
+msgstr "Il manque certains fichiers de configuration de WHUPSÂ :"
 
 msgid "Someone has accepted responsibility for the ticket."
-msgstr "Quelqu'un a accepté la responsabilité pour le ticket."
+msgstr "Quelqu'un a acceptÃ© la responsabilitÃ© pour le ticket."
 
 msgid "Sort Direction"
 msgstr "Direction du classement"
@@ -981,23 +981,23 @@ msgid "Sort by %s"
 msgstr "Classer par %s"
 
 msgid "State Category"
-msgstr "Catégorie de l'état"
+msgstr "CatÃ©gorie de l'Ã©tat"
 
 msgid "State Description"
-msgstr "Description de l'état"
+msgstr "Description de l'Ã©tat"
 
 msgid "State Name"
-msgstr "Nom de l'état"
+msgstr "Nom de l'Ã©tat"
 
 #, c-format
 msgid "State changed to '%s' by %s on %s"
-msgstr "État modifié en « %s » par %s sur %s"
+msgstr "Ã‰tat modifiÃ© en Â«Â %sÂ Â» par %s sur %s"
 
 msgid "State"
-msgstr "État"
+msgstr "Ã‰tat"
 
 msgid "States for this Type"
-msgstr "États pour ce type"
+msgstr "Ã‰tats pour ce type"
 
 msgid "Subject Name"
 msgstr "Nom du sujet"
@@ -1006,7 +1006,7 @@ msgid "Subject"
 msgstr "Sujet"
 
 msgid "Subjects associated with this Queue"
-msgstr "Sujets associés à ce module"
+msgstr "Sujets associÃ©s Ã  ce module"
 
 msgid "Submit"
 msgstr "Envoi"
@@ -1016,312 +1016,312 @@ msgid "Successfully Cloned %s to %s."
 msgstr "Duplication effective de %s vers %s."
 
 msgid "Summary"
-msgstr "Résumé"
+msgstr "RÃ©sumÃ©"
 
 msgid "Text Criteria"
-msgstr "Critère textuel"
+msgstr "CritÃ¨re textuel"
 
 msgid "Text"
 msgstr "Texte"
 
 #, c-format
 msgid "The attribute '%s' has been added to %s."
-msgstr "L'attribut « %s » a été ajouté à %s."
+msgstr "L'attribut Â«Â %sÂ Â» a Ã©tÃ© ajoutÃ© Ã  %s."
 
 msgid "The attribute has been deleted."
-msgstr "L'attribut a été supprimé."
+msgstr "L'attribut a Ã©tÃ© supprimÃ©."
 
 msgid "The attribute has been modified."
-msgstr "L'attribut a été modifié."
+msgstr "L'attribut a Ã©tÃ© modifiÃ©."
 
 msgid "The attribute was not deleted."
-msgstr "L'attribut n'a pas été supprimé."
+msgstr "L'attribut n'a pas Ã©tÃ© supprimÃ©."
 
 #, c-format
 msgid "The queue '%s' has been created."
-msgstr "Le queue « %s » a été créé."
+msgstr "Le queue Â«Â %sÂ Â» a Ã©tÃ© crÃ©Ã©."
 
 msgid "The queue has been deleted."
-msgstr "Le queue a été supprimé."
+msgstr "Le queue a Ã©tÃ© supprimÃ©."
 
 msgid "The queue has been modified."
-msgstr "Le queue a été modifié."
+msgstr "Le queue a Ã©tÃ© modifiÃ©."
 
 msgid "The queue was not deleted."
-msgstr "Le queue n'a pas été supprimé."
+msgstr "Le queue n'a pas Ã©tÃ© supprimÃ©."
 
 #, c-format
 msgid "The priority '%s' has been added to %s."
-msgstr "La priorité « %s » a été ajoutée à %s."
+msgstr "La prioritÃ© Â«Â %sÂ Â» a Ã©tÃ© ajoutÃ©e Ã  %s."
 
 msgid "The priority has been deleted."
-msgstr "La priorité a été supprimée."
+msgstr "La prioritÃ© a Ã©tÃ© supprimÃ©e."
 
 msgid "The priority has been modified."
-msgstr "La priorité a été modifiée."
+msgstr "La prioritÃ© a Ã©tÃ© modifiÃ©e."
 
 msgid "The priority was not deleted."
-msgstr "La priorité n'a pas été supprimée."
+msgstr "La prioritÃ© n'a pas Ã©tÃ© supprimÃ©e."
 
 msgid "The requested template does not exist."
-msgstr "Le modèle demandé n'existe pas."
+msgstr "Le modÃ¨le demandÃ© n'existe pas."
 
 #, c-format
 msgid "The state '%s' has been added to %s."
-msgstr "L'état « %s » a été ajouté à %s."
+msgstr "L'Ã©tat Â«Â %sÂ Â» a Ã©tÃ© ajoutÃ© Ã  %s."
 
 msgid "The state has been deleted."
-msgstr "L'état a été supprimé."
+msgstr "L'Ã©tat a Ã©tÃ© supprimÃ©."
 
 msgid "The state has been modified."
-msgstr "L'état a été modifié."
+msgstr "L'Ã©tat a Ã©tÃ© modifiÃ©."
 
 msgid "The state was not deleted."
-msgstr "L'état n'a pas été supprimé."
+msgstr "L'Ã©tat n'a pas Ã©tÃ© supprimÃ©."
 
 #, c-format
 msgid "The subject '%s' has been added."
-msgstr "Le sujet « %s » a été ajouté."
+msgstr "Le sujet Â«Â %sÂ Â» a Ã©tÃ© ajoutÃ©."
 
 msgid "The subject has been deleted."
-msgstr "Le sujet a été supprimé."
+msgstr "Le sujet a Ã©tÃ© supprimÃ©."
 
 msgid "The subject has been modified."
-msgstr "Le sujet a été modifié."
+msgstr "Le sujet a Ã©tÃ© modifiÃ©."
 
 msgid "The subject was not deleted."
-msgstr "Le sujet n'a pas été supprimé."
+msgstr "Le sujet n'a pas Ã©tÃ© supprimÃ©."
 
 msgid "The ticket has been analyzed and accepted as valid."
-msgstr "Le ticket a été analysé et validé."
+msgstr "Le ticket a Ã©tÃ© analysÃ© et validÃ©."
 
 msgid "The ticket has been resolved."
-msgstr "Le type a été résolu."
+msgstr "Le type a Ã©tÃ© rÃ©solu."
 
 msgid "The ticket is no longer valid for one reason or another."
 msgstr "Le ticket n'est plus valide pour une raison quelconque."
 
 msgid "The ticket is very urgent."
-msgstr "Le ticket est très urgent."
+msgstr "Le ticket est trÃ¨s urgent."
 
 msgid "The ticket was not deleted."
-msgstr "Le ticket n'a pas été supprimé."
+msgstr "Le ticket n'a pas Ã©tÃ© supprimÃ©."
 
 #, c-format
 msgid "The type '%s' has been modified."
-msgstr "Le type « %s » a été modifié."
+msgstr "Le type Â«Â %sÂ Â» a Ã©tÃ© modifiÃ©."
 
 msgid "The type has been deleted."
-msgstr "Le type a été supprimé."
+msgstr "Le type a Ã©tÃ© supprimÃ©."
 
 msgid "The type was not deleted."
-msgstr "Le type n'a pas été supprimé."
+msgstr "Le type n'a pas Ã©tÃ© supprimÃ©."
 
 #, c-format
 msgid "The version '%s' has been added to %s."
-msgstr "La version « %s » a été ajoutée à %s."
+msgstr "La version Â«Â %sÂ Â» a Ã©tÃ© ajoutÃ©e Ã  %s."
 
 msgid "The version has been deleted."
-msgstr "La version a été supprimée."
+msgstr "La version a Ã©tÃ© supprimÃ©e."
 
 msgid "The version has been modified."
-msgstr "La version a été modifiée."
+msgstr "La version a Ã©tÃ© modifiÃ©e."
 
 msgid "The version was not deleted."
-msgstr "La version n'a pas été supprimée."
+msgstr "La version n'a pas Ã©tÃ© supprimÃ©e."
 
 msgid "There are no attribute types to edit"
-msgstr "Aucun type d'attribut à éditer"
+msgstr "Aucun type d'attribut Ã  Ã©diter"
 
 msgid "There are no attributes defined for the current type"
-msgstr "Il n'y a aucun attribut défini pour le type courant"
+msgstr "Il n'y a aucun attribut dÃ©fini pour le type courant"
 
 msgid "There are no queues available."
 msgstr "Il n'y a aucun queue disponible."
 
 msgid "There are no queues to edit"
-msgstr "Aucun queue à éditer"
+msgstr "Aucun queue Ã  Ã©diter"
 
 msgid "There are no queues which you can create tickets in."
-msgstr "Il n'y a aucun queues pour lequel vous pouvez créer un ticket."
+msgstr "Il n'y a aucun queues pour lequel vous pouvez crÃ©er un ticket."
 
 msgid "There are no queues which you can search."
 msgstr "Il n'y a aucun queues dans lequel vous pouvez rechercher."
 
 msgid "There are no priorities to edit"
-msgstr "Aucune priorité à éditer"
+msgstr "Aucune prioritÃ© Ã  Ã©diter"
 
 msgid "There are no states to edit"
-msgstr "Aucun état à éditer"
+msgstr "Aucun Ã©tat Ã  Ã©diter"
 
 msgid "There are no subjects to edit"
-msgstr "Aucun sujet à éditer"
+msgstr "Aucun sujet Ã  Ã©diter"
 
 msgid ""
 "There are no ticket types associated with this module; until there are, you "
 "cannot create any tickets in this module."
 msgstr ""
-"Il n'y a aucun type de ticket associé à ce module ; tant qu'il n'y en aura "
-"pas, vous ne pourrez associer aucun ticket à ce module."
+"Il n'y a aucun type de ticket associÃ© Ã  ce moduleÂ ; tant qu'il n'y en aura "
+"pas, vous ne pourrez associer aucun ticket Ã  ce module."
 
 msgid "There are no types to edit"
-msgstr "Aucun type à éditer"
+msgstr "Aucun type Ã  Ã©diter"
 
 msgid "There are no users responsible for this module."
 msgstr "Aucun utilisateur n'est responsable de ce module."
 
 msgid "There are no users to which this ticket can be assigned."
-msgstr "Il n'y a aucun utilisateur à qui ce ticket peut être assigne."
+msgstr "Il n'y a aucun utilisateur Ã  qui ce ticket peut Ãªtre assigne."
 
 msgid "There are no versions to edit"
-msgstr "Aucune version à éditer"
+msgstr "Aucune version Ã  Ã©diter"
 
 msgid "There is no data for this graph."
-msgstr "Aucune donnée ne correspond à ce graphique."
+msgstr "Aucune donnÃ©e ne correspond Ã  ce graphique."
 
 msgid "There is no data for this report."
-msgstr "Aucune donnée ne correspond à ce rapport."
+msgstr "Aucune donnÃ©e ne correspond Ã  ce rapport."
 
 #, c-format
 msgid "There was an error adding '%s' to the responsible list for '%s': %s"
 msgstr ""
-"Une erreur s'est produite lors de l'ajout de « %s » à la liste des "
-"responsables de « %s » : %s"
+"Une erreur s'est produite lors de l'ajout de Â«Â %sÂ Â» Ã  la liste des "
+"responsables de Â«Â %sÂ Â»Â : %s"
 
 #, c-format
 msgid "There was an error adding the subject: %s."
-msgstr "Une erreur s'est produite lors de l'ajout du sujet : %s."
+msgstr "Une erreur s'est produite lors de l'ajout du sujetÂ : %s."
 
 #, c-format
 msgid "There was an error creating the attribute: %s."
-msgstr "Une erreur s'est produite lors de la création de l'attribut : %s."
+msgstr "Une erreur s'est produite lors de la crÃ©ation de l'attributÂ : %s."
 
 #, c-format
 msgid "There was an error creating the module: %s."
-msgstr "Une erreur s'est produite lors de la création du module : %s."
+msgstr "Une erreur s'est produite lors de la crÃ©ation du moduleÂ : %s."
 
 #, c-format
 msgid "There was an error creating the priority: %s."
-msgstr "Une erreur s'est produite lors de la création de la priorité : %s."
+msgstr "Une erreur s'est produite lors de la crÃ©ation de la prioritÃ©Â : %s."
 
 #, c-format
 msgid "There was an error creating the state: %s."
-msgstr "Une erreur s'est produite lors de la création de l'état : %s."
+msgstr "Une erreur s'est produite lors de la crÃ©ation de l'Ã©tatÂ : %s."
 
 #, c-format
 msgid "There was an error creating the version: %s."
-msgstr "Une erreur s'est produite lors de la création de la version : %s."
+msgstr "Une erreur s'est produite lors de la crÃ©ation de la versionÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the attribute: %s."
-msgstr "Une erreur s'est produite lors de la suppression de l'attribut : %s."
+msgstr "Une erreur s'est produite lors de la suppression de l'attributÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the module: %s."
-msgstr "Une erreur s'est produite lors de la suppression du module : %s."
+msgstr "Une erreur s'est produite lors de la suppression du moduleÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the priority: %s."
-msgstr "Une erreur s'est produite lors de la suppression de la priorité : %s."
+msgstr "Une erreur s'est produite lors de la suppression de la prioritÃ©Â : %s."
 
 #, c-format
 msgid "There was an error deleting the state: %s."
-msgstr "Une erreur s'est produite lors de la suppression de l'état : %s."
+msgstr "Une erreur s'est produite lors de la suppression de l'Ã©tatÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the subject: %s."
-msgstr "Une erreur s'est produite lors de la suppression du sujet : %s."
+msgstr "Une erreur s'est produite lors de la suppression du sujetÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the ticket: %s"
-msgstr "Une erreur s'est produite lors de la suppression du ticket : %s."
+msgstr "Une erreur s'est produite lors de la suppression du ticketÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the type: %s."
-msgstr "Une erreur s'est produite lors de la suppression du type : %s."
+msgstr "Une erreur s'est produite lors de la suppression du typeÂ : %s."
 
 #, c-format
 msgid "There was an error deleting the version: %s."
-msgstr "Une erreur s'est produite lors de la suppression de la version : %s."
+msgstr "Une erreur s'est produite lors de la suppression de la versionÂ : %s."
 
 #, c-format
 msgid "There was an error editing the attribute: %s."
-msgstr "Une erreur s'est produite lors de l'édition de l'attribut : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition de l'attributÂ : %s."
 
 #, c-format
 msgid "There was an error editing the module: %s."
-msgstr "Une erreur s'est produite lors de l'édition du module : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition du moduleÂ : %s."
 
 #, c-format
 msgid "There was an error editing the priority: %s."
-msgstr "Une erreur s'est produite lors de l'édition de la priorité : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition de la prioritÃ©Â : %s."
 
 #, c-format
 msgid "There was an error editing the state: %s."
-msgstr "Une erreur s'est produite lors de l'édition de l'état : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition de l'Ã©tatÂ : %s."
 
 #, c-format
 msgid "There was an error editing the subject: %s."
-msgstr "Une erreur s'est produite lors de l'édition du sujet : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition du sujetÂ : %s."
 
 #, c-format
 msgid "There was an error editing the version: %s."
-msgstr "Une erreur s'est produite lors de l'édition de la version : %s."
+msgstr "Une erreur s'est produite lors de l'Ã©dition de la versionÂ : %s."
 
 #, c-format
 msgid "There was an error listing your assigned tickets: %s"
 msgstr ""
-"Une erreur s'est produite lors de la récupération des tickets qui vous sont "
-"assignés : %s."
+"Une erreur s'est produite lors de la rÃ©cupÃ©ration des tickets qui vous sont "
+"assignÃ©sÂ : %s."
 
 #, c-format
 msgid "There was an error listing your open requests: %s"
-msgstr "Une erreur s'est produite en listant vos requêtes ouvertes : %s"
+msgstr "Une erreur s'est produite en listant vos requÃªtes ouvertesÂ : %s"
 
 #, c-format
 msgid "There was an error modifying the type: %s."
-msgstr "Une erreur s'est produite lors de la modification du type : %s."
+msgstr "Une erreur s'est produite lors de la modification du typeÂ : %s."
 
 #, c-format
 msgid "There was an error performing your search: %s"
-msgstr "Une erreur s'est produite lors de votre recherche : %s"
+msgstr "Une erreur s'est produite lors de votre rechercheÂ : %s"
 
 #, c-format
 msgid "There was an error removing '%s' from the responsible list for '%s': %s"
 msgstr ""
-"Une erreur s'est produite lors du retrait de « %s » de la liste des "
-"responsables de « %s » : %s."
+"Une erreur s'est produite lors du retrait de Â«Â %sÂ Â» de la liste des "
+"responsables de Â«Â %sÂ Â»Â : %s."
 
 msgid ""
 "This file controls the default preferences for Whups, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Ce fichier contrôle les préférences de Whups, ainsi que les préférences "
+"Ce fichier contrÃ´le les prÃ©fÃ©rences de Whups, ainsi que les prÃ©fÃ©rences "
 "modifiables par les utilisateurs."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Ce fichier contrôle la feuille de style utilisée pour positionner les "
-"couleurs et les polices supplémentaires ou en remplacement des défauts de "
+"Ce fichier contrÃ´le la feuille de style utilisÃ©e pour positionner les "
+"couleurs et les polices supplÃ©mentaires ou en remplacement des dÃ©fauts de "
 "Horde."
 
 msgid ""
 "This file defines the templates that various parts of Whups use to format "
 "data."
 msgstr ""
-"Ce fichier définit les gabarits de mise en forme des données utilisables par "
-"Whups à différents endroits."
+"Ce fichier dÃ©finit les gabarits de mise en forme des donnÃ©es utilisables par "
+"Whups Ã  diffÃ©rents endroits."
 
 msgid "This is a very low priority ticket."
-msgstr "Ceci est ticket de très faible priorité."
+msgstr "Ceci est ticket de trÃ¨s faible prioritÃ©."
 
 msgid "This is an important task, but not urgent."
-msgstr "Ceci est une tâche importante, mais non urgente."
+msgstr "Ceci est une tÃ¢che importante, mais non urgente."
 
 msgid "This is not a search results template."
-msgstr "Il n'y pas de gabarit de résultat de recherche."
+msgstr "Il n'y pas de gabarit de rÃ©sultat de recherche."
 
 msgid "This is not a valid subject."
 msgstr "Sujet invalide."
@@ -1335,19 +1335,19 @@ msgstr ""
 
 #, c-format
 msgid "This mail was automatically generated by %s"
-msgstr "Ce courrier a été généré automatiquement par %s"
+msgstr "Ce courrier a Ã©tÃ© gÃ©nÃ©rÃ© automatiquement par %s"
 
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this module, you will not "
 "be able to create tickets."
 msgstr ""
-"Ce queue nécessite que vous spécifiez une version, mais aucune version n'est "
-"associée avec lui. Tant qu'il n'y aura pas de versions créées pour ce "
-"module, vous ne pourrez pas créer de ticket."
+"Ce queue nÃ©cessite que vous spÃ©cifiez une version, mais aucune version n'est "
+"associÃ©e avec lui. Tant qu'il n'y aura pas de versions crÃ©Ã©es pour ce "
+"module, vous ne pourrez pas crÃ©er de ticket."
 
 msgid "Ticket #"
-msgstr "Ticket N°"
+msgstr "Ticket NÂ°"
 
 #, c-format
 msgid "Ticket %s Comments"
@@ -1355,53 +1355,53 @@ msgstr "Commentaires sur le ticket %s"
 
 #, c-format
 msgid "Ticket %s Details"
-msgstr "Détails du ticket %s"
+msgstr "DÃ©tails du ticket %s"
 
 #, c-format
 msgid "Ticket %s has been assigned"
-msgstr "Le ticket %s a été affecté"
+msgstr "Le ticket %s a Ã©tÃ© affectÃ©"
 
 #, c-format
 msgid "Ticket %s has changed priority"
-msgstr "La priorité du ticket %s a été modifiée"
+msgstr "La prioritÃ© du ticket %s a Ã©tÃ© modifiÃ©e"
 
 #, c-format
 msgid "Ticket %s has changed state"
-msgstr "L'état du ticket %s a été modifié"
+msgstr "L'Ã©tat du ticket %s a Ã©tÃ© modifiÃ©"
 
 #, c-format
 msgid "Ticket %s was not found."
-msgstr "Le ticket %s n'a pas été trouvé."
+msgstr "Le ticket %s n'a pas Ã©tÃ© trouvÃ©."
 
 msgid "Ticket Details"
-msgstr "Détails du ticket"
+msgstr "DÃ©tails du ticket"
 
 msgid "Ticket ID"
 msgstr "Id. du ticket"
 
 msgid "Ticket State"
-msgstr "État du ticket"
+msgstr "Ã‰tat du ticket"
 
 msgid "Ticket Stats"
-msgstr "État du ticket"
+msgstr "Ã‰tat du ticket"
 
 msgid "Ticket Summary"
-msgstr "Résumé du ticket"
+msgstr "RÃ©sumÃ© du ticket"
 
 msgid "Ticket Type"
 msgstr "Type de ticket"
 
 msgid "Ticket Types associated with this Queue"
-msgstr "Types de ticket associés à ce module"
+msgstr "Types de ticket associÃ©s Ã  ce module"
 
 msgid "Tickets assigned to you"
-msgstr "Les tickets à votre charge"
+msgstr "Les tickets Ã  votre charge"
 
 msgid "Tickets which are"
 msgstr "Ticket qui sont"
 
 msgid "Tickets you requested"
-msgstr "Les tickets que vous avez demandé"
+msgstr "Les tickets que vous avez demandÃ©"
 
 msgid "Type Description"
 msgstr "Description du type"
@@ -1416,23 +1416,23 @@ msgid "Types"
 msgstr "Types"
 
 msgid "Unassigned tickets"
-msgstr "Ticket non assigné"
+msgstr "Ticket non assignÃ©"
 
 msgid "Unassigned"
-msgstr "Non affecté"
+msgstr "Non affectÃ©"
 
 msgid "Unconfirmed"
-msgstr "Non confirmé"
+msgstr "Non confirmÃ©"
 
 #, c-format
 msgid "Unknown node type %s"
 msgstr "Type de n&oelig;ud %s inconnu"
 
 msgid "Update Associations"
-msgstr "Mettre à jour les associations"
+msgstr "Mettre Ã  jour les associations"
 
 msgid "User Criteria"
-msgstr "Critère utilisateur"
+msgstr "CritÃ¨re utilisateur"
 
 msgid "User ID"
 msgstr "ID Utilisateur"
@@ -1465,52 +1465,52 @@ msgid "Viewable only by members of"
 msgstr "Consultable uniquement par les membres de"
 
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "Jour ouvrable Jour Mois HH:MM:SS FH"
+msgstr "JourÂ ouvrable Jour Mois HH:MM:SS FH"
 
 msgid "Weekday Day Month"
-msgstr "Jour ouvrable Jour Mois"
+msgstr "JourÂ ouvrable Jour Mois"
 
 msgid "Whups is not properly configured"
-msgstr "WHUPS n'est pas configuré correctement"
+msgstr "WHUPS n'est pas configurÃ© correctement"
 
 msgid "Yes"
 msgstr "Oui"
 
 #, c-format
 msgid "You do not have permission to access this ticket (%s)."
-msgstr "Vous n'avez pas la permission d'accéder ce ticket (%s)."
+msgstr "Vous n'avez pas la permission d'accÃ©der ce ticket (%s)."
 
 msgid "You have no saved queries."
-msgstr "Vous n'avez aucune requête sauvegardée."
+msgstr "Vous n'avez aucune requÃªte sauvegardÃ©e."
 
 msgid "You must select at least one queue to send reminders for."
 msgstr ""
-"Vous devez sélectionner au moins un queue pour lequel envoyer des rappels."
+"Vous devez sÃ©lectionner au moins un queue pour lequel envoyer des rappels."
 
 msgid "Your Email Address"
-msgstr "Votre adresse électronique"
+msgstr "Votre adresse Ã©lectronique"
 
 msgid "Your Information"
-msgstr "Vos données"
+msgstr "Vos donnÃ©es"
 
 #, c-format
 msgid "Your ticket id is %s. "
 msgstr "L'identifiant de votre ticket est %s."
 
 msgid "contains (case insensitive) substring"
-msgstr "contient une sous-chaîne (non sensible à la casse)"
+msgstr "contient une sous-chaÃ®ne (non sensible Ã  la casse)"
 
 msgid "contains (case sensitive) substring"
-msgstr "contient une sous-chaîne (sensible à la casse)"
+msgstr "contient une sous-chaÃ®ne (sensible Ã  la casse)"
 
 msgid "contains the word"
 msgstr "contient le mot"
 
 msgid "is greater than"
-msgstr "est supérieur à"
+msgstr "est supÃ©rieur Ã "
 
 msgid "is less than"
-msgstr "est inférieur à"
+msgstr "est infÃ©rieur Ã "
 
 msgid "is"
 msgstr "est"

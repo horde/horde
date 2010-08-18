@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -27,7 +27,7 @@ msgstr "Verwijder IMSP adresboek"
 #: data.php:351
 #, php-format
 msgid "\"%s\" already exists and was not imported."
-msgstr "%s bestaat al en is daarom niet geïmporteerd."
+msgstr "%s bestaat al en is daarom niet geÃ¯mporteerd."
 
 #: lib/Forms/EditContact.php:76
 #, php-format
@@ -340,7 +340,7 @@ msgstr "Adressen in adreslijst: %s"
 
 #: templates/browse/actions.inc:18
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "KopiÃ«ren"
 
 #: templates/addressbooks.inc:69
 msgid "Create"
@@ -584,31 +584,31 @@ msgstr "Groep"
 
 #: config/attributes.php.dist:115
 msgid "Home Address"
-msgstr "Adres (privé)"
+msgstr "Adres (privÃ©)"
 
 #: config/attributes.php.dist:133
 msgid "Home City"
-msgstr "Woonplaats (privé)"
+msgstr "Woonplaats (privÃ©)"
 
 #: config/attributes.php.dist:151
 msgid "Home Country"
-msgstr "Land (privé)"
+msgstr "Land (privÃ©)"
 
 #: config/attributes.php.dist:241
 msgid "Home Phone"
-msgstr "Tel.nr. (privé)"
+msgstr "Tel.nr. (privÃ©)"
 
 #: config/attributes.php.dist:127
 msgid "Home Post Office Box"
-msgstr "Postbus (privé)"
+msgstr "Postbus (privÃ©)"
 
 #: config/attributes.php.dist:145
 msgid "Home Postal Code"
-msgstr "Postcode (privé)"
+msgstr "Postcode (privÃ©)"
 
 #: config/attributes.php.dist:139
 msgid "Home State/Province"
-msgstr "Staat of provincie (privé)"
+msgstr "Staat of provincie (privÃ©)"
 
 #: config/attributes.php.dist:121
 msgid "Home Street Address"
@@ -911,7 +911,7 @@ msgstr ""
 
 #: lib/api.php:957
 msgid "Only one vcard supported."
-msgstr "Slechts één vcard ondersteund."
+msgstr "Slechts Ã©Ã©n vcard ondersteund."
 
 #: config/sources.php.dist:230 config/sources.php.dist:903
 msgid "Organization"
@@ -1497,7 +1497,7 @@ msgstr "U dient een doeladresboek te selecteren."
 #: edit.php:31 templates/browse/javascript.inc:16
 #: templates/browse/javascript.inc:48 templates/browse/javascript.inc:71
 msgid "You must select at least one contact first."
-msgstr "U dient tenminste eerst één adres te selecteren."
+msgstr "U dient tenminste eerst Ã©Ã©n adres te selecteren."
 
 #: edit.php:70 lib/Views/DeleteContact.php:45 lib/Views/EditContact.php:52
 msgid "You only have permission to view this contact."

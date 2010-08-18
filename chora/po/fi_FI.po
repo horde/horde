@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -26,9 +26,9 @@ msgid ""
 "%1$s shows diffs to the previous revision. If you select a revision by "
 "clicking its row, %1$s will show the differences to the selected row."
 msgstr ""
-"%1$s n‰ytt‰‰ muutokset edelliseen revisioon n‰hden. Jos haluat valita muun "
-"revision, napsauttamalla haluamaasi rivi‰, niin %1$s n‰ytt‰‰ muutokset "
-"valitun rivin v‰lill‰."
+"%1$s n√§ytt√§√§ muutokset edelliseen revisioon n√§hden. Jos haluat valita muun "
+"revision, napsauttamalla haluamaasi rivi√§, niin %1$s n√§ytt√§√§ muutokset "
+"valitun rivin v√§lill√§."
 
 #: co.php:84
 #, php-format
@@ -42,7 +42,7 @@ msgstr "%s sitten"
 
 #: templates/diff/hr/header.inc:25
 msgid "Added"
-msgstr "Lis‰tty"
+msgstr "Lis√§tty"
 
 #: templates/log/header.inc:31
 msgid "All Branches"
@@ -50,17 +50,17 @@ msgstr "Kaikki haarat"
 
 #: co.php:89
 msgid "Annotate"
-msgstr "Selitysmerkint‰"
+msgstr "Selitysmerkint√§"
 
 #: templates/stats/stats.inc:4 templates/patchsets/header.inc:15
 #: templates/log/header.inc:49 templates/directory/header.inc:12
 #: templates/annotate/header.inc:5
 msgid "Author"
-msgstr "Tekij‰"
+msgstr "Tekij√§"
 
 #: templates/checkout/checkout.inc:4
 msgid "Author:"
-msgstr "Tekij‰:"
+msgstr "Tekij√§:"
 
 #: templates/directory/back.inc:4
 msgid "Back"
@@ -96,12 +96,12 @@ msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
 msgstr ""
-"Napsauta linkkia revisioiden v‰lill‰ saadaksesi eroavaisuudet n‰iden kahden "
-"revision v‰lill‰."
+"Napsauta linkkia revisioiden v√§lill√§ saadaksesi eroavaisuudet n√§iden kahden "
+"revision v√§lill√§."
 
 #: templates/cvsgraph/cvsgraph.inc:4
 msgid "Click on the revisions and branches to display the file."
-msgstr "Napsauta revisiota tai haaraa n‰hd‰ksesi tiedoston."
+msgstr "Napsauta revisiota tai haaraa n√§hd√§ksesi tiedoston."
 
 #: templates/diff/hr/header.inc:13
 msgid "Column"
@@ -117,16 +117,16 @@ msgstr "Konteksti"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Aseta Choraan sis‰‰nkirjautumisen yhteydess‰ teht‰v‰t asiat."
+msgstr "Aseta Choraan sis√§√§nkirjautumisen yhteydess√§ teht√§v√§t asiat."
 
 #: templates/directory/header.inc:15
 msgid "Da_te"
-msgstr "P‰i_v‰ys"
+msgstr "P√§i_v√§ys"
 
 #: templates/patchsets/header.inc:14 templates/log/header.inc:48
 #: templates/directory/header.inc:15
 msgid "Date"
-msgstr "P‰iv‰ys"
+msgstr "P√§iv√§ys"
 
 #: patchsets.php:86
 msgid "Deleted"
@@ -143,7 +143,7 @@ msgstr "Muutokset"
 #: diff.php:70
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Muutokset %s:ss‰ versioiden %s ja %s v‰lill‰"
+msgstr "Muutokset %s:ss√§ versioiden %s ja %s v√§lill√§"
 
 #: templates/directory/dir.inc:4 templates/directory/dir.inc:6
 msgid "Directory"
@@ -155,7 +155,7 @@ msgstr "Tallenna"
 
 #: templates/diff/hr/header.inc:9
 msgid "Download diff as: "
-msgstr "Tallenna diff nimell‰:"
+msgstr "Tallenna diff nimell√§:"
 
 #: templates/checkout/checkout.inc:23
 #, php-format
@@ -224,7 +224,7 @@ msgstr "Kirjausviesti"
 
 #: config/prefs.php.dist:10
 msgid "Login Tasks"
-msgstr "Teht‰v‰t sis‰‰nkirjautumisessa"
+msgstr "Teht√§v√§t sis√§√§nkirjautumisessa"
 
 #: lib/Chora.php:480 lib/Chora.php:481
 msgid "Logs"
@@ -232,7 +232,7 @@ msgstr "Lokit"
 
 #: diff.php:44
 msgid "Malformed Query"
-msgstr "Ep‰kelpo kysely"
+msgstr "Ep√§kelpo kysely"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -248,7 +248,7 @@ msgstr "Uusi tiedosto"
 
 #: templates/diff/hr/nochange.inc:3
 msgid "No Visible Changes"
-msgstr "Ei n‰kyvi‰ muutoksia"
+msgstr "Ei n√§kyvi√§ muutoksia"
 
 #: templates/log/footer.inc:8
 #, php-format
@@ -256,8 +256,8 @@ msgid ""
 "Only showing the 100 latest revisions. %sShow all revisions?</a> (may take a "
 "while)."
 msgstr ""
-"N‰yt‰ vain viimeiset 100 revisiota.  %sN‰yt‰ kaikki revisiot?</a> (T‰m‰ voi "
-"kest‰‰ kauan)."
+"N√§yt√§ vain viimeiset 100 revisiota.  %sN√§yt√§ kaikki revisiot?</a> (T√§m√§ voi "
+"kest√§√§ kauan)."
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
@@ -319,47 +319,47 @@ msgstr "Hae revisioista:"
 
 #: templates/log/header.inc:29
 msgid "Show Branch:"
-msgstr "N‰yt‰ Haara:"
+msgstr "N√§yt√§ Haara:"
 
 #: browse.php:60
 msgid "Show Deleted Files"
-msgstr "N‰yt‰ poistetut tiedostot"
+msgstr "N√§yt√§ poistetut tiedostot"
 
 #: templates/log/header.inc:18
 msgid "Show Differences"
-msgstr "N‰yt eroavaisuudet"
+msgstr "N√§yt eroavaisuudet"
 
 #: browse.php:60
 msgid "Show _Deleted Files"
-msgstr "N‰yt‰ _poistetut tiedostot"
+msgstr "N√§yt√§ _poistetut tiedostot"
 
 #: templates/log/rev.inc:4
 msgid "Show changes to the previous revision"
-msgstr "N‰yt‰ muutokset edelliseen revisioon n‰hden"
+msgstr "N√§yt√§ muutokset edelliseen revisioon n√§hden"
 
 #: templates/log/rev.inc:6
 msgid "Show changes to the selected revision"
-msgstr "N‰yt‰ muutokset valittujen revisioiden v‰lill‰"
+msgstr "N√§yt√§ muutokset valittujen revisioiden v√§lill√§"
 
 #: templates/log/header.inc:13
 #, php-format
 msgid "Show diffs between %s and %s"
-msgstr "N‰yt‰ muutokset versioiden %s ja %s v‰lill‰"
+msgstr "N√§yt√§ muutokset versioiden %s ja %s v√§lill√§"
 
 #: annotate.php:30
 #, php-format
 msgid "Source Annotation of %s (revision %s)"
-msgstr "L‰hdekoodin selitysmerkinn‰t %s (revisio %s)"
+msgstr "L√§hdekoodin selitysmerkinn√§t %s (revisio %s)"
 
 #: history.php:163
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "N‰kym‰ l‰hdekoodin haarautumiseen %s:lle"
+msgstr "N√§kym√§ l√§hdekoodin haarautumiseen %s:lle"
 
 #: browse.php:52
 #, php-format
 msgid "Source Directory of /%s"
-msgstr "L‰hdehakemisto /%s"
+msgstr "L√§hdehakemisto /%s"
 
 #: lib/Chora.php:179
 msgid ""
@@ -367,9 +367,9 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"L‰hdekoodin juurihakemistoa ei lˆytynyt! T‰m‰ voi olla v‰‰r‰ asetus "
-"palvelimen asetuksissa, tai palvelimella on v‰liaikainen virhetilanne. Yrit‰ "
-"uudestaan myˆhemmin."
+"L√§hdekoodin juurihakemistoa ei l√∂ytynyt! T√§m√§ voi olla v√§√§r√§ asetus "
+"palvelimen asetuksissa, tai palvelimella on v√§liaikainen virhetilanne. Yrit√§ "
+"uudestaan my√∂hemmin."
 
 #: lib/Chora.php:505 lib/Chora.php:506
 msgid "Statistics"
@@ -402,7 +402,7 @@ msgstr "Muokkaamaton"
 
 #: config/prefs.php.dist:37
 msgid "Use last viewed file or directory at login time"
-msgstr "K‰yt‰ viimeksi katsottua tiedostoa tai hakemistoa sis‰‰nkirjautuessa"
+msgstr "K√§yt√§ viimeksi katsottua tiedostoa tai hakemistoa sis√§√§nkirjautuessa"
 
 #: templates/diff/hr/header.inc:31 templates/diff/hr/header.inc:32
 #, php-format
@@ -411,15 +411,15 @@ msgstr "Versio %s"
 
 #: annotate.php:32 templates/log/header.inc:34
 msgid "View"
-msgstr "N‰yt‰"
+msgstr "N√§yt√§"
 
 #: lib/Chora.php:509
 msgid "View:"
-msgstr "N‰yt‰:"
+msgstr "N√§yt√§:"
 
 #: templates/directory/header.inc:12
 msgid "_Author"
-msgstr "_Tekij‰"
+msgstr "_Tekij√§"
 
 #: lib/Chora.php:496 lib/Chora.php:501
 msgid "_Branches"
@@ -456,15 +456,15 @@ msgstr "%s"
 
 #: lib/Chora.php:31
 msgid "day"
-msgstr "p‰iv‰"
+msgstr "p√§iv√§"
 
 #: lib/Chora.php:31
 msgid "days"
-msgstr "p‰iv‰‰"
+msgstr "p√§iv√§√§"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "saadaksesi lis‰tietoja."
+msgstr "saadaksesi lis√§tietoja."
 
 #: lib/Chora.php:30
 msgid "hour"
@@ -505,7 +505,7 @@ msgstr "sekuntia"
 
 #: lib/Chora.php:42
 msgid "very little time"
-msgstr "hyvin v‰h‰n aikaa"
+msgstr "hyvin v√§h√§n aikaa"
 
 #: lib/Chora.php:32
 msgid "week"

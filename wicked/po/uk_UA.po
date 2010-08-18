@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -29,17 +29,17 @@ msgid ""
 "%s does not exist. Click on \"Create\" below if you want to create this page "
 "now and start editing."
 msgstr ""
-"%s не існує. Клацніть \"Створити\" для створення цієї сторінки зараз і "
-"почати редагування."
+"%s РЅРµ С–СЃРЅСѓС”. РљР»Р°С†РЅС–С‚СЊ \"РЎС‚РІРѕСЂРёС‚Рё\" РґР»СЏ СЃС‚РІРѕСЂРµРЅРЅСЏ С†С–С”С— СЃС‚РѕСЂС–РЅРєРё Р·Р°СЂР°Р· С– "
+"РїРѕС‡Р°С‚Рё СЂРµРґР°РіСѓРІР°РЅРЅСЏ."
 
 #: lib/Page/Search.php:112
 #, php-format
 msgid "%s does not exist. You can create it now."
-msgstr "%s не існує. Ви можете створити її зараз."
+msgstr "%s РЅРµ С–СЃРЅСѓС”. Р’Рё РјРѕР¶РµС‚Рµ СЃС‚РІРѕСЂРёС‚Рё С—С— Р·Р°СЂР°Р·."
 
 #: templates/edit/create.inc:37
 msgid "(None)"
-msgstr "(Жоден)"
+msgstr "(Р–РѕРґРµРЅ)"
 
 #: scripts/wicked.php:161
 msgid ""
@@ -74,11 +74,11 @@ msgstr ""
 #: templates/sync/list.inc:25 templates/sync/list.inc:51
 #: templates/sync/list.inc:73
 msgid "Actions"
-msgstr "Дії"
+msgstr "Р”С–С—"
 
 #: templates/display/MergeOrRename.html:31
 msgid "Add the text from this page"
-msgstr "Додати текст з цієї сторінки"
+msgstr "Р”РѕРґР°С‚Рё С‚РµРєСЃС‚ Р· С†С–С”С— СЃС‚РѕСЂС–РЅРєРё"
 
 #: lib/Page/AddPage.php:108
 #, php-format
@@ -94,13 +94,13 @@ msgid ""
 "Are you sure you want to delete this page? All versions will be permanently "
 "removed."
 msgstr ""
-"Ви впевнені, що хочете витерти цю сторінку? Всі версії будуть назавжди "
-"знищені."
+"Р’Рё РІРїРµРІРЅРµРЅС–, С‰Рѕ С…РѕС‡РµС‚Рµ РІРёС‚РµСЂС‚Рё С†СЋ СЃС‚РѕСЂС–РЅРєСѓ? Р’СЃС– РІРµСЂСЃС–С— Р±СѓРґСѓС‚СЊ РЅР°Р·Р°РІР¶РґРё "
+"Р·РЅРёС‰РµРЅС–."
 
 #: lib/Page/DeletePage.php:85
 #, php-format
 msgid "Are you sure you want to delete version %s of this page?"
-msgstr "Впевнені, що хочете витерти версію %s цієї сторінки?"
+msgstr "Р’РїРµРІРЅРµРЅС–, С‰Рѕ С…РѕС‡РµС‚Рµ РІРёС‚РµСЂС‚Рё РІРµСЂСЃС–СЋ %s С†С–С”С— СЃС‚РѕСЂС–РЅРєРё?"
 
 #: lib/Page/RevertPage.php:71
 #, php-format
@@ -109,11 +109,11 @@ msgstr ""
 
 #: templates/display/AttachedFiles.html:88
 msgid "Attach File"
-msgstr "Прикріпити файл"
+msgstr "РџСЂРёРєСЂС–РїРёС‚Рё С„Р°Р№Р»"
 
 #: templates/display/AttachedFiles.html:52
 msgid "Attach a New File"
-msgstr "Прикріпити новий файл"
+msgstr "РџСЂРёРєСЂС–РїРёС‚Рё РЅРѕРІРёР№ С„Р°Р№Р»"
 
 #: templates/display/standard.inc:77
 msgid "AttachedFiles"
@@ -130,15 +130,15 @@ msgstr ""
 
 #: templates/display/AttachedFiles.html:7
 msgid "Attachment Name"
-msgstr "Назва додатку"
+msgstr "РќР°Р·РІР° РґРѕРґР°С‚РєСѓ"
 
 #: templates/display/standard.inc:117
 msgid "Attachments"
-msgstr "Додатки"
+msgstr "Р”РѕРґР°С‚РєРё"
 
 #: lib/Page/AttachedFiles.php:225
 msgid "Attachments with spaces can't be embedded into a page."
-msgstr "Додатки з пробілами не можуть бути вставлені в сторінку."
+msgstr "Р”РѕРґР°С‚РєРё Р· РїСЂРѕР±С–Р»Р°РјРё РЅРµ РјРѕР¶СѓС‚СЊ Р±СѓС‚Рё РІСЃС‚Р°РІР»РµРЅС– РІ СЃС‚РѕСЂС–РЅРєСѓ."
 
 #: templates/edit/create.inc:19 templates/pagelist/header.inc:7
 #: templates/sync/diff.inc:25 templates/sync/diff.inc:61
@@ -146,15 +146,15 @@ msgstr "Додатки з пробілами не можуть бути вставлені в сторінку."
 #: templates/history/header.inc:23 lib/Page/Search.php:158
 #: templates/display/AttachedFiles.html:10
 msgid "Author"
-msgstr "Автор"
+msgstr "РђРІС‚РѕСЂ"
 
 #: templates/display/standard.inc:104
 msgid "Ba_ck to"
-msgstr "Назад до"
+msgstr "РќР°Р·Р°Рґ РґРѕ"
 
 #: templates/display/standard.inc:104
 msgid "Back to"
-msgstr "Назад до"
+msgstr "РќР°Р·Р°Рґ РґРѕ"
 
 #: templates/display/standard.inc:67
 msgid "BackLinks"
@@ -171,7 +171,7 @@ msgstr ""
 
 #: lib/Page/AttachedFiles.php:231
 msgid "Can't read uploaded file."
-msgstr "Не можу прочитати завантажений файл."
+msgstr "РќРµ РјРѕР¶Сѓ РїСЂРѕС‡РёС‚Р°С‚Рё Р·Р°РІР°РЅС‚Р°Р¶РµРЅРёР№ С„Р°Р№Р»."
 
 #: lib/Page/RevertPage.php:120
 #, php-format
@@ -181,27 +181,27 @@ msgstr ""
 #: lib/Page/AttachedFiles.php:271
 #, php-format
 msgid "Can't update \"%s\": no such attachment."
-msgstr "Не можу оновити \"%s\": нема такого додатку."
+msgstr "РќРµ РјРѕР¶Сѓ РѕРЅРѕРІРёС‚Рё \"%s\": РЅРµРјР° С‚Р°РєРѕРіРѕ РґРѕРґР°С‚РєСѓ."
 
 #: templates/edit/standard.inc:27 templates/edit/create.inc:47
 #: lib/Page/DeletePage.php:104 lib/Page/RevertPage.php:88
 #: lib/Page/MergeOrRename.php:140 templates/display/MergeOrRename.html:62
 msgid "Cancel"
-msgstr "Відмінити"
+msgstr "Р’С–РґРјС–РЅРёС‚Рё"
 
 #: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
 msgid "Change Log"
-msgstr "Журнал Змін"
+msgstr "Р–СѓСЂРЅР°Р» Р—РјС–РЅ"
 
 #: templates/edit/standard.inc:29 templates/sync/diff.inc:26
 #: templates/sync/diff.inc:62
 msgid "Change log"
-msgstr "Журнал Змін"
+msgstr "Р–СѓСЂРЅР°Р» Р—РјС–РЅ"
 
 #: templates/display/AttachedFiles.html:80
 #: templates/display/AttachedFiles.html:146
 msgid "Change log entry"
-msgstr "Запис в журналі змін"
+msgstr "Р—Р°РїРёСЃ РІ Р¶СѓСЂРЅР°Р»С– Р·РјС–РЅ"
 
 #: templates/display/MergeOrRename.html:40
 msgid "Change references to this page from:"
@@ -214,7 +214,7 @@ msgstr ""
 
 #: templates/edit/standard.inc:28
 msgid "Changelog is required"
-msgstr "Необхідний журнал змін"
+msgstr "РќРµРѕР±С…С–РґРЅРёР№ Р¶СѓСЂРЅР°Р» Р·РјС–РЅ"
 
 #: templates/sync/diff.inc:27 templates/sync/diff.inc:63
 msgid "Checksum"
@@ -225,8 +225,8 @@ msgid ""
 "Click on \"Create\" below if you want to create this page now and start "
 "editing."
 msgstr ""
-"Клацніть \"Створити\" нижче, якщо бажаєте створити цю сторінку і розпочати "
-"редагування."
+"РљР»Р°С†РЅС–С‚СЊ \"РЎС‚РІРѕСЂРёС‚Рё\" РЅРёР¶С‡Рµ, СЏРєС‰Рѕ Р±Р°Р¶Р°С”С‚Рµ СЃС‚РІРѕСЂРёС‚Рё С†СЋ СЃС‚РѕСЂС–РЅРєСѓ С– СЂРѕР·РїРѕС‡Р°С‚Рё "
+"СЂРµРґР°РіСѓРІР°РЅРЅСЏ."
 
 #: scripts/wicked.php:42
 msgid "Couldn't read command-line options."
@@ -234,23 +234,23 @@ msgstr ""
 
 #: templates/edit/create.inc:46
 msgid "Create"
-msgstr "Створити"
+msgstr "РЎС‚РІРѕСЂРёС‚Рё"
 
 #: lib/Page/NewPage.php:135
 #, php-format
 msgid "Create Failed: %s"
-msgstr "Створення невдале: %s"
+msgstr "РЎС‚РІРѕСЂРµРЅРЅСЏ РЅРµРІРґР°Р»Рµ: %s"
 
 #: templates/sync/diff.inc:24 templates/sync/diff.inc:60
 #: templates/sync/list.inc:23 templates/sync/list.inc:49
 #: templates/history/header.inc:24
 msgid "Created"
-msgstr "Створено"
+msgstr "РЎС‚РІРѕСЂРµРЅРѕ"
 
 #: templates/edit/create.inc:20 templates/pagelist/header.inc:8
 #: lib/Page/Search.php:159
 msgid "Creation Date"
-msgstr "Дата створення"
+msgstr "Р”Р°С‚Р° СЃС‚РІРѕСЂРµРЅРЅСЏ"
 
 #: lib/Page/SyncPages.php:231
 msgid "Custom"
@@ -258,25 +258,25 @@ msgstr ""
 
 #: templates/display/AttachedFiles.html:11
 msgid "Date"
-msgstr "Дата"
+msgstr "Р”Р°С‚Р°"
 
 #: lib/Page/DeletePage.php:103
 msgid "Delete"
-msgstr "Витерти"
+msgstr "Р’РёС‚РµСЂС‚Рё"
 
 #: templates/display/standard.inc:52
 #, php-format
 msgid "Delete %s"
-msgstr "Витерти %s"
+msgstr "Р’РёС‚РµСЂС‚Рё %s"
 
 #: templates/history/header.inc:16
 msgid "Delete Version"
-msgstr "Витерти версію"
+msgstr "Р’РёС‚РµСЂС‚Рё РІРµСЂСЃС–СЋ"
 
 #: templates/history/summary.inc:6
 #, php-format
 msgid "Delete Version %s"
-msgstr "Витерти версію %s"
+msgstr "Р’РёС‚РµСЂС‚Рё РІРµСЂСЃС–СЋ %s"
 
 #: lib/Page/DeletePage.php:97 lib/Page/DeletePage.php:120
 msgid "DeletePage"
@@ -302,25 +302,25 @@ msgstr ""
 
 #: lib/Page/SyncPages.php:251
 msgid "Display"
-msgstr "Показати"
+msgstr "РџРѕРєР°Р·Р°С‚Рё"
 
 #: templates/pagelist/summary.inc:3
 #, php-format
 msgid "Display %s"
-msgstr "Показати %s"
+msgstr "РџРѕРєР°Р·Р°С‚Рё %s"
 
 #: templates/pagelist/summary.inc:6 templates/history/summary.inc:2
 #, php-format
 msgid "Display Version %s"
-msgstr "Показати версію %s"
+msgstr "РџРѕРєР°Р·Р°С‚Рё РІРµСЂСЃС–СЋ %s"
 
 #: templates/sync/diff.inc:96 templates/sync/list.inc:35
 msgid "Download"
-msgstr "Скачати"
+msgstr "РЎРєР°С‡Р°С‚Рё"
 
 #: templates/display/standard.inc:136
 msgid "Download this page as:"
-msgstr "Скачати цю сторінку як:"
+msgstr "РЎРєР°С‡Р°С‚Рё С†СЋ СЃС‚РѕСЂС–РЅРєСѓ СЏРє:"
 
 #: templates/display/AttachedFiles.html:13
 msgid "Downloads"
@@ -328,29 +328,29 @@ msgstr ""
 
 #: lib/Page/SyncPages.php:389
 msgid "Downloded from remote server"
-msgstr "Скачано з віддаленого сервера"
+msgstr "РЎРєР°С‡Р°РЅРѕ Р· РІС–РґРґР°Р»РµРЅРѕРіРѕ СЃРµСЂРІРµСЂР°"
 
 #: lib/Page/SyncPages.php:237
 msgid "Driver"
-msgstr "Драйвер"
+msgstr "Р”СЂР°Р№РІРµСЂ"
 
 #: lib/Page/SyncPages.php:254
 msgid "Edit"
-msgstr "Редагувати"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё"
 
 #: preview.php:24 templates/display/standard.inc:24
 #, php-format
 msgid "Edit %s"
-msgstr "Редагувати %s"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё %s"
 
 #: templates/history/header.inc:18
 msgid "Edit Version"
-msgstr "Редагувати версію"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё РІРµСЂСЃС–СЋ"
 
 #: templates/history/summary.inc:16
 #, php-format
 msgid "Edit Version %s"
-msgstr "Редагувати версію %s"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё РІРµСЂСЃС–СЋ %s"
 
 #: templates/sync/diff.inc:98
 msgid "Edit local"
@@ -367,17 +367,17 @@ msgstr ""
 #: templates/display/AttachedFiles.html:67
 msgid "Enter a name for this file (if blank, will use the file's current name)"
 msgstr ""
-"Введіть назву цього файла (якщо порожня, буде використана поточна назва)"
+"Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ С†СЊРѕРіРѕ С„Р°Р№Р»Р° (СЏРєС‰Рѕ РїРѕСЂРѕР¶РЅСЏ, Р±СѓРґРµ РІРёРєРѕСЂРёСЃС‚Р°РЅР° РїРѕС‚РѕС‡РЅР° РЅР°Р·РІР°)"
 
 #: scripts/mail-filter.php:135
 #, php-format
 msgid "Error creating new page: %s"
-msgstr "Помилка створення нової сторінки: %s"
+msgstr "РџРѕРјРёР»РєР° СЃС‚РІРѕСЂРµРЅРЅСЏ РЅРѕРІРѕС— СЃС‚РѕСЂС–РЅРєРё: %s"
 
 #: lib/Page/MergeOrRename.php:202
 #, php-format
 msgid "Error deleting %s: %s"
-msgstr "Помилка витирання %s: %s"
+msgstr "РџРѕРјРёР»РєР° РІРёС‚РёСЂР°РЅРЅСЏ %s: %s"
 
 #: scripts/mail-filter.php:42
 #, php-format
@@ -387,17 +387,17 @@ msgstr ""
 #: lib/Page/MergeOrRename.php:217
 #, php-format
 msgid "Error renaming \"%s\": %s"
-msgstr "Помилка перейменування \"%s\": %s"
+msgstr "РџРѕРјРёР»РєР° РїРµСЂРµР№РјРµРЅСѓРІР°РЅРЅСЏ \"%s\": %s"
 
 #: lib/Page/MergeOrRename.php:247
 #, php-format
 msgid "Error retrieving %s: %s"
-msgstr "Помилка отримання %s: %s"
+msgstr "РџРѕРјРёР»РєР° РѕС‚СЂРёРјР°РЅРЅСЏ %s: %s"
 
 #: lib/Page/AttachedFiles.php:111 lib/Page/AttachedFiles.php:253
 #, php-format
 msgid "Error retrieving attachments: %s"
-msgstr "Помилка отримання додатків: %s"
+msgstr "РџРѕРјРёР»РєР° РѕС‚СЂРёРјР°РЅРЅСЏ РґРѕРґР°С‚РєС–РІ: %s"
 
 #: lib/Page/AddPage.php:68
 #, php-format
@@ -407,7 +407,7 @@ msgstr ""
 #: lib/Page/MergeOrRename.php:194 lib/Page/MergeOrRename.php:274
 #, php-format
 msgid "Error updating %s: %s"
-msgstr "Помилка оновлення %s: %s"
+msgstr "РџРѕРјРёР»РєР° РѕРЅРѕРІР»РµРЅРЅСЏ %s: %s"
 
 #: lib/Page/Search.php:165
 msgid "Exact Match"
@@ -428,7 +428,7 @@ msgstr ""
 
 #: lib/Page.php:274
 msgid "Guest"
-msgstr "Гість"
+msgstr "Р“С–СЃС‚СЊ"
 
 #: templates/display/standard.inc:138
 msgid "HTML"
@@ -436,21 +436,21 @@ msgstr "HTML"
 
 #: templates/display/standard.inc:85
 msgid "Hi_story"
-msgstr "Історія"
+msgstr "Р†СЃС‚РѕСЂС–СЏ"
 
 #: templates/display/standard.inc:84
 #, php-format
 msgid "History of %s"
-msgstr "Історія %s"
+msgstr "Р†СЃС‚РѕСЂС–СЏ %s"
 
 #: lib/Page/StandardPage/StdHistoryPage.php:46
 msgid "History page not found"
-msgstr "Сторінку історії не знайдено"
+msgstr "РЎС‚РѕСЂС–РЅРєСѓ С–СЃС‚РѕСЂС–С— РЅРµ Р·РЅР°Р№РґРµРЅРѕ"
 
 #: history.php:30 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
-msgstr "Історія: %s"
+msgstr "Р†СЃС‚РѕСЂС–СЏ: %s"
 
 #: lib/Wicked.php:130
 msgid "HowTo_UseWiki"
@@ -458,7 +458,7 @@ msgstr ""
 
 #: templates/display/MergeOrRename.html:26
 msgid "If a page with the new name already exists, then"
-msgstr "Якщо сторінка з новою назвою вже існує, то"
+msgstr "РЇРєС‰Рѕ СЃС‚РѕСЂС–РЅРєР° Р· РЅРѕРІРѕСЋ РЅР°Р·РІРѕСЋ РІР¶Рµ С–СЃРЅСѓС”, С‚Рѕ"
 
 #: display.php:17 displaysp.php:17 history.php:18
 msgid "Internal error viewing requested page"
@@ -475,7 +475,7 @@ msgstr ""
 
 #: templates/display/AttachedFiles.html:133
 msgid "Is this a minor update?"
-msgstr "Чи це незначна зміна?"
+msgstr "Р§Рё С†Рµ РЅРµР·РЅР°С‡РЅР° Р·РјС–РЅР°?"
 
 #: templates/display/standard.inc:72
 msgid "L_ikePages"
@@ -484,7 +484,7 @@ msgstr ""
 #: templates/edit/standard.inc:20 templates/display/title.inc:6
 #, php-format
 msgid "Last Modified %s by %s"
-msgstr "Востаннє оновлено %s %s"
+msgstr "Р’РѕСЃС‚Р°РЅРЅС” РѕРЅРѕРІР»РµРЅРѕ %s %s"
 
 #: templates/display/standard.inc:139
 msgid "Latex"
@@ -506,26 +506,26 @@ msgstr ""
 #: templates/sync/diff.inc:32 templates/sync/diff.inc:68
 #: lib/Page/SyncDiff.php:80 lib/Page/SyncDiff.php:86
 msgid "Local"
-msgstr "Локальний"
+msgstr "Р›РѕРєР°Р»СЊРЅРёР№"
 
 #: templates/sync/diff.inc:22 templates/sync/diff.inc:58
 msgid "Location"
-msgstr "Місце перебування"
+msgstr "РњС–СЃС†Рµ РїРµСЂРµР±СѓРІР°РЅРЅСЏ"
 
 #: templates/display/standard.inc:40
 #, php-format
 msgid "Lock %s"
-msgstr "Замкнути %s"
+msgstr "Р—Р°РјРєРЅСѓС‚Рё %s"
 
 #: templates/edit/standard.inc:21 templates/display/title.inc:34
 #: lib/Page/DeletePage.php:97 lib/Page/RevertPage.php:81
 msgid "Locked"
-msgstr "Замкнена"
+msgstr "Р—Р°РјРєРЅРµРЅР°"
 
 #: scripts/wicked.php:104
 #, php-format
 msgid "Logged in successfully as \"%s\"."
-msgstr "Успішно ввійшли як \"%s\"."
+msgstr "РЈСЃРїС–С€РЅРѕ РІРІС–Р№С€Р»Рё СЏРє \"%s\"."
 
 #: scripts/wicked.php:100
 msgid "Login is incorrect."
@@ -548,21 +548,21 @@ msgstr ""
 #: lib/Page/MergeOrRename.php:207
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
-msgstr "Приєднано \"%s\" до \"%s\"."
+msgstr "РџСЂРёС”РґРЅР°РЅРѕ \"%s\" РґРѕ \"%s\"."
 
 #: lib/Page/MergeOrRename.php:210
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
-msgstr "Приєднано \"%s\" до \"%s\". Нова сторінка: %s\n"
+msgstr "РџСЂРёС”РґРЅР°РЅРѕ \"%s\" РґРѕ \"%s\". РќРѕРІР° СЃС‚РѕСЂС–РЅРєР°: %s\n"
 
 #: lib/Page/MergeOrRename.php:191
 #, php-format
 msgid "Merged from %s"
-msgstr "Приєднано з %s"
+msgstr "РџСЂРёС”РґРЅР°РЅРѕ Р· %s"
 
 #: templates/edit/standard.inc:30
 msgid "Minor Change"
-msgstr "Незначна зміна"
+msgstr "РќРµР·РЅР°С‡РЅР° Р·РјС–РЅР°"
 
 #: lib/Page/MostPopular.php:93
 msgid "MostPopular"
@@ -570,24 +570,24 @@ msgstr ""
 
 #: lib/Block/page.php:41
 msgid "Name of wiki page to display"
-msgstr "Назва wiki-сторінки, яку показати"
+msgstr "РќР°Р·РІР° wiki-СЃС‚РѕСЂС–РЅРєРё, СЏРєСѓ РїРѕРєР°Р·Р°С‚Рё"
 
 #: lib/Page.php:263
 msgid "Never"
-msgstr "Ніколи"
+msgstr "РќС–РєРѕР»Рё"
 
 #: lib/Page/AttachedFiles.php:303
 #, php-format
 msgid "New attachment \"%s\" to page \"%s\"."
-msgstr "Новий додаток \"%s\" до сторінки \"%s\"."
+msgstr "РќРѕРІРёР№ РґРѕРґР°С‚РѕРє \"%s\" РґРѕ СЃС‚РѕСЂС–РЅРєРё \"%s\"."
 
 #: templates/display/MergeOrRename.html:15
 msgid "New name"
-msgstr "Нова назва"
+msgstr "РќРѕРІР° РЅР°Р·РІР°"
 
 #: lib/Page/MergeOrRename.php:151
 msgid "New name is the same as old name."
-msgstr "Нова назва така ж, я і стара."
+msgstr "РќРѕРІР° РЅР°Р·РІР° С‚Р°РєР° Р¶, СЏ С– СЃС‚Р°СЂР°."
 
 #: templates/sync/list.inc:42
 msgid "New pages on local server"
@@ -595,7 +595,7 @@ msgstr ""
 
 #: templates/sync/list.inc:16
 msgid "New pages on remote server"
-msgstr "Нові сторінки на віддаленому сервері"
+msgstr "РќРѕРІС– СЃС‚РѕСЂС–РЅРєРё РЅР° РІС–РґРґР°Р»РµРЅРѕРјСѓ СЃРµСЂРІРµСЂС–"
 
 #: lib/Page/NewPage.php:112
 msgid "NewPage"
@@ -608,11 +608,11 @@ msgstr ""
 
 #: lib/api.php:352 lib/Page/SyncPages.php:387 lib/Page/EditPage.php:124
 msgid "No changes made"
-msgstr "Жодних змін не зроблено"
+msgstr "Р–РѕРґРЅРёС… Р·РјС–РЅ РЅРµ Р·СЂРѕР±Р»РµРЅРѕ"
 
 #: templates/sync/list.inc:18 templates/sync/list.inc:44
 msgid "No pages found"
-msgstr "Жодної сторінки не знайдено"
+msgstr "Р–РѕРґРЅРѕС— СЃС‚РѕСЂС–РЅРєРё РЅРµ Р·РЅР°Р№РґРµРЅРѕ"
 
 #: templates/sync/list.inc:70
 msgid "No pages to sync"
@@ -620,18 +620,18 @@ msgstr ""
 
 #: lib/Driver.php:124
 msgid "Not implemented."
-msgstr "Не реалізовано."
+msgstr "РќРµ СЂРµР°Р»С–Р·РѕРІР°РЅРѕ."
 
 #: templates/edit/create.inc:17 templates/pagelist/header.inc:5
 #: templates/sync/list.inc:21 templates/sync/list.inc:47
 #: templates/sync/list.inc:73 lib/Page/Search.php:156
 msgid "Page"
-msgstr "Сторінка"
+msgstr "РЎС‚РѕСЂС–РЅРєР°"
 
 #: lib/Page/MergeOrRename.php:179
 #, php-format
 msgid "Page \"%s\" already exists."
-msgstr "Сторінка \"%s\" вже існує."
+msgstr "РЎС‚РѕСЂС–РЅРєР° \"%s\" РІР¶Рµ С–СЃРЅСѓС”."
 
 #: lib/Page/SyncPages.php:395
 #, php-format
@@ -641,19 +641,19 @@ msgstr ""
 #: lib/Page/SyncPages.php:425
 #, php-format
 msgid "Page \"%s\" was sucessfuly uploaded from local to remote wiki."
-msgstr "Сторінку \"%s\" успішно завантажено з локального на віддалений wiki."
+msgstr "РЎС‚РѕСЂС–РЅРєСѓ \"%s\" СѓСЃРїС–С€РЅРѕ Р·Р°РІР°РЅС‚Р°Р¶РµРЅРѕ Р· Р»РѕРєР°Р»СЊРЅРѕРіРѕ РЅР° РІС–РґРґР°Р»РµРЅРёР№ wiki."
 
 #: lib/Page/NewPage.php:138
 msgid "Page Created"
-msgstr "Сторінку створено"
+msgstr "РЎС‚РѕСЂС–РЅРєСѓ СЃС‚РІРѕСЂРµРЅРѕ"
 
 #: lib/Page/EditPage.php:131
 msgid "Page Saved"
-msgstr "Сторінку збережено"
+msgstr "РЎС‚РѕСЂС–РЅРєСѓ Р·Р±РµСЂРµР¶РµРЅРѕ"
 
 #: templates/edit/create.inc:35
 msgid "Page Template:"
-msgstr "Шаблон сторінки:"
+msgstr "РЁР°Р±Р»РѕРЅ СЃС‚РѕСЂС–РЅРєРё:"
 
 #: lib/Page/Search.php:179
 msgid "Page Text Matches"
@@ -683,7 +683,7 @@ msgstr ""
 
 #: lib/Driver/sql.php:592 lib/Page/NewPage.php:72 lib/Page/AddPage.php:53
 msgid "Page name must not be empty"
-msgstr "Назва сторінки не може бути порожньою"
+msgstr "РќР°Р·РІР° СЃС‚РѕСЂС–РЅРєРё РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РїРѕСЂРѕР¶РЅСЊРѕСЋ"
 
 #: display.php:49
 msgid "Page unlocked"
@@ -691,11 +691,11 @@ msgstr ""
 
 #: lib/api.php:114 lib/api.php:117
 msgid "Pages"
-msgstr "Сторінки"
+msgstr "РЎС‚РѕСЂС–РЅРєРё"
 
 #: lib/Page/NewPage.php:129
 msgid "Pages cannot be empty."
-msgstr "Сторінки не можуть бути пустими."
+msgstr "РЎС‚РѕСЂС–РЅРєРё РЅРµ РјРѕР¶СѓС‚СЊ Р±СѓС‚Рё РїСѓСЃС‚РёРјРё."
 
 #: templates/sync/list.inc:68
 msgid "Pages to sync"
@@ -703,27 +703,27 @@ msgstr ""
 
 #: lib/Page/SyncPages.php:249
 msgid "Password"
-msgstr "Пароль"
+msgstr "РџР°СЂРѕР»СЊ"
 
 #: templates/display/standard.inc:100
 msgid "Permissio_ns"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 #: lib/api.php:414
 msgid "Permission denied."
-msgstr "Доступ заборонений."
+msgstr "Р”РѕСЃС‚СѓРї Р·Р°Р±РѕСЂРѕРЅРµРЅРёР№."
 
 #: templates/display/standard.inc:137
 msgid "Plain Text"
-msgstr "Простий текст"
+msgstr "РџСЂРѕСЃС‚РёР№ С‚РµРєСЃС‚"
 
 #: lib/Page/SyncPages.php:240
 msgid "Prefix"
-msgstr "Префікс"
+msgstr "РџСЂРµС„С–РєСЃ"
 
 #: templates/edit/standard.inc:26 templates/edit/new.inc:25
 msgid "Preview"
-msgstr "Огляд"
+msgstr "РћРіР»СЏРґ"
 
 #: lib/Page/EditPage.php:112
 msgid "Random string did not match."
@@ -754,7 +754,7 @@ msgstr ""
 #: templates/sync/diff.inc:40 templates/sync/diff.inc:76
 #: lib/Page/SyncDiff.php:81 lib/Page/SyncDiff.php:85
 msgid "Remote"
-msgstr "Віддалений"
+msgstr "Р’С–РґРґР°Р»РµРЅРёР№"
 
 #: lib/Page/SyncPages.php:194 lib/Page/SyncPages.php:300
 msgid "Remove login info"
@@ -763,25 +763,25 @@ msgstr ""
 #: lib/Page/MergeOrRename.php:222
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
-msgstr "Перейменовано \"%s\" на \"%s\"."
+msgstr "РџРµСЂРµР№РјРµРЅРѕРІР°РЅРѕ \"%s\" РЅР° \"%s\"."
 
 #: lib/Page/MergeOrRename.php:225
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
-msgstr "Перейменовано \"%s\" на \"%s\". Нова сторінка: %s\n"
+msgstr "РџРµСЂРµР№РјРµРЅРѕРІР°РЅРѕ \"%s\" РЅР° \"%s\". РќРѕРІР° СЃС‚РѕСЂС–РЅРєР°: %s\n"
 
 #: lib/Driver/sql.php:681
 #, php-format
 msgid "Renamed page from %s"
-msgstr "Перейменована сторінка з %s"
+msgstr "РџРµСЂРµР№РјРµРЅРѕРІР°РЅР° СЃС‚РѕСЂС–РЅРєР° Р· %s"
 
 #: lib/Page/SyncPages.php:194
 msgid "Reset"
-msgstr "Очистити"
+msgstr "РћС‡РёСЃС‚РёС‚Рё"
 
 #: templates/history/header.inc:20
 msgid "Restore Version"
-msgstr "Відновити версію"
+msgstr "Р’С–РґРЅРѕРІРёС‚Рё РІРµСЂСЃС–СЋ"
 
 #: lib/Page/RevertPage.php:87
 msgid "Revert"
@@ -803,16 +803,16 @@ msgstr ""
 
 #: lib/Driver/sql.php:596
 msgid "Robots are not allowed to create pages"
-msgstr "Роботам не дозволено створювати сторінки"
+msgstr "Р РѕР±РѕС‚Р°Рј РЅРµ РґРѕР·РІРѕР»РµРЅРѕ СЃС‚РІРѕСЂСЋРІР°С‚Рё СЃС‚РѕСЂС–РЅРєРё"
 
 #: templates/edit/standard.inc:25 templates/edit/new.inc:24
 msgid "Save"
-msgstr "Зберегти"
+msgstr "Р—Р±РµСЂРµРіС‚Рё"
 
 #: lib/Page/EditPage.php:128
 #, php-format
 msgid "Save Failed: %s"
-msgstr "Збереження не вдалося: %s"
+msgstr "Р—Р±РµСЂРµР¶РµРЅРЅСЏ РЅРµ РІРґР°Р»РѕСЃСЏ: %s"
 
 #: lib/Page/SyncPages.php:194 lib/Page/SyncPages.php:288
 msgid "Save login info"
@@ -820,43 +820,43 @@ msgstr ""
 
 #: templates/menu.inc:17 lib/Page/Search.php:204
 msgid "Search"
-msgstr "Пошук"
+msgstr "РџРѕС€СѓРє"
 
 #: templates/pagelist/search.inc:1
 msgid "Search Results"
-msgstr "Результати пошуку"
+msgstr "Р РµР·СѓР»СЊС‚Р°С‚Рё РїРѕС€СѓРєСѓ"
 
 #: templates/display/AttachedFiles.html:58
 #: templates/display/AttachedFiles.html:110
 msgid "Select file to attach:"
-msgstr "Виберіть файл, який прикріпити:"
+msgstr "Р’РёР±РµСЂС–С‚СЊ С„Р°Р№Р», СЏРєРёР№ РїСЂРёРєСЂС–РїРёС‚Рё:"
 
 #: templates/display/AttachedFiles.html:119
 msgid "Select the file to update"
-msgstr "Виберіть файл, який оновити"
+msgstr "Р’РёР±РµСЂС–С‚СЊ С„Р°Р№Р», СЏРєРёР№ РѕРЅРѕРІРёС‚Рё"
 
 #: templates/display/standard.inc:99
 #, php-format
 msgid "Set permissions for %s"
-msgstr "Встановити права для %s"
+msgstr "Р’СЃС‚Р°РЅРѕРІРёС‚Рё РїСЂР°РІР° РґР»СЏ %s"
 
 #: templates/sync/list.inc:79
 msgid "Show changes"
-msgstr "Показати зміни"
+msgstr "РџРѕРєР°Р·Р°С‚Рё Р·РјС–РЅРё"
 
 #: templates/display/title.inc:16 lib/Page/RecentChanges.php:57
 #, php-format
 msgid "Show changes for %s"
-msgstr "Показати зміни для %s"
+msgstr "РџРѕРєР°Р·Р°С‚Рё Р·РјС–РЅРё РґР»СЏ %s"
 
 #: lib/Page/RecentChanges.php:64
 #, php-format
 msgid "Show version %s"
-msgstr "Показати версію %s"
+msgstr "РџРѕРєР°Р·Р°С‚Рё РІРµСЂСЃС–СЋ %s"
 
 #: templates/edit/standard.inc:41
 msgid "Spam Protection - Enter the letters below:"
-msgstr "Захист від спаму - Введіть літери, показані нижче:"
+msgstr "Р—Р°С…РёСЃС‚ РІС–Рґ СЃРїР°РјСѓ - Р’РІРµРґС–С‚СЊ Р»С–С‚РµСЂРё, РїРѕРєР°Р·Р°РЅС– РЅРёР¶С‡Рµ:"
 
 #: templates/display/MergeOrRename.html:33
 msgid "Stop and don't do anything"
@@ -868,17 +868,17 @@ msgstr ""
 
 #: templates/display/MergeOrRename.html:61
 msgid "Submit"
-msgstr "Відіслати"
+msgstr "Р’С–РґС–СЃР»Р°С‚Рё"
 
 #: lib/Page/DeletePage.php:136
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "Успішно витерто \"%s\"."
+msgstr "РЈСЃРїС–С€РЅРѕ РІРёС‚РµСЂС‚Рѕ \"%s\"."
 
 #: lib/Page/AttachedFiles.php:207
 #, php-format
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
-msgstr "Успішно витерто версію %s для \"%s\" з \"%s\""
+msgstr "РЈСЃРїС–С€РЅРѕ РІРёС‚РµСЂС‚Рѕ РІРµСЂСЃС–СЋ %s РґР»СЏ \"%s\" Р· \"%s\""
 
 #: lib/Page/SyncPages.php:193
 msgid "Sync data"
@@ -902,24 +902,24 @@ msgstr ""
 
 #: lib/Page/SyncDiff.php:52
 msgid "Synchronization is disabled"
-msgstr "Синхронізацію заборонено"
+msgstr "РЎРёРЅС…СЂРѕРЅС–Р·Р°С†С–СЋ Р·Р°Р±РѕСЂРѕРЅРµРЅРѕ"
 
 #: lib/Page.php:488
 msgid "Table of Contents"
-msgstr "Зміст"
+msgstr "Р—РјС–СЃС‚"
 
 #: lib/Page/AttachedFiles.php:280
 #, php-format
 msgid "There is already an attachment named \"%s\"."
-msgstr "Вже існує додаток з назвою \"%s\"."
+msgstr "Р’Р¶Рµ С–СЃРЅСѓС” РґРѕРґР°С‚РѕРє Р· РЅР°Р·РІРѕСЋ \"%s\"."
 
 #: lib/Page/MergeOrRename.php:149 lib/Page/MergeOrRename.php:155
 msgid "This is a required field."
-msgstr "Це обов'язкове поле."
+msgstr "Р¦Рµ РѕР±РѕРІ'СЏР·РєРѕРІРµ РїРѕР»Рµ."
 
 #: display.php:61
 msgid "This page does not have a history"
-msgstr "Ця сторінка не має історії."
+msgstr "Р¦СЏ СЃС‚РѕСЂС–РЅРєР° РЅРµ РјР°С” С–СЃС‚РѕСЂС–С—."
 
 #: lib/Page/MergeOrRename.php:100
 #, php-format
@@ -933,7 +933,7 @@ msgstr ""
 #: lib/Page/StandardPage.php:81
 #, php-format
 msgid "Unable to create %s"
-msgstr "Не можу створити %s"
+msgstr "РќРµ РјРѕР¶Сѓ СЃС‚РІРѕСЂРёС‚Рё %s"
 
 #: lib/Page/StandardPage.php:89
 msgid "Unable to create WikiHome. The wiki is not configured."
@@ -959,24 +959,24 @@ msgstr ""
 
 #: templates/display/AttachedFiles.html:154
 msgid "Update File"
-msgstr "Оновити файл"
+msgstr "РћРЅРѕРІРёС‚Рё С„Р°Р№Р»"
 
 #: templates/display/AttachedFiles.html:104
 msgid "Update an Attachment"
-msgstr "Оновити додаток"
+msgstr "РћРЅРѕРІРёС‚Рё РґРѕРґР°С‚РѕРє"
 
 #: lib/Page/AttachedFiles.php:300
 #, php-format
 msgid "Updated attachment \"%s\" on page \"%s\"."
-msgstr "Оновлено додаток \"%s\" на сторінці \"%s\"."
+msgstr "РћРЅРѕРІР»РµРЅРѕ РґРѕРґР°С‚РѕРє \"%s\" РЅР° СЃС‚РѕСЂС–РЅС†С– \"%s\"."
 
 #: templates/sync/diff.inc:97 templates/sync/list.inc:61
 msgid "Upload"
-msgstr "Закачати"
+msgstr "Р—Р°РєР°С‡Р°С‚Рё"
 
 #: lib/Page/SyncPages.php:419
 msgid "Uploaded from remote server"
-msgstr "Завантажено з віддаленого сервера"
+msgstr "Р—Р°РІР°РЅС‚Р°Р¶РµРЅРѕ Р· РІС–РґРґР°Р»РµРЅРѕРіРѕ СЃРµСЂРІРµСЂР°"
 
 #: lib/Page/SyncPages.php:243
 msgid "Url"
@@ -989,7 +989,7 @@ msgstr ""
 
 #: lib/Page/SyncPages.php:246
 msgid "User"
-msgstr "Користувач"
+msgstr "РљРѕСЂРёСЃС‚СѓРІР°С‡"
 
 #: templates/edit/create.inc:18 templates/pagelist/header.inc:6
 #: templates/sync/diff.inc:23 templates/sync/diff.inc:59
@@ -997,7 +997,7 @@ msgstr "Користувач"
 #: templates/history/header.inc:13 lib/Page/Search.php:157
 #: templates/display/AttachedFiles.html:9
 msgid "Version"
-msgstr "Версія"
+msgstr "Р’РµСЂСЃС–СЏ"
 
 #: lib/Page/SyncPages.php:178
 msgid "View local"
@@ -1017,15 +1017,15 @@ msgstr ""
 
 #: lib/api.php:374
 msgid "Wiki Templates"
-msgstr "Шаблони Wiki"
+msgstr "РЁР°Р±Р»РѕРЅРё Wiki"
 
 #: lib/Block/page.php:3
 msgid "Wiki page"
-msgstr "Сторінка Wiki"
+msgstr "РЎС‚РѕСЂС–РЅРєР° Wiki"
 
 #: display.php:25
 msgid "You are not allowed to lock this page"
-msgstr "Вам не дозволено замикати цю сторінку"
+msgstr "Р’Р°Рј РЅРµ РґРѕР·РІРѕР»РµРЅРѕ Р·Р°РјРёРєР°С‚Рё С†СЋ СЃС‚РѕСЂС–РЅРєСѓ"
 
 #: display.php:40
 msgid "You are not allowed to unlock this page"
@@ -1033,42 +1033,42 @@ msgstr ""
 
 #: lib/Page/AttachedFiles.php:196
 msgid "You do not have permission to delete attachments from this page."
-msgstr "Ви не маєте права витирати додатки з цієї сторінки."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° РІРёС‚РёСЂР°С‚Рё РґРѕРґР°С‚РєРё Р· С†С–С”С— СЃС‚РѕСЂС–РЅРєРё."
 
 #: lib/Page/AttachedFiles.php:237 lib/Page/MergeOrRename.php:169
 #: lib/Page/MergeOrRename.php:184
 #, php-format
 msgid "You do not have permission to edit \"%s\""
-msgstr "Ви не маєте права редагувати \"%s\""
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° СЂРµРґР°РіСѓРІР°С‚Рё \"%s\""
 
 #: lib/Page/NewPage.php:125
 #, php-format
 msgid "You don't have permission to create \"%s\"."
-msgstr "Ви не маєте права створювати \"%s\"."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° СЃС‚РІРѕСЂСЋРІР°С‚Рё \"%s\"."
 
 #: lib/Page/DeletePage.php:150
 #, php-format
 msgid "You don't have permission to delete \"%s\"."
-msgstr "Ви не маєте права витерти \"%s\"."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° РІРёС‚РµСЂС‚Рё \"%s\"."
 
 #: lib/api.php:334 lib/Page/SyncPages.php:371 lib/Page/EditPage.php:107
 #: lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
-msgstr "Ви не маєте права редагувати \"%s\"."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° СЂРµРґР°РіСѓРІР°С‚Рё \"%s\"."
 
 #: display.php:70 display.php:73 display.php:116 display.php:119
 #: displaysp.php:39 displaysp.php:42 displaysp.php:85 displaysp.php:88
 msgid "You don't have permission to view this page."
-msgstr "Ви не маєте права переглядати цю сторінку."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІР° РїРµСЂРµРіР»СЏРґР°С‚Рё С†СЋ СЃС‚РѕСЂС–РЅРєСѓ."
 
 #: lib/Page/AttachedFiles.php:245
 msgid "You must enter a change description to attach this file."
-msgstr "Вам слід описати зміни для прикріплення цього файлу."
+msgstr "Р’Р°Рј СЃР»С–Рґ РѕРїРёСЃР°С‚Рё Р·РјС–РЅРё РґР»СЏ РїСЂРёРєСЂС–РїР»РµРЅРЅСЏ С†СЊРѕРіРѕ С„Р°Р№Р»Сѓ."
 
 #: lib/api.php:338 lib/Page/EditPage.php:118
 msgid "You must provide a change log."
-msgstr "Ви повинні заповнити журнал змін."
+msgstr "Р’Рё РїРѕРІРёРЅРЅС– Р·Р°РїРѕРІРЅРёС‚Рё Р¶СѓСЂРЅР°Р» Р·РјС–РЅ."
 
 #: lib/Wicked.php:130
 msgid "_AllPages"
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: templates/display/standard.inc:53
 msgid "_Delete"
-msgstr "Витерти"
+msgstr "Р’РёС‚РµСЂС‚Рё"
 
 #: templates/display/standard.inc:25
 msgid "_EditPage"
@@ -1104,9 +1104,9 @@ msgstr ""
 
 #: lib/Page/AttachedFiles.php:217
 msgid "attachment"
-msgstr "додаток"
+msgstr "РґРѕРґР°С‚РѕРє"
 
 #: scripts/wicked.php:123
 #, php-format
 msgid "page \"%s\" doesn't exist."
-msgstr "сторінки \"%s\" не існує."
+msgstr "СЃС‚РѕСЂС–РЅРєРё \"%s\" РЅРµ С–СЃРЅСѓС”."

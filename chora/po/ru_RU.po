@@ -10,12 +10,12 @@ msgstr ""
 "Last-Translator: Illya Belov <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: templates/annotate/header.inc:4
 msgid "#"
-msgstr "№"
+msgstr "в„–"
 
 #: templates/patchsets/ps.inc:12 templates/log/rev.inc:26
 #, php-format
@@ -25,37 +25,37 @@ msgstr "vor %s"
 #: templates/diff/hr/footer.inc:19
 #, php-format
 msgid "Added in v.%s"
-msgstr "Добавлено в v.%s"
+msgstr "Р”РѕР±Р°РІР»РµРЅРѕ РІ v.%s"
 
 #: templates/log/request.inc:57
 msgid "All Branches"
-msgstr "Все ветви"
+msgstr "Р’СЃРµ РІРµС‚РІРё"
 
 #: co.php:72 templates/log/rev.inc:8
 msgid "Annotate"
-msgstr "Аннотировать"
+msgstr "РђРЅРЅРѕС‚РёСЂРѕРІР°С‚СЊ"
 
 #: templates/directory/header.inc:16 templates/stats/stats.inc:3
 #: templates/annotate/header.inc:5
 msgid "Author"
-msgstr "Автор"
+msgstr "РђРІС‚РѕСЂ"
 
 #: templates/directory/back.inc:4
 msgid "Back"
-msgstr "Назад"
+msgstr "РќР°Р·Р°Рґ"
 
 #: templates/checkout/checkout.inc:27 templates/log/rev.inc:31
 msgid "Branch Point for:"
-msgstr "Точка ветви для:"
+msgstr "РўРѕС‡РєР° РІРµС‚РІРё РґР»СЏ:"
 
 #: templates/checkout/checkout.inc:11 templates/patchsets/ps.inc:14
 #: templates/log/rev.inc:28
 msgid "Branch:"
-msgstr "Ветвь:"
+msgstr "Р’РµС‚РІСЊ:"
 
 #: lib/Chora.php:464
 msgid "Branches"
-msgstr "Ветви"
+msgstr "Р’РµС‚РІРё"
 
 #: templates/history/branch_cell.inc:2
 msgid "Branching to"
@@ -64,31 +64,31 @@ msgstr "Branching nach"
 #: templates/checkout/checkout.inc:35 templates/log/rev.inc:37
 #, php-format
 msgid "Changed since <strong>%s</strong>"
-msgstr "Изменено <strong>%s</strong>"
+msgstr "РР·РјРµРЅРµРЅРѕ <strong>%s</strong>"
 
 #: templates/history/rev.inc:8
 #, php-format
 msgid "Changed: %s"
-msgstr "Изменено: %s"
+msgstr "РР·РјРµРЅРµРЅРѕ: %s"
 
 #: co.php:70
 #, php-format
 msgid "Checkout of %s (revision %s)"
-msgstr "Просмотр %s (ревизия %s)"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ %s (СЂРµРІРёР·РёСЏ %s)"
 
 #: templates/cvsgraph/cvsgraph.inc:11
 msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
-msgstr "Нажмите на ссылку между ревизиями для просмотра различий."
+msgstr "РќР°Р¶РјРёС‚Рµ РЅР° СЃСЃС‹Р»РєСѓ РјРµР¶РґСѓ СЂРµРІРёР·РёСЏРјРё РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° СЂР°Р·Р»РёС‡РёР№."
 
 #: templates/cvsgraph/cvsgraph.inc:10
 msgid "Click on the revisions and branches to display the file."
-msgstr "Нажмите на ревизии и ветви для отображения файла"
+msgstr "РќР°Р¶РјРёС‚Рµ РЅР° СЂРµРІРёР·РёРё Рё РІРµС‚РІРё РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С„Р°Р№Р»Р°"
 
 #: templates/log/rev.inc:42 templates/log/rev.inc:50
 msgid "Colored"
-msgstr "Цвет"
+msgstr "Р¦РІРµС‚"
 
 #: templates/checkout/checkout.inc:19 templates/patchsets/ps.inc:17
 msgid "Commit Tags:"
@@ -96,7 +96,7 @@ msgstr "Commit Tags:"
 
 #: templates/stats/stats.inc:4
 msgid "Commits"
-msgstr "Изменений"
+msgstr "РР·РјРµРЅРµРЅРёР№"
 
 #: templates/log/request.inc:28
 msgid "Context"
@@ -104,58 +104,58 @@ msgstr "Context"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Настройка задач для запуска logging в Chora."
+msgstr "РќР°СЃС‚СЂРѕР№РєР° Р·Р°РґР°С‡ РґР»СЏ Р·Р°РїСѓСЃРєР° logging РІ Chora."
 
 #: templates/directory/header.inc:21
 msgid "Da_te"
-msgstr "Дата"
+msgstr "Р”Р°С‚Р°"
 
 #: templates/directory/header.inc:21
 msgid "Date"
-msgstr "Дата"
+msgstr "Р”Р°С‚Р°"
 
 #: patchsets.php:66
 msgid "Deleted"
-msgstr "Удаленные"
+msgstr "РЈРґР°Р»РµРЅРЅС‹Рµ"
 
 #: templates/directory/file.inc:5 templates/directory/file.inc:17
 msgid "Deleted File"
-msgstr "Удаленные файлы"
+msgstr "РЈРґР°Р»РµРЅРЅС‹Рµ С„Р°Р№Р»С‹"
 
 #: templates/log/rev.inc:13
 msgid "Deselect"
-msgstr "Отменить выбор"
+msgstr "РћС‚РјРµРЅРёС‚СЊ РІС‹Р±РѕСЂ"
 
 #: patchsets.php:63
 msgid "Diff"
-msgstr "Различия"
+msgstr "Р Р°Р·Р»РёС‡РёСЏ"
 
 #: patchsets.php:46
 msgid "Diff All Files"
-msgstr "Различия для всех файлов"
+msgstr "Р Р°Р·Р»РёС‡РёСЏ РґР»СЏ РІСЃРµС… С„Р°Р№Р»РѕРІ"
 
 #: diff.php:69
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Различия для %s между версиями %s и %s"
+msgstr "Р Р°Р·Р»РёС‡РёСЏ РґР»СЏ %s РјРµР¶РґСѓ РІРµСЂСЃРёСЏРјРё %s Рё %s"
 
 #: templates/log/rev.inc:49
 #, php-format
 msgid "Diffs to <strong>%s</strong>"
-msgstr "Различия для <strong>%s</strong>"
+msgstr "Р Р°Р·Р»РёС‡РёСЏ РґР»СЏ <strong>%s</strong>"
 
 #: templates/log/rev.inc:41
 #, php-format
 msgid "Diffs to version %s"
-msgstr "Различия с версией %s"
+msgstr "Р Р°Р·Р»РёС‡РёСЏ СЃ РІРµСЂСЃРёРµР№ %s"
 
 #: templates/directory/dir.inc:5 templates/directory/dir.inc:7
 msgid "Directory"
-msgstr "Каталог"
+msgstr "РљР°С‚Р°Р»РѕРі"
 
 #: annotate.php:30 co.php:73 templates/log/rev.inc:10
 msgid "Download"
-msgstr "Скачать"
+msgstr "РЎРєР°С‡Р°С‚СЊ"
 
 #: templates/log/request.inc:30
 msgid "Ed Script"
@@ -163,41 +163,41 @@ msgstr "Ed Script"
 
 #: templates/error_page.inc:4
 msgid "Error"
-msgstr "Ошибка"
+msgstr "РћС€РёР±РєР°"
 
 #: templates/error_page.inc:7
 msgid "Error Encountered"
-msgstr "Ошибки встречаются"
+msgstr "РћС€РёР±РєРё РІСЃС‚СЂРµС‡Р°СЋС‚СЃСЏ"
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:19
 #: templates/directory/header.inc:6
 msgid "File"
-msgstr "Файл"
+msgstr "Р¤Р°Р№Р»"
 
 #: templates/patchsets/ps.inc:21
 msgid "Files Changed:"
-msgstr "Измененные файлы:"
+msgstr "РР·РјРµРЅРµРЅРЅС‹Рµ С„Р°Р№Р»С‹:"
 
 #: templates/log/request.inc:44
 msgid "Get Diffs"
-msgstr "Просмотр различий"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ СЂР°Р·Р»РёС‡РёР№"
 
 #: lib/Chora.php:467
 msgid "Graph"
-msgstr "График"
+msgstr "Р“СЂР°С„РёРє"
 
 #: cvsgraph.php:48
 #, php-format
 msgid "Graph for %s"
-msgstr "График для %s"
+msgstr "Р“СЂР°С„РёРє РґР»СЏ %s"
 
 #: browse.php:40
 msgid "Hide Deleted Files"
-msgstr "Скрыть Удаленные Файлы"
+msgstr "РЎРєСЂС‹С‚СЊ РЈРґР°Р»РµРЅРЅС‹Рµ Р¤Р°Р№Р»С‹"
 
 #: browse.php:40
 msgid "Hide _Deleted Files"
-msgstr "Скрыть удаленные файлы"
+msgstr "РЎРєСЂС‹С‚СЊ СѓРґР°Р»РµРЅРЅС‹Рµ С„Р°Р№Р»С‹"
 
 #: templates/log/request.inc:26
 msgid "Human Readable"
@@ -205,29 +205,29 @@ msgstr "Human Readable"
 
 #: templates/directory/header.inc:23
 msgid "Last Log"
-msgstr "Последнее сообщение"
+msgstr "РџРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ"
 
 #: templates/diff/hr/header.inc:5
 #, php-format
 msgid "Last Log Message for rev %s:"
-msgstr "Последнее сообщение для ревизии %s:"
+msgstr "РџРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ РґР»СЏ СЂРµРІРёР·РёРё %s:"
 
 #: templates/diff/hr/footer.inc:5
 msgid "Legend:"
-msgstr "Легенда:"
+msgstr "Р›РµРіРµРЅРґР°:"
 
 #: templates/annotate/header.inc:7
 msgid "Line"
-msgstr "Линия"
+msgstr "Р›РёРЅРёСЏ"
 
 #: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
 #, php-format
 msgid "Line %s"
-msgstr "Линия %s"
+msgstr "Р›РёРЅРёСЏ %s"
 
 #: templates/headerbar.inc:11
 msgid "Location:"
-msgstr "Расположение:"
+msgstr "Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ:"
 
 #: templates/checkout/checkout.inc:42
 msgid "Log:"
@@ -235,27 +235,27 @@ msgstr "Log:"
 
 #: config/prefs.php.dist:10
 msgid "Login Tasks"
-msgstr "Задачи при входе:"
+msgstr "Р—Р°РґР°С‡Рё РїСЂРё РІС…РѕРґРµ:"
 
 #: lib/Chora.php:458
 msgid "Logs"
-msgstr "История"
+msgstr "РСЃС‚РѕСЂРёСЏ"
 
 #: templates/log/rev.inc:43 templates/log/rev.inc:51
 msgid "Long"
-msgstr "Длинный"
+msgstr "Р”Р»РёРЅРЅС‹Р№"
 
 #: diff.php:61
 msgid "Malformed Query"
-msgstr "Безформенный запрос"
+msgstr "Р‘РµР·С„РѕСЂРјРµРЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ"
 
 #: patchsets.php:59
 msgid "New File"
-msgstr "Новый файл"
+msgstr "РќРѕРІС‹Р№ С„Р°Р№Р»"
 
 #: templates/diff/hr/nochange.inc:6
 msgid "No Viewable Change"
-msgstr "Нет Видимых Изменений"
+msgstr "РќРµС‚ Р’РёРґРёРјС‹С… РР·РјРµРЅРµРЅРёР№"
 
 #: templates/log/rev.inc:44 templates/log/rev.inc:52
 msgid "NoWhitespaceChanges"
@@ -263,20 +263,20 @@ msgstr "NoWhitespaceChanges"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "Другие настройки"
+msgstr "Р”СЂСѓРіРёРµ РЅР°СЃС‚СЂРѕР№РєРё"
 
 #: lib/Chora.php:368
 msgid "Other Repositories"
-msgstr "Другие репозитории"
+msgstr "Р”СЂСѓРіРёРµ СЂРµРїРѕР·РёС‚РѕСЂРёРё"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
-msgstr "Уровень выше"
+msgstr "РЈСЂРѕРІРµРЅСЊ РІС‹С€Рµ"
 
 #: templates/patchsets/ps.inc:6
 #, php-format
 msgid "PatchSet %s</span> by %s"
-msgstr "PatcSet %s</span> от %s"
+msgstr "PatcSet %s</span> РѕС‚ %s"
 
 #: lib/Chora.php:461
 msgid "Patchsets"
@@ -285,75 +285,75 @@ msgstr "Patchsets"
 #: patchsets.php:27
 #, php-format
 msgid "Patchsets for %s"
-msgstr "Patchsets для %s"
+msgstr "Patchsets РґР»СЏ %s"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
-msgstr "Пожалуйста, сообщите"
+msgstr "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СЃРѕРѕР±С‰РёС‚Рµ"
 
 #: templates/diff/hr/footer.inc:11
 #, php-format
 msgid "Removed in v.%s"
-msgstr "Удалено в v.%s"
+msgstr "РЈРґР°Р»РµРЅРѕ РІ v.%s"
 
 #: templates/log/request.inc:14
 msgid "Retrieve diffs between:"
-msgstr "Найденные различия между:"
+msgstr "РќР°Р№РґРµРЅРЅС‹Рµ СЂР°Р·Р»РёС‡РёСЏ РјРµР¶РґСѓ:"
 
 #: templates/directory/header.inc:11 templates/annotate/header.inc:6
 msgid "Rev"
-msgstr "Рев."
+msgstr "Р РµРІ."
 
 #: co.php:77
 #, php-format
 msgid "Revision %s for file %s not found."
-msgstr "Ревизия %s для файла %s не найдена."
+msgstr "Р РµРІРёР·РёСЏ %s РґР»СЏ С„Р°Р№Р»Р° %s РЅРµ РЅР°Р№РґРµРЅР°."
 
 #: templates/checkout/checkout.inc:4
 #, php-format
 msgid "Revision <strong>%s</strong>, <em>%s</em> (%s ago) by %s"
-msgstr "Ревизия <strong>%s</strong>, <em>%s</em> (%s) от %s"
+msgstr "Р РµРІРёР·РёСЏ <strong>%s</strong>, <em>%s</em> (%s) РѕС‚ %s"
 
 #: templates/log/rev.inc:15
 msgid "Select for Diff"
-msgstr "Выбрать для различий"
+msgstr "Р’С‹Р±СЂР°С‚СЊ РґР»СЏ СЂР°Р·Р»РёС‡РёР№"
 
 #: browse.php:42
 msgid "Show Deleted Files"
-msgstr "Показать удаленные файлы"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ СѓРґР°Р»РµРЅРЅС‹Рµ С„Р°Р№Р»С‹"
 
 #: browse.php:42
 msgid "Show _Deleted Files"
-msgstr "Показать удаленные файлы"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ СѓРґР°Р»РµРЅРЅС‹Рµ С„Р°Р№Р»С‹"
 
 #: templates/log/request.inc:29
 msgid "Side-by-Side"
-msgstr "Строка-к-строке"
+msgstr "РЎС‚СЂРѕРєР°-Рє-СЃС‚СЂРѕРєРµ"
 
 #: templates/directory/header.inc:5 templates/directory/header.inc:10
 #: templates/directory/header.inc:15 templates/directory/header.inc:20
 msgid "Sort Order"
-msgstr "Сортировка"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІРєР°"
 
 #: annotate.php:27
 #, php-format
 msgid "Source Annotation of %s for version %s"
-msgstr "Аннотация %s для версии %s"
+msgstr "РђРЅРЅРѕС‚Р°С†РёСЏ %s РґР»СЏ РІРµСЂСЃРёРё %s"
 
 #: history.php:160
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "Просмотр Истории Изменений для %s"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ РСЃС‚РѕСЂРёРё РР·РјРµРЅРµРЅРёР№ РґР»СЏ %s"
 
 #: browse.php:32
 #, php-format
 msgid "Source Directory of /%s"
-msgstr "Просмотр Директории /%s"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ Р”РёСЂРµРєС‚РѕСЂРёРё /%s"
 
 #: browse.php:126
 #, php-format
 msgid "Source Log for %s"
-msgstr "Просмотр лога для файла %s"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ Р»РѕРіР° РґР»СЏ С„Р°Р№Р»Р° %s"
 
 #: lib/Chora.php:182
 msgid ""
@@ -361,17 +361,17 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"SourceRoot не найдена! Возможно это настройка сервера или на сервере "
-"временные проблемы. Пожалуйста, зайдите позже."
+"SourceRoot РЅРµ РЅР°Р№РґРµРЅР°! Р’РѕР·РјРѕР¶РЅРѕ СЌС‚Рѕ РЅР°СЃС‚СЂРѕР№РєР° СЃРµСЂРІРµСЂР° РёР»Рё РЅР° СЃРµСЂРІРµСЂРµ "
+"РІСЂРµРјРµРЅРЅС‹Рµ РїСЂРѕР±Р»РµРјС‹. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, Р·Р°Р№РґРёС‚Рµ РїРѕР·Р¶Рµ."
 
 #: lib/Chora.php:469
 msgid "Statistics"
-msgstr "Статистика"
+msgstr "РЎС‚Р°С‚РёСЃС‚РёРєР°"
 
 #: stats.php:27
 #, php-format
 msgid "Statistics for %s"
-msgstr "Статистика для %s"
+msgstr "РЎС‚Р°С‚РёСЃС‚РёРєР° РґР»СЏ %s"
 
 #: templates/log/rev.inc:34
 msgid "Tags:"
@@ -383,9 +383,9 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-"Это форма позволяет запросить разницу между двумя ревизиями файла. Вы можете "
-"выбрат символьное имя ревизии используя выподяющий список или ввести номер "
-"ревиизии в соответсвующем поле "
+"Р­С‚Рѕ С„РѕСЂРјР° РїРѕР·РІРѕР»СЏРµС‚ Р·Р°РїСЂРѕСЃРёС‚СЊ СЂР°Р·РЅРёС†Сѓ РјРµР¶РґСѓ РґРІСѓРјСЏ СЂРµРІРёР·РёСЏРјРё С„Р°Р№Р»Р°. Р’С‹ РјРѕР¶РµС‚Рµ "
+"РІС‹Р±СЂР°С‚ СЃРёРјРІРѕР»СЊРЅРѕРµ РёРјСЏ СЂРµРІРёР·РёРё РёСЃРїРѕР»СЊР·СѓСЏ РІС‹РїРѕРґСЏСЋС‰РёР№ СЃРїРёСЃРѕРє РёР»Рё РІРІРµСЃС‚Рё РЅРѕРјРµСЂ "
+"СЂРµРІРёРёР·РёРё РІ СЃРѕРѕС‚РІРµС‚СЃРІСѓСЋС‰РµРј РїРѕР»Рµ "
 
 #: templates/headerbar.inc:16
 msgid "Tracking Branch"
@@ -393,55 +393,55 @@ msgstr "Tracking Branch"
 
 #: templates/log/request.inc:23
 msgid "Type:"
-msgstr "Тип:"
+msgstr "РўРёРї:"
 
 #: templates/log/request.inc:27
 msgid "Unified"
-msgstr "Унифицированный"
+msgstr "РЈРЅРёС„РёС†РёСЂРѕРІР°РЅРЅС‹Р№"
 
 #: templates/log/request.inc:18 templates/log/request.inc:38
 msgid "Use Text Field"
-msgstr "Использовать текстовое поле:"
+msgstr "РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ:"
 
 #: config/prefs.php.dist:37
 msgid "Use last viewed file or directory at login time"
-msgstr "Использовать последний просматриваемый файл или каталог при входе"
+msgstr "РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїРѕСЃР»РµРґРЅРёР№ РїСЂРѕСЃРјР°С‚СЂРёРІР°РµРјС‹Р№ С„Р°Р№Р» РёР»Рё РєР°С‚Р°Р»РѕРі РїСЂРё РІС…РѕРґРµ"
 
 #: annotate.php:29 templates/log/rev.inc:9
 msgid "View"
-msgstr "Просмотр"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ"
 
 #: templates/log/request.inc:60
 msgid "View Branch"
-msgstr "Просмотр ветви"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ РІРµС‚РІРё"
 
 #: templates/log/request.inc:54
 msgid "View revisions on:"
-msgstr "Просмотр ривизий на:"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ СЂРёРІРёР·РёР№ РЅР°:"
 
 #: lib/Chora.php:471
 msgid "View:"
-msgstr "Просмотр:"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ:"
 
 #: templates/directory/header.inc:16
 msgid "_Author"
-msgstr "Автор"
+msgstr "РђРІС‚РѕСЂ"
 
 #: lib/Chora.php:464
 msgid "_Branches"
-msgstr "Ветви"
+msgstr "Р’РµС‚РІРё"
 
 #: lib/Chora.php:438
 msgid "_Browse"
-msgstr "Просмотр"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ"
 
 #: templates/directory/header.inc:6
 msgid "_File"
-msgstr "Файл"
+msgstr "Р¤Р°Р№Р»"
 
 #: lib/Chora.php:467
 msgid "_Graph"
-msgstr "График"
+msgstr "Р“СЂР°С„РёРє"
 
 #: lib/Chora.php:458
 msgid "_Logs"
@@ -453,95 +453,95 @@ msgstr "_Patchsets"
 
 #: templates/directory/header.inc:11
 msgid "_Rev"
-msgstr "Рев."
+msgstr "Р РµРІ."
 
 #: lib/Chora.php:469
 msgid "_Statistics"
-msgstr "Статистика"
+msgstr "РЎС‚Р°С‚РёСЃС‚РёРєР°"
 
 #: templates/log/request.inc:35
 msgid "and:"
-msgstr "и:"
+msgstr "Рё:"
 
 #: templates/history/rev.inc:4 templates/log/rev.inc:5
 #, php-format
 msgid "by %s"
-msgstr "от %s"
+msgstr "РѕС‚ %s"
 
 #: templates/diff/hr/footer.inc:15
 msgid "changed lines"
-msgstr "измененные линии"
+msgstr "РёР·РјРµРЅРµРЅРЅС‹Рµ Р»РёРЅРёРё"
 
 #: lib/Chora.php:31
 msgid "day"
-msgstr "день"
+msgstr "РґРµРЅСЊ"
 
 #: lib/Chora.php:31
 msgid "days"
-msgstr "дни"
+msgstr "РґРЅРё"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "для дальнейше информации."
+msgstr "РґР»СЏ РґР°Р»СЊРЅРµР№С€Рµ РёРЅС„РѕСЂРјР°С†РёРё."
 
 #: lib/Chora.php:30
 msgid "hour"
-msgstr "час"
+msgstr "С‡Р°СЃ"
 
 #: lib/Chora.php:30
 msgid "hours"
-msgstr "часов"
+msgstr "С‡Р°СЃРѕРІ"
 
 #: lib/Chora.php:29
 msgid "minute"
-msgstr "минута"
+msgstr "РјРёРЅСѓС‚Р°"
 
 #: lib/Chora.php:29
 msgid "minutes"
-msgstr "минут"
+msgstr "РјРёРЅСѓС‚"
 
 #: lib/Chora.php:33
 msgid "month"
-msgstr "месяц"
+msgstr "РјРµСЃСЏС†"
 
 #: lib/Chora.php:33
 msgid "months"
-msgstr "месяца(ов)"
+msgstr "РјРµСЃСЏС†Р°(РѕРІ)"
 
 #: templates/history/branch_cell.inc:6
 #, php-format
 msgid "revision %s"
-msgstr "ревизия %s"
+msgstr "СЂРµРІРёР·РёСЏ %s"
 
 #: lib/Chora.php:28
 msgid "second"
-msgstr "секунда"
+msgstr "СЃРµРєСѓРЅРґР°"
 
 #: lib/Chora.php:28
 msgid "seconds"
-msgstr "секунд"
+msgstr "СЃРµРєСѓРЅРґ"
 
 #: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
 #, php-format
 msgid "version %s"
-msgstr "версия %s"
+msgstr "РІРµСЂСЃРёСЏ %s"
 
 #: lib/Chora.php:42
 msgid "very little time"
-msgstr "очень маленькое время"
+msgstr "РѕС‡РµРЅСЊ РјР°Р»РµРЅСЊРєРѕРµ РІСЂРµРјСЏ"
 
 #: lib/Chora.php:32
 msgid "week"
-msgstr "неделя"
+msgstr "РЅРµРґРµР»СЏ"
 
 #: lib/Chora.php:32
 msgid "weeks"
-msgstr "недель"
+msgstr "РЅРµРґРµР»СЊ"
 
 #: lib/Chora.php:34
 msgid "year"
-msgstr "год"
+msgstr "РіРѕРґ"
 
 #: lib/Chora.php:34
 msgid "years"
-msgstr "лет"
+msgstr "Р»РµС‚"

@@ -12,14 +12,14 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: scripts/recursive_import.php:149 scripts/remote_import.php:158
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "\"%s\" non Ë una directory."
+msgstr "\"%s\" non √® una directory."
 
 #: templates/view/list.inc:3 templates/list/header.inc:3
 #: templates/group/category.inc:47 templates/group/owner.inc:52
@@ -296,17 +296,17 @@ msgstr "Accesso negato salvano attivit&agrave; in %s."
 #: lib/api.php:596
 #, fuzzy
 msgid "Access denied creating new galleries."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: lib/api.php:554 lib/api.php:633
 #, fuzzy
 msgid "Access denied deleting galleries."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: lib/api.php:645 gallery/delete.php:28 gallery/delete.php:61
 #, fuzzy, php-format
 msgid "Access denied deleting gallery \"%s\"."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: image.php:531 lib/api.php:571 lib/Views/Results.php:125
 #, fuzzy, php-format
@@ -316,7 +316,7 @@ msgstr "Accesso negato salvano attivit&agrave; in %s."
 #: gallery.php:86 lib/Ansel.php:2432
 #, fuzzy, php-format
 msgid "Access denied downloading photos from \"%s\"."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: gallery.php:156
 msgid "Access denied editing galleries."
@@ -325,14 +325,14 @@ msgstr "Accesso negato durante la modifica delle gallerie."
 #: lib/Faces.php:868 gallery/sort.php:32 faces/gallery.php:34
 #, fuzzy, php-format
 msgid "Access denied editing gallery \"%s\"."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: image.php:262 image.php:652 lib/Faces.php:557 lib/Faces.php:655
 #: lib/XRequest/EditFaces.php:134 faces/custom.php:29 faces/delete.php:29
 #: faces/name.php:28
 #, fuzzy
 msgid "Access denied editing the photo."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: lib/Ansel.php:1094
 #, fuzzy, php-format
@@ -362,7 +362,7 @@ msgstr "Accesso negato durante l'impostazione delle didascalie per %s."
 #: lib/Views/Abstract.php:56
 #, fuzzy, php-format
 msgid "Access denied to gallery \"%s\"."
-msgstr "Si Ë verificato un problema eliminando le attivit&agrave; %s."
+msgstr "Si √® verificato un problema eliminando le attivit&agrave; %s."
 
 #: lib/Ansel.php:1632 lib/Views/Gallery.php:97 lib/Block/gallery.php:143
 #: lib/Block/recent_comments.php:154 lib/Block/recently_added.php:190
@@ -498,7 +498,7 @@ msgstr ""
 
 #: lib/Exif.php:130
 msgid "Av-priority"
-msgstr "Priorit‡ Av"
+msgstr "Priorit√† Av"
 
 #: lib/Exif.php:234
 msgid "Average"
@@ -612,7 +612,7 @@ msgstr ""
 
 #: lib/Widget/Actions.php:87
 msgid "Change properties"
-msgstr "Cambia propriet‡"
+msgstr "Cambia propriet√†"
 
 #: config/prefs.php.dist:31
 msgid ""
@@ -670,7 +670,7 @@ msgstr "Flash forzato, ritorno di luce non rilevato"
 
 #: disclamer.php:25
 msgid "Content Disclaimer"
-msgstr "Contenuti responsabilit‡"
+msgstr "Contenuti responsabilit√†"
 
 #: lib/Report.php:98
 #, php-format
@@ -718,7 +718,7 @@ msgstr ""
 #: lib/Ansel.php:933
 #, fuzzy, php-format
 msgid "Could not save gallery, the slug, \"%s\", already exists."
-msgstr "La pagina \"%s\" esiste gi‡."
+msgstr "La pagina \"%s\" esiste gi√†."
 
 #: scripts/ansel.php:187
 msgid "Couldn't list galleries."
@@ -779,7 +779,7 @@ msgid ""
 "place of your username when grouping galleries by username."
 msgstr ""
 "Testo personalizzato da visualizzare descrive le tue gallerie. Il testo "
-"verr‡ visualizzato nel posto del tuo username quando si raggruppano gallerie "
+"verr√† visualizzato nel posto del tuo username quando si raggruppano gallerie "
 "per username."
 
 #: config/prefs.php.dist:121 config/prefs.php.dist:177
@@ -800,7 +800,7 @@ msgstr "Data odifica foto"
 
 #: lib/Exif.php:339 config/prefs.php.dist:274
 msgid "Date Photo Taken"
-msgstr "Data in cui Ë stata fatta la foto"
+msgstr "Data in cui √® stata fatta la foto"
 
 #: config/prefs.php.dist:137 config/styles.php.dist:56
 msgid "Default"
@@ -950,7 +950,7 @@ msgstr "Modifica facce"
 #: image.php:134
 #, php-format
 msgid "Edit properties :: %s"
-msgstr "Modifica propriet‡ :: %s"
+msgstr "Modifica propriet√† :: %s"
 
 #: lib/Widget/Links.php:41
 msgid "Embed: "
@@ -1019,7 +1019,7 @@ msgstr "Nome faccia da cercare"
 
 #: faces/claim.php:63 faces/report.php:65
 msgid "Face name was not reported."
-msgstr "Il nome della faccia non Ë riportato."
+msgstr "Il nome della faccia non √® riportato."
 
 #: faces/savecustom.php:54
 msgid "Face successfuly created"
@@ -1080,15 +1080,15 @@ msgstr "Impostazioni Flash"
 
 #: lib/Exif.php:274
 msgid "Flash, Auto-Mode"
-msgstr "Flash, modalit‡ automatica"
+msgstr "Flash, modalit√† automatica"
 
 #: lib/Exif.php:276
 msgid "Flash, Auto-Mode, Return light detected"
-msgstr "Flash, modalit‡ automatica, ritorno di luce rilevato"
+msgstr "Flash, modalit√† automatica, ritorno di luce rilevato"
 
 #: lib/Exif.php:275
 msgid "Flash, Auto-Mode, Return light not detected"
-msgstr "Flash, modalit‡ automatica, ritorno di luce non rilevato"
+msgstr "Flash, modalit√† automatica, ritorno di luce non rilevato"
 
 #: lib/Exif.php:268
 msgid "Flash, strobe return light detected"
@@ -1158,7 +1158,7 @@ msgstr "Galleria %s non trovata."
 
 #: templates/gallery/gallery.inc:77
 msgid "Gallery Ages"
-msgstr "Et‡ galleria"
+msgstr "Et√† galleria"
 
 #: templates/gallery/gallery.inc:26
 msgid "Gallery Category"
@@ -1192,7 +1192,7 @@ msgstr "Genitori galleria"
 
 #: lib/Tile/Gallery.php:92
 msgid "Gallery Properties"
-msgstr "Propriet‡ galleria"
+msgstr "Propriet√† galleria"
 
 #: templates/gallery/gallery.inc:61
 msgid "Gallery Slug"
@@ -1213,11 +1213,11 @@ msgstr "Galleria ordinata."
 
 #: report.php:79 report.php:85
 msgid "Gallery was not reported."
-msgstr "La galleria non Ë riferita."
+msgstr "La galleria non √® riferita."
 
 #: report.php:82
 msgid "Gallery was reported."
-msgstr "La galleria non Ë riferita."
+msgstr "La galleria non √® riferita."
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:22 config/prefs.php.dist:29
 #: config/prefs.php.dist:36
@@ -1391,7 +1391,7 @@ msgstr "Medio"
 
 #: lib/Exif.php:354
 msgid "Metering Mode"
-msgstr "Modalit‡ di misurazione"
+msgstr "Modalit√† di misurazione"
 
 #: templates/image/crop_image.inc:116 templates/image/edit_image.inc:32
 #: templates/image/resize_image.inc:61
@@ -1558,7 +1558,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Solo il proprietario o l'amministratore di sistema puÚ cambiare la propriet‡ "
+"Solo il proprietario o l'amministratore di sistema pu√≤ cambiare la propriet√† "
 "o i permessi per una condivisione"
 
 #: templates/image/crop_image.inc:157
@@ -1755,7 +1755,7 @@ msgstr "Programma"
 #: templates/view/image.inc:47 templates/view/slideshow.inc:17
 #: templates/tile/image.inc:17
 msgid "Properties"
-msgstr "Propriet‡"
+msgstr "Propriet√†"
 
 #: templates/xppublish/list.inc:7
 msgid "Publish Photos to:"
@@ -1817,7 +1817,7 @@ msgid ""
 "be undone."
 msgstr ""
 "Sicuro di voler eliminare questa galleria e tutte le sue foto? Questa "
-"operazione non puÚ essere annullata."
+"operazione non pu√≤ essere annullata."
 
 #: templates/gallery/delete_confirmation.inc:2
 #, php-format
@@ -1830,7 +1830,7 @@ msgid ""
 "undone."
 msgstr ""
 "Sicuro di voler svuotare questa galleria e tutte le sue foto? Questa "
-"operazione non puÚ essere annullata."
+"operazione non pu√≤ essere annullata."
 
 #: faces/report.php:36 faces/report.php:59
 msgid "Reason"
@@ -1885,15 +1885,15 @@ msgstr "Occhi Rossi"
 
 #: lib/Exif.php:284
 msgid "Red Eye, Auto-Mode"
-msgstr "Occhi rossi, modalit‡ automatica"
+msgstr "Occhi rossi, modalit√† automatica"
 
 #: lib/Exif.php:286
 msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr "Occhi rossi, modalit‡ automatica, ritorno di luce rilevato"
+msgstr "Occhi rossi, modalit√† automatica, ritorno di luce rilevato"
 
 #: lib/Exif.php:285
 msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr "Occhi rossi, modalit‡ automatica, ritorno di luce non rilevato"
+msgstr "Occhi rossi, modalit√† automatica, ritorno di luce non rilevato"
 
 #: lib/Exif.php:281
 msgid "Red Eye, Compulsory Flash"
@@ -2140,7 +2140,7 @@ msgstr "Mostra dati EXIF"
 
 #: lib/Exif.php:345
 msgid "Shutter Speed"
-msgstr "Velocit‡ otturatore"
+msgstr "Velocit√† otturatore"
 
 #: lib/Widget/SimilarPhotos.php:27
 msgid "Similar Photos"
@@ -2265,7 +2265,7 @@ msgstr "La directory \"%s\" non ha foto valide."
 #: scripts/ansel.php:279
 #, php-format
 msgid "The directory \"%s\" is empty."
-msgstr "La directory \"%s\" Ë vuota."
+msgstr "La directory \"%s\" √® vuota."
 
 #: scripts/remote_import.php:273 lib/Ansel.php:470
 #, php-format
@@ -2279,23 +2279,23 @@ msgstr "Il file che hai caricato non sembra essere una foto valida."
 #: lib/Ansel.php:2823
 #, php-format
 msgid "The gallery \"%s\" could not be created: %s"
-msgstr "La galleria \"%s\" non puÚ essere creata: %s"
+msgstr "La galleria \"%s\" non pu√≤ essere creata: %s"
 
 #: gallery.php:293 xppublish.php:123 scripts/ansel.php:156
 #: scripts/recursive_import.php:157 scripts/remote_import.php:197
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
-msgstr "La galleria \"%s\" non puÚ essere creata: %s"
+msgstr "La galleria \"%s\" non pu√≤ essere creata: %s"
 
 #: gallery.php:299 xppublish.php:127 scripts/ansel.php:161
 #: scripts/recursive_import.php:159 scripts/remote_import.php:199
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
-msgstr "La galleria \"%s\" Ë stata creata con successo."
+msgstr "La galleria \"%s\" √® stata creata con successo."
 
 #: gallery.php:243
 msgid "The gallery was saved."
-msgstr "La galleria Ë stata salvata."
+msgstr "La galleria √® stata salvata."
 
 #: gallery.php:350
 msgid "The gallery's default photo has successfully been reset."
@@ -2307,18 +2307,18 @@ msgstr "Le anteprime della galleria sono state resettate con successo."
 
 #: faces/report.php:68
 msgid "The owner of the photo was notified."
-msgstr "Il proprietario della foto Ë stato notificato."
+msgstr "Il proprietario della foto √® stato notificato."
 
 #: faces/claim.php:66
 msgid "The owner of the photo, who will delegate the face name, was notified."
 msgstr ""
-"Il proprietario della foto, che sar‡ delegato al nome della faccia, Ë stato "
+"Il proprietario della foto, che sar√† delegato al nome della faccia, √® stato "
 "notificato."
 
 #: lib/Ansel.php:2786
 #, php-format
 msgid "The slug \"%s\" already exists."
-msgstr "Lo slug \"%s\" esiste gi‡."
+msgstr "Lo slug \"%s\" esiste gi√†."
 
 #: img/upload.php:198
 msgid ""
@@ -2344,38 +2344,38 @@ msgstr "Non ci sono foto in questa galleria."
 #, php-format
 msgid "There was a problem adding the photo \"%s\" to gallery \"%s\"."
 msgstr ""
-"Si Ë verificato un problema aggiungendo la foto \"%s\" alla galleria \"%s\"."
+"Si √® verificato un problema aggiungendo la foto \"%s\" alla galleria \"%s\"."
 
 #: scripts/ansel.php:215
 #, php-format
 msgid "There was a problem adding the photo \"%s\" to gallery \"%s\": %s"
 msgstr ""
-"Si Ë verificato un problema aggiungendo la foto \"%s\" alla galleria \"%s\": "
+"Si √® verificato un problema aggiungendo la foto \"%s\" alla galleria \"%s\": "
 "%s"
 
 #: lib/api.php:658 gallery/delete.php:38
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "Si Ë verificato un problema eliminando %s: %s"
+msgstr "Si √® verificato un problema eliminando %s: %s"
 
 #: image.php:537 lib/Views/Results.php:131
 #, php-format
 msgid "There was a problem deleting photos: %s"
-msgstr "Si Ë verificato un problema eliminando le foto: %s"
+msgstr "Si √® verificato un problema eliminando le foto: %s"
 
 #: img/upload.php:101 img/upload.php:156 img/upload.php:180
 #, php-format
 msgid "There was a problem saving the photo: %s"
-msgstr "Si Ë verificato un problema salvando la foto: %s."
+msgstr "Si √® verificato un problema salvando la foto: %s."
 
 #: xppublish.php:195
 msgid "There was a problem uploading the photo."
-msgstr "Si Ë verificato un problema caricando la foto."
+msgstr "Si √® verificato un problema caricando la foto."
 
 #: img/upload.php:196
 #, php-format
 msgid "There was a problem uploading the photo: %s"
-msgstr "Si Ë verificato un problema caricando la foto: %s"
+msgstr "Si √® verificato un problema caricando la foto: %s"
 
 #: xppublish.php:91
 #, fuzzy
@@ -2390,17 +2390,17 @@ msgstr "Non ci sono messaggi in questa casella di posta."
 #: img/upload.php:61 img/upload.php:83 img/upload.php:117 img/upload.php:138
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
-msgstr "C'Ë stato un errere durante l'elaborazione dell'archivio caricato: %s"
+msgstr "C'√® stato un errere durante l'elaborazione dell'archivio caricato: %s"
 
 #: image.php:207
 #, fuzzy
 msgid "There was an error replacing the photo."
-msgstr "Si Ë verificato un problema salvando l'attivit&agrave;."
+msgstr "Si √® verificato un problema salvando l'attivit&agrave;."
 
 #: img/ecard.php:95
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Si Ë verificato un errore inviando il messaggio: %s"
+msgstr "Si √® verificato un errore inviando il messaggio: %s"
 
 #: lib/ImageView.php:89
 #, php-format
@@ -2437,7 +2437,7 @@ msgstr "Tungsteno"
 
 #: lib/Exif.php:128
 msgid "Tv-priority"
-msgstr "Priorit‡-Tv"
+msgstr "Priorit√†-Tv"
 
 #: lib/Exif.php:297
 msgid "Two Chip Color Area Sensor"
@@ -2521,7 +2521,7 @@ msgstr "Capovolto specchiato"
 #: scripts/recursive_import.php:221 scripts/remote_import.php:304
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
-msgstr "Utilit‡: %s [OPZIONI]..."
+msgstr "Utilit√†: %s [OPZIONI]..."
 
 #: lib/Forms/Ecard.php:32
 msgid "Use the following return address:"
@@ -2534,7 +2534,7 @@ msgstr "Commento utente"
 #: templates/gallery/gallery.inc:84
 #, php-format
 msgid "User must be over %d"
-msgstr "L'utente deve avere pi˘ di %d anni"
+msgstr "L'utente deve avere pi√π di %d anni"
 
 #: templates/xppublish/login.inc:11
 msgid "Username"

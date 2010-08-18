@@ -10,661 +10,661 @@ msgstr ""
 "Last-Translator: J.I Kim <aporie@netian.com>\n"
 "Language-Team: Korean <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d hour"
-msgstr "%d ½Ã"
+msgstr "%d ì‹œ"
 
 #, c-format
 msgid "%d hour, %d minute"
-msgstr "%d ½Ã, %d ºĞ"
+msgstr "%d ì‹œ, %d ë¶„"
 
 #, c-format
 msgid "%d hour, %d minutes"
-msgstr "%d ½Ã, %d ºĞ"
+msgstr "%d ì‹œ, %d ë¶„"
 
 #, c-format
 msgid "%d hours"
-msgstr "%d ½Ã"
+msgstr "%d ì‹œ"
 
 #, c-format
 msgid "%d hours, %d minute"
-msgstr "%d ½Ã, %d ºĞ"
+msgstr "%d ì‹œ, %d ë¶„"
 
 #, c-format
 msgid "%d hours, %d minutes"
-msgstr "%d ½Ã, %d ºĞ"
+msgstr "%d ì‹œ, %d ë¶„"
 
 #, c-format
 msgid "%d minute"
-msgstr "%d ºĞ"
+msgstr "%d ë¶„"
 
 #, c-format
 msgid "%d minutes"
-msgstr "%d ºĞ"
+msgstr "%d ë¶„"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s ÆÄÀÏÀÌ ÀÓÆ÷Æ®µÇ¾ú½À´Ï´Ù."
+msgstr "%s íŒŒì¼ì´ ì„í¬íŠ¸ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #, c-format
 msgid "%s is in progress."
-msgstr "%s °¡ ÁøÇàÁßÀÔ´Ï´Ù."
+msgstr "%s ê°€ ì§„í–‰ì¤‘ì…ë‹ˆë‹¤."
 
 #, c-format
 msgid "%s is starting now."
-msgstr "%s °¡ Áö±İ ½ÃÀÛÇÕ´Ï´Ù."
+msgstr "%s ê°€ ì§€ê¸ˆ ì‹œì‘í•©ë‹ˆë‹¤."
 
 #, c-format
 msgid "%s starts in %s"
-msgstr "%s°¡ %s ¿¡¼­ ½ÃÀÛÇÕ´Ï´Ù."
+msgstr "%sê°€ %s ì—ì„œ ì‹œì‘í•©ë‹ˆë‹¤."
 
 msgid "<b>Description</b> (optional)"
-msgstr "<b>³»¿ë</b> (¼±ÅÃ)"
+msgstr "<b>ë‚´ìš©</b> (ì„ íƒ)"
 
 msgid "<b>Description</b>"
-msgstr "<b>³»¿ë</b>"
+msgstr "<b>ë‚´ìš©</b>"
 
 msgid "<b>Keywords</b> (optional)"
-msgstr "<b>Å°¿öµå</b> (¼±ÅÃ)"
+msgstr "<b>í‚¤ì›Œë“œ</b> (ì„ íƒ)"
 
 msgid "<b>Keywords</b>"
-msgstr "<b>Å°¿öµå</b>"
+msgstr "<b>í‚¤ì›Œë“œ</b>"
 
 msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>ÀÏÁ¤ ¹İº¹</b> (¼±ÅÃ)"
+msgstr "<b>ì¼ì • ë°˜ë³µ</b> (ì„ íƒ)"
 
 msgid "<b>Recurrence</b>"
-msgstr "<b>ÀÏÁ¤ ¹İº¹</b>"
+msgstr "<b>ì¼ì • ë°˜ë³µ</b>"
 
 msgid "Add Event"
-msgstr "ÀÏÁ¤ Ãß°¡"
+msgstr "ì¼ì • ì¶”ê°€"
 
 msgid "Add a new event"
-msgstr "»õ·Î¿î ÀÏÁ¤ Ãß°¡ÇÏ±â"
+msgstr "ìƒˆë¡œìš´ ì¼ì • ì¶”ê°€í•˜ê¸°"
 
 msgid "Alarm Date"
-msgstr "¾Ë¸² ÀÏÀÚ"
+msgstr "ì•Œë¦¼ ì¼ì"
 
 msgid "Alarm Span (minutes)"
-msgstr "¾Ë¸² °£°İ (ºĞ)"
+msgstr "ì•Œë¦¼ ê°„ê²© (ë¶„)"
 
 msgid "Alarm Time"
-msgstr "¾Ë¸² ½Ã°£"
+msgstr "ì•Œë¦¼ ì‹œê°„"
 
 msgid "Alarm"
-msgstr "¾Ë¸²"
+msgstr "ì•Œë¦¼"
 
 msgid "All day event"
-msgstr "ÇÏ·ç ³»³» ÀÏÁ¤"
+msgstr "í•˜ë£¨ ë‚´ë‚´ ì¼ì •"
 
 msgid "All day"
-msgstr "ÇÏ·ç ³»³»"
+msgstr "í•˜ë£¨ ë‚´ë‚´"
 
 msgid "All events"
-msgstr "ÀüÃ¼ ÀÏÁ¤"
+msgstr "ì „ì²´ ì¼ì •"
 
 msgid "All"
-msgstr "¸ğµÎ"
+msgstr "ëª¨ë‘"
 
 msgid "April"
-msgstr "4¿ù"
+msgstr "4ì›”"
 
 msgid "At"
-msgstr "½Ã°£"
+msgstr "ì‹œê°„"
 
 msgid "August"
-msgstr "8¿ù"
+msgstr "8ì›”"
 
 msgid "Birthday"
-msgstr "»ıÀÏ"
+msgstr "ìƒì¼"
 
 msgid "Business"
-msgstr "¾÷¹«"
+msgstr "ì—…ë¬´"
 
 msgid "Cancel"
-msgstr "Ãë¼Ò"
+msgstr "ì·¨ì†Œ"
 
 msgid "Category"
-msgstr "¹üÁÖ"
+msgstr "ë²”ì£¼"
 
 msgid "Change the way dates and times are formatted."
-msgstr "ÀÏÀÚ ¹× ½Ã°£ Ãâ·ÂÇü½ÄÀ» ¼³Á¤ÇÕ´Ï´Ù."
+msgstr "ì¼ì ë° ì‹œê°„ ì¶œë ¥í˜•ì‹ì„ ì„¤ì •í•©ë‹ˆë‹¤."
 
 msgid "Confirm deletion of events?"
-msgstr "ÀÏÁ¤ »èÁ¦½Ã È®ÀÎ?"
+msgstr "ì¼ì • ì‚­ì œì‹œ í™•ì¸?"
 
 msgid "Create a New Event"
-msgstr "»õ·Î¿î ÀÏÁ¤ »ı¼º"
+msgstr "ìƒˆë¡œìš´ ì¼ì • ìƒì„±"
 
 msgid "Current"
-msgstr "ÇöÀç"
+msgstr "í˜„ì¬"
 
 msgid "Daily: Recurs every"
-msgstr "¸ÅÀÏ: ¹ß»ıÀÏ "
+msgstr "ë§¤ì¼: ë°œìƒì¼ "
 
 msgid "Date and Time Options"
-msgstr "½Ã°£ ¹× ÀÏÀÚ ¼³Á¤"
+msgstr "ì‹œê°„ ë° ì¼ì ì„¤ì •"
 
 msgid "Day"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "Day(s)"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "December"
-msgstr "12¿ù"
+msgstr "12ì›”"
 
 #, c-format
 msgid "Delete %s"
-msgstr "%s »èÁ¦"
+msgstr "%s ì‚­ì œ"
 
 #, c-format
 msgid "Delete '%s'"
-msgstr "'%s' »èÁ¦"
+msgstr "'%s' ì‚­ì œ"
 
 msgid "Delete Event"
-msgstr "ÀÏÁ¤ »èÁ¦"
+msgstr "ì¼ì • ì‚­ì œ"
 
 msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"ÇöÀç ÀÏÁ¤¸¸ »èÁ¦, ÀÌ ¹ß»ıÀÏÁ¤°ú ¸ğµç ¾ÕÀ¸·ÎÀÇ ¹ß»ıÀÏÁ¤, ¶Ç´Â ¸ğµç ¹ß»ı ÀÏÁ¤ ?"
+"í˜„ì¬ ì¼ì •ë§Œ ì‚­ì œ, ì´ ë°œìƒì¼ì •ê³¼ ëª¨ë“  ì•ìœ¼ë¡œì˜ ë°œìƒì¼ì •, ë˜ëŠ” ëª¨ë“  ë°œìƒ ì¼ì • ?"
 
 msgid "Delete"
-msgstr "»èÁ¦"
+msgstr "ì‚­ì œ"
 
 msgid "Description"
-msgstr "¼³¸í"
+msgstr "ì„¤ëª…"
 
 msgid "Display 24-hour times?"
-msgstr "24½Ã°£ Çü½ÄÀ¸·Î Ç¥½Ã?"
+msgstr "24ì‹œê°„ í˜•ì‹ìœ¼ë¡œ í‘œì‹œ?"
 
 msgid "Display Options"
-msgstr "È­¸é ¼³Á¤"
+msgstr "í™”ë©´ ì„¤ì •"
 
 #, c-format
 msgid "Due: %s"
-msgstr "ÇÒÀÏ: %s"
+msgstr "í• ì¼: %s"
 
 msgid "Duration"
-msgstr "±â°£"
+msgstr "ê¸°ê°„"
 
 #, c-format
 msgid "Edit %s"
-msgstr "%s ¼öÁ¤"
+msgstr "%s ìˆ˜ì •"
 
 msgid "Edit"
-msgstr "¼öÁ¤"
+msgstr "ìˆ˜ì •"
 
 msgid "End Date"
-msgstr "Á¾·á ÀÏÀÚ"
+msgstr "ì¢…ë£Œ ì¼ì"
 
 msgid "End On"
-msgstr "Á¾·á ÀÏÀÚ"
+msgstr "ì¢…ë£Œ ì¼ì"
 
 msgid "End Time"
-msgstr "Á¾·á ½Ã°£"
+msgstr "ì¢…ë£Œ ì‹œê°„"
 
 msgid "Export Calendar"
-msgstr "ÀÏÁ¤ ÀÍ½ºÆ÷Æ®"
+msgstr "ì¼ì • ìµìŠ¤í¬íŠ¸"
 
 msgid "Export"
-msgstr "ÀÍ½ºÆ÷Æ®"
+msgstr "ìµìŠ¤í¬íŠ¸"
 
 msgid "February"
-msgstr "2¿ù"
+msgstr "2ì›”"
 
 msgid "Fr"
-msgstr "±İ"
+msgstr "ê¸ˆ"
 
 msgid "Friday"
-msgstr "±İ¿äÀÏ"
+msgstr "ê¸ˆìš”ì¼"
 
 msgid "Future"
-msgstr "¾ÕÀ¸·Î"
+msgstr "ì•ìœ¼ë¡œ"
 
 msgid "Game"
-msgstr "°ÔÀÓ"
+msgstr "ê²Œì„"
 
 msgid "Goto"
-msgstr "ÀÌµ¿"
+msgstr "ì´ë™"
 
 msgid "Help"
-msgstr "µµ¿ò¸»"
+msgstr "ë„ì›€ë§"
 
 msgid "Hour(s)"
-msgstr "½Ã"
+msgstr "ì‹œ"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "CSV ÆÄÀÏÀ» ÀÓÆ÷Æ®: Ã¹¹øÂ° ¿­ÀÌ ÇÊµå ÀÌ¸§À» °®°í ÀÖ½À´Ï±î?"
+msgstr "CSV íŒŒì¼ì„ ì„í¬íŠ¸: ì²«ë²ˆì§¸ ì—´ì´ í•„ë“œ ì´ë¦„ì„ ê°–ê³  ìˆìŠµë‹ˆê¹Œ?"
 
 msgid "Illegal or malformed form data."
-msgstr "Àß¸øµÈ Æû ÀÚ·á"
+msgstr "ì˜ëª»ëœ í¼ ìë£Œ"
 
 msgid "Import Calendar"
-msgstr "ÀÏÁ¤ ÀÓÆ÷Æ®ÇÏ±â"
+msgstr "ì¼ì • ì„í¬íŠ¸í•˜ê¸°"
 
 msgid "Import"
-msgstr "ÀÓÆ÷Æ®"
+msgstr "ì„í¬íŠ¸"
 
 msgid "Import/Export Calendar"
-msgstr "ÀÏÁ¤ ÀÓÆ÷Æ®/ÀÍ½ºÆ÷Æ®"
+msgstr "ì¼ì • ì„í¬íŠ¸/ìµìŠ¤í¬íŠ¸"
 
 msgid "Import/Export"
-msgstr "ÀÓÆ÷Æ®/ÀÍ½ºÆ÷Æ®"
+msgstr "ì„í¬íŠ¸/ìµìŠ¤í¬íŠ¸"
 
 msgid "January"
-msgstr "1¿ù"
+msgstr "1ì›”"
 
 msgid "July"
-msgstr "7¿ù"
+msgstr "7ì›”"
 
 msgid "June"
-msgstr "6¿ù"
+msgstr "6ì›”"
 
 msgid "Keywords"
-msgstr "Å°¿öµå"
+msgstr "í‚¤ì›Œë“œ"
 
 msgid "Kronolith is not properly configured"
-msgstr "Kronolith°¡ Á¤»óÀûÀ¸·Î ¼³Á¤µÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù."
+msgstr "Kronolithê°€ ì •ìƒì ìœ¼ë¡œ ì„¤ì •ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤."
 
 msgid "Language"
-msgstr "¾ğ¾î"
+msgstr "ì–¸ì–´"
 
 msgid "Last month"
-msgstr "¸¶Áö¸· ´Ş"
+msgstr "ë§ˆì§€ë§‰ ë‹¬"
 
 msgid "Last week"
-msgstr "¸¶Áö¸· ÁÖ"
+msgstr "ë§ˆì§€ë§‰ ì£¼"
 
 msgid "Lasts"
-msgstr "¸¶Áö¸·"
+msgstr "ë§ˆì§€ë§‰"
 
 msgid "Limit the time span to export:"
-msgstr "ÀÍ½ºÆ÷Æ® ½Ã°£ °£°İ Á¦ÇÑ:"
+msgstr "ìµìŠ¤í¬íŠ¸ ì‹œê°„ ê°„ê²© ì œí•œ:"
 
 msgid "Location"
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 msgid "March"
-msgstr "3¿ù"
+msgstr "3ì›”"
 
 msgid "May"
-msgstr "5¿ù"
+msgstr "5ì›”"
 
 msgid "Meeting"
-msgstr "¹ÌÆÃ"
+msgstr "ë¯¸íŒ…"
 
 msgid "Minute(s)"
-msgstr "ºĞ"
+msgstr "ë¶„"
 
 msgid "Minutes before"
-msgstr "ºĞ Àü"
+msgstr "ë¶„ ì „"
 
 msgid "Minutes"
-msgstr "ºĞ"
+msgstr "ë¶„"
 
 msgid "Mo"
-msgstr "¿ù"
+msgstr "ì›”"
 
 msgid "Monday"
-msgstr "¿ù¿äÀÏ"
+msgstr "ì›”ìš”ì¼"
 
 msgid "Month"
-msgstr "¿ù"
+msgstr "ì›”"
 
 msgid "Monthly: Recurs every"
-msgstr "¿ù¸¶´Ù: ¹ß»ı¿ù "
+msgstr "ì›”ë§ˆë‹¤: ë°œìƒì›” "
 
 msgid "New Event"
-msgstr "»õ·Î¿î ÀÏÁ¤"
+msgstr "ìƒˆë¡œìš´ ì¼ì •"
 
 msgid "Next Month"
-msgstr "´ÙÀ½ ´Ş"
+msgstr "ë‹¤ìŒ ë‹¬"
 
 msgid "Next day"
-msgstr "´ÙÀ½ ÀÏ"
+msgstr "ë‹¤ìŒ ì¼"
 
 msgid "Next week"
-msgstr "´ÙÀ½ ÁÖ"
+msgstr "ë‹¤ìŒ ì£¼"
 
 msgid "No configuration information specified for SQL Calendar."
-msgstr "SQL ÀÏÁ¤À» À§ÇÑ ¼³Á¤ Á¤º¸°¡ ¾ø½À´Ï´Ù."
+msgstr "SQL ì¼ì •ì„ ìœ„í•œ ì„¤ì • ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 msgid "No end date"
-msgstr "Á¾·áÀÏ ¾ø½¿"
+msgstr "ì¢…ë£Œì¼ ì—†ìŠ´"
 
 msgid "None"
-msgstr "¾ø½¿"
+msgstr "ì—†ìŠ´"
 
 msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"ÁÖÀÇ: ÀÌ ¼³Á¤¿¡¼­ ÀÓÆ÷Æ®´Â °¡´ÉÇÏÁö ¾Ê½À´Ï´Ù. ÀÌ ÀÏÁ¤ µå¶óÀÌ¹ö¿¡´Â ¹ö±×°¡ ÀÖ"
-"½À´Ï´Ù."
+"ì£¼ì˜: ì´ ì„¤ì •ì—ì„œ ì„í¬íŠ¸ëŠ” ê°€ëŠ¥í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì´ ì¼ì • ë“œë¼ì´ë²„ì—ëŠ” ë²„ê·¸ê°€ ìˆ"
+"ìŠµë‹ˆë‹¤."
 
 msgid "November"
-msgstr "11¿ù"
+msgstr "11ì›”"
 
 msgid "October"
-msgstr "10¿ù"
+msgstr "10ì›”"
 
 msgid "Options"
-msgstr "¼³Á¤"
+msgstr "ì„¤ì •"
 
 msgid "Pattern"
-msgstr "À¯Çü"
+msgstr "ìœ í˜•"
 
 msgid "Permanently delete this event?"
-msgstr "ÀÌ ÀÏÁ¤À» ¿ÏÀüÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?"
+msgstr "ì´ ì¼ì •ì„ ì™„ì „íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
 
 msgid "Personal"
-msgstr "°³ÀÎ"
+msgstr "ê°œì¸"
 
 msgid "Previous day"
-msgstr "ÀÌÀü ÀÏ"
+msgstr "ì´ì „ ì¼"
 
 msgid "Problem?"
-msgstr "¹®Á¦?"
+msgstr "ë¬¸ì œ?"
 
 msgid "Recur Until"
-msgstr "Á¾·á ÀÏ"
+msgstr "ì¢…ë£Œ ì¼"
 
 msgid "Recurrence Data"
-msgstr "¹İº¹ ÀÏ"
+msgstr "ë°˜ë³µ ì¼"
 
 msgid "Recurrence End Date"
-msgstr "¹İº¹ Á¾·áÀÏ"
+msgstr "ë°˜ë³µ ì¢…ë£Œì¼"
 
 msgid "Recurrence Interval"
-msgstr "¹İº¹ °£°İ"
+msgstr "ë°˜ë³µ ê°„ê²©"
 
 msgid "Recurrence Type"
-msgstr "¹İº¹ À¯Çü"
+msgstr "ë°˜ë³µ ìœ í˜•"
 
 msgid "Recurs daily"
-msgstr "¸ÅÀÏ ¹İº¹"
+msgstr "ë§¤ì¼ ë°˜ë³µ"
 
 msgid "Recurs monthly"
-msgstr "¸Å¿ù ¹İº¹"
+msgstr "ë§¤ì›” ë°˜ë³µ"
 
 msgid "Recurs not"
-msgstr "¹İº¹ ¾ÈÇÔ"
+msgstr "ë°˜ë³µ ì•ˆí•¨"
 
 msgid "Recurs weekly"
-msgstr "¸ÅÁÖ ¹İº¹"
+msgstr "ë§¤ì£¼ ë°˜ë³µ"
 
 msgid "Recurs yearly"
-msgstr "¸Å³â ¹İº¹"
+msgstr "ë§¤ë…„ ë°˜ë³µ"
 
 msgid "Required 'database' not specified in calendar configuration."
-msgstr "ÀÏÁ¤¼³Á¤¿¡¼­ 'database'°¡ ¸í½ÃµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì¼ì •ì„¤ì •ì—ì„œ 'database'ê°€ ëª…ì‹œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "ÀÏÁ¤¼³Á¤¿¡¼­ 'hostspec'ÀÌ ¸í½ÃµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì¼ì •ì„¤ì •ì—ì„œ 'hostspec'ì´ ëª…ì‹œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "ÀÏÁ¤¼³Á¤¿¡¼­ 'password'°¡ ¸í½ÃµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì¼ì •ì„¤ì •ì—ì„œ 'password'ê°€ ëª…ì‹œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "ÀÏÁ¤¼³Á¤¿¡¼­ 'phptype'ÀÌ ¸í½ÃµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì¼ì •ì„¤ì •ì—ì„œ 'phptype'ì´ ëª…ì‹œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "ÀÏÁ¤¼³Á¤¿¡¼­ 'username'ÀÌ ¸í½ÃµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+msgstr "ì¼ì •ì„¤ì •ì—ì„œ 'username'ì´ ëª…ì‹œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
 
 msgid "Reset to Defaults"
-msgstr "ÃÊ±â°ªÀ¸·Î"
+msgstr "ì´ˆê¸°ê°’ìœ¼ë¡œ"
 
 msgid "Sa"
-msgstr "Åä"
+msgstr "í† "
 
 msgid "Saturday"
-msgstr "Åä¿äÀÏ"
+msgstr "í† ìš”ì¼"
 
 msgid "Save As New"
-msgstr "»õ·Î ÀúÀå"
+msgstr "ìƒˆë¡œ ì €ì¥"
 
 msgid "Save Event"
-msgstr "ÀÏÁ¤ ÀúÀå"
+msgstr "ì¼ì • ì €ì¥"
 
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
-msgstr "È®ÀÎ ¿É¼ÇÀ» ¼±ÅÃÇÏ¿© È­¸é Ãâ·Â¿É¼ÇÀ» ¼­·Î ´Ù¸£°Ô ¼±ÅÃÇÕ´Ï´Ù."
+msgstr "í™•ì¸ ì˜µì…˜ì„ ì„ íƒí•˜ì—¬ í™”ë©´ ì¶œë ¥ì˜µì…˜ì„ ì„œë¡œ ë‹¤ë¥´ê²Œ ì„ íƒí•©ë‹ˆë‹¤."
 
 msgid "Select how to display Dates:"
-msgstr "ÀÏÀÚ Ãâ·Â ¹æ½Ä ¼±ÅÃ:"
+msgstr "ì¼ì ì¶œë ¥ ë°©ì‹ ì„ íƒ:"
 
 msgid "Select if to show due tasks in the calendar."
-msgstr "ÀÏÁ¤¿¡¼­ º¸¿©ÁÙ ÇÒÀÏ ¼±ÅÃ."
+msgstr "ì¼ì •ì—ì„œ ë³´ì—¬ì¤„ í• ì¼ ì„ íƒ."
 
 msgid "Select the file to import:"
-msgstr "ÀÓÆ÷Æ®ÇÒ ÆÄÀÏ ¼±ÅÃ:"
+msgstr "ì„í¬íŠ¸í•  íŒŒì¼ ì„ íƒ:"
 
 msgid "Select the first weekday:"
-msgstr "ÃÖÃÊ ÁÖÁßÀÏ ¼±ÅÃ:"
+msgstr "ìµœì´ˆ ì£¼ì¤‘ì¼ ì„ íƒ:"
 
 msgid "Select the format to export to:"
-msgstr "ÀÍ½ºÆ÷Æ®ÇÒ Çü½Ä ¼±ÅÃ:"
+msgstr "ìµìŠ¤í¬íŠ¸í•  í˜•ì‹ ì„ íƒ:"
 
 msgid "Select the source to import from:"
-msgstr "ÀÓÆ÷Æ®ÇÒ ¼Ò½º ¼±ÅÃ:"
+msgstr "ì„í¬íŠ¸í•  ì†ŒìŠ¤ ì„ íƒ:"
 
 msgid "Select the time span to show:"
-msgstr "Ãâ·Â½Ã°£ °£°İ ¼±ÅÃ:"
+msgstr "ì¶œë ¥ì‹œê°„ ê°„ê²© ì„ íƒ:"
 
 msgid "Select the view to display after login:"
-msgstr "·Î±×ÀÎÈÄ¿¡ Ãâ·ÂÇÒ ÀÏÁ¤ ¼±ÅÃ:"
+msgstr "ë¡œê·¸ì¸í›„ì— ì¶œë ¥í•  ì¼ì • ì„ íƒ:"
 
 msgid "Select what events to show in the Horde summary."
-msgstr "Horde ¿ä¾à¿¡¼­ º¼ ¼ö ÀÖ±âÀ§ÇÑ ÀÏÁ¤À» ¼±ÅÃÇÒ ¼ö ÀÖ½À´Ï´Ù."
+msgstr "Horde ìš”ì•½ì—ì„œ ë³¼ ìˆ˜ ìˆê¸°ìœ„í•œ ì¼ì •ì„ ì„ íƒí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤."
 
 msgid "September"
-msgstr "9¿ù"
+msgstr "9ì›”"
 
 msgid "Set the current time zone."
-msgstr "ÇöÀçÀÇ Áö¿ª ½Ã°£À» ¼³Á¤ÇÕ´Ï´Ù."
+msgstr "í˜„ì¬ì˜ ì§€ì—­ ì‹œê°„ì„ ì„¤ì •í•©ë‹ˆë‹¤."
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "¸Ş´º ¹× ¼³¸í°ú µµ¿ò¸»¿¡¼­ »ç¿ëÇÒ ¾ğ¾î¸¦ ¼³Á¤ÇÕ´Ï´Ù."
+msgstr "ë©”ë‰´ ë° ì„¤ëª…ê³¼ ë„ì›€ë§ì—ì„œ ì‚¬ìš©í•  ì–¸ì–´ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤."
 
 msgid "Set your preferred display language."
-msgstr "È­¸é Ãâ·Â¾ğ¾î¸¦ ¼³Á¤ÇÕ´Ï´Ù."
+msgstr "í™”ë©´ ì¶œë ¥ì–¸ì–´ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤."
 
 msgid "Show due tasks in the calendar?"
-msgstr "ÀÏÁ¤¿¡¼­ ÇÒÀÏ º¸±â"
+msgstr "ì¼ì •ì—ì„œ í• ì¼ ë³´ê¸°"
 
 msgid "Show half hour slots in day and week views?"
-msgstr "ÀÏ ¹× ÁÖº° º¸±â¿¡¼­ 30ºĞ ´ÜÀ§·Î º¸±â?"
+msgstr "ì¼ ë° ì£¼ë³„ ë³´ê¸°ì—ì„œ 30ë¶„ ë‹¨ìœ„ë¡œ ë³´ê¸°?"
 
 msgid "Show only events that have an alarm set?"
-msgstr "¾Ë¸² ¼³Á¤µÈ ÀÏÁ¤¸¸ º¸±â?"
+msgstr "ì•Œë¦¼ ì„¤ì •ëœ ì¼ì •ë§Œ ë³´ê¸°?"
 
 msgid "Some of Kronolith's configuration files are missing:"
-msgstr "KronolithÀÇ ÀÏºÎ ¼³Á¤ÆÄÀÏÀÌ ´©¶ôµÇ¾ú½À´Ï´Ù:"
+msgstr "Kronolithì˜ ì¼ë¶€ ì„¤ì •íŒŒì¼ì´ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤:"
 
 msgid "Start Date"
-msgstr "½ÃÀÛ ÀÏÀÚ"
+msgstr "ì‹œì‘ ì¼ì"
 
 msgid "Start On"
-msgstr "½ÃÀÛ ÀÏÀÚ"
+msgstr "ì‹œì‘ ì¼ì"
 
 msgid "Start Time"
-msgstr "½ÃÀÛ ½Ã°£"
+msgstr "ì‹œì‘ ì‹œê°„"
 
 msgid "Su"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "Summary"
-msgstr "¿ä¾à"
+msgstr "ìš”ì•½"
 
 msgid "Sunday"
-msgstr "ÀÏ¿äÀÏ"
+msgstr "ì¼ìš”ì¼"
 
 msgid "Tasks"
-msgstr "ÇÒÀÏ"
+msgstr "í• ì¼"
 
 msgid "Th"
-msgstr "¸ñ"
+msgstr "ëª©"
 
 msgid "The data was lost."
-msgstr "µ¥ÀÌÅ¸°¡ »ç¶óÁ³½À´Ï´Ù."
+msgstr "ë°ì´íƒ€ê°€ ì‚¬ë¼ì¡ŒìŠµë‹ˆë‹¤."
 
 msgid "The end date must be later than the start date."
-msgstr "Á¾·áÀÏÀº ½ÃÀÛÀÌº¸´Ù Ä¿¾ß ÇÕ´Ï´Ù."
+msgstr "ì¢…ë£Œì¼ì€ ì‹œì‘ì´ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤."
 
 msgid "The file contained no data."
-msgstr "ÆÄÀÏ¿¡ ¾Æ¹«·± ÀÚ·á°¡ ¾ø½À´Ï´Ù."
+msgstr "íŒŒì¼ì— ì•„ë¬´ëŸ° ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ÆÄÀÏ ¾÷·Îµå¿¡ ¹®Á¦°¡ ÀÖ½À´Ï´Ù. ÆÄÀÏÀÌ ¾Æ¸¶µµ ÃÖ´ë Çã¿ëÇÑ Å©±âº¸´Ù Å«°Í °°½À´Ï"
-"´Ù."
+"íŒŒì¼ ì—…ë¡œë“œì— ë¬¸ì œê°€ ìˆìŠµë‹ˆë‹¤. íŒŒì¼ì´ ì•„ë§ˆë„ ìµœëŒ€ í—ˆìš©í•œ í¬ê¸°ë³´ë‹¤ í°ê²ƒ ê°™ìŠµë‹ˆ"
+"ë‹¤."
 
 msgid "There was an error importing the data."
-msgstr "ÀÚ·á¸¦ ÀÓÆ÷Æ®ÇÏ´Â µ¿¾È ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù."
+msgstr "ìë£Œë¥¼ ì„í¬íŠ¸í•˜ëŠ” ë™ì•ˆ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."
 
 msgid "There was an error importing the uploaded file"
-msgstr "¾÷·ÎµåµÈ ÆÄÀÏÀ» ÀÓÆ÷Æ®ÇÏ´Â µ¿¾È ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù."
+msgstr "ì—…ë¡œë“œëœ íŒŒì¼ì„ ì„í¬íŠ¸í•˜ëŠ” ë™ì•ˆ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤."
 
 msgid "There were no events to export."
-msgstr "ÀÍ½ºÆ÷Æ®ÇÒ ÀÏÁ¤ÀÌ ¾ø½À´Ï´Ù."
+msgstr "ìµìŠ¤í¬íŠ¸í•  ì¼ì •ì´ ì—†ìŠµë‹ˆë‹¤."
 
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"ÀÌ ÆÄÀÏÀº KronolithÀÇ ±âº» È¯°æ¼³Á¤ÀÔ´Ï´Ù. ¶ÇÇÑ »ç¿ëÀÚ°¡ º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù."
+"ì´ íŒŒì¼ì€ Kronolithì˜ ê¸°ë³¸ í™˜ê²½ì„¤ì •ì…ë‹ˆë‹¤. ë˜í•œ ì‚¬ìš©ìê°€ ë³€ê²½í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"ÀÌ ÆÄÀÏÀº Horde ±âº»¼³Á¤ÀÇ »ö»ó°ú ÆùÆ®µî¿¡ ´ëÇÑ ½ºÅ¸ÀÏ½ÃÆ®¸¦ °»½ÅÇÕ´Ï´Ù."
+"ì´ íŒŒì¼ì€ Horde ê¸°ë³¸ì„¤ì •ì˜ ìƒ‰ìƒê³¼ í°íŠ¸ë“±ì— ëŒ€í•œ ìŠ¤íƒ€ì¼ì‹œíŠ¸ë¥¼ ê°±ì‹ í•©ë‹ˆë‹¤."
 
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
 msgstr ""
-"ÀÌ ÆÄÀÏÀº ¸ŞÀÎ Kronolith ¼³Á¤ ÆÄÀÏÀÔ´Ï´Ù. Kronolith ½ºÅ©¸³Æ®ÀÇ °æ·Î¿Í ¼³Á¤³»"
-"¿ëÀ» Æ÷ÇÔÇÕ´Ï´Ù."
+"ì´ íŒŒì¼ì€ ë©”ì¸ Kronolith ì„¤ì • íŒŒì¼ì…ë‹ˆë‹¤. Kronolith ìŠ¤í¬ë¦½íŠ¸ì˜ ê²½ë¡œì™€ ì„¤ì •ë‚´"
+"ìš©ì„ í¬í•¨í•©ë‹ˆë‹¤."
 
 msgid "Thursday"
-msgstr "¸ñ¿äÀÏ"
+msgstr "ëª©ìš”ì¼"
 
 msgid "Time Zone"
-msgstr "Áö¿ª ½Ã°£"
+msgstr "ì§€ì—­ ì‹œê°„"
 
 msgid "Title"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 msgid "Today"
-msgstr "¿À´Ã"
+msgstr "ì˜¤ëŠ˜"
 
 msgid "Tu"
-msgstr "È­"
+msgstr "í™”"
 
 msgid "Tuesday"
-msgstr "È­¿äÀÏ"
+msgstr "í™”ìš”ì¼"
 
 msgid "Type"
-msgstr "À¯Çü"
+msgstr "ìœ í˜•"
 
 msgid "User Interface"
-msgstr "»ç¿ëÀÚ ÀÎÅÍÆäÀÌ½º"
+msgstr "ì‚¬ìš©ì ì¸í„°í˜ì´ìŠ¤"
 
 msgid "User Options"
-msgstr "»ç¿ëÀÚ ¼³Á¤"
+msgstr "ì‚¬ìš©ì ì„¤ì •"
 
 #, c-format
 msgid "View %s"
-msgstr "%s º¸±â"
+msgstr "%s ë³´ê¸°"
 
 msgid "We"
-msgstr "¼ö"
+msgstr "ìˆ˜"
 
 msgid "Wednesday"
-msgstr "¼ö¿äÀÏ"
+msgstr "ìˆ˜ìš”ì¼"
 
 #, c-format
 msgid "Week %d"
-msgstr "%d ÁÖ"
+msgstr "%d ì£¼"
 
 msgid "Week"
-msgstr "ÁÖ"
+msgstr "ì£¼"
 
 #, c-format
 msgid "Week&nbsp;%d"
-msgstr "%d&nbsp;ÁÖ"
+msgstr "%d&nbsp;ì£¼"
 
 msgid "Week(s)"
-msgstr "¹øÂ° ÁÖ¿¡ "
+msgstr "ë²ˆì§¸ ì£¼ì— "
 
 msgid "Weekly: Recurs every"
-msgstr "ÁÖ¸¶´Ù ¹ß»ı: ¹ß»ıÁÖ "
+msgstr "ì£¼ë§ˆë‹¤ ë°œìƒ: ë°œìƒì£¼ "
 
 msgid ""
 "What time should day and week views end, when there are no later events?"
-msgstr "ÀÏ ¹× ÁÖº° º¸±â Á¾·á ½Ã°£(ÀÏÁ¤ Á¾·á ½Ã°£)?"
+msgstr "ì¼ ë° ì£¼ë³„ ë³´ê¸° ì¢…ë£Œ ì‹œê°„(ì¼ì • ì¢…ë£Œ ì‹œê°„)?"
 
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
-msgstr "ÀÏ ¹× ÁÖº° º¸±â ½ÃÀÛ ½Ã°£(ÀÏÁ¤ ½ÃÀÛ ½Ã°£)?"
+msgstr "ì¼ ë° ì£¼ë³„ ë³´ê¸° ì‹œì‘ ì‹œê°„(ì¼ì • ì‹œì‘ ì‹œê°„)?"
 
 msgid "Work Week"
-msgstr "ÁÖÁß"
+msgstr "ì£¼ì¤‘"
 
 msgid "Work&nbsp;Week"
-msgstr "ÁÖÁß"
+msgstr "ì£¼ì¤‘"
 
 msgid "Yearly: Recurs every"
-msgstr "³â¸¶´Ù: ¹ß»ı³â"
+msgstr "ë…„ë§ˆë‹¤: ë°œìƒë…„"
 
 msgid "Your Information"
-msgstr "Á¤º¸»çÇ×"
+msgstr "ì •ë³´ì‚¬í•­"
 
 msgid "Your current time zone:"
-msgstr "ÇöÀç Áö¿ª½Ã°£:"
+msgstr "í˜„ì¬ ì§€ì—­ì‹œê°„:"
 
 msgid "day"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "day(s)"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "days"
-msgstr "ÀÏ"
+msgstr "ì¼"
 
 msgid "iCalendar file successfully imported"
-msgstr "iCalendar ÆÄÀÏÀÌ ÀÓÆ÷Æ®µÇ¾ú½À´Ï´Ù."
+msgstr "iCalendar íŒŒì¼ì´ ì„í¬íŠ¸ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 msgid "month(s)"
-msgstr "¿ù"
+msgstr "ì›”"
 
 msgid "no time"
-msgstr "½Ã°£ ¾ø½¿"
+msgstr "ì‹œê°„ ì—†ìŠ´"
 
 msgid "on the same date"
-msgstr " °°Àº³¯¿¡"
+msgstr " ê°™ì€ë‚ ì—"
 
 msgid "on the same weekday"
-msgstr " °°Àº ÁÖ¿¡"
+msgstr " ê°™ì€ ì£¼ì—"
 
 msgid "week"
-msgstr "ÁÖ"
+msgstr "ì£¼"
 
 msgid "week(s) on:"
-msgstr "¹øÂ° ÁÖ¿¡:"
+msgstr "ë²ˆì§¸ ì£¼ì—:"
 
 msgid "weeks"
-msgstr "ÁÖ"
+msgstr "ì£¼"
 
 msgid "year(s)"
-msgstr "³â"
+msgstr "ë…„"

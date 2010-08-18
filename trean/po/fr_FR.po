@@ -1,7 +1,7 @@
 # French translation for Trean package.
 # Copyright YEAR Horde Project
 # This file is distributed under the same license as the PACKAGE package.
-# Raphaël JEUDY <raphael.jeudy@fastorama.com>, 2003.
+# RaphaÃ«l JEUDY <raphael.jeudy@fastorama.com>, 2003.
 #
 msgid ""
 msgstr ""
@@ -9,16 +9,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: <raphael.jeudy@fastorama.com>\n"
 "POT-Creation-Date: 2003-04-02 20:30+0200\n"
 "PO-Revision-Date: 2003-04-02 23:04+0100\n"
-"Last-Translator: Raphaël JEUDY <raphael.jeudy@fastorama.com>\n"
+"Last-Translator: RaphaÃ«l JEUDY <raphael.jeudy@fastorama.com>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data.php:70
 #, php-format
 msgid "%d Folders and %d Bookmarks imported."
-msgstr "%d dossiers et %d signets importés."
+msgstr "%d dossiers et %d signets importÃ©s."
 
 #: templates/browse/bookmarks.inc:5
 #, php-format
@@ -28,17 +28,17 @@ msgstr "%s Signets"
 #: templates/browse/categories.inc:5
 #, php-format
 msgid "%s Subcategories"
-msgstr "%s Sous catégories"
+msgstr "%s Sous catÃ©gories"
 
 #: add.php:25
 #, php-format
 msgid "'%s' was not added: %s."
-msgstr "'%s' n'a pas été ajouté: %s."
+msgstr "'%s' n'a pas Ã©tÃ© ajoutÃ©: %s."
 
 #: add.php:48
 #, php-format
 msgid "'%s' was not created: %s."
-msgstr "'%s' n'a pas été créé: %s."
+msgstr "'%s' n'a pas Ã©tÃ© crÃ©Ã©: %s."
 
 #: config/prefs.php.dist:40
 msgid "1 Line"
@@ -70,7 +70,7 @@ msgstr "Ajouter aux signets"
 
 #: templates/data/import.inc:23
 msgid "All bookmarks and categories will be imported into here."
-msgstr "Tous les signets et catégories vont être importés ici."
+msgstr "Tous les signets et catÃ©gories vont Ãªtre importÃ©s ici."
 
 #: templates/search/search.inc:31
 msgid "And"
@@ -90,12 +90,12 @@ msgstr "Classer"
 
 #: templates/add/add.inc:39 templates/edit/edit.inc:41
 msgid "Category"
-msgstr "Catégorie"
+msgstr "CatÃ©gorie"
 
 #: config/prefs.php.dist:13
 msgid "Change the number of columns to display in browse and search results."
 msgstr ""
-"Changez le nombre de colonnes à afficher lors d'une recherche ou d'une "
+"Changez le nombre de colonnes Ã  afficher lors d'une recherche ou d'une "
 "consultation."
 
 #: templates/search/search.inc:27
@@ -104,7 +104,7 @@ msgstr "Combiner"
 
 #: templates/add/nocategories.inc:11
 msgid "Define one or more categories for your bookmarks"
-msgstr "Definissez une ou plusieurs catégories pour vos signets"
+msgstr "Definissez une ou plusieurs catÃ©gories pour vos signets"
 
 #: templates/bookmark/1line.inc:24 templates/bookmark/1line.inc:25
 #: templates/bookmark/standard.inc:23 templates/bookmark/standard.inc:24
@@ -114,11 +114,11 @@ msgstr "Supprimer"
 
 #: templates/browse/javascript.inc:34
 msgid "Delete current category?"
-msgstr "Supprimer la catégorie?"
+msgstr "Supprimer la catÃ©gorie?"
 
 #: templates/browse/categories.inc:10
 msgid "Delete this Category"
-msgstr "Supprimer cette catégorie"
+msgstr "Supprimer cette catÃ©gorie"
 
 #: templates/add/add.inc:34 templates/edit/edit.inc:36
 #: templates/search/search.inc:22
@@ -131,7 +131,7 @@ msgstr "Afficher les options"
 
 #: config/prefs.php.dist:49
 msgid "Display edit buttons when displaying Bookmarks?"
-msgstr "Afficher un bouton d'édition lors de l'affichage des signets?"
+msgstr "Afficher un bouton d'Ã©dition lors de l'affichage des signets?"
 
 #: templates/add/add.inc:65
 msgid "Drag the 'Add to Bookmarks' link below onto your 'Links' Bar"
@@ -185,7 +185,7 @@ msgstr "Importer/Exporter"
 
 #: data.php:14 data.php:72
 msgid "Imported Bookmarks"
-msgstr "Signets importés"
+msgstr "Signets importÃ©s"
 
 #: templates/add/add.inc:64
 msgid "Internet Explorer"
@@ -239,24 +239,24 @@ msgstr "Nouveau signet"
 
 #: templates/add/nocategories.inc:5 templates/browse/categories.inc:8
 msgid "New Subcategory"
-msgstr "Nouvelle sous catégorie"
+msgstr "Nouvelle sous catÃ©gorie"
 
 #: templates/search/results_none.inc:3
 msgid "No Bookmarks found"
-msgstr "Pas de signets trouvés"
+msgstr "Pas de signets trouvÃ©s"
 
 #: add.php:62
 msgid "No categories defined"
-msgstr "Pas de catégorie définie"
+msgstr "Pas de catÃ©gorie dÃ©finie"
 
 #: config/prefs.php.dist:30
 msgid "Number of columns to display in browse and search results:"
 msgstr ""
-"Nombre de colonnes à afficher lors d'une recherche ou d'une consultation:"
+"Nombre de colonnes Ã  afficher lors d'une recherche ou d'une consultation:"
 
 #: config/prefs.php.dist:57
 msgid "Open links in new windows"
-msgstr "Ouvrir le lien dans une nouvelle fenêtre"
+msgstr "Ouvrir le lien dans une nouvelle fenÃªtre"
 
 #: templates/menu/menu.inc:10
 msgid "Options"
@@ -272,7 +272,7 @@ msgstr "Autres options"
 
 #: templates/browse/javascript.inc:20
 msgid "Please enter the name of the new category:"
-msgstr "Veuillez entrer le nom de la nouvelle catégorie:"
+msgstr "Veuillez entrer le nom de la nouvelle catÃ©gorie:"
 
 #: templates/add/add.inc:15 templates/add/add.inc:50
 #: templates/edit/edit.inc:17 templates/edit/edit.inc:52
@@ -294,19 +294,19 @@ msgstr "Rechercher dans les signets"
 
 #: templates/search/results_header.inc:5
 msgid "Search Results"
-msgstr "Résultats de la recherche"
+msgstr "RÃ©sultats de la recherche"
 
 #: templates/data/import.inc:18
 msgid "Select the file to import:"
-msgstr "Séléctionnez le fichier à importer:"
+msgstr "SÃ©lÃ©ctionnez le fichier Ã  importer:"
 
 #: config/prefs.php.dist:22
 msgid "Select your preferred language:"
-msgstr "Séléctionnez votre langue par défaut:"
+msgstr "SÃ©lÃ©ctionnez votre langue par dÃ©faut:"
 
 #: config/prefs.php.dist:7
 msgid "Set the your preferred display language."
-msgstr "Séléctionnez votre langue d'affichage."
+msgstr "SÃ©lÃ©ctionnez votre langue d'affichage."
 
 #: templates/index/notconfigured.inc:39
 msgid "Some of Trean's configuration files are missing:"
@@ -314,11 +314,11 @@ msgstr "Certains fichiers de configuration pour Trean sont manquants:"
 
 #: templates/data/import.inc:19
 msgid "Target Category:"
-msgstr "Catégorie cible:"
+msgstr "CatÃ©gorie cible:"
 
 #: config/prefs.php.dist:41
 msgid "Template to use when displaying Bookmarks:"
-msgstr "Modèle à utiliser pour l'affichage des signets:"
+msgstr "ModÃ¨le Ã  utiliser pour l'affichage des signets:"
 
 #: add.php:21
 msgid "There was an error adding the bookmark"
@@ -326,7 +326,7 @@ msgstr "Erreur lors de l'ajout aux signets"
 
 #: templates/index/notconfigured.inc:51
 msgid "This file contains preferences for Trean."
-msgstr "Ce fichiers contient les préférences pour Trean."
+msgstr "Ce fichiers contient les prÃ©fÃ©rences pour Trean."
 
 #: templates/index/notconfigured.inc:44
 msgid ""
@@ -342,7 +342,7 @@ msgstr "Pour ajouter rapidement un signet depuis votre navigateur:"
 
 #: templates/index/notconfigured.inc:4
 msgid "Trean is not properly configured"
-msgstr "Trean n'est pas correctement configuré"
+msgstr "Trean n'est pas correctement configurÃ©"
 
 #: templates/add/add.inc:24 templates/edit/edit.inc:26
 #: templates/search/search.inc:12
@@ -367,7 +367,7 @@ msgstr "Tout le champ"
 
 #: templates/browse/javascript.inc:20
 msgid "You are creating a category folder."
-msgstr "Vous crééez une catégorie."
+msgstr "Vous crÃ©Ã©ez une catÃ©gorie."
 
 #: config/prefs.php.dist:5
 msgid "Your Information"

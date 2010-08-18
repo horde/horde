@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -27,7 +27,7 @@ msgid ""
 "clicking its row, %1$s will show the differences to the selected row."
 msgstr ""
 "%1$s mostra le differenze con la revisione precedente. Se scegi una "
-"revisione cliccando la sua riga, %1$s ti mostrerà le differenze con la riga "
+"revisione cliccando la sua riga, %1$s ti mostrerÃ  le differenze con la riga "
 "selezionata."
 
 #: co.php:84
@@ -176,7 +176,7 @@ msgstr "Errore"
 
 #: templates/error_page.inc:7
 msgid "Error Encountered"
-msgstr "Si è verificato un errore"
+msgstr "Si Ã¨ verificato un errore"
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:30
 #: templates/directory/header.inc:6
@@ -373,7 +373,7 @@ msgid ""
 msgstr ""
 "Sorgente radice non trovata! Questo potrebbe essere causato da un errata "
 "configurazione dell'amministratore del server, oppure il server potrebbe "
-"avere dei problemi temporanei. Riprovare più tardi."
+"avere dei problemi temporanei. Riprovare piÃ¹ tardi."
 
 #: lib/Chora.php:509 lib/Chora.php:510
 msgid "Statistics"

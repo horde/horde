@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Thomas Trethan <thomas@trethan.net>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: report.php:95 report.php:96 report.php:97 report.php:98 report.php:99
@@ -29,7 +29,7 @@ msgstr "%d Buchungen wurden nicht gespeichert."
 #: templates/postings/shift.inc:5
 #, php-format
 msgid "%d selected Postings"
-msgstr "%d ausgewählte Buchungen"
+msgstr "%d ausgewÃ¤hlte Buchungen"
 
 #: postings.php:573
 #, php-format
@@ -95,25 +95,25 @@ msgstr "800 x 600 Pixel"
 
 #: templates/postings/shift.inc:21 templates/postings/posting_headers.inc:21
 msgid "A_sset Account"
-msgstr "Vermögenskonto"
+msgstr "VermÃ¶genskonto"
 
 #: account.php:201
 #, php-format
 msgid "Access denied deleting account from %s."
-msgstr "Zugriff verweigert beim Löschen des Kontos von %s."
+msgstr "Zugriff verweigert beim LÃ¶schen des Kontos von %s."
 
 #: account.php:168
 msgid "Access denied deleting account."
-msgstr "Zugriff verweigert beim Löschen des Kontos."
+msgstr "Zugriff verweigert beim LÃ¶schen des Kontos."
 
 #: accounts.php:27
 msgid "Access denied deleting all accounts and postings."
-msgstr "Zugriff verweigert beim Löschen aller Konten und Buchungen."
+msgstr "Zugriff verweigert beim LÃ¶schen aller Konten und Buchungen."
 
 #: postings.php:284
 #, php-format
 msgid "Access denied deleting postings from %s."
-msgstr "Zugriff verweigert beim Löschen der Buchungen von %s."
+msgstr "Zugriff verweigert beim LÃ¶schen der Buchungen von %s."
 
 #: account.php:69
 msgid "Access denied editing account."
@@ -122,12 +122,12 @@ msgstr "Zugriff verweigert beim Bearbeiten des Kontos."
 #: account.php:24
 #, php-format
 msgid "Access denied on account: %s"
-msgstr "Zugriff verweigert für das Konto: %s"
+msgstr "Zugriff verweigert fÃ¼r das Konto: %s"
 
 #: accounts.php:19
 #, php-format
 msgid "Access denied on accounts: %s"
-msgstr "Zugriff verweigert für die Konten: %s"
+msgstr "Zugriff verweigert fÃ¼r die Konten: %s"
 
 #: account.php:101
 #, php-format
@@ -155,7 +155,7 @@ msgstr "Konto"
 
 #: config/report.php.dist:9
 msgid "Account Overview"
-msgstr "Kontoübersicht"
+msgstr "KontoÃ¼bersicht"
 
 #: account.php:73 account.php:172
 msgid "Account not found."
@@ -202,13 +202,13 @@ msgstr "Analyse"
 msgid ""
 "Are you sure you wish to PERMANENTLY delete all accounts and all postings?"
 msgstr ""
-"Sind Sie sicher, dass Sie alle Konten und Buchungen UNWIDERRUFLICH löschen "
+"Sind Sie sicher, dass Sie alle Konten und Buchungen UNWIDERRUFLICH lÃ¶schen "
 "wollen?"
 
 #: templates/postings/javascript_list.inc:45
 msgid "Are you sure you wish to PERMANENTLY delete these postings?"
 msgstr ""
-"Sind Sie sicher, dass Sie diese Buchungen UNWIDERRUFLICH löschen wollen?"
+"Sind Sie sicher, dass Sie diese Buchungen UNWIDERRUFLICH lÃ¶schen wollen?"
 
 #: config/prefs.php.dist:112
 msgid "Ascending"
@@ -216,25 +216,25 @@ msgstr "Aufsteigend"
 
 #: lib/Fima.php:432 lib/Report/AssetOverview.php:66
 msgid "Asset"
-msgstr "Vermögen"
+msgstr "VermÃ¶gen"
 
 #: data.php:35 config/prefs.php.dist:85 config/prefs.php.dist:99
 msgid "Asset Account"
-msgstr "Vermögenskonto"
+msgstr "VermÃ¶genskonto"
 
 #: config/report.php.dist:10
 msgid "Asset Overview"
-msgstr "Vermögensübersicht"
+msgstr "VermÃ¶gensÃ¼bersicht"
 
 #: lib/Report/PeriodOverview.php:76 lib/Report/AssetOverview.php:90
 #: lib/Report/GeneralOverview.php:61 lib/Report/GeneralOverview.php:96
 #: lib/Block/summary.php:75
 msgid "Asset Result"
-msgstr "Vermögen"
+msgstr "VermÃ¶gen"
 
 #: templates/postings/actions.inc:17
 msgid "Autofill"
-msgstr "Auto-Füllen"
+msgstr "Auto-FÃ¼llen"
 
 #: lib/Block/summary.php:33
 msgid "Block title"
@@ -258,27 +258,27 @@ msgstr "Abbrechen"
 
 #: templates/ledgers_list.php:33 ledgers/index.php:33
 msgid "Change Permissions"
-msgstr "Rechte ändern"
+msgstr "Rechte Ã¤ndern"
 
 #: config/prefs.php.dist:18
 msgid "Change the display and input options."
-msgstr "Anzeige- und Eingabe-Einstellungen ändern."
+msgstr "Anzeige- und Eingabe-Einstellungen Ã¤ndern."
 
 #: templates/postings/posting_headers.inc:60
 msgid "Check _All/None"
-msgstr "_Alle/Keine auswählen"
+msgstr "_Alle/Keine auswÃ¤hlen"
 
 #: config/prefs.php.dist:9
 msgid "Choose your active Ledger and Posting Type."
-msgstr "Wählen Sie Ihr aktives Buch und Ihren aktiven Datenkreis aus."
+msgstr "WÃ¤hlen Sie Ihr aktives Buch und Ihren aktiven Datenkreis aus."
 
 #: templates/search/search.inc:107
 msgid "Clear Form"
-msgstr "Formular zurücksetzen"
+msgstr "Formular zurÃ¼cksetzen"
 
 #: templates/search/search.inc:8 templates/postings/header.inc:10
 msgid "Clear Search Query"
-msgstr "Suchabfrage zurücksetzen"
+msgstr "Suchabfrage zurÃ¼cksetzen"
 
 #: lib/Forms/account.php:42
 msgid "Closed"
@@ -328,12 +328,12 @@ msgstr "Datum"
 #: templates/accounts/accounts.inc:43 templates/accounts/accounts.inc:45
 #: ledgers/index.php:34 lib/Forms/account.php:79 lib/Forms/DeleteLedger.php:39
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: templates/accounts/accounts.inc:45 lib/Forms/DeleteLedger.php:34
 #, php-format
 msgid "Delete %s"
-msgstr "%s löschen"
+msgstr "%s lÃ¶schen"
 
 #: templates/accounts/accounts.inc:43
 msgid "Delete all"
@@ -341,48 +341,48 @@ msgstr "Alles lXschen"
 
 #: lib/UI/VarRenderer/fima.php:31
 msgid "Delete postings."
-msgstr "Buchungen löschen"
+msgstr "Buchungen lÃ¶schen"
 
 #: lib/UI/VarRenderer/fima.php:57
 msgid "Delete subaccounts and postings."
-msgstr "Unterkonten und Buchungen löschen."
+msgstr "Unterkonten und Buchungen lÃ¶schen."
 
 #: lib/UI/VarRenderer/fima.php:63
 msgid "Delete subaccounts and shift postings to"
-msgstr "Unterkonten löschen und Buchungen umbuchen nach"
+msgstr "Unterkonten lÃ¶schen und Buchungen umbuchen nach"
 
 #: account.php:87 lib/Forms/account.php:46
 msgid "Delete this account"
-msgstr "Dieses Konto löschen"
+msgstr "Dieses Konto lÃ¶schen"
 
 #: account.php:178 account.php:194
 #, php-format
 msgid "Delete: %s"
-msgstr "Löschen: %s"
+msgstr "LÃ¶schen: %s"
 
 #: postings.php:386
 #, php-format
 msgid "Deleted %d existing postings."
-msgstr "%d existierende Buchungen gelöscht."
+msgstr "%d existierende Buchungen gelÃ¶scht."
 
 #: postings.php:484
 #, php-format
 msgid "Deleted %d original postings."
-msgstr "%d ursprüngliche Buchungen gelöscht."
+msgstr "%d ursprÃ¼ngliche Buchungen gelÃ¶scht."
 
 #: postings.php:300
 #, php-format
 msgid "Deleted %d postings."
-msgstr "%d Buchungen gelöscht."
+msgstr "%d Buchungen gelÃ¶scht."
 
 #: account.php:214
 #, php-format
 msgid "Deleted %s."
-msgstr "%s gelöscht."
+msgstr "%s gelÃ¶scht."
 
 #: accounts.php:37
 msgid "Deleted all accounts and postings."
-msgstr "Alle Konten und Buchungen gelöscht."
+msgstr "Alle Konten und Buchungen gelÃ¶scht."
 
 #: config/prefs.php.dist:113
 msgid "Descending"
@@ -412,7 +412,7 @@ msgstr "Differenz"
 
 #: config/prefs.php.dist:154
 msgid "Do you want to confirm deleting postings?"
-msgstr "Möchten Sie das Löschen von Buchungen bestätigen?"
+msgstr "MÃ¶chten Sie das LÃ¶schen von Buchungen bestÃ¤tigen?"
 
 #: templates/postings/transfer.inc:32
 msgid "Don't summarize."
@@ -492,7 +492,7 @@ msgstr "Allgemeine Einstellungen"
 
 #: config/report.php.dist:7
 msgid "General Overview"
-msgstr "Gesamtübersicht"
+msgstr "GesamtÃ¼bersicht"
 
 #: templates/data/import.inc:7
 #, php-format
@@ -509,7 +509,7 @@ msgstr "Einnahmen"
 
 #: config/prefs.php.dist:17
 msgid "Interface Options"
-msgstr "Oberflächen-Einstellungen"
+msgstr "OberflÃ¤chen-Einstellungen"
 
 #: templates/postings/navbar.inc:11
 msgid "Invert"
@@ -537,7 +537,7 @@ msgstr "Buch-Verwaltung"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüliste"
+msgstr "MenÃ¼liste"
 
 #: templates/postings/javascript_edit.inc:9
 msgid "Monday"
@@ -566,7 +566,7 @@ msgstr "Weiter"
 
 #: postings.php:634
 msgid "Next Page"
-msgstr "Nächste Seite"
+msgstr "NÃ¤chste Seite"
 
 #: postings.php:601
 msgid "No Postings"
@@ -574,7 +574,7 @@ msgstr "Keine Buchungen"
 
 #: templates/reports/empty.inc:2
 msgid "No data for this report."
-msgstr "Keine Daten für diese Auswertung."
+msgstr "Keine Daten fÃ¼r diese Auswertung."
 
 #: lib/Report/Analysis.php:49 lib/Report/PeriodOverview.php:42
 #: lib/Report/Trend.php:48 lib/Report/AccountOverview.php:42
@@ -613,11 +613,11 @@ msgstr "Anzahl der anzuzeigenden Monate"
 
 #: templates/menu.inc:19
 msgid "Open Ledger"
-msgstr "Buch öffnen"
+msgstr "Buch Ã¶ffnen"
 
 #: templates/reports/reports.inc:104
 msgid "Open Report"
-msgstr "Auswertung durchführen"
+msgstr "Auswertung durchfÃ¼hren"
 
 #: templates/reports/reports.inc:75
 msgid "Other"
@@ -638,7 +638,7 @@ msgstr "Zeitraum"
 
 #: config/report.php.dist:8
 msgid "Period Overview"
-msgstr "Periodenübersicht"
+msgstr "PeriodenÃ¼bersicht"
 
 #: templates/postings/transfer.inc:11
 msgid "Period from"
@@ -655,7 +655,7 @@ msgstr "Zugriff verweigert"
 #: templates/postings/javascript_transfer.inc:6
 msgid "Please select another posting type where to transfer postings to."
 msgstr ""
-"Bitte wählen Sie einen anderen Datenkreis in welchen den Buchungen "
+"Bitte wÃ¤hlen Sie einen anderen Datenkreis in welchen den Buchungen "
 "transferiert werden sollen."
 
 #: templates/postings/shift.inc:29 templates/postings/posting_headers.inc:26
@@ -680,7 +680,7 @@ msgstr "Anzahl der Buchungen pro Seite."
 
 #: data.php:159
 msgid "Postings successfully purged."
-msgstr "Buchungen erfolgreich gelöscht."
+msgstr "Buchungen erfolgreich gelÃ¶scht."
 
 #: postings.php:627
 msgid "Previous Page"
@@ -696,8 +696,8 @@ msgid ""
 "Really delete the ledger \"%s\"? This cannot be undone and all data on this "
 "ledger will be permanently removed."
 msgstr ""
-"Das Buch \"%s\" wirklich löschen? Dieser Vorgang kann nicht rückgängig "
-"gemacht werden, und alle Daten in diesem Buch werden endgültig gelöscht."
+"Das Buch \"%s\" wirklich lÃ¶schen? Dieser Vorgang kann nicht rÃ¼ckgÃ¤ngig "
+"gemacht werden, und alle Daten in diesem Buch werden endgÃ¼ltig gelÃ¶scht."
 
 #: report.php:94 report.php:97 report.php:99 report.php:100 report.php:101
 #: lib/Report/Analysis.php:81 lib/Report/AccountOverview.php:79
@@ -715,7 +715,7 @@ msgid ""
 "deletes all existing postings.</strong>"
 msgstr ""
 "Existierenden Buchungen durch die importierten ersetzen? <strong>Achtung: "
-"Dies löscht alle existierenden Buchungen.</strong>"
+"Dies lÃ¶scht alle existierenden Buchungen.</strong>"
 
 #: templates/reports/reports.inc:12
 msgid "Repor_t"
@@ -736,7 +736,7 @@ msgstr "Auswertungen"
 
 #: templates/reports/reports.inc:105
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "ZurÃ¼cksetzen"
 
 #: lib/Report/Analysis.php:359
 msgid "Rest"
@@ -786,7 +786,7 @@ msgstr "Suche"
 
 #: templates/search/search.inc:43
 msgid "Search A_sset Accounts"
-msgstr "Vermögen_skonten suchen"
+msgstr "VermÃ¶gen_skonten suchen"
 
 #: templates/search/search.inc:77
 msgid "Search Amo_unt Start"
@@ -830,44 +830,44 @@ msgstr "a.o. Buchun_gen suchen"
 
 #: templates/postings/navbar.inc:8
 msgid "Select"
-msgstr "Auswählen"
+msgstr "AuswÃ¤hlen"
 
 #: lib/Forms/account.php:141
 msgid "Select another account where to shift postings to."
-msgstr "Wählen Sie ein anderes Konto zum Umbuchen der Buchungen."
+msgstr "WÃ¤hlen Sie ein anderes Konto zum Umbuchen der Buchungen."
 
 #: lib/Forms/account.php:176
 msgid "Select another account where to shift subaccount postings to."
 msgstr ""
-"Wählen Sie ein anderes Konto zum Umbuchen der Buchungen der Unterkonten."
+"WÃ¤hlen Sie ein anderes Konto zum Umbuchen der Buchungen der Unterkonten."
 
 #: config/prefs.php.dist:167
 msgid "Select the canvas size for chart reports:"
-msgstr "Wählen Sie die Grafikgröße für Auswertungsdiagramme:"
+msgstr "WÃ¤hlen Sie die GrafikgrÃ¶ÃŸe fÃ¼r Auswertungsdiagramme:"
 
 #: templates/data/import.inc:21
 msgid "Select the charset of the source file:"
-msgstr "Wählen Sie den Zeichensatz der importierten Datei:"
+msgstr "WÃ¤hlen Sie den Zeichensatz der importierten Datei:"
 
 #: templates/data/export.inc:10
 msgid "Select the export format:"
-msgstr "Wählen Sie das Exportformat:"
+msgstr "WÃ¤hlen Sie das Exportformat:"
 
 #: templates/data/import.inc:29
 msgid "Select the file to import:"
-msgstr "Wählen Sie die Datei, die importiert werden soll:"
+msgstr "WÃ¤hlen Sie die Datei, die importiert werden soll:"
 
 #: config/prefs.php.dist:140
 msgid "Select the format for amounts:"
-msgstr "Wählen Sie das Format für Beträge:"
+msgstr "WÃ¤hlen Sie das Format fÃ¼r BetrÃ¤ge:"
 
 #: config/prefs.php.dist:127
 msgid "Select the format for wildcards for text search:"
-msgstr "Wählen Sie das Format für Platzhalter in der Textsuche:"
+msgstr "WÃ¤hlen Sie das Format fÃ¼r Platzhalter in der Textsuche:"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Wählen Sie das Format der importierten Datei:"
+msgstr "WÃ¤hlen Sie das Format der importierten Datei:"
 
 #: templates/postings/actions.inc:11
 msgid "Shift"
@@ -892,7 +892,7 @@ msgstr "Umbuchen"
 
 #: lib/Block/summary.php:37
 msgid "Show summary of this ledger"
-msgstr "Buchübersicht anzeigen"
+msgstr "BuchÃ¼bersicht anzeigen"
 
 #: templates/reports/table.inc:23
 #, php-format
@@ -905,7 +905,7 @@ msgstr "Sortieren nach Betrag"
 
 #: templates/postings/posting_headers.inc:20
 msgid "Sort by Asset Account"
-msgstr "Sortieren nach Vermögenskonto"
+msgstr "Sortieren nach VermÃ¶genskonto"
 
 #: templates/postings/posting_headers.inc:15
 msgid "Sort by Date"
@@ -967,30 +967,30 @@ msgstr "Die %s-Datei enthielt keine Buchungen."
 
 #: lib/Driver.php:70
 msgid "The Finances backend is not currently available."
-msgstr "Der Finanzserver ist zur Zeit nicht verfügbar."
+msgstr "Der Finanzserver ist zur Zeit nicht verfÃ¼gbar."
 
 #: lib/Driver.php:354
 #, php-format
 msgid "The Finances backend is not currently available: %s"
-msgstr "Der Finanzserver ist zur Zeit nicht verfügbar: %s"
+msgstr "Der Finanzserver ist zur Zeit nicht verfÃ¼gbar: %s"
 
 #: lib/ReportGraph.php:60
 msgid "The Finances report graphs are not currently available."
-msgstr "Die grafischen Finanzauswertungen sind zur Zeit nicht verfügbar."
+msgstr "Die grafischen Finanzauswertungen sind zur Zeit nicht verfÃ¼gbar."
 
 #: lib/ReportGraph.php:182
 #, php-format
 msgid "The Finances report graphs are not currently available: %s"
-msgstr "Die grafischen Finanzauswertungen sind zur Zeit nicht verfügbar: %s"
+msgstr "Die grafischen Finanzauswertungen sind zur Zeit nicht verfÃ¼gbar: %s"
 
 #: lib/Report.php:46
 msgid "The Finances reports are not currently available."
-msgstr "Die Finanzauswertungen sind zur Zeit nicht verfügbar."
+msgstr "Die Finanzauswertungen sind zur Zeit nicht verfÃ¼gbar."
 
 #: lib/Report.php:177
 #, php-format
 msgid "The Finances reports are not currently available: %s"
-msgstr "Die Finanzauswertungen sind zur Zeit nicht verfügbar: %s"
+msgstr "Die Finanzauswertungen sind zur Zeit nicht verfÃ¼gbar: %s"
 
 #: account.php:115
 #, php-format
@@ -1006,7 +1006,7 @@ msgstr "Die Kontonummer %s wird bereits verwendet vom Konto %s."
 #: account.php:125
 #, php-format
 msgid "The account type was set to %s."
-msgstr "Der Kontotyp wurde auf %s geändert."
+msgstr "Der Kontotyp wurde auf %s geÃ¤ndert."
 
 #: report.php:145
 msgid "The graphs library could not be loaded."
@@ -1020,7 +1020,7 @@ msgstr "Das Buch \"%s\" wurde erstellt."
 #: ledgers/delete.php:43
 #, php-format
 msgid "The ledger \"%s\" has been deleted."
-msgstr "Das Buch \"%s\" wurde gelöscht."
+msgstr "Das Buch \"%s\" wurde gelÃ¶scht."
 
 #: ledgers/edit.php:38
 #, php-format
@@ -1035,7 +1035,7 @@ msgstr "Das Buch \"%s\" wurde gespeichert."
 #: data.php:157
 #, php-format
 msgid "The postings could not be purged: %s"
-msgstr "Die Buchungen konnte nicht gelöscht werden: %s"
+msgstr "Die Buchungen konnte nicht gelÃ¶scht werden: %s"
 
 #: config/prefs.php.dist:104
 msgid "Then:"
@@ -1059,39 +1059,39 @@ msgstr "Beim Erstellen der Auswertung ist ein Problem aufgetreten: %s"
 #, php-format
 msgid "There was a problem deleting all accounts and postings: %s"
 msgstr ""
-"Beim Löschen aller Konten und Buchungen ist ein Problem aufgetreten: %s"
+"Beim LÃ¶schen aller Konten und Buchungen ist ein Problem aufgetreten: %s"
 
 #: postings.php:379
 #, php-format
 msgid "There was a problem deleting an existing posting: %s"
 msgstr ""
-"Beim Löschen einer existierenden Buchung ist ein Problem aufgetreten: %s"
+"Beim LÃ¶schen einer existierenden Buchung ist ein Problem aufgetreten: %s"
 
 #: postings.php:477
 #, php-format
 msgid "There was a problem deleting an original posting: %s"
 msgstr ""
-"Beim Löschen einer ursprünglichen Buchung ist ein Problem aufgetreten: %s"
+"Beim LÃ¶schen einer ursprÃ¼nglichen Buchung ist ein Problem aufgetreten: %s"
 
 #: postings.php:293
 #, php-format
 msgid "There was a problem deleting posting #%d: %s"
-msgstr "Beim Löschen der Buchung #%d ist ein Probelm aufgetreten: %s"
+msgstr "Beim LÃ¶schen der Buchung #%d ist ein Probelm aufgetreten: %s"
 
 #: account.php:212
 #, php-format
 msgid "There was a problem deleting the account: %s."
-msgstr "Beim Löschen des Kontos ist ein Problem aufgetreten: %s."
+msgstr "Beim LÃ¶schen des Kontos ist ein Problem aufgetreten: %s."
 
 #: lib/Report.php:132
 #, php-format
 msgid "There was a problem executing the report graph: %s."
-msgstr "Beim Ausführen der Auswertungsgrafik ist ein Problem aufgetreten: %s."
+msgstr "Beim AusfÃ¼hren der Auswertungsgrafik ist ein Problem aufgetreten: %s."
 
 #: report.php:137
 #, php-format
 msgid "There was a problem executing the report: %s."
-msgstr "Beim Ausführen der Auswertung ist ein Problem aufgetreten: %s."
+msgstr "Beim AusfÃ¼hren der Auswertung ist ein Problem aufgetreten: %s."
 
 #: account.php:152
 #, php-format
@@ -1114,11 +1114,11 @@ msgstr "Es konnten keine Buchungen zum Exportieren gefunden werden."
 
 #: data.php:137
 msgid "This file format is not supported."
-msgstr "Dieses Dateiformat wird nicht unterstützt."
+msgstr "Dieses Dateiformat wird nicht unterstÃ¼tzt."
 
 #: ledgers/delete.php:21
 msgid "This ledger cannot be deleted."
-msgstr "Dieses Buch kann nicht gelöscht werden."
+msgstr "Dieses Buch kann nicht gelÃ¶scht werden."
 
 #: templates/postings/javascript_edit.inc:12
 msgid "Thursday"
@@ -1171,7 +1171,7 @@ msgstr "Typ"
 #: lib/Forms/DeleteLedger.php:57
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "\"%s\" kann nicht gelöscht werden: %s"
+msgstr "\"%s\" kann nicht gelÃ¶scht werden: %s"
 
 #: lib/Report.php:180 lib/Driver.php:357 lib/ReportGraph.php:185
 #, php-format
@@ -1198,19 +1198,19 @@ msgstr "Mittwoch"
 
 #: config/prefs.php.dist:76
 msgid "When displaying the postings, which page do you want to start on?"
-msgstr "Bei der Anzeige von Buchungen, bei welcher Seite möchten Sie beginnen?"
+msgstr "Bei der Anzeige von Buchungen, bei welcher Seite mÃ¶chten Sie beginnen?"
 
 #: ledgers/edit.php:25
 msgid "You are not allowed to change this ledger."
-msgstr "Sie dürfen dieses Buch nicht ändern."
+msgstr "Sie dÃ¼rfen dieses Buch nicht Ã¤ndern."
 
 #: ledgers/delete.php:31
 msgid "You are not allowed to delete this ledger."
-msgstr "Sie dürfen dieses Buch nicht löschen."
+msgstr "Sie dÃ¼rfen dieses Buch nicht lÃ¶schen."
 
 #: templates/postings/javascript_list.inc:39
 msgid "You must select at least one posting first."
-msgstr "Sie müssen zuerst mindestens eine Buchung auswählen."
+msgstr "Sie mÃ¼ssen zuerst mindestens eine Buchung auswÃ¤hlen."
 
 #: config/prefs.php.dist:48
 msgid "Your active posting type:"
@@ -1226,11 +1226,11 @@ msgstr "_Diagramm"
 
 #: templates/postings/actions.inc:9
 msgid "_Delete"
-msgstr "_Löschen"
+msgstr "_LÃ¶schen"
 
 #: templates/postings/transfer.inc:58
 msgid "_Delete existing Postings"
-msgstr "Existierende Buchungen _löschen"
+msgstr "Existierende Buchungen _lÃ¶schen"
 
 #: templates/reports/reports.inc:24
 msgid "_Display"
@@ -1246,7 +1246,7 @@ msgstr "_Import/Export"
 
 #: templates/postings/transfer.inc:19
 msgid "_Keep original Postings"
-msgstr "Ursprüngliche Buchungen be_halten"
+msgstr "UrsprÃ¼ngliche Buchungen be_halten"
 
 #: lib/Fima.php:741
 msgid "_List Postings"
@@ -1254,7 +1254,7 @@ msgstr "_Buchungen"
 
 #: lib/Fima.php:747
 msgid "_My Ledgers"
-msgstr "_Meine Bücher"
+msgstr "_Meine BÃ¼cher"
 
 #: templates/reports/reports.inc:88
 msgid "_Null Rows"
@@ -1278,12 +1278,12 @@ msgstr "Konten _summieren"
 
 #: templates/reports/reports.inc:92
 msgid "_Yearly"
-msgstr "_Jährlich"
+msgstr "_JÃ¤hrlich"
 
 #: templates/postings/shift.inc:16 templates/postings/shift.inc:24
 #: templates/postings/shift.inc:32
 msgid "don't change"
-msgstr "nicht ändern"
+msgstr "nicht Ã¤ndern"
 
 #: data.php:39 templates/postings/posting_headers.inc:43
 #: lib/Forms/account.php:40

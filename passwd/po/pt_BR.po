@@ -12,18 +12,18 @@ msgstr ""
 "Last-Translator: Fabio de Almeida <fabiodealmeida@gmail.com>\n"
 "Language-Team: Portuguese-Brazil <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s n„o existe ou n„o È execut·vel."
+msgstr "%s n√£o existe ou n√£o √© execut√°vel."
 
 #: lib/Driver/composite.php:65
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: ImpossÌvel carregar driver: %s"
+msgstr "%s: Imposs√≠vel carregar driver: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
@@ -36,7 +36,7 @@ msgstr "Acesso negado."
 
 #: lib/Driver.php:85
 msgid "Backend not correctly implemented."
-msgstr "Backend n„o implementado ainda."
+msgstr "Backend n√£o implementado ainda."
 
 #: main.php:255 templates/main/main.inc:142
 msgid "Change Password"
@@ -61,7 +61,7 @@ msgstr "Confirme a senha nova:"
 
 #: lib/Driver/kolab.php:54 lib/Driver/ldap.php:95 lib/Driver/ldap.php:263
 msgid "Could not bind to ldap server"
-msgstr "N„o foi possÌvel conectar ao servidor LDAP."
+msgstr "N√£o foi poss√≠vel conectar ao servidor LDAP."
 
 #: lib/Driver/kolab.php:46 lib/Driver/ldap.php:70
 msgid "Could not connect to ldap server"
@@ -69,7 +69,7 @@ msgstr "Falha ao conectar ao servidor LDAP."
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "N„o foi possÌvel se comunicar com smbpasswd."
+msgstr "N√£o foi poss√≠vel se comunicar com smbpasswd."
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
@@ -77,7 +77,7 @@ msgstr "Erro enviando dados para smbpasswd."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "A senha antiga n„o confere."
+msgstr "A senha antiga n√£o confere."
 
 #: main.php:211 lib/Driver/composite.php:99
 #, php-format
@@ -91,7 +91,7 @@ msgstr "Senha Incorreta"
 
 #: lib/Driver/ldap.php:255
 msgid "Minimum password age has not yet expired"
-msgstr "A validade mÌnima da senha ainda n„o foi alcanÁada"
+msgstr "A validade m√≠nima da senha ainda n√£o foi alcan√ßada"
 
 #: templates/main/main.inc:102
 msgid "New password:"
@@ -100,7 +100,7 @@ msgstr "Senha nova:"
 #: lib/Driver.php:112
 #, php-format
 msgid "No such backend \"%s\" found."
-msgstr "N„o foi encontrado o backend \"%s\"."
+msgstr "N√£o foi encontrado o backend \"%s\"."
 
 #: templates/main/main.inc:90
 msgid "Old password:"
@@ -108,7 +108,7 @@ msgstr "Senha antiga:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "O mÛdulo de senha n„o est· configurado corretamente."
+msgstr "O m√≥dulo de senha n√£o est√° configurado corretamente."
 
 #: main.php:203
 #, php-format
@@ -117,49 +117,49 @@ msgstr "Senha modificada em %s."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "O mÛdulo de senha n„o est· configurado corretamente"
+msgstr "O m√≥dulo de senha n√£o est√° configurado corretamente"
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Par‚metros inv·lidos ou faltando."
+msgstr "Par√¢metros inv√°lidos ou faltando."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Par‚metros inv·lidos ou faltando."
+msgstr "Par√¢metros inv√°lidos ou faltando."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "O mÛdulo de senha n„o est· configurado corretamente"
+msgstr "O m√≥dulo de senha n√£o est√° configurado corretamente"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "O mÛdulo de senha n„o est· configurado corretamente"
+msgstr "O m√≥dulo de senha n√£o est√° configurado corretamente"
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Por favor forneÁa sua nova senha."
+msgstr "Por favor forne√ßa sua nova senha."
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Por favor forneÁa sua senha atual."
+msgstr "Por favor forne√ßa sua senha atual."
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "VocÍ deve confirmar sua senha nova"
+msgstr "Voc√™ deve confirmar sua senha nova"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "Par‚metro 'drivers' n„o foi configurado corretamente."
+msgstr "Par√¢metro 'drivers' n√£o foi configurado corretamente."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
 msgstr ""
-"Par‚metro 'phptype' n„o foi especificado na configuraÁ„o SQL do mÛdulo "
+"Par√¢metro 'phptype' n√£o foi especificado na configura√ß√£o SQL do m√≥dulo "
 "passwd."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Par‚metro 'phptype' n„o foi especificado na configuraÁ„o SQL."
+msgstr "Par√¢metro 'phptype' n√£o foi especificado na configura√ß√£o SQL."
 
 #: templates/main/main.inc:143
 msgid "Reset"
@@ -167,57 +167,57 @@ msgstr "Limpar"
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "ImpossÌvel conectar ao servidor SQL."
+msgstr "Imposs√≠vel conectar ao servidor SQL."
 
 #: lib/Driver/sql.php:125 lib/Driver/poppassd.php:108
 #: lib/Driver/vpopmail.php:143
 msgid "User not found"
-msgstr "Usu·rio n„o encontrado."
+msgstr "Usu√°rio n√£o encontrado."
 
 #: lib/Driver/kolab.php:70 lib/Driver/ldap.php:131 lib/Driver/pine.php:231
 msgid "User not found."
-msgstr "Usu·rio n„o encontrado."
+msgstr "Usu√°rio n√£o encontrado."
 
 #: templates/main/main.inc:77
 msgid "Username:"
-msgstr "Usu·rio:"
+msgstr "Usu√°rio:"
 
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "VocÍ n„o pode mudar a senha para o usu·rio %s"
+msgstr "Voc√™ n√£o pode mudar a senha para o usu√°rio %s"
 
 #: main.php:55
 msgid "You must give your current password"
-msgstr "VocÍ precisa fornecer sua senha atual"
+msgstr "Voc√™ precisa fornecer sua senha atual"
 
 #: main.php:64
 msgid "You must give your new password"
-msgstr "VocÍ precisa fornecer sua senha nova"
+msgstr "Voc√™ precisa fornecer sua senha nova"
 
 #: main.php:68
 msgid "You must verify your new password"
-msgstr "VocÍ precisa confirmar sua senha nova"
+msgstr "Voc√™ precisa confirmar sua senha nova"
 
 #: main.php:88
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "A senha È muito longa; o limite È de %d caracteres."
+msgstr "A senha √© muito longa; o limite √© de %d caracteres."
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "A senha nova È muito f·cil de adivinhar! Senha n„o alterada."
+msgstr "A senha nova √© muito f√°cil de adivinhar! Senha n√£o alterada."
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "A senha nova È muito f·cil de adivinhar. Senha n„o alterada."
+msgstr "A senha nova √© muito f√°cil de adivinhar. Senha n√£o alterada."
 
 #: main.php:83
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "A senha nova deve ter no mÌnimo %d caracteres."
+msgstr "A senha nova deve ter no m√≠nimo %d caracteres."
 
 #: main.php:76
 msgid "Your new password must be different from your current password"
@@ -226,12 +226,12 @@ msgstr "A senha nova deve ser diferente da senha atual."
 #: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "A senha nova deve ter no mÌnimo %d letras."
+msgstr "A senha nova deve ter no m√≠nimo %d letras."
 
 #: main.php:133
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "A senha nova deve ter no mÌnimo %d caracteres alfanumÈricos."
+msgstr "A senha nova deve ter no m√≠nimo %d caracteres alfanum√©ricos."
 
 #: main.php:138
 #, php-format
@@ -239,40 +239,40 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"A nova senha deve ter no mÌnimo %d tipos de caracteres. Os tipos s„o: "
-"min˙sculas, mai˙sculas, n˙meros e sÌmbolos."
+"A nova senha deve ter no m√≠nimo %d tipos de caracteres. Os tipos s√£o: "
+"min√∫sculas, mai√∫sculas, n√∫meros e s√≠mbolos."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "A senha nova deve ter no mÌnimo %d letras min˙sculas."
+msgstr "A senha nova deve ter no m√≠nimo %d letras min√∫sculas."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "A senha nova deve ter no mÌnimo %d caracteres numÈricos."
+msgstr "A senha nova deve ter no m√≠nimo %d caracteres num√©ricos."
 
 #: main.php:113
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
-msgstr "A senha nova deve ter no mÌnimo %d letras mai˙sculas."
+msgstr "A senha nova deve ter no m√≠nimo %d letras mai√∫sculas."
 
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "A senha nova deve ter menos de %d espaÁos em branco."
+msgstr "A senha nova deve ter menos de %d espa√ßos em branco."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
-msgstr "A senha nova n„o pode conter espaÁos."
+msgstr "A senha nova n√£o pode conter espa√ßos."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
-msgstr "Sua senha nova n„o confere"
+msgstr "Sua senha nova n√£o confere"
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Sua senha nova n„o confere"
+msgstr "Sua senha nova n√£o confere"
 
 #: lib/Driver/ldap.php:76
 msgid "ldap_start_tls failed"

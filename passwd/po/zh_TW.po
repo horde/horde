@@ -1,5 +1,5 @@
 # Passwd module translations
-# Copyright 2002 David Chang. ±i¨}¤å,¥xÆW
+# Copyright 2002 David Chang. å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2002.
 #
 msgid ""
@@ -11,294 +11,294 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=Big5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s ¤£¦s¦b©ÎµLªk°õ¦æ."
+msgstr "%s ä¸å­˜åœ¨æˆ–ç„¡æ³•åŸ·è¡Œ."
 
 #: lib/Driver/expectpecl.php:73
 #, php-format
 msgid "%s extension cannot be loaded!"
-msgstr "%s ©µ¦ùµLªk³Q¸ü¤J!"
+msgstr "%s å»¶ä¼¸ç„¡æ³•è¢«è¼‰å…¥!"
 
 #: lib/Driver/composite.php:63
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: µLªk¸ü¤JÅX°Êµ{¦¡: %s"
+msgstr "%s: ç„¡æ³•è¼‰å…¥é©…å‹•ç¨‹å¼: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
 msgid "ADSI error %s."
-msgstr "ADSI ¿ù»~ %s."
+msgstr "ADSI éŒ¯èª¤ %s."
 
 #: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
 msgid "Access Denied."
-msgstr "¦s¨ú¾D©Ú."
+msgstr "å­˜å–é­æ‹’."
 
 #: lib/Driver.php:89
 msgid "Backend not correctly implemented."
-msgstr "«áºİ¦øªA¾¹©|¥¼¥¿½T§¹¦¨."
+msgstr "å¾Œç«¯ä¼ºæœå™¨å°šæœªæ­£ç¢ºå®Œæˆ."
 
 #: lib/Driver/poppassd.php:90
 msgid "Cannot send command to server."
-msgstr "µLªk¶Ç°e©R¥O¨ì¦øªA¾¹."
+msgstr "ç„¡æ³•å‚³é€å‘½ä»¤åˆ°ä¼ºæœå™¨."
 
 #: main.php:255 templates/main/main.inc:141
 msgid "Change Password"
-msgstr "§ó§ï±K½X"
+msgstr "æ›´æ”¹å¯†ç¢¼"
 
 #: templates/main/main.inc:126
 msgid "Change password on:"
-msgstr "§ó§ï±K½X©ó:"
+msgstr "æ›´æ”¹å¯†ç¢¼æ–¼:"
 
 #: templates/main/main.inc:67
 msgid "Change your password"
-msgstr "§ó§ï±K½X"
+msgstr "æ›´æ”¹å¯†ç¢¼"
 
 #: templates/main/main.inc:65
 #, php-format
 msgid "Changing password on %s"
-msgstr "ÅÜ§ó¦b %s ªº±K½X¤¤"
+msgstr "è®Šæ›´åœ¨ %s çš„å¯†ç¢¼ä¸­"
 
 #: templates/main/main.inc:113
 msgid "Confirm new password:"
-msgstr "½T»{·s±K½X:"
+msgstr "ç¢ºèªæ–°å¯†ç¢¼:"
 
 #: lib/Driver/kolab.php:60 lib/Driver/ldap.php:99 lib/Driver/ldap.php:189
 msgid "Could not bind to LDAP server"
-msgstr "µLªkÃ´µ² LDAP ¦øªA¾¹"
+msgstr "ç„¡æ³•ç¹«çµ LDAP ä¼ºæœå™¨"
 
 #: lib/Driver/expectpecl.php:118
 msgid "Could not change password (bad old password?)"
-msgstr "µLªkÅÜ§ó±K½X (ÂÂ±K½X¿ù»~?)"
+msgstr "ç„¡æ³•è®Šæ›´å¯†ç¢¼ (èˆŠå¯†ç¢¼éŒ¯èª¤?)"
 
 #: lib/Driver/expectpecl.php:138
 msgid "Could not change password."
-msgstr "µLªkÅÜ§ó±K½X."
+msgstr "ç„¡æ³•è®Šæ›´å¯†ç¢¼."
 
 #: lib/Driver/kolab.php:46 lib/Driver/ldap.php:74
 msgid "Could not connect to LDAP server"
-msgstr "µLªk³sµ² LDAP ¦øªA¾¹"
+msgstr "ç„¡æ³•é€£çµ LDAP ä¼ºæœå™¨"
 
 #: lib/Driver/expectpecl.php:98
 msgid "Could not login to system (no password prompt)"
-msgstr "µLªkµn¤J¨ì¨t²Î (¨S¦³±K½X´£¥Ü)"
+msgstr "ç„¡æ³•ç™»å…¥åˆ°ç³»çµ± (æ²’æœ‰å¯†ç¢¼æç¤º)"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "µLªk¶}±Ò¨ì smbpasswd ªººŞ½u."
+msgstr "ç„¡æ³•é–‹å•Ÿåˆ° smbpasswd çš„ç®¡ç·š."
 
 #: lib/Driver/ldap.php:80
 msgid "Could not start TLS connection to LDAP server"
-msgstr "µLªk±Ò°Ê TLS ³sµ² LDAP ¦øªA¾¹"
+msgstr "ç„¡æ³•å•Ÿå‹• TLS é€£çµ LDAP ä¼ºæœå™¨"
 
 #: lib/Driver/expectpecl.php:108
 msgid "Could not start passwd program (no old password prompt)"
-msgstr "µLªk±Ò°Ê passwd µ{¦¡ (¨S¦³ÂÂ±K½X´£¥Ü)"
+msgstr "ç„¡æ³•å•Ÿå‹• passwd ç¨‹å¼ (æ²’æœ‰èˆŠå¯†ç¢¼æç¤º)"
 
 #: lib/Driver/expectpecl.php:44
 msgid "End of file."
-msgstr "ÀÉ®×µ²§ô."
+msgstr "æª”æ¡ˆçµæŸ."
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
-msgstr "¶Ç°e¸ê®Æ¨ì smbpasswd ®Éµo¥Í¿ù»~."
+msgstr "å‚³é€è³‡æ–™åˆ° smbpasswd æ™‚ç™¼ç”ŸéŒ¯èª¤."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "ÂÂ±K½X½T»{¥¢±Ñ."
+msgstr "èˆŠå¯†ç¢¼ç¢ºèªå¤±æ•—."
 
 #: main.php:211 lib/Driver/composite.php:102
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "ÅÜ§ó %s ±K½X¥¢±Ñ: %s"
+msgstr "è®Šæ›´ %s å¯†ç¢¼å¤±æ•—: %s"
 
 #: lib/Driver/expectpecl.php:50
 msgid "Full buffer."
-msgstr "½w½Ä°Ïº¡¸ü(Full buffer)."
+msgstr "ç·©è¡å€æ»¿è¼‰(Full buffer)."
 
 #: lib/Driver.php:60 lib/Driver/kolab.php:84 lib/Driver/ldap.php:190
 #: lib/Driver/poppassd.php:120 lib/Driver/vmailmgr.php:42
 msgid "Incorrect Password"
-msgstr "¤£¥¿½Tªº±K½X"
+msgstr "ä¸æ­£ç¢ºçš„å¯†ç¢¼"
 
 #: lib/Driver/ldap.php:166
 msgid "Minimum password age has not yet expired"
-msgstr "ÂÂ±K½X¥¼¹F¤@©w¨Ï¥Î®É¶¡"
+msgstr "èˆŠå¯†ç¢¼æœªé”ä¸€å®šä½¿ç”¨æ™‚é–“"
 
 #: lib/Driver/expectpecl.php:128
 msgid "New password not valid (too short, bad password, too similar, ...)"
-msgstr "µL®Äªº·s±K½X (¤Óµu, ¤Ó¬Û¦ü, ¤ÓÂ²³æ, ...)"
+msgstr "ç„¡æ•ˆçš„æ–°å¯†ç¢¼ (å¤ªçŸ­, å¤ªç›¸ä¼¼, å¤ªç°¡å–®, ...)"
 
 #: templates/main/main.inc:101
 msgid "New password:"
-msgstr "·s±K½X:"
+msgstr "æ–°å¯†ç¢¼:"
 
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
-msgstr "¦øªA¾¹¨S¦³¶Ç¦^´£¥Ü."
+msgstr "ä¼ºæœå™¨æ²’æœ‰å‚³å›æç¤º."
 
 #: lib/Driver.php:116
 msgid "No such backend \"%s\" found."
-msgstr "§ä¤£¨ì¦øªAºİ \"%s\"."
+msgstr "æ‰¾ä¸åˆ°ä¼ºæœç«¯ \"%s\"."
 
 #: lib/Driver/http.php:72
 msgid "Old password is incorrect."
-msgstr "ÂÂ±K½X¤£¥¿½T."
+msgstr "èˆŠå¯†ç¢¼ä¸æ­£ç¢º."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
-msgstr "ÂÂ±K½X:"
+msgstr "èˆŠå¯†ç¢¼:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd ¼Ò²Õ©|¥¼§¹¾ã³W¹º."
+msgstr "Passwd æ¨¡çµ„å°šæœªå®Œæ•´è¦åŠƒ."
 
 #: main.php:203
 #, php-format
 msgid "Password changed on %s."
-msgstr "%s ªº±K½X¤wÅÜ§ó."
+msgstr "%s çš„å¯†ç¢¼å·²è®Šæ›´."
 
 #: lib/Driver/sql.php:127
 #, php-format
 msgid "Password column \"%s\" not found in password table."
-msgstr "¦b±K½Xªí®æ(password table)¤¤§ä¤£¨ì Password Äæ¦ì \"%s\""
+msgstr "åœ¨å¯†ç¢¼è¡¨æ ¼(password table)ä¸­æ‰¾ä¸åˆ° Password æ¬„ä½ \"%s\""
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "Password ¼Ò²Õ§ä¤£¨ì¤ä´©ªºµ{¦¡."
+msgstr "Password æ¨¡çµ„æ‰¾ä¸åˆ°æ”¯æ´çš„ç¨‹å¼."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Password ¼Ò²Õ§ä¤£¨ì¥²­nªº°Ñ¼Æ."
+msgstr "Password æ¨¡çµ„æ‰¾ä¸åˆ°å¿…è¦çš„åƒæ•¸."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Password ¼Ò²Õ§ä¤£¨ì¥Ø¼Ğ°Ñ¼Æ."
+msgstr "Password æ¨¡çµ„æ‰¾ä¸åˆ°ç›®æ¨™åƒæ•¸."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "Password ¼Ò²Õ©|¥¼§¹¾ã³W¹º"
+msgstr "Password æ¨¡çµ„å°šæœªå®Œæ•´è¦åŠƒ"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "Password ¼Ò²Õ©|¥¼§¹¾ã³W¹º."
+msgstr "Password æ¨¡çµ„å°šæœªå®Œæ•´è¦åŠƒ."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "½Ğ¿é¤J¤@²Õ·s±K½X"
+msgstr "è«‹è¼¸å…¥ä¸€çµ„æ–°å¯†ç¢¼"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "½Ğ¿é¤J§A¥Ø«eªº±K½X"
+msgstr "è«‹è¼¸å…¥ä½ ç›®å‰çš„å¯†ç¢¼"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "½Ğ½T»{§Aªº·s±K½X"
+msgstr "è«‹ç¢ºèªä½ çš„æ–°å¯†ç¢¼"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "ºî¦X³]©wÀÉ¤¤,§ä¤£¨ìÃö©ó 'drivers'³]©w¸ê®Æ."
+msgstr "ç¶œåˆè¨­å®šæª”ä¸­,æ‰¾ä¸åˆ°é—œæ–¼ 'drivers'è¨­å®šè³‡æ–™."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Passwd ªº SQL ³]©w¥²¶·«ü©w 'phptype'"
+msgstr "Passwd çš„ SQL è¨­å®šå¿…é ˆæŒ‡å®š 'phptype'"
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "SQL ³]©w¥²¶·«ü©w 'phptype'"
+msgstr "SQL è¨­å®šå¿…é ˆæŒ‡å®š 'phptype'"
 
 #: templates/main/main.inc:142
 msgid "Reset"
-msgstr "­«³]"
+msgstr "é‡è¨­"
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
-msgstr "µLªk³s±µ¤W,ÅÜ§ó±K½Xªººô¯¸."
+msgstr "ç„¡æ³•é€£æ¥ä¸Š,è®Šæ›´å¯†ç¢¼çš„ç¶²ç«™."
 
 #: lib/Driver/http.php:74
 msgid "The username could not be found."
-msgstr "§ä¤£¨ì³o­Ó¨Ï¥ÎªÌ¦WºÙ."
+msgstr "æ‰¾ä¸åˆ°é€™å€‹ä½¿ç”¨è€…åç¨±."
 
 #: lib/Driver/expectpecl.php:47
 msgid "Time out."
-msgstr "®É¶¡¨ì."
+msgstr "æ™‚é–“åˆ°."
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "µLªk³sµ² SQL ¦øªA¾¹."
+msgstr "ç„¡æ³•é€£çµ SQL ä¼ºæœå™¨."
 
 #: lib/Driver/expectpecl.php:93
 msgid "Unable to open expect stream!"
-msgstr "µLªk¶}±Ò expect stream!"
+msgstr "ç„¡æ³•é–‹å•Ÿ expect stream!"
 
 #: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
 #: lib/Driver/vpopmail.php:150
 msgid "User not found"
-msgstr "§ä¤£¨ì¨Ï¥ÎªÌ"
+msgstr "æ‰¾ä¸åˆ°ä½¿ç”¨è€…"
 
 #: lib/Driver/kolab.php:76 lib/Driver/ldap.php:133 lib/Driver/pine.php:231
 #: lib/Driver/smbldap.php:140
 msgid "User not found."
-msgstr "§ä¤£¨ì¨Ï¥ÎªÌ."
+msgstr "æ‰¾ä¸åˆ°ä½¿ç”¨è€…."
 
 #: templates/main/main.inc:76
 msgid "Username:"
-msgstr "¨Ï¥ÎªÌ¦WºÙ:"
+msgstr "ä½¿ç”¨è€…åç¨±:"
 
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "§A¤£¯àÅÜ§ó¨Ï¥ÎªÌ %s ªº±K½X"
+msgstr "ä½ ä¸èƒ½è®Šæ›´ä½¿ç”¨è€… %s çš„å¯†ç¢¼"
 
 #: main.php:55
 msgid "You must give your current password"
-msgstr "§A¥²¶·¿é¤J¥Ø«eªº±K½X"
+msgstr "ä½ å¿…é ˆè¼¸å…¥ç›®å‰çš„å¯†ç¢¼"
 
 #: main.php:64
 msgid "You must give your new password"
-msgstr "§A¥²¶·¿é¤J·s±K½X"
+msgstr "ä½ å¿…é ˆè¼¸å…¥æ–°å¯†ç¢¼"
 
 #: main.php:68
 msgid "You must verify your new password"
-msgstr "§A¥²¶·½T©w§Aªº·s±K½X"
+msgstr "ä½ å¿…é ˆç¢ºå®šä½ çš„æ–°å¯†ç¢¼"
 
 #: main.php:88
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "§Aªº·s±K½X¤Óªø;³Ì¦h¤£¯à¶W¹L %d ­Ó¦r!"
+msgstr "ä½ çš„æ–°å¯†ç¢¼å¤ªé•·;æœ€å¤šä¸èƒ½è¶…é %d å€‹å­—!"
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "§Aªº·s±K½X¤Ó¹LÂ²³æ¦³³Q²q¨ìªº¥i¯à! µLªkÅÜ§ó!"
+msgstr "ä½ çš„æ–°å¯†ç¢¼å¤ªéç°¡å–®æœ‰è¢«çŒœåˆ°çš„å¯èƒ½! ç„¡æ³•è®Šæ›´!"
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "§Aªº·s±K½X¤Ó¹LÂ²³æ¦³³Q²q¨ìªº¥i¯à! µLªkÅÜ§ó!"
+msgstr "ä½ çš„æ–°å¯†ç¢¼å¤ªéç°¡å–®æœ‰è¢«çŒœåˆ°çš„å¯èƒ½! ç„¡æ³•è®Šæ›´!"
 
 #: main.php:83
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¦³ %d ­Ó¦r!"
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦æœ‰ %d å€‹å­—!"
 
 #: main.php:76
 msgid "Your new password must be different from your current password"
-msgstr "§Aªº·s±K½X¥²¶·»P¥Ø«eªº±K½X¦³©Ò¤£¦P"
+msgstr "ä½ çš„æ–°å¯†ç¢¼å¿…é ˆèˆ‡ç›®å‰çš„å¯†ç¢¼æœ‰æ‰€ä¸åŒ"
 
 #: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ­Ó¥H¤Wªº­^¤å¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d å€‹ä»¥ä¸Šçš„è‹±æ–‡å­—."
 
 #: main.php:133
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ­Ó¥H¤Wªº­^¤å¦r»P¼Æ¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d å€‹ä»¥ä¸Šçš„è‹±æ–‡å­—èˆ‡æ•¸å­—."
 
 #: main.php:138
 #, php-format
@@ -306,41 +306,41 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ºØ¤£¦P«¬ºAªº¤å¦r.³o¨Ç«¬ºA¥]¬A:¤p¼g­^¤å¦r,¤j¼g­^¤å¦r,"
-"¼Æ¦r¥H¤Î²Å¸¹."
+"ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d ç¨®ä¸åŒå‹æ…‹çš„æ–‡å­—.é€™äº›å‹æ…‹åŒ…æ‹¬:å°å¯«è‹±æ–‡å­—,å¤§å¯«è‹±æ–‡å­—,"
+"æ•¸å­—ä»¥åŠç¬¦è™Ÿ."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ­Ó¥H¤Wªº¤p¼g­^¤å¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d å€‹ä»¥ä¸Šçš„å°å¯«è‹±æ–‡å­—."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ­Ó¥H¤Wªº¼Æ¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d å€‹ä»¥ä¸Šçš„æ•¸å­—."
 
 #: main.php:113
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
-msgstr "§Aªº·s±K½X¦Ü¤Ö­n¥]§t %d ­Ó¥H¤Wªº¤j¼g­^¤å¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼è‡³å°‘è¦åŒ…å« %d å€‹ä»¥ä¸Šçš„å¤§å¯«è‹±æ–‡å­—."
 
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "§Aªº·s±K½X¤£±o¥]§t %d ­Ó¥H¤WªºªÅ¥Õ¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼ä¸å¾—åŒ…å« %d å€‹ä»¥ä¸Šçš„ç©ºç™½å­—."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
-msgstr "§Aªº·s±K½X¤£±o¥]§tªÅ¥Õ¦r."
+msgstr "ä½ çš„æ–°å¯†ç¢¼ä¸å¾—åŒ…å«ç©ºç™½å­—."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
-msgstr "§Aªº·s±K½X¤£²Å¦X"
+msgstr "ä½ çš„æ–°å¯†ç¢¼ä¸ç¬¦åˆ"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "§Aªº±K½XµLªk³QÅÜ§ó."
+msgstr "ä½ çš„å¯†ç¢¼ç„¡æ³•è¢«è®Šæ›´."
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "§Aªº±K½X¤£²Å¦X"
+msgstr "ä½ çš„å¯†ç¢¼ä¸ç¬¦åˆ"

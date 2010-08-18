@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: <cwyeh@ccca.nctu.edu.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Jonah.php:217
 #, c-format
 msgid " and the UV index is a %s. "
-msgstr " ¦P®Éµµ¥~½u«ü¼Æ¬O %s."
+msgstr " åŒæ™‚ç´«å¤–ç·šæŒ‡æ•¸æ˜¯ %s."
 
 #: lib/Block/metar.php:105
 #, c-format
@@ -26,15 +26,15 @@ msgstr ""
 
 #: lib/Jonah.php:201
 msgid " km"
-msgstr "¤½¨½"
+msgstr "å…¬é‡Œ"
 
 #: lib/Jonah.php:176
 msgid " km/h"
-msgstr "¤½¨½/¤p®É"
+msgstr "å…¬é‡Œ/å°æ™‚"
 
 #: lib/Jonah.php:202
 msgid " miles"
-msgstr "­^­ù"
+msgstr "è‹±å“©"
 
 #: lib/Jonah.php:156
 #, c-format
@@ -44,166 +44,166 @@ msgstr ""
 #: newsfeed.php:41
 #, c-format
 msgid "'%s' stories in XML"
-msgstr "%s XML ®æ¦¡¤å³¹"
+msgstr "%s XML æ ¼å¼æ–‡ç« "
 
 #: lib/News.php:216
 msgid "1 hour"
-msgstr "1 ¤p®É"
+msgstr "1 å°æ™‚"
 
 #: lib/News.php:220
 msgid "12 hours"
-msgstr "12 ¤p®É"
+msgstr "12 å°æ™‚"
 
 #: lib/News.php:217
 msgid "2 hours"
-msgstr "2 ¤p®É"
+msgstr "2 å°æ™‚"
 
 #: lib/News.php:221
 msgid "24 hours"
-msgstr "24 ¤p®É"
+msgstr "24 å°æ™‚"
 
 #: lib/News.php:215
 msgid "30 mins"
-msgstr "30 ¤ÀÄÁ"
+msgstr "30 åˆ†é˜"
 
 #: lib/News.php:218
 msgid "4 hours"
-msgstr "4 ¤p®É"
+msgstr "4 å°æ™‚"
 
 #: lib/Jonah.php:223
 msgid "5-Day Forecast"
-msgstr "5 ¤Ñ¹w³ø"
+msgstr "5 å¤©é å ±"
 
 #: stockquote.php:93
 msgid "52-week high"
-msgstr "52 ¶g°ªÂI"
+msgstr "52 é€±é«˜é»"
 
 #: stockquote.php:97
 msgid "52-week low"
-msgstr "52 ¶g§CÂI"
+msgstr "52 é€±ä½é»"
 
 #: lib/News.php:219
 msgid "8 hours"
-msgstr "8 ¤p®É"
+msgstr "8 å°æ™‚"
 
 #: lib/Form/EditChannel.php:33
 msgid "Add New Channel"
-msgstr "·s¼WÀW¹D"
+msgstr "æ–°å¢é »é“"
 
 #: lib/Form/EditStory.php:31
 msgid "Add New Story"
-msgstr "·s¼W¤å³¹"
+msgstr "æ–°å¢æ–‡ç« "
 
 #: lib/Form/DeleteChannel.php:37
 msgid "All stories created in this channel will be lost!"
-msgstr "©Ò¦³¥»ÀW¹D¤¤ªº¤å³¹±N·|¬y¥¢!"
+msgstr "æ‰€æœ‰æœ¬é »é“ä¸­çš„æ–‡ç« å°‡æœƒæµå¤±!"
 
 #: news/index.php:40
 #, c-format
 msgid "An error occurred fetching channels: %s"
-msgstr "§ì¨úÀW¹D¤º®e®Éµo¥Í¿ù»~: %s"
+msgstr "æŠ“å–é »é“å…§å®¹æ™‚ç™¼ç”ŸéŒ¯èª¤: %s"
 
 #: lib/Form/DeleteChannel.php:39
 msgid "Any cached stories for this channel will be lost!"
-msgstr "©Ò¦³¥»ÀW¹Dªº¼È¦s¤å³¹±N·|¬y¥¢!"
+msgstr "æ‰€æœ‰æœ¬é »é“çš„æš«å­˜æ–‡ç« å°‡æœƒæµå¤±!"
 
 #: news/index.php:85
 msgid "Available Channels"
-msgstr "¥i¿ï¾ÜªºÀW¹D"
+msgstr "å¯é¸æ“‡çš„é »é“"
 
 #: newsfeed.php:28
 #, c-format
 msgid "Available Channels from %s (%s)"
-msgstr "¨Ó¦Û %s ªºÀW¹D (%s)"
+msgstr "ä¾†è‡ª %s çš„é »é“ (%s)"
 
 #: lib/Jonah.php:190
 #, c-format
 msgid "Barometer shows %s. "
-msgstr "®ğÀ£¬O %s. "
+msgstr "æ°£å£“æ˜¯ %s. "
 
 #: lib/Form/EditChannel.php:58
 msgid "Caching"
-msgstr "§Ö¨ú"
+msgstr "å¿«å–"
 
 #: stockquote.php:57 templates/channels/column_headers.inc:13
 #: lib/Jonah.php:303
 msgid "Change"
-msgstr "­×§ï"
+msgstr "ä¿®æ”¹"
 
 #: stockquote.php:71
 msgid "Change %"
-msgstr "º¦¶^´T %"
+msgstr "æ¼²è·Œå¹… %"
 
 #: config/prefs.php.dist:19
 msgid "Change the location for which weather is obtained."
-msgstr "­×§ï¨ú±o®ğ¶H¸ê®Æªº¦ì§}"
+msgstr "ä¿®æ”¹å–å¾—æ°£è±¡è³‡æ–™çš„ä½å€"
 
 #: config/prefs.php.dist:31
 msgid "Change your content display options."
-msgstr "­×§ï§Aªº¤º®eÅã¥Ü¤è¦¡"
+msgstr "ä¿®æ”¹ä½ çš„å…§å®¹é¡¯ç¤ºæ–¹å¼"
 
 #: news/stories.php:103
 #, c-format
 msgid "Channel '%s'"
-msgstr "ÀW¹D '%s'"
+msgstr "é »é“ '%s'"
 
 #: lib/News.php:88
 #, c-format
 msgid "Channel '%s' is not an internally authored channel."
-msgstr "ÀW¹D '%s' ¨Ã¤£¬O¤º³¡³\¥iªºÀW¹D."
+msgstr "é »é“ '%s' ä¸¦ä¸æ˜¯å…§éƒ¨è¨±å¯çš„é »é“."
 
 #: content.php:15
 msgid "Channel Listing"
-msgstr "ÀW¹D¦Cªí"
+msgstr "é »é“åˆ—è¡¨"
 
 #: templates/channels/column_headers.inc:7 lib/Form/EditChannel.php:43
 msgid "Channel Name"
-msgstr "ÀW¹D¦WºÙ"
+msgstr "é »é“åç¨±"
 
 #: channels.php:132
 msgid "Channel Subscriptions"
-msgstr "­q¾\ÀW¹D"
+msgstr "è¨‚é–±é »é“"
 
 #: channels.php:125
 msgid "Channel display failed."
-msgstr "ÀW¹DÅã¥Ü¥¢±Ñ."
+msgstr "é »é“é¡¯ç¤ºå¤±æ•—."
 
 #: news/deletechannel.php:68
 msgid "Channel has not been deleted."
-msgstr "ÀW¹D¨Ã¥¼³Q§R°£."
+msgstr "é »é“ä¸¦æœªè¢«åˆªé™¤."
 
 #: lib/News/sql.php:165
 #, c-format
 msgid "Channel id '%s' not found."
-msgstr "§ä¤£¨ìÀW¹D¥N¸¹ '%s'"
+msgstr "æ‰¾ä¸åˆ°é »é“ä»£è™Ÿ '%s'"
 
 #: news/stories.php:56
 msgid "Channel refreshed."
-msgstr "ÀW¹D¤º®e¤w§ó·s."
+msgstr "é »é“å…§å®¹å·²æ›´æ–°."
 
 #: channels.php:85
 msgid "Channel subscription editing failed."
-msgstr "­q¾\ÀW¹D½s¿è¥¢±Ñ."
+msgstr "è¨‚é–±é »é“ç·¨è¼¯å¤±æ•—."
 
 #: channels.php:41
 msgid "Channel subscription failed."
-msgstr "­q¾\ÀW¹D¥¢±Ñ."
+msgstr "è¨‚é–±é »é“å¤±æ•—."
 
 #: news/editchannel.php:59
 msgid "Channel type changed."
-msgstr "ÀW¹D«¬ºA¤w§ïÅÜ."
+msgstr "é »é“å‹æ…‹å·²æ”¹è®Š."
 
 #: channels.php:72
 msgid "Channel unsubscription failed."
-msgstr "¨ú®ø­q¾\ÀW¹D¥¢±Ñ."
+msgstr "å–æ¶ˆè¨‚é–±é »é“å¤±æ•—."
 
 #: lib/Jonah.php:303
 msgid "Chart"
-msgstr "¨«¶Õ¹Ï"
+msgstr "èµ°å‹¢åœ–"
 
 #: config/prefs.php.dist:13
 msgid "Choose which news channels you are subscribed to."
-msgstr "¿ï¾Ü§A­n·s­q¾\ªºÀW¹D."
+msgstr "é¸æ“‡ä½ è¦æ–°è¨‚é–±çš„é »é“."
 
 #: lib/Block/metar.php:103
 #, c-format
@@ -212,261 +212,261 @@ msgstr ""
 
 #: config/templates.php.dist:36
 msgid "Compact"
-msgstr "Â²¼ä"
+msgstr "ç°¡æ½”"
 
 #: lib/Weather/intercept.php:95
 msgid "Could not find XML parser handle."
-msgstr "µLªk§ä¨ì¥i¥H³B²zªº XML ¸ÑªR¾¹."
+msgstr "ç„¡æ³•æ‰¾åˆ°å¯ä»¥è™•ç†çš„ XML è§£æå™¨."
 
 #: lib/Stocks/nasdaq.php:98
 msgid "Could not find xml parser handle."
-msgstr "µLªk§ä¨ì¥i¥H³B²zªº XML ¸ÑªR¾¹."
+msgstr "ç„¡æ³•æ‰¾åˆ°å¯ä»¥è™•ç†çš„ XML è§£æå™¨."
 
 #: lib/Jonah.php:72
 #, c-format
 msgid "Could not open %s."
-msgstr "µLªk¶}±Ò %s."
+msgstr "ç„¡æ³•é–‹å•Ÿ %s."
 
 #: lib/api.php:57
 msgid "Current Phase"
-msgstr "¥Ø«e¬ÕÁ«"
+msgstr "ç›®å‰ç›ˆè™§"
 
 #: lib/api.php:68 lib/Block/metar.php:25
 msgid "Current Weather"
-msgstr "¥Ø«e¤Ñ®ğ"
+msgstr "ç›®å‰å¤©æ°£"
 
 #: lib/Block/metar.php:47 lib/Block/metar.php:49
 #, c-format
 msgid "Current Weather for: %s"
-msgstr "¥Ø«e¤Ñ®ğ¦b: %s"
+msgstr "ç›®å‰å¤©æ°£åœ¨: %s"
 
 #: news/deletechannel.php:52 news/deletestory.php:53
 #: lib/Form/DeleteChannel.php:32 lib/Form/DeleteStory.php:32
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: lib/Form/DeleteChannel.php:29
 #, c-format
 msgid "Delete News Channel '%s'?"
-msgstr "§R°£·s»DÀW¹D '%s'?"
+msgstr "åˆªé™¤æ–°èé »é“ '%s'?"
 
 #: lib/Form/DeleteStory.php:29
 #, c-format
 msgid "Delete News Story '%s'?"
-msgstr "§R°£·s»D¤å³¹ '%s'?"
+msgstr "åˆªé™¤æ–°èæ–‡ç«  '%s'?"
 
 #: news/stories.php:82
 msgid "Delete story"
-msgstr "§R°£¤å³¹"
+msgstr "åˆªé™¤æ–‡ç« "
 
 #: lib/Form/EditChannel.php:54
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: config/templates.php.dist:9
 msgid "Detailed"
-msgstr "²Ó¸`"
+msgstr "ç´°ç¯€"
 
 #: config/prefs.php.dist:30
 msgid "Display Options"
-msgstr "Åã¥Ü¿ï¶µ"
+msgstr "é¡¯ç¤ºé¸é …"
 
 #: lib/Form/DeleteChannel.php:32 lib/Form/DeleteStory.php:32
 msgid "Do not delete"
-msgstr "¨ú®ø§R°£"
+msgstr "å–æ¶ˆåˆªé™¤"
 
 #: stockquote.php:117
 msgid "Earnings"
-msgstr "¬Õ¾l"
+msgstr "ç›ˆé¤˜"
 
 #: templates/channels/column_headers.inc:15
 #: templates/channels/subscribe.inc:56
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: lib/Form/EditChannel.php:33
 msgid "Edit Channel"
-msgstr "½s¿èÀW¹D"
+msgstr "ç·¨è¼¯é »é“"
 
 #: templates/channels/header.inc:3
 msgid "Edit Channel Subscriptions"
-msgstr "½s¿èÀW¹D­q¾\³]©w"
+msgstr "ç·¨è¼¯é »é“è¨‚é–±è¨­å®š"
 
 #: stockquote.php:149
 msgid "Edit My Portfolio"
-msgstr "½s¿è§Úªº§ë¸ê²Õ¦X"
+msgstr "ç·¨è¼¯æˆ‘çš„æŠ•è³‡çµ„åˆ"
 
 #: lib/Form/EditStory.php:31
 msgid "Edit Story"
-msgstr "½s¿è¤å³¹"
+msgstr "ç·¨è¼¯æ–‡ç« "
 
 #: templates/channels/subscribe.inc:56
 msgid "Edit Subscription Details"
-msgstr "½s¿è­q¾\¸ê®Æ²Ó¸`"
+msgstr "ç·¨è¼¯è¨‚é–±è³‡æ–™ç´°ç¯€"
 
 #: newsfeed.php:35
 #, c-format
 msgid "Edit channel '%s'"
-msgstr "½s¿èÀW¹D '%s'"
+msgstr "ç·¨è¼¯é »é“ '%s'"
 
 #: news/stories.php:77
 msgid "Edit story"
-msgstr "½s¿è¤å³¹"
+msgstr "ç·¨è¼¯æ–‡ç« "
 
 #: templates/channels/edit.inc:5
 #, c-format
 msgid "Editing Channel %s"
-msgstr "½s¿èÀW¹D %s"
+msgstr "ç·¨è¼¯é »é“ %s"
 
 #: lib/Jonah.php:130
 msgid ""
 "Either no weather data is available for the location you have selected, or "
 "you have not selected a valid location."
-msgstr "¥i¯à¥Ø«e¨S¦³§A©Ò¿ï¾Ü¦ì¸mªº¤Ñ®ğ¸ê®Æ, ©Î¬O§AÁÙ¨S¿ï¨ú¦³®Äªº¦ì¸m."
+msgstr "å¯èƒ½ç›®å‰æ²’æœ‰ä½ æ‰€é¸æ“‡ä½ç½®çš„å¤©æ°£è³‡æ–™, æˆ–æ˜¯ä½ é‚„æ²’é¸å–æœ‰æ•ˆçš„ä½ç½®."
 
 #: templates/prefs/portfolio_select.inc:1
 msgid ""
 "Enter NASDAQ/AMEX/NYSE ticker symbols to watch, and the number of shares you "
 "own, if any:"
-msgstr "¿é¤J­n¬d¬İªº NASDAQ/AMEX/NYSE ªÑ²¼¥N¸¹, ¥H¤Î§A©Ò¾Ö¦³ªºªÑ²¼±i¼Æ:"
+msgstr "è¼¸å…¥è¦æŸ¥çœ‹çš„ NASDAQ/AMEX/NYSE è‚¡ç¥¨ä»£è™Ÿ, ä»¥åŠä½ æ‰€æ“æœ‰çš„è‚¡ç¥¨å¼µæ•¸:"
 
 #: lib/News.php:281
 #, c-format
 msgid "Error fetching channel. %s"
-msgstr "§ì¨úÀW¹Dµo¥Í¿ù»~. %s"
+msgstr "æŠ“å–é »é“ç™¼ç”ŸéŒ¯èª¤. %s"
 
 #: newsfeed.php:58
 #, c-format
 msgid "Error fetching story: %s"
-msgstr "§ì¨ú¤å³¹µo¥Í¿ù»~: %s"
+msgstr "æŠ“å–æ–‡ç« ç™¼ç”ŸéŒ¯èª¤: %s"
 
 #: lib/Jonah.php:383
 msgid "External"
-msgstr "¥~³¡ªº"
+msgstr "å¤–éƒ¨çš„"
 
 #: lib/Form/EditChannel.php:44
 msgid "Extra information for this channel type"
-msgstr "¦¹ÃşÀW¹D«¬ºAªºÃB¥~¸ê°T"
+msgstr "æ­¤é¡é »é“å‹æ…‹çš„é¡å¤–è³‡è¨Š"
 
 #: lib/Block/moon.php:143
 msgid "First Half"
-msgstr "¤W¥b¤ë"
+msgstr "ä¸ŠåŠæœˆ"
 
 #: lib/Block/moon.php:53 lib/Block/moon.php:55
 msgid "First Quater"
-msgstr "¤W©¶¤ë"
+msgstr "ä¸Šå¼¦æœˆ"
 
 #: lib/Jonah.php:133
 msgid "Friday"
-msgstr "¶g¤­"
+msgstr "é€±äº”"
 
 #: lib/Block/moon.php:61
 msgid "Full Moon"
-msgstr "º¡¤ë"
+msgstr "æ»¿æœˆ"
 
 #: lib/Form/EditStory.php:39
 msgid "Full Story Text"
-msgstr "¥ş³¡¤å³¹¤º®e"
+msgstr "å…¨éƒ¨æ–‡ç« å…§å®¹"
 
 #: lib/Block/moon.php:153
 msgid "Full moon"
-msgstr "º¡¤ë"
+msgstr "æ»¿æœˆ"
 
 #: content.php:69 lib/api.php:83
 msgid "Headlines"
-msgstr "ÀY±ø®ø®§"
+msgstr "é ­æ¢æ¶ˆæ¯"
 
 #: templates/menu/menu.inc:24
 msgid "Help"
-msgstr "¨D§U"
+msgstr "æ±‚åŠ©"
 
 #: lib/api.php:59
 msgid "Hemisphere:"
-msgstr "«n¥_¥b²y:"
+msgstr "å—åŒ—åŠçƒ:"
 
 #: config/prefs.php.dist:54
 msgid "How many columns would you like to use to show headlines?"
-msgstr "§A­n¨Ï¥Î´XÄæ¨ÓÅã¥ÜÀY±ø·s»D?"
+msgstr "ä½ è¦ä½¿ç”¨å¹¾æ¬„ä¾†é¡¯ç¤ºé ­æ¢æ–°è?"
 
 #: lib/Form/EditChannel.php:62
 msgid "Image"
-msgstr "¹Ï¥Ü"
+msgstr "åœ–ç¤º"
 
 #: lib/Jonah.php:380
 msgid "Internal"
-msgstr "¤º³¡ªº"
+msgstr "å…§éƒ¨çš„"
 
 #: news/stories.php:46
 #, c-format
 msgid "Invalid channel requested. %s"
-msgstr "­n¨DªºÀW¹D¬OµL®Äªº. %s"
+msgstr "è¦æ±‚çš„é »é“æ˜¯ç„¡æ•ˆçš„. %s"
 
 #: lib/Jonah.php:184
 #, c-format
 msgid "It feels like %s. "
-msgstr "·PÄ±¹³¬O %s."
+msgstr "æ„Ÿè¦ºåƒæ˜¯ %s."
 
 #: templates/index/notconfigured.inc:4
 msgid "Jonah is not properly configured"
-msgstr "Jonah ©|¥¼³]©w"
+msgstr "Jonah å°šæœªè¨­å®š"
 
 #: config/prefs.php.dist:6
 msgid "Language"
-msgstr "»y¨¥"
+msgstr "èªè¨€"
 
 #: lib/Block/moon.php:146
 msgid "Last Half"
-msgstr "¤U¥b¤ë"
+msgstr "ä¸‹åŠæœˆ"
 
 #: lib/Block/moon.php:67 lib/Block/moon.php:69
 msgid "Last Quater"
-msgstr "¤U©¶¤ë"
+msgstr "ä¸‹å¼¦æœˆ"
 
 #: newsfeed.php:46 news/index.php:86
 msgid "Last Update"
-msgstr "¤W¦¸§ó·s"
+msgstr "ä¸Šæ¬¡æ›´æ–°"
 
 #: templates/channels/column_headers.inc:10
 msgid "Last Updated"
-msgstr "¤W¦¸§ó·s"
+msgstr "ä¸Šæ¬¡æ›´æ–°"
 
 #: lib/Block/metar.php:54
 #, c-format
 msgid "Last Updated: %s"
-msgstr "¤W¦¸§ó·s: %s"
+msgstr "ä¸Šæ¬¡æ›´æ–°: %s"
 
 #: stockquote.php:121
 msgid "Last dividend"
-msgstr "¤W¦¸°£Åv"
+msgstr "ä¸Šæ¬¡é™¤æ¬Š"
 
 #: stockquote.php:126
 msgid "Last dividend date"
-msgstr "¤W¦¸°£Åv¤é´Á"
+msgstr "ä¸Šæ¬¡é™¤æ¬Šæ—¥æœŸ"
 
 #: stockquote.php:53
 msgid "Last price"
-msgstr "³Ìªñ¦¨¥æ»ù"
+msgstr "æœ€è¿‘æˆäº¤åƒ¹"
 
 #: stockquote.php:18
 #, c-format
 msgid "Latest Data for %s"
-msgstr "%s ³Ì·sªº¸ê®Æ"
+msgstr "%s æœ€æ–°çš„è³‡æ–™"
 
 #: lib/api.php:41
 msgid "Latitude"
-msgstr "½n«×"
+msgstr "ç·¯åº¦"
 
 #: lib/Form/EditChannel.php:61
 msgid "Link"
-msgstr "³sµ²"
+msgstr "é€£çµ"
 
 #: templates/index/notconfigured.inc:51
 msgid "List of METAR weather stations."
-msgstr "®ğ¶H¯¸¦Cªí"
+msgstr "æ°£è±¡ç«™åˆ—è¡¨"
 
 #: lib/api.php:69
 msgid "Location"
-msgstr "¦ì¸m"
+msgstr "ä½ç½®"
 
 #: stockquote.php:49
 msgid "Market Center"
@@ -474,59 +474,59 @@ msgstr ""
 
 #: stockquote.php:139
 msgid "Market cap"
-msgstr "¸ê¥»ÃB"
+msgstr "è³‡æœ¬é¡"
 
 #: lib/News.php:52
 msgid "Missing channel id."
-msgstr "¿ò¥¢ÀW¹D¥N¸¹."
+msgstr "éºå¤±é »é“ä»£è™Ÿ."
 
 #: lib/Jonah.php:133
 msgid "Monday"
-msgstr "¶g¤@"
+msgstr "é€±ä¸€"
 
 #: lib/api.php:52 lib/Block/moon.php:19
 msgid "Moon Phases"
-msgstr "¤ë«G¬ÕÁ«"
+msgstr "æœˆäº®ç›ˆè™§"
 
 #: templates/menu/menu.inc:6
 msgid "My Content"
-msgstr "§Úªº·s»D¤º®e"
+msgstr "æˆ‘çš„æ–°èå…§å®¹"
 
 #: stockquote.php:18 stockquote.php:149
 msgid "My Portfolio"
-msgstr "§Úªº§ë¸ê²Õ¦X"
+msgstr "æˆ‘çš„æŠ•è³‡çµ„åˆ"
 
 #: newsfeed.php:46 stockquote.php:37 news/index.php:86 lib/Jonah.php:303
 msgid "Name"
-msgstr "¦WºÙ"
+msgstr "åç¨±"
 
 #: lib/Block/moon.php:47
 msgid "New Moon"
-msgstr "·s¤ë"
+msgstr "æ–°æœˆ"
 
 #: news/index.php:81
 msgid "New channel"
-msgstr "·sÀW¹D"
+msgstr "æ–°é »é“"
 
 #: lib/Block/moon.php:31 lib/Block/moon.php:151
 msgid "New moon"
-msgstr "·s¤ë"
+msgstr "æ–°æœˆ"
 
 #: lib/Block/news.php:43 config/prefs.php.dist:12
 msgid "News"
-msgstr "·s»D"
+msgstr "æ–°è"
 
 #: templates/menu/menu.inc:15
 msgid "News Admin"
-msgstr "·s»DºŞ²z"
+msgstr "æ–°èç®¡ç†"
 
 #: templates/menu/menu.inc:12
 msgid "News Feed"
-msgstr "·s»D¨Ó·½"
+msgstr "æ–°èä¾†æº"
 
 #: news/index.php:28
 msgid "News is not enabled."
-msgstr "·s»D¥\¯à¨Ã¥¼¶}±Ò."
+msgstr "æ–°èåŠŸèƒ½ä¸¦æœªé–‹å•Ÿ."
 
 #: lib/api.php:58
 msgid "Next Phase"
@@ -534,153 +534,153 @@ msgstr ""
 
 #: newsfeed.php:43 news/index.php:75
 msgid "No Data"
-msgstr "¨S¦³¸ê®Æ"
+msgstr "æ²’æœ‰è³‡æ–™"
 
 #: news/index.php:38
 msgid "No available channels."
-msgstr "¨S¦³ÀW¹D."
+msgstr "æ²’æœ‰é »é“."
 
 #: news/stories.php:53
 msgid "No available stories."
-msgstr "¨S¦³¤å³¹."
+msgstr "æ²’æœ‰æ–‡ç« ."
 
 #: news/stories.php:31
 msgid "No channel requested."
-msgstr "¨S¦³­n¨DªºÀW¹D."
+msgstr "æ²’æœ‰è¦æ±‚çš„é »é“."
 
 #: lib/Block/news.php:53
 msgid "No channel specified."
-msgstr "¨S¦³«ü©wªºÀW¹D."
+msgstr "æ²’æœ‰æŒ‡å®šçš„é »é“."
 
 #: lib/News/sql.php:319
 msgid "No configuration information specified for SQL News Stories."
-msgstr "¨S¦³ SQL ·s»D¤å³¹ªº³]©w¸ê®Æ."
+msgstr "æ²’æœ‰ SQL æ–°èæ–‡ç« çš„è¨­å®šè³‡æ–™."
 
 #: lib/Weather/sql.php:201
 msgid "No configuration information specified for SQL Preferences."
-msgstr "¨S¦³ SQL °¾¦nªº³]©w¸ê®Æ."
+msgstr "æ²’æœ‰ SQL åå¥½çš„è¨­å®šè³‡æ–™."
 
 #: lib/Block/sunrise.php:29
 msgid "No location is set."
-msgstr "¦ì¸m¸ê°T©|¥¼³]©w"
+msgstr "ä½ç½®è³‡è¨Šå°šæœªè¨­å®š"
 
 #: lib/News.php:285
 msgid "No stories currently available."
-msgstr "¥Ø«e¨S¦³¤å³¹."
+msgstr "ç›®å‰æ²’æœ‰æ–‡ç« ."
 
 #: lib/News.php:326 lib/Stocks.php:137
 #, c-format
 msgid "No such backend '%s' found"
-msgstr "¨S¦³¦¹«áºİ¥­¥x '%s'"
+msgstr "æ²’æœ‰æ­¤å¾Œç«¯å¹³å° '%s'"
 
 #: news/deletechannel.php:39
 msgid "No valid channel requested for deletion."
-msgstr "¨S¦³¥¿½TªºÀW¹D¥i¨Ñ§R°£."
+msgstr "æ²’æœ‰æ­£ç¢ºçš„é »é“å¯ä¾›åˆªé™¤."
 
 #: news/deletestory.php:40
 msgid "No valid story requested for deletion."
-msgstr "¨S¦³¥¿½Tªº¤å³¹¥i¨Ñ§R°£."
+msgstr "æ²’æœ‰æ­£ç¢ºçš„æ–‡ç« å¯ä¾›åˆªé™¤."
 
 #: lib/api.php:62
 msgid "Northern Hemisphere"
-msgstr "¥_¥b²y"
+msgstr "åŒ—åŠçƒ"
 
 #: templates/menu/menu.inc:19
 msgid "Options"
-msgstr "¿ï¶µ"
+msgstr "é¸é …"
 
 #: config/prefs.php.dist:29
 msgid "Other Options"
-msgstr "¨ä¥L¿ï¶µ"
+msgstr "å…¶ä»–é¸é …"
 
 #: stockquote.php:109
 msgid "P-E ratio"
-msgstr "¥»¯q¤ñ"
+msgstr "æœ¬ç›Šæ¯”"
 
 #: templates/prefs/setlocation.inc:27
 msgid "Please select a Country/State..."
-msgstr "½Ğ¿ï¾Ü°ê®a/¬Ù¥÷..."
+msgstr "è«‹é¸æ“‡åœ‹å®¶/çœä»½..."
 
 #: templates/prefs/setlocation.inc:40
 msgid "Please select a station..."
-msgstr "½Ğ¿ï¾Ü¤@­Ó®ğ¶H¯¸..."
+msgstr "è«‹é¸æ“‡ä¸€å€‹æ°£è±¡ç«™..."
 
 #: templates/menu/menu.inc:8
 msgid "Portfolio"
-msgstr "§ë¸ê²Õ¦X"
+msgstr "æŠ•è³‡çµ„åˆ"
 
 #: lib/Block/metar.php:94
 #, c-format
 msgid "Pressure: %s%s"
-msgstr "®ğÀ£: %s%s"
+msgstr "æ°£å£“: %s%s"
 
 #: stockquote.php:101
 msgid "Previous close"
-msgstr "¬Q¦¬"
+msgstr "æ˜¨æ”¶"
 
 #: lib/Jonah.php:303
 msgid "Price"
-msgstr "ªÑ»ù"
+msgstr "è‚¡åƒ¹"
 
 #: stockquote.php:135
 msgid "Quote date"
-msgstr "³ø»ù¤é´Á"
+msgstr "å ±åƒ¹æ—¥æœŸ"
 
 #: lib/Jonah.php:122 lib/Jonah.php:125
 msgid "Radar"
-msgstr "½Ã¬P¶³¹Ï"
+msgstr "è¡›æ˜Ÿé›²åœ–"
 
 #: lib/Form/DeleteChannel.php:35
 msgid "Really delete this News Channel?"
-msgstr "½T©w§R°£¦¹·s»DÀW¹D?"
+msgstr "ç¢ºå®šåˆªé™¤æ­¤æ–°èé »é“?"
 
 #: lib/Form/DeleteStory.php:35
 msgid "Really delete this News Story?"
-msgstr "½T©w§R°£¦¹·s»D¤å³¹?"
+msgstr "ç¢ºå®šåˆªé™¤æ­¤æ–°èæ–‡ç« ?"
 
 #: lib/News/sql.php:337
 msgid "Required 'charset' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'charset' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'charset' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/News/sql.php:334
 msgid "Required 'database' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'database' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'database' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/Weather/sql.php:216
 msgid "Required 'database' not specified in preferences configuration."
-msgstr "¥²¶ñÄæ¦ì '¸ê®Æ®w' ¨Ã¥¼¦b°¾¦n³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'è³‡æ–™åº«' ä¸¦æœªåœ¨åå¥½è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/News/sql.php:325
 msgid "Required 'hostspec' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'hostspec' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'hostspec' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/Weather/sql.php:207
 msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "¥²¶ñÄæ¦ì 'hostspec' ¨Ã¥¼¦b°¾¦n³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'hostspec' ä¸¦æœªåœ¨åå¥½è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/News/sql.php:331
 msgid "Required 'password' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'password' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'password' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/Weather/sql.php:213
 msgid "Required 'password' not specified in preferences configuration."
-msgstr "¥²¶ñÄæ¦ì 'password' ¨Ã¥¼¦b°¾¦n³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'password' ä¸¦æœªåœ¨åå¥½è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/News/sql.php:322
 msgid "Required 'phptype' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'phptype' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'phptype' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/Weather/sql.php:204
 msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "¥²¶ñÄæ¦ì 'phptype' ¨Ã¥¼¦b°¾¦n³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'phptype' ä¸¦æœªåœ¨åå¥½è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/News/sql.php:328
 msgid "Required 'username' not specified in news stories configuration."
-msgstr "¥²¶ñÄæ¦ì 'username' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'username' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: lib/Weather/sql.php:210
 msgid "Required 'username' not specified in preferences configuration."
-msgstr "¥²¶ñÄæ¦ì 'username' ¨Ã¥¼¦b·s»D¤å³¹³]©w¤¤«ü©w."
+msgstr "å¿…å¡«æ¬„ä½ 'username' ä¸¦æœªåœ¨æ–°èæ–‡ç« è¨­å®šä¸­æŒ‡å®š."
 
 #: stockquote.php:131
 msgid "S&amp;P 500 beta"
@@ -688,167 +688,167 @@ msgstr ""
 
 #: lib/Jonah.php:133
 msgid "Saturday"
-msgstr "¶g¤»"
+msgstr "é€±å…­"
 
 #: lib/Form/EditStory.php:33
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: config/prefs.php.dist:40
 msgid "Select your preferred language:"
-msgstr "¿ï¾Ü§Aªº°¾¦n»y¨¥: "
+msgstr "é¸æ“‡ä½ çš„åå¥½èªè¨€: "
 
 #: config/prefs.php.dist:7
 msgid "Set the your preferred display language."
-msgstr "¿ï¾Ü°¾¦nÅã¥Ü»y¨t."
+msgstr "é¸æ“‡åå¥½é¡¯ç¤ºèªç³»."
 
 #: config/prefs.php.dist:25
 msgid "Set which stock ticker symbols to watch."
-msgstr "³]©w­n°lÂÜªºªÑ²¼¥N½X."
+msgstr "è¨­å®šè¦è¿½è¹¤çš„è‚¡ç¥¨ä»£ç¢¼."
 
 #: templates/prefs/portfolio_select.inc:6
 msgid "Shares"
-msgstr "ªÑ¼Æ"
+msgstr "è‚¡æ•¸"
 
 #: lib/Form/EditStory.php:37
 msgid "Short Description"
-msgstr "Â²µu´y­z"
+msgstr "ç°¡çŸ­æè¿°"
 
 #: config/prefs.php.dist:83
 msgid "Should measurements be shown in metric values?"
-msgstr "­n¥Î¤Q¶i¦ì¨î¨ÓÅã¥Ü¸ê®Æ¶Ü?"
+msgstr "è¦ç”¨åé€²ä½åˆ¶ä¾†é¡¯ç¤ºè³‡æ–™å—?"
 
 #: config/prefs.php.dist:117
 msgid "Show Dow Jones Industrial Average?"
-msgstr "Åã¥Ü¹DÃ£¤u·~«ü¼Æ?"
+msgstr "é¡¯ç¤ºé“ç“Šå·¥æ¥­æŒ‡æ•¸?"
 
 #: config/prefs.php.dist:133
 msgid "Show Nasdaq Composite Index?"
-msgstr "Åã¥Ü Nasdaq «ü¼Æ?"
+msgstr "é¡¯ç¤º Nasdaq æŒ‡æ•¸?"
 
 #: config/prefs.php.dist:125
 msgid "Show S&amp;P 500?"
-msgstr "Åã¥Ü S&amp;P 500 «ü¼Æ?"
+msgstr "é¡¯ç¤º S&amp;P 500 æŒ‡æ•¸?"
 
 #: config/prefs.php.dist:69
 msgid "Show headlines in main content display?"
-msgstr "¦b¥D­n¤º®e¤¤Åã¥ÜÀY±ø®ø®§?"
+msgstr "åœ¨ä¸»è¦å…§å®¹ä¸­é¡¯ç¤ºé ­æ¢æ¶ˆæ¯?"
 
 #: config/prefs.php.dist:76
 msgid "Show stock quotes in main content display?"
-msgstr "¦b¥D­n¤º®e¤¤Åã¥ÜªÑ¥«¦æ±¡?"
+msgstr "åœ¨ä¸»è¦å…§å®¹ä¸­é¡¯ç¤ºè‚¡å¸‚è¡Œæƒ…?"
 
 #: config/prefs.php.dist:62
 msgid "Show weather in main content display?"
-msgstr "¦b¥D­n¤º®e¤¤Åã¥Ü¤Ñ®ğ¸ê°T?"
+msgstr "åœ¨ä¸»è¦å…§å®¹ä¸­é¡¯ç¤ºå¤©æ°£è³‡è¨Š?"
 
 #: templates/index/notconfigured.inc:39
 msgid "Some of Jonah's configuration files are missing:"
-msgstr "³¡¤Àªº Jonah ³]©wÀÉ®×¿ò¥¢:"
+msgstr "éƒ¨åˆ†çš„ Jonah è¨­å®šæª”æ¡ˆéºå¤±:"
 
 #: lib/api.php:84
 msgid "Source"
-msgstr "®ø®§¨Ó·½"
+msgstr "æ¶ˆæ¯ä¾†æº"
 
 #: lib/Form/EditChannel.php:60
 msgid "Source url"
-msgstr "®ø®§¨Ó·½ url"
+msgstr "æ¶ˆæ¯ä¾†æº url"
 
 #: lib/api.php:63
 msgid "Southern Hemisphere"
-msgstr "«n¥b²y"
+msgstr "å—åŠçƒ"
 
 #: config/templates.php.dist:24
 msgid "Standard"
-msgstr "¼Ğ·Ç"
+msgstr "æ¨™æº–"
 
 #: content.php:30 lib/api.php:102 lib/Block/stocks.php:23
 msgid "Stock Quotes"
-msgstr "ªÑ»ù"
+msgstr "è‚¡åƒ¹"
 
 #: config/prefs.php.dist:24
 msgid "Stocks"
-msgstr "ªÑ²¼"
+msgstr "è‚¡ç¥¨"
 
 #: news/stories.php:104
 msgid "Story"
-msgstr "¤å³¹"
+msgstr "æ–‡ç« "
 
 #: lib/Form/EditStory.php:36
 msgid "Story Title (Headline)"
-msgstr "¤å³¹¼ĞÃD (ÀY±ø)"
+msgstr "æ–‡ç« æ¨™é¡Œ (é ­æ¢)"
 
 #: lib/Form/EditStory.php:40
 msgid "Story URL"
-msgstr "¤å³¹ºô§}"
+msgstr "æ–‡ç« ç¶²å€"
 
 #: news/editstory.php:40
 #, c-format
 msgid "Story editing failed. %s"
-msgstr "½s¿è¤å³¹¥¢±Ñ. %s"
+msgstr "ç·¨è¼¯æ–‡ç« å¤±æ•—. %s"
 
 #: news/deletestory.php:69
 msgid "Story has not been deleted."
-msgstr "¤å³¹©|¥¼³Q§R°£."
+msgstr "æ–‡ç« å°šæœªè¢«åˆªé™¤."
 
 #: lib/News/sql.php:286
 #, c-format
 msgid "Story id '%s' not found."
-msgstr "§ä¤£¨ì¤å³¹½s¸¹ '%s'"
+msgstr "æ‰¾ä¸åˆ°æ–‡ç« ç·¨è™Ÿ '%s'"
 
 #: channels.php:120 templates/channels/subscribe.inc:47
 msgid "Subscribe"
-msgstr "­q¾\"
+msgstr "è¨‚é–±"
 
 #: content.php:88
 #, c-format
 msgid ""
 "Subscribed channel '%s' is no longer available, it will be removed from your "
 "subscriptions."
-msgstr "­q¾\ªºÀW¹D '%s' ¤w¤£¦A¦s¦b, ¨Ã±N±q§Aªº­q¾\¸ê®Æ¤¤²¾°£."
+msgstr "è¨‚é–±çš„é »é“ '%s' å·²ä¸å†å­˜åœ¨, ä¸¦å°‡å¾ä½ çš„è¨‚é–±è³‡æ–™ä¸­ç§»é™¤."
 
 #: lib/Block/sunrise.php:42
 msgid "Sun Rise"
-msgstr "¤é¥X"
+msgstr "æ—¥å‡º"
 
 #: lib/api.php:40
 msgid "Sun Rise / Set"
-msgstr "¤é¥X/¸¨"
+msgstr "æ—¥å‡º/è½"
 
 #: lib/Block/sunrise.php:23
 msgid "Sun Rise and Set"
-msgstr "¤é¥X»P¤é¸¨"
+msgstr "æ—¥å‡ºèˆ‡æ—¥è½"
 
 #: lib/Block/sunrise.php:47
 msgid "Sun Set"
-msgstr "¤é¸¨"
+msgstr "æ—¥è½"
 
 #: lib/Jonah.php:133
 msgid "Sunday"
-msgstr "¶g¤é"
+msgstr "é€±æ—¥"
 
 #: templates/prefs/portfolio_select.inc:5 lib/Jonah.php:303
 msgid "Symbol"
-msgstr "ªÑ²¼¥N¸¹"
+msgstr "è‚¡ç¥¨ä»£è™Ÿ"
 
 #: lib/Block/metar.php:86
 #, c-format
 msgid "Temperature: %s; Dewpoint: %s"
-msgstr "·Å«×: %s; Àã«×: %s"
+msgstr "æº«åº¦: %s; æ¿•åº¦: %s"
 
 #: lib/Jonah.php:217
 #, c-format
 msgid "The UV index is a %s. "
-msgstr "µµ¥~½u«ü¼Æ¬O %s."
+msgstr "ç´«å¤–ç·šæŒ‡æ•¸æ˜¯ %s."
 
 #: news/editchannel.php:75
 #, c-format
 msgid "The channel '%s' has been saved."
-msgstr "ÀW¹D '%s' ¤w¸gÀx¦s."
+msgstr "é »é“ '%s' å·²ç¶“å„²å­˜."
 
 #: news/deletechannel.php:61
 msgid "The channel has been deleted."
-msgstr "ÀW¹D '%s' ¤w¸g§R°£."
+msgstr "é »é“ '%s' å·²ç¶“åˆªé™¤."
 
 #: lib/Form/EditChannel.php:58
 msgid ""
@@ -859,46 +859,46 @@ msgstr ""
 #: news/editstory.php:68
 #, c-format
 msgid "The story '%s' has been saved."
-msgstr "¤å³¹ '%s' ¤w¸gÀx¦s."
+msgstr "æ–‡ç«  '%s' å·²ç¶“å„²å­˜."
 
 #: news/deletestory.php:62
 msgid "The story has been deleted."
-msgstr "¤å³¹¤w¸g§R°£."
+msgstr "æ–‡ç« å·²ç¶“åˆªé™¤."
 
 #: lib/Jonah.php:160
 #, c-format
 msgid "The temperature is <b>%s</b>, "
-msgstr "·Å«×¬O <b>%s</b>,"
+msgstr "æº«åº¦æ˜¯ <b>%s</b>,"
 
 #: lib/Form/EditChannel.php:60
 msgid ""
 "The url to use to fetch the stories, for example 'http://www.example.com/"
 "stories.rss'"
-msgstr "¥Î¨Ó§ì¨ú¤å³¹ªººô§}, ¨Ò¦p 'http://www.example.com/stories.rss'"
+msgstr "ç”¨ä¾†æŠ“å–æ–‡ç« çš„ç¶²å€, ä¾‹å¦‚ 'http://www.example.com/stories.rss'"
 
 #: news/deletechannel.php:59
 #, c-format
 msgid "There was an error deleting the channel. %s"
-msgstr "§R°£ÀW¹D®Éµo¥Í¿ù»~: %s"
+msgstr "åˆªé™¤é »é“æ™‚ç™¼ç”ŸéŒ¯èª¤: %s"
 
 #: news/deletestory.php:60
 #, c-format
 msgid "There was an error deleting the story. %s"
-msgstr "§R°£¤å³¹®Éµo¥Í¿ù»~. %s"
+msgstr "åˆªé™¤æ–‡ç« æ™‚ç™¼ç”ŸéŒ¯èª¤. %s"
 
 #: news/editchannel.php:73
 #, c-format
 msgid "There was an error saving the channel. %s"
-msgstr "Àx¦sÀW¹D®Éµo¥Í¿ù»~. %s"
+msgstr "å„²å­˜é »é“æ™‚ç™¼ç”ŸéŒ¯èª¤. %s"
 
 #: news/editstory.php:66
 #, c-format
 msgid "There was an error saving the story. %s"
-msgstr "Àx¦s¤å³¹®Éµo¥Í¿ù»~. %s"
+msgstr "å„²å­˜æ–‡ç« æ™‚ç™¼ç”ŸéŒ¯èª¤. %s"
 
 #: templates/index/notconfigured.inc:65
 msgid "This file contains preferences for Jonah."
-msgstr "¦¹ÀÉ®×¥]§t Jonah ªº°¾¦n³]©w."
+msgstr "æ­¤æª”æ¡ˆåŒ…å« Jonah çš„åå¥½è¨­å®š."
 
 #: templates/index/notconfigured.inc:58
 msgid ""
@@ -914,39 +914,39 @@ msgstr ""
 
 #: lib/Jonah.php:133
 msgid "Thursday"
-msgstr "¶g¥|"
+msgstr "é€±å››"
 
 #: stockquote.php:85
 msgid "Today's high"
-msgstr "¥»¤é³Ì°ª"
+msgstr "æœ¬æ—¥æœ€é«˜"
 
 #: stockquote.php:89
 msgid "Today's low"
-msgstr "¥»¤é³Ì§C"
+msgstr "æœ¬æ—¥æœ€ä½"
 
 #: lib/Jonah.php:133
 msgid "Tuesday"
-msgstr "¶g¤G"
+msgstr "é€±äºŒ"
 
 #: news/index.php:86 lib/Form/EditChannel.php:38
 msgid "Type"
-msgstr "«¬ºA"
+msgstr "å‹æ…‹"
 
 #: config/templates.php.dist:48
 msgid "Ultracompact"
-msgstr "·¥Â²¼ä"
+msgstr "æ¥µç°¡æ½”"
 
 #: channels.php:116 templates/channels/subscribe.inc:43
 msgid "Unsubscribe"
-msgstr "¨ú®ø­q¾\"
+msgstr "å–æ¶ˆè¨‚é–±"
 
 #: news/stories.php:104
 msgid "Updated"
-msgstr "¤w§ó·s"
+msgstr "å·²æ›´æ–°"
 
 #: prefs.php:74
 msgid "User Options"
-msgstr "¨Ï¥ÎªÌ¿ï¶µ"
+msgstr "ä½¿ç”¨è€…é¸é …"
 
 #: lib/Jonah.php:303
 msgid "Value"
@@ -954,53 +954,53 @@ msgstr ""
 
 #: templates/channels/edit.inc:9 lib/api.php:93
 msgid "View"
-msgstr "ÀËµø"
+msgstr "æª¢è¦–"
 
 #: lib/Jonah.php:323 lib/Jonah.php:326
 msgid "View Chart"
-msgstr "ÀËµø¨«¶Õ¹Ï"
+msgstr "æª¢è¦–èµ°å‹¢åœ–"
 
 #: lib/Jonah.php:330
 msgid "View Quote Details"
-msgstr "ÀËµøªÑ»ù²Ó¸`"
+msgstr "æª¢è¦–è‚¡åƒ¹ç´°ç¯€"
 
 #: lib/Jonah.php:197
 #, c-format
 msgid "Visibility is %s"
-msgstr "¯à¨£«×¬O %s"
+msgstr "èƒ½è¦‹åº¦æ˜¯ %s"
 
 #: lib/Block/metar.php:78
 #, c-format
 msgid "Visibility: %s%s"
-msgstr "¯à¨£«×: %s%s"
+msgstr "èƒ½è¦‹åº¦: %s%s"
 
 #: stockquote.php:105
 msgid "Volume"
-msgstr "¦¨¥æ¶q"
+msgstr "æˆäº¤é‡"
 
 #: content.php:27
 msgid "Weather"
-msgstr "¤Ñ®ğ"
+msgstr "å¤©æ°£"
 
 #: lib/api.php:106 lib/Block/weather.php:23
 msgid "Weather Forecast"
-msgstr "¤Ñ®ğ¹w´ú"
+msgstr "å¤©æ°£é æ¸¬"
 
 #: config/prefs.php.dist:18
 msgid "Weather Station"
-msgstr "®ğ¶H¯¸"
+msgstr "æ°£è±¡ç«™"
 
 #: templates/prefs/setlocation.inc:4 templates/prefs/setlocation.inc:60
 msgid "Weather station:"
-msgstr "®ğ¶H¯¸:"
+msgstr "æ°£è±¡ç«™:"
 
 #: lib/Block/metar.php:115
 msgid "Weather:"
-msgstr "¤Ñ®ğ:"
+msgstr "å¤©æ°£:"
 
 #: lib/Jonah.php:133
 msgid "Wednesday"
-msgstr "¶g¤T"
+msgstr "é€±ä¸‰"
 
 #: lib/api.php:54
 msgid "Which phases?"
@@ -1009,12 +1009,12 @@ msgstr ""
 #: lib/Block/metar.php:61
 #, c-format
 msgid "Wind: %s%s from %s, gusting to %s%s."
-msgstr "­·¤O: %s%s ¨Ó¦Û %s, °}­· %s%s."
+msgstr "é¢¨åŠ›: %s%s ä¾†è‡ª %s, é™£é¢¨ %s%s."
 
 #: lib/Block/metar.php:68
 #, c-format
 msgid "Wind: %s%s from %s."
-msgstr "­·¤O: %s%s ¨Ó¦Û %s."
+msgstr "é¢¨åŠ›: %s%s ä¾†è‡ª %s."
 
 #: lib/Weather/intercept.php:102 lib/Stocks/nasdaq.php:102
 #, c-format
@@ -1027,150 +1027,150 @@ msgstr ""
 
 #: lib/Form/EditStory.php:47
 msgid "You MUST enter either a URL or a full story."
-msgstr "§A¥²¶·¿é¤J¤@­Óºô§}©Î¬O§¹¾ãªº¤å³¹."
+msgstr "ä½ å¿…é ˆè¼¸å…¥ä¸€å€‹ç¶²å€æˆ–æ˜¯å®Œæ•´çš„æ–‡ç« ."
 
 #: news/deletechannel.php:25 news/deletestory.php:25 news/editchannel.php:25
 #: news/editstory.php:25 news/index.php:22 news/stories.php:22
 msgid "You are not authorised for this action."
-msgstr "¥¼³Q±ÂÅv°õ¦æ¦¹°Ê§@."
+msgstr "æœªè¢«æˆæ¬ŠåŸ·è¡Œæ­¤å‹•ä½œ."
 
 #: channels.php:83
 #, c-format
 msgid "You have edited your subscription to the channel %s."
-msgstr "§A¤w¸g½s¿èÀW¹D %s ªº­q¾\¸ê®Æ."
+msgstr "ä½ å·²ç¶“ç·¨è¼¯é »é“ %s çš„è¨‚é–±è³‡æ–™."
 
 #: content.php:77
 msgid "You have no news subscriptions."
-msgstr "§A©|¥¼­q¾\¥ô¦ó·s»D."
+msgstr "ä½ å°šæœªè¨‚é–±ä»»ä½•æ–°è."
 
 #: lib/Block/stocks.php:30
 msgid "You have no ticker symbols in your portfolio at this time."
-msgstr "§A¥Ø«eªº§ë¸ê²Õ¦X¤¤¨S¦³ªÑ²¼¥N½X."
+msgstr "ä½ ç›®å‰çš„æŠ•è³‡çµ„åˆä¸­æ²’æœ‰è‚¡ç¥¨ä»£ç¢¼."
 
 #: content.php:44 stockquote.php:146
 msgid "You have no ticker symbols in your portfolio."
-msgstr "§Aªº§ë¸ê²Õ¦X¤¤¨S¦³ªÑ²¼¥N½X."
+msgstr "ä½ çš„æŠ•è³‡çµ„åˆä¸­æ²’æœ‰è‚¡ç¥¨ä»£ç¢¼."
 
 #: channels.php:39
 #, c-format
 msgid "You have subscribed to the channel '%s'."
-msgstr "§A¤w­q¾\ÀW¹D '%s'."
+msgstr "ä½ å·²è¨‚é–±é »é“ '%s'."
 
 #: channels.php:61
 #, c-format
 msgid "You have unsubscribed from the channel '%s'."
-msgstr "§A¤w¨ú®ø­q¾\ÀW¹D '%s'"
+msgstr "ä½ å·²å–æ¶ˆè¨‚é–±é »é“ '%s'"
 
 #: lib/Form/EditStory.php:38
 msgid "You must enter either a URL or a full story."
-msgstr "§A¥²¶·¿é¤Jºô§}©Î¬O§¹¾ãªº¤å³¹."
+msgstr "ä½ å¿…é ˆè¼¸å…¥ç¶²å€æˆ–æ˜¯å®Œæ•´çš„æ–‡ç« ."
 
 #: config/prefs.php.dist:11 config/prefs.php.dist:17 config/prefs.php.dist:23
 msgid "Your Content"
-msgstr "¤º®e"
+msgstr "å…§å®¹"
 
 #: config/prefs.php.dist:5
 msgid "Your Information"
-msgstr "­Ó¤H¸ê°T"
+msgstr "å€‹äººè³‡è¨Š"
 
 #: lib/Jonah.php:173
 #, c-format
 msgid "and the wind is %s at %s. "
-msgstr "¦P®É­·¤O¬O %s at %s."
+msgstr "åŒæ™‚é¢¨åŠ›æ˜¯ %s at %s."
 
 #: lib/Jonah.php:179
 #, c-format
 msgid "and the wind is %s. "
-msgstr "¦P®É­·¤O¬O %s."
+msgstr "åŒæ™‚é¢¨åŠ›æ˜¯ %s."
 
 #: lib/Jonah.php:170
 msgid "and there is no wind measured. "
-msgstr "¦P®É¥Ø«e¨S¦³­·¤O¸ê°T."
+msgstr "åŒæ™‚ç›®å‰æ²’æœ‰é¢¨åŠ›è³‡è¨Š."
 
 #: news/stories.php:94
 msgid "channels"
-msgstr "ÀW¹D"
+msgstr "é »é“"
 
 #: lib/Jonah.php:137
 msgid "cloudy"
-msgstr "¦h¶³"
+msgstr "å¤šé›²"
 
 #: lib/Jonah.php:137
 msgid "cold"
-msgstr "´H§N"
+msgstr "å¯’å†·"
 
 #: lib/Jonah.php:136
 msgid "dust"
-msgstr "¹Ğ"
+msgstr "å¡µ"
 
 #: lib/News.php:248
 msgid "external"
-msgstr "¥~³¡ªº"
+msgstr "å¤–éƒ¨çš„"
 
 #: lib/Jonah.php:136
 msgid "flurries"
-msgstr "°}«B"
+msgstr "é™£é›¨"
 
 #: lib/Jonah.php:136
 msgid "fog"
-msgstr "¦³Ãú"
+msgstr "æœ‰éœ§"
 
 #: lib/Jonah.php:137
 msgid "haze"
-msgstr "·ÏÃú°gº©"
+msgstr "ç…™éœ§è¿·æ¼«"
 
 #: lib/Jonah.php:135
 msgid "heavy rain"
-msgstr "»¨«B"
+msgstr "è±ªé›¨"
 
 #: lib/Jonah.php:213
 #, c-format
 msgid "high %s. Use sunscreen"
-msgstr "°ª¶q¯Å %s. ½Ğª`·N¨¾ÅÎ"
+msgstr "é«˜é‡ç´š %s. è«‹æ³¨æ„é˜²æ›¬"
 
 #: lib/Jonah.php:138
 msgid "hot"
-msgstr "ª¢¼ö"
+msgstr "ç‚ç†±"
 
 #: lib/Jonah.php:166
 #, c-format
 msgid "humidity is at %s"
-msgstr "·Ã«×¬O %s"
+msgstr "æº¼åº¦æ˜¯ %s"
 
 #: lib/Jonah.php:199
 msgid "infinite"
-msgstr "µLªıÃªªº"
+msgstr "ç„¡é˜»ç¤™çš„"
 
 #: lib/News.php:251
 msgid "internal"
-msgstr "¤º³¡ªº"
+msgstr "å…§éƒ¨çš„"
 
 #: lib/Jonah.php:135
 msgid "light flurries"
-msgstr "°¸°}«B"
+msgstr "å¶é™£é›¨"
 
 #: lib/Jonah.php:209
 #, c-format
 msgid "low %s"
-msgstr "§C %s"
+msgstr "ä½ %s"
 
 #: lib/Jonah.php:207
 #, c-format
 msgid "minimal %s"
-msgstr "§C¶q¯Å %s"
+msgstr "ä½é‡ç´š %s"
 
 #: lib/Jonah.php:211
 #, c-format
 msgid "moderate %s"
-msgstr "¾A¶q¯Å %s"
+msgstr "é©é‡ç´š %s"
 
 #: lib/Jonah.php:137
 msgid "mostly cloudy"
-msgstr "®É³±"
+msgstr "æ™‚é™°"
 
 #: lib/Jonah.php:138
 msgid "mostly sunny"
-msgstr "®É´¸"
+msgstr "æ™‚æ™´"
 
 #: lib/Jonah.php:177
 msgid "mph"
@@ -1178,7 +1178,7 @@ msgstr ""
 
 #: news/stories.php:98
 msgid "new story"
-msgstr "·s¤å³¹"
+msgstr "æ–°æ–‡ç« "
 
 #: lib/News.php:214
 msgid "none"
@@ -1186,41 +1186,41 @@ msgstr ""
 
 #: lib/Jonah.php:138
 msgid "partly cloudy"
-msgstr "¦h¶³"
+msgstr "å¤šé›²"
 
 #: lib/Jonah.php:134
 msgid "rain"
-msgstr "«B"
+msgstr "é›¨"
 
 #: lib/Jonah.php:135
 msgid "sleet"
-msgstr "¦B¹r"
+msgstr "å†°é›¹"
 
 #: lib/Jonah.php:137
 msgid "smoke"
-msgstr "·ÏÃú"
+msgstr "ç…™éœ§"
 
 #: lib/Jonah.php:134
 msgid "snow"
-msgstr "¦³³·"
+msgstr "æœ‰é›ª"
 
 #: lib/Jonah.php:136
 msgid "snow and wind"
-msgstr "­·³·"
+msgstr "é¢¨é›ª"
 
 #: lib/Jonah.php:138
 msgid "sunny"
-msgstr "´¸®Ô"
+msgstr "æ™´æœ—"
 
 #: lib/Jonah.php:134
 msgid "thunder storms"
-msgstr "¼É­·³·"
+msgstr "æš´é¢¨é›ª"
 
 #: lib/Jonah.php:215
 #, c-format
 msgid "very high %s. Stay indoors"
-msgstr "·¥°ª %s. Á×§K¥Xªù"
+msgstr "æ¥µé«˜ %s. é¿å…å‡ºé–€"
 
 #: lib/Jonah.php:134
 msgid "windy"
-msgstr "±j­·"
+msgstr "å¼·é¢¨"

@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Laszlo L. Tornoci <torlasz@xenia.sote.hu>\n"
 "Language-Team: Hungarian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
@@ -26,34 +26,34 @@ msgstr "%s karakter"
 #: data.php:199
 #, php-format
 msgid "%s file successfully imported"
-msgstr "A %s fájl importálása sikeresen megtörtént"
+msgstr "A %s fÃ¡jl importÃ¡lÃ¡sa sikeresen megtÃ¶rtÃ©nt"
 
 #: lib/Mnemo.php:429 lib/Forms/DeleteNotepad.php:86
 #, php-format
 msgid "%s's Notepad"
-msgstr "%s feljegyzései"
+msgstr "%s feljegyzÃ©sei"
 
 #: memo.php:199
 msgid "Access denied deleting note."
-msgstr "Nincs jogosultsága a feljegyzés törléséhez."
+msgstr "Nincs jogosultsÃ¡ga a feljegyzÃ©s tÃ¶rlÃ©sÃ©hez."
 
 #: memo.php:150 memo.php:153
 msgid "Access denied moving the note."
-msgstr "Nincs jogosultsága a feljegyzés áthelyezéséhez."
+msgstr "Nincs jogosultsÃ¡ga a feljegyzÃ©s Ã¡thelyezÃ©sÃ©hez."
 
 #: memo.php:120
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "Nincs jogosultsága a feljegyzés %s-be történõ mentéséhez."
+msgstr "Nincs jogosultsÃ¡ga a feljegyzÃ©s %s-be tÃ¶rtÃ©nÅ‘ mentÃ©sÃ©hez."
 
 #: memo.php:118
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "Nincs jogosultsága a feljegyzés elmentéséhez: %s."
+msgstr "Nincs jogosultsÃ¡ga a feljegyzÃ©s elmentÃ©sÃ©hez: %s."
 
 #: config/prefs.php.dist:70
 msgid "Ascending"
-msgstr "növekvõ"
+msgstr "nÃ¶vekvÅ‘"
 
 #: data.php:32 templates/data/import.inc:11
 msgid "CSV"
@@ -61,161 +61,161 @@ msgstr "CSV"
 
 #: lib/Forms/DeleteNotepad.php:45 lib/Forms/DeleteNotepad.php:51
 msgid "Cancel"
-msgstr "Mégse"
+msgstr "MÃ©gse"
 
 #: data.php:54 templates/view/memo.inc:26
 msgid "Category"
-msgstr "Kategória"
+msgstr "KategÃ³ria"
 
 #: templates/notepad_list.php:31 notepads/index.php:32
 msgid "Change Permissions"
-msgstr "A jogosultságok módosítása"
+msgstr "A jogosultsÃ¡gok mÃ³dosÃ­tÃ¡sa"
 
 #: config/prefs.php.dist:14
 msgid "Change your note sorting and display options."
-msgstr "A sorrendre és megjelenítésre vonatkozó beállítások megváltoztatása."
+msgstr "A sorrendre Ã©s megjelenÃ­tÃ©sre vonatkozÃ³ beÃ¡llÃ­tÃ¡sok megvÃ¡ltoztatÃ¡sa."
 
 #: config/prefs.php.dist:21
 msgid "Choose your default Notepad."
-msgstr "Válassza ki az Ön alapértelmezés szerinti jegyzettömbjét."
+msgstr "VÃ¡lassza ki az Ã–n alapÃ©rtelmezÃ©s szerinti jegyzettÃ¶mbjÃ©t."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
-msgstr "A keresés bezárása"
+msgstr "A keresÃ©s bezÃ¡rÃ¡sa"
 
 #: lib/Forms/CreateNotepad.php:39
 msgid "Create"
-msgstr "Létrehozás"
+msgstr "LÃ©trehozÃ¡s"
 
 #: lib/Forms/CreateNotepad.php:34
 msgid "Create Notepad"
-msgstr "Jegyzettömb létrehozása"
+msgstr "JegyzettÃ¶mb lÃ©trehozÃ¡sa"
 
 #: templates/notepad_list.php:8
 msgid "Create a new Notepad"
-msgstr "Új jegyzettömb létrehozása"
+msgstr "Ãšj jegyzettÃ¶mb lÃ©trehozÃ¡sa"
 
 #: templates/view/memo.inc:32
 msgid "Created"
-msgstr "Létrehozva"
+msgstr "LÃ©trehozva"
 
 #: templates/view/memo.inc:54 templates/memo/memo.inc:23
 msgid "Decrypt"
-msgstr "Megjelenítés"
+msgstr "MegjelenÃ­tÃ©s"
 
 #: config/prefs.php.dist:20
 msgid "Default Notepad"
-msgstr "Az alapértelmezés szerinti jegyzettömb"
+msgstr "Az alapÃ©rtelmezÃ©s szerinti jegyzettÃ¶mb"
 
 #: config/prefs.php.dist:61
 msgid "Default sorting criteria:"
-msgstr "A sorbarendezés alapértelmezés szerinti szempontja:"
+msgstr "A sorbarendezÃ©s alapÃ©rtelmezÃ©s szerinti szempontja:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "A sorbarendezés alapértelmezés szerinti iránya:"
+msgstr "A sorbarendezÃ©s alapÃ©rtelmezÃ©s szerinti irÃ¡nya:"
 
 #: templates/notepad_list.php:33 templates/view/memo.inc:16
 #: notepads/index.php:33 lib/Forms/DeleteNotepad.php:45
 msgid "Delete"
-msgstr "Törlés"
+msgstr "TÃ¶rlÃ©s"
 
 #: lib/Forms/DeleteNotepad.php:40
 #, php-format
 msgid "Delete %s"
-msgstr "%s törlése"
+msgstr "%s tÃ¶rlÃ©se"
 
 #: config/prefs.php.dist:27
 msgid "Delete Confirmation"
-msgstr "A törlés megerõsítése"
+msgstr "A tÃ¶rlÃ©s megerÅ‘sÃ­tÃ©se"
 
 #: config/prefs.php.dist:28
 msgid "Delete button behaviour"
-msgstr "A törlés gomb viselkedése"
+msgstr "A tÃ¶rlÃ©s gomb viselkedÃ©se"
 
 #: templates/memo/memo.inc:11
 msgid "Delete this note"
-msgstr "A feljegyzés törlése"
+msgstr "A feljegyzÃ©s tÃ¶rlÃ©se"
 
 #: config/prefs.php.dist:71
 msgid "Descending"
-msgstr "csökkenõ"
+msgstr "csÃ¶kkenÅ‘"
 
 #: lib/Forms/EditNotepad.php:44 lib/Forms/CreateNotepad.php:37
 msgid "Description"
-msgstr "Leírás"
+msgstr "LeÃ­rÃ¡s"
 
 #: lib/Driver/kolab.php:556
 #, php-format
 msgid "Did not find note %s"
-msgstr "%s feljegyzés nem található"
+msgstr "%s feljegyzÃ©s nem talÃ¡lhatÃ³"
 
 #: config/prefs.php.dist:13
 msgid "Display Options"
-msgstr "Megjelenítési beállítások"
+msgstr "MegjelenÃ­tÃ©si beÃ¡llÃ­tÃ¡sok"
 
 #: config/prefs.php.dist:117
 msgid "Do you want to confirm deleting entries?"
-msgstr "Az adatok törlését megelõzõen óhajt-e egy megerõsítõ kérdést?"
+msgstr "Az adatok tÃ¶rlÃ©sÃ©t megelÅ‘zÅ‘en Ã³hajt-e egy megerÅ‘sÃ­tÅ‘ kÃ©rdÃ©st?"
 
 #: templates/notepad_list.php:29 templates/view/memo.inc:13
 #: notepads/index.php:31
 msgid "Edit"
-msgstr "Módosítás"
+msgstr "MÃ³dosÃ­tÃ¡s"
 
 #: templates/list/memo_summaries.inc:5
 #, php-format
 msgid "Edit \"%s\""
-msgstr "\"%s\" módosítása"
+msgstr "\"%s\" mÃ³dosÃ­tÃ¡sa"
 
 #: lib/Forms/EditNotepad.php:40
 #, php-format
 msgid "Edit %s"
-msgstr "%s módosítása"
+msgstr "%s mÃ³dosÃ­tÃ¡sa"
 
 #: templates/list/memo_headers.inc:30 lib/Block/summary.php:74
 msgid "Edit Note"
-msgstr "A feljegyzés módosítása"
+msgstr "A feljegyzÃ©s mÃ³dosÃ­tÃ¡sa"
 
 #: templates/list/memo_headers.inc:45
 msgid "Edit categories and colors"
-msgstr "A kategóriák és színeik módosítása"
+msgstr "A kategÃ³riÃ¡k Ã©s szÃ­neik mÃ³dosÃ­tÃ¡sa"
 
 #: memo.php:104
 #, php-format
 msgid "Edit: %s"
-msgstr "\"%s\" módosítása"
+msgstr "\"%s\" mÃ³dosÃ­tÃ¡sa"
 
 #: templates/list/memo_summaries.inc:15 lib/Block/summary.php:93
 msgid "Empty Note"
-msgstr "A feljegyzés üres"
+msgstr "A feljegyzÃ©s Ã¼res"
 
 #: lib/Driver.php:118
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
-msgstr "A titkosítás támogatása nincs beállítva, forduljon a rendszergazdához."
+msgstr "A titkosÃ­tÃ¡s tÃ¡mogatÃ¡sa nincs beÃ¡llÃ­tva, forduljon a rendszergazdÃ¡hoz."
 
 #: templates/data/export.inc:16
 msgid "Export"
-msgstr "Exportálás"
+msgstr "ExportÃ¡lÃ¡s"
 
 #: templates/data/export.inc:2
 msgid "Export Notes"
-msgstr "Jegyzettömbök exportálása"
+msgstr "JegyzettÃ¶mbÃ¶k exportÃ¡lÃ¡sa"
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
 msgid "General Options"
-msgstr "Általános beállítások"
+msgstr "ÃltalÃ¡nos beÃ¡llÃ­tÃ¡sok"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Feljegyzések importálása, %d. lépés"
+msgstr "FeljegyzÃ©sek importÃ¡lÃ¡sa, %d. lÃ©pÃ©s"
 
 #: data.php:205
 msgid "Import/Export Notes"
-msgstr "Feljegyzések importálása/exportja"
+msgstr "FeljegyzÃ©sek importÃ¡lÃ¡sa/exportja"
 
 #: templates/search/search.inc:17
 msgid "In: "
@@ -223,121 +223,121 @@ msgstr "ebben: "
 
 #: templates/view/memo.inc:39
 msgid "Last Modified"
-msgstr "Utolsó módosítás"
+msgstr "UtolsÃ³ mÃ³dosÃ­tÃ¡s"
 
 #: templates/notepad_list.php:2 notepads/index.php:37
 msgid "Manage Notepads"
-msgstr "Jegyzettömbjeim rendezése"
+msgstr "JegyzettÃ¶mbjeim rendezÃ©se"
 
 #: lib/api.php:77
 msgid "Maximum Number of Notes"
-msgstr "A feljegyzések maximális száma"
+msgstr "A feljegyzÃ©sek maximÃ¡lis szÃ¡ma"
 
 #: data.php:53
 msgid "Memo Text"
-msgstr "A feljegyzés szövege"
+msgstr "A feljegyzÃ©s szÃ¶vege"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menülista"
+msgstr "MenÃ¼lista"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
-msgstr "További beállítások..."
+msgstr "TovÃ¡bbi beÃ¡llÃ­tÃ¡sok..."
 
 #: templates/panel.inc:50
 msgid "My Notepads:"
-msgstr "Jegyzettömbjeim:"
+msgstr "JegyzettÃ¶mbjeim:"
 
 #: list.php:31
 msgid "My Notes"
-msgstr "Jegyzettömbjeim"
+msgstr "JegyzettÃ¶mbjeim"
 
 #: lib/Forms/EditNotepad.php:43 lib/Forms/CreateNotepad.php:36
 msgid "Name"
-msgstr "Név"
+msgstr "NÃ©v"
 
 #: memo.php:57 lib/Block/tree_menu.php:23
 msgid "New Note"
-msgstr "Új feljegyzés"
+msgstr "Ãšj feljegyzÃ©s"
 
 #: templates/data/import.inc:34
 msgid "Next"
-msgstr "Következõ"
+msgstr "KÃ¶vetkezÅ‘"
 
 #: lib/api.php:272
 msgid "No iCalendar data was found."
-msgstr "Nem található iCalendar adat."
+msgstr "Nem talÃ¡lhatÃ³ iCalendar adat."
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
-msgstr "Nincs ilyen feljegyzés"
+msgstr "Nincs ilyen feljegyzÃ©s"
 
 #: templates/list/empty.inc:1
 msgid "No notes match the current criteria."
-msgstr "Nincs a feltételeknek megfelelõ feljegyzés."
+msgstr "Nincs a feltÃ©teleknek megfelelÅ‘ feljegyzÃ©s."
 
 #: lib/Block/summary.php:101
 msgid "No notes to display"
-msgstr "Nincs megjeleníthetõ feljegyzés"
+msgstr "Nincs megjelenÃ­thetÅ‘ feljegyzÃ©s"
 
 #: templates/list/memo_headers.inc:37
 msgid "No_te"
-msgstr "Feljegyzés"
+msgstr "FeljegyzÃ©s"
 
 #: lib/Driver/sql.php:195
 msgid "Not found"
-msgstr "nem található"
+msgstr "nem talÃ¡lhatÃ³"
 
 #: config/prefs.php.dist:59
 msgid "Note Category"
-msgstr "A feljegyzés kategóriája"
+msgstr "A feljegyzÃ©s kategÃ³riÃ¡ja"
 
 #: view.php:108
 msgid "Note Details"
-msgstr "A feljegyzés részletesen"
+msgstr "A feljegyzÃ©s rÃ©szletesen"
 
 #: config/prefs.php.dist:58
 msgid "Note Text"
-msgstr "A feljegyzés szövege"
+msgstr "A feljegyzÃ©s szÃ¶vege"
 
 #: templates/memo/memo.inc:53
 msgid "Note _Text"
-msgstr "A feljegyzés szövege"
+msgstr "A feljegyzÃ©s szÃ¶vege"
 
 #: view.php:56 memo.php:67 note/pdf.php:57
 msgid "Note not found."
-msgstr "A feljegyzés nem található."
+msgstr "A feljegyzÃ©s nem talÃ¡lhatÃ³."
 
 #: templates/memo/memo.inc:59
 msgid "Note_pad"
-msgstr "Jegyzettömb"
+msgstr "JegyzettÃ¶mb"
 
 #: templates/notepad_list.php:15 templates/list/memo_headers.inc:33
 #: config/prefs.php.dist:60
 msgid "Notepad"
-msgstr "Jegyzettömb"
+msgstr "JegyzettÃ¶mb"
 
 #: templates/notepad_list.php:12
 msgid "Notepad List"
-msgstr "A jegyzettömbök listája"
+msgstr "A jegyzettÃ¶mbÃ¶k listÃ¡ja"
 
 #: templates/panel.inc:32 templates/panel.inc:33
 msgid "Notepads"
-msgstr "Jegyzettömbök"
+msgstr "JegyzettÃ¶mbÃ¶k"
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
-msgstr "Összefoglalás a jegyzetekrõl"
+msgstr "Ã–sszefoglalÃ¡s a jegyzetekrÅ‘l"
 
 #: lib/api.php:147 lib/api.php:187 lib/api.php:220 lib/api.php:250
 #: lib/api.php:337 lib/api.php:396 lib/api.php:425
 msgid "Permission Denied"
-msgstr "Önnek nincs ehhez elegendõ jogosultsága"
+msgstr "Ã–nnek nincs ehhez elegendÅ‘ jogosultsÃ¡ga"
 
 #: lib/Forms/DeleteNotepad.php:56
 msgid "Permission denied"
-msgstr "Önnek nincs ehhez elegendõ jogosultsága"
+msgstr "Ã–nnek nincs ehhez elegendÅ‘ jogosultsÃ¡ga"
 
 #: lib/Forms/DeleteNotepad.php:43
 #, php-format
@@ -345,193 +345,193 @@ msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
 "notepad will be permanently removed."
 msgstr ""
-"Valóban törölni kívánja \"%s\" jegyzettömböt? Ez nem visszafordítható lépés, "
-"amivel ennek a jegyzettömbnek minden adata elvész."
+"ValÃ³ban tÃ¶rÃ¶lni kÃ­vÃ¡nja \"%s\" jegyzettÃ¶mbÃ¶t? Ez nem visszafordÃ­thatÃ³ lÃ©pÃ©s, "
+"amivel ennek a jegyzettÃ¶mbnek minden adata elvÃ©sz."
 
 #: templates/view/memo.inc:16
 msgid "Really delete this note?"
-msgstr "Valóban törölni kívánja ezt a feljegyzést?"
+msgstr "ValÃ³ban tÃ¶rÃ¶lni kÃ­vÃ¡nja ezt a feljegyzÃ©st?"
 
 #: templates/panel.inc:68 templates/memo/memo.inc:57
 #: lib/Forms/EditNotepad.php:46
 msgid "Save"
-msgstr "Mentés"
+msgstr "MentÃ©s"
 
 #: templates/view/memo.inc:11
 msgid "Save as PDF"
-msgstr "PDF-ként való mentés"
+msgstr "PDF-kÃ©nt valÃ³ mentÃ©s"
 
 #: search.php:17 templates/search/search.inc:4 templates/search/search.inc:27
 #: templates/list/header.inc:4 lib/Block/tree_menu.php:44
 msgid "Search"
-msgstr "Keresés"
+msgstr "KeresÃ©s"
 
 #: list.php:54
 msgid "Search Results"
-msgstr "A keresés eredménye"
+msgstr "A keresÃ©s eredmÃ©nye"
 
 #: templates/panel.inc:38
 msgid "Search for Notepads:"
-msgstr "Jegyzettömbök keresése:"
+msgstr "JegyzettÃ¶mbÃ¶k keresÃ©se:"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
-msgstr "Válassza ki az exportálás formátumát:"
+msgstr "VÃ¡lassza ki az exportÃ¡lÃ¡s formÃ¡tumÃ¡t:"
 
 #: templates/data/import.inc:31
 msgid "Select the file to import:"
-msgstr "Válassza ki az importálandó fájlt:"
+msgstr "VÃ¡lassza ki az importÃ¡landÃ³ fÃ¡jlt:"
 
 #: templates/data/import.inc:9
 msgid "Select the format of the source file:"
-msgstr "Válassza ki, hogy milyen formátumú fájlból kíván importálni:"
+msgstr "VÃ¡lassza ki, hogy milyen formÃ¡tumÃº fÃ¡jlbÃ³l kÃ­vÃ¡n importÃ¡lni:"
 
 #: templates/panel.inc:59
 msgid "Shared Notepads:"
-msgstr "Megosztott jegyzettömbök:"
+msgstr "Megosztott jegyzettÃ¶mbÃ¶k:"
 
 #: config/prefs.php.dist:39
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr "Jelenjen meg a Jegyzettömb egy külön oszlopban listázáskor?"
+msgstr "Jelenjen meg a JegyzettÃ¶mb egy kÃ¼lÃ¶n oszlopban listÃ¡zÃ¡skor?"
 
 #: lib/Block/summary.php:34
 msgid "Show action buttons?"
-msgstr "Legyenek funkcióval ellátott ikonok? "
+msgstr "Legyenek funkciÃ³val ellÃ¡tott ikonok? "
 
 #: lib/Block/summary.php:37
 msgid "Show notepad name?"
-msgstr "Mutassuk a jegyzettömb nevét?"
+msgstr "Mutassuk a jegyzettÃ¶mb nevÃ©t?"
 
 #: config/prefs.php.dist:49
 msgid "Show notepad options panel?"
-msgstr "Mutassuk a jegyzettömb beállítási lehetõségeit?"
+msgstr "Mutassuk a jegyzettÃ¶mb beÃ¡llÃ­tÃ¡si lehetÅ‘sÃ©geit?"
 
 #: lib/Block/summary.php:40
 msgid "Show notes from these categories"
-msgstr "A következõ kategóriájú feljegyzéseket jelenítsük meg"
+msgstr "A kÃ¶vetkezÅ‘ kategÃ³riÃ¡jÃº feljegyzÃ©seket jelenÃ­tsÃ¼k meg"
 
 #: templates/list/memo_headers.inc:41
 msgid "Sort by Category"
-msgstr "Kategória szerinti sorrend"
+msgstr "KategÃ³ria szerinti sorrend"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
-msgstr "Elnevezés szerinti sorrend"
+msgstr "ElnevezÃ©s szerinti sorrend"
 
 #: templates/list/memo_headers.inc:33
 msgid "Sort by Notepad"
-msgstr "Jegyzettömbök szerinti sorrend"
+msgstr "JegyzettÃ¶mbÃ¶k szerinti sorrend"
 
 #: memo.php:173
 #, php-format
 msgid "Successfully saved \"%s\"."
-msgstr "Sikeresen elmentettük \"%s\"-t."
+msgstr "Sikeresen elmentettÃ¼k \"%s\"-t."
 
 #: data.php:193
 #, php-format
 msgid "The %s file didn't contain any notes."
-msgstr "A(z) \"%s\" állományban nem volt feljegyzés."
+msgstr "A(z) \"%s\" Ã¡llomÃ¡nyban nem volt feljegyzÃ©s."
 
 #: lib/Driver.php:53
 msgid "The Notes backend is not currently available."
-msgstr "A Feljegyzések alrendszer jelenleg nem áll rendelkezésre."
+msgstr "A FeljegyzÃ©sek alrendszer jelenleg nem Ã¡ll rendelkezÃ©sre."
 
 #: lib/Driver.php:227
 #, php-format
 msgid "The Notes backend is not currently available: %s"
-msgstr "A Feljegyzések alrendszer jelenleg nem áll rendelkezésre: %s"
+msgstr "A FeljegyzÃ©sek alrendszer jelenleg nem Ã¡ll rendelkezÃ©sre: %s"
 
 #: memo.php:196
 msgid "The note was deleted."
-msgstr "Az feljegyzést kitöröltük."
+msgstr "Az feljegyzÃ©st kitÃ¶rÃ¶ltÃ¼k."
 
 #: notepads/create.php:31
 #, php-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Létrehoztuk a(z) \"%s\" jegyzettömböt."
+msgstr "LÃ©trehoztuk a(z) \"%s\" jegyzettÃ¶mbÃ¶t."
 
 #: notepads/delete.php:48
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
-msgstr "A(z) \"%s\" jegyzettömböt kitöröltük."
+msgstr "A(z) \"%s\" jegyzettÃ¶mbÃ¶t kitÃ¶rÃ¶ltÃ¼k."
 
 #: notepads/edit.php:42
 #, php-format
 msgid "The notepad \"%s\" has been renamed to \"%s\"."
-msgstr "A \"%s\" jegyzettömböt átnevezzük \"%s\"-re."
+msgstr "A \"%s\" jegyzettÃ¶mbÃ¶t Ã¡tnevezzÃ¼k \"%s\"-re."
 
 #: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "A(z) \"%s\" jegyzettömböt elmentettük."
+msgstr "A(z) \"%s\" jegyzettÃ¶mbÃ¶t elmentettÃ¼k."
 
 #: data.php:196
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Az importálás során hiba történt: %s"
+msgstr "Az importÃ¡lÃ¡s sorÃ¡n hiba tÃ¶rtÃ©nt: %s"
 
 #: lib/api.php:266
 msgid "There was an error importing the iCalendar data."
-msgstr "Az iCalendar adatok importálása során hiba történt."
+msgstr "Az iCalendar adatok importÃ¡lÃ¡sa sorÃ¡n hiba tÃ¶rtÃ©nt."
 
 #: lib/api.php:444
 msgid "There was an error importing the vNote data."
-msgstr "A vNote adatok importálása során hiba történt."
+msgstr "A vNote adatok importÃ¡lÃ¡sa sorÃ¡n hiba tÃ¶rtÃ©nt."
 
 #: memo.php:194
 #, php-format
 msgid "There was an error removing the note: %s"
-msgstr "Hiba történt a feljegyzés törlése során: %s"
+msgstr "Hiba tÃ¶rtÃ©nt a feljegyzÃ©s tÃ¶rlÃ©se sorÃ¡n: %s"
 
 #: memo.php:171
 #, php-format
 msgid "There was an error saving the note: %s"
-msgstr "Hiba történt a feljegyzés elmentése során: %s"
+msgstr "Hiba tÃ¶rtÃ©nt a feljegyzÃ©s elmentÃ©se sorÃ¡n: %s"
 
 #: view.php:45 note/pdf.php:46
 #, php-format
 msgid "There was an error viewing this notepad: %s"
-msgstr "Hiba történt a feljegyzés megjelenítésekor: %s"
+msgstr "Hiba tÃ¶rtÃ©nt a feljegyzÃ©s megjelenÃ­tÃ©sekor: %s"
 
 #: data.php:78
 msgid "There were no memos to export."
-msgstr "Nem volt exportálható feljegyzés."
+msgstr "Nem volt exportÃ¡lhatÃ³ feljegyzÃ©s."
 
 #: data.php:104
 msgid "This file format is not supported."
-msgstr "Ismeretlen fájlformátum."
+msgstr "Ismeretlen fÃ¡jlformÃ¡tum."
 
 #: view.php:98 memo.php:91
 msgid "This note cannot be decrypted:"
-msgstr "Ez a titkosított feljegyzés nem jeleníthetõ meg:"
+msgstr "Ez a titkosÃ­tott feljegyzÃ©s nem jelenÃ­thetÅ‘ meg:"
 
 #: view.php:90 memo.php:83
 msgid "This note has been encrypted, please provide the password below."
-msgstr "Ez egy titkosított feljegyzés, kérem adja meg a jelszót."
+msgstr "Ez egy titkosÃ­tott feljegyzÃ©s, kÃ©rem adja meg a jelszÃ³t."
 
 #: view.php:87 view.php:95 memo.php:80 memo.php:88 lib/Driver/kolab.php:752
 #: lib/Driver/sql.php:448
 msgid "This note has been encrypted."
-msgstr "Ezt egy titkosított feljegyzés."
+msgstr "Ezt egy titkosÃ­tott feljegyzÃ©s."
 
 #: notepads/delete.php:24
 msgid "This notepad cannot be deleted"
-msgstr "Ez a jegyzettömb nem törölhetõ"
+msgstr "Ez a jegyzettÃ¶mb nem tÃ¶rÃ¶lhetÅ‘"
 
 #: lib/Forms/DeleteNotepad.php:63
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Nem sikerült \"%s\"-t törölni: %s"
+msgstr "Nem sikerÃ¼lt \"%s\"-t tÃ¶rÃ¶lni: %s"
 
 #: lib/Driver.php:230
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Nem sikerült beolvasni %s definícióját."
+msgstr "Nem sikerÃ¼lt beolvasni %s definÃ­ciÃ³jÃ¡t."
 
 #: lib/Forms/EditNotepad.php:55
 #, php-format
 msgid "Unable to save notepad \"%s\": %s"
-msgstr "Nem sikerült \"%s\" jegyzettömböt elmenteni: %s"
+msgstr "Nem sikerÃ¼lt \"%s\" jegyzettÃ¶mbÃ¶t elmenteni: %s"
 
 #: templates/view/memo.inc:27 templates/list/memo_summaries.inc:17
 #: lib/Mnemo.php:245 lib/Mnemo.php:246 lib/Mnemo.php:260 lib/Mnemo.php:261
@@ -542,61 +542,61 @@ msgstr "Besorolatlan"
 #: lib/api.php:302 lib/api.php:359 lib/api.php:452
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Nem támogatott tartalomtípus: %s"
+msgstr "Nem tÃ¡mogatott tartalomtÃ­pus: %s"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
-msgstr "Melyik jegyzettömbbe kívánja a feljegyzéseket tenni?"
+msgstr "Melyik jegyzettÃ¶mbbe kÃ­vÃ¡nja a feljegyzÃ©seket tenni?"
 
 #: notepads/edit.php:28
 msgid "You are not allowed to change this notepad."
-msgstr "Ön nem jogosult ennek a jegyzettömbnek a módosítására."
+msgstr "Ã–n nem jogosult ennek a jegyzettÃ¶mbnek a mÃ³dosÃ­tÃ¡sÃ¡ra."
 
 #: data.php:42 data.php:128 memo.php:37
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Ön legfeljebb %d feljegyzést hozhat létre."
+msgstr "Ã–n legfeljebb %d feljegyzÃ©st hozhat lÃ©tre."
 
 #: notepads/delete.php:35
 msgid "You are not allowed to delete this notepad."
-msgstr "Ön nem jogosult törölni ezt a jegyzettömböt."
+msgstr "Ã–n nem jogosult tÃ¶rÃ¶lni ezt a jegyzettÃ¶mbÃ¶t."
 
 #: view.php:49 note/pdf.php:50
 #, php-format
 msgid "You do not have permission to view the notepad %s."
-msgstr "Ön nem jogosult a(z) %s jegyzettömb használatára."
+msgstr "Ã–n nem jogosult a(z) %s jegyzettÃ¶mb hasznÃ¡latÃ¡ra."
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
-msgstr "Az Ön alapértelmezés szerinti jegyzettömbje:"
+msgstr "Az Ã–n alapÃ©rtelmezÃ©s szerinti jegyzettÃ¶mbje:"
 
 #: templates/panel.inc:45
 msgid "[Manage Notepads]"
-msgstr "[Jegyzettömbjeim rendezése]"
+msgstr "[JegyzettÃ¶mbjeim rendezÃ©se]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
-msgstr "Szöveg"
+msgstr "SzÃ¶veg"
 
 #: templates/memo/memo.inc:70 templates/list/memo_headers.inc:41
 msgid "_Category"
-msgstr "Kategória"
+msgstr "KategÃ³ria"
 
 #: templates/view/memo.inc:16
 msgid "_Delete"
-msgstr "Törlés"
+msgstr "TÃ¶rlÃ©s"
 
 #: templates/view/memo.inc:13
 msgid "_Edit"
-msgstr "Módosítás"
+msgstr "MÃ³dosÃ­tÃ¡s"
 
 #: templates/memo/memo.inc:74
 msgid "_Encrypt?"
-msgstr "Titkosítsuk?"
+msgstr "TitkosÃ­tsuk?"
 
 #: templates/search/search.inc:9
 msgid "_For: "
-msgstr "Keresés: "
+msgstr "KeresÃ©s: "
 
 #: lib/Mnemo.php:466
 msgid "_Import/Export"
@@ -608,29 +608,29 @@ msgstr "_Lista"
 
 #: lib/Mnemo.php:458
 msgid "_New Note"
-msgstr "Ú_j feljegyzés"
+msgstr "Ãš_j feljegyzÃ©s"
 
 #: templates/view/memo.inc:52 templates/memo/memo.inc:21
 #: templates/memo/memo.inc:79
 msgid "_Password"
-msgstr "Jelszó"
+msgstr "JelszÃ³"
 
 #: lib/Mnemo.php:471
 msgid "_Print"
-msgstr "_Nyomtatás"
+msgstr "_NyomtatÃ¡s"
 
 #: lib/Mnemo.php:462
 msgid "_Search"
-msgstr "Kere_sés"
+msgstr "Kere_sÃ©s"
 
 #: templates/search/search.inc:20
 msgid "_Title"
-msgstr "Cím"
+msgstr "CÃ­m"
 
 #: lib/Block/tree_menu.php:33
 #, php-format
 msgid "in %s"
-msgstr "%s jegyzettömbben"
+msgstr "%s jegyzettÃ¶mbben"
 
 #: data.php:90 templates/data/export.inc:4
 msgid "notes.csv"

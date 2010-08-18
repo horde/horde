@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -73,11 +73,11 @@ msgstr "Zugriff auf die Klasse \"%s\" wurde verweigert."
 
 #: lib/Forms/Entry.php:166
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: lib/Forms/Entry.php:33
 msgid "Add Entry"
-msgstr "Eintrag hinzufügen"
+msgstr "Eintrag hinzufÃ¼gen"
 
 #: lib/Forms/EditClass.php:79 lib/Forms/EditClass.php:82
 #: lib/Forms/CreateClass.php:92 lib/Forms/CreateClass.php:95
@@ -124,16 +124,16 @@ msgstr "Kategorie"
 
 #: templates/classes/list.php:28 classes/index.php:29
 msgid "Change Permissions"
-msgstr "Rechte Ändern"
+msgstr "Rechte Ã„ndern"
 
 #: config/prefs.php.dist:16
 msgid "Change your settings for automatically create contact lists."
 msgstr ""
-"Ändern Sie die Einstellungen zum automatischen Erstellen einer Kontaktliste."
+"Ã„ndern Sie die Einstellungen zum automatischen Erstellen einer Kontaktliste."
 
 #: config/prefs.php.dist:9
 msgid "Change your sorting and display options."
-msgstr "Ändern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
+msgstr "Ã„ndern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
 
 #: lib/School.php:92 lib/School.php:99 lib/School.php:128 lib/School.php:142
 #: lib/School.php:148 lib/School.php:164 lib/School.php:167
@@ -141,7 +141,7 @@ msgstr "Ändern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
 #: lib/Forms/Entry.php:61 lib/Forms/Entry.php:128 lib/Forms/CreateClass.php:74
 #: lib/Forms/CreateClass.php:95
 msgid "Choose:"
-msgstr "Auswählen:"
+msgstr "AuswÃ¤hlen:"
 
 #: data.php:62 templates/classes/list.php:16 templates/search/headers.inc:34
 #: lib/Forms/Entry.php:61
@@ -203,7 +203,7 @@ msgstr "Ein neuer Eintrag konnte nicht erstellt werden."
 #: lib/Forms/EditClass.php:159 lib/Forms/CreateClass.php:200
 msgid "Couldn't add the selected students to the class."
 msgstr ""
-"Die ausgewählten Studenten konnten nicht zur Klasse hinzugefügt werden."
+"Die ausgewÃ¤hlten Studenten konnten nicht zur Klasse hinzugefÃ¼gt werden."
 
 #: lib/Skoli.php:276 lib/Forms/CreateClass.php:226
 #, php-format
@@ -245,17 +245,17 @@ msgstr "Datum"
 
 #: config/prefs.php.dist:23
 msgid "Define a format for marks"
-msgstr "Formatdefinition für Noten"
+msgstr "Formatdefinition fÃ¼r Noten"
 
 #: entry.php:91 templates/classes/list.php:30 templates/entry/delete.inc:8
 #: classes/index.php:30 lib/Forms/DeleteClass.php:39
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: lib/Forms/DeleteClass.php:34
 #, php-format
 msgid "Delete %s"
-msgstr "%s löschen"
+msgstr "%s lÃ¶schen"
 
 #: config/prefs.php.dist:80 config/prefs.php.dist:116
 msgid "Descending"
@@ -308,8 +308,8 @@ msgid ""
 "Enter a default name for new contact lists.<br />NOTE: You can use %c, %g or "
 "%s as substitution for the class, grade respectively semester name."
 msgstr ""
-"Eingabe eines Standardnamens für neue Kontaktlisten.<br />HINWEIS: Sie "
-"können %c, %g oder %s als Ersatz für die Klasse (class), Stufe (grade) und "
+"Eingabe eines Standardnamens fÃ¼r neue Kontaktlisten.<br />HINWEIS: Sie "
+"kÃ¶nnen %c, %g oder %s als Ersatz fÃ¼r die Klasse (class), Stufe (grade) und "
 "Semester (semester) verwenden."
 
 #: config/prefs.php.dist:165
@@ -318,8 +318,8 @@ msgid ""
 ">NOTE: You also need to choose \"Custom settings\" above."
 msgstr ""
 "Eingabe eines eigenen Notenformats. Jede Note wird mit einem Komma getrennt "
-"(beste Note zuerst).<br />HINWEIS: Sie müssen auch den Punkt \"Eigene "
-"Einstellungen\" weiter oben auswählen."
+"(beste Note zuerst).<br />HINWEIS: Sie mÃ¼ssen auch den Punkt \"Eigene "
+"Einstellungen\" weiter oben auswÃ¤hlen."
 
 #: templates/search/headers.inc:46
 msgid "Entry"
@@ -328,7 +328,7 @@ msgstr "Eintrag"
 #: entry.php:100
 #, php-format
 msgid "Entry for \"%s\""
-msgstr "Eintrag für \"%s\""
+msgstr "Eintrag fÃ¼r \"%s\""
 
 #: entry.php:23
 msgid "Entry not found."
@@ -377,7 +377,7 @@ msgstr "Format in Prozent"
 
 #: config/schools.php.dist:95
 msgid "French"
-msgstr "Französisch"
+msgstr "FranzÃ¶sisch"
 
 #: config/prefs.php.dist:7 config/prefs.php.dist:14 config/prefs.php.dist:21
 msgid "General Options"
@@ -398,11 +398,11 @@ msgstr "Stufe"
 
 #: config/schools.php.dist:96 config/schools.php.dist:102
 msgid "Hearing"
-msgstr "Hörverstehen"
+msgstr "HÃ¶rverstehen"
 
 #: config/schools.php.dist:81
 msgid "Hearing and Talking"
-msgstr "Hören und Sprechen"
+msgstr "HÃ¶ren und Sprechen"
 
 #: config/prefs.php.dist:126
 msgid ""
@@ -418,12 +418,12 @@ msgstr "Auf wieviele Stellen sollen die Noten gerundet werden?"
 
 #: config/schools.php.dist:86
 msgid "Imagination"
-msgstr "Vorstellungsvermögen"
+msgstr "VorstellungsvermÃ¶gen"
 
 #: lib/School.php:121 lib/School.php:125 lib/School.php:136 lib/School.php:137
 #: lib/School.php:143
 msgid "Interdisciplinary"
-msgstr "Fächerübergreifend"
+msgstr "FÃ¤cherÃ¼bergreifend"
 
 #: templates/list/headers.inc:60 config/prefs.php.dist:90
 #: config/prefs.php.dist:103
@@ -479,7 +479,7 @@ msgstr "Mathematik"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüliste"
+msgstr "MenÃ¼liste"
 
 #: config/schools.php.dist:109
 msgid "Motivation to learn and dedication"
@@ -516,12 +516,12 @@ msgstr "Neuer Eintrag"
 #: data.php:21
 msgid "No classes are currently available. Export is disabled."
 msgstr ""
-"Zur Zeit sind keine Klassen verfügbar. Export steht nicht zur Verfügung."
+"Zur Zeit sind keine Klassen verfÃ¼gbar. Export steht nicht zur VerfÃ¼gung."
 
 #: search.php:17
 msgid "No classes are currently available. Searching is disabled."
 msgstr ""
-"Zur Zeit sind keine Klassen verfügbar. Die Suche steht nicht zur Verfügung."
+"Zur Zeit sind keine Klassen verfÃ¼gbar. Die Suche steht nicht zur VerfÃ¼gung."
 
 #: templates/list/footers.inc:4
 msgid "No classes match"
@@ -561,7 +561,7 @@ msgstr "Lernziele"
 
 #: templates/entry/delete.inc:7
 msgid "Permanently delete this entry?"
-msgstr "Diesen Eintrag unwiederbringlich löschen?"
+msgstr "Diesen Eintrag unwiederbringlich lÃ¶schen?"
 
 #: lib/Forms/DeleteClass.php:51
 msgid "Permission denied"
@@ -573,7 +573,7 @@ msgstr "Bitte erstellen Sie zuerst eine neue Klasse."
 
 #: config/schools.php.dist:89
 msgid "Problem solving behavior"
-msgstr "Problemlöseverhalten"
+msgstr "ProblemlÃ¶severhalten"
 
 #: lib/Forms/EditClass.php:54 lib/Forms/CreateClass.php:53
 msgid "Properties"
@@ -590,12 +590,12 @@ msgid ""
 "Really delete the class \"%s\"? This cannot be undone and all data on this "
 "class will be permanently removed."
 msgstr ""
-"Die Klasse \"%s\" wirklich löschen? Dieser Vorgang kann nicht rückgängig "
-"gemacht werden, und alle Daten in dieser Klasse werden endgültig gelöscht."
+"Die Klasse \"%s\" wirklich lÃ¶schen? Dieser Vorgang kann nicht rÃ¼ckgÃ¤ngig "
+"gemacht werden, und alle Daten in dieser Klasse werden endgÃ¼ltig gelÃ¶scht."
 
 #: templates/search/criteria.inc:39
 msgid "Reset to Defaults"
-msgstr "Zurücksetzen"
+msgstr "ZurÃ¼cksetzen"
 
 #: config/schools.php.dist:53
 msgid "Sample school"
@@ -611,7 +611,7 @@ msgstr "Schule"
 
 #: lib/Forms/EditClass.php:63 lib/Forms/CreateClass.php:67
 msgid "School Specific Settings"
-msgstr "Schulabhängige Einstellungen"
+msgstr "SchulabhÃ¤ngige Einstellungen"
 
 #: config/schools.php.dist:75
 msgid "Schoolhouse 1"
@@ -650,35 +650,35 @@ msgstr "Suchen in"
 #: list.php:86
 #, php-format
 msgid "Search: Results for \"%s\""
-msgstr "Suche: Ergebnisse für \"%s\""
+msgstr "Suche: Ergebnisse fÃ¼r \"%s\""
 
 #: templates/data/export.inc:26
 msgid "Select a student or the whole class to export:"
-msgstr "Wählen Sie einen Studenten oder die ganze Klasse zum Exportieren:"
+msgstr "WÃ¤hlen Sie einen Studenten oder die ganze Klasse zum Exportieren:"
 
 #: templates/data/export.inc:17
 msgid "Select the class to export from:"
-msgstr "Wählen Sie die Klasse die exportiert werden soll"
+msgstr "WÃ¤hlen Sie die Klasse die exportiert werden soll"
 
 #: config/prefs.php.dist:54
 msgid "Select the columns that should be shown in the class list view:"
 msgstr ""
-"Wählen Sie die Spalten, die in der Listenansicht der Klassen angezeigt "
+"WÃ¤hlen Sie die Spalten, die in der Listenansicht der Klassen angezeigt "
 "werden sollen:"
 
 #: config/prefs.php.dist:93
 msgid "Select the columns that should be shown in the student list view:"
 msgstr ""
-"Wählen Sie die Spalten, die in der Listenansicht der Studierenden angezeigt "
+"WÃ¤hlen Sie die Spalten, die in der Listenansicht der Studierenden angezeigt "
 "werden sollen:"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
-msgstr "Wählen Sie das Exportformat:"
+msgstr "WÃ¤hlen Sie das Exportformat:"
 
 #: config/prefs.php.dist:36
 msgid "Select the view to display after login:"
-msgstr "Wählen Sie die Ansicht aus, die beim Start angezeigt werden soll:"
+msgstr "WÃ¤hlen Sie die Ansicht aus, die beim Start angezeigt werden soll:"
 
 #: templates/list/headers.inc:76 config/prefs.php.dist:51
 #: config/prefs.php.dist:67
@@ -722,7 +722,7 @@ msgstr "Kenntnisse, Fertigkeiten"
 
 #: list.php:51
 msgid "Skoli needs an applications who provides contacts (e.g. turba)."
-msgstr "Skoli benötigt eine Applikation mit Kontakten (z.B. turba)."
+msgstr "Skoli benÃ¶tigt eine Applikation mit Kontakten (z.B. turba)."
 
 #: templates/list/headers.inc:68
 msgid "Sort by Absences"
@@ -786,11 +786,11 @@ msgstr "Klassen sortieren nach:"
 
 #: config/prefs.php.dist:81
 msgid "Sort direction for classes:"
-msgstr "Sortierrichtung für Klassen:"
+msgstr "Sortierrichtung fÃ¼r Klassen:"
 
 #: config/prefs.php.dist:117
 msgid "Sort direction for students:"
-msgstr "Sortierrichtung für Studierende:"
+msgstr "Sortierrichtung fÃ¼r Studierende:"
 
 #: config/prefs.php.dist:106
 msgid "Sort students by:"
@@ -821,16 +821,16 @@ msgstr "Sprechen"
 
 #: config/schools.php.dist:112
 msgid "Teamwork and autonomy"
-msgstr "Zusammenarbeit und Selbstständigkeit"
+msgstr "Zusammenarbeit und SelbststÃ¤ndigkeit"
 
 #: lib/Driver.php:36
 msgid "The School backend is not currently available."
-msgstr "Der Schuleserver ist zur Zeit nicht verfügbar."
+msgstr "Der Schuleserver ist zur Zeit nicht verfÃ¼gbar."
 
 #: lib/Driver.php:85
 #, php-format
 msgid "The School backend is not currently available: %s"
-msgstr "Der Schuleserver ist zur Zeit nicht verfügbar: %s"
+msgstr "Der Schuleserver ist zur Zeit nicht verfÃ¼gbar: %s"
 
 #: classes/create.php:34
 #, php-format
@@ -840,7 +840,7 @@ msgstr "Die Klasse \"%s\" wurde erstellt."
 #: classes/delete.php:38
 #, php-format
 msgid "The class \"%s\" has been deleted."
-msgstr "Die Klasse \"%s\" wurde gelöscht."
+msgstr "Die Klasse \"%s\" wurde gelÃ¶scht."
 
 #: classes/edit.php:45
 #, php-format
@@ -855,17 +855,17 @@ msgstr "Die Klasse \"%s\" wurde gespeichert."
 #: entry.php:76
 #, php-format
 msgid "The entry for \"%s\" has been deleted."
-msgstr "Der Eintrag \"%s\" wurde gelöscht."
+msgstr "Der Eintrag \"%s\" wurde gelÃ¶scht."
 
 #: entry.php:61
 #, php-format
 msgid "The entry for \"%s\" has been saved."
-msgstr "Der Eintrag für \"%s\" wurde gespeichert."
+msgstr "Der Eintrag fÃ¼r \"%s\" wurde gespeichert."
 
 #: add.php:30
 #, php-format
 msgid "The new entry for \"%s\" has been added."
-msgstr "Der neue Eintrag für \"%s\" wurde hinzugefügt."
+msgstr "Der neue Eintrag fÃ¼r \"%s\" wurde hinzugefÃ¼gt."
 
 #: lib/Forms/CreateClass.php:147
 msgid ""
@@ -881,16 +881,16 @@ msgstr "Es gibt keine Klassen, die den Suchkriterien entsprechen."
 
 #: templates/search/empty.inc:2
 msgid "There are no entries matching the current criteria."
-msgstr "Es wurden keine passenden Einträge gefunden."
+msgstr "Es wurden keine passenden EintrÃ¤ge gefunden."
 
 #: entry.php:74
 #, php-format
 msgid "There was an error deleting this entry: %s"
-msgstr "Beim Löschen des Eintrags ist ein Fehler aufgetreten: %s"
+msgstr "Beim LÃ¶schen des Eintrags ist ein Fehler aufgetreten: %s"
 
 #: data.php:154
 msgid "There were no entries to export."
-msgstr "Es konnten keine Einträge zum Exportieren gefunden werden."
+msgstr "Es konnten keine EintrÃ¤ge zum Exportieren gefunden werden."
 
 #: lib/Forms/Entry.php:116
 msgid "Title"
@@ -903,7 +903,7 @@ msgstr "Typ"
 #: lib/Forms/DeleteClass.php:58
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "\"%s\" kann nicht gelöscht werden: %s"
+msgstr "\"%s\" kann nicht gelÃ¶scht werden: %s"
 
 #: lib/Driver.php:88
 #, php-format
@@ -931,12 +931,12 @@ msgstr "Anzeigen"
 #: templates/list/students.inc:27
 #, php-format
 msgid "View Entries for \"%s\""
-msgstr "Einträge anzeigen für \"%s\""
+msgstr "EintrÃ¤ge anzeigen fÃ¼r \"%s\""
 
 #: templates/list/classes.inc:25
 #, php-format
 msgid "View Entries in \"%s\""
-msgstr "Einträge anzeigen in \"%s\""
+msgstr "EintrÃ¤ge anzeigen in \"%s\""
 
 #: templates/search/entries.inc:21
 msgid "View Entry"
@@ -963,19 +963,19 @@ msgstr "Schreiben"
 
 #: classes/edit.php:24
 msgid "You are not allowed to change this class."
-msgstr "Sie dürfen diese Klasse nicht ändern."
+msgstr "Sie dÃ¼rfen diese Klasse nicht Ã¤ndern."
 
 #: classes/delete.php:26
 msgid "You are not allowed to delete this class."
-msgstr "Sie dürfen diese Klasse nicht löschen."
+msgstr "Sie dÃ¼rfen diese Klasse nicht lÃ¶schen."
 
 #: entry.php:30
 msgid "You are not allowed to view this entry."
-msgstr "Sie dürfen diesen Eintrag nicht ansehen."
+msgstr "Sie dÃ¼rfen diesen Eintrag nicht ansehen."
 
 #: classes/create.php:21
 msgid "You don't have access to any valid addressbook."
-msgstr "Sie haben keinen Zugriff auf ein gültiges Adressbuch."
+msgstr "Sie haben keinen Zugriff auf ein gÃ¼ltiges Adressbuch."
 
 #: templates/panel.inc:48
 msgid "[Manage Classes]"
@@ -999,7 +999,7 @@ msgstr "und"
 
 #: templates/search/criteria.inc:35
 msgid "and for Entries with:"
-msgstr "und für Einträge mit:"
+msgstr "und fÃ¼r EintrÃ¤ge mit:"
 
 #: data.php:160 templates/data/export.inc:1
 msgid "class.csv"
@@ -1011,7 +1011,7 @@ msgstr "klasse.tsv"
 
 #: templates/search/criteria.inc:25
 msgid "for"
-msgstr "für"
+msgstr "fÃ¼r"
 
 #: lib/Block/tree_menu.php:35
 #, php-format

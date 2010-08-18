@@ -12,108 +12,108 @@ msgstr ""
 "Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
 "Language-Team: Arabic <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1256\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Change your password"
-msgstr "╩█ээ╤ ▀су╔ ╟су╤ц╤"
+msgstr "╪к╪║┘К┘К╪▒ ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒"
 
 msgid "Confirm new password:"
-msgstr "╩├▀э╧ ▀су╔ ╟су╤ц╤ ╟с╠╧э╧╔:"
+msgstr "╪к╪г┘Г┘К╪п ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д╪м╪п┘К╪п╪й:"
 
 msgid "Error"
-msgstr "═╒с ╬╪├"
+msgstr "╪н╪╡┘Д ╪о╪╖╪г"
 
 msgid "Failure in changing password : "
-msgstr "╬╪├ ▌э ╩█ээ╤ ▀су╔ ╟су╤ц╤"
+msgstr "╪о╪╖╪г ┘Б┘К ╪к╪║┘К┘К╪▒ ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒"
 
 msgid "Help"
-msgstr "╟су╙╟┌╧╔"
+msgstr "╪з┘Д┘Е╪│╪з╪╣╪п╪й"
 
 msgid "Language"
-msgstr "╟сс█╔"
+msgstr "╪з┘Д┘Д╪║╪й"
 
 msgid "Logout"
-msgstr "╬╤ц╠"
+msgstr "╪о╪▒┘И╪м"
 
 msgid "Message"
-msgstr "╤╙╟с╔"
+msgstr "╪▒╪│╪з┘Д╪й"
 
 msgid "New password:"
-msgstr "▀су╔ ╟су╤ц╤ ╟с╠╧э╧╔:"
+msgstr "┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д╪м╪п┘К╪п╪й:"
 
 msgid "Old password:"
-msgstr "▀су╔ ╟су╤ц╤ ╟с▐╧эу╔:"
+msgstr "┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д┘В╪п┘К┘Е╪й:"
 
 msgid "Password changed!"
-msgstr "╩у ╩█ээ╤ ▀су╔ ╟су╤ц╤!"
+msgstr "╪к┘Е ╪к╪║┘К┘К╪▒ ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒!"
 
 msgid "Password module is not properly configured"
-msgstr "╬╪├ ▌э ┼┌╧╟╧╟╩ ╚╤эу╠ ▀су╔ ╟су╤ц╤"
+msgstr "╪о╪╖╪г ┘Б┘К ╪е╪╣╪п╪з╪п╪з╪к ╪и╪▒┘К┘Е╪м ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒"
 
 msgid "Problem?"
-msgstr "у╘▀с╔┐"
+msgstr "┘Е╪┤┘Г┘Д╪й╪Я"
 
 msgid "Select your preferred language:"
-msgstr "╟╬╩╤ с█╩▀ ╟су▌╓с╔:"
+msgstr "╪з╪о╪к╪▒ ┘Д╪║╪к┘Г ╪з┘Д┘Е┘Б╪╢┘Д╪й:"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "═╧╧ с█╔ ╟с├ц╟у╤б ╟с╘╤═ ц╟су╙╟┌╧╔."
+msgstr "╪н╪п╪п ┘Д╪║╪й ╪з┘Д╪г┘И╪з┘Е╪▒╪М ╪з┘Д╪┤╪▒╪н ┘И╪з┘Д┘Е╪│╪з╪╣╪п╪й."
 
 msgid "Some of Password module's configuration files are missing:"
-msgstr "╚┌╓ ус▌╟╩ ┼┌╧╟╧╟╩ ╚╤эу╠╟╩ ▀су╔ ╟су╤ц╤ у▌▐ц╧╔"
+msgstr "╪и╪╣╪╢ ┘Е┘Д┘Б╪з╪к ╪е╪╣╪п╪з╪п╪з╪к ╪и╪▒┘К┘Е╪м╪з╪к ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ┘Е┘Б┘В┘И╪п╪й"
 
 msgid "Success"
-msgstr "╩у ╟с├у╤ ╚ф╠╟═"
+msgstr "╪к┘Е ╪з┘Д╪г┘Е╪▒ ╪и┘Ж╪м╪з╪н"
 
 msgid ""
 "This file controls the default preferences for Password module, and also "
 "controls which preferences users can alter."
 msgstr ""
-"э╩═▀у х╨╟ ╟сус▌ ╚╟с┼┌╧╟╧╟╩ ╟с╟▌╩╤╟╓э╔ с╚╤эу╠╟╩ ▀су╔ ╟су╤ц╤б ▀у╟ э═╧╧ "
-"╟с┼┌╧╟╧╟╩ ╟с╩э эу▀ф ссу╙╩╬╧у ╩┌╧эсх╟."
+"┘К╪к╪н┘Г┘Е ┘З╪░╪з ╪з┘Д┘Е┘Д┘Б ╪и╪з┘Д╪е╪╣╪п╪з╪п╪з╪к ╪з┘Д╪з┘Б╪к╪▒╪з╪╢┘К╪й ┘Д╪и╪▒┘К┘Е╪м╪з╪к ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒╪М ┘Г┘Е╪з ┘К╪н╪п╪п "
+"╪з┘Д╪е╪╣╪п╪з╪п╪з╪к ╪з┘Д╪к┘К ┘К┘Е┘Г┘Ж ┘Д┘Д┘Е╪│╪к╪о╪п┘Е ╪к╪╣╪п┘К┘Д┘З╪з."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"э╩═▀у х╨╟ ╟сус▌ ╚сц╟╞═ ╟с├сц╟ф ц╟с╬╪ц╪ ┼╓╟▌╔ ├ц ╚╧с╟Ё уф ┼┌╧╟╧╟╩ хц╤╧э "
+"┘К╪к╪н┘Г┘Е ┘З╪░╪з ╪з┘Д┘Е┘Д┘Б ╪и┘Д┘И╪з╪ж╪н ╪з┘Д╪г┘Д┘И╪з┘Ж ┘И╪з┘Д╪о╪╖┘И╪╖ ╪е╪╢╪з┘Б╪й ╪г┘И ╪и╪п┘Д╪з┘Л ┘Е┘Ж ╪е╪╣╪п╪з╪п╪з╪к ┘З┘И╪▒╪п┘К "
 "'Horde'."
 
 msgid ""
 "This is the main Password module configuration file. It contains paths and "
 "options for all Password module scripts."
 msgstr ""
-"х╨╟ ус▌ ╟с┼┌╧╟╧╟╩ ╟с╤╞э╙э с▀су╔ ╟су╤ц╤ цэ═цэ у╙╟╤╟╩ ц ╬э╟╤╟╩ ╠уэ┌ ╚э╤у╠╟╩ "
-"▀су╔ ╟су╤ц╤"
+"┘З╪░╪з ┘Е┘Д┘Б ╪з┘Д╪е╪╣╪п╪з╪п╪з╪к ╪з┘Д╪▒╪ж┘К╪│┘К ┘Д┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ┘И┘К╪н┘И┘К ┘Е╪│╪з╪▒╪з╪к ┘И ╪о┘К╪з╪▒╪з╪к ╪м┘Е┘К╪╣ ╪и┘К╪▒┘Е╪м╪з╪к "
+"┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒"
 
 msgid "Username:"
-msgstr "╟╙у ╟су╙╩╬╧у:"
+msgstr "╪з╪│┘Е ╪з┘Д┘Е╪│╪к╪о╪п┘Е:"
 
 msgid "Warning"
-msgstr "╩ф╚эх"
+msgstr "╪к┘Ж╪и┘К┘З"
 
 msgid "You can not change passwd for other user"
-msgstr "с╟эу▀ф ╩█ээ╤ ▀су╔ ╟су╤ц╤ су╙╩╬╧у с┬╬╤."
+msgstr "┘Д╪з┘К┘Е┘Г┘Ж ╪к╪║┘К┘К╪▒ ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ┘Д┘Е╪│╪к╪о╪п┘Е ┘Д╪в╪о╪▒."
 
 #, c-format
 msgid "You can't change password for user %s"
-msgstr "с╟эу▀ф ╩█ээ╤ ▀су╔ ╟су╤ц╤ ссу╙╩╬╧у %s"
+msgstr "┘Д╪з┘К┘Е┘Г┘Ж ╪к╪║┘К┘К╪▒ ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ┘Д┘Д┘Е╪│╪к╪о╪п┘Е %s"
 
 msgid "You must give your new password"
-msgstr "э╠╚ ┼╧╬╟с ▀су╔ у╤ц╤ ╠╧э╧╔"
+msgstr "┘К╪м╪и ╪е╪п╪о╪з┘Д ┘Г┘Д┘Е╪й ┘Е╪▒┘И╪▒ ╪м╪п┘К╪п╪й"
 
 msgid "You must give your old password"
-msgstr "э╠╚ ┼╧╬╟с ▀су╔ ╟су╤ц╤ ╟с▐╧эу╔"
+msgstr "┘К╪м╪и ╪е╪п╪о╪з┘Д ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д┘В╪п┘К┘Е╪й"
 
 msgid "You must give your userid"
-msgstr "э╠╚ ┼╧╬╟с у┌╤▌ ╟су╙╩╬╧у"
+msgstr "┘К╪м╪и ╪е╪п╪о╪з┘Д ┘Е╪╣╪▒┘Б ╪з┘Д┘Е╪│╪к╪о╪п┘Е"
 
 msgid "You must verify your new password"
-msgstr "э╠╚ ╩├▀э╧ ▀су╔ ╟су╤ц╤ ╟с╠╧э╧╔"
+msgstr "┘К╪м╪и ╪к╪г┘Г┘К╪п ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д╪м╪п┘К╪п╪й"
 
 msgid "Your Information"
-msgstr "╟су┌сцу╟╩ ╟с╘╬╒э╔"
+msgstr "╪з┘Д┘Е╪╣┘Д┘И┘Е╪з╪к ╪з┘Д╪┤╪о╪╡┘К╪й"
 
 msgid "Your new passwords didn't match"
-msgstr "┌╧у ╩╪╟╚▐ ▌э ▀су╔ ╟су╤ц╤ ╟с╠╧э╧╔"
+msgstr "╪╣╪п┘Е ╪к╪╖╪з╪и┘В ┘Б┘К ┘Г┘Д┘Е╪й ╪з┘Д┘Е╪▒┘И╪▒ ╪з┘Д╪м╪п┘К╪п╪й"

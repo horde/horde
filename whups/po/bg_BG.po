@@ -11,247 +11,247 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%s Admin"
-msgstr "%s Администриране"
+msgstr "%s РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 #, c-format
 msgid "%s Standard"
-msgstr "%s Стандарт"
+msgstr "%s РЎС‚Р°РЅРґР°СЂС‚"
 
 #, c-format
 msgid "%s days"
-msgstr "%s дни"
+msgstr "%s РґРЅРё"
 
 #, c-format
 msgid "'%s' is no longer among those responsible for '%s'"
-msgstr "'%s' вече не е измежду отговорните за '%s'"
+msgstr "'%s' РІРµС‡Рµ РЅРµ Рµ РёР·РјРµР¶РґСѓ РѕС‚РіРѕРІРѕСЂРЅРёС‚Рµ Р·Р° '%s'"
 
 #, c-format
 msgid "'%s' is now among those responsible for '%s'"
-msgstr "'%s' вече e измежду отговорните за '%s'"
+msgstr "'%s' РІРµС‡Рµ e РёР·РјРµР¶РґСѓ РѕС‚РіРѕРІРѕСЂРЅРёС‚Рµ Р·Р° '%s'"
 
 #, c-format
 msgid ", initial priority of '%s'."
-msgstr ", начален приоритет '%s'."
+msgstr ", РЅР°С‡Р°Р»РµРЅ РїСЂРёРѕСЂРёС‚РµС‚ '%s'."
 
 #, c-format
 msgid ", priority changed to '%s'."
-msgstr ", сменен приоритет към '%s'."
+msgstr ", СЃРјРµРЅРµРЅ РїСЂРёРѕСЂРёС‚РµС‚ РєСЉРј '%s'."
 
 #, c-format
 msgid ", priority is '%s'."
-msgstr ", приоритета е '%s'."
+msgstr ", РїСЂРёРѕСЂРёС‚РµС‚Р° Рµ '%s'."
 
 msgid "- Confirmation"
-msgstr "Потвърждение"
+msgstr "РџРѕС‚РІСЉСЂР¶РґРµРЅРёРµ"
 
 msgid "- Stage 1"
-msgstr "- Етап 1"
+msgstr "- Р•С‚Р°Рї 1"
 
 msgid "- Stage 2"
-msgstr "- Етап 2"
+msgstr "- Р•С‚Р°Рї 2"
 
 #, c-format
 msgid "-Added By: %s\n"
-msgstr "-Добавен от: %s\n"
+msgstr "-Р”РѕР±Р°РІРµРЅ РѕС‚: %s\n"
 
 #, c-format
 msgid "-Assigned By: %s"
-msgstr "-Възложен от: %s"
+msgstr "-Р’СЉР·Р»РѕР¶РµРЅ РѕС‚: %s"
 
 #, c-format
 msgid "-Assigned To: %s"
-msgstr "-Възложен на: %s"
+msgstr "-Р’СЉР·Р»РѕР¶РµРЅ РЅР°: %s"
 
 #, c-format
 msgid "-Comment by %s on %s:"
-msgstr "-Коментар от %s на %s:"
+msgstr "-РљРѕРјРµРЅС‚Р°СЂ РѕС‚ %s РЅР° %s:"
 
 #, c-format
 msgid "-Created By: %s\n"
-msgstr "-Създаден от: %s\n"
+msgstr "-РЎСЉР·РґР°РґРµРЅ РѕС‚: %s\n"
 
 #, c-format
 msgid "-Queue: %s"
-msgstr "-Модул: %s"
+msgstr "-РњРѕРґСѓР»: %s"
 
 #, c-format
 msgid "-Queue: %s\n"
-msgstr "-Модул: %s\n"
+msgstr "-РњРѕРґСѓР»: %s\n"
 
 #, c-format
 msgid "-New Priority: %s"
-msgstr "-Нов приоритет: %s"
+msgstr "-РќРѕРІ РїСЂРёРѕСЂРёС‚РµС‚: %s"
 
 #, c-format
 msgid "-New State: %s"
-msgstr "-Ново състояние: %s"
+msgstr "-РќРѕРІРѕ СЃСЉСЃС‚РѕСЏРЅРёРµ: %s"
 
 #, c-format
 msgid "-State: %s"
-msgstr "-Състояние: %s"
+msgstr "-РЎСЉСЃС‚РѕСЏРЅРёРµ: %s"
 
 msgid "-Summary:"
-msgstr "-Обобщение"
+msgstr "-РћР±РѕР±С‰РµРЅРёРµ"
 
 #, c-format
 msgid "-Ticket %s"
-msgstr "-Бюлетин %s"
+msgstr "-Р‘СЋР»РµС‚РёРЅ %s"
 
 #, c-format
 msgid "-Ticket %s\n"
-msgstr "-Бюлетин %s\n"
+msgstr "-Р‘СЋР»РµС‚РёРЅ %s\n"
 
 msgid "<i>No summary</i>"
-msgstr "<i>Няма резюме</i>"
+msgstr "<i>РќСЏРјР° СЂРµР·СЋРјРµ</i>"
 
 msgid "Add Attribute"
-msgstr "Добави Атрибути"
+msgstr "Р”РѕР±Р°РІРё РђС‚СЂРёР±СѓС‚Рё"
 
 msgid "Add Attribute Criterion"
-msgstr "Добави атрибутен критерий"
+msgstr "Р”РѕР±Р°РІРё Р°С‚СЂРёР±СѓС‚РµРЅ РєСЂРёС‚РµСЂРёР№"
 
 #, c-format
 msgid "Add Attribute for '%s'"
-msgstr "Добави атрибут за '%s'"
+msgstr "Р”РѕР±Р°РІРё Р°С‚СЂРёР±СѓС‚ Р·Р° '%s'"
 
 msgid "Add Comment"
-msgstr "Добави коментар"
+msgstr "Р”РѕР±Р°РІРё РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Add Comment Succeeded"
-msgstr "Успешно добавяне на коментар"
+msgstr "РЈСЃРїРµС€РЅРѕ РґРѕР±Р°РІСЏРЅРµ РЅР° РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Add Criterion"
-msgstr "Добави критерий"
+msgstr "Р”РѕР±Р°РІРё РєСЂРёС‚РµСЂРёР№"
 
 msgid "Add Queue"
-msgstr "Добави модул"
+msgstr "Р”РѕР±Р°РІРё РјРѕРґСѓР»"
 
 msgid "Add Priority"
-msgstr "Добави приоритет"
+msgstr "Р”РѕР±Р°РІРё РїСЂРёРѕСЂРёС‚РµС‚"
 
 #, c-format
 msgid "Add Priority for '%s'"
-msgstr "Добави приоритет за '%s'"
+msgstr "Р”РѕР±Р°РІРё РїСЂРёРѕСЂРёС‚РµС‚ Р·Р° '%s'"
 
 msgid "Add Property Criterion"
-msgstr "Добави критерий за собственост"
+msgstr "Р”РѕР±Р°РІРё РєСЂРёС‚РµСЂРёР№ Р·Р° СЃРѕР±СЃС‚РІРµРЅРѕСЃС‚"
 
 msgid "Add State"
-msgstr "Добави статус"
+msgstr "Р”РѕР±Р°РІРё СЃС‚Р°С‚СѓСЃ"
 
 #, c-format
 msgid "Add State for '%s'"
-msgstr "Добави статус за '%s'"
+msgstr "Р”РѕР±Р°РІРё СЃС‚Р°С‚СѓСЃ Р·Р° '%s'"
 
 msgid "Add Subject"
-msgstr "Добави тема"
+msgstr "Р”РѕР±Р°РІРё С‚РµРјР°"
 
 msgid "Add Text Criterion"
-msgstr "Добави текстов критерий"
+msgstr "Р”РѕР±Р°РІРё С‚РµРєСЃС‚РѕРІ РєСЂРёС‚РµСЂРёР№"
 
 #, c-format
 msgid "Add Type %s"
-msgstr "Добави тип %s"
+msgstr "Р”РѕР±Р°РІРё С‚РёРї %s"
 
 msgid "Add User Criterion"
-msgstr "Добави критерий за потребител"
+msgstr "Р”РѕР±Р°РІРё РєСЂРёС‚РµСЂРёР№ Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»"
 
 msgid "Add Version"
-msgstr "Добави версия"
+msgstr "Р”РѕР±Р°РІРё РІРµСЂСЃРёСЏ"
 
 #, c-format
 msgid "Add Version for '%s'"
-msgstr "Добави версия за '%s'"
+msgstr "Р”РѕР±Р°РІРё РІРµСЂСЃРёСЏ Р·Р° '%s'"
 
 #, c-format
 msgid "Add Version to '%s'"
-msgstr "Добави версия към '%s'"
+msgstr "Р”РѕР±Р°РІРё РІРµСЂСЃРёСЏ РєСЉРј '%s'"
 
 #, c-format
 msgid "Add a user to '%s'"
-msgstr "Добави потребител към '%s'"
+msgstr "Р”РѕР±Р°РІРё РїРѕС‚СЂРµР±РёС‚РµР» РєСЉРј '%s'"
 
 #, c-format
 msgid "Adding your ticket failed: %s."
-msgstr "Грешка при добавяне на бюлетин: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° Р±СЋР»РµС‚РёРЅ: %s."
 
 msgid "Additional Comment"
-msgstr "Допълнителен коментар"
+msgstr "Р”РѕРїСЉР»РЅРёС‚РµР»РµРЅ РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Admin"
-msgstr "Админинистриране"
+msgstr "РђРґРјРёРЅРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 msgid "Admin Home"
-msgstr "Админ. страница"
+msgstr "РђРґРјРёРЅ. СЃС‚СЂР°РЅРёС†Р°"
 
 msgid "Administration"
-msgstr "Администрация"
+msgstr "РђРґРјРёРЅРёСЃС‚СЂР°С†РёСЏ"
 
 msgid "An appropriate person has been notified of this request."
-msgstr "Подходящ служител беше уведомен за тази молба."
+msgstr "РџРѕРґС…РѕРґСЏС‰ СЃР»СѓР¶РёС‚РµР» Р±РµС€Рµ СѓРІРµРґРѕРјРµРЅ Р·Р° С‚Р°Р·Рё РјРѕР»Р±Р°."
 
 msgid "And"
-msgstr "Добави"
+msgstr "Р”РѕР±Р°РІРё"
 
 msgid "Any"
-msgstr "Всяка"
+msgstr "Р’СЃСЏРєР°"
 
 msgid "Any Group"
-msgstr "Всяка група"
+msgstr "Р’СЃСЏРєР° РіСЂСѓРїР°"
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Assign Ticket"
-msgstr "Възлагане на бюлетин"
+msgstr "Р’СЉР·Р»Р°РіР°РЅРµ РЅР° Р±СЋР»РµС‚РёРЅ"
 
 msgid "Assign Ticket Succeeded"
-msgstr "Възлагането на бюлетина беше успешно"
+msgstr "Р’СЉР·Р»Р°РіР°РЅРµС‚Рѕ РЅР° Р±СЋР»РµС‚РёРЅР° Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ"
 
 msgid "Assigned"
-msgstr "Възложен"
+msgstr "Р’СЉР·Р»РѕР¶РµРЅ"
 
 #, c-format
 msgid "Assigned ticket to %s"
-msgstr "Възложен бюлетин на %s"
+msgstr "Р’СЉР·Р»РѕР¶РµРЅ Р±СЋР»РµС‚РёРЅ РЅР° %s"
 
 msgid "Assignee"
-msgstr "Възложен на"
+msgstr "Р’СЉР·Р»РѕР¶РµРЅ РЅР°"
 
 msgid "Attribute Criteria"
-msgstr "Атрибутен критерий"
+msgstr "РђС‚СЂРёР±СѓС‚РµРЅ РєСЂРёС‚РµСЂРёР№"
 
 msgid "Attribute Description"
-msgstr "Описания на атрибут"
+msgstr "РћРїРёСЃР°РЅРёСЏ РЅР° Р°С‚СЂРёР±СѓС‚"
 
 msgid "Attribute Name"
-msgstr "Име на атрибути"
+msgstr "РРјРµ РЅР° Р°С‚СЂРёР±СѓС‚Рё"
 
 msgid "Attributes for this Type"
-msgstr "Атрибути за този тип"
+msgstr "РђС‚СЂРёР±СѓС‚Рё Р·Р° С‚РѕР·Рё С‚РёРї"
 
 msgid "Average days to close by Queue"
-msgstr "Среден брой дни за приключване по модул"
+msgstr "РЎСЂРµРґРµРЅ Р±СЂРѕР№ РґРЅРё Р·Р° РїСЂРёРєР»СЋС‡РІР°РЅРµ РїРѕ РјРѕРґСѓР»"
 
 msgid "Average days to close by Owner"
-msgstr "Среден брой дни за приключване по притежател"
+msgstr "РЎСЂРµРґРµРЅ Р±СЂРѕР№ РґРЅРё Р·Р° РїСЂРёРєР»СЋС‡РІР°РЅРµ РїРѕ РїСЂРёС‚РµР¶Р°С‚РµР»"
 
 msgid "Average days to close by Requester"
-msgstr "Среден брой дни за приключване по заявител"
+msgstr "РЎСЂРµРґРµРЅ Р±СЂРѕР№ РґРЅРё Р·Р° РїСЂРёРєР»СЋС‡РІР°РЅРµ РїРѕ Р·Р°СЏРІРёС‚РµР»"
 
 msgid "Average time a ticket is unresolved"
-msgstr "Среден брой дни за неразрешен бюлетин"
+msgstr "РЎСЂРµРґРµРЅ Р±СЂРѕР№ РґРЅРё Р·Р° РЅРµСЂР°Р·СЂРµС€РµРЅ Р±СЋР»РµС‚РёРЅ"
 
 msgid "Barbie"
 msgstr "Barbie"
 
 msgid "Branch Type"
-msgstr "Бранш тип"
+msgstr "Р‘СЂР°РЅС€ С‚РёРї"
 
 msgid "Brown"
 msgstr "Brown"
@@ -263,250 +263,250 @@ msgid "Camouflage"
 msgstr "Camouflage"
 
 msgid "Case Insensitive Substring"
-msgstr "Нечувствителен към размера на буквите подстринг"
+msgstr "РќРµС‡СѓРІСЃС‚РІРёС‚РµР»РµРЅ РєСЉРј СЂР°Р·РјРµСЂР° РЅР° Р±СѓРєРІРёС‚Рµ РїРѕРґСЃС‚СЂРёРЅРі"
 
 msgid "Case Sensitive Substring"
-msgstr "Чувствителен към размера на буквите подстринг"
+msgstr "Р§СѓРІСЃС‚РІРёС‚РµР»РµРЅ РєСЉРј СЂР°Р·РјРµСЂР° РЅР° Р±СѓРєРІРёС‚Рµ РїРѕРґСЃС‚СЂРёРЅРі"
 
 msgid "Change Ticket Type"
-msgstr "Смяна на типа на бюлетина"
+msgstr "РЎРјСЏРЅР° РЅР° С‚РёРїР° РЅР° Р±СЋР»РµС‚РёРЅР°"
 
 msgid ""
 "Change display options such as the color scheme and how search results are "
 "sorted."
 msgstr ""
-"Смяна на дисплей опциите, като цветна схема и как да се сортират резултатите."
+"РЎРјСЏРЅР° РЅР° РґРёСЃРїР»РµР№ РѕРїС†РёРёС‚Рµ, РєР°С‚Рѕ С†РІРµС‚РЅР° СЃС…РµРјР° Рё РєР°Рє РґР° СЃРµ СЃРѕСЂС‚РёСЂР°С‚ СЂРµР·СѓР»С‚Р°С‚РёС‚Рµ."
 
 msgid "Change options for email notifications of ticket activity."
-msgstr "Промяна на опциите за email уведомяване за активност по бюлетин."
+msgstr "РџСЂРѕРјСЏРЅР° РЅР° РѕРїС†РёРёС‚Рµ Р·Р° email СѓРІРµРґРѕРјСЏРІР°РЅРµ Р·Р° Р°РєС‚РёРІРЅРѕСЃС‚ РїРѕ Р±СЋР»РµС‚РёРЅ."
 
 msgid "Cherry"
 msgstr "Cherry"
 
 msgid "Choose Action:"
-msgstr "Избери действие:"
+msgstr "РР·Р±РµСЂРё РґРµР№СЃС‚РІРёРµ:"
 
 msgid "Comment"
-msgstr "коментар"
+msgstr "РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Commentor"
-msgstr "коментар от"
+msgstr "РєРѕРјРµРЅС‚Р°СЂ РѕС‚"
 
 msgid "Create Ticket"
-msgstr "Създай бюлетин"
+msgstr "РЎСЉР·РґР°Р№ Р±СЋР»РµС‚РёРЅ"
 
 msgid "Create Ticket - Stage 1"
-msgstr "Създай бюлетин - Етап 1"
+msgstr "РЎСЉР·РґР°Р№ Р±СЋР»РµС‚РёРЅ - Р•С‚Р°Рї 1"
 
 msgid "Create Tickets"
-msgstr "Създай бюлетини"
+msgstr "РЎСЉР·РґР°Р№ Р±СЋР»РµС‚РёРЅРё"
 
 msgid "Created"
-msgstr "Създаден"
+msgstr "РЎСЉР·РґР°РґРµРЅ"
 
 msgid "Current Query"
-msgstr "Текуща заявка"
+msgstr "РўРµРєСѓС‰Р° Р·Р°СЏРІРєР°"
 
 msgid "Current Type"
-msgstr "Текущ тип"
+msgstr "РўРµРєСѓС‰ С‚РёРї"
 
 msgid "Date Criteria"
-msgstr "Дара критерий"
+msgstr "Р”Р°СЂР° РєСЂРёС‚РµСЂРёР№"
 
 msgid "Date/Time format for search results"
-msgstr "Дата/час формат за резултати от търсене"
+msgstr "Р”Р°С‚Р°/С‡Р°СЃ С„РѕСЂРјР°С‚ Р·Р° СЂРµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Default sorting criteria:"
-msgstr "Критерии за сортиране по подразбиране:"
+msgstr "РљСЂРёС‚РµСЂРёРё Р·Р° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 msgid "Delete Attribute"
-msgstr "Изтрий атрибут"
+msgstr "РР·С‚СЂРёР№ Р°С‚СЂРёР±СѓС‚"
 
 #, c-format
 msgid "Delete Attribute %s"
-msgstr "Изтрий атрибут  %s"
+msgstr "РР·С‚СЂРёР№ Р°С‚СЂРёР±СѓС‚  %s"
 
 msgid "Delete Attributes"
-msgstr "Изтрий Атрибути"
+msgstr "РР·С‚СЂРёР№ РђС‚СЂРёР±СѓС‚Рё"
 
 msgid "Delete Queue"
-msgstr "Изтрий модул"
+msgstr "РР·С‚СЂРёР№ РјРѕРґСѓР»"
 
 #, c-format
 msgid "Delete Queue %s"
-msgstr "Изтрий модул %s"
+msgstr "РР·С‚СЂРёР№ РјРѕРґСѓР» %s"
 
 msgid "Delete Priority"
-msgstr "Изтрий приоритет"
+msgstr "РР·С‚СЂРёР№ РїСЂРёРѕСЂРёС‚РµС‚"
 
 #, c-format
 msgid "Delete Priority %s"
-msgstr "Изтрий приоритет %s"
+msgstr "РР·С‚СЂРёР№ РїСЂРёРѕСЂРёС‚РµС‚ %s"
 
 msgid "Delete State"
-msgstr "Изтрий статус"
+msgstr "РР·С‚СЂРёР№ СЃС‚Р°С‚СѓСЃ"
 
 #, c-format
 msgid "Delete State %s"
-msgstr "Изтрий статус %s"
+msgstr "РР·С‚СЂРёР№ СЃС‚Р°С‚СѓСЃ %s"
 
 msgid "Delete Subject"
-msgstr "Изтрий тема"
+msgstr "РР·С‚СЂРёР№ С‚РµРјР°"
 
 #, c-format
 msgid "Delete Subject %s"
-msgstr "Изтрий тема %s"
+msgstr "РР·С‚СЂРёР№ С‚РµРјР° %s"
 
 msgid "Delete Ticket"
-msgstr "Изтрий бюлетин"
+msgstr "РР·С‚СЂРёР№ Р±СЋР»РµС‚РёРЅ"
 
 msgid "Delete Ticket Succeeded"
-msgstr "Изтриването на бюлетина беше успешно"
+msgstr "РР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° Р±СЋР»РµС‚РёРЅР° Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ"
 
 msgid "Delete Type"
-msgstr "Изтрий тип"
+msgstr "РР·С‚СЂРёР№ С‚РёРї"
 
 #, c-format
 msgid "Delete Type %s"
-msgstr "Изтрий тип %s"
+msgstr "РР·С‚СЂРёР№ С‚РёРї %s"
 
 msgid "Delete Version"
-msgstr "Изтрий версия"
+msgstr "РР·С‚СЂРёР№ РІРµСЂСЃРёСЏ"
 
 #, c-format
 msgid "Delete Version %s"
-msgstr "Изтрий версия %s"
+msgstr "РР·С‚СЂРёР№ РІРµСЂСЃРёСЏ %s"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Edit"
-msgstr "Редакция"
+msgstr "Р РµРґР°РєС†РёСЏ"
 
 msgid "Edit Attribute"
-msgstr "Редакция на атрибут"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° Р°С‚СЂРёР±СѓС‚"
 
 #, c-format
 msgid "Edit Attribute %s"
-msgstr "Редакция на атрибут %s"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° Р°С‚СЂРёР±СѓС‚ %s"
 
 msgid "Edit Attributes"
-msgstr "Редакция Атрибути"
+msgstr "Р РµРґР°РєС†РёСЏ РђС‚СЂРёР±СѓС‚Рё"
 
 #, c-format
 msgid "Edit Attributes for '%s' %s"
-msgstr "Редактирай атрибутите за '%s' %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ Р°С‚СЂРёР±СѓС‚РёС‚Рµ Р·Р° '%s' %s"
 
 msgid "Edit Queue"
-msgstr "Редактирай модул"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РјРѕРґСѓР»"
 
 #, c-format
 msgid "Edit Queue %s"
-msgstr "Редактирай модул %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РјРѕРґСѓР» %s"
 
 msgid "Edit Queues"
-msgstr "Редактирай модули"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РјРѕРґСѓР»Рё"
 
 msgid "Edit Priorities"
-msgstr "Редактирай приоритетите"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РїСЂРёРѕСЂРёС‚РµС‚РёС‚Рµ"
 
 #, c-format
 msgid "Edit Priorities for '%s' %s"
-msgstr "Редактирай свойствата за '%s' %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ СЃРІРѕР№СЃС‚РІР°С‚Р° Р·Р° '%s' %s"
 
 msgid "Edit Priority"
-msgstr "Редактирай приоритет"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РїСЂРёРѕСЂРёС‚РµС‚"
 
 #, c-format
 msgid "Edit Priority %s"
-msgstr "Редактирай приоритет %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РїСЂРёРѕСЂРёС‚РµС‚ %s"
 
 msgid "Edit Query"
-msgstr "Редактирай заявка"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ Р·Р°СЏРІРєР°"
 
 msgid "Edit State"
-msgstr "Редактирай статус"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ СЃС‚Р°С‚СѓСЃ"
 
 #, c-format
 msgid "Edit State %s"
-msgstr "Редактирай статус %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ СЃС‚Р°С‚СѓСЃ %s"
 
 msgid "Edit States"
-msgstr "Редакция на статуси"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° СЃС‚Р°С‚СѓСЃРё"
 
 #, c-format
 msgid "Edit States for '%s' %s"
-msgstr "Редактирай статусите за '%s' %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ СЃС‚Р°С‚СѓСЃРёС‚Рµ Р·Р° '%s' %s"
 
 msgid "Edit Subject"
-msgstr "Редактирай тема"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ С‚РµРјР°"
 
 #, c-format
 msgid "Edit Subject %s"
-msgstr "Редакция на тема %s "
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° С‚РµРјР° %s "
 
 msgid "Edit Subjects"
-msgstr "Редактирай теми"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ С‚РµРјРё"
 
 msgid "Edit Type"
-msgstr "Редактирай тип"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ С‚РёРї"
 
 #, c-format
 msgid "Edit Type %s"
-msgstr "Редактирай тип %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ С‚РёРї %s"
 
 msgid "Edit Types"
-msgstr "Редактирай типове"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ С‚РёРїРѕРІРµ"
 
 msgid "Edit Version"
-msgstr "Редактирай версия"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РІРµСЂСЃРёСЏ"
 
 #, c-format
 msgid "Edit Version %s"
-msgstr "Редактирай версия %s"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РІРµСЂСЃРёСЏ %s"
 
 msgid "Edit Versions"
-msgstr "Редактирай версия"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РІРµСЂСЃРёСЏ"
 
 #, c-format
 msgid "Edit Versions for '%s' %s"
-msgstr "Редакция на версиите за '%s' %s"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РІРµСЂСЃРёРёС‚Рµ Р·Р° '%s' %s"
 
 msgid "Edit the permissions on this module"
-msgstr "Редакция на правата върху този модул"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РїСЂР°РІР°С‚Р° РІСЉСЂС…Сѓ С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Edit the users responsible for this module"
-msgstr "Редактирай потребителите отговорни за този модул"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ РѕС‚РіРѕРІРѕСЂРЅРё Р·Р° С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Edit the versions for this module"
-msgstr "Редактирай версиите за този модул'"
+msgstr "Р РµРґР°РєС‚РёСЂР°Р№ РІРµСЂСЃРёРёС‚Рµ Р·Р° С‚РѕР·Рё РјРѕРґСѓР»'"
 
 msgid "Enter the password that you set when you created this ticket."
-msgstr "Въведете паролата която зададохте при създаването на този бюлетин."
+msgstr "Р’СЉРІРµРґРµС‚Рµ РїР°СЂРѕР»Р°С‚Р° РєРѕСЏС‚Рѕ Р·Р°РґР°РґРѕС…С‚Рµ РїСЂРё СЃСЉР·РґР°РІР°РЅРµС‚Рѕ РЅР° С‚РѕР·Рё Р±СЋР»РµС‚РёРЅ."
 
 #, c-format
 msgid "Error: Unknown query form %s, defaulting to properties"
 msgstr ""
-"Грешка: Неизвестна форма на заявка %s, ще се използват подразбиращите се "
-"свойства"
+"Р“СЂРµС€РєР°: РќРµРёР·РІРµСЃС‚РЅР° С„РѕСЂРјР° РЅР° Р·Р°СЏРІРєР° %s, С‰Рµ СЃРµ РёР·РїРѕР»Р·РІР°С‚ РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёС‚Рµ СЃРµ "
+"СЃРІРѕР№СЃС‚РІР°"
 
 msgid "Exact Match"
-msgstr "Точно съвпадане"
+msgstr "РўРѕС‡РЅРѕ СЃСЉРІРїР°РґР°РЅРµ"
 
 msgid "Execute Query"
-msgstr "Изпълни"
+msgstr "РР·РїСЉР»РЅРё"
 
 msgid "Green"
 msgstr "Green"
@@ -515,927 +515,927 @@ msgid "Grey"
 msgstr "Grey"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "Hide Assigned"
-msgstr "Скрий възложените"
+msgstr "РЎРєСЂРёР№ РІСЉР·Р»РѕР¶РµРЅРёС‚Рµ"
 
 msgid "Hide New"
-msgstr "Скрий новите"
+msgstr "РЎРєСЂРёР№ РЅРѕРІРёС‚Рµ"
 
 msgid "Hide Resolved"
-msgstr "Скрий решените"
+msgstr "РЎРєСЂРёР№ СЂРµС€РµРЅРёС‚Рµ"
 
 msgid "Hide Unconfirmed"
-msgstr "Скрий непотвърдените"
+msgstr "РЎРєСЂРёР№ РЅРµРїРѕС‚РІСЉСЂРґРµРЅРёС‚Рµ"
 
 msgid "Hoist"
-msgstr "Вдигни"
+msgstr "Р’РґРёРіРЅРё"
 
 msgid "Id"
-msgstr "идент."
+msgstr "РёРґРµРЅС‚."
 
 #, c-format
 msgid "If you have recieved this mail in error, please contact %s."
-msgstr "Ако сте получили този емайл поради грешка, моля свържете се с %s."
+msgstr "РђРєРѕ СЃС‚Рµ РїРѕР»СѓС‡РёР»Рё С‚РѕР·Рё РµРјР°Р№Р» РїРѕСЂР°РґРё РіСЂРµС€РєР°, РјРѕР»СЏ СЃРІСЉСЂР¶РµС‚Рµ СЃРµ СЃ %s."
 
 #, c-format
 msgid "Initial state of '%s'"
-msgstr "Начален статус на '%s'"
+msgstr "РќР°С‡Р°Р»РµРЅ СЃС‚Р°С‚СѓСЃ РЅР° '%s'"
 
 msgid "Insert And"
-msgstr "Вмъкни И"
+msgstr "Р’РјСЉРєРЅРё Р"
 
 msgid "Insert Branch"
-msgstr "Вмъкни Бранш"
+msgstr "Р’РјСЉРєРЅРё Р‘СЂР°РЅС€"
 
 msgid "Insert Not"
-msgstr "Вмъкни Не"
+msgstr "Р’РјСЉРєРЅРё РќРµ"
 
 msgid "Insert Or"
-msgstr "Вмъкни Или"
+msgstr "Р’РјСЉРєРЅРё РР»Рё"
 
 msgid "Insert Query"
-msgstr "Вмъкни заявка"
+msgstr "Р’РјСЉРєРЅРё Р·Р°СЏРІРєР°"
 
 msgid "Keep a set of versions for this queue?"
-msgstr "Да се запази ли набора от версии за този модул?"
+msgstr "Р”Р° СЃРµ Р·Р°РїР°Р·Рё Р»Рё РЅР°Р±РѕСЂР° РѕС‚ РІРµСЂСЃРёРё Р·Р° С‚РѕР·Рё РјРѕРґСѓР»?"
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "Light Blue"
 msgstr "Light Blue"
 
 msgid "Load Query"
-msgstr "Зареди заявка"
+msgstr "Р—Р°СЂРµРґРё Р·Р°СЏРІРєР°"
 
 msgid "Login"
-msgstr "Вход"
+msgstr "Р’С…РѕРґ"
 
 msgid "MM/DD/YY"
-msgstr "ММ/ДД/ГГ"
+msgstr "РњРњ/Р”Р”/Р“Р“"
 
 msgid "MM/DD/YY HH:MM:SS"
-msgstr "ММ/ДД/ГГ ЧЧ:ММ:СС"
+msgstr "РњРњ/Р”Р”/Р“Р“ Р§Р§:РњРњ:РЎРЎ"
 
 msgid "Match"
-msgstr "Съвпадащ"
+msgstr "РЎСЉРІРїР°РґР°С‰"
 
 msgid "Match Operator"
-msgstr "Съвпадащ оператор"
+msgstr "РЎСЉРІРїР°РґР°С‰ РѕРїРµСЂР°С‚РѕСЂ"
 
 msgid "Match Pattern"
-msgstr "Съвпадащ пример"
+msgstr "РЎСЉРІРїР°РґР°С‰ РїСЂРёРјРµСЂ"
 
 msgid "Match Word"
-msgstr "Съвпадаща дума"
+msgstr "РЎСЉРІРїР°РґР°С‰Р° РґСѓРјР°"
 
 msgid "Maximum time a ticket is unresolved"
-msgstr "Максимално време през което бюлетин е неразрешен"
+msgstr "РњР°РєСЃРёРјР°Р»РЅРѕ РІСЂРµРјРµ РїСЂРµР· РєРѕРµС‚Рѕ Р±СЋР»РµС‚РёРЅ Рµ РЅРµСЂР°Р·СЂРµС€РµРЅ"
 
 msgid "Minimum time a ticket is unresolved"
-msgstr "минимално "
+msgstr "РјРёРЅРёРјР°Р»РЅРѕ "
 
 msgid "Modified Attribute"
-msgstr "Променен атрибут"
+msgstr "РџСЂРѕРјРµРЅРµРЅ Р°С‚СЂРёР±СѓС‚"
 
 msgid "Modified Queue"
-msgstr "Променен модул"
+msgstr "РџСЂРѕРјРµРЅРµРЅ РјРѕРґСѓР»"
 
 msgid "Modified Priority"
-msgstr "Променен приоритет"
+msgstr "РџСЂРѕРјРµРЅРµРЅ РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Modified State"
-msgstr "Променен статус"
+msgstr "РџСЂРѕРјРµРЅРµРЅ СЃС‚Р°С‚СѓСЃ"
 
 msgid "Modified Subject"
-msgstr "Променена тема"
+msgstr "РџСЂРѕРјРµРЅРµРЅР° С‚РµРјР°"
 
 msgid "Modified Type"
-msgstr "Променен тип"
+msgstr "РџСЂРѕРјРµРЅРµРЅ С‚РёРї"
 
 msgid "Modified Version"
-msgstr "Версия на промяната"
+msgstr "Р’РµСЂСЃРёСЏ РЅР° РїСЂРѕРјСЏРЅР°С‚Р°"
 
 msgid "Queue"
-msgstr "Модул"
+msgstr "РњРѕРґСѓР»"
 
 msgid "Queue Description"
-msgstr "Описание на модул"
+msgstr "РћРїРёСЃР°РЅРёРµ РЅР° РјРѕРґСѓР»"
 
 msgid "Queue Name"
-msgstr "Име на модул"
+msgstr "РРјРµ РЅР° РјРѕРґСѓР»"
 
 msgid "Queue Version"
-msgstr "Модул версия"
+msgstr "РњРѕРґСѓР» РІРµСЂСЃРёСЏ"
 
 #, c-format
 msgid "Queue: %s, Ticket: %s"
-msgstr "Модул: %s, Бюлетин: %s"
+msgstr "РњРѕРґСѓР»: %s, Р‘СЋР»РµС‚РёРЅ: %s"
 
 msgid "Move"
-msgstr "Премести"
+msgstr "РџСЂРµРјРµСЃС‚Рё"
 
 msgid "Mozilla"
 msgstr "Mozilla"
 
 #, c-format
 msgid "My %s"
-msgstr "Моят %s"
+msgstr "РњРѕСЏС‚ %s"
 
 msgid "My Assigned Tickets"
-msgstr "Моите Бюлетини"
+msgstr "РњРѕРёС‚Рµ Р‘СЋР»РµС‚РёРЅРё"
 
 msgid "My Bugs"
-msgstr "Моите Бъгове"
+msgstr "РњРѕРёС‚Рµ Р‘СЉРіРѕРІРµ"
 
 msgid "My Open Requests"
-msgstr "Моите отворени молби"
+msgstr "РњРѕРёС‚Рµ РѕС‚РІРѕСЂРµРЅРё РјРѕР»Р±Рё"
 
 msgid "My Searches"
-msgstr "Моето търсене"
+msgstr "РњРѕРµС‚Рѕ С‚СЉСЂСЃРµРЅРµ"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "New"
-msgstr "Нови"
+msgstr "РќРѕРІРё"
 
 msgid "New Priority"
-msgstr "Нов приоритет"
+msgstr "РќРѕРІ РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "New Query"
-msgstr "Нова заявка"
+msgstr "РќРѕРІР° Р·Р°СЏРІРєР°"
 
 msgid "New State"
-msgstr "Нов статус"
+msgstr "РќРѕРІ СЃС‚Р°С‚СѓСЃ"
 
 msgid "New Ticket"
-msgstr "Нов бюлетин"
+msgstr "РќРѕРІ Р±СЋР»РµС‚РёРЅ"
 
 #, c-format
 msgid "New comment for ticket %s"
-msgstr "Нов коментар за бюлетин %s"
+msgstr "РќРѕРІ РєРѕРјРµРЅС‚Р°СЂ Р·Р° Р±СЋР»РµС‚РёРЅ %s"
 
 #, c-format
 msgid "New ticket (%s): %s"
-msgstr "Нов бюлетин (%s): %s"
+msgstr "РќРѕРІ Р±СЋР»РµС‚РёРЅ (%s): %s"
 
 msgid "No"
-msgstr "Не"
+msgstr "РќРµ"
 
 msgid "No configuration information specified for SQL Bugs."
-msgstr "Няма зададена конфигурация за SQL бъгове."
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° SQL Р±СЉРіРѕРІРµ."
 
 #, c-format
 msgid "No such backend '%s' found"
-msgstr "Не беше намерен bakend '%s'"
+msgstr "РќРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ bakend '%s'"
 
 msgid "No such ticket."
-msgstr "Няма такъв бюлетин."
+msgstr "РќСЏРјР° С‚Р°РєСЉРІ Р±СЋР»РµС‚РёРЅ."
 
 msgid "None"
-msgstr "Няма"
+msgstr "РќСЏРјР°"
 
 msgid "Not"
-msgstr "Не"
+msgstr "РќРµ"
 
 msgid "Not yet implemented..."
-msgstr "Все още не е разработено..."
+msgstr "Р’СЃРµ РѕС‰Рµ РЅРµ Рµ СЂР°Р·СЂР°Р±РѕС‚РµРЅРѕ..."
 
 msgid "Notification Options"
-msgstr "Опции за уведомяване"
+msgstr "РћРїС†РёРё Р·Р° СѓРІРµРґРѕРјСЏРІР°РЅРµ"
 
 msgid "Only notify me of ticket changes from other users"
-msgstr "Уведоми ме само при промяна на бюлетина от други потребители"
+msgstr "РЈРІРµРґРѕРјРё РјРµ СЃР°РјРѕ РїСЂРё РїСЂРѕРјСЏРЅР° РЅР° Р±СЋР»РµС‚РёРЅР° РѕС‚ РґСЂСѓРіРё РїРѕС‚СЂРµР±РёС‚РµР»Рё"
 
 msgid "Open Tickets by Queue"
-msgstr "Отворени бюлетини по модул"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ РјРѕРґСѓР»"
 
 msgid "Open Tickets by Owner"
-msgstr "Отворени бюлетини по притежател"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ РїСЂРёС‚РµР¶Р°С‚РµР»"
 
 msgid "Open Tickets by Priority"
-msgstr "Отворени бюлетини по приоритет"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Open Tickets by Requester"
-msgstr "Отворен бюлетини по заявител"
+msgstr "РћС‚РІРѕСЂРµРЅ Р±СЋР»РµС‚РёРЅРё РїРѕ Р·Р°СЏРІРёС‚РµР»"
 
 msgid "Open Tickets by State"
-msgstr "Отворени бюлетини по статус"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ СЃС‚Р°С‚СѓСЃ"
 
 msgid "Open Tickets by Type"
-msgstr "Отворени бюлетини по тип"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ С‚РёРї"
 
 msgid "Open Tickets by Version"
-msgstr "Отворени бюлетини по версия"
+msgstr "РћС‚РІРѕСЂРµРЅРё Р±СЋР»РµС‚РёРЅРё РїРѕ РІРµСЂСЃРёСЏ"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Or"
-msgstr "или"
+msgstr "РёР»Рё"
 
 msgid "Orange"
 msgstr "Orange"
 
 msgid "Other Options"
-msgstr "Други Опции"
+msgstr "Р”СЂСѓРіРё РћРїС†РёРё"
 
 msgid "Owner"
-msgstr "Притежател"
+msgstr "РџСЂРёС‚РµР¶Р°С‚РµР»"
 
 msgid "Path"
-msgstr "Път"
+msgstr "РџСЉС‚"
 
 msgid "Permission Denied."
-msgstr "Право на достъп отказан"
+msgstr "РџСЂР°РІРѕ РЅР° РґРѕСЃС‚СЉРї РѕС‚РєР°Р·Р°РЅ"
 
 msgid ""
 "Pick a password that you will be able to use in the future to close or "
 "otherwise modify this ticket. Type the password a second time to confirm it."
 msgstr ""
-"Изберете парола която ще използвате в бъдеще за да затворите или променяте "
-"бюлетина. Въведете паролата два пъти за да потвърдите."
+"РР·Р±РµСЂРµС‚Рµ РїР°СЂРѕР»Р° РєРѕСЏС‚Рѕ С‰Рµ РёР·РїРѕР»Р·РІР°С‚Рµ РІ Р±СЉРґРµС‰Рµ Р·Р° РґР° Р·Р°С‚РІРѕСЂРёС‚Рµ РёР»Рё РїСЂРѕРјРµРЅСЏС‚Рµ "
+"Р±СЋР»РµС‚РёРЅР°. Р’СЉРІРµРґРµС‚Рµ РїР°СЂРѕР»Р°С‚Р° РґРІР° РїСЉС‚Рё Р·Р° РґР° РїРѕС‚РІСЉСЂРґРёС‚Рµ."
 
 msgid "Priorities for this Type"
-msgstr "Приоритети за този тип"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚Рё Р·Р° С‚РѕР·Рё С‚РёРї"
 
 msgid "Priority"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Priority Description"
-msgstr "Описание на приоритета"
+msgstr "РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРёРѕСЂРёС‚РµС‚Р°"
 
 msgid "Priority Name"
-msgstr "Приоритет име"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚ РёРјРµ"
 
 msgid "Private"
-msgstr "Частен"
+msgstr "Р§Р°СЃС‚РµРЅ"
 
 msgid "Property Criteria"
-msgstr "Критерий свойство"
+msgstr "РљСЂРёС‚РµСЂРёР№ СЃРІРѕР№СЃС‚РІРѕ"
 
 msgid "Query Builder"
-msgstr "Изграждане на заявки"
+msgstr "РР·РіСЂР°Р¶РґР°РЅРµ РЅР° Р·Р°СЏРІРєРё"
 
 msgid "Query Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Re-execute Query"
-msgstr "Изпълни повторно заявката"
+msgstr "РР·РїСЉР»РЅРё РїРѕРІС‚РѕСЂРЅРѕ Р·Р°СЏРІРєР°С‚Р°"
 
 msgid "Really delete this attribute? This may cause data problems!!"
 msgstr ""
-"Да се изтрие ли този атрибут? Това може да доведе до проблеми с данните!!"
+"Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚РѕР·Рё Р°С‚СЂРёР±СѓС‚? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Really delete this queue? This may cause data problems!!"
 msgstr ""
-"Да се изтрие ли този модул? Това може да доведе до проблеми с данните!!"
+"Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚РѕР·Рё РјРѕРґСѓР»? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Really delete this priority? This may cause data problems!!"
 msgstr ""
-"Да се изтрие ли този приоритет? Това може да доведе до проблеми с данните!!"
+"Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚РѕР·Рё РїСЂРёРѕСЂРёС‚РµС‚? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Really delete this state? This may cause data problems!!"
 msgstr ""
-"Да се изтрие ли този статус? Това може да доведе до проблеми с данните!!"
+"Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚РѕР·Рё СЃС‚Р°С‚СѓСЃ? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Really delete this subject? This may cause data problems!!"
-msgstr "Да се изтрие ли тази тема? Това може да доведе до проблеми с данните!!"
+msgstr "Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚Р°Р·Рё С‚РµРјР°? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"Наистина ли искате да се изтрие този бюлетин? Няма да бъде архивиран и ще "
-"бъде загубен невъзвратимо."
+"РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ РґР° СЃРµ РёР·С‚СЂРёРµ С‚РѕР·Рё Р±СЋР»РµС‚РёРЅ? РќСЏРјР° РґР° Р±СЉРґРµ Р°СЂС…РёРІРёСЂР°РЅ Рё С‰Рµ "
+"Р±СЉРґРµ Р·Р°РіСѓР±РµРЅ РЅРµРІСЉР·РІСЂР°С‚РёРјРѕ."
 
 msgid "Really delete this type? This may cause data problems!!"
-msgstr "Да се изтрие ли този тип? Това може да доведе до проблеми с данните!!"
+msgstr "Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚РѕР·Рё С‚РёРї? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Really delete this version? This may cause data problems!!"
 msgstr ""
-"Да се изтрие ли тази версия? Това може да доведе до проблеми с данните!!"
+"Р”Р° СЃРµ РёР·С‚СЂРёРµ Р»Рё С‚Р°Р·Рё РІРµСЂСЃРёСЏ? РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ РїСЂРѕР±Р»РµРјРё СЃ РґР°РЅРЅРёС‚Рµ!!"
 
 msgid "Refine Search"
-msgstr "Допълни търсенето"
+msgstr "Р”РѕРїСЉР»РЅРё С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Refine search"
-msgstr "Допълни търсенето"
+msgstr "Р”РѕРїСЉР»РЅРё С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Remove User"
-msgstr "Премахни потребител"
+msgstr "РџСЂРµРјР°С…РЅРё РїРѕС‚СЂРµР±РёС‚РµР»"
 
 msgid "Reports"
-msgstr "Рапорти"
+msgstr "Р Р°РїРѕСЂС‚Рё"
 
 msgid "Requester"
-msgstr "Заявител"
+msgstr "Р—Р°СЏРІРёС‚РµР»"
 
 msgid "Required 'database' not specified in bugs configuration."
-msgstr "Необходимата 'database' не е зададена в конфигурацията за проблеми."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'database' РЅРµ Рµ Р·Р°РґР°РґРµРЅР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РїСЂРѕР±Р»РµРјРё."
 
 msgid "Required 'hostspec' not specified in bugs configuration."
-msgstr "Необходимия 'hostspec' не е указан в конфигурацията за проблеми."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'hostspec' РЅРµ Рµ СѓРєР°Р·Р°РЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РїСЂРѕР±Р»РµРјРё."
 
 msgid "Required 'password' not specified in bugs configuration."
-msgstr "Необходимата 'password' не съществува в конфигурация за проблеми."
+msgstr "РќРµРѕР±С…РѕРґРёРјР°С‚Р° 'password' РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ Р·Р° РїСЂРѕР±Р»РµРјРё."
 
 msgid "Required 'phptype' not specified in bugs configuration."
-msgstr "Необходимия 'phptype' не е зададен в конфигурацията за проблеми."
+msgstr "РќРµРѕР±С…РѕРґРёРјРёСЏ 'phptype' РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РїСЂРѕР±Р»РµРјРё."
 
 msgid "Required 'username' not specified in bugs configuration."
-msgstr "Необходимото 'username' не е зададено в конфигурацията за проблеми."
+msgstr "РќРµРѕР±С…РѕРґРёРјРѕС‚Рѕ 'username' РЅРµ Рµ Р·Р°РґР°РґРµРЅРѕ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏС‚Р° Р·Р° РїСЂРѕР±Р»РµРјРё."
 
 msgid "Resolved"
-msgstr "Разрешен"
+msgstr "Р Р°Р·СЂРµС€РµРЅ"
 
 msgid "Restrict ticket subjects to a specified list?"
-msgstr "Ограничи темите на бюлетина до специфичен списък"
+msgstr "РћРіСЂР°РЅРёС‡Рё С‚РµРјРёС‚Рµ РЅР° Р±СЋР»РµС‚РёРЅР° РґРѕ СЃРїРµС†РёС„РёС‡РµРЅ СЃРїРёСЃСЉРє"
 
 msgid "Save Query"
-msgstr "Запиши заявка"
+msgstr "Р—Р°РїРёС€Рё Р·Р°СЏРІРєР°"
 
 msgid "Save these results as: "
-msgstr "Запиши тези резултати като:"
+msgstr "Р—Р°РїРёС€Рё С‚РµР·Рё СЂРµР·СѓР»С‚Р°С‚Рё РєР°С‚Рѕ:"
 
 msgid "Search"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 #, c-format
 msgid "Search %s Attribute"
-msgstr "търси %s Атрибут"
+msgstr "С‚СЉСЂСЃРё %s РђС‚СЂРёР±СѓС‚"
 
 msgid "Search Assignee"
-msgstr "Търси възложен на"
+msgstr "РўСЉСЂСЃРё РІСЉР·Р»РѕР¶РµРЅ РЅР°"
 
 msgid "Search Attribute"
-msgstr "Търси Атрибут"
+msgstr "РўСЉСЂСЃРё РђС‚СЂРёР±СѓС‚"
 
 msgid "Search Comments"
-msgstr "Търси коментар"
+msgstr "РўСЉСЂСЃРё РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Search Requester"
-msgstr "Търси заявител"
+msgstr "РўСЉСЂСЃРё Р·Р°СЏРІРёС‚РµР»"
 
 msgid "Search Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Search Summary"
-msgstr "Търси в резюме"
+msgstr "РўСЉСЂСЃРё РІ СЂРµР·СЋРјРµ"
 
 msgid "Search Tickets"
-msgstr "Търси бюлетини"
+msgstr "РўСЉСЂСЃРё Р±СЋР»РµС‚РёРЅРё"
 
 msgid "Select the view to display after login:"
-msgstr "Изберете изгледа, който да се вижда след вход:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РёР·РіР»РµРґР°, РєРѕР№С‚Рѕ РґР° СЃРµ РІРёР¶РґР° СЃР»РµРґ РІС…РѕРґ:"
 
 msgid "Select your color scheme."
-msgstr "Изберете вашата схема за цветовете."
+msgstr "РР·Р±РµСЂРµС‚Рµ РІР°С€Р°С‚Р° СЃС…РµРјР° Р·Р° С†РІРµС‚РѕРІРµС‚Рµ."
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Set Priority"
-msgstr "Избери приоритет"
+msgstr "РР·Р±РµСЂРё РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Set State"
-msgstr "Избери статус"
+msgstr "РР·Р±РµСЂРё СЃС‚Р°С‚СѓСЃ"
 
 msgid "Set Ticket Attributes"
-msgstr "Настрой атрибути за бюлетин"
+msgstr "РќР°СЃС‚СЂРѕР№ Р°С‚СЂРёР±СѓС‚Рё Р·Р° Р±СЋР»РµС‚РёРЅ"
 
 msgid "Set Ticket Priority"
-msgstr "Избери приоритет за бюлетин"
+msgstr "РР·Р±РµСЂРё РїСЂРёРѕСЂРёС‚РµС‚ Р·Р° Р±СЋР»РµС‚РёРЅ"
 
 msgid "Set Ticket State Succeeded"
-msgstr "Статуса на бюлетина беше успешно настроен"
+msgstr "РЎС‚Р°С‚СѓСЃР° РЅР° Р±СЋР»РµС‚РёРЅР° Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РЅР°СЃС‚СЂРѕРµРЅ"
 
 msgid "Set your preferred display language."
-msgstr "Изберете предпочитаният от Вас език за дисплея."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє Р·Р° РґРёСЃРїР»РµСЏ."
 
 msgid "Show \"(X Days Ago)\" in Date field of search results?"
-msgstr "Да се показва ли \"(X дни назад)\" в полето Дата в резултата?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё \"(X РґРЅРё РЅР°Р·Р°Рґ)\" РІ РїРѕР»РµС‚Рѕ Р”Р°С‚Р° РІ СЂРµР·СѓР»С‚Р°С‚Р°?"
 
 msgid "Show ticket IDs in the summary view?"
-msgstr "Да се показват ли id на бюлетините в обобщението?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё id РЅР° Р±СЋР»РµС‚РёРЅРёС‚Рµ РІ РѕР±РѕР±С‰РµРЅРёРµС‚Рѕ?"
 
 msgid "Show tickets you have requested in the summary view?"
-msgstr "Да се показват ли изисканите бюлетини в обобщения изглед?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё РёР·РёСЃРєР°РЅРёС‚Рµ Р±СЋР»РµС‚РёРЅРё РІ РѕР±РѕР±С‰РµРЅРёСЏ РёР·РіР»РµРґ?"
 
 msgid "Simple HTML Report"
-msgstr "Обикновен HTML рапорт"
+msgstr "РћР±РёРєРЅРѕРІРµРЅ HTML СЂР°РїРѕСЂС‚"
 
 msgid "Some of WHUPS's configuration files are missing:"
-msgstr "Някой от конфигурационните файлове на WHUPS липсват:"
+msgstr "РќСЏРєРѕР№ РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° WHUPS Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 #, c-format
 msgid "Sort by %s"
-msgstr "сортиране по %s"
+msgstr "СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ %s"
 
 msgid "State"
-msgstr "Статус"
+msgstr "РЎС‚Р°С‚СѓСЃ"
 
 msgid "State Category"
-msgstr "Статус категория"
+msgstr "РЎС‚Р°С‚СѓСЃ РєР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "State Description"
-msgstr "Статус описание"
+msgstr "РЎС‚Р°С‚СѓСЃ РѕРїРёСЃР°РЅРёРµ"
 
 msgid "State Name"
-msgstr "Статус дата"
+msgstr "РЎС‚Р°С‚СѓСЃ РґР°С‚Р°"
 
 #, c-format
 msgid "State changed to '%s'"
-msgstr "Статус променен на '%s'"
+msgstr "РЎС‚Р°С‚СѓСЃ РїСЂРѕРјРµРЅРµРЅ РЅР° '%s'"
 
 #, c-format
 msgid "State is '%s'"
-msgstr "Статуса е '%s'"
+msgstr "РЎС‚Р°С‚СѓСЃР° Рµ '%s'"
 
 msgid "States for this Type"
-msgstr "Статуси за този тип"
+msgstr "РЎС‚Р°С‚СѓСЃРё Р·Р° С‚РѕР·Рё С‚РёРї"
 
 msgid "Subject"
-msgstr "Тема"
+msgstr "РўРµРјР°"
 
 msgid "Subject Name"
-msgstr "Име на тема"
+msgstr "РРјРµ РЅР° С‚РµРјР°"
 
 msgid "Subjects associated with this Queue"
-msgstr "Теми асоциирани с този модул"
+msgstr "РўРµРјРё Р°СЃРѕС†РёРёСЂР°РЅРё СЃ С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Summary"
-msgstr "Обобщение"
+msgstr "РћР±РѕР±С‰РµРЅРёРµ"
 
 msgid "Sun"
 msgstr "Sun"
 
 msgid "Text"
-msgstr "Текст"
+msgstr "РўРµРєСЃС‚"
 
 msgid "Text Criteria"
-msgstr "Текст критерии"
+msgstr "РўРµРєСЃС‚ РєСЂРёС‚РµСЂРёРё"
 
 msgid "The attribute has been deleted."
-msgstr "Атрибута беше изтрит."
+msgstr "РђС‚СЂРёР±СѓС‚Р° Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The attribute has been modified."
-msgstr "Атрибута беше променен."
+msgstr "РђС‚СЂРёР±СѓС‚Р° Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅ."
 
 msgid "The attribute was not deleted."
-msgstr "Атрибута не беше изтрит."
+msgstr "РђС‚СЂРёР±СѓС‚Р° РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 #, c-format
 msgid "The attribute'%s' has been added to %s."
-msgstr "Атрибута '%s' беше добавен към %s."
+msgstr "РђС‚СЂРёР±СѓС‚Р° '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅ РєСЉРј %s."
 
 #, c-format
 msgid "The queue '%s' has been created."
-msgstr "Модулът '%s' беше създаден."
+msgstr "РњРѕРґСѓР»СЉС‚ '%s' Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅ."
 
 msgid "The queue has been deleted."
-msgstr "Модулът беше изтрит."
+msgstr "РњРѕРґСѓР»СЉС‚ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The queue has been modified."
-msgstr "Модулът беше променен."
+msgstr "РњРѕРґСѓР»СЉС‚ Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅ."
 
 msgid "The queue was not deleted."
-msgstr "Модулът не беше изтрит."
+msgstr "РњРѕРґСѓР»СЉС‚ РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 #, c-format
 msgid "The priority '%s' has been added to %s."
-msgstr "Приоритетът '%s' беше добавен към %s."
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚СЉС‚ '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅ РєСЉРј %s."
 
 msgid "The priority has been deleted."
-msgstr "Приоритетът беше изтрит."
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚СЉС‚ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The priority has been modified."
-msgstr "Приоритетът беше модифициран."
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚СЉС‚ Р±РµС€Рµ РјРѕРґРёС„РёС†РёСЂР°РЅ."
 
 msgid "The priority was not deleted."
-msgstr "Приоритетът не беше изтрит."
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚СЉС‚ РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The requested template does not exist."
-msgstr "Изисканият шаблон не съществува."
+msgstr "РР·РёСЃРєР°РЅРёСЏС‚ С€Р°Р±Р»РѕРЅ РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°."
 
 #, c-format
 msgid "The state '%s' has been added to %s."
-msgstr "Статуса '%s' беше добавен към %s."
+msgstr "РЎС‚Р°С‚СѓСЃР° '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅ РєСЉРј %s."
 
 msgid "The state has been deleted."
-msgstr "Статуса беше изтрит."
+msgstr "РЎС‚Р°С‚СѓСЃР° Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The state has been modified."
-msgstr "Статуса беше променен."
+msgstr "РЎС‚Р°С‚СѓСЃР° Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅ."
 
 msgid "The state was not deleted."
-msgstr "Статуса не беше изтрит."
+msgstr "РЎС‚Р°С‚СѓСЃР° РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 #, c-format
 msgid "The subject '%s' has been added."
-msgstr "Темата '%s' беше добавена."
+msgstr "РўРµРјР°С‚Р° '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅР°."
 
 msgid "The subject has been deleted."
-msgstr "Темата беше изтрита."
+msgstr "РўРµРјР°С‚Р° Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 msgid "The subject has been modified."
-msgstr "Темата беше променена."
+msgstr "РўРµРјР°С‚Р° Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅР°."
 
 msgid "The subject was not deleted."
-msgstr "Темата не беше изтрита."
+msgstr "РўРµРјР°С‚Р° РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 #, c-format
 msgid "The type '%s' has been modified."
-msgstr "Типът '%s' не беше променен."
+msgstr "РўРёРїСЉС‚ '%s' РЅРµ Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅ."
 
 msgid "The type has been deleted."
-msgstr "Типът беше изтрит."
+msgstr "РўРёРїСЉС‚ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 msgid "The type was not deleted."
-msgstr "Типът не беше изтрит."
+msgstr "РўРёРїСЉС‚ РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚."
 
 #, c-format
 msgid "The version '%s' has been added to %s."
-msgstr "Версията '%s' беше добавена към %s."
+msgstr "Р’РµСЂСЃРёСЏС‚Р° '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅР° РєСЉРј %s."
 
 msgid "The version has been deleted."
-msgstr "Версията беше изтрита."
+msgstr "Р’РµСЂСЃРёСЏС‚Р° Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 msgid "The version has been modified."
-msgstr "Версията беше променена."
+msgstr "Р’РµСЂСЃРёСЏС‚Р° Р±РµС€Рµ РїСЂРѕРјРµРЅРµРЅР°."
 
 msgid "The version was not deleted."
-msgstr "Версията не беше изтрита."
+msgstr "Р’РµСЂСЃРёСЏС‚Р° РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 msgid "There are no attribute types to edit"
-msgstr "Няма типове на атрибут за редактиране."
+msgstr "РќСЏРјР° С‚РёРїРѕРІРµ РЅР° Р°С‚СЂРёР±СѓС‚ Р·Р° СЂРµРґР°РєС‚РёСЂР°РЅРµ."
 
 msgid "There are no attributes defined for the current type"
-msgstr "Няма дефинирани атрибути за текущият тип."
+msgstr "РќСЏРјР° РґРµС„РёРЅРёСЂР°РЅРё Р°С‚СЂРёР±СѓС‚Рё Р·Р° С‚РµРєСѓС‰РёСЏС‚ С‚РёРї."
 
 msgid "There are no queues to edit"
-msgstr "Няма модули за редакция."
+msgstr "РќСЏРјР° РјРѕРґСѓР»Рё Р·Р° СЂРµРґР°РєС†РёСЏ."
 
 msgid "There are no queues which you can create tickets in."
-msgstr "Няма модули за които да създавате типове."
+msgstr "РќСЏРјР° РјРѕРґСѓР»Рё Р·Р° РєРѕРёС‚Рѕ РґР° СЃСЉР·РґР°РІР°С‚Рµ С‚РёРїРѕРІРµ."
 
 msgid "There are no queues which you can search."
-msgstr "Няма модули за търсене."
+msgstr "РќСЏРјР° РјРѕРґСѓР»Рё Р·Р° С‚СЉСЂСЃРµРЅРµ."
 
 msgid "There are no priorities to edit"
-msgstr "Няма приоритети за редакция"
+msgstr "РќСЏРјР° РїСЂРёРѕСЂРёС‚РµС‚Рё Р·Р° СЂРµРґР°РєС†РёСЏ"
 
 msgid "There are no states to edit"
-msgstr "Няма статуси за редакция."
+msgstr "РќСЏРјР° СЃС‚Р°С‚СѓСЃРё Р·Р° СЂРµРґР°РєС†РёСЏ."
 
 msgid "There are no subjects to edit"
-msgstr "Няма теми за редакция."
+msgstr "РќСЏРјР° С‚РµРјРё Р·Р° СЂРµРґР°РєС†РёСЏ."
 
 msgid ""
 "There are no ticket types associated with this module; until there are, you "
 "cannot create any tickets in this module."
 msgstr ""
-"Няма бюлетин асоцииран с този модул; докато няма Вие не можете да създавате "
-"бюлетини в този модул."
+"РќСЏРјР° Р±СЋР»РµС‚РёРЅ Р°СЃРѕС†РёРёСЂР°РЅ СЃ С‚РѕР·Рё РјРѕРґСѓР»; РґРѕРєР°С‚Рѕ РЅСЏРјР° Р’РёРµ РЅРµ РјРѕР¶РµС‚Рµ РґР° СЃСЉР·РґР°РІР°С‚Рµ "
+"Р±СЋР»РµС‚РёРЅРё РІ С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "There are no types to edit"
-msgstr "Няма типове за редактиране."
+msgstr "РќСЏРјР° С‚РёРїРѕРІРµ Р·Р° СЂРµРґР°РєС‚РёСЂР°РЅРµ."
 
 msgid "There are no users responsible for this module."
-msgstr "Няма потребители отговорни за този модул."
+msgstr "РќСЏРјР° РїРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚РіРѕРІРѕСЂРЅРё Р·Р° С‚РѕР·Рё РјРѕРґСѓР»."
 
 msgid "There are no users to which this ticket can be assigned."
-msgstr "Няма потребители на които да бъде възложен бюлетина."
+msgstr "РќСЏРјР° РїРѕС‚СЂРµР±РёС‚РµР»Рё РЅР° РєРѕРёС‚Рѕ РґР° Р±СЉРґРµ РІСЉР·Р»РѕР¶РµРЅ Р±СЋР»РµС‚РёРЅР°."
 
 msgid "There are no versions to edit"
-msgstr "Няма версия за редактиране."
+msgstr "РќСЏРјР° РІРµСЂСЃРёСЏ Р·Р° СЂРµРґР°РєС‚РёСЂР°РЅРµ."
 
 msgid "There is no data for this graph."
-msgstr "Няма данни за тази крива."
+msgstr "РќСЏРјР° РґР°РЅРЅРё Р·Р° С‚Р°Р·Рё РєСЂРёРІР°."
 
 msgid "There is no data for this report."
-msgstr "Няма данни за този рапорт."
+msgstr "РќСЏРјР° РґР°РЅРЅРё Р·Р° С‚РѕР·Рё СЂР°РїРѕСЂС‚."
 
 #, c-format
 msgid "There was an error adding '%s' to the responsible list for '%s': %s"
-msgstr "Грешка при добавяне на '%s'към списъка на отговорните за '%s': %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° '%s'РєСЉРј СЃРїРёСЃСЉРєР° РЅР° РѕС‚РіРѕРІРѕСЂРЅРёС‚Рµ Р·Р° '%s': %s"
 
 #, c-format
 msgid "There was an error adding the subject: %s."
-msgstr "Грешка при добавяне на темата : %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° С‚РµРјР°С‚Р° : %s."
 
 #, c-format
 msgid "There was an error creating the attribute: %s."
-msgstr "Грешка при създаване на атрибута: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° Р°С‚СЂРёР±СѓС‚Р°: %s."
 
 #, c-format
 msgid "There was an error creating the module: %s."
-msgstr "Грешка при създаване на модула: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° РјРѕРґСѓР»Р°: %s."
 
 #, c-format
 msgid "There was an error creating the priority: %s."
-msgstr "Грешка при създаване на приоритет: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° РїСЂРёРѕСЂРёС‚РµС‚: %s."
 
 #, c-format
 msgid "There was an error creating the state: %s."
-msgstr "Грешка при създаване на статуса: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° СЃС‚Р°С‚СѓСЃР°: %s."
 
 #, c-format
 msgid "There was an error creating the version: %s."
-msgstr "Грешка при създаване на версията: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° РІРµСЂСЃРёСЏС‚Р°: %s."
 
 #, c-format
 msgid "There was an error deleting the attribute: %s."
-msgstr "Грешка при изтриване на атрибута: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° Р°С‚СЂРёР±СѓС‚Р°: %s."
 
 #, c-format
 msgid "There was an error deleting the module: %s."
-msgstr "Грешка при изтриване на модула: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РјРѕРґСѓР»Р°: %s."
 
 #, c-format
 msgid "There was an error deleting the priority: %s."
-msgstr "Грешка при изтриване на приоритет: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїСЂРёРѕСЂРёС‚РµС‚: %s."
 
 #, c-format
 msgid "There was an error deleting the state: %s."
-msgstr "Грешка при изтриване на статуса: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° СЃС‚Р°С‚СѓСЃР°: %s."
 
 #, c-format
 msgid "There was an error deleting the subject: %s."
-msgstr "Грешка при изтриването на обект: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° РѕР±РµРєС‚: %s."
 
 #, c-format
 msgid "There was an error deleting the ticket: %s"
-msgstr "Грешка при изтриване на бюлетин: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° Р±СЋР»РµС‚РёРЅ: %s"
 
 #, c-format
 msgid "There was an error deleting the type: %s."
-msgstr "Грешка при изтриване на типа: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° С‚РёРїР°: %s."
 
 #, c-format
 msgid "There was an error deleting the version: %s."
-msgstr "Грешка при изтриване на версията: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РІРµСЂСЃРёСЏС‚Р°: %s."
 
 #, c-format
 msgid "There was an error editing the attribute: %s."
-msgstr "Грешка при редактиране на атрибута: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р°С‚СЂРёР±СѓС‚Р°: %s."
 
 #, c-format
 msgid "There was an error editing the module: %s."
-msgstr "Грешка при редактиране на модула: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РјРѕРґСѓР»Р°: %s."
 
 #, c-format
 msgid "There was an error editing the priority: %s."
-msgstr "Грешка при редактиране на приоритета: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РїСЂРёРѕСЂРёС‚РµС‚Р°: %s."
 
 #, c-format
 msgid "There was an error editing the state: %s."
-msgstr "Грешка при редактиране на статуса: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° СЃС‚Р°С‚СѓСЃР°: %s."
 
 #, c-format
 msgid "There was an error editing the subject: %s."
-msgstr "Грешка при редактиране на темата: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° С‚РµРјР°С‚Р°: %s."
 
 #, c-format
 msgid "There was an error editing the version: %s."
-msgstr "Грешка при редактиране на версията: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РІРµСЂСЃРёСЏС‚Р°: %s."
 
 #, c-format
 msgid "There was an error listing your assigned tickets: %s"
-msgstr "Грешка при показването на списъка с възложените бюлетини: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµС‚Рѕ РЅР° СЃРїРёСЃСЉРєР° СЃ РІСЉР·Р»РѕР¶РµРЅРёС‚Рµ Р±СЋР»РµС‚РёРЅРё: %s"
 
 #, c-format
 msgid "There was an error listing your open requests: %s"
-msgstr "Грешка при показването на списъка с отворени молби: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµС‚Рѕ РЅР° СЃРїРёСЃСЉРєР° СЃ РѕС‚РІРѕСЂРµРЅРё РјРѕР»Р±Рё: %s"
 
 #, c-format
 msgid "There was an error modifying the type: %s."
-msgstr "Грешка при модифициране на типа: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РјРѕРґРёС„РёС†РёСЂР°РЅРµ РЅР° С‚РёРїР°: %s."
 
 #, c-format
 msgid "There was an error performing your search: %s"
-msgstr "Грешка при търсене: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‚СЉСЂСЃРµРЅРµ: %s"
 
 #, c-format
 msgid "There was an error removing '%s' from the responsible list for '%s': %s"
-msgstr "Грешка при премахването на '%s' от списъка с отговорните за '%s': %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјР°С…РІР°РЅРµС‚Рѕ РЅР° '%s' РѕС‚ СЃРїРёСЃСЉРєР° СЃ РѕС‚РіРѕРІРѕСЂРЅРёС‚Рµ Р·Р° '%s': %s."
 
 msgid ""
 "This file controls the default preferences for Whups, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Този файл съдържа настройките по подразбиране на Whups и контролира кои от "
-"тях потребителят може да променя."
+"РўРѕР·Рё С„Р°Р№Р» СЃСЉРґСЉСЂР¶Р° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ РЅР° Whups Рё РєРѕРЅС‚СЂРѕР»РёСЂР° РєРѕРё РѕС‚ "
+"С‚СЏС… РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚ РјРѕР¶Рµ РґР° РїСЂРѕРјРµРЅСЏ."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Този файл контролира стиловете, който се използват за цветовете и шрифтовете "
-"в допълнение към подразбиращите стилове на Horde."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚РёР»РѕРІРµС‚Рµ, РєРѕР№С‚Рѕ СЃРµ РёР·РїРѕР»Р·РІР°С‚ Р·Р° С†РІРµС‚РѕРІРµС‚Рµ Рё С€СЂРёС„С‚РѕРІРµС‚Рµ "
+"РІ РґРѕРїСЉР»РЅРµРЅРёРµ РєСЉРј РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёС‚Рµ СЃС‚РёР»РѕРІРµ РЅР° Horde."
 
 msgid ""
 "This file defines the templates that various parts of Whups use to format "
 "data."
 msgstr ""
-"Този файл дефинира шаблоните, които различните части на Whups използват за да"
-" форматират данни"
+"РўРѕР·Рё С„Р°Р№Р» РґРµС„РёРЅРёСЂР° С€Р°Р±Р»РѕРЅРёС‚Рµ, РєРѕРёС‚Рѕ СЂР°Р·Р»РёС‡РЅРёС‚Рµ С‡Р°СЃС‚Рё РЅР° Whups РёР·РїРѕР»Р·РІР°С‚ Р·Р° РґР°"
+" С„РѕСЂРјР°С‚РёСЂР°С‚ РґР°РЅРЅРё"
 
 msgid "This is not a search results template."
-msgstr "Това не е шаблон за резултати от търсене."
+msgstr "РўРѕРІР° РЅРµ Рµ С€Р°Р±Р»РѕРЅ Р·Р° СЂРµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµ."
 
 msgid "This is not a valid subject."
-msgstr "Това не е валидна тема"
+msgstr "РўРѕРІР° РЅРµ Рµ РІР°Р»РёРґРЅР° С‚РµРјР°"
 
 msgid ""
 "This is the main WHUPS configuration file. It contains paths and options for "
 "all WHUPS scripts."
 msgstr ""
-"Това е главния файл за конфигуриране на WHUPS. Той съдържа пътищата и "
-"опциите за WHUPS скриптовете."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ С„Р°Р№Р» Р·Р° РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅРµ РЅР° WHUPS. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р°С‚Р° Рё "
+"РѕРїС†РёРёС‚Рµ Р·Р° WHUPS СЃРєСЂРёРїС‚РѕРІРµС‚Рµ."
 
 #, c-format
 msgid "This mail was automatically generated by %s"
-msgstr "Този емайл беше автоматично генериран от %s"
+msgstr "РўРѕР·Рё РµРјР°Р№Р» Р±РµС€Рµ Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ РіРµРЅРµСЂРёСЂР°РЅ РѕС‚ %s"
 
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this module, you will not "
 "be able to create tickets."
 msgstr ""
-"Този модул изисква да зададете версия, но няма версии асоциирани с него."
-"Докато няма версии, не е възможно да създавате бюлетини."
+"РўРѕР·Рё РјРѕРґСѓР» РёР·РёСЃРєРІР° РґР° Р·Р°РґР°РґРµС‚Рµ РІРµСЂСЃРёСЏ, РЅРѕ РЅСЏРјР° РІРµСЂСЃРёРё Р°СЃРѕС†РёРёСЂР°РЅРё СЃ РЅРµРіРѕ."
+"Р”РѕРєР°С‚Рѕ РЅСЏРјР° РІРµСЂСЃРёРё, РЅРµ Рµ РІСЉР·РјРѕР¶РЅРѕ РґР° СЃСЉР·РґР°РІР°С‚Рµ Р±СЋР»РµС‚РёРЅРё."
 
 #, c-format
 msgid "Ticket %s Comments"
-msgstr "Бюлетин %s коментари"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s РєРѕРјРµРЅС‚Р°СЂРё"
 
 #, c-format
 msgid "Ticket %s Details"
-msgstr "Бюлетин %s детайли"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s РґРµС‚Р°Р№Р»Рё"
 
 #, c-format
 msgid "Ticket %s has been assigned"
-msgstr "Бюлетин %s беше възложен"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s Р±РµС€Рµ РІСЉР·Р»РѕР¶РµРЅ"
 
 #, c-format
 msgid "Ticket %s has changed priority"
-msgstr "Бюлетин %s е със сменен приоритет"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s Рµ СЃСЉСЃ СЃРјРµРЅРµРЅ РїСЂРёРѕСЂРёС‚РµС‚"
 
 #, c-format
 msgid "Ticket %s has changed state"
-msgstr "Бюлетин %s e със сменен статус"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s e СЃСЉСЃ СЃРјРµРЅРµРЅ СЃС‚Р°С‚СѓСЃ"
 
 #, c-format
 msgid "Ticket %s was not found."
-msgstr "Бюлетин %s не беше намерен"
+msgstr "Р‘СЋР»РµС‚РёРЅ %s РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ"
 
 msgid "Ticket Details"
-msgstr "Бюлетин детайли"
+msgstr "Р‘СЋР»РµС‚РёРЅ РґРµС‚Р°Р№Р»Рё"
 
 msgid "Ticket ID"
-msgstr "Бюлетин ID"
+msgstr "Р‘СЋР»РµС‚РёРЅ ID"
 
 msgid "Ticket Password"
-msgstr "Бюлетин Парола"
+msgstr "Р‘СЋР»РµС‚РёРЅ РџР°СЂРѕР»Р°"
 
 msgid "Ticket State"
-msgstr "Бюлетин статус"
+msgstr "Р‘СЋР»РµС‚РёРЅ СЃС‚Р°С‚СѓСЃ"
 
 msgid "Ticket Stats"
-msgstr "Бюлетин статус"
+msgstr "Р‘СЋР»РµС‚РёРЅ СЃС‚Р°С‚СѓСЃ"
 
 msgid "Ticket Summary"
-msgstr "Бюлетин обобщение"
+msgstr "Р‘СЋР»РµС‚РёРЅ РѕР±РѕР±С‰РµРЅРёРµ"
 
 msgid "Ticket Type"
-msgstr "Бюлетин тип"
+msgstr "Р‘СЋР»РµС‚РёРЅ С‚РёРї"
 
 msgid "Ticket Types associated with this Queue"
-msgstr "Бюлетин типове асоциирани с този модул"
+msgstr "Р‘СЋР»РµС‚РёРЅ С‚РёРїРѕРІРµ Р°СЃРѕС†РёРёСЂР°РЅРё СЃ С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Tickets assigned to you"
-msgstr "Бюлетини възложени на Вас"
+msgstr "Р‘СЋР»РµС‚РёРЅРё РІСЉР·Р»РѕР¶РµРЅРё РЅР° Р’Р°СЃ"
 
 msgid "Tickets which are"
-msgstr "Бюлетини които са"
+msgstr "Р‘СЋР»РµС‚РёРЅРё РєРѕРёС‚Рѕ СЃР°"
 
 msgid "Tickets you requested"
-msgstr "Бюлетини които изискахте"
+msgstr "Р‘СЋР»РµС‚РёРЅРё РєРѕРёС‚Рѕ РёР·РёСЃРєР°С…С‚Рµ"
 
 msgid "Type"
-msgstr "Тип"
+msgstr "РўРёРї"
 
 msgid "Type Description"
-msgstr "Тип описание"
+msgstr "РўРёРї РѕРїРёСЃР°РЅРёРµ"
 
 msgid "Type Name"
-msgstr "Тип име"
+msgstr "РўРёРї РёРјРµ"
 
 msgid "Unassigned"
-msgstr "Невъзложен"
+msgstr "РќРµРІСЉР·Р»РѕР¶РµРЅ"
 
 msgid "Unconfirmed"
-msgstr "Непотвърден"
+msgstr "РќРµРїРѕС‚РІСЉСЂРґРµРЅ"
 
 #, c-format
 msgid "Unknown node type %s"
-msgstr "Неизвестен възлов тип %s"
+msgstr "РќРµРёР·РІРµСЃС‚РµРЅ РІСЉР·Р»РѕРІ С‚РёРї %s"
 
 msgid "User"
-msgstr "Потребител"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»"
 
 msgid "User Criteria"
-msgstr "Потребителски критерии"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РєСЂРёС‚РµСЂРёРё"
 
 msgid "User ID"
-msgstr "Потребител ID"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР» ID"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 #, c-format
 msgid "Users responsible for '%s'"
-msgstr "Потребители отговорни за '%s'"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚РіРѕРІРѕСЂРЅРё Р·Р° '%s'"
 
 msgid "Users responsible for this Queue"
-msgstr "Потребители отговорни за този модул"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚РіРѕРІРѕСЂРЅРё Р·Р° С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Users responsible for this module"
-msgstr "Потребители отговорни за този модул"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»Рё РѕС‚РіРѕРІРѕСЂРЅРё Р·Р° С‚РѕР·Рё РјРѕРґСѓР»"
 
 msgid "Version"
-msgstr "Версия"
+msgstr "Р’РµСЂСЃРёСЏ"
 
 msgid "Version Description"
-msgstr "Описание на проблема"
+msgstr "РћРїРёСЃР°РЅРёРµ РЅР° РїСЂРѕР±Р»РµРјР°"
 
 msgid "Version Name"
-msgstr "Версия име"
+msgstr "Р’РµСЂСЃРёСЏ РёРјРµ"
 
 msgid "View Graphs"
-msgstr "Виж графиката"
+msgstr "Р’РёР¶ РіСЂР°С„РёРєР°С‚Р°"
 
 msgid "Viewable only by members of"
-msgstr "Може да се преглежда само от членове на"
+msgstr "РњРѕР¶Рµ РґР° СЃРµ РїСЂРµРіР»РµР¶РґР° СЃР°РјРѕ РѕС‚ С‡Р»РµРЅРѕРІРµ РЅР°"
 
 msgid "WHUPS is not properly configured"
-msgstr "WHUPS не е конфигуриран коректно"
+msgstr "WHUPS РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "Weekday Day Month"
-msgstr "Работен ден месец"
+msgstr "Р Р°Р±РѕС‚РµРЅ РґРµРЅ РјРµСЃРµС†"
 
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "Работен ден месец ЧЧ:ММ:СС ЧЗ"
+msgstr "Р Р°Р±РѕС‚РµРЅ РґРµРЅ РјРµСЃРµС† Р§Р§:РњРњ:РЎРЎ Р§Р—"
 
 msgid "Yes"
-msgstr "Да"
+msgstr "Р”Р°"
 
 #, c-format
 msgid "You do not have permission to access this ticket (%s)."
-msgstr "Нямате права за достъп до този бюлетин (%s)."
+msgstr "РќСЏРјР°С‚Рµ РїСЂР°РІР° Р·Р° РґРѕСЃС‚СЉРї РґРѕ С‚РѕР·Рё Р±СЋР»РµС‚РёРЅ (%s)."
 
 msgid "You have no saved queries."
-msgstr "Нямате записани заявки."
+msgstr "РќСЏРјР°С‚Рµ Р·Р°РїРёСЃР°РЅРё Р·Р°СЏРІРєРё."
 
 msgid "Your Email Address"
-msgstr "Вашия Email адрес"
+msgstr "Р’Р°С€РёСЏ Email Р°РґСЂРµСЃ"
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your Password"
-msgstr "Вашата Парола"
+msgstr "Р’Р°С€Р°С‚Р° РџР°СЂРѕР»Р°"
 
 msgid "Your password is incorrect."
-msgstr "Вашата парола не е коректна."
+msgstr "Р’Р°С€Р°С‚Р° РїР°СЂРѕР»Р° РЅРµ Рµ РєРѕСЂРµРєС‚РЅР°."
 
 #, c-format
 msgid "Your ticket id is %s. "
-msgstr "Вашият бюлетин id е %s."
+msgstr "Р’Р°С€РёСЏС‚ Р±СЋР»РµС‚РёРЅ id Рµ %s."
 
 msgid "contains (case insensitive) substring"
-msgstr "съдържа стринг нечувствителен към размера на буквите"
+msgstr "СЃСЉРґСЉСЂР¶Р° СЃС‚СЂРёРЅРі РЅРµС‡СѓРІСЃС‚РІРёС‚РµР»РµРЅ РєСЉРј СЂР°Р·РјРµСЂР° РЅР° Р±СѓРєРІРёС‚Рµ"
 
 msgid "contains (case sensitive) substring"
-msgstr "съдържа стринг чувствителен към размера на буквите"
+msgstr "СЃСЉРґСЉСЂР¶Р° СЃС‚СЂРёРЅРі С‡СѓРІСЃС‚РІРёС‚РµР»РµРЅ РєСЉРј СЂР°Р·РјРµСЂР° РЅР° Р±СѓРєРІРёС‚Рµ"
 
 msgid "contains the word"
-msgstr "съдържа думата"
+msgstr "СЃСЉРґСЉСЂР¶Р° РґСѓРјР°С‚Р°"
 
 msgid "is"
-msgstr "е"
+msgstr "Рµ"
 
 msgid "is greater than"
-msgstr "е по-голям от"
+msgstr "Рµ РїРѕ-РіРѕР»СЏРј РѕС‚"
 
 msgid "is less than"
-msgstr "е по-малък от"
+msgstr "Рµ РїРѕ-РјР°Р»СЉРє РѕС‚"
 
 msgid "matches the pattern"
-msgstr "съвпада със условията"
+msgstr "СЃСЉРІРїР°РґР° СЃСЉСЃ СѓСЃР»РѕРІРёСЏС‚Р°"

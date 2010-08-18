@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/Block/delivery_email.php:60
 #, php-format
 msgid "%s by Email"
-msgstr "%s S‰hkˆpostitse"
+msgstr "%s S√§hk√∂postitse"
 
 #: lists/index.php:118
 #, php-format
@@ -27,7 +27,7 @@ msgstr "%s - %s / %s"
 #: lib/Block/delivery.php:77 delivery/index.php:47
 #, php-format
 msgid "'%s' stories by email"
-msgstr "'%s' artikkelia s‰hkˆpostitse"
+msgstr "'%s' artikkelia s√§hk√∂postitse"
 
 #: lib/Block/delivery.php:60 delivery/index.php:35
 #, php-format
@@ -37,7 +37,7 @@ msgstr "'%s' artikkelia HTML-muodossa"
 #: lib/Block/delivery.php:69 delivery/index.php:41
 #, php-format
 msgid "'%s' stories in XML"
-msgstr "'%s' artikkelia XML:ll‰"
+msgstr "'%s' artikkelia XML:ll√§"
 
 #: lib/News.php:417
 msgid "1 hour"
@@ -73,8 +73,8 @@ msgid ""
 "A confirmation message has been sent to %s. Click on the link in that "
 "message to finally subscribe to channel \"%s\"."
 msgstr ""
-"Varmistusviesti on l‰hetetty osoitteeseen %s. Napsauta viestiss‰ olevaan "
-"linkki‰ tilataksesi kanavan \"%s\"."
+"Varmistusviesti on l√§hetetty osoitteeseen %s. Napsauta viestiss√§ olevaan "
+"linkki√§ tilataksesi kanavan \"%s\"."
 
 #: stories/share.php:104
 msgid "A link to the story"
@@ -82,23 +82,23 @@ msgstr "Linkki artikkeliin"
 
 #: channels/aggregate.php:54
 msgid "Add"
-msgstr "Lis‰‰"
+msgstr "Lis√§√§"
 
 #: lib/Form/EditChannel.php:32
 msgid "Add New Channel"
-msgstr "Lis‰‰ uusi kanava"
+msgstr "Lis√§√§ uusi kanava"
 
 #: stories/edit.php:57
 msgid "Add New Story"
-msgstr "Lis‰‰ uusi artikkeli"
+msgstr "Lis√§√§ uusi artikkeli"
 
 #: stories/view.php:56
 msgid "Add a comment"
-msgstr "Lis‰‰ kommentti"
+msgstr "Lis√§√§ kommentti"
 
 #: channels/index.php:68
 msgid "Add story"
-msgstr "Lis‰‰ artikkeli"
+msgstr "Lis√§√§ artikkeli"
 
 #: lib/Jonah.php:127 lib/News.php:455
 msgid "Aggregated"
@@ -111,7 +111,7 @@ msgstr "Yhdistetyt kanavat kanavalle \"%s\""
 
 #: channels/delete.php:54
 msgid "All stories created in this channel will be lost!"
-msgstr "Kaikki t‰lle kanavalle luodut artikkelit tuhoutuvat!"
+msgstr "Kaikki t√§lle kanavalle luodut artikkelit tuhoutuvat!"
 
 #: channels/index.php:33
 #, php-format
@@ -120,7 +120,7 @@ msgstr "Taphtui virhe haettaessa kanavia: %s"
 
 #: channels/delete.php:56
 msgid "Any cached stories for this channel will be lost!"
-msgstr "Kaikki t‰m‰n kanavan v‰limuistissa olevat artikkelit tuhoutuvat!"
+msgstr "Kaikki t√§m√§n kanavan v√§limuistissa olevat artikkelit tuhoutuvat!"
 
 #: channels/index.php:91
 msgid "Available Channels"
@@ -129,12 +129,12 @@ msgstr "Saatavissaolevat kanavat"
 #: lib/Block/delivery.php:35
 #, php-format
 msgid "Available Channels from %s"
-msgstr "Saatavissaolevat kanavat %s:st‰"
+msgstr "Saatavissaolevat kanavat %s:st√§"
 
 #: delivery/index.php:29
 #, php-format
 msgid "Available Channels from %s (%s)"
-msgstr "Saatavissaolevat kanavat %s:st‰ (%s)"
+msgstr "Saatavissaolevat kanavat %s:st√§ (%s)"
 
 #: lib/Block/delivery.php:51
 msgid "Available News Channels"
@@ -142,11 +142,11 @@ msgstr "Saatavissaolevat uutiskanavat"
 
 #: lib/Form/EditChannel.php:70 lib/Form/EditChannel.php:81
 msgid "Caching"
-msgstr "Haetaan v‰limuistiin"
+msgstr "Haetaan v√§limuistiin"
 
 #: config/prefs.php.dist:18
 msgid "Change your content display options."
-msgstr "Voit muuttaa n‰kym‰‰n liittyvi‰ asetuksia."
+msgstr "Voit muuttaa n√§kym√§√§n liittyvi√§ asetuksia."
 
 #: lib/Block/delivery_email.php:83
 msgid "Channel"
@@ -160,7 +160,7 @@ msgstr "Kanava '%s'"
 #: lib/News.php:110
 #, php-format
 msgid "Channel '%s' is not an internally authored channel."
-msgstr "Kanava '%s' ei pidet‰ itse yll‰."
+msgstr "Kanava '%s' ei pidet√§ itse yll√§."
 
 #: content.php:77
 msgid "Channel Listing"
@@ -168,7 +168,7 @@ msgstr "Kanavan listaus"
 
 #: lists/index.php:128
 msgid "Channel Lists Admin"
-msgstr "Kanavalistauksien yll‰pit‰j‰"
+msgstr "Kanavalistauksien yll√§pit√§j√§"
 
 #: templates/subscribe/column_headers.inc:7 lib/Form/EditChannel.php:43
 #: channels/aggregate.php:56
@@ -181,7 +181,7 @@ msgstr "Kanavan tilaukset"
 
 #: subscribe.php:127
 msgid "Channel display failed."
-msgstr "Kanavan n‰ytt‰minen ep‰onnistui."
+msgstr "Kanavan n√§ytt√§minen ep√§onnistui."
 
 #: channels/delete.php:76
 msgid "Channel has not been deleted."
@@ -190,19 +190,19 @@ msgstr "Kanavaa ei ole poistettu."
 #: lib/News/sql.php:158
 #, php-format
 msgid "Channel id '%s' not found."
-msgstr "Kanavaa id '%s' ei lˆydy."
+msgstr "Kanavaa id '%s' ei l√∂ydy."
 
 #: stories/index.php:51
 msgid "Channel refreshed."
-msgstr "Kanava p‰ivitetty."
+msgstr "Kanava p√§ivitetty."
 
 #: subscribe.php:86
 msgid "Channel subscription editing failed."
-msgstr "Kanavan tilaustietojen muokkaus ep‰onnistui."
+msgstr "Kanavan tilaustietojen muokkaus ep√§onnistui."
 
 #: subscribe.php:41
 msgid "Channel subscription failed."
-msgstr "Kanavan tilaus ep‰onnistui."
+msgstr "Kanavan tilaus ep√§onnistui."
 
 #: channels/edit.php:56
 msgid "Channel type changed."
@@ -226,15 +226,15 @@ msgstr "Pienennetty"
 
 #: lib/Jonah.php:130 lib/News.php:458
 msgid "Composite"
-msgstr "Yhdistelm‰"
+msgstr "Yhdistelm√§"
 
 #: lib/Form/EditChannel.php:100
 msgid "Composite channels"
-msgstr "Yhdistelm‰ kanavat"
+msgstr "Yhdistelm√§ kanavat"
 
 #: lib/Block/news.php:3
 msgid "Content Channel"
-msgstr "Sis‰ltˆkanava"
+msgstr "Sis√§lt√∂kanava"
 
 #: lib/News.php:281
 #, php-format
@@ -306,7 +306,7 @@ msgstr "Yksityiskohtainen"
 
 #: config/prefs.php.dist:17
 msgid "Display Options"
-msgstr "N‰kym‰n asetukset"
+msgstr "N√§kym√§n asetukset"
 
 #: stories/delete.php:50 channels/delete.php:49
 msgid "Do not delete"
@@ -335,7 +335,7 @@ msgstr "Muokkaa kanavan tilauksen yksityiskohtia"
 
 #: lib/Form/EditChannel.php:87
 msgid "Edit aggregated channels"
-msgstr "Muokkaa yhdisteltyj‰ kanavia"
+msgstr "Muokkaa yhdisteltyj√§ kanavia"
 
 #: channels/index.php:44
 msgid "Edit channel"
@@ -357,16 +357,16 @@ msgstr "Muokataan kanavaa %s"
 
 #: lib/Delivery/email.php:195 lib/Delivery/email.php:210
 msgid "Email"
-msgstr "S‰hkˆposti"
+msgstr "S√§hk√∂posti"
 
 #: delivery/email.php:62
 #, php-format
 msgid "Email Delivery for \"%s\""
-msgstr "Jakelu s‰hkˆpostitse \"%s\":lle"
+msgstr "Jakelu s√§hk√∂postitse \"%s\":lle"
 
 #: lib/Block/delivery_email.php:92 delivery/email.php:76
 msgid "Email address"
-msgstr "S‰hkˆpostiosoite"
+msgstr "S√§hk√∂postiosoite"
 
 #: lib/News.php:499
 #, php-format
@@ -381,7 +381,7 @@ msgstr "Tapahtui virhe haettaessa artikkelia: %s"
 #: lib/News.php:391
 #, php-format
 msgid "Error parsing external channel from %s: %s"
-msgstr "Tapahtui virhe tulkittaessa ulkoista kanavaa l‰hteest‰ %s: %s"
+msgstr "Tapahtui virhe tulkittaessa ulkoista kanavaa l√§hteest√§ %s: %s"
 
 #: lib/Jonah.php:124 lib/News.php:449
 msgid "External"
@@ -389,15 +389,15 @@ msgstr "Ulkopuolinen"
 
 #: lib/Form/EditChannel.php:44
 msgid "Extra information for this channel type"
-msgstr "T‰m‰n kanavatyypin lis‰tietoja"
+msgstr "T√§m√§n kanavatyypin lis√§tietoja"
 
 #: lib/Block/news.php:62
 msgid "First Story"
-msgstr "Ensimm‰inen artikkeli"
+msgstr "Ensimm√§inen artikkeli"
 
 #: stories/share.php:101
 msgid "From"
-msgstr "L‰hett‰j‰"
+msgstr "L√§hett√§j√§"
 
 #: stories/edit.php:89 stories/edit.php:91
 msgid "Full Story Text"
@@ -414,15 +414,15 @@ msgstr "Artikkelin HTML-versio"
 
 #: templates/content/content.html:11
 msgid "Headlines"
-msgstr "P‰‰otsikot"
+msgstr "P√§√§otsikot"
 
 #: lib/Delivery/email.php:74 lib/Delivery/email.php:77
 msgid "Hello"
-msgstr "P‰iv‰‰"
+msgstr "P√§iv√§√§"
 
 #: config/prefs.php.dist:35
 msgid "How many columns would you like to use to show headlines?"
-msgstr "Kuinka monta saraketta k‰ytet‰‰n otsikoiden esitt‰miseen?"
+msgstr "Kuinka monta saraketta k√§ytet√§√§n otsikoiden esitt√§miseen?"
 
 #: stories/edit.php:96
 msgid ""
@@ -431,7 +431,7 @@ msgid ""
 "of the full story."
 msgstr ""
 "Jos laita URL:n ilman artikkelin teksti, niin artikkelia napsauttamalla "
-"l‰het‰t lukijan siihen URL:iin. Muussa tapauksessa URL n‰kyy vasta "
+"l√§het√§t lukijan siihen URL:iin. Muussa tapauksessa URL n√§kyy vasta "
 "artikkelin lopussa."
 
 #: lib/Form/EditChannel.php:74 channels/aggregate.php:59
@@ -440,49 +440,49 @@ msgstr "Kuva"
 
 #: stories/share.php:104
 msgid "Include"
-msgstr "Lis‰‰"
+msgstr "Lis√§√§"
 
 #: lib/Jonah.php:121 lib/News.php:452
 msgid "Internal"
-msgstr "Sis‰inen"
+msgstr "Sis√§inen"
 
 #: lib/api.php:47
 msgid "Internal Channels"
-msgstr "Sis‰iset kanavat"
+msgstr "Sis√§iset kanavat"
 
 #: stories/index.php:41
 #, php-format
 msgid "Invalid channel requested. %s"
-msgstr "Pyydettiin ep‰kelpoa kanavaa. %s"
+msgstr "Pyydettiin ep√§kelpoa kanavaa. %s"
 
 #: channels/delete.php:34
 msgid "Invalid channel specified for deletion."
-msgstr "Poistettavaksi m‰‰ritelty kanava on ep‰kelpo."
+msgstr "Poistettavaksi m√§√§ritelty kanava on ep√§kelpo."
 
 #: lists/edit.php:33 lists/delete.php:37 delivery/email.php:52
 #: delivery/html.php:29
 msgid "Invalid channel."
-msgstr "Ep‰kelpo kanava."
+msgstr "Ep√§kelpo kanava."
 
 #: lists/delete.php:27
 msgid "Invalid request to delete recipient from delivery list."
-msgstr "Ep‰kelpo pyyntˆ poistaa vastaanottaja jakelulistalta."
+msgstr "Ep√§kelpo pyynt√∂ poistaa vastaanottaja jakelulistalta."
 
 #: delivery/email.php:67
 msgid "Join this channel"
-msgstr "Liity t‰lle kanavalle"
+msgstr "Liity t√§lle kanavalle"
 
 #: delivery/index.php:53 channels/index.php:92
 msgid "Last Update"
-msgstr "Edellinen p‰ivitys"
+msgstr "Edellinen p√§ivitys"
 
 #: templates/subscribe/column_headers.inc:9
 msgid "Last Updated"
-msgstr "P‰ivitetty viimeksi"
+msgstr "P√§ivitetty viimeksi"
 
 #: delivery/email.php:68
 msgid "Leave this channel"
-msgstr "Poistu t‰lt‰ kanavalta"
+msgstr "Poistu t√§lt√§ kanavalta"
 
 #: lib/Form/EditChannel.php:73 channels/aggregate.php:58
 msgid "Link"
@@ -494,7 +494,7 @@ msgstr "Listat"
 
 #: lib/Block/news.php:57
 msgid "Maximum Stories"
-msgstr "Maksimim‰‰r‰ artikkeleita"
+msgstr "Maksimim√§√§r√§ artikkeleita"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -514,7 +514,7 @@ msgstr "Kanava id puuttuu."
 
 #: lib/Jonah.php:249
 msgid "My Content"
-msgstr "Oma sis‰ltˆ"
+msgstr "Oma sis√§lt√∂"
 
 #: lib/Block/delivery_email.php:93 lib/Delivery/email.php:212
 #: lists/index.php:123 delivery/email.php:81 delivery/index.php:53
@@ -540,7 +540,7 @@ msgstr "Uutiset"
 
 #: lib/Jonah.php:259 channels/index.php:97
 msgid "News Admin"
-msgstr "Uutisten yll‰pit‰j‰"
+msgstr "Uutisten yll√§pit√§j√§"
 
 #: lib/Block/delivery_email.php:40
 msgid "News Channel"
@@ -548,11 +548,11 @@ msgstr "Uutiskanava"
 
 #: lib/Block/news.php:38
 msgid "News Source"
-msgstr "Uutisl‰hde"
+msgstr "Uutisl√§hde"
 
 #: lib/Block/delivery_email.php:3
 msgid "News by Email"
-msgstr "Uutiset s‰hkˆpostitse"
+msgstr "Uutiset s√§hk√∂postitse"
 
 #: lib/Block/delivery.php:3
 msgid "News delivery"
@@ -560,7 +560,7 @@ msgstr "Uutisjakelu"
 
 #: lists/index.php:37 channels/index.php:23
 msgid "News is not enabled."
-msgstr "Uutiset eiv‰t ole p‰‰ll‰."
+msgstr "Uutiset eiv√§t ole p√§√§ll√§."
 
 #: delivery/index.php:49 channels/index.php:82
 msgid "No Data"
@@ -576,11 +576,11 @@ msgstr "Ei artikkeleita saatavilla."
 
 #: stories/index.php:21 lists/index.php:23
 msgid "No channel requested."
-msgstr "Ei pyydetty‰ kanavaa."
+msgstr "Ei pyydetty√§ kanavaa."
 
 #: lib/Block/news.php:94
 msgid "No channel specified."
-msgstr "Ei m‰‰ritelty‰ kanavaa."
+msgstr "Ei m√§√§ritelty√§ kanavaa."
 
 #: lib/Block/delivery_email.php:70
 msgid "No channels available."
@@ -597,12 +597,12 @@ msgstr "Artikkeleita ei ole saatavilla."
 #: lib/Delivery.php:223
 #, php-format
 msgid "No such action '%s' found"
-msgstr "Toimintoa '%s' ei lˆytynyt"
+msgstr "Toimintoa '%s' ei l√∂ytynyt"
 
 #: lib/News.php:636
 #, php-format
 msgid "No such backend '%s' found"
-msgstr "Taustaj‰rjestelm‰‰ '%s' ei lˆytynyt"
+msgstr "Taustaj√§rjestelm√§√§ '%s' ei l√∂ytynyt"
 
 #: stories/delete.php:35
 msgid "No valid story requested for deletion."
@@ -617,7 +617,7 @@ msgid ""
 "Note: this story won't get delivered to distribution lists automatically if "
 "this time is in the future."
 msgstr ""
-"Huomaa: T‰t‰ artikkelia ei jaeta jakelulistalle automaattisesti, jos t‰m‰ "
+"Huomaa: T√§t√§ artikkelia ei jaeta jakelulistalle automaattisesti, jos t√§m√§ "
 "aika on tulevaisuudessa."
 
 #: config/prefs.php.dist:16
@@ -626,7 +626,7 @@ msgstr "Muut asetukset"
 
 #: channels/delete.php:20
 msgid "Permission Denied."
-msgstr "K‰yttˆ kielletty."
+msgstr "K√§ytt√∂ kielletty."
 
 #: lib/News.php:579
 msgid "Plaintext Version of Story"
@@ -662,11 +662,11 @@ msgstr "Vastaanottajat"
 
 #: channels/index.php:76
 msgid "Refresh channel"
-msgstr "P‰ivit‰ kanava"
+msgstr "P√§ivit√§ kanava"
 
 #: stories/edit.php:67
 msgid "Release Date"
-msgstr "Julkaisup‰iv‰m‰‰r‰"
+msgstr "Julkaisup√§iv√§m√§√§r√§"
 
 #: stories/edit.php:66
 msgid "Release?"
@@ -678,7 +678,7 @@ msgstr "Julkaistu"
 
 #: lists/delete.php:54
 msgid "Removal of recipient failed."
-msgstr "Vastaanottajan poistaminen ep‰onnistui."
+msgstr "Vastaanottajan poistaminen ep√§onnistui."
 
 #: channels/aggregate.php:24
 #, php-format
@@ -687,17 +687,17 @@ msgstr "Poista kanava \"%s\""
 
 #: delivery/email.php:41
 msgid "Request confirmed."
-msgstr "Pyyntˆ varmistettu."
+msgstr "Pyynt√∂ varmistettu."
 
 #: lib/Delivery/email.php:71
 #, php-format
 msgid "Request to receive news channel \"%s\""
-msgstr "Pyyntˆ vastaanottaa uutiskanavaa \"%s\""
+msgstr "Pyynt√∂ vastaanottaa uutiskanavaa \"%s\""
 
 #: lib/Delivery/email.php:76
 #, php-format
 msgid "Request to stop receiving news channel \"%s\""
-msgstr "Pyyntˆ lopettaa uutiskanava \"%s\" vastaanotto"
+msgstr "Pyynt√∂ lopettaa uutiskanava \"%s\" vastaanotto"
 
 #: lib/Jonah.php:202
 msgid "Rich Text"
@@ -718,11 +718,11 @@ msgstr "Valitse muoto:"
 
 #: stories/share.php:98
 msgid "Send"
-msgstr "L‰het‰"
+msgstr "L√§het√§"
 
 #: stories/share.php:102
 msgid "Separate multiple email addresses with commas."
-msgstr "Erota s‰hkˆpostiosoitteet toisistaan pilkuilla."
+msgstr "Erota s√§hk√∂postiosoitteet toisistaan pilkuilla."
 
 #: stories/share.php:96
 msgid "Share Story"
@@ -730,7 +730,7 @@ msgstr "Jaa artikkeli"
 
 #: stories/view.php:43
 msgid "Share this story"
-msgstr "Jaa t‰m‰ artikkeli"
+msgstr "Jaa t√§m√§ artikkeli"
 
 #: stories/edit.php:65
 msgid "Short Description"
@@ -738,11 +738,11 @@ msgstr "Lyhyt kuvaus"
 
 #: lib/Form/EditChannel.php:72 channels/aggregate.php:57
 msgid "Source URL"
-msgstr "L‰hde URL"
+msgstr "L√§hde URL"
 
 #: lib/Form/EditChannel.php:87
 msgid "Source URLs"
-msgstr "L‰hde URL:t"
+msgstr "L√§hde URL:t"
 
 #: config/templates.php.dist:26
 msgid "Standard"
@@ -767,7 +767,7 @@ msgstr "Artikkelin URL"
 #: lib/News/sql.php:343
 #, php-format
 msgid "Story URL '%s' not found."
-msgstr "Artikkeli URL '%s' ei lˆytynyt."
+msgstr "Artikkeli URL '%s' ei l√∂ytynyt."
 
 #: lib/Form/EditChannel.php:65 lib/Form/EditChannel.php:99
 #, php-format
@@ -775,8 +775,8 @@ msgid ""
 "Story URL if not the default one. %c gets replaced by the channel ID, %s by "
 "the story ID."
 msgstr ""
-"Artikkelin URL, jos ei ole sama kuin oletus. %c korvautuu kanavan ID:ll‰, %s "
-"artikkelin ID:ll‰."
+"Artikkelin URL, jos ei ole sama kuin oletus. %c korvautuu kanavan ID:ll√§, %s "
+"artikkelin ID:ll√§."
 
 #: stories/edit.php:69
 msgid "Story body type"
@@ -785,7 +785,7 @@ msgstr "Artikkelin body-tyyppi"
 #: stories/edit.php:31
 #, php-format
 msgid "Story editing failed: %s"
-msgstr "Artikkelin muokkaus ep‰onnistui: %s"
+msgstr "Artikkelin muokkaus ep√§onnistui: %s"
 
 #: stories/delete.php:72
 msgid "Story has not been deleted."
@@ -794,7 +794,7 @@ msgstr "Artikkeli on poistettu."
 #: lib/News/sql.php:319
 #, php-format
 msgid "Story id '%s' not found."
-msgstr "Artikkelia id '%s' ei lˆytynyt."
+msgstr "Artikkelia id '%s' ei l√∂ytynyt."
 
 #: stories/share.php:103
 msgid "Subject"
@@ -810,7 +810,7 @@ msgid ""
 "Subscribed channel '%s' is no longer available, it will be removed from your "
 "subscriptions."
 msgstr ""
-"Tilattua kanavaa '%s' ei ole en‰‰ saatavilla, kanavan tilaustiedot "
+"Tilattua kanavaa '%s' ei ole en√§√§ saatavilla, kanavan tilaustiedot "
 "tilaustiedoistasi."
 
 #: templates/subscribe/column_headers.inc:11
@@ -820,7 +820,7 @@ msgstr "Tilaus"
 #: lib/News.php:283
 #, php-format
 msgid "Successfully delivered to the %s distribution list."
-msgstr "L‰hetettiin onnistuneesta %s jakelulistalle."
+msgstr "L√§hetettiin onnistuneesta %s jakelulistalle."
 
 #: lib/Jonah.php:210
 msgid "Text"
@@ -839,7 +839,7 @@ msgstr "Kanava \"%s\" on talletettu."
 #: channels/aggregate.php:82 channels/aggregate.php:100
 #, php-format
 msgid "The channel \"%s\" has been updated."
-msgstr "Kanava \"%s\" on p‰ivitetty."
+msgstr "Kanava \"%s\" on p√§ivitetty."
 
 #: channels/edit.php:72
 #, php-format
@@ -859,17 +859,17 @@ msgid ""
 "The interval before stories aggregated into this channel are rechecked for "
 "updates. If none, then stories will always be refetched from the sources."
 msgstr ""
-"Aikav‰li, jonka j‰lkeen tarkistaan onko t‰lle kanavalle liitetyiss‰ "
-"artikkeleissa tapahtunut p‰ivityksi‰. Jos ei ole, niin artikkelit haetaan "
-"joka kerta uudestaan uutisl‰hteist‰."
+"Aikav√§li, jonka j√§lkeen tarkistaan onko t√§lle kanavalle liitetyiss√§ "
+"artikkeleissa tapahtunut p√§ivityksi√§. Jos ei ole, niin artikkelit haetaan "
+"joka kerta uudestaan uutisl√§hteist√§."
 
 #: lib/Form/EditChannel.php:70
 msgid ""
 "The interval before stories in this channel are rechecked for updates. If "
 "none, then stories will always be refetched from the source."
 msgstr ""
-"Kuinka usein tarkistetaan onko kanavan artikkeleita p‰ivitetty. Jos valinta "
-"on ei kertaakaan, niin artikkelit haetaan joka kerta uutisl‰hteest‰."
+"Kuinka usein tarkistetaan onko kanavan artikkeleita p√§ivitetty. Jos valinta "
+"on ei kertaakaan, niin artikkelit haetaan joka kerta uutisl√§hteest√§."
 
 #: stories/edit.php:105
 #, php-format
@@ -882,7 +882,7 @@ msgstr "Artikkeli on poistettu."
 
 #: stories/share.php:138
 msgid "The story was sent successfully."
-msgstr "Artikkelin l‰hetys onnistui."
+msgstr "Artikkelin l√§hetys onnistui."
 
 #: lib/Form/EditChannel.php:72 channels/aggregate.php:57
 msgid ""
@@ -925,19 +925,19 @@ msgstr "Tapahtui virhe talletettaessa artikkelia: %s"
 #: channels/aggregate.php:80 channels/aggregate.php:98
 #, php-format
 msgid "There was an error updating the channel: %s"
-msgstr "Tapahtui virhe p‰ivitett‰ess‰ kanavaa: %s"
+msgstr "Tapahtui virhe p√§ivitett√§ess√§ kanavaa: %s"
 
 #: lib/Delivery/email.php:196
 msgid ""
 "This driver allows the delivery of news stories via email to one or more "
 "recipients."
 msgstr ""
-"T‰m‰ ajuri mahdillistaa uutisartikkeleiden jakamisen s‰hkˆpostitse yhdelle "
+"T√§m√§ ajuri mahdillistaa uutisartikkeleiden jakamisen s√§hk√∂postitse yhdelle "
 "tai useammalle vastaanottajalle."
 
 #: channels/aggregate.php:41
 msgid "This is no aggregated channel."
-msgstr "T‰m‰ ei ole yhdistelty kanava."
+msgstr "T√§m√§ ei ole yhdistelty kanava."
 
 #: lib/Form/EditChannel.php:37 channels/index.php:92
 msgid "Type"
@@ -950,12 +950,12 @@ msgstr "Ultrapieni"
 #: delivery/email.php:39
 #, php-format
 msgid "Unable to confirm request."
-msgstr "Pyyntˆ‰ ei pystytty varmistamaan."
+msgstr "Pyynt√∂√§ ei pystytty varmistamaan."
 
 #: stories/share.php:136
 #, php-format
 msgid "Unable to send story: %s"
-msgstr "Artikkelia ei voitu l‰hett‰‰: %s"
+msgstr "Artikkelia ei voitu l√§hett√§√§: %s"
 
 #: templates/subscribe/edit.inc:20
 msgid "Undo Changes"
@@ -967,25 +967,25 @@ msgstr "Lopeta tilaus"
 
 #: channels/aggregate.php:105
 msgid "Update"
-msgstr "P‰ivit‰"
+msgstr "P√§ivit√§"
 
 #: stories/index.php:115
 msgid "Updated"
-msgstr "P‰ivitetty"
+msgstr "P√§ivitetty"
 
 #: templates/subscribe/edit.inc:9 lib/Block/news.php:49
 msgid "View"
-msgstr "N‰yt‰"
+msgstr "N√§yt√§"
 
 #: delivery/email.php:65
 msgid "What do you want to do?"
-msgstr "Mit‰ haluat tehd‰?"
+msgstr "Mit√§ haluat tehd√§?"
 
 #: stories/delete.php:20 stories/edit.php:39 stories/index.php:29
 #: lists/edit.php:41 lists/index.php:31 lists/delete.php:45
 #: channels/edit.php:43 channels/index.php:17 channels/aggregate.php:48
 msgid "You are not authorised for this action."
-msgstr "Sinulla ei ole oikeuksia suorittaa t‰t‰ toimenpidett‰."
+msgstr "Sinulla ei ole oikeuksia suorittaa t√§t√§ toimenpidett√§."
 
 #: channels/edit.php:74
 msgid "You can now edit the sub-channels."
@@ -1006,7 +1006,7 @@ msgid ""
 "You have requested to receive \"%s\" stories by email. Click on this link to "
 "confirm the request: %s"
 msgstr ""
-"Olet pyyt‰nyt saada \"%s\" artikkeli s‰hkˆpostitse. Napsauta t‰t‰ linkki‰ "
+"Olet pyyt√§nyt saada \"%s\" artikkeli s√§hk√∂postitse. Napsauta t√§t√§ linkki√§ "
 "vahvistaaksesi: %s"
 
 #: lib/Delivery/email.php:77
@@ -1015,8 +1015,8 @@ msgid ""
 "You have requested to stop receiving \"%s\" stories by email. Click on this "
 "link to confirm the request: %s"
 msgstr ""
-"Olet pyyt‰nyt lopettamaan \"%s\" artikkeleiden saapumista s‰hkˆpostitse "
-"Napsauta t‰t‰ linkki‰ vahvistaaksesi: %s"
+"Olet pyyt√§nyt lopettamaan \"%s\" artikkeleiden saapumista s√§hk√∂postitse "
+"Napsauta t√§t√§ linkki√§ vahvistaaksesi: %s"
 
 #: subscribe.php:39
 #, php-format
@@ -1031,12 +1031,12 @@ msgstr "Olet lopettanut tilauksen kanavaan '%s'."
 #: lib/Delivery.php:282
 msgid "You must configure a Horde Datatree backend to use Jonah."
 msgstr ""
-"Sinun pit‰‰ asentaa Horde Datatree taustaj‰rjestelm‰ ennen kuin voit k‰ytt‰‰ "
+"Sinun pit√§√§ asentaa Horde Datatree taustaj√§rjestelm√§ ennen kuin voit k√§ytt√§√§ "
 "Jonah:ia."
 
 #: config/prefs.php.dist:9
 msgid "Your Content"
-msgstr "Oma sis‰ltˆ"
+msgstr "Oma sis√§lt√∂"
 
 #: lib/News.php:403
 msgid "[No title]"
@@ -1044,4 +1044,4 @@ msgstr "[Ei otsikkoa]"
 
 #: lib/News.php:415
 msgid "none"
-msgstr "ei mit‰‰n"
+msgstr "ei mit√§√§n"

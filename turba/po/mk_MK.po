@@ -11,324 +11,324 @@ msgstr ""
 "Last-Translator: Stojan Pesov <ssp@eureka.com.mk>\n"
 "Language-Team: Macedonian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.1\n"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s ФЮЪгЬХЭвЮв Х гбЯХиЭЮ ШЬЯЮавШаРЭ"
+msgstr "%s РґРѕРєСѓРјРµРЅС‚РѕС‚ Рµ СѓСЃРїРµС€РЅРѕ РёРјРїРѕСЂС‚РёСЂР°РЅ"
 
 msgid "Add Contact ..."
-msgstr "ґЮФРФШ ЪЮЭвРЪв"
+msgstr "Р”РѕРґР°РґРё РєРѕРЅС‚Р°РєС‚"
 
 msgid "Add a new contact"
-msgstr "ґЮФРФШ ЭЮТ ЪЮЭвРЪв"
+msgstr "Р”РѕРґР°РґРё РЅРѕРІ РєРѕРЅС‚Р°РєС‚"
 
 msgid "Add failed"
-msgstr "ґЮФРТРъХвЮ Х ЭХгбЯХиЭЮ"
+msgstr "Р”РѕРґР°РІР°СљРµС‚Рѕ Рµ РЅРµСѓСЃРїРµС€РЅРѕ"
 
 msgid "Add"
-msgstr "ґЮФРш"
+msgstr "Р”РѕРґР°С"
 
 msgid "Addressbook is read-only."
-msgstr "ІЮ РФаХбРаЮв ЭХ ЬЮЦХ ФР бХ ЧРЯШигТР "
+msgstr "Р’Рѕ Р°РґСЂРµСЃР°СЂРѕС‚ РЅРµ РјРѕР¶Рµ РґР° СЃРµ Р·Р°РїРёС€СѓРІР° "
 
 msgid "Advanced Directory Search"
-msgstr "ЅРЯаХФЭЮ ЯЮСРагТРъХ ЭР ФШаХЪвЮаШгЬШ"
+msgstr "РќР°РїСЂРµРґРЅРѕ РїРѕР±Р°СЂСѓРІР°СљРµ РЅР° РґРёСЂРµРєС‚РѕСЂРёСѓРјРё"
 
 msgid "Advanced Search"
-msgstr "ЅРЯаХФЭЮ ЯаХСРагТРъХ"
+msgstr "РќР°РїСЂРµРґРЅРѕ РїСЂРµР±Р°СЂСѓРІР°СљРµ"
 
 msgid "Alias"
-msgstr "°ЫШРб"
+msgstr "РђР»РёР°СЃ"
 
 msgid "Bcc"
-msgstr "ЅХТШФЫШТР ЪЮЯШшР"
+msgstr "РќРµРІРёРґР»РёРІР° РєРѕРїРёСР°"
 
 msgid "Cancel"
-msgstr "ѕвЪРЦШ"
+msgstr "РћС‚РєР°Р¶Рё"
 
 msgid "Cc"
-msgstr "єЮЯШшР"
+msgstr "РљРѕРїРёСР°"
 
 msgid "Cell Phone"
-msgstr "јЮСШЫХЭ"
+msgstr "РњРѕР±РёР»РµРЅ"
 
 msgid "Clear Search"
-msgstr "ЅЮТЮ СРаРъХ"
+msgstr "РќРѕРІРѕ Р±Р°СЂР°СљРµ"
 
 msgid "Company"
-msgstr "ДШаЬР"
+msgstr "Р¤РёСЂРјР°"
 
 msgid "Delete"
-msgstr "ёЧСаШиШ"
+msgstr "РР·Р±СЂРёС€Рё"
 
 msgid "Deletion failed"
-msgstr "ґЮФРТРъХвЮ Х ЭХгбЯХиЭЮ"
+msgstr "Р”РѕРґР°РІР°СљРµС‚Рѕ Рµ РЅРµСѓСЃРїРµС€РЅРѕ"
 
 msgid "Directory Search"
-msgstr "їаХСРагТРъХ ФШаХЪвЮаШгЬ"
+msgstr "РџСЂРµР±Р°СЂСѓРІР°СљРµ РґРёСЂРµРєС‚РѕСЂРёСѓРј"
 
 msgid "Directory"
-msgstr "ґШаХЪвЮаШгЬ"
+msgstr "Р”РёСЂРµРєС‚РѕСЂРёСѓРј"
 
 msgid "Edit"
-msgstr "ГаХФШ"
+msgstr "РЈСЂРµРґРё"
 
 msgid "Email"
-msgstr "Х-ЯЮивР"
+msgstr "Рµ-РїРѕС€С‚Р°"
 
 msgid "Error"
-msgstr "іаХиЪР"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Export Addressbook"
-msgstr "µЪбЯЮавШаРш РФаХбРа"
+msgstr "Р•РєСЃРїРѕСЂС‚РёСЂР°С Р°РґСЂРµСЃР°СЂ"
 
 msgid "Export"
-msgstr "µЪбЯЮавШаРш"
+msgstr "Р•РєСЃРїРѕСЂС‚РёСЂР°С"
 
 msgid "Failed to connect to the specified directory."
-msgstr "ЅХ ЬЮЦРЬ ФР УЮ ЮвТЮаРЬ СРаРЭШЮв ФШаХЪвЮаШгЬ"
+msgstr "РќРµ РјРѕР¶Р°Рј РґР° РіРѕ РѕС‚РІРѕСЂР°Рј Р±Р°СЂР°РЅРёРѕС‚ РґРёСЂРµРєС‚РѕСЂРёСѓРј"
 
 #, c-format
 msgid "Failed to search the directory: %s"
-msgstr "ЅХ ЬЮЦРЬ ФР ЯаХСРагТРЬ ЯЮ ФШаХЪвЮаШгЬЮв %s"
+msgstr "РќРµ РјРѕР¶Р°Рј РґР° РїСЂРµР±Р°СЂСѓРІР°Рј РїРѕ РґРёСЂРµРєС‚РѕСЂРёСѓРјРѕС‚ %s"
 
 msgid "Fax"
-msgstr "ДРЪб"
+msgstr "Р¤Р°РєСЃ"
 
 msgid "Find"
-msgstr "±РаРш"
+msgstr "Р‘Р°СЂР°С"
 
 msgid "From"
-msgstr "ѕФ"
+msgstr "РћРґ"
 
 msgid "Help"
-msgstr "їЮЬЮи"
+msgstr "РџРѕРјРѕС€"
 
 msgid "Home Address"
-msgstr "ґЮЬРиЭР РФаХбР"
+msgstr "Р”РѕРјР°С€РЅР° Р°РґСЂРµСЃР°"
 
 msgid "Home Phone"
-msgstr "ґЮЬРиХЭ вХЫХдЮЭ"
+msgstr "Р”РѕРјР°С€РµРЅ С‚РµР»РµС„РѕРЅ"
 
 msgid "If importing CSV data: does the first row contain the field names?"
 msgstr ""
-"°ЪЮ ШЬЯЮавШаРвХ CSV ЯЮФРвЮжШ ФРЫШ ЯаТШЮв аХФ УШ бЮФаЦШ ШЬШъРвР ЭР бШвХ "
-"ЯЮЫШъР?"
+"РђРєРѕ РёРјРїРѕСЂС‚РёСЂР°С‚Рµ CSV РїРѕРґР°С‚РѕС†Рё РґР°Р»Рё РїСЂРІРёРѕС‚ СЂРµРґ РіРё СЃРѕРґСЂР¶Рё РёРјРёСљР°С‚Р° РЅР° СЃРёС‚Рµ "
+"РїРѕР»РёСљР°?"
 
 msgid "Illegal or malformed form data."
-msgstr "іаХиЪР ЯаШ ваРЭбЯЮаЮв ЭР ШЭдЮаЬРжШШ"
+msgstr "Р“СЂРµС€РєР° РїСЂРё С‚СЂР°РЅСЃРїРѕСЂРѕС‚ РЅР° РёРЅС„РѕСЂРјР°С†РёРё"
 
 msgid "Import Addressbook"
-msgstr "ёЬЯЮавШаРш РФаХбРа"
+msgstr "РРјРїРѕСЂС‚РёСЂР°С Р°РґСЂРµСЃР°СЂ"
 
 msgid "Import"
-msgstr "ёЬЯЮавШаРш"
+msgstr "РРјРїРѕСЂС‚РёСЂР°С"
 
 msgid "Import/Export Addressbooks"
-msgstr "ёЬЯЮав/µЪбЯЮав ЭР РФаХбРа"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚ РЅР° Р°РґСЂРµСЃР°СЂ"
 
 msgid "Import/Export"
-msgstr "ёЬЯЮав/µЪбЯЮав"
+msgstr "РРјРїРѕСЂС‚/Р•РєСЃРїРѕСЂС‚"
 
 msgid "Invalid addressbook."
-msgstr "°ФаХбРаЮв Х ЭХТРЫШФХЭ"
+msgstr "РђРґСЂРµСЃР°СЂРѕС‚ Рµ РЅРµРІР°Р»РёРґРµРЅ"
 
 msgid "Invalid e-mail address."
-msgstr "°ФаХбРвР ЭХ Х ТРЫШФЭР"
+msgstr "РђРґСЂРµСЃР°С‚Р° РЅРµ Рµ РІР°Р»РёРґРЅР°"
 
 msgid "Invalid name."
-msgstr "ёЬХвЮ ЭХ Х ТРЫШФЭЮ."
+msgstr "РРјРµС‚Рѕ РЅРµ Рµ РІР°Р»РёРґРЅРѕ."
 
 msgid "Language"
-msgstr "ЁРЧШЪ"
+msgstr "Р€Р°Р·РёРє"
 
 msgid "Matching"
-msgstr "БХ ЯЮЪЫЮЯгТР"
+msgstr "РЎРµ РїРѕРєР»РѕРїСѓРІР°"
 
 msgid "Message"
-msgstr "їЮаРЪР"
+msgstr "РџРѕСЂР°РєР°"
 
 msgid "Name"
-msgstr "ёЬХ"
+msgstr "РРјРµ"
 
 msgid ""
 "None of the available address books are configured to allow you to add new "
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"ЅШХФХЭ ЮФ РФаХбРаШвХ ЭХ Х ЯЮФХбХЭ ЧР ТЮТХФгТРъХ ЭЮТШ бвРТЪШ. °ЪЮ ЬШбЫШвХ "
-"ФХЪР бХ аРСЮвШ ЧР УаХиЪР, ТХ ЬЮЫШЬХ ЪЮЭвРЪвШаРшвХ бЮ ТРиШЮв РФЬШЭШбваРвЮа."
+"РќРёРµРґРµРЅ РѕРґ Р°РґСЂРµСЃР°СЂРёС‚Рµ РЅРµ Рµ РїРѕРґРµСЃРµРЅ Р·Р° РІРѕРІРµРґСѓРІР°СљРµ РЅРѕРІРё СЃС‚Р°РІРєРё. РђРєРѕ РјРёСЃР»РёС‚Рµ "
+"РґРµРєР° СЃРµ СЂР°Р±РѕС‚Рё Р·Р° РіСЂРµС€РєР°, РІРµ РјРѕР»РёРјРµ РєРѕРЅС‚Р°РєС‚РёСЂР°СС‚Рµ СЃРѕ РІР°С€РёРѕС‚ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 msgid "Notes"
-msgstr "·РСХЫХиЪШ"
+msgstr "Р—Р°Р±РµР»РµС€РєРё"
 
 msgid "Please choose an address book to add a contact to."
-msgstr "ІХ ЬЮЫШЬХ ЮФСХаХвХ РФаХбРа ТЮ ЪЮш ьХ УШ бЬХбвШвХ ЪЮЭвРЪвЭШвХ ЯЮФРвЮжШ."
+msgstr "Р’Рµ РјРѕР»РёРјРµ РѕРґР±РµСЂРµС‚Рµ Р°РґСЂРµСЃР°СЂ РІРѕ РєРѕС СњРµ РіРё СЃРјРµСЃС‚РёС‚Рµ РєРѕРЅС‚Р°РєС‚РЅРёС‚Рµ РїРѕРґР°С‚РѕС†Рё."
 
 msgid "Problem?"
-msgstr "їаЮСЫХЬ?"
+msgstr "РџСЂРѕР±Р»РµРј?"
 
 msgid "Reset"
-msgstr "ѕФЭЮТЮ"
+msgstr "РћРґРЅРѕРІРѕ"
 
 msgid "Save Changes"
-msgstr "·РзгТРш УШ ЯаЮЬХЭШвХ"
+msgstr "Р—Р°С‡СѓРІР°С РіРё РїСЂРѕРјРµРЅРёС‚Рµ"
 
 msgid "Save"
-msgstr "·РзгТРш"
+msgstr "Р—Р°С‡СѓРІР°С"
 
 msgid "Search Results"
-msgstr "АХЧгЫвРвШ ЮФ ЯаХСРагТРъХвЮ"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕРґ РїСЂРµР±Р°СЂСѓРІР°СљРµС‚Рѕ"
 
 msgid "Search"
-msgstr "їаХСРагТРш"
+msgstr "РџСЂРµР±Р°СЂСѓРІР°С"
 
 msgid "Search&nbsp;Results"
-msgstr "АХЧгЫвРвШ&nbsp;ЮФ&nbsp;ЯаХСРагТРъХвЮ"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё&nbsp;РѕРґ&nbsp;РїСЂРµР±Р°СЂСѓРІР°СљРµС‚Рѕ"
 
 msgid "Select the destination to import to:"
-msgstr "ѕСХаШ ФХбвШЭРжШшР ЧР ШЬЯЮавШаРъХ:"
+msgstr "РћР±РµСЂРё РґРµСЃС‚РёРЅР°С†РёСР° Р·Р° РёРјРїРѕСЂС‚РёСЂР°СљРµ:"
 
 msgid "Select the file to import:"
-msgstr "ѕСХаШ УЮ ФЮЪгЬХЭвЮв ТЮ ЪЮш ьХ ШЬЯЮавШаРи:"
+msgstr "РћР±РµСЂРё РіРѕ РґРѕРєСѓРјРµРЅС‚РѕС‚ РІРѕ РєРѕС СњРµ РёРјРїРѕСЂС‚РёСЂР°С€:"
 
 msgid "Select the format to export to:"
-msgstr "ѕФСХаШ УЮ дЮаЬРвЮв ЧР ХЪбЯЮав:"
+msgstr "РћРґР±РµСЂРё РіРѕ С„РѕСЂРјР°С‚РѕС‚ Р·Р° РµРєСЃРїРѕСЂС‚:"
 
 msgid "Select the format to import from:"
-msgstr "ѕФСХаШ УЮ дЮаЬРвЮв ЧР ШЬЯЮав:"
+msgstr "РћРґР±РµСЂРё РіРѕ С„РѕСЂРјР°С‚РѕС‚ Р·Р° РёРјРїРѕСЂС‚:"
 
 msgid "Select the source to export from:"
-msgstr "ѕФСХаШ ЮФ ЪРФХ ьХ ХЪбЯЮавШаРи:"
+msgstr "РћРґР±РµСЂРё РѕРґ РєР°РґРµ СњРµ РµРєСЃРїРѕСЂС‚РёСЂР°С€:"
 
 msgid "Select your preferred language:"
-msgstr "ѕФСХаШ УЮ бТЮшЮв ЬРвШзХЭ шРЧШЪ:"
+msgstr "РћРґР±РµСЂРё РіРѕ СЃРІРѕСРѕС‚ РјР°С‚РёС‡РµРЅ СР°Р·РёРє:"
 
 msgid "Send Message"
-msgstr "ёбЯаРвШ ЯЮаРЪР"
+msgstr "РСЃРїСЂР°С‚Рё РїРѕСЂР°РєР°"
 
 #, c-format
 msgid "Send mail to %s"
-msgstr "ёбЯаРвШ ЯЮаРЪР ФЮ %s"
+msgstr "РСЃРїСЂР°С‚Рё РїРѕСЂР°РєР° РґРѕ %s"
 
 msgid "Set the your preferred display language."
-msgstr "ѕФСХаШ УЮ бТЮшЮв ЬРвШзХЭ шРЧШЪ."
+msgstr "РћРґР±РµСЂРё РіРѕ СЃРІРѕСРѕС‚ РјР°С‚РёС‡РµРЅ СР°Р·РёРє."
 
 msgid "Some of Turba's configuration files are missing:"
-msgstr "ґХЫ ЮФ ЪЮЭдШУгаРжШшРвР ЭР бШбвХЬЮв ЧР ЪЮЭвРЪв ЭХФЮбвРбгТР:"
+msgstr "Р”РµР» РѕРґ РєРѕРЅС„РёРіСѓСЂР°С†РёСР°С‚Р° РЅР° СЃРёСЃС‚РµРјРѕС‚ Р·Р° РєРѕРЅС‚Р°РєС‚ РЅРµРґРѕСЃС‚Р°СЃСѓРІР°:"
 
 msgid "Success"
-msgstr "ГбЯХиЭЮ"
+msgstr "РЈСЃРїРµС€РЅРѕ"
 
 msgid "The data got lost"
-msgstr "їЮФРвЮжШвХ бХ ЧРУгСХЭШ"
+msgstr "РџРѕРґР°С‚РѕС†РёС‚Рµ СЃРµ Р·Р°РіСѓР±РµРЅРё"
 
 msgid "The data got lost."
-msgstr "їЮФРвЮжШвХ бХ ЧРУгСХЭШ."
+msgstr "РџРѕРґР°С‚РѕС†РёС‚Рµ СЃРµ Р·Р°РіСѓР±РµРЅРё."
 
 msgid "The file contained no data."
-msgstr "ґЮЪгЬХЭвЮв ЭХ бЮФаЦШ ЯЮФРвЮжШ."
+msgstr "Р”РѕРєСѓРјРµРЅС‚РѕС‚ РЅРµ СЃРѕРґСЂР¶Рё РїРѕРґР°С‚РѕС†Рё."
 
 msgid "There are no writeable address books."
-msgstr "ЅХЬР РФаХбРа ТЮ ЪЮш Х ФЮЧТЮЫХЭЮ ЧРЯШигТРъХ."
+msgstr "РќРµРјР° Р°РґСЂРµСЃР°СЂ РІРѕ РєРѕС Рµ РґРѕР·РІРѕР»РµРЅРѕ Р·Р°РїРёС€СѓРІР°СљРµ."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ бЭШЬРъХвЮ ЭР ФЮЪгЬХЭвЮв. јЮЦХСШ ФЮЪгЬХЭвЮв Х ЯЮУЮЫХЬ ЮФ "
-"ЬРЪбШЬРЫЭЮ ФЮЧТЮЫХЭРвР УЮЫХЬШЭР."
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё СЃРЅРёРјР°СљРµС‚Рѕ РЅР° РґРѕРєСѓРјРµРЅС‚РѕС‚. РњРѕР¶РµР±Рё РґРѕРєСѓРјРµРЅС‚РѕС‚ Рµ РїРѕРіРѕР»РµРј РѕРґ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕР·РІРѕР»РµРЅР°С‚Р° РіРѕР»РµРјРёРЅР°."
 
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ФЮФРТРъХ ЭР ЮСшХЪвЮв. єЮЭвРЪвШаРшвХ бЮ ТРиШЮв "
-"РФЬШЭШбваРвЮа ЧР ЯЮЭРвРЬЮиЭШ ШЭбвагЪжШШ."
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РґРѕРґР°РІР°СљРµ РЅР° РѕР±СРµРєС‚РѕС‚. РљРѕРЅС‚Р°РєС‚РёСЂР°СС‚Рµ СЃРѕ РІР°С€РёРѕС‚ "
+"Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р° РїРѕРЅР°С‚Р°РјРѕС€РЅРё РёРЅСЃС‚СЂСѓРєС†РёРё."
 
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ СаШиХъХ ЭР ЮСшХЪвЮв. єЮЭвРЪвШаРшвХ бЮ ТРиШЮв "
-"РФЬШЭШбваРвЮа ЧР ЯЮЭРвРЬЮиЭШ ШЭбвагЪжШШ."
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё Р±СЂРёС€РµСљРµ РЅР° РѕР±СРµРєС‚РѕС‚. РљРѕРЅС‚Р°РєС‚РёСЂР°СС‚Рµ СЃРѕ РІР°С€РёРѕС‚ "
+"Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р° РїРѕРЅР°С‚Р°РјРѕС€РЅРё РёРЅСЃС‚СЂСѓРєС†РёРё."
 
 msgid "There was an error importing the data."
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ ШЬЯЮавШаРъХвЮ ЭР ЯЮФРвЮжШвХ."
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°СљРµС‚Рѕ РЅР° РїРѕРґР°С‚РѕС†РёС‚Рµ."
 
 msgid "There was an error importing the uploaded file"
-msgstr "ЅРбвРЭР УаХиЪР ТЮ ШЬЯЮавШаРъХвЮ ЭР бШЬЭРвШЮЭ ФЮЪгЬХЭв."
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РІРѕ РёРјРїРѕСЂС‚РёСЂР°СљРµС‚Рѕ РЅР° СЃРёРјРЅР°С‚РёРѕРЅ РґРѕРєСѓРјРµРЅС‚."
 
 msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭв ЯаХвбвРТгТР ЪЮЭдШУгаРжШшР ЧР бШбвХЬЮв ЭР РФаХбРаШ, Р ШбвЮ вРЪР "
-"УШ бЮФаЦШ ЪЮаШбЭШзЪШвХ ЯЮФХбгТРъР."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚ РїСЂРµС‚СЃС‚Р°РІСѓРІР° РєРѕРЅС„РёРіСѓСЂР°С†РёСР° Р·Р° СЃРёСЃС‚РµРјРѕС‚ РЅР° Р°РґСЂРµСЃР°СЂРё, Р° РёСЃС‚Рѕ С‚Р°РєР° "
+"РіРё СЃРѕРґСЂР¶Рё РєРѕСЂРёСЃРЅРёС‡РєРёС‚Рµ РїРѕРґРµСЃСѓРІР°СљР°."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭв бЮФаЦШ ЯЮФХбгТРъР ЪЮШ УШ ЧРЬХЭгТРРв ШЫШ ФЮЯЮЫЭгТРРв ЯЮзХвЭШвХ "
-"ЯЮФХбгТРъР ЧР Horde."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚ СЃРѕРґСЂР¶Рё РїРѕРґРµСЃСѓРІР°СљР° РєРѕРё РіРё Р·Р°РјРµРЅСѓРІР°Р°С‚ РёР»Рё РґРѕРїРѕР»РЅСѓРІР°Р°С‚ РїРѕС‡РµС‚РЅРёС‚Рµ "
+"РїРѕРґРµСЃСѓРІР°СљР° Р·Р° Horde."
 
 msgid ""
 "This file defines the Turba global attribute names and types - names, email "
 "addresses, etc."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭвЮ УШ бЮФаЦШ УЫЮСРЫЭШвХ ШЬШъР Ш вШЯЮТШ ЭР ЯРаРЬХваШвР ЭР "
-"бШбвХЬЮв ЧР РФаХбРаШ."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚Рѕ РіРё СЃРѕРґСЂР¶Рё РіР»РѕР±Р°Р»РЅРёС‚Рµ РёРјРёСљР° Рё С‚РёРїРѕРІРё РЅР° РїР°СЂР°РјРµС‚СЂРёС‚Р° РЅР° "
+"СЃРёСЃС‚РµРјРѕС‚ Р·Р° Р°РґСЂРµСЃР°СЂРё."
 
 msgid "This file defines the list of available sources for Turba."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭв ЯаХвбвРТгТР ЫШбвР ЮФ ШЧТЮаЭШвХ ЯЮФРвЮжШ ЧР бШбвХЬЮв ЧР "
-"РФаХбРаШ."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚ РїСЂРµС‚СЃС‚Р°РІСѓРІР° Р»РёСЃС‚Р° РѕРґ РёР·РІРѕСЂРЅРёС‚Рµ РїРѕРґР°С‚РѕС†Рё Р·Р° СЃРёСЃС‚РµРјРѕС‚ Р·Р° "
+"Р°РґСЂРµСЃР°СЂРё."
 
 msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭв Х УЫРТЭШЮв ЪЮЭдШУгаРжШЮЭХЭ ФЮЪгЬХЭв ЭР бШбвХЬЮв ЧР РФаХбРаШ. "
-"іШ бЮФаЦШ ЯРвХЪШвХ ФЮ бЪаШЯвШвХ ЧР бШбвХЬЮв."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚ Рµ РіР»Р°РІРЅРёРѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ РґРѕРєСѓРјРµРЅС‚ РЅР° СЃРёСЃС‚РµРјРѕС‚ Р·Р° Р°РґСЂРµСЃР°СЂРё. "
+"Р“Рё СЃРѕРґСЂР¶Рё РїР°С‚РµРєРёС‚Рµ РґРѕ СЃРєСЂРёРїС‚РёС‚Рµ Р·Р° СЃРёСЃС‚РµРјРѕС‚."
 
 msgid "This person is already in your addressbook."
-msgstr "»ШзЭЮбвР Х ТХьХ ТЭХбХЭР ТЮ ТРиШЮв РФаХбРа."
+msgstr "Р›РёС‡РЅРѕСЃС‚Р° Рµ РІРµСњРµ РІРЅРµСЃРµРЅР° РІРѕ РІР°С€РёРѕС‚ Р°РґСЂРµСЃР°СЂ."
 
 msgid "Title"
-msgstr "ЅРбЫЮТ"
+msgstr "РќР°СЃР»РѕРІ"
 
 msgid "To"
-msgstr "ґЮ"
+msgstr "Р”Рѕ"
 
 msgid "Turba is not properly configured"
-msgstr "БШбвХЬЮв ЧР РФаХбРаШ ЭХ Х вЮзЭЮ ЪЮЭдШУгаШаРЭ."
+msgstr "РЎРёСЃС‚РµРјРѕС‚ Р·Р° Р°РґСЂРµСЃР°СЂРё РЅРµ Рµ С‚РѕС‡РЅРѕ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ."
 
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "ЅХ ЬЮЦРЬ ФР УШ ЯаЮзШвРЬ ШЭдЮаЬРжШШвХ ЧР %s."
+msgstr "РќРµ РјРѕР¶Р°Рј РґР° РіРё РїСЂРѕС‡РёС‚Р°Рј РёРЅС„РѕСЂРјР°С†РёРёС‚Рµ Р·Р° %s."
 
 msgid "Warning"
-msgstr "ІЭШЬРЭШХ"
+msgstr "Р’РЅРёРјР°РЅРёРµ"
 
 msgid "Work Address"
-msgstr "°ФаХбР ЭР аРСЮвР"
+msgstr "РђРґСЂРµСЃР° РЅР° СЂР°Р±РѕС‚Р°"
 
 msgid "Work Phone"
-msgstr "ВХЫХдЮЭ ЭР аРСЮвР"
+msgstr "РўРµР»РµС„РѕРЅ РЅР° СЂР°Р±РѕС‚Р°"
 
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"ЅХЬР бЮТЯРуРъХ ЯЮЬХуг ЯЮФРвЮжШвХ ЮФ ШЬЯЮавШаРЭШЮв ФЮЪгЬХЭв бЮ бЮЮФТХвЭШвХ "
-"ЯЮФРвЮжШ ТЮ бШбвХЬЮв ЧР РФаХбРаШ."
+"РќРµРјР° СЃРѕРІРїР°С“Р°СљРµ РїРѕРјРµС“Сѓ РїРѕРґР°С‚РѕС†РёС‚Рµ РѕРґ РёРјРїРѕСЂС‚РёСЂР°РЅРёРѕС‚ РґРѕРєСѓРјРµРЅС‚ СЃРѕ СЃРѕРѕРґРІРµС‚РЅРёС‚Рµ "
+"РїРѕРґР°С‚РѕС†Рё РІРѕ СЃРёСЃС‚РµРјРѕС‚ Р·Р° Р°РґСЂРµСЃР°СЂРё."
 
 msgid "Your Information"
-msgstr "ІРиШ ШЭдЮаЬРжШШ"
+msgstr "Р’Р°С€Рё РёРЅС„РѕСЂРјР°С†РёРё"
 
 msgid "[Edit]"
-msgstr "ГаХФШ"
+msgstr "РЈСЂРµРґРё"

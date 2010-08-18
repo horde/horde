@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Stefan de Konink <skinkie@utelisys.com>\n"
 "Language-Team: Dutch <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin.php:603
@@ -908,7 +908,7 @@ msgstr "Niet"
 
 #: query.php:71
 msgid "Not yet implemented."
-msgstr "Nog niet geïmplementeerd"
+msgstr "Nog niet geÃ¯mplementeerd"
 
 #: config/prefs.php.dist:17
 msgid "Notification Options"

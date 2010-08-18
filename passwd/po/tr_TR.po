@@ -1,5 +1,5 @@
 # Turkish translations for Passwd package
-# Şifre paketi için Türkçe çeviriler.
+# Åifre paketi iÃ§in TÃ¼rkÃ§e Ã§eviriler.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the Passwd package.
 # horde-tr @ metu.edu.tr, 2007-2008.
@@ -13,99 +13,99 @@ msgstr ""
 "Last-Translator: Emre Sezginer\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s yok, ya da çalıştırılabilir değil."
+msgstr "%s yok, ya da Ã§alÄ±ÅŸtÄ±rÄ±labilir deÄŸil."
 
 #: lib/Driver/composite.php:63
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: sürücü yüklenemedi: %s"
+msgstr "%s: sÃ¼rÃ¼cÃ¼ yÃ¼klenemedi: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
 msgid "ADSI error %s."
-msgstr "ADSI hatası %s."
+msgstr "ADSI hatasÄ± %s."
 
 #: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
 msgid "Access Denied."
-msgstr "Erişim Engellendi."
+msgstr "EriÅŸim Engellendi."
 
 #: lib/Driver.php:89
 msgid "Backend not correctly implemented."
-msgstr "Arka araç doğru uygulanmamış."
+msgstr "Arka araÃ§ doÄŸru uygulanmamÄ±ÅŸ."
 
 #: lib/Driver/poppassd.php:90
 msgid "Cannot send command to server."
-msgstr "Sunucuya komut gönderilemiyor."
+msgstr "Sunucuya komut gÃ¶nderilemiyor."
 
 #: main.php:255 templates/main/main.inc:142
 msgid "Change Password"
-msgstr "Şifre Değiştir"
+msgstr "Åifre DeÄŸiÅŸtir"
 
 #: templates/main/main.inc:127
 msgid "Change password on:"
-msgstr "Şifre değiştir:"
+msgstr "Åifre deÄŸiÅŸtir:"
 
 #: templates/main/main.inc:62
 msgid "Change your password"
-msgstr "Şifrenizi değiştirin"
+msgstr "Åifrenizi deÄŸiÅŸtirin"
 
 #: templates/main/main.inc:69
 #, php-format
 msgid "Changing password on %s"
-msgstr "%s şifreniz değiştiriliyor"
+msgstr "%s ÅŸifreniz deÄŸiÅŸtiriliyor"
 
 #: templates/main/main.inc:114
 msgid "Confirm new password:"
-msgstr "Yeni şifreyi doğrulayınız:"
+msgstr "Yeni ÅŸifreyi doÄŸrulayÄ±nÄ±z:"
 
 #: lib/Driver/kolab.php:60 lib/Driver/ldap.php:95 lib/Driver/ldap.php:263
 msgid "Could not bind to LDAP server"
-msgstr "LDAP sunucuya bağ kurulamadı."
+msgstr "LDAP sunucuya baÄŸ kurulamadÄ±."
 
 #: lib/Driver/kolab.php:46 lib/Driver/ldap.php:70
 msgid "Could not connect to LDAP server"
-msgstr "LDAP sunucuya bağlanılamadı"
+msgstr "LDAP sunucuya baÄŸlanÄ±lamadÄ±"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "smbpasswd komutuna tünel açılamadı."
+msgstr "smbpasswd komutuna tÃ¼nel aÃ§Ä±lamadÄ±."
 
 #: lib/Driver/ldap.php:76
 msgid "Could not start TLS connection to LDAP server"
-msgstr "LDAP sunucuya TLS bağlantısı başlatılamadı"
+msgstr "LDAP sunucuya TLS baÄŸlantÄ±sÄ± baÅŸlatÄ±lamadÄ±"
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
-msgstr "smbpasswd ye veri gönderirken hata oluştu."
+msgstr "smbpasswd ye veri gÃ¶nderirken hata oluÅŸtu."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "Eski şifre doğrulanamadı."
+msgstr "Eski ÅŸifre doÄŸrulanamadÄ±."
 
 #: main.php:211 lib/Driver/composite.php:97
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "%s için şifre değiştirilemedi: %s"
+msgstr "%s iÃ§in ÅŸifre deÄŸiÅŸtirilemedi: %s"
 
 #: lib/Driver.php:60 lib/Driver/vmailmgr.php:42 lib/Driver/kolab.php:84
 #: lib/Driver/poppassd.php:120 lib/Driver/ldap.php:264
 msgid "Incorrect Password"
-msgstr "Hatalı Şifre"
+msgstr "HatalÄ± Åifre"
 
 #: lib/Driver/ldap.php:255
 msgid "Minimum password age has not yet expired"
-msgstr "En az şifre kullanım süresi henuz dolmadı"
+msgstr "En az ÅŸifre kullanÄ±m sÃ¼resi henuz dolmadÄ±"
 
 #: templates/main/main.inc:102
 msgid "New password:"
-msgstr "Yeni şifre:"
+msgstr "Yeni ÅŸifre:"
 
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
@@ -114,141 +114,141 @@ msgstr "Sunucudan tepki gelmedi."
 #: lib/Driver.php:116
 #, php-format
 msgid "No such backend \"%s\" found."
-msgstr "\"%s\" arka aracı bulunamadı."
+msgstr "\"%s\" arka aracÄ± bulunamadÄ±."
 
 #: templates/main/main.inc:90
 msgid "Old password:"
-msgstr "Eski şifre:"
+msgstr "Eski ÅŸifre:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Şifre doğru yapılandırılmadı."
+msgstr "Åifre doÄŸru yapÄ±landÄ±rÄ±lmadÄ±."
 
 #: main.php:203
 #, php-format
 msgid "Password changed on %s."
-msgstr "%s için şifre değiştirildi."
+msgstr "%s iÃ§in ÅŸifre deÄŸiÅŸtirildi."
 
 #: lib/Driver/sql.php:127
 #, php-format
 msgid "Password column \"%s\" not found in password table."
-msgstr "\"%s\" şifre kolonu, şifre tablosunda bulunamadı."
+msgstr "\"%s\" ÅŸifre kolonu, ÅŸifre tablosunda bulunamadÄ±."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "Şifre modülü, belirtilen uygulamayı bulamıyor."
+msgstr "Åifre modÃ¼lÃ¼, belirtilen uygulamayÄ± bulamÄ±yor."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Şifre modülü için gerekli değişkenler eksik."
+msgstr "Åifre modÃ¼lÃ¼ iÃ§in gerekli deÄŸiÅŸkenler eksik."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Şifre modülü için gerekli hedef değişken eksik."
+msgstr "Åifre modÃ¼lÃ¼ iÃ§in gerekli hedef deÄŸiÅŸken eksik."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "Şifre modülü doğru yapılandırılmadı"
+msgstr "Åifre modÃ¼lÃ¼ doÄŸru yapÄ±landÄ±rÄ±lmadÄ±"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "Şifre modülü doğru yapılandırılmadı ."
+msgstr "Åifre modÃ¼lÃ¼ doÄŸru yapÄ±landÄ±rÄ±lmadÄ± ."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Lütfen yeni bir şifre giriniz"
+msgstr "LÃ¼tfen yeni bir ÅŸifre giriniz"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Lütfen şu anda geçerli olan şifreyi giriniz"
+msgstr "LÃ¼tfen ÅŸu anda geÃ§erli olan ÅŸifreyi giriniz"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Lütfen yeni şifrenizi doğrulayınız"
+msgstr "LÃ¼tfen yeni ÅŸifrenizi doÄŸrulayÄ±nÄ±z"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "Gerekli 'sürücü', bileşik yapılandırmada hatalı ayarlanmış."
+msgstr "Gerekli 'sÃ¼rÃ¼cÃ¼', bileÅŸik yapÄ±landÄ±rmada hatalÄ± ayarlanmÄ±ÅŸ."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Şifre SQL yapılandırmasında gerekli olan 'phptype' belirtilmedi."
+msgstr "Åifre SQL yapÄ±landÄ±rmasÄ±nda gerekli olan 'phptype' belirtilmedi."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "SQL yapılandırmasında gerekli olan 'phptype' belirtilmedi."
+msgstr "SQL yapÄ±landÄ±rmasÄ±nda gerekli olan 'phptype' belirtilmedi."
 
 #: templates/main/main.inc:143
 msgid "Reset"
-msgstr "Sıfırla"
+msgstr "SÄ±fÄ±rla"
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "SQL sunucuya bağlantı kurulamadı."
+msgstr "SQL sunucuya baÄŸlantÄ± kurulamadÄ±."
 
 #: lib/Driver/sql.php:135 lib/Driver/poppassd.php:114
 #: lib/Driver/vpopmail.php:150
 msgid "User not found"
-msgstr "Kullanıcı bulunamadı"
+msgstr "KullanÄ±cÄ± bulunamadÄ±"
 
 #: lib/Driver/kolab.php:76 lib/Driver/pine.php:231 lib/Driver/ldap.php:131
 msgid "User not found."
-msgstr "Kullanıcı bulunamadı."
+msgstr "KullanÄ±cÄ± bulunamadÄ±."
 
 #: templates/main/main.inc:77
 msgid "Username:"
-msgstr "Kullanıcı Adı:"
+msgstr "KullanÄ±cÄ± AdÄ±:"
 
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "%s kullanıcısı için şifre değiştiremezsiniz"
+msgstr "%s kullanÄ±cÄ±sÄ± iÃ§in ÅŸifre deÄŸiÅŸtiremezsiniz"
 
 #: main.php:55
 msgid "You must give your current password"
-msgstr "Şu anda geçerli olan şifrenizi girmelisiniz"
+msgstr "Åu anda geÃ§erli olan ÅŸifrenizi girmelisiniz"
 
 #: main.php:64
 msgid "You must give your new password"
-msgstr "Yeni şifrenizi girmelisiniz"
+msgstr "Yeni ÅŸifrenizi girmelisiniz"
 
 #: main.php:68
 msgid "You must verify your new password"
-msgstr "Yeni şifrenizi doğrulamalısınız"
+msgstr "Yeni ÅŸifrenizi doÄŸrulamalÄ±sÄ±nÄ±z"
 
 #: main.php:88
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "Yeni şifreniz çok uzun. Şifre %d karakterden daha uzun olamaz!"
+msgstr "Yeni ÅŸifreniz Ã§ok uzun. Åifre %d karakterden daha uzun olamaz!"
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Yeni şifrenizi tahmin etmek çok kolay! Değiştirilmedi!"
+msgstr "Yeni ÅŸifrenizi tahmin etmek Ã§ok kolay! DeÄŸiÅŸtirilmedi!"
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Yeni şifrenizi tahmin etmek çok kolay. Değiştirilmedi!"
+msgstr "Yeni ÅŸifrenizi tahmin etmek Ã§ok kolay. DeÄŸiÅŸtirilmedi!"
 
 #: main.php:83
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Yeni şifreniz en az %d karakter uzunluğunda olmalıdır!"
+msgstr "Yeni ÅŸifreniz en az %d karakter uzunluÄŸunda olmalÄ±dÄ±r!"
 
 #: main.php:76
 msgid "Your new password must be different from your current password"
-msgstr "Yeni şifreniz, şu anda geçerli olandan farklı olmalıdır"
+msgstr "Yeni ÅŸifreniz, ÅŸu anda geÃ§erli olandan farklÄ± olmalÄ±dÄ±r"
 
 #: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Yeni şifreniz en az %d harf içermelidir."
+msgstr "Yeni ÅŸifreniz en az %d harf iÃ§ermelidir."
 
 #: main.php:133
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "Yeni şifreniz en az %d alfasayısal karakter içermelidir."
+msgstr "Yeni ÅŸifreniz en az %d alfasayÄ±sal karakter iÃ§ermelidir."
 
 #: main.php:138
 #, php-format
@@ -256,37 +256,37 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"Yeni şifreniz en az %d değişik çeşit karakter içermelidir. Çeşitler: küçük "
-"harf, büyük harf, sayı ve simge."
+"Yeni ÅŸifreniz en az %d deÄŸiÅŸik Ã§eÅŸit karakter iÃ§ermelidir. Ã‡eÅŸitler: kÃ¼Ã§Ã¼k "
+"harf, bÃ¼yÃ¼k harf, sayÄ± ve simge."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Yeni şifreniz en az %d küçük harf içermelidir."
+msgstr "Yeni ÅŸifreniz en az %d kÃ¼Ã§Ã¼k harf iÃ§ermelidir."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "Yeni şifreniz en az %d sayı içermelidir ."
+msgstr "Yeni ÅŸifreniz en az %d sayÄ± iÃ§ermelidir ."
 
 #: main.php:113
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
-msgstr "Yeni şifreniz en az %d büyük harf içermelidir."
+msgstr "Yeni ÅŸifreniz en az %d bÃ¼yÃ¼k harf iÃ§ermelidir."
 
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Yeni şifreniz, %d adetden daha az boşluk içermelidir."
+msgstr "Yeni ÅŸifreniz, %d adetden daha az boÅŸluk iÃ§ermelidir."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
-msgstr "Yeni şifreniz boşluk içermemelidir."
+msgstr "Yeni ÅŸifreniz boÅŸluk iÃ§ermemelidir."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
-msgstr "Yeni şifreniz uymadı"
+msgstr "Yeni ÅŸifreniz uymadÄ±"
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Şifreleriniz uymuyor"
+msgstr "Åifreleriniz uymuyor"

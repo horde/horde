@@ -1,19 +1,19 @@
-# Turkish translations for İngo package
-# Süzgeç paketi için Türkçe çeviriler.
+# Turkish translations for Ä°ngo package
+# SÃ¼zgeÃ§ paketi iÃ§in TÃ¼rkÃ§e Ã§eviriler.
 # Copyright 2008-2010 The Horde Project
-# This file is distributed under the same license as the İngo package.
+# This file is distributed under the same license as the Ä°ngo package.
 # horde-tr at metu.edu.tr, 2005-2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: İngo H3 (1.2-RC2)\n"
+"Project-Id-Version: Ä°ngo H3 (1.2-RC2)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-04-15 12:57+0300\n"
 "PO-Revision-Date: 2008-04-15 12:57+0300\n"
-"Last-Translator: Onur Koşar\n"
+"Last-Translator: Onur KoÅŸar\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -27,32 +27,32 @@ msgstr " veya"
 
 #: templates/blacklist/blacklist.inc:17
 msgid "Action for blacklisted addresses:"
-msgstr "Karalistedeki adresler için eylemler:"
+msgstr "Karalistedeki adresler iÃ§in eylemler:"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
-msgstr "Betikleri Etkinleştir"
+msgstr "Betikleri EtkinleÅŸtir"
 
 #: lib/Driver/ldap.php:229
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "\"%s\" betiği aktif hale getirilirken hata oluştu:(%d) %s"
+msgstr "\"%s\" betiÄŸi aktif hale getirilirken hata oluÅŸtu:(%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
-msgstr "İlave Ayarlar"
+msgstr "Ä°lave Ayarlar"
 
 #: forward.php:43
 msgid "Address(es) to forward to:"
-msgstr "İletilecek _Adresler:"
+msgstr "Ä°letilecek _Adresler:"
 
 #: vacation.php:56
 msgid "Addresses to not send responses to:"
-msgstr "Yanıt gönderilmeyecek _Adresler:"
+msgstr "YanÄ±t gÃ¶nderilmeyecek _Adresler:"
 
 #: vacation.php:50
 msgid "Advanced Settings"
-msgstr "İleri seviye ayarlar"
+msgstr "Ä°leri seviye ayarlar"
 
 #: templates/rule/header.inc:44
 msgid "All of the following"
@@ -64,7 +64,7 @@ msgstr "Kurallara izin ver"
 
 #: templates/rule/footer.inc:34
 msgid "Answered"
-msgstr "Cevaplanmış"
+msgstr "CevaplanmÄ±ÅŸ"
 
 #: templates/rule/header.inc:45
 msgid "Any of the following"
@@ -72,15 +72,15 @@ msgstr "Takip edenlerin herhangi biri"
 
 #: templates/filters/footer.inc:8
 msgid "Apply Filters"
-msgstr "Süzgeçleri Uygula"
+msgstr "SÃ¼zgeÃ§leri Uygula"
 
 #: filters.php:252
 msgid "Are you sure you want to delete this rule?"
-msgstr "Bu kuralı silmek istediğinize emin misiniz?"
+msgstr "Bu kuralÄ± silmek istediÄŸinize emin misiniz?"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Betik her değişimden sonra otomatik olarak güncellensin mi?"
+msgstr "Betik her deÄŸiÅŸimden sonra otomatik olarak gÃ¼ncellensin mi?"
 
 #: vacation.php:41
 msgid "Basic Settings"
@@ -92,12 +92,12 @@ msgstr "Gizli kk"
 
 #: lib/Storage.php:346
 msgid "Begins with"
-msgstr "Başlangıcı:"
+msgstr "BaÅŸlangÄ±cÄ±:"
 
 #: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "Bağlantı kurulamadı (%s) %s"
+msgstr "BaÄŸlantÄ± kurulamadÄ± (%s) %s"
 
 #: filters.php:174 templates/blacklist/blacklist.inc:7
 #: lib/Block/overview.php:95 lib/Block/overview.php:98
@@ -106,24 +106,24 @@ msgstr "Kara Liste"
 
 #: blacklist.php:104
 msgid "Blacklist Edit"
-msgstr "Karalisteyi Düzenle"
+msgstr "Karalisteyi DÃ¼zenle"
 
 #: blacklist.php:19
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "Karaliste yürürlükte olan süzgeç sürücüsü tarafından desteklenmiyor."
+msgstr "Karaliste yÃ¼rÃ¼rlÃ¼kte olan sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼sÃ¼ tarafÄ±ndan desteklenmiyor."
 
 #: lib/Script/procmail.php:209 lib/Script/maildrop.php:197
 #: lib/Script/sieve.php:269
 msgid "Blacklisted Addresses"
-msgstr "Karalisteye Alınmış Adresler"
+msgstr "Karalisteye AlÄ±nmÄ±ÅŸ Adresler"
 
 #: config/fields.php.dist:100
 msgid "Body"
-msgstr "İçerik"
+msgstr "Ä°Ã§erik"
 
 #: filters.php:220 rule.php:322
 msgid "Case Sensitive"
-msgstr "Büyük/Küçük Harf Duyarlı"
+msgstr "BÃ¼yÃ¼k/KÃ¼Ã§Ã¼k Harf DuyarlÄ±"
 
 #: config/fields.php.dist:43
 msgid "Cc"
@@ -132,15 +132,15 @@ msgstr "Kk"
 #: forward.php:56 spam.php:90 vacation.php:81 rule.php:141 blacklist.php:70
 #: whitelist.php:38
 msgid "Changes saved."
-msgstr "Değişiklikler kaydedildi."
+msgstr "DeÄŸiÅŸiklikler kaydedildi."
 
 #: lib/Driver/ldap.php:73
 msgid "Connection failure"
-msgstr "Bağlantı başarısız"
+msgstr "BaÄŸlantÄ± baÅŸarÄ±sÄ±z"
 
 #: lib/Storage.php:342
 msgid "Contains"
-msgstr "İçermektedir"
+msgstr "Ä°Ã§ermektedir"
 
 #: filters.php:263 filters.php:264
 #, php-format
@@ -150,12 +150,12 @@ msgstr "Kopyala:%s"
 #: lib/Storage.php:993 lib/Storage/sql.php:618
 #, php-format
 msgid "Copy of %s"
-msgstr "Kopyası: %s"
+msgstr "KopyasÄ±: %s"
 
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "Derlenen geçici dosya, '%s' saklanamadı."
+msgstr "Derlenen geÃ§ici dosya, '%s' saklanamadÄ±."
 
 #: lib/Ingo.php:62
 msgid "Create new folder"
@@ -163,11 +163,11 @@ msgstr "Yeni dizin yarat"
 
 #: lib/Script/procmail.php:342 lib/Script/maildrop.php:362
 msgid "DISABLED: "
-msgstr "SEÇİLMEZ KILINDI: "
+msgstr "SEÃ‡Ä°LMEZ KILINDI: "
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
-msgstr "Betiğin Etkinliğini Kaldır"
+msgstr "BetiÄŸin EtkinliÄŸini KaldÄ±r"
 
 #: filters.php:252 filters.php:253
 #, php-format
@@ -176,11 +176,11 @@ msgstr "Sil: %s"
 
 #: templates/rule/filter.inc:33
 msgid "Delete Condition"
-msgstr "Koşulu Sil"
+msgstr "KoÅŸulu Sil"
 
 #: lib/Storage.php:290
 msgid "Delete message completely"
-msgstr "İletiyi tamamen sil"
+msgstr "Ä°letiyi tamamen sil"
 
 #: templates/rule/footer.inc:36
 msgid "Deleted"
@@ -188,19 +188,19 @@ msgstr "Silindi"
 
 #: lib/Storage.php:278
 msgid "Deliver into my Inbox"
-msgstr "Gelen kutusuna gönder"
+msgstr "Gelen kutusuna gÃ¶nder"
 
 #: lib/Storage.php:304
 msgid "Deliver into my Inbox and copy to"
-msgstr "Gelen kutusuna gönder ve kopyasını al"
+msgstr "Gelen kutusuna gÃ¶nder ve kopyasÄ±nÄ± al"
 
 #: lib/Storage.php:299
 msgid "Deliver into my Inbox and redirect to"
-msgstr "Gelen kutusuna gönder ve yönlendir "
+msgstr "Gelen kutusuna gÃ¶nder ve yÃ¶nlendir "
 
 #: lib/Storage.php:284
 msgid "Deliver to folder"
-msgstr "Dizine gönder"
+msgstr "Dizine gÃ¶nder"
 
 #: config/fields.php.dist:83
 msgid "Destination (To,Cc,Bcc,etc)"
@@ -209,21 +209,21 @@ msgstr "Hedef (Kime, Kk, Gkk,vb)"
 #: filters.php:277 filters.php:278
 #, php-format
 msgid "Disable %s"
-msgstr "Seçilemez Kıl %s"
+msgstr "SeÃ§ilemez KÄ±l %s"
 
 #: forward.php:99 spam.php:149 vacation.php:153
 #: templates/whitelist/whitelist.inc:10 templates/blacklist/blacklist.inc:10
 #: templates/rule/header.inc:26
 msgid "Disabled"
-msgstr "Seçilmez Kılındı"
+msgstr "SeÃ§ilmez KÄ±lÄ±ndÄ±"
 
 #: templates/filters/settings.inc:15
 msgid "Display detailed notification when each filter is applied?"
-msgstr "Her süzgecin ne zaman uygulanacağına dair detaylı bilgi verilsin mi?"
+msgstr "Her sÃ¼zgecin ne zaman uygulanacaÄŸÄ±na dair detaylÄ± bilgi verilsin mi?"
 
 #: vacation.php:58
 msgid "Do not send responses to bulk or list messages?"
-msgstr "Yığın yada liste iletilerine cevap gönderme"
+msgstr "YÄ±ÄŸÄ±n yada liste iletilerine cevap gÃ¶nderme"
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
@@ -231,11 +231,11 @@ msgstr "Bunu yap:"
 
 #: lib/Storage.php:347
 msgid "Doesn't begin with"
-msgstr "ile Başlamayan"
+msgstr "ile BaÅŸlamayan"
 
 #: lib/Storage.php:343
 msgid "Doesn't contain"
-msgstr "İçermeyen"
+msgstr "Ä°Ã§ermeyen"
 
 #: lib/Storage.php:349
 msgid "Doesn't end with"
@@ -247,27 +247,27 @@ msgstr "Bulunmayan"
 
 #: lib/Storage.php:354
 msgid "Doesn't match (with placeholders)"
-msgstr "Eşleşmeyen "
+msgstr "EÅŸleÅŸmeyen "
 
 #: templates/filters/header.inc:26 lib/Block/overview.php:63
 #: lib/Block/overview.php:72 lib/Block/overview.php:87
 #: lib/Block/overview.php:97 lib/Block/overview.php:107
 msgid "Edit"
-msgstr "Düzenle"
+msgstr "DÃ¼zenle"
 
 #: filters.php:241 filters.php:243 filters.php:247 filters.php:248
 #, php-format
 msgid "Edit %s"
-msgstr "Düzenle %s"
+msgstr "DÃ¼zenle %s"
 
 #: filters.php:287 filters.php:288
 #, php-format
 msgid "Enable %s"
-msgstr "Seçilir kıl: %s"
+msgstr "SeÃ§ilir kÄ±l: %s"
 
 #: templates/filters/header.inc:28
 msgid "Enabled"
-msgstr "Seçilir kılındı"
+msgstr "SeÃ§ilir kÄ±lÄ±ndÄ±"
 
 #: vacation.php:45
 msgid "End of vacation:"
@@ -279,17 +279,17 @@ msgstr "Biten"
 
 #: lib/Storage.php:359
 msgid "Equal to"
-msgstr "Eşittir"
+msgstr "EÅŸittir"
 
 #: lib/Driver/ldap.php:138 lib/Driver/ldap.php:148 lib/Driver/ldap.php:157
 #: lib/Driver/ldap.php:167
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
-msgstr "Gücel betik çalıştırılırken hata oluştu: (%d) %s "
+msgstr "GÃ¼cel betik Ã§alÄ±ÅŸtÄ±rÄ±lÄ±rken hata oluÅŸtu: (%d) %s "
 
 #: blacklist.php:68
 msgid "Error saving changes."
-msgstr "Değişiklikler kaydedilirken hata oluştu."
+msgstr "DeÄŸiÅŸiklikler kaydedilirken hata oluÅŸtu."
 
 #: templates/filters/header.inc:20
 msgid "Existing Rules"
@@ -302,19 +302,19 @@ msgstr "Var"
 #: lib/Driver/ldap.php:143
 #, php-format
 msgid "Expected 1 object, got %d."
-msgstr "1 nesne bekleniyor, alınan %d."
+msgstr "1 nesne bekleniyor, alÄ±nan %d."
 
 #: lib/Driver/sivtest.php:204
 msgid "Failed to read from socket: "
-msgstr "Soket'den okunurken hata oluştu"
+msgstr "Soket'den okunurken hata oluÅŸtu"
 
 #: lib/Driver/sivtest.php:199
 msgid "Failed to write to socket: "
-msgstr "Socket'e yazılırken hata oluştu"
+msgstr "Socket'e yazÄ±lÄ±rken hata oluÅŸtu"
 
 #: lib/Driver/sivtest.php:194
 msgid "Failed to write to socket: (connection lost!)"
-msgstr "Socket'e yazılırken hata oluştu (bağlantı kaybedildi!)"
+msgstr "Socket'e yazÄ±lÄ±rken hata oluÅŸtu (baÄŸlantÄ± kaybedildi!)"
 
 #: templates/rule/filter.inc:10
 msgid "Field"
@@ -322,67 +322,67 @@ msgstr "Alan"
 
 #: templates/filters/settings.inc:22
 msgid "Filter All Messages"
-msgstr "Bütün iletileri Süzgeçle"
+msgstr "BÃ¼tÃ¼n iletileri SÃ¼zgeÃ§le"
 
 #: templates/filters/settings.inc:24
 msgid "Filter Only Seen Messages"
-msgstr "Sadece Görülmüş İletileri Süzgeçle"
+msgstr "Sadece GÃ¶rÃ¼lmÃ¼ÅŸ Ä°letileri SÃ¼zgeÃ§le"
 
 #: templates/filters/settings.inc:23
 msgid "Filter Only Unseen Messages"
-msgstr "Sadece Görülmemiş İletileri Süzgeçle"
+msgstr "Sadece GÃ¶rÃ¼lmemiÅŸ Ä°letileri SÃ¼zgeÃ§le"
 
 #: templates/filters/settings.inc:20
 msgid "Filter Options"
-msgstr "Süzgeç Seçenekleri"
+msgstr "SÃ¼zgeÃ§ SeÃ§enekleri"
 
 #: templates/rule/header.inc:25
 msgid "Filter Rule"
-msgstr "Süzgeç Kuralı"
+msgstr "SÃ¼zgeÃ§ KuralÄ±"
 
 #: filters.php:139
 msgid "Filter Rules"
-msgstr "Süzgeç Kuralları"
+msgstr "SÃ¼zgeÃ§ KurallarÄ±"
 
 #: script.php:54
 msgid "Filter Script Display"
-msgstr "Süzgeç Betik Görüntüleme"
+msgstr "SÃ¼zgeÃ§ Betik GÃ¶rÃ¼ntÃ¼leme"
 
 #: lib/Ingo.php:379
 msgid "Filter _Rules"
-msgstr "Süzgeç _Kuralları"
+msgstr "SÃ¼zgeÃ§ _KurallarÄ±"
 
 #: lib/Script/imap.php:348
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr "Süzgeç etkinliği: %s ileti kopyalandı:\"%s\" dosyasına kopyalandı."
+msgstr "SÃ¼zgeÃ§ etkinliÄŸi: %s ileti kopyalandÄ±:\"%s\" dosyasÄ±na kopyalandÄ±."
 
 #: lib/Script/imap.php:334
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "Süzgeç etkinliği: %s ileti silindi."
+msgstr "SÃ¼zgeÃ§ etkinliÄŸi: %s ileti silindi."
 
 #: lib/Script/imap.php:312
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr "Süzgeç etkinliği: %s ileti : \"%s\" dizinine taşındı."
+msgstr "SÃ¼zgeÃ§ etkinliÄŸi: %s ileti : \"%s\" dizinine taÅŸÄ±ndÄ±."
 
 #: lib/Script/imap.php:206
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
-msgstr "Süzgeç etkinliği: karalisteyle eşleşen %s ileti silindi."
+msgstr "SÃ¼zgeÃ§ etkinliÄŸi: karalisteyle eÅŸleÅŸen %s ileti silindi."
 
 #: lib/Script/imap.php:345
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
-msgstr "\"%s\" iletisi (\"%s\" den gelmekte) \"%s\" dizinine kopyalandı."
+msgstr "\"%s\" iletisi (\"%s\" den gelmekte) \"%s\" dizinine kopyalandÄ±."
 
 #: lib/Script/imap.php:329
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Süzgeç etkinliği: \"%s\" iletisi (\"%s\" den gelmekte) silindi."
+msgstr "SÃ¼zgeÃ§ etkinliÄŸi: \"%s\" iletisi (\"%s\" den gelmekte) silindi."
 
 #: lib/Script/imap.php:306
 #, php-format
@@ -390,46 +390,46 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Süzgeç etkinliği: \"%s\" iletisi (\"%s\" den gelmekte) \"%s\" dizine taşındı."
+"SÃ¼zgeÃ§ etkinliÄŸi: \"%s\" iletisi (\"%s\" den gelmekte) \"%s\" dizine taÅŸÄ±ndÄ±."
 
 #: rule.php:188
 msgid "Filter not found."
-msgstr "Süzgeç bulunamadı."
+msgstr "SÃ¼zgeÃ§ bulunamadÄ±."
 
 #: templates/rule/footer.inc:32
 msgid "Flagged For Followup"
-msgstr "İzleme İçin İşaretlendi"
+msgstr "Ä°zleme Ä°Ã§in Ä°ÅŸaretlendi"
 
 #: spam.php:74
 msgid "Folder to receive spam:"
-msgstr "İstenmeyen ileti klasörü"
+msgstr "Ä°stenmeyen ileti klasÃ¶rÃ¼"
 
 #: templates/rule/header.inc:42
 msgid "For an incoming message that matches:"
-msgstr "Gelen iletiler için eşleşme: "
+msgstr "Gelen iletiler iÃ§in eÅŸleÅŸme: "
 
 #: forward.php:97 filters.php:192 lib/Block/overview.php:71
 #: lib/Block/overview.php:73
 msgid "Forward"
-msgstr "İlet"
+msgstr "Ä°let"
 
 #: lib/Script/sieve.php:222
 msgid "Forward Keep Action"
-msgstr "İleti yönlendirme eylemi"
+msgstr "Ä°leti yÃ¶nlendirme eylemi"
 
 #: forward.php:18
 msgid "Forward is not supported in the current filtering driver."
 msgstr ""
-"İletilen iletiler yürürlükteki süzgeç sürücü tarafından desteklenmiyor."
+"Ä°letilen iletiler yÃ¼rÃ¼rlÃ¼kteki sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼ tarafÄ±ndan desteklenmiyor."
 
 #: lib/Script/procmail.php:288 lib/Script/maildrop.php:246
 #: lib/Script/sieve.php:232
 msgid "Forwards"
-msgstr "İlet"
+msgstr "Ä°let"
 
 #: forward.php:104
 msgid "Forwards Edit"
-msgstr "İletilecekleri Düzenle"
+msgstr "Ä°letilecekleri DÃ¼zenle"
 
 #: config/fields.php.dist:39
 msgid "From"
@@ -441,23 +441,23 @@ msgstr "Kimden:"
 
 #: lib/Script/sieve.php:118
 msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "Ingo tarafından oluşturuldu (http://www.horde.org/ingo/)"
+msgstr "Ingo tarafÄ±ndan oluÅŸturuldu (http://www.horde.org/ingo/)"
 
 #: lib/Storage.php:357
 msgid "Greater than"
-msgstr "Büyüktür"
+msgstr "BÃ¼yÃ¼ktÃ¼r"
 
 #: lib/Storage.php:358
 msgid "Greater than or equal to"
-msgstr "Büyük ya da eşittir"
+msgstr "BÃ¼yÃ¼k ya da eÅŸittir"
 
 #: rule.php:38
 msgid "Individual rules are not supported in the current filtering driver."
-msgstr "Kişisel kurallar yürürlükteki süzgeç sürücü tarafından desteklenmiyor."
+msgstr "KiÅŸisel kurallar yÃ¼rÃ¼rlÃ¼kteki sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼ tarafÄ±ndan desteklenmiyor."
 
 #: lib/Script/sieve.php:2521
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "ileti teslimi için var olmayan bir posta kutusu belirtildi."
+msgstr "ileti teslimi iÃ§in var olmayan bir posta kutusu belirtildi."
 
 #: lib/Storage.php:344
 msgid "Is"
@@ -469,22 +469,22 @@ msgstr "Olmayan"
 
 #: forward.php:41
 msgid "Keep a copy of messages in this account?"
-msgstr "_İletilerin bir kopyası hesapta tutulsun mu?"
+msgstr "_Ä°letilerin bir kopyasÄ± hesapta tutulsun mu?"
 
 #: lib/Driver/ldap.php:23
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"LDAP desteği gerekiyor ancak LDAP modülü kullanılabilir değil ya da "
-"yüklenmedi."
+"LDAP desteÄŸi gerekiyor ancak LDAP modÃ¼lÃ¼ kullanÄ±labilir deÄŸil ya da "
+"yÃ¼klenmedi."
 
 #: lib/Storage.php:355
 msgid "Less than"
-msgstr "Küçüktür"
+msgstr "KÃ¼Ã§Ã¼ktÃ¼r"
 
 #: lib/Storage.php:356
 msgid "Less than or equal to"
-msgstr "Küçük yada eşitir"
+msgstr "KÃ¼Ã§Ã¼k yada eÅŸitir"
 
 #: config/fields.php.dist:59
 msgid "List-ID"
@@ -492,23 +492,23 @@ msgstr "Liste-ID"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "Mar_k message as deleted"
-msgstr "İletiyi silinece_k olarak işaretle"
+msgstr "Ä°letiyi silinece_k olarak iÅŸaretle"
 
 #: templates/rule/footer.inc:25
 msgid "Mark message as:"
-msgstr "İletiyi işaretle:"
+msgstr "Ä°letiyi iÅŸaretle:"
 
 #: templates/rule/filter.inc:23
 msgid "Match type"
-msgstr "Eşleşme tipi"
+msgstr "EÅŸleÅŸme tipi"
 
 #: lib/Storage.php:353
 msgid "Matches (with placeholders)"
-msgstr "Eşleşen"
+msgstr "EÅŸleÅŸen"
 
 #: lib/api.php:71
 msgid "Maximum Number of Rules"
-msgstr "En Fazla Not Sayısı"
+msgstr "En Fazla Not SayÄ±sÄ±"
 
 #: lib/Storage.php:507
 #, php-format
@@ -516,8 +516,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"En yüksek karaliste adres sayısı aşıldı(Toplam adresler: %s, En yüksek adres "
-"sayısı: %s). Karalisteye yeni bir adres ekleyemezsiniz."
+"En yÃ¼ksek karaliste adres sayÄ±sÄ± aÅŸÄ±ldÄ±(Toplam adresler: %s, En yÃ¼ksek adres "
+"sayÄ±sÄ±: %s). Karalisteye yeni bir adres ekleyemezsiniz."
 
 #: lib/Storage.php:560
 #, php-format
@@ -525,28 +525,28 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"En yüksek temiz adres sayısı aşıldı(Toplam adresler: %s, En yüksek adres "
-"sayısı: %s). Temiz listesine yeni bir adres ekleyemezsiniz."
+"En yÃ¼ksek temiz adres sayÄ±sÄ± aÅŸÄ±ldÄ±(Toplam adresler: %s, En yÃ¼ksek adres "
+"sayÄ±sÄ±: %s). Temiz listesine yeni bir adres ekleyemezsiniz."
 
 #: spam.php:71
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
 msgstr ""
-"İstenmeyen ileti olasılık değeri, bu sayıya eşit ya da büyük olan iletiler "
-"istenmeyen ileti olarak değerlendirilecek."
+"Ä°stenmeyen ileti olasÄ±lÄ±k deÄŸeri, bu sayÄ±ya eÅŸit ya da bÃ¼yÃ¼k olan iletiler "
+"istenmeyen ileti olarak deÄŸerlendirilecek."
 
 #: lib/Script/sieve.php:2941
 msgid "Missing address to notify"
-msgstr "Uyarının yapılacağı adres eksik"
+msgstr "UyarÄ±nÄ±n yapÄ±lacaÄŸÄ± adres eksik"
 
 #: lib/Script/sieve.php:2322
 msgid "Missing address to redirect message to"
-msgstr "İletinin yönlendirileceği adres eksik"
+msgstr "Ä°letinin yÃ¶nlendirileceÄŸi adres eksik"
 
 #: lib/Script/sieve.php:2368
 msgid "Missing reason for reject"
-msgstr "Geri çevirme sebebi eksik"
+msgstr "Geri Ã§evirme sebebi eksik"
 
 #: lib/Script/sieve.php:2671
 msgid "Missing reason in vacation."
@@ -554,15 +554,15 @@ msgstr "Tatil sebebi eksik."
 
 #: templates/filters/header.inc:32
 msgid "Move"
-msgstr "Taşı"
+msgstr "TaÅŸÄ±"
 
 #: filters.php:156 filters.php:273
 msgid "Move Rule Down"
-msgstr "Kuralı Aşağı Taşı"
+msgstr "KuralÄ± AÅŸaÄŸÄ± TaÅŸÄ±"
 
 #: filters.php:157 filters.php:272
 msgid "Move Rule Up"
-msgstr "Kuralı Yukarı Taşı"
+msgstr "KuralÄ± YukarÄ± TaÅŸÄ±"
 
 #: vacation.php:53
 msgid "My email addresses:"
@@ -576,29 +576,29 @@ msgstr "Yeni Kural"
 #: lib/Ingo.php:230 lib/Ingo.php:232
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
-msgstr "'%s' öğesi son yapılanışta bulunamadı."
+msgstr "'%s' Ã¶ÄŸesi son yapÄ±lanÄ±ÅŸta bulunamadÄ±."
 
 #: lib/Ingo.php:223
 msgid "No backend configured for this host"
-msgstr "Bu anasistem için son yapılanış eksik"
+msgstr "Bu anasistem iÃ§in son yapÄ±lanÄ±ÅŸ eksik"
 
 #: lib/Ingo.php:199
 msgid "No backends configured in backends.php"
-msgstr "backends.php dosyasında son uç yapılanışı yok"
+msgstr "backends.php dosyasÄ±nda son uÃ§ yapÄ±lanÄ±ÅŸÄ± yok"
 
 #: templates/filters/filter-none.inc:3
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
-msgstr "Süzgeç yok.Yaratmak için '%s'tıklayın."
+msgstr "SÃ¼zgeÃ§ yok.Yaratmak iÃ§in '%s'tÄ±klayÄ±n."
 
 #: lib/Script/sieve.php:1679 lib/Script/sieve.php:1828
 #: lib/Script/sieve.php:2044
 msgid "No headers specified"
-msgstr "Başlık bilgisi belirtilmedi"
+msgstr "BaÅŸlÄ±k bilgisi belirtilmedi"
 
 #: script.php:69
 msgid "No script generated."
-msgstr "Betik yaratılmadı."
+msgstr "Betik yaratÄ±lmadÄ±."
 
 #: lib/Script/sieve.php:2060 lib/Script/sieve.php:2144
 msgid "No strings specified"
@@ -606,77 +606,77 @@ msgstr "Dizgi  belirtilmedi."
 
 #: lib/Storage.php:360
 msgid "Not equal to"
-msgstr "Eşit değil"
+msgstr "EÅŸit deÄŸil"
 
 #: lib/Storage.php:320
 msgid "Notify email address"
-msgstr "Uyarı yapılacak e-Posta Adresi:"
+msgstr "UyarÄ± yapÄ±lacak e-Posta Adresi:"
 
 #: vacation.php:60
 msgid "Number of days between vacation replies:"
-msgstr "Tatil cevapları arasındaki gü_n sayısı"
+msgstr "Tatil cevaplarÄ± arasÄ±ndaki gÃ¼_n sayÄ±sÄ±"
 
 #: lib/Storage.php:314
 msgid "Only flag the message"
-msgstr "Sadece iletiyi işaretle"
+msgstr "Sadece iletiyi iÅŸaretle"
 
 #: config/prefs.php.dist:19
 msgid "Options about script updating."
-msgstr "Betik güncelleme seçenekleri."
+msgstr "Betik gÃ¼ncelleme seÃ§enekleri."
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "Diğer Seçenekler"
+msgstr "DiÄŸer SeÃ§enekler"
 
 #: lib/Block/overview.php:3
 msgid "Overview"
-msgstr "Önizleme"
+msgstr "Ã–nizleme"
 
 #: config/fields.php.dist:91
 msgid "Participant (From,To,etc)"
-msgstr "Katılımcı (Kimden,Kime,vb)"
+msgstr "KatÄ±lÄ±mcÄ± (Kimden,Kime,vb)"
 
 #: templates/javascript/new_folder.js:7
 msgid "Please enter the name of the new folder:"
-msgstr "Lütfen yeni dizinin adını girin:"
+msgstr "LÃ¼tfen yeni dizinin adÄ±nÄ± girin:"
 
 #: vacation.php:48
 msgid "Reason:"
-msgstr "Gerekçe"
+msgstr "GerekÃ§e"
 
 #: config/fields.php.dist:63
 msgid "Received"
-msgstr "Ulaştı"
+msgstr "UlaÅŸtÄ±"
 
 #: lib/Storage.php:295
 msgid "Redirect to"
-msgstr "Yönlendir"
+msgstr "YÃ¶nlendir"
 
 #: lib/Storage.php:352
 msgid "Regular expression"
-msgstr "Düzenli İfadeler"
+msgstr "DÃ¼zenli Ä°fadeler"
 
 #: lib/Storage.php:310
 msgid "Reject with reason"
-msgstr "Gerekçeyle reddet"
+msgstr "GerekÃ§eyle reddet"
 
 #: config/fields.php.dist:51
 msgid "Resent-From"
-msgstr "Tarafından tekrar gönderilen "
+msgstr "TarafÄ±ndan tekrar gÃ¶nderilen "
 
 #: config/fields.php.dist:55
 msgid "Resent-To"
-msgstr "Tarafına tekrar gönderilen"
+msgstr "TarafÄ±na tekrar gÃ¶nderilen"
 
 #: templates/rule/footer.inc:61
 msgid "Return to Filters List"
-msgstr "Süzgeç Listesine Geri Dön"
+msgstr "SÃ¼zgeÃ§ Listesine Geri DÃ¶n"
 
 #: forward.php:34 forward.php:88 spam.php:62 spam.php:130 vacation.php:34
 #: vacation.php:117 templates/whitelist/whitelist.inc:24
 #: templates/blacklist/blacklist.inc:42
 msgid "Return to Rules List"
-msgstr "Kurallar Listesine Geri Dön"
+msgstr "Kurallar Listesine Geri DÃ¶n"
 
 #: templates/filters/header.inc:27
 msgid "Rule"
@@ -684,7 +684,7 @@ msgstr "Kural"
 
 #: filters.php:78
 msgid "Rule Copied"
-msgstr "Kural Kopyalandı"
+msgstr "Kural KopyalandÄ±"
 
 #: filters.php:57
 msgid "Rule Deleted"
@@ -692,15 +692,15 @@ msgstr "Kural Silindi"
 
 #: forward.php:72 spam.php:106 filters.php:94 vacation.php:97
 msgid "Rule Disabled"
-msgstr "Kural Geçersiz Kılındı"
+msgstr "Kural GeÃ§ersiz KÄ±lÄ±ndÄ±"
 
 #: forward.php:63 spam.php:97 filters.php:99 vacation.php:88
 msgid "Rule Enabled"
-msgstr "Kural Geçerli Kılındı"
+msgstr "Kural GeÃ§erli KÄ±lÄ±ndÄ±"
 
 #: templates/rule/header.inc:33
 msgid "Rule Name:"
-msgstr "Kural Adı"
+msgstr "Kural AdÄ±"
 
 #: lib/Script/sieve.php:2929
 msgid "Rule:"
@@ -709,11 +709,11 @@ msgstr "Kural"
 #: lib/Driver/ldap.php:86
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "STARTTLS başarısız: (%s) %s"
+msgstr "STARTTLS baÅŸarÄ±sÄ±z: (%s) %s"
 
 #: lib/Ingo.php:393
 msgid "S_pam"
-msgstr "İstenmeyen İ_leti"
+msgstr "Ä°stenmeyen Ä°_leti"
 
 #: forward.php:45 spam.php:79 vacation.php:62
 #: templates/whitelist/whitelist.inc:23 templates/blacklist/blacklist.inc:41
@@ -723,17 +723,17 @@ msgstr "Kaydet"
 
 #: templates/filters/settings.inc:31
 msgid "Save Settings"
-msgstr "Ayarları Kaydet"
+msgstr "AyarlarÄ± Kaydet"
 
 #: forward.php:66 forward.php:84 spam.php:100 spam.php:126 vacation.php:91
 #: vacation.php:113
 msgid "Save and Disable"
-msgstr "Kaydet ve Geçersiz kıl"
+msgstr "Kaydet ve GeÃ§ersiz kÄ±l"
 
 #: forward.php:57 forward.php:86 spam.php:91 spam.php:128 vacation.php:82
 #: vacation.php:115
 msgid "Save and Enable"
-msgstr "Kaydet ve geçerli kıl"
+msgstr "Kaydet ve geÃ§erli kÄ±l"
 
 #: templates/script/header.inc:2
 msgid "Script"
@@ -741,60 +741,60 @@ msgstr "Betik"
 
 #: config/prefs.php.dist:18
 msgid "Script Updating"
-msgstr "Betik Güncelleniyor"
+msgstr "Betik GÃ¼ncelleniyor"
 
 #: lib/Ingo.php:175
 msgid "Script not updated."
-msgstr "Betik Güncellenmedi."
+msgstr "Betik GÃ¼ncellenmedi."
 
 #: lib/Ingo.php:146
 msgid "Script successfully activated."
-msgstr "Betik başarıyla etkinleştirildi."
+msgstr "Betik baÅŸarÄ±yla etkinleÅŸtirildi."
 
 #: lib/Ingo.php:145
 msgid "Script successfully deactivated."
-msgstr "Betiğin etkinliği başarıyla kaldırıldı."
+msgstr "BetiÄŸin etkinliÄŸi baÅŸarÄ±yla kaldÄ±rÄ±ldÄ±."
 
 #: templates/rule/footer.inc:30
 msgid "Seen"
-msgstr "Görülmüş"
+msgstr "GÃ¶rÃ¼lmÃ¼ÅŸ"
 
 #: rule.php:218
 msgid "Select a field"
-msgstr "Bir alan seçin"
+msgstr "Bir alan seÃ§in"
 
 #: templates/menu.inc:6 templates/menu.inc:8
 msgid "Select ruleset to display:"
-msgstr "Görüntülenecek görev listesini seçin:"
+msgstr "GÃ¶rÃ¼ntÃ¼lenecek gÃ¶rev listesini seÃ§in:"
 
 #: rule.php:347 templates/blacklist/blacklist.inc:23 lib/Ingo.php:59
 msgid "Select target folder"
-msgstr "Bir hedef dizin seçin"
+msgstr "Bir hedef dizin seÃ§in"
 
 #: rule.php:255
 msgid "Self-Defined Header"
-msgstr "Kendinden Tanımlı Başlık Bilgisi"
+msgstr "Kendinden TanÄ±mlÄ± BaÅŸlÄ±k Bilgisi"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "Gönderen"
+msgstr "GÃ¶nderen"
 
 #: filters.php:118
 msgid "Settings successfully updated."
-msgstr "Ayarlar başarıyla güncellendi."
+msgstr "Ayarlar baÅŸarÄ±yla gÃ¼ncellendi."
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
-msgstr "Etkin Betiği Göster"
+msgstr "Etkin BetiÄŸi GÃ¶ster"
 
 #: templates/script/activate.inc:31
 msgid "Show Current Script"
-msgstr "Yürürlükteki Betiği Göster"
+msgstr "YÃ¼rÃ¼rlÃ¼kteki BetiÄŸi GÃ¶ster"
 
 #: spam.php:18
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
-"Basit istenmeyen ileti filtresi yürürlükteki süzgeç sürücüsü tarafından "
+"Basit istenmeyen ileti filtresi yÃ¼rÃ¼rlÃ¼kteki sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼sÃ¼ tarafÄ±ndan "
 "desteklenmemektedir."
 
 #: config/fields.php.dist:95
@@ -808,23 +808,23 @@ msgstr "Kaynak (Kimden, Cevapla,vb)"
 #: filters.php:198 lib/Block/overview.php:105 lib/Block/overview.php:108
 #: lib/Script/maildrop.php:301 lib/Script/sieve.php:425
 msgid "Spam Filter"
-msgstr "İstenmeyen ileti filtresi"
+msgstr "Ä°stenmeyen ileti filtresi"
 
 #: spam.php:147 spam.php:154
 msgid "Spam Filtering"
-msgstr "İstenmeyen ileti Filtrelenmesi"
+msgstr "Ä°stenmeyen ileti Filtrelenmesi"
 
 #: spam.php:71
 msgid "Spam Level:"
-msgstr "İstenmeyen ileti Düzeyi"
+msgstr "Ä°stenmeyen ileti DÃ¼zeyi"
 
 #: vacation.php:43
 msgid "Start of vacation:"
-msgstr "Tatil'in başlangıcı:"
+msgstr "Tatil'in baÅŸlangÄ±cÄ±:"
 
 #: templates/rule/footer.inc:50
 msgid "Stop checking if this rule matches?"
-msgstr "Bu kuralın eşleşip eşleşmediğini kontrol etmeyi durdur"
+msgstr "Bu kuralÄ±n eÅŸleÅŸip eÅŸleÅŸmediÄŸini kontrol etmeyi durdur"
 
 #: config/fields.php.dist:31
 msgid "Subject"
@@ -832,7 +832,7 @@ msgstr "Konu"
 
 #: vacation.php:46
 msgid "Subject of vacation message:"
-msgstr "Tatil mesajının Konusu:"
+msgstr "Tatil mesajÄ±nÄ±n Konusu:"
 
 #: lib/Script/sieve.php:2928
 msgid "Subject:"
@@ -850,15 +850,15 @@ msgstr "\"%s\", adresi beyaz listesine eklendi."
 
 #: lib/Ingo.php:141
 msgid "The driver said: "
-msgstr "Sürücünün belirttiği: "
+msgstr "SÃ¼rÃ¼cÃ¼nÃ¼n belirttiÄŸi: "
 
 #: lib/Ingo.php:140
 msgid "There was an error activating the script."
-msgstr "Betik etkinleştirlirken bir hata oluştu."
+msgstr "Betik etkinleÅŸtirlirken bir hata oluÅŸtu."
 
 #: lib/Ingo.php:139
 msgid "There was an error deactivating the script."
-msgstr "Betiğin etkinliği kaldırılırken bir hata oluştu. "
+msgstr "BetiÄŸin etkinliÄŸi kaldÄ±rÄ±lÄ±rken bir hata oluÅŸtu. "
 
 #: config/fields.php.dist:27
 msgid "To"
@@ -871,11 +871,11 @@ msgstr "Kime:"
 #: lib/Script.php:126
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s in tanımı yüklenemedi."
+msgstr "%s in tanÄ±mÄ± yÃ¼klenemedi."
 
 #: templates/rule/filter.inc:15
 msgid "User header"
-msgstr "Kullanıcı başlığı"
+msgstr "KullanÄ±cÄ± baÅŸlÄ±ÄŸÄ±"
 
 #: filters.php:186 vacation.php:151 lib/Block/overview.php:61
 #: lib/Block/overview.php:64 lib/Script/procmail.php:268
@@ -885,15 +885,15 @@ msgstr "Tatil"
 
 #: vacation.php:158
 msgid "Vacation Edit"
-msgstr "Tatil Düzenle"
+msgstr "Tatil DÃ¼zenle"
 
 #: vacation.php:18
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "Tatil yürürlükteki süzgeç sürücüsü tarafından desteklenmemektedir."
+msgstr "Tatil yÃ¼rÃ¼rlÃ¼kteki sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼sÃ¼ tarafÄ±ndan desteklenmemektedir."
 
 #: rule.php:353
 msgid "Value"
-msgstr "Değer"
+msgstr "DeÄŸer"
 
 #: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
@@ -906,12 +906,12 @@ msgstr "Beyaz Liste"
 
 #: whitelist.php:57
 msgid "Whitelist Edit"
-msgstr "Beyaz Listeyi Düzenle"
+msgstr "Beyaz Listeyi DÃ¼zenle"
 
 #: whitelist.php:20
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr ""
-"Beyaz Liste yürürlükteki süzgeç sürücüsü tarafından desteklenmemektedir."
+"Beyaz Liste yÃ¼rÃ¼rlÃ¼kteki sÃ¼zgeÃ§ sÃ¼rÃ¼cÃ¼sÃ¼ tarafÄ±ndan desteklenmemektedir."
 
 #: lib/Script/procmail.php:236 lib/Script/maildrop.php:224
 #: lib/Script/sieve.php:329
@@ -920,11 +920,11 @@ msgstr "Beyaz Listedeki Adresler"
 
 #: config/fields.php.dist:79
 msgid "X-Priority"
-msgstr "X-Önceliği"
+msgstr "X-Ã–nceliÄŸi"
 
 #: config/fields.php.dist:67
 msgid "X-Spam-Level"
-msgstr "X-Spam-Düzeyi"
+msgstr "X-Spam-DÃ¼zeyi"
 
 #: config/fields.php.dist:71
 msgid "X-Spam-Score"
@@ -937,28 +937,28 @@ msgstr "X-Spam-Durumu"
 #: filters.php:71 rule.php:172
 #, php-format
 msgid "You are not allowed to create more than %d rules."
-msgstr "%d den fazla kural oluşturma izniniz yok."
+msgstr "%d den fazla kural oluÅŸturma izniniz yok."
 
 #: filters.php:63 rule.php:23
 msgid "You are not allowed to create or edit custom rules."
-msgstr "Genel kural oluşturma ve düzenleme yetkiniz yok."
+msgstr "Genel kural oluÅŸturma ve dÃ¼zenleme yetkiniz yok."
 
 #: rule.php:96
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
-msgstr "Boş durumlar oluşturma yetkiniz yok, Lütfen \"%s\" değerini giriniz."
+msgstr "BoÅŸ durumlar oluÅŸturma yetkiniz yok, LÃ¼tfen \"%s\" deÄŸerini giriniz."
 
 #: filters.php:52 rule.php:151
 msgid "You do not have permission to delete filter rules."
-msgstr "Filtre kuralları silme yetkiniz yok."
+msgstr "Filtre kurallarÄ± silme yetkiniz yok."
 
 #: filters.php:45 filters.php:112 filters.php:123 rule.php:58 rule.php:165
 msgid "You do not have permission to edit filter rules."
-msgstr "Filtre kuralları düzenleme yetkiniz yok ."
+msgstr "Filtre kurallarÄ± dÃ¼zenleme yetkiniz yok ."
 
 #: lib/Script/sieve.php:2926
 msgid "You have received a new message"
-msgstr "Yeni bir ileti aldınız"
+msgstr "Yeni bir ileti aldÄ±nÄ±z"
 
 #: lib/Script/imap.php:307 lib/Script/imap.php:330 lib/Script/imap.php:345
 msgid "[No Subject]"
@@ -970,23 +970,23 @@ msgstr "_Kara Liste"
 
 #: templates/blacklist/blacklist.inc:18
 msgid "_Delete message completely"
-msgstr "İletitiyi tamamen _Sil"
+msgstr "Ä°letitiyi tamamen _Sil"
 
 #: templates/blacklist/blacklist.inc:32
 msgid "_Enter each address on a new line:"
-msgstr "_Her adresi yeni bir satırda girin:"
+msgstr "_Her adresi yeni bir satÄ±rda girin:"
 
 #: lib/Ingo.php:390
 msgid "_Forward"
-msgstr "İ_let"
+msgstr "Ä°_let"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "_Move message to folder:"
-msgstr "İletiyi dizine _Taşı:"
+msgstr "Ä°letiyi dizine _TaÅŸÄ±:"
 
 #: lib/Ingo.php:399
 msgid "_Permissions"
-msgstr "İ_zinler"
+msgstr "Ä°_zinler"
 
 #: lib/Ingo.php:396
 msgid "_Script"
@@ -1010,7 +1010,7 @@ msgstr "ve"
 
 #: templates/filters/filter.html:19
 msgid "disabled - click to enable"
-msgstr "Faal değil-faal olması için tıklayınız"
+msgstr "Faal deÄŸil-faal olmasÄ± iÃ§in tÄ±klayÄ±nÄ±z"
 
 #: filters.php:218
 msgid "field"
@@ -1018,15 +1018,15 @@ msgstr "alan"
 
 #: lib/Block/overview.php:52
 msgid "inactive"
-msgstr "faal değil"
+msgstr "faal deÄŸil"
 
 #: lib/Script/maildrop.php:134
 msgid "maildrop script generated by Ingo"
-msgstr "Ingo tarafından yaratılan maildrop betiği"
+msgstr "Ingo tarafÄ±ndan yaratÄ±lan maildrop betiÄŸi"
 
 #: filters.php:218
 msgid "match"
-msgstr "eşleşen"
+msgstr "eÅŸleÅŸen"
 
 #: templates/rule/filter.inc:4
 msgid "or"
@@ -1034,4 +1034,4 @@ msgstr "veya"
 
 #: lib/Script/procmail.php:130
 msgid "procmail script generated by Ingo"
-msgstr "Ingo tarafından yaratılan procmail betiği"
+msgstr "Ingo tarafÄ±ndan yaratÄ±lan procmail betiÄŸi"

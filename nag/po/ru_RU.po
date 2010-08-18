@@ -11,49 +11,49 @@ msgstr ""
 "Last-Translator: Alexey Zakharov <baber@mosga.net>\n"
 "Language-Team: Russian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 # fuzzy, php-format
 #: lib/Nag.php:71
 #, php-format
 msgid "%d hour"
-msgstr "%d часа"
+msgstr "%d С‡Р°СЃР°"
 
 #: lib/Nag.php:73
 #, fuzzy, php-format
 msgid "%d hour, %d minute"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: lib/Nag.php:75
 #, fuzzy, php-format
 msgid "%d hour, %d minutes"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: lib/Nag.php:63
 #, fuzzy, php-format
 msgid "%d hours"
-msgstr "24 часа"
+msgstr "24 С‡Р°СЃР°"
 
 #: lib/Nag.php:65
 #, fuzzy, php-format
 msgid "%d hours, %d minute"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: lib/Nag.php:67
 #, fuzzy, php-format
 msgid "%d hours, %d minutes"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: lib/Nag.php:81
 #, fuzzy, php-format
 msgid "%d minute"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: lib/Nag.php:83
 #, fuzzy, php-format
 msgid "%d minutes"
-msgstr "Каждые 5 минут"
+msgstr "РљР°Р¶РґС‹Рµ 5 РјРёРЅСѓС‚"
 
 #: task.php:231
 #, fuzzy, php-format
@@ -61,920 +61,920 @@ msgid "%s is now incomplete."
 msgstr ""
 "#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
 "#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
-"Новое сообщение"
+"РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ"
 
 #: data.php:199
 #, fuzzy, php-format
 msgid "%s successfully imported"
-msgstr "Файл %s успешно импортирован"
+msgstr "Р¤Р°Р№Р» %s СѓСЃРїРµС€РЅРѕ РёРјРїРѕСЂС‚РёСЂРѕРІР°РЅ"
 
 # fuzzy, php-format
 #: tasklists.php:100 lib/Nag.php:516 lib/Forms/DeleteTaskList.php:86
 #, php-format
 msgid "%s's Task List"
-msgstr "Мои Задачи (%s)"
+msgstr "РњРѕРё Р—Р°РґР°С‡Рё (%s)"
 
 #: lib/Nag.php:315 lib/Forms/task.php:58
 msgid "(highest)"
-msgstr "(высший)"
+msgstr "(РІС‹СЃС€РёР№)"
 
 #: lib/Nag.php:315 lib/Forms/task.php:59
 msgid "(lowest)"
-msgstr "(низший)"
+msgstr "(РЅРёР·С€РёР№)"
 
 # fuzzy, php-format
 #: task.php:215
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "Недостаточно прав чтобы завершить задачу %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ С‡С‚РѕР±С‹ Р·Р°РІРµСЂС€РёС‚СЊ Р·Р°РґР°С‡Сѓ %s"
 
 # fuzzy, php-format
 #: task.php:24
 #, fuzzy, php-format
 msgid "Access denied deleting %s"
-msgstr "Недостаточно прав чтобы удалить %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ С‡С‚РѕР±С‹ СѓРґР°Р»РёС‚СЊ %s"
 
 # fuzzy, php-format
 #: task.php:84 task.php:90
 #, fuzzy
 msgid "Access denied editing task."
-msgstr "Недостаточно прав чтобы завершить задачу %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ С‡С‚РѕР±С‹ Р·Р°РІРµСЂС€РёС‚СЊ Р·Р°РґР°С‡Сѓ %s"
 
 # fuzzy, php-format
 #: task.php:82
 #, fuzzy, php-format
 msgid "Access denied editing task: %s"
-msgstr "Недостаточно прав записать задачу: %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ Р·Р°РїРёСЃР°С‚СЊ Р·Р°РґР°С‡Сѓ: %s"
 
 # fuzzy, php-format
 #: task.php:163
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "Недостаточно прав чтобы переместить задачу в %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ С‡С‚РѕР±С‹ РїРµСЂРµРјРµСЃС‚РёС‚СЊ Р·Р°РґР°С‡Сѓ РІ %s"
 
 # fuzzy, php-format
 #: task.php:166
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "Недостаточно прав удалить задачу из %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ СѓРґР°Р»РёС‚СЊ Р·Р°РґР°С‡Сѓ РёР· %s"
 
 # fuzzy, php-format
 #: task.php:125
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "Недостаточно прав записать задачу в %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ Р·Р°РїРёСЃР°С‚СЊ Р·Р°РґР°С‡Сѓ РІ %s"
 
 # fuzzy, php-format
 #: task.php:121
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "Недостаточно прав записать задачу: %s"
+msgstr "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РїСЂР°РІ Р·Р°РїРёСЃР°С‚СЊ Р·Р°РґР°С‡Сѓ: %s"
 
 #: templates/task/task.inc:67
 msgid "Ala_rm"
-msgstr "Уведомить за"
+msgstr "РЈРІРµРґРѕРјРёС‚СЊ Р·Р°"
 
 # fuzzy
 #: templates/view/task.inc:26 lib/Forms/task.php:88
 msgid "Alarm"
-msgstr "Уведомить"
+msgstr "РЈРІРµРґРѕРјРёС‚СЊ"
 
 # fuzzy
 #: config/prefs.php.dist:200
 msgid "All tasks"
-msgstr "Все задачи"
+msgstr "Р’СЃРµ Р·Р°РґР°С‡Рё"
 
 # fuzzy
 # fuzzy
 #: lib/Block/summary.php:63
 msgid "Always show completed tasks?"
-msgstr "Показывать завершенные"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ Р·Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 #: lib/Block/summary.php:60
 msgid "Always show overdue tasks?"
-msgstr "Показывать пропущенные"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ РїСЂРѕРїСѓС‰РµРЅРЅС‹Рµ"
 
 #: config/prefs.php.dist:117
 msgid "Ascending"
-msgstr "Возрастание"
+msgstr "Р’РѕР·СЂР°СЃС‚Р°РЅРёРµ"
 
 # fuzzy
 #: templates/tasklists/tasklists.inc:102
 msgid "Back to Task List Options"
-msgstr "Вернуться к списку задач"
+msgstr "Р’РµСЂРЅСѓС‚СЊСЃСЏ Рє СЃРїРёСЃРєСѓ Р·Р°РґР°С‡"
 
 #: lib/Block/summary.php:39
 #, fuzzy
 msgid "Block title"
-msgstr "Расширение"
+msgstr "Р Р°СЃС€РёСЂРµРЅРёРµ"
 
 #: data.php:30
 msgid "CSV"
-msgstr "CSV-файл"
+msgstr "CSV-С„Р°Р№Р»"
 
 #: templates/task/task.inc:56 lib/UI/VarRenderer/nag.php:58
 #: lib/UI/VarRenderer/nag.php:106
 msgid "Calendar"
-msgstr "Календарь"
+msgstr "РљР°Р»РµРЅРґР°СЂСЊ"
 
 #: lib/Forms/DeleteTaskList.php:45 lib/Forms/DeleteTaskList.php:51
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "РћС‚РјРµРЅР°"
 
 # fuzzy
 # fuzzy
 #: templates/list/task_headers.inc:53
 msgid "Cat_egory"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 # fuzzy
 #: data.php:54 templates/view/task.inc:8 lib/Forms/task.php:76
 #: lib/Forms/task.php:82 config/prefs.php.dist:89 config/prefs.php.dist:104
 msgid "Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 #: templates/tasklists/tasklists.inc:22
 msgid "Change"
-msgstr "Изменить"
+msgstr "РР·РјРµРЅРёС‚СЊ"
 
 #: tasklists/index.php:56 templates/tasklist_list.php:35
 #, fuzzy
 msgid "Change Permissions"
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 # fuzzy
 #: config/prefs.php.dist:14
 msgid "Change your task sorting and display options."
-msgstr "Изменить опции отображения и поиска в списке задач"
+msgstr "РР·РјРµРЅРёС‚СЊ РѕРїС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ Рё РїРѕРёСЃРєР° РІ СЃРїРёСЃРєРµ Р·Р°РґР°С‡"
 
 #: config/prefs.php.dist:179
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr "Каким образом вы желаете получить уведомление:"
+msgstr "РљР°РєРёРј РѕР±СЂР°Р·РѕРј РІС‹ Р¶РµР»Р°РµС‚Рµ РїРѕР»СѓС‡РёС‚СЊ СѓРІРµРґРѕРјР»РµРЅРёРµ:"
 
 #: config/prefs.php.dist:170
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
-msgstr "Уведомлять о новой, измененной или удаленной задаче по e-mail:"
+msgstr "РЈРІРµРґРѕРјР»СЏС‚СЊ Рѕ РЅРѕРІРѕР№, РёР·РјРµРЅРµРЅРЅРѕР№ РёР»Рё СѓРґР°Р»РµРЅРЅРѕР№ Р·Р°РґР°С‡Рµ РїРѕ e-mail:"
 
 #: config/prefs.php.dist:42
 msgid "Choose if you want to be notified of task changes and task alarms."
-msgstr "Настройка оповещений в случае изменения задачи и сигналов напоминания"
+msgstr "РќР°СЃС‚СЂРѕР№РєР° РѕРїРѕРІРµС‰РµРЅРёР№ РІ СЃР»СѓС‡Р°Рµ РёР·РјРµРЅРµРЅРёСЏ Р·Р°РґР°С‡Рё Рё СЃРёРіРЅР°Р»РѕРІ РЅР°РїРѕРјРёРЅР°РЅРёСЏ"
 
 # fuzzy
 #: config/prefs.php.dist:35
 msgid "Choose your default task list."
-msgstr "Выбрать ваш список задач по умолчанию"
+msgstr "Р’С‹Р±СЂР°С‚СЊ РІР°С€ СЃРїРёСЃРѕРє Р·Р°РґР°С‡ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ"
 
 #: templates/tasklist_list.php:31 templates/tasklist_list.php:32
 msgid "Click or copy this URL to display this task list"
-msgstr "Нажмите или скопируйте эту ссылку для отображение списка задач"
+msgstr "РќР°Р¶РјРёС‚Рµ РёР»Рё СЃРєРѕРїРёСЂСѓР№С‚Рµ СЌС‚Сѓ СЃСЃС‹Р»РєСѓ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°С‡"
 
 # fuzzy
 #: templates/panel.inc:43
 msgid "Close"
-msgstr "Закрыть"
+msgstr "Р—Р°РєСЂС‹С‚СЊ"
 
 #: templates/list/header.inc:8
 #, fuzzy
 msgid "Close Search"
-msgstr "Очистить"
+msgstr "РћС‡РёСЃС‚РёС‚СЊ"
 
 # fuzzy
 #: templates/task/task.inc:88
 msgid "Co_mpleted?"
-msgstr "Завершено?"
+msgstr "Р—Р°РІРµСЂС€РµРЅРѕ?"
 
 # fuzzy
 #: templates/view/task.inc:42
 msgid "Complete Task"
-msgstr "Завершить задачу"
+msgstr "Р—Р°РІРµСЂС€РёС‚СЊ Р·Р°РґР°С‡Сѓ"
 
 # fuzzy
 #: templates/search/search.inc:27
 msgid "Completed Tasks"
-msgstr "Завершенные"
+msgstr "Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 # fuzzy
 #: templates/view/task.inc:38 templates/list/task_headers.inc:31
 #: lib/Forms/task.php:94 config/prefs.php.dist:91 config/prefs.php.dist:106
 msgid "Completed?"
-msgstr "Завершена?"
+msgstr "Р—Р°РІРµСЂС€РµРЅР°?"
 
 #: data.php:58
 #, fuzzy
 msgid "Completion Status"
-msgstr "Дата создания"
+msgstr "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ"
 
 #: lib/api.php:317 lib/api.php:544
 #, fuzzy, php-format
 msgid "Connection failed: %s"
-msgstr "Неудачное соединение с сервером LDAP."
+msgstr "РќРµСѓРґР°С‡РЅРѕРµ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ СЃРµСЂРІРµСЂРѕРј LDAP."
 
 #: templates/tasklists/tasklists.inc:17 templates/tasklists/tasklists.inc:99
 #: templates/tasklists/tasklists.inc:101 lib/Forms/CreateTaskList.php:39
 msgid "Create"
-msgstr "Создать"
+msgstr "РЎРѕР·РґР°С‚СЊ"
 
 #: lib/Forms/CreateTaskList.php:34
 msgid "Create a new Task List"
-msgstr "Создать новый список задач"
+msgstr "РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ СЃРїРёСЃРѕРє Р·Р°РґР°С‡"
 
 #: templates/view/task.inc:57
 msgid "Created"
-msgstr "Создана"
+msgstr "РЎРѕР·РґР°РЅР°"
 
 #: lib/UI/VarRenderer/nag.php:51 lib/UI/VarRenderer/nag.php:100
 #, fuzzy
 msgid "Day"
-msgstr "Ежедневно"
+msgstr "Р•Р¶РµРґРЅРµРІРЅРѕ"
 
 # fuzzy
 #: templates/task/task.inc:76 lib/Nag.php:411 lib/UI/VarRenderer/nag.php:136
 msgid "Day(s)"
-msgstr "Дней"
+msgstr "Р”РЅРµР№"
 
 # fuzzy
 #: config/prefs.php.dist:34
 msgid "Default Task List"
-msgstr "Cписок задач по умолчанию"
+msgstr "CРїРёСЃРѕРє Р·Р°РґР°С‡ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ"
 
 # fuzzy
 #: config/prefs.php.dist:28
 msgid "Defaults for new tasks"
-msgstr "Значения по умолчанию для новых задач"
+msgstr "Р—РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РЅРѕРІС‹С… Р·Р°РґР°С‡"
 
 #: lib/Forms/task.php:87
 msgid "Delay Start Until"
-msgstr "Отложить начало до"
+msgstr "РћС‚Р»РѕР¶РёС‚СЊ РЅР°С‡Р°Р»Рѕ РґРѕ"
 
 #: view.php:106 tasklists/index.php:57 templates/tasklist_list.php:37
 #: templates/tasklists/tasklists.inc:100 lib/Forms/DeleteTaskList.php:45
 msgid "Delete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 #: lib/Forms/DeleteTaskList.php:40
 #, php-format
 msgid "Delete %s"
-msgstr "Удалить %s"
+msgstr "РЈРґР°Р»РёС‚СЊ %s"
 
 # fuzzy
 #: config/prefs.php.dist:20
 msgid "Delete Confirmation"
-msgstr "Удаление"
+msgstr "РЈРґР°Р»РµРЅРёРµ"
 
 #: config/prefs.php.dist:21
 msgid "Delete button behaviour"
-msgstr "Подтверждение операции удаления"
+msgstr "РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ РѕРїРµСЂР°С†РёРё СѓРґР°Р»РµРЅРёСЏ"
 
 # fuzzy
 # fuzzy
 #: task.php:105 templates/task/task.inc:110 lib/Forms/task.php:99
 msgid "Delete this task"
-msgstr "Удалить зту задачу"
+msgstr "РЈРґР°Р»РёС‚СЊ Р·С‚Сѓ Р·Р°РґР°С‡Сѓ"
 
 # fuzzy, php-format
 #: task.php:32
 #, php-format
 msgid "Deleted %s."
-msgstr "Задача %s удалена"
+msgstr "Р—Р°РґР°С‡Р° %s СѓРґР°Р»РµРЅР°"
 
 #: config/prefs.php.dist:118
 msgid "Descending"
-msgstr "Убывание"
+msgstr "РЈР±С‹РІР°РЅРёРµ"
 
 #: data.php:53 lib/Forms/EditTaskList.php:44 lib/Forms/CreateTaskList.php:37
 #: lib/Forms/task.php:95
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 # fuzzy
 # fuzzy
 #: templates/tasklists/tasklists.inc:90
 msgid "Description:"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 #: config/prefs.php.dist:13
 msgid "Display Options"
-msgstr "Отображение"
+msgstr "РћС‚РѕР±СЂР°Р¶РµРЅРёРµ"
 
 #: templates/tasklist_list.php:16
 msgid "Display URL"
-msgstr "Ссылка для отображения"
+msgstr "РЎСЃС‹Р»РєР° РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ"
 
 # fuzzy
 #: config/prefs.php.dist:128
 msgid "Do you want to confirm deleting entries?"
-msgstr "Запрашивать подтверждение при удалении записей?"
+msgstr "Р—Р°РїСЂР°С€РёРІР°С‚СЊ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ РїСЂРё СѓРґР°Р»РµРЅРёРё Р·Р°РїРёСЃРµР№?"
 
 #: data.php:55 templates/view/task.inc:22 lib/Forms/task.php:86
 msgid "Due By"
-msgstr "Завершить до"
+msgstr "Р—Р°РІРµСЂС€РёС‚СЊ РґРѕ"
 
 #: config/prefs.php.dist:90 config/prefs.php.dist:105
 msgid "Due Date"
-msgstr "Дата завершения"
+msgstr "Р”Р°С‚Р° Р·Р°РІРµСЂС€РµРЅРёСЏ"
 
 # fuzzy
 #: templates/task/task.inc:45
 msgid "Due _By"
-msgstr "Завершить до"
+msgstr "Р—Р°РІРµСЂС€РёС‚СЊ РґРѕ"
 
 #: lib/UI/VarRenderer/nag.php:99
 #, fuzzy
 msgid "Due date specified."
-msgstr "Было указано некорректное значение."
+msgstr "Р‘С‹Р»Рѕ СѓРєР°Р·Р°РЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ."
 
 #: templates/list/task_summaries.inc:38 lib/Block/summary.php:166
 #, fuzzy, php-format
 msgid "Edit \"%s\""
-msgstr "Редактирование '%s'"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ '%s'"
 
 #: lib/Forms/EditTaskList.php:40
 #, php-format
 msgid "Edit %s"
-msgstr "Редактирование %s"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ %s"
 
 # fuzzy
 #: templates/list/task_headers.inc:42
 msgid "Edit Task"
-msgstr "Редактировать"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ"
 
 # fuzzy
 #: templates/list/task_headers.inc:58
 msgid "Edit categories and colors"
-msgstr "Категории и метки"
+msgstr "РљР°С‚РµРіРѕСЂРёРё Рё РјРµС‚РєРё"
 
 #: task.php:95 task.php:109
 #, fuzzy, php-format
 msgid "Edit: %s"
-msgstr "Редактирование %s"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ %s"
 
 #: task.php:19
 #, fuzzy, php-format
 msgid "Error deleting task: %s"
-msgstr "Ошибка при импорте данных."
+msgstr "РћС€РёР±РєР° РїСЂРё РёРјРїРѕСЂС‚Рµ РґР°РЅРЅС‹С…."
 
 #: templates/view/task.inc:34 lib/Forms/task.php:93
 msgid "Estimated Time"
-msgstr "Временые затраты"
+msgstr "Р’СЂРµРјРµРЅС‹Рµ Р·Р°С‚СЂР°С‚С‹"
 
 #: templates/data/export.inc:17
 msgid "Export"
-msgstr "Экспорт"
+msgstr "Р­РєСЃРїРѕСЂС‚"
 
 # fuzzy
 #: templates/data/export.inc:6
 msgid "Export Tasks"
-msgstr "Экспорт задач"
+msgstr "Р­РєСЃРїРѕСЂС‚ Р·Р°РґР°С‡"
 
 # fuzzy
 #: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
 msgid "General Options"
-msgstr "Общие настройки"
+msgstr "РћР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё"
 
 #: lib/UI/VarRenderer/nag.php:111
 #, fuzzy
 msgid "Hour"
-msgstr "Часов"
+msgstr "Р§Р°СЃРѕРІ"
 
 #: templates/task/task.inc:75 lib/Nag.php:414 lib/UI/VarRenderer/nag.php:135
 msgid "Hour(s)"
-msgstr "Часов"
+msgstr "Р§Р°СЃРѕРІ"
 
 # fuzzy, php-format
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "Импортирование задач, Шаг %d"
+msgstr "РРјРїРѕСЂС‚РёСЂРѕРІР°РЅРёРµ Р·Р°РґР°С‡, РЁР°Рі %d"
 
 # fuzzy
 # fuzzy
 #: data.php:205
 msgid "Import/Export Tasks"
-msgstr "Импорт/Экспорт"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚"
 
 # fuzzy
 #: list.php:112
 msgid "Incom_plete tasks"
-msgstr "Незавершенные"
+msgstr "РќРµР·Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 # fuzzy
 #: templates/search/search.inc:26
 msgid "Incomplete Tasks"
-msgstr "Незавершенные"
+msgstr "РќРµР·Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 # fuzzy
 #: config/prefs.php.dist:201
 msgid "Incomplete tasks"
-msgstr "Незавершенные"
+msgstr "РќРµР·Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 #: templates/view/task.inc:64
 msgid "Last Modified"
-msgstr "Исправлена"
+msgstr "РСЃРїСЂР°РІР»РµРЅР°"
 
 # fuzzy
 #: tasklists/index.php:61 templates/tasklist_list.php:2
 msgid "Manage Task Lists"
-msgstr "Управление списками задач"
+msgstr "РЈРїСЂР°РІР»РµРЅРёРµ СЃРїРёСЃРєР°РјРё Р·Р°РґР°С‡"
 
 #: lib/api.php:120
 #, fuzzy
 msgid "Maximum Number of Tasks"
-msgstr "Максимальное количество страниц"
+msgstr "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂР°РЅРёС†"
 
 # fuzzy
 #: lib/Block/tree_alarms.php:3
 #, fuzzy
 msgid "Menu Alarms"
-msgstr "Уведомить"
+msgstr "РЈРІРµРґРѕРјРёС‚СЊ"
 
 # fuzzy
 #: lib/UI/VarRenderer/nag.php:112
 #, fuzzy
 msgid "Minute"
-msgstr "Минут"
+msgstr "РњРёРЅСѓС‚"
 
 # fuzzy
 #: templates/task/task.inc:74 lib/Nag.php:417 lib/UI/VarRenderer/nag.php:135
 msgid "Minute(s)"
-msgstr "Минут"
+msgstr "РњРёРЅСѓС‚"
 
 #: lib/UI/VarRenderer/nag.php:52 lib/UI/VarRenderer/nag.php:101
 #, fuzzy
 msgid "Month"
-msgstr "Ежемесячно"
+msgstr "Р•Р¶РµРјРµСЃСЏС‡РЅРѕ"
 
 #: templates/list/header.inc:9
 #, fuzzy
 msgid "More Options..."
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 # fuzzy
 #: templates/panel.inc:70
 msgid "My Task Lists:"
-msgstr "Мои списки задач:"
+msgstr "РњРѕРё СЃРїРёСЃРєРё Р·Р°РґР°С‡:"
 
 # fuzzy
 #: list.php:34
 msgid "My Tasks"
-msgstr "Мои Задачи"
+msgstr "РњРѕРё Р—Р°РґР°С‡Рё"
 
 # fuzzy
 #: templates/search/search.inc:18 templates/task/task.inc:17
 msgid "N_ame"
-msgstr "Название"
+msgstr "РќР°Р·РІР°РЅРёРµ"
 
 # fuzzy
 #: templates/list/task_headers.inc:45
 msgid "Na_me"
-msgstr "Задача"
+msgstr "Р—Р°РґР°С‡Р°"
 
 #: data.php:52 lib/Forms/EditTaskList.php:43 lib/Forms/CreateTaskList.php:36
 #: lib/Forms/task.php:65
 msgid "Name"
-msgstr "Название"
+msgstr "РќР°Р·РІР°РЅРёРµ"
 
 #: task.php:74 task.php:109 lib/Block/tree_menu.php:26
 msgid "New Task"
-msgstr "Новая задача"
+msgstr "РќРѕРІР°СЏ Р·Р°РґР°С‡Р°"
 
 #: templates/data/import.inc:39
 msgid "Next"
-msgstr "Далее"
+msgstr "Р”Р°Р»РµРµ"
 
 #: config/prefs.php.dist:166
 msgid "No"
-msgstr "Нет"
+msgstr "РќРµС‚"
 
 #: lib/UI/VarRenderer/nag.php:46
 msgid "No delay"
-msgstr "Не откладывать"
+msgstr "РќРµ РѕС‚РєР»Р°РґС‹РІР°С‚СЊ"
 
 #: templates/task/task.inc:48 lib/UI/VarRenderer/nag.php:95
 msgid "No due date."
-msgstr "Нет даты завершения."
+msgstr "РќРµС‚ РґР°С‚С‹ Р·Р°РІРµСЂС€РµРЅРёСЏ."
 
 #: lib/api.php:405 lib/api.php:724 lib/api.php:782 lib/api.php:994
 #, fuzzy
 msgid "No iCalendar data was found."
-msgstr "Прикрепленные"
+msgstr "РџСЂРёРєСЂРµРїР»РµРЅРЅС‹Рµ"
 
 #: lib/Forms/task.php:50
 msgid "No parent task"
-msgstr "Нет родительской задачи"
+msgstr "РќРµС‚ СЂРѕРґРёС‚РµР»СЊСЃРєРѕР№ Р·Р°РґР°С‡Рё"
 
 #: templates/list/task_footers.inc:5
 #, fuzzy
 msgid "No tasks match"
-msgstr "НЕ совпадает"
+msgstr "РќР• СЃРѕРІРїР°РґР°РµС‚"
 
 #: lib/Block/summary.php:229
 #, fuzzy
 msgid "No tasks to display"
-msgstr "Список задач пуст."
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ РїСѓСЃС‚."
 
 #: templates/task/task.inc:70 lib/Nag.php:421 lib/UI/VarRenderer/nag.php:151
 msgid "None"
-msgstr "Нет"
+msgstr "РќРµС‚"
 
 #: lib/Driver/sql.php:100 lib/Driver/sql.php:136
 #, fuzzy
 msgid "Not found"
-msgstr "Отменить изменения"
+msgstr "РћС‚РјРµРЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ"
 
 #: config/prefs.php.dist:41
 msgid "Notifications"
-msgstr "Настройки оповещения"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РѕРїРѕРІРµС‰РµРЅРёСЏ"
 
 #: config/prefs.php.dist:168
 msgid "On all shown tasklists"
-msgstr "По всему списку задач"
+msgstr "РџРѕ РІСЃРµРјСѓ СЃРїРёСЃРєСѓ Р·Р°РґР°С‡"
 
 #: config/prefs.php.dist:169
 msgid "On all tasklists I have read access to"
-msgstr "По всем спискам задач, которые я могу читать"
+msgstr "РџРѕ РІСЃРµРј СЃРїРёСЃРєР°Рј Р·Р°РґР°С‡, РєРѕС‚РѕСЂС‹Рµ СЏ РјРѕРіСѓ С‡РёС‚Р°С‚СЊ"
 
 # fuzzy
 #: config/prefs.php.dist:167
 msgid "On my tasklists only"
-msgstr "Только по моему списку задач"
+msgstr "РўРѕР»СЊРєРѕ РїРѕ РјРѕРµРјСѓ СЃРїРёСЃРєСѓ Р·Р°РґР°С‡"
 
 # fuzzy
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
-msgstr "Пр"
+msgstr "РџСЂ"
 
 #: lib/Forms/task.php:72
 msgid "Parent task"
-msgstr "Родительская задача"
+msgstr "Р РѕРґРёС‚РµР»СЊСЃРєР°СЏ Р·Р°РґР°С‡Р°"
 
 #: templates/tasklists/tasklists.inc:87
 msgid "Permission"
-msgstr "Изменить права доступа"
+msgstr "РР·РјРµРЅРёС‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°"
 
 #: lib/api.php:591 lib/api.php:629 lib/api.php:662 lib/api.php:698
 #: lib/api.php:820 lib/api.php:875 lib/api.php:939 lib/api.php:976
 #: lib/api.php:1087 lib/api.php:1134
 #, fuzzy
 msgid "Permission Denied"
-msgstr "Изменить права доступа"
+msgstr "РР·РјРµРЅРёС‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°"
 
 #: lib/api.php:178 lib/Forms/DeleteTaskList.php:56
 #, fuzzy
 msgid "Permission denied"
-msgstr "Изменить права доступа"
+msgstr "РР·РјРµРЅРёС‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°"
 
 #: data.php:57 templates/view/task.inc:30 lib/Forms/task.php:90
 #: config/prefs.php.dist:87 config/prefs.php.dist:102
 msgid "Priority"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 #: templates/view/task.inc:14 lib/Driver.php:907
 msgid "Private"
-msgstr "Личная"
+msgstr "Р›РёС‡РЅР°СЏ"
 
 #: lib/Driver.php:905
 msgid "Private Task"
-msgstr "Личная задача"
+msgstr "Р›РёС‡РЅР°СЏ Р·Р°РґР°С‡Р°"
 
 #: templates/view/task.inc:12 lib/Forms/task.php:85
 msgid "Private?"
-msgstr "Личная"
+msgstr "Р›РёС‡РЅР°СЏ"
 
 # fuzzy
 # fuzzy
 #: view.php:106
 #, fuzzy
 msgid "Really delete this task?"
-msgstr "Удалить зту задачу"
+msgstr "РЈРґР°Р»РёС‚СЊ Р·С‚Сѓ Р·Р°РґР°С‡Сѓ"
 
 #: templates/tasklists/tasklists.inc:101
 msgid "Reset"
-msgstr "Сбросить"
+msgstr "РЎР±СЂРѕСЃРёС‚СЊ"
 
 # fuzzy
 #: templates/panel.inc:88 templates/task/task.inc:102
 #: lib/Forms/EditTaskList.php:46 lib/Forms/task.php:97
 msgid "Save"
-msgstr "Записать"
+msgstr "Р—Р°РїРёСЃР°С‚СЊ"
 
 # fuzzy, php-format
 # fuzzy, php-format
 #: task.php:194
 #, php-format
 msgid "Saved %s."
-msgstr "Задача '%s' сохранена"
+msgstr "Р—Р°РґР°С‡Р° '%s' СЃРѕС…СЂР°РЅРµРЅР°"
 
 #: search.php:14 templates/search/search.inc:31 templates/list/header.inc:4
 #: lib/Block/tree_menu.php:46
 msgid "Search"
-msgstr "Поиск"
+msgstr "РџРѕРёСЃРє"
 
 #: templates/search/search.inc:17
 msgid "Search In:"
-msgstr "Искать в:"
+msgstr "РСЃРєР°С‚СЊ РІ:"
 
 # fuzzy
 #: templates/search/search.inc:12
 msgid "Search _Text:"
-msgstr "Что ищем"
+msgstr "Р§С‚Рѕ РёС‰РµРј"
 
 #: templates/panel.inc:58
 msgid "Search for Task Lists:"
-msgstr "Искать задачу:"
+msgstr "РСЃРєР°С‚СЊ Р·Р°РґР°С‡Сѓ:"
 
 #: templates/search/search.inc:24
 msgid "Search:"
-msgstr "Искать:"
+msgstr "РСЃРєР°С‚СЊ:"
 
 # fuzzy
 #: templates/tasklists/tasklists.inc:72
 msgid "Select a task list"
-msgstr "Выберите список задач:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ СЃРїРёСЃРѕРє Р·Р°РґР°С‡:"
 
 # fuzzy
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "Выберите формат файла для экспорта:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ С„Р°Р№Р»Р° РґР»СЏ СЌРєСЃРїРѕСЂС‚Р°:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "Импортируемый файл:"
+msgstr "РРјРїРѕСЂС‚РёСЂСѓРµРјС‹Р№ С„Р°Р№Р»:"
 
 # fuzzy
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
-msgstr "Выберите формат файла для импорта:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ С„Р°Р№Р»Р° РґР»СЏ РёРјРїРѕСЂС‚Р°:"
 
 # fuzzy
 # fuzzy
 #: templates/panel.inc:79
 #, fuzzy
 msgid "Shared Task Lists:"
-msgstr "Списки задач:"
+msgstr "РЎРїРёСЃРєРё Р·Р°РґР°С‡:"
 
 #: config/prefs.php.dist:68
 msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "Отобразить название списка задач отдельной колонкой при выборе задачи?"
+msgstr "РћС‚РѕР±СЂР°Р·РёС‚СЊ РЅР°Р·РІР°РЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°С‡ РѕС‚РґРµР»СЊРЅРѕР№ РєРѕР»РѕРЅРєРѕР№ РїСЂРё РІС‹Р±РѕСЂРµ Р·Р°РґР°С‡Рё?"
 
 # fuzzy
 #: lib/Block/summary.php:45
 msgid "Show action buttons?"
-msgstr "Кнопки"
+msgstr "РљРЅРѕРїРєРё"
 
 # fuzzy
 #: lib/Block/summary.php:48
 msgid "Show due dates?"
-msgstr "Даты завершения"
+msgstr "Р”Р°С‚С‹ Р·Р°РІРµСЂС€РµРЅРёСЏ"
 
 # fuzzy
 #: lib/Block/summary.php:42
 msgid "Show priorities?"
-msgstr "Приоритеты"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚С‹"
 
 # fuzzy
 #: lib/Block/summary.php:54
 msgid "Show task alarms?"
-msgstr "Напоминания"
+msgstr "РќР°РїРѕРјРёРЅР°РЅРёСЏ"
 
 # fuzzy
 #: lib/Block/summary.php:57
 msgid "Show task category?"
-msgstr "Категории"
+msgstr "РљР°С‚РµРіРѕСЂРёРё"
 
 # fuzzy
 #: config/prefs.php.dist:78
 msgid "Show task list options panel?"
-msgstr "Показывать панель опций для списка задач?"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ РїР°РЅРµР»СЊ РѕРїС†РёР№ РґР»СЏ СЃРїРёСЃРєР° Р·Р°РґР°С‡?"
 
 # fuzzy
 #: lib/Block/summary.php:51
 msgid "Show tasklist name?"
-msgstr "Название списка задач"
+msgstr "РќР°Р·РІР°РЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°С‡"
 
 # fuzzy
 #: lib/Block/summary.php:70
 msgid "Show tasks from these categories"
-msgstr "Показать категории:"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РєР°С‚РµРіРѕСЂРёРё:"
 
 # fuzzy
 #: lib/Block/summary.php:66
 #, fuzzy
 msgid "Show tasks from these tasklists"
-msgstr "Показать категории:"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РєР°С‚РµРіРѕСЂРёРё:"
 
 #: templates/list/task_headers.inc:53
 #, fuzzy
 msgid "Sort by Category"
-msgstr "Сортировать по теме"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ С‚РµРјРµ"
 
 #: templates/list/task_headers.inc:31
 #, fuzzy
 msgid "Sort by Completion Status"
-msgstr "Дата создания"
+msgstr "Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ"
 
 #: templates/list/task_headers.inc:50
 msgid "Sort by Due Date"
-msgstr "Сортировать по дате завершения"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РґР°С‚Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ"
 
 #: templates/list/task_headers.inc:45
 msgid "Sort by Name"
-msgstr "Сортировать по имени"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РёРјРµРЅРё"
 
 #: templates/list/task_headers.inc:39
 msgid "Sort by Priority"
-msgstr "Сортировать по приоритету"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РїСЂРёРѕСЂРёС‚РµС‚Сѓ"
 
 #: templates/list/task_headers.inc:35
 #, fuzzy
 msgid "Sort by User Name"
-msgstr "Сортировать по имени"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ РёРјРµРЅРё"
 
 # fuzzy
 #: config/prefs.php.dist:119
 msgid "Sort direction:"
-msgstr "Порядок сортировки:"
+msgstr "РџРѕСЂСЏРґРѕРє СЃРѕСЂС‚РёСЂРѕРІРєРё:"
 
 #: config/prefs.php.dist:93
 msgid "Sort tasks by:"
-msgstr "Сортировать по:"
+msgstr "РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ РїРѕ:"
 
 # fuzzy
 #: templates/tasklist_list.php:17
 msgid "Subscription URL"
-msgstr "Ссылка для подписки"
+msgstr "РЎСЃС‹Р»РєР° РґР»СЏ РїРѕРґРїРёСЃРєРё"
 
 #: templates/list/task_summaries.inc:57
 #, fuzzy
 msgid "Task Alarm"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 #: templates/list/task_headers.inc:48
 #, fuzzy
 msgid "Task Alarm?"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 #: config/prefs.php.dist:27
 msgid "Task Defaults"
-msgstr "Умолчания"
+msgstr "РЈРјРѕР»С‡Р°РЅРёСЏ"
 
 # fuzzy
 #: templates/tasklist_list.php:15 templates/tasklists/tasklists.inc:66
 #: lib/Forms/task.php:68
 msgid "Task List"
-msgstr "Список задач"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡"
 
 # fuzzy
 #: templates/tasklist_list.php:12
 #, fuzzy
 msgid "Task List List"
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 # fuzzy
 #: config/prefs.php.dist:33 config/prefs.php.dist:40 config/prefs.php.dist:55
 msgid "Task List and Share Options"
-msgstr "Прочие настройки"
+msgstr "РџСЂРѕС‡РёРµ РЅР°СЃС‚СЂРѕР№РєРё"
 
 # fuzzy
 #: templates/tasklist_info.php:6
 #, fuzzy, php-format
 msgid "Task List owned by %s."
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 # fuzzy
 #: templates/tasklists/tasklists.inc:84
 msgid "Task List's name:"
-msgstr "Название списка задач"
+msgstr "РќР°Р·РІР°РЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°С‡"
 
 # fuzzy
 #: tasklists.php:111 templates/panel.inc:52 templates/panel.inc:53
 msgid "Task Lists"
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 #: config/prefs.php.dist:88 config/prefs.php.dist:103
 msgid "Task Name"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 #: templates/list/task_summaries.inc:55
 #, fuzzy
 msgid "Task Note"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 #: templates/list/task_headers.inc:47
 #, fuzzy
 msgid "Task Note?"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 # fuzzy
 #: templates/search/search.inc:6
 msgid "Task Search"
-msgstr "Поиск задачи"
+msgstr "РџРѕРёСЃРє Р·Р°РґР°С‡Рё"
 
 # fuzzy
 #: tasklists.php:28
 msgid "Task lists must have a name."
-msgstr "Вы не задали название списка задач"
+msgstr "Р’С‹ РЅРµ Р·Р°РґР°Р»Рё РЅР°Р·РІР°РЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°С‡"
 
 # fuzzy
 #: config/prefs.php.dist:92 config/prefs.php.dist:107
 msgid "Tasklist"
-msgstr "Список задач"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡"
 
 #: lib/api.php:1056
 msgid "Tasks"
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 # fuzzy
 #: lib/Block/summary.php:3
 msgid "Tasks Summary"
-msgstr "Состояние"
+msgstr "РЎРѕСЃС‚РѕСЏРЅРёРµ"
 
 #: lib/Driver.php:56
 #, fuzzy
 msgid "The Tasks backend is not currently available."
-msgstr "Нет доступных настроек."
+msgstr "РќРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… РЅР°СЃС‚СЂРѕРµРє."
 
 #: lib/Driver.php:137
 #, fuzzy, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "Нет доступных настроек."
+msgstr "РќРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… РЅР°СЃС‚СЂРѕРµРє."
 
 #: lib/Forms/task.php:133
 #, fuzzy
 msgid "The alarm value must not be empty."
 msgstr ""
 "#-#-#-#-#  compendium.po (IMP H3 v4.0.4)  #-#-#-#-#\n"
-"Это значение должно быть числом.\n"
+"Р­С‚Рѕ Р·РЅР°С‡РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‡РёСЃР»РѕРј.\n"
 "#-#-#-#-#  ru_RU.po (0.0.2-cvs)  #-#-#-#-#\n"
-" Значение должно быть числом."
+" Р—РЅР°С‡РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‡РёСЃР»РѕРј."
 
 #: templates/prefs/defaultduetimeselect.inc:8
 msgid "The current hour"
-msgstr "Текущий час"
+msgstr "РўРµРєСѓС‰РёР№ С‡Р°СЃ"
 
 # fuzzy, php-format
 # fuzzy, php-format
 #: tasklists.php:45
 #, php-format
 msgid "The task list \"%s\" couldn't be created: %s"
-msgstr "Список задач '%s' не может быть создан: %s"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕР·РґР°РЅ: %s"
 
 # fuzzy, php-format
 # fuzzy, php-format
 #: tasklists.php:56
 #, php-format
 msgid "The task list \"%s\" couldn't be saved: %s"
-msgstr "Список задач '%s' не может быть сохранен: %s"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕС…СЂР°РЅРµРЅ: %s"
 
 # fuzzy, php-format
 # fuzzy, php-format
 #: tasklists.php:47 tasklists/create.php:31
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "Список задач '%s' был успешно создан"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' Р±С‹Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ"
 
 # fuzzy, php-format
 #: tasklists.php:81 tasklists/delete.php:48
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "Список задач '%s' был удален."
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' Р±С‹Р» СѓРґР°Р»РµРЅ."
 
 # fuzzy, php-format
 # fuzzy, php-format
 #: tasklists/edit.php:42
 #, fuzzy, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "Список задач '%s' был успешно создан"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' Р±С‹Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ"
 
 # fuzzy, php-format
 #: tasklists.php:58 tasklists/edit.php:44
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "Список задач '%s' был сохранен."
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ '%s' Р±С‹Р» СЃРѕС…СЂР°РЅРµРЅ."
 
 #: config/prefs.php.dist:108
 msgid "Then:"
-msgstr "Затем по:"
+msgstr "Р—Р°С‚РµРј РїРѕ:"
 
 # fuzzy
 #: templates/list/empty.inc:2
 msgid "There are no tasks matching the current criteria."
-msgstr "Подходящих задач не найдено"
+msgstr "РџРѕРґС…РѕРґСЏС‰РёС… Р·Р°РґР°С‡ РЅРµ РЅР°Р№РґРµРЅРѕ"
 
 #: lib/Driver.php:140
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Невозможно загрузить определение %s."
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РѕРїСЂРµРґРµР»РµРЅРёРµ %s."
 
 #: lib/Forms/EditTaskList.php:55
 #, fuzzy, php-format
 msgid "Unable to save task list \"%s\": %s"
-msgstr "Ошибка при доступе к указанной адресной книге."
+msgstr "РћС€РёР±РєР° РїСЂРё РґРѕСЃС‚СѓРїРµ Рє СѓРєР°Р·Р°РЅРЅРѕР№ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРµ."
 
 # fuzzy
 #: templates/task/task.inc:103
 msgid "Undo changes"
-msgstr "Отменить изменения"
+msgstr "РћС‚РјРµРЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ"
 
 # fuzzy
 # fuzzy
@@ -982,162 +982,162 @@ msgstr "Отменить изменения"
 #: lib/Nag.php:850 lib/Nag.php:851 lib/Nag.php:865 lib/Nag.php:866
 #: lib/Forms/task.php:81 lib/Block/summary.php:31 lib/Block/summary.php:222
 msgid "Unfiled"
-msgstr "Отсутствует"
+msgstr "РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚"
 
 #: lib/api.php:502 lib/api.php:789 lib/api.php:847 lib/api.php:901
 #: lib/api.php:1026
 #, fuzzy, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 # fuzzy
 #: templates/task/task.inc:77 lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
 msgid "Week(s)"
-msgstr "Недель"
+msgstr "РќРµРґРµР»СЊ"
 
 #: templates/prefs/defaultduetimeselect.inc:6
 msgid "What do you want to be the default due time for tasks?"
-msgstr "В какое время по умолчанию задача должна считаться завершенной?"
+msgstr "Р’ РєР°РєРѕРµ РІСЂРµРјСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р·Р°РґР°С‡Р° РґРѕР»Р¶РЅР° СЃС‡РёС‚Р°С‚СЊСЃСЏ Р·Р°РІРµСЂС€РµРЅРЅРѕР№?"
 
 #: config/prefs.php.dist:146
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
-"При создании новой задачи, сколько дней по умолчанию требуется для ее "
-"завершения(0 означает завершение сегодня)"
+"РџСЂРё СЃРѕР·РґР°РЅРёРё РЅРѕРІРѕР№ Р·Р°РґР°С‡Рё, СЃРєРѕР»СЊРєРѕ РґРЅРµР№ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ РµРµ "
+"Р·Р°РІРµСЂС€РµРЅРёСЏ(0 РѕР·РЅР°С‡Р°РµС‚ Р·Р°РІРµСЂС€РµРЅРёРµ СЃРµРіРѕРґРЅСЏ)"
 
 #: config/prefs.php.dist:137
 msgid "When creating a new task, should it default to having a due date?"
-msgstr "При создании новой задачи, задавать по умолчанию дату завершения?"
+msgstr "РџСЂРё СЃРѕР·РґР°РЅРёРё РЅРѕРІРѕР№ Р·Р°РґР°С‡Рё, Р·Р°РґР°РІР°С‚СЊ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР°С‚Сѓ Р·Р°РІРµСЂС€РµРЅРёСЏ?"
 
 # fuzzy
 #: templates/prefs/tasklistselect.inc:10
 msgid "Your default task list:"
-msgstr "Список задач умолчанию:"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡ СѓРјРѕР»С‡Р°РЅРёСЋ:"
 
 # fuzzy
 #: templates/tasklists/tasklists.inc:70
 msgid "Your task lists:"
-msgstr "Ваш список задач:"
+msgstr "Р’Р°С€ СЃРїРёСЃРѕРє Р·Р°РґР°С‡:"
 
 # fuzzy
 #: templates/panel.inc:65
 msgid "[Manage Task Lists]"
-msgstr "[Управление задачами]"
+msgstr "[РЈРїСЂР°РІР»РµРЅРёРµ Р·Р°РґР°С‡Р°РјРё]"
 
 #: templates/list/task_summaries.inc:46 lib/Block/summary.php:101
 #: lib/Block/summary.php:206
 #, fuzzy
 msgid "[none]"
-msgstr "нет"
+msgstr "РЅРµС‚"
 
 # fuzzy
 #: templates/search/search.inc:25
 msgid "_All Tasks"
-msgstr "Все задачи"
+msgstr "Р’СЃРµ Р·Р°РґР°С‡Рё"
 
 # fuzzy
 #: list.php:111
 msgid "_All tasks"
-msgstr "Все"
+msgstr "Р’СЃРµ"
 
 # fuzzy
 #: templates/search/search.inc:20 templates/task/task.inc:41
 msgid "_Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 # fuzzy
 #: view.php:99
 msgid "_Complete"
-msgstr "Завершить"
+msgstr "Р—Р°РІРµСЂС€РёС‚СЊ"
 
 # fuzzy
 #: list.php:114
 msgid "_Completed tasks"
-msgstr "Завершенные"
+msgstr "Р—Р°РІРµСЂС€РµРЅРЅС‹Рµ"
 
 # fuzzy
 #: view.php:106
 msgid "_Delete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 # fuzzy
 #: templates/search/search.inc:19 templates/task/task.inc:94
 msgid "_Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 # fuzzy
 #: templates/list/task_headers.inc:50
 msgid "_Due Date"
-msgstr "Срок"
+msgstr "РЎСЂРѕРє"
 
 # fuzzy
 #: view.php:102
 msgid "_Edit"
-msgstr "Редактировать"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ"
 
 # fuzzy
 #: list.php:113
 msgid "_Future tasks"
-msgstr "Будущие"
+msgstr "Р‘СѓРґСѓС‰РёРµ"
 
 # fuzzy
 #: lib/Nag.php:553
 msgid "_Import/Export"
-msgstr "Импорт/Экспорт"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚"
 
 # fuzzy
 #: lib/Nag.php:540
 msgid "_List Tasks"
-msgstr "Выбрать"
+msgstr "Р’С‹Р±СЂР°С‚СЊ"
 
 # fuzzy
 #: lib/Nag.php:545
 msgid "_New Task"
-msgstr "Добавить"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ"
 
 # fuzzy
 #: lib/Nag.php:558
 msgid "_Print"
-msgstr "Печать"
+msgstr "РџРµС‡Р°С‚СЊ"
 
 #: templates/task/task.inc:82
 msgid "_Priority"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 # fuzzy
 #: lib/Nag.php:549
 msgid "_Search"
-msgstr "Поиск"
+msgstr "РџРѕРёСЃРє"
 
 # fuzzy
 #: templates/task/task.inc:26 templates/list/task_headers.inc:35
 msgid "_Task List"
-msgstr "Список задач"
+msgstr "РЎРїРёСЃРѕРє Р·Р°РґР°С‡"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 #, fuzzy
 msgid "am"
-msgstr "Имя"
+msgstr "РРјСЏ"
 
 #: data.php:31
 #, fuzzy
 msgid "iCalendar (vTodo)"
-msgstr "Календарь"
+msgstr "РљР°Р»РµРЅРґР°СЂСЊ"
 
 #: lib/Block/tree_menu.php:36
 #, php-format
 msgid "in %s"
-msgstr "в %s"
+msgstr "РІ %s"
 
 # fuzzy
 #: lib/Nag.php:79
 #, fuzzy
 msgid "no time"
-msgstr "1 заметка"
+msgstr "1 Р·Р°РјРµС‚РєР°"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 #, fuzzy
 msgid "pm"
-msgstr "Внимание"
+msgstr "Р’РЅРёРјР°РЅРёРµ"

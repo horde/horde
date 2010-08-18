@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/Forums.php:170
@@ -20,7 +20,7 @@ msgstr "-- Ylin taso --"
 
 #: lib/api.php:82
 msgid "Admin"
-msgstr "Yll‰pit‰j‰"
+msgstr "Yll√§pit√§j√§"
 
 #: forums.php:58
 msgid "All Forums"
@@ -28,15 +28,15 @@ msgstr "Kaikki foorumit"
 
 #: editforum.php:46
 msgid "Allow attachments in this forum?"
-msgstr "Salli liitteet t‰lle foorumille."
+msgstr "Salli liitteet t√§lle foorumille."
 
 #: messages/lock.php:64
 msgid "Allow replies in this thread"
-msgstr "Salli vastauksia t‰h‰n s‰ikeeseen"
+msgstr "Salli vastauksia t√§h√§n s√§ikeeseen"
 
 #: moderate.php:64
 msgid "Approve"
-msgstr "Hyv‰ksy"
+msgstr "Hyv√§ksy"
 
 #: config/prefs.php.dist:55 config/prefs.php.dist:85 config/prefs.php.dist:131
 msgid "Ascending"
@@ -48,15 +48,15 @@ msgstr "Liite"
 
 #: moderate.php:55
 msgid "Body"
-msgstr "Sis‰ltˆ"
+msgstr "Sis√§lt√∂"
 
 #: lib/Forums.php:74
 msgid "Can not create a forum with an empty name."
-msgstr "Ei voi tehd‰ foorumia tyhj‰ll‰ nimell‰."
+msgstr "Ei voi tehd√§ foorumia tyhj√§ll√§ nimell√§."
 
 #: lib/Messages.php:88
 msgid "Can not create a message without a message thread."
-msgstr "Et voi kirjoittaa viesti‰ ilman s‰iett‰."
+msgstr "Et voi kirjoittaa viesti√§ ilman s√§iett√§."
 
 #: messages/delete.php:61 messages/delete.php:83
 msgid "Cancel"
@@ -79,32 +79,32 @@ msgstr "Ei voi poistaa foorumia. %s"
 #: messages/delete.php:45 messages/delete.php:75
 #, php-format
 msgid "Could not delete the message. %s"
-msgstr "Ei voi poistaa viesti‰. %s"
+msgstr "Ei voi poistaa viesti√§. %s"
 
 #: threads.php:30
 #, php-format
 msgid "Could not list threads. %s"
-msgstr "Ei voi listata s‰ikeit‰. %s"
+msgstr "Ei voi listata s√§ikeit√§. %s"
 
 #: messages/lock.php:45 messages/lock.php:73
 #, php-format
 msgid "Could not lock the thread. %s"
-msgstr "Ei voi lukita s‰iett‰. %s"
+msgstr "Ei voi lukita s√§iett√§. %s"
 
 #: messages/index.php:26 messages/message.php:25
 #, php-format
 msgid "Could not open the message. %s"
-msgstr "Ei voi avata viesti‰. %s"
+msgstr "Ei voi avata viesti√§. %s"
 
 #: messages/edit.php:78 lib/api.php:355
 #, php-format
 msgid "Could not post the message. %s"
-msgstr "Ei voi l‰hett‰‰ viesti‰. %s"
+msgstr "Ei voi l√§hett√§√§ viesti√§. %s"
 
 #: messages/edit.php:30 lib/api.php:323
 #, php-format
 msgid "Could not post the message: %s"
-msgstr "Ei voi l‰hett‰‰ viesti‰: %s"
+msgstr "Ei voi l√§hett√§√§ viesti√§: %s"
 
 #: editforum.php:36
 msgid "Create"
@@ -119,19 +119,19 @@ msgstr "Nykyinen liite"
 #: lib/Block/threads.php:116 config/prefs.php.dist:46 config/prefs.php.dist:76
 #: config/prefs.php.dist:122
 msgid "Date"
-msgstr "P‰iv‰ys"
+msgstr "P√§iv√§ys"
 
 #: config/prefs.php.dist:47
 msgid "Default forums view sort:"
-msgstr "Oletusj‰rjestys keskusteluryhm‰n‰kym‰ss‰:"
+msgstr "Oletusj√§rjestys keskusteluryhm√§n√§kym√§ss√§:"
 
 #: config/prefs.php.dist:57 config/prefs.php.dist:87 config/prefs.php.dist:133
 msgid "Default sorting direction:"
-msgstr "Oletusj‰rjestyksen suunta:"
+msgstr "Oletusj√§rjestyksen suunta:"
 
 #: config/prefs.php.dist:77 config/prefs.php.dist:123
 msgid "Default threads view sort:"
-msgstr "Oletusj‰rjestys s‰ien‰kym‰ss‰:"
+msgstr "Oletusj√§rjestys s√§ien√§kym√§ss√§:"
 
 #: deleteforum.php:42 deleteforum.php:55 moderate.php:65
 #: messages/delete.php:61 messages/delete.php:65 messages/message.php:76
@@ -171,15 +171,15 @@ msgstr "Kuvaus"
 #: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
 #: config/prefs.php.dist:30
 msgid "Display Options"
-msgstr "N‰kym‰n asetukset"
+msgstr "N√§kym√§n asetukset"
 
 #: config/prefs.php.dist:103
 msgid "Display full message bodies in the thread list view?"
-msgstr "N‰yt‰ koko viesti s‰ielistan‰kym‰ss‰."
+msgstr "N√§yt√§ koko viesti s√§ielistan√§kym√§ss√§."
 
 #: config/prefs.php.dist:143
 msgid "Display graphical emoticons?"
-msgstr "N‰yt‰ graafiset hymiˆt."
+msgstr "N√§yt√§ graafiset hymi√∂t."
 
 #: deleteforum.php:42 deleteforum.php:70
 msgid "Do not delete"
@@ -195,12 +195,12 @@ msgstr "Muokkaa foorumia"
 
 #: lib/api.php:329
 msgid "Edit Message"
-msgstr "Muokkaa viesti‰"
+msgstr "Muokkaa viesti√§"
 
 #: messages/edit.php:65
 #, php-format
 msgid "Edit Message in \"%s\""
-msgstr "Muokkaa viesti‰ \"%s\":ss‰"
+msgstr "Muokkaa viesti√§ \"%s\":ss√§"
 
 #: lib/Forums.php:239
 msgid "Edit forum"
@@ -208,11 +208,11 @@ msgstr "Muokkaa foorumia"
 
 #: lib/Messages.php:492
 msgid "Edit message"
-msgstr "Muokkaa viesti‰"
+msgstr "Muokkaa viesti√§"
 
 #: editforum.php:43
 msgid "Enter a brief description of this forum"
-msgstr "Anna lyhyt kuvaus t‰st‰ foorumista"
+msgstr "Anna lyhyt kuvaus t√§st√§ foorumista"
 
 #: forums.php:42
 msgid "Flat"
@@ -250,28 +250,28 @@ msgstr "Foorumit"
 
 #: config/prefs.php.dist:10
 msgid "Forums View"
-msgstr "Foorumin‰kym‰"
+msgstr "Foorumin√§kym√§"
 
 #: lib/Messages.php:803
 msgid "From"
-msgstr "L‰hett‰j‰"
+msgstr "L√§hett√§j√§"
 
 #: lib/Messages.php:501
 msgid "Hot thread"
-msgstr "Kuuma s‰ie"
+msgstr "Kuuma s√§ie"
 
 #: editforum.php:46
 msgid "If selected users will be able to attach files to their messages."
-msgstr "Voikovatko tietyt k‰ytt‰j‰t liitt‰‰ tiedostoja viesteihins‰."
+msgstr "Voikovatko tietyt k√§ytt√§j√§t liitt√§√§ tiedostoja viesteihins√§."
 
 #: messages/edit.php:107
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
-msgstr "Juuriviesti on ep‰kelpo, t‰m‰ viesti aloittaa uuden s‰ikeen."
+msgstr "Juuriviesti on ep√§kelpo, t√§m√§ viesti aloittaa uuden s√§ikeen."
 
 #: editforum.php:44
 msgid "Is this a moderated forum?"
-msgstr "Onko t‰m‰ moderoitu foorumi"
+msgstr "Onko t√§m√§ moderoitu foorumi"
 
 #: config/prefs.php.dist:44
 msgid "Last Message"
@@ -279,20 +279,20 @@ msgstr "Viimeinen viesti"
 
 #: forums.php:42 lib/Block/forums.php:70
 msgid "Last Post"
-msgstr "Viimeksi l‰hetetty"
+msgstr "Viimeksi l√§hetetty"
 
 #: threads.php:57
 msgid "Last post"
-msgstr "Viimeksi l‰hetetty"
+msgstr "Viimeksi l√§hetetty"
 
 #: messages/index.php:56 messages/message.php:79
 msgid "Lock thread"
-msgstr "Lukitse s‰ie"
+msgstr "Lukitse s√§ie"
 
 #: messages/lock.php:58
 #, php-format
 msgid "Locking thread '%s'"
-msgstr "Lukitse s‰ie '%s'"
+msgstr "Lukitse s√§ie '%s'"
 
 #: lib/Messages.php:806
 msgid "Message"
@@ -300,7 +300,7 @@ msgstr "Viesti"
 
 #: config/prefs.php.dist:31
 msgid "Message View"
-msgstr "Viestin‰kym‰"
+msgstr "Viestin√§kym√§"
 
 #: messages/delete.php:77
 msgid "Message deleted."
@@ -308,15 +308,15 @@ msgstr "Viesti poistettu."
 
 #: messages/index.php:30 messages/message.php:29
 msgid "Message does not exist."
-msgstr "Viesti‰ ei ole olemassa."
+msgstr "Viesti√§ ei ole olemassa."
 
 #: messages/delete.php:84
 msgid "Message not deleted."
-msgstr "Viesti‰ ei poistettu."
+msgstr "Viesti√§ ei poistettu."
 
 #: messages/edit.php:80 lib/api.php:357
 msgid "Message posted."
-msgstr "Viesti l‰hetetty."
+msgstr "Viesti l√§hetetty."
 
 #: config/prefs.php.dist:43
 msgid "Messages"
@@ -324,7 +324,7 @@ msgstr "Viestit"
 
 #: moderate.php:84
 msgid "Messages Awaiting Moderation"
-msgstr "Viestej‰ odottamassa moderointia"
+msgstr "Viestej√§ odottamassa moderointia"
 
 #: lib/Agora.php:247
 msgid "Moderate"
@@ -340,7 +340,7 @@ msgstr "Uusi viesti"
 
 #: lib/Agora.php:241
 msgid "New Thread"
-msgstr "Uusi s‰ie"
+msgstr "Uusi s√§ie"
 
 #: lib/Block/forums.php:61
 msgid "No available forums."
@@ -348,7 +348,7 @@ msgstr "Ei keskustelufoorumeja saatavilla."
 
 #: lib/Block/threads.php:112
 msgid "No available threads."
-msgstr "Ei s‰ikeit‰ saatavilla."
+msgstr "Ei s√§ikeit√§ saatavilla."
 
 #: forums.php:35
 msgid "No forums available."
@@ -356,43 +356,43 @@ msgstr "Keskustelufoorumeja ei ole saatavilla."
 
 #: config/prefs.php.dist:141
 msgid "No graphical emoticons"
-msgstr "Ei graafisia hymiˆit‰"
+msgstr "Ei graafisia hymi√∂it√§"
 
 #: moderate.php:48
 msgid "No messages to moderate available."
-msgstr "Ei viestej‰ odottamassa moderointia."
+msgstr "Ei viestej√§ odottamassa moderointia."
 
 #: templates/block/threads.html:26
 msgid "No threads"
-msgstr "Ei s‰ikeit‰"
+msgstr "Ei s√§ikeit√§"
 
 #: threads.php:51
 msgid "No threads available."
-msgstr "Ei s‰ikeit‰ saatavilla."
+msgstr "Ei s√§ikeit√§ saatavilla."
 
 #: messages/lock.php:64
 msgid "No, do not allow replies"
-msgstr "Ei, vastaukset eiv‰t ole sallittuja"
+msgstr "Ei, vastaukset eiv√§t ole sallittuja"
 
 #: config/prefs.php.dist:65
 msgid "Number of forums to display on each page"
-msgstr "Kuinka monta foorumia n‰ytet‰‰n yhdell‰ sivulla"
+msgstr "Kuinka monta foorumia n√§ytet√§√§n yhdell√§ sivulla"
 
 #: config/prefs.php.dist:111
 msgid "Number of threads to display on each page"
-msgstr "Kuinka monta s‰iett‰ n‰ytet‰‰n yhdell‰ sivulla"
+msgstr "Kuinka monta s√§iett√§ n√§ytet√§√§n yhdell√§ sivulla"
 
 #: config/prefs.php.dist:95
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
-msgstr "Lukijoiden m‰‰r‰ 24 tunnin aikana, joka muuttaa 'kuumaksi s‰ikeeksi':"
+msgstr "Lukijoiden m√§√§r√§ 24 tunnin aikana, joka muuttaa 'kuumaksi s√§ikeeksi':"
 
 #: lib/Block/forums.php:34
 msgid "Only display this many forums (0 to display all forums)"
-msgstr "N‰yt‰ n‰in monta foorumia (0 n‰ytt‰‰ kaikki foorumit)"
+msgstr "N√§yt√§ n√§in monta foorumia (0 n√§ytt√§√§ kaikki foorumit)"
 
 #: lib/Block/threads.php:59
 msgid "Only display this many threads (0 to display all threads)"
-msgstr "N‰yt‰ n‰in monta s‰iett‰ (0 n‰ytt‰‰ kaikki s‰ikeet)"
+msgstr "N√§yt√§ n√§in monta s√§iett√§ (0 n√§ytt√§√§ kaikki s√§ikeet)"
 
 #: editforum.php:42
 msgid "Parent forum"
@@ -400,45 +400,45 @@ msgstr "Juurifoorumi"
 
 #: lib/Messages.php:789
 msgid "Post"
-msgstr "L‰het‰"
+msgstr "L√§het√§"
 
 #: lib/api.php:329
 msgid "Post a New Message"
-msgstr "L‰het‰ uusi viesti"
+msgstr "L√§het√§ uusi viesti"
 
 #: messages/edit.php:66
 #, php-format
 msgid "Post a New Message to \"%s\""
-msgstr "L‰het‰ uusi viesti \"%s\""
+msgstr "L√§het√§ uusi viesti \"%s\""
 
 #: messages/edit.php:64
 #, php-format
 msgid "Post a Reply to \"%s\""
-msgstr "L‰het‰ vastaus \"%s\""
+msgstr "L√§het√§ vastaus \"%s\""
 
 #: lib/Forums.php:234 lib/Messages.php:771 lib/Block/threads.php:82
 msgid "Post message"
-msgstr "L‰het‰ viesti"
+msgstr "L√§het√§ viesti"
 
 #: forums.php:42 moderate.php:55 messages/index.php:47 messages/message.php:47
 #: lib/api.php:222 lib/Block/forums.php:70 lib/Block/thread.php:103
 #: lib/Block/threads.php:116 config/prefs.php.dist:45 config/prefs.php.dist:75
 #: config/prefs.php.dist:121
 msgid "Posted By"
-msgstr "L‰hett‰j‰"
+msgstr "L√§hett√§j√§"
 
 #: messages/message.php:54 lib/Messages.php:274
 #, php-format
 msgid "Posted by %s on %s"
-msgstr "L‰hett‰j‰ %s, %s"
+msgstr "L√§hett√§j√§ %s, %s"
 
 #: templates/messages/form.html:20
 msgid "Posted by <tag:message_author /> on <tag:message_date />"
-msgstr "L‰hett‰j‰ <tag:message_author /> , <tag:message_date />"
+msgstr "L√§hett√§j√§ <tag:message_author /> , <tag:message_date />"
 
 #: forums.php:42 threads.php:57 lib/Block/forums.php:70
 msgid "Posts"
-msgstr "L‰hett‰j‰t"
+msgstr "L√§hett√§j√§t"
 
 #: messages/message.php:68 lib/Messages.php:486
 msgid "Reply"
@@ -462,49 +462,49 @@ msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
 msgstr ""
-"Aseta t‰m‰, jos haluat ett‰ moderoija tarkastaa kaikki viestit ennen kuin ne "
-"l‰hetet‰‰n."
+"Aseta t√§m√§, jos haluat ett√§ moderoija tarkastaa kaikki viestit ennen kuin ne "
+"l√§hetet√§√§n."
 
 #: config/prefs.php.dist:11
 msgid "Set your options for the forums view."
-msgstr "Voit muokata foorumin‰kym‰n asetuksia."
+msgstr "Voit muokata foorumin√§kym√§n asetuksia."
 
 #: config/prefs.php.dist:32
 msgid "Set your options for the message view."
-msgstr "Voit muokata viestin‰kym‰n asetuksia."
+msgstr "Voit muokata viestin√§kym√§n asetuksia."
 
 #: config/prefs.php.dist:25
 msgid "Set your options for the single thread view."
-msgstr "Voit muokata s‰ie kerrallaan n‰kym‰n asetuksia"
+msgstr "Voit muokata s√§ie kerrallaan n√§kym√§n asetuksia"
 
 #: config/prefs.php.dist:18
 msgid "Set your options for the threads view."
-msgstr "Voit asettaa s‰ien‰kym‰n asetuksia."
+msgstr "Voit asettaa s√§ien√§kym√§n asetuksia."
 
 #: config/prefs.php.dist:142
 msgid "Show graphical emoticons"
-msgstr "N‰yt‰ graafiset hymiˆt"
+msgstr "N√§yt√§ graafiset hymi√∂t"
 
 #: lib/Block/thread.php:3 lib/Block/thread.php:67
 msgid "Single Thread"
-msgstr "S‰ie kerrallaan"
+msgstr "S√§ie kerrallaan"
 
 #: config/prefs.php.dist:24
 msgid "Single Thread View"
-msgstr "S‰ie kerrallaan n‰kym‰"
+msgstr "S√§ie kerrallaan n√§kym√§"
 
 #: lib/Agora.php:184
 msgid "Sort Ascending"
-msgstr "J‰rjest‰ nousevaan"
+msgstr "J√§rjest√§ nousevaan"
 
 #: lib/Agora.php:184
 msgid "Sort Descending"
-msgstr "J‰rjest‰ laskevaan"
+msgstr "J√§rjest√§ laskevaan"
 
 #: lib/Agora.php:192 lib/Agora.php:198
 #, php-format
 msgid "Sort by %s"
-msgstr "J‰rjest‰ %s mukaan"
+msgstr "J√§rjest√§ %s mukaan"
 
 #: threads.php:57
 msgid "Started"
@@ -524,89 +524,89 @@ msgstr "Otsikko"
 #: lib/Agora.php:220
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
-"VFS-taustaj‰rjestelm‰ pit‰‰ olla asennettu ennenkuin voi tuoda liitteit‰."
+"VFS-taustaj√§rjestelm√§ pit√§√§ olla asennettu ennenkuin voi tuoda liitteit√§."
 
 #: templates/moderate/moderate.html:9
 msgid "The following messages are waiting for approval"
-msgstr "Seuraavat viestit odottavat hyv‰ksynt‰‰si"
+msgstr "Seuraavat viestit odottavat hyv√§ksynt√§√§si"
 
 #: deleteforum.php:44
 msgid "This will delete the forum, any subforums and all relative messages."
-msgstr "T‰m‰ poistaa foorumin, kaikki alifoorumit ja niihin liittyv‰t viestit"
+msgstr "T√§m√§ poistaa foorumin, kaikki alifoorumit ja niihin liittyv√§t viestit"
 
 #: messages/index.php:47 messages/message.php:47 lib/Block/thread.php:46
 #: lib/Block/thread.php:70 lib/Block/thread.php:103 config/prefs.php.dist:73
 #: config/prefs.php.dist:119
 msgid "Thread"
-msgstr "S‰ie"
+msgstr "S√§ie"
 
 #: messages/index.php:71 lib/Block/thread.php:110
 #: templates/messages/index.html:9
 msgid "Thread List"
-msgstr "List‰ S‰ikeist‰"
+msgstr "List√§ S√§ikeist√§"
 
 #: templates/messages/message.html:28
 msgid "Thread Summary"
-msgstr "S‰ikeen yhteenveto"
+msgstr "S√§ikeen yhteenveto"
 
 #: messages/lock.php:76
 msgid "Thread locked."
-msgstr "S‰ie lukittu."
+msgstr "S√§ie lukittu."
 
 #: messages/lock.php:78
 msgid "Thread unlocked."
-msgstr "S‰ie avattu."
+msgstr "S√§ie avattu."
 
 #: lib/Agora.php:239 lib/Block/threads.php:3 lib/Block/threads.php:73
 msgid "Threads"
-msgstr "S‰ikeet"
+msgstr "S√§ikeet"
 
 #: config/prefs.php.dist:17
 msgid "Threads View"
-msgstr "S‰ien‰kym‰"
+msgstr "S√§ien√§kym√§"
 
 #: lib/Block/threads.php:77
 #, php-format
 msgid "Threads in \"%s\""
-msgstr "S‰ikeet \"%s\""
+msgstr "S√§ikeet \"%s\""
 
 #: threads.php:79
 #, php-format
 msgid "Threads in %s"
-msgstr "S‰ikeet %s"
+msgstr "S√§ikeet %s"
 
 #: templates/threads/threads.html:11
 msgid "Threads in <tag:forum_name />"
-msgstr "S‰ikeet <tag:forum_name />"
+msgstr "S√§ikeet <tag:forum_name />"
 
 #: lib/Block/thread.php:92
 msgid "Unable to fetch selected thread."
-msgstr "Ei voi hakea valittua s‰iett‰."
+msgstr "Ei voi hakea valittua s√§iett√§."
 
 #: lib/Block/threads.php:102
 msgid "Unable to fetch threads for selected forum."
-msgstr "Ei voi hakea s‰ikeit‰ valitulle foorumille"
+msgstr "Ei voi hakea s√§ikeit√§ valitulle foorumille"
 
 #: messages/index.php:56 messages/message.php:79
 msgid "Unlock thread"
-msgstr "Avaa s‰ie"
+msgstr "Avaa s√§ie"
 
 #: editforum.php:36 messages/lock.php:61
 msgid "Update"
-msgstr "P‰ivit‰"
+msgstr "P√§ivit√§"
 
 #: messages/lock.php:64
 msgid "Yes, allow replies"
-msgstr "Kyll‰, salli vastaukset"
+msgstr "Kyll√§, salli vastaukset"
 
 #: lib/Forums.php:39 lib/Messages.php:34
 msgid "You must configure a Horde Categories backend to use Agora."
 msgstr ""
-"Sinun pit‰‰ asentaa Horde Categories taustaj‰rjestelm‰ k‰ytt‰‰ksesi Agoraa."
+"Sinun pit√§√§ asentaa Horde Categories taustaj√§rjestelm√§ k√§ytt√§√§ksesi Agoraa."
 
 #: templates/javascript/moderate.js:15
 msgid "You must select at least one message first."
-msgstr "Sinun pit‰‰ valita ainakin yksi viesti."
+msgstr "Sinun pit√§√§ valita ainakin yksi viesti."
 
 #: lib/Messages.php:1009
 msgid "download"

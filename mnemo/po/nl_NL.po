@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -152,7 +152,7 @@ msgstr "Notitie bewerken"
 
 #: templates/list/memo_headers.inc:45
 msgid "Edit categories and colors"
-msgstr "Categorieën en kleuren bewerken"
+msgstr "CategorieÃ«n en kleuren bewerken"
 
 #: memo.php:104
 #, php-format

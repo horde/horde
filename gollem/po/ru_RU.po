@@ -10,302 +10,302 @@ msgstr ""
 "Last-Translator: Anton Nekhoroshih <anton@valuehost.ru>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 msgid " renamed to "
-msgstr " переименовать в "
+msgstr " РїРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ РІ "
 
 msgid " to: "
-msgstr " в: "
+msgstr " РІ: "
 
 #, c-format
 msgid "%d items in %s"
-msgstr "%d элементов в %s"
+msgstr "%d СЌР»РµРјРµРЅС‚РѕРІ РІ %s"
 
 msgid "<b>Note:</b> These settings won't take effect until your next login."
 msgstr ""
-"<b> Обратить внимание: </b > Эти параметры настройки не будут вступать в "
-"силу до вашего следующего входа в систему."
+"<b> РћР±СЂР°С‚РёС‚СЊ РІРЅРёРјР°РЅРёРµ: </b > Р­С‚Рё РїР°СЂР°РјРµС‚СЂС‹ РЅР°СЃС‚СЂРѕР№РєРё РЅРµ Р±СѓРґСѓС‚ РІСЃС‚СѓРїР°С‚СЊ РІ "
+"СЃРёР»Сѓ РґРѕ РІР°С€РµРіРѕ СЃР»РµРґСѓСЋС‰РµРіРѕ РІС…РѕРґР° РІ СЃРёСЃС‚РµРјСѓ."
 
 msgid "An illegal value was specified."
-msgstr "Указано не верное значение."
+msgstr "РЈРєР°Р·Р°РЅРѕ РЅРµ РІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ."
 
 msgid "Are you sure?"
-msgstr "Вы уверены?"
+msgstr "Р’С‹ СѓРІРµСЂРµРЅС‹?"
 
 msgid "Ascending"
-msgstr "По возрастанию"
+msgstr "РџРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ"
 
 msgid "Cannot chmod "
-msgstr "Невозможно изменить атрибуты"
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹"
 
 msgid "Cannot delete "
-msgstr "Невозможнго удалить"
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРіРѕ СѓРґР°Р»РёС‚СЊ"
 
 msgid "Change your file sorting options."
-msgstr "Изменить Ваш порядок сортировки."
+msgstr "РР·РјРµРЅРёС‚СЊ Р’Р°С€ РїРѕСЂСЏРґРѕРє СЃРѕСЂС‚РёСЂРѕРІРєРё."
 
 msgid "Change your ftp server"
-msgstr "Изменить Ваш ftp сервер"
+msgstr "РР·РјРµРЅРёС‚СЊ Р’Р°С€ ftp СЃРµСЂРІРµСЂ"
 
 msgid "Chmod Items"
-msgstr "Сменить атрибуты"
+msgstr "РЎРјРµРЅРёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹"
 
 msgid "Chmod done: "
-msgstr "Атрибуты изменены:"
+msgstr "РђС‚СЂРёР±СѓС‚С‹ РёР·РјРµРЅРµРЅС‹:"
 
 msgid "Choose Action:"
-msgstr "Выберите действите:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёС‚Рµ:"
 
 msgid "Create Folder"
-msgstr "Создать папку"
+msgstr "РЎРѕР·РґР°С‚СЊ РїР°РїРєСѓ"
 
 msgid "Default sorting criteria:"
-msgstr "Критерий сортировки по умолчанию:"
+msgstr "РљСЂРёС‚РµСЂРёР№ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:"
 
 msgid "Default sorting direction:"
-msgstr "Направление сортировки по умолчанию:"
+msgstr "РќР°РїСЂР°РІР»РµРЅРёРµ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:"
 
 msgid "Delete Items"
-msgstr "Удалить элемент"
+msgstr "РЈРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚"
 
 msgid "Descending"
-msgstr "По убыванию"
+msgstr "РџРѕ СѓР±С‹РІР°РЅРёСЋ"
 
 msgid "Directory removed: "
-msgstr "Директоря перемещена:"
+msgstr "Р”РёСЂРµРєС‚РѕСЂСЏ РїРµСЂРµРјРµС‰РµРЅР°:"
 
 msgid "Display Options"
-msgstr "Настройки экрана"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё СЌРєСЂР°РЅР°"
 
 msgid ""
 "Either you have logged in incorrectly or your login has expired. Please "
 "login again."
 msgstr ""
-"Или Вы вошли неправильно, или ваш вход в систему истек. Пожалуйста войдите "
-"снова. "
+"РР»Рё Р’С‹ РІРѕС€Р»Рё РЅРµРїСЂР°РІРёР»СЊРЅРѕ, РёР»Рё РІР°С€ РІС…РѕРґ РІ СЃРёСЃС‚РµРјСѓ РёСЃС‚РµРє. РџРѕР¶Р°Р»СѓР№СЃС‚Р° РІРѕР№РґРёС‚Рµ "
+"СЃРЅРѕРІР°. "
 
 msgid "Error creating new folder: "
-msgstr "Ошибка создания новой папки: "
+msgstr "РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕР№ РїР°РїРєРё: "
 
 msgid "Error renaming: "
-msgstr "Ошибка преименования: "
+msgstr "РћС€РёР±РєР° РїСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ: "
 
 msgid "Error uploading file: "
-msgstr "Ошибка загрузки файла: "
+msgstr "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°: "
 
 msgid "Error"
-msgstr "Ошибка"
+msgstr "РћС€РёР±РєР°"
 
 msgid "File Modification Time"
-msgstr "Время изменения файла"
+msgstr "Р’СЂРµРјСЏ РёР·РјРµРЅРµРЅРёСЏ С„Р°Р№Р»Р°"
 
 msgid "File Name"
-msgstr "Имя файла"
+msgstr "РРјСЏ С„Р°Р№Р»Р°"
 
 msgid "File Size"
-msgstr "Размер файла"
+msgstr "Р Р°Р·РјРµСЂ С„Р°Р№Р»Р°"
 
 msgid "File Type"
-msgstr "Тип файла"
+msgstr "РўРёРї С„Р°Р№Р»Р°"
 
 msgid "File deleted: "
-msgstr "Файл удален: "
+msgstr "Р¤Р°Р№Р» СѓРґР°Р»РµРЅ: "
 
 msgid "File received: "
-msgstr "Файл принят: "
+msgstr "Р¤Р°Р№Р» РїСЂРёРЅСЏС‚: "
 
 msgid "Forwards"
-msgstr "Перенаправления"
+msgstr "РџРµСЂРµРЅР°РїСЂР°РІР»РµРЅРёСЏ"
 
 msgid "Gollem is not fully configured."
-msgstr "Gollem не отконфигурирован."
+msgstr "Gollem РЅРµ РѕС‚РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅ."
 
 msgid "Group"
-msgstr "Группа"
+msgstr "Р“СЂСѓРїРїР°"
 
 msgid "Help"
-msgstr "Помощь"
+msgstr "РџРѕРјРѕС‰СЊ"
 
 msgid "Home"
-msgstr "Домой"
+msgstr "Р”РѕРјРѕР№"
 
 msgid "Incorrect number of items."
-msgstr "Не верное кол-во элементов."
+msgstr "РќРµ РІРµСЂРЅРѕРµ РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ."
 
 msgid "Language"
-msgstr "Язык"
+msgstr "РЇР·С‹Рє"
 
 msgid "Log in"
-msgstr "Войти"
+msgstr "Р’РѕР№С‚Рё"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"Вход в систему, неудавшийся по некоторым причинам. Наиболее вероятно ваше "
-"имя пользователя или пароль были введены неправильно."
+"Р’С…РѕРґ РІ СЃРёСЃС‚РµРјСѓ, РЅРµСѓРґР°РІС€РёР№СЃСЏ РїРѕ РЅРµРєРѕС‚РѕСЂС‹Рј РїСЂРёС‡РёРЅР°Рј. РќР°РёР±РѕР»РµРµ РІРµСЂРѕСЏС‚РЅРѕ РІР°С€Рµ "
+"РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР»Рё РїР°СЂРѕР»СЊ Р±С‹Р»Рё РІРІРµРґРµРЅС‹ РЅРµРїСЂР°РІРёР»СЊРЅРѕ."
 
 msgid "Logout"
-msgstr "Выйти"
+msgstr "Р’С‹Р№С‚Рё"
 
 msgid "Mail Forwards"
-msgstr "Почтовая переадресация"
+msgstr "РџРѕС‡С‚РѕРІР°СЏ РїРµСЂРµР°РґСЂРµСЃР°С†РёСЏ"
 
 msgid "Message"
-msgstr "Сообщение"
+msgstr "РЎРѕРѕР±С‰РµРЅРёРµ"
 
 msgid "Modified"
-msgstr "Изменен"
+msgstr "РР·РјРµРЅРµРЅ"
 
 msgid "Name"
-msgstr "Имя"
+msgstr "РРјСЏ"
 
 msgid "New User Introduction"
-msgstr "Вступление для новеньких"
+msgstr "Р’СЃС‚СѓРїР»РµРЅРёРµ РґР»СЏ РЅРѕРІРµРЅСЊРєРёС…"
 
 msgid "New folder created: "
-msgstr "Новая папка создад: "
+msgstr "РќРѕРІР°СЏ РїР°РїРєР° СЃРѕР·РґР°Рґ: "
 
 msgid "No such directory: "
-msgstr "Несуществующая директория: "
+msgstr "РќРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РґРёСЂРµРєС‚РѕСЂРёСЏ: "
 
 msgid "Options"
-msgstr "Параметры"
+msgstr "РџР°СЂР°РјРµС‚СЂС‹"
 
 msgid "Other Options"
-msgstr "Другие параметры"
+msgstr "Р”СЂСѓРіРёРµ РїР°СЂР°РјРµС‚СЂС‹"
 
 msgid "Owner"
-msgstr "Владелец"
+msgstr "Р’Р»Р°РґРµР»РµС†"
 
 msgid "Password Change"
-msgstr "Смена пароля"
+msgstr "РЎРјРµРЅР° РїР°СЂРѕР»СЏ"
 
 msgid "Password"
-msgstr "Пароль"
+msgstr "РџР°СЂРѕР»СЊ"
 
 msgid "Permission"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 msgid "Please enter the mode in numeric format:"
-msgstr "Пажулайста введите атрибут в цифровом формате:"
+msgstr "РџР°Р¶СѓР»Р°Р№СЃС‚Р° РІРІРµРґРёС‚Рµ Р°С‚СЂРёР±СѓС‚ РІ С†РёС„СЂРѕРІРѕРј С„РѕСЂРјР°С‚Рµ:"
 
 msgid "Please enter the name of the new folder:"
-msgstr "Пажулайста введите имя для новой папки:"
+msgstr "РџР°Р¶СѓР»Р°Р№СЃС‚Р° РІРІРµРґРёС‚Рµ РёРјСЏ РґР»СЏ РЅРѕРІРѕР№ РїР°РїРєРё:"
 
 msgid "Please provide your password."
-msgstr "Пожалуйста укажите свой пароль."
+msgstr "РџРѕР¶Р°Р»СѓР№СЃС‚Р° СѓРєР°Р¶РёС‚Рµ СЃРІРѕР№ РїР°СЂРѕР»СЊ."
 
 msgid "Please provide your username."
-msgstr "Пожалуйста укажите свое Имя."
+msgstr "РџРѕР¶Р°Р»СѓР№СЃС‚Р° СѓРєР°Р¶РёС‚Рµ СЃРІРѕРµ РРјСЏ."
 
 msgid "Please select an item before this action."
-msgstr "Пожалуйста выбирете элемент перед действием."
+msgstr "РџРѕР¶Р°Р»СѓР№СЃС‚Р° РІС‹Р±РёСЂРµС‚Рµ СЌР»РµРјРµРЅС‚ РїРµСЂРµРґ РґРµР№СЃС‚РІРёРµРј."
 
 msgid "Please specify a file to upload."
-msgstr "Пажалуйста укажите имя файла для загрузки."
+msgstr "РџР°Р¶Р°Р»СѓР№СЃС‚Р° СѓРєР°Р¶РёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РіСЂСѓР·РєРё."
 
 msgid "Problem?"
-msgstr "Проблемы?"
+msgstr "РџСЂРѕР±Р»РµРјС‹?"
 
 msgid "Refresh"
-msgstr "Обновить"
+msgstr "РћР±РЅРѕРІРёС‚СЊ"
 
 msgid "Rename "
-msgstr "Переименовать"
+msgstr "РџРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ"
 
 msgid "Rename Items"
-msgstr "Переименовать элементы"
+msgstr "РџРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ СЌР»РµРјРµРЅС‚С‹"
 
 msgid "Server Information"
-msgstr "Информация о сервере"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРµСЂРІРµСЂРµ"
 
 msgid "Server"
-msgstr "Сервер"
+msgstr "РЎРµСЂРІРµСЂ"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Установите язык на котором будут пункты меню, объяснения, справки."
+msgstr "РЈСЃС‚Р°РЅРѕРІРёС‚Рµ СЏР·С‹Рє РЅР° РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ РїСѓРЅРєС‚С‹ РјРµРЅСЋ, РѕР±СЉСЏСЃРЅРµРЅРёСЏ, СЃРїСЂР°РІРєРё."
 
 msgid "Size"
-msgstr "Размер"
+msgstr "Р Р°Р·РјРµСЂ"
 
 msgid "Some of Gollem's configuration files are missing:"
-msgstr "Некоторые из файлов конфигурации Gollem отсутствуют:"
+msgstr "РќРµРєРѕС‚РѕСЂС‹Рµ РёР· С„Р°Р№Р»РѕРІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё Gollem РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚:"
 
 msgid "Sort Direction"
-msgstr "Направление сортировки"
+msgstr "РќР°РїСЂР°РІР»РµРЅРёРµ СЃРѕСЂС‚РёСЂРѕРІРєРё"
 
 msgid "Success"
-msgstr "Успешно"
+msgstr "РЈСЃРїРµС€РЅРѕ"
 
 msgid "The following items will be permenantly deleted: "
-msgstr "Следующие элементы будут удаленный: "
+msgstr "РЎР»РµРґСѓСЋС‰РёРµ СЌР»РµРјРµРЅС‚С‹ Р±СѓРґСѓС‚ СѓРґР°Р»РµРЅРЅС‹Р№: "
 
 msgid "There are no files in this directory."
-msgstr "Нет никаких файлов в этом каталоге."
+msgstr "РќРµС‚ РЅРёРєР°РєРёС… С„Р°Р№Р»РѕРІ РІ СЌС‚РѕРј РєР°С‚Р°Р»РѕРіРµ."
 
 msgid "This file lists each FTP server that Gollem makes available."
-msgstr "Этот файл перечисляет FTP сервера, которые будут достпуны в Gollem."
+msgstr "Р­С‚РѕС‚ С„Р°Р№Р» РїРµСЂРµС‡РёСЃР»СЏРµС‚ FTP СЃРµСЂРІРµСЂР°, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РґРѕСЃС‚РїСѓРЅС‹ РІ Gollem."
 
 msgid ""
 "This file sets the default user options for Gollem, and controls which ones "
 "are user editable."
 msgstr ""
-"Этот файл устанавливает опции по умолчанию для пользователя Gollem, "
-"доступными для редактирования."
+"Р­С‚РѕС‚ С„Р°Р№Р» СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РѕРїС†РёРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Gollem, "
+"РґРѕСЃС‚СѓРїРЅС‹РјРё РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ."
 
 msgid ""
 "This is the main Gollem configuration file. It contains paths and options "
 "for the Gollem scripts."
 msgstr ""
-"Это главный файл конфигурации Gollem. Он содержит пути и опции для сценариев "
+"Р­С‚Рѕ РіР»Р°РІРЅС‹Р№ С„Р°Р№Р» РєРѕРЅС„РёРіСѓСЂР°С†РёРё Gollem. РћРЅ СЃРѕРґРµСЂР¶РёС‚ РїСѓС‚Рё Рё РѕРїС†РёРё РґР»СЏ СЃС†РµРЅР°СЂРёРµРІ "
 "Gollem."
 
 msgid "This number must be at least one."
-msgstr "Этот номер должен быть по крайней мере один."
+msgstr "Р­С‚РѕС‚ РЅРѕРјРµСЂ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРѕ РєСЂР°Р№РЅРµР№ РјРµСЂРµ РѕРґРёРЅ."
 
 msgid "This value must be a number."
-msgstr "Значение должно быть цифрой."
+msgstr "Р—РЅР°С‡РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С†РёС„СЂРѕР№."
 
 msgid "Type"
-msgstr "Тип "
+msgstr "РўРёРї "
 
 msgid "Upload File"
-msgstr "Загрузка файла"
+msgstr "Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р°"
 
 msgid "User Preferences"
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 msgid "Username"
-msgstr "Пользователь"
+msgstr "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ"
 
 msgid "Warning"
-msgstr "Внимание"
+msgstr "Р’РЅРёРјР°РЅРёРµ"
 
 #, c-format
 msgid "Warning: %s requires Javascript to perform certain functions."
-msgstr "Внимание: %s нужен Javascript для выполнения функций."
+msgstr "Р’РЅРёРјР°РЅРёРµ: %s РЅСѓР¶РµРЅ Javascript РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ С„СѓРЅРєС†РёР№."
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "Добро пожаловать в %s"
+msgstr "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РІ %s"
 
 msgid "Welcome"
-msgstr "Добро пожаловать"
+msgstr "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ"
 
 #, c-format
 msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
-msgstr "Вы покинули систему %s. Спасибо за использование."
+msgstr "Р’С‹ РїРѕРєРёРЅСѓР»Рё СЃРёСЃС‚РµРјСѓ %s. РЎРїР°СЃРёР±Рѕ Р·Р° РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ."
 
 msgid "Your Information"
-msgstr "Ваша информация"
+msgstr "Р’Р°С€Р° РёРЅС„РѕСЂРјР°С†РёСЏ"
 
 msgid "Your preferences have been updated."
-msgstr "Ваши настройки изменены."
+msgstr "Р’Р°С€Рё РЅР°СЃС‚СЂРѕР№РєРё РёР·РјРµРЅРµРЅС‹."
 
 msgid "Your preferred FTP server:"
-msgstr "Ваш основной FTP сервер:"
+msgstr "Р’Р°С€ РѕСЃРЅРѕРІРЅРѕР№ FTP СЃРµСЂРІРµСЂ:"

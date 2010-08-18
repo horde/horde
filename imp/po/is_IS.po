@@ -1,4 +1,4 @@
-# Íslenska fyrir IMP 4.0.4
+# Ãslenska fyrir IMP 4.0.4
 # Copyright 2002-2010 The Horde Project.
 #
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Bjorn Davidsson <bjossi@snerpa.is>\n"
 "Language-Team: Icelandic <support@snerpa.is>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Compose.php:265 lib/Compose.php:317
@@ -23,44 +23,44 @@ msgstr "   Dags.: "
 
 #: lib/Compose.php:256 lib/Compose.php:308
 msgid "    From: "
-msgstr "     Frá: "
+msgstr "     FrÃ¡: "
 
 #: lib/Compose.php:262 lib/Compose.php:314
 msgid " Subject: "
-msgstr " Efnislína: "
+msgstr " EfnislÃ­na: "
 
 #: templates/compose/spelling.inc:74
 msgid " in "
-msgstr " í "
+msgstr " Ã­ "
 
 #: mailbox.php:196
 #, php-format
 msgid "%d messages have been deleted."
-msgstr "%d skeytum hefur veriğ eytt."
+msgstr "%d skeytum hefur veriÃ° eytt."
 
 #: lib/Spam.php:178
 #, php-format
 msgid ""
 "%d messages have been reported as not spam to your system administrator."
 msgstr ""
-"Tilkynning um %d skeyti merkt sem ekki ruslpóstur hefur veriğ send "
-"kerfisumsjón."
+"Tilkynning um %d skeyti merkt sem ekki ruslpÃ³stur hefur veriÃ° send "
+"kerfisumsjÃ³n."
 
 #: lib/Spam.php:158
 #, php-format
 msgid "%d messages have been reported as not spam."
-msgstr "Tilkynning um %d skeyti merkt sem ekki ruslpóstur hefur veriğ send."
+msgstr "Tilkynning um %d skeyti merkt sem ekki ruslpÃ³stur hefur veriÃ° send."
 
 #: lib/Spam.php:170
 #, php-format
 msgid "%d messages have been reported as spam to your system administrator."
 msgstr ""
-"Tilkynning um %d skeyti merkt sem ruslpóstur hefur veriğ send kerfisumsjón."
+"Tilkynning um %d skeyti merkt sem ruslpÃ³stur hefur veriÃ° send kerfisumsjÃ³n."
 
 #: lib/Spam.php:150
 #, php-format
 msgid "%d messages have been reported as spam."
-msgstr "Tilkynning um %d skeyti merkt sem ruslpóstur hefur veriğ send."
+msgstr "Tilkynning um %d skeyti merkt sem ruslpÃ³stur hefur veriÃ° send."
 
 #: mailbox.php:369
 #, php-format
@@ -70,37 +70,37 @@ msgstr "%d til %d af %d skeytum"
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:46
 #, php-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s er nú şegar til. Mappan %s var ekki endurnefnd."
+msgstr "%s er nÃº Ã¾egar til. Mappan %s var ekki endurnefnd."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:44
 #, php-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "Mappan %s verğur umnefnd í upphafi hvers mánağar."
+msgstr "Mappan %s verÃ°ur umnefnd Ã­ upphafi hvers mÃ¡naÃ°ar."
 
 #: lib/MIME/Viewer/itip.php:625
 #, php-format
 msgid "%s has cancelled %s."
-msgstr "%s hefur ihætt viğ %s."
+msgstr "%s hefur ihÃ¦tt viÃ° %s."
 
 #: lib/MIME/Viewer/itip.php:262
 #, php-format
 msgid "%s has declined."
-msgstr "%s hefur hafnağ."
+msgstr "%s hefur hafnaÃ°."
 
 #: lib/MIME/Viewer/itip.php:616
 #, php-format
 msgid "%s has replied to the invitation to %s."
-msgstr "%s hefur svarağ boğinu til %s."
+msgstr "%s hefur svaraÃ° boÃ°inu til %s."
 
 #: lib/MIME/Viewer/itip.php:487
 #, php-format
 msgid "%s requests your free/busy information."
-msgstr "%s óskar eftir upplısingum um hvort şú ert viğlátinn."
+msgstr "%s Ã³skar eftir upplÃ½singum um hvort Ã¾Ãº ert viÃ°lÃ¡tinn."
 
 #: lib/Message.php:377
 #, php-format
 msgid "%s was successfully added to %s."
-msgstr "%s var bætt í %s."
+msgstr "%s var bÃ¦tt Ã­ %s."
 
 #: templates/message/navbar_top.inc:13
 #, php-format
@@ -109,28 +109,28 @@ msgstr "%s: %s (%d&nbsp;af&nbsp;%d)"
 
 #: templates/compose/spelling.inc:140
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(Samşykkja breytingar og fara í næsta glugga.)"
+msgstr "(SamÃ¾ykkja breytingar og fara Ã­ nÃ¦sta glugga.)"
 
 #: templates/compose/spelling.inc:127
 msgid "(Discard all changes and return to the compose screen.)"
-msgstr "(Hundsa allar breytingar og fara til baka í ağ skrifa skeyti.)"
+msgstr "(Hundsa allar breytingar og fara til baka Ã­ aÃ° skrifa skeyti.)"
 
 #: spelling.php:280
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(Fara til baka í ağ skrifa skeyti eftir ağ hafa vistağ breytingar sem gerğar "
-"hafa veriğ hingağ til. Breytingar sem ekki hafa veriğ skráğar verğa ekki "
+"(Fara til baka Ã­ aÃ° skrifa skeyti eftir aÃ° hafa vistaÃ° breytingar sem gerÃ°ar "
+"hafa veriÃ° hingaÃ° til. Breytingar sem ekki hafa veriÃ° skrÃ¡Ã°ar verÃ°a ekki "
 "geymdar.)"
 
 #: templates/contacts/contacts.inc:227
 msgid "* Add these by clicking OK *"
-msgstr "* Bættu şessum viğ meğ şví ağ smella á OK *"
+msgstr "* BÃ¦ttu Ã¾essum viÃ° meÃ° Ã¾vÃ­ aÃ° smella Ã¡ OK *"
 
 #: templates/contacts/contacts.inc:206
 msgid "* Please select address(es) *"
-msgstr "* Veldu netföng *"
+msgstr "* Veldu netfÃ¶ng *"
 
 #: mailbox.php:194
 msgid "1 message has been deleted."
@@ -139,25 +139,25 @@ msgstr "Einu skeyti var eytt."
 #: lib/Spam.php:180
 msgid "1 message has been reported as not spam to your system administrator."
 msgstr ""
-"Tilkynning um eitt skeyti sem ekki ruslpóstur hefur veriğ send kerfisumsjón."
+"Tilkynning um eitt skeyti sem ekki ruslpÃ³stur hefur veriÃ° send kerfisumsjÃ³n."
 
 #: lib/Spam.php:160
 msgid "1 message has been reported as not spam."
-msgstr "Tilkynning um eitt skeyti sem ruslpóstur hefur veriğ send."
+msgstr "Tilkynning um eitt skeyti sem ruslpÃ³stur hefur veriÃ° send."
 
 #: lib/Spam.php:172
 msgid "1 message has been reported as spam to your system administrator."
 msgstr ""
-"Tilkynning um eitt skeyti sem ruslpóstur hefur veriğ send kerfisumsjón."
+"Tilkynning um eitt skeyti sem ruslpÃ³stur hefur veriÃ° send kerfisumsjÃ³n."
 
 #: lib/Spam.php:152
 msgid "1 message has been reported as spam."
-msgstr "Tilkynning um eitt skeyti sem ruslpóstur hefur veriğ send."
+msgstr "Tilkynning um eitt skeyti sem ruslpÃ³stur hefur veriÃ° send."
 
 #: lib/MIME/Viewer/images.php:162
 #, php-format
 msgid "A large image named %s is attached to this message."
-msgstr "Stór mynd nefnd %s er hengd viğ şetta skeyti."
+msgstr "StÃ³r mynd nefnd %s er hengd viÃ° Ã¾etta skeyti."
 
 #: templates/search/fields.inc:5
 msgid "AND"
@@ -165,15 +165,15 @@ msgstr "OG"
 
 #: lib/MIME/Viewer/itip.php:590
 msgid "Accept request"
-msgstr "Samşykkja beiğni"
+msgstr "SamÃ¾ykkja beiÃ°ni"
 
 #: lib/MIME/Viewer/itip.php:753
 msgid "Accepted"
-msgstr "Samşykkt"
+msgstr "SamÃ¾ykkt"
 
 #: lib/MIME/Viewer/itip.php:257
 msgid "Accepted: "
-msgstr "Samşykkt: "
+msgstr "SamÃ¾ykkt: "
 
 #: templates/fetchmail/manage.inc:7
 msgid "Account's name:"
@@ -181,199 +181,199 @@ msgstr "Notandanafn:"
 
 #: lib/MIME/Viewer/itip.php:520 lib/MIME/Viewer/itip.php:730
 msgid "Actions"
-msgstr "Ağgerğir"
+msgstr "AÃ°gerÃ°ir"
 
 #: templates/prefs/sourceselect.inc:303
 msgid "Add source"
-msgstr "bæta viğ handriti"
+msgstr "bÃ¦ta viÃ° handriti"
 
 #: lib/MIME/Headers.php:200 lib/MIME/Headers.php:201
 #, php-format
 msgid "Add to Address book (%s)"
-msgstr "Bæta í netfangabók (%s)"
+msgstr "BÃ¦ta Ã­ netfangabÃ³k (%s)"
 
 #: compose.php:1191
 #, php-format
 msgid "Added \"%s\" as an attachment."
-msgstr "Viğhenginu \"%s\" bætt viğ."
+msgstr "ViÃ°henginu \"%s\" bÃ¦tt viÃ°."
 
 #: contacts.php:90 templates/contacts/contacts.inc:180
 #: templates/compose/redirect.inc:55 templates/compose/compose.inc:330
 msgid "Address Book"
-msgstr "Netfangabók"
+msgstr "NetfangabÃ³k"
 
 #: config/prefs.php.dist:126
 msgid "Address Books"
-msgstr "Netfangabækur"
+msgstr "NetfangabÃ¦kur"
 
 #: templates/mailbox/navbar.inc:10 config/prefs.php.dist:792
 msgid "All"
-msgstr "Öll skeyti"
+msgstr "Ã–ll skeyti"
 
 #: templates/folders/javascript.inc:5
 msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Öll skeyti í şessari möppu / şessum möppunum verğa geymd í stakri MBOX skrá:"
+"Ã–ll skeyti Ã­ Ã¾essari mÃ¶ppu / Ã¾essum mÃ¶ppunum verÃ°a geymd Ã­ stakri MBOX skrÃ¡:"
 
 #: lib/Maintenance/Task/purge_trash.php:81
 #, php-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
-msgstr "Öllum skeytum í möppunni \"%s\" sem eru eldri en %s daga verğur eytt."
+msgstr "Ã–llum skeytum Ã­ mÃ¶ppunni \"%s\" sem eru eldri en %s daga verÃ°ur eytt."
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:59
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr ""
-"Öllum eldri skeytum sem şú hefur sent frá şér, og eru eldri en %s mánağa "
-"verğur eytt."
+"Ã–llum eldri skeytum sem Ã¾Ãº hefur sent frÃ¡ Ã¾Ã©r, og eru eldri en %s mÃ¡naÃ°a "
+"verÃ°ur eytt."
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:73
 #, php-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr "Öllum sent-mail möppum sem eru eldri en %s mánağa verğur eytt."
+msgstr "Ã–llum sent-mail mÃ¶ppum sem eru eldri en %s mÃ¡naÃ°a verÃ°ur eytt."
 
 #: config/prefs.php.dist:550
 msgid "Always save attachments"
-msgstr "Altaf geyma viğhengi."
+msgstr "Altaf geyma viÃ°hengi."
 
 #: lib/Message.php:364
 msgid "An unknown error occured while creating the new task."
-msgstr "Óşekkt villa kom upp şegar reynt var ağ framkvæma skráninguna."
+msgstr "Ã“Ã¾ekkt villa kom upp Ã¾egar reynt var aÃ° framkvÃ¦ma skrÃ¡ninguna."
 
 #: message.php:484 mailbox.php:693 templates/mailbox/legend.inc:6
 #: templates/mailbox/navbar.inc:18 templates/mailbox/navbar.inc:35
 #: templates/message/navbar_navigate.inc:9
 msgid "Answered"
-msgstr "Svarağ"
+msgstr "SvaraÃ°"
 
 #: templates/search/main.inc:31
 msgid "Answered messages"
-msgstr "Skeyti sem búiğ er ağ svara"
+msgstr "Skeyti sem bÃºiÃ° er aÃ° svara"
 
 #: templates/mailbox/header.inc:7
 msgid "Apply Filters"
-msgstr "Virkja síur"
+msgstr "Virkja sÃ­ur"
 
 #: templates/mailbox/header.inc:7
 #, php-format
 msgid "Apply Filters to %s"
-msgstr "Virkja síur fyrir %s"
+msgstr "Virkja sÃ­ur fyrir %s"
 
 #: templates/filters/prefs.inc:43
 msgid "Apply filter rules upon logging on?"
-msgstr "Virkja síur şegar şú tengist."
+msgstr "Virkja sÃ­ur Ã¾egar Ã¾Ãº tengist."
 
 #: templates/filters/prefs.inc:49
 msgid "Apply filter rules whenever INBOX is displayed?"
-msgstr "Virkja síur şegar INBOX er uppfært."
+msgstr "Virkja sÃ­ur Ã¾egar INBOX er uppfÃ¦rt."
 
 #: templates/pgp/pgp.inc:93 templates/smime/smime.inc:65
 msgid "Are you sure you want to delete this public key?"
-msgstr "Ert şú viss um ağ şú viljir gera şetta?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir gera Ã¾etta?"
 
 #: templates/pgp/pgp.inc:169 templates/smime/smime.inc:128
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
-msgstr "Ert şú viss um ağ şú viljir gera şetta?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir gera Ã¾etta?"
 
 #: templates/compose/compose.js:6 templates/compose/redirect.inc:5
 msgid "Are you sure you want to do this?"
-msgstr "Ert şú viss um ağ şú viljir gera şetta?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir gera Ã¾etta?"
 
 #: message.php:391 templates/mailbox/javascript.inc:68
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "Ert şú viss um ağ şú viljir ENDANLEGA eyğa şessum skeytum?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir ENDANLEGA eyÃ°a Ã¾essum skeytum?"
 
 #: lib/MIME/Contents.php:202
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
-msgstr "Ert şú viss um ağ şú viljir ENDANLEGA eyğa şessum viğhengjum?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir ENDANLEGA eyÃ°a Ã¾essum viÃ°hengjum?"
 
 #: templates/mailbox/actions.inc:39
 msgid "Are you sure you wish to empty this folder?"
-msgstr "Ert şú viss um ağ şú viljir tæma şessa möppu?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir tÃ¦ma Ã¾essa mÃ¶ppu?"
 
 #: lib/IMP.php:931
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "Ert şú viss um ağ şú viljir tæma ruslakörfuna?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir tÃ¦ma ruslakÃ¶rfuna?"
 
 #: templates/mailbox/actions.inc:8
 msgid "Are you sure you wish to permanently delete these messages?"
-msgstr "Ert şú viss um ağ şú viljir ENDANLEGA eyğa şessum skeytum?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir ENDANLEGA eyÃ°a Ã¾essum skeytum?"
 
 #: templates/mailbox/javascript.inc:79 templates/message/javascript.inc:80
 msgid "Are you sure you wish to report this message as innocent?"
-msgstr "Ert şú viss um ağ şú viljir tilkynna şetta skeyti sem ekki ruslpóst?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir tilkynna Ã¾etta skeyti sem ekki ruslpÃ³st?"
 
 #: templates/mailbox/javascript.inc:74 templates/message/javascript.inc:75
 msgid "Are you sure you wish to report this message as spam?"
-msgstr "Ert şú viss um ağ şú viljir tilkynna şetta skeyti sem ruslpóst?"
+msgstr "Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir tilkynna Ã¾etta skeyti sem ruslpÃ³st?"
 
 #: config/prefs.php.dist:887
 msgid "Arrival Time"
-msgstr "Komutími"
+msgstr "KomutÃ­mi"
 
 #: config/prefs.php.dist:902
 msgid "Ascending"
-msgstr "Hækkandi"
+msgstr "HÃ¦kkandi"
 
 #: templates/compose/compose.inc:509
 msgid "Attach"
-msgstr "Hengja skrá viğ"
+msgstr "Hengja skrÃ¡ viÃ°"
 
 #: templates/compose/compose.inc:466
 msgid "Attach Files"
-msgstr "Bæta viğ viğhengjum"
+msgstr "BÃ¦ta viÃ° viÃ°hengjum"
 
 #: lib/MIME/Viewer/tnef.php:109
 msgid "Attached File:"
-msgstr "Viğhengi:"
+msgstr "ViÃ°hengi:"
 
 #: lib/Compose.php:362 lib/Compose.php:447
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
-msgstr "Viğhengiğ \"%s\" er of stórt. Skráin var EKKI viğhengd."
+msgstr "ViÃ°hengiÃ° \"%s\" er of stÃ³rt. SkrÃ¡in var EKKI viÃ°hengd."
 
 #: mailbox.php:729 templates/mailbox/legend.inc:16
 #: templates/compose/attachments.inc:14 templates/compose/compose.inc:496
 #: templates/compose/attachments.js:98
 msgid "Attachment"
-msgstr "Viğhengi"
+msgstr "ViÃ°hengi"
 
 #: templates/compose/compose.inc:340 templates/compose/compose.inc:464
 #: lib/Compose.php:984
 msgid "Attachments"
-msgstr "Viğhengi"
+msgstr "ViÃ°hengi"
 
 #: lib/MIME/Viewer/itip.php:682
 msgid "Attendees"
-msgstr "Viğstaddir"
+msgstr "ViÃ°staddir"
 
 #: lib/MIME/Viewer/notification.php:53
 msgid "Attention"
-msgstr "Athugağu"
+msgstr "AthugaÃ°u"
 
 #: templates/prefs/sourceselect.inc:298
 msgid "Available Address books:"
-msgstr "Tiltækar netfangabækur:"
+msgstr "TiltÃ¦kar netfangabÃ¦kur:"
 
 #: templates/message/navbar_navigate.inc:26
 #, php-format
 msgid "Bac_k to %s"
-msgstr "Tilbaka í %s"
+msgstr "Tilbaka Ã­ %s"
 
 #: thread.php:86 templates/message/navbar_navigate.inc:26
 #, php-format
 msgid "Back to %s"
-msgstr "Tilbaka í %s"
+msgstr "Tilbaka Ã­ %s"
 
 #: lib/MIME/Viewer/status.php:161
 msgid "Below is the raw text of the status information message."
-msgstr "Hér ağ neğan er hrár texti af stöğuuplısingaskeytinu."
+msgstr "HÃ©r aÃ° neÃ°an er hrÃ¡r texti af stÃ¶Ã°uuplÃ½singaskeytinu."
 
 #: templates/mailbox/actions.inc:16 templates/message/navbar_actions.inc:19
 msgid "Blacklist"
@@ -381,12 +381,12 @@ msgstr "Svartlisti"
 
 #: search.php:155
 msgid "Body"
-msgstr "Meginmál"
+msgstr "MeginmÃ¡l"
 
 #: templates/search/main.inc:23 templates/search/main.inc:39
 #: templates/search/main.inc:55 templates/search/main.inc:71
 msgid "Both"
-msgstr "Bæği"
+msgstr "BÃ¦Ã°i"
 
 #: templates/compose/compose.inc:283
 msgid "C_harset"
@@ -398,27 +398,27 @@ msgstr "Dagatal"
 
 #: lib/Fetchmail/imap.php:201
 msgid "Can not connect to the remote mail server."
-msgstr "Get ekki tengst póstşjóni."
+msgstr "Get ekki tengst pÃ³stÃ¾jÃ³ni."
 
 #: lib/Fetchmail/imap.php:199
 msgid "Can not connect to the remote mail server: "
-msgstr "Gat ekki tengst póstşjóni á fjarenda: "
+msgstr "Gat ekki tengst pÃ³stÃ¾jÃ³ni Ã¡ fjarenda: "
 
 #: folders.php:273 templates/pgp/import_key.inc:66
 #: templates/pgp/passphrase.inc:32 templates/folders/import.inc:21
 #: templates/smime/import_key.inc:85 templates/smime/passphrase.inc:22
 #: templates/contacts/contacts.inc:255 templates/compose/spelling.inc:127
 msgid "Cancel"
-msgstr "Hætta viğ"
+msgstr "HÃ¦tta viÃ°"
 
 #: templates/compose/redirect.inc:116 templates/compose/compose.inc:70
 #: templates/compose/compose.inc:426
 msgid "Cancel Message"
-msgstr "Hætta viğ skeyti"
+msgstr "HÃ¦tta viÃ° skeyti"
 
 #: templates/compose/compose.js:6 templates/compose/redirect.inc:5
 msgid "Cancelling this message will permanently discard its contents."
-msgstr "Ef şú hættir viğ şá er öllu efni skeytisins fargağ."
+msgstr "Ef Ã¾Ãº hÃ¦ttir viÃ° Ã¾Ã¡ er Ã¶llu efni skeytisins fargaÃ°."
 
 #: templates/compose/spelling.inc:86
 msgid "Change"
@@ -426,35 +426,35 @@ msgstr "Breyta"
 
 #: templates/compose/spelling.inc:87
 msgid "Change All"
-msgstr "Breyta öllum"
+msgstr "Breyta Ã¶llum"
 
 #: templates/acl/acl.inc:97 templates/acl/acl.inc:98
 msgid "Change Folder"
-msgstr "Skipta um möppu"
+msgstr "Skipta um mÃ¶ppu"
 
 #: config/prefs.php.dist:111
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"Hér getur şú breytt şví á hvağa hátt skeytum er rağağ upp og hversu margar "
-"skeytalínur sjást í hverjum glugga."
+"HÃ©r getur Ã¾Ãº breytt Ã¾vÃ­ Ã¡ hvaÃ°a hÃ¡tt skeytum er raÃ°aÃ° upp og hversu margar "
+"skeytalÃ­nur sjÃ¡st Ã­ hverjum glugga."
 
 #: config/prefs.php.dist:24
 msgid "Change mail server and folder settings."
-msgstr "Breyta póstşjóns og möppustillingum."
+msgstr "Breyta pÃ³stÃ¾jÃ³ns og mÃ¶ppustillingum."
 
 #: config/prefs.php.dist:15
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Hér getur şú breytt şví hvağa nafn, netfang og skeytisbotn kemur fram í "
-"skeytum şínum."
+"HÃ©r getur Ã¾Ãº breytt Ã¾vÃ­ hvaÃ°a nafn, netfang og skeytisbotn kemur fram Ã­ "
+"skeytum Ã¾Ã­num."
 
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
-msgstr "Hvağa möppur á ağ athuga meğ nıjan póst í"
+msgstr "HvaÃ°a mÃ¶ppur Ã¡ aÃ° athuga meÃ° nÃ½jan pÃ³st Ã­"
 
 #: config/prefs.php.dist:454
 msgid "Check spelling before sending a message?"
@@ -462,56 +462,56 @@ msgstr "Athuga stafsetningu fyrir sendingu?"
 
 #: templates/folders/actions.inc:4
 msgid "Choose Action:"
-msgstr "Veldu ağgerğ:"
+msgstr "Veldu aÃ°gerÃ°:"
 
 #: config/servers.php.dist:195
 msgid "Choose a mail server:"
-msgstr "Veldu póstşjón:"
+msgstr "Veldu pÃ³stÃ¾jÃ³n:"
 
 #: templates/compose/compose.inc:127 templates/compose/compose.inc:177
 #: templates/compose/compose.inc:228
 msgid "Choose a match or edit the address to the right:"
-msgstr "Veldu eğa breyttu til hægri:"
+msgstr "Veldu eÃ°a breyttu til hÃ¦gri:"
 
 #: lib/MIME/Viewer/itip.php:521 lib/MIME/Viewer/itip.php:731
 msgid "Choose an action:"
-msgstr "Veldu ağgerğ:"
+msgstr "Veldu aÃ°gerÃ°:"
 
 #: templates/prefs/sourceselect.inc:349
 msgid "Choose the address book to use when adding addresses."
-msgstr "Veldu netfangabók sem á ağ nota şegar nıjum netföngum er bætt viğ."
+msgstr "Veldu netfangabÃ³k sem Ã¡ aÃ° nota Ã¾egar nÃ½jum netfÃ¶ngum er bÃ¦tt viÃ°."
 
 #: templates/prefs/sourceselect.inc:293
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr ""
-"Veldu uppröğun netfangabóka sem á ağ leita í, şegar leitağ er ağ netföngum."
+"Veldu upprÃ¶Ã°un netfangabÃ³ka sem Ã¡ aÃ° leita Ã­, Ã¾egar leitaÃ° er aÃ° netfÃ¶ngum."
 
 #: lib/MIME/Viewer/html.php:128
 #, php-format
 msgid "Click %s to view HTML content in a separate window."
-msgstr "Smellu á %s til ağ skoğa HTML innihald í sér glugga."
+msgstr "Smellu Ã¡ %s til aÃ° skoÃ°a HTML innihald Ã­ sÃ©r glugga."
 
 #: lib/MIME/Viewer/images.php:163
 #, php-format
 msgid "Click %s to view a thumbnail of this image."
-msgstr "Smelltu %s til ağ skoğa hana sem smámynd."
+msgstr "Smelltu %s til aÃ° skoÃ°a hana sem smÃ¡mynd."
 
 #: lib/MIME/Viewer/pkcs7.php:407
 #, php-format
 msgid "Click %s to view the attachment in a separate window."
-msgstr "Smelltu á %s til ağ skoğa viğhengi í sér glugga."
+msgstr "Smelltu Ã¡ %s til aÃ° skoÃ°a viÃ°hengi Ã­ sÃ©r glugga."
 
 #: lib/MIME/Viewer/related.php:79
 #, php-format
 msgid "Click %s to view this multipart/related part in a separate window."
-msgstr "Smelltu á %s til ağ skoğa şennan hluta í sér glugga."
+msgstr "Smelltu Ã¡ %s til aÃ° skoÃ°a Ã¾ennan hluta Ã­ sÃ©r glugga."
 
 #: templates/prefs/sourceselect.inc:321
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Smelltu á eina af völdum netfangabókum og veldu şá reiti sem á ağ leita í."
+"Smelltu Ã¡ eina af vÃ¶ldum netfangabÃ³kum og veldu Ã¾Ã¡ reiti sem Ã¡ aÃ° leita Ã­."
 
 #: templates/fetchmail/fetchmail.inc:30
 msgid "Close"
@@ -519,11 +519,11 @@ msgstr "Loka"
 
 #: compose.php:775 compose.php:1082
 msgid "Close this window"
-msgstr "Loka şessum glugga"
+msgstr "Loka Ã¾essum glugga"
 
 #: folders.php:416
 msgid "Closed Folder"
-msgstr "Lokuğ mappa"
+msgstr "LokuÃ° mappa"
 
 #: folders.php:436
 msgid "Collapse"
@@ -531,15 +531,15 @@ msgstr "Loka"
 
 #: templates/folders/actions.inc:34
 msgid "Collapse All"
-msgstr "Loka öllum"
+msgstr "Loka Ã¶llum"
 
 #: templates/folders/actions.inc:34
 msgid "Collapse All Folders"
-msgstr "Loka öllum möppum"
+msgstr "Loka Ã¶llum mÃ¶ppum"
 
 #: folders.php:436
 msgid "Collapse Folder"
-msgstr "Loka möppu"
+msgstr "Loka mÃ¶ppu"
 
 #: templates/pgp/pgp.inc:191
 msgid "Comment"
@@ -547,7 +547,7 @@ msgstr "Athugasemd"
 
 #: lib/MIME/Viewer/itip.php:769
 msgid "Completed"
-msgstr "Lokiğ"
+msgstr "LokiÃ°"
 
 #: lib/Block/tree_folders.php:42 lib/Block/summary.php:19
 msgid "Compose"
@@ -560,19 +560,19 @@ msgstr "Semja skeyti (%s)"
 
 #: compose.php:774 compose.php:1081
 msgid "Compose another message"
-msgstr "Semja nıtt skeyti"
+msgstr "Semja nÃ½tt skeyti"
 
 #: config/prefs.php.dist:429
 msgid "Compose messages in a separate window?"
-msgstr "Semja skeyti í sér glugga?"
+msgstr "Semja skeyti Ã­ sÃ©r glugga?"
 
 #: config/prefs.php.dist:88
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"Stjórna hvenær athugağ er um póst, og hvernig á ağ gera viğvart um nıjan "
-"póst."
+"StjÃ³rna hvenÃ¦r athugaÃ° er um pÃ³st, og hvernig Ã¡ aÃ° gera viÃ°vart um nÃ½jan "
+"pÃ³st."
 
 #: templates/mailbox/navbar.inc:51 templates/message/navbar_navigate.inc:19
 msgid "Copy"
@@ -580,74 +580,74 @@ msgstr "Afrit"
 
 #: templates/mailbox/navbar.inc:51 templates/message/navbar_navigate.inc:19
 msgid "Copy to folder"
-msgstr "Afrita í möppu"
+msgstr "Afrita Ã­ mÃ¶ppu"
 
 #: templates/compose/spelling.inc:66
 msgid "Correct"
-msgstr "Leiğrétta"
+msgstr "LeiÃ°rÃ©tta"
 
 #: templates/compose/spelling.inc:145
 msgid "Corrected Text"
-msgstr "Leiğréttur texti"
+msgstr "LeiÃ°rÃ©ttur texti"
 
 #: lib/Message.php:603
 #, php-format
 msgid "Could not delete messages from %s. The server said: %s"
-msgstr "Gat ekki eytt skeytum frá %s: %s"
+msgstr "Gat ekki eytt skeytum frÃ¡ %s: %s"
 
 #: lib/Session.php:293
 msgid "Could not execute maintenance operations."
-msgstr "Gat ekki framkvæmt viğhaldsağgerğir"
+msgstr "Gat ekki framkvÃ¦mt viÃ°haldsaÃ°gerÃ°ir"
 
 #: search.php:361 templates/acl/acl.inc:39 templates/acl/acl.inc:157
 #: templates/fetchmail/manage.inc:67
 msgid "Create"
-msgstr "Búa til"
+msgstr "BÃºa til"
 
 #: templates/folders/actions.inc:5
 msgid "Create Folder"
-msgstr "Búa til möppu"
+msgstr "BÃºa til mÃ¶ppu"
 
 #: templates/pgp/pgp.inc:252
 msgid "Create Keys"
-msgstr "Búa til lykla"
+msgstr "BÃºa til lykla"
 
 #: templates/search/header.inc:14
 msgid "Create Virtual Folder"
-msgstr "Búa til sındarmöppu"
+msgstr "BÃºa til sÃ½ndarmÃ¶ppu"
 
 #: templates/prefs/spamselect.inc:12 templates/prefs/spamselect.inc:24
 msgid "Create a new Spam folder"
-msgstr "Búa til nıja möppu undir ruslpóst"
+msgstr "BÃºa til nÃ½ja mÃ¶ppu undir ruslpÃ³st"
 
 #: templates/prefs/folderselect.inc:12 templates/prefs/folderselect.inc:24
 msgid "Create a new drafts folder"
-msgstr "Búa til nıja möppu undir uppköst"
+msgstr "BÃºa til nÃ½ja mÃ¶ppu undir uppkÃ¶st"
 
 #: templates/prefs/sentmailselect.inc:27 templates/prefs/sentmailselect.inc:43
 msgid "Create a new sent mail folder"
-msgstr "Búa til nıja möppu undur send skeyti"
+msgstr "BÃºa til nÃ½ja mÃ¶ppu undur send skeyti"
 
 #: templates/prefs/trashselect.inc:12 templates/prefs/trashselect.inc:24
 msgid "Create a new trash folder"
-msgstr "Búa til nıja möppu (ruslakörfu) undir eydd skeyti"
+msgstr "BÃºa til nÃ½ja mÃ¶ppu (ruslakÃ¶rfu) undir eydd skeyti"
 
 #: config/prefs.php.dist:120
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"Búa til síureglur sem stjórna meğferğ innkomandi pósts, færa hann í "
-"tilteknar möppur eğa eyğa ruslpósti."
+"BÃºa til sÃ­ureglur sem stjÃ³rna meÃ°ferÃ° innkomandi pÃ³sts, fÃ¦ra hann Ã­ "
+"tilteknar mÃ¶ppur eÃ°a eyÃ°a ruslpÃ³sti."
 
 #: config/prefs.php.dist:51
 msgid "Customize how you send mail."
-msgstr "Stilla hvernig póstur er sendur."
+msgstr "Stilla hvernig pÃ³stur er sendur."
 
 #: config/prefs.php.dist:40
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Stilla ağgerğir sem eru framkvæmdar şegar şú tengist %s."
+msgstr "Stilla aÃ°gerÃ°ir sem eru framkvÃ¦mdar Ã¾egar Ã¾Ãº tengist %s."
 
 #: templates/mailbox/message_headers.inc:17
 msgid "Dat_e"
@@ -659,27 +659,27 @@ msgstr "Dags"
 
 #: lib/MIME/Viewer/itip.php:757
 msgid "Declined"
-msgstr "Hafnağ"
+msgstr "HafnaÃ°"
 
 #: lib/MIME/Viewer/itip.php:263
 msgid "Declined: "
-msgstr "Hafnağ: "
+msgstr "HafnaÃ°: "
 
 #: config/prefs.php.dist:530
 msgid "Default"
-msgstr "Sjálfgefiğ"
+msgstr "SjÃ¡lfgefiÃ°"
 
 #: config/prefs.php.dist:894
 msgid "Default sorting criteria:"
-msgstr "Sjálfgefin röğunarağferğ:"
+msgstr "SjÃ¡lfgefin rÃ¶Ã°unaraÃ°ferÃ°:"
 
 #: config/prefs.php.dist:904
 msgid "Default sorting direction:"
-msgstr "Sjálfgefin uppröğun:"
+msgstr "SjÃ¡lfgefin upprÃ¶Ã°un:"
 
 #: lib/MIME/Viewer/itip.php:765
 msgid "Delegated"
-msgstr "Ráğstafağ"
+msgstr "RÃ¡Ã°stafaÃ°"
 
 #: folders.php:407 templates/mailbox/actions.inc:8
 #: templates/mailbox/actions.inc:10 templates/pgp/pgp.inc:93
@@ -687,36 +687,36 @@ msgstr "Ráğstafağ"
 #: templates/contacts/contacts.inc:244 templates/fetchmail/manage.inc:68
 #: templates/compose/attachments.inc:28
 msgid "Delete"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: templates/pgp/pgp.inc:93 templates/smime/smime.inc:65
 #, php-format
 msgid "Delete %s Public Key"
-msgstr "Eyğa opinbera lyklinum %s"
+msgstr "EyÃ°a opinbera lyklinum %s"
 
 #: templates/pgp/pgp.inc:169 templates/smime/smime.inc:128
 msgid "Delete Current Keys"
-msgstr "Eyğa virkum lyklum"
+msgstr "EyÃ°a virkum lyklum"
 
 #: templates/folders/actions.inc:7
 msgid "Delete Folder(s)"
-msgstr "Eyğa möppu(m)"
+msgstr "EyÃ°a mÃ¶ppu(m)"
 
 #: folders.php:274
 msgid "Delete Selected Folders"
-msgstr "Eyğa völdum möppum"
+msgstr "EyÃ°a vÃ¶ldum mÃ¶ppum"
 
 #: folders.php:407
 msgid "Delete Virtual Folder"
-msgstr "Eyğa sındarmöppu"
+msgstr "EyÃ°a sÃ½ndarmÃ¶ppu"
 
 #: templates/fetchmail/manage.inc:43
 msgid "Delete fetched messages from remote server?"
-msgstr "Hreinsa út sótt skeyti á póstşjóni á fjarenda?"
+msgstr "Hreinsa Ãºt sÃ³tt skeyti Ã¡ pÃ³stÃ¾jÃ³ni Ã¡ fjarenda?"
 
 #: config/prefs.php.dist:344
 msgid "Delete old sent-mail folders at beginning of month?"
-msgstr "Eyğa gömlum möppum meğ sendum pósti í upphafi hvers mánağar"
+msgstr "EyÃ°a gÃ¶mlum mÃ¶ppum meÃ° sendum pÃ³sti Ã­ upphafi hvers mÃ¡naÃ°ar"
 
 #: message.php:487 mailbox.php:719 templates/mailbox/legend.inc:8
 #: templates/mailbox/navbar.inc:20 templates/mailbox/navbar.inc:38
@@ -730,78 +730,78 @@ msgstr "Eydd skeyti"
 #: compose.php:280
 #, php-format
 msgid "Deleted the attachment \"%s\"."
-msgstr "Eyddi viğhenginu \"%s\"."
+msgstr "Eyddi viÃ°henginu \"%s\"."
 
 #: config/prefs.php.dist:79
 msgid "Deleting and Moving Messages"
-msgstr "Eyğing og flutningur skeyta"
+msgstr "EyÃ°ing og flutningur skeyta"
 
 #: config/prefs.php.dist:903
 msgid "Descending"
-msgstr "Lækkandi"
+msgstr "LÃ¦kkandi"
 
 #: templates/compose/attachments.inc:21 lib/MIME/Viewer/itip.php:669
 msgid "Description"
-msgstr "Lısing"
+msgstr "LÃ½sing"
 
 #: templates/pgp/pgp.inc:93 templates/pgp/pgp.inc:147
 #: templates/pgp/pgp.inc:151 templates/smime/smime.inc:65
 #: templates/smime/smime.inc:113
 msgid "Details"
-msgstr "Atriği"
+msgstr "AtriÃ°i"
 
 #: config/prefs.php.dist:671
 msgid "Dim signatures?"
-msgstr "Hafa undirskriftir meğ daufum lit?"
+msgstr "Hafa undirskriftir meÃ° daufum lit?"
 
 #: templates/contacts/contacts.inc:236
 msgid "Display"
-msgstr "Útlit"
+msgstr "Ãštlit"
 
 #: config/prefs.php.dist:470
 msgid "Display confirmation after sending a message?"
-msgstr "Sına stağfestingu ağ sendingu lokinni?"
+msgstr "SÃ½na staÃ°festingu aÃ° sendingu lokinni?"
 
 #: config/prefs.php.dist:768
 msgid "Display pop-up notification of new mail?"
-msgstr "Sına PopUp glugga şegar nır póstur berst."
+msgstr "SÃ½na PopUp glugga Ã¾egar nÃ½r pÃ³stur berst."
 
 #: templates/search/fields.inc:26
 msgid "Do NOT match"
-msgstr "Sem passar ekki viğ"
+msgstr "Sem passar ekki viÃ°"
 
 #: templates/folders/actions.inc:14
 msgid "Do Not Check Folder(s) for New Mail"
-msgstr "Ekki athuga um nıjan póst í möppu(m)"
+msgstr "Ekki athuga um nÃ½jan pÃ³st Ã­ mÃ¶ppu(m)"
 
 #: lib/IMP.php:1031
 msgid "Do you want to open that folder?"
-msgstr "Viltu opna şessa möppu?"
+msgstr "Viltu opna Ã¾essa mÃ¶ppu?"
 
 #: templates/compose/spelling.inc:133
 msgid "Done"
-msgstr "Lokiğ"
+msgstr "LokiÃ°"
 
 #: lib/MIME/Contents.php:191
 #, php-format
 msgid "Download %s in .zip Format"
-msgstr "Sækja %s sem .zip skrá"
+msgstr "SÃ¦kja %s sem .zip skrÃ¡"
 
 #: templates/message/headers.inc:52
 msgid "Download All Attachments (in .zip file)"
-msgstr "Sækja öll viğhengi (í .zip skrá)"
+msgstr "SÃ¦kja Ã¶ll viÃ°hengi (Ã­ .zip skrÃ¡)"
 
 #: templates/folders/actions.inc:18
 msgid "Download Folder(s)"
-msgstr "Sækja möppu(r) yfir á vinnustöğ"
+msgstr "SÃ¦kja mÃ¶ppu(r) yfir Ã¡ vinnustÃ¶Ã°"
 
 #: templates/folders/actions.inc:19
 msgid "Download Folder(s) [.zip format]"
-msgstr "Sækja möppu(r) [.zip skrá]"
+msgstr "SÃ¦kja mÃ¶ppu(r) [.zip skrÃ¡]"
 
 #: lib/MIME/Contents.php:191
 msgid "Download in .zip Format"
-msgstr "Sækja sem .zip skrá"
+msgstr "SÃ¦kja sem .zip skrÃ¡"
 
 #: message.php:485 mailbox.php:698 templates/mailbox/legend.inc:9
 #: templates/mailbox/navbar.inc:22 templates/mailbox/navbar.inc:41
@@ -811,11 +811,11 @@ msgstr "Uppkast"
 
 #: folders.php:387
 msgid "Draft folder"
-msgstr "Mappa fyrir uppköst:"
+msgstr "Mappa fyrir uppkÃ¶st:"
 
 #: templates/prefs/folderselect.inc:23
 msgid "Drafts folder:"
-msgstr "Mappa fyrir uppköst:"
+msgstr "Mappa fyrir uppkÃ¶st:"
 
 #: templates/pgp/pgp.inc:196
 msgid "E-mail Address"
@@ -823,7 +823,7 @@ msgstr "Netfang"
 
 #: lib/MIME/Viewer/status.php:74
 msgid "ERROR: Your message could not be delivered."
-msgstr "VILLA: Şağ tókst ekki a senda skeytiğ."
+msgstr "VILLA: ÃaÃ° tÃ³kst ekki a senda skeytiÃ°."
 
 #: folders.php:408
 msgid "Edit"
@@ -831,32 +831,32 @@ msgstr "Breyta"
 
 #: templates/filters/prefs.inc:21
 msgid "Edit Blacklist"
-msgstr "Vinna í svartlista"
+msgstr "Vinna Ã­ svartlista"
 
 #: templates/filters/prefs.inc:16
 msgid "Edit Filters"
-msgstr "Vinna í síum fyrir póst"
+msgstr "Vinna Ã­ sÃ­um fyrir pÃ³st"
 
 #: folders.php:408 templates/search/header.inc:16
 #: templates/mailbox/header.inc:13
 msgid "Edit Virtual Folder"
-msgstr "Breyta sındarmöppu"
+msgstr "Breyta sÃ½ndarmÃ¶ppu"
 
 #: templates/filters/prefs.inc:26
 msgid "Edit Whitelist"
-msgstr "Vinna í hvítlista"
+msgstr "Vinna Ã­ hvÃ­tlista"
 
 #: templates/filters/prefs.inc:21
 msgid "Edit your blacklist"
-msgstr "Vinna í şínum svartlista"
+msgstr "Vinna Ã­ Ã¾Ã­num svartlista"
 
 #: templates/filters/prefs.inc:16
 msgid "Edit your filter rules"
-msgstr "Breyta şínum síureglum"
+msgstr "Breyta Ã¾Ã­num sÃ­ureglum"
 
 #: templates/filters/prefs.inc:26
 msgid "Edit your whitelist"
-msgstr "Vinna í şínum hvítlista"
+msgstr "Vinna Ã­ Ã¾Ã­num hvÃ­tlista"
 
 #: templates/contacts/contacts.inc:239
 msgid "Email Address"
@@ -865,73 +865,73 @@ msgstr "Netfang"
 #: lib/Message.php:620
 #, php-format
 msgid "Emptied all messages from %s."
-msgstr "Öll skeyti frá %s hreinsuğ út."
+msgstr "Ã–ll skeyti frÃ¡ %s hreinsuÃ° Ãºt."
 
 #: templates/folders/actions.inc:20
 msgid "Empty Folder(s)"
-msgstr "Tæma möppu(r)"
+msgstr "TÃ¦ma mÃ¶ppu(r)"
 
 #: folders.php:275
 msgid "Empty Selected Folders"
-msgstr "Tæma valdar möppur"
+msgstr "TÃ¦ma valdar mÃ¶ppur"
 
 #: templates/mailbox/actions.inc:39
 msgid "Empty Trash folder"
-msgstr "Tæma ruslakörfumöppu"
+msgstr "TÃ¦ma ruslakÃ¶rfumÃ¶ppu"
 
 #: lib/IMP.php:931
 msgid "Empty _Trash"
-msgstr "Tæma ruslmöppu"
+msgstr "TÃ¦ma ruslmÃ¶ppu"
 
 #: config/prefs.php.dist:780
 msgid "Enable message previews?"
-msgstr "Virkja forskoğun skeyta?"
+msgstr "Virkja forskoÃ°un skeyta?"
 
 #: templates/compose/compose.inc:433
 msgid "Encr_yption Options"
-msgstr "Dulkóğunarvalkostir"
+msgstr "DulkÃ³Ã°unarvalkostir"
 
 #: lib/Compose.php:330
 msgid "End forwarded message"
-msgstr "Ljúka framsendu skeyti"
+msgstr "LjÃºka framsendu skeyti"
 
 #: lib/Compose.php:271
 msgid "End message"
-msgstr "Ljúka skeyti"
+msgstr "LjÃºka skeyti"
 
 #: lib/Compose.php:269
 #, php-format
 msgid "End message from %s"
-msgstr "Enda framsent skeyti frá %s"
+msgstr "Enda framsent skeyti frÃ¡ %s"
 
 #: templates/pgp/pgp.inc:151 templates/smime/smime.inc:117
 msgid "Enter Passphrase"
-msgstr "Skráğu inn lykilkóğa"
+msgstr "SkrÃ¡Ã°u inn lykilkÃ³Ã°a"
 
 #: templates/prefs/spamselect.inc:9
 msgid "Enter the name for your new Spam folder"
-msgstr "Sláğu inn nafn á nıju möppunni fyrir ruslpóst"
+msgstr "SlÃ¡Ã°u inn nafn Ã¡ nÃ½ju mÃ¶ppunni fyrir ruslpÃ³st"
 
 #: templates/prefs/folderselect.inc:9
 msgid "Enter the name for your new drafts folder"
-msgstr "Sláğu inn nafn á nıju möppunni fyrir uppköst"
+msgstr "SlÃ¡Ã°u inn nafn Ã¡ nÃ½ju mÃ¶ppunni fyrir uppkÃ¶st"
 
 #: templates/prefs/sentmailselect.inc:24
 msgid "Enter the name for your new sent mail folder"
-msgstr "Sláğu inn nafn á nıju möppunni fyrir send skeyti"
+msgstr "SlÃ¡Ã°u inn nafn Ã¡ nÃ½ju mÃ¶ppunni fyrir send skeyti"
 
 #: templates/prefs/trashselect.inc:9
 msgid "Enter the name for your new trash folder"
-msgstr "Sláğu inn nafn á nıju möppunni (ruslakörfu) fyrir eydd skeyti"
+msgstr "SlÃ¡Ã°u inn nafn Ã¡ nÃ½ju mÃ¶ppunni (ruslakÃ¶rfu) fyrir eydd skeyti"
 
 #: search.php:159
 msgid "Entire Message"
-msgstr "Skeyti í heild sinni"
+msgstr "Skeyti Ã­ heild sinni"
 
 #: message.php:178 compose.php:1068 thread.php:39
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
-msgstr "Netfangiğ \"%s\" var skráğ í netfangabókina"
+msgstr "NetfangiÃ° \"%s\" var skrÃ¡Ã° Ã­ netfangabÃ³kina"
 
 #: templates/pgp/pgp.inc:84 templates/smime/smime.inc:58
 #: lib/MIME/Viewer/pgp.php:386 lib/MIME/Viewer/status.php:72
@@ -941,27 +941,27 @@ msgstr "Villa"
 
 #: lib/MIME/Viewer/itip.php:101
 msgid "Event successfully deleted."
-msgstr "Viğburğinum var eytt."
+msgstr "ViÃ°burÃ°inum var eytt."
 
 #: config/prefs.php.dist:758
 msgid "Every 15 minutes"
-msgstr "Á korters fresti"
+msgstr "Ã korters fresti"
 
 #: config/prefs.php.dist:755
 msgid "Every 30 seconds"
-msgstr "Á 30 sek. fresti"
+msgstr "Ã 30 sek. fresti"
 
 #: config/prefs.php.dist:757
 msgid "Every 5 minutes"
-msgstr "Á fimm mínútna fresti"
+msgstr "Ã fimm mÃ­nÃºtna fresti"
 
 #: config/prefs.php.dist:759
 msgid "Every half hour"
-msgstr "Á hálftíma fresti"
+msgstr "Ã hÃ¡lftÃ­ma fresti"
 
 #: config/prefs.php.dist:756
 msgid "Every minute"
-msgstr "Á mínútu fresti"
+msgstr "Ã mÃ­nÃºtu fresti"
 
 #: folders.php:445
 msgid "Expand"
@@ -973,19 +973,19 @@ msgstr "Opna allar"
 
 #: templates/folders/actions.inc:33
 msgid "Expand All Folders"
-msgstr "Opna allar möppur"
+msgstr "Opna allar mÃ¶ppur"
 
 #: folders.php:445
 msgid "Expand Folder"
-msgstr "Opna möppu"
+msgstr "Opna mÃ¶ppu"
 
 #: templates/compose/redirect.inc:56 templates/compose/compose.inc:331
 msgid "Expand Names"
-msgstr "Opna nafnaskrá"
+msgstr "Opna nafnaskrÃ¡"
 
 #: config/prefs.php.dist:951
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "Opna allt möpputréğ sjálfgefiğ í möppuham."
+msgstr "Opna allt mÃ¶pputrÃ©Ã° sjÃ¡lfgefiÃ° Ã­ mÃ¶ppuham."
 
 #: templates/compose/redirect.inc:104 templates/compose/compose.inc:155
 #: templates/compose/compose.inc:205 templates/compose/compose.inc:256
@@ -994,61 +994,61 @@ msgstr "Opna allar"
 
 #: lib/IMP.php:940 lib/IMP.php:942
 msgid "F_etch Mail"
-msgstr "Sækja póst"
+msgstr "SÃ¦kja pÃ³st"
 
 #: templates/fetchmail/fetchmail.inc:29 config/prefs.php.dist:103
 msgid "Fetch Mail"
-msgstr "Sækja póst"
+msgstr "SÃ¦kja pÃ³st"
 
 #: config/prefs.php.dist:839
 msgid "Fetch Mail in a separate window?"
-msgstr "Sækja skeyti í sér glugga?"
+msgstr "SÃ¦kja skeyti Ã­ sÃ©r glugga?"
 
 #: templates/fetchmail/manage.inc:46
 msgid "Fetch messages upon logging on?"
-msgstr "Sækja skeyti şegar şú tengist?"
+msgstr "SÃ¦kja skeyti Ã¾egar Ã¾Ãº tengist?"
 
 #: lib/Fetchmail.php:289
 #, php-format
 msgid "Fetched %d messages from %s"
-msgstr "Sótti %d skeyti frá %s"
+msgstr "SÃ³tti %d skeyti frÃ¡ %s"
 
 #: lib/Fetchmail.php:287
 #, php-format
 msgid "Fetched 1 message from %s"
-msgstr "Sótti eitt skeyti frá %s"
+msgstr "SÃ³tti eitt skeyti frÃ¡ %s"
 
 #: lib/Fetchmail.php:291
 msgid "Fetchmail: no new messages."
-msgstr "Şú átt engin nı skeyti."
+msgstr "ÃÃº Ã¡tt engin nÃ½ skeyti."
 
 #: lib/IMP.php:946
 msgid "Fi_lters"
-msgstr "Síur"
+msgstr "SÃ­ur"
 
 #: templates/compose/compose.inc:492 templates/compose/attachments.js:83
 msgid "File"
-msgstr "Skrá"
+msgstr "SkrÃ¡"
 
 #: templates/filters/prefs.inc:35
 msgid "Filter Options"
-msgstr "Síuvalkostir"
+msgstr "SÃ­uvalkostir"
 
 #: templates/filters/prefs.inc:8
 msgid "Filter Settings"
-msgstr "Síustillingar"
+msgstr "SÃ­ustillingar"
 
 #: config/prefs.php.dist:594
 msgid "Filter message content for profanity?"
-msgstr "Sía skeyti gagnvart ruddalegu orğalagi?"
+msgstr "SÃ­a skeyti gagnvart ruddalegu orÃ°alagi?"
 
 #: config/prefs.php.dist:119
 msgid "Filters"
-msgstr "Síur"
+msgstr "SÃ­ur"
 
 #: templates/filters/notactive.inc:2
 msgid "Filters NOT Active"
-msgstr "Síur EKKI virkar"
+msgstr "SÃ­ur EKKI virkar"
 
 #: templates/contacts/contacts.inc:186
 msgid "Find"
@@ -1056,56 +1056,56 @@ msgstr "Finna"
 
 #: config/prefs.php.dist:876
 msgid "First Mailbox Page"
-msgstr "Fyrsta síğa"
+msgstr "Fyrsta sÃ­Ã°a"
 
 #: mailbox.php:341
 msgid "First Page"
-msgstr "Fyrsta síğa"
+msgstr "Fyrsta sÃ­Ã°a"
 
 #: templates/mailbox/actions.inc:21 templates/message/navbar_actions.inc:15
 msgid "Fo_rward"
-msgstr "Áframsenda"
+msgstr "Ãframsenda"
 
 #: folders.php:292 templates/folders/head.inc:9
 #: templates/prefs/initialpageselect.inc:6
 #: templates/prefs/initialpageselect.inc:10
 msgid "Folder Navigator"
-msgstr "Möppuvísir"
+msgstr "MÃ¶ppuvÃ­sir"
 
 #: templates/login/login.inc:175
 msgid "Folder Prefix"
-msgstr "Forskeyti fyrir möppur"
+msgstr "Forskeyti fyrir mÃ¶ppur"
 
 #: lib/Block/summary.php:3
 msgid "Folder Summary"
-msgstr "Möppuyfirlit"
+msgstr "MÃ¶ppuyfirlit"
 
 #: compose.php:727 templates/mailbox/actions.inc:21
 #: templates/message/navbar_actions.inc:15
 msgid "Forward"
-msgstr "Áframsenda"
+msgstr "Ãframsenda"
 
 #: compose.php:712
 msgid "Forward:"
-msgstr "Áframsenda:"
+msgstr "Ãframsenda:"
 
 #: lib/Compose.php:299
 msgid "Forwarded message"
-msgstr "Áframsent skeyti"
+msgstr "Ãframsent skeyti"
 
 #: lib/Compose.php:297
 #, php-format
 msgid "Forwarded message from %s"
-msgstr "Áframsent skeyti frá %s"
+msgstr "Ãframsent skeyti frÃ¡ %s"
 
 #: templates/mailbox/message_headers.inc:27
 msgid "Fro_m"
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: search.php:135 message.php:247 thread.php:93
 #: templates/compose/compose.inc:98
 msgid "From"
-msgstr "Frá"
+msgstr "FrÃ¡"
 
 #: config/prefs.php.dist:889
 msgid "From Address"
@@ -1113,11 +1113,11 @@ msgstr "Sendandanetfang"
 
 #: compose.php:724 compose.php:728
 msgid "Fwd:"
-msgstr "Áframs.:"
+msgstr "Ãframs.:"
 
 #: compose.php:1229
 msgid "Fwd: "
-msgstr "Áframs.:"
+msgstr "Ãframs.:"
 
 #: compose.php:1231
 #, php-format
@@ -1131,7 +1131,7 @@ msgstr "Valkostir notanda"
 
 #: templates/fetchmail/manage.inc:37
 msgid "Get only new messages? (IMAP only)"
-msgstr "Sækja bara nı skeyti? (IMAP)"
+msgstr "SÃ¦kja bara nÃ½ skeyti? (IMAP)"
 
 #: thread.php:85
 msgid "Go to Message"
@@ -1140,7 +1140,7 @@ msgstr "Opna skeyti"
 #: lib/IMP.php:553
 #, php-format
 msgid "Go to address book entry of \"%s\""
-msgstr "Fara í netfangabókarskráningu fyrir \"%s\""
+msgstr "Fara Ã­ netfangabÃ³karskrÃ¡ningu fyrir \"%s\""
 
 #: message.php:530 lib/Filter.php:106 lib/MIME/Viewer/pgp.php:173
 #: lib/MIME/Viewer/related.php:79 lib/MIME/Viewer/images.php:95
@@ -1150,11 +1150,11 @@ msgstr "Fara í netfangabókarskráningu fyrir \"%s\""
 #: lib/MIME/Viewer/appledouble.php:41 lib/MIME/Viewer/status.php:120
 #: lib/MIME/Viewer/status.php:127 lib/MIME/Viewer/pkcs7.php:407
 msgid "HERE"
-msgstr "hér"
+msgstr "hÃ©r"
 
 #: compose.php:229
 msgid "HTML Version of Message"
-msgstr "HTML útgáfa skeytis"
+msgstr "HTML ÃºtgÃ¡fa skeytis"
 
 #: templates/message/headers.inc:58
 msgid "Headers"
@@ -1162,11 +1162,11 @@ msgstr "Hausar"
 
 #: config/prefs.php.dist:662
 msgid "Hidden"
-msgstr "Faliğ"
+msgstr "FaliÃ°"
 
 #: config/prefs.php.dist:661
 msgid "Hidden in Thread View"
-msgstr "Faliğ í efnisşráğsham"
+msgstr "FaliÃ° Ã­ efnisÃ¾rÃ¡Ã°sham"
 
 #: mailbox.php:363
 msgid "Hide Deleted"
@@ -1174,7 +1174,7 @@ msgstr "Fela eydd skeyti"
 
 #: folders.php:287
 msgid "Hide Unsubscribed"
-msgstr "Fela óvirka(r) línu(r)"
+msgstr "Fela Ã³virka(r) lÃ­nu(r)"
 
 #: lib/MIME/Viewer/html.php:104
 msgid "Hide the Images"
@@ -1182,23 +1182,23 @@ msgstr "Fela myndirnar"
 
 #: templates/compose/compose.inc:305
 msgid "High"
-msgstr "Hár"
+msgstr "HÃ¡r"
 
 #: message.php:281 mailbox.php:703 templates/mailbox/legend.inc:12
 msgid "High Priority"
-msgstr "Hár forgangur"
+msgstr "HÃ¡r forgangur"
 
 #: templates/compose/compose.inc:304
 msgid "Highest"
-msgstr "Hæsti"
+msgstr "HÃ¦sti"
 
 #: config/prefs.php.dist:682
 msgid "How do you want to display attachments?"
-msgstr "Hvrnig viltu sına viğhengi?"
+msgstr "Hvrnig viltu sÃ½na viÃ°hengi?"
 
 #: config/prefs.php.dist:496
 msgid "How to attribute quoted lines in a reply"
-msgstr "Hvernig á ağ merkja texta sem er veriğ ağ vísa í í svari:"
+msgstr "Hvernig Ã¡ aÃ° merkja texta sem er veriÃ° aÃ° vÃ­sa Ã­ Ã­ svari:"
 
 #: lib/IMP.php:886
 msgid "INBOX"
@@ -1206,7 +1206,7 @@ msgstr "Innbox"
 
 #: templates/folders/folders_confirm.html:12
 msgid "If you continue, all messages in the folder(s) will be lost!"
-msgstr "Öllum skeytum í möppunni/möppunum verğur eytt!"
+msgstr "Ã–llum skeytum Ã­ mÃ¶ppunni/mÃ¶ppunum verÃ°ur eytt!"
 
 #: templates/compose/spelling.inc:88
 msgid "Ignore"
@@ -1226,27 +1226,27 @@ msgstr "Flytja inn skeyti"
 
 #: templates/folders/import.inc:9
 msgid "Import mbox File"
-msgstr "Flytja inn mbox skrá"
+msgstr "Flytja inn mbox skrÃ¡"
 
 #: templates/folders/import.inc:16
 #, php-format
 msgid "Import mbox file %s into folder %s."
-msgstr "Flytja inn mbox skrána %s í möppuna %s."
+msgstr "Flytja inn mbox skrÃ¡na %s Ã­ mÃ¶ppuna %s."
 
 #: message.php:486 mailbox.php:713 templates/mailbox/legend.inc:7
 #: templates/mailbox/navbar.inc:16 templates/mailbox/navbar.inc:33
 #: templates/message/navbar_navigate.inc:7
 msgid "Important"
-msgstr "Áríğandi"
+msgstr "ÃrÃ­Ã°andi"
 
 #: templates/search/main.inc:47
 msgid "Important messages"
-msgstr "Áríğandi skeyti"
+msgstr "ÃrÃ­Ã°andi skeyti"
 
 #: folders.php:157
 #, php-format
 msgid "Imported %d messages from %s."
-msgstr "%d skeyti frá %s innsett."
+msgstr "%d skeyti frÃ¡ %s innsett."
 
 #: folders.php:379 lib/Folder.php:227 lib/IMP.php:358 lib/IMAP/Tree.php:105
 #: lib/IMAP/Tree.php:204
@@ -1255,7 +1255,7 @@ msgstr "Innbox"
 
 #: config/prefs.php.dist:478
 msgid "Include original message in a reply?"
-msgstr "Á ağ sına efni upprunalega bréfsins í svari?"
+msgstr "Ã aÃ° sÃ½na efni upprunalega brÃ©fsins Ã­ svari?"
 
 #: lib/MIME/Viewer/notification.php:61 lib/MIME/Viewer/status.php:130
 msgid "Info"
@@ -1268,15 +1268,15 @@ msgstr "Skeytt inn"
 
 #: mailbox.php:563 mailbox.php:605
 msgid "Invalid Address"
-msgstr "Ógilt netfang"
+msgstr "Ã“gilt netfang"
 
 #: pgp.php:16 smime.php:82
 msgid "Invalid key"
-msgstr "Ógildur lykill"
+msgstr "Ã“gildur lykill"
 
 #: templates/mailbox/navbar.inc:12
 msgid "Invert"
-msgstr "Viğsnúiğ"
+msgstr "ViÃ°snÃºiÃ°"
 
 #: templates/compose/compose.inc:567
 msgid "KB"
@@ -1284,36 +1284,36 @@ msgstr "KB"
 
 #: templates/login/login.inc:199
 msgid "Language"
-msgstr "Tungumál"
+msgstr "TungumÃ¡l"
 
 #: config/prefs.php.dist:877
 msgid "Last Mailbox Page"
-msgstr "síğasta bls."
+msgstr "sÃ­Ã°asta bls."
 
 #: mailbox.php:354
 msgid "Last Page"
-msgstr "síğasta bls."
+msgstr "sÃ­Ã°asta bls."
 
 #: templates/compose/compose.inc:380
 msgid "Li_nk Attachments"
-msgstr "Tengja viğhengi meğ vefslóğ"
+msgstr "Tengja viÃ°hengi meÃ° vefslÃ³Ã°"
 
 #: attachment.php:34 lib/Compose.php:974
 msgid "Linked attachments are forbidden."
-msgstr "Ekki er hægt ağ tengja viğhengi meğ vefslóğ"
+msgstr "Ekki er hÃ¦gt aÃ° tengja viÃ°hengi meÃ° vefslÃ³Ã°"
 
 #: lib/Compose.php:991
 #, php-format
 msgid "Links will expire on %s"
-msgstr "Tenglar ógildir şann %s"
+msgstr "Tenglar Ã³gildir Ã¾ann %s"
 
 #: templates/fetchmail/manage.inc:30
 msgid "Local Mailbox:"
-msgstr "Póstmappa"
+msgstr "PÃ³stmappa"
 
 #: lib/MIME/Viewer/itip.php:674
 msgid "Location"
-msgstr "Stağsetning"
+msgstr "StaÃ°setning"
 
 #: templates/login/login.inc:207
 msgid "Log in"
@@ -1330,47 +1330,47 @@ msgstr "Tengjast"
 
 #: config/prefs.php.dist:39
 msgid "Login Tasks"
-msgstr "Verkefni viğ tengingu"
+msgstr "Verkefni viÃ° tengingu"
 
 #: templates/compose/compose.inc:307
 msgid "Low"
-msgstr "Lágur"
+msgstr "LÃ¡gur"
 
 #: message.php:283 mailbox.php:706 templates/mailbox/legend.inc:13
 msgid "Low Priority"
-msgstr "Lágur forgangur"
+msgstr "LÃ¡gur forgangur"
 
 #: templates/compose/compose.inc:308
 msgid "Lowest"
-msgstr "Lægsti"
+msgstr "LÃ¦gsti"
 
 #: lib/MIME/Viewer/appledouble.php:44
 msgid "Macintosh File"
-msgstr "Macintosh skrá"
+msgstr "Macintosh skrÃ¡"
 
 #: pgp.php:332 smime.php:254 templates/smime/passphrase.inc:13
 msgid "Mail"
-msgstr "Póstur"
+msgstr "PÃ³stur"
 
 #: config/prefs.php.dist:95
 msgid "Mail Previews"
-msgstr "Forskoğun pósts"
+msgstr "ForskoÃ°un pÃ³sts"
 
 #: folders.php:397
 msgid "Mailbox"
-msgstr "Póstmappa"
+msgstr "PÃ³stmappa"
 
 #: config/prefs.php.dist:110
 msgid "Mailbox and Folder Display Options"
-msgstr "Útlitsstillingar"
+msgstr "Ãštlitsstillingar"
 
 #: templates/folders/actions.inc:16
 msgid "Mark All Messages in Folder as Seen"
-msgstr "Merkja öll skeyti í möppu sem lesin"
+msgstr "Merkja Ã¶ll skeyti Ã­ mÃ¶ppu sem lesin"
 
 #: templates/folders/actions.inc:17
 msgid "Mark All Messages in Folder as Unseen"
-msgstr "Merkja öll skeyti í möppu sem ólesin"
+msgstr "Merkja Ã¶ll skeyti Ã­ mÃ¶ppu sem Ã³lesin"
 
 #: templates/mailbox/navbar.inc:30 templates/message/navbar_navigate.inc:5
 msgid "Mark as:"
@@ -1378,27 +1378,27 @@ msgstr "merkja sem:"
 
 #: config/prefs.php.dist:644
 msgid "Mark different levels of quoting with different colors?"
-msgstr "Á ağ merkja eldri tilvitnanir í texta meğ mismunandi litum?"
+msgstr "Ã aÃ° merkja eldri tilvitnanir Ã­ texta meÃ° mismunandi litum?"
 
 #: templates/search/header.inc:46
 msgid "Match All Queries"
-msgstr "Allt şarf ağ passa"
+msgstr "Allt Ã¾arf aÃ° passa"
 
 #: templates/search/header.inc:42
 msgid "Match Any Query"
-msgstr "Eitthvağ şarf ağ passa"
+msgstr "EitthvaÃ° Ã¾arf aÃ° passa"
 
 #: templates/compose/compose.inc:503
 msgid "Maximum Attachment Size"
-msgstr "Hámarksstærğ viğhengis"
+msgstr "HÃ¡marksstÃ¦rÃ° viÃ°hengis"
 
 #: templates/compose/compose.inc:484
 msgid "Maximum number of attachments reached."
-msgstr "Hámarksfjölda viğhengja náğ."
+msgstr "HÃ¡marksfjÃ¶lda viÃ°hengja nÃ¡Ã°."
 
 #: templates/compose/compose.inc:479
 msgid "Maximum total attachment size reached."
-msgstr "Viğhengi er of stórt"
+msgstr "ViÃ°hengi er of stÃ³rt"
 
 #: lib/Compose.php:246
 msgid "Message"
@@ -1406,7 +1406,7 @@ msgstr "Skeyti"
 
 #: compose.php:507 compose.php:534 compose.php:588 config/prefs.php.dist:50
 msgid "Message Composition"
-msgstr "Semja nıtt skeyti"
+msgstr "Semja nÃ½tt skeyti"
 
 #: config/prefs.php.dist:888
 msgid "Message Date"
@@ -1419,11 +1419,11 @@ msgstr "Valkostir skeyta"
 
 #: search.php:359
 msgid "Message Search"
-msgstr "Leita í skeytum"
+msgstr "Leita Ã­ skeytum"
 
 #: config/prefs.php.dist:892
 msgid "Message Size"
-msgstr "Stærğ skeytis"
+msgstr "StÃ¦rÃ° skeytis"
 
 #: message.php:368
 msgid "Message Source"
@@ -1431,53 +1431,53 @@ msgstr "Handrit"
 
 #: config/prefs.php.dist:66
 msgid "Message Viewing"
-msgstr "Skoğa skeyti"
+msgstr "SkoÃ°a skeyti"
 
 #: templates/search/header.inc:55
 msgid "Message fields"
-msgstr "Svæği"
+msgstr "SvÃ¦Ã°i"
 
 #: templates/search/main.inc:6
 msgid "Message flags"
-msgstr "Flögg"
+msgstr "FlÃ¶gg"
 
 #: templates/search/main.inc:83
 msgid "Message folders"
-msgstr "Möppur"
+msgstr "MÃ¶ppur"
 
 #: lib/Compose.php:244
 #, php-format
 msgid "Message from %s"
-msgstr "Skeyti frá %s"
+msgstr "Skeyti frÃ¡ %s"
 
 #: mailbox.php:646
 msgid "Message has attachments"
-msgstr "Skeytiğ er meğ viğhengjum"
+msgstr "SkeytiÃ° er meÃ° viÃ°hengjum"
 
 #: mailbox.php:637
 msgid "Message is encrypted"
-msgstr "Skeytiğ er dulritağ"
+msgstr "SkeytiÃ° er dulritaÃ°"
 
 #: mailbox.php:632
 msgid "Message is signed"
-msgstr "Skeytiğ er undirritağ"
+msgstr "SkeytiÃ° er undirritaÃ°"
 
 #: templates/search/header.inc:33
 msgid "Message matches"
-msgstr "Leitarskilyrği"
+msgstr "LeitarskilyrÃ°i"
 
 #: compose.php:1018
 #, php-format
 msgid "Message sent successfully, but not saved to %s"
-msgstr "Skeytiğ var sent, en ekki var hægt ağ geyma şağ í %s"
+msgstr "SkeytiÃ° var sent, en ekki var hÃ¦gt aÃ° geyma Ã¾aÃ° Ã­ %s"
 
 #: compose.php:1077 compose.php:1092
 msgid "Message sent successfully."
-msgstr "Skeytiğ var sent."
+msgstr "SkeytiÃ° var sent."
 
 #: config/prefs.php.dist:912
 msgid "Messages per page in the mailbox view."
-msgstr "Fjöldi skeytalína á bls. í skoğun pósthólfs."
+msgstr "FjÃ¶ldi skeytalÃ­na Ã¡ bls. Ã­ skoÃ°un pÃ³sthÃ³lfs."
 
 #: mailbox.php:318
 msgid "Messages to"
@@ -1490,7 +1490,7 @@ msgstr "Breyta"
 #: templates/compose/expand.inc:12
 #, php-format
 msgid "More than one address found for field \"%s\"."
-msgstr "Fleiri en eitt netfang fannst fyrir svæğiğ \"%s\""
+msgstr "Fleiri en eitt netfang fannst fyrir svÃ¦Ã°iÃ° \"%s\""
 
 #: templates/mailbox/navbar.inc:50 templates/message/navbar_navigate.inc:18
 msgid "Move"
@@ -1498,15 +1498,15 @@ msgstr "Flytja"
 
 #: templates/prefs/sourceselect.inc:316
 msgid "Move down"
-msgstr "færa niğur"
+msgstr "fÃ¦ra niÃ°ur"
 
 #: templates/mailbox/navbar.inc:50 templates/message/navbar_navigate.inc:18
 msgid "Move to folder"
-msgstr "færa í möppu"
+msgstr "fÃ¦ra Ã­ mÃ¶ppu"
 
 #: templates/prefs/sourceselect.inc:314
 msgid "Move up"
-msgstr "færa upp"
+msgstr "fÃ¦ra upp"
 
 #: templates/contacts/contacts.inc:238 lib/MIME/Viewer/itip.php:688
 msgid "Name"
@@ -1514,7 +1514,7 @@ msgstr "Nafn"
 
 #: pgp.php:110
 msgid "Name and/or email can not be empty"
-msgstr "Nafn og/eğa netfang má ekki vanta"
+msgstr "Nafn og/eÃ°a netfang mÃ¡ ekki vanta"
 
 #: config/prefs.php.dist:563 config/prefs.php.dist:575
 #: config/prefs.php.dist:754
@@ -1523,35 +1523,35 @@ msgstr "Aldrei"
 
 #: config/prefs.php.dist:553
 msgid "Never save attachments"
-msgstr "Aldrei geyma viğhengi."
+msgstr "Aldrei geyma viÃ°hengi."
 
 #: templates/acl/acl.inc:126
 msgid "New"
-msgstr "Nıtt"
+msgstr "NÃ½tt"
 
 #: lib/IMP.php:615
 msgid "New Folder"
-msgstr "Nı mappa"
+msgstr "NÃ½ mappa"
 
 #: config/prefs.php.dist:87
 msgid "New Mail"
-msgstr "Nır póstur"
+msgstr "NÃ½r pÃ³stur"
 
 #: templates/search/main.inc:19
 msgid "New messages"
-msgstr "Nı skeyti"
+msgstr "NÃ½ skeyti"
 
 #: templates/compose/spelling.inc:140
 msgid "Next"
-msgstr "Næsta"
+msgstr "NÃ¦sta"
 
 #: templates/message/navbar_navigate.inc:33
 msgid "Next Message"
-msgstr "Næsta skeyti"
+msgstr "NÃ¦sta skeyti"
 
 #: mailbox.php:352
 msgid "Next Page"
-msgstr "Næsta síğa"
+msgstr "NÃ¦sta sÃ­Ã°a"
 
 #: templates/compose/compose.inc:532 config/prefs.php.dist:948
 msgid "No"
@@ -1559,7 +1559,7 @@ msgstr "Nei"
 
 #: templates/compose/encrypt_list.inc:5
 msgid "No Encryption"
-msgstr "Engin dulkóğun"
+msgstr "Engin dulkÃ³Ã°un"
 
 #: mailbox.php:371
 #, php-format
@@ -1568,7 +1568,7 @@ msgstr "Engin skeyti"
 
 #: lib/Mailbox.php:323
 msgid "No Preview Text"
-msgstr "Enginn forskoğunartexti"
+msgstr "Enginn forskoÃ°unartexti"
 
 #: templates/smime/smime.inc:54
 msgid "No Public Keys Found"
@@ -1576,7 +1576,7 @@ msgstr "Engir opinberir dulritunarlyklar fundust"
 
 #: lib/MIME/Viewer/tnef.php:90
 msgid "No attachments found."
-msgstr "Engin viğhengi fundust."
+msgstr "Engin viÃ°hengi fundust."
 
 #: acl.php:72 acl.php:98
 msgid "No folder selected."
@@ -1588,11 +1588,11 @@ msgstr "Engin mappa var tilgreind"
 
 #: lib/Block/summary.php:136
 msgid "No folders with new messages"
-msgstr "Engar möppur meğ nıjum skeytum"
+msgstr "Engar mÃ¶ppur meÃ° nÃ½jum skeytum"
 
 #: lib/Block/summary.php:133
 msgid "No folders with unseen messages"
-msgstr "Engar möppur meğ ólesnum skeytum"
+msgstr "Engar mÃ¶ppur meÃ° Ã³lesnum skeytum"
 
 #: lib/Compose.php:240
 msgid "No message body text"
@@ -1600,7 +1600,7 @@ msgstr "Enginn texti skeyti"
 
 #: lib/Mailbox.php:365
 msgid "No messages matched your search."
-msgstr "Leitin bar ekki árangur"
+msgstr "Leitin bar ekki Ã¡rangur"
 
 #: templates/compose/spelling.inc:50
 msgid "No spelling errors"
@@ -1608,7 +1608,7 @@ msgstr "Engar stafsetningarvillur"
 
 #: templates/compose/spelling.inc:106
 msgid "No suggestions"
-msgstr "Engar tillögur"
+msgstr "Engar tillÃ¶gur"
 
 #: acl.php:68 acl.php:94
 msgid "No user specified."
@@ -1636,11 +1636,11 @@ msgstr "Ekki uppkast"
 #: templates/mailbox/navbar.inc:17 templates/mailbox/navbar.inc:34
 #: templates/message/navbar_navigate.inc:8
 msgid "Not Important"
-msgstr "Ekki áríğandi"
+msgstr "Ekki Ã¡rÃ­Ã°andi"
 
 #: templates/mailbox/navbar.inc:25
 msgid "Not Personal"
-msgstr "Ekki persónulegt"
+msgstr "Ekki persÃ³nulegt"
 
 #: templates/search/main.inc:67
 msgid "Not deleted messages"
@@ -1648,53 +1648,53 @@ msgstr "Ekki eydd skeyti"
 
 #: templates/search/main.inc:51
 msgid "Not important messages"
-msgstr "Ekki áríğandi skeyti"
+msgstr "Ekki Ã¡rÃ­Ã°andi skeyti"
 
 #: config/prefs.php.dist:371
 msgid "Number of months to keep old linked attachments if deleting monthly."
 msgstr ""
-"Aldur í mánuğum fyrir viğtengdar vefslóğir, sem skulu geymast, şegar "
-"mánağarleg tiltekt er gerğ"
+"Aldur Ã­ mÃ¡nuÃ°um fyrir viÃ°tengdar vefslÃ³Ã°ir, sem skulu geymast, Ã¾egar "
+"mÃ¡naÃ°arleg tiltekt er gerÃ°"
 
 #: config/prefs.php.dist:353
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"Fjöldi af möppum fyrir send skeyti, sem skulu geymast, şegar mánağarleg "
-"tiltekt er gerğ"
+"FjÃ¶ldi af mÃ¶ppum fyrir send skeyti, sem skulu geymast, Ã¾egar mÃ¡naÃ°arleg "
+"tiltekt er gerÃ°"
 
 #: templates/contacts/contacts.inc:254 lib/MIME/Viewer/itip.php:552
 #: lib/MIME/Viewer/itip.php:733
 msgid "OK"
-msgstr "Í lagi"
+msgstr "Ã lagi"
 
 #: templates/search/fields.inc:5 templates/pgp/import_key.inc:48
 #: templates/smime/import_key.inc:47
 msgid "OR"
-msgstr "EĞA"
+msgstr "EÃA"
 
 #: templates/search/main.inc:15
 msgid "Old messages"
-msgstr "Gömul skeyti"
+msgstr "GÃ¶mul skeyti"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:52
 msgid "Old sent-mail folders being purged."
-msgstr "Gömlum skeytum eytt..."
+msgstr "GÃ¶mlum skeytum eytt..."
 
 #: lib/Block/summary.php:27
 msgid "Only display folders with unread messages in them?"
-msgstr "Einungis sına möppur sem innihalda ólesin skeyti?"
+msgstr "Einungis sÃ½na mÃ¶ppur sem innihalda Ã³lesin skeyti?"
 
 #: templates/folders/javascript.inc:71
 msgid "Only one folder should be selected for this action."
-msgstr "Şağ er einungis hægt ağ veja eina möppu fyrir şessa ağgerğ."
+msgstr "ÃaÃ° er einungis hÃ¦gt aÃ° veja eina mÃ¶ppu fyrir Ã¾essa aÃ°gerÃ°."
 
 #: templates/menu.inc:7 templates/menu.inc:27
 msgid "Ope_n Folder"
-msgstr "Opna möppu"
+msgstr "Opna mÃ¶ppu"
 
 #: templates/menu.inc:23
 msgid "Open Folder"
-msgstr "Opna möppu"
+msgstr "Opna mÃ¶ppu"
 
 #: folders.php:414
 msgid "Opened Folder"
@@ -1704,7 +1704,7 @@ msgstr "Opin mappa"
 #: config/prefs.php.dist:125 config/prefs.php.dist:133
 #: config/prefs.php.dist:142
 msgid "Other Options"
-msgstr "Ağrar stillingar"
+msgstr "AÃ°rar stillingar"
 
 #: templates/pgp/passphrase.inc:16 lib/MIME/Viewer/pgp.php:165
 #: lib/MIME/Viewer/pgp.php:204 lib/MIME/Viewer/pgp.php:290
@@ -1713,7 +1713,7 @@ msgstr "PGP"
 
 #: templates/compose/encrypt_list.inc:7
 msgid "PGP Encrypt Message"
-msgstr "Dulkóğa skeyti meğ PGP"
+msgstr "DulkÃ³Ã°a skeyti meÃ° PGP"
 
 #: compose.php:331
 msgid "PGP Error: "
@@ -1721,7 +1721,7 @@ msgstr "PGP villa"
 
 #: compose.php:310
 msgid "PGP Error: Need passphrase for personal private key."
-msgstr "PGP villa: Vantar lykilkóğa fyrir persónulegan lykil."
+msgstr "PGP villa: Vantar lykilkÃ³Ã°a fyrir persÃ³nulegan lykil."
 
 #: templates/pgp/notactive.inc:6
 msgid "PGP NOT Active"
@@ -1733,7 +1733,7 @@ msgstr "PGP valkostir"
 
 #: pgp.php:30
 msgid "PGP Passphrase Input"
-msgstr "PGP lykilkóği"
+msgstr "PGP lykilkÃ³Ã°i"
 
 #: pgp.php:245
 #, php-format
@@ -1742,11 +1742,11 @@ msgstr "Opinbera PGP lyklinum fyrir \"%s\" var eytt."
 
 #: templates/compose/encrypt_list.inc:8
 msgid "PGP Sign Message"
-msgstr "Undirrita meğ PGP"
+msgstr "Undirrita meÃ° PGP"
 
 #: templates/compose/encrypt_list.inc:9
 msgid "PGP Sign/Encrypt Message"
-msgstr "Undirrita/dulrita meğ PGP"
+msgstr "Undirrita/dulrita meÃ° PGP"
 
 #: templates/mailbox/header.inc:19
 #, php-format
@@ -1760,76 +1760,76 @@ msgstr "Hlutar"
 #: templates/login/login.inc:193 templates/smime/import_key.inc:69
 #: templates/fetchmail/manage.inc:20
 msgid "Password"
-msgstr "Lykilorğ"
+msgstr "LykilorÃ°"
 
 #: templates/fetchmail/manage.inc:48
 msgid "Perform maintenance operations on login?"
-msgstr "Framkvæma viğhaldsağgerğir viğ tengingu"
+msgstr "FramkvÃ¦ma viÃ°haldsaÃ°gerÃ°ir viÃ° tengingu"
 
 #: message.php:477 mailbox.php:682 templates/mailbox/legend.inc:10
 #: templates/mailbox/navbar.inc:24
 msgid "Personal"
-msgstr "Til mín"
+msgstr "Til mÃ­n"
 
 #: config/prefs.php.dist:14
 msgid "Personal Information"
-msgstr "Upplısingar um notanda"
+msgstr "UpplÃ½singar um notanda"
 
 #: config/prefs.php.dist:214
 msgid "Place your signature before replies and forwards?"
-msgstr "Setja undirskrift undir svar og áframsendingar?"
+msgstr "Setja undirskrift undir svar og Ã¡framsendingar?"
 
 #: templates/mailbox/javascript.inc:192 templates/message/javascript.inc:55
 msgid "Please enter a name for the new folder:"
-msgstr "Sláğu inn nıtt möppunafn:"
+msgstr "SlÃ¡Ã°u inn nÃ½tt mÃ¶ppunafn:"
 
 #: templates/folders/javascript.inc:94 templates/folders/javascript.inc:96
 msgid "Please enter the name of the new folder:"
-msgstr "Sláğu inn nıtt möppunafn:"
+msgstr "SlÃ¡Ã°u inn nÃ½tt mÃ¶ppunafn:"
 
 #: templates/folders/javascript.inc:129
 msgid "Please enter the new name:"
-msgstr "Sláğu inn nıja nafniğ:"
+msgstr "SlÃ¡Ã°u inn nÃ½ja nafniÃ°:"
 
 #: templates/login/login.inc:72
 msgid "Please provide your password."
-msgstr "Sláğu inn lykilorğ şitt."
+msgstr "SlÃ¡Ã°u inn lykilorÃ° Ã¾itt."
 
 #: templates/login/login.inc:68
 msgid "Please provide your username."
-msgstr "Sláğu inn notandanafn şitt."
+msgstr "SlÃ¡Ã°u inn notandanafn Ã¾itt."
 
 #: compose.php:79 lib/IMP.php:509
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Leiğréttu hugsanlegar vitleysur í netfangi eğa netföngum."
+msgstr "LeiÃ°rÃ©ttu hugsanlegar vitleysur Ã­ netfangi eÃ°a netfÃ¶ngum."
 
 #: templates/folders/javascript.inc:53
 msgid "Please select a folder before you perform any actions."
-msgstr "Şú şarft ağ velja möppu áğur en şú getur hafiğ ağrar ağgerğir."
+msgstr "ÃÃº Ã¾arft aÃ° velja mÃ¶ppu Ã¡Ã°ur en Ã¾Ãº getur hafiÃ° aÃ°rar aÃ°gerÃ°ir."
 
 #: lib/MIME/Viewer/itip.php:502
 msgid "Please select an action from the menu below."
-msgstr "Veldu ağgerğ af valmyndinni hér ağ neğan."
+msgstr "Veldu aÃ°gerÃ° af valmyndinni hÃ©r aÃ° neÃ°an."
 
 #: templates/search/javascript.inc:41
 msgid "Please select at least one folder to search."
-msgstr "Veldu a.m.k eina möppu til ağ leita í."
+msgstr "Veldu a.m.k eina mÃ¶ppu til aÃ° leita Ã­."
 
 #: templates/folders/javascript.inc:4
 msgid "Please select only one folder for this operation."
-msgstr "Şağ er einungis hægt ağ veja eina möppu fyrir şessa ağgerğ."
+msgstr "ÃaÃ° er einungis hÃ¦gt aÃ° veja eina mÃ¶ppu fyrir Ã¾essa aÃ°gerÃ°."
 
 #: templates/compose/redirect.inc:76
 msgid "Please select or edit in the box to the right:"
-msgstr "Veldu eğa breyttu til hægri:"
+msgstr "Veldu eÃ°a breyttu til hÃ¦gri:"
 
 #: config/prefs.php.dist:206
 msgid "Precede your signature with dashes ('-- ')?"
-msgstr "Setja skilmerki ('-- ') ofan viğ undirskrift"
+msgstr "Setja skilmerki ('-- ') ofan viÃ° undirskrift"
 
 #: templates/compose/attachments.inc:3
 msgid "Preview"
-msgstr "Forskoğa"
+msgstr "ForskoÃ°a"
 
 #: templates/message/navbar_navigate.inc:28
 msgid "Previous Message"
@@ -1837,7 +1837,7 @@ msgstr "Fyrra skeyti"
 
 #: mailbox.php:343
 msgid "Previous Page"
-msgstr "Fyrri blağsíğa"
+msgstr "Fyrri blaÃ°sÃ­Ã°a"
 
 #: templates/message/navbar_actions.inc:31
 msgid "Print"
@@ -1849,137 +1849,137 @@ msgstr "Forgangur"
 
 #: templates/mailbox/actions_deleted.inc:8 templates/mailbox/actions.inc:36
 msgid "Pur_ge Deleted"
-msgstr "Fjarlægja eydd"
+msgstr "FjarlÃ¦gja eydd"
 
 #: templates/mailbox/actions_deleted.inc:8 templates/mailbox/actions.inc:36
 msgid "Purge Deleted"
-msgstr "Fjarlægja eydd"
+msgstr "FjarlÃ¦gja eydd"
 
 #: templates/folders/actions.inc:22
 msgid "Purge Folder(s)"
-msgstr "Eyğa möppu(m)"
+msgstr "EyÃ°a mÃ¶ppu(m)"
 
 #: config/prefs.php.dist:390
 msgid "Purge Trash how often:"
-msgstr "Hversu oft á ağ tæma ruslafötuna:"
+msgstr "Hversu oft Ã¡ aÃ° tÃ¦ma ruslafÃ¶tuna:"
 
 #: config/prefs.php.dist:399
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Eyğa skeytum í ruslakörfu sem eru eldri í dögum en"
+msgstr "EyÃ°a skeytum Ã­ ruslakÃ¶rfu sem eru eldri Ã­ dÃ¶gum en"
 
 #: config/prefs.php.dist:380
 msgid "Purge old messages in the Trash folder?"
-msgstr "Fjarlægja gömul skeyti í ruslakörfu?"
+msgstr "FjarlÃ¦gja gÃ¶mul skeyti Ã­ ruslakÃ¶rfu?"
 
 #: lib/Maintenance/Task/purge_trash.php:66
 #, php-format
 msgid "Purging %d messages from Trash folder."
-msgstr "Fjarlægi %d skeyti úr ruslakörfunni."
+msgstr "FjarlÃ¦gi %d skeyti Ãºr ruslakÃ¶rfunni."
 
 #: lib/Maintenance/Task/purge_trash.php:64
 msgid "Purging 1 message from Trash folder."
-msgstr "Fjarlægi eitt skeyti úr ruslakörfunni."
+msgstr "FjarlÃ¦gi eitt skeyti Ãºr ruslakÃ¶rfunni."
 
 #: templates/quota/quota.inc:24
 #, php-format
 msgid "Quota status: NO LIMIT"
-msgstr "Kvóti: Ótakmarkağur"
+msgstr "KvÃ³ti: Ã“takmarkaÃ°ur"
 
 #: config/prefs.php.dist:492
 #, php-format
 msgid "Quoting %f:"
-msgstr "Vísa til %f:"
+msgstr "VÃ­sa til %f:"
 
 #: templates/compose/compose.inc:377
 msgid "Re_quest Delivery Confirmation"
-msgstr "Óska eftir stağfestingu á afhendingu"
+msgstr "Ã“ska eftir staÃ°festingu Ã¡ afhendingu"
 
 #: search.php:163
 msgid "Received On"
-msgstr "Móttekiğ şann:"
+msgstr "MÃ³ttekiÃ° Ã¾ann:"
 
 #: search.php:171
 msgid "Received Since"
-msgstr "Móttekiğ síğan:"
+msgstr "MÃ³ttekiÃ° sÃ­Ã°an:"
 
 #: search.php:167
 msgid "Received Until"
-msgstr "Móttekiğ şangağ til:"
+msgstr "MÃ³ttekiÃ° Ã¾angaÃ° til:"
 
 #: templates/message/navbar_actions.inc:16
 msgid "Redirec_t"
-msgstr "Endurvísa"
+msgstr "EndurvÃ­sa"
 
 #: templates/message/navbar_actions.inc:16
 msgid "Redirect"
-msgstr "Endurvísa"
+msgstr "EndurvÃ­sa"
 
 #: templates/compose/redirect.inc:115
 msgid "Redirect Message"
-msgstr "Endurvísa skeyti"
+msgstr "EndurvÃ­sa skeyti"
 
 #: compose.php:734
 msgid "Redirect this message"
-msgstr "Endurvísa şessu skeyti"
+msgstr "EndurvÃ­sa Ã¾essu skeyti"
 
 #: compose.php:794
 msgid "Redirecting failed."
-msgstr "Endurvísun misheppağist."
+msgstr "EndurvÃ­sun misheppaÃ°ist."
 
 #: templates/compose/compose.inc:573
 msgid "Refresh"
-msgstr "Endurhlağa"
+msgstr "EndurhlaÃ°a"
 
 #: config/prefs.php.dist:760
 msgid "Refresh Folder Views:"
-msgstr "Endurhlağa möppuham:"
+msgstr "EndurhlaÃ°a mÃ¶ppuham:"
 
 #: templates/mailbox/header.inc:4 templates/folders/head.inc:9
 msgid "Reload"
-msgstr "Endurhlağa"
+msgstr "EndurhlaÃ°a"
 
 #: templates/folders/head.inc:3
 msgid "Reload View"
-msgstr "Endurhlağa ham"
+msgstr "EndurhlaÃ°a ham"
 
 #: config/prefs.php.dist:950
 msgid "Remember the last view"
-msgstr "Muna síğasta ham"
+msgstr "Muna sÃ­Ã°asta ham"
 
 #: templates/fetchmail/manage.inc:27
 msgid "Remote Mailbox:"
-msgstr "Pósthólf á fjarenda:"
+msgstr "PÃ³sthÃ³lf Ã¡ fjarenda:"
 
 #: templates/search/fields.inc:41
 msgid "Remove Field From Search"
-msgstr "Ekki nota svæği í leit"
+msgstr "Ekki nota svÃ¦Ã°i Ã­ leit"
 
 #: templates/prefs/sourceselect.inc:305
 msgid "Remove source"
-msgstr "fjarlægja handrit"
+msgstr "fjarlÃ¦gja handrit"
 
 #: templates/folders/actions.inc:6
 msgid "Rename Folder(s)"
-msgstr "Endurnefna möppu"
+msgstr "Endurnefna mÃ¶ppu"
 
 #: config/prefs.php.dist:335
 msgid "Rename sent-mail folder at beginning of month?"
-msgstr "Endurnefna möppu meğ sendum skeytum í byrjun hvers mánağar"
+msgstr "Endurnefna mÃ¶ppu meÃ° sendum skeytum Ã­ byrjun hvers mÃ¡naÃ°ar"
 
 #: lib/Folder.php:440
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr ""
-"Endurnefning úr nafninu \"%s\" í \"%s\" misheppnağist. Netşjónninn kom meğ "
+"Endurnefning Ãºr nafninu \"%s\" Ã­ \"%s\" misheppnaÃ°ist. NetÃ¾jÃ³nninn kom meÃ° "
 "eftirfarandi villu"
 
 #: templates/message/navbar_actions.inc:10
 msgid "Repl_y to List"
-msgstr "Svara öllum"
+msgstr "Svara Ã¶llum"
 
 #: templates/compose/spelling.inc:111
 msgid "Replace with:"
-msgstr "Skipta út fyrir:"
+msgstr "Skipta Ãºt fyrir:"
 
 #: templates/message/navbar_actions.inc:8
 msgid "Reply"
@@ -1991,23 +1991,23 @@ msgstr "Svar sent."
 
 #: templates/message/navbar_actions.inc:13
 msgid "Reply to All"
-msgstr "Svara öllum"
+msgstr "Svara Ã¶llum"
 
 #: compose.php:680
 msgid "Reply to All:"
-msgstr "Svara öllum:"
+msgstr "Svara Ã¶llum:"
 
 #: templates/message/navbar_actions.inc:10
 msgid "Reply to List"
-msgstr "Svara á lista"
+msgstr "Svara Ã¡ lista"
 
 #: compose.php:682
 msgid "Reply to List:"
-msgstr "Svara á lista:"
+msgstr "Svara Ã¡ lista:"
 
 #: templates/message/navbar_actions.inc:13
 msgid "Reply to _All"
-msgstr "Svara öllum"
+msgstr "Svara Ã¶llum"
 
 #: message.php:251
 msgid "Reply-To"
@@ -2023,19 +2023,19 @@ msgstr "Svar:"
 
 #: templates/mailbox/actions.inc:26 templates/message/navbar_actions.inc:36
 msgid "Report as Innocent"
-msgstr "Tilkynna sem ekki ruslpóst"
+msgstr "Tilkynna sem ekki ruslpÃ³st"
 
 #: templates/mailbox/actions.inc:24 templates/message/navbar_actions.inc:33
 msgid "Report as Spam"
-msgstr "Tilkynna sem ruslpóst (SPAM)"
+msgstr "Tilkynna sem ruslpÃ³st (SPAM)"
 
 #: templates/compose/compose.inc:374
 msgid "Request a _Read Receipt"
-msgstr "Óska eftir kvittun fyrir móttöku"
+msgstr "Ã“ska eftir kvittun fyrir mÃ³ttÃ¶ku"
 
 #: config/prefs.php.dist:566
 msgid "Request read receipts?"
-msgstr "Óska eftir kvittun fyrir móttöku"
+msgstr "Ã“ska eftir kvittun fyrir mÃ³ttÃ¶ku"
 
 #: templates/acl/acl.inc:158 templates/search/header.inc:26
 #: templates/search/main.inc:143
@@ -2044,7 +2044,7 @@ msgstr "Endursetja"
 
 #: templates/message/navbar_actions.inc:28
 msgid "Resume"
-msgstr "Halda áfram"
+msgstr "Halda Ã¡fram"
 
 #: templates/acl/acl.inc:159 templates/acl/acl.inc:169
 #: templates/pgp/pgp.inc:268 templates/pgp/notactive.inc:33
@@ -2057,12 +2057,12 @@ msgstr "Valkostir notanda"
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Á ağ fara til baka í pósthólfalista eftir ağ skeytum er eytt, şau flutt eğa "
-"afrituğ?"
+"Ã aÃ° fara til baka Ã­ pÃ³sthÃ³lfalista eftir aÃ° skeytum er eytt, Ã¾au flutt eÃ°a "
+"afrituÃ°?"
 
 #: templates/compose/encrypt_list.inc:12
 msgid "S/MIME Encrypt Message"
-msgstr "S/MIME dulkóğa skeyti"
+msgstr "S/MIME dulkÃ³Ã°a skeyti"
 
 #: compose.php:367
 msgid "S/MIME Error: "
@@ -2078,7 +2078,7 @@ msgstr "S/MIME valstillingar"
 
 #: smime.php:49
 msgid "S/MIME Passphrase Input"
-msgstr "S/MIME lykilkóği"
+msgstr "S/MIME lykilkÃ³Ã°i"
 
 #: templates/compose/encrypt_list.inc:13
 msgid "S/MIME Sign Message"
@@ -2090,7 +2090,7 @@ msgstr "S/MIME dulrita skeyti"
 
 #: templates/smime/notactive.inc:11
 msgid "S/MIME support is disabled on this system."
-msgstr "S/MIME stuğmingur er óvirkur á şessu kerfi."
+msgstr "S/MIME stuÃ°mingur er Ã³virkur Ã¡ Ã¾essu kerfi."
 
 #: templates/compose/compose.inc:266
 msgid "S_ubject"
@@ -2098,7 +2098,7 @@ msgstr "Efni"
 
 #: templates/compose/compose.inc:354
 msgid "Sa_ve a copy in "
-msgstr "Vista afrit í "
+msgstr "Vista afrit Ã­ "
 
 #: templates/message/navbar_actions.inc:30
 msgid "Sa_ve as"
@@ -2116,7 +2116,7 @@ msgstr "Vista uppkast"
 #: templates/filters/prefs.inc:69 templates/smime/notactive.inc:23
 #: templates/smime/smime.inc:37
 msgid "Save Options"
-msgstr "Valkostir viğ vistun"
+msgstr "Valkostir viÃ° vistun"
 
 #: templates/compose/compose.inc:68 templates/compose/compose.inc:424
 msgid "Save _Draft"
@@ -2128,7 +2128,7 @@ msgstr "Vista sem"
 
 #: templates/search/main.inc:127
 msgid "Save search as a virtual folder?"
-msgstr "Geyma leit sem sındarmöppu?"
+msgstr "Geyma leit sem sÃ½ndarmÃ¶ppu?"
 
 #: config/prefs.php.dist:223
 msgid "Save sent mail?"
@@ -2138,7 +2138,7 @@ msgstr "Vista send skeyti?"
 #, php-format
 msgid "Saving the draft failed. This is what the server said: %s"
 msgstr ""
-"Vistun uppkastsins mistókst. Netşjónninn kom meğ eftirfarandi villu: %s"
+"Vistun uppkastsins mistÃ³kst. NetÃ¾jÃ³nninn kom meÃ° eftirfarandi villu: %s"
 
 #: templates/mailbox/header.inc:11 templates/contacts/contacts.inc:199
 #: lib/Block/tree_folders.php:50
@@ -2147,15 +2147,15 @@ msgstr "Leita"
 
 #: templates/search/header.inc:18 templates/mailbox/header.inc:11
 msgid "Search %s"
-msgstr "Leita í %s"
+msgstr "Leita Ã­ %s"
 
 #: search.php:316
 msgid "Search Results"
-msgstr "Niğurstağa leitar"
+msgstr "NiÃ°urstaÃ°a leitar"
 
 #: templates/mailbox/navbar.inc:14 templates/mailbox/navbar.inc:31
 msgid "Seen"
-msgstr "Lesiğ"
+msgstr "LesiÃ°"
 
 #: templates/mailbox/navbar.inc:9
 msgid "Select"
@@ -2163,7 +2163,7 @@ msgstr "Velja"
 
 #: templates/fetchmail/manage.inc:70
 msgid "Select Another Account"
-msgstr "Veldu annan ağgang"
+msgstr "Veldu annan aÃ°gang"
 
 #: templates/search/fields.inc:36
 msgid "Select a date"
@@ -2175,7 +2175,7 @@ msgstr "Veldu reit"
 
 #: config/prefs.php.dist:127
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Veldu netfangabók(bækur) fyrir viğbætur og leitarmöguleika."
+msgstr "Veldu netfangabÃ³k(bÃ¦kur) fyrir viÃ°bÃ¦tur og leitarmÃ¶guleika."
 
 #: templates/search/main.inc:88
 msgid "Select all"
@@ -2184,11 +2184,11 @@ msgstr "Velja allt"
 #: templates/prefs/sourceselect.inc:323
 msgid "Select all fields to search when expanding addresses."
 msgstr ""
-"Veldu reiti í netfangabók sem á ağ leita í, şegar leitağ er ağ netföngum."
+"Veldu reiti Ã­ netfangabÃ³k sem Ã¡ aÃ° leita Ã­, Ã¾egar leitaÃ° er aÃ° netfÃ¶ngum."
 
 #: templates/fetchmail/account_select.inc:21
 msgid "Select an account"
-msgstr "Veldu ağgang"
+msgstr "Veldu aÃ°gang"
 
 #: templates/search/main.inc:89
 msgid "Select none"
@@ -2196,7 +2196,7 @@ msgstr "Velja ekkert"
 
 #: templates/prefs/sourceselect.inc:309
 msgid "Selected Address books:"
-msgstr "Valdar netfangabækur:"
+msgstr "Valdar netfangabÃ¦kur:"
 
 #: templates/compose/compose.inc:66 templates/compose/compose.inc:422
 msgid "Send Message"
@@ -2213,72 +2213,72 @@ msgstr "Mappa fyrir send skeyti:"
 #: templates/login/login.inc:132 templates/login/login.inc:145
 #: templates/login/login.inc:152
 msgid "Server"
-msgstr "Netşjónn"
+msgstr "NetÃ¾jÃ³nn"
 
 #: templates/fetchmail/manage.inc:23
 msgid "Server:"
-msgstr "Póstşjónn:"
+msgstr "PÃ³stÃ¾jÃ³nn:"
 
 #: config/prefs.php.dist:80
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr "Stilla forskrift um hvağ gerist, şegar skeyti er eytt eğa şağ flutt."
+msgstr "Stilla forskrift um hvaÃ° gerist, Ã¾egar skeyti er eytt eÃ°a Ã¾aÃ° flutt."
 
 #: config/prefs.php.dist:505
 msgid "Should the compose window be closed after saving a draft?"
 msgstr ""
-"Á ağ loka glugganum sem nı skeyti eru samin í eftir ağ uppkast er vistağ?"
+"Ã aÃ° loka glugganum sem nÃ½ skeyti eru samin Ã­ eftir aÃ° uppkast er vistaÃ°?"
 
 #: templates/search/main.inc:92
 msgid "Show All Folders"
-msgstr "Sına allar möppur"
+msgstr "SÃ½na allar mÃ¶ppur"
 
 #: templates/message/headers.inc:67
 msgid "Show All Headers"
-msgstr "Sına alla hausa"
+msgstr "SÃ½na alla hausa"
 
 #: mailbox.php:361
 msgid "Show Deleted"
-msgstr "Sına eydd skeyti"
+msgstr "SÃ½na eydd skeyti"
 
 #: templates/message/headers.inc:61
 msgid "Show Limited Headers"
-msgstr "Sına einungis helstu hausa"
+msgstr "SÃ½na einungis helstu hausa"
 
 #: templates/message/headers.inc:70
 msgid "Show Mailing List Information"
-msgstr "Sına uppl. um póstlista"
+msgstr "SÃ½na uppl. um pÃ³stlista"
 
 #: folders.php:287
 msgid "Show Unsubscribed"
-msgstr "Sına óvirka"
+msgstr "SÃ½na Ã³virka"
 
 #: config/prefs.php.dist:974
 msgid "Show legend in the mailbox view?"
-msgstr "Sına tákn í póstmöppuham?"
+msgstr "SÃ½na tÃ¡kn Ã­ pÃ³stmÃ¶ppuham?"
 
 #: lib/MIME/Viewer/html.php:108
 msgid "Show the Images"
-msgstr "Sına myndirnar"
+msgstr "SÃ½na myndirnar"
 
 #: templates/mailbox/message_headers.inc:42
 msgid "Si_ze"
-msgstr "Stærğ"
+msgstr "StÃ¦rÃ°"
 
 #: templates/mailbox/legend.inc:17
 msgid "Signed"
-msgstr "Undirritağ"
+msgstr "UndirritaÃ°"
 
 #: templates/compose/attachments.inc:3
 msgid "Size"
-msgstr "Stærğ"
+msgstr "StÃ¦rÃ°"
 
 #: templates/mailbox/message_headers.inc:81
 msgid "Sort Direction"
-msgstr "Röğunarátt"
+msgstr "RÃ¶Ã°unarÃ¡tt"
 
 #: templates/mailbox/message_headers.inc:11
 msgid "Sort by Arrival"
-msgstr "Flokka eftir komutíma"
+msgstr "Flokka eftir komutÃ­ma"
 
 #: templates/mailbox/message_headers.inc:16
 msgid "Sort by Date"
@@ -2290,47 +2290,47 @@ msgstr "Flokka eftir sendandanetfangi"
 
 #: templates/mailbox/message_headers.inc:41
 msgid "Sort by Message Size"
-msgstr "Flokka eftir stærğ skeytis"
+msgstr "Flokka eftir stÃ¦rÃ° skeytis"
 
 #: templates/mailbox/message_headers.inc:36
 msgid "Sort by Subject"
-msgstr "Flokka eftir efnislínu"
+msgstr "Flokka eftir efnislÃ­nu"
 
 #: templates/mailbox/message_headers.inc:31
 msgid "Sort by Thread"
-msgstr "Flokka eftir efnisşræği"
+msgstr "Flokka eftir efnisÃ¾rÃ¦Ã°i"
 
 #: templates/mailbox/message_headers.inc:21
 msgid "Sort by To Address"
-msgstr "Flokka eftir viğtakandanetfangi"
+msgstr "Flokka eftir viÃ°takandanetfangi"
 
 #: templates/prefs/spamselect.inc:23
 msgid "Spam folder:"
-msgstr "Ruslpóstmappa:"
+msgstr "RuslpÃ³stmappa:"
 
 #: templates/compose/compose.inc:337
 msgid "Special Characters"
-msgstr "Sértákn"
+msgstr "SÃ©rtÃ¡kn"
 
 #: templates/compose/compose.inc:334
 msgid "Spell Check"
-msgstr "Prófarkarlestur"
+msgstr "PrÃ³farkarlestur"
 
 #: templates/compose/spelling.inc:48
 msgid "Spell Checker"
-msgstr "Prófarkalesari"
+msgstr "PrÃ³farkalesari"
 
 #: templates/compose/spelling.inc:50 templates/compose/spelling.inc:58
 msgid "Spell check complete"
-msgstr "Prófarkarlestri lokiğ"
+msgstr "PrÃ³farkarlestri lokiÃ°"
 
 #: config/prefs.php.dist:462
 msgid "Spelling errors per screen when spell checking."
-msgstr "Fjöldi villna pr. glugga şegar prófarkalestur er keyrğur."
+msgstr "FjÃ¶ldi villna pr. glugga Ã¾egar prÃ³farkalestur er keyrÃ°ur."
 
 #: lib/MIME/Contents.php:202
 msgid "Strip Attachment"
-msgstr "Eyğa viğhengi"
+msgstr "EyÃ°a viÃ°hengi"
 
 #: templates/mailbox/message_headers.inc:37
 msgid "Sub_ject"
@@ -2342,25 +2342,25 @@ msgstr "Efni"
 
 #: config/prefs.php.dist:891
 msgid "Subject Field"
-msgstr "Efnislína"
+msgstr "EfnislÃ­na"
 
 #: search.php:365 templates/pgp/passphrase.inc:31
 #: templates/smime/passphrase.inc:21
 msgid "Submit"
-msgstr "Áfram"
+msgstr "Ãfram"
 
 #: templates/folders/actions.inc:9
 msgid "Subscribe to Folder(s)"
-msgstr "Virkja möppu(r)"
+msgstr "Virkja mÃ¶ppu(r)"
 
 #: lib/MIME/Viewer/pgp.php:389 lib/MIME/Viewer/status.php:87
 #: lib/MIME/Viewer/pkcs7.php:369
 msgid "Success"
-msgstr "Framkvæmt"
+msgstr "FramkvÃ¦mt"
 
 #: templates/compose/spelling.inc:92
 msgid "Suggestions"
-msgstr "Tillögur"
+msgstr "TillÃ¶gur"
 
 #: lib/MIME/Viewer/itip.php:662 lib/MIME/Viewer/itip.php:664
 msgid "Summary"
@@ -2368,11 +2368,11 @@ msgstr "Samantekt"
 
 #: templates/compose/compose.inc:395
 msgid "Switch to HTML composition"
-msgstr "Skipta í HTML ritil"
+msgstr "Skipta Ã­ HTML ritil"
 
 #: templates/compose/compose.inc:395
 msgid "Switch to plain text composition"
-msgstr "Skipta í textaritil"
+msgstr "Skipta Ã­ textaritil"
 
 #: templates/compose/compose.inc:410
 msgid "Te_xt"
@@ -2380,21 +2380,21 @@ msgstr "Texti"
 
 #: fetchmailprefs.php:81
 msgid "The account \"%s\" has been deleted."
-msgstr "Ağganginum \"%s\" hefur veriğ eytt."
+msgstr "AÃ°ganginum \"%s\" hefur veriÃ° eytt."
 
 #: fetchmailprefs.php:74
 #, php-format
 msgid "The account \"%s\" has been saved."
-msgstr "Ağgangurinn  \"%s\" hefur veriğ vistağur."
+msgstr "AÃ°gangurinn  \"%s\" hefur veriÃ° vistaÃ°ur."
 
 #: lib/Filter.php:97
 #, php-format
 msgid "The address \"%s\" has been added to %s."
-msgstr "Netfanginu  \"%s\" hefur veriğ bætt í %s."
+msgstr "Netfanginu  \"%s\" hefur veriÃ° bÃ¦tt Ã­ %s."
 
 #: attachment.php:43
 msgid "The attachment was not found."
-msgstr "Viğhengiğ fannst ekki."
+msgstr "ViÃ°hengiÃ° fannst ekki."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:91
 #, php-format
@@ -2404,17 +2404,17 @@ msgstr "The current folder(s) \"%s\" will be renamed to \"%s\"."
 #: compose.php:1171
 #, php-format
 msgid "The draft has been saved to the \"%s\" folder."
-msgstr "Uppkastiğ hefur veriğ vistağ í \"%s\" möppunni."
+msgstr "UppkastiÃ° hefur veriÃ° vistaÃ° Ã­ \"%s\" mÃ¶ppunni."
 
 #: templates/compose/expand.inc:9
 #, php-format
 msgid "The field \"%s\" can't be expanded."
-msgstr "Ekki tókst ağ fylla sjálfvirkt í svæğiğ \"%s\"."
+msgstr "Ekki tÃ³kst aÃ° fylla sjÃ¡lfvirkt Ã­ svÃ¦Ã°iÃ° \"%s\"."
 
 #: lib/Folder.php:328
 #, php-format
 msgid "The folder \"%s\" already exists"
-msgstr "Mappan \"%s\" er nú şegar til"
+msgstr "Mappan \"%s\" er nÃº Ã¾egar til"
 
 #: lib/Folder.php:171
 #, php-format
@@ -2422,41 +2422,41 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"Mappan \"%s\" er meğ sértákn eğa íslenska stafi í nafninu. Şetta getur leitt "
-"til vandamála sem şarf ağ leysa meğ ağstoğ şjónustuağila."
+"Mappan \"%s\" er meÃ° sÃ©rtÃ¡kn eÃ°a Ã­slenska stafi Ã­ nafninu. Ãetta getur leitt "
+"til vandamÃ¡la sem Ã¾arf aÃ° leysa meÃ° aÃ°stoÃ° Ã¾jÃ³nustuaÃ°ila."
 
 #: lib/Folder.php:347
 #, php-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "Mappan \"%s\" var búin til en er ekki virk."
+msgstr "Mappan \"%s\" var bÃºin til en er ekki virk."
 
 #: lib/Folder.php:285
 #, php-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "Möppunni \"%s\" var eytt, en hún var virk."
+msgstr "MÃ¶ppunni \"%s\" var eytt, en hÃºn var virk."
 
 #: lib/Folder.php:334
 #, php-format
 msgid "The folder \"%s\" was not created. This is what the server said"
 msgstr ""
-"Mappan \"%s\" var ekki búin til. Villutilkynning netşjónsins fylgir hér á "
+"Mappan \"%s\" var ekki bÃºin til. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ "
 "eftir"
 
 #: lib/Folder.php:278
 #, php-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
 msgstr ""
-"Möppunni \"%s\" var ekki eytt. Villutilkynning netşjónsins fylgir hér á eftir"
+"MÃ¶ppunni \"%s\" var ekki eytt. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: lib/Folder.php:350
 #, php-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "Mappan \"%s\" var búin til."
+msgstr "Mappan \"%s\" var bÃºin til."
 
 #: lib/Folder.php:288
 #, php-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "Möppunni \"%s\" var eytt."
+msgstr "MÃ¶ppunni \"%s\" var eytt."
 
 #: lib/Folder.php:438
 #, php-format
@@ -2466,36 +2466,36 @@ msgstr "Mappan \"%s\" var endurnefnd \"%s\"."
 #: lib/Message.php:614
 #, php-format
 msgid "The mailbox %s is already empty."
-msgstr "Mappan \"%s\" er nú şegar tóm"
+msgstr "Mappan \"%s\" er nÃº Ã¾egar tÃ³m"
 
 #: templates/contacts/contacts.inc:103
 msgid "The message being composed has been closed. Exiting."
-msgstr "Skeytinu sem veriğ var ağ semja hefur veriğ lokağ."
+msgstr "Skeytinu sem veriÃ° var aÃ° semja hefur veriÃ° lokaÃ°."
 
 #: message.php:142
 msgid "The message has been deleted."
-msgstr "Skeytinu hefur veriğ eytt."
+msgstr "Skeytinu hefur veriÃ° eytt."
 
 #: lib/MIME/Viewer/pgp.php:393
 msgid "The message has been verified."
-msgstr "Skeytiğ hefur veriğ sannprófağ."
+msgstr "SkeytiÃ° hefur veriÃ° sannprÃ³faÃ°."
 
 #: lib/MIME/Viewer/pkcs7.php:373
 #, php-format
 msgid "The message has been verified. Sender: %s."
-msgstr "Skeytiğ hefur veriğ sannprófağ. Sendandi: %s."
+msgstr "SkeytiÃ° hefur veriÃ° sannprÃ³faÃ°. Sendandi: %s."
 
 #: templates/compose/compose.js:104
 msgid "The signature could not be replaced."
-msgstr "Ekki var hægt ağ skipta um undirskrift."
+msgstr "Ekki var hÃ¦gt aÃ° skipta um undirskrift."
 
 #: templates/compose/compose.js:102
 msgid "The signature was successfully replaced."
-msgstr "Undirskrift hefur veriğ breytt."
+msgstr "Undirskrift hefur veriÃ° breytt."
 
 #: lib/MIME/Viewer/itip.php:169
 msgid "The task has been added to your tasklist."
-msgstr "Verkefninu \"%s\" hefur veriğ bætt viğ verkefnalistann."
+msgstr "Verkefninu \"%s\" hefur veriÃ° bÃ¦tt viÃ° verkefnalistann."
 
 #: lib/MIME/Viewer/status.php:95
 msgid "The text of the message"
@@ -2503,27 +2503,27 @@ msgstr "Texti skeytisins"
 
 #: templates/mailbox/empty_mailbox.inc:3
 msgid "There are no messages in this mailbox."
-msgstr "Şağ eru engin skeyti í şessu pósthólfi."
+msgstr "ÃaÃ° eru engin skeyti Ã­ Ã¾essu pÃ³sthÃ³lfi."
 
 #: lib/Message.php:575
 #, php-format
 msgid "There was a problem expunging %s. This is what the server said"
 msgstr ""
-"Vandamál kom upp viğ tæmingu á %s. Villutilkynning netşjónsins fylgir hér á "
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu Ã¡ %s. Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ "
 "eftir"
 
 #: lib/Message.php:616
 #, php-format
 msgid "There was a problem expunging the mailbox. The server said: %s"
 msgstr ""
-"Vandamál kom upp viğ tæmingu pósthólfs. Villutilkynning netşjónsins fylgir "
-"hér á eftir: %s"
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu pÃ³sthÃ³lfs. Villutilkynning netÃ¾jÃ³nsins fylgir "
+"hÃ©r Ã¡ eftir: %s"
 
 #: lib/Message.php:584
 msgid "There was a problem expunging the mailbox. This is what the server said"
 msgstr ""
-"Vandamál kom upp viğ tæmingu pósthólfs. Villutilkynning netşjónsins fylgir "
-"hér á eftir"
+"VandamÃ¡l kom upp viÃ° tÃ¦mingu pÃ³sthÃ³lfs. Villutilkynning netÃ¾jÃ³nsins fylgir "
+"hÃ©r Ã¡ eftir"
 
 #: lib/Message.php:92
 #, php-format
@@ -2531,8 +2531,8 @@ msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Vandamál kom upp viğ afritun frá \"%s\" til  \"%s\". Villutilkynning "
-"netşjónsins fylgir hér á eftir"
+"VandamÃ¡l kom upp viÃ° afritun frÃ¡ \"%s\" til  \"%s\". Villutilkynning "
+"netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: lib/Message.php:200 lib/Message.php:215
 #, php-format
@@ -2540,8 +2540,8 @@ msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Villa kom upp şegar átti ağ eyğa skeytum úr möppunni \"%s\". Villutilkynning "
-"netşjónsins fylgir hér á eftir"
+"Villa kom upp Ã¾egar Ã¡tti aÃ° eyÃ°a skeytum Ãºr mÃ¶ppunni \"%s\". Villutilkynning "
+"netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: lib/Message.php:277
 #, php-format
@@ -2549,19 +2549,19 @@ msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Villa kom upp şegar átti ağ eyğa skeytum í möppunni \"%s\". Villutilkynning "
-"netşjónsins fylgir hér á eftir"
+"Villa kom upp Ã¾egar Ã¡tti aÃ° eyÃ°a skeytum Ã­ mÃ¶ppunni \"%s\". Villutilkynning "
+"netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: lib/Message.php:213
 #, php-format
 msgid "There was an error deleting messages. This is what the server said: %s"
 msgstr ""
-"Villa kom upp şegar átti ağ eyğa skeytum. Villutilkynning netşjónsins fylgir "
-"hér á eftir: %s"
+"Villa kom upp Ã¾egar Ã¡tti aÃ° eyÃ°a skeytum. Villutilkynning netÃ¾jÃ³nsins fylgir "
+"hÃ©r Ã¡ eftir: %s"
 
 #: lib/MIME/Viewer/plain.php:52 lib/MIME/Viewer/enriched.php:37
 msgid "There was an error displaying this message part"
-msgstr "Villa kom upp viğ birtingu şessa hluta skeytisins"
+msgstr "Villa kom upp viÃ° birtingu Ã¾essa hluta skeytisins"
 
 #: lib/Message.php:508 lib/Message.php:548
 #, php-format
@@ -2569,13 +2569,13 @@ msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Villa kom upp şegar átti ağ merkja skeyti í möppunni \"%s\". Villutilkynning "
-"netşjónsins fylgir hér á eftir"
+"Villa kom upp Ã¾egar Ã¡tti aÃ° merkja skeyti Ã­ mÃ¶ppunni \"%s\". Villutilkynning "
+"netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: folders.php:155
 #, php-format
 msgid "There was an error importing %s."
-msgstr "Villa kom upp viğ ağ flytja inn %s."
+msgstr "Villa kom upp viÃ° aÃ° flytja inn %s."
 
 #: lib/Message.php:87
 #, php-format
@@ -2583,59 +2583,59 @@ msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Villa kom upp şegar átti ağ færa skeyti frá \"%s\" til \"%s\". "
-"Villutilkynning netşjónsins fylgir hér á eftir"
+"Villa kom upp Ã¾egar Ã¡tti aÃ° fÃ¦ra skeyti frÃ¡ \"%s\" til \"%s\". "
+"Villutilkynning netÃ¾jÃ³nsins fylgir hÃ©r Ã¡ eftir"
 
 #: compose.php:1179
 msgid "There was an error saving this message as a draft."
-msgstr "Villa kom upp viğ vistun şessa skeytis sem uppkasts."
+msgstr "Villa kom upp viÃ° vistun Ã¾essa skeytis sem uppkasts."
 
 #: compose.php:940
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Ekki tókst ağ senda skeytiğ: %s"
+msgstr "Ekki tÃ³kst aÃ° senda skeytiÃ°: %s"
 
 #: lib/MIME/Viewer/plain.php:59
 msgid "There was no text in this message part"
-msgstr "Şağ var engin texti í şessum hluta skeytisins"
+msgstr "ÃaÃ° var engin texti Ã­ Ã¾essum hluta skeytisins"
 
 #: lib/MIME/Viewer/html.php:94
 msgid "This HTML message has images embedded in it."
-msgstr "Şetta HTML skeyti er iniheldur myndir.."
+msgstr "Ãetta HTML skeyti er iniheldur myndir.."
 
 #: templates/folders/javascript.inc:6
 msgid "This may take some time. Are you sure you want to continue?"
 msgstr ""
-"Şetta gæti tekiğ nokkurn tíma. Ert şú viss um ağ şú viljir halda áfram?"
+"Ãetta gÃ¦ti tekiÃ° nokkurn tÃ­ma. Ert Ã¾Ãº viss um aÃ° Ã¾Ãº viljir halda Ã¡fram?"
 
 #: lib/MIME/Viewer/pgp.php:205 lib/MIME/Viewer/pgp.php:416
 msgid "This message has been digitally signed via PGP."
-msgstr "Şetta skeyti er meğ PGP rafræna undirskrift."
+msgstr "Ãetta skeyti er meÃ° PGP rafrÃ¦na undirskrift."
 
 #: lib/MIME/Viewer/pkcs7.php:132
 msgid "This message has been digitally signed via S/MIME."
-msgstr "Şetta skeyti er meğ S/MIME rafræna undirskrift."
+msgstr "Ãetta skeyti er meÃ° S/MIME rafrÃ¦na undirskrift."
 
 #: lib/MIME/Viewer/pkcs7.php:128 lib/MIME/Viewer/pkcs7.php:227
 msgid "This message has been encrypted via S/MIME."
-msgstr "Şetta skeyti er dulritağ meğ S/MIME."
+msgstr "Ãetta skeyti er dulritaÃ° meÃ° S/MIME."
 
 #: lib/MIME/Viewer/pgp.php:201 lib/MIME/Viewer/pgp.php:291
 msgid "This message has been encrypted with PGP."
-msgstr "Şetta skeyti er dulritağ meğ PGP."
+msgstr "Ãetta skeyti er dulritaÃ° meÃ° PGP."
 
 #: message.php:195
 msgid "This message to"
-msgstr "Şetta skeyti til"
+msgstr "Ãetta skeyti til"
 
 #: templates/contacts/contacts.inc:109
 msgid "This window must be called from a compose window."
 msgstr ""
-"Şessi gluggi şarf ağ vera vísun frá glugganum şar sem nı skeyti eru samin."
+"Ãessi gluggi Ã¾arf aÃ° vera vÃ­sun frÃ¡ glugganum Ã¾ar sem nÃ½ skeyti eru samin."
 
 #: thread.php:44 templates/thread/top.inc:3 config/prefs.php.dist:893
 msgid "Thread View"
-msgstr "Efnisşráğshamur"
+msgstr "EfnisÃ¾rÃ¡Ã°shamur"
 
 #: search.php:139 message.php:248 mailbox.php:585
 #: templates/mailbox/message_headers.inc:22
@@ -2646,11 +2646,11 @@ msgstr "Til"
 
 #: config/prefs.php.dist:890
 msgid "To Address"
-msgstr "Móttökunetfang"
+msgstr "MÃ³ttÃ¶kunetfang"
 
 #: templates/compose/compose.inc:567
 msgid "Total Attachments Size:"
-msgstr "Heildarstærğ viğhengja:"
+msgstr "HeildarstÃ¦rÃ° viÃ°hengja:"
 
 #: folders.php:383
 msgid "Trash folder"
@@ -2663,11 +2663,11 @@ msgstr "Ruslakarfa:"
 #: templates/mailbox/navbar.inc:19 templates/mailbox/navbar.inc:36
 #: templates/message/navbar_navigate.inc:10
 msgid "Unanswered"
-msgstr "Ósvarağ"
+msgstr "Ã“svaraÃ°"
 
 #: templates/search/main.inc:35
 msgid "Unanswered messages"
-msgstr "Ósvöruğ skeyti"
+msgstr "Ã“svÃ¶ruÃ° skeyti"
 
 #: templates/mailbox/actions.inc:13 templates/message/navbar_actions.inc:4
 msgid "Undelete"
@@ -2675,33 +2675,33 @@ msgstr "Endurvekja"
 
 #: mailbox.php:568 mailbox.php:581 lib/MIME/Headers.php:212
 msgid "Undisclosed Recipients"
-msgstr "Móttakendur sem ekki sjást"
+msgstr "MÃ³ttakendur sem ekki sjÃ¡st"
 
 #: mailbox.php:544
 msgid "Unknown Date"
-msgstr "Óşekkt dags."
+msgstr "Ã“Ã¾ekkt dags."
 
 #: mailbox.php:597
 msgid "Unknown Recipient"
-msgstr "Óşekktur móttakandi"
+msgstr "Ã“Ã¾ekktur mÃ³ttakandi"
 
 #: fetchmailprefs.php:65
 msgid "Unnamed"
-msgstr "Ónefnt"
+msgstr "Ã“nefnt"
 
 #: message.php:483 mailbox.php:687 templates/mailbox/legend.inc:5
 #: templates/mailbox/navbar.inc:15 templates/mailbox/navbar.inc:32
 #: templates/message/navbar_navigate.inc:6
 msgid "Unseen"
-msgstr "Ólesiğ"
+msgstr "Ã“lesiÃ°"
 
 #: templates/folders/actions.inc:10
 msgid "Unsubscribe from Folder(s)"
-msgstr "Afvirkja möppu(r)"
+msgstr "Afvirkja mÃ¶ppu(r)"
 
 #: templates/compose/compose.inc:574
 msgid "Update Attachment Information"
-msgstr "Uppfæra uppl. um viğhengi"
+msgstr "UppfÃ¦ra uppl. um viÃ°hengi"
 
 #: templates/pgp/import_key.inc:56 templates/smime/import_key.inc:56
 msgid "Upload"
@@ -2709,11 +2709,11 @@ msgstr "Innsenda"
 
 #: templates/prefs/sentmailselect.inc:42
 msgid "Use Default Value"
-msgstr "Nota sjálfgefiğ gildi"
+msgstr "Nota sjÃ¡lfgefiÃ° gildi"
 
 #: config/prefs.php.dist:250
 msgid "Use IMAP folder subscriptions?"
-msgstr "Nota virkar IMAP möppur"
+msgstr "Nota virkar IMAP mÃ¶ppur"
 
 #: templates/acl/acl.inc:140
 msgid "User"
@@ -2731,162 +2731,162 @@ msgstr "Notandanafn:"
 #: templates/pgp/pgp.inc:151 templates/smime/smime.inc:65
 #: templates/smime/smime.inc:113 templates/smime/smime.inc:117
 msgid "View"
-msgstr "Skoğa"
+msgstr "SkoÃ°a"
 
 #: lib/MIME/Viewer/tnef.php:108 lib/MIME/Viewer/zip.php:92
 #, php-format
 msgid "View %s"
-msgstr "Sına %s"
+msgstr "SÃ½na %s"
 
 #: templates/pgp/pgp.inc:93 templates/smime/smime.inc:65
 #, php-format
 msgid "View %s Public Key"
-msgstr "iSkoğa opinberan lykil fyrir %s"
+msgstr "iSkoÃ°a opinberan lykil fyrir %s"
 
 #: lib/MIME/Viewer/html.php:128
 msgid "View HTML content in a separate window"
-msgstr "Skoğa HTML-efni í sér glugga."
+msgstr "SkoÃ°a HTML-efni Ã­ sÃ©r glugga."
 
 #: templates/message/navbar_actions.inc:17
 msgid "View Thread"
-msgstr "Skoğa efnisşráğ"
+msgstr "SkoÃ°a efnisÃ¾rÃ¡Ã°"
 
 #: lib/MIME/Viewer/images.php:163 lib/MIME/Viewer/images.php:165
 msgid "View Thumbnail"
-msgstr "Skoğa smámynd"
+msgstr "SkoÃ°a smÃ¡mynd"
 
 #: lib/MIME/Viewer/pkcs7.php:407
 msgid "View attachment in a separate window"
-msgstr "koğa viğhengi í sér glugga."
+msgstr "koÃ°a viÃ°hengi Ã­ sÃ©r glugga."
 
 #: lib/MIME/Viewer/related.php:79
 msgid "View content in a separate window"
-msgstr "Skoğa innihald í sér glugga."
+msgstr "SkoÃ°a innihald Ã­ sÃ©r glugga."
 
 #: lib/MIME/Viewer/itip.php:140
 msgid "View event"
-msgstr "Sına atburğ"
+msgstr "SÃ½na atburÃ°"
 
 #: mailbox.php:513 folders.php:375
 #, php-format
 msgid "View messages in %s"
-msgstr "Sına skeyti í %s"
+msgstr "SÃ½na skeyti Ã­ %s"
 
 #: templates/prefs/initialpageselect.inc:26
 msgid "View or mailbox to display after login:"
-msgstr "Mappa eğa hamur sem á ağ sına í upphafi:"
+msgstr "Mappa eÃ°a hamur sem Ã¡ aÃ° sÃ½na Ã­ upphafi:"
 
 #: lib/MIME/Viewer/itip.php:170
 msgid "View task"
-msgstr "Sına verkefni"
+msgstr "SÃ½na verkefni"
 
 #: lib/MIME/Viewer/html.php:113
 msgid "View the Images"
-msgstr "Skoğa myndirnar"
+msgstr "SkoÃ°a myndirnar"
 
 #: search.php:314
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
-msgstr "Sındarmappan \"%s\" var stofnuğ."
+msgstr "SÃ½ndarmappan \"%s\" var stofnuÃ°."
 
 #: templates/search/main.inc:111 lib/IMAP/Tree.php:129 lib/IMAP/Tree.php:142
 #: lib/IMAP/Tree.php:144 lib/IMAP/Tree.php:148 lib/IMAP/Tree.php:149
 #: lib/IMAP/Tree.php:354 lib/IMAP/Tree.php:378 lib/IMAP/Tree.php:418
 msgid "Virtual Folders"
-msgstr "Sındarmöppur"
+msgstr "SÃ½ndarmÃ¶ppur"
 
 #: search.php:296
 msgid "Virtual Folders require a label."
-msgstr "Sındarmöppur şurfa auğkenni."
+msgstr "SÃ½ndarmÃ¶ppur Ã¾urfa auÃ°kenni."
 
 #: templates/search/main.inc:133
 msgid "Virtual folder label"
-msgstr "Auğkenni sındarmöppu"
+msgstr "AuÃ°kenni sÃ½ndarmÃ¶ppu"
 
 #: lib/MIME/Viewer/pkcs7.php:363
 msgid "Warning"
-msgstr "Ağvörun"
+msgstr "AÃ°vÃ¶run"
 
 #: login.php:130
 #, php-format
 msgid "Welcome to %s"
-msgstr "Velkomin(n) í %s"
+msgstr "Velkomin(n) Ã­ %s"
 
 #: config/prefs.php.dist:437
 msgid "Wrap text at this many characters."
-msgstr "Færa bendil sjáfkrafa í næstu línu şegar şessum stafafjölda er náğ."
+msgstr "FÃ¦ra bendil sjÃ¡fkrafa Ã­ nÃ¦stu lÃ­nu Ã¾egar Ã¾essum stafafjÃ¶lda er nÃ¡Ã°."
 
 #: templates/compose/compose.inc:531 config/prefs.php.dist:949
 msgid "Yes"
-msgstr "Já"
+msgstr "JÃ¡"
 
 #: lib/Maintenance/Task/fetchmail_login.php:58
 msgid "You are about to fetch email from the following account(s):"
-msgstr "Şú ert um şağ bil ağ sækja póst fyrir eftirfarandi ağganga:"
+msgstr "ÃÃº ert um Ã¾aÃ° bil aÃ° sÃ¦kja pÃ³st fyrir eftirfarandi aÃ°ganga:"
 
 #: templates/folders/folders_confirm.html:10
 msgid ""
 "You are attempting to delete all messages contained in the following folder"
 "(s)."
-msgstr "Şú ert um şağ bil ağ eyğa öllum skeytum í eftirfarandi möppu(m):"
+msgstr "ÃÃº ert um Ã¾aÃ° bil aÃ° eyÃ°a Ã¶llum skeytum Ã­ eftirfarandi mÃ¶ppu(m):"
 
 #: templates/folders/folders_confirm.html:9
 msgid "You are attempting to delete the following folder(s)."
-msgstr "Şú ert um şağ bil ağ eyğa eftirfarandi möpppu(m):"
+msgstr "ÃÃº ert um Ã¾aÃ° bil aÃ° eyÃ°a eftirfarandi mÃ¶pppu(m):"
 
 #: templates/mailbox/javascript.inc:192 templates/message/javascript.inc:55
 msgid "You are copying/moving to a new folder."
-msgstr "Şú ert ağ afrita/færa í nıja möppu."
+msgstr "ÃÃº ert aÃ° afrita/fÃ¦ra Ã­ nÃ½ja mÃ¶ppu."
 
 #: templates/folders/javascript.inc:94
 msgid "You are creating a sub-folder to "
-msgstr "Şú ert um şağ bil ağ búa til undirmöppu í "
+msgstr "ÃÃº ert um Ã¾aÃ° bil aÃ° bÃºa til undirmÃ¶ppu Ã­ "
 
 #: templates/folders/javascript.inc:96
 msgid "You are creating a top-level folder."
-msgstr "Şú ert ağ búa til nıja ağalmöppu.\\nSláğu inn nafn möppunnar:\\n"
+msgstr "ÃÃº ert aÃ° bÃºa til nÃ½ja aÃ°almÃ¶ppu.\\nSlÃ¡Ã°u inn nafn mÃ¶ppunnar:\\n"
 
 #: templates/folders/javascript.inc:127
 msgid "You are renaming the folder: "
-msgstr "Şú ert ağ endurnefna möppuna: "
+msgstr "ÃÃº ert aÃ° endurnefna mÃ¶ppuna: "
 
 #: lib/Folder.php:537
 #, php-format
 msgid "You can not unsubscribe from \"%s\"."
-msgstr "Şú getur ekki aftengt frá \"%s\""
+msgstr "ÃÃº getur ekki aftengt frÃ¡ \"%s\""
 
 #: templates/mailbox/alert.inc:3
 #, php-format
 msgid "You have %s new messages."
-msgstr "Şú átt %s nı skeyti."
+msgstr "ÃÃº Ã¡tt %s nÃ½ skeyti."
 
 #: templates/mailbox/alert.inc:3
 msgid "You have 1 new message."
-msgstr "Şú átt 1 nıtt skeyti."
+msgstr "ÃÃº Ã¡tt 1 nÃ½tt skeyti."
 
 #: lib/IMP.php:1030
 msgid "You have new mail in the following folder:"
-msgstr "Şú átt nıjan póst í möppunni:\\n"
+msgstr "ÃÃº Ã¡tt nÃ½jan pÃ³st Ã­ mÃ¶ppunni:\\n"
 
 #: lib/IMP.php:1035
 msgid "You have new mail in the following folders:"
-msgstr "Şú átt nıjan póst í şessum möppum:\\n"
+msgstr "ÃÃº Ã¡tt nÃ½jan pÃ³st Ã­ Ã¾essum mÃ¶ppum:\\n"
 
 #: compose.php:126
 msgid "You must enter at least one recipient."
-msgstr "Şağ şarf ağ tilgreina a.m.k. einn viğtakanda."
+msgstr "ÃaÃ° Ã¾arf aÃ° tilgreina a.m.k. einn viÃ°takanda."
 
 #: templates/mailbox/javascript.inc:201 templates/message/javascript.inc:64
 msgid "You must select a target mailbox first."
-msgstr "Şú şarft ağ velja í hvağa möppu pósturinn á ağ fara fyrst."
+msgstr "ÃÃº Ã¾arft aÃ° velja Ã­ hvaÃ°a mÃ¶ppu pÃ³sturinn Ã¡ aÃ° fara fyrst."
 
 #: fetchmailprefs.php:85
 msgid "You must select an account to be deleted."
-msgstr "Veldu hvağa ağgangi şú vilt eyğa."
+msgstr "Veldu hvaÃ°a aÃ°gangi Ã¾Ãº vilt eyÃ°a."
 
 #: templates/contacts/contacts.inc:81
 msgid "You must select an address first."
-msgstr "Şú şarft ağ velja netfang fyrst."
+msgstr "ÃÃº Ã¾arft aÃ° velja netfang fyrst."
 
 #: templates/mailbox/javascript.inc:62 templates/mailbox/javascript.inc:208
 #: templates/mailbox/javascript.inc:263
@@ -2895,46 +2895,46 @@ msgstr "Veldu a.m.k. eitt skeyti fyrst."
 
 #: templates/compose/redirect.inc:13
 msgid "You must specify a recipient."
-msgstr "Tilgreindu viğtakanda."
+msgstr "Tilgreindu viÃ°takanda."
 
 #: templates/compose/attachments.js:29
 msgid "You must specify at least one file to attach."
-msgstr "Şú şarft fyrst ağ velja viğhengiğ."
+msgstr "ÃÃº Ã¾arft fyrst aÃ° velja viÃ°hengiÃ°."
 
 #: lib/Maillog.php:137
 #, php-format
 msgid "You redirected this message to %s on %%s."
-msgstr "Şú endurvísağir şessu skeyti til %s şann %%s."
+msgstr "ÃÃº endurvÃ­saÃ°ir Ã¾essu skeyti til %s Ã¾ann %%s."
 
 #: lib/Maillog.php:141
 #, php-format
 msgid "You replied to this message on %s."
-msgstr "Şú svarağir şessu skeyti şann %s."
+msgstr "ÃÃº svaraÃ°ir Ã¾essu skeyti Ã¾ann %s."
 
 #: lib/Folder.php:487
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "\"%s\" var ekki gerğ virk. Hér er tilkynningin sem kom frá netşjóninum"
+msgstr "\"%s\" var ekki gerÃ° virk. HÃ©r er tilkynningin sem kom frÃ¡ netÃ¾jÃ³ninum"
 
 #: lib/Folder.php:539
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr ""
-"\"%s\" var ekki gerğ óvirk. Hér er tilkynningin sem kom frá netşjóninum"
+"\"%s\" var ekki gerÃ° Ã³virk. HÃ©r er tilkynningin sem kom frÃ¡ netÃ¾jÃ³ninum"
 
 #: lib/Folder.php:490
 #, php-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "\"%s\" var gerğ virk"
+msgstr "\"%s\" var gerÃ° virk"
 
 #: lib/Folder.php:542
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "\"%s\" var gerğ óvirk"
+msgstr "\"%s\" var gerÃ° Ã³virk"
 
 #: templates/pgp/pgp.inc:186
 msgid "Your Name"
-msgstr "Fullt nafn şitt:"
+msgstr "Fullt nafn Ã¾itt:"
 
 #: templates/pgp/pgp.inc:119
 msgid "Your PGP Public/Private Keys"
@@ -2942,40 +2942,40 @@ msgstr "PGP opinberir/einka lyklar"
 
 #: templates/pgp/pgp.inc:150 templates/smime/smime.inc:116
 msgid "Your Private Key"
-msgstr "Einka dulritunarlykill şinn"
+msgstr "Einka dulritunarlykill Ã¾inn"
 
 #: templates/pgp/pgp.inc:146 templates/smime/smime.inc:112
 msgid "Your Public Key"
-msgstr "Opinber dulritunarlykill şinn"
+msgstr "Opinber dulritunarlykill Ã¾inn"
 
 #: config/prefs.php.dist:157
 msgid "Your Reply-to: address: <i>(optional)</i>"
 msgstr ""
-"Svarnetfang şitt ef annağ en fullt netfang (Reply-to:) <i>(valfrjálst)</i>"
+"Svarnetfang Ã¾itt ef annaÃ° en fullt netfang (Reply-to:) <i>(valfrjÃ¡lst)</i>"
 
 #: templates/fetchmail/account_select.inc:16
 msgid "Your accounts:"
-msgstr "Ağgangar şínir:"
+msgstr "AÃ°gangar Ã¾Ã­nir:"
 
 #: lib/MIME/Viewer/images.php:92
 msgid "Your browser does not support inline display of this image type."
-msgstr "Vefskoari şinn styğur ekki birtingu á şessarri gerğ myndar."
+msgstr "Vefskoari Ã¾inn styÃ°ur ekki birtingu Ã¡ Ã¾essarri gerÃ° myndar."
 
 #: config/prefs.php.dist:532
 msgid "Your default charset for sending messages:"
-msgstr "Sjálfgefiğ stafasett í sendum skeytum:"
+msgstr "SjÃ¡lfgefiÃ° stafasett Ã­ sendum skeytum:"
 
 #: templates/prefs/encryptselect.inc:1
 msgid "Your default encryption method for sending messages:"
-msgstr "Sjálfvalin dulkóğunarağferğ fyrir send skeyti:"
+msgstr "SjÃ¡lfvalin dulkÃ³Ã°unaraÃ°ferÃ° fyrir send skeyti:"
 
 #: lib/MIME/Viewer/status.php:89
 msgid "Your message was successfully delivered."
-msgstr "Skeytiğ var sent."
+msgstr "SkeytiÃ° var sent."
 
 #: config/prefs.php.dist:198
 msgid "Your signature:"
-msgstr "Undirskrift şín:"
+msgstr "Undirskrift Ã¾Ã­n:"
 
 #: message.php:272 mailbox.php:528 compose.php:1219 lib/Compose.php:729
 msgid "[No Subject]"
@@ -2992,15 +2992,15 @@ msgstr "Semja"
 #: templates/mailbox/actions.inc:8 templates/mailbox/actions.inc:10
 #: templates/message/navbar_actions.inc:6
 msgid "_Delete"
-msgstr "Eyğa"
+msgstr "EyÃ°a"
 
 #: lib/IMP.php:935
 msgid "_Folders"
-msgstr "Möppur"
+msgstr "MÃ¶ppur"
 
 #: templates/compose/compose.inc:80
 msgid "_Identity"
-msgstr "Auğkenni"
+msgstr "AuÃ°kenni"
 
 #: lib/IMP.php:926
 msgid "_Inbox"
@@ -3008,7 +3008,7 @@ msgstr "Innbox"
 
 #: lib/IMP.php:976
 msgid "_Log out"
-msgstr "Útskrá"
+msgstr "ÃštskrÃ¡"
 
 #: message.php:368
 msgid "_Message Source"
@@ -3025,7 +3025,7 @@ msgstr "Forgangur"
 #: mailbox.php:402
 #, php-format
 msgid "_Refresh %s"
-msgstr "Endurhlağa %s"
+msgstr "EndurhlaÃ°a %s"
 
 #: templates/message/navbar_actions.inc:8
 msgid "_Reply"
@@ -3041,7 +3041,7 @@ msgstr "Senda skeyti"
 
 #: templates/mailbox/message_headers.inc:32
 msgid "_Thread"
-msgstr "Efnisşráğur"
+msgstr "EfnisÃ¾rÃ¡Ã°ur"
 
 #: templates/compose/compose.inc:115
 msgid "_To"
@@ -3053,27 +3053,27 @@ msgstr "Endurvekja"
 
 #: templates/message/navbar_actions.inc:17
 msgid "_View Thread"
-msgstr "Skoğa efnisşráğ"
+msgstr "SkoÃ°a efnisÃ¾rÃ¡Ã°"
 
 #: templates/mailbox/actions.inc:19 templates/message/navbar_actions.inc:22
 msgid "_Whitelist"
-msgstr "Hvítlisti"
+msgstr "HvÃ­tlisti"
 
 #: lib/Compose.php:351
 msgid "attachment"
-msgstr "Viğhengi"
+msgstr "ViÃ°hengi"
 
 #: templates/compose/compose.inc:503
 msgid "bytes"
-msgstr "bæti"
+msgstr "bÃ¦ti"
 
 #: templates/contacts/contacts.inc:190
 msgid "from"
-msgstr "frá"
+msgstr "frÃ¡"
 
 #: folders.php:151
 msgid "mailbox file"
-msgstr "Póstmappa"
+msgstr "PÃ³stmappa"
 
 #: compose.php:1001 lib/Message.php:429
 msgid "name"
@@ -3085,7 +3085,7 @@ msgstr "enginn"
 
 #: templates/compose/spelling.inc:111
 msgid "or"
-msgstr "eğa"
+msgstr "eÃ°a"
 
 #: templates/compose/spelling.inc:48
 msgid "spelling error"
@@ -3097,8 +3097,8 @@ msgstr "stafsetningarvillur"
 
 #: lib/Filter.php:51
 msgid "your blacklist"
-msgstr "Svartlisti şinn"
+msgstr "Svartlisti Ã¾inn"
 
 #: lib/Filter.php:61
 msgid "your whitelist"
-msgstr "Hvítlisti şinn"
+msgstr "HvÃ­tlisti Ã¾inn"

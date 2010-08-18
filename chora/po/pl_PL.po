@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Piotr Roszatycki <dexter@debian.org>\n"
 "Language-Team: Polish <dev@horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 msgid ""
@@ -18,9 +18,9 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-" Ten formularz pozwala na utworzenie pliku zmian pomiêdzy dowolnymi wersjami "
-"tego pliku. Mo¿esz okre¶liæ symboliczne oznaczenie wersji poprzez wybranie "
-"oznaczenia z listy. Mo¿esz te¿ okre¶liæ numerycznie wersjê poprzez wpisanie "
+" Ten formularz pozwala na utworzenie pliku zmian pomiÄ™dzy dowolnymi wersjami "
+"tego pliku. MoÅ¼esz okreÅ›liÄ‡ symboliczne oznaczenie wersji poprzez wybranie "
+"oznaczenia z listy. MoÅ¼esz teÅ¼ okreÅ›liÄ‡ numerycznie wersjÄ™ poprzez wpisanie "
 "oznaczenia w pole tekstowe."
 
 #, c-format
@@ -32,7 +32,7 @@ msgid "Added in v.%s"
 msgstr "Dodane w v.%s"
 
 msgid "All Branches"
-msgstr "Wszystkie odga³êzienia"
+msgstr "Wszystkie odgaÅ‚Ä™zienia"
 
 msgid "Annotate"
 msgstr "Adnotacja"
@@ -44,13 +44,13 @@ msgid "Back"
 msgstr "Cofnij"
 
 msgid "Branch Point for:"
-msgstr "Punkt odga³êzienia dla:"
+msgstr "Punkt odgaÅ‚Ä™zienia dla:"
 
 msgid "Branch:"
-msgstr "Odga³êzienie:"
+msgstr "OdgaÅ‚Ä™zienie:"
 
 msgid "Branching to"
-msgstr "Odga³êzienie do"
+msgstr "OdgaÅ‚Ä™zienie do"
 
 #, c-format
 msgid "CVS Annotation of %s for version %s"
@@ -58,7 +58,7 @@ msgstr "Adnotacja CVS dla %s dla wersji %s"
 
 #, c-format
 msgid "CVS Branching View for %s"
-msgstr "Widok odga³êzieñ CVS dla %s"
+msgstr "Widok odgaÅ‚Ä™zieÅ„ CVS dla %s"
 
 #, c-format
 msgid "CVS Checkout of %s (revision %s)"
@@ -87,38 +87,38 @@ msgid "Chora Homepage"
 msgstr "Strona domowa Chora"
 
 msgid "Chora is not properly configured"
-msgstr "Chora nie jest w pe³ni skonfigurowana."
+msgstr "Chora nie jest w peÅ‚ni skonfigurowana."
 
 msgid "Context"
 msgstr "Kontekst"
 
 msgid "Couldn't perform checkout of the requested file"
-msgstr "Nie mo¿na aktualizowaæ wybranego pliku"
+msgstr "Nie moÅ¼na aktualizowaÄ‡ wybranego pliku"
 
 msgid "Date"
 msgstr "Data"
 
 msgid "Deleted File"
-msgstr "Usuniête pliki"
+msgstr "UsuniÄ™te pliki"
 
 #, c-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Plik ró¿nicy dla %s pomiêdzy wersjami %s i %s"
+msgstr "Plik rÃ³Å¼nicy dla %s pomiÄ™dzy wersjami %s i %s"
 
 #, c-format
 msgid "Diffs ignoring whitespace to version %s"
-msgstr "Plik ró¿nicy z pominiêciem spacji dla wersji %s"
+msgstr "Plik rÃ³Å¼nicy z pominiÄ™ciem spacji dla wersji %s"
 
 #, c-format
 msgid "Diffs to selected version %s"
-msgstr "Plik ró¿nicy dla wybranej wersji %s"
+msgstr "Plik rÃ³Å¼nicy dla wybranej wersji %s"
 
 #, c-format
 msgid "Diffs to version %s"
-msgstr "Plik ró¿nicy dla wersji %s"
+msgstr "Plik rÃ³Å¼nicy dla wersji %s"
 
 msgid "Directory"
-msgstr "Ksi±¿ka adresowa"
+msgstr "KsiÄ…Å¼ka adresowa"
 
 msgid "Download"
 msgstr "Pobierz"
@@ -127,25 +127,25 @@ msgid "Ed Script"
 msgstr "Edytuj skrypt"
 
 msgid "Error Encountered"
-msgstr "Wyst±pi³ b³±d"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d"
 
 msgid "Error"
-msgstr "B³±d"
+msgstr "BÅ‚Ä…d"
 
 msgid "File"
 msgstr "Plik"
 
 msgid "Get Diffs"
-msgstr "Pobierz plik ró¿nicy"
+msgstr "Pobierz plik rÃ³Å¼nicy"
 
 msgid "Hide Deleted Files"
-msgstr "Ukryj usuniête pliki"
+msgstr "Ukryj usuniÄ™te pliki"
 
 msgid "Human Readable"
-msgstr "Czytelne dla cz³owieka"
+msgstr "Czytelne dla czÅ‚owieka"
 
 msgid "Invalid revision number"
-msgstr "B³êdny numer wersji"
+msgstr "BÅ‚Ä™dny numer wersji"
 
 #, c-format
 msgid "Last Log Message for rev %s:"
@@ -171,20 +171,20 @@ msgid "No Viewable Change"
 msgstr "Brak widocznych zmian"
 
 msgid "Other Repositories"
-msgstr "Pozosta³e repozytoria"
+msgstr "PozostaÅ‚e repozytoria"
 
 msgid "Please contact"
-msgstr "Proszê skontaktowaæ siê"
+msgstr "ProszÄ™ skontaktowaÄ‡ siÄ™"
 
 msgid "Previous Directory"
 msgstr "Poprzedni katalog"
 
 #, c-format
 msgid "Removed in v.%s"
-msgstr "Usuniête w v.%s"
+msgstr "UsuniÄ™te w v.%s"
 
 msgid "Retrieve diffs between:"
-msgstr "Pobierz plik zmian pomiêdzy:"
+msgstr "Pobierz plik zmian pomiÄ™dzy:"
 
 msgid "Rev"
 msgstr "Wer"
@@ -193,46 +193,46 @@ msgid "Select for Diff"
 msgstr "Wybierz folder"
 
 msgid "Show Deleted Files"
-msgstr "Poka¿ usuniête pliki"
+msgstr "PokaÅ¼ usuniÄ™te pliki"
 
 msgid "Side-by-Side"
 msgstr "Obok siebie"
 
 msgid "Some of Chora's configuration files are missing:"
-msgstr "Brakuje kilku plików konfiguracyjnych Chora:"
+msgstr "Brakuje kilku plikÃ³w konfiguracyjnych Chora:"
 
 msgid "Sort Order"
-msgstr "Porz±dek sortowania"
+msgstr "PorzÄ…dek sortowania"
 
 msgid "Switch to Branch View"
-msgstr "Prze³±cz na widok odga³êzieñ"
+msgstr "PrzeÅ‚Ä…cz na widok odgaÅ‚Ä™zieÅ„"
 
 msgid "Switch to Log View"
-msgstr "Prze³±cz na widok historii"
+msgstr "PrzeÅ‚Ä…cz na widok historii"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
-msgstr "W tym pliku okre¶lone s± style u¿ywane do ustawienia kolorów i fontów."
+msgstr "W tym pliku okreÅ›lone sÄ… style uÅ¼ywane do ustawienia kolorÃ³w i fontÃ³w."
 
 msgid ""
 "This file defines all of the cvs repositories that you wish Chora to display."
 msgstr ""
-"W tym pliku okre¶lone s± repozytoria CVS, które pokazywane s± przez Chora."
+"W tym pliku okreÅ›lone sÄ… repozytoria CVS, ktÃ³re pokazywane sÄ… przez Chora."
 
 msgid "This file defines any special MIME-type handling for Chora."
 msgstr ""
-"W tym pliku okre¶lone s± skojarzenia typów MIME obs³ugiwane przez Chora."
+"W tym pliku okreÅ›lone sÄ… skojarzenia typÃ³w MIME obsÅ‚ugiwane przez Chora."
 
 msgid ""
 "This is the main Chora configuration file. It contains paths and options for "
 "all Chora scripts."
 msgstr ""
-"To jest g³ówny plik konfiguracyjny Chora. Zawiera on ¶cie¿ki i opcje "
-"skryptów Chora."
+"To jest gÅ‚Ã³wny plik konfiguracyjny Chora. Zawiera on Å›cieÅ¼ki i opcje "
+"skryptÃ³w Chora."
 
 msgid "Tracking Branch"
-msgstr "¦ledzenie ga³êzi"
+msgstr "Åšledzenie gaÅ‚Ä™zi"
 
 msgid "Type:"
 msgstr "Format:"
@@ -244,10 +244,10 @@ msgid "Unselect"
 msgstr "Odznacz"
 
 msgid "Use Text Field"
-msgstr "U¿yj pola tekstowego"
+msgstr "UÅ¼yj pola tekstowego"
 
 msgid "View Branch"
-msgstr "Widok odga³êzieñ"
+msgstr "Widok odgaÅ‚Ä™zieÅ„"
 
 msgid "View revisions on:"
 msgstr "Widok wersji dla:"
@@ -266,7 +266,7 @@ msgid "changed lines"
 msgstr "zmienione linie"
 
 msgid "day"
-msgstr "dzieñ"
+msgstr "dzieÅ„"
 
 msgid "days"
 msgstr "dni"
@@ -281,7 +281,7 @@ msgid "hours"
 msgstr "godzin"
 
 msgid "long"
-msgstr "d³ugi"
+msgstr "dÅ‚ugi"
 
 msgid "minute"
 msgstr "minuta"
@@ -290,10 +290,10 @@ msgid "minutes"
 msgstr "minut"
 
 msgid "month"
-msgstr "miesi±c"
+msgstr "miesiÄ…c"
 
 msgid "months"
-msgstr "miesiêcy"
+msgstr "miesiÄ™cy"
 
 #, c-format
 msgid "revision %s"
@@ -313,10 +313,10 @@ msgid "version %s"
 msgstr "wersja %s"
 
 msgid "very little time"
-msgstr "bardzo krótki czas"
+msgstr "bardzo krÃ³tki czas"
 
 msgid "week"
-msgstr "tydzieñ"
+msgstr "tydzieÅ„"
 
 msgid "weeks"
 msgstr "tygodni"

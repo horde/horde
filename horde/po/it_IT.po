@@ -17,7 +17,7 @@ msgstr ""
 "Last-Translator: Nethesis srl <info@nethesis.it>\n"
 "Language-Team: Italian <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -61,22 +61,22 @@ msgstr "\"%s\" esistente."
 #: lib/VFS/smb.php:220
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "\"%s\" non Ë una directory."
+msgstr "\"%s\" non √® una directory."
 
 #: lib/Horde/CLI.php:328
 #, php-format
 msgid "\"%s\" is not a valid choice."
-msgstr "\"%s\" non Ë una scelta valida."
+msgstr "\"%s\" non √® una scelta valida."
 
 #: lib/Horde/Form.php:2029
 #, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "\"%s\" non Ë un indirizzo email valido."
+msgstr "\"%s\" non √® un indirizzo email valido."
 
 #: lib/Horde/Registry.php:752 lib/Horde/Registry.php:1106
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
-msgstr "\"%s\" non Ë configurato nel Registro di Horde."
+msgstr "\"%s\" non √® configurato nel Registro di Horde."
 
 #: lib/Horde/Share.php:119
 #, php-format
@@ -101,7 +101,7 @@ msgstr "\"%s\" aggiunto al sistema di permessi."
 #: admin/groups.php:60 admin/perms/addchild.php:51
 #, php-format
 msgid "\"%s\" was not created: %s."
-msgstr "\"%s\" non Ë stato creato: %s"
+msgstr "\"%s\" non √® stato creato: %s"
 
 #: lib/Block/account.php:85
 #, php-format
@@ -207,7 +207,7 @@ msgstr "Credenziali autenticazione %s."
 #: lib/Horde/Registry.php:816
 #, php-format
 msgid "%s is not authorised for %s."
-msgstr "%s non Ë autorizzato per %s."
+msgstr "%s non √® autorizzato per %s."
 
 #: services/maintenance.php:49
 #, php-format
@@ -215,13 +215,13 @@ msgid ""
 "%s is ready to perform the maintenance operations checked below. Check the "
 "box for any operation(s) you want to perform at this time."
 msgstr ""
-"%s Ë pronto per effettuare le operazioni di manutenzione selezionate. "
+"%s √® pronto per effettuare le operazioni di manutenzione selezionate. "
 "Selezionare la casella per qualsiasi operazione si desidera fare ora."
 
 #: lib/Horde/Form.php:2850
 #, php-format
 msgid "%s is required"
-msgstr "%s Ë richiesto"
+msgstr "%s √® richiesto"
 
 #: lib/Block/vatid.php:59 lib/Horde/Block/Collection.php:137
 #, php-format
@@ -299,11 +299,11 @@ msgstr "Caratteri A"
 
 #: lib/Block/metar.php:134
 msgid "A database backend is required for this block."
-msgstr "Per questo blocco Ë necessario un database."
+msgstr "Per questo blocco √® necessario un database."
 
 #: lib/Horde.php:196
 msgid "A fatal error has occurred"
-msgstr "Ë avvenuto un errore fatale"
+msgstr "√® avvenuto un errore fatale"
 
 #: lib/Horde/Identity.php:430
 #, php-format
@@ -313,13 +313,13 @@ msgid ""
 "message."
 msgstr ""
 "Questo messaggio e stato inviato a \"%s\" per verificare sia realmente il "
-"tuo indirizzo. Il nuovo indirizzo email sar‡ attivato non appena confermerai "
+"tuo indirizzo. Il nuovo indirizzo email sar√† attivato non appena confermerai "
 "questo messaggio."
 
 #: admin/setup/index.php:133 admin/setup/index.php:168
 #, php-format
 msgid "A newer version (%s) exists."
-msgstr "Esiste gi‡ una nuova versione (%s)."
+msgstr "Esiste gi√† una nuova versione (%s)."
 
 #: lib/Horde/Crypt/pgp.php:1327
 msgid "A passphrase is required to decrypt a message."
@@ -530,7 +530,7 @@ msgstr "Aggiunto \"%s\" al sistema. Ora puoi iniziare la tua sessione."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
-msgstr "La funzione di aggiunta utenti non Ë attiva."
+msgstr "La funzione di aggiunta utenti non √® attiva."
 
 #: lib/Block/vatid.php:102 lib/Horde/Form.php:1533
 #: lib/Horde/MIME/Viewer/vcard.php:110 lib/Horde/MIME/Viewer/vcard.php:189
@@ -555,7 +555,7 @@ msgstr "Amministrazione"
 
 #: config/registry.php.dist:337
 msgid "Ads"
-msgstr "Pubblicit‡"
+msgstr "Pubblicit√†"
 
 #: lib/Horde/NLS/tld.php:18 lib/Horde/NLS/GeoIP.php:56
 #: lib/Horde/NLS/countries.php:11
@@ -638,7 +638,7 @@ msgstr "Permetti indirizzi multpli?"
 
 #: config/prefs.php.dist:569
 msgid "Allow setting of ordered list type"
-msgstr "Permetti di configurare la modalit‡ elenco ordinato"
+msgstr "Permetti di configurare la modalit√† elenco ordinato"
 
 #: config/prefs.php.dist:146
 msgid "Alternate IMSP Login"
@@ -721,11 +721,11 @@ msgstr "Lista Applicazione"
 
 #: admin/setup/index.php:204
 msgid "Application is ready."
-msgstr "L'applicazione Ë pronta."
+msgstr "L'applicazione √® pronta."
 
 #: admin/setup/index.php:136 admin/setup/index.php:171
 msgid "Application is up-to-date."
-msgstr "L'applicazione Ë aggiornata."
+msgstr "L'applicazione √® aggiornata."
 
 #: templates/shares/edit.inc:351
 msgid "Apply to Child Shares"
@@ -882,11 +882,11 @@ msgstr "Auth_krb5: Richiesta estensione krb5 non trovata"
 
 #: lib/Horde/Auth/ldap.php:334
 msgid "Auth_ldap: Adding users is not supported for Active Directory"
-msgstr "Auth_ldap: aggiungere utenti non Ë supportato da Active Directory"
+msgstr "Auth_ldap: aggiungere utenti non √® supportato da Active Directory"
 
 #: lib/Horde/Auth/ldap.php:393
 msgid "Auth_ldap: Removing users is not supported for Active Directory"
-msgstr "Auth_ldap: rimuovere utenti non Ë supportato da Active Directory"
+msgstr "Auth_ldap: rimuovere utenti non √® supportato da Active Directory"
 
 #: lib/Horde/Auth/ldap.php:92 lib/Horde/Auth/msad.php:300
 msgid "Auth_ldap: Required LDAP extension not found."
@@ -896,7 +896,7 @@ msgstr "Auth_ldap: Richiede estensione LDAP non trovata."
 #, php-format
 msgid "Auth_ldap: Unable to add user \"%s\". This is what the server said: "
 msgstr ""
-"Auth_ldap: Impossibile aggiungere l'utente \"%s\". Questo Ë quello che "
+"Auth_ldap: Impossibile aggiungere l'utente \"%s\". Questo √® quello che "
 "risponde il server: "
 
 #: lib/Horde/Auth/ldap.php:420
@@ -912,13 +912,13 @@ msgstr "Auth_ldap: Impossibile aggiornare l'utente \"%s\""
 #: lib/Horde/Auth/ldap.php:440
 msgid "Auth_ldap: Updating users is not supported for Active Directory."
 msgstr ""
-"Auth_ldap: l'aggiornamento degli utenti non Ë supportato da Active Directory"
+"Auth_ldap: l'aggiornamento degli utenti non √® supportato da Active Directory"
 
 #: lib/Horde/Auth/msad.php:151
 #, php-format
 msgid "Auth_msad: Unable to add user \"%s\". This is what the server said: "
 msgstr ""
-"Auth_msad: Impossibile aggiungere l'utente \"%s\". Questo Ë quello che "
+"Auth_msad: Impossibile aggiungere l'utente \"%s\". Questo √® quello che "
 "risponde il server: "
 
 #: lib/Horde/Auth/msad.php:190
@@ -1212,12 +1212,12 @@ msgstr "Annulla il Rapporto del Problema"
 #: lib/Horde/Share/kolab.php:331
 msgid "Cannot add this share! The name has not yet been set."
 msgstr ""
-"Non posso aggiungere questa condivisione! Il nome non Ë stato ancora "
+"Non posso aggiungere questa condivisione! Il nome non √® stato ancora "
 "inserito."
 
 #: admin/sessions.php:23
 msgid "Cannot administer external session handlers."
-msgstr "Non Ë possibile amministrare sessioni esterne"
+msgstr "Non √® possibile amministrare sessioni esterne"
 
 #: lib/Horde/Auth/cyrus.php:241
 #, php-format
@@ -1246,7 +1246,7 @@ msgstr "Impossibile modificare il proprietario della condivisione!"
 #: lib/VFS/ftp.php:796 lib/VFS/sql_file.php:140 lib/VFS/smb.php:505
 #: lib/VFS/ssh2.php:749 lib/VFS/file.php:218
 msgid "Cannot move file(s) - destination is within source."
-msgstr "Impossibile muovere i file(s) - la destinazione Ë senza sorgente"
+msgstr "Impossibile muovere i file(s) - la destinazione √® senza sorgente"
 
 #: lib/File/CSV.php:519
 #, php-format
@@ -1707,7 +1707,7 @@ msgstr "Costa d'Avorio"
 
 #: lib/Horde/Crypt/pgp.php:1207
 msgid "Could not PGP encrypt message: "
-msgstr "Impossibile cifrare il messaggio in modalit‡ PGP: "
+msgstr "Impossibile cifrare il messaggio in modalit√† PGP: "
 
 #: lib/Horde/Crypt/pgp.php:1285
 msgid "Could not PGP sign message: "
@@ -1830,7 +1830,7 @@ msgstr "Impossibile aprire %s."
 #: lib/Horde/Maintenance.php:432
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Impossibile aprire il modulo Attivit‡_di_Manutenzione %s"
+msgstr "Impossibile aprire il modulo Attivit√†_di_Manutenzione %s"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
@@ -1896,7 +1896,7 @@ msgstr "Impossibile invertire le liste di distribuzione. %s"
 #: lib/Horde/IMAP/ACL/rfc2086.php:217 lib/Horde/IMAP/ACL/rfc2086.php:222
 #: lib/Horde/IMAP/ACL/rfc2086.php:229
 msgid "Could not retrieve server's capabilities"
-msgstr "Impossibile recuperare la capacit‡ del server"
+msgstr "Impossibile recuperare la capacit√† del server"
 
 #: admin/setup/config.php:54
 msgid "Could not revert configuration."
@@ -1980,7 +1980,7 @@ msgstr ""
 msgid ""
 "Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"
 msgstr ""
-"Non Ë possibile dare all'utente \"%s\" i privilegi sulla cartella \"%s\": %s"
+"Non √® possibile dare all'utente \"%s\" i privilegi sulla cartella \"%s\": %s"
 
 #: lib/Horde/Form.php:1422
 msgid "Counted text"
@@ -1992,7 +1992,7 @@ msgstr "Paese"
 
 #: lib/Horde/Form.php:1569
 msgid "Country drop down list"
-msgstr "Men˘ a tendina Paese"
+msgstr "Men√π a tendina Paese"
 
 #: templates/rpcsum/rpcsum.inc:20 templates/rpcsum/rpcsum.inc:87
 #: templates/rpcsum/rpcsum.inc:91
@@ -2112,7 +2112,7 @@ msgstr "Dati"
 #: lib/Horde/Kolab/XML.php:497 lib/Horde/Kolab/XML.php:630
 #, php-format
 msgid "Data value for %s is empty in Kolab XML object!"
-msgstr "Il valore %s Ë vuoto nel Kolab XML Object"
+msgstr "Il valore %s √® vuoto nel Kolab XML Object"
 
 #: admin/datatree.php:68
 msgid "DataTree"
@@ -2172,7 +2172,7 @@ msgstr "Colore di Default"
 
 #: lib/Horde/Identity.php:102
 msgid "Default Identity"
-msgstr "Identit‡ di Default"
+msgstr "Identit√† di Default"
 
 #: lib/Block/account.php:80
 msgid "Default Shell"
@@ -2244,7 +2244,7 @@ msgstr "Elimina i permessi per \"%s\" e qualsiasi sotto-permesso?"
 
 #: templates/prefs/deleteidentity.inc:15
 msgid "Delete selected identity"
-msgstr "Elimina l'identit‡ selezionata"
+msgstr "Elimina l'identit√† selezionata"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:53
 msgid "Delete sub folders"
@@ -2324,7 +2324,7 @@ msgstr "Chiamare %s"
 #: lib/Horde/Prefs/file.php:71
 #, php-format
 msgid "Directory %s is not writeable"
-msgstr "La directory %s non Ë scrivibile"
+msgstr "La directory %s non √® scrivibile"
 
 #: lib/Horde/Alarm.php:343
 msgid "Dismiss"
@@ -2397,7 +2397,7 @@ msgstr "Scarica la configurazione generata come script PHP."
 
 #: lib/Horde/Form.php:2608
 msgid "Drop down list"
-msgstr "Men˘ a tendina"
+msgstr "Men√π a tendina"
 
 #: lib/Block/fortune.php:43
 msgid "Drugs"
@@ -2547,7 +2547,7 @@ msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
-"Inserisci una domanda di sicurezza che ti verr‡ chiesta se sar‡ necessario "
+"Inserisci una domanda di sicurezza che ti verr√† chiesta se sar√† necessario "
 
 #: lib/Horde/UI/VarRenderer/html.php:945 lib/Horde/UI/VarRenderer/html.php:957
 msgid "Enter the letters below:"
@@ -2716,19 +2716,19 @@ msgstr "Sfumatura verso il verde "
 #: lib/Horde/Kolab/IMAP/pear.php:278
 #, php-format
 msgid "Failed fetching IMAP message %s. Error was %s"
-msgstr "Fallito lo scaricamento IMAP del messaggio %s. L'errore Ë stato %s"
+msgstr "Fallito lo scaricamento IMAP del messaggio %s. L'errore √® stato %s"
 
 #: lib/Horde/Kolab/IMAP/pear.php:251
 #, php-format
 msgid "Failed fetching body of IMAP message %s. Error was %s"
 msgstr ""
-"Fallito lo scaricamento IMAP del testo del messaggio %s. L'errore Ë stato %s"
+"Fallito lo scaricamento IMAP del testo del messaggio %s. L'errore √® stato %s"
 
 #: lib/Horde/Kolab/IMAP/pear.php:224
 #, php-format
 msgid "Failed fetching headers of IMAP message %s. Error was %s"
 msgstr ""
-"Fallito lo scaricamento IMAP degli header del messaggio %s. L'errore Ë stato "
+"Fallito lo scaricamento IMAP degli header del messaggio %s. L'errore √® stato "
 "%s"
 
 #: lib/Horde/Auth/ldap.php:98
@@ -2885,7 +2885,7 @@ msgstr "Finlandia"
 
 #: lib/Block/moon.php:166
 msgid "First Half"
-msgstr "Prima Met‡"
+msgstr "Prima Met√†"
 
 #: lib/Block/moon.php:74 lib/Block/moon.php:76
 msgid "First Quarter"
@@ -2932,7 +2932,7 @@ msgstr "La cartella %s non esiste!"
 #: lib/Horde/Kolab/Freebusy.php:116
 #, php-format
 msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "La cartella %s Ë di tipo \"%s\" non evento!"
+msgstr "La cartella %s √® di tipo \"%s\" non evento!"
 
 #: lib/Horde/Form.php:4084
 msgid "Font"
@@ -3106,7 +3106,7 @@ msgstr "Ricerca Google"
 
 #: lib/Block/google.php:32
 msgid "Google search is not enabled."
-msgstr "La ricerca con Google non Ë abilitata"
+msgstr "La ricerca con Google non √® abilitata"
 
 #: lib/Horde/UI/VarRenderer/html.php:245
 msgid "Grayscale"
@@ -3151,13 +3151,13 @@ msgstr "Il nome del gruppo non deve essere vuoto"
 #: admin/groups.php:53
 #, php-format
 msgid "Group was not created: %s."
-msgstr "Il gruppo non Ë stato creato: %s"
+msgstr "Il gruppo non √® stato creato: %s"
 
 #: lib/Horde/Group/ldap.php:302
 #, php-format
 msgid "Group_ldap: Unable to add group \"%s\". This is what the server said: "
 msgstr ""
-"Group_ldap: Impossibile aggiungere il gruppo %s. Questo Ë quello che "
+"Group_ldap: Impossibile aggiungere il gruppo %s. Questo √® quello che "
 "risponde il server: "
 
 #: lib/Horde/Group/ldap.php:117 lib/Horde/Group/ldap.php:123
@@ -3166,7 +3166,7 @@ msgstr ""
 msgid ""
 "Group_ldap: Unable to delete group \"%s\". This is what the server said: %s"
 msgstr ""
-"Group_ldap: Impossibile eliminare il gruppo %s. Questo Ë quello che risponde "
+"Group_ldap: Impossibile eliminare il gruppo %s. Questo √® quello che risponde "
 "il server: %s"
 
 #: lib/Horde/Group/ldap.php:336
@@ -3174,7 +3174,7 @@ msgstr ""
 msgid ""
 "Group_ldap: Unable to update group \"%s\". This is what the server said: %s"
 msgstr ""
-"Gruop_ldap: Impossibile aggiornare il gruppo \"%s\". Questo Ë quello che "
+"Gruop_ldap: Impossibile aggiornare il gruppo \"%s\". Questo √® quello che "
 "risponde il server: %s"
 
 #: admin/groups.php:249 lib/Horde/Perms/UI.php:313
@@ -3373,11 +3373,11 @@ msgstr "Quanti secondi prima di cercare nuovi articoli?"
 
 #: lib/Block/metar.php:239 lib/Block/weatherdotcom.php:311
 msgid "Humidity"
-msgstr "Umidit‡"
+msgstr "Umidit√†"
 
 #: lib/Block/weatherdotcom.php:271
 msgid "Humidity: "
-msgstr "Umidit‡"
+msgstr "Umidit√†"
 
 #: lib/Block/fortune.php:50
 msgid "Humorists"
@@ -3475,13 +3475,13 @@ msgstr "Idee"
 
 #: config/prefs.php.dist:218
 msgid "Identity's name:"
-msgstr "Nome dell'Identit‡:"
+msgstr "Nome dell'Identit√†:"
 
 #: lib/Horde/MIME/Contents.php:625
 #, php-format
 msgid "If it is not displayed correctly, %s to open it in a new window."
 msgstr ""
-"Se non Ë visualizzato correttamente, %s per aprirlo in una nuova finestra"
+"Se non √® visualizzato correttamente, %s per aprirlo in una nuova finestra"
 
 #: lib/Horde/UI/VarRenderer/html.php:179
 msgid ""
@@ -3489,7 +3489,7 @@ msgid ""
 "displayed by your browser."
 msgstr ""
 "Se vedi questo messaggio ma non l'immagine, l'immagine che vuoi caricare non "
-"puÚ essere visualizzata dal tuo browser."
+"pu√≤ essere visualizzata dal tuo browser."
 
 #: lib/Horde/Form.php:4080
 msgid "Image CAPTCHA"
@@ -3528,7 +3528,7 @@ msgstr ""
 
 #: lib/Horde/Compress/zip.php:135
 msgid "Incorrect action code given."
-msgstr "Il codice azione restituito Ë incorretto"
+msgstr "Il codice azione restituito √® incorretto"
 
 #: lib/Net/SMS/sms2email_http.php:641
 msgid "Incorrect username and/or password."
@@ -3562,7 +3562,7 @@ msgstr "Informazione"
 
 #: lib/Block/weatherdotcom.php:340
 msgid "Information no longer available."
-msgstr "Informazione non pi˘ disponibile"
+msgstr "Informazione non pi√π disponibile"
 
 #: templates/admin/groups/edit.inc:36
 msgid "Inherited Members"
@@ -3611,7 +3611,7 @@ msgstr "Elenco Intero"
 #: lib/Horde/Group/ldap.php:479
 #, php-format
 msgid "Internal Error: An attribute must ALWAYS match itself: %s"
-msgstr "Errore interno: un attributo deve SEMPRE corrispondere a sÈ stesso: %s"
+msgstr "Errore interno: un attributo deve SEMPRE corrispondere a s√© stesso: %s"
 
 #: lib/Horde/Prefs/ldap.php:153 lib/Horde/Prefs/ldap.php:167
 #: lib/Horde/Prefs/ldap.php:185 lib/Horde/Prefs/ldap.php:198
@@ -3682,7 +3682,7 @@ msgstr "Chiave non valida"
 
 #: lib/Block/weatherdotcom.php:182
 msgid "Invalid location provided."
-msgstr "Localit‡ non valida."
+msgstr "Localit√† non valida."
 
 #: lib/Net/SMS/clickatell_http.php:315
 msgid "Invalid msg_type."
@@ -3862,7 +3862,7 @@ msgstr "Utilizzo chiave"
 
 #: lib/Horde/Crypt/pgp.php:812
 msgid "Key already exists on the public keyserver."
-msgstr "Chiave gi‡ esistente nel server delle chiavi pubblico."
+msgstr "Chiave gi√† esistente nel server delle chiavi pubblico."
 
 #: services/help/index.php:159
 msgid "Keyword"
@@ -3935,7 +3935,7 @@ msgstr "largo"
 
 #: lib/Block/moon.php:169
 msgid "Last Half"
-msgstr "Prima Met‡"
+msgstr "Prima Met√†"
 
 #: lib/Block/account.php:93
 msgid "Last Password Change"
@@ -4096,7 +4096,7 @@ msgstr "Elenco"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:86 lib/Horde/IMAP/ACL/rfc4314.php:46
 msgid "List - user can see the folder"
-msgstr "elenco - l'utente puÚ vedere la cartella"
+msgstr "elenco - l'utente pu√≤ vedere la cartella"
 
 #: admin/sqlshell.php:137
 msgid "List Databases"
@@ -4146,7 +4146,7 @@ msgstr "Elenco sessioni fallito: %s."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "Non Ë attiva la funzione di elenco utenti."
+msgstr "Non √® attiva la funzione di elenco utenti."
 
 #: lib/Block/fortune.php:56
 msgid "Literature"
@@ -4410,7 +4410,7 @@ msgstr "Tracking della cache di sessione non abilitato."
 
 #: config/prefs.php.dist:436
 msgid "Menu mode:"
-msgstr "Modalit‡ menu:"
+msgstr "Modalit√† menu:"
 
 #: lib/Horde/Notification/Listener/status.php:30
 msgid "Message"
@@ -4421,7 +4421,7 @@ msgid ""
 "Message Verified Successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
-"Messaggio verificato con successo ma il certificato della firma non puÚ "
+"Messaggio verificato con successo ma il certificato della firma non pu√≤ "
 "essere verificato."
 
 #: lib/Net/SMS/clickatell_http.php:318
@@ -4459,7 +4459,7 @@ msgstr "Metodo"
 #: lib/Horde/RPC/phpgw.php:80 lib/Horde/RPC/phpgw.php:81
 #, php-format
 msgid "Method \"%s\" is not defined"
-msgstr "Il Metodo \"%s\" non Ë definito"
+msgstr "Il Metodo \"%s\" non √® definito"
 
 #: lib/Block/metar.php:90 lib/Block/weatherdotcom.php:72
 msgid "Metric"
@@ -4489,7 +4489,7 @@ msgstr "Temperatura minima nelle ultime 6 ore"
 
 #: lib/Horde/Auth/ldap.php:475
 msgid "Minimum password age has not yet expired"
-msgstr "La durata minima della password non Ë ancora scaduta"
+msgstr "La durata minima della password non √® ancora scaduta"
 
 #: lib/Horde/UI/VarRenderer/html.php:242
 msgid "Mirror"
@@ -4551,7 +4551,7 @@ msgstr "Monaco"
 
 #: config/prefs.php.dist:355
 msgid "Monday"
-msgstr "LunedÏ"
+msgstr "Luned√¨"
 
 #: lib/Horde/NLS/tld.php:160 lib/Horde/NLS/GeoIP.php:92
 #: lib/Horde/NLS/countries.php:152
@@ -4582,7 +4582,7 @@ msgstr "Fasi Lunari"
 #: lib/File/CSV.php:215 lib/File/CSV.php:347
 #, php-format
 msgid "More fields found in line %d than the expected %d."
-msgstr "La linea %d contiene pi˘ campi di quelli necessari (%d)."
+msgstr "La linea %d contiene pi√π campi di quelli necessari (%d)."
 
 #: lib/Horde/NLS/tld.php:151 lib/Horde/NLS/GeoIP.php:90
 #: lib/Horde/NLS/countries.php:154
@@ -4640,7 +4640,7 @@ msgstr "Mozilla"
 
 #: lib/Horde/Form.php:2684
 msgid "Multi-level drop down lists"
-msgstr "Elenco a tendina su pi˘ livelli"
+msgstr "Elenco a tendina su pi√π livelli"
 
 #: lib/Horde/UI/VarRenderer/html.php:1169
 msgid "Multimap UK map"
@@ -4694,7 +4694,7 @@ msgstr "Namibia"
 msgid "Nauru"
 msgstr "Nauru"
 
-# Questo Ë il marchio chiamato NeXT - non si intende come 'successivo'.
+# Questo √® il marchio chiamato NeXT - non si intende come 'successivo'.
 #: themes/NeXTgrey/info.php:6
 msgid "NeXT"
 msgstr "NeXT"
@@ -4790,7 +4790,7 @@ msgstr "Nuova Password"
 #: lib/Horde/Auth/sql.php:249
 #, php-format
 msgid "New password will expire on %s."
-msgstr "La nuova password scadr‡ tra %s."
+msgstr "La nuova password scadr√† tra %s."
 
 #: services/changepassword.php:54
 msgid "New passwords don't match."
@@ -4958,7 +4958,7 @@ msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
 msgstr ""
-"Manca il percorso a OpenSSL binario. OpenSSL binario Ë necessario per "
+"Manca il percorso a OpenSSL binario. OpenSSL binario √® necessario per "
 "lavorare con dati PKCS 12."
 
 #: templates/admin/user/approve.inc:6
@@ -5059,7 +5059,7 @@ msgstr "Non Prima"
 
 #: lib/VFS/file.php:464
 msgid "Not a directory"
-msgstr "Non Ë una cartella"
+msgstr "Non √® una cartella"
 
 #: lib/VFS/ISOWriter.php:63 lib/VFS/ISOWriter/RealInputStrategy.php:47
 #: lib/VFS/ISOWriter/RealInputStrategy.php:58
@@ -5175,7 +5175,7 @@ msgstr "Vecchia Password"
 
 #: services/changepassword.php:48
 msgid "Old password is not correct."
-msgstr "la vecchia password non Ë corretta"
+msgstr "la vecchia password non √® corretta"
 
 #: lib/Horde/NLS/tld.php:185 lib/Horde/NLS/GeoIP.php:98
 #: lib/Horde/NLS/countries.php:171
@@ -5238,7 +5238,7 @@ msgstr "Organizzazione"
 
 #: lib/Horde/Crypt/smime.php:575
 msgid "Organisational Unit"
-msgstr "Unit‡ organizzativa"
+msgstr "Unit√† organizzativa"
 
 #: config/registry.php.dist:124
 msgid "Organizing"
@@ -5617,7 +5617,7 @@ msgstr "Possibili<br>precipitazioni"
 
 #: lib/Horde/Prefs/file.php:66
 msgid "Preference storage directory is not available."
-msgstr "Il direttorio di storage scelto non √® disponibile."
+msgstr "Il direttorio di storage scelto non √É¬® disponibile."
 
 #: lib/Horde/Prefs/ldap.php:139
 msgid "Prefs_ldap: Required LDAP extension not found."
@@ -5771,7 +5771,7 @@ msgstr "Leggi messaggi"
 #: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
-msgstr "Sicuro di voler eliminare %s? L'operazione non puÚ essere annullata"
+msgstr "Sicuro di voler eliminare %s? L'operazione non pu√≤ essere annullata"
 
 #: lib/Horde/Block/Layout.php:110
 msgid "Really delete this block?"
@@ -5781,7 +5781,7 @@ msgstr "Sei sicuro di eliminare questo blocco?"
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
-msgstr "Eliminare i dati di %s? L'operazione non puÚ essere annullata"
+msgstr "Eliminare i dati di %s? L'operazione non pu√≤ essere annullata"
 
 #: admin/sessions.php:54
 msgid "Realm:"
@@ -5853,7 +5853,7 @@ msgstr "Rispondi-a"
 
 #: lib/Horde/RPC/phpgw.php:168
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "La richiesta non puÚ essere risposta. Codice errore:"
+msgstr "La richiesta non pu√≤ essere risposta. Codice errore:"
 
 #: lib/Block/weatherdotcom.php:168
 msgid "Requested service could not be found."
@@ -6226,7 +6226,7 @@ msgstr "Scegli l'ordine di giorno e data"
 
 #: templates/prefs/identityselect.inc:91
 msgid "Select the identity you want to change:"
-msgstr "Selezione l'identit‡ da modificare"
+msgstr "Selezione l'identit√† da modificare"
 
 #: templates/data/time.inc:16 templates/data/datetime.inc:95
 msgid "Select the time delimiter:"
@@ -6355,7 +6355,7 @@ msgstr "Script di aggiornamento del setup disponibile"
 
 #: lib/Block/weatherdotcom.php:198
 msgid "Several locations possible with the parameter: "
-msgstr "Pi˘ localit‡ possibili con il parametro: "
+msgstr "Pi√π localit√† possibili con il parametro: "
 
 #: lib/Horde/NLS/tld.php:208 lib/Horde/NLS/GeoIP.php:104
 #: lib/Horde/NLS/countries.php:200
@@ -6461,7 +6461,7 @@ msgstr "Acquazzoni Tardi"
 
 #: lib/Block/weatherdotcom_strings.php:73
 msgid "Showers in the Vicinity"
-msgstr "Acquazzoni in prossimit‡"
+msgstr "Acquazzoni in prossimit√†"
 
 #: lib/Horde/Block/Layout/Manager.php:559
 msgid "Shrink"
@@ -6551,11 +6551,11 @@ msgstr "Breve nevicata a breve"
 
 #: lib/Block/weatherdotcom_strings.php:78
 msgid "Snow Showers Late"
-msgstr "Breve nevicata pi˘ tardi"
+msgstr "Breve nevicata pi√π tardi"
 
 #: lib/Block/metar.php:287
 msgid "Snow depth: "
-msgstr "Profondit‡ di neve: "
+msgstr "Profondit√† di neve: "
 
 #: lib/Block/metar.php:291
 msgid "Snow equivalent in water: "
@@ -6693,8 +6693,8 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"La richiesta per aggiungere '%s' al sistema Ë stata inoltrata. Non sar‡ "
-"possibile fare il login finchÈ non sar‡ stata approvata."
+"La richiesta per aggiungere '%s' al sistema √® stata inoltrata. Non sar√† "
+"possibile fare il login finch√© non sar√† stata approvata."
 
 #: admin/sqlshell.php:106 lib/Horde/Notification/Listener/status.php:28
 msgid "Success"
@@ -6856,7 +6856,7 @@ msgstr "FILE TSV"
 
 #: lib/Horde/Form/Type/tableset.php:57
 msgid "Table Set"
-msgstr "Propriet‡ Tabella"
+msgstr "Propriet√† Tabella"
 
 #: config/prefs.php.dist:568
 msgid "Table operations menu bar"
@@ -6891,7 +6891,7 @@ msgstr "Tanzania, Repubblica Unita di"
 #: lib/Horde/Kolab.php:730 lib/Horde/Share/kolab.php:572
 #: config/registry.php.dist:170
 msgid "Tasks"
-msgstr "Attivit‡"
+msgstr "Attivit√†"
 
 #: themes/gennevilliers/info.php:14
 msgid "Teal"
@@ -6950,11 +6950,11 @@ msgstr "Tailandia"
 
 #: lib/VFS/ftp.php:899
 msgid "The FTP extension is not available."
-msgstr "L'estensione FTP non Ë disponibile."
+msgstr "L'estensione FTP non √® disponibile."
 
 #: lib/Horde/History.php:63
 msgid "The History system is disabled."
-msgstr "La funzione cronologia Ë disattivata."
+msgstr "La funzione cronologia √® disattivata."
 
 #: lib/Horde/Kolab.php:735
 #, php-format
@@ -6963,15 +6963,15 @@ msgstr "Il motore Horde/Kolab non supporta \"%s\""
 
 #: lib/Net/IMSP/Book.php:1298
 msgid "The IMSP log could not be initialized."
-msgstr "L'IMSP non puÚ essere inizializzato"
+msgstr "L'IMSP non pu√≤ essere inizializzato"
 
 #: services/maintenance.php:32
 msgid "The Maintenance:: class did not load successfully"
-msgstr "La classe Maintenance:: non Ë stata caricata correttamente"
+msgstr "La classe Maintenance:: non √® stata caricata correttamente"
 
 #: lib/VFS/ssh2.php:872
 msgid "The SSH2 PECL extension is not available."
-msgstr "L'estensione SSH2 PECL non Ë disponibile."
+msgstr "L'estensione SSH2 PECL non √® disponibile."
 
 #: lib/Horde/Perms.php:198 lib/Horde/Perms.php:209 lib/Horde/Perms.php:220
 #: lib/Horde/Perms.php:232 lib/Horde/Perms.php:243 lib/Horde/Perms.php:339
@@ -6980,39 +6980,39 @@ msgid ""
 "The administrator needs to configure a permanent Permissions backend if you "
 "want to use Permissions."
 msgstr ""
-"Per utilizzare i permessi Ë necessario che l'amministratore configuri l' "
+"Per utilizzare i permessi √® necessario che l'amministratore configuri l' "
 "apposito backend."
 
 #: lib/Horde/Alarm.php:62
 msgid "The alarm backend is not currently available."
-msgstr "L'allarme non Ë attualmente disponibile."
+msgstr "L'allarme non √® attualmente disponibile."
 
 #: lib/Horde/Alarm.php:516
 #, php-format
 msgid "The alarm backend is not currently available: %s"
-msgstr "L'allarme non Ë attualmente disponibile: %s."
+msgstr "L'allarme non √® attualmente disponibile: %s."
 
 #: admin/alarms.php:96
 msgid "The alarm has been deleted."
-msgstr "L'allarme Ë stato eliminato."
+msgstr "L'allarme √® stato eliminato."
 
 #: admin/alarms.php:84
 msgid "The alarm has been saved."
-msgstr "L'allarme Ë stato salvato."
+msgstr "L'allarme √® stato salvato."
 
 #: lib/Net/SMS/sms2email_http.php:648
 msgid ""
 "The contact ID number was not specified, left blank or was not found in the "
 "database."
 msgstr ""
-"L' ID del contatto non Ë stato specificato, non inserito o non trovato nel "
+"L' ID del contatto non √® stato specificato, non inserito o non trovato nel "
 "database."
 
 #: lib/Horde/Crypt/pgp.php:1409
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Il supporto alla cifratura PGP Ë richiesto per verificare il messaggio "
+"Il supporto alla cifratura PGP √® richiesto per verificare il messaggio "
 "firmato."
 
 #: lib/Net/SMS/sms2email_http.php:650
@@ -7020,7 +7020,7 @@ msgid ""
 "The distribution list ID was either not specified, left blank or not found "
 "in the database."
 msgstr ""
-"L' ID della lista di distribuzione  Ë stato specificato (non inserito o non "
+"L' ID della lista di distribuzione  √® stato specificato (non inserito o non "
 "trovato nel database"
 
 #: lib/Net/SMS/sms2email_http.php:651
@@ -7033,12 +7033,12 @@ msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
 msgstr ""
-"L'indirizzo email %s Ë stato aggiunto alle tue identit‡. Ora puoi chiudere "
+"L'indirizzo email %s √® stato aggiunto alle tue identit√†. Ora puoi chiudere "
 "questa finestra"
 
 #: lib/Horde/Crypt.php:139
 msgid "The encryption features require a secure web connection."
-msgstr "La funzionalit‡ di crittografia richiede una connessione al web sicura"
+msgstr "La funzionalit√† di crittografia richiede una connessione al web sicura"
 
 #: lib/Horde.php:211 lib/Horde.php:634
 #, php-format
@@ -7066,22 +7066,22 @@ msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administators. Non-adminitrative users will not see error details."
 msgstr ""
-"Il messaggio completo di errore Ë loggato nel file di log di Horde, ed Ë "
+"Il messaggio completo di errore √® loggato nel file di log di Horde, ed √® "
 "visualizzato solo per gli amministratori. Utenti non amministrativi non "
 "vedranno i dettagli."
 
 #: services/prefs.php:135
 #, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "L'identit‡ \"%s\" Ë stata eliminata."
+msgstr "L'identit√† \"%s\" √® stata eliminata."
 
 #: lib/Horde/Form.php:1701
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
-"La dimensione del file di immagine Ë nulla o non puÚ essere determinata. "
-"L'upload Ë stato initerrotto"
+"La dimensione del file di immagine √® nulla o non pu√≤ essere determinata. "
+"L'upload √® stato initerrotto"
 
 #: lib/Horde/Form.php:1705
 #, php-format
@@ -7108,7 +7108,7 @@ msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
 msgstr ""
-"Lo stato del servizio non puÚ essere raggiunto, riprova pi˘ tardi o con un "
+"Lo stato del servizio non pu√≤ essere raggiunto, riprova pi√π tardi o con un "
 "differente stato"
 
 #: lib/Block/vatid.php:74
@@ -7116,7 +7116,7 @@ msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
 msgstr ""
-"Lo stato del servizio non Ë attualmente disponibile. Riprovare in seguito "
+"Lo stato del servizio non √® attualmente disponibile. Riprovare in seguito "
 "con un differente stato"
 
 #: lib/Horde/MIME/MDN.php:193
@@ -7126,9 +7126,9 @@ msgid ""
 "\n"
 "This is no guarantee that the message has been read or understood."
 msgstr ""
-"In messaggio inviato su %s a %s con oggetto \"%s\" Ë stato mostrato.\n"
+"In messaggio inviato su %s a %s con oggetto \"%s\" √® stato mostrato.\n"
 "\n"
-"Non c'Ë garanzia che il messaggio sia stato letto o compreso."
+"Non c'√® garanzia che il messaggio sia stato letto o compreso."
 
 #: lib/Horde/Form.php:2222
 msgid "The name to use when linking to the compose page"
@@ -7137,7 +7137,7 @@ msgstr "Il nome da utilizzare sul link alla pagina di composizione"
 #: services/prefs.php:114
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
-"Il nuovo indirizzo di provenienza non puÚ essere verificato, riprova in "
+"Il nuovo indirizzo di provenienza non pu√≤ essere verificato, riprova in "
 "seguito: "
 
 #: lib/File/CSV.php:547
@@ -7146,7 +7146,7 @@ msgstr "Il numero di campi va espresso in forma numerica."
 
 #: lib/Horde/Crypt/smime.php:1236
 msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr "Il modulo openssl Ë necessario per la classe Horde_Crypt_smime::"
+msgstr "Il modulo openssl √® necessario per la classe Horde_Crypt_smime::"
 
 #: lib/Horde/Prefs.php:267
 #, php-format
@@ -7154,7 +7154,7 @@ msgid ""
 "The preference \"%s\" could not be saved because its data exceeded the "
 "maximum allowable size"
 msgstr ""
-"L'opzione \"%s\" non puÚ essere salvata perchË di dimensione superiore alla "
+"L'opzione \"%s\" non pu√≤ essere salvata perch√® di dimensione superiore alla "
 "massima consentita"
 
 #: lib/Horde/Prefs/ldap.php:335 lib/Horde/Prefs/sql.php:135
@@ -7163,7 +7163,7 @@ msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default settings."
 msgstr ""
-"Il sistema di preferenze non Ë attualmente disponibile e le tue preferenze "
+"Il sistema di preferenze non √® attualmente disponibile e le tue preferenze "
 "non sono state caricate.Puoi continuare ad utilizzare il sistema con le "
 "impostazioni di default"
 
@@ -7194,25 +7194,25 @@ msgstr "Il separatore deve essere un solo carattere"
 #: services/portal/rpcsum.php:80
 #, php-format
 msgid "The server \"%s\" has been deleted."
-msgstr "Il server \"%s\" Ë stato eliminato."
+msgstr "Il server \"%s\" √® stato eliminato."
 
 #: services/portal/rpcsum.php:51
 #, php-format
 msgid "The server \"%s\" has been saved."
-msgstr "Il server \"%s\" Ë stato salvato."
+msgstr "Il server \"%s\" √® stato salvato."
 
 #: lib/Block/vatid.php:71
 msgid "The service is currently not available. Try again later."
-msgstr "Servizio momentaneamente non disponibile. Riprova pi˘ tardi."
+msgstr "Servizio momentaneamente non disponibile. Riprova pi√π tardi."
 
 #: lib/Block/vatid.php:80
 msgid "The service is currently too busy. Try again later."
-msgstr "Il servizio Ë attualmente occupato. Riprova pi˘ tardi."
+msgstr "Il servizio √® attualmente occupato. Riprova pi√π tardi."
 
 #: admin/user.php:208
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "La richiesta di registrazione per %s Ë stata eliminata."
+msgstr "La richiesta di registrazione per %s √® stata eliminata."
 
 #: lib/Horde/Block/Layout/Manager.php:470
 #, php-format
@@ -7229,16 +7229,16 @@ msgstr "I dati caricati sono stati persi dal passo precedente"
 
 #: lib/Horde/Data/tsv.php:195 lib/Horde/Data/csv.php:221
 msgid "The uploaded file could not be saved."
-msgstr "Il file caricato non puÚ essere salvato"
+msgstr "Il file caricato non pu√≤ essere salvato"
 
 #: admin/user.php:72
 #, php-format
 msgid "The user \"%s\" already exists."
-msgstr "L'utente \"%s\" esiste gi‡."
+msgstr "L'utente \"%s\" esiste gi√†."
 
 #: lib/Block/weatherdotcom.php:54 lib/Block/weatherdotcom.php:115
 msgid "The weather.com block is not available."
-msgstr "Il modulo weather.com non Ë disponibile."
+msgstr "Il modulo weather.com non √® disponibile."
 
 #: util/icon_browser.php:27
 #, php-format
@@ -7269,29 +7269,29 @@ msgstr[1] "Troppi caratteri immessi. Sono stati inseriti %d caratteri;"
 #: signup.php:52 signup.php:54 admin/user.php:82
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "Si Ë verificato un problema aggiungendo \"%s\" al sistema: %s."
+msgstr "Si √® verificato un problema aggiungendo \"%s\" al sistema: %s."
 
 #: admin/user.php:131
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
-"Si Ë verificato un problema rimuovendo i dati dell'utente \"%s\" dal sistema:"
+"Si √® verificato un problema rimuovendo i dati dell'utente \"%s\" dal sistema:"
 
 #: admin/user.php:112
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
-msgstr "Si Ë verificato un problema rimuovendo \"%s\" dal sistema:"
+msgstr "Si √® verificato un problema rimuovendo \"%s\" dal sistema:"
 
 #: admin/user.php:169
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
-msgstr "Si Ë verificato un problema aggiornando '%s': %s"
+msgstr "Si √® verificato un problema aggiornando '%s': %s"
 
 #: lib/Horde/Browser.php:1033
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
-"Si Ë verificato un problema nell'upload del file: %s non Ë stato caricato"
+"Si √® verificato un problema nell'upload del file: %s non √® stato caricato"
 
 #: lib/Horde/Browser.php:1038
 #, php-format
@@ -7299,15 +7299,15 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Si Ë verificato un problema nell'upload del file. La dimensione del file %s "
-"Ë superiore a quella massima consentita (%d bytes)."
+"Si √® verificato un problema nell'upload del file. La dimensione del file %s "
+"√® superiore a quella massima consentita (%d bytes)."
 
 #: lib/Horde/Browser.php:1040
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Si Ë verificato un problema nell'upload del file. Il file %s Ë stato "
+"Si √® verificato un problema nell'upload del file. Il file %s √® stato "
 "caricato solo parzialmente"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:31 lib/Horde/MIME/Viewer/rfc822.php:40
@@ -7335,7 +7335,7 @@ msgid ""
 "There was an error performing the specified address book function. Please "
 "try again later."
 msgstr ""
-"Errore durante l'esecuzione della funzione della rubrica. Riprovare pi˘ "
+"Errore durante l'esecuzione della funzione della rubrica. Riprovare pi√π "
 "tardi."
 
 #: lib/Horde/MIME/Viewer/vcard.php:40
@@ -7345,13 +7345,13 @@ msgstr "Errore nella lettura dei dati del contatto"
 #: lib/Net/SMS/sms2email_http.php:649
 msgid ""
 "There was an error updating the contact details. Please try again later."
-msgstr "Errore nell'aggiornamento dei contatti. Riprovare pi˘ tardi."
+msgstr "Errore nell'aggiornamento dei contatti. Riprovare pi√π tardi."
 
 #: lib/Net/SMS/sms2email_http.php:654 lib/Net/SMS/win_http.php:231
 msgid ""
 "There was an error updating the distribution list. Please try again later."
 msgstr ""
-"Errore nell'aggiornamento della lista di ditribuzione. Riprovare pi˘ tardi."
+"Errore nell'aggiornamento della lista di ditribuzione. Riprovare pi√π tardi."
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:163 lib/Horde/IMAP/ACL/rfc2086.php:326
 msgid "This IMAP server does not support sharing folders."
@@ -7367,15 +7367,15 @@ msgstr "Numero di partita IVA valido"
 
 #: lib/Horde/Alarm.php:136
 msgid "This alarm cannot be snoozed."
-msgstr "L'allarme non puÚ essere rimandato."
+msgstr "L'allarme non pu√≤ essere rimandato."
 
 #: lib/Horde/MIME/Viewer/rar.php:47
 msgid "This does not appear to be a valid rar archive."
-msgstr "Il file non Ë archivio un rar valido"
+msgstr "Il file non √® archivio un rar valido"
 
 #: lib/Horde/MIME/Viewer/zip.php:51
 msgid "This does not appear to be a valid zip file."
-msgstr "Il file non Ë archivio un zip valido"
+msgstr "Il file non √® archivio un zip valido"
 
 #: lib/Horde/Form.php:3868
 msgid "This does not seem to be a valid card number."
@@ -7384,22 +7384,22 @@ msgstr "Numero di carta non valido"
 #: lib/Net/SMS/generic_smpp.php:87
 msgid "This driver allows sending of messages through an SMPP gateway."
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi tramite un gateway SMPP"
+"Questa funzionalit√† permette di inviare messaggi tramite un gateway SMPP"
 
 #: lib/Net/SMS/generic_smtp.php:92
 msgid ""
 "This driver allows sending of messages through an email-to-SMS gateway, for "
 "carriers which provide this service."
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi tramite un gateway email-to-"
-"SMS per operatori che forniscano questa funzionalit‡."
+"Questa funzionalit√† permette di inviare messaggi tramite un gateway email-to-"
+"SMS per operatori che forniscano questa funzionalit√†."
 
 #: lib/Net/SMS/clickatell_http.php:195
 msgid ""
 "This driver allows sending of messages through the Clickatell (http://"
 "clickatell.com) gateway, using the HTTP API"
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi tramite un gateway "
+"Questa funzionalit√† permette di inviare messaggi tramite un gateway "
 "Clickatell (http://clickatell.com) gateway, tramite API HTTP"
 
 #: lib/Net/SMS/win_http.php:144
@@ -7407,7 +7407,7 @@ msgid ""
 "This driver allows sending of messages through the WIN (http://winplc.com) "
 "gateway, using the HTTP API"
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi tramite un gateway WIN "
+"Questa funzionalit√† permette di inviare messaggi tramite un gateway WIN "
 "(http://winplc.com), tramite API HTTP"
 
 #: lib/Net/SMS/sms2email_http.php:525
@@ -7415,7 +7415,7 @@ msgid ""
 "This driver allows sending of messages through the sms2email (http://"
 "sms2email.com) gateway, using the HTTP API"
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi tramite un gateway "
+"Questa funzionalit√† permette di inviare messaggi tramite un gateway "
 "sms2email (http://sms2email.com),  tramite API HTTP"
 
 #: lib/Net/SMS/vodafoneitaly_smtp.php:83
@@ -7424,7 +7424,7 @@ msgid ""
 "gateway, only to Vodafone numbers. It requires an email account with "
 "Vodafone Italy (http://www.190.it)."
 msgstr ""
-"Questa funzionalit‡ permette di inviare messaggi via SMTP tramite un gateway "
+"Questa funzionalit√† permette di inviare messaggi via SMTP tramite un gateway "
 "Vodafone Italy solo verso i numeri Vodafone. Richiede un account email con "
 "Vodafone Italy (http://www.190.it)."
 
@@ -7442,15 +7442,15 @@ msgstr "Campo Obbligatorio"
 
 #: lib/Horde/Form.php:1060
 msgid "This field may only contain integers."
-msgstr "Questo campo puÚ contenere solo interi"
+msgstr "Questo campo pu√≤ contenere solo interi"
 
 #: lib/Horde/Form.php:2942
 msgid "This field may only contain numbers and the colon."
-msgstr "Questo campo puÚ contenere solo numeri e il carattere doppio apice"
+msgstr "Questo campo pu√≤ contenere solo numeri e il carattere doppio apice"
 
 #: lib/Horde/Form.php:1087
 msgid "This field may only contain octal values."
-msgstr "Questo campo puÚ contenere solo valori ottali"
+msgstr "Questo campo pu√≤ contenere solo valori ottali"
 
 #: lib/Horde/Form.php:1114
 msgid "This field must be a comma or space separated list of integers"
@@ -7471,12 +7471,12 @@ msgstr ""
 
 #: lib/Horde.php:339 lib/Horde/Form.php:624
 msgid "This form has already been processed."
-msgstr "Questa richiesta Ë gi‡ stata processata"
+msgstr "Questa richiesta √® gi√† stata processata"
 
 #: templates/help/about.inc:1
 #, php-format
 msgid "This is %s."
-msgstr "Questo Ë %s."
+msgstr "Questo √® %s."
 
 #: lib/Horde/Kolab/IMAP.php:625 lib/Horde/Kolab/IMAP.php:1301
 #, php-format
@@ -7485,7 +7485,7 @@ msgid ""
 "client that understands the Kolab Groupware format. For a list of such email "
 "clients please visit %s"
 msgstr ""
-"Questo Ë un oggetto Kolab Groupware. Per vedere questo oggetto Ë necessario "
+"Questo √® un oggetto Kolab Groupware. Per vedere questo oggetto √® necessario "
 "utilizzare un client che supporti il formato Kolab Groupware. per un elenco "
 "dei client compatibili visitare %s"
 
@@ -7493,7 +7493,7 @@ msgstr ""
 #, php-format
 msgid "This message was written in a character set (%s) other than your own."
 msgstr ""
-"Questo messaggio Ë stato scritto con un set di caratteri (%s) diverso dal tuo"
+"Questo messaggio √® stato scritto con un set di caratteri (%s) diverso dal tuo"
 
 #: lib/Horde/Prefs/UI.php:126
 msgid "This number must be at least one."
@@ -7501,7 +7501,7 @@ msgstr "Questo numero deve essere maggiore o uguale a 1"
 
 #: lib/Horde/Compress/gzip.php:44
 msgid "This server can't uncompress zip and gzip files."
-msgstr "Questo server non puÚ decomprimere file zip and gzip"
+msgstr "Questo server non pu√≤ decomprimere file zip and gzip"
 
 #: lib/Horde/Registry.php:228
 msgid "This system is currently deactivated."
@@ -7570,7 +7570,7 @@ msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
-"Per selezionare pi˘ voci, cliccare tenendo premuto contemporaneamente il "
+"Per selezionare pi√π voci, cliccare tenendo premuto contemporaneamente il "
 "tasto CTRL (Command su Mac) "
 
 #: lib/Block/weatherdotcom.php:321
@@ -7687,7 +7687,7 @@ msgstr "Impossibile accedere alla directory VFS"
 #: lib/Horde/Share/kolab.php:339
 #, php-format
 msgid "Unable to add %s: destination folder already exists"
-msgstr "Impossibile aggiungere %s: cartella di destinazione gi‡ esistente"
+msgstr "Impossibile aggiungere %s: cartella di destinazione gi√† esistente"
 
 #: lib/Horde/Kolab/LDAP.php:95
 #, php-format
@@ -7763,7 +7763,7 @@ msgstr "Impossibile decomprimere i dati."
 #: lib/VFS/ftp.php:332 lib/VFS/smb.php:229 lib/VFS/ssh2.php:289
 #, php-format
 msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "Impossibile eliminare \"%s\", la directory non Ë vuota."
+msgstr "Impossibile eliminare \"%s\", la directory non √® vuota."
 
 #: admin/groups.php:84 admin/perms/delete.php:45
 #, php-format
@@ -7774,7 +7774,7 @@ msgstr "Impossibile cancellare '%s': %s."
 #: lib/VFS/file.php:387
 #, php-format
 msgid "Unable to delete %s, the directory is not empty"
-msgstr "Impossibile eliminare %s, la directory non Ë vuota."
+msgstr "Impossibile eliminare %s, la directory non √® vuota."
 
 #: lib/VFS/sql_file.php:372 lib/VFS/sql_file.php:376
 msgid "Unable to delete VFS directory recursively."
@@ -7960,7 +7960,7 @@ msgstr "Il server ha risposto in modo non valido su:"
 
 #: admin/setup/index.php:88
 msgid "Unexpected response from server, try again later."
-msgstr "Il server ha risposto in modo non valido, riprovare pi˘ tardi"
+msgstr "Il server ha risposto in modo non valido, riprovare pi√π tardi"
 
 #: lib/Horde/Prefs/CategoryManager.php:63
 #: templates/prefs/categorymanagement.inc:55
@@ -7993,7 +7993,7 @@ msgstr "Isole Minori Esterne degli Stati Uniti"
 
 #: lib/Block/metar.php:86 lib/Block/weatherdotcom.php:67
 msgid "Units"
-msgstr "Unit‡"
+msgstr "Unit√†"
 
 #: lib/Horde/Crypt/pgp.php:465 lib/Horde/Crypt/pgp.php:466
 #: lib/Horde/Crypt/pgp.php:467 lib/Horde/MIME/Viewer/tgz.php:69
@@ -8010,7 +8010,7 @@ msgstr "client Message ID Sconosciuto"
 
 #: lib/Block/weatherdotcom.php:170
 msgid "Unknown location provided."
-msgstr "Localit‡ sconosciuta"
+msgstr "Localit√† sconosciuta"
 
 #: lib/Net/SMS/clickatell_http.php:299
 msgid "Unknown username or password."
@@ -8097,7 +8097,7 @@ msgstr "Registrazione Utente"
 
 #: signup.php:24
 msgid "User Registration has been disabled for this site."
-msgstr "La registrazione utente Ë stata disabilitata per questo sito."
+msgstr "La registrazione utente √® stata disabilitata per questo sito."
 
 #: lib/Block/account.php:564
 msgid "User account not found"
@@ -8106,7 +8106,7 @@ msgstr "Account utente non trovato."
 #: lib/Horde/Kolab.php:849
 #, php-format
 msgid "User name %s is no kolab user!"
-msgstr "L'utente %s non Ë un utente kolab!"
+msgstr "L'utente %s non √® un utente kolab!"
 
 #: admin/user.php:41 admin/user.php:54 admin/setup/index.php:242
 #: lib/Net/SMS/clickatell_http.php:207 lib/Net/SMS/vodafoneitaly_smtp.php:94
@@ -8119,7 +8119,7 @@ msgstr "Nome Utente"
 #: lib/Horde/Auth/Signup.php:111
 #, php-format
 msgid "Username \"%s\" already exists."
-msgstr "Utente \"%s\" gi‡ presente"
+msgstr "Utente \"%s\" gi√† presente"
 
 #: templates/rpcsum/rpcsum.inc:78
 msgid "Username:"
@@ -8164,7 +8164,7 @@ msgstr "Vacanze"
 
 #: lib/Horde/Crypt/smime.php:645
 msgid "Validity"
-msgstr "Validit‡"
+msgstr "Validit√†"
 
 #: lib/Net/SMS/clickatell_http.php:263 lib/Net/SMS/sms2email_http.php:606
 msgid "Value in minutes from now."
@@ -8204,7 +8204,7 @@ msgstr "Verifica fallita - E' avvenuto un errore sconosciuto."
 
 #: lib/Horde/Crypt/smime.php:220
 msgid "Verification failed - this message may have been tampered with."
-msgstr "Verifica fallita - Questo messaggio puÚ essere alterato"
+msgstr "Verifica fallita - Questo messaggio pu√≤ essere alterato"
 
 #: lib/Horde/Crypt/smime.php:707
 msgid "Version"
@@ -8253,11 +8253,11 @@ msgstr "Isole Vergini, U.S."
 
 #: lib/Block/metar.php:218
 msgid "Visibility"
-msgstr "Visibilit‡"
+msgstr "Visibilit√†"
 
 #: lib/Block/weatherdotcom.php:275
 msgid "Visibility: "
-msgstr "Visibilit‡: "
+msgstr "Visibilit√†: "
 
 #: lib/Net/SMS/vodafoneitaly_smtp.php:82
 msgid "Vodafone Italy via SMTP"
@@ -8343,15 +8343,15 @@ msgstr "Che applicazione %s deve mostrare dopo il login?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
-msgstr "Cosa Ë il carattere delimitatore"
+msgstr "Cosa √® il carattere delimitatore"
 
 #: templates/data/csvinfo.inc:17
 msgid "What is the quote character?"
-msgstr "Cosa Ë il carattere virgolette?"
+msgstr "Cosa √® il carattere virgolette?"
 
 #: lib/Horde/UI/VarRenderer/html.php:1176
 msgid "Whereis Australia map"
-msgstr "Dov'Ë la mappa dell'Australia"
+msgstr "Dov'√® la mappa dell'Australia"
 
 #: config/prefs.php.dist:353
 msgid "Which day would you like to be displayed as the first day of the week?"
@@ -8367,7 +8367,7 @@ msgstr "Plugin da utilizare per l'editor Rich Text"
 
 #: lib/Horde/Form.php:3849
 msgid "Width in CSS units"
-msgstr "larcghezza in unit‡ CSS"
+msgstr "larcghezza in unit√† CSS"
 
 #: config/prefs.php.dist:415
 #, php-format
@@ -8394,7 +8394,7 @@ msgstr "Vento Tardi"
 
 #: lib/Block/metar.php:95
 msgid "Wind speed in knots"
-msgstr "Velocit‡ del vento in nodi"
+msgstr "Velocit√† del vento in nodi"
 
 #: lib/Block/metar.php:165
 msgid "Wind:"
@@ -8505,7 +8505,7 @@ msgstr "Yemen"
 
 #: lib/Horde/UI/VarRenderer/html.php:1053
 msgid "Yes"
-msgstr "SÏ"
+msgstr "S√¨"
 
 #: templates/maintenance/maintenance.html:56
 msgid "Yes, I Agree"
@@ -8531,8 +8531,8 @@ msgstr "non puoi modificare condivisioni."
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
-msgstr[0] "Non Ë consentito creare pi˘ di %d blocco."
-msgstr[1] "Non Ë consentito creare pi˘ di %d blocchi."
+msgstr[0] "Non √® consentito creare pi√π di %d blocco."
+msgstr[1] "Non √® consentito creare pi√π di %d blocchi."
 
 #: lib/api.php:424
 msgid "You are not allowed to delete groups."
@@ -8572,7 +8572,7 @@ msgstr "Non sei autenticato"
 
 #: lib/Horde/Identity.php:332
 msgid "You cannot have the '\\' character in your full name."
-msgstr "Il nome non puÚ contenere il carattere '\\'."
+msgstr "Il nome non pu√≤ contenere il carattere '\\'."
 
 #: lib/Horde/RPC/phpgw.php:109
 msgid "You did not authenticate."
@@ -8592,7 +8592,7 @@ msgstr ""
 
 #: lib/Horde/Auth.php:992
 msgid "You have been logged out."
-msgstr "La sessione Ë stata terminata."
+msgstr "La sessione √® stata terminata."
 
 #: lib/Horde/Identity.php:394
 #, php-format
@@ -8611,7 +8611,7 @@ msgstr ""
 "Seguire il link seguente per confermare il proprio indirizzo email:\n"
 "%s\n"
 "\n"
-"E' possibile cancellare questo messaggio se non ne Ë chiaro il significato"
+"E' possibile cancellare questo messaggio se non ne √® chiaro il significato"
 
 #: lib/Horde/Form.php:3398
 msgid "You must choose a date."
@@ -8695,7 +8695,7 @@ msgstr "Immettere un numero telefonico Italiano"
 #: lib/Horde/Auth.php:980
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "La tua %s sessione Ë scaduta, accedi nuovamente."
+msgstr "La tua %s sessione √® scaduta, accedi nuovamente."
 
 #: templates/problem/problem.inc:34
 msgid "Your Email Address"
@@ -8716,8 +8716,8 @@ msgid ""
 "Your Internet Address has changed since the beginning of your %s session. To "
 "protect your security, you must login again."
 msgstr ""
-"Il tuo indirizzo IP Ë cambiato dall'inizio della tua sessione di %s.Per "
-"ragioni di sicurezza Ë necessario effettuare nuovamente l'accesso."
+"Il tuo indirizzo IP √® cambiato dall'inizio della tua sessione di %s.Per "
+"ragioni di sicurezza √® necessario effettuare nuovamente l'accesso."
 
 #: templates/problem/problem.inc:30
 msgid "Your Name"
@@ -8730,7 +8730,7 @@ msgid ""
 "authentication backend."
 msgstr ""
 "Il tuo backend di autenticazione non supporta la aggiunta di utenti.Se si "
-"desidera utilizzare Horde per l'amministrazione degli account utente Ë "
+"desidera utilizzare Horde per l'amministrazione degli account utente √® "
 "necesario utilizzare un differente backend di autenticazione."
 
 #: templates/admin/user/nolist.inc:5
@@ -8739,7 +8739,7 @@ msgid ""
 "has been disabled for some other reason."
 msgstr ""
 "Il tuo backend di autenticazione non supporta la elencazione degli utenti, o "
-"la caratteristica Ë stata disabilitata per qualche motivo."
+"la caratteristica √® stata disabilitata per qualche motivo."
 
 #: lib/Horde/Auth.php:988
 #, php-format
@@ -8747,12 +8747,12 @@ msgid ""
 "Your browser appears to have changed since the beginning of your %s session. "
 "To protect your security, you must login again."
 msgstr ""
-"Il tuo browser Ë cambiato dall'inizio della tua sessione di %s. Per ragioni "
-"di sicurezza Ë necessario effettuare nuovamente l'accesso."
+"Il tuo browser √® cambiato dall'inizio della tua sessione di %s. Per ragioni "
+"di sicurezza √® necessario effettuare nuovamente l'accesso."
 
 #: lib/Block/iframe.php:55
 msgid "Your browser does not support this feature."
-msgstr "Il tuo browser non ha questa funzionalit‡.'."
+msgstr "Il tuo browser non ha questa funzionalit√†.'."
 
 #: templates/javascript/print.js:34
 msgid ""
@@ -8768,11 +8768,11 @@ msgstr "Fuso orario attuale:"
 
 #: services/prefs.php:141
 msgid "Your default identity has been changed."
-msgstr "L'Identit‡ di Default Ë stata modificata."
+msgstr "L'Identit√† di Default √® stata modificata."
 
 #: config/prefs.php.dist:178
 msgid "Your default identity:"
-msgstr "Identit‡ di Default"
+msgstr "Identit√† di Default"
 
 #: config/prefs.php.dist:229
 msgid "Your full name:"
@@ -8785,7 +8785,7 @@ msgstr "Accesso scaduto "
 #: services/resetpassword.php:74
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "la nuova password per %s Ë : %s"
+msgstr "la nuova password per %s √® : %s"
 
 #: lib/Horde/Prefs/UI.php:176
 msgid "Your options have been updated for the duration of this session."
@@ -8797,23 +8797,23 @@ msgstr "Le opzioni sono state aggiornate."
 
 #: services/resetpassword.php:73
 msgid "Your password has been reset"
-msgstr "La password Ë stata resettata."
+msgstr "La password √® stata resettata."
 
 #: services/resetpassword.php:80
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"La tua password Ë stata resettata, controlla l'email e accedi nuovamente con "
+"La tua password √® stata resettata, controlla l'email e accedi nuovamente con "
 "la tua nuova password."
 
 #: lib/Block/account.php:692 lib/Block/account.php:707
 msgid "Your password has expired"
-msgstr "La password Ë scaduta."
+msgstr "La password √® scaduta."
 
 #: lib/Horde/Auth.php:739
 msgid "Your password has expired."
-msgstr "La password Ë scaduta."
+msgstr "La password √® scaduta."
 
 #: templates/rpcsum/rpcsum.inc:57
 msgid "Your remote servers:"
@@ -9114,7 +9114,7 @@ msgid ""
 "This request cannot be completed because the link you followed or the form "
 "you submitted was only valid for %s minutes. Please try again now."
 msgstr ""
-"La richiesta non puÚ essere completata in quanto il link usato o il form "
+"La richiesta non pu√≤ essere completata in quanto il link usato o il form "
 "inviato erano validi solo per %s minuti. Si prega di riprovare ora."
 
 #: lib/Horde.php:331

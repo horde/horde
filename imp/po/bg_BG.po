@@ -12,44 +12,44 @@ msgstr ""
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: BG i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "      To: "
-msgstr "      До: "
+msgstr "      Р”Рѕ: "
 
 msgid "    Date: "
-msgstr "    Дата: "
+msgstr "    Р”Р°С‚Р°: "
 
 msgid "    From: "
-msgstr "      От: "
+msgstr "      РћС‚: "
 
 msgid " - $nm new message"
-msgstr " - $nm ново писмо"
+msgstr " - $nm РЅРѕРІРѕ РїРёСЃРјРѕ"
 
 msgid " - $nm new messages"
-msgstr " - $nm нови писма"
+msgstr " - $nm РЅРѕРІРё РїРёСЃРјР°"
 
 msgid " Subject: "
-msgstr "    Тема: "
+msgstr "    РўРµРјР°: "
 
 msgid " in "
-msgstr " в "
+msgstr " РІ "
 
 #, c-format
 msgid " where the %s contains <b>%s</b>"
-msgstr " където %s съдържа <b>%s</b>"
+msgstr " РєСЉРґРµС‚Рѕ %s СЃСЉРґСЉСЂР¶Р° <b>%s</b>"
 
 msgid "#"
 msgstr "#"
 
 #, c-format
 msgid "%d of %d Messages"
-msgstr "%d от %d писма"
+msgstr "%d РѕС‚ %d РїРёСЃРјР°"
 
 #, c-format
 msgid "%d to %d of %d Messages"
-msgstr "%d до %d от %d писма"
+msgstr "%d РґРѕ %d РѕС‚ %d РїРёСЃРјР°"
 
 #, c-format
 msgid "%s KB"
@@ -57,35 +57,35 @@ msgstr "%s KB"
 
 #, c-format
 msgid "%s PGP Administration"
-msgstr "%s PGP Администриране"
+msgstr "%s PGP РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 #, c-format
 msgid "%s S/MIME Administration"
-msgstr "%s S/MIME Администриране"
+msgstr "%s S/MIME РђРґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ"
 
 #, c-format
 msgid "%s Standard"
-msgstr "%s Стандарт"
+msgstr "%s РЎС‚Р°РЅРґР°СЂС‚"
 
 #, c-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s вече съществува. Вашата папка %s не беше преименувана."
+msgstr "%s РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°. Р’Р°С€Р°С‚Р° РїР°РїРєР° %s РЅРµ Р±РµС€Рµ РїСЂРµРёРјРµРЅСѓРІР°РЅР°."
 
 #, c-format
 msgid "%s does not appear to be a valid mailbox."
-msgstr "%s не е валидна пощенска кутия."
+msgstr "%s РЅРµ Рµ РІР°Р»РёРґРЅР° РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ."
 
 #, c-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "Папка %s беше преименувана в началото на месеца."
+msgstr "РџР°РїРєР° %s Р±РµС€Рµ РїСЂРµРёРјРµРЅСѓРІР°РЅР° РІ РЅР°С‡Р°Р»РѕС‚Рѕ РЅР° РјРµСЃРµС†Р°."
 
 #, c-format
 msgid "%s messages were fetched..."
-msgstr "%s писма бяха изтеглени..."
+msgstr "%s РїРёСЃРјР° Р±СЏС…Р° РёР·С‚РµРіР»РµРЅРё..."
 
 #, c-format
 msgid "%s%s Guest Services</a>"
-msgstr "%s%s Услуги за гости</а>"
+msgstr "%s%s РЈСЃР»СѓРіРё Р·Р° РіРѕСЃС‚Рё</Р°>"
 
 #, c-format
 msgid "%s: %s"
@@ -93,141 +93,141 @@ msgstr "%s: %s"
 
 #, c-format
 msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
-msgstr "%s: %s (%d&nbsp;от&nbsp;%d)"
+msgstr "%s: %s (%d&nbsp;РѕС‚&nbsp;%d)"
 
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(Приложи тези промени и продължи към следващия екран.)"
+msgstr "(РџСЂРёР»РѕР¶Рё С‚РµР·Рё РїСЂРѕРјРµРЅРё Рё РїСЂРѕРґСЉР»Р¶Рё РєСЉРј СЃР»РµРґРІР°С‰РёСЏ РµРєСЂР°РЅ.)"
 
 msgid "(Discard all changes and return to the compose screen.)"
-msgstr "Откажи всички промени и се върни към екрана \"Напиши\""
+msgstr "РћС‚РєР°Р¶Рё РІСЃРёС‡РєРё РїСЂРѕРјРµРЅРё Рё СЃРµ РІСЉСЂРЅРё РєСЉРј РµРєСЂР°РЅР° \"РќР°РїРёС€Рё\""
 
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(Върни се към екрана \"Напиши\" след като приложиш всички промени до тук."
-"Промените в текущия екран НЯМА да бъдат приложени.)"
+"(Р’СЉСЂРЅРё СЃРµ РєСЉРј РµРєСЂР°РЅР° \"РќР°РїРёС€Рё\" СЃР»РµРґ РєР°С‚Рѕ РїСЂРёР»РѕР¶РёС€ РІСЃРёС‡РєРё РїСЂРѕРјРµРЅРё РґРѕ С‚СѓРє."
+"РџСЂРѕРјРµРЅРёС‚Рµ РІ С‚РµРєСѓС‰РёСЏ РµРєСЂР°РЅ РќРЇРњРђ РґР° Р±СЉРґР°С‚ РїСЂРёР»РѕР¶РµРЅРё.)"
 
 msgid "* Add these by clicking OK *"
-msgstr "* Добави тези с \"ОК\" *"
+msgstr "* Р”РѕР±Р°РІРё С‚РµР·Рё СЃ \"РћРљ\" *"
 
 msgid "* Please select address(es) *"
-msgstr "* Моля изберете адрес(и) *"
+msgstr "* РњРѕР»СЏ РёР·Р±РµСЂРµС‚Рµ Р°РґСЂРµСЃ(Рё) *"
 
 #, c-format
 msgid "<i>View as %s</i>"
-msgstr "<i>Изглед като %s<i>"
+msgstr "<i>РР·РіР»РµРґ РєР°С‚Рѕ %s<i>"
 
 msgid "AND"
-msgstr "и"
+msgstr "Рё"
 
 msgid "Account's name:"
-msgstr "Име на пощата:"
+msgstr "РРјРµ РЅР° РїРѕС‰Р°С‚Р°:"
 
 msgid "Accounts"
-msgstr "Пощи"
+msgstr "РџРѕС‰Рё"
 
 msgid "Action"
-msgstr "Действие"
+msgstr "Р”РµР№СЃС‚РІРёРµ"
 
 #, c-format
 msgid "Add to Address book (%s)"
-msgstr "Добави към адресна книга (%s)"
+msgstr "Р”РѕР±Р°РІРё РєСЉРј Р°РґСЂРµСЃРЅР° РєРЅРёРіР° (%s)"
 
 #, c-format
 msgid "Added %s as an attachment."
-msgstr "Добавен %s като прикрепен файл."
+msgstr "Р”РѕР±Р°РІРµРЅ %s РєР°С‚Рѕ РїСЂРёРєСЂРµРїРµРЅ С„Р°Р№Р»."
 
 msgid "Address Book"
-msgstr "Адресен бележник"
+msgstr "РђРґСЂРµСЃРµРЅ Р±РµР»РµР¶РЅРёРє"
 
 msgid "Address Books"
-msgstr "Адресни книги"
+msgstr "РђРґСЂРµСЃРЅРё РєРЅРёРіРё"
 
 msgid "All"
-msgstr "Всички"
+msgstr "Р’СЃРёС‡РєРё"
 
 #, c-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Всички писма във Вашата \"%s\" папка по-стари от %s дни ще бъдат изтрити!"
+"Р’СЃРёС‡РєРё РїРёСЃРјР° РІСЉРІ Р’Р°С€Р°С‚Р° \"%s\" РїР°РїРєР° РїРѕ-СЃС‚Р°СЂРё РѕС‚ %s РґРЅРё С‰Рµ Р±СЉРґР°С‚ РёР·С‚СЂРёС‚Рё!"
 
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr ""
-"Всички папки \"Изпратени писма\" по-стари от %s месеца ще бъдат изтрити!"
+"Р’СЃРёС‡РєРё РїР°РїРєРё \"РР·РїСЂР°С‚РµРЅРё РїРёСЃРјР°\" РїРѕ-СЃС‚Р°СЂРё РѕС‚ %s РјРµСЃРµС†Р° С‰Рµ Р±СЉРґР°С‚ РёР·С‚СЂРёС‚Рё!"
 
 msgid "Alternative parts for this section:"
-msgstr "Алтернативни части за тази секция:"
+msgstr "РђР»С‚РµСЂРЅР°С‚РёРІРЅРё С‡Р°СЃС‚Рё Р·Р° С‚Р°Р·Рё СЃРµРєС†РёСЏ:"
 
 msgid "An error occurred when deleting messages from server!"
-msgstr "Грешка при изтриване на писма от сървъра!"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРёСЃРјР° РѕС‚ СЃСЉСЂРІСЉСЂР°!"
 
 msgid "An error occurred when setting the messages seen from server!"
-msgstr "Грешка при преглеждане на писма от сървъра! "
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРіР»РµР¶РґР°РЅРµ РЅР° РїРёСЃРјР° РѕС‚ СЃСЉСЂРІСЉСЂР°! "
 
 msgid "An unknown error occured adding the new entry."
-msgstr "Неизвестна грешка при добавяне на нов запис."
+msgstr "РќРµРёР·РІРµСЃС‚РЅР° РіСЂРµС€РєР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІ Р·Р°РїРёСЃ."
 
 msgid "Answered"
-msgstr "С отговор"
+msgstr "РЎ РѕС‚РіРѕРІРѕСЂ"
 
 msgid "Answered messages"
-msgstr "Писма с отговор"
+msgstr "РџРёСЃРјР° СЃ РѕС‚РіРѕРІРѕСЂ"
 
 msgid "Apply Filters on"
-msgstr "Приложи филтрите"
+msgstr "РџСЂРёР»РѕР¶Рё С„РёР»С‚СЂРёС‚Рµ"
 
 msgid "Apply filter rules upon logging on?"
-msgstr "Да се прилагат ли филтрите след вход?"
+msgstr "Р”Р° СЃРµ РїСЂРёР»Р°РіР°С‚ Р»Рё С„РёР»С‚СЂРёС‚Рµ СЃР»РµРґ РІС…РѕРґ?"
 
 msgid "Apply filter rules when mailbox is refreshed?"
-msgstr "Да се прилагат ли филтрите, когато се опреснява пощенската кутия?"
+msgstr "Р”Р° СЃРµ РїСЂРёР»Р°РіР°С‚ Р»Рё С„РёР»С‚СЂРёС‚Рµ, РєРѕРіР°С‚Рѕ СЃРµ РѕРїСЂРµСЃРЅСЏРІР° РїРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ?"
 
 msgid "April"
-msgstr "Април"
+msgstr "РђРїСЂРёР»"
 
 msgid "Are you sure you want to delete this public key?"
-msgstr "Сигурни ли сте, че искате да изтриете този публичен ключ?"
+msgstr "РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ С‚РѕР·Рё РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡?"
 
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "Сигурни ли сте, че искате да изтриете тези писма (невъзвратимо)?"
+msgstr "РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ С‚РµР·Рё РїРёСЃРјР° (РЅРµРІСЉР·РІСЂР°С‚РёРјРѕ)?"
 
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "Сигурни ли сте, че искате да изпразните кошчето?"
+msgstr "РЎРёРіСѓСЂРЅРё Р»Рё СЃС‚Рµ, С‡Рµ РёСЃРєР°С‚Рµ РґР° РёР·РїСЂР°Р·РЅРёС‚Рµ РєРѕС€С‡РµС‚Рѕ?"
 
 msgid "Arrival Time"
-msgstr "Време на пристигане"
+msgstr "Р’СЂРµРјРµ РЅР° РїСЂРёСЃС‚РёРіР°РЅРµ"
 
 msgid "Ascending"
-msgstr "Нарастващи"
+msgstr "РќР°СЂР°СЃС‚РІР°С‰Рё"
 
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Да се иска ли потвърждение преди обслужващите операции?"
+msgstr "Р”Р° СЃРµ РёСЃРєР° Р»Рё РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ РїСЂРµРґРё РѕР±СЃР»СѓР¶РІР°С‰РёС‚Рµ РѕРїРµСЂР°С†РёРё?"
 
 msgid "Attach a copy of your PGP public key to your message?"
-msgstr "Да се добавя ли Вашият публичен PGP ключ към писмото Ви?"
+msgstr "Р”Р° СЃРµ РґРѕР±Р°РІСЏ Р»Рё Р’Р°С€РёСЏС‚ РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡ РєСЉРј РїРёСЃРјРѕС‚Рѕ Р’Рё?"
 
 msgid "Attached File:"
-msgstr "Прикрепен файл:"
+msgstr "РџСЂРёРєСЂРµРїРµРЅ С„Р°Р№Р»:"
 
 msgid "Attachment"
-msgstr "Прикрепен файл"
+msgstr "РџСЂРёРєСЂРµРїРµРЅ С„Р°Р№Р»"
 
 msgid "Attachments"
-msgstr "Прикрепени файлове"
+msgstr "РџСЂРёРєСЂРµРїРµРЅРё С„Р°Р№Р»РѕРІРµ"
 
 msgid "August"
-msgstr "Август"
+msgstr "РђРІРіСѓСЃС‚"
 
 msgid "Available Address books:"
-msgstr "Налични адресни книги:"
+msgstr "РќР°Р»РёС‡РЅРё Р°РґСЂРµСЃРЅРё РєРЅРёРіРё:"
 
 #, c-format
 msgid "Back to %s"
-msgstr "Обратно в %s"
+msgstr "РћР±СЂР°С‚РЅРѕ РІ %s"
 
 msgid "Barbie"
 msgstr "Barbie"
@@ -236,16 +236,16 @@ msgid "Bcc"
 msgstr "Bcc"
 
 msgid "Blacklist"
-msgstr "Черен списък"
+msgstr "Р§РµСЂРµРЅ СЃРїРёСЃСЉРє"
 
 msgid "Body"
-msgstr "Тяло"
+msgstr "РўСЏР»Рѕ"
 
 msgid "Both"
-msgstr "Двата"
+msgstr "Р”РІР°С‚Р°"
 
 msgid "Both Header Listing and Body of Message"
-msgstr "Тялото на писмото и headers "
+msgstr "РўСЏР»РѕС‚Рѕ РЅР° РїРёСЃРјРѕС‚Рѕ Рё headers "
 
 msgid "Brown"
 msgstr "Brown"
@@ -257,13 +257,13 @@ msgid "Camouflage"
 msgstr "Camouflage"
 
 msgid "Can't connect to the Mail Server"
-msgstr "Грешка при свързване с мейл сървъра"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃ РјРµР№Р» СЃСЉСЂРІСЉСЂР°"
 
 msgid "Cannot move past the beginning"
-msgstr "Не може да се мине преди началото"
+msgstr "РќРµ РјРѕР¶Рµ РґР° СЃРµ РјРёРЅРµ РїСЂРµРґРё РЅР°С‡Р°Р»РѕС‚Рѕ"
 
 msgid "Cannot move past the end"
-msgstr "Не може да се мине след края"
+msgstr "РќРµ РјРѕР¶Рµ РґР° СЃРµ РјРёРЅРµ СЃР»РµРґ РєСЂР°СЏ"
 
 msgid "Cc"
 msgstr "Cc"
@@ -272,30 +272,30 @@ msgid "Cc:"
 msgstr "Cc:"
 
 msgid "Change"
-msgstr "Промени"
+msgstr "РџСЂРѕРјРµРЅРё"
 
 msgid "Change All"
-msgstr "Промени всички"
+msgstr "РџСЂРѕРјРµРЅРё РІСЃРёС‡РєРё"
 
 msgid ""
 "Change display options such as the color scheme, how many messages you see "
 "on each page and how messages are sorted."
 msgstr ""
-"Смяна на дисплей опциите, като цветна схема, колко писма да се виждат във "
-"всяка страница и как да се сортират писмата."
+"РЎРјСЏРЅР° РЅР° РґРёСЃРїР»РµР№ РѕРїС†РёРёС‚Рµ, РєР°С‚Рѕ С†РІРµС‚РЅР° СЃС…РµРјР°, РєРѕР»РєРѕ РїРёСЃРјР° РґР° СЃРµ РІРёР¶РґР°С‚ РІСЉРІ "
+"РІСЃСЏРєР° СЃС‚СЂР°РЅРёС†Р° Рё РєР°Рє РґР° СЃРµ СЃРѕСЂС‚РёСЂР°С‚ РїРёСЃРјР°С‚Р°."
 
 msgid "Change mail server settings."
-msgstr "Промяна на настройките за мейл сървър."
+msgstr "РџСЂРѕРјСЏРЅР° РЅР° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ Р·Р° РјРµР№Р» СЃСЉСЂРІСЉСЂ."
 
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Променете името, адреса и подписа, които получателите ще виждат, когато "
-"четат и отговарят на писмото Ви."
+"РџСЂРѕРјРµРЅРµС‚Рµ РёРјРµС‚Рѕ, Р°РґСЂРµСЃР° Рё РїРѕРґРїРёСЃР°, РєРѕРёС‚Рѕ РїРѕР»СѓС‡Р°С‚РµР»РёС‚Рµ С‰Рµ РІРёР¶РґР°С‚, РєРѕРіР°С‚Рѕ "
+"С‡РµС‚Р°С‚ Рё РѕС‚РіРѕРІР°СЂСЏС‚ РЅР° РїРёСЃРјРѕС‚Рѕ Р’Рё."
 
 msgid "Check Folder(s) for New Mail"
-msgstr "Провери папката(ите) за нови писма"
+msgstr "РџСЂРѕРІРµСЂРё РїР°РїРєР°С‚Р°(РёС‚Рµ) Р·Р° РЅРѕРІРё РїРёСЃРјР°"
 
 msgid "Checkbox"
 msgstr "Checkbox"
@@ -304,424 +304,424 @@ msgid "Cherry"
 msgstr "Cherry"
 
 msgid "Choose Action:"
-msgstr "Избери действие:"
+msgstr "РР·Р±РµСЂРё РґРµР№СЃС‚РІРёРµ:"
 
 msgid "Choose a mail server:"
-msgstr "Изберете мейл сървър:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РјРµР№Р» СЃСЉСЂРІСЉСЂ:"
 
 msgid "Choose the address book to use when adding addresses."
-msgstr "Изберете коя адресна книга да се използва при добавяне на адрес."
+msgstr "РР·Р±РµСЂРµС‚Рµ РєРѕСЏ Р°РґСЂРµСЃРЅР° РєРЅРёРіР° РґР° СЃРµ РёР·РїРѕР»Р·РІР° РїСЂРё РґРѕР±Р°РІСЏРЅРµ РЅР° Р°РґСЂРµСЃ."
 
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr ""
-"Изберете реда на търсене на адресните книги, при откриването на адреси."
+"РР·Р±РµСЂРµС‚Рµ СЂРµРґР° РЅР° С‚СЉСЂСЃРµРЅРµ РЅР° Р°РґСЂРµСЃРЅРёС‚Рµ РєРЅРёРіРё, РїСЂРё РѕС‚РєСЂРёРІР°РЅРµС‚Рѕ РЅР° Р°РґСЂРµСЃРё."
 
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Кликнете на една от избраните адресни книги и след това изберете всички "
-"полета за търсене."
+"РљР»РёРєРЅРµС‚Рµ РЅР° РµРґРЅР° РѕС‚ РёР·Р±СЂР°РЅРёС‚Рµ Р°РґСЂРµСЃРЅРё РєРЅРёРіРё Рё СЃР»РµРґ С‚РѕРІР° РёР·Р±РµСЂРµС‚Рµ РІСЃРёС‡РєРё "
+"РїРѕР»РµС‚Р° Р·Р° С‚СЉСЂСЃРµРЅРµ."
 
 msgid "Click to Save PGP Public Key in your Address book"
 msgstr ""
-"Кликнете, за да запишете Вашият публичен PGP ключ в адресната си книга."
+"РљР»РёРєРЅРµС‚Рµ, Р·Р° РґР° Р·Р°РїРёС€РµС‚Рµ Р’Р°С€РёСЏС‚ РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡ РІ Р°РґСЂРµСЃРЅР°С‚Р° СЃРё РєРЅРёРіР°."
 
 msgid "Close this window"
-msgstr "Затвори прозореца"
+msgstr "Р—Р°С‚РІРѕСЂРё РїСЂРѕР·РѕСЂРµС†Р°"
 
 msgid "Closed Folder"
-msgstr "Затворена папка"
+msgstr "Р—Р°С‚РІРѕСЂРµРЅР° РїР°РїРєР°"
 
 msgid "Collapse All"
-msgstr "Събери всички"
+msgstr "РЎСЉР±РµСЂРё РІСЃРёС‡РєРё"
 
 msgid "Collapse All Folders"
-msgstr "Събери всички папки"
+msgstr "РЎСЉР±РµСЂРё РІСЃРёС‡РєРё РїР°РїРєРё"
 
 msgid "Collapse Folder"
-msgstr "Събери папка"
+msgstr "РЎСЉР±РµСЂРё РїР°РїРєР°"
 
 msgid "Comment"
-msgstr "коментар"
+msgstr "РєРѕРјРµРЅС‚Р°СЂ"
 
 msgid "Compose"
-msgstr "Напиши"
+msgstr "РќР°РїРёС€Рё"
 
 #, c-format
 msgid "Compose Message (%s)"
-msgstr "Напиши писмо (%s)"
+msgstr "РќР°РїРёС€Рё РїРёСЃРјРѕ (%s)"
 
 msgid "Compose another message"
-msgstr "Напиши друго писмо"
+msgstr "РќР°РїРёС€Рё РґСЂСѓРіРѕ РїРёСЃРјРѕ"
 
 msgid "Compose messages in a separate window?"
-msgstr "Да се пишат ли писмата в отделен прозорец?"
+msgstr "Р”Р° СЃРµ РїРёС€Р°С‚ Р»Рё РїРёСЃРјР°С‚Р° РІ РѕС‚РґРµР»РµРЅ РїСЂРѕР·РѕСЂРµС†?"
 
 msgid "Compose messages with an HTML GUI (IE 5.5+ only)?"
-msgstr "Да се пишат ли писмата в HTML редактор (IE 5.5+ само)?"
+msgstr "Р”Р° СЃРµ РїРёС€Р°С‚ Р»Рё РїРёСЃРјР°С‚Р° РІ HTML СЂРµРґР°РєС‚РѕСЂ (IE 5.5+ СЃР°РјРѕ)?"
 
 msgid "Connection to Server failed, check your Username/Password/Protocol"
-msgstr "Грешка при свързване със сървъра, проверете Вашите Име/Парола/Протокол"
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃСЉСЃ СЃСЉСЂРІСЉСЂР°, РїСЂРѕРІРµСЂРµС‚Рµ Р’Р°С€РёС‚Рµ РРјРµ/РџР°СЂРѕР»Р°/РџСЂРѕС‚РѕРєРѕР»"
 
 msgid "Connection to server failed"
-msgstr "Грешка при свързване със сървър."
+msgstr "Р“СЂРµС€РєР° РїСЂРё СЃРІСЉСЂР·РІР°РЅРµ СЃСЉСЃ СЃСЉСЂРІСЉСЂ."
 
 msgid "Contact List"
-msgstr "Контакти"
+msgstr "РљРѕРЅС‚Р°РєС‚Рё"
 
 #, c-format
 msgid "Control PGP support for %s."
-msgstr "Контрол на PGP поддръжката за %s."
+msgstr "РљРѕРЅС‚СЂРѕР» РЅР° PGP РїРѕРґРґСЂСЉР¶РєР°С‚Р° Р·Р° %s."
 
 #, c-format
 msgid "Control S/MIME support for %s."
-msgstr "Контрол на S/MIME поддръжката за %s."
+msgstr "РљРѕРЅС‚СЂРѕР» РЅР° S/MIME РїРѕРґРґСЂСЉР¶РєР°С‚Р° Р·Р° %s."
 
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"Контролира кога да се проверява за нова поща и дали да бъдете уведомени, "
-"когато тя се получи."
+"РљРѕРЅС‚СЂРѕР»РёСЂР° РєРѕРіР° РґР° СЃРµ РїСЂРѕРІРµСЂСЏРІР° Р·Р° РЅРѕРІР° РїРѕС‰Р° Рё РґР°Р»Рё РґР° Р±СЉРґРµС‚Рµ СѓРІРµРґРѕРјРµРЅРё, "
+"РєРѕРіР°С‚Рѕ С‚СЏ СЃРµ РїРѕР»СѓС‡Рё."
 
 msgid "Copy"
-msgstr "Копирай"
+msgstr "РљРѕРїРёСЂР°Р№"
 
 msgid "Correct"
-msgstr "Коригирай"
+msgstr "РљРѕСЂРёРіРёСЂР°Р№"
 
 msgid "Corrected Text"
-msgstr "Коригиран текст"
+msgstr "РљРѕСЂРёРіРёСЂР°РЅ С‚РµРєСЃС‚"
 
 #, c-format
 msgid "Could not delete messages from %s. The server said: %s"
-msgstr "Грешка при изтриването на писма от %s. Сървъра каза: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° РїРёСЃРјР° РѕС‚ %s. РЎСЉСЂРІСЉСЂР° РєР°Р·Р°: %s"
 
 msgid "Could not execute maintenance operations."
-msgstr "Грешка при изпълнение на \"Операции по обслужването\""
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЉР»РЅРµРЅРёРµ РЅР° \"РћРїРµСЂР°С†РёРё РїРѕ РѕР±СЃР»СѓР¶РІР°РЅРµС‚Рѕ\""
 
 msgid "Could not extract the requested file from the MS-TNEF attachment."
-msgstr "Грешка при извличането на прикачения файл от MS-TNEF."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РІР»РёС‡Р°РЅРµС‚Рѕ РЅР° РїСЂРёРєР°С‡РµРЅРёСЏ С„Р°Р№Р» РѕС‚ MS-TNEF."
 
 msgid "Could not extract the requested file from the Zip archive."
-msgstr "Грешка при извличането на файл от Zip архива."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РІР»РёС‡Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р» РѕС‚ Zip Р°СЂС…РёРІР°."
 
 msgid "Create Folder"
-msgstr "Създай папка"
+msgstr "РЎСЉР·РґР°Р№ РїР°РїРєР°"
 
 msgid "Create a new drafts folder"
-msgstr "Създай нова папка \"Чернови\""
+msgstr "РЎСЉР·РґР°Р№ РЅРѕРІР° РїР°РїРєР° \"Р§РµСЂРЅРѕРІРё\""
 
 msgid "Create a new sent mail folder"
-msgstr "Създай нова папка \"Изпратени\""
+msgstr "РЎСЉР·РґР°Р№ РЅРѕРІР° РїР°РїРєР° \"РР·РїСЂР°С‚РµРЅРё\""
 
 msgid "Create a new trash folder"
-msgstr "Създай нова папка \"Кошче\""
+msgstr "РЎСЉР·РґР°Р№ РЅРѕРІР° РїР°РїРєР° \"РљРѕС€С‡Рµ\""
 
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"Създай правила за филтриране и организация на идващата поща, сортирането й в "
-"папките и изтриване на спам"
+"РЎСЉР·РґР°Р№ РїСЂР°РІРёР»Р° Р·Р° С„РёР»С‚СЂРёСЂР°РЅРµ Рё РѕСЂРіР°РЅРёР·Р°С†РёСЏ РЅР° РёРґРІР°С‰Р°С‚Р° РїРѕС‰Р°, СЃРѕСЂС‚РёСЂР°РЅРµС‚Рѕ Р№ РІ "
+"РїР°РїРєРёС‚Рµ Рё РёР·С‚СЂРёРІР°РЅРµ РЅР° СЃРїР°Рј"
 
 msgid "Customize accounts for fetching mail from other POP3/IMAP accounts."
-msgstr "Изтегляне на поща от други POP3/IMAP сървъри."
+msgstr "РР·С‚РµРіР»СЏРЅРµ РЅР° РїРѕС‰Р° РѕС‚ РґСЂСѓРіРё POP3/IMAP СЃСЉСЂРІСЉСЂРё."
 
 msgid "Customize how you send mail and where drafts are saved."
-msgstr "Определи начина, по който изпращаш поща и къде са черновите."
+msgstr "РћРїСЂРµРґРµР»Рё РЅР°С‡РёРЅР°, РїРѕ РєРѕР№С‚Рѕ РёР·РїСЂР°С‰Р°С€ РїРѕС‰Р° Рё РєСЉРґРµ СЃР° С‡РµСЂРЅРѕРІРёС‚Рµ."
 
 #, c-format
 msgid "Customize maintenance operations run upon login to %s."
-msgstr "Настрой операциите за обслужване след вход в %s."
+msgstr "РќР°СЃС‚СЂРѕР№ РѕРїРµСЂР°С†РёРёС‚Рµ Р·Р° РѕР±СЃР»СѓР¶РІР°РЅРµ СЃР»РµРґ РІС…РѕРґ РІ %s."
 
 #, c-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Определи задачите за изпълнение след вход в %s."
+msgstr "РћРїСЂРµРґРµР»Рё Р·Р°РґР°С‡РёС‚Рµ Р·Р° РёР·РїСЉР»РЅРµРЅРёРµ СЃР»РµРґ РІС…РѕРґ РІ %s."
 
 msgid "Date"
-msgstr "Дата"
+msgstr "Р”Р°С‚Р°"
 
 msgid "December"
-msgstr "Декември"
+msgstr "Р”РµРєРµРјРІСЂРё"
 
 msgid "Default Identity"
-msgstr "Идентичност по подразбиране"
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ"
 
 msgid "Default sorting criteria:"
-msgstr "Критерии за сортиране по подразбиране:"
+msgstr "РљСЂРёС‚РµСЂРёРё Р·Р° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Default sorting direction:"
-msgstr "Посока на сортиране по подразбиране:"
+msgstr "РџРѕСЃРѕРєР° РЅР° СЃРѕСЂС‚РёСЂР°РЅРµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Delete"
-msgstr "Изтрий"
+msgstr "РР·С‚СЂРёР№"
 
 #, c-format
 msgid "Delete %s Public Key"
-msgstr "Изтрий %s публичен ключ"
+msgstr "РР·С‚СЂРёР№ %s РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Delete Folder(s)"
-msgstr "Изтрий папка(и)"
+msgstr "РР·С‚СЂРёР№ РїР°РїРєР°(Рё)"
 
 msgid "Delete Message"
-msgstr "Изтрий писмо"
+msgstr "РР·С‚СЂРёР№ РїРёСЃРјРѕ"
 
 msgid "Delete fetched messages from server"
-msgstr "Изтрий изтеглените писма от сървъра"
+msgstr "РР·С‚СЂРёР№ РёР·С‚РµРіР»РµРЅРёС‚Рµ РїРёСЃРјР° РѕС‚ СЃСЉСЂРІСЉСЂР°"
 
 msgid "Delete messages"
-msgstr "Изтрий писма"
+msgstr "РР·С‚СЂРёР№ РїРёСЃРјР°"
 
 msgid "Delete old sent-mail folders at beginning of month?"
 msgstr ""
-"Да се изтриват ли старите папки \"Изпратена поща\" в началото на месеца?"
+"Р”Р° СЃРµ РёР·С‚СЂРёРІР°С‚ Р»Рё СЃС‚Р°СЂРёС‚Рµ РїР°РїРєРё \"РР·РїСЂР°С‚РµРЅР° РїРѕС‰Р°\" РІ РЅР°С‡Р°Р»РѕС‚Рѕ РЅР° РјРµСЃРµС†Р°?"
 
 msgid "Deleted"
-msgstr "Изтрити"
+msgstr "РР·С‚СЂРёС‚Рё"
 
 msgid "Deleted messages"
-msgstr "Изтрити писма"
+msgstr "РР·С‚СЂРёС‚Рё РїРёСЃРјР°"
 
 #, c-format
 msgid "Deleted the attachment %s."
-msgstr "Изтрий прикрепеният файл %s."
+msgstr "РР·С‚СЂРёР№ РїСЂРёРєСЂРµРїРµРЅРёСЏС‚ С„Р°Р№Р» %s."
 
 msgid "Deleting and Moving Messages"
-msgstr "Изтриване и преместване на писма"
+msgstr "РР·С‚СЂРёРІР°РЅРµ Рё РїСЂРµРјРµСЃС‚РІР°РЅРµ РЅР° РїРёСЃРјР°"
 
 msgid "Descending"
-msgstr "Намаляващи"
+msgstr "РќР°РјР°Р»СЏРІР°С‰Рё"
 
 msgid "Details"
-msgstr "Детайли"
+msgstr "Р”РµС‚Р°Р№Р»Рё"
 
 msgid "Dim signatures?"
-msgstr "Да се замъгляват ли подписите?"
+msgstr "Р”Р° СЃРµ Р·Р°РјСЉРіР»СЏРІР°С‚ Р»Рё РїРѕРґРїРёСЃРёС‚Рµ?"
 
 msgid "Display"
-msgstr "Покажи"
+msgstr "РџРѕРєР°Р¶Рё"
 
 msgid "Display Options"
-msgstr "Дисплей Опции"
+msgstr "Р”РёСЃРїР»РµР№ РћРїС†РёРё"
 
 msgid "Display confirmation after sending a message?"
-msgstr "Да се показва ли потвърждение след изпращане на писмо?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ СЃР»РµРґ РёР·РїСЂР°С‰Р°РЅРµ РЅР° РїРёСЃРјРѕ?"
 
 msgid "Display in Body of Message"
-msgstr "Покажи в съдържанието на писмото"
+msgstr "РџРѕРєР°Р¶Рё РІ СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Display message when filters have been applied?"
-msgstr "Да се показва ли писмото, след като филтрите са били приложени?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё РїРёСЃРјРѕС‚Рѕ, СЃР»РµРґ РєР°С‚Рѕ С„РёР»С‚СЂРёС‚Рµ СЃР° Р±РёР»Рё РїСЂРёР»РѕР¶РµРЅРё?"
 
 msgid "Display pop-up notification of new mail?"
-msgstr "Да се показва ли pop-up уведомяване за нова поща?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё pop-up СѓРІРµРґРѕРјСЏРІР°РЅРµ Р·Р° РЅРѕРІР° РїРѕС‰Р°?"
 
 msgid "Display the 'Empty Trash' link in the menubar?"
-msgstr "Да се показва ли \"Изпразни кошчето\" в меню лентата?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё \"РР·РїСЂР°Р·РЅРё РєРѕС€С‡РµС‚Рѕ\" РІ РјРµРЅСЋ Р»РµРЅС‚Р°С‚Р°?"
 
 msgid "Disposition"
-msgstr "Разположение"
+msgstr "Р Р°Р·РїРѕР»РѕР¶РµРЅРёРµ"
 
 msgid "Do Not Check Folder(s) for New Mail"
-msgstr "Не проверявай папка(и) за нова поща"
+msgstr "РќРµ РїСЂРѕРІРµСЂСЏРІР°Р№ РїР°РїРєР°(Рё) Р·Р° РЅРѕРІР° РїРѕС‰Р°"
 
 msgid "Download"
-msgstr "Изтегли"
+msgstr "РР·С‚РµРіР»Рё"
 
 #, c-format
 msgid "Download %s"
-msgstr "Изтегли %s"
+msgstr "РР·С‚РµРіР»Рё %s"
 
 msgid "Download Folder(s)"
-msgstr "Изтегли папка(и)"
+msgstr "РР·С‚РµРіР»Рё РїР°РїРєР°(Рё)"
 
 msgid "Draft"
-msgstr "Чернова"
+msgstr "Р§РµСЂРЅРѕРІР°"
 
 msgid "Drafts folder:"
-msgstr "Папка \"Чернови\":"
+msgstr "РџР°РїРєР° \"Р§РµСЂРЅРѕРІРё\":"
 
 msgid "E-Mail"
 msgstr "E-Mail"
 
 msgid "E-mail Address"
-msgstr "E-Mail адрес"
+msgstr "E-Mail Р°РґСЂРµСЃ"
 
 msgid "Edit your IMAP/POP3 accounts."
-msgstr "Редакция на Вашите IMAP/POP3 пощи."
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° Р’Р°С€РёС‚Рµ IMAP/POP3 РїРѕС‰Рё."
 
 msgid "Edit your filter rules"
-msgstr "Редакция на правилата за филтриране"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РїСЂР°РІРёР»Р°С‚Р° Р·Р° С„РёР»С‚СЂРёСЂР°РЅРµ"
 
 msgid "Edit your identities"
-msgstr "Редакция на идентичностите"
+msgstr "Р РµРґР°РєС†РёСЏ РЅР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚РёС‚Рµ"
 
 msgid "Email Address"
-msgstr "Еmail адрес"
+msgstr "Р•mail Р°РґСЂРµСЃ"
 
 #, c-format
 msgid "Emptied all messages from %s."
-msgstr "Заличени бяха всички писма от %s."
+msgstr "Р—Р°Р»РёС‡РµРЅРё Р±СЏС…Р° РІСЃРёС‡РєРё РїРёСЃРјР° РѕС‚ %s."
 
 msgid "Empty Folder(s)"
-msgstr "Изпразни папка(и)"
+msgstr "РР·РїСЂР°Р·РЅРё РїР°РїРєР°(Рё)"
 
 msgid "Empty Trash"
-msgstr "Изпразни кошчето"
+msgstr "РР·РїСЂР°Р·РЅРё РєРѕС€С‡РµС‚Рѕ"
 
 msgid "Empty Trash folder"
-msgstr "Изпразни кошчето"
+msgstr "РР·РїСЂР°Р·РЅРё РєРѕС€С‡РµС‚Рѕ"
 
 msgid "Enable PGP functionality?"
-msgstr "Да се разреши ли PGP функционалността?"
+msgstr "Р”Р° СЃРµ СЂР°Р·СЂРµС€Рё Р»Рё PGP С„СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚С‚Р°?"
 
 msgid "Enable S/MIME functionality?"
-msgstr "Да се разреши ли S/MIME функционалността?"
+msgstr "Р”Р° СЃРµ СЂР°Р·СЂРµС€Рё Р»Рё S/MIME С„СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚С‚Р°?"
 
 msgid "Encrypt Message"
-msgstr "Криптиране на писмо"
+msgstr "РљСЂРёРїС‚РёСЂР°РЅРµ РЅР° РїРёСЃРјРѕ"
 
 msgid "End forwarded message"
-msgstr "Край на препратеното писмо"
+msgstr "РљСЂР°Р№ РЅР° РїСЂРµРїСЂР°С‚РµРЅРѕС‚Рѕ РїРёСЃРјРѕ"
 
 msgid "End message"
-msgstr "Край на писмото"
+msgstr "РљСЂР°Р№ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 #, c-format
 msgid "End message from %s"
-msgstr "Край на писмото от %s"
+msgstr "РљСЂР°Р№ РЅР° РїРёСЃРјРѕС‚Рѕ РѕС‚ %s"
 
 msgid "Enter Passphrase"
-msgstr "Въведете ключова фраза"
+msgstr "Р’СЉРІРµРґРµС‚Рµ РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°"
 
 #, c-format
 msgid "Entry \"%s\" was successfully added to the address book"
-msgstr "Записа \"%s\" беше успешно добавен към адресната книга"
+msgstr "Р—Р°РїРёСЃР° \"%s\" Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅ РєСЉРј Р°РґСЂРµСЃРЅР°С‚Р° РєРЅРёРіР°"
 
 msgid "Error"
-msgstr "Грешка"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Every 15 minutes"
-msgstr "Всеки 15 минути"
+msgstr "Р’СЃРµРєРё 15 РјРёРЅСѓС‚Рё"
 
 msgid "Every 30 seconds"
-msgstr "Всеки 30 секунди"
+msgstr "Р’СЃРµРєРё 30 СЃРµРєСѓРЅРґРё"
 
 msgid "Every 5 minutes"
-msgstr "Всеки 5 минути"
+msgstr "Р’СЃРµРєРё 5 РјРёРЅСѓС‚Рё"
 
 msgid "Every half hour"
-msgstr "На всеки половин час"
+msgstr "РќР° РІСЃРµРєРё РїРѕР»РѕРІРёРЅ С‡Р°СЃ"
 
 msgid "Every minute"
-msgstr "Всяка минута"
+msgstr "Р’СЃСЏРєР° РјРёРЅСѓС‚Р°"
 
 msgid "Expand All"
-msgstr "Разтвори всички"
+msgstr "Р Р°Р·С‚РІРѕСЂРё РІСЃРёС‡РєРё"
 
 msgid "Expand All Folders"
-msgstr "Разтвори всички папки"
+msgstr "Р Р°Р·С‚РІРѕСЂРё РІСЃРёС‡РєРё РїР°РїРєРё"
 
 msgid "Expand Folder"
-msgstr "Разтвори папка"
+msgstr "Р Р°Р·С‚РІРѕСЂРё РїР°РїРєР°"
 
 msgid "Expand Names"
-msgstr "Допиши имената"
+msgstr "Р”РѕРїРёС€Рё РёРјРµРЅР°С‚Р°"
 
 msgid "Expand names in the compose window automatically in the background?"
-msgstr "Да се дописват ли автоматично имената при писане на ново писмо?"
+msgstr "Р”Р° СЃРµ РґРѕРїРёСЃРІР°С‚ Р»Рё Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ РёРјРµРЅР°С‚Р° РїСЂРё РїРёСЃР°РЅРµ РЅР° РЅРѕРІРѕ РїРёСЃРјРѕ?"
 
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "Да се отваря ли цялото дърво в изглед \"Папки\" по подразбиране?"
+msgstr "Р”Р° СЃРµ РѕС‚РІР°СЂСЏ Р»Рё С†СЏР»РѕС‚Рѕ РґСЉСЂРІРѕ РІ РёР·РіР»РµРґ \"РџР°РїРєРё\" РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ?"
 
 msgid "Expanding..."
-msgstr "Отваряне..."
+msgstr "РћС‚РІР°СЂСЏРЅРµ..."
 
 msgid "Expiration Date"
-msgstr "Дата на изтичане"
+msgstr "Р”Р°С‚Р° РЅР° РёР·С‚РёС‡Р°РЅРµ"
 
 msgid "Expunge error!"
-msgstr "Грешка при заличаване!"
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°Р»РёС‡Р°РІР°РЅРµ!"
 
 msgid "February"
-msgstr "Февруари"
+msgstr "Р¤РµРІСЂСѓР°СЂРё"
 
 msgid "Fetch Mail"
-msgstr "Друга поща"
+msgstr "Р”СЂСѓРіР° РїРѕС‰Р°"
 
 msgid "Fetch Mail in a separate window?"
-msgstr "Да се изтегля ли пощата в отделен прозорец?"
+msgstr "Р”Р° СЃРµ РёР·С‚РµРіР»СЏ Р»Рё РїРѕС‰Р°С‚Р° РІ РѕС‚РґРµР»РµРЅ РїСЂРѕР·РѕСЂРµС†?"
 
 msgid "Field"
-msgstr "Поле"
+msgstr "РџРѕР»Рµ"
 
 msgid "Filename"
-msgstr "Име на файл"
+msgstr "РРјРµ РЅР° С„Р°Р№Р»"
 
 #, c-format
 msgid "Filter Activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Филтър активност: Писмото \"%s\" от \"%s\" беше изтрито."
+msgstr "Р¤РёР»С‚СЉСЂ Р°РєС‚РёРІРЅРѕСЃС‚: РџРёСЃРјРѕС‚Рѕ \"%s\" РѕС‚ \"%s\" Р±РµС€Рµ РёР·С‚СЂРёС‚Рѕ."
 
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Филтър Активност: Писмото \"%s\" от \"%s\" беше преместено в папка \"%s\"."
+"Р¤РёР»С‚СЉСЂ РђРєС‚РёРІРЅРѕСЃС‚: РџРёСЃРјРѕС‚Рѕ \"%s\" РѕС‚ \"%s\" Р±РµС€Рµ РїСЂРµРјРµСЃС‚РµРЅРѕ РІ РїР°РїРєР° \"%s\"."
 
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
-msgstr "Филтър Активност: Писмото \"%s\" от \"%s\" беше преместено в кошчето."
+msgstr "Р¤РёР»С‚СЉСЂ РђРєС‚РёРІРЅРѕСЃС‚: РџРёСЃРјРѕС‚Рѕ \"%s\" РѕС‚ \"%s\" Р±РµС€Рµ РїСЂРµРјРµСЃС‚РµРЅРѕ РІ РєРѕС€С‡РµС‚Рѕ."
 
 msgid "Filter Rules"
-msgstr "Правила за филтриране"
+msgstr "РџСЂР°РІРёР»Р° Р·Р° С„РёР»С‚СЂРёСЂР°РЅРµ"
 
 msgid "Filter message content for profanity?"
-msgstr "Да се филтрира ли съдържанието на писмата за ругатни?"
+msgstr "Р”Р° СЃРµ С„РёР»С‚СЂРёСЂР° Р»Рё СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ РЅР° РїРёСЃРјР°С‚Р° Р·Р° СЂСѓРіР°С‚РЅРё?"
 
 msgid "Filters"
-msgstr "Филтър"
+msgstr "Р¤РёР»С‚СЉСЂ"
 
 msgid "Find"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "First Page"
-msgstr "Първа страница"
+msgstr "РџСЉСЂРІР° СЃС‚СЂР°РЅРёС†Р°"
 
 msgid "Folder Navigator"
-msgstr "Навигатор на папките"
+msgstr "РќР°РІРёРіР°С‚РѕСЂ РЅР° РїР°РїРєРёС‚Рµ"
 
 msgid "Folder Prefix"
-msgstr "Папка префикс"
+msgstr "РџР°РїРєР° РїСЂРµС„РёРєСЃ"
 
 msgid "Folders"
-msgstr "Папки"
+msgstr "РџР°РїРєРё"
 
 msgid "Forward"
-msgstr "Препрати"
+msgstr "РџСЂРµРїСЂР°С‚Рё"
 
 msgid "Forward:"
-msgstr "Препрати:"
+msgstr "РџСЂРµРїСЂР°С‚Рё:"
 
 msgid "Forwarded message"
-msgstr "Препратено писмо"
+msgstr "РџСЂРµРїСЂР°С‚РµРЅРѕ РїРёСЃРјРѕ"
 
 #, c-format
 msgid "Forwarded message from %s"
-msgstr "Препратено писмо от %s"
+msgstr "РџСЂРµРїСЂР°С‚РµРЅРѕ РїРёСЃРјРѕ РѕС‚ %s"
 
 msgid "From"
-msgstr "От"
+msgstr "РћС‚"
 
 msgid "From Address"
-msgstr "От адрес"
+msgstr "РћС‚ Р°РґСЂРµСЃ"
 
 msgid "From:"
-msgstr "От:"
+msgstr "РћС‚:"
 
 msgid "Fwd:"
 msgstr "Fwd:"
@@ -731,10 +731,10 @@ msgstr "Fwd: "
 
 #, c-format
 msgid "Fwd: %u Forwarded Messages"
-msgstr "Fwd: %u Препратено писмо"
+msgstr "Fwd: %u РџСЂРµРїСЂР°С‚РµРЅРѕ РїРёСЃРјРѕ"
 
 msgid "Get only new messages (IMAP only)"
-msgstr "Изтегли само новите писма (само за IMAP)"
+msgstr "РР·С‚РµРіР»Рё СЃР°РјРѕ РЅРѕРІРёС‚Рµ РїРёСЃРјР° (СЃР°РјРѕ Р·Р° IMAP)"
 
 msgid "Green"
 msgstr "Green"
@@ -743,184 +743,184 @@ msgid "Grey"
 msgstr "Grey"
 
 msgid "Guest Services"
-msgstr "Услуги за гости"
+msgstr "РЈСЃР»СѓРіРё Р·Р° РіРѕСЃС‚Рё"
 
 msgid "Hash-Algorithm"
-msgstr "Hash-Алгоритъм"
+msgstr "Hash-РђР»РіРѕСЂРёС‚СЉРј"
 
 msgid "Headers"
-msgstr "Заглавни части"
+msgstr "Р—Р°РіР»Р°РІРЅРё С‡Р°СЃС‚Рё"
 
 msgid "Help"
-msgstr "Помощ"
+msgstr "РџРѕРјРѕС‰"
 
 msgid "Hide Deleted"
-msgstr "Скрий изтритите"
+msgstr "РЎРєСЂРёР№ РёР·С‚СЂРёС‚РёС‚Рµ"
 
 msgid "Hide Unsubscribed"
-msgstr "Скрий неабонираните"
+msgstr "РЎРєСЂРёР№ РЅРµР°Р±РѕРЅРёСЂР°РЅРёС‚Рµ"
 
 msgid "High"
-msgstr "Бързо"
+msgstr "Р‘СЉСЂР·Рѕ"
 
 msgid "High Priority"
-msgstr "Бърза поща"
+msgstr "Р‘СЉСЂР·Р° РїРѕС‰Р°"
 
 msgid "Highest"
-msgstr "Експресно"
+msgstr "Р•РєСЃРїСЂРµСЃРЅРѕ"
 
 msgid "How do you want to display attachments?"
-msgstr "Как искате да се показват прикрепените файлове?"
+msgstr "РљР°Рє РёСЃРєР°С‚Рµ РґР° СЃРµ РїРѕРєР°Р·РІР°С‚ РїСЂРёРєСЂРµРїРµРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ?"
 
 msgid "How to prefix quoted lines in a reply:"
-msgstr "Какъв да е префикса пред линиите в писмото отговор:"
+msgstr "РљР°РєСЉРІ РґР° Рµ РїСЂРµС„РёРєСЃР° РїСЂРµРґ Р»РёРЅРёРёС‚Рµ РІ РїРёСЃРјРѕС‚Рѕ РѕС‚РіРѕРІРѕСЂ:"
 
 msgid "IMAP"
 msgstr "IMAP"
 
 msgid "IMAP Auto"
-msgstr "IMAP Ауто"
+msgstr "IMAP РђСѓС‚Рѕ"
 
 msgid "IMAP over SSL"
-msgstr "IMAP върху SSL"
+msgstr "IMAP РІСЉСЂС…Сѓ SSL"
 
 msgid "IMAP over SSL (self-signed)"
-msgstr "IMAP върху SSL (самоподписан)"
+msgstr "IMAP РІСЉСЂС…Сѓ SSL (СЃР°РјРѕРїРѕРґРїРёСЃР°РЅ)"
 
 msgid "IMAP, no TLS"
-msgstr "IMAP, без TLS"
+msgstr "IMAP, Р±РµР· TLS"
 
 msgid "IMAP/POP3 Accounts"
-msgstr "IMAP/POP3 Пощи"
+msgstr "IMAP/POP3 РџРѕС‰Рё"
 
 msgid "IMP is not properly configured"
-msgstr "IMP не е конфигуриран коректно"
+msgstr "IMP РЅРµ Рµ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ РєРѕСЂРµРєС‚РЅРѕ"
 
 msgid "INBOX"
 msgstr "INBOX"
 
 msgid "Identities"
-msgstr "Идентичности"
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚Рё"
 
 msgid "Identity"
-msgstr "Идентичност"
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚"
 
 msgid "Identity's name:"
-msgstr "Име на идентичността:"
+msgstr "РРјРµ РЅР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚С‚Р°:"
 
 msgid "Ignore"
-msgstr "Игнорирай"
+msgstr "РРіРЅРѕСЂРёСЂР°Р№"
 
 msgid "Ignore All"
-msgstr "Игнорирай всички"
+msgstr "РРіРЅРѕСЂРёСЂР°Р№ РІСЃРёС‡РєРё"
 
 msgid "Import PGP Key"
-msgstr "Импорт на PGP ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° PGP РєР»СЋС‡"
 
 msgid "Import Personal Private PGP Key"
-msgstr "Импорт на личен частен PGP ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° Р»РёС‡РµРЅ С‡Р°СЃС‚РµРЅ PGP РєР»СЋС‡"
 
 msgid "Import Personal Private S/MIME Key"
-msgstr "Импорт на личен частен S/MIME ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° Р»РёС‡РµРЅ С‡Р°СЃС‚РµРЅ S/MIME РєР»СЋС‡"
 
 msgid "Import Personal Public PGP Key"
-msgstr "Импорт на персонален публичен PGP ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° РїРµСЂСЃРѕРЅР°Р»РµРЅ РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡"
 
 msgid "Import Personal Public S/MIME Key"
-msgstr "Импорт на персонален публичен S/MIME ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° РїРµСЂСЃРѕРЅР°Р»РµРЅ РїСѓР±Р»РёС‡РµРЅ S/MIME РєР»СЋС‡"
 
 msgid "Import Public PGP Key"
-msgstr "Импорт на публичен PGP ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡"
 
 msgid "Import S/MIME Key"
-msgstr "Импорт на S/MIME ключ"
+msgstr "РРјРїРѕСЂС‚ РЅР° S/MIME РєР»СЋС‡"
 
 msgid "Import mbox File"
-msgstr "Импорт на mbox файл"
+msgstr "РРјРїРѕСЂС‚ РЅР° mbox С„Р°Р№Р»"
 
 msgid "Important"
-msgstr "Важни"
+msgstr "Р’Р°Р¶РЅРё"
 
 msgid "Important messages"
-msgstr "Важно писмо"
+msgstr "Р’Р°Р¶РЅРѕ РїРёСЃРјРѕ"
 
 #, c-format
 msgid "Imported %d messages from %s."
-msgstr "Импортирани бяха %d писма от %s."
+msgstr "РРјРїРѕСЂС‚РёСЂР°РЅРё Р±СЏС…Р° %d РїРёСЃРјР° РѕС‚ %s."
 
 msgid "Include a brief summary of the header in a reply?"
-msgstr "Да се включва ли кратко обобщение от headers в отговора?"
+msgstr "Р”Р° СЃРµ РІРєР»СЋС‡РІР° Р»Рё РєСЂР°С‚РєРѕ РѕР±РѕР±С‰РµРЅРёРµ РѕС‚ headers РІ РѕС‚РіРѕРІРѕСЂР°?"
 
 msgid "Include original message in a reply?"
-msgstr "Да се включи ли и оригиналното писмо в отговора?"
+msgstr "Р”Р° СЃРµ РІРєР»СЋС‡Рё Р»Рё Рё РѕСЂРёРіРёРЅР°Р»РЅРѕС‚Рѕ РїРёСЃРјРѕ РІ РѕС‚РіРѕРІРѕСЂР°?"
 
 #, c-format
 msgid "Information on %s Public Key"
-msgstr "Информация за %s публичен ключ"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° %s РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Information on Personal Private Key"
-msgstr "Информация за персоналния частен ключ"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїРµСЂСЃРѕРЅР°Р»РЅРёСЏ С‡Р°СЃС‚РµРЅ РєР»СЋС‡"
 
 msgid "Information on Personal Public Key"
-msgstr "Информация за персоналния публичен ключ"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїРµСЂСЃРѕРЅР°Р»РЅРёСЏ РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Inline"
-msgstr "В реда"
+msgstr "Р’ СЂРµРґР°"
 
 msgid "Insert Key Here"
-msgstr "Вмъкнете ключа тук"
+msgstr "Р’РјСЉРєРЅРµС‚Рµ РєР»СЋС‡Р° С‚СѓРє"
 
 msgid "Invalid PGP Key."
-msgstr "Невалиден PGP ключ."
+msgstr "РќРµРІР°Р»РёРґРµРЅ PGP РєР»СЋС‡."
 
 msgid "Invalid Remote Mailbox"
-msgstr "Невалидна отдалечена (нелокална) пощeнска кутия"
+msgstr "РќРµРІР°Р»РёРґРЅР° РѕС‚РґР°Р»РµС‡РµРЅР° (РЅРµР»РѕРєР°Р»РЅР°) РїРѕС‰eРЅСЃРєР° РєСѓС‚РёСЏ"
 
 msgid "Invalid key"
-msgstr "Невалиден ключ"
+msgstr "РќРµРІР°Р»РёРґРµРЅ РєР»СЋС‡"
 
 msgid "Invalid personal PGP private key."
-msgstr "Невалиден персонален PGP частен ключ."
+msgstr "РќРµРІР°Р»РёРґРµРЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ PGP С‡Р°СЃС‚РµРЅ РєР»СЋС‡."
 
 msgid "Invalid personal PGP public key."
-msgstr "Невалиден персонален PGP публичен ключ."
+msgstr "РќРµРІР°Р»РёРґРµРЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡."
 
 msgid "January"
-msgstr "Януари"
+msgstr "РЇРЅСѓР°СЂРё"
 
 msgid "July"
-msgstr "Юли"
+msgstr "Р®Р»Рё"
 
 msgid "June"
-msgstr "Юни"
+msgstr "Р®РЅРё"
 
 msgid "Key Creation"
-msgstr "Създаване на ключ"
+msgstr "РЎСЉР·РґР°РІР°РЅРµ РЅР° РєР»СЋС‡"
 
 msgid "Key Fingerprint"
-msgstr "Ключов отпечатък"
+msgstr "РљР»СЋС‡РѕРІ РѕС‚РїРµС‡Р°С‚СЉРє"
 
 msgid "Key Length"
-msgstr "Дължина на ключа"
+msgstr "Р”СЉР»Р¶РёРЅР° РЅР° РєР»СЋС‡Р°"
 
 msgid "Key Type"
-msgstr "Ключ тип"
+msgstr "РљР»СЋС‡ С‚РёРї"
 
 msgid "Key successfully sent to the public keyserver."
-msgstr "Ключа беше изпратен успешно в публичния ключсървър."
+msgstr "РљР»СЋС‡Р° Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅ СѓСЃРїРµС€РЅРѕ РІ РїСѓР±Р»РёС‡РЅРёСЏ РєР»СЋС‡СЃСЉСЂРІСЉСЂ."
 
 msgid "Language"
-msgstr "Език"
+msgstr "Р•Р·РёРє"
 
 msgid "Last Page"
-msgstr "Последна страница"
+msgstr "РџРѕСЃР»РµРґРЅР° СЃС‚СЂР°РЅРёС†Р°"
 
 #, c-format
 msgid "Last login: %s"
-msgstr "Последно влизане: %s"
+msgstr "РџРѕСЃР»РµРґРЅРѕ РІР»РёР·Р°РЅРµ: %s"
 
 msgid "Last login: Never"
-msgstr "Последно влизане: Никога"
+msgstr "РџРѕСЃР»РµРґРЅРѕ РІР»РёР·Р°РЅРµ: РќРёРєРѕРіР°"
 
 msgid "Light Blue"
 msgstr "Light Blue"
@@ -929,8 +929,8 @@ msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Да се показват ли всички контакти, когато се зарежда екрана с контакти? (ако "
-"е забранено, ще виждате само контактите които сте търсили)"
+"Р”Р° СЃРµ РїРѕРєР°Р·РІР°С‚ Р»Рё РІСЃРёС‡РєРё РєРѕРЅС‚Р°РєС‚Рё, РєРѕРіР°С‚Рѕ СЃРµ Р·Р°СЂРµР¶РґР° РµРєСЂР°РЅР° СЃ РєРѕРЅС‚Р°РєС‚Рё? (Р°РєРѕ "
+"Рµ Р·Р°Р±СЂР°РЅРµРЅРѕ, С‰Рµ РІРёР¶РґР°С‚Рµ СЃР°РјРѕ РєРѕРЅС‚Р°РєС‚РёС‚Рµ РєРѕРёС‚Рѕ СЃС‚Рµ С‚СЉСЂСЃРёР»Рё)"
 
 msgid "List-Archive"
 msgstr "List-Archive"
@@ -939,7 +939,7 @@ msgid "List-Help"
 msgstr "List-Help"
 
 msgid "List-Id"
-msgstr "Списък-Id"
+msgstr "РЎРїРёСЃСЉРє-Id"
 
 msgid "List-Owner"
 msgstr "List-Owner"
@@ -954,1326 +954,1326 @@ msgid "List-Unsubscribe"
 msgstr "List-Unsubscribe"
 
 msgid "Listing in the Header"
-msgstr "Списък в заглавието"
+msgstr "РЎРїРёСЃСЉРє РІ Р·Р°РіР»Р°РІРёРµС‚Рѕ"
 
 msgid "Local Mailbox:"
-msgstr "Локална поща:"
+msgstr "Р›РѕРєР°Р»РЅР° РїРѕС‰Р°:"
 
 #, c-format
 msgid "Log in to %s"
-msgstr "Вход в %s"
+msgstr "Р’С…РѕРґ РІ %s"
 
 msgid "Login Tasks"
-msgstr "Задачи при вход"
+msgstr "Р—Р°РґР°С‡Рё РїСЂРё РІС…РѕРґ"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"Регистрирането се провали поради неизвестна причина. Вероятно грешно "
-"въведено потребителско име или парола."
+"Р РµРіРёСЃС‚СЂРёСЂР°РЅРµС‚Рѕ СЃРµ РїСЂРѕРІР°Р»Рё РїРѕСЂР°РґРё РЅРµРёР·РІРµСЃС‚РЅР° РїСЂРёС‡РёРЅР°. Р’РµСЂРѕСЏС‚РЅРѕ РіСЂРµС€РЅРѕ "
+"РІСЉРІРµРґРµРЅРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ РёР»Рё РїР°СЂРѕР»Р°."
 
 msgid "Logout"
-msgstr "Изход"
+msgstr "РР·С…РѕРґ"
 
 msgid "Low"
-msgstr "Обикновенно"
+msgstr "РћР±РёРєРЅРѕРІРµРЅРЅРѕ"
 
 msgid "Low Priority"
-msgstr "Слаб приоритет"
+msgstr "РЎР»Р°Р± РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Lowest"
-msgstr "Без приоритет"
+msgstr "Р‘РµР· РїСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Mail"
-msgstr "Поща"
+msgstr "РџРѕС‰Р°"
 
 msgid "Mail Filters"
-msgstr "Поща Филтри"
+msgstr "РџРѕС‰Р° Р¤РёР»С‚СЂРё"
 
 msgid "Mail Management"
-msgstr "Поща Управление"
+msgstr "РџРѕС‰Р° РЈРїСЂР°РІР»РµРЅРёРµ"
 
 msgid "Mailbox"
-msgstr "Пощенска кутия"
+msgstr "РџРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ"
 
 msgid "Maintenance Operations"
-msgstr "Операции по обслужването"
+msgstr "РћРїРµСЂР°С†РёРё РїРѕ РѕР±СЃР»СѓР¶РІР°РЅРµС‚Рѕ"
 
 msgid "March"
-msgstr "Март"
+msgstr "РњР°СЂС‚"
 
 msgid "Mark as:"
-msgstr "Маркирай като:"
+msgstr "РњР°СЂРєРёСЂР°Р№ РєР°С‚Рѕ:"
 
 msgid "Mark different levels of quoting with different colors?"
-msgstr "Да се маркират ли различните нива на отговори с различни цветове?"
+msgstr "Р”Р° СЃРµ РјР°СЂРєРёСЂР°С‚ Р»Рё СЂР°Р·Р»РёС‡РЅРёС‚Рµ РЅРёРІР° РЅР° РѕС‚РіРѕРІРѕСЂРё СЃ СЂР°Р·Р»РёС‡РЅРё С†РІРµС‚РѕРІРµ?"
 
 msgid "Mark messages as seen (IMAP only)"
-msgstr "Маркирай писмата като прегледани (само за IMAP)"
+msgstr "РњР°СЂРєРёСЂР°Р№ РїРёСЃРјР°С‚Р° РєР°С‚Рѕ РїСЂРµРіР»РµРґР°РЅРё (СЃР°РјРѕ Р·Р° IMAP)"
 
 msgid "May"
-msgstr "Май"
+msgstr "РњР°Р№"
 
 msgid "Message"
-msgstr "Писмо"
+msgstr "РџРёСЃРјРѕ"
 
 msgid "Message Composition"
-msgstr "Написване на писмо"
+msgstr "РќР°РїРёСЃРІР°РЅРµ РЅР° РїРёСЃРјРѕ"
 
 msgid "Message Composition Options"
-msgstr "Опции при написване на писмо"
+msgstr "РћРїС†РёРё РїСЂРё РЅР°РїРёСЃРІР°РЅРµ РЅР° РїРёСЃРјРѕ"
 
 msgid "Message Date"
-msgstr "Дата на писмото"
+msgstr "Р”Р°С‚Р° РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Message Search"
-msgstr "Търсене на писмо"
+msgstr "РўСЉСЂСЃРµРЅРµ РЅР° РїРёСЃРјРѕ"
 
 msgid "Message Size"
-msgstr "Размер на писмото"
+msgstr "Р Р°Р·РјРµСЂ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Message Source"
-msgstr "сорс код на писмото"
+msgstr "СЃРѕСЂСЃ РєРѕРґ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Message Viewing"
-msgstr "Преглед на писмо"
+msgstr "РџСЂРµРіР»РµРґ РЅР° РїРёСЃРјРѕ"
 
 msgid "Message bounced successfully."
-msgstr "Писмото беше отхвърлено успешно."
+msgstr "РџРёСЃРјРѕС‚Рѕ Р±РµС€Рµ РѕС‚С…РІСЉСЂР»РµРЅРѕ СѓСЃРїРµС€РЅРѕ."
 
 msgid "Message fields"
-msgstr "Полета на писмото"
+msgstr "РџРѕР»РµС‚Р° РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Message flags"
-msgstr "Флагове на писмото"
+msgstr "Р¤Р»Р°РіРѕРІРµ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Message folders"
-msgstr "Папки за писма"
+msgstr "РџР°РїРєРё Р·Р° РїРёСЃРјР°"
 
 #, c-format
 msgid "Message from %s"
-msgstr "Писмо от %s"
+msgstr "РџРёСЃРјРѕ РѕС‚ %s"
 
 #, c-format
 msgid "Message sent successfully, but not saved to %s"
-msgstr "Писмото беше изпратено успешно, но не беше записано в %s"
+msgstr "РџРёСЃРјРѕС‚Рѕ Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅРѕ СѓСЃРїРµС€РЅРѕ, РЅРѕ РЅРµ Р±РµС€Рµ Р·Р°РїРёСЃР°РЅРѕ РІ %s"
 
 msgid "Message sent successfully."
-msgstr "Писмото беше изпратено успешно."
+msgstr "РџРёСЃРјРѕС‚Рѕ Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅРѕ СѓСЃРїРµС€РЅРѕ."
 
 msgid "Messages per page in the mailbox view."
-msgstr "Писма в страница за пощенската кутия."
+msgstr "РџРёСЃРјР° РІ СЃС‚СЂР°РЅРёС†Р° Р·Р° РїРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ."
 
 msgid "Messages to"
-msgstr "писмата в"
+msgstr "РїРёСЃРјР°С‚Р° РІ"
 
 msgid "Mime Type"
-msgstr "Mime тип"
+msgstr "Mime С‚РёРї"
 
 msgid "Move"
-msgstr "Премести"
+msgstr "РџСЂРµРјРµСЃС‚Рё"
 
 msgid "Move Message to"
-msgstr "Премести писмо в"
+msgstr "РџСЂРµРјРµСЃС‚Рё РїРёСЃРјРѕ РІ"
 
 #, c-format
 msgid "Move messages to the <b>%s</b> folder"
-msgstr "Премести писмата в <b>%s</b> папка"
+msgstr "РџСЂРµРјРµСЃС‚Рё РїРёСЃРјР°С‚Р° РІ <b>%s</b> РїР°РїРєР°"
 
 msgid "Mozilla"
 msgstr "Mozilla"
 
 msgid "Name"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "Name and/or email can not be empty"
-msgstr "Име и/или email не могат да са празни"
+msgstr "РРјРµ Рё/РёР»Рё email РЅРµ РјРѕРіР°С‚ РґР° СЃР° РїСЂР°Р·РЅРё"
 
 msgid "Never"
-msgstr "Никога"
+msgstr "РќРёРєРѕРіР°"
 
 msgid "New"
-msgstr "Нови"
+msgstr "РќРѕРІРё"
 
 msgid "New Folder"
-msgstr "Нова папка"
+msgstr "РќРѕРІР° РїР°РїРєР°"
 
 msgid "New Mail"
-msgstr "Нова поща"
+msgstr "РќРѕРІР° РїРѕС‰Р°"
 
 msgid "New messages"
-msgstr "Нови писма"
+msgstr "РќРѕРІРё РїРёСЃРјР°"
 
 msgid "Next Message"
-msgstr "Следващо писмо"
+msgstr "РЎР»РµРґРІР°С‰Рѕ РїРёСЃРјРѕ"
 
 msgid "Next Page"
-msgstr "Следваща страница"
+msgstr "РЎР»РµРґРІР°С‰Р° СЃС‚СЂР°РЅРёС†Р°"
 
 msgid "No"
-msgstr "Не"
+msgstr "РќРµ"
 
 msgid "No Encryption"
-msgstr "Без криптиране"
+msgstr "Р‘РµР· РєСЂРёРїС‚РёСЂР°РЅРµ"
 
 msgid "No Keys in Keyring"
-msgstr "Няма ключове в списъка"
+msgstr "РќСЏРјР° РєР»СЋС‡РѕРІРµ РІ СЃРїРёСЃСЉРєР°"
 
 msgid "No PGP public key imported."
-msgstr "Няма импортиран PGP публичен ключ."
+msgstr "РќСЏРјР° РёРјРїРѕСЂС‚РёСЂР°РЅ PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡."
 
 msgid "No attachments found."
-msgstr "Няма намерени прикрепени файлове."
+msgstr "РќСЏРјР° РЅР°РјРµСЂРµРЅРё РїСЂРёРєСЂРµРїРµРЅРё С„Р°Р№Р»РѕРІРµ."
 
 msgid "No folder selected"
-msgstr "Няма избрана папка"
+msgstr "РќСЏРјР° РёР·Р±СЂР°РЅР° РїР°РїРєР°"
 
 msgid "No folders were specified"
-msgstr "Не бяха избрани папки"
+msgstr "РќРµ Р±СЏС…Р° РёР·Р±СЂР°РЅРё РїР°РїРєРё"
 
 msgid "No message body text"
-msgstr "Няма текст в тялото на писмото"
+msgstr "РќСЏРјР° С‚РµРєСЃС‚ РІ С‚СЏР»РѕС‚Рѕ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "No messages matched your search."
-msgstr "Няма писма отговарящи на търсенето."
+msgstr "РќСЏРјР° РїРёСЃРјР° РѕС‚РіРѕРІР°СЂСЏС‰Рё РЅР° С‚СЉСЂСЃРµРЅРµС‚Рѕ."
 
 msgid "No messages to fetch..."
-msgstr "Няма писма за изтегляне..."
+msgstr "РќСЏРјР° РїРёСЃРјР° Р·Р° РёР·С‚РµРіР»СЏРЅРµ..."
 
 msgid "No personal PGP private key imported."
-msgstr "Не беше импортиран персонален PGP частен ключ."
+msgstr "РќРµ Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ PGP С‡Р°СЃС‚РµРЅ РєР»СЋС‡."
 
 msgid "No personal PGP public key imported."
-msgstr "Не беше импортиран персонален PGP публичен ключ."
+msgstr "РќРµ Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡."
 
 msgid "No personal S/MIME private key imported."
-msgstr "Не беше импортиран персонален S/MIME частен ключ."
+msgstr "РќРµ Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ S/MIME С‡Р°СЃС‚РµРЅ РєР»СЋС‡."
 
 msgid "No personal S/MIME public key imported."
-msgstr "Не беше импортиран персонален S/MIME публичен ключ."
+msgstr "РќРµ Р±РµС€Рµ РёРјРїРѕСЂС‚РёСЂР°РЅ РїРµСЂСЃРѕРЅР°Р»РµРЅ S/MIME РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡."
 
 msgid "No rule selected"
-msgstr "Не бяха избрани правила"
+msgstr "РќРµ Р±СЏС…Р° РёР·Р±СЂР°РЅРё РїСЂР°РІРёР»Р°"
 
 msgid "No spelling errors"
-msgstr "Няма правописни грешки"
+msgstr "РќСЏРјР° РїСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё"
 
 msgid "No suggestions"
-msgstr "Няма предложения"
+msgstr "РќСЏРјР° РїСЂРµРґР»РѕР¶РµРЅРёСЏ"
 
 msgid "No text specified"
-msgstr "Няма зададен текст"
+msgstr "РќСЏРјР° Р·Р°РґР°РґРµРЅ С‚РµРєСЃС‚"
 
 msgid "None"
-msgstr "Няма"
+msgstr "РќСЏРјР°"
 
 msgid "Normal"
-msgstr "Нормално"
+msgstr "РќРѕСЂРјР°Р»РЅРѕ"
 
 msgid "Not Deleted"
-msgstr "Неизтрити"
+msgstr "РќРµРёР·С‚СЂРёС‚Рё"
 
 msgid "Not Draft"
-msgstr "Не-чернови"
+msgstr "РќРµ-С‡РµСЂРЅРѕРІРё"
 
 msgid "Not Important"
-msgstr "Маловажни"
+msgstr "РњР°Р»РѕРІР°Р¶РЅРё"
 
 msgid "Not Personal"
-msgstr "Не-лични"
+msgstr "РќРµ-Р»РёС‡РЅРё"
 
 msgid "Not a valid public key."
-msgstr "Невалиден публичен ключ."
+msgstr "РќРµРІР°Р»РёРґРµРЅ РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡."
 
 msgid "Not deleted messages"
-msgstr "Неизтрити писма"
+msgstr "РќРµРёР·С‚СЂРёС‚Рё РїРёСЃРјР°"
 
 msgid "Not important messages"
-msgstr "Маловажни писма"
+msgstr "РњР°Р»РѕРІР°Р¶РЅРё РїРёСЃРјР°"
 
 msgid "November"
-msgstr "Ноември"
+msgstr "РќРѕРµРјРІСЂРё"
 
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"Брой на старите папки \"Изпратена поща\" за съхранение, ако се трият месечно."
+"Р‘СЂРѕР№ РЅР° СЃС‚Р°СЂРёС‚Рµ РїР°РїРєРё \"РР·РїСЂР°С‚РµРЅР° РїРѕС‰Р°\" Р·Р° СЃСЉС…СЂР°РЅРµРЅРёРµ, Р°РєРѕ СЃРµ С‚СЂРёСЏС‚ РјРµСЃРµС‡РЅРѕ."
 
 msgid "October"
-msgstr "Октомври"
+msgstr "РћРєС‚РѕРјРІСЂРё"
 
 msgid "Old messages"
-msgstr "Стари писма"
+msgstr "РЎС‚Р°СЂРё РїРёСЃРјР°"
 
 msgid "Old sent-mail folders being purged."
-msgstr "Стари папки \"Изпратена поща\", който се заличават."
+msgstr "РЎС‚Р°СЂРё РїР°РїРєРё \"РР·РїСЂР°С‚РµРЅР° РїРѕС‰Р°\", РєРѕР№С‚Рѕ СЃРµ Р·Р°Р»РёС‡Р°РІР°С‚."
 
 msgid "Open Folder"
-msgstr "Отвори папка"
+msgstr "РћС‚РІРѕСЂРё РїР°РїРєР°"
 
 msgid "Options"
-msgstr "Опции"
+msgstr "РћРїС†РёРё"
 
 msgid "Orange"
 msgstr "Orange"
 
 msgid "Other Header:"
-msgstr "Друга заглавна част:"
+msgstr "Р”СЂСѓРіР° Р·Р°РіР»Р°РІРЅР° С‡Р°СЃС‚:"
 
 msgid "Other Options"
-msgstr "Други Опции"
+msgstr "Р”СЂСѓРіРё РћРїС†РёРё"
 
 msgid "PGP"
 msgstr "PGP"
 
 msgid "PGP Digital Signature"
-msgstr "PGP цифров подпис"
+msgstr "PGP С†РёС„СЂРѕРІ РїРѕРґРїРёСЃ"
 
 msgid "PGP Encrypted Data"
-msgstr "PGP криптирани данни"
+msgstr "PGP РєСЂРёРїС‚РёСЂР°РЅРё РґР°РЅРЅРё"
 
 #, c-format
 msgid "PGP Error: %s"
-msgstr "PGP грешка: %s"
+msgstr "PGP РіСЂРµС€РєР°: %s"
 
 msgid "PGP Error: For message encryption, there can only be one recipient."
-msgstr "PGP Грешка: При криптирано писмо може да има само един получател."
+msgstr "PGP Р“СЂРµС€РєР°: РџСЂРё РєСЂРёРїС‚РёСЂР°РЅРѕ РїРёСЃРјРѕ РјРѕР¶Рµ РґР° РёРјР° СЃР°РјРѕ РµРґРёРЅ РїРѕР»СѓС‡Р°С‚РµР»."
 
 msgid "PGP Error: Need passphrase for personal private key."
-msgstr "PGP Грешка: Необходима е ключова фраза за частен ключ."
+msgstr "PGP Р“СЂРµС€РєР°: РќРµРѕР±С…РѕРґРёРјР° Рµ РєР»СЋС‡РѕРІР° С„СЂР°Р·Р° Р·Р° С‡Р°СЃС‚РµРЅ РєР»СЋС‡."
 
 msgid "PGP NOT Active"
-msgstr "PGP НЕ Е активен"
+msgstr "PGP РќР• Р• Р°РєС‚РёРІРµРЅ"
 
 msgid "PGP Options"
-msgstr "PGP Опции"
+msgstr "PGP РћРїС†РёРё"
 
 msgid "PGP Passphrase Input"
-msgstr "Въведете PGP ключова фраза"
+msgstr "Р’СЉРІРµРґРµС‚Рµ PGP РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°"
 
 msgid "PGP Personal Keypair support requires a secure web connection."
-msgstr "PGP персонална ключова двойка изисква криптирана web връзка."
+msgstr "PGP РїРµСЂСЃРѕРЅР°Р»РЅР° РєР»СЋС‡РѕРІР° РґРІРѕР№РєР° РёР·РёСЃРєРІР° РєСЂРёРїС‚РёСЂР°РЅР° web РІСЂСЉР·РєР°."
 
 msgid "PGP Public Key"
-msgstr "PGP Публичен ключ"
+msgstr "PGP РџСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 #, c-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "PGP публичен ключ за \"%s (%s)\" беше успешно добавен."
+msgstr "PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡ Р·Р° \"%s (%s)\" Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅ."
 
 #, c-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "PGP публичен ключ за \"%s\" беше успешно изтрит."
+msgstr "PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡ Р·Р° \"%s\" Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РёР·С‚СЂРёС‚."
 
 msgid "PGP Public Keyring"
-msgstr "PGP публичен списък"
+msgstr "PGP РїСѓР±Р»РёС‡РµРЅ СЃРїРёСЃСЉРє"
 
 msgid "PGP Public/Private Keypair successfully added."
-msgstr "PGP двойка публичен/частен ключ беше успешно добавена."
+msgstr "PGP РґРІРѕР№РєР° РїСѓР±Р»РёС‡РµРЅ/С‡Р°СЃС‚РµРЅ РєР»СЋС‡ Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅР°."
 
 msgid "PGP Sign Message"
-msgstr "Подпиши с PGP "
+msgstr "РџРѕРґРїРёС€Рё СЃ PGP "
 
 msgid "PGP Sign/Encrypt Message"
-msgstr "Подпиши/криптирай писмо с PGP"
+msgstr "РџРѕРґРїРёС€Рё/РєСЂРёРїС‚РёСЂР°Р№ РїРёСЃРјРѕ СЃ PGP"
 
 msgid "PGP Signed/Encrypted Data"
-msgstr "PGP подписани и криптирани данни"
+msgstr "PGP РїРѕРґРїРёСЃР°РЅРё Рё РєСЂРёРїС‚РёСЂР°РЅРё РґР°РЅРЅРё"
 
 msgid "PGP support is disabled on this system."
-msgstr "Системата е с изключена PGP поддръжка."
+msgstr "РЎРёСЃС‚РµРјР°С‚Р° Рµ СЃ РёР·РєР»СЋС‡РµРЅР° PGP РїРѕРґРґСЂСЉР¶РєР°."
 
 msgid ""
 "PGP support is not currently active so the digital signature is unable to be "
 "verified."
 msgstr ""
-"PGP поддръжката не е активна и цифровият подпис не може да бъде проверен."
+"PGP РїРѕРґРґСЂСЉР¶РєР°С‚Р° РЅРµ Рµ Р°РєС‚РёРІРЅР° Рё С†РёС„СЂРѕРІРёСЏС‚ РїРѕРґРїРёСЃ РЅРµ РјРѕР¶Рµ РґР° Р±СЉРґРµ РїСЂРѕРІРµСЂРµРЅ."
 
 msgid ""
 "PGP support is not currently active so the message is unable to be decrypted."
-msgstr "PGP поддръжката не е активна и писмото не може да бъде декриптирано."
+msgstr "PGP РїРѕРґРґСЂСЉР¶РєР°С‚Р° РЅРµ Рµ Р°РєС‚РёРІРЅР° Рё РїРёСЃРјРѕС‚Рѕ РЅРµ РјРѕР¶Рµ РґР° Р±СЉРґРµ РґРµРєСЂРёРїС‚РёСЂР°РЅРѕ."
 
 msgid "POP3"
 msgstr "POP3"
 
 msgid "POP3 Auto"
-msgstr "POP3 Ауто"
+msgstr "POP3 РђСѓС‚Рѕ"
 
 msgid "POP3 over SSL (self-signed)"
-msgstr "POP3 върху SSL (самоподписан)"
+msgstr "POP3 РІСЉСЂС…Сѓ SSL (СЃР°РјРѕРїРѕРґРїРёСЃР°РЅ)"
 
 msgid "POP3, no TLS"
-msgstr "POP3, без TLS"
+msgstr "POP3, Р±РµР· TLS"
 
 #, c-format
 msgid "Page %d of %d"
-msgstr "страница %d от %d"
+msgstr "СЃС‚СЂР°РЅРёС†Р° %d РѕС‚ %d"
 
 msgid "Part(s)"
-msgstr "Част(и)"
+msgstr "Р§Р°СЃС‚(Рё)"
 
 msgid "Passphrase"
-msgstr "Ключова фраза"
+msgstr "РљР»СЋС‡РѕРІР° С„СЂР°Р·Р°"
 
 msgid "Passphrase (Again)"
-msgstr "Ключова фраза (отново)"
+msgstr "РљР»СЋС‡РѕРІР° С„СЂР°Р·Р° (РѕС‚РЅРѕРІРѕ)"
 
 msgid "Passphrase successfully unloaded."
-msgstr "Ключовата фраза беше успешно премахната."
+msgstr "РљР»СЋС‡РѕРІР°С‚Р° С„СЂР°Р·Р° Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РїСЂРµРјР°С…РЅР°С‚Р°."
 
 msgid "Passphrase:"
-msgstr "Ключова фраза:"
+msgstr "РљР»СЋС‡РѕРІР° С„СЂР°Р·Р°:"
 
 msgid "Passphrases can not be empty"
-msgstr "Ключовата фраза не може да е празна"
+msgstr "РљР»СЋС‡РѕРІР°С‚Р° С„СЂР°Р·Р° РЅРµ РјРѕР¶Рµ РґР° Рµ РїСЂР°Р·РЅР°"
 
 msgid "Passphrases do not match"
-msgstr "Ключовата фраза не съвпада"
+msgstr "РљР»СЋС‡РѕРІР°С‚Р° С„СЂР°Р·Р° РЅРµ СЃСЉРІРїР°РґР°"
 
 msgid "Password"
-msgstr "Парола"
+msgstr "РџР°СЂРѕР»Р°"
 
 msgid "Password:"
-msgstr "Парола:"
+msgstr "РџР°СЂРѕР»Р°:"
 
 msgid "Perform maintenance operations on login?"
-msgstr "Да се извършват ли обслужващите операции при Вход?"
+msgstr "Р”Р° СЃРµ РёР·РІСЉСЂС€РІР°С‚ Р»Рё РѕР±СЃР»СѓР¶РІР°С‰РёС‚Рµ РѕРїРµСЂР°С†РёРё РїСЂРё Р’С…РѕРґ?"
 
 msgid "Personal"
-msgstr "Персонални"
+msgstr "РџРµСЂСЃРѕРЅР°Р»РЅРё"
 
 msgid "Personal Information"
-msgstr "Персонална информация"
+msgstr "РџРµСЂСЃРѕРЅР°Р»РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ"
 
 msgid "Personal PGP keypair generated successfully."
-msgstr "Персонална PGP ключова двойка беше успешно генерирана."
+msgstr "РџРµСЂСЃРѕРЅР°Р»РЅР° PGP РєР»СЋС‡РѕРІР° РґРІРѕР№РєР° Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РіРµРЅРµСЂРёСЂР°РЅР°."
 
 msgid "Personal PGP keys deleted successfully."
-msgstr "Персонални PGP ключове бяха успешно изтрити."
+msgstr "РџРµСЂСЃРѕРЅР°Р»РЅРё PGP РєР»СЋС‡РѕРІРµ Р±СЏС…Р° СѓСЃРїРµС€РЅРѕ РёР·С‚СЂРёС‚Рё."
 
 msgid "Personal S/MIME keys deleted successfully."
-msgstr "Персонални S/MIME ключове бяха успешно изтрити."
+msgstr "РџРµСЂСЃРѕРЅР°Р»РЅРё S/MIME РєР»СЋС‡РѕРІРµ Р±СЏС…Р° СѓСЃРїРµС€РЅРѕ РёР·С‚СЂРёС‚Рё."
 
 msgid "Place your signature before replies and forwards?"
-msgstr "Да се слага ли вашият подпис преди отговор и препращане?"
+msgstr "Р”Р° СЃРµ СЃР»Р°РіР° Р»Рё РІР°С€РёСЏС‚ РїРѕРґРїРёСЃ РїСЂРµРґРё РѕС‚РіРѕРІРѕСЂ Рё РїСЂРµРїСЂР°С‰Р°РЅРµ?"
 
 #, c-format
 msgid ""
 "Please enter the passphrase for your PGP private key. You will only need to "
 "enter this passphrase once per %s session."
 msgstr ""
-"Моля, въведете ключова фраза за Вашият PGP частен ключ. Необходимо е да "
-"въведете тази фраза веднъж за %s сесия."
+"РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РєР»СЋС‡РѕРІР° С„СЂР°Р·Р° Р·Р° Р’Р°С€РёСЏС‚ PGP С‡Р°СЃС‚РµРЅ РєР»СЋС‡. РќРµРѕР±С…РѕРґРёРјРѕ Рµ РґР° "
+"РІСЉРІРµРґРµС‚Рµ С‚Р°Р·Рё С„СЂР°Р·Р° РІРµРґРЅСЉР¶ Р·Р° %s СЃРµСЃРёСЏ."
 
 #, c-format
 msgid ""
 "Please enter the passphrase for your S/MIME private key. You will only need "
 "to enter this passphrase once per %s session."
 msgstr ""
-"Моля, въведете ключова фраза за Вашият S/MIME частен ключ. Необходимо е да "
-"въведете тази фраза веднъж за %s сесия."
+"РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ РєР»СЋС‡РѕРІР° С„СЂР°Р·Р° Р·Р° Р’Р°С€РёСЏС‚ S/MIME С‡Р°СЃС‚РµРЅ РєР»СЋС‡. РќРµРѕР±С…РѕРґРёРјРѕ Рµ РґР° "
+"РІСЉРІРµРґРµС‚Рµ С‚Р°Р·Рё С„СЂР°Р·Р° РІРµРґРЅСЉР¶ Р·Р° %s СЃРµСЃРёСЏ."
 
 msgid "Please fill in the text and choose a field and an action"
-msgstr "Моля, въведете текста и изберете поле и действие"
+msgstr "РњРѕР»СЏ, РІСЉРІРµРґРµС‚Рµ С‚РµРєСЃС‚Р° Рё РёР·Р±РµСЂРµС‚Рµ РїРѕР»Рµ Рё РґРµР№СЃС‚РІРёРµ"
 
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Моля, коригирайте невалидните или безсмислени адреси."
+msgstr "РњРѕР»СЏ, РєРѕСЂРёРіРёСЂР°Р№С‚Рµ РЅРµРІР°Р»РёРґРЅРёС‚Рµ РёР»Рё Р±РµР·СЃРјРёСЃР»РµРЅРё Р°РґСЂРµСЃРё."
 
 msgid "Please select or edit right next:"
-msgstr "Моля, изберете или редактирайте:"
+msgstr "РњРѕР»СЏ, РёР·Р±РµСЂРµС‚Рµ РёР»Рё СЂРµРґР°РєС‚РёСЂР°Р№С‚Рµ:"
 
 msgid "Precede your signature with dashes ('-- ')"
-msgstr "Предхождайте подписа си с тирета ('-- ')"
+msgstr "РџСЂРµРґС…РѕР¶РґР°Р№С‚Рµ РїРѕРґРїРёСЃР° СЃРё СЃ С‚РёСЂРµС‚Р° ('-- ')"
 
 msgid "Preferences successfully updated."
-msgstr "Настройките бяха обновени успешно."
+msgstr "РќР°СЃС‚СЂРѕР№РєРёС‚Рµ Р±СЏС…Р° РѕР±РЅРѕРІРµРЅРё СѓСЃРїРµС€РЅРѕ."
 
 msgid "Previous Message"
-msgstr "Предишно писмо"
+msgstr "РџСЂРµРґРёС€РЅРѕ РїРёСЃРјРѕ"
 
 msgid "Previous Page"
-msgstr "Предишна страница"
+msgstr "РџСЂРµРґРёС€РЅР° СЃС‚СЂР°РЅРёС†Р°"
 
 msgid "Print"
-msgstr "Отпечатай"
+msgstr "РћС‚РїРµС‡Р°С‚Р°Р№"
 
 msgid "Priority"
-msgstr "Приоритет"
+msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
 
 msgid "Private Key"
-msgstr "Частен ключ"
+msgstr "Р§Р°СЃС‚РµРЅ РєР»СЋС‡"
 
 #, c-format
 msgid "Problem with filter rule %d: folder does not exist: %s"
-msgstr "Проблем с филтър %d: не съществува папка: %s"
+msgstr "РџСЂРѕР±Р»РµРј СЃ С„РёР»С‚СЉСЂ %d: РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РїР°РїРєР°: %s"
 
 msgid "Protocol:"
-msgstr "Протокол:"
+msgstr "РџСЂРѕС‚РѕРєРѕР»:"
 
 msgid "Public Key"
-msgstr "Публичен ключ"
+msgstr "РџСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Public PGP keyserver support has been disabled."
-msgstr "Поддръжката за PGP ключов сървър беше забранена."
+msgstr "РџРѕРґРґСЂСЉР¶РєР°С‚Р° Р·Р° PGP РєР»СЋС‡РѕРІ СЃСЉСЂРІСЉСЂ Р±РµС€Рµ Р·Р°Р±СЂР°РЅРµРЅР°."
 
 msgid "Purge Deleted"
-msgstr "Заличи изтритите"
+msgstr "Р—Р°Р»РёС‡Рё РёР·С‚СЂРёС‚РёС‚Рµ"
 
 msgid "Purge Trash how often:"
-msgstr "Колко често да се изпразва кошчето:"
+msgstr "РљРѕР»РєРѕ С‡РµСЃС‚Рѕ РґР° СЃРµ РёР·РїСЂР°Р·РІР° РєРѕС€С‡РµС‚Рѕ:"
 
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Изчисти писмата от кошчето, които са по-стари от толкова дни."
+msgstr "РР·С‡РёСЃС‚Рё РїРёСЃРјР°С‚Р° РѕС‚ РєРѕС€С‡РµС‚Рѕ, РєРѕРёС‚Рѕ СЃР° РїРѕ-СЃС‚Р°СЂРё РѕС‚ С‚РѕР»РєРѕРІР° РґРЅРё."
 
 msgid "Purge old message in the Trash folder?"
-msgstr "Да се заличават ли старите писма в кошчето?"
+msgstr "Р”Р° СЃРµ Р·Р°Р»РёС‡Р°РІР°С‚ Р»Рё СЃС‚Р°СЂРёС‚Рµ РїРёСЃРјР° РІ РєРѕС€С‡РµС‚Рѕ?"
 
 #, c-format
 msgid "Purging %d message(s) from Trash folder."
-msgstr "Заличаване на %d писмо(а) от кошчето"
+msgstr "Р—Р°Р»РёС‡Р°РІР°РЅРµ РЅР° %d РїРёСЃРјРѕ(Р°) РѕС‚ РєРѕС€С‡РµС‚Рѕ"
 
 #, c-format
 msgid "Quota status: %.2fMB / %.2fMB  (%.2f%%)"
-msgstr "Квота статус: %.2fMB / %.2fMB  (%.2f%%)"
+msgstr "РљРІРѕС‚Р° СЃС‚Р°С‚СѓСЃ: %.2fMB / %.2fMB  (%.2f%%)"
 
 msgid "Quota status: NO LIMIT"
-msgstr "Квота статус: БЕЗ ЛИМИТ"
+msgstr "РљРІРѕС‚Р° СЃС‚Р°С‚СѓСЃ: Р‘Р•Р— Р›РРњРРў"
 
 msgid "Quoting"
-msgstr "Отговор"
+msgstr "РћС‚РіРѕРІРѕСЂ"
 
 msgid "Received after"
-msgstr "Получено след"
+msgstr "РџРѕР»СѓС‡РµРЅРѕ СЃР»РµРґ"
 
 msgid "Received before"
-msgstr "Получено преди"
+msgstr "РџРѕР»СѓС‡РµРЅРѕ РїСЂРµРґРё"
 
 msgid "Received on"
-msgstr "Получено на"
+msgstr "РџРѕР»СѓС‡РµРЅРѕ РЅР°"
 
 msgid "Redirect"
-msgstr "Пренасочи"
+msgstr "РџСЂРµРЅР°СЃРѕС‡Рё"
 
 msgid "Redirect this message"
-msgstr "Пренасочи това писмо"
+msgstr "РџСЂРµРЅР°СЃРѕС‡Рё С‚РѕРІР° РїРёСЃРјРѕ"
 
 msgid "Redirecting failed."
-msgstr "Пренасочването се провали"
+msgstr "РџСЂРµРЅР°СЃРѕС‡РІР°РЅРµС‚Рѕ СЃРµ РїСЂРѕРІР°Р»Рё"
 
 msgid "Refresh"
-msgstr "Опресни"
+msgstr "РћРїСЂРµСЃРЅРё"
 
 msgid "Refresh Folder Views:"
-msgstr "Опреснявай изгледите на папките"
+msgstr "РћРїСЂРµСЃРЅСЏРІР°Р№ РёР·РіР»РµРґРёС‚Рµ РЅР° РїР°РїРєРёС‚Рµ"
 
 msgid "Reload View"
-msgstr "Презареди изгледа"
+msgstr "РџСЂРµР·Р°СЂРµРґРё РёР·РіР»РµРґР°"
 
 msgid "Remember the last view"
-msgstr "Запомни последния изглед"
+msgstr "Р—Р°РїРѕРјРЅРё РїРѕСЃР»РµРґРЅРёСЏ РёР·РіР»РµРґ"
 
 msgid "Remote Mailbox:"
-msgstr "Пощенска кутия:"
+msgstr "РџРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ:"
 
 msgid "Remove Selected"
-msgstr "Премести избраното"
+msgstr "РџСЂРµРјРµСЃС‚Рё РёР·Р±СЂР°РЅРѕС‚Рѕ"
 
 msgid "Rename Folder(s)"
-msgstr "Преименувай папка(и)"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°Р№ РїР°РїРєР°(Рё)"
 
 msgid "Rename sent-mail folder at beginning of month?"
-msgstr "Да се преименува ли \"Изпратена поща\" папка в началото на месеца?"
+msgstr "Р”Р° СЃРµ РїСЂРµРёРјРµРЅСѓРІР° Р»Рё \"РР·РїСЂР°С‚РµРЅР° РїРѕС‰Р°\" РїР°РїРєР° РІ РЅР°С‡Р°Р»РѕС‚Рѕ РЅР° РјРµСЃРµС†Р°?"
 
 #, c-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "Преименуването на \"%s\" в \"%s\" се провали. Ето какво каза сървъра"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°РЅРµС‚Рѕ РЅР° \"%s\" РІ \"%s\" СЃРµ РїСЂРѕРІР°Р»Рё. Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°"
 
 msgid "Replace with:"
-msgstr "Замени с:"
+msgstr "Р—Р°РјРµРЅРё СЃ:"
 
 msgid "Reply"
-msgstr "Отговор"
+msgstr "РћС‚РіРѕРІРѕСЂ"
 
 msgid "Reply to All"
-msgstr "Отговор до всички"
+msgstr "РћС‚РіРѕРІРѕСЂ РґРѕ РІСЃРёС‡РєРё"
 
 msgid "Reply to All:"
-msgstr "Отговор до всички:"
+msgstr "РћС‚РіРѕРІРѕСЂ РґРѕ РІСЃРёС‡РєРё:"
 
 msgid "Reply to List"
-msgstr "Отговор до списъка"
+msgstr "РћС‚РіРѕРІРѕСЂ РґРѕ СЃРїРёСЃСЉРєР°"
 
 msgid "Reply to List:"
-msgstr "Отговор до списъка:"
+msgstr "РћС‚РіРѕРІРѕСЂ РґРѕ СЃРїРёСЃСЉРєР°:"
 
 msgid "Reply-To"
-msgstr "Отговор-До"
+msgstr "РћС‚РіРѕРІРѕСЂ-Р”Рѕ"
 
 msgid "Reply-To: "
-msgstr "Отговор-До:"
+msgstr "РћС‚РіРѕРІРѕСЂ-Р”Рѕ:"
 
 msgid "Reply:"
-msgstr "Отговор:"
+msgstr "РћС‚РіРѕРІРѕСЂ:"
 
 msgid "Report as Spam"
-msgstr "Рапорт за Спам"
+msgstr "Р Р°РїРѕСЂС‚ Р·Р° РЎРїР°Рј"
 
 msgid "Request a Return Receipt"
-msgstr "Изискай потвърждение за получаване"
+msgstr "РР·РёСЃРєР°Р№ РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ Р·Р° РїРѕР»СѓС‡Р°РІР°РЅРµ"
 
 msgid "Resume"
-msgstr "Поднови"
+msgstr "РџРѕРґРЅРѕРІРё"
 
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Върни се към пощенската кутия след изтриване, местене или копиране на писмо."
+"Р’СЉСЂРЅРё СЃРµ РєСЉРј РїРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ СЃР»РµРґ РёР·С‚СЂРёРІР°РЅРµ, РјРµСЃС‚РµРЅРµ РёР»Рё РєРѕРїРёСЂР°РЅРµ РЅР° РїРёСЃРјРѕ."
 
 msgid "Rule Definition"
-msgstr "Дефиниране на правило"
+msgstr "Р”РµС„РёРЅРёСЂР°РЅРµ РЅР° РїСЂР°РІРёР»Рѕ"
 
 msgid "S/MIME"
 msgstr "S/MIME"
 
 msgid "S/MIME NOT Active"
-msgstr "S/MIME НЕ Е активен"
+msgstr "S/MIME РќР• Р• Р°РєС‚РёРІРµРЅ"
 
 msgid "S/MIME Options"
-msgstr "S/MIME Опции"
+msgstr "S/MIME РћРїС†РёРё"
 
 msgid "S/MIME Passphrase Input"
-msgstr "Въведете S/MIME ключова фраза"
+msgstr "Р’СЉРІРµРґРµС‚Рµ S/MIME РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°"
 
 msgid "S/MIME Personal Keypair support requires a secure web connection."
 msgstr ""
-"S/MIME поддръжката за персонална ключова двойка изисква криптирана web "
-"връзка."
+"S/MIME РїРѕРґРґСЂСЉР¶РєР°С‚Р° Р·Р° РїРµСЂСЃРѕРЅР°Р»РЅР° РєР»СЋС‡РѕРІР° РґРІРѕР№РєР° РёР·РёСЃРєРІР° РєСЂРёРїС‚РёСЂР°РЅР° web "
+"РІСЂСЉР·РєР°."
 
 msgid "S/MIME Public/Private Keypair successfully added."
-msgstr "S/MIME двойка публичен/частен ключ беше успешно добавена."
+msgstr "S/MIME РґРІРѕР№РєР° РїСѓР±Р»РёС‡РµРЅ/С‡Р°СЃС‚РµРЅ РєР»СЋС‡ Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІРµРЅР°."
 
 msgid "S/MIME support is disabled on this system."
-msgstr "Системата е с изключена S/MIME поддръжка."
+msgstr "РЎРёСЃС‚РµРјР°С‚Р° Рµ СЃ РёР·РєР»СЋС‡РµРЅР° S/MIME РїРѕРґРґСЂСЉР¶РєР°."
 
 msgid ""
 "S/MIME support is not currently active so the message is unable to be "
 "decrypted."
 msgstr ""
-"S/MIME поддръжката не е активна и писмото не може да бъде декриптирано."
+"S/MIME РїРѕРґРґСЂСЉР¶РєР°С‚Р° РЅРµ Рµ Р°РєС‚РёРІРЅР° Рё РїРёСЃРјРѕС‚Рѕ РЅРµ РјРѕР¶Рµ РґР° Р±СЉРґРµ РґРµРєСЂРёРїС‚РёСЂР°РЅРѕ."
 
 msgid "Save a copy in "
-msgstr "Запиши копие в "
+msgstr "Р—Р°РїРёС€Рё РєРѕРїРёРµ РІ "
 
 msgid "Save as"
-msgstr "Запиши като"
+msgstr "Р—Р°РїРёС€Рё РєР°С‚Рѕ"
 
 msgid "Save sent mail"
-msgstr "Записвай изпратената поща в"
+msgstr "Р—Р°РїРёСЃРІР°Р№ РёР·РїСЂР°С‚РµРЅР°С‚Р° РїРѕС‰Р° РІ"
 
 #, c-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "Записа на черновата се провали. Ето какво каза сървъра: %s"
+msgstr "Р—Р°РїРёСЃР° РЅР° С‡РµСЂРЅРѕРІР°С‚Р° СЃРµ РїСЂРѕРІР°Р»Рё. Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°: %s"
 
 msgid "Search"
-msgstr "Търси"
+msgstr "РўСЉСЂСЃРё"
 
 msgid "Search Results"
-msgstr "Резултати от търсенето"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ"
 
 msgid "Seen"
-msgstr "Прегледани"
+msgstr "РџСЂРµРіР»РµРґР°РЅРё"
 
 msgid "Select"
-msgstr "Избери"
+msgstr "РР·Р±РµСЂРё"
 
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Изберете адресна книга за добавяне и търсене на адреси."
+msgstr "РР·Р±РµСЂРµС‚Рµ Р°РґСЂРµСЃРЅР° РєРЅРёРіР° Р·Р° РґРѕР±Р°РІСЏРЅРµ Рё С‚СЉСЂСЃРµРЅРµ РЅР° Р°РґСЂРµСЃРё."
 
 msgid "Select all"
-msgstr "Избери всички"
+msgstr "РР·Р±РµСЂРё РІСЃРёС‡РєРё"
 
 msgid "Select an account"
-msgstr "Изберете поща"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїРѕС‰Р°"
 
 msgid "Select an identity"
-msgstr "Избери идентичност"
+msgstr "РР·Р±РµСЂРё РёРґРµРЅС‚РёС‡РЅРѕСЃС‚"
 
 msgid "Select charset:"
-msgstr "Избери символен набор:"
+msgstr "РР·Р±РµСЂРё СЃРёРјРІРѕР»РµРЅ РЅР°Р±РѕСЂ:"
 
 msgid "Select none"
-msgstr "Не избирай нищо"
+msgstr "РќРµ РёР·Р±РёСЂР°Р№ РЅРёС‰Рѕ"
 
 msgid "Select your color scheme."
-msgstr "Изберете вашата схема за цветовете."
+msgstr "РР·Р±РµСЂРµС‚Рµ РІР°С€Р°С‚Р° СЃС…РµРјР° Р·Р° С†РІРµС‚РѕРІРµС‚Рµ."
 
 msgid "Select your preferred language:"
-msgstr "Изберете предпочитаният от Вас език:"
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРµРґРїРѕС‡РёС‚Р°РЅРёСЏС‚ РѕС‚ Р’Р°СЃ РµР·РёРє:"
 
 msgid "Selected Address books:"
-msgstr "Избрана адресна книга:"
+msgstr "РР·Р±СЂР°РЅР° Р°РґСЂРµСЃРЅР° РєРЅРёРіР°:"
 
 msgid "Send Key to Public Keyserver"
-msgstr "Изпрати ключ в публичния ключсървър"
+msgstr "РР·РїСЂР°С‚Рё РєР»СЋС‡ РІ РїСѓР±Р»РёС‡РЅРёСЏ РєР»СЋС‡СЃСЉСЂРІСЉСЂ"
 
 msgid "Sent mail folder:"
-msgstr "Папка \"Изпратена поща\":"
+msgstr "РџР°РїРєР° \"РР·РїСЂР°С‚РµРЅР° РїРѕС‰Р°\":"
 
 msgid "September"
-msgstr "Септември"
+msgstr "РЎРµРїС‚РµРјРІСЂРё"
 
 msgid "Server"
-msgstr "Сървър"
+msgstr "РЎСЉСЂРІСЉСЂ"
 
 msgid "Server Information"
-msgstr "Информация за Сървъра"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РЎСЉСЂРІСЉСЂР°"
 
 msgid "Server:"
-msgstr "Сървър:"
+msgstr "РЎСЉСЂРІСЉСЂ:"
 
 msgid "Set preferences for filtering messages for unwanted content."
-msgstr "Настрой филтрите за нежелано съдържание."
+msgstr "РќР°СЃС‚СЂРѕР№ С„РёР»С‚СЂРёС‚Рµ Р·Р° РЅРµР¶РµР»Р°РЅРѕ СЃСЉРґСЉСЂР¶Р°РЅРёРµ."
 
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr "Настрой какво да се случва, когато преместиш или изтриеш писмо."
+msgstr "РќР°СЃС‚СЂРѕР№ РєР°РєРІРѕ РґР° СЃРµ СЃР»СѓС‡РІР°, РєРѕРіР°С‚Рѕ РїСЂРµРјРµСЃС‚РёС€ РёР»Рё РёР·С‚СЂРёРµС€ РїРёСЃРјРѕ."
 
 msgid "Set the X-Priority header when composing messages?"
-msgstr "Да се задава ли X-Priority заглавна част при писане на писмо?"
+msgstr "Р”Р° СЃРµ Р·Р°РґР°РІР° Р»Рё X-Priority Р·Р°РіР»Р°РІРЅР° С‡Р°СЃС‚ РїСЂРё РїРёСЃР°РЅРµ РЅР° РїРёСЃРјРѕ?"
 
 msgid "Set the current time zone."
-msgstr "Настрой часовата зона."
+msgstr "РќР°СЃС‚СЂРѕР№ С‡Р°СЃРѕРІР°С‚Р° Р·РѕРЅР°."
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Изберете езика, на които се показват менюта, обяснения и помощ."
+msgstr "РР·Р±РµСЂРµС‚Рµ РµР·РёРєР°, РЅР° РєРѕРёС‚Рѕ СЃРµ РїРѕРєР°Р·РІР°С‚ РјРµРЅСЋС‚Р°, РѕР±СЏСЃРЅРµРЅРёСЏ Рё РїРѕРјРѕС‰."
 
 msgid "Should the body of text/plain messages be scanned for PGP data?"
 msgstr ""
-"Трябва ли да се проверява съдържанието на обикновени текстови писма за PGP "
-"данни?"
+"РўСЂСЏР±РІР° Р»Рё РґР° СЃРµ РїСЂРѕРІРµСЂСЏРІР° СЃСЉРґСЉСЂР¶Р°РЅРёРµС‚Рѕ РЅР° РѕР±РёРєРЅРѕРІРµРЅРё С‚РµРєСЃС‚РѕРІРё РїРёСЃРјР° Р·Р° PGP "
+"РґР°РЅРЅРё?"
 
 msgid "Should the compose window be closed after saving a draft?"
-msgstr "Трябва ли прозореца \"Напиши\" да се затвори след запис на черновата."
+msgstr "РўСЂСЏР±РІР° Р»Рё РїСЂРѕР·РѕСЂРµС†Р° \"РќР°РїРёС€Рё\" РґР° СЃРµ Р·Р°С‚РІРѕСЂРё СЃР»РµРґ Р·Р°РїРёСЃ РЅР° С‡РµСЂРЅРѕРІР°С‚Р°."
 
 msgid "Should your PGP public key to be attached to your messages by default?"
 msgstr ""
-"Да бъде ли прикрепян Вашият публичен PGP ключ към писмата Ви, по "
-"подразбиране?"
+"Р”Р° Р±СЉРґРµ Р»Рё РїСЂРёРєСЂРµРїСЏРЅ Р’Р°С€РёСЏС‚ РїСѓР±Р»РёС‡РµРЅ PGP РєР»СЋС‡ РєСЉРј РїРёСЃРјР°С‚Р° Р’Рё, РїРѕ "
+"РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ?"
 
 msgid "Show All Headers"
-msgstr "Покажи всички заглавни части"
+msgstr "РџРѕРєР°Р¶Рё РІСЃРёС‡РєРё Р·Р°РіР»Р°РІРЅРё С‡Р°СЃС‚Рё"
 
 msgid "Show Deleted"
-msgstr "Покажи изтритите"
+msgstr "РџРѕРєР°Р¶Рё РёР·С‚СЂРёС‚РёС‚Рµ"
 
 msgid "Show Limited Headers"
-msgstr "Покажи само избрани заглавни части!"
+msgstr "РџРѕРєР°Р¶Рё СЃР°РјРѕ РёР·Р±СЂР°РЅРё Р·Р°РіР»Р°РІРЅРё С‡Р°СЃС‚Рё!"
 
 msgid "Show Mailing List Information"
-msgstr "Покажи информация за Mailing List"
+msgstr "РџРѕРєР°Р¶Рё РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Mailing List"
 
 msgid "Show Unsubscribed"
-msgstr "Покажи неабонираните"
+msgstr "РџРѕРєР°Р¶Рё РЅРµР°Р±РѕРЅРёСЂР°РЅРёС‚Рµ"
 
 msgid "Show last login time when logging in?"
-msgstr "Да се показва ли времето на последното влизане?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё РІСЂРµРјРµС‚Рѕ РЅР° РїРѕСЃР»РµРґРЅРѕС‚Рѕ РІР»РёР·Р°РЅРµ?"
 
 msgid "Show legend in the mailbox view?"
-msgstr "Да се показва ли легенда в пощенската кутия?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё Р»РµРіРµРЅРґР° РІ РїРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ?"
 
 msgid "Show the Fetch Mail icon on the menubar?"
-msgstr "Да се показва ли \"Други пощи\" икона в меню лентата?"
+msgstr "Р”Р° СЃРµ РїРѕРєР°Р·РІР° Р»Рё \"Р”СЂСѓРіРё РїРѕС‰Рё\" РёРєРѕРЅР° РІ РјРµРЅСЋ Р»РµРЅС‚Р°С‚Р°?"
 
 msgid "Size"
-msgstr "Размер"
+msgstr "Р Р°Р·РјРµСЂ"
 
 msgid "Some of IMP's configuration files are missing:"
-msgstr "Някой от конфигурационните файлове на IMP липсват:"
+msgstr "РќСЏРєРѕР№ РѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ РЅР° IMP Р»РёРїСЃРІР°С‚:"
 
 msgid "Sort Direction"
-msgstr "Сортиране"
+msgstr "РЎРѕСЂС‚РёСЂР°РЅРµ"
 
 msgid "Sort by Arrival"
-msgstr "Сортирай по получаване"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РїРѕР»СѓС‡Р°РІР°РЅРµ"
 
 msgid "Sort by Date"
-msgstr "Сортирай по дата"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РґР°С‚Р°"
 
 msgid "Sort by From Address"
-msgstr "Сортирай по \"От\" адрес"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ \"РћС‚\" Р°РґСЂРµСЃ"
 
 msgid "Sort by Message Size"
-msgstr "Сортирай по размер на писмото"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ СЂР°Р·РјРµСЂ РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Sort by Subject"
-msgstr "Сортирай по тема"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ С‚РµРјР°"
 
 msgid "Sort by Thread"
-msgstr "Сортирай по нишки"
+msgstr "РЎРѕСЂС‚РёСЂР°Р№ РїРѕ РЅРёС€РєРё"
 
 msgid "Spam Report from"
-msgstr "Спам Рапорт от"
+msgstr "РЎРїР°Рј Р Р°РїРѕСЂС‚ РѕС‚"
 
 msgid "Special Characters"
-msgstr "Специални символи"
+msgstr "РЎРїРµС†РёР°Р»РЅРё СЃРёРјРІРѕР»Рё"
 
 msgid "Spell Check"
-msgstr "Правопис"
+msgstr "РџСЂР°РІРѕРїРёСЃ"
 
 msgid "Spell Checker"
-msgstr "Проверка на правописа"
+msgstr "РџСЂРѕРІРµСЂРєР° РЅР° РїСЂР°РІРѕРїРёСЃР°"
 
 msgid "Spell check complete"
-msgstr "Правописа беше проверен"
+msgstr "РџСЂР°РІРѕРїРёСЃР° Р±РµС€Рµ РїСЂРѕРІРµСЂРµРЅ"
 
 msgid "Spelling errors per screen when spell checking."
-msgstr "Правописни грешки в страница при проверка за правопис."
+msgstr "РџСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё РІ СЃС‚СЂР°РЅРёС†Р° РїСЂРё РїСЂРѕРІРµСЂРєР° Р·Р° РїСЂР°РІРѕРїРёСЃ."
 
 msgid "Status"
-msgstr "Статус"
+msgstr "РЎС‚Р°С‚СѓСЃ"
 
 msgid "Subject"
-msgstr "Тема"
+msgstr "РўРµРјР°"
 
 msgid "Subject Field"
-msgstr "Тема на писмото"
+msgstr "РўРµРјР° РЅР° РїРёСЃРјРѕС‚Рѕ"
 
 msgid "Subject:"
-msgstr "   Тема:"
+msgstr "   РўРµРјР°:"
 
 msgid "Subscribe to Folder(s)"
-msgstr "Абониране за папка(и)"
+msgstr "РђР±РѕРЅРёСЂР°РЅРµ Р·Р° РїР°РїРєР°(Рё)"
 
 msgid "Success"
-msgstr "Успех"
+msgstr "РЈСЃРїРµС…"
 
 msgid "Suggestions"
-msgstr "Предположения"
+msgstr "РџСЂРµРґРїРѕР»РѕР¶РµРЅРёСЏ"
 
 msgid "Sun"
 msgstr "Sun"
 
 msgid "Terms of Service file not specified in conf.php"
-msgstr "Файл за \"Условия на услугата\" не е зададен в conf.php"
+msgstr "Р¤Р°Р№Р» Р·Р° \"РЈСЃР»РѕРІРёСЏ РЅР° СѓСЃР»СѓРіР°С‚Р°\" РЅРµ Рµ Р·Р°РґР°РґРµРЅ РІ conf.php"
 
 msgid "Text"
-msgstr "Текст"
+msgstr "РўРµРєСЃС‚"
 
 #, c-format
 msgid "The account \"%s\" has been deleted."
-msgstr "Пощата \"%s\" беше премахната."
+msgstr "РџРѕС‰Р°С‚Р° \"%s\" Р±РµС€Рµ РїСЂРµРјР°С…РЅР°С‚Р°."
 
 #, c-format
 msgid "The account \"%s\" has been saved."
-msgstr "Пощата \"%s\" беше записана."
+msgstr "РџРѕС‰Р°С‚Р° \"%s\" Р±РµС€Рµ Р·Р°РїРёСЃР°РЅР°."
 
 #, c-format
 msgid "The address %s has been added to your blacklist."
-msgstr "Адреса '%s' беше добавен към Вашият \"черен списък\"."
+msgstr "РђРґСЂРµСЃР° '%s' Р±РµС€Рµ РґРѕР±Р°РІРµРЅ РєСЉРј Р’Р°С€РёСЏС‚ \"С‡РµСЂРµРЅ СЃРїРёСЃСЉРє\"."
 
 #, c-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "Текущата папка(и) \"%s\" ще бъде преименувана на \"%s\"."
+msgstr "РўРµРєСѓС‰Р°С‚Р° РїР°РїРєР°(Рё) \"%s\" С‰Рµ Р±СЉРґРµ РїСЂРµРёРјРµРЅСѓРІР°РЅР° РЅР° \"%s\"."
 
 #, c-format
 msgid "The folder \"%s\" already exists"
-msgstr "Папката \"%s\" вече съществува"
+msgstr "РџР°РїРєР°С‚Р° \"%s\" РІРµС‡Рµ СЃСЉС‰РµСЃС‚РІСѓРІР°"
 
 #, c-format
 msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"Името на папката \"%s\" съдържа некоректни символи. Това може да доведе до "
-"проблеми. Моля консултирайте се със Системния Администратор."
+"РРјРµС‚Рѕ РЅР° РїР°РїРєР°С‚Р° \"%s\" СЃСЉРґСЉСЂР¶Р° РЅРµРєРѕСЂРµРєС‚РЅРё СЃРёРјРІРѕР»Рё. РўРѕРІР° РјРѕР¶Рµ РґР° РґРѕРІРµРґРµ РґРѕ "
+"РїСЂРѕР±Р»РµРјРё. РњРѕР»СЏ РєРѕРЅСЃСѓР»С‚РёСЂР°Р№С‚Рµ СЃРµ СЃСЉСЃ РЎРёСЃС‚РµРјРЅРёСЏ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "Папката \"%s\" беше създадена, но Вие не сте абонирани за нея. "
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅР°, РЅРѕ Р’РёРµ РЅРµ СЃС‚Рµ Р°Р±РѕРЅРёСЂР°РЅРё Р·Р° РЅРµСЏ. "
 
 #, c-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "Папката \"%s\" беше изтрита, но Вие все още сте aабонирани за нея."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Р±РµС€Рµ РёР·С‚СЂРёС‚Р°, РЅРѕ Р’РёРµ РІСЃРµ РѕС‰Рµ СЃС‚Рµ aР°Р±РѕРЅРёСЂР°РЅРё Р·Р° РЅРµСЏ."
 
 #, c-format
 msgid "The folder \"%s\" was not created. This is what the server said"
-msgstr "Папката \"%s\" не беше създадена. Ето каква е причината според сървъра"
+msgstr "РџР°РїРєР°С‚Р° \"%s\" РЅРµ Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅР°. Р•С‚Рѕ РєР°РєРІР° Рµ РїСЂРёС‡РёРЅР°С‚Р° СЃРїРѕСЂРµРґ СЃСЉСЂРІСЉСЂР°"
 
 #, c-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "Папката \"%s\" беше създадена успешно. "
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Р±РµС€Рµ СЃСЉР·РґР°РґРµРЅР° СѓСЃРїРµС€РЅРѕ. "
 
 #, c-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "Папката \"%s\" беше изтрита успешно. "
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Р±РµС€Рµ РёР·С‚СЂРёС‚Р° СѓСЃРїРµС€РЅРѕ. "
 
 #, c-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "Папката \"%s\" беше успешно преименувана на \"%s\"."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ РїСЂРµРёРјРµРЅСѓРІР°РЅР° РЅР° \"%s\"."
 
 #, c-format
 msgid "The folder '%s' was not deleted. This is what the server said"
-msgstr "Папката '%s' не беше изтрита. Ето какво каза сървъра"
+msgstr "РџР°РїРєР°С‚Р° '%s' РЅРµ Р±РµС€Рµ РёР·С‚СЂРёС‚Р°. Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°"
 
 #, c-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "Идентичността \"%s\" беше изтрита."
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚С‚Р° \"%s\" Р±РµС€Рµ РёР·С‚СЂРёС‚Р°."
 
 #, c-format
 msgid "The identity \"%s\" has been saved."
-msgstr "Идентичността \"%s\" беше записана."
+msgstr "РРґРµРЅС‚РёС‡РЅРѕСЃС‚С‚Р° \"%s\" Р±РµС€Рµ Р·Р°РїРёСЃР°РЅР°."
 
 #, c-format
 msgid "The mailbox %s is already empty."
-msgstr "Пощенската кутия %s е вече отворена."
+msgstr "РџРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ %s Рµ РІРµС‡Рµ РѕС‚РІРѕСЂРµРЅР°."
 
 msgid "The message has been verified."
-msgstr "Писмото беше проверено."
+msgstr "РџРёСЃРјРѕС‚Рѕ Р±РµС€Рµ РїСЂРѕРІРµСЂРµРЅРѕ."
 
 msgid "The requested file does not exist in the MS-TNEF attachment."
-msgstr "Изискания прикрепен файл не е открит в MS-TNEF."
+msgstr "РР·РёСЃРєР°РЅРёСЏ РїСЂРёРєСЂРµРїРµРЅ С„Р°Р№Р» РЅРµ Рµ РѕС‚РєСЂРёС‚ РІ MS-TNEF."
 
 msgid "The requested file does not exist in the Zip attachment."
-msgstr "Изискания файл не съществува в Zip прикрепения файл."
+msgstr "РР·РёСЃРєР°РЅРёСЏ С„Р°Р№Р» РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР° РІ Zip РїСЂРёРєСЂРµРїРµРЅРёСЏ С„Р°Р№Р»."
 
 msgid "There are no alternative parts that can be displayed inline."
-msgstr "Няма алтернативни двойки, които да бъдат показани в линията."
+msgstr "РќСЏРјР° Р°Р»С‚РµСЂРЅР°С‚РёРІРЅРё РґРІРѕР№РєРё, РєРѕРёС‚Рѕ РґР° Р±СЉРґР°С‚ РїРѕРєР°Р·Р°РЅРё РІ Р»РёРЅРёСЏС‚Р°."
 
 msgid "There are no messages in this mailbox."
-msgstr "Няма писма в тази пощенска кутия."
+msgstr "РќСЏРјР° РїРёСЃРјР° РІ С‚Р°Р·Рё РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ."
 
 #, c-format
 msgid "There was a problem expunging %s. This is what the server said"
-msgstr "Имаше проблем при заличаването на %s. Ето каква е причината"
+msgstr "РРјР°С€Рµ РїСЂРѕР±Р»РµРј РїСЂРё Р·Р°Р»РёС‡Р°РІР°РЅРµС‚Рѕ РЅР° %s. Р•С‚Рѕ РєР°РєРІР° Рµ РїСЂРёС‡РёРЅР°С‚Р°"
 
 #, c-format
 msgid "There was a problem expunging the mailbox. The server said: %s"
-msgstr "Грешка при заличаване на пощенска кутия. Ето какво каза сървъра: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°Р»РёС‡Р°РІР°РЅРµ РЅР° РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ. Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°: %s"
 
 msgid "There was a problem expunging the mailbox. This is what the server said"
-msgstr "Имаше проблем при заличаването на пощенската кутия. Причината е"
+msgstr "РРјР°С€Рµ РїСЂРѕР±Р»РµРј РїСЂРё Р·Р°Р»РёС‡Р°РІР°РЅРµС‚Рѕ РЅР° РїРѕС‰РµРЅСЃРєР°С‚Р° РєСѓС‚РёСЏ. РџСЂРёС‡РёРЅР°С‚Р° Рµ"
 
 msgid "There was a problem with the file upload."
-msgstr "Грешка при изпращането на файла."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°."
 
 #, c-format
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"Имаше проблем при изпращането на файла. Възможно е файла да е по-голям от "
-"максимално допустимия размер (%d MB)."
+"РРјР°С€Рµ РїСЂРѕР±Р»РµРј РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. Р’СЉР·РјРѕР¶РЅРѕ Рµ С„Р°Р№Р»Р° РґР° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕРїСѓСЃС‚РёРјРёСЏ СЂР°Р·РјРµСЂ (%d MB)."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Грешка при изпращането на файла. Възможно е файлът да е по-голям от "
-"максимално допустимият размер."
+"Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°. Р’СЉР·РјРѕР¶РЅРѕ Рµ С„Р°Р№Р»СЉС‚ РґР° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕРїСѓСЃС‚РёРјРёСЏС‚ СЂР°Р·РјРµСЂ."
 
 msgid "There was a problem with the file upload: No attachment was uploaded."
-msgstr "Грешка при изпращането на файла: Не беше прикрепен файл."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°: РќРµ Р±РµС€Рµ РїСЂРёРєСЂРµРїРµРЅ С„Р°Р№Р»."
 
 #, c-format
 msgid ""
 "There was a problem with the file upload: The attachment was larger than the "
 "maximum allowed size (%d MB)."
 msgstr ""
-"Имаше проблем при изпращането на файла: Файла е по-голям от максимално "
-"допустимия размер (%d MB)."
+"РРјР°С€Рµ РїСЂРѕР±Р»РµРј РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°: Р¤Р°Р№Р»Р° Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ РјР°РєСЃРёРјР°Р»РЅРѕ "
+"РґРѕРїСѓСЃС‚РёРјРёСЏ СЂР°Р·РјРµСЂ (%d MB)."
 
 msgid ""
 "There was a problem with the file upload: The attachment was only partially "
 "uploaded."
-msgstr "Грешка при изпращането на файла: Само част от файла беше изпратена "
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°: РЎР°РјРѕ С‡Р°СЃС‚ РѕС‚ С„Р°Р№Р»Р° Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅР° "
 
 #, c-format
 msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Грешка при копирането на писма от \"%s\" в \"%s\". Ето какво каза сървъра"
+"Р“СЂРµС€РєР° РїСЂРё РєРѕРїРёСЂР°РЅРµС‚Рѕ РЅР° РїРёСЃРјР° РѕС‚ \"%s\" РІ \"%s\". Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°"
 
 #, c-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Грешка при изтриването на писмата от папка \"%s\". Според сървъра причината "
-"за това е"
+"Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµС‚Рѕ РЅР° РїРёСЃРјР°С‚Р° РѕС‚ РїР°РїРєР° \"%s\". РЎРїРѕСЂРµРґ СЃСЉСЂРІСЉСЂР° РїСЂРёС‡РёРЅР°С‚Р° "
+"Р·Р° С‚РѕРІР° Рµ"
 
 #, c-format
 msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Грешка при изтриване на писма в папка \"%s\". Причината според сървъра е"
+"Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРёСЃРјР° РІ РїР°РїРєР° \"%s\". РџСЂРёС‡РёРЅР°С‚Р° СЃРїРѕСЂРµРґ СЃСЉСЂРІСЉСЂР° Рµ"
 
 #, c-format
 msgid "There was an error deleting messages. This is what the server said: %s"
-msgstr "Грешка при изтриване на писма. Ето какво каза сървъра: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРёСЃРјР°. Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°: %s"
 
 msgid "There was an error displaying this message part"
-msgstr "Грешка при показване на тази част от писмото"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїРѕРєР°Р·РІР°РЅРµ РЅР° С‚Р°Р·Рё С‡Р°СЃС‚ РѕС‚ РїРёСЃРјРѕС‚Рѕ"
 
 #, c-format
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Грешка при установяване на флагове в папка \"%s\". Причината според сървъра е"
+"Р“СЂРµС€РєР° РїСЂРё СѓСЃС‚Р°РЅРѕРІСЏРІР°РЅРµ РЅР° С„Р»Р°РіРѕРІРµ РІ РїР°РїРєР° \"%s\". РџСЂРёС‡РёРЅР°С‚Р° СЃРїРѕСЂРµРґ СЃСЉСЂРІСЉСЂР° Рµ"
 
 #, c-format
 msgid "There was an error importing %s."
-msgstr "Грешка при импортиране на данните: %s."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёРјРїРѕСЂС‚РёСЂР°РЅРµ РЅР° РґР°РЅРЅРёС‚Рµ: %s."
 
 #, c-format
 msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "Грешка при преместване на \"%s\" в \"%s\". Ето какво каза сървъра."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚РІР°РЅРµ РЅР° \"%s\" РІ \"%s\". Р•С‚Рѕ РєР°РєРІРѕ РєР°Р·Р° СЃСЉСЂРІСЉСЂР°."
 
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
 msgstr ""
-"Грешка при преместването на писма в кошчето. Сървъра смята, че причината е"
+"Р“СЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚РІР°РЅРµС‚Рѕ РЅР° РїРёСЃРјР° РІ РєРѕС€С‡РµС‚Рѕ. РЎСЉСЂРІСЉСЂР° СЃРјСЏС‚Р°, С‡Рµ РїСЂРёС‡РёРЅР°С‚Р° Рµ"
 
 msgid "There was an error saving this message as a draft."
-msgstr "Грешка при записа на това писмо като чернова."
+msgstr "Р“СЂРµС€РєР° РїСЂРё Р·Р°РїРёСЃР° РЅР° С‚РѕРІР° РїРёСЃРјРѕ РєР°С‚Рѕ С‡РµСЂРЅРѕРІР°."
 
 #, c-format
 msgid "There was an error sending your message: %s"
-msgstr "Грешка при изпращането на писмото: %s"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ РЅР° РїРёСЃРјРѕС‚Рѕ: %s"
 
 msgid "There was an error viewing the requested message."
-msgstr "Грешка при прегледа на поисканото писмо."
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРµРіР»РµРґР° РЅР° РїРѕРёСЃРєР°РЅРѕС‚Рѕ РїРёСЃРјРѕ."
 
 msgid "This PGP Public Key was attached to the message."
-msgstr "Този PGP публичен ключ беше прикрепен към писмото."
+msgstr "РўРѕР·Рё PGP РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡ Р±РµС€Рµ РїСЂРёРєСЂРµРїРµРЅ РєСЉРј РїРёСЃРјРѕС‚Рѕ."
 
 msgid ""
 "This file controls local MIME drivers for IMP, specifically what kinds of "
 "attachments are viewable and/or downloadable."
 msgstr ""
-"Този файл контролира локалните MIME драйвери на IMP, по-специално, какви "
-"прикрепени файлове могат да се преглеждат и/или изтеглят."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° Р»РѕРєР°Р»РЅРёС‚Рµ MIME РґСЂР°Р№РІРµСЂРё РЅР° IMP, РїРѕ-СЃРїРµС†РёР°Р»РЅРѕ, РєР°РєРІРё "
+"РїСЂРёРєСЂРµРїРµРЅРё С„Р°Р№Р»РѕРІРµ РјРѕРіР°С‚ РґР° СЃРµ РїСЂРµРіР»РµР¶РґР°С‚ Рё/РёР»Рё РёР·С‚РµРіР»СЏС‚."
 
 msgid ""
 "This file controls the default preferences for IMP, and also controls which "
 "preferences users can alter."
 msgstr ""
-"Този файл контролира настройките по подразбиране на IMP, а също и кои "
-"настройки потребителите могат да променят."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ РЅР° IMP, Р° СЃСЉС‰Рѕ Рё РєРѕРё "
+"РЅР°СЃС‚СЂРѕР№РєРё РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ РјРѕРіР°С‚ РґР° РїСЂРѕРјРµРЅСЏС‚."
 
 msgid ""
 "This file controls the default settings for IMP, and also defines the list "
 "of available servers if you are using the server list."
 msgstr ""
-"Този файл контролира настройките по подразбиране на IMP, а също дефинира "
-"списъка със сървъри, ако използвате такъв."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° РЅР°СЃС‚СЂРѕР№РєРёС‚Рµ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ РЅР° IMP, Р° СЃСЉС‰Рѕ РґРµС„РёРЅРёСЂР° "
+"СЃРїРёСЃСЉРєР° СЃСЉСЃ СЃСЉСЂРІСЉСЂРё, Р°РєРѕ РёР·РїРѕР»Р·РІР°С‚Рµ С‚Р°РєСЉРІ."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Този файл контролира стиловете, който се използват за цветовете и шрифтовете "
-"в допълнение към подразбиращите стилове на Horde."
+"РўРѕР·Рё С„Р°Р№Р» РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚РёР»РѕРІРµС‚Рµ, РєРѕР№С‚Рѕ СЃРµ РёР·РїРѕР»Р·РІР°С‚ Р·Р° С†РІРµС‚РѕРІРµС‚Рµ Рё С€СЂРёС„С‚РѕРІРµС‚Рµ "
+"РІ РґРѕРїСЉР»РЅРµРЅРёРµ РєСЉРј РїРѕРґСЂР°Р·Р±РёСЂР°С‰РёС‚Рµ СЃС‚РёР»РѕРІРµ РЅР° Horde."
 
 msgid ""
 "This is the main IMP configuration file. It contains paths and options for "
 "the IMP scripts."
 msgstr ""
-"Това е главния файл за конфигуриране на IMP. Той съдържа пътищата и опциите "
-"за IMP скриптовете."
+"РўРѕРІР° Рµ РіР»Р°РІРЅРёСЏ С„Р°Р№Р» Р·Р° РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅРµ РЅР° IMP. РўРѕР№ СЃСЉРґСЉСЂР¶Р° РїСЉС‚РёС‰Р°С‚Р° Рё РѕРїС†РёРёС‚Рµ "
+"Р·Р° IMP СЃРєСЂРёРїС‚РѕРІРµС‚Рµ."
 
 msgid ""
 "This message does not appear to be in the correct PGP format (according to "
 "RFC 2015)."
-msgstr "Това писмо не е в коректен PGP формат (съобразно RFC 2015)."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ РЅРµ Рµ РІ РєРѕСЂРµРєС‚РµРЅ PGP С„РѕСЂРјР°С‚ (СЃСЉРѕР±СЂР°Р·РЅРѕ RFC 2015)."
 
 msgid ""
 "This message does not appear to be in the correct S/MIME format (according "
 "to RFC 2633)."
-msgstr "Това писмо не е в коректен S/MIME формат (съобразно RFC 2015)."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ РЅРµ Рµ РІ РєРѕСЂРµРєС‚РµРЅ S/MIME С„РѕСЂРјР°С‚ (СЃСЉРѕР±СЂР°Р·РЅРѕ RFC 2015)."
 
 msgid "This message has been digitally signed via PGP."
-msgstr "Това писмо беше цифрово подписано чрез PGP."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ Р±РµС€Рµ С†РёС„СЂРѕРІРѕ РїРѕРґРїРёСЃР°РЅРѕ С‡СЂРµР· PGP."
 
 msgid "This message has been digitally signed via S/MIME."
-msgstr "Това писмо беше цифрово подписано чрез S/MIME."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ Р±РµС€Рµ С†РёС„СЂРѕРІРѕ РїРѕРґРїРёСЃР°РЅРѕ С‡СЂРµР· S/MIME."
 
 msgid "This message has been encrypted with PGP."
-msgstr "Това писмо беше криптирано с PGP."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ Р±РµС€Рµ РєСЂРёРїС‚РёСЂР°РЅРѕ СЃ PGP."
 
 msgid "This message has been reported as spam to your system administrator."
-msgstr "Това писмо беше изпратено като Спам до Системния Администратор."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ Р±РµС€Рµ РёР·РїСЂР°С‚РµРЅРѕ РєР°С‚Рѕ РЎРїР°Рј РґРѕ РЎРёСЃС‚РµРјРЅРёСЏ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 msgid "This message has been reported as spam."
-msgstr "Това писмо беше регистрирано като спам."
+msgstr "РўРѕРІР° РїРёСЃРјРѕ Р±РµС€Рµ СЂРµРіРёСЃС‚СЂРёСЂР°РЅРѕ РєР°С‚Рѕ СЃРїР°Рј."
 
 msgid "This message to"
-msgstr "Това писмо в"
+msgstr "РўРѕРІР° РїРёСЃРјРѕ РІ"
 
 #, c-format
 msgid ""
 "This message was written in a character set other than your own. If it is "
 "not displayed correctly, %s to open it in a new window."
 msgstr ""
-"Това писмо е написано със символи различни от вашите. Ако не е показано "
-"коректно, %s за да го отворите в нов прозорец."
+"РўРѕРІР° РїРёСЃРјРѕ Рµ РЅР°РїРёСЃР°РЅРѕ СЃСЉСЃ СЃРёРјРІРѕР»Рё СЂР°Р·Р»РёС‡РЅРё РѕС‚ РІР°С€РёС‚Рµ. РђРєРѕ РЅРµ Рµ РїРѕРєР°Р·Р°РЅРѕ "
+"РєРѕСЂРµРєС‚РЅРѕ, %s Р·Р° РґР° РіРѕ РѕС‚РІРѕСЂРёС‚Рµ РІ РЅРѕРІ РїСЂРѕР·РѕСЂРµС†."
 
 msgid "Thread"
-msgstr "Смислови нишки"
+msgstr "РЎРјРёСЃР»РѕРІРё РЅРёС€РєРё"
 
 msgid "Thread View"
-msgstr "Изглед по смислови нишки"
+msgstr "РР·РіР»РµРґ РїРѕ СЃРјРёСЃР»РѕРІРё РЅРёС€РєРё"
 
 msgid "Time Zone"
-msgstr "Часова зона"
+msgstr "Р§Р°СЃРѕРІР° Р·РѕРЅР°"
 
 msgid "To"
-msgstr "До"
+msgstr "Р”Рѕ"
 
 msgid "To:"
-msgstr "До:"
+msgstr "Р”Рѕ:"
 
 #, c-format
 msgid "Total Size: %s KB"
-msgstr "Общ размер: %s KB"
+msgstr "РћР±С‰ СЂР°Р·РјРµСЂ: %s KB"
 
 msgid "Trash folder:"
-msgstr "Папка \"Кошче\":"
+msgstr "РџР°РїРєР° \"РљРѕС€С‡Рµ\":"
 
 msgid "Unable to retrieve quota"
-msgstr "Грешка при проверката за квота"
+msgstr "Р“СЂРµС€РєР° РїСЂРё РїСЂРѕРІРµСЂРєР°С‚Р° Р·Р° РєРІРѕС‚Р°"
 
 msgid "Unanswered"
-msgstr "Без отговор"
+msgstr "Р‘РµР· РѕС‚РіРѕРІРѕСЂ"
 
 msgid "Unanswered messages"
-msgstr "Писма без отговор"
+msgstr "РџРёСЃРјР° Р±РµР· РѕС‚РіРѕРІРѕСЂ"
 
 msgid "Undelete"
-msgstr "Възстанови"
+msgstr "Р’СЉР·СЃС‚Р°РЅРѕРІРё"
 
 msgid "Undisclosed Recipients"
-msgstr "Неизвестни Получатели"
+msgstr "РќРµРёР·РІРµСЃС‚РЅРё РџРѕР»СѓС‡Р°С‚РµР»Рё"
 
 msgid "Unknown Protocol Specified"
-msgstr "Зададеният протокол е неизвестен"
+msgstr "Р—Р°РґР°РґРµРЅРёСЏС‚ РїСЂРѕС‚РѕРєРѕР» Рµ РЅРµРёР·РІРµСЃС‚РµРЅ"
 
 msgid "Unload Passphrase"
-msgstr "Премахване на ключова фраза"
+msgstr "РџСЂРµРјР°С…РІР°РЅРµ РЅР° РєР»СЋС‡РѕРІР° С„СЂР°Р·Р°"
 
 msgid "Unnamed"
-msgstr "Безименни"
+msgstr "Р‘РµР·РёРјРµРЅРЅРё"
 
 msgid "Unread"
-msgstr "Непрочетени"
+msgstr "РќРµРїСЂРѕС‡РµС‚РµРЅРё"
 
 msgid "Unseen"
-msgstr "Непрегледани"
+msgstr "РќРµРїСЂРµРіР»РµРґР°РЅРё"
 
 msgid "Unseen Messages"
-msgstr "Непрегледани писма"
+msgstr "РќРµРїСЂРµРіР»РµРґР°РЅРё РїРёСЃРјР°"
 
 msgid "Unsubscribe from Folder(s)"
-msgstr "Отпиши от папка(и)"
+msgstr "РћС‚РїРёС€Рё РѕС‚ РїР°РїРєР°(Рё)"
 
 msgid "Upload"
-msgstr "Изпрати"
+msgstr "РР·РїСЂР°С‚Рё"
 
 msgid "Use Ctrl/Option+Click to select multiple fields"
-msgstr "Използвай Ctrl/Option+Click за да избереш множество полета"
+msgstr "РР·РїРѕР»Р·РІР°Р№ Ctrl/Option+Click Р·Р° РґР° РёР·Р±РµСЂРµС€ РјРЅРѕР¶РµСЃС‚РІРѕ РїРѕР»РµС‚Р°"
 
 msgid "Use Default Value"
-msgstr "Използвай подразбиращата се стойност"
+msgstr "РР·РїРѕР»Р·РІР°Р№ РїРѕРґСЂР°Р·Р±РёСЂР°С‰Р°С‚Р° СЃРµ СЃС‚РѕР№РЅРѕСЃС‚"
 
 msgid "Use IMAP folder subscriptions?"
-msgstr "Да се използват ли IMAP абонаменти за папки?"
+msgstr "Р”Р° СЃРµ РёР·РїРѕР»Р·РІР°С‚ Р»Рё IMAP Р°Р±РѕРЅР°РјРµРЅС‚Рё Р·Р° РїР°РїРєРё?"
 
 msgid "User Options"
-msgstr "Потребителски опции"
+msgstr "РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРё РѕРїС†РёРё"
 
 msgid "Username"
-msgstr "Име"
+msgstr "РРјРµ"
 
 msgid "Username:"
-msgstr "Име:"
+msgstr "РРјРµ:"
 
 msgid "View"
-msgstr "Виж"
+msgstr "Р’РёР¶"
 
 #, c-format
 msgid "View %s"
-msgstr "Изглед %s"
+msgstr "РР·РіР»РµРґ %s"
 
 #, c-format
 msgid "View %s Public Key"
-msgstr "Виж %s публичен ключ"
+msgstr "Р’РёР¶ %s РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "View Personal Private Key"
-msgstr "Виж персонален частен ключ"
+msgstr "Р’РёР¶ РїРµСЂСЃРѕРЅР°Р»РµРЅ С‡Р°СЃС‚РµРЅ РєР»СЋС‡"
 
 msgid "View Personal Public Key"
-msgstr "Виж персонален публичен ключ"
+msgstr "Р’РёР¶ РїРµСЂСЃРѕРЅР°Р»РµРЅ РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "View messages in "
-msgstr "Покажи писма в "
+msgstr "РџРѕРєР°Р¶Рё РїРёСЃРјР° РІ "
 
 msgid "View or mailbox to display after login:"
-msgstr "Изглед или пощенска кутия да бъде на екрана след вход:"
+msgstr "РР·РіР»РµРґ РёР»Рё РїРѕС‰РµРЅСЃРєР° РєСѓС‚РёСЏ РґР° Р±СЉРґРµ РЅР° РµРєСЂР°РЅР° СЃР»РµРґ РІС…РѕРґ:"
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "Добре Дошли в %s"
+msgstr "Р”РѕР±СЂРµ Р”РѕС€Р»Рё РІ %s"
 
 msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted?"
 msgstr ""
-"При изтриване на писма, да се преместват ли в кошчето вместо да се маркират "
-"като изтрити."
+"РџСЂРё РёР·С‚СЂРёРІР°РЅРµ РЅР° РїРёСЃРјР°, РґР° СЃРµ РїСЂРµРјРµСЃС‚РІР°С‚ Р»Рё РІ РєРѕС€С‡РµС‚Рѕ РІРјРµСЃС‚Рѕ РґР° СЃРµ РјР°СЂРєРёСЂР°С‚ "
+"РєР°С‚Рѕ РёР·С‚СЂРёС‚Рё."
 
 msgid "Wrap text at this many characters."
-msgstr "Преподреди текста на толкова символа."
+msgstr "РџСЂРµРїРѕРґСЂРµРґРё С‚РµРєСЃС‚Р° РЅР° С‚РѕР»РєРѕРІР° СЃРёРјРІРѕР»Р°."
 
 msgid "Yes"
-msgstr "Да"
+msgstr "Р”Р°"
 
 msgid "You didn't specify a Mail Server"
-msgstr "Не въведохте валиден пощенски сървър"
+msgstr "РќРµ РІСЉРІРµРґРѕС…С‚Рµ РІР°Р»РёРґРµРЅ РїРѕС‰РµРЅСЃРєРё СЃСЉСЂРІСЉСЂ"
 
 msgid "You didn't specify the password"
-msgstr "Не въведохте парола"
+msgstr "РќРµ РІСЉРІРµРґРѕС…С‚Рµ РїР°СЂРѕР»Р°"
 
 msgid "You didn't specify the username"
-msgstr "Не въведохте потребителско име"
+msgstr "РќРµ РІСЉРІРµРґРѕС…С‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ"
 
 msgid "You have been logged out.<br />Thank you for using the system."
-msgstr "Вие излязохте.<br />Благодарим Ви, че използвахте системата."
+msgstr "Р’РёРµ РёР·Р»СЏР·РѕС…С‚Рµ.<br />Р‘Р»Р°РіРѕРґР°СЂРёРј Р’Рё, С‡Рµ РёР·РїРѕР»Р·РІР°С…С‚Рµ СЃРёСЃС‚РµРјР°С‚Р°."
 
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message"
 msgstr ""
-"Трябва да въведете ключовата фраза на Вашия PGP частен ключ за да видите "
-"това писмо"
+"РўСЂСЏР±РІР° РґР° РІСЉРІРµРґРµС‚Рµ РєР»СЋС‡РѕРІР°С‚Р° С„СЂР°Р·Р° РЅР° Р’Р°С€РёСЏ PGP С‡Р°СЃС‚РµРЅ РєР»СЋС‡ Р·Р° РґР° РІРёРґРёС‚Рµ "
+"С‚РѕРІР° РїРёСЃРјРѕ"
 
 msgid ""
 "You must enter the passphrase for your S/MIME private key to view this "
 "message"
 msgstr ""
-"Трябва да въведете ключовата фраза на Вашия S/MIME частен ключ за да видите "
-"това писмо"
+"РўСЂСЏР±РІР° РґР° РІСЉРІРµРґРµС‚Рµ РєР»СЋС‡РѕРІР°С‚Р° С„СЂР°Р·Р° РЅР° Р’Р°С€РёСЏ S/MIME С‡Р°СЃС‚РµРЅ РєР»СЋС‡ Р·Р° РґР° РІРёРґРёС‚Рµ "
+"С‚РѕРІР° РїРёСЃРјРѕ"
 
 msgid "You must have at least one recipient."
-msgstr "Трябва да имате поне един получател."
+msgstr "РўСЂСЏР±РІР° РґР° РёРјР°С‚Рµ РїРѕРЅРµ РµРґРёРЅ РїРѕР»СѓС‡Р°С‚РµР»."
 
 msgid "You must select an account to be deleted."
-msgstr "Трябва да изберете поща, която да бъде изтрита."
+msgstr "РўСЂСЏР±РІР° РґР° РёР·Р±РµСЂРµС‚Рµ РїРѕС‰Р°, РєРѕСЏС‚Рѕ РґР° Р±СЉРґРµ РёР·С‚СЂРёС‚Р°."
 
 msgid "You must select an identity to be deleted."
-msgstr "Трябва да изберете коя идентичност да бъде изтрита, предварително."
+msgstr "РўСЂСЏР±РІР° РґР° РёР·Р±РµСЂРµС‚Рµ РєРѕСЏ РёРґРµРЅС‚РёС‡РЅРѕСЃС‚ РґР° Р±СЉРґРµ РёР·С‚СЂРёС‚Р°, РїСЂРµРґРІР°СЂРёС‚РµР»РЅРѕ."
 
 #, c-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "Не бяхте абониран за \"%s\". Ето каква е причината"
+msgstr "РќРµ Р±СЏС…С‚Рµ Р°Р±РѕРЅРёСЂР°РЅ Р·Р° \"%s\". Р•С‚Рѕ РєР°РєРІР° Рµ РїСЂРёС‡РёРЅР°С‚Р°"
 
 #, c-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "Не бяхте отписан от \"%s\". Ето каква е причината според сървъра"
+msgstr "РќРµ Р±СЏС…С‚Рµ РѕС‚РїРёСЃР°РЅ РѕС‚ \"%s\". Р•С‚Рѕ РєР°РєРІР° Рµ РїСЂРёС‡РёРЅР°С‚Р° СЃРїРѕСЂРµРґ СЃСЉСЂРІСЉСЂР°"
 
 #, c-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "Бяхте абониран успешно за \"%s\""
+msgstr "Р‘СЏС…С‚Рµ Р°Р±РѕРЅРёСЂР°РЅ СѓСЃРїРµС€РЅРѕ Р·Р° \"%s\""
 
 #, c-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "Бяхте отписан успешно от \"%s\""
+msgstr "Р‘СЏС…С‚Рµ РѕС‚РїРёСЃР°РЅ СѓСЃРїРµС€РЅРѕ РѕС‚ \"%s\""
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Времето за вашата %s сесия изтече. Моля регистрирайте се отново."
+msgstr "Р’СЂРµРјРµС‚Рѕ Р·Р° РІР°С€Р°С‚Р° %s СЃРµСЃРёСЏ РёР·С‚РµС‡Рµ. РњРѕР»СЏ СЂРµРіРёСЃС‚СЂРёСЂР°Р№С‚Рµ СЃРµ РѕС‚РЅРѕРІРѕ."
 
 msgid "Your From: address:"
-msgstr "Вашият От: адрес:"
+msgstr "Р’Р°С€РёСЏС‚ РћС‚: Р°РґСЂРµСЃ:"
 
 msgid "Your Information"
-msgstr "Информация за Вас"
+msgstr "РРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ"
 
 msgid "Your Name"
-msgstr "Вашето име"
+msgstr "Р’Р°С€РµС‚Рѕ РёРјРµ"
 
 msgid "Your PGP Public/Private Keys"
-msgstr "Вашите PGP публичен/частен ключове"
+msgstr "Р’Р°С€РёС‚Рµ PGP РїСѓР±Р»РёС‡РµРЅ/С‡Р°СЃС‚РµРЅ РєР»СЋС‡РѕРІРµ"
 
 msgid "Your Private Key"
-msgstr "Вашият частен ключ"
+msgstr "Р’Р°С€РёСЏС‚ С‡Р°СЃС‚РµРЅ РєР»СЋС‡"
 
 msgid "Your Public Key"
-msgstr "Вашият публичен ключ"
+msgstr "Р’Р°С€РёСЏС‚ РїСѓР±Р»РёС‡РµРЅ РєР»СЋС‡"
 
 msgid "Your Reply-to: address: <i>(optional)</i>"
-msgstr "Вашият Отговора-на: адрес: <i>(optional)</i>"
+msgstr "Р’Р°С€РёСЏС‚ РћС‚РіРѕРІРѕСЂР°-РЅР°: Р°РґСЂРµСЃ: <i>(optional)</i>"
 
 msgid "Your S/MIME Public/Private Keys"
-msgstr "Вашите S/MIME публичен/частен ключове"
+msgstr "Р’Р°С€РёС‚Рµ S/MIME РїСѓР±Р»РёС‡РµРЅ/С‡Р°СЃС‚РµРЅ РєР»СЋС‡РѕРІРµ"
 
 msgid "Your accounts:"
-msgstr "Вашите пощи:"
+msgstr "Р’Р°С€РёС‚Рµ РїРѕС‰Рё:"
 
 msgid "Your browser does not support inline display of this image type"
-msgstr "Вашият browser не подържа редово показване на този тип файл"
+msgstr "Р’Р°С€РёСЏС‚ browser РЅРµ РїРѕРґСЉСЂР¶Р° СЂРµРґРѕРІРѕ РїРѕРєР°Р·РІР°РЅРµ РЅР° С‚РѕР·Рё С‚РёРї С„Р°Р№Р»"
 
 msgid "Your current time zone:"
-msgstr "Вашата часова зона:"
+msgstr "Р’Р°С€Р°С‚Р° С‡Р°СЃРѕРІР° Р·РѕРЅР°:"
 
 msgid "Your default identity:"
-msgstr "Вашата идентичност по подразбиране:"
+msgstr "Р’Р°С€Р°С‚Р° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚ РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ:"
 
 msgid "Your full name:"
-msgstr "Пълното Ви име:"
+msgstr "РџСЉР»РЅРѕС‚Рѕ Р’Рё РёРјРµ:"
 
 msgid "Your identities:"
-msgstr "Вашите идентичности:"
+msgstr "Р’Р°С€РёС‚Рµ РёРґРµРЅС‚РёС‡РЅРѕСЃС‚Рё:"
 
 msgid "Your signature:"
-msgstr "Вашият подпис:"
+msgstr "Р’Р°С€РёСЏС‚ РїРѕРґРїРёСЃ:"
 
 msgid "[No Subject]"
-msgstr "[Няма Тема]"
+msgstr "[РќСЏРјР° РўРµРјР°]"
 
 msgid "add source"
-msgstr "добави сорс"
+msgstr "РґРѕР±Р°РІРё СЃРѕСЂСЃ"
 
 msgid "click here"
-msgstr "кликнете тук"
+msgstr "РєР»РёРєРЅРµС‚Рµ С‚СѓРє"
 
 msgid "from"
-msgstr "от"
+msgstr "РѕС‚"
 
 msgid "header"
-msgstr "заглавна част"
+msgstr "Р·Р°РіР»Р°РІРЅР° С‡Р°СЃС‚"
 
 msgid "move down"
-msgstr "на долу"
+msgstr "РЅР° РґРѕР»Сѓ"
 
 msgid "move up"
-msgstr "на горе"
+msgstr "РЅР° РіРѕСЂРµ"
 
 msgid "none"
-msgstr "няма"
+msgstr "РЅСЏРјР°"
 
 msgid "or"
-msgstr "или"
+msgstr "РёР»Рё"
 
 msgid "remove source"
-msgstr "премахни сорса"
+msgstr "РїСЂРµРјР°С…РЅРё СЃРѕСЂСЃР°"
 
 msgid "select folder"
-msgstr "избери папка"
+msgstr "РёР·Р±РµСЂРё РїР°РїРєР°"
 
 msgid "spelling error"
-msgstr "правописна грешка"
+msgstr "РїСЂР°РІРѕРїРёСЃРЅР° РіСЂРµС€РєР°"
 
 msgid "spelling errors"
-msgstr "правописни грешки"
+msgstr "РїСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё"

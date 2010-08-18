@@ -1,5 +1,5 @@
 # GOLLEM Traditional Chinese Translation
-# Copyright 2001 David Chang. ±i¨}¤å,¥xÆW
+# Copyright 2001 David Chang. å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2001.
 #
 msgid ""
@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: manager.php:52
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
-msgstr "\"%s\" ¤w§ó¦W¬° \"%s\""
+msgstr "\"%s\" å·²æ›´åç‚º \"%s\""
 
 #: quota.php:56
 #, php-format
@@ -27,603 +27,603 @@ msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 #: manager.php:271
 #, php-format
 msgid "%d items"
-msgstr "%d ­Ó¶µ¥Ø"
+msgstr "%d å€‹é …ç›®"
 
 #: manager.php:437
 #, php-format
 msgid "%s Folders and %s Files (%s Kb)"
-msgstr "%s ­Ó¥Ø¿ı¤Î %s ­ÓÀÉ®× (%s ¤d¦ì¤¸²Õ)"
+msgstr "%s å€‹ç›®éŒ„åŠ %s å€‹æª”æ¡ˆ (%s åƒä½å…ƒçµ„)"
 
 #: manager.php:435
 #, php-format
 msgid "%s Folders and 1 File (%s Kb)"
-msgstr "%s ­Ó¥Ø¿ı¤Î 1 ­ÓÀÉ®× (%s ¤d¦ì¤¸²Õ)"
+msgstr "%s å€‹ç›®éŒ„åŠ 1 å€‹æª”æ¡ˆ (%s åƒä½å…ƒçµ„)"
 
 #: login.php:144
 #, php-format
 msgid "%s Login"
-msgstr "%s µn¤J"
+msgstr "%s ç™»å…¥"
 
 #: edit.php:35
 #, php-format
 msgid "%s successfully saved."
-msgstr "%s ¤wÀx¦s§¹¦¨."
+msgstr "%s å·²å„²å­˜å®Œæˆ."
 
 #: manager.php:167
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s ¤w±i¶K§¹¦¨."
+msgstr "%s å·²å¼µè²¼å®Œæˆ."
 
 #: manager.php:432
 #, php-format
 msgid "1 Folder and %s Files (%s Kb)"
-msgstr "1 ­Ó¥Ø¿ı¤Î %s ­ÓÀÉ®× (%s ¤d¦ì¤¸²Õ)"
+msgstr "1 å€‹ç›®éŒ„åŠ %s å€‹æª”æ¡ˆ (%s åƒä½å…ƒçµ„)"
 
 #: manager.php:430
 #, php-format
 msgid "1 Folder and 1 File (%s Kb)"
-msgstr "1 ­Ó¥Ø¿ı¤Î 1 ­ÓÀÉ®× (%s ¤d¦ì¤¸²Õ)"
+msgstr "1 å€‹ç›®éŒ„åŠ 1 å€‹æª”æ¡ˆ (%s åƒä½å…ƒçµ„)"
 
 #: manager.php:271
 msgid "1 item"
-msgstr "1 ­Ó¶µ¥Ø"
+msgstr "1 å€‹é …ç›®"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:45
 msgid ""
 "A popup window could not be opened. Perhaps you have set your browser to "
 "block popup windows?"
-msgstr "µLªk¶}±Ò¤@­ÓÂÛ¼uµøµ¡. ¦³¥i¯à§AªºÂsÄı¾¹¤w³]©w­n«ÊÂêÂÛ¼uµøµ¡?"
+msgstr "ç„¡æ³•é–‹å•Ÿä¸€å€‹è¹¦å½ˆè¦–çª—. æœ‰å¯èƒ½ä½ çš„ç€è¦½å™¨å·²è¨­å®šè¦å°é–è¹¦å½ˆè¦–çª—?"
 
 #: edit.php:33 edit.php:43 view.php:33
 #, php-format
 msgid "Access denied to %s"
-msgstr "¦s¨ú %s ¾D©Ú"
+msgstr "å­˜å– %s é­æ‹’"
 
 #: lib/Gollem.php:118 lib/Gollem.php:392 lib/Gollem.php:454 lib/Gollem.php:475
 #: lib/Gollem.php:492
 #, php-format
 msgid "Access denied to folder \"%s\"."
-msgstr "¦s¨ú¥Ø¿ı \"%s\" ¾D©Ú."
+msgstr "å­˜å–ç›®éŒ„ \"%s\" é­æ‹’."
 
 #: templates/manager/manager.html:124
 msgid "Actions:"
-msgstr "§@¥Î¤è¦¡:"
+msgstr "ä½œç”¨æ–¹å¼:"
 
 #: selectlist.php:99
 msgid "Add"
-msgstr "·s¼W"
+msgstr "æ–°å¢"
 
 #: templates/prefs/columnselect.inc:43
 msgid "Add column"
-msgstr "·s¼WÄæ¦ì"
+msgstr "æ–°å¢æ¬„ä½"
 
 #: templates/manager/manager.html:11
 msgid "All"
-msgstr "¥ş³¡"
+msgstr "å…¨éƒ¨"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:56
 msgid "Are you sure you wish to continue?"
-msgstr "§A½T©wÄ~Äò¶Ü?"
+msgstr "ä½ ç¢ºå®šç¹¼çºŒå—?"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:54
 msgid "Are you sure?"
-msgstr "§A½T©w?"
+msgstr "ä½ ç¢ºå®š?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
-msgstr "¤W¤É"
+msgstr "ä¸Šå‡"
 
 #: config/prefs.php.dist:93
 msgid "Ask"
-msgstr "¸ß°İ"
+msgstr "è©¢å•"
 
 #: templates/manager/manager.html:5
 msgid "Attributes"
-msgstr "Äİ©Ê"
+msgstr "å±¬æ€§"
 
 #: templates/prefs/columnselect.html:20
 msgid "Available Columns:"
-msgstr "¥i¥ÎªºÄæ¦ì:"
+msgstr "å¯ç”¨çš„æ¬„ä½:"
 
 #: lib/api.php:46
 msgid "Backends"
-msgstr "¦øªAºİ"
+msgstr "ä¼ºæœç«¯"
 
 #: templates/clipboard/clipboard.html:11
 msgid "Below is the current contents of your clipboard."
-msgstr "¥H¤U¬O§A¥Ø«e°Å¶KÃ¯ªº¤º®e."
+msgstr "ä»¥ä¸‹æ˜¯ä½ ç›®å‰å‰ªè²¼ç°¿çš„å…§å®¹."
 
 #: clipboard.php:38 manager.php:266 selectlist.php:101
 #: templates/edit/edit.inc:13
 msgid "Cancel"
-msgstr "¨ú®ø"
+msgstr "å–æ¶ˆ"
 
 #: manager.php:72
 msgid "Cannot chmod %s: %s"
-msgstr "µLªkÅÜ§ó¦s¨ú¼Ò¦¡ %s: %s"
+msgstr "ç„¡æ³•è®Šæ›´å­˜å–æ¨¡å¼ %s: %s"
 
 #: manager.php:141
 msgid "Cannot copy items onto clipboard."
-msgstr "µLªk½Æ»s¶µ¥Ø¨ì°Å¶KÃ¯¤W."
+msgstr "ç„¡æ³•è¤‡è£½é …ç›®åˆ°å‰ªè²¼ç°¿ä¸Š."
 
 #: manager.php:200
 #, php-format
 msgid "Cannot create home directory: %s"
-msgstr "µLªk«Ø¥ß®a¥Ø¿ı: %s"
+msgstr "ç„¡æ³•å»ºç«‹å®¶ç›®éŒ„: %s"
 
 #: manager.php:143
 msgid "Cannot cut items onto clipboard."
-msgstr "µLªk°Å¤U¶µ¥Ø¨ì°Å¶KÃ¯¤W."
+msgstr "ç„¡æ³•å‰ªä¸‹é …ç›®åˆ°å‰ªè²¼ç°¿ä¸Š."
 
 #: manager.php:165
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
-msgstr "µLªk¶K¤W \"%s\" (°Å¶KÃ¯ªºÀÉ®×¤w²M°£): %s"
+msgstr "ç„¡æ³•è²¼ä¸Š \"%s\" (å‰ªè²¼ç°¿çš„æª”æ¡ˆå·²æ¸…é™¤): %s"
 
 #: templates/manager/manager.html:70
 msgid "Change Folder"
-msgstr "¤Á´«¸ô®|"
+msgstr "åˆ‡æ›è·¯å¾‘"
 
 #: templates/manager/manager.html:126
 msgid "Change Permissions"
-msgstr "ÅÜ§ó¦s¨ú¼Ò¦¡"
+msgstr "è®Šæ›´å­˜å–æ¨¡å¼"
 
 #: selectlist.php:109 lib/Gollem.php:822
 msgid "Change Server"
-msgstr "ÅÜ§ó¦øªA¾¹"
+msgstr "è®Šæ›´ä¼ºæœå™¨"
 
 #: lib/Gollem.php:779
 msgid "Change _Folder"
-msgstr "¤Á´«¸ô®|_F"
+msgstr "åˆ‡æ›è·¯å¾‘_F"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "ÅÜ§óÀÉ®×¤Î¥Ø¿ı±±¨î³]©w."
+msgstr "è®Šæ›´æª”æ¡ˆåŠç›®éŒ„æ§åˆ¶è¨­å®š."
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "ÅÜ§óÀÉ®×±Æ¦C¤è¦¡."
+msgstr "è®Šæ›´æª”æ¡ˆæ’åˆ—æ–¹å¼."
 
 #: lib/Gollem.php:797
 msgid "Check Quota"
-msgstr "ºÏºĞ°t¸m"
+msgstr "ç£ç¢Ÿé…ç½®"
 
 #: manager.php:528
 msgid "Check _All/None"
-msgstr "ÀË¬d ¥ş³¡/µL_A"
+msgstr "æª¢æŸ¥ å…¨éƒ¨/ç„¡_A"
 
 #: manager.php:70
 msgid "Chmod done: "
-msgstr "¦s¨ú¼Ò¦¡ÅÜ§ó§¹¦¨: "
+msgstr "å­˜å–æ¨¡å¼è®Šæ›´å®Œæˆ: "
 
 #: templates/prefs/columnselect.html:12
 msgid "Choose the columns to display in the file manager."
-msgstr "¿ï¾Ü­nÅã¥Ü©óÀÉ®×Á`ºŞªºÄæ¦ì¦WºÙ."
+msgstr "é¸æ“‡è¦é¡¯ç¤ºæ–¼æª”æ¡ˆç¸½ç®¡çš„æ¬„ä½åç¨±."
 
 #: clipboard.php:39
 msgid "Clear"
-msgstr "²M°£"
+msgstr "æ¸…é™¤"
 
 #: clipboard.php:18 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
-msgstr "°Å¶KÃ¯"
+msgstr "å‰ªè²¼ç°¿"
 
 #: quota.php:32
 msgid "Close"
-msgstr "Ãö³¬"
+msgstr "é—œé–‰"
 
 #: login.php:256
 #, php-format
 msgid "Connect to: %s"
-msgstr "µLªk³sµ²¦Ü: %s"
+msgstr "ç„¡æ³•é€£çµè‡³: %s"
 
 #: clipboard.php:42 templates/manager/manager.html:129
 msgid "Copy"
-msgstr "½Æ»s"
+msgstr "è¤‡è£½"
 
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "µLªkÀx¦s¤w½sÄ¶ªº¼Ë¥»ÀÉ®× '%s'."
+msgstr "ç„¡æ³•å„²å­˜å·²ç·¨è­¯çš„æ¨£æœ¬æª”æ¡ˆ '%s'."
 
 #: templates/manager/manager.html:58
 msgid "Create Folder"
-msgstr "«Ø¥ß¥Ø¿ı"
+msgstr "å»ºç«‹ç›®éŒ„"
 
 #: permissions.php:47
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
-msgstr "\"%s\"ªºªÅ¥ÕÅv­­¤w«Ø§´. §A²{¦b¥²¶·¬°¦¹¦øªAºİºë½T©w¸qÅv­­¥H«O¦w¥ş."
+msgstr "\"%s\"çš„ç©ºç™½æ¬Šé™å·²å»ºå¦¥. ä½ ç¾åœ¨å¿…é ˆç‚ºæ­¤ä¼ºæœç«¯ç²¾ç¢ºå®šç¾©æ¬Šé™ä»¥ä¿å®‰å…¨."
 
 #: templates/clipboard/clipboard.html:17
 msgid "Current directory:"
-msgstr "²{¦æ¥Ø¿ı:"
+msgstr "ç¾è¡Œç›®éŒ„:"
 
 #: clipboard.php:41 templates/manager/manager.html:130
 msgid "Cut"
-msgstr "°Å¤U"
+msgstr "å‰ªä¸‹"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "¤º©w±Æ¦Cªº·Ç«h:"
+msgstr "å…§å®šæ’åˆ—çš„æº–å‰‡:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "¤º©wªº±Æ¦C¤è¦V:"
+msgstr "å…§å®šçš„æ’åˆ—æ–¹å‘:"
 
 #: templates/manager/manager.html:133
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: config/prefs.php.dist:95
 msgid "Delete folders recursively?"
-msgstr "¦pªG­n§R°£ªº¥Ø¿ı¤¤ÁÙ¦³¤l¥Ø¿ı,¬O§_¤@¨Ö§R°£?"
+msgstr "å¦‚æœè¦åˆªé™¤çš„ç›®éŒ„ä¸­é‚„æœ‰å­ç›®éŒ„,æ˜¯å¦ä¸€ä½µåˆªé™¤?"
 
 #: config/prefs.php.dist:70
 msgid "Descending"
-msgstr "¤U­°"
+msgstr "ä¸‹é™"
 
 #: selectlist.php:100
 msgid "Done"
-msgstr "§¹¦¨"
+msgstr "å®Œæˆ"
 
 #: manager.php:226
 msgid "Download"
-msgstr "¤U¸ü"
+msgstr "ä¸‹è¼‰"
 
 #: manager.php:404
 #, php-format
 msgid "Download %s"
-msgstr "¤U¸ü %s"
+msgstr "ä¸‹è¼‰ %s"
 
 #: templates/quota/quota.html:7
 msgid "ERROR:"
-msgstr "¿ù»~:"
+msgstr "éŒ¯èª¤:"
 
 #: manager.php:225
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: templates/edit/edit.inc:8
 #, php-format
 msgid "Edit %s"
-msgstr "½s¿è %s"
+msgstr "ç·¨è¼¯ %s"
 
 #: config/credentials.php.dist:28
 msgid "Email"
-msgstr "¹q¤l¶l¥ó"
+msgstr "é›»å­éƒµä»¶"
 
 #: templates/manager/manager.html:26
 msgid "Execute"
-msgstr "°õ¦æ"
+msgstr "åŸ·è¡Œ"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:58
 #: templates/manager/manager.html:203
 msgid "File"
-msgstr "ªş¥ó"
+msgstr "é™„ä»¶"
 
 #: config/prefs.php.dist:13
 msgid "File Display"
-msgstr "ÀÉ®×Åã¥Ü"
+msgstr "æª”æ¡ˆé¡¯ç¤º"
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "ÀÉ®×­×§ï®É¶¡"
+msgstr "æª”æ¡ˆä¿®æ”¹æ™‚é–“"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
-msgstr "ÀÉ®×¦WºÙ"
+msgstr "æª”æ¡ˆåç¨±"
 
 #: config/prefs.php.dist:57
 msgid "File Size"
-msgstr "ÀÉ®×¤j¤p"
+msgstr "æª”æ¡ˆå¤§å°"
 
 #: config/prefs.php.dist:54
 msgid "File Type"
-msgstr "ÀÉ®×«¬ºA"
+msgstr "æª”æ¡ˆå‹æ…‹"
 
 #: manager.php:87
 msgid "File deleted: "
-msgstr "ÀÉ®×¤w§R°£: "
+msgstr "æª”æ¡ˆå·²åˆªé™¤: "
 
 #: manager.php:109
 #, php-format
 msgid "File received: %s"
-msgstr "¤w±µ¦¬¨ìÀÉ®×: %s"
+msgstr "å·²æ¥æ”¶åˆ°æª”æ¡ˆ: %s"
 
 #: manager.php:80
 msgid "Folder removed: "
-msgstr "¥Ø¿ı¤w§R°£: "
+msgstr "ç›®éŒ„å·²åˆªé™¤: "
 
 #: templates/manager/manager.html:72
 msgid "Go to:"
-msgstr "¨ì:"
+msgstr "åˆ°:"
 
 #: permissions.php:21
 msgid "Gollem Backend Permissions Administration"
-msgstr "Gollem ¦øªAºİÅv­­ºŞ²z"
+msgstr "Gollem ä¼ºæœç«¯æ¬Šé™ç®¡ç†"
 
 #: manager.php:508 templates/manager/manager.html:10
 msgid "Group"
-msgstr "¸s²Õ"
+msgstr "ç¾¤çµ„"
 
 #: manager.php:56
 msgid "Incorrect number of items."
-msgstr "¶µ¥Øªº¸¹½X¤£¥¿½T."
+msgstr "é …ç›®çš„è™Ÿç¢¼ä¸æ­£ç¢º."
 
 #: manager.php:134
 #, php-format
 msgid "Item copied to clipboard: %s"
-msgstr "¶µ¥Ø¤w³Q½Æ»s¨ì°Å¶KÃ¯: %s"
+msgstr "é …ç›®å·²è¢«è¤‡è£½åˆ°å‰ªè²¼ç°¿: %s"
 
 #: manager.php:136
 #, php-format
 msgid "Item cut to clipboard: %s"
-msgstr "¶µ¥Ø¤w³Q°Å¤U¨Ã°e¨ì°Å¶KÃ¯: %s"
+msgstr "é …ç›®å·²è¢«å‰ªä¸‹ä¸¦é€åˆ°å‰ªè²¼ç°¿: %s"
 
 #: templates/login/login.html:67
 msgid "Language"
-msgstr "»y¨¥"
+msgstr "èªè¨€"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
-msgstr "¥ı¦C¥X¥Ø¿ı?"
+msgstr "å…ˆåˆ—å‡ºç›®éŒ„?"
 
 #: login.php:305
 msgid "Login"
-msgstr "µn¤J"
+msgstr "ç™»å…¥"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "¥\¯àªí"
+msgstr "åŠŸèƒ½è¡¨"
 
 #: manager.php:478
 msgid "Modified"
-msgstr "³Ìªñ§ó·s"
+msgstr "æœ€è¿‘æ›´æ–°"
 
 #: templates/prefs/columnselect.inc:45
 msgid "Move left"
-msgstr "½Õª@"
+msgstr "èª¿æ˜‡"
 
 #: templates/prefs/columnselect.inc:46
 msgid "Move right"
-msgstr "½Õ­°"
+msgstr "èª¿é™"
 
 #: manager.php:456
 msgid "Name"
-msgstr "ÀÉ¦W"
+msgstr "æª”å"
 
 #: templates/manager/manager.html:46 templates/manager/manager.html:60
 msgid "Name:"
-msgstr "ÀÉ¦W:"
+msgstr "æª”å:"
 
 #: manager.php:35
 msgid "New folder created: "
-msgstr "·s¥Ø¿ı¤w«Ø§´: "
+msgstr "æ–°ç›®éŒ„å·²å»ºå¦¥: "
 
 #: config/prefs.php.dist:91
 msgid "No"
-msgstr "§_"
+msgstr "å¦"
 
 #: templates/quota/quota.html:12
 msgid "No quota found."
-msgstr "§ä¤£¨ìºÏºĞ°tÃB."
+msgstr "æ‰¾ä¸åˆ°ç£ç¢Ÿé…é¡."
 
 #: manager.php:267
 msgid "OK"
-msgstr "½T©w"
+msgstr "ç¢ºå®š"
 
 #: manager.php:501 templates/manager/manager.html:9
 msgid "Owner"
-msgstr "¾Ö¦³ªÌ"
+msgstr "æ“æœ‰è€…"
 
 #: config/credentials.php.dist:23
 msgid "Password"
-msgstr "±K½X"
+msgstr "å¯†ç¢¼"
 
 #: clipboard.php:40
 msgid "Paste"
-msgstr "¶K¤W"
+msgstr "è²¼ä¸Š"
 
 #: manager.php:494
 msgid "Permission"
-msgstr "Åv­­"
+msgstr "æ¬Šé™"
 
 #: selectlist.php:64
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "¦s¨ú¾D©Ú %s: %s"
+msgstr "å­˜å–é­æ‹’ %s: %s"
 
 #: manager.php:208
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
-msgstr "¦s¨ú¥Ø¿ı \"%s\": %s ¾D©Ú"
+msgstr "å­˜å–ç›®éŒ„ \"%s\": %s é­æ‹’"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:49
 msgid "Please provide your password."
-msgstr "½Ğ¿é¤J§Aªº±K½X."
+msgstr "è«‹è¼¸å…¥ä½ çš„å¯†ç¢¼."
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:48
 msgid "Please provide your username."
-msgstr "½Ğ¿é¤J§Aªº¨Ï¥ÎªÌ¦WºÙ."
+msgstr "è«‹è¼¸å…¥ä½ çš„ä½¿ç”¨è€…åç¨±."
 
 #: templates/prefs/columnselect.html:5
 msgid "Please select a backend:"
-msgstr "½Ğ¿ï¾Ü¤@­Ó¦øªAºİ:"
+msgstr "è«‹é¸æ“‡ä¸€å€‹ä¼ºæœç«¯:"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:52
 msgid "Please select an item before this action."
-msgstr "¦b°õ¦æ¦¹¤@°Ê§@«e½Ğ¿ï¾Ü¤@­Ó¶µ¥Ø."
+msgstr "åœ¨åŸ·è¡Œæ­¤ä¸€å‹•ä½œå‰è«‹é¸æ“‡ä¸€å€‹é …ç›®."
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:57
 msgid "Please specify at least one file to upload."
-msgstr "½Ğ¦Ü¤Ö¿ï¾Ü¤@­Ó¤W¶ÇÀÉ®×."
+msgstr "è«‹è‡³å°‘é¸æ“‡ä¸€å€‹ä¸Šå‚³æª”æ¡ˆ."
 
 #: quota.php:19 templates/quota/quota.html:2
 msgid "Quota Display"
-msgstr "ºÏºĞ°t¸mª¬ªp"
+msgstr "ç£ç¢Ÿé…ç½®ç‹€æ³"
 
 #: templates/manager/manager.html:14
 msgid "Read"
-msgstr "Åª¨ú"
+msgstr "è®€å–"
 
 #: manager.php:273
 msgid "Refresh"
-msgstr "­«·s¾ã²z"
+msgstr "é‡æ–°æ•´ç†"
 
 #: templates/prefs/columnselect.inc:44
 msgid "Remove column"
-msgstr "²¾°£Äæ¦ì"
+msgstr "ç§»é™¤æ¬„ä½"
 
 #: templates/manager/manager.html:44 templates/manager/manager.html:136
 msgid "Rename"
-msgstr "§ó¦W"
+msgstr "æ›´å"
 
 #: templates/edit/edit.inc:12
 msgid "Reset"
-msgstr "­«³]"
+msgstr "é‡è¨­"
 
 #: lib/Gollem.php:736 lib/Gollem.php:741
 msgid "Root"
-msgstr "®Ú¥Ø¿ı"
+msgstr "æ ¹ç›®éŒ„"
 
 #: manager.php:265 templates/edit/edit.inc:11
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: templates/prefs/columnselect.html:30
 msgid "Selected Columns:"
-msgstr "¤w¿ï¾ÜªºÄæ¦ì:"
+msgstr "å·²é¸æ“‡çš„æ¬„ä½:"
 
 #: templates/login/login.html:31
 msgid "Server"
-msgstr "¦øªA¾¹"
+msgstr "ä¼ºæœå™¨"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "³]©w"
+msgstr "è¨­å®š"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
-msgstr "Åã¥ÜÁôÂÃÀÉ®×?"
+msgstr "é¡¯ç¤ºéš±è—æª”æ¡ˆ?"
 
 #: manager.php:486
 msgid "Size"
-msgstr "¤j¤p"
+msgstr "å¤§å°"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:55
 msgid "The following item(s) are folders:"
-msgstr "¤U¦C¶µ¥ØÄİ©ó¥Ø¿ı: "
+msgstr "ä¸‹åˆ—é …ç›®å±¬æ–¼ç›®éŒ„: "
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:53
 msgid "The following items will be permanently deleted:"
-msgstr "¤U¦C¶µ¥Ø±N¥Ã»·§R°£:"
+msgstr "ä¸‹åˆ—é …ç›®å°‡æ°¸é åˆªé™¤:"
 
 #: js/gollem.js.php:3 js/src/gollem.js.php:61
 msgid "The original opener window has been closed. Exiting."
-msgstr "­ì¶}±Òµøµ¡¤w³QÃö³¬. µ²§ô¤¤."
+msgstr "åŸé–‹å•Ÿè¦–çª—å·²è¢«é—œé–‰. çµæŸä¸­."
 
 #: login.php:151
 msgid "There are no backends available for the current user."
-msgstr "µL¥ô¦ó¦øªAºİ¥i¨Ñ¥Ø«eªº¨Ï¥ÎªÌ¾Ş§@."
+msgstr "ç„¡ä»»ä½•ä¼ºæœç«¯å¯ä¾›ç›®å‰çš„ä½¿ç”¨è€…æ“ä½œ."
 
 #: selectlist.php:199 templates/manager/manager.html:147
 msgid "There are no files in this folder."
-msgstr "¦¹¥Ø¿ı¥Ø«e¨S¦³¥ô¦óÀÉ®×."
+msgstr "æ­¤ç›®éŒ„ç›®å‰æ²’æœ‰ä»»ä½•æª”æ¡ˆ."
 
 #: templates/clipboard/clipboard.html:15
 msgid ""
 "To clear items from the clipboard, check the box next to the filename and "
 "click on &quot;Clear&quot;."
-msgstr "±ı²M°£°Å¶KÃ¯¤Wªº¶µ¥Ø, ¤Ä¿ïÀÉ®×µM«áÂI¿ï&quot;²M°£&quot;."
+msgstr "æ¬²æ¸…é™¤å‰ªè²¼ç°¿ä¸Šçš„é …ç›®, å‹¾é¸æª”æ¡ˆç„¶å¾Œé»é¸&quot;æ¸…é™¤&quot;."
 
 #: templates/clipboard/clipboard.html:13
 msgid ""
 "To paste items from the clipboard to the current directory, check the box "
 "next to the filename and click on &quot;Paste&quot;."
-msgstr "±ı±N°Å¶KÃ¯¤Wªº¶µ¥Ø¶K¨ì²{¦æ¥Ø¿ı¤¤, ¤Ä¿ïÀÉ®×µM«áÂI¿ï&quot;¶K¤W&quot;."
+msgstr "æ¬²å°‡å‰ªè²¼ç°¿ä¸Šçš„é …ç›®è²¼åˆ°ç¾è¡Œç›®éŒ„ä¸­, å‹¾é¸æª”æ¡ˆç„¶å¾Œé»é¸&quot;è²¼ä¸Š&quot;."
 
 #: manager.php:448
 msgid "Type"
-msgstr "«¬ºA"
+msgstr "å‹æ…‹"
 
 #: permissions.php:42
 #, php-format
 msgid "Unable to create backend permission: %s"
-msgstr "µLªk«Ø¥ß¦øªAºİÅv­­: %s"
+msgstr "ç„¡æ³•å»ºç«‹ä¼ºæœç«¯æ¬Šé™: %s"
 
 #: manager.php:85
 msgid "Unable to delete file %s: %s"
-msgstr "µLªk§R°£ÀÉ®× %s: %s"
+msgstr "ç„¡æ³•åˆªé™¤æª”æ¡ˆ %s: %s"
 
 #: manager.php:78
 msgid "Unable to delete folder %s: %s"
-msgstr "µLªk§R°£¥Ø¿ı %s: %s"
+msgstr "ç„¡æ³•åˆªé™¤ç›®éŒ„ %s: %s"
 
 #: lib/Gollem.php:741 lib/Gollem.php:751
 #, php-format
 msgid "Up to %s"
-msgstr "¦^¨ì %s"
+msgstr "å›åˆ° %s"
 
 #: manager.php:286
 msgid "Upload File(s)"
-msgstr "¤W¶ÇÀÉ®×"
+msgstr "ä¸Šå‚³æª”æ¡ˆ"
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "¨Ï¥ÎªÌ¤¶­±"
+msgstr "ä½¿ç”¨è€…ä»‹é¢"
 
 #: config/credentials.php.dist:18
 msgid "Username"
-msgstr "¨Ï¥ÎªÌ¦WºÙ"
+msgstr "ä½¿ç”¨è€…åç¨±"
 
 #: manager.php:281
 msgid "View Clipboard"
-msgstr "ÀËµø°Å¶KÃ¯"
+msgstr "æª¢è¦–å‰ªè²¼ç°¿"
 
 #: login.php:200
 #, php-format
 msgid "Welcome to %s"
-msgstr "Åwªï¨ì %s"
+msgstr "æ­¡è¿åˆ° %s"
 
 #: templates/manager/manager.html:20
 msgid "Write"
-msgstr "¼g¤J"
+msgstr "å¯«å…¥"
 
 #: config/prefs.php.dist:92
 msgid "Yes"
-msgstr "¬O"
+msgstr "æ˜¯"
 
 #: permissions.php:25
 msgid "You need at least one backend defined to set permissions."
-msgstr "§A¥²¶·©w¸q¦Ü¤Ö¤@­Ó¦øªAºİ¥H³]©wÅv­­."
+msgstr "ä½ å¿…é ˆå®šç¾©è‡³å°‘ä¸€å€‹ä¼ºæœç«¯ä»¥è¨­å®šæ¬Šé™."
 
 #: lib/MIME/Viewer/images.php:35
 msgid "Your browser does not support inline display of this image type"
-msgstr "§AªºÂsÄı¾¹¨Ã¥¼¤ä´©³oÃş«¬ªº¼v¹³ÀÉ°µª½±µ¶}±Òªº°Ê§@"
+msgstr "ä½ çš„ç€è¦½å™¨ä¸¦æœªæ”¯æ´é€™é¡å‹çš„å½±åƒæª”åšç›´æ¥é–‹å•Ÿçš„å‹•ä½œ"
 
 #: lib/Gollem.php:820 lib/Gollem.php:823
 msgid "_Change Server"
-msgstr "ÅÜ§ó¦øªA¾¹_C"
+msgstr "è®Šæ›´ä¼ºæœå™¨_C"
 
 #: lib/Gollem.php:776
 msgid "_Create Folder"
-msgstr "«Ø¥ß¥Ø¿ı_C"
+msgstr "å»ºç«‹ç›®éŒ„_C"
 
 #: lib/Gollem.php:772
 msgid "_My Home"
-msgstr "§Úªº®a¥Ø¿ı_M"
+msgstr "æˆ‘çš„å®¶ç›®éŒ„_M"
 
 #: lib/Gollem.php:786
 msgid "_Permissions"
-msgstr "Åv­­_P"
+msgstr "æ¬Šé™_P"
 
 #: manager.php:227 selectlist.php:75
 msgid "folder"
-msgstr "¥Ø¿ı"
+msgstr "ç›®éŒ„"
 
 #: manager.php:228 selectlist.php:76
 msgid "symlink"
-msgstr "²Å¸¹³sµ²"
+msgstr "ç¬¦è™Ÿé€£çµ"

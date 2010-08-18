@@ -1,6 +1,6 @@
 # Horde Swedish translation
-# Copyright 2002-2005 Andreas Dahlén.
-# Andreas Dahlén <andreas@dahlen.ws>, 2005.
+# Copyright 2002-2005 Andreas DahlÃ©n.
+# Andreas DahlÃ©n <andreas@dahlen.ws>, 2005.
 #
 msgid ""
 msgstr ""
@@ -8,10 +8,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-06-14 22:08+0200\n"
 "PO-Revision-Date: 2005-03-30 15:48+0100\n"
-"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Last-Translator: Andreas DahlÃ©n <andreas@dahlen.ws>\n"
 "Language-Team: Swedish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: framework/Form/Form.php:2368
@@ -39,12 +39,12 @@ msgstr " (i morgon)"
 
 #: framework/Form/Form.php:2370
 msgid " (yesterday)"
-msgstr " (i går)"
+msgstr " (i gÃ¥r)"
 
 #: framework/VFS/VFS/smb.php:207
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "'%s' är inte en katalog."
+msgstr "'%s' Ã¤r inte en katalog."
 
 #: admin/groups.php:56
 #, php-format
@@ -54,7 +54,7 @@ msgstr "'%s' lades till i gruppsystemet."
 #: admin/perms/addchild.php:52
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "'%s' lades till i behörighetssystemet."
+msgstr "'%s' lades till i behÃ¶righetssystemet."
 
 #: admin/groups.php:54 admin/perms/addchild.php:50
 #, php-format
@@ -64,7 +64,7 @@ msgstr "'%s' skapades inte: %s."
 #: lib/Block/account.php:70
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
-msgstr "%.2fMB använt av %.2fMB  (%2f%%)"
+msgstr "%.2fMB anvÃ¤nt av %.2fMB  (%2f%%)"
 
 #: lib/Block/weatherdotcom.php:212
 #, php-format
@@ -74,22 +74,22 @@ msgstr "%d %s och %s"
 #: framework/Auth/Auth/ldap.php:268 lib/Block/account.php:561
 #, php-format
 msgid "%d days until your password expires."
-msgstr "Ditt lösenord går ut om %d dagar."
+msgstr "Ditt lÃ¶senord gÃ¥r ut om %d dagar."
 
 #: lib/Block/weatherdotcom.php:260
 #, php-format
 msgid "%d-day forecast"
-msgstr "%d-dags förutsägelse"
+msgstr "%d-dags fÃ¶rutsÃ¤gelse"
 
 #: services/maintenance.php:68
 #, php-format
 msgid "%s - Notice"
-msgstr "%s - För kännedom"
+msgstr "%s - FÃ¶r kÃ¤nnedom"
 
 #: framework/Crypt/Crypt/smime.php:724
 #, php-format
 msgid "%s Fingerprint"
-msgstr "Fingerprint för %s"
+msgstr "Fingerprint fÃ¶r %s"
 
 #: framework/MIME/MIME/Contents.php:826 framework/MIME/MIME/Contents.php:828
 #, php-format
@@ -99,7 +99,7 @@ msgstr "%s kB"
 #: services/maintenance.php:49
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s Underhållsfunktion - Bekräftelse"
+msgstr "%s UnderhÃ¥llsfunktion - BekrÃ¤ftelse"
 
 #: admin/setup/config.php:30 admin/setup/index.php:219
 #, php-format
@@ -109,12 +109,12 @@ msgstr "%s Setup"
 #: framework/Auth/Auth/Signup.php:274
 #, php-format
 msgid "%s Sign Up"
-msgstr "%s anmälan"
+msgstr "%s anmÃ¤lan"
 
 #: services/maintenance.php:59
 #, php-format
 msgid "%s Terms of Agreement"
-msgstr "Licensavtal för %s"
+msgstr "Licensavtal fÃ¶r %s"
 
 #: framework/VFS/VFS/ftp.php:592 framework/VFS/VFS/ftp.php:662
 #: framework/VFS/VFS/smb.php:411 framework/VFS/VFS/smb.php:468
@@ -130,12 +130,12 @@ msgstr "%s har annulerat %s."
 #: framework/MIME/MIME/Viewer/icalendar.php:426
 #, php-format
 msgid "%s has replied to a free/busy request."
-msgstr "%s har svarat på en begäran om information angående ledig/upptagen."
+msgstr "%s har svarat pÃ¥ en begÃ¤ran om information angÃ¥ende ledig/upptagen."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:524
 #, php-format
 msgid "%s has replied to the invitation to %s."
-msgstr "%s har svarat på inbjudan till %s."
+msgstr "%s har svarat pÃ¥ inbjudan till %s."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:416
 #, php-format
@@ -148,13 +148,13 @@ msgid ""
 "%s is ready to perform the maintenance operations checked below. Check the "
 "box for any operation(s) you want to perform at this time."
 msgstr ""
-"%s kommer att utföra de underhållsaktiviteterna som kryssats i nedan. Kryssa "
-"i de aktiviteter som du vill utföra."
+"%s kommer att utfÃ¶ra de underhÃ¥llsaktiviteterna som kryssats i nedan. Kryssa "
+"i de aktiviteter som du vill utfÃ¶ra."
 
 #: framework/Form/Form.php:2338
 #, php-format
 msgid "%s is required"
-msgstr "%s krävs"
+msgstr "%s krÃ¤vs"
 
 #: lib/Block/metar.php:284
 #, php-format
@@ -169,12 +169,12 @@ msgstr "%s saknas."
 #: framework/MIME/MIME/Viewer/icalendar.php:421
 #, php-format
 msgid "%s requests your free/busy information."
-msgstr "%s efterfrågar information om när du är ledig/upptagen."
+msgstr "%s efterfrÃ¥gar information om nÃ¤r du Ã¤r ledig/upptagen."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:508
 #, php-format
 msgid "%s requests your presence at %s."
-msgstr "%s efterfrågar din närvaro vid %s."
+msgstr "%s efterfrÃ¥gar din nÃ¤rvaro vid %s."
 
 #: templates/admin/user/list.inc:4
 #, php-format
@@ -184,37 +184,37 @@ msgstr "%s till %s av %s"
 #: framework/MIME/MIME/Viewer/icalendar.php:513
 #, php-format
 msgid "%s wishes to add to %s."
-msgstr "%s vill läggas till till %s."
+msgstr "%s vill lÃ¤ggas till till %s."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:502
 #, php-format
 msgid "%s wishes to make you aware of %s."
-msgstr "%s vill göra dig medveten om %s."
+msgstr "%s vill gÃ¶ra dig medveten om %s."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:518
 #, php-format
 msgid "%s wishes to receive the latest information about %s."
-msgstr "%s vill erhålla den senaste informationen om %s."
+msgstr "%s vill erhÃ¥lla den senaste informationen om %s."
 
 #: framework/Kolab/Kolab.php:943
 #, php-format
 msgid "%s's Address Book"
-msgstr "Adressbok för %s"
+msgstr "Adressbok fÃ¶r %s"
 
 #: framework/Kolab/Kolab.php:935
 #, php-format
 msgid "%s's Calendar"
-msgstr "Kalender för %s"
+msgstr "Kalender fÃ¶r %s"
 
 #: framework/Kolab/Kolab.php:927
 #, php-format
 msgid "%s's Notepad"
-msgstr "Anteckningar för %s"
+msgstr "Anteckningar fÃ¶r %s"
 
 #: framework/Kolab/Kolab.php:951
 #, php-format
 msgid "%s's Tasklist"
-msgstr "Uppgifter för %s"
+msgstr "Uppgifter fÃ¶r %s"
 
 #: framework/Notification/Notification/Listener/mobile.php:104
 #, php-format
@@ -227,24 +227,24 @@ msgid ""
 "%s: This message may not be from whom it claims to be. Beware of following "
 "any links in it or of providing the sender with any personal information."
 msgstr ""
-"%s: Meddelandet kanske inte är från den som det verkar. Var försiktig med "
-"att följa länkar eller skicka avsändaren personlig information."
+"%s: Meddelandet kanske inte Ã¤r frÃ¥n den som det verkar. Var fÃ¶rsiktig med "
+"att fÃ¶lja lÃ¤nkar eller skicka avsÃ¤ndaren personlig information."
 
 #: framework/CLI/CLI.php:267
 #, php-format
 msgid "'%s' is not a valid choice."
-msgstr "'%s' är inte ett godkänt val."
+msgstr "'%s' Ã¤r inte ett godkÃ¤nt val."
 
 #: framework/Horde/Horde/Registry.php:681
 #: framework/Horde/Horde/Registry.php:1089
 #, php-format
 msgid "'%s' is not configured in the Horde Registry."
-msgstr "'%s' är inte konfigurerad i Horde Registry."
+msgstr "'%s' Ã¤r inte konfigurerad i Horde Registry."
 
 #: framework/Tree/Tree.php:173
 #, php-format
 msgid "'%s' tree renderer not found."
-msgstr "'Tree renderer' för %s saknas."
+msgstr "'Tree renderer' fÃ¶r %s saknas."
 
 #: lib/Block/weatherdotcom.php:343 lib/Block/weatherdotcom.php:388
 msgid ", gusting "
@@ -264,7 +264,7 @@ msgstr ", variablem mellan %s till %s"
 #: framework/Form/Form.php:2067 framework/Form/Form.php:2126
 #: framework/UI/UI/VarRenderer/html.php:723
 msgid "-- select --"
-msgstr "-- välj --"
+msgstr "-- vÃ¤lj --"
 
 #: lib/Block/time.php:20
 msgid "12 Hour Format"
@@ -280,30 +280,30 @@ msgstr "24 timmar"
 
 #: framework/UI/UI/Pager.php:69
 msgid "<Previous"
-msgstr "<Föregående"
+msgstr "<FÃ¶regÃ¥ende"
 
 #: lib/Block/metar.php:117
 msgid "A database backend is required for this block."
-msgstr "'Databasbackend' krävs för aktuellt block."
+msgstr "'Databasbackend' krÃ¤vs fÃ¶r aktuellt block."
 
 #: framework/Horde/Horde.php:166
 msgid "A fatal error has occurred"
-msgstr "Ett fatalt fel har inträffat"
+msgstr "Ett fatalt fel har intrÃ¤ffat"
 
 #: framework/Crypt/Crypt/pgp.php:943
 msgid "A public PGP key is required to encrypt a message."
-msgstr "En publik PGP-nyckel krävs för att kryptera ett meddelande."
+msgstr "En publik PGP-nyckel krÃ¤vs fÃ¶r att kryptera ett meddelande."
 
 #: framework/Crypt/Crypt/pgp.php:1168
 msgid "A public PGP key is required to verify a signed message."
-msgstr "En publik PGP-nyckel krävs för att verifiera ett signerat meddelande."
+msgstr "En publik PGP-nyckel krÃ¤vs fÃ¶r att verifiera ett signerat meddelande."
 
 #: framework/Crypt/Crypt/pgp.php:1100
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to decrypt a "
 "message."
 msgstr ""
-"En publik och privat PGP-nyckel samt lösenord krävs för att dekryptera ett "
+"En publik och privat PGP-nyckel samt lÃ¶senord krÃ¤vs fÃ¶r att dekryptera ett "
 "meddelande."
 
 #: framework/Crypt/Crypt/pgp.php:1018
@@ -311,7 +311,7 @@ msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"En publik och privat PGP-nyckel samt lösenord krävs för att signera ett "
+"En publik och privat PGP-nyckel samt lÃ¶senord krÃ¤vs fÃ¶r att signera ett "
 "meddelande."
 
 #: framework/Crypt/Crypt/smime.php:521
@@ -319,7 +319,7 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"En publik och privat S/MIME-nyckel samt lösenord krävs för att dekryptera "
+"En publik och privat S/MIME-nyckel samt lÃ¶senord krÃ¤vs fÃ¶r att dekryptera "
 "ett meddelande."
 
 #: framework/Crypt/Crypt/smime.php:447
@@ -327,28 +327,28 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"En publik och privat S/MIME-nyckel samt lösenord krävs för att signera ett "
+"En publik och privat S/MIME-nyckel samt lÃ¶senord krÃ¤vs fÃ¶r att signera ett "
 "meddelande."
 
 #: framework/Crypt/Crypt/smime.php:380
 msgid "A public SMIME key is required to encrypt a message."
-msgstr "En publik S/MIME-nyckel krävs för att kryptera ett meddelande."
+msgstr "En publik S/MIME-nyckel krÃ¤vs fÃ¶r att kryptera ett meddelande."
 
 #: lib/Block/weatherdotcom.php:425
 msgid "AM Light Rain"
-msgstr "Lätt förmiddagsregn"
+msgstr "LÃ¤tt fÃ¶rmiddagsregn"
 
 #: lib/Block/weatherdotcom.php:426
 msgid "AM Rain"
-msgstr "Förmiddagsregn"
+msgstr "FÃ¶rmiddagsregn"
 
 #: lib/Block/weatherdotcom.php:427
 msgid "AM Showers"
-msgstr "Förmiddagsskurar"
+msgstr "FÃ¶rmiddagsskurar"
 
 #: lib/Block/weatherdotcom.php:428
 msgid "AM Snow Showers"
-msgstr "Förmiddagsskurar med snö"
+msgstr "FÃ¶rmiddagsskurar med snÃ¶"
 
 #: templates/data/time.inc:29
 msgid "AM/PM"
@@ -376,7 +376,7 @@ msgstr "Mitten"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:640
 msgid "Accept request"
-msgstr "Acceptera begäran"
+msgstr "Acceptera begÃ¤ran"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:681
 msgid "Accepted"
@@ -384,11 +384,11 @@ msgstr "Accepterad"
 
 #: framework/VFS/VFS/musql.php:278
 msgid "Access denied creating VFS directory."
-msgstr "Behörighet saknas att skapa VFS-mapp."
+msgstr "BehÃ¶righet saknas att skapa VFS-mapp."
 
 #: framework/VFS/VFS/musql.php:138
 msgid "Access denied creating VFS file."
-msgstr "Behörighet saknas att skapa VFS-fil."
+msgstr "BehÃ¶righet saknas att skapa VFS-fil."
 
 #: lib/Block/account.php:3
 msgid "Account Information"
@@ -396,7 +396,7 @@ msgstr "Konto information"
 
 #: config/prefs.php.dist:75
 msgid "Account Password"
-msgstr "Konto lösenord"
+msgstr "Konto lÃ¶senord"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:302
 msgid "Account frozen."
@@ -409,80 +409,80 @@ msgstr "Budget"
 #: framework/MIME/MIME/Viewer/icalendar.php:451
 #: framework/MIME/MIME/Viewer/icalendar.php:625
 msgid "Actions"
-msgstr "Åtgärder"
+msgstr "Ã…tgÃ¤rder"
 
 #: framework/Perms/Perms/UI.php:154 templates/portal/add.inc:14
 #: templates/admin/groups/addchild.inc:17
 msgid "Add"
-msgstr "Lägg till"
+msgstr "LÃ¤gg till"
 
 #: admin/groups.php:214 admin/groups.php:215
 msgid "Add Child Group"
-msgstr "Lägg till undergrupp"
+msgstr "LÃ¤gg till undergrupp"
 
 #: framework/Perms/Perms/UI.php:98 framework/Perms/Perms/UI.php:99
 msgid "Add Child Permission"
-msgstr "lägg till underbehörigheter"
+msgstr "lÃ¤gg till underbehÃ¶righeter"
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Lägg till här:"
+msgstr "LÃ¤gg till hÃ¤r:"
 
 #: admin/groups.php:208 admin/groups.php:209
 msgid "Add New Group"
-msgstr "Lägg till ny grupp"
+msgstr "LÃ¤gg till ny grupp"
 
 #: framework/Perms/Perms/UI.php:87 framework/Perms/Perms/UI.php:88
 msgid "Add New Permission"
-msgstr "Lägg till ny behörighet"
+msgstr "LÃ¤gg till ny behÃ¶righet"
 
 #: templates/admin/groups/addchild.inc:9
 #, php-format
 msgid "Add a child group to '%s'"
-msgstr "Lägg till barngrupp till '%s'"
+msgstr "LÃ¤gg till barngrupp till '%s'"
 
 #: framework/Perms/Perms/UI.php:153
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Lägg till barnbehörighet till '%s'"
+msgstr "LÃ¤gg till barnbehÃ¶righet till '%s'"
 
 #: admin/user.php:30
 msgid "Add a new user:"
-msgstr "Lägg till en ny användare:"
+msgstr "LÃ¤gg till en ny anvÃ¤ndare:"
 
 #: framework/UI/UI/VarRenderer/html.php:529
 msgid "Add column"
-msgstr "Lägg till kolumn"
+msgstr "LÃ¤gg till kolumn"
 
 #: templates/admin/groups/edit.inc:40
 msgid "Add new members"
-msgstr "Lägg till nya medlem"
+msgstr "LÃ¤gg till nya medlem"
 
 #: templates/data/csvmap.inc:103
 msgid "Add pair"
-msgstr "Lägg till par"
+msgstr "LÃ¤gg till par"
 
 #: config/prefs.php.dist:357
 #, php-format
 msgid "Add the %s Menu as a Mozilla Sidebar"
-msgstr "Lägg till menyn för %s som Mozilla Sidebar"
+msgstr "LÃ¤gg till menyn fÃ¶r %s som Mozilla Sidebar"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:631
 #: framework/MIME/MIME/Viewer/icalendar.php:637
 msgid "Add this to my calendar"
-msgstr "Lägg till i min kalender"
+msgstr "LÃ¤gg till i min kalender"
 
 #: framework/MIME/MIME/Viewer/vcard.php:73
 msgid "Add to address book:"
-msgstr "Lägg till i adressbok:"
+msgstr "LÃ¤gg till i adressbok:"
 
 #: framework/MIME/MIME/Viewer/vcard.php:80
 msgid "Add to my address book"
-msgstr "Lägg till i min adressbok"
+msgstr "LÃ¤gg till i min adressbok"
 
 #: admin/user.php:31
 msgid "Add user"
-msgstr "Lägg till användare"
+msgstr "LÃ¤gg till anvÃ¤ndare"
 
 #: admin/user.php:79
 #, php-format
@@ -490,7 +490,7 @@ msgid ""
 "Added '%s' to the system, but could not add additional signup information: %"
 "s."
 msgstr ""
-"La till '%s' till systemet, men kunde inte lägga till extra information: %s."
+"La till '%s' till systemet, men kunde inte lÃ¤gga till extra information: %s."
 
 #: signup.php:45
 #, php-format
@@ -499,7 +499,7 @@ msgstr "La till '%s' till systemet. Du kan logga in nu."
 
 #: templates/admin/user/noadd.inc:4
 msgid "Adding users is disabled."
-msgstr "Upplägg av användare är inaktiverat."
+msgstr "UpplÃ¤gg av anvÃ¤ndare Ã¤r inaktiverat."
 
 #: framework/Form/Form.php:1447 framework/MIME/MIME/Viewer/vcard.php:128
 #: framework/MIME/MIME/Viewer/vcard.php:175
@@ -512,7 +512,7 @@ msgstr "Adressbok"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:94
 msgid "Administer - set permissions for other users"
-msgstr "Administration - ange behörighet för andra användare"
+msgstr "Administration - ange behÃ¶righet fÃ¶r andra anvÃ¤ndare"
 
 #: admin/index.php:19 services/portal/sidebar.php:113
 msgid "Administration"
@@ -555,7 +555,7 @@ msgstr "Alla"
 
 #: framework/Perms/Perms/UI.php:217 templates/shares/edit.inc:65
 msgid "All Authenticated Users"
-msgstr "Alla authentiserade användare"
+msgstr "Alla authentiserade anvÃ¤ndare"
 
 #: admin/groups.php:33 admin/groups.php:212
 msgid "All Groups"
@@ -563,7 +563,7 @@ msgstr "Alla grupper"
 
 #: framework/Perms/Perms/UI.php:91 framework/Perms/Perms/datatree.php:75
 msgid "All Permissions"
-msgstr "Alla behörigheter"
+msgstr "Alla behÃ¶righeter"
 
 #: templates/javascript/htmlarea_table_lang.js:17
 msgid "All four sides"
@@ -571,11 +571,11 @@ msgstr "Alla fyra sidor"
 
 #: framework/Form/Form.php:1869
 msgid "Allow multiple addresses"
-msgstr "Tillåt flera adresser"
+msgstr "TillÃ¥t flera adresser"
 
 #: config/prefs.php.dist:523
 msgid "Allow setting of ordered list type?"
-msgstr "Tillåt inställning för sorterad lista?"
+msgstr "TillÃ¥t instÃ¤llning fÃ¶r sorterad lista?"
 
 #: framework/DataTree/DataTree/sql.php:504
 msgid "Already exists"
@@ -587,11 +587,11 @@ msgstr "Alternativ IMSP-inloggning"
 
 #: config/prefs.php.dist:496
 msgid "Alternate IMSP Password"
-msgstr "Alternativt lösenord för IMSP"
+msgstr "Alternativt lÃ¶senord fÃ¶r IMSP"
 
 #: config/prefs.php.dist:488
 msgid "Alternate IMSP Username"
-msgstr "Alternativt användarnamn för IMSP"
+msgstr "Alternativt anvÃ¤ndarnamn fÃ¶r IMSP"
 
 #: services/resetpassword.php:35
 msgid "Alternate email address"
@@ -608,7 +608,7 @@ msgstr "Alternativ text:"
 
 #: framework/Prefs/Prefs/UI.php:97 framework/Prefs/Prefs/UI.php:117
 msgid "An illegal value was specified."
-msgstr "Ett felaktigt värde angavs."
+msgstr "Ett felaktigt vÃ¤rde angavs."
 
 #: framework/NLS/NLS/GeoIP.php:55 framework/NLS/NLS/countries.php:15
 #: framework/NLS/NLS/tld.php:16
@@ -644,19 +644,19 @@ msgstr "Applikationslista"
 
 #: admin/setup/index.php:140
 msgid "Application is ready."
-msgstr "Applikationen är klar."
+msgstr "Applikationen Ã¤r klar."
 
 #: templates/shares/edit.inc:218
 msgid "Apply to Child Shares"
-msgstr "Verkställ till underutdelningar"
+msgstr "VerkstÃ¤ll till underutdelningar"
 
 #: templates/admin/user/approve.inc:21
 msgid "Approve"
-msgstr "Godkänn"
+msgstr "GodkÃ¤nn"
 
 #: framework/MIME/MIME/Contents.php:826
 msgid "Approximate Size"
-msgstr "Ungefärlig storlek"
+msgstr "UngefÃ¤rlig storlek"
 
 #: framework/UI/UI/VarRenderer/html.php:377
 #: framework/UI/UI/VarRenderer/html.php:414
@@ -677,12 +677,12 @@ msgstr "Filnamn"
 #: templates/admin/user/removequeued.inc:8
 #, php-format
 msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "Är det säkert att du vill ta bort anmälan för %s?"
+msgstr "Ã„r det sÃ¤kert att du vill ta bort anmÃ¤lan fÃ¶r %s?"
 
 #: templates/admin/groups/delete.inc:9
 #, php-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
-msgstr "Är det säkert att du vill radera '%s' och eventuella undergrupper?"
+msgstr "Ã„r det sÃ¤kert att du vill radera '%s' och eventuella undergrupper?"
 
 #: framework/NLS/NLS/GeoIP.php:58 framework/NLS/NLS/countries.php:20
 #: framework/NLS/NLS/tld.php:26
@@ -713,7 +713,7 @@ msgstr "Asien/Stilla havsregionen"
 
 #: config/prefs.php.dist:415
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Fråga efter bekräftelse innan underhållsaktiviteter utförs?"
+msgstr "FrÃ¥ga efter bekrÃ¤ftelse innan underhÃ¥llsaktiviteter utfÃ¶rs?"
 
 #: framework/Form/Form.php:3114
 msgid "Assignment columns"
@@ -723,23 +723,23 @@ msgstr "Tilldelningskolumn"
 #: framework/MIME/MIME/Viewer/icalendar.php:249
 #: framework/MIME/MIME/Viewer/icalendar.php:318
 msgid "Attached is an iCalendar file reply to a request you sent"
-msgstr "Bifogad är en iCalender fil med ett svar på en begäran som du skickat,"
+msgstr "Bifogad Ã¤r en iCalender fil med ett svar pÃ¥ en begÃ¤ran som du skickat,"
 
 #: admin/groups.php:74
 msgid "Attempt to delete a non-existent group."
-msgstr "Försök till att radera en grupp som inte finns."
+msgstr "FÃ¶rsÃ¶k till att radera en grupp som inte finns."
 
 #: admin/perms/delete.php:29
 msgid "Attempt to delete a non-existent permission."
-msgstr "Försök till att radera en behörighet som inte finns."
+msgstr "FÃ¶rsÃ¶k till att radera en behÃ¶righet som inte finns."
 
 #: admin/perms/edit.php:87
 msgid "Attempt to edit a non-existent permission."
-msgstr "Försök att ändra en behörighet som inte finns."
+msgstr "FÃ¶rsÃ¶k att Ã¤ndra en behÃ¶righet som inte finns."
 
 #: services/shares/edit.php:53
 msgid "Attempt to edit a non-existent share."
-msgstr "Försök att ändra en utdelning som inte finns."
+msgstr "FÃ¶rsÃ¶k att Ã¤ndra en utdelning som inte finns."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:577
 msgid "Attendees"
@@ -764,7 +764,7 @@ msgstr "Australien"
 #: framework/NLS/NLS/GeoIP.php:59 framework/NLS/NLS/countries.php:24
 #: framework/NLS/NLS/tld.php:28
 msgid "Austria"
-msgstr "Österrike"
+msgstr "Ã–sterrike"
 
 #: framework/Auth/Auth/cyrsql.php:170
 msgid "Auth_cyrsql: Required imap extension not found."
@@ -772,7 +772,7 @@ msgstr "Auth_cyrsql: IMAP-extension saknas."
 
 #: framework/Auth/Auth/cyrus.php:138
 msgid "Auth_cyrus: Backend does not have required capabilites."
-msgstr "Auth_cyrsql: Backend saknar funktioner som krävs."
+msgstr "Auth_cyrsql: Backend saknar funktioner som krÃ¤vs."
 
 #: framework/Auth/Auth/cyrus.php:125
 msgid "Auth_cyrus: Required imap extension not found."
@@ -800,17 +800,17 @@ msgstr "Auth_ldap: LDAP-extension saknas."
 #: framework/Auth/Auth/ldap.php:341
 #, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
-msgstr "Auth_ldap: Kan inte lägga till användare '%s'. Servern svarade: "
+msgstr "Auth_ldap: Kan inte lÃ¤gga till anvÃ¤ndare '%s'. Servern svarade: "
 
 #: framework/Auth/Auth/ldap.php:389
 #, php-format
 msgid "Auth_ldap: Unable to remove user %s"
-msgstr "Auth_ldap: Kan inte radera användare %s"
+msgstr "Auth_ldap: Kan inte radera anvÃ¤ndare %s"
 
 #: framework/Auth/Auth/ldap.php:505
 #, php-format
 msgid "Auth_ldap: Unable to update user %s"
-msgstr "Auth_ldap: Kan inte uppdatera användare %s"
+msgstr "Auth_ldap: Kan inte uppdatera anvÃ¤ndare %s"
 
 #: framework/Auth/Auth/mcal.php:48
 msgid "Auth_mcal: Required MCAL extension not found."
@@ -844,11 +844,11 @@ msgstr "Authentisering till SMB-server misslyckades."
 
 #: templates/data/csvmap.inc:83
 msgid "Available fields:"
-msgstr "Tillgängliga fält:"
+msgstr "TillgÃ¤ngliga fÃ¤lt:"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:614
 msgid "Awaiting Response"
-msgstr "Väntar på svar"
+msgstr "VÃ¤ntar pÃ¥ svar"
 
 #: templates/javascript/htmlarea_table_lang.js:18
 msgid "Background"
@@ -856,15 +856,15 @@ msgstr "Bakgrund"
 
 #: templates/javascript/htmlarea_lang.js:23
 msgid "Background Color"
-msgstr "Bakgrundsfärg"
+msgstr "BakgrundsfÃ¤rg"
 
 #: framework/Auth/Auth/krb5.php:83
 msgid "Bad kerberos password."
-msgstr "Felaktigt lösenord för Kerberos"
+msgstr "Felaktigt lÃ¶senord fÃ¶r Kerberos"
 
 #: framework/Auth/Auth/krb5.php:85
 msgid "Bad kerberos username."
-msgstr "Felaktigt användarnamn för Kerberos"
+msgstr "Felaktigt anvÃ¤ndarnamn fÃ¶r Kerberos"
 
 #: framework/NLS/NLS/GeoIP.php:60 framework/NLS/NLS/countries.php:29
 #: framework/NLS/NLS/tld.php:33
@@ -874,7 +874,7 @@ msgstr "Barbados"
 #: util/icon_browser.php:31
 #, php-format
 msgid "Base graphics directory '%s' not found."
-msgstr "Grundkatalog '%s' för bilder hittades inte."
+msgstr "Grundkatalog '%s' fÃ¶r bilder hittades inte."
 
 #: templates/javascript/htmlarea_lang.js:73
 #: templates/javascript/htmlarea_table_lang.js:19
@@ -913,16 +913,16 @@ msgstr "Bhutan"
 
 #: framework/MIME/MIME/Viewer/vcard.php:113
 msgid "Birthday"
-msgstr "Födelsedag"
+msgstr "FÃ¶delsedag"
 
 #: framework/Block/Block/Collection.php:347
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
-msgstr "Block '%s' för applikation '%s' saknas."
+msgstr "Block '%s' fÃ¶r applikation '%s' saknas."
 
 #: templates/portal/layout.inc:89
 msgid "Block Settings"
-msgstr "Blockinställningar"
+msgstr "BlockinstÃ¤llningar"
 
 #: templates/portal/layout.inc:74
 msgid "Block Type"
@@ -939,7 +939,7 @@ msgstr "Bolivia"
 
 #: config/registry.php.dist:202
 msgid "Bookmarks"
-msgstr "Bokmärken"
+msgstr "BokmÃ¤rken"
 
 #: templates/javascript/htmlarea_table_lang.js:20
 msgid "Border"
@@ -955,7 +955,7 @@ msgstr "Ramar"
 
 #: lib/Block/fortune.php:96
 msgid "Both"
-msgstr "Båda"
+msgstr "BÃ¥da"
 
 #: framework/NLS/NLS/GeoIP.php:63 framework/NLS/NLS/countries.php:38
 #: framework/NLS/NLS/tld.php:48
@@ -995,7 +995,7 @@ msgstr "CRL Distribution Points"
 
 #: templates/javascript/htmlarea_context_lang.js:27
 msgid "C_ell Properties..."
-msgstr "C_ell inställningar..."
+msgstr "C_ell instÃ¤llningar..."
 
 #: framework/UI/UI/VarRenderer/html.php:456 config/hooks.php.dist:993
 #: config/registry.php.dist:152
@@ -1018,7 +1018,7 @@ msgstr "Kamerun"
 
 #: services/resetpassword.php:20
 msgid "Can not reset password automatically, contact your administrator."
-msgstr "Kan inte nollställa lösenord automatiskt, kontakta din administratör."
+msgstr "Kan inte nollstÃ¤lla lÃ¶senord automatiskt, kontakta din administratÃ¶r."
 
 #: framework/File_CSV/CSV.php:318
 #, php-format
@@ -1033,7 +1033,7 @@ msgstr "Kan inte kontakta mailservern: %s"
 #: framework/File_CSV/CSV.php:413
 #, php-format
 msgid "Can't open file \"%s\"."
-msgstr "Kan inte öppna fil '%s'"
+msgstr "Kan inte Ã¶ppna fil '%s'"
 
 #: framework/NLS/NLS/GeoIP.php:64 framework/NLS/NLS/countries.php:48
 #: framework/NLS/NLS/tld.php:51
@@ -1059,7 +1059,7 @@ msgstr "Kan inte radera '%s'."
 #: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy/copy.php:52
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:46
 msgid "Cannot find a temporary directory."
-msgstr "Kan inte hitta en temprär mapp."
+msgstr "Kan inte hitta en temprÃ¤r mapp."
 
 #: framework/VFS/VFS/ftp.php:264
 #, php-format
@@ -1085,7 +1085,7 @@ msgstr "Mobiltelefon"
 
 #: templates/javascript/htmlarea_table_lang.js:25
 msgid "Cell Properties"
-msgstr "Cellinställningar"
+msgstr "CellinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_lang.js:114
 msgid "Cell padding:"
@@ -1093,7 +1093,7 @@ msgstr "Cellutfyllnad:"
 
 #: templates/javascript/htmlarea_table_lang.js:61
 msgid "Cell properties"
-msgstr "Cellinställningar"
+msgstr "CellinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_lang.js:112
 msgid "Cell spacing:"
@@ -1122,22 +1122,22 @@ msgstr "Tchad"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:596
 msgid "Chair Person"
-msgstr "Ordförande"
+msgstr "OrdfÃ¶rande"
 
 #: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:97
 msgid "Change"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: services/changepassword.php:31
 msgid "Change Your Password"
-msgstr "Ändra ditt lösenord"
+msgstr "Ã„ndra ditt lÃ¶senord"
 
 #: config/prefs.php.dist:66
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Ändra namn och adress som mottagarna ser när de läser och svarar på dina "
+"Ã„ndra namn och adress som mottagarna ser nÃ¤r de lÃ¤ser och svarar pÃ¥ dina "
 "meddelanden."
 
 #: templates/javascript/htmlarea_table_lang.js:27
@@ -1156,25 +1156,25 @@ msgstr "Kina"
 
 #: framework/Auth/Auth/Signup.php:280
 msgid "Choose a password"
-msgstr "Välj lösenord"
+msgstr "VÃ¤lj lÃ¶senord"
 
 #: framework/Auth/Auth/Signup.php:279
 msgid "Choose a username"
-msgstr "Välj användarnamn"
+msgstr "VÃ¤lj anvÃ¤ndarnamn"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:452
 #: framework/MIME/MIME/Viewer/icalendar.php:626
 msgid "Choose an action:"
-msgstr "Välj åtgärd:"
+msgstr "VÃ¤lj Ã¥tgÃ¤rd:"
 
 #: config/prefs.php.dist:288
 msgid "Choose how to display dates:"
-msgstr "Välj hur datum skall visas:"
+msgstr "VÃ¤lj hur datum skall visas:"
 
 #: framework/VFS/VFS.php:655 framework/Net_SMS/SMS.php:311
 #, php-format
 msgid "Class definition of %s not found."
-msgstr "Klassdefinition för %s saknas."
+msgstr "Klassdefinition fÃ¶r %s saknas."
 
 #: lib/Block/weatherdotcom.php:429
 msgid "Clear"
@@ -1183,19 +1183,19 @@ msgstr "Rensa"
 #: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
-msgstr "Rensa användare: %s"
+msgstr "Rensa anvÃ¤ndare: %s"
 
 #: templates/admin/user/clear.inc:15
 msgid "Clear user"
-msgstr "Rensa anvädnare"
+msgstr "Rensa anvÃ¤dnare"
 
 #: templates/admin/user/list.inc:34
 msgid "Clear user data"
-msgstr "Rensa användardata"
+msgstr "Rensa anvÃ¤ndardata"
 
 #: services/keyboard.php:146 templates/shares/edit.inc:12
 msgid "Close Window"
-msgstr "Stäng fönster"
+msgstr "StÃ¤ng fÃ¶nster"
 
 #: lib/Block/metar.php:242
 msgid "Clouds"
@@ -1213,7 +1213,7 @@ msgstr "Kolombia"
 #: lib/Block/color.php:18 lib/Block/color.php:29
 #: templates/javascript/htmlarea_table_lang.js:29
 msgid "Color"
-msgstr "Färg"
+msgstr "FÃ¤rg"
 
 #: framework/Block/Block/Collection.php:318
 #: framework/Block/Block/Collection.php:319
@@ -1225,11 +1225,11 @@ msgstr "Färg"
 #: templates/prefs/categorymanagement.inc:85
 #: templates/prefs/categorymanagement.inc:86
 msgid "Color Picker"
-msgstr "Färghanterare"
+msgstr "FÃ¤rghanterare"
 
 #: framework/Form/Form.php:2851
 msgid "Colour selection"
-msgstr "Färgval"
+msgstr "FÃ¤rgval"
 
 #: templates/javascript/htmlarea_lang.js:103
 msgid "Cols:"
@@ -1249,7 +1249,7 @@ msgstr "Kommando"
 
 #: admin/cmdshell.php:20
 msgid "Command Shell"
-msgstr "Kommandofönster"
+msgstr "KommandofÃ¶nster"
 
 #: framework/Crypt/Crypt/pgp.php:407
 msgid "Comment"
@@ -1257,11 +1257,11 @@ msgstr "Kommentar"
 
 #: framework/MIME/MIME/Viewer/vcard.php:241
 msgid "Company"
-msgstr "Företag"
+msgstr "FÃ¶retag"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:697
 msgid "Completed"
-msgstr "Slutförd"
+msgstr "SlutfÃ¶rd"
 
 #: framework/Text_Filter/Filter/emails.php:81
 #: framework/Text_Filter/Filter/emails.php:87
@@ -1281,7 +1281,7 @@ msgstr "Konfigurationsskillnader"
 
 #: admin/setup/index.php:135
 msgid "Configuration is out of date."
-msgstr "Konfiguration behöver uppdateras."
+msgstr "Konfiguration behÃ¶ver uppdateras."
 
 #: admin/setup/index.php:100
 #, php-format
@@ -1290,7 +1290,7 @@ msgstr "Konfigurera %s"
 
 #: templates/admin/user/update.inc:49
 msgid "Confirm Password"
-msgstr "Bekräfta lösenord"
+msgstr "BekrÃ¤fta lÃ¶senord"
 
 #: framework/NLS/NLS/GeoIP.php:66 framework/NLS/NLS/countries.php:59
 #: framework/NLS/NLS/tld.php:55
@@ -1300,25 +1300,25 @@ msgstr "Kongo"
 #: framework/IMAP/IMAP/ACL/rfc2086.php:203
 #: framework/IMAP/IMAP/ACL/rfc2086.php:316
 msgid "Connection failed."
-msgstr "Förbindelse misslyckades."
+msgstr "FÃ¶rbindelse misslyckades."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:203
 #: framework/IMAP/IMAP/ACL/rfc2086.php:316
 msgid "Connection failed: "
-msgstr "Förbindelse misslyckades: "
+msgstr "FÃ¶rbindelse misslyckades: "
 
 #: framework/Crypt/Crypt/pgp.php:798
 msgid "Connection refused to the public keyserver."
-msgstr "Förbindelse med publik nyckelserver nekades."
+msgstr "FÃ¶rbindelse med publik nyckelserver nekades."
 
 #: framework/Crypt/Crypt/pgp.php:800
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
-msgstr "Förbindelse med publik nyckelserver nekades: %s (%s)"
+msgstr "FÃ¶rbindelse med publik nyckelserver nekades: %s (%s)"
 
 #: framework/VFS/VFS/ftp.php:790
 msgid "Connection to FTP server failed."
-msgstr "Förbindelse med FTP-server misslyckades."
+msgstr "FÃ¶rbindelse med FTP-server misslyckades."
 
 #: config/hooks.php.dist:1017
 msgid "Contacts"
@@ -1332,11 +1332,11 @@ msgstr "Kontakter lades till i din adressbok."
 #: framework/MIME/MIME/Viewer/zip.php:62
 #, php-format
 msgid "Contents of '%s'"
-msgstr "Innehåll i '%s'"
+msgstr "InnehÃ¥ll i '%s'"
 
 #: services/changepassword.php:33 services/resetpassword.php:29
 msgid "Continue"
-msgstr "Fortsätt"
+msgstr "FortsÃ¤tt"
 
 #: lib/Block/fortune.php:32
 msgid "Cookie"
@@ -1374,7 +1374,7 @@ msgstr "Kan inte S/MIME-signera meddelande."
 #: framework/Net_SMS/SMS/sms2email_http.php:185
 #, php-format
 msgid "Could not add contact. %s"
-msgstr "Kan inte lägga till kontakt. %s"
+msgstr "Kan inte lÃ¤gga till kontakt. %s"
 
 #: framework/Group/Group/ldap.php:91 framework/Auth/Auth/ldap.php:122
 msgid "Could not bind to LDAP server."
@@ -1418,19 +1418,19 @@ msgstr "Kan inte radera distributionslista. %s"
 
 #: framework/Crypt/Crypt/pgp.php:961 framework/Crypt/Crypt/smime.php:397
 msgid "Could not determine the recipient's e-mail address."
-msgstr "Kan inte bestämma mottagarens ePost-adress."
+msgstr "Kan inte bestÃ¤mma mottagarens ePost-adress."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:290
 msgid "Could not fetch complete address book."
-msgstr "Kan inte hämta komplett adressbok."
+msgstr "Kan inte hÃ¤mta komplett adressbok."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:512
 msgid "Could not fetch complete distribution list."
-msgstr "Kan inte hämta komplett distributionslista."
+msgstr "Kan inte hÃ¤mta komplett distributionslista."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:463
 msgid "Could not fetch the complete list of distribution lists."
-msgstr "Kan inte hämta komplett lista över distributionslistor."
+msgstr "Kan inte hÃ¤mta komplett lista Ã¶ver distributionslistor."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy.php:84
 #: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy.php:68
@@ -1446,29 +1446,29 @@ msgstr "Kan inte skapa mapp '%s'."
 
 #: framework/Crypt/Crypt/pgp.php:725
 msgid "Could not obtain public key from the keyserver."
-msgstr "Kan inte hämta publik nyckel från nyckelservern."
+msgstr "Kan inte hÃ¤mta publik nyckel frÃ¥n nyckelservern."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:354
 #: framework/Net_SMS/SMS/sms2email_http.php:706
 #: framework/Net_SMS/SMS/win_http.php:271
 #, php-format
 msgid "Could not open %s."
-msgstr "Kan inte öppna %s."
+msgstr "Kan inte Ã¶ppna %s."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
 msgid "Could not open '%s' for writing."
-msgstr "Kan inte öppna '%s' för skriving."
+msgstr "Kan inte Ã¶ppna '%s' fÃ¶r skriving."
 
 #: framework/Maintenance/Maintenance.php:434
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Kan inte öppna Maintenance_Task modul %s"
+msgstr "Kan inte Ã¶ppna Maintenance_Task modul %s"
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
 msgid "Could not open directory '%s'."
-msgstr "Kan inte öppna mapp '%s'"
+msgstr "Kan inte Ã¶ppna mapp '%s'"
 
 #: framework/Group/Group/ldap.php:106 framework/Group/Group/ldap.php:205
 #: framework/Group/Group/ldap.php:420 framework/Group/Group/ldap.php:458
@@ -1480,7 +1480,7 @@ msgstr "Kan inte kontakta LDAP server."
 #: framework/VFS/VFS/Object.php:261
 #, php-format
 msgid "Could not read %s."
-msgstr "Kan inte läsa %s."
+msgstr "Kan inte lÃ¤sa %s."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:315
 #: framework/IMAP/IMAP/ACL/rfc2086.php:346
@@ -1488,28 +1488,28 @@ msgstr "Kan inte läsa %s."
 #: framework/IMAP/IMAP/ACL/rfc2086.php:389
 #: framework/IMAP/IMAP/ACL/rfc2086.php:395
 msgid "Could not retrieve ACL"
-msgstr "Kan inte hämta ACL"
+msgstr "Kan inte hÃ¤mta ACL"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:281
 #, php-format
 msgid "Could not retrieve address book. %s"
-msgstr "Kan inte hämta adressbok. %s"
+msgstr "Kan inte hÃ¤mta adressbok. %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:503
 #, php-format
 msgid "Could not retrieve distribution list. %s"
-msgstr "Kan inte hämta distributionslista. %s"
+msgstr "Kan inte hÃ¤mta distributionslista. %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:454
 #, php-format
 msgid "Could not retrieve distribution lists. %s"
-msgstr "Kan inte hämta distributionslistor. %s"
+msgstr "Kan inte hÃ¤mta distributionslistor. %s"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:203
 #: framework/IMAP/IMAP/ACL/rfc2086.php:223
 #: framework/IMAP/IMAP/ACL/rfc2086.php:227
 msgid "Could not retrieve server's capabilities"
-msgstr "Kan inte hämta dserverfunktioner"
+msgstr "Kan inte hÃ¤mta dserverfunktioner"
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:94
 #, php-format
@@ -1519,7 +1519,7 @@ msgstr "Kan inte radera mapp '%s'."
 #: admin/setup/scripts.php:73
 #, php-format
 msgid "Could not save %s configuration."
-msgstr "Kan inte spara konfiguration för %s."
+msgstr "Kan inte spara konfiguration fÃ¶r %s."
 
 #: admin/setup/index.php:63 admin/setup/scripts.php:59
 msgid "Could not save a backup configuation."
@@ -1542,7 +1542,7 @@ msgstr "Kan inte spara backup-konfiguration %s."
 
 #: framework/Auth/Auth/ldap.php:144
 msgid "Could not search the LDAP server."
-msgstr "Kan inte söka i LDAP-katalogen."
+msgstr "Kan inte sÃ¶ka i LDAP-katalogen."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:86
 #, php-format
@@ -1562,7 +1562,7 @@ msgstr "Kan inte uppdatera distributionslista. %s"
 #: admin/setup/index.php:70
 #, php-format
 msgid "Could not write configuration for '%s': %s"
-msgstr "Kan inta spara konfiguration för '%s': %s"
+msgstr "Kan inta spara konfiguration fÃ¶r '%s': %s"
 
 #: framework/Crypt/Crypt/smime.php:589
 msgid "Country"
@@ -1579,7 +1579,7 @@ msgstr "Skapa"
 
 #: templates/javascript/htmlarea_context_lang.js:68
 msgid "Create a link"
-msgstr "Skapa länk"
+msgstr "Skapa lÃ¤nk"
 
 #: templates/prefs/identityselect.inc:93
 msgid "Create a new one"
@@ -1591,7 +1591,7 @@ msgstr "Skapa undermapp"
 
 #: framework/Perms/Perms/UI.php:250
 msgid "Creator Permissions"
-msgstr "Behörigheter för ägara"
+msgstr "BehÃ¶righeter fÃ¶r Ã¤gara"
 
 #: framework/NLS/NLS/GeoIP.php:79 framework/NLS/NLS/countries.php:64
 #: framework/NLS/NLS/tld.php:109
@@ -1608,11 +1608,11 @@ msgstr "Aktuell tid"
 
 #: templates/javascript/htmlarea_context_lang.js:54
 msgid "Current URL is"
-msgstr "Aktuell URL är"
+msgstr "Aktuell URL Ã¤r"
 
 #: lib/Block/metar.php:25
 msgid "Current Weather"
-msgstr "Aktuellt väder"
+msgstr "Aktuellt vÃ¤der"
 
 #: lib/Block/weatherdotcom.php:250
 msgid "Current condition: "
@@ -1625,7 +1625,7 @@ msgstr "Aktuell stil"
 #: config/prefs.php.dist:108
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Skräddarsy aktiviteter som körs vid inlogning till %s."
+msgstr "SkrÃ¤ddarsy aktiviteter som kÃ¶rs vid inlogning till %s."
 
 #: templates/javascript/htmlarea_context_lang.js:20
 msgid "Cut"
@@ -1643,7 +1643,7 @@ msgstr "Daglig"
 
 #: admin/datatree.php:65
 msgid "DataTree Browser"
-msgstr "DataTree bläddrare"
+msgstr "DataTree blÃ¤ddrare"
 
 #: framework/Form/Form.php:2398 framework/MIME/MIME/Viewer/rfc822.php:76
 msgid "Date"
@@ -1677,7 +1677,7 @@ msgstr "Decimaler"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:685
 msgid "Declined"
-msgstr "Avböjt"
+msgstr "AvbÃ¶jt"
 
 #: templates/javascript/htmlarea_lang.js:20
 msgid "Decrease Indent"
@@ -1685,20 +1685,20 @@ msgstr "Minska indrag"
 
 #: framework/Prefs/Prefs/UI.php:191 lib/prefs.php:117
 msgid "Default"
-msgstr "Förvalt"
+msgstr "FÃ¶rvalt"
 
 #: templates/prefs/categorymanagement.inc:47
 #: templates/prefs/categorymanagement.inc:81
 msgid "Default Color"
-msgstr "Förvald färg"
+msgstr "FÃ¶rvald fÃ¤rg"
 
 #: framework/Identity/Identity.php:91
 msgid "Default Identity"
-msgstr "Förvald identitet"
+msgstr "FÃ¶rvald identitet"
 
 #: lib/Block/account.php:67
 msgid "Default Shell"
-msgstr "Förvalt skal"
+msgstr "FÃ¶rvalt skal"
 
 #: lib/Block/fortune.php:33
 msgid "Definitions"
@@ -1732,7 +1732,7 @@ msgstr "Radera grupp"
 
 #: framework/Perms/Perms/UI.php:77 framework/Perms/Perms/UI.php:101
 msgid "Delete Permission"
-msgstr "Radera behörighet"
+msgstr "Radera behÃ¶righet"
 
 #: templates/javascript/htmlarea_table_lang.js:57
 msgid "Delete cell"
@@ -1749,12 +1749,12 @@ msgstr "Radera befintlig alternativmall"
 #: framework/Perms/Perms/UI.php:435
 #, php-format
 msgid "Delete permissions for \"%s\""
-msgstr "Radera behörighet för '%s'"
+msgstr "Radera behÃ¶righet fÃ¶r '%s'"
 
 #: framework/Perms/Perms/UI.php:438
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
-msgstr "Radera behörighet för '%s' och underbehörigheter?"
+msgstr "Radera behÃ¶righet fÃ¶r '%s' och underbehÃ¶righeter?"
 
 #: templates/javascript/htmlarea_table_lang.js:67
 msgid "Delete row"
@@ -1786,11 +1786,11 @@ msgstr "Danmark"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:642
 msgid "Deny request"
-msgstr "Avslå begäran"
+msgstr "AvslÃ¥ begÃ¤ran"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:471
 msgid "Deny request for free/busy information"
-msgstr "Avslå begäran om ledig/upptagen-information"
+msgstr "AvslÃ¥ begÃ¤ran om ledig/upptagen-information"
 
 #: framework/Form/Form.php:939 framework/MIME/MIME/Viewer/icalendar.php:565
 #: templates/javascript/htmlarea_table_lang.js:30
@@ -1799,7 +1799,7 @@ msgstr "Beskrivning"
 
 #: framework/Horde/Horde.php:205
 msgid "Details have been logged for the administrator."
-msgstr "Detaljer har loggats för systemadministratören."
+msgstr "Detaljer har loggats fÃ¶r systemadministratÃ¶ren."
 
 #: config/registry.php.dist:216
 msgid "Development"
@@ -1815,15 +1815,15 @@ msgstr "Visa 24-timmars klocka?"
 
 #: config/prefs.php.dist:97
 msgid "Display Options"
-msgstr "Visningsinställningar"
+msgstr "VisningsinstÃ¤llningar"
 
 #: lib/Block/weatherdotcom.php:96
 msgid "Display detailed forecast"
-msgstr "Visa detaljerad förutsägelse"
+msgstr "Visa detaljerad fÃ¶rutsÃ¤gelse"
 
 #: lib/Block/metar.php:83
 msgid "Display forecast (TAF)"
-msgstr "Visa förutsägelse (TAF)"
+msgstr "Visa fÃ¶rutsÃ¤gelse (TAF)"
 
 #: framework/Form/Form.php:2822
 msgid "Display format"
@@ -1835,16 +1835,16 @@ msgstr "Radera inte"
 
 #: framework/MIME/MIME/Contents.php:837
 msgid "Download"
-msgstr "Hämta"
+msgstr "HÃ¤mta"
 
 #: framework/MIME/MIME/Contents.php:837
 #, php-format
 msgid "Download %s"
-msgstr "Hämta %s"
+msgstr "HÃ¤mta %s"
 
 #: admin/setup/index.php:166
 msgid "Download generated configuration as PHP script."
-msgstr "Hämta genererad konfiguration som PHP-skript."
+msgstr "HÃ¤mta genererad konfiguration som PHP-skript."
 
 #: framework/Crypt/Crypt/pgp.php:407
 msgid "E-Mail"
@@ -1856,42 +1856,42 @@ msgstr "E-post"
 #: templates/shares/edit.inc:115 templates/shares/edit.inc:138
 #: templates/shares/edit.inc:181
 msgid "Edit"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: framework/Block/Block/UI.php:50 templates/portal/edit.inc:25
 msgid "Edit Block"
-msgstr "Ändra block"
+msgstr "Ã„ndra block"
 
 #: admin/groups.php:188 admin/groups.php:216
 msgid "Edit Group"
-msgstr "Ändra grupp"
+msgstr "Ã„ndra grupp"
 
 #: framework/Perms/Perms/UI.php:76 framework/Perms/Perms/UI.php:100
 msgid "Edit Permission"
-msgstr "Öndra behörighet"
+msgstr "Ã–ndra behÃ¶righet"
 
 #: services/shares/edit.php:237
 msgid "Edit Permissions"
-msgstr "Öndra behörighet"
+msgstr "Ã–ndra behÃ¶righet"
 
 #: services/shares/edit.php:239
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Ändra behörigheter för %s"
+msgstr "Ã„ndra behÃ¶righeter fÃ¶r %s"
 
 #: templates/prefs/app.inc:5
 msgid "Edit options for:"
-msgstr "Ändra inställningar för:"
+msgstr "Ã„ndra instÃ¤llningar fÃ¶r:"
 
 #: framework/Perms/Perms/UI.php:377
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Ändra behörigheter för '%s'"
+msgstr "Ã„ndra behÃ¶righeter fÃ¶r '%s'"
 
 #: templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "Ändra behörigheter för '%s'"
+msgstr "Ã„ndra behÃ¶righeter fÃ¶r '%s'"
 
 #: lib/Block/fortune.php:35
 msgid "Education"
@@ -1908,7 +1908,7 @@ msgstr "E-post adress"
 
 #: framework/Form/Form.php:1961
 msgid "Email addresses must match."
-msgstr "E-postadresser måste stämma överrens."
+msgstr "E-postadresser mÃ¥ste stÃ¤mma Ã¶verrens."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:311
 msgid "Empty message."
@@ -1922,7 +1922,7 @@ msgstr "Tomt resultat."
 
 #: framework/SQL/SQL/Keywords.php:113
 msgid "Empty search terms"
-msgstr "Tomt sökkriteria"
+msgstr "Tomt sÃ¶kkriteria"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:448
 #: framework/MIME/MIME/Viewer/icalendar.php:553
@@ -1931,7 +1931,7 @@ msgstr "Slut"
 
 #: templates/javascript/htmlarea_lang.js:29
 msgid "Enlarge Editor"
-msgstr "Förstora editor"
+msgstr "FÃ¶rstora editor"
 
 #: framework/Notification/Notification/Listener/status.php:29
 #: lib/Block/metar.php:36 lib/Block/weatherdotcom.php:45
@@ -1947,19 +1947,19 @@ msgstr "Fel vid skapande av block: %s"
 #: framework/Template/Template.php:448
 #, php-format
 msgid "Error getting content: %s"
-msgstr "Fel när innehål hämtades: %s"
+msgstr "Fel nÃ¤r innehÃ¥l hÃ¤mtades: %s"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:195
 #: framework/MIME/MIME/Viewer/icalendar.php:278
 #: framework/MIME/MIME/Viewer/icalendar.php:347
 #, php-format
 msgid "Error sending reply: %s."
-msgstr "Fel under sändning av svarsmeddelande: %s"
+msgstr "Fel under sÃ¤ndning av svarsmeddelande: %s"
 
 #: services/changepassword.php:76
 #, php-format
 msgid "Error updating password: %s"
-msgstr "Fel vid uppdatering av lösenord: %s"
+msgstr "Fel vid uppdatering av lÃ¶senord: %s"
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:142
 #, php-format
@@ -1996,11 +1996,11 @@ msgstr "Varje minut"
 
 #: templates/data/datemap.inc:28
 msgid "Example values:"
-msgstr "Exempel på värden:"
+msgstr "Exempel pÃ¥ vÃ¤rden:"
 
 #: admin/cmdshell.php:50 admin/phpshell.php:76 admin/sqlshell.php:127
 msgid "Execute"
-msgstr "Kör"
+msgstr "KÃ¶r"
 
 #: framework/Block/Block/Layout.php:467
 msgid "Expand"
@@ -2008,7 +2008,7 @@ msgstr "Expandera"
 
 #: framework/Crypt/Crypt/pgp.php:406
 msgid "Expiration Date"
-msgstr "Förfallodatum"
+msgstr "FÃ¶rfallodatum"
 
 #: framework/Crypt/Crypt/smime.php:696
 msgid "Exponent"
@@ -2016,7 +2016,7 @@ msgstr "Exponent"
 
 #: framework/Prefs/Prefs/sql.php:224
 msgid "Failed retrieving preferences."
-msgstr "Misslyckades att hämta inställningar."
+msgstr "Misslyckades att hÃ¤mta instÃ¤llningar."
 
 #: framework/Group/Group/ldap.php:70 framework/Auth/Auth/ldap.php:99
 msgid "Failed to connect to LDAP server."
@@ -2029,7 +2029,7 @@ msgstr "Misslyckades att kontakta SMB server."
 #: framework/VFS/VFS/ftp.php:627
 #, php-format
 msgid "Failed to copy from \"%s\"."
-msgstr "Misslyckades att kopiera från '%s'."
+msgstr "Misslyckades att kopiera frÃ¥n '%s'."
 
 #: framework/VFS/VFS/ftp.php:632
 #, php-format
@@ -2038,7 +2038,7 @@ msgstr "Misslyckades att kopiera till '%s'."
 
 #: framework/Auth/Auth/sasl.php:89
 msgid "Failed to create new SASL connection."
-msgstr "Misslyckades att skapa ny SASL-förbindelse."
+msgstr "Misslyckades att skapa ny SASL-fÃ¶rbindelse."
 
 #: framework/VFS/VFS/ftp.php:667 framework/VFS/VFS/smb.php:474
 #, php-format
@@ -2048,7 +2048,7 @@ msgstr "Misslyckades att flytta till '%s'."
 #: framework/VFS/VFS/smb.php:441
 #, php-format
 msgid "Failed to retrieve: %s"
-msgstr "Misslyckades att hämta: %s"
+msgstr "Misslyckades att hÃ¤mta: %s"
 
 #: framework/CLI/CLI.php:233
 msgid "Fatal Error:"
@@ -2095,7 +2095,7 @@ msgstr "Filuppladdning"
 
 #: framework/Browser/Browser.php:897
 msgid "File uploads not supported."
-msgstr "Filuppladdning stöds inte."
+msgstr "Filuppladdning stÃ¶ds inte."
 
 #: config/registry.php.dist:86
 msgid "Filters"
@@ -2108,11 +2108,11 @@ msgstr "Finland"
 
 #: lib/Block/moon.php:171
 msgid "First Half"
-msgstr "Första halvan"
+msgstr "FÃ¶rsta halvan"
 
 #: lib/Block/moon.php:74 lib/Block/moon.php:76
 msgid "First Quarter"
-msgstr "Första kvarten"
+msgstr "FÃ¶rsta kvarten"
 
 #: framework/VFS/VFS/musql.php:109 framework/VFS/VFS/sql.php:164
 #, php-format
@@ -2121,7 +2121,7 @@ msgstr "Mapp %s existerar inte."
 
 #: templates/javascript/htmlarea_lang.js:22
 msgid "Font Color"
-msgstr "Fontfärg"
+msgstr "FontfÃ¤rg"
 
 #: lib/Block/fortune.php:37
 msgid "Food"
@@ -2130,15 +2130,15 @@ msgstr "Mat"
 #: templates/javascript/htmlarea_anselimage_lang.js:26
 #: templates/javascript/htmlarea_lang.js:123
 msgid "For browsers that don't support images"
-msgstr "För webläsare som inte stödjer bilder"
+msgstr "FÃ¶r weblÃ¤sare som inte stÃ¶djer bilder"
 
 #: templates/login/login.inc:99
 msgid "Forgot your password?"
-msgstr "Glömt ditt lösenord?"
+msgstr "GlÃ¶mt ditt lÃ¶senord?"
 
 #: config/registry.php.dist:440
 msgid "Forms"
-msgstr "Formulär"
+msgstr "FormulÃ¤r"
 
 #: config/registry.php.dist:431
 msgid "Forums"
@@ -2171,29 +2171,29 @@ msgstr "Ledig/Upptagen svar"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:422
 msgid "Free/Busy Request"
-msgstr "Ledig/upptagen-förfrågan"
+msgstr "Ledig/upptagen-fÃ¶rfrÃ¥gan"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:272
 #: framework/MIME/MIME/Viewer/icalendar.php:341
 msgid "Free/Busy Request Response"
-msgstr "Svar på ledig/upptagen-förfrågan"
+msgstr "Svar pÃ¥ ledig/upptagen-fÃ¶rfrÃ¥gan"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:78
 msgid "From"
-msgstr "Från"
+msgstr "FrÃ¥n"
 
 #: lib/Block/weatherdotcom.php:223 lib/Block/weatherdotcom.php:338
 #: lib/Block/weatherdotcom.php:384
 msgid "From the "
-msgstr "Från den "
+msgstr "FrÃ¥n den "
 
 #: templates/problem/problem.inc:48
 msgid "Full Description"
-msgstr "Fullständig beskrivning"
+msgstr "FullstÃ¤ndig beskrivning"
 
 #: lib/Block/moon.php:82 lib/Block/moon.php:181
 msgid "Full Moon"
-msgstr "Fullmåne"
+msgstr "FullmÃ¥ne"
 
 #: lib/Block/account.php:61 templates/admin/user/update.inc:57
 msgid "Full Name"
@@ -2202,7 +2202,7 @@ msgstr "Namn"
 #: admin/setup/config.php:42
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Generera konfiguration för %s"
+msgstr "Generera konfiguration fÃ¶r %s"
 
 #: templates/admin/setup/config.html:10
 msgid "Generated Code"
@@ -2215,11 +2215,11 @@ msgstr "Tyskland"
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 msgid "Google Search"
-msgstr "Googlesökning"
+msgstr "GooglesÃ¶kning"
 
 #: framework/UI/UI/VarRenderer/html.php:220
 msgid "Grayscale"
-msgstr "Gråskala"
+msgstr "GrÃ¥skala"
 
 #: framework/NLS/NLS/GeoIP.php:76 framework/NLS/NLS/countries.php:93
 #: framework/NLS/NLS/tld.php:100
@@ -2229,7 +2229,7 @@ msgstr "Grekland"
 #: framework/NLS/NLS/GeoIP.php:75 framework/NLS/NLS/countries.php:94
 #: framework/NLS/NLS/tld.php:95
 msgid "Greenland"
-msgstr "Grönsland"
+msgstr "GrÃ¶nsland"
 
 #: framework/NLS/NLS/GeoIP.php:74 framework/NLS/NLS/countries.php:95
 #: framework/NLS/NLS/tld.php:89
@@ -2243,7 +2243,7 @@ msgstr "Gruppadministration"
 #: framework/Group/Group/ldap.php:275
 #, php-format
 msgid "Group_ldap: Unable to add group %s. This is what the server said: "
-msgstr "Group_ldap: Kan inte lägga till grupp '%s'. Servern svarade: "
+msgstr "Group_ldap: Kan inte lÃ¤gga till grupp '%s'. Servern svarade: "
 
 #: framework/Group/Group/ldap.php:113 framework/Group/Group/ldap.php:119
 #: framework/Group/Group/ldap.php:360
@@ -2263,11 +2263,11 @@ msgstr "Grupper"
 
 #: framework/Perms/Perms/UI.php:236 templates/shares/edit.inc:88
 msgid "Guest Permissions"
-msgstr "Gästbehörigheter"
+msgstr "GÃ¤stbehÃ¶righeter"
 
 #: config/registry.php.dist:448
 msgid "Guestbook"
-msgstr "Gästbok"
+msgstr "GÃ¤stbok"
 
 #: framework/NLS/NLS/GeoIP.php:75 framework/NLS/NLS/countries.php:99
 #: framework/NLS/NLS/tld.php:97
@@ -2296,16 +2296,16 @@ msgstr "Rubrik"
 
 #: templates/javascript/htmlarea_table_lang.js:34
 msgid "Height"
-msgstr "Höjd"
+msgstr "HÃ¶jd"
 
 #: framework/Horde/Horde/Help.php:182 framework/Horde/Horde/Help.php:189
 #: services/help/index.php:17 templates/help/index.inc:3
 msgid "Help"
-msgstr "Hjälp"
+msgstr "HjÃ¤lp"
 
 #: lib/Block/weatherdotcom.php:477
 msgid "High"
-msgstr "Hög"
+msgstr "HÃ¶g"
 
 #: templates/portal/menu.inc:6 templates/admin/common-header.inc:5
 msgid "Ho_me"
@@ -2355,7 +2355,7 @@ msgstr "Radering av IMAP-mapp misslyckades: %s"
 #: framework/Auth/Auth/cyrsql.php:243 framework/Auth/Auth/cyrus.php:184
 #, php-format
 msgid "IMAP mailbox quota creation failed: %s"
-msgstr "Skapande av quota för IMAP-mapp misslyckades: %s"
+msgstr "Skapande av quota fÃ¶r IMAP-mapp misslyckades: %s"
 
 #: framework/Form/Form.php:1321
 msgid "IP Address"
@@ -2363,15 +2363,15 @@ msgstr "IP-adress"
 
 #: framework/Auth/Auth/ipbasic.php:81
 msgid "IP Address not available."
-msgstr "IP-adress är inte tillgänglig."
+msgstr "IP-adress Ã¤r inte tillgÃ¤nglig."
 
 #: framework/Auth/Auth/ipbasic.php:93
 msgid "IP Address not within allowed CIDR block."
-msgstr "IP-adress är inte inom godkänt CIDR-block."
+msgstr "IP-adress Ã¤r inte inom godkÃ¤nt CIDR-block."
 
 #: templates/javascript/htmlarea_context_lang.js:29
 msgid "I_nsert Row Before"
-msgstr "I_nfoga rad före"
+msgstr "I_nfoga rad fÃ¶re"
 
 #: framework/NLS/NLS/GeoIP.php:82 framework/NLS/NLS/countries.php:108
 #: framework/NLS/NLS/tld.php:120
@@ -2385,7 +2385,7 @@ msgstr "Enbart ikoner"
 #: util/icon_browser.php:49
 #, php-format
 msgid "Icons for %s"
-msgstr "Ikoner för %s"
+msgstr "Ikoner fÃ¶r %s"
 
 #: config/prefs.php.dist:367
 msgid "Icons with text"
@@ -2398,12 +2398,12 @@ msgstr "Identitetens namn:"
 #: framework/MIME/MIME/Contents.php:588
 #, php-format
 msgid "If it is not displayed correctly, %s to open it in a new window."
-msgstr "Om det inte visas korrekt, %s för att öppna i nytt fönster."
+msgstr "Om det inte visas korrekt, %s fÃ¶r att Ã¶ppna i nytt fÃ¶nster."
 
 #: templates/javascript/htmlarea_anselimage_lang.js:28
 #: templates/javascript/htmlarea_lang.js:125
 msgid "Image Preview:"
-msgstr "Förhandsgranska bild:"
+msgstr "FÃ¶rhandsgranska bild:"
 
 #: framework/Form/Form.php:1763
 msgid "Image upload"
@@ -2418,15 +2418,15 @@ msgstr "Importera, steg %d"
 #: templates/data/datemap.inc:20
 #, php-format
 msgid "Imported field: %s"
-msgstr "Importerade fält: %s"
+msgstr "Importerade fÃ¤lt: %s"
 
 #: templates/data/csvmap.inc:73
 msgid "Imported fields:"
-msgstr "Importerade fält:"
+msgstr "Importerade fÃ¤lt:"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:701
 msgid "In Process"
-msgstr "Pågående"
+msgstr "PÃ¥gÃ¥ende"
 
 #: templates/javascript/htmlarea_context_lang.js:30
 msgid "In_sert Row After"
@@ -2434,11 +2434,11 @@ msgstr "In_foga rad efter"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:661
 msgid "Incorrect username and/or password."
-msgstr "Felaktigt användarnamn och/eller lösenord."
+msgstr "Felaktigt anvÃ¤ndarnamn och/eller lÃ¶senord."
 
 #: templates/javascript/htmlarea_lang.js:21
 msgid "Increase Indent"
-msgstr "Öka indrag"
+msgstr "Ã–ka indrag"
 
 #: framework/NLS/NLS/GeoIP.php:80 framework/NLS/NLS/countries.php:110
 #: framework/NLS/NLS/tld.php:112
@@ -2455,7 +2455,7 @@ msgstr "Information"
 
 #: lib/Block/weatherdotcom.php:308
 msgid "Information no longer available."
-msgstr "Information är inte tillgänglig längre."
+msgstr "Information Ã¤r inte tillgÃ¤nglig lÃ¤ngre."
 
 #: templates/javascript/htmlarea_context_lang.js:35
 msgid "Insert C_olumn After"
@@ -2473,7 +2473,7 @@ msgstr "Infoga tabell"
 
 #: templates/javascript/htmlarea_context_lang.js:34
 msgid "Insert _Column Before"
-msgstr "Infoga _kolumn före"
+msgstr "Infoga _kolumn fÃ¶re"
 
 #: templates/javascript/htmlarea_context_lang.js:66
 msgid "Insert a new column after the current one"
@@ -2481,11 +2481,11 @@ msgstr "Infoga ny kolumn efter aktuell kolumn"
 
 #: templates/javascript/htmlarea_context_lang.js:65
 msgid "Insert a new column before the current one"
-msgstr "Infoga ny kolumn före aktuell kolumn"
+msgstr "Infoga ny kolumn fÃ¶re aktuell kolumn"
 
 #: templates/javascript/htmlarea_context_lang.js:61
 msgid "Insert a new row before the current one"
-msgstr "Infoga ny rad före ektuell rad"
+msgstr "Infoga ny rad fÃ¶re ektuell rad"
 
 #: admin/templates.php:150
 msgid "Insert alternate template"
@@ -2497,7 +2497,7 @@ msgstr "Infoga cell efter"
 
 #: templates/javascript/htmlarea_table_lang.js:59
 msgid "Insert cell before"
-msgstr "Infoga cell före"
+msgstr "Infoga cell fÃ¶re"
 
 #: templates/javascript/htmlarea_table_lang.js:64
 msgid "Insert column after"
@@ -2505,7 +2505,7 @@ msgstr "Infoga kolumn efter"
 
 #: templates/javascript/htmlarea_table_lang.js:65
 msgid "Insert column before"
-msgstr "Infoga kolumn före"
+msgstr "Infoga kolumn fÃ¶re"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:90
 msgid "Insert messages"
@@ -2517,7 +2517,7 @@ msgstr "Infoga paragraf efter"
 
 #: templates/javascript/htmlarea_context_lang.js:44
 msgid "Insert paragraph before"
-msgstr "Infoga paragraf före"
+msgstr "Infoga paragraf fÃ¶re"
 
 #: templates/javascript/htmlarea_table_lang.js:69
 msgid "Insert row after"
@@ -2525,20 +2525,20 @@ msgstr "Infoga rad efter"
 
 #: templates/javascript/htmlarea_table_lang.js:68
 msgid "Insert row before"
-msgstr "Infoga rad före"
+msgstr "Infoga rad fÃ¶re"
 
 #: templates/javascript/htmlarea_lang.js:26
 msgid "Insert/Modify Image"
-msgstr "Infoga/Ändra bild"
+msgstr "Infoga/Ã„ndra bild"
 
 #: templates/javascript/htmlarea_lang.js:89
 msgid "Insert/Modify Link"
-msgstr "Infoga/Ändra länk"
+msgstr "Infoga/Ã„ndra lÃ¤nk"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:283
 #: framework/MIME/MIME/Viewer/icalendar.php:352
 msgid "Invalid Action selected for this component."
-msgstr "Handling är ogiltig för den här komponenten."
+msgstr "Handling Ã¤r ogiltig fÃ¶r den hÃ¤r komponenten."
 
 #: admin/setup/config.php:34
 msgid "Invalid application."
@@ -2592,7 +2592,7 @@ msgstr "Felaktig mottagare: %s"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:310
 msgid "Invalid source address."
-msgstr "Felaktig avsändaradress."
+msgstr "Felaktig avsÃ¤ndaradress."
 
 #: framework/UI/UI/VarRenderer/html.php:654
 msgid "Invert selection"
@@ -2652,17 +2652,17 @@ msgstr "Centerjustera"
 #: templates/javascript/htmlarea_lang.js:17
 #: templates/javascript/htmlarea_context_lang.js:40
 msgid "Justify Full"
-msgstr "Justera jämt"
+msgstr "Justera jÃ¤mt"
 
 #: templates/javascript/htmlarea_lang.js:14
 #: templates/javascript/htmlarea_context_lang.js:37
 msgid "Justify Left"
-msgstr "Vänsterjustera"
+msgstr "VÃ¤nsterjustera"
 
 #: templates/javascript/htmlarea_lang.js:16
 #: templates/javascript/htmlarea_context_lang.js:39
 msgid "Justify Right"
-msgstr "Högerjustera"
+msgstr "HÃ¶gerjustera"
 
 #: framework/NLS/NLS/GeoIP.php:83 framework/NLS/NLS/countries.php:120
 #: framework/NLS/NLS/tld.php:126
@@ -2683,7 +2683,7 @@ msgstr "Fingerprint"
 
 #: framework/Crypt/Crypt/pgp.php:406
 msgid "Key Length"
-msgstr "Nyckellängd"
+msgstr "NyckellÃ¤ngd"
 
 #: framework/Crypt/Crypt/pgp.php:405
 msgid "Key Type"
@@ -2691,11 +2691,11 @@ msgstr "Nyckeltyp"
 
 #: framework/Crypt/Crypt/smime.php:618
 msgid "Key Usage"
-msgstr "Nyckelanvändande"
+msgstr "NyckelanvÃ¤ndande"
 
 #: framework/Crypt/Crypt/pgp.php:748
 msgid "Key already exists on the public keyserver."
-msgstr "Nyckel finns redan på den publika nyckelservern."
+msgstr "Nyckel finns redan pÃ¥ den publika nyckelservern."
 
 #: lib/Block/fortune.php:43
 msgid "Kids"
@@ -2707,7 +2707,7 @@ msgstr "La_yout"
 
 #: templates/login/login.inc:80
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 #: lib/Block/moon.php:174
 msgid "Last Half"
@@ -2715,7 +2715,7 @@ msgstr "Sista halvan"
 
 #: lib/Block/account.php:76
 msgid "Last Password Change"
-msgstr "Lösenord ändrades"
+msgstr "LÃ¶senord Ã¤ndrades"
 
 #: lib/Block/moon.php:88 lib/Block/moon.php:90
 msgid "Last Quarter"
@@ -2733,7 +2733,7 @@ msgstr "Senaste inloggning: %s"
 #: framework/Auth/Auth.php:728
 #, php-format
 msgid "Last login: %s from %s"
-msgstr "Senaste inloggning: %s från %s"
+msgstr "Senaste inloggning: %s frÃ¥n %s"
 
 #: framework/Auth/Auth.php:723
 msgid "Last login: Never"
@@ -2747,31 +2747,31 @@ msgstr "Layout"
 #: templates/javascript/htmlarea_lang.js:69
 #: templates/javascript/htmlarea_table_lang.js:40
 msgid "Left"
-msgstr "Vänster"
+msgstr "VÃ¤nster"
 
 #: framework/Form/Form.php:3120
 msgid "Left header"
-msgstr "Vänsterrubrik"
+msgstr "VÃ¤nsterrubrik"
 
 #: framework/Form/Form.php:3116
 msgid "Left values"
-msgstr "Vänstervärden"
+msgstr "VÃ¤nstervÃ¤rden"
 
 #: lib/Block/weatherdotcom.php:443
 msgid "Light Snow"
-msgstr "Lätt snö"
+msgstr "LÃ¤tt snÃ¶"
 
 #: framework/Form/Form.php:1816
 msgid "Link"
-msgstr "Länk"
+msgstr "LÃ¤nk"
 
 #: framework/Text_Filter/Filter/html2text.php:183
 msgid "Links"
-msgstr "Länkar"
+msgstr "LÃ¤nkar"
 
 #: services/help/index.php:50
 msgid "List Help Topics"
-msgstr "Visa hjälpämnen"
+msgstr "Visa hjÃ¤lpÃ¤mnen"
 
 #: admin/sqlshell.php:128
 msgid "List Tables"
@@ -2779,7 +2779,7 @@ msgstr "Listtabeller"
 
 #: templates/admin/user/nolist.inc:4
 msgid "Listing users is disabled."
-msgstr "Listning av användare avaktiverad."
+msgstr "Listning av anvÃ¤ndare avaktiverad."
 
 #: framework/MIME/MIME/Viewer/images.php:85
 msgid "Loading..."
@@ -2815,7 +2815,7 @@ msgstr "Loginaktiviteter"
 #: framework/Auth/Auth.php:1019
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
-"Inloggning misslyckades. Troligtvis var användarnamn eller lösenord "
+"Inloggning misslyckades. Troligtvis var anvÃ¤ndarnamn eller lÃ¶senord "
 "felaktigt."
 
 #: framework/Auth/Auth.php:1015
@@ -2824,11 +2824,11 @@ msgstr "Inloggning misslyckades."
 
 #: framework/Form/Form.php:1371
 msgid "Long text"
-msgstr "Lång text"
+msgstr "LÃ¥ng text"
 
 #: lib/Block/weatherdotcom.php:475
 msgid "Low"
-msgstr "Låg"
+msgstr "LÃ¥g"
 
 #: framework/UI/UI/VarRenderer/html.php:342
 #: framework/UI/UI/VarRenderer/html.php:373
@@ -2840,7 +2840,7 @@ msgstr "MM"
 
 #: framework/MIME/MIME/Viewer/tnef.php:38
 msgid "MS-TNEF Attachment contained no data."
-msgstr "MS-TNEF bilaga innehöll ingen data."
+msgstr "MS-TNEF bilaga innehÃ¶ll ingen data."
 
 #: framework/Notification/Notification/Listener/mobile.php:39
 msgid "MSG"
@@ -2872,19 +2872,19 @@ msgstr "Marginal"
 
 #: templates/data/csvmap.inc:111
 msgid "Matching fields"
-msgstr "Matchande fält"
+msgstr "Matchande fÃ¤lt"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:317
 msgid "Max message parts exceeded."
-msgstr "Gräns för max antal delar i meddelande överskriden."
+msgstr "GrÃ¤ns fÃ¶r max antal delar i meddelande Ã¶verskriden."
 
 #: lib/Block/metar.php:304
 msgid "Max temp last 24 hours: "
-msgstr "Högsta temperature senaste 24 timmarna: "
+msgstr "HÃ¶gsta temperature senaste 24 timmarna: "
 
 #: lib/Block/metar.php:296
 msgid "Max temp last 6 hours: "
-msgstr "Högsta temperature senaste 6 timmarna: "
+msgstr "HÃ¶gsta temperature senaste 6 timmarna: "
 
 #: lib/api.php:82
 msgid "Maximum Number of Portal Blocks"
@@ -2893,7 +2893,7 @@ msgstr "Maximalt antal portalblock"
 #: framework/Form/Form.php:899 framework/Form/Form.php:1218
 #: framework/Form/Form.php:1240
 msgid "Maximum length"
-msgstr "Maximal längd"
+msgstr "Maximal lÃ¤ngd"
 
 #: framework/UI/UI/VarRenderer/html.php:378
 #: framework/UI/UI/VarRenderer/html.php:415
@@ -2903,27 +2903,27 @@ msgstr "maj"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:531
 msgid "Meeting Cancellation"
-msgstr "Avboka möte"
+msgstr "Avboka mÃ¶te"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:503
 msgid "Meeting Information"
-msgstr "Mötesinformation"
+msgstr "MÃ¶tesinformation"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:509
 msgid "Meeting Proposal"
-msgstr "Mötesförfrågan"
+msgstr "MÃ¶tesfÃ¶rfrÃ¥gan"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:525
 msgid "Meeting Reply"
-msgstr "Mötessvar"
+msgstr "MÃ¶tessvar"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:514
 msgid "Meeting Update"
-msgstr "Mötesuppdatering"
+msgstr "MÃ¶tesuppdatering"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:519
 msgid "Meeting Update Request"
-msgstr "Uppdateringsbegäran om möte"
+msgstr "UppdateringsbegÃ¤ran om mÃ¶te"
 
 #: templates/admin/groups/edit.inc:20
 msgid "Members"
@@ -2931,11 +2931,11 @@ msgstr "Medlemmar"
 
 #: config/prefs.php.dist:368
 msgid "Menu mode:"
-msgstr "Menyläge:"
+msgstr "MenylÃ¤ge:"
 
 #: templates/javascript/htmlarea_table_lang.js:60
 msgid "Merge cells"
-msgstr "Slå ihop celler"
+msgstr "SlÃ¥ ihop celler"
 
 #: framework/Notification/Notification/Listener/status.php:32
 msgid "Message"
@@ -2950,7 +2950,7 @@ msgstr ""
 
 #: framework/Net_SMS/SMS/clickatell_http.php:319
 msgid "Message expired."
-msgstr "Meddelande har upphört."
+msgstr "Meddelande har upphÃ¶rt."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:232
 #: framework/Net_SMS/SMS/clickatell_http.php:267
@@ -2963,7 +2963,7 @@ msgstr "Meddelandetyp"
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr ""
-"Metar-block ej tillgängligt. Detaljer har loggats för systemadministratören."
+"Metar-block ej tillgÃ¤ngligt. Detaljer har loggats fÃ¶r systemadministratÃ¶ren."
 
 #: framework/MIME/MIME/Viewer/rar.php:69 framework/MIME/MIME/Viewer/zip.php:73
 msgid "Method"
@@ -2972,7 +2972,7 @@ msgstr "Metod"
 #: framework/RPC/RPC/soap.php:116 framework/RPC/RPC/xmlrpc.php:81
 #, php-format
 msgid "Method '%s' is not defined"
-msgstr "Metoden '%s' är inte definierad"
+msgstr "Metoden '%s' Ã¤r inte definierad"
 
 #: templates/javascript/htmlarea_lang.js:76
 #: templates/javascript/htmlarea_table_lang.js:42
@@ -2985,11 +2985,11 @@ msgstr "Mimetyp"
 
 #: lib/Block/metar.php:308
 msgid "Min temp last 24 hours: "
-msgstr "Lägsta temperatur senaste 24 timmarna: "
+msgstr "LÃ¤gsta temperatur senaste 24 timmarna: "
 
 #: lib/Block/metar.php:300
 msgid "Min temp last 6 hours: "
-msgstr "Lägsta temperatur senaste 6 timmarna: "
+msgstr "LÃ¤gsta temperatur senaste 6 timmarna: "
 
 #: framework/UI/UI/VarRenderer/html.php:217
 msgid "Mirror"
@@ -3005,7 +3005,7 @@ msgstr "Saknar sessions-ID."
 
 #: templates/javascript/open_calendar.js:56
 msgid "Mo"
-msgstr "Må"
+msgstr "MÃ¥"
 
 #: config/registry.php.dist:71
 msgid "Mobile Mail"
@@ -3014,15 +3014,15 @@ msgstr "Mobil e-post"
 #: framework/MIME/MIME/Viewer/rar.php:68 framework/MIME/MIME/Viewer/tgz.php:90
 #: framework/MIME/MIME/Viewer/zip.php:72
 msgid "Modified Date"
-msgstr "Ändrad datum"
+msgstr "Ã„ndrad datum"
 
 #: framework/Form/Form.php:2603
 msgid "Month and year"
-msgstr "Månad och år"
+msgstr "MÃ¥nad och Ã¥r"
 
 #: framework/Maintenance/Maintenance.php:57
 msgid "Monthly"
-msgstr "Månatlig"
+msgstr "MÃ¥natlig"
 
 #: lib/Block/weatherdotcom.php:445
 msgid "Mostly Clear"
@@ -3042,11 +3042,11 @@ msgstr "Flytta ner"
 
 #: framework/Block/Block/Layout.php:505
 msgid "Move Left"
-msgstr "Flytta vänster"
+msgstr "Flytta vÃ¤nster"
 
 #: framework/Block/Block/Layout.php:509
 msgid "Move Right"
-msgstr "Flytta höger"
+msgstr "Flytta hÃ¶ger"
 
 #: framework/Block/Block/Layout.php:497
 msgid "Move Up"
@@ -3090,12 +3090,12 @@ msgstr "Namn"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:706
 msgid "Needs Action"
-msgstr "Behöver åtgärd"
+msgstr "BehÃ¶ver Ã¥tgÃ¤rd"
 
 #: framework/NLS/NLS/GeoIP.php:97 framework/NLS/NLS/countries.php:160
 #: framework/NLS/NLS/tld.php:175
 msgid "Netherlands"
-msgstr "Nederländerna"
+msgstr "NederlÃ¤nderna"
 
 #: framework/Crypt/Crypt/smime.php:607
 msgid "Netscape certificate comment"
@@ -3107,7 +3107,7 @@ msgstr "Netsape certifikatstyp"
 
 #: config/registry.php.dist:257
 msgid "Network"
-msgstr "Nätverk"
+msgstr "NÃ¤tverk"
 
 #: framework/Crypt/Crypt/pgp.php:419 config/prefs.php.dist:325
 #: config/prefs.php.dist:376
@@ -3121,11 +3121,11 @@ msgstr "Ny kategori"
 
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
 msgid "New Moon"
-msgstr "Nymåne"
+msgstr "NymÃ¥ne"
 
 #: templates/admin/user/update.inc:37
 msgid "New Username (optional)"
-msgstr "Nytt användarnamn (valfritt)"
+msgstr "Nytt anvÃ¤ndarnamn (valfritt)"
 
 #: framework/NLS/NLS/GeoIP.php:98 framework/NLS/NLS/countries.php:163
 #: framework/NLS/NLS/tld.php:180
@@ -3134,20 +3134,20 @@ msgstr "Nya Zeeland"
 
 #: services/changepassword.php:37
 msgid "New password"
-msgstr "Nytt lösenord"
+msgstr "Nytt lÃ¶senord"
 
 #: framework/Auth/Auth/sql.php:233
 #, php-format
 msgid "New password will expire on %x."
-msgstr "Nytt lösenord kommer att gå ut %x."
+msgstr "Nytt lÃ¶senord kommer att gÃ¥ ut %x."
 
 #: services/changepassword.php:52
 msgid "New passwords don't match."
-msgstr "Lösenord måste vara lika."
+msgstr "LÃ¶senord mÃ¥ste vara lika."
 
 #: templates/javascript/htmlarea_lang.js:91
 msgid "New window (_blank)"
-msgstr "Nytt fönster (_blank)"
+msgstr "Nytt fÃ¶nster (_blank)"
 
 #: lib/Block/fortune.php:52 lib/Block/google.php:40
 #: config/registry.php.dist:295
@@ -3161,19 +3161,19 @@ msgstr "Nyhetsgrupper"
 #: templates/data/csvinfo.inc:32 templates/data/csvmap.inc:137
 #: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:21
 msgid "Next"
-msgstr "Nästa"
+msgstr "NÃ¤sta"
 
 #: lib/Block/moon.php:27
 msgid "Next Phase"
-msgstr "Nästa fas "
+msgstr "NÃ¤sta fas "
 
 #: framework/Prefs/Prefs/UI.php:375 framework/Prefs/Prefs/UI.php:379
 msgid "Next options"
-msgstr "Nästa inställning"
+msgstr "NÃ¤sta instÃ¤llning"
 
 #: framework/UI/UI/Pager.php:103
 msgid "Next>"
-msgstr "Nästa>"
+msgstr "NÃ¤sta>"
 
 #: framework/NLS/NLS/GeoIP.php:96 framework/NLS/NLS/countries.php:166
 #: framework/NLS/NLS/tld.php:173
@@ -3190,33 +3190,33 @@ msgstr "Nej"
 
 #: framework/Auth/Auth/mcal.php:52
 msgid "No calendar name provided for MCAL authentication."
-msgstr "Inget kalendernamn för MCAL autentisering angivet."
+msgstr "Inget kalendernamn fÃ¶r MCAL autentisering angivet."
 
 #: admin/setup/diff.php:55
 msgid "No change."
-msgstr "Ingen ändring."
+msgstr "Ingen Ã¤ndring."
 
 #: framework/Perms/Perms/UI.php:162
 msgid "No children can be added to this permission."
-msgstr "Inga barn kan läggas till den här behörigheten."
+msgstr "Inga barn kan lÃ¤ggas till den hÃ¤r behÃ¶righeten."
 
 #: framework/Horde/Horde.php:173 framework/Horde/Horde.php:489
 #: framework/Util/Util.php:802
 #, php-format
 msgid "No configuration information specified for %s."
-msgstr "Ingen konfigureringsinformation angiven för %s."
+msgstr "Ingen konfigureringsinformation angiven fÃ¶r %s."
 
 #: framework/VFS/VFS/ftp.php:769
 msgid "No configuration information specified for FTP VFS."
-msgstr "Ingen konfigureringsinformation angiven för FTP VFS."
+msgstr "Ingen konfigureringsinformation angiven fÃ¶r FTP VFS."
 
 #: framework/VFS/VFS/sql.php:593
 msgid "No configuration information specified for SQL VFS."
-msgstr "Ingen konfigureringsinformation angiven för SQL VFS."
+msgstr "Ingen konfigureringsinformation angiven fÃ¶r SQL VFS."
 
 #: framework/VFS/VFS/sql_file.php:726
 msgid "No configuration information specified for SQL-File VFS."
-msgstr "Ingen konfigureringsinformation angiven för SQL-fil VFS."
+msgstr "Ingen konfigureringsinformation angiven fÃ¶r SQL-fil VFS."
 
 #: framework/Browser/Browser.php:915
 msgid "No file uploaded"
@@ -3236,28 +3236,28 @@ msgstr "Ingen nummer angivet."
 
 #: framework/Auth/Auth/http.php:92
 msgid "No password provided for HTTP authentication."
-msgstr "Inget lösenord för HTTP autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r HTTP autentisering angivet."
 
 #: framework/Auth/Auth/imap.php:110
 msgid "No password provided for IMAP authentication."
-msgstr "Inget lösenord för IMAP autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r IMAP autentisering angivet."
 
 #: framework/Auth/Auth/krb5.php:74
 msgid "No password provided for Kerberos authentication."
-msgstr "Inget lösenord för Kerberos autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r Kerberos autentisering angivet."
 
 #: framework/Auth/Auth/login.php:86 framework/Auth/Auth/pam.php:77
 #: framework/Auth/Auth/sasl.php:79
 msgid "No password provided for Login authentication."
-msgstr "Inget lösenord för Login autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r Login autentisering angivet."
 
 #: framework/Auth/Auth/passwd.php:137
 msgid "No password provided for PASSWD authentication."
-msgstr "Inget lösenord för PASSWD autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r PASSWD autentisering angivet."
 
 #: framework/Auth/Auth/smb.php:86
 msgid "No password provided for SMB authentication."
-msgstr "Inget lösenord för SMB autentisering angivet."
+msgstr "Inget lÃ¶senord fÃ¶r SMB autentisering angivet."
 
 #: templates/javascript/htmlarea_table_lang.js:43
 msgid "No rules"
@@ -3265,7 +3265,7 @@ msgstr "Inga regler"
 
 #: framework/File_CSV/CSV.php:449
 msgid "No separator specified."
-msgstr "Ingen avgränsare angiven."
+msgstr "Ingen avgrÃ¤nsare angiven."
 
 #: templates/javascript/htmlarea_table_lang.js:44
 msgid "No sides"
@@ -3273,12 +3273,12 @@ msgstr "Inga sidor"
 
 #: lib/Block/weatherdotcom.php:138
 msgid "No temporary directory available for cache."
-msgstr "Ingen temporärkatalog tillgänglig för cache."
+msgstr "Ingen temporÃ¤rkatalog tillgÃ¤nglig fÃ¶r cache."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:660
 #: framework/Net_SMS/SMS/win_http.php:230
 msgid "No username and/or password sent."
-msgstr "Inget användarnamn och/eller lösenord skickat."
+msgstr "Inget anvÃ¤ndarnamn och/eller lÃ¶senord skickat."
 
 #: framework/RPC/RPC/xmlrpc.php:140
 msgid "No valid XML data returned"
@@ -3289,7 +3289,7 @@ msgstr "Ingen giltig XML data returnerades"
 #: framework/UI/UI/VarRenderer/html.php:949
 #: framework/UI/UI/VarRenderer/html.php:966
 msgid "No values"
-msgstr "Inga värden"
+msgstr "Inga vÃ¤rden"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:604
 msgid "Non Participant"
@@ -3313,7 +3313,7 @@ msgstr "Inte efter"
 
 #: framework/Crypt/Crypt/smime.php:659
 msgid "Not Before"
-msgstr "Inte före"
+msgstr "Inte fÃ¶re"
 
 #: framework/VFS/VFS/file.php:355
 msgid "Not a directory"
@@ -3381,11 +3381,11 @@ msgstr "Kontor"
 
 #: services/changepassword.php:36
 msgid "Old password"
-msgstr "Gammalt lösenord"
+msgstr "Gammalt lÃ¶senord"
 
 #: services/changepassword.php:46
 msgid "Old password is not correct."
-msgstr "Gammalt lösenord felaktigt"
+msgstr "Gammalt lÃ¶senord felaktigt"
 
 #: framework/NLS/NLS/GeoIP.php:98 framework/NLS/NLS/countries.php:171
 #: framework/NLS/NLS/tld.php:181
@@ -3394,23 +3394,23 @@ msgstr "Oman"
 
 #: framework/Form/Form.php:1849 framework/Form/Form.php:1969
 msgid "Only one email address allowed."
-msgstr "Endast en e-post adress tillåten."
+msgstr "Endast en e-post adress tillÃ¥ten."
 
 #: services/shares/edit.php:65
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Endast ägare eller systemadministratör kan ändra ägare eller behörigheter på "
+"Endast Ã¤gare eller systemadministratÃ¶r kan Ã¤ndra Ã¤gare eller behÃ¶righeter pÃ¥ "
 "en utdelning"
 
 #: lib/Block/iframe.php:35
 msgid "Open in a new window"
-msgstr "Öppna i nytt fönster"
+msgstr "Ã–ppna i nytt fÃ¶nster"
 
 #: templates/javascript/htmlarea_context_lang.js:55
 msgid "Opens this link in a new window"
-msgstr "Öppna länk i nytt fönster"
+msgstr "Ã–ppna lÃ¤nk i nytt fÃ¶nster"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:600
 msgid "Optional Participant"
@@ -3418,12 +3418,12 @@ msgstr "Icke obligatoriska deltagare"
 
 #: services/portal/sidebar.php:151
 msgid "Options"
-msgstr "Inställningar"
+msgstr "InstÃ¤llningar"
 
 #: services/prefs.php:31 templates/prefs/app.inc:14
 #, php-format
 msgid "Options for %s"
-msgstr "Inställningar för %s"
+msgstr "InstÃ¤llningar fÃ¶r %s"
 
 #: templates/javascript/htmlarea_lang.js:18
 msgid "Ordered List"
@@ -3446,15 +3446,15 @@ msgstr "Annan"
 #: config/prefs.php.dist:113 config/prefs.php.dist:121
 #: config/prefs.php.dist:129
 msgid "Other Information"
-msgstr "Andra inställningar"
+msgstr "Andra instÃ¤llningar"
 
 #: templates/shares/edit.inc:31
 msgid "Owner Permissions"
-msgstr "Ägarbehörigheter"
+msgstr "Ã„garbehÃ¶righeter"
 
 #: framework/Auth/Auth/pam.php:81
 msgid "PAM authentication is not available."
-msgstr "PAM-Authentisering är inte tillgänglig."
+msgstr "PAM-Authentisering Ã¤r inte tillgÃ¤nglig."
 
 #: framework/Crypt/Crypt/pgp.php:1278
 msgid "PGP Digital Signature"
@@ -3482,15 +3482,15 @@ msgstr "PHP-skal"
 
 #: lib/Block/weatherdotcom.php:451
 msgid "PM Snow"
-msgstr "Eftermiddagssnö"
+msgstr "EftermiddagssnÃ¶"
 
 #: lib/Block/weatherdotcom.php:452
 msgid "PM Snow Showers"
-msgstr "Eftermiddagsskurar med snö"
+msgstr "Eftermiddagsskurar med snÃ¶"
 
 #: lib/Block/weatherdotcom.php:453
 msgid "PM T-Storms"
-msgstr "Åskskurar på eftermiddagen"
+msgstr "Ã…skskurar pÃ¥ eftermiddagen"
 
 #: lib/api.php:141
 msgid "P_HP Shell"
@@ -3507,36 +3507,36 @@ msgstr "Panama"
 #: framework/Net_SMS/SMS/win_http.php:154 templates/login/login.inc:74
 #: templates/admin/user/update.inc:43 config/registry.php.dist:401
 msgid "Password"
-msgstr "Lösenord"
+msgstr "LÃ¶senord"
 
 #: services/changepassword.php:82
 msgid "Password changed successfully."
-msgstr "Lösenord ändrades."
+msgstr "LÃ¶senord Ã¤ndrades."
 
 #: framework/Crypt/Crypt/smime.php:1350
 msgid "Password incorrect"
-msgstr "Lösenord felaktigt"
+msgstr "LÃ¶senord felaktigt"
 
 #: framework/Auth/Auth/radius.php:154
 msgid "Password required for RADIUS authentication."
-msgstr "Lösenord krävs för RADIUS autentisering."
+msgstr "LÃ¶senord krÃ¤vs fÃ¶r RADIUS autentisering."
 
 #: framework/Form/Form.php:2051
 msgid "Password with confirmation"
-msgstr "Lösenord med bekräftelse"
+msgstr "LÃ¶senord med bekrÃ¤ftelse"
 
 #: templates/rpcsum/rpcsum.inc:90
 msgid "Password:"
-msgstr "Lösenord:"
+msgstr "LÃ¶senord:"
 
 #: templates/login/mobile.inc:11
 msgid "Password: "
-msgstr "Lösenord: "
+msgstr "LÃ¶senord: "
 
 #: admin/user.php:150 framework/Form/Form.php:2032
 #: templates/admin/user/update.inc:15
 msgid "Passwords must match."
-msgstr "Lösenord måste vara lika."
+msgstr "LÃ¶senord mÃ¥ste vara lika."
 
 #: admin/sqlshell.php:119 templates/javascript/htmlarea_context_lang.js:22
 msgid "Paste"
@@ -3544,11 +3544,11 @@ msgstr "Klistra in"
 
 #: templates/javascript/htmlarea_lang.js:37
 msgid "Paste from clipboard"
-msgstr "Klistra in från urklippshanteraren"
+msgstr "Klistra in frÃ¥n urklippshanteraren"
 
 #: templates/javascript/htmlarea_lang.js:51
 msgid "Path"
-msgstr "Sökväg"
+msgstr "SÃ¶kvÃ¤g"
 
 #: templates/javascript/htmlarea_lang.js:107
 msgid "Percent"
@@ -3556,29 +3556,29 @@ msgstr "Procent"
 
 #: templates/maintenance/maintenance.html:49
 msgid "Perform Maintenance Operations"
-msgstr "Utför underhållsfunktioner"
+msgstr "UtfÃ¶r underhÃ¥llsfunktioner"
 
 #: config/prefs.php.dist:396
 msgid "Perform maintenance operations on login?"
-msgstr "Utför underhållsaktiviteter vid inloggning?"
+msgstr "UtfÃ¶r underhÃ¥llsaktiviteter vid inloggning?"
 
 #: framework/Perms/Perms/UI.php:162
 msgid "Permission"
-msgstr "Behörighet"
+msgstr "BehÃ¶righet"
 
 #: admin/perms/delete.php:52
 #, php-format
 msgid "Permission \"%s\" not deleted."
-msgstr "Behörighet '%s' raderades inte."
+msgstr "BehÃ¶righet '%s' raderades inte."
 
 #: framework/Perms/Perms/UI.php:167 framework/Perms/Perms/UI.php:170
 msgid "Permissions"
-msgstr "behörigheter"
+msgstr "behÃ¶righeter"
 
 #: admin/perms/addchild.php:60 admin/perms/edit.php:109
 #: admin/perms/index.php:22 admin/perms/delete.php:58
 msgid "Permissions Administration"
-msgstr "Behörighetsadministration"
+msgstr "BehÃ¶righetsadministration"
 
 #: config/prefs.php.dist:65
 msgid "Personal Information"
@@ -3594,23 +3594,23 @@ msgstr "Foton"
 
 #: templates/javascript/htmlarea_context_lang.js:49
 msgid "Please confirm that you want to remove this element:"
-msgstr "Bekräfta att du vill radera vald post?"
+msgstr "BekrÃ¤fta att du vill radera vald post?"
 
 #: framework/Form/Form.php:2572
 msgid "Please enter a month and a year."
-msgstr "Var god ange månad och år."
+msgstr "Var god ange mÃ¥nad och Ã¥r."
 
 #: templates/prefs/categorymanagement.inc:12
 msgid "Please enter a name for the new category:"
-msgstr "Var god ange namn för kategorin:"
+msgstr "Var god ange namn fÃ¶r kategorin:"
 
 #: framework/Form/Form.php:1308
 msgid "Please enter a valid IP address."
-msgstr "Var god ange godkänd IP-adress."
+msgstr "Var god ange godkÃ¤nd IP-adress."
 
 #: framework/Form/Form.php:2450
 msgid "Please enter a valid time."
-msgstr "Var god ange en godkänd tid."
+msgstr "Var god ange en godkÃ¤nd tid."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
@@ -3618,27 +3618,27 @@ msgstr "Var god summera ditt problem."
 
 #: templates/login/login.inc:22 templates/login/login.inc:26
 msgid "Please provide your username and password"
-msgstr "Ange ditt användarnamn och lösenord."
+msgstr "Ange ditt anvÃ¤ndarnamn och lÃ¶senord."
 
 #: services/maintenance.php:58
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Var god läs igenom följande text. Du MÅSTE samtycka med villkoren för att "
-"använda systemet."
+"Var god lÃ¤s igenom fÃ¶ljande text. Du MÃ…STE samtycka med villkoren fÃ¶r att "
+"anvÃ¤nda systemet."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:540
 msgid ""
 "Please review the following information, and then select an action from the "
 "menu below."
 msgstr ""
-"Kontrollera följande information och välj sedan en handling i menyn\n"
+"Kontrollera fÃ¶ljande information och vÃ¤lj sedan en handling i menyn\n"
 "nedan."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:435
 msgid "Please select an action from the menu below."
-msgstr "Välj en handling från menyn nedan."
+msgstr "VÃ¤lj en handling frÃ¥n menyn nedan."
 
 #: framework/Prefs/Prefs/CategoryManager.php:71
 msgid "Please type the new category name:"
@@ -3655,17 +3655,17 @@ msgstr "Politik"
 
 #: config/registry.php.dist:465
 msgid "Polls"
-msgstr "Undersökningar"
+msgstr "UndersÃ¶kningar"
 
 #: framework/UI/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_anselimage_lang.js:23
 #: templates/javascript/htmlarea_lang.js:120
 msgid "Preview"
-msgstr "Förhandsvisning"
+msgstr "FÃ¶rhandsvisning"
 
 #: framework/Prefs/Prefs/UI.php:365 framework/Prefs/Prefs/UI.php:369
 msgid "Previous options"
-msgstr "Föregående inställningar"
+msgstr "FÃ¶regÃ¥ende instÃ¤llningar"
 
 #: templates/javascript/htmlarea_lang.js:41
 msgid "Print document"
@@ -3697,7 +3697,7 @@ msgstr "Fel vid generering av publikt/privat nyckelpar."
 
 #: admin/sqlshell.php:63
 msgid "Query"
-msgstr "Fråga"
+msgstr "FrÃ¥ga"
 
 #: framework/Crypt/Crypt/smime.php:683
 #, php-format
@@ -3714,37 +3714,37 @@ msgstr "Regnskurar"
 
 #: lib/Block/weatherdotcom.php:458
 msgid "Rain and Snow"
-msgstr "Regn och snö"
+msgstr "Regn och snÃ¶"
 
 #: lib/Block/weatherdotcom.php:459
 msgid "Rain to Snow"
-msgstr "Regn till snö"
+msgstr "Regn till snÃ¶"
 
 #: framework/MIME/MIME/Viewer/rar.php:70 framework/MIME/MIME/Viewer/zip.php:75
 msgid "Ratio"
-msgstr "Förhållande"
+msgstr "FÃ¶rhÃ¥llande"
 
 #: framework/Perms/Perms.php:325 templates/shares/edit.inc:34
 #: templates/shares/edit.inc:68 templates/shares/edit.inc:91
 #: templates/shares/edit.inc:114 templates/shares/edit.inc:137
 #: templates/shares/edit.inc:180
 msgid "Read"
-msgstr "Läs"
+msgstr "LÃ¤s"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:87
 msgid "Read messages"
-msgstr "Läs meddelanden"
+msgstr "LÃ¤s meddelanden"
 
 #: templates/admin/user/remove.inc:11
 #, php-format
 msgid "Really delete %s? This operation cannot be undone."
-msgstr "Säkert att du vill radera %s? Raderingen kan inte ångras."
+msgstr "SÃ¤kert att du vill radera %s? Raderingen kan inte Ã¥ngras."
 
 #: templates/admin/user/clear.inc:11
 #, php-format
 msgid "Really remove user data for user %s? This operation cannot be undone."
 msgstr ""
-"Säkert att du vill radera användardata för %s? Raderingen kan inte ångras."
+"SÃ¤kert att du vill radera anvÃ¤ndardata fÃ¶r %s? Raderingen kan inte Ã¥ngras."
 
 #: config/prefs.php.dist:381
 msgid "Refresh Dynamic Menu Elements:"
@@ -3766,11 +3766,11 @@ msgstr "Kommentarer"
 #: framework/MIME/MIME/Viewer/icalendar.php:457
 #: framework/MIME/MIME/Viewer/icalendar.php:476
 msgid "Remember the free/busy information."
-msgstr "Kom ihåg information om ledig/upptagen."
+msgstr "Kom ihÃ¥g information om ledig/upptagen."
 
 #: config/prefs.php.dist:114
 msgid "Remote Servers"
-msgstr "Fjärr servrar"
+msgstr "FjÃ¤rr servrar"
 
 #: templates/admin/user/approve.inc:28
 #: templates/admin/user/removequeued.inc:14 templates/admin/groups/edit.inc:22
@@ -3791,7 +3791,7 @@ msgstr "Ta bort formatering"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:658
 msgid "Remove from my calendar"
-msgstr "Ta bort från min kalender"
+msgstr "Ta bort frÃ¥n min kalender"
 
 #: templates/data/csvmap.inc:136
 msgid "Remove pair"
@@ -3803,12 +3803,12 @@ msgstr "Ta bort"
 
 #: templates/admin/user/remove.inc:15
 msgid "Remove user"
-msgstr "Ta bort användare"
+msgstr "Ta bort anvÃ¤ndare"
 
 #: templates/admin/user/remove.inc:7
 #, php-format
 msgid "Remove user: %s"
-msgstr "Ta bort användare: %s"
+msgstr "Ta bort anvÃ¤ndare: %s"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:197
 #: framework/MIME/MIME/Viewer/icalendar.php:280
@@ -3820,15 +3820,15 @@ msgstr "Svar skickat."
 #: framework/MIME/MIME/Viewer/icalendar.php:468
 #: framework/MIME/MIME/Viewer/icalendar.php:478
 msgid "Reply with Not Supported Message"
-msgstr "Svara att begäran inte stöds"
+msgstr "Svara att begÃ¤ran inte stÃ¶ds"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:466
 msgid "Reply with free/busy for next 2 months."
-msgstr "Svara med information om ledig/upptagen för kommande två månader."
+msgstr "Svara med information om ledig/upptagen fÃ¶r kommande tvÃ¥ mÃ¥nader."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:465
 msgid "Reply with requested free/busy information."
-msgstr "Svara med den begärda ledig/upptagen-informationen."
+msgstr "Svara med den begÃ¤rda ledig/upptagen-informationen."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:189
 #, php-format
@@ -3837,27 +3837,27 @@ msgstr "Svar: %s"
 
 #: framework/RPC/RPC/xmlrpc.php:138
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "Begäran kunde inte besvaras. Returnerad felkod: "
+msgstr "BegÃ¤ran kunde inte besvaras. Returnerad felkod: "
 
 #: framework/Horde/Horde.php:180 framework/Horde/Horde.php:499
 #, php-format
 msgid "Required '%s' not specified in %s configuration."
-msgstr "Erfodrad '%s' är inte angiven i konfigurationen av %s."
+msgstr "Erfodrad '%s' Ã¤r inte angiven i konfigurationen av %s."
 
 #: framework/VFS/VFS/ftp.php:775 framework/VFS/VFS/sql.php:599
 #: framework/VFS/VFS/sql_file.php:732
 #, php-format
 msgid "Required '%s' not specified in VFS configuration."
-msgstr "Erfodrad '%s' är inte angiven i konfigureringen av VFS."
+msgstr "Erfodrad '%s' Ã¤r inte angiven i konfigureringen av VFS."
 
 #: framework/Util/Util.php:810
 #, php-format
 msgid "Required '%s' not specified in configuration."
-msgstr "Erfodrad '%s' är inte angiven i konfigureringen."
+msgstr "Erfodrad '%s' Ã¤r inte angiven i konfigureringen."
 
 #: framework/Form/Form/Renderer.php:333
 msgid "Required Field"
-msgstr "Obligatorisktt fält"
+msgstr "Obligatorisktt fÃ¤lt"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:592
 msgid "Required Participant"
@@ -3867,15 +3867,15 @@ msgstr "Obligatorisk deltagare"
 #: framework/Form/Form/Renderer.php:320 templates/rpcsum/rpcsum.inc:101
 #: templates/admin/user/update.inc:70
 msgid "Reset"
-msgstr "Återställ"
+msgstr "Ã…terstÃ¤ll"
 
 #: services/resetpassword.php:46
 msgid "Reset Password"
-msgstr "Återställ lösenord"
+msgstr "Ã…terstÃ¤ll lÃ¶senord"
 
 #: services/resetpassword.php:27
 msgid "Reset Your Password"
-msgstr "Återställ lösenord"
+msgstr "Ã…terstÃ¤ll lÃ¶senord"
 
 #: admin/cmdshell.php:28 admin/phpshell.php:66 admin/sqlshell.php:66
 msgid "Results"
@@ -3883,36 +3883,36 @@ msgstr "Resultat"
 
 #: templates/prefs/end.inc:7 templates/rpcsum/rpcsum.inc:102
 msgid "Return to Options"
-msgstr "Återvänd till inställningar"
+msgstr "Ã…tervÃ¤nd till instÃ¤llningar"
 
 #: admin/setup/config.php:44 admin/setup/config.php:48
 msgid "Revert Configuration"
-msgstr "Återställ konfiguration"
+msgstr "Ã…terstÃ¤ll konfiguration"
 
 #: config/prefs.php.dist:130
 msgid "Rich Text Editor Options"
-msgstr "Inställningar för Rich Text Editor"
+msgstr "InstÃ¤llningar fÃ¶r Rich Text Editor"
 
 #: lib/Block/fortune.php:58
 msgid "Riddles"
-msgstr "Gåtor"
+msgstr "GÃ¥tor"
 
 #: templates/javascript/htmlarea_lang.js:70
 #: templates/javascript/htmlarea_table_lang.js:48
 msgid "Right"
-msgstr "Höger"
+msgstr "HÃ¶ger"
 
 #: framework/Form/Form.php:3122
 msgid "Right header"
-msgstr "Högerrubrik"
+msgstr "HÃ¶gerrubrik"
 
 #: framework/Form/Form.php:3118
 msgid "Right values"
-msgstr "Högervärden"
+msgstr "HÃ¶gervÃ¤rden"
 
 #: templates/javascript/htmlarea_context_lang.js:28
 msgid "Ro_w Properties..."
-msgstr "Ra_dinställningar..."
+msgstr "Ra_dinstÃ¤llningar..."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:583
 #: framework/MIME/MIME/Viewer/vcard.php:236
@@ -3925,19 +3925,19 @@ msgstr "Rotera 180"
 
 #: framework/UI/UI/VarRenderer/html.php:205
 msgid "Rotate Left"
-msgstr "Rotera vänster"
+msgstr "Rotera vÃ¤nster"
 
 #: framework/UI/UI/VarRenderer/html.php:211
 msgid "Rotate Right"
-msgstr "Rotera höger"
+msgstr "Rotera hÃ¶ger"
 
 #: templates/javascript/htmlarea_table_lang.js:49
 msgid "Row Properties"
-msgstr "Radinställningar"
+msgstr "RadinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_table_lang.js:70
 msgid "Row properties"
-msgstr "Radinställningar"
+msgstr "RadinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_table_lang.js:53
 msgid "Rules"
@@ -3945,7 +3945,7 @@ msgstr "Linjal"
 
 #: admin/sqlshell.php:120
 msgid "Run"
-msgstr "Kör"
+msgstr "KÃ¶r"
 
 #: framework/NLS/NLS/GeoIP.php:103 framework/NLS/NLS/countries.php:188
 #: framework/NLS/NLS/tld.php:200
@@ -3962,7 +3962,7 @@ msgstr "S/MIME-krypterat meddelande"
 
 #: framework/Auth/Auth/sasl.php:83
 msgid "SASL authentication is not available."
-msgstr "SASL Authentisering är inte tillgänglig."
+msgstr "SASL Authentisering Ã¤r inte tillgÃ¤nglig."
 
 #: config/registry.php.dist:482
 msgid "SMS Messaging"
@@ -3990,7 +3990,7 @@ msgstr "S_QL-skal"
 
 #: templates/javascript/open_calendar.js:61
 msgid "Sa"
-msgstr "Lö"
+msgstr "LÃ¶"
 
 #: framework/NLS/NLS/GeoIP.php:106 framework/NLS/NLS/countries.php:195
 #: framework/NLS/NLS/tld.php:212
@@ -4013,12 +4013,12 @@ msgstr "Spara %s"
 
 #: templates/prefs/end.inc:5
 msgid "Save Options"
-msgstr "Spara inställningar"
+msgstr "Spara instÃ¤llningar"
 
 #: admin/setup/scripts.php:71
 #, php-format
 msgid "Saved %s configuration."
-msgstr "Sparade konfiguration för %s."
+msgstr "Sparade konfiguration fÃ¶r %s."
 
 #: lib/Block/fortune.php:59
 msgid "Science"
@@ -4026,91 +4026,91 @@ msgstr "Vetenskap"
 
 #: templates/admin/user/list.inc:14 templates/admin/user/list.inc:16
 msgid "Search"
-msgstr "Sök"
+msgstr "SÃ¶k"
 
 #: config/registry.php.dist:326
 msgid "Search Engines"
-msgstr "Sökmotorer"
+msgstr "SÃ¶kmotorer"
 
 #: framework/Form/Form.php:2974
 msgid "Select Files"
-msgstr "Välj filer"
+msgstr "VÃ¤lj filer"
 
 #: framework/UI/UI/VarRenderer/html.php:456
 msgid "Select a date"
-msgstr "Välj ett datum"
+msgstr "VÃ¤lj ett datum"
 
 #: templates/shares/edit.inc:198
 msgid "Select a group to add"
-msgstr "Välj grupp att lägga till"
+msgstr "VÃ¤lj grupp att lÃ¤gga till"
 
 #: templates/shares/edit.inc:43
 msgid "Select a new owner"
-msgstr "Välj ny ägare"
+msgstr "VÃ¤lj ny Ã¤gare"
 
 #: templates/rpcsum/rpcsum.inc:60
 msgid "Select a server"
-msgstr "Välj server"
+msgstr "VÃ¤lj server"
 
 #: templates/shares/edit.inc:156
 msgid "Select a user to add"
-msgstr "Välj användare att lägga till"
+msgstr "VÃ¤lj anvÃ¤ndare att lÃ¤gga till"
 
 #: framework/UI/UI/VarRenderer/html.php:652
 msgid "Select all"
-msgstr "Välj alla"
+msgstr "VÃ¤lj alla"
 
 #: framework/Form/Form.php:2671
 msgid "Select all date components."
-msgstr "Välj datumkomponenter."
+msgstr "VÃ¤lj datumkomponenter."
 
 #: framework/UI/UI/VarRenderer/html.php:846
 msgid "Select an object"
-msgstr "Välj ett objekt"
+msgstr "VÃ¤lj ett objekt"
 
 #: framework/UI/UI/VarRenderer/html.php:653
 msgid "Select none"
-msgstr "Välj ingen"
+msgstr "VÃ¤lj ingen"
 
 #: services/keyboard.php:37
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
 msgstr ""
-"Ange de tecken du behöver i rutorna nedan. Du kan sedan kopiera och klistra "
+"Ange de tecken du behÃ¶ver i rutorna nedan. Du kan sedan kopiera och klistra "
 "in dem i textarutan."
 
 #: templates/data/date.inc:34
 msgid "Select the date delimiter:"
-msgstr "Välj avgänsare för data:"
+msgstr "VÃ¤lj avgÃ¤nsare fÃ¶r data:"
 
 #: templates/data/date.inc:44
 msgid "Select the date format:"
-msgstr "Välj datumformat:"
+msgstr "VÃ¤lj datumformat:"
 
 #: templates/prefs/identityselect.inc:89
 msgid "Select the identity you want to change:"
-msgstr "Välj identitet du vill ändra:"
+msgstr "VÃ¤lj identitet du vill Ã¤ndra:"
 
 #: templates/data/time.inc:16
 msgid "Select the time delimiter:"
-msgstr "Välj tidsavskiljare:"
+msgstr "VÃ¤lj tidsavskiljare:"
 
 #: templates/data/time.inc:25
 msgid "Select the time format:"
-msgstr "Välj tidsformat:"
+msgstr "VÃ¤lj tidsformat:"
 
 #: templates/data/csvmap.inc:64
 msgid "Select two matching fields."
-msgstr "Välj två matchande fält:"
+msgstr "VÃ¤lj tvÃ¥ matchande fÃ¤lt:"
 
 #: config/prefs.php.dist:296
 msgid "Select your color scheme."
-msgstr "Välj ditt färgschema."
+msgstr "VÃ¤lj ditt fÃ¤rgschema."
 
 #: config/prefs.php.dist:238
 msgid "Select your preferred language:"
-msgstr "Ange ditt förvalda språk:"
+msgstr "Ange ditt fÃ¶rvalda sprÃ¥k:"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:653
 msgid "Send Latest Information"
@@ -4137,23 +4137,23 @@ msgstr "Serienummer"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:301
 msgid "Session ID expired."
-msgstr "Sessions-ID har gått ut."
+msgstr "Sessions-ID har gÃ¥tt ut."
 
 #: framework/Form/Form.php:2312
 msgid "Set"
-msgstr "Sätt"
+msgstr "SÃ¤tt"
 
 #: config/prefs.php.dist:84
 msgid "Set your preferred language, timezone and date options."
-msgstr "Ange ditt förvalda språk, tidszoon coh datuminställningar."
+msgstr "Ange ditt fÃ¶rvalda sprÃ¥k, tidszoon coh datuminstÃ¤llningar."
 
 #: config/prefs.php.dist:98
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"Sätt ditt initiala applikation, färgschema, siduppdatering och andra "
-"visningsinställningar."
+"SÃ¤tt ditt initiala applikation, fÃ¤rgschema, siduppdatering och andra "
+"visningsinstÃ¤llningar."
 
 #: admin/setup/config.php:75
 msgid "Setup"
@@ -4181,7 +4181,7 @@ msgstr "Visa 'tabellaktiviteter' i menyn?"
 #: config/prefs.php.dist:339
 #, php-format
 msgid "Show the %s Menu on the left?"
-msgstr "Visa meny för %s till vänster?"
+msgstr "Visa meny fÃ¶r %s till vÃ¤nster?"
 
 #: framework/Form/Form.php:1765
 msgid "Show upload"
@@ -4201,7 +4201,7 @@ msgstr "Sena skurar"
 
 #: framework/Block/Block/Layout.php:472
 msgid "Shrink"
-msgstr "Förminska"
+msgstr "FÃ¶rminska"
 
 #: framework/Crypt/Crypt/smime.php:732
 msgid "Signature"
@@ -4217,27 +4217,27 @@ msgstr "Storlek"
 
 #: lib/Block/weatherdotcom.php:464
 msgid "Snow"
-msgstr "Snö"
+msgstr "SnÃ¶"
 
 #: lib/Block/weatherdotcom.php:465
 msgid "Snow Shower"
-msgstr "Snöskur"
+msgstr "SnÃ¶skur"
 
 #: lib/Block/weatherdotcom.php:466
 msgid "Snow Showers"
-msgstr "Snöskurar"
+msgstr "SnÃ¶skurar"
 
 #: lib/Block/weatherdotcom.php:467
 msgid "Snow Showers Early"
-msgstr "Tidiga snöskurar"
+msgstr "Tidiga snÃ¶skurar"
 
 #: lib/Block/weatherdotcom.php:468
 msgid "Snow Showers Late"
-msgstr "Sena snöskurar"
+msgstr "Sena snÃ¶skurar"
 
 #: lib/Block/metar.php:276
 msgid "Snow depth: "
-msgstr "Snödjup: "
+msgstr "SnÃ¶djup: "
 
 #: framework/NLS/NLS/GeoIP.php:106 framework/NLS/NLS/countries.php:206
 #: framework/NLS/NLS/tld.php:214
@@ -4246,7 +4246,7 @@ msgstr "Somalia"
 
 #: lib/Block/fortune.php:60
 msgid "Songs & Poems"
-msgstr "Sånger och dikter"
+msgstr "SÃ¥nger och dikter"
 
 #: framework/Form/Form.php:2931
 msgid "Sort order selection"
@@ -4259,7 +4259,7 @@ msgstr "Sorteringsiordningsval"
 #: framework/Net_SMS/SMS/win_http.php:171
 #: framework/Net_SMS/SMS/win_http.php:196
 msgid "Source address"
-msgstr "källadress"
+msgstr "kÃ¤lladress"
 
 #: templates/javascript/htmlarea_lang.js:80
 #: templates/javascript/htmlarea_table_lang.js:55
@@ -4310,7 +4310,7 @@ msgstr "Start"
 
 #: framework/Form/Form.php:2605 framework/Form/Form.php:2814
 msgid "Start year"
-msgstr "Startår"
+msgstr "StartÃ¥r"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:583
 #: templates/admin/setup/index.html:12
@@ -4331,11 +4331,11 @@ msgstr "Genomstruken"
 
 #: framework/Form/Form.php:1234
 msgid "String list"
-msgstr "Stränglista"
+msgstr "StrÃ¤nglista"
 
 #: templates/javascript/open_calendar.js:62
 msgid "Su"
-msgstr "Sö"
+msgstr "SÃ¶"
 
 #: util/icon_browser.php:37
 #, php-format
@@ -4345,7 +4345,7 @@ msgstr "Kan inte hitta underkatalog '%s'."
 #: framework/Crypt/Crypt/smime.php:631
 #: framework/MIME/MIME/Viewer/rfc822.php:77
 msgid "Subject"
-msgstr "Ärende"
+msgstr "Ã„rende"
 
 #: framework/Form/Form.php:332 framework/Form/Form/Renderer.php:317
 msgid "Submit"
@@ -4353,7 +4353,7 @@ msgstr "Skicka"
 
 #: templates/javascript/htmlarea_lang.js:12
 msgid "Subscript"
-msgstr "Nedsänkt"
+msgstr "NedsÃ¤nkt"
 
 #: admin/sqlshell.php:104
 #: framework/Notification/Notification/Listener/status.php:30
@@ -4368,7 +4368,7 @@ msgstr "'%s' lades till i systemet."
 #: admin/user.php:124
 #, php-format
 msgid "Successfully cleared data for user '%s' from the system."
-msgstr "Raderade information om användare '%s'."
+msgstr "Raderade information om anvÃ¤ndare '%s'."
 
 #: admin/groups.php:80 admin/perms/delete.php:46
 #, php-format
@@ -4378,7 +4378,7 @@ msgstr "'%s' raderades."
 #: admin/user.php:105
 #, php-format
 msgid "Successfully removed '%s' from the system."
-msgstr "'%s' togs bort från systemet."
+msgstr "'%s' togs bort frÃ¥n systemet."
 
 #: admin/setup/index.php:59 admin/setup/scripts.php:57
 msgid "Successfully saved backup configuration."
@@ -4408,15 +4408,15 @@ msgstr "Sudan"
 #: framework/MIME/MIME/Viewer/icalendar.php:560
 #: templates/javascript/htmlarea_table_lang.js:56
 msgid "Summary"
-msgstr "Sammanställning"
+msgstr "SammanstÃ¤llning"
 
 #: lib/Block/sunrise.php:66
 msgid "Sun Rise"
-msgstr "Soluppgång"
+msgstr "SoluppgÃ¥ng"
 
 #: lib/Block/sunrise.php:71
 msgid "Sun Set"
-msgstr "Solnedgång"
+msgstr "SolnedgÃ¥ng"
 
 #: lib/Block/weatherdotcom.php:469
 msgid "Sunny"
@@ -4424,27 +4424,27 @@ msgstr "Soligt"
 
 #: lib/Block/weatherdotcom.php:191
 msgid "Sunrise"
-msgstr "Soluppgång"
+msgstr "SoluppgÃ¥ng"
 
 #: lib/Block/sunrise.php:3 lib/Block/sunrise.php:16
 msgid "Sunrise/Sunset"
-msgstr "Soluppgång/nedgång"
+msgstr "SoluppgÃ¥ng/nedgÃ¥ng"
 
 #: lib/Block/weatherdotcom.php:190
 msgid "Sunrise: "
-msgstr "Soluppgång: "
+msgstr "SoluppgÃ¥ng: "
 
 #: lib/Block/weatherdotcom.php:194
 msgid "Sunset"
-msgstr "Solnedgång"
+msgstr "SolnedgÃ¥ng"
 
 #: lib/Block/weatherdotcom.php:193
 msgid "Sunset: "
-msgstr "Solnedgång: "
+msgstr "SolnedgÃ¥ng: "
 
 #: templates/javascript/htmlarea_lang.js:13
 msgid "Superscript"
-msgstr "Upphöjd"
+msgstr "UpphÃ¶jd"
 
 #: config/registry.php.dist:363
 msgid "Support"
@@ -4469,15 +4469,15 @@ msgstr "Tabell"
 
 #: templates/javascript/htmlarea_table_lang.js:73
 msgid "Table Properties"
-msgstr "Tabellinställningar"
+msgstr "TabellinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_table_lang.js:72
 msgid "Table properties"
-msgstr "Tabellinställningar"
+msgstr "TabellinstÃ¤llningar"
 
 #: templates/javascript/htmlarea_lang.js:95
 msgid "Target:"
-msgstr "Mål:"
+msgstr "MÃ¥l:"
 
 #: config/hooks.php.dist:1001 config/registry.php.dist:184
 msgid "Tasks"
@@ -4502,15 +4502,15 @@ msgstr "Kan inte hitta mall %s."
 
 #: admin/templates.php:169
 msgid "Template Administration"
-msgstr "Användaradministration"
+msgstr "AnvÃ¤ndaradministration"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:641
 msgid "Tentatively Accept request"
-msgstr "Godkänn begäran preliminärt"
+msgstr "GodkÃ¤nn begÃ¤ran preliminÃ¤rt"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:689
 msgid "Tentatively Accepted"
-msgstr "Preliminärt accepterat"
+msgstr "PreliminÃ¤rt accepterat"
 
 #: framework/Form/Form.php:1212
 msgid "Text"
@@ -4530,19 +4530,19 @@ msgstr "To"
 
 #: framework/Auth/Auth.php:1011
 msgid "Thank you for using the system."
-msgstr "Tack för att du använder systemet."
+msgstr "Tack fÃ¶r att du anvÃ¤nder systemet."
 
 #: framework/VFS/VFS/ftp.php:765
 msgid "The FTP extension is not available."
-msgstr "FTP-tillägget är inte tillgängligt."
+msgstr "FTP-tillÃ¤gget Ã¤r inte tillgÃ¤ngligt."
 
 #: services/images/colorpicker.php:29
 msgid "The Options window has closed. Exiting."
-msgstr "Inställningsfönstret har stängts. Avslutar."
+msgstr "InstÃ¤llningsfÃ¶nstret har stÃ¤ngts. Avslutar."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:49
 msgid "The calendar data is invalid"
-msgstr "Kalenderinformationen är felaktig"
+msgstr "Kalenderinformationen Ã¤r felaktig"
 
 #: framework/MIME/MIME/Viewer/vcard.php:53
 msgid "The contact was successfully added to your address book."
@@ -4552,34 +4552,34 @@ msgstr "Kontakten lades till i adressboken."
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Den lösgjorda PGP-signaturen krävs för att verifiera det signerade "
+"Den lÃ¶sgjorda PGP-signaturen krÃ¤vs fÃ¶r att verifiera det signerade "
 "meddelandet."
 
 #: framework/Crypt/Crypt.php:119
 msgid "The encryption features require a secure web connection."
-msgstr "Krypteringsfunktionerna kräver en säker webförbindelse (HTTPS)."
+msgstr "Krypteringsfunktionerna krÃ¤ver en sÃ¤ker webfÃ¶rbindelse (HTTPS)."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:78
 msgid "The event has been added to your calendar."
-msgstr "Händelsen lades till i kalendern."
+msgstr "HÃ¤ndelsen lades till i kalendern."
 
 #: framework/Horde/Horde.php:181 framework/Horde/Horde.php:500
 #, php-format
 msgid "The file %s should contain a %s setting."
-msgstr "Filen %s skall innehålla en inställning för %s."
+msgstr "Filen %s skall innehÃ¥lla en instÃ¤llning fÃ¶r %s."
 
 #: framework/Horde/Horde.php:174 framework/Horde/Horde.php:490
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "Filen %s skall innehålla inställningar för %s."
+msgstr "Filen %s skall innehÃ¥lla instÃ¤llningar fÃ¶r %s."
 
 #: framework/VFS/VFS/file.php:162
 msgid "The file can not be copied onto itself."
-msgstr "Filen kan inte kopieras till sig själv."
+msgstr "Filen kan inte kopieras till sig sjÃ¤lv."
 
 #: framework/Data/Data.php:283
 msgid "The file contained no data."
-msgstr "Filen innehöll ingen information."
+msgstr "Filen innehÃ¶ll ingen information."
 
 #: services/prefs.php:90
 #, php-format
@@ -4590,15 +4590,15 @@ msgstr "Identiteten '%s' raderades."
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
 msgstr ""
-"Sökvägen till GnuPG-programmet måste vara angiven till klassen Crypt_pgp::."
+"SÃ¶kvÃ¤gen till GnuPG-programmet mÃ¥ste vara angiven till klassen Crypt_pgp::."
 
 #: framework/File_CSV/CSV.php:441
 msgid "The number of fields must be numeric."
-msgstr "Antal fält måste vara ett numeriskt värde."
+msgstr "Antal fÃ¤lt mÃ¥ste vara ett numeriskt vÃ¤rde."
 
 #: framework/Crypt/Crypt/smime.php:1255
 msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr "Modulen openssl krävs av klassen Horde_Crypt_smime::."
+msgstr "Modulen openssl krÃ¤vs av klassen Horde_Crypt_smime::."
 
 #: framework/MIME/MIME/Viewer/msexcel.php:34
 #: framework/MIME/MIME/Viewer/mspowerpoint.php:34
@@ -4612,24 +4612,24 @@ msgstr "Modulen openssl krävs av klassen Horde_Crypt_smime::."
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr ""
-"Programmet som används för att visa den här meddelandetypen (%s) saknas på "
+"Programmet som anvÃ¤nds fÃ¶r att visa den hÃ¤r meddelandetypen (%s) saknas pÃ¥ "
 "systemet."
 
 #: framework/File_CSV/CSV.php:454
 msgid "The quote character must be one single character."
-msgstr "Tecknet för citering måste vara ett tecken."
+msgstr "Tecknet fÃ¶r citering mÃ¥ste vara ett tecken."
 
 #: templates/javascript/htmlarea_table_lang.js:77
 msgid "The right and left sides only"
-msgstr "Bara höger och vänster sidor"
+msgstr "Bara hÃ¶ger och vÃ¤nster sidor"
 
 #: templates/javascript/htmlarea_table_lang.js:78
 msgid "The right-hand side only"
-msgstr "Bara höger sida"
+msgstr "Bara hÃ¶ger sida"
 
 #: framework/File_CSV/CSV.php:446
 msgid "The separator must be one single character."
-msgstr "Separatorn måste vara ett tecken."
+msgstr "Separatorn mÃ¥ste vara ett tecken."
 
 #: services/portal/rpcsum.php:78
 #, php-format
@@ -4652,7 +4652,7 @@ msgstr "Uppgiften har lagts till i din uppgiftslista."
 #: framework/VFS/VFS/sql.php:112
 #, php-format
 msgid "The temporary file \"%s\" does not exist."
-msgstr "Temporär fil '%s' finns inte."
+msgstr "TemporÃ¤r fil '%s' finns inte."
 
 #: templates/javascript/htmlarea_table_lang.js:79
 msgid "The top and bottom sides only"
@@ -4668,7 +4668,7 @@ msgstr "Den uppladdade filen kunde inte sparas."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:93
 msgid "The user's free/busy information was sucessfully stored."
-msgstr "Ledig/upptagen-information för användaren har sparats."
+msgstr "Ledig/upptagen-information fÃ¶r anvÃ¤ndaren har sparats."
 
 #: util/icon_browser.php:25
 #, php-format
@@ -4677,7 +4677,7 @@ msgstr "Temakatalog '%s' finns inte."
 
 #: framework/Prefs/Prefs/UI.php:182
 msgid "There are no options available."
-msgstr "Inga inställningar tillgängliga."
+msgstr "Inga instÃ¤llningar tillgÃ¤ngliga."
 
 #: framework/MIME/MIME/Contents.php:338
 msgid "There are no parts that can be displayed inline."
@@ -4689,28 +4689,28 @@ msgid ""
 "There are too many characters in this field. You have entered %s characters; "
 "you must enter less than %s."
 msgstr ""
-"För många tecken i fältet. Du har angett %s tecken; maximalt antal tecken är "
+"FÃ¶r mÃ¥nga tecken i fÃ¤ltet. Du har angett %s tecken; maximalt antal tecken Ã¤r "
 "%s."
 
 #: signup.php:53
 #, php-format
 msgid "There was a problem adding '%s' to the system. %s."
-msgstr "Problem med att lägga till '%s' till systemet. %s"
+msgstr "Problem med att lÃ¤gga till '%s' till systemet. %s"
 
 #: admin/user.php:73
 #, php-format
 msgid "There was a problem adding '%s' to the system: %s"
-msgstr "Problem med att lägga till '%s' till systemet: %s"
+msgstr "Problem med att lÃ¤gga till '%s' till systemet: %s"
 
 #: admin/user.php:122
 #, php-format
 msgid "There was a problem clearing data for user '%s' from the system: "
-msgstr "Problem med att rensa information om användare '%s' från systemet: "
+msgstr "Problem med att rensa information om anvÃ¤ndare '%s' frÃ¥n systemet: "
 
 #: admin/user.php:103
 #, php-format
 msgid "There was a problem removing '%s' from the system: "
-msgstr "Problem med att ta bort '%s' från systemet: "
+msgstr "Problem med att ta bort '%s' frÃ¥n systemet: "
 
 #: admin/user.php:159
 #, php-format
@@ -4728,8 +4728,8 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Det uppstod problem vid uppladdning av filen: %s är större än maximalt "
-"tillåten storlek (%d bytes)."
+"Det uppstod problem vid uppladdning av filen: %s Ã¤r stÃ¶rre Ã¤n maximalt "
+"tillÃ¥ten storlek (%d bytes)."
 
 #: framework/Browser/Browser.php:929
 #, php-format
@@ -4750,7 +4750,7 @@ msgstr "Fel vid import av kontaktdata."
 #: framework/MIME/MIME/Viewer/icalendar.php:75
 #, php-format
 msgid "There was an error importing the event: %s."
-msgstr "Fel vid import av händelsen: %s."
+msgstr "Fel vid import av hÃ¤ndelsen: %s."
 
 #: framework/Data/Data/imc.php:32
 msgid "There was an error importing the iCalendar data."
@@ -4770,19 +4770,19 @@ msgstr "Fel vid import av information om ledig/upptagen: %s."
 #: framework/Net_SMS/SMS/win_http.php:231
 msgid ""
 "There was an error updating the distribution list. Please try again later."
-msgstr "Fel vid uppdatering av distributionslistan. Försök igen senare."
+msgstr "Fel vid uppdatering av distributionslistan. FÃ¶rsÃ¶k igen senare."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:82
 #: framework/MIME/MIME/Viewer/icalendar.php:96
 #: framework/MIME/MIME/Viewer/icalendar.php:112
 #: framework/MIME/MIME/Viewer/icalendar.php:200
 msgid "This action is not supported."
-msgstr "Denna handling stöds inte."
+msgstr "Denna handling stÃ¶ds inte."
 
 #: framework/MIME/MIME/Viewer/icalendar.php:118
 #: framework/MIME/MIME/Viewer/icalendar.php:359
 msgid "This action is not yet implemented."
-msgstr "Handlingen är inte implementerad ännu."
+msgstr "Handlingen Ã¤r inte implementerad Ã¤nnu."
 
 #: framework/MIME/MIME/Viewer/rar.php:50
 msgid "This does not appear to be a valid rar archive."
@@ -4809,42 +4809,42 @@ msgstr "Felaktigt kortnummer."
 #: framework/Form/Form.php:3138 framework/Form/Form.php:3708
 #: framework/Form/Form.php:3716
 msgid "This field is required."
-msgstr "Fältet måste vara ifyllt."
+msgstr "FÃ¤ltet mÃ¥ste vara ifyllt."
 
 #: framework/Form/Form.php:1066
 msgid "This field may only contain integers."
-msgstr "Fältet får enbart innehålla heltal."
+msgstr "FÃ¤ltet fÃ¥r enbart innehÃ¥lla heltal."
 
 #: framework/Form/Form.php:2417
 msgid "This field may only contain numbers and the colon."
-msgstr "Fältet får enbart innehålla siffror och kolon."
+msgstr "FÃ¤ltet fÃ¥r enbart innehÃ¥lla siffror och kolon."
 
 #: framework/Form/Form.php:1095
 msgid "This field may only contain octal values."
-msgstr "Fältet får enbart innehålla oktala tal."
+msgstr "FÃ¤ltet fÃ¥r enbart innehÃ¥lla oktala tal."
 
 #: framework/Form/Form.php:1124
 msgid "This field must be a comma or space separated list of integers"
 msgstr ""
-"Fältet skall vara en kommai- eller mellanslagssepararad lista med heltal"
+"FÃ¤ltet skall vara en kommai- eller mellanslagssepararad lista med heltal"
 
 #: framework/Form/Form.php:990
 msgid "This field must be a valid number."
-msgstr "Fältet måste vara ett godkänt tal."
+msgstr "FÃ¤ltet mÃ¥ste vara ett godkÃ¤nt tal."
 
 #: templates/help/about.inc:1
 #, php-format
 msgid "This is %s."
-msgstr "Det här är %s."
+msgstr "Det hÃ¤r Ã¤r %s."
 
 #: framework/MIME/MIME/Contents.php:587
 #, php-format
 msgid "This message was written in a character set (%s) other than your own."
-msgstr "Meddelandet skrevs i en annan teckenuppsättning (%s) än din egna."
+msgstr "Meddelandet skrevs i en annan teckenuppsÃ¤ttning (%s) Ã¤n din egna."
 
 #: framework/Prefs/Prefs/UI.php:128
 msgid "This number must be at least one."
-msgstr "Det här numret måste vara minst ett."
+msgstr "Det hÃ¤r numret mÃ¥ste vara minst ett."
 
 #: framework/Compress/Compress/gzip.php:47
 msgid "This server can't uncompress zip and gzip files."
@@ -4852,15 +4852,15 @@ msgstr "Servern kan inte packa upp zip och gzip filer."
 
 #: framework/Horde/Horde/Registry.php:186
 msgid "This system is currently deactivated."
-msgstr "Systemet är för tillfället avaktiverat."
+msgstr "Systemet Ã¤r fÃ¶r tillfÃ¤llet avaktiverat."
 
 #: framework/Prefs/Prefs/UI.php:126
 msgid "This value must be a number."
-msgstr "Det här värdet måste vara numeriskt."
+msgstr "Det hÃ¤r vÃ¤rdet mÃ¥ste vara numeriskt."
 
 #: lib/Block/weatherdotcom.php:472
 msgid "Thunder"
-msgstr "Åska"
+msgstr "Ã…ska"
 
 #: framework/Form/Form.php:2427
 msgid "Time"
@@ -4910,7 +4910,7 @@ msgstr "Top frame (_top)"
 
 #: lib/Block/fortune.php:63
 msgid "Translations"
-msgstr "Översättningar"
+msgstr "Ã–versÃ¤ttningar"
 
 #: templates/javascript/open_calendar.js:57
 msgid "Tu"
@@ -4941,22 +4941,22 @@ msgstr "Ukraina"
 
 #: framework/VFS/VFS/file.php:359
 msgid "Unable to access VFS directory."
-msgstr "Kan inte läsa VFS-mapp."
+msgstr "Kan inte lÃ¤sa VFS-mapp."
 
 #: framework/VFS/VFS/ftp.php:344
 #, php-format
 msgid "Unable to change permission for VFS file \"%s\"."
-msgstr "Kan inte ändra behörighet för VFS-fil %s."
+msgstr "Kan inte Ã¤ndra behÃ¶righet fÃ¶r VFS-fil %s."
 
 #: framework/VFS/VFS/file.php:330 framework/VFS/VFS/musql.php:480
 #, php-format
 msgid "Unable to change permission for VFS file %s/%s."
-msgstr "Kan inte ändra behörighet för VFS-fil %s/%s."
+msgstr "Kan inte Ã¤ndra behÃ¶righet fÃ¶r VFS-fil %s/%s."
 
 #: framework/VFS/VFS/ftp.php:700
 #, php-format
 msgid "Unable to change to %s."
-msgstr "Kan inte ändra till %s."
+msgstr "Kan inte Ã¤ndra till %s."
 
 #: framework/Auth/Auth/sql.php:449
 msgid "Unable to connect to SQL server."
@@ -5003,7 +5003,7 @@ msgstr "Kan inte packa upp data."
 #: framework/VFS/VFS/ftp.php:248 framework/VFS/VFS/smb.php:216
 #, php-format
 msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "Kan inte radera %s, mappen är inte tom."
+msgstr "Kan inte radera %s, mappen Ã¤r inte tom."
 
 #: admin/groups.php:78 admin/perms/delete.php:44
 #, php-format
@@ -5014,7 +5014,7 @@ msgstr "Kan inte radera '%s': %s"
 #: framework/VFS/VFS/sql.php:319 framework/VFS/VFS/sql_file.php:342
 #, php-format
 msgid "Unable to delete %s, the directory is not empty"
-msgstr "Kan inte radera %s, mappen är inte tom."
+msgstr "Kan inte radera %s, mappen Ã¤r inte tom."
 
 #: framework/VFS/VFS/sql_file.php:356 framework/VFS/VFS/sql_file.php:360
 msgid "Unable to delete VFS directory recursively."
@@ -5055,7 +5055,7 @@ msgstr "Kan inte radera VFS rekursivt: %s."
 
 #: framework/VFS/VFS/ftp.php:748
 msgid "Unable to determine current directory."
-msgstr "Kan inte avgöra aktuell mapp."
+msgstr "Kan inte avgÃ¶ra aktuell mapp."
 
 #: framework/Net_IMSP/IMSP.php:462 framework/Net_IMSP/IMSP/Auth.php:119
 #, php-format
@@ -5071,66 +5071,66 @@ msgstr "Kan inte flytta VFS-fil."
 #: framework/VFS/VFS/smb.php:94 framework/VFS/VFS/smb.php:676
 #, php-format
 msgid "Unable to open VFS file \"%s\"."
-msgstr "Kan inte öppna VFS-fil %s."
+msgstr "Kan inte Ã¶ppna VFS-fil %s."
 
 #: framework/VFS/VFS/file.php:217 framework/VFS/VFS/sql_file.php:128
 #: framework/VFS/VFS/sql_file.php:131
 msgid "Unable to open VFS file for writing."
-msgstr "Kan inte öppna VFS-fil för skrivning."
+msgstr "Kan inte Ã¶ppna VFS-fil fÃ¶r skrivning."
 
 #: framework/VFS/VFS/file.php:71 framework/VFS/VFS/sql_file.php:74
 msgid "Unable to open VFS file."
-msgstr "Kan inte öppna VFS-fil."
+msgstr "Kan inte Ã¶ppna VFS-fil."
 
 #: framework/MIME/MIME/Viewer/tgz.php:47
 msgid "Unable to open compressed archive."
-msgstr "Kan inte öppna komprimerat arkiv."
+msgstr "Kan inte Ã¶ppna komprimerat arkiv."
 
 #: framework/SessionHandler/SessionHandler/none.php:38
 msgid "Unable to read file: "
-msgstr "Kan inte läsa fil: "
+msgstr "Kan inte lÃ¤sa fil: "
 
 #: framework/VFS/VFS/file.php:620
 msgid "Unable to read the vfsroot directory."
-msgstr "Kan inte läsa katalogen för 'vfsroot'."
+msgstr "Kan inte lÃ¤sa katalogen fÃ¶r 'vfsroot'."
 
 #: framework/Kolab/Kolab.php:1134
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
-msgstr "Kan inte byta namn på %s till %s: destinationsmapp finns redan"
+msgstr "Kan inte byta namn pÃ¥ %s till %s: destinationsmapp finns redan"
 
 #: framework/VFS/VFS/sql_file.php:299
 msgid "Unable to rename VFS directory."
-msgstr "Kan inte byta namn på VFS-mapp."
+msgstr "Kan inte byta namn pÃ¥ VFS-mapp."
 
 #: framework/VFS/VFS/sql.php:254
 #, php-format
 msgid "Unable to rename VFS directory: %s."
-msgstr "Kan inte byta namn på VFS-mapp: %s."
+msgstr "Kan inte byta namn pÃ¥ VFS-mapp: %s."
 
 #: framework/VFS/VFS/ftp.php:295 framework/VFS/VFS/smb.php:259
 #, php-format
 msgid "Unable to rename VFS file \"%s\"."
-msgstr "Kan inte byta namn på VFS-fil %s."
+msgstr "Kan inte byta namn pÃ¥ VFS-fil %s."
 
 #: framework/VFS/VFS/file.php:561 framework/VFS/VFS/musql.php:235
 #, php-format
 msgid "Unable to rename VFS file %s/%s."
-msgstr "Kan inte byta namn på VFS-fil %s/%s."
+msgstr "Kan inte byta namn pÃ¥ VFS-fil %s/%s."
 
 #: framework/VFS/VFS/musql.php:219 framework/VFS/VFS/musql.php:464
 #: framework/VFS/VFS/sql.php:248 framework/VFS/VFS/sql_file.php:291
 #: framework/VFS/VFS/sql_file.php:307
 msgid "Unable to rename VFS file."
-msgstr "Kan inte byta namn på VFS-fil."
+msgstr "Kan inte byta namn pÃ¥ VFS-fil."
 
 #: framework/VFS_ISOWriter/ISOWriter/mkisofs.php:50
 msgid "Unable to run 'mkisofs'."
-msgstr "Kan inte köra 'mkisofs'."
+msgstr "Kan inte kÃ¶ra 'mkisofs'."
 
 #: framework/MIME/MIME/Viewer/msword.php:61
 msgid "Unable to translate this Word document"
-msgstr "Kan inte översätta Worddokumentet"
+msgstr "Kan inte Ã¶versÃ¤tta Worddokumentet"
 
 #: framework/VFS/VFS/ftp.php:126 framework/VFS/VFS/ftp.php:129
 #, php-format
@@ -5152,19 +5152,19 @@ msgstr "Understruken"
 
 #: templates/prefs/end.inc:6
 msgid "Undo Changes"
-msgstr "Ångra ändringar"
+msgstr "Ã…ngra Ã¤ndringar"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:227
 #: framework/IMAP/IMAP/ACL/rfc2086.php:396
 msgid "Unexpected response from server on connection: "
-msgstr "Oväntat svar från server på förbindelse: "
+msgstr "OvÃ¤ntat svar frÃ¥n server pÃ¥ fÃ¶rbindelse: "
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:223
 #: framework/IMAP/IMAP/ACL/rfc2086.php:347
 #: framework/IMAP/IMAP/ACL/rfc2086.php:384
 #: framework/IMAP/IMAP/ACL/rfc2086.php:390
 msgid "Unexpected response from server to: "
-msgstr "Oväntat svar från server till: "
+msgstr "OvÃ¤ntat svar frÃ¥n server till: "
 
 #: framework/Prefs/Prefs/CategoryManager.php:57
 #: templates/prefs/categorymanagement.inc:64
@@ -5178,11 +5178,11 @@ msgstr "Icke hanterad komponent av typ: %s"
 
 #: framework/Crypt/Crypt/pgp.php:423 framework/Crypt/Crypt/pgp.php:424
 msgid "Unknown"
-msgstr "Okänd"
+msgstr "OkÃ¤nd"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:300
 msgid "Unknown username or password."
-msgstr "Okänt användarnamn eller lösenord."
+msgstr "OkÃ¤nt anvÃ¤ndarnamn eller lÃ¶senord."
 
 #: templates/javascript/htmlarea_context_lang.js:58
 msgid "Unlink the current element"
@@ -5190,12 +5190,12 @@ msgstr "Radera aktuell post"
 
 #: framework/Identity/Identity.php:296
 msgid "Unnamed"
-msgstr "Namnlös"
+msgstr "NamnlÃ¶s"
 
 #: framework/Crypt/Crypt/smime.php:706 framework/Crypt/Crypt/smime.php:948
 #: framework/Crypt/Crypt/smime.php:954
 msgid "Unsupported Extension"
-msgstr "Extension stöds inte"
+msgstr "Extension stÃ¶ds inte"
 
 #: framework/Perms/Perms/UI.php:207 templates/admin/user/list.inc:33
 msgid "Update"
@@ -5208,11 +5208,11 @@ msgstr "Uppdatera %s"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:648
 msgid "Update respondent status"
-msgstr "Uppdatera status på svarande"
+msgstr "Uppdatera status pÃ¥ svarande"
 
 #: templates/admin/user/update.inc:69
 msgid "Update user"
-msgstr "Uppdatera användare"
+msgstr "Uppdatera anvÃ¤ndare"
 
 #: admin/groups.php:136 admin/perms/edit.php:102 services/shares/edit.php:230
 #, php-format
@@ -5230,31 +5230,31 @@ msgstr "Ladda upp"
 #: framework/Prefs/Prefs/CategoryManager.php:45
 #, php-format
 msgid "Use Current: %s"
-msgstr "Använd aktuell: %s"
+msgstr "AnvÃ¤nd aktuell: %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:561
 msgid "Use SSL"
-msgstr "Använd SSL"
+msgstr "AnvÃ¤nd SSL"
 
 #: admin/user.php:203
 msgid "User Administration"
-msgstr "Användaradministration"
+msgstr "AnvÃ¤ndaradministration"
 
 #: framework/Prefs/Prefs/UI.php:256
 msgid "User Options"
-msgstr "Användarinställningar"
+msgstr "AnvÃ¤ndarinstÃ¤llningar"
 
 #: signup.php:62
 msgid "User Registration"
-msgstr "Användarregistrering"
+msgstr "AnvÃ¤ndarregistrering"
 
 #: signup.php:22
 msgid "User Registration has been disabled for this site."
-msgstr "Användarregistrering har avaktiverats."
+msgstr "AnvÃ¤ndarregistrering har avaktiverats."
 
 #: lib/Block/account.php:473
 msgid "User account not found"
-msgstr "Användarkonto hittades inte"
+msgstr "AnvÃ¤ndarkonto hittades inte"
 
 #: admin/user.php:35 admin/setup/index.php:183
 #: framework/Net_SMS/SMS/clickatell_http.php:201
@@ -5263,24 +5263,24 @@ msgstr "Användarkonto hittades inte"
 #: framework/Net_SMS/SMS/win_http.php:153 services/resetpassword.php:33
 #: templates/login/login.inc:69 templates/admin/user/approve.inc:12
 msgid "Username"
-msgstr "Användarnamn"
+msgstr "AnvÃ¤ndarnamn"
 
 #: framework/Auth/Auth/Signup.php:129
 #, php-format
 msgid "Username '%s' already exists."
-msgstr "Användarnamn %s finns redan."
+msgstr "AnvÃ¤ndarnamn %s finns redan."
 
 #: templates/rpcsum/rpcsum.inc:87
 msgid "Username:"
-msgstr "Användarnamn:"
+msgstr "AnvÃ¤ndarnamn:"
 
 #: templates/login/mobile.inc:8
 msgid "Username: "
-msgstr "Användarnamn: "
+msgstr "AnvÃ¤ndarnamn: "
 
 #: templates/admin/user/list.inc:2
 msgid "Users in the system:"
-msgstr "Användare i systemet:"
+msgstr "AnvÃ¤ndare i systemet:"
 
 #: framework/VFS/VFS/file.php:107 framework/VFS/VFS/file.php:200
 msgid "VFS directory does not exist."
@@ -5294,11 +5294,11 @@ msgstr "Semester"
 #: framework/Form/Form.php:2314 framework/Form/Form.php:2933
 #: framework/Form/Form/Type/tableset.php:59
 msgid "Values"
-msgstr "Värden"
+msgstr "VÃ¤rden"
 
 #: framework/Form/Form.php:2107 framework/Form/Form.php:2184
 msgid "Values to select from"
-msgstr "Värden att välja från"
+msgstr "VÃ¤rden att vÃ¤lja frÃ¥n"
 
 #: framework/Crypt/Crypt/smime.php:228
 msgid "Verification failed - this message may have been tampered with."
@@ -5341,7 +5341,7 @@ msgstr "Visa som %s"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:79
 msgid "View event"
-msgstr "Visa händelse"
+msgstr "Visa hÃ¤ndelse"
 
 #: framework/MIME/MIME/Viewer/icalendar.php:109
 msgid "View task"
@@ -5370,17 +5370,17 @@ msgstr "Veckovis"
 
 #: services/portal/mobile.php:28
 msgid "Welcome"
-msgstr "Välkommen"
+msgstr "VÃ¤lkommen"
 
 #: templates/login/login.inc:54 templates/login/mobile.inc:4
 #, php-format
 msgid "Welcome to %s"
-msgstr "Välkommen till %s"
+msgstr "VÃ¤lkommen till %s"
 
 #: services/portal/mobile.php:29 templates/portal/menu.inc:2
 #, php-format
 msgid "Welcome, %s"
-msgstr "Välkommen, %s"
+msgstr "VÃ¤lkommen, %s"
 
 #: config/prefs.php.dist:427
 #, php-format
@@ -5389,15 +5389,15 @@ msgstr "Vilken applikation skall %s visa efter inloggning?"
 
 #: templates/data/csvinfo.inc:21
 msgid "What is the delimiter character?"
-msgstr "Vilken är avgränsningstecknet?"
+msgstr "Vilken Ã¤r avgrÃ¤nsningstecknet?"
 
 #: templates/data/csvinfo.inc:24
 msgid "What is the quote character?"
-msgstr "Vilket är tecknet för citerad text?"
+msgstr "Vilket Ã¤r tecknet fÃ¶r citerad text?"
 
 #: config/prefs.php.dist:131
 msgid "Which plugins to enable for the Rich Text editor."
-msgstr "Vilka plugin skall aktiveras för Rich Text editorn."
+msgstr "Vilka plugin skall aktiveras fÃ¶r Rich Text editorn."
 
 #: templates/javascript/htmlarea_table_lang.js:84
 msgid "Width"
@@ -5410,7 +5410,7 @@ msgstr "Bredd i CSS-units"
 #: config/prefs.php.dist:347
 #, php-format
 msgid "Width of the %s menu on the left (takes effect on next log-in):"
-msgstr "Bredd på menyn för '%s' till vänster (gäller från nästa inloggning"
+msgstr "Bredd pÃ¥ menyn fÃ¶r '%s' till vÃ¤nster (gÃ¤ller frÃ¥n nÃ¤sta inloggning"
 
 #: templates/javascript/htmlarea_lang.js:106
 msgid "Width of the table"
@@ -5442,7 +5442,7 @@ msgstr "Visdom"
 
 #: config/registry.php.dist:193
 msgid "Wishlist"
-msgstr "Önskelista"
+msgstr "Ã–nskelista"
 
 #: lib/Block/fortune.php:65
 msgid "Work"
@@ -5460,12 +5460,12 @@ msgstr "Telefon, arbete"
 #: framework/File_CSV/CSV.php:169 framework/File_CSV/CSV.php:262
 #, php-format
 msgid "Wrong number of fields in line %d. Expected %d, found %d."
-msgstr "Fel antal fält på rad %d. Förväntade %d, hittade %d."
+msgstr "Fel antal fÃ¤lt pÃ¥ rad %d. FÃ¶rvÃ¤ntade %d, hittade %d."
 
 #: framework/File_CSV/CSV.php:300
 #, php-format
 msgid "Wrong number of fields. Expected %d, found %d."
-msgstr "Fel antal fält. Förväntade %d, hittade %d."
+msgstr "Fel antal fÃ¤lt. FÃ¶rvÃ¤ntade %d, hittade %d."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -5479,7 +5479,7 @@ msgstr "YYYY"
 
 #: framework/Maintenance/Maintenance.php:56
 msgid "Yearly"
-msgstr "Årlig"
+msgstr "Ã…rlig"
 
 #: framework/NLS/NLS/GeoIP.php:117 framework/NLS/NLS/countries.php:247
 #: framework/NLS/NLS/tld.php:252
@@ -5497,60 +5497,60 @@ msgstr "Ja, jag samtycker"
 #: services/portal/edit.php:81
 #, php-format
 msgid "You are not allowed to create more than %d blocks."
-msgstr "Du har inte behörighet skapa fler än %d block."
+msgstr "Du har inte behÃ¶righet skapa fler Ã¤n %d block."
 
 #: framework/Form/Form.php:1853 framework/Form/Form.php:1973
 msgid "You did not enter a valid email address."
-msgstr "Du angav inte en godkänd e-postadress."
+msgstr "Du angav inte en godkÃ¤nd e-postadress."
 
 #: framework/Auth/Auth.php:1011
 msgid "You have been logged out."
-msgstr "Du är utloggad."
+msgstr "Du Ã¤r utloggad."
 
 #: framework/Form/Form.php:1189
 msgid "You have to enter a valid value."
-msgstr "Du angav inte ett godkänt värde."
+msgstr "Du angav inte ett godkÃ¤nt vÃ¤rde."
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
-msgstr "Du måste beskriva problemen, innan du kan rapportera ett problem."
+msgstr "Du mÃ¥ste beskriva problemen, innan du kan rapportera ett problem."
 
 #: templates/javascript/htmlarea_lang.js:98
 msgid "You must enter the URL where this link points to"
-msgstr "Du måste ange en URL som länken pekar på"
+msgstr "Du mÃ¥ste ange en URL som lÃ¤nken pekar pÃ¥"
 
 #: services/portal/rpcsum.php:80
 msgid "You must select an server to be deleted."
-msgstr "Du måste ange en server som skall raderas."
+msgstr "Du mÃ¥ste ange en server som skall raderas."
 
 #: admin/user.php:119
 msgid "You must specify a username to clear out."
-msgstr "Du måste ange ett användarnamn som skall rensas."
+msgstr "Du mÃ¥ste ange ett anvÃ¤ndarnamn som skall rensas."
 
 #: admin/user.php:100
 msgid "You must specify a username to remove."
-msgstr "Du måste ange ett användarnamn som skall raderas."
+msgstr "Du mÃ¥ste ange ett anvÃ¤ndarnamn som skall raderas."
 
 #: admin/user.php:62 templates/admin/user/update.inc:8
 msgid "You must specify the username to add."
-msgstr "Du måste ange ett användarnamn som skall läggas till."
+msgstr "Du mÃ¥ste ange ett anvÃ¤ndarnamn som skall lÃ¤ggas till."
 
 #: admin/user.php:146
 msgid "You must specify the username to update."
-msgstr "Du måste ange ett användarnamn som skall uppdateras."
+msgstr "Du mÃ¥ste ange ett anvÃ¤ndarnamn som skall uppdateras."
 
 #: framework/Compress/Compress/zip.php:143
 msgid "You must specify what action to perform."
-msgstr "Du måste ange en åtgärd som skall utföras."
+msgstr "Du mÃ¥ste ange en Ã¥tgÃ¤rd som skall utfÃ¶ras."
 
 #: framework/Prefs/Prefs/CategoryManager.php:72
 msgid "You must type a new category name."
-msgstr "Du måste ange ett nytt kategorinamn."
+msgstr "Du mÃ¥ste ange ett nytt kategorinamn."
 
 #: framework/Auth/Auth.php:999
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Din %s session har upphört. Var god logga in igen."
+msgstr "Din %s session har upphÃ¶rt. Var god logga in igen."
 
 #: templates/problem/problem.inc:38
 msgid "Your Email Address"
@@ -5558,7 +5558,7 @@ msgstr "Din e-post adress"
 
 #: config/prefs.php.dist:202
 msgid "Your From: address:"
-msgstr "Din Från: adress:"
+msgstr "Din FrÃ¥n: adress:"
 
 #: config/prefs.php.dist:64 config/prefs.php.dist:74 config/prefs.php.dist:82
 #: config/prefs.php.dist:89
@@ -5571,8 +5571,8 @@ msgid ""
 "Your Internet Address has changed since the beginning of your %s session. To "
 "protect your security, you must login again."
 msgstr ""
-"Din Internet adress har ändrats efter att du loggat in till '%s'. För att "
-"skydda dig, måste du logga in igen."
+"Din Internet adress har Ã¤ndrats efter att du loggat in till '%s'. FÃ¶r att "
+"skydda dig, mÃ¥ste du logga in igen."
 
 #: templates/problem/problem.inc:33
 msgid "Your Name"
@@ -5583,27 +5583,27 @@ msgid ""
 "Your authentication backend does not support adding users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Ditt autentiserings backend stödjer inte upplägg av användare, eller så är "
-"funktionen avstängd."
+"Ditt autentiserings backend stÃ¶djer inte upplÃ¤gg av anvÃ¤ndare, eller sÃ¥ Ã¤r "
+"funktionen avstÃ¤ngd."
 
 #: templates/admin/user/nolist.inc:8
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Ditt autentiserings backend stödjer inte listning av användare, eller så är "
-"funktionen avstängd."
+"Ditt autentiserings backend stÃ¶djer inte listning av anvÃ¤ndare, eller sÃ¥ Ã¤r "
+"funktionen avstÃ¤ngd."
 
 #: lib/Block/iframe.php:50
 msgid "Your browser does not support this feature."
-msgstr "Din webläsare stödjer inte den här funktionen."
+msgstr "Din weblÃ¤sare stÃ¶djer inte den hÃ¤r funktionen."
 
 #: templates/javascript/print.js:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Din webläsare stödjer inte utskriftsfunktionen. Tryck control/option + P för "
+"Din weblÃ¤sare stÃ¶djer inte utskriftsfunktionen. Tryck control/option + P fÃ¶r "
 "att skriva ut."
 
 #: config/prefs.php.dist:247
@@ -5612,48 +5612,48 @@ msgstr "Din aktuella tidszon:"
 
 #: config/prefs.php.dist:148
 msgid "Your default identity:"
-msgstr "Din förvalda identitet:"
+msgstr "Din fÃ¶rvalda identitet:"
 
 #: config/prefs.php.dist:191
 msgid "Your full name:"
-msgstr "Ditt fullständiga namn:"
+msgstr "Ditt fullstÃ¤ndiga namn:"
 
 #: framework/Auth/Auth.php:1023
 msgid "Your login has expired."
-msgstr "Dina inloggning har gått ut."
+msgstr "Dina inloggning har gÃ¥tt ut."
 
 #: services/resetpassword.php:76
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Ditt nya lösenord för %s är: %s"
+msgstr "Ditt nya lÃ¶senord fÃ¶r %s Ã¤r: %s"
 
 #: framework/Prefs/Prefs/UI.php:156
 msgid "Your options have been updated for the duration of this session."
-msgstr "Dina inställningar har uppdaterats under sessionens varaktighet."
+msgstr "Dina instÃ¤llningar har uppdaterats under sessionens varaktighet."
 
 #: framework/Prefs/Prefs/UI.php:158
 msgid "Your options have been updated."
-msgstr "Dina inställningar har uppdaterats."
+msgstr "Dina instÃ¤llningar har uppdaterats."
 
 #: services/resetpassword.php:75
 msgid "Your password has been reset"
-msgstr "Ditt lösenord har blivit återställt"
+msgstr "Ditt lÃ¶senord har blivit Ã¥terstÃ¤llt"
 
 #: services/resetpassword.php:79
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Ditt lösnord har återställts, kontrollera din epost och logga in med ditt "
-"nya lösenord."
+"Ditt lÃ¶snord har Ã¥terstÃ¤llts, kontrollera din epost och logga in med ditt "
+"nya lÃ¶senord."
 
 #: framework/Auth/Auth.php:739
 msgid "Your password has expired."
-msgstr "Ditt lösenord har gått ut."
+msgstr "Ditt lÃ¶senord har gÃ¥tt ut."
 
 #: templates/rpcsum/rpcsum.inc:58
 msgid "Your remote servers:"
-msgstr "Dina fjärrservrar:"
+msgstr "Dina fjÃ¤rrservrar:"
 
 #: framework/NLS/NLS/GeoIP.php:118 framework/NLS/NLS/tld.php:254
 msgid "Yugoslavia"
@@ -5676,7 +5676,7 @@ msgstr "Zimbabwe"
 #: framework/Text_Filter/Filter/highlightquotes.php:172
 #: templates/javascript/quoteBlocks.js:12
 msgid "[Hide Quoted Text]"
-msgstr "[Göm citerad text]"
+msgstr "[GÃ¶m citerad text]"
 
 #: services/problem.php:56
 msgid "[Problem Report]"
@@ -5718,11 +5718,11 @@ msgstr "_Grupper"
 
 #: framework/Horde/Horde/Menu.php:178
 msgid "_Help"
-msgstr "_Hjälp"
+msgstr "_HjÃ¤lp"
 
 #: templates/javascript/htmlarea_context_lang.js:23
 msgid "_Image Properties..."
-msgstr "_Bildinställningar..."
+msgstr "_BildinstÃ¤llningar..."
 
 #: framework/Horde/Horde/Menu.php:197
 msgid "_Log in"
@@ -5734,19 +5734,19 @@ msgstr "_Logga ut"
 
 #: templates/javascript/htmlarea_context_lang.js:24
 msgid "_Modify Link..."
-msgstr "Ä_ndra länk..."
+msgstr "Ã„_ndra lÃ¤nk..."
 
 #: framework/Horde/Horde/Menu.php:167
 msgid "_Options"
-msgstr "_Inställningar"
+msgstr "_InstÃ¤llningar"
 
 #: lib/api.php:133
 msgid "_Permissions"
-msgstr "_Behörigheter"
+msgstr "_BehÃ¶righeter"
 
 #: templates/javascript/htmlarea_context_lang.js:26
 msgid "_Remove Link..."
-msgstr "_Ta bort länk..."
+msgstr "_Ta bort lÃ¤nk..."
 
 #: lib/api.php:121
 msgid "_Setup"
@@ -5754,11 +5754,11 @@ msgstr "_Setup"
 
 #: templates/javascript/htmlarea_context_lang.js:33
 msgid "_Table Properties..."
-msgstr "_Tabellinställningar..."
+msgstr "_TabellinstÃ¤llningar..."
 
 #: lib/api.php:125
 msgid "_Users"
-msgstr "_Användare"
+msgstr "_AnvÃ¤ndare"
 
 #: framework/Kolab/Kolab.php:942
 msgid "address book"
@@ -5775,7 +5775,7 @@ msgstr "lugnt"
 
 #: framework/MIME/MIME/Contents.php:588
 msgid "click here"
-msgstr "klicka här"
+msgstr "klicka hÃ¤r"
 
 #: lib/Block/weatherdotcom.php:479
 msgid "falling"
@@ -5788,7 +5788,7 @@ msgstr "fil"
 #: lib/Block/metar.php:172 lib/Block/metar.php:358 lib/Block/metar.php:384
 #, php-format
 msgid "from the %s (%s) at %s %s"
-msgstr "från den %s (%s) kl %s %s"
+msgstr "frÃ¥n den %s (%s) kl %s %s"
 
 #: lib/Block/weatherdotcom.php:225
 msgid "gusting"
@@ -5850,7 +5850,7 @@ msgstr "uppgiftslista"
 
 #: admin/user.php:36 framework/Auth/Auth/Signup.php:280
 msgid "type the password twice to confirm"
-msgstr "ange lösenordet två gånger för att bekräfta"
+msgstr "ange lÃ¶senordet tvÃ¥ gÃ¥nger fÃ¶r att bekrÃ¤fta"
 
 #: admin/setup/diff.php:68 admin/setup/diff.php:76
 msgid "unified"
@@ -5858,7 +5858,7 @@ msgstr "enad"
 
 #: framework/MIME/MIME/Part.php:27
 msgid "unnamed"
-msgstr "namnlös"
+msgstr "namnlÃ¶s"
 
 #: framework/MIME/MIME/Viewer/vcard.php:37
 msgid "vCard"

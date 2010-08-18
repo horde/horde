@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: Alar SIng <alar.sing@err.ee>\n"
 "Language-Team: Estonian <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Horde/Form.php:2892
 #, php-format
 msgid " (%s days ago)"
-msgstr " (%s p‰eva tagasi)"
+msgstr " (%s p√§eva tagasi)"
 
 #: lib/Horde.php:1415
 #, php-format
@@ -27,11 +27,11 @@ msgstr " (Kiirklahv %s)"
 #: lib/Horde/Form.php:2900
 #, php-format
 msgid " (in %s days)"
-msgstr " (%s p‰eva p‰rast)"
+msgstr " (%s p√§eva p√§rast)"
 
 #: lib/Horde/Form.php:2896
 msgid " (today)"
-msgstr " (t‰na)"
+msgstr " (t√§na)"
 
 #: lib/Horde/Form.php:2898
 msgid " (tomorrow)"
@@ -54,7 +54,7 @@ msgstr "\"%s\" ei ole kataloog."
 #: lib/Horde/CLI.php:328
 #, php-format
 msgid "\"%s\" is not a valid choice."
-msgstr "\"%s\" ei ole vıimalik valik."
+msgstr "\"%s\" ei ole v√µimalik valik."
 
 #: lib/Horde/Form.php:2029
 #, php-format
@@ -64,7 +64,7 @@ msgstr "\"%s\" ei ole korrektne maili aadress."
 #: lib/Horde/Registry.php:732 lib/Horde/Registry.php:1095
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
-msgstr "\"%s\" ei ole Horde registris h‰‰lestatud."
+msgstr "\"%s\" ei ole Horde registris h√§√§lestatud."
 
 #: lib/Horde/Share.php:119
 #, php-format
@@ -79,12 +79,12 @@ msgstr "\"%s\" puu esitajat ei leitud."
 #: admin/groups.php:62
 #, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "\"%s\" lisati gruppide s¸steemi."
+msgstr "\"%s\" lisati gruppide s√ºsteemi."
 
 #: admin/perms/addchild.php:53
 #, php-format
 msgid "\"%s\" was added to the permissions system."
-msgstr "\"%s\" lisati ıiguste s¸steemi."
+msgstr "\"%s\" lisati √µiguste s√ºsteemi."
 
 #: admin/groups.php:60 admin/perms/addchild.php:51
 #, php-format
@@ -104,12 +104,12 @@ msgstr "%d %s ja %s"
 #: lib/Horde/Auth/ldap.php:277
 #, php-format
 msgid "%d day until your password expires."
-msgstr "Sinu parool aegub %d p‰eva p‰rast."
+msgstr "Sinu parool aegub %d p√§eva p√§rast."
 
 #: lib/Block/account.php:711 lib/Block/account.php:723
 #, php-format
 msgid "%d days until your password expires."
-msgstr "Sinu parool aegub %d p‰eva p‰rast."
+msgstr "Sinu parool aegub %d p√§eva p√§rast."
 
 #: lib/Block/metar.php:293
 #, php-format
@@ -124,17 +124,17 @@ msgstr "%d kuni %d %d-st"
 #: lib/Block/weatherdotcom.php:296
 #, php-format
 msgid "%d-day forecast"
-msgstr "%d p‰eva ennustus"
+msgstr "%d p√§eva ennustus"
 
 #: services/maintenance.php:69
 #, php-format
 msgid "%s - Notice"
-msgstr "%s - T‰helepanu"
+msgstr "%s - T√§helepanu"
 
 #: lib/Horde/Crypt/smime.php:705
 #, php-format
 msgid "%s Fingerprint"
-msgstr "%s sırmej‰lg"
+msgstr "%s s√µrmej√§lg"
 
 #: lib/Horde/MIME/Contents.php:841 lib/Horde/MIME/Contents.php:847
 #, php-format
@@ -149,7 +149,7 @@ msgstr "%s MB"
 #: services/maintenance.php:50
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "%s hooldustˆˆd - kinnitus"
+msgstr "%s hooldust√∂√∂d - kinnitus"
 
 #: admin/setup/index.php:257 admin/setup/config.php:31
 #, php-format
@@ -189,7 +189,7 @@ msgid ""
 "%s is ready to perform the maintenance operations checked below. Check the "
 "box for any operation(s) you want to perform at this time."
 msgstr ""
-"%s on valmis tegema allpool loetletud hooldustˆˆd. M‰rgista tˆˆd, mida "
+"%s on valmis tegema allpool loetletud hooldust√∂√∂d. M√§rgista t√∂√∂d, mida "
 "soovid praegu teha."
 
 #: lib/Horde/Form.php:2847
@@ -215,12 +215,12 @@ msgstr "Kasutaja %s kalender"
 #: lib/Horde/Kolab.php:692
 #, php-format
 msgid "%s's Notepad"
-msgstr "Kasutaja %s m‰rkmed"
+msgstr "Kasutaja %s m√§rkmed"
 
 #: lib/Horde/Kolab.php:716
 #, php-format
 msgid "%s's Tasklist"
-msgstr "Kasutaja %s ¸lesanded"
+msgstr "Kasutaja %s √ºlesanded"
 
 #: lib/Horde/MIME/Viewer/html.php:133
 #, php-format
@@ -228,8 +228,8 @@ msgid ""
 "%s: This message may not be from whom it claims to be. Beware of following "
 "any links in it or of providing the sender with any personal information."
 msgstr ""
-"%s: See teade ei pruugi olla saatjalt, kellelt see paistab olevat. ƒra "
-"kiirusta klıpsama selles esinevaid linke vıi esitama saatjale isiklikku "
+"%s: See teade ei pruugi olla saatjalt, kellelt see paistab olevat. √Ñra "
+"kiirusta kl√µpsama selles esinevaid linke v√µi esitama saatjale isiklikku "
 "infot."
 
 #: themes/wps_sober/info.php:19
@@ -257,7 +257,7 @@ msgstr "-- vali --"
 
 #: lib/Horde/Alarm.php:348
 msgid "1 day"
-msgstr " 1 p‰ev"
+msgstr " 1 p√§ev"
 
 #: lib/Horde/Alarm.php:346
 msgid "1 hour"
@@ -293,7 +293,7 @@ msgstr "<Eelmine"
 
 #: services/keyboard.php:48
 msgid "A characters"
-msgstr "M‰rgid"
+msgstr "M√§rgid"
 
 #: lib/Block/metar.php:131
 msgid "A database backend is required for this block."
@@ -320,48 +320,48 @@ msgstr "Uuem versioon (%s) on olemas."
 
 #: lib/Horde/Crypt/pgp.php:1241
 msgid "A passphrase is required to decrypt a message."
-msgstr "Kirja dekr¸pteerimiseks on vajalik parool."
+msgstr "Kirja dekr√ºpteerimiseks on vajalik parool."
 
 #: lib/Horde/Crypt/pgp.php:1065
 msgid "A public PGP key is required to encrypt a message."
-msgstr "Kirja kr¸pteerimiseks on vaja avalikku PGP vıtit."
+msgstr "Kirja kr√ºpteerimiseks on vaja avalikku PGP v√µtit."
 
 #: lib/Horde/Crypt/pgp.php:1319
 msgid "A public PGP key is required to verify a signed message."
-msgstr "Allkirja kontrollimiseks on vaja avalikku PGP vıtit."
+msgstr "Allkirja kontrollimiseks on vaja avalikku PGP v√µtit."
 
 #: lib/Horde/Crypt/pgp.php:1160
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"Kirja allkirjastamiseks on vaja avalikku PGP vıtit, salajast PGP vıtit ja "
-"salasına."
+"Kirja allkirjastamiseks on vaja avalikku PGP v√µtit, salajast PGP v√µtit ja "
+"salas√µna."
 
 #: lib/Horde/Crypt/smime.php:364
 msgid "A public S/MIME key is required to encrypt a message."
-msgstr "Kirja kr¸pteerimiseks on vaja avalikku S/MIME vıtit."
+msgstr "Kirja kr√ºpteerimiseks on vaja avalikku S/MIME v√µtit."
 
 #: lib/Horde/Crypt/smime.php:506
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"Kr¸pteeritud kirja avamiseks on vaja avalikku S/MIME vıtit, salajast S/MIME "
-"vıtit ja salasına."
+"Kr√ºpteeritud kirja avamiseks on vaja avalikku S/MIME v√µtit, salajast S/MIME "
+"v√µtit ja salas√µna."
 
 #: lib/Horde/Crypt/smime.php:431
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"Kirja allkirjastamiseks on vaja avalikku S/MIME vıtit, salajast S/MIME vıtit "
-"ja salasına."
+"Kirja allkirjastamiseks on vaja avalikku S/MIME v√µtit, salajast S/MIME v√µtit "
+"ja salas√µna."
 
 #: lib/Horde/Kolab/Freebusy.php:233
 #, php-format
 msgid "ACL for %s is %s"
-msgstr "’igused kasutajale %s on %s"
+msgstr "√ïigused kasutajale %s on %s"
 
 #: lib/Block/weatherdotcom_strings.php:9
 msgid "AM Clouds"
@@ -401,11 +401,11 @@ msgstr "EL tugev lumesadu"
 
 #: lib/Block/weatherdotcom_strings.php:18
 msgid "AM Sun"
-msgstr "P‰ike"
+msgstr "P√§ike"
 
 #: lib/Block/weatherdotcom_strings.php:19
 msgid "AM T-Storms"
-msgstr "ƒikesetorm"
+msgstr "√Ñikesetorm"
 
 #: templates/data/datetime.inc:108 templates/data/time.inc:29
 msgid "AM/PM"
@@ -421,11 +421,11 @@ msgstr "Info..."
 
 #: lib/VFS/musql.php:281
 msgid "Access denied creating VFS directory."
-msgstr "VFS kataloogi loomiseks juurdep‰‰s keelatud"
+msgstr "VFS kataloogi loomiseks juurdep√§√§s keelatud"
 
 #: lib/VFS/musql.php:135
 msgid "Access denied creating VFS file."
-msgstr "VFS faili loomiseks juurdep‰‰s keelatud."
+msgstr "VFS faili loomiseks juurdep√§√§s keelatud."
 
 #: lib/Block/account.php:3
 msgid "Account Information"
@@ -433,7 +433,7 @@ msgstr "Konto info"
 
 #: config/prefs.php.dist:91
 msgid "Account Password"
-msgstr "Konto salasına"
+msgstr "Konto salas√µna"
 
 #: lib/Net/SMS/clickatell_http.php:301
 msgid "Account frozen."
@@ -450,7 +450,7 @@ msgstr "Lisa"
 
 #: lib/Horde/Perms/UI.php:98
 msgid "Add Child Permission"
-msgstr "Lisa alamıigus"
+msgstr "Lisa alam√µigus"
 
 #: services/portal/index.php:74
 msgid "Add Content"
@@ -466,11 +466,11 @@ msgstr "Lisa liikmeid"
 
 #: lib/Horde/Perms/UI.php:88
 msgid "Add New Permission"
-msgstr "Lisa uus ıigus"
+msgstr "Lisa uus √µigus"
 
 #: lib/Horde/Perms/UI.php:74
 msgid "Add Permission"
-msgstr "Lisa ıigusi"
+msgstr "Lisa √µigusi"
 
 #: admin/groups.php:237 templates/admin/groups/addchild.inc:7
 #, php-format
@@ -480,7 +480,7 @@ msgstr "Lisa grupp \"%s\" alla"
 #: lib/Horde/Perms/UI.php:146
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Lisa ıigus \"%s\" alla"
+msgstr "Lisa √µigus \"%s\" alla"
 
 #: admin/groups.php:230
 msgid "Add a new group"
@@ -501,7 +501,7 @@ msgstr "Lisa paar"
 #: config/prefs.php.dist:402
 #, php-format
 msgid "Add the %s Menu as a Mozilla Sidebar"
-msgstr "Tee %s men¸¸ Mozilla k¸lgribaks"
+msgstr "Tee %s men√º√º Mozilla k√ºlgribaks"
 
 #: lib/Horde/MIME/Viewer/vcard.php:70
 msgid "Add to address book:"
@@ -521,13 +521,13 @@ msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"\"%s\" lisati s¸steemi, kuid t‰iendavat liitumisinfot polnud vıimalik "
+"\"%s\" lisati s√ºsteemi, kuid t√§iendavat liitumisinfot polnud v√µimalik "
 "lisada: %s."
 
 #: signup.php:41
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "\"%s\" lisati s¸steemi. N¸¸d vıid sisse logida."
+msgstr "\"%s\" lisati s√ºsteemi. N√º√ºd v√µid sisse logida."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
@@ -548,7 +548,7 @@ msgstr "Haldus"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:56 lib/Horde/IMAP/ACL/rfc2086.php:94
 msgid "Administer - set permissions for other users"
-msgstr "Haldus - muuda teiste kasutajate ıigusi"
+msgstr "Haldus - muuda teiste kasutajate √µigusi"
 
 #: services/portal/sidebar.php:118
 msgid "Administration"
@@ -573,7 +573,7 @@ msgstr "Teavitus"
 
 #: admin/alarms.php:35
 msgid "Alarm end"
-msgstr "Teavituse lıpp"
+msgstr "Teavituse l√µpp"
 
 #: admin/alarms.php:37
 msgid "Alarm methods"
@@ -615,19 +615,19 @@ msgstr "Alias"
 
 #: lib/Block/fortune.php:92
 msgid "All"
-msgstr "Kıik"
+msgstr "K√µik"
 
 #: lib/Horde/Perms/UI.php:206 templates/shares/edit.inc:82
 msgid "All Authenticated Users"
-msgstr "Kıik sisselogitud kasutajad"
+msgstr "K√µik sisselogitud kasutajad"
 
 #: admin/groups.php:34 admin/groups.php:233
 msgid "All Groups"
-msgstr "Kıik grupid"
+msgstr "K√µik grupid"
 
 #: lib/Horde/Perms/UI.php:91 lib/Horde/Perms/datatree.php:85
 msgid "All Permissions"
-msgstr "Kıik ıigused"
+msgstr "K√µik √µigused"
 
 #: lib/Horde/Form.php:2216
 msgid "Allow multiple addresses?"
@@ -635,7 +635,7 @@ msgstr "Luba mitut aadressi?"
 
 #: config/prefs.php.dist:546
 msgid "Allow setting of ordered list type"
-msgstr "Luba m‰‰rata j‰rjestatud loendi t¸¸p"
+msgstr "Luba m√§√§rata j√§rjestatud loendi t√º√ºp"
 
 #: lib/Horde/DataTree/sql.php:595
 msgid "Already exists"
@@ -647,7 +647,7 @@ msgstr "Alternatiivne IMSP konto"
 
 #: config/prefs.php.dist:533
 msgid "Alternate IMSP Password"
-msgstr "Alternatiivne IMSP salasına"
+msgstr "Alternatiivne IMSP salas√µna"
 
 #: config/prefs.php.dist:525
 msgid "Alternate IMSP Username"
@@ -664,7 +664,7 @@ msgstr "Ameerika Samoa"
 
 #: lib/Horde/Prefs/UI.php:95 lib/Horde/Prefs/UI.php:115
 msgid "An illegal value was specified."
-msgstr "Sisestati lubamatu v‰‰rtus."
+msgstr "Sisestati lubamatu v√§√§rtus."
 
 #: lib/Block/weatherdotcom.php:178
 msgid "An unknown error has occured."
@@ -691,7 +691,7 @@ msgstr "Anguilla"
 
 #: lib/Horde/NLS/GeoIP.php:119
 msgid "Anonymous Proxy"
-msgstr "Anon¸¸mne vahendaja"
+msgstr "Anon√º√ºmne vahendaja"
 
 #: services/resetpassword.php:53
 msgid "Answer"
@@ -722,7 +722,7 @@ msgstr "Rakenduste nimekiri"
 
 #: admin/setup/index.php:183
 msgid "Application is ready."
-msgstr "Rakendus on tˆˆvalmis."
+msgstr "Rakendus on t√∂√∂valmis."
 
 #: admin/setup/index.php:150
 msgid "Application is up-to-date."
@@ -769,7 +769,7 @@ msgstr "Oled sa kindel et soovid %s liitumissoovi kustutada?"
 #, php-format
 msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
 msgstr ""
-"Oled sa kindel et soovid kustutada grupi \"%s\" ja kıik tema alamgrupid?"
+"Oled sa kindel et soovid kustutada grupi \"%s\" ja k√µik tema alamgrupid?"
 
 #: lib/Horde/NLS/countries.php:20 lib/Horde/NLS/tld.php:26
 #: lib/Horde/NLS/GeoIP.php:58
@@ -796,7 +796,7 @@ msgstr "Aruba"
 
 #: lib/Horde/NLS/tld.php:15
 msgid "Ascension Island"
-msgstr "Lihavıttesaar"
+msgstr "Lihav√µttesaar"
 
 #: lib/Block/fortune.php:34
 msgid "Ascii Art"
@@ -808,7 +808,7 @@ msgstr "Aasia/Vaikse ookeani piirkond"
 
 #: config/prefs.php.dist:460
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "K¸si hooldustˆˆde tegemiseks kinnitust"
+msgstr "K√ºsi hooldust√∂√∂de tegemiseks kinnitust"
 
 #: lib/Horde/Form.php:3828
 msgid "Assignment columns"
@@ -820,11 +820,11 @@ msgstr "Katse kustutada olematut gruppi."
 
 #: admin/perms/delete.php:30
 msgid "Attempt to delete a non-existent permission."
-msgstr "Katse kustutada olematut ıigust."
+msgstr "Katse kustutada olematut √µigust."
 
 #: admin/perms/edit.php:88
 msgid "Attempt to edit a non-existent permission."
-msgstr "Katse muuta olematut ıigust."
+msgstr "Katse muuta olematut √µigust."
 
 #: services/shares/edit.php:65
 msgid "Attempt to edit a non-existent share."
@@ -856,7 +856,7 @@ msgstr "Auth_cyrsql: vajalikku IMAP laiendust ei leitud."
 
 #: lib/Horde/Auth/cyrus.php:131
 msgid "Auth_cyrus: Backend does not have required capabilites."
-msgstr "Auth_cyrus: s¸steemil puuduvad vajalikud vıimed."
+msgstr "Auth_cyrus: s√ºsteemil puuduvad vajalikud v√µimed."
 
 #: lib/Horde/Auth/cyrus.php:234
 msgid "Auth_cyrus: Required imap extension not found."
@@ -867,7 +867,7 @@ msgid ""
 "Auth_ftp: Required FTP extension not found. Compile PHP with the --enable-"
 "ftp switch."
 msgstr ""
-"Auth_ftp: Vajalikku FTP laiendust ei leitud. Kompileeri PHP vıtmega --enable-"
+"Auth_ftp: Vajalikku FTP laiendust ei leitud. Kompileeri PHP v√µtmega --enable-"
 "ftp."
 
 #: lib/Horde/Auth/imap.php:94
@@ -893,7 +893,7 @@ msgstr "Auth_ldap: Vajalikku LDAP laiendust ei leitud."
 #: lib/Horde/Auth/ldap.php:348
 #, php-format
 msgid "Auth_ldap: Unable to add user \"%s\". This is what the server said: "
-msgstr "Auth_ldap: Ei saa lisada kasutajat \"%s\". Server ¸tles: "
+msgstr "Auth_ldap: Ei saa lisada kasutajat \"%s\". Server √ºtles: "
 
 #: lib/Horde/Auth/ldap.php:394
 #, php-format
@@ -912,7 +912,7 @@ msgstr "Auth_ldap: Active Directory kasutajate muutmise tugi puudub."
 #: lib/Horde/Auth/msad.php:151
 #, php-format
 msgid "Auth_msad: Unable to add user \"%s\". This is what the server said: "
-msgstr "Auth_msad: Ei saa lisada kasutajat \"%s\". Server ¸tles: "
+msgstr "Auth_msad: Ei saa lisada kasutajat \"%s\". Server √ºtles: "
 
 #: lib/Horde/Auth/msad.php:190
 #, php-format
@@ -959,7 +959,7 @@ msgstr "SMB serverisse sisselogimine nurjus."
 
 #: templates/data/csvmap.inc:70
 msgid "Available fields:"
-msgstr "Kasutatavad v‰ljad:"
+msgstr "Kasutatavad v√§ljad:"
 
 #: lib/Horde/NLS/countries.php:25 lib/Horde/NLS/tld.php:32
 #: lib/Horde/NLS/GeoIP.php:59
@@ -972,11 +972,11 @@ msgstr "Azur"
 
 #: lib/Block/fortune.php:35
 msgid "BOFH Excuses"
-msgstr "BOFH ettek‰‰nded"
+msgstr "BOFH ettek√§√§nded"
 
 #: lib/Horde/Auth/krb5.php:82
 msgid "Bad kerberos password."
-msgstr "Vale kerberose salasına."
+msgstr "Vale kerberose salas√µna."
 
 #: lib/Horde/Auth/krb5.php:84
 msgid "Bad kerberos username."
@@ -1013,7 +1013,7 @@ msgstr "Barbie"
 #: util/icon_browser.php:33
 #, php-format
 msgid "Base graphics directory \"%s\" not found."
-msgstr "Graafika pıhikataloogi \"%s\" ei leitud."
+msgstr "Graafika p√µhikataloogi \"%s\" ei leitud."
 
 #: lib/Horde/NLS/countries.php:30 lib/Horde/NLS/tld.php:50
 #: lib/Horde/NLS/GeoIP.php:63
@@ -1047,7 +1047,7 @@ msgstr "Bhutan"
 
 #: lib/Horde/MIME/Viewer/vcard.php:111
 msgid "Birthday"
-msgstr "S¸nnip‰ev"
+msgstr "S√ºnnip√§ev"
 
 #: lib/Horde/Block/Collection.php:362
 #, php-format
@@ -1056,11 +1056,11 @@ msgstr "Blokki \"%s\" rakenduses \"%s\" ei leitud."
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
-msgstr "Bloki h‰‰lestus"
+msgstr "Bloki h√§√§lestus"
 
 #: templates/portal/layout.inc:72
 msgid "Block Type"
-msgstr "Bloki t¸¸p"
+msgstr "Bloki t√º√ºp"
 
 #: themes/bluemoon/info.php:6
 msgid "Blue Moon"
@@ -1077,7 +1077,7 @@ msgstr "Boliivia"
 
 #: config/registry.php.dist:218
 msgid "Bookmarks"
-msgstr "J‰rjehoidjad"
+msgstr "J√§rjehoidjad"
 
 #: lib/Horde/NLS/countries.php:37 lib/Horde/NLS/tld.php:33
 #: lib/Horde/NLS/GeoIP.php:60
@@ -1086,7 +1086,7 @@ msgstr "Bosnia ja Hertsegoviina"
 
 #: lib/Block/fortune.php:101
 msgid "Both"
-msgstr "Mılemad"
+msgstr "M√µlemad"
 
 #: lib/Horde/NLS/countries.php:38 lib/Horde/NLS/tld.php:49
 #: lib/Horde/NLS/GeoIP.php:63
@@ -1146,11 +1146,11 @@ msgstr "CRC"
 
 #: lib/Horde/Crypt/smime.php:598
 msgid "CRL Distribution Points"
-msgstr "T¸histusnimekirja jaotuspunktid"
+msgstr "T√ºhistusnimekirja jaotuspunktid"
 
 #: lib/Block/weatherdotcom.php:174
 msgid "Cache init was not completed."
-msgstr "Vahem‰lu initsialiseerimine ei jıudnud lıpule."
+msgstr "Vahem√§lu initsialiseerimine ei j√µudnud l√µpule."
 
 #: lib/Horde/Kolab.php:698 lib/Horde/UI/VarRenderer/html.php:506
 #: lib/Horde/Share/kolab.php:551 config/registry.php.dist:147
@@ -1178,7 +1178,7 @@ msgstr "Camouflage"
 #: lib/Horde/Auth/cyrsql.php:507
 #, php-format
 msgid "Can't connect to IMAP server: %s"
-msgstr "Ei saa ¸hendust IMAP serveriga: %s"
+msgstr "Ei saa √ºhendust IMAP serveriga: %s"
 
 #: lib/Horde/NLS/countries.php:48 lib/Horde/NLS/tld.php:52
 #: lib/Horde/NLS/GeoIP.php:64
@@ -1196,26 +1196,26 @@ msgstr "Loobu"
 
 #: lib/Horde/Share/kolab.php:312
 msgid "Cannot add this share! The name has not yet been set."
-msgstr "Ei saa lisada jagatud kausta! Nime pole m‰‰ratud."
+msgstr "Ei saa lisada jagatud kausta! Nime pole m√§√§ratud."
 
 #: admin/sessions.php:23
 msgid "Cannot administer external session handlers."
-msgstr "V‰liseid sessioonihaldureid pole vıimalik administreerida."
+msgstr "V√§liseid sessioonihaldureid pole v√µimalik administreerida."
 
 #: lib/Horde/Auth/cyrus.php:241
 #, php-format
 msgid "Cannot connect to IMAP server: %s"
-msgstr "Ei saa ¸hendust IMAP serveriga: %s"
+msgstr "Ei saa √ºhendust IMAP serveriga: %s"
 
 #: lib/VFS.php:335 lib/VFS/file.php:236 lib/VFS/ssh2.php:672
 #: lib/VFS/ftp.php:706 lib/VFS/sql_file.php:181 lib/VFS/smb.php:431
 msgid "Cannot copy file(s) - source and destination are the same."
-msgstr "Ei saa kopeerida faili - l‰he ja siht on samad."
+msgstr "Ei saa kopeerida faili - l√§he ja siht on samad."
 
 #: lib/VFS/ssh2.php:308 lib/VFS/ftp.php:324
 #, php-format
 msgid "Cannot delete file \"%s\"."
-msgstr "Ei ınnestu kustutada faili \"%s\"."
+msgstr "Ei √µnnestu kustutada faili \"%s\"."
 
 #: lib/VFS/ISOWriter/RealOutputStrategy/copy.php:52
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:46
@@ -1229,21 +1229,21 @@ msgstr "Ei saa jagatud kausta omaniku muuta"
 #: lib/VFS/file.php:195 lib/VFS/ssh2.php:736 lib/VFS/ftp.php:768
 #: lib/VFS/sql_file.php:140 lib/VFS/smb.php:487
 msgid "Cannot move file(s) - destination is within source."
-msgstr "Ei saa liigutada faili - siht on l‰hte sees."
+msgstr "Ei saa liigutada faili - siht on l√§hte sees."
 
 #: lib/File/CSV.php:453
 #, php-format
 msgid "Cannot open file \"%s\"."
-msgstr "Ei ınnestu avada faili \"%s\"."
+msgstr "Ei √µnnestu avada faili \"%s\"."
 
 #: lib/VFS/ISOWriter.php:91
 msgid "Cannot proceed without 'targetFile' parameter."
-msgstr "Ilma 'targetFile' parameetrita ei saa j‰tkata."
+msgstr "Ilma 'targetFile' parameetrita ei saa j√§tkata."
 
 #: lib/VFS/ssh2.php:304 lib/VFS/ftp.php:320
 #, php-format
 msgid "Cannot remove directory \"%s\"."
-msgstr "Ei ınnestu eemaldada kataloogi \"%s\"."
+msgstr "Ei √µnnestu eemaldada kataloogi \"%s\"."
 
 #: lib/Horde/DataTree.php:122
 #, php-format
@@ -1260,22 +1260,22 @@ msgid ""
 "Cannot reorder, number of entries supplied for reorder does not match number "
 "stored."
 msgstr ""
-"Ei saa ¸mber j‰rjestada, ¸mberj‰rjestamiseks m‰‰ratud kannete arv ei klapi "
+"Ei saa √ºmber j√§rjestada, √ºmberj√§rjestamiseks m√§√§ratud kannete arv ei klapi "
 "salvestatud arvuga."
 
 #: services/resetpassword.php:23
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
-"Parooli ei saa automaatselt t¸histada, vıta ¸hendust administraatoriga."
+"Parooli ei saa automaatselt t√ºhistada, v√µta √ºhendust administraatoriga."
 
 #: lib/Net/SMS/clickatell_http.php:317
 msgid "Cannot route message to specified number."
-msgstr "Ei saa suunata teadet m‰‰ratud numbrile."
+msgstr "Ei saa suunata teadet m√§√§ratud numbrile."
 
 #: lib/File/CSV.php:358
 #, php-format
 msgid "Cannot write to file \"%s\""
-msgstr "Ei ınnestu kirjutada faili \"%s\""
+msgstr "Ei √µnnestu kirjutada faili \"%s\""
 
 #: lib/Horde/NLS/countries.php:49 lib/Horde/NLS/tld.php:66
 #: lib/Horde/NLS/GeoIP.php:68
@@ -1288,7 +1288,7 @@ msgstr "Teenusepakkuja"
 
 #: config/prefs.php.dist:106
 msgid "Categories and Labels"
-msgstr "Kategooriad ja m‰rgendid"
+msgstr "Kategooriad ja m√§rgendid"
 
 #: lib/Horde/Form.php:4104
 msgid "Category"
@@ -1318,7 +1318,7 @@ msgstr "Kesk-Euroopa (ISO-8859-2)"
 
 #: lib/Horde/Crypt/smime.php:700
 msgid "Certificate Details"
-msgstr "Sertifikaadi ¸ksikasjad"
+msgstr "Sertifikaadi √ºksikasjad"
 
 #: lib/Horde/Crypt/smime.php:612
 msgid "Certificate Owner"
@@ -1339,14 +1339,14 @@ msgstr "Muuda"
 
 #: services/changepassword.php:33
 msgid "Change Your Password"
-msgstr "Muuda salasına"
+msgstr "Muuda salas√µna"
 
 #: config/prefs.php.dist:82
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Muuda nime ja aadressi mida inimesed n‰evad kui nad sinu kirju loevad ja "
+"Muuda nime ja aadressi mida inimesed n√§evad kui nad sinu kirju loevad ja "
 "neile vastavad."
 
 #: services/changepassword.php:26
@@ -1354,12 +1354,12 @@ msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
 msgstr ""
-"S¸steemi konfiguratsioon ei vıimalda salasına muuta. Vıta ¸hendust  "
+"S√ºsteemi konfiguratsioon ei v√µimalda salas√µna muuta. V√µta √ºhendust  "
 "administraatoriga."
 
 #: lib/Horde/Form.php:2224
 msgid "Character to split multiple addresses with"
-msgstr "M‰rk millega eraldada mitut aadressi"
+msgstr "M√§rk millega eraldada mitut aadressi"
 
 #: lib/Block/vatid.php:45
 msgid "Check"
@@ -1406,7 +1406,7 @@ msgstr "Vali rakendus:"
 
 #: lib/Horde/Auth/Signup.php:264 lib/Horde/Auth/Signup.php:278
 msgid "Choose a password"
-msgstr "Vali salasına"
+msgstr "Vali salas√µna"
 
 #: lib/Horde/Auth/Signup.php:261 lib/Horde/Auth/Signup.php:277
 msgid "Choose a username"
@@ -1414,12 +1414,12 @@ msgstr "Vali kasutajanimi"
 
 #: config/prefs.php.dist:321
 msgid "Choose how to display dates:"
-msgstr "Vali kuup‰evade esitusviis:"
+msgstr "Vali kuup√§evade esitusviis:"
 
 #: lib/Horde/NLS/countries.php:55 lib/Horde/NLS/tld.php:67
 #: lib/Horde/NLS/GeoIP.php:68
 msgid "Christmas Island"
-msgstr "Jıulusaared"
+msgstr "J√µulusaared"
 
 #: lib/VFS.php:988 lib/Net/SMS.php:294
 #, php-format
@@ -1432,7 +1432,7 @@ msgstr "Selge"
 
 #: admin/sqlshell.php:132
 msgid "Clear Query"
-msgstr "T¸hjenda p‰ring"
+msgstr "T√ºhjenda p√§ring"
 
 #: templates/admin/user/clear.inc:5
 #, php-format
@@ -1445,19 +1445,19 @@ msgstr "Eemalda kasutaja"
 
 #: templates/admin/user/list.inc:34
 msgid "Clear user data"
-msgstr "T¸hjenda kasutaja andmed"
+msgstr "T√ºhjenda kasutaja andmed"
 
 #: lib/Block/weatherdotcom_strings.php:21
 msgid "Clearing Late"
-msgstr "’htul selgineb"
+msgstr "√ïhtul selgineb"
 
 #: templates/maintenance/maintenance.html:60
 msgid "Click to Continue"
-msgstr "Klıpsa j‰tkamiseks"
+msgstr "Kl√µpsa j√§tkamiseks"
 
 #: lib/Net/SMS/clickatell_http.php:194
 msgid "Clickatell via HTTP"
-msgstr "Clickatell ¸le HTTP"
+msgstr "Clickatell √ºle HTTP"
 
 #: services/keyboard.php:156 templates/shares/edit.inc:12
 msgid "Close Window"
@@ -1486,7 +1486,7 @@ msgstr "Sule"
 
 #: templates/portal/sidebar.inc:26
 msgid "Collapse Sidebar"
-msgstr "Peida k¸lgriba"
+msgstr "Peida k√ºlgriba"
 
 #: lib/Horde/NLS/countries.php:57 lib/Horde/NLS/tld.php:63
 #: lib/Horde/NLS/GeoIP.php:67
@@ -1498,11 +1498,11 @@ msgstr "Kolumbia"
 #: templates/prefs/categorymanagement.inc:60
 #: templates/prefs/categorymanagement.inc:76
 msgid "Color Picker"
-msgstr "V‰rvivalik"
+msgstr "V√§rvivalik"
 
 #: lib/Horde/Form.php:3522
 msgid "Colour selection"
-msgstr "V‰rvi valik"
+msgstr "V√§rvi valik"
 
 #: lib/Horde/Form.php:2443
 msgid "Column titles"
@@ -1514,11 +1514,11 @@ msgstr "Koomiksid"
 
 #: admin/cmdshell.php:26 admin/cmdshell.php:48
 msgid "Command"
-msgstr "K‰sk"
+msgstr "K√§sk"
 
 #: admin/cmdshell.php:20
 msgid "Command Shell"
-msgstr "K‰surida"
+msgstr "K√§surida"
 
 #: lib/Horde/Crypt/pgp.php:423
 msgid "Comment"
@@ -1559,7 +1559,7 @@ msgstr "Konfiguratsiooni erinevused"
 
 #: config/prefs.php.dist:156
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
-msgstr "Seadistus s¸nkroniseerimiseks PDAde, nutitelefonide ja Outlookiga."
+msgstr "Seadistus s√ºnkroniseerimiseks PDAde, nutitelefonide ja Outlookiga."
 
 #: admin/setup/index.php:178
 msgid "Configuration is out of date."
@@ -1572,7 +1572,7 @@ msgstr "Seadista %s"
 
 #: templates/admin/user/update.inc:52
 msgid "Confirm Password"
-msgstr "Kinnita salasına"
+msgstr "Kinnita salas√µna"
 
 #: lib/Horde/Identity.php:408
 msgid "Confirm new email address"
@@ -1594,29 +1594,29 @@ msgstr "Kongo Demokraatlik Vabariik"
 #: lib/Horde/IMAP/ACL/rfc2086.php:217 lib/Horde/IMAP/ACL/rfc2086.php:371
 #: lib/Horde/IMAP/ACL/rfc2086.php:521
 msgid "Connection failed."
-msgstr "‹hendus nurjus."
+msgstr "√úhendus nurjus."
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:217 lib/Horde/IMAP/ACL/rfc2086.php:371
 #: lib/Horde/IMAP/ACL/rfc2086.php:521
 msgid "Connection failed: "
-msgstr "‹hendus nurjus: "
+msgstr "√úhendus nurjus: "
 
 #: lib/Horde/Crypt/pgp.php:897
 msgid "Connection refused to the public keyserver."
-msgstr "Avalik vıtmeserver ei anna ¸hendust."
+msgstr "Avalik v√µtmeserver ei anna √ºhendust."
 
 #: lib/Horde/Crypt/pgp.php:899
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
-msgstr "Avalik vıtmeserver ei anna ¸hendust. Pıhjus: %s (%s)"
+msgstr "Avalik v√µtmeserver ei anna √ºhendust. P√µhjus: %s (%s)"
 
 #: lib/VFS/ftp.php:896
 msgid "Connection to FTP server failed."
-msgstr "‹hendus FTP serveriga nurjus."
+msgstr "√úhendus FTP serveriga nurjus."
 
 #: lib/VFS/ssh2.php:876
 msgid "Connection to SSH2 server failed."
-msgstr "‹hendus SSH2 serveriga nurjus."
+msgstr "√úhendus SSH2 serveriga nurjus."
 
 #: lib/Horde/Kolab.php:706 lib/Horde/Share/kolab.php:547
 msgid "Contacts"
@@ -1624,12 +1624,12 @@ msgstr "Kontaktid"
 
 #: lib/Horde/MIME/Viewer/vcard.php:53
 msgid "Contacts were successfully added to your address book."
-msgstr "Kontaktid ınnestus lisada sinu aadressiraamatusse."
+msgstr "Kontaktid √µnnestus lisada sinu aadressiraamatusse."
 
 #: lib/Horde/MIME/Viewer/tgz.php:71
 #, php-format
 msgid "Content type of compressed file: %s"
-msgstr "Pakitud faili t¸¸p: %s"
+msgstr "Pakitud faili t√º√ºp: %s"
 
 #: lib/Horde/MIME/Viewer/tgz.php:82 lib/Horde/MIME/Viewer/rar.php:55
 #: lib/Horde/MIME/Viewer/zip.php:62
@@ -1639,7 +1639,7 @@ msgstr "\"%s\" sisu"
 
 #: services/resetpassword.php:32 services/changepassword.php:35
 msgid "Continue"
-msgstr "J‰tka"
+msgstr "J√§tka"
 
 #: lib/Horde/NLS/countries.php:61 lib/Horde/NLS/tld.php:59
 #: lib/Horde/NLS/GeoIP.php:66
@@ -1648,7 +1648,7 @@ msgstr "Cooki Saared"
 
 #: lib/Block/fortune.php:37
 msgid "Cookie"
-msgstr "Mıttetera"
+msgstr "M√µttetera"
 
 #: lib/VFS/smb.php:465
 #, php-format
@@ -1675,7 +1675,7 @@ msgstr "Cote d'Ivoire"
 
 #: lib/Horde/Crypt/pgp.php:1121
 msgid "Could not PGP encrypt message: "
-msgstr "Ei saanud kirja PGPga kr¸ptida:"
+msgstr "Ei saanud kirja PGPga kr√ºptida:"
 
 #: lib/Horde/Crypt/pgp.php:1199
 msgid "Could not PGP sign message: "
@@ -1683,7 +1683,7 @@ msgstr "Ei saanud kirja PGPga allkirjastada:"
 
 #: lib/Horde/Crypt/smime.php:393
 msgid "Could not S/MIME encrypt message."
-msgstr "Ei saanud kirja S/MIMEga kr¸ptida."
+msgstr "Ei saanud kirja S/MIMEga kr√ºptida."
 
 #: lib/Horde/Crypt/smime.php:467
 msgid "Could not S/MIME sign message."
@@ -1709,16 +1709,16 @@ msgstr "Ei saanud sisse MSAD serverisse."
 #: lib/Net/SMS/clickatell_http.php:182 lib/Net/SMS/sms2email_http.php:165
 #, php-format
 msgid "Could not check balance. %s"
-msgstr "Ei saanud kontoj‰‰ki kontrollida. %s"
+msgstr "Ei saanud kontoj√§√§ki kontrollida. %s"
 
 #: lib/Block/account.php:466
 msgid "Could not connect to LDAP server."
-msgstr "Ei saanud ¸hendust LDAP serveriga."
+msgstr "Ei saanud √ºhendust LDAP serveriga."
 
 #: admin/setup/index.php:46
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
-msgstr "Ei saanud serveriga \"%s\" FTP abil ¸hendust: %s"
+msgstr "Ei saanud serveriga \"%s\" FTP abil √ºhendust: %s"
 
 #: lib/Net/SMS/sms2email_http.php:331
 #, php-format
@@ -1727,11 +1727,11 @@ msgstr "Jaotusnimekirja loomine nurjus. %s"
 
 #: lib/Horde/Crypt/pgp.php:1279
 msgid "Could not decrypt PGP data: "
-msgstr "Ei saanud PGP andmeid dekr¸ptida:"
+msgstr "Ei saanud PGP andmeid dekr√ºptida:"
 
 #: lib/Horde/Crypt/smime.php:523
 msgid "Could not decrypt S/MIME data."
-msgstr "Ei saanud S/MIME andmeid dekr¸ptida."
+msgstr "Ei saanud S/MIME andmeid dekr√ºptida."
 
 #: lib/Net/SMS/sms2email_http.php:255
 #, php-format
@@ -1750,7 +1750,7 @@ msgstr "Ei saanud kustutada paigalduse uuendamise skripti \"%s\"."
 
 #: lib/Horde/Crypt/pgp.php:1083 lib/Horde/Crypt/smime.php:381
 msgid "Could not determine the recipient's e-mail address."
-msgstr "Ei suutnud v‰lja selgitada adressaadi e-posti aadress"
+msgstr "Ei suutnud v√§lja selgitada adressaadi e-posti aadress"
 
 #: lib/Net/SMS/sms2email_http.php:292
 msgid "Could not fetch complete address book."
@@ -1768,7 +1768,7 @@ msgstr "Kogu jaotusnimekirjade nimekirja kohaletirimine nurjus."
 #: lib/VFS/ISOWriter/RealOutputStrategy.php:68
 #, php-format
 msgid "Could not load strategy \"%s\"."
-msgstr "Ei ınnestunud laadida strateegiat \"%s\"."
+msgstr "Ei √µnnestunud laadida strateegiat \"%s\"."
 
 #: lib/VFS/ISOWriter/RealOutputStrategy/direct.php:30
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:110
@@ -1778,7 +1778,7 @@ msgstr "mkdir \"%s\" nurjus."
 
 #: lib/Horde/Crypt/pgp.php:745 lib/Horde/Crypt/pgp.php:841
 msgid "Could not obtain public key from the keyserver."
-msgstr "Ei saanud vıtmeserverist avalikku vıtit k‰tte."
+msgstr "Ei saanud v√µtmeserverist avalikku v√µtit k√§tte."
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
@@ -1794,7 +1794,7 @@ msgstr "%s avamine nurjus."
 #: lib/Horde/Maintenance.php:433
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Ei suutnud k‰ivitada hooldustˆˆ moodulit %s"
+msgstr "Ei suutnud k√§ivitada hooldust√∂√∂ moodulit %s"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
@@ -1806,12 +1806,12 @@ msgstr "Ei saanud avada kataloogi \"%s\"."
 #: lib/Horde/Group/ldap.php:483 lib/Horde/Group/ldap.php:630
 #: lib/Horde/Group/ldap.php:728
 msgid "Could not reach the LDAP server"
-msgstr "Ei saanud k‰tte LDAP serverit."
+msgstr "Ei saanud k√§tte LDAP serverit."
 
 #: lib/Horde/Group/ldap.php:674
 #, php-format
 msgid "Could not reach the LDAP server: %s"
-msgstr "Ei saanud k‰tte LDAP serverit: %s"
+msgstr "Ei saanud k√§tte LDAP serverit: %s"
 
 #: lib/VFS/Object.php:239
 #, php-format
@@ -1828,8 +1828,8 @@ msgid ""
 "details are not correct. Try again or contact your administrator if you need "
 "further help."
 msgstr ""
-"Soovitud kasutaja parooli t¸hjendamine nurjus. Mıned andmed ei ole ıiged. "
-"Proovi uuesti vıi vıta ¸hendust administraatoriga, kui vajad siiski abi."
+"Soovitud kasutaja parooli t√ºhjendamine nurjus. M√µned andmed ei ole √µiged. "
+"Proovi uuesti v√µi v√µta √ºhendust administraatoriga, kui vajad siiski abi."
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:332 lib/Horde/IMAP/ACL/rfc2086.php:370
 #: lib/Horde/IMAP/ACL/rfc2086.php:376 lib/Horde/IMAP/ACL/rfc2086.php:404
@@ -1839,27 +1839,27 @@ msgstr ""
 #: lib/Horde/IMAP/ACL/rfc2086.php:578
 #, php-format
 msgid "Could not retrieve ACL"
-msgstr "ACLi laadimine ebaınnestus"
+msgstr "ACLi laadimine eba√µnnestus"
 
 #: lib/Net/SMS/sms2email_http.php:283
 #, php-format
 msgid "Could not retrieve address book. %s"
-msgstr "Aadressiraamatu laadimine ebaınnestus. %s"
+msgstr "Aadressiraamatu laadimine eba√µnnestus. %s"
 
 #: lib/Net/SMS/sms2email_http.php:493
 #, php-format
 msgid "Could not retrieve distribution list. %s"
-msgstr "Jaotusnimekirja laadimine ebaınnestus. %s"
+msgstr "Jaotusnimekirja laadimine eba√µnnestus. %s"
 
 #: lib/Net/SMS/sms2email_http.php:446
 #, php-format
 msgid "Could not retrieve distribution lists. %s"
-msgstr "Jaotusnimekirjade laadimine ebaınnestus. %s"
+msgstr "Jaotusnimekirjade laadimine eba√µnnestus. %s"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:217 lib/Horde/IMAP/ACL/rfc2086.php:222
 #: lib/Horde/IMAP/ACL/rfc2086.php:229
 msgid "Could not retrieve server's capabilities"
-msgstr "Serveri vıimaluste laadimine ebaınnestus"
+msgstr "Serveri v√µimaluste laadimine eba√µnnestus"
 
 #: admin/setup/config.php:55
 msgid "Could not revert configuration."
@@ -1868,7 +1868,7 @@ msgstr "Konfiguratsiooni tagasimuutmine nurjus."
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:94
 #, php-format
 msgid "Could not rmdir \"%s\"."
-msgstr "rmdir \"%s\" ei ınnestunud."
+msgstr "rmdir \"%s\" ei √µnnestunud."
 
 #: admin/setup/scripts.php:74
 #, php-format
@@ -1892,7 +1892,7 @@ msgstr "Paigalduse uuendamise skripti ei saanud salvestada kohta: \"%s\"."
 #: admin/setup/config.php:65
 #, php-format
 msgid "Could not save the backup configuration file %s."
-msgstr "Ei ınnestunud salvestada konfiguratsioonifaili varukoopiat %s."
+msgstr "Ei √µnnestunud salvestada konfiguratsioonifaili varukoopiat %s."
 
 #: admin/setup/config.php:78
 #, php-format
@@ -1900,8 +1900,8 @@ msgid ""
 "Could not save the configuration file %s. You can either use one of the "
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
-"Konfiguratsioonifaili %s ei ınnestunud salvestada. Sa vıid kasutada ¸ht "
-"vıimalust koodi salvestamiseks tagasi faili %s vıi kopeerida kood k‰sitsi "
+"Konfiguratsioonifaili %s ei √µnnestunud salvestada. Sa v√µid kasutada √ºht "
+"v√µimalust koodi salvestamiseks tagasi faili %s v√µi kopeerida kood k√§sitsi "
 "faili %s."
 
 #: lib/Horde/Auth/ldap.php:153
@@ -1934,13 +1934,13 @@ msgstr "\"%s\" seadistuse salvestamine nurjus: %s"
 
 #: config/prefs.php.dist:401
 msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
-msgstr "Ei leidnud Mozilla k¸lgriba. Vaata et k¸lgriba oleks avatud."
+msgstr "Ei leidnud Mozilla k√ºlgriba. Vaata et k√ºlgriba oleks avatud."
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:169
 #, php-format
 msgid ""
 "Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"
-msgstr "Kasutajale \"%s\" ei saanud anda j‰rgmisi ıiguseid kaustale \"%s\": %s"
+msgstr "Kasutajale \"%s\" ei saanud anda j√§rgmisi √µiguseid kaustale \"%s\": %s"
 
 #: lib/Horde/Form.php:1422
 msgid "Counted text"
@@ -1982,11 +1982,11 @@ msgstr "Lisa alamkaustad"
 #: lib/Horde/Kolab/Freebusy.php:309
 #, php-format
 msgid "Creating free/busy information from %s to %s"
-msgstr "Tekkitan vaba/hıivatud info %s kohta %s"
+msgstr "Tekkitan vaba/h√µivatud info %s kohta %s"
 
 #: lib/Horde/Perms/UI.php:239
 msgid "Creator Permissions"
-msgstr "Autori ıigused"
+msgstr "Autori √µigused"
 
 #: lib/Horde/Form.php:3943
 msgid "Credit card number"
@@ -2032,12 +2032,12 @@ msgstr "Praegune ilm:"
 #: config/prefs.php.dist:124
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "H‰‰lesta tˆid mida tehakse sisenemisel %s-i."
+msgstr "H√§√§lesta t√∂id mida tehakse sisenemisel %s-i."
 
 #: lib/Horde/NLS/countries.php:66 lib/Horde/NLS/tld.php:68
 #: lib/Horde/NLS/GeoIP.php:68
 msgid "Cyprus"
-msgstr "K¸pros"
+msgstr "K√ºpros"
 
 #: config/nls.php.dist:226
 msgid "Cyrillic (KOI8-R)"
@@ -2072,16 +2072,16 @@ msgstr ""
 
 #: lib/Horde/Maintenance.php:64 lib/Horde/Date/Recurrence.php:192
 msgid "Daily"
-msgstr "Iga p‰ev"
+msgstr "Iga p√§ev"
 
 #: templates/data/csvmap.inc:101
 msgid "Data"
-msgstr "Kuup‰ev"
+msgstr "Kuup√§ev"
 
 #: lib/Horde/Kolab/XML.php:487 lib/Horde/Kolab/XML.php:619
 #, php-format
 msgid "Data value for %s is empty in Kolab XML object!"
-msgstr "Andme v‰‰rtus %s on t¸hi Kolabi XML objektis!"
+msgstr "Andme v√§√§rtus %s on t√ºhi Kolabi XML objektis!"
 
 #: admin/datatree.php:68
 msgid "DataTree"
@@ -2098,28 +2098,28 @@ msgstr "Andmebaasiotsing"
 #: lib/Block/vatid.php:95 lib/Horde/Form.php:2921
 #: lib/Horde/MIME/Viewer/rfc822.php:73
 msgid "Date"
-msgstr "Kuup‰ev"
+msgstr "Kuup√§ev"
 
 #: templates/admin/user/approve.inc:13
 msgid "Date Received"
-msgstr "Saabumise kuup‰ev"
+msgstr "Saabumise kuup√§ev"
 
 #: lib/Horde/Form.php:3482
 msgid "Date and time selection"
-msgstr "Kuup‰eva valik"
+msgstr "Kuup√§eva valik"
 
 #: lib/Horde/Form.php:3322
 msgid "Date selection"
-msgstr "Kuup‰eva valik"
+msgstr "Kuup√§eva valik"
 
 #: templates/data/datetime.inc:68 templates/data/datetime.inc:69
 #, php-format
 msgid "Date: %s; time: %s"
-msgstr "Kuup‰ev: %s; aeg: %s"
+msgstr "Kuup√§ev: %s; aeg: %s"
 
 #: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom.php:332
 msgid "Day"
-msgstr "P‰ev"
+msgstr "P√§ev"
 
 #: lib/Horde/UI/VarRenderer/html.php:434 lib/Horde/UI/VarRenderer/html.php:472
 #: templates/javascript/open_calendar.js:71
@@ -2133,7 +2133,7 @@ msgstr "Vaikimisi"
 #: templates/prefs/categorymanagement.inc:39
 #: templates/prefs/categorymanagement.inc:71
 msgid "Default Color"
-msgstr "Vaikimisi v‰rv"
+msgstr "Vaikimisi v√§rv"
 
 #: lib/Horde/Identity.php:102
 msgid "Default Identity"
@@ -2146,11 +2146,11 @@ msgstr "Vaikimisi shell"
 #: lib/Horde/Kolab/IMAP.php:362
 #, php-format
 msgid "Default folder of type %s does not exist!"
-msgstr "Vaike kataloogi t¸¸biga %s pole olemas!"
+msgstr "Vaike kataloogi t√º√ºbiga %s pole olemas!"
 
 #: lib/Block/fortune.php:38
 msgid "Definitions"
-msgstr "Sınaseletused"
+msgstr "S√µnaseletused"
 
 #: admin/groups.php:77 lib/Horde/Perms.php:326 lib/Horde/Perms/UI.php:427
 #: lib/Horde/Perms/UI.php:444 lib/Horde/IMAP/ACL/rfc4314.php:68
@@ -2181,7 +2181,7 @@ msgstr "Kustuta grupp"
 
 #: lib/Horde/Perms/UI.php:78 lib/Horde/Perms/UI.php:100
 msgid "Delete Permission"
-msgstr "Kustuta ıigus"
+msgstr "Kustuta √µigus"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:93
 msgid "Delete and purge messages"
@@ -2194,12 +2194,12 @@ msgstr "Kirjade kustutamine"
 #: lib/Horde/Perms/UI.php:426
 #, php-format
 msgid "Delete permissions for \"%s\""
-msgstr "Kustuta ıigused \"%s\"-le"
+msgstr "Kustuta √µigused \"%s\"-le"
 
 #: lib/Horde/Perms/UI.php:429
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
-msgstr "Kustuta ıigused \"%s\"-le ja kıik alamıigused?"
+msgstr "Kustuta √µigused \"%s\"-le ja k√µik alam√µigused?"
 
 #: templates/prefs/deleteidentity.inc:15
 msgid "Delete selected identity"
@@ -2221,7 +2221,7 @@ msgstr "Kustutasin paigalduse uuendamise skripti \"%s\"."
 #: lib/Net/SMS/clickatell_http.php:229 lib/Net/SMS/clickatell_http.php:261
 #: lib/Net/SMS/sms2email_http.php:572 lib/Net/SMS/sms2email_http.php:604
 msgid "Delivery time"
-msgstr "K‰ttetoimetamise aeg"
+msgstr "K√§ttetoimetamise aeg"
 
 #: lib/Horde/NLS/countries.php:68 lib/Horde/NLS/tld.php:72
 #: lib/Horde/NLS/GeoIP.php:69
@@ -2242,11 +2242,11 @@ msgstr "Kirjeldus"
 
 #: lib/Horde.php:218
 msgid "Details (also in Horde's logfile):"
-msgstr "‹ksikasjad (kantud ka Horde logifaili):"
+msgstr "√úksikasjad (kantud ka Horde logifaili):"
 
 #: lib/Horde.php:222
 msgid "Details have been logged for the administrator."
-msgstr "‹ksikasjad logiti administraatori jaoks."
+msgstr "√úksikasjad logiti administraatori jaoks."
 
 #: config/registry.php.dist:232
 msgid "Development"
@@ -2271,7 +2271,7 @@ msgstr "Helista %s"
 
 #: lib/Horde/Alarm.php:343
 msgid "Dismiss"
-msgstr "Lıpeta"
+msgstr "L√µpeta"
 
 #: config/prefs.php.dist:288
 msgid "Display 24-hour times?"
@@ -2283,11 +2283,11 @@ msgstr "Ekraani seaded"
 
 #: lib/Block/weatherdotcom.php:94
 msgid "Display detailed forecast"
-msgstr "N‰ita pıhjalikku ennustust"
+msgstr "N√§ita p√µhjalikku ennustust"
 
 #: lib/Block/metar.php:97
 msgid "Display forecast (TAF)"
-msgstr "N‰ita ennustust (TAF)"
+msgstr "N√§ita ennustust (TAF)"
 
 #: lib/Horde/Form.php:3332 lib/Horde/Form.php:3492
 msgid "Display format"
@@ -2304,15 +2304,15 @@ msgstr "Djibouti"
 
 #: lib/Horde/Perms/UI.php:427
 msgid "Do not delete"
-msgstr "ƒra kustuta"
+msgstr "√Ñra kustuta"
 
 #: services/maintenance.php:26
 msgid "Do not directly access maintenance.php"
-msgstr "ƒra ¸rita maintenance.php faili otse k‰ivitada"
+msgstr "√Ñra √ºrita maintenance.php faili otse k√§ivitada"
 
 #: templates/data/tsvinfo.inc:12 templates/data/csvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Kui esimene rida sisaldab v‰ljade nimesid, m‰rgi see ruut:"
+msgstr "Kui esimene rida sisaldab v√§ljade nimesid, m√§rgi see ruut:"
 
 #: lib/Horde/NLS/countries.php:70 lib/Horde/NLS/tld.php:73
 #: lib/Horde/NLS/GeoIP.php:69
@@ -2347,11 +2347,11 @@ msgstr "Ravimid"
 
 #: config/registry.php.dist:66
 msgid "Dynamic Mail"
-msgstr "D¸naamiline Mail"
+msgstr "D√ºnaamiline Mail"
 
 #: services/keyboard.php:66
 msgid "E characters"
-msgstr "E t‰ht"
+msgstr "E t√§ht"
 
 #: lib/Horde/Crypt/pgp.php:423
 msgid "E-Mail"
@@ -2397,7 +2397,7 @@ msgstr "Muuda gruppi"
 
 #: lib/Horde/Perms/UI.php:77 lib/Horde/Perms/UI.php:99
 msgid "Edit Permission"
-msgstr "Muuda ıigust"
+msgstr "Muuda √µigust"
 
 #: templates/prefs/app.inc:5
 msgid "Edit options for:"
@@ -2405,13 +2405,13 @@ msgstr "Muuda seadeid:"
 
 #: services/shares/edit.php:264
 msgid "Edit permissions"
-msgstr "Muuda ıigusi"
+msgstr "Muuda √µigusi"
 
 #: lib/Horde/Perms/UI.php:366 services/shares/edit.php:266
 #: templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Muuda \"%s\" ıigusi"
+msgstr "Muuda \"%s\" √µigusi"
 
 #: lib/Block/fortune.php:40
 msgid "Education"
@@ -2454,7 +2454,7 @@ msgstr "E-post kinnitusega"
 
 #: lib/Net/SMS/generic_smtp.php:91
 msgid "Email-to-SMS Gateway"
-msgstr "E-post-SMSile l¸¸s"
+msgstr "E-post-SMSile l√º√ºs"
 
 #: lib/Horde/UI/VarRenderer/html.php:310
 msgid "Emoticons"
@@ -2462,32 +2462,32 @@ msgstr "Smailid"
 
 #: lib/Net/SMS/clickatell_http.php:310
 msgid "Empty message."
-msgstr "Sınum on t¸hi."
+msgstr "S√µnum on t√ºhi."
 
 #: lib/Horde/Group/ldap.php:241 lib/Horde/Group/ldap.php:489
 #: lib/Horde/Group/ldap.php:734
 msgid "Empty result"
-msgstr "T¸hi tulemus"
+msgstr "T√ºhi tulemus"
 
 #: lib/Horde/Auth/msad.php:381 lib/Horde/Auth/ldap.php:160
 msgid "Empty result."
-msgstr "Tulemus on t¸hi."
+msgstr "Tulemus on t√ºhi."
 
 #: lib/Horde/Form.php:3118 lib/Horde/Form.php:3326 lib/Horde/Form.php:3486
 msgid "End year"
-msgstr "Aasta lıpp"
+msgstr "Aasta l√µpp"
 
 #: config/prefs.php.dist:242
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
-"Sisesta salajane k¸simus mida sinult k¸sitakse parooli muutmiseks, n‰iteks "
+"Sisesta salajane k√ºsimus mida sinult k√ºsitakse parooli muutmiseks, n√§iteks "
 "'mis on sinu lemmiklooma nimi?':"
 
 #: lib/Horde/UI/VarRenderer/html.php:944 lib/Horde/UI/VarRenderer/html.php:956
 msgid "Enter the letters below:"
-msgstr "Sisesta alla t‰hed:"
+msgstr "Sisesta alla t√§hed:"
 
 #: lib/Horde/NLS/countries.php:75 lib/Horde/NLS/tld.php:102
 #: lib/Horde/NLS/GeoIP.php:76
@@ -2513,17 +2513,17 @@ msgstr "Viga kustutamise %s; peab olema [app]/[path]"
 #: services/portal/syncml.php:38
 #, php-format
 msgid "Error deleting sync anchor: %s"
-msgstr "Viga s¸nkroniseerimisankru kustutamisel: %s"
+msgstr "Viga s√ºnkroniseerimisankru kustutamisel: %s"
 
 #: services/portal/syncml.php:60
 #, php-format
 msgid "Error deleting sync info: %s"
-msgstr "Viga s¸nkroniseerimise infoi kustutamisel: %s"
+msgstr "Viga s√ºnkroniseerimise infoi kustutamisel: %s"
 
 #: services/portal/syncml.php:49
 #, php-format
 msgid "Error deleting sync log: %s"
-msgstr "Viga s¸nkroniseerimise logi kustutamisel: %s"
+msgstr "Viga s√ºnkroniseerimise logi kustutamisel: %s"
 
 #: lib/Horde/Kolab/LDAP.php:193
 #, php-format
@@ -2547,12 +2547,12 @@ msgstr "Viga PDU saatmisel"
 #: lib/Horde/Kolab/LDAP.php:68
 #, php-format
 msgid "Error setting LDAP protocol on server %s to v3!"
-msgstr "Viga LDAP protokolli m‰‰ramisel v3 serveril %s!"
+msgstr "Viga LDAP protokolli m√§√§ramisel v3 serveril %s!"
 
 #: services/changepassword.php:78
 #, php-format
 msgid "Error updating password: %s"
-msgstr "Viga salasına muutmisel: %s"
+msgstr "Viga salas√µna muutmisel: %s"
 
 #: lib/Net/SMS/clickatell_http.php:313
 msgid "Error with email message."
@@ -2622,11 +2622,11 @@ msgstr "Kord minutis"
 
 #: templates/data/datemap.inc:24
 msgid "Example values:"
-msgstr "N‰idisv‰‰rtused:"
+msgstr "N√§idisv√§√§rtused:"
 
 #: admin/cmdshell.php:52 admin/phpshell.php:79 admin/sqlshell.php:131
 msgid "Execute"
-msgstr "K‰ivita"
+msgstr "K√§ivita"
 
 #: admin/sessions.php:47 lib/Horde/Block/Layout/Manager.php:612
 msgid "Expand"
@@ -2634,7 +2634,7 @@ msgstr "Laienda"
 
 #: lib/Horde/Crypt/pgp.php:422
 msgid "Expiration Date"
-msgstr "Aegumise kuup‰ev"
+msgstr "Aegumise kuup√§ev"
 
 #: lib/Horde/Crypt/smime.php:677
 msgid "Exponent"
@@ -2643,7 +2643,7 @@ msgstr "Eksponent"
 #: lib/Horde/Kolab/Freebusy.php:260
 #, php-format
 msgid "Extended ACL for %s is %s"
-msgstr "Laiendatud ’iguse kasutajale %s on %s"
+msgstr "Laiendatud √ïiguse kasutajale %s on %s"
 
 #: lib/Block/iframe.php:27
 msgid "Extra Large"
@@ -2651,7 +2651,7 @@ msgstr "Eriti Suur"
 
 #: templates/admin/setup/index.html:74
 msgid "FTP upload of setup"
-msgstr "Seadistuse ¸leslaadimine FTP kaudu"
+msgstr "Seadistuse √ºleslaadimine FTP kaudu"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
@@ -2660,29 +2660,29 @@ msgstr "Fade to Green"
 #: lib/Horde/Kolab/IMAP/pear.php:278
 #, php-format
 msgid "Failed fetching IMAP message %s. Error was %s"
-msgstr "Ebaınnestus tımmat IMAP kirja %s. Viga oli %s"
+msgstr "Eba√µnnestus t√µmmat IMAP kirja %s. Viga oli %s"
 
 #: lib/Horde/Kolab/IMAP/pear.php:251
 #, php-format
 msgid "Failed fetching body of IMAP message %s. Error was %s"
-msgstr "Ebaınnestus tımmata IMAP kirja %s sisu. Viga oli %s"
+msgstr "Eba√µnnestus t√µmmata IMAP kirja %s sisu. Viga oli %s"
 
 #: lib/Horde/Kolab/IMAP/pear.php:224
 #, php-format
 msgid "Failed fetching headers of IMAP message %s. Error was %s"
-msgstr "Ebaınnestust tımmata IMAP kirja %s p‰ist. Viga oli %s"
+msgstr "Eba√µnnestust t√µmmata IMAP kirja %s p√§ist. Viga oli %s"
 
 #: lib/Horde/Auth/ldap.php:98
 msgid "Failed to connect to LDAP server."
-msgstr "Ei saanud ¸hendust LDAP serveriga."
+msgstr "Ei saanud √ºhendust LDAP serveriga."
 
 #: lib/Horde/Auth/msad.php:307
 msgid "Failed to connect to MSAD server."
-msgstr "Ei saanud ¸hendust MSAD serveriga."
+msgstr "Ei saanud √ºhendust MSAD serveriga."
 
 #: lib/Horde/Auth/smb.php:99
 msgid "Failed to connect to SMB server."
-msgstr "Ei saanud ¸hendust SMB serveriga."
+msgstr "Ei saanud √ºhendust SMB serveriga."
 
 #: lib/VFS/ssh2.php:707 lib/VFS/ftp.php:740
 #, php-format
@@ -2696,7 +2696,7 @@ msgstr "Ei saanud kopeerida \"%s\"-i."
 
 #: lib/Horde/Auth/peclsasl.php:89
 msgid "Failed to create new SASL connection."
-msgstr "Uue SASL ¸henduse loomine nurjus."
+msgstr "Uue SASL √ºhenduse loomine nurjus."
 
 #: lib/Horde/Kolab/IMAP.php:1656
 #, php-format
@@ -2711,7 +2711,7 @@ msgstr "Ei saanud laadida Kolab XML draiverit %s"
 #: lib/VFS/ssh2.php:763 lib/VFS/ftp.php:794 lib/VFS/smb.php:510
 #, php-format
 msgid "Failed to move to \"%s\"."
-msgstr "Ei saanud tısta \"%s\"-i."
+msgstr "Ei saanud t√µsta \"%s\"-i."
 
 #: lib/VFS/smb.php:459
 #, php-format
@@ -2730,7 +2730,7 @@ msgstr "Falklandi saared (Malviinid)"
 #: lib/Horde/NLS/countries.php:80 lib/Horde/NLS/tld.php:88
 #: lib/Horde/NLS/GeoIP.php:73
 msgid "Faroe Islands"
-msgstr "F‰‰ri saared"
+msgstr "F√§√§ri saared"
 
 #: lib/Horde/CLI.php:284
 msgid "Fatal Error:"
@@ -2759,11 +2759,11 @@ msgstr "Tundub nagu: "
 
 #: lib/Block/weatherdotcom_strings.php:25
 msgid "Few Showers"
-msgstr "‹ksikud vihmahood"
+msgstr "√úksikud vihmahood"
 
 #: lib/Block/weatherdotcom_strings.php:26
 msgid "Few Snow Showers"
-msgstr "‹ksikud lumesajuhood"
+msgstr "√úksikud lumesajuhood"
 
 #: lib/Horde/Form.php:2441
 msgid "Field matrix"
@@ -2802,11 +2802,11 @@ msgstr "Faili valik"
 
 #: lib/Horde/Form.php:1611
 msgid "File upload"
-msgstr "Faili ¸leslaadimine"
+msgstr "Faili √ºleslaadimine"
 
 #: lib/Horde/Browser.php:958
 msgid "File uploads not supported."
-msgstr "Failide ¸leslaadimist ei toetata."
+msgstr "Failide √ºleslaadimist ei toetata."
 
 #: lib/Horde/Share/kolab.php:555 config/registry.php.dist:81
 msgid "Filters"
@@ -2827,7 +2827,7 @@ msgstr "Esimene veerand"
 
 #: lib/Horde/UI/VarRenderer/html.php:264
 msgid "Fix ratio"
-msgstr "S‰ilita suhe"
+msgstr "S√§ilita suhe"
 
 #: lib/Net/SMS/clickatell_http.php:233 lib/Net/SMS/sms2email_http.php:576
 msgid "Flash"
@@ -2862,11 +2862,11 @@ msgstr "Kausta \"%s\" pole olemas!"
 #: lib/Horde/Kolab/Freebusy.php:116
 #, php-format
 msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "Kaustal %s on t¸¸p \"%s\" aga mitte \"event\"!"
+msgstr "Kaustal %s on t√º√ºp \"%s\" aga mitte \"event\"!"
 
 #: lib/Horde/Form.php:4075
 msgid "Font"
-msgstr "Kirjat¸¸p"
+msgstr "Kirjat√º√ºp"
 
 #: lib/Block/fortune.php:42
 msgid "Food"
@@ -2881,12 +2881,12 @@ msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
-"P‰evade arv (olgu ˆeldud et tagastatav ennustus sisaldab nii p‰evi kui ˆid; "
-"suur arv vıib bloki laiaks venitada)"
+"P√§evade arv (olgu √∂eldud et tagastatav ennustus sisaldab nii p√§evi kui √∂id; "
+"suur arv v√µib bloki laiaks venitada)"
 
 #: templates/login/login.inc:89
 msgid "Forgot your password?"
-msgstr "Unustasid salasına?"
+msgstr "Unustasid salas√µna?"
 
 #: config/registry.php.dist:464
 msgid "Forms"
@@ -2898,7 +2898,7 @@ msgstr "Kild"
 
 #: lib/Block/fortune.php:104
 msgid "Fortune type"
-msgstr "Killu t¸¸p"
+msgstr "Killu t√º√ºp"
 
 #: lib/Block/fortune.php:43
 msgid "Fortunes"
@@ -2941,12 +2941,12 @@ msgstr "Prantsuse Guajaana"
 #: lib/Horde/NLS/countries.php:85 lib/Horde/NLS/tld.php:188
 #: lib/Horde/NLS/GeoIP.php:98
 msgid "French Polynesia"
-msgstr "Prantsuse Pol¸neesia"
+msgstr "Prantsuse Pol√ºneesia"
 
 #: lib/Horde/NLS/countries.php:86 lib/Horde/NLS/tld.php:228
 #: lib/Horde/NLS/GeoIP.php:109
 msgid "French Southern Territories"
-msgstr "Prantsuse Lıunaalad"
+msgstr "Prantsuse L√µunaalad"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:75
 msgid "From"
@@ -2959,15 +2959,15 @@ msgstr "Suunaga "
 
 #: templates/problem/problem.inc:42
 msgid "Full Description"
-msgstr "Pıhjalik kirjeldus"
+msgstr "P√µhjalik kirjeldus"
 
 #: lib/Block/moon.php:81 lib/Block/moon.php:176
 msgid "Full Moon"
-msgstr "T‰iskuu"
+msgstr "T√§iskuu"
 
 #: lib/Block/account.php:70 templates/admin/user/update.inc:61
 msgid "Full Name"
-msgstr "T‰isnimi"
+msgstr "T√§isnimi"
 
 #: lib/Horde/NLS/countries.php:87 lib/Horde/NLS/tld.php:90
 #: lib/Horde/NLS/GeoIP.php:73
@@ -3015,7 +3015,7 @@ msgstr "Eesnimi"
 #: services/portal/sidebar.php:165 templates/prefs/app.inc:10
 #: templates/prefs/app.inc:19
 msgid "Global Options"
-msgstr "‹ldised seaded"
+msgstr "√úldised seaded"
 
 #: templates/prefs/app.inc:17
 msgid "Go"
@@ -3023,7 +3023,7 @@ msgstr "Mine"
 
 #: lib/Block/fortune.php:45
 msgid "Goedel"
-msgstr "Gˆdel"
+msgstr "G√∂del"
 
 #: lib/Horde/UI/VarRenderer/html.php:1273
 msgid "Google Maps"
@@ -3057,7 +3057,7 @@ msgstr "Green"
 #: lib/Horde/NLS/countries.php:94 lib/Horde/NLS/tld.php:98
 #: lib/Horde/NLS/GeoIP.php:75
 msgid "Greenland"
-msgstr "Grˆˆnimaa"
+msgstr "Gr√∂√∂nimaa"
 
 #: lib/Horde/NLS/countries.php:95 lib/Horde/NLS/tld.php:92
 #: lib/Horde/NLS/GeoIP.php:74
@@ -3074,7 +3074,7 @@ msgstr "Gruppide haldus"
 
 #: lib/Horde/Group.php:142 lib/Horde/Group/ldap.php:174
 msgid "Group names must be non-empty"
-msgstr "Gruppide nimed ei vıi olla t¸hjad"
+msgstr "Gruppide nimed ei v√µi olla t√ºhjad"
 
 #: admin/groups.php:53
 #, php-format
@@ -3084,26 +3084,26 @@ msgstr "Gruppi %s ei loodud."
 #: lib/Horde/Group/ldap.php:305
 #, php-format
 msgid "Group_ldap: Unable to add group \"%s\". This is what the server said: "
-msgstr "Group_ldap: Ei saa lisada gruppi \"%s\". Server ¸tles: "
+msgstr "Group_ldap: Ei saa lisada gruppi \"%s\". Server √ºtles: "
 
 #: lib/Horde/Group/ldap.php:117 lib/Horde/Group/ldap.php:123
 #: lib/Horde/Group/ldap.php:419
 #, php-format
 msgid ""
 "Group_ldap: Unable to delete group \"%s\". This is what the server said: %s"
-msgstr "Group_ldap: Ei saa kustutada gruppi \"%s\". Server ¸tles: %s"
+msgstr "Group_ldap: Ei saa kustutada gruppi \"%s\". Server √ºtles: %s"
 
 #: lib/Horde/Group/ldap.php:380
 #, php-format
 msgid ""
 "Group_ldap: Unable to update group \"%s\". This is what the server said: "
-msgstr "Group_ldap: Ei saa muuta gruppi \"%s\". Server ¸tles: "
+msgstr "Group_ldap: Ei saa muuta gruppi \"%s\". Server √ºtles: "
 
 #: lib/Horde/Group/ldap.php:336
 #, php-format
 msgid ""
 "Group_ldap: Unable to update group \"%s\". This is what the server said: %s"
-msgstr "Group_ldap: Ei saa muuta gruppi \"%s\". Server ¸tles: %s"
+msgstr "Group_ldap: Ei saa muuta gruppi \"%s\". Server √ºtles: %s"
 
 #: admin/groups.php:246 lib/Horde/Perms/UI.php:313
 #: templates/shares/edit.inc:258
@@ -3131,11 +3131,11 @@ msgstr "Guernsey"
 
 #: lib/Horde/Perms/UI.php:225 templates/shares/edit.inc:117
 msgid "Guest Permissions"
-msgstr "K¸lalise ıigused"
+msgstr "K√ºlalise √µigused"
 
 #: config/registry.php.dist:472
 msgid "Guestbook"
-msgstr "K¸lalisteraamat"
+msgstr "K√ºlalisteraamat"
 
 #: lib/Horde/NLS/countries.php:99 lib/Horde/NLS/tld.php:100
 #: lib/Horde/NLS/GeoIP.php:75
@@ -3171,19 +3171,19 @@ msgstr "Haiiti"
 
 #: lib/Horde/Crypt/pgp.php:423
 msgid "Hash-Algorithm"
-msgstr "R‰sialgoritm"
+msgstr "R√§sialgoritm"
 
 #: lib/Block/weatherdotcom_strings.php:31
 msgid "Haze"
-msgstr "H‰gu"
+msgstr "H√§gu"
 
 #: lib/Horde/Form.php:921 lib/Horde/Form.php:3640
 msgid "Header"
-msgstr "P‰is"
+msgstr "P√§is"
 
 #: lib/Horde/Form/Type/tableset.php:61
 msgid "Headers"
-msgstr "P‰ised"
+msgstr "P√§ised"
 
 #: lib/Horde/NLS/countries.php:103 lib/Horde/NLS/GeoIP.php:79
 msgid "Heard Island and McDonald Islands"
@@ -3199,7 +3199,7 @@ msgstr "Heavy Rain"
 
 #: lib/Block/weatherdotcom_strings.php:33
 msgid "Heavy T-Storm"
-msgstr "R‰nk ‰ikesetorm"
+msgstr "R√§nk √§ikesetorm"
 
 #: config/nls.php.dist:230
 msgid "Hebrew (ISO-8859-8-I)"
@@ -3207,7 +3207,7 @@ msgstr "Heebrea (ISO-8859-8-I)"
 
 #: lib/Block/iframe.php:22
 msgid "Height"
-msgstr "Kırgus"
+msgstr "K√µrgus"
 
 #: lib/Horde/Menu.php:174 lib/Horde/Help.php:205 lib/Horde/Help.php:206
 #: services/help/index.php:18 templates/help/index.inc:4
@@ -3240,12 +3240,12 @@ msgstr "Peida tulemused"
 
 #: lib/Block/weatherdotcom_strings.php:86
 msgid "High"
-msgstr "Kırge"
+msgstr "K√µrge"
 
 #: lib/Horde/NLS/countries.php:104 lib/Horde/NLS/tld.php:250
 #: lib/Horde/NLS/GeoIP.php:114
 msgid "Holy See (Vatican City State)"
-msgstr "P¸ha Tool (Vatikani Linnriik)"
+msgstr "P√ºha Tool (Vatikani Linnriik)"
 
 #: lib/Horde/MIME/Viewer/vcard.php:122 lib/Horde/MIME/Viewer/vcard.php:155
 msgid "Home Address"
@@ -3276,20 +3276,20 @@ msgstr "Horde"
 #: lib/Horde/Kolab/IMAP.php:1169
 #, php-format
 msgid "Horde/Kolab: No object of type %s found in message %s"
-msgstr "Horde/Kolab: Ei leitud ¸htki %s t¸¸pi objekti kirjas %s"
+msgstr "Horde/Kolab: Ei leitud √ºhtki %s t√º√ºpi objekti kirjas %s"
 
 #: lib/Horde/Kolab/IMAP.php:1211
 #, php-format
 msgid "Horde/Kolab: Unable to retrieve MIME ID for the part of type %s"
-msgstr "Horde/Kolab: Ei ınnestu hankida MIME ID-d %s t¸¸pi osa jaoks"
+msgstr "Horde/Kolab: Ei √µnnestu hankida MIME ID-d %s t√º√ºpi osa jaoks"
 
 #: lib/Net/SMS/generic_smpp.php:100
 msgid "Host"
-msgstr "Vıırustaja"
+msgstr "V√µ√µrustaja"
 
 #: templates/data/csvinfo.inc:21
 msgid "How many fields (columns) are there?"
-msgstr "Kui palju v‰lju (veerge) on?"
+msgstr "Kui palju v√§lju (veerge) on?"
 
 #: lib/Block/weatherdotcom.php:311 lib/Block/metar.php:237
 msgid "Humidity"
@@ -3310,7 +3310,7 @@ msgstr "Ungari"
 
 #: services/keyboard.php:80
 msgid "I characters"
-msgstr "I t‰ht"
+msgstr "I t√§ht"
 
 #: lib/Horde/Kolab/IMAP/cclient.php:148 lib/Horde/Kolab/IMAP/cclient.php:179
 #: lib/Horde/Kolab/IMAP/cclient.php:199 lib/Horde/Kolab/IMAP/cclient.php:221
@@ -3400,15 +3400,15 @@ msgstr "Identiteedi nimi:"
 #: lib/Horde/MIME/Contents.php:602
 #, php-format
 msgid "If it is not displayed correctly, %s to open it in a new window."
-msgstr "Kui seda ıieti ei n‰idata, %s ja see avatakse uues aknas."
+msgstr "Kui seda √µieti ei n√§idata, %s ja see avatakse uues aknas."
 
 #: lib/Horde/UI/VarRenderer/html.php:179
 msgid ""
 "If you see this message but no image, the image you want to upload can't be "
 "displayed by your browser."
 msgstr ""
-"Kui sa n‰ed seda teadet aga pilti ei n‰e, siis ei oska sinu veebilehitseja "
-"n‰idata seda pilti, mida soovid ¸les laadida."
+"Kui sa n√§ed seda teadet aga pilti ei n√§e, siis ei oska sinu veebilehitseja "
+"n√§idata seda pilti, mida soovid √ºles laadida."
 
 #: lib/Horde/MIME/Viewer/images.php:88
 msgid "Image"
@@ -3420,7 +3420,7 @@ msgstr "Pildi CAPTCHA"
 
 #: lib/Horde/Form.php:1899
 msgid "Image upload"
-msgstr "Pildi ¸leslaadimine"
+msgstr "Pildi √ºleslaadimine"
 
 #: templates/data/tsvinfo.inc:7 templates/data/datemap.inc:7
 #: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
@@ -3431,11 +3431,11 @@ msgstr "Import, samm %d"
 #: templates/data/datemap.inc:16
 #, php-format
 msgid "Imported field: %s"
-msgstr "Imporditud v‰li: %s"
+msgstr "Imporditud v√§li: %s"
 
 #: templates/data/csvmap.inc:59
 msgid "Imported fields:"
-msgstr "Imporditud v‰ljad:"
+msgstr "Imporditud v√§ljad:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -3444,9 +3444,9 @@ msgid ""
 "Then hit \"Add pair\" to mark them for the import. Once your are finished "
 "hit \"Next\"."
 msgstr ""
-"All olevast listist vali mılema, v‰li mida importida alge failist on vasakul "
-"ja vastav v‰li aadressi raamatus on paremal. Mılema valimise j‰rel vajuta "
-"nupp \"Lisa paar\". Peale kıikide v‰ljade sidumist vajuta nuppu \"Edasi\"."
+"All olevast listist vali m√µlema, v√§li mida importida alge failist on vasakul "
+"ja vastav v√§li aadressi raamatus on paremal. M√µlema valimise j√§rel vajuta "
+"nupp \"Lisa paar\". Peale k√µikide v√§ljade sidumist vajuta nuppu \"Edasi\"."
 
 #: lib/Horde/Compress/zip.php:135
 msgid "Incorrect action code given."
@@ -3454,14 +3454,14 @@ msgstr "Esitati vale tegevuse kood."
 
 #: lib/Net/SMS/sms2email_http.php:641
 msgid "Incorrect username and/or password."
-msgstr "Vale kasutajanimi ja/vıi parool."
+msgstr "Vale kasutajanimi ja/v√µi parool."
 
 #: services/resetpassword.php:55
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
 msgstr ""
-"Vale kasutajanimi vıi alternatiivne aadress. Proovi uuesti vıi vıta ¸hendust "
+"Vale kasutajanimi v√µi alternatiivne aadress. Proovi uuesti v√µi v√µta √ºhendust "
 "administraatoriga."
 
 #: lib/Horde/NLS/countries.php:109 lib/Horde/NLS/tld.php:119
@@ -3471,7 +3471,7 @@ msgstr "India"
 
 #: lib/Horde/Perms/UI.php:253 templates/shares/edit.inc:187
 msgid "Individual Users"
-msgstr "‹ksikud kasutajad"
+msgstr "√úksikud kasutajad"
 
 #: lib/Horde/NLS/countries.php:110 lib/Horde/NLS/tld.php:115
 #: lib/Horde/NLS/GeoIP.php:80
@@ -3484,11 +3484,11 @@ msgstr "Informatsioon"
 
 #: lib/Block/weatherdotcom.php:340
 msgid "Information no longer available."
-msgstr "Teave ei ole enam k‰ttesaadav."
+msgstr "Teave ei ole enam k√§ttesaadav."
 
 #: templates/admin/groups/edit.inc:35
 msgid "Inherited Members"
-msgstr "P‰ritud Liikmed"
+msgstr "P√§ritud Liikmed"
 
 #: lib/Horde/Alarm.php:446
 msgid "Inline Notification"
@@ -3508,7 +3508,7 @@ msgstr "Lisa kirjad"
 
 #: config/prefs.php.dist:251
 msgid "Insert the required answer to the security question:"
-msgstr "Kirjuta salak¸simuse ıige vastus:"
+msgstr "Kirjuta salak√ºsimuse √µige vastus:"
 
 #: config/prefs.php.dist:548
 msgid "Insertion of images from Photo Galleries in text"
@@ -3516,24 +3516,24 @@ msgstr "Luba teksti sisse lisada pilte fotogaleriidest"
 
 #: lib/Net/SMS/sms2email_http.php:652
 msgid "Insufficient credit to send to the distribution list."
-msgstr "Jaotusnimekirjale saatmiseks ei j‰tku krediiti."
+msgstr "Jaotusnimekirjale saatmiseks ei j√§tku krediiti."
 
 #: lib/Net/SMS/sms2email_http.php:644
 msgid "Insufficient credit."
-msgstr "Krediiti ei j‰tku."
+msgstr "Krediiti ei j√§tku."
 
 #: lib/Horde/Form.php:1069
 msgid "Integer"
-msgstr "T‰isarv"
+msgstr "T√§isarv"
 
 #: lib/Horde/Form.php:1123
 msgid "Integer list"
-msgstr "T‰isarvude nimekiri"
+msgstr "T√§isarvude nimekiri"
 
 #: lib/Horde/Group/ldap.php:524
 #, php-format
 msgid "Internal Error: An attribute must ALWAYS match itself: %s"
-msgstr "Sisemine Viga: Tunnus peab ALATI ¸hilduma endaga: %s "
+msgstr "Sisemine Viga: Tunnus peab ALATI √ºhilduma endaga: %s "
 
 #: lib/Net/SMS/clickatell_http.php:305
 msgid "Invalid UDH. (User Data Header)."
@@ -3564,7 +3564,7 @@ msgstr "Vale batch ID"
 #: lib/Horde/MIME/Mail.php:374
 #, php-format
 msgid "Invalid character in e-mail address: %s."
-msgstr "Lubamatu m‰rk e-posti aadressis: %s."
+msgstr "Lubamatu m√§rk e-posti aadressis: %s."
 
 #: lib/Horde/Form.php:2577 lib/Horde/Form.php:2655 lib/Horde/Form.php:2728
 #: lib/Horde/Form.php:2807 lib/Horde/Form/Type/tableset.php:37
@@ -3587,7 +3587,7 @@ msgstr "Vigane gruppi ID edastati (vigane DN kirje)"
 
 #: lib/Block/weatherdotcom.php:188
 msgid "Invalid license key."
-msgstr "Vigane litsentsivıti."
+msgstr "Vigane litsentsiv√µti."
 
 #: lib/Block/weatherdotcom.php:182
 msgid "Invalid location provided."
@@ -3599,15 +3599,15 @@ msgstr "Vigane msg_type"
 
 #: lib/Net/SMS/clickatell_http.php:311
 msgid "Invalid or missing api_id."
-msgstr "api_id on puudu vıi vigane."
+msgstr "api_id on puudu v√µi vigane."
 
 #: lib/Net/SMS/clickatell_http.php:304
 msgid "Invalid or missing parameters."
-msgstr "Vigased vıi puuduvad parameetrid."
+msgstr "Vigased v√µi puuduvad parameetrid."
 
 #: admin/perms/addchild.php:28
 msgid "Invalid parent permission."
-msgstr "Vigane ¸lemıigus."
+msgstr "Vigane √ºlem√µigus."
 
 #: lib/Block/weatherdotcom.php:184
 msgid "Invalid partner id."
@@ -3633,7 +3633,7 @@ msgstr "Ootamatu vastus serverilt."
 
 #: lib/Net/SMS/clickatell_http.php:309
 msgid "Invalid source address."
-msgstr "Vigane l‰hteaadress."
+msgstr "Vigane l√§hteaadress."
 
 #: lib/Net/SMS/clickatell_http.php:319
 msgid "Invalid unicode data."
@@ -3646,7 +3646,7 @@ msgstr "Nimekiri"
 #: lib/Horde/UI/VarRenderer/html.php:732
 #: lib/Horde/UI/VarRenderer/tableset_html.php:25
 msgid "Invert selection"
-msgstr "Pˆˆrdvalik"
+msgstr "P√∂√∂rdvalik"
 
 #: lib/Horde/NLS/countries.php:111 lib/Horde/NLS/tld.php:122
 #: lib/Horde/NLS/GeoIP.php:82
@@ -3669,7 +3669,7 @@ msgstr "Mani saar"
 
 #: lib/Block/weatherdotcom_strings.php:34
 msgid "Isolated T-Storms"
-msgstr "‹ksikud ‰ikesetormid"
+msgstr "√úksikud √§ikesetormid"
 
 #: lib/Horde/NLS/countries.php:114 lib/Horde/NLS/tld.php:117
 #: lib/Horde/NLS/GeoIP.php:80
@@ -3678,7 +3678,7 @@ msgstr "Iisrael"
 
 #: lib/Horde/Crypt/smime.php:626
 msgid "Issuer"
-msgstr "V‰ljaandja"
+msgstr "V√§ljaandja"
 
 #: lib/Horde/NLS/countries.php:115 lib/Horde/NLS/tld.php:124
 #: lib/Horde/NLS/GeoIP.php:82
@@ -3730,7 +3730,7 @@ msgstr "Kasahstan"
 
 #: lib/Horde/UI/VarRenderer/html.php:272
 msgid "Keep original?"
-msgstr "S‰ilita originaal?"
+msgstr "S√§ilita originaal?"
 
 #: lib/Horde/NLS/countries.php:120 lib/Horde/NLS/tld.php:129
 #: lib/Horde/NLS/GeoIP.php:83
@@ -3743,35 +3743,35 @@ msgstr "Kerberose server ei lasknud sisse."
 
 #: lib/Block/fortune.php:47
 msgid "Kernel Newbies"
-msgstr "Kerneli vıhikud"
+msgstr "Kerneli v√µhikud"
 
 #: lib/Horde/Crypt/pgp.php:421
 msgid "Key Creation"
-msgstr "Vıtme loomine"
+msgstr "V√µtme loomine"
 
 #: lib/Horde/Crypt/pgp.php:424
 msgid "Key Fingerprint"
-msgstr "Vıtme sırmej‰lg"
+msgstr "V√µtme s√µrmej√§lg"
 
 #: lib/Horde/Crypt/pgp.php:422
 msgid "Key Length"
-msgstr "Vıtme pikkus"
+msgstr "V√µtme pikkus"
 
 #: lib/Horde/Crypt/pgp.php:421
 msgid "Key Type"
-msgstr "Vıtme t¸¸p"
+msgstr "V√µtme t√º√ºp"
 
 #: lib/Horde/Crypt/smime.php:599
 msgid "Key Usage"
-msgstr "Vıtme kasutus"
+msgstr "V√µtme kasutus"
 
 #: lib/Horde/Crypt/pgp.php:766
 msgid "Key already exists on the public keyserver."
-msgstr "Vıti on avalikus serveris juba olemas."
+msgstr "V√µti on avalikus serveris juba olemas."
 
 #: services/help/index.php:159
 msgid "Keyword"
-msgstr "M‰rksına"
+msgstr "M√§rks√µna"
 
 #: lib/Block/fortune.php:48
 msgid "Kids"
@@ -3794,7 +3794,7 @@ msgstr "Kolab XML: Puuduv funktsioon %s!"
 #: lib/Horde/Kolab/IMAP.php:987
 #, php-format
 msgid "Kolab cache: Object uid %s does not exist in the cache!"
-msgstr "Kolabi vahem‰lu: Objeckti uid %s ei ole vahem‰lus!"
+msgstr "Kolabi vahem√§lu: Objeckti uid %s ei ole vahem√§lus!"
 
 #: lib/Horde/NLS/countries.php:122 lib/Horde/NLS/tld.php:135
 #: lib/Horde/NLS/GeoIP.php:85
@@ -3818,7 +3818,7 @@ msgstr "Kuveit"
 #: lib/Horde/NLS/countries.php:125 lib/Horde/NLS/tld.php:130
 #: lib/Horde/NLS/GeoIP.php:83
 msgid "Kyrgyzstan"
-msgstr "Kırgızstan"
+msgstr "K√µrg√µzstan"
 
 #: lib/Horde/Kolab/LDAP.php:219
 #, php-format
@@ -3857,21 +3857,21 @@ msgstr "Viimati muudetud:"
 #: lib/Horde/Auth.php:741 lib/Horde/backup/Auth.php:722
 #, php-format
 msgid "Last login: %s"
-msgstr "Eelmine k¸lastus: %s"
+msgstr "Eelmine k√ºlastus: %s"
 
 #: lib/Horde/Auth.php:743 lib/Horde/backup/Auth.php:724
 #, php-format
 msgid "Last login: %s from %s"
-msgstr "Eelmine k¸lastus: %s aadressilt %s"
+msgstr "Eelmine k√ºlastus: %s aadressilt %s"
 
 #: lib/Horde/Auth.php:738 lib/Horde/backup/Auth.php:719
 msgid "Last login: Never"
-msgstr "Eelmine k¸lastus: mitte kunagi"
+msgstr "Eelmine k√ºlastus: mitte kunagi"
 
 #: lib/Horde/NLS/countries.php:127 lib/Horde/NLS/tld.php:149
 #: lib/Horde/NLS/GeoIP.php:89
 msgid "Latvia"
-msgstr "L‰ti"
+msgstr "L√§ti"
 
 #: themes/lavander/info.php:6
 msgid "Lavender"
@@ -3888,11 +3888,11 @@ msgstr "Liibanon"
 
 #: lib/Horde/Form.php:3834
 msgid "Left header"
-msgstr "Vasak p‰is"
+msgstr "Vasak p√§is"
 
 #: lib/Horde/Form.php:3830
 msgid "Left values"
-msgstr "Vasakud v‰‰rtused"
+msgstr "Vasakud v√§√§rtused"
 
 #: lib/Horde/NLS/countries.php:129 lib/Horde/NLS/tld.php:146
 #: lib/Horde/NLS/GeoIP.php:88
@@ -3907,7 +3907,7 @@ msgstr "Libeeria"
 #: lib/Horde/NLS/countries.php:131 lib/Horde/NLS/tld.php:150
 #: lib/Horde/NLS/GeoIP.php:89
 msgid "Libyan Arab Jamahiriya"
-msgstr "Liib¸a Araabia Vabariik"
+msgstr "Liib√ºa Araabia Vabariik"
 
 #: lib/Horde/NLS/countries.php:132 lib/Horde/NLS/tld.php:143
 #: lib/Horde/NLS/GeoIP.php:88
@@ -3932,7 +3932,7 @@ msgstr "Hommikul tibutab vihma"
 
 #: lib/Block/weatherdotcom_strings.php:38
 msgid "Light Rain Late"
-msgstr "’htul tibutab vihma"
+msgstr "√ïhtul tibutab vihma"
 
 #: lib/Block/weatherdotcom_strings.php:39
 msgid "Light Rain Shower"
@@ -3940,7 +3940,7 @@ msgstr "Kerge hoovihm"
 
 #: lib/Block/weatherdotcom_strings.php:40
 msgid "Light Rain with Thunder"
-msgstr "Kerge vihm ja ‰ike"
+msgstr "Kerge vihm ja √§ike"
 
 #: lib/Block/weatherdotcom_strings.php:41
 msgid "Light Snow"
@@ -3964,7 +3964,7 @@ msgstr "Lingi URL"
 
 #: lib/Horde/Form.php:1977
 msgid "Link access key"
-msgstr "Lingi vıti"
+msgstr "Lingi v√µti"
 
 #: lib/Horde/Form.php:3708
 msgid "Link style"
@@ -3993,7 +3993,7 @@ msgstr "Lingid"
 
 #: lib/Block/fortune.php:51
 msgid "Linux Cookie"
-msgstr "Linuxi pr‰‰nik"
+msgstr "Linuxi pr√§√§nik"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:60 lib/Horde/IMAP/ACL/rfc2086.php:98
 msgid "List"
@@ -4001,7 +4001,7 @@ msgstr "Nimekiri"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:46 lib/Horde/IMAP/ACL/rfc2086.php:86
 msgid "List - user can see the folder"
-msgstr "List - kasutaja vıib kausta n‰ha"
+msgstr "List - kasutaja v√µib kausta n√§ha"
 
 #: admin/sqlshell.php:137
 msgid "List Databases"
@@ -4042,7 +4042,7 @@ msgstr "List-Unsubscribe"
 #: admin/alarms.php:129
 #, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Teavituste nimekirja n‰itamine ebaınnestus: %s"
+msgstr "Teavituste nimekirja n√§itamine eba√µnnestus: %s"
 
 #: admin/sessions.php:42
 #, php-format
@@ -4051,7 +4051,7 @@ msgstr "Kasutajate nimekirja esitamine nurjus: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "Kasutajate nimekirja pole lubatud n‰ha."
+msgstr "Kasutajate nimekirja pole lubatud n√§ha."
 
 #: lib/Block/fortune.php:52
 msgid "Literature"
@@ -4086,7 +4086,7 @@ msgstr "Logi sisse"
 
 #: services/portal/sidebar.php:184
 msgid "Log out"
-msgstr "Logi v‰lja"
+msgstr "Logi v√§lja"
 
 #: lib/Block/account.php:66
 msgid "Login"
@@ -4094,11 +4094,11 @@ msgstr "Kasutajanimi"
 
 #: config/prefs.php.dist:123
 msgid "Login Tasks"
-msgstr "Tˆˆd sisselogimisel"
+msgstr "T√∂√∂d sisselogimisel"
 
 #: lib/Horde/Auth.php:1018 lib/Horde/backup/Auth.php:999
 msgid "Login failed because your username or password was entered incorrectly."
-msgstr "Sisselogimine nurjus, kuna kasutajanimi vıi parool polnud ıige."
+msgstr "Sisselogimine nurjus, kuna kasutajanimi v√µi parool polnud √µige."
 
 #: lib/Horde/Auth.php:1014 lib/Horde/backup/Auth.php:995
 msgid "Login failed."
@@ -4206,8 +4206,8 @@ msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Seadista kategooriaid, mida kasutatakse ¸ksuste m‰rgendamiseks ja nendele "
-"kategooriatele vastavaid v‰rve."
+"Seadista kategooriaid, mida kasutatakse √ºksuste m√§rgendamiseks ja nendele "
+"kategooriatele vastavaid v√§rve."
 
 #: lib/Horde/UI/VarRenderer/html.php:1199
 #: lib/Horde/UI/VarRenderer/html.php:1248
@@ -4217,23 +4217,23 @@ msgstr "MapQuest kaart"
 #: lib/Horde/UI/VarRenderer/html.php:425 lib/Horde/UI/VarRenderer/html.php:463
 #: templates/javascript/open_calendar.js:62
 msgid "March"
-msgstr "M‰rts"
+msgstr "M√§rts"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:63 lib/Horde/IMAP/ACL/rfc2086.php:101
 msgid "Mark (Other)"
-msgstr "M‰rgi (teised)"
+msgstr "M√§rgi (teised)"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:62 lib/Horde/IMAP/ACL/rfc2086.php:100
 msgid "Mark (Seen)"
-msgstr "M‰rgi (loetuks)"
+msgstr "M√§rgi (loetuks)"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:48 lib/Horde/IMAP/ACL/rfc2086.php:88
 msgid "Mark with Seen/Unseen flags"
-msgstr "T‰hista loetud/lugemata staatus"
+msgstr "T√§hista loetud/lugemata staatus"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:49 lib/Horde/IMAP/ACL/rfc2086.php:89
 msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr "T‰hista muu staatus (nt. t‰htis/vastatud)"
+msgstr "T√§hista muu staatus (nt. t√§htis/vastatud)"
 
 #: lib/Horde/NLS/countries.php:143 lib/Horde/NLS/tld.php:156
 #: lib/Horde/NLS/GeoIP.php:91
@@ -4247,7 +4247,7 @@ msgstr "Martinique"
 
 #: templates/data/csvmap.inc:96
 msgid "Matching fields:"
-msgstr "Sobivad v‰ljad:"
+msgstr "Sobivad v√§ljad:"
 
 #: lib/Horde/NLS/countries.php:145 lib/Horde/NLS/tld.php:164
 #: lib/Horde/NLS/GeoIP.php:93
@@ -4265,15 +4265,15 @@ msgstr "Suurim lubatud krediit."
 
 #: lib/Net/SMS/clickatell_http.php:316
 msgid "Max message parts exceeded."
-msgstr "Kirja osade piirang ¸letatud."
+msgstr "Kirja osade piirang √ºletatud."
 
 #: lib/Block/metar.php:313
 msgid "Max temp last 24 hours: "
-msgstr "Viimase 24 tunni kırgeim temperatuur: "
+msgstr "Viimase 24 tunni k√µrgeim temperatuur: "
 
 #: lib/Block/metar.php:305
 msgid "Max temp last 6 hours: "
-msgstr "Viimase 6 tunni kırgeim temperatuur: "
+msgstr "Viimase 6 tunni k√µrgeim temperatuur: "
 
 #: lib/api.php:183
 msgid "Maximum Number of Portal Blocks"
@@ -4311,11 +4311,11 @@ msgstr "Liikmed"
 
 #: lib/Horde/SessionHandler/memcache.php:186
 msgid "Memcache session tracking not enabled."
-msgstr "Memcahe sessiooni j‰lgimine ei ole lubatud"
+msgstr "Memcahe sessiooni j√§lgimine ei ole lubatud"
 
 #: config/prefs.php.dist:413
 msgid "Menu mode:"
-msgstr "Men¸¸ esitus:"
+msgstr "Men√º√º esitus:"
 
 #: lib/Horde/Notification/Listener/status.php:30
 msgid "Message"
@@ -4336,7 +4336,7 @@ msgstr "Teade on aegunud."
 #: lib/Net/SMS/clickatell_http.php:235 lib/Net/SMS/clickatell_http.php:268
 #: lib/Net/SMS/sms2email_http.php:578 lib/Net/SMS/sms2email_http.php:611
 msgid "Message type"
-msgstr "Teate t¸¸p"
+msgstr "Teate t√º√ºp"
 
 #: lib/Block/metar.php:3
 msgid "Metar Weather"
@@ -4349,11 +4349,11 @@ msgstr "Metar blokk ei ole saadaval."
 #: lib/Block/metar.php:124
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
-msgstr "Metar blokk ei ole saadaval. ‹ksikasjad logiti administraatori jaoks."
+msgstr "Metar blokk ei ole saadaval. √úksikasjad logiti administraatori jaoks."
 
 #: lib/Block/weatherdotcom.php:176
 msgid "MetarDB is not connected."
-msgstr "MetarDB ¸hendus puudub."
+msgstr "MetarDB √ºhendus puudub."
 
 #: lib/Horde/MIME/Viewer/rar.php:66 lib/Horde/MIME/Viewer/zip.php:73
 msgid "Method"
@@ -4377,11 +4377,11 @@ msgstr "Mehhiko"
 #: lib/Horde/NLS/countries.php:149 lib/Horde/NLS/tld.php:87
 #: lib/Horde/NLS/GeoIP.php:72
 msgid "Micronesia, Federated States of"
-msgstr "Mikroneesia Fˆderatsioon"
+msgstr "Mikroneesia F√∂deratsioon"
 
 #: lib/Horde/MIME/Viewer/tnef.php:37
 msgid "Mime Type"
-msgstr "MIME t¸¸p"
+msgstr "MIME t√º√ºp"
 
 #: lib/Block/metar.php:317
 msgid "Min temp last 24 hours: "
@@ -4393,7 +4393,7 @@ msgstr "Viimase 6 tunni madalaim temperatuur"
 
 #: lib/Horde/Auth/ldap.php:448
 msgid "Minimum password age has not yet expired"
-msgstr "Parooli minimaalne vanus pole veel t‰is"
+msgstr "Parooli minimaalne vanus pole veel t√§is"
 
 #: lib/Horde/UI/VarRenderer/html.php:242
 msgid "Mirror"
@@ -4412,7 +4412,7 @@ msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:312
 msgid "Missing message ID."
-msgstr "Puudub sınumi ID."
+msgstr "Puudub s√µnumi ID."
 
 #: lib/Net/SMS/clickatell_http.php:302
 msgid "Missing session ID."
@@ -4432,16 +4432,16 @@ msgstr "Mobiil telefoninumber"
 
 #: lib/Block/weatherdotcom_strings.php:85
 msgid "Moderate"
-msgstr "Mııdukas"
+msgstr "M√µ√µdukas"
 
 #: lib/Horde/MIME/Viewer/tgz.php:92 lib/Horde/MIME/Viewer/rar.php:65
 #: lib/Horde/MIME/Viewer/zip.php:72
 msgid "Modified Date"
-msgstr "Muutmise kuup‰ev"
+msgstr "Muutmise kuup√§ev"
 
 #: lib/Horde/Crypt/smime.php:674
 msgid "Modulus"
-msgstr "J‰‰k"
+msgstr "J√§√§k"
 
 #: lib/Horde/NLS/countries.php:150 lib/Horde/NLS/tld.php:153
 #: lib/Horde/NLS/GeoIP.php:90
@@ -4455,7 +4455,7 @@ msgstr "Monako"
 
 #: config/prefs.php.dist:332
 msgid "Monday"
-msgstr "Esmasp‰ev"
+msgstr "Esmasp√§ev"
 
 #: lib/Horde/NLS/countries.php:152 lib/Horde/NLS/tld.php:160
 #: lib/Horde/NLS/GeoIP.php:92
@@ -4486,7 +4486,7 @@ msgstr "Kuufaasid"
 #: lib/File/CSV.php:206 lib/File/CSV.php:288
 #, php-format
 msgid "More fields found in line %d than the expected %d."
-msgstr "Reas %d leiti rohkem v‰lju kui eeldatav %d."
+msgstr "Reas %d leiti rohkem v√§lju kui eeldatav %d."
 
 #: lib/Horde/NLS/countries.php:154 lib/Horde/NLS/tld.php:151
 #: lib/Horde/NLS/GeoIP.php:90
@@ -4507,7 +4507,7 @@ msgstr "Valdavalt pilves ja tuuline"
 
 #: lib/Block/weatherdotcom_strings.php:46
 msgid "Mostly Sunny"
-msgstr "Valdavalt p‰ikesepaisteline"
+msgstr "Valdavalt p√§ikesepaisteline"
 
 #: lib/Horde/Block/Layout/Manager.php:646
 msgid "Move Down"
@@ -4523,7 +4523,7 @@ msgstr "Nihuta paremale"
 
 #: lib/Horde/Block/Layout/Manager.php:642
 msgid "Move Up"
-msgstr "Nihuta ¸les"
+msgstr "Nihuta √ºles"
 
 #: lib/Horde/UI/VarRenderer/html.php:577
 msgid "Move down"
@@ -4531,7 +4531,7 @@ msgstr "Nihuta alla"
 
 #: lib/Horde/UI/VarRenderer/html.php:576 lib/Horde/UI/VarRenderer/html.php:577
 msgid "Move up"
-msgstr "Nihuta ¸les"
+msgstr "Nihuta √ºles"
 
 #: lib/Horde/NLS/countries.php:155 lib/Horde/NLS/tld.php:172
 #: lib/Horde/NLS/GeoIP.php:95
@@ -4577,7 +4577,7 @@ msgstr "Myanmar"
 
 #: templates/maintenance/maintenance.html:57
 msgid "NO, I Do NOT Agree"
-msgstr "EI, ma EI OLE nıus"
+msgstr "EI, ma EI OLE n√µus"
 
 #: lib/Block/vatid.php:99 lib/Horde/MIME/Viewer/tnef.php:37
 #: lib/Horde/MIME/Viewer/vcard.php:102 lib/Horde/Crypt/pgp.php:421
@@ -4619,7 +4619,7 @@ msgstr "Netscape Base URL"
 
 #: lib/Horde/Crypt/smime.php:584
 msgid "Netscape CA Revocation URL"
-msgstr "Netscape CA t¸histuse URL"
+msgstr "Netscape CA t√ºhistuse URL"
 
 #: lib/Horde/Crypt/smime.php:586
 msgid "Netscape CA policy URL"
@@ -4631,7 +4631,7 @@ msgstr "Netscape uuenduse URL"
 
 #: lib/Horde/Crypt/smime.php:583
 msgid "Netscape Revocation URL"
-msgstr "Netscape t¸histuse URL"
+msgstr "Netscape t√ºhistuse URL"
 
 #: lib/Horde/Crypt/smime.php:587
 msgid "Netscape SSL server name"
@@ -4643,11 +4643,11 @@ msgstr "Netscape sertifikaadi kommentaar"
 
 #: lib/Horde/Crypt/smime.php:581
 msgid "Netscape certificate type"
-msgstr "Netscape sertifikaadi t¸¸p"
+msgstr "Netscape sertifikaadi t√º√ºp"
 
 #: config/registry.php.dist:533
 msgid "Network Tools"
-msgstr "Vırgu vahendid"
+msgstr "V√µrgu vahendid"
 
 #: lib/Horde/Crypt/pgp.php:437 templates/portal/layout.inc:97
 #: config/prefs.php.dist:370 config/prefs.php.dist:421
@@ -4684,16 +4684,16 @@ msgstr "Uus-Meremaa"
 
 #: services/changepassword.php:39
 msgid "New password"
-msgstr "Uus salasına"
+msgstr "Uus salas√µna"
 
 #: lib/Horde/Auth/sql.php:249
 #, php-format
 msgid "New password will expire on %s."
-msgstr "Uus salasına aegub %s."
+msgstr "Uus salas√µna aegub %s."
 
 #: services/changepassword.php:54
 msgid "New passwords don't match."
-msgstr "Salasınad peavad klappima."
+msgstr "Salas√µnad peavad klappima."
 
 #: lib/Block/fortune.php:57 config/registry.php.dist:308
 msgid "News"
@@ -4702,19 +4702,19 @@ msgstr "Uudised"
 #: templates/data/tsvinfo.inc:15 templates/data/datemap.inc:41
 #: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
 msgid "Next"
-msgstr "J‰rgmine"
+msgstr "J√§rgmine"
 
 #: lib/Block/moon.php:27
 msgid "Next 4 Phases"
-msgstr "J‰rgmised 4 faasi"
+msgstr "J√§rgmised 4 faasi"
 
 #: lib/Horde/Prefs/UI.php:390 lib/Horde/Prefs/UI.php:394
 msgid "Next options"
-msgstr "J‰rgmised seaded"
+msgstr "J√§rgmised seaded"
 
 #: lib/Horde/UI/Pager.php:106
 msgid "Next>"
-msgstr "J‰rgmine>"
+msgstr "J√§rgmine>"
 
 #: lib/Horde/NLS/countries.php:164 lib/Horde/NLS/tld.php:178
 #: lib/Horde/NLS/GeoIP.php:96
@@ -4733,7 +4733,7 @@ msgstr "Nigeeria"
 
 #: lib/Block/weatherdotcom.php:390
 msgid "Night"
-msgstr "÷ˆ"
+msgstr "√ñ√∂"
 
 #: lib/Horde/NLS/countries.php:167 lib/Horde/NLS/tld.php:183
 #: lib/Horde/NLS/GeoIP.php:97
@@ -4747,7 +4747,7 @@ msgstr "Ei"
 #: lib/Horde/Kolab/Freebusy.php:229
 #, php-format
 msgid "No ACL found for %s"
-msgstr "’igusi ei leitud %s"
+msgstr "√ïigusi ei leitud %s"
 
 #: lib/Horde/UI/VarRenderer/html.php:530 templates/prefs/alarm.inc:26
 msgid "No Sound"
@@ -4755,7 +4755,7 @@ msgstr "Helid puuduvad"
 
 #: templates/admin/setup/diff.html:9
 msgid "No available configuration data to show differences for."
-msgstr "Puuduvad konfiguratsiooniandmed mille erinevusi n‰idata."
+msgstr "Puuduvad konfiguratsiooniandmed mille erinevusi n√§idata."
 
 #: lib/VFS/ISOWriter.php:106
 msgid "No available strategy for making ISO images."
@@ -4777,24 +4777,24 @@ msgstr "Erinevusi ei ole."
 
 #: lib/Horde/Perms/UI.php:155
 msgid "No children can be added to this permission."
-msgstr "Sellele ıigusele ei saa alamaid lisada."
+msgstr "Sellele √µigusele ei saa alamaid lisada."
 
 #: lib/Horde.php:190 lib/Horde.php:541 lib/Horde/Util.php:788
 #, php-format
 msgid "No configuration information specified for %s."
-msgstr "%s h‰‰lestusinfo puudub."
+msgstr "%s h√§√§lestusinfo puudub."
 
 #: lib/VFS/ftp.php:875
 msgid "No configuration information specified for FTP VFS."
-msgstr "FTP VFS h‰‰lestusinfo puudub."
+msgstr "FTP VFS h√§√§lestusinfo puudub."
 
 #: lib/VFS/sql.php:762
 msgid "No configuration information specified for SQL VFS."
-msgstr "SQL VFS h‰‰lestusinfo puudub."
+msgstr "SQL VFS h√§√§lestusinfo puudub."
 
 #: lib/VFS/sql_file.php:742
 msgid "No configuration information specified for SQL-File VFS."
-msgstr "SQL-File VFS h‰‰lestusinfo puudub."
+msgstr "SQL-File VFS h√§√§lestusinfo puudub."
 
 #: lib/VFS/ssh2.php:863
 msgid "No configuration information specified for SSH2 VFS."
@@ -4806,12 +4806,12 @@ msgstr "Krediit on ammendatud."
 
 #: lib/Net/SMS/sms2email_http.php:643
 msgid "No destination supplied."
-msgstr "Sihtkoht m‰‰ramata."
+msgstr "Sihtkoht m√§√§ramata."
 
 #: lib/Horde/Kolab/Freebusy.php:256
 #, php-format
 msgid "No extended ACL value found for %s"
-msgstr "Pikendatud ıiguste v‰‰rtust ei leitud %s"
+msgstr "Pikendatud √µiguste v√§√§rtust ei leitud %s"
 
 #: lib/Horde/Browser.php:976
 msgid "No file uploaded"
@@ -4824,20 +4824,20 @@ msgstr "Ikoone ei leitud."
 #: lib/Block/sunrise.php:40 lib/Block/weatherdotcom.php:139
 #: lib/Block/metar.php:135
 msgid "No location is set."
-msgstr "Asukoht m‰‰ramata."
+msgstr "Asukoht m√§√§ramata."
 
 #: lib/Block/weatherdotcom.php:180
 msgid "No location provided."
-msgstr "Asukoht m‰‰ramata"
+msgstr "Asukoht m√§√§ramata"
 
 #: lib/Horde/Kolab/IMAP.php:1106
 #, php-format
 msgid "No message corresponds to object %s"
-msgstr "‹kski kiri ei vasta objektile %s"
+msgstr "√úkski kiri ei vasta objektile %s"
 
 #: lib/Net/SMS/sms2email_http.php:642
 msgid "No message supplied."
-msgstr "Sınum puudub."
+msgstr "S√µnum puudub."
 
 #: lib/Net/SMS/sms2email_http.php:645
 msgid "No name specified."
@@ -4856,8 +4856,8 @@ msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
 msgstr ""
-"OpenSSL programmi asukoht ei ole m‰‰ratud. OpenSSL programm on vajalik "
-"PKCS#12 andmetega tˆˆtamiseks."
+"OpenSSL programmi asukoht ei ole m√§√§ratud. OpenSSL programm on vajalik "
+"PKCS#12 andmetega t√∂√∂tamiseks."
 
 #: templates/admin/user/approve.inc:6
 msgid "No pending signups."
@@ -4874,11 +4874,11 @@ msgstr "Korduvus puudub"
 #: lib/Horde/Kolab/Freebusy.php:205
 #, php-format
 msgid "No relevance value found for %s"
-msgstr "Asjakohast v‰‰rtust ei leitud %s"
+msgstr "Asjakohast v√§√§rtust ei leitud %s"
 
 #: lib/File/CSV.php:489
 msgid "No separator specified."
-msgstr "Eraldaja pole m‰‰ratud."
+msgstr "Eraldaja pole m√§√§ratud."
 
 #: admin/setup/index.php:144
 msgid "No stable version exists yet."
@@ -4899,7 +4899,7 @@ msgstr "Puhverdamiseks puudub ajutine kataloog."
 
 #: lib/Net/SMS/win_http.php:230 lib/Net/SMS/sms2email_http.php:640
 msgid "No username and/or password sent."
-msgstr "Kasutajanime ja/vıi salasına ei saadetud."
+msgstr "Kasutajanime ja/v√µi salas√µna ei saadetud."
 
 #: lib/Horde/RPC/phpgw.php:170
 msgid "No valid XML data returned"
@@ -4910,7 +4910,7 @@ msgstr "Ei tagastatud korrektseid XML andmeid"
 #: lib/Horde/UI/VarRenderer/html.php:1081
 #: lib/Horde/UI/VarRenderer/html.php:1098
 msgid "No values"
-msgstr "V‰‰rtused puuduvad"
+msgstr "V√§√§rtused puuduvad"
 
 #: admin/setup/index.php:163
 msgid "No version found in original configuration. Regenerate configuration."
@@ -4923,11 +4923,11 @@ msgstr "Sinu konfiguratsioon ei sisalda versiooni. Loo konfiguratsioon uuesti."
 
 #: lib/Horde/Crypt/pgp.php:439 templates/prefs/identityselect.inc:93
 msgid "None"
-msgstr "M‰‰ramata"
+msgstr "M√§√§ramata"
 
 #: config/nls.php.dist:233
 msgid "Nordic (ISO-8859-10)"
-msgstr "Pıhjamaad (ISO-8859-10)"
+msgstr "P√µhjamaad (ISO-8859-10)"
 
 #: lib/Horde/NLS/countries.php:168 lib/Horde/NLS/tld.php:176
 #: lib/Horde/NLS/GeoIP.php:96
@@ -4936,12 +4936,12 @@ msgstr "Norfolki saar"
 
 #: lib/Block/moon.php:32 lib/Block/moon.php:60
 msgid "Northern Hemisphere"
-msgstr "Pıhjapoolkera"
+msgstr "P√µhjapoolkera"
 
 #: lib/Horde/NLS/countries.php:169 lib/Horde/NLS/tld.php:162
 #: lib/Horde/NLS/GeoIP.php:93
 msgid "Northern Mariana Islands"
-msgstr "Pıhja-Mariaani saared"
+msgstr "P√µhja-Mariaani saared"
 
 #: lib/Horde/NLS/countries.php:170 lib/Horde/NLS/tld.php:180
 #: lib/Horde/NLS/GeoIP.php:97
@@ -4979,7 +4979,7 @@ msgstr "Ei ole toetatud."
 #: lib/Horde/Kolab.php:690 lib/Horde/MIME/Viewer/vcard.php:248
 #: lib/Horde/Share/kolab.php:549 config/registry.php.dist:193
 msgid "Notes"
-msgstr "M‰rkmed"
+msgstr "M√§rkmed"
 
 #: services/obrowser/index.php:38
 msgid "Nothing to browse, go back."
@@ -4996,7 +4996,7 @@ msgstr "Arv"
 
 #: lib/Horde/Form.php:1428
 msgid "Number of characters"
-msgstr "M‰rkide arv"
+msgstr "M√§rkide arv"
 
 #: lib/Horde/Form.php:1372 lib/Horde/Form.php:1426 lib/Horde/Form.php:1537
 msgid "Number of columns"
@@ -5008,11 +5008,11 @@ msgstr "Ridade arv"
 
 #: lib/Net/SMS/sms2email_http.php:653
 msgid "Numbers not specified for updating in distribution list."
-msgstr "Jaotusnimekirjas muutmisele kuuluvad numbrid pole m‰‰ratud."
+msgstr "Jaotusnimekirjas muutmisele kuuluvad numbrid pole m√§√§ratud."
 
 #: services/keyboard.php:94
 msgid "O characters"
-msgstr "O t‰ht"
+msgstr "O t√§ht"
 
 #: lib/Horde/UI/VarRenderer/html.php:925
 msgid "Object"
@@ -5041,11 +5041,11 @@ msgstr "Viisakuse aste"
 
 #: config/registry.php.dist:330
 msgid "Office"
-msgstr "Kontoritˆˆ"
+msgstr "Kontorit√∂√∂"
 
 #: services/changepassword.php:60
 msgid "Old and new passwords must be different."
-msgstr "Vana ja uus salasına peavad olema erinevad."
+msgstr "Vana ja uus salas√µna peavad olema erinevad."
 
 #: lib/Horde/Kolab/IMAP.php:410
 #, php-format
@@ -5059,11 +5059,11 @@ msgstr "Vana object %s ei ole seotud uid'ga."
 
 #: services/changepassword.php:38
 msgid "Old password"
-msgstr "Praegune salasına"
+msgstr "Praegune salas√µna"
 
 #: services/changepassword.php:48
 msgid "Old password is not correct."
-msgstr "Praegune salasına ei ole ıige."
+msgstr "Praegune salas√µna ei ole √µige."
 
 #: lib/Horde/NLS/countries.php:171 lib/Horde/NLS/tld.php:185
 #: lib/Horde/NLS/GeoIP.php:98
@@ -5072,11 +5072,11 @@ msgstr "Omaan"
 
 #: lib/Horde/Form.php:1971
 msgid "Onclick event"
-msgstr "Vajutamise s¸ndmus"
+msgstr "Vajutamise s√ºndmus"
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:73
 msgid "Only IMAP servers support shared folders."
-msgstr "‹hiskaustu vıimaldavad ainult IMAP serverid."
+msgstr "√úhiskaustu v√µimaldavad ainult IMAP serverid."
 
 #: lib/Block/fortune.php:100
 msgid "Only offensive fortunes"
@@ -5084,18 +5084,18 @@ msgstr "Ainult ebaviisakad killud"
 
 #: lib/Horde/Form.php:2467
 msgid "Only one email address allowed."
-msgstr "Lubatud on ainult ¸ks e-posti aadress."
+msgstr "Lubatud on ainult √ºks e-posti aadress."
 
 #: lib/Horde/Form.php:2018
 msgid "Only one email address is allowed."
-msgstr "Lubatud on ainult ¸ks maili aadress."
+msgstr "Lubatud on ainult √ºks maili aadress."
 
 #: services/shares/edit.php:77
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Jao omanikku vıi omaniku ıigusi saab muuta ainult omanik vıi s¸steemi "
+"Jao omanikku v√µi omaniku √µigusi saab muuta ainult omanik v√µi s√ºsteemi "
 "administraator."
 
 #: lib/Block/iframe.php:41
@@ -5108,7 +5108,7 @@ msgstr "OpenSSL viga: Andmete eraldamine allkirjastatud S/MIME osast nurjus."
 
 #: lib/Block/fortune.php:58
 msgid "Operating System"
-msgstr "Operatsioonis¸steem"
+msgstr "Operatsioonis√ºsteem"
 
 #: services/portal/sidebar.php:141
 msgid "Options"
@@ -5125,7 +5125,7 @@ msgstr "Organisatsioon"
 
 #: lib/Horde/Crypt/smime.php:569
 msgid "Organisational Unit"
-msgstr "All¸ksus"
+msgstr "All√ºksus"
 
 #: config/registry.php.dist:124
 msgid "Organizing"
@@ -5143,16 +5143,16 @@ msgstr "Muu info"
 
 #: services/keyboard.php:124
 msgid "Other characters"
-msgstr "Teised t‰hed"
+msgstr "Teised t√§hed"
 
 #: templates/shares/edit.inc:32
 msgid "Owner Permissions"
-msgstr "Omaniku ıigused"
+msgstr "Omaniku √µigused"
 
 #: lib/Horde/Share/kolab.php:976
 #, php-format
 msgid "Owner of folder %s cannot be determined."
-msgstr "Kausta %s omaniku ei ınnestunud kindlaks teha."
+msgstr "Kausta %s omaniku ei √µnnestunud kindlaks teha."
 
 #: templates/shares/edit.inc:43 templates/shares/edit.inc:54
 msgid "Owner:"
@@ -5172,15 +5172,15 @@ msgstr "PGP digitaalallkiri"
 
 #: lib/Horde/Crypt/pgp.php:1471
 msgid "PGP Encrypted Data"
-msgstr "PGP kr¸ptitud andmed"
+msgstr "PGP kr√ºptitud andmed"
 
 #: lib/Horde/Crypt/pgp.php:1523
 msgid "PGP Public Key"
-msgstr "PGP avalik vıti"
+msgstr "PGP avalik v√µti"
 
 #: lib/Horde/Crypt/pgp.php:1505
 msgid "PGP Signed/Encrypted Data"
-msgstr "PGP allkirjastatud/kr¸ptitud andmed"
+msgstr "PGP allkirjastatud/kr√ºptitud andmed"
 
 #: admin/phpshell.php:75
 msgid "PHP"
@@ -5192,7 +5192,7 @@ msgstr "PHP kood"
 
 #: admin/phpshell.php:20 admin/phpshell.php:37
 msgid "PHP Shell"
-msgstr "PHP k‰surida"
+msgstr "PHP k√§surida"
 
 #: lib/Block/weatherdotcom_strings.php:48
 msgid "PM Clouds"
@@ -5232,11 +5232,11 @@ msgstr "PL tihe lumesadu"
 
 #: lib/Block/weatherdotcom_strings.php:57
 msgid "PM Sun"
-msgstr "PL p‰ike"
+msgstr "PL p√§ike"
 
 #: lib/Block/weatherdotcom_strings.php:58
 msgid "PM T-Storms"
-msgstr "PL ‰ikesetorm"
+msgstr "PL √§ikesetorm"
 
 #: lib/Block/account.php:289
 msgid "POSIX extension is missing"
@@ -5244,7 +5244,7 @@ msgstr "POSIX laiendus puudub"
 
 #: lib/api.php:221
 msgid "P_HP Shell"
-msgstr "P_HP k‰surida"
+msgstr "P_HP k√§surida"
 
 #: lib/Horde/NLS/countries.php:172 lib/Horde/NLS/tld.php:191
 #: lib/Horde/NLS/GeoIP.php:99
@@ -5286,36 +5286,36 @@ msgstr "Vahelduv pilvisus"
 #: templates/admin/user/update.inc:44 templates/login/login.inc:64
 #: config/registry.php.dist:434
 msgid "Password"
-msgstr "Salasına"
+msgstr "Salas√µna"
 
 #: services/changepassword.php:84
 msgid "Password changed successfully."
-msgstr "Salasına muudetud."
+msgstr "Salas√µna muudetud."
 
 #: lib/Horde/Crypt/smime.php:1324
 msgid "Password incorrect"
-msgstr "Vale salasına"
+msgstr "Vale salas√µna"
 
 #: lib/Horde/Auth/radius.php:157
 msgid "Password required for RADIUS authentication."
-msgstr "RADIUS autentimiseks on vajalik salasına."
+msgstr "RADIUS autentimiseks on vajalik salas√µna."
 
 #: lib/Horde/Form.php:2544
 msgid "Password with confirmation"
-msgstr "Salasına kinnitusega"
+msgstr "Salas√µna kinnitusega"
 
 #: templates/rpcsum/rpcsum.inc:81
 msgid "Password:"
-msgstr "Salasına:"
+msgstr "Salas√µna:"
 
 #: templates/login/mobile.inc:11
 msgid "Password: "
-msgstr "Salasına: "
+msgstr "Salas√µna: "
 
 #: admin/user.php:160 lib/Horde/Form.php:2526
 #: templates/admin/user/update.inc:15
 msgid "Passwords must match."
-msgstr "Salasınad peavad klappima."
+msgstr "Salas√µnad peavad klappima."
 
 #: admin/sqlshell.php:122
 msgid "Paste"
@@ -5331,33 +5331,33 @@ msgstr "Inimesed"
 
 #: templates/maintenance/maintenance.html:49
 msgid "Perform Maintenance Operations"
-msgstr "K‰ivita hooldustˆˆd"
+msgstr "K√§ivita hooldust√∂√∂d"
 
 #: config/prefs.php.dist:441
 msgid "Perform maintenance operations on login?"
-msgstr "Tee sisselogimisel hooldustˆid"
+msgstr "Tee sisselogimisel hooldust√∂id"
 
 #: lib/Horde/Perms/UI.php:155
 msgid "Permission"
-msgstr "’igus"
+msgstr "√ïigus"
 
 #: admin/perms/delete.php:53
 #, php-format
 msgid "Permission \"%s\" not deleted."
-msgstr "’igust \"%s\" ei kustutatud."
+msgstr "√ïigust \"%s\" ei kustutatud."
 
 #: lib/VFS/smb.php:583
 msgid "Permission Denied"
-msgstr "Juurdep‰‰s keelatud"
+msgstr "Juurdep√§√§s keelatud"
 
 #: lib/Horde/Perms/UI.php:160 lib/Horde/Perms/UI.php:163
 msgid "Permissions"
-msgstr "’igused"
+msgstr "√ïigused"
 
 #: admin/perms/index.php:23 admin/perms/addchild.php:61
 #: admin/perms/edit.php:110 admin/perms/delete.php:59
 msgid "Permissions Administration"
-msgstr "’iguste haldus"
+msgstr "√ïiguste haldus"
 
 #: config/prefs.php.dist:81
 msgid "Personal Information"
@@ -5403,7 +5403,7 @@ msgstr "Kirja tekstikuju"
 
 #: lib/Block/fortune.php:61
 msgid "Platitudes"
-msgstr "Mıttetused"
+msgstr "M√µttetused"
 
 #: lib/Horde/Form.php:3554
 msgid "Please choose a sound."
@@ -5423,7 +5423,7 @@ msgstr "Sisesta korrektne IP aadress."
 
 #: lib/Horde/Form.php:3172
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr "Sisesta korrektne kuup‰ev, kontrolli p‰evade arvu kuus."
+msgstr "Sisesta korrektne kuup√§ev, kontrolli p√§evade arvu kuus."
 
 #: lib/Horde/Form.php:2970
 msgid "Please enter a valid time."
@@ -5435,14 +5435,14 @@ msgstr "Kirjelda probleemi."
 
 #: templates/login/login.inc:17 templates/login/login.inc:21
 msgid "Please provide your username and password"
-msgstr "Sisesta oma kasutajanimi ja salasına"
+msgstr "Sisesta oma kasutajanimi ja salas√µna"
 
 #: services/maintenance.php:59
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Loe j‰rgnev tekst l‰bi. S¸steemi kasutamiseks PEAD tingimustega nıustuma."
+"Loe j√§rgnev tekst l√§bi. S√ºsteemi kasutamiseks PEAD tingimustega n√µustuma."
 
 #: lib/Horde/Prefs/CategoryManager.php:78
 msgid "Please type the new category name:"
@@ -5459,11 +5459,11 @@ msgstr "Poliitika"
 
 #: config/registry.php.dist:489
 msgid "Polls"
-msgstr "K¸sitlused"
+msgstr "K√ºsitlused"
 
 #: lib/Horde/Alarm.php:451
 msgid "Popup Notification"
-msgstr "H¸pik teavitamine"
+msgstr "H√ºpik teavitamine"
 
 #: lib/Net/SMS/generic_smpp.php:102
 msgid "Port"
@@ -5492,7 +5492,7 @@ msgstr "Viimase %s tunni sademed: "
 
 #: lib/Block/weatherdotcom.php:309
 msgid "Precipitation<br />chance"
-msgstr "Sademete<br />tıen‰osus"
+msgstr "Sademete<br />t√µen√§osus"
 
 #: lib/Horde/Prefs/ldap.php:139
 msgid "Prefs_ldap: Required LDAP extension not found."
@@ -5500,15 +5500,15 @@ msgstr "Prefs_ldap: Vajalikku LDAP laiendust ei leitud."
 
 #: lib/Block/metar.php:232
 msgid "Pressure"
-msgstr "’hurıhk"
+msgstr "√ïhur√µhk"
 
 #: lib/Block/metar.php:266
 msgid "Pressure at sea level: "
-msgstr "’hurıhk merepinnal:"
+msgstr "√ïhur√µhk merepinnal:"
 
 #: lib/Block/weatherdotcom.php:247
 msgid "Pressure: "
-msgstr "’hurıhk:"
+msgstr "√ïhur√µhk:"
 
 #: lib/Horde/UI/VarRenderer/html.php:210
 #: lib/Horde/UI/VarRenderer/html.php:1453
@@ -5521,7 +5521,7 @@ msgstr "Eelmised seaded"
 
 #: lib/Horde/Crypt/pgp.php:435
 msgid "Private Key"
-msgstr "Salajane vıti"
+msgstr "Salajane v√µti"
 
 #: lib/Horde/Menu.php:168
 msgid "Problem"
@@ -5546,19 +5546,19 @@ msgstr "Kaitse aadressi spammi eest?"
 
 #: lib/Horde/Crypt/pgp.php:435
 msgid "Public Key"
-msgstr "Avalik vıti"
+msgstr "Avalik v√µti"
 
 #: lib/Horde/Crypt/smime.php:646
 msgid "Public Key Algorithm"
-msgstr "Avaliku vıtme algoritm"
+msgstr "Avaliku v√µtme algoritm"
 
 #: lib/Horde/Crypt/smime.php:645
 msgid "Public Key Info"
-msgstr "Avaliku vıtme info"
+msgstr "Avaliku v√µtme info"
 
 #: lib/Horde/Crypt/pgp.php:240
 msgid "Public/Private keypair not generated successfully."
-msgstr "Vıtmepaari genereerimine ei ınnestunud."
+msgstr "V√µtmepaari genereerimine ei √µnnestunud."
 
 #: lib/Horde/NLS/countries.php:183 lib/Horde/NLS/tld.php:195
 #: lib/Horde/NLS/GeoIP.php:100
@@ -5584,7 +5584,7 @@ msgstr "Katar"
 
 #: admin/sqlshell.php:65
 msgid "Query"
-msgstr "P‰ring"
+msgstr "P√§ring"
 
 #: lib/Block/account.php:85
 msgid "Quota"
@@ -5593,7 +5593,7 @@ msgstr "Piirang"
 #: lib/Horde/Crypt/smime.php:664
 #, php-format
 msgid "RSA Public Key (%d bit)"
-msgstr "RSA avalik vıti (%d bitti)"
+msgstr "RSA avalik v√µti (%d bitti)"
 
 #: lib/Horde/Form.php:2773
 msgid "Radio selection"
@@ -5609,7 +5609,7 @@ msgstr "Hommikul vihm"
 
 #: lib/Block/weatherdotcom_strings.php:61
 msgid "Rain Late"
-msgstr "’htul vihm"
+msgstr "√ïhtul vihm"
 
 #: lib/Block/weatherdotcom_strings.php:62
 msgid "Rain Shower"
@@ -5650,14 +5650,14 @@ msgstr "Loe kirju"
 #: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
-msgstr "Kas tıesti kustutada \"%s\"? See toiming on pˆˆrdumatu."
+msgstr "Kas t√µesti kustutada \"%s\"? See toiming on p√∂√∂rdumatu."
 
 #: templates/admin/user/clear.inc:8
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Kas tıesti kustutada kasutaja \"%s\" andmed? See toiming on pˆˆrdumatu."
+"Kas t√µesti kustutada kasutaja \"%s\" andmed? See toiming on p√∂√∂rdumatu."
 
 #: admin/sessions.php:54
 msgid "Realm:"
@@ -5665,19 +5665,19 @@ msgstr "Valdus:"
 
 #: services/portal/syncml.php:112
 msgid "Refresh"
-msgstr "V‰rskenda"
+msgstr "V√§rskenda"
 
 #: config/prefs.php.dist:426
 msgid "Refresh Dynamic Menu Elements:"
-msgstr "V‰rskenda d¸naamilised men¸¸ elemendid:"
+msgstr "V√§rskenda d√ºnaamilised men√º√º elemendid:"
 
 #: config/prefs.php.dist:376
 msgid "Refresh Portal View:"
-msgstr "V‰rskenda portaali vaade:"
+msgstr "V√§rskenda portaali vaade:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
-msgstr "V‰rskendamise kiirus:"
+msgstr "V√§rskendamise kiirus:"
 
 #: lib/Horde/Form.php:1202 lib/Horde/Form.php:1222
 msgid "Regex"
@@ -5698,19 +5698,19 @@ msgstr "Lae uuesti"
 
 #: lib/Block/metar.php:333
 msgid "Remarks"
-msgstr "M‰rkused"
+msgstr "M√§rkused"
 
 #: admin/sessions.php:55 admin/sessions.php:60
 msgid "Remote Host:"
-msgstr "V‰line vıırustaja:"
+msgstr "V√§line v√µ√µrustaja:"
 
 #: config/prefs.php.dist:130
 msgid "Remote Servers"
-msgstr "V‰lised serverid"
+msgstr "V√§lised serverid"
 
 #: templates/rpcsum/rpcsum.inc:75
 msgid "Remote URL (http://www.example.com/horde):"
-msgstr "V‰line URL (http://www.example.com/horde):"
+msgstr "V√§line URL (http://www.example.com/horde):"
 
 #: lib/Horde/UI/VarRenderer/html.php:608 templates/admin/groups/edit.inc:22
 #: templates/admin/user/approve.inc:28
@@ -5737,7 +5737,7 @@ msgstr "Kustuta kasutaja: %s"
 
 #: lib/Horde/RPC/phpgw.php:168
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "P‰ringule polnud vıimalik vastata. Tagastati veakood: "
+msgstr "P√§ringule polnud v√µimalik vastata. Tagastati veakood: "
 
 #: lib/Block/weatherdotcom.php:168
 msgid "Requested service could not be found."
@@ -5761,29 +5761,29 @@ msgstr "Vajalik \"%s\" puudub seadistuses."
 
 #: lib/Horde/Form/Renderer.php:334
 msgid "Required Field"
-msgstr "Kohustuslik v‰li"
+msgstr "Kohustuslik v√§li"
 
 #: lib/Horde/Form.php:627
 msgid "Required secret is invalid - potentially malicious request."
-msgstr "Nıutud saladus on kehtetu - vıimalik pahatahtlik p‰ring."
+msgstr "N√µutud saladus on kehtetu - v√µimalik pahatahtlik p√§ring."
 
 #: admin/user.php:32 lib/Horde/Form.php:352
 #: lib/Horde/UI/VarRenderer/html.php:227 lib/Horde/Form/Renderer.php:319
 #: templates/admin/user/update.inc:78 templates/rpcsum/rpcsum.inc:91
 msgid "Reset"
-msgstr "T¸hjenda"
+msgstr "T√ºhjenda"
 
 #: services/resetpassword.php:50
 msgid "Reset Password"
-msgstr "Muuda salasına"
+msgstr "Muuda salas√µna"
 
 #: services/resetpassword.php:30
 msgid "Reset Your Password"
-msgstr "Unustasin oma salasına"
+msgstr "Unustasin oma salas√µna"
 
 #: admin/sqlshell.php:134
 msgid "Restore Last Query"
-msgstr "Taasta eelmine p‰ring"
+msgstr "Taasta eelmine p√§ring"
 
 #: admin/cmdshell.php:29 admin/phpshell.php:68 admin/sqlshell.php:68
 msgid "Results"
@@ -5800,7 +5800,7 @@ msgstr "Tagasi seadistusse"
 
 #: services/changepassword.php:40
 msgid "Retype new password"
-msgstr "Korda uut salasına"
+msgstr "Korda uut salas√µna"
 
 #: lib/Horde/NLS/countries.php:185 lib/Horde/NLS/GeoIP.php:102
 msgid "Reunion"
@@ -5808,11 +5808,11 @@ msgstr "Reunion"
 
 #: lib/Horde/NLS/tld.php:201
 msgid "Reunion Island"
-msgstr "Lihavıttesaar"
+msgstr "Lihav√µttesaar"
 
 #: admin/setup/config.php:45 admin/setup/config.php:49
 msgid "Revert Configuration"
-msgstr "Vıta konfiguratsioon tagasi"
+msgstr "V√µta konfiguratsioon tagasi"
 
 #: config/prefs.php.dist:148
 msgid "Rich Text Editor Options"
@@ -5820,19 +5820,19 @@ msgstr "Rich Text Editori seadistus"
 
 #: lib/Block/fortune.php:63
 msgid "Riddles"
-msgstr "Mıistatused"
+msgstr "M√µistatused"
 
 #: config/prefs.php.dist:544
 msgid "Right click context menu"
-msgstr "Luba paremklıpsuga h¸pikmen¸¸"
+msgstr "Luba paremkl√µpsuga h√ºpikmen√º√º"
 
 #: lib/Horde/Form.php:3836
 msgid "Right header"
-msgstr "Parem p‰is"
+msgstr "Parem p√§is"
 
 #: lib/Horde/Form.php:3832
 msgid "Right values"
-msgstr "Paremad v‰‰rtused"
+msgstr "Paremad v√§√§rtused"
 
 #: lib/Horde/MIME/Viewer/vcard.php:237
 msgid "Role"
@@ -5845,24 +5845,24 @@ msgstr "Rumeenia"
 
 #: lib/Horde/UI/VarRenderer/html.php:233
 msgid "Rotate 180"
-msgstr "Pˆˆra 180"
+msgstr "P√∂√∂ra 180"
 
 #: lib/Horde/UI/VarRenderer/html.php:230
 msgid "Rotate Left"
-msgstr "Pˆˆra vasakule"
+msgstr "P√∂√∂ra vasakule"
 
 #: lib/Horde/UI/VarRenderer/html.php:236
 msgid "Rotate Right"
-msgstr "Pˆˆra paremale"
+msgstr "P√∂√∂ra paremale"
 
 #: admin/sqlshell.php:123
 msgid "Run"
-msgstr "K‰ivita"
+msgstr "K√§ivita"
 
 #: lib/Horde/NLS/countries.php:187 lib/Horde/NLS/tld.php:204
 #: lib/Horde/NLS/GeoIP.php:103
 msgid "Russian Federation"
-msgstr "Vene Fˆderatsioon"
+msgstr "Vene F√∂deratsioon"
 
 #: lib/Horde/NLS/countries.php:188 lib/Horde/NLS/tld.php:205
 #: lib/Horde/NLS/GeoIP.php:103
@@ -5871,11 +5871,11 @@ msgstr "Ruanda"
 
 #: lib/Horde/Crypt/smime.php:285
 msgid "S/MIME Cryptographic Signature"
-msgstr "S/MIME kr¸ptograafiline allkiri"
+msgstr "S/MIME kr√ºptograafiline allkiri"
 
 #: lib/Horde/Crypt/smime.php:323
 msgid "S/MIME Encrypted Message"
-msgstr "S/MIME kr¸ptitud kiri"
+msgstr "S/MIME kr√ºptitud kiri"
 
 #: lib/Horde/Auth/peclsasl.php:82
 msgid "SASL authentication is not available."
@@ -5883,19 +5883,19 @@ msgstr "SASL autentimine ei ole saadaval."
 
 #: lib/Net/SMS/generic_smpp.php:86
 msgid "SMPP Gateway"
-msgstr "SMPP L¸¸s"
+msgstr "SMPP L√º√ºs"
 
 #: config/registry.php.dist:507
 msgid "SMS Messaging"
-msgstr "SMS l¸hisınumid"
+msgstr "SMS l√ºhis√µnumid"
 
 #: admin/sqlshell.php:21 admin/sqlshell.php:28
 msgid "SQL Shell"
-msgstr "SQL k‰surida"
+msgstr "SQL k√§surida"
 
 #: lib/Horde/Form.php:4001
 msgid "SQL statement for value lookups"
-msgstr "SQL avaldis v‰‰rtuste leidmiseks"
+msgstr "SQL avaldis v√§√§rtuste leidmiseks"
 
 #: config/registry.php.dist:442
 msgid "SSH"
@@ -5903,11 +5903,11 @@ msgstr "SSH"
 
 #: lib/Horde/Notification/Listener/mobile.php:35
 msgid "SUCCESS"
-msgstr "’NNESTUS"
+msgstr "√ïNNESTUS"
 
 #: lib/api.php:225
 msgid "S_QL Shell"
-msgstr "S_QL k‰surida"
+msgstr "S_QL k√§surida"
 
 #: templates/javascript/open_calendar.js:53
 msgid "Sa"
@@ -5977,7 +5977,7 @@ msgstr "Salvesta seadistus"
 
 #: templates/shares/edit.inc:323
 msgid "Save and Finish"
-msgstr "Salvesta ja Lıppeta"
+msgstr "Salvesta ja L√µppeta"
 
 #: admin/setup/index.php:210
 msgid ""
@@ -6003,7 +6003,7 @@ msgstr "Scattered Showers"
 
 #: lib/Block/weatherdotcom_strings.php:66
 msgid "Scattered T-Storms"
-msgstr "Hajusad ‰ikeshood"
+msgstr "Hajusad √§ikeshood"
 
 #: lib/Block/fortune.php:64
 msgid "Science"
@@ -6031,7 +6031,7 @@ msgstr "Vali failid"
 
 #: lib/Horde/UI/VarRenderer/html.php:506
 msgid "Select a date"
-msgstr "Vali kuup‰ev"
+msgstr "Vali kuup√§ev"
 
 #: templates/shares/edit.inc:290 templates/shares/edit.inc:292
 msgid "Select a group to add:"
@@ -6052,11 +6052,11 @@ msgstr "Vali lisatav kasutaja:"
 #: lib/Horde/UI/VarRenderer/html.php:730
 #: lib/Horde/UI/VarRenderer/tableset_html.php:23
 msgid "Select all"
-msgstr "Vali kıik"
+msgstr "Vali k√µik"
 
 #: lib/Horde/Form.php:3175
 msgid "Select all date components."
-msgstr "Vali kıik kuup‰eva koostisosad."
+msgstr "Vali k√µik kuup√§eva koostisosad."
 
 #: services/editor/xinha/plugins/AnselImage/insert_image.php:146
 msgid "Select an image"
@@ -6073,29 +6073,29 @@ msgstr "Vali redaktori plugin"
 #: lib/Horde/UI/VarRenderer/html.php:731
 #: lib/Horde/UI/VarRenderer/tableset_html.php:24
 msgid "Select none"
-msgstr "ƒra vali midagi"
+msgstr "√Ñra vali midagi"
 
 #: services/keyboard.php:40
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
-msgstr "Vali vajalikud m‰rgid kastidest. Siis saad need kopeerida kirja sisse."
+msgstr "Vali vajalikud m√§rgid kastidest. Siis saad need kopeerida kirja sisse."
 
 #: templates/data/datetime.inc:55
 msgid "Select the date and time format:"
-msgstr "Vali kuup‰eva esitusviis:"
+msgstr "Vali kuup√§eva esitusviis:"
 
 #: templates/data/datetime.inc:74 templates/data/date.inc:34
 msgid "Select the date delimiter:"
-msgstr "Vali kuup‰eva eraldaja:"
+msgstr "Vali kuup√§eva eraldaja:"
 
 #: templates/data/datetime.inc:84 templates/data/date.inc:44
 msgid "Select the date format:"
-msgstr "Vali kuup‰eva esitusviis:"
+msgstr "Vali kuup√§eva esitusviis:"
 
 #: templates/data/datetime.inc:64
 msgid "Select the day and time order:"
-msgstr "Vali n‰dala esitusviis:"
+msgstr "Vali n√§dala esitusviis:"
 
 #: templates/prefs/identityselect.inc:91
 msgid "Select the identity you want to change:"
@@ -6111,7 +6111,7 @@ msgstr "Vali kellaaja esitusviis:"
 
 #: config/prefs.php.dist:341
 msgid "Select your color scheme."
-msgstr "Vali v‰rviskeem."
+msgstr "Vali v√§rviskeem."
 
 #: config/prefs.php.dist:270
 msgid "Select your preferred language:"
@@ -6119,7 +6119,7 @@ msgstr "Vali oma lemmikkeel:"
 
 #: admin/setup/scripts.php:88
 msgid "Self-destructing..."
-msgstr "Enese h‰vitus..."
+msgstr "Enese h√§vitus..."
 
 #: templates/problem/problem.inc:51
 msgid "Send Problem Report"
@@ -6158,11 +6158,11 @@ msgstr "Serbia ja Montenegro"
 
 #: lib/Horde/Crypt/smime.php:702
 msgid "Serial Number"
-msgstr "J‰rjenumber"
+msgstr "J√§rjenumber"
 
 #: lib/Block/weatherdotcom.php:172
 msgid "Server data wrong or not available."
-msgstr "Serveri andmed on valed vıi puuduvad."
+msgstr "Serveri andmed on valed v√µi puuduvad."
 
 #: admin/sessions.php:28
 msgid "Session Admin"
@@ -6187,22 +6187,22 @@ msgstr "Hulk"
 #: config/prefs.php.dist:92
 msgid "Set options to allow you to reset your password if you ever forget it."
 msgstr ""
-"M‰‰ra andmed mis vıimaldavad sul oma parooli ‰ra muuta kui sa selle unustad."
+"M√§√§ra andmed mis v√µimaldavad sul oma parooli √§ra muuta kui sa selle unustad."
 
 #: config/prefs.php.dist:131
 msgid "Set up remote servers that you want to access from your portal."
-msgstr "Seadista v‰lised serverid mida soovid oma portaalis kasutada."
+msgstr "Seadista v√§lised serverid mida soovid oma portaalis kasutada."
 
 #: config/prefs.php.dist:100
 msgid "Set your preferred language, timezone and date options."
-msgstr "Pane paika oma keele, ajavˆˆndi ja kuup‰eva seadistus."
+msgstr "Pane paika oma keele, ajav√∂√∂ndi ja kuup√§eva seadistus."
 
 #: config/prefs.php.dist:114
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"M‰‰ra oma algrakendus, v‰rviskeem, lehek¸lje v‰rskendamise sagedus ja muud  "
+"M√§√§ra oma algrakendus, v√§rviskeem, lehek√ºlje v√§rskendamise sagedus ja muud  "
 "esituse seaded."
 
 #: admin/setup/config.php:78
@@ -6215,7 +6215,7 @@ msgstr "Olemasolevad paigalduse uuendamise skriptid"
 
 #: lib/Block/weatherdotcom.php:198
 msgid "Several locations possible with the parameter: "
-msgstr "Parameeter m‰‰rab mitu vıimalikku asukohta: "
+msgstr "Parameeter m√§√§rab mitu v√µimalikku asukohta: "
 
 #: lib/Horde/NLS/countries.php:200 lib/Horde/NLS/tld.php:208
 #: lib/Horde/NLS/GeoIP.php:104
@@ -6242,11 +6242,11 @@ msgstr "Ostlemine"
 
 #: templates/problem/problem.inc:38
 msgid "Short Summary"
-msgstr "L¸hikokkuvıte"
+msgstr "L√ºhikokkuv√µte"
 
 #: config/prefs.php.dist:481
 msgid "Should access keys be defined for most links?"
-msgstr "Kas enamusele linkidele tuleks m‰‰rata kiirklahvid?"
+msgstr "Kas enamusele linkidele tuleks m√§√§rata kiirklahvid?"
 
 #: lib/Horde/Perms.php:323 templates/shares/edit.inc:34
 #: templates/shares/edit.inc:60 templates/shares/edit.inc:84
@@ -6257,42 +6257,42 @@ msgstr "Kas enamusele linkidele tuleks m‰‰rata kiirklahvid?"
 #: templates/shares/edit.inc:260 templates/shares/edit.inc:271
 #: templates/shares/edit.inc:300
 msgid "Show"
-msgstr "N‰ita"
+msgstr "N√§ita"
 
 #: admin/setup/index.php:198
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
-msgstr "N‰ita olemasoleva ja ‰sja genereeritud konfiguratsiooni erinevusi."
+msgstr "N√§ita olemasoleva ja √§sja genereeritud konfiguratsiooni erinevusi."
 
 #: lib/Horde/Form.php:3710
 msgid "Show icon?"
-msgstr "N‰ita ikoone?"
+msgstr "N√§ita ikoone?"
 
 #: config/prefs.php.dist:516
 msgid "Show last login time when logging in?"
-msgstr "N‰ita sisselogimisel eelmise sisselogimise aega"
+msgstr "N√§ita sisselogimisel eelmise sisselogimise aega"
 
 #: lib/Horde/Form.php:1903
 msgid "Show option to keep original?"
-msgstr "Paku vıimalust originaali s‰ilitamiseks?"
+msgstr "Paku v√µimalust originaali s√§ilitamiseks?"
 
 #: lib/Horde/Form.php:3328 lib/Horde/Form.php:3488
 msgid "Show picker?"
-msgstr "N‰ita valijat?"
+msgstr "N√§ita valijat?"
 
 #: lib/Horde/Form.php:3060 lib/Horde/Form.php:3494
 msgid "Show seconds?"
-msgstr "N‰ita sekundeid?"
+msgstr "N√§ita sekundeid?"
 
 #: config/prefs.php.dist:384
 #, php-format
 msgid "Show the %s Menu on the left?"
-msgstr "N‰ita vasakul %s men¸¸d"
+msgstr "N√§ita vasakul %s men√º√ºd"
 
 #: lib/Horde/Form.php:1901
 msgid "Show upload?"
-msgstr "N‰ita uploadi?"
+msgstr "N√§ita uploadi?"
 
 #: lib/Block/weatherdotcom_strings.php:67
 msgid "Showers"
@@ -6304,11 +6304,11 @@ msgstr "Hommikul hoovihmad"
 
 #: lib/Block/weatherdotcom_strings.php:69
 msgid "Showers Late"
-msgstr "’htul hoovihmad"
+msgstr "√ïhtul hoovihmad"
 
 #: lib/Block/weatherdotcom_strings.php:70
 msgid "Showers in the Vicinity"
-msgstr "Hoovihmad ¸mbruskonnas"
+msgstr "Hoovihmad √ºmbruskonnas"
 
 #: lib/Horde/Block/Layout/Manager.php:617
 msgid "Shrink"
@@ -6323,7 +6323,7 @@ msgstr "Kitsenda"
 #: lib/Horde/Block/Layout/Manager.php:1250
 #: lib/Horde/Block/Layout/Manager.php:1283
 msgid "Shrink or move neighbouring block(s) out of the way first"
-msgstr "Kitsenda kıigepealt naaberblokke vıi nihuta need eest ‰ra"
+msgstr "Kitsenda k√µigepealt naaberblokke v√µi nihuta need eest √§ra"
 
 #: lib/Horde/NLS/countries.php:201 lib/Horde/NLS/tld.php:216
 #: lib/Horde/NLS/GeoIP.php:105
@@ -6360,7 +6360,7 @@ msgstr "Suurus"
 
 #: templates/maintenance/maintenance.html:52
 msgid "Skip Maintenance"
-msgstr "J‰ta hooldus vahele"
+msgstr "J√§ta hooldus vahele"
 
 #: lib/Horde/NLS/countries.php:203 lib/Horde/NLS/tld.php:215
 #: lib/Horde/NLS/GeoIP.php:105
@@ -6374,7 +6374,7 @@ msgstr "Sloveenia"
 
 #: lib/Block/iframe.php:24
 msgid "Small"
-msgstr "V‰ike"
+msgstr "V√§ike"
 
 #: lib/Horde/Alarm.php:350
 msgid "Snooze..."
@@ -6398,7 +6398,7 @@ msgstr "Hommikul tihedad lumesajud"
 
 #: lib/Block/weatherdotcom_strings.php:75
 msgid "Snow Showers Late"
-msgstr "’htul tihedad lumesajud"
+msgstr "√ïhtul tihedad lumesajud"
 
 #: lib/Block/metar.php:285
 msgid "Snow depth: "
@@ -6424,31 +6424,31 @@ msgstr "Laulud ja luuletused"
 
 #: lib/Horde/Form.php:3634
 msgid "Sort order selection"
-msgstr "Sorteerimisj‰rjekorra valik"
+msgstr "Sorteerimisj√§rjekorra valik"
 
 #: lib/Net/SMS/clickatell_http.php:225 lib/Net/SMS/clickatell_http.php:255
 #: lib/Net/SMS/win_http.php:175 lib/Net/SMS/win_http.php:198
 #: lib/Net/SMS/sms2email_http.php:568 lib/Net/SMS/sms2email_http.php:598
 msgid "Source address"
-msgstr "L‰hteaadress"
+msgstr "L√§hteaadress"
 
 #: lib/Horde/NLS/countries.php:207 lib/Horde/NLS/tld.php:262
 #: lib/Horde/NLS/GeoIP.php:118
 msgid "South Africa"
-msgstr "Lıuna-Aafrika"
+msgstr "L√µuna-Aafrika"
 
 #: config/nls.php.dist:234
 msgid "South European (ISO-8859-3)"
-msgstr "Lıuna-Euroopa (ISO-8859-3)"
+msgstr "L√µuna-Euroopa (ISO-8859-3)"
 
 #: lib/Horde/NLS/countries.php:208 lib/Horde/NLS/tld.php:104
 #: lib/Horde/NLS/GeoIP.php:77
 msgid "South Georgia and the South Sandwich Islands"
-msgstr "Lıuna-Georgia ja Lıuna-Sandwichi Saared"
+msgstr "L√µuna-Georgia ja L√µuna-Sandwichi Saared"
 
 #: lib/Block/moon.php:33 lib/Block/moon.php:62
 msgid "Southern Hemisphere"
-msgstr "Lıunapoolkera"
+msgstr "L√µunapoolkera"
 
 #: lib/Horde/NLS/tld.php:222
 msgid "Soviet Union"
@@ -6465,15 +6465,15 @@ msgstr "Hispaania"
 
 #: config/registry.php.dist:90
 msgid "Spam"
-msgstr "R‰mpspost"
+msgstr "R√§mpspost"
 
 #: services/keyboard.php:16
 msgid "Special Character Input"
-msgstr "Erim‰rkide sisestus"
+msgstr "Erim√§rkide sisestus"
 
 #: config/prefs.php.dist:547
 msgid "Special characters"
-msgstr "Erim‰rgid"
+msgstr "Erim√§rgid"
 
 #: lib/Block/fortune.php:66
 msgid "Sports"
@@ -6499,7 +6499,7 @@ msgstr "Algusaasta"
 
 #: lib/Horde/Crypt/smime.php:571
 msgid "State or Province"
-msgstr "Osariik vıi maakond"
+msgstr "Osariik v√µi maakond"
 
 #: templates/admin/setup/index.html:17
 msgid "Status"
@@ -6511,7 +6511,7 @@ msgstr "Salvestusformaat"
 
 #: lib/Horde/Crypt/smime.php:573
 msgid "Street Address"
-msgstr "T‰nav ja maja"
+msgstr "T√§nav ja maja"
 
 #: lib/Horde/Form.php:1220
 msgid "String list"
@@ -6519,7 +6519,7 @@ msgstr "Stringide loend"
 
 #: templates/javascript/open_calendar.js:47
 msgid "Su"
-msgstr "P¸"
+msgstr "P√º"
 
 #: util/icon_browser.php:39
 #, php-format
@@ -6540,22 +6540,22 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"Soov \"%s\" lisamiseks s¸steemi on salvestatud. Sa ei saa sisse logida enne "
+"Soov \"%s\" lisamiseks s√ºsteemi on salvestatud. Sa ei saa sisse logida enne "
 "kui sinu soov on heaks kiidetud."
 
 #: admin/sqlshell.php:106 lib/Horde/Notification/Listener/status.php:28
 msgid "Success"
-msgstr "L‰ks korda"
+msgstr "L√§ks korda"
 
 #: admin/user.php:94
 #, php-format
 msgid "Successfully added \"%s\" to the system."
-msgstr "\"%s\" on s¸steemi lisatud."
+msgstr "\"%s\" on s√ºsteemi lisatud."
 
 #: admin/user.php:133
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
-msgstr "\"%s\" andmed on s¸steemist eemaldatud."
+msgstr "\"%s\" andmed on s√ºsteemist eemaldatud."
 
 #: admin/groups.php:86 admin/perms/delete.php:47
 #, php-format
@@ -6565,31 +6565,31 @@ msgstr "\"%s\" on kustutatud."
 #: admin/user.php:114
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
-msgstr "\"%s\" on s¸steemist eemaldatud."
+msgstr "\"%s\" on s√ºsteemist eemaldatud."
 
 #: admin/setup/config.php:52
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
-"Konfiguratsioon on tagasi vıetud. Muutuste n‰gemiseks v‰rskenda vaadet."
+"Konfiguratsioon on tagasi v√µetud. Muutuste n√§gemiseks v√§rskenda vaadet."
 
 #: admin/setup/index.php:57 admin/setup/scripts.php:58
 msgid "Successfully saved backup configuration."
-msgstr "Konfiguratsiooni varukoopia ınnestus salvestada."
+msgstr "Konfiguratsiooni varukoopia √µnnestus salvestada."
 
 #: admin/setup/config.php:63
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
-msgstr "Konfiguratsioonifaili varukoopia %s ınnestus salvestada."
+msgstr "Konfiguratsioonifaili varukoopia %s √µnnestus salvestada."
 
 #: admin/user.php:178
 #, php-format
 msgid "Successfully updated \"%s\""
-msgstr "\"%s\" muutmine ınnestus."
+msgstr "\"%s\" muutmine √µnnestus."
 
 #: admin/setup/index.php:70 admin/setup/config.php:72
 #, php-format
 msgid "Successfully wrote %s"
-msgstr "%s kirjutamine ınnestus"
+msgstr "%s kirjutamine √µnnestus"
 
 #: lib/Horde/NLS/countries.php:211 lib/Horde/NLS/tld.php:209
 #: lib/Horde/NLS/GeoIP.php:104
@@ -6598,39 +6598,39 @@ msgstr "Sudaan"
 
 #: lib/Block/sunrise.php:65
 msgid "Sun Rise"
-msgstr "P‰ikesetıus"
+msgstr "P√§ikeset√µus"
 
 #: lib/Block/sunrise.php:68
 msgid "Sun Set"
-msgstr "P‰ikeseloojang"
+msgstr "P√§ikeseloojang"
 
 #: config/prefs.php.dist:331
 msgid "Sunday"
-msgstr "P¸hap‰ev"
+msgstr "P√ºhap√§ev"
 
 #: lib/Block/weatherdotcom_strings.php:76
 msgid "Sunny"
-msgstr "P‰ikesepaisteline"
+msgstr "P√§ikesepaisteline"
 
 #: lib/Block/weatherdotcom.php:228
 msgid "Sunrise"
-msgstr "P‰ikesetıus"
+msgstr "P√§ikeset√µus"
 
 #: lib/Block/sunrise.php:3 lib/Block/sunrise.php:16
 msgid "Sunrise/Sunset"
-msgstr "P‰ikesetıus/loojang"
+msgstr "P√§ikeset√µus/loojang"
 
 #: lib/Block/weatherdotcom.php:227
 msgid "Sunrise: "
-msgstr "P‰ikesetıus: "
+msgstr "P√§ikeset√µus: "
 
 #: lib/Block/weatherdotcom.php:231
 msgid "Sunset"
-msgstr "P‰ikeseloojang"
+msgstr "P√§ikeseloojang"
 
 #: lib/Block/weatherdotcom.php:230
 msgid "Sunset: "
-msgstr "P‰ikeseloojang: "
+msgstr "P√§ikeseloojang: "
 
 #: config/registry.php.dist:382
 msgid "Support"
@@ -6670,7 +6670,7 @@ msgstr "Shveits"
 
 #: services/portal/syncml.php:52
 msgid "Sync log deleted"
-msgstr "S¸nkroniseerimise logi kustutatud"
+msgstr "S√ºnkroniseerimise logi kustutatud"
 
 #: config/prefs.php.dist:155
 msgid "SyncML"
@@ -6679,23 +6679,23 @@ msgstr "SyncML"
 #: lib/Horde/NLS/countries.php:217 lib/Horde/NLS/tld.php:224
 #: lib/Horde/NLS/GeoIP.php:107
 msgid "Syrian Arab Republic"
-msgstr "S¸¸ria Araabia Vabariik"
+msgstr "S√º√ºria Araabia Vabariik"
 
 #: lib/Block/weatherdotcom_strings.php:77
 msgid "T-Storm"
-msgstr "ƒikesetorm"
+msgstr "√Ñikesetorm"
 
 #: lib/Block/weatherdotcom_strings.php:78
 msgid "T-Storm and Windy"
-msgstr "Tuuline ja ‰ikeseline"
+msgstr "Tuuline ja √§ikeseline"
 
 #: lib/Block/weatherdotcom_strings.php:79
 msgid "T-Storms"
-msgstr "ƒikesepuhangud"
+msgstr "√Ñikesepuhangud"
 
 #: lib/Block/weatherdotcom_strings.php:80
 msgid "T-Storms Early"
-msgstr "Hommikul ‰ikesepuhangud"
+msgstr "Hommikul √§ikesepuhangud"
 
 #: lib/Horde/Data/tsv.php:179
 msgid "TSV file"
@@ -6707,7 +6707,7 @@ msgstr "Tabelite hulk"
 
 #: config/prefs.php.dist:545
 msgid "Table operations menu bar"
-msgstr "N‰ita tabelitoimingute men¸¸riba"
+msgstr "N√§ita tabelitoimingute men√º√ºriba"
 
 #: lib/Block/cloud.php:3 lib/Block/cloud.php:42
 msgid "Tag Cloud"
@@ -6733,12 +6733,12 @@ msgstr "Tango Blue"
 #: lib/Horde/NLS/countries.php:220 lib/Horde/NLS/tld.php:242
 #: lib/Horde/NLS/GeoIP.php:112
 msgid "Tanzania, United Republic of"
-msgstr "Tansaania ‹hendvabariik"
+msgstr "Tansaania √úhendvabariik"
 
 #: lib/Horde/Kolab.php:714 lib/Horde/Share/kolab.php:553
 #: config/registry.php.dist:170
 msgid "Tasks"
-msgstr "Tˆˆd"
+msgstr "T√∂√∂d"
 
 #: themes/gennevilliers/info.php:14
 msgid "Teal"
@@ -6801,7 +6801,7 @@ msgstr "FTP laiendus ei ole saadaval."
 
 #: lib/Horde/History.php:63
 msgid "The History system is disabled."
-msgstr "History s¸steem on v‰lja l¸litatud."
+msgstr "History s√ºsteem on v√§lja l√ºlitatud."
 
 # php-format
 #: lib/Horde/Kolab.php:720
@@ -6811,7 +6811,7 @@ msgstr "Horde/Kolab integratsioonimootor ei toeta \"%s\"-i"
 
 #: lib/Net/IMSP/Book.php:1298
 msgid "The IMSP log could not be initialized."
-msgstr "IMSP logi algv‰‰rtustamine nurjus."
+msgstr "IMSP logi algv√§√§rtustamine nurjus."
 
 #: services/maintenance.php:32
 msgid "The Maintenance:: class did not load successfully"
@@ -6828,8 +6828,8 @@ msgid ""
 "The administrator needs to configure a permanent Permissions backend if you "
 "want to use Permissions."
 msgstr ""
-"Kui tahad kasutada ıigusi, peab administraator seadistama p¸siva ıiguste "
-"s¸steemi."
+"Kui tahad kasutada √µigusi, peab administraator seadistama p√ºsiva √µiguste "
+"s√ºsteemi."
 
 #: lib/Horde/Alarm.php:62
 msgid "The alarm backend is not currently available."
@@ -6853,11 +6853,11 @@ msgid ""
 "The contact ID number was not specified, left blank or was not found in the "
 "database."
 msgstr ""
-"Kontakti ID numbrit ei m‰‰ratud, j‰eti t¸hjaks vıi see puudub andmebaasis."
+"Kontakti ID numbrit ei m√§√§ratud, j√§eti t√ºhjaks v√µi see puudub andmebaasis."
 
 #: lib/Horde/MIME/Viewer/vcard.php:51
 msgid "The contact was successfully added to your address book."
-msgstr "Kirje ınnestus lisada sinu aadressiraamatusse."
+msgstr "Kirje √µnnestus lisada sinu aadressiraamatusse."
 
 #: lib/Horde/Crypt/pgp.php:1323
 msgid ""
@@ -6869,32 +6869,32 @@ msgstr ""
 msgid ""
 "The distribution list ID was either not specified, left blank or not found "
 "in the database."
-msgstr "Jaotusnimekirja ID on m‰‰ramata, j‰eti t¸hjaks vıi puudub andmebaasis."
+msgstr "Jaotusnimekirja ID on m√§√§ramata, j√§eti t√ºhjaks v√µi puudub andmebaasis."
 
 #: lib/Net/SMS/sms2email_http.php:651
 msgid "The distribution list was not specified."
-msgstr "Jaotusnimekiri pole m‰‰ratud."
+msgstr "Jaotusnimekiri pole m√§√§ratud."
 
 #: lib/Horde/Identity.php:464
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
-msgstr "Aadress \"%s\" on lisatud sinu identiteedile. Vıid sulgeda selle akna."
+msgstr "Aadress \"%s\" on lisatud sinu identiteedile. V√µid sulgeda selle akna."
 
 #: lib/Horde/Crypt.php:136
 msgid "The encryption features require a secure web connection."
-msgstr "Kr¸ptimiseks on vaja turvalist HTTP ¸hendust."
+msgstr "Kr√ºptimiseks on vaja turvalist HTTP √ºhendust."
 
 #: lib/Horde.php:198 lib/Horde.php:552
 #, php-format
 msgid "The file %s should contain a %s setting."
-msgstr "Fail %s peaks sisaldama %s m‰‰rangut."
+msgstr "Fail %s peaks sisaldama %s m√§√§rangut."
 
 #: lib/Horde.php:191 lib/Horde.php:542
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "Fail %s peaks sisaldama mingeid %s m‰‰ranguid."
+msgstr "Fail %s peaks sisaldama mingeid %s m√§√§ranguid."
 
 #: lib/Horde/Data.php:332
 msgid "The file contained no data."
@@ -6915,8 +6915,8 @@ msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
-"Pildi suurust ei ınnestunu kindlaks teha vıi see oli 0 baiti. "
-"‹lesselaadimine on katkestatud."
+"Pildi suurust ei √µnnestunu kindlaks teha v√µi see oli 0 baiti. "
+"√úlesselaadimine on katkestatud."
 
 #: lib/Horde/Form.php:1705
 #, php-format
@@ -6926,7 +6926,7 @@ msgstr "Pildi fail oli suurem kui maksimaalne lubatud suurus (%d baiti)."
 #: lib/Horde/Crypt/pgp.php:157
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
-msgstr "Crypt_pgp:: klassi jaoks peab olema m‰‰ratud GnuPG programmi asukoht."
+msgstr "Crypt_pgp:: klassi jaoks peab olema m√§√§ratud GnuPG programmi asukoht."
 
 #: lib/Horde/MIME/MDN.php:195
 #, php-format
@@ -6937,7 +6937,7 @@ msgid ""
 msgstr ""
 "Kiri mis saadeti %s aadressile %s teemaga \"%s\" on avatud.\n"
 "\n"
-"See ei garanteeri et kiri l‰bi loeti vıi sellest aru saadi."
+"See ei garanteeri et kiri l√§bi loeti v√µi sellest aru saadi."
 
 #: lib/Horde/Form.php:2222
 msgid "The name to use when linking to the compose page"
@@ -6949,7 +6949,7 @@ msgstr "Uut saaja aadressi ei saanud kinnitada, proovi hiljem uuesti:"
 
 #: lib/File/CSV.php:481
 msgid "The number of fields must be numeric."
-msgstr "V‰ljade arv peab olema arv."
+msgstr "V√§ljade arv peab olema arv."
 
 #: lib/Horde/Crypt/smime.php:1232
 msgid "The openssl module is required for the Horde_Crypt_smime:: class."
@@ -6961,8 +6961,8 @@ msgid ""
 "The preference \"%s\" could not be saved because its data exceeded the "
 "maximum allowable size"
 msgstr ""
-"Eelistust \"%s\" ei ınnestunud salvestada, kuna andmete hulk ¸letas suurima "
-"lubatud m‰‰ra"
+"Eelistust \"%s\" ei √µnnestunud salvestada, kuna andmete hulk √ºletas suurima "
+"lubatud m√§√§ra"
 
 #: lib/Horde/Prefs/imsp.php:90 lib/Horde/Prefs/sql.php:135
 #: lib/Horde/Prefs/ldap.php:318
@@ -6971,7 +6971,7 @@ msgid ""
 "not been loaded. You may continue to use the system with default settings."
 msgstr ""
 "Seadistuste mootor ei ole hetkel saadaval ja sinu seadistused on laadimata. "
-"Sa vıid j‰tkata vaike s‰tetega."
+"Sa v√µid j√§tkata vaike s√§tetega."
 
 #: lib/Horde/MIME/Viewer/rpm.php:32 lib/Horde/MIME/Viewer/srchighlite.php:37
 #: lib/Horde/MIME/Viewer/webcpp.php:37 lib/Horde/MIME/Viewer/rtf.php:33
@@ -6983,7 +6983,7 @@ msgstr ""
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr ""
-"Seda t¸¸pi andmete (%s) vaatamiseks vajalikku programmi ei leitud s¸steemist."
+"Seda t√º√ºpi andmete (%s) vaatamiseks vajalikku programmi ei leitud s√ºsteemist."
 
 #: lib/Block/vatid.php:68
 msgid "The provided country code is invalid."
@@ -6991,11 +6991,11 @@ msgstr "Maa kood on vale."
 
 #: lib/File/CSV.php:494
 msgid "The quote character must be one single character."
-msgstr "Jutum‰rk peab olema ¸ks m‰rk."
+msgstr "Jutum√§rk peab olema √ºks m√§rk."
 
 #: lib/File/CSV.php:486
 msgid "The separator must be one single character."
-msgstr "Eraldaja peab olema ¸ks m‰rk."
+msgstr "Eraldaja peab olema √ºks m√§rk."
 
 #: services/portal/rpcsum.php:80
 #, php-format
@@ -7013,7 +7013,7 @@ msgstr "See teenus ei ole hetkel saadaval. Proovi hiljem uuesti."
 
 #: lib/Block/vatid.php:80
 msgid "The service is currently too busy. Try again later."
-msgstr "Teenus on hetkel ¸lekoormatud. Proovi hiljem uuesti."
+msgstr "Teenus on hetkel √ºlekoormatud. Proovi hiljem uuesti."
 
 #: admin/user.php:208
 #, php-format
@@ -7023,7 +7023,7 @@ msgstr "\"%s\" liitumissoov on eemaldatud."
 #: lib/Horde/Block/Layout/Manager.php:468
 #, php-format
 msgid "The specified row (%d) does not exist."
-msgstr "M‰‰ratud rida (%d) pole olemas."
+msgstr "M√§√§ratud rida (%d) pole olemas."
 
 #: lib/Horde/Form.php:4029
 msgid "The text you entered did not match the text on the screen."
@@ -7031,7 +7031,7 @@ msgstr "Sinu sisestatud tekst ei kattu ekraanil olevaga."
 
 #: lib/Horde/Data.php:384
 msgid "The uploaded data was lost since the previous step."
-msgstr "Saadetud andmed on vahepeal kaotsi l‰inud."
+msgstr "Saadetud andmed on vahepeal kaotsi l√§inud."
 
 #: lib/Horde/Data/tsv.php:185 lib/Horde/Data/csv.php:221
 msgid "The uploaded file could not be saved."
@@ -7044,7 +7044,7 @@ msgstr "Kasutaja \"%s\" on juba olemas."
 
 #: lib/Block/weatherdotcom.php:54 lib/Block/weatherdotcom.php:115
 msgid "The weather.com block is not available."
-msgstr "weather.com blokk ei ole k‰ttesaadav."
+msgstr "weather.com blokk ei ole k√§ttesaadav."
 
 #: util/icon_browser.php:27
 #, php-format
@@ -7067,23 +7067,23 @@ msgstr "Kirjal ei ole vahetult esitatavaid osi."
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
 msgstr ""
-"Selles v‰ljas on liialt palju m‰rke. Sa sisestasid %s m‰rki; lubatud pole "
+"Selles v√§ljas on liialt palju m√§rke. Sa sisestasid %s m√§rki; lubatud pole "
 "rohkem kui %s."
 
 #: signup.php:52 signup.php:54 admin/user.php:82
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
-msgstr "\"%s\" lisamisel s¸steemi tekkis probleem: %s"
+msgstr "\"%s\" lisamisel s√ºsteemi tekkis probleem: %s"
 
 #: admin/user.php:131
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
-msgstr "Kasutaja \"%s\" andmete s¸steemist eemaldamisel tekkis probleem: "
+msgstr "Kasutaja \"%s\" andmete s√ºsteemist eemaldamisel tekkis probleem: "
 
 #: admin/user.php:112
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
-msgstr "\"%s\" eemaldamisel s¸steemist tekkis probleem: "
+msgstr "\"%s\" eemaldamisel s√ºsteemist tekkis probleem: "
 
 #: admin/user.php:169
 #, php-format
@@ -7101,7 +7101,7 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Faili laadimisel serverisse tekkis probleem: %s oli suurem kui vıimaldab "
+"Faili laadimisel serverisse tekkis probleem: %s oli suurem kui v√µimaldab "
 "piirang (%d baiti)."
 
 #: lib/Horde/Browser.php:990
@@ -7128,7 +7128,7 @@ msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
 msgstr ""
-"Seadistuse vormil esines viga. Ehk j‰tsid t‰itmata mıne kohustusliku v‰lja."
+"Seadistuse vormil esines viga. Ehk j√§tsid t√§itmata m√µne kohustusliku v√§lja."
 
 #: lib/Net/SMS/sms2email_http.php:647
 msgid ""
@@ -7150,34 +7150,34 @@ msgstr "Jaotusnimekirja uuendamisel tekkis viga. Palun proovi hiljem uuesti."
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:163 lib/Horde/IMAP/ACL/rfc2086.php:326
 msgid "This IMAP server does not support sharing folders."
-msgstr "See IMAP server ei vıimalda kaustade jagamist."
+msgstr "See IMAP server ei v√µimalda kaustade jagamist."
 
 #: lib/Horde/Alarm.php:136
 msgid "This alarm cannot be snoozed."
-msgstr "Teavitust ei saa hilisemaks l¸kata."
+msgstr "Teavitust ei saa hilisemaks l√ºkata."
 
 #: lib/Horde/MIME/Viewer/rar.php:47
 msgid "This does not appear to be a valid rar archive."
-msgstr "See ei n‰i olevat korralik RAR arhiiv."
+msgstr "See ei n√§i olevat korralik RAR arhiiv."
 
 #: lib/Horde/MIME/Viewer/zip.php:51
 msgid "This does not appear to be a valid zip file."
-msgstr "See ei n‰i olevat korralik ZIP fail."
+msgstr "See ei n√§i olevat korralik ZIP fail."
 
 #: lib/Horde/Form.php:3859
 msgid "This does not seem to be a valid card number."
-msgstr "See ei n‰i olevat kehtiv kaardi number."
+msgstr "See ei n√§i olevat kehtiv kaardi number."
 
 #: lib/Net/SMS/generic_smpp.php:87
 msgid "This driver allows sending of messages through an SMPP gateway."
-msgstr "See draiver vıimaldab saata sınumeid l‰bi SMPP l¸¸si."
+msgstr "See draiver v√µimaldab saata s√µnumeid l√§bi SMPP l√º√ºsi."
 
 #: lib/Net/SMS/generic_smtp.php:92
 msgid ""
 "This driver allows sending of messages through an email-to-SMS gateway, for "
 "carriers which provide this service."
 msgstr ""
-"See draiver vıimaldab saata sınumeid l‰bi mail-SMS l¸¸si, teenusepakkujale "
+"See draiver v√µimaldab saata s√µnumeid l√§bi mail-SMS l√º√ºsi, teenusepakkujale "
 "kes seda toetab."
 
 #: lib/Net/SMS/clickatell_http.php:195
@@ -7185,15 +7185,15 @@ msgid ""
 "This driver allows sending of messages through the Clickatell (http://"
 "clickatell.com) gateway, using the HTTP API"
 msgstr ""
-"See draiver vıimaldab saata sınumeid l‰bi Clickatell (http://clickatell.com) "
-"l¸¸si, kasutades HTTP APIt"
+"See draiver v√µimaldab saata s√µnumeid l√§bi Clickatell (http://clickatell.com) "
+"l√º√ºsi, kasutades HTTP APIt"
 
 #: lib/Net/SMS/win_http.php:144
 msgid ""
 "This driver allows sending of messages through the WIN (http://winplc.com) "
 "gateway, using the HTTP API"
 msgstr ""
-"See draiver vıimaldab saata sınumeid l‰bi WIN (http://winplc.com) l¸¸si, "
+"See draiver v√µimaldab saata s√µnumeid l√§bi WIN (http://winplc.com) l√º√ºsi, "
 "kasutades HTTP APIt."
 
 #: lib/Net/SMS/sms2email_http.php:525
@@ -7201,8 +7201,8 @@ msgid ""
 "This driver allows sending of messages through the sms2email (http://"
 "sms2email.com) gateway, using the HTTP API"
 msgstr ""
-"See draiver vıimaldab saata sınumeid l‰bi sms2email (http://sms2email.com) "
-"l¸¸si, kasutades HTTP APIt."
+"See draiver v√µimaldab saata s√µnumeid l√§bi sms2email (http://sms2email.com) "
+"l√º√ºsi, kasutades HTTP APIt."
 
 #: lib/Net/SMS/vodafoneitaly_smtp.php:83
 msgid ""
@@ -7210,8 +7210,8 @@ msgid ""
 "gateway, only to Vodafone numbers. It requires an email account with "
 "Vodafone Italy (http://www.190.it)."
 msgstr ""
-"See draiver vıimaldab sınumite saatmist SMTP protokolliga l‰bi Vodafone "
-"Italy l¸¸si, ainult Vodafone numbritele. Selleks on vaja Vodafone Italy e-"
+"See draiver v√µimaldab s√µnumite saatmist SMTP protokolliga l√§bi Vodafone "
+"Italy l√º√ºsi, ainult Vodafone numbritele. Selleks on vaja Vodafone Italy e-"
 "posti kontot (http://www.190.it)"
 
 #: lib/Horde/Form.php:975 lib/Horde/Form.php:1052 lib/Horde/Form.php:1079
@@ -7224,37 +7224,37 @@ msgstr ""
 #: lib/Horde/Form.php:4024 lib/Horde/Form.php:4110 lib/Horde/Form.php:4587
 #: lib/Horde/Form.php:4595
 msgid "This field is required."
-msgstr "See v‰li on kohustuslik."
+msgstr "See v√§li on kohustuslik."
 
 #: lib/Horde/Form.php:1060
 msgid "This field may only contain integers."
-msgstr "See v‰li vıib sisaldada vaid t‰isarve."
+msgstr "See v√§li v√µib sisaldada vaid t√§isarve."
 
 #: lib/Horde/Form.php:2939
 msgid "This field may only contain numbers and the colon."
-msgstr "See v‰li vıib sisaldada ainult numbreid ja koolonit."
+msgstr "See v√§li v√µib sisaldada ainult numbreid ja koolonit."
 
 #: lib/Horde/Form.php:1087
 msgid "This field may only contain octal values."
-msgstr "See v‰li vıib sisaldada ainult kaheksandarve."
+msgstr "See v√§li v√µib sisaldada ainult kaheksandarve."
 
 #: lib/Horde/Form.php:1114
 msgid "This field must be a comma or space separated list of integers"
-msgstr "See v‰li peab olema komaga vıi t¸hikuga eraldatud t‰isarvude loend"
+msgstr "See v√§li peab olema komaga v√µi t√ºhikuga eraldatud t√§isarvude loend"
 
 #: lib/Horde/Form.php:986
 msgid "This field must be a valid number."
-msgstr "See v‰li peab olema korrektne arv."
+msgstr "See v√§li peab olema korrektne arv."
 
 #: lib/Horde/Form.php:3513
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
-msgstr "See v‰li peab sisaldama v‰rvikoodi RGB Hex kujul, n‰iteks '#1234af'."
+msgstr "See v√§li peab sisaldama v√§rvikoodi RGB Hex kujul, n√§iteks '#1234af'."
 
 #: lib/Horde/Form.php:624
 msgid "This form has already been processed."
-msgstr "See vorm on juba l‰bi tˆˆtatud."
+msgstr "See vorm on juba l√§bi t√∂√∂tatud."
 
 #: templates/help/about.inc:1
 #, php-format
@@ -7269,25 +7269,25 @@ msgid ""
 "clients please visit %s"
 msgstr ""
 "See on Kolab Groupware objekt. Selle objekti vaatamiseks vajad e-posti "
-"klienti mis mıistab Kolab Groupware formaati. Selliste e-posti klientide "
+"klienti mis m√µistab Kolab Groupware formaati. Selliste e-posti klientide "
 "nimekirja leiad aadressilt %s"
 
 #: lib/Horde/MIME/Contents.php:601
 #, php-format
 msgid "This message was written in a character set (%s) other than your own."
-msgstr "See kiri on kirjutatud m‰rgistikus (%s) mis erineb sinu omast."
+msgstr "See kiri on kirjutatud m√§rgistikus (%s) mis erineb sinu omast."
 
 #: lib/Horde/Prefs/UI.php:126
 msgid "This number must be at least one."
-msgstr "See arv peab olema v‰hemalt ¸ks."
+msgstr "See arv peab olema v√§hemalt √ºks."
 
 #: lib/Horde/Compress/gzip.php:44
 msgid "This server can't uncompress zip and gzip files."
-msgstr "See server ei mıista lahti pakkida zip ja gzip faile."
+msgstr "See server ei m√µista lahti pakkida zip ja gzip faile."
 
 #: lib/Horde/Registry.php:226
 msgid "This system is currently deactivated."
-msgstr "See s¸steem on praegu v‰lja l¸litatud."
+msgstr "See s√ºsteem on praegu v√§lja l√ºlitatud."
 
 #: lib/Horde/Prefs/UI.php:124
 msgid "This value must be a number."
@@ -7295,7 +7295,7 @@ msgstr "Selle koha peal peab olema arv."
 
 #: lib/Block/weatherdotcom_strings.php:81
 msgid "Thunder"
-msgstr "ƒike"
+msgstr "√Ñike"
 
 #: config/registry.php.dist:254
 msgid "Tickets"
@@ -7307,7 +7307,7 @@ msgstr "Aeg"
 
 #: config/registry.php.dist:390
 msgid "Time Tracking"
-msgstr "Tˆˆajatabel"
+msgstr "T√∂√∂ajatabel"
 
 #: lib/Block/time.php:25
 msgid "Time format"
@@ -7319,7 +7319,7 @@ msgstr "Aja valik"
 
 #: templates/data/datetime.inc:58 templates/data/datetime.inc:67
 msgid "Timestamp or unknown"
-msgstr "Aega vıi tundmatu"
+msgstr "Aega v√µi tundmatu"
 
 #: lib/Horde/NLS/countries.php:222 lib/Horde/NLS/tld.php:233
 #: lib/Horde/NLS/GeoIP.php:110
@@ -7339,7 +7339,7 @@ msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
-"Kindla v‰lja eemaldamisest importimise listist vıi vale paari parandamiseks "
+"Kindla v√§lja eemaldamisest importimise listist v√µi vale paari parandamiseks "
 "vajuta sellele ja siis nuppule \"Eemalda paar\"-"
 
 #: lib/Horde/UI/VarRenderer/html.php:703
@@ -7347,12 +7347,12 @@ msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
-"Mitme objekti valimiseks hoia all Ctrl (PC) vıi Command (Mac) klahvi ja "
-"klıpsa objektidel."
+"Mitme objekti valimiseks hoia all Ctrl (PC) v√µi Command (Mac) klahvi ja "
+"kl√µpsa objektidel."
 
 #: lib/Block/weatherdotcom.php:321
 msgid "Today"
-msgstr "T‰na"
+msgstr "T√§na"
 
 #: lib/Horde/NLS/countries.php:223 lib/Horde/NLS/tld.php:229
 #: lib/Horde/NLS/GeoIP.php:109
@@ -7379,7 +7379,7 @@ msgstr "Viimastel minutitel on liiga palju nurjunud sisselogimisi."
 
 #: lib/Block/fortune.php:68
 msgid "Translations"
-msgstr "Tılked"
+msgstr "T√µlked"
 
 #: lib/Horde/NLS/countries.php:226 lib/Horde/NLS/tld.php:239
 #: lib/Horde/NLS/GeoIP.php:111
@@ -7388,7 +7388,7 @@ msgstr "Trinidad ja Tobago"
 
 #: lib/Horde/Form.php:1928
 msgid "True or false"
-msgstr "Tıde vıi vale"
+msgstr "T√µde v√µi vale"
 
 #: templates/javascript/open_calendar.js:49
 msgid "Tu"
@@ -7402,11 +7402,11 @@ msgstr "Tuneesia"
 #: lib/Horde/NLS/countries.php:228 lib/Horde/NLS/tld.php:238
 #: lib/Horde/NLS/GeoIP.php:111
 msgid "Turkey"
-msgstr "T¸rgi"
+msgstr "T√ºrgi"
 
 #: config/nls.php.dist:236
 msgid "Turkish (ISO-8859-9)"
-msgstr "T¸rgi (ISO-8859-9)"
+msgstr "T√ºrgi (ISO-8859-9)"
 
 #: lib/Horde/NLS/countries.php:229 lib/Horde/NLS/tld.php:234
 #: lib/Horde/NLS/GeoIP.php:110
@@ -7429,7 +7429,7 @@ msgstr "Kirjuta oma valik:"
 
 #: services/keyboard.php:110
 msgid "U characters"
-msgstr "U t‰ht"
+msgstr "U t√§ht"
 
 #: lib/Block/weatherdotcom.php:281
 msgid "U.V. index: "
@@ -7445,7 +7445,7 @@ msgstr "URL"
 
 #: lib/Net/SMS/sms2email_http.php:550
 msgid "URL for your script delivery status report"
-msgstr "Sinu skripti k‰ttetoimetamisraporti URL"
+msgstr "Sinu skripti k√§ttetoimetamisraporti URL"
 
 #: lib/Horde/NLS/countries.php:232 lib/Horde/NLS/tld.php:244
 #: lib/Horde/NLS/GeoIP.php:112
@@ -7459,12 +7459,12 @@ msgstr "Ukraina"
 
 #: lib/VFS/file.php:439
 msgid "Unable to access VFS directory."
-msgstr "Ei p‰‰se ligi VFS kataloogile."
+msgstr "Ei p√§√§se ligi VFS kataloogile."
 
 #: lib/Horde/Share/kolab.php:320
 #, php-format
 msgid "Unable to add %s: destination folder already exists"
-msgstr "Ei ınnestunud lisada %s: siht kaust on juba olemas"
+msgstr "Ei √µnnestunud lisada %s: siht kaust on juba olemas"
 
 #: lib/Horde/Kolab/LDAP.php:95
 #, php-format
@@ -7474,12 +7474,12 @@ msgstr "Ei saanud sisse LDAP serverisse kasutajana %s!"
 #: lib/VFS/ssh2.php:382 lib/VFS/ftp.php:397
 #, php-format
 msgid "Unable to change permission for VFS file \"%s\"."
-msgstr "Ei saa muuta VFS faili \"%s\" ıigusi."
+msgstr "Ei saa muuta VFS faili \"%s\" √µigusi."
 
 #: lib/VFS/file.php:412 lib/VFS/musql.php:479
 #, php-format
 msgid "Unable to change permission for VFS file %s/%s."
-msgstr "Ei saa muuta VFS faili %s/%s ıigusi."
+msgstr "Ei saa muuta VFS faili %s/%s √µigusi."
 
 #: lib/VFS/ssh2.php:804 lib/VFS/ftp.php:825
 #, php-format
@@ -7489,16 +7489,16 @@ msgstr "Ei saa minna kataloogi %s."
 #: lib/VFS/ssh2.php:100 lib/VFS/ftp.php:106
 #, php-format
 msgid "Unable to check file size of \"%s\"."
-msgstr "Faili \"%s\" suurust pole vıimalik kontrollida."
+msgstr "Faili \"%s\" suurust pole v√µimalik kontrollida."
 
 #: lib/VFS/file.php:65 lib/VFS/sql.php:116
 #, php-format
 msgid "Unable to check file size of \"%s/%s\"."
-msgstr "Faili \"%s/%s\" suurust pole vıimalik kontrollida."
+msgstr "Faili \"%s/%s\" suurust pole v√µimalik kontrollida."
 
 #: lib/VFS/ftp.php:890
 msgid "Unable to connect with SSL."
-msgstr "SSL ¸henduse algatamine nurjus."
+msgstr "SSL √ºhenduse algatamine nurjus."
 
 #: lib/VFS/file.php:252 lib/VFS/file.php:257 lib/VFS/sql_file.php:202
 #: lib/VFS/sql_file.php:207 lib/VFS/sql_file.php:215
@@ -7526,11 +7526,11 @@ msgstr "VFS kausta \"%s\" loomine nurjus."
 #: lib/Horde/RPC/webdav.php:233
 #, php-format
 msgid "Unable to create directory %s; must be [app]/[path]"
-msgstr "Ei ınnestu luua kausta %s; peab olema kujul [app]/[path]"
+msgstr "Ei √µnnestu luua kausta %s; peab olema kujul [app]/[path]"
 
 #: lib/VFS/file.php:292
 msgid "Unable to create empty VFS file."
-msgstr "Ei saa luua t¸hja VFS faili."
+msgstr "Ei saa luua t√ºhja VFS faili."
 
 #: lib/Horde/Compress/gzip.php:51 lib/Horde/Compress/gzip.php:81
 #: lib/Horde/Compress/tar.php:74
@@ -7540,7 +7540,7 @@ msgstr "Lahtipakkimine nurjus."
 #: lib/VFS/ssh2.php:289 lib/VFS/ftp.php:304 lib/VFS/smb.php:217
 #, php-format
 msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "\"%s\" ei saa kustutada, kataloog ei ole t¸hi."
+msgstr "\"%s\" ei saa kustutada, kataloog ei ole t√ºhi."
 
 #: admin/groups.php:84 admin/perms/delete.php:45
 #, php-format
@@ -7551,7 +7551,7 @@ msgstr "Ei saa kustutada \"%s\": %s."
 #: lib/VFS/sql_file.php:358
 #, php-format
 msgid "Unable to delete %s, the directory is not empty"
-msgstr "%s ei saa kustutada, kataloog ei ole t¸hi"
+msgstr "%s ei saa kustutada, kataloog ei ole t√ºhi"
 
 #: lib/VFS/sql_file.php:372 lib/VFS/sql_file.php:376
 msgid "Unable to delete VFS directory recursively."
@@ -7590,7 +7590,7 @@ msgstr "Ei saa kustutada VFSi rekursiivselt: %s."
 
 #: lib/VFS/ftp.php:854
 msgid "Unable to determine current directory."
-msgstr "Jooksvat kataloogi ei ınnestu tuvastada."
+msgstr "Jooksvat kataloogi ei √µnnestu tuvastada."
 
 #: lib/Horde/Auth/smbclient.php:88
 msgid "Unable to execute smbclient."
@@ -7598,7 +7598,7 @@ msgstr "Viga smbcliendiga."
 
 #: lib/Horde/Crypt/smime.php:604
 msgid "Unable to extract certificate details"
-msgstr "Ei saa k‰tte sertifikaadi ¸ksikasju"
+msgstr "Ei saa k√§tte sertifikaadi √ºksikasju"
 
 #: lib/Horde/Alarm.php:521 lib/Net/IMSP.php:440 lib/Net/IMSP/Auth.php:121
 #, php-format
@@ -7608,7 +7608,7 @@ msgstr "%s definitsiooni laadimine nurjus."
 #: lib/VFS/file.php:211 lib/VFS/file.php:216 lib/VFS/sql_file.php:156
 #: lib/VFS/sql_file.php:161
 msgid "Unable to move VFS file."
-msgstr "VFS faili ¸mbertıstmine nurjus."
+msgstr "VFS faili √ºmbert√µstmine nurjus."
 
 #: lib/VFS/ssh2.php:123 lib/VFS/ftp.php:131 lib/VFS/smb.php:93
 #: lib/VFS/smb.php:101 lib/VFS/smb.php:645
@@ -7638,7 +7638,7 @@ msgstr "Ei saa lugeda VFS faili (size() nurjus)."
 
 #: lib/Horde/SessionHandler/none.php:37
 msgid "Unable to read file: "
-msgstr "Ei ınnestu lugeda faili: "
+msgstr "Ei √µnnestu lugeda faili: "
 
 #: lib/VFS/file.php:704
 msgid "Unable to read the vfsroot directory."
@@ -7647,60 +7647,60 @@ msgstr "vfsroot kataloogi lugemine nurjus."
 #: lib/Horde/Share/kolab.php:1129
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
-msgstr "%s ei saa ¸mber nimetada %s-ks: sihtkaust on juba olemas."
+msgstr "%s ei saa √ºmber nimetada %s-ks: sihtkaust on juba olemas."
 
 #: lib/Horde/RPC/webdav.php:267
 #, php-format
 msgid ""
 "Unable to rename %s; must be [app]/[path] and within the same application."
 msgstr ""
-"Ei ole vıimalik ¸mber nimetada %s; peab olema [app]/[path] ja samas "
+"Ei ole v√µimalik √ºmber nimetada %s; peab olema [app]/[path] ja samas "
 "programmis."
 
 #: lib/VFS/sql_file.php:311
 msgid "Unable to rename VFS directory."
-msgstr "VFS kataloogi ¸mbernimetamine nurjus."
+msgstr "VFS kataloogi √ºmbernimetamine nurjus."
 
 #: lib/VFS/sql.php:397
 #, php-format
 msgid "Unable to rename VFS directory: %s."
-msgstr "Ei saa ¸mber nimetada VFS kataloogi: %s"
+msgstr "Ei saa √ºmber nimetada VFS kataloogi: %s"
 
 #: lib/VFS/ssh2.php:337 lib/VFS/ftp.php:352 lib/VFS/smb.php:266
 #, php-format
 msgid "Unable to rename VFS file \"%s\"."
-msgstr "Ei saa ¸mber nimetada VFS faili \"%s\"."
+msgstr "Ei saa √ºmber nimetada VFS faili \"%s\"."
 
 #: lib/VFS/file.php:645 lib/VFS/musql.php:240
 #, php-format
 msgid "Unable to rename VFS file %s/%s."
-msgstr "Ei suuda ¸mber nimetada VFS faili %s/%s."
+msgstr "Ei suuda √ºmber nimetada VFS faili %s/%s."
 
 #: lib/VFS/musql.php:212 lib/VFS/musql.php:463 lib/VFS/sql.php:391
 #: lib/VFS/sql_file.php:303 lib/VFS/sql_file.php:325
 msgid "Unable to rename VFS file."
-msgstr "VFS faili ¸mbernimetamine nurjus."
+msgstr "VFS faili √ºmbernimetamine nurjus."
 
 #: lib/VFS/ISOWriter/mkisofs.php:50
 msgid "Unable to run 'mkisofs'."
-msgstr "Ei ınnestu k‰ivitada 'mkisofs'."
+msgstr "Ei √µnnestu k√§ivitada 'mkisofs'."
 
 #: lib/Horde/MIME/Viewer/rtf.php:47
 msgid "Unable to translate this RTF document"
-msgstr "Seda RTF dokumenti ei ınnestunud tılgendada."
+msgstr "Seda RTF dokumenti ei √µnnestunud t√µlgendada."
 
 #: lib/Horde/MIME/Viewer/msword.php:59
 msgid "Unable to translate this Word document"
-msgstr "Seda Wordi dokumenti on vıimatu tılgendada"
+msgstr "Seda Wordi dokumenti on v√µimatu t√µlgendada"
 
 #: lib/Horde/MIME/Viewer/wordperfect.php:46
 msgid "Unable to translate this WordPerfect document"
-msgstr "Seda WordPerfecti dokumenti ei ınnestunud tılgendada"
+msgstr "Seda WordPerfecti dokumenti ei √µnnestunud t√µlgendada"
 
 #: lib/Horde/Kolab.php:802
 #, php-format
 msgid "Unable to trigger free/busy update for folder %s on URL %s"
-msgstr "Ei ınnestunud uuendada vaba/kinni infot kaustas %s URLiga %s"
+msgstr "Ei √µnnestunud uuendada vaba/kinni infot kaustas %s URLiga %s"
 
 #: lib/VFS/ssh2.php:168 lib/VFS/ssh2.php:171 lib/VFS/ftp.php:180
 #: lib/VFS/ftp.php:183
@@ -7718,7 +7718,7 @@ msgstr "VFS faili andmete salvestamine nurjus."
 
 #: lib/VFS.php:909
 msgid "Unable to write VFS file, quota will be exceeded."
-msgstr "Ei saa kirjutada VFS faili, kettakvoot l‰heb lıhki."
+msgstr "Ei saa kirjutada VFS faili, kettakvoot l√§heb l√µhki."
 
 #: templates/prefs/end.inc:3
 msgid "Undo Changes"
@@ -7727,7 +7727,7 @@ msgstr "Taasta algseis"
 #: lib/Horde/IMAP/ACL/rfc2086.php:222 lib/Horde/IMAP/ACL/rfc2086.php:377
 #: lib/Horde/IMAP/ACL/rfc2086.php:527
 msgid "Unexpected response from server on connection: "
-msgstr "Ootamatu vastus serverilt ¸henduse loomisel: "
+msgstr "Ootamatu vastus serverilt √ºhenduse loomisel: "
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:229 lib/Horde/IMAP/ACL/rfc2086.php:405
 #: lib/Horde/IMAP/ACL/rfc2086.php:420 lib/Horde/IMAP/ACL/rfc2086.php:429
@@ -7752,7 +7752,7 @@ msgstr "Unicode (UTF-8)"
 #: lib/Horde/NLS/countries.php:234 lib/Horde/NLS/tld.php:17
 #: lib/Horde/NLS/GeoIP.php:56
 msgid "United Arab Emirates"
-msgstr "Araabia ‹hendemiraadid"
+msgstr "Araabia √úhendemiraadid"
 
 #: lib/Horde/NLS/countries.php:235 lib/Horde/NLS/tld.php:91
 #: lib/Horde/NLS/tld.php:245 lib/Horde/NLS/GeoIP.php:74
@@ -7762,16 +7762,16 @@ msgstr "Suurbritannia"
 #: lib/Horde/NLS/countries.php:236 lib/Horde/NLS/tld.php:247
 #: lib/Horde/NLS/GeoIP.php:113
 msgid "United States"
-msgstr "Ameerika ‹hendriigid"
+msgstr "Ameerika √úhendriigid"
 
 #: lib/Horde/NLS/countries.php:237 lib/Horde/NLS/tld.php:246
 #: lib/Horde/NLS/GeoIP.php:113
 msgid "United States Minor Outlying Islands"
-msgstr "Ameerika ‹hendriikide v‰ikesaared"
+msgstr "Ameerika √úhendriikide v√§ikesaared"
 
 #: lib/Block/weatherdotcom.php:67 lib/Block/metar.php:83
 msgid "Units"
-msgstr "‹hikud"
+msgstr "√úhikud"
 
 #: lib/Horde/MIME/Viewer/tgz.php:69 lib/Horde/Crypt/pgp.php:441
 #: lib/Horde/Crypt/pgp.php:442
@@ -7789,15 +7789,15 @@ msgstr "Tundmatu climsgid (Client Message ID)."
 #: lib/Horde/Share/kolab.php:877
 #, php-format
 msgid "Unknown folder type for folder %s."
-msgstr "Tundmatu kausta t¸¸p %s."
+msgstr "Tundmatu kausta t√º√ºp %s."
 
 #: lib/Block/weatherdotcom.php:170
 msgid "Unknown location provided."
-msgstr "M‰‰rati tundmatu asukoht."
+msgstr "M√§√§rati tundmatu asukoht."
 
 #: lib/Net/SMS/clickatell_http.php:299
 msgid "Unknown username or password."
-msgstr "Tundmatu kasutajanimi ja salasına."
+msgstr "Tundmatu kasutajanimi ja salas√µna."
 
 #: lib/Horde/Identity.php:326
 msgid "Unnamed"
@@ -7836,7 +7836,7 @@ msgstr "Lae serverisse"
 
 #: admin/setup/index.php:228
 msgid "Uploaded all application setup files to the server."
-msgstr "Kıik rakenduse paigaldusfailid on serverisse laetud."
+msgstr "K√µik rakenduse paigaldusfailid on serverisse laetud."
 
 #: lib/Horde/NLS/countries.php:238 lib/Horde/NLS/tld.php:248
 #: lib/Horde/NLS/GeoIP.php:113
@@ -7854,7 +7854,7 @@ msgstr "Kasuta SSLi"
 
 #: config/prefs.php.dist:140
 msgid "Use if name/password is different for IMSP server."
-msgstr "Kasuta juhul kui nimi/salasına IMSP serveris on erinev."
+msgstr "Kasuta juhul kui nimi/salas√µna IMSP serveris on erinev."
 
 #: templates/admin/groups/edit.inc:21 templates/admin/groups/edit.inc:56
 msgid "User"
@@ -7874,7 +7874,7 @@ msgstr "Kasutaja registreerimine"
 
 #: signup.php:24
 msgid "User Registration has been disabled for this site."
-msgstr "Selles saidis kasutajate registreerimist ei vıimaldata."
+msgstr "Selles saidis kasutajate registreerimist ei v√µimaldata."
 
 #: lib/Block/account.php:564
 msgid "User account not found"
@@ -7916,7 +7916,7 @@ msgstr "Kasutajad"
 
 #: templates/admin/user/list.inc:2
 msgid "Users in the system:"
-msgstr "Kasutajad s¸steemis:"
+msgstr "Kasutajad s√ºsteemis:"
 
 #: lib/Horde/NLS/countries.php:239 lib/Horde/NLS/tld.php:249
 #: lib/Horde/NLS/GeoIP.php:114
@@ -7947,16 +7947,16 @@ msgstr "Minutite arv praegusest hetkest alates."
 #: lib/Horde/Form.php:1166
 #, php-format
 msgid "Value is over the maximum length of %d."
-msgstr "V‰‰rtus ¸letab %d maksimumpikkuse."
+msgstr "V√§√§rtus √ºletab %d maksimumpikkuse."
 
 #: lib/Horde/Form.php:2740 lib/Horde/Form.php:2775 lib/Horde/Form.php:2824
 #: lib/Horde/Form.php:3636 lib/Horde/Form/Type/tableset.php:59
 msgid "Values"
-msgstr "V‰‰rtused"
+msgstr "V√§√§rtused"
 
 #: lib/Horde/Form.php:2607 lib/Horde/Form.php:2683
 msgid "Values to select from"
-msgstr "V‰‰rtused mille hulgast valida"
+msgstr "V√§√§rtused mille hulgast valida"
 
 #: lib/Horde/NLS/countries.php:240 lib/Horde/NLS/tld.php:256
 #: lib/Horde/NLS/GeoIP.php:117
@@ -7974,11 +7974,11 @@ msgstr "Venetsueela"
 
 #: lib/Horde/Crypt/smime.php:218
 msgid "Verification failed - this message may have been tampered with."
-msgstr "Kontrollimine nurjus - see kiri vıib olla pahatahtlikult muudetud."
+msgstr "Kontrollimine nurjus - see kiri v√µib olla pahatahtlikult muudetud."
 
 #: lib/Horde/Crypt/smime.php:701
 msgid "Version"
-msgstr "J‰rjenumber"
+msgstr "J√§rjenumber"
 
 #: config/registry.php.dist:239
 msgid "Version Control"
@@ -7986,7 +7986,7 @@ msgstr "Versioonihaldus"
 
 #: lib/Block/weatherdotcom_strings.php:87
 msgid "Very High"
-msgstr "V‰ga kırge"
+msgstr "V√§ga k√µrge"
 
 #: lib/Horde/NLS/countries.php:242 lib/Horde/NLS/tld.php:255
 #: lib/Horde/NLS/GeoIP.php:116
@@ -8009,7 +8009,7 @@ msgstr "Vaata %s[%s]"
 
 #: lib/Block/iframe.php:3
 msgid "View an external web page"
-msgstr "Vaata v‰list veebilehte"
+msgstr "Vaata v√§list veebilehte"
 
 #: lib/Horde/NLS/countries.php:243 lib/Horde/NLS/tld.php:253
 #: lib/Horde/NLS/GeoIP.php:116
@@ -8023,15 +8023,15 @@ msgstr "USA Neitsisaared"
 
 #: lib/Block/metar.php:216
 msgid "Visibility"
-msgstr "N‰htavus"
+msgstr "N√§htavus"
 
 #: lib/Block/weatherdotcom.php:275
 msgid "Visibility: "
-msgstr "N‰htavus: "
+msgstr "N√§htavus: "
 
 #: lib/Net/SMS/vodafoneitaly_smtp.php:82
 msgid "Vodafone Italy via SMTP"
-msgstr "Vodafone Italy ¸le SMTP"
+msgstr "Vodafone Italy √ºle SMTP"
 
 #: lib/Horde/Notification/Listener/mobile.php:36
 msgid "WARN"
@@ -8040,11 +8040,11 @@ msgstr "HOIATUS"
 #: admin/setup/scripts.php:92
 #, php-format
 msgid "WARNING!!! REMOVE SCRIPT MANUALLY FROM %s."
-msgstr "HOIATUS!!! KUSTUTA SKRIPT KƒSITSI KATALOOGIST %s."
+msgstr "HOIATUS!!! KUSTUTA SKRIPT K√ÑSITSI KATALOOGIST %s."
 
 #: lib/Net/SMS/win_http.php:143
 msgid "WIN via HTTP"
-msgstr "WIN ¸le HTTP"
+msgstr "WIN √ºle HTTP"
 
 #: lib/Horde/NLS/countries.php:245 lib/Horde/NLS/GeoIP.php:117
 msgid "Wallis and Futuna"
@@ -8077,7 +8077,7 @@ msgstr "Veebisait"
 
 #: lib/Horde/Maintenance.php:63 lib/Horde/Date/Recurrence.php:193
 msgid "Weekly"
-msgstr "Kord n‰dalas"
+msgstr "Kord n√§dalas"
 
 #: services/portal/mobile.php:30
 msgid "Welcome"
@@ -8095,29 +8095,29 @@ msgstr "Tere tulemast, %s"
 
 #: config/nls.php.dist:239
 msgid "Western (ISO-8859-1)"
-msgstr "L‰‰ne (ISO-8859-1)"
+msgstr "L√§√§ne (ISO-8859-1)"
 
 #: config/nls.php.dist:240
 msgid "Western (ISO-8859-15)"
-msgstr "L‰‰ne (ISO-8859-15)"
+msgstr "L√§√§ne (ISO-8859-15)"
 
 #: lib/Horde/NLS/countries.php:246 lib/Horde/NLS/tld.php:79
 #: lib/Horde/NLS/GeoIP.php:71
 msgid "Western Sahara"
-msgstr "L‰‰ne-Sahara"
+msgstr "L√§√§ne-Sahara"
 
 #: config/prefs.php.dist:472
 #, php-format
 msgid "What application should %s display after login?"
-msgstr "Millise rakenduse peaks %s p‰rast sisselogimist avama?"
+msgstr "Millise rakenduse peaks %s p√§rast sisselogimist avama?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
-msgstr "Millist m‰rki kasutatakse eraldajana?"
+msgstr "Millist m√§rki kasutatakse eraldajana?"
 
 #: templates/data/csvinfo.inc:17
 msgid "What is the quote character?"
-msgstr "Millist m‰rki kasutatakse jutum‰rgina?"
+msgstr "Millist m√§rki kasutatakse jutum√§rgina?"
 
 #: lib/Horde/UI/VarRenderer/html.php:1175
 msgid "Whereis Australia map"
@@ -8125,7 +8125,7 @@ msgstr "Whereis Australia kaart"
 
 #: config/prefs.php.dist:330
 msgid "Which day would you like to be displayed as the first day of the week?"
-msgstr "Mis p‰evaga peaks n‰dal algama."
+msgstr "Mis p√§evaga peaks n√§dal algama."
 
 #: lib/Block/moon.php:23
 msgid "Which phases"
@@ -8137,12 +8137,12 @@ msgstr "Milliseid pluginaid lubada Rich Text editoris."
 
 #: lib/Horde/Form.php:3840
 msgid "Width in CSS units"
-msgstr "Laius CSS ¸hikutes"
+msgstr "Laius CSS √ºhikutes"
 
 #: config/prefs.php.dist:392
 #, php-format
 msgid "Width of the %s menu on the left (takes effect on next log-in):"
-msgstr "%s men¸¸ laius vasakul (hakkab mıjuma j‰rgmisel sisselogimisel):"
+msgstr "%s men√º√º laius vasakul (hakkab m√µjuma j√§rgmisel sisselogimisel):"
 
 #: config/registry.php.dist:516
 msgid "Wiki"
@@ -8158,7 +8158,7 @@ msgstr "Hommikul tuul"
 
 #: lib/Block/metar.php:92
 msgid "Wind speed in knots"
-msgstr "Tuule kiirus sılmedes"
+msgstr "Tuule kiirus s√µlmedes"
 
 #: lib/Block/metar.php:163
 msgid "Wind:"
@@ -8182,25 +8182,25 @@ msgstr "Soovinimekiri"
 
 #: lib/Block/fortune.php:70
 msgid "Work"
-msgstr "Tˆˆ"
+msgstr "T√∂√∂"
 
 #: lib/Horde/MIME/Viewer/vcard.php:124 lib/Horde/MIME/Viewer/vcard.php:164
 msgid "Work Address"
-msgstr "Tˆˆkoha aadress"
+msgstr "T√∂√∂koha aadress"
 
 #: lib/Horde/MIME/Viewer/vcard.php:195
 msgid "Work Phone"
-msgstr "Tˆˆtelefon"
+msgstr "T√∂√∂telefon"
 
 #: lib/File/CSV.php:203 lib/File/CSV.php:302
 #, php-format
 msgid "Wrong number of fields in line %d. Expected %d, found %d."
-msgstr "Reas %d on vale arv v‰lju. Peaks olema %d, aga on %d."
+msgstr "Reas %d on vale arv v√§lju. Peaks olema %d, aga on %d."
 
 #: lib/File/CSV.php:340
 #, php-format
 msgid "Wrong number of fields. Expected %d, found %d."
-msgstr "Vale arv v‰lju. Peaks olema %d, aga on %d."
+msgstr "Vale arv v√§lju. Peaks olema %d, aga on %d."
 
 #: lib/VFS/file.php:112
 #, php-format
@@ -8213,11 +8213,11 @@ msgstr "X-Ref"
 
 #: lib/Horde/Crypt/smime.php:594
 msgid "X509v3 Basic Constraints"
-msgstr "X509v3 pıhilised piirangud"
+msgstr "X509v3 p√µhilised piirangud"
 
 #: lib/Horde/Crypt/smime.php:593
 msgid "X509v3 Extended Key Usage"
-msgstr "X509v3 vıtme laiendatud kasutus"
+msgstr "X509v3 v√µtme laiendatud kasutus"
 
 #: lib/Horde/Crypt/smime.php:595
 msgid "X509v3 Subject Alternative Name"
@@ -8225,7 +8225,7 @@ msgstr "X509v3 subjekti alternatiivne nimi"
 
 #: lib/Horde/Crypt/smime.php:596
 msgid "X509v3 Subject Key Identifier"
-msgstr "X509v3 subjekti vıtme identifikaator"
+msgstr "X509v3 subjekti v√µtme identifikaator"
 
 #: lib/Horde/Crypt/smime.php:683
 msgid "X509v3 extensions"
@@ -8261,7 +8261,7 @@ msgstr "Jah"
 
 #: templates/maintenance/maintenance.html:56
 msgid "Yes, I Agree"
-msgstr "Jah, olen nıus"
+msgstr "Jah, olen n√µus"
 
 #: lib/Horde/Block/Layout/Manager.php:235
 msgid "You are not allowed to create more than %d block."
@@ -8273,7 +8273,7 @@ msgstr "Sa ei ole sisse logitud."
 
 #: lib/Horde/Identity.php:332
 msgid "You cannot have the '\\' character in your full name."
-msgstr "Sinu t‰isnimi ei vıi sisaldada '\\' m‰rki."
+msgstr "Sinu t√§isnimi ei v√µi sisaldada '\\' m√§rki."
 
 #: lib/Horde/RPC/phpgw.php:109
 msgid "You did not authenticate."
@@ -8288,11 +8288,11 @@ msgstr "Sa ei sisestanud korrektset e-posti aadressi."
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in %s."
-msgstr "Sa ei seadnud imporditud faili v‰lju vastavusse %s v‰ljadega."
+msgstr "Sa ei seadnud imporditud faili v√§lju vastavusse %s v√§ljadega."
 
 #: lib/Horde/Auth.php:1010 lib/Horde/backup/Auth.php:991
 msgid "You have been logged out."
-msgstr "Sind logiti v‰lja."
+msgstr "Sind logiti v√§lja."
 
 #: lib/Horde/Identity.php:394
 #, php-format
@@ -8308,17 +8308,17 @@ msgstr ""
 "Teil on palutud lisada aadress \"%s\" oma personaalsesse aadressi "
 "raamatusse.\n"
 "\n"
-"J‰rgne antud lingile et kinnitada maili aadressi kuuluvust teile:\n"
+"J√§rgne antud lingile et kinnitada maili aadressi kuuluvust teile:\n"
 "%s\n"
 "Kui sa ei saa aru sellest kirjast palun kustuta see."
 
 #: lib/Horde/Auth/Signup.php:37
 msgid "You must configure a DataTree backend to use Signups."
-msgstr "Liitumise lubamiseks pead seadistama DataTree s¸steemi."
+msgstr "Liitumise lubamiseks pead seadistama DataTree s√ºsteemi."
 
 #: lib/Horde.php:495
 msgid "You must configure a VFS backend."
-msgstr "Sa pead seadistama VFS s¸steemi."
+msgstr "Sa pead seadistama VFS s√ºsteemi."
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
@@ -8330,11 +8330,11 @@ msgid ""
 "the international dialing prefix."
 msgstr ""
 "Sa pead sisestama kehtiva mobiiltelefoni numbri mis sisaldab ainult numbreid "
-"ja mille alguses vıib olla '+' rahvusvahelise suunakoodi tunnusena."
+"ja mille alguses v√µib olla '+' rahvusvahelise suunakoodi tunnusena."
 
 #: lib/Horde/Form.php:1177
 msgid "You must enter a valid value."
-msgstr "Sa pead sisestama korrektse v‰‰rtuse."
+msgstr "Sa pead sisestama korrektse v√§√§rtuse."
 
 #: lib/Horde/Form.php:2039
 msgid "You must enter an email address."
@@ -8342,36 +8342,36 @@ msgstr "Sa pead sisestama maili aadressi."
 
 #: lib/Horde/Form.php:2037
 msgid "You must enter at least one email address."
-msgstr "Kirjal peab olema v‰hemalt ¸ks saaja."
+msgstr "Kirjal peab olema v√§hemalt √ºks saaja."
 
 #: lib/Horde/Prefs/UI.php:149
 #, php-format
 msgid "You must provide a setting for \"%s\"."
-msgstr "Sa pead m‰‰rama s‰tted \"%s\"."
+msgstr "Sa pead m√§√§rama s√§tted \"%s\"."
 
 #: services/portal/rpcsum.php:82
 msgid "You must select an server to be deleted."
-msgstr "Pead m‰‰rama kustutatava serveri."
+msgstr "Pead m√§√§rama kustutatava serveri."
 
 #: admin/user.php:128
 msgid "You must specify a username to clear out."
-msgstr "Pead m‰‰rama kasutajanime mida t¸hjendada."
+msgstr "Pead m√§√§rama kasutajanime mida t√ºhjendada."
 
 #: admin/user.php:109
 msgid "You must specify a username to remove."
-msgstr "Pead m‰‰rama kasutajanime mida eemaldada."
+msgstr "Pead m√§√§rama kasutajanime mida eemaldada."
 
 #: admin/user.php:70 templates/admin/user/update.inc:8
 msgid "You must specify the username to add."
-msgstr "Pead m‰‰rama kasutajanime mida lisada."
+msgstr "Pead m√§√§rama kasutajanime mida lisada."
 
 #: admin/user.php:156
 msgid "You must specify the username to update."
-msgstr "Pead m‰‰rama kasutajanime mida muuta."
+msgstr "Pead m√§√§rama kasutajanime mida muuta."
 
 #: lib/Horde/Compress/zip.php:139
 msgid "You must specify what action to perform."
-msgstr "Pead m‰‰rama tegevuse, mida soovid teha."
+msgstr "Pead m√§√§rama tegevuse, mida soovid teha."
 
 #: lib/Horde/Prefs/CategoryManager.php:79
 msgid "You must type a new category name."
@@ -8418,16 +8418,16 @@ msgid ""
 "use Horde to administer user accounts, you must use a different "
 "authentication backend."
 msgstr ""
-"Sinu autentimiss¸steem ei vıimalda kasutajaid lisada. Kui soovid Horde abil "
-"kasutajaid hallata, pead kasutama teistsugust autentimiss¸steemi."
+"Sinu autentimiss√ºsteem ei v√µimalda kasutajaid lisada. Kui soovid Horde abil "
+"kasutajaid hallata, pead kasutama teistsugust autentimiss√ºsteemi."
 
 #: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Sinu autentimiss¸steem ei vıimalda kasutajate nimekirja n‰ha, vıi on see "
-"vıimalus mingil muul pıhjusel v‰lja l¸litatud."
+"Sinu autentimiss√ºsteem ei v√µimalda kasutajate nimekirja n√§ha, v√µi on see "
+"v√µimalus mingil muul p√µhjusel v√§lja l√ºlitatud."
 
 #: lib/Horde/Auth.php:1006 lib/Horde/backup/Auth.php:987
 #, php-format
@@ -8435,24 +8435,24 @@ msgid ""
 "Your browser appears to have changed since the beginning of your %s session. "
 "To protect your security, you must login again."
 msgstr ""
-"Sinu veebilehitseja n‰ib olevat %s sessiooni jooksul muutunud. Turvalisuse "
+"Sinu veebilehitseja n√§ib olevat %s sessiooni jooksul muutunud. Turvalisuse "
 "tagamiseks pead uuesti sisse logima."
 
 #: lib/Block/iframe.php:55
 msgid "Your browser does not support this feature."
-msgstr "Sinu veebilehitseja ei vıimalda seda omadust kasutada."
+msgstr "Sinu veebilehitseja ei v√µimalda seda omadust kasutada."
 
 #: templates/javascript/print.js:34
 msgid ""
 "Your browser does not support this print option. Press Control/Command + P "
 "to print."
 msgstr ""
-"Sinu veebilehitseja ei vıimalda niimoodi tr¸kkida. Vajuta tr¸kkimiseks "
-"Control+P vıi Command+P."
+"Sinu veebilehitseja ei v√µimalda niimoodi tr√ºkkida. Vajuta tr√ºkkimiseks "
+"Control+P v√µi Command+P."
 
 #: config/prefs.php.dist:279
 msgid "Your current time zone:"
-msgstr "Sinu ajavˆˆnd:"
+msgstr "Sinu ajav√∂√∂nd:"
 
 #: services/prefs.php:131
 msgid "Your default identity has been changed."
@@ -8464,7 +8464,7 @@ msgstr "Sinu vaikeidentiteet:"
 
 #: config/prefs.php.dist:222
 msgid "Your full name:"
-msgstr "Sinu t‰ielik nimi:"
+msgstr "Sinu t√§ielik nimi:"
 
 #: lib/Horde/Auth.php:1022 lib/Horde/backup/Auth.php:1003
 msgid "Your login has expired."
@@ -8473,11 +8473,11 @@ msgstr "Sinu sisselogimine on aegunud."
 #: services/resetpassword.php:74
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Sinu uus %s salasına on: %s"
+msgstr "Sinu uus %s salas√µna on: %s"
 
 #: lib/Horde/Prefs/UI.php:176
 msgid "Your options have been updated for the duration of this session."
-msgstr "Muudatused on salvestatud selle sessiooni lıpuni."
+msgstr "Muudatused on salvestatud selle sessiooni l√µpuni."
 
 #: lib/Horde/Prefs/UI.php:178
 msgid "Your options have been updated."
@@ -8485,26 +8485,26 @@ msgstr "Muudatused on salvestatud."
 
 #: services/resetpassword.php:73
 msgid "Your password has been reset"
-msgstr "Sinu salasına on vahetatud"
+msgstr "Sinu salas√µna on vahetatud"
 
 #: services/resetpassword.php:80
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Sinu salasına on vahetatud, vaata oma e-posti ja logi sisse uue salasınaga."
+"Sinu salas√µna on vahetatud, vaata oma e-posti ja logi sisse uue salas√µnaga."
 
 #: lib/Block/account.php:692 lib/Block/account.php:707
 msgid "Your password has expired"
-msgstr "Sinu salasına on aegunud"
+msgstr "Sinu salas√µna on aegunud"
 
 #: lib/Horde/Auth.php:757 lib/Horde/backup/Auth.php:738
 msgid "Your password has expired."
-msgstr "Sinu salasına on aegunud."
+msgstr "Sinu salas√µna on aegunud."
 
 #: templates/rpcsum/rpcsum.inc:57
 msgid "Your remote servers:"
-msgstr "Sinu v‰lised serverid:"
+msgstr "Sinu v√§lised serverid:"
 
 #: lib/Horde/NLS/tld.php:261 lib/Horde/NLS/GeoIP.php:118
 msgid "Yugoslavia"
@@ -8535,7 +8535,7 @@ msgstr "[Peida osundatud tekst]"
 
 #: admin/sessions.php:54
 msgid "[None]"
-msgstr "[M‰‰ramata]"
+msgstr "[M√§√§ramata]"
 
 #: services/problem.php:89
 msgid "[Problem Report]"
@@ -8543,7 +8543,7 @@ msgstr "[Horde probleem]"
 
 #: templates/javascript/quoteBlocks.js:18
 msgid "[Show Quoted Text -"
-msgstr "[N‰ita osundatud teksti -"
+msgstr "[N√§ita osundatud teksti -"
 
 #: lib/Horde/Text/Filter/highlightquotes.php:205 admin/sessions.php:55
 #, php-format
@@ -8561,7 +8561,7 @@ msgstr "_Meelde tuletus"
 
 #: lib/api.php:229
 msgid "_CLI"
-msgstr "K‰su_rida"
+msgstr "K√§su_rida"
 
 #: lib/api.php:213
 msgid "_DataTree"
@@ -8581,7 +8581,7 @@ msgstr "_Logi sisse"
 
 #: lib/Horde/Menu.php:189
 msgid "_Log out"
-msgstr "_Logi v‰lja"
+msgstr "_Logi v√§lja"
 
 #: lib/Horde/Menu.php:163
 msgid "_Options"
@@ -8589,7 +8589,7 @@ msgstr "_Seadistus"
 
 #: lib/api.php:205
 msgid "_Permissions"
-msgstr "’ig_used"
+msgstr "√ïig_used"
 
 #: lib/api.php:193
 msgid "_Setup"
@@ -8618,7 +8618,7 @@ msgstr "vaikne"
 
 #: lib/Horde/MIME/Message.php:157
 msgid "cannot create output file"
-msgstr "v‰ljundfaili loomine nurjus"
+msgstr "v√§ljundfaili loomine nurjus"
 
 #: lib/Horde/MIME/Message.php:129
 msgid "cannot open input"
@@ -8626,11 +8626,11 @@ msgstr "sisendi avamine nurjus"
 
 #: lib/Horde/MIME/Contents.php:602
 msgid "click here"
-msgstr "klıpsa siia"
+msgstr "kl√µpsa siia"
 
 #: lib/Horde/MIME/Message.php:121
 msgid "command line usage error"
-msgstr "k‰surea kasutamise viga"
+msgstr "k√§surea kasutamise viga"
 
 #: lib/Horde/MIME/Message.php:177
 msgid "configuration error"
@@ -8638,7 +8638,7 @@ msgstr "seadistuse viga"
 
 #: lib/Horde/MIME/Message.php:153
 msgid "critical system file missing"
-msgstr "elut‰htis s¸steemifail on puudu"
+msgstr "elut√§htis s√ºsteemifail on puudu"
 
 #: lib/Horde/MIME/Message.php:125
 msgid "data format error"
@@ -8687,7 +8687,7 @@ msgstr "inline"
 
 #: lib/Horde/MIME/Message.php:161
 msgid "input/output error"
-msgstr "sisend/v‰ljund viga"
+msgstr "sisend/v√§ljund viga"
 
 #: lib/Horde/MIME/Message.php:145
 msgid "internal software error"
@@ -8717,11 +8717,11 @@ msgstr "pole veel teostatud"
 
 #: lib/Horde/Kolab.php:691
 msgid "notepad"
-msgstr "m‰rkmik"
+msgstr "m√§rkmik"
 
 #: lib/Horde/MIME/Message.php:173
 msgid "permission denied"
-msgstr "ıigused puuduvad"
+msgstr "√µigused puuduvad"
 
 #: lib/Horde/MIME/Message.php:169
 msgid "remote error in protocol"
@@ -8729,19 +8729,19 @@ msgstr "protokolli viga teises otsas"
 
 #: lib/Block/weatherdotcom_strings.php:90
 msgid "rising"
-msgstr "tıuseb"
+msgstr "t√µuseb"
 
 #: lib/Horde/MIME/Message.php:141
 msgid "service unavailable"
-msgstr "teenus pole k‰ttesaadav"
+msgstr "teenus pole k√§ttesaadav"
 
 #: admin/setup/config.php:102
 msgid "show differences"
-msgstr "n‰ita erinevusi"
+msgstr "n√§ita erinevusi"
 
 #: lib/Net/SMS/sms2email_http.php:524
 msgid "sms2email via HTTP"
-msgstr "sms2email ¸le HTTP"
+msgstr "sms2email √ºle HTTP"
 
 #: lib/Horde/UI/VarRenderer/html.php:408
 msgid "ss"
@@ -8749,28 +8749,28 @@ msgstr "ss"
 
 #: lib/Block/weatherdotcom_strings.php:89
 msgid "steady"
-msgstr "¸htlane"
+msgstr "√ºhtlane"
 
 #: lib/Horde/MIME/Message.php:149
 msgid "system error"
-msgstr "s¸steemi viga"
+msgstr "s√ºsteemi viga"
 
 #: lib/Horde/Kolab.php:715
 msgid "task list"
-msgstr "¸lesannete nimekiri"
+msgstr "√ºlesannete nimekiri"
 
 #: lib/Horde/MIME/Message.php:165
 msgid "temporary failure"
-msgstr "ajutine tırge"
+msgstr "ajutine t√µrge"
 
 #: admin/user.php:44 admin/user.php:55 lib/Horde/Auth/Signup.php:264
 #: lib/Horde/Auth/Signup.php:278
 msgid "type the password twice to confirm"
-msgstr "kirjuta salasına eksituse v‰ltimiseks kaks korda"
+msgstr "kirjuta salas√µna eksituse v√§ltimiseks kaks korda"
 
 #: admin/setup/diff.php:64 admin/setup/diff.php:76
 msgid "unified"
-msgstr "¸hitatud"
+msgstr "√ºhitatud"
 
 #: lib/Horde/MIME/Part.php:27
 msgid "unnamed"
@@ -8795,4 +8795,4 @@ msgstr "weather.com"
 #: lib/Horde/Form.php:1404
 #, php-format
 msgid "you must enter less than %d."
-msgstr "sa pead v‰hem sisestama kui %d."
+msgstr "sa pead v√§hem sisestama kui %d."

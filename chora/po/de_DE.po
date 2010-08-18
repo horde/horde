@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: templates/annotate/header.inc:4
@@ -25,8 +25,8 @@ msgid ""
 "clicking its row, %1$s will show the differences to the selected row."
 msgstr ""
 "%1$s zeigt die Unterschiede zur vorigen Version an. Wenn Sie eine Version "
-"durch Klicken auf deren Zeile ausgewählt haben, zeigt %1$s die Unterschiede "
-"zu der ausgewählten Version an."
+"durch Klicken auf deren Zeile ausgewÃ¤hlt haben, zeigt %1$s die Unterschiede "
+"zu der ausgewÃ¤hlten Version an."
 
 #: co.php:68
 #, php-format
@@ -45,7 +45,7 @@ msgstr "%s: Datei oder Verzeichnis nicht gefunden"
 
 #: templates/diff/hr/header.inc:32
 msgid "Added"
-msgstr "Hinzugefügt"
+msgstr "HinzugefÃ¼gt"
 
 #: templates/directory/header.inc:9 templates/log/header.inc:28
 msgid "All Branches"
@@ -68,7 +68,7 @@ msgstr "Autor:"
 
 #: templates/directory/back.inc:4
 msgid "Back"
-msgstr "Zurück"
+msgstr "ZurÃ¼ck"
 
 #: templates/checkout/checkout.inc:6 templates/diff/hr/header.inc:45
 msgid "Branch:"
@@ -84,16 +84,16 @@ msgstr "Branching nach"
 
 #: lib/Chora.php:221
 msgid "Change repositories:"
-msgstr "Repository ändern:"
+msgstr "Repository Ã¤ndern:"
 
 #: templates/history/rev.inc:7
 #, php-format
 msgid "Changed: %s"
-msgstr "Geändert: %s"
+msgstr "GeÃ¤ndert: %s"
 
 #: templates/diff/hr/header.inc:52
 msgid "Changes:"
-msgstr "Änderungen:"
+msgstr "Ã„nderungen:"
 
 #: templates/checkout/checkout.inc:18
 msgid "Checkout"
@@ -139,11 +139,11 @@ msgstr "Datum:"
 
 #: patchsets.php:91
 msgid "Deleted"
-msgstr "Gelöscht"
+msgstr "GelÃ¶scht"
 
 #: templates/directory/file.inc:5 templates/directory/file.inc:28
 msgid "Deleted File"
-msgstr "Gelöschte Dateien"
+msgstr "GelÃ¶schte Dateien"
 
 #: patchsets.php:69 patchsets.php:87 templates/log/header.inc:15
 msgid "Diff"
@@ -204,15 +204,15 @@ msgstr "Unterschiede herunterladen"
 #: cvsgraph.php:51
 #, php-format
 msgid "Graph for %s"
-msgstr "Grafik für %s"
+msgstr "Grafik fÃ¼r %s"
 
 #: browsedir.php:41
 msgid "Hide Deleted Files"
-msgstr "Gelöschte Dateien verstecken"
+msgstr "GelÃ¶schte Dateien verstecken"
 
 #: browsedir.php:41
 msgid "Hide _Deleted Files"
-msgstr "_Gelöschte Dateien verstecken"
+msgstr "_GelÃ¶schte Dateien verstecken"
 
 #: templates/directory/header.inc:35
 msgid "Last Log"
@@ -237,32 +237,32 @@ msgstr "Position:"
 
 #: templates/patchsets/ps_single.inc:17
 msgid "Log"
-msgstr "Änderung"
+msgstr "Ã„nderung"
 
 #: templates/checkout/checkout.inc:1 templates/patchsets/header_table.inc:8
 #: templates/diff/hr/header.inc:37 templates/log/header.inc:44
 msgid "Log Message"
-msgstr "Änderungseintrag"
+msgstr "Ã„nderungseintrag"
 
 #: lib/Chora.php:318 lib/Chora.php:319
 msgid "Logs"
-msgstr "Änderungen"
+msgstr "Ã„nderungen"
 
 #: diff.php:28
 msgid "Malformed Query"
-msgstr "Ungültige Abfrage"
+msgstr "UngÃ¼ltige Abfrage"
 
 #: lib/Application.php:119
 msgid "Malformed URL"
-msgstr "Ungültige URL"
+msgstr "UngÃ¼ltige URL"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüliste"
+msgstr "MenÃ¼liste"
 
 #: templates/diff/hr/header.inc:33
 msgid "Modified"
-msgstr "Geändert"
+msgstr "GeÃ¤ndert"
 
 #: patchsets.php:83
 msgid "New File"
@@ -270,7 +270,7 @@ msgstr "Neue Datei"
 
 #: templates/diff/hr/nochange.inc:3
 msgid "No Visible Changes"
-msgstr "Keine sichtbaren Änderungen"
+msgstr "Keine sichtbaren Ã„nderungen"
 
 #: lib/Application.php:108
 msgid "No repositories found."
@@ -304,12 +304,12 @@ msgstr "Patchsatz nicht gefunden"
 
 #: lib/Chora.php:323 lib/Chora.php:324
 msgid "Patchsets"
-msgstr "Patchsätze"
+msgstr "PatchsÃ¤tze"
 
 #: patchsets.php:33
 #, php-format
 msgid "Patchsets for %s"
-msgstr "Patchsätze für %s"
+msgstr "PatchsÃ¤tze fÃ¼r %s"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
@@ -317,7 +317,7 @@ msgstr "Bitte kontaktieren Sie"
 
 #: templates/annotate/header.inc:7
 msgid "Prev"
-msgstr "Zurück"
+msgstr "ZurÃ¼ck"
 
 #: templates/diff/hr/header.inc:34
 msgid "Removed"
@@ -343,16 +343,16 @@ msgstr "Version %s nicht gefunden"
 #: co.php:45
 #, php-format
 msgid "Revision Not Found: %s is not a valid revision"
-msgstr "Version nicht gefunde: %s ist keine gültige Version"
+msgstr "Version nicht gefunde: %s ist keine gÃ¼ltige Version"
 
 #: browsefile.php:30
 #, php-format
 msgid "Revisions for %s"
-msgstr "Versionen für %s"
+msgstr "Versionen fÃ¼r %s"
 
 #: templates/patchsets/header.inc:7
 msgid "Search Patchsets:"
-msgstr "Patchsätze suchen:"
+msgstr "PatchsÃ¤tze suchen:"
 
 #: templates/log/header.inc:3
 msgid "Search Revisions:"
@@ -364,7 +364,7 @@ msgstr "Branch anzeigen:"
 
 #: browsedir.php:41
 msgid "Show Deleted Files"
-msgstr "Gelöschte Dateien anzeigen"
+msgstr "GelÃ¶schte Dateien anzeigen"
 
 #: templates/log/header.inc:18
 msgid "Show Differences"
@@ -372,15 +372,15 @@ msgstr "Unterschiede anzeigen"
 
 #: browsedir.php:41
 msgid "Show _Deleted Files"
-msgstr "_Gelöschte Dateien anzeigen"
+msgstr "_GelÃ¶schte Dateien anzeigen"
 
 #: templates/log/rev.inc:4
 msgid "Show changes to the previous revision"
-msgstr "Änderungen zur vorigen Version anzeigen"
+msgstr "Ã„nderungen zur vorigen Version anzeigen"
 
 #: templates/log/rev.inc:6
 msgid "Show changes to the selected revision"
-msgstr "Änderungen zur ausgewählten Version anzeigen"
+msgstr "Ã„nderungen zur ausgewÃ¤hlten Version anzeigen"
 
 #: templates/log/header.inc:12
 #, php-format
@@ -399,7 +399,7 @@ msgstr "Quell-Kommentar von %s (Version %s)"
 #: history.php:129
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "Branch Ansicht für %s"
+msgstr "Branch Ansicht fÃ¼r %s"
 
 #: browsedir.php:38
 #, php-format
@@ -413,8 +413,8 @@ msgid ""
 "again later."
 msgstr ""
 "Sourceroot nicht gefunden! Die kann durch eine fehlerhafte Konfiguration "
-"durch den Administrator oder vorübergehende Probleme mit dem Server "
-"verursacht sein. Bitte versuchen Sie es später noch einmal."
+"durch den Administrator oder vorÃ¼bergehende Probleme mit dem Server "
+"verursacht sein. Bitte versuchen Sie es spÃ¤ter noch einmal."
 
 #: lib/Chora.php:340 lib/Chora.php:341
 msgid "Statistics"
@@ -423,7 +423,7 @@ msgstr "Statistiken"
 #: stats.php:32
 #, php-format
 msgid "Statistics for %s"
-msgstr "Statistik für %s"
+msgstr "Statistik fÃ¼r %s"
 
 #: templates/patchsets/ps.inc:15 templates/patchsets/ps_single.inc:12
 #: templates/log/rev.inc:25
@@ -444,7 +444,7 @@ msgstr "Unified"
 
 #: templates/diff/hr/header.inc:31
 msgid "Unmodified"
-msgstr "Keine Änderung"
+msgstr "Keine Ã„nderung"
 
 #: templates/diff/hr/header.inc:62 templates/diff/hr/header.inc:63
 #, php-format
@@ -494,7 +494,7 @@ msgstr "_Logs"
 
 #: lib/Chora.php:324
 msgid "_Patchsets"
-msgstr "_Patchsätze"
+msgstr "_PatchsÃ¤tze"
 
 #: templates/directory/header.inc:27
 msgid "_Rev"
@@ -523,7 +523,7 @@ msgstr "Tage"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "für weitere Informationen."
+msgstr "fÃ¼r weitere Informationen."
 
 #: lib/Chora.php:385
 msgid "hour"

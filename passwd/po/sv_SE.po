@@ -1,35 +1,35 @@
 # Passwd module translations.
 # Copyright YEAR Free Software Foundation, Inc.
-# Mattias Webjörn Eriksson <mattias@webjorn>, 2002.
+# Mattias WebjÃ¶rn Eriksson <mattias@webjorn>, 2002.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: passwd\n"
 "POT-Creation-Date: 2002-06-16 23:32+0200\n"
 "PO-Revision-Date: 2002-06-15 03:13+0200\n"
-"Last-Translator: Mattias Webjörn Eriksson <mattias@webjorn>\n"
+"Last-Translator: Mattias WebjÃ¶rn Eriksson <mattias@webjorn>\n"
 "Language-Team: Swedish <SE@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 msgid "Change your password"
-msgstr "Byt lösenord"
+msgstr "Byt lÃ¶senord"
 
 msgid "Confirm new password:"
-msgstr "Bekräfta ditt lösenord:"
+msgstr "BekrÃ¤fta ditt lÃ¶senord:"
 
 msgid "Could not bind to ldap server as guest"
-msgstr "Kunde inte binda till ldap servern som gäst"
+msgstr "Kunde inte binda till ldap servern som gÃ¤st"
 
 msgid "Could not connect to ldap server"
 msgstr "Kunde inte ansluta till ldap servern"
 
 msgid "Failure in changing password : "
-msgstr "Misslyckades med att ändra lösenord : "
+msgstr "Misslyckades med att Ã¤ndra lÃ¶senord : "
 
 msgid "Help"
-msgstr "Hjälp"
+msgstr "HjÃ¤lp"
 
 msgid "Internal Error"
 msgstr "Internt fel"
@@ -38,66 +38,66 @@ msgid "Logout"
 msgstr "Logga ut"
 
 msgid "New password:"
-msgstr "Nytt lösenord:"
+msgstr "Nytt lÃ¶senord:"
 
 msgid ""
 "Note: You will need to logout and back in after you change your password!"
-msgstr "OBS! Du måste logga ut direkt efter att du har byt lösenord!"
+msgstr "OBS! Du mÃ¥ste logga ut direkt efter att du har byt lÃ¶senord!"
 
 msgid "Old password:"
-msgstr "Gammalt lösenord:"
+msgstr "Gammalt lÃ¶senord:"
 
 msgid "Password changed!"
-msgstr "Lösenordet ändrades!"
+msgstr "LÃ¶senordet Ã¤ndrades!"
 
 msgid "Password module is not properly configured"
-msgstr "Lösenordsmodulen är inte correct konfigurerad"
+msgstr "LÃ¶senordsmodulen Ã¤r inte correct konfigurerad"
 
 msgid "Problem?"
 msgstr "Problem?"
 
 msgid "Reset"
-msgstr "Återställ"
+msgstr "Ã…terstÃ¤ll"
 
 msgid "Some of Password module's configuration files are missing:"
-msgstr "Några av lösenordsmodulens konfigurations filer saknas"
+msgstr "NÃ¥gra av lÃ¶senordsmodulens konfigurations filer saknas"
 
 msgid ""
 "This file controls the default preferences for Password module, and also "
 "controls which preferences users can alter."
 msgstr ""
-"Denna fil hanterar standard inställningarna för lösenordsmodulen, samt vilka "
-"inställningar som användarna kan ändra"
+"Denna fil hanterar standard instÃ¤llningarna fÃ¶r lÃ¶senordsmodulen, samt vilka "
+"instÃ¤llningar som anvÃ¤ndarna kan Ã¤ndra"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Den här filen hanterar stylesheets, vilket används för färger och fonter, "
-"utöver de standard värden från Hordemodulen"
+"Den hÃ¤r filen hanterar stylesheets, vilket anvÃ¤nds fÃ¶r fÃ¤rger och fonter, "
+"utÃ¶ver de standard vÃ¤rden frÃ¥n Hordemodulen"
 
 msgid ""
 "This is the main Password module configuration file. It contains paths and "
 "options for all Password module scripts."
 msgstr ""
-"Det här är huvudkonfigurationsfilen för lösenordsmodulen. Den innehåller val "
-"för alla skript."
+"Det hÃ¤r Ã¤r huvudkonfigurationsfilen fÃ¶r lÃ¶senordsmodulen. Den innehÃ¥ller val "
+"fÃ¶r alla skript."
 
 #, c-format
 msgid "You can't change password for user %s"
-msgstr "Du kan inte ändra lösenord för användare %s"
+msgstr "Du kan inte Ã¤ndra lÃ¶senord fÃ¶r anvÃ¤ndare %s"
 
 msgid "You must give your new password"
-msgstr "Du måste ange ditt nya lösenord"
+msgstr "Du mÃ¥ste ange ditt nya lÃ¶senord"
 
 msgid "You must give your old password"
-msgstr "Du måste ange ditt gamla lösenord"
+msgstr "Du mÃ¥ste ange ditt gamla lÃ¶senord"
 
 msgid "You must verify your new password"
-msgstr "Du måste verifiera ditt nya lösenord"
+msgstr "Du mÃ¥ste verifiera ditt nya lÃ¶senord"
 
 msgid "Your new passwords didn't match"
-msgstr "Ditt nya lösenord verifierades inte korrekt"
+msgstr "Ditt nya lÃ¶senord verifierades inte korrekt"
 
 msgid "Your old password isn't correct"
-msgstr "Ditt gamla lösenord är inte korrekt"
+msgstr "Ditt gamla lÃ¶senord Ã¤r inte korrekt"

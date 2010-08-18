@@ -1,5 +1,5 @@
 # Danish translations for Kronolith package
-# Danske oversættelser for pakke Kronolith.
+# Danske oversÃ¦ttelser for pakke Kronolith.
 # Copyright 2006-2010 The Horde Project
 # This file is distributed under the same license as the Kronolith package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>.\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -25,7 +25,7 @@ msgstr "%d kalendere fundet"
 #: templates/search/header.inc:4
 #, php-format
 msgid "%d events"
-msgstr "%d hændelser"
+msgstr "%d hÃ¦ndelser"
 
 #: templates/edit/edit_timespan.inc:121
 #, php-format
@@ -52,15 +52,15 @@ msgid ""
 "(Click on calendar name to switch the calendar's visibility in the main "
 "window)"
 msgstr ""
-"(Klik på kalendernavn for at skifte kalenderens synlighed i hoved-vinduet)"
+"(Klik pÃ¥ kalendernavn for at skifte kalenderens synlighed i hoved-vinduet)"
 
 #: templates/contacts/contacts.inc:165
 msgid "* Add these by clicking Add *"
-msgstr "* Tilføj disse ved at klikke Tilføj *"
+msgstr "* TilfÃ¸j disse ved at klikke TilfÃ¸j *"
 
 #: templates/contacts/contacts.inc:151
 msgid "* Please select address(es) *"
-msgstr "* Vælg venligst adresse(r) *"
+msgstr "* VÃ¦lg venligst adresse(r) *"
 
 #: lib/Driver.php:1844
 msgid "1 attendee"
@@ -68,7 +68,7 @@ msgstr "1 deltager"
 
 #: templates/search/header.inc:4
 msgid "1 event"
-msgstr "1 hændelse"
+msgstr "1 hÃ¦ndelse"
 
 #: config/prefs.php.dist:146
 msgid "1 hour"
@@ -96,7 +96,7 @@ msgstr "<strong>Beskrivelse</strong> (valgfri)"
 
 #: templates/edit/edit.inc:266
 msgid "<strong>Keywords</strong> (optional)"
-msgstr "<strong>Nøgleord</strong> (valgfri)"
+msgstr "<strong>NÃ¸gleord</strong> (valgfri)"
 
 #: templates/edit/edit.inc:185
 msgid "<strong>Recurrence</strong> (optional)"
@@ -112,31 +112,31 @@ msgstr "Accepteret"
 
 #: templates/search/search.inc:11
 msgid "Ad_vanced Search"
-msgstr "Udvidet søgning"
+msgstr "Udvidet sÃ¸gning"
 
 #: templates/contacts/contacts.inc:160
 msgid "Add"
-msgstr "Tilføj"
+msgstr "TilfÃ¸j"
 
 #: templates/edit/edit.inc:21
 msgid "Add Event"
-msgstr "Tilføj Aftale"
+msgstr "TilfÃ¸j Aftale"
 
 #: templates/prefs/remote_cal_management.inc:35
 msgid "Add a new Remote Calendar"
-msgstr "Tilføj en ny fjern kalender"
+msgstr "TilfÃ¸j en ny fjern kalender"
 
 #: addevent.php:65
 msgid "Add a new event"
-msgstr "Tilføj ny aftale"
+msgstr "TilfÃ¸j ny aftale"
 
 #: templates/attendees/attendees.inc:71
 msgid "Add attendees"
-msgstr "Tilføj deltagere"
+msgstr "TilfÃ¸j deltagere"
 
 #: templates/contacts/contacts.inc:185
 msgid "Add to attendees"
-msgstr "Tilføj til deltagere"
+msgstr "TilfÃ¸j til deltagere"
 
 #: contacts.php:76 templates/contacts/contacts.inc:128
 #: templates/attendees/attendees.inc:74
@@ -145,7 +145,7 @@ msgstr "Adressekartotek"
 
 #: templates/search/search.inc:11 templates/search/search_advanced.inc:8
 msgid "Advanced Search"
-msgstr "Udvidet søgning"
+msgstr "Udvidet sÃ¸gning"
 
 #: templates/view/view.inc:45
 msgid "Alarm"
@@ -159,7 +159,7 @@ msgstr "Alarm %d dage i forvejen"
 #: lib/Driver.php:1825
 #, php-format
 msgid "Alarm %d hours before"
-msgstr "Alarm %d timer før"
+msgstr "Alarm %d timer fÃ¸r"
 
 #: lib/Driver.php:1830
 #, php-format
@@ -169,15 +169,15 @@ msgstr "Alarm %d minutter inden"
 #: lib/Driver.php:1815
 #, php-format
 msgid "Alarm %d weeks before"
-msgstr "Alarm %d uger før"
+msgstr "Alarm %d uger fÃ¸r"
 
 #: lib/Driver.php:1819
 msgid "Alarm 1 day before"
-msgstr "Alarm 1 dag før"
+msgstr "Alarm 1 dag fÃ¸r"
 
 #: lib/Driver.php:1824
 msgid "Alarm 1 hour before"
-msgstr "Alarm 1 time før"
+msgstr "Alarm 1 time fÃ¸r"
 
 #: lib/Driver.php:1829
 msgid "Alarm 1 minute before"
@@ -185,7 +185,7 @@ msgstr "Alarm 1 minut inden"
 
 #: lib/Driver.php:1814
 msgid "Alarm 1 week before"
-msgstr "Alarm 1 uge før"
+msgstr "Alarm 1 uge fÃ¸r"
 
 #: data.php:59
 msgid "Alarm Date"
@@ -209,7 +209,7 @@ msgstr "Alle deltagere"
 
 #: templates/perms/perms.inc:65
 msgid "All Authenticated Users"
-msgstr "Alle ægtede brugere"
+msgstr "Alle Ã¦gtede brugere"
 
 #: templates/search/search.inc:59
 msgid "All Future"
@@ -217,7 +217,7 @@ msgstr "Alle fremtidige"
 
 #: templates/search/search.inc:53
 msgid "All Past"
-msgstr "Alle foregående"
+msgstr "Alle foregÃ¥ende"
 
 #: lib/Block/month.php:24 lib/Block/monthlist.php:27
 #: lib/Block/prevmonthlist.php:27 lib/Block/summary.php:25
@@ -241,7 +241,7 @@ msgstr "Alle aftaler"
 #: templates/search/search_advanced.inc:48
 #: templates/search/search_advanced.inc:70 lib/Kronolith.php:750
 msgid "Any"
-msgstr "Vilkårlig"
+msgstr "VilkÃ¥rlig"
 
 #: templates/javascript/goto.inc:71
 msgid "April"
@@ -259,12 +259,12 @@ msgid ""
 "your local copy of the event."
 msgstr ""
 "Vedlagt forefindes en iCalendar-fil med yderligere information omkring "
-"hændelsen. Hvis dit e-post-program understøtter iTip-anmodninger vil du "
-"kunne bruge denne fil til nemt at opdatere din lokale kopi af hændelsen."
+"hÃ¦ndelsen. Hvis dit e-post-program understÃ¸tter iTip-anmodninger vil du "
+"kunne bruge denne fil til nemt at opdatere din lokale kopi af hÃ¦ndelsen."
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "Forsøg på at ændre en ikke-eksisterende deling."
+msgstr "ForsÃ¸g pÃ¥ at Ã¦ndre en ikke-eksisterende deling."
 
 #: templates/view/view.inc:157 templates/attendees/attendees.inc:42
 msgid "Attendance"
@@ -280,11 +280,11 @@ msgstr "August"
 
 #: templates/search/search.inc:8 templates/search/search_advanced.inc:11
 msgid "Basic Search"
-msgstr "Simpel søgning"
+msgstr "Simpel sÃ¸gning"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
-msgstr "Fødselsdag"
+msgstr "FÃ¸dselsdag"
 
 #: lib/FBView.php:90 lib/FBView.php:111
 msgid "Busy"
@@ -310,7 +310,7 @@ msgstr "Kalender-oversigt"
 
 #: data.php:233
 msgid "Calendar successfully purged."
-msgstr "Kalender tømt."
+msgstr "Kalender tÃ¸mt."
 
 #: config/prefs.php.dist:36 config/prefs.php.dist:43 config/prefs.php.dist:50
 #: config/prefs.php.dist:57
@@ -319,11 +319,11 @@ msgstr "Kalendere"
 
 #: calendars.php:27
 msgid "Calendars must have a name."
-msgstr "Kalendere skal være navngivne."
+msgstr "Kalendere skal vÃ¦re navngivne."
 
 #: data.php:248
 msgid "Can't create a new event."
-msgstr "Kan ikke oprette en ny hændelse."
+msgstr "Kan ikke oprette en ny hÃ¦ndelse."
 
 #: templates/edit/edit.inc:31 templates/edit/edit.inc:299
 #: templates/delete/delete.inc:27 templates/delete/one.inc:25
@@ -352,36 +352,36 @@ msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
-"Vælg hvorvidt du vil underrettes om nye, ændrede og slettede hændelser via e-"
+"VÃ¦lg hvorvidt du vil underrettes om nye, Ã¦ndrede og slettede hÃ¦ndelser via e-"
 "post:"
 
 #: config/prefs.php.dist:52
 msgid "Choose if you want to be notified of new, edited, and deleted events."
 msgstr ""
-"Vælg hvorvidt du vil underrettes om nye, ændrede eller slettede hændelser."
+"VÃ¦lg hvorvidt du vil underrettes om nye, Ã¦ndrede eller slettede hÃ¦ndelser."
 
 #: config/prefs.php.dist:301
 msgid "Choose if you want to receive email reminders for events with alarms:"
 msgstr ""
-"Vælg hvorvidt du ønsker at modtage e-post-påmindelser ved hændelser med "
+"VÃ¦lg hvorvidt du Ã¸nsker at modtage e-post-pÃ¥mindelser ved hÃ¦ndelser med "
 "alarmer:"
 
 #: templates/prefs/search_abook_select.inc:19 config/prefs.php.dist:321
 msgid "Choose the address books to search for free/busy URLs:"
-msgstr "Vælg de adressekartoteker, som skal gennemses for fri/optaget-URLer:"
+msgstr "VÃ¦lg de adressekartoteker, som skal gennemses for fri/optaget-URLer:"
 
 #: templates/prefs/fb_cals_select.inc:16
 msgid "Choose the calendars to include in your free/busy information:"
-msgstr "Vælg de kalendere, som inkluderes i din ledig/optaget-information:"
+msgstr "VÃ¦lg de kalendere, som inkluderes i din ledig/optaget-information:"
 
 #: config/prefs.php.dist:333
 msgid "Choose the calendars to include when generating free/busy URLs:"
 msgstr ""
-"Vælg de kalendere, som skal medtages, når der genereres fri/optaget-URLer:"
+"VÃ¦lg de kalendere, som skal medtages, nÃ¥r der genereres fri/optaget-URLer:"
 
 #: config/prefs.php.dist:38
 msgid "Choose your default calendar."
-msgstr "Vælg din standard-kalender."
+msgstr "VÃ¦lg din standard-kalender."
 
 #: templates/attendees/attendees.inc:84
 msgid "Clear all attendees"
@@ -397,26 +397,26 @@ msgstr "Luk vindue"
 
 #: data.php:28 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr "Kommaseparerede værdier"
+msgstr "Kommaseparerede vÃ¦rdier"
 
 #: config/prefs.php.dist:73
 msgid "Confirm deletion of events?"
-msgstr "Bekræft annullering af aftaler?"
+msgstr "BekrÃ¦ft annullering af aftaler?"
 
 #: lib/Kronolith.php:630
 msgid "Confirmed"
-msgstr "Bekræftet"
+msgstr "BekrÃ¦ftet"
 
 #: templates/calendars/calendars.inc:217
 msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
 msgstr ""
-"Kopier nedenstående URL til brug overalt, hvor du har behov for din Fri/"
+"Kopier nedenstÃ¥ende URL til brug overalt, hvor du har behov for din Fri/"
 "Optaget-URL:"
 
 #: lib/Kronolith.php:168
 #, php-format
 msgid "Could not open %s."
-msgstr "Kunne ikke åbne %s."
+msgstr "Kunne ikke Ã¥bne %s."
 
 #: templates/calendars/calendars.inc:129
 msgid "Create"
@@ -472,7 +472,7 @@ msgstr "Standard-kalender"
 #: templates/perms/perms.inc:97 templates/perms/perms.inc:123
 #: templates/perms/perms.inc:149 templates/perms/perms.inc:197
 msgid "Delegate"
-msgstr "Delegér"
+msgstr "DelegÃ©r"
 
 #: templates/perms/perms.inc:33 templates/perms/perms.inc:70
 #: templates/perms/perms.inc:96 templates/perms/perms.inc:122
@@ -492,8 +492,8 @@ msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"Slet kun denne aftale, denne og alle tilhørende fremtidige aftaler, eller "
-"alle tilhørende aftaler?"
+"Slet kun denne aftale, denne og alle tilhÃ¸rende fremtidige aftaler, eller "
+"alle tilhÃ¸rende aftaler?"
 
 #: templates/search/search.inc:28 templates/search/search_advanced.inc:103
 msgid "Descri_ption"
@@ -518,7 +518,7 @@ msgstr "Indstillinger for visning"
 
 #: config/prefs.php.dist:30
 msgid "Do you want to show tasks which are due on your calendar?"
-msgstr "Ønsker du at vise opgaver, som er forfaldne, i din kalender?"
+msgstr "Ã˜nsker du at vise opgaver, som er forfaldne, i din kalender?"
 
 #: lib/Kronolith.php:600
 msgid "Does not recur"
@@ -547,37 +547,37 @@ msgstr "Ret %s"
 
 #: templates/edit/edit.inc:178
 msgid "Edit Attendees"
-msgstr "Redigér deltagere"
+msgstr "RedigÃ©r deltagere"
 
 #: templates/calendars/calendars.inc:143
 msgid "Edit Calendars"
-msgstr "Redigér kalender"
+msgstr "RedigÃ©r kalender"
 
 #: perms.php:259
 msgid "Edit Permissions"
-msgstr "Ændre tilladelser"
+msgstr "Ã†ndre tilladelser"
 
 #: perms.php:261
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Ændre tilladelser for %s"
+msgstr "Ã†ndre tilladelser for %s"
 
 #: config/prefs.php.dist:259
 msgid "Edit Remote Calendars"
-msgstr "Redigér fjerne kalendere"
+msgstr "RedigÃ©r fjerne kalendere"
 
 #: attendees.php:146
 msgid "Edit attendees"
-msgstr "Redigér deltagere"
+msgstr "RedigÃ©r deltagere"
 
 #: templates/category_legend.inc:20
 msgid "Edit categories and colors"
-msgstr "Redigér kategorier og farver"
+msgstr "RedigÃ©r kategorier og farver"
 
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "Ændre tilladelser for %s"
+msgstr "Ã†ndre tilladelser for %s"
 
 #: templates/view/view.inc:156 templates/contacts/contacts.inc:177
 #: templates/attendees/attendees.inc:41
@@ -610,44 +610,44 @@ msgstr ""
 
 #: lib/Kronolith.php:1173
 msgid "Event added:"
-msgstr "Hændelse tilføjet:"
+msgstr "HÃ¦ndelse tilfÃ¸jet:"
 
 #: lib/Kronolith.php:1183
 msgid "Event deleted:"
-msgstr "Hændelse slettet:"
+msgstr "HÃ¦ndelse slettet:"
 
 #: lib/Kronolith.php:1178
 msgid "Event edited:"
-msgstr "Hændelse ændret:"
+msgstr "HÃ¦ndelse Ã¦ndret:"
 
 #: lib/Driver.php:1081
 #, php-format
 msgid "Event from %s to %s"
-msgstr "Hændelse fra %s til %s"
+msgstr "HÃ¦ndelse fra %s til %s"
 
 #: lib/Driver/sql.php:367
 msgid "Event not found"
-msgstr "Hændelsen ikke fundet"
+msgstr "HÃ¦ndelsen ikke fundet"
 
 #: lib/Driver.php:734
 msgid "Events must have a start date."
-msgstr "Hændelser skal have en start-dato."
+msgstr "HÃ¦ndelser skal have en start-dato."
 
 #: lib/Driver.php:700
 msgid "Events must have a title."
-msgstr "Hændelser skal have en titel."
+msgstr "HÃ¦ndelser skal have en titel."
 
 #: templates/attendees/attendees.inc:75
 msgid "Expand Names"
-msgstr "Lav et opslag på navnene"
+msgstr "Lav et opslag pÃ¥ navnene"
 
 #: templates/data/export.inc:199
 msgid "Export"
-msgstr "Eksportér"
+msgstr "EksportÃ©r"
 
 #: templates/data/export.inc:8
 msgid "Export Calendar"
-msgstr "Eksportér Kalender"
+msgstr "EksportÃ©r Kalender"
 
 #: templates/javascript/goto.inc:69
 msgid "February"
@@ -690,7 +690,7 @@ msgstr "Generelt"
 #: lib/Block/summary.php:140
 #, php-format
 msgid "Goto %s"
-msgstr "Gå til %s"
+msgstr "GÃ¥ til %s"
 
 #: templates/perms/perms.inc:191
 msgid "Groups"
@@ -698,7 +698,7 @@ msgstr "Grupper"
 
 #: templates/perms/perms.inc:91
 msgid "Guest Permissions"
-msgstr "Gæstetilladelser"
+msgstr "GÃ¦stetilladelser"
 
 #: templates/week/head_side_by_side.inc:12
 #: templates/day/head_side_by_side.inc:10 lib/Views/Month.php:140
@@ -717,7 +717,7 @@ msgstr "Time(r)"
 
 #: config/prefs.php.dist:142
 msgid "How long should the time slots on the day and week views be?"
-msgstr "Hvor lange skal tidsafsnittene være i dag- og uge-oversigter?"
+msgstr "Hvor lange skal tidsafsnittene vÃ¦re i dag- og uge-oversigter?"
 
 #: config/prefs.php.dist:310
 msgid "How many days of free/busy information should we generate?"
@@ -738,26 +738,26 @@ msgid ""
 "To decline the event:\n"
 "%s"
 msgstr ""
-"Hvis dit e-post-program ikke understøtter iTip-anmodninger, kan du anvende "
-"én af følgende henvisninger til at acceptere eller afvise hændelsen.\n"
+"Hvis dit e-post-program ikke understÃ¸tter iTip-anmodninger, kan du anvende "
+"Ã©n af fÃ¸lgende henvisninger til at acceptere eller afvise hÃ¦ndelsen.\n"
 "\n"
-"Acceptér hændelsen:\n"
+"AcceptÃ©r hÃ¦ndelsen:\n"
 "%s\n"
 "\n"
-"Acceptér hændelsen foreløbigt:\n"
+"AcceptÃ©r hÃ¦ndelsen forelÃ¸bigt:\n"
 "%s\n"
 "\n"
-"Afvis hændelsen:\n"
+"Afvis hÃ¦ndelsen:\n"
 "%s"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Calendar, Step %d"
-msgstr "Importér kalender, trin %d"
+msgstr "ImportÃ©r kalender, trin %d"
 
 #: data.php:288
 msgid "Import/Export Calendar"
-msgstr "Importér/Eksportér Kalender"
+msgstr "ImportÃ©r/EksportÃ©r Kalender"
 
 #: templates/perms/perms.inc:143
 msgid "Individual Users"
@@ -777,7 +777,7 @@ msgstr "Juni"
 
 #: data.php:64 templates/view/view.inc:134
 msgid "Keywords"
-msgstr "Nøgleorder"
+msgstr "NÃ¸gleorder"
 
 #: templates/search/search.inc:55
 msgid "Last 24 hours"
@@ -785,15 +785,15 @@ msgstr "Sidste 24 timer"
 
 #: templates/view/view.inc:79
 msgid "Last Modified"
-msgstr "Sidst ændret"
+msgstr "Sidst Ã¦ndret"
 
 #: templates/month/head.inc:5 templates/month/head_side_by_side.inc:5
 msgid "Last Month"
-msgstr "Sidste måned"
+msgstr "Sidste mÃ¥ned"
 
 #: templates/year/head.inc:3
 msgid "Last Year"
-msgstr "Sidste år"
+msgstr "Sidste Ã¥r"
 
 #: templates/week/head.inc:6 templates/search/search.inc:54
 msgid "Last week"
@@ -801,7 +801,7 @@ msgstr "Sidste uge"
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
-msgstr "Begræns tidsrummet for din eksport:"
+msgstr "BegrÃ¦ns tidsrummet for din eksport:"
 
 #: templates/search/search_advanced.inc:85 templates/edit/edit.inc:83
 msgid "Lo_cation"
@@ -819,7 +819,7 @@ msgstr "Sted"
 
 #: config/prefs.php.dist:45
 msgid "Manage remote calendars."
-msgstr "Håndtér fjerne kalendere."
+msgstr "HÃ¥ndtÃ©r fjerne kalendere."
 
 #: templates/javascript/goto.inc:70
 msgid "March"
@@ -827,7 +827,7 @@ msgstr "Marts"
 
 #: lib/api.php:104
 msgid "Maximum Number of Events"
-msgstr "Maksimalt antal hændelser"
+msgstr "Maksimalt antal hÃ¦ndelser"
 
 #: templates/javascript/goto.inc:72
 msgid "May"
@@ -839,7 +839,7 @@ msgstr "Mig"
 
 #: config/keywords.php.dist:17
 msgid "Meeting"
-msgstr "Møde"
+msgstr "MÃ¸de"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
@@ -865,24 +865,24 @@ msgstr "Mandag"
 
 #: lib/Kronolith.php:1382 lib/Block/tree_menu.php:24 config/prefs.php.dist:85
 msgid "Month"
-msgstr "Måned"
+msgstr "MÃ¥ned"
 
 #: templates/view/view.inc:116 templates/view/view.inc:118
 #: templates/edit/edit.inc:219 templates/edit/edit.inc:225
 msgid "Monthly: Recurs every"
-msgstr "Månedlig: Gentages hver"
+msgstr "MÃ¥nedlig: Gentages hver"
 
 #: lib/Block/monthlist.php:24
 msgid "Months Ahead"
-msgstr "Måneder i forvejen"
+msgstr "MÃ¥neder i forvejen"
 
 #: lib/Block/prevmonthlist.php:24
 msgid "Months Before"
-msgstr "Måneder inden"
+msgstr "MÃ¥neder inden"
 
 #: lib/api.php:653
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Multiple iCalender-komponenter fundet; kun én vEvent er understøttet."
+msgstr "Multiple iCalender-komponenter fundet; kun Ã©n vEvent er understÃ¸ttet."
 
 #: calendars.php:128 templates/calendars/calendars.inc:70
 msgid "My Calendars"
@@ -913,39 +913,39 @@ msgstr "Ny Aftale"
 msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
-msgstr "Ny kalender oprettet og automatisk delt med følgende gruppe(r): %s."
+msgstr "Ny kalender oprettet og automatisk delt med fÃ¸lgende gruppe(r): %s."
 
 #: templates/data/import.inc:33
 msgid "Next"
-msgstr "Næste"
+msgstr "NÃ¦ste"
 
 #: templates/search/search.inc:57
 msgid "Next 24 hours"
-msgstr "Næste 24 timer"
+msgstr "NÃ¦ste 24 timer"
 
 #: lib/FBView/day.php:29
 msgid "Next Day"
-msgstr "Næste dag"
+msgstr "NÃ¦ste dag"
 
 #: templates/month/head.inc:7 templates/month/head_side_by_side.inc:7
 msgid "Next Month"
-msgstr "Næste Måned"
+msgstr "NÃ¦ste MÃ¥ned"
 
 #: lib/FBView/week.php:32
 msgid "Next Week"
-msgstr "Næste uge"
+msgstr "NÃ¦ste uge"
 
 #: templates/year/head.inc:5
 msgid "Next Year"
-msgstr "Næste år"
+msgstr "NÃ¦ste Ã¥r"
 
 #: templates/day/head.inc:5
 msgid "Next day"
-msgstr "Næste dag"
+msgstr "NÃ¦ste dag"
 
 #: templates/week/head.inc:8 templates/search/search.inc:58
 msgid "Next week"
-msgstr "Næste uge"
+msgstr "NÃ¦ste uge"
 
 #: config/prefs.php.dist:284 config/prefs.php.dist:297
 msgid "No"
@@ -961,7 +961,7 @@ msgstr "Ingen deltagere"
 
 #: lib/Kronolith.php:1533
 msgid "No calendars are available to guests."
-msgstr "Der er ingen kalender tilrådighed for gæster."
+msgstr "Der er ingen kalender tilrÃ¥dighed for gÃ¦ster."
 
 #: templates/view/view.inc:128 templates/edit/edit.inc:245
 msgid "No end date"
@@ -970,12 +970,12 @@ msgstr "Ingen slut dato"
 #: lib/Block/monthlist.php:163 lib/Block/prevmonthlist.php:164
 #: lib/Block/summary.php:194
 msgid "No events to display"
-msgstr "Ingen hændelser at vise"
+msgstr "Ingen hÃ¦ndelser at vise"
 
 #: lib/Storage/kolab.php:54
 #, php-format
 msgid "No free/busy information is available for %s"
-msgstr "Ingen ledig/optaget-information tilgængelig for %s."
+msgstr "Ingen ledig/optaget-information tilgÃ¦ngelig for %s."
 
 #: lib/api.php:364 lib/api.php:643
 msgid "No iCalendar data was found."
@@ -1004,7 +1004,7 @@ msgstr "Ikke fundet"
 
 #: config/prefs.php.dist:51
 msgid "Notifications"
-msgstr "Påmindelser"
+msgstr "PÃ¥mindelser"
 
 #: templates/javascript/goto.inc:78
 msgid "November"
@@ -1028,7 +1028,7 @@ msgstr "Den"
 
 #: config/prefs.php.dist:287 config/prefs.php.dist:300
 msgid "On all calendars I have read access to"
-msgstr "I alle kalendere har jeg læseadgang til"
+msgstr "I alle kalendere har jeg lÃ¦seadgang til"
 
 #: config/prefs.php.dist:286 config/prefs.php.dist:299
 msgid "On all shown calendars"
@@ -1043,7 +1043,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"En delings ejerskab og ejertilladelser må kun ændre af en "
+"En delings ejerskab og ejertilladelser mÃ¥ kun Ã¦ndre af en "
 "systemadministrator eller ejeren selv"
 
 #: lib/Kronolith.php:685
@@ -1086,7 +1086,7 @@ msgstr "Slet denne aftale uigenkaldeligt?"
 #: lib/api.php:345 lib/api.php:441 lib/api.php:513 lib/api.php:593
 #: lib/api.php:625 lib/api.php:711 lib/api.php:747
 msgid "Permission Denied"
-msgstr "Tilladelse nægtet"
+msgstr "Tilladelse nÃ¦gtet"
 
 #: templates/calendars/calendars.inc:170
 msgid "Permissions"
@@ -1098,25 +1098,25 @@ msgstr "Portal-tilvalg"
 
 #: lib/FBView/day.php:25
 msgid "Previous Day"
-msgstr "Foregående dag"
+msgstr "ForegÃ¥ende dag"
 
 #: lib/FBView/week.php:26
 msgid "Previous Week"
-msgstr "Foregående uge"
+msgstr "ForegÃ¥ende uge"
 
 #: templates/day/head.inc:3
 msgid "Previous day"
-msgstr "Foregående dag"
+msgstr "ForegÃ¥ende dag"
 
 #: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
 msgid "Prior Events"
-msgstr "Tidligere hændelser"
+msgstr "Tidligere hÃ¦ndelser"
 
 #: templates/perms/perms.inc:31 templates/perms/perms.inc:68
 #: templates/perms/perms.inc:94 templates/perms/perms.inc:120
 #: templates/perms/perms.inc:146 templates/perms/perms.inc:194
 msgid "Read"
-msgstr "Læs"
+msgstr "LÃ¦s"
 
 #: templates/view/view.inc:127 templates/edit/edit.inc:242
 msgid "Recur Until"
@@ -1148,7 +1148,7 @@ msgstr "Gentages dagligt"
 
 #: lib/Kronolith.php:610
 msgid "Recurs monthly"
-msgstr "Gentages månedligt"
+msgstr "Gentages mÃ¥nedligt"
 
 #: lib/Kronolith.php:606
 msgid "Recurs weekly"
@@ -1156,12 +1156,12 @@ msgstr "Gentages ugentlig"
 
 #: lib/Kronolith.php:613
 msgid "Recurs yearly"
-msgstr "Gentages årligt"
+msgstr "Gentages Ã¥rligt"
 
 #: lib/Scheduler/kronolith.php:208
 #, php-format
 msgid "Reminder: %s"
-msgstr "Påmindelse: %s"
+msgstr "PÃ¥mindelse: %s"
 
 #: templates/calendars/calendars.inc:94 config/prefs.php.dist:44
 msgid "Remote Calendars"
@@ -1198,11 +1198,11 @@ msgstr ""
 
 #: lib/Kronolith.php:692
 msgid "Required"
-msgstr "Påkrævet"
+msgstr "PÃ¥krÃ¦vet"
 
 #: lib/FBView.php:98 lib/FBView.php:139 lib/FBView.php:142 lib/FBView.php:145
 msgid "Required Attendees"
-msgstr "Påkrævede deltagere"
+msgstr "PÃ¥krÃ¦vede deltagere"
 
 #: templates/edit/edit.inc:32 templates/edit/edit.inc:300
 msgid "Reset to Defaults"
@@ -1217,18 +1217,18 @@ msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
-"Begræns dag- og ugeoversigter til disse tidsrum, også selvom er <strong>er</"
-"strong> tidligere eller senere hændelser?"
+"BegrÃ¦ns dag- og ugeoversigter til disse tidsrum, ogsÃ¥ selvom er <strong>er</"
+"strong> tidligere eller senere hÃ¦ndelser?"
 
 #: templates/javascript/goto.inc:64 templates/edit/edit.inc:213
 #: lib/Block/month.php:105 lib/Views/Year.php:82
 msgid "Sa"
-msgstr "Lør"
+msgstr "LÃ¸r"
 
 #: templates/view/view.inc:112 templates/month/head.inc:22
 #: templates/edit/javascript.inc:75
 msgid "Saturday"
-msgstr "Lørdag"
+msgstr "LÃ¸rdag"
 
 #: templates/calendars/calendars.inc:203
 msgid "Save"
@@ -1257,97 +1257,97 @@ msgstr "Gem aftale"
 #: templates/contacts/contacts.inc:145 templates/calendars/search.inc:8
 #: lib/Block/tree_menu.php:26
 msgid "Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: templates/calendars/search.inc:1
 msgid "Search Calendars"
-msgstr "Gennemsøg kalendere"
+msgstr "GennemsÃ¸g kalendere"
 
 #: templates/search/header.inc:6
 msgid "Search Results"
-msgstr "Resultat for søgning"
+msgstr "Resultat for sÃ¸gning"
 
 #: templates/calendars/search.inc:6
 msgid "Search for calendars containing:"
-msgstr "Søg kalendere, som indeholder:"
+msgstr "SÃ¸g kalendere, som indeholder:"
 
 #: lib/Storage.php:135
 msgid "Searching free/busy is not available."
-msgstr "Fri/optaget-søgning er ikke tilgængelig."
+msgstr "Fri/optaget-sÃ¸gning er ikke tilgÃ¦ngelig."
 
 #: templates/calendars/calendars.inc:153
 msgid "Select a calendar to edit"
-msgstr "Vælg en kalender, som skal redigeres"
+msgstr "VÃ¦lg en kalender, som skal redigeres"
 
 #: templates/edit/edit.inc:257 templates/edit/edit_timespan.inc:30
 #: templates/edit/edit_timespan.inc:81
 msgid "Select a date"
-msgstr "Vælg en dato"
+msgstr "VÃ¦lg en dato"
 
 #: templates/perms/perms.inc:215
 msgid "Select a group to add"
-msgstr "Vælg en gruppe at tilføje"
+msgstr "VÃ¦lg en gruppe at tilfÃ¸je"
 
 #: templates/perms/perms.inc:41
 msgid "Select a new owner"
-msgstr "Vælg en ny ejer"
+msgstr "VÃ¦lg en ny ejer"
 
 #: templates/perms/perms.inc:168
 msgid "Select a user to add"
-msgstr "Vælg en bruger at tilføje"
+msgstr "VÃ¦lg en bruger at tilfÃ¸je"
 
 #: templates/menu.inc:31
 msgid "Select calendars to display:"
-msgstr "Vælg de kalendere, der skal vises:"
+msgstr "VÃ¦lg de kalendere, der skal vises:"
 
 #: config/prefs.php.dist:11
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Vælg bekræftelser, hvordan man viser forskellige oversigter, og vælg "
+"VÃ¦lg bekrÃ¦ftelser, hvordan man viser forskellige oversigter, og vÃ¦lg "
 "standardoversigten."
 
 #: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
-msgstr "Vælg den kalender, som skal importeres:"
+msgstr "VÃ¦lg den kalender, som skal importeres:"
 
 #: templates/data/export.inc:19
 msgid "Select the calendar(s) to export from"
-msgstr "Vælg de(n) kalender(e), der skal eksporteres fra"
+msgstr "VÃ¦lg de(n) kalender(e), der skal eksporteres fra"
 
 #: templates/data/export.inc:12
 msgid "Select the export format:"
-msgstr "Vælg formatet, der skal eksporteres i:"
+msgstr "VÃ¦lg formatet, der skal eksporteres i:"
 
 #: templates/data/import.inc:27
 msgid "Select the file to import:"
-msgstr "Vælg den fil, der skal importeres:"
+msgstr "VÃ¦lg den fil, der skal importeres:"
 
 #: config/prefs.php.dist:104
 msgid "Select the first weekday:"
-msgstr "Vælg første ugedag:"
+msgstr "VÃ¦lg fÃ¸rste ugedag:"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Vælg formatet af oprindelsesfilen:"
+msgstr "VÃ¦lg formatet af oprindelsesfilen:"
 
 #: config/prefs.php.dist:193
 msgid "Select the time span to show:"
-msgstr "Vælg tidsvarighed der skal vises:"
+msgstr "VÃ¦lg tidsvarighed der skal vises:"
 
 #: config/prefs.php.dist:86
 msgid "Select the view to display on startup:"
-msgstr "Vælg den oversigt, der vises efter opstart:"
+msgstr "VÃ¦lg den oversigt, der vises efter opstart:"
 
 #: config/prefs.php.dist:22
 msgid "Select which events to show in the portal."
-msgstr "Vælg hvilke hændelser, der skal vises i portalen."
+msgstr "VÃ¦lg hvilke hÃ¦ndelser, der skal vises i portalen."
 
 #: templates/delete/delete.inc:19 templates/delete/one.inc:19
 msgid "Send a cancel notification to all attendees when deleting this event"
 msgstr ""
-"Send en annulleringsbesked til alle deltagere ved sletning af denne hændelse"
+"Send en annulleringsbesked til alle deltagere ved sletning af denne hÃ¦ndelse"
 
 #: templates/view/view.inc:162
 #, php-format
@@ -1358,7 +1358,7 @@ msgstr "Send en e-besked til %s"
 msgid "Send updates/invitations to all attendees when saving this event"
 msgstr ""
 "Send opdateringer/invitationer til alle deltagere ved lagring af denne "
-"hændelse"
+"hÃ¦ndelse"
 
 #: templates/javascript/goto.inc:76
 msgid "September"
@@ -1436,7 +1436,7 @@ msgstr "Vis opgaver ved brug af kategori-farver?"
 
 #: config/prefs.php.dist:95
 msgid "Show time of day between each day in week views?"
-msgstr "Vis tid på dagen mellem hver dag i uge-oversigt?"
+msgstr "Vis tid pÃ¥ dagen mellem hver dag i uge-oversigt?"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
@@ -1465,19 +1465,19 @@ msgstr "Status"
 
 #: lib/Storage.php:143
 msgid "Storing free/busy is not available."
-msgstr "Fri/optaget-lagring er ikke tilgængelig."
+msgstr "Fri/optaget-lagring er ikke tilgÃ¦ngelig."
 
 #: templates/javascript/goto.inc:65 templates/edit/edit.inc:214
 #: lib/Block/month.php:107 lib/Block/month.php:109 lib/Views/Year.php:75
 #: lib/Views/Year.php:84
 msgid "Su"
-msgstr "Søn"
+msgstr "SÃ¸n"
 
 #: templates/view/view.inc:113 templates/month/head.inc:15
 #: templates/month/head.inc:24 templates/edit/javascript.inc:69
 #: config/prefs.php.dist:105
 msgid "Sunday"
-msgstr "Søndag"
+msgstr "SÃ¸ndag"
 
 #: config/prefs.php.dist:29
 msgid "Tasks"
@@ -1485,7 +1485,7 @@ msgstr "Opgaver"
 
 #: lib/Kronolith.php:640 lib/Kronolith.php:663
 msgid "Tentative"
-msgstr "Foreløbigt"
+msgstr "ForelÃ¸bigt"
 
 #: templates/javascript/goto.inc:62 templates/edit/edit.inc:211
 #: lib/Block/month.php:105 lib/Views/Year.php:80
@@ -1494,17 +1494,17 @@ msgstr "Tor"
 
 #: lib/Driver.php:45
 msgid "The Calendar backend is not currently available."
-msgstr "Kalender-backenden er ikke tilgængelig."
+msgstr "Kalender-backenden er ikke tilgÃ¦ngelig."
 
 #: lib/Driver.php:200
 #, php-format
 msgid "The Calendar backend is not currently available: %s"
-msgstr "Kalender-backenden er ikke tilgængelig: %s"
+msgstr "Kalender-backenden er ikke tilgÃ¦ngelig: %s"
 
 #: templates/contacts/contacts.inc:70
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr ""
-"Skærmbilledet \"Redigér Deltagere\" er ikke længere tilstede. Afbryder."
+"SkÃ¦rmbilledet \"RedigÃ©r Deltagere\" er ikke lÃ¦ngere tilstede. Afbryder."
 
 #: calendars.php:70
 #, php-format
@@ -1524,7 +1524,7 @@ msgstr "Kalenderen \"%s\" er slettet."
 #: calendars.php:54
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "Kalenderen \"%s\" er omdøbt til \"%s\"."
+msgstr "Kalenderen \"%s\" er omdÃ¸bt til \"%s\"."
 
 #: calendars.php:56
 #, php-format
@@ -1534,18 +1534,18 @@ msgstr "Kalenderen \"%s\" er lagret."
 #: data.php:231
 #, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Kalenderen kunne ikke tømmes: %s"
+msgstr "Kalenderen kunne ikke tÃ¸mmes: %s"
 
 #: templates/edit/javascript.inc:165
 msgid "The end date must be later than the start date."
-msgstr "Slutdato skal være senere end startdato."
+msgstr "Slutdato skal vÃ¦re senere end startdato."
 
 #: lib/Kronolith.php:1174
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
 msgstr ""
-"Hændelsen \"%s\" er tilføjet til kalenderen \"%s\", hvilket er den %s kl. %s."
+"HÃ¦ndelsen \"%s\" er tilfÃ¸jet til kalenderen \"%s\", hvilket er den %s kl. %s."
 
 #: lib/Kronolith.php:1184
 #, php-format
@@ -1553,41 +1553,41 @@ msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
 msgstr ""
-"Hændelsen \"%s\"er fjernet fra kalenderen \"%s\", hvilket var den %s kl. %s."
+"HÃ¦ndelsen \"%s\"er fjernet fra kalenderen \"%s\", hvilket var den %s kl. %s."
 
 #: lib/Kronolith.php:1179
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
 msgstr ""
-"Hændelsen \"%s\" er blevet ændret i kalenderen \"%s\", hvilket er den %s kl. "
+"HÃ¦ndelsen \"%s\" er blevet Ã¦ndret i kalenderen \"%s\", hvilket er den %s kl. "
 "%s."
 
 #: lib/Kronolith.php:1147
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "Hændelsespåmindelsen til %s er blevet sendt."
+msgstr "HÃ¦ndelsespÃ¥mindelsen til %s er blevet sendt."
 
 #: lib/Kronolith.php:1104
 msgid "The following is a more detailed description of the event:"
-msgstr "Følgende er en mere detaljeret beskrivelse af hændelsen:"
+msgstr "FÃ¸lgende er en mere detaljeret beskrivelse af hÃ¦ndelsen:"
 
 #: attend.php:41
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"Anmodningen er ufuldstændig. Nogle parametre, som er nødvendige for at "
-"acceptere eller afvise hændelsen, mangler."
+"Anmodningen er ufuldstÃ¦ndig. Nogle parametre, som er nÃ¸dvendige for at "
+"acceptere eller afvise hÃ¦ndelsen, mangler."
 
 #: lib/Views/DeleteEvent.php:40 lib/Views/EditEvent.php:43
 #: lib/Views/Event.php:41
 msgid "The requested event was not found."
-msgstr "Den efterspurgte hændelse kunne ikke findes."
+msgstr "Den efterspurgte hÃ¦ndelse kunne ikke findes."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
-msgstr "Der er ingen hændelser, som passer til gældende kriterier."
+msgstr "Der er ingen hÃ¦ndelser, som passer til gÃ¦ldende kriterier."
 
 #: addeventaction.php:24 editeventaction.php:28
 #, php-format
@@ -1597,12 +1597,12 @@ msgstr "Der opstod en fejl under tilgang til kalenderen: %s"
 #: addeventaction.php:44
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "Der opstod en fejl under tilføjelsen af hændelsen: %s"
+msgstr "Der opstod en fejl under tilfÃ¸jelsen af hÃ¦ndelsen: %s"
 
 #: editeventaction.php:84
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Der opstod en fejl under ændring af hændelsen: %s"
+msgstr "Der opstod en fejl under Ã¦ndring af hÃ¦ndelsen: %s"
 
 #: lib/api.php:358 lib/api.php:637
 msgid "There was an error importing the iCalendar data."
@@ -1611,12 +1611,12 @@ msgstr "Der opstod en fejl under importeringen af iCalendar data."
 #: editeventaction.php:60
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr "Der opstod en fejl under flytning af hændelse: %s"
+msgstr "Der opstod en fejl under flytning af hÃ¦ndelse: %s"
 
 #: lib/Kronolith.php:1152
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "Der opstod en fejl under afsendelse af hændelsespåmindelse til %s: %s"
+msgstr "Der opstod en fejl under afsendelse af hÃ¦ndelsespÃ¥mindelse til %s: %s"
 
 #: data.php:108
 msgid "There were no events to export."
@@ -1624,11 +1624,11 @@ msgstr "Der var ingen aftaler at eksportere."
 
 #: lib/Block/month.php:3
 msgid "This Month"
-msgstr "Denne måned"
+msgstr "Denne mÃ¥ned"
 
 #: data.php:187
 msgid "This file format is not supported."
-msgstr "Dette filformat er ikke understøttet."
+msgstr "Dette filformat er ikke understÃ¸ttet."
 
 #: data.php:250
 #, php-format
@@ -1687,7 +1687,7 @@ msgstr "URL"
 
 #: lib/Storage/sql.php:75
 msgid "Unable to connect to SQL server."
-msgstr "Kunne ikke opnå forbindelse til SQL serveren."
+msgstr "Kunne ikke opnÃ¥ forbindelse til SQL serveren."
 
 #: calendars.php:84
 #, php-format
@@ -1697,12 +1697,12 @@ msgstr "Kan ikke slette \"%s\": %s"
 #: lib/Driver.php:203 lib/Storage.php:58
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Kan ikke indlæse definitionen af %s."
+msgstr "Kan ikke indlÃ¦se definitionen af %s."
 
 #: calendars.php:51
 #, php-format
 msgid "Unable to rename \"%s\": %s"
-msgstr "Kan ikke omdøbe \"%s\": %s"
+msgstr "Kan ikke omdÃ¸be \"%s\": %s"
 
 #: lib/Storage/kolab.php:44
 #, php-format
@@ -1717,11 +1717,11 @@ msgstr "Ikke anbragt"
 #: lib/api.php:396 lib/api.php:480 lib/api.php:556 lib/api.php:662
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Ikke-understøttet Content-Type: %s"
+msgstr "Ikke-understÃ¸ttet Content-Type: %s"
 
 #: lib/Block/monthlist.php:3 lib/Block/monthlist.php:43
 msgid "Upcoming Events"
-msgstr "Forestående hændelser"
+msgstr "ForestÃ¥ende hÃ¦ndelser"
 
 #: perms.php:253
 #, php-format
@@ -1735,7 +1735,7 @@ msgstr "Opdateret: %s."
 
 #: config/prefs.php.dist:10
 msgid "User Interface"
-msgstr "Brugergrænseflade"
+msgstr "BrugergrÃ¦nseflade"
 
 #: lib/Block/month.php:159 lib/Block/month.php:162 lib/Views/Year.php:156
 #: lib/Views/Year.php:162
@@ -1774,13 +1774,13 @@ msgstr "Ugenlig: Gentages hver"
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"Hvad tid skal dag og uge oversigter ende med, når der ikke er senere aftaler?"
+"Hvad tid skal dag og uge oversigter ende med, nÃ¥r der ikke er senere aftaler?"
 
 #: config/prefs.php.dist:115
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"Hvad tid skal dag og uge oversigter starte med, når der ikke er tidligere "
+"Hvad tid skal dag og uge oversigter starte med, nÃ¥r der ikke er tidligere "
 "aftaler?"
 
 #: attendees.php:107 lib/Kronolith.php:1378 lib/Block/tree_menu.php:22
@@ -1790,25 +1790,25 @@ msgstr "Arbejdsuge"
 
 #: lib/Kronolith.php:1384 lib/Block/tree_menu.php:25
 msgid "Year"
-msgstr "År"
+msgstr "Ã…r"
 
 #: templates/view/view.inc:120 templates/edit/edit.inc:231
 msgid "Yearly: Recurs every"
-msgstr "Årlig: Gentages hver"
+msgstr "Ã…rlig: Gentages hver"
 
 #: addevent.php:17 data.php:39 data.php:239 editeventaction.php:39
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "Du har ikke tilladelse til at oprette mere en %d hændelser."
+msgstr "Du har ikke tilladelse til at oprette mere en %d hÃ¦ndelser."
 
 #: attend.php:49
 msgid "You are not an attendee of the specified event."
-msgstr "Du er ikke opført som deltager ved den angivne hændelse."
+msgstr "Du er ikke opfÃ¸rt som deltager ved den angivne hÃ¦ndelse."
 
 #: templates/contacts/contacts.inc:76
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr ""
-"Du kan kun bruge denne formular fra skærmbilledet \"Redigér Deltagere\"."
+"Du kan kun bruge denne formular fra skÃ¦rmbilledet \"RedigÃ©r Deltagere\"."
 
 #: lib/Kronolith.php:1048
 #, php-format
@@ -1817,31 +1817,31 @@ msgid ""
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
 "Du har ikke konfigureret nogen e-post-adresse i dine Personlige "
-"Informationer Tilvalg. Du skal indstille en %sher%s før hændelses-"
-"påmindelser kan udsendes."
+"Informationer Tilvalg. Du skal indstille en %sher%s fÃ¸r hÃ¦ndelses-"
+"pÃ¥mindelser kan udsendes."
 
 #: addeventaction.php:30
 #, php-format
 msgid "You do not have permission to add events to %s."
-msgstr "Du har ikke tilladelse til at tilføje hændelser til %s."
+msgstr "Du har ikke tilladelse til at tilfÃ¸je hÃ¦ndelser til %s."
 
 #: data.php:197
 msgid "You do not have permission to add events to the selected calendar."
 msgstr ""
-"Du har ikke tilladelse til at tilføje hændelser til den valgte kalender."
+"Du har ikke tilladelse til at tilfÃ¸je hÃ¦ndelser til den valgte kalender."
 
 #: addeventaction.php:27 editeventaction.php:76
 #, php-format
 msgid "You do not have permission to delegate events to %s."
-msgstr "Du har ikke tilladelse til at overdrage hændelser til %s."
+msgstr "Du har ikke tilladelse til at overdrage hÃ¦ndelser til %s."
 
 #: deleventaction.php:26
 msgid "You do not have permission to delete this event."
-msgstr "Du har ikke tilladelse til at slette denne hændelse."
+msgstr "Du har ikke tilladelse til at slette denne hÃ¦ndelse."
 
 #: editeventaction.php:79
 msgid "You do not have permission to edit this event."
-msgstr "Du har ikke tilladelse til at ændre denne hændelse."
+msgstr "Du har ikke tilladelse til at Ã¦ndre denne hÃ¦ndelse."
 
 #: data.php:192
 msgid "You have specified an invalid calendar."
@@ -1849,39 +1849,39 @@ msgstr "Du har angivet en ugyldig kalender."
 
 #: attend.php:21
 msgid "You have successfully accepted attendence to this event."
-msgstr "Du har nu accepteret deltagelse ved denne hændelse."
+msgstr "Du har nu accepteret deltagelse ved denne hÃ¦ndelse."
 
 #: attend.php:26
 msgid "You have successfully declined attendence to this event."
-msgstr "Du har nu afvist deltagelse ved denne hændelse."
+msgstr "Du har nu afvist deltagelse ved denne hÃ¦ndelse."
 
 #: attend.php:31
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Du har nu foreløbigt accepteret deltagelse ved denne hændelse."
+msgstr "Du har nu forelÃ¸bigt accepteret deltagelse ved denne hÃ¦ndelse."
 
 #: calendars.php:91
 msgid "You must select a calendar to be deleted."
-msgstr "Du skal vælge en kalender, som du vil slette."
+msgstr "Du skal vÃ¦lge en kalender, som du vil slette."
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
-msgstr "Du skal først vælge en adresse."
+msgstr "Du skal fÃ¸rst vÃ¦lge en adresse."
 
 #: templates/calendars/calendars.inc:173
 msgid "You need to select a calendar first"
-msgstr "Du skal først vælge en kalender"
+msgstr "Du skal fÃ¸rst vÃ¦lge en kalender"
 
 #: lib/Kronolith.php:1174
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
-"Du har anmodet om at blive underrette, når hændelser bliver tilføjet til "
+"Du har anmodet om at blive underrette, nÃ¥r hÃ¦ndelser bliver tilfÃ¸jet til "
 "dine kalendere."
 
 #: lib/Kronolith.php:1184
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr ""
-"Du har anmodet om at blive underrettet, når hændelser bliver slettet fra din "
+"Du har anmodet om at blive underrettet, nÃ¥r hÃ¦ndelser bliver slettet fra din "
 "kalendere."
 
 #: lib/Kronolith.php:1179
@@ -1899,7 +1899,7 @@ msgstr "Din standard-kalender"
 
 #: lib/Driver.php:1070 lib/Driver.php:1078
 msgid "[Unnamed event]"
-msgstr "[Unavngivet hændelse]"
+msgstr "[Unavngivet hÃ¦ndelse]"
 
 #: templates/edit/edit.inc:104
 msgid "_Alarm"
@@ -1907,15 +1907,15 @@ msgstr "Alarm"
 
 #: templates/search/search_advanced.inc:11
 msgid "_Basic Search"
-msgstr "Almindelig søgning"
+msgstr "Almindelig sÃ¸gning"
 
 #: lib/Kronolith.php:1411
 msgid "_Edit"
-msgstr "Redigér"
+msgstr "RedigÃ©r"
 
 #: lib/Kronolith.php:1553
 msgid "_Goto"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 #: lib/Kronolith.php:1559
 msgid "_Import/Export"
@@ -1927,7 +1927,7 @@ msgstr "Mine kalendere"
 
 #: lib/Kronolith.php:1547
 msgid "_New Event"
-msgstr "Ny hændelse"
+msgstr "Ny hÃ¦ndelse"
 
 #: lib/Kronolith.php:1564
 msgid "_Print"
@@ -1935,7 +1935,7 @@ msgstr "Udskriv"
 
 #: lib/Kronolith.php:1555
 msgid "_Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: lib/Kronolith.php:1550
 msgid "_Today"
@@ -1948,7 +1948,7 @@ msgstr "som %s"
 
 #: templates/edit/edit.inc:142
 msgid "before the event starts"
-msgstr "før hændelsens begyndelse"
+msgstr "fÃ¸r hÃ¦ndelsens begyndelse"
 
 #: config/prefs.php.dist:194
 msgid "day"
@@ -1979,7 +1979,7 @@ msgstr "i"
 #: templates/view/view.inc:116 templates/view/view.inc:118
 #: templates/edit/edit.inc:220 templates/edit/edit.inc:226
 msgid "month(s)"
-msgstr "måned(er) "
+msgstr "mÃ¥ned(er) "
 
 #: lib/Kronolith.php:1100
 #, php-format
@@ -1988,11 +1988,11 @@ msgstr "den %s kl. %s"
 
 #: templates/view/view.inc:116 templates/edit/edit.inc:220
 msgid "on the same date"
-msgstr "på samme dato"
+msgstr "pÃ¥ samme dato"
 
 #: templates/view/view.inc:118 templates/edit/edit.inc:226
 msgid "on the same weekday"
-msgstr "på samme ugedag"
+msgstr "pÃ¥ samme ugedag"
 
 #: data.php:29 templates/data/import.inc:14
 msgid "vCalendar/iCalendar"
@@ -2008,7 +2008,7 @@ msgstr "uge"
 
 #: templates/view/view.inc:114 templates/edit/edit.inc:207
 msgid "week(s) on:"
-msgstr "uge(r) på:"
+msgstr "uge(r) pÃ¥:"
 
 #: config/prefs.php.dist:201 config/prefs.php.dist:202
 #: config/prefs.php.dist:203
@@ -2017,4 +2017,4 @@ msgstr "uger"
 
 #: templates/view/view.inc:120 templates/edit/edit.inc:232
 msgid "year(s)"
-msgstr "år"
+msgstr "Ã¥r"

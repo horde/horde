@@ -1,10 +1,10 @@
 # translation of fr_FR.po to French
 # Gollem 1.1-cvs French translation.
-# Copyright 2001 Rémi Cohen-Scali.
-# Copyright 2004 Benoit St-André
+# Copyright 2001 RÃ©mi Cohen-Scali.
+# Copyright 2004 Benoit St-AndrÃ©
 # Copyright 2005 Thierry Thomas
-# Rémi Cohen-Scali <Remi@cohen-scali.com>, 2001.
-# Benoit St-André <ben@benoitst-andre.net>, 2004.
+# RÃ©mi Cohen-Scali <Remi@cohen-scali.com>, 2001.
+# Benoit St-AndrÃ© <ben@benoitst-andre.net>, 2004.
 # Thierry Thomas <thierry@horde.org>, 2005, 2007.
 msgid ""
 msgstr ""
@@ -15,14 +15,14 @@ msgstr ""
 "Last-Translator: Thierry Thomas <thierry@horde.org>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: manager.php:52
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
-msgstr "« %s » renommé en « %s »"
+msgstr "Â«Â %sÂ Â» renommÃ© en Â«Â %sÂ Â»"
 
 #: quota.php:56
 #, php-format
@@ -32,7 +32,7 @@ msgstr "%.2fMo / %.2fMo  (%.2f%%)"
 #: manager.php:271
 #, php-format
 msgid "%d items"
-msgstr "%d éléments"
+msgstr "%d Ã©lÃ©ments"
 
 #: manager.php:437
 #, php-format
@@ -47,17 +47,17 @@ msgstr "%s dossiers et 1 fichier (%s Ko)"
 #: login.php:144
 #, php-format
 msgid "%s Login"
-msgstr "Connexion à %s"
+msgstr "Connexion Ã  %s"
 
 #: edit.php:35
 #, php-format
 msgid "%s successfully saved."
-msgstr "%s a été enregistré avec succès."
+msgstr "%s a Ã©tÃ© enregistrÃ© avec succÃ¨s."
 
 #: manager.php:167
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s a été copié avec succès."
+msgstr "%s a Ã©tÃ© copiÃ© avec succÃ¨s."
 
 #: manager.php:432
 #, php-format
@@ -71,30 +71,30 @@ msgstr "1 dossier et 1 fichier (%s Ko)"
 
 #: manager.php:271
 msgid "1 item"
-msgstr "1 élément"
+msgstr "1 Ã©lÃ©ment"
 
 #: gollem.js.php:44
 msgid ""
 "A popup window could not be opened. Perhaps you have set your browser to "
 "block popup windows?"
 msgstr ""
-"Une nouvelle fenêtre ne peut être ouverte. Est-il possible que vous ayez "
-"activé le blocage des fenêtres surgissantes ?"
+"Une nouvelle fenÃªtre ne peut Ãªtre ouverte. Est-il possible que vous ayez "
+"activÃ© le blocage des fenÃªtres surgissantesÂ ?"
 
 #: edit.php:33 edit.php:43 view.php:33
 #, php-format
 msgid "Access denied to %s"
-msgstr "Accès à %s refusé"
+msgstr "AccÃ¨s Ã  %s refusÃ©"
 
 #: lib/Gollem.php:109 lib/Gollem.php:383 lib/Gollem.php:445 lib/Gollem.php:466
 #: lib/Gollem.php:483
 #, php-format
 msgid "Access denied to folder \"%s\"."
-msgstr "Accès refusé au dossier « %s »."
+msgstr "AccÃ¨s refusÃ© au dossier Â«Â %sÂ Â»."
 
 #: templates/manager/manager.html:124
 msgid "Actions:"
-msgstr "Actions :"
+msgstr "ActionsÂ :"
 
 #: selectlist.php:99
 msgid "Add"
@@ -110,11 +110,11 @@ msgstr "Tout"
 
 #: gollem.js.php:55
 msgid "Are you sure you wish to continue?"
-msgstr "Êtes-vous réellement certain de vouloir continuer ?"
+msgstr "ÃŠtes-vous rÃ©ellement certain de vouloir continuerÂ ?"
 
 #: gollem.js.php:53
 msgid "Are you sure?"
-msgstr "Êtes-vous certain ?"
+msgstr "ÃŠtes-vous certainÂ ?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
@@ -126,11 +126,11 @@ msgstr "Demander"
 
 #: templates/manager/manager.html:5
 msgid "Attributes"
-msgstr "Propriétés"
+msgstr "PropriÃ©tÃ©s"
 
 #: templates/prefs/columnselect.html:20
 msgid "Available Columns:"
-msgstr "Champs disponibles :"
+msgstr "Champs disponiblesÂ :"
 
 #: lib/api.php:50
 msgid "Backends"
@@ -148,25 +148,25 @@ msgstr "Annuler"
 #: manager.php:72
 #, php-format
 msgid "Cannot chmod %s: %s"
-msgstr "Impossible de modifier les permissions de %s : %s"
+msgstr "Impossible de modifier les permissions de %sÂ : %s"
 
 #: manager.php:141
 msgid "Cannot copy items onto clipboard."
-msgstr "Impossible de copier les éléments dans le presse-papiers"
+msgstr "Impossible de copier les Ã©lÃ©ments dans le presse-papiers"
 
 #: manager.php:200
 #, php-format
 msgid "Cannot create home directory: %s"
-msgstr "Impossible de créer le dossier d'accueil : %s"
+msgstr "Impossible de crÃ©er le dossier d'accueilÂ : %s"
 
 #: manager.php:143
 msgid "Cannot cut items onto clipboard."
-msgstr "Impossible de couper les éléments vers le presse-papiers"
+msgstr "Impossible de couper les Ã©lÃ©ments vers le presse-papiers"
 
 #: manager.php:165
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
-msgstr "Impossible de coller « %s » (presse-papiers vidé) : %s"
+msgstr "Impossible de coller Â«Â %sÂ Â» (presse-papiers vidÃ©)Â : %s"
 
 #: templates/manager/manager.html:70
 msgid "Change Folder"
@@ -186,15 +186,15 @@ msgstr "Changer de _dossier"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "Modifier les préférences de gestion des fichiers et des dossiers"
+msgstr "Modifier les prÃ©fÃ©rences de gestion des fichiers et des dossiers"
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Changer vos critères de tri de fichiers."
+msgstr "Changer vos critÃ¨res de tri de fichiers."
 
 #: lib/Gollem.php:788
 msgid "Check Quota"
-msgstr "Vérifier les quotas"
+msgstr "VÃ©rifier les quotas"
 
 #: manager.php:528
 msgid "Check _All/None"
@@ -202,11 +202,11 @@ msgstr "Cocher _Tout/Rien"
 
 #: manager.php:70
 msgid "Chmod done: "
-msgstr "Altération du mode (permissions) effectué : "
+msgstr "AltÃ©ration du mode (permissions) effectuÃ©Â : "
 
 #: templates/prefs/columnselect.html:12
 msgid "Choose the columns to display in the file manager."
-msgstr "Choisir les champs à afficher dans le gestionnaire de fichiers."
+msgstr "Choisir les champs Ã  afficher dans le gestionnaire de fichiers."
 
 #: clipboard.php:39
 msgid "Clear"
@@ -223,7 +223,7 @@ msgstr "Fermer"
 #: login.php:256
 #, php-format
 msgid "Connect to: %s"
-msgstr "Se connecter à : %s"
+msgstr "Se connecter Ã Â : %s"
 
 #: clipboard.php:42 templates/manager/manager.html:129
 msgid "Copy"
@@ -232,11 +232,11 @@ msgstr "Copier"
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "Impossible d'enregistrer le fichier de gabarit compilé « %s »."
+msgstr "Impossible d'enregistrer le fichier de gabarit compilÃ© Â«Â %sÂ Â»."
 
 #: templates/manager/manager.html:58
 msgid "Create Folder"
-msgstr "Créer un dossier"
+msgstr "CrÃ©er un dossier"
 
 #: permissions.php:47
 #, php-format
@@ -244,12 +244,12 @@ msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
 msgstr ""
-"Permissions vierges créées pour « %s ». Vous devez maintenant explicitement "
+"Permissions vierges crÃ©Ã©es pour Â«Â %sÂ Â». Vous devez maintenant explicitement "
 "attribuer des permissions sur ce module."
 
 #: templates/clipboard/clipboard.html:17
 msgid "Current directory:"
-msgstr "Répertoire courant :"
+msgstr "RÃ©pertoire courantÂ :"
 
 #: clipboard.php:41 templates/manager/manager.html:130
 msgid "Cut"
@@ -257,11 +257,11 @@ msgstr "Couper"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Critères de tri par défaut :"
+msgstr "CritÃ¨res de tri par dÃ©fautÂ :"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Sens de tri par défaut :"
+msgstr "Sens de tri par dÃ©fautÂ :"
 
 #: templates/manager/manager.html:133
 msgid "Delete"
@@ -269,37 +269,37 @@ msgstr "Supprimer"
 
 #: config/prefs.php.dist:95
 msgid "Delete folders recursively?"
-msgstr "Supprimer les dossiers récursivement ?"
+msgstr "Supprimer les dossiers rÃ©cursivementÂ ?"
 
 #: config/prefs.php.dist:70
 msgid "Descending"
-msgstr "Décroissant"
+msgstr "DÃ©croissant"
 
 #: selectlist.php:100
 msgid "Done"
-msgstr "Terminé"
+msgstr "TerminÃ©"
 
 #: manager.php:226
 msgid "Download"
-msgstr "Télécharger"
+msgstr "TÃ©lÃ©charger"
 
 #: manager.php:404
 #, php-format
 msgid "Download %s"
-msgstr "Télécharger %s"
+msgstr "TÃ©lÃ©charger %s"
 
 #: templates/quota/quota.html:7
 msgid "ERROR:"
-msgstr "ERREUR :"
+msgstr "ERREURÂ :"
 
 #: manager.php:225
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Ã‰diter"
 
 #: templates/edit/edit.inc:8
 #, php-format
 msgid "Edit %s"
-msgstr "Éditer %s"
+msgstr "Ã‰diter %s"
 
 #: config/credentials.php.dist:28
 msgid "Email"
@@ -307,7 +307,7 @@ msgstr "Courriel"
 
 #: templates/manager/manager.html:26
 msgid "Execute"
-msgstr "Exécuter"
+msgstr "ExÃ©cuter"
 
 #: gollem.js.php:57 templates/manager/manager.html:203
 msgid "File"
@@ -335,20 +335,20 @@ msgstr "Type de fichier"
 
 #: manager.php:87
 msgid "File deleted: "
-msgstr "Fichier supprimé : "
+msgstr "Fichier supprimÃ©Â : "
 
 #: manager.php:109
 #, php-format
 msgid "File received: %s"
-msgstr "Fichier reçu : %s"
+msgstr "Fichier reÃ§uÂ : %s"
 
 #: manager.php:80
 msgid "Folder removed: "
-msgstr "Dossier supprimé : "
+msgstr "Dossier supprimÃ©Â : "
 
 #: templates/manager/manager.html:72
 msgid "Go to:"
-msgstr "Allez à :"
+msgstr "Allez Ã Â :"
 
 #: permissions.php:21
 msgid "Gollem Backend Permissions Administration"
@@ -360,17 +360,17 @@ msgstr "Groupe"
 
 #: manager.php:56
 msgid "Incorrect number of items."
-msgstr "Nombre d'éléments incorrect."
+msgstr "Nombre d'Ã©lÃ©ments incorrect."
 
 #: manager.php:134
 #, php-format
 msgid "Item copied to clipboard: %s"
-msgstr "Élément copié dans le presse-papiers : %s"
+msgstr "Ã‰lÃ©ment copiÃ© dans le presse-papiersÂ : %s"
 
 #: manager.php:136
 #, php-format
 msgid "Item cut to clipboard: %s"
-msgstr "Élément coupé vers le presse-papiers : %s"
+msgstr "Ã‰lÃ©ment coupÃ© vers le presse-papiersÂ : %s"
 
 #: templates/login/login.html:67
 msgid "Language"
@@ -378,7 +378,7 @@ msgstr "Langue"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
-msgstr "Afficher les dossiers en premier ?"
+msgstr "Afficher les dossiers en premierÂ ?"
 
 #: login.php:305
 msgid "Login"
@@ -390,7 +390,7 @@ msgstr "Menu"
 
 #: manager.php:478
 msgid "Modified"
-msgstr "Modifié"
+msgstr "ModifiÃ©"
 
 #: templates/prefs/columnselect.inc:45
 msgid "Move left"
@@ -406,11 +406,11 @@ msgstr "Nom"
 
 #: templates/manager/manager.html:46 templates/manager/manager.html:60
 msgid "Name:"
-msgstr "Nom :"
+msgstr "NomÂ :"
 
 #: manager.php:35
 msgid "New folder created: "
-msgstr "Nouveau dossier créé : "
+msgstr "Nouveau dossier crÃ©Ã©Â : "
 
 #: config/prefs.php.dist:91
 msgid "No"
@@ -418,7 +418,7 @@ msgstr "Non"
 
 #: templates/quota/quota.html:12
 msgid "No quota found."
-msgstr "Pas de quota trouvé."
+msgstr "Pas de quota trouvÃ©."
 
 #: manager.php:267
 msgid "OK"
@@ -426,7 +426,7 @@ msgstr "OK"
 
 #: manager.php:501 templates/manager/manager.html:9
 msgid "Owner"
-msgstr "Propriétaire"
+msgstr "PropriÃ©taire"
 
 #: config/credentials.php.dist:23
 msgid "Password"
@@ -443,12 +443,12 @@ msgstr "Permission"
 #: selectlist.php:64
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "Accès refusé à %s : %s"
+msgstr "AccÃ¨s refusÃ© Ã  %sÂ : %s"
 
 #: manager.php:208
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
-msgstr "Accès refusé au dossier « %s » : %s"
+msgstr "AccÃ¨s refusÃ© au dossier Â«Â %sÂ Â»Â : %s"
 
 #: gollem.js.php:48
 msgid "Please provide your password."
@@ -460,15 +460,15 @@ msgstr "Veuillez saisir votre nom d'utilisateur."
 
 #: templates/prefs/columnselect.html:5
 msgid "Please select a backend:"
-msgstr "Veuillez choisir un dorsal :"
+msgstr "Veuillez choisir un dorsalÂ :"
 
 #: gollem.js.php:51
 msgid "Please select an item before this action."
-msgstr "Veuillez sélectionner un élément pour exécuter cette action."
+msgstr "Veuillez sÃ©lectionner un Ã©lÃ©ment pour exÃ©cuter cette action."
 
 #: gollem.js.php:56
 msgid "Please specify at least one file to upload."
-msgstr "Veuillez indiquer au moins un fichier à envoyer."
+msgstr "Veuillez indiquer au moins un fichier Ã  envoyer."
 
 #: quota.php:19 templates/quota/quota.html:2
 msgid "Quota Display"
@@ -480,7 +480,7 @@ msgstr "Lire"
 
 #: manager.php:273
 msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "RafraÃ®chir"
 
 #: templates/prefs/columnselect.inc:44
 msgid "Remove column"
@@ -492,7 +492,7 @@ msgstr "Renommer"
 
 #: templates/edit/edit.inc:12
 msgid "Reset"
-msgstr "RÀZ"
+msgstr "RÃ€Z"
 
 #: lib/Gollem.php:727 lib/Gollem.php:732
 msgid "Root"
@@ -504,7 +504,7 @@ msgstr "Enregistrer"
 
 #: templates/prefs/columnselect.html:30
 msgid "Selected Columns:"
-msgstr "Colonnes sélectionnées :"
+msgstr "Colonnes sÃ©lectionnÃ©esÂ :"
 
 #: templates/login/login.html:31
 msgid "Server"
@@ -512,11 +512,11 @@ msgstr "Serveur"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "Paramètres"
+msgstr "ParamÃ¨tres"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
-msgstr "Afficher les fichiers précédés d'un point ?"
+msgstr "Afficher les fichiers prÃ©cÃ©dÃ©s d'un pointÂ ?"
 
 #: manager.php:486
 msgid "Size"
@@ -524,15 +524,15 @@ msgstr "Taille"
 
 #: gollem.js.php:54
 msgid "The following item(s) are folders:"
-msgstr "Les éléments suivants sont des dossiers :"
+msgstr "Les Ã©lÃ©ments suivants sont des dossiersÂ :"
 
 #: gollem.js.php:52
 msgid "The following items will be permanently deleted:"
-msgstr "Les éléments suivants seront supprimés définitivement :"
+msgstr "Les Ã©lÃ©ments suivants seront supprimÃ©s dÃ©finitivementÂ :"
 
 #: gollem.js.php:60
 msgid "The original opener window has been closed. Exiting."
-msgstr "La fenêtre de départ s'est fermée. Sortie."
+msgstr "La fenÃªtre de dÃ©part s'est fermÃ©e. Sortie."
 
 #: login.php:151
 msgid "There are no backends available for the current user."
@@ -547,16 +547,16 @@ msgid ""
 "To clear items from the clipboard, check the box next to the filename and "
 "click on &quot;Clear&quot;."
 msgstr ""
-"Pour retirer des éléments du presse-papiers, cochez la case à coté du nom du "
-"fichier et cliquez sur « Effacer »."
+"Pour retirer des Ã©lÃ©ments du presse-papiers, cochez la case Ã  cotÃ© du nom du "
+"fichier et cliquez sur Â«Â EffacerÂ Â»."
 
 #: templates/clipboard/clipboard.html:13
 msgid ""
 "To paste items from the clipboard to the current directory, check the box "
 "next to the filename and click on &quot;Paste&quot;."
 msgstr ""
-"Pour copier des éléments du presse-papiers vers le répertoire courant, "
-"cochez la case à coté du nom du fichier et cliquez sur « Coller »."
+"Pour copier des Ã©lÃ©ments du presse-papiers vers le rÃ©pertoire courant, "
+"cochez la case Ã  cotÃ© du nom du fichier et cliquez sur Â«Â CollerÂ Â»."
 
 #: manager.php:448
 msgid "Type"
@@ -565,22 +565,22 @@ msgstr "Type"
 #: permissions.php:42
 #, php-format
 msgid "Unable to create backend permission: %s"
-msgstr "Impossible de créer le module des permissions : %s"
+msgstr "Impossible de crÃ©er le module des permissionsÂ : %s"
 
 #: manager.php:85
 #, php-format
 msgid "Unable to delete file %s: %s"
-msgstr "Suppression impossible du fichier %s : %s"
+msgstr "Suppression impossible du fichier %sÂ : %s"
 
 #: manager.php:78
 #, php-format
 msgid "Unable to delete folder %s: %s"
-msgstr "Suppression impossible du dossier %s : %s"
+msgstr "Suppression impossible du dossier %sÂ : %s"
 
 #: lib/Gollem.php:732 lib/Gollem.php:742
 #, php-format
 msgid "Up to %s"
-msgstr "Aller à %s"
+msgstr "Aller Ã  %s"
 
 #: manager.php:286
 msgid "Upload File(s)"
@@ -601,11 +601,11 @@ msgstr "Afficher le presse-papiers"
 #: login.php:200
 #, php-format
 msgid "Welcome to %s"
-msgstr "Bienvenue à %s"
+msgstr "Bienvenue Ã  %s"
 
 #: templates/manager/manager.html:20
 msgid "Write"
-msgstr "Écrire"
+msgstr "Ã‰crire"
 
 #: config/prefs.php.dist:92
 msgid "Yes"
@@ -614,7 +614,7 @@ msgstr "Oui"
 #: permissions.php:25
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
-"Il faut avoir défini au moins un module pour attribuer des permissions."
+"Il faut avoir dÃ©fini au moins un module pour attribuer des permissions."
 
 #: lib/MIME/Viewer/images.php:35
 msgid "Your browser does not support inline display of this image type"
@@ -626,7 +626,7 @@ msgstr "_Changer de serveur"
 
 #: lib/Gollem.php:767
 msgid "_Create Folder"
-msgstr "_Créer un dossier"
+msgstr "_CrÃ©er un dossier"
 
 #: lib/Gollem.php:763
 msgid "_My Home"

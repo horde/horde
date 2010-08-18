@@ -1,5 +1,5 @@
 # AGORA Traditional Chinese Translation
-# Copyright 2002 David Chang.±i¨}¤å,¥xÆW
+# Copyright 2002 David Chang.å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2002.
 msgid ""
 msgstr ""
@@ -10,131 +10,131 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/api.php:65
 #, php-format
 msgid "%s not found."
-msgstr "§ä¤£¨ì %s."
+msgstr "æ‰¾ä¸åˆ° %s."
 
 #: lib/Forums.php:64
 msgid "Can not create a forum with an empty name."
-msgstr "°Q½×°Ï¦WºÙ¤£±oªÅ¥Õ."
+msgstr "è¨è«–å€åç¨±ä¸å¾—ç©ºç™½."
 
 #: deletemessage.php:61 deletemessage.php:83
 msgid "Cancel"
-msgstr "¨ú®ø"
+msgstr "å–æ¶ˆ"
 
 #: editforum.php:55
 #, php-format
 msgid "Could not create the forum. %s"
-msgstr "µLªk«Ø¥ß¦¹°Q½×°Ï. %s"
+msgstr "ç„¡æ³•å»ºç«‹æ­¤è¨è«–å€. %s"
 
 #: editforum.php:36
 msgid "Create"
-msgstr "«Ø¥ß"
+msgstr "å»ºç«‹"
 
 #: forums.php:31 message.php:43 threads.php:47 lib/Block/forums.php:56
 #: lib/Block/threads.php:107 config/prefs.php.dist:35 config/prefs.php.dist:57
 msgid "Date"
-msgstr "¤é´Á"
+msgstr "æ—¥æœŸ"
 
 #: config/prefs.php.dist:46 config/prefs.php.dist:68
 msgid "Default sorting direction:"
-msgstr "¹w³]±Æ§Ç¤è¦V:"
+msgstr "é è¨­æ’åºæ–¹å‘:"
 
 #: deleteforum.php:41 deleteforum.php:53 deletemessage.php:61
 #: deletemessage.php:65 message.php:71
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: config/prefs.php.dist:45 config/prefs.php.dist:67
 msgid "Descending"
-msgstr "­°¾­"
+msgstr "é™å†ª"
 
 #: forums.php:31
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:15 config/prefs.php.dist:21
 msgid "Display Options"
-msgstr "Åã¥Ü¿ï¶µ"
+msgstr "é¡¯ç¤ºé¸é …"
 
 #: message.php:68
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: forums.php:31 lib/Block/forums.php:56 lib/Block/threads.php:45
 #: config/prefs.php.dist:31
 msgid "Forum"
-msgstr "°Q½×°Ï"
+msgstr "è¨è«–å€"
 
 #: editforum.php:57
 msgid "Forum created."
-msgstr "°Q½×°Ï¤w«Ø¥ß."
+msgstr "è¨è«–å€å·²å»ºç«‹."
 
 #: deleteforum.php:43 editforum.php:38
 msgid "Forum name"
-msgstr "°Q½×°Ï¦WºÙ"
+msgstr "è¨è«–å€åç¨±"
 
 #: lib/Agora.php:193 lib/api.php:71 lib/Block/forums.php:25
 msgid "Forums"
-msgstr "°Q½×°Ï"
+msgstr "è¨è«–å€"
 
 #: config/prefs.php.dist:33
 msgid "Last Message"
-msgstr "³Ì«áªº¤å³¹"
+msgstr "æœ€å¾Œçš„æ–‡ç« "
 
 #: editmessage.php:76
 msgid "Message"
-msgstr "¤å³¹"
+msgstr "æ–‡ç« "
 
 #: config/prefs.php.dist:32
 msgid "Messages"
-msgstr "¤å³¹"
+msgstr "æ–‡ç« "
 
 #: forums.php:31 message.php:43 threads.php:47 lib/Block/forums.php:56
 #: lib/Block/threads.php:107 config/prefs.php.dist:34 config/prefs.php.dist:56
 msgid "Posted By"
-msgstr "µo°_¤H"
+msgstr "ç™¼èµ·äºº"
 
 #: editmessage.php:111
 #, php-format
 msgid "Re: %s"
-msgstr "¦^ÂĞ: %s"
+msgstr "å›è¦†: %s"
 
 #: message.php:64
 msgid "Reply"
-msgstr "¦^ÂĞ"
+msgstr "å›è¦†"
 
 #: editmessage.php:68
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: editforum.php:43
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted"
-msgstr "¦pªG§A§Æ±æ©Ò¦³ªº¤å³¹¦b¤½§G«e¥²¶·¥ı¸g¥Ñª©¥DÀË¬d,½Ğ¤Ä¿ï¦¹¶µ¥Ø"
+msgstr "å¦‚æœä½ å¸Œæœ›æ‰€æœ‰çš„æ–‡ç« åœ¨å…¬ä½ˆå‰å¿…é ˆå…ˆç¶“ç”±ç‰ˆä¸»æª¢æŸ¥,è«‹å‹¾é¸æ­¤é …ç›®"
 
 #: editmessage.php:75 message.php:43 threads.php:47 lib/Block/threads.php:107
 #: config/prefs.php.dist:55
 msgid "Subject"
-msgstr "¥D¦®"
+msgstr "ä¸»æ—¨"
 
 #: message.php:43 threads.php:47 config/prefs.php.dist:54
 msgid "Thread"
-msgstr "ÃöÁp"
+msgstr "é—œè¯"
 
 #: lib/Agora.php:197 lib/api.php:72 lib/Block/threads.php:61
 msgid "Threads"
-msgstr "¥DÃD"
+msgstr "ä¸»é¡Œ"
 
 #: editforum.php:36
 msgid "Update"
-msgstr "ÅÜ§ó"
+msgstr "è®Šæ›´"
 
 #: prefs.php:24
 msgid "User Options"
-msgstr "¨Ï¥ÎªÌ¿ï¶µ"
+msgstr "ä½¿ç”¨è€…é¸é …"

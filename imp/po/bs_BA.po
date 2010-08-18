@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Vedran Ljubovic <vljubovic@smartnet.ba>\n"
 "Language-Team: Bosnian <lokal@linux.org.ba>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
 
@@ -97,22 +97,22 @@ msgstr "%s S/MIME administracija"
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:49
 #, php-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s veÊ postoji. Ime %s foldera nije promjenjeno."
+msgstr "%s veƒá postoji. Ime %s foldera nije promjenjeno."
 
 #: lib/Message.php:643
 #, php-format
 msgid "%s does not appear to be a valid mailbox."
-msgstr "%s ne izgleda kao dozvoljen tip sanduËeta."
+msgstr "%s ne izgleda kao dozvoljen tip sanduƒçeta."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:47
 #, php-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "Ime %s foldera je promjenjeno poËetkom mjeseca."
+msgstr "Ime %s foldera je promjenjeno poƒçetkom mjeseca."
 
 #: lib/Message.php:398
 #, fuzzy, php-format
 msgid "%s was successfully added to %s."
-msgstr "Ime foldera \"%s\" je uspjeπno promjenjeno u \"%s\"."
+msgstr "Ime foldera \"%s\" je uspje≈°no promjenjeno u \"%s\"."
 
 #: templates/message/navbar_top.inc:13
 #, php-format
@@ -121,7 +121,7 @@ msgstr "%s: %s (%d&nbsp;od&nbsp;%d)"
 
 #: templates/compose/spelling.inc:119
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(Primjeni ove izmjene i idi na sljedeÊi ekran.)"
+msgstr "(Primjeni ove izmjene i idi na sljedeƒái ekran.)"
 
 #: templates/compose/spelling.inc:106
 msgid "(Discard all changes and return to the compose screen.)"
@@ -133,19 +133,19 @@ msgid ""
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
 "(Vrati se na ekran za pisanje poslije primene svih izmjena do sada. Izmjene "
-"na trenutnom ekranu NE∆E biti aktivirane.)"
+"na trenutnom ekranu NEƒÜE biti aktivirane.)"
 
 #: spelling.php:274
 msgid ""
 "(Send message after applying all changes made thus far.  Changes on the "
 "current screen will NOT be applied.)"
 msgstr ""
-"(Poπalji poruku nakon apliciranja svih napravljenih izmjena.  Izmjene na "
-"trenutnom ekranu NE∆E biti aktivirane.)"
+"(Po≈°alji poruku nakon apliciranja svih napravljenih izmjena.  Izmjene na "
+"trenutnom ekranu NEƒÜE biti aktivirane.)"
 
 #: templates/contacts/contacts.inc:223
 msgid "* Add these by clicking OK *"
-msgstr "* Dodaj ove kad klikneπ na OK *"
+msgstr "* Dodaj ove kad klikne≈° na OK *"
 
 #: templates/contacts/contacts.inc:203
 msgid "* Please select address(es) *"
@@ -185,11 +185,11 @@ msgstr "500 znakova"
 
 #: lib/IMP.php:911 lib/IMP.php:913
 msgid "Acco_unts"
-msgstr "_Vanjski raËuni"
+msgstr "_Vanjski raƒçuni"
 
 #: templates/fetchmail/manage.inc:7
 msgid "Account's name:"
-msgstr "Ime korisniËkog raËuna:"
+msgstr "Ime korisniƒçkog raƒçuna:"
 
 #: lib/MIME/Viewer/itip.php:477 lib/MIME/Viewer/itip.php:715
 msgid "Actions"
@@ -215,12 +215,12 @@ msgid ""
 "on a new line)</i>"
 msgstr ""
 "Dodatna polja zaglavlja za prikaz: <i>(nije obavezno, unesite svako polje "
-"headera koje æelite vidjeti u novi red)</i>"
+"headera koje ≈æelite vidjeti u novi red)</i>"
 
 #: lib/MIME/Viewer/notification.php:65
 #, php-format
 msgid "Additional information can be viewed %s."
-msgstr "MoguÊe je prikazati dodatne informacije %s."
+msgstr "Moguƒáe je prikazati dodatne informacije %s."
 
 #: lib/MIME/Viewer/notification.php:65
 msgid "Additional information details"
@@ -233,11 +233,11 @@ msgstr "Dodatne informacije o poruci"
 #: lib/MIME/Viewer/status.php:95
 #, php-format
 msgid "Additional message details can be viewed %s."
-msgstr "MoguÊe je prikazati dodatne informacije o poruci %s."
+msgstr "Moguƒáe je prikazati dodatne informacije o poruci %s."
 
 #: lib/MIME/Viewer/status.php:81
 msgid "Additional message error details"
-msgstr "Dodatne informacije o greπci"
+msgstr "Dodatne informacije o gre≈°ci"
 
 #: contacts.php:90 templates/contacts/contacts.inc:170
 #: templates/compose/compose.inc:330 templates/compose/redirect.inc:55
@@ -273,7 +273,7 @@ msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Sve poruke u sljedeÊim folderima Êe biti downloadovane u jednu MBOX datoteku:"
+"Sve poruke u sljedeƒáim folderima ƒáe biti downloadovane u jednu MBOX datoteku:"
 
 #: lib/Maintenance/Task/purge_trash.php:83
 #, php-format
@@ -281,25 +281,25 @@ msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Sve poruke u vaπem \"%s\" folderu starije od %s dana Êe biti zauvijek "
+"Sve poruke u va≈°em \"%s\" folderu starije od %s dana ƒáe biti zauvijek "
 "obrisane."
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:65
 #, fuzzy, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr ""
-"Svi folderi poslane poπte stariji viπe od %s mjeseci, Êe biti obrisani."
+"Svi folderi poslane po≈°te stariji vi≈°e od %s mjeseci, ƒáe biti obrisani."
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:78
 #, php-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr ""
-"Svi folderi poslane poπte stariji viπe od %s mjeseci, Êe biti obrisani."
+"Svi folderi poslane po≈°te stariji vi≈°e od %s mjeseci, ƒáe biti obrisani."
 
 #: acl.php:85
 #, fuzzy, php-format
 msgid "All rights on folder '%s' successfully removed for user '%s'."
-msgstr "Ime foldera \"%s\" je uspjeπno promjenjeno u \"%s\"."
+msgstr "Ime foldera \"%s\" je uspje≈°no promjenjeno u \"%s\"."
 
 #: config/prefs.php.dist:565 config/prefs.php.dist:586
 msgid "Always"
@@ -312,7 +312,7 @@ msgstr "Uvijek zapamti priloge"
 #: lib/Message.php:385
 #, fuzzy
 msgid "An unknown error occured while creating the new task."
-msgstr "Prilikom dodavanja novog zapisa javila se nepoznata greπka."
+msgstr "Prilikom dodavanja novog zapisa javila se nepoznata gre≈°ka."
 
 #: message.php:490 mailbox.php:671 templates/message/navbar_navigate.inc:9
 #: templates/mailbox/navbar.inc:18 templates/mailbox/navbar.inc:35
@@ -340,55 +340,55 @@ msgstr "Primeni filter pravila nakon prijavljivanja?"
 #: templates/filters/prefs.inc:49
 #, fuzzy
 msgid "Apply filter rules whenever INBOX is displayed?"
-msgstr "Primeni filter pravila kada se aæurira inbox?"
+msgstr "Primeni filter pravila kada se a≈æurira inbox?"
 
 #: templates/folders/javascript.inc:9
 msgid "Are you SURE you want to continue?"
-msgstr "Da li SIGURNO æelite nastaviti?"
+msgstr "Da li SIGURNO ≈æelite nastaviti?"
 
 #: templates/folders/javascript.inc:5
 msgid "Are you completely sure you wish to continue?"
-msgstr "Da li ste sigurni da æelite nastaviti?"
+msgstr "Da li ste sigurni da ≈æelite nastaviti?"
 
 #: templates/smime/smime.inc:65 templates/pgp/pgp.inc:93
 msgid "Are you sure you want to delete this public key?"
-msgstr "Da li ste sigurni da æelite obrisati ovaj javni kljuË?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ovaj javni kljuƒç?"
 
 #: templates/compose/redirect.inc:5 templates/compose/compose.js:6
 msgid "Are you sure you want to do this?"
-msgstr "Da li ste sigurni da æelite ovo uraditi?"
+msgstr "Da li ste sigurni da ≈æelite ovo uraditi?"
 
 #: message.php:398 templates/folders/javascript.inc:73
 #: templates/mailbox/javascript.inc:68
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "Da li ste sigurni da æelite obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ove poruke?"
 
 #: lib/MIME/Contents.php:215
 #, fuzzy
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
-msgstr "Da li ste sigurni da æelite obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ove poruke?"
 
 #: templates/mailbox/actions.inc:39
 msgid "Are you sure you wish to empty this folder?"
-msgstr "Da li ste sigurni da æelite isprazniti ovaj folder?"
+msgstr "Da li ste sigurni da ≈æelite isprazniti ovaj folder?"
 
 #: lib/IMP.php:902
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "Da li ste sigurni da æelite isprazniti folder Korpa?"
+msgstr "Da li ste sigurni da ≈æelite isprazniti folder Korpa?"
 
 #: templates/mailbox/actions.inc:8
 msgid "Are you sure you wish to permanently delete these messages?"
-msgstr "Da li ste sigurni da æelite zauvijek obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite zauvijek obrisati ove poruke?"
 
 #: templates/mailbox/javascript.inc:86
 #, fuzzy
 msgid "Are you sure you wish to report this message as innocent?"
-msgstr "Da li ste sigurni da æelite obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ove poruke?"
 
 #: templates/mailbox/javascript.inc:77
 #, fuzzy
 msgid "Are you sure you wish to report this message as spam?"
-msgstr "Da li ste sigurni da æelite obrisati ove poruke?"
+msgstr "Da li ste sigurni da ≈æelite obrisati ove poruke?"
 
 #: config/prefs.php.dist:887
 msgid "Arrival Time"
@@ -396,7 +396,7 @@ msgstr "Vrijeme pristizanja"
 
 #: config/prefs.php.dist:902
 msgid "Ascending"
-msgstr "RastuÊi"
+msgstr "Rastuƒái"
 
 #: config/prefs.php.dist:564 config/prefs.php.dist:585
 msgid "Ask"
@@ -404,7 +404,7 @@ msgstr "Pitaj"
 
 #: templates/compose/compose.inc:509
 msgid "Attach"
-msgstr "ZakaËi"
+msgstr "Zakaƒçi"
 
 #: templates/compose/compose.inc:466
 #, fuzzy
@@ -413,7 +413,7 @@ msgstr "Prilozi"
 
 #: lib/MIME/Viewer/itip.php:341
 msgid "Attached is a reply to a calendar request you sent."
-msgstr "ZakaËen je odgovor na kalendarski zahtjev koji ste poslali."
+msgstr "Zakaƒçen je odgovor na kalendarski zahtjev koji ste poslali."
 
 #: mailbox.php:705 templates/mailbox/legend.inc:16
 #: templates/compose/attachments.inc:14 templates/compose/compose.inc:496
@@ -441,13 +441,13 @@ msgid ""
 "Automatically show images in HTML messages when the sender is in my "
 "addressbook?"
 msgstr ""
-"Automatski prikaæi slike u HTML porukama za koje je poπiljalac u mom "
+"Automatski prika≈æi slike u HTML porukama za koje je po≈°iljalac u mom "
 "adresaru?"
 
 #: templates/prefs/sourceselect.inc:298
 #, fuzzy
 msgid "Available Address books:"
-msgstr "Na raspolaganju su sljedeÊi imenici:"
+msgstr "Na raspolaganju su sljedeƒái imenici:"
 
 #: templates/message/navbar_navigate.inc:26
 #, php-format
@@ -470,7 +470,7 @@ msgstr "Crna lista"
 
 #: config/prefs.php.dist:631
 msgid "Block images in HTML messages unless they are specifically requested?"
-msgstr "Blokiraj slike u HTML porukama osim ako su specifiËno zatraæene?"
+msgstr "Blokiraj slike u HTML porukama osim ako su specifiƒçno zatra≈æene?"
 
 #: search.php:161
 msgid "Body"
@@ -525,7 +525,7 @@ msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"Promijenite opcije prikaza kao πto su broj poruka na strani ili naËin "
+"Promijenite opcije prikaza kao ≈°to su broj poruka na strani ili naƒçin "
 "sortiranja."
 
 #: config/prefs.php.dist:24
@@ -537,8 +537,8 @@ msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Promijenite ime, adresu i potpis koje Êe drugi vidjeti kada Ëitaju i "
-"odgovaraju na vaπ e-mail."
+"Promijenite ime, adresu i potpis koje ƒáe drugi vidjeti kada ƒçitaju i "
+"odgovaraju na va≈° e-mail."
 
 #: config/prefs.php.dist:793
 msgid "Characters to display:"
@@ -546,11 +546,11 @@ msgstr "Broj prikazanih znakova:"
 
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
-msgstr "Provjeri novu poπtu u folderima"
+msgstr "Provjeri novu po≈°tu u folderima"
 
 #: templates/fetchmail/fetchmail.inc:14
 msgid "Check all mail servers you want to fetch mail from:"
-msgstr "Izaberite mail server sa kojeg æelite preuzeti poπtu:"
+msgstr "Izaberite mail server sa kojeg ≈æelite preuzeti po≈°tu:"
 
 #: config/prefs.php.dist:454
 msgid "Check spelling before sending a message?"
@@ -571,11 +571,11 @@ msgstr "Izaberite akciju:"
 #: templates/prefs/sourceselect.inc:349
 msgid "Choose the address book to use when adding addresses."
 msgstr ""
-"Izaberite  imenik koji Êe se koristiti prilikom dodavanja novih adresa."
+"Izaberite  imenik koji ƒáe se koristiti prilikom dodavanja novih adresa."
 
 #: templates/prefs/sourceselect.inc:293
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Izaberi redoslijed za pretragu imenika za proπirivanje adresa."
+msgstr "Izaberi redoslijed za pretragu imenika za pro≈°irivanje adresa."
 
 #: lib/MIME/Viewer/images.php:89
 #, php-format
@@ -593,16 +593,16 @@ msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Klikni na jedan od odabranih adresara a zatim odaberi polja po kojim Êe se "
-"vrπiti pretraga."
+"Klikni na jedan od odabranih adresara a zatim odaberi polja po kojim ƒáe se "
+"vr≈°iti pretraga."
 
 #: config/prefs.php.dist:921
 msgid "Clicking on the address will compose a new message to the sender"
-msgstr "Klikanjem na adresu pravi se nova poruka za poπiljaoca"
+msgstr "Klikanjem na adresu pravi se nova poruka za po≈°iljaoca"
 
 #: config/prefs.php.dist:922
 msgid "Clicking on the address will open the message to be read"
-msgstr "Klikanjem na adresu otvara se poruka za Ëitanje"
+msgstr "Klikanjem na adresu otvara se poruka za ƒçitanje"
 
 #: templates/fetchmail/fetchmail.inc:30
 msgid "Close"
@@ -649,18 +649,18 @@ msgstr "Nova poruka (%s)"
 
 #: compose.php:750 compose.php:1057
 msgid "Compose another message"
-msgstr "Napiπi novu poruku"
+msgstr "Napi≈°i novu poruku"
 
 #: config/prefs.php.dist:429
 msgid "Compose messages in a separate window?"
-msgstr "Piπi poruke u zasebnom prozoru?"
+msgstr "Pi≈°i poruke u zasebnom prozoru?"
 
 #: config/prefs.php.dist:446
 msgid ""
 "Compose messages with an HTML GUI by default (if browser supports the "
 "feature)?"
 msgstr ""
-"Koristi HTML opcije za pisane poruka (ako preglednik podræava tu moguÊnost)?"
+"Koristi HTML opcije za pisane poruka (ako preglednik podr≈æava tu moguƒánost)?"
 
 #: config/prefs.php.dist:70
 msgid "Configure how messages are displayed."
@@ -673,22 +673,22 @@ msgstr "Podesite opcije pregleda poruke."
 #: config/prefs.php.dist:135
 #, php-format
 msgid "Control PGP support for %s."
-msgstr "Podesite PGP podrπku za %s."
+msgstr "Podesite PGP podr≈°ku za %s."
 
 #: config/prefs.php.dist:144
 #, php-format
 msgid "Control S/MIME support for %s."
-msgstr "Podesite S/MIME podrπku za %s."
+msgstr "Podesite S/MIME podr≈°ku za %s."
 
 #: config/prefs.php.dist:88
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
-msgstr "Podesite kada Êe se vrπiti provjera pristigle poπte."
+msgstr "Podesite kada ƒáe se vr≈°iti provjera pristigle po≈°te."
 
 #: config/prefs.php.dist:700
 msgid "Convert textual emoticons into graphical ones?"
-msgstr "Pretvori tekstualne smajlije u grafiËke?"
+msgstr "Pretvori tekstualne smajlije u grafiƒçke?"
 
 #: templates/message/navbar_navigate.inc:19 templates/mailbox/navbar.inc:51
 msgid "Copy"
@@ -748,7 +748,7 @@ msgstr "Napravi novi folder za nacrte"
 
 #: templates/prefs/sentmailselect.inc:27 templates/prefs/sentmailselect.inc:43
 msgid "Create a new sent mail folder"
-msgstr "Kreiraj novi folder za poslanu poπtu"
+msgstr "Kreiraj novi folder za poslanu po≈°tu"
 
 #: templates/prefs/trashselect.inc:12 templates/prefs/trashselect.inc:24
 msgid "Create a new trash folder"
@@ -759,8 +759,8 @@ msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"Uredite pravila filtriranja pomoÊu kojih automatski organizujete pristigle "
-"poruke, sortirate ih u foldere i briπete neæeljenu poπtu."
+"Uredite pravila filtriranja pomoƒáu kojih automatski organizujete pristigle "
+"poruke, sortirate ih u foldere i bri≈°ete ne≈æeljenu po≈°tu."
 
 #: templates/acl/acl.inc:95
 #, php-format
@@ -769,16 +769,16 @@ msgstr "Trenutni pristup %s"
 
 #: config/prefs.php.dist:104
 msgid "Customize accounts for fetching mail from other accounts."
-msgstr "Podesite dobavljanje poπte sa e-mail raËuna na drugim serverima"
+msgstr "Podesite dobavljanje po≈°te sa e-mail raƒçuna na drugim serverima"
 
 #: config/prefs.php.dist:51
 msgid "Customize how you send mail."
-msgstr "Odredite kako πaljete poπtu."
+msgstr "Odredite kako ≈°aljete po≈°tu."
 
 #: config/prefs.php.dist:40
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Podesite zadatke koji Êe se izvrπavati nakon svake prijave na %s."
+msgstr "Podesite zadatke koji ƒáe se izvr≈°avati nakon svake prijave na %s."
 
 #: templates/mailbox/message_headers.inc:12
 msgid "Dat_e"
@@ -812,31 +812,31 @@ msgstr "Obrisana"
 #: templates/smime/smime.inc:65 templates/compose/attachments.inc:28
 #: templates/pgp/pgp.inc:93
 msgid "Delete"
-msgstr "Obriπi"
+msgstr "Obri≈°i"
 
 #: templates/smime/smime.inc:128 templates/pgp/pgp.inc:169
 msgid "Delete Current Keys"
-msgstr "Obriπi trenutne kljuËeve"
+msgstr "Obri≈°i trenutne kljuƒçeve"
 
 #: templates/folders/actions.inc:7
 msgid "Delete Folder(s)"
-msgstr "Obriπi foldere"
+msgstr "Obri≈°i foldere"
 
 #: folders.php:374
 msgid "Delete Virtual Folder"
-msgstr "Obriπi virtualni folder"
+msgstr "Obri≈°i virtualni folder"
 
 #: config/prefs.php.dist:362
 msgid "Delete old linked attachments at beginning of month?"
-msgstr "Obriπi stare linkovane priloge poËetkom svakog mjeseca?"
+msgstr "Obri≈°i stare linkovane priloge poƒçetkom svakog mjeseca?"
 
 #: config/prefs.php.dist:344
 msgid "Delete old sent-mail folders at beginning of month?"
-msgstr "Obriπi stare foldere poslane poπte pocetkom svakog mjeseca?"
+msgstr "Obri≈°i stare foldere poslane po≈°te pocetkom svakog mjeseca?"
 
 #: config/prefs.php.dist:621
 msgid "Delete spam messages after they have been reported as spam?"
-msgstr "Obriπi poruku nakon prijavljivanja kao spam?"
+msgstr "Obri≈°i poruku nakon prijavljivanja kao spam?"
 
 #: message.php:493 mailbox.php:695 templates/mailbox/navbar.inc:20
 #: templates/mailbox/navbar.inc:38 templates/mailbox/legend.inc:8
@@ -858,12 +858,12 @@ msgstr "Brisanje i prebacivanje poruka"
 
 #: config/prefs.php.dist:903
 msgid "Descending"
-msgstr "OpadajuÊi"
+msgstr "Opadajuƒái"
 
 #: templates/compose/attachments.inc:21 lib/MIME/Viewer/itip.php:656
 #, fuzzy
 msgid "Description"
-msgstr "KorisniËke opcije"
+msgstr "Korisniƒçke opcije"
 
 #: config/prefs.php.dist:680
 msgid "Dim signatures?"
@@ -871,23 +871,23 @@ msgstr "Zatamni potpise?"
 
 #: templates/contacts/contacts.inc:232
 msgid "Display"
-msgstr "Prikaæi"
+msgstr "Prika≈æi"
 
 #: config/prefs.php.dist:470
 msgid "Display confirmation after sending a message?"
-msgstr "Prikaæi potvrdu nakon slanja poruke?"
+msgstr "Prika≈æi potvrdu nakon slanja poruke?"
 
 #: config/prefs.php.dist:689
 msgid "Display in Body of Message"
-msgstr "Prikaæi u tijelu poruke"
+msgstr "Prika≈æi u tijelu poruke"
 
 #: config/prefs.php.dist:768
 msgid "Display pop-up notification of new mail?"
-msgstr "Prikaæi pop-up poruku pristigle poπte?"
+msgstr "Prika≈æi pop-up poruku pristigle po≈°te?"
 
 #: config/prefs.php.dist:733
 msgid "Display the 'Empty Trash' link in the menubar?"
-msgstr "Prikaæi link 'Isprazni korpu' u meniju?"
+msgstr "Prika≈æi link 'Isprazni korpu' u meniju?"
 
 #: templates/compose/attachments.inc:11
 #, fuzzy
@@ -896,11 +896,11 @@ msgstr "Opcije prikaza"
 
 #: templates/folders/actions.inc:14
 msgid "Do Not Check Folder(s) for New Mail"
-msgstr "Ne provjeravaj novu poπtu u folderima"
+msgstr "Ne provjeravaj novu po≈°tu u folderima"
 
 #: config/prefs.php.dist:923
 msgid "Do not generate a link in the From: column"
-msgstr "Nemoj generisati link u koloni Poπiljaoca"
+msgstr "Nemoj generisati link u koloni Po≈°iljaoca"
 
 #: templates/compose/spelling.inc:112
 #, fuzzy
@@ -940,7 +940,7 @@ msgstr "Folder za nacrte"
 
 #: templates/prefs/folderselect.inc:23
 msgid "Drafts folder:"
-msgstr "Folder nezavrπene poruke:"
+msgstr "Folder nezavr≈°ene poruke:"
 
 #: templates/pgp/pgp.inc:196
 #, fuzzy
@@ -961,7 +961,7 @@ msgstr "Izmijeni bijelu listu"
 
 #: templates/filters/prefs.inc:21
 msgid "Edit your blacklist"
-msgstr "Izmjenite vaπu crnu listu"
+msgstr "Izmjenite va≈°u crnu listu"
 
 #: templates/filters/prefs.inc:16
 msgid "Edit your filter rules"
@@ -970,11 +970,11 @@ msgstr "Izmjeni filter pravila"
 #: config/prefs.php.dist:830
 msgid "Edit your preferences for accessing other mail accounts."
 msgstr ""
-"Izmijenite postavke za pristupanje e-mail raËunima na drugim serverima."
+"Izmijenite postavke za pristupanje e-mail raƒçunima na drugim serverima."
 
 #: templates/filters/prefs.inc:26
 msgid "Edit your whitelist"
-msgstr "Izmjenite vaπu bijelu listu"
+msgstr "Izmjenite va≈°u bijelu listu"
 
 #: templates/contacts/contacts.inc:235
 msgid "Email Address"
@@ -999,19 +999,19 @@ msgstr "Isprazni _korpu"
 
 #: templates/pgp/pgp.inc:20 templates/pgp/notactive.inc:16
 msgid "Enable PGP functionality?"
-msgstr "UkljuËi PGP funkcionalnost?"
+msgstr "Ukljuƒçi PGP funkcionalnost?"
 
 #: templates/smime/smime.inc:20 templates/smime/notactive.inc:16
 msgid "Enable S/MIME functionality?"
-msgstr "UkljuËi S/MIME funkcionalnost?"
+msgstr "Ukljuƒçi S/MIME funkcionalnost?"
 
 #: config/prefs.php.dist:780
 msgid "Enable message previews?"
-msgstr "UkljuËi saæetke poruka u listi?"
+msgstr "Ukljuƒçi sa≈æetke poruka u listi?"
 
 #: templates/compose/compose.inc:433
 msgid "Encr_yption Options"
-msgstr "Opcije π_ifrovanja"
+msgstr "Opcije ≈°_ifrovanja"
 
 #: lib/MIME/Viewer/itip.php:474 lib/MIME/Viewer/itip.php:644
 msgid "End"
@@ -1019,7 +1019,7 @@ msgstr "Kraj"
 
 #: lib/Compose.php:321
 msgid "End forwarded message"
-msgstr "Kraj proslijeene poruke"
+msgstr "Kraj proslijeƒëene poruke"
 
 #: lib/Compose.php:262
 msgid "End message"
@@ -1036,36 +1036,36 @@ msgstr "Unesite frazu"
 
 #: templates/prefs/folderselect.inc:9
 msgid "Enter the name for your new drafts folder"
-msgstr "Unesite ime za vaπ novi folder za nacrte"
+msgstr "Unesite ime za va≈° novi folder za nacrte"
 
 #: templates/prefs/sentmailselect.inc:24
 msgid "Enter the name for your new sent mail folder"
-msgstr "Unesite ime za vaπ novi folder za poslanu poπtu"
+msgstr "Unesite ime za va≈° novi folder za poslanu po≈°tu"
 
 #: templates/prefs/trashselect.inc:9
 msgid "Enter the name for your new trash folder"
-msgstr "Unesite ime za vaπ novi folder za smeÊe"
+msgstr "Unesite ime za va≈° novi folder za smeƒáe"
 
 #: message.php:185 compose.php:1044
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
-msgstr "\"%s\" je uspjeπno dodan u adresar"
+msgstr "\"%s\" je uspje≈°no dodan u adresar"
 
 #: templates/smime/smime.inc:58 templates/pgp/pgp.inc:84
 #: lib/MIME/Viewer/pkcs7.php:367 lib/MIME/Viewer/pgp.php:392
 #: lib/MIME/Viewer/status.php:75 lib/MIME/Viewer/status.php:170
 msgid "Error"
-msgstr "Greπka"
+msgstr "Gre≈°ka"
 
 #: lib/MIME/Viewer/itip.php:277 lib/MIME/Viewer/itip.php:370
 #, php-format
 msgid "Error sending reply: %s."
-msgstr "Greπka pri slanju odgovora: %s"
+msgstr "Gre≈°ka pri slanju odgovora: %s"
 
 #: lib/MIME/Viewer/itip.php:92
 #, fuzzy
 msgid "Event successfully deleted."
-msgstr "Folder \"%s\" je uspjeπno obrisan."
+msgstr "Folder \"%s\" je uspje≈°no obrisan."
 
 #: config/prefs.php.dist:758
 msgid "Every 15 minutes"
@@ -1090,40 +1090,40 @@ msgstr "Svaki minut"
 #: folders.php:412
 #, fuzzy
 msgid "Expand"
-msgstr "Proπiri sve"
+msgstr "Pro≈°iri sve"
 
 #: templates/folders/actions.inc:33
 msgid "Expand All"
-msgstr "Proπiri sve"
+msgstr "Pro≈°iri sve"
 
 #: templates/folders/actions.inc:33
 msgid "Expand All Folders"
-msgstr "Proπiri sve foldere"
+msgstr "Pro≈°iri sve foldere"
 
 #: folders.php:412
 msgid "Expand Folder"
-msgstr "Proπiri folder"
+msgstr "Pro≈°iri folder"
 
 #: templates/compose/compose.inc:331 templates/compose/redirect.inc:56
 msgid "Expand Names"
-msgstr "Proπiri imena"
+msgstr "Pro≈°iri imena"
 
 #: config/prefs.php.dist:1021
 msgid "Expand names in the compose window automatically in the background?"
-msgstr "Automatski raπiri imena u prozoru za sastavljanje poruke?"
+msgstr "Automatski ra≈°iri imena u prozoru za sastavljanje poruke?"
 
 #: config/prefs.php.dist:951
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "Automatski raπiri cijelo stablo u prikazu foldera?"
+msgstr "Automatski ra≈°iri cijelo stablo u prikazu foldera?"
 
 #: templates/compose/compose.inc:155 templates/compose/compose.inc:205
 #: templates/compose/compose.inc:256 templates/compose/redirect.inc:104
 msgid "Expanding"
-msgstr "Proπirujem"
+msgstr "Pro≈°irujem"
 
 #: templates/fetchmail/fetchmail.inc:29 config/prefs.php.dist:103
 msgid "Fetch Mail"
-msgstr "Dobavi poπtu"
+msgstr "Dobavi po≈°tu"
 
 #: config/prefs.php.dist:839
 msgid "Fetch Mail in a separate window?"
@@ -1162,11 +1162,11 @@ msgstr "Pravila filtera"
 
 #: config/prefs.php.dist:603
 msgid "Filter message content for profanity?"
-msgstr "Filtriraj poruke nepoæeljnog sadræaja?"
+msgstr "Filtriraj poruke nepo≈æeljnog sadr≈æaja?"
 
 #: templates/filters/notactive.inc:8
 msgid "Filter support is disabled on this system."
-msgstr "Podrπka za filtere je iskljuËena na ovom sistemu."
+msgstr "Podr≈°ka za filtere je iskljuƒçena na ovom sistemu."
 
 #: config/prefs.php.dist:119
 msgid "Filters"
@@ -1179,15 +1179,15 @@ msgstr "Filteri NISU aktivni"
 #: lib/Filter.php:102
 #, php-format
 msgid "Filters: %s management page"
-msgstr "Filteri: %s stranica za ureivanje"
+msgstr "Filteri: %s stranica za ureƒëivanje"
 
 #: templates/contacts/contacts.inc:178
 msgid "Find"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: config/prefs.php.dist:876
 msgid "First Mailbox Page"
-msgstr "Prva strana sanduËeta"
+msgstr "Prva strana sanduƒçeta"
 
 #: mailbox.php:334
 msgid "First Page"
@@ -1209,11 +1209,11 @@ msgstr "Prefiks foldera"
 
 #: lib/Block/summary.php:3
 msgid "Folder Summary"
-msgstr "Saæetak foldera"
+msgstr "Sa≈æetak foldera"
 
 #: config/prefs.php.dist:940
 msgid "Format of message dates in the mailbox view for messages dated today"
-msgstr "Format datuma poruka u sanduËetu za poruke pristigle danas"
+msgstr "Format datuma poruka u sanduƒçetu za poruke pristigle danas"
 
 #: compose.php:703 templates/message/navbar_actions.inc:15
 #: templates/mailbox/actions.inc:21
@@ -1273,7 +1273,7 @@ msgstr "Kraj proslijedjene poruke"
 #: config/prefs.php.dist:13 config/prefs.php.dist:22 config/prefs.php.dist:30
 #: config/prefs.php.dist:38
 msgid "General Options"
-msgstr "Opπte opcije"
+msgstr "Op≈°te opcije"
 
 #: thread.php:68
 msgid "Go to Message"
@@ -1306,7 +1306,7 @@ msgstr "Sakrij neupisane"
 #: lib/MIME/Viewer/html.php:103
 #, fuzzy
 msgid "Hide the Images"
-msgstr "obriπi poruku"
+msgstr "obri≈°i poruku"
 
 #: message.php:288 mailbox.php:681 templates/mailbox/legend.inc:12
 msgid "High Priority"
@@ -1314,7 +1314,7 @@ msgstr "Visok prioritet"
 
 #: config/prefs.php.dist:691
 msgid "How do you want to display attachments?"
-msgstr "Kako æelite prikazati priloge?"
+msgstr "Kako ≈æelite prikazati priloge?"
 
 #: config/prefs.php.dist:496
 msgid "How to attribute quoted lines in a reply"
@@ -1350,30 +1350,30 @@ msgstr "IMAP/POP3 mail serveri"
 
 #: folders.php:346
 msgid "INBOX"
-msgstr "SANDU»E"
+msgstr "SANDUƒåE"
 
 #: templates/compose/spelling.inc:66
 msgid "Ignore"
-msgstr "Ignoriπi"
+msgstr "Ignori≈°i"
 
 #: templates/compose/spelling.inc:67
 msgid "Ignore All"
-msgstr "Ignoriπi sve"
+msgstr "Ignori≈°i sve"
 
 #: templates/folders/import.inc:20
 #, fuzzy
 msgid "Import"
-msgstr "Vaæna"
+msgstr "Va≈æna"
 
 #: templates/smime/import_key.inc:84 templates/pgp/import_key.inc:65
 #, fuzzy
 msgid "Import Key"
-msgstr "Vaæna"
+msgstr "Va≈æna"
 
 #: templates/pgp/pgp.inc:254
 #, fuzzy
 msgid "Import Keypair"
-msgstr "Vaæna"
+msgstr "Va≈æna"
 
 #: templates/folders/actions.inc:25
 msgid "Import Messages"
@@ -1383,11 +1383,11 @@ msgstr "Importuj poruke"
 #: templates/mailbox/navbar.inc:16 templates/mailbox/navbar.inc:33
 #: templates/mailbox/legend.inc:7
 msgid "Important"
-msgstr "Vaæna"
+msgstr "Va≈æna"
 
 #: templates/search/main.inc:47
 msgid "Important messages"
-msgstr "Vaæne poruke"
+msgstr "Va≈æne poruke"
 
 #: folders.php:157
 #, fuzzy, php-format
@@ -1396,20 +1396,20 @@ msgstr "Obrisane sve poruke iz %s."
 
 #: lib/Folder.php:248 lib/IMP.php:369
 msgid "Inbox"
-msgstr "SanduËe"
+msgstr "Sanduƒçe"
 
 #: config/prefs.php.dist:484
 msgid "Include a brief summary of the header in a reply?"
-msgstr "UkljuËi saæetak u zaglavlju odgovora?"
+msgstr "Ukljuƒçi sa≈æetak u zaglavlju odgovora?"
 
 #: config/prefs.php.dist:478
 msgid "Include original message in a reply?"
-msgstr "Priloæi originalnu poruku u odgovoru?"
+msgstr "Prilo≈æi originalnu poruku u odgovoru?"
 
 #: lib/MIME/Viewer/notification.php:64 lib/MIME/Viewer/status.php:133
 #, fuzzy
 msgid "Info"
-msgstr "Ignoriπi"
+msgstr "Ignori≈°i"
 
 #: templates/compose/attachments.inc:15 templates/compose/compose.inc:497
 #: templates/compose/attachments.js:99
@@ -1437,7 +1437,7 @@ msgstr "Jezik"
 
 #: config/prefs.php.dist:877
 msgid "Last Mailbox Page"
-msgstr "Zadnja strana sanduËeta"
+msgstr "Zadnja strana sanduƒçeta"
 
 #: mailbox.php:347
 msgid "Last Page"
@@ -1452,8 +1452,8 @@ msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Ispiπi sve kontakte prilikom otvaranja ekrana kontakata? (Ako je ova opcija "
-"iskljuËena, vidjeÊ?te samo kontakte koje traæite)"
+"Ispi≈°i sve kontakte prilikom otvaranja ekrana kontakata? (Ako je ova opcija "
+"iskljuƒçena, vidjeƒá?te samo kontakte koje tra≈æite)"
 
 #: config/prefs.php.dist:688
 msgid "Listing in the Header"
@@ -1461,7 +1461,7 @@ msgstr "Spisak priloga u zaglavlju poruke"
 
 #: templates/fetchmail/manage.inc:30
 msgid "Local Mailbox:"
-msgstr "Lokalno sanduËe:"
+msgstr "Lokalno sanduƒçe:"
 
 #: lib/MIME/Viewer/itip.php:661
 #, fuzzy
@@ -1493,39 +1493,39 @@ msgstr "Nizak prioritet"
 #: lib/MIME/Viewer/appledouble.php:46
 #, fuzzy
 msgid "Macintosh File"
-msgstr "Filteri poπte"
+msgstr "Filteri po≈°te"
 
 #: smime.php:254 pgp.php:332 templates/smime/passphrase.inc:13
 msgid "Mail"
-msgstr "Poπta"
+msgstr "Po≈°ta"
 
 #: config/prefs.php.dist:95
 msgid "Mail Previews"
-msgstr "Pregled poπte"
+msgstr "Pregled po≈°te"
 
 #: folders.php:364
 msgid "Mailbox"
-msgstr "SanduËe"
+msgstr "Sanduƒçe"
 
 #: config/prefs.php.dist:110
 msgid "Mailbox and Folder Display Options"
-msgstr "Opcije prikaza sanduËeta i foldera"
+msgstr "Opcije prikaza sanduƒçeta i foldera"
 
 #: templates/folders/actions.inc:16
 msgid "Mark All Messages in Folder as Seen"
-msgstr "OznaËi sve poruke kao proËitane"
+msgstr "Oznaƒçi sve poruke kao proƒçitane"
 
 #: templates/folders/actions.inc:17
 msgid "Mark All Messages in Folder as Unseen"
-msgstr "OznaËi sve poruke kao neproËitane"
+msgstr "Oznaƒçi sve poruke kao neproƒçitane"
 
 #: templates/message/navbar_navigate.inc:5 templates/mailbox/navbar.inc:30
 msgid "Mark as:"
-msgstr "Obiljeæi kao:"
+msgstr "Obilje≈æi kao:"
 
 #: config/prefs.php.dist:653
 msgid "Mark different levels of quoting with different colors?"
-msgstr "OznaËi razliËite nivoe citiranja razliËitim bojama?"
+msgstr "Oznaƒçi razliƒçite nivoe citiranja razliƒçitim bojama?"
 
 #: config/prefs.php.dist:661
 msgid "Mark simple markup?"
@@ -1541,7 +1541,7 @@ msgstr "Bilo koji uslov"
 
 #: templates/compose/compose.inc:503
 msgid "Maximum Attachment Size"
-msgstr "Maksimalna veliËina priloga"
+msgstr "Maksimalna veliƒçina priloga"
 
 #: lib/MIME/Viewer/itip.php:532
 #, fuzzy
@@ -1576,11 +1576,11 @@ msgstr "Opcije poruka"
 
 #: search.php:354
 msgid "Message Search"
-msgstr "Pretraæivanje poruke"
+msgstr "Pretra≈æivanje poruke"
 
 #: config/prefs.php.dist:892
 msgid "Message Size"
-msgstr "VeliËina poruke"
+msgstr "Veliƒçina poruke"
 
 #: message.php:375
 msgid "Message Source"
@@ -1613,20 +1613,20 @@ msgstr "Uslovi pretrage"
 
 #: compose.php:747 compose.php:761
 msgid "Message redirected successfully."
-msgstr "Poruka uspjeπno usmjerena"
+msgstr "Poruka uspje≈°no usmjerena"
 
 #: compose.php:994
 #, php-format
 msgid "Message sent successfully, but not saved to %s"
-msgstr "Poruka uspjeπno poslana, ali nije snimljena u %s"
+msgstr "Poruka uspje≈°no poslana, ali nije snimljena u %s"
 
 #: compose.php:1053 compose.php:1068
 msgid "Message sent successfully."
-msgstr "Poruka uspjeπno poslana."
+msgstr "Poruka uspje≈°no poslana."
 
 #: config/prefs.php.dist:912
 msgid "Messages per page in the mailbox view."
-msgstr "Poruka po strani kod prikaza sanduËeta."
+msgstr "Poruka po strani kod prikaza sanduƒçeta."
 
 #: mailbox.php:311
 msgid "Messages to"
@@ -1644,7 +1644,7 @@ msgstr "Prebaci"
 #: templates/prefs/sourceselect.inc:316
 #, fuzzy
 msgid "Move down"
-msgstr "pomjeri niæe"
+msgstr "pomjeri ni≈æe"
 
 #: templates/message/navbar_navigate.inc:18
 #, fuzzy
@@ -1654,7 +1654,7 @@ msgstr "odaberi folder"
 #: templates/prefs/sourceselect.inc:314
 #, fuzzy
 msgid "Move up"
-msgstr "pomjeri viπe"
+msgstr "pomjeri vi≈°e"
 
 #: templates/contacts/contacts.inc:234 lib/MIME/Viewer/itip.php:673
 msgid "Name"
@@ -1684,7 +1684,7 @@ msgstr "Novi folder"
 
 #: config/prefs.php.dist:87
 msgid "New Mail"
-msgstr "Nova poπta"
+msgstr "Nova po≈°ta"
 
 #: templates/search/main.inc:19
 msgid "New messages"
@@ -1697,11 +1697,11 @@ msgstr "Tekst"
 
 #: templates/message/navbar_navigate.inc:33
 msgid "Next Message"
-msgstr "SljedeÊa poruka"
+msgstr "Sljedeƒáa poruka"
 
 #: mailbox.php:345
 msgid "Next Page"
-msgstr "SljedeÊa strana"
+msgstr "Sljedeƒáa strana"
 
 #: templates/compose/compose.inc:532 config/prefs.php.dist:948
 msgid "No"
@@ -1709,7 +1709,7 @@ msgstr "Ne"
 
 #: templates/compose/encrypt_list.inc:5
 msgid "No Encryption"
-msgstr "Bez πifrovanja"
+msgstr "Bez ≈°ifrovanja"
 
 #: mailbox.php:364
 #, php-format
@@ -1751,11 +1751,11 @@ msgstr "Nijedna poruka ne odgovara postavljenom upitu"
 
 #: templates/compose/spelling.inc:28
 msgid "No spelling errors"
-msgstr "Nijedna gramaticka greπka"
+msgstr "Nijedna gramaticka gre≈°ka"
 
 #: templates/compose/spelling.inc:85
 msgid "No suggestions"
-msgstr "Nema greπke"
+msgstr "Nema gre≈°ke"
 
 #: acl.php:68 acl.php:94
 msgid "No user specified."
@@ -1779,11 +1779,11 @@ msgstr "Nije nacrt"
 #: templates/message/navbar_navigate.inc:8 templates/mailbox/navbar.inc:17
 #: templates/mailbox/navbar.inc:34
 msgid "Not Important"
-msgstr "Nevaæna"
+msgstr "Neva≈æna"
 
 #: templates/mailbox/navbar.inc:25
 msgid "Not Personal"
-msgstr "Nije liËna"
+msgstr "Nije liƒçna"
 
 #: templates/search/main.inc:67
 msgid "Not deleted messages"
@@ -1791,18 +1791,18 @@ msgstr "Neobrisane poruke"
 
 #: templates/search/main.inc:51
 msgid "Not important messages"
-msgstr "Nevaæne poruke"
+msgstr "Neva≈æne poruke"
 
 #: config/prefs.php.dist:371
 msgid "Number of months to keep old linked attachments if deleting monthly."
 msgstr ""
-"Broj mjeseci koliko treba Ëuvati stare linkovane priloge u sluËaju mjeseËnog "
+"Broj mjeseci koliko treba ƒçuvati stare linkovane priloge u sluƒçaju mjeseƒçnog "
 "brisanja."
 
 #: config/prefs.php.dist:353
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"Broj starih foldera poslane poπte koji ce se sacuvati ako se briπu mjesecno."
+"Broj starih foldera poslane po≈°te koji ce se sacuvati ako se bri≈°u mjesecno."
 
 #: templates/search/main.inc:15
 msgid "Old messages"
@@ -1810,7 +1810,7 @@ msgstr "Stare poruke"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:55
 msgid "Old sent-mail folders being purged."
-msgstr "Briπem stare foldere poslane poπte."
+msgstr "Bri≈°em stare foldere poslane po≈°te."
 
 #: templates/menu.inc:7 templates/menu.inc:27
 msgid "Ope_n Folder"
@@ -1827,7 +1827,7 @@ msgstr "Otvoreni folder"
 #: fetchmail.php:33 templates/fetchmail/top.inc:2
 #: templates/fetchmail/fetchmail.inc:6
 msgid "Other Mail Accounts"
-msgstr "Ostali e-mail raËuni"
+msgstr "Ostali e-mail raƒçuni"
 
 #: config/prefs.php.dist:109 config/prefs.php.dist:118
 #: config/prefs.php.dist:125 config/prefs.php.dist:133
@@ -1842,15 +1842,15 @@ msgstr "PGP"
 
 #: templates/compose/encrypt_list.inc:7
 msgid "PGP Encrypt Message"
-msgstr "PGP πifrovanje poruke"
+msgstr "PGP ≈°ifrovanje poruke"
 
 #: compose.php:343
 msgid "PGP Error: "
-msgstr "PGP greπka:"
+msgstr "PGP gre≈°ka:"
 
 #: compose.php:322
 msgid "PGP Error: Need passphrase for personal private key."
-msgstr "PGP greπka: Potrebna je fraza za liËni privatni kljuË."
+msgstr "PGP gre≈°ka: Potrebna je fraza za liƒçni privatni kljuƒç."
 
 #: templates/pgp/notactive.inc:6
 msgid "PGP NOT Active"
@@ -1866,21 +1866,21 @@ msgstr "PGP unos fraze"
 
 #: templates/pgp/pgp.inc:128
 msgid "PGP Personal Keypair support requires a secure web connection."
-msgstr "Podrπka za PGP liËne kljuËeve zahtijeva sigurnu web konekciju."
+msgstr "Podr≈°ka za PGP liƒçne kljuƒçeve zahtijeva sigurnu web konekciju."
 
 #: lib/MIME/Viewer/pgp.php:178
 msgid "PGP Public Key Text"
-msgstr "PGP tekst javnog kljuËa"
+msgstr "PGP tekst javnog kljuƒça"
 
 #: pgp.php:149
 #, php-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "PGP javni kljuË za \"%s (%s)\" je uspjeπno dodan."
+msgstr "PGP javni kljuƒç za \"%s (%s)\" je uspje≈°no dodan."
 
 #: pgp.php:245
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "PGP javni kljuË za \"%s\" je uspjeπno obrisan."
+msgstr "PGP javni kljuƒç za \"%s\" je uspje≈°no obrisan."
 
 #: templates/pgp/pgp.inc:72
 msgid "PGP Public Keyring"
@@ -1892,33 +1892,33 @@ msgstr "PGP potpisivanje poruka"
 
 #: templates/compose/encrypt_list.inc:9
 msgid "PGP Sign/Encrypt Message"
-msgstr "PGP potpiπi/πifruj poruku"
+msgstr "PGP potpi≈°i/≈°ifruj poruku"
 
 #: pgp.php:202
 msgid "PGP private key successfully added."
-msgstr "PGP privatni kljuË je uspjeπno dodan."
+msgstr "PGP privatni kljuƒç je uspje≈°no dodan."
 
 #: pgp.php:177
 msgid "PGP public key successfully added."
-msgstr "PGP javni kljuË je uspjeπno dodan."
+msgstr "PGP javni kljuƒç je uspje≈°no dodan."
 
 #: templates/pgp/notactive.inc:11
 msgid "PGP support is disabled on this system."
-msgstr "PGP podrπka je iskljuËena na ovom sistemu."
+msgstr "PGP podr≈°ka je iskljuƒçena na ovom sistemu."
 
 #: lib/MIME/Viewer/pgp.php:214
 msgid ""
 "PGP support is not currently active so the digital signature is unable to be "
 "verified."
 msgstr ""
-"PGP podrπka trenutno nije aktivna tako da se digitalni potpis ne moæe "
+"PGP podr≈°ka trenutno nije aktivna tako da se digitalni potpis ne mo≈æe "
 "provjeriti."
 
 #: lib/MIME/Viewer/pgp.php:301
 msgid ""
 "PGP support is not currently active so the message is unable to be decrypted."
 msgstr ""
-"PGP podrπka trenutno nije aktivna tako da se poruka ne moæe deπifrovati."
+"PGP podr≈°ka trenutno nije aktivna tako da se poruka ne mo≈æe de≈°ifrovati."
 
 #: lib/Fetchmail/imap.php:108
 msgid "POP3"
@@ -1951,11 +1951,11 @@ msgstr "Stranica %d od %d"
 
 #: config/prefs.php.dist:874
 msgid "Page with the First Unseen Message"
-msgstr "Stranica sa prvom neproËitanom porukom"
+msgstr "Stranica sa prvom neproƒçitanom porukom"
 
 #: config/prefs.php.dist:875
 msgid "Page with the Last Unseen Message"
-msgstr "Stranica sa zadnjom neproËitanom porukom"
+msgstr "Stranica sa zadnjom neproƒçitanom porukom"
 
 #: templates/message/headers.inc:43
 msgid "Part(s)"
@@ -1964,11 +1964,11 @@ msgstr "Dio (dijelovi)"
 #: templates/fetchmail/manage.inc:20 templates/smime/import_key.inc:69
 #: templates/login/login.inc:221
 msgid "Password"
-msgstr "©ifra"
+msgstr "≈†ifra"
 
 #: templates/fetchmail/manage.inc:48
 msgid "Perform maintenance operations on login?"
-msgstr "Izvrπi servisne operacije prije logiranja?"
+msgstr "Izvr≈°i servisne operacije prije logiranja?"
 
 #: acl.php:76 acl.php:102
 msgid "Permissions for this user can not be changed."
@@ -1977,15 +1977,15 @@ msgstr "Dozvole za ovog korisnika se ne mogu mijenjati."
 #: message.php:483 mailbox.php:660 templates/mailbox/navbar.inc:24
 #: templates/mailbox/legend.inc:10
 msgid "Personal"
-msgstr "LiËna"
+msgstr "Liƒçna"
 
 #: config/prefs.php.dist:14
 msgid "Personal Information"
-msgstr "Osobne/LiËne informacije"
+msgstr "Osobne/Liƒçne informacije"
 
 #: config/prefs.php.dist:214
 msgid "Place your signature before replies and forwards?"
-msgstr "Dodaj moj potpis prije odgovora i proslijeenih poruka?"
+msgstr "Dodaj moj potpis prije odgovora i proslijeƒëenih poruka?"
 
 #: compose.php:241
 msgid "Plaintext Version of Message"
@@ -1993,11 +1993,11 @@ msgstr "Izvorni kod poruke"
 
 #: templates/login/login.inc:81
 msgid "Please provide your password."
-msgstr "Molim navedite vaπu πifru."
+msgstr "Molim navedite va≈°u ≈°ifru."
 
 #: templates/login/login.inc:77
 msgid "Please provide your username."
-msgstr "Molim navedite vaπe korisniËko ime."
+msgstr "Molim navedite va≈°e korisniƒçko ime."
 
 #: compose.php:80 lib/IMP.php:520
 msgid "Please resolve ambiguous or invalid addresses."
@@ -2005,7 +2005,7 @@ msgstr "Molim te popravi dvosmislene odnosno invalidne adrese."
 
 #: templates/folders/javascript.inc:56
 msgid "Please select a folder before you perform any actions."
-msgstr "Molim izaberite neki folder prije izvrπavanja akcija."
+msgstr "Molim izaberite neki folder prije izvr≈°avanja akcija."
 
 #: lib/MIME/Viewer/itip.php:461
 msgid "Please select an action from the menu below."
@@ -2031,7 +2031,7 @@ msgstr "Ispred potpisa dodaj crtice ('-- ')?"
 #: smime.php:241 pgp.php:257 filterprefs.php:40
 #, fuzzy
 msgid "Preferences successfully updated."
-msgstr "Folder \"%s\" je uspjeπno kreiran."
+msgstr "Folder \"%s\" je uspje≈°no kreiran."
 
 #: templates/compose/attachments.inc:3
 #, fuzzy
@@ -2048,7 +2048,7 @@ msgstr "Prethodna strana"
 
 #: templates/message/navbar_actions.inc:31
 msgid "Print"
-msgstr "Odπtampaj"
+msgstr "Od≈°tampaj"
 
 #: templates/message/headers.inc:38
 msgid "Priority"
@@ -2056,7 +2056,7 @@ msgstr "Prioritet"
 
 #: templates/smime/import_key.inc:74
 msgid "Private Key Password"
-msgstr "©ifra privatnog kljuËa"
+msgstr "≈†ifra privatnog kljuƒça"
 
 #: config/prefs.php.dist:552
 msgid "Prompt every time an attachment is sent; default to NO"
@@ -2084,11 +2084,11 @@ msgstr "Izbaci obrisane poruke"
 
 #: config/prefs.php.dist:390
 msgid "Purge Trash how often:"
-msgstr "Koliko Ëesto brisati poruke iz korpe:"
+msgstr "Koliko ƒçesto brisati poruke iz korpe:"
 
 #: config/prefs.php.dist:399
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Obriπi poruke u folderu korpa starije od ovog broja dana."
+msgstr "Obri≈°i poruke u folderu korpa starije od ovog broja dana."
 
 #: config/prefs.php.dist:380
 msgid "Purge old messages in the Trash folder?"
@@ -2102,7 +2102,7 @@ msgstr "Izbacujem %d poruku/a iz foldera korpa."
 #: config/prefs.php.dist:421
 msgid "Put this after @ when sending mail and default address expansion:"
 msgstr ""
-"Dodaj ovo nakon znaka @ prilikom slanja poπte i automatskog proπirenja "
+"Dodaj ovo nakon znaka @ prilikom slanja po≈°te i automatskog pro≈°irenja "
 "adrese:"
 
 #: templates/quota/quota.inc:17
@@ -2113,12 +2113,12 @@ msgstr "Slobodan prostor: %.2fMB / %.2fMB  (%.2f%%)"
 #: templates/quota/quota.inc:21
 #, php-format
 msgid "Quota status: %.2fMB / NO LIMIT"
-msgstr "Slobodan prostor: %.2fMB / NEOGRANI»ENO"
+msgstr "Slobodan prostor: %.2fMB / NEOGRANIƒåENO"
 
 #: templates/quota/quota.inc:24
 #, php-format
 msgid "Quota status: NO LIMIT"
-msgstr "Slobodan prostor: NEOGRANI»ENO"
+msgstr "Slobodan prostor: NEOGRANIƒåENO"
 
 #: config/prefs.php.dist:492
 #, php-format
@@ -2127,7 +2127,7 @@ msgstr "Citiram %f:"
 
 #: templates/compose/compose.inc:377
 msgid "Re_quest Delivery Confirmation"
-msgstr "T_raæi potvrdu prijema"
+msgstr "T_ra≈æi potvrdu prijema"
 
 #: search.php:165
 msgid "Received On"
@@ -2163,20 +2163,20 @@ msgstr "Usmjerenje nije uspjelo."
 
 #: templates/compose/compose.inc:573
 msgid "Refresh"
-msgstr "Aæuriraj"
+msgstr "A≈æuriraj"
 
 #: config/prefs.php.dist:760
 msgid "Refresh Folder Views:"
-msgstr "Aæuriraj prikaz foldera:"
+msgstr "A≈æuriraj prikaz foldera:"
 
 #: templates/folders/head.inc:3 templates/mailbox/header.inc:4
 #, fuzzy
 msgid "Reload"
-msgstr "Aæuriraj prikaz"
+msgstr "A≈æuriraj prikaz"
 
 #: templates/folders/head.inc:3
 msgid "Reload View"
-msgstr "Aæuriraj prikaz"
+msgstr "A≈æuriraj prikaz"
 
 #: config/prefs.php.dist:950
 msgid "Remember the last view"
@@ -2184,7 +2184,7 @@ msgstr "Zapamti zadnji prikaz"
 
 #: templates/fetchmail/manage.inc:27
 msgid "Remote Mailbox:"
-msgstr "Udaljeno sanduËe:"
+msgstr "Udaljeno sanduƒçe:"
 
 #: templates/prefs/sourceselect.inc:305
 #, fuzzy
@@ -2197,7 +2197,7 @@ msgstr "Promjeni ime foldera"
 
 #: config/prefs.php.dist:335
 msgid "Rename sent-mail folder at beginning of month?"
-msgstr "Promjeni ime foldera poslane poπte poËetkom svakog mjeseca?"
+msgstr "Promjeni ime foldera poslane po≈°te poƒçetkom svakog mjeseca?"
 
 #: lib/Folder.php:542
 #, php-format
@@ -2243,7 +2243,7 @@ msgstr "Odgovori _svima"
 #: lib/MIME/Viewer/itip.php:485 lib/MIME/Viewer/itip.php:494
 #: lib/MIME/Viewer/itip.php:504
 msgid "Reply with Not Supported Message"
-msgstr "Odgovori porukom Nije podræano"
+msgstr "Odgovori porukom Nije podr≈æano"
 
 #: lib/MIME/Viewer/itip.php:492
 msgid "Reply with free/busy for next 2 months."
@@ -2251,7 +2251,7 @@ msgstr "Odgovori porukom slobodan/zauzet za naredna 2 mjeseca."
 
 #: lib/MIME/Viewer/itip.php:491
 msgid "Reply with requested free/busy information."
-msgstr "Odgovori traæenom slobodan/zauzet informacijom."
+msgstr "Odgovori tra≈æenom slobodan/zauzet informacijom."
 
 #: message.php:258
 msgid "Reply-To"
@@ -2275,24 +2275,24 @@ msgstr "Prijavi kao spam"
 
 #: templates/compose/compose.inc:374
 msgid "Request a _Read Receipt"
-msgstr "Traæi _potvrdu Ëitanja"
+msgstr "Tra≈æi _potvrdu ƒçitanja"
 
 #: config/prefs.php.dist:587
 msgid "Request delivery confirmation?"
-msgstr "Da traæim potvrdu prijema?"
+msgstr "Da tra≈æim potvrdu prijema?"
 
 #: config/prefs.php.dist:566
 msgid "Request read receipts?"
-msgstr "Da traæim potvrdu Ëitanja poruke?"
+msgstr "Da tra≈æim potvrdu ƒçitanja poruke?"
 
 #: mailbox.php:197
 msgid "Requested message not found."
-msgstr "Traæena poruka nije pronaena."
+msgstr "Tra≈æena poruka nije pronaƒëena."
 
 #: templates/search/main.inc:143 templates/search/header.inc:26
 #: templates/acl/acl.inc:158
 msgid "Reset"
-msgstr "Poniπti"
+msgstr "Poni≈°ti"
 
 #: templates/message/navbar_actions.inc:28
 msgid "Resume"
@@ -2300,12 +2300,12 @@ msgstr "Nastavi"
 
 #: recompose.php:89
 msgid "Resume your session"
-msgstr "Nastavite vaπu sesiju"
+msgstr "Nastavite va≈°u sesiju"
 
 #: templates/fetchmail/driver_select.inc:31 templates/fetchmail/manage.inc:69
 #: templates/fetchmail/account_select.inc:32
 msgid "Return to Fetch Mail"
-msgstr "Nazad na Vanjske raËune"
+msgstr "Nazad na Vanjske raƒçune"
 
 #: templates/filters/prefs.inc:70 templates/filters/notactive.inc:13
 #: templates/smime/smime.inc:158 templates/pgp/pgp.inc:268
@@ -2324,7 +2324,7 @@ msgstr "Nazad na prethodni ekran"
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Vrati se na prikaz sanduËeta nakon brisanja, prebacivanja, ili kopiranja "
+"Vrati se na prikaz sanduƒçeta nakon brisanja, prebacivanja, ili kopiranja "
 "poruke?"
 
 #: lib/MIME/Viewer/pkcs7.php:134 lib/MIME/Viewer/pkcs7.php:229
@@ -2334,7 +2334,7 @@ msgstr "S/MIME"
 
 #: templates/compose/encrypt_list.inc:12
 msgid "S/MIME Encrypt Message"
-msgstr "S/MIME πifruj poruku"
+msgstr "S/MIME ≈°ifruj poruku"
 
 #: templates/smime/notactive.inc:6
 msgid "S/MIME NOT Active"
@@ -2347,7 +2347,7 @@ msgstr "S/MIME opcije"
 #: smime.php:140
 #, fuzzy, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
-msgstr "Folder \"%s\" je uspjeπno obrisan."
+msgstr "Folder \"%s\" je uspje≈°no obrisan."
 
 #: templates/compose/compose.inc:266
 msgid "S_ubject"
@@ -2355,20 +2355,20 @@ msgstr "T_ema"
 
 #: templates/compose/compose.inc:354
 msgid "Sa_ve a copy in "
-msgstr "SaËu_vaj kopiju u "
+msgstr "Saƒçu_vaj kopiju u "
 
 #: templates/message/navbar_actions.inc:30
 msgid "Sa_ve as"
-msgstr "_SaËuvaj kao"
+msgstr "_Saƒçuvaj kao"
 
 #: search.php:358 templates/fetchmail/manage.inc:67
 #, fuzzy
 msgid "Save"
-msgstr "SaËuvaj kao"
+msgstr "Saƒçuvaj kao"
 
 #: templates/compose/compose.inc:68 templates/compose/compose.inc:424
 msgid "Save Draft"
-msgstr "SaËuvaj kao nacrt"
+msgstr "Saƒçuvaj kao nacrt"
 
 #: templates/filters/prefs.inc:69 templates/smime/smime.inc:37
 #: templates/smime/notactive.inc:23 templates/pgp/pgp.inc:64
@@ -2378,15 +2378,15 @@ msgstr "Snimi opcije"
 
 #: templates/compose/compose.inc:68 templates/compose/compose.inc:424
 msgid "Save _Draft"
-msgstr "SaËuvaj kao _nacrt"
+msgstr "Saƒçuvaj kao _nacrt"
 
 #: templates/message/navbar_actions.inc:30
 msgid "Save as"
-msgstr "SaËuvaj kao"
+msgstr "Saƒçuvaj kao"
 
 #: config/prefs.php.dist:513
 msgid "Save drafts as unseen?"
-msgstr "»uvaj nacrte kao neproËitane?"
+msgstr "ƒåuvaj nacrte kao neproƒçitane?"
 
 #: config/prefs.php.dist:1030
 msgid "Save recipients automatically to the default address book?"
@@ -2398,25 +2398,25 @@ msgstr "Zapamti pretragu kao virtualni folder?"
 
 #: config/prefs.php.dist:223
 msgid "Save sent mail?"
-msgstr "SaËuvaj poslanu poπtu?"
+msgstr "Saƒçuvaj poslanu po≈°tu?"
 
 #: compose.php:1138
 #, php-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "Nije uspjelo spaπavanje nacrta. Ovo je poruka servera: %s"
+msgstr "Nije uspjelo spa≈°avanje nacrta. Ovo je poruka servera: %s"
 
 #: templates/contacts/contacts.inc:192 templates/mailbox/header.inc:11
 msgid "Search"
-msgstr "Traæi"
+msgstr "Tra≈æi"
 
 #: templates/search/header.inc:18 templates/mailbox/header.inc:11
 #, php-format
 msgid "Search %s"
-msgstr "Traæi %s"
+msgstr "Tra≈æi %s"
 
 #: lib/Block/tree_folders.php:169
 msgid "Search Mail"
-msgstr "Pretraæi poruke"
+msgstr "Pretra≈æi poruke"
 
 #: search.php:311
 msgid "Search Results"
@@ -2424,7 +2424,7 @@ msgstr "Rezultati pretrage"
 
 #: templates/mailbox/navbar.inc:14 templates/mailbox/navbar.inc:31
 msgid "Seen"
-msgstr "ProËitana"
+msgstr "Proƒçitana"
 
 #: templates/mailbox/navbar.inc:9
 msgid "Select"
@@ -2432,7 +2432,7 @@ msgstr "Odaberi"
 
 #: templates/fetchmail/manage.inc:70
 msgid "Select Another Account"
-msgstr "Izaberite korisniËki raËun"
+msgstr "Izaberite korisniƒçki raƒçun"
 
 #: templates/search/fields.inc:35
 #, fuzzy
@@ -2445,7 +2445,7 @@ msgstr "Izaberite polje"
 
 #: config/prefs.php.dist:127
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Izaberite izvore imenika za dodavanje i pretraæivanje adresa."
+msgstr "Izaberite izvore imenika za dodavanje i pretra≈æivanje adresa."
 
 #: templates/search/main.inc:88
 msgid "Select all"
@@ -2453,11 +2453,11 @@ msgstr "Odaberi sve"
 
 #: templates/prefs/sourceselect.inc:323
 msgid "Select all fields to search when expanding addresses."
-msgstr "Izaberite polja koja treba pretraæiti prilikom prikaza adresa."
+msgstr "Izaberite polja koja treba pretra≈æiti prilikom prikaza adresa."
 
 #: templates/fetchmail/account_select.inc:21
 msgid "Select an account"
-msgstr "Izaberite korisniËki raËun"
+msgstr "Izaberite korisniƒçki raƒçun"
 
 #: templates/search/main.inc:89
 msgid "Select none"
@@ -2475,20 +2475,20 @@ msgstr "Informacije servisa"
 
 #: config/prefs.php.dist:575
 msgid "Send MDN when requested by the sender?"
-msgstr "©alji MDN kada to traæi poπiljalac?"
+msgstr "≈†alji MDN kada to tra≈æi po≈°iljalac?"
 
 #: templates/compose/compose.inc:66 templates/compose/compose.inc:422
 msgid "Send Message"
-msgstr "Poπalji poruku"
+msgstr "Po≈°alji poruku"
 
 #: folders.php:359
 #, fuzzy
 msgid "Sent mail folder"
-msgstr "Folder poslane poπte:"
+msgstr "Folder poslane po≈°te:"
 
 #: templates/prefs/sentmailselect.inc:39
 msgid "Sent mail folder:"
-msgstr "Folder poslane poπte:"
+msgstr "Folder poslane po≈°te:"
 
 #: templates/login/login.inc:138 templates/login/login.inc:152
 #: templates/login/login.inc:159
@@ -2507,7 +2507,7 @@ msgstr "Server"
 #: config/prefs.php.dist:80
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
-"Podesite opcije u kojima Êe se defininisati akcije nakon premjeπtanja i "
+"Podesite opcije u kojima ƒáe se defininisati akcije nakon premje≈°tanja i "
 "brisanja poruka."
 
 #: config/prefs.php.dist:522
@@ -2520,23 +2520,23 @@ msgstr "Dijeljenje foldera"
 
 #: templates/acl/acl.inc:86
 msgid "Share mail folders"
-msgstr "Dijeljene foldera poπte"
+msgstr "Dijeljene foldera po≈°te"
 
 #: config/prefs.php.dist:32
 msgid "Share your mail folders with other users."
-msgstr "Razmjenjujte vaπe e-mail foldere sa drugim korisnicima."
+msgstr "Razmjenjujte va≈°e e-mail foldere sa drugim korisnicima."
 
 #: config/prefs.php.dist:672
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
 msgstr ""
-"Da li Êe veliki komadi citiranog teksta biti automatski sakriveni ili "
-"prikazani? Ovo se moæe lako promijeniti kada zaæelite."
+"Da li ƒáe veliki komadi citiranog teksta biti automatski sakriveni ili "
+"prikazani? Ovo se mo≈æe lako promijeniti kada za≈æelite."
 
 #: config/prefs.php.dist:505
 msgid "Should the compose window be closed after saving a draft?"
-msgstr "Da li zatvoriti prozor za pisanje nove poruke nakon spaπavanja nacrta?"
+msgstr "Da li zatvoriti prozor za pisanje nove poruke nakon spa≈°avanja nacrta?"
 
 #: templates/search/main.inc:92
 #, fuzzy
@@ -2545,20 +2545,20 @@ msgstr "Skupi sve foldere"
 
 #: templates/message/headers.inc:67
 msgid "Show All Headers"
-msgstr "Prikaæi sva polja"
+msgstr "Prika≈æi sva polja"
 
 #: mailbox.php:354
 msgid "Show Deleted"
-msgstr "Prikaæi obrisane"
+msgstr "Prika≈æi obrisane"
 
 #: templates/message/headers.inc:61
 msgid "Show Limited Headers"
-msgstr "Prikaæi samo neka polja"
+msgstr "Prika≈æi samo neka polja"
 
 #: templates/message/headers.inc:70
 #, fuzzy
 msgid "Show Mailing List Information"
-msgstr "Osobne/LiËne informacije"
+msgstr "Osobne/Liƒçne informacije"
 
 #: templates/search/main.inc:92
 #, fuzzy
@@ -2567,31 +2567,31 @@ msgstr "Prijavi se na Folder(e)"
 
 #: folders.php:254
 msgid "Show Unsubscribed"
-msgstr "Prikaæi neprijavljene"
+msgstr "Prika≈æi neprijavljene"
 
 #: config/prefs.php.dist:612
 msgid "Show an icon to allow stripping of attachments from messages?"
-msgstr "Prikaæi ikonu koja omoguÊuje brisanje priloga iz poruke?"
+msgstr "Prika≈æi ikonu koja omoguƒáuje brisanje priloga iz poruke?"
 
 #: config/prefs.php.dist:974
 msgid "Show legend in the mailbox view?"
-msgstr "Prikaæi legendu u prikazu sanduËeta?"
+msgstr "Prika≈æi legendu u prikazu sanduƒçeta?"
 
 #: config/prefs.php.dist:809
 msgid "Show previews for unread messages only?"
-msgstr "Prikaæi saæetke samo za neproËitane poruke?"
+msgstr "Prika≈æi sa≈æetke samo za neproƒçitane poruke?"
 
 #: config/prefs.php.dist:817
 msgid "Show previews in tooltips?"
-msgstr "Prikaæi saæetke u oblaËiÊima?"
+msgstr "Prika≈æi sa≈æetke u oblaƒçiƒáima?"
 
 #: config/prefs.php.dist:848
 msgid "Show the Fetch Mail icon on the menubar?"
-msgstr "Prikaæi ikonu za Vanjske raËune u meniju?"
+msgstr "Prika≈æi ikonu za Vanjske raƒçune u meniju?"
 
 #: templates/filters/prefs.inc:61
 msgid "Show the filter icon on the menubar?"
-msgstr "Prikaæi ikonu filtera u meniju?"
+msgstr "Prika≈æi ikonu filtera u meniju?"
 
 #: config/prefs.php.dist:669
 msgid "Shown"
@@ -2599,7 +2599,7 @@ msgstr "Prikazano"
 
 #: templates/mailbox/message_headers.inc:37
 msgid "Si_ze"
-msgstr "_VeliËina"
+msgstr "_Veliƒçina"
 
 #: templates/mailbox/legend.inc:17
 msgid "Signed"
@@ -2607,7 +2607,7 @@ msgstr "Potpisana"
 
 #: templates/compose/attachments.inc:3
 msgid "Size"
-msgstr "VeliËina"
+msgstr "Veliƒçina"
 
 #: templates/mailbox/message_headers.inc:71
 msgid "Sort Direction"
@@ -2615,11 +2615,11 @@ msgstr "Pravac sortiranja"
 
 #: templates/mailbox/message_headers.inc:21
 msgid "Sort by From Address"
-msgstr "Sortiraj po adresi poπiljaoca"
+msgstr "Sortiraj po adresi po≈°iljaoca"
 
 #: templates/mailbox/message_headers.inc:36
 msgid "Sort by Message Size"
-msgstr "Sortiraj po veliËini poruke"
+msgstr "Sortiraj po veliƒçini poruke"
 
 #: templates/mailbox/message_headers.inc:31
 msgid "Sort by Subject"
@@ -2655,7 +2655,7 @@ msgstr "Provjera pravopisa gotova"
 
 #: config/prefs.php.dist:462
 msgid "Spelling errors per screen when spell checking."
-msgstr "Broj greπaka po ekranu prilikom provjere pravopisa?"
+msgstr "Broj gre≈°aka po ekranu prilikom provjere pravopisa?"
 
 #: lib/MIME/Contents.php:215
 #, fuzzy
@@ -2681,7 +2681,7 @@ msgstr "Polje teme"
 #: search.php:360 templates/smime/passphrase.inc:21
 #: templates/pgp/passphrase.inc:31
 msgid "Submit"
-msgstr "Poπalji"
+msgstr "Po≈°alji"
 
 #: templates/folders/actions.inc:9
 msgid "Subscribe to Folder(s)"
@@ -2690,7 +2690,7 @@ msgstr "Prijavi se na Folder(e)"
 #: lib/MIME/Viewer/pkcs7.php:370 lib/MIME/Viewer/pgp.php:395
 #: lib/MIME/Viewer/status.php:90
 msgid "Success"
-msgstr "Uspjeπno"
+msgstr "Uspje≈°no"
 
 #: templates/compose/spelling.inc:70
 msgid "Suggestions"
@@ -2702,7 +2702,7 @@ msgstr "Te_kst"
 
 #: config/prefs.php.dist:925
 msgid "The From: column of the message should be linked:"
-msgstr "Kolona Poπiljaoca treba biti link na:"
+msgstr "Kolona Po≈°iljaoca treba biti link na:"
 
 #: fetchmailprefs.php:81
 #, fuzzy, php-format
@@ -2712,17 +2712,17 @@ msgstr "Identitet \"%s\" je obrisan."
 #: fetchmailprefs.php:74
 #, fuzzy, php-format
 msgid "The account \"%s\" has been saved."
-msgstr "Identitet \"%s\" je saËuvan."
+msgstr "Identitet \"%s\" je saƒçuvan."
 
 #: lib/Filter.php:94
 #, fuzzy, php-format
 msgid "The address \"%s\" has been added to %s."
-msgstr "Identitet \"%s\" je saËuvan."
+msgstr "Identitet \"%s\" je saƒçuvan."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:96
 #, php-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "Trenutno ime foldera \"%s\" Êe biti promijenjeno u \"%s\"."
+msgstr "Trenutno ime foldera \"%s\" ƒáe biti promijenjeno u \"%s\"."
 
 #: templates/acl/acl.inc:112
 msgid ""
@@ -2733,7 +2733,7 @@ msgstr ""
 #: lib/Folder.php:426
 #, php-format
 msgid "The folder \"%s\" already exists"
-msgstr "Folder \"%s\" veÊ postoji"
+msgstr "Folder \"%s\" veƒá postoji"
 
 #: lib/Folder.php:192
 #, php-format
@@ -2741,8 +2741,8 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"Folder \"%s\" sadræi ilegalne karaktere u imenu. Kao takav moæe biti "
-"problematiËan."
+"Folder \"%s\" sadr≈æi ilegalne karaktere u imenu. Kao takav mo≈æe biti "
+"problematiƒçan."
 
 #: lib/Folder.php:445
 #, php-format
@@ -2767,22 +2767,22 @@ msgstr "Folder \"%s\" nije obrisan. Ovo je poruka servera"
 #: lib/Folder.php:448
 #, php-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "Folder \"%s\" je uspjeπno kreiran."
+msgstr "Folder \"%s\" je uspje≈°no kreiran."
 
 #: lib/Folder.php:383
 #, php-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "Folder \"%s\" je uspjeπno obrisan."
+msgstr "Folder \"%s\" je uspje≈°no obrisan."
 
 #: lib/Folder.php:540
 #, php-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "Ime foldera \"%s\" je uspjeπno promjenjeno u \"%s\"."
+msgstr "Ime foldera \"%s\" je uspje≈°no promjenjeno u \"%s\"."
 
 #: lib/Message.php:645
 #, fuzzy, php-format
 msgid "The mailbox %s is already empty."
-msgstr "%s je veÊ prazan."
+msgstr "%s je veƒá prazan."
 
 #: message.php:142
 #, fuzzy
@@ -2792,17 +2792,17 @@ msgstr "Identitet \"%s\" je obrisan."
 #: lib/MIME/Viewer/pgp.php:399
 #, fuzzy
 msgid "The message has been verified."
-msgstr "Identitet \"%s\" je saËuvan."
+msgstr "Identitet \"%s\" je saƒçuvan."
 
 #: templates/compose/compose.js:102
 #, fuzzy
 msgid "The signature was successfully replaced."
-msgstr "Folder \"%s\" je uspjeπno kreiran."
+msgstr "Folder \"%s\" je uspje≈°no kreiran."
 
 #: lib/MIME/Viewer/status.php:98
 #, fuzzy
 msgid "The text of the message"
-msgstr "obriπi poruku"
+msgstr "obri≈°i poruku"
 
 #: lib/MIME/Viewer/notification.php:71
 #, fuzzy
@@ -2816,16 +2816,16 @@ msgstr "Nema poruka u ovom mailbox-u."
 #: lib/Message.php:604
 #, php-format
 msgid "There was a problem expunging %s. This is what the server said"
-msgstr "Nastao je problem sa ËiπÊenjem %s. Ovo je poruka servera"
+msgstr "Nastao je problem sa ƒçi≈°ƒáenjem %s. Ovo je poruka servera"
 
 #: lib/Message.php:647
 #, fuzzy, php-format
 msgid "There was a problem expunging the mailbox. The server said: %s"
-msgstr "Nastao je problem sa ËiπÊenjem mailbox-a. Ovo je poruka servera: %s"
+msgstr "Nastao je problem sa ƒçi≈°ƒáenjem mailbox-a. Ovo je poruka servera: %s"
 
 #: lib/Message.php:613
 msgid "There was a problem expunging the mailbox. This is what the server said"
-msgstr "Nastao je problem sa ËiπÊenjem mailbox-a. Ovo je poruka servera"
+msgstr "Nastao je problem sa ƒçi≈°ƒáenjem mailbox-a. Ovo je poruka servera"
 
 #: lib/Message.php:107
 #, fuzzy, php-format
@@ -2833,7 +2833,7 @@ msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Desila se greπka tokom kopiranja poruka u \"%s\". Ovo je poruka servera"
+"Desila se gre≈°ka tokom kopiranja poruka u \"%s\". Ovo je poruka servera"
 
 #: lib/Message.php:217 lib/Message.php:232
 #, php-format
@@ -2841,7 +2841,7 @@ msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Desila se greπka tokom brisanja poruka iz foldera \"%s\". Ovo je poruka "
+"Desila se gre≈°ka tokom brisanja poruka iz foldera \"%s\". Ovo je poruka "
 "servera"
 
 #: lib/Message.php:296
@@ -2850,22 +2850,22 @@ msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Desila se greπka tokom brisanja poruka iz foldera \"%s\". Ovo je poruka "
+"Desila se gre≈°ka tokom brisanja poruka iz foldera \"%s\". Ovo je poruka "
 "servera"
 
 #: lib/Message.php:230
 #, fuzzy, php-format
 msgid "There was an error deleting messages. This is what the server said: %s"
-msgstr "Desila se greπka tokom brisanja poruka. Ovo je poruka servera"
+msgstr "Desila se gre≈°ka tokom brisanja poruka. Ovo je poruka servera"
 
 #: lib/MIME/Viewer/itip.php:90
 #, fuzzy, php-format
 msgid "There was an error deleting the event: %s."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: lib/MIME/Viewer/plain.php:55 lib/MIME/Viewer/enriched.php:40
 msgid "There was an error displaying this message part"
-msgstr "Desila se greπka tokom prikaza ovog dijela poruke"
+msgstr "Desila se gre≈°ka tokom prikaza ovog dijela poruke"
 
 #: lib/Message.php:533 lib/Message.php:575
 #, php-format
@@ -2873,22 +2873,22 @@ msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Desila se greπka tokom markiranja poruka u \"%s\". Ovo je poruka servera"
+"Desila se gre≈°ka tokom markiranja poruka u \"%s\". Ovo je poruka servera"
 
 #: folders.php:155
 #, fuzzy, php-format
 msgid "There was an error importing %s."
-msgstr "Desila se greπka tokom spaπavanja nezavrπene poruke."
+msgstr "Desila se gre≈°ka tokom spa≈°avanja nezavr≈°ene poruke."
 
 #: lib/MIME/Viewer/itip.php:126
 #, fuzzy, php-format
 msgid "There was an error importing the event: %s."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: lib/MIME/Viewer/itip.php:156
 #, fuzzy, php-format
 msgid "There was an error importing the task: %s."
-msgstr "Desila se greπka tokom Ëitanja odabrane poruke."
+msgstr "Desila se gre≈°ka tokom ƒçitanja odabrane poruke."
 
 #: lib/Message.php:102
 #, fuzzy, php-format
@@ -2896,32 +2896,32 @@ msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Desila se greπka tokom prebacivanja poruka u \"%s\". Ovo je poruka servera"
+"Desila se gre≈°ka tokom prebacivanja poruka u \"%s\". Ovo je poruka servera"
 
 #: compose.php:1155
 #, fuzzy
 msgid "There was an error saving this message as a draft."
-msgstr "Desila se greπka tokom prikaza ovog dijela poruke"
+msgstr "Desila se gre≈°ka tokom prikaza ovog dijela poruke"
 
 #: compose.php:916
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Desila se greπka tokom slanja poruke: %s"
+msgstr "Desila se gre≈°ka tokom slanja poruke: %s"
 
 #: lib/MIME/Viewer/itip.php:104
 #, fuzzy, php-format
 msgid "There was an error updating the event: %s."
-msgstr "Desila se greπka tokom slanja poruke: %s"
+msgstr "Desila se gre≈°ka tokom slanja poruke: %s"
 
 #: lib/MIME/Viewer/plain.php:62
 #, fuzzy
 msgid "There was no text in this message part"
-msgstr "Desila se greπka tokom prikaza ovog dijela poruke"
+msgstr "Desila se gre≈°ka tokom prikaza ovog dijela poruke"
 
 #: lib/MIME/Viewer/pgp.php:321
 msgid ""
 "This message does not appear to be a valid PGP encrypted message. Error: "
-msgstr "Ova poruka ne izgleda kao ispravna PGP πifrovana poruka. Greπka: "
+msgstr "Ova poruka ne izgleda kao ispravna PGP ≈°ifrovana poruka. Gre≈°ka: "
 
 #: message.php:202
 msgid "This message to"
@@ -2940,14 +2940,14 @@ msgstr "Za"
 
 #: config/prefs.php.dist:890
 msgid "To Address"
-msgstr "Adresa poπiljaoca"
+msgstr "Adresa po≈°iljaoca"
 
 #: templates/prefs/sourceselect.inc:326
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Da biste izabrali viπe od jednog polja, dræite tipku Control (PC) odnosno "
+"Da biste izabrali vi≈°e od jednog polja, dr≈æite tipku Control (PC) odnosno "
 "Command (Mac) prilikom klikanja."
 
 #: templates/compose/compose.inc:567
@@ -2957,7 +2957,7 @@ msgstr "Prilozi"
 
 #: folders.php:350
 msgid "Trash folder"
-msgstr "Folder za smeÊe:"
+msgstr "Folder za smeƒáe:"
 
 #: templates/prefs/trashselect.inc:23
 msgid "Trash folder:"
@@ -2993,7 +2993,7 @@ msgstr "Bezimeni"
 #: templates/mailbox/navbar.inc:15 templates/mailbox/navbar.inc:32
 #: templates/mailbox/legend.inc:5
 msgid "Unseen"
-msgstr "NeproËitana"
+msgstr "Neproƒçitana"
 
 #: templates/folders/actions.inc:10
 msgid "Unsubscribe from Folder(s)"
@@ -3014,15 +3014,15 @@ msgstr "Korisnik"
 #: acl.php:87
 #, php-format
 msgid "User '%s' successfully given the specified rights for the folder '%s'."
-msgstr "Korisniku '%s' su uspjeπno data prava na folder '%s'."
+msgstr "Korisniku '%s' su uspje≈°no data prava na folder '%s'."
 
 #: templates/login/login.inc:209
 msgid "Username"
-msgstr "KorisniËko ime"
+msgstr "Korisniƒçko ime"
 
 #: templates/fetchmail/manage.inc:17
 msgid "Username:"
-msgstr "KorisniËko ime:"
+msgstr "Korisniƒçko ime:"
 
 #: templates/smime/smime.inc:65 templates/smime/smime.inc:113
 #: templates/smime/smime.inc:117 templates/pgp/pgp.inc:93
@@ -3043,7 +3043,7 @@ msgstr "Kreiraj poruku u zasebnom prozoru?"
 
 #: templates/message/navbar_actions.inc:17
 msgid "View Thread"
-msgstr "Vidi Ëitavu temu"
+msgstr "Vidi ƒçitavu temu"
 
 #: lib/MIME/Viewer/pkcs7.php:410
 #, fuzzy
@@ -3062,7 +3062,7 @@ msgstr "Prikaz poruka u "
 
 #: templates/prefs/initialpageselect.inc:26
 msgid "View or mailbox to display after login:"
-msgstr "Prikaz ili sanduËe koje Êe se prikazati nakon prijave:"
+msgstr "Prikaz ili sanduƒçe koje ƒáe se prikazati nakon prijave:"
 
 #: lib/MIME/Viewer/itip.php:160
 #, fuzzy
@@ -3077,7 +3077,7 @@ msgstr "Prikaz poruka u "
 #: search.php:309
 #, fuzzy, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
-msgstr "Folder \"%s\" je uspjeπno obrisan."
+msgstr "Folder \"%s\" je uspje≈°no obrisan."
 
 #: templates/search/main.inc:111 lib/IMAP/Tree.php:118 lib/IMAP/Tree.php:310
 #: lib/IMAP/Tree.php:334 lib/IMAP/Tree.php:376
@@ -3095,7 +3095,7 @@ msgstr "Oznaka virtualnog foldera"
 #: login.php:131
 #, php-format
 msgid "Welcome to %s"
-msgstr "Dobro doπli na %s"
+msgstr "Dobro do≈°li na %s"
 
 #: config/prefs.php.dist:724
 msgid ""
@@ -3103,15 +3103,15 @@ msgid ""
 "them as deleted?"
 msgstr ""
 "Prilikom brisanja poruka, da li da ih prebacim u folder Korpa umjesto da ih "
-"oznaËim kao obrisane?"
+"oznaƒçim kao obrisane?"
 
 #: config/prefs.php.dist:878
 msgid "When opening a new mailbox, which page do you want to start on?"
-msgstr "Prilikom otvaranja sanduËiÊa, na kojoj stranici æelite poËeti?"
+msgstr "Prilikom otvaranja sanduƒçiƒáa, na kojoj stranici ≈æelite poƒçeti?"
 
 #: config/prefs.php.dist:554
 msgid "When saving sent-mail, should we save attachment data?"
-msgstr "Prilikom snimanja poslane poπte, trebamo li pamtiti i priloge?"
+msgstr "Prilikom snimanja poslane po≈°te, trebamo li pamtiti i priloge?"
 
 #: templates/message/navbar_actions.inc:22 templates/mailbox/actions.inc:19
 msgid "Whitelist"
@@ -3143,16 +3143,16 @@ msgstr "Morate navesti bar jednog primaoca."
 #: templates/message/javascript.inc:64 templates/mailbox/javascript.inc:209
 #, fuzzy
 msgid "You must select a target mailbox first."
-msgstr "Morate odabrati identitet koji æelite brisati."
+msgstr "Morate odabrati identitet koji ≈æelite brisati."
 
 #: fetchmailprefs.php:85
 msgid "You must select an account to be deleted."
-msgstr "Morate odabrati korisniËki raËun koji æelite brisati."
+msgstr "Morate odabrati korisniƒçki raƒçun koji ≈æelite brisati."
 
 #: templates/contacts/contacts.inc:76
 #, fuzzy
 msgid "You must select an address first."
-msgstr "Morate odabrati identitet koji æelite brisati."
+msgstr "Morate odabrati identitet koji ≈æelite brisati."
 
 #: templates/mailbox/javascript.inc:62 templates/mailbox/javascript.inc:216
 #: templates/mailbox/javascript.inc:271
@@ -3193,70 +3193,70 @@ msgstr "Niste odjavljeni sa \"%s\". Ovo je poruka servera"
 #: lib/Folder.php:593
 #, php-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "Uspjeπno ste prijavljeni na \"%s\""
+msgstr "Uspje≈°no ste prijavljeni na \"%s\""
 
 #: lib/Folder.php:644
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "Uspjeπno ste odjavljeni sa \"%s\""
+msgstr "Uspje≈°no ste odjavljeni sa \"%s\""
 
 #: templates/pgp/pgp.inc:186
 #, fuzzy
 msgid "Your Name"
 msgstr ""
-"Vaπe ime i prezime: <i>(ovaj podatak vide drugi kada Ëitaju vaπe poruke)</i>"
+"Va≈°e ime i prezime: <i>(ovaj podatak vide drugi kada ƒçitaju va≈°e poruke)</i>"
 
 #: templates/smime/smime.inc:112 templates/pgp/pgp.inc:146
 #, fuzzy
 msgid "Your Public Key"
 msgstr ""
-"Vaπe ime i prezime: <i>(ovaj podatak vide drugi kada Ëitaju vaπe poruke)</i>"
+"Va≈°e ime i prezime: <i>(ovaj podatak vide drugi kada ƒçitaju va≈°e poruke)</i>"
 
 #: config/prefs.php.dist:157
 msgid "Your Reply-to: address: <i>(optional)</i>"
-msgstr "Vaπa Reply-to: adresa: <i>(nije obavezno)</i>"
+msgstr "Va≈°a Reply-to: adresa: <i>(nije obavezno)</i>"
 
 #: templates/fetchmail/account_select.inc:16
 #, fuzzy
 msgid "Your accounts:"
-msgstr "Vaπi identiteti:"
+msgstr "Va≈°i identiteti:"
 
 #: config/prefs.php.dist:165
 msgid ""
 "Your alias addresses: <i>(optional, enter each address on a new line)</i>"
 msgstr ""
-"Vaπe alternativne adrese: <i>(nije obavezno, unesite svaku adresu u novom "
+"Va≈°e alternativne adrese: <i>(nije obavezno, unesite svaku adresu u novom "
 "redu)</i>"
 
 #: lib/MIME/Viewer/images.php:86
 #, fuzzy
 msgid "Your browser does not support inline display of this image type."
-msgstr "Vaπ browser nema moguÊnost da direktno prikazje slike ovog tipa"
+msgstr "Va≈° browser nema moguƒánost da direktno prikazje slike ovog tipa"
 
 #: templates/message/print.inc:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Vaπ browser ne podræava opciju πtampanja. Pritisnite Control+P ili Option+P "
-"za πtampanje."
+"Va≈° browser ne podr≈æava opciju ≈°tampanja. Pritisnite Control+P ili Option+P "
+"za ≈°tampanje."
 
 #: config/prefs.php.dist:532
 msgid "Your default charset for sending messages:"
-msgstr "UobiËajeni kodni raspored za slanje poruka:"
+msgstr "Uobiƒçajeni kodni raspored za slanje poruka:"
 
 #: templates/prefs/encryptselect.inc:1
 msgid "Your default encryption method for sending messages:"
-msgstr "UobiËajeni metod πifrovanja poruka prilikom slanja:"
+msgstr "Uobiƒçajeni metod ≈°ifrovanja poruka prilikom slanja:"
 
 #: lib/MIME/Viewer/status.php:92
 #, fuzzy
 msgid "Your message was successfully delivered."
-msgstr "Folder \"%s\" je uspjeπno obrisan."
+msgstr "Folder \"%s\" je uspje≈°no obrisan."
 
 #: config/prefs.php.dist:198
 msgid "Your signature:"
-msgstr "Vaπ potpis:"
+msgstr "Va≈° potpis:"
 
 #: message.php:279 compose.php:1195 mailbox.php:515 lib/Compose.php:731
 msgid "[No Subject]"
@@ -3281,7 +3281,7 @@ msgstr "_Nova poruka"
 #: templates/message/navbar_actions.inc:6 templates/mailbox/actions.inc:8
 #: templates/mailbox/actions.inc:10
 msgid "_Delete"
-msgstr "O_briπi"
+msgstr "O_bri≈°i"
 
 #: lib/IMP.php:906
 msgid "_Folders"
@@ -3293,7 +3293,7 @@ msgstr "_Identitet"
 
 #: lib/IMP.php:897
 msgid "_Inbox"
-msgstr "_SanduËe"
+msgstr "_Sanduƒçe"
 
 #: lib/IMP.php:947
 msgid "_Log out"
@@ -3305,12 +3305,12 @@ msgstr "_Izvorni kod poruke"
 
 #: templates/message/navbar_actions.inc:31
 msgid "_Print"
-msgstr "Odπ_tampaj"
+msgstr "Od≈°_tampaj"
 
 #: mailbox.php:389
 #, fuzzy, php-format
 msgid "_Refresh %s"
-msgstr "Aæuriraj"
+msgstr "A≈æuriraj"
 
 #: templates/message/navbar_actions.inc:8
 msgid "_Reply"
@@ -3318,11 +3318,11 @@ msgstr "_Odgovori"
 
 #: lib/IMP.php:908
 msgid "_Search"
-msgstr "_Traæi"
+msgstr "_Tra≈æi"
 
 #: templates/compose/compose.inc:66 templates/compose/compose.inc:422
 msgid "_Send Message"
-msgstr "_Poπalji poruku"
+msgstr "_Po≈°alji poruku"
 
 #: templates/mailbox/message_headers.inc:27
 msgid "_Thread"
@@ -3338,7 +3338,7 @@ msgstr "_Vrati obrisane"
 
 #: templates/message/navbar_actions.inc:17
 msgid "_View Thread"
-msgstr "_Vidi Ëitavu temu"
+msgstr "_Vidi ƒçitavu temu"
 
 #: templates/message/navbar_actions.inc:22 templates/mailbox/actions.inc:19
 msgid "_Whitelist"
@@ -3368,7 +3368,7 @@ msgstr "ime"
 
 #: templates/compose/spelling.inc:58
 msgid "none"
-msgstr "niπta"
+msgstr "ni≈°ta"
 
 #: templates/compose/spelling.inc:90
 msgid "or"
@@ -3376,11 +3376,11 @@ msgstr "ili"
 
 #: templates/compose/spelling.inc:26
 msgid "spelling error"
-msgstr "pravopisna greπka"
+msgstr "pravopisna gre≈°ka"
 
 #: templates/compose/spelling.inc:26
 msgid "spelling errors"
-msgstr "pravopisne greπke"
+msgstr "pravopisne gre≈°ke"
 
 #: lib/Filter.php:56
 #, fuzzy
@@ -3389,4 +3389,4 @@ msgstr "Crna lista"
 
 #: lib/Filter.php:68
 msgid "your whitelist"
-msgstr "vaπa bijela lista"
+msgstr "va≈°a bijela lista"

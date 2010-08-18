@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -406,7 +406,7 @@ msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Alle berichten in de volgende map(pen) worden gedownload naar één MBOX "
+"Alle berichten in de volgende map(pen) worden gedownload naar Ã©Ã©n MBOX "
 "bestand:"
 
 #: lib/Maintenance/Task/purge_trash.php:78
@@ -950,14 +950,14 @@ msgstr ""
 #: lib/MIME/Viewer/pkcs7.php:217 lib/MIME/Viewer/pgp.php:245
 #: lib/MIME/Viewer/pgp.php:270
 msgid "Click HERE to verify the message."
-msgstr "Klik HIER om het bericht te verifiëren."
+msgstr "Klik HIER om het bericht te verifiÃ«ren."
 
 #: templates/prefs/sourceselect.inc:319
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Klik op één van uw geselecteerde adresboeken en selecteer daarna alle velden "
+"Klik op Ã©Ã©n van uw geselecteerde adresboeken en selecteer daarna alle velden "
 "welke doorzocht dienen te worden."
 
 #: config/prefs.php.dist:1123
@@ -1068,7 +1068,7 @@ msgstr "Converteer tekst emoticons naar grafische emoticons?"
 
 #: mailbox.php:477 mailbox.php:869 message.php:503 message.php:690
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "KopiÃ«ren"
 
 #: mailbox.php:477 mailbox.php:869 message.php:503 message.php:690
 msgid "Copy to folder"
@@ -2694,7 +2694,7 @@ msgstr "Geen persoonlijk S/MIME certificaat geimporteerd."
 msgid ""
 "No personal private key exists so the message is unable to be decrypted."
 msgstr ""
-"Er bestaat geen persoonlijke privésleutel, het bericht kan dus niet "
+"Er bestaat geen persoonlijke privÃ©sleutel, het bericht kan dus niet "
 "gedecodeerd worden."
 
 #: lib/IMAP/Client.php:374
@@ -2808,7 +2808,7 @@ msgstr "Alleen mappen met ongelezen berichten weergeven?"
 
 #: templates/javascript_defs.php:58
 msgid "Only one folder should be selected for this action."
-msgstr "Voor deze bewerking mag slechts één map geselecteerd worden."
+msgstr "Voor deze bewerking mag slechts Ã©Ã©n map geselecteerd worden."
 
 #: lib/IMP.php:877 lib/IMP.php:882
 msgid "Open Fo_lder"
@@ -2933,7 +2933,7 @@ msgstr ""
 
 #: lib/Compose.php:1201
 msgid "PGP: Need passphrase for personal private key."
-msgstr "PGP: Wachtwoord vereist voor persoonlijke privésleutel."
+msgstr "PGP: Wachtwoord vereist voor persoonlijke privÃ©sleutel."
 
 #: lib/Compose.php:1210
 msgid "PGP: Need passphrase to encrypt your message with."
@@ -3078,7 +3078,7 @@ msgid ""
 "Please enter the passphrase for your PGP private key. You will only need to "
 "enter this passphrase once per session."
 msgstr ""
-"Geef het wachtwoord van uw privé PGP sleutel, a.u.b. U hoeft dit wachtwoord "
+"Geef het wachtwoord van uw privÃ© PGP sleutel, a.u.b. U hoeft dit wachtwoord "
 "slechts eenmaal per sessie op te geven."
 
 #: templates/smime/passphrase.html:15
@@ -3086,7 +3086,7 @@ msgid ""
 "Please enter the passphrase for your S/MIME private key. You will only need "
 "to enter this passphrase once per session."
 msgstr ""
-"Geef het wachtwoord van uw privé S/MIME sleutel, a.u.b. U hoeft dit "
+"Geef het wachtwoord van uw privÃ© S/MIME sleutel, a.u.b. U hoeft dit "
 "wachtwoord slecht eenmaal per sessie op te geven."
 
 #: login.php:181
@@ -3119,7 +3119,7 @@ msgstr "Selecteer een map voordat u deze bewerking uitvoert, a.u.b."
 
 #: templates/javascript_defs.php:69
 msgid "Please select at least one folder to search."
-msgstr "Selecteer tenminste één map om te doorzoeken, a.u.b."
+msgstr "Selecteer tenminste Ã©Ã©n map om te doorzoeken, a.u.b."
 
 #: templates/compose/redirect.html:39
 msgid "Please select or edit in the box to the right:"
@@ -3175,7 +3175,7 @@ msgstr "Prioriteit"
 
 #: templates/smime/import_key.html:59
 msgid "Private Key Password:"
-msgstr "Privé sleutel wachtwoord:"
+msgstr "PrivÃ© sleutel wachtwoord:"
 
 #: config/prefs.php.dist:696
 msgid "Prompt every time an attachment is sent; default to NO"
@@ -3266,16 +3266,16 @@ msgstr "%d berichten uit de outbox map verwijderd."
 
 #: lib/Maintenance/Task/purge_spam.php:62
 msgid "Purging 1 message from Spam folder."
-msgstr "Eén bericht uit de spam map verwijderd."
+msgstr "EÃ©n bericht uit de spam map verwijderd."
 
 #: lib/Maintenance/Task/purge_trash.php:61
 msgid "Purging 1 message from Trash folder."
-msgstr "Eén bericht uit de prullenbak verwijderd."
+msgstr "EÃ©n bericht uit de prullenbak verwijderd."
 
 #: lib/Maintenance/Task/purge_sentmail.php:61
 #, php-format
 msgid "Purging 1 message from sent-mail folder %s."
-msgstr "Eén bericht uit de outbox map %s verwijderd."
+msgstr "EÃ©n bericht uit de outbox map %s verwijderd."
 
 #: lib/IMP.php:942
 #, php-format
@@ -3482,7 +3482,7 @@ msgstr "Terug naar opties"
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Terug naar de mailboxlijst na verwijderen, verplaatsen of kopiëren van een "
+"Terug naar de mailboxlijst na verwijderen, verplaatsen of kopiÃ«ren van een "
 "bericht?"
 
 #: acl.php:114
@@ -3942,7 +3942,7 @@ msgstr "Pictogram voor het verwijderen van berichtbijlagen weergeven?"
 
 #: config/prefs.php.dist:1162
 msgid "Show non-private mailboxes in separate folders"
-msgstr "Niet-privé mailboxen weergeven in afzonderlijke mappen"
+msgstr "Niet-privÃ© mailboxen weergeven in afzonderlijke mappen"
 
 #: config/prefs.php.dist:1006
 msgid "Show previews for unread messages only?"
@@ -4396,7 +4396,7 @@ msgid ""
 "key exists so the message cannot be decrypted."
 msgstr ""
 "Onderstaand bericht is gecodeerd met PGP, echter, er bestaat geen "
-"persoonlijke privé sleutel dus kan het bericht niet gedecodeerd worden."
+"persoonlijke privÃ© sleutel dus kan het bericht niet gedecodeerd worden."
 
 #: lib/MIME/Viewer/pgp.php:358
 msgid "The message below has been encrypted with PGP."
@@ -4408,7 +4408,7 @@ msgid ""
 "for your PGP private key before it can be decrypted."
 msgstr ""
 "Onderstaand bericht is gecodeerd met PGP. U dient het wachtwoord van uw PGP "
-"privé sleutel in te voeren voordat het bericht kan worden gedecodeerd."
+"privÃ© sleutel in te voeren voordat het bericht kan worden gedecodeerd."
 
 #: lib/MIME/Viewer/pgp.php:340
 msgid ""
@@ -4566,7 +4566,7 @@ msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Een fout bij het kopiëren van berichten van \"%s\" naar \"%s\". De server "
+"Een fout bij het kopiÃ«ren van berichten van \"%s\" naar \"%s\". De server "
 "meldt"
 
 #: lib/Message.php:268
@@ -5227,7 +5227,7 @@ msgstr "U heeft geen externe mailaccounts geconfigureerd."
 
 #: lib/Compose.php:1141
 msgid "You must enter at least one recipient."
-msgstr "U dient tenminste één ontvanger op te geven."
+msgstr "U dient tenminste Ã©Ã©n ontvanger op te geven."
 
 #: lib/MIME/Viewer/pgp.php:353
 msgid ""
@@ -5264,7 +5264,7 @@ msgstr "U dient eerst een adres te selecteren."
 
 #: templates/javascript_defs.php:45 templates/javascript_defs.php:47
 msgid "You must select at least one message first."
-msgstr "U dient eerst tenminste één bericht te selecteren."
+msgstr "U dient eerst tenminste Ã©Ã©n bericht te selecteren."
 
 #: lib/Compose.php:835
 msgid "You must separate e-mail addresses with commas (,) not semicolons (;)."
@@ -5323,7 +5323,7 @@ msgstr "Uw openbare/prive PGP sleutels"
 
 #: templates/smime/smime.html:70 templates/pgp/pgp.html:79
 msgid "Your Private Key:"
-msgstr "Uw privé sleutel:"
+msgstr "Uw privÃ© sleutel:"
 
 #: templates/smime/smime.html:66 templates/pgp/pgp.html:74
 msgid "Your Public Key:"
@@ -5375,7 +5375,7 @@ msgid ""
 "Click on the following link to permanently delete the attachment:\n"
 "%s"
 msgstr ""
-"Uw gelinkte bijlage is door minstens één gebruiker gedownload.\n"
+"Uw gelinkte bijlage is door minstens Ã©Ã©n gebruiker gedownload.\n"
 "\n"
 "Bijlagenaam: %s\n"
 "Bijlagedatum: %s\n"

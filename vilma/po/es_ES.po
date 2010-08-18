@@ -1,5 +1,5 @@
 # Spanish translations for vilma package
-# Traducciones al espaÒol para el paquete vilma.
+# Traducciones al espa√±ol para el paquete vilma.
 # Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the vilma package.
 # Automatically generated, 2008.
@@ -13,14 +13,14 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: users/edit.php:53
 #, php-format
 msgid "\"%s\" already has the maximum number of users allowed."
-msgstr "\"%s\" ha alcanzado ya el n˙mero m·ximo de usuarios permitidos."
+msgstr "\"%s\" ha alcanzado ya el n√∫mero m√°ximo de usuarios permitidos."
 
 #: lib/Driver/qmailldap.php:647
 msgid "Account Status"
@@ -28,15 +28,15 @@ msgstr "Estado de la cuenta"
 
 #: lib/Driver/qmailldap.php:655
 msgid "Account is active"
-msgstr "La cuenta est· activa"
+msgstr "La cuenta est√° activa"
 
 #: lib/Driver/qmailldap.php:658
 msgid "Account is disabled"
-msgstr "La cuenta est· deshabilitada"
+msgstr "La cuenta est√° deshabilitada"
 
 #: templates/users/index.html:13
 msgid "Address"
-msgstr "DirecciÛn"
+msgstr "Direcci√≥n"
 
 #: lib/Vilma.php:60
 msgid "Alias"
@@ -57,7 +57,7 @@ msgstr "Todos"
 
 #: lib/Driver/qmailldap.php:657
 msgid "Bounce Incoming Only"
-msgstr "Rebotar sÛlo entrantes"
+msgstr "Rebotar s√≥lo entrantes"
 
 #: virtuals/delete.php:34 virtuals/delete.php:38 users/delete.php:34
 #: users/delete.php:38 domains/delete.php:27 lib/Forms/DeleteDomainForm.php:27
@@ -74,24 +74,24 @@ msgstr "Eliminar usuario"
 
 #: virtuals/delete.php:31
 msgid "Delete Virtual Email Address"
-msgstr "Eliminar direcciÛn electrÛnica virtual"
+msgstr "Eliminar direcci√≥n electr√≥nica virtual"
 
 #: lib/Forms/DeleteDomainForm.php:29
 #, php-format
 msgid "Delete domain \"%s\" and all associated email addresses?"
 msgstr ""
-"øEliminar el dominio \"%s\" y todas las direcciones electrÛnicas asociadas?"
+"¬øEliminar el dominio \"%s\" y todas las direcciones electr√≥nicas asociadas?"
 
 #: virtuals/delete.php:36
 #, php-format
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
-msgstr "øEliminar la direcciÛn electrÛnica virtual \"%s\" => \"%s\"?"
+msgstr "¬øEliminar la direcci√≥n electr√≥nica virtual \"%s\" => \"%s\"?"
 
 #: users/delete.php:36
 #, php-format
 msgid "Delete user \"%s\" and all associated virtual email addresses?"
 msgstr ""
-"øEliminar el usuario \"%s\" y todas sus direcciones electrÛnicas virtuales "
+"¬øEliminar el usuario \"%s\" y todas sus direcciones electr√≥nicas virtuales "
 "asociadas?"
 
 #: virtuals/edit.php:64 templates/virtuals/index.html:20
@@ -104,7 +104,7 @@ msgstr "Tipo de destinatario"
 
 #: lib/Driver/qmailldap.php:656
 msgid "Disable Delivery Only"
-msgstr "Desactivar sÛlo la distribuciÛn"
+msgstr "Desactivar s√≥lo la distribuci√≥n"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Display details"
@@ -128,8 +128,8 @@ msgid ""
 "Domain added but an error was encountered while calling the configured "
 "hook.  Contact your administrator for futher assistance."
 msgstr ""
-"Se aÒadiÛ el dominio pero se produjo un error al llamar al gancho "
-"configurado. Para m·s informaciÛn pÛngase en contacto con el administrador."
+"Se a√±adi√≥ el dominio pero se produjo un error al llamar al gancho "
+"configurado. Para m√°s informaci√≥n p√≥ngase en contacto con el administrador."
 
 #: domains/delete.php:35
 msgid "Domain deleted."
@@ -158,7 +158,7 @@ msgstr "Modificar usuario de \"%s\""
 
 #: virtuals/edit.php:47
 msgid "Edit Virtual Email Address"
-msgstr "Modificar direcciÛn electrÛnica virtual"
+msgstr "Modificar direcci√≥n electr√≥nica virtual"
 
 #: virtuals/edit.php:53
 #, php-format
@@ -168,10 +168,10 @@ msgid ""
 "alphanumerical character, it must contain only alphanumerical and '._-' "
 "characters, and must end with an alphanumerical character."
 msgstr ""
-"Introduzca una direcciÛn de correo virtual @%s e indique a continuaciÛn a "
-"dÛnde enviar el correo de esa direcciÛn. Las direcciones tienen que empezar "
-"por un car·cter alfanumÈrico, sÛlo pueden contener caracteres alfanumÈricos "
-"y '._-' , y tienen que acabar por un car·cter alfanumÈrico."
+"Introduzca una direcci√≥n de correo virtual @%s e indique a continuaci√≥n a "
+"d√≥nde enviar el correo de esa direcci√≥n. Las direcciones tienen que empezar "
+"por un car√°cter alfanum√©rico, s√≥lo pueden contener caracteres alfanum√©ricos "
+"y '._-' , y tienen que acabar por un car√°cter alfanum√©rico."
 
 #: lib/Driver/qmailldap.php:593
 #, php-format
@@ -191,17 +191,17 @@ msgstr "Error al eliminar el usuario. %s."
 #: virtuals/delete.php:44
 #, php-format
 msgid "Error deleting virtual email. %s."
-msgstr "Error al eliminar la direcciÛn de correo virtual. %s."
+msgstr "Error al eliminar la direcci√≥n de correo virtual. %s."
 
 #: lib/Driver/qmailldap.php:170 lib/Driver/qmailldap.php:175
 #, php-format
 msgid "Error in LDAP search: %s"
-msgstr "Error en la b˙squeda LDAP: %s"
+msgstr "Error en la b√∫squeda LDAP: %s"
 
 #: users/edit.php:35
 #, php-format
 msgid "Error reading address information from backend: %s"
-msgstr "Error leyendo la informaciÛn de la direcciÛn desde el motor: %s"
+msgstr "Error leyendo la informaci√≥n de la direcci√≥n desde el motor: %s"
 
 #: lib/Driver/qmailldap.php:583
 #, php-format
@@ -212,11 +212,11 @@ msgstr "Error recuperando los resultados LDAP: %s"
 #: lib/Driver/qmailldap.php:468
 #, php-format
 msgid "Error returning LDAP results: %s"
-msgstr "Error en la devoluciÛn de los resultados LDAP: %s"
+msgstr "Error en la devoluci√≥n de los resultados LDAP: %s"
 
 #: lib/Driver.php:195
 msgid "Error running authentication update script."
-msgstr "Error al ejecutar el guiÛn de actualizaciÛn de autentificaciÛn."
+msgstr "Error al ejecutar el gui√≥n de actualizaci√≥n de autentificaci√≥n."
 
 #: domains/edit.php:33
 #, php-format
@@ -231,7 +231,7 @@ msgstr "Error al guardar el usuario. %s"
 #: virtuals/edit.php:77
 #, php-format
 msgid "Error saving virtual email. %s."
-msgstr "Error al guardar la direcciÛn electrÛnica virtual. %s."
+msgstr "Error al guardar la direcci√≥n electr√≥nica virtual. %s."
 
 #: lib/Driver/qmailldap.php:302 lib/Driver/qmailldap.php:390
 #: lib/Driver/qmailldap.php:462 lib/Driver/qmailldap.php:577
@@ -241,7 +241,7 @@ msgstr "Error buscando en LDAP: %s"
 
 #: lib/Driver.php:280
 msgid "Error while calling hook to delete domain."
-msgstr "Error al llamar al gancho de eliminaciÛn del dominio."
+msgstr "Error al llamar al gancho de eliminaci√≥n del dominio."
 
 #: lib/Forms/EditUserForm.php:41 templates/users/index.html:16
 msgid "Full Name"
@@ -249,15 +249,15 @@ msgstr "Nombre completo"
 
 #: lib/Vilma.php:63
 msgid "Group/Forward"
-msgstr "Grupo/ReenvÌo"
+msgstr "Grupo/Reenv√≠o"
 
 #: lib/Vilma.php:64
 msgid "Groups and Forwards"
-msgstr "Grupos y reenvÌos"
+msgstr "Grupos y reenv√≠os"
 
 #: config/.bak/prefs.php.dist:20
 msgid "How many domain to display per page."
-msgstr "Cu·ntos dominios mostrar por p·gina."
+msgstr "Cu√°ntos dominios mostrar por p√°gina."
 
 #: virtuals/edit.php:56
 msgid "Local user"
@@ -266,7 +266,7 @@ msgstr "Usuario local"
 #: lib/MailboxDriver/imap.php:45
 #, php-format
 msgid "Mailbox '%s@%s' does not exist."
-msgstr "No existe el buzÛn '%s@%s'."
+msgstr "No existe el buz√≥n '%s@%s'."
 
 #: lib/MailboxDriver/maildrop.php:45
 #, php-format
@@ -275,27 +275,27 @@ msgstr "No existe el directorio maildrop \"%s\"."
 
 #: templates/domains/index.html:19
 msgid "Max Users"
-msgstr "N˙mero m·ximo de usuarios"
+msgstr "N√∫mero m√°ximo de usuarios"
 
 #: lib/Forms/EditDomainForm.php:35
 msgid "Max users"
-msgstr "N˙mero m·ximo de usuarios"
+msgstr "N√∫mero m√°ximo de usuarios"
 
 #: users/index.php:70
 msgid "Maximum Users"
-msgstr "N˙mero m·ximo de usuarios"
+msgstr "N√∫mero m√°ximo de usuarios"
 
 #: lib/Driver/qmailldap.php:472
 msgid ""
 "More than one DN returned for this alias.  Please contact an administrator "
 "to resolve this error."
 msgstr ""
-"Este apodo devolviÛ m·s de un DN. PÛngase en contacto con el administrador "
+"Este apodo devolvi√≥ m√°s de un DN. P√≥ngase en contacto con el administrador "
 "para resolver este error."
 
 #: lib/Driver/qmailldap.php:587
 msgid "More than one DN returned.  Aborting delete operation."
-msgstr "Se ha devuelto m·s de un DN. Anulando la operaciÛn de eliminaciÛn."
+msgstr "Se ha devuelto m√°s de un DN. Anulando la operaci√≥n de eliminaci√≥n."
 
 #: lib/Forms/EditUserForm.php:35
 msgid ""
@@ -303,59 +303,59 @@ msgid ""
 "alphanumeric and '._-' characters, and must end with an alphanumeric "
 "character."
 msgstr ""
-"El nombre tiene que empezar por un car·cter alfanumÈrico, tiene que contener "
-"sÛlo caracteres alfanumÈricos o '._-' y tiene que terminar por un car·cter "
-"alfanumÈrico."
+"El nombre tiene que empezar por un car√°cter alfanum√©rico, tiene que contener "
+"s√≥lo caracteres alfanum√©ricos o '._-' y tiene que terminar por un car√°cter "
+"alfanum√©rico."
 
 #: lib/Forms/EditDomainForm.php:20
 msgid "New Domain"
-msgstr "AÒadir dominio"
+msgstr "A√±adir dominio"
 
 #: lib/Forms/EditUserForm.php:24
 #, php-format
 msgid "New User @%s"
-msgstr "AÒadir usuario @%s"
+msgstr "A√±adir usuario @%s"
 
 #: virtuals/index.php:48
 msgid "New Virtual Email"
-msgstr "AÒadir correo virtual"
+msgstr "A√±adir correo virtual"
 
 #: virtuals/edit.php:47
 msgid "New Virtual Email Address"
-msgstr "AÒadir direcciÛn de correo virtual"
+msgstr "A√±adir direcci√≥n de correo virtual"
 
 #: lib/Vilma.php:169
 msgid "New _Address"
-msgstr "AÒadir _direcciÛn"
+msgstr "A√±adir _direcci√≥n"
 
 #: lib/MailboxDriver/maildrop.php:19
 msgid "No 'mail_dir_base' parameter specified to maildrop driver."
 msgstr ""
-"No se ha especificado el par·metro 'mail_dir_base' en el controlador de "
+"No se ha especificado el par√°metro 'mail_dir_base' en el controlador de "
 "descarga de correo."
 
 #: lib/MailboxDriver/maildrop.php:60
 msgid "No 'system_user' parameter specified to maildrop driver."
 msgstr ""
-"No se ha especificado el par·metro 'system_user' en el controlador de "
+"No se ha especificado el par√°metro 'system_user' en el controlador de "
 "descarga de correo."
 
 #: lib/Driver.php:108
 #, php-format
 msgid "No such address %s of type %s found."
-msgstr "No se encontrÛ una direcciÛn %s de tipo %s."
+msgstr "No se encontr√≥ una direcci√≥n %s de tipo %s."
 
 #: lib/Driver.php:374
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "No se encontrÛ el motor \"%s\""
+msgstr "No se encontr√≥ el motor \"%s\""
 
 #: users/edit.php:74
 msgid ""
 "No virtual email address set up for this user. You should set up at least "
 "one virtual email address if this user is to receive any emails."
 msgstr ""
-"A este usuario no se le ha configurado una direcciÛn de correo vitual. Tiene "
+"A este usuario no se le ha configurado una direcci√≥n de correo vitual. Tiene "
 "que configurar al menos una si este usuario va a recibir correo."
 
 #: lib/Driver.php:245 lib/Driver.php:294
@@ -365,16 +365,16 @@ msgstr "Sin desarrollar."
 #: lib/Forms/EditUserForm.php:37
 msgid "Only enter a password if you wish to change this user's password"
 msgstr ""
-"Introduzca un a contraseÒa sÛlo si desea cambiar la contraseÒa de este "
+"Introduzca un a contrase√±a s√≥lo si desea cambiar la contrase√±a de este "
 "usuario"
 
 #: lib/Forms/EditUserForm.php:37 lib/Forms/EditUserForm.php:39
 msgid "Password"
-msgstr "ContraseÒa"
+msgstr "Contrase√±a"
 
 #: lib/Driver/sql.php:465
 msgid "Password must be supplied when creating a new user."
-msgstr "Al crear un usuario hay que introducir una contraseÒa."
+msgstr "Al crear un usuario hay que introducir una contrase√±a."
 
 #: lib/Forms/EditDomainForm.php:36
 msgid "Quota"
@@ -382,15 +382,15 @@ msgstr "Espacio asignado"
 
 #: virtuals/edit.php:57
 msgid "Remote address"
-msgstr "DirecciÛn remota"
+msgstr "Direcci√≥n remota"
 
 #: virtuals/edit.php:61
 msgid "Remote e-mail address"
-msgstr "DirecciÛn electrÛnica remota"
+msgstr "Direcci√≥n electr√≥nica remota"
 
 #: config/.bak/prefs.php.dist:11
 msgid "Set default display parameters."
-msgstr "Define par·metros de visualizaciÛn por omisiÛn."
+msgstr "Define par√°metros de visualizaci√≥n por omisi√≥n."
 
 #: templates/users/index.html:22
 msgid "Status"
@@ -420,17 +420,17 @@ msgstr "Tipo"
 msgid "Unable to bind to the LDAP server.  Check authentication credentials."
 msgstr ""
 "No se pudo vincular al servidor LDAP. Compruebe las credenciales de "
-"autentificaciÛn."
+"autentificaci√≥n."
 
 #: lib/Driver/qmailldap.php:691
 msgid "Unable to set LDAP protocol version"
-msgstr "No se puede establecer la versiÛn del protocolo LDAP"
+msgstr "No se puede establecer la versi√≥n del protocolo LDAP"
 
 #: lib/Driver.php:199
 msgid "Unknown error running authentication update script."
 msgstr ""
-"Se ha producido un error desconocido al ejecutar el guiÛn de actualizaciÛn "
-"de autentificaciÛn."
+"Se ha producido un error desconocido al ejecutar el gui√≥n de actualizaci√≥n "
+"de autentificaci√≥n."
 
 #: lib/Vilma.php:57
 msgid "User"
@@ -458,7 +458,7 @@ msgstr "No se ha eliminado el usuario"
 
 #: lib/Driver.php:155
 msgid "User ready."
-msgstr "El usuario est· listo."
+msgstr "El usuario est√° listo."
 
 #: virtuals/index.php:51 lib/Vilma.php:58
 msgid "Users"
@@ -470,7 +470,7 @@ msgstr "Valor en MB"
 
 #: lib/Driver.php:210
 msgid "Vilma_Driver::deleteUser(): Method Not Implemented."
-msgstr "Vilma_Driver::deleteUser(): MÈtodo no desarrollado."
+msgstr "Vilma_Driver::deleteUser(): M√©todo no desarrollado."
 
 #: virtuals/edit.php:53
 msgid "Virtual Email"
@@ -478,19 +478,19 @@ msgstr "Correo virtual"
 
 #: templates/virtuals/index.html:17
 msgid "Virtual Email Address"
-msgstr "DirecciÛn de correo virtual"
+msgstr "Direcci√≥n de correo virtual"
 
 #: virtuals/delete.php:46
 msgid "Virtual email deleted."
-msgstr "DirecciÛn virtual eliminada."
+msgstr "Direcci√≥n virtual eliminada."
 
 #: virtuals/delete.php:53
 msgid "Virtual email not deleted."
-msgstr "No se ha eliminado la direcciÛn virtual."
+msgstr "No se ha eliminado la direcci√≥n virtual."
 
 #: virtuals/edit.php:79
 msgid "Virtual email saved."
-msgstr "Se ha guardado la direcciÛn virtual."
+msgstr "Se ha guardado la direcci√≥n virtual."
 
 #: lib/Vilma.php:166
 msgid "_Domains"
@@ -498,4 +498,4 @@ msgstr "_Dominios"
 
 #: lib/Vilma.php:171
 msgid "_New Domain"
-msgstr "_AÒadir dominio"
+msgstr "_A√±adir dominio"

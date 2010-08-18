@@ -5,53 +5,53 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo 2.2-RC1\n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-08-03 12:47+0100\n"
-"PO-Revision-Date: 2007-11-30 20:37+0900\n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
-"Language-Team: i18n@lists.horde.org\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=SHIFT_JIS\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Project-Id-Version: Mnemo 2.2-RC1Â¥n"
+"Report-Msgid-Bugs-To: dev@lists.horde.orgÂ¥n"
+"POT-Creation-Date: 2007-08-03 12:47+0100Â¥n"
+"PO-Revision-Date: 2007-11-30 20:37+0900Â¥n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>Â¥n"
+"Language-Team: i18n@lists.horde.orgÂ¥n"
+"MIME-Version: 1.0Â¥n"
+"Content-Type: text/plain; charset=UTF-8Â¥n"
+"Content-Transfer-Encoding: 8bitÂ¥n"
+"Plural-Forms: nplurals=1; plural=0;Â¥n"
 
 #: templates/memo/memo.inc:53
 #, php-format
 msgid "%s characters"
-msgstr "%s •¶š"
+msgstr "%s æ–‡å­—"
 
 #: data.php:201
 #, php-format
 msgid "%s file successfully imported"
-msgstr "ƒtƒ@ƒCƒ‹ %s ‚ÍƒCƒ“ƒ|[ƒg‚³‚ê‚Ü‚µ‚½"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã¯ã‚¤ãƒ³ãƒãƒ¼ãƒˆã•ã‚Œã¾ã—ãŸ"
 
 #: notepads.php:102 lib/Mnemo.php:429
 #, php-format
 msgid "%s's Notepad"
-msgstr "%s ‚Ìƒƒ‚’ "
+msgstr "%s ã®ãƒ¡ãƒ¢å¸³"
 
 #: memo.php:201
 msgid "Access denied deleting note."
-msgstr "ƒƒ‚‚Ìíœ‚ÍƒAƒNƒZƒX‹‘”Û‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒ¢ã®å‰Šé™¤ã¯ã‚¢ã‚¯ã‚»ã‚¹æ‹’å¦ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: memo.php:152 memo.php:155
 msgid "Access denied moving the note."
-msgstr "ƒƒ‚‚ÌˆÚ“®‚ÍƒAƒNƒZƒX‹‘”Û‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒ¢ã®ç§»å‹•ã¯ã‚¢ã‚¯ã‚»ã‚¹æ‹’å¦ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: memo.php:120
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "ƒƒ‚‚Ì %s ‚Ö‚Ì•Û‘¶‚ÍƒAƒNƒZƒX‹‘”Û‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒ¢ã® %s ã¸ã®ä¿å­˜ã¯ã‚¢ã‚¯ã‚»ã‚¹æ‹’å¦ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: memo.php:118
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "ƒƒ‚‚Ì•Û‘¶‚ÍƒAƒNƒZƒX‹‘”Û‚³‚ê‚Ü‚µ‚½F%s"
+msgstr "ãƒ¡ãƒ¢ã®ä¿å­˜ã¯ã‚¢ã‚¯ã‚»ã‚¹æ‹’å¦ã•ã‚Œã¾ã—ãŸï¼š%s"
 
 #: config/prefs.php.dist:71
 msgid "Ascending"
-msgstr "¸‡"
+msgstr "æ˜‡é †"
 
 #: data.php:32 templates/data/import.inc:11
 msgid "CSV"
@@ -59,137 +59,137 @@ msgstr "CSV"
 
 #: data.php:54 templates/view/memo.inc:26
 msgid "Category"
-msgstr "•ª—Ş"
+msgstr "åˆ†é¡"
 
 #: templates/notepads/notepads.inc:22
 msgid "Change"
-msgstr "•ÏX"
+msgstr "å¤‰æ›´"
 
 #: config/prefs.php.dist:15
 msgid "Change your note sorting and display options."
-msgstr "ƒƒ‚‚Ì•À‚Ñ‡‚Æ•\¦ƒIƒvƒVƒ‡ƒ“‚ğ•ÏX‚·‚éB"
+msgstr "ãƒ¡ãƒ¢ã®ä¸¦ã³é †ã¨è¡¨ç¤ºã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¤‰æ›´ã™ã‚‹ã€‚"
 
 #: config/prefs.php.dist:22
 msgid "Choose your default Notepad."
-msgstr "ƒfƒtƒHƒ‹ƒg‚Ìƒƒ‚’ ‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢B"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ¡ãƒ¢å¸³ã‚’é¸æŠã—ã¦ä¸‹ã•ã„ã€‚"
 
 #: templates/list/header.inc:8
 msgid "Close Search"
-msgstr "ŒŸõ‚ğ•Â‚¶‚é"
+msgstr "æ¤œç´¢ã‚’é–‰ã˜ã‚‹"
 
 #: templates/notepads/notepads.inc:15 templates/notepads/notepads.inc:64
 msgid "Create"
-msgstr "ì¬"
+msgstr "ä½œæˆ"
 
 #: templates/view/memo.inc:32
 msgid "Created"
-msgstr "ì¬“ú"
+msgstr "ä½œæˆæ—¥æ™‚"
 
 #: templates/view/memo.inc:54 templates/memo/memo.inc:23
 msgid "Decrypt"
-msgstr "•œ†"
+msgstr "å¾©å·"
 
 #: config/prefs.php.dist:21
 msgid "Default Notepad"
-msgstr "ƒfƒtƒHƒ‹ƒg‚Ìƒƒ‚’ "
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ¡ãƒ¢å¸³"
 
 #: config/prefs.php.dist:62
 msgid "Default sorting criteria:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚Ì•À‚ÑŠî€F"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ä¸¦ã³åŸºæº–ï¼š"
 
 #: config/prefs.php.dist:73
 msgid "Default sorting direction:"
-msgstr "ƒfƒtƒHƒ‹ƒg‚Ì•À‚Ñ•ûŒüF"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ä¸¦ã³æ–¹å‘ï¼š"
 
 #: templates/notepads/notepads.inc:65 templates/view/memo.inc:16
 msgid "Delete"
-msgstr "íœ"
+msgstr "å‰Šé™¤"
 
 #: config/prefs.php.dist:28
 msgid "Delete Confirmation"
-msgstr "íœ‚ÌŠm”F"
+msgstr "å‰Šé™¤ã®ç¢ºèª"
 
 #: config/prefs.php.dist:29
 msgid "Delete button behaviour"
-msgstr "íœƒ{ƒ^ƒ“‚Ì“®ì"
+msgstr "å‰Šé™¤ãƒœã‚¿ãƒ³ã®å‹•ä½œ"
 
 #: templates/memo/memo.inc:11
 msgid "Delete this note"
-msgstr "ƒƒ‚‚ğíœ"
+msgstr "ãƒ¡ãƒ¢ã‚’å‰Šé™¤"
 
 #: config/prefs.php.dist:72
 msgid "Descending"
-msgstr "~‡"
+msgstr "é™é †"
 
 #: templates/notepads/notepads.inc:60
 msgid "Description:"
-msgstr "à–¾F"
+msgstr "èª¬æ˜ï¼š"
 
 #: lib/Driver/kolab.php:556
 #, php-format
 msgid "Did not find note %s"
-msgstr "ƒƒ‚ %s ‚ª‚ ‚è‚Ü‚¹‚ñ"
+msgstr "ãƒ¡ãƒ¢ %s ãŒã‚ã‚Šã¾ã›ã‚“"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "•\¦ƒIƒvƒVƒ‡ƒ“"
+msgstr "è¡¨ç¤ºã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: config/prefs.php.dist:118
 msgid "Do you want to confirm deleting entries?"
-msgstr "íœ‚·‚éÛ‚ÉŠm”F‚µ‚Ü‚·‚©H"
+msgstr "å‰Šé™¤ã™ã‚‹éš›ã«ç¢ºèªã—ã¾ã™ã‹ï¼Ÿ"
 
 #: templates/view/memo.inc:13
 msgid "Edit"
-msgstr "•ÒW"
+msgstr "ç·¨é›†"
 
 #: templates/list/memo_summaries.inc:5
 #, php-format
-msgid "Edit \"%s\""
-msgstr "\"%s\" ‚ğ•ÒW"
+msgid "Edit Â¥"%sÂ¥""
+msgstr "Â¥"%sÂ¥" ã‚’ç·¨é›†"
 
 #: templates/list/memo_headers.inc:30 lib/Block/summary.php:74
 msgid "Edit Note"
-msgstr "ƒƒ‚‚Ì•ÒW"
+msgstr "ãƒ¡ãƒ¢ã®ç·¨é›†"
 
 #: templates/list/memo_headers.inc:45
 msgid "Edit categories and colors"
-msgstr "•ª—Ş‚ÆF‚Ì•ÒW"
+msgstr "åˆ†é¡ã¨è‰²ã®ç·¨é›†"
 
 #: memo.php:104
 #, php-format
 msgid "Edit: %s"
-msgstr "•ÒWF%s"
+msgstr "ç·¨é›†ï¼š%s"
 
 #: templates/list/memo_summaries.inc:15 lib/Block/summary.php:93
 msgid "Empty Note"
-msgstr "‹ó‚Ìƒƒ‚"
+msgstr "ç©ºã®ãƒ¡ãƒ¢"
 
 #: lib/Driver.php:118
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
-msgstr "ˆÃ†‰»‚Ì‚½‚ß‚Ìİ’è‚ª‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBŠÇ—Ò‚É˜A—‚µ‚Ä‰º‚³‚¢B"
+msgstr "æš—å·åŒ–ã®ãŸã‚ã®è¨­å®šãŒã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ç®¡ç†è€…ã«é€£çµ¡ã—ã¦ä¸‹ã•ã„ã€‚"
 
 #: templates/data/export.inc:16
 msgid "Export"
-msgstr "ƒGƒNƒXƒ|[ƒg"
+msgstr "ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆ"
 
 #: templates/data/export.inc:2
 msgid "Export Notes"
-msgstr "ƒƒ‚‚ÌƒGƒNƒXƒ|[ƒg"
+msgstr "ãƒ¡ãƒ¢ã®ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆ"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:27
 msgid "General Options"
-msgstr "ˆê”ÊƒIƒvƒVƒ‡ƒ“"
+msgstr "ä¸€èˆ¬ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "ƒƒ‚‚ÌƒCƒ“ƒ|[ƒgAƒXƒeƒbƒv %d"
+msgstr "ãƒ¡ãƒ¢ã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆã€ã‚¹ãƒ†ãƒƒãƒ— %d"
 
 #: data.php:207
 msgid "Import/Export Notes"
-msgstr "ƒƒ‚‚ÌƒCƒ“ƒ|[ƒg^ƒGƒNƒXƒ|[ƒg"
+msgstr "ãƒ¡ãƒ¢ã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆï¼ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆ"
 
 #: templates/search/search.inc:17
 msgid "In: "
@@ -197,356 +197,356 @@ msgstr "In: "
 
 #: templates/view/memo.inc:39
 msgid "Last Modified"
-msgstr "ÅI•ÏX“ú"
+msgstr "æœ€çµ‚å¤‰æ›´æ—¥"
 
 #: lib/api.php:77
 msgid "Maximum Number of Notes"
-msgstr "ƒƒ‚‚ÌÅ‘å”"
+msgstr "ãƒ¡ãƒ¢ã®æœ€å¤§æ•°"
 
 #: data.php:53
 msgid "Memo Text"
-msgstr "ƒƒ‚‚Ì“à—e"
+msgstr "ãƒ¡ãƒ¢ã®å†…å®¹"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "ƒƒjƒ…[ˆê——"
+msgstr "ãƒ¡ãƒ‹ãƒ¥ãƒ¼ä¸€è¦§"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
-msgstr "‘¼‚ÌƒIƒvƒVƒ‡ƒ“"
+msgstr "ä»–ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: templates/panel.inc:40
 msgid "My Notepads:"
-msgstr "„‚Ìƒƒ‚’ F"
+msgstr "ç§ã®ãƒ¡ãƒ¢å¸³ï¼š"
 
 #: list.php:31
 msgid "My Notes"
-msgstr "„‚Ìƒƒ‚’ "
+msgstr "ç§ã®ãƒ¡ãƒ¢å¸³"
 
 #: templates/notepads/notepads.inc:53
 msgid "Name:"
-msgstr "–¼‘OF"
+msgstr "åå‰ï¼š"
 
 #: memo.php:57 lib/Block/tree_menu.php:24
 msgid "New Note"
-msgstr "V‹Kƒƒ‚"
+msgstr "æ–°è¦ãƒ¡ãƒ¢"
 
 #: templates/data/import.inc:34
 msgid "Next"
-msgstr "Ÿ"
+msgstr "æ¬¡"
 
 #: lib/api.php:258
 msgid "No iCalendar data was found."
-msgstr "iCalendar ‚Ìƒf[ƒ^‚ªŒ©•t‚©‚è‚Ü‚¹‚ñB"
+msgstr "iCalendar ã®ãƒ‡ãƒ¼ã‚¿ãŒè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã€‚"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
-msgstr "ˆê’v‚·‚éƒƒ‚‚Í‚ ‚è‚Ü‚¹‚ñ"
+msgstr "ä¸€è‡´ã™ã‚‹ãƒ¡ãƒ¢ã¯ã‚ã‚Šã¾ã›ã‚“"
 
 #: templates/list/empty.inc:1
 msgid "No notes match the current criteria."
-msgstr "Œ»İ‚ÌŠî€‚Éˆê’v‚·‚éƒƒ‚‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ç¾åœ¨ã®åŸºæº–ã«ä¸€è‡´ã™ã‚‹ãƒ¡ãƒ¢ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Block/summary.php:101
 msgid "No notes to display"
-msgstr "•\¦‚·‚éƒƒ‚‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgstr "è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒ¢ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: templates/list/memo_headers.inc:37
 msgid "No_te"
-msgstr "_Tƒƒ‚"
+msgstr "_Tãƒ¡ãƒ¢"
 
 #: lib/Driver/sql.php:175
 msgid "Not found"
-msgstr "Œ©•t‚©‚è‚Ü‚¹‚ñ"
+msgstr "è¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“"
 
 #: config/prefs.php.dist:60
 msgid "Note Category"
-msgstr "ƒƒ‚‚Ì•ª—Ş"
+msgstr "ãƒ¡ãƒ¢ã®åˆ†é¡"
 
 #: view.php:108
 msgid "Note Details"
-msgstr "ƒƒ‚‚ÌÚ×"
+msgstr "ãƒ¡ãƒ¢ã®è©³ç´°"
 
 #: notepads.php:113
 msgid "Note Lists"
-msgstr "ƒƒ‚ˆê——"
+msgstr "ãƒ¡ãƒ¢ä¸€è¦§"
 
 #: config/prefs.php.dist:59
 msgid "Note Text"
-msgstr "ƒƒ‚‚Ì“à—e"
+msgstr "ãƒ¡ãƒ¢ã®å†…å®¹"
 
 #: templates/memo/memo.inc:53
 msgid "Note _Text"
-msgstr "_Tƒƒ‚‚Ì“à—e"
+msgstr "_Tãƒ¡ãƒ¢ã®å†…å®¹"
 
 #: view.php:56 memo.php:67 note/pdf.php:57
 msgid "Note not found."
-msgstr "ƒƒ‚‚ªŒ©•t‚©‚è‚Ü‚¹‚ñB"
+msgstr "ãƒ¡ãƒ¢ãŒè¦‹ä»˜ã‹ã‚Šã¾ã›ã‚“ã€‚"
 
 #: templates/memo/memo.inc:59
 msgid "Note_pad"
-msgstr "_Pƒƒ‚’ "
+msgstr "_Pãƒ¡ãƒ¢å¸³"
 
 #: templates/list/memo_headers.inc:33 config/prefs.php.dist:61
 msgid "Notepad"
-msgstr "ƒƒ‚’ "
+msgstr "ãƒ¡ãƒ¢å¸³"
 
 #: templates/panel.inc:32 templates/panel.inc:33
 #: templates/notepads/notepads.inc:42
 msgid "Notepads"
-msgstr "ƒƒ‚’ "
+msgstr "ãƒ¡ãƒ¢å¸³"
 
 #: notepads.php:32
 msgid "Notepads must have a name."
-msgstr "ƒƒ‚’ ‚É‚Í–¼‘O‚ª•K—v‚Å‚·B"
+msgstr "ãƒ¡ãƒ¢å¸³ã«ã¯åå‰ãŒå¿…è¦ã§ã™ã€‚"
 
 #: templates/notepads/notepads.inc:45
 msgid "Notepads:"
-msgstr "ƒƒ‚’ F"
+msgstr "ãƒ¡ãƒ¢å¸³ï¼š"
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
-msgstr "ƒƒ‚ŠT—v"
+msgstr "ãƒ¡ãƒ¢æ¦‚è¦"
 
 #: lib/api.php:235 lib/api.php:323 lib/api.php:382 lib/api.php:411
 msgid "Permission Denied"
-msgstr "ƒAƒNƒZƒX‹‘”Û"
+msgstr "ã‚¢ã‚¯ã‚»ã‚¹æ‹’å¦"
 
 #: templates/notepads/notepads.inc:56
 msgid "Permissions"
-msgstr "ƒAƒNƒZƒXŒ "
+msgstr "ã‚¢ã‚¯ã‚»ã‚¹æ¨©"
 
 #: templates/view/memo.inc:16
 msgid "Really delete this note?"
-msgstr "‚±‚Ìƒƒ‚‚ğ–{“–‚Éíœ‚µ‚Ü‚·‚©H"
+msgstr "ã“ã®ãƒ¡ãƒ¢ã‚’æœ¬å½“ã«å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ"
 
 #: templates/panel.inc:59 templates/memo/memo.inc:57
 msgid "Save"
-msgstr "•Û‘¶"
+msgstr "ä¿å­˜"
 
 #: templates/view/memo.inc:11
 msgid "Save as PDF"
-msgstr "PDF ‚Æ‚µ‚Ä•Û‘¶"
+msgstr "PDF ã¨ã—ã¦ä¿å­˜"
 
 #: search.php:17 templates/search/search.inc:4 templates/search/search.inc:27
 #: templates/list/header.inc:4 lib/Block/tree_menu.php:45
 msgid "Search"
-msgstr "ŒŸõ"
+msgstr "æ¤œç´¢"
 
 #: list.php:54
 msgid "Search Results"
-msgstr "ŒŸõŒ‹‰Ê"
+msgstr "æ¤œç´¢çµæœ"
 
 #: templates/notepads/notepads.inc:47
 msgid "Select a notepad"
-msgstr "ƒƒ‚’ ‚Ì‘I‘ğ"
+msgstr "ãƒ¡ãƒ¢å¸³ã®é¸æŠ"
 
 #: templates/data/export.inc:9
 msgid "Select the export format:"
-msgstr "ƒGƒNƒXƒ|[ƒg‚ÌŒ`®‚ğ‘I‘ğF"
+msgstr "ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã®å½¢å¼ã‚’é¸æŠï¼š"
 
 #: templates/data/import.inc:31
 msgid "Select the file to import:"
-msgstr "ƒCƒ“ƒ|[ƒg‚·‚éƒtƒ@ƒCƒ‹‚ğ‘I‘ğF"
+msgstr "ã‚¤ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠï¼š"
 
 #: templates/data/import.inc:9
 msgid "Select the format of the source file:"
-msgstr "ƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌŒ`®‚ğ‘I‘ğF"
+msgstr "ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®å½¢å¼ã‚’é¸æŠï¼š"
 
 #: templates/panel.inc:50
 msgid "Shared Notepads:"
-msgstr "‹¤—Lƒƒ‚’ F"
+msgstr "å…±æœ‰ãƒ¡ãƒ¢å¸³ï¼š"
 
 #: config/prefs.php.dist:40
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr "ˆê——•\¦‚Åƒƒ‚’ ‚Ì–¼‘O‚à•\¦‚µ‚Ü‚·‚©H"
+msgstr "ä¸€è¦§è¡¨ç¤ºã§ãƒ¡ãƒ¢å¸³ã®åå‰ã‚‚è¡¨ç¤ºã—ã¾ã™ã‹ï¼Ÿ"
 
 #: lib/Block/summary.php:34
 msgid "Show action buttons?"
-msgstr "“®ìƒ{ƒ^ƒ“‚ğ•\¦H"
+msgstr "å‹•ä½œãƒœã‚¿ãƒ³ã‚’è¡¨ç¤ºï¼Ÿ"
 
 #: lib/Block/summary.php:37
 msgid "Show notepad name?"
-msgstr "ƒƒ‚’ ‚Ì–¼‘O‚ğ•\¦H"
+msgstr "ãƒ¡ãƒ¢å¸³ã®åå‰ã‚’è¡¨ç¤ºï¼Ÿ"
 
 #: config/prefs.php.dist:50
 msgid "Show notepad options panel?"
-msgstr "ƒƒ‚’ ‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•\¦H"
+msgstr "ãƒ¡ãƒ¢å¸³ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¡¨ç¤ºï¼Ÿ"
 
 #: lib/Block/summary.php:40
 msgid "Show notes from these categories"
-msgstr "‚±‚Ì•ª—Ş‚Ìƒƒ‚‚ğ•\¦"
+msgstr "ã“ã®åˆ†é¡ã®ãƒ¡ãƒ¢ã‚’è¡¨ç¤º"
 
 #: templates/list/memo_headers.inc:41
 msgid "Sort by Category"
-msgstr "•ª—Ş‚Å•À‚Ñ‘Ö‚¦"
+msgstr "åˆ†é¡ã§ä¸¦ã³æ›¿ãˆ"
 
 #: templates/list/memo_headers.inc:37
 msgid "Sort by Note Text"
-msgstr "“à—e‚Å•À‚Ñ‘Ö‚¦"
+msgstr "å†…å®¹ã§ä¸¦ã³æ›¿ãˆ"
 
 #: templates/list/memo_headers.inc:33
 msgid "Sort by Notepad"
-msgstr "ƒƒ‚‚Å•À‚Ñ‘Ö‚¦"
+msgstr "ãƒ¡ãƒ¢ã§ä¸¦ã³æ›¿ãˆ"
 
 #: memo.php:175
 #, php-format
-msgid "Successfully saved \"%s\"."
-msgstr "\"%s\" ‚É•Û‘¶‚³‚ê‚Ü‚µ‚½B"
+msgid "Successfully saved Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥" ã«ä¿å­˜ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: data.php:195
 #, php-format
 msgid "The %s file didn't contain any notes."
-msgstr "ƒtƒ@ƒCƒ‹ %s ‚Éƒƒ‚‚Íˆê‚Â‚àŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã«ãƒ¡ãƒ¢ã¯ä¸€ã¤ã‚‚å«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #: lib/Driver.php:53
 msgid "The Notes backend is not currently available."
-msgstr "ƒƒ‚‚ÌƒoƒbƒNƒGƒ“ƒh‚ÍŒ»İg—p‚Å‚«‚Ü‚¹‚ñB"
+msgstr "ãƒ¡ãƒ¢ã®ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã¯ç¾åœ¨ä½¿ç”¨ã§ãã¾ã›ã‚“ã€‚"
 
 #: lib/Driver.php:227
 #, php-format
 msgid "The Notes backend is not currently available: %s"
-msgstr "ƒƒ‚‚ÌƒoƒbƒNƒGƒ“ƒh‚ÍŒ»İg—p‚Å‚«‚Ü‚¹‚ñF%s"
+msgstr "ãƒ¡ãƒ¢ã®ãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰ã¯ç¾åœ¨ä½¿ç”¨ã§ãã¾ã›ã‚“ï¼š%s"
 
 #: memo.php:198
 msgid "The note was deleted."
-msgstr "ƒƒ‚‚Ííœ‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒ¢ã¯å‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: notepads.php:45 notepads.php:56
 #, php-format
-msgid "The notepad \"%s\" couldn't be created: %s"
-msgstr "ƒƒ‚ \"%s\" ‚Íì¬‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½F %s"
+msgid "The notepad Â¥"%sÂ¥" couldn't be created: %s"
+msgstr "ãƒ¡ãƒ¢ Â¥"%sÂ¥" ã¯ä½œæˆã§ãã¾ã›ã‚“ã§ã—ãŸï¼š %s"
 
 #: notepads.php:47
 #, php-format
-msgid "The notepad \"%s\" has been created."
-msgstr "ƒƒ‚ \"%s\" ‚Íì¬‚³‚ê‚Ü‚µ‚½B"
+msgid "The notepad Â¥"%sÂ¥" has been created."
+msgstr "ãƒ¡ãƒ¢ Â¥"%sÂ¥" ã¯ä½œæˆã•ã‚Œã¾ã—ãŸã€‚"
 
 #: notepads.php:88
 #, php-format
-msgid "The notepad \"%s\" has been deleted."
-msgstr "ƒƒ‚ \"%s\" ‚Ííœ‚³‚ê‚Ü‚µ‚½B"
+msgid "The notepad Â¥"%sÂ¥" has been deleted."
+msgstr "ãƒ¡ãƒ¢ Â¥"%sÂ¥" ã¯å‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: notepads.php:58
 #, php-format
-msgid "The notepad \"%s\" has been saved."
-msgstr "ƒƒ‚ \"%s\" ‚Í•Û‘¶‚³‚ê‚Ü‚µ‚½B"
+msgid "The notepad Â¥"%sÂ¥" has been saved."
+msgstr "ãƒ¡ãƒ¢ Â¥"%sÂ¥" ã¯ä¿å­˜ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: data.php:198
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "ƒf[ƒ^‚ÌƒCƒ“ƒ|[ƒg’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½F%s"
+msgstr "ãƒ‡ãƒ¼ã‚¿ã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸï¼š%s"
 
 #: lib/api.php:252
 msgid "There was an error importing the iCalendar data."
-msgstr "iCalendar ‚ÌƒCƒ“ƒ|[ƒg’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B"
+msgstr "iCalendar ã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚"
 
 #: lib/api.php:430
 msgid "There was an error importing the vNote data."
-msgstr "vNote ‚ÌƒCƒ“ƒ|[ƒg’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B"
+msgstr "vNote ã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚"
 
 #: memo.php:196
 #, php-format
 msgid "There was an error removing the note: %s"
-msgstr "ƒƒ‚‚Ìíœ’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½F%s"
+msgstr "ãƒ¡ãƒ¢ã®å‰Šé™¤ä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸï¼š%s"
 
 #: memo.php:173
 #, php-format
 msgid "There was an error saving the note: %s"
-msgstr "ƒƒ‚‚Ì•Û‘¶’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½F%s"
+msgstr "ãƒ¡ãƒ¢ã®ä¿å­˜ä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸï¼š%s"
 
 #: view.php:45 note/pdf.php:46
 #, php-format
 msgid "There was an error viewing this notepad: %s"
-msgstr "ƒƒ‚‚Ì•\¦’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½F%s"
+msgstr "ãƒ¡ãƒ¢ã®è¡¨ç¤ºä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸï¼š%s"
 
 #: data.php:79
 msgid "There were no memos to export."
-msgstr "ƒGƒNƒXƒ|[ƒg‚·‚éƒƒ‚‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ãƒ¡ãƒ¢ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: data.php:105
 msgid "This file format is not supported."
-msgstr "‚±‚ÌŒ`®‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "ã“ã®å½¢å¼ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #: view.php:98 memo.php:91
 msgid "This note cannot be decrypted:"
-msgstr "ƒƒ‚‚Í•¡‡‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½F"
+msgstr "ãƒ¡ãƒ¢ã¯è¤‡åˆã§ãã¾ã›ã‚“ã§ã—ãŸï¼š"
 
 #: view.php:90 memo.php:83
 msgid "This note has been encrypted, please provide the password below."
-msgstr "ƒƒ‚‚ÍˆÃ†‰»‚³‚ê‚Ä‚¢‚Ü‚·BƒpƒXƒ[ƒh‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B"
+msgstr "ãƒ¡ãƒ¢ã¯æš—å·åŒ–ã•ã‚Œã¦ã„ã¾ã™ã€‚ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚"
 
 #: view.php:87 view.php:95 memo.php:80 memo.php:88 lib/Driver/kolab.php:752
 #: lib/Driver/sql.php:438
 msgid "This note has been encrypted."
-msgstr "ƒƒ‚‚ÍˆÃ†‰»‚³‚ê‚Ü‚µ‚½B"
+msgstr "ãƒ¡ãƒ¢ã¯æš—å·åŒ–ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: notepads.php:83
 #, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "íœ‚Å‚«‚Ü‚¹‚ñ \"%s\": %s"
+msgid "Unable to delete Â¥"%sÂ¥": %s"
+msgstr "å‰Šé™¤ã§ãã¾ã›ã‚“ Â¥"%sÂ¥": %s"
 
 #: lib/Driver.php:230
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "’è‹` %s ‚ªƒ[ƒh‚Å‚«‚Ü‚¹‚ñB"
+msgstr "å®šç¾© %s ãŒãƒ­ãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã€‚"
 
 #: templates/view/memo.inc:27 templates/list/memo_summaries.inc:17
 #: lib/Mnemo.php:245 lib/Mnemo.php:246 lib/Mnemo.php:260 lib/Mnemo.php:261
 #: lib/Block/summary.php:96
 msgid "Unfiled"
-msgstr "–¢®—"
+msgstr "æœªæ•´ç†"
 
 #: lib/api.php:288 lib/api.php:345 lib/api.php:438
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "ƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚È‚¢ Content-Type ‚Å‚·F%s"
+msgstr "ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ãªã„ Content-Type ã§ã™ï¼š%s"
 
 #: templates/data/import.inc:16
 msgid "Which Notepad should the notes be added to?"
-msgstr "‚Ç‚Ìƒƒ‚’ ‚É’Ç‰Á‚µ‚Ü‚·‚©H"
+msgstr "ã©ã®ãƒ¡ãƒ¢å¸³ã«è¿½åŠ ã—ã¾ã™ã‹ï¼Ÿ"
 
 #: data.php:42 data.php:130 memo.php:37
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "‚ ‚È‚½‚Í %d ˆÈã‚Ìƒƒ‚‚ğì¬‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã¯ %d ä»¥ä¸Šã®ãƒ¡ãƒ¢ã‚’ä½œæˆã™ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“ã€‚"
 
 #: view.php:49 note/pdf.php:50
 #, php-format
 msgid "You do not have permission to view the notepad %s."
-msgstr "‚ ‚È‚½‚É‚Íƒƒ‚’  %s ‚ğ•\¦‚·‚éƒAƒNƒZƒXŒ ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ãƒ¡ãƒ¢å¸³ %s ã‚’è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¯ã‚»ã‚¹æ¨©ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: notepads.php:68
 msgid "You must select a notepad to be deleted."
-msgstr "íœ‚·‚éƒƒ‚’ ‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢B"
+msgstr "å‰Šé™¤ã™ã‚‹ãƒ¡ãƒ¢å¸³ã‚’é¸æŠã—ã¦ä¸‹ã•ã„ã€‚"
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
-msgstr "‚ ‚È‚½‚ÌƒfƒtƒHƒ‹ƒg‚Ìƒƒ‚’ F"
+msgstr "ã‚ãªãŸã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ¡ãƒ¢å¸³ï¼š"
 
 #: templates/panel.inc:45
 msgid "[Manage My Notepads]"
-msgstr "[„‚Ìƒƒ‚’ ‚ÌŠÇ—]"
+msgstr "[ç§ã®ãƒ¡ãƒ¢å¸³ã®ç®¡ç†]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
-msgstr "_B–{•¶"
+msgstr "_Bæœ¬æ–‡"
 
 #: templates/memo/memo.inc:70 templates/list/memo_headers.inc:41
 msgid "_Category"
-msgstr "_C•ª—Ş"
+msgstr "_Cåˆ†é¡"
 
 #: templates/view/memo.inc:16
 msgid "_Delete"
-msgstr "_Díœ"
+msgstr "_Då‰Šé™¤"
 
 #: templates/view/memo.inc:13
 msgid "_Edit"
-msgstr "_E•ÒW"
+msgstr "_Eç·¨é›†"
 
 #: templates/memo/memo.inc:74
 msgid "_Encrypt?"
-msgstr "_ˆÃ†H"
+msgstr "_æš—å·ï¼Ÿ"
 
 #: templates/search/search.inc:9
 msgid "_For: "
@@ -554,32 +554,32 @@ msgstr "_For: "
 
 #: lib/Mnemo.php:466
 msgid "_Import/Export"
-msgstr "_IƒCƒ“/ƒAƒEƒg"
+msgstr "_Iã‚¤ãƒ³/ã‚¢ã‚¦ãƒˆ"
 
 #: lib/Mnemo.php:453
 msgid "_List Notes"
-msgstr "_Lƒƒ‚ˆê——"
+msgstr "_Lãƒ¡ãƒ¢ä¸€è¦§"
 
 #: lib/Mnemo.php:458
 msgid "_New Note"
-msgstr "_NV‹Kƒƒ‚"
+msgstr "_Næ–°è¦ãƒ¡ãƒ¢"
 
 #: templates/view/memo.inc:52 templates/memo/memo.inc:21
 #: templates/memo/memo.inc:79
 msgid "_Password"
-msgstr "_PƒpƒXƒ[ƒh"
+msgstr "_Pãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰"
 
 #: lib/Mnemo.php:471
 msgid "_Print"
-msgstr "_Pˆóü"
+msgstr "_På°åˆ·"
 
 #: lib/Mnemo.php:462
 msgid "_Search"
-msgstr "_SŒŸõ"
+msgstr "_Sæ¤œç´¢"
 
 #: templates/search/search.inc:20
 msgid "_Title"
-msgstr "_T‘è–¼"
+msgstr "_Té¡Œå"
 
 #: lib/Block/tree_menu.php:34
 #, php-format

@@ -1,5 +1,5 @@
 # Ansel Traditional Chinese Translation
-# Copyright 2004 David Chang.±i¨}¤å,¥xÆW
+# Copyright 2004 David Chang.å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2004.
 #
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: gallery.php:171
@@ -19,72 +19,72 @@ msgstr ""
 msgid ""
 "\"%s\" is an invalid unique name; it may already be taken. Please choose a "
 "different unique name."
-msgstr "\"%s\" ¤£¬O¤@­Ó¦³®Äªº°ß¤@¦WºÙ; ¸Ó¦WºÙ¥i¯à¤w³Q¨Ï¥Î. ½Ğ¿ï¾Ü¥t¤@­Ó."
+msgstr "\"%s\" ä¸æ˜¯ä¸€å€‹æœ‰æ•ˆçš„å”¯ä¸€åç¨±; è©²åç¨±å¯èƒ½å·²è¢«ä½¿ç”¨. è«‹é¸æ“‡å¦ä¸€å€‹."
 
 #: scripts/recursive_import.php:111
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "\"%s\" ¤£¬O¤@­Ó¥Ø¿ı."
+msgstr "\"%s\" ä¸æ˜¯ä¸€å€‹ç›®éŒ„."
 
 #: templates/group/category.inc:51 templates/group/owner.inc:46
 #, php-format
 msgid "%d Galleries"
-msgstr "%d ­ÓÃÀ´Y"
+msgstr "%d å€‹è—å»Š"
 
 #: lib/Exif.php:285
 #, php-format
 msgid "%d bytes"
-msgstr "%d ¦ì¤¸²Õ"
+msgstr "%d ä½å…ƒçµ„"
 
 #: templates/list/header.inc:7
 #, php-format
 msgid "%d galleries"
-msgstr "%d ­ÓÃÀ´Y"
+msgstr "%d å€‹è—å»Š"
 
 #: templates/list/images.inc:4
 #, php-format
 msgid "%d images"
-msgstr "%d ­Ó¼v¹³"
+msgstr "%d å€‹å½±åƒ"
 
 #: img/upload.php:136
 #, php-format
 msgid "%d images were uploaded."
-msgstr "¤w¤W¶Ç %d  ­Ó¼v¹³."
+msgstr "å·²ä¸Šå‚³ %d  å€‹å½±åƒ."
 
 #: lib/Exif.php:136 lib/Exif.php:142
 #, php-format
 msgid "%d pixels"
-msgstr "%d µe¼Æ"
+msgstr "%d ç•«æ•¸"
 
 #: lib/Exif.php:166 lib/Exif.php:181
 #, php-format
 msgid "%d sec"
-msgstr "%d ¬í"
+msgstr "%d ç§’"
 
 #: templates/list/header.inc:7
 #, php-format
 msgid "%d to %d of %d galleries"
-msgstr " %d ¨ì %d ¦@ %d ­ÓÃÀ´Y"
+msgstr " %d åˆ° %d å…± %d å€‹è—å»Š"
 
 #: templates/view/subgallery_header.inc:3
 #, php-format
 msgid "%d to %d of %d subgalleries"
-msgstr " %d ¨ì %d ¦@ %d ­Ó¦¸ÃÀ´Y"
+msgstr " %d åˆ° %d å…± %d å€‹æ¬¡è—å»Š"
 
 #: gallery/sort.php:47
 #, php-format
 msgid "%s :: Sort"
-msgstr "%s :: ±Æ¦C"
+msgstr "%s :: æ’åˆ—"
 
 #: templates/view/gallery.inc:66
 #, php-format
 msgid "%s images"
-msgstr "%s ­Ó¼v¹³"
+msgstr "%s å€‹å½±åƒ"
 
 #: list.php:44 templates/group/owner.inc:10 lib/Ansel.php:424
 #, php-format
 msgid "%s's Galleries"
-msgstr "%sªº©Ò¦³ÃÀ´Y"
+msgstr "%sçš„æ‰€æœ‰è—å»Š"
 
 #: lib/Ansel.php:2167
 #, php-format
@@ -93,11 +93,11 @@ msgstr "(c) %s %s"
 
 #: templates/xppublish/new.inc:14
 msgid "(must be unique)"
-msgstr "(¥²¶·°ß¤@)"
+msgstr "(å¿…é ˆå”¯ä¸€)"
 
 #: scripts/ansel.php:311
 msgid "-a, --add[=filename]         Add local file to selected gallery"
-msgstr "-a, --add[=filename]         ·s¼W¥»¦aÀÉ®×¨ì¿ï¾ÜªºÃÀ´Y¤¤"
+msgstr "-a, --add[=filename]         æ–°å¢æœ¬åœ°æª”æ¡ˆåˆ°é¸æ“‡çš„è—å»Šä¸­"
 
 #: scripts/ansel.php:309
 msgid ""
@@ -105,8 +105,8 @@ msgid ""
 "                             Create gallery (and use it)  Combined with -g "
 "to create a subgallery."
 msgstr ""
-"-c, --create[=ÃÀ´YÂ²ºÙ/Åã¥Ü¦WºÙ/´y­z/¾Ö¦³ªÌ]\n"
-"                             «Ø¥ßÃÀ´Y (¨Ã¨Ï¥Î) »P°Ñ¼Æ -g ¨Ö¥Î«Ø¥ß¤@­Ó¦¸ÃÀ´Y."
+"-c, --create[=è—å»Šç°¡ç¨±/é¡¯ç¤ºåç¨±/æè¿°/æ“æœ‰è€…]\n"
+"                             å»ºç«‹è—å»Š (ä¸¦ä½¿ç”¨) èˆ‡åƒæ•¸ -g ä½µç”¨å»ºç«‹ä¸€å€‹æ¬¡è—å»Š."
 
 #: scripts/ansel.php:312
 msgid ""
@@ -114,8 +114,8 @@ msgid ""
 "selected\n"
 "                             gallery"
 msgstr ""
-"-d, --dir[=¥Ø¿ı]       ·s¼W¥Ø¿ı¤¤ªº©Ò¦³ÀÉ®×¨ì©Ò¿ï¾Üªº\n"
-"                             ÃÀ´Y¤¤"
+"-d, --dir[=ç›®éŒ„]       æ–°å¢ç›®éŒ„ä¸­çš„æ‰€æœ‰æª”æ¡ˆåˆ°æ‰€é¸æ“‡çš„\n"
+"                             è—å»Šä¸­"
 
 #: scripts/recursive_import.php:190
 msgid ""
@@ -123,497 +123,497 @@ msgid ""
 "creating\n"
 "                             a gallery for each directory"
 msgstr ""
-"-d, --dir[=¥Ø¿ı]             ·s¼W¥Ø¿ı(§t¦¸¥Ø¿ı)¤¤ªº©Ò¦³ÀÉ,\n"
-"                             ¬°¨C­Ó¥Ø¿ı«Ø¥ßÃÀ´Y"
+"-d, --dir[=ç›®éŒ„]             æ–°å¢ç›®éŒ„(å«æ¬¡ç›®éŒ„)ä¸­çš„æ‰€æœ‰æª”,\n"
+"                             ç‚ºæ¯å€‹ç›®éŒ„å»ºç«‹è—å»Š"
 
 #: scripts/ansel.php:310
 msgid "-g, --gallery[=shortname]    Select gallery to use"
-msgstr "-g, --gallery[=ÃÀ´YÂ²ºÙ]     ¿ï¾Ü±ı¨Ï¥ÎªºÃÀ´Y"
+msgstr "-g, --gallery[=è—å»Šç°¡ç¨±]     é¸æ“‡æ¬²ä½¿ç”¨çš„è—å»Š"
 
 #: scripts/ansel.php:307 scripts/recursive_import.php:189
 msgid "-h, --help                   Show this help"
-msgstr "-h, --help                   Åã¥Ü»¡©ú "
+msgstr "-h, --help                   é¡¯ç¤ºèªªæ˜ "
 
 #: scripts/ansel.php:308
 msgid ""
 "-l, --list                   List galleries or images (if combined with -g)"
-msgstr "-l, --list                   ¦C¥X©Ò¦³ÃÀ´Y©Î¼v¹³(¦pªG»P-g¦X¨Ö¨Ï¥Î)"
+msgstr "-l, --list                   åˆ—å‡ºæ‰€æœ‰è—å»Šæˆ–å½±åƒ(å¦‚æœèˆ‡-gåˆä½µä½¿ç”¨)"
 
 #: scripts/ansel.php:314 scripts/recursive_import.php:192
 msgid "-p, --password[=password]    Horde login password"
-msgstr "-p, --password[=password]    Horde µn¤J±K½X"
+msgstr "-p, --password[=password]    Horde ç™»å…¥å¯†ç¢¼"
 
 #: scripts/ansel.php:315
 msgid "-t, --caption[=caption]      Caption for image (if combined with -a)"
-msgstr "-t, --caption[=caption]      ¼v¹³»¡©ú (¦pªG»P-g¦X¨Ö¨Ï¥Î)"
+msgstr "-t, --caption[=caption]      å½±åƒèªªæ˜ (å¦‚æœèˆ‡-gåˆä½µä½¿ç”¨)"
 
 #: scripts/ansel.php:313 scripts/recursive_import.php:191
 msgid "-u, --username[=username]    Horde login username"
-msgstr "-u, --username[=username]    Horde µn¤J¦WºÙ"
+msgstr "-u, --username[=username]    Horde ç™»å…¥åç¨±"
 
 #: templates/group/category.inc:51 templates/group/owner.inc:46
 msgid "1 Gallery"
-msgstr "1 ­ÓÃÀ´Y"
+msgstr "1 å€‹è—å»Š"
 
 #: templates/list/images.inc:4
 msgid "1 image"
-msgstr "¤@­Ó¼v¹³"
+msgstr "ä¸€å€‹å½±åƒ"
 
 #: img/upload.php:134
 msgid "1 image was uploaded."
-msgstr "¤w¤W¶Ç 1 ­Ó¼v¹³."
+msgstr "å·²ä¸Šå‚³ 1 å€‹å½±åƒ."
 
 #: lib/Exif.php:157
 #, php-format
 msgid "90 deg CCW"
-msgstr "°f°w 90 «×"
+msgstr "é€†é‡ 90 åº¦"
 
 #: lib/Exif.php:159
 #, php-format
 msgid "90 deg CCW Mirrored"
-msgstr "°f®ÉÄÁ 90 «×Ãè®g"
+msgstr "é€†æ™‚é˜ 90 åº¦é¡å°„"
 
 #: lib/Exif.php:161
 #, php-format
 msgid "90 deg CW"
-msgstr "¶¶®ÉÄÁ 90 «×"
+msgstr "é †æ™‚é˜ 90 åº¦"
 
 #: lib/Exif.php:155
 #, php-format
 msgid "90 deg CW Mirrored"
-msgstr "¶¶®ÉÄÁ 90 «×Ãè®g"
+msgstr "é †æ™‚é˜ 90 åº¦é¡å°„"
 
 #: lib/api.php:191
 msgid "A gallery to add this image to is required."
-msgstr "·s¼W¼v¹³«e¥²¶·¥ı­n«Ø¥ßÄİ©ó¦Û¤vªºÃÀ´Y."
+msgstr "æ–°å¢å½±åƒå‰å¿…é ˆå…ˆè¦å»ºç«‹å±¬æ–¼è‡ªå·±çš„è—å»Š."
 
 #: lib/Exif.php:128
 msgid "A-DEP"
-msgstr "¦Û°ÊÃn¥ú´º²`Àu¥ı"
+msgstr "è‡ªå‹•æ›å…‰æ™¯æ·±å„ªå…ˆ"
 
 #: lib/api.php:303 gallery/delete.php:21
 #, php-format
 msgid "Access denied deleting gallery %s."
-msgstr "µL§R°£ÃÀ´Y %s ªºÅv­­."
+msgstr "ç„¡åˆªé™¤è—å»Š %s çš„æ¬Šé™."
 
 #: image.php:341
 #, php-format
 msgid "Access denied deleting image %s."
-msgstr "µL§R°£¼v¹³ %s ªºÅv­­."
+msgstr "ç„¡åˆªé™¤å½±åƒ %s çš„æ¬Šé™."
 
 #: gallery.php:65
 #, php-format
 msgid "Access denied downloading %s."
-msgstr "µL¤U¸ü %s ªºÅv­­."
+msgstr "ç„¡ä¸‹è¼‰ %s çš„æ¬Šé™."
 
 #: gallery.php:118
 msgid "Access denied editing galleries."
-msgstr "µL½s¿èÃÀ´YªºÅv­­."
+msgstr "ç„¡ç·¨è¼¯è—å»Šçš„æ¬Šé™."
 
 #: gallery.php:134
 #, php-format
 msgid "Access denied saving gallery %s."
-msgstr "µLÀx¦sÃÀ´Y %s ªºÅv­­."
+msgstr "ç„¡å„²å­˜è—å»Š %s çš„æ¬Šé™."
 
 #: image.php:142 image.php:204
 #, php-format
 msgid "Access denied saving image to %s."
-msgstr "µLÀx¦s¼v¹³¨ì %s ªºÅv­­."
+msgstr "ç„¡å„²å­˜å½±åƒåˆ° %s çš„æ¬Šé™."
 
 #: gallery/captions.php:31
 #, php-format
 msgid "Access denied setting captions for %s."
-msgstr "µL³]©w %s »¡©ú¤å¦rªºÅv­­."
+msgstr "ç„¡è¨­å®š %s èªªæ˜æ–‡å­—çš„æ¬Šé™."
 
 #: img/upload.php:147
 msgid "Add Image"
-msgstr "·s¼W¼v¹³"
+msgstr "æ–°å¢å½±åƒ"
 
 #: gallery.php:33 gallery.php:173 gallery.php:181
 msgid "Adding A New Gallery"
-msgstr "·s¼W¤@­Ó·sÃÀ´Y"
+msgstr "æ–°å¢ä¸€å€‹æ–°è—å»Š"
 
 #: gallery.php:57
 #, php-format
 msgid "Adding A Subgallery to %s"
-msgstr "·s¼W¤@­Ó¦¸ÃÀ´Y¨ì %s"
+msgstr "æ–°å¢ä¸€å€‹æ¬¡è—å»Šåˆ° %s"
 
 #: scripts/recursive_import.php:171
 msgid "Adding subdirectories:"
-msgstr "«Ø¥ß¦¸¥Ø¿ı¤¤:"
+msgstr "å»ºç«‹æ¬¡ç›®éŒ„ä¸­:"
 
 #: templates/view/gallery.inc:102
 msgid "All"
-msgstr "©Ò¦³"
+msgstr "æ‰€æœ‰"
 
 #: lib/Ansel.php:124
 #, php-format
 msgid "An error occurred counting galleries: %s"
-msgstr "¦b­pºâÃÀ´Y: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åœ¨è¨ˆç®—è—å»Š: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Ansel.php:64
 #, php-format
 msgid "An error occurred listing galleries: %s"
-msgstr "¦b¦C¥XÃÀ´Y: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åœ¨åˆ—å‡ºè—å»Š: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Exif.php:343
 msgid "Aperture"
-msgstr "¥ú°é"
+msgstr "å…‰åœˆ"
 
 #: templates/gallery/gallery.inc:50
 msgid "Are you sure you want to delete all of the images in this gallery?"
-msgstr "§A½T©w­n§R°£³o­ÓÃÀ´Y¤¤ªº©Ò¦³¼v¹³¶Ü?"
+msgstr "ä½ ç¢ºå®šè¦åˆªé™¤é€™å€‹è—å»Šä¸­çš„æ‰€æœ‰å½±åƒå—?"
 
 #: templates/view/gallery.inc:20
 msgid "Are you sure you want to delete the selected images?"
-msgstr "§A½T©w­n§R°£©Ò¿ï¾Üªº¼v¹³¶Ü?"
+msgstr "ä½ ç¢ºå®šè¦åˆªé™¤æ‰€é¸æ“‡çš„å½±åƒå—?"
 
 #: lib/Exif.php:356
 msgid "Artist"
-msgstr "Äá¼v®v"
+msgstr "æ”å½±å¸«"
 
 #: perms.php:52
 msgid "Attempt to edit a non-existent share."
-msgstr "À|¸Õ½s¿è¤@­Ó¤£¦s¦bªº¦@¨É."
+msgstr "åšè©¦ç·¨è¼¯ä¸€å€‹ä¸å­˜åœ¨çš„å…±äº«."
 
 #: lib/Exif.php:124
 msgid "Av-priority"
-msgstr "¦Û°ÊÃn¥ú-¥ú°éÀu¥ı"
+msgstr "è‡ªå‹•æ›å…‰-å…‰åœˆå„ªå…ˆ"
 
 #: lib/Exif.php:228
 msgid "Average"
-msgstr "¥­§¡´ú¥ú"
+msgstr "å¹³å‡æ¸¬å…‰"
 
 #: image.php:371
 msgid "Bad input."
-msgstr "¿ù»~ªº¿é¤J."
+msgstr "éŒ¯èª¤çš„è¼¸å…¥."
 
 #: image.php:70
 msgid "Bottom"
-msgstr "©³³¡"
+msgstr "åº•éƒ¨"
 
 #: lib/Exif.php:327
 msgid "Camera Make"
-msgstr "¬Û¾÷»s³y°Ó"
+msgstr "ç›¸æ©Ÿè£½é€ å•†"
 
 #: lib/Exif.php:328
 msgid "Camera Model"
-msgstr "¬Û¾÷«¬¸¹"
+msgstr "ç›¸æ©Ÿå‹è™Ÿ"
 
 #: lib/Exif.php:354
 msgid "Camera Orientation"
-msgstr "¬Û¾÷¤ô¥­"
+msgstr "ç›¸æ©Ÿæ°´å¹³"
 
 #: lib/Ansel.php:317
 #, php-format
 msgid "Can't get unknown file type \"%s\"."
-msgstr "µLªkÀò¨ú¥¼ª¾ÀÉ®×ªº«¬ºA \"%s\"."
+msgstr "ç„¡æ³•ç²å–æœªçŸ¥æª”æ¡ˆçš„å‹æ…‹ \"%s\"."
 
 #: templates/gallery/delete_confirmation.inc:10
 msgid "Cancel"
-msgstr "¨ú®ø"
+msgstr "å–æ¶ˆ"
 
 #: templates/image/preview_image.inc:28
 msgid "Cancel Change"
-msgstr "¨ú®øÅÜ§ó"
+msgstr "å–æ¶ˆè®Šæ›´"
 
 #: image.php:38 lib/Forms/Upload.php:38
 msgid "Caption"
-msgstr "»¡©ú"
+msgstr "èªªæ˜"
 
 #: gallery/captions.php:54
 msgid "Caption Editor"
-msgstr "»¡©ú½s¿è¾¹"
+msgstr "èªªæ˜ç·¨è¼¯å™¨"
 
 #: gallery/captions.php:49
 msgid "Captions Saved."
-msgstr "»¡©ú¤wÀx¦s"
+msgstr "èªªæ˜å·²å„²å­˜"
 
 #: config/prefs.php.dist:27
 msgid "Category"
-msgstr "¤ÀÃş"
+msgstr "åˆ†é¡"
 
 #: image.php:66
 msgid "Center"
-msgstr "¸m¤¤"
+msgstr "ç½®ä¸­"
 
 #: lib/Exif.php:229
 msgid "Center Weighted Average"
-msgstr "¤¤¥¡°¾­«¥­§¡´ú¥ú"
+msgstr "ä¸­å¤®åé‡å¹³å‡æ¸¬å…‰"
 
 #: templates/view/gallery.inc:77
 msgid "Change gallery properties"
-msgstr "ÅÜ§óÃÀ´YÄİ©Ê"
+msgstr "è®Šæ›´è—å»Šå±¬æ€§"
 
 #: config/prefs.php.dist:15
 msgid "Change your display options."
-msgstr "ÅÜ§ó§AªºÅã¥Ü¿ï¶µ."
+msgstr "è®Šæ›´ä½ çš„é¡¯ç¤ºé¸é …."
 
 #: templates/view/gallery.inc:69
 msgid "Choose Action:"
-msgstr "¿ï¾Ü§@¥Î¤è¦¡:"
+msgstr "é¸æ“‡ä½œç”¨æ–¹å¼:"
 
 #: lib/Exif.php:242
 msgid "Cloudy"
-msgstr "¦h¶³"
+msgstr "å¤šé›²"
 
 #: lib/Exif.php:293
 msgid "Color Sequential Area Sensor"
-msgstr "¦â±m§Ç¦C°Ï°ì·PÀ³¾¹"
+msgstr "è‰²å½©åºåˆ—å€åŸŸæ„Ÿæ‡‰å™¨"
 
 #: lib/Exif.php:295
 msgid "Color Sequential Linear Sensor"
-msgstr "¦â±m§Ç¦C½u©Ê·PÀ³¾¹"
+msgstr "è‰²å½©åºåˆ—ç·šæ€§æ„Ÿæ‡‰å™¨"
 
 #: lib/Exif.php:351
 msgid "Color Space"
-msgstr "¦â±mªÅ¶¡"
+msgstr "è‰²å½©ç©ºé–“"
 
 #: lib/Forms/Ecard.php:42
 msgid "Comments:"
-msgstr "°T®§:"
+msgstr "è¨Šæ¯:"
 
 #: lib/Exif.php:263
 msgid "Compulsory Flash"
-msgstr "±j­¢°{¥ú"
+msgstr "å¼·è¿«é–ƒå…‰"
 
 #: lib/Exif.php:265
 msgid "Compulsory Flash, Return light detected"
-msgstr "±j­¢°{¥ú, ¦^®g°{¥ú¤w°»´ú"
+msgstr "å¼·è¿«é–ƒå…‰, å›å°„é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:264
 msgid "Compulsory Flash, Return light not detected"
-msgstr "±j­¢°{¥ú, ¦^®g°{¥ú¥¼°»´ú"
+msgstr "å¼·è¿«é–ƒå…‰, å›å°„é–ƒå…‰æœªåµæ¸¬"
 
 #: lib/Exif.php:355
 msgid "Copyright"
-msgstr "ª©Åv"
+msgstr "ç‰ˆæ¬Š"
 
 #: scripts/ansel.php:176
 msgid "Couldn't list galleries."
-msgstr "µLªk¦C¥XÃÀ´Y."
+msgstr "ç„¡æ³•åˆ—å‡ºè—å»Š."
 
 #: scripts/ansel.php:40
 msgid "Couldn't read command-line options."
-msgstr "µLªkÅª¨ú©R¥O¦Cªº¿ï¶µ."
+msgstr "ç„¡æ³•è®€å–å‘½ä»¤åˆ—çš„é¸é …."
 
 #: templates/xppublish/list.inc:19
 msgid "Create"
-msgstr "«Ø¥ß"
+msgstr "å»ºç«‹"
 
 #: templates/view/gallery.inc:76
 msgid "Create a Subgallery"
-msgstr "«Ø¥ß¤@­Ó¦¸ÃÀ´Y"
+msgstr "å»ºç«‹ä¸€å€‹æ¬¡è—å»Š"
 
 #: templates/xppublish/new.inc:8
 msgid "Create a new Gallery"
-msgstr "«Ø¥ß¤@­Ó·sªºÃÀ´Y"
+msgstr "å»ºç«‹ä¸€å€‹æ–°çš„è—å»Š"
 
 #: templates/xppublish/list.inc:18
 msgid "Create a new gallery:"
-msgstr "«Ø¥ß¤@­Ó·sÃÀ´Y:"
+msgstr "å»ºç«‹ä¸€å€‹æ–°è—å»Š:"
 
 #: templates/list/images.inc:20
 msgid "Created"
-msgstr "«Ø¥ß¤é"
+msgstr "å»ºç«‹æ—¥"
 
 #: scripts/recursive_import.php:120
 #, php-format
 msgid "Creating gallery: \"%s\" (%s)"
-msgstr "«Ø¥ßÃÀ´Y¤¤: \"%s\" (%s)"
+msgstr "å»ºç«‹è—å»Šä¸­: \"%s\" (%s)"
 
 #: lib/Exif.php:246
 msgid "Custom"
-msgstr "¦Û­q"
+msgstr "è‡ªè¨‚"
 
 #: image.php:59
 msgid "Custom Watermark"
-msgstr "¦Û­q¯B¤ô¦L"
+msgstr "è‡ªè¨‚æµ®æ°´å°"
 
 #: config/prefs.php.dist:78
 msgid "Custom watermark to use for images"
-msgstr "¦Û­q¼v¹³ªº¯B¤ô¦L"
+msgstr "è‡ªè¨‚å½±åƒçš„æµ®æ°´å°"
 
 #: lib/Exif.php:334
 msgid "Date Image Digitized"
-msgstr "¤é´Á¼v¹³¤w¼Æ¦ì¤Æ"
+msgstr "æ—¥æœŸå½±åƒå·²æ•¸ä½åŒ–"
 
 #: lib/Exif.php:332
 msgid "Date Image Modified"
-msgstr "­×§ï¤é´Á"
+msgstr "ä¿®æ”¹æ—¥æœŸ"
 
 #: lib/Exif.php:333
 msgid "Date Image Taken"
-msgstr "©çÄá¤é´Á"
+msgstr "æ‹æ”æ—¥æœŸ"
 
 #: templates/view/gallery.inc:107 templates/view/image.inc:23
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: templates/view/gallery.inc:85
 msgid "Delete this gallery"
-msgstr "§R°£³o­ÓÃÀ´Y"
+msgstr "åˆªé™¤é€™å€‹è—å»Š"
 
 #: image.php:347
 msgid "Deleted the image."
-msgstr "¼v¹³¤w§R°£."
+msgstr "å½±åƒå·²åˆªé™¤."
 
 #: templates/list/gallery_headers.inc:6
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "Åã¥Ü¿ï¶µ"
+msgstr "é¡¯ç¤ºé¸é …"
 
 #: templates/group/header.inc:3
 #, php-format
 msgid "Displaying from %s to %s of %s groups"
-msgstr "Åã¥Ü %s ¨ì %s ¦@ %s ­Ó¸s²Õ"
+msgstr "é¡¯ç¤º %s åˆ° %s å…± %s å€‹ç¾¤çµ„"
 
 #: templates/view/gallery.inc:66
 #, php-format
 msgid "Displaying from %s to %s of %s images"
-msgstr "Åã¥Ü %s ¨ì %s ¦@ %s ­Ó¼v¹³"
+msgstr "é¡¯ç¤º %s åˆ° %s å…± %s å€‹å½±åƒ"
 
 #: templates/view/image.inc:23
 #, php-format
 msgid "Do you want to permanently delete %s?"
-msgstr "§A¯uªº­n§R°£ %s ¶Ü?"
+msgstr "ä½ çœŸçš„è¦åˆªé™¤ %s å—?"
 
 #: gallery/sort.php:61
 msgid "Done"
-msgstr "§¹¦¨"
+msgstr "å®Œæˆ"
 
 #: templates/view/image.inc:32
 msgid "Download Full Image"
-msgstr "¤U¸ü§¹¾ãªº¼v¹³"
+msgstr "ä¸‹è¼‰å®Œæ•´çš„å½±åƒ"
 
 #: templates/view/gallery.inc:72
 msgid "Download as .zip"
-msgstr "¤U¸ü¬° .zip"
+msgstr "ä¸‹è¼‰ç‚º .zip"
 
 #: gallery/sort.php:60
 msgid "Drag images to the desired sort position."
-msgstr "©ì¦²¼v¹³¨ì¾A·íªº¦ì¸m."
+msgstr "æ‹–æ›³å½±åƒåˆ°é©ç•¶çš„ä½ç½®."
 
 #: xppublish.php:210
 #, php-format
 msgid "ERROR: %s"
-msgstr "¿ù»~: %s"
+msgstr "éŒ¯èª¤: %s"
 
 #: lib/Exif.php:118
 msgid "Easy shooting"
-msgstr "©ö©ç"
+msgstr "æ˜“æ‹"
 
 #: img/ecard.php:60
 msgid "Ecard - "
-msgstr "¹q¤l¥d¤ù - "
+msgstr "é›»å­å¡ç‰‡ - "
 
 #: templates/view/gallery.inc:156 templates/view/image.inc:20
 msgid "Edit"
-msgstr "½s¿è"
+msgstr "ç·¨è¼¯"
 
 #: image.php:188
 #, php-format
 msgid "Edit %s :: %s"
-msgstr "½s¿è %s :: %s"
+msgstr "ç·¨è¼¯ %s :: %s"
 
 #: image.php:270
 msgid "Edit Image"
-msgstr "½s¿è¼v¹³"
+msgstr "ç·¨è¼¯å½±åƒ"
 
 #: perms.php:243
 msgid "Edit Permissions"
-msgstr "½s¿èÅv­­"
+msgstr "ç·¨è¼¯æ¬Šé™"
 
 #: perms.php:246
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "½s¿è %s ªºÅv­­"
+msgstr "ç·¨è¼¯ %s çš„æ¬Šé™"
 
 #: image.php:153
 msgid "Edit an image"
-msgstr "½s¿è¤@­Ó¼v¹³"
+msgstr "ç·¨è¼¯ä¸€å€‹å½±åƒ"
 
 #: image.php:119
 #, php-format
 msgid "Edit properties :: %s"
-msgstr "½s¿èÄİ©Ê :: %s"
+msgstr "ç·¨è¼¯å±¬æ€§ :: %s"
 
 #: templates/gallery/gallery.inc:42
 msgid "Empty Gallery"
-msgstr "²MªÅÃÀ´Y"
+msgstr "æ¸…ç©ºè—å»Š"
 
 #: gallery/captions.php:25
 #, php-format
 msgid "Error accessing %s: %s"
-msgstr "¿ù»~¦s¨ú %s: %s"
+msgstr "éŒ¯èª¤å­˜å– %s: %s"
 
 #: templates/xppublish/list.inc:12
 msgid "Existing galleries:"
-msgstr "²{¦sªºÃÀ´Y:"
+msgstr "ç¾å­˜çš„è—å»Š:"
 
 #: lib/Exif.php:340
 msgid "Exposure"
-msgstr "Ãn¥ú"
+msgstr "æ›å…‰"
 
 #: lib/Exif.php:346
 msgid "Exposure Bias"
-msgstr "Ãn¥ú¸ÉÀv"
+msgstr "æ›å…‰è£œå„Ÿ"
 
 #: lib/Exif.php:347
 msgid "Exposure Mode"
-msgstr "Ãn¥ú¼Ò¦¡"
+msgstr "æ›å…‰æ¨¡å¼"
 
 #: lib/Exif.php:344
 msgid "F-Number"
-msgstr "§Öªù"
+msgstr "å¿«é–€"
 
 #: lib/Forms/Upload.php:44
 #, php-format
 msgid "File %s"
-msgstr "ÀÉ®× %s"
+msgstr "æª”æ¡ˆ %s"
 
 #: lib/Exif.php:331
 msgid "File Size"
-msgstr "ÀÉ®×¤j¤p"
+msgstr "æª”æ¡ˆå¤§å°"
 
 #: lib/Forms/Upload.php:34 lib/Forms/Upload.php:52
 msgid "File to upload"
-msgstr "¿ï¾Ü­n¤W¶ÇªºÀÉ®×"
+msgstr "é¸æ“‡è¦ä¸Šå‚³çš„æª”æ¡ˆ"
 
 #: lib/Exif.php:245 lib/Exif.php:260
 msgid "Flash"
-msgstr "°{¥ú¿O"
+msgstr "é–ƒå…‰ç‡ˆ"
 
 #: lib/Exif.php:349
 msgid "Flash Setting"
-msgstr "°{¥ú¿O³]©w"
+msgstr "é–ƒå…‰ç‡ˆè¨­å®š"
 
 #: lib/Exif.php:268
 msgid "Flash, Auto-Mode"
-msgstr "°{¥ú¿O,¦Û°Ê¼Ò¦¡"
+msgstr "é–ƒå…‰ç‡ˆ,è‡ªå‹•æ¨¡å¼"
 
 #: lib/Exif.php:270
 msgid "Flash, Auto-Mode, Return light detected"
-msgstr "°{¥ú¿O, ¦Û°Ê¼Ò¦¡, ¦^®g°{¥ú¤w°»´ú"
+msgstr "é–ƒå…‰ç‡ˆ, è‡ªå‹•æ¨¡å¼, å›å°„é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:269
 msgid "Flash, Auto-Mode, Return light not detected"
-msgstr "°{¥ú¿O, ¦Û°Ê¼Ò¦¡, ¦^®g°{¥ú¥¼°»´ú"
+msgstr "é–ƒå…‰ç‡ˆ, è‡ªå‹•æ¨¡å¼, å›å°„é–ƒå…‰æœªåµæ¸¬"
 
 #: lib/Exif.php:262
 msgid "Flash, strobe return light detected"
-msgstr "°{¥ú¿O, ¦^®gÀW°{¥ú¤w°»´ú"
+msgstr "é–ƒå…‰ç‡ˆ, å›å°„é »é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:261
 msgid "Flash, strobe return light not detected"
-msgstr "°{¥ú¿O, ¦^®gÀW°{¥ú¥¼°»´ú"
+msgstr "é–ƒå…‰ç‡ˆ, å›å°„é »é–ƒå…‰æœªåµæ¸¬"
 
 #: templates/image/edit_image.inc:22
 msgid "Flip"
-msgstr "¤W¤UÄA­Ë"
+msgstr "ä¸Šä¸‹é¡›å€’"
 
 #: lib/Exif.php:244
 msgid "Fluorescent"
@@ -621,154 +621,154 @@ msgstr ""
 
 #: lib/Exif.php:341
 msgid "Focal Length"
-msgstr "µJ¶Z"
+msgstr "ç„¦è·"
 
 #: lib/Exif.php:342
 msgid "Focal Length (35mm equiv)"
-msgstr "µJ¶Z (´«ºâ¦¨ 35mm ¬Û¾÷)"
+msgstr "ç„¦è· (æ›ç®—æˆ 35mm ç›¸æ©Ÿ)"
 
 #: lib/Ansel.php:429
 msgid "Galleries"
-msgstr "©Ò¦³ÃÀ´Y"
+msgstr "æ‰€æœ‰è—å»Š"
 
 #: templates/group/header.inc:6
 #, php-format
 msgid "Galleries grouped by %s"
-msgstr "©Ò¦³ÃÀ´Y¤w¨Ì%s¬°¸s²Õ¹º¤À"
+msgstr "æ‰€æœ‰è—å»Šå·²ä¾%sç‚ºç¾¤çµ„åŠƒåˆ†"
 
 #: list.php:48 list.php:51
 #, php-format
 msgid "Galleries in category %s"
-msgstr "¦b¤ÀÃş%s¤¤ªºÃÀ´Y"
+msgstr "åœ¨åˆ†é¡%sä¸­çš„è—å»Š"
 
 #: lib/Block/gallery.php:3 lib/Block/gallery.php:32 lib/Block/gallery.php:48
 msgid "Gallery"
-msgstr "ÃÀ´Y"
+msgstr "è—å»Š"
 
 #: templates/gallery/gallery.inc:16
 msgid "Gallery Category"
-msgstr "ÃÀ´Y¤ÀÃş"
+msgstr "è—å»Šåˆ†é¡"
 
 #: templates/gallery/gallery.inc:31
 msgid "Gallery Description"
-msgstr "ÃÀ´Y´y­z"
+msgstr "è—å»Šæè¿°"
 
 #: templates/gallery/gallery.inc:24
 msgid "Gallery Display Name"
-msgstr "ÃÀ´YÅã¥Ü¦WºÙ"
+msgstr "è—å»Šé¡¯ç¤ºåç¨±"
 
 #: list.php:56 list.php:109
 msgid "Gallery List"
-msgstr "ÃÀ´Y²M³æ"
+msgstr "è—å»Šæ¸…å–®"
 
 #: templates/xppublish/new.inc:14
 msgid "Gallery Short Name"
-msgstr "ÃÀ´YÂ²ºÙ"
+msgstr "è—å»Šç°¡ç¨±"
 
 #: lib/Ansel.php:184
 #, php-format
 msgid "Gallery Unique name \"%s\" already exists."
-msgstr "ÃÀ´Yªº°ß¤@¦WºÙ \"%s\" ¤w¦s¦b."
+msgstr "è—å»Šçš„å”¯ä¸€åç¨± \"%s\" å·²å­˜åœ¨."
 
 #: xppublish.php:121
 msgid "Gallery Unique name is already taken."
-msgstr "ÃÀ´Yªº°ß¤@¦WºÙ¤w³Q©R¦W."
+msgstr "è—å»Šçš„å”¯ä¸€åç¨±å·²è¢«å‘½å."
 
 #: lib/Block/gallery.php:103
 msgid "Gallery does not exist."
-msgstr "ÃÀ´Y¤£¦s¦b."
+msgstr "è—å»Šä¸å­˜åœ¨."
 
 #: lib/Ansel.php:590
 msgid "Gallery names must be non-empty"
-msgstr "ÃÀ´Y¦WºÙ¤£¥iªÅ¥Õ"
+msgstr "è—å»Šåç¨±ä¸å¯ç©ºç™½"
 
 #: image.php:276
 msgid "Gallery not found."
-msgstr "§ä¤£¨ìÃÀ´Y."
+msgstr "æ‰¾ä¸åˆ°è—å»Š."
 
 #: gallery/sort.php:39
 msgid "Gallery sorted."
-msgstr "ÃÀ´Y¤w­«·s±Æ¦C."
+msgstr "è—å»Šå·²é‡æ–°æ’åˆ—."
 
 #: image.php:62
 msgid "Giant"
-msgstr "¥¨¤j"
+msgstr "å·¨å¤§"
 
 #: templates/image/edit_image.inc:28
 msgid "Grayscale"
-msgstr "¦Ç¶¥"
+msgstr "ç°éš"
 
 #: config/prefs.php.dist:29
 msgid "Group galleries by"
-msgstr "¸s²ÕÃÀ´Y¨Ì"
+msgstr "ç¾¤çµ„è—å»Šä¾"
 
 #: lib/Exif.php:336
 msgid "Height"
-msgstr "°ª«×"
+msgstr "é«˜åº¦"
 
 #: image.php:67
 msgid "Horizontal Alignment"
-msgstr "¤ô¥­¹ï»ô"
+msgstr "æ°´å¹³å°é½Š"
 
 #: lib/Exif.php:345
 msgid "ISO Setting"
-msgstr "ISO ·P¥ú«×³]©w"
+msgstr "ISO æ„Ÿå…‰åº¦è¨­å®š"
 
 #: lib/Exif.php:330
 msgid "Image Description"
-msgstr "¼v¹³´y­z"
+msgstr "å½±åƒæè¿°"
 
 #: lib/Exif.php:329
 msgid "Image Type"
-msgstr "¼v¹³Ãş«¬"
+msgstr "å½±åƒé¡å‹"
 
 #: scripts/ansel.php:122
 #, php-format
 msgid "Invalid gallery \"%s\" specified."
-msgstr "«ü©wªºÃÀ´Y \"%s\" µL®Ä."
+msgstr "æŒ‡å®šçš„è—å»Š \"%s\" ç„¡æ•ˆ."
 
 #: xppublish.php:87 xppublish.php:180
 msgid "Invalid gallery specified."
-msgstr "«ü©wªºÃÀ´YµL®Ä."
+msgstr "æŒ‡å®šçš„è—å»Šç„¡æ•ˆ."
 
 #: image.php:62
 msgid "Large"
-msgstr "¤j"
+msgstr "å¤§"
 
 #: img/upload.php:153
 msgid "Learn how to publish images directly from Windows."
-msgstr "¾Ç²ß¦p¦óª½±µ³z¹L Windows µo§G¼v¹³."
+msgstr "å­¸ç¿’å¦‚ä½•ç›´æ¥é€é Windows ç™¼ä½ˆå½±åƒ."
 
 #: image.php:66
 msgid "Left"
-msgstr "¥ªÃä"
+msgstr "å·¦é‚Š"
 
 #: scripts/ansel.php:181
 msgid "Listing Gallery/Name"
-msgstr "¦C¥XÃÀ´Y/¦WºÙ"
+msgstr "åˆ—å‡ºè—å»Š/åç¨±"
 
 #: scripts/ansel.php:165
 #, php-format
 msgid "Listing images in %s"
-msgstr "¥¿¦b¦C¥X%s¤¤ªº©Ò¦³¼v¹³"
+msgstr "æ­£åœ¨åˆ—å‡º%sä¸­çš„æ‰€æœ‰å½±åƒ"
 
 #: scripts/ansel.php:113 scripts/recursive_import.php:81
 #, php-format
 msgid "Logged in successfully as \"%s\"."
-msgstr "¤w¦¨¥\µn¤J¬° \"%s\"."
+msgstr "å·²æˆåŠŸç™»å…¥ç‚º \"%s\"."
 
 #: scripts/ansel.php:109
 msgid "Login is incorrect."
-msgstr "µn¤J¸ê®Æ¤£¥¿½T."
+msgstr "ç™»å…¥è³‡æ–™ä¸æ­£ç¢º."
 
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "µn¤J¨ì %s"
+msgstr "ç™»å…¥åˆ° %s"
 
 #: image.php:37 lib/Forms/Upload.php:37
 msgid "Make this the default image for this gallery?"
-msgstr "·í§@³o­ÓÃÀ´Yªº¹w³]¼v¹³?"
+msgstr "ç•¶ä½œé€™å€‹è—å»Šçš„é è¨­å½±åƒ?"
 
 #: scripts/ansel.php:305 scripts/recursive_import.php:187
 msgid ""
@@ -777,662 +777,662 @@ msgstr ""
 
 #: lib/Exif.php:126 lib/Exif.php:247
 msgid "Manual"
-msgstr "¤â°Ê"
+msgstr "æ‰‹å‹•"
 
 #: image.php:62
 msgid "Medium"
-msgstr "¤¤"
+msgstr "ä¸­"
 
 #: lib/Exif.php:348
 msgid "Metering Mode"
-msgstr "´ú¥ú¼Ò¦¡"
+msgstr "æ¸¬å…‰æ¨¡å¼"
 
 #: image.php:70
 msgid "Middle"
-msgstr "¤¤µ¥"
+msgstr "ä¸­ç­‰"
 
 #: templates/image/edit_image.inc:25
 msgid "Mirror"
-msgstr "¬M®g"
+msgstr "æ˜ å°„"
 
 #: lib/Exif.php:149
 #, php-format
 msgid "Mirrored"
-msgstr "¤wÃè®g"
+msgstr "å·²é¡å°„"
 
 #: templates/list/images.inc:21
 msgid "Modified"
-msgstr "³Ìªñ§ó·s"
+msgstr "æœ€è¿‘æ›´æ–°"
 
 #: gallery.php:107
 #, php-format
 msgid "Modifying: %s"
-msgstr "­×§ï¤¤: %s"
+msgstr "ä¿®æ”¹ä¸­: %s"
 
 #: templates/view/gallery.inc:109
 msgid "Move"
-msgstr "·h²¾"
+msgstr "æ¬ç§»"
 
 #: image.php:380
 #, php-format
 msgid "Moved %d images to %s"
-msgstr "¤w·h²¾ %d ­Ó¼v¹³¨ì %s"
+msgstr "å·²æ¬ç§» %d å€‹å½±åƒåˆ° %s"
 
 #: image.php:378
 #, php-format
 msgid "Moved one image to %s"
-msgstr "¤w·h²¾ 1 ­Ó¼v¹³ ¨ì %s"
+msgstr "å·²æ¬ç§» 1 å€‹å½±åƒ åˆ° %s"
 
 #: lib/Exif.php:232
 msgid "Multi-Segment"
-msgstr "¯x°}´ú¥ú"
+msgstr "çŸ©é™£æ¸¬å…‰"
 
 #: lib/Exif.php:231
 msgid "Multi-Spot"
-msgstr "¦hÂI¦¡´ú¥ú"
+msgstr "å¤šé»å¼æ¸¬å…‰"
 
 #: lib/Forms/Upload.php:40
 msgid "Multiple Images"
-msgstr "¦h¼v¹³"
+msgstr "å¤šå½±åƒ"
 
 #: list.php:36 templates/group/owner.inc:3 lib/Ansel.php:416
 msgid "My Galleries"
-msgstr "§ÚªºÃÀ´Y"
+msgstr "æˆ‘çš„è—å»Š"
 
 #: templates/list/gallery_headers.inc:4
 msgid "Name"
-msgstr "¦WºÙ"
+msgstr "åç¨±"
 
 #: templates/xppublish/new.inc:33
 msgid "New Gallery Description"
-msgstr "·sÃÀ´Yªº´y­z"
+msgstr "æ–°è—å»Šçš„æè¿°"
 
 #: templates/xppublish/new.inc:24
 msgid "New Gallery Title"
-msgstr "·sÃÀ´Yªº¼ĞÃD"
+msgstr "æ–°è—å»Šçš„æ¨™é¡Œ"
 
 #: templates/view/image.inc:59 templates/view/image.inc:60
 msgid "Next"
-msgstr "¤U¤@±i"
+msgstr "ä¸‹ä¸€å¼µ"
 
 #: lib/Exif.php:259 lib/Exif.php:266 lib/Exif.php:267 lib/Exif.php:271
 msgid "No Flash"
-msgstr "µL°{¥ú"
+msgstr "ç„¡é–ƒå…‰"
 
 #: xppublish.php:123
 msgid "No Gallery Name Specified."
-msgstr "¥¼«ü©wÃÀ´Y¦WºÙ."
+msgstr "æœªæŒ‡å®šè—å»Šåç¨±."
 
 #: xppublish.php:119
 msgid "No Gallery Unique Name Specified."
-msgstr "¥¼«ü©wÃÀ´Yªº°ß¤@¦WºÙ."
+msgstr "æœªæŒ‡å®šè—å»Šçš„å”¯ä¸€åç¨±."
 
 #: xppublish.php:190
 msgid "No file specified"
-msgstr "¥¼«ü©wÀÉ®×"
+msgstr "æœªæŒ‡å®šæª”æ¡ˆ"
 
 #: templates/view/gallery.inc:103 config/prefs.php.dist:28
 msgid "None"
-msgstr "µL"
+msgstr "ç„¡"
 
 #: lib/Exif.php:147
 #, php-format
 msgid "Normal (O deg)"
-msgstr "¥¿±` (0 «×)"
+msgstr "æ­£å¸¸ (0 åº¦)"
 
 #: lib/Exif.php:289
 msgid "Not defined"
-msgstr "¥¼©w¸q"
+msgstr "æœªå®šç¾©"
 
 #: image.php:109 img/upload.php:22
 msgid "Not found or error accessing gallery."
-msgstr "§ä¤£¨ì©Î¦s¨úÃÀ´Y®Éµo¥Í¿ù»~."
+msgstr "æ‰¾ä¸åˆ°æˆ–å­˜å–è—å»Šæ™‚ç™¼ç”ŸéŒ¯èª¤."
 
 #: config/prefs.php.dist:54
 msgid "Number of galleries per page"
-msgstr "¨C­¶ÃÀ´Y¼Æ¥Ø"
+msgstr "æ¯é è—å»Šæ•¸ç›®"
 
 #: config/prefs.php.dist:62
 msgid "Number of groups per page"
-msgstr "¨C­¶¸s²Õ¼Æ¥Ø"
+msgstr "æ¯é ç¾¤çµ„æ•¸ç›®"
 
 #: config/prefs.php.dist:46
 msgid "Number of images per page"
-msgstr "¨C­¶¼v¹³¼Æ¥Ø"
+msgstr "æ¯é å½±åƒæ•¸ç›®"
 
 #: config/prefs.php.dist:38
 msgid "Number of images per row"
-msgstr "¨C¦C¼v¹³¼Æ¥Ø"
+msgstr "æ¯åˆ—å½±åƒæ•¸ç›®"
 
 #: lib/Exif.php:290
 msgid "One Chip Color Area Sensor"
-msgstr "¤@¤ù¦â±m°Ï°ì·P´ú¾¹"
+msgstr "ä¸€ç‰‡è‰²å½©å€åŸŸæ„Ÿæ¸¬å™¨"
 
 #: perms.php:64
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
-msgstr "¥u¦³¾Ö¦³ªÌ»P¨t²ÎºŞ²z­û¥i¥HÅÜ§ó¦@¨ÉÅv­­"
+msgstr "åªæœ‰æ“æœ‰è€…èˆ‡ç³»çµ±ç®¡ç†å“¡å¯ä»¥è®Šæ›´å…±äº«æ¬Šé™"
 
 #: lib/Exif.php:234
 msgid "Other"
-msgstr "¨ä¥L"
+msgstr "å…¶ä»–"
 
 #: config/prefs.php.dist:13
 msgid "Other Options"
-msgstr "¨ä¥L¿ï¶µ"
+msgstr "å…¶ä»–é¸é …"
 
 #: templates/list/images.inc:25 config/prefs.php.dist:26
 msgid "Owner"
-msgstr "¾Ö¦³¤H"
+msgstr "æ“æœ‰äºº"
 
 #: lib/Exif.php:233
 msgid "Partial"
-msgstr "§½³¡"
+msgstr "å±€éƒ¨"
 
 #: templates/xppublish/login.inc:14
 msgid "Password"
-msgstr "±K½X"
+msgstr "å¯†ç¢¼"
 
 #: templates/view/image.inc:45
 msgid "Pause"
-msgstr "¼È°±"
+msgstr "æš«åœ"
 
 #: templates/view/image.inc:45
 msgid "Pause Slideshow"
-msgstr "¼È°±¼·©ñ"
+msgstr "æš«åœæ’¥æ”¾"
 
 #: templates/xppublish/javascript.inc:63
 msgid "Photo Upload"
-msgstr "¹Ï¤ù¤W¶Ç"
+msgstr "åœ–ç‰‡ä¸Šå‚³"
 
 #: templates/view/image.inc:44
 msgid "Play"
-msgstr "©ñ¬M"
+msgstr "æ”¾æ˜ "
 
 #: xppublish.php:54
 msgid "Please enter your Username and Password."
-msgstr "½Ğ¿é¤J§Aªº¨Ï¥ÎªÌ¦WºÙ¤Î±K½X"
+msgstr "è«‹è¼¸å…¥ä½ çš„ä½¿ç”¨è€…åç¨±åŠå¯†ç¢¼"
 
 #: xppublish.php:99 xppublish.php:155
 msgid "Press the \"Back\" button and try again."
-msgstr "ÂI¿ï \"«á°h\" Áä¦A¸Õ¤@¦¸"
+msgstr "é»é¸ \"å¾Œé€€\" éµå†è©¦ä¸€æ¬¡"
 
 #: image.php:282
 #, php-format
 msgid "Preview changes for %s :: %s"
-msgstr "¹wÄı %s :: %s ªºÅÜ§ó"
+msgstr "é è¦½ %s :: %s çš„è®Šæ›´"
 
 #: templates/view/image.inc:51 templates/view/image.inc:52
 msgid "Previous"
-msgstr "¤W¤@±i"
+msgstr "ä¸Šä¸€å¼µ"
 
 #: lib/Exif.php:120
 msgid "Program"
-msgstr "µ{¦¡Ãn¥ú"
+msgstr "ç¨‹å¼æ›å…‰"
 
 #: templates/view/gallery.inc:155 templates/view/image.inc:19
 msgid "Properties"
-msgstr "¤º®e"
+msgstr "å…§å®¹"
 
 #: templates/xppublish/list.inc:7
 msgid "Publish Images to:"
-msgstr "µo¥¬¼v¹³¨ì :"
+msgstr "ç™¼å¸ƒå½±åƒåˆ° :"
 
 #: xppublish.php:35
 #, php-format
 msgid "Publish to %s"
-msgstr "µo¥¬¨ì %s"
+msgstr "ç™¼å¸ƒåˆ° %s"
 
 #: xppublish.php:24
 #, php-format
 msgid "Publish your photos to %s on %s."
-msgstr "µo¥¬§Aªº·Ó¤ù¨ì %s ©ó %s."
+msgstr "ç™¼å¸ƒä½ çš„ç…§ç‰‡åˆ° %s æ–¼ %s."
 
 #: lib/Block/gallery.php:35 lib/Block/gallery.php:54
 msgid "Random Gallery"
-msgstr "ÀH¿ïÃÀ´Y"
+msgstr "éš¨é¸è—å»Š"
 
 #: lib/Block/random_gallery.php:3 lib/Block/random_gallery.php:27
 msgid "Random gallery"
-msgstr "ÀH¿ïÃÀ´Y"
+msgstr "éš¨é¸è—å»Š"
 
 #: lib/Block/random_photo.php:3 lib/Block/random_photo.php:28
 msgid "Random photo"
-msgstr "ÀH¿ï·Ó¤ù"
+msgstr "éš¨é¸ç…§ç‰‡"
 
 #: templates/gallery/delete_confirmation.inc:9
 msgid "Really Delete"
-msgstr "½T©w§R°£"
+msgstr "ç¢ºå®šåˆªé™¤"
 
 #: templates/gallery/delete_confirmation.inc:2
 #, php-format
 msgid "Really delete %s?"
-msgstr "½T©w§R°£ %s?"
+msgstr "ç¢ºå®šåˆªé™¤ %s?"
 
 #: templates/gallery/delete_confirmation.inc:5
 msgid ""
 "Really delete this gallery and all of the images in it? This action cannot "
 "be undone."
-msgstr "¯uªº­n§R°£³o­ÓÃÀ´Y»P¨ä¤¤ªº¼v¹³¶Ü? ³o¶µ¾Ş§@±NµLªk«ì´_."
+msgstr "çœŸçš„è¦åˆªé™¤é€™å€‹è—å»Šèˆ‡å…¶ä¸­çš„å½±åƒå—? é€™é …æ“ä½œå°‡ç„¡æ³•æ¢å¾©."
 
 #: lib/Exif.php:272
 msgid "Red Eye"
-msgstr "¬õ²´"
+msgstr "ç´…çœ¼"
 
 #: lib/Exif.php:278
 msgid "Red Eye, Auto-Mode"
-msgstr "¬õ²´,¦Û°Ê¼Ò¦¡"
+msgstr "ç´…çœ¼,è‡ªå‹•æ¨¡å¼"
 
 #: lib/Exif.php:280
 msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr "¬õ²´, ¦Û°Ê¼Ò¦¡, ¦^®g°{¥ú¤w°»´ú"
+msgstr "ç´…çœ¼, è‡ªå‹•æ¨¡å¼, å›å°„é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:279
 msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr "¬õ²´, ¦Û°Ê¼Ò¦¡, ¦^®g°{¥ú¥¼°»´ú"
+msgstr "ç´…çœ¼, è‡ªå‹•æ¨¡å¼, å›å°„é–ƒå…‰æœªåµæ¸¬"
 
 #: lib/Exif.php:275
 msgid "Red Eye, Compulsory Flash"
-msgstr "¬õ²´, ±j­¢°{¥ú"
+msgstr "ç´…çœ¼, å¼·è¿«é–ƒå…‰"
 
 #: lib/Exif.php:277
 msgid "Red Eye, Compulsory Flash, Return light detected"
-msgstr "¬õ²´, ±j­¢°{¥ú, ¦^®g°{¥ú¤w°»´ú"
+msgstr "ç´…çœ¼, å¼·è¿«é–ƒå…‰, å›å°„é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:276
 msgid "Red Eye, Compulsory Flash, Return light not detected"
-msgstr "¬õ²´, ±j­¢°{¥ú, ¦^®g°{¥ú¥¼°»´ú"
+msgstr "ç´…çœ¼, å¼·è¿«é–ƒå…‰, å›å°„é–ƒå…‰æœªåµæ¸¬"
 
 #: lib/Exif.php:274
 msgid "Red Eye, Return light detected"
-msgstr "¬õ²´, ¦^®g°{¥ú¤w°»´ú"
+msgstr "ç´…çœ¼, å›å°„é–ƒå…‰å·²åµæ¸¬"
 
 #: lib/Exif.php:273
 msgid "Red Eye, Return light not detected"
-msgstr "¬õ²´, ¦^®g°{¥ú¥¼°»´ú"
+msgstr "ç´…çœ¼, å›å°„é–ƒå…‰æœªåµæ¸¬"
 
 #: templates/list/header.inc:10 templates/list/header.inc:11
 #: templates/group/header.inc:7 templates/group/header.inc:8
 msgid "Refresh List"
-msgstr "­«·s¾ã²z²M³æ"
+msgstr "é‡æ–°æ•´ç†æ¸…å–®"
 
 #: image.php:66
 msgid "Right"
-msgstr "¥kÃä"
+msgstr "å³é‚Š"
 
 #: templates/image/edit_image.inc:18
 msgid "Rotate 180"
-msgstr "±ÛÂà 180 «×"
+msgstr "æ—‹è½‰ 180 åº¦"
 
 #: templates/image/edit_image.inc:17
 msgid "Rotate Left"
-msgstr "°f®É°w 90 «×±ÛÂà"
+msgstr "é€†æ™‚é‡ 90 åº¦æ—‹è½‰"
 
 #: templates/image/edit_image.inc:19
 msgid "Rotate Right"
-msgstr "¶¶®É°w 90 «×±ÛÂà"
+msgstr "é †æ™‚é‡ 90 åº¦æ—‹è½‰"
 
 #: image.php:31 image.php:53
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: templates/captions/captions.inc:45
 msgid "Save Captions"
-msgstr "Àx¦s»¡©ú"
+msgstr "å„²å­˜èªªæ˜"
 
 #: templates/image/preview_image.inc:23
 msgid "Save Change"
-msgstr "Àx¦sÅÜ§ó"
+msgstr "å„²å­˜è®Šæ›´"
 
 #: templates/gallery/gallery.inc:40
 msgid "Save Gallery"
-msgstr "Àx¦sÃÀ´Y"
+msgstr "å„²å­˜è—å»Š"
 
 #: image.php:139
 msgid "Save Image"
-msgstr "Àx¦s¼v¹³"
+msgstr "å„²å­˜å½±åƒ"
 
 #: templates/view/gallery.inc:102
 msgid "Select All"
-msgstr "¥ş¿ï"
+msgstr "å…¨é¸"
 
 #: templates/view/gallery.inc:103
 msgid "Select None"
-msgstr "¤£¿ï"
+msgstr "ä¸é¸"
 
 #: templates/view/gallery.inc:101
 #, php-format
 msgid "Select: %s, %s"
-msgstr "¿ï¾Ü:%s,%s"
+msgstr "é¸æ“‡:%s,%s"
 
 #: templates/view/gallery.inc:110
 msgid "Selected images to"
-msgstr "¤w¿ï¾Üªº¼v¹³¨ì"
+msgstr "å·²é¸æ“‡çš„å½±åƒåˆ°"
 
 #: lib/Forms/Ecard.php:25
 msgid "Send"
-msgstr "±Hµo"
+msgstr "å¯„ç™¼"
 
 #: img/ecard.php:104
 #, php-format
 msgid "Send Ecard :: %s"
-msgstr "±Hµo¹q¤l¥d¤ù :: %s"
+msgstr "å¯„ç™¼é›»å­å¡ç‰‡ :: %s"
 
 #: templates/view/image.inc:30
 msgid "Send an Ecard"
-msgstr "±Hµo¤@«Ê¹q¤l¥d¤ù"
+msgstr "å¯„ç™¼ä¸€å°é›»å­å¡ç‰‡"
 
 #: lib/Forms/Ecard.php:41
 msgid "Send ecard to the following address:"
-msgstr "ªB¤Íªº E-mail:"
+msgstr "æœ‹å‹çš„ E-mail:"
 
 #: lib/Exif.php:352
 msgid "Sensing Method"
-msgstr "·P´ú¤è¦¡"
+msgstr "æ„Ÿæ¸¬æ–¹å¼"
 
 #: templates/view/gallery.inc:78
 msgid "Set Captions"
-msgstr "³]©w»¡©ú"
+msgstr "è¨­å®šèªªæ˜"
 
 #: templates/view/gallery.inc:82
 msgid "Set Gallery Permissions"
-msgstr "³]©wÃÀ´YÅv­­"
+msgstr "è¨­å®šè—å»Šæ¬Šé™"
 
 #: config/prefs.php.dist:70
 msgid "Show EXIF data"
-msgstr "Åã¥Ü©çÄá¸ê®Æ"
+msgstr "é¡¯ç¤ºæ‹æ”è³‡æ–™"
 
 #: lib/Exif.php:339
 msgid "Shutter Speed"
-msgstr "§Öªù"
+msgstr "å¿«é–€"
 
 #: lib/Forms/Upload.php:31
 msgid "Single Image"
-msgstr "³æ¼v¹³"
+msgstr "å–®å½±åƒ"
 
 #: image.php:62
 msgid "Small"
-msgstr "¤p"
+msgstr "å°"
 
 #: templates/view/gallery.inc:79
 msgid "Sort Images"
-msgstr "±Æ§Ç¼v¹³"
+msgstr "æ’åºå½±åƒ"
 
 #: lib/Exif.php:230
 msgid "Spot"
-msgstr "ÂI´ú¥ú"
+msgstr "é»æ¸¬å…‰"
 
 #: templates/view/image.inc:44
 msgid "Start Slideshow"
-msgstr "¼·©ñ"
+msgstr "æ’¥æ”¾"
 
 #: scripts/ansel.php:201 scripts/ansel.php:281
 #: scripts/recursive_import.php:156
 #, php-format
 msgid "Storing image \"%s\"..."
-msgstr "¼v¹³ \"%s\" Àx¦s¤¤..."
+msgstr "å½±åƒ \"%s\" å„²å­˜ä¸­..."
 
 #: templates/view/subgallery_header.inc:5
 #, php-format
 msgid "Subgalleries of %s"
-msgstr "%s ªº¦¸ÃÀ´Y"
+msgstr "%s çš„æ¬¡è—å»Š"
 
 #: scripts/ansel.php:222 scripts/recursive_import.php:166
 #, php-format
 msgid "Successfully added %d image(s) (%s) to gallery \"%s\" from \"%s\"."
-msgstr "¤w¦¨¥\ªº±q \"%4$s\" ·s¼W %1$d ­Ó¼v¹³ (%2$s) ¨ìÃÀ´Y \"%3$s\" ¤¤."
+msgstr "å·²æˆåŠŸçš„å¾ \"%4$s\" æ–°å¢ %1$d å€‹å½±åƒ (%2$s) åˆ°è—å»Š \"%3$s\" ä¸­."
 
 #: scripts/ansel.php:209
 #, php-format
 msgid "Successfully added image \"%s\" to gallery \"%s\"."
-msgstr "¼v¹³ \"%s\" ¤w·s¼W¨ìÃÀ´Y¤¤ \"%s\"."
+msgstr "å½±åƒ \"%s\" å·²æ–°å¢åˆ°è—å»Šä¸­ \"%s\"."
 
 #: gallery/delete.php:35
 #, php-format
 msgid "Successfully deleted %s."
-msgstr "%s ¤w§R°£§¹¦¨."
+msgstr "%s å·²åˆªé™¤å®Œæˆ."
 
 #: lib/Exif.php:241
 msgid "Sunny"
-msgstr "ÆA¶§¤Ñ"
+msgstr "è‰·é™½å¤©"
 
 #: scripts/ansel.php:248
 #, php-format
 msgid "The directory \"%s\" doesn't exist."
-msgstr "¥Ø¿ı \"%s\" ¤£¦s¦b."
+msgstr "ç›®éŒ„ \"%s\" ä¸å­˜åœ¨."
 
 #: scripts/ansel.php:227
 #, php-format
 msgid "The directory \"%s\" had no valid images."
-msgstr "¥Ø¿ı \"%s\" ¤¤µL¦³®Äªº¼v¹³ÀÉ."
+msgstr "ç›®éŒ„ \"%s\" ä¸­ç„¡æœ‰æ•ˆçš„å½±åƒæª”."
 
 #: scripts/ansel.php:265
 #, php-format
 msgid "The directory \"%s\" is empty."
-msgstr "¥Ø¿ı \"%s\" ¬OªÅªº."
+msgstr "ç›®éŒ„ \"%s\" æ˜¯ç©ºçš„."
 
 #: lib/Ansel.php:308
 #, php-format
 msgid "The file \"%s\" doesn't exist."
-msgstr "ÀÉ®× \"%s\" ¤£¦s¦b."
+msgstr "æª”æ¡ˆ \"%s\" ä¸å­˜åœ¨."
 
 #: lib/api.php:178 img/upload.php:103
 msgid "The file you uploaded does not appear to be a valid image."
-msgstr "§A©Ò¤W¶ÇªºÀÉ®×¨Ã¤£¬O¤@­Ó¦³®Äªº¼v¹³ÀÉ."
+msgstr "ä½ æ‰€ä¸Šå‚³çš„æª”æ¡ˆä¸¦ä¸æ˜¯ä¸€å€‹æœ‰æ•ˆçš„å½±åƒæª”."
 
 #: scripts/recursive_import.php:125
 #, php-format
 msgid "The gallery \"%s\" (%s) was created successfully."
-msgstr "ÃÀ´Y \"%s\" (%s) ¤w«Ø¥ß§¹¦¨."
+msgstr "è—å»Š \"%s\" (%s) å·²å»ºç«‹å®Œæˆ."
 
 #: lib/Ansel.php:211
 #, php-format
 msgid "The gallery \"%s\" could not be created: %s"
-msgstr "µLªk«Ø¥ßÃÀ´Y \"%s\" : %s"
+msgstr "ç„¡æ³•å»ºç«‹è—å»Š \"%s\" : %s"
 
 #: gallery.php:193 xppublish.php:129 scripts/ansel.php:147
 #: scripts/recursive_import.php:123
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
-msgstr "µLªk«Ø¥ßÃÀ´Y \"%s\" : %s"
+msgstr "ç„¡æ³•å»ºç«‹è—å»Š \"%s\" : %s"
 
 #: gallery.php:198 xppublish.php:133 scripts/ansel.php:151
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
-msgstr "ÃÀ´Y \"%s\" ¤w«Ø¥ß§¹¦¨."
+msgstr "è—å»Š \"%s\" å·²å»ºç«‹å®Œæˆ."
 
 #: gallery.php:144
 msgid "The gallery was saved."
-msgstr "ÃÀ´Y¤wÀx¦s."
+msgstr "è—å»Šå·²å„²å­˜."
 
 #: img/upload.php:126
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
-msgstr "©Ò±µ¦¬¨ìªº¬OªÅ¥ÕÀÉ®×. ¸ÓÀÉ®×¦b§Aªº¹q¸£¤W¥i¯à¤£¦s¦b."
+msgstr "æ‰€æ¥æ”¶åˆ°çš„æ˜¯ç©ºç™½æª”æ¡ˆ. è©²æª”æ¡ˆåœ¨ä½ çš„é›»è…¦ä¸Šå¯èƒ½ä¸å­˜åœ¨."
 
 #: gallery.php:72
 #, php-format
 msgid "There are no images in %s to download."
-msgstr "¦b %s ¤¤¨S¦³¥ô¦ó¼v¹³¥i¨Ñ¤U¸ü."
+msgstr "åœ¨ %s ä¸­æ²’æœ‰ä»»ä½•å½±åƒå¯ä¾›ä¸‹è¼‰."
 
 #: templates/view/gallery.inc:120 templates/captions/captions.inc:47
 msgid "There are no images in this gallery."
-msgstr "¦¹ÃÀ´Y¥Ø«e¨S¦³¥ô¦ó¼v¹³."
+msgstr "æ­¤è—å»Šç›®å‰æ²’æœ‰ä»»ä½•å½±åƒ."
 
 #: list.php:61 lib/Block/random_gallery.php:37 lib/Block/random_photo.php:38
 msgid "There are no photo galleries available."
-msgstr "µL¥ô¦ó¥i¥ÎªºÃÀ´Y."
+msgstr "ç„¡ä»»ä½•å¯ç”¨çš„è—å»Š."
 
 #: scripts/ansel.php:284
 #, php-format
 msgid "There was a problem adding the image \"%s\" to gallery \"%s\"."
-msgstr "·s¼W¼v¹³ \"%s\" ¨ìÃÀ´Y \"%s\" ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "æ–°å¢å½±åƒ \"%s\" åˆ°è—å»Š \"%s\" æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: scripts/ansel.php:204
 #, php-format
 msgid "There was a problem adding the image \"%s\" to gallery \"%s\": %s"
-msgstr "·s¼W¼v¹³ \"%s\" ¨ìÃÀ´Y \"%s\": %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "æ–°å¢å½±åƒ \"%s\" åˆ°è—å»Š \"%s\": %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: lib/api.php:316
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "§R°£ %s: %s ®Éµo¥Í¤@­Ó°İÃD"
+msgstr "åˆªé™¤ %s: %s æ™‚ç™¼ç”Ÿä¸€å€‹å•é¡Œ"
 
 #: gallery/delete.php:33
 #, php-format
 msgid "There was a problem deleting %s: %s."
-msgstr "§R°£ %s: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åˆªé™¤ %s: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: image.php:345
 #, php-format
 msgid "There was a problem deleting images: %s"
-msgstr "§R°£¼v¹³: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆªé™¤å½±åƒ: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: img/upload.php:96 img/upload.php:112
 #, php-format
 msgid "There was a problem saving the image: %s"
-msgstr "Àx¦s¼v¹³®Éµo¥Í¤@­Ó¿ù»~: %s"
+msgstr "å„²å­˜å½±åƒæ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤: %s"
 
 #: xppublish.php:199
 msgid "There was a problem uploading the image."
-msgstr "¤W¶Ç¼v¹³®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "ä¸Šå‚³å½±åƒæ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: img/upload.php:124
 #, php-format
 msgid "There was a problem uploading the image: %s"
-msgstr "¤W¶Ç¼v¹³®Éµo¥Í¤@­Ó¿ù»~: %s"
+msgstr "ä¸Šå‚³å½±åƒæ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤: %s"
 
 #: img/upload.php:62 img/upload.php:83
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
-msgstr "³B²z¤W¶ÇÀ£ÁYÀÉ: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "è™•ç†ä¸Šå‚³å£“ç¸®æª”: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: img/ecard.php:96
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "¶Ç°e¶l¥ó®Éµo¥Í¤@­Ó¿ù»~: %s"
+msgstr "å‚³é€éƒµä»¶æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤: %s"
 
 #: lib/Exif.php:292
 msgid "Three Chip Color Area Sensor"
-msgstr "¤T¤ù¦â±m°Ï°ì·P´ú¾¹"
+msgstr "ä¸‰ç‰‡è‰²å½©å€åŸŸæ„Ÿæ¸¬å™¨"
 
 #: image.php:62
 msgid "Tiny"
-msgstr "¼b¤p"
+msgstr "å¬Œå°"
 
 #: image.php:70
 msgid "Top"
-msgstr "³»³¡"
+msgstr "é ‚éƒ¨"
 
 #: lib/Exif.php:294
 msgid "Trilinear Sensor"
-msgstr "¤T½u©Ê·P´ú¾¹"
+msgstr "ä¸‰ç·šæ€§æ„Ÿæ¸¬å™¨"
 
 #: lib/Exif.php:243
 msgid "Tungsten"
-msgstr "Âëµ·¥ú"
+msgstr "é¢çµ²å…‰"
 
 #: lib/Exif.php:122
 msgid "Tv-priority"
-msgstr "¦Û°ÊÃn¥ú-§ÖªùÀu¥ı"
+msgstr "è‡ªå‹•æ›å…‰-å¿«é–€å„ªå…ˆ"
 
 #: lib/Exif.php:291
 msgid "Two Chip Color Area Sensor"
-msgstr "¤G¤ù¦â±m°Ï°ì·P´ú¾¹"
+msgstr "äºŒç‰‡è‰²å½©å€åŸŸæ„Ÿæ¸¬å™¨"
 
 #: lib/Exif.php:305
 msgid "Uncalibrated"
-msgstr "µLªk´ú¶q"
+msgstr "ç„¡æ³•æ¸¬é‡"
 
 #: templates/gallery/gallery.inc:41
 msgid "Undo Changes"
-msgstr "¦^´_ÅÜ§ó"
+msgstr "å›å¾©è®Šæ›´"
 
 #: list.php:48 templates/group/category.inc:8
 msgid "Unfiled"
-msgstr "¥¼¤ÀÃş"
+msgstr "æœªåˆ†é¡"
 
 #: lib/Exif.php:227
 msgid "Unknown"
-msgstr "¥¼ª¾ªº"
+msgstr "æœªçŸ¥çš„"
 
 #: gallery.php:109
 msgid "Unknown gallery"
-msgstr "¥¼ª¾ªºÃÀ´Y"
+msgstr "æœªçŸ¥çš„è—å»Š"
 
 #: lib/Ansel.php:199
 msgid "Unnamed"
-msgstr "¥¼©R¦W"
+msgstr "æœªå‘½å"
 
 #: xppublish.php:141
 msgid "Untitled"
-msgstr "¬°©R¦W"
+msgstr "ç‚ºå‘½å"
 
 #: perms.php:236
 #, php-format
 msgid "Updated %s."
-msgstr "%s ¤w§ó·s."
+msgstr "%s å·²æ›´æ–°."
 
 #: lib/Forms/Upload.php:27
 msgid "Upload"
-msgstr "¤W¶Ç"
+msgstr "ä¸Šå‚³"
 
 #: templates/view/gallery.inc:75
 msgid "Upload Images"
-msgstr "¤W¶Ç¼v¹³"
+msgstr "ä¸Šå‚³å½±åƒ"
 
 #: templates/xppublish/javascript.inc:63
 #, php-format
 msgid "Upload Photos to %s"
-msgstr "¤W¶Ç·Ó¤ù¨ì %s"
+msgstr "ä¸Šå‚³ç…§ç‰‡åˆ° %s"
 
 #: img/upload.php:30
 msgid "Upload new images"
-msgstr "¤W¶Ç·s¼v¹³"
+msgstr "ä¸Šå‚³æ–°å½±åƒ"
 
 #: lib/Exif.php:151
 #, php-format
 msgid "Upsidedown"
-msgstr "¤W¤UÄA­Ë"
+msgstr "ä¸Šä¸‹é¡›å€’"
 
 #: lib/Exif.php:153
 #, php-format
 msgid "Upsidedown Mirrored"
-msgstr "¤W¤U¥ª¥kÄA­Ë"
+msgstr "ä¸Šä¸‹å·¦å³é¡›å€’"
 
 #: scripts/ansel.php:303 scripts/recursive_import.php:185
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
-msgstr "»yªk: %s [¿ï¶µ]..."
+msgstr "èªæ³•: %s [é¸é …]..."
 
 #: templates/xppublish/new.inc:17
 msgid "Use Default"
-msgstr "¨Ï¥Î¹w³]­È"
+msgstr "ä½¿ç”¨é è¨­å€¼"
 
 #: lib/Forms/Ecard.php:32
 msgid "Use the following return address:"
-msgstr "¨Ï¥Î¤U¦Cªº¦^ÂĞ¦í§}:"
+msgstr "ä½¿ç”¨ä¸‹åˆ—çš„å›è¦†ä½å€:"
 
 #: lib/Exif.php:350
 msgid "User Comment"
-msgstr "¨Ï¥ÎªÌµù¸Ñ"
+msgstr "ä½¿ç”¨è€…è¨»è§£"
 
 #: templates/xppublish/login.inc:11
 msgid "Username"
-msgstr "¨Ï¥ÎªÌ¦WºÙ"
+msgstr "ä½¿ç”¨è€…åç¨±"
 
 #: xppublish.php:50
 msgid "Username and Password are incorrect."
-msgstr "¨Ï¥ÎªÌ¦WºÙ¤Î±K½X¤£¥¿½T."
+msgstr "ä½¿ç”¨è€…åç¨±åŠå¯†ç¢¼ä¸æ­£ç¢º."
 
 #: scripts/recursive_import.php:79
 msgid "Username or password is incorrect."
-msgstr "¨Ï¥ÎªÌ¦WºÙ¤Î±K½X¤£¥¿½T."
+msgstr "ä½¿ç”¨è€…åç¨±åŠå¯†ç¢¼ä¸æ­£ç¢º."
 
 #: image.php:71
 msgid "Vertical Alignment"
-msgstr "««ª½¹ï»ô"
+msgstr "å‚ç›´å°é½Š"
 
 #: templates/list/gallery_summaries.inc:2
 #: templates/list/gallery_summaries.inc:7 templates/list/images.inc:9
@@ -1440,81 +1440,81 @@ msgstr "««ª½¹ï»ô"
 #: lib/Block/random_gallery.php:42
 #, php-format
 msgid "View %s"
-msgstr "ÀËµø %s"
+msgstr "æª¢è¦– %s"
 
 #: lib/Block/random_photo.php:51
 msgid "View Photo"
-msgstr "ÀËµø·Ó¤ù"
+msgstr "æª¢è¦–ç…§ç‰‡"
 
 #: image.php:242 image.php:248 templates/image/edit_image.inc:32
 msgid "Watermark"
-msgstr "¯B¤ô¦L"
+msgstr "æµ®æ°´å°"
 
 #: image.php:63
 msgid "Watermark Font"
-msgstr "¯B¤ô¦L¦r«¬"
+msgstr "æµ®æ°´å°å­—å‹"
 
 #: lib/Exif.php:353
 msgid "White Balance"
-msgstr "¥Õ¥­¿Å"
+msgstr "ç™½å¹³è¡¡"
 
 #: lib/Exif.php:335
 msgid "Width"
-msgstr "¼e«×"
+msgstr "å¯¬åº¦"
 
 #: lib/Exif.php:337
 msgid "X Resolution"
-msgstr "X ¸ÑªR«×"
+msgstr "X è§£æåº¦"
 
 #: lib/Exif.php:338
 msgid "Y Resolution"
-msgstr "Y ¸ÑªR«×"
+msgstr "Y è§£æåº¦"
 
 #: image.php:178
 msgid "You are not allowed to edit this image."
-msgstr "¤£¤¹³\§A½s¿è³o­Ó¼v¹³."
+msgstr "ä¸å…è¨±ä½ ç·¨è¼¯é€™å€‹å½±åƒ."
 
 #: lib/Ansel.php:1464
 #, php-format
 msgid "You are not allowed to move images to %s."
-msgstr "¤£¤¹³\§A·h²¾¼v¹³¨ì %s."
+msgstr "ä¸å…è¨±ä½ æ¬ç§»å½±åƒåˆ° %s."
 
 #: lib/Ansel.php:1466
 #, php-format
 msgid "You are not allowed to remove images from %s."
-msgstr "¤£¤¹³\§A¦Û %s ¤¤²¾°£¼v¹³."
+msgstr "ä¸å…è¨±ä½ è‡ª %s ä¸­ç§»é™¤å½±åƒ."
 
 #: xppublish.php:91 xppublish.php:184
 msgid "You cannot add photos in that gallery."
-msgstr "§AµLªk·s¼W¬Û¤ù¨ì¸ÓÃÀ´Y¤¤."
+msgstr "ä½ ç„¡æ³•æ–°å¢ç›¸ç‰‡åˆ°è©²è—å»Šä¸­."
 
 #: scripts/ansel.php:128
 #, php-format
 msgid "You cannot add photos to the gallery \"%s\"."
-msgstr "§AµLªk·s¼W¬Û¤ù¨ì¸ÓÃÀ´Y¤¤ \"%s\"."
+msgstr "ä½ ç„¡æ³•æ–°å¢ç›¸ç‰‡åˆ°è©²è—å»Šä¸­ \"%s\"."
 
 #: gallery/delete.php:23
 #, php-format
 msgid "You cannot delete %s, it contains nested galleries."
-msgstr "©|¦³¦¸ÃÀ´Y¦s¦b,§AµLªk§R°£ %s."
+msgstr "å°šæœ‰æ¬¡è—å»Šå­˜åœ¨,ä½ ç„¡æ³•åˆªé™¤ %s."
 
 #: gallery.php:46 gallery.php:159
 #, php-format
 msgid "You do not have permission to add children to %s."
-msgstr "§A¨S¦³·s¼W¦¸%sªºÅv­­."
+msgstr "ä½ æ²’æœ‰æ–°å¢æ¬¡%sçš„æ¬Šé™."
 
 #: gallery/sort.php:26
 msgid "You do not have permission to change this gallery."
-msgstr "§A¨S¦³ÅÜ§ó¦¹ÃÀ´YªºÅv­­."
+msgstr "ä½ æ²’æœ‰è®Šæ›´æ­¤è—å»Šçš„æ¬Šé™."
 
 #: gallery.php:242
 #, php-format
 msgid "You do not have permission to empty %s."
-msgstr "§A¨S¦³²MªÅ %s ªºÅv­­."
+msgstr "ä½ æ²’æœ‰æ¸…ç©º %s çš„æ¬Šé™."
 
 #: lib/Block/gallery.php:106
 msgid "You do not have permission to view this gallery."
-msgstr "§A¨S¦³ÀËµø¦¹ÃÀ´YªºÅv­­."
+msgstr "ä½ æ²’æœ‰æª¢è¦–æ­¤è—å»Šçš„æ¬Šé™."
 
 #: img/ecard.php:69
 msgid ""
@@ -1523,53 +1523,53 @@ msgid ""
 "then most likely your mail reader does not support viewing text/html "
 "messages."
 msgstr ""
-"§A¤w¸g¦¬¨ì¤F¤@«Ê¹q¤l¥d¤ù. ¦p±ıÀËµø³o«Ê¹q¤l¥d¤ù,§Aªº¹q¤l¶l¥ó¾\Åª³nÅé¥²¶·¾Ö¦³ÀË"
-"µø text/html ªº¥\¯à.¦pªG§A²{¦b¬İªº¨ì³o¬q°T®§,³q±`¶H¼x§Aªº¶l¥ó¾\Åª³nÅé¨Ã¥¼¤ä´©"
-"¸Ó¥\¯à."
+"ä½ å·²ç¶“æ”¶åˆ°äº†ä¸€å°é›»å­å¡ç‰‡. å¦‚æ¬²æª¢è¦–é€™å°é›»å­å¡ç‰‡,ä½ çš„é›»å­éƒµä»¶é–±è®€è»Ÿé«”å¿…é ˆæ“æœ‰æª¢"
+"è¦– text/html çš„åŠŸèƒ½.å¦‚æœä½ ç¾åœ¨çœ‹çš„åˆ°é€™æ®µè¨Šæ¯,é€šå¸¸è±¡å¾µä½ çš„éƒµä»¶é–±è®€è»Ÿé«”ä¸¦æœªæ”¯æ´"
+"è©²åŠŸèƒ½."
 
 #: templates/view/gallery.inc:46
 msgid "You must choose a gallery to move images to."
-msgstr "°õ¦æ·h²¾¼v¹³«e§A¥²¶·¥ı¿ï¾Ü¤@­Ó¤ÀÃş."
+msgstr "åŸ·è¡Œæ¬ç§»å½±åƒå‰ä½ å¿…é ˆå…ˆé¸æ“‡ä¸€å€‹åˆ†é¡."
 
 #: img/ecard.php:45
 msgid "You must enter an e-mail address to send the message to."
-msgstr "§A¥²¶·¿é¤J¤@­Ó¹q¤l¶l¥ó¦a§}¥H§Q±Hµo¶P¥d."
+msgstr "ä½ å¿…é ˆè¼¸å…¥ä¸€å€‹é›»å­éƒµä»¶åœ°å€ä»¥åˆ©å¯„ç™¼è³€å¡."
 
 #: img/ecard.php:40
 msgid "You must enter your e-mail address."
-msgstr "§A¥²¶·¿é¤J§Aªº E-mail ¦a§}."
+msgstr "ä½ å¿…é ˆè¼¸å…¥ä½ çš„ E-mail åœ°å€."
 
 #: gallery.php:179
 msgid "You must provide a display name for your new gallery."
-msgstr "§A¥²¶·¬°§Aªº·sÃÀ´Y´£¨Ñ¤@­ÓÅã¥Ü¦WºÙ."
+msgstr "ä½ å¿…é ˆç‚ºä½ çš„æ–°è—å»Šæä¾›ä¸€å€‹é¡¯ç¤ºåç¨±."
 
 #: scripts/recursive_import.php:88
 msgid "You must specify a valid directory."
-msgstr "§A¥²¶·«ü©w¤@­Ó¥i¥Îªº¥Ø¿ı."
+msgstr "ä½ å¿…é ˆæŒ‡å®šä¸€å€‹å¯ç”¨çš„ç›®éŒ„."
 
 #: scripts/recursive_import.php:84
 msgid "You must specify a valid username and password."
-msgstr "½Ğ«ü©w¤@²Õ¥i¥Îªº¨Ï¥ÎªÌ¦WºÙ¤Î¨ä±K½X."
+msgstr "è«‹æŒ‡å®šä¸€çµ„å¯ç”¨çš„ä½¿ç”¨è€…åç¨±åŠå…¶å¯†ç¢¼."
 
 #: lib/Forms/Upload.php:49
 msgid "Zip File Upload"
-msgstr "Zip À£ÁYÀÉ"
+msgstr "Zip å£“ç¸®æª”"
 
 #: lib/Ansel.php:366
 msgid "_Galleries"
-msgstr "©Ò¦³ÃÀ´Y_G"
+msgstr "æ‰€æœ‰è—å»Š_G"
 
 #: lib/Ansel.php:368
 msgid "_My Galleries"
-msgstr "§ÚªºÃÀ´Y_M"
+msgstr "æˆ‘çš„è—å»Š_M"
 
 #: lib/Ansel.php:375
 msgid "_New Gallery"
-msgstr "·s¼WÃÀ´Y_N"
+msgstr "æ–°å¢è—å»Š_N"
 
 #: lib/Ansel.php:380
 msgid "_Print"
-msgstr "¦C¦L_P"
+msgstr "åˆ—å°_P"
 
 #: lib/Exif.php:302
 msgid "sRGB"

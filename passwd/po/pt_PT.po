@@ -11,18 +11,18 @@ msgstr ""
 "Last-Translator: Manuel Menezes de Sequeira <Manuel.Sequeira@iscte.pt>\n"
 "Language-Team: Portuguese of Portugal <Manuel.Sequeira@iscte.pt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s n„o existe ou n„o È execut·vel."
+msgstr "%s n√£o existe ou n√£o √© execut√°vel."
 
 #: lib/Driver/composite.php:65
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: impossÌvel carregar o controlador: %s"
+msgstr "%s: imposs√≠vel carregar o controlador: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
@@ -60,15 +60,15 @@ msgstr "Confirme a sua nova palavra-passe:"
 
 #: lib/Driver/ldap.php:95 lib/Driver/ldap.php:263 lib/Driver/kolab.php:54
 msgid "Could not bind to ldap server"
-msgstr "Falha na ligaÁ„o (bind) ao servidor LDAP"
+msgstr "Falha na liga√ß√£o (bind) ao servidor LDAP"
 
 #: lib/Driver/ldap.php:70 lib/Driver/kolab.php:46
 msgid "Could not connect to ldap server"
-msgstr "Falha na conex„o ao servidor LDAP"
+msgstr "Falha na conex√£o ao servidor LDAP"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "Falha na abertura de ligaÁ„o (pipe) a smbpasswd."
+msgstr "Falha na abertura de liga√ß√£o (pipe) a smbpasswd."
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
@@ -90,7 +90,7 @@ msgstr "Palavra-Passe Incorrecta"
 
 #: lib/Driver/ldap.php:255
 msgid "Minimum password age has not yet expired"
-msgstr "Prazo mÌnimo da palavra-passe ainda n„o expirou"
+msgstr "Prazo m√≠nimo da palavra-passe ainda n√£o expirou"
 
 #: templates/main/main.inc:102
 msgid "New password:"
@@ -99,7 +99,7 @@ msgstr "Nova palavra-passe:"
 #: lib/Driver.php:115
 #, php-format
 msgid "No such backend \"%s\" found."
-msgstr "Mecanismo \"%s\" n„o encontrado."
+msgstr "Mecanismo \"%s\" n√£o encontrado."
 
 #: templates/main/main.inc:90
 msgid "Old password:"
@@ -108,7 +108,7 @@ msgstr "Palavra-passe antiga:"
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
 msgstr ""
-"O mÛdulo de alteraÁ„o de palavras-passe n„o est· correctamente configurado."
+"O m√≥dulo de altera√ß√£o de palavras-passe n√£o est√° correctamente configurado."
 
 #: main.php:203
 #, php-format
@@ -118,27 +118,27 @@ msgstr "Palavra-passe alterada em %s."
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
 msgstr ""
-"O mÛdulo de alteraÁ„o de palavras-passe n„o consegue encontrar o bin·rio "
+"O m√≥dulo de altera√ß√£o de palavras-passe n√£o consegue encontrar o bin√°rio "
 "fornecido."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
 msgstr ""
-"O mÛdulo de alteraÁ„o de palavras-passe tem par‚metros necess·rios em falta."
+"O m√≥dulo de altera√ß√£o de palavras-passe tem par√¢metros necess√°rios em falta."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "O mÛdulo de alteraÁ„o de palavras-passe tem par‚metro alvo em falta."
+msgstr "O m√≥dulo de altera√ß√£o de palavras-passe tem par√¢metro alvo em falta."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
 msgstr ""
-"O mÛdulo de alteraÁ„o de palavras-passe n„o est· correctamente configurado"
+"O m√≥dulo de altera√ß√£o de palavras-passe n√£o est√° correctamente configurado"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
 msgstr ""
-"O mÛdulo de alteraÁ„o de palavras-passe n„o est· correctamente configurado."
+"O m√≥dulo de altera√ß√£o de palavras-passe n√£o est√° correctamente configurado."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
@@ -154,15 +154,15 @@ msgstr "Por favor confirme a sua nova palavra-passe"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "O par‚metro 'drivers' est· errado na configuraÁ„o de Composite."
+msgstr "O par√¢metro 'drivers' est√° errado na configura√ß√£o de Composite."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "O par‚metro 'phptype' est· errado na configuraÁ„o de Password SQL."
+msgstr "O par√¢metro 'phptype' est√° errado na configura√ß√£o de Password SQL."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "O par‚metro 'phptype' n„o consta na configuraÁ„o de SQL."
+msgstr "O par√¢metro 'phptype' n√£o consta na configura√ß√£o de SQL."
 
 #: templates/main/main.inc:143
 msgid "Reset"
@@ -170,16 +170,16 @@ msgstr "Limpar"
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "N„o foi possÌvel ligar ao servidor SQL."
+msgstr "N√£o foi poss√≠vel ligar ao servidor SQL."
 
 #: lib/Driver/sql.php:125 lib/Driver/poppassd.php:108
 #: lib/Driver/vpopmail.php:143
 msgid "User not found"
-msgstr "Utilizador n„o encontrado"
+msgstr "Utilizador n√£o encontrado"
 
 #: lib/Driver/ldap.php:131 lib/Driver/kolab.php:70 lib/Driver/pine.php:231
 msgid "User not found."
-msgstr "Utilizador n„o encontrado."
+msgstr "Utilizador n√£o encontrado."
 
 #: templates/main/main.inc:77
 msgid "Username:"
@@ -188,7 +188,7 @@ msgstr "Nome de Utilizador:"
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "N„o pode alterar a palavra-passe do utilizador %s"
+msgstr "N√£o pode alterar a palavra-passe do utilizador %s"
 
 #: main.php:55
 msgid "You must give your current password"
@@ -208,16 +208,16 @@ msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
-"A sua nova palavra-passe È demasiado longa; as palavras-passe n„o podem ter "
+"A sua nova palavra-passe √© demasiado longa; as palavras-passe n√£o podem ter "
 "mais de %d caracteres!"
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "A sua nova palavra-passe adivinha-se facilmente! N„o foi alterada!"
+msgstr "A sua nova palavra-passe adivinha-se facilmente! N√£o foi alterada!"
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "A sua nova palavra-passe adivinha-se facilmente. N„o foi alterada!"
+msgstr "A sua nova palavra-passe adivinha-se facilmente. N√£o foi alterada!"
 
 #: main.php:83
 #, php-format
@@ -238,7 +238,7 @@ msgstr "A sua nova palavra-passe tem de conter pelo menos %d letras."
 msgid "Your new password must contain at least %d alphanumeric characters."
 msgstr ""
 "A sua nova palavra-passe tem de conter pelo menos %d caracteres "
-"alfanumÈricos."
+"alfanum√©ricos."
 
 #: main.php:138
 #, php-format
@@ -247,44 +247,44 @@ msgid ""
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
 "A sua nova palavra-passe tem de conter pelo menos %d tipos de caracteres. Os "
-"tipos s„o: letra mÌnuscula, letra mai˙scula, dÌgito e sÌmbolo."
+"tipos s√£o: letra m√≠nuscula, letra mai√∫scula, d√≠gito e s√≠mbolo."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
 msgstr ""
-"A sua nova palavra-passe tem de conter pelo menos %d letras min˙sculas."
+"A sua nova palavra-passe tem de conter pelo menos %d letras min√∫sculas."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "A sua nova palavra-passe tem de conter pelo menos %d dÌgitos."
+msgstr "A sua nova palavra-passe tem de conter pelo menos %d d√≠gitos."
 
 #: main.php:113
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
 msgstr ""
-"A sua nova palavra-passe tem de conter pelo menos %d letras mai˙sculas."
+"A sua nova palavra-passe tem de conter pelo menos %d letras mai√∫sculas."
 
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr ""
 "A sua nova palavra-passe tem de conter menos de %d caracteres brancos "
-"(espaÁos, etc.)."
+"(espa√ßos, etc.)."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
 msgstr ""
-"A sua nova palavra-passe n„o pode conter caracteres brancos (espaÁos, etc.)."
+"A sua nova palavra-passe n√£o pode conter caracteres brancos (espa√ßos, etc.)."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
-msgstr "As suas novas palavras-passe n„o correspondem"
+msgstr "As suas novas palavras-passe n√£o correspondem"
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "As palavras-passe n„o correspondem"
+msgstr "As palavras-passe n√£o correspondem"
 
 #: lib/Driver/ldap.php:76
 msgid "ldap_start_tls failed"

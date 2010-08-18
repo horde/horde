@@ -7,7 +7,7 @@ msgstr ""
 "Last-Translator: Alar SIng <alar.sing@err.ee>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/edit/edit.inc:211
@@ -17,12 +17,12 @@ msgstr "kuni %s"
 
 #: templates/edit/edit.inc:211
 msgid " without end"
-msgstr "lõputu"
+msgstr "lÃµputu"
 
 #: templates/search/header.inc:4
 #, php-format
 msgid "%d events"
-msgstr "%d sündmust"
+msgstr "%d sÃ¼ndmust"
 
 #: templates/view/view.inc:124
 #, php-format
@@ -32,12 +32,12 @@ msgstr "%d aega"
 #: templates/edit/edit_timespan.inc:120
 #, php-format
 msgid "%s Day(s) %s Hour(s) %s Minutes"
-msgstr "%s päev(a) %s tund(i) %s minutit"
+msgstr "%s pÃ¤ev(a) %s tund(i) %s minutit"
 
 #: lib/Driver.php:2217
 #, php-format
 msgid "%s attendees"
-msgstr "%s osavõtjad"
+msgstr "%s osavÃµtjad"
 
 #: data.php:304
 #, php-format
@@ -64,11 +64,11 @@ msgstr ", %d korda"
 
 #: lib/Driver.php:2216
 msgid "1 attendee"
-msgstr "1 osavõtja"
+msgstr "1 osavÃµtja"
 
 #: templates/search/header.inc:4
 msgid "1 event"
-msgstr "1 sündmus"
+msgstr "1 sÃ¼ndmus"
 
 #: config/prefs.php.dist:161
 msgid "1 hour"
@@ -88,7 +88,7 @@ msgstr "30 minutit"
 
 #: config/prefs.php.dist:474
 msgid "A saved list of attendees"
-msgstr "Osavõtjate salvestatud nimekiri"
+msgstr "OsavÃµtjate salvestatud nimekiri"
 
 #: templates/data/export.inc:118 templates/data/export.inc:203
 msgid "AM"
@@ -100,7 +100,7 @@ msgstr "Aktsepteeritud"
 
 #: templates/search/search.inc:11
 msgid "Ad_vanced Search"
-msgstr "Põhjalik otsing"
+msgstr "PÃµhjalik otsing"
 
 #: templates/contacts/contacts.inc:171
 msgid "Add"
@@ -108,19 +108,19 @@ msgstr "Lisa"
 
 #: templates/edit/edit.inc:23
 msgid "Add Event"
-msgstr "Lisa sündmus"
+msgstr "Lisa sÃ¼ndmus"
 
 #: templates/prefs/remote_cal_management.inc:43
 msgid "Add a new Remote Calendar"
-msgstr "Lisa uus väline kalender"
+msgstr "Lisa uus vÃ¤line kalender"
 
 #: new.php:65
 msgid "Add a new event"
-msgstr "Lisa uus sündmus"
+msgstr "Lisa uus sÃ¼ndmus"
 
 #: templates/attendees/attendees.inc:78
 msgid "Add attendees"
-msgstr "Lisa osavõtjad"
+msgstr "Lisa osavÃµtjad"
 
 #: templates/prefs/sourceselect.inc:298
 msgid "Add source"
@@ -128,7 +128,7 @@ msgstr "Lisa allikas"
 
 #: templates/contacts/contacts.inc:197
 msgid "Add to attendees"
-msgstr "Lisa osavõtjatele"
+msgstr "Lisa osavÃµtjatele"
 
 #: contacts.php:76 templates/contacts/contacts.inc:138
 #: templates/attendees/attendees.inc:85
@@ -141,7 +141,7 @@ msgstr "Aadressiraamatud"
 
 #: templates/search/search.inc:11 templates/search/search_advanced.inc:8
 msgid "Advanced Search"
-msgstr "Põhjalik otsing"
+msgstr "PÃµhjalik otsing"
 
 #: templates/view/view.inc:47
 msgid "Alarm"
@@ -150,7 +150,7 @@ msgstr "Teavitus"
 #: lib/Driver.php:2183
 #, php-format
 msgid "Alarm %d days before"
-msgstr "Teavita %d päeva enne"
+msgstr "Teavita %d pÃ¤eva enne"
 
 #: lib/Driver.php:2188
 #, php-format
@@ -165,11 +165,11 @@ msgstr "Teavita %d minutit enne"
 #: lib/Driver.php:2178
 #, php-format
 msgid "Alarm %d weeks before"
-msgstr "Teavita %d nädalat enne"
+msgstr "Teavita %d nÃ¤dalat enne"
 
 #: lib/Driver.php:2182
 msgid "Alarm 1 day before"
-msgstr "Teavita 1 päev enne"
+msgstr "Teavita 1 pÃ¤ev enne"
 
 #: lib/Driver.php:2187
 msgid "Alarm 1 hour before"
@@ -181,11 +181,11 @@ msgstr "Teavita 1 minut enne"
 
 #: lib/Driver.php:2177
 msgid "Alarm 1 week before"
-msgstr "Teavita 1 nädal enne"
+msgstr "Teavita 1 nÃ¤dal enne"
 
 #: data.php:61
 msgid "Alarm Date"
-msgstr "Teavitus kuupäev"
+msgstr "Teavitus kuupÃ¤ev"
 
 #: data.php:60
 msgid "Alarm Span (minutes)"
@@ -197,11 +197,11 @@ msgstr "Teavituse aeg"
 
 #: templates/edit/edit.inc:166 templates/prefs/default_alarm_management.inc:24
 msgid "Alarm Unit"
-msgstr "Teavitus üksus"
+msgstr "Teavitus Ã¼ksus"
 
 #: templates/edit/edit.inc:164 templates/prefs/default_alarm_management.inc:22
 msgid "Alarm Value"
-msgstr "Teavituse väärtus"
+msgstr "Teavituse vÃ¤Ã¤rtus"
 
 #: templates/edit/edit.inc:159
 msgid "Alarm enabled"
@@ -209,46 +209,46 @@ msgstr "Teavitus lubatud"
 
 #: templates/delete/delete.inc:27 templates/edit/edit.inc:39
 msgid "All"
-msgstr "Kõik"
+msgstr "KÃµik"
 
 #: lib/FBView.php:130 lib/FBView.php:133 lib/FBView.php:136
 msgid "All Attendees"
-msgstr "Kõik osavõtjad"
+msgstr "KÃµik osavÃµtjad"
 
 #: templates/perms/perms.inc:84
 msgid "All Authenticated Users"
-msgstr "Kõik autoriseeritud kasutajad"
+msgstr "KÃµik autoriseeritud kasutajad"
 
 #: lib/Block/month.php:42
 msgid "All Calendars"
-msgstr "Kõik kalendrid"
+msgstr "KÃµik kalendrid"
 
 #: templates/search/search.inc:59
 msgid "All Future"
-msgstr "Kõik tulevikust"
+msgstr "KÃµik tulevikust"
 
 #: templates/search/search.inc:53
 msgid "All Past"
-msgstr "Kõik minevikust"
+msgstr "KÃµik minevikust"
 
 #: lib/Block/prevmonthlist.php:27 lib/Block/month.php:24
 #: lib/Block/monthlist.php:30 lib/Block/summary.php:28
 msgid "All Visible"
-msgstr "Kõik nähtavad"
+msgstr "KÃµik nÃ¤htavad"
 
 #: templates/edit/edit_timespan.inc:119 lib/Driver.php:2286
 #: lib/Views/Week.php:143 lib/Views/Week.php:150 lib/Views/Day.php:97
 #: lib/Views/Day.php:100
 msgid "All day"
-msgstr "Tervepäev"
+msgstr "TervepÃ¤ev"
 
 #: lib/Block/summary.php:177
 msgid "All day event"
-msgstr "Tervepäeva sündmus"
+msgstr "TervepÃ¤eva sÃ¼ndmus"
 
 #: templates/data/export.inc:33
 msgid "All events"
-msgstr "Kõik sündmused"
+msgstr "KÃµik sÃ¼ndmused"
 
 #: lib/api.php:641 lib/api.php:651
 msgid "Already Exists"
@@ -274,12 +274,12 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"Manuses olev fail on iCal formaadis info sündmuse kohta. Kui teie maili "
-"klient toetab iTip päringut saate küsida kergelt uuendusi sündmusest."
+"Manuses olev fail on iCal formaadis info sÃ¼ndmuse kohta. Kui teie maili "
+"klient toetab iTip pÃ¤ringut saate kÃ¼sida kergelt uuendusi sÃ¼ndmusest."
 
 #: perms.php:75
 msgid "Attempt to edit a non-existent share."
-msgstr "Üritasite muuta mitte olemas olevat jagatud kausta"
+msgstr "Ãœritasite muuta mitte olemas olevat jagatud kausta"
 
 #: templates/view/view.inc:172 templates/attendees/attendees.inc:48
 #: templates/attendees/attendees.inc:60
@@ -309,7 +309,7 @@ msgstr "Lihtne otsing"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
-msgstr "Sünnipäev"
+msgstr "SÃ¼nnipÃ¤ev"
 
 #: lib/FBView.php:89 lib/FBView.php:110
 msgid "Busy"
@@ -330,7 +330,7 @@ msgstr "Kalender"
 
 #: lib/Block/summary.php:3
 msgid "Calendar Summary"
-msgstr "Kalendri kokkuvõte"
+msgstr "Kalendri kokkuvÃµte"
 
 #: templates/calendars/calendars.inc:171
 msgid "Calendar links:"
@@ -338,7 +338,7 @@ msgstr "Kalendri link:"
 
 #: data.php:248
 msgid "Calendar successfully purged."
-msgstr "Kalender edukalt tühjendatud"
+msgstr "Kalender edukalt tÃ¼hjendatud"
 
 #: templates/panel.inc:42 templates/panel.inc:43 lib/Kronolith.php:1988
 #: config/prefs.php.dist:27 config/prefs.php.dist:35 config/prefs.php.dist:43
@@ -356,26 +356,26 @@ msgstr "Kalendritel peab olema nimi."
 
 #: data.php:264
 msgid "Can't create a new event."
-msgstr "Uut sündmust ei õnnestunud luua."
+msgstr "Uut sÃ¼ndmust ei Ãµnnestunud luua."
 
 #: templates/delete/delete.inc:28 templates/delete/one.inc:25
 #: templates/edit/edit.inc:51 templates/edit/edit.inc:382
 msgid "Cancel"
-msgstr "Tühista"
+msgstr "TÃ¼hista"
 
 #: lib/Kronolith.php:1157
 msgid "Cancelled"
-msgstr "Tühistatud"
+msgstr "TÃ¼histatud"
 
 #: lib/Kronolith.php:1415
 #, php-format
 msgid "Cancelled: %s"
-msgstr "Tühistatud: %s"
+msgstr "TÃ¼histatud: %s"
 
 #: lib/Driver/kolab.php:1329
 #, php-format
 msgid "Cannot delete event: %s"
-msgstr "Sündmust %s ei saa kustutada"
+msgstr "SÃ¼ndmust %s ei saa kustutada"
 
 #: templates/search/search_advanced.inc:63 templates/edit/edit.inc:94
 msgid "Categor_y"
@@ -390,28 +390,28 @@ msgid ""
 "Choose how you want to be notified about event changes, event alarms and "
 "upcoming events."
 msgstr ""
-"Vali kuidas sa tahad et sind teavitatakse sündmuste muutustest, teavitustest "
-"ja tulevatest sündmustest."
+"Vali kuidas sa tahad et sind teavitatakse sÃ¼ndmuste muutustest, teavitustest "
+"ja tulevatest sÃ¼ndmustest."
 
 #: config/prefs.php.dist:391
 msgid "Choose how you want to receive reminders for events with alarms:"
-msgstr "Vali kuidas sa tahad meeldetuletusi teavitusega sündmustest"
+msgstr "Vali kuidas sa tahad meeldetuletusi teavitusega sÃ¼ndmustest"
 
 #: config/prefs.php.dist:348
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
-"Vali kui sa soovid et teavitused uuest sündmustest, muudatustest ja "
-"ärajäämistest saadetaks mailiga:"
+"Vali kui sa soovid et teavitused uuest sÃ¼ndmustest, muudatustest ja "
+"Ã¤rajÃ¤Ã¤mistest saadetaks mailiga:"
 
 #: config/prefs.php.dist:361
 msgid "Choose if you want to receive daily agenda email reminders:"
-msgstr "Vali kui soovid päevast agendat maili teel:"
+msgstr "Vali kui soovid pÃ¤evast agendat maili teel:"
 
 #: config/prefs.php.dist:382
 msgid "Choose if you want to receive reminders for events with alarms:"
-msgstr "Vali kui soovid sündmuste teavitust:"
+msgstr "Vali kui soovid sÃ¼ndmuste teavitust:"
 
 #: templates/prefs/fb_cals_select.inc:16
 msgid "Choose the calendars to include in your free/busy information:"
@@ -427,15 +427,15 @@ msgstr "Vali aadressiraamatud kust otsida aadresse."
 
 #: config/prefs.php.dist:195
 msgid "Choose the views to show event locations in:"
-msgstr "Vali see vaade et näha sündmuse toimumise kohta:"
+msgstr "Vali see vaade et nÃ¤ha sÃ¼ndmuse toimumise kohta:"
 
 #: config/prefs.php.dist:183
 msgid "Choose the views to show event start and end times in:"
-msgstr "Vali kuidas näidata sündmuse algus ja lõpp aega:"
+msgstr "Vali kuidas nÃ¤idata sÃ¼ndmuse algus ja lÃµpp aega:"
 
 #: config/prefs.php.dist:37
 msgid "Choose which holidays to display"
-msgstr "Vali pühad mida näidata"
+msgstr "Vali pÃ¼had mida nÃ¤idata"
 
 #: config/prefs.php.dist:29
 msgid "Choose your default calendar."
@@ -443,13 +443,13 @@ msgstr "Vali oma vaike kalender."
 
 #: templates/attendees/attendees.inc:97
 msgid "Clear all attendees"
-msgstr "Kustuta kõik osalejad"
+msgstr "Kustuta kÃµik osalejad"
 
 #: templates/prefs/sourceselect.inc:317
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
-msgstr "Vali üks oma aadressi raamatutest ja väljad kust otsida."
+msgstr "Vali Ã¼ks oma aadressi raamatutest ja vÃ¤ljad kust otsida."
 
 #: templates/perms/perms.inc:9
 msgid "Close Window"
@@ -461,11 +461,11 @@ msgstr "Sulge aken"
 
 #: data.php:30 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr "Komaga eraldatud väärtused"
+msgstr "Komaga eraldatud vÃ¤Ã¤rtused"
 
 #: config/prefs.php.dist:88
 msgid "Confirm deletion of events?"
-msgstr "Küsi sündmuse kustutamist?"
+msgstr "KÃ¼si sÃ¼ndmuse kustutamist?"
 
 #: lib/Kronolith.php:1154
 msgid "Confirmed"
@@ -478,7 +478,7 @@ msgstr "Kopeeri allolev URL et kasutada vaba/kinni infot:"
 #: lib/Kronolith.php:463
 #, php-format
 msgid "Could not open %s."
-msgstr "Ei õnnestunud avada %s."
+msgstr "Ei Ãµnnestunud avada %s."
 
 #: templates/calendars/calendars.inc:71
 msgid "Create"
@@ -491,7 +491,7 @@ msgstr "Loo kalender"
 #: templates/week/head.inc:29 lib/Views/Day.php:97 lib/Views/Day.php:256
 #: lib/Views/Month.php:173
 msgid "Create a New Event"
-msgstr "Loo uus sündmus"
+msgstr "Loo uus sÃ¼ndmus"
 
 #: templates/view/view.inc:74
 msgid "Created"
@@ -503,21 +503,21 @@ msgstr "Hetke"
 
 #: lib/Recurrence.php:192
 msgid "Daily"
-msgstr "Päevane"
+msgstr "PÃ¤evane"
 
 #: templates/view/view.inc:96 templates/edit/edit.inc:226
 msgid "Daily: Recurs every"
-msgstr "Igapäevane: Kordub iga"
+msgstr "IgapÃ¤evane: Kordub iga"
 
 #: attendees.php:180 lib/Kronolith.php:1747 lib/Block/tree_menu.php:21
 #: config/prefs.php.dist:97
 msgid "Day"
-msgstr "Päev"
+msgstr "PÃ¤ev"
 
 #: templates/view/view.inc:56 templates/edit/edit.inc:170
 #: templates/prefs/default_alarm_management.inc:28
 msgid "Day(s)"
-msgstr "Päev(ad)"
+msgstr "PÃ¤ev(ad)"
 
 #: lib/Kronolith.php:1789
 msgid "De_lete"
@@ -604,12 +604,12 @@ msgstr "Ei kordu"
 #: config/prefs.php.dist:369
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the event?"
-msgstr "Ära teavita mind kui ma lisan, muuda või kustutan sündmusi?"
+msgstr "Ã„ra teavita mind kui ma lisan, muuda vÃµi kustutan sÃ¼ndmusi?"
 
 #: lib/Kronolith.php:683
 #, php-format
 msgid "Due: %s"
-msgstr "Tähtaeg: %s"
+msgstr "TÃ¤htaeg: %s"
 
 #: templates/edit/edit_timespan.inc:112
 msgid "Duration"
@@ -617,7 +617,7 @@ msgstr "Kestvus"
 
 #: lib/Driver.php:1978
 msgid "Duration Day"
-msgstr "Kestvus päev"
+msgstr "Kestvus pÃ¤ev"
 
 #: lib/Driver.php:1990
 msgid "Duration Hour"
@@ -655,12 +655,12 @@ msgstr "Muuda kalendreid"
 
 #: perms.php:310
 msgid "Edit Permissions"
-msgstr "Muuda õigusi"
+msgstr "Muuda Ãµigusi"
 
 #: perms.php:312
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Muuda %s õigusi"
+msgstr "Muuda %s Ãµigusi"
 
 #: templates/attendees/attendees.inc:78
 msgid "Edit attendee"
@@ -672,12 +672,12 @@ msgstr "Muuda osalejaid"
 
 #: templates/category_legend.inc:20
 msgid "Edit categories and colors"
-msgstr "Muuda katekoorjaid ja värve"
+msgstr "Muuda katekoorjaid ja vÃ¤rve"
 
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "Muuda %s õigusi"
+msgstr "Muuda %s Ãµigusi"
 
 #: templates/contacts/contacts.inc:189
 msgid "Email Address"
@@ -685,15 +685,15 @@ msgstr "Maili aadress"
 
 #: templates/edit/edit_timespan.inc:57
 msgid "En_d"
-msgstr "_Lõpp"
+msgstr "_LÃµpp"
 
 #: data.php:58
 msgid "End Date"
-msgstr "Viimane kuupäev"
+msgstr "Viimane kuupÃ¤ev"
 
 #: templates/data/export.inc:161 lib/Driver.php:1949
 msgid "End Day"
-msgstr "Viimane päev"
+msgstr "Viimane pÃ¤ev"
 
 #: templates/data/export.inc:178 lib/Driver.php:1962
 msgid "End Hour"
@@ -710,11 +710,11 @@ msgstr "Viimane kuu"
 #: templates/search/event_headers.inc:8 templates/data/export.inc:125
 #: templates/view/view.inc:41
 msgid "End On"
-msgstr "Lõppeb"
+msgstr "LÃµppeb"
 
 #: data.php:59
 msgid "End Time"
-msgstr "Lõpu aeg"
+msgstr "LÃµpu aeg"
 
 #: templates/data/export.inc:134 lib/Driver.php:1929
 msgid "End Year"
@@ -732,46 +732,46 @@ msgstr "Viga vaba/kinni info hankimisel %s"
 
 #: config/prefs.php.dist:51
 msgid "Event Defaults"
-msgstr "Sündmuse vaike seaded"
+msgstr "SÃ¼ndmuse vaike seaded"
 
 #: lib/Kronolith.php:1594
 msgid "Event added:"
-msgstr "Sündmus lisatud:"
+msgstr "SÃ¼ndmus lisatud:"
 
 #: lib/Kronolith.php:1604
 msgid "Event deleted:"
-msgstr "Sündmus kustutatud:"
+msgstr "SÃ¼ndmus kustutatud:"
 
 #: lib/Kronolith.php:1599
 msgid "Event edited:"
-msgstr "Sündmus muudetud:"
+msgstr "SÃ¼ndmus muudetud:"
 
 #: lib/Driver.php:1426
 #, php-format
 msgid "Event from %s to %s"
-msgstr "Sündmus %s'st kuni %s"
+msgstr "SÃ¼ndmus %s'st kuni %s"
 
 #: lib/Driver/sql.php:387
 msgid "Event not found"
-msgstr "Sündmust ei leitud"
+msgstr "SÃ¼ndmust ei leitud"
 
 #: lib/Driver/kolab.php:431 lib/Driver/kolab.php:1155
 #: lib/Driver/kolab.php:1182 lib/Driver/kolab.php:1311
 #, php-format
 msgid "Event not found: %s"
-msgstr "Sündmust ei leitud: %s"
+msgstr "SÃ¼ndmust ei leitud: %s"
 
 #: config/prefs.php.dist:50 config/prefs.php.dist:57
 msgid "Events"
-msgstr "Sündmused"
+msgstr "SÃ¼ndmused"
 
 #: lib/Driver.php:1034
 msgid "Events must have a start date."
-msgstr "Sündmustel peab olema algus aeg."
+msgstr "SÃ¼ndmustel peab olema algus aeg."
 
 #: lib/Driver.php:996
 msgid "Events must have a title."
-msgstr "Sündmustel peab olem pealkiri"
+msgstr "SÃ¼ndmustel peab olem pealkiri"
 
 #: templates/view/view.inc:130 templates/edit/edit.inc:323
 msgid "Exceptions"
@@ -787,11 +787,11 @@ msgstr "Ekspordi kalender"
 
 #: templates/perms/perms.inc:361
 msgid "Extended free/busy access"
-msgstr "Pikendatud vaba/kinni õigused"
+msgstr "Pikendatud vaba/kinni Ãµigused"
 
 #: templates/panel.inc:73
 msgid "External Events:"
-msgstr "Välised sündmused"
+msgstr "VÃ¤lised sÃ¼ndmused"
 
 #: templates/javascript/goto.js:69
 msgid "February"
@@ -799,7 +799,7 @@ msgstr "Veebruar"
 
 #: templates/prefs/sourceselect.inc:327
 msgid "Fields to search"
-msgstr "Väljad kust otsida"
+msgstr "VÃ¤ljad kust otsida"
 
 #: templates/contacts/contacts.inc:143
 msgid "Find"
@@ -820,7 +820,7 @@ msgstr "Vaba/Kinni info"
 
 #: templates/calendars/calendars.inc:134
 msgid "Free/Busy relevance"
-msgstr "Vaba/Kinni tähtsus"
+msgstr "Vaba/Kinni tÃ¤htsus"
 
 #: templates/month/head.inc:21 templates/view/view.inc:103
 #: templates/edit/javascript.inc:71
@@ -833,11 +833,11 @@ msgstr "Tulevik"
 
 #: config/keywords.php.dist:17
 msgid "Game"
-msgstr "Mäng"
+msgstr "MÃ¤ng"
 
 #: templates/search/search_advanced.inc:23
 msgid "General"
-msgstr "Üldine"
+msgstr "Ãœldine"
 
 #: lib/Block/summary.php:153
 #, php-format
@@ -850,7 +850,7 @@ msgstr "Gruppid"
 
 #: templates/perms/perms.inc:125
 msgid "Guest Permissions"
-msgstr "Külalise õigused"
+msgstr "KÃ¼lalise Ãµigused"
 
 #: templates/edit/javascript.inc:256
 msgid "Hide"
@@ -858,7 +858,7 @@ msgstr "Peida"
 
 #: config/prefs.php.dist:36
 msgid "Holidays"
-msgstr "Puhkepäevad"
+msgstr "PuhkepÃ¤evad"
 
 #: templates/view/view.inc:59 templates/edit/edit.inc:169
 #: templates/prefs/default_alarm_management.inc:27
@@ -867,11 +867,11 @@ msgstr "Tund"
 
 #: config/prefs.php.dist:157
 msgid "How long should the time slots on the day and week views be?"
-msgstr "Kui pikad peaks olema aja pilud päeva ja nädala vaadete?"
+msgstr "Kui pikad peaks olema aja pilud pÃ¤eva ja nÃ¤dala vaadete?"
 
 #: config/prefs.php.dist:400
 msgid "How many days of free/busy information should we generate?"
-msgstr "Mitme päeva jagu vaba/kinni infot peab genereerima?"
+msgstr "Mitme pÃ¤eva jagu vaba/kinni infot peab genereerima?"
 
 #: lib/Kronolith.php:1445
 #, php-format
@@ -888,16 +888,16 @@ msgid ""
 "To decline the event:\n"
 "%s\n"
 msgstr ""
-"Kui teie mailiklient ei toeta iTip päringuid, saate te kasutada ühte "
-"järgnevatest linkidest.\n"
+"Kui teie mailiklient ei toeta iTip pÃ¤ringuid, saate te kasutada Ã¼hte "
+"jÃ¤rgnevatest linkidest.\n"
 "\n"
-"Aktsepteeri sündmus:\n"
+"Aktsepteeri sÃ¼ndmus:\n"
 "%s\n"
 "\n"
-"Aktsepteeri sündmus kahtlevalt:\n"
+"Aktsepteeri sÃ¼ndmus kahtlevalt:\n"
 "%s\n"
 "\n"
-"Keeldu sündmusest:\n"
+"Keeldu sÃ¼ndmusest:\n"
 "%s\n"
 
 #: templates/data/import.inc:7
@@ -911,7 +911,7 @@ msgstr "Import/Eksport kalender"
 
 #: templates/perms/perms.inc:207
 msgid "Individual Users"
-msgstr "Üksikud kasutajad"
+msgstr "Ãœksikud kasutajad"
 
 #: templates/javascript/goto.js:68
 msgid "January"
@@ -927,7 +927,7 @@ msgstr "Juuni"
 
 #: data.php:66 templates/view/view.inc:138 templates/edit/edit.inc:336
 msgid "Keywords"
-msgstr "Märksõnad"
+msgstr "MÃ¤rksÃµnad"
 
 #: templates/search/search.inc:55
 msgid "Last 24 hours"
@@ -947,17 +947,17 @@ msgstr "Eelmine aasta"
 
 #: templates/search/search.inc:54 templates/week/head.inc:6
 msgid "Last week"
-msgstr "Eelmine nädal"
+msgstr "Eelmine nÃ¤dal"
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
-msgstr "Määra ajavahemik mida eksportida:"
+msgstr "MÃ¤Ã¤ra ajavahemik mida eksportida:"
 
 #: config/prefs.php.dist:411
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
-msgstr "Näita kõik kontakte? (Kui ei siis näed ainult neid keda otsisid)"
+msgstr "NÃ¤ita kÃµik kontakte? (Kui ei siis nÃ¤ed ainult neid keda otsisid)"
 
 #: templates/search/search_advanced.inc:85 templates/edit/edit.inc:101
 msgid "Lo_cation"
@@ -991,19 +991,19 @@ msgstr "Asukoht"
 
 #: config/prefs.php.dist:45
 msgid "Manage remote calendars."
-msgstr "Halda väliseid kalendreid."
+msgstr "Halda vÃ¤liseid kalendreid."
 
 #: templates/javascript/goto.js:70
 msgid "March"
-msgstr "Märts"
+msgstr "MÃ¤rts"
 
 #: lib/api.php:133
 msgid "Maximum Number of Events"
-msgstr "Suurim number sündmusi"
+msgstr "Suurim number sÃ¼ndmusi"
 
 #: lib/Block/monthlist.php:27 lib/Block/summary.php:25
 msgid "Maximum number of events to display (0 = no limit)"
-msgstr "Suurim number sündmusi mida näidata(0 = kõik)"
+msgstr "Suurim number sÃ¼ndmusi mida nÃ¤idata(0 = kÃµik)"
 
 #: templates/javascript/goto.js:72
 msgid "May"
@@ -1019,11 +1019,11 @@ msgstr "Kohtumine"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "Teavituste menüü"
+msgstr "Teavituste menÃ¼Ã¼"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menüü"
+msgstr "MenÃ¼Ã¼"
 
 #: templates/view/view.inc:62 templates/edit/edit.inc:168
 #: templates/prefs/default_alarm_management.inc:26
@@ -1038,7 +1038,7 @@ msgstr "Es"
 #: templates/month/head.inc:17 templates/view/view.inc:99
 #: templates/edit/javascript.inc:67 config/prefs.php.dist:121
 msgid "Monday"
-msgstr "Esmaspäev"
+msgstr "EsmaspÃ¤ev"
 
 #: attendees.php:183 lib/Kronolith.php:1753 lib/Block/tree_menu.php:24
 #: config/prefs.php.dist:100
@@ -1047,11 +1047,11 @@ msgstr "Kuu"
 
 #: config/prefs.php.dist:180
 msgid "Month and Week Views"
-msgstr "Kuu ja nädala vaated"
+msgstr "Kuu ja nÃ¤dala vaated"
 
 #: config/prefs.php.dist:192
 msgid "Month, Week, and Day Views"
-msgstr "Kuu, nädala ja päeva vaated"
+msgstr "Kuu, nÃ¤dala ja pÃ¤eva vaated"
 
 #: lib/Recurrence.php:195
 msgid "Monthly"
@@ -1076,11 +1076,11 @@ msgstr "Liigu alla"
 
 #: templates/prefs/sourceselect.inc:310
 msgid "Move up"
-msgstr "Liigu ülesse"
+msgstr "Liigu Ã¼lesse"
 
 #: lib/api.php:911
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Mitu iCal komponenti leitud; ainult üks vEvent on toetatud."
+msgstr "Mitu iCal komponenti leitud; ainult Ã¼ks vEvent on toetatud."
 
 #: calendars.php:144
 msgid "My Calendars"
@@ -1103,22 +1103,22 @@ msgstr "Nimi"
 
 #: lib/Block/tree_menu.php:20
 msgid "New Event"
-msgstr "Uus sündmus"
+msgstr "Uus sÃ¼ndmus"
 
 #: lib/Kronolith.php:405
 #, php-format
 msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
-msgstr "Uue kalendri tegemisel jaga automaatselt järgmiste gruppi(de)ga: %s."
+msgstr "Uue kalendri tegemisel jaga automaatselt jÃ¤rgmiste gruppi(de)ga: %s."
 
 #: templates/data/import.inc:33
 msgid "Next"
-msgstr "Järgmine"
+msgstr "JÃ¤rgmine"
 
 #: templates/search/search.inc:57
 msgid "Next 24 hours"
-msgstr "Järgmise 24 tunni jooksul"
+msgstr "JÃ¤rgmise 24 tunni jooksul"
 
 #: lib/FBView/day.php:28
 msgid "Next Day"
@@ -1127,15 +1127,15 @@ msgstr "Homme"
 #: templates/month/head.inc:7 templates/month/head_side_by_side.inc:7
 #: lib/FBView/month.php:31
 msgid "Next Month"
-msgstr "Järgmine kuu"
+msgstr "JÃ¤rgmine kuu"
 
 #: lib/FBView/week.php:31
 msgid "Next Week"
-msgstr "Järgmine nädal"
+msgstr "JÃ¤rgmine nÃ¤dal"
 
 #: templates/year/head.inc:5
 msgid "Next Year"
-msgstr "Järgmine aasta"
+msgstr "JÃ¤rgmine aasta"
 
 #: templates/day/head.inc:5
 msgid "Next day"
@@ -1143,7 +1143,7 @@ msgstr "Homme"
 
 #: templates/search/search.inc:58 templates/week/head.inc:8
 msgid "Next week"
-msgstr "Järgmine nädal"
+msgstr "JÃ¤rgmine nÃ¤dal"
 
 #: config/prefs.php.dist:344 config/prefs.php.dist:357
 #: config/prefs.php.dist:378
@@ -1163,20 +1163,20 @@ msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
 msgstr ""
-"Ühtegi osalejate ei ole uuendatud kuna ühelegi ei leitud maili aadressi."
+"Ãœhtegi osalejate ei ole uuendatud kuna Ã¼helegi ei leitud maili aadressi."
 
 #: lib/Kronolith.php:1934 lib/Kronolith.php:1980
 msgid "No calendars are available to guests."
-msgstr "Külalistele ei ole kalendreid."
+msgstr "KÃ¼lalistele ei ole kalendreid."
 
 #: templates/view/view.inc:124 templates/edit/edit.inc:284
 msgid "No end date"
-msgstr "Lõppkuupäev puudub"
+msgstr "LÃµppkuupÃ¤ev puudub"
 
 #: lib/Block/prevmonthlist.php:166 lib/Block/monthlist.php:175
 #: lib/Block/summary.php:208
 msgid "No events to display"
-msgstr "Ühtegi sündmust ei ole näidata"
+msgstr "Ãœhtegi sÃ¼ndmust ei ole nÃ¤idata"
 
 #: lib/FreeBusy.php:223
 #, php-format
@@ -1207,7 +1207,7 @@ msgstr "Salvestatud osalejate nimekirju ei ole"
 
 #: lib/FreeBusy.php:166
 msgid "No valid email address found"
-msgstr "Ühtegi korrektset maili aadressi ei leitud"
+msgstr "Ãœhtegi korrektset maili aadressi ei leitud"
 
 #: templates/prefs/sourceselect.inc:35 lib/Kronolith.php:1191
 #: lib/Kronolith.php:1212
@@ -1233,7 +1233,7 @@ msgstr "November"
 
 #: templates/search/search.inc:56
 msgid "Now"
-msgstr "Nüüd"
+msgstr "NÃ¼Ã¼d"
 
 #: templates/perms/perms.inc:166
 msgid "Object Creator"
@@ -1245,17 +1245,17 @@ msgstr "Oktoober"
 
 #: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:62
 msgid "On"
-msgstr "Kuupäeval"
+msgstr "KuupÃ¤eval"
 
 #: config/prefs.php.dist:347 config/prefs.php.dist:360
 #: config/prefs.php.dist:381
 msgid "On all calendars I have read access to"
-msgstr "Kõigis kalendrites kuhu mul on lugemis õigus"
+msgstr "KÃµigis kalendrites kuhu mul on lugemis Ãµigus"
 
 #: config/prefs.php.dist:346 config/prefs.php.dist:359
 #: config/prefs.php.dist:380
 msgid "On all shown calendars"
-msgstr "Kõigis nähtavates kalendrites"
+msgstr "KÃµigis nÃ¤htavates kalendrites"
 
 #: config/prefs.php.dist:345 config/prefs.php.dist:358
 #: config/prefs.php.dist:379
@@ -1266,7 +1266,7 @@ msgstr "Ainult minu kalendrites"
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
-msgstr "Ainult omanik või administraator võib muuda jagatud kausta õigusi"
+msgstr "Ainult omanik vÃµi administraator vÃµib muuda jagatud kausta Ãµigusi"
 
 #: lib/Kronolith.php:1209
 msgid "Optional"
@@ -1282,7 +1282,7 @@ msgstr "Teised seaded"
 
 #: lib/FBView.php:159
 msgid "Overview"
-msgstr "Ülevaade"
+msgstr "Ãœlevaade"
 
 #: templates/view/view.inc:28
 msgid "Owner"
@@ -1290,7 +1290,7 @@ msgstr "Omanik"
 
 #: templates/perms/perms.inc:28
 msgid "Owner Permissions"
-msgstr "Omaniku õigused"
+msgstr "Omaniku Ãµigused"
 
 #: templates/perms/perms.inc:40 templates/perms/perms.inc:51
 msgid "Owner:"
@@ -1315,20 +1315,20 @@ msgstr "Muster"
 
 #: templates/delete/one.inc:22
 msgid "Permanently delete this event?"
-msgstr "Kustuta see sündmus?"
+msgstr "Kustuta see sÃ¼ndmus?"
 
 #: lib/api.php:606 lib/api.php:705 lib/api.php:758 lib/api.php:853
 #: lib/api.php:888 lib/api.php:980 lib/api.php:1037 lib/Driver/sql.php:776
 msgid "Permission Denied"
-msgstr "Ligipääs keelatud"
+msgstr "LigipÃ¤Ã¤s keelatud"
 
 #: templates/calendars/calendars.inc:115
 msgid "Permissions"
-msgstr "Õigused"
+msgstr "Ã•igused"
 
 #: lib/Imple/ContactAutoCompleter.php:227
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Palun lahenda ebaselged või vigased aadressid."
+msgstr "Palun lahenda ebaselged vÃµi vigased aadressid."
 
 #: config/prefs.php.dist:21
 msgid "Portal Options"
@@ -1336,7 +1336,7 @@ msgstr "Portaali seaded"
 
 #: lib/FBView/day.php:24
 msgid "Previous Day"
-msgstr "Eelmine päev"
+msgstr "Eelmine pÃ¤ev"
 
 #: lib/FBView/month.php:25
 msgid "Previous Month"
@@ -1344,11 +1344,11 @@ msgstr "Eelmine kuu"
 
 #: lib/FBView/week.php:25
 msgid "Previous Week"
-msgstr "Eelmine nädal"
+msgstr "Eelmine nÃ¤dal"
 
 #: templates/day/head.inc:3
 msgid "Previous day"
-msgstr "Eelmine päev"
+msgstr "Eelmine pÃ¤ev"
 
 #: config/prefs.php.dist:181 config/prefs.php.dist:193
 msgid "Print Views"
@@ -1356,16 +1356,16 @@ msgstr "Printimise vaade"
 
 #: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
 msgid "Prior Events"
-msgstr "Eelmised sündmused"
+msgstr "Eelmised sÃ¼ndmused"
 
 #: lib/Driver.php:1422
 #, php-format
 msgid "Private Event from %s to %s"
-msgstr "Privaatsed sündmused %s kuni %s"
+msgstr "Privaatsed sÃ¼ndmused %s kuni %s"
 
 #: lib/Driver.php:2208 lib/Driver.php:2209
 msgid "Private event"
-msgstr "Privaatne sündmus"
+msgstr "Privaatne sÃ¼ndmus"
 
 #: templates/edit/edit.inc:120
 msgid "Private?"
@@ -1397,19 +1397,19 @@ msgstr "Korduvus info"
 
 #: data.php:68
 msgid "Recurrence End Date"
-msgstr "Korduvuse lõpp"
+msgstr "Korduvuse lÃµpp"
 
 #: lib/Driver.php:2044
 msgid "Recurrence End Day"
-msgstr "Korduvuse lõpp päev"
+msgstr "Korduvuse lÃµpp pÃ¤ev"
 
 #: lib/Driver.php:2029
 msgid "Recurrence End Month"
-msgstr "Korduvuse lõpp kuu"
+msgstr "Korduvuse lÃµpp kuu"
 
 #: lib/Driver.php:2012
 msgid "Recurrence End Year"
-msgstr "Korduvuse lõpp aasta"
+msgstr "Korduvuse lÃµpp aasta"
 
 #: data.php:69
 msgid "Recurrence Interval"
@@ -1417,11 +1417,11 @@ msgstr "Korduvuse intervall"
 
 #: data.php:67
 msgid "Recurrence Type"
-msgstr "Korduvuse tüüp"
+msgstr "Korduvuse tÃ¼Ã¼p"
 
 #: lib/Kronolith.php:1125
 msgid "Recurs daily"
-msgstr "Päevane korduvus"
+msgstr "PÃ¤evane korduvus"
 
 #: lib/Kronolith.php:1132
 msgid "Recurs monthly"
@@ -1429,7 +1429,7 @@ msgstr "Kuine korduvus"
 
 #: lib/Kronolith.php:1128
 msgid "Recurs weekly"
-msgstr "Nädalane korduvus"
+msgstr "NÃ¤dalane korduvus"
 
 #: lib/Kronolith.php:1137
 msgid "Recurs yearly"
@@ -1442,15 +1442,15 @@ msgstr "Meeldetuletus: %s"
 
 #: config/prefs.php.dist:44
 msgid "Remote Calendars"
-msgstr "Välised kalendrid"
+msgstr "VÃ¤lised kalendrid"
 
 #: templates/panel.inc:86
 msgid "Remote Calendars:"
-msgstr "Välised kalendrid:"
+msgstr "VÃ¤lised kalendrid:"
 
 #: templates/calendars/calendars.inc:185
 msgid "Remote Subscription URL"
-msgstr "Välise tellimise URL"
+msgstr "VÃ¤lise tellimise URL"
 
 #: templates/contacts/contacts.inc:172
 msgid "Remove"
@@ -1491,15 +1491,15 @@ msgid ""
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
 "Asenda hetkel kalender imporditud andmetega? <strong>Hoiatus: See kustutab "
-"kõik sinu hetke kalendri sündmused. </strong>"
+"kÃµik sinu hetke kalendri sÃ¼ndmused. </strong>"
 
 #: lib/Kronolith.php:1216
 msgid "Required"
-msgstr "Nõutud"
+msgstr "NÃµutud"
 
 #: lib/FBView.php:97 lib/FBView.php:141 lib/FBView.php:144 lib/FBView.php:147
 msgid "Required Attendees"
-msgstr "Osavõtt kohustuslik"
+msgstr "OsavÃµtt kohustuslik"
 
 #: templates/edit/edit.inc:52 templates/edit/edit.inc:383
 msgid "Reset to Defaults"
@@ -1514,8 +1514,8 @@ msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
-"Keela näidata rohkem aja pilusi päeva ja nädala vaates <strong>isegi</"
-"strong> kui on varemaid ja hilisemaid sündmusi?"
+"Keela nÃ¤idata rohkem aja pilusi pÃ¤eva ja nÃ¤dala vaates <strong>isegi</"
+"strong> kui on varemaid ja hilisemaid sÃ¼ndmusi?"
 
 #: templates/javascript/goto.js:64 templates/edit/edit.inc:240
 #: lib/Block/month.php:107 lib/Views/Year.php:82
@@ -1525,7 +1525,7 @@ msgstr "La"
 #: templates/month/head.inc:22 templates/view/view.inc:104
 #: templates/edit/javascript.inc:72
 msgid "Saturday"
-msgstr "Laupäev"
+msgstr "LaupÃ¤ev"
 
 #: templates/panel.inc:96 templates/calendars/calendars.inc:194
 msgid "Save"
@@ -1551,11 +1551,11 @@ msgstr "Salvesta osalejad"
 
 #: new.php:56 lib/Views/EditEvent.php:81
 msgid "Save Event"
-msgstr "Salvesta sündmus"
+msgstr "Salvesta sÃ¼ndmus"
 
 #: templates/attendees/attendees.inc:94
 msgid "Save and Finish"
-msgstr "Salvesta ja lõpeta"
+msgstr "Salvesta ja lÃµpeta"
 
 #: search.php:91 templates/search/search.inc:67
 #: templates/search/search_advanced.inc:114
@@ -1581,11 +1581,11 @@ msgstr "Vaba/kinni info otsimine ei ole saadaval."
 
 #: templates/calendars/calendars.inc:24 templates/calendars/calendars.inc:188
 msgid "Select a calendar above to display the Remote Subscription URL"
-msgstr "Vali kalender mille välise tellimise URLi näidata"
+msgstr "Vali kalender mille vÃ¤lise tellimise URLi nÃ¤idata"
 
 #: templates/calendars/calendars.inc:23 templates/calendars/calendars.inc:180
 msgid "Select a calendar above to display the URL"
-msgstr "Vali kalender mille URLi näidata"
+msgstr "Vali kalender mille URLi nÃ¤idata"
 
 #: templates/calendars/calendars.inc:96
 msgid "Select a calendar to edit"
@@ -1594,7 +1594,7 @@ msgstr "Vali kalender mida muuta"
 #: templates/edit/edit.inc:302 templates/edit/edit_timespan.inc:29
 #: templates/edit/edit_timespan.inc:79
 msgid "Select a date"
-msgstr "Vali kuupäev"
+msgstr "Vali kuupÃ¤ev"
 
 #: templates/perms/perms.inc:329
 msgid "Select a group to add"
@@ -1619,14 +1619,14 @@ msgstr "Vali aadressi raamat kust otsida ja lisada aadresse."
 
 #: templates/prefs/sourceselect.inc:319
 msgid "Select all fields to search when expanding addresses."
-msgstr "Vali kõik väljad millest otsida kui aadresse laiendatakse."
+msgstr "Vali kÃµik vÃ¤ljad millest otsida kui aadresse laiendatakse."
 
 #: config/prefs.php.dist:11
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Vali kinnituse seaded, kuidas näidata erinevaid vaateid ja vaike vaade."
+"Vali kinnituse seaded, kuidas nÃ¤idata erinevaid vaateid ja vaike vaade."
 
 #: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
@@ -1646,7 +1646,7 @@ msgstr "Vali fail mida importida:"
 
 #: config/prefs.php.dist:119
 msgid "Select the first weekday:"
-msgstr "Vali esimene nädala päev"
+msgstr "Vali esimene nÃ¤dala pÃ¤ev"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
@@ -1654,15 +1654,15 @@ msgstr "Vali faili formaat:"
 
 #: config/prefs.php.dist:243
 msgid "Select the time span to show:"
-msgstr "Vali ajavahemik mida näidata:"
+msgstr "Vali ajavahemik mida nÃ¤idata:"
 
 #: config/prefs.php.dist:101
 msgid "Select the view to display on startup:"
-msgstr "Vali vaade mida näidata:"
+msgstr "Vali vaade mida nÃ¤idata:"
 
 #: config/prefs.php.dist:22
 msgid "Select which events to show in the portal."
-msgstr "Vali sündmused mida näidata portaalis."
+msgstr "Vali sÃ¼ndmused mida nÃ¤idata portaalis."
 
 #: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
 msgid "Selected Address books:"
@@ -1675,7 +1675,7 @@ msgstr "Valitud aadressid"
 #: templates/delete/delete.inc:21 templates/delete/one.inc:19
 msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr ""
-"Saada tühistamise teade kõigile osalejatele kui kustutad selle sündmuse?"
+"Saada tÃ¼histamise teade kÃµigile osalejatele kui kustutad selle sÃ¼ndmuse?"
 
 #: templates/view/view.inc:177
 #, php-format
@@ -1684,11 +1684,11 @@ msgstr "Saada mail %s"
 
 #: templates/edit/edit.inc:375
 msgid "Send invitations to all attendees?"
-msgstr "Saada kutsed kõigile osalejatele?"
+msgstr "Saada kutsed kÃµigile osalejatele?"
 
 #: templates/edit/edit.inc:375
 msgid "Send updates to all attendees?"
-msgstr "Saada uuendus kõigile osalejatele?"
+msgstr "Saada uuendus kÃµigile osalejatele?"
 
 #: templates/javascript/goto.js:76
 msgid "September"
@@ -1696,24 +1696,24 @@ msgstr "September"
 
 #: config/prefs.php.dist:52
 msgid "Set default values for new events."
-msgstr "Määra vaike väärtused kõigile uutel sündmustele."
+msgstr "MÃ¤Ã¤ra vaike vÃ¤Ã¤rtused kÃµigile uutel sÃ¼ndmustele."
 
 #: templates/edit/edit_timespan.inc:79
 msgid "Set end date"
-msgstr "Määra lõpp kuupäev"
+msgstr "MÃ¤Ã¤ra lÃµpp kuupÃ¤ev"
 
 #: templates/edit/edit.inc:302
 msgid "Set recurrence end date"
-msgstr "Määra korduvuse lõpp"
+msgstr "MÃ¤Ã¤ra korduvuse lÃµpp"
 
 #: templates/edit/edit_timespan.inc:29
 msgid "Set start date"
-msgstr "Määra algus aeg"
+msgstr "MÃ¤Ã¤ra algus aeg"
 
 #: config/prefs.php.dist:69
 msgid ""
 "Set your free/busy calendars and your own and other users' free/busy options."
-msgstr "Määra oma ja teiste kasutajate vaba/kinni info seaded."
+msgstr "MÃ¤Ã¤ra oma ja teiste kasutajate vaba/kinni info seaded."
 
 #: calendars.php:88
 #, php-format
@@ -1733,39 +1733,39 @@ msgstr "Jagatud kalendrid:"
 #: templates/perms/perms.inc:303 templates/perms/perms.inc:337
 #: templates/edit/javascript.inc:262
 msgid "Show"
-msgstr "Näita"
+msgstr "NÃ¤ita"
 
 #: config/prefs.php.dist:215
 msgid "Show calendar options panel?"
-msgstr "Näita kalendri valiku paneeli?"
+msgstr "NÃ¤ita kalendri valiku paneeli?"
 
 #: config/prefs.php.dist:205
 msgid "Show category legend?"
-msgstr "Näita katekoorjate legendi?"
+msgstr "NÃ¤ita katekoorjate legendi?"
 
 #: config/prefs.php.dist:171
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr "Näita kustutamise, teavituse ja korduvuse ikoone kalendri vaates?"
+msgstr "NÃ¤ita kustutamise, teavituse ja korduvuse ikoone kalendri vaates?"
 
 #: config/prefs.php.dist:272
 msgid "Show external events using category colors?"
-msgstr "Näita väliseid sündmusi kasutades katekoorjate värve?"
+msgstr "NÃ¤ita vÃ¤liseid sÃ¼ndmusi kasutades katekoorjate vÃ¤rve?"
 
 #: config/prefs.php.dist:225
 msgid "Show free/busy legend?"
-msgstr "Näita vaba/kinni legendi?"
+msgstr "NÃ¤ita vaba/kinni legendi?"
 
 #: config/prefs.php.dist:263
 msgid "Show only events that have an alarm set?"
-msgstr "Näita ainult sündmusi millel on teavitus?"
+msgstr "NÃ¤ita ainult sÃ¼ndmusi millel on teavitus?"
 
 #: config/prefs.php.dist:234
 msgid "Show shared calendars side-by-side?"
-msgstr "Näita jagatuid kalendreid kõrvuti?"
+msgstr "NÃ¤ita jagatuid kalendreid kÃµrvuti?"
 
 #: config/prefs.php.dist:110
 msgid "Show time of day between each day in week views?"
-msgstr "Näita aega iga päeva kõrval nädala vaates?"
+msgstr "NÃ¤ita aega iga pÃ¤eva kÃµrval nÃ¤dala vaates?"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
@@ -1777,7 +1777,7 @@ msgstr "Algusaeg"
 
 #: templates/data/export.inc:68 lib/Driver.php:1904
 msgid "Start Day"
-msgstr "Alguspäev"
+msgstr "AlguspÃ¤ev"
 
 #: templates/data/export.inc:87 lib/Driver.php:1915
 msgid "Start Hour"
@@ -1814,13 +1814,13 @@ msgstr "Staatus"
 
 #: lib/Storage.php:143
 msgid "Storing free/busy is not available."
-msgstr "Vaba/kinni info salvestamine ei ole võimaldatud."
+msgstr "Vaba/kinni info salvestamine ei ole vÃµimaldatud."
 
 #: templates/javascript/goto.js:65 templates/edit/edit.inc:241
 #: lib/Block/month.php:109 lib/Block/month.php:111 lib/Views/Year.php:75
 #: lib/Views/Year.php:84
 msgid "Su"
-msgstr "Pü"
+msgstr "PÃ¼"
 
 #: attendees.php:166
 msgid "Successfully saved attendee list"
@@ -1830,7 +1830,7 @@ msgstr "Osalejad salvestatud"
 #: templates/view/view.inc:105 templates/edit/javascript.inc:66
 #: config/prefs.php.dist:120
 msgid "Sunday"
-msgstr "Pühapäev"
+msgstr "PÃ¼hapÃ¤ev"
 
 #: lib/Kronolith.php:1164 lib/Kronolith.php:1187
 msgid "Tentative"
@@ -1838,11 +1838,11 @@ msgstr "Kahtlev"
 
 #: templates/fbview/legend.inc:5
 msgid "Possible Meeting Time"
-msgstr "Võimalik kohtumise aeg"
+msgstr "VÃµimalik kohtumise aeg"
 
 #: lib/FBView.php:141
 msgid "Possible Meeting Times"
-msgstr "Võimalikud kohtumise ajad"
+msgstr "VÃµimalikud kohtumise ajad"
 
 #: templates/javascript/goto.js:62 templates/edit/edit.inc:238
 #: lib/Block/month.php:107 lib/Views/Year.php:80
@@ -1852,7 +1852,7 @@ msgstr "Ne"
 #: data.php:238
 #, php-format
 msgid "The %s file didn't contain any events."
-msgstr "Fail %s ei sisaldanud ühtegi sündmust."
+msgstr "Fail %s ei sisaldanud Ã¼htegi sÃ¼ndmust."
 
 #: lib/Driver.php:48
 msgid "The Calendar backend is not currently available."
@@ -1866,7 +1866,7 @@ msgstr "Kalendrite alusrakendus ei ole saadaval: %s"
 #: templates/savedattlist/savedattlist.inc:15
 #: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
-msgstr "Osalejate muutmise aken on kadunud. Väljun."
+msgstr "Osalejate muutmise aken on kadunud. VÃ¤ljun."
 
 #: calendars.php:81
 #, php-format
@@ -1896,39 +1896,39 @@ msgstr "Kalender \"%s\" on salvestatud."
 #: data.php:246
 #, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Ei õnnestunud tühjendata kalendrit: %s"
+msgstr "Ei Ãµnnestunud tÃ¼hjendata kalendrit: %s"
 
 #: templates/edit/javascript.inc:156
 msgid "The end date must be later than the start date."
-msgstr "Lõppkuupäev peab olema hilisem kui algus."
+msgstr "LÃµppkuupÃ¤ev peab olema hilisem kui algus."
 
 #: lib/Kronolith.php:1595
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
-msgstr "Sündmus \"%s\" on lisatud \"%s\" kalendrisse, mis on %s kohal %s."
+msgstr "SÃ¼ndmus \"%s\" on lisatud \"%s\" kalendrisse, mis on %s kohal %s."
 
 #: lib/Kronolith.php:1605
 #, php-format
 msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
-msgstr "Sündmus \"%s\" on kustutatud \"%s\" kalendrist, mis on %s kohal %s."
+msgstr "SÃ¼ndmus \"%s\" on kustutatud \"%s\" kalendrist, mis on %s kohal %s."
 
 #: lib/Kronolith.php:1600
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
-msgstr "Sündmus \"%s\" on muudetud \"%s\" kalendris, mis on %s kohal %s."
+msgstr "SÃ¼ndmus \"%s\" on muudetud \"%s\" kalendris, mis on %s kohal %s."
 
 #: lib/Kronolith.php:1485
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "Sündmuse teavitus %s edukalt saadetud."
+msgstr "SÃ¼ndmuse teavitus %s edukalt saadetud."
 
 #: lib/Kronolith.php:1439
 msgid "The following is a more detailed description of the event:"
-msgstr "Sündmuse kirjeldus:"
+msgstr "SÃ¼ndmuse kirjeldus:"
 
 #: lib/FreeBusy.php:191
 #, php-format
@@ -1940,17 +1940,17 @@ msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"Päring oli ebatäielik. Mõned nõutud väljad mis on vajalikud akspeteerimiseks "
-"või keeldumiseks on puudu."
+"PÃ¤ring oli ebatÃ¤ielik. MÃµned nÃµutud vÃ¤ljad mis on vajalikud akspeteerimiseks "
+"vÃµi keeldumiseks on puudu."
 
 #: lib/Views/DeleteEvent.php:40 lib/Views/EditEvent.php:43
 #: lib/Views/Event.php:41
 msgid "The requested event was not found."
-msgstr "Otsitud sündmust ei leitud."
+msgstr "Otsitud sÃ¼ndmust ei leitud."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
-msgstr "Ükski sündmus ei vasta hetke kriteeriumitele."
+msgstr "Ãœkski sÃ¼ndmus ei vasta hetke kriteeriumitele."
 
 #: add.php:24 edit.php:46 edit.php:68
 #, php-format
@@ -1960,12 +1960,12 @@ msgstr "Tekis viga ligisaamisel kalendrile: %s"
 #: add.php:44
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "Tekis viga sündmuse lisamisel: %s"
+msgstr "Tekis viga sÃ¼ndmuse lisamisel: %s"
 
 #: edit.php:17
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Tekis viga sündmuse muutmisel: %s"
+msgstr "Tekis viga sÃ¼ndmuse muutmisel: %s"
 
 #: lib/api.php:376 lib/api.php:619 lib/api.php:903
 msgid "There was an error importing the iCalendar data."
@@ -1974,16 +1974,16 @@ msgstr "Tekis viga iCal andmete importimisel."
 #: edit.php:142
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr "Tekis viga sündmuse liigutamisel: %s"
+msgstr "Tekis viga sÃ¼ndmuse liigutamisel: %s"
 
 #: lib/Kronolith.php:1490
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "Tekis viga sündmust teavitamisel kasutaja %s: %s"
+msgstr "Tekis viga sÃ¼ndmust teavitamisel kasutaja %s: %s"
 
 #: data.php:109
 msgid "There were no events to export."
-msgstr "Ühtegi sündmust ei eksporditud."
+msgstr "Ãœhtegi sÃ¼ndmust ei eksporditud."
 
 #: lib/Block/month.php:3
 msgid "This Month"
@@ -2002,16 +2002,16 @@ msgid ""
 "This is a recurring event. Delete the current event only, this<br /"
 ">occurrence and all future occurences, or all occurences?"
 msgstr ""
-"See on korduv sündmus.  Kututa ainult hetke sündmus, seda esinemist <br />  "
-"kõik tulevased esinemised või kõik esinemised?"
+"See on korduv sÃ¼ndmus.  Kututa ainult hetke sÃ¼ndmus, seda esinemist <br />  "
+"kÃµik tulevased esinemised vÃµi kÃµik esinemised?"
 
 #: templates/edit/edit.inc:36
 msgid ""
 "This is a recurring event. Edit the current event only, this occurrence<br /"
 ">and all future occurences, all occurences, or save this event as new?"
 msgstr ""
-"See on korduv sündmus.  Muuda ainult hetke sündmus, seda esinemist <br /> ja "
-"kõiki tulevasi esinemisi, kõiki esinemisi või salvesta uuena?"
+"See on korduv sÃ¼ndmus.  Muuda ainult hetke sÃ¼ndmus, seda esinemist <br /> ja "
+"kÃµiki tulevasi esinemisi, kÃµiki esinemisi vÃµi salvesta uuena?"
 
 #: data.php:266
 #, php-format
@@ -2021,7 +2021,7 @@ msgstr "Server vastas: %s"
 #: templates/month/head.inc:20 templates/view/view.inc:102
 #: templates/edit/javascript.inc:70
 msgid "Thursday"
-msgstr "Neljapäev"
+msgstr "NeljapÃ¤ev"
 
 #: templates/search/search.inc:37
 msgid "Time Sp_an:"
@@ -2048,13 +2048,13 @@ msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Mitme välja valimiseks hoia all Control (PC) või Command (Mac) klahvi "
+"Mitme vÃ¤lja valimiseks hoia all Control (PC) vÃµi Command (Mac) klahvi "
 "klikkimise ajal."
 
 #: lib/Block/prevmonthlist.php:125 lib/Block/monthlist.php:132
 #: lib/Block/summary.php:140
 msgid "Today"
-msgstr "Täna"
+msgstr "TÃ¤na"
 
 #: lib/Block/prevmonthlist.php:127 lib/Block/monthlist.php:134
 #: lib/Block/summary.php:142
@@ -2069,11 +2069,11 @@ msgstr "Te"
 #: templates/month/head.inc:18 templates/view/view.inc:100
 #: templates/edit/javascript.inc:68
 msgid "Tuesday"
-msgstr "Teisipäev"
+msgstr "TeisipÃ¤ev"
 
 #: config/keywords.php.dist:17
 msgid "Type"
-msgstr "Tüüp"
+msgstr "TÃ¼Ã¼p"
 
 #: templates/calendars/calendars.inc:177
 msgid "URL"
@@ -2081,51 +2081,51 @@ msgstr "URL"
 
 #: lib/Storage/sql.php:75
 msgid "Unable to connect to SQL server."
-msgstr "Ei õnnestu ühenduda SQL serveriga."
+msgstr "Ei Ãµnnestu Ã¼henduda SQL serveriga."
 
 #: calendars.php:95
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Ei õnnestu kustutada \"%s\": %s"
+msgstr "Ei Ãµnnestu kustutada \"%s\": %s"
 
 #: lib/Storage.php:58 lib/Driver.php:206
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Ei õnnestu laadida definitsioone %s."
+msgstr "Ei Ãµnnestu laadida definitsioone %s."
 
 #: attendees.php:57
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
-msgstr "Ei õnnestu tuvasta \"%s\" mail aadressina."
+msgstr "Ei Ãµnnestu tuvasta \"%s\" mail aadressina."
 
 #: calendars.php:59
 #, php-format
 msgid "Unable to rename \"%s\": %s"
-msgstr "Ei õnnestu ümber nimetada \"%s\": %s"
+msgstr "Ei Ãµnnestu Ã¼mber nimetada \"%s\": %s"
 
 #: lib/Storage/kolab.php:57
 #, php-format
 msgid "Unable to retrieve free/busy information for %s"
-msgstr "Ei õnnestu laadida vaba/kinni infot: %s"
+msgstr "Ei Ãµnnestu laadida vaba/kinni infot: %s"
 
 #: calendars.php:69
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
-msgstr "Ei õnnestu salvestada kalendrisse \"%s\": %s"
+msgstr "Ei Ãµnnestu salvestada kalendrisse \"%s\": %s"
 
 #: templates/view/view.inc:8
 msgid "Unfiled"
-msgstr "Täitamata"
+msgstr "TÃ¤itamata"
 
 #: lib/api.php:448 lib/api.php:671 lib/api.php:729 lib/api.php:789
 #: lib/api.php:923
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Tundmata sisu tüüp: %s"
+msgstr "Tundmata sisu tÃ¼Ã¼p: %s"
 
 #: lib/Block/monthlist.php:3 lib/Block/monthlist.php:46
 msgid "Upcoming Events"
-msgstr "Tulevad sündmused"
+msgstr "Tulevad sÃ¼ndmused"
 
 #: perms.php:304
 #, php-format
@@ -2152,7 +2152,7 @@ msgstr "Kasutaja keda lisada:"
 #: lib/Block/month.php:164 lib/Block/month.php:167 lib/Views/Year.php:156
 #: lib/Views/Year.php:162
 msgid "View Day"
-msgstr "Vaata päeva"
+msgstr "Vaata pÃ¤eva"
 
 #: templates/javascript/goto.js:61 templates/edit/edit.inc:237
 #: lib/Block/month.php:107 lib/Views/Year.php:79
@@ -2173,13 +2173,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Soovime meelde tuletada lähenevast sündmusest.\n"
+"Soovime meelde tuletada lÃ¤henevast sÃ¼ndmusest.\n"
 "\n"
 "%s\n"
 "\n"
 "Asukont: %s\n"
 "\n"
-"Kuupäev: %s\n"
+"KuupÃ¤ev: %s\n"
 "Kellaeg: %s\n"
 "\n"
 "%s"
@@ -2187,51 +2187,51 @@ msgstr ""
 #: templates/month/head.inc:19 templates/view/view.inc:101
 #: templates/edit/javascript.inc:69
 msgid "Wednesday"
-msgstr "Kolmapäev"
+msgstr "KolmapÃ¤ev"
 
 #: attendees.php:182 lib/Kronolith.php:1751 lib/Block/tree_menu.php:23
 #: config/prefs.php.dist:98
 msgid "Week"
-msgstr "Nädal"
+msgstr "NÃ¤dal"
 
 #: workweek.php:15 week.php:17 lib/Views/Month.php:186
 #, php-format
 msgid "Week %d"
-msgstr "Nädal %d"
+msgstr "NÃ¤dal %d"
 
 #: templates/view/view.inc:53 templates/edit/edit.inc:171
 #: templates/prefs/default_alarm_management.inc:29
 msgid "Week(s)"
-msgstr "Nädal(ad)"
+msgstr "NÃ¤dal(ad)"
 
 #: lib/Recurrence.php:193
 msgid "Weekly"
-msgstr "Iga nädal"
+msgstr "Iga nÃ¤dal"
 
 #: templates/view/view.inc:106 templates/edit/edit.inc:232
 msgid "Weekly: Recurs every"
-msgstr "Nädalane: kordub iga"
+msgstr "NÃ¤dalane: kordub iga"
 
 #: config/prefs.php.dist:139
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"Mis kellast peab päeva ja nädala vaade lõppema, kui pole hilisemaid sündmusi?"
+"Mis kellast peab pÃ¤eva ja nÃ¤dala vaade lÃµppema, kui pole hilisemaid sÃ¼ndmusi?"
 
 #: config/prefs.php.dist:130
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"Mis kellast peab päeva ja nädala vaade algama, kui pole varasemaid sündmusi?"
+"Mis kellast peab pÃ¤eva ja nÃ¤dala vaade algama, kui pole varasemaid sÃ¼ndmusi?"
 
 #: config/prefs.php.dist:293
 msgid "Which kind of holidays do you want to get displayed?"
-msgstr "Milliseid pühasid tahad näha?"
+msgstr "Milliseid pÃ¼hasid tahad nÃ¤ha?"
 
 #: attendees.php:181 lib/Kronolith.php:1749 lib/Block/tree_menu.php:22
 #: config/prefs.php.dist:99
 msgid "Work Week"
-msgstr "Töö nädal"
+msgstr "TÃ¶Ã¶ nÃ¤dal"
 
 #: lib/Kronolith.php:1755 lib/Block/tree_menu.php:25
 msgid "Year"
@@ -2250,11 +2250,11 @@ msgstr "Aastane: kordub iga"
 #: new.php:19 edit.php:27 data.php:41 data.php:255
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "Sul ei ole lubatud luua rohkem kui %d sündmust."
+msgstr "Sul ei ole lubatud luua rohkem kui %d sÃ¼ndmust."
 
 #: attend.php:51
 msgid "You are not an attendee of the specified event."
-msgstr "Sa ei ole selle sündmuse osaleja."
+msgstr "Sa ei ole selle sÃ¼ndmuse osaleja."
 
 #: templates/savedattlist/savedattlist.inc:21
 #: templates/contacts/contacts.inc:78
@@ -2273,28 +2273,28 @@ msgstr ""
 #: add.php:30
 #, php-format
 msgid "You do not have permission to add events to %s."
-msgstr "Sul ei ole õigust lisada sündmust %s."
+msgstr "Sul ei ole Ãµigust lisada sÃ¼ndmust %s."
 
 #: data.php:203
 msgid "You do not have permission to add events to the selected calendar."
-msgstr "Sul ei ole õigust lisada sündmust valitud kalendrisse."
+msgstr "Sul ei ole Ãµigust lisada sÃ¼ndmust valitud kalendrisse."
 
 #: add.php:27 edit.php:159
 #, php-format
 msgid "You do not have permission to delegate events to %s."
-msgstr "Sul ei ole õigust delegeerida sündmusi %s."
+msgstr "Sul ei ole Ãµigust delegeerida sÃ¼ndmusi %s."
 
 #: delete.php:28
 msgid "You do not have permission to delete this event."
-msgstr "Sul pole õigust kustutada seda sündmust."
+msgstr "Sul pole Ãµigust kustutada seda sÃ¼ndmust."
 
 #: edit.php:162
 msgid "You do not have permission to edit this event."
-msgstr "Sul pole õigust muuta seda sündmust."
+msgstr "Sul pole Ãµigust muuta seda sÃ¼ndmust."
 
 #: edit.php:156
 msgid "You do not have permission to move this event."
-msgstr "Sul pole õigust muuta seda sündmust."
+msgstr "Sul pole Ãµigust muuta seda sÃ¼ndmust."
 
 #: data.php:200
 msgid "You have specified an invalid calendar."
@@ -2302,15 +2302,15 @@ msgstr "Viga kalendri valimisel."
 
 #: attend.php:23
 msgid "You have successfully accepted attendence to this event."
-msgstr "Aktsepteerisid sündmusel osalemise."
+msgstr "Aktsepteerisid sÃ¼ndmusel osalemise."
 
 #: attend.php:28
 msgid "You have successfully declined attendence to this event."
-msgstr "Keeldusid osalemast sündmusel."
+msgstr "Keeldusid osalemast sÃ¼ndmusel."
 
 #: attend.php:33
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Aktsepteerisid selle sündmuse kahtlevalt."
+msgstr "Aktsepteerisid selle sÃ¼ndmuse kahtlevalt."
 
 #: calendars.php:102
 msgid "You must select a calendar to be deleted."
@@ -2318,29 +2318,29 @@ msgstr "Vali kalender mida kustutada."
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
-msgstr "Kõige pealt pead valima aadressi."
+msgstr "KÃµige pealt pead valima aadressi."
 
 #: templates/calendars/calendars.inc:118
 msgid "You need to select a calendar first"
-msgstr "Kõigepealt peab valima kalendri"
+msgstr "KÃµigepealt peab valima kalendri"
 
 #: lib/Kronolith.php:1595
 msgid "You requested to be notified when events are added to your calendars."
-msgstr "Sa soovisid teavitust kui sinu kalendrisse lisatakse uus sündmus."
+msgstr "Sa soovisid teavitust kui sinu kalendrisse lisatakse uus sÃ¼ndmus."
 
 #: lib/Kronolith.php:1605
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
-msgstr "Sa soovisid teavitust kui sinu kalendrist kustutatakse sündmus."
+msgstr "Sa soovisid teavitust kui sinu kalendrist kustutatakse sÃ¼ndmus."
 
 #: lib/Kronolith.php:1600
 msgid "You requested to be notified when events are edited in your calendars."
-msgstr "Sa soovisid teavitust kui sinu kalendris muudetakse sündmus."
+msgstr "Sa soovisid teavitust kui sinu kalendris muudetakse sÃ¼ndmus."
 
 #: lib/Scheduler/kronolith.php:403 lib/Scheduler/kronolith.php:405
 #, php-format
 msgid "Your daily agenda for %s"
-msgstr "Sinu päevane agenda %s"
+msgstr "Sinu pÃ¤evane agenda %s"
 
 #: templates/prefs/shareselect.inc:10
 msgid "Your default calendar"
@@ -2352,11 +2352,11 @@ msgstr "[Halda minu kalendreid]"
 
 #: templates/panel.inc:91
 msgid "[Manage Remote Calendars]"
-msgstr "[Halda väliseid kalendreid]"
+msgstr "[Halda vÃ¤liseid kalendreid]"
 
 #: lib/Driver.php:1408 lib/Driver.php:1424
 msgid "[Unnamed event]"
-msgstr "[nimetu sündmus]"
+msgstr "[nimetu sÃ¼ndmus]"
 
 #: templates/edit/edit.inc:132
 msgid "_Alarm"
@@ -2392,7 +2392,7 @@ msgstr "_Otsi"
 
 #: lib/Kronolith.php:1940
 msgid "_Today"
-msgstr "-Täna"
+msgstr "-TÃ¤na"
 
 #: templates/edit/edit.inc:77
 #, php-format
@@ -2401,25 +2401,25 @@ msgstr "kui %s"
 
 #: templates/edit/edit.inc:173
 msgid "before the event starts"
-msgstr "enne sündmuse algust"
+msgstr "enne sÃ¼ndmuse algust"
 
 #: templates/prefs/default_alarm_management.inc:31
 msgid "before the event starts. A value of \"0\" means no default alarms."
-msgstr "enne sündmuse algust. \"0\" tähendab ilma teavituseta."
+msgstr "enne sÃ¼ndmuse algust. \"0\" tÃ¤hendab ilma teavituseta."
 
 #: config/prefs.php.dist:244
 msgid "day"
-msgstr "Päev"
+msgstr "PÃ¤ev"
 
 #: templates/view/view.inc:96 templates/edit/edit.inc:227
 msgid "day(s)"
-msgstr "Päev"
+msgstr "PÃ¤ev"
 
 #: config/prefs.php.dist:245 config/prefs.php.dist:246
 #: config/prefs.php.dist:247 config/prefs.php.dist:248
 #: config/prefs.php.dist:249
 msgid "days"
-msgstr "Päevad"
+msgstr "PÃ¤evad"
 
 #: data.php:155 templates/data/export.inc:1
 msgid "events.csv"
@@ -2445,15 +2445,15 @@ msgstr "Mitte keegi"
 #: lib/Kronolith.php:1435
 #, php-format
 msgid "on %s at %s"
-msgstr "Kuupäeval %s kell %s"
+msgstr "KuupÃ¤eval %s kell %s"
 
 #: templates/view/view.inc:108 templates/edit/edit.inc:247
 msgid "on the same date"
-msgstr "sama päeval"
+msgstr "sama pÃ¤eval"
 
 #: templates/view/view.inc:110 templates/edit/edit.inc:253
 msgid "on the same weekday"
-msgstr "samal nädalapäeval"
+msgstr "samal nÃ¤dalapÃ¤eval"
 
 #: templates/calendars/calendars.inc:145
 msgid "owners/administrators"
@@ -2473,25 +2473,25 @@ msgstr "vCalendar/iCalendar"
 
 #: config/prefs.php.dist:250
 msgid "week"
-msgstr "nädal"
+msgstr "nÃ¤dal"
 
 #: templates/view/view.inc:106 templates/edit/edit.inc:234
 msgid "week(s) on:"
-msgstr "nädal(ad):"
+msgstr "nÃ¤dal(ad):"
 
 #: config/prefs.php.dist:251 config/prefs.php.dist:252
 #: config/prefs.php.dist:253
 msgid "weeks"
-msgstr "nädalad"
+msgstr "nÃ¤dalad"
 
 #: templates/view/view.inc:112 templates/edit/edit.inc:259
 msgid "year(s) on the same date"
-msgstr "aasta(d) samal kuupäeval"
+msgstr "aasta(d) samal kuupÃ¤eval"
 
 #: templates/view/view.inc:114 templates/edit/edit.inc:265
 msgid "year(s) on the same day of the year"
-msgstr "aasta(d) samal päeval"
+msgstr "aasta(d) samal pÃ¤eval"
 
 #: templates/view/view.inc:116 templates/edit/edit.inc:271
 msgid "year(s) on the same weekday and month of the year"
-msgstr "aasta(d) samal nädalapäeval ja kuul"
+msgstr "aasta(d) samal nÃ¤dalapÃ¤eval ja kuul"

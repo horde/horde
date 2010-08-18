@@ -10,167 +10,167 @@ msgstr ""
 "Last-Translator: Wenzhuo Zhang <wenzhuo@zhmail.com>\n"
 "Language-Team: Simplified Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=GB2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Change your password"
-msgstr "ĞŞ¸ÄÃÜÂë"
+msgstr "ä¿®æ”¹å¯†ç "
 
 msgid "Confirm new password:"
-msgstr "È·ÈÏĞÂÃÜÂë"
+msgstr "ç¡®è®¤æ–°å¯†ç "
 
 msgid "Could not bind to ldap server"
-msgstr "ÎŞ·¨°ó¶¨µ½ ldap ·şÎñÆ÷"
+msgstr "æ— æ³•ç»‘å®šåˆ° ldap æœåŠ¡å™¨"
 
 msgid "Could not connect to ldap server"
-msgstr "ÎŞ·¨Á¬½Óµ½ ldap ·şÎñÆ÷"
+msgstr "æ— æ³•è¿æ¥åˆ° ldap æœåŠ¡å™¨"
 
 msgid "Could not open pipe to smbpasswd."
-msgstr "ÎŞ·¨´ò¿ªµ½ smbpasswd µÄ¹ÜµÀ¡£"
+msgstr "æ— æ³•æ‰“å¼€åˆ° smbpasswd çš„ç®¡é“ã€‚"
 
 msgid "Error closing pipe to smbpasswd"
-msgstr "¹Ø±Õµ½ smbpasswd µÄ¹ÜµÀÊ±·¢Éú´íÎó"
+msgstr "å…³é—­åˆ° smbpasswd çš„ç®¡é“æ—¶å‘ç”Ÿé”™è¯¯"
 
 msgid "Error sending data to smbpasswd."
-msgstr "·¢ËÍÊı¾İµ½ smbpasswd Ê±·¢Éú´íÎó"
+msgstr "å‘é€æ•°æ®åˆ° smbpasswd æ—¶å‘ç”Ÿé”™è¯¯"
 
 msgid "Error"
-msgstr "´íÎó"
+msgstr "é”™è¯¯"
 
 msgid "Failure in changing password : "
-msgstr "ĞŞ¸ÄÃÜÂëÊ§°Ü"
+msgstr "ä¿®æ”¹å¯†ç å¤±è´¥"
 
 msgid "Help"
-msgstr "°ïÖú"
+msgstr "å¸®åŠ©"
 
 msgid "Internal Error"
-msgstr "ÄÚ²¿´íÎó"
+msgstr "å†…éƒ¨é”™è¯¯"
 
 msgid "Logout"
-msgstr "×¢Ïú"
+msgstr "æ³¨é”€"
 
 msgid "Mdaemon path not found"
-msgstr "Mdaemon Â·¾¶Î´ÕÒµ½"
+msgstr "Mdaemon è·¯å¾„æœªæ‰¾åˆ°"
 
 msgid "Mdaemon userlist file not accessable or not found."
-msgstr "Mdaemon userlist ÎÄ¼ş²»¿É·ÃÎÊ»òÎ´ÕÒµ½¡£"
+msgstr "Mdaemon userlist æ–‡ä»¶ä¸å¯è®¿é—®æˆ–æœªæ‰¾åˆ°ã€‚"
 
 msgid "Message"
-msgstr "ÏûÏ¢"
+msgstr "æ¶ˆæ¯"
 
 msgid "New password:"
-msgstr "ĞÂÃÜÂë£º"
+msgstr "æ–°å¯†ç ï¼š"
 
 msgid "No configuration information specified for SQL authentication."
-msgstr "Ã»ÓĞÎª SQL ÈÏÖ¤Éè¶¨µÄÅäÖÃĞÅÏ¢¡£"
+msgstr "æ²¡æœ‰ä¸º SQL è®¤è¯è®¾å®šçš„é…ç½®ä¿¡æ¯ã€‚"
 
 msgid "Not able to create lock file"
-msgstr "ÎŞ·¨´´½¨ lock ÎÄ¼ş"
+msgstr "æ— æ³•åˆ›å»º lock æ–‡ä»¶"
 
 msgid "Not able to create semaphore file"
-msgstr "ÎŞ·¨´´½¨ semaphore ÎÄ¼ş"
+msgstr "æ— æ³•åˆ›å»º semaphore æ–‡ä»¶"
 
 msgid "Not able to retrieve current details."
-msgstr "ÎŞ·¨»ñÈ¡µ±Ç°µÄÏêÏ¸ĞÅÏ¢"
+msgstr "æ— æ³•è·å–å½“å‰çš„è¯¦ç»†ä¿¡æ¯"
 
 msgid ""
 "Note: You will need to logout and back in after you change your password!"
-msgstr "×¢Òâ£ºĞŞ¸ÄÃÜÂëºó±ØĞëÍË³öÖØĞÂµÇÂ¼!"
+msgstr "æ³¨æ„ï¼šä¿®æ”¹å¯†ç åå¿…é¡»é€€å‡ºé‡æ–°ç™»å½•!"
 
 msgid "Old password:"
-msgstr "¾ÉÃÜÂë£º"
+msgstr "æ—§å¯†ç ï¼š"
 
 msgid "Password changed!"
-msgstr "ÃÜÂëÒÑĞŞ¸Ä!"
+msgstr "å¯†ç å·²ä¿®æ”¹!"
 
 msgid "Password module is not properly configured MD5"
-msgstr "ÃÜÂëÄ£¿éÅäÖÃ²»ÕıÈ· MD5"
+msgstr "å¯†ç æ¨¡å—é…ç½®ä¸æ­£ç¡® MD5"
 
 msgid "Password module is not properly configured!"
-msgstr "ÃÜÂëÄ£¿éÅäÖÃ²»ÕıÈ·!"
+msgstr "å¯†ç æ¨¡å—é…ç½®ä¸æ­£ç¡®!"
 
 msgid "Password module is not properly configured"
-msgstr "ÃÜÂëÄ£¿éÅäÖÃ²»ÕıÈ·"
+msgstr "å¯†ç æ¨¡å—é…ç½®ä¸æ­£ç¡®"
 
 msgid "Password module is not properly configured."
-msgstr "ÃÜÂëÄ£¿éÅäÖÃ²»ÕıÈ·¡£"
+msgstr "å¯†ç æ¨¡å—é…ç½®ä¸æ­£ç¡®ã€‚"
 
 msgid "Problem?"
-msgstr "ÎÊÌâ?"
+msgstr "é—®é¢˜?"
 
 msgid "Required 'database' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'database'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'database'ã€‚"
 
 msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'hostspec'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'hostspec'ã€‚"
 
 msgid "Required 'password' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'password'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'password'ã€‚"
 
 msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'phptype'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'phptype'ã€‚"
 
 msgid "Required 'table' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'table'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'table'ã€‚"
 
 msgid "Required 'username' not specified in authentication configuration."
-msgstr "ÈÏÖ¤ÅäÖÃÖĞÎ´Éè¶¨±ØĞèµÄ 'username'¡£"
+msgstr "è®¤è¯é…ç½®ä¸­æœªè®¾å®šå¿…éœ€çš„ 'username'ã€‚"
 
 msgid "Reset"
-msgstr "ÖØÖÃ"
+msgstr "é‡ç½®"
 
 msgid "Some of Password module's configuration files are missing:"
-msgstr "ÃÜÂëÄ£¿éµÄ²¿·ÖÅäÖÃÎÄ¼ş¶ªÊ§£º"
+msgstr "å¯†ç æ¨¡å—çš„éƒ¨åˆ†é…ç½®æ–‡ä»¶ä¸¢å¤±ï¼š"
 
 msgid "Success"
-msgstr "³É¹¦"
+msgstr "æˆåŠŸ"
 
 msgid ""
 "This is the main Password module configuration file. It contains paths and "
 "options for all Password module scripts."
-msgstr "ÕâÊÇÃÜÂëÄ£¿éµÄÖ÷ÅäÖÃÎÄ¼ş¡£Ëü°üº¬ËùÓĞÄ£¿é½Å±¾µÄÂ·¾¶¼°Ñ¡Ïî¡£"
+msgstr "è¿™æ˜¯å¯†ç æ¨¡å—çš„ä¸»é…ç½®æ–‡ä»¶ã€‚å®ƒåŒ…å«æ‰€æœ‰æ¨¡å—è„šæœ¬çš„è·¯å¾„åŠé€‰é¡¹ã€‚"
 
 msgid "Unable to connect to SQL server."
-msgstr "ÎŞ·¨Á¬½Óµ½ SQL ·şÎñÆ÷¡£"
+msgstr "æ— æ³•è¿æ¥åˆ° SQL æœåŠ¡å™¨ã€‚"
 
 #, c-format
 msgid "User %s@%s not found"
-msgstr "ÓÃ»§ %s@%s Î´ÕÒµ½"
+msgstr "ç”¨æˆ· %s@%s æœªæ‰¾åˆ°"
 
 msgid "Warning"
-msgstr "¾¯¸æ"
+msgstr "è­¦å‘Š"
 
 #, c-format
 msgid "You can't change password for user %s"
-msgstr "Äã²»ÄÜĞŞ¸ÄÓÃ»§ %s µÄÃÜÂë"
+msgstr "ä½ ä¸èƒ½ä¿®æ”¹ç”¨æˆ· %s çš„å¯†ç "
 
 msgid "You must give your new password"
-msgstr "Äã±ØĞëÊäÈëĞÂÃÜÂë"
+msgstr "ä½ å¿…é¡»è¾“å…¥æ–°å¯†ç "
 
 msgid "You must give your old password"
-msgstr "Äã±ØĞëÌá¹©¾ÉÃÜÂë"
+msgstr "ä½ å¿…é¡»æä¾›æ—§å¯†ç "
 
 msgid "You must verify your new password"
-msgstr "Äã±ØĞëÈ·ÈÏĞÂÃÜÂë"
+msgstr "ä½ å¿…é¡»ç¡®è®¤æ–°å¯†ç "
 
 #, c-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "ÄãµÄĞÂÃÜÂëÌ«³¤; ÃÜÂë³¤¶È²»ÄÜ³¬¹ı %d ¸ö×Ö·û!"
+msgstr "ä½ çš„æ–°å¯†ç å¤ªé•¿; å¯†ç é•¿åº¦ä¸èƒ½è¶…è¿‡ %d ä¸ªå­—ç¬¦!"
 
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "ÄãµÄĞÂÃÜÂëÌ«¼òµ¥Ò×²Â! Î´×÷ĞŞ¸Ä!"
+msgstr "ä½ çš„æ–°å¯†ç å¤ªç®€å•æ˜“çŒœ! æœªä½œä¿®æ”¹!"
 
 #, c-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "ÄãµÄĞÂÃÜÂë±ØĞëÖÁÉÙ %d ¸ö×Ö·û³¤!"
+msgstr "ä½ çš„æ–°å¯†ç å¿…é¡»è‡³å°‘ %d ä¸ªå­—ç¬¦é•¿!"
 
 msgid "Your new passwords didn't match"
-msgstr "ÄãµÄĞÂÃÜÂë²»Ò»ÖÂ"
+msgstr "ä½ çš„æ–°å¯†ç ä¸ä¸€è‡´"
 
 msgid "Your old password isn't correct"
-msgstr "ÄãµÄ¾ÉÃÜÂë²»ÕıÈ·"
+msgstr "ä½ çš„æ—§å¯†ç ä¸æ­£ç¡®"
 
 msgid "tempnam() failed!"
-msgstr "tempname() Ê§°Ü!"
+msgstr "tempname() å¤±è´¥!"

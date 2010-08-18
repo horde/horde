@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: Nethesis srl <info@nethesis.it>\n"
 "Language-Team: Italian <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/edit/edit.inc:211
@@ -196,7 +196,7 @@ msgstr "Ora Allarme"
 
 #: templates/prefs/default_alarm_management.inc:24 templates/edit/edit.inc:166
 msgid "Alarm Unit"
-msgstr "Unit‡ Allarme"
+msgstr "Unit√† Allarme"
 
 #: templates/prefs/default_alarm_management.inc:22 templates/edit/edit.inc:164
 msgid "Alarm Value"
@@ -251,7 +251,7 @@ msgstr "Tutti gli Eventi"
 
 #: lib/api.php:792 lib/api.php:803
 msgid "Already Exists"
-msgstr "Esiste Gi‡"
+msgstr "Esiste Gi√†"
 
 #: lib/Kronolith.php:1262 templates/search/search_advanced.inc:44
 #: templates/search/search_advanced.inc:65
@@ -273,7 +273,7 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"L'allegato Ë un file iCalendar, con pi˘ informazoni sull'evento. Se il tuo "
+"L'allegato √® un file iCalendar, con pi√π informazoni sull'evento. Se il tuo "
 "client di posta supporta le richieste iTip, puoi usare questo file per "
 "aggiornare la copia locale dell'evento"
 
@@ -449,7 +449,7 @@ msgstr "Mostra la data inizio/fine dell'evento nelle visualizzazioni:"
 
 #: config/prefs.php.dist:37
 msgid "Choose which holidays to display"
-msgstr "Selezionari quali festivit‡ mostare"
+msgstr "Selezionari quali festivit√† mostare"
 
 #: config/prefs.php.dist:29
 msgid "Choose your default calendar."
@@ -503,7 +503,7 @@ msgstr "Copia l'URL seguente per ottenere le informazioni di Libero/Occupato:"
 #: lib/Kronolith.php:456
 #, php-format
 msgid "Could not open %s."
-msgstr "Non Ë possibile aprire %s."
+msgstr "Non √® possibile aprire %s."
 
 #: lib/Forms/CreateCalendar.php:39
 msgid "Create"
@@ -752,14 +752,14 @@ msgstr "Anno di fine"
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
 msgstr ""
-"Si Ë verificato un errore nell'importazione delle informazioni libero/"
+"Si √® verificato un errore nell'importazione delle informazioni libero/"
 "occupato dell'utente %s: %s."
 
 #: attendees.php:223
 #, php-format
 msgid "Error retrieving your free/busy information: %s"
 msgstr ""
-"Si Ë verificato un errore nell'importazione delle informazioni libero/"
+"Si √® verificato un errore nell'importazione delle informazioni libero/"
 "occupato: %s."
 
 #: config/prefs.php.dist:44
@@ -853,7 +853,7 @@ msgstr "Informazione Libero/Occupato"
 #: templates/view/view.inc:103 templates/edit/javascript.inc:71
 #: templates/month/head.inc:21
 msgid "Friday"
-msgstr "VenerdÏ"
+msgstr "Venerd√¨"
 
 #: templates/edit/edit.inc:38 templates/delete/delete.inc:26
 msgid "Future"
@@ -896,7 +896,7 @@ msgstr "Ora(e)"
 #: config/prefs.php.dist:150
 msgid "How long should the time slots on the day and week views be?"
 msgstr ""
-"Che Granularit‡ si desidera nella visualizzazione del calendario per le "
+"Che Granularit√† si desidera nella visualizzazione del calendario per le "
 "viste giornaliera e settimanale?"
 
 #: config/prefs.php.dist:392
@@ -1075,7 +1075,7 @@ msgstr "Lun"
 #: templates/view/view.inc:99 templates/edit/javascript.inc:67
 #: templates/month/head.inc:17 config/prefs.php.dist:114
 msgid "Monday"
-msgstr "LunedÏ"
+msgstr "Luned√¨"
 
 #: attendees.php:199 lib/Kronolith.php:1754 lib/Block/tree_menu.php:24
 #: config/prefs.php.dist:93
@@ -1105,7 +1105,7 @@ msgstr "Mesi Prima"
 
 #: templates/prefs/sourceselect.inc:312
 msgid "Move down"
-msgstr "Sposta Gi˘"
+msgstr "Sposta Gi√π"
 
 #: templates/prefs/sourceselect.inc:310
 msgid "Move up"
@@ -1113,7 +1113,7 @@ msgstr "Sposta Su"
 
 #: lib/api.php:1063
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Trovati diversi compenenti icalendar; solo un vEvent Ë supportato."
+msgstr "Trovati diversi compenenti icalendar; solo un vEvent √® supportato."
 
 #: templates/panel.inc:41
 msgid "My Calendars:"
@@ -1139,7 +1139,7 @@ msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
 msgstr ""
-"Il nuovo calendario Ë stato creato e automaticamente condiviso con i "
+"Il nuovo calendario √® stato creato e automaticamente condiviso con i "
 "seguenti gruppo/i: %s."
 
 #: templates/data/import.inc:33
@@ -1197,8 +1197,8 @@ msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
 msgstr ""
-"Nessun partecipante Ë stato aggiornato in quanto nessuno degli indirizzi "
-"email forniti Ë stato trovato nella lista partecipanti."
+"Nessun partecipante √® stato aggiornato in quanto nessuno degli indirizzi "
+"email forniti √® stato trovato nella lista partecipanti."
 
 #: lib/Kronolith.php:1997
 msgid "No calendars are available to guests."
@@ -1242,7 +1242,7 @@ msgstr "Nessuna Ricorrenza"
 
 #: lib/FreeBusy.php:168
 msgid "No valid email address found"
-msgstr "Nessun indirizzo e-mail valido Ë stato trovato."
+msgstr "Nessun indirizzo e-mail valido √® stato trovato."
 
 #: lib/Kronolith.php:1179 lib/Kronolith.php:1200
 #: templates/prefs/sourceselect.inc:35
@@ -1307,7 +1307,7 @@ msgid ""
 "permissions for a share"
 msgstr ""
 "Solo il proprietario o l'amministrazione di sistema possono cambiare la "
-"propriet‡ o i permessi del proprietario della condivisione"
+"propriet√† o i permessi del proprietario della condivisione"
 
 #: lib/Kronolith.php:1197
 msgid "Optional"
@@ -1430,7 +1430,7 @@ msgstr "Frequenza con la quale eliminare i vecchi eventi:"
 
 #: config/prefs.php.dist:489
 msgid "Purge old events older than this amount of days."
-msgstr "Eliminare gli eventi pi˘ vecchi del seguente numero di giorni."
+msgstr "Eliminare gli eventi pi√π vecchi del seguente numero di giorni."
 
 #: templates/perms/perms.inc:52 templates/perms/perms.inc:82
 #: templates/perms/perms.inc:108 templates/perms/perms.inc:123
@@ -1448,7 +1448,7 @@ msgid ""
 "Really delete the calendar \"%s\"? This cannot be undone and all data on "
 "this calendar will be permanently removed."
 msgstr ""
-"Sei sicuro di eliminare il calendario %s? Questa operazione non puÚ essere "
+"Sei sicuro di eliminare il calendario %s? Questa operazione non pu√≤ essere "
 "annullata e gli eventi saranno eliminati permanentemente."
 
 #: lib/Forms/UnsubscribeRemoteCalendar.php:37
@@ -1556,7 +1556,7 @@ msgid ""
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
 "Sostituire il calendario esistente con quello importato? <strong>Attenzione: "
-"Questo eliminer‡ tutti i dati contenuti nell'attuale calendario.</strong>"
+"Questo eliminer√† tutti i dati contenuti nell'attuale calendario.</strong>"
 
 #: lib/Kronolith.php:1204
 msgid "Required"
@@ -1861,7 +1861,7 @@ msgstr "Stato"
 
 #: lib/Storage.php:143
 msgid "Storing free/busy is not available."
-msgstr "Non Ë possibile salvare le impostazioni dilibero/occupato"
+msgstr "Non √® possibile salvare le impostazioni dilibero/occupato"
 
 #: lib/Block/month.php:109 lib/Block/month.php:111 lib/Views/Year.php:75
 #: lib/Views/Year.php:84 templates/edit/edit.inc:241
@@ -1903,49 +1903,49 @@ msgstr "Il file %s non contiene eventi."
 
 #: lib/Driver.php:48
 msgid "The Calendar backend is not currently available."
-msgstr "Il backend del Calendario non Ë al momento disponibile"
+msgstr "Il backend del Calendario non √® al momento disponibile"
 
 #: lib/Driver.php:203
 #, php-format
 msgid "The Calendar backend is not currently available: %s"
-msgstr "Il backend del Calendario non Ë al momento disponibile: %s"
+msgstr "Il backend del Calendario non √® al momento disponibile: %s"
 
 #: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
-msgstr "La pagina di modifica partecipanti non Ë presente. Uscita."
+msgstr "La pagina di modifica partecipanti non √® presente. Uscita."
 
 #: lib/api.php:1210
 msgid ""
 "The attendee hasn't been updated because the update was not sent from the "
 "attendee."
 msgstr ""
-"Il partecipante non Ë stato aggiornato in quanto nessun aggiornamento Ë "
+"Il partecipante non √® stato aggiornato in quanto nessun aggiornamento √® "
 "stato inviato dal partecipante."
 
 #: calendars/create.php:33
 #, php-format
 msgid "The calendar \"%s\" has been created."
-msgstr "Il calendario \"%s\" Ë stato creato."
+msgstr "Il calendario \"%s\" √® stato creato."
 
 #: calendars/delete.php:50
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
-msgstr "Il calendario \"%s\" Ë stato eliminato."
+msgstr "Il calendario \"%s\" √® stato eliminato."
 
 #: calendars/edit.php:44
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "Il calendario \"%s\" Ë stato rinominato in \"%s\"."
+msgstr "Il calendario \"%s\" √® stato rinominato in \"%s\"."
 
 #: calendars/edit.php:46 calendars/remote_edit.php:49
 #, php-format
 msgid "The calendar \"%s\" has been saved."
-msgstr "Il calendario \"%s\" Ë stato salvato."
+msgstr "Il calendario \"%s\" √® stato salvato."
 
 #: data.php:252
 #, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Il calendario non puÚ essere svuotato: %s."
+msgstr "Il calendario non pu√≤ essere svuotato: %s."
 
 #: templates/edit/javascript.inc:156
 msgid "The end date must be later than the start date."
@@ -1955,29 +1955,29 @@ msgstr "La data di fine deve essere dopo la data di inizio."
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
-msgstr "L'evento %s Ë stato aggiunto al calendario %s, il %s alle %s."
+msgstr "L'evento %s √® stato aggiunto al calendario %s, il %s alle %s."
 
 #: lib/Kronolith.php:1606
 #, php-format
 msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
-msgstr "L'evento %s Ë stato eliminato dal calendario %s, il %s alle %s."
+msgstr "L'evento %s √® stato eliminato dal calendario %s, il %s alle %s."
 
 #: lib/Kronolith.php:1601
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
-msgstr "L'evento %s Ë stato modificato nel calendario %s, il %s alle %s."
+msgstr "L'evento %s √® stato modificato nel calendario %s, il %s alle %s."
 
 #: lib/Kronolith.php:1486
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "La notifica dell'evento Ë stata inviata con successo a %s."
+msgstr "La notifica dell'evento √® stata inviata con successo a %s."
 
 #: lib/Kronolith.php:1440
 msgid "The following is a more detailed description of the event:"
-msgstr "La seguente Ë una descrizione pi˘ dettagliata dell'evento:"
+msgstr "La seguente √® una descrizione pi√π dettagliata dell'evento:"
 
 #: lib/FreeBusy.php:193
 #, php-format
@@ -1986,20 +1986,20 @@ msgstr "Impossibile trovare l'URL libero occupato di %s."
 
 #: calendars/remote_unsubscribe.php:36 calendars/remote_edit.php:36
 msgid "The remote calendar was not found."
-msgstr "Il calendario remoto non Ë stato trovato."
+msgstr "Il calendario remoto non √® stato trovato."
 
 #: attend.php:43
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"La richiesta Ë incompleta. Alcuni parametri necessari per accettare o "
+"La richiesta √® incompleta. Alcuni parametri necessari per accettare o "
 "l'evento sono mancanti."
 
 #: lib/Views/EditEvent.php:43 lib/Views/Event.php:41
 #: lib/Views/DeleteEvent.php:40
 msgid "The requested event was not found."
-msgstr "L'evento richiesto non Ë stato trovato."
+msgstr "L'evento richiesto non √® stato trovato."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
@@ -2013,12 +2013,12 @@ msgstr "Errore nell'importazione dei dati iCalendar: %s."
 #: add.php:44
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "Si Ë verificato un errore nell'importazione dell'evento: %s."
+msgstr "Si √® verificato un errore nell'importazione dell'evento: %s."
 
 #: edit.php:17
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Si Ë verificato un errore nella visualizzazione dell'evento: %s."
+msgstr "Si √® verificato un errore nella visualizzazione dell'evento: %s."
 
 #: lib/api.php:483 lib/api.php:770 lib/api.php:1055
 msgid "There was an error importing the iCalendar data."
@@ -2044,18 +2044,18 @@ msgstr "Questo mese"
 
 #: calendars/delete.php:26
 msgid "This calendar cannot be deleted."
-msgstr "Il calendario non puÚ essere cancellato."
+msgstr "Il calendario non pu√≤ essere cancellato."
 
 #: data.php:200
 msgid "This file format is not supported."
-msgstr "Il fomato di questo file non Ë supportato."
+msgstr "Il fomato di questo file non √® supportato."
 
 #: templates/delete/delete.inc:18
 msgid ""
 "This is a recurring event. Delete the current event only, this<br /"
 ">occurrence and all future occurences, or all occurences?"
 msgstr ""
-"Questo Ë un evento ricorrente. Eliminare solo l'evento corrente, questo<br /"
+"Questo √® un evento ricorrente. Eliminare solo l'evento corrente, questo<br /"
 "> e tutti gli eventi futuri o tutti gli eventi (passati e futuri)?"
 
 #: templates/edit/edit.inc:36
@@ -2063,18 +2063,18 @@ msgid ""
 "This is a recurring event. Edit the current event only, this occurrence<br /"
 ">and all future occurences, all occurences, or save this event as new?"
 msgstr ""
-"Questo Ë un evento ricorrente. Modificare solo l'evento corrente, questo<br /"
+"Questo √® un evento ricorrente. Modificare solo l'evento corrente, questo<br /"
 "> e tutti gli eventi futuri o tutti eventi (passati e futuri)?"
 
 #: data.php:272
 #, php-format
 msgid "This is what the server said: %s"
-msgstr "Questo Ë quello che il sever ha indicato: %s"
+msgstr "Questo √® quello che il sever ha indicato: %s"
 
 #: templates/view/view.inc:102 templates/edit/javascript.inc:70
 #: templates/month/head.inc:20
 msgid "Thursday"
-msgstr "GiovedÏ"
+msgstr "Gioved√¨"
 
 #: templates/search/search.inc:36
 msgid "Time Sp_an"
@@ -2125,7 +2125,7 @@ msgstr "Mar"
 #: templates/view/view.inc:100 templates/edit/javascript.inc:68
 #: templates/month/head.inc:18
 msgid "Tuesday"
-msgstr "MartedÏ"
+msgstr "Marted√¨"
 
 #: config/keywords.php.dist:17
 msgid "Type"
@@ -2262,7 +2262,7 @@ msgstr ""
 #: templates/view/view.inc:101 templates/edit/javascript.inc:69
 #: templates/month/head.inc:19
 msgid "Wednesday"
-msgstr "MercoledÏ"
+msgstr "Mercoled√¨"
 
 #: attendees.php:198 lib/Kronolith.php:1752 lib/Block/tree_menu.php:23
 #: config/prefs.php.dist:91
@@ -2303,7 +2303,7 @@ msgstr ""
 
 #: config/prefs.php.dist:286
 msgid "Which kind of holidays do you want to get displayed?"
-msgstr "Che tipo di festivit‡ si desidera visualizzare?"
+msgstr "Che tipo di festivit√† si desidera visualizzare?"
 
 #: attendees.php:197 lib/Kronolith.php:1750 lib/Block/tree_menu.php:22
 #: config/prefs.php.dist:92
@@ -2331,7 +2331,7 @@ msgstr "Non hai il permesso modificare questo calendario."
 #: data.php:41 data.php:261 new.php:19 edit.php:27
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "Non hai il permesso di creare pi˘ di %d eventi."
+msgstr "Non hai il permesso di creare pi√π di %d eventi."
 
 #: calendars/delete.php:37
 msgid "You are not allowed to delete this calendar."

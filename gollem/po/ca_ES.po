@@ -1,5 +1,5 @@
 # Spanish translations for horde package
-# Traducciones al español para el paquete horde.
+# Traducciones al espaÃ±ol para el paquete horde.
 # Copyright 2004-2010 The Horde Project
 # This file is distributed under the same license as the horde package.
 # Automatically generated, 2004.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Jordi Giralt <projectek2@upcnet.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -69,13 +69,13 @@ msgstr "1 element"
 #: view.php:31
 #, php-format
 msgid "Access denied to %s"
-msgstr "S'ha denegat l'accés a %s"
+msgstr "S'ha denegat l'accÃ©s a %s"
 
 #: lib/Gollem.php:116 lib/Gollem.php:390 lib/Gollem.php:452 lib/Gollem.php:473
 #: lib/Gollem.php:490
 #, php-format
 msgid "Access denied to folder \"%s\"."
-msgstr "S'ha denegat l'accés a la carpeta \"%s\"."
+msgstr "S'ha denegat l'accÃ©s a la carpeta \"%s\"."
 
 #: templates/manager/manager.html:105
 msgid "Actions"
@@ -95,11 +95,11 @@ msgstr "Tots"
 
 #: templates/manager/javascript.inc:202
 msgid "Are you sure you wish to continue?"
-msgstr "Està segur que vol continuar?"
+msgstr "EstÃ  segur que vol continuar?"
 
 #: templates/manager/javascript.inc:198
 msgid "Are you sure?"
-msgstr "Està segur?"
+msgstr "EstÃ  segur?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
@@ -123,11 +123,11 @@ msgstr "Motors"
 
 #: templates/clipboard/clipboard.html:11
 msgid "Below is the current contents of your clipboard."
-msgstr "A continuació es mostra el contingut actual del portapapers."
+msgstr "A continuaciÃ³ es mostra el contingut actual del portapapers."
 
 #: manager.php:254 selectlist.php:102 clipboard.php:37
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "CancelÂ·lar"
 
 #: manager.php:72
 #, php-format
@@ -155,7 +155,7 @@ msgstr "No es pot eliminar \"%s\": %s"
 #: manager.php:157
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
-msgstr "No es pot enganxar \"%s\" (el portapapers està buit): %s"
+msgstr "No es pot enganxar \"%s\" (el portapapers estÃ  buit): %s"
 
 #: lib/Gollem.php:777 templates/manager/manager.html:71
 msgid "Change Folder"
@@ -167,11 +167,11 @@ msgstr "Canviar servidor"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "Canviar opcions de manipulació d'arxius i  carpetes."
+msgstr "Canviar opcions de manipulaciÃ³ d'arxius i  carpetes."
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Canviar opcions de classificació d'arxius."
+msgstr "Canviar opcions de classificaciÃ³ d'arxius."
 
 #: lib/Gollem.php:793
 msgid "Check Quota"
@@ -227,7 +227,7 @@ msgstr "Crear carpeta"
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
-msgstr "Crear permisos buits per \"%s\". Ha d'especificar el nivell d'accés a"
+msgstr "Crear permisos buits per \"%s\". Ha d'especificar el nivell d'accÃ©s a"
 
 #: templates/clipboard/clipboard.html:17
 msgid "Current directory:"
@@ -243,11 +243,11 @@ msgstr "Tallar elements"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Criteri de classificació por omissió:"
+msgstr "Criteri de classificaciÃ³ por omissiÃ³:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Sentit de classificació per omissió"
+msgstr "Sentit de classificaciÃ³ per omissiÃ³"
 
 #: templates/manager/manager.html:110
 msgid "Delete Items"
@@ -284,7 +284,7 @@ msgstr "Correu"
 
 #: templates/manager/manager.html:24
 msgid "Execute"
-msgstr "Execució"
+msgstr "ExecuciÃ³"
 
 #: templates/manager/javascript.inc:485 templates/manager/manager.html:179
 msgid "File"
@@ -296,7 +296,7 @@ msgstr "Vista de l'arxiu"
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "Hora de modificació de l'arxiu"
+msgstr "Hora de modificaciÃ³ de l'arxiu"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
@@ -329,7 +329,7 @@ msgstr "Anar a:"
 
 #: permissions.php:21
 msgid "Gollem Backend Permissions Administration"
-msgstr "Administració de permisos del motor de Gollem"
+msgstr "AdministraciÃ³ de permisos del motor de Gollem"
 
 #: manager.php:471 templates/manager/manager.html:8
 msgid "Group"
@@ -341,7 +341,7 @@ msgstr "Inici"
 
 #: manager.php:56
 msgid "Incorrect number of items."
-msgstr "Número d'elements incorrecte."
+msgstr "NÃºmero d'elements incorrecte."
 
 #: manager.php:126
 #, php-format
@@ -363,7 +363,7 @@ msgstr "Llistar primer les carpetes?"
 
 #: login.php:303
 msgid "Login"
-msgstr "Iniciar sessió"
+msgstr "Iniciar sessiÃ³"
 
 #: quota.php:62
 msgid "MB free"
@@ -375,7 +375,7 @@ msgstr "MB utilitzats"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Llistat del menú"
+msgstr "Llistat del menÃº"
 
 #: manager.php:445
 msgid "Modified"
@@ -383,11 +383,11 @@ msgstr "Modific."
 
 #: templates/prefs/columnselect.inc:44
 msgid "Move left"
-msgstr "Desplaçar a l'esquerra "
+msgstr "DesplaÃ§ar a l'esquerra "
 
 #: templates/prefs/columnselect.inc:45
 msgid "Move right"
-msgstr "Desplaçar a la dreta"
+msgstr "DesplaÃ§ar a la dreta"
 
 #: manager.php:432
 msgid "Name"
@@ -432,7 +432,7 @@ msgstr "Privilegis"
 #: selectlist.php:63
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "Permís denegat a  %s: %s"
+msgstr "PermÃ­s denegat a  %s: %s"
 
 #: manager.php:200
 #, php-format
@@ -457,7 +457,7 @@ msgstr "Seleccioni un motor:"
 
 #: templates/manager/javascript.inc:132
 msgid "Please select an item before this action."
-msgstr "Seleccioni un element abans d'aquesta acció."
+msgstr "Seleccioni un element abans d'aquesta acciÃ³."
 
 #: templates/manager/javascript.inc:456
 msgid "Please specify at least one file to upload."
@@ -521,15 +521,15 @@ msgstr "Mida"
 
 #: manager.php:478
 msgid "Sort Direction"
-msgstr "Sentit de classificació"
+msgstr "Sentit de classificaciÃ³"
 
 #: templates/manager/javascript.inc:202
 msgid "The following item(s) are folders: "
-msgstr "Els següents elements són carpetes:"
+msgstr "Els segÃ¼ents elements sÃ³n carpetes:"
 
 #: templates/manager/javascript.inc:198
 msgid "The following items will be permanently deleted: "
-msgstr "S'eliminaran permanentment els següents elements: "
+msgstr "S'eliminaran permanentment els segÃ¼ents elements: "
 
 #: templates/selectlist/javascript.inc:9
 msgid "The original opener window has been closed. Exiting."
@@ -579,7 +579,7 @@ msgstr "Carregar arxiu(s)"
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "Interfície d'usuari "
+msgstr "InterfÃ­cie d'usuari "
 
 #: config/credentials.php.dist:18
 msgid "Username"
@@ -609,7 +609,7 @@ msgstr "Per a definir privilegis necessita almenys definir un motor. "
 #: lib/MIME/Viewer/images.php:35
 msgid "Your browser does not support inline display of this image type"
 msgstr ""
-"El seu navegador no admet la visualització en línia d'aquest tipus d'imatge. "
+"El seu navegador no admet la visualitzaciÃ³ en lÃ­nia d'aquest tipus d'imatge. "
 
 #: lib/Gollem.php:817 lib/Gollem.php:820
 msgid "_Change Server"
@@ -621,4 +621,4 @@ msgstr "carpeta"
 
 #: manager.php:216 selectlist.php:75
 msgid "symlink"
-msgstr "vincle simbòlic "
+msgstr "vincle simbÃ²lic "

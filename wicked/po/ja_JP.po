@@ -5,39 +5,39 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Wicked 1.0-cvs\n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-01-09 09:58+0900\n"
-"PO-Revision-Date: 2007-12-16 15:08+0100\n"
-"Last-Translator: Takeshi Taguchi <taguchi@iij.ad.jp>\n"
-"Language-Team: i18n@lists.horde.org\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=SHIFT_JIS\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: Wicked 1.0-cvsÂ¥n"
+"Report-Msgid-Bugs-To: dev@lists.horde.orgÂ¥n"
+"POT-Creation-Date: 2008-01-09 09:58+0900Â¥n"
+"PO-Revision-Date: 2007-12-16 15:08+0100Â¥n"
+"Last-Translator: Takeshi Taguchi <taguchi@iij.ad.jp>Â¥n"
+"Language-Team: i18n@lists.horde.orgÂ¥n"
+"MIME-Version: 1.0Â¥n"
+"Content-Type: text/plain; charset=UTF-8Â¥n"
+"Content-Transfer-Encoding: 8bitÂ¥n"
 
 #: lib/Page/Search.php:111
 #, php-format
 msgid "%s Does not exist. You can create it now."
-msgstr "%s ‚Í‘¶İ‚µ‚Ü‚¹‚ñB‚±‚ê‚©‚çì¬‚Å‚«‚Ü‚·B"
+msgstr "%s ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚ã“ã‚Œã‹ã‚‰ä½œæˆã§ãã¾ã™ã€‚"
 
 #: templates/edit/create.inc:13
 #, php-format
 msgid ""
 "%s does not exist, but maybe you were looking for one of the following pages?"
-msgstr "%s ‚Í‘¶İ‚µ‚Ü‚¹‚ñB‚ªAˆÈ‰º‚Ìƒy[ƒW‚ª‚¨’T‚µ‚Ì‚à‚Ì‚©‚à‚µ‚ê‚Ü‚¹‚ñB"
+msgstr "%s ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚ãŒã€ä»¥ä¸‹ã®ãƒšãƒ¼ã‚¸ãŒãŠæ¢ã—ã®ã‚‚ã®ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚"
 
 #: templates/edit/create.inc:30
 #, php-format
 msgid ""
-"%s does not exist. Click on \"Create\" below if you want to create this page "
+"%s does not exist. Click on Â¥"CreateÂ¥" below if you want to create this page "
 "now and start editing."
 msgstr ""
-"%s ‚Í‘¶İ‚µ‚Ü‚¹‚ñBì¬‚³‚ê‚½‚¢ê‡‚Í\"ì¬\"‚ğƒNƒŠƒbƒN‚µA•ÒW‚ğŠJn‚µ‚Ä‚­‚¾"
-"‚³‚¢B"
+"%s ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚ä½œæˆã•ã‚ŒãŸã„å ´åˆã¯Â¥"ä½œæˆÂ¥"ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã€ç·¨é›†ã‚’é–‹å§‹ã—ã¦ãã "
+"ã•ã„ã€‚"
 
 #: templates/edit/create.inc:37
 msgid "(None)"
-msgstr "(‚È‚µ)"
+msgstr "(ãªã—)"
 
 #: scripts/wicked.php:161
 msgid ""
@@ -73,389 +73,389 @@ msgstr "-u, --username[=username]    Horde login username"
 
 #: templates/display/MergeOrRename.html:31
 msgid "Add the text from this page"
-msgstr "‚±‚Ìƒy[ƒW‚©‚ç–{•¶‚ğ’Ç‰Á"
+msgstr "ã“ã®ãƒšãƒ¼ã‚¸ã‹ã‚‰æœ¬æ–‡ã‚’è¿½åŠ "
 
 #: lib/Page/AddPage.php:98
 #, php-format
 msgid "AddPage: %s"
-msgstr "’Ç‰Áƒy[ƒWF%s"
+msgstr "è¿½åŠ ãƒšãƒ¼ã‚¸ï¼š%s"
 
 #: lib/Page/AllPages.php:90
 msgid "AllPages"
-msgstr "‘S‚Ä‚Ìƒy[ƒW"
+msgstr "å…¨ã¦ã®ãƒšãƒ¼ã‚¸"
 
 #: lib/Page/DeletePage.php:83
 msgid ""
 "Are you sure you want to delete this page? All versions will be permanently "
 "removed."
-msgstr "–{“–‚É‚±‚Ìƒy[ƒW‚ğíœ‚µ‚Ü‚·‚©H‘S‚Ä‚Ìƒo[ƒWƒ‡ƒ“‚ªŠ®‘S‚ÉÁ‹‚³‚ê‚Ü‚·B"
+msgstr "æœ¬å½“ã«ã“ã®ãƒšãƒ¼ã‚¸ã‚’å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿå…¨ã¦ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒå®Œå…¨ã«æ¶ˆå»ã•ã‚Œã¾ã™ã€‚"
 
 #: lib/Page/DeletePage.php:85
 #, php-format
 msgid "Are you sure you want to delete version %s of this page?"
-msgstr "–{“–‚É‚±‚Ìƒy[ƒW‚Ìƒo[ƒWƒ‡ƒ“ %s ‚ğíœ‚µ‚Ü‚·‚©H"
+msgstr "æœ¬å½“ã«ã“ã®ãƒšãƒ¼ã‚¸ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ %s ã‚’å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ"
 
 #: lib/Page/RevertPage.php:71
 #, php-format
 msgid "Are you sure you want to revert to version %s of this page?"
-msgstr "–{“–‚É‚±‚Ìƒy[ƒW‚ğƒo[ƒWƒ‡ƒ“ %s ‚É–ß‚µ‚Ü‚·‚©H"
+msgstr "æœ¬å½“ã«ã“ã®ãƒšãƒ¼ã‚¸ã‚’ãƒãƒ¼ã‚¸ãƒ§ãƒ³ %s ã«æˆ»ã—ã¾ã™ã‹ï¼Ÿ"
 
 #: templates/display/AttachedFiles.html:88
 msgid "Attach File"
-msgstr "“Y•tƒtƒ@ƒCƒ‹"
+msgstr "æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: templates/display/AttachedFiles.html:52
 msgid "Attach a New File"
-msgstr "V‹K“Y•tƒtƒ@ƒCƒ‹"
+msgstr "æ–°è¦æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: templates/display/standard.inc:68
 msgid "AttachedFiles"
-msgstr "“Y•t‚³‚ê‚½ƒtƒ@ƒCƒ‹"
+msgstr "æ·»ä»˜ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: lib/Page/AttachedFiles.php:163
 #, php-format
 msgid "AttachedFiles: %s"
-msgstr "“Y•tƒtƒ@ƒCƒ‹F%s"
+msgstr "æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«ï¼š%s"
 
 #: templates/display/standard.inc:69
 msgid "Attached_Files"
-msgstr "“Y•tƒtƒ@ƒCƒ‹"
+msgstr "æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #
 #: templates/display/AttachedFiles.html:7
 msgid "Attachment Name"
-msgstr "“Y•t–¼"
+msgstr "æ·»ä»˜å"
 
 #: templates/display/standard.inc:105
 msgid "Attachments"
-msgstr "“Y•t•¨"
+msgstr "æ·»ä»˜ç‰©"
 
 #: lib/Page/AttachedFiles.php:208
 msgid "Attachments with spaces can't be embedded into a page."
-msgstr "‹ó”’‚Ì‚Â‚¢‚½“Y•t‚Íƒy[ƒW‚É–„‚ß‚ß‚Ü‚¹‚ñB"
+msgstr "ç©ºç™½ã®ã¤ã„ãŸæ·»ä»˜ã¯ãƒšãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã‚ã¾ã›ã‚“ã€‚"
 
 #: templates/pagelist/header.inc:7 templates/history/header.inc:23
 #: templates/edit/create.inc:19 lib/Page/Search.php:157
 #: templates/display/AttachedFiles.html:10
 msgid "Author"
-msgstr "ì¬Ò"
+msgstr "ä½œæˆè€…"
 
 #
 #: templates/display/standard.inc:92
 msgid "Ba_ck to"
-msgstr "_c–ß‚é"
+msgstr "_cæˆ»ã‚‹"
 
 #
 #: templates/display/standard.inc:92
 msgid "Back to"
-msgstr "–ß‚é"
+msgstr "æˆ»ã‚‹"
 
 #: templates/display/standard.inc:60
 msgid "BackLinks"
-msgstr "ƒoƒbƒNƒŠƒ“ƒN"
+msgstr "ãƒãƒƒã‚¯ãƒªãƒ³ã‚¯"
 
 #: lib/Page/BackLinks.php:80
 #, php-format
 msgid "BackLinks: %s"
-msgstr "ƒoƒbƒNƒŠƒ“ƒN: %s"
+msgstr "ãƒãƒƒã‚¯ãƒªãƒ³ã‚¯: %s"
 
 #: lib/Page/AttachedFiles.php:213
 msgid "Can't read uploaded file."
-msgstr "ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹‚ªŠJ‚¯‚Ü‚¹‚ñB"
+msgstr "ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‘ã¾ã›ã‚“ã€‚"
 
 #: lib/Page/RevertPage.php:120
 #, php-format
 msgid "Can't revert to an unknown version."
-msgstr "–¢’m‚Ìƒo[ƒWƒ‡ƒ“‚É•œ‹Œ‚Å‚«‚Ü‚¹‚ñB"
+msgstr "æœªçŸ¥ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã«å¾©æ—§ã§ãã¾ã›ã‚“ã€‚"
 
 #: lib/Page/AttachedFiles.php:248
 #, php-format
-msgid "Can't update \"%s\": no such attachment."
-msgstr "\"%s\" ‚ğXV‚Å‚«‚Ü‚¹‚ñ: ‚»‚Ì—l‚È“Y•t‚Í‚ ‚è‚Ü‚¹‚ñB"
+msgid "Can't update Â¥"%sÂ¥": no such attachment."
+msgstr "Â¥"%sÂ¥" ã‚’æ›´æ–°ã§ãã¾ã›ã‚“: ãã®æ§˜ãªæ·»ä»˜ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #
 #: templates/edit/create.inc:47 templates/edit/standard.inc:27
 #: lib/Page/DeletePage.php:104 lib/Page/MergeOrRename.php:140
 #: lib/Page/RevertPage.php:88 templates/display/MergeOrRename.html:62
 msgid "Cancel"
-msgstr "ƒLƒƒƒ“ƒZƒ‹"
+msgstr "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
 #
 #: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
 msgid "Change Log"
-msgstr "•ÏX—š—ğ"
+msgstr "å¤‰æ›´å±¥æ­´"
 
 #
 #: templates/edit/standard.inc:29
 msgid "Change log"
-msgstr "•ÏX—š—ğ"
+msgstr "å¤‰æ›´å±¥æ­´"
 
 #
 #: templates/display/AttachedFiles.html:80
 #: templates/display/AttachedFiles.html:146
 msgid "Change log entry"
-msgstr "—š—ğ€–Ú‚Ì•ÏX"
+msgstr "å±¥æ­´é …ç›®ã®å¤‰æ›´"
 
 #: templates/display/MergeOrRename.html:40
 msgid "Change references to this page from:"
-msgstr "‚±‚Ìƒy[ƒW‚Ö‚ÌQÆ‚Ì•ÏX"
+msgstr "ã“ã®ãƒšãƒ¼ã‚¸ã¸ã®å‚ç…§ã®å¤‰æ›´"
 
 #: lib/Page/MergeOrRename.php:253
 #, php-format
 msgid "Changed references from %s to %s"
-msgstr "%s ‚©‚ç %s ‚Ö‚ÌQÆ‚Ì•ÏX"
+msgstr "%s ã‹ã‚‰ %s ã¸ã®å‚ç…§ã®å¤‰æ›´"
 
 #
 #: templates/edit/standard.inc:28
 msgid "Changelog is required"
-msgstr "•ÏX—š—ğ‚ª•K—v‚Å‚·"
+msgstr "å¤‰æ›´å±¥æ­´ãŒå¿…è¦ã§ã™"
 
 #: templates/edit/create.inc:26
 msgid ""
-"Click on \"Create\" below if you want to create this page now and start "
+"Click on Â¥"CreateÂ¥" below if you want to create this page now and start "
 "editing."
 msgstr ""
-"‚±‚Ìƒy[ƒW‚ğì¬‚³‚ê‚½‚¢ê‡‚Í\"Create\"‚ğƒNƒŠƒbƒN‚µA•ÒW‚ğŠJn‚µ‚Ä‰º‚³‚¢B"
+"ã“ã®ãƒšãƒ¼ã‚¸ã‚’ä½œæˆã•ã‚ŒãŸã„å ´åˆã¯Â¥"CreateÂ¥"ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã€ç·¨é›†ã‚’é–‹å§‹ã—ã¦ä¸‹ã•ã„ã€‚"
 
 #
 #: scripts/wicked.php:42
 msgid "Couldn't read command-line options."
-msgstr "ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñB"
+msgstr "ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã€‚"
 
 #: templates/edit/create.inc:46
 msgid "Create"
-msgstr "ì¬"
+msgstr "ä½œæˆ"
 
 #: lib/Page/NewPage.php:129
 #, php-format
 msgid "Create Failed: %s"
-msgstr "ì¬¸”s: %s"
+msgstr "ä½œæˆå¤±æ•—: %s"
 
 #
 #: templates/history/header.inc:24
 msgid "Created"
-msgstr "ì¬Ï‚İ"
+msgstr "ä½œæˆæ¸ˆã¿"
 
 #
 #: templates/pagelist/header.inc:8 templates/edit/create.inc:20
 #: lib/Page/Search.php:158
 msgid "Creation Date"
-msgstr "ì¬“ú"
+msgstr "ä½œæˆæ—¥"
 
 #: templates/display/AttachedFiles.html:11
 msgid "Date"
-msgstr "“ú•t"
+msgstr "æ—¥ä»˜"
 
 #: lib/Page/DeletePage.php:103
 msgid "Delete"
-msgstr "íœ"
+msgstr "å‰Šé™¤"
 
 #: templates/display/standard.inc:47
 #, php-format
 msgid "Delete %s"
-msgstr "%s ‚ğíœ"
+msgstr "%s ã‚’å‰Šé™¤"
 
 #
 #: templates/history/header.inc:16
 msgid "Delete Version"
-msgstr "íœƒo[ƒWƒ‡ƒ“"
+msgstr "å‰Šé™¤ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #: templates/history/summary.inc:6
 #, php-format
 msgid "Delete Version %s"
-msgstr "ƒo[ƒWƒ‡ƒ“%s‚ğíœ"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³%sã‚’å‰Šé™¤"
 
 #
 #: lib/Page/DeletePage.php:97 lib/Page/DeletePage.php:120
 msgid "DeletePage"
-msgstr "íœ"
+msgstr "å‰Šé™¤"
 
 #: lib/Page/DeletePage.php:142
 #, php-format
-msgid "Deleted version %s of \"%s\"."
-msgstr "\"%s\" ‚Ìƒo[ƒWƒ‡ƒ“\"%s\"‚ğíœ"
+msgid "Deleted version %s of Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥" ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³Â¥"%sÂ¥"ã‚’å‰Šé™¤"
 
 #
 #: templates/history/header.inc:26
 msgid "Diff From"
-msgstr "ˆÈ‰º‚©‚ç‚Ì·•ª"
+msgstr "ä»¥ä¸‹ã‹ã‚‰ã®å·®åˆ†"
 
 #: templates/history/header.inc:27
 msgid "Diff To"
-msgstr "ˆÈ‰º‚Ö‚Ì·•ª"
+msgstr "ä»¥ä¸‹ã¸ã®å·®åˆ†"
 
 #: diff.php:56 templates/diff/diff.inc:2
 #, php-format
 msgid "Diff for %s between %s and %s"
-msgstr "%s‚É‚¨‚¯‚é%s‚Æ%sŠÔ‚Ì·•ª"
+msgstr "%sã«ãŠã‘ã‚‹%sã¨%sé–“ã®å·®åˆ†"
 
 #: templates/pagelist/summary.inc:3
 #, php-format
 msgid "Display %s"
-msgstr "•\¦ %s"
+msgstr "è¡¨ç¤º %s"
 
 #: templates/pagelist/summary.inc:6 templates/history/summary.inc:2
 #, php-format
 msgid "Display Version %s"
-msgstr "•\¦ƒo[ƒWƒ‡ƒ“ %s"
+msgstr "è¡¨ç¤ºãƒãƒ¼ã‚¸ãƒ§ãƒ³ %s"
 
 #
 #: templates/display/AttachedFiles.html:13
 msgid "Downloads"
-msgstr "ƒ_ƒEƒ“ƒ[ƒh"
+msgstr "ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰"
 
 #: preview.php:24 templates/display/standard.inc:23
 #, php-format
 msgid "Edit %s"
-msgstr "•ÒW %s"
+msgstr "ç·¨é›† %s"
 
 #
 #: templates/history/header.inc:18
 msgid "Edit Version"
-msgstr "ƒo[ƒWƒ‡ƒ“‚Ì•ÒW"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ç·¨é›†"
 
 #: templates/history/summary.inc:16
 #, php-format
 msgid "Edit Version %s"
-msgstr "%s ƒo[ƒWƒ‡ƒ“‚Ì•ÒW"
+msgstr "%s ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ç·¨é›†"
 
 #
 #: templates/edit/standard.inc:21 lib/Page/EditPage.php:93
 msgid "EditPage"
-msgstr "•ÒWƒy[ƒW"
+msgstr "ç·¨é›†ãƒšãƒ¼ã‚¸"
 
 #: templates/display/AttachedFiles.html:67
 msgid "Enter a name for this file (if blank, will use the file's current name)"
 msgstr ""
-"‚±‚Ìƒtƒ@ƒCƒ‹‚Ì–¼‘O‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢(‹ó”’‚È‚ç‚ÎAŒ»İ‚Ìƒtƒ@ƒCƒ‹–¼‚ª—p‚¢‚ç‚ê‚Ü"
-"‚·)B"
+"ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„(ç©ºç™½ãªã‚‰ã°ã€ç¾åœ¨ã®ãƒ•ã‚¡ã‚¤ãƒ«åãŒç”¨ã„ã‚‰ã‚Œã¾"
+"ã™)ã€‚"
 
 #: scripts/mail-filter.php:127
 #, php-format
 msgid "Error creating new page: %s"
-msgstr "V‹Kƒy[ƒWì¬ƒGƒ‰[: %s"
+msgstr "æ–°è¦ãƒšãƒ¼ã‚¸ä½œæˆã‚¨ãƒ©ãƒ¼: %s"
 
 #: lib/Page/MergeOrRename.php:202
 #, php-format
 msgid "Error deleting %s: %s"
-msgstr "%s‚ÌíœƒGƒ‰[F%s"
+msgstr "%sã®å‰Šé™¤ã‚¨ãƒ©ãƒ¼ï¼š%s"
 
 #: scripts/mail-filter.php:42
 #, php-format
-msgid "Error parsing MIME message: %s\n"
-msgstr "MIMEƒƒbƒZ[ƒW‰ğÍƒGƒ‰[: %s\n"
+msgid "Error parsing MIME message: %sÂ¥n"
+msgstr "MIMEãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è§£æã‚¨ãƒ©ãƒ¼: %sÂ¥n"
 
 #: lib/Page/MergeOrRename.php:217
 #, php-format
-msgid "Error renaming \"%s\": %s"
-msgstr "\"%s\" ‚Ì–¼‘O•ÏXƒGƒ‰[: %s"
+msgid "Error renaming Â¥"%sÂ¥": %s"
+msgstr "Â¥"%sÂ¥" ã®åå‰å¤‰æ›´ã‚¨ãƒ©ãƒ¼: %s"
 
 #: lib/Page/MergeOrRename.php:247
 #, php-format
 msgid "Error retrieving %s: %s"
-msgstr "%s ‚Ìó‚¯æ‚èƒGƒ‰[F%s"
+msgstr "%s ã®å—ã‘å–ã‚Šã‚¨ãƒ©ãƒ¼ï¼š%s"
 
 #: lib/Page/AttachedFiles.php:106 lib/Page/AttachedFiles.php:231
 #, php-format
 msgid "Error retrieving attachments: %s"
-msgstr "“Y•t‚Ìó‚¯æ‚èƒGƒ‰[F%s"
+msgstr "æ·»ä»˜ã®å—ã‘å–ã‚Šã‚¨ãƒ©ãƒ¼ï¼š%s"
 
 #: lib/Page/AddPage.php:58
 #, php-format
 msgid "Error retrieving templates: %s"
-msgstr "ƒeƒ“ƒvƒŒ[ƒg‚Ìó‚¯æ‚èƒGƒ‰[F%s"
+msgstr "ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®å—ã‘å–ã‚Šã‚¨ãƒ©ãƒ¼ï¼š%s"
 
 #: lib/Page/MergeOrRename.php:194 lib/Page/MergeOrRename.php:274
 #, php-format
 msgid "Error updating %s: %s"
-msgstr "%s‚ÌXVƒGƒ‰[: %s"
+msgstr "%sã®æ›´æ–°ã‚¨ãƒ©ãƒ¼: %s"
 
 #: lib/Page/Search.php:164
 msgid "Exact Match"
-msgstr "Š®‘S‚Éˆê’v"
+msgstr "å®Œå…¨ã«ä¸€è‡´"
 
 #: lib/Page/MergeOrRename.php:164
 #, php-format
-msgid "Failed to retrieve \"%s\": %s"
-msgstr "\"%s\"‚Ìó‚¯æ‚è‚É¸”sF%s"
+msgid "Failed to retrieve Â¥"%sÂ¥": %s"
+msgstr "Â¥"%sÂ¥"ã®å—ã‘å–ã‚Šã«å¤±æ•—ï¼š%s"
 
 #
 #: lib/Page.php:274
 msgid "Guest"
-msgstr "ƒQƒXƒg"
+msgstr "ã‚²ã‚¹ãƒˆ"
 
 #: templates/display/standard.inc:75
 msgid "Hi_story"
-msgstr "_i—š—ğ"
+msgstr "_iå±¥æ­´"
 
 #: templates/display/standard.inc:74
 #, php-format
 msgid "History of %s"
-msgstr "%s ‚Ì—š—ğ"
+msgstr "%s ã®å±¥æ­´"
 
 #: history.php:30 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
-msgstr "—š—ğF%s"
+msgstr "å±¥æ­´ï¼š%s"
 
 #: lib/Wicked.php:130
 msgid "HowTo_UseWiki"
-msgstr "_UWiki‚Ìg‚¢•û"
+msgstr "_UWikiã®ä½¿ã„æ–¹"
 
 #: templates/display/MergeOrRename.html:26
 msgid "If a page with the new name already exists, then"
-msgstr "V‚µ‚¢–¼‘O‚ğ‚à‚Âƒy[ƒW‚ªŠù‚É‘¶İ‚µ‚Ä‚¢‚é‚È‚ç‚ÎA"
+msgstr "æ–°ã—ã„åå‰ã‚’ã‚‚ã¤ãƒšãƒ¼ã‚¸ãŒæ—¢ã«å­˜åœ¨ã—ã¦ã„ã‚‹ãªã‚‰ã°ã€"
 
 #
 #: display.php:26 history.php:18
 msgid "Internal error viewing requested page"
-msgstr "—v‹‚³‚ê‚½ƒy[ƒW‚Ì‰{——’†‚É“à•”ƒGƒ‰[‚ª”­¶"
+msgstr "è¦æ±‚ã•ã‚ŒãŸãƒšãƒ¼ã‚¸ã®é–²è¦§ä¸­ã«å†…éƒ¨ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿ"
 
 #: diff.php:39
 #, php-format
 msgid "Internal error viewing requested page: %s"
-msgstr "—v‹‚³‚ê‚½ƒy[ƒW‚Ì‰{——’†‚É“à•”ƒGƒ‰[‚ª”­¶: %s"
+msgstr "è¦æ±‚ã•ã‚ŒãŸãƒšãƒ¼ã‚¸ã®é–²è¦§ä¸­ã«å†…éƒ¨ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿ: %s"
 
 #: templates/display/AttachedFiles.html:133
 msgid "Is this a minor update?"
-msgstr "‚±‚ê‚Í¬‹K–Í‚È•ÏX‚Å‚·‚©H"
+msgstr "ã“ã‚Œã¯å°è¦æ¨¡ãªå¤‰æ›´ã§ã™ã‹ï¼Ÿ"
 
 #: templates/display/standard.inc:64
 msgid "L_ikePages"
-msgstr "_i—‚½ƒy[ƒW"
+msgstr "_iä¼¼ãŸãƒšãƒ¼ã‚¸"
 
 #: templates/edit/standard.inc:20 templates/display/title.inc:6
 #, php-format
 msgid "Last Modified %s by %s"
-msgstr "ÅIXV“ú %s (XVÒ: %s)"
+msgstr "æœ€çµ‚æ›´æ–°æ—¥æ™‚ %s (æ›´æ–°è€…: %s)"
 
 #: lib/Page/LeastPopular.php:93
 msgid "LeastPopular"
-msgstr "Å¬l‹C"
+msgstr "æœ€å°äººæ°—"
 
 #: templates/display/standard.inc:64
 msgid "LikePages"
-msgstr "—Ş—ƒy[ƒW"
+msgstr "é¡ä¼¼ãƒšãƒ¼ã‚¸"
 
 #: lib/Page/LikePages.php:82
 #, php-format
 msgid "LikePages: %s"
-msgstr "—Ş—ƒy[ƒW: %s"
+msgstr "é¡ä¼¼ãƒšãƒ¼ã‚¸: %s"
 
 #: templates/display/standard.inc:35
 #, php-format
 msgid "Lock %s"
-msgstr "ƒƒbƒN %s"
+msgstr "ãƒ­ãƒƒã‚¯ %s"
 
 #: templates/edit/standard.inc:21 templates/display/title.inc:34
 #: lib/Page/DeletePage.php:97 lib/Page/RevertPage.php:81
 msgid "Locked"
-msgstr "ƒƒbƒNÏ‚İ"
+msgstr "ãƒ­ãƒƒã‚¯æ¸ˆã¿"
 
 #: scripts/wicked.php:104
 #, php-format
-msgid "Logged in successfully as \"%s\"."
-msgstr "Logged in successfully as \"%s\"."
+msgid "Logged in successfully as Â¥"%sÂ¥"."
+msgstr "Logged in successfully as Â¥"%sÂ¥"."
 
 #: scripts/wicked.php:100
 msgid "Login is incorrect."
@@ -470,323 +470,323 @@ msgstr ""
 #
 #: templates/display/standard.inc:54
 msgid "MergeOrRename"
-msgstr "“‡‚Ü‚½‚Í–¼‘O•ÏX"
+msgstr "çµ±åˆã¾ãŸã¯åå‰å¤‰æ›´"
 
 #: lib/Page/MergeOrRename.php:125
 #, php-format
 msgid "MergeOrRename: %s"
-msgstr "“‡‚Ü‚½‚Í–¼‘O•ÏX: %s"
+msgstr "çµ±åˆã¾ãŸã¯åå‰å¤‰æ›´: %s"
 
 #: lib/Page/MergeOrRename.php:207
 #, php-format
-msgid "Merged \"%s\" into \"%s\"."
-msgstr "\"%s\"‚ğ\"%s\"‚É“‡"
+msgid "Merged Â¥"%sÂ¥" into Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥"ã‚’Â¥"%sÂ¥"ã«çµ±åˆ"
 
 #: lib/Page/MergeOrRename.php:210
 #, php-format
-msgid "Merged \"%s\" into \"%s\". New page: %s\n"
-msgstr "\"%s\"‚ğ\"%s\"‚É“‡BVƒy[ƒW: %s\n"
+msgid "Merged Â¥"%sÂ¥" into Â¥"%sÂ¥". New page: %sÂ¥n"
+msgstr "Â¥"%sÂ¥"ã‚’Â¥"%sÂ¥"ã«çµ±åˆã€‚æ–°ãƒšãƒ¼ã‚¸: %sÂ¥n"
 
 #: lib/Page/MergeOrRename.php:191
 #, php-format
 msgid "Merged from %s"
-msgstr "%s ‚©‚ç‚Ì“‡"
+msgstr "%s ã‹ã‚‰ã®çµ±åˆ"
 
 #
 #: templates/edit/standard.inc:30
 msgid "Minor Change"
-msgstr "¬‹K–Í‚È•ÏX"
+msgstr "å°è¦æ¨¡ãªå¤‰æ›´"
 
 #
 #: lib/Page/MostPopular.php:93
 msgid "MostPopular"
-msgstr "Å‚l‹C"
+msgstr "æœ€é«˜äººæ°—"
 
 #
 #: lib/Block/page.php:41
 msgid "Name of wiki page to display"
-msgstr "•\¦‚·‚éƒy[ƒW–¼"
+msgstr "è¡¨ç¤ºã™ã‚‹ãƒšãƒ¼ã‚¸å"
 
 #: lib/Page.php:263
 msgid "Never"
-msgstr "‚È‚µ"
+msgstr "ãªã—"
 
 #: lib/Page/AttachedFiles.php:274
 #, php-format
-msgid "New attachment \"%s\" to page \"%s\"."
-msgstr "ƒy[ƒW\"%s\"‚Ö‚ÌV‹K“Y•t\"%s\""
+msgid "New attachment Â¥"%sÂ¥" to page Â¥"%sÂ¥"."
+msgstr "ãƒšãƒ¼ã‚¸Â¥"%sÂ¥"ã¸ã®æ–°è¦æ·»ä»˜Â¥"%sÂ¥""
 
 #: templates/display/MergeOrRename.html:15
 msgid "New name"
-msgstr "V‚µ‚¢–¼‘O"
+msgstr "æ–°ã—ã„åå‰"
 
 #: lib/Page/MergeOrRename.php:151
 msgid "New name is the same as old name."
-msgstr "V‚µ‚¢–¼‘O‚ÍŒÃ‚¢‚à‚Ì‚Æ“¯‚¶‚Å‚·B"
+msgstr "æ–°ã—ã„åå‰ã¯å¤ã„ã‚‚ã®ã¨åŒã˜ã§ã™ã€‚"
 
 #
 #: lib/Page/NewPage.php:106
 msgid "NewPage"
-msgstr "V‹Kƒy[ƒW"
+msgstr "æ–°è¦ãƒšãƒ¼ã‚¸"
 
 #: templates/edit/new.inc:20
 #, php-format
 msgid "NewPage: %s"
-msgstr "V‹Kƒy[ƒWF%s"
+msgstr "æ–°è¦ãƒšãƒ¼ã‚¸ï¼š%s"
 
 #
 #: lib/Page/EditPage.php:124
 msgid "No changes made"
-msgstr "•ÏX‚È‚µB"
+msgstr "å¤‰æ›´ãªã—ã€‚"
 
 #: lib/Driver.php:124
 msgid "Not implemented."
-msgstr "À‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "å®Ÿè£…ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #
 #: templates/pagelist/header.inc:5 templates/edit/create.inc:17
 #: lib/Page/Search.php:155
 msgid "Page"
-msgstr "ƒy[ƒW"
+msgstr "ãƒšãƒ¼ã‚¸"
 
 #: lib/Page/MergeOrRename.php:179
 #, php-format
-msgid "Page \"%s\" already exists."
-msgstr "ƒy[ƒW \"%s\" ‚ÍŠù‚É‚ ‚è‚Ü‚·B"
+msgid "Page Â¥"%sÂ¥" already exists."
+msgstr "ãƒšãƒ¼ã‚¸ Â¥"%sÂ¥" ã¯æ—¢ã«ã‚ã‚Šã¾ã™ã€‚"
 
 #
 #: lib/Page/NewPage.php:132
 msgid "Page Created"
-msgstr "ƒy[ƒW‚Í¶¬‚³‚ê‚Ü‚µ‚½"
+msgstr "ãƒšãƒ¼ã‚¸ã¯ç”Ÿæˆã•ã‚Œã¾ã—ãŸ"
 
 #: lib/Page/EditPage.php:131
 msgid "Page Saved"
-msgstr "ƒy[ƒW‚Í•Û‘¶‚³‚ê‚Ü‚µ‚½"
+msgstr "ãƒšãƒ¼ã‚¸ã¯ä¿å­˜ã•ã‚Œã¾ã—ãŸ"
 
 #: templates/edit/create.inc:35
 msgid "Page Template:"
-msgstr "ƒy[ƒW—Œ`:"
+msgstr "ãƒšãƒ¼ã‚¸é››å½¢:"
 
 #: lib/Page/Search.php:178
 msgid "Page Text Matches"
-msgstr "ƒy[ƒW–{•¶‚Éƒ}ƒbƒ`"
+msgstr "ãƒšãƒ¼ã‚¸æœ¬æ–‡ã«ãƒãƒƒãƒ"
 
 #: lib/Page/Search.php:171
 msgid "Page Title Matches"
-msgstr "ƒy[ƒW‘è–¼‚Éƒ}ƒbƒ`"
+msgstr "ãƒšãƒ¼ã‚¸é¡Œåã«ãƒãƒƒãƒ"
 
 #
 #: templates/pagelist/header.inc:10
 msgid "Page Views"
-msgstr "ƒy[ƒW•\¦"
+msgstr "ãƒšãƒ¼ã‚¸è¡¨ç¤º"
 
 #: display.php:40
 #, php-format
 msgid "Page failed to lock: %s"
-msgstr "ƒy[ƒW‚ÌƒƒbƒN‚É¸”s: %s"
+msgstr "ãƒšãƒ¼ã‚¸ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—: %s"
 
 #: display.php:55
 #, php-format
 msgid "Page failed to unlock: %s"
-msgstr "ƒy[ƒW‚ÌƒƒbƒN‰ğœ‚É¸”s: %s"
+msgstr "ãƒšãƒ¼ã‚¸ã®ãƒ­ãƒƒã‚¯è§£é™¤ã«å¤±æ•—: %s"
 
 #: display.php:43
 msgid "Page locked"
-msgstr "ƒy[ƒW‚ÍƒƒbƒN‚³‚ê‚Ü‚µ‚½"
+msgstr "ãƒšãƒ¼ã‚¸ã¯ãƒ­ãƒƒã‚¯ã•ã‚Œã¾ã—ãŸ"
 
 #
 #: display.php:58
 msgid "Page unlocked"
-msgstr "ƒy[ƒWƒƒbƒN‰ğœ"
+msgstr "ãƒšãƒ¼ã‚¸ãƒ­ãƒƒã‚¯è§£é™¤"
 
 #
 #: lib/api.php:35 lib/api.php:38
 msgid "Pages"
-msgstr "ƒy[ƒW"
+msgstr "ãƒšãƒ¼ã‚¸"
 
 #
 #: lib/Page/NewPage.php:123
 msgid "Pages cannot be empty."
-msgstr "ƒy[ƒW‚Í‹ó‚Å‚Í‚¢‚¯‚Ü‚¹‚ñ"
+msgstr "ãƒšãƒ¼ã‚¸ã¯ç©ºã§ã¯ã„ã‘ã¾ã›ã‚“"
 
 #: templates/display/standard.inc:88
 msgid "Permissio_ns"
-msgstr "_nƒAƒNƒZƒXŒ "
+msgstr "_nã‚¢ã‚¯ã‚»ã‚¹æ¨©"
 
 #: templates/edit/new.inc:25 templates/edit/standard.inc:26
 msgid "Preview"
-msgstr "ƒvƒŒƒrƒ…["
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
 #: lib/Page/EditPage.php:112
 msgid "Random string did not match."
-msgstr "—”•¶š—ñ‚Íƒ}ƒbƒ`‚µ‚Ü‚¹‚ñB"
+msgstr "ä¹±æ•°æ–‡å­—åˆ—ã¯ãƒãƒƒãƒã—ã¾ã›ã‚“ã€‚"
 
 #: lib/Page/RecentChanges.php:113
 msgid "RecentChanges"
-msgstr "ÅŒã‚Ì•ÏX"
+msgstr "æœ€å¾Œã®å¤‰æ›´"
 
 #: lib/Page/AttachedFiles.php:63
 #, php-format
-msgid "Referrer \"%s\" does not exist."
-msgstr "QÆ \"%s\" ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgid "Referrer Â¥"%sÂ¥" does not exist."
+msgstr "å‚ç…§ Â¥"%sÂ¥" ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/AttachedFiles.php:123
 #, php-format
-msgid "Reload \"%s\""
-msgstr "Ä“Ç‚İ‚İ \"%s\""
+msgid "Reload Â¥"%sÂ¥""
+msgstr "å†èª­ã¿è¾¼ã¿ Â¥"%sÂ¥""
 
 #: templates/history/header.inc:8
 msgid "Reload History"
-msgstr "—š—ğ‚ğÄ“Ç‚İ‚İ"
+msgstr "å±¥æ­´ã‚’å†èª­ã¿è¾¼ã¿"
 
 #: templates/display/title.inc:32 templates/display/title.inc:33
 msgid "Reload Page"
-msgstr "ƒy[ƒW‚ğÄ“Ç‚İ‚İ"
+msgstr "ãƒšãƒ¼ã‚¸ã‚’å†èª­ã¿è¾¼ã¿"
 
 #: lib/Page/MergeOrRename.php:222
 #, php-format
-msgid "Renamed \"%s\" to \"%s\"."
-msgstr "\"%s\"‚ğ\"%s\"‚É–¼‘O•ÏX"
+msgid "Renamed Â¥"%sÂ¥" to Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥"ã‚’Â¥"%sÂ¥"ã«åå‰å¤‰æ›´"
 
 #: lib/Page/MergeOrRename.php:225
 #, php-format
-msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
-msgstr "\"%s\"‚ğ\"%s\"‚É–¼‘O•ÏXBVƒy[ƒW: %s\n"
+msgid "Renamed Â¥"%sÂ¥" to Â¥"%sÂ¥". New page: %sÂ¥n"
+msgstr "Â¥"%sÂ¥"ã‚’Â¥"%sÂ¥"ã«åå‰å¤‰æ›´ã€‚æ–°ãƒšãƒ¼ã‚¸: %sÂ¥n"
 
 #: lib/Driver/sql.php:674
 #, php-format
 msgid "Renamed page from %s"
-msgstr "%s ‚©‚ç–¼‘O•ÏX‚³‚ê‚½ƒy[ƒW"
+msgstr "%s ã‹ã‚‰åå‰å¤‰æ›´ã•ã‚ŒãŸãƒšãƒ¼ã‚¸"
 
 #: templates/history/header.inc:20
 msgid "Restore Version"
-msgstr "ÄŠi”[ƒo[ƒWƒ‡ƒ“"
+msgstr "å†æ ¼ç´ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #
 #: lib/Page/RevertPage.php:87
 msgid "Revert"
-msgstr "•œ‹Œ"
+msgstr "å¾©æ—§"
 
 #: templates/history/summary.inc:26
 #, php-format
 msgid "Revert to version %s"
-msgstr "ƒo[ƒWƒ‡ƒ“%s‚É•œ‹Œ"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³%sã«å¾©æ—§"
 
 #: lib/Page/RevertPage.php:81 lib/Page/RevertPage.php:104
 msgid "RevertPage"
-msgstr "•œ‹Œƒy[ƒW"
+msgstr "å¾©æ—§ãƒšãƒ¼ã‚¸"
 
 #: lib/Page/RevertPage.php:127
 #, php-format
-msgid "Reverted to version %s of \"%s\"."
-msgstr "\"%s\"‚Ìƒo[ƒWƒ‡ƒ“%s‚Ö•œ‹Œ"
+msgid "Reverted to version %s of Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥"ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³%sã¸å¾©æ—§"
 
 #: lib/Driver/sql.php:589
 msgid "Robots are not allowed to create pages."
-msgstr "ƒƒ{ƒbƒg‚É‚Íƒy[ƒWì¬‚Í‹–‚³‚ê‚Ü‚¹‚ñB"
+msgstr "ãƒ­ãƒœãƒƒãƒˆã«ã¯ãƒšãƒ¼ã‚¸ä½œæˆã¯è¨±ã•ã‚Œã¾ã›ã‚“ã€‚"
 
 #: templates/edit/new.inc:24 templates/edit/standard.inc:25
 msgid "Save"
-msgstr "•Û‘¶"
+msgstr "ä¿å­˜"
 
 #: lib/Page/EditPage.php:128
 #, php-format
 msgid "Save Failed: %s"
-msgstr "•Û‘¶¸”s: %s"
+msgstr "ä¿å­˜å¤±æ•—: %s"
 
 #: templates/menu.inc:19 lib/Page/Search.php:203
 msgid "Search"
-msgstr "ŒŸõ"
+msgstr "æ¤œç´¢"
 
 #: templates/pagelist/search.inc:1
 msgid "Search Results"
-msgstr "ŒŸõŒ‹‰Ê"
+msgstr "æ¤œç´¢çµæœ"
 
 #: templates/display/AttachedFiles.html:58
 #: templates/display/AttachedFiles.html:110
 msgid "Select file to attach:"
-msgstr "“Y•t‚·‚éƒtƒ@ƒCƒ‹‚ğ‘I‘ğ:"
+msgstr "æ·»ä»˜ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ:"
 
 #: templates/display/AttachedFiles.html:119
 msgid "Select the file to update"
-msgstr "XV‚·‚éƒtƒ@ƒCƒ‹‚ğ‘I‘ğ"
+msgstr "æ›´æ–°ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ"
 
 #: templates/display/standard.inc:87
 #, php-format
 msgid "Set permissions for %s"
-msgstr "%s‚ÌƒAƒNƒZƒXŒ ‚ğİ’è"
+msgstr "%sã®ã‚¢ã‚¯ã‚»ã‚¹æ¨©ã‚’è¨­å®š"
 
 #: templates/display/title.inc:16 lib/Page/RecentChanges.php:56
 #, php-format
 msgid "Show changes for %s"
-msgstr "%s ‚Ì•ÏX‚ğ•\¦"
+msgstr "%s ã®å¤‰æ›´ã‚’è¡¨ç¤º"
 
 #: lib/Page/RecentChanges.php:63
 #, php-format
 msgid "Show version %s"
-msgstr "ƒo[ƒWƒ‡ƒ“%s ‚ğ•\¦"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³%s ã‚’è¡¨ç¤º"
 
 #: templates/edit/standard.inc:41
 msgid "Spam Protection - Enter the letters below:"
-msgstr "SPAM‘Îô - ˆÈ‰º‚Ì•¶š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢:"
+msgstr "SPAMå¯¾ç­– - ä»¥ä¸‹ã®æ–‡å­—ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„:"
 
 #: templates/display/MergeOrRename.html:33
 msgid "Stop and don't do anything"
-msgstr "’â~‚µ‚Ä‰½‚às‚í‚È‚¢‚Å‰º‚³‚¢B"
+msgstr "åœæ­¢ã—ã¦ä½•ã‚‚è¡Œã‚ãªã„ã§ä¸‹ã•ã„ã€‚"
 
 #: templates/display/MergeOrRename.html:61
 msgid "Submit"
-msgstr "Às"
+msgstr "å®Ÿè¡Œ"
 
 #: lib/Page/DeletePage.php:136
 #, php-format
-msgid "Successfully deleted \"%s\"."
-msgstr "\"%s\" ‚ªíœ‚³‚ê‚Ü‚µ‚½B"
+msgid "Successfully deleted Â¥"%sÂ¥"."
+msgstr "Â¥"%sÂ¥" ãŒå‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: lib/Page/AttachedFiles.php:198
 #, php-format
-msgid "Successfully deleted version %s of \"%s\" from \"%s\""
-msgstr "\"%s\"‚©‚ç \"%s\" ‚Ìƒo[ƒWƒ‡ƒ“%s‚ªíœ‚³‚ê‚Ü‚µ‚½B"
+msgid "Successfully deleted version %s of Â¥"%sÂ¥" from Â¥"%sÂ¥""
+msgstr "Â¥"%sÂ¥"ã‹ã‚‰ Â¥"%sÂ¥" ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³%sãŒå‰Šé™¤ã•ã‚Œã¾ã—ãŸã€‚"
 
 #: lib/Page.php:483
 msgid "Table of Contents"
-msgstr "–ÚŸ"
+msgstr "ç›®æ¬¡"
 
 #: lib/Page/AttachedFiles.php:254
 #, php-format
-msgid "There is already an attachment named \"%s\"."
-msgstr "“Y•t \"%s\" ‚ÍŠù‚É‘¶İ‚µ‚Ä‚¢‚Ü‚·B"
+msgid "There is already an attachment named Â¥"%sÂ¥"."
+msgstr "æ·»ä»˜ Â¥"%sÂ¥" ã¯æ—¢ã«å­˜åœ¨ã—ã¦ã„ã¾ã™ã€‚"
 
 #: lib/Page/MergeOrRename.php:149 lib/Page/MergeOrRename.php:155
 msgid "This is a required field."
-msgstr "‚±‚Ì€–Ú‚Í•K{‚Å‚·B"
+msgstr "ã“ã®é …ç›®ã¯å¿…é ˆã§ã™ã€‚"
 
 #: display.php:70
 msgid "This page does not have a history"
-msgstr "‚±‚Ìƒy[ƒW‚É‚Í—š—ğ‚ª‚ ‚è‚Ü‚¹‚ñ"
+msgstr "ã“ã®ãƒšãƒ¼ã‚¸ã«ã¯å±¥æ­´ãŒã‚ã‚Šã¾ã›ã‚“"
 
 #: lib/Page/MergeOrRename.php:100
 #, php-format
 msgid "This page is referenced from %d other page(s)."
-msgstr "‚±‚Ìƒy[ƒW‚Í %d –‡‚Ìƒy[ƒW‚©‚çQÆ‚³‚ê‚Ä‚¢‚Ü‚·B"
+msgstr "ã“ã®ãƒšãƒ¼ã‚¸ã¯ %d æšã®ãƒšãƒ¼ã‚¸ã‹ã‚‰å‚ç…§ã•ã‚Œã¦ã„ã¾ã™ã€‚"
 
 #: templates/display/standard.inc:32
 msgid "Un_lock"
-msgstr "_lƒƒbƒN‰ğœ"
+msgstr "_lãƒ­ãƒƒã‚¯è§£é™¤"
 
 #: lib/Page/StandardPage.php:79
 #, php-format
 msgid "Unable to create %s"
-msgstr "%s ‚ğ¶¬‚Å‚«‚Ü‚¹‚ñB"
+msgstr "%s ã‚’ç”Ÿæˆã§ãã¾ã›ã‚“ã€‚"
 
 #: lib/Page/StandardPage.php:87
 msgid "Unable to create WikiHome. The wiki is not configured."
-msgstr "WikiHome‚ğ¶¬‚Å‚«‚Ü‚¹‚ñBwiki‚Ìİ’è‚ªŠ®—¹‚µ‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "WikiHomeã‚’ç”Ÿæˆã§ãã¾ã›ã‚“ã€‚wikiã®è¨­å®šãŒå®Œäº†ã—ã¦ã„ã¾ã›ã‚“ã€‚"
 
 #: templates/display/standard.inc:31
 #, php-format
 msgid "Unlock %s"
-msgstr "ƒƒbƒN‰ğœ %s"
+msgstr "ãƒ­ãƒƒã‚¯è§£é™¤ %s"
 
 #: lib/Driver.php:78 lib/Driver.php:92 lib/Driver.php:104 lib/Driver.php:109
 #: lib/Driver.php:129 lib/Driver.php:134 lib/Driver.php:192 lib/Driver.php:197
@@ -797,21 +797,21 @@ msgstr "ƒƒbƒN‰ğœ %s"
 #: lib/Page.php:423 lib/Page.php:518 lib/Page.php:529 lib/Page.php:534
 #: lib/Page.php:539 lib/Page.php:544 lib/Page.php:584
 msgid "Unsupported"
-msgstr "ƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"
+msgstr "ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #: templates/display/AttachedFiles.html:154
 msgid "Update File"
-msgstr "ƒtƒ@ƒCƒ‹XV"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«æ›´æ–°"
 
 #
 #: templates/display/AttachedFiles.html:104
 msgid "Update an Attachment"
-msgstr "“Y•tXV"
+msgstr "æ·»ä»˜æ›´æ–°"
 
 #: lib/Page/AttachedFiles.php:272
 #, php-format
-msgid "Updated attachment \"%s\" on page \"%s\"."
-msgstr "ƒy[ƒW \"%s\"‚Ì“Y•t \"%s\" ‚ğXV‚µ‚Ü‚µ‚½B"
+msgid "Updated attachment Â¥"%sÂ¥" on page Â¥"%sÂ¥"."
+msgstr "ãƒšãƒ¼ã‚¸ Â¥"%sÂ¥"ã®æ·»ä»˜ Â¥"%sÂ¥" ã‚’æ›´æ–°ã—ã¾ã—ãŸã€‚"
 
 #: scripts/wicked.php:156
 #, php-format
@@ -822,94 +822,94 @@ msgstr "Usage: %s [OPTIONS]..."
 #: templates/edit/create.inc:18 lib/Page/Search.php:156
 #: templates/display/AttachedFiles.html:9
 msgid "Version"
-msgstr "ƒo[ƒWƒ‡ƒ“"
+msgstr "ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #: lib/Page/AttachedFiles.php:279
 msgid "View page: "
-msgstr "ƒy[ƒW•\¦:"
+msgstr "ãƒšãƒ¼ã‚¸è¡¨ç¤º:"
 
 #: lib/Block/page.php:3
 msgid "Wiki page"
-msgstr "Wikiƒy[ƒW"
+msgstr "Wikiãƒšãƒ¼ã‚¸"
 
 #: display.php:34
 msgid "You are not allowed to lock this page"
-msgstr "‚ ‚È‚½‚Í‚±‚Ìƒy[ƒW‚ğƒƒbƒN‚Å‚«‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã¯ã“ã®ãƒšãƒ¼ã‚¸ã‚’ãƒ­ãƒƒã‚¯ã§ãã¾ã›ã‚“ã€‚"
 
 #: display.php:49
 msgid "You are not allowed to unlock this page"
-msgstr "‚ ‚È‚½‚Í‚±‚Ìƒy[ƒW‚ğƒƒbƒN‰ğœ‚Å‚«‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã¯ã“ã®ãƒšãƒ¼ã‚¸ã‚’ãƒ­ãƒƒã‚¯è§£é™¤ã§ãã¾ã›ã‚“ã€‚"
 
 #: lib/Page/AttachedFiles.php:188
 msgid "You do not have permission to delete attachments from this page."
-msgstr "‚ ‚È‚½‚É‚Í‚±‚Ìƒy[ƒW‚©‚ç“Y•t‚ğíœ‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã«ã¯ã“ã®ãƒšãƒ¼ã‚¸ã‹ã‚‰æ·»ä»˜ã‚’å‰Šé™¤ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/AttachedFiles.php:218 lib/Page/MergeOrRename.php:169
 #: lib/Page/MergeOrRename.php:184
 #, php-format
-msgid "You do not have permission to edit \"%s\""
-msgstr "‚ ‚È‚½‚É‚Í\"%s\"‚ğ•ÒW‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgid "You do not have permission to edit Â¥"%sÂ¥""
+msgstr "ã‚ãªãŸã«ã¯Â¥"%sÂ¥"ã‚’ç·¨é›†ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/NewPage.php:119
 #, php-format
-msgid "You don't have permission to create \"%s\"."
-msgstr "‚ ‚È‚½‚É‚Í\"%s\"‚ğì¬‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgid "You don't have permission to create Â¥"%sÂ¥"."
+msgstr "ã‚ãªãŸã«ã¯Â¥"%sÂ¥"ã‚’ä½œæˆã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/DeletePage.php:150
 #, php-format
-msgid "You don't have permission to delete \"%s\"."
-msgstr "‚ ‚È‚½‚É‚Í\"%s\"‚ğíœ‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgid "You don't have permission to delete Â¥"%sÂ¥"."
+msgstr "ã‚ãªãŸã«ã¯Â¥"%sÂ¥"ã‚’å‰Šé™¤ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/EditPage.php:107 lib/Page/RevertPage.php:133
 #, php-format
-msgid "You don't have permission to edit \"%s\"."
-msgstr "‚ ‚È‚½‚É‚Í\"%s\"‚ğ•ÒW‚·‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgid "You don't have permission to edit Â¥"%sÂ¥"."
+msgstr "ã‚ãªãŸã«ã¯Â¥"%sÂ¥"ã‚’ç·¨é›†ã™ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: display.php:82 display.php:85
 msgid "You don't have permission to view this page."
-msgstr "‚ ‚È‚½‚Í‚±‚Ìƒy[ƒW‚ğŒ©‚éŒ ŒÀ‚ª‚ ‚è‚Ü‚¹‚ñB"
+msgstr "ã‚ãªãŸã¯ã“ã®ãƒšãƒ¼ã‚¸ã‚’è¦‹ã‚‹æ¨©é™ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/AttachedFiles.php:224
 msgid "You must enter a change description to attach this file."
-msgstr "‚±‚Ìƒtƒ@ƒCƒ‹‚ğ“Y•t‚·‚é•ÏX‚Ìà–¾‚ğ“ü—Í‚µ‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB"
+msgstr "ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ·»ä»˜ã™ã‚‹å¤‰æ›´ã®èª¬æ˜ã‚’å…¥åŠ›ã—ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Page/EditPage.php:118
 msgid "You must provide a change log."
-msgstr "•ÏXƒƒO‚ğ’ñ‹Ÿ‚µ‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB"
+msgstr "å¤‰æ›´ãƒ­ã‚°ã‚’æä¾›ã—ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚"
 
 #: lib/Wicked.php:130
 msgid "_AllPages"
-msgstr "_A‘S•”‚Ìƒy[ƒW"
+msgstr "_Aå…¨éƒ¨ã®ãƒšãƒ¼ã‚¸"
 
 #: templates/display/standard.inc:60
 msgid "_BackLinks"
-msgstr "_BƒoƒbƒNƒŠƒ“ƒN"
+msgstr "_Bãƒãƒƒã‚¯ãƒªãƒ³ã‚¯"
 
 #: templates/display/standard.inc:48
 msgid "_Delete"
-msgstr "_Díœ"
+msgstr "_Då‰Šé™¤"
 
 #: templates/display/standard.inc:24
 msgid "_EditPage"
-msgstr "_E•ÒW"
+msgstr "_Eç·¨é›†"
 
 #: templates/display/standard.inc:36
 msgid "_Lock"
-msgstr "_LƒƒbƒN"
+msgstr "_Lãƒ­ãƒƒã‚¯"
 
 #: templates/display/standard.inc:55
 msgid "_MergeOrRename"
-msgstr "_M“‡‚Ü‚½‚Í–¼‘O•ÏX"
+msgstr "_Mçµ±åˆã¾ãŸã¯åå‰å¤‰æ›´"
 
 #: lib/Wicked.php:130
 msgid "_RecentChanges"
-msgstr "_RÅŒã‚Ì•ÏX"
+msgstr "_Ræœ€å¾Œã®å¤‰æ›´"
 
 #: lib/Wicked.php:130
 msgid "_WikiHome"
-msgstr "_Wƒz[ƒ€"
+msgstr "_Wãƒ›ãƒ¼ãƒ "
 
 #: scripts/wicked.php:123
 #, php-format
-msgid "page \"%s\" doesn't exist."
-msgstr "ƒy[ƒW \"%s\" ‚Í‘¶İ‚µ‚Ü‚¹‚ñB"
+msgid "page Â¥"%sÂ¥" doesn't exist."
+msgstr "ãƒšãƒ¼ã‚¸ Â¥"%sÂ¥" ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚"

@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: jacopo <poedit@goracci.com>\n"
 "Language-Team: Horde i18n <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Forums.php:170
@@ -354,7 +354,7 @@ msgstr "Nessun emoticon grafico"
 
 #: moderate.php:48
 msgid "No messages to moderate available."
-msgstr "Nessun messaggio da moderare è disponibile."
+msgstr "Nessun messaggio da moderare Ã¨ disponibile."
 
 #: templates/block/threads.html:26
 msgid "No threads"
@@ -526,7 +526,7 @@ msgstr "I seguenti messaggi sono in attesa di essere approvati"
 #: deleteforum.php:44
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
-"Questo eliminerà il forum, qualsiasi sotto-forum e tutti i relativi "
+"Questo eliminerÃ  il forum, qualsiasi sotto-forum e tutti i relativi "
 "messaggi."
 
 #: messages/index.php:44 messages/message.php:47 lib/Block/thread.php:47

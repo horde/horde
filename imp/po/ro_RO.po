@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Corneliu MUSAT <cmusat@keysys.ro>\n"
 "Language-Team: Romanian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "      To: "

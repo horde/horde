@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -28,11 +28,11 @@ msgstr "%s Standard"
 
 #, c-format
 msgid "%s Terms of Agreement"
-msgstr "%s Vilkår for avtale"
+msgstr "%s VilkÃ¥r for avtale"
 
 #, c-format
 msgid "%s is ready to perform the maintenance operations checked below."
-msgstr "%s er klar til å køyre vedlikehaldsoperasjonane som er valde under."
+msgstr "%s er klar til Ã¥ kÃ¸yre vedlikehaldsoperasjonane som er valde under."
 
 #, c-format
 msgid "'%s' is not configured in the Horde Registry."
@@ -86,7 +86,7 @@ msgid "Add"
 msgstr "Legg til"
 
 msgid "Adding users is disabled."
-msgstr "Legg til brukarar er slått av."
+msgstr "Legg til brukarar er slÃ¥tt av."
 
 msgid "Address Book"
 msgstr "Adressebok"
@@ -108,19 +108,19 @@ msgstr "Ein ulovleg verdi vart spesifisert."
 
 #, c-format
 msgid "Are you sure you wish to delete '%s'?"
-msgstr "Er du sikker på at du vil slette '%s'?"
+msgstr "Er du sikker pÃ¥ at du vil slette '%s'?"
 
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Spør om stadfesting før køyring av vedlikehaldsoperasjonar?"
+msgstr "SpÃ¸r om stadfesting fÃ¸r kÃ¸yring av vedlikehaldsoperasjonar?"
 
 msgid "Attempt to delete a non-existent group."
-msgstr "Prøvde å slette ei ikkje-eksisterande gruppe."
+msgstr "PrÃ¸vde Ã¥ slette ei ikkje-eksisterande gruppe."
 
 msgid "Attempt to delete a non-existent permission."
-msgstr "Prøvde å slette ein ikkje-eksisterande tilgang."
+msgstr "PrÃ¸vde Ã¥ slette ein ikkje-eksisterande tilgang."
 
 msgid "Attempt to edit a non-existent permission."
-msgstr "Prøvde å endre ein ikkje-eksisterande tilgang."
+msgstr "PrÃ¸vde Ã¥ endre ein ikkje-eksisterande tilgang."
 
 msgid "Available fields:"
 msgstr "Tilgjengelege felt:"
@@ -159,13 +159,13 @@ msgid "Cell Phone"
 msgstr "Mobiltelefon"
 
 msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "Kryss av for operasjon(ar) du vil køyre no."
+msgstr "Kryss av for operasjon(ar) du vil kÃ¸yre no."
 
 msgid "Cherry"
-msgstr "Kirsebær"
+msgstr "KirsebÃ¦r"
 
 msgid "Click to Continue"
-msgstr "Klikk for å halde fram"
+msgstr "Klikk for Ã¥ halde fram"
 
 msgid "Close Help Window"
 msgstr "Lukk Hjelp-vindauget"
@@ -183,7 +183,7 @@ msgid "Confirm Password"
 msgstr "Stadfest passord"
 
 msgid "Connection refused to the public keyserver."
-msgstr "Oppkopling mot offentleg nøkkeltenar nekta."
+msgstr "Oppkopling mot offentleg nÃ¸kkeltenar nekta."
 
 #, c-format
 msgid "Contents of '%s'"
@@ -205,7 +205,7 @@ msgid "Could not determine the recipient's e-mail address."
 msgstr "Kunne ikkje avgjere mottakaren si e-postadresse."
 
 msgid "Could not obtain public key from the keyserver."
-msgstr "Kunne ikkje skaffe offentleg nøkkel frå nøkkeltenaren."
+msgstr "Kunne ikkje skaffe offentleg nÃ¸kkel frÃ¥ nÃ¸kkeltenaren."
 
 #, c-format
 msgid "Could not open Maintenance_Task module %s"
@@ -218,7 +218,7 @@ msgid "Daily"
 msgstr "Dagleg"
 
 msgid "Database query failed."
-msgstr "Databasespørjing feila."
+msgstr "DatabasespÃ¸rjing feila."
 
 msgid "Default Identity"
 msgstr "Standardidentitet"
@@ -283,11 +283,11 @@ msgstr "Eksempelverdiar:"
 
 #, c-format
 msgid "Expected \"BEGIN\" in the line %d."
-msgstr "Venta \"BEGIN\" på linje %d."
+msgstr "Venta \"BEGIN\" pÃ¥ linje %d."
 
 #, c-format
 msgid "Expected \"END:%s\" in line %d."
-msgstr "Venta \"END:%s\" på linje %d."
+msgstr "Venta \"END:%s\" pÃ¥ linje %d."
 
 msgid "Failed retrieving preferences."
 msgstr "Kunne ikkje hente innstillingar"
@@ -308,10 +308,10 @@ msgid "Full Description:"
 msgstr "Full skildring:"
 
 msgid "Green"
-msgstr "Grøn"
+msgstr "GrÃ¸n"
 
 msgid "Grey"
-msgstr "Grå"
+msgstr "GrÃ¥"
 
 msgid "Group Administration"
 msgstr "Gruppeadministrering"
@@ -347,7 +347,7 @@ msgid "Horde User Administration"
 msgstr "Horde Brukaradministrering"
 
 msgid "Horde Wireless"
-msgstr "Horde Trådlaus"
+msgstr "Horde TrÃ¥dlaus"
 
 msgid "Horde is not properly configured"
 msgstr "Horde er ikkje ordentleg konfigurert"
@@ -369,19 +369,19 @@ msgid "Imported fields:"
 msgstr "Importerte felt:"
 
 msgid "Invalid response from server"
-msgstr "Ugyldig svar frå tenar"
+msgstr "Ugyldig svar frÃ¥ tenar"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "Light Blue"
-msgstr "Lys blå"
+msgstr "Lys blÃ¥"
 
 msgid "List Help Topics"
-msgstr "Vis emne frå Hjelp"
+msgstr "Vis emne frÃ¥ Hjelp"
 
 msgid "Listing users is disabled."
-msgstr "Listing av brukarar er slått av."
+msgstr "Listing av brukarar er slÃ¥tt av."
 
 msgid "Log in"
 msgstr "Logg inn"
@@ -431,7 +431,7 @@ msgid "Mime Type"
 msgstr "MIME-type"
 
 msgid "Monthly"
-msgstr "Månadleg"
+msgstr "MÃ¥nadleg"
 
 msgid "My Summary"
 msgstr "Mitt samandrag"
@@ -492,13 +492,13 @@ msgid "Passwords cannot be blank."
 msgstr "Passord kan ikkje vere blanke."
 
 msgid "Passwords must match."
-msgstr "Passorda må samsvare."
+msgstr "Passorda mÃ¥ samsvare."
 
 msgid "Perform Maintenance Operations"
-msgstr "Køyr vedlikehaldsoperasjonar"
+msgstr "KÃ¸yr vedlikehaldsoperasjonar"
 
 msgid "Perform maintenance operations on login?"
-msgstr "Køyr vedlikehaldsoperasjonar ved innlogging?"
+msgstr "KÃ¸yr vedlikehaldsoperasjonar ved innlogging?"
 
 msgid "Permissions Administration"
 msgstr "Tilgangsadministrering"
@@ -519,7 +519,7 @@ msgid ""
 "Please read the following text.  You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Ver venleg og les følgjande tekst. Du MÅ vere samd med vilkåra for å bruke "
+"Ver venleg og les fÃ¸lgjande tekst. Du MÃ… vere samd med vilkÃ¥ra for Ã¥ bruke "
 "systemet."
 
 msgid "Presentations"
@@ -529,7 +529,7 @@ msgid "Problem Description"
 msgstr "Skildring av problemet"
 
 msgid "Public/Private keypair not generated successfully."
-msgstr "Offentleg/privat nøkkelpar vart ikkje generert."
+msgstr "Offentleg/privat nÃ¸kkelpar vart ikkje generert."
 
 msgid "Read"
 msgstr "Les"
@@ -544,108 +544,108 @@ msgid "Remove"
 msgstr "Fjern"
 
 msgid "Request couldn't be answered"
-msgstr "Kunne ikkje svare på førespurnad"
+msgstr "Kunne ikkje svare pÃ¥ fÃ¸respurnad"
 
 msgid "Required 'basedn' not specified in authentication configuration."
 msgstr ""
-"Nødvendig variabel 'basedn' ikkje spesifisert i konfigurasjon for "
+"NÃ¸dvendig variabel 'basedn' ikkje spesifisert i konfigurasjon for "
 "autentisering."
 
 msgid "Required 'basedn' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'basedn' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'basedn' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'database' not specified in VFS configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'database' not specified in authentication configuration."
 msgstr ""
-"Nødvendig 'database' ikkje spesifisert i konfigurasjon for autentisering."
+"NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'database' not specified in categories configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'database' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'database' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'hostspec' not specified in VFS configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'hostspec' not specified in authentication configuration."
 msgstr ""
-"Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for autentisering."
+"NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'hostspec' not specified in categories configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'hostspec' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'password' not specified in VFS configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'password' not specified in authentication configuration."
 msgstr ""
-"Nødvendig 'password' ikkje spesifisert i konfigurasjon for autentisering."
+"NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'password' not specified in categories configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'password' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'password' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'phptype' not specified in VFS configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'phptype' not specified in authentication configuration."
 msgstr ""
-"Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for autentisering."
+"NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'phptype' not specified in categories configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'phptype' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'table' not specified in VFS configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'table' not specified in authentication configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'table' not specified in categories configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'table' not specified in preferences configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'tableRelations' not specified in categories configuration."
 msgstr ""
-"Nødvendig 'tableRelations' ikkje spesifisert i konfigurasjon for kategoriar."
+"NÃ¸dvendig 'tableRelations' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'uid' not specified in authentication configuration."
-msgstr "Nødvendig 'uid' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr "NÃ¸dvendig 'uid' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'uid' not specified in preferences configuration."
-msgstr "Nødvendig 'uid' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr "NÃ¸dvendig 'uid' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'username' not specified in VFS configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for VFS."
+msgstr "NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'username' not specified in authentication configuration."
 msgstr ""
-"Nødvendig 'username' ikkje spesifisert i konfigurasjon for autentisering."
+"NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'username' not specified in categories configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr "NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'username' not specified in preferences configuration."
 msgstr ""
-"Nødvendig 'username' ikkje spesifisert i konfigurasjon for innstillingar."
+"NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Reset"
 msgstr "Nullstill"
@@ -667,7 +667,7 @@ msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the textarea."
 msgstr ""
-"Vel teikna du treng frå boksane under. Du kan så kopiere og lime dei inn frå "
+"Vel teikna du treng frÃ¥ boksane under. Du kan sÃ¥ kopiere og lime dei inn frÃ¥ "
 "tekstboksa."
 
 msgid "Select the date delimiter:"
@@ -686,7 +686,7 @@ msgid "Select your color scheme."
 msgstr "Vel fargeskjema."
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Send Problem Report"
 msgstr "Send problemrapport"
@@ -695,7 +695,7 @@ msgid "Set your color scheme, page refreshing, and other display options."
 msgstr "Set fargeskjema, sideoppfrisking og andre visingsalternativ."
 
 msgid "Set your preferred display language."
-msgstr "Vel ønska språk."
+msgstr "Vel Ã¸nska sprÃ¥k."
 
 msgid "Short Summary:"
 msgstr "Kort samandrag:"
@@ -710,7 +710,7 @@ msgid "Some of Horde's configuration files are missing:"
 msgstr "Nokre av Horde sine konfigurasjonsfiler manglar:"
 
 msgid "SpamAssassin"
-msgstr "Søppelpostmordar"
+msgstr "SÃ¸ppelpostmordar"
 
 msgid "Special Character Input"
 msgstr "Inntasting av spesialteikn"
@@ -728,13 +728,13 @@ msgstr "Sletta '%s'."
 
 #, c-format
 msgid "Successfully removed '%s' from the system."
-msgstr "Fjerna '%s' frå systemet."
+msgstr "Fjerna '%s' frÃ¥ systemet."
 
 msgid "Sun"
 msgstr "Sol"
 
 msgid "Tasks"
-msgstr "Oppgåver"
+msgstr "OppgÃ¥ver"
 
 msgid "The Maintenance:: class did not load successfully"
 msgstr "Klassa Maintenance:: vart ikkje lasta inn"
@@ -746,7 +746,7 @@ msgstr "Krypteringsfunksjonane krev ei sikker nettoppkopling."
 msgid ""
 "The program used to view this message type (%s) was not found on the system."
 msgstr ""
-"Fann ikkje programmet som brukast til å vise denne typen meldingar (%s)."
+"Fann ikkje programmet som brukast til Ã¥ vise denne typen meldingar (%s)."
 
 msgid ""
 "The registry is how Horde applications find out how to talk to each other. "
@@ -757,11 +757,11 @@ msgstr ""
 
 #, c-format
 msgid "There was a problem adding '%s' to the system."
-msgstr "Problem med å legge til '%s' til systemet."
+msgstr "Problem med Ã¥ legge til '%s' til systemet."
 
 #, c-format
 msgid "There was a problem removing '%s' from the system."
-msgstr "Problem ved fjerning av '%s' frå systemet."
+msgstr "Problem ved fjerning av '%s' frÃ¥ systemet."
 
 msgid ""
 "This file controls the global set of MIME drivers for the Horde framework, "
@@ -770,7 +770,7 @@ msgid ""
 msgstr ""
 "Denne fila kontrollerer det globale settet med MIME-koplingar for "
 "rammeverket til Horde. Dette gjer at applikasjonar kan bruke program som "
-"enscript eller mswordview for å gjere om innhald til HTML som kan visast i "
+"enscript eller mswordview for Ã¥ gjere om innhald til HTML som kan visast i "
 "ein nettlesar."
 
 msgid ""
@@ -778,7 +778,7 @@ msgid ""
 "the Horde framework and all applications that do not provide their own "
 "settings."
 msgstr ""
-"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"Denne fila kontrollerer stilarket som blir brukt til Ã¥ definere fargar og "
 "skrifttypar for rammeverket til Horde, og til alle applikasjonar som ikkje "
 "har sine eigne definisjonar."
 
@@ -800,10 +800,10 @@ msgstr ""
 "applikasjonar."
 
 msgid "This number must be at least one."
-msgstr "Dette talet må vere minst ein."
+msgstr "Dette talet mÃ¥ vere minst ein."
 
 msgid "This value must be a number."
-msgstr "Denne verdien må vere eit tal."
+msgstr "Denne verdien mÃ¥ vere eit tal."
 
 msgid "Title"
 msgstr "Tittel"
@@ -822,7 +822,7 @@ msgid "Unable to delete '%s': %s."
 msgstr "Kunne ikkje slette '%s': %s."
 
 msgid "Unable to register preferences in session."
-msgstr "Kan ikkje registrere innstillingar i økta."
+msgstr "Kan ikkje registrere innstillingar i Ã¸kta."
 
 msgid "Unable to translate this Word document"
 msgstr "Kan ikkje omsetje dette Word-dokumentet."
@@ -831,7 +831,7 @@ msgid "Undo Changes"
 msgstr "Angre endringar"
 
 msgid "Unexpected end of file."
-msgstr "Uventa slutt på fila."
+msgstr "Uventa slutt pÃ¥ fila."
 
 msgid "Update"
 msgstr "Oppdater"
@@ -859,10 +859,10 @@ msgid "Users"
 msgstr "Brukarar"
 
 msgid "Warning!"
-msgstr "Åtvaring!"
+msgstr "Ã…tvaring!"
 
 msgid "Warning"
-msgstr "Åtvaring"
+msgstr "Ã…tvaring"
 
 msgid "Weekly"
 msgstr "Kvar veke"
@@ -882,10 +882,10 @@ msgid "Work Phone"
 msgstr "Telefon, arbeid"
 
 msgid "YY"
-msgstr "ÅÅ"
+msgstr "Ã…Ã…"
 
 msgid "Yearly"
-msgstr "Årleg"
+msgstr "Ã…rleg"
 
 msgid "Yes, I Agree"
 msgstr "Ja, eg er samd"
@@ -894,17 +894,17 @@ msgid "You have been logged out.<br />Thank you for using the system."
 msgstr "Du er logga ut.<br />Takk for at du brukar dette systemet."
 
 msgid "You must describe the problem before you can send the problem report."
-msgstr "Du må skildre problemet før du kan sende problemrapporten."
+msgstr "Du mÃ¥ skildre problemet fÃ¸r du kan sende problemrapporten."
 
 msgid "You must specify a username to remove."
-msgstr "Du må spesifisere eit brukarnamn å fjerne."
+msgstr "Du mÃ¥ spesifisere eit brukarnamn Ã¥ fjerne."
 
 msgid "You must specify the username to add."
-msgstr "Du må spesifisere eit brukarnamn å legge til."
+msgstr "Du mÃ¥ spesifisere eit brukarnamn Ã¥ legge til."
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Økta di (%s) har gått ut på tid. Logg inn på nytt."
+msgstr "Ã˜kta di (%s) har gÃ¥tt ut pÃ¥ tid. Logg inn pÃ¥ nytt."
 
 msgid "Your Email Address:"
 msgstr "Di e-postadresse:"
@@ -924,8 +924,8 @@ msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"Listing av brukarar er ikkje støtta av bakre autentisering, eller funksjonen "
-"har av ein eller annan grunn blitt slått av."
+"Listing av brukarar er ikkje stÃ¸tta av bakre autentisering, eller funksjonen "
+"har av ein eller annan grunn blitt slÃ¥tt av."
 
 msgid "Your options have been updated."
 msgstr "Alternativa dine har blitt oppdaterte."

@@ -12,18 +12,18 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: Italian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s non esiste o non è eseguibile."
+msgstr "%s non esiste o non Ã¨ eseguibile."
 
 #: lib/Driver/expectpecl.php:73
 #, php-format
 msgid "%s extension cannot be loaded!"
-msgstr "L'estensione %s non può essere caricata!"
+msgstr "L'estensione %s non puÃ² essere caricata!"
 
 #: lib/Driver/composite.php:63
 #, php-format
@@ -134,7 +134,7 @@ msgstr "Vecchia password errata."
 
 #: lib/Driver/ldap.php:190
 msgid "Minimum password age has not yet expired"
-msgstr "L'età minima della password non è ancora stata raggiunta"
+msgstr "L'etÃ  minima della password non Ã¨ ancora stata raggiunta"
 
 #: lib/Driver/expectpecl.php:128
 msgid "New password not valid (too short, bad password, too similar, ...)"
@@ -156,7 +156,7 @@ msgstr "Nessun backend \"%s\" trovato."
 
 #: lib/Driver/http.php:72
 msgid "Old password is incorrect."
-msgstr "La vecchia password non è corretta."
+msgstr "La vecchia password non Ã¨ corretta."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
@@ -164,12 +164,12 @@ msgstr "Vecchia password:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd non è configurato correttamente"
+msgstr "Passwd non Ã¨ configurato correttamente"
 
 #: main.php:209
 #, php-format
 msgid "Password changed on %s."
-msgstr "La password su %s è stata cambiata."
+msgstr "La password su %s Ã¨ stata cambiata."
 
 #: lib/Driver/sql.php:127
 #, php-format
@@ -229,11 +229,11 @@ msgstr "Resetta"
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
-msgstr "Il sito richiesto per cambiare le password utente non è raggiungibile."
+msgstr "Il sito richiesto per cambiare le password utente non Ã¨ raggiungibile."
 
 #: lib/Driver/http.php:74
 msgid "The username could not be found."
-msgstr "L'utente non può essere trovato."
+msgstr "L'utente non puÃ² essere trovato."
 
 #: lib/Driver/expectpecl.php:47
 msgid "Time out."
@@ -285,16 +285,16 @@ msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
-"La tua password è troppo lunga; una password non può essere lunga più di %d "
+"La tua password Ã¨ troppo lunga; una password non puÃ² essere lunga piÃ¹ di %d "
 "caratteri!"
 
 #: main.php:172
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "La tua password è troppo facile da indovinare! Non è stata cambiata!"
+msgstr "La tua password Ã¨ troppo facile da indovinare! Non Ã¨ stata cambiata!"
 
 #: main.php:163
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "La tua password è troppo facile da indovinare! Non è stata cambiata!"
+msgstr "La tua password Ã¨ troppo facile da indovinare! Non Ã¨ stata cambiata!"
 
 #: main.php:88
 #, php-format
@@ -358,7 +358,7 @@ msgstr "Le tue nuove password non corrispondono"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "La password non può essere cambiata."
+msgstr "La password non puÃ² essere cambiata."
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"

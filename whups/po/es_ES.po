@@ -1,5 +1,5 @@
 # Spanish translations for whups package
-# Traducciones al español para el paquete whups.
+# Traducciones al espaÃ±ol para el paquete whups.
 # Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the whups package.
 # Automatically generated, 2008.
@@ -13,14 +13,14 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/index.php:720
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
-msgstr "\"%s\" ya no está entre los encargados de \"%s\""
+msgstr "\"%s\" ya no estÃ¡ entre los encargados de \"%s\""
 
 #: templates/menu.inc:5
 msgid "#Id"
@@ -49,17 +49,17 @@ msgstr "%s &rArr; %s"
 #: lib/Driver.php:427
 #, php-format
 msgid "%s (%s) wrote:"
-msgstr "%s (%s) escribió:"
+msgstr "%s (%s) escribiÃ³:"
 
 #: admin/index.php:677
 #, php-format
 msgid "%s added to those responsible for \"%s\""
-msgstr "Se ha añadido a %s a los encargados de \"%s\""
+msgstr "Se ha aÃ±adido a %s a los encargados de \"%s\""
 
 #: templates/reports/stats.inc:17
 #, php-format
 msgid "%s days"
-msgstr "%s días"
+msgstr "%s dÃ­as"
 
 #: queue/rss.php:104
 #, php-format
@@ -74,12 +74,12 @@ msgstr "%s incidencias en todas las colas"
 #: ticket/watch.php:59
 #, php-format
 msgid "%s will be notified when this ticket is updated."
-msgstr "Se notificará a %s cuando se actualice esta incidencia"
+msgstr "Se notificarÃ¡ a %s cuando se actualice esta incidencia"
 
 #: ticket/watch.php:71
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
-msgstr "%s no recibirá más actualizaciones de esta incidencia."
+msgstr "%s no recibirÃ¡ mÃ¡s actualizaciones de esta incidencia."
 
 #: admin/index.php:109
 msgid "- Stage 1"
@@ -92,7 +92,7 @@ msgstr "- Etapa 2"
 #: scripts/mail-filter.php:172
 msgid "--queue-name or --queue-id must specify a valid and public queue."
 msgstr ""
-"--nombre-de-cola o --id-de-cola tienen que indicar una cola pública válida."
+"--nombre-de-cola o --id-de-cola tienen que indicar una cola pÃºblica vÃ¡lida."
 
 #: templates/prevnext.inc:16
 msgid "<<First"
@@ -109,77 +109,77 @@ msgstr "Se ha denegado el acceso a %s"
 
 #: lib/Forms/Admin.php:678
 msgid "Add Attribute"
-msgstr "Añadir atributo"
+msgstr "AÃ±adir atributo"
 
 #: lib/Forms/Query.php:265
 msgid "Add Attribute Criterion"
-msgstr "Añadir criterio de atributo"
+msgstr "AÃ±adir criterio de atributo"
 
 #: mybugs.php:52
 msgid "Add Content"
-msgstr "Añadir contenido"
+msgstr "AÃ±adir contenido"
 
 #: query.php:212
 msgid "Add Criterion"
-msgstr "Añadir criterio"
+msgstr "AÃ±adir criterio"
 
 #: lib/Forms/Query.php:91
 msgid "Add Group Criterion"
-msgstr "Añadir criterio de grupo"
+msgstr "AÃ±adir criterio de grupo"
 
 #: lib/Forms/Admin.php:479
 msgid "Add Priority"
-msgstr "Añadir prioridad"
+msgstr "AÃ±adir prioridad"
 
 #: lib/Forms/Query.php:168
 msgid "Add Property Criterion"
-msgstr "Añadir criterio de propiedad"
+msgstr "AÃ±adir criterio de propiedad"
 
 #: lib/Forms/Admin.php:20 lib/Forms/Admin.php:21
 msgid "Add Queue"
-msgstr "Añadir cola"
+msgstr "AÃ±adir cola"
 
 #: lib/Forms/Admin.php:368
 msgid "Add State"
-msgstr "Añadir estado"
+msgstr "AÃ±adir estado"
 
 #: lib/Forms/Query.php:126
 msgid "Add Text Criterion"
-msgstr "Añadir criterio de texto"
+msgstr "AÃ±adir criterio de texto"
 
 #: lib/Forms/Admin.php:223 lib/Forms/Admin.php:224
 msgid "Add Type"
-msgstr "Añadir tipo"
+msgstr "AÃ±adir tipo"
 
 #: admin/index.php:109 admin/index.php:114
 #, php-format
 msgid "Add Type %s"
-msgstr "Añadir tipo %s"
+msgstr "AÃ±adir tipo %s"
 
 #: lib/Forms/Query.php:40
 msgid "Add User Criterion"
-msgstr "Añadir criterio de usuario"
+msgstr "AÃ±adir criterio de usuario"
 
 #: lib/Forms/Admin.php:154
 msgid "Add Users"
-msgstr "Añadir usuarios"
+msgstr "AÃ±adir usuarios"
 
 #: lib/Forms/Admin.php:590
 msgid "Add Version"
-msgstr "Añadir versión"
+msgstr "AÃ±adir versiÃ³n"
 
 #: ticket/watch.php:47
 msgid "Add Watcher"
-msgstr "Añadir Observador"
+msgstr "AÃ±adir Observador"
 
 #: ticket/create.php:50
 #, php-format
 msgid "Adding your ticket failed: %s."
-msgstr "Ha fallado la adición de la incidencia: %s."
+msgstr "Ha fallado la adiciÃ³n de la incidencia: %s."
 
 #: admin/index.php:55 lib/api.php:879
 msgid "Administration"
-msgstr "Administración"
+msgstr "AdministraciÃ³n"
 
 #: lib/Forms/Query.php:21 lib/Renderer/Query.php:77
 msgid "And"
@@ -230,7 +230,7 @@ msgstr "Se ha eliminado el adjunto %s"
 #: lib/Ticket.php:465
 #, php-format
 msgid "Attachment %s not found."
-msgstr "No se encontró el adjunto %s."
+msgstr "No se encontrÃ³ el adjunto %s."
 
 #: lib/Ticket.php:895
 msgid "Attachments"
@@ -247,7 +247,7 @@ msgstr "Atributo %d"
 
 #: lib/Forms/Admin.php:682 lib/Forms/Admin.php:732 lib/Forms/Admin.php:755
 msgid "Attribute Description"
-msgstr "Descripción del atributo"
+msgstr "DescripciÃ³n del atributo"
 
 #: lib/Forms/Admin.php:681 lib/Forms/Admin.php:710 lib/Forms/Admin.php:729
 #: lib/Forms/Admin.php:752
@@ -260,7 +260,7 @@ msgstr "Atributos para este tipo"
 
 #: config/.bak/prefs.php.dist:117
 msgid "Autolink to other tickets in comments?"
-msgstr "¿Vincular automáticamente a otras incidencias en los comentarios?"
+msgstr "Â¿Vincular automÃ¡ticamente a otras incidencias en los comentarios?"
 
 #: scripts/mail-filter.php:174
 msgid "Available queues:"
@@ -268,15 +268,15 @@ msgstr "Colas disponibles:"
 
 #: lib/Reports.php:12
 msgid "Average days to close by Owner"
-msgstr "Promedio de días para cerrar, por propietario"
+msgstr "Promedio de dÃ­as para cerrar, por propietario"
 
 #: lib/Reports.php:14
 msgid "Average days to close by Queue"
-msgstr "Promedio de días para cerrar, por cola"
+msgstr "Promedio de dÃ­as para cerrar, por cola"
 
 #: lib/Reports.php:13
 msgid "Average days to close by Requester"
-msgstr "Promedio de días para cerrar, por solicitante"
+msgstr "Promedio de dÃ­as para cerrar, por solicitante"
 
 #: lib/Reports.php:19
 msgid "Average time a ticket is unresolved"
@@ -292,7 +292,7 @@ msgstr "No se puede autentificar en el servidor de correo:"
 
 #: lib/Query.php:51
 msgid "Case Insensitive Substring"
-msgstr "Subcadena sin distinción de may./min."
+msgstr "Subcadena sin distinciÃ³n de may./min."
 
 #: templates/renderer/querysetcurrenttype.inc:6
 msgid "Change"
@@ -301,22 +301,22 @@ msgstr "Cambiar"
 #: config/.bak/prefs.php.dist:11
 msgid "Change display options such as how search results are sorted."
 msgstr ""
-"Cambiar opciones de visualización tales como cómo ordenar los resultados de "
-"las búsquedas."
+"Cambiar opciones de visualizaciÃ³n tales como cÃ³mo ordenar los resultados de "
+"las bÃºsquedas."
 
 #: config/.bak/prefs.php.dist:18
 msgid "Change options for email notifications of ticket activity."
 msgstr ""
-"Cambiar la configuración de los avisos de actividad de incidencias por "
+"Cambiar la configuraciÃ³n de los avisos de actividad de incidencias por "
 "correo."
 
 #: query.php:146
 msgid "Choose Action:"
-msgstr "Elegir acción:"
+msgstr "Elegir acciÃ³n:"
 
 #: lib/Query.php:221
 msgid "Choose New Query instead of deleting the root node."
-msgstr "Elija Añadir consulta en vez de eliminar el nodo raiz."
+msgstr "Elija AÃ±adir consulta en vez de eliminar el nodo raiz."
 
 #: lib/Forms/CreateTicket.php:37 lib/Forms/CreateTicket.php:67
 msgid "Choose:"
@@ -324,7 +324,7 @@ msgstr "Elegir:"
 
 #: config/.bak/prefs.php.dist:127
 msgid "Chronological (oldest first)"
-msgstr "Cronológico (antiguos primero)"
+msgstr "CronolÃ³gico (antiguos primero)"
 
 #: lib/Forms/Admin.php:350
 msgid "Clone"
@@ -332,7 +332,7 @@ msgstr "Duplicar"
 
 #: lib/Forms/Admin.php:356
 msgid "Clone Description"
-msgstr "Descripción del duplicado"
+msgstr "DescripciÃ³n del duplicado"
 
 #: admin/index.php:149 lib/Forms/Admin.php:238
 msgid "Clone Type"
@@ -354,7 +354,7 @@ msgstr "Comentario #%d"
 
 #: ticket/comment.php:69
 msgid "Comment added"
-msgstr "Se ha añadido el comentario"
+msgstr "Se ha aÃ±adido el comentario"
 
 #: ticket/comment.php:34
 #, php-format
@@ -376,7 +376,7 @@ msgstr "No se pudo extraer el archivo solicitado del archivo Zip."
 
 #: lib/Forms/Query.php:96
 msgid "Could not find any groups."
-msgstr "No se pudo encontrar ningún grupo."
+msgstr "No se pudo encontrar ningÃºn grupo."
 
 #: lib/Mail.php:92
 #, php-format
@@ -385,36 +385,36 @@ msgstr "No se pudo encontrar la incidencia \"%s\"."
 
 #: lib/Forms/Admin.php:289
 msgid "Create Default Priorities"
-msgstr "Crear prioridades por omisión"
+msgstr "Crear prioridades por omisiÃ³n"
 
 #: lib/Forms/Admin.php:279
 msgid "Create Default States"
-msgstr "Crear estados por omisión"
+msgstr "Crear estados por omisiÃ³n"
 
 #: config/.bak/prefs.php.dist:68
 msgid "Create Ticket"
-msgstr "Añadir incidencia"
+msgstr "AÃ±adir incidencia"
 
 #: lib/Forms/CreateTicket.php:23
 msgid "Create Ticket - Step 1"
-msgstr "Añadir incidencia - Paso 1"
+msgstr "AÃ±adir incidencia - Paso 1"
 
 #: lib/Forms/CreateTicket.php:55
 msgid "Create Ticket - Step 2"
-msgstr "Añadir incidencia - Paso 2"
+msgstr "AÃ±adir incidencia - Paso 2"
 
 #: lib/Forms/CreateTicket.php:100
 msgid "Create Ticket - Step 3"
-msgstr "Añadir incidencia - Paso 3"
+msgstr "AÃ±adir incidencia - Paso 3"
 
 #: lib/Forms/CreateTicket.php:168
 msgid "Create Ticket - Step 4"
-msgstr "Añadir incidencia - Paso 4"
+msgstr "AÃ±adir incidencia - Paso 4"
 
 #: lib/api.php:994 lib/Whups.php:563 lib/Ticket.php:870
 #: config/.bak/prefs.php.dist:43
 msgid "Created"
-msgstr "Añadida"
+msgstr "AÃ±adida"
 
 #: lib/Ticket.php:574 lib/Ticket.php:597
 msgid "Created By"
@@ -430,23 +430,23 @@ msgstr "Tipo de incidencia actual"
 
 #: lib/Ticket.php:655
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
-msgstr "NO CONTESTE A ESTE MENSAJE. ESTA DIRECCIÓN NO SE CONSULTA."
+msgstr "NO CONTESTE A ESTE MENSAJE. ESTA DIRECCIÃ“N NO SE CONSULTA."
 
 #: config/.bak/prefs.php.dist:99
 msgid "Date/Time format for search results"
-msgstr "Formato de Fecha/Hora de los resultados de la búsqueda"
+msgstr "Formato de Fecha/Hora de los resultados de la bÃºsqueda"
 
 #: lib/Forms/Admin.php:91
 msgid "Default Ticket Type"
-msgstr "Tipo de incidencia por omisión"
+msgstr "Tipo de incidencia por omisiÃ³n"
 
 #: config/.bak/prefs.php.dist:46
 msgid "Default sorting criteria:"
-msgstr "Criterio de clasificación por omisión:"
+msgstr "Criterio de clasificaciÃ³n por omisiÃ³n:"
 
 #: config/.bak/prefs.php.dist:57
 msgid "Default sorting direction:"
-msgstr "Sentido de clasificación por omisión:"
+msgstr "Sentido de clasificaciÃ³n por omisiÃ³n:"
 
 #: query.php:147
 msgid "Delete"
@@ -460,7 +460,7 @@ msgstr "Eliminar %s"
 #: ticket/delete.php:58
 #, php-format
 msgid "Delete %s?"
-msgstr "¿Eliminar %s?"
+msgstr "Â¿Eliminar %s?"
 
 #: admin/index.php:909 lib/Forms/Admin.php:694
 msgid "Delete Attribute"
@@ -468,7 +468,7 @@ msgstr "Eliminar atributo"
 
 #: lib/Forms/Admin.php:744
 msgid "Delete Attribute Confirmation"
-msgstr "Confirmación de eliminación de atributo"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de atributo"
 
 #: admin/index.php:570 lib/Forms/Admin.php:495
 msgid "Delete Priority"
@@ -476,11 +476,11 @@ msgstr "Eliminar prioridad"
 
 #: lib/Forms/Admin.php:566
 msgid "Delete Priority Confirmation"
-msgstr "Confirmación de eliminación de prioridad"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de prioridad"
 
 #: lib/Forms/Query.php:376
 msgid "Delete Query?"
-msgstr "¿Eliminar consulta?"
+msgstr "Â¿Eliminar consulta?"
 
 #: admin/index.php:322 lib/Forms/Admin.php:41
 msgid "Delete Queue"
@@ -488,7 +488,7 @@ msgstr "Eliminar cola"
 
 #: lib/Forms/Admin.php:129
 msgid "Delete Queue Confirmation"
-msgstr "Confirmación de eliminación de cola"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de cola"
 
 #: admin/index.php:440 lib/Forms/Admin.php:383
 msgid "Delete State"
@@ -496,7 +496,7 @@ msgstr "Eliminar estado"
 
 #: lib/Forms/Admin.php:455
 msgid "Delete State Confirmation"
-msgstr "Confirmación de eliminación de estado"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de estado"
 
 #: admin/index.php:143 lib/Forms/Admin.php:238
 msgid "Delete Type"
@@ -504,15 +504,15 @@ msgstr "Eliminar tipo"
 
 #: lib/Forms/Admin.php:313
 msgid "Delete Type Confirmation"
-msgstr "Confirmación de eliminación de tipo"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de tipo"
 
 #: admin/index.php:789 lib/Forms/Admin.php:606
 msgid "Delete Version"
-msgstr "Eliminar versión"
+msgstr "Eliminar versiÃ³n"
 
 #: lib/Forms/Admin.php:652
 msgid "Delete Version Confirmation"
-msgstr "Confirmación de eliminación de versión"
+msgstr "ConfirmaciÃ³n de eliminaciÃ³n de versiÃ³n"
 
 #: lib/Ticket.php:579 lib/Ticket.php:647
 msgid "Deleted Attachment"
@@ -529,11 +529,11 @@ msgstr "Descendente"
 
 #: lib/Forms/CreateTicket.php:129
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opciones de Visualización"
+msgstr "Opciones de VisualizaciÃ³n"
 
 #: lib/Whups.php:737
 msgid "Download"
@@ -603,7 +603,7 @@ msgstr "Modificar tipo"
 
 #: admin/index.php:784 lib/Forms/Admin.php:606 lib/Forms/Admin.php:629
 msgid "Edit Version"
-msgstr "Modificar versión"
+msgstr "Modificar versiÃ³n"
 
 #: lib/Query.php:194
 msgid "Edit _Permissions"
@@ -651,11 +651,11 @@ msgstr "Modificar las versiones de esta cola"
 
 #: ticket/watch.php:23
 msgid "Email address to notify"
-msgstr "Dirección de notificación"
+msgstr "DirecciÃ³n de notificaciÃ³n"
 
 #: ticket/watch.php:35
 msgid "Email address to remove"
-msgstr "Dirección a eliminar"
+msgstr "DirecciÃ³n a eliminar"
 
 #: lib/api.php:666
 msgid "Empty attachment"
@@ -670,7 +670,7 @@ msgstr "Error al procesar el mensaje:"
 msgid "Error: Unknown query form %s, defaulting to properties"
 msgstr ""
 "Error: Formulario %s de consulta desconocido, se establecen propiedades por "
-"omisión"
+"omisiÃ³n"
 
 #: lib/Query.php:50
 msgid "Exact Match"
@@ -686,7 +686,7 @@ msgstr "Para incidencias de estas colas"
 
 #: lib/Forms/Admin.php:786
 msgid "For tickets which are"
-msgstr "Para incidencias que están"
+msgstr "Para incidencias que estÃ¡n"
 
 #: templates/menu.inc:5
 msgid "Go"
@@ -722,7 +722,7 @@ msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
 msgstr ""
-"Si se seleccionan incidencias sin propietario, ¿a quién hay que enviar el "
+"Si se seleccionan incidencias sin propietario, Â¿a quiÃ©n hay que enviar el "
 "correo?"
 
 #: query.php:150
@@ -743,39 +743,39 @@ msgstr "Insertar O"
 
 #: lib/Forms/Admin.php:72
 msgid "Invalid Queue"
-msgstr "Cola no válida"
+msgstr "Cola no vÃ¡lida"
 
 #: lib/api.php:657 lib/Whups.php:230
 msgid "Invalid Ticket Id"
-msgstr "Id de incidencia no válido"
+msgstr "Id de incidencia no vÃ¡lido"
 
 #: lib/api.php:705
 msgid "Invalid argument: Missing attribute name or value."
-msgstr "Argumento no válido: Valor o nombre de atributo desconocido."
+msgstr "Argumento no vÃ¡lido: Valor o nombre de atributo desconocido."
 
 #: lib/api.php:690
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
-"Argumento no válido: Hay que indicar un número de incidencia y nuevos "
+"Argumento no vÃ¡lido: Hay que indicar un nÃºmero de incidencia y nuevos "
 "atributos."
 
 #: queue/index.php:30
 msgid "Invalid queue"
-msgstr "Cola no válida"
+msgstr "Cola no vÃ¡lida"
 
 #: lib/api.php:568
 #, php-format
 msgid "Invalid ticket data supplied: %s"
-msgstr "Se han añadido datos de incidencia no válidos: %s"
+msgstr "Se han aÃ±adido datos de incidencia no vÃ¡lidos: %s"
 
 #: lib/Forms/Admin.php:95
 msgid "Keep a set of versions for this queue?"
-msgstr "¿Conservar un juego de versiones de la cola?"
+msgstr "Â¿Conservar un juego de versiones de la cola?"
 
 # Contexto?
 #: templates/prevnext.inc:30
 msgid "Last>>"
-msgstr "Último>>"
+msgstr "Ãšltimo>>"
 
 #: lib/Forms/Query.php:340
 msgid "Load Query"
@@ -804,7 +804,7 @@ msgstr "Operador de coincidencia"
 
 #: lib/Query.php:54
 msgid "Match Pattern"
-msgstr "Patrón de coincidencia"
+msgstr "PatrÃ³n de coincidencia"
 
 #: lib/Query.php:53
 msgid "Match Word"
@@ -812,15 +812,15 @@ msgstr "Palabra coincidente"
 
 #: lib/Reports.php:20
 msgid "Maximum time a ticket is unresolved"
-msgstr "Tiempo máximo sin resolver una incidencia"
+msgstr "Tiempo mÃ¡ximo sin resolver una incidencia"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Listado del menú"
+msgstr "Listado del menÃº"
 
 #: lib/Reports.php:21
 msgid "Minimum time a ticket is unresolved"
-msgstr "Tiempo mínimo sin resolver una incidencia"
+msgstr "Tiempo mÃ­nimo sin resolver una incidencia"
 
 #: config/.bak/prefs.php.dist:128
 msgid "Most recent first"
@@ -839,7 +839,7 @@ msgstr "Mis %s"
 #: mybugs_edit.php:32
 #, php-format
 msgid "My %s :: Add Content"
-msgstr "Mi %s :: Añadir contenido"
+msgstr "Mi %s :: AÃ±adir contenido"
 
 #: search.php:106 lib/Block/myqueries.php:3 lib/Block/myqueries.php:24
 msgid "My Queries"
@@ -856,11 +856,11 @@ msgstr "Mis incidencias"
 
 #: lib/api.php:960
 msgid "My tickets by assignment date"
-msgstr "Mis incidencias por fecha de asignación"
+msgstr "Mis incidencias por fecha de asignaciÃ³n"
 
 #: lib/api.php:959
 msgid "My tickets by creation date"
-msgstr "Mis incidencias por fecha de creación"
+msgstr "Mis incidencias por fecha de creaciÃ³n"
 
 #: lib/api.php:961
 msgid "My tickets by due date"
@@ -868,7 +868,7 @@ msgstr "Mis incidencias por fecha de vencimiento"
 
 #: lib/api.php:962
 msgid "My tickets by resolution date"
-msgstr "Mis incidencias por fecha de resolución"
+msgstr "Mis incidencias por fecha de resoluciÃ³n"
 
 #: lib/Forms/Query.php:319 lib/Forms/Query.php:351
 msgid "Name"
@@ -880,7 +880,7 @@ msgstr "Nombre del duplicado"
 
 #: lib/Query.php:184
 msgid "Ne_w Query"
-msgstr "Aña_dir"
+msgstr "AÃ±a_dir"
 
 #: lib/Driver.php:195
 msgid "New"
@@ -888,12 +888,12 @@ msgstr "Nueva"
 
 #: lib/Ticket.php:578 lib/Ticket.php:642
 msgid "New Attachment"
-msgstr "Añadir adjunto"
+msgstr "AÃ±adir adjunto"
 
 #: lib/Renderer/Comment.php:58 lib/Renderer/Comment.php:61
 #, php-format
 msgid "New Attachment: %s"
-msgstr "Añadir adjunto: %s"
+msgstr "AÃ±adir adjunto: %s"
 
 #: ticket/queue.php:31
 msgid "New Queue"
@@ -901,7 +901,7 @@ msgstr "Nueva cola"
 
 #: lib/Block/tree_menu.php:21 ticket/create.php:60
 msgid "New Ticket"
-msgstr "Añadir"
+msgstr "AÃ±adir"
 
 #: ticket/type.php:34
 msgid "New Type"
@@ -924,7 +924,7 @@ msgid ""
 "specified."
 msgstr ""
 "No se ha indicado una prioridad para esta incidencia y las incidencias de "
-"tipo \"%s\" carecen de prioridad por omisión."
+"tipo \"%s\" carecen de prioridad por omisiÃ³n."
 
 #: lib/Block/myqueries.php:46
 msgid "No queries have been saved."
@@ -945,21 +945,21 @@ msgid ""
 "specified."
 msgstr ""
 "No se ha indicado un estado para esta incidencia y las incidencias de tipo "
-"\"%s\" carecen de estado por omisión."
+"\"%s\" carecen de estado por omisiÃ³n."
 
 #: reports.php:19
 msgid "No stats available."
-msgstr "No se dispone de estadísticas."
+msgstr "No se dispone de estadÃ­sticas."
 
 #: lib/Driver.php:463
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "No se encontró el motor \"%s\""
+msgstr "No se encontrÃ³ el motor \"%s\""
 
 #: lib/View.php:33
 #, php-format
 msgid "No such view \"%s\" found"
-msgstr "No se encontró la vista \"%s\""
+msgstr "No se encontrÃ³ la vista \"%s\""
 
 #: lib/Block/mytickets.php:45
 msgid "No tickets are assigned to you."
@@ -967,7 +967,7 @@ msgstr "No se le han asignado incidencias."
 
 #: lib/Block/unassigned.php:45
 msgid "No tickets are unassigned!"
-msgstr "¡No hay incidencias sin asignar!"
+msgstr "Â¡No hay incidencias sin asignar!"
 
 #: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
 msgid "No tickets in queue."
@@ -975,13 +975,13 @@ msgstr "No hay incidencias en la cola."
 
 #: lib/Whups.php:597
 msgid "No tickets matched your search criteria."
-msgstr "No hay incidencias que coincidan con su búsqueda."
+msgstr "No hay incidencias que coincidan con su bÃºsqueda."
 
 #: lib/Ticket.php:83
 #, php-format
 msgid "No type for this ticket and no default type for queue \"%s\" specified."
 msgstr ""
-"Esta incidencia no tiene tipo y no se ha indicado un tipo por omisión para "
+"Esta incidencia no tiene tipo y no se ha indicado un tipo por omisiÃ³n para "
 "la cola \"%s\"."
 
 #: lib/Reports.php:88
@@ -994,7 +994,7 @@ msgstr "No"
 
 #: query.php:80
 msgid "Not yet implemented."
-msgstr "Aún no se ha desarrollado."
+msgstr "AÃºn no se ha desarrollado."
 
 #: config/.bak/prefs.php.dist:17
 msgid "Notification Options"
@@ -1003,7 +1003,7 @@ msgstr "Opciones de aviso"
 #: config/.bak/prefs.php.dist:108
 msgid "Only notify me of ticket changes from other users"
 msgstr ""
-"Comunicarme sólo los cambios de incidencias realizados por otros usuarios"
+"Comunicarme sÃ³lo los cambios de incidencias realizados por otros usuarios"
 
 #: queue/rss.php:43
 msgid "Open"
@@ -1069,7 +1069,7 @@ msgstr "Propietarios"
 #: lib/Whups.php:745
 #, php-format
 msgid "Permanently delete %s?"
-msgstr "¿Eliminar definitivamente %s?"
+msgstr "Â¿Eliminar definitivamente %s?"
 
 #: ticket/delete.php:17 ticket/queue.php:124 ticket/update.php:23
 #: ticket/deleteAttachment.php:17 ticket/type.php:17
@@ -1103,7 +1103,7 @@ msgstr "Prioridad &rArr; %s"
 
 #: lib/Forms/Admin.php:483 lib/Forms/Admin.php:529 lib/Forms/Admin.php:577
 msgid "Priority Description"
-msgstr "Descripción de la prioridad"
+msgstr "DescripciÃ³n de la prioridad"
 
 #: lib/Forms/Admin.php:482 lib/Forms/Admin.php:507 lib/Forms/Admin.php:526
 #: lib/Forms/Admin.php:553 lib/Forms/Admin.php:574
@@ -1116,7 +1116,7 @@ msgstr "Consultas"
 
 #: lib/Forms/QueryParameterForm.php:20
 msgid "Query Parameters"
-msgstr "Parámetros de la consulta"
+msgstr "ParÃ¡metros de la consulta"
 
 #: runquery.php:72 lib/Block/query.php:3 lib/Block/query.php:51
 msgid "Query Results"
@@ -1144,7 +1144,7 @@ msgstr "Contenido de la cola"
 
 #: lib/Forms/Admin.php:24 lib/Forms/Admin.php:82 lib/Forms/Admin.php:139
 msgid "Queue Description"
-msgstr "Descripción de la cola"
+msgstr "DescripciÃ³n de la cola"
 
 #: lib/Forms/Admin.php:23 lib/Forms/Admin.php:56 lib/Forms/Admin.php:79
 #: lib/Forms/Admin.php:136 lib/Forms/CreateTicket.php:27
@@ -1163,7 +1163,7 @@ msgstr "Resumen"
 #: lib/Ticket.php:832 lib/Ticket.php:838 lib/Forms/CreateTicket.php:82
 #: ticket/queue.php:79
 msgid "Queue Version"
-msgstr "Versión de la cola"
+msgstr "VersiÃ³n de la cola"
 
 #: admin/index.php:36
 msgid "Queue/Type Matri_x"
@@ -1179,45 +1179,45 @@ msgstr "Colas"
 
 #: templates/prevnext.inc:32
 msgid "Re_turn to Search Results"
-msgstr "Volver a resul_tados de la búsqueda"
+msgstr "Volver a resul_tados de la bÃºsqueda"
 
 #: lib/Forms/Admin.php:759
 msgid "Really delete this attribute? This may cause data problems!"
 msgstr ""
-"¿Eliminar realmente este atributo? ¡Puede ocasionar problemas de datos!"
+"Â¿Eliminar realmente este atributo? Â¡Puede ocasionar problemas de datos!"
 
 #: lib/Forms/Admin.php:581
 msgid "Really delete this priority? This may cause data problems!"
 msgstr ""
-"¿Eliminar realmente esta prioridad? ¡Puede ocasionar problemas de datos!"
+"Â¿Eliminar realmente esta prioridad? Â¡Puede ocasionar problemas de datos!"
 
 #: lib/Forms/Query.php:379
 msgid "Really delete this query? This operation is not undoable."
 msgstr ""
-"¿Eliminar realmente esta consulta? Esta operación no se puede deshacer."
+"Â¿Eliminar realmente esta consulta? Esta operaciÃ³n no se puede deshacer."
 
 #: lib/Forms/Admin.php:143
 msgid "Really delete this queue? This may cause data problems!"
-msgstr "¿Eliminar realmente esta cola? ¡Puede ocasionar problemas de datos!"
+msgstr "Â¿Eliminar realmente esta cola? Â¡Puede ocasionar problemas de datos!"
 
 #: lib/Forms/Admin.php:470
 msgid "Really delete this state? This may cause data problems!"
-msgstr "¿Eliminar realmente este estado? ¡Puede ocasionar problemas de datos!"
+msgstr "Â¿Eliminar realmente este estado? Â¡Puede ocasionar problemas de datos!"
 
 #: ticket/delete.php:38
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"¿Eliminar realmente esta incidencia? NO se archivará y se perderá "
+"Â¿Eliminar realmente esta incidencia? NO se archivarÃ¡ y se perderÃ¡ "
 "definitivamente."
 
 #: lib/Forms/Admin.php:335
 msgid "Really delete this type? This may cause data problems!"
-msgstr "¿Eliminar realmente este tipo? ¡Puede ocasionar problemas de datos!"
+msgstr "Â¿Eliminar realmente este tipo? Â¡Puede ocasionar problemas de datos!"
 
 #: lib/Forms/Admin.php:667
 msgid "Really delete this version? This may cause data problems!"
-msgstr "¿Eliminar realmente esta versión? ¡Puede ocasionar problemas de datos!"
+msgstr "Â¿Eliminar realmente esta versiÃ³n? Â¡Puede ocasionar problemas de datos!"
 
 #: lib/Mail.php:175
 msgid "Received message:"
@@ -1225,7 +1225,7 @@ msgstr "Mensaje recibido:"
 
 #: search.php:87
 msgid "Refine Search"
-msgstr "Concretar búsqueda"
+msgstr "Concretar bÃºsqueda"
 
 #: admin/index.php:991
 msgid "Reminders were sent."
@@ -1311,16 +1311,16 @@ msgstr "Buscar solicitante"
 
 #: search.php:79
 msgid "Search Results"
-msgstr "Resultados de la búsqueda"
+msgstr "Resultados de la bÃºsqueda"
 
 #: templates/prevnext.inc:38
 #, php-format
 msgid "Search Results: %s of %s"
-msgstr "Resultados de la búsqueda: %s de %s"
+msgstr "Resultados de la bÃºsqueda: %s de %s"
 
 #: lib/Forms/Query.php:130
 msgid "Search Summary"
-msgstr "Resumen de la búsqueda"
+msgstr "Resumen de la bÃºsqueda"
 
 #: config/.bak/prefs.php.dist:67
 msgid "Search Tickets"
@@ -1340,15 +1340,15 @@ msgstr "Enviar recordatorios"
 
 #: lib/Forms/Admin.php:781
 msgid "Send only for this list of ticket ids"
-msgstr "Enviar sólo a este conjunto de ids de incidencias"
+msgstr "Enviar sÃ³lo a este conjunto de ids de incidencias"
 
 #: lib/Forms/Admin.php:539 lib/Forms/Admin.php:541
 msgid "Set Default Priority"
-msgstr "Establecer prioridad por omisión"
+msgstr "Establecer prioridad por omisiÃ³n"
 
 #: lib/Forms/Admin.php:428 lib/Forms/Admin.php:430
 msgid "Set Default State"
-msgstr "Establecer estado por omisión"
+msgstr "Establecer estado por omisiÃ³n"
 
 #: ticket/queue.php:194 ticket/queue.php:203 ticket/queue.php:215
 msgid "Set Queue - Step 1"
@@ -1387,15 +1387,15 @@ msgstr "Establecer _tipo"
 #: config/.bak/prefs.php.dist:126
 msgid "Show comments in chronological order, or most recent first?"
 msgstr ""
-"¿Mostrar los comentarios en orden cronológico o primero los más recientes?"
+"Â¿Mostrar los comentarios en orden cronolÃ³gico o primero los mÃ¡s recientes?"
 
 #: config/.bak/prefs.php.dist:86
 msgid "Show ticket IDs in the summary view?"
-msgstr "¿Mostrar los IDs de incidencias en la vista de resumen?"
+msgstr "Â¿Mostrar los IDs de incidencias en la vista de resumen?"
 
 #: config/.bak/prefs.php.dist:78
 msgid "Show tickets you have requested in the summary view?"
-msgstr "¿Mostrar las incidencias solicitadas en la vista de resumen?"
+msgstr "Â¿Mostrar las incidencias solicitadas en la vista de resumen?"
 
 #: config/.bak/templates.php.dist:16
 msgid "Simple HTML Report"
@@ -1410,7 +1410,7 @@ msgid ""
 msgstr ""
 "El ID de seguimiento (slugname) permite acceder directamente a las "
 "indicencias abiertas de esta cola visitando: %s. <br /> Los IDs de "
-"seguimiento sólo pueden contener letras, números o el carácter _ (subrayado)."
+"seguimiento sÃ³lo pueden contener letras, nÃºmeros o el carÃ¡cter _ (subrayado)."
 
 #: templates/view/results.inc:51 templates/view/results.inc:55
 #, php-format
@@ -1420,7 +1420,7 @@ msgstr "Ordenar por %s"
 #: lib/Forms/AddComment.php:20 lib/Forms/AddComment.php:51
 #: lib/Forms/CreateTicket.php:118 lib/Forms/CreateTicket.php:149
 msgid "Spam protection"
-msgstr "Protección anti spam"
+msgstr "ProtecciÃ³n anti spam"
 
 #: lib/Whups.php:551 lib/Whups.php:557 lib/Ticket.php:569 lib/Ticket.php:724
 #: lib/Ticket.php:849 lib/Forms/Query.php:192 lib/Forms/EditTicket.php:59
@@ -1436,11 +1436,11 @@ msgstr "Estado &rArr; %s"
 
 #: lib/Forms/Admin.php:373 lib/Forms/Admin.php:418
 msgid "State Category"
-msgstr "Categoría del estado"
+msgstr "CategorÃ­a del estado"
 
 #: lib/Forms/Admin.php:372 lib/Forms/Admin.php:415 lib/Forms/Admin.php:466
 msgid "State Description"
-msgstr "Descripción del estado"
+msgstr "DescripciÃ³n del estado"
 
 #: lib/Forms/Admin.php:371 lib/Forms/Admin.php:395 lib/Forms/Admin.php:412
 #: lib/Forms/Admin.php:444 lib/Forms/Admin.php:463
@@ -1496,7 +1496,7 @@ msgstr "Texto"
 
 #: lib/Driver/sql.php:77 lib/Driver/sql.php:1142
 msgid "That queue slug is already taken. Please select another."
-msgstr "Este ID de seguimiento ya está en uso. Seleccione otro."
+msgstr "Este ID de seguimiento ya estÃ¡ en uso. Seleccione otro."
 
 #: view.php:55 lib/Ticket.php:409 lib/Ticket.php:454
 msgid "The VFS backend needs to be configured to enable attachment uploads."
@@ -1505,7 +1505,7 @@ msgstr "Hay que configurar el motor VFS para permitir la carga de adjuntos."
 #: admin/index.php:869
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
-msgstr "Se ha añadido el atributo \"%s\" a %s."
+msgstr "Se ha aÃ±adido el atributo \"%s\" a %s."
 
 #: admin/index.php:958
 msgid "The attribute has been deleted."
@@ -1521,16 +1521,16 @@ msgstr "No se ha eliminado el atributo."
 
 #: admin/index.php:621
 msgid "The default priority has been set."
-msgstr "Se ha establecido la prioridad por omisión."
+msgstr "Se ha establecido la prioridad por omisiÃ³n."
 
 #: admin/index.php:490
 msgid "The default state has been set."
-msgstr "Se ha establecido el estado por omisión."
+msgstr "Se ha establecido el estado por omisiÃ³n."
 
 #: admin/index.php:538
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
-msgstr "Se ha añadido la prioridad \"%s\" a %s."
+msgstr "Se ha aÃ±adido la prioridad \"%s\" a %s."
 
 #: admin/index.php:639
 msgid "The priority has been deleted."
@@ -1542,7 +1542,7 @@ msgstr "Se ha modificado la prioridad."
 
 #: admin/index.php:648
 msgid "The priority was not deleted."
-msgstr "No se eliminó la prioridad."
+msgstr "No se eliminÃ³ la prioridad."
 
 #: lib/Forms/Query.php:392
 #, php-format
@@ -1574,7 +1574,7 @@ msgstr "Se ha modificado la cola."
 
 #: admin/index.php:388
 msgid "The queue was not deleted."
-msgstr "No se eliminó la cola."
+msgstr "No se eliminÃ³ la cola."
 
 #: lib/MIME/Viewer/zip.php:58
 msgid "The requested file does not exist in the Zip attachment."
@@ -1587,7 +1587,7 @@ msgstr "La plantilla solicitada no existe."
 #: admin/index.php:409
 #, php-format
 msgid "The state \"%s\" has been added to %s."
-msgstr "Se ha añadido el estado \"%s\" a %s."
+msgstr "Se ha aÃ±adido el estado \"%s\" a %s."
 
 #: admin/index.php:508
 msgid "The state has been deleted."
@@ -1599,11 +1599,11 @@ msgstr "Se ha modificado el estado."
 
 #: admin/index.php:516
 msgid "The state was not deleted."
-msgstr "No se eliminó el estado."
+msgstr "No se eliminÃ³ el estado."
 
 #: ticket/delete.php:75
 msgid "The ticket was not deleted."
-msgstr "No se eliminó la incidencia."
+msgstr "No se eliminÃ³ la incidencia."
 
 #: admin/index.php:219
 #, php-format
@@ -1616,24 +1616,24 @@ msgstr "Se ha eliminado el tipo."
 
 #: admin/index.php:273
 msgid "The type was not deleted."
-msgstr "No se eliminó el tipo."
+msgstr "No se eliminÃ³ el tipo."
 
 #: admin/index.php:750
 #, php-format
 msgid "The version \"%s\" has been added to %s."
-msgstr "Se ha añadido la versión \"%s\" a %s."
+msgstr "Se ha aÃ±adido la versiÃ³n \"%s\" a %s."
 
 #: admin/index.php:836
 msgid "The version has been deleted."
-msgstr "Se ha eliminado la versión."
+msgstr "Se ha eliminado la versiÃ³n."
 
 #: admin/index.php:807
 msgid "The version has been modified."
-msgstr "Se ha modificado la versión."
+msgstr "Se ha modificado la versiÃ³n."
 
 #: admin/index.php:844
 msgid "The version was not deleted."
-msgstr "No se eliminó la versión."
+msgstr "No se eliminÃ³ la versiÃ³n."
 
 #: lib/Forms/Admin.php:706
 msgid "There are no attribute types to edit"
@@ -1661,7 +1661,7 @@ msgstr "No hay colas a modificar"
 
 #: lib/Forms/CreateTicket.php:27
 msgid "There are no queues which you can create tickets in."
-msgstr "No hay colas a las que pueda añadir incidencias."
+msgstr "No hay colas a las que pueda aÃ±adir incidencias."
 
 #: lib/Forms/Search.php:34
 msgid "There are no queues which you can search."
@@ -1677,7 +1677,7 @@ msgid ""
 "cannot create any tickets in this queue."
 msgstr ""
 "No hay tipos de incidencias asociados a esta cola; mientras no los haya no "
-"podrá añadir incidencias a la misma."
+"podrÃ¡ aÃ±adir incidencias a la misma."
 
 #: lib/Forms/Admin.php:246
 msgid "There are no types to edit"
@@ -1703,7 +1703,7 @@ msgstr "No hay datos para este informe."
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
 msgstr ""
-"Se produjo un error al añadir a \"%s\" a la lista de encargados de \"%s\":"
+"Se produjo un error al aÃ±adir a \"%s\" a la lista de encargados de \"%s\":"
 
 #: admin/index.php:874
 msgid "There was an error creating the attribute:"
@@ -1723,7 +1723,7 @@ msgstr "Se produjo un error al crear el estado:"
 
 #: admin/index.php:754
 msgid "There was an error creating the version:"
-msgstr "Se produjo un error al crear la versión:"
+msgstr "Se produjo un error al crear la versiÃ³n:"
 
 #: admin/index.php:962
 msgid "There was an error deleting the attribute:"
@@ -1752,7 +1752,7 @@ msgstr "Se produjo un error al eliminar el tipo:"
 
 #: admin/index.php:839
 msgid "There was an error deleting the version:"
-msgstr "Se produjo un error al eliminar la versión:"
+msgstr "Se produjo un error al eliminar la versiÃ³n:"
 
 #: admin/index.php:935
 msgid "There was an error editing the attribute:"
@@ -1772,7 +1772,7 @@ msgstr "Se produjo un error al modificar el estado:"
 
 #: admin/index.php:813
 msgid "There was an error editing the version:"
-msgstr "Se produjo un error al modificar la versión:"
+msgstr "Se produjo un error al modificar la versiÃ³n:"
 
 #: lib/Forms/Admin.php:168
 #, php-format
@@ -1791,7 +1791,7 @@ msgstr "Se produjo un error al modificar el tipo:"
 #: search.php:72
 #, php-format
 msgid "There was an error performing your search: %s"
-msgstr "Se produjo un error al realizar la búsqueda: %s"
+msgstr "Se produjo un error al realizar la bÃºsqueda: %s"
 
 #: admin/index.php:725
 #, php-format
@@ -1802,15 +1802,15 @@ msgstr ""
 
 #: admin/index.php:617
 msgid "There was an error setting the default priority:"
-msgstr "Se produjo un error al establecer la prioridad por omisión:"
+msgstr "Se produjo un error al establecer la prioridad por omisiÃ³n:"
 
 #: admin/index.php:486
 msgid "There was an error setting the default state:"
-msgstr "Se produjo un error al establecer el estado por omisión:"
+msgstr "Se produjo un error al establecer el estado por omisiÃ³n:"
 
 #: data.php:29
 msgid "This is not a search results template."
-msgstr "Ésta no es una plantilla de resultados de búsqueda."
+msgstr "Ã‰sta no es una plantilla de resultados de bÃºsqueda."
 
 #: lib/Forms/CreateTicket.php:77 ticket/queue.php:74
 msgid ""
@@ -1818,8 +1818,8 @@ msgid ""
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
-"Esta cola precisa que indique una versión, pero no se le han asociado "
-"versiones. Hasta que no se creen versiones para esta cola, no podrá generar "
+"Esta cola precisa que indique una versiÃ³n, pero no se le han asociado "
+"versiones. Hasta que no se creen versiones para esta cola, no podrÃ¡ generar "
 "incidencias."
 
 #: lib/Ticket.php:596 lib/Ticket.php:738
@@ -1839,11 +1839,11 @@ msgstr "Incidencia %s - %s"
 #: lib/Driver/sql.php:954
 #, php-format
 msgid "Ticket %s was not found."
-msgstr "No se encontró la incidencia %s."
+msgstr "No se encontrÃ³ la incidencia %s."
 
 #: search.php:98
 msgid "Ticket Search"
-msgstr "Búsqueda de incidencias"
+msgstr "BÃºsqueda de incidencias"
 
 #: lib/Forms/CreateTicket.php:122
 msgid "Ticket State"
@@ -1851,7 +1851,7 @@ msgstr "Estado de la incidencia"
 
 #: templates/reports/stats.inc:3
 msgid "Ticket Stats"
-msgstr "Estadísticas de incidencias"
+msgstr "EstadÃ­sticas de incidencias"
 
 #: lib/Forms/CreateTicket.php:70
 msgid "Ticket Type"
@@ -1887,7 +1887,7 @@ msgstr "Tipo &rArr; %s"
 
 #: lib/Forms/Admin.php:226 lib/Forms/Admin.php:270 lib/Forms/Admin.php:323
 msgid "Type Description"
-msgstr "Descripción del tipo"
+msgstr "DescripciÃ³n del tipo"
 
 #: lib/Forms/Admin.php:225 lib/Forms/Admin.php:249 lib/Forms/Admin.php:267
 #: lib/Forms/Admin.php:320
@@ -1955,20 +1955,20 @@ msgstr "Usuarios encargados de esta cola"
 #: lib/Ticket.php:567 lib/Ticket.php:722 lib/Forms/Query.php:184
 #: lib/Renderer/Query.php:102 config/.bak/prefs.php.dist:42
 msgid "Version"
-msgstr "Versión"
+msgstr "VersiÃ³n"
 
 #: lib/Forms/Admin.php:594 lib/Forms/Admin.php:640 lib/Forms/Admin.php:663
 msgid "Version Description"
-msgstr "Descripción de la versión"
+msgstr "DescripciÃ³n de la versiÃ³n"
 
 #: lib/Forms/Admin.php:593 lib/Forms/Admin.php:618 lib/Forms/Admin.php:637
 #: lib/Forms/Admin.php:660
 msgid "Version Name"
-msgstr "Nombre de la versión"
+msgstr "Nombre de la versiÃ³n"
 
 #: lib/Forms/AddComment.php:38 ticket/queue.php:45 ticket/type.php:46
 msgid "Viewable only by members of"
-msgstr "Visible sólo por los miembros de"
+msgstr "Visible sÃ³lo por los miembros de"
 
 #: lib/Forms/AddComment.php:25
 msgid "Watch this ticket"
@@ -1981,17 +1981,17 @@ msgstr "Observadores de %s"
 
 #: config/.bak/prefs.php.dist:95
 msgid "Weekday Day Month"
-msgstr "Día de la semana Día Mes"
+msgstr "DÃ­a de la semana DÃ­a Mes"
 
 #: config/.bak/prefs.php.dist:96
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "Día de la semana Día Mes HH:MM:SS TZ"
+msgstr "DÃ­a de la semana DÃ­a Mes HH:MM:SS TZ"
 
 #: lib/Forms/Query.php:378 lib/Forms/Admin.php:142 lib/Forms/Admin.php:334
 #: lib/Forms/Admin.php:469 lib/Forms/Admin.php:580 lib/Forms/Admin.php:666
 #: lib/Forms/Admin.php:758 ticket/delete.php:37
 msgid "Yes"
-msgstr "Sí"
+msgstr "SÃ­"
 
 #: view.php:51
 #, php-format
@@ -2022,7 +2022,7 @@ msgstr ""
 
 #: lib/Forms/AddComment.php:18 lib/Forms/CreateTicket.php:116
 msgid "Your Email Address"
-msgstr "Su dirección de correo"
+msgstr "Su direcciÃ³n de correo"
 
 #: ticket/create.php:53
 #, php-format
@@ -2084,7 +2084,7 @@ msgstr "_Mis %s"
 
 #: lib/Whups.php:648
 msgid "_New Ticket"
-msgstr "_Añadir"
+msgstr "_AÃ±adir"
 
 #: query.php:138
 msgid "_Property Criteria"
@@ -2152,4 +2152,4 @@ msgstr "es menor que"
 
 #: lib/Renderer/Query.php:173
 msgid "matches the pattern"
-msgstr "cumple el patrón"
+msgstr "cumple el patrÃ³n"

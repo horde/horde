@@ -13,14 +13,14 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Driver/Weatherdotcom.php:221 lib/Driver/Weatherdotcom.php:236
 #, php-format
 msgid " gusting %d%s"
-msgstr " böig %d%s"
+msgstr " bÃ¶ig %d%s"
 
 #: lib/Driver/Weatherdotcom.php:154
 msgid "An unknown error has occured."
@@ -40,7 +40,7 @@ msgid ""
 "Winds: From the %s at %d%s"
 msgstr ""
 "Bedingungen: %s\n"
-"Höchsttemperatur: %d%s\n"
+"HÃ¶chsttemperatur: %d%s\n"
 "Niederschlag: %d%%\n"
 "Luftfeuchtigkeit: %d%%\n"
 "Winde: Aus %s mit %d%s"
@@ -66,19 +66,19 @@ msgstr "Facebook-Termine"
 
 #: lib/Driver/Weatherdotcom.php:164
 msgid "Invalid license key."
-msgstr "Ungültiger Lizenzschlüssel."
+msgstr "UngÃ¼ltiger LizenzschlÃ¼ssel."
 
 #: lib/Driver/Weatherdotcom.php:158
 msgid "Invalid location provided."
-msgstr "Ungültiger Ort angegeben."
+msgstr "UngÃ¼ltiger Ort angegeben."
 
 #: lib/Driver/Weatherdotcom.php:160
 msgid "Invalid partner id."
-msgstr "Ungültige Partner-ID."
+msgstr "UngÃ¼ltige Partner-ID."
 
 #: lib/Driver/Weatherdotcom.php:162
 msgid "Invalid product code."
-msgstr "Ungültiger Produktcode."
+msgstr "UngÃ¼ltiger Produktcode."
 
 #: lib/Driver/Weatherdotcom.php:240
 #, php-format
@@ -97,7 +97,7 @@ msgstr ""
 "Sonnenaufgang: %s\n"
 "Sonnenuntergang: %s\n"
 "\n"
-"Tagsüber\n"
+"TagsÃ¼ber\n"
 "%s\n"
 "\n"
 "Nachts\n"
@@ -117,15 +117,15 @@ msgstr "Kein Ort angegeben."
 
 #: lib/Driver/Weatherdotcom.php:129
 msgid "No temporary directory available for cache."
-msgstr "Keine temporäres Verzeichnis für den Cache gefunden."
+msgstr "Keine temporÃ¤res Verzeichnis fÃ¼r den Cache gefunden."
 
 #: lib/Driver/Weatherdotcom.php:144
 msgid "Requested service could not be found."
-msgstr "Der gewünschte Dienst konnte nicht gefunden werden."
+msgstr "Der gewÃ¼nschte Dienst konnte nicht gefunden werden."
 
 #: lib/Driver/Weatherdotcom.php:148
 msgid "Server data wrong or not available."
-msgstr "Serverdaten ungültig oder nicht verfügbar."
+msgstr "Serverdaten ungÃ¼ltig oder nicht verfÃ¼gbar."
 
 #: lib/Driver.php:42
 #, php-format

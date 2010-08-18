@@ -1,5 +1,5 @@
 # Danish translations for Mnemo package
-# Danske oversættelser for pakke Mnemo.
+# Danske oversÃ¦ttelser for pakke Mnemo.
 # Copyright 2006-2009 The Horde Project
 # This file is distributed under the same license as the Mnemo package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -43,29 +43,29 @@ msgstr "1 note"
 
 #: memo.php:162
 msgid "Access denied deleting note."
-msgstr "Adgang nægtet ved sletning af note."
+msgstr "Adgang nÃ¦gtet ved sletning af note."
 
 #: memo.php:112 memo.php:115
 msgid "Access denied moving the note."
-msgstr "Adgang nægtet ved flytning af note."
+msgstr "Adgang nÃ¦gtet ved flytning af note."
 
 #: memo.php:84
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "Adgang nægtet ved lagring af note til %s."
+msgstr "Adgang nÃ¦gtet ved lagring af note til %s."
 
 #: memo.php:82
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "Adgang nægtet ved lagring af note: %s"
+msgstr "Adgang nÃ¦gtet ved lagring af note: %s"
 
 #: templates/prefs/showsummaryselect.inc:103
 msgid "Add category"
-msgstr "Tilføj kategori"
+msgstr "TilfÃ¸j kategori"
 
 #: memo.php:52
 msgid "Adding A New Note"
-msgstr "Tilføj en ny note"
+msgstr "TilfÃ¸j en ny note"
 
 #: config/prefs.php.dist:51
 msgid "Ascending"
@@ -73,7 +73,7 @@ msgstr "Stigende"
 
 #: templates/prefs/showsummaryselect.inc:99
 msgid "Available Categories:"
-msgstr "Tilgængelige kategorier:"
+msgstr "TilgÃ¦ngelige kategorier:"
 
 #: templates/view/memo.inc:18
 msgid "Back to Notepad"
@@ -93,19 +93,19 @@ msgstr "Kategori"
 
 #: templates/notepads/notepads.inc:22
 msgid "Change"
-msgstr "Ændre"
+msgstr "Ã†ndre"
 
 #: config/prefs.php.dist:15
 msgid "Change your note sorting and display options."
-msgstr "Redigér måden, hvorpå dine noter sorteres og vises."
+msgstr "RedigÃ©r mÃ¥den, hvorpÃ¥ dine noter sorteres og vises."
 
 #: templates/prefs/showsummaryselect.inc:93
 msgid "Choose the memo categories to list in the summary view."
-msgstr "Vælg de notat-kategorier, som skal listes i oversigtsvisning."
+msgstr "VÃ¦lg de notat-kategorier, som skal listes i oversigtsvisning."
 
 #: config/prefs.php.dist:22
 msgid "Choose your default Notepad."
-msgstr "Vælg din standard notesblok."
+msgstr "VÃ¦lg din standard notesblok."
 
 #: templates/search/search.inc:32
 msgid "Clear Form"
@@ -142,7 +142,7 @@ msgstr "Godkend sletning"
 
 #: config/prefs.php.dist:29
 msgid "Delete button behaviour"
-msgstr "Opførsel af slette-knap"
+msgstr "OpfÃ¸rsel af slette-knap"
 
 #: templates/memo/memo.inc:67
 msgid "Delete this note"
@@ -171,27 +171,27 @@ msgstr "Rediger"
 #: templates/list/memo_summaries.inc:5
 #, php-format
 msgid "Edit \"%s\""
-msgstr "Redigér \"%s\""
+msgstr "RedigÃ©r \"%s\""
 
 #: templates/list/memo_headers.inc:42 lib/Block/summary.php:77
 msgid "Edit Note"
-msgstr "Redigér note"
+msgstr "RedigÃ©r note"
 
 #: templates/list/memo_headers.inc:52
 msgid "Edit categories and colors"
-msgstr "Redigér kategorier og farver"
+msgstr "RedigÃ©r kategorier og farver"
 
 #: templates/list/memo_summaries.inc:12
 msgid "Empty Note"
-msgstr "Tøm note"
+msgstr "TÃ¸m note"
 
 #: templates/data/export.inc:19
 msgid "Export"
-msgstr "Eksportér"
+msgstr "EksportÃ©r"
 
 #: templates/data/export.inc:8
 msgid "Export Notes"
-msgstr "Eksportér noter"
+msgstr "EksportÃ©r noter"
 
 #: templates/search/search.inc:21
 msgid "F_ull Text"
@@ -199,20 +199,20 @@ msgstr "Fuld text"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:27
 msgid "General Options"
-msgstr "Grundlæggende indstillinger"
+msgstr "GrundlÃ¦ggende indstillinger"
 
 #: templates/data/import.inc:8
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Importér noter, trin %d"
+msgstr "ImportÃ©r noter, trin %d"
 
 #: data.php:193
 msgid "Import/Export Notes"
-msgstr "Importér/eksportér noter"
+msgstr "ImportÃ©r/eksportÃ©r noter"
 
 #: templates/view/memo.inc:39
 msgid "Last Modified"
-msgstr "Sidst ændret"
+msgstr "Sidst Ã¦ndret"
 
 #: lib/api.php:76
 msgid "Maximum Number of Notes"
@@ -225,7 +225,7 @@ msgstr "Teksten af huskeseddel"
 #: memo.php:68
 #, php-format
 msgid "Modifying %s"
-msgstr "Ændrer %s"
+msgstr "Ã†ndrer %s"
 
 #: list.php:35
 msgid "My Notes"
@@ -237,7 +237,7 @@ msgstr "Ny note"
 
 #: templates/data/import.inc:40
 msgid "Next"
-msgstr "Næste"
+msgstr "NÃ¦ste"
 
 #: lib/api.php:230
 msgid "No iCalendar data was found."
@@ -245,7 +245,7 @@ msgstr "Ingen iCalendar-data fundet."
 
 #: templates/menu.inc:7
 msgid "No notepads are available to guests."
-msgstr "Der er ingen notesblokke tilgængelige til gæster."
+msgstr "Der er ingen notesblokke tilgÃ¦ngelige til gÃ¦ster."
 
 #: templates/list/header.inc:3
 msgid "No notes"
@@ -293,7 +293,7 @@ msgstr "Notesblok"
 
 #: templates/notepads/notepads.inc:79
 msgid "Notepad's name:"
-msgstr "Navn på notesblok:"
+msgstr "Navn pÃ¥ notesblok:"
 
 #: templates/notepads/notepads.inc:61
 msgid "Notepads"
@@ -301,7 +301,7 @@ msgstr "Notesblokke"
 
 #: notepads.php:33
 msgid "Notepads must have a name."
-msgstr "Notesblokke skal være navngivne."
+msgstr "Notesblokke skal vÃ¦re navngivne."
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
@@ -309,7 +309,7 @@ msgstr "Opsummering over noter"
 
 #: lib/api.php:207 lib/api.php:303 lib/api.php:379 lib/api.php:408
 msgid "Permission Denied"
-msgstr "Tilladelse nægtet"
+msgstr "Tilladelse nÃ¦gtet"
 
 #: templates/notepads/notepads.inc:82
 msgid "Permissions"
@@ -337,39 +337,39 @@ msgstr "Gem"
 
 #: search.php:17 templates/search/search.inc:4 templates/search/search.inc:31
 msgid "Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: list.php:57
 msgid "Search Results"
-msgstr "Resultat for søgning"
+msgstr "Resultat for sÃ¸gning"
 
 #: templates/search/search.inc:17
 msgid "Search Scope"
-msgstr "Medtag i søgning"
+msgstr "Medtag i sÃ¸gning"
 
 #: templates/search/search.inc:9
 msgid "Search _Text"
-msgstr "Søg tekst"
+msgstr "SÃ¸g tekst"
 
 #: templates/notepads/notepads.inc:67
 msgid "Select a notepad"
-msgstr "Vælg en notesblok"
+msgstr "VÃ¦lg en notesblok"
 
 #: templates/menu.inc:16
 msgid "Select notepads to display:"
-msgstr "Vælg de notesblokke, der skal vises:"
+msgstr "VÃ¦lg de notesblokke, der skal vises:"
 
 #: templates/data/export.inc:15
 msgid "Select the export format:"
-msgstr "Vælg formatet, der skal eksporteres i:"
+msgstr "VÃ¦lg formatet, der skal eksporteres i:"
 
 #: templates/data/import.inc:37
 msgid "Select the file to import:"
-msgstr "Vælg den fil, der skal importeres:"
+msgstr "VÃ¦lg den fil, der skal importeres:"
 
 #: templates/data/import.inc:15
 msgid "Select the format of the source file:"
-msgstr "Vælg formatet af oprindelsesfilen:"
+msgstr "VÃ¦lg formatet af oprindelsesfilen:"
 
 #: templates/prefs/showsummaryselect.inc:109
 msgid "Selected Categories:"
@@ -381,7 +381,7 @@ msgstr "Vis handlingsknapper?"
 
 #: lib/Block/summary.php:40
 msgid "Show notepad name?"
-msgstr "Vis navnet på notesblok?"
+msgstr "Vis navnet pÃ¥ notesblok?"
 
 #: lib/Block/summary.php:43
 msgid "Show notes from these categories"
@@ -393,7 +393,7 @@ msgstr "Sorter efter kategori"
 
 #: templates/list/memo_headers.inc:44
 msgid "Sort by Note Text"
-msgstr "Sortér efter notetekst"
+msgstr "SortÃ©r efter notetekst"
 
 #: memo.php:135
 #, php-format
@@ -450,7 +450,7 @@ msgstr "Der opstod en fejl under lagring af noten: %s"
 #: view.php:46
 #, php-format
 msgid "There was an error viewing this notepad: %s"
-msgstr "Der opstod en fejl under læsning af denne notesblok: %s"
+msgstr "Der opstod en fejl under lÃ¦sning af denne notesblok: %s"
 
 #: data.php:79
 msgid "There were no memos to export."
@@ -458,7 +458,7 @@ msgstr "Der var ingen noter at eksportere."
 
 #: data.php:105
 msgid "This file format is not supported."
-msgstr "Dette filformat er ikke understøttet."
+msgstr "Dette filformat er ikke understÃ¸ttet."
 
 #: notepads.php:80
 #, php-format
@@ -467,7 +467,7 @@ msgstr "Kan ikke slette \"%s\": %s"
 
 #: templates/memo/memo.inc:58
 msgid "Undo changes"
-msgstr "Fortryd ændringer"
+msgstr "Fortryd Ã¦ndringer"
 
 #: templates/view/memo.inc:27 templates/list/memo_summaries.inc:14
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:49
@@ -479,11 +479,11 @@ msgstr "Ikke anbragt"
 #: lib/api.php:260 lib/api.php:343 lib/api.php:435
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Ikke-understøttet Content-Type: %s"
+msgstr "Ikke-understÃ¸ttet Content-Type: %s"
 
 #: templates/data/import.inc:22
 msgid "Which Notepad should the notes be added to?"
-msgstr "Hvilken notesblok skal noterne føjes til?"
+msgstr "Hvilken notesblok skal noterne fÃ¸jes til?"
 
 #: data.php:42 data.php:125 memo.php:35
 #, php-format
@@ -497,7 +497,7 @@ msgstr "Du har ikke tilladelse til at se notesblokken %s."
 
 #: notepads.php:65
 msgid "You must select a notepad to be deleted."
-msgstr "Du skal vælge en notesblok, som skal slettes."
+msgstr "Du skal vÃ¦lge en notesblok, som skal slettes."
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
@@ -521,11 +521,11 @@ msgstr "Slet"
 
 #: templates/view/memo.inc:11
 msgid "_Edit"
-msgstr "Redigér"
+msgstr "RedigÃ©r"
 
 #: templates/search/search.inc:20
 msgid "_First Line"
-msgstr "Første linie"
+msgstr "FÃ¸rste linie"
 
 #: lib/Mnemo.php:281
 msgid "_Import/Export"
@@ -549,7 +549,7 @@ msgstr "Udskriv"
 
 #: lib/Mnemo.php:272
 msgid "_Search"
-msgstr "Søg"
+msgstr "SÃ¸g"
 
 #: data.php:91 templates/data/export.inc:1
 msgid "notes.csv"

@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: Horde i18n <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -54,7 +54,7 @@ msgstr "%s salvato con successo."
 #: manager.php:168
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s è stato incollato con successo."
+msgstr "%s Ã¨ stato incollato con successo."
 
 #: manager.php:429
 #, php-format
@@ -75,8 +75,8 @@ msgid ""
 "A popup window could not be opened. Perhaps you have set your browser to "
 "block popup windows?"
 msgstr ""
-"La finestra di composizione non può essere aperta. Probabilmente il tuo "
-"browser è impostato per bloccare i popup"
+"La finestra di composizione non puÃ² essere aperta. Probabilmente il tuo "
+"browser Ã¨ impostato per bloccare i popup"
 
 #: edit.php:33 edit.php:43 view.php:35 view.php:42
 #, php-format
@@ -135,7 +135,7 @@ msgstr "Backend"
 
 #: templates/clipboard/clipboard.html:11
 msgid "Below is the current contents of your clipboard."
-msgstr "Qui sotto c'è il contenuto degli appunti."
+msgstr "Qui sotto c'Ã¨ il contenuto degli appunti."
 
 #: clipboard.php:38 manager.php:267 selectlist.php:101
 #: templates/edit/edit.inc:13
@@ -508,11 +508,11 @@ msgstr "Rinomina"
 
 #: lib/api.php:370
 msgid "Renaming across backends is not supported."
-msgstr "Rinominare tra backend non è supportato."
+msgstr "Rinominare tra backend non Ã¨ supportato."
 
 #: lib/api.php:358 lib/api.php:366
 msgid "Renaming of backends is not allowed."
-msgstr "Rinominare i backend non è supportato."
+msgstr "Rinominare i backend non Ã¨ supportato."
 
 #: templates/edit/edit.inc:12
 msgid "Reset"
@@ -548,7 +548,7 @@ msgstr "Dimensione"
 
 #: lib/api.php:429
 msgid "The application folder can not be deleted."
-msgstr "La cartella applicazioni non può essere eliminata."
+msgstr "La cartella applicazioni non puÃ² essere eliminata."
 
 #: templates/javascript_defs.php:24
 msgid "The following item(s) are folders:"
@@ -560,7 +560,7 @@ msgstr "I seguenti oggetti saranno definitivamente eliminati:"
 
 #: templates/javascript_defs.php:30
 msgid "The original opener window has been closed. Exiting."
-msgstr "La finestra originale è stata chiusa. Uscire."
+msgstr "La finestra originale Ã¨ stata chiusa. Uscire."
 
 #: login.php:151
 msgid "There are no backends available for the current user."

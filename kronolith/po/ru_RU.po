@@ -11,670 +11,670 @@ msgstr ""
 "Last-Translator: Fedor A. Fetisov <faf@ssc.ru>\n"
 "Language-Team: Fedor A. Fetisov <faf@ssc.ru>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d hour"
-msgstr "%d ч"
+msgstr "%d С‡"
 
 #, c-format
 msgid "%d hour, %d minute"
-msgstr "%d ч, %d мин"
+msgstr "%d С‡, %d РјРёРЅ"
 
 #, c-format
 msgid "%d hour, %d minutes"
-msgstr "%d ч, %d мин"
+msgstr "%d С‡, %d РјРёРЅ"
 
 #, c-format
 msgid "%d hours"
-msgstr "%d ч"
+msgstr "%d С‡"
 
 #, c-format
 msgid "%d hours, %d minute"
-msgstr "%d ч, %d мин"
+msgstr "%d С‡, %d РјРёРЅ"
 
 #, c-format
 msgid "%d hours, %d minutes"
-msgstr "%d ч, %d мин"
+msgstr "%d С‡, %d РјРёРЅ"
 
 #, c-format
 msgid "%d minute"
-msgstr "%d мин"
+msgstr "%d РјРёРЅ"
 
 #, c-format
 msgid "%d minutes"
-msgstr "%d мин"
+msgstr "%d РјРёРЅ"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "Файл %s успешно импортирован"
+msgstr "Р¤Р°Р№Р» %s СѓСЃРїРµС€РЅРѕ РёРјРїРѕСЂС‚РёСЂРѕРІР°РЅ"
 
 #, c-format
 msgid "%s is in progress."
-msgstr "%s в процессе"
+msgstr "%s РІ РїСЂРѕС†РµСЃСЃРµ"
 
 #, c-format
 msgid "%s is starting now."
-msgstr "%s начинается."
+msgstr "%s РЅР°С‡РёРЅР°РµС‚СЃСЏ."
 
 #, c-format
 msgid "%s starts in %s"
-msgstr "%s начинается в %s"
+msgstr "%s РЅР°С‡РёРЅР°РµС‚СЃСЏ РІ %s"
 
 msgid "<b>Description</b> (optional)"
-msgstr "<b>Описание</b> (не обязательно)"
+msgstr "<b>РћРїРёСЃР°РЅРёРµ</b> (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)"
 
 msgid "<b>Description</b>"
-msgstr "<b>Описание</b>"
+msgstr "<b>РћРїРёСЃР°РЅРёРµ</b>"
 
 msgid "<b>Keywords</b> (optional)"
-msgstr "<b>Ключевые слова</b>"
+msgstr "<b>РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°</b>"
 
 msgid "<b>Keywords</b>"
-msgstr "<b>Ключевые слова</b> (не обязательно)"
+msgstr "<b>РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°</b> (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)"
 
 msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>Повторяемость</b> (не обязательно)"
+msgstr "<b>РџРѕРІС‚РѕСЂСЏРµРјРѕСЃС‚СЊ</b> (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)"
 
 msgid "<b>Recurrence</b>"
-msgstr "<b>Повторяемость</b>"
+msgstr "<b>РџРѕРІС‚РѕСЂСЏРµРјРѕСЃС‚СЊ</b>"
 
 msgid "Add Event"
-msgstr "Добавить событие"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ СЃРѕР±С‹С‚РёРµ"
 
 msgid "Add a new event"
-msgstr "Добавить новое событие"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРµ СЃРѕР±С‹С‚РёРµ"
 
 msgid "Alarm Date"
-msgstr "Дата напоминания"
+msgstr "Р”Р°С‚Р° РЅР°РїРѕРјРёРЅР°РЅРёСЏ"
 
 msgid "Alarm Span (minutes)"
-msgstr "Длительность напоминания (минуты)"
+msgstr "Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РЅР°РїРѕРјРёРЅР°РЅРёСЏ (РјРёРЅСѓС‚С‹)"
 
 msgid "Alarm Time"
-msgstr "Время напоминания"
+msgstr "Р’СЂРµРјСЏ РЅР°РїРѕРјРёРЅР°РЅРёСЏ"
 
 msgid "Alarm"
-msgstr "Напоминание"
+msgstr "РќР°РїРѕРјРёРЅР°РЅРёРµ"
 
 msgid "All day event"
-msgstr "Ежедневное событие"
+msgstr "Р•Р¶РµРґРЅРµРІРЅРѕРµ СЃРѕР±С‹С‚РёРµ"
 
 msgid "All day"
-msgstr "Каждый день"
+msgstr "РљР°Р¶РґС‹Р№ РґРµРЅСЊ"
 
 msgid "All events"
-msgstr "Все события"
+msgstr "Р’СЃРµ СЃРѕР±С‹С‚РёСЏ"
 
 msgid "All"
-msgstr "Все"
+msgstr "Р’СЃРµ"
 
 msgid "April"
-msgstr "Апрель"
+msgstr "РђРїСЂРµР»СЊ"
 
 msgid "At"
-msgstr "В"
+msgstr "Р’"
 
 msgid "August"
-msgstr "Август"
+msgstr "РђРІРіСѓСЃС‚"
 
 msgid "Birthday"
-msgstr "День рождения"
+msgstr "Р”РµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ"
 
 msgid "Business"
-msgstr "Дела"
+msgstr "Р”РµР»Р°"
 
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "РћС‚РјРµРЅР°"
 
 msgid "Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 msgid "Change the way dates and times are formatted."
-msgstr "Изменение формата даты и времени."
+msgstr "РР·РјРµРЅРµРЅРёРµ С„РѕСЂРјР°С‚Р° РґР°С‚С‹ Рё РІСЂРµРјРµРЅРё."
 
 msgid "Confirm deletion of events?"
-msgstr "Подтверждение удаления событий"
+msgstr "РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СѓРґР°Р»РµРЅРёСЏ СЃРѕР±С‹С‚РёР№"
 
 msgid "Create a New Event"
-msgstr "Создать новое событие"
+msgstr "РЎРѕР·РґР°С‚СЊ РЅРѕРІРѕРµ СЃРѕР±С‹С‚РёРµ"
 
 msgid "Current"
-msgstr "Текущее"
+msgstr "РўРµРєСѓС‰РµРµ"
 
 msgid "Daily: Recurs every"
-msgstr "Повторяется ежедневно"
+msgstr "РџРѕРІС‚РѕСЂСЏРµС‚СЃСЏ РµР¶РµРґРЅРµРІРЅРѕ"
 
 msgid "Date and Time Options"
-msgstr "Настройки даты и времени"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РґР°С‚С‹ Рё РІСЂРµРјРµРЅРё"
 
 msgid "Day"
-msgstr "День"
+msgstr "Р”РµРЅСЊ"
 
 msgid "Day(s)"
-msgstr "День(дни)"
+msgstr "Р”РµРЅСЊ(РґРЅРё)"
 
 msgid "December"
-msgstr "Декабрь"
+msgstr "Р”РµРєР°Р±СЂСЊ"
 
 #, c-format
 msgid "Delete %s"
-msgstr "Удалить %s"
+msgstr "РЈРґР°Р»РёС‚СЊ %s"
 
 #, c-format
 msgid "Delete '%s'"
-msgstr "Удалить '%s'"
+msgstr "РЈРґР°Р»РёС‚СЊ '%s'"
 
 msgid "Delete Event"
-msgstr "Удалить событие"
+msgstr "РЈРґР°Р»РёС‚СЊ СЃРѕР±С‹С‚РёРµ"
 
 msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"Удалить только данное событие, это событие и все будущие события, или все "
-"события?"
+"РЈРґР°Р»РёС‚СЊ С‚РѕР»СЊРєРѕ РґР°РЅРЅРѕРµ СЃРѕР±С‹С‚РёРµ, СЌС‚Рѕ СЃРѕР±С‹С‚РёРµ Рё РІСЃРµ Р±СѓРґСѓС‰РёРµ СЃРѕР±С‹С‚РёСЏ, РёР»Рё РІСЃРµ "
+"СЃРѕР±С‹С‚РёСЏ?"
 
 msgid "Delete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 msgid "Display 24-hour times?"
-msgstr "24-часовой формат времени?"
+msgstr "24-С‡Р°СЃРѕРІРѕР№ С„РѕСЂРјР°С‚ РІСЂРµРјРµРЅРё?"
 
 msgid "Display Options"
-msgstr "Настройки оболочки"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РѕР±РѕР»РѕС‡РєРё"
 
 #, c-format
 msgid "Due: %s"
-msgstr "До: %s"
+msgstr "Р”Рѕ: %s"
 
 msgid "Duration"
-msgstr "Длительность"
+msgstr "Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ"
 
 #, c-format
 msgid "Edit %s"
-msgstr "Редактировать %s"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ %s"
 
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ"
 
 msgid "End Date"
-msgstr "Дата окончания"
+msgstr "Р”Р°С‚Р° РѕРєРѕРЅС‡Р°РЅРёСЏ"
 
 msgid "End On"
-msgstr "Заканчивается"
+msgstr "Р—Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ"
 
 msgid "End Time"
-msgstr "Время окончания"
+msgstr "Р’СЂРµРјСЏ РѕРєРѕРЅС‡Р°РЅРёСЏ"
 
 msgid "Export Calendar"
-msgstr "Экспортировать календарь"
+msgstr "Р­РєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ РєР°Р»РµРЅРґР°СЂСЊ"
 
 msgid "Export"
-msgstr "Экспорт"
+msgstr "Р­РєСЃРїРѕСЂС‚"
 
 msgid "February"
-msgstr "Февраль"
+msgstr "Р¤РµРІСЂР°Р»СЊ"
 
 msgid "Fr"
-msgstr "Пт"
+msgstr "РџС‚"
 
 msgid "Friday"
-msgstr "Пятница"
+msgstr "РџСЏС‚РЅРёС†Р°"
 
 msgid "Future"
-msgstr "Будущее"
+msgstr "Р‘СѓРґСѓС‰РµРµ"
 
 msgid "Game"
-msgstr "Игра"
+msgstr "РРіСЂР°"
 
 msgid "Goto"
-msgstr "Перейти"
+msgstr "РџРµСЂРµР№С‚Рё"
 
 msgid "Help"
-msgstr "Подсказка"
+msgstr "РџРѕРґСЃРєР°Р·РєР°"
 
 msgid "Hour(s)"
-msgstr "Час(часы)"
+msgstr "Р§Р°СЃ(С‡Р°СЃС‹)"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "В случая импорта данных из CSV, содержит ли первая строка имена полей?"
+msgstr "Р’ СЃР»СѓС‡Р°СЏ РёРјРїРѕСЂС‚Р° РґР°РЅРЅС‹С… РёР· CSV, СЃРѕРґРµСЂР¶РёС‚ Р»Рё РїРµСЂРІР°СЏ СЃС‚СЂРѕРєР° РёРјРµРЅР° РїРѕР»РµР№?"
 
 msgid "Illegal or malformed form data."
-msgstr "Некорректные данные из формы."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ РёР· С„РѕСЂРјС‹."
 
 msgid "Import Calendar"
-msgstr "Импортировать календарь"
+msgstr "РРјРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ РєР°Р»РµРЅРґР°СЂСЊ"
 
 msgid "Import"
-msgstr "Импорт"
+msgstr "РРјРїРѕСЂС‚"
 
 msgid "Import/Export Calendar"
-msgstr "Импорт/Экспорт календаря"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚ РєР°Р»РµРЅРґР°СЂСЏ"
 
 msgid "Import/Export"
-msgstr "Импорт/Экспорт"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚"
 
 msgid "January"
-msgstr "Январь"
+msgstr "РЇРЅРІР°СЂСЊ"
 
 msgid "July"
-msgstr "Июль"
+msgstr "РСЋР»СЊ"
 
 msgid "June"
-msgstr "Июнь"
+msgstr "РСЋРЅСЊ"
 
 msgid "Keywords"
-msgstr "Ключевые слова"
+msgstr "РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°"
 
 msgid "Kronolith is not properly configured"
-msgstr "Kronolith неверно сконфигурирован"
+msgstr "Kronolith РЅРµРІРµСЂРЅРѕ СЃРєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅ"
 
 msgid "Language"
-msgstr "Язык"
+msgstr "РЇР·С‹Рє"
 
 msgid "Last month"
-msgstr "Прошлый месяц"
+msgstr "РџСЂРѕС€Р»С‹Р№ РјРµСЃСЏС†"
 
 msgid "Last week"
-msgstr "Прошлая неделя"
+msgstr "РџСЂРѕС€Р»Р°СЏ РЅРµРґРµР»СЏ"
 
 msgid "Lasts"
-msgstr "Длится"
+msgstr "Р”Р»РёС‚СЃСЏ"
 
 msgid "Limit the time span to export:"
-msgstr "Ограничение экспортируемого временного промежутка:"
+msgstr "РћРіСЂР°РЅРёС‡РµРЅРёРµ СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјРѕРіРѕ РІСЂРµРјРµРЅРЅРѕРіРѕ РїСЂРѕРјРµР¶СѓС‚РєР°:"
 
 msgid "Location"
-msgstr "Расположение"
+msgstr "Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ"
 
 msgid "March"
-msgstr "Март"
+msgstr "РњР°СЂС‚"
 
 msgid "May"
-msgstr "Май"
+msgstr "РњР°Р№"
 
 msgid "Meeting"
-msgstr "Встреча"
+msgstr "Р’СЃС‚СЂРµС‡Р°"
 
 msgid "Minute(s)"
-msgstr "Минута(ы)"
+msgstr "РњРёРЅСѓС‚Р°(С‹)"
 
 msgid "Minutes before"
-msgstr "Минуты до"
+msgstr "РњРёРЅСѓС‚С‹ РґРѕ"
 
 msgid "Minutes"
-msgstr "Минуты"
+msgstr "РњРёРЅСѓС‚С‹"
 
 msgid "Mo"
-msgstr "Пн"
+msgstr "РџРЅ"
 
 msgid "Monday"
-msgstr "Понедельник"
+msgstr "РџРѕРЅРµРґРµР»СЊРЅРёРє"
 
 msgid "Month"
-msgstr "Месяц"
+msgstr "РњРµСЃСЏС†"
 
 msgid "Monthly: Recurs every"
-msgstr "Повторяется ежемесячно"
+msgstr "РџРѕРІС‚РѕСЂСЏРµС‚СЃСЏ РµР¶РµРјРµСЃСЏС‡РЅРѕ"
 
 msgid "New Event"
-msgstr "Новое событие"
+msgstr "РќРѕРІРѕРµ СЃРѕР±С‹С‚РёРµ"
 
 msgid "Next Month"
-msgstr "Следующий месяц"
+msgstr "РЎР»РµРґСѓСЋС‰РёР№ РјРµСЃСЏС†"
 
 msgid "Next day"
-msgstr "Следующий день"
+msgstr "РЎР»РµРґСѓСЋС‰РёР№ РґРµРЅСЊ"
 
 msgid "Next week"
-msgstr "Следующая неделя"
+msgstr "РЎР»РµРґСѓСЋС‰Р°СЏ РЅРµРґРµР»СЏ"
 
 msgid "No configuration information specified for SQL Calendar."
-msgstr "Для SQL календаря не было указано конфигурационной информации."
+msgstr "Р”Р»СЏ SQL РєР°Р»РµРЅРґР°СЂСЏ РЅРµ Р±С‹Р»Рѕ СѓРєР°Р·Р°РЅРѕ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё."
 
 msgid "No end date"
-msgstr "Нет даты окончания"
+msgstr "РќРµС‚ РґР°С‚С‹ РѕРєРѕРЅС‡Р°РЅРёСЏ"
 
 msgid "None"
-msgstr "Нет"
+msgstr "РќРµС‚"
 
 msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"Примечание: Импорт не возможен с данной конфигурацией, из-за бага в драйвере "
-"календаря."
+"РџСЂРёРјРµС‡Р°РЅРёРµ: РРјРїРѕСЂС‚ РЅРµ РІРѕР·РјРѕР¶РµРЅ СЃ РґР°РЅРЅРѕР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРµР№, РёР·-Р·Р° Р±Р°РіР° РІ РґСЂР°Р№РІРµСЂРµ "
+"РєР°Р»РµРЅРґР°СЂСЏ."
 
 msgid "November"
-msgstr "Ноябрь"
+msgstr "РќРѕСЏР±СЂСЊ"
 
 msgid "October"
-msgstr "Октябрь"
+msgstr "РћРєС‚СЏР±СЂСЊ"
 
 msgid "Options"
-msgstr "Настройки"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё"
 
 msgid "Pattern"
-msgstr "Образец"
+msgstr "РћР±СЂР°Р·РµС†"
 
 msgid "Permanently delete this event?"
-msgstr "Навсегда удалить это событие?"
+msgstr "РќР°РІСЃРµРіРґР° СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРѕР±С‹С‚РёРµ?"
 
 msgid "Personal"
-msgstr "Личное"
+msgstr "Р›РёС‡РЅРѕРµ"
 
 msgid "Previous day"
-msgstr "Предыдущий день"
+msgstr "РџСЂРµРґС‹РґСѓС‰РёР№ РґРµРЅСЊ"
 
 msgid "Problem?"
-msgstr "Проблемы?"
+msgstr "РџСЂРѕР±Р»РµРјС‹?"
 
 msgid "Recur Until"
-msgstr "Повтор до"
+msgstr "РџРѕРІС‚РѕСЂ РґРѕ"
 
 msgid "Recurrence Data"
-msgstr "Данные повтора"
+msgstr "Р”Р°РЅРЅС‹Рµ РїРѕРІС‚РѕСЂР°"
 
 msgid "Recurrence End Date"
-msgstr "Дата окончания повтора"
+msgstr "Р”Р°С‚Р° РѕРєРѕРЅС‡Р°РЅРёСЏ РїРѕРІС‚РѕСЂР°"
 
 msgid "Recurrence Interval"
-msgstr "Интервал повтора"
+msgstr "РРЅС‚РµСЂРІР°Р» РїРѕРІС‚РѕСЂР°"
 
 msgid "Recurrence Type"
-msgstr "Тип повтора"
+msgstr "РўРёРї РїРѕРІС‚РѕСЂР°"
 
 msgid "Recurs daily"
-msgstr "Ежедневно"
+msgstr "Р•Р¶РµРґРЅРµРІРЅРѕ"
 
 msgid "Recurs monthly"
-msgstr "Ежемесячно"
+msgstr "Р•Р¶РµРјРµСЃСЏС‡РЅРѕ"
 
 msgid "Recurs not"
-msgstr "Не повторяется"
+msgstr "РќРµ РїРѕРІС‚РѕСЂСЏРµС‚СЃСЏ"
 
 msgid "Recurs weekly"
-msgstr "Еженедельно"
+msgstr "Р•Р¶РµРЅРµРґРµР»СЊРЅРѕ"
 
 msgid "Recurs yearly"
-msgstr "Ежегодно"
+msgstr "Р•Р¶РµРіРѕРґРЅРѕ"
 
 msgid "Required 'database' not specified in calendar configuration."
-msgstr "Необходимый параметр 'database' не определен в конфигурации."
+msgstr "РќРµРѕР±С…РѕРґРёРјС‹Р№ РїР°СЂР°РјРµС‚СЂ 'database' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё."
 
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "Необходимый параметр 'hostspec' не определен в конфигурации."
+msgstr "РќРµРѕР±С…РѕРґРёРјС‹Р№ РїР°СЂР°РјРµС‚СЂ 'hostspec' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё."
 
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "Необходимый параметр 'password' не определен в конфигурации."
+msgstr "РќРµРѕР±С…РѕРґРёРјС‹Р№ РїР°СЂР°РјРµС‚СЂ 'password' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё."
 
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "Необходимый параметр 'phptype' не определен в конфигурации."
+msgstr "РќРµРѕР±С…РѕРґРёРјС‹Р№ РїР°СЂР°РјРµС‚СЂ 'phptype' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё."
 
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "Необходимый параметр 'username' не определен в конфигурации."
+msgstr "РќРµРѕР±С…РѕРґРёРјС‹Р№ РїР°СЂР°РјРµС‚СЂ 'username' РЅРµ РѕРїСЂРµРґРµР»РµРЅ РІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё."
 
 msgid "Reset to Defaults"
-msgstr "Сброс установок"
+msgstr "РЎР±СЂРѕСЃ СѓСЃС‚Р°РЅРѕРІРѕРє"
 
 msgid "Sa"
-msgstr "Сб"
+msgstr "РЎР±"
 
 msgid "Saturday"
-msgstr "Суббота"
+msgstr "РЎСѓР±Р±РѕС‚Р°"
 
 msgid "Save As New"
-msgstr "Сохранить как новое"
+msgstr "РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє РЅРѕРІРѕРµ"
 
 msgid "Save Event"
-msgstr "Сохранить событие"
+msgstr "РЎРѕС…СЂР°РЅРёС‚СЊ СЃРѕР±С‹С‚РёРµ"
 
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Выбор установок подтверждения, как отображать различные виды, выбор вида по "
-"умолчанию."
+"Р’С‹Р±РѕСЂ СѓСЃС‚Р°РЅРѕРІРѕРє РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ, РєР°Рє РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ СЂР°Р·Р»РёС‡РЅС‹Рµ РІРёРґС‹, РІС‹Р±РѕСЂ РІРёРґР° РїРѕ "
+"СѓРјРѕР»С‡Р°РЅРёСЋ."
 
 msgid "Select how to display Dates:"
-msgstr "Выберите формат отображения дат:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РґР°С‚:"
 
 msgid "Select if to show due tasks in the calendar."
-msgstr "Показывать в календаре устаревшие задачи."
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ РІ РєР°Р»РµРЅРґР°СЂРµ СѓСЃС‚Р°СЂРµРІС€РёРµ Р·Р°РґР°С‡Рё."
 
 msgid "Select the file to import:"
-msgstr "Выберите файл для импорта"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР»СЏ РёРјРїРѕСЂС‚Р°"
 
 msgid "Select the first weekday:"
-msgstr "Неделя начинается с:"
+msgstr "РќРµРґРµР»СЏ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ:"
 
 msgid "Select the format to export to:"
-msgstr "Выберите формат экспорта:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ СЌРєСЃРїРѕСЂС‚Р°:"
 
 msgid "Select the source to import from:"
-msgstr "Выберите источник импорта:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ РёСЃС‚РѕС‡РЅРёРє РёРјРїРѕСЂС‚Р°:"
 
 msgid "Select the time span to show:"
-msgstr "Выберите отображаемый промежуток времени:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ РїСЂРѕРјРµР¶СѓС‚РѕРє РІСЂРµРјРµРЅРё:"
 
 msgid "Select the view to display after login:"
-msgstr "Выберите вид после входа в систему:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ РІРёРґ РїРѕСЃР»Рµ РІС…РѕРґР° РІ СЃРёСЃС‚РµРјСѓ:"
 
 msgid "Select what events to show in the Horde summary."
-msgstr "Выберите, какие события показывать на главной странице Horde."
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРёРµ СЃРѕР±С‹С‚РёСЏ РїРѕРєР°Р·С‹РІР°С‚СЊ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ Horde."
 
 msgid "September"
-msgstr "Сентябрь"
+msgstr "РЎРµРЅС‚СЏР±СЂСЊ"
 
 msgid "Set the current time zone."
-msgstr "Задать временную зону."
+msgstr "Р—Р°РґР°С‚СЊ РІСЂРµРјРµРЅРЅСѓСЋ Р·РѕРЅСѓ."
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Задать язык меню и подсказок."
+msgstr "Р—Р°РґР°С‚СЊ СЏР·С‹Рє РјРµРЅСЋ Рё РїРѕРґСЃРєР°Р·РѕРє."
 
 msgid "Set your preferred display language."
-msgstr "Задать язык интерфейса."
+msgstr "Р—Р°РґР°С‚СЊ СЏР·С‹Рє РёРЅС‚РµСЂС„РµР№СЃР°."
 
 msgid "Show due tasks in the calendar?"
-msgstr "Показывать в календаре устаревшие задачи?"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ РІ РєР°Р»РµРЅРґР°СЂРµ СѓСЃС‚Р°СЂРµРІС€РёРµ Р·Р°РґР°С‡Рё?"
 
 msgid "Show half hour slots in day and week views?"
-msgstr "Показывать получасовые ячейки при просмотре дней и недель?"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ РїРѕР»СѓС‡Р°СЃРѕРІС‹Рµ СЏС‡РµР№РєРё РїСЂРё РїСЂРѕСЃРјРѕС‚СЂРµ РґРЅРµР№ Рё РЅРµРґРµР»СЊ?"
 
 msgid "Show only events that have an alarm set?"
-msgstr "Показывать только события с оповещением?"
+msgstr "РџРѕРєР°Р·С‹РІР°С‚СЊ С‚РѕР»СЊРєРѕ СЃРѕР±С‹С‚РёСЏ СЃ РѕРїРѕРІРµС‰РµРЅРёРµРј?"
 
 msgid "Some of Kronolith's configuration files are missing:"
-msgstr "Некоторые файлы конфигурации Kronolith потеряны:"
+msgstr "РќРµРєРѕС‚РѕСЂС‹Рµ С„Р°Р№Р»С‹ РєРѕРЅС„РёРіСѓСЂР°С†РёРё Kronolith РїРѕС‚РµСЂСЏРЅС‹:"
 
 msgid "Start Date"
-msgstr "Дата начала"
+msgstr "Р”Р°С‚Р° РЅР°С‡Р°Р»Р°"
 
 msgid "Start On"
-msgstr "Начинается"
+msgstr "РќР°С‡РёРЅР°РµС‚СЃСЏ"
 
 msgid "Start Time"
-msgstr "Время начала"
+msgstr "Р’СЂРµРјСЏ РЅР°С‡Р°Р»Р°"
 
 msgid "Su"
-msgstr "Вс"
+msgstr "Р’СЃ"
 
 msgid "Summary"
-msgstr "Главная"
+msgstr "Р“Р»Р°РІРЅР°СЏ"
 
 msgid "Sunday"
-msgstr "Воскресенье"
+msgstr "Р’РѕСЃРєСЂРµСЃРµРЅСЊРµ"
 
 msgid "Tasks"
-msgstr "Задачи"
+msgstr "Р—Р°РґР°С‡Рё"
 
 msgid "Th"
-msgstr "Чт"
+msgstr "Р§С‚"
 
 msgid "The data was lost."
-msgstr "Данные были утеряны."
+msgstr "Р”Р°РЅРЅС‹Рµ Р±С‹Р»Рё СѓС‚РµСЂСЏРЅС‹."
 
 msgid "The end date must be later than the start date."
-msgstr "Дата окончания должна быть позже даты начала."
+msgstr "Р”Р°С‚Р° РѕРєРѕРЅС‡Р°РЅРёСЏ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕР·Р¶Рµ РґР°С‚С‹ РЅР°С‡Р°Р»Р°."
 
 msgid "The file contained no data."
-msgstr "Файл не содержит данных."
+msgstr "Р¤Р°Р№Р» РЅРµ СЃРѕРґРµСЂР¶РёС‚ РґР°РЅРЅС‹С…."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Ошибка при загрузке файла. Возможно размер файла превышает максимально "
-"разрешенный."
+"РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»Р°. Р’РѕР·РјРѕР¶РЅРѕ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° РїСЂРµРІС‹С€Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕ "
+"СЂР°Р·СЂРµС€РµРЅРЅС‹Р№."
 
 msgid "There was an error importing the data."
-msgstr "Ошибка при импорте данных."
+msgstr "РћС€РёР±РєР° РїСЂРё РёРјРїРѕСЂС‚Рµ РґР°РЅРЅС‹С…."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Ошибка при импорте загруженного файла"
+msgstr "РћС€РёР±РєР° РїСЂРё РёРјРїРѕСЂС‚Рµ Р·Р°РіСЂСѓР¶РµРЅРЅРѕРіРѕ С„Р°Р№Р»Р°"
 
 msgid "There were no events to export."
-msgstr "События для экспорта не найдены."
+msgstr "РЎРѕР±С‹С‚РёСЏ РґР»СЏ СЌРєСЃРїРѕСЂС‚Р° РЅРµ РЅР°Р№РґРµРЅС‹."
 
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Этот файл определяет установки по умолчанию для Kronolith, а также "
-"определяет, какие параметры пользователи могут изменять."
+"Р­С‚РѕС‚ С„Р°Р№Р» РѕРїСЂРµРґРµР»СЏРµС‚ СѓСЃС‚Р°РЅРѕРІРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ Kronolith, Р° С‚Р°РєР¶Рµ "
+"РѕРїСЂРµРґРµР»СЏРµС‚, РєР°РєРёРµ РїР°СЂР°РјРµС‚СЂС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё РјРѕРіСѓС‚ РёР·РјРµРЅСЏС‚СЊ."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Этот файл содержит таблицы стилей, использующиеся для задания цветов и "
-"шрифтов в дополнение или вместо установок Horde."
+"Р­С‚РѕС‚ С„Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ С‚Р°Р±Р»РёС†С‹ СЃС‚РёР»РµР№, РёСЃРїРѕР»СЊР·СѓСЋС‰РёРµСЃСЏ РґР»СЏ Р·Р°РґР°РЅРёСЏ С†РІРµС‚РѕРІ Рё "
+"С€СЂРёС„С‚РѕРІ РІ РґРѕРїРѕР»РЅРµРЅРёРµ РёР»Рё РІРјРµСЃС‚Рѕ СѓСЃС‚Р°РЅРѕРІРѕРє Horde."
 
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
 msgstr ""
-"Это главный конфигурационный файл Kronolith. Он содержит пути и параметры "
-"для всех скриптов Kronolith."
+"Р­С‚Рѕ РіР»Р°РІРЅС‹Р№ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Р№ С„Р°Р№Р» Kronolith. РћРЅ СЃРѕРґРµСЂР¶РёС‚ РїСѓС‚Рё Рё РїР°СЂР°РјРµС‚СЂС‹ "
+"РґР»СЏ РІСЃРµС… СЃРєСЂРёРїС‚РѕРІ Kronolith."
 
 msgid "Thursday"
-msgstr "Четверг"
+msgstr "Р§РµС‚РІРµСЂРі"
 
 msgid "Time Zone"
-msgstr "Временная зона"
+msgstr "Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР°"
 
 msgid "Title"
-msgstr "Заголовок"
+msgstr "Р—Р°РіРѕР»РѕРІРѕРє"
 
 msgid "Today"
-msgstr "Сегодня"
+msgstr "РЎРµРіРѕРґРЅСЏ"
 
 msgid "Tu"
-msgstr "Вт"
+msgstr "Р’С‚"
 
 msgid "Tuesday"
-msgstr "Вторник"
+msgstr "Р’С‚РѕСЂРЅРёРє"
 
 msgid "Type"
-msgstr "Тип"
+msgstr "РўРёРї"
 
 msgid "User Interface"
-msgstr "Пользовательский интерфейс"
+msgstr "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РёРЅС‚РµСЂС„РµР№СЃ"
 
 msgid "User Options"
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 #, c-format
 msgid "View %s"
-msgstr "Вид %s"
+msgstr "Р’РёРґ %s"
 
 msgid "We"
-msgstr "Ср"
+msgstr "РЎСЂ"
 
 msgid "Wednesday"
-msgstr "Среда"
+msgstr "РЎСЂРµРґР°"
 
 #, c-format
 msgid "Week %d"
-msgstr "Неделя %d"
+msgstr "РќРµРґРµР»СЏ %d"
 
 msgid "Week"
-msgstr "Неделя"
+msgstr "РќРµРґРµР»СЏ"
 
 #, c-format
 msgid "Week&nbsp;%d"
-msgstr "Неделя&nbsp;%d"
+msgstr "РќРµРґРµР»СЏ&nbsp;%d"
 
 msgid "Week(s)"
-msgstr "Неделя(и)"
+msgstr "РќРµРґРµР»СЏ(Рё)"
 
 msgid "Weekly: Recurs every"
-msgstr "Повторяется еженедельно"
+msgstr "РџРѕРІС‚РѕСЂСЏРµС‚СЃСЏ РµР¶РµРЅРµРґРµР»СЊРЅРѕ"
 
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"Каким временем заканчивать отображать день или неделю, при отсутствии более "
-"поздних событий?"
+"РљР°РєРёРј РІСЂРµРјРµРЅРµРј Р·Р°РєР°РЅС‡РёРІР°С‚СЊ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РґРµРЅСЊ РёР»Рё РЅРµРґРµР»СЋ, РїСЂРё РѕС‚СЃСѓС‚СЃС‚РІРёРё Р±РѕР»РµРµ "
+"РїРѕР·РґРЅРёС… СЃРѕР±С‹С‚РёР№?"
 
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"С какого времени начинать отображать день или неделю, при отстутствии более "
-"ранних событий?"
+"РЎ РєР°РєРѕРіРѕ РІСЂРµРјРµРЅРё РЅР°С‡РёРЅР°С‚СЊ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РґРµРЅСЊ РёР»Рё РЅРµРґРµР»СЋ, РїСЂРё РѕС‚СЃС‚СѓС‚СЃС‚РІРёРё Р±РѕР»РµРµ "
+"СЂР°РЅРЅРёС… СЃРѕР±С‹С‚РёР№?"
 
 msgid "Work Week"
-msgstr "Рабочая неделя"
+msgstr "Р Р°Р±РѕС‡Р°СЏ РЅРµРґРµР»СЏ"
 
 msgid "Work&nbsp;Week"
-msgstr "Рабочая&nbsp;неделя"
+msgstr "Р Р°Р±РѕС‡Р°СЏ&nbsp;РЅРµРґРµР»СЏ"
 
 msgid "Yearly: Recurs every"
-msgstr "Повторяется ежегодно"
+msgstr "РџРѕРІС‚РѕСЂСЏРµС‚СЃСЏ РµР¶РµРіРѕРґРЅРѕ"
 
 msgid "Your Information"
-msgstr "Ваша информация"
+msgstr "Р’Р°С€Р° РёРЅС„РѕСЂРјР°С†РёСЏ"
 
 msgid "Your current time zone:"
-msgstr "Ваша временная зона:"
+msgstr "Р’Р°С€Р° РІСЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР°:"
 
 msgid "day"
-msgstr "день"
+msgstr "РґРµРЅСЊ"
 
 msgid "day(s)"
-msgstr "день(дни)"
+msgstr "РґРµРЅСЊ(РґРЅРё)"
 
 msgid "days"
-msgstr "дни"
+msgstr "РґРЅРё"
 
 msgid "iCalendar file successfully imported"
-msgstr "Файл формата iCalendar успешно импортирован"
+msgstr "Р¤Р°Р№Р» С„РѕСЂРјР°С‚Р° iCalendar СѓСЃРїРµС€РЅРѕ РёРјРїРѕСЂС‚РёСЂРѕРІР°РЅ"
 
 msgid "month(s)"
-msgstr "месяц(ы)"
+msgstr "РјРµСЃСЏС†(С‹)"
 
 msgid "no time"
-msgstr "нет времени"
+msgstr "РЅРµС‚ РІСЂРµРјРµРЅРё"
 
 msgid "on the same date"
-msgstr "в тот же день"
+msgstr "РІ С‚РѕС‚ Р¶Рµ РґРµРЅСЊ"
 
 msgid "on the same weekday"
-msgstr "в тот же день недели"
+msgstr "РІ С‚РѕС‚ Р¶Рµ РґРµРЅСЊ РЅРµРґРµР»Рё"
 
 msgid "week"
-msgstr "неделя"
+msgstr "РЅРµРґРµР»СЏ"
 
 msgid "week(s) on:"
-msgstr "неделя(и):"
+msgstr "РЅРµРґРµР»СЏ(Рё):"
 
 msgid "weeks"
-msgstr "недели"
+msgstr "РЅРµРґРµР»Рё"
 
 msgid "year(s)"
-msgstr "год(ы)"
+msgstr "РіРѕРґ(С‹)"

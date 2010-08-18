@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Eric Rostetter <eric.rostetter@physics.utexas.edu>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -27,7 +27,7 @@ msgid "Change the location for which weather is obtained."
 msgstr "Changez l'endroit pour lequel le temps est obtenu."
 
 msgid "Change your content display options."
-msgstr "Changer les préférences de son contenu."
+msgstr "Changer les prÃ©fÃ©rences de son contenu."
 
 msgid "Change"
 msgstr "Modifier"
@@ -42,55 +42,55 @@ msgid "Channel Subscriptions"
 msgstr "Abonnements de canal"
 
 msgid "Channel display failed."
-msgstr "L'affichage de canal a échoué"
+msgstr "L'affichage de canal a Ã©chouÃ©"
 
 msgid "Channel subscription editing failed."
-msgstr "L'édition de l'abonnement de canal a échoué."
+msgstr "L'Ã©dition de l'abonnement de canal a Ã©chouÃ©."
 
 msgid "Channel subscription failed."
-msgstr "L'abonnement de canal a échoué"
+msgstr "L'abonnement de canal a Ã©chouÃ©"
 
 msgid "Channel unsubscription failed."
-msgstr "L'unsubscription de canal a échoué"
+msgstr "L'unsubscription de canal a Ã©chouÃ©"
 
 msgid "Choose which news channels you are subscribed to."
 msgstr "Choisissez au lequel on souscrit des canaux vous."
 
 msgid "Default sorting direction:"
-msgstr "Ordre de tru par défaut"
+msgstr "Ordre de tru par dÃ©faut"
 
 msgid "Descending"
-msgstr "Décroissant"
+msgstr "DÃ©croissant"
 
 msgid "Detail"
-msgstr "Détail"
+msgstr "DÃ©tail"
 
 msgid "Display Options"
 msgstr "Options d'affichage"
 
 msgid "Edit Channel Subscriptions"
-msgstr "Éditez vos abonnements de canal"
+msgstr "Ã‰ditez vos abonnements de canal"
 
 msgid "Edit Subscription Details"
-msgstr "Éditez vos détails d'abonnement de canal"
+msgstr "Ã‰ditez vos dÃ©tails d'abonnement de canal"
 
 msgid "Edit your news subscriptions"
-msgstr "Éditez vos abonnements de nouvelles"
+msgstr "Ã‰ditez vos abonnements de nouvelles"
 
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Ã‰diter"
 
 #, c-format
 msgid "Editing Channel %s"
-msgstr "Éditez le canal %s"
+msgstr "Ã‰ditez le canal %s"
 
 msgid "Enter NASDAQ/AMEX/NYSE ticker symbols to watch, separated with commas:"
 msgstr ""
-"Écrivez les symboles de ticker de Nasdaq/AMEX/NYSE pour observer, séparé "
+"Ã‰crivez les symboles de ticker de Nasdaq/AMEX/NYSE pour observer, sÃ©parÃ© "
 "avec des virgules:"
 
 msgid "Headlines Update"
-msgstr "Mettez à jour les canaux"
+msgstr "Mettez Ã  jour les canaux"
 
 msgid "Help"
 msgstr "Aide"
@@ -102,7 +102,7 @@ msgid "Jonah Backend"
 msgstr "Jonah Interface"
 
 msgid "Jonah is not properly configured"
-msgstr "Jonah n'est pas configuré correctement"
+msgstr "Jonah n'est pas configurÃ© correctement"
 
 msgid "Just Fetch latest RSS files"
 msgstr "Recherchez seulement les derniers fichiers de RSS."
@@ -114,7 +114,7 @@ msgid "Language"
 msgstr "Langue"
 
 msgid "Last Updated"
-msgstr "Mis à jour"
+msgstr "Mis Ã  jour"
 
 msgid "Location for which to retrieve weather information."
 msgstr "L'endroit pour que lequel recherche l'information de temps."
@@ -132,7 +132,7 @@ msgid "Other Options"
 msgstr "Autres Options"
 
 msgid "Problem?"
-msgstr "Problème?"
+msgstr "ProblÃ¨me?"
 
 msgid "Radar"
 msgstr "Radar"
@@ -141,13 +141,13 @@ msgid "Save Changes"
 msgstr "Enregistrer modifications"
 
 msgid "Select your preferred language:"
-msgstr "Définir votre langue préférée:"
+msgstr "DÃ©finir votre langue prÃ©fÃ©rÃ©e:"
 
 msgid "Set the your preferred display language."
-msgstr "Affecter la langue utilisée pour l'affichage."
+msgstr "Affecter la langue utilisÃ©e pour l'affichage."
 
 msgid "Set which stock ticker symbols to watch."
-msgstr "Indiquez quels symboles de ticker courant à observer."
+msgstr "Indiquez quels symboles de ticker courant Ã  observer."
 
 msgid "Show Dow Jones Industrial Average (INDU)?"
 msgstr "Montrez Dow Jones Industrial Average (INDU)?"
@@ -169,7 +169,7 @@ msgstr "Montrez les citations courantes dans l'affichage de canal?"
 
 msgid "Show weather and stock quotes on same row in two columns?"
 msgstr ""
-"Montrez les citations de temps et des marché des actions sur la même ligne "
+"Montrez les citations de temps et des marchÃ© des actions sur la mÃªme ligne "
 "dans deux colonnes?"
 
 msgid "Show weather in Horde summary?"
@@ -191,7 +191,7 @@ msgid "Sort by Subscription Status"
 msgstr "Sorte par statut d'abonnement"
 
 msgid "Sort by Update Date"
-msgstr "Sorte par la date de mise à jour"
+msgstr "Sorte par la date de mise Ã  jour"
 
 msgid "Stock Quote"
 msgstr ""
@@ -203,13 +203,13 @@ msgid "Subscribe"
 msgstr "Souscrivez"
 
 msgid "This file contains preferences for Jonah."
-msgstr "Ce fichier contrôle les préférences pour Jonah"
+msgstr "Ce fichier contrÃ´le les prÃ©fÃ©rences pour Jonah"
 
 msgid ""
 "This file defines all of the headline channels that you wish Jonah to "
 "display."
 msgstr ""
-"Ce fichier définit tous les canaux que vous souhaitez Jonah pour montrer."
+"Ce fichier dÃ©finit tous les canaux que vous souhaitez Jonah pour montrer."
 
 msgid ""
 "This is the main Jonah configuration file. It contains options for all Jonah "
@@ -219,16 +219,16 @@ msgstr ""
 "options des scripts."
 
 msgid "Undo Changes"
-msgstr "Défaites les changements."
+msgstr "DÃ©faites les changements."
 
 msgid "Unsubscribe"
 msgstr ""
 
 msgid "Update All Channels"
-msgstr "Mettez à jour tous les canaux."
+msgstr "Mettez Ã  jour tous les canaux."
 
 msgid "Update"
-msgstr "Mettez à jour"
+msgstr "Mettez Ã  jour"
 
 msgid "User Options"
 msgstr "Options personnelles"
@@ -237,10 +237,10 @@ msgid "Weather Station"
 msgstr ""
 
 msgid "Weather station:"
-msgstr "Station météorologique."
+msgstr "Station mÃ©tÃ©orologique."
 
 msgid "You have edited your subscription to the channel "
-msgstr "Vous avez édité votre abonnement au canal."
+msgstr "Vous avez Ã©ditÃ© votre abonnement au canal."
 
 msgid "You have subscribed to the channel "
 msgstr "Vous avez souscrit au canal."
@@ -252,7 +252,7 @@ msgid "Your Content"
 msgstr "Votre contenu"
 
 msgid "Your Information"
-msgstr "Vos données personnelles"
+msgstr "Vos donnÃ©es personnelles"
 
 msgid "no headlines available at this time"
 msgstr "aucuns canaux disponibles actuellement"

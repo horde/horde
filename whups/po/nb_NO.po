@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Torbjorn Grindhaug <grindhaug@gmail.com>\n"
 "Language-Team: Norwegian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin.php:603
@@ -43,12 +43,12 @@ msgstr "%s dager"
 #: ticket/watch.php:58
 #, php-format
 msgid "%s will be notified when this ticket is updated."
-msgstr "%s vil få beskjed når denne saken er oppdatert."
+msgstr "%s vil fÃ¥ beskjed nÃ¥r denne saken er oppdatert."
 
 #: ticket/watch.php:70
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
-msgstr "%s vil ikke lenger få beskjed om oppdateringer på denne saken."
+msgstr "%s vil ikke lenger fÃ¥ beskjed om oppdateringer pÃ¥ denne saken."
 
 #: admin.php:81
 msgid "- Stage 1"
@@ -60,23 +60,23 @@ msgstr "- Steg 2"
 
 #: scripts/mail-filter.php:164
 msgid "--priority-name or --priority-id must specify a valid Priority."
-msgstr "--priority-name eller --priority-id må angi en gyldig prioritet."
+msgstr "--priority-name eller --priority-id mÃ¥ angi en gyldig prioritet."
 
 #: scripts/mail-filter.php:158
 msgid "--queue-name or --queue-id must specify a valid Queue."
-msgstr "--queue-name eller --queue-id må angi en gyldig kø."
+msgstr "--queue-name eller --queue-id mÃ¥ angi en gyldig kÃ¸."
 
 #: scripts/mail-filter.php:167
 msgid "--state-name or --state-id must specify a valid State."
-msgstr "--state-name eller --state-id må angi en gyldig tilstand."
+msgstr "--state-name eller --state-id mÃ¥ angi en gyldig tilstand."
 
 #: scripts/mail-filter.php:161
 msgid "--type-name or --type-id must specify a valid Type."
-msgstr "--type-name eller --type-id må angi en gyldig type."
+msgstr "--type-name eller --type-id mÃ¥ angi en gyldig type."
 
 #: templates/prevnext.inc:12
 msgid "<<First"
-msgstr "<<Første"
+msgstr "<<FÃ¸rste"
 
 #: templates/prevnext.inc:13
 msgid "<Prev"
@@ -117,7 +117,7 @@ msgstr "Legg til kriteriegenskap"
 
 #: lib/Admin.php:102 lib/Admin.php:103
 msgid "Add Queue"
-msgstr "Ny kø"
+msgstr "Ny kÃ¸"
 
 #: lib/Admin.php:441
 msgid "Add State"
@@ -154,7 +154,7 @@ msgstr "Legg til versjon"
 
 #: ticket/watch.php:47
 msgid "Add Watcher"
-msgstr "Legg til overvåker"
+msgstr "Legg til overvÃ¥ker"
 
 #: ticket/create.php:154
 #, php-format
@@ -190,7 +190,7 @@ msgstr "Tildel"
 
 #: ticket/people.php:128
 msgid "Assign Ticket Succeeded"
-msgstr "Tildeling av sak utført"
+msgstr "Tildeling av sak utfÃ¸rt"
 
 #: lib/Whups.php:479 lib/Ticket.php:601 lib/Driver.php:142
 #: config/prefs.php.dist:44
@@ -234,7 +234,7 @@ msgstr "Beskrivelse av egenskap"
 
 #: lib/Admin.php:712 lib/Admin.php:737 lib/Admin.php:756 lib/Admin.php:779
 msgid "Attribute Name"
-msgstr "Navn på egenskap"
+msgstr "Navn pÃ¥ egenskap"
 
 #: lib/Admin.php:370
 msgid "Attributes for this Type"
@@ -250,7 +250,7 @@ msgstr "Snittdager for ferdigstilling etter eier"
 
 #: lib/Reports.php:14
 msgid "Average days to close by Queue"
-msgstr "Snittdager for ferdigstilling etter kø"
+msgstr "Snittdager for ferdigstilling etter kÃ¸"
 
 #: lib/Reports.php:13
 msgid "Average days to close by Requester"
@@ -258,7 +258,7 @@ msgstr "Snittdager for ferdigstilling etter innmelder"
 
 #: lib/Reports.php:19
 msgid "Average time a ticket is unresolved"
-msgstr "Gjennomsnittstid en sak er uløst"
+msgstr "Gjennomsnittstid en sak er ulÃ¸st"
 
 #: lib/Query.php:523
 msgid "Branch Type"
@@ -266,7 +266,7 @@ msgstr "Grentype"
 
 #: lib/Query.php:56
 msgid "Case Insensitive Substring"
-msgstr "Delstreng (ikke skill mellom store/små bokstaver)"
+msgstr "Delstreng (ikke skill mellom store/smÃ¥ bokstaver)"
 
 #: templates/queryrenderer.inc:27
 msgid "Change"
@@ -274,7 +274,7 @@ msgstr "Endre"
 
 #: config/prefs.php.dist:11
 msgid "Change display options such as how search results are sorted."
-msgstr "Endre hvordan visning av søkeresultater er sortert."
+msgstr "Endre hvordan visning av sÃ¸keresultater er sortert."
 
 #: config/prefs.php.dist:18
 msgid "Change options for email notifications of ticket activity."
@@ -286,7 +286,7 @@ msgstr "Velg handling:"
 
 #: lib/Query.php:161
 msgid "Choose New Query instead of deleting the root node."
-msgstr "Velg Ny Spørring istedetfor å slette rotnoden."
+msgstr "Velg Ny SpÃ¸rring istedetfor Ã¥ slette rotnoden."
 
 #: lib/Create.php:33 lib/Create.php:67
 msgid "Choose:"
@@ -294,11 +294,11 @@ msgstr "Velg:"
 
 #: config/prefs.php.dist:136
 msgid "Chronological (oldest first)"
-msgstr "Kronologisk (eldste først)"
+msgstr "Kronologisk (eldste fÃ¸rst)"
 
 #: templates/savedsearches.inc:27
 msgid "Clear All Searches"
-msgstr "Fjern alle søk"
+msgstr "Fjern alle sÃ¸k"
 
 #: lib/Admin.php:421
 msgid "Clone"
@@ -330,11 +330,11 @@ msgstr "Kommentar lagt til"
 #: ticket/comment.php:100
 #, php-format
 msgid "Comment on %s"
-msgstr "Kommentar på %s"
+msgstr "Kommentar pÃ¥ %s"
 
 #: templates/queryrenderer.inc:100
 msgid "Commentor"
-msgstr "Kommentør"
+msgstr "KommentÃ¸r"
 
 #: lib/Admin.php:425
 #, php-format
@@ -392,7 +392,7 @@ msgstr "Opprettet av"
 
 #: query.php:195 query.php:212
 msgid "Current Query"
-msgstr "Gjeldende spørring"
+msgstr "Gjeldende spÃ¸rring"
 
 #: templates/queryrenderer.inc:25
 msgid "Current Ticket Type"
@@ -400,11 +400,11 @@ msgstr "Gjeldende sakstype"
 
 #: lib/Ticket.php:531
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
-msgstr "IKKE SVAR PÅ DENNE MELDINGEN. DENNEN EPOSTADRESSEN BLIR IKKE LEST."
+msgstr "IKKE SVAR PÃ… DENNE MELDINGEN. DENNEN EPOSTADRESSEN BLIR IKKE LEST."
 
 #: config/prefs.php.dist:99
 msgid "Date/Time format for search results"
-msgstr "Dato/klokkeformat for søkeresultater"
+msgstr "Dato/klokkeformat for sÃ¸keresultater"
 
 #: config/prefs.php.dist:46
 msgid "Default sorting criteria:"
@@ -412,7 +412,7 @@ msgstr "Standard sorteringskriterier:"
 
 #: config/prefs.php.dist:57
 msgid "Default sorting direction:"
-msgstr "Standard sorteringsrekkefølge:"
+msgstr "Standard sorteringsrekkefÃ¸lge:"
 
 #: query.php:143 lib/Whups.php:202
 msgid "Delete"
@@ -446,23 +446,23 @@ msgstr "Bekreft sletting av prioritet"
 
 #: lib/Query.php:145
 msgid "Delete Query"
-msgstr "Slett spørring"
+msgstr "Slett spÃ¸rring"
 
 #: lib/Query.php:882
 msgid "Delete Query?"
-msgstr "Slette spørring?"
+msgstr "Slette spÃ¸rring?"
 
 #: admin.php:268 lib/Admin.php:119
 msgid "Delete Queue"
-msgstr "Slett kø"
+msgstr "Slett kÃ¸"
 
 #: lib/Admin.php:204
 msgid "Delete Queue Confirmation"
-msgstr "Bekreft sletting av kø"
+msgstr "Bekreft sletting av kÃ¸"
 
 #: templates/savedsearches.inc:45 templates/savedsearches.inc:46
 msgid "Delete Search"
-msgstr "Slett søk"
+msgstr "Slett sÃ¸k"
 
 #: admin.php:375 lib/Admin.php:458
 msgid "Delete State"
@@ -552,15 +552,15 @@ msgstr "Rediger prioritering"
 
 #: lib/Query.php:126
 msgid "Edit Query"
-msgstr "Rediger spørring"
+msgstr "Rediger spÃ¸rring"
 
 #: admin.php:262 lib/Admin.php:119 lib/Admin.php:122
 msgid "Edit Queue"
-msgstr "Rediger kø"
+msgstr "Rediger kÃ¸"
 
 #: admin.php:32 lib/Admin.php:121
 msgid "Edit Queues"
-msgstr "Rediger køer"
+msgstr "Rediger kÃ¸er"
 
 #: admin.php:370 lib/Admin.php:458 lib/Admin.php:481
 msgid "Edit State"
@@ -600,7 +600,7 @@ msgstr "Rediger eller slett prioriteringer"
 
 #: lib/Admin.php:118
 msgid "Edit or Delete Queues"
-msgstr "Rediger eller slett køer"
+msgstr "Rediger eller slett kÃ¸er"
 
 #: lib/Admin.php:457
 msgid "Edit or Delete States"
@@ -620,15 +620,15 @@ msgstr "Rediger eller slett versjoner"
 
 #: lib/Admin.php:191
 msgid "Edit the permissions on this queue"
-msgstr "Rediger tilganger til denne køen"
+msgstr "Rediger tilganger til denne kÃ¸en"
 
 #: lib/Admin.php:186
 msgid "Edit the users responsible for this queue"
-msgstr "Endre brukere som er ansvarlig for denne køen"
+msgstr "Endre brukere som er ansvarlig for denne kÃ¸en"
 
 #: lib/Admin.php:165
 msgid "Edit the versions for this queue"
-msgstr "Rediger versjoner for denne køen"
+msgstr "Rediger versjoner for denne kÃ¸en"
 
 #: ticket/watch.php:23
 msgid "Email address to notify"
@@ -641,19 +641,19 @@ msgstr "Epostadresser som skal fjernes"
 #: query.php:171
 #, php-format
 msgid "Error: Unknown query form %s, defaulting to properties"
-msgstr "Feil: Ukjent spørreform %s, går tilbake til standard"
+msgstr "Feil: Ukjent spÃ¸rreform %s, gÃ¥r tilbake til standard"
 
 #: lib/Query.php:55
 msgid "Exact Match"
-msgstr "Nøyaktig treff"
+msgstr "NÃ¸yaktig treff"
 
 #: runquery.php:69 runquery.php:83 lib/Query.php:138
 msgid "Execute Query"
-msgstr "Kjør spørring"
+msgstr "KjÃ¸r spÃ¸rring"
 
 #: lib/Admin.php:809
 msgid "For tickets from these queues"
-msgstr "For saker fra disse køene"
+msgstr "For saker fra disse kÃ¸ene"
 
 #: lib/Admin.php:813
 msgid "For tickets which are"
@@ -661,11 +661,11 @@ msgstr "For saker som er"
 
 #: templates/menu.inc:5 lib/Block/summary.php:42
 msgid "Go"
-msgstr "Kjør"
+msgstr "KjÃ¸r"
 
 #: lib/Block/summary.php:42
 msgid "GoTo: "
-msgstr "Gå til: "
+msgstr "GÃ¥ til: "
 
 #: query.php:136
 msgid "Group Criteria"
@@ -689,7 +689,7 @@ msgstr "Historikk"
 
 #: query.php:145
 msgid "Hoist"
-msgstr "Rykk opp ett nivå"
+msgstr "Rykk opp ett nivÃ¥"
 
 #: templates/queryrenderer.inc:96 lib/Whups.php:470 lib/Query.php:671
 #: config/prefs.php.dist:36
@@ -701,14 +701,14 @@ msgid ""
 "If you don't select any categories, no filtering will be done on ticket "
 "category."
 msgstr ""
-"Hvis du ikke velger noen kategorier vil ingen filtrering bli utført på denne "
+"Hvis du ikke velger noen kategorier vil ingen filtrering bli utfÃ¸rt pÃ¥ denne "
 "sakskategorien."
 
 #: search.php:55
 msgid ""
 "If you don't select any types, no filtering will be done on ticket type."
 msgstr ""
-"Hvis du ikke velger noen typer, vil ingen filtrering bli utført på denne "
+"Hvis du ikke velger noen typer, vil ingen filtrering bli utfÃ¸rt pÃ¥ denne "
 "sakstypen."
 
 #: lib/Admin.php:816
@@ -741,7 +741,7 @@ msgstr "Ugyldig saksid"
 
 #: lib/Admin.php:162
 msgid "Keep a set of versions for this queue?"
-msgstr "Behold et versjonssett av denne køen?"
+msgstr "Behold et versjonssett av denne kÃ¸en?"
 
 #: templates/prevnext.inc:17
 msgid "Last>>"
@@ -749,15 +749,15 @@ msgstr "Siste>>"
 
 #: lib/Query.php:139 lib/Query.php:842
 msgid "Load Query"
-msgstr "Laste inn spørring"
+msgstr "Laste inn spÃ¸rring"
 
 #: config/prefs.php.dist:97
 msgid "MM/DD/YY"
-msgstr "MM/DD/ÅÅ"
+msgstr "MM/DD/Ã…Ã…"
 
 #: config/prefs.php.dist:98
 msgid "MM/DD/YY HH:MM:SS"
-msgstr "MM/DD/ÅÅ TT:MM:SS"
+msgstr "MM/DD/Ã…Ã… TT:MM:SS"
 
 #: lib/Admin.php:419
 #, php-format
@@ -774,7 +774,7 @@ msgstr "Sammenligningstype"
 
 #: lib/Query.php:59
 msgid "Match Pattern"
-msgstr "Sammenlign mønster"
+msgstr "Sammenlign mÃ¸nster"
 
 #: lib/Query.php:58
 msgid "Match Word"
@@ -782,15 +782,15 @@ msgstr "Sammenlign ord"
 
 #: lib/Reports.php:20
 msgid "Maximum time a ticket is unresolved"
-msgstr "Maksimal tid en sak er uløst"
+msgstr "Maksimal tid en sak er ulÃ¸st"
 
 #: lib/Reports.php:21
 msgid "Minimum time a ticket is unresolved"
-msgstr "Minimumstid en sak er uløst"
+msgstr "Minimumstid en sak er ulÃ¸st"
 
 #: config/prefs.php.dist:137
 msgid "Most recent first"
-msgstr "Nyeste først"
+msgstr "Nyeste fÃ¸rst"
 
 #: ticket/queue.php:173
 #, php-format
@@ -809,15 +809,15 @@ msgstr "Mine %s :: Legg til innhold"
 
 #: search.php:192 lib/Block/myqueries.php:3 lib/Block/myqueries.php:26
 msgid "My Queries"
-msgstr "Mine spørringer"
+msgstr "Mine spÃ¸rringer"
 
 #: search.php:187 lib/Block/mysearches.php:3 lib/Block/mysearches.php:24
 msgid "My QuickSearches"
-msgstr "Mine hurtigsøk"
+msgstr "Mine hurtigsÃ¸k"
 
 #: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
 msgid "My Requests"
-msgstr "Mine forespørsler"
+msgstr "Mine forespÃ¸rsler"
 
 #: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
 #: config/prefs.php.dist:66
@@ -835,7 +835,7 @@ msgstr "Navn"
 
 #: lib/Admin.php:424
 msgid "Name of the cloned copy"
-msgstr "Navn på den klonede kopien"
+msgstr "Navn pÃ¥ den klonede kopien"
 
 #: lib/Driver.php:141
 msgid "New"
@@ -852,11 +852,11 @@ msgstr "Nytt vedlegg: %s"
 
 #: lib/Query.php:124 lib/Block/myqueries.php:28
 msgid "New Query"
-msgstr "Ny spørring"
+msgstr "Ny spÃ¸rring"
 
 #: ticket/queue.php:37
 msgid "New Queue"
-msgstr "Ny kø"
+msgstr "Ny kÃ¸"
 
 #: ticket/people.php:75
 msgid "New State"
@@ -882,15 +882,15 @@ msgstr "Nei"
 
 #: lib/Block/myqueries.php:49
 msgid "No queries have been saved"
-msgstr "Ingen spørringer har blitt lagret"
+msgstr "Ingen spÃ¸rringer har blitt lagret"
 
 #: clearsearch.php:34
 msgid "No searches cleared."
-msgstr "Ingen søk fjernet."
+msgstr "Ingen sÃ¸k fjernet."
 
 #: lib/Block/mysearches.php:43
 msgid "No searches have been saved"
-msgstr "Ingen søk har blitt lagret"
+msgstr "Ingen sÃ¸k har blitt lagret"
 
 #: reports.php:17
 msgid "No stats available."
@@ -912,11 +912,11 @@ msgstr "Det er ingen saker som er tildelt deg"
 
 #: lib/Whups.php:510
 msgid "No tickets matched your search criteria."
-msgstr "Ingen saker inneholdt dine søkekriterier."
+msgstr "Ingen saker inneholdt dine sÃ¸kekriterier."
 
 #: lib/Block/summary.php:74
 msgid "No tickets to display"
-msgstr "Ingen saker å vise"
+msgstr "Ingen saker Ã¥ vise"
 
 #: lib/Reports.php:88
 msgid "None"
@@ -928,7 +928,7 @@ msgstr "Ikke"
 
 #: query.php:77
 msgid "Not yet implemented."
-msgstr "Foreløpig ikke implementert"
+msgstr "ForelÃ¸pig ikke implementert"
 
 #: config/prefs.php.dist:17
 msgid "Notification Options"
@@ -940,27 +940,27 @@ msgstr "Bare varsle meg ved saksendringer fra andre brukere"
 
 #: lib/Reports.php:11
 msgid "Open Tickets by Owner"
-msgstr "Åpne saker etter eier"
+msgstr "Ã…pne saker etter eier"
 
 #: lib/Reports.php:9
 msgid "Open Tickets by Priority"
-msgstr "Åpne saker etter prioritet"
+msgstr "Ã…pne saker etter prioritet"
 
 #: lib/Reports.php:6
 msgid "Open Tickets by Queue"
-msgstr "Åpne saker etter kø"
+msgstr "Ã…pne saker etter kÃ¸"
 
 #: lib/Reports.php:10
 msgid "Open Tickets by Requester"
-msgstr "Åpne saker etter innmelder"
+msgstr "Ã…pne saker etter innmelder"
 
 #: lib/Reports.php:7
 msgid "Open Tickets by State"
-msgstr "Åpne saker etter tilstand"
+msgstr "Ã…pne saker etter tilstand"
 
 #: lib/Reports.php:8
 msgid "Open Tickets by Type"
-msgstr "Åpne saker etter type"
+msgstr "Ã…pne saker etter type"
 
 #: templates/queryrenderer.inc:91 lib/Query.php:519
 msgid "Or"
@@ -1028,113 +1028,113 @@ msgstr "Egenskapskriterier"
 
 #: query.php:152
 msgid "Query Builder"
-msgstr "Spørringsgenerator"
+msgstr "SpÃ¸rringsgenerator"
 
 #: lib/Query.php:95
 msgid "Query Parameters"
-msgstr "Spørringsparametre"
+msgstr "SpÃ¸rringsparametre"
 
 #: runquery.php:77
 msgid "Query Results"
-msgstr "Spørringsresultater"
+msgstr "SpÃ¸rringsresultater"
 
 #: search.php:48 templates/queryrenderer.inc:107 lib/Whups.php:475
 #: lib/Ticket.php:463 lib/Ticket.php:575 lib/Ticket.php:579 lib/Query.php:682
 #: config/prefs.php.dist:41
 msgid "Queue"
-msgstr "Kø"
+msgstr "KÃ¸"
 
 #: templates/comment.inc:107
 #, php-format
 msgid "Queue &rArr; %s"
-msgstr "Kø &rArr; %s"
+msgstr "KÃ¸ &rArr; %s"
 
 #: lib/Admin.php:106 lib/Admin.php:155 lib/Admin.php:214
 msgid "Queue Description"
-msgstr "Købeskrivelse"
+msgstr "KÃ¸beskrivelse"
 
 #: lib/Admin.php:105 lib/Admin.php:134 lib/Admin.php:152 lib/Admin.php:211
 #: lib/Create.php:33 lib/Create.php:41
 msgid "Queue Name"
-msgstr "Kønavn"
+msgstr "KÃ¸navn"
 
 #: ticket/queue.php:85 lib/Create.php:80 lib/Ticket.php:584 lib/Ticket.php:588
 msgid "Queue Version"
-msgstr "Køversjon"
+msgstr "KÃ¸versjon"
 
 #: admin.php:35 templates/admin/mtmatrix.inc:6
 msgid "Queue/Type Matrix"
-msgstr "Kø/type-matrise"
+msgstr "KÃ¸/type-matrise"
 
 #: search.php:139
 #, php-format
 msgid "Queue: %s, Ticket: %s, Category: %s, Type: %s, Summary: %s"
-msgstr "Kø: %s, Sak: %s, Kategori: %s, Type: %s, Sammendrag: %s"
+msgstr "KÃ¸: %s, Sak: %s, Kategori: %s, Type: %s, Sammendrag: %s"
 
 #: lib/api.php:156 lib/api.php:700
 msgid "Queues"
-msgstr "Køer"
+msgstr "KÃ¸er"
 
 #: lib/Ticket.php:539
 #, php-format
 msgid "RESOLVED: %s"
-msgstr "LØST: %s"
+msgstr "LÃ˜ST: %s"
 
 #: lib/Admin.php:786
 msgid "Really delete this attribute? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne egenskapen? Det kan forårsake "
+"Ã˜nsker du virkelig Ã¥ slette denne egenskapen? Det kan forÃ¥rsake "
 "dataproblemer!"
 
 #: lib/Admin.php:610
 msgid "Really delete this priority? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne prioriteten? Det kan forårsake "
+"Ã˜nsker du virkelig Ã¥ slette denne prioriteten? Det kan forÃ¥rsake "
 "dataproblemer!"
 
 #: lib/Query.php:885
 msgid "Really delete this query? This operation is not undoable."
 msgstr ""
-"Ønsker du virkelig å slette denne spørringen? Handlingen kan ikke gjøres om."
+"Ã˜nsker du virkelig Ã¥ slette denne spÃ¸rringen? Handlingen kan ikke gjÃ¸res om."
 
 #: lib/Admin.php:218
 msgid "Really delete this queue? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne køen? Det kan forårsake dataproblemer!"
+"Ã˜nsker du virkelig Ã¥ slette denne kÃ¸en? Det kan forÃ¥rsake dataproblemer!"
 
 #: lib/Admin.php:522
 msgid "Really delete this state? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne tilstanden? Det kan forårsake "
+"Ã˜nsker du virkelig Ã¥ slette denne tilstanden? Det kan forÃ¥rsake "
 "dataproblemer!"
 
 #: lib/Admin.php:91
 msgid "Really delete this subject? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette dette emnet? Det kan forårsake dataproblemer!"
+"Ã˜nsker du virkelig Ã¥ slette dette emnet? Det kan forÃ¥rsake dataproblemer!"
 
 #: ticket/delete.php:38
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
-msgstr "Ønsker du virkelig å slette denne saken? Den vil IKKE bli arkivert!"
+msgstr "Ã˜nsker du virkelig Ã¥ slette denne saken? Den vil IKKE bli arkivert!"
 
 #: lib/Admin.php:406
 msgid "Really delete this type? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne typen? Det kan forårsake dataproblemer!"
+"Ã˜nsker du virkelig Ã¥ slette denne typen? Det kan forÃ¥rsake dataproblemer!"
 
 #: lib/Admin.php:698
 msgid "Really delete this version? This may cause data problems!"
 msgstr ""
-"Ønsker du virkelig å slette denne versjonen? Det kan forårsake dataproblemer!"
+"Ã˜nsker du virkelig Ã¥ slette denne versjonen? Det kan forÃ¥rsake dataproblemer!"
 
 #: search.php:169
 msgid "Refine Search"
-msgstr "Endre søk"
+msgstr "Endre sÃ¸k"
 
 #: admin.php:922
 msgid "Reminders were sent."
-msgstr "Påminnelser ble sendt."
+msgstr "PÃ¥minnelser ble sendt."
 
 #: lib/Admin.php:267
 msgid "Remove User"
@@ -1142,7 +1142,7 @@ msgstr "Fjern bruker"
 
 #: ticket/watch.php:48
 msgid "Remove Watcher"
-msgstr "Fjern overvåker"
+msgstr "Fjern overvÃ¥ker"
 
 #: reports.php:22
 msgid "Reports"
@@ -1155,7 +1155,7 @@ msgstr "Innmelder"
 #: lib/Whups.php:480 lib/Ticket.php:602 lib/Driver.php:143
 #: config/prefs.php.dist:45
 msgid "Resolved"
-msgstr "Løst"
+msgstr "LÃ¸st"
 
 #: lib/Admin.php:269
 msgid "Responsible Users"
@@ -1171,7 +1171,7 @@ msgstr "Begrense saksemner til en angitt liste?"
 
 #: templates/prevnext.inc:25
 msgid "Return to Search Results"
-msgstr "Returner til søkeresultater"
+msgstr "Returner til sÃ¸keresultater"
 
 #: templates/searchresults.inc:94
 msgid "Save"
@@ -1179,7 +1179,7 @@ msgstr "Lagre"
 
 #: lib/Query.php:142 lib/Query.php:817
 msgid "Save Query"
-msgstr "Lagre spørring"
+msgstr "Lagre spÃ¸rring"
 
 #: templates/searchresults.inc:88
 msgid "Save these results as: "
@@ -1188,56 +1188,56 @@ msgstr "Lagre resultatene som: "
 #: lib/Query.php:774
 #, php-format
 msgid "Search %s Attribute"
-msgstr "Søk %s egenskap"
+msgstr "SÃ¸k %s egenskap"
 
 #: lib/Query.php:777
 msgid "Search Attribute"
-msgstr "Søkeegenskap"
+msgstr "SÃ¸keegenskap"
 
 #: lib/Query.php:543 lib/Query.php:630
 msgid "Search Comments"
-msgstr "Søkekommentarer"
+msgstr "SÃ¸kekommentarer"
 
 #: lib/Query.php:541
 msgid "Search Owners"
-msgstr "Søkeeiere"
+msgstr "SÃ¸keeiere"
 
 #: lib/Query.php:542
 msgid "Search Requester"
-msgstr "Søkeinnmelder"
+msgstr "SÃ¸keinnmelder"
 
 #: search.php:164
 msgid "Search Results"
-msgstr "Søkeresultater"
+msgstr "SÃ¸keresultater"
 
 #: templates/prevnext.inc:21
 #, php-format
 msgid "Search Results: %s of %s"
-msgstr "Søkeresultater: %s av %s"
+msgstr "SÃ¸keresultater: %s av %s"
 
 #: lib/Query.php:629
 msgid "Search Summary"
-msgstr "Søkesammendrag"
+msgstr "SÃ¸kesammendrag"
 
 #: search.php:64 search.php:180 config/prefs.php.dist:67
 msgid "Search Tickets"
-msgstr "Søk i saker"
+msgstr "SÃ¸k i saker"
 
 #: clearsearch.php:27
 msgid "Search cleared."
-msgstr "Søk fjernet."
+msgstr "SÃ¸k fjernet."
 
 #: clearsearch.php:30
 msgid "Searches cleared."
-msgstr "Søk fjernet."
+msgstr "SÃ¸k fjernet."
 
 #: config/prefs.php.dist:69
 msgid "Select the view to display after login:"
-msgstr "Velg hva som skal vises etter pålogging:"
+msgstr "Velg hva som skal vises etter pÃ¥logging:"
 
 #: admin.php:36 lib/Admin.php:797
 msgid "Send Reminders"
-msgstr "Send påminnelser"
+msgstr "Send pÃ¥minnelser"
 
 #: lib/Admin.php:808
 msgid "Send only for this list of ticket ids"
@@ -1245,24 +1245,24 @@ msgstr "Bare send for denne listens saksnumre"
 
 #: lib/Whups.php:200
 msgid "Set Queue"
-msgstr "Angi kø"
+msgstr "Angi kÃ¸"
 
 #: ticket/queue.php:194 ticket/queue.php:203 ticket/queue.php:215
 msgid "Set Queue - Step 1"
-msgstr "Angi kø - Steg 1"
+msgstr "Angi kÃ¸ - Steg 1"
 
 #: ticket/queue.php:195 ticket/queue.php:204
 msgid "Set Queue - Step 2"
-msgstr "Angi kø - Steg 2"
+msgstr "Angi kÃ¸ - Steg 2"
 
 #: ticket/queue.php:205
 msgid "Set Queue - Step 3"
-msgstr "Angi kø - Steg 3"
+msgstr "Angi kÃ¸ - Steg 3"
 
 #: ticket/queue.php:181
 #, php-format
 msgid "Set Queue for %s"
-msgstr "Angi kø for %s"
+msgstr "Angi kÃ¸ for %s"
 
 #: lib/Whups.php:201
 msgid "Set Type"
@@ -1283,11 +1283,11 @@ msgstr "Angi type for %s"
 
 #: config/prefs.php.dist:108
 msgid "Show \"(X Days Ago)\" in Date field of search results?"
-msgstr "Vis \"(X Dager siden)\" i datofeltet til søkeresultatene?"
+msgstr "Vis \"(X Dager siden)\" i datofeltet til sÃ¸keresultatene?"
 
 #: config/prefs.php.dist:135
 msgid "Show comments in chronological order, or most recent first?"
-msgstr "Vis kommentarer i kronologisk rekkefølge, eller nyeste først?"
+msgstr "Vis kommentarer i kronologisk rekkefÃ¸lge, eller nyeste fÃ¸rst?"
 
 #: config/prefs.php.dist:86
 msgid "Show ticket IDs in the summary view?"
@@ -1339,11 +1339,11 @@ msgstr "Emne"
 
 #: lib/Admin.php:17 lib/Admin.php:40 lib/Admin.php:65 lib/Admin.php:87
 msgid "Subject Name"
-msgstr "Navn på emne"
+msgstr "Navn pÃ¥ emne"
 
 #: lib/Admin.php:174
 msgid "Subjects associated with this Queue"
-msgstr "Emner knyttet til denne køen"
+msgstr "Emner knyttet til denne kÃ¸en"
 
 #: ticket/create.php:102
 msgid "Submit"
@@ -1388,7 +1388,7 @@ msgstr "Tekstkriterier"
 
 #: view.php:44 lib/Ticket.php:339 lib/Ticket.php:377
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "VFS-driveren må være konfigurert for å kunne laste opp vedlegg."
+msgstr "VFS-driveren mÃ¥ vÃ¦re konfigurert for Ã¥ kunne laste opp vedlegg."
 
 #: admin.php:811
 #, php-format
@@ -1427,33 +1427,33 @@ msgstr "Prioriteten ble ikke slettet."
 #: lib/Query.php:898
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
-msgstr "Spørringen \"%s\" kunne ikke bli slettet: %s"
+msgstr "SpÃ¸rringen \"%s\" kunne ikke bli slettet: %s"
 
 #: lib/Query.php:900
 #, php-format
 msgid "The query \"%s\" has been deleted."
-msgstr "Spørringen \"%s\" har blitt slettet."
+msgstr "SpÃ¸rringen \"%s\" har blitt slettet."
 
 #: lib/Query.php:865
 msgid "The query couldn't be loaded:"
-msgstr "Spørringen kunne ikke bli lastet inn:"
+msgstr "SpÃ¸rringen kunne ikke bli lastet inn:"
 
 #: admin.php:240
 #, php-format
 msgid "The queue \"%s\" has been created."
-msgstr "Spørringen \"%s\" har blitt opprettet."
+msgstr "SpÃ¸rringen \"%s\" har blitt opprettet."
 
 #: admin.php:318
 msgid "The queue has been deleted."
-msgstr "Køen har blitt slettet."
+msgstr "KÃ¸en har blitt slettet."
 
 #: admin.php:290
 msgid "The queue has been modified."
-msgstr "Køen har blitt endret."
+msgstr "KÃ¸en har blitt endret."
 
 #: admin.php:323
 msgid "The queue was not deleted."
-msgstr "Køen ble ikke slettet."
+msgstr "KÃ¸en ble ikke slettet."
 
 #: lib/MIME/Viewer/zip.php:60
 msgid "The requested file does not exist in the Zip attachment."
@@ -1533,7 +1533,7 @@ msgstr "Versjonen ble ikke slettet."
 
 #: lib/Admin.php:733
 msgid "There are no attribute types to edit"
-msgstr "Det finnes ingen egenskaper å redigere"
+msgstr "Det finnes ingen egenskaper Ã¥ redigere"
 
 #: lib/Query.php:777
 msgid "There are no attributes defined for the current type"
@@ -1541,55 +1541,55 @@ msgstr "Det finnes ingen egenskaper definert for den gjeldende typen"
 
 #: lib/Admin.php:557
 msgid "There are no priorities to edit"
-msgstr "Det finnes ingen prioriteringer å redigere"
+msgstr "Det finnes ingen prioriteringer Ã¥ redigere"
 
 #: lib/Admin.php:805
 msgid "There are no queues available."
-msgstr "Det finnes ingen køer tilgjengelig."
+msgstr "Det finnes ingen kÃ¸er tilgjengelig."
 
 #: lib/Admin.php:131
 msgid "There are no queues to edit"
-msgstr "Det finnes ingen køer å redigere"
+msgstr "Det finnes ingen kÃ¸er Ã¥ redigere"
 
 #: lib/Create.php:41
 msgid "There are no queues which you can create tickets in."
-msgstr "Det finnes ingen køer du kan opprettet saker i."
+msgstr "Det finnes ingen kÃ¸er du kan opprettet saker i."
 
 #: search.php:42
 msgid "There are no queues which you can search."
-msgstr "Det finnes ingen køer du kan søke i."
+msgstr "Det finnes ingen kÃ¸er du kan sÃ¸ke i."
 
 #: lib/Admin.php:466
 msgid "There are no states to edit"
-msgstr "Det finnes ingen tilstander å redigere"
+msgstr "Det finnes ingen tilstander Ã¥ redigere"
 
 #: lib/Admin.php:37
 msgid "There are no subjects to edit"
-msgstr "Det finnes ingen emner å redigere"
+msgstr "Det finnes ingen emner Ã¥ redigere"
 
 #: lib/Create.php:64
 msgid ""
 "There are no ticket types associated with this queue; until there are, you "
 "cannot create any tickets in this queue."
 msgstr ""
-"Det er ingen sakstyper knyttet til denne køen; inntil det er så kan du ikke "
-"opprette noen saker i denne køen."
+"Det er ingen sakstyper knyttet til denne kÃ¸en; inntil det er sÃ¥ kan du ikke "
+"opprette noen saker i denne kÃ¸en."
 
 #: lib/Admin.php:321
 msgid "There are no types to edit"
-msgstr "Det finnes ingen typer å redigere"
+msgstr "Det finnes ingen typer Ã¥ redigere"
 
 #: lib/Admin.php:283
 msgid "There are no users responsible for this queue."
-msgstr "Ingen brukere er ansvarlige for denne køen."
+msgstr "Ingen brukere er ansvarlige for denne kÃ¸en."
 
 #: ticket/people.php:71 lib/Create.php:178
 msgid "There are no users to which this ticket can be assigned."
-msgstr "Det finnes ingen brukere denne køen kan knyttes opp mot."
+msgstr "Det finnes ingen brukere denne kÃ¸en kan knyttes opp mot."
 
 #: lib/Admin.php:645
 msgid "There are no versions to edit"
-msgstr "Det finnes ingen versjoner å redigere"
+msgstr "Det finnes ingen versjoner Ã¥ redigere"
 
 #: graph.php:30
 msgid "There is no data for this graph."
@@ -1603,13 +1603,13 @@ msgstr "Det finnes ikke data for denne rapporten "
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\": %s"
 msgstr ""
-"Det oppstod en feil når \"%s\" skulle legges til listen over ansvarlige for "
+"Det oppstod en feil nÃ¥r \"%s\" skulle legges til listen over ansvarlige for "
 "\"%s\": %s"
 
 #: admin.php:627
 #, php-format
 msgid "There was an error adding the subject: %s."
-msgstr "Det oppstod en feil når emnet %s skulle legges til."
+msgstr "Det oppstod en feil nÃ¥r emnet %s skulle legges til."
 
 #: admin.php:814
 #, php-format
@@ -1624,7 +1624,7 @@ msgstr "Det oppstod en feil under oppretting av prioriteten: %s."
 #: admin.php:248
 #, php-format
 msgid "There was an error creating the queue: %s."
-msgstr "Det oppstod en feil under oppretting av køen: %s."
+msgstr "Det oppstod en feil under oppretting av kÃ¸en: %s."
 
 #: admin.php:340
 #, php-format
@@ -1649,7 +1649,7 @@ msgstr "Det oppstod en feil ved sletting av prioriteten: %s."
 #: admin.php:320
 #, php-format
 msgid "There was an error deleting the queue: %s."
-msgstr "Det oppstod en feil ved sletting av køen: %s."
+msgstr "Det oppstod en feil ved sletting av kÃ¸en: %s."
 
 #: admin.php:423
 #, php-format
@@ -1689,7 +1689,7 @@ msgstr "Det oppstod en feil ved redigering av prioriteten: %s."
 #: admin.php:304
 #, php-format
 msgid "There was an error editing the queue: %s."
-msgstr "Det oppstod en feil ved redigering av køen: %s."
+msgstr "Det oppstod en feil ved redigering av kÃ¸en: %s."
 
 #: admin.php:397
 #, php-format
@@ -1719,7 +1719,7 @@ msgstr "Det oppstod en feil under modifisering av typen: %s."
 #: search.php:158
 #, php-format
 msgid "There was an error performing your search: %s"
-msgstr "Det oppstod en feil ved utføring av søket: %s"
+msgstr "Det oppstod en feil ved utfÃ¸ring av sÃ¸ket: %s"
 
 #: admin.php:605
 #, php-format
@@ -1731,7 +1731,7 @@ msgstr ""
 
 #: data.php:27
 msgid "This is not a search results template."
-msgstr "Dette er ikke en mal for søkeresultater."
+msgstr "Dette er ikke en mal for sÃ¸keresultater."
 
 #: lib/Admin.php:57
 msgid "This is not a valid subject."
@@ -1743,8 +1743,8 @@ msgid ""
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
-"Denne køen krever at du angir en versjon, men det finnes ingen versjoner "
-"knyttet til den. Inntil versjoner er opprettet for denne køen vil du ikke "
+"Denne kÃ¸en krever at du angir en versjon, men det finnes ingen versjoner "
+"knyttet til den. Inntil versjoner er opprettet for denne kÃ¸en vil du ikke "
 "kunne opprette nye saker."
 
 #: lib/Ticket.php:485
@@ -1788,7 +1788,7 @@ msgstr "Sakstype"
 
 #: lib/Admin.php:158
 msgid "Ticket Types associated with this Queue"
-msgstr "Sakstyper knyttet til denne køen"
+msgstr "Sakstyper knyttet til denne kÃ¸en"
 
 #: lib/Ticket.php:481
 #, php-format
@@ -1891,11 +1891,11 @@ msgstr "BrukerID"
 
 #: lib/Admin.php:184
 msgid "Users responsible for this Queue"
-msgstr "Brukere ansvarlige for denne køen"
+msgstr "Brukere ansvarlige for denne kÃ¸en"
 
 #: lib/Admin.php:287
 msgid "Users responsible for this queue"
-msgstr "Brukere asvarlige for denne køen"
+msgstr "Brukere asvarlige for denne kÃ¸en"
 
 #: templates/queryrenderer.inc:115 lib/Whups.php:476 lib/Ticket.php:464
 #: lib/Query.php:686 config/prefs.php.dist:42
@@ -1921,20 +1921,20 @@ msgstr "Kun synlig for medlemmer av"
 
 #: lib/Whups.php:194
 msgid "Watch"
-msgstr "Overvåk"
+msgstr "OvervÃ¥k"
 
 #: ticket/watch.php:76
 #, php-format
 msgid "Watchers for %s"
-msgstr "Overvåkere for %s"
+msgstr "OvervÃ¥kere for %s"
 
 #: config/prefs.php.dist:95
 msgid "Weekday Day Month"
-msgstr "Ukedag Dag Måned"
+msgstr "Ukedag Dag MÃ¥ned"
 
 #: config/prefs.php.dist:96
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "Ukedag Dag Måned TT:MM:SS TZ"
+msgstr "Ukedag Dag MÃ¥ned TT:MM:SS TZ"
 
 #: ticket/delete.php:37 lib/Admin.php:90 lib/Admin.php:217 lib/Admin.php:405
 #: lib/Admin.php:521 lib/Admin.php:609 lib/Admin.php:697 lib/Admin.php:785
@@ -1945,24 +1945,24 @@ msgstr "Ja"
 #: mybugs_edit.php:67
 #, php-format
 msgid "You are not allowed to create more than %d blocks."
-msgstr "Du har ikke lov til å lage flere enn %d blokker."
+msgstr "Du har ikke lov til Ã¥ lage flere enn %d blokker."
 
 #: view.php:40
 msgid "You are not allowed to view this ticket."
-msgstr "Du har ikke lov til å se på denne saken."
+msgstr "Du har ikke lov til Ã¥ se pÃ¥ denne saken."
 
 #: lib/Driver/sql.php:872
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
-msgstr "Du har ikke rettigheter til å gå inn på denne saken (%s)."
+msgstr "Du har ikke rettigheter til Ã¥ gÃ¥ inn pÃ¥ denne saken (%s)."
 
 #: lib/Query.php:854
 msgid "You have no saved queries."
-msgstr "Du har ingen lagrede spørringer."
+msgstr "Du har ingen lagrede spÃ¸rringer."
 
 #: lib/Whups.php:504
 msgid "You must select at least one queue to send reminders for."
-msgstr "Du må velge minst en kø det skal sendes påminnelser for."
+msgstr "Du mÃ¥ velge minst en kÃ¸ det skal sendes pÃ¥minnelser for."
 
 #: ticket/comment.php:26 lib/Create.php:35
 msgid "Your Email Address"
@@ -1974,8 +1974,8 @@ msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
 "request."
 msgstr ""
-"Ditt saksnummer er %s. En kyndig person har fått en melding om denne "
-"forespørselen."
+"Ditt saksnummer er %s. En kyndig person har fÃ¥tt en melding om denne "
+"forespÃ¸rselen."
 
 #: lib/Whups.php:569
 msgid "_Admin"
@@ -1992,7 +1992,7 @@ msgstr "_Ny Sak"
 
 #: lib/Whups.php:563
 msgid "_Query Builder"
-msgstr "Spørringsgenerator"
+msgstr "SpÃ¸rringsgenerator"
 
 #: lib/Whups.php:565
 msgid "_Reports"
@@ -2000,7 +2000,7 @@ msgstr "_Rapporter"
 
 #: lib/Whups.php:560
 msgid "_Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 #: templates/queryrenderer.inc:168
 msgid "contains (case insensitive) substring"
@@ -2029,7 +2029,7 @@ msgstr "er"
 
 #: templates/queryrenderer.inc:156
 msgid "is greater than"
-msgstr "er større enn"
+msgstr "er stÃ¸rre enn"
 
 #: templates/queryrenderer.inc:160
 msgid "is less than"
@@ -2037,4 +2037,4 @@ msgstr "er mindre enn"
 
 #: templates/queryrenderer.inc:180
 msgid "matches the pattern"
-msgstr "er likt mønsteret"
+msgstr "er likt mÃ¸nsteret"

@@ -21,7 +21,7 @@ msgstr ""
 "Last-Translator: guille <guille@usc.es>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
@@ -36,13 +36,13 @@ msgid "Add a new contact"
 msgstr "Engadir un novo contacto"
 
 msgid "Add failed"
-msgstr "Fallou ó engadir"
+msgstr "Fallou Ã³ engadir"
 
 msgid "Add"
 msgstr "Engadir"
 
 msgid "Addressbook is read-only."
-msgstr "A axenda de enderezos soamente é de lectura."
+msgstr "A axenda de enderezos soamente Ã© de lectura."
 
 msgid "Advanced Directory Search"
 msgstr "Busca avanzada no directorio"
@@ -54,10 +54,10 @@ msgid "Alias"
 msgstr "Alcume"
 
 msgid "An illegal value was specified."
-msgstr "O valor especificado non é válido"
+msgstr "O valor especificado non Ã© vÃ¡lido"
 
 msgid "Available Columns:"
-msgstr "Columnas dispoñibles:"
+msgstr "Columnas dispoÃ±ibles:"
 
 msgid "Browse"
 msgstr "Examinar"
@@ -66,19 +66,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Cell Phone"
-msgstr "Teléfono móbil"
+msgstr "TelÃ©fono mÃ³bil"
 
 msgid "Choose the order of the columns to display in the address list."
-msgstr "Escolla a orde das columnas que se verán na lista de enderezos."
+msgstr "Escolla a orde das columnas que se verÃ¡n na lista de enderezos."
 
 msgid "Clear Search"
 msgstr "Borrar a busca"
 
 msgid "Column Options"
-msgstr "Opcións da columna"
+msgstr "OpciÃ³ns da columna"
 
 msgid "Company"
-msgstr "Compañía"
+msgstr "CompaÃ±Ã­a"
 
 #, c-format
 msgid "Contents of %s"
@@ -88,7 +88,7 @@ msgid "Delete"
 msgstr "Borrar"
 
 msgid "Deletion failed"
-msgstr "Fallou ó borrar"
+msgstr "Fallou Ã³ borrar"
 
 msgid "Default Display"
 msgstr "Vista a amosar por defecto"
@@ -103,7 +103,7 @@ msgid "Directory"
 msgstr "Directorio"
 
 msgid "Display Options"
-msgstr "Opcións de visualización"
+msgstr "OpciÃ³ns de visualizaciÃ³n"
 
 #, c-format
 msgid "Edit '%s'"
@@ -113,7 +113,7 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "Email"
-msgstr "Correo Electrónico"
+msgstr "Correo ElectrÃ³nico"
 
 msgid "Error"
 msgstr "Erro"
@@ -126,10 +126,10 @@ msgstr "Exportar"
 
 #, c-format
 msgid "Failed to browse the directory: %s"
-msgstr "Fallou ó buscar no directorio: %s"
+msgstr "Fallou Ã³ buscar no directorio: %s"
 
 msgid "Failed to connect to the specified directory."
-msgstr "Fallou ó conectar co directorio especificado."
+msgstr "Fallou Ã³ conectar co directorio especificado."
 
 #, c-format
 msgid "Failed to search the directory: %s"
@@ -151,13 +151,13 @@ msgid "Home Address"
 msgstr "Enderezo persoal"
 
 msgid "Home Phone"
-msgstr "Teléfono persoal"
+msgstr "TelÃ©fono persoal"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "Se importa datos CSV: A primeira fila, ¿contén os nomes dos campos?"
+msgstr "Se importa datos CSV: A primeira fila, Â¿contÃ©n os nomes dos campos?"
 
 msgid "Illegal or malformed form data."
-msgstr "O datos do formulario non son válidos ou están mal formados."
+msgstr "O datos do formulario non son vÃ¡lidos ou estÃ¡n mal formados."
 
 msgid "Import Address Book"
 msgstr "Importar a axenda de enderezos"
@@ -172,13 +172,13 @@ msgid "Import/Export"
 msgstr "Importar/exportar"
 
 msgid "Invalid addressbook."
-msgstr "A axenda de enderezos non é válida."
+msgstr "A axenda de enderezos non Ã© vÃ¡lida."
 
 msgid "Invalid e-mail address."
-msgstr "O enderezo de correo non é válido."
+msgstr "O enderezo de correo non Ã© vÃ¡lido."
 
 msgid "Invalid name."
-msgstr "O nome non é válido."
+msgstr "O nome non Ã© vÃ¡lido."
 
 msgid "Language"
 msgstr "Lingua"
@@ -200,15 +200,15 @@ msgid ""
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"Ningunha das axendas de enderezos dispoñibles está configurada para "
-"permitirlle engadir novas entradas. Para amañalo, contacte co administrador "
+"Ningunha das axendas de enderezos dispoÃ±ibles estÃ¡ configurada para "
+"permitirlle engadir novas entradas. Para amaÃ±alo, contacte co administrador "
 "do sistema."
 
 msgid "Notes"
 msgstr "Notas"
 
 msgid "Options"
-msgstr "Opcións"
+msgstr "OpciÃ³ns"
 
 msgid "Please choose an address book to add a contact to."
 msgstr "Escolla unha axenda de enderezos para engadir o contacto."
@@ -217,7 +217,7 @@ msgid "Please select a directory:"
 msgstr "Escolla un directorio:"
 
 msgid "Problem?"
-msgstr "¿Problemas?"
+msgstr "Â¿Problemas?"
 
 msgid "Reset"
 msgstr "Limpar"
@@ -238,7 +238,7 @@ msgid "Search&nbsp;Results"
 msgstr "Resultados&nbsp;da busca"
 
 msgid "Select the destination to import to:"
-msgstr "Escolla o destino da importación:"
+msgstr "Escolla o destino da importaciÃ³n:"
 
 msgid "Select the file to import:"
 msgstr "Escolla o arquivo que quere importar:"
@@ -253,7 +253,7 @@ msgid "Select the source to export from:"
 msgstr "Escolla a fonte en que o quere exportar:"
 
 msgid "Select which fields to display in the address lists."
-msgstr "Escolla os campos que se verán nas listas de enderezos."
+msgstr "Escolla os campos que se verÃ¡n nas listas de enderezos."
 
 msgid "Select your preferred language:"
 msgstr "Escolla a lingua:"
@@ -266,22 +266,22 @@ msgid "Send mail to %s"
 msgstr "Enviar un correo a %s"
 
 msgid "Set your preferred display language."
-msgstr "Establece a lingua de visualización."
+msgstr "Establece a lingua de visualizaciÃ³n."
 
 msgid "Some of Turba's configuration files are missing:"
-msgstr "Algúns dos arquivos de configuración de Turba non se dan atopados:"
+msgstr "AlgÃºns dos arquivos de configuraciÃ³n de Turba non se dan atopados:"
 
 msgid "Success"
 msgstr "Correctamente"
 
 msgid "The data got lost"
-msgstr "Perdéronse os datos "
+msgstr "PerdÃ©ronse os datos "
 
 msgid "The data got lost."
-msgstr "Perdéronse.os datos"
+msgstr "PerdÃ©ronse.os datos"
 
 msgid "The file contained no data."
-msgstr "O arquivo non contén datos."
+msgstr "O arquivo non contÃ©n datos."
 
 msgid "There are no writeable address books."
 msgstr "Non hai ningunha axenda de enderezos onde se poida escribir."
@@ -290,8 +290,8 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Houbo un problema ó enviar o arquivo, que non pode ser maior có tamaño "
-"máximo permitido."
+"Houbo un problema Ã³ enviar o arquivo, que non pode ser maior cÃ³ tamaÃ±o "
+"mÃ¡ximo permitido."
 
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
@@ -304,20 +304,20 @@ msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
 msgstr ""
-"Houbo un problema ó eliminar este obxecto. Contacte co administrador do "
+"Houbo un problema Ã³ eliminar este obxecto. Contacte co administrador do "
 "sistema para obter axuda."
 
 msgid "There was an error importing the data."
-msgstr "Houbo un problema ó importar os datos."
+msgstr "Houbo un problema Ã³ importar os datos."
 
 msgid "There was an error importing the uploaded file"
-msgstr "Houbo un problema ó importar o arquivo enviado"
+msgstr "Houbo un problema Ã³ importar o arquivo enviado"
 
 msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Este arquivo controla as preferencias predeterminadas de Turba, así como as "
+"Este arquivo controla as preferencias predeterminadas de Turba, asÃ­ como as "
 "que poden mudar os usuarios."
 
 msgid ""
@@ -325,7 +325,7 @@ msgid ""
 "addition to or overriding Horde defaults."
 msgstr ""
 "Este arquivo controla as follas de estilo empregadas para fixar as cores e "
-"os tipos de letra, e pode complementar ou substituír as predeterminadas de "
+"os tipos de letra, e pode complementar ou substituÃ­r as predeterminadas de "
 "Horde."
 
 msgid ""
@@ -336,36 +336,36 @@ msgstr ""
 "de correo, etc."
 
 msgid "This file defines the list of available sources for Turba."
-msgstr "Este arquivo define a lista de fontes de datos dispoñibles para Turba."
+msgstr "Este arquivo define a lista de fontes de datos dispoÃ±ibles para Turba."
 
 msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"Este é o arquivo principal de configuración de Turba. Contén as rutas e "
-"opcións de tódolos programas de Turba."
+"Este Ã© o arquivo principal de configuraciÃ³n de Turba. ContÃ©n as rutas e "
+"opciÃ³ns de tÃ³dolos programas de Turba."
 
 msgid "This number must be at least one."
-msgstr "O número debe ser polo menos un 1."
+msgstr "O nÃºmero debe ser polo menos un 1."
 
 msgid "This person is already in your addressbook."
-msgstr "Xa está rexistrada na súa axenda de enderezos."
+msgstr "Xa estÃ¡ rexistrada na sÃºa axenda de enderezos."
 
 msgid "This value must be a number."
-msgstr "O valor debe ser un número."
+msgstr "O valor debe ser un nÃºmero."
 
 msgid "Title"
-msgstr "Título"
+msgstr "TÃ­tulo"
 
 msgid "Turba is not properly configured"
-msgstr "O Turba non está correctamente configurado"
+msgstr "O Turba non estÃ¡ correctamente configurado"
 
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "Non é posible cargar a definición de %s."
+msgstr "Non Ã© posible cargar a definiciÃ³n de %s."
 
 msgid "User Options"
-msgstr "Opcións do usuario"
+msgstr "OpciÃ³ns do usuario"
 
 msgid "Warning"
 msgstr "Aviso"
@@ -374,20 +374,20 @@ msgid "Work Address"
 msgstr "Enderezo do traballo"
 
 msgid "Work Phone"
-msgstr "Teléfono do traballo"
+msgstr "TelÃ©fono do traballo"
 
 msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"Non asociou ningún campo do arquivo importado ós campos correspondentes no "
+"Non asociou ningÃºn campo do arquivo importado Ã³s campos correspondentes no "
 "Turba."
 
 msgid "Your Information"
-msgstr "A súa información"
+msgstr "A sÃºa informaciÃ³n"
 
 msgid "Your options have been updated."
-msgstr "Actualizáronse as súas opcións"
+msgstr "ActualizÃ¡ronse as sÃºas opciÃ³ns"
 
 msgid "[Edit]"
 msgstr "[Editar]"
@@ -396,10 +396,10 @@ msgid "add column"
 msgstr "engadir unha columna"
 
 msgid "move left"
-msgstr "mover á esquerda"
+msgstr "mover Ã¡ esquerda"
 
 msgid "move right"
-msgstr "mover á dereita"
+msgstr "mover Ã¡ dereita"
 
 msgid "remove column"
 msgstr "eliminar a columna"
@@ -420,7 +420,7 @@ msgid "Select the format used to display names:"
 msgstr "Seleccionar o formato usado para amosar os nomes:"
 
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "Nome, Apelidos (p.e. Xoan Gómez)"
+msgstr "Nome, Apelidos (p.e. Xoan GÃ³mez)"
 
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "Apelidos, Nome (p.e. Gómez, Xoan)"
+msgstr "Apelidos, Nome (p.e. GÃ³mez, Xoan)"

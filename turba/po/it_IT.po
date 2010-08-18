@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Nethesis srl <info@nethesis.it>\n"
 "Language-Team: Italian <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -30,12 +30,12 @@ msgstr "Elimina la rubrica IMSP"
 #: data.php:350
 #, php-format
 msgid "\"%s\" already exists and was not imported."
-msgstr "\"%s\" esistente, non Ë stato importato."
+msgstr "\"%s\" esistente, non √® stato importato."
 
 #: lib/Forms/EditContact.php:76
 #, php-format
 msgid "\"%s\" updated, but saving the uploaded file failed: %s"
-msgstr "\"%s\" aggiornato, ma il salvataggio del file uplodato Ë fallito: %s"
+msgstr "\"%s\" aggiornato, ma il salvataggio del file uplodato √® fallito: %s"
 
 #: lib/Forms/EditContact.php:78 lib/Forms/EditContact.php:81
 #, php-format
@@ -45,12 +45,12 @@ msgstr "\"%s\" aggiornato."
 #: lib/Views/Browse.php:192
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
-msgstr "\"%s\" non Ë stato copiato, gi‡ in lista."
+msgstr "\"%s\" non √® stato copiato, gi√† in lista."
 
 #: lib/Views/Browse.php:190
 #, php-format
 msgid "\"%s\" was not moved because it is a list."
-msgstr "\"%s\" non Ë stato spostato, gi‡ in lista."
+msgstr "\"%s\" non √® stato spostato, gi√† in lista."
 
 #: config/prefs.php.dist:127
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
@@ -157,7 +157,7 @@ msgstr "Tutti"
 
 #: lib/api.php:810
 msgid "Already Exists"
-msgstr "Gi‡ esistente"
+msgstr "Gi√† esistente"
 
 #: config/attributes.php.dist:106
 msgid "Anniversaries"
@@ -298,7 +298,7 @@ msgstr "Indirizzo Comune Esteso"
 
 #: config/attributes.php.dist:494
 msgid "Common City"
-msgstr "Citt‡ Comune"
+msgstr "Citt√† Comune"
 
 #: config/attributes.php.dist:512
 msgid "Common Country"
@@ -629,7 +629,7 @@ msgstr "Indirizzo Abitazione"
 
 #: config/attributes.php.dist:141
 msgid "Home City"
-msgstr "Citt‡ Abitazione"
+msgstr "Citt√† Abitazione"
 
 #: config/attributes.php.dist:159
 msgid "Home Country"
@@ -748,7 +748,7 @@ msgstr "La chiave per il salvataggio deve essere un UID, non %s"
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"Il supporto LDAP Ë richiesto ma il modulo LDAP non Ë disponibile o caricato."
+"Il supporto LDAP √® richiesto ma il modulo LDAP non √® disponibile o caricato."
 
 #: data.php:65 templates/data/export.inc:16 templates/data/import.inc:18
 msgid "LDIF Address Book"
@@ -829,7 +829,7 @@ msgstr "Altre Opzioni..."
 
 #: lib/api.php:1706
 msgid "More than 1 entry found"
-msgstr "Risulta pi˘ di un dato."
+msgstr "Risulta pi√π di un dato."
 
 #: templates/browse/actions.inc:16
 msgid "Move"
@@ -901,12 +901,12 @@ msgstr "Nessun dato %s trovato per %s."
 msgid ""
 "No Address Books are currently available. Import and Export is disabled."
 msgstr ""
-"Nessuna rubrica Ë al momento disponibile. Importazione/Esportazione "
+"Nessuna rubrica √® al momento disponibile. Importazione/Esportazione "
 "disattivata."
 
 #: search.php:107
 msgid "No Address Books are currently available. Searching is disabled."
-msgstr "Nessuna rubrica Ë al momento disponibile. La ricerca Ë disattivata."
+msgstr "Nessuna rubrica √® al momento disponibile. La ricerca √® disattivata."
 
 #: lib/api.php:561 lib/api.php:616 lib/api.php:676 lib/api.php:858
 #: lib/api.php:950 lib/api.php:1015
@@ -977,13 +977,13 @@ msgid ""
 "deleted. If this is not what you want, then you must change your selection "
 "to \"None\"."
 msgstr ""
-"Una volta confermate queste opzioni, la rubrica verr‡ eliminata "
-"definitivamente. Se non Ë questo che si desidera, modificare la selezione su "
+"Una volta confermate queste opzioni, la rubrica verr√† eliminata "
+"definitivamente. Se non √® questo che si desidera, modificare la selezione su "
 "\"Nessuna\""
 
 #: lib/api.php:1068
 msgid "Only one vcard supported."
-msgstr "Solo un vCard Ë supportato."
+msgstr "Solo un vCard √® supportato."
 
 #: config/sources.php.dist:245 config/sources.php.dist:924
 msgid "Organization"
@@ -1043,7 +1043,7 @@ msgstr "Lettura fallita: (%s) %s"
 
 #: lib/Driver.php:1868 lib/Driver/null.php:52
 msgid "Reading contacts is not available."
-msgstr "La visualizzazione dei contatti non Ë disponibile."
+msgstr "La visualizzazione dei contatti non √® disponibile."
 
 #: lib/Forms/DeleteAddressBook.php:43
 #, php-format
@@ -1051,7 +1051,7 @@ msgid ""
 "Really delete the address book \"%s\"? This cannot be undone and all "
 "contacts in this address book will be permanently removed."
 msgstr ""
-"Sei sicuro di eliminare la rubrica %s?. Questa operazione non puÚ essere "
+"Sei sicuro di eliminare la rubrica %s?. Questa operazione non pu√≤ essere "
 "annullata e tutti i contatti di questa rubrica saranno eliminati "
 "permanentemente."
 
@@ -1083,7 +1083,7 @@ msgstr ""
 msgid "Requested object not found."
 msgstr ""
 "Oggetto richiesto non trovato.Sostituisci la rubrica esistente con quella "
-"impostata? <strong>Attenzione: questo eliminer‡ tutti i contatti nella "
+"impostata? <strong>Attenzione: questo eliminer√† tutti i contatti nella "
 "rubrica attuale.</strong>"
 
 #: templates/browse/search.inc:120
@@ -1113,7 +1113,7 @@ msgstr "Salva la ricerca come rubrica Virtuale?"
 
 #: lib/Driver.php:1894 lib/Driver/null.php:67
 msgid "Saving contacts is not available."
-msgstr "Il salvataggio dei contatti non Ë disponibile"
+msgstr "Il salvataggio dei contatti non √® disponibile"
 
 #: lib/Block/tree_menu.php:58 templates/block/minisearch.inc:26
 #: templates/browse/header.inc:3 templates/browse/search.inc:111
@@ -1136,7 +1136,7 @@ msgstr "Ricerca di: "
 
 #: lib/Driver.php:1853 lib/Driver/null.php:47
 msgid "Searching is not available."
-msgstr "La ricerca non Ë disponibile."
+msgstr "La ricerca non √® disponibile."
 
 #: templates/browse/row.inc:40
 msgid "Select contact"
@@ -1309,32 +1309,32 @@ msgstr "La rubrica \"%s\" non esiste."
 #: addressbooks/create.php:32
 #, php-format
 msgid "The address book \"%s\" has been created."
-msgstr "La rubrica \"%s\" Ë stata creata."
+msgstr "La rubrica \"%s\" √® stata creata."
 
 #: data.php:328
 #, php-format
 msgid "The address book could not be purged: %s"
-msgstr "la rubrica non puÚ essere svuotata: %s"
+msgstr "la rubrica non pu√≤ essere svuotata: %s"
 
 #: addressbooks/delete.php:50
 #, php-format
 msgid "The addressbook \"%s\" has been deleted."
-msgstr "la rubrica %s Ë stato eliminata"
+msgstr "la rubrica %s √® stato eliminata"
 
 #: contact.php:57
 msgid "This contact has been marked as your own."
 msgstr ""
-"Questo contatto Ë stato selezionato come propria informazione personale."
+"Questo contatto √® stato selezionato come propria informazione personale."
 
 #: addressbooks/edit.php:44
 #, php-format
 msgid "The addressbook \"%s\" has been renamed to \"%s\"."
-msgstr "La rubrica \"%s\" Ë stata rinominata in %s."
+msgstr "La rubrica \"%s\" √® stata rinominata in %s."
 
 #: addressbooks/edit.php:46
 #, php-format
 msgid "The addressbook \"%s\" has been saved."
-msgstr "La rubrica \"%s\" Ë stata salvata."
+msgstr "La rubrica \"%s\" √® stata salvata."
 
 #: contact.php:23 view.php:28 vcard.php:19
 msgid "The contact you requested does not exist."
@@ -1343,11 +1343,11 @@ msgstr "L'oggetto richiesto non esiste."
 #: deletefile.php:46
 #, php-format
 msgid "The file \"%s\" has been deleted."
-msgstr "Il file %s Ë stato eliminato"
+msgstr "Il file %s √® stato eliminato"
 
 #: data.php:301
 msgid "The import can be finished despite the warnings."
-msgstr "L'impostazione puÚ essere ultimata malgrado gli avvertimenti."
+msgstr "L'impostazione pu√≤ essere ultimata malgrado gli avvertimenti."
 
 #: lib/Views/EditContact.php:43 lib/Views/DeleteContact.php:36
 #: lib/Views/Contact.php:59
@@ -1364,7 +1364,7 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"Nessuna delle rubriche disponibili Ë configurata in modo da consertirti di "
+"Nessuna delle rubriche disponibili √® configurata in modo da consertirti di "
 "aggiungere nuove entrate. Se pensi sia un errore, per favore contatta il tuo "
 "amministratore di sistema."
 
@@ -1372,20 +1372,20 @@ msgstr ""
 #, php-format
 msgid "There is %d contact in this list that is not viewable to you"
 msgid_plural "There are %d contacts in this list that are not viewable to you"
-msgstr[0] "C'Ë %d contatto in questa lista che non Ë visibile da te"
+msgstr[0] "C'√® %d contatto in questa lista che non √® visibile da te"
 msgstr[1] "Ci sono %d contatti in questa lista che non sono visibili da te"
 
 #: search.php:161
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
-msgstr "Si Ë verificato un errore nella creazione della rubrica virtuale %s"
+msgstr "Si √® verificato un errore nella creazione della rubrica virtuale %s"
 
 #: lib/Forms/AddContact.php:90
 msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
 msgstr ""
-"C'Ë stato un errore aggiungendo questo oggetto. Contatta il tuo "
+"C'√® stato un errore aggiungendo questo oggetto. Contatta il tuo "
 "amministratore di sistema per ulteriore aiuto."
 
 #: lib/Views/Browse.php:311
@@ -1395,7 +1395,7 @@ msgstr "Errore nella creazione di una nuova lista."
 #: lib/Views/Browse.php:221
 #, php-format
 msgid "There was an error deleting \"%s\" from the source address book."
-msgstr "Si Ë verificato un errore nell'eliminazione di %s dalla rubrica."
+msgstr "Si √® verificato un errore nell'eliminazione di %s dalla rubrica."
 
 #: delete.php:39
 #, php-format
@@ -1425,7 +1425,7 @@ msgid ""
 "There was an error saving the contact. Contact your system administrator for "
 "further help."
 msgstr ""
-"C'Ë stato un errore aggiungendo questo oggetto. Contatta il tuo "
+"C'√® stato un errore aggiungendo questo oggetto. Contatta il tuo "
 "amministratore di sistema per ulteriore aiuto."
 
 #: data.php:187
@@ -1439,22 +1439,22 @@ msgstr "Queste rubriche verranno visualizzate in questo ordine:"
 
 #: addressbooks/delete.php:26
 msgid "This addressbook cannot be deleted"
-msgstr "la rubrica non puÚ essere eliminata"
+msgstr "la rubrica non pu√≤ essere eliminata"
 
 #: data.php:286
 msgid "This file format is not supported."
-msgstr "Questo formato di file non Ë supportato."
+msgstr "Questo formato di file non √® supportato."
 
 #: lib/api.php:1623 lib/api.php:1636
 #, php-format
 msgid "This person already has a %s entry in the address book"
-msgstr "Questa persona ha gi‡ una %s scheda nella rubrica."
+msgstr "Questa persona ha gi√† una %s scheda nella rubrica."
 
 #: config/prefs.php.dist:138
 msgid ""
 "This will be the default address book when adding or importing contacts."
 msgstr ""
-"Questa sar‡ la rubrica di default nell'inserimento o impostazione di "
+"Questa sar√† la rubrica di default nell'inserimento o impostazione di "
 "contatti."
 
 #: config/attributes.php.dist:229
@@ -1519,7 +1519,7 @@ msgstr "Indirizzo Ufficio Esteso"
 
 #: config/attributes.php.dist:191
 msgid "Work City"
-msgstr "Citt‡ Ufficio"
+msgstr "Citt√† Ufficio"
 
 #: config/attributes.php.dist:209
 msgid "Work Country"
@@ -1580,7 +1580,7 @@ msgstr "Non sei abilitato alla modifica di questa rubrica."
 #: add.php:48 data.php:250 lib/Views/Browse.php:159 lib/Views/Browse.php:274
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
-msgstr "Non sei abilitato a creare pi˘ di %d contatti in \"%s\"."
+msgstr "Non sei abilitato a creare pi√π di %d contatti in \"%s\"."
 
 #: addressbooks/delete.php:37
 msgid "You are not allowed to delete this addressbook."
@@ -1651,7 +1651,7 @@ msgstr "Hai solo il permesso di visualizzare il contatto."
 
 #: lib/Views/Browse.php:362
 msgid "Your default address book is not browseable."
-msgstr "La tua rubrica di default non Ë sfogliabile."
+msgstr "La tua rubrica di default non √® sfogliabile."
 
 #: templates/browse/contactrow.inc:12
 msgid "[no value]"

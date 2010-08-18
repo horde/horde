@@ -21,7 +21,7 @@ msgstr ""
 "Last-Translator: guille <guille@usc.es>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
@@ -73,17 +73,17 @@ msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
 msgstr "%s: %s (%d&nbsp;de&nbsp;%d)"
 
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(Aplica os cambios e pasa á seguinte pantalla.)"
+msgstr "(Aplica os cambios e pasa Ã¡ seguinte pantalla.)"
 
 msgid "(Discard all changes and return to the compose screen.)"
-msgstr "(Desfacer tódolos cambios e regresar á pantalla de redacción.)"
+msgstr "(Desfacer tÃ³dolos cambios e regresar Ã¡ pantalla de redacciÃ³n.)"
 
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(Regresar á pantalla de redacción despois de aplicar tódolos cambios feitos "
-"ata agora. Os cambios na pantalla actual NON se aplicarán.)"
+"(Regresar Ã¡ pantalla de redacciÃ³n despois de aplicar tÃ³dolos cambios feitos "
+"ata agora. Os cambios na pantalla actual NON se aplicarÃ¡n.)"
 
 msgid "* Add these by clicking OK *"
 msgstr "* Engadir estes premendo en OK *"
@@ -97,16 +97,16 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>Esta mensaxe escribiuse utilizando un xogo de caracteres diferente ó "
-"seu. Se non mostra correctamente,  %sprema aquí</a> para abrila nunha nova "
+"<p><i>Esta mensaxe escribiuse utilizando un xogo de caracteres diferente Ã³ "
+"seu. Se non mostra correctamente,  %sprema aquÃ­</a> para abrila nunha nova "
 "xanela.</i></p>\n"
 
 msgid "Action"
-msgstr "Acción"
+msgstr "AcciÃ³n"
 
 #, c-format
 msgid "Add to Addressbook (%s)"
-msgstr "Engadir á axenda de enderezos (%s)"
+msgstr "Engadir Ã¡ axenda de enderezos (%s)"
 
 msgid "Added an attachment."
 msgstr "Engadiuse un arquivo anexo."
@@ -118,13 +118,13 @@ msgid "Addressbooks"
 msgstr "Axendas de enderezos"
 
 msgid "All messages in the folder(s) will be lost!"
-msgstr "¡Eliminaranse tódalas mensaxes do(s) cartafol(es)!"
+msgstr "Â¡Eliminaranse tÃ³dalas mensaxes do(s) cartafol(es)!"
 
 msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
 msgstr ""
-"Tódalas mensaxes do(s) seguinte(s) cartafol(es) descargaranse nun arquivo de "
+"TÃ³dalas mensaxes do(s) seguinte(s) cartafol(es) descargaranse nun arquivo de "
 "tipo MBOX: "
 
 #, c-format
@@ -132,22 +132,22 @@ msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Vanse borrar de vez as mensaxes do cartafol \"%s\" con máis de %s días serán "
+"Vanse borrar de vez as mensaxes do cartafol \"%s\" con mÃ¡is de %s dÃ­as serÃ¡n "
 "eliminadas permanentemente."
 
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr ""
-"Vanse eliminar os cartafoles de mensaxes enviadas hai máis de  %s meses ."
+"Vanse eliminar os cartafoles de mensaxes enviadas hai mÃ¡is de  %s meses ."
 
 msgid "All"
 msgstr "Todos"
 
 msgid "An illegal value was specified."
-msgstr "Especificou un valor non válido."
+msgstr "Especificou un valor non vÃ¡lido."
 
 msgid "An unknown error occured adding the new entry."
-msgstr "Produciuse un problema descoñecido ó engadir o novo rexistro."
+msgstr "Produciuse un problema descoÃ±ecido Ã³ engadir o novo rexistro."
 
 msgid "Answered messages"
 msgstr "Mensaxes respondidas"
@@ -156,34 +156,34 @@ msgid "Answered"
 msgstr "Respondida"
 
 msgid "Apply All Rules"
-msgstr "Aplicar tódalas regras"
+msgstr "Aplicar tÃ³dalas regras"
 
 msgid "Apply Filters on"
 msgstr "Aplicar os filtros"
 
 msgid "Apply filter rules upon logging on."
-msgstr "Aplicar as regras de filtraxe ó inicio da sesión."
+msgstr "Aplicar as regras de filtraxe Ã³ inicio da sesiÃ³n."
 
 msgid "Apply filter rules when mailbox is refreshed."
-msgstr "Aplicar as regras de filtraxe ó descargar o correo."
+msgstr "Aplicar as regras de filtraxe Ã³ descargar o correo."
 
 msgid "April"
 msgstr "Abril"
 
 msgid "Are you SURE you want to continue?"
-msgstr "¿Está SEGURO de que desexa continuar?"
+msgstr "Â¿EstÃ¡ SEGURO de que desexa continuar?"
 
 msgid "Are you completely sure you wish to continue?"
-msgstr "¿Está completamente seguro de que desexa continuar?"
+msgstr "Â¿EstÃ¡ completamente seguro de que desexa continuar?"
 
 msgid "Are you sure you want to do this?"
-msgstr "¿Está seguro de que desexa facer isto?"
+msgstr "Â¿EstÃ¡ seguro de que desexa facer isto?"
 
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "¿Está seguro de que desexa eliminar DE VEZ estas mensaxes?"
+msgstr "Â¿EstÃ¡ seguro de que desexa eliminar DE VEZ estas mensaxes?"
 
 msgid "Are you sure you wish to empty this folder?"
-msgstr "¿Está seguro que desexa baleirar este cartafol?"
+msgstr "Â¿EstÃ¡ seguro que desexa baleirar este cartafol?"
 
 msgid "Arrival Time"
 msgstr "Por hora de chegada"
@@ -192,10 +192,10 @@ msgid "Ascending"
 msgstr "Ascendente"
 
 msgid "Attach"
-msgstr "Acompañar"
+msgstr "AcompaÃ±ar"
 
 msgid "Attachment"
-msgstr "Acompañar un arquivo"
+msgstr "AcompaÃ±ar un arquivo"
 
 msgid "Attachments"
 msgstr "Anexos"
@@ -204,7 +204,7 @@ msgid "August"
 msgstr "Agosto"
 
 msgid "Available Addressbooks:"
-msgstr "Axendas de enderezos dispoñibles:"
+msgstr "Axendas de enderezos dispoÃ±ibles:"
 
 #, c-format
 msgid "Back to %s"
@@ -229,7 +229,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Cancelling this message will permanently discard its contents."
-msgstr "Se cancela esta mensaxe perderá o contido."
+msgstr "Se cancela esta mensaxe perderÃ¡ o contido."
 
 msgid "Cc"
 msgstr "Cc"
@@ -244,18 +244,18 @@ msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"Cambiar opcións de visualización tales como cántas mensaxes verá por páxina "
+"Cambiar opciÃ³ns de visualizaciÃ³n tales como cÃ¡ntas mensaxes verÃ¡ por pÃ¡xina "
 "e como se ordenan."
 
 msgid "Change mail server settings."
-msgstr "Cambiar as opcións do servidor de correo."
+msgstr "Cambiar as opciÃ³ns do servidor de correo."
 
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Cambiar o nome, o enderezo electrónico e a sinatura que se ve cando len e "
-"responden ás súas mensaxes."
+"Cambiar o nome, o enderezo electrÃ³nico e a sinatura que se ve cando len e "
+"responden Ã¡s sÃºas mensaxes."
 
 msgid "Change"
 msgstr "Cambiar"
@@ -264,10 +264,10 @@ msgid "Check Folder(s) for New Mail"
 msgstr "Buscar correo novo bis cartafoles"
 
 msgid "Checkbox"
-msgstr "Selección"
+msgstr "SelecciÃ³n"
 
 msgid "Choose Action:"
-msgstr "Elixir unha acción:"
+msgstr "Elixir unha acciÃ³n:"
 
 msgid "Choose the addressbook to use when adding addresses."
 msgstr "Elixa unha axenda para engadir enderezos."
@@ -278,7 +278,7 @@ msgstr ""
 
 #, c-format
 msgid "Cleared all messages from %s."
-msgstr "Elimináronse tódalas mensaxes de %s."
+msgstr "EliminÃ¡ronse tÃ³dalas mensaxes de %s."
 
 msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
@@ -291,7 +291,7 @@ msgid "Closed Folder"
 msgstr "Cartafol pechado"
 
 msgid "Collapse All Folders"
-msgstr "Comprimir tódolos cartafoles"
+msgstr "Comprimir tÃ³dolos cartafoles"
 
 msgid "Collapse All"
 msgstr "Comprimilos todos"
@@ -301,20 +301,20 @@ msgstr "Comprimir o cartafol"
 
 #, c-format
 msgid "Compose Message (%s)"
-msgstr "Redacción da mensaxe (%s)"
+msgstr "RedacciÃ³n da mensaxe (%s)"
 
 msgid "Compose a message"
 msgstr "Redactar unha nova mensaxe"
 
 msgid "Compose messages in a separate window?"
-msgstr "Redactar mensaxes nunha xanela á parte."
+msgstr "Redactar mensaxes nunha xanela Ã¡ parte."
 
 msgid ""
 "Display confirmation after sending a message? (only when not using a pop-up "
 "compose window)"
 msgstr ""
-"¿Amosar confirmación despois de enviar unha mensaxe? (só cando non se use "
-"unha xanela de composición pop-up)"
+"Â¿Amosar confirmaciÃ³n despois de enviar unha mensaxe? (sÃ³ cando non se use "
+"unha xanela de composiciÃ³n pop-up)"
 
 msgid "Compose"
 msgstr "Nova"
@@ -326,7 +326,7 @@ msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"Controla a comprobación do correo novo e a súa notificación polo sistema."
+"Controla a comprobaciÃ³n do correo novo e a sÃºa notificaciÃ³n polo sistema."
 
 msgid "Copy"
 msgstr "Copiar"
@@ -365,17 +365,17 @@ msgstr "Crear"
 
 msgid "Customize how you send mail and where drafts are saved."
 msgstr ""
-"Personalizar o envío de correo e o lugar onde se van gardar os borradores."
+"Personalizar o envÃ­o de correo e o lugar onde se van gardar os borradores."
 
 #, c-format
 msgid "Customize maintenance operations run upon login to %s."
 msgstr ""
-"Personalizar a execución das operacións de mantemento ó iniciar a sesión en %"
+"Personalizar a execuciÃ³n das operaciÃ³ns de mantemento Ã³ iniciar a sesiÃ³n en %"
 "s."
 
 #, c-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Personalizar as tarefas que se executen ó iniciar a sesión en %s."
+msgstr "Personalizar as tarefas que se executen Ã³ iniciar a sesiÃ³n en %s."
 
 msgid "Date"
 msgstr "Data"
@@ -384,10 +384,10 @@ msgid "December"
 msgstr "Decembro"
 
 msgid "Default sorting criteria:"
-msgstr "Criterio de clasificación predeterminado:"
+msgstr "Criterio de clasificaciÃ³n predeterminado:"
 
 msgid "Default sorting direction:"
-msgstr "Orde de clasificación predeterminado:"
+msgstr "Orde de clasificaciÃ³n predeterminado:"
 
 msgid "Delete Folder(s)"
 msgstr "Eliminar cartafol(es)"
@@ -417,16 +417,16 @@ msgid "Descending"
 msgstr "Descendente"
 
 msgid "Dim signatures?"
-msgstr "¿Atenuar a sinatura?"
+msgstr "Â¿Atenuar a sinatura?"
 
 msgid "Display Options"
-msgstr "Opcións de visualización"
+msgstr "OpciÃ³ns de visualizaciÃ³n"
 
 msgid "Display message when filters have been applied."
 msgstr "Visualizar a mensaxe cando se apliquen os filtros."
 
 msgid "Display pop-up notification of new mail?"
-msgstr "Mostrar a xanela de notificación de correo novo."
+msgstr "Mostrar a xanela de notificaciÃ³n de correo novo."
 
 msgid "Display"
 msgstr "Visualizar"
@@ -435,7 +435,7 @@ msgid "Do Not Check Folder(s) for New Mail"
 msgstr "Non examinar cartafoles para buscar o correo novo"
 
 msgid "Do you want to open that folder?"
-msgstr "¿Desexa abrir ese cartafol?"
+msgstr "Â¿Desexa abrir ese cartafol?"
 
 msgid "Done"
 msgstr "Feito"
@@ -460,13 +460,13 @@ msgid "Edit your filter rules"
 msgstr "Editar as regras de filtraxe"
 
 msgid "Edit your identities"
-msgstr "Editar as súas identidades"
+msgstr "Editar as sÃºas identidades"
 
 msgid "Edit"
 msgstr "Editar"
 
 msgid "Email Address"
-msgstr "Enderezo de correo electrónico"
+msgstr "Enderezo de correo electrÃ³nico"
 
 msgid "Empty Folder(s)"
 msgstr "Baleirar os cartafol(es)"
@@ -491,7 +491,7 @@ msgstr "Introduza o nome do novo cartafol do lixo"
 
 #, c-format
 msgid "Entry \"%s\" was successfully added to the addressbook"
-msgstr "O rexistro \"%s\" engadiuse correctamente á axenda dos enderezos"
+msgstr "O rexistro \"%s\" engadiuse correctamente Ã¡ axenda dos enderezos"
 
 msgid "Error"
 msgstr "Erro"
@@ -525,7 +525,7 @@ msgstr "Expandir os nomes"
 
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr ""
-"¿Expandir por defecto toda a árbore dos cartafoles na vista de cartafoles?"
+"Â¿Expandir por defecto toda a Ã¡rbore dos cartafoles na vista de cartafoles?"
 
 msgid "February"
 msgstr "Febreiro"
@@ -552,7 +552,7 @@ msgstr ""
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
-msgstr "Actividade dos filtros: A mensaxe \"%s\" de \"%s\" botouse ó lixo."
+msgstr "Actividade dos filtros: A mensaxe \"%s\" de \"%s\" botouse Ã³ lixo."
 
 msgid "Filter Rules"
 msgstr "Regras de filtraxe"
@@ -567,7 +567,7 @@ msgid "Find"
 msgstr "Atopar"
 
 msgid "First Page"
-msgstr "Primeira páxina"
+msgstr "Primeira pÃ¡xina"
 
 msgid "Folder Navigator"
 msgstr "Navegador dos cartafoles"
@@ -610,7 +610,7 @@ msgid "Hide Unsubscribed"
 msgstr "Ocultar as non subscritas"
 
 msgid "How to prefix quoted lines in a reply:"
-msgstr "Prefixo para citar as liñas da mensaxe de resposta::"
+msgstr "Prefixo para citar as liÃ±as da mensaxe de resposta::"
 
 msgid "IMP is not properly configured"
 msgstr "O IMP non se configurou correctamente"
@@ -640,7 +640,7 @@ msgid "Important"
 msgstr "Importante"
 
 msgid "Include original message in a reply?"
-msgstr "¿Incluír a mensaxe orixinal na resposta?"
+msgstr "Â¿IncluÃ­r a mensaxe orixinal na resposta?"
 
 msgid "January"
 msgstr "Xaneiro"
@@ -649,20 +649,20 @@ msgid "July"
 msgstr "Xullo"
 
 msgid "June"
-msgstr "Xuño"
+msgstr "XuÃ±o"
 
 msgid "Language"
 msgstr "Lingua"
 
 msgid "Last Page"
-msgstr "Última páxina"
+msgstr "Ãšltima pÃ¡xina"
 
 #, c-format
 msgid "Last login: %s"
-msgstr "Última sesión: %s"
+msgstr "Ãšltima sesiÃ³n: %s"
 
 msgid "Last login: Never"
-msgstr "Última sesión: Nunca"
+msgstr "Ãšltima sesiÃ³n: Nunca"
 
 #, c-format
 msgid "Log in to %s"
@@ -672,29 +672,29 @@ msgid "Log in"
 msgstr "Entrar"
 
 msgid "Login Tasks"
-msgstr "Tarefas de inicio de sesión"
+msgstr "Tarefas de inicio de sesiÃ³n"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"O inicio de sesión fallou por algunha razón. O máis probable é que escribira "
+"O inicio de sesiÃ³n fallou por algunha razÃ³n. O mÃ¡is probable Ã© que escribira "
 "mal o nome de usuario ou chave de acceso."
 
 msgid "Logout"
-msgstr "Pechar a sesión"
+msgstr "Pechar a sesiÃ³n"
 
 msgid "Mail Filters"
 msgstr "Filtros de correo"
 
 msgid "Mail Management"
-msgstr "Xestión do correo"
+msgstr "XestiÃ³n do correo"
 
 msgid "Mailbox"
 msgstr "Caixa de correo"
 
 msgid "Maintenance Operations"
-msgstr "Operacións de mantemento"
+msgstr "OperaciÃ³ns de mantemento"
 
 msgid "March"
 msgstr "Marzo"
@@ -703,7 +703,7 @@ msgid "Mark as:"
 msgstr "Marcar como:"
 
 msgid "Mark different levels of quoting with different colors?"
-msgstr "¿Marcar os niveis diferentes da cita con cores distintas?"
+msgstr "Â¿Marcar os niveis diferentes da cita con cores distintas?"
 
 msgid "May"
 msgstr "Maio"
@@ -718,13 +718,13 @@ msgid "Message Search"
 msgstr "Busca de mensaxes"
 
 msgid "Message Size"
-msgstr "Por tamaño da mensaxe"
+msgstr "Por tamaÃ±o da mensaxe"
 
 msgid "Message Source"
-msgstr "Código fonte da mensaxe"
+msgstr "CÃ³digo fonte da mensaxe"
 
 msgid "Message Viewing"
-msgstr "Visualización de mensaxes"
+msgstr "VisualizaciÃ³n de mensaxes"
 
 msgid "Message fields"
 msgstr "Campos da mensaxe"
@@ -742,7 +742,7 @@ msgid "Message"
 msgstr "Mensaxe"
 
 msgid "Messages per page in the mailbox view."
-msgstr "Mensaxes por páxina na lista da caixa do correo."
+msgstr "Mensaxes por pÃ¡xina na lista da caixa do correo."
 
 msgid "Messages to"
 msgstr "Mensaxes a"
@@ -785,7 +785,7 @@ msgid "Next Message"
 msgstr "Seguinte mensaxe"
 
 msgid "Next Page"
-msgstr "Seguinte páxina"
+msgstr "Seguinte pÃ¡xina"
 
 msgid "Next"
 msgstr "Seguinte"
@@ -794,16 +794,16 @@ msgid "No Subject"
 msgstr "Sen asunto"
 
 msgid "No folders were specified"
-msgstr "Non especificou ningún cartafol"
+msgstr "Non especificou ningÃºn cartafol"
 
 msgid "No messages matched your search"
 msgstr "Non hai mensaxes que cumpran o criterio da busca"
 
 msgid "No spelling errors"
-msgstr "Non hai erros de ortografía"
+msgstr "Non hai erros de ortografÃ­a"
 
 msgid "No suggestions"
-msgstr "Non hai suxestións"
+msgstr "Non hai suxestiÃ³ns"
 
 msgid "No"
 msgstr "Non"
@@ -815,13 +815,13 @@ msgid "Not Deleted"
 msgstr "Non eliminada"
 
 msgid "Not Draft"
-msgstr "Non é un borrador"
+msgstr "Non Ã© un borrador"
 
 msgid "Not Important"
-msgstr "Non é importante"
+msgstr "Non Ã© importante"
 
 msgid "Not Personal"
-msgstr "Non é persoal"
+msgstr "Non Ã© persoal"
 
 msgid "Not deleted messages"
 msgstr "Mensaxes non eliminadas"
@@ -834,7 +834,7 @@ msgstr "Novembro"
 
 msgid "Number of old sent-mail folders to keep if deleting monthly."
 msgstr ""
-"Número de cartafoles de correo enviado que se van manter ó eliminalos "
+"NÃºmero de cartafoles de correo enviado que se van manter Ã³ eliminalos "
 "mensualmente"
 
 msgid "OK"
@@ -853,14 +853,14 @@ msgid "Open Folder"
 msgstr "Abrir o cartafol"
 
 msgid "Options"
-msgstr "Opcións"
+msgstr "OpciÃ³ns"
 
 msgid "Other Options"
-msgstr "Outras opcións"
+msgstr "Outras opciÃ³ns"
 
 #, c-format
 msgid "Page %d of %d"
-msgstr "Páxina %d de %d"
+msgstr "PÃ¡xina %d de %d"
 
 msgid "Part(s)"
 msgstr "Parte(s)"
@@ -869,16 +869,16 @@ msgid "Password"
 msgstr "Chave de acceso"
 
 msgid "Perform maintenance operations on login?"
-msgstr "Realizar as operacións de mantemento ó inicio de sesión"
+msgstr "Realizar as operaciÃ³ns de mantemento Ã³ inicio de sesiÃ³n"
 
 msgid "Personal Information"
-msgstr "Información persoal"
+msgstr "InformaciÃ³n persoal"
 
 msgid "Personal"
 msgstr "Persoal"
 
 msgid "Place your signature before replies and forwards?"
-msgstr "¿Quere colocar a súa sinatura na mensaxe de resposta e nos reenvíos?"
+msgstr "Â¿Quere colocar a sÃºa sinatura na mensaxe de resposta e nos reenvÃ­os?"
 
 msgid "Please enter the name of the new folder:"
 msgstr "Introduza o nome do novo cartafol:"
@@ -887,7 +887,7 @@ msgid "Please enter the new name:"
 msgstr "Introduza o novo nome:"
 
 msgid "Please enter valid search criteria."
-msgstr "Introduza un criterio de busca válido."
+msgstr "Introduza un criterio de busca vÃ¡lido."
 
 msgid "Please provide your username and password"
 msgstr "Indique o seu nome de usuario e a chave de acceso"
@@ -896,25 +896,25 @@ msgid "Please resolve ambiguous or invalid addresses."
 msgstr "Corrixa os enderezos ambiguos ou incorrectos."
 
 msgid "Please select a folder before you perform any actions."
-msgstr "Seleccione un cartafol antes de realizar calquera acción."
+msgstr "Seleccione un cartafol antes de realizar calquera acciÃ³n."
 
 msgid "Please select at least one folder to search."
 msgstr "Seleccione polo menos un cartafol no que realizar a busca."
 
 msgid "Please select only one folder for this operation."
-msgstr "Seleccione un só cartafol para esta operación"
+msgstr "Seleccione un sÃ³ cartafol para esta operaciÃ³n"
 
 msgid "Please select or edit right next:"
-msgstr "Seleccione a caixa de edición a carón de:"
+msgstr "Seleccione a caixa de ediciÃ³n a carÃ³n de:"
 
 msgid "Precede your signature with dashes ('-- ')"
-msgstr "Antepoñer a súa sinatura con guións ('-- ')"
+msgstr "AntepoÃ±er a sÃºa sinatura con guiÃ³ns ('-- ')"
 
 msgid "Previous Message"
 msgstr "Mensaxe anterior"
 
 msgid "Previous Page"
-msgstr "Páxina anterior"
+msgstr "PÃ¡xina anterior"
 
 msgid "Print"
 msgstr "Imprimir"
@@ -924,7 +924,7 @@ msgid "Problem with filter rule %d: folder does not exist: %s"
 msgstr "Problema coa regra de filtraxe %d: o cartafol non existe: %s"
 
 msgid "Problem?"
-msgstr "¿Problemas?"
+msgstr "Â¿Problemas?"
 
 msgid "Purge Deleted"
 msgstr "Reciclar o lixo"
@@ -933,7 +933,7 @@ msgid "Purge Trash how often:"
 msgstr "Reciclar o lixo con esta frecuencia:"
 
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Reciclar do lixo as mensaxes que teñan máis destes días"
+msgstr "Reciclar do lixo as mensaxes que teÃ±an mÃ¡is destes dÃ­as"
 
 msgid "Purge old message in the Trash folder?"
 msgstr "Reciclar as mensaxes vellas do lixo"
@@ -976,24 +976,24 @@ msgid "Reload View"
 msgstr "Recargar a vista"
 
 msgid "Remember the last view"
-msgstr "Lembrar a última vista"
+msgstr "Lembrar a Ãºltima vista"
 
 msgid "Remove Selected"
 msgstr "Eliminar as seleccionadas"
 
 msgid "Rename Folder"
-msgstr "Cambiarlle o nome ó cartafol"
+msgstr "Cambiarlle o nome Ã³ cartafol"
 
 msgid "Rename sent-mail folder at beginning of month?"
-msgstr "Cambiarlle o nome ó cartafol do correo enviado ó inicio do mes"
+msgstr "Cambiarlle o nome Ã³ cartafol do correo enviado Ã³ inicio do mes"
 
 #, c-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr ""
-"Fallou ó cambiarlle o nome \"%s\" a \"%s\". Esta foi a resposta do servidor"
+"Fallou Ã³ cambiarlle o nome \"%s\" a \"%s\". Esta foi a resposta do servidor"
 
 msgid "Replace with:"
-msgstr "Substituír con:"
+msgstr "SubstituÃ­r con:"
 
 msgid "Reply to All"
 msgstr "Responderlles a todos"
@@ -1017,7 +1017,7 @@ msgid "Report as Spam"
 msgstr "Denunciar esta mensaxe como correo-lixo (spam)"
 
 msgid "Request a Return Receipt"
-msgstr "Solicitar un aviso de recepción"
+msgstr "Solicitar un aviso de recepciÃ³n"
 
 msgid "Reset"
 msgstr "Reiniciar"
@@ -1028,11 +1028,11 @@ msgstr "Reanudar"
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"¿Regresar á lista da caixa de correo despois de eliminar, mover ou copiar "
+"Â¿Regresar Ã¡ lista da caixa de correo despois de eliminar, mover ou copiar "
 "unha mensaxe?"
 
 msgid "Rule Definition"
-msgstr "Definición da regra"
+msgstr "DefiniciÃ³n da regra"
 
 msgid "Save Draft"
 msgstr "Gardar o borrador"
@@ -1048,7 +1048,7 @@ msgstr "Gardar as mensaxes enviadas"
 
 #, c-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "Fallou ó gardar o borrador. Esta foi a resposta do servidor: %s"
+msgstr "Fallou Ã³ gardar o borrador. Esta foi a resposta do servidor: %s"
 
 msgid "Search Results"
 msgstr "Resultados da busca"
@@ -1074,7 +1074,7 @@ msgid "Select charset:"
 msgstr "Seleccione o xogo de caracteres:"
 
 msgid "Select none"
-msgstr "Quitar a selección"
+msgstr "Quitar a selecciÃ³n"
 
 msgid "Select your preferred language:"
 msgstr "Seleccione a lingua:"
@@ -1095,7 +1095,7 @@ msgid "September"
 msgstr "Setembro"
 
 msgid "Server Information"
-msgstr "Información do servidor"
+msgstr "InformaciÃ³n do servidor"
 
 msgid "Server"
 msgstr "Servidor"
@@ -1106,7 +1106,7 @@ msgstr ""
 
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
-"Establece as preferencias para as accións que ocorren cando mova ou elimine "
+"Establece as preferencias para as acciÃ³ns que ocorren cando mova ou elimine "
 "mensaxes."
 
 msgid "Set the current time zone."
@@ -1114,28 +1114,28 @@ msgstr "Establece a zona horaria."
 
 msgid "Set the language that menu items, explanations, and help are in."
 msgstr ""
-"Establece a lingua para os elementos do menú, das explicacións e da axuda."
+"Establece a lingua para os elementos do menÃº, das explicaciÃ³ns e da axuda."
 
 msgid "Should the compose window be closed after saving a draft?"
-msgstr "¿Debe pecharse a xanela de redacción despois de gardar un borrador?"
+msgstr "Â¿Debe pecharse a xanela de redacciÃ³n despois de gardar un borrador?"
 
 msgid "Show Deleted"
 msgstr "Mostrar as eliminadas"
 
 msgid "Show Unsubscribed"
-msgstr "Mostrar as subscricións canceladas"
+msgstr "Mostrar as subscriciÃ³ns canceladas"
 
 msgid "Show last login time when logging in?"
-msgstr "Mostrar a hora da última sesión"
+msgstr "Mostrar a hora da Ãºltima sesiÃ³n"
 
 msgid "Show legend in the mailbox view?"
 msgstr "Mostrar unha lenda na lista da caixa de correo."
 
 msgid "Size"
-msgstr "Tamaño"
+msgstr "TamaÃ±o"
 
 msgid "Some of IMP's configuration files are missing:"
-msgstr "Faltan algúns arquivos de configuración de IMP:"
+msgstr "Faltan algÃºns arquivos de configuraciÃ³n de IMP:"
 
 msgid "Sort Direction"
 msgstr "Orde ascendente ou descendente"
@@ -1147,16 +1147,16 @@ msgid "Special Characters"
 msgstr "Caracteres especiais"
 
 msgid "Spell Check"
-msgstr "Comprobar a ortografía"
+msgstr "Comprobar a ortografÃ­a"
 
 msgid "Spell Checker"
-msgstr "Corrector ortográfico"
+msgstr "Corrector ortogrÃ¡fico"
 
 msgid "Spell check complete"
-msgstr "Revisión de ortografía completa"
+msgstr "RevisiÃ³n de ortografÃ­a completa"
 
 msgid "Spelling errors per screen when spell checking."
-msgstr "Erros ortográficos por pantalla durante a revisión."
+msgstr "Erros ortogrÃ¡ficos por pantalla durante a revisiÃ³n."
 
 msgid "Subject Field"
 msgstr "Campo do asunto"
@@ -1168,20 +1168,20 @@ msgid "Subject:"
 msgstr "Asunto:"
 
 msgid "Subscribe to Folder(s)"
-msgstr "Subscribirse ós cartafol(es)"
+msgstr "Subscribirse Ã³s cartafol(es)"
 
 msgid "Success"
 msgstr "Correctamente"
 
 msgid "Suggestions"
-msgstr "Suxestións"
+msgstr "SuxestiÃ³ns"
 
 msgid "Text"
 msgstr "Texto"
 
 #, c-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "Os cartafol(es) \"%s\" cambiaráselles o nome a \"%s\"."
+msgstr "Os cartafol(es) \"%s\" cambiarÃ¡selles o nome a \"%s\"."
 
 #, c-format
 msgid "The folder \"%s\" already exists"
@@ -1192,16 +1192,16 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"O nome do cartafol \"%s\" contén caracteres non válidos. Isto pode causar "
+"O nome do cartafol \"%s\" contÃ©n caracteres non vÃ¡lidos. Isto pode causar "
 "problemas. Contacte co administrador do sistema."
 
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "Creouse o cartafol \"%s\" pero vostede non está subscrito a el."
+msgstr "Creouse o cartafol \"%s\" pero vostede non estÃ¡ subscrito a el."
 
 #, c-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "Eliminouse o cartafol \"%s\" pero non se cancelou a súa subscrición."
+msgstr "Eliminouse o cartafol \"%s\" pero non se cancelou a sÃºa subscriciÃ³n."
 
 #, c-format
 msgid "The folder \"%s\" was not created. This is what the server said"
@@ -1221,7 +1221,7 @@ msgstr "O cartafol \"%s\" foi eliminado correctamente."
 
 #, c-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "O cartafol \"%s\" cambióuselle o nome correctamente a \"%s\"."
+msgstr "O cartafol \"%s\" cambiÃ³uselle o nome correctamente a \"%s\"."
 
 #, c-format
 msgid "The identity \"%s\" has been deleted."
@@ -1232,13 +1232,13 @@ msgid "The identity \"%s\" has been saved."
 msgstr "Gardouse a identidade \"%s\"."
 
 msgid "The message being composed has been closed.  Exiting."
-msgstr "A mensaxe que estaba redactando pechouse. Saíndo."
+msgstr "A mensaxe que estaba redactando pechouse. SaÃ­ndo."
 
 msgid "The signature couldn't be replaced."
-msgstr "Non se puido substituír a sinatura."
+msgstr "Non se puido substituÃ­r a sinatura."
 
 msgid "The signature was successfully replaced."
-msgstr "A sinatura substituíuse correctamente."
+msgstr "A sinatura substituÃ­use correctamente."
 
 msgid "There are no messages in this mailbox."
 msgstr "Non hai mensaxes nesta caixa de correo."
@@ -1246,12 +1246,12 @@ msgstr "Non hai mensaxes nesta caixa de correo."
 #, c-format
 msgid "There was a problem expunging %s. This is what the server said"
 msgstr ""
-"Houbo un problema ó baleirar a caixa do correo %s. Esta foi a resposta do "
+"Houbo un problema Ã³ baleirar a caixa do correo %s. Esta foi a resposta do "
 "servidor"
 
 msgid "There was a problem expunging the mailbox. This is what the server said"
 msgstr ""
-"Houbo un problema ó baleirar a caixa do correo. Esta foi a resposta do "
+"Houbo un problema Ã³ baleirar a caixa do correo. Esta foi a resposta do "
 "servidor"
 
 #, c-format
@@ -1259,7 +1259,7 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"Houbo un problema ó subir o arquivo. Se cadra é maior do permitido (%d MB)."
+"Houbo un problema Ã³ subir o arquivo. Se cadra Ã© maior do permitido (%d MB)."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
@@ -1270,7 +1270,7 @@ msgstr "Houbo un problema subindo o arquivo. Se cadra e maior do permitido."
 msgid ""
 "There was an error copying messages to \"%s\". This is what the server said"
 msgstr ""
-"Houbo un erro ó copiar as mensaxes para \"%s\". Esta foi a resposta do "
+"Houbo un erro Ã³ copiar as mensaxes para \"%s\". Esta foi a resposta do "
 "servidor"
 
 #, c-format
@@ -1278,7 +1278,7 @@ msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Houbo un erro ó eliminar as mensaxes do cartafol \"%s\". Esta foi a resposta "
+"Houbo un erro Ã³ eliminar as mensaxes do cartafol \"%s\". Esta foi a resposta "
 "do servidor"
 
 #, c-format
@@ -1286,21 +1286,21 @@ msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Houbo un erro ó eliminar as mensaxes do cartafol \"%s\". Esta foi a resposta "
+"Houbo un erro Ã³ eliminar as mensaxes do cartafol \"%s\". Esta foi a resposta "
 "do servidor"
 
 msgid "There was an error deleting messages. This is what the server said"
-msgstr "Houbo un error ó eliminar as mensaxes. Esta foi a resposta do servidor"
+msgstr "Houbo un error Ã³ eliminar as mensaxes. Esta foi a resposta do servidor"
 
 msgid "There was an error displaying this message part"
-msgstr "Houbo un erro ó visualizar esta parte da mensaxe"
+msgstr "Houbo un erro Ã³ visualizar esta parte da mensaxe"
 
 #, c-format
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Houbo un erro ó marcar as mensaxes no cartafol \"%s\". Esta foi a resposta "
+"Houbo un erro Ã³ marcar as mensaxes no cartafol \"%s\". Esta foi a resposta "
 "do servidor"
 
 msgid "There was an error flagging messages. This is what the server said"
@@ -1310,84 +1310,84 @@ msgstr "Houbo un erro marcando mensaxes. Esta foi a resposta do servidor"
 msgid ""
 "There was an error moving messages to \"%s\". This is what the server said"
 msgstr ""
-"Houbo un erro ó mover mensaxes a \"%s\". Ista foi a resposta do servidor"
+"Houbo un erro Ã³ mover mensaxes a \"%s\". Ista foi a resposta do servidor"
 
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
 msgstr ""
-"Houbo un erro ó botar as mensaxes ó lixo. Esta foi a resposta do servidor"
+"Houbo un erro Ã³ botar as mensaxes Ã³ lixo. Esta foi a resposta do servidor"
 
 msgid "There was an error saving a draft."
-msgstr "Houbo un erro ó gardar o borrador."
+msgstr "Houbo un erro Ã³ gardar o borrador."
 
 #, c-format
 msgid "There was an error sending your message: %s"
-msgstr "Houbo un erro ó enviar a súa mensaxe: %s"
+msgstr "Houbo un erro Ã³ enviar a sÃºa mensaxe: %s"
 
 msgid "There was an error undeleting messages. This is what the server said"
-msgstr "Houbo un erro ó recuperar as mensaxes. Esta foi a resposta do servidor"
+msgstr "Houbo un erro Ã³ recuperar as mensaxes. Esta foi a resposta do servidor"
 
 msgid "There was an error viewing the requested message."
-msgstr "Houbo un erro ó visualizar a mensaxe solicitada."
+msgstr "Houbo un erro Ã³ visualizar a mensaxe solicitada."
 
 msgid ""
 "This file controls local MIME drivers for IMP, specifically what kinds of "
 "attachments are viewable and/or downloadable."
 msgstr ""
 "Este arquivo xestiona os controladores locais de MIME para IMP, "
-"especíiicamente qué arquivos anexos se poden ver ou descargar."
+"especÃ­iicamente quÃ© arquivos anexos se poden ver ou descargar."
 
 msgid ""
 "This file controls the default preferences for IMP, and also controls which "
 "preferences users can alter."
 msgstr ""
-"Este arquivo controla as preferencias por defecto para IMP, e tamén controla "
+"Este arquivo controla as preferencias por defecto para IMP, e tamÃ©n controla "
 "as que os usuarios poden cambiar."
 
 msgid ""
 "This file controls the default settings for IMP, and also defines the list "
 "of available servers if you are using the server list."
 msgstr ""
-"Este arquivo controla a configuración por defecto para IMP, e tamén define a "
-"lista de servidores dispoñibles se vostede emprega a lista de servidores."
+"Este arquivo controla a configuraciÃ³n por defecto para IMP, e tamÃ©n define a "
+"lista de servidores dispoÃ±ibles se vostede emprega a lista de servidores."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
 "Este arquivo controla a folla de estilo que fixa as cores e tipos de letra, "
-"e complementa ou substitúe as predeterminadas de Horde."
+"e complementa ou substitÃºe as predeterminadas de Horde."
 
 msgid ""
 "This is the main IMP configuration file. It contains paths and options for "
 "the IMP scripts."
 msgstr ""
-"Este é o arquivo principal de configuración de IMP. Contén as rutas ós "
-"arquivos e as opcións para os programas de IMP."
+"Este Ã© o arquivo principal de configuraciÃ³n de IMP. ContÃ©n as rutas Ã³s "
+"arquivos e as opciÃ³ns para os programas de IMP."
 
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr "Isto pode levar algún tempo. ¿Esta seguro de que desexa continuar?"
+msgstr "Isto pode levar algÃºn tempo. Â¿Esta seguro de que desexa continuar?"
 
 msgid "This message has been reported as spam to your system administrator."
-msgstr "Esta mensaxe foi denunciada como spam ó administrador do sistema."
+msgstr "Esta mensaxe foi denunciada como spam Ã³ administrador do sistema."
 
 msgid "This message to"
 msgstr "A mensaxe para"
 
 msgid "This number must be at least one."
-msgstr "O número debe ser polo menos un 1."
+msgstr "O nÃºmero debe ser polo menos un 1."
 
 msgid "This value must be a number."
-msgstr "O valor debe ser un número."
+msgstr "O valor debe ser un nÃºmero."
 
 msgid "This window must be called from compose window"
-msgstr "A xanela debe chamarse dende a xanela de redacción"
+msgstr "A xanela debe chamarse dende a xanela de redacciÃ³n"
 
 msgid "Thread View"
-msgstr "Vei polo fío"
+msgstr "Vei polo fÃ­o"
 
 msgid "Thread"
-msgstr "Fío"
+msgstr "FÃ­o"
 
 msgid "Time Zone"
 msgstr "Zona horaria"
@@ -1400,7 +1400,7 @@ msgstr "Para:"
 
 #, c-format
 msgid "Total Size: %s KB"
-msgstr "Tamaño total: %s KB"
+msgstr "TamaÃ±o total: %s KB"
 
 msgid "Trash folder:"
 msgstr "Lixo:"
@@ -1415,7 +1415,7 @@ msgid "Undelete"
 msgstr "Recuperar"
 
 msgid "Undisclosed Recipients"
-msgstr "Non se especificou ningún destinatario"
+msgstr "Non se especificou ningÃºn destinatario"
 
 msgid "Unnamed"
 msgstr "Sen nome"
@@ -1430,7 +1430,7 @@ msgid "Unseen"
 msgstr "Non vista"
 
 msgid "Unsubscribe from Folder(s)"
-msgstr "Cancelar a subscrición do(s) cartafol(es)"
+msgstr "Cancelar a subscriciÃ³n do(s) cartafol(es)"
 
 msgid "Use Ctrl/Option+Click to select multiple fields"
 msgstr "Use Ctrl/Option+Click para seleccionar varios campos"
@@ -1439,10 +1439,10 @@ msgid "Use Default Value"
 msgstr "Empregar un valor predeterminado"
 
 msgid "Use IMAP folder subscriptions"
-msgstr "Usar as subscricións ós cartafoles"
+msgstr "Usar as subscriciÃ³ns Ã³s cartafoles"
 
 msgid "User Options"
-msgstr "Opcións do usuario"
+msgstr "OpciÃ³ns do usuario"
 
 msgid "Username"
 msgstr "Usuario"
@@ -1455,7 +1455,7 @@ msgid "View messages in "
 msgstr "Ver as mensaxes en"
 
 msgid "View or mailbox to display after login:"
-msgstr "Vista ou caixa do correo a mostrar despois de iniciar a sesión:"
+msgstr "Vista ou caixa do correo a mostrar despois de iniciar a sesiÃ³n:"
 
 msgid "Warning"
 msgstr "Aviso"
@@ -1468,26 +1468,26 @@ msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted?"
 msgstr ""
-"Cando se eliminen mensaxes, ¿botalas ó lixo en troques de marcalas como "
+"Cando se eliminen mensaxes, Â¿botalas Ã³ lixo en troques de marcalas como "
 "eliminadas?."
 
 msgid "Wrap text at this many characters."
-msgstr "Axustar ancho da mensaxe a este número de caracteres."
+msgstr "Axustar ancho da mensaxe a este nÃºmero de caracteres."
 
 msgid "Yes"
 msgstr "Si"
 
 msgid "You are attempting to delete the following folders:"
-msgstr "Está intentando eliminar os seguintes cartafoles:"
+msgstr "EstÃ¡ intentando eliminar os seguintes cartafoles:"
 
 msgid "You are creating a sub-folder to "
-msgstr "Está creando un subcartafol en "
+msgstr "EstÃ¡ creando un subcartafol en "
 
 msgid "You are creating a top-level folder."
-msgstr "Está creando un subcartafol de nível superior."
+msgstr "EstÃ¡ creando un subcartafol de nÃ­vel superior."
 
 msgid "You are renaming the folder: "
-msgstr "Estalle cambiando o nome ó cartafol:"
+msgstr "Estalle cambiando o nome Ã³ cartafol:"
 
 #, c-format
 msgid "You have %s new messages."
@@ -1497,7 +1497,7 @@ msgid "You have 1 new message."
 msgstr "Ten 1 mensaxe nova."
 
 msgid "You have been logged out.<br />Thank you for using the system."
-msgstr "Rematou a sesión.<br />"
+msgstr "Rematou a sesiÃ³n.<br />"
 
 msgid "You have new mail in the following folder:"
 msgstr "Ten correo novo no seguinte cartafol:"
@@ -1512,7 +1512,7 @@ msgid "You must first specify the file to attach."
 msgstr "Primeiro especifique o arquivo que vai achegar."
 
 msgid "You must have at least one recipient."
-msgstr "Debe poñer polo menos un destinatario no campo Para:"
+msgstr "Debe poÃ±er polo menos un destinatario no campo Para:"
 
 msgid "You must select a target mailbox first."
 msgstr "Primeiro seleccione un correo de destino."
@@ -1547,13 +1547,13 @@ msgstr "Foi dado de baixa correctamente de \"%s\""
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "A sesión en %s caducou. Inicie unha nova sesión."
+msgstr "A sesiÃ³n en %s caducou. Inicie unha nova sesiÃ³n."
 
 msgid "Your From: address:"
 msgstr "O seu enderezo no remite das mensaxes:"
 
 msgid "Your Information"
-msgstr "Información"
+msgstr "InformaciÃ³n"
 
 msgid "Your Reply-to: address: <i>(optional)</i>"
 msgstr ""
@@ -1564,7 +1564,7 @@ msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"O seu navegador non admite a opción de impresión. Presione Control/Opción + "
+"O seu navegador non admite a opciÃ³n de impresiÃ³n. Presione Control/OpciÃ³n + "
 "P para imprimir."
 
 msgid "Your current time zone:"
@@ -1577,10 +1577,10 @@ msgid "Your full name:"
 msgstr "Nome completo:"
 
 msgid "Your identities:"
-msgstr "As súas identidades:"
+msgstr "As sÃºas identidades:"
 
 msgid "Your options have been updated."
-msgstr "As súas opcións actualizáronse."
+msgstr "As sÃºas opciÃ³ns actualizÃ¡ronse."
 
 msgid "Your signature:"
 msgstr "Sinatura:"
@@ -1592,10 +1592,10 @@ msgid "add source"
 msgstr "engadir unha fonte"
 
 msgid "cannot move past the beginning"
-msgstr "non se pode avanzar alén do comezo"
+msgstr "non se pode avanzar alÃ©n do comezo"
 
 msgid "cannot move past the end"
-msgstr "non se pode avanzar alén do final"
+msgstr "non se pode avanzar alÃ©n do final"
 
 msgid "delete message"
 msgstr "borrar a mensaxe"
@@ -1613,7 +1613,7 @@ msgid "move up"
 msgstr "mover para arriba"
 
 msgid "no folder selected"
-msgstr "non seleccionou ningún cartafol"
+msgstr "non seleccionou ningÃºn cartafol"
 
 msgid "no rule selected"
 msgstr "non seleccionou ningunha regra"
@@ -1622,13 +1622,13 @@ msgid "no text specified"
 msgstr "non especificou o texto"
 
 msgid "none"
-msgstr "ningún"
+msgstr "ningÃºn"
 
 msgid "or"
 msgstr "ou"
 
 msgid "please fill in the text and choose a field and an action"
-msgstr "Introduza o texto e escolla un campo e unha acción"
+msgstr "Introduza o texto e escolla un campo e unha acciÃ³n"
 
 msgid "remove source"
 msgstr "quitar a fonte"
@@ -1637,17 +1637,17 @@ msgid "select folder"
 msgstr "seleccionar un cartafol"
 
 msgid "spelling error"
-msgstr "erro de ortografía"
+msgstr "erro de ortografÃ­a"
 
 msgid "spelling errors"
-msgstr "erros de ortografía"
+msgstr "erros de ortografÃ­a"
 
 #, c-format
 msgid "where the %s field contains <b>%s</b>"
-msgstr "onde o campo %s contén <b>%s</b>"
+msgstr "onde o campo %s contÃ©n <b>%s</b>"
 
 msgid "Account Manager"
 msgstr "Xestor da conta"
 
 msgid "Set/install a forward to:"
-msgstr "Establecer a dirección de correo a reenviar:"
+msgstr "Establecer a direcciÃ³n de correo a reenviar:"

@@ -11,23 +11,23 @@ msgstr ""
 "Last-Translator: Janis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1257\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #: templates/list/header.inc:9
 msgid "%d notes"
-msgstr "%d piezîmes"
+msgstr "%d piezÄ«mes"
 
 #: data.php:158
 #, fuzzy
 msgid "%s file successfully imported"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"fails %s veiksmîgi ielâdçts\n"
+"fails %s veiksmÄ«gi ielÄdÄ“ts\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"%s datne sekmîgi ielâdçta"
+"%s datne sekmÄ«gi ielÄdÄ“ta"
 
 #: notepads.php:111 lib/base.php:95
 msgid "%s's Notepad"
@@ -35,12 +35,12 @@ msgstr ""
 
 #: templates/list/header.inc:9
 msgid "1 note"
-msgstr "1 piezîme"
+msgstr "1 piezÄ«me"
 
 #: memo.php:137
 #, fuzzy
 msgid "Access denied deleting note."
-msgstr "Kïûme dzçğot piezîmes."
+msgstr "KÄ¼Å«me dzÄ“Å¡ot piezÄ«mes."
 
 #: memo.php:94 memo.php:97
 msgid "Access denied moving the note."
@@ -61,11 +61,11 @@ msgstr "Kategorija"
 
 #: memo.php:37
 msgid "Adding A New Note"
-msgstr "Pievienojam jaunu piezîmi"
+msgstr "Pievienojam jaunu piezÄ«mi"
 
 #: config/prefs.php.dist:45
 msgid "Ascending"
-msgstr "Augoği"
+msgstr "AugoÅ¡i"
 
 #: templates/prefs/showsummaryselect.inc:99
 #, fuzzy
@@ -74,12 +74,12 @@ msgstr "Pieejamie lauki:"
 
 #: templates/view/memo.inc:28 templates/view/memo.inc:65
 msgid "Back to Notepad"
-msgstr "Atpakaï uz sarakstu"
+msgstr "AtpakaÄ¼ uz sarakstu"
 
 #: templates/notepads/notepads.inc:99
 #, fuzzy
 msgid "Back to Notepad Options"
-msgstr "Atpakaï uz sarakstu"
+msgstr "AtpakaÄ¼ uz sarakstu"
 
 #: data.php:28 templates/data/import.inc:17
 #, fuzzy
@@ -92,26 +92,26 @@ msgstr "Kategorija"
 
 #: templates/notepads/notepads.inc:22 templates/notepads/notepads.inc:96
 msgid "Change"
-msgstr "Mainît"
+msgstr "MainÄ«t"
 
 #: templates/list/memo_headers.inc:6 templates/list/memo_headers.inc:10
 #, fuzzy
 msgid "Change sort direction"
-msgstr "Ğíiroğanas kârtîba"
+msgstr "Å Ä·iroÅ¡anas kÄrtÄ«ba"
 
 #: config/prefs.php.dist:15
 msgid "Change your note sorting and display options."
-msgstr "Mainît piezîmju ğíiroğanas un ekrâna iestatîjumus."
+msgstr "MainÄ«t piezÄ«mju Å¡Ä·iroÅ¡anas un ekrÄna iestatÄ«jumus."
 
 #: templates/prefs/showsummaryselect.inc:93
 #, fuzzy
 msgid "Choose the memo categories to list in the summary view."
-msgstr "Râdît beigu datumus kopskatâ?"
+msgstr "RÄdÄ«t beigu datumus kopskatÄ?"
 
 #: templates/search/search.inc:32
 #, fuzzy
 msgid "Clear Form"
-msgstr "Notîrît"
+msgstr "NotÄ«rÄ«t"
 
 #: templates/notepads/notepads.inc:17 templates/notepads/notepads.inc:96
 #: templates/notepads/notepads.inc:98
@@ -125,20 +125,20 @@ msgstr "Izveidot"
 
 #: config/prefs.php.dist:37
 msgid "Default sorting criteria:"
-msgstr "Noklusçtais ğíiroğanas kritçrijs:"
+msgstr "NoklusÄ“tais Å¡Ä·iroÅ¡anas kritÄ“rijs:"
 
 #: config/prefs.php.dist:47
 msgid "Default sorting direction:"
-msgstr "Noklusçtâ ğíiroğanas kârtîba:"
+msgstr "NoklusÄ“tÄ Å¡Ä·iroÅ¡anas kÄrtÄ«ba:"
 
 #: templates/notepads/notepads.inc:97 templates/view/memo.inc:25
 #: templates/view/memo.inc:62 templates/memo/memo.inc:56
 msgid "Delete"
-msgstr "Dzçst"
+msgstr "DzÄ“st"
 
 #: config/prefs.php.dist:46
 msgid "Descending"
-msgstr "Dilstoği"
+msgstr "DilstoÅ¡i"
 
 #: templates/notepads/notepads.inc:83
 #, fuzzy
@@ -147,16 +147,16 @@ msgstr "Apraksts"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "Ekrâna iestatîjumi"
+msgstr "EkrÄna iestatÄ«jumi"
 
 #: templates/view/memo.inc:21 templates/view/memo.inc:58
 #, fuzzy
 msgid "Edit"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (IMP 3.1)  #-#-#-#-#\n"
-"Rediìçt\n"
+"RediÄ£Ä“t\n"
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Rediìçt\n"
+"RediÄ£Ä“t\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
 "Labot"
 
@@ -164,25 +164,25 @@ msgstr ""
 #: templates/list/memo_headers.inc:4 lib/Block/summary.php:82
 #, fuzzy
 msgid "Edit Note"
-msgstr "Piezîmju saraksts"
+msgstr "PiezÄ«mju saraksts"
 
 #: config/prefs.php.dist:80
 #, fuzzy
 msgid "Edit your notepads."
-msgstr "Rediìçt identitâtes"
+msgstr "RediÄ£Ä“t identitÄtes"
 
 #: templates/list/memo_summaries.inc:9
 msgid "Empty Note"
-msgstr "Tukğa piezîme"
+msgstr "TukÅ¡a piezÄ«me"
 
 #: templates/data/export.inc:19
 msgid "Export"
-msgstr "Eksportçt"
+msgstr "EksportÄ“t"
 
 #: templates/data/export.inc:8
 #, fuzzy
 msgid "Export Notes"
-msgstr "Tukğa piezîme"
+msgstr "TukÅ¡a piezÄ«me"
 
 #: templates/search/search.inc:21
 #, fuzzy
@@ -198,14 +198,14 @@ msgstr ""
 msgid "Import/Export Notes"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Importçt/Eksportçt\n"
+"ImportÄ“t/EksportÄ“t\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Ievilkt/Eksportçt"
+"Ievilkt/EksportÄ“t"
 
 #: templates/view/memo.inc:42
 #, fuzzy
 msgid "Last Modified"
-msgstr "Pçdçjais mçnesis"
+msgstr "PÄ“dÄ“jais mÄ“nesis"
 
 #: config/prefs.php.dist:21
 msgid "Manage multiple notepads."
@@ -214,7 +214,7 @@ msgstr ""
 #: data.php:39
 #, fuzzy
 msgid "Memo Text"
-msgstr "Piezîmes teksts"
+msgstr "PiezÄ«mes teksts"
 
 #: memo.php:53
 msgid "Modifying %s"
@@ -223,24 +223,24 @@ msgstr "Labojam %s"
 #: list.php:31
 #, fuzzy
 msgid "My Notes"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #: lib/Block/summary.php:22
 msgid "New Note"
-msgstr "Jauna piezîme"
+msgstr "Jauna piezÄ«me"
 
 #: templates/data/import.inc:40
 msgid "Next"
-msgstr "Nâkamais"
+msgstr "NÄkamais"
 
 #: templates/menu.inc:7
 #, fuzzy
 msgid "No notepads are available to guests."
-msgstr "Iestatîjumi nav pieejami"
+msgstr "IestatÄ«jumi nav pieejami"
 
 #: templates/list/header.inc:9
 msgid "No notes"
-msgstr "Piezîmju nav"
+msgstr "PiezÄ«mju nav"
 
 #: templates/list/empty.inc:3
 msgid "No notes match the current criteria."
@@ -253,39 +253,39 @@ msgstr ""
 #: templates/list/memo_headers.inc:7
 #, fuzzy
 msgid "No_te"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #: config/prefs.php.dist:36
 msgid "Note Category"
-msgstr "Piezîmes kategorija"
+msgstr "PiezÄ«mes kategorija"
 
 #: view.php:60 templates/view/memo.inc:9
 msgid "Note Details"
-msgstr "Piezîmes saturs"
+msgstr "PiezÄ«mes saturs"
 
 #: notepads.php:122
 #, fuzzy
 msgid "Note Lists"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #: config/prefs.php.dist:35
 msgid "Note Text"
-msgstr "Piezîmes teksts"
+msgstr "PiezÄ«mes teksts"
 
 #: templates/memo/memo.inc:14
 #, fuzzy
 msgid "Note _Text"
-msgstr "Piezîmes teksts"
+msgstr "PiezÄ«mes teksts"
 
 #: view.php:38 memo.php:45
 #, fuzzy
 msgid "Note not found."
-msgstr "Nav strodams paziòojumu klausîtâjs %s"
+msgstr "Nav strodams paziÅ†ojumu klausÄ«tÄjs %s"
 
 #: templates/memo/memo.inc:21
 #, fuzzy
 msgid "Note_pad"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #: templates/notepads/notepads.inc:79
 msgid "Notepad's name:"
@@ -294,12 +294,12 @@ msgstr ""
 #: templates/notepads/notepads.inc:61 config/prefs.php.dist:20
 #, fuzzy
 msgid "Notepads"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"
 
 #: lib/Block/summary.php:3
 #, fuzzy
 msgid "Notes Summary"
-msgstr "Îsa anotâcija:"
+msgstr "Äªsa anotÄcija:"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:19
 msgid "Other Options"
@@ -312,74 +312,74 @@ msgstr ""
 #: templates/notepads/notepads.inc:87
 #, fuzzy
 msgid "Permissions"
-msgstr "Personîgais"
+msgstr "PersonÄ«gais"
 
 #: templates/list/header.inc:4 templates/list/header.inc:5
 msgid "Refresh List"
-msgstr "Atsvaidzinât sarakstu"
+msgstr "AtsvaidzinÄt sarakstu"
 
 #: templates/prefs/showsummaryselect.inc:105
 #, fuzzy
 msgid "Remove category"
-msgstr "Piezîmes kategorija"
+msgstr "PiezÄ«mes kategorija"
 
 #: templates/notepads/notepads.inc:98
 msgid "Reset"
-msgstr "Dzçst visus"
+msgstr "DzÄ“st visus"
 
 #: templates/memo/memo.inc:48
 msgid "Save"
-msgstr "Saglabât"
+msgstr "SaglabÄt"
 
 #: search.php:13 templates/search/search.inc:4 templates/search/search.inc:31
 msgid "Search"
-msgstr "Meklçt"
+msgstr "MeklÄ“t"
 
 #: list.php:53
 msgid "Search Results"
-msgstr "Meklçğanas rezultâti"
+msgstr "MeklÄ“Å¡anas rezultÄti"
 
 #: templates/search/search.inc:17
 msgid "Search Scope"
-msgstr "Meklçğanas apjoms"
+msgstr "MeklÄ“Å¡anas apjoms"
 
 #: templates/search/search.inc:9
 #, fuzzy
 msgid "Search _Text"
-msgstr "Meklçt tekstu"
+msgstr "MeklÄ“t tekstu"
 
 #: templates/notepads/notepads.inc:67
 #, fuzzy
 msgid "Select a notepad"
-msgstr "Neizvçlçties neko"
+msgstr "NeizvÄ“lÄ“ties neko"
 
 #: templates/data/export.inc:15
 #, fuzzy
 msgid "Select the export format:"
-msgstr "Izvçlieties datuma formâtu:"
+msgstr "IzvÄ“lieties datuma formÄtu:"
 
 #: templates/data/import.inc:37
 #, fuzzy
 msgid "Select the file to import:"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Izvçlieties failu, ko importçt:\n"
+"IzvÄ“lieties failu, ko importÄ“t:\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Izvçlieties datni ko ielasît:"
+"IzvÄ“lieties datni ko ielasÄ«t:"
 
 #: templates/data/import.inc:15
 #, fuzzy
 msgid "Select the format of the source file:"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Izvçlieties kâdâ formâtâ eksportçt:\n"
+"IzvÄ“lieties kÄdÄ formÄtÄ eksportÄ“t:\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Izvçlieties formâtu kâdâ eksportçt:"
+"IzvÄ“lieties formÄtu kÄdÄ eksportÄ“t:"
 
 #: templates/prefs/showsummaryselect.inc:109
 #, fuzzy
 msgid "Selected Categories:"
-msgstr "Izvçlieties kategoriju"
+msgstr "IzvÄ“lieties kategoriju"
 
 #: templates/menu.inc:16
 msgid "Show"
@@ -388,7 +388,7 @@ msgstr ""
 #: templates/menu.inc:22
 #, fuzzy
 msgid "Show Notepads:"
-msgstr "Atpakaï uz sarakstu"
+msgstr "AtpakaÄ¼ uz sarakstu"
 
 #: lib/Block/summary.php:38
 msgid "Show action buttons?"
@@ -404,12 +404,12 @@ msgstr ""
 
 #: templates/list/memo_headers.inc:11
 msgid "Sort by Category"
-msgstr "Ğíirot pçc kategorijâm"
+msgstr "Å Ä·irot pÄ“c kategorijÄm"
 
 #: templates/list/memo_headers.inc:7
 #, fuzzy
 msgid "Sort by Note Text"
-msgstr "Piezîmes teksts"
+msgstr "PiezÄ«mes teksts"
 
 #: memo.php:111
 msgid "Successfully saved '%s'."
@@ -418,27 +418,27 @@ msgstr ""
 #: memo.php:134
 #, fuzzy
 msgid "The note was deleted."
-msgstr "Piezîmes netika izdzçstas."
+msgstr "PiezÄ«mes netika izdzÄ“stas."
 
 #: notepads.php:62
 #, fuzzy
 msgid "The notepad \"%s\" couldn't be created: %s"
-msgstr "Parakstu neizdzvâs aizvietot."
+msgstr "Parakstu neizdzvÄs aizvietot."
 
 #: notepads.php:64
 #, fuzzy
 msgid "The notepad \"%s\" has been created."
-msgstr "Identitâte \"%s\" veiksmîgi izdzçsta."
+msgstr "IdentitÄte \"%s\" veiksmÄ«gi izdzÄ“sta."
 
 #: notepads.php:94
 #, fuzzy
 msgid "The notepad \"%s\" has been deleted."
-msgstr "Identitâte \"%s\" veiksmîgi izdzçsta."
+msgstr "IdentitÄte \"%s\" veiksmÄ«gi izdzÄ“sta."
 
 #: notepads.php:72
 #, fuzzy
 msgid "The notepad \"%s\" has been saved."
-msgstr "Identitâte \"%s\" saglabâta."
+msgstr "IdentitÄte \"%s\" saglabÄta."
 
 #: notepads.php:49
 msgid "The notepad name is empty."
@@ -449,42 +449,42 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Kïûda importçjot datus.\n"
+"KÄ¼Å«da importÄ“jot datus.\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Kïûda ielasot datus"
+"KÄ¼Å«da ielasot datus"
 
 #: lib/api.php:143 lib/api.php:307
 #, fuzzy
 msgid "There was an error importing the vNote data."
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Kïûda importçjot datus.\n"
+"KÄ¼Å«da importÄ“jot datus.\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Kïûda ielasot datus"
+"KÄ¼Å«da ielasot datus"
 
 #: memo.php:132
 #, fuzzy
 msgid "There was an error removing the note: %s"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Kïûda importçjot datus.\n"
+"KÄ¼Å«da importÄ“jot datus.\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Kïûda ielasot datus"
+"KÄ¼Å«da ielasot datus"
 
 #: memo.php:109
 #, fuzzy
 msgid "There was an error saving the note: %s"
-msgstr "Radâs kïûda saglabâjot melnrakstu."
+msgstr "RadÄs kÄ¼Å«da saglabÄjot melnrakstu."
 
 #: view.php:24
 #, fuzzy
 msgid "There was an error viewing this notepad: %s"
-msgstr "Radâs kïûda apskatot pieprasîto vçstuli."
+msgstr "RadÄs kÄ¼Å«da apskatot pieprasÄ«to vÄ“stuli."
 
 #: data.php:65
 #, fuzzy
 msgid "There were no memos to export."
-msgstr "Nav notikumu ko eksportçt"
+msgstr "Nav notikumu ko eksportÄ“t"
 
 #: data.php:91
 msgid "This file format is not supported."
@@ -493,16 +493,16 @@ msgstr ""
 #: notepads.php:90
 #, fuzzy
 msgid "Unable to delete \"%s\": %s"
-msgstr "Nevar neodzçst %s."
+msgstr "Nevar neodzÄ“st %s."
 
 #: templates/memo/memo.inc:59
 msgid "Undo Changes"
-msgstr "Atcelt izmaiòas"
+msgstr "Atcelt izmaiÅ†as"
 
 #: templates/view/memo.inc:16 templates/list/memo_summaries.inc:11
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:49
 msgid "Unfiled"
-msgstr "Neklasificçts"
+msgstr "NeklasificÄ“ts"
 
 #: lib/api.php:152 lib/api.php:223 lib/api.php:315
 msgid "Unsupported Content-Type."
@@ -510,7 +510,7 @@ msgstr ""
 
 #: templates/list/memo_summaries.inc:9
 msgid "View Note Details"
-msgstr "Skatît piezîmes saturu"
+msgstr "SkatÄ«t piezÄ«mes saturu"
 
 #: templates/data/import.inc:22
 msgid "Which Notepad should the notes be added to?"
@@ -523,22 +523,22 @@ msgstr ""
 #: notepads.php:97
 #, fuzzy
 msgid "You must select a notepad to be deleted."
-msgstr "Jâizvçlas identitâte, ko izdzçst."
+msgstr "JÄizvÄ“las identitÄte, ko izdzÄ“st."
 
 #: templates/prefs/notepadselect.inc:10
 #, fuzzy
 msgid "Your default notepad:"
-msgstr "Jûsu parastâ identitâte:"
+msgstr "JÅ«su parastÄ identitÄte:"
 
 #: templates/notepads/notepads.inc:65
 #, fuzzy
 msgid "Your notepads:"
-msgstr "Jûsu identitâtes:"
+msgstr "JÅ«su identitÄtes:"
 
 #: templates/view/memo.inc:28 templates/view/memo.inc:65
 #, fuzzy
 msgid "_Back to Notepad"
-msgstr "Atpakaï uz sarakstu"
+msgstr "AtpakaÄ¼ uz sarakstu"
 
 #: templates/memo/memo.inc:39 templates/list/memo_headers.inc:11
 #, fuzzy
@@ -548,52 +548,52 @@ msgstr "Kategorija"
 #: templates/view/memo.inc:25 templates/view/memo.inc:62
 #, fuzzy
 msgid "_Delete"
-msgstr "Dzçst"
+msgstr "DzÄ“st"
 
 #: templates/view/memo.inc:21 templates/view/memo.inc:58
 #, fuzzy
 msgid "_Edit"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (IMP 3.1)  #-#-#-#-#\n"
-"Rediìçt\n"
+"RediÄ£Ä“t\n"
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Rediìçt\n"
+"RediÄ£Ä“t\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
 "Labot"
 
 #: templates/search/search.inc:20
 #, fuzzy
 msgid "_First Line"
-msgstr "Pirmâ lapa"
+msgstr "PirmÄ lapa"
 
 #: lib/Mnemo.php:195
 #, fuzzy
 msgid "_Import/Export"
 msgstr ""
 "#-#-#-#-#  lv_LV.po (Turba 1.1)  #-#-#-#-#\n"
-"Importçt/Eksportçt\n"
+"ImportÄ“t/EksportÄ“t\n"
 "#-#-#-#-#  lv_LV.po (1.0)  #-#-#-#-#\n"
-"Ievilkt/Eksportçt"
+"Ievilkt/EksportÄ“t"
 
 #: lib/Mnemo.php:185
 #, fuzzy
 msgid "_List Notes"
-msgstr "Piezîmju saraksts"
+msgstr "PiezÄ«mju saraksts"
 
 #: lib/Mnemo.php:187
 #, fuzzy
 msgid "_New Note"
-msgstr "Jauna piezîme"
+msgstr "Jauna piezÄ«me"
 
 #: lib/Mnemo.php:200
 #, fuzzy
 msgid "_Print"
-msgstr "Drukât"
+msgstr "DrukÄt"
 
 #: lib/Mnemo.php:190
 #, fuzzy
 msgid "_Search"
-msgstr "Meklçt"
+msgstr "MeklÄ“t"
 
 #: data.php:77 templates/data/export.inc:1
 msgid "notes.csv"
@@ -602,4 +602,4 @@ msgstr ""
 #: data.php:29 templates/data/import.inc:18
 #, fuzzy
 msgid "vNote"
-msgstr "Piezîmes"
+msgstr "PiezÄ«mes"

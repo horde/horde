@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: lib/Driver/composite.php:58
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: nelze pou¾ít driver : %s"
+msgstr "%s: nelze pouÅ¾Ã­t driver : %s"
 
 #: lib/Driver/adsi.php:54
 #, php-format
@@ -29,32 +29,32 @@ msgstr "ADSI chyba %s."
 
 #: lib/Driver/adsi.php:57 lib/Driver/pspasswd.php:97
 msgid "Access Denied."
-msgstr "Pøístup Zamítnut."
+msgstr "PÅ™Ã­stup ZamÃ­tnut."
 
 #: lib/Driver.php:80
 msgid "Backend not correctly implemented."
-msgstr "Backend není správnì implementován."
+msgstr "Backend nenÃ­ sprÃ¡vnÄ› implementovÃ¡n."
 
 #: main.php:231 templates/main/main.inc:144
 msgid "Change Password"
-msgstr "Zmìnit Heslo"
+msgstr "ZmÄ›nit Heslo"
 
 #: templates/main/main.inc:129
 msgid "Change password on:"
-msgstr "Zmìnit heslo v:"
+msgstr "ZmÄ›nit heslo v:"
 
 #: templates/main/main.inc:64
 msgid "Change your password"
-msgstr "Zmìnit Va¹e heslo"
+msgstr "ZmÄ›nit VaÅ¡e heslo"
 
 #: templates/main/main.inc:71
 #, php-format
 msgid "Changing password on %s"
-msgstr "Zmìnit heslo v %s"
+msgstr "ZmÄ›nit heslo v %s"
 
 #: templates/main/main.inc:116
 msgid "Confirm new password:"
-msgstr "Potvrdit nové heslo:"
+msgstr "Potvrdit novÃ© heslo:"
 
 #: lib/Driver/ldap.php:86 lib/Driver/ldap.php:223 lib/Driver/smbldap.php:88
 #: lib/Driver/smbldap.php:166
@@ -63,37 +63,37 @@ msgstr "Nelze se domluvit s ldap serverem"
 
 #: lib/Driver/ldap.php:62 lib/Driver/smbldap.php:65
 msgid "Could not connect to ldap server"
-msgstr "Nelze se pøipojit na ldap server"
+msgstr "Nelze se pÅ™ipojit na ldap server"
 
 #: lib/Driver/smbpasswd.php:52
 msgid "Could not open pipe to smbpasswd."
-msgstr "Nelze otevøít linku na smbpasswd."
+msgstr "Nelze otevÅ™Ã­t linku na smbpasswd."
 
 #: lib/Driver/smbpasswd.php:74
 msgid "Error sending data to smbpasswd."
-msgstr "Nastala chyba pøi zasílání dat do smbpasswd."
+msgstr "Nastala chyba pÅ™i zasÃ­lÃ¡nÃ­ dat do smbpasswd."
 
 #: lib/Driver/pspasswd.php:85
 msgid "Failed to verify old password."
-msgstr "Selhala verifikace starého hesla."
+msgstr "Selhala verifikace starÃ©ho hesla."
 
 #: main.php:192 lib/Driver/composite.php:92
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "Zmìna hesla selhala pro %s: %s"
+msgstr "ZmÄ›na hesla selhala pro %s: %s"
 
 #: lib/Driver.php:51 lib/Driver/ldap.php:224 lib/Driver/poppassd.php:106
 #: lib/Driver/smbldap.php:167 lib/Driver/vmailmgr.php:35
 msgid "Incorrect Password"
-msgstr "Neplatné Heslo"
+msgstr "NeplatnÃ© Heslo"
 
 #: lib/Driver/ldap.php:207
 msgid "Minimum password age has not yet expired"
-msgstr "Minimální doba platnosti hesla je¹tì nevypr¹ela"
+msgstr "MinimÃ¡lnÃ­ doba platnosti hesla jeÅ¡tÄ› nevyprÅ¡ela"
 
 #: templates/main/main.inc:104
 msgid "New password:"
-msgstr "Nové heslo:"
+msgstr "NovÃ© heslo:"
 
 #: lib/Driver.php:107
 #, php-format
@@ -102,49 +102,49 @@ msgstr "'%s' backend nebyl nalezen."
 
 #: templates/main/main.inc:92
 msgid "Old password:"
-msgstr "Staré heslo:"
+msgstr "StarÃ© heslo:"
 
 #: lib/Driver/smbpasswd.php:42
 msgid "Passwd is not properly configured."
-msgstr "Passwd není správnì nakonfigurován."
+msgstr "Passwd nenÃ­ sprÃ¡vnÄ› nakonfigurovÃ¡n."
 
 #: main.php:189
 #, php-format
 msgid "Password changed on %s."
-msgstr "Heslo zmìnìno v %s."
+msgstr "Heslo zmÄ›nÄ›no v %s."
 
 #: lib/Driver/pspasswd.php:67
 msgid "Password module can't find the supplied bin."
-msgstr "Password modul nenalezl poskytnutou schránku."
+msgstr "Password modul nenalezl poskytnutou schrÃ¡nku."
 
 #: lib/Driver/pspasswd.php:65
 msgid "Password module is missing required parameters."
-msgstr "Chybí po¾adované parametry pro modul Password."
+msgstr "ChybÃ­ poÅ¾adovanÃ© parametry pro modul Password."
 
 #: lib/Driver/adsi.php:44
 msgid "Password module is missing target parameter."
-msgstr "Chybí cílovı parametr pro modul Password."
+msgstr "ChybÃ­ cÃ­lovÃ½ parametr pro modul Password."
 
 #: main.php:170 lib/Driver/servuftp.php:66
 msgid "Password module is not properly configured"
-msgstr "Modul Password není správnì konfigurován"
+msgstr "Modul Password nenÃ­ sprÃ¡vnÄ› konfigurovÃ¡n"
 
 #: lib/Driver/servuftp.php:93
 msgid "Password module is not properly configured."
-msgstr "Modul Password není správnì konfigurován."
+msgstr "Modul Password nenÃ­ sprÃ¡vnÄ› konfigurovÃ¡n."
 
 #: lib/Driver/composite.php:34
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
-"Po¾adované 'drivery' jsou nesprávnì konfigurovány v Kompozièní konfiguraci."
+"PoÅ¾adovanÃ© 'drivery' jsou nesprÃ¡vnÄ› konfigurovÃ¡ny v KompoziÄnÃ­ konfiguraci."
 
 #: lib/Driver/sql.php:40
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Nebyl zadán po¾adovanı 'phptype' v konfiguraci Passwd SQL."
+msgstr "Nebyl zadÃ¡n poÅ¾adovanÃ½ 'phptype' v konfiguraci Passwd SQL."
 
 #: lib/Driver/vpopmail.php:42
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Nebyl zadán po¾adovanı 'phptype' v konfiguraci SQL."
+msgstr "Nebyl zadÃ¡n poÅ¾adovanÃ½ 'phptype' v konfiguraci SQL."
 
 #: templates/main/main.inc:145
 msgid "Reset"
@@ -152,72 +152,72 @@ msgstr "Smazat"
 
 #: lib/Driver/sql.php:69 lib/Driver/vpopmail.php:76
 msgid "Unable to connect to SQL server."
-msgstr "Nelze se pøipojit na SQL server."
+msgstr "Nelze se pÅ™ipojit na SQL server."
 
 #: lib/Driver/poppassd.php:100 lib/Driver/sql.php:118
 #: lib/Driver/vpopmail.php:135
 msgid "User not found"
-msgstr "U¾ivatel nebyl nalezen"
+msgstr "UÅ¾ivatel nebyl nalezen"
 
 #: lib/Driver/ldap.php:123 lib/Driver/pine.php:219 lib/Driver/smbldap.php:124
 msgid "User not found."
-msgstr "U¾ivatel nebyl nalezen."
+msgstr "UÅ¾ivatel nebyl nalezen."
 
 #: templates/main/main.inc:79
 msgid "Username:"
-msgstr "U¾ivatelské Jméno:"
+msgstr "UÅ¾ivatelskÃ© JmÃ©no:"
 
 #: main.php:39
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "Nelze modifikovat heslo pro u¾ivatele %s"
+msgstr "Nelze modifikovat heslo pro uÅ¾ivatele %s"
 
 #: main.php:47
 msgid "You must give your current password"
-msgstr "Prosím zadejte Va¹e souèasné heslo"
+msgstr "ProsÃ­m zadejte VaÅ¡e souÄasnÃ© heslo"
 
 #: main.php:56
 msgid "You must give your new password"
-msgstr "Prosím zadejte Va¹e nové heslo"
+msgstr "ProsÃ­m zadejte VaÅ¡e novÃ© heslo"
 
 #: main.php:60
 msgid "You must verify your new password"
-msgstr "Musíte verifikovat Va¹e nové heslo"
+msgstr "MusÃ­te verifikovat VaÅ¡e novÃ© heslo"
 
 #: main.php:80
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "Va¹e nové heslo je pøíli¹ dlouhé; heslo nesmí bıt del¹í ne¾ %d znakù!"
+msgstr "VaÅ¡e novÃ© heslo je pÅ™Ã­liÅ¡ dlouhÃ©; heslo nesmÃ­ bÃ½t delÅ¡Ã­ neÅ¾ %d znakÅ¯!"
 
 #: main.php:159
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr ""
-"Va¹e nové heslo je pøíli¹ jednoduché k uhádnutí!  Heslo nebylo zmìnìno!"
+"VaÅ¡e novÃ© heslo je pÅ™Ã­liÅ¡ jednoduchÃ© k uhÃ¡dnutÃ­!  Heslo nebylo zmÄ›nÄ›no!"
 
 #: main.php:150
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Va¹e nové heslo je pøíli¹ jednoduché k uhádnutí. Heslo nebylo zmìnìno!"
+msgstr "VaÅ¡e novÃ© heslo je pÅ™Ã­liÅ¡ jednoduchÃ© k uhÃ¡dnutÃ­. Heslo nebylo zmÄ›nÄ›no!"
 
 #: main.php:75
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Va¹e nové heslo musí bıt alespoò %d znakù dlouhé!"
+msgstr "VaÅ¡e novÃ© heslo musÃ­ bÃ½t alespoÅˆ %d znakÅ¯ dlouhÃ©!"
 
 #: main.php:68
 msgid "Your new password must be different from your current password"
-msgstr "Va¹e nové heslo musí bıt jiné ne¾ Va¹e staré heslo"
+msgstr "VaÅ¡e novÃ© heslo musÃ­ bÃ½t jinÃ© neÅ¾ VaÅ¡e starÃ© heslo"
 
 #: main.php:120
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d pismen."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d pismen."
 
 #: main.php:125
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d alfanumerickıch znakù."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d alfanumerickÃ½ch znakÅ¯."
 
 #: main.php:130
 #, php-format
@@ -225,36 +225,36 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"Va¹e nové heslo musí obsahovat alespoò %d rùznıch typù znakù. Typy jsou: "
-"malé, velké písmena, èíslice a rùzné znaky."
+"VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d rÅ¯znÃ½ch typÅ¯ znakÅ¯. Typy jsou: "
+"malÃ©, velkÃ© pÃ­smena, ÄÃ­slice a rÅ¯znÃ© znaky."
 
 #: main.php:110
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d malıch písmen."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d malÃ½ch pÃ­smen."
 
 #: main.php:115
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d èíslic."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d ÄÃ­slic."
 
 #: main.php:105
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d velkıch písmen."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d velkÃ½ch pÃ­smen."
 
 #: main.php:136
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Va¹e nové heslo musí obsahovat alespoò %d mezer."
+msgstr "VaÅ¡e novÃ© heslo musÃ­ obsahovat alespoÅˆ %d mezer."
 
 #: main.php:138
 msgid "Your new password must not contain whitespace characters."
-msgstr "Va¹e nové heslo nesmí obsahovat mezery."
+msgstr "VaÅ¡e novÃ© heslo nesmÃ­ obsahovat mezery."
 
 #: main.php:64
 msgid "Your new passwords didn't match"
-msgstr "Va¹e nové hesla se neshodují"
+msgstr "VaÅ¡e novÃ© hesla se neshodujÃ­"
 
 #: lib/Driver/ldap.php:68 lib/Driver/smbldap.php:71
 msgid "ldap_start_tls failed"

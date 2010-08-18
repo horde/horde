@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -332,14 +332,14 @@ msgstr "Een openbare PGP sleutel is vereist om een bericht te coderen."
 #: framework/Crypt/Crypt/pgp.php:1319
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
-"Een openbare PGP sleutel is vereist om een ondertekend bericht te verifiëren."
+"Een openbare PGP sleutel is vereist om een ondertekend bericht te verifiÃ«ren."
 
 #: framework/Crypt/Crypt/pgp.php:1160
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"Een openbare PGP sleutel, privé PGP sleutel en wachtwoordregel zijn vereist "
+"Een openbare PGP sleutel, privÃ© PGP sleutel en wachtwoordregel zijn vereist "
 "om een bericht te ondertekenen."
 
 #: framework/Crypt/Crypt/smime.php:364
@@ -351,7 +351,7 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"Een openbare S/MIME sleutel, privé S/MIME sleutel en wachtwoordregel zijn "
+"Een openbare S/MIME sleutel, privÃ© S/MIME sleutel en wachtwoordregel zijn "
 "vereist om een bericht te decoderen."
 
 #: framework/Crypt/Crypt/smime.php:431
@@ -359,7 +359,7 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"Een openbare S/MIME sleutel, privé S/MIME sleutel en wachtwoordregel zijn "
+"Een openbare S/MIME sleutel, privÃ© S/MIME sleutel en wachtwoordregel zijn "
 "vereist om een bericht te ondertekenen."
 
 #: framework/Kolab/Kolab/Freebusy.php:229
@@ -608,7 +608,7 @@ msgstr "Alarmen"
 #: framework/NLS/NLS/tld.php:21 framework/NLS/NLS/countries.php:12
 #: framework/NLS/NLS/GeoIP.php:57
 msgid "Albania"
-msgstr "Albanië"
+msgstr "AlbaniÃ«"
 
 #: framework/NLS/NLS/tld.php:75 framework/NLS/NLS/countries.php:13
 #: framework/NLS/NLS/GeoIP.php:70
@@ -780,12 +780,12 @@ msgstr "Weet u zeker dat u \"%s\" en alle subgroepen wilt verwijderen?"
 #: framework/NLS/NLS/tld.php:26 framework/NLS/NLS/countries.php:20
 #: framework/NLS/NLS/GeoIP.php:58
 msgid "Argentina"
-msgstr "Argentinië"
+msgstr "ArgentiniÃ«"
 
 #: framework/NLS/NLS/tld.php:22 framework/NLS/NLS/countries.php:21
 #: framework/NLS/NLS/GeoIP.php:57
 msgid "Armenia"
-msgstr "Armenië"
+msgstr "ArmeniÃ«"
 
 #: config/nls.php.dist:220
 msgid "Armenian (ARMSCII-8)"
@@ -810,7 +810,7 @@ msgstr "Ascii kunst"
 
 #: framework/NLS/NLS/GeoIP.php:55
 msgid "Asia/Pacific Region"
-msgstr "Azië/Pacifische Regio"
+msgstr "AziÃ«/Pacifische Regio"
 
 #: config/prefs.php.dist:460
 msgid "Ask for confirmation before doing maintenance operations?"
@@ -850,7 +850,7 @@ msgstr "Augustus"
 #: framework/NLS/NLS/tld.php:29 framework/NLS/NLS/countries.php:23
 #: framework/NLS/NLS/GeoIP.php:59
 msgid "Australia"
-msgstr "Australië"
+msgstr "AustraliÃ«"
 
 #: framework/NLS/NLS/tld.php:28 framework/NLS/NLS/countries.php:24
 #: framework/NLS/NLS/GeoIP.php:59
@@ -1033,7 +1033,7 @@ msgstr "Wit rusland"
 #: framework/NLS/NLS/tld.php:36 framework/NLS/NLS/countries.php:31
 #: framework/NLS/NLS/GeoIP.php:60
 msgid "Belgium"
-msgstr "België"
+msgstr "BelgiÃ«"
 
 #: framework/NLS/NLS/tld.php:51 framework/NLS/NLS/countries.php:32
 #: framework/NLS/NLS/GeoIP.php:63
@@ -1092,7 +1092,7 @@ msgstr "Bladwijzers"
 #: framework/NLS/NLS/tld.php:33 framework/NLS/NLS/countries.php:37
 #: framework/NLS/NLS/GeoIP.php:60
 msgid "Bosnia and Herzegovina"
-msgstr "Bosnië en Herzegovina"
+msgstr "BosniÃ« en Herzegovina"
 
 #: lib/Block/fortune.php:101
 msgid "Both"
@@ -1111,7 +1111,7 @@ msgstr "Bouvet eiland"
 #: framework/NLS/NLS/tld.php:45 framework/NLS/NLS/countries.php:40
 #: framework/NLS/NLS/GeoIP.php:62
 msgid "Brazil"
-msgstr "Brazilië"
+msgstr "BraziliÃ«"
 
 #: framework/NLS/NLS/tld.php:120 framework/NLS/NLS/countries.php:41
 #: framework/NLS/NLS/GeoIP.php:81
@@ -1221,7 +1221,7 @@ msgstr "Kan niet verbinden met IMAP server: %s"
 #: framework/VFS/VFS/file.php:236 framework/VFS/VFS/smb.php:431
 #: framework/VFS/VFS/sql_file.php:181 framework/VFS/VFS/ftp.php:706
 msgid "Cannot copy file(s) - source and destination are the same."
-msgstr "Kan geen bestand(en) kopiëren - bron en bestemming zijn dezelfde."
+msgstr "Kan geen bestand(en) kopiÃ«ren - bron en bestemming zijn dezelfde."
 
 #: framework/VFS/VFS/ssh2.php:308 framework/VFS/VFS/ftp.php:324
 #, php-format
@@ -1303,7 +1303,7 @@ msgstr "Provider"
 
 #: config/prefs.php.dist:106
 msgid "Categories and Labels"
-msgstr "Categorieën en labels"
+msgstr "CategorieÃ«n en labels"
 
 #: framework/Form/Form.php:4104
 msgid "Category"
@@ -1668,7 +1668,7 @@ msgstr "Cookie"
 #: framework/VFS/VFS/smb.php:465
 #, php-format
 msgid "Copy failed: %s"
-msgstr "Kopiëren mislukt: %s"
+msgstr "KopiÃ«ren mislukt: %s"
 
 #: themes/cornflower/info.php:6
 msgid "Cornflower"
@@ -1926,7 +1926,7 @@ msgid ""
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
 "Configuratie %s opslaan niet mogelijk. U kunt of een optie voor opslaan van "
-"de code op %s gebruiken, of de code handmatig naar %s kopiëren."
+"de code op %s gebruiken, of de code handmatig naar %s kopiÃ«ren."
 
 #: framework/Auth/Auth/ldap.php:153
 msgid "Could not search the LDAP server."
@@ -2021,11 +2021,11 @@ msgstr "Creditcardnummer"
 
 #: framework/NLS/NLS/countries.php:64 framework/NLS/NLS/GeoIP.php:79
 msgid "Croatia"
-msgstr "Kroatië"
+msgstr "KroatiÃ«"
 
 #: framework/NLS/NLS/tld.php:112
 msgid "Croatia/Hrvatska"
-msgstr "Kroatië/Hrvatska"
+msgstr "KroatiÃ«/Hrvatska"
 
 #: framework/NLS/NLS/tld.php:65 framework/NLS/NLS/countries.php:65
 #: framework/NLS/NLS/GeoIP.php:68
@@ -2617,7 +2617,7 @@ msgstr "Estland"
 #: framework/NLS/NLS/tld.php:82 framework/NLS/NLS/countries.php:78
 #: framework/NLS/NLS/GeoIP.php:71
 msgid "Ethiopia"
-msgstr "Ethiopië"
+msgstr "EthiopiÃ«"
 
 #: lib/Block/fortune.php:41
 msgid "Ethnic"
@@ -2733,12 +2733,12 @@ msgstr "Verbinding met de SMB server is mislukt."
 #: framework/VFS/VFS/ssh2.php:707 framework/VFS/VFS/ftp.php:740
 #, php-format
 msgid "Failed to copy from \"%s\"."
-msgstr "Kopiëren uit \"%s\" is mislukt."
+msgstr "KopiÃ«ren uit \"%s\" is mislukt."
 
 #: framework/VFS/VFS/ssh2.php:712 framework/VFS/VFS/ftp.php:745
 #, php-format
 msgid "Failed to copy to \"%s\"."
-msgstr "Kopiëren naar \"%s\" is mislukt."
+msgstr "KopiÃ«ren naar \"%s\" is mislukt."
 
 #: framework/Auth/Auth/peclsasl.php:89
 msgid "Failed to create new SASL connection."
@@ -2777,7 +2777,7 @@ msgstr "Falkland eilanden (Malvinas)"
 #: framework/NLS/NLS/tld.php:88 framework/NLS/NLS/countries.php:80
 #: framework/NLS/NLS/GeoIP.php:73
 msgid "Faroe Islands"
-msgstr "Faroër eilanden"
+msgstr "FaroÃ«r eilanden"
 
 #: framework/CLI/CLI.php:284
 msgid "Fatal Error:"
@@ -2993,7 +2993,7 @@ msgstr "Frans Guyana"
 #: framework/NLS/NLS/tld.php:188 framework/NLS/NLS/countries.php:85
 #: framework/NLS/NLS/GeoIP.php:98
 msgid "French Polynesia"
-msgstr "Frans Polynesië"
+msgstr "Frans PolynesiÃ«"
 
 #: framework/NLS/NLS/tld.php:228 framework/NLS/NLS/countries.php:86
 #: framework/NLS/NLS/GeoIP.php:109
@@ -3043,7 +3043,7 @@ msgstr "Gegenereerde code"
 #: framework/NLS/NLS/tld.php:93 framework/NLS/NLS/countries.php:89
 #: framework/NLS/NLS/GeoIP.php:74
 msgid "Georgia"
-msgstr "Georgië"
+msgstr "GeorgiÃ«"
 
 #: framework/NLS/NLS/tld.php:70 framework/NLS/NLS/countries.php:90
 #: framework/NLS/NLS/GeoIP.php:69
@@ -3307,7 +3307,7 @@ msgstr "Holy See (Vaticaanstad)"
 #: framework/MIME/MIME/Viewer/vcard.php:122
 #: framework/MIME/MIME/Viewer/vcard.php:155
 msgid "Home Address"
-msgstr "Adres (privé)"
+msgstr "Adres (privÃ©)"
 
 #: lib/Block/account.php:75
 msgid "Home Directory"
@@ -3315,7 +3315,7 @@ msgstr "Home Directory"
 
 #: framework/MIME/MIME/Viewer/vcard.php:193
 msgid "Home Phone"
-msgstr "Tel.nr. (privé)"
+msgstr "Tel.nr. (privÃ©)"
 
 #: framework/NLS/NLS/tld.php:111 framework/NLS/NLS/countries.php:105
 #: framework/NLS/NLS/GeoIP.php:79
@@ -3546,7 +3546,7 @@ msgstr "Individuele gebruikers"
 #: framework/NLS/NLS/tld.php:115 framework/NLS/NLS/countries.php:110
 #: framework/NLS/NLS/GeoIP.php:80
 msgid "Indonesia"
-msgstr "Indonesië"
+msgstr "IndonesiÃ«"
 
 #: config/registry.php.dist:276
 msgid "Information"
@@ -3558,7 +3558,7 @@ msgstr "Informatie niet meer beschikbaar"
 
 #: templates/admin/groups/edit.inc:35
 msgid "Inherited Members"
-msgstr "Overgeërfde leden"
+msgstr "OvergeÃ«rfde leden"
 
 #: framework/Alarm/Alarm.php:446
 msgid "Inline Notification"
@@ -3749,7 +3749,7 @@ msgstr "Geisoleerde onweersbuien"
 #: framework/NLS/NLS/tld.php:117 framework/NLS/NLS/countries.php:114
 #: framework/NLS/NLS/GeoIP.php:80
 msgid "Israel"
-msgstr "Israël"
+msgstr "IsraÃ«l"
 
 #: framework/Crypt/Crypt/smime.php:626
 msgid "Issuer"
@@ -3758,7 +3758,7 @@ msgstr "Uitgever"
 #: framework/NLS/NLS/tld.php:124 framework/NLS/NLS/countries.php:115
 #: framework/NLS/NLS/GeoIP.php:82
 msgid "Italy"
-msgstr "Italië"
+msgstr "ItaliÃ«"
 
 #: framework/NLS/NLS/tld.php:126 framework/NLS/NLS/countries.php:116
 #: framework/NLS/NLS/GeoIP.php:82
@@ -3787,7 +3787,7 @@ msgstr "Jersey"
 #: framework/NLS/NLS/tld.php:127 framework/NLS/NLS/countries.php:118
 #: framework/NLS/NLS/GeoIP.php:83
 msgid "Jordan"
-msgstr "Jordanië"
+msgstr "JordaniÃ«"
 
 #: framework/UI/UI/VarRenderer/html.php:429
 #: framework/UI/UI/VarRenderer/html.php:467
@@ -3896,7 +3896,7 @@ msgstr "Koeweit"
 #: framework/NLS/NLS/tld.php:130 framework/NLS/NLS/countries.php:125
 #: framework/NLS/NLS/GeoIP.php:83
 msgid "Kyrgyzstan"
-msgstr "Kyrgiesië"
+msgstr "KyrgiesiÃ«"
 
 #: framework/Kolab/Kolab/LDAP.php:219
 #, php-format
@@ -4240,7 +4240,7 @@ msgstr "Macao"
 #: framework/NLS/NLS/tld.php:157 framework/NLS/NLS/countries.php:136
 #: framework/NLS/NLS/GeoIP.php:91
 msgid "Macedonia, The Former Yugoslav Republic of"
-msgstr "Macedonië, De vroegere Joegoslavische Republiek van"
+msgstr "MacedoniÃ«, De vroegere Joegoslavische Republiek van"
 
 #: framework/NLS/NLS/tld.php:155 framework/NLS/NLS/countries.php:137
 #: framework/NLS/NLS/GeoIP.php:90
@@ -4267,7 +4267,7 @@ msgstr "Malawi"
 #: framework/NLS/NLS/tld.php:171 framework/NLS/NLS/countries.php:139
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "Malaysia"
-msgstr "Maleisië"
+msgstr "MaleisiÃ«"
 
 #: framework/NLS/NLS/tld.php:168 framework/NLS/NLS/countries.php:140
 #: framework/NLS/NLS/GeoIP.php:94
@@ -4289,7 +4289,7 @@ msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Beheer uw lijst met categorieën en de corresponderende kleuren, waarmee "
+"Beheer uw lijst met categorieÃ«n en de corresponderende kleuren, waarmee "
 "onderdelen worden gelabeld"
 
 #: framework/UI/UI/VarRenderer/html.php:1199
@@ -4340,7 +4340,7 @@ msgstr "Overeenkomende velden:"
 #: framework/NLS/NLS/tld.php:164 framework/NLS/NLS/countries.php:145
 #: framework/NLS/NLS/GeoIP.php:93
 msgid "Mauritania"
-msgstr "Mauretanië"
+msgstr "MauretaniÃ«"
 
 #: framework/NLS/NLS/tld.php:167 framework/NLS/NLS/countries.php:146
 #: framework/NLS/NLS/GeoIP.php:94
@@ -4469,7 +4469,7 @@ msgstr "Mexico"
 #: framework/NLS/NLS/tld.php:87 framework/NLS/NLS/countries.php:149
 #: framework/NLS/NLS/GeoIP.php:72
 msgid "Micronesia, Federated States of"
-msgstr "Micronesië, Federale Staten van"
+msgstr "MicronesiÃ«, Federale Staten van"
 
 #: framework/MIME/MIME/Viewer/tnef.php:37
 msgid "Mime Type"
@@ -4538,7 +4538,7 @@ msgstr "Modulus"
 #: framework/NLS/NLS/tld.php:153 framework/NLS/NLS/countries.php:150
 #: framework/NLS/NLS/GeoIP.php:90
 msgid "Moldova, Republic of"
-msgstr "Moldavië, Republiek van"
+msgstr "MoldaviÃ«, Republiek van"
 
 #: framework/NLS/NLS/tld.php:152 framework/NLS/NLS/countries.php:151
 #: framework/NLS/NLS/GeoIP.php:90
@@ -4552,7 +4552,7 @@ msgstr "Maandag"
 #: framework/NLS/NLS/tld.php:160 framework/NLS/NLS/countries.php:152
 #: framework/NLS/NLS/GeoIP.php:92
 msgid "Mongolia"
-msgstr "Mongolië"
+msgstr "MongoliÃ«"
 
 #: framework/NLS/NLS/tld.php:154
 msgid "Montenegro"
@@ -4682,7 +4682,7 @@ msgstr "Naam"
 #: framework/NLS/NLS/tld.php:173 framework/NLS/NLS/countries.php:157
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "Namibia"
-msgstr "Namibië"
+msgstr "NamibiÃ«"
 
 #: framework/NLS/NLS/tld.php:182 framework/NLS/NLS/countries.php:158
 #: framework/NLS/NLS/GeoIP.php:97
@@ -4752,7 +4752,7 @@ msgstr "Nooit"
 #: framework/NLS/NLS/tld.php:174 framework/NLS/NLS/countries.php:162
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "New Caledonia"
-msgstr "Nieuw Caledonië"
+msgstr "Nieuw CaledoniÃ«"
 
 #: framework/Prefs/Prefs/CategoryManager.php:54
 #: templates/prefs/categorymanagement.inc:21
@@ -5196,11 +5196,11 @@ msgstr "Alleen beledigende fortunes"
 
 #: framework/Form/Form.php:2467
 msgid "Only one email address allowed."
-msgstr "Slecht één e-mailadres toegestaan."
+msgstr "Slecht Ã©Ã©n e-mailadres toegestaan."
 
 #: framework/Form/Form.php:2018
 msgid "Only one email address is allowed."
-msgstr "Slecht één e-mailadres is toegestaan."
+msgstr "Slecht Ã©Ã©n e-mailadres is toegestaan."
 
 #: services/shares/edit.php:77
 msgid ""
@@ -5646,7 +5646,7 @@ msgstr "Vorige opties"
 
 #: framework/Crypt/Crypt/pgp.php:435
 msgid "Private Key"
-msgstr "Privé sleutel"
+msgstr "PrivÃ© sleutel"
 
 #: framework/Horde/Horde/Menu.php:168
 msgid "Problem"
@@ -5683,7 +5683,7 @@ msgstr "Openbare sleutel Info"
 
 #: framework/Crypt/Crypt/pgp.php:240
 msgid "Public/Private keypair not generated successfully."
-msgstr "Openbaar/privé sleutelpaar niet gegenereerd."
+msgstr "Openbaar/privÃ© sleutelpaar niet gegenereerd."
 
 #: framework/NLS/NLS/tld.php:195 framework/NLS/NLS/countries.php:183
 #: framework/NLS/NLS/GeoIP.php:100
@@ -5973,7 +5973,7 @@ msgstr "Rol"
 #: framework/NLS/NLS/tld.php:202 framework/NLS/NLS/countries.php:186
 #: framework/NLS/NLS/GeoIP.php:102
 msgid "Romania"
-msgstr "Roemenië"
+msgstr "RoemeniÃ«"
 
 #: framework/UI/UI/VarRenderer/html.php:233
 msgid "Rotate 180"
@@ -6092,7 +6092,7 @@ msgstr "Satellietprovider"
 #: framework/NLS/NLS/tld.php:206 framework/NLS/NLS/countries.php:197
 #: framework/NLS/NLS/GeoIP.php:103
 msgid "Saudi Arabia"
-msgstr "Saudi Arabië"
+msgstr "Saudi ArabiÃ«"
 
 #: templates/portal/layout.inc:115
 msgid "Save"
@@ -6213,7 +6213,7 @@ msgid ""
 "paste them from the text area."
 msgstr ""
 "Selecteer de benodigde karakters uit de onderstaande vakjes. U kunt deze dan "
-"kopiëren en plakken in het tekstgebied."
+"kopiÃ«ren en plakken in het tekstgebied."
 
 #: templates/data/datetime.inc:55
 msgid "Select the date and time format:"
@@ -6285,11 +6285,11 @@ msgstr "September"
 
 #: framework/NLS/NLS/tld.php:203
 msgid "Serbia"
-msgstr "Servië"
+msgstr "ServiÃ«"
 
 #: framework/NLS/NLS/countries.php:199
 msgid "Serbia and Montenegro"
-msgstr "Servië en Montenegro"
+msgstr "ServiÃ« en Montenegro"
 
 #: framework/Crypt/Crypt/smime.php:702
 msgid "Serial Number"
@@ -6509,7 +6509,7 @@ msgstr "Slowakije"
 #: framework/NLS/NLS/tld.php:213 framework/NLS/NLS/countries.php:204
 #: framework/NLS/NLS/GeoIP.php:105
 msgid "Slovenia"
-msgstr "Slovenië"
+msgstr "SloveniÃ«"
 
 #: lib/Block/iframe.php:24
 msgid "Small"
@@ -6555,7 +6555,7 @@ msgstr "Solomon eilanden"
 #: framework/NLS/NLS/tld.php:219 framework/NLS/NLS/countries.php:206
 #: framework/NLS/NLS/GeoIP.php:106
 msgid "Somalia"
-msgstr "Somalië"
+msgstr "SomaliÃ«"
 
 #: lib/Block/fortune.php:65
 msgid "Songs & Poems"
@@ -6586,7 +6586,7 @@ msgstr "Zuid Europees (ISO-8859-3)"
 #: framework/NLS/NLS/tld.php:104 framework/NLS/NLS/countries.php:208
 #: framework/NLS/NLS/GeoIP.php:77
 msgid "South Georgia and the South Sandwich Islands"
-msgstr "Zuid Georgië en de Zuid Sandwich eilanden"
+msgstr "Zuid GeorgiÃ« en de Zuid Sandwich eilanden"
 
 #: lib/Block/moon.php:33 lib/Block/moon.php:62
 msgid "Southern Hemisphere"
@@ -7010,7 +7010,7 @@ msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
 "Het losgekoppelde PGP ondertekeningsblok is vereist om het ondertekende "
-"bericht te verifiëren."
+"bericht te verifiÃ«ren."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:650
 msgid ""
@@ -7169,11 +7169,11 @@ msgstr "De opgegeven landcode is ongeldig."
 
 #: framework/File_CSV/CSV.php:494
 msgid "The quote character must be one single character."
-msgstr "U kunt slechts één teken gebruiken voor tekstbegrenzing."
+msgstr "U kunt slechts Ã©Ã©n teken gebruiken voor tekstbegrenzing."
 
 #: framework/File_CSV/CSV.php:486
 msgid "The separator must be one single character."
-msgstr "Scheidingsteken mag maar één teken zijn."
+msgstr "Scheidingsteken mag maar Ã©Ã©n teken zijn."
 
 #: services/portal/rpcsum.php:80
 #, php-format
@@ -7489,7 +7489,7 @@ msgstr ""
 
 #: framework/Prefs/Prefs/UI.php:126
 msgid "This number must be at least one."
-msgstr "Dit getal dient tenminste één te zijn."
+msgstr "Dit getal dient tenminste Ã©Ã©n te zijn."
 
 #: framework/Compress/Compress/gzip.php:44
 msgid "This server can't uncompress zip and gzip files."
@@ -7608,7 +7608,7 @@ msgstr "Di"
 #: framework/NLS/NLS/tld.php:235 framework/NLS/NLS/countries.php:227
 #: framework/NLS/NLS/GeoIP.php:110
 msgid "Tunisia"
-msgstr "Tunesië"
+msgstr "TunesiÃ«"
 
 #: framework/NLS/NLS/tld.php:238 framework/NLS/NLS/countries.php:228
 #: framework/NLS/NLS/GeoIP.php:111
@@ -7666,7 +7666,7 @@ msgstr "Oeganda"
 #: framework/NLS/NLS/tld.php:243 framework/NLS/NLS/countries.php:233
 #: framework/NLS/NLS/GeoIP.php:112
 msgid "Ukraine"
-msgstr "Oekraïne"
+msgstr "OekraÃ¯ne"
 
 #: framework/VFS/VFS/file.php:439
 msgid "Unable to access VFS directory."
@@ -7715,7 +7715,7 @@ msgstr "Niet in staat met SSL te verbinden."
 #: framework/VFS/VFS/sql_file.php:202 framework/VFS/VFS/sql_file.php:207
 #: framework/VFS/VFS/sql_file.php:215
 msgid "Unable to copy VFS file."
-msgstr "Niet in staat VFS bestand te kopiëren."
+msgstr "Niet in staat VFS bestand te kopiÃ«ren."
 
 #: framework/VFS/VFS/ssh2.php:359 framework/VFS/VFS/ftp.php:374
 #, php-format
@@ -8354,7 +8354,7 @@ msgstr "Wat is het citaatkarakter?"
 
 #: framework/UI/UI/VarRenderer/html.php:1175
 msgid "Whereis Australia map"
-msgstr "Whereis Australië kaart"
+msgstr "Whereis AustraliÃ« kaart"
 
 #: config/prefs.php.dist:330
 msgid "Which day would you like to be displayed as the first day of the week?"
@@ -8589,7 +8589,7 @@ msgstr "U dient een e-mailadres in te voeren."
 
 #: framework/Form/Form.php:2037
 msgid "You must enter at least one email address."
-msgstr "U dient tenminste één e-mailadres in te voeren."
+msgstr "U dient tenminste Ã©Ã©n e-mailadres in te voeren."
 
 #: framework/Prefs/Prefs/UI.php:149
 #, php-format
@@ -8757,11 +8757,11 @@ msgstr "Uw servers op afstand:"
 
 #: framework/NLS/NLS/tld.php:261 framework/NLS/NLS/GeoIP.php:118
 msgid "Yugoslavia"
-msgstr "Joegoslavië"
+msgstr "JoegoslaviÃ«"
 
 #: framework/NLS/NLS/GeoIP.php:118
 msgid "Zaire"
-msgstr "Zaïre"
+msgstr "ZaÃ¯re"
 
 #: framework/NLS/NLS/tld.php:263 framework/NLS/NLS/countries.php:248
 #: framework/NLS/NLS/GeoIP.php:118

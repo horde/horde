@@ -12,13 +12,13 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: Italian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin/index.php:745
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
-msgstr "\"%s\" non Ë pi˘ tra i responsabili di \"%s\""
+msgstr "\"%s\" non √® pi√π tra i responsabili di \"%s\""
 
 #: templates/menu.inc:5
 msgid "#Id"
@@ -72,12 +72,12 @@ msgstr "%s ticket in tutte le code"
 #: ticket/watch.php:59
 #, php-format
 msgid "%s will be notified when this ticket is updated."
-msgstr "%s sar‡ avvisato quando questo ticket sar‡ aggiornato."
+msgstr "%s sar√† avvisato quando questo ticket sar√† aggiornato."
 
 #: ticket/watch.php:71
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
-msgstr "%s non ricever‡ a lungo aggiornamento per questo ticket."
+msgstr "%s non ricever√† a lungo aggiornamento per questo ticket."
 
 #: admin/index.php:109
 msgid "- Stage 1"
@@ -126,11 +126,11 @@ msgstr "Aggiungi Criterio di Gruppo"
 
 #: lib/Forms/Admin/Priority.php:20
 msgid "Add Priority"
-msgstr "Aggiungi Priorit‡"
+msgstr "Aggiungi Priorit√†"
 
 #: lib/Forms/Query.php:168
 msgid "Add Property Criterion"
-msgstr "Aggiungi Criterio di Propriet‡"
+msgstr "Aggiungi Criterio di Propriet√†"
 
 #: lib/Forms/Admin/Queue.php:20 lib/Forms/Admin/Queue.php:21
 msgid "Add Queue"
@@ -235,7 +235,7 @@ msgstr "Allegato %s eliminato."
 #: lib/Ticket.php:499
 #, php-format
 msgid "Attachment %s not found."
-msgstr "L'allegato %s non Ë stato trovato."
+msgstr "L'allegato %s non √® stato trovato."
 
 #: lib/Ticket.php:996
 msgid "Attachments"
@@ -320,7 +320,7 @@ msgstr ""
 #: config/prefs.php.dist:18
 msgid "Change options for email notifications of ticket activity."
 msgstr ""
-"Cambia le opzioni per le notificazioni email delle attivit‡ degli ticket"
+"Cambia le opzioni per le notificazioni email delle attivit√† degli ticket"
 
 #: query.php:146
 msgid "Choose Action:"
@@ -341,7 +341,7 @@ msgstr "Scegli:"
 
 #: config/prefs.php.dist:145
 msgid "Chronological (oldest first)"
-msgstr "Cronologico (pi˘ vecchio prima)"
+msgstr "Cronologico (pi√π vecchio prima)"
 
 #: templates/prefs/sourceselect.inc:317
 msgid ""
@@ -410,7 +410,7 @@ msgstr "Impossibile trovare l'ticket \"%s\"."
 
 #: lib/Forms/Admin/Type.php:86
 msgid "Create Default Priorities"
-msgstr "Crea Propriet‡ di Default"
+msgstr "Crea Propriet√† di Default"
 
 #: lib/Forms/Admin/Type.php:76
 msgid "Create Default States"
@@ -498,11 +498,11 @@ msgstr "Elimina Comferma Attributo"
 
 #: lib/Forms/Admin/Priority.php:36 admin/index.php:589
 msgid "Delete Priority"
-msgstr "Elimina Priotit‡"
+msgstr "Elimina Priotit√†"
 
 #: lib/Forms/Admin/Priority.php:107
 msgid "Delete Priority Confirmation"
-msgstr "Elimina Priorit‡ di Conferma"
+msgstr "Elimina Priorit√† di Conferma"
 
 #: lib/Forms/Query.php:376
 msgid "Delete Query?"
@@ -602,12 +602,12 @@ msgstr "Modifica Attributi"
 
 #: lib/Forms/Admin/Type.php:84
 msgid "Edit Priorities"
-msgstr "Modifica Priorit‡"
+msgstr "Modifica Priorit√†"
 
 #: lib/Forms/Admin/Priority.php:36 lib/Forms/Admin/Priority.php:59
 #: admin/index.php:584
 msgid "Edit Priority"
-msgstr "Modifica Priorit‡"
+msgstr "Modifica Priorit√†"
 
 #: lib/Forms/Admin/Queue.php:44 lib/Forms/Admin/Queue.php:47
 #: admin/index.php:326
@@ -650,7 +650,7 @@ msgstr "Modifica o Elimina Attributi"
 
 #: lib/Forms/Admin/Priority.php:35
 msgid "Edit or Delete Priorities"
-msgstr "Modifica o Elimina Priorit‡"
+msgstr "Modifica o Elimina Priorit√†"
 
 #: lib/Forms/Admin/Queue.php:43
 msgid "Edit or Delete Queues"
@@ -674,7 +674,7 @@ msgstr "Modifica i permessi di questa coda"
 
 #: lib/Forms/Admin/Queue.php:136
 msgid "Edit the users responsible for this queue"
-msgstr "Modifica la responsabilit‡ d'utente per questa coda"
+msgstr "Modifica la responsabilit√† d'utente per questa coda"
 
 #: lib/Forms/Admin/Queue.php:118
 msgid "Edit the versions for this queue"
@@ -699,7 +699,7 @@ msgstr "Errore nell'elaborazione del messaggio:"
 #: query.php:175
 #, php-format
 msgid "Error: Unknown query form %s, defaulting to properties"
-msgstr "Errore: forma di richiesta %s sconosciuta, aggiustarsi alle propriet‡"
+msgstr "Errore: forma di richiesta %s sconosciuta, aggiustarsi alle propriet√†"
 
 #: lib/Query.php:50
 msgid "Exact Match"
@@ -851,7 +851,7 @@ msgstr "Abbina Parola"
 
 #: lib/Reports.php:20
 msgid "Maximum time a ticket is unresolved"
-msgstr "Tempo massimo, un ticket non Ë risolto"
+msgstr "Tempo massimo, un ticket non √® risolto"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -859,15 +859,15 @@ msgstr "Lista Menu"
 
 #: lib/Reports.php:21
 msgid "Minimum time a ticket is unresolved"
-msgstr "Tempo Minimo, un ticket non Ë risolto"
+msgstr "Tempo Minimo, un ticket non √® risolto"
 
 #: config/prefs.php.dist:146
 msgid "Most recent first"
-msgstr "Pi˘ recente prima"
+msgstr "Pi√π recente prima"
 
 #: templates/prefs/sourceselect.inc:312
 msgid "Move down"
-msgstr "Sposta gi˘"
+msgstr "Sposta gi√π"
 
 #: templates/prefs/sourceselect.inc:310
 msgid "Move up"
@@ -971,12 +971,12 @@ msgid ""
 "No priority for this ticket and no default priority for ticket type \"%s\" "
 "specified."
 msgstr ""
-"Nessuna priorit‡ per questo ticket e nessuna priorit‡ di default per il tipo "
+"Nessuna priorit√† per questo ticket e nessuna priorit√† di default per il tipo "
 "di ticket \"%s\" specificato."
 
 #: lib/Block/myqueries.php:46
 msgid "No queries have been saved."
-msgstr "Non Ë stata salvata nessuna richiesta."
+msgstr "Non √® stata salvata nessuna richiesta."
 
 #: lib/Driver/sql.php:514 lib/Block/query.php:64
 msgid "No query to run"
@@ -1070,7 +1070,7 @@ msgstr "Apri Ticket dal Proprietario"
 
 #: lib/Reports.php:9
 msgid "Open Tickets by Priority"
-msgstr "Aori Ticket dalla priorit‡"
+msgstr "Aori Ticket dalla priorit√†"
 
 #: lib/Reports.php:6
 msgid "Open Tickets by Queue"
@@ -1138,7 +1138,7 @@ msgstr "Correggi gli indirizzi ambigui o non validi."
 
 #: lib/Forms/Admin/Type.php:82 lib/Forms/Admin/Type.php:128
 msgid "Priorities for this Type"
-msgstr "Priorit‡ per questo Tipo"
+msgstr "Priorit√† per questo Tipo"
 
 #: ticket/queue.php:116 ticket/type.php:65 lib/Ticket.php:610
 #: lib/Ticket.php:807 lib/Ticket.php:953 lib/Whups.php:624 lib/Whups.php:633
@@ -1146,23 +1146,23 @@ msgstr "Priorit‡ per questo Tipo"
 #: lib/Forms/EditTicket.php:68 lib/Forms/Query.php:197
 #: config/prefs.php.dist:49
 msgid "Priority"
-msgstr "Priotit‡"
+msgstr "Priotit√†"
 
 #: lib/Renderer/Comment.php:114
 #, php-format
 msgid "Priority &rArr; %s"
-msgstr "Priorit‡ &rArr; %s"
+msgstr "Priorit√† &rArr; %s"
 
 #: lib/Forms/Admin/Priority.php:24 lib/Forms/Admin/Priority.php:70
 #: lib/Forms/Admin/Priority.php:118
 msgid "Priority Description"
-msgstr "Descrizione Priorit‡"
+msgstr "Descrizione Priorit√†"
 
 #: lib/Forms/Admin/Priority.php:23 lib/Forms/Admin/Priority.php:48
 #: lib/Forms/Admin/Priority.php:67 lib/Forms/Admin/Priority.php:94
 #: lib/Forms/Admin/Priority.php:115
 msgid "Priority Name"
-msgstr "Nome Priorit‡"
+msgstr "Nome Priorit√†"
 
 #: search.php:106
 msgid "Public Queries"
@@ -1253,13 +1253,13 @@ msgstr ""
 #: lib/Forms/Admin/Priority.php:122
 msgid "Really delete this priority? This may cause data problems!"
 msgstr ""
-"Sicuro di voler eliminare questa priorit‡? Questo potrebbe causare problemi "
+"Sicuro di voler eliminare questa priorit√†? Questo potrebbe causare problemi "
 "nei dati!"
 
 #: lib/Forms/Query.php:379
 msgid "Really delete this query? This operation is not undoable."
 msgstr ""
-"Sicuro di voler eliminare questa richiesta? L'operazione non puÚ essere "
+"Sicuro di voler eliminare questa richiesta? L'operazione non pu√≤ essere "
 "annullata."
 
 #: lib/Forms/Admin/Queue.php:176
@@ -1278,7 +1278,7 @@ msgstr ""
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"Sicuro di voler eliminare questo ticket? L'ticket NON sar‡ archiviato e sar‡ "
+"Sicuro di voler eliminare questo ticket? L'ticket NON sar√† archiviato e sar√† "
 "perso."
 
 #: lib/Forms/Admin/Type.php:132
@@ -1439,7 +1439,7 @@ msgstr "Spedisci solo per questa lista di Id di ticket"
 
 #: lib/Forms/Admin/Priority.php:80 lib/Forms/Admin/Priority.php:82
 msgid "Set Default Priority"
-msgstr "Imposta Priorit‡ di Default"
+msgstr "Imposta Priorit√† di Default"
 
 #: lib/Forms/Admin/State.php:80 lib/Forms/Admin/State.php:82
 msgid "Set Default State"
@@ -1485,7 +1485,7 @@ msgstr "Imposta _Tipo"
 
 #: config/prefs.php.dist:144
 msgid "Show comments in chronological order, or most recent first?"
-msgstr "Mostra commenti in ordine cronologico, o prima il pi˘ recente?"
+msgstr "Mostra commenti in ordine cronologico, o prima il pi√π recente?"
 
 #: config/prefs.php.dist:95
 msgid "Show ticket IDs in the summary view?"
@@ -1596,7 +1596,7 @@ msgstr "Testo"
 
 #: lib/Driver/sql.php:80 lib/Driver/sql.php:1230
 msgid "That queue slug is already taken. Please select another."
-msgstr "Quella coda slug Ë gi‡ presa. Per favore sceglierne un'altra."
+msgstr "Quella coda slug √® gi√† presa. Per favore sceglierne un'altra."
 
 #: lib/Forms/CreateTicket.php:128
 msgid "The Requester's Email Address"
@@ -1611,76 +1611,76 @@ msgstr ""
 #: admin/index.php:906
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
-msgstr "L'attributo \"%s\" Ë stato aggiunto a %s."
+msgstr "L'attributo \"%s\" √® stato aggiunto a %s."
 
 #: admin/index.php:1005
 msgid "The attribute has been deleted."
-msgstr "L'attributo Ë stato eliminato."
+msgstr "L'attributo √® stato eliminato."
 
 #: admin/index.php:973
 msgid "The attribute has been modified."
-msgstr "L'attributo Ë stato modificato."
+msgstr "L'attributo √® stato modificato."
 
 #: admin/index.php:1014
 msgid "The attribute was not deleted."
-msgstr "L'attributo non Ë stato eliminato."
+msgstr "L'attributo non √® stato eliminato."
 
 #: admin/index.php:642
 msgid "The default priority has been set."
-msgstr "La priorit‡ di Default Ë stata impostata."
+msgstr "La priorit√† di Default √® stata impostata."
 
 #: admin/index.php:506
 msgid "The default state has been set."
-msgstr "Lo stato di Default Ë stato impostato."
+msgstr "Lo stato di Default √® stato impostato."
 
 #: admin/index.php:556
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
-msgstr "La priorit‡ \"%s\" Ë stata aggiunta a %s."
+msgstr "La priorit√† \"%s\" √® stata aggiunta a %s."
 
 #: admin/index.php:661
 msgid "The priority has been deleted."
-msgstr "La priorit‡ Ë stata eliminata."
+msgstr "La priorit√† √® stata eliminata."
 
 #: admin/index.php:609
 msgid "The priority has been modified."
-msgstr "La priorit‡ Ë stata modificata."
+msgstr "La priorit√† √® stata modificata."
 
 #: admin/index.php:670
 msgid "The priority was not deleted."
-msgstr "La priorit‡ non era eliminata."
+msgstr "La priorit√† non era eliminata."
 
 #: lib/Forms/Query.php:392
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
-msgstr "La richiesta \"%s\" non puÚ essere elimata: %s"
+msgstr "La richiesta \"%s\" non pu√≤ essere elimata: %s"
 
 #: lib/Forms/Query.php:394
 #, php-format
 msgid "The query \"%s\" has been deleted."
-msgstr "La richiesta \"%s\" Ë stata eliminata."
+msgstr "La richiesta \"%s\" √® stata eliminata."
 
 #: lib/Forms/Query.php:359
 #, php-format
 msgid "The query couldn't be loaded:"
-msgstr "La richiesta non puÚ essere caricata:"
+msgstr "La richiesta non pu√≤ essere caricata:"
 
 #: admin/index.php:300
 #, php-format
 msgid "The queue \"%s\" has been created."
-msgstr "la coda \"%s\" Ë stata creata."
+msgstr "la coda \"%s\" √® stata creata."
 
 #: admin/index.php:392
 msgid "The queue has been deleted."
-msgstr "La coda Ë stata eliminata."
+msgstr "La coda √® stata eliminata."
 
 #: admin/index.php:359
 msgid "The queue has been modified."
-msgstr "La coda Ë stata eliminata."
+msgstr "La coda √® stata eliminata."
 
 #: admin/index.php:400
 msgid "The queue was not deleted."
-msgstr "La coda non Ë stata eliminata."
+msgstr "La coda non √® stata eliminata."
 
 #: lib/MIME/Viewer/zip.php:58
 msgid "The requested file does not exist in the Zip attachment."
@@ -1693,53 +1693,53 @@ msgstr "Il template richiesto non esiste."
 #: admin/index.php:422
 #, php-format
 msgid "The state \"%s\" has been added to %s."
-msgstr "Lo stato \"%s\" Ë stato aggiunto a %s."
+msgstr "Lo stato \"%s\" √® stato aggiunto a %s."
 
 #: admin/index.php:525
 msgid "The state has been deleted."
-msgstr "Lo stato Ë stato eliminato."
+msgstr "Lo stato √® stato eliminato."
 
 #: admin/index.php:475
 msgid "The state has been modified."
-msgstr "Lo stato Ë stato modificato."
+msgstr "Lo stato √® stato modificato."
 
 #: admin/index.php:533
 msgid "The state was not deleted."
-msgstr "lo stato non Ë stato eliminato."
+msgstr "lo stato non √® stato eliminato."
 
 #: ticket/delete.php:77
 msgid "The ticket was not deleted."
-msgstr "L'ticket non Ë stato eliminato."
+msgstr "L'ticket non √® stato eliminato."
 
 #: admin/index.php:223
 #, php-format
 msgid "The type \"%s\" has been modified."
-msgstr "Il tipo \"%s\" Ë stato modificato."
+msgstr "Il tipo \"%s\" √® stato modificato."
 
 #: admin/index.php:272
 msgid "The type has been deleted."
-msgstr "Il tipo Ë stato eliminato."
+msgstr "Il tipo √® stato eliminato."
 
 #: admin/index.php:280
 msgid "The type was not deleted."
-msgstr "Il tipo non Ë stato eliminato"
+msgstr "Il tipo non √® stato eliminato"
 
 #: admin/index.php:776
 #, php-format
 msgid "The version \"%s\" has been added to %s."
-msgstr "la versione \"%s\" Ë stata aggiunta a %s."
+msgstr "la versione \"%s\" √® stata aggiunta a %s."
 
 #: admin/index.php:865
 msgid "The version has been deleted."
-msgstr "La versione Ë stata eliminata."
+msgstr "La versione √® stata eliminata."
 
 #: admin/index.php:835
 msgid "The version has been modified."
-msgstr "La versione Ë stata modificata."
+msgstr "La versione √® stata modificata."
 
 #: admin/index.php:873
 msgid "The version was not deleted."
-msgstr "la versione non Ë stata eliminata."
+msgstr "la versione non √® stata eliminata."
 
 #: lib/Forms/Admin/Attribute.php:70
 msgid "There are no attribute types to edit"
@@ -1755,7 +1755,7 @@ msgstr "Non ci sono ticket aperti."
 
 #: lib/Forms/Admin/Priority.php:44 lib/Forms/Admin/Priority.php:90
 msgid "There are no priorities to edit"
-msgstr "Non ci sono priorit‡ da modificare"
+msgstr "Non ci sono priorit√† da modificare"
 
 #: lib/Forms/Admin.php:31
 msgid "There are no queues available."
@@ -1767,7 +1767,7 @@ msgstr "Non ci sono code da modificare"
 
 #: lib/Forms/CreateTicket.php:34
 msgid "There are no queues which you can create tickets in."
-msgstr "Non ci sono code nelle quali Ë possibile creare ticket."
+msgstr "Non ci sono code nelle quali √® possibile creare ticket."
 
 #: lib/Forms/Search.php:34
 msgid "There are no queues which you can search."
@@ -1783,7 +1783,7 @@ msgid ""
 "cannot create any tickets in this queue."
 msgstr ""
 "Non ci sono tipi di ticket associati con questa coda; fino a che non ci "
-"saranno non si potr‡ creare nessun ticket in questa coda."
+"saranno non si potr√† creare nessun ticket in questa coda."
 
 #: lib/Forms/Admin/Type.php:43
 msgid "There are no types to edit"
@@ -1795,7 +1795,7 @@ msgstr "Non ci sono utenti responsabili per questa coda."
 
 #: lib/Forms/CreateTicket.php:241
 msgid "There are no users to which this ticket can be assigned."
-msgstr "Non ci sono utenti ai quali puÚ essere assegnato questo ticket."
+msgstr "Non ci sono utenti ai quali pu√≤ essere assegnato questo ticket."
 
 #: lib/Forms/Admin/Version.php:44
 msgid "There are no versions to edit"
@@ -1809,129 +1809,129 @@ msgstr "Non ci sono dati per questo rapporto."
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
 msgstr ""
-"Si Ë verificato un errore aggiungendo \"%s\" alla lista responsabile per \"%s"
+"Si √® verificato un errore aggiungendo \"%s\" alla lista responsabile per \"%s"
 "\":"
 
 #: admin/index.php:911
 msgid "There was an error creating the attribute:"
-msgstr "Si Ë verificato un errore nella creazione dell'attributo:"
+msgstr "Si √® verificato un errore nella creazione dell'attributo:"
 
 #: admin/index.php:561
 msgid "There was an error creating the priority:"
-msgstr "Si Ë verificato un errore nella creazione della priorit‡:"
+msgstr "Si √® verificato un errore nella creazione della priorit√†:"
 
 #: admin/index.php:309
 msgid "There was an error creating the queue:"
-msgstr "Si Ë verificato un errore nella creazione della coda:"
+msgstr "Si √® verificato un errore nella creazione della coda:"
 
 #: admin/index.php:426
 msgid "There was an error creating the state:"
-msgstr "Si Ë verificato un errore nella creazione dello stato:"
+msgstr "Si √® verificato un errore nella creazione dello stato:"
 
 #: admin/index.php:780
 msgid "There was an error creating the version:"
-msgstr "Si Ë verificato un errore nella creazione della versione:"
+msgstr "Si √® verificato un errore nella creazione della versione:"
 
 #: admin/index.php:1009
 msgid "There was an error deleting the attribute:"
-msgstr "Si Ë verificato un errore durante l'eliminazione dell'attributo:"
+msgstr "Si √® verificato un errore durante l'eliminazione dell'attributo:"
 
 #: admin/index.php:665
 msgid "There was an error deleting the priority:"
-msgstr "Si Ë verificato un errore durante l'eliminazione della priorit‡:"
+msgstr "Si √® verificato un errore durante l'eliminazione della priorit√†:"
 
 #: admin/index.php:395
 msgid "There was an error deleting the queue:"
-msgstr "Si Ë verificato un errore durante l'eliminazione della coda:"
+msgstr "Si √® verificato un errore durante l'eliminazione della coda:"
 
 #: admin/index.php:528
 msgid "There was an error deleting the state:"
-msgstr "Si Ë verificato un errore durante l'eliminazione dello stato:"
+msgstr "Si √® verificato un errore durante l'eliminazione dello stato:"
 
 #: ticket/delete.php:74
 #, php-format
 msgid "There was an error deleting the ticket: %s"
-msgstr "Si Ë verificato un errore durante l'eliminazione dell'ticket: %s"
+msgstr "Si √® verificato un errore durante l'eliminazione dell'ticket: %s"
 
 #: admin/index.php:275
 msgid "There was an error deleting the type:"
-msgstr "Si Ë verificato un errore durante l'eliminazione del tipo:"
+msgstr "Si √® verificato un errore durante l'eliminazione del tipo:"
 
 #: admin/index.php:868
 msgid "There was an error deleting the version:"
-msgstr "Si Ë verificato un errore durante l'eliminazione della versione:"
+msgstr "Si √® verificato un errore durante l'eliminazione della versione:"
 
 #: admin/index.php:981
 msgid "There was an error editing the attribute:"
-msgstr "Si Ë verificato un errore durante la modifica dell'attributo:"
+msgstr "Si √® verificato un errore durante la modifica dell'attributo:"
 
 #: admin/index.php:615
 msgid "There was an error editing the priority:"
-msgstr "Si Ë verificato un errore durante la modifica della priorit‡:"
+msgstr "Si √® verificato un errore durante la modifica della priorit√†:"
 
 #: admin/index.php:375
 msgid "There was an error editing the queue:"
-msgstr "Si Ë verificato un errore durante la modifica della coda:"
+msgstr "Si √® verificato un errore durante la modifica della coda:"
 
 #: admin/index.php:480
 msgid "There was an error editing the state:"
-msgstr "Si Ë verificato un errore durante la modifica dello stato:"
+msgstr "Si √® verificato un errore durante la modifica dello stato:"
 
 #: admin/index.php:841
 msgid "There was an error editing the version:"
-msgstr "Si Ë verificato un errore durante la modifica della versione:"
+msgstr "Si √® verificato un errore durante la modifica della versione:"
 
 #: lib/Forms/Admin/User.php:35
 #, php-format
 msgid "There was an error listing users: %s; %s"
 msgstr ""
-"Si Ë verificato un errore durante la catalogazione degli utenti: %s; %s"
+"Si √® verificato un errore durante la catalogazione degli utenti: %s; %s"
 
 #: queue/index.php:52
 #, php-format
 msgid "There was an error locating tickets in this queue: "
 msgstr ""
-"Si Ë verificato un errore durante la localizzazione degli ticket in questa "
+"Si √® verificato un errore durante la localizzazione degli ticket in questa "
 "coda:"
 
 #: admin/index.php:219
 msgid "There was an error modifying the type:"
-msgstr "Si Ë verificato un errore durante la modifica del tipo:"
+msgstr "Si √® verificato un errore durante la modifica del tipo:"
 
 #: search.php:72
 #, php-format
 msgid "There was an error performing your search: %s"
-msgstr "Si Ë verificato un errore durante la ricerca: %s"
+msgstr "Si √® verificato un errore durante la ricerca: %s"
 
 #: admin/index.php:750
 #, php-format
 msgid ""
 "There was an error removing \"%s\" from the responsible list for \"%s\":"
 msgstr ""
-"Si Ë verificato un errore durante la rimozione di \"%s\" dalla lista dei "
+"Si √® verificato un errore durante la rimozione di \"%s\" dalla lista dei "
 "responsabili di \"%s\":"
 
 #: admin/index.php:638
 msgid "There was an error setting the default priority:"
 msgstr ""
-"Si Ë verificato un errore durante l'impostazione delle priorit‡ di default:"
+"Si √® verificato un errore durante l'impostazione delle priorit√† di default:"
 
 #: admin/index.php:502
 msgid "There was an error setting the default state:"
 msgstr ""
-"Si Ë verificato un errore durante l'impostazione dello stato di default:"
+"Si √® verificato un errore durante l'impostazione dello stato di default:"
 
 #: lib/Forms/Admin/Queue.php:31
 msgid ""
 "This email address will be used when sending notifications for any queue "
 "tickets."
 msgstr ""
-"Questo indirizzo email sar‡ usato per mandare notificazioni da qualsiasi "
+"Questo indirizzo email sar√† usato per mandare notificazioni da qualsiasi "
 "ticket della coda."
 
 #: data.php:29
 msgid "This is not a search results template."
-msgstr "Questo non Ë un risultato di ricerca template."
+msgstr "Questo non √® un risultato di ricerca template."
 
 #: ticket/queue.php:80 lib/Forms/CreateTicket.php:87
 msgid ""
@@ -1939,9 +1939,9 @@ msgid ""
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
-"Questa coda richiede che venga specificata una versione, non c'Ë nessuna "
-"versione associata con essa. Fino a che una versino non sar‡ creata per "
-"questa coda, non sar‡ possibile creare ticket."
+"Questa coda richiede che venga specificata una versione, non c'√® nessuna "
+"versione associata con essa. Fino a che una versino non sar√† creata per "
+"questa coda, non sar√† possibile creare ticket."
 
 #: lib/Ticket.php:638 lib/Ticket.php:820
 msgid "Ticket"
@@ -1950,7 +1950,7 @@ msgstr "Ticket"
 #: ticket/delete.php:70
 #, php-format
 msgid "Ticket %d has been deleted."
-msgstr "Ticket %d Ë stato eliminato."
+msgstr "Ticket %d √® stato eliminato."
 
 #: lib/api.php:938
 #, php-format
@@ -1960,7 +1960,7 @@ msgstr "Ticket %s - %s"
 #: lib/Driver/sql.php:1005
 #, php-format
 msgid "Ticket %s was not found."
-msgstr "L'ticket %s non Ë stato trovato."
+msgstr "L'ticket %s non √® stato trovato."
 
 #: search.php:98
 msgid "Ticket Search"
@@ -2161,12 +2161,12 @@ msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
 "request."
 msgstr ""
-"Il tuo Id ticket Ë %s. Una persona appropriata Ë stata notificata di questa "
+"Il tuo Id ticket √® %s. Una persona appropriata √® stata notificata di questa "
 "richiesta."
 
 #: lib/Mail.php:244
 msgid "[ Could not render body of message. ]"
-msgstr "[ Non Ë possibile aprire il corpo del messaggio. ]"
+msgstr "[ Non √® possibile aprire il corpo del messaggio. ]"
 
 #: lib/Whups.php:729
 msgid "_Admin"
@@ -2219,7 +2219,7 @@ msgstr "_Nuovo Ticket"
 
 #: query.php:138
 msgid "_Property Criteria"
-msgstr "_Propriet‡ criterio"
+msgstr "_Propriet√† criterio"
 
 #: lib/Whups.php:724
 msgid "_Query Builder"
@@ -2271,15 +2271,15 @@ msgstr "tempo stimato"
 
 #: lib/Renderer/Query.php:157
 msgid "is"
-msgstr "Ë"
+msgstr "√®"
 
 #: lib/Renderer/Query.php:149
 msgid "is greater than"
-msgstr "Ë pi˘ grande di"
+msgstr "√® pi√π grande di"
 
 #: lib/Renderer/Query.php:153
 msgid "is less than"
-msgstr "Ë meno di"
+msgstr "√® meno di"
 
 #: lib/Renderer/Query.php:173
 msgid "matches the pattern"

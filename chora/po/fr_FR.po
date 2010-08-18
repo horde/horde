@@ -12,13 +12,13 @@ msgstr ""
 "Last-Translator: Thierry Thomas <thierry@pompo.net>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: templates/annotate/header.inc:4
 msgid "#"
-msgstr "N°"
+msgstr "NÂ°"
 
 #: templates/log/header.inc:16
 #, php-format
@@ -26,14 +26,14 @@ msgid ""
 "%1$s shows diffs to the previous revision. If you select a revision by "
 "clicking its row, %1$s will show the differences to the selected row."
 msgstr ""
-"%1$s montre les différences avec la version précédente. If vous sélectionnez "
-"une révision en cliquant sur sa ligne, %1$s montrera le delta avec la "
-"version sélectionnée."
+"%1$s montre les diffÃ©rences avec la version prÃ©cÃ©dente. If vous sÃ©lectionnez "
+"une rÃ©vision en cliquant sur sa ligne, %1$s montrera le delta avec la "
+"version sÃ©lectionnÃ©e."
 
 #: co.php:82
 #, php-format
 msgid "%s Revision %s (%s ago)"
-msgstr "%s Révision %s (il y a %s)"
+msgstr "%s RÃ©vision %s (il y a %s)"
 
 #: templates/annotate/footer.inc:22
 #, php-format
@@ -42,7 +42,7 @@ msgstr "il y a %s"
 
 #: templates/diff/hr/header.inc:24
 msgid "Added"
-msgstr "Ajouté"
+msgstr "AjoutÃ©"
 
 #: templates/log/header.inc:28
 msgid "All Branches"
@@ -60,7 +60,7 @@ msgstr "Auteur"
 
 #: templates/checkout/checkout.inc:4
 msgid "Author:"
-msgstr "Auteur :"
+msgstr "AuteurÂ :"
 
 #: templates/directory/back.inc:4
 msgid "Back"
@@ -68,7 +68,7 @@ msgstr "Retour"
 
 #: templates/checkout/checkout.inc:5
 msgid "Branch:"
-msgstr "Branche :"
+msgstr "BrancheÂ :"
 
 #: lib/Chora.php:449
 msgid "Branches"
@@ -81,23 +81,23 @@ msgstr "Embranchement pour"
 #: templates/history/rev.inc:7
 #, php-format
 msgid "Changed: %s"
-msgstr "Modifications : %s"
+msgstr "ModificationsÂ : %s"
 
 #: templates/checkout/checkout.inc:12
 msgid "Checkout"
-msgstr "Récupérer"
+msgstr "RÃ©cupÃ©rer"
 
 #: templates/cvsgraph/cvsgraph.inc:5
 msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
 msgstr ""
-"Cliquer sur les liens entre les révisions pour obtenir le delta entre ces "
-"révisions."
+"Cliquer sur les liens entre les rÃ©visions pour obtenir le delta entre ces "
+"rÃ©visions."
 
 #: templates/cvsgraph/cvsgraph.inc:4
 msgid "Click on the revisions and branches to display the file."
-msgstr "Cliquer sur les révisions et les branches pour afficher le fichier."
+msgstr "Cliquer sur les rÃ©visions et les branches pour afficher le fichier."
 
 #: templates/diff/hr/header.inc:12
 msgid "Column"
@@ -113,7 +113,7 @@ msgstr "Contexte"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Paramétrer les tâches à exécuter lors de la connexion à Chora."
+msgstr "ParamÃ©trer les tÃ¢ches Ã  exÃ©cuter lors de la connexion Ã  Chora."
 
 #: templates/directory/header.inc:15
 msgid "Da_te"
@@ -126,11 +126,11 @@ msgstr "Date"
 
 #: patchsets.php:83
 msgid "Deleted"
-msgstr "Supprimé"
+msgstr "SupprimÃ©"
 
 #: templates/directory/file.inc:5 templates/directory/file.inc:17
 msgid "Deleted File"
-msgstr "Fichier supprimé"
+msgstr "Fichier supprimÃ©"
 
 #: patchsets.php:80 templates/log/header.inc:15
 msgid "Diff"
@@ -143,20 +143,20 @@ msgstr "Delta de %s entre les versions %s et %s"
 
 #: templates/directory/dir.inc:4 templates/directory/dir.inc:6
 msgid "Directory"
-msgstr "Répertoire"
+msgstr "RÃ©pertoire"
 
 #: annotate.php:31 co.php:88
 msgid "Download"
-msgstr "Télécharger"
+msgstr "TÃ©lÃ©charger"
 
 #: templates/diff/hr/header.inc:8
 msgid "Download diff as: "
-msgstr "Télécharger le delta en tant que : "
+msgstr "TÃ©lÃ©charger le delta en tant queÂ : "
 
 #: templates/checkout/checkout.inc:23
 #, php-format
 msgid "Download revision %s"
-msgstr "Télécharger la révision %s"
+msgstr "TÃ©lÃ©charger la rÃ©vision %s"
 
 #: templates/diff/hr/header.inc:13
 msgid "Ed Script"
@@ -181,7 +181,7 @@ msgstr "Fichiers"
 
 #: templates/diff/hr/header.inc:15
 msgid "Get Diff"
-msgstr "Récupérer le delta"
+msgstr "RÃ©cupÃ©rer le delta"
 
 #: lib/Chora.php:452
 msgid "Graph"
@@ -194,11 +194,11 @@ msgstr "Graphe de %s"
 
 #: browse.php:55
 msgid "Hide Deleted Files"
-msgstr "Cacher les fichiers supprimés"
+msgstr "Cacher les fichiers supprimÃ©s"
 
 #: browse.php:55
 msgid "Hide _Deleted Files"
-msgstr "Cacher les fichiers _supprimés"
+msgstr "Cacher les fichiers _supprimÃ©s"
 
 #: templates/directory/header.inc:17
 msgid "Last Log"
@@ -215,7 +215,7 @@ msgstr "Ligne %s"
 
 #: templates/headerbar.inc:5
 msgid "Location:"
-msgstr "Emplacement :"
+msgstr "EmplacementÂ :"
 
 #: templates/patchsets/header.inc:17 templates/log/header.inc:58
 #: templates/checkout/checkout.inc:1
@@ -224,7 +224,7 @@ msgstr "Message du journal"
 
 #: config/prefs.php.dist:10
 msgid "Login Tasks"
-msgstr "Tâches à la connexion"
+msgstr "TÃ¢ches Ã  la connexion"
 
 #: lib/Chora.php:443
 msgid "Logs"
@@ -232,7 +232,7 @@ msgstr "Journaux"
 
 #: diff.php:25
 msgid "Malformed Query"
-msgstr "Requête mal formée"
+msgstr "RequÃªte mal formÃ©e"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -240,7 +240,7 @@ msgstr "Menu"
 
 #: templates/diff/hr/header.inc:25
 msgid "Modified"
-msgstr "Modifié"
+msgstr "ModifiÃ©"
 
 #: patchsets.php:76
 msgid "New File"
@@ -256,8 +256,8 @@ msgid ""
 "Only showing the 100 latest revisions. %sShow all revisions?</a> (may take a "
 "while)."
 msgstr ""
-"Seules les 100 dernières révisions sont présentées. %sMontrer toutes les "
-"révisions ?</a> (peu prendre un certain temps)."
+"Seules les 100 derniÃ¨res rÃ©visions sont prÃ©sentÃ©es. %sMontrer toutes les "
+"rÃ©visionsÂ ?</a> (peu prendre un certain temps)."
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
@@ -265,11 +265,11 @@ msgstr "Autres options"
 
 #: lib/Chora.php:346
 msgid "Other Repositories"
-msgstr "Autres dépôts"
+msgstr "Autres dÃ©pÃ´ts"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
-msgstr "Répertoire parent"
+msgstr "RÃ©pertoire parent"
 
 #: templates/patchsets/header.inc:13
 msgid "Patchset"
@@ -290,60 +290,60 @@ msgstr "Veuillez contacter"
 
 #: templates/annotate/header.inc:7
 msgid "Prev"
-msgstr "Préc"
+msgstr "PrÃ©c"
 
 #: templates/diff/hr/header.inc:26
 msgid "Removed"
-msgstr "Retiré"
+msgstr "RetirÃ©"
 
 #: lib/api.php:30
 msgid "Repositories"
-msgstr "Dépôts"
+msgstr "DÃ©pÃ´ts"
 
 #: templates/directory/header.inc:9 templates/annotate/header.inc:6
 msgid "Rev"
-msgstr "Rév"
+msgstr "RÃ©v"
 
 #: templates/log/header.inc:55
 msgid "Revision"
-msgstr "Révision"
+msgstr "RÃ©vision"
 
 #: browse.php:150
 #, php-format
 msgid "Revisions for %s"
-msgstr "Révision pour %s"
+msgstr "RÃ©vision pour %s"
 
 #: templates/patchsets/header.inc:4
 msgid "Search Patchsets:"
-msgstr "Rechercher des jeux de patches :"
+msgstr "Rechercher des jeux de patchesÂ :"
 
 #: templates/log/header.inc:4
 msgid "Search Revisions:"
-msgstr "Rechercher des révisions :"
+msgstr "Rechercher des rÃ©visionsÂ :"
 
 #: templates/log/header.inc:26
 msgid "Show Branch:"
-msgstr "Montrer la branche :"
+msgstr "Montrer la brancheÂ :"
 
 #: browse.php:57
 msgid "Show Deleted Files"
-msgstr "Afficher les fichiers supprimés"
+msgstr "Afficher les fichiers supprimÃ©s"
 
 #: templates/log/header.inc:17
 msgid "Show Differences"
-msgstr "Montrer les différences"
+msgstr "Montrer les diffÃ©rences"
 
 #: browse.php:57
 msgid "Show _Deleted Files"
-msgstr "Afficher les fichiers _supprimés"
+msgstr "Afficher les fichiers _supprimÃ©s"
 
 #: templates/log/rev.inc:4
 msgid "Show changes to the previous revision"
-msgstr "Montrer les changements par rapport à la révision précédente"
+msgstr "Montrer les changements par rapport Ã  la rÃ©vision prÃ©cÃ©dente"
 
 #: templates/log/rev.inc:6
 msgid "Show changes to the selected revision"
-msgstr "Montrer les changements par rapport à la révision sélectionnée"
+msgstr "Montrer les changements par rapport Ã  la rÃ©vision sÃ©lectionnÃ©e"
 
 #: templates/log/header.inc:12
 #, php-format
@@ -353,7 +353,7 @@ msgstr "Montrer les deltas entre %s et %s"
 #: annotate.php:28
 #, php-format
 msgid "Source Annotation of %s (revision %s)"
-msgstr "Annotation de %s (révision %s)"
+msgstr "Annotation de %s (rÃ©vision %s)"
 
 #: history.php:161
 #, php-format
@@ -363,7 +363,7 @@ msgstr "Vue par branches pour %s"
 #: browse.php:49
 #, php-format
 msgid "Source Directory of /%s"
-msgstr "Répertoire source de /%s"
+msgstr "RÃ©pertoire source de /%s"
 
 #: lib/Chora.php:176
 msgid ""
@@ -371,8 +371,8 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"Racine non trouvée ! Ça peut être dû à une mauvaise configuration du "
-"serveur, ou à un problème temporaire. Veuillez réessayer plus tard."
+"Racine non trouvÃ©eÂ ! Ã‡a peut Ãªtre dÃ» Ã  une mauvaise configuration du "
+"serveur, ou Ã  un problÃ¨me temporaire. Veuillez rÃ©essayer plus tard."
 
 #: lib/Chora.php:454
 msgid "Statistics"
@@ -389,7 +389,7 @@ msgstr "Tags"
 
 #: templates/checkout/checkout.inc:6
 msgid "Tags:"
-msgstr "Tags :"
+msgstr "TagsÂ :"
 
 #: templates/headerbar.inc:9
 msgid "Tracking Branch"
@@ -397,15 +397,15 @@ msgstr "Branche suivie"
 
 #: templates/diff/hr/header.inc:10
 msgid "Unified"
-msgstr "Unifié"
+msgstr "UnifiÃ©"
 
 #: templates/diff/hr/header.inc:23
 msgid "Unmodified"
-msgstr "Inchangé"
+msgstr "InchangÃ©"
 
 #: config/prefs.php.dist:37
 msgid "Use last viewed file or directory at login time"
-msgstr "Revenir au dernier endroit visité lors de la connexion"
+msgstr "Revenir au dernier endroit visitÃ© lors de la connexion"
 
 #: templates/diff/hr/header.inc:30 templates/diff/hr/header.inc:31
 #, php-format
@@ -418,7 +418,7 @@ msgstr "Voir"
 
 #: lib/Chora.php:456
 msgid "View:"
-msgstr "Voir :"
+msgstr "VoirÂ :"
 
 #: templates/directory/header.inc:12
 msgid "_Author"
@@ -450,7 +450,7 @@ msgstr "Jeux de _patches"
 
 #: templates/directory/header.inc:9
 msgid "_Rev"
-msgstr "_Rév"
+msgstr "_RÃ©v"
 
 #: lib/Chora.php:454
 msgid "_Statistics"
@@ -500,7 +500,7 @@ msgstr "mois"
 #: templates/history/branch_cell.inc:6
 #, php-format
 msgid "revision %s"
-msgstr "révision %s"
+msgstr "rÃ©vision %s"
 
 #: lib/Chora.php:28
 msgid "second"
@@ -512,7 +512,7 @@ msgstr "secondes"
 
 #: lib/Chora.php:42
 msgid "very little time"
-msgstr "très peu de temps"
+msgstr "trÃ¨s peu de temps"
 
 #: lib/Chora.php:32
 msgid "week"
@@ -524,8 +524,8 @@ msgstr "semaines"
 
 #: lib/Chora.php:34
 msgid "year"
-msgstr "année"
+msgstr "annÃ©e"
 
 #: lib/Chora.php:34
 msgid "years"
-msgstr "années"
+msgstr "annÃ©es"

@@ -13,13 +13,13 @@ msgstr ""
 "Last-Translator: A.Ozaygen, O.Kosar, E.sezginer\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Block/news_popular.php:77 lib/Block/news_popular.php:80
 msgid " - Most read stories"
-msgstr " - En çok okunan haberler"
+msgstr " - En Ã§ok okunan haberler"
 
 #: lib/Block/delivery.php:48
 #, php-format
@@ -34,7 +34,7 @@ msgstr "%s Eposta ile"
 #: lists/index.php:121
 #, php-format
 msgid "%s to %s of %s"
-msgstr "%s'den %s'e, %s üstünden"
+msgstr "%s'den %s'e, %s Ã¼stÃ¼nden"
 
 #: lib/News.php:474
 msgid "1 hour"
@@ -70,12 +70,12 @@ msgid ""
 "A confirmation message has been sent to %s. Click on the link in that "
 "message to finally subscribe to channel \"%s\"."
 msgstr ""
-"%s'e doğrulama iletisi gönderilmiştir. İleti içindeki bağa tıklayarak\"%s\" "
-"kanalına abone olabilirsiniz."
+"%s'e doÄŸrulama iletisi gÃ¶nderilmiÅŸtir. Ä°leti iÃ§indeki baÄŸa tÄ±klayarak\"%s\" "
+"kanalÄ±na abone olabilirsiniz."
 
 #: stories/share.php:86
 msgid "A link to the story"
-msgstr "Habere bağlantı"
+msgstr "Habere baÄŸlantÄ±"
 
 #: channels/aggregate.php:56
 msgid "Add"
@@ -83,7 +83,7 @@ msgstr "Ekle"
 
 #: content.php:34
 msgid "Add Content"
-msgstr "İçerik Ekle"
+msgstr "Ä°Ã§erik Ekle"
 
 #: lib/Forms/Story.php:37
 msgid "Add New Story"
@@ -95,7 +95,7 @@ msgstr "Haber ekle"
 
 #: lib/api.php:118
 msgid "Administrator"
-msgstr "Yönetici"
+msgstr "YÃ¶netici"
 
 #: lib/News.php:512 lib/Jonah.php:138
 msgid "Aggregated Feed"
@@ -104,33 +104,33 @@ msgstr "Toplu Besleme"
 #: channels/aggregate.php:55
 #, php-format
 msgid "Aggregated channels for channel \"%s\""
-msgstr "\"%s\" kanalı için toplu kanallar"
+msgstr "\"%s\" kanalÄ± iÃ§in toplu kanallar"
 
 #: channels/delete.php:55
 msgid "All stories created in this channel will be lost!"
-msgstr "Bu kanalda yaratılan tüm haberler kaybolacaktır!"
+msgstr "Bu kanalda yaratÄ±lan tÃ¼m haberler kaybolacaktÄ±r!"
 
 #: stories/results.php:114
 #, php-format
 msgid "All stories tagged with %s"
-msgstr "Tüm haberler %s olarak işaretlendi"
+msgstr "TÃ¼m haberler %s olarak iÅŸaretlendi"
 
 #: channels/index.php:35
 #, php-format
 msgid "An error occurred fetching channels: %s"
-msgstr "Kanalları çekerken bir hata oluştu: %s"
+msgstr "KanallarÄ± Ã§ekerken bir hata oluÅŸtu: %s"
 
 #: channels/delete.php:57
 msgid "Any cached stories for this channel will be lost!"
-msgstr "Bu kanal için önbelleklenmiş herhangi bir haber silinecektir!"
+msgstr "Bu kanal iÃ§in Ã¶nbelleklenmiÅŸ herhangi bir haber silinecektir!"
 
 #: lib/Forms/Feed.php:83 lib/Forms/Feed.php:94
 msgid "Caching"
-msgstr "Önbellekleniyor"
+msgstr "Ã–nbellekleniyor"
 
 #: stories/pdf.php:44
 msgid "Cannot generate PDFs of remote stories."
-msgstr "Uzaktaki haberin PDFi yaratılamıyor."
+msgstr "Uzaktaki haberin PDFi yaratÄ±lamÄ±yor."
 
 #: lib/Block/delivery_email.php:87
 msgid "Channel"
@@ -139,51 +139,51 @@ msgstr "Kanal"
 #: lib/News/sql.php:510
 #, php-format
 msgid "Channel \"%s\" not found."
-msgstr "Kanal \"%s\" bulunamıyor."
+msgstr "Kanal \"%s\" bulunamÄ±yor."
 
 #: lists/index.php:130
 msgid "Channel Lists Admin"
-msgstr "Kanal Listeleri Yöneticisi"
+msgstr "Kanal Listeleri YÃ¶neticisi"
 
 #: channels/aggregate.php:58
 msgid "Channel Name"
-msgstr "Kanal İsmi"
+msgstr "Kanal Ä°smi"
 
 #: lib/Forms/Feed.php:77
 msgid ""
 "Channel URL for further pages, if not the default one. %c gets replaced by "
 "the feed ID, %n by the story offset."
 msgstr ""
-"Öntanımlı olan değilse, daha başka sayfalar için kanalın URLsi. %c, besleme "
-"IDsi %n haber göreli konumu tarafından yer değiştirilmiştir."
+"Ã–ntanÄ±mlÄ± olan deÄŸilse, daha baÅŸka sayfalar iÃ§in kanalÄ±n URLsi. %c, besleme "
+"IDsi %n haber gÃ¶reli konumu tarafÄ±ndan yer deÄŸiÅŸtirilmiÅŸtir."
 
 #: lib/Forms/Feed.php:112
 msgid ""
 "Channel URL if not the default one. %c gets replaced by the feed ID, %n by "
 "the story offset."
 msgstr ""
-"Öntanımlı olan değilse kanalın URLsi. %c, besleme IDsi %n haber göreli "
-"konumu tarafından yer değiştirilmiştir."
+"Ã–ntanÄ±mlÄ± olan deÄŸilse kanalÄ±n URLsi. %c, besleme IDsi %n haber gÃ¶reli "
+"konumu tarafÄ±ndan yer deÄŸiÅŸtirilmiÅŸtir."
 
 #: lib/Forms/Feed.php:76
 #, php-format
 msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
 msgstr ""
-"Öntanımlı olan değilse kanalın URLsi. %c, besleme IDsi tarafından yer "
-"değiştirilmiştir."
+"Ã–ntanÄ±mlÄ± olan deÄŸilse kanalÄ±n URLsi. %c, besleme IDsi tarafÄ±ndan yer "
+"deÄŸiÅŸtirilmiÅŸtir."
 
 #: channels/delete.php:75
 msgid "Channel has not been deleted."
-msgstr "Kanal silinmemiştir."
+msgstr "Kanal silinmemiÅŸtir."
 
 #: lib/News/sql.php:174
 #, php-format
 msgid "Channel id \"%s\" not found."
-msgstr "Kanal ID \"%s\" bulunamamıştır."
+msgstr "Kanal ID \"%s\" bulunamamÄ±ÅŸtÄ±r."
 
 #: stories/index.php:54
 msgid "Channel refreshed."
-msgstr "Kanal yenilenmiştir."
+msgstr "Kanal yenilenmiÅŸtir."
 
 #: templates/stories/index.html:37
 msgid "Comments"
@@ -191,37 +191,37 @@ msgstr "Yorumlar"
 
 #: config/templates.php.dist:42
 msgid "Compact"
-msgstr "Yoğun"
+msgstr "YoÄŸun"
 
 #: lib/News.php:515 lib/Jonah.php:141
 msgid "Composite Feed"
-msgstr "Birleşik Besleme"
+msgstr "BirleÅŸik Besleme"
 
 #: lib/Forms/Feed.php:114
 msgid "Composite feeds"
-msgstr "Birleşik besleme"
+msgstr "BirleÅŸik besleme"
 
 #: lib/News.php:358
 #, php-format
 msgid "Could not deliver to the %s distribution list. %s"
-msgstr "%s dağıtım listesine verilemiyor. %s"
+msgstr "%s daÄŸÄ±tÄ±m listesine verilemiyor. %s"
 
 #: lib/Jonah.php:87
 #, php-format
 msgid "Could not open %s."
-msgstr "%s açılamıyor."
+msgstr "%s aÃ§Ä±lamÄ±yor."
 
 #: lib/Block/latest.php:49
 msgid "Count reads of the latest story when this block is displayed"
-msgstr "Bu blok gösterildiğinde son haberin kaç kere okunduğunu sayılır"
+msgstr "Bu blok gÃ¶sterildiÄŸinde son haberin kaÃ§ kere okunduÄŸunu sayÄ±lÄ±r"
 
 #: lib/Block/story.php:49
 msgid "Count reads of this story when this block is displayed"
-msgstr "Bu blok gösterildiğinde bu haberin kaç kere okunduğunu sayılır"
+msgstr "Bu blok gÃ¶sterildiÄŸinde bu haberin kaÃ§ kere okunduÄŸunu sayÄ±lÄ±r"
 
 #: lists/index.php:110
 msgid "Current Recipients"
-msgstr "Tanımlı Alıcılar"
+msgstr "TanÄ±mlÄ± AlÄ±cÄ±lar"
 
 #: stories/index.php:136 stories/results.php:116
 msgid "Date"
@@ -235,7 +235,7 @@ msgstr "Sil"
 #: channels/delete.php:47
 #, php-format
 msgid "Delete News Channel \"%s\"?"
-msgstr "\"%s\" Haber Kanalı Silinsin mi?"
+msgstr "\"%s\" Haber KanalÄ± Silinsin mi?"
 
 #: stories/delete.php:47
 #, php-format
@@ -248,7 +248,7 @@ msgstr "Kanal sil"
 
 #: lists/index.php:82
 msgid "Delete recipient"
-msgstr "Alıcı sil"
+msgstr "AlÄ±cÄ± sil"
 
 #: stories/index.php:97 stories/results.php:94
 msgid "Delete story"
@@ -265,11 +265,11 @@ msgstr "Teslimat listeleri"
 #: lists/edit.php:50
 #, php-format
 msgid "Delivery of \"%s\" stories"
-msgstr "\"%s\" haberlerinin teslimatı"
+msgstr "\"%s\" haberlerinin teslimatÄ±"
 
 #: lib/Forms/Feed.php:75 lib/Forms/Feed.php:93 lib/Forms/Feed.php:111
 msgid "Description"
-msgstr "Açıklama"
+msgstr "AÃ§Ä±klama"
 
 #: channels/delete.php:50 stories/delete.php:51
 msgid "Do not delete"
@@ -277,28 +277,28 @@ msgstr "Sime"
 
 #: lib/Forms/Feed.php:40
 msgid "Edit Feed"
-msgstr "Besleme Düzenle"
+msgstr "Besleme DÃ¼zenle"
 
 #: lib/Forms/Story.php:37
 msgid "Edit Story"
-msgstr "Haber Düzenle"
+msgstr "Haber DÃ¼zenle"
 
 #: lib/Forms/Feed.php:100
 msgid "Edit aggregated feeds"
-msgstr "Toplu beslemeleri düzenle"
+msgstr "Toplu beslemeleri dÃ¼zenle"
 
 #: channels/index.php:44
 msgid "Edit channel"
-msgstr "Kanal düzenle"
+msgstr "Kanal dÃ¼zenle"
 
 #: channels/aggregate.php:25
 #, php-format
 msgid "Edit channel \"%s\""
-msgstr "\"%s\" kanalı düzenle"
+msgstr "\"%s\" kanalÄ± dÃ¼zenle"
 
 #: stories/index.php:92 stories/results.php:87
 msgid "Edit story"
-msgstr "Haber düzenle"
+msgstr "Haber dÃ¼zenle"
 
 #: lib/Delivery/email.php:180 lib/Delivery/email.php:195
 msgid "Email"
@@ -307,7 +307,7 @@ msgstr "Eposta"
 #: delivery/email.php:64
 #, php-format
 msgid "Email Delivery for \"%s\""
-msgstr "\"%s\" için eposta teslimi"
+msgstr "\"%s\" iÃ§in eposta teslimi"
 
 #: lib/Block/delivery_email.php:96 delivery/email.php:78
 msgid "Email address"
@@ -316,18 +316,18 @@ msgstr "Eposta adresi"
 #: lib/News.php:554
 #, php-format
 msgid "Error fetching feed: %s"
-msgstr "Besleme çekmede hata: %s"
+msgstr "Besleme Ã§ekmede hata: %s"
 
 #: stories/pdf.php:15 stories/share.php:66 stories/view.php:25
 #: stories/view.php:35 lib/Block/latest.php:91 lib/Block/story.php:91
 #, php-format
 msgid "Error fetching story: %s"
-msgstr "Haber çekmede hata: %s"
+msgstr "Haber Ã§ekmede hata: %s"
 
 #: lib/News.php:793
 #, php-format
 msgid "Error parsing external feed from %s: %s"
-msgstr "%s'den beslemeyi düzenlemede hata: %s"
+msgstr "%s'den beslemeyi dÃ¼zenlemede hata: %s"
 
 #: lib/api.php:109
 msgid "External Channels"
@@ -339,7 +339,7 @@ msgstr "Uzak Besleme"
 
 #: lib/Forms/Feed.php:51
 msgid "Extra information for this feed type"
-msgstr "Bu beleme türü için fazladan bilgi"
+msgstr "Bu beleme tÃ¼rÃ¼ iÃ§in fazladan bilgi"
 
 #: lib/Block/news_popular.php:32 lib/Block/news.php:3 lib/Block/news.php:30
 #: lib/Block/story.php:42
@@ -349,11 +349,11 @@ msgstr "Besleme"
 #: lib/News.php:113
 #, php-format
 msgid "Feed \"%s\" is not authored on this system."
-msgstr "Besleme \"%s\" bu sistemde yazlımamıştır."
+msgstr "Besleme \"%s\" bu sistemde yazlÄ±mamÄ±ÅŸtÄ±r."
 
 #: channels/edit.php:56
 msgid "Feed type changed."
-msgstr "Besleme tipi değişti."
+msgstr "Besleme tipi deÄŸiÅŸti."
 
 #: channels/index.php:96 lib/Block/delivery.php:3 lib/Block/delivery.php:25
 msgid "Feeds"
@@ -361,7 +361,7 @@ msgstr "Beslemeler"
 
 #: lib/Block/news.php:54
 msgid "First Story"
-msgstr "İlk Haber"
+msgstr "Ä°lk Haber"
 
 #: stories/share.php:78
 msgid "From"
@@ -374,7 +374,7 @@ msgstr "Haberin tam metni"
 #: delivery/html.php:39
 #, php-format
 msgid "HTML Delivery for \"%s\""
-msgstr "\"%s\" 'ın HTML-dağıtımı "
+msgstr "\"%s\" 'Ä±n HTML-daÄŸÄ±tÄ±mÄ± "
 
 #: lib/News.php:693
 msgid "HTML Version of Story"
@@ -383,7 +383,7 @@ msgstr "Haber'in HTML-versiyonu"
 #: lib/Block/delivery.php:67
 #, php-format
 msgid "Have \"%s\" emailed to you"
-msgstr "\"%s\" size e-posta ile gönderildi"
+msgstr "\"%s\" size e-posta ile gÃ¶nderildi"
 
 #: lib/Delivery/email.php:72 lib/Delivery/email.php:75
 msgid "Hello"
@@ -395,9 +395,9 @@ msgid ""
 "send the reader straight to the URL, otherwise it will be shown at the end "
 "of the full story."
 msgstr ""
-"Tam haber metni olmadan bir URL eklerseniz, bu link'e tıklamak okuyucuyu "
-"direk olarak bu URL'e yönlendirecek, aksi halde  bu URL tam haber'in en "
-"sonunda gösterilecek."
+"Tam haber metni olmadan bir URL eklerseniz, bu link'e tÄ±klamak okuyucuyu "
+"direk olarak bu URL'e yÃ¶nlendirecek, aksi halde  bu URL tam haber'in en "
+"sonunda gÃ¶sterilecek."
 
 #: channels/aggregate.php:61 lib/Forms/Feed.php:87
 msgid "Image"
@@ -405,41 +405,41 @@ msgstr "Resim"
 
 #: stories/share.php:86
 msgid "Include"
-msgstr "İçer"
+msgstr "Ä°Ã§er"
 
 #: config/templates.php.dist:31
 msgid "Internal"
-msgstr "İç"
+msgstr "Ä°Ã§"
 
 #: lib/api.php:91
 msgid "Internal Channels"
-msgstr "İç Kanallar"
+msgstr "Ä°Ã§ Kanallar"
 
 #: stories/index.php:43 stories/results.php:49
 #, php-format
 msgid "Invalid channel requested. %s"
-msgstr "Geçersiz kanal isteği. %s"
+msgstr "GeÃ§ersiz kanal isteÄŸi. %s"
 
 #: channels/delete.php:35
 msgid "Invalid channel specified for deletion."
-msgstr "Silmek için geçersiz kanal belirtildi."
+msgstr "Silmek iÃ§in geÃ§ersiz kanal belirtildi."
 
 #: lists/edit.php:36 lists/delete.php:37 delivery/html.php:33
 #: delivery/email.php:55
 msgid "Invalid channel."
-msgstr "Geçersiz kanal."
+msgstr "GeÃ§ersiz kanal."
 
 #: lists/delete.php:27
 msgid "Invalid request to delete recipient from delivery list."
-msgstr "Alıcıyı dağıtım listesinden silmek için geçersiz istek."
+msgstr "AlÄ±cÄ±yÄ± daÄŸÄ±tÄ±m listesinden silmek iÃ§in geÃ§ersiz istek."
 
 #: delivery/email.php:69
 msgid "Join this channel"
-msgstr "Bu kanal'a katıl"
+msgstr "Bu kanal'a katÄ±l"
 
 #: channels/index.php:91
 msgid "Last Update"
-msgstr "Son güncelleme"
+msgstr "Son gÃ¼ncelleme"
 
 #: lib/Block/latest.php:3 lib/Block/latest.php:65
 msgid "Latest News"
@@ -447,11 +447,11 @@ msgstr "Son haberler"
 
 #: delivery/email.php:70
 msgid "Leave this channel"
-msgstr "Bu kanal'ı bırak"
+msgstr "Bu kanal'Ä± bÄ±rak"
 
 #: channels/aggregate.php:60 lib/Forms/Feed.php:86
 msgid "Link"
-msgstr "Bağlantı"
+msgstr "BaÄŸlantÄ±"
 
 #: stories/index.php:128
 msgid "Lists"
@@ -463,7 +463,7 @@ msgstr "Yerel Besleme"
 
 #: channels/index.php:90
 msgid "Manage Feeds"
-msgstr "Beslemeleri Yönet"
+msgstr "Beslemeleri YÃ¶net"
 
 #: lib/Block/news_popular.php:53 lib/Block/news.php:49
 msgid "Maximum Stories"
@@ -475,7 +475,7 @@ msgstr "Medya"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menü listesi"
+msgstr "MenÃ¼ listesi"
 
 #: stories/share.php:87
 msgid "Message"
@@ -487,11 +487,11 @@ msgstr "Metod"
 
 #: lib/News.php:74
 msgid "Missing channel id."
-msgstr "Kanal numarası bulunamadı."
+msgstr "Kanal numarasÄ± bulunamadÄ±."
 
 #: lib/Block/news_popular.php:3
 msgid "Most Popular Stories"
-msgstr "En Popüler Haberler "
+msgstr "En PopÃ¼ler Haberler "
 
 #: content.php:31 templates/content/header.inc:2
 msgid "My News"
@@ -499,7 +499,7 @@ msgstr "Haberlerim"
 
 #: content_edit.php:32
 msgid "My News :: Add Content"
-msgstr "Haberlerim :: İçerik Ekle "
+msgstr "Haberlerim :: Ä°Ã§erik Ekle "
 
 #: lists/index.php:125 channels/index.php:91 lib/Delivery/email.php:197
 #: lib/Block/delivery_email.php:97 lib/Forms/Feed.php:50 delivery/email.php:83
@@ -516,7 +516,7 @@ msgstr "Yeni Haber"
 
 #: lists/index.php:106
 msgid "New recipient"
-msgstr "Yeni Alıcı"
+msgstr "Yeni AlÄ±cÄ±"
 
 #: lib/api.php:90 lib/api.php:108
 msgid "News"
@@ -524,15 +524,15 @@ msgstr "Haberler"
 
 #: lib/Block/delivery_email.php:29
 msgid "News Channel"
-msgstr "Haber Kanalı"
+msgstr "Haber KanalÄ±"
 
 #: lib/Block/latest.php:33
 msgid "News Source"
-msgstr "Haber Kaynağı"
+msgstr "Haber KaynaÄŸÄ±"
 
 #: lib/Block/delivery_email.php:3
 msgid "News by Email"
-msgstr "E-posta aracılığı ile Haber"
+msgstr "E-posta aracÄ±lÄ±ÄŸÄ± ile Haber"
 
 #: lists/index.php:40 channels/index.php:25
 msgid "News is not enabled."
@@ -540,11 +540,11 @@ msgstr "Haberler aktif edilemedi."
 
 #: stories/index.php:51 stories/results.php:57
 msgid "No available stories."
-msgstr "Uygun Haber bulunamadı."
+msgstr "Uygun Haber bulunamadÄ±."
 
 #: lists/index.php:26 stories/index.php:23
 msgid "No channel requested."
-msgstr "Kanal isteği yok."
+msgstr "Kanal isteÄŸi yok."
 
 #: lib/Block/latest.php:86
 msgid "No channel specified."
@@ -552,49 +552,49 @@ msgstr "Kanal belirtilmedi."
 
 #: templates/channels/index.html:41
 msgid "No channels are available."
-msgstr "Hiçbir kanal erişilebilir değil."
+msgstr "HiÃ§bir kanal eriÅŸilebilir deÄŸil."
 
 #: lib/Block/delivery_email.php:67
 msgid "No channels available."
-msgstr "Hiçbir kanal erişilebilir değil."
+msgstr "HiÃ§bir kanal eriÅŸilebilir deÄŸil."
 
 #: lib/Block/news_popular.php:99 lib/Block/news.php:92
 msgid "No feed specified."
-msgstr "Hiçbir besleme belirtilmedi."
+msgstr "HiÃ§bir besleme belirtilmedi."
 
 #: lib/Block/delivery.php:76
 msgid "No feeds are available."
-msgstr "Hiçbir besleme erişilebilir değil."
+msgstr "HiÃ§bir besleme eriÅŸilebilir deÄŸil."
 
 #: lists/index.php:79
 msgid "No recipients."
-msgstr "Alıcı yok."
+msgstr "AlÄ±cÄ± yok."
 
 #: lib/News.php:584
 msgid "No stories are currently available."
-msgstr "Hiçbir haber şu an erişilebilir değil."
+msgstr "HiÃ§bir haber ÅŸu an eriÅŸilebilir deÄŸil."
 
 #: lib/Block/story.php:86
 msgid "No story is selected."
-msgstr "Hiçbir haber seçilmedi."
+msgstr "HiÃ§bir haber seÃ§ilmedi."
 
 #: lib/Delivery.php:215
 #, php-format
 msgid "No such action \"%s\" found"
-msgstr "Hiçbir \"%s\" işlemi bulunamadı"
+msgstr "HiÃ§bir \"%s\" iÅŸlemi bulunamadÄ±"
 
 #: lib/News.php:743
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "Hiçbir \"%s\" arka araç'ı bulunamadı"
+msgstr "HiÃ§bir \"%s\" arka araÃ§'Ä± bulunamadÄ±"
 
 #: stories/results.php:40
 msgid "No tag requested."
-msgstr "Hiçbir etiket istenmedi."
+msgstr "HiÃ§bir etiket istenmedi."
 
 #: stories/delete.php:36
 msgid "No valid story requested for deletion."
-msgstr "Silmek için geçerli bir haber yok."
+msgstr "Silmek iÃ§in geÃ§erli bir haber yok."
 
 #: stories/share.php:25
 msgid "Note"
@@ -605,12 +605,12 @@ msgid ""
 "Note: this story won't be delivered to distribution lists automatically if "
 "this time is in the future."
 msgstr ""
-"Uyarı: belirtilen zaman ileri bir tarihe ait ise bu haber dağıtım "
-"listelerine otomatik olarak dağıtılmayacaktır."
+"UyarÄ±: belirtilen zaman ileri bir tarihe ait ise bu haber daÄŸÄ±tÄ±m "
+"listelerine otomatik olarak daÄŸÄ±tÄ±lmayacaktÄ±r."
 
 #: lib/Forms/Story.php:55
 msgid "Or publish on this date:"
-msgstr "Ya da bu tarihte yayınla:"
+msgstr "Ya da bu tarihte yayÄ±nla:"
 
 #: stories/index.php:87 stories/results.php:81
 msgid "PDF version"
@@ -618,7 +618,7 @@ msgstr "PDF versiyonu"
 
 #: channels/delete.php:22
 msgid "Permission Denied."
-msgstr "İzin verilmedi."
+msgstr "Ä°zin verilmedi."
 
 #: lib/News.php:688
 msgid "Plaintext Version of Story"
@@ -626,7 +626,7 @@ msgstr "Haberin basit metin versiyonu"
 
 #: lib/Forms/Story.php:45
 msgid "Publish Now?"
-msgstr "Şimdi yayınla?"
+msgstr "Åimdi yayÄ±nla?"
 
 #: lib/Block/delivery.php:59
 #, php-format
@@ -639,58 +639,58 @@ msgstr "Oku"
 
 #: channels/delete.php:53
 msgid "Really delete this News Channel?"
-msgstr "Gerçekten bu kanal silinsin mi?"
+msgstr "GerÃ§ekten bu kanal silinsin mi?"
 
 #: stories/delete.php:54
 msgid "Really delete this News Story?"
-msgstr "Gerçekten bu haber silinsin mi?"
+msgstr "GerÃ§ekten bu haber silinsin mi?"
 
 #: lists/index.php:125
 msgid "Recipient"
-msgstr "Alıcı"
+msgstr "AlÄ±cÄ±"
 
 #: lists/edit.php:86
 msgid "Recipient saved."
-msgstr "Alıcı kaydedildi."
+msgstr "AlÄ±cÄ± kaydedildi."
 
 #: lists/delete.php:52
 msgid "Recipient successfully removed."
-msgstr "Alıcı başarı ile kaldırıldı."
+msgstr "AlÄ±cÄ± baÅŸarÄ± ile kaldÄ±rÄ±ldÄ±."
 
 #: stories/index.php:135
 msgid "Refresh Channel"
-msgstr "Kanal'ı yenile"
+msgstr "Kanal'Ä± yenile"
 
 #: channels/index.php:79
 msgid "Refresh channel"
-msgstr "Kanal'ı yenile"
+msgstr "Kanal'Ä± yenile"
 
 #: lists/delete.php:54
 msgid "Removal of recipient failed."
-msgstr "Alıcının kaldırılması başarısız."
+msgstr "AlÄ±cÄ±nÄ±n kaldÄ±rÄ±lmasÄ± baÅŸarÄ±sÄ±z."
 
 #: channels/aggregate.php:26
 #, php-format
 msgid "Remove channel \"%s\""
-msgstr "Kanal \"%s\"'ı kaldır"
+msgstr "Kanal \"%s\"'Ä± kaldÄ±r"
 
 #: delivery/email.php:44
 msgid "Request confirmed."
-msgstr "İstek onaylandı."
+msgstr "Ä°stek onaylandÄ±."
 
 #: lib/Delivery/email.php:69
 #, php-format
 msgid "Request to receive news channel \"%s\""
-msgstr "\"%s\" haber kanallarını almak için istekte bulun"
+msgstr "\"%s\" haber kanallarÄ±nÄ± almak iÃ§in istekte bulun"
 
 #: lib/Delivery/email.php:74
 #, php-format
 msgid "Request to stop receiving news channel \"%s\""
-msgstr "\"%s\" haber kanallarının alımını durdurmak için istekte bulun"
+msgstr "\"%s\" haber kanallarÄ±nÄ±n alÄ±mÄ±nÄ± durdurmak iÃ§in istekte bulun"
 
 #: lib/Jonah.php:218
 msgid "Rich Text"
-msgstr "Rich Text formatı"
+msgstr "Rich Text formatÄ±"
 
 #: lists/edit.php:52 lib/Block/delivery_email.php:82 lib/Forms/Story.php:39
 #: delivery/email.php:66
@@ -699,11 +699,11 @@ msgstr "Sakla"
 
 #: templates/delivery/html.html:13
 msgid "Select a format:"
-msgstr "Bir biçim seçiniz:"
+msgstr "Bir biÃ§im seÃ§iniz:"
 
 #: stories/share.php:75
 msgid "Send"
-msgstr "Gönder"
+msgstr "GÃ¶nder"
 
 #: stories/share.php:84
 msgid "Separate multiple email addresses with commas."
@@ -711,15 +711,15 @@ msgstr "Trennen Sie mehrere Emailadressen durch Kommas."
 
 #: stories/share.php:73
 msgid "Share Story"
-msgstr "Haberi Paylaş"
+msgstr "Haberi PaylaÅŸ"
 
 #: stories/view.php:87
 msgid "Share this story"
-msgstr "Bu haberi paylaş"
+msgstr "Bu haberi paylaÅŸ"
 
 #: lib/Forms/Story.php:44
 msgid "Short Description"
-msgstr "Kısa Tanım"
+msgstr "KÄ±sa TanÄ±m"
 
 #: channels/aggregate.php:59 lib/Forms/Feed.php:85
 msgid "Source URL"
@@ -740,7 +740,7 @@ msgstr "Haberler"
 #: stories/results.php:112 delivery/rss.php:58
 #, php-format
 msgid "Stories tagged with %s in %s"
-msgstr "%s ile işaretlenmiş %s içindeki haberler"
+msgstr "%s ile iÅŸaretlenmiÅŸ %s iÃ§indeki haberler"
 
 #: stories/index.php:136 stories/results.php:116 lib/Block/story.php:3
 #: lib/Block/story.php:46 lib/Block/story.php:65
@@ -750,15 +750,15 @@ msgstr "Haber"
 #: lib/News.php:764
 #, php-format
 msgid "Story \"%s\" not found in \"%s\"."
-msgstr "Haber \"%s\", \"%s\" içerisinde bulunamadı."
+msgstr "Haber \"%s\", \"%s\" iÃ§erisinde bulunamadÄ±."
 
 #: stories/share.php:109
 msgid "Story Link"
-msgstr "Haber Bağı"
+msgstr "Haber BaÄŸÄ±"
 
 #: lib/Forms/Story.php:43
 msgid "Story Title (Headline)"
-msgstr "Haber Başlığı(Manşet)"
+msgstr "Haber BaÅŸlÄ±ÄŸÄ±(ManÅŸet)"
 
 #: lib/Forms/Story.php:82
 msgid "Story URL"
@@ -767,7 +767,7 @@ msgstr "Haber URL i"
 #: lib/News/sql.php:456
 #, php-format
 msgid "Story URL \"%s\" not found."
-msgstr "Haber URL I \"%s\" bulunamadı."
+msgstr "Haber URL I \"%s\" bulunamadÄ±."
 
 #: lib/Forms/Feed.php:78 lib/Forms/Feed.php:113
 #, php-format
@@ -775,17 +775,17 @@ msgid ""
 "Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
 "story ID."
 msgstr ""
-"Haber URL i -öntanımlı olan değilse- %c besleme numarası ile, %s ise haber "
-"numarası ile değiştirilir."
+"Haber URL i -Ã¶ntanÄ±mlÄ± olan deÄŸilse- %c besleme numarasÄ± ile, %s ise haber "
+"numarasÄ± ile deÄŸiÅŸtirilir."
 
 #: lib/Forms/Story.php:61
 msgid "Story body type"
-msgstr "Haber gövde tipi"
+msgstr "Haber gÃ¶vde tipi"
 
 #: stories/edit.php:34
 #, php-format
 msgid "Story editing failed: %s"
-msgstr "Haber düzenleme başarısız oldu: %s"
+msgstr "Haber dÃ¼zenleme baÅŸarÄ±sÄ±z oldu: %s"
 
 #: stories/delete.php:71
 msgid "Story has not been deleted."
@@ -794,7 +794,7 @@ msgstr "Haber silinmedi."
 #: lib/News/sql.php:424
 #, php-format
 msgid "Story id \"%s\" not found."
-msgstr "Haber numarası \"%s\" bulunamadı."
+msgstr "Haber numarasÄ± \"%s\" bulunamadÄ±."
 
 #: stories/share.php:85
 msgid "Subject"
@@ -803,24 +803,24 @@ msgstr "Konu"
 #: lib/News.php:363
 #, php-format
 msgid "Successfully delivered to the %s distribution list."
-msgstr "%s dağıtım listesine başarıyla iletildi."
+msgstr "%s daÄŸÄ±tÄ±m listesine baÅŸarÄ±yla iletildi."
 
 #: lib/Block/cloud.php:3 lib/Block/cloud.php:24
 msgid "Tag Cloud"
-msgstr "İşaret Bulutu"
+msgstr "Ä°ÅŸaret Bulutu"
 
 #: lib/News.php:834 lib/News.php:839 lib/News.php:844 lib/News.php:850
 #: lib/News.php:855
 msgid "Tag support not enabled in backend."
-msgstr "Arka araçta işaretleme desteği faal faal değil."
+msgstr "Arka araÃ§ta iÅŸaretleme desteÄŸi faal faal deÄŸil."
 
 #: lib/Forms/Story.php:79
 msgid "Tags"
-msgstr "İşaretler"
+msgstr "Ä°ÅŸaretler"
 
 #: lib/Block/story.php:105 templates/stories/story.html:6
 msgid "Tags: "
-msgstr "İşaretler: "
+msgstr "Ä°ÅŸaretler: "
 
 #: lib/Jonah.php:225
 msgid "Text"
@@ -834,12 +834,12 @@ msgstr "Kanal \"%s\" silindi."
 #: channels/aggregate.php:76
 #, php-format
 msgid "The channel \"%s\" has been saved."
-msgstr "Kanal \"%s\" saklandı."
+msgstr "Kanal \"%s\" saklandÄ±."
 
 #: channels/aggregate.php:84 channels/aggregate.php:102
 #, php-format
 msgid "The channel \"%s\" has been updated."
-msgstr "Kanal \"%s\" güncellendi."
+msgstr "Kanal \"%s\" gÃ¼ncellendi."
 
 #: channels/delete.php:68
 msgid "The channel has been deleted."
@@ -852,28 +852,28 @@ msgstr "Haberin tam metni"
 #: channels/edit.php:70
 #, php-format
 msgid "The feed \"%s\" has been saved."
-msgstr "Besleme \"%s\" saklandı."
+msgstr "Besleme \"%s\" saklandÄ±."
 
 #: lib/Forms/Feed.php:94
 msgid ""
 "The interval before stories aggregated into this feeds are rechecked for "
 "updates. If none, then stories will always be refetched from the sources."
 msgstr ""
-"Haberlerin, bu beslemede toplanmadan önce, güncellemeler için tekrar kontrol "
-"sıklığı. Belirtilmezse, haberler her zaman kaynaktan yeniden çekilecektir."
+"Haberlerin, bu beslemede toplanmadan Ã¶nce, gÃ¼ncellemeler iÃ§in tekrar kontrol "
+"sÄ±klÄ±ÄŸÄ±. Belirtilmezse, haberler her zaman kaynaktan yeniden Ã§ekilecektir."
 
 #: lib/Forms/Feed.php:83
 msgid ""
 "The interval before stories in this feed are rechecked for updates. If none, "
 "then stories will always be refetched from the source."
 msgstr ""
-"Bu beslemedeki haberlerin güncellemeler için tekrar kontrol sıklığı."
-"Belirtilmezse, haberler her zaman kaynaktan yeniden çekilecektir."
+"Bu beslemedeki haberlerin gÃ¼ncellemeler iÃ§in tekrar kontrol sÄ±klÄ±ÄŸÄ±."
+"Belirtilmezse, haberler her zaman kaynaktan yeniden Ã§ekilecektir."
 
 #: stories/edit.php:63
 #, php-format
 msgid "The story \"%s\" has been saved."
-msgstr "Haber \"%s\" saklandı."
+msgstr "Haber \"%s\" saklandÄ±."
 
 #: stories/delete.php:63
 msgid "The story has been deleted."
@@ -881,62 +881,62 @@ msgstr "Haber silindi."
 
 #: stories/share.php:120
 msgid "The story was sent successfully."
-msgstr "Haber başarıyla gönderildi."
+msgstr "Haber baÅŸarÄ±yla gÃ¶nderildi."
 
 #: channels/aggregate.php:59 lib/Forms/Feed.php:85
 msgid ""
 "The url to use to fetch the stories, for example 'http://www.example.com/"
 "stories.rss'"
 msgstr ""
-"Haberleri çekmek için kullanılacak url. Örneğin 'http://www.example.com/"
+"Haberleri Ã§ekmek iÃ§in kullanÄ±lacak url. Ã–rneÄŸin 'http://www.example.com/"
 "stories.rss'."
 
 #: channels/delete.php:66
 #, php-format
 msgid "There was an error deleting the channel: %s"
-msgstr "Kanalı silerken bir hata oluştu: %s"
+msgstr "KanalÄ± silerken bir hata oluÅŸtu: %s"
 
 #: stories/delete.php:61
 #, php-format
 msgid "There was an error deleting the story: %s"
-msgstr "Haberi silerken bir hata oluştu: %s"
+msgstr "Haberi silerken bir hata oluÅŸtu: %s"
 
 #: channels/aggregate.php:93
 #, php-format
 msgid "There was an error removing the channel: %s"
-msgstr "Kanal silinirken bir hata oluştur: %s"
+msgstr "Kanal silinirken bir hata oluÅŸtur: %s"
 
 #: channels/aggregate.php:74
 #, php-format
 msgid "There was an error saving the channel: %s"
-msgstr "Kanal saklanırken bir hata oluştu: %s"
+msgstr "Kanal saklanÄ±rken bir hata oluÅŸtu: %s"
 
 #: channels/edit.php:68
 #, php-format
 msgid "There was an error saving the feed: %s"
-msgstr "Besleme saklanırken bir hata oluştu: %s"
+msgstr "Besleme saklanÄ±rken bir hata oluÅŸtu: %s"
 
 #: stories/edit.php:61
 #, php-format
 msgid "There was an error saving the story: %s"
-msgstr "Haberi saklarken bir hata oluştu: %s"
+msgstr "Haberi saklarken bir hata oluÅŸtu: %s"
 
 #: channels/aggregate.php:82 channels/aggregate.php:100
 #, php-format
 msgid "There was an error updating the channel: %s"
-msgstr "Kanal güncellenirken bir hata oluştu: %s"
+msgstr "Kanal gÃ¼ncellenirken bir hata oluÅŸtu: %s"
 
 #: lib/Delivery/email.php:181
 msgid ""
 "This driver allows the delivery of news stories via email to one or more "
 "recipients."
 msgstr ""
-"Bu sürücü, haberlerin bir ya da birden fazla alıcıya, eposta aracılığı ile "
-"ulaştırılmasını sağlar. "
+"Bu sÃ¼rÃ¼cÃ¼, haberlerin bir ya da birden fazla alÄ±cÄ±ya, eposta aracÄ±lÄ±ÄŸÄ± ile "
+"ulaÅŸtÄ±rÄ±lmasÄ±nÄ± saÄŸlar. "
 
 #: channels/aggregate.php:43
 msgid "This is no aggregated channel."
-msgstr "Toplanmış kanal yok."
+msgstr "ToplanmÄ±ÅŸ kanal yok."
 
 #: stories/share.php:84
 msgid "To"
@@ -948,25 +948,25 @@ msgstr "Tip"
 
 #: config/templates.php.dist:53
 msgid "Ultracompact"
-msgstr "Çok yoğun"
+msgstr "Ã‡ok yoÄŸun"
 
 #: delivery/email.php:42
 #, php-format
 msgid "Unable to confirm request."
-msgstr "Talep doğrulanamadı."
+msgstr "Talep doÄŸrulanamadÄ±."
 
 #: stories/share.php:118
 #, php-format
 msgid "Unable to send story: %s"
-msgstr "Haber gönderilemedi: %s"
+msgstr "Haber gÃ¶nderilemedi: %s"
 
 #: channels/aggregate.php:107
 msgid "Update"
-msgstr "Güncelle"
+msgstr "GÃ¼ncelle"
 
 #: lib/Block/news_popular.php:45 lib/Block/news.php:41
 msgid "View"
-msgstr "Görünüm"
+msgstr "GÃ¶rÃ¼nÃ¼m"
 
 #: delivery/email.php:67
 msgid "What do you want to do?"
@@ -977,11 +977,11 @@ msgstr "Ne yapmak istiyorsunuz?"
 #: stories/index.php:31 stories/edit.php:42 stories/delete.php:22
 #: stories/results.php:24
 msgid "You are not authorised for this action."
-msgstr "Bu eylem için yetkili değilsiniz."
+msgstr "Bu eylem iÃ§in yetkili deÄŸilsiniz."
 
 #: channels/edit.php:72
 msgid "You can now edit the sub-feeds."
-msgstr "Şimdi alt beslemeleri düzenleyebilirsiniz."
+msgstr "Åimdi alt beslemeleri dÃ¼zenleyebilirsiniz."
 
 #: lib/Delivery/email.php:72
 #, php-format
@@ -989,8 +989,8 @@ msgid ""
 "You have requested to receive \"%s\" stories by email. Click on this link to "
 "confirm the request: %s"
 msgstr ""
-"\"%s\" haberlerini eposta ile almayı talep ettiniz. Talebi onaylamak için  "
-"linki tıklayınız: %s"
+"\"%s\" haberlerini eposta ile almayÄ± talep ettiniz. Talebi onaylamak iÃ§in  "
+"linki tÄ±klayÄ±nÄ±z: %s"
 
 #: lib/Delivery/email.php:75
 #, php-format
@@ -998,17 +998,17 @@ msgid ""
 "You have requested to stop receiving \"%s\" stories by email. Click on this "
 "link to confirm the request: %s"
 msgstr ""
-"\"%s\" haberlerini eposta ile almayı durdurma talebinde bulundunuz. Talebi "
-"onaylamak için linki tıklayınız: %s"
+"\"%s\" haberlerini eposta ile almayÄ± durdurma talebinde bulundunuz. Talebi "
+"onaylamak iÃ§in linki tÄ±klayÄ±nÄ±z: %s"
 
 #: lib/Delivery.php:272
 msgid "You must configure a Horde Datatree backend to use Jonah."
 msgstr ""
-"Haberleri kullanmak için bir Horde Veri Ağacı arka aracı yapılandırmalısınız."
+"Haberleri kullanmak iÃ§in bir Horde Veri AÄŸacÄ± arka aracÄ± yapÄ±landÄ±rmalÄ±sÄ±nÄ±z."
 
 #: lib/News.php:806
 msgid "[No title]"
-msgstr "[Başlıksız]"
+msgstr "[BaÅŸlÄ±ksÄ±z]"
 
 #: lib/Jonah.php:266
 msgid "_Feeds"
@@ -1024,4 +1024,4 @@ msgstr "_Yeni Besleme"
 
 #: lib/News.php:472
 msgid "none"
-msgstr "hiçbiri"
+msgstr "hiÃ§biri"

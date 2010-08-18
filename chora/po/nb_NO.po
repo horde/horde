@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Oystein Steimler <oystein@rexta.net>\n"
 "Language-Team: Norwegian (Bokmal) <oystein@rexta.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid ""

@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -30,7 +30,7 @@ msgstr " be pabaigos"
 #: templates/search/header.inc:4
 #, php-format
 msgid "%d events"
-msgstr "%d ávykiai"
+msgstr "%d Ä¯vykiai"
 
 #: templates/view/view.inc:124
 #, php-format
@@ -40,7 +40,7 @@ msgstr "%d kartus"
 #: templates/edit/edit_timespan.inc:120
 #, php-format
 msgid "%s Day(s) %s Hour(s) %s Minutes"
-msgstr "%s diena(os, ø) %s valanda(os, ø) %s minutë(ës, iø)"
+msgstr "%s diena(os, Å³) %s valanda(os, Å³) %s minutÄ—(Ä—s, iÅ³)"
 
 #: lib/Driver.php:2217
 #, php-format
@@ -50,7 +50,7 @@ msgstr "%s dalyviai"
 #: data.php:304
 #, php-format
 msgid "%s file successfully imported"
-msgstr "%s failas sëkmingai ákeltas"
+msgstr "%s failas sÄ—kmingai Ä¯keltas"
 
 #: calendars.php:112 lib/api.php:217 lib/Kronolith.php:371
 #, php-format
@@ -59,11 +59,11 @@ msgstr "%s kalendorius"
 
 #: templates/contacts/contacts.inc:177
 msgid "* Add these by clicking Add *"
-msgstr "* Norëdami pridëtá spauskite Pridëti *"
+msgstr "* NorÄ—dami pridÄ—tÄ¯ spauskite PridÄ—ti *"
 
 #: templates/contacts/contacts.inc:162
 msgid "* Please select address(es) *"
-msgstr "* Pasirinkite adresà(us) *"
+msgstr "* Pasirinkite adresÄ…(us) *"
 
 #: templates/edit/edit.inc:211
 #, php-format
@@ -76,7 +76,7 @@ msgstr "1 dalyvis"
 
 #: templates/search/header.inc:4
 msgid "1 event"
-msgstr "1 ávykis"
+msgstr "1 Ä¯vykis"
 
 #: config/prefs.php.dist:161
 msgid "1 hour"
@@ -84,15 +84,15 @@ msgstr "1 valanda"
 
 #: config/prefs.php.dist:158
 msgid "15 minutes"
-msgstr "15 minuèiø"
+msgstr "15 minuÄiÅ³"
 
 #: config/prefs.php.dist:159
 msgid "20 minutes"
-msgstr "20 minuèiø"
+msgstr "20 minuÄiÅ³"
 
 #: config/prefs.php.dist:160
 msgid "30 minutes"
-msgstr "30 minuèiø"
+msgstr "30 minuÄiÅ³"
 
 #: templates/data/export.inc:118 templates/data/export.inc:203
 msgid "AM"
@@ -104,112 +104,112 @@ msgstr "Priimta"
 
 #: templates/search/search.inc:11
 msgid "Ad_vanced Search"
-msgstr "_Detali paieğka"
+msgstr "_Detali paieÅ¡ka"
 
 #: templates/contacts/contacts.inc:171
 msgid "Add"
-msgstr "Ávesti"
+msgstr "Ä®vesti"
 
 #: templates/edit/edit.inc:23
 msgid "Add Event"
-msgstr "Naujas ávykis"
+msgstr "Naujas Ä¯vykis"
 
 #: templates/prefs/remote_cal_management.inc:43
 msgid "Add a new Remote Calendar"
-msgstr "Sukurti naujà nutolusá kalendoriø"
+msgstr "Sukurti naujÄ… nutolusÄ¯ kalendoriÅ³"
 
 #: new.php:65
 msgid "Add a new event"
-msgstr "Sukurti naujà ávyká"
+msgstr "Sukurti naujÄ… Ä¯vykÄ¯"
 
 #: templates/attendees/attendees.inc:78
 msgid "Add attendees"
-msgstr "Pridëti dalyvius"
+msgstr "PridÄ—ti dalyvius"
 
 #: templates/prefs/sourceselect.inc:298
 msgid "Add source"
-msgstr "Pridëti ğaltiná"
+msgstr "PridÄ—ti Å¡altinÄ¯"
 
 #: templates/contacts/contacts.inc:197
 msgid "Add to attendees"
-msgstr "Átraukti á dalyviø sàrağà"
+msgstr "Ä®traukti Ä¯ dalyviÅ³ sÄ…raÅ¡Ä…"
 
 #: contacts.php:76 templates/attendees/attendees.inc:85
 #: templates/contacts/contacts.inc:138
 msgid "Address Book"
-msgstr "Adresø knygelë"
+msgstr "AdresÅ³ knygelÄ—"
 
 #: config/prefs.php.dist:76
 msgid "Address Books"
-msgstr "Adresø knygelës"
+msgstr "AdresÅ³ knygelÄ—s"
 
 #: templates/search/search.inc:11 templates/search/search_advanced.inc:8
 msgid "Advanced Search"
-msgstr "Detali paieğka"
+msgstr "Detali paieÅ¡ka"
 
 #: templates/view/view.inc:47
 msgid "Alarm"
-msgstr "Perspëjimas"
+msgstr "PerspÄ—jimas"
 
 #: lib/Driver.php:2183
 #, php-format
 msgid "Alarm %d days before"
-msgstr "Perspëti %d dienø prieğ"
+msgstr "PerspÄ—ti %d dienÅ³ prieÅ¡"
 
 #: lib/Driver.php:2188
 #, php-format
 msgid "Alarm %d hours before"
-msgstr "Perspëti %d valandø prieğ"
+msgstr "PerspÄ—ti %d valandÅ³ prieÅ¡"
 
 #: lib/Driver.php:2193
 #, php-format
 msgid "Alarm %d minutes before"
-msgstr "Perspëti %d minuèiø prieğ"
+msgstr "PerspÄ—ti %d minuÄiÅ³ prieÅ¡"
 
 #: lib/Driver.php:2178
 #, php-format
 msgid "Alarm %d weeks before"
-msgstr "Perspëti %d savaièiø prieğ"
+msgstr "PerspÄ—ti %d savaiÄiÅ³ prieÅ¡"
 
 #: lib/Driver.php:2182
 msgid "Alarm 1 day before"
-msgstr "Perspëti 1 dienà prieğ"
+msgstr "PerspÄ—ti 1 dienÄ… prieÅ¡"
 
 #: lib/Driver.php:2187
 msgid "Alarm 1 hour before"
-msgstr "Perspëti 1 valandà prieğ"
+msgstr "PerspÄ—ti 1 valandÄ… prieÅ¡"
 
 #: lib/Driver.php:2192
 msgid "Alarm 1 minute before"
-msgstr "Perspëti 1 minutæ prieğ"
+msgstr "PerspÄ—ti 1 minutÄ™ prieÅ¡"
 
 #: lib/Driver.php:2177
 msgid "Alarm 1 week before"
-msgstr "Perspëti 1 savaitæ prieğ"
+msgstr "PerspÄ—ti 1 savaitÄ™ prieÅ¡"
 
 #: data.php:61
 msgid "Alarm Date"
-msgstr "Perspëjimo data"
+msgstr "PerspÄ—jimo data"
 
 #: data.php:60
 msgid "Alarm Span (minutes)"
-msgstr "Perspëjimo pasikartojimas (minutëmis)"
+msgstr "PerspÄ—jimo pasikartojimas (minutÄ—mis)"
 
 #: data.php:62
 msgid "Alarm Time"
-msgstr "Perspëjimo laikas"
+msgstr "PerspÄ—jimo laikas"
 
 #: templates/edit/edit.inc:166 templates/prefs/default_alarm_management.inc:24
 msgid "Alarm Unit"
-msgstr "Perspëjimo vienetai"
+msgstr "PerspÄ—jimo vienetai"
 
 #: templates/edit/edit.inc:164 templates/prefs/default_alarm_management.inc:22
 msgid "Alarm Value"
-msgstr "Perspëjimo reikğmë"
+msgstr "PerspÄ—jimo reikÅ¡mÄ—"
 
 #: templates/edit/edit.inc:159
 msgid "Alarm enabled"
-msgstr "Perspëjimai ájungti"
+msgstr "PerspÄ—jimai Ä¯jungti"
 
 #: templates/edit/edit.inc:39 templates/delete/delete.inc:27
 msgid "All"
@@ -221,7 +221,7 @@ msgstr "Visi dalyviai"
 
 #: templates/perms/perms.inc:84
 msgid "All Authenticated Users"
-msgstr "Visi prisijungæ vartotojai"
+msgstr "Visi prisijungÄ™ vartotojai"
 
 #: lib/Block/month.php:42
 msgid "All Calendars"
@@ -229,11 +229,11 @@ msgstr "Visi kalendoriai"
 
 #: templates/search/search.inc:59
 msgid "All Future"
-msgstr "Visi bûsimi"
+msgstr "Visi bÅ«simi"
 
 #: templates/search/search.inc:53
 msgid "All Past"
-msgstr "Visi buvæ"
+msgstr "Visi buvÄ™"
 
 #: lib/Block/monthlist.php:30 lib/Block/summary.php:28
 #: lib/Block/prevmonthlist.php:27 lib/Block/month.php:24
@@ -244,15 +244,15 @@ msgstr "Visi matomi"
 #: lib/Views/Week.php:143 lib/Views/Week.php:150
 #: templates/edit/edit_timespan.inc:119
 msgid "All day"
-msgstr "Visà dienà"
+msgstr "VisÄ… dienÄ…"
 
 #: lib/Block/summary.php:177
 msgid "All day event"
-msgstr "Ávykis visai dienai"
+msgstr "Ä®vykis visai dienai"
 
 #: templates/data/export.inc:33
 msgid "All events"
-msgstr "Visi ávykiai"
+msgstr "Visi Ä¯vykiai"
 
 #: lib/api.php:641 lib/api.php:651
 msgid "Already Exists"
@@ -278,13 +278,13 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"Prikabintas failas yra iCalendar informacija apie ávyká. Jeigu jûsø pağto "
-"klientas palaiko iTip uşklausas, galite panaudoti ğá failà atnaujinant "
-"lokalios ávykio kopijos duomenis."
+"Prikabintas failas yra iCalendar informacija apie Ä¯vykÄ¯. Jeigu jÅ«sÅ³ paÅ¡to "
+"klientas palaiko iTip uÅ¾klausas, galite panaudoti Å¡Ä¯ failÄ… atnaujinant "
+"lokalios Ä¯vykio kopijos duomenis."
 
 #: perms.php:45
 msgid "Attempt to edit a non-existent share."
-msgstr "Bandote redaguoti neegzistuojantá elementà."
+msgstr "Bandote redaguoti neegzistuojantÄ¯ elementÄ…."
 
 #: templates/view/view.inc:172 templates/attendees/attendees.inc:48
 #: templates/attendees/attendees.inc:60
@@ -301,15 +301,15 @@ msgstr "Dalyviai"
 
 #: templates/javascript/goto.js:75
 msgid "August"
-msgstr "Rugpjûtis"
+msgstr "RugpjÅ«tis"
 
 #: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
 msgid "Available Address books:"
-msgstr "Galimos adresø knygelës:"
+msgstr "Galimos adresÅ³ knygelÄ—s:"
 
 #: templates/search/search.inc:8 templates/search/search_advanced.inc:11
 msgid "Basic Search"
-msgstr "Paprastoji paieğka"
+msgstr "Paprastoji paieÅ¡ka"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
@@ -317,7 +317,7 @@ msgstr "Gimtadienis"
 
 #: lib/FBView.php:89 lib/FBView.php:110
 msgid "Busy"
-msgstr "Uşimta"
+msgstr "UÅ¾imta"
 
 #: templates/search/search_advanced.inc:42
 msgid "C_alendar"
@@ -339,7 +339,7 @@ msgstr "Kalendoriaus santrumpa"
 
 #: data.php:248
 msgid "Calendar successfully purged."
-msgstr "Kalendorius iğvalytas sëkmingai."
+msgstr "Kalendorius iÅ¡valytas sÄ—kmingai."
 
 #: templates/panel.inc:42 templates/panel.inc:43 config/prefs.php.dist:27
 #: config/prefs.php.dist:35 config/prefs.php.dist:43 config/prefs.php.dist:67
@@ -352,30 +352,30 @@ msgstr "Spausdinami kalendoriai: "
 
 #: calendars.php:31
 msgid "Calendars must have a name."
-msgstr "Árağykite kalendoriaus pavadinimà."
+msgstr "Ä®raÅ¡ykite kalendoriaus pavadinimÄ…."
 
 #: data.php:264
 msgid "Can't create a new event."
-msgstr "Nepavyko sukurti naujo ávykio."
+msgstr "Nepavyko sukurti naujo Ä¯vykio."
 
 #: templates/edit/edit.inc:51 templates/edit/edit.inc:382
 #: templates/delete/delete.inc:28 templates/delete/one.inc:25
 msgid "Cancel"
-msgstr "Atğaukti"
+msgstr "AtÅ¡aukti"
 
 #: lib/Kronolith.php:1157
 msgid "Cancelled"
-msgstr "Atğauktas"
+msgstr "AtÅ¡auktas"
 
 #: lib/Kronolith.php:1415
 #, php-format
 msgid "Cancelled: %s"
-msgstr "Atğaukta: %s"
+msgstr "AtÅ¡aukta: %s"
 
 #: lib/Driver/kolab.php:1265
 #, php-format
 msgid "Cannot delete event: %s"
-msgstr "Nepavyko iğtrinti ávykio: %s"
+msgstr "Nepavyko iÅ¡trinti Ä¯vykio: %s"
 
 #: templates/edit/edit.inc:94 templates/search/search_advanced.inc:63
 msgid "Categor_y"
@@ -390,87 +390,87 @@ msgid ""
 "Choose how you want to be notified about event changes, event alarms and "
 "upcoming events."
 msgstr ""
-"Praneğimø apie ávykiø pakeitimus, perspëjimø ir bûsimø ávykiø nustatymai."
+"PraneÅ¡imÅ³ apie Ä¯vykiÅ³ pakeitimus, perspÄ—jimÅ³ ir bÅ«simÅ³ Ä¯vykiÅ³ nustatymai."
 
 #: config/prefs.php.dist:391
 msgid "Choose how you want to receive reminders for events with alarms:"
-msgstr "Pasirinkite, kaip norite bûti informuoti apie ávykius su perspëjimais:"
+msgstr "Pasirinkite, kaip norite bÅ«ti informuoti apie Ä¯vykius su perspÄ—jimais:"
 
 #: config/prefs.php.dist:348
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
-"Pasirinkite, ar norite bûti informuoti apie naujus, pakeistus arba iğtrintus "
-"ávykius el. pağtu:"
+"Pasirinkite, ar norite bÅ«ti informuoti apie naujus, pakeistus arba iÅ¡trintus "
+"Ä¯vykius el. paÅ¡tu:"
 
 #: config/prefs.php.dist:361
 msgid "Choose if you want to receive daily agenda email reminders:"
-msgstr "Pasirinkite, ar norite kas dienà gauti priminimus el. pağtu:"
+msgstr "Pasirinkite, ar norite kas dienÄ… gauti priminimus el. paÅ¡tu:"
 
 #: config/prefs.php.dist:382
 msgid "Choose if you want to receive reminders for events with alarms:"
-msgstr "Pasirinkite, ar norite gauti priminimus ávykiams su perspëjimais:"
+msgstr "Pasirinkite, ar norite gauti priminimus Ä¯vykiams su perspÄ—jimais:"
 
 #: templates/prefs/fb_cals_select.inc:16
 msgid "Choose the calendars to include in your free/busy information:"
 msgstr ""
-"Pasirinkite, kuriuos kalendorius naudoti uşimtumo informacijai generuoti:"
+"Pasirinkite, kuriuos kalendorius naudoti uÅ¾imtumo informacijai generuoti:"
 
 #: config/prefs.php.dist:448
 msgid "Choose the calendars to include when generating free/busy URLs:"
 msgstr ""
-"Pasirinkite, kuriuos kalendorius naudoti uşimtumo informacijos URL "
+"Pasirinkite, kuriuos kalendorius naudoti uÅ¾imtumo informacijos URL "
 "generavimui:"
 
 #: templates/prefs/sourceselect.inc:287
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Pasirinkite adresø knygeliø tvarkà, naudojamà adresø patikrinimui."
+msgstr "Pasirinkite adresÅ³ knygeliÅ³ tvarkÄ…, naudojamÄ… adresÅ³ patikrinimui."
 
 #: config/prefs.php.dist:195
 msgid "Choose the views to show event locations in:"
-msgstr "Pasirinkite, kuriuose languose rodyti ávykiø vietà:"
+msgstr "Pasirinkite, kuriuose languose rodyti Ä¯vykiÅ³ vietÄ…:"
 
 #: config/prefs.php.dist:183
 msgid "Choose the views to show event start and end times in:"
 msgstr ""
-"Pasirinkite, kuriuose languose rodyti ávykiø pradşios ir pabaigos laikà:"
+"Pasirinkite, kuriuose languose rodyti Ä¯vykiÅ³ pradÅ¾ios ir pabaigos laikÄ…:"
 
 #: config/prefs.php.dist:37
 msgid "Choose which holidays to display"
-msgstr "Ğvenèiø rodymas."
+msgstr "Å venÄiÅ³ rodymas."
 
 #: config/prefs.php.dist:29
 msgid "Choose your default calendar."
-msgstr "Jûsø pagrindinis kalendorius."
+msgstr "JÅ«sÅ³ pagrindinis kalendorius."
 
 #: templates/attendees/attendees.inc:95
 msgid "Clear all attendees"
-msgstr "Iğvalyti visus dalyvius"
+msgstr "IÅ¡valyti visus dalyvius"
 
 #: templates/prefs/sourceselect.inc:317
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Pele paşymëkite vienà iğ Jûsø adresø knygeliø, o po to pasirinkite laukus "
-"paieğkai."
+"Pele paÅ¾ymÄ—kite vienÄ… iÅ¡ JÅ«sÅ³ adresÅ³ knygeliÅ³, o po to pasirinkite laukus "
+"paieÅ¡kai."
 
 #: templates/perms/perms.inc:9
 msgid "Close Window"
-msgstr "Uşdaryti langà"
+msgstr "UÅ¾daryti langÄ…"
 
 #: templates/contacts/contacts.inc:198
 msgid "Close window"
-msgstr "Uşdaryti langà"
+msgstr "UÅ¾daryti langÄ…"
 
 #: data.php:30 templates/data/import.inc:13
 msgid "Comma separated values"
-msgstr "Kableliais atskirtos reikğmës"
+msgstr "Kableliais atskirtos reikÅ¡mÄ—s"
 
 #: config/prefs.php.dist:88
 msgid "Confirm deletion of events?"
-msgstr "Patvirtinti visø ávykiø iğtrynimà?"
+msgstr "Patvirtinti visÅ³ Ä¯vykiÅ³ iÅ¡trynimÄ…?"
 
 #: lib/Kronolith.php:1154
 msgid "Confirmed"
@@ -479,8 +479,8 @@ msgstr "Patvirtintas"
 #: templates/calendars/calendars.inc:162
 msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
 msgstr ""
-"Nusikopijuokite apaèioje esantá URL adresà, kurá galite naudoti savo "
-"uşimtumo informacijos platinimui:"
+"Nusikopijuokite apaÄioje esantÄ¯ URL adresÄ…, kurÄ¯ galite naudoti savo "
+"uÅ¾imtumo informacijos platinimui:"
 
 #: lib/Kronolith.php:463
 #, php-format
@@ -493,12 +493,12 @@ msgstr "Sukurti"
 
 #: templates/calendars/calendars.inc:55
 msgid "Create Calendar"
-msgstr "Sukurti kalendoriø"
+msgstr "Sukurti kalendoriÅ³"
 
 #: lib/Views/Day.php:97 lib/Views/Day.php:256 lib/Views/Month.php:173
 #: templates/week/head.inc:29
 msgid "Create a New Event"
-msgstr "Sukurti naujà ávyká"
+msgstr "Sukurti naujÄ… Ä¯vykÄ¯"
 
 #: templates/view/view.inc:74
 msgid "Created"
@@ -528,7 +528,7 @@ msgstr "Diena(os)"
 
 #: lib/Kronolith.php:1789
 msgid "De_lete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: templates/javascript/goto.js:79
 msgid "December"
@@ -536,11 +536,11 @@ msgstr "Gruodis"
 
 #: lib/Kronolith.php:1184
 msgid "Declined"
-msgstr "Pasibaigæs"
+msgstr "PasibaigÄ™s"
 
 #: templates/prefs/default_alarm_management.inc:21
 msgid "Default Alarm Setting:"
-msgstr "Standartiniai perspëjimø nustatymai:"
+msgstr "Standartiniai perspÄ—jimÅ³ nustatymai:"
 
 #: config/prefs.php.dist:28
 msgid "Default Calendar"
@@ -567,12 +567,12 @@ msgstr "Atstovauti"
 #: templates/perms/perms.inc:294 templates/perms/perms.inc:315
 #: templates/perms/perms.inc:349
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: lib/Driver.php:2244 lib/Views/DeleteEvent.php:29
 #, php-format
 msgid "Delete %s"
-msgstr "Iğtrinti %s"
+msgstr "IÅ¡trinti %s"
 
 #: lib/Driver.php:1302
 #, php-format
@@ -581,16 +581,16 @@ msgstr "%s trynimo klaida"
 
 #: templates/edit/edit.inc:180 templates/search/search_advanced.inc:103
 msgid "Descri_ption"
-msgstr "_Aprağymas"
+msgstr "_ApraÅ¡ymas"
 
 #: templates/search/search.inc:28
 msgid "Descri_ption:"
-msgstr "_Aprağymas:"
+msgstr "_ApraÅ¡ymas:"
 
 #: data.php:63 templates/calendars/calendars.inc:123
 #: templates/view/view.inc:155
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: templates/contacts/contacts.inc:186
 msgid "Display"
@@ -607,28 +607,28 @@ msgstr "Nepasikartoja"
 #: config/prefs.php.dist:369
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the event?"
-msgstr "Nesiøsti man praneğimø apie ávykio sukûrimà, pakeitimà arba iğtrynimà?"
+msgstr "NesiÅ³sti man praneÅ¡imÅ³ apie Ä¯vykio sukÅ«rimÄ…, pakeitimÄ… arba iÅ¡trynimÄ…?"
 
 #: lib/Kronolith.php:683
 #, php-format
 msgid "Due: %s"
-msgstr "Trukmë: %s"
+msgstr "TrukmÄ—: %s"
 
 #: templates/edit/edit_timespan.inc:112
 msgid "Duration"
-msgstr "Trukmë"
+msgstr "TrukmÄ—"
 
 #: lib/Driver.php:1978
 msgid "Duration Day"
-msgstr "Trukmës diena"
+msgstr "TrukmÄ—s diena"
 
 #: lib/Driver.php:1990
 msgid "Duration Hour"
-msgstr "Trukmës valanda"
+msgstr "TrukmÄ—s valanda"
 
 #: lib/Driver.php:2001
 msgid "Duration Minute"
-msgstr "Trukmës minutë"
+msgstr "TrukmÄ—s minutÄ—"
 
 #: lib/Driver.php:2238 templates/calendars/calendars.inc:116
 #: templates/prefs/remote_cal_management.inc:31 templates/perms/perms.inc:32
@@ -650,11 +650,11 @@ msgstr "Redaguoti %s"
 
 #: templates/edit/edit.inc:202
 msgid "Edit Attendees"
-msgstr "Dalyviø redagavimas"
+msgstr "DalyviÅ³ redagavimas"
 
 #: templates/calendars/calendars.inc:84
 msgid "Edit Calendars"
-msgstr "Kalendoriø redagavimas"
+msgstr "KalendoriÅ³ redagavimas"
 
 #: perms.php:260
 msgid "Edit Permissions"
@@ -663,11 +663,11 @@ msgstr "Keisti teises"
 #: perms.php:262
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "%s teisiø keitimas"
+msgstr "%s teisiÅ³ keitimas"
 
 #: templates/attendees/attendees.inc:78
 msgid "Edit attendee"
-msgstr "Redaguoti dalyvá"
+msgstr "Redaguoti dalyvÄ¯"
 
 #: attendees.php:227
 msgid "Edit attendees"
@@ -680,11 +680,11 @@ msgstr "Redaguoti kategorijas ir spalvas"
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
-msgstr "%s teisiø redagavimas"
+msgstr "%s teisiÅ³ redagavimas"
 
 #: templates/contacts/contacts.inc:189
 msgid "Email Address"
-msgstr "El. pağto adresas"
+msgstr "El. paÅ¡to adresas"
 
 #: templates/edit/edit_timespan.inc:57
 msgid "En_d"
@@ -704,11 +704,11 @@ msgstr "Pabaigos valanda"
 
 #: lib/Driver.php:1973 templates/data/export.inc:190
 msgid "End Minute"
-msgstr "Pabaigos minutë"
+msgstr "Pabaigos minutÄ—"
 
 #: lib/Driver.php:1940 templates/data/export.inc:148
 msgid "End Month"
-msgstr "Pabaigos mënuo"
+msgstr "Pabaigos mÄ—nuo"
 
 #: templates/view/view.inc:41 templates/search/event_headers.inc:8
 #: templates/data/export.inc:125
@@ -726,71 +726,71 @@ msgstr "Pabaigos metai"
 #: attendees.php:216
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
-msgstr "Nepavyko gauti %s vartotojo uşimtumo informacijos: %s"
+msgstr "Nepavyko gauti %s vartotojo uÅ¾imtumo informacijos: %s"
 
 #: attendees.php:196
 #, php-format
 msgid "Error retrieving your free/busy information: %s"
-msgstr "Nepavyko gauti jûsø uşimtumo informacijos: %s"
+msgstr "Nepavyko gauti jÅ«sÅ³ uÅ¾imtumo informacijos: %s"
 
 #: config/prefs.php.dist:51
 msgid "Event Defaults"
-msgstr "Ávykiø standartinës reikğmës"
+msgstr "Ä®vykiÅ³ standartinÄ—s reikÅ¡mÄ—s"
 
 #: lib/Kronolith.php:1594
 msgid "Event added:"
-msgstr "Ávykis sukurtas:"
+msgstr "Ä®vykis sukurtas:"
 
 #: lib/Kronolith.php:1604
 msgid "Event deleted:"
-msgstr "Ávykis iğtrintas:"
+msgstr "Ä®vykis iÅ¡trintas:"
 
 #: lib/Kronolith.php:1599
 msgid "Event edited:"
-msgstr "Ávykis pakeistas:"
+msgstr "Ä®vykis pakeistas:"
 
 #: lib/Driver.php:1426
 #, php-format
 msgid "Event from %s to %s"
-msgstr "Ávykis nuo %s iki %s"
+msgstr "Ä®vykis nuo %s iki %s"
 
 #: lib/Driver/sql.php:387
 msgid "Event not found"
-msgstr "Ávykis nerastas"
+msgstr "Ä®vykis nerastas"
 
 #: lib/Driver/kolab.php:433 lib/Driver/kolab.php:1130
 #: lib/Driver/kolab.php:1157 lib/Driver/kolab.php:1247
 #, php-format
 msgid "Event not found: %s"
-msgstr "Ávykis nerastas: %s"
+msgstr "Ä®vykis nerastas: %s"
 
 #: config/prefs.php.dist:50 config/prefs.php.dist:57
 msgid "Events"
-msgstr "Ávykiai"
+msgstr "Ä®vykiai"
 
 #: lib/Driver.php:1034
 msgid "Events must have a start date."
-msgstr "Nurodykite pradşios datà."
+msgstr "Nurodykite pradÅ¾ios datÄ…."
 
 #: lib/Driver.php:996
 msgid "Events must have a title."
-msgstr "Árağykite ávykio pavadinimà."
+msgstr "Ä®raÅ¡ykite Ä¯vykio pavadinimÄ…."
 
 #: templates/edit/edit.inc:323 templates/view/view.inc:130
 msgid "Exceptions"
-msgstr "Iğimtys"
+msgstr "IÅ¡imtys"
 
 #: templates/data/export.inc:209
 msgid "Export"
-msgstr "Iğkelti"
+msgstr "IÅ¡kelti"
 
 #: templates/data/export.inc:8
 msgid "Export Calendar"
-msgstr "Iğkelti kalendoriø"
+msgstr "IÅ¡kelti kalendoriÅ³"
 
 #: templates/panel.inc:73
 msgid "External Events:"
-msgstr "Iğoriniai ávykiai:"
+msgstr "IÅ¡oriniai Ä¯vykiai:"
 
 #: templates/javascript/goto.js:69
 msgid "February"
@@ -798,11 +798,11 @@ msgstr "Vasaris"
 
 #: templates/prefs/sourceselect.inc:327
 msgid "Fields to search"
-msgstr "Ieğkoti laukuose"
+msgstr "IeÅ¡koti laukuose"
 
 #: templates/contacts/contacts.inc:143
 msgid "Find"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: lib/Block/month.php:107 lib/Views/Year.php:81 templates/edit/edit.inc:239
 #: templates/javascript/goto.js:63
@@ -815,7 +815,7 @@ msgstr "Laisva"
 
 #: config/prefs.php.dist:68
 msgid "Free/Busy Information"
-msgstr "Uşimtumo informacija"
+msgstr "UÅ¾imtumo informacija"
 
 #: templates/edit/javascript.inc:71 templates/view/view.inc:103
 #: templates/month/head.inc:21
@@ -824,11 +824,11 @@ msgstr "Penktadienis"
 
 #: templates/edit/edit.inc:38 templates/delete/delete.inc:26
 msgid "Future"
-msgstr "Bûsimas"
+msgstr "BÅ«simas"
 
 #: config/keywords.php.dist:17
 msgid "Game"
-msgstr "Şaidimas"
+msgstr "Å½aidimas"
 
 #: templates/search/search_advanced.inc:23
 msgid "General"
@@ -841,19 +841,19 @@ msgstr "Rodyti %s"
 
 #: templates/perms/perms.inc:289
 msgid "Groups"
-msgstr "Grupës"
+msgstr "GrupÄ—s"
 
 #: templates/perms/perms.inc:125
 msgid "Guest Permissions"
-msgstr "Sveèiø teisës"
+msgstr "SveÄiÅ³ teisÄ—s"
 
 #: templates/edit/javascript.inc:256
 msgid "Hide"
-msgstr "Paslëpti"
+msgstr "PaslÄ—pti"
 
 #: config/prefs.php.dist:36
 msgid "Holidays"
-msgstr "Ğventës"
+msgstr "Å ventÄ—s"
 
 #: templates/edit/edit.inc:169 templates/view/view.inc:59
 #: templates/prefs/default_alarm_management.inc:27
@@ -862,11 +862,11 @@ msgstr "Valanda(os)"
 
 #: config/prefs.php.dist:157
 msgid "How long should the time slots on the day and week views be?"
-msgstr "Kokio ilgumo laiko şymes rodyti dienos ir savaitës vaizdavime?"
+msgstr "Kokio ilgumo laiko Å¾ymes rodyti dienos ir savaitÄ—s vaizdavime?"
 
 #: config/prefs.php.dist:400
 msgid "How many days of free/busy information should we generate?"
-msgstr "Kiek dienø á prieká generuoti uşimtumo informacijà?"
+msgstr "Kiek dienÅ³ Ä¯ priekÄ¯ generuoti uÅ¾imtumo informacijÄ…?"
 
 #: lib/Kronolith.php:1445
 #, php-format
@@ -883,29 +883,29 @@ msgid ""
 "To decline the event:\n"
 "%s\n"
 msgstr ""
-"Jeigu jûsø el. pağto klientas nesupranta iTip uşklausø, norëdami priimti "
-"arba atmesti ávyká pasinaudokite nuorodomis apaèioje.\n"
+"Jeigu jÅ«sÅ³ el. paÅ¡to klientas nesupranta iTip uÅ¾klausÅ³, norÄ—dami priimti "
+"arba atmesti Ä¯vykÄ¯ pasinaudokite nuorodomis apaÄioje.\n"
 "\n"
-"Priimti ávyká:\n"
+"Priimti Ä¯vykÄ¯:\n"
 "%s\n"
 "\n"
-"Priimti ávyká kitu laiku:\n"
+"Priimti Ä¯vykÄ¯ kitu laiku:\n"
 "%s\n"
-"Atmesti ávyká:\n"
+"Atmesti Ä¯vykÄ¯:\n"
 "%s\n"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Calendar, Step %d"
-msgstr "Kalendoriaus ákëlimas, %d-as şingsnis"
+msgstr "Kalendoriaus Ä¯kÄ—limas, %d-as Å¾ingsnis"
 
 #: data.php:310
 msgid "Import/Export Calendar"
-msgstr "Ákelti/Iğkelti kalendoriø"
+msgstr "Ä®kelti/IÅ¡kelti kalendoriÅ³"
 
 #: templates/perms/perms.inc:207
 msgid "Individual Users"
-msgstr "Individualûs vartotojai"
+msgstr "IndividualÅ«s vartotojai"
 
 #: templates/javascript/goto.js:68
 msgid "January"
@@ -917,43 +917,43 @@ msgstr "Liepa"
 
 #: templates/javascript/goto.js:73
 msgid "June"
-msgstr "Birşelis"
+msgstr "BirÅ¾elis"
 
 #: data.php:66 templates/edit/edit.inc:336 templates/view/view.inc:138
 msgid "Keywords"
-msgstr "Şodşiai"
+msgstr "Å½odÅ¾iai"
 
 #: templates/search/search.inc:55
 msgid "Last 24 hours"
-msgstr "Paskutinës 24 valandos"
+msgstr "PaskutinÄ—s 24 valandos"
 
 #: templates/view/view.inc:81
 msgid "Last Modified"
-msgstr "Paskutiná kartà redaguota"
+msgstr "PaskutinÄ¯ kartÄ… redaguota"
 
 #: templates/month/head_side_by_side.inc:5 templates/month/head.inc:5
 msgid "Last Month"
-msgstr "Praëjæs mënuo"
+msgstr "PraÄ—jÄ™s mÄ—nuo"
 
 #: templates/year/head.inc:3
 msgid "Last Year"
-msgstr "Praëjæ metai"
+msgstr "PraÄ—jÄ™ metai"
 
 #: templates/week/head.inc:6 templates/search/search.inc:54
 msgid "Last week"
-msgstr "Praëjusi savaitë"
+msgstr "PraÄ—jusi savaitÄ—"
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
-msgstr "Nustatyti laiko tarpà iğkelimui:"
+msgstr "Nustatyti laiko tarpÄ… iÅ¡kelimui:"
 
 #: config/prefs.php.dist:411
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Rodyti visus adresus, adresø knygelëje? (jeigu iğjungsite, matysite tik "
-"adresus, kuriø ieğkojote)"
+"Rodyti visus adresus, adresÅ³ knygelÄ—je? (jeigu iÅ¡jungsite, matysite tik "
+"adresus, kuriÅ³ ieÅ¡kojote)"
 
 #: templates/edit/edit.inc:101 templates/search/search_advanced.inc:85
 msgid "Lo_cation"
@@ -976,7 +976,7 @@ msgstr "Vieta"
 
 #: config/prefs.php.dist:45
 msgid "Manage remote calendars."
-msgstr "Nutolusiø kalendoriø tvarkymas."
+msgstr "NutolusiÅ³ kalendoriÅ³ tvarkymas."
 
 #: templates/javascript/goto.js:70
 msgid "March"
@@ -984,19 +984,19 @@ msgstr "Kovas"
 
 #: lib/api.php:133
 msgid "Maximum Number of Events"
-msgstr "Maksimalus ávykius skaièius"
+msgstr "Maksimalus Ä¯vykius skaiÄius"
 
 #: lib/Block/monthlist.php:27 lib/Block/summary.php:25
 msgid "Maximum number of events to display (0 = no limit)"
-msgstr "Maksimalus rodomø ávykiø skaièius (0 = neribojama)"
+msgstr "Maksimalus rodomÅ³ Ä¯vykiÅ³ skaiÄius (0 = neribojama)"
 
 #: templates/javascript/goto.js:72
 msgid "May"
-msgstr "Geguşë"
+msgstr "GeguÅ¾Ä—"
 
 #: lib/Driver.php:2264
 msgid "Me"
-msgstr "Ağ"
+msgstr "AÅ¡"
 
 #: config/keywords.php.dist:17
 msgid "Meeting"
@@ -1004,16 +1004,16 @@ msgstr "Susirinkimas"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "Meniu perspëjimai"
+msgstr "Meniu perspÄ—jimai"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Meniu sàrağas"
+msgstr "Meniu sÄ…raÅ¡as"
 
 #: templates/edit/edit.inc:168 templates/view/view.inc:62
 #: templates/prefs/default_alarm_management.inc:26
 msgid "Minute(s)"
-msgstr "Minutë(s)"
+msgstr "MinutÄ—(s)"
 
 #: lib/Block/month.php:107 lib/Views/Year.php:77 templates/edit/edit.inc:235
 #: templates/javascript/goto.js:59
@@ -1028,40 +1028,40 @@ msgstr "Pirmadienis"
 #: attendees.php:173 lib/Kronolith.php:1753 lib/Block/tree_menu.php:24
 #: config/prefs.php.dist:100
 msgid "Month"
-msgstr "Mënuo"
+msgstr "MÄ—nuo"
 
 #: config/prefs.php.dist:180
 msgid "Month and Week Views"
-msgstr "Mënesio ir savaitës puslapyje"
+msgstr "MÄ—nesio ir savaitÄ—s puslapyje"
 
 #: config/prefs.php.dist:192
 msgid "Month, Week, and Day Views"
-msgstr "Mënesio, savaitës ir dienos puslapyje"
+msgstr "MÄ—nesio, savaitÄ—s ir dienos puslapyje"
 
 #: lib/Recurrence.php:195
 msgid "Monthly"
-msgstr "Kas mënesá"
+msgstr "Kas mÄ—nesÄ¯"
 
 #: templates/edit/edit.inc:246 templates/edit/edit.inc:252
 #: templates/view/view.inc:108 templates/view/view.inc:110
 msgid "Monthly: Recurs every"
-msgstr "Kasmënesinis. Kartojasi kas"
+msgstr "KasmÄ—nesinis. Kartojasi kas"
 
 #: lib/Block/monthlist.php:24
 msgid "Months Ahead"
-msgstr "Mënesiai á prieká"
+msgstr "MÄ—nesiai Ä¯ priekÄ¯"
 
 #: lib/Block/prevmonthlist.php:24
 msgid "Months Before"
-msgstr "Mënesiai prieğ tai"
+msgstr "MÄ—nesiai prieÅ¡ tai"
 
 #: templates/prefs/sourceselect.inc:312
 msgid "Move down"
-msgstr "Perkelti şemyn"
+msgstr "Perkelti Å¾emyn"
 
 #: templates/prefs/sourceselect.inc:310
 msgid "Move up"
-msgstr "Perkelti aukğtyn"
+msgstr "Perkelti aukÅ¡tyn"
 
 #: lib/api.php:911
 msgid "Multiple iCalendar components found; only one vEvent is supported."
@@ -1077,7 +1077,7 @@ msgstr "Mano kalendoriai:"
 
 #: templates/calendars/calendars.inc:158
 msgid "My Free/Busy URL"
-msgstr "Mano uşimtumo informacijos URL"
+msgstr "Mano uÅ¾imtumo informacijos URL"
 
 #: templates/calendars/calendars.inc:60 templates/calendars/calendars.inc:103
 #: templates/contacts/contacts.inc:188
@@ -1088,14 +1088,14 @@ msgstr "Vardas"
 
 #: lib/Block/tree_menu.php:20
 msgid "New Event"
-msgstr "Naujas árağas"
+msgstr "Naujas Ä¯raÅ¡as"
 
 #: lib/Kronolith.php:405
 #, php-format
 msgid ""
 "New calendar created and automatically shared with the following group(s): %"
 "s."
-msgstr "Naujas kalendorius sukurtas ir pavieğintas ğiai(ioms) grupei(ës): %s."
+msgstr "Naujas kalendorius sukurtas ir pavieÅ¡intas Å¡iai(ioms) grupei(Ä—s): %s."
 
 #: templates/data/import.inc:33
 msgid "Next"
@@ -1103,7 +1103,7 @@ msgstr "Sekantis"
 
 #: templates/search/search.inc:57
 msgid "Next 24 hours"
-msgstr "Sekanèios 24 valandos"
+msgstr "SekanÄios 24 valandos"
 
 #: lib/FBView/day.php:28
 msgid "Next Day"
@@ -1112,11 +1112,11 @@ msgstr "Sekanti diena"
 #: lib/FBView/month.php:31 templates/month/head_side_by_side.inc:7
 #: templates/month/head.inc:7
 msgid "Next Month"
-msgstr "Sekantis mënuo"
+msgstr "Sekantis mÄ—nuo"
 
 #: lib/FBView/week.php:31
 msgid "Next Week"
-msgstr "Sekanti savaitë"
+msgstr "Sekanti savaitÄ—"
 
 #: templates/year/head.inc:5
 msgid "Next Year"
@@ -1128,7 +1128,7 @@ msgstr "Sekanti diena"
 
 #: templates/week/head.inc:8 templates/search/search.inc:58
 msgid "Next week"
-msgstr "Sekanti savaitë"
+msgstr "Sekanti savaitÄ—"
 
 #: config/prefs.php.dist:344 config/prefs.php.dist:357
 #: config/prefs.php.dist:378
@@ -1137,66 +1137,66 @@ msgstr "Ne"
 
 #: templates/edit/edit.inc:163 templates/view/view.inc:67
 msgid "No alarm"
-msgstr "Perspëjimai iğjungti"
+msgstr "PerspÄ—jimai iÅ¡jungti"
 
 #: templates/attendees/attendees.inc:54
 msgid "No attendees"
-msgstr "Dalyviø nëra"
+msgstr "DalyviÅ³ nÄ—ra"
 
 #: lib/api.php:1062
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
 msgstr ""
-"Neatnaujintas nei vienas dalyvis, kadangi dalyviø sàrağe nerastas nei vienas "
-"ávestas el. pağto adresas."
+"Neatnaujintas nei vienas dalyvis, kadangi dalyviÅ³ sÄ…raÅ¡e nerastas nei vienas "
+"Ä¯vestas el. paÅ¡to adresas."
 
 #: lib/Kronolith.php:1934
 msgid "No calendars are available to guests."
-msgstr "Kalendoriø sveèiams nëra."
+msgstr "KalendoriÅ³ sveÄiams nÄ—ra."
 
 #: templates/edit/edit.inc:284 templates/view/view.inc:124
 msgid "No end date"
-msgstr "Nëra pabaigos datos"
+msgstr "NÄ—ra pabaigos datos"
 
 #: lib/Block/monthlist.php:175 lib/Block/summary.php:208
 #: lib/Block/prevmonthlist.php:166
 msgid "No events to display"
-msgstr "Ávykiø nëra"
+msgstr "Ä®vykiÅ³ nÄ—ra"
 
 #: lib/FreeBusy.php:223
 #, php-format
 msgid "No free/busy information found at the free/busy url of %s."
 msgstr ""
-"Nurodytoje nuorodoje nepavyko aptikti jokios vartotojo %s uşimtumo "
+"Nurodytoje nuorodoje nepavyko aptikti jokios vartotojo %s uÅ¾imtumo "
 "informacijos."
 
 #: lib/Storage/kolab.php:67
 #, php-format
 msgid "No free/busy information is available for %s"
-msgstr "Nepavyko gauti vartotojo %s uşimtumo informacijos"
+msgstr "Nepavyko gauti vartotojo %s uÅ¾imtumo informacijos"
 
 #: lib/FreeBusy.php:224
 #, php-format
 msgid "No free/busy url found for %s."
-msgstr "Nepavyko gauti vartotojo %s uşimtumo informacijos nuorodos."
+msgstr "Nepavyko gauti vartotojo %s uÅ¾imtumo informacijos nuorodos."
 
 #: lib/api.php:384 lib/api.php:627 lib/api.php:664 lib/api.php:918
 msgid "No iCalendar data was found."
-msgstr "Nerasta jokiø iCalendar duomenø."
+msgstr "Nerasta jokiÅ³ iCalendar duomenÅ³."
 
 #: lib/Driver.php:1287 lib/Recurrence.php:191 templates/edit/edit.inc:221
 msgid "No recurrence"
-msgstr "Pasikartojimo nëra"
+msgstr "Pasikartojimo nÄ—ra"
 
 #: lib/FreeBusy.php:166
 msgid "No valid email address found"
-msgstr "Nerastas teisingas el. pağto adresas."
+msgstr "Nerastas teisingas el. paÅ¡to adresas."
 
 #: lib/Kronolith.php:1191 lib/Kronolith.php:1212
 #: templates/prefs/sourceselect.inc:35
 msgid "None"
-msgstr "Nëra"
+msgstr "NÄ—ra"
 
 #: lib/Views/EditEvent.php:27 lib/Views/Event.php:26
 #: lib/Views/DeleteEvent.php:27
@@ -1209,7 +1209,7 @@ msgstr "Nerasta"
 
 #: config/prefs.php.dist:58
 msgid "Notifications"
-msgstr "Praneğimai"
+msgstr "PraneÅ¡imai"
 
 #: templates/javascript/goto.js:78
 msgid "November"
@@ -1234,7 +1234,7 @@ msgstr " "
 #: config/prefs.php.dist:347 config/prefs.php.dist:360
 #: config/prefs.php.dist:381
 msgid "On all calendars I have read access to"
-msgstr "Visiems kalendoriams, kuriuos ağ galiu skaityti"
+msgstr "Visiems kalendoriams, kuriuos aÅ¡ galiu skaityti"
 
 #: config/prefs.php.dist:346 config/prefs.php.dist:359
 #: config/prefs.php.dist:380
@@ -1256,7 +1256,7 @@ msgstr ""
 
 #: lib/Kronolith.php:1209
 msgid "Optional"
-msgstr "Nebûtinas"
+msgstr "NebÅ«tinas"
 
 #: lib/FBView.php:118
 msgid "Optional Attendees"
@@ -1276,7 +1276,7 @@ msgstr "Savininkas"
 
 #: templates/perms/perms.inc:28
 msgid "Owner Permissions"
-msgstr "Savininiko teisës"
+msgstr "Savininiko teisÄ—s"
 
 #: templates/perms/perms.inc:40 templates/perms/perms.inc:51
 msgid "Owner:"
@@ -1293,7 +1293,7 @@ msgstr "PM"
 
 #: templates/prefs/remote_cal_management.inc:76
 msgid "Password"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #: templates/edit/edit.inc:216 templates/view/view.inc:93
 msgid "Pattern"
@@ -1301,20 +1301,20 @@ msgstr "Pasikartojimai"
 
 #: templates/delete/one.inc:22
 msgid "Permanently delete this event?"
-msgstr "Iğtrinti ğá árağà?"
+msgstr "IÅ¡trinti Å¡Ä¯ Ä¯raÅ¡Ä…?"
 
 #: lib/api.php:606 lib/api.php:705 lib/api.php:758 lib/api.php:853
 #: lib/api.php:888 lib/api.php:980 lib/api.php:1037 lib/Driver/sql.php:776
 msgid "Permission Denied"
-msgstr "Neuştenka teisiø"
+msgstr "NeuÅ¾tenka teisiÅ³"
 
 #: templates/calendars/calendars.inc:113
 msgid "Permissions"
-msgstr "Teisës"
+msgstr "TeisÄ—s"
 
 #: lib/Imple/ContactAutoCompleter.php:227
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Iğtaisykite neteisingus adresus."
+msgstr "IÅ¡taisykite neteisingus adresus."
 
 #: config/prefs.php.dist:21
 msgid "Portal Options"
@@ -1322,15 +1322,15 @@ msgstr "Portalo nustatymai"
 
 #: lib/FBView/day.php:24
 msgid "Previous Day"
-msgstr "Ankstesnë diena"
+msgstr "AnkstesnÄ— diena"
 
 #: lib/FBView/month.php:25
 msgid "Previous Month"
-msgstr "Ankstesnis mënuo"
+msgstr "Ankstesnis mÄ—nuo"
 
 #: lib/FBView/week.php:25
 msgid "Previous Week"
-msgstr "Ankstesnë savaitë"
+msgstr "AnkstesnÄ— savaitÄ—"
 
 #: templates/day/head.inc:3
 msgid "Previous day"
@@ -1342,16 +1342,16 @@ msgstr "Spausdinimo puslapyje"
 
 #: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
 msgid "Prior Events"
-msgstr "Ankstesni ávykiai"
+msgstr "Ankstesni Ä¯vykiai"
 
 #: lib/Driver.php:1422
 #, php-format
 msgid "Private Event from %s to %s"
-msgstr "Asmeninis ávykis nuo %s iki %s"
+msgstr "Asmeninis Ä¯vykis nuo %s iki %s"
 
 #: lib/Driver.php:2208 lib/Driver.php:2209
 msgid "Private event"
-msgstr "Asmeninis ávykis"
+msgstr "Asmeninis Ä¯vykis"
 
 #: templates/edit/edit.inc:120
 msgid "Private?"
@@ -1389,7 +1389,7 @@ msgstr "Pasikartojimo pabaigos diena"
 
 #: lib/Driver.php:2029
 msgid "Recurrence End Month"
-msgstr "Pasikartojimo pabaigos mënuo"
+msgstr "Pasikartojimo pabaigos mÄ—nuo"
 
 #: lib/Driver.php:2012
 msgid "Recurrence End Year"
@@ -1397,23 +1397,23 @@ msgstr "Pasikartojimo pabaigos metai"
 
 #: data.php:69
 msgid "Recurrence Interval"
-msgstr "Pasikartojimo daşnumas"
+msgstr "Pasikartojimo daÅ¾numas"
 
 #: data.php:67
 msgid "Recurrence Type"
-msgstr "Pasikartojimo bûdas"
+msgstr "Pasikartojimo bÅ«das"
 
 #: lib/Kronolith.php:1125
 msgid "Recurs daily"
-msgstr "Pakartoti kas dienà"
+msgstr "Pakartoti kas dienÄ…"
 
 #: lib/Kronolith.php:1132
 msgid "Recurs monthly"
-msgstr "Pakartoti kas mënesá"
+msgstr "Pakartoti kas mÄ—nesÄ¯"
 
 #: lib/Kronolith.php:1128
 msgid "Recurs weekly"
-msgstr "Pakartoti kas savaitæ"
+msgstr "Pakartoti kas savaitÄ™"
 
 #: lib/Kronolith.php:1137
 msgid "Recurs yearly"
@@ -1426,48 +1426,48 @@ msgstr "Priminimas: %s"
 
 #: config/prefs.php.dist:44
 msgid "Remote Calendars"
-msgstr "Nutolæ kalendoriai"
+msgstr "NutolÄ™ kalendoriai"
 
 #: templates/panel.inc:86
 msgid "Remote Calendars:"
-msgstr "Nutolæ kalendoriai:"
+msgstr "NutolÄ™ kalendoriai:"
 
 #: templates/calendars/calendars.inc:139
 msgid "Remote Subscription URL"
-msgstr "Iğorinë uşsisakymo URL nuoroda"
+msgstr "IÅ¡orinÄ— uÅ¾sisakymo URL nuoroda"
 
 #: templates/contacts/contacts.inc:172
 msgid "Remove"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: templates/attendees/attendees.inc:57
 #, php-format
 msgid "Remove %s"
-msgstr "Iğtrinti %s"
+msgstr "IÅ¡trinti %s"
 
 #: attendees.php:164
 msgid "Remove Attendee"
-msgstr "Pağalinti dalyvius"
+msgstr "PaÅ¡alinti dalyvius"
 
 #: templates/prefs/sourceselect.inc:300
 msgid "Remove source"
-msgstr "Panaikinti ğaltiná"
+msgstr "Panaikinti Å¡altinÄ¯"
 
 #: lib/Driver.php:258
 msgid ""
 "Removing user data is not supported with the current calendar storage "
 "backend."
 msgstr ""
-"Dabartinë kalendoriø saugojimo posistemë neleidşia iğtrinti vartotojo "
-"duomenø."
+"DabartinÄ— kalendoriÅ³ saugojimo posistemÄ— neleidÅ¾ia iÅ¡trinti vartotojo "
+"duomenÅ³."
 
 #: templates/data/import.inc:31
 msgid ""
 "Replace existing calendar with the imported one? <strong>Warning: This "
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
-"Pakeisti visus árağus adresø knygelëje á ákeliamus? <strong>Dëmesio: taip "
-"iğtrinsite visus árağus dabartinëje adresø knygelëje.</strong>"
+"Pakeisti visus Ä¯raÅ¡us adresÅ³ knygelÄ—je Ä¯ Ä¯keliamus? <strong>DÄ—mesio: taip "
+"iÅ¡trinsite visus Ä¯raÅ¡us dabartinÄ—je adresÅ³ knygelÄ—je.</strong>"
 
 #: lib/Kronolith.php:1216
 msgid "Required"
@@ -1475,7 +1475,7 @@ msgstr "Privalomas"
 
 #: lib/FBView.php:97 lib/FBView.php:138 lib/FBView.php:141 lib/FBView.php:144
 msgid "Required Attendees"
-msgstr "Bûtini dalyviai"
+msgstr "BÅ«tini dalyviai"
 
 #: templates/edit/edit.inc:52 templates/edit/edit.inc:383
 msgid "Reset to Defaults"
@@ -1490,156 +1490,156 @@ msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
-"Dienos ir savaitës puslapiuose rodyti tik ávykius tarp ğiø valandø, jeigu "
-"net <strong>yra</strong> ankstesniø ávykiø?"
+"Dienos ir savaitÄ—s puslapiuose rodyti tik Ä¯vykius tarp Å¡iÅ³ valandÅ³, jeigu "
+"net <strong>yra</strong> ankstesniÅ³ Ä¯vykiÅ³?"
 
 #: lib/Block/month.php:107 lib/Views/Year.php:82 templates/edit/edit.inc:240
 #: templates/javascript/goto.js:64
 msgid "Sa"
-msgstr "Ğeğt."
+msgstr "Å eÅ¡t."
 
 #: templates/edit/javascript.inc:72 templates/view/view.inc:104
 #: templates/month/head.inc:22
 msgid "Saturday"
-msgstr "Ğeğtadienis"
+msgstr "Å eÅ¡tadienis"
 
 #: templates/panel.inc:96 templates/calendars/calendars.inc:148
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: templates/perms/perms.inc:364
 #, php-format
 msgid "Save %s"
-msgstr "Iğsaugoti %s"
+msgstr "IÅ¡saugoti %s"
 
 #: lib/Kronolith.php:1784 lib/Views/EditEvent.php:78
 #: lib/Views/EditEvent.php:88 templates/edit/edit.inc:40
 msgid "Save As New"
-msgstr "Iğsaugoti kaip naujà"
+msgstr "IÅ¡saugoti kaip naujÄ…"
 
 #: templates/attendees/attendees.inc:93
 msgid "Save Attendees"
-msgstr "Iğsaugoti dalyvius"
+msgstr "IÅ¡saugoti dalyvius"
 
 #: new.php:56 lib/Views/EditEvent.php:81
 msgid "Save Event"
-msgstr "Iğsaugoti ávyká"
+msgstr "IÅ¡saugoti Ä¯vykÄ¯"
 
 #: templates/attendees/attendees.inc:94
 msgid "Save and Finish"
-msgstr "Iğsaugoti ir baigti"
+msgstr "IÅ¡saugoti ir baigti"
 
 #: search.php:91 lib/Block/tree_menu.php:26 templates/search/search.inc:67
 #: templates/search/search_advanced.inc:114
 #: templates/contacts/contacts.inc:155
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: templates/search/header.inc:6
 msgid "Search Results"
-msgstr "Paieğkos rezultatai"
+msgstr "PaieÅ¡kos rezultatai"
 
 #: templates/panel.inc:48
 msgid "Search for Calendars:"
-msgstr "Ieğkoti kalendoriuose:"
+msgstr "IeÅ¡koti kalendoriuose:"
 
 #: templates/contacts/contacts.inc:160
 msgid "Search results"
-msgstr "Paieğkos rezultatai"
+msgstr "PaieÅ¡kos rezultatai"
 
 #: lib/Storage.php:135
 msgid "Searching free/busy is not available."
-msgstr "Ieğkoti uşimtumo informacijoje negalima."
+msgstr "IeÅ¡koti uÅ¾imtumo informacijoje negalima."
 
 #: templates/calendars/calendars.inc:23 templates/calendars/calendars.inc:142
 msgid "Select a calendar above to display the Remote Subscription URL"
 msgstr ""
-"Pasirinkite kalendoriø, kurio iğorinæ uşsisakymo URL nuorodà norite pamatyti"
+"Pasirinkite kalendoriÅ³, kurio iÅ¡orinÄ™ uÅ¾sisakymo URL nuorodÄ… norite pamatyti"
 
 #: templates/calendars/calendars.inc:22 templates/calendars/calendars.inc:134
 msgid "Select a calendar above to display the URL"
-msgstr "Pasirinkite kalendoriø, kurio URL nuorodà norite pamatyti"
+msgstr "Pasirinkite kalendoriÅ³, kurio URL nuorodÄ… norite pamatyti"
 
 #: templates/calendars/calendars.inc:94
 msgid "Select a calendar to edit"
-msgstr "Pasirinkite kalendoriø, kurá norite redaguoti"
+msgstr "Pasirinkite kalendoriÅ³, kurÄ¯ norite redaguoti"
 
 #: templates/edit/edit_timespan.inc:29 templates/edit/edit_timespan.inc:79
 #: templates/edit/edit.inc:302
 msgid "Select a date"
-msgstr "Pasirinkite datà"
+msgstr "Pasirinkite datÄ…"
 
 #: templates/perms/perms.inc:329
 msgid "Select a group to add"
-msgstr "Pasirinkite grupæ"
+msgstr "Pasirinkite grupÄ™"
 
 #: templates/perms/perms.inc:327
 msgid "Select a group to add:"
-msgstr "Pasirinkite grupæ:"
+msgstr "Pasirinkite grupÄ™:"
 
 #: templates/perms/perms.inc:42
 msgid "Select a new owner:"
-msgstr "Pasirinkite naujà savininkà:"
+msgstr "Pasirinkite naujÄ… savininkÄ…:"
 
 #: templates/perms/perms.inc:246 templates/perms/perms.inc:248
 msgid "Select a user to add:"
-msgstr "Pasirinkite vartotojà:"
+msgstr "Pasirinkite vartotojÄ…:"
 
 #: config/prefs.php.dist:77
 msgid "Select address book sources for adding and searching for addresses."
-msgstr "Adresø knygelës adresø paieğkai ir pridëjimui nustatymas."
+msgstr "AdresÅ³ knygelÄ—s adresÅ³ paieÅ¡kai ir pridÄ—jimui nustatymas."
 
 #: templates/prefs/sourceselect.inc:319
 msgid "Select all fields to search when expanding addresses."
-msgstr "Pasirinkite laukelius, kuriuos naudosite adresø iğskleidimui."
+msgstr "Pasirinkite laukelius, kuriuos naudosite adresÅ³ iÅ¡skleidimui."
 
 #: config/prefs.php.dist:11
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Patvirtinimo nustatymø, vaizdavimo bûdø ir standartinio vaizdavimo "
+"Patvirtinimo nustatymÅ³, vaizdavimo bÅ«dÅ³ ir standartinio vaizdavimo "
 "pasirinkimas."
 
 #: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
-msgstr "Pasirinkite kalendoriø ákëlimui:"
+msgstr "Pasirinkite kalendoriÅ³ Ä¯kÄ—limui:"
 
 #: templates/data/export.inc:19
 msgid "Select the calendar(s) to export from"
-msgstr "Pasirinkite kalendoriø(ius) iğkëlimui"
+msgstr "Pasirinkite kalendoriÅ³(ius) iÅ¡kÄ—limui"
 
 #: templates/data/export.inc:12
 msgid "Select the export format:"
-msgstr "Pasirinkite iğkëlimo formatà:"
+msgstr "Pasirinkite iÅ¡kÄ—limo formatÄ…:"
 
 #: templates/data/import.inc:27
 msgid "Select the file to import:"
-msgstr "Pasirinkite failà ákëlimui:"
+msgstr "Pasirinkite failÄ… Ä¯kÄ—limui:"
 
 #: config/prefs.php.dist:119
 msgid "Select the first weekday:"
-msgstr "Pasirinkite pirmà ğiokiadiená:"
+msgstr "Pasirinkite pirmÄ… Å¡iokiadienÄ¯:"
 
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Pasirinkite ákeliamo failo formatà:"
+msgstr "Pasirinkite Ä¯keliamo failo formatÄ…:"
 
 #: config/prefs.php.dist:243
 msgid "Select the time span to show:"
-msgstr "Pasirinkite laiko tarpà rodymui:"
+msgstr "Pasirinkite laiko tarpÄ… rodymui:"
 
 #: config/prefs.php.dist:101
 msgid "Select the view to display on startup:"
-msgstr "Pasirinkite vaizdavimo bûdà po prisijungimo:"
+msgstr "Pasirinkite vaizdavimo bÅ«dÄ… po prisijungimo:"
 
 #: config/prefs.php.dist:22
 msgid "Select which events to show in the portal."
-msgstr "Ávykiø rodymo portale pasirinkimas."
+msgstr "Ä®vykiÅ³ rodymo portale pasirinkimas."
 
 #: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
 msgid "Selected Address books:"
-msgstr "Pasirinktos adresø knygelës:"
+msgstr "Pasirinktos adresÅ³ knygelÄ—s:"
 
 #: templates/contacts/contacts.inc:175
 msgid "Selected addresses"
@@ -1648,47 +1648,47 @@ msgstr "Pasirinkti adresai"
 #: templates/delete/delete.inc:21 templates/delete/one.inc:19
 msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr ""
-"Trinant ğá ávyká visiems dalyviams iğsiøsti praneğimà apie ávykio nutraukimà?"
+"Trinant Å¡Ä¯ Ä¯vykÄ¯ visiems dalyviams iÅ¡siÅ³sti praneÅ¡imÄ… apie Ä¯vykio nutraukimÄ…?"
 
 #: templates/view/view.inc:177
 #, php-format
 msgid "Send an email to %s"
-msgstr "Iğsiøsti laiğkà %s"
+msgstr "IÅ¡siÅ³sti laiÅ¡kÄ… %s"
 
 #: templates/edit/edit.inc:375
 msgid "Send invitations to all attendees?"
-msgstr "Siøsti pakvietimus visiems dalyviams?"
+msgstr "SiÅ³sti pakvietimus visiems dalyviams?"
 
 #: templates/edit/edit.inc:375
 msgid "Send updates to all attendees?"
-msgstr "Siøsti praneğimus apie atnaujinimus visiems dalyviams?"
+msgstr "SiÅ³sti praneÅ¡imus apie atnaujinimus visiems dalyviams?"
 
 #: templates/javascript/goto.js:76
 msgid "September"
-msgstr "Rugsëjis"
+msgstr "RugsÄ—jis"
 
 #: config/prefs.php.dist:52
 msgid "Set default values for new events."
-msgstr "Naujø ávykiø standartiniø reikğmiø nustatymas."
+msgstr "NaujÅ³ Ä¯vykiÅ³ standartiniÅ³ reikÅ¡miÅ³ nustatymas."
 
 #: templates/edit/edit_timespan.inc:79
 msgid "Set end date"
-msgstr "Nurodykite pabaigos datà"
+msgstr "Nurodykite pabaigos datÄ…"
 
 #: templates/edit/edit.inc:302
 msgid "Set recurrence end date"
-msgstr "Nurodykite pasikartojimo pabaigos datà"
+msgstr "Nurodykite pasikartojimo pabaigos datÄ…"
 
 #: templates/edit/edit_timespan.inc:29
 msgid "Set start date"
-msgstr "Nurodykite pradşios datà"
+msgstr "Nurodykite pradÅ¾ios datÄ…"
 
 #: config/prefs.php.dist:69
 msgid ""
 "Set your free/busy calendars and your own and other users' free/busy options."
 msgstr ""
-"Jûsø uşimtumo kalendoriaus ir jûsø bei kitø vartotojø kitø uşimtumo "
-"parametrø nustatymas."
+"JÅ«sÅ³ uÅ¾imtumo kalendoriaus ir jÅ«sÅ³ bei kitÅ³ vartotojÅ³ kitÅ³ uÅ¾imtumo "
+"parametrÅ³ nustatymas."
 
 #: calendars.php:84
 #, php-format
@@ -1712,59 +1712,59 @@ msgstr "Rodyti"
 
 #: config/prefs.php.dist:215
 msgid "Show calendar options panel?"
-msgstr "Rodyti kalendoriaus nustatymø pultà?"
+msgstr "Rodyti kalendoriaus nustatymÅ³ pultÄ…?"
 
 #: config/prefs.php.dist:205
 msgid "Show category legend?"
-msgstr "Rodyti kategorijø spalvø reikğmes?"
+msgstr "Rodyti kategorijÅ³ spalvÅ³ reikÅ¡mes?"
 
 #: config/prefs.php.dist:171
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr "Rodyti trynimo, perspëjimo ir pasikartojimo piktogramas kalendoriuje?"
+msgstr "Rodyti trynimo, perspÄ—jimo ir pasikartojimo piktogramas kalendoriuje?"
 
 #: config/prefs.php.dist:272
 msgid "Show external events using category colors?"
-msgstr "Iğoriniø ávykiø rodymui naudoti kategorijø spalvas?"
+msgstr "IÅ¡oriniÅ³ Ä¯vykiÅ³ rodymui naudoti kategorijÅ³ spalvas?"
 
 #: config/prefs.php.dist:225
 msgid "Show free/busy legend?"
-msgstr "Rodyti uşimtumo informacijos spalvø reikğmes?"
+msgstr "Rodyti uÅ¾imtumo informacijos spalvÅ³ reikÅ¡mes?"
 
 #: config/prefs.php.dist:263
 msgid "Show only events that have an alarm set?"
-msgstr "Ar rodyti tik tuos veiksmus kurie turi perspëjimo şymæ?"
+msgstr "Ar rodyti tik tuos veiksmus kurie turi perspÄ—jimo Å¾ymÄ™?"
 
 #: config/prefs.php.dist:234
 msgid "Show shared calendars side-by-side?"
-msgstr "Rodyti bendrus kalendorius vienà ğalia kito?"
+msgstr "Rodyti bendrus kalendorius vienÄ… Å¡alia kito?"
 
 #: config/prefs.php.dist:110
 msgid "Show time of day between each day in week views?"
-msgstr "Savaitës reşime rodyti tarpà tarp dienø?"
+msgstr "SavaitÄ—s reÅ¾ime rodyti tarpÄ… tarp dienÅ³?"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
-msgstr "Pradşia"
+msgstr "PradÅ¾ia"
 
 #: data.php:56
 msgid "Start Date"
-msgstr "Pradşios data"
+msgstr "PradÅ¾ios data"
 
 #: lib/Driver.php:1904 templates/data/export.inc:68
 msgid "Start Day"
-msgstr "Pradşios diena"
+msgstr "PradÅ¾ios diena"
 
 #: lib/Driver.php:1915 templates/data/export.inc:87
 msgid "Start Hour"
-msgstr "Pradşios valanda"
+msgstr "PradÅ¾ios valanda"
 
 #: lib/Driver.php:1925 templates/data/export.inc:102
 msgid "Start Minute"
-msgstr "Pradşios minutë"
+msgstr "PradÅ¾ios minutÄ—"
 
 #: lib/Driver.php:1895 templates/data/export.inc:54
 msgid "Start Month"
-msgstr "Pradşios mënuo"
+msgstr "PradÅ¾ios mÄ—nuo"
 
 #: templates/view/view.inc:35 templates/search/event_headers.inc:7
 #: templates/data/export.inc:37
@@ -1773,23 +1773,23 @@ msgstr "Prasideda"
 
 #: data.php:57
 msgid "Start Time"
-msgstr "Pradşios laikas"
+msgstr "PradÅ¾ios laikas"
 
 #: lib/Driver.php:1884 templates/data/export.inc:39
 msgid "Start Year"
-msgstr "Pradşios metai"
+msgstr "PradÅ¾ios metai"
 
 #: templates/edit/edit.inc:110 templates/search/search_advanced.inc:94
 msgid "Stat_us"
-msgstr "_Bûsena"
+msgstr "_BÅ«sena"
 
 #: templates/view/view.inc:21 templates/search/event_headers.inc:6
 msgid "Status"
-msgstr "Bûsena"
+msgstr "BÅ«sena"
 
 #: lib/Storage.php:143
 msgid "Storing free/busy is not available."
-msgstr "Iğsaugoti uşimtumo informacijos negalima."
+msgstr "IÅ¡saugoti uÅ¾imtumo informacijos negalima."
 
 #: lib/Block/month.php:109 lib/Block/month.php:111 lib/Views/Year.php:75
 #: lib/Views/Year.php:84 templates/edit/edit.inc:241
@@ -1815,25 +1815,25 @@ msgstr "Ketv."
 #: data.php:238
 #, php-format
 msgid "The %s file didn't contain any events."
-msgstr "%s faile nëra jokiø ávykiø."
+msgstr "%s faile nÄ—ra jokiÅ³ Ä¯vykiÅ³."
 
 #: lib/Driver.php:48
 msgid "The Calendar backend is not currently available."
-msgstr "Kalendoriø posistemë ğiuo metu nepasiekiama."
+msgstr "KalendoriÅ³ posistemÄ— Å¡iuo metu nepasiekiama."
 
 #: lib/Driver.php:203
 #, php-format
 msgid "The Calendar backend is not currently available: %s"
-msgstr "Kalendoriø posistemë ğiuo metu nepasiekiama: %s"
+msgstr "KalendoriÅ³ posistemÄ— Å¡iuo metu nepasiekiama: %s"
 
 #: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
-msgstr "Dalyviø redagavimo langas uşdarytas. Iğeinu."
+msgstr "DalyviÅ³ redagavimo langas uÅ¾darytas. IÅ¡einu."
 
 #: calendars.php:77
 #, php-format
 msgid "The calendar \"%s\" cannot be deleted."
-msgstr "Kalendoriaus \"%s\" neiğtrintas."
+msgstr "Kalendoriaus \"%s\" neiÅ¡trintas."
 
 #: calendars.php:44
 #, php-format
@@ -1843,32 +1843,32 @@ msgstr "Kalendorius \"%s\" sukurtas."
 #: calendars.php:95
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
-msgstr "Kalendorius \"%s\" iğtrintas."
+msgstr "Kalendorius \"%s\" iÅ¡trintas."
 
 #: calendars.php:58
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
-msgstr "Kalendorius \"%s\" pervadintas á \"%s\"."
+msgstr "Kalendorius \"%s\" pervadintas Ä¯ \"%s\"."
 
 #: calendars.php:60
 #, php-format
 msgid "The calendar \"%s\" has been saved."
-msgstr "Kalendorius \"%s\" iğsaugotas."
+msgstr "Kalendorius \"%s\" iÅ¡saugotas."
 
 #: data.php:246
 #, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Nepavyko iğvalyti kalendoriaus: %s"
+msgstr "Nepavyko iÅ¡valyti kalendoriaus: %s"
 
 #: templates/edit/javascript.inc:156
 msgid "The end date must be later than the start date."
-msgstr "Pabaigos data turi bûti vëlesnë negu pradşios data."
+msgstr "Pabaigos data turi bÅ«ti vÄ—lesnÄ— negu pradÅ¾ios data."
 
 #: lib/Kronolith.php:1595
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
-msgstr "Ávykis \"%s\" pridëtas prie \"%s\" kalendoriaus ir prasidës %s %s."
+msgstr "Ä®vykis \"%s\" pridÄ—tas prie \"%s\" kalendoriaus ir prasidÄ—s %s %s."
 
 #: lib/Kronolith.php:1605
 #, php-format
@@ -1876,81 +1876,81 @@ msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
 msgstr ""
-"Ávykis \"%s\" iğtrintas iğ \"%s\" kalendoriaus. Jis turëjo prasidëti %s %s."
+"Ä®vykis \"%s\" iÅ¡trintas iÅ¡ \"%s\" kalendoriaus. Jis turÄ—jo prasidÄ—ti %s %s."
 
 #: lib/Kronolith.php:1600
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
-msgstr "Ávykis \"%s\" kalendoriuje \"%s\" pakeistas ir prasidës %s %s."
+msgstr "Ä®vykis \"%s\" kalendoriuje \"%s\" pakeistas ir prasidÄ—s %s %s."
 
 #: lib/Kronolith.php:1485
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "Praneğimas apie ávyká sëkmingai iğsiøstas %s."
+msgstr "PraneÅ¡imas apie Ä¯vykÄ¯ sÄ—kmingai iÅ¡siÅ³stas %s."
 
 #: lib/Kronolith.php:1439
 msgid "The following is a more detailed description of the event:"
-msgstr "Detalesnis ávykio aprağymas:"
+msgstr "Detalesnis Ä¯vykio apraÅ¡ymas:"
 
 #: lib/FreeBusy.php:191
 #, php-format
 msgid "The free/busy url for %s cannot be retrieved."
-msgstr "Nepavyko gauti %s uşimtumo informacijos nuorodos."
+msgstr "Nepavyko gauti %s uÅ¾imtumo informacijos nuorodos."
 
 #: attend.php:43
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"Uşklausa nebuvo pilna. Trûksta kai kuriø parametrø, kurie reikalingi norint "
-"priimti arba atmesti ávyká."
+"UÅ¾klausa nebuvo pilna. TrÅ«ksta kai kuriÅ³ parametrÅ³, kurie reikalingi norint "
+"priimti arba atmesti Ä¯vykÄ¯."
 
 #: lib/Views/EditEvent.php:43 lib/Views/Event.php:41
 #: lib/Views/DeleteEvent.php:40
 msgid "The requested event was not found."
-msgstr "Nurodytas ávykis neegzistuoja."
+msgstr "Nurodytas Ä¯vykis neegzistuoja."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
-msgstr "Ávykiø atitinkanèiø paieğkos kriterijus nëra."
+msgstr "Ä®vykiÅ³ atitinkanÄiÅ³ paieÅ¡kos kriterijus nÄ—ra."
 
 #: edit.php:46 edit.php:68 add.php:24
 #, php-format
 msgid "There was an error accessing the calendar: %s"
-msgstr "Klaida atidarant kalendoriø: %s"
+msgstr "Klaida atidarant kalendoriÅ³: %s"
 
 #: add.php:44
 #, php-format
 msgid "There was an error adding the event: %s"
-msgstr "Klaida pridedant ávyká: %s"
+msgstr "Klaida pridedant Ä¯vykÄ¯: %s"
 
 #: edit.php:17
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Klaida redaguojant ávyká: %s"
+msgstr "Klaida redaguojant Ä¯vykÄ¯: %s"
 
 #: lib/api.php:376 lib/api.php:619 lib/api.php:903
 msgid "There was an error importing the iCalendar data."
-msgstr "Klaida ákeliant iCalendar duomenis."
+msgstr "Klaida Ä¯keliant iCalendar duomenis."
 
 #: edit.php:142
 #, php-format
 msgid "There was an error moving the event: %s"
-msgstr "Klaida perkeliant ávyká: %s"
+msgstr "Klaida perkeliant Ä¯vykÄ¯: %s"
 
 #: lib/Kronolith.php:1490
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
-msgstr "Klaida siunèiant praneğimà apie ávyká %s: %s"
+msgstr "Klaida siunÄiant praneÅ¡imÄ… apie Ä¯vykÄ¯ %s: %s"
 
 #: data.php:109
 msgid "There were no events to export."
-msgstr "Ávykiø iğkëlimui nëra."
+msgstr "Ä®vykiÅ³ iÅ¡kÄ—limui nÄ—ra."
 
 #: lib/Block/month.php:3
 msgid "This Month"
-msgstr "Ğis mënuo"
+msgstr "Å is mÄ—nuo"
 
 #: data.php:194
 msgid "This file format is not supported."
@@ -1961,21 +1961,21 @@ msgid ""
 "This is a recurring event. Delete the current event only, this<br /"
 ">occurrence and all future occurences, or all occurences?"
 msgstr ""
-"Tai pasikartojantis ávykis. Iğtrinti tik ğá ávyká, ğá ávyká ir<br />visus "
-"bûsimus, arba viskà?"
+"Tai pasikartojantis Ä¯vykis. IÅ¡trinti tik Å¡Ä¯ Ä¯vykÄ¯, Å¡Ä¯ Ä¯vykÄ¯ ir<br />visus "
+"bÅ«simus, arba viskÄ…?"
 
 #: templates/edit/edit.inc:36
 msgid ""
 "This is a recurring event. Edit the current event only, this occurrence<br /"
 ">and all future occurences, all occurences, or save this event as new?"
 msgstr ""
-"Tai pasikartojantis ávykis. Pakeisti tik ğá ávyká, ğá ávyká ir<br />visus "
-"bûsimus, arba viskà?"
+"Tai pasikartojantis Ä¯vykis. Pakeisti tik Å¡Ä¯ Ä¯vykÄ¯, Å¡Ä¯ Ä¯vykÄ¯ ir<br />visus "
+"bÅ«simus, arba viskÄ…?"
 
 #: data.php:266
 #, php-format
 msgid "This is what the server said: %s"
-msgstr "Serverio praneğimas toks: %s"
+msgstr "Serverio praneÅ¡imas toks: %s"
 
 #: templates/edit/javascript.inc:70 templates/view/view.inc:102
 #: templates/month/head.inc:20
@@ -2007,13 +2007,13 @@ msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Norëdami pasirinkti keletà reikğmiø, laikykite Control (PC) arba Command "
-"(Mac) klaviğà, ir pasirinkite pele."
+"NorÄ—dami pasirinkti keletÄ… reikÅ¡miÅ³, laikykite Control (PC) arba Command "
+"(Mac) klaviÅ¡Ä…, ir pasirinkite pele."
 
 #: lib/Block/monthlist.php:132 lib/Block/summary.php:140
 #: lib/Block/prevmonthlist.php:125
 msgid "Today"
-msgstr "Ğiandien"
+msgstr "Å iandien"
 
 #: lib/Block/monthlist.php:134 lib/Block/summary.php:142
 #: lib/Block/prevmonthlist.php:127
@@ -2045,17 +2045,17 @@ msgstr "Nepavyko prisijungti prie SQL serverio."
 #: calendars.php:91
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Nepavyko iğtrinti \"%s\": %s"
+msgstr "Nepavyko iÅ¡trinti \"%s\": %s"
 
 #: lib/Driver.php:206 lib/Storage.php:58
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Nepavyko uşkrauti %s aprağymo."
+msgstr "Nepavyko uÅ¾krauti %s apraÅ¡ymo."
 
 #: attendees.php:57
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
-msgstr "Nepavyko atpaşinti \"%s\" kaip el. pağto adreso."
+msgstr "Nepavyko atpaÅ¾inti \"%s\" kaip el. paÅ¡to adreso."
 
 #: calendars.php:55
 #, php-format
@@ -2065,12 +2065,12 @@ msgstr "Nepavyko pervadinti \"%s\": %s"
 #: lib/Storage/kolab.php:57
 #, php-format
 msgid "Unable to retrieve free/busy information for %s"
-msgstr "Nepavyko gauti %s vartotojo uşimtumo informacijos serveryje"
+msgstr "Nepavyko gauti %s vartotojo uÅ¾imtumo informacijos serveryje"
 
 #: calendars.php:65
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
-msgstr "Nepavyko iğsaugoti kalendoriaus \"%s\": %s"
+msgstr "Nepavyko iÅ¡saugoti kalendoriaus \"%s\": %s"
 
 #: templates/view/view.inc:8
 msgid "Unfiled"
@@ -2080,11 +2080,11 @@ msgstr "Nenurodyta"
 #: lib/api.php:923
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Neatpaşinta Content-Type antrağtë: %s"
+msgstr "NeatpaÅ¾inta Content-Type antraÅ¡tÄ—: %s"
 
 #: lib/Block/monthlist.php:3 lib/Block/monthlist.php:46
 msgid "Upcoming Events"
-msgstr "Artëjantys ávykiai"
+msgstr "ArtÄ—jantys Ä¯vykiai"
 
 #: perms.php:254
 #, php-format
@@ -2098,7 +2098,7 @@ msgstr "Atnaujinta: %s."
 
 #: config/prefs.php.dist:10
 msgid "User Interface"
-msgstr "Vartotojo sàsaja"
+msgstr "Vartotojo sÄ…saja"
 
 #: templates/prefs/remote_cal_management.inc:68
 msgid "User Name"
@@ -2106,17 +2106,17 @@ msgstr "Vartotojo vardas"
 
 #: templates/perms/perms.inc:256
 msgid "User to add:"
-msgstr "Pasirinkite vartotojà:"
+msgstr "Pasirinkite vartotojÄ…:"
 
 #: lib/Block/month.php:164 lib/Block/month.php:167 lib/Views/Year.php:156
 #: lib/Views/Year.php:162
 msgid "View Day"
-msgstr "Rodyti dienà"
+msgstr "Rodyti dienÄ…"
 
 #: lib/Block/month.php:107 lib/Views/Year.php:79 templates/edit/edit.inc:237
 #: templates/javascript/goto.js:61
 msgid "We"
-msgstr "Treè."
+msgstr "TreÄ."
 
 #: lib/Driver.php:1160 lib/Scheduler/kronolith.php:265
 #, php-format
@@ -2132,7 +2132,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Norime priminti apie artëjantá ávyká.\n"
+"Norime priminti apie artÄ—jantÄ¯ Ä¯vykÄ¯.\n"
 "\n"
 "%s\n"
 "\n"
@@ -2146,26 +2146,26 @@ msgstr ""
 #: templates/edit/javascript.inc:69 templates/view/view.inc:101
 #: templates/month/head.inc:19
 msgid "Wednesday"
-msgstr "Treèiadienis"
+msgstr "TreÄiadienis"
 
 #: attendees.php:172 lib/Kronolith.php:1751 lib/Block/tree_menu.php:23
 #: config/prefs.php.dist:98
 msgid "Week"
-msgstr "Savaitë"
+msgstr "SavaitÄ—"
 
 #: workweek.php:15 week.php:17 lib/Views/Month.php:186
 #, php-format
 msgid "Week %d"
-msgstr "%d savaitë"
+msgstr "%d savaitÄ—"
 
 #: templates/edit/edit.inc:171 templates/view/view.inc:53
 #: templates/prefs/default_alarm_management.inc:29
 msgid "Week(s)"
-msgstr "Savaitë(s)"
+msgstr "SavaitÄ—(s)"
 
 #: lib/Recurrence.php:193
 msgid "Weekly"
-msgstr "Kas savaitæ"
+msgstr "Kas savaitÄ™"
 
 #: templates/edit/edit.inc:232 templates/view/view.inc:106
 msgid "Weekly: Recurs every"
@@ -2174,21 +2174,21 @@ msgstr "Kassavaitinis. Kartojasi kas"
 #: config/prefs.php.dist:139
 msgid ""
 "What time should day and week views end, when there are no later events?"
-msgstr "Kuri valanda darbo dienomis ir savaitgaliais yra paskutinë?"
+msgstr "Kuri valanda darbo dienomis ir savaitgaliais yra paskutinÄ—?"
 
 #: config/prefs.php.dist:130
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
-msgstr "Kelintà valanda prasideda darbo diena ir savaitgalis?"
+msgstr "KelintÄ… valanda prasideda darbo diena ir savaitgalis?"
 
 #: config/prefs.php.dist:293
 msgid "Which kind of holidays do you want to get displayed?"
-msgstr "Kurias ğvenèiø dienas norite matyti?"
+msgstr "Kurias Å¡venÄiÅ³ dienas norite matyti?"
 
 #: attendees.php:171 lib/Kronolith.php:1749 lib/Block/tree_menu.php:22
 #: config/prefs.php.dist:99
 msgid "Work Week"
-msgstr "Darbo savaitë"
+msgstr "Darbo savaitÄ—"
 
 #: lib/Kronolith.php:1755 lib/Block/tree_menu.php:25
 msgid "Year"
@@ -2207,15 +2207,15 @@ msgstr "Kasmetinis. Kartojasi kas"
 #: data.php:41 data.php:255 new.php:19 edit.php:27
 #, php-format
 msgid "You are not allowed to create more than %d events."
-msgstr "Jûs negalite kurti daugiau nei %d ávykiø."
+msgstr "JÅ«s negalite kurti daugiau nei %d Ä¯vykiÅ³."
 
 #: attend.php:51
 msgid "You are not an attendee of the specified event."
-msgstr "Jûs nesate nurodyto ávykio dalyvis."
+msgstr "JÅ«s nesate nurodyto Ä¯vykio dalyvis."
 
 #: templates/contacts/contacts.inc:78
 msgid "You can only use this form from the Edit Attendees screen."
-msgstr "Ğià formà galite naudoti tik iğ dalyviø redagavimo lango."
+msgstr "Å iÄ… formÄ… galite naudoti tik iÅ¡ dalyviÅ³ redagavimo lango."
 
 #: lib/Kronolith.php:1378
 #, php-format
@@ -2223,87 +2223,87 @@ msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"Savo nustatymuose nenurodëte jokio el. pağto adreso. Norëdami gauti  "
-"praneğimus, turite %sèia%s nurodyti bent vienà."
+"Savo nustatymuose nenurodÄ—te jokio el. paÅ¡to adreso. NorÄ—dami gauti  "
+"praneÅ¡imus, turite %sÄia%s nurodyti bent vienÄ…."
 
 #: add.php:30
 #, php-format
 msgid "You do not have permission to add events to %s."
-msgstr "Jûs neturite teisiø pridëti ávykiø prie %s."
+msgstr "JÅ«s neturite teisiÅ³ pridÄ—ti Ä¯vykiÅ³ prie %s."
 
 #: data.php:203
 msgid "You do not have permission to add events to the selected calendar."
-msgstr "Jûs neturite teisiø pridëti ávykiø á pasirinktà kalendoriø."
+msgstr "JÅ«s neturite teisiÅ³ pridÄ—ti Ä¯vykiÅ³ Ä¯ pasirinktÄ… kalendoriÅ³."
 
 #: edit.php:159 add.php:27
 #, php-format
 msgid "You do not have permission to delegate events to %s."
-msgstr "Jûs neturite teisiø paskirti ávykiø prie %s."
+msgstr "JÅ«s neturite teisiÅ³ paskirti Ä¯vykiÅ³ prie %s."
 
 #: delete.php:28
 msgid "You do not have permission to delete this event."
-msgstr "Jûs neturite teisiø iğtrinti ğio ávykio."
+msgstr "JÅ«s neturite teisiÅ³ iÅ¡trinti Å¡io Ä¯vykio."
 
 #: edit.php:162
 msgid "You do not have permission to edit this event."
-msgstr "Jûs neturite teisiø redaguoti ğio ávykio."
+msgstr "JÅ«s neturite teisiÅ³ redaguoti Å¡io Ä¯vykio."
 
 #: edit.php:156
 msgid "You do not have permission to move this event."
-msgstr "Jûs neturite teisiø perkelti ğio ávykio."
+msgstr "JÅ«s neturite teisiÅ³ perkelti Å¡io Ä¯vykio."
 
 #: data.php:200
 msgid "You have specified an invalid calendar."
-msgstr "Jûs nurodëte neteisingà kalendoriø."
+msgstr "JÅ«s nurodÄ—te neteisingÄ… kalendoriÅ³."
 
 #: attend.php:23
 msgid "You have successfully accepted attendence to this event."
-msgstr "Jûs sëkmingai sutikote dalyvauti ğiame ávykyje."
+msgstr "JÅ«s sÄ—kmingai sutikote dalyvauti Å¡iame Ä¯vykyje."
 
 #: attend.php:28
 msgid "You have successfully declined attendence to this event."
-msgstr "Jûs sëkmingai atsisakëte dalyvauti ğiame ávykyje."
+msgstr "JÅ«s sÄ—kmingai atsisakÄ—te dalyvauti Å¡iame Ä¯vykyje."
 
 #: attend.php:33
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Jûs sutikote dalyvauti ávykyje kitu laiku."
+msgstr "JÅ«s sutikote dalyvauti Ä¯vykyje kitu laiku."
 
 #: calendars.php:98
 msgid "You must select a calendar to be deleted."
-msgstr "Nurodykite kalendoriø, kurià norite iğtrinti."
+msgstr "Nurodykite kalendoriÅ³, kuriÄ… norite iÅ¡trinti."
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
-msgstr "Visø pirma reikia nurodyti adresà."
+msgstr "VisÅ³ pirma reikia nurodyti adresÄ…."
 
 #: templates/calendars/calendars.inc:116
 msgid "You need to select a calendar first"
-msgstr "Visø pirma reikia pasirinkti kalendoriø"
+msgstr "VisÅ³ pirma reikia pasirinkti kalendoriÅ³"
 
 #: lib/Kronolith.php:1595
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
-"Jûs pasirinkote bûti informuotas apie naujus ávykius savo kalendoriuose."
+"JÅ«s pasirinkote bÅ«ti informuotas apie naujus Ä¯vykius savo kalendoriuose."
 
 #: lib/Kronolith.php:1605
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr ""
-"Jûs pasirinkote bûti informuotas apie iğtrintus ávykius iğ jûsø kalendoriø."
+"JÅ«s pasirinkote bÅ«ti informuotas apie iÅ¡trintus Ä¯vykius iÅ¡ jÅ«sÅ³ kalendoriÅ³."
 
 #: lib/Kronolith.php:1600
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr ""
-"Jûs pasirinkote bûti informuotas apie pakeistus ávykius savo kalendoriuose."
+"JÅ«s pasirinkote bÅ«ti informuotas apie pakeistus Ä¯vykius savo kalendoriuose."
 
 #: lib/Scheduler/kronolith.php:403 lib/Scheduler/kronolith.php:405
 #, php-format
 msgid "Your daily agenda for %s"
-msgstr "Jûsø kasdienis kalendoriaus %s priminimas"
+msgstr "JÅ«sÅ³ kasdienis kalendoriaus %s priminimas"
 
 #: templates/prefs/shareselect.inc:10
 msgid "Your default calendar"
-msgstr "Jûsø pagrindinis kalendorius"
+msgstr "JÅ«sÅ³ pagrindinis kalendorius"
 
 #: templates/panel.inc:59
 msgid "[Manage My Calendars]"
@@ -2315,15 +2315,15 @@ msgstr "[Valdyti nutolusius kalendorius]"
 
 #: lib/Driver.php:1408 lib/Driver.php:1424
 msgid "[Unnamed event]"
-msgstr "[Neávardintas ávykis]"
+msgstr "[NeÄ¯vardintas Ä¯vykis]"
 
 #: templates/edit/edit.inc:132
 msgid "_Alarm"
-msgstr "Perspëjimas"
+msgstr "PerspÄ—jimas"
 
 #: templates/search/search_advanced.inc:11
 msgid "_Basic Search"
-msgstr "Papra_stoji paieğka"
+msgstr "Papra_stoji paieÅ¡ka"
 
 #: lib/Kronolith.php:1784
 msgid "_Edit"
@@ -2335,11 +2335,11 @@ msgstr "Rod_yti"
 
 #: lib/Kronolith.php:1955
 msgid "_Import/Export"
-msgstr "Ákelti/_Iğkelti"
+msgstr "Ä®kelti/_IÅ¡kelti"
 
 #: lib/Kronolith.php:1945
 msgid "_New Event"
-msgstr "Na_ujas árağas"
+msgstr "Na_ujas Ä¯raÅ¡as"
 
 #: lib/Kronolith.php:1960
 msgid "_Print"
@@ -2347,11 +2347,11 @@ msgstr "Spausdinti"
 
 #: lib/Kronolith.php:1951
 msgid "_Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: lib/Kronolith.php:1940
 msgid "_Today"
-msgstr "Ğiandien"
+msgstr "Å iandien"
 
 #: templates/edit/edit.inc:77
 #, php-format
@@ -2360,13 +2360,13 @@ msgstr "kaip %s"
 
 #: templates/edit/edit.inc:173
 msgid "before the event starts"
-msgstr "prieğ prasidedant ávykiui"
+msgstr "prieÅ¡ prasidedant Ä¯vykiui"
 
 #: templates/prefs/default_alarm_management.inc:31
 msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr ""
-"prieğ prasidedant ávykiui. Reikğmë \"0\" reiğkia jokio standartinio "
-"perspëjimo."
+"prieÅ¡ prasidedant Ä¯vykiui. ReikÅ¡mÄ— \"0\" reiÅ¡kia jokio standartinio "
+"perspÄ—jimo."
 
 #: config/prefs.php.dist:244
 msgid "day"
@@ -2397,7 +2397,7 @@ msgstr "kataloge"
 #: templates/edit/edit.inc:247 templates/edit/edit.inc:253
 #: templates/view/view.inc:108 templates/view/view.inc:110
 msgid "month(s)"
-msgstr "mënuo(iai)"
+msgstr "mÄ—nuo(iai)"
 
 #: lib/Kronolith.php:1435
 #, php-format
@@ -2406,11 +2406,11 @@ msgstr "%s %s"
 
 #: templates/edit/edit.inc:247 templates/view/view.inc:108
 msgid "on the same date"
-msgstr "tuo paèiu metu"
+msgstr "tuo paÄiu metu"
 
 #: templates/edit/edit.inc:253 templates/view/view.inc:110
 msgid "on the same weekday"
-msgstr "ta paèià savaitës dienà"
+msgstr "ta paÄiÄ… savaitÄ—s dienÄ…"
 
 #: templates/edit/edit.inc:312
 msgid "recurrences"
@@ -2422,25 +2422,25 @@ msgstr "vCalendar/iCalendar"
 
 #: config/prefs.php.dist:250
 msgid "week"
-msgstr "savaitë"
+msgstr "savaitÄ—"
 
 #: templates/edit/edit.inc:234 templates/view/view.inc:106
 msgid "week(s) on:"
-msgstr "savaitë(ës):"
+msgstr "savaitÄ—(Ä—s):"
 
 #: config/prefs.php.dist:251 config/prefs.php.dist:252
 #: config/prefs.php.dist:253
 msgid "weeks"
-msgstr "savaitës"
+msgstr "savaitÄ—s"
 
 #: templates/edit/edit.inc:259 templates/view/view.inc:112
 msgid "year(s) on the same date"
-msgstr "metø tuo paèiu metu"
+msgstr "metÅ³ tuo paÄiu metu"
 
 #: templates/edit/edit.inc:265 templates/view/view.inc:114
 msgid "year(s) on the same day of the year"
-msgstr "metø tà paèià metø dienà"
+msgstr "metÅ³ tÄ… paÄiÄ… metÅ³ dienÄ…"
 
 #: templates/edit/edit.inc:271 templates/view/view.inc:116
 msgid "year(s) on the same weekday and month of the year"
-msgstr "metø tà paèià metø savaitës dienà ir mënesá"
+msgstr "metÅ³ tÄ… paÄiÄ… metÅ³ savaitÄ—s dienÄ… ir mÄ—nesÄ¯"

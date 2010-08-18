@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid ""
 "\"%s\" is an invalid unique name; it may already be taken. Please choose a "
 "different unique name."
-msgstr "\"%s\" nëra unikalus pavadinimas. Pasirinkite kità."
+msgstr "\"%s\" nÄ—ra unikalus pavadinimas. Pasirinkite kitÄ…."
 
 #: templates/group/owner.inc:55 templates/group/category.inc:51
 #, php-format
@@ -32,7 +32,7 @@ msgstr "%d galerijos"
 #: lib/Exif.php:285
 #, php-format
 msgid "%d bytes"
-msgstr "%d baitai(ø)"
+msgstr "%d baitai(Å³)"
 
 #: templates/tile/image.inc:10
 #, php-format
@@ -40,7 +40,7 @@ msgid "%d comment"
 msgid_plural "%d comments"
 msgstr[0] "%d komentaras"
 msgstr[1] "%d komentarai"
-msgstr[2] "%d komentarø"
+msgstr[2] "%d komentarÅ³"
 
 #: templates/list/header.inc:4
 #, php-format
@@ -51,19 +51,19 @@ msgstr "%d galerijos"
 #, php-format
 msgid "%d image"
 msgid_plural "%d images"
-msgstr[0] "%d paveikslëlis"
-msgstr[1] "%d paveikslëlis"
-msgstr[2] "%d paveikslëliø"
+msgstr[0] "%d paveikslÄ—lis"
+msgstr[1] "%d paveikslÄ—lis"
+msgstr[2] "%d paveikslÄ—liÅ³"
 
 #: img/upload.php:136
 #, php-format
 msgid "%d images were uploaded."
-msgstr "Sëkmingai ákelti(a) %d paveikslëliai(iø)."
+msgstr "SÄ—kmingai Ä¯kelti(a) %d paveikslÄ—liai(iÅ³)."
 
 #: lib/Exif.php:136 lib/Exif.php:142
 #, php-format
 msgid "%d pixels"
-msgstr "%d pikseliai(iø)"
+msgstr "%d pikseliai(iÅ³)"
 
 #: lib/Exif.php:166 lib/Exif.php:181
 #, php-format
@@ -73,22 +73,22 @@ msgstr "%d sek"
 #: templates/list/header.inc:4
 #, php-format
 msgid "%d to %d of %d galleries"
-msgstr "nuo %d iki %d iğ %d galerijø"
+msgstr "nuo %d iki %d iÅ¡ %d galerijÅ³"
 
 #: gallery/sort.php:48
 #, php-format
 msgid "%s :: Sort"
-msgstr "%s :: Rûğiuoti"
+msgstr "%s :: RÅ«Å¡iuoti"
 
 #: rss.php:95
 #, php-format
 msgid "%s from %s"
-msgstr "%s iğ %s"
+msgstr "%s iÅ¡ %s"
 
 #: templates/view/gallery.inc:118 templates/view/results.inc:87
 #, php-format
 msgid "%s items"
-msgstr "%s objektai(ø)"
+msgstr "%s objektai(Å³)"
 
 #: list.php:48 lib/Ansel.php:501 templates/group/owner.inc:16
 #, php-format
@@ -102,7 +102,7 @@ msgstr "(c) %s %s"
 
 #: templates/xppublish/new.inc:14
 msgid "(must be unique)"
-msgstr "(turi bûti unikalus)"
+msgstr "(turi bÅ«ti unikalus)"
 
 #: templates/group/owner.inc:55 templates/group/category.inc:51
 msgid "1 Gallery"
@@ -110,7 +110,7 @@ msgstr "1 galerija"
 
 #: img/upload.php:134
 msgid "1 image was uploaded."
-msgstr "Sëkmingai ákeltas 1 paveikslëlis."
+msgstr "SÄ—kmingai Ä¯keltas 1 paveikslÄ—lis."
 
 #: lib/Exif.php:157
 #, php-format
@@ -134,7 +134,7 @@ msgstr "90 laipsn. CW veidrodinis"
 
 #: lib/api.php:227
 msgid "A gallery to add this image to is required."
-msgstr "Nuotraukos ákëlimui reikia galerijos."
+msgstr "Nuotraukos Ä¯kÄ—limui reikia galerijos."
 
 #: lib/Exif.php:128
 msgid "A-DEP"
@@ -143,61 +143,61 @@ msgstr "A-DEP"
 #: lib/api.php:348 gallery/delete.php:28 gallery/delete.php:54
 #, php-format
 msgid "Access denied deleting gallery %s."
-msgstr "Neturite teisiø iğtrinti galerijos %s."
+msgstr "Neturite teisiÅ³ iÅ¡trinti galerijos %s."
 
 #: image.php:401 lib/Views/Results.php:91
 #, php-format
 msgid "Access denied deleting image %s."
-msgstr "Neturite teisiø iğtrinti paveikslëlio %s."
+msgstr "Neturite teisiÅ³ iÅ¡trinti paveikslÄ—lio %s."
 
 #: gallery.php:69
 #, php-format
 msgid "Access denied downloading %s."
-msgstr "Neturite teisiø atsisiøsti %s."
+msgstr "Neturite teisiÅ³ atsisiÅ³sti %s."
 
 #: gallery.php:124
 msgid "Access denied editing galleries."
-msgstr "Neturite teisiø iğtrinti %s."
+msgstr "Neturite teisiÅ³ iÅ¡trinti %s."
 
 #: gallery.php:142
 #, php-format
 msgid "Access denied saving gallery %s."
-msgstr "Neturite teisiø iğsaugoti galerijos %s."
+msgstr "Neturite teisiÅ³ iÅ¡saugoti galerijos %s."
 
 #: image.php:198 image.php:264
 #, php-format
 msgid "Access denied saving image to %s."
-msgstr "Neturite teisiø iğsaugoti paveikslëlio á %s."
+msgstr "Neturite teisiÅ³ iÅ¡saugoti paveikslÄ—lio Ä¯ %s."
 
 #: gallery/captions.php:31
 #, php-format
 msgid "Access denied setting captions for %s."
-msgstr "Neturite teisiø árağyti %s aprağymo."
+msgstr "Neturite teisiÅ³ Ä¯raÅ¡yti %s apraÅ¡ymo."
 
 #: templates/view/image.inc:72
 msgid "Add"
-msgstr "Pridëti"
+msgstr "PridÄ—ti"
 
 #: browse.php:23
 msgid "Add Content"
-msgstr "Pridëtá turiná"
+msgstr "PridÄ—tÄ¯ turinÄ¯"
 
 #: img/upload.php:147
 msgid "Add Image"
-msgstr "Pridëti paveikslëlá"
+msgstr "PridÄ—ti paveikslÄ—lÄ¯"
 
 #: gallery.php:35 gallery.php:184 gallery.php:192
 msgid "Adding A New Gallery"
-msgstr "Naujos galerijos kûrimas"
+msgstr "Naujos galerijos kÅ«rimas"
 
 #: gallery.php:61
 #, php-format
 msgid "Adding A Subgallery to %s"
-msgstr "Naujos galerijos kûrimas %s"
+msgstr "Naujos galerijos kÅ«rimas %s"
 
 #: templates/view/gallery.inc:158 templates/view/results.inc:93
 msgid "All"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #: lib/Block/recent_comments.php:60 lib/Block/recently_added.php:60
 msgid "All Galleries"
@@ -206,7 +206,7 @@ msgstr "Visos galerijos"
 #: lib/Ansel.php:126
 #, php-format
 msgid "An error occurred counting galleries: %s"
-msgstr "Klaida skaièiuojant galerijas: %s"
+msgstr "Klaida skaiÄiuojant galerijas: %s"
 
 #: lib/Ansel.php:66
 #, php-format
@@ -219,7 +219,7 @@ msgstr "Anga"
 
 #: templates/view/gallery.inc:20 templates/view/results.inc:20
 msgid "Are you sure you want to delete the selected images?"
-msgstr "Ar tikrai norite iğtrinti pasirinktus paveikslëlius?"
+msgstr "Ar tikrai norite iÅ¡trinti pasirinktus paveikslÄ—lius?"
 
 #: lib/Exif.php:356
 msgid "Artist"
@@ -227,7 +227,7 @@ msgstr "Artistas"
 
 #: perms.php:52
 msgid "Attempt to edit a non-existent share."
-msgstr "Bandote redaguoti neegzistuojantá elementà."
+msgstr "Bandote redaguoti neegzistuojantÄ¯ elementÄ…."
 
 #: lib/Exif.php:124
 msgid "Av-priority"
@@ -244,24 +244,24 @@ msgstr "Blogi duomenys."
 
 #: image.php:71
 msgid "Bottom"
-msgstr "Virğuje"
+msgstr "VirÅ¡uje"
 
 #: lib/Ansel.php:408 config/prefs.php.dist:34
 msgid "Browse"
-msgstr "Perşiûrëti"
+msgstr "PerÅ¾iÅ«rÄ—ti"
 
 #: lib/Ansel.php:509
 msgid "Browse Tags"
-msgstr "Perşiûrëti şymes"
+msgstr "PerÅ¾iÅ«rÄ—ti Å¾ymes"
 
 #: lib/Views/Results.php:58
 #, php-format
 msgid "Browsing %s's images"
-msgstr "Rodomi %s paveikslëliai"
+msgstr "Rodomi %s paveikslÄ—liai"
 
 #: lib/Views/Results.php:58
 msgid "Browsing all images"
-msgstr "Rodomi visi paveikslëliai"
+msgstr "Rodomi visi paveikslÄ—liai"
 
 #: lib/Exif.php:327
 msgid "Camera Make"
@@ -278,27 +278,27 @@ msgstr "Fotoaparato orientacija"
 #: lib/Ansel.php:357
 #, php-format
 msgid "Can't get unknown file type \"%s\"."
-msgstr "Nepavyko atpaşinti neşinomo failo tipo \"%s\"."
+msgstr "Nepavyko atpaÅ¾inti neÅ¾inomo failo tipo \"%s\"."
 
 #: templates/gallery/delete_confirmation.inc:11
 msgid "Cancel"
-msgstr "Atğaukti"
+msgstr "AtÅ¡aukti"
 
 #: templates/image/preview_image.inc:28
 msgid "Cancel Change"
-msgstr "Atğaukti pakeitimus"
+msgstr "AtÅ¡aukti pakeitimus"
 
 #: image.php:38 lib/Forms/Upload.php:38
 msgid "Caption"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: gallery/captions.php:54
 msgid "Caption Editor"
-msgstr "Aprağymo redaktorius"
+msgstr "ApraÅ¡ymo redaktorius"
 
 #: gallery/captions.php:49
 msgid "Captions Saved."
-msgstr "Aprağymai iğsaugoti."
+msgstr "ApraÅ¡ymai iÅ¡saugoti."
 
 #: config/prefs.php.dist:47
 msgid "Category"
@@ -310,7 +310,7 @@ msgstr "Centre"
 
 #: lib/Exif.php:229
 msgid "Center Weighted Average"
-msgstr "Centrinis pusiausvyros tağkas"
+msgstr "Centrinis pusiausvyros taÅ¡kas"
 
 #: templates/view/gallery.inc:129
 msgid "Change gallery properties"
@@ -318,11 +318,11 @@ msgstr "Pakeisti galerijos nustatymus"
 
 #: config/prefs.php.dist:15
 msgid "Change your display options."
-msgstr "Vaizdavimo nustatymø keitimas."
+msgstr "Vaizdavimo nustatymÅ³ keitimas."
 
 #: templates/view/gallery.inc:121
 msgid "Choose Action:"
-msgstr "Pasirinkite veiksmà:"
+msgstr "Pasirinkite veiksmÄ…:"
 
 #: lib/Exif.php:242
 msgid "Cloudy"
@@ -330,15 +330,15 @@ msgstr "Debesuota"
 
 #: lib/Exif.php:293
 msgid "Color Sequential Area Sensor"
-msgstr "Spalvø ploto sensorius"
+msgstr "SpalvÅ³ ploto sensorius"
 
 #: lib/Exif.php:295
 msgid "Color Sequential Linear Sensor"
-msgstr "Spalvø linijinis sensorius"
+msgstr "SpalvÅ³ linijinis sensorius"
 
 #: lib/Exif.php:351
 msgid "Color Space"
-msgstr "Spalvø gylis"
+msgstr "SpalvÅ³ gylis"
 
 #: lib/Forms/Ecard.php:42
 msgid "Comments:"
@@ -346,33 +346,33 @@ msgstr "Komentarai:"
 
 #: lib/Exif.php:263
 msgid "Compulsory Flash"
-msgstr "Priverstinë blykstë"
+msgstr "PriverstinÄ— blykstÄ—"
 
 #: lib/Exif.php:265
 msgid "Compulsory Flash, Return light detected"
-msgstr "Priverstinë blykstë, aptikra graşinta ğviesa"
+msgstr "PriverstinÄ— blykstÄ—, aptikra graÅ¾inta Å¡viesa"
 
 #: lib/Exif.php:264
 msgid "Compulsory Flash, Return light not detected"
-msgstr "Priverstinë blykstë, graşinta ğviesa neaptikta"
+msgstr "PriverstinÄ— blykstÄ—, graÅ¾inta Å¡viesa neaptikta"
 
 #: lib/Views/Results.php:173
 #, php-format
 msgid "Copied %d image from %s to %s"
 msgid_plural "Copied %d images from %s to %s"
-msgstr[0] "Nukopijuotas %d paveikslëlis iğ %s á %s"
-msgstr[1] "Nukopijuoti %d paveikslëliai iğ %s á %s"
-msgstr[2] "Nukopijuota %d paveikslëliø iğ %s á %s"
+msgstr[0] "Nukopijuotas %d paveikslÄ—lis iÅ¡ %s Ä¯ %s"
+msgstr[1] "Nukopijuoti %d paveikslÄ—liai iÅ¡ %s Ä¯ %s"
+msgstr[2] "Nukopijuota %d paveikslÄ—liÅ³ iÅ¡ %s Ä¯ %s"
 
 #: image.php:473
 #, php-format
 msgid "Copied %d images to %s"
-msgstr "Nukopijuoti(a) %d paveikslëliai(iø) á %s."
+msgstr "Nukopijuoti(a) %d paveikslÄ—liai(iÅ³) Ä¯ %s."
 
 #: image.php:471
 #, php-format
 msgid "Copied one image to %s"
-msgstr "Nukopijuotas vienas paveikslëlis á %s."
+msgstr "Nukopijuotas vienas paveikslÄ—lis Ä¯ %s."
 
 #: templates/view/gallery.inc:169 templates/view/results.inc:102
 msgid "Copy"
@@ -380,7 +380,7 @@ msgstr "Kopijuoti"
 
 #: lib/Exif.php:355
 msgid "Copyright"
-msgstr "Kopijavimo teisës"
+msgstr "Kopijavimo teisÄ—s"
 
 #: templates/xppublish/list.inc:19
 msgid "Create"
@@ -388,15 +388,15 @@ msgstr "Sukurti"
 
 #: templates/xppublish/new.inc:8
 msgid "Create a new Gallery"
-msgstr "Sukurti naujà galerijà"
+msgstr "Sukurti naujÄ… galerijÄ…"
 
 #: templates/xppublish/list.inc:18
 msgid "Create a new gallery:"
-msgstr "Sukurti naujà galerijà:"
+msgstr "Sukurti naujÄ… galerijÄ…:"
 
 #: templates/view/gallery.inc:128
 msgid "Create a subgallery"
-msgstr "Sukurti gilesnæ galerijà"
+msgstr "Sukurti gilesnÄ™ galerijÄ…"
 
 #: lib/Tile/Gallery.php:104
 msgid "Created:"
@@ -408,52 +408,52 @@ msgstr "Kitas"
 
 #: image.php:60
 msgid "Custom Watermark"
-msgstr "Vandens şenklas"
+msgstr "Vandens Å¾enklas"
 
 #: config/prefs.php.dist:27
 msgid ""
 "Custom text to display describing your galleries. This will be displayed in "
 "place of your username when grouping galleries by username."
 msgstr ""
-"Bet koks trumpas tekstas apibûdinantis jûsø galerijas. Jis bus naudojamas "
-"vietoj jûsø vartotojo vardo grupuojant galerijas pagal vartotojø vardus."
+"Bet koks trumpas tekstas apibÅ«dinantis jÅ«sÅ³ galerijas. Jis bus naudojamas "
+"vietoj jÅ«sÅ³ vartotojo vardo grupuojant galerijas pagal vartotojÅ³ vardus."
 
 #: config/prefs.php.dist:90
 msgid "Custom watermark to use for images"
-msgstr "Vandens şenklas naudojamas paveikslëliuose"
+msgstr "Vandens Å¾enklas naudojamas paveikslÄ—liuose"
 
 #: lib/Exif.php:334
 msgid "Date Image Digitized"
-msgstr "Paveikslëlio skaitmenizavimo data"
+msgstr "PaveikslÄ—lio skaitmenizavimo data"
 
 #: lib/Exif.php:332
 msgid "Date Image Modified"
-msgstr "Paveikslëlio redagavimo data"
+msgstr "PaveikslÄ—lio redagavimo data"
 
 #: lib/Exif.php:333
 msgid "Date Image Taken"
-msgstr "Paveikslëlio padarymo data"
+msgstr "PaveikslÄ—lio padarymo data"
 
 #: config/prefs.php.dist:113
 msgid "Default"
-msgstr "Standartinë reikğmë"
+msgstr "StandartinÄ— reikÅ¡mÄ—"
 
 #: config/prefs.php.dist:112
 msgid "Default style for galleries"
-msgstr "Standartinis galerijø stilius"
+msgstr "Standartinis galerijÅ³ stilius"
 
 #: templates/view/image.inc:53 templates/view/gallery.inc:163
 #: templates/view/results.inc:97
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: templates/view/gallery.inc:141
 msgid "Delete this gallery"
-msgstr "Iğtrinti ğià galerijà"
+msgstr "IÅ¡trinti Å¡iÄ… galerijÄ…"
 
 #: image.php:407 lib/Views/Results.php:97
 msgid "Deleted the image."
-msgstr "Paveikslëlis iğtrintas."
+msgstr "PaveikslÄ—lis iÅ¡trintas."
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
@@ -462,17 +462,17 @@ msgstr "Vaizdavimo nustatymai"
 #: templates/group/header.inc:3
 #, php-format
 msgid "Displaying from %s to %s of %s groups"
-msgstr "Rodomos nuo %s iki %s iğ %s grupiø"
+msgstr "Rodomos nuo %s iki %s iÅ¡ %s grupiÅ³"
 
 #: templates/view/gallery.inc:118 templates/view/results.inc:87
 #, php-format
 msgid "Displaying from %s to %s of %s items"
-msgstr "Rodomi nuo %s iki %s iğ %s objektø"
+msgstr "Rodomi nuo %s iki %s iÅ¡ %s objektÅ³"
 
 #: templates/view/image.inc:53
 #, php-format
 msgid "Do you want to permanently delete %s?"
-msgstr "Ar tikrai norite visiğkai iğtrinti %s?"
+msgstr "Ar tikrai norite visiÅ¡kai iÅ¡trinti %s?"
 
 #: gallery/sort.php:62
 msgid "Done"
@@ -480,15 +480,15 @@ msgstr "Atlikta"
 
 #: templates/view/image.inc:61
 msgid "Download Full Image"
-msgstr "Atsisiøsti pilnà paveikslëlá"
+msgstr "AtsisiÅ³sti pilnÄ… paveikslÄ—lÄ¯"
 
 #: templates/view/gallery.inc:124
 msgid "Download as .zip"
-msgstr "Atsisiøsti .zip formatu"
+msgstr "AtsisiÅ³sti .zip formatu"
 
 #: gallery/sort.php:61
 msgid "Drag images to the desired sort position."
-msgstr "Nutempkite paveikslëlius á norimà rûğiavimo vietà."
+msgstr "Nutempkite paveikslÄ—lius Ä¯ norimÄ… rÅ«Å¡iavimo vietÄ…."
 
 #: xppublish.php:210
 #, php-format
@@ -501,7 +501,7 @@ msgstr "Greitas fotografavimas"
 
 #: img/ecard.php:60
 msgid "Ecard - "
-msgstr "El. atvirutë - "
+msgstr "El. atvirutÄ— - "
 
 #: templates/tile/image.inc:18 templates/view/image.inc:50
 msgid "Edit"
@@ -514,29 +514,29 @@ msgstr "%s :: %s redagavimas"
 
 #: image.php:330
 msgid "Edit Image"
-msgstr "Paveikslëlio redagavimas"
+msgstr "PaveikslÄ—lio redagavimas"
 
 #: perms.php:243
 msgid "Edit Permissions"
-msgstr "Teisiø keitimas"
+msgstr "TeisiÅ³ keitimas"
 
 #: perms.php:246
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "%s teisiø keitimas"
+msgstr "%s teisiÅ³ keitimas"
 
 #: image.php:209
 msgid "Edit an image"
-msgstr "Redaguoti paveikslëlá"
+msgstr "Redaguoti paveikslÄ—lÄ¯"
 
 #: image.php:169
 #, php-format
 msgid "Edit properties :: %s"
-msgstr "Nustatymø keitimas :: %s"
+msgstr "NustatymÅ³ keitimas :: %s"
 
 #: templates/view/gallery.inc:140
 msgid "Empty this gallery"
-msgstr "Iğvalyti ğià galerijà"
+msgstr "IÅ¡valyti Å¡iÄ… galerijÄ…"
 
 #: gallery/captions.php:25
 #, php-format
@@ -549,7 +549,7 @@ msgstr "Klaida gaunant duomenis"
 
 #: templates/xppublish/list.inc:12
 msgid "Existing galleries:"
-msgstr "Egzistuojanèios galerijos:"
+msgstr "EgzistuojanÄios galerijos:"
 
 #: lib/Exif.php:340
 msgid "Exposure"
@@ -557,11 +557,11 @@ msgstr "Ekspozicija"
 
 #: lib/Exif.php:346
 msgid "Exposure Bias"
-msgstr "Ekspozicijos ástrişumas"
+msgstr "Ekspozicijos Ä¯striÅ¾umas"
 
 #: lib/Exif.php:347
 msgid "Exposure Mode"
-msgstr "Ekspozicijos reşimas"
+msgstr "Ekspozicijos reÅ¾imas"
 
 #: lib/Exif.php:344
 msgid "F-Number"
@@ -578,35 +578,35 @@ msgstr "Failo dydis"
 
 #: lib/Forms/Upload.php:34 lib/Forms/Upload.php:53
 msgid "File to upload"
-msgstr "Siunèiamas failas"
+msgstr "SiunÄiamas failas"
 
 #: lib/Exif.php:245 lib/Exif.php:260
 msgid "Flash"
-msgstr "Blykstë"
+msgstr "BlykstÄ—"
 
 #: lib/Exif.php:349
 msgid "Flash Setting"
-msgstr "Blykstës nustatymai"
+msgstr "BlykstÄ—s nustatymai"
 
 #: lib/Exif.php:268
 msgid "Flash, Auto-Mode"
-msgstr "Blykstë, automatinis reşimas"
+msgstr "BlykstÄ—, automatinis reÅ¾imas"
 
 #: lib/Exif.php:270
 msgid "Flash, Auto-Mode, Return light detected"
-msgstr "Blykstë, automatinis reşimas, aptikta graşinta ğviesa"
+msgstr "BlykstÄ—, automatinis reÅ¾imas, aptikta graÅ¾inta Å¡viesa"
 
 #: lib/Exif.php:269
 msgid "Flash, Auto-Mode, Return light not detected"
-msgstr "Blykstë, automatinis reşimas, graşinta ğviesa neaptikta"
+msgstr "BlykstÄ—, automatinis reÅ¾imas, graÅ¾inta Å¡viesa neaptikta"
 
 #: lib/Exif.php:262
 msgid "Flash, strobe return light detected"
-msgstr "Blykstë, strobas, aptikta graşinta ğviesa"
+msgstr "BlykstÄ—, strobas, aptikta graÅ¾inta Å¡viesa"
 
 #: lib/Exif.php:261
 msgid "Flash, strobe return light not detected"
-msgstr "Blykstë strobas, graşinta ğviesa neaptikta"
+msgstr "BlykstÄ— strobas, graÅ¾inta Å¡viesa neaptikta"
 
 #: templates/image/edit_image.inc:22
 msgid "Flip"
@@ -618,11 +618,11 @@ msgstr "Fluorescensinis"
 
 #: lib/Exif.php:341
 msgid "Focal Length"
-msgstr "Şidinio ilgis"
+msgstr "Å½idinio ilgis"
 
 #: lib/Exif.php:342
 msgid "Focal Length (35mm equiv)"
-msgstr "Şidinio ilgis (35mm)"
+msgstr "Å½idinio ilgis (35mm)"
 
 #: templates/tile/image.inc:4
 msgid "From: "
@@ -654,7 +654,7 @@ msgstr "Galerijos kategorija"
 
 #: templates/gallery/gallery.inc:39
 msgid "Gallery Description"
-msgstr "Galerijos aprağymas"
+msgstr "Galerijos apraÅ¡ymas"
 
 #: templates/gallery/gallery.inc:32
 msgid "Gallery Display Name"
@@ -662,7 +662,7 @@ msgstr "Rodomas galerijos pavadinimas"
 
 #: list.php:63 list.php:127
 msgid "Gallery List"
-msgstr "Galerijø sàrağas"
+msgstr "GalerijÅ³ sÄ…raÅ¡as"
 
 #: lib/Block/my_galleries.php:46
 msgid "Gallery Name"
@@ -678,7 +678,7 @@ msgstr "Trumpas galerijos pavadinimas"
 
 #: templates/gallery/gallery.inc:45
 msgid "Gallery Tags"
-msgstr "Galerijos şymës"
+msgstr "Galerijos Å¾ymÄ—s"
 
 #: lib/Ansel.php:188
 #, php-format
@@ -687,7 +687,7 @@ msgstr "Galerijos unikalus pavadinimas \"%s\" jau egzistuoja."
 
 #: xppublish.php:121
 msgid "Gallery Unique name is already taken."
-msgstr "Galerijos unikalus pavadinimas jau uşimtas."
+msgstr "Galerijos unikalus pavadinimas jau uÅ¾imtas."
 
 #: lib/Block/recent_comments.php:135 lib/Block/gallery.php:105
 #: lib/Block/recently_added.php:138
@@ -696,7 +696,7 @@ msgstr "Galerija neegzistuoja."
 
 #: lib/Ansel.php:780
 msgid "Gallery names must be non-empty"
-msgstr "Galerijos pavadinimas negali bûti tuğèias"
+msgstr "Galerijos pavadinimas negali bÅ«ti tuÅ¡Äias"
 
 #: image.php:336
 msgid "Gallery not found."
@@ -704,11 +704,11 @@ msgstr "Galerija nerasta."
 
 #: gallery/sort.php:40
 msgid "Gallery sorted."
-msgstr "Galerija surûğiuota."
+msgstr "Galerija surÅ«Å¡iuota."
 
 #: image.php:63
 msgid "Giant"
-msgstr "Milşiniğkas"
+msgstr "MilÅ¾iniÅ¡kas"
 
 #: templates/image/edit_image.inc:28
 msgid "Grayscale"
@@ -720,7 +720,7 @@ msgstr "Grupuoti galerijas pagal"
 
 #: lib/Exif.php:336
 msgid "Height"
-msgstr "Aukğtis"
+msgstr "AukÅ¡tis"
 
 #: image.php:68
 msgid "Horizontal Alignment"
@@ -732,37 +732,37 @@ msgstr "ISO nustatymai"
 
 #: lib/Block/my_galleries.php:46
 msgid "Image Count"
-msgstr "Paveikslëliø skaièius"
+msgstr "PaveikslÄ—liÅ³ skaiÄius"
 
 #: lib/Exif.php:330
 msgid "Image Description"
-msgstr "Paveikslëlio aprağymas"
+msgstr "PaveikslÄ—lio apraÅ¡ymas"
 
 #: lib/Exif.php:329
 msgid "Image Type"
-msgstr "Paveikslëlio tipas"
+msgstr "PaveikslÄ—lio tipas"
 
 #: lib/Ansel.php:819 lib/Ansel.php:2043
 msgid "Image not found"
-msgstr "Paveikslëlis nerastas"
+msgstr "PaveikslÄ—lis nerastas"
 
 #: rss.php:127
 #, php-format
 msgid "Images by %s"
-msgstr "%s paveikslëliai"
+msgstr "%s paveikslÄ—liai"
 
 #: lib/Ansel.php:847 lib/Ansel.php:2006
 msgid "Images not found"
-msgstr "Paveikslëliai nerasti"
+msgstr "PaveikslÄ—liai nerasti"
 
 #: rss.php:149 rss.php:155
 #, php-format
 msgid "Images tagged with %s on %s"
-msgstr "Paveikslëliai paşymëti %s %s"
+msgstr "PaveikslÄ—liai paÅ¾ymÄ—ti %s %s"
 
 #: lib/Ansel.php:2526
 msgid "Incomplete image"
-msgstr "Nepilnas paveikslëlis"
+msgstr "Nepilnas paveikslÄ—lis"
 
 #: lib/Ansel.php:1137 lib/Ansel.php:1171
 msgid "Invalid data"
@@ -770,7 +770,7 @@ msgstr "Neteisingi duomenys"
 
 #: xppublish.php:87 xppublish.php:180
 msgid "Invalid gallery specified."
-msgstr "Nurodytos galerijos nëra."
+msgstr "Nurodytos galerijos nÄ—ra."
 
 #: image.php:63
 msgid "Large"
@@ -778,15 +778,15 @@ msgstr "Didelis"
 
 #: lib/Block/my_galleries.php:46
 msgid "Last Modified"
-msgstr "Paskutiná kartà redaguota"
+msgstr "PaskutinÄ¯ kartÄ… redaguota"
 
 #: img/upload.php:153
 msgid "Learn how to publish images directly from Windows."
-msgstr "Iğmokite ákelti paveikslëlius tiesiai iğ Windows."
+msgstr "IÅ¡mokite Ä¯kelti paveikslÄ—lius tiesiai iÅ¡ Windows."
 
 #: image.php:67
 msgid "Left"
-msgstr "Kairëje"
+msgstr "KairÄ—je"
 
 #: templates/xppublish/login.inc:2
 #, php-format
@@ -795,7 +795,7 @@ msgstr "Prisijungti prie %s"
 
 #: image.php:37 lib/Forms/Upload.php:37
 msgid "Make this the default image for this gallery?"
-msgstr "Padaryti ğità paveikslëlá pagrindiniu galerijoje?"
+msgstr "Padaryti Å¡itÄ… paveikslÄ—lÄ¯ pagrindiniu galerijoje?"
 
 #: lib/Exif.php:126 lib/Exif.php:247
 msgid "Manual"
@@ -803,7 +803,7 @@ msgstr "Rankinis"
 
 #: lib/Block/recently_added.php:31
 msgid "Maximum number of images"
-msgstr "Maksimalus paveikslëliø skaièius"
+msgstr "Maksimalus paveikslÄ—liÅ³ skaiÄius"
 
 #: image.php:63
 msgid "Medium"
@@ -811,7 +811,7 @@ msgstr "Vidutinis"
 
 #: lib/Exif.php:348
 msgid "Metering Mode"
-msgstr "Atskaitos reşimas"
+msgstr "Atskaitos reÅ¾imas"
 
 #: templates/image/edit_image.inc:25
 msgid "Mirror"
@@ -839,19 +839,19 @@ msgstr "Perkelti"
 #, php-format
 msgid "Moved %d image from %s to %s"
 msgid_plural "Moved %d images from %s to %s"
-msgstr[0] "Perkeltas %d paveikslëlis iğ %s á %s"
-msgstr[1] "Perkelti %d paveikslëliai iğ %s á %s"
-msgstr[2] "Perkelta %d paveikslëliø iğ %s á %s"
+msgstr[0] "Perkeltas %d paveikslÄ—lis iÅ¡ %s Ä¯ %s"
+msgstr[1] "Perkelti %d paveikslÄ—liai iÅ¡ %s Ä¯ %s"
+msgstr[2] "Perkelta %d paveikslÄ—liÅ³ iÅ¡ %s Ä¯ %s"
 
 #: image.php:440
 #, php-format
 msgid "Moved %d images to %s"
-msgstr "Perkelta(i) %d paveikslëliai(iø) á %s."
+msgstr "Perkelta(i) %d paveikslÄ—liai(iÅ³) Ä¯ %s."
 
 #: image.php:438
 #, php-format
 msgid "Moved one image to %s"
-msgstr "Perkeltas vienas paveikslëlis á %s."
+msgstr "Perkeltas vienas paveikslÄ—lis Ä¯ %s."
 
 #: lib/Exif.php:232
 msgid "Multi-Segment"
@@ -859,11 +859,11 @@ msgstr "Multisegmentinis"
 
 #: lib/Exif.php:231
 msgid "Multi-Spot"
-msgstr "Multitağkinis"
+msgstr "MultitaÅ¡kinis"
 
 #: lib/Forms/Upload.php:41
 msgid "Multiple Images"
-msgstr "Keletas paveikslëliø"
+msgstr "Keletas paveikslÄ—liÅ³"
 
 #: list.php:35 lib/Ansel.php:488 lib/Block/my_galleries.php:3
 #: lib/Block/my_galleries.php:28 templates/group/owner.inc:3
@@ -873,11 +873,11 @@ msgstr "Mano galerijos"
 
 #: browse_edit.php:28
 msgid "My Photos :: Add Content"
-msgstr "Mano nuotraukos :: Pridëti turiná"
+msgstr "Mano nuotraukos :: PridÄ—ti turinÄ¯"
 
 #: templates/xppublish/new.inc:33
 msgid "New Gallery Description"
-msgstr "Naujas galerijos aprağymas"
+msgstr "Naujas galerijos apraÅ¡ymas"
 
 #: templates/xppublish/new.inc:24
 msgid "New Gallery Title"
@@ -889,19 +889,19 @@ msgstr "Sekantis"
 
 #: lib/Exif.php:259 lib/Exif.php:266 lib/Exif.php:267 lib/Exif.php:271
 msgid "No Flash"
-msgstr "Blykstë iğjungta"
+msgstr "BlykstÄ— iÅ¡jungta"
 
 #: xppublish.php:123
 msgid "No Gallery Name Specified."
-msgstr "Neárağëte galerijos pavadinimo."
+msgstr "NeÄ¯raÅ¡Ä—te galerijos pavadinimo."
 
 #: xppublish.php:119
 msgid "No Gallery Unique Name Specified."
-msgstr "Neárağëte unikalaus galerijos pavadinimo."
+msgstr "NeÄ¯raÅ¡Ä—te unikalaus galerijos pavadinimo."
 
 #: xppublish.php:190
 msgid "No file specified"
-msgstr "Nenurodëte failo"
+msgstr "NenurodÄ—te failo"
 
 #: lib/Views/Abstract.php:18
 msgid "No gallery specified."
@@ -919,27 +919,27 @@ msgstr "Normalus (0 laipsn.)"
 
 #: lib/Exif.php:289
 msgid "Not defined"
-msgstr "Neaprağyta"
+msgstr "NeapraÅ¡yta"
 
 #: image.php:112 img/upload.php:22
 msgid "Not found or error accessing gallery."
-msgstr "Nerasta arba klaida rodant galerijà."
+msgstr "Nerasta arba klaida rodant galerijÄ…."
 
 #: config/prefs.php.dist:74
 msgid "Number of groups per page"
-msgstr "Grupiø skaièius puslapyje"
+msgstr "GrupiÅ³ skaiÄius puslapyje"
 
 #: config/prefs.php.dist:66
 msgid "Number of tiles per page"
-msgstr "Objektø skaièius puslapyje"
+msgstr "ObjektÅ³ skaiÄius puslapyje"
 
 #: config/prefs.php.dist:58
 msgid "Number of tiles per row"
-msgstr "Objektø skaièius eilutëje"
+msgstr "ObjektÅ³ skaiÄius eilutÄ—je"
 
 #: lib/Exif.php:290
 msgid "One Chip Color Area Sensor"
-msgstr "Vienos mikroschemos spalvø sensorius"
+msgstr "Vienos mikroschemos spalvÅ³ sensorius"
 
 #: perms.php:64
 msgid ""
@@ -968,7 +968,7 @@ msgstr "Savininkas"
 
 #: lib/Ansel.php:1202
 msgid "Parent does not exist."
-msgstr "Nëra aukğtesnio lygio."
+msgstr "NÄ—ra aukÅ¡tesnio lygio."
 
 #: lib/Exif.php:233
 msgid "Partial"
@@ -976,7 +976,7 @@ msgstr "Dalinis"
 
 #: templates/xppublish/login.inc:14
 msgid "Password"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #: templates/view/image.inc:92
 msgid "Pause"
@@ -984,7 +984,7 @@ msgstr "Sustabdyti"
 
 #: templates/view/image.inc:92
 msgid "Pause Slideshow"
-msgstr "Sustabdyti skaidriø perşiûrà"
+msgstr "Sustabdyti skaidriÅ³ perÅ¾iÅ«rÄ…"
 
 #: browse.php:19
 msgid "Photo Galleries"
@@ -992,7 +992,7 @@ msgstr "Fotogalerijos"
 
 #: templates/xppublish/javascript.inc:63
 msgid "Photo Upload"
-msgstr "Paveikslëlio ákëlimas"
+msgstr "PaveikslÄ—lio Ä¯kÄ—limas"
 
 #: templates/view/image.inc:91
 msgid "Play"
@@ -1000,7 +1000,7 @@ msgstr "Paleisti"
 
 #: xppublish.php:54
 msgid "Please enter your Username and Password."
-msgstr "Nurodykite savo vartotojo vardà bei slaptaşodá."
+msgstr "Nurodykite savo vartotojo vardÄ… bei slaptaÅ¾odÄ¯."
 
 #: config/prefs.php.dist:117
 msgid "Polaroid"
@@ -1008,20 +1008,20 @@ msgstr "Polaroid"
 
 #: xppublish.php:99 xppublish.php:155
 msgid "Press the \"Back\" button and try again."
-msgstr "Paspauskite mygtukà \"Atgal\" ir pabandykite dar kartà."
+msgstr "Paspauskite mygtukÄ… \"Atgal\" ir pabandykite dar kartÄ…."
 
 #: config/prefs.php.dist:114
 msgid "Pretty Thumbs"
-msgstr "Graşûs paveikslëliai"
+msgstr "GraÅ¾Å«s paveikslÄ—liai"
 
 #: config/prefs.php.dist:115
 msgid "Pretty Thumbs on White Background"
-msgstr "Graşûs paveikslëliai baltame fone"
+msgstr "GraÅ¾Å«s paveikslÄ—liai baltame fone"
 
 #: image.php:342
 #, php-format
 msgid "Preview changes for %s :: %s"
-msgstr "%s :: %s pakeitimø rodymas"
+msgstr "%s :: %s pakeitimÅ³ rodymas"
 
 #: templates/view/image.inc:93 templates/view/image.inc:94
 msgid "Previous"
@@ -1037,7 +1037,7 @@ msgstr "Nustatymai"
 
 #: templates/xppublish/list.inc:7
 msgid "Publish Images to:"
-msgstr "Publikuoti paveikslëlius á:"
+msgstr "Publikuoti paveikslÄ—lius Ä¯:"
 
 #: xppublish.php:35
 #, php-format
@@ -1047,53 +1047,53 @@ msgstr "Publikuoti %s"
 #: xppublish.php:24
 #, php-format
 msgid "Publish your photos to %s on %s."
-msgstr "Publikuoti paveikslëlius á %s %s."
+msgstr "Publikuoti paveikslÄ—lius Ä¯ %s %s."
 
 #: lib/Block/gallery.php:35 lib/Block/gallery.php:54
 msgid "Random Gallery"
-msgstr "Atsitiktinë galerija"
+msgstr "AtsitiktinÄ— galerija"
 
 #: lib/Block/random_gallery.php:3 lib/Block/random_gallery.php:27
 msgid "Random gallery"
-msgstr "Atsitiktinë galerija"
+msgstr "AtsitiktinÄ— galerija"
 
 #: lib/Block/random_photo.php:3 lib/Block/random_photo.php:28
 msgid "Random photo"
-msgstr "Atsitiktinis paveikslëlis"
+msgstr "Atsitiktinis paveikslÄ—lis"
 
 #: templates/gallery/delete_confirmation.inc:10
 msgid "Really Delete"
-msgstr "Tikrai iğtrinti"
+msgstr "Tikrai iÅ¡trinti"
 
 #: templates/gallery/delete_confirmation.inc:10
 msgid "Really Empty"
-msgstr "Tikrai iğvalyti"
+msgstr "Tikrai iÅ¡valyti"
 
 #: templates/gallery/delete_confirmation.inc:2
 #, php-format
 msgid "Really delete %s?"
-msgstr "Tikrai iğtrinti %s?"
+msgstr "Tikrai iÅ¡trinti %s?"
 
 #: templates/gallery/delete_confirmation.inc:5
 msgid ""
 "Really delete this gallery and all of the images in it? This action cannot "
 "be undone."
 msgstr ""
-"Tikrai iğtrinti ğià galerijà ir visus paveikslëlius joje? Graşinti atgal "
-"nebegalësite."
+"Tikrai iÅ¡trinti Å¡iÄ… galerijÄ… ir visus paveikslÄ—lius joje? GraÅ¾inti atgal "
+"nebegalÄ—site."
 
 #: templates/gallery/delete_confirmation.inc:2
 #, php-format
 msgid "Really empty %s?"
-msgstr "Tikrai iğvalyti %s?"
+msgstr "Tikrai iÅ¡valyti %s?"
 
 #: templates/gallery/delete_confirmation.inc:5
 msgid ""
 "Really empty this gallery and all of the images in it? This action cannot be "
 "undone."
 msgstr ""
-"Tikrai iğvalyti visus paveikslëlius ğioje galerijoje? Graşinti atgal "
-"nebegalësite."
+"Tikrai iÅ¡valyti visus paveikslÄ—lius Å¡ioje galerijoje? GraÅ¾inti atgal "
+"nebegalÄ—site."
 
 #: lib/Block/recent_comments.php:63
 #, php-format
@@ -1102,101 +1102,101 @@ msgstr "Paskutiniai %s komentarai"
 
 #: lib/Block/recent_comments.php:5
 msgid "Recent Image Comments"
-msgstr "Paskutinis paveikslëliø turinys"
+msgstr "Paskutinis paveikslÄ—liÅ³ turinys"
 
 #: templates/view/gallery.inc:223
 #, php-format
 msgid "Recent photos by %s"
-msgstr "Paskutiai %s paveikslëliai"
+msgstr "Paskutiai %s paveikslÄ—liai"
 
 #: templates/view/gallery.inc:224
 #, php-format
 msgid "Recent photos in %s"
-msgstr "Paskutiniai paveikslëliai galerijoje %s"
+msgstr "Paskutiniai paveikslÄ—liai galerijoje %s"
 
 #: lib/Block/recently_added.php:2
 msgid "Recently Added Images"
-msgstr "Vëliausiai ákelti paveikslëliai"
+msgstr "VÄ—liausiai Ä¯kelti paveikslÄ—liai"
 
 #: lib/Block/recently_added.php:62
 #, php-format
 msgid "Recently Added Images From %s"
-msgstr "Vëliausiai iğ %s ákelti paveikslëliai"
+msgstr "VÄ—liausiai iÅ¡ %s Ä¯kelti paveikslÄ—liai"
 
 #: rss.php:57 rss.php:60
 #, php-format
 msgid "Recently added images at %s"
-msgstr "Paskutiniai %s ákelti paveikslëliai"
+msgstr "Paskutiniai %s Ä¯kelti paveikslÄ—liai"
 
 #: rss.php:130
 #, php-format
 msgid "Recently added images by %s on %s"
-msgstr "Paskutiniai %s %s ákelti paveikslëliai"
+msgstr "Paskutiniai %s %s Ä¯kelti paveikslÄ—liai"
 
 #: lib/Exif.php:272
 msgid "Red Eye"
-msgstr "Raudonø akiø efektas"
+msgstr "RaudonÅ³ akiÅ³ efektas"
 
 #: lib/Exif.php:278
 msgid "Red Eye, Auto-Mode"
-msgstr "Raudonø akiø efektas, automatinis reşimas"
+msgstr "RaudonÅ³ akiÅ³ efektas, automatinis reÅ¾imas"
 
 #: lib/Exif.php:280
 msgid "Red Eye, Auto-Mode, Return light detected"
-msgstr "Raudonø akiø efektas, automatinis reşimas, aptikta graşinama ğviesa"
+msgstr "RaudonÅ³ akiÅ³ efektas, automatinis reÅ¾imas, aptikta graÅ¾inama Å¡viesa"
 
 #: lib/Exif.php:279
 msgid "Red Eye, Auto-Mode, Return light not detected"
-msgstr "Raudonø akiø efektas, automatinis reşimas, graşinama ğviesa neaptikta"
+msgstr "RaudonÅ³ akiÅ³ efektas, automatinis reÅ¾imas, graÅ¾inama Å¡viesa neaptikta"
 
 #: lib/Exif.php:275
 msgid "Red Eye, Compulsory Flash"
-msgstr "Raudonø akiø efektas, priverstinë blykstë"
+msgstr "RaudonÅ³ akiÅ³ efektas, priverstinÄ— blykstÄ—"
 
 #: lib/Exif.php:277
 msgid "Red Eye, Compulsory Flash, Return light detected"
-msgstr "Raudonø akiø efektas, priverstinë blykstë, aptikra graşinama ğviesa"
+msgstr "RaudonÅ³ akiÅ³ efektas, priverstinÄ— blykstÄ—, aptikra graÅ¾inama Å¡viesa"
 
 #: lib/Exif.php:276
 msgid "Red Eye, Compulsory Flash, Return light not detected"
-msgstr "Raudonø akiø efektas, priverstinë blykstæ, graşinama ğviesa neaptikta"
+msgstr "RaudonÅ³ akiÅ³ efektas, priverstinÄ— blykstÄ™, graÅ¾inama Å¡viesa neaptikta"
 
 #: lib/Exif.php:274
 msgid "Red Eye, Return light detected"
-msgstr "Raudonø akiø efektas, aptikta graşinama ğviesa"
+msgstr "RaudonÅ³ akiÅ³ efektas, aptikta graÅ¾inama Å¡viesa"
 
 #: lib/Exif.php:273
 msgid "Red Eye, Return light not detected"
-msgstr "Raudonø akiø efektas, graşinama ğviesa neaptikta"
+msgstr "RaudonÅ³ akiÅ³ efektas, graÅ¾inama Å¡viesa neaptikta"
 
 #: templates/list/header.inc:6 templates/group/header.inc:7
 #: templates/group/header.inc:8
 msgid "Refresh List"
-msgstr "Atnaujinti sàrağà"
+msgstr "Atnaujinti sÄ…raÅ¡Ä…"
 
 #: templates/view/results.inc:87
 msgid "Refresh View"
-msgstr "Atnaujinti vaizdà"
+msgstr "Atnaujinti vaizdÄ…"
 
 #: templates/view/results.inc:114
 msgid "Related Tags"
-msgstr "Susijusios şymës"
+msgstr "Susijusios Å¾ymÄ—s"
 
 #: xrequest.php:24 lib/Views/Gallery.php:90 lib/Views/Image.php:87
 msgid "Remove Tag"
-msgstr "Iğtrinti şymæ"
+msgstr "IÅ¡trinti Å¾ymÄ™"
 
 #: lib/Tags.php:558
 msgid "Remove Tag From Search"
-msgstr "Pağalinti şymæ iğ paieğkos"
+msgstr "PaÅ¡alinti Å¾ymÄ™ iÅ¡ paieÅ¡kos"
 
 #: templates/view/gallery.inc:133
 msgid "Reset default image"
-msgstr "Nustatyti standartiná paveikslëlá iğ naujo"
+msgstr "Nustatyti standartinÄ¯ paveikslÄ—lÄ¯ iÅ¡ naujo"
 
 #: image.php:67
 msgid "Right"
-msgstr "Değinëje"
+msgstr "DeÅ¡inÄ—je"
 
 #: templates/image/edit_image.inc:18
 msgid "Rotate 180"
@@ -1204,39 +1204,39 @@ msgstr "Pasukti 180"
 
 #: templates/image/edit_image.inc:17
 msgid "Rotate Left"
-msgstr "Pasukti kairën"
+msgstr "Pasukti kairÄ—n"
 
 #: templates/image/edit_image.inc:19
 msgid "Rotate Right"
-msgstr "Pasukti değinën"
+msgstr "Pasukti deÅ¡inÄ—n"
 
 #: image.php:31 image.php:54
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: templates/captions/captions.inc:49
 msgid "Save Captions"
-msgstr "Iğsaugoti aprağymus"
+msgstr "IÅ¡saugoti apraÅ¡ymus"
 
 #: templates/image/preview_image.inc:23
 msgid "Save Change"
-msgstr "Iğsaugoti pakeitimus"
+msgstr "IÅ¡saugoti pakeitimus"
 
 #: templates/gallery/gallery.inc:52
 msgid "Save Gallery"
-msgstr "Iğsaugoti galerijà"
+msgstr "IÅ¡saugoti galerijÄ…"
 
 #: image.php:195
 msgid "Save Image"
-msgstr "Iğsaugoti paveikslëlá"
+msgstr "IÅ¡saugoti paveikslÄ—lÄ¯"
 
 #: templates/view/gallery.inc:158 templates/view/results.inc:93
 msgid "Select All"
-msgstr "Paşymëti viskà"
+msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #: templates/view/gallery.inc:159 templates/view/results.inc:94
 msgid "Select None"
-msgstr "Nepaşymëti nieko"
+msgstr "NepaÅ¾ymÄ—ti nieko"
 
 #: templates/view/gallery.inc:157 templates/view/results.inc:92
 #, php-format
@@ -1245,24 +1245,24 @@ msgstr "Pasirinkite: %s, %s"
 
 #: templates/view/gallery.inc:171 templates/view/results.inc:104
 msgid "Selected images to"
-msgstr "Pasirinktus paveikslëlius á"
+msgstr "Pasirinktus paveikslÄ—lius Ä¯"
 
 #: lib/Forms/Ecard.php:25
 msgid "Send"
-msgstr "Siøsti"
+msgstr "SiÅ³sti"
 
 #: img/ecard.php:104
 #, php-format
 msgid "Send Ecard :: %s"
-msgstr "El. atvirutës siuntimas :: %s"
+msgstr "El. atvirutÄ—s siuntimas :: %s"
 
 #: templates/view/image.inc:59
 msgid "Send an Ecard"
-msgstr "El. atvirutës siuntimas"
+msgstr "El. atvirutÄ—s siuntimas"
 
 #: lib/Forms/Ecard.php:41
 msgid "Send ecard to the following address:"
-msgstr "Siøsti el. atvirutæ ğiuo adresu:"
+msgstr "SiÅ³sti el. atvirutÄ™ Å¡iuo adresu:"
 
 #: lib/Exif.php:352
 msgid "Sensing Method"
@@ -1278,7 +1278,7 @@ msgstr "Nustatyti galerijos teises"
 
 #: config/prefs.php.dist:116
 msgid "Shadowed Thumbs on White Background"
-msgstr "Paveikslëliai su ğeğëliu ant balto fono"
+msgstr "PaveikslÄ—liai su Å¡eÅ¡Ä—liu ant balto fono"
 
 #: config/prefs.php.dist:82
 msgid "Show EXIF data"
@@ -1290,27 +1290,27 @@ msgstr "Objektyvo greitis"
 
 #: lib/Forms/Upload.php:31
 msgid "Single Image"
-msgstr "Vienà paveikslëlá"
+msgstr "VienÄ… paveikslÄ—lÄ¯"
 
 #: image.php:63
 msgid "Small"
-msgstr "Maşas"
+msgstr "MaÅ¾as"
 
 #: templates/view/gallery.inc:131
 msgid "Sort images"
-msgstr "Surûğiuoti paveikslëlius"
+msgstr "SurÅ«Å¡iuoti paveikslÄ—lius"
 
 #: lib/Exif.php:230
 msgid "Spot"
-msgstr "Tağkas"
+msgstr "TaÅ¡kas"
 
 #: templates/view/image.inc:91
 msgid "Start Slideshow"
-msgstr "Pradëti skaidriø perşiûrà"
+msgstr "PradÄ—ti skaidriÅ³ perÅ¾iÅ«rÄ…"
 
 #: templates/gallery/gallery.inc:25
 msgid "Style for this gallery"
-msgstr "Ğios galerijos stilius"
+msgstr "Å ios galerijos stilius"
 
 #: templates/view/gallery.inc:222
 msgid "Subscribe"
@@ -1319,20 +1319,20 @@ msgstr "Prenumeruoti"
 #: gallery/delete.php:42
 #, php-format
 msgid "Successfully deleted %s."
-msgstr "%s sëkmingai iğtrinta."
+msgstr "%s sÄ—kmingai iÅ¡trinta."
 
 #: lib/Exif.php:241
 msgid "Sunny"
-msgstr "saulëta"
+msgstr "saulÄ—ta"
 
 #: lib/Block/cloud.php:2 lib/Block/cloud.php:26
 msgid "Tag Cloud"
-msgstr "Şymës"
+msgstr "Å½ymÄ—s"
 
 #: image.php:39 lib/Forms/Upload.php:39 templates/view/image.inc:66
 #: templates/view/gallery.inc:207
 msgid "Tags"
-msgstr "Şymës"
+msgstr "Å½ymÄ—s"
 
 #: lib/Ansel.php:348
 #, php-format
@@ -1341,7 +1341,7 @@ msgstr "Failas \"%s\" neegzistuoja."
 
 #: lib/api.php:214 img/upload.php:103
 msgid "The file you uploaded does not appear to be a valid image."
-msgstr "Nusiøstas failas nëra paveikslëlis arba neteisingas jo formatas."
+msgstr "NusiÅ³stas failas nÄ—ra paveikslÄ—lis arba neteisingas jo formatas."
 
 #: lib/Ansel.php:215
 #, php-format
@@ -1356,34 +1356,34 @@ msgstr "Nepavyko sukurti galerijos \"%s\": %s"
 #: gallery.php:213 xppublish.php:133
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
-msgstr "Galerija \"%s\" sëkmingai sukurta."
+msgstr "Galerija \"%s\" sÄ—kmingai sukurta."
 
 #: gallery.php:154
 msgid "The gallery was saved."
-msgstr "Galerija iğsaugota."
+msgstr "Galerija iÅ¡saugota."
 
 #: gallery.php:262
 msgid "The gallery's default image has successfully been reset."
-msgstr "Galerijos standartinis paveikslëlis buvo nustatytas iğ naujo."
+msgstr "Galerijos standartinis paveikslÄ—lis buvo nustatytas iÅ¡ naujo."
 
 #: img/upload.php:126
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
-msgstr "Failas tuğèias arba nëra jûsø vietiniame kompiuterio diske."
+msgstr "Failas tuÅ¡Äias arba nÄ—ra jÅ«sÅ³ vietiniame kompiuterio diske."
 
 #: gallery.php:76
 #, php-format
 msgid "There are no images in %s to download."
-msgstr "%s nëra paveikslëliø atsisiuntimui."
+msgstr "%s nÄ—ra paveikslÄ—liÅ³ atsisiuntimui."
 
 #: templates/view/gallery.inc:181 templates/view/results.inc:121
 #: templates/captions/captions.inc:51
 msgid "There are no images in this gallery."
-msgstr "Ğioje galerijoje nëra paveikslëliø."
+msgstr "Å ioje galerijoje nÄ—ra paveikslÄ—liÅ³."
 
 #: list.php:68 lib/Block/random_gallery.php:37 lib/Block/random_photo.php:38
 msgid "There are no photo galleries available."
-msgstr "Galerijø nëra."
+msgstr "GalerijÅ³ nÄ—ra."
 
 #: lib/api.php:361
 #, php-format
@@ -1398,43 +1398,43 @@ msgstr "Klaida trinant %s: %s."
 #: image.php:405 lib/Views/Results.php:95
 #, php-format
 msgid "There was a problem deleting images: %s"
-msgstr "Klaida trinant paveikslëlius: %s"
+msgstr "Klaida trinant paveikslÄ—lius: %s"
 
 #: img/upload.php:96 img/upload.php:112
 #, php-format
 msgid "There was a problem saving the image: %s"
-msgstr "Klaida iğsaugant paveikslëlá: %s"
+msgstr "Klaida iÅ¡saugant paveikslÄ—lÄ¯: %s"
 
 #: xppublish.php:199
 msgid "There was a problem uploading the image."
-msgstr "Klaida siunèiant paveikslëlá."
+msgstr "Klaida siunÄiant paveikslÄ—lÄ¯."
 
 #: img/upload.php:124
 #, php-format
 msgid "There was a problem uploading the image: %s"
-msgstr "Klaida siunğiant paveikslëlá: %s"
+msgstr "Klaida siunÅ¡iant paveikslÄ—lÄ¯: %s"
 
 #: img/upload.php:62 img/upload.php:83
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
-msgstr "Klaida apdorojant nusiøstà archyvà: %s"
+msgstr "Klaida apdorojant nusiÅ³stÄ… archyvÄ…: %s"
 
 #: img/ecard.php:96
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Klaida siunèiant şinutæ: %s"
+msgstr "Klaida siunÄiant Å¾inutÄ™: %s"
 
 #: lib/Exif.php:292
 msgid "Three Chip Color Area Sensor"
-msgstr "Trijø mikroschemø spalvø sensorius"
+msgstr "TrijÅ³ mikroschemÅ³ spalvÅ³ sensorius"
 
 #: image.php:63
 msgid "Tiny"
-msgstr "Miniatiûrinis"
+msgstr "MiniatiÅ«rinis"
 
 #: image.php:71
 msgid "Top"
-msgstr "Virğuje"
+msgstr "VirÅ¡uje"
 
 #: lib/Exif.php:294
 msgid "Trilinear Sensor"
@@ -1450,16 +1450,16 @@ msgstr "Tv-svarba"
 
 #: lib/Exif.php:291
 msgid "Two Chip Color Area Sensor"
-msgstr "Dviejø mikroschemø spalvø sensorius"
+msgstr "DviejÅ³ mikroschemÅ³ spalvÅ³ sensorius"
 
 #: lib/ImageView.php:73
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Nepavyko uşkrauti %s aprağymo."
+msgstr "Nepavyko uÅ¾krauti %s apraÅ¡ymo."
 
 #: rss.php:38
 msgid "Unable to retrieve requested feed"
-msgstr "Nepavyko gauti nurodytø duomenø"
+msgstr "Nepavyko gauti nurodytÅ³ duomenÅ³"
 
 #: lib/Exif.php:305
 msgid "Uncalibrated"
@@ -1467,7 +1467,7 @@ msgstr "Nesukalibruota"
 
 #: templates/gallery/gallery.inc:53
 msgid "Undo Changes"
-msgstr "Atğaukti pakeitimus"
+msgstr "AtÅ¡aukti pakeitimus"
 
 #: list.php:55 templates/group/category.inc:8
 msgid "Unfiled"
@@ -1475,15 +1475,15 @@ msgstr "Nenurodyta"
 
 #: lib/Exif.php:227
 msgid "Unknown"
-msgstr "Neşinomas"
+msgstr "NeÅ¾inomas"
 
 #: gallery.php:115
 msgid "Unknown gallery"
-msgstr "Galerija neşinoma"
+msgstr "Galerija neÅ¾inoma"
 
 #: lib/Ansel.php:203
 msgid "Unnamed"
-msgstr "Neávardintas"
+msgstr "NeÄ¯vardintas"
 
 #: xppublish.php:141
 msgid "Untitled"
@@ -1496,42 +1496,42 @@ msgstr "%s atnaujinta."
 
 #: lib/Forms/Upload.php:27
 msgid "Upload"
-msgstr "Nusiøsti"
+msgstr "NusiÅ³sti"
 
 #: templates/xppublish/javascript.inc:63
 #, php-format
 msgid "Upload Photos to %s"
-msgstr "Ákelti paveikslëlius á %s"
+msgstr "Ä®kelti paveikslÄ—lius Ä¯ %s"
 
 #: templates/view/gallery.inc:127
 msgid "Upload images"
-msgstr "Ákelti paveikslëlius"
+msgstr "Ä®kelti paveikslÄ—lius"
 
 #: img/upload.php:30
 msgid "Upload new images"
-msgstr "Naujø paveikslëliø ákëlimas"
+msgstr "NaujÅ³ paveikslÄ—liÅ³ Ä¯kÄ—limas"
 
 #: lib/Exif.php:151
 #, php-format
 msgid "Upsidedown"
-msgstr "Aukğtyn kojom"
+msgstr "AukÅ¡tyn kojom"
 
 #: lib/Exif.php:153
 #, php-format
 msgid "Upsidedown Mirrored"
-msgstr "Veidrodinis aukğtyn kojom"
+msgstr "Veidrodinis aukÅ¡tyn kojom"
 
 #: templates/xppublish/new.inc:17
 msgid "Use Default"
-msgstr "Naudoti standartinæ reikğmæ"
+msgstr "Naudoti standartinÄ™ reikÅ¡mÄ™"
 
 #: lib/Forms/Ecard.php:32
 msgid "Use the following return address:"
-msgstr "Atsakymui naudoti ğá adresà:"
+msgstr "Atsakymui naudoti Å¡Ä¯ adresÄ…:"
 
 #: lib/Exif.php:350
 msgid "User Comment"
-msgstr "Vartotojø komentarai"
+msgstr "VartotojÅ³ komentarai"
 
 #: templates/xppublish/login.inc:11
 msgid "Username"
@@ -1539,7 +1539,7 @@ msgstr "Vartotojo vardas"
 
 #: xppublish.php:50
 msgid "Username and Password are incorrect."
-msgstr "Neteisingi vartotojo vardas ir slaptaşodis."
+msgstr "Neteisingi vartotojo vardas ir slaptaÅ¾odis."
 
 #: image.php:72
 msgid "Vertical Alignment"
@@ -1556,11 +1556,11 @@ msgstr "Rodyti visus rezultatus"
 
 #: lib/Block/random_photo.php:52
 msgid "View Photo"
-msgstr "Rodyti paveikslëlá"
+msgstr "Rodyti paveikslÄ—lÄ¯"
 
 #: templates/view/results.inc:86
 msgid "View Results from All Users"
-msgstr "Rodyti rezultatus iğ visø vartotojø"
+msgstr "Rodyti rezultatus iÅ¡ visÅ³ vartotojÅ³"
 
 #: config/prefs.php.dist:38
 msgid "View to display by default"
@@ -1568,11 +1568,11 @@ msgstr "Standartinis vaizdavimas"
 
 #: image.php:302 image.php:308 templates/image/edit_image.inc:32
 msgid "Watermark"
-msgstr "Vandens şenklas"
+msgstr "Vandens Å¾enklas"
 
 #: image.php:64
 msgid "Watermark Font"
-msgstr "Vandens şenklo ğriftas"
+msgstr "Vandens Å¾enklo Å¡riftas"
 
 #: lib/Exif.php:353
 msgid "White Balance"
@@ -1593,60 +1593,60 @@ msgstr "Y rezoliucija"
 #: lib/Ansel.php:1730
 #, php-format
 msgid "You are not allowed to copy images to %s."
-msgstr "Jûs neturite teisiø kopijuoti paveikslëliø á %s."
+msgstr "JÅ«s neturite teisiÅ³ kopijuoti paveikslÄ—liÅ³ Ä¯ %s."
 
 #: image.php:238
 msgid "You are not allowed to edit this image."
-msgstr "Jûs neturite teisiø keisti ğio paveikslëlio."
+msgstr "JÅ«s neturite teisiÅ³ keisti Å¡io paveikslÄ—lio."
 
 #: lib/Ansel.php:1700
 #, php-format
 msgid "You are not allowed to move images to %s."
-msgstr "Jûs neturite teisiø perkelti paveikslëliø á %s."
+msgstr "JÅ«s neturite teisiÅ³ perkelti paveikslÄ—liÅ³ Ä¯ %s."
 
 #: lib/Ansel.php:1702
 #, php-format
 msgid "You are not allowed to remove images from %s."
-msgstr "Jûs neturite teisiø iğtrinti paveikslëliø iğ %s."
+msgstr "JÅ«s neturite teisiÅ³ iÅ¡trinti paveikslÄ—liÅ³ iÅ¡ %s."
 
 #: xppublish.php:91 xppublish.php:184
 msgid "You cannot add photos in that gallery."
-msgstr "Jûs negalite pridëti paveikslëliø ğioje galerijoje."
+msgstr "JÅ«s negalite pridÄ—ti paveikslÄ—liÅ³ Å¡ioje galerijoje."
 
 #: gallery/delete.php:30
 #, php-format
 msgid "You cannot delete %s, it contains nested galleries."
-msgstr "Jûs negalite iğtrinti %s, joje yra gilesniø galerijø."
+msgstr "JÅ«s negalite iÅ¡trinti %s, joje yra gilesniÅ³ galerijÅ³."
 
 #: lib/Views/Abstract.php:25
 msgid "You do not have permission to access this gallery."
-msgstr "Jûs neturite teisiø perşiûrëti ğios galerijos."
+msgstr "JÅ«s neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¡ios galerijos."
 
 #: gallery.php:48 gallery.php:170
 #, php-format
 msgid "You do not have permission to add children to %s."
-msgstr "Jûs neturite teisiø pridëti galerijos prie %s."
+msgstr "JÅ«s neturite teisiÅ³ pridÄ—ti galerijos prie %s."
 
 #: lib/Ansel.php:2185 lib/Ansel.php:2200
 msgid "You do not have permission to add tags to this gallery"
-msgstr "Jûs neturite teisiø pridëti şymiø ğiai galerijai"
+msgstr "JÅ«s neturite teisiÅ³ pridÄ—ti Å¾ymiÅ³ Å¡iai galerijai"
 
 #: gallery/sort.php:26
 msgid "You do not have permission to change this gallery."
-msgstr "Jûs neturite teisiø keisti ğios galerijos."
+msgstr "JÅ«s neturite teisiÅ³ keisti Å¡ios galerijos."
 
 #: lib/Block/recent_comments.php:138 lib/Block/gallery.php:108
 #: lib/Block/recently_added.php:141
 msgid "You do not have permission to view this gallery."
-msgstr "Neturite teisiø perşiûrëti ğios galerijos."
+msgstr "Neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¡ios galerijos."
 
 #: lib/Ansel.php:2800
 msgid "You do not have permissions to add tags to this image."
-msgstr "Jûs neturite teisiø pridëti şymiø ğiam paveikslëliui."
+msgstr "JÅ«s neturite teisiÅ³ pridÄ—ti Å¾ymiÅ³ Å¡iam paveikslÄ—liui."
 
 #: lib/Ansel.php:2783
 msgid "You do not have permissions to view this image."
-msgstr "Jûs neturite teisiø perşiûrëti ğio paveikslëlio."
+msgstr "JÅ«s neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¡io paveikslÄ—lio."
 
 #: img/ecard.php:69
 msgid ""
@@ -1655,26 +1655,26 @@ msgid ""
 "then most likely your mail reader does not support viewing text/html "
 "messages."
 msgstr ""
-"Jûs gavote el. atvirutæ. Norëdami jà perşiûrëti, jûsø el. pağto klientas "
-"privalo turëti galimybæ perşiûrëti HTML tipo laiğkus. Jeigu matote ğià "
-"şinutæ, tai jûsø el. pağto klientas neturi ğios galimybës."
+"JÅ«s gavote el. atvirutÄ™. NorÄ—dami jÄ… perÅ¾iÅ«rÄ—ti, jÅ«sÅ³ el. paÅ¡to klientas "
+"privalo turÄ—ti galimybÄ™ perÅ¾iÅ«rÄ—ti HTML tipo laiÅ¡kus. Jeigu matote Å¡iÄ… "
+"Å¾inutÄ™, tai jÅ«sÅ³ el. paÅ¡to klientas neturi Å¡ios galimybÄ—s."
 
 #: templates/view/gallery.inc:46 templates/view/gallery.inc:60
 #: templates/view/results.inc:46 templates/view/results.inc:60
 msgid "You must choose a gallery to move images to."
-msgstr "Paveikslëliø perkëlimui reikia pasirinkti galerijà."
+msgstr "PaveikslÄ—liÅ³ perkÄ—limui reikia pasirinkti galerijÄ…."
 
 #: img/ecard.php:45
 msgid "You must enter an e-mail address to send the message to."
-msgstr "Norëdami iğsiøsti ğá laiğkà, privalote árağyti el. pağto adresà."
+msgstr "NorÄ—dami iÅ¡siÅ³sti Å¡Ä¯ laiÅ¡kÄ…, privalote Ä¯raÅ¡yti el. paÅ¡to adresÄ…."
 
 #: img/ecard.php:40
 msgid "You must enter your e-mail address."
-msgstr "Jûs turite árağyti el. pağto adresà."
+msgstr "JÅ«s turite Ä¯raÅ¡yti el. paÅ¡to adresÄ…."
 
 #: gallery.php:190
 msgid "You must provide a display name for your new gallery."
-msgstr "Jûs turite nurodyti naujos galerijos rodomà pavadinimà."
+msgstr "JÅ«s turite nurodyti naujos galerijos rodomÄ… pavadinimÄ…."
 
 #: lib/Forms/Upload.php:50
 msgid "Zip File Upload"

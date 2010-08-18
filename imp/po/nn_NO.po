@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "      To: "
@@ -21,7 +21,7 @@ msgid "    Date: "
 msgstr "    Dato: "
 
 msgid "    From: "
-msgstr "     Frå: "
+msgstr "     FrÃ¥: "
 
 msgid " - $nm new message"
 msgstr " - $nm ny melding"
@@ -55,11 +55,11 @@ msgstr "%s Standard"
 
 #, c-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s eksisterer allereie. Namnet på mappa %s vart ikkje endra."
+msgstr "%s eksisterer allereie. Namnet pÃ¥ mappa %s vart ikkje endra."
 
 #, c-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "Mappa %s får endra namnet ved starten av månaden."
+msgstr "Mappa %s fÃ¥r endra namnet ved starten av mÃ¥naden."
 
 #, c-format
 msgid "%s messages were fetched..."
@@ -70,23 +70,23 @@ msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
 msgstr "%s: %s (%d&nbsp;av&nbsp;%d)"
 
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(Bruk desse endringane og gå til neste skjermbilete.)"
+msgstr "(Bruk desse endringane og gÃ¥ til neste skjermbilete.)"
 
 msgid "(Discard all changes and return to the compose screen.)"
 msgstr ""
-"(Tilbakestill alle endringar og gå tilbake til skjermbiletet for skriv "
+"(Tilbakestill alle endringar og gÃ¥ tilbake til skjermbiletet for skriv "
 "melding.)"
 
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(Gå tilbake til skjermbiletet for skriv melding etter å ha aktivert alle "
-"endringane du har gjort så langt. Endringar i dette skjermbiletet vil IKKJE "
+"(GÃ¥ tilbake til skjermbiletet for skriv melding etter Ã¥ ha aktivert alle "
+"endringane du har gjort sÃ¥ langt. Endringar i dette skjermbiletet vil IKKJE "
 "bli brukt.)"
 
 msgid "* Add these by clicking OK *"
-msgstr "* Legg til desse ved å klikke OK *"
+msgstr "* Legg til desse ved Ã¥ klikke OK *"
 
 msgid "* Please select address(es) *"
 msgstr "* Vel adresse(r) *"
@@ -98,11 +98,11 @@ msgid ""
 "i></p>\n"
 msgstr ""
 "<p><i>Denne meldinga vart skriven i eit anna teiknsett enn ditt eige. Dersom "
-"den ikkje blir vist rett, %sklikk her</a> for å opne den i eit nytt vindauge."
+"den ikkje blir vist rett, %sklikk her</a> for Ã¥ opne den i eit nytt vindauge."
 "</i></p>\n"
 
 msgid "Account's name:"
-msgstr "Namn på konto:"
+msgstr "Namn pÃ¥ konto:"
 
 msgid "Action"
 msgstr "Handling"
@@ -118,7 +118,7 @@ msgid "Address Book"
 msgstr "Adressebok"
 
 msgid "Addressbooks"
-msgstr "Adressebøker"
+msgstr "AdressebÃ¸ker"
 
 msgid "All messages in the folder(s) will be lost!"
 msgstr "Alle meldingar i mappe(r) vil bli tapt!"
@@ -126,7 +126,7 @@ msgstr "Alle meldingar i mappe(r) vil bli tapt!"
 msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
-msgstr "Alle meldingar i følgjande mappe(r) vil bli lasta ned til ei MBOX-fil:"
+msgstr "Alle meldingar i fÃ¸lgjande mappe(r) vil bli lasta ned til ei MBOX-fil:"
 
 #, c-format
 msgid ""
@@ -139,64 +139,64 @@ msgstr ""
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr ""
-"Alle gamle katalogar med sendt post som er eldre enn %s månader, vil bli "
+"Alle gamle katalogar med sendt post som er eldre enn %s mÃ¥nader, vil bli "
 "sletta."
 
 msgid "All"
 msgstr "Alle"
 
 msgid "An error occurred when deleting messages from server!"
-msgstr "Feil ved sletting av meldingar frå tenar!"
+msgstr "Feil ved sletting av meldingar frÃ¥ tenar!"
 
 msgid "An unknown error occured adding the new entry."
-msgstr "Ukjent feil når oppføringa skulle leggjast til."
+msgstr "Ukjent feil nÃ¥r oppfÃ¸ringa skulle leggjast til."
 
 msgid "Answered messages"
-msgstr "Meldingar du har svart på"
+msgstr "Meldingar du har svart pÃ¥"
 
 msgid "Answered"
-msgstr "Svart på"
+msgstr "Svart pÃ¥"
 
 msgid "Apply All Rules"
 msgstr "Bruk alle reglar"
 
 msgid "Apply Filters on"
-msgstr "Bruk filter på"
+msgstr "Bruk filter pÃ¥"
 
 msgid "Apply filter rules upon logging on."
-msgstr "Bruk filterreglar ved pålogging."
+msgstr "Bruk filterreglar ved pÃ¥logging."
 
 msgid "Apply filter rules when mailbox is refreshed."
-msgstr "Bruk filterreglar når postboksa blir friska opp."
+msgstr "Bruk filterreglar nÃ¥r postboksa blir friska opp."
 
 msgid "April"
 msgstr "April"
 
 msgid "Are you SURE you want to continue?"
-msgstr "Er du SIKKER på at du vil halde fram?"
+msgstr "Er du SIKKER pÃ¥ at du vil halde fram?"
 
 msgid "Are you completely sure you wish to continue?"
-msgstr "Er du heilt sikker på at du vil halde fram?"
+msgstr "Er du heilt sikker pÃ¥ at du vil halde fram?"
 
 msgid "Are you sure you want to delete this public key?"
-msgstr "Er du sikker på at du vil slette denne offentlege nøkkelen?"
+msgstr "Er du sikker pÃ¥ at du vil slette denne offentlege nÃ¸kkelen?"
 
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
 msgstr ""
-"Er du sikker på at du vil slette nøkkelparet ditt? (Dette er IKKJE tilrådd!)"
+"Er du sikker pÃ¥ at du vil slette nÃ¸kkelparet ditt? (Dette er IKKJE tilrÃ¥dd!)"
 
 msgid "Are you sure you want to do this?"
-msgstr "Er du sikker på at du vil gjere dette?"
+msgstr "Er du sikker pÃ¥ at du vil gjere dette?"
 
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "Er du sikker på at du vil slette desse meldingane PERMANENT?"
+msgstr "Er du sikker pÃ¥ at du vil slette desse meldingane PERMANENT?"
 
 msgid "Are you sure you wish to empty this folder?"
-msgstr "Er du sikker på at du vil tømme denne mappa?"
+msgstr "Er du sikker pÃ¥ at du vil tÃ¸mme denne mappa?"
 
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "Er du sikker på at du vil tømme søppelkorga di?"
+msgstr "Er du sikker pÃ¥ at du vil tÃ¸mme sÃ¸ppelkorga di?"
 
 msgid "Arrival Time"
 msgstr "Tid motteke"
@@ -205,10 +205,10 @@ msgid "Ascending"
 msgstr "Stigande"
 
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Spør om stadfesting før køyring av vedlikehaldsoperasjonar?"
+msgstr "SpÃ¸r om stadfesting fÃ¸r kÃ¸yring av vedlikehaldsoperasjonar?"
 
 msgid "Attach a copy of your PGP public key to your message?"
-msgstr "Legg ved ein kopi av din offentlege PGP-nøkkel i meldinga?"
+msgstr "Legg ved ein kopi av din offentlege PGP-nÃ¸kkel i meldinga?"
 
 msgid "Attach"
 msgstr "Legg ved"
@@ -226,7 +226,7 @@ msgid "August"
 msgstr "August"
 
 msgid "Available Addressbooks:"
-msgstr "Tilgjengelege adressebøker:"
+msgstr "Tilgjengelege adressebÃ¸ker:"
 
 #, c-format
 msgid "Back to %s"
@@ -245,7 +245,7 @@ msgid "Body"
 msgstr "Kropp"
 
 msgid "Both Header Listing and Body of Message"
-msgstr "Både vising av meldingshovud og meldingskropp"
+msgstr "BÃ¥de vising av meldingshovud og meldingskropp"
 
 msgid "Both"
 msgstr "Begge"
@@ -269,7 +269,7 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 msgid "Cancelling this message will permanently discard its contents."
-msgstr "Ved å avbryte denne meldinga vil du miste innhaldet for godt."
+msgstr "Ved Ã¥ avbryte denne meldinga vil du miste innhaldet for godt."
 
 msgid "Cc"
 msgstr "Kopi"
@@ -284,7 +284,7 @@ msgid ""
 "Change display options such as the color scheme, how many messages you see "
 "on each page and how messages are sorted."
 msgstr ""
-"Endre visingsalternativ, slik som fargeskjema, kro mange meldingar du ser på "
+"Endre visingsalternativ, slik som fargeskjema, kro mange meldingar du ser pÃ¥ "
 "kvar side, og korleis meldingane blir sorterte."
 
 msgid "Change mail server settings."
@@ -294,8 +294,8 @@ msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"Endre namn, adresse og signaturen folk ser når dei les og svarar på e-post "
-"frå deg."
+"Endre namn, adresse og signaturen folk ser nÃ¥r dei les og svarar pÃ¥ e-post "
+"frÃ¥ deg."
 
 msgid "Change"
 msgstr "Endre"
@@ -307,29 +307,29 @@ msgid "Checkbox"
 msgstr "Avkryssingsboks"
 
 msgid "Cherry"
-msgstr "Kirsebær"
+msgstr "KirsebÃ¦r"
 
 msgid "Choose Action:"
 msgstr "Vel handling:"
 
 msgid "Choose the addressbook to use when adding addresses."
-msgstr "Vel adresseboka du vil bruke for å leggje til nye adresser."
+msgstr "Vel adresseboka du vil bruke for Ã¥ leggje til nye adresser."
 
 msgid "Choose the order of addressbooks to search when expanding addresses."
-msgstr "Vel rekkefølgje på adressebøker å søke i ved kontroll av adresser."
+msgstr "Vel rekkefÃ¸lgje pÃ¥ adressebÃ¸ker Ã¥ sÃ¸ke i ved kontroll av adresser."
 
 #, c-format
 msgid "Cleared all messages from %s."
-msgstr "Fjerna alle meldingar frå %s."
+msgstr "Fjerna alle meldingar frÃ¥ %s."
 
 msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
 "search."
 msgstr ""
-"Klikk på ei av dine valde adressebøker og vel alle felta det skal søkast i."
+"Klikk pÃ¥ ei av dine valde adressebÃ¸ker og vel alle felta det skal sÃ¸kast i."
 
 msgid "Click to Save PGP Public Key in your Addressbook"
-msgstr "Klikk for å lagre offentleg PGP-nøkkel i adresseboka di"
+msgstr "Klikk for Ã¥ lagre offentleg PGP-nÃ¸kkel i adresseboka di"
 
 msgid "Close this window"
 msgstr "Lukk dette vindauget"
@@ -369,14 +369,14 @@ msgid "Contact List"
 msgstr "Kontaktliste"
 
 msgid "Control PGP support for IMP."
-msgstr "Kontrollerer PGP-støtte for IMP."
+msgstr "Kontrollerer PGP-stÃ¸tte for IMP."
 
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"Kontroller når det skal sjekkast for ny post, og om du skal varslast eller "
-"ikkje når ny post kjem."
+"Kontroller nÃ¥r det skal sjekkast for ny post, og om du skal varslast eller "
+"ikkje nÃ¥r ny post kjem."
 
 msgid "Copy"
 msgstr "Kopier"
@@ -389,16 +389,16 @@ msgstr "Korrigert tekst"
 
 #, c-format
 msgid "Could not delete messages from %s: %s"
-msgstr "Kunne ikkje slette meldingar frå %s: %s"
+msgstr "Kunne ikkje slette meldingar frÃ¥ %s: %s"
 
 msgid "Could not extract the requested file from the MS-TNEF attachment."
-msgstr "Kunne ikkje trekke ut den førespurde fila"
+msgstr "Kunne ikkje trekke ut den fÃ¸respurde fila"
 
 msgid "Create Folder"
 msgstr "Oppret mappe"
 
 msgid "Create Keys"
-msgstr "Opprett nøklar"
+msgstr "Opprett nÃ¸klar"
 
 msgid "Create a new drafts folder"
 msgstr "Opprett ny mappe for kladd"
@@ -407,7 +407,7 @@ msgid "Create a new sent mail folder"
 msgstr "Opprett ny mappe for sendt post"
 
 msgid "Create a new trash folder"
-msgstr "Opprett ny mappe for søppelkorg"
+msgstr "Opprett ny mappe for sÃ¸ppelkorg"
 
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
@@ -418,18 +418,18 @@ msgid "Create"
 msgstr "Opprett"
 
 msgid "Customize accounts for fetching mail from other POP3/IMAP accounts."
-msgstr "Skreddarsy kontoar for å hente mail frå andre POP3-/IMAP-kontoar."
+msgstr "Skreddarsy kontoar for Ã¥ hente mail frÃ¥ andre POP3-/IMAP-kontoar."
 
 msgid "Customize how you send mail and where drafts are saved."
 msgstr "Tilpass korleis du sender post og kvar kladden blir lagra."
 
 #, c-format
 msgid "Customize maintenance operations run upon login to %s."
-msgstr "Tilpass vedlikehaldsoperasjonar som skal køyrast ved pålogging til %s."
+msgstr "Tilpass vedlikehaldsoperasjonar som skal kÃ¸yrast ved pÃ¥logging til %s."
 
 #, c-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Tilpass oppgåver som skal køyrast ved pålogging til %s."
+msgstr "Tilpass oppgÃ¥ver som skal kÃ¸yrast ved pÃ¥logging til %s."
 
 msgid "Date"
 msgstr "Dato"
@@ -444,26 +444,26 @@ msgid "Default sorting criteria:"
 msgstr "Standard sorteringskriterium:"
 
 msgid "Default sorting direction:"
-msgstr "Standard sorteringsrekkefølgje:"
+msgstr "Standard sorteringsrekkefÃ¸lgje:"
 
 #, c-format
 msgid "Delete %s Public Key"
-msgstr "Slett %s offentleg nøkkel"
+msgstr "Slett %s offentleg nÃ¸kkel"
 
 msgid "Delete Current Keys"
-msgstr "Slett noverande nøklar"
+msgstr "Slett noverande nÃ¸klar"
 
 msgid "Delete Folder(s)"
 msgstr "Slette mappe(r)"
 
 msgid "Delete fetched messages from server"
-msgstr "Slett meldingar som hentast frå tenaren"
+msgstr "Slett meldingar som hentast frÃ¥ tenaren"
 
 msgid "Delete messages"
 msgstr "Slett meldingar"
 
 msgid "Delete old sent-mail folders at beginning of month"
-msgstr "Slett gamle mapper med sendt post ved starten av månaden"
+msgstr "Slett gamle mapper med sendt post ved starten av mÃ¥naden"
 
 msgid "Delete"
 msgstr "Slett"
@@ -493,7 +493,7 @@ msgid "Display Options"
 msgstr "Visingsalternativ"
 
 msgid "Display confirmation after sending a message?"
-msgstr "Vis stadfesting etter å ha sendt ei melding?"
+msgstr "Vis stadfesting etter Ã¥ ha sendt ei melding?"
 
 msgid "Display in Body of Message"
 msgstr "Vis i meldingskropp"
@@ -505,7 +505,7 @@ msgid "Display pop-up notification of new mail."
 msgstr "Vis sprettopp-varsel om ny post."
 
 msgid "Display the 'Empty Trash' link in the menubar?"
-msgstr "Vis 'Tøm søppelkorg'-kopling i menylinje?"
+msgstr "Vis 'TÃ¸m sÃ¸ppelkorg'-kopling i menylinje?"
 
 msgid "Display"
 msgstr "Vis"
@@ -517,12 +517,12 @@ msgid "Do you want to open that folder?"
 msgstr "Vil du opne den mappa?"
 
 msgid "Do you want to scan the body of text messages for PGP data?"
-msgstr "Vil du søke gjennom meldingskroppen for PGP-data?"
+msgstr "Vil du sÃ¸ke gjennom meldingskroppen for PGP-data?"
 
 msgid ""
 "Do you want your PGP public key to be attached to your messages by default?"
 msgstr ""
-"Vil du legge ved din offentlege PGP-nøkkel i meldingane dine som standard?"
+"Vil du legge ved din offentlege PGP-nÃ¸kkel i meldingane dine som standard?"
 
 msgid "Done"
 msgstr "Ferdig"
@@ -565,16 +565,16 @@ msgid "Email Address"
 msgstr "E-postadresse"
 
 msgid "Empty Folder(s)"
-msgstr "Tøm mappe(r)"
+msgstr "TÃ¸m mappe(r)"
 
 msgid "Empty Trash folder"
-msgstr "Tøm søppelkorg"
+msgstr "TÃ¸m sÃ¸ppelkorg"
 
 msgid "Empty Trash"
-msgstr "Tøm søppelkorg"
+msgstr "TÃ¸m sÃ¸ppelkorg"
 
 msgid "Enable PGP functionality?"
-msgstr "Slå på PGP-funksjonalitet?"
+msgstr "SlÃ¥ pÃ¥ PGP-funksjonalitet?"
 
 msgid "Encrypt Message"
 msgstr "Krypter melding"
@@ -586,17 +586,17 @@ msgid "Enter Passphrase"
 msgstr "Skriv inn passordfrase"
 
 msgid "Enter the name for your new drafts folder"
-msgstr "Skriv inn namnet på di nye kladd-mappe"
+msgstr "Skriv inn namnet pÃ¥ di nye kladd-mappe"
 
 msgid "Enter the name for your new sent mail folder"
-msgstr "Skriv inn namet på di nye mappe for sendt post"
+msgstr "Skriv inn namet pÃ¥ di nye mappe for sendt post"
 
 msgid "Enter the name for your new trash folder"
-msgstr "Skriv inn namnet på di nye søppelkorg"
+msgstr "Skriv inn namnet pÃ¥ di nye sÃ¸ppelkorg"
 
 #, c-format
 msgid "Entry \"%s\" was successfully added to the addressbook"
-msgstr "Oppføringa \"%s\" vart lagt til adresseboka"
+msgstr "OppfÃ¸ringa \"%s\" vart lagt til adresseboka"
 
 msgid "Error"
 msgstr "Feil"
@@ -632,10 +632,10 @@ msgid "Expand the entire folder tree by default in the folders view."
 msgstr "Utvid heile mappestrukturen i mappevising som standard."
 
 msgid "Expiration Date"
-msgstr "Utløpsdato"
+msgstr "UtlÃ¸psdato"
 
 msgid "Expunge error!"
-msgstr "Feil ved tømming!"
+msgstr "Feil ved tÃ¸mming!"
 
 msgid "February"
 msgstr "Februar"
@@ -660,21 +660,21 @@ msgstr "Filnamn"
 
 #, c-format
 msgid "Filter Activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Filteraktivitet: Meldinga \"%s\" frå \"%s\" var sletta."
+msgstr "Filteraktivitet: Meldinga \"%s\" frÃ¥ \"%s\" var sletta."
 
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Filteraktivitet: Meldinga \"%s\" frå \"%s\" vart flytta til mappa \"%s\"."
+"Filteraktivitet: Meldinga \"%s\" frÃ¥ \"%s\" vart flytta til mappa \"%s\"."
 
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
 msgstr ""
-"Filteraktivitet: Meldinga \"%s\" frå \"%s\" vart flytta til søppelkorga di."
+"Filteraktivitet: Meldinga \"%s\" frÃ¥ \"%s\" vart flytta til sÃ¸ppelkorga di."
 
 msgid "Filter Rules"
 msgstr "Filterreglar"
@@ -689,7 +689,7 @@ msgid "Find"
 msgstr "Finn"
 
 msgid "First Page"
-msgstr "Første side"
+msgstr "FÃ¸rste side"
 
 msgid "Folder Navigator"
 msgstr "Mappenavigering"
@@ -708,19 +708,19 @@ msgstr "Vidaresend:"
 
 #, c-format
 msgid "Forwarded message from %s"
-msgstr "Vidaresende meldingar frå %s"
+msgstr "Vidaresende meldingar frÃ¥ %s"
 
 msgid "Forwarded message"
 msgstr "Vidaresendt melding"
 
 msgid "From Address"
-msgstr "Frå-adresse"
+msgstr "FrÃ¥-adresse"
 
 msgid "From"
-msgstr "Frå"
+msgstr "FrÃ¥"
 
 msgid "From:"
-msgstr "Frå:"
+msgstr "FrÃ¥:"
 
 msgid "Fwd:"
 msgstr "VS:"
@@ -729,10 +729,10 @@ msgid "Get only new messages (IMAP only)"
 msgstr "Hent berre nye meldingar (berre for IMAP)"
 
 msgid "Green"
-msgstr "Grøn"
+msgstr "GrÃ¸n"
 
 msgid "Grey"
-msgstr "Grå"
+msgstr "GrÃ¥"
 
 msgid "Hash-Algorithm"
 msgstr "Hash-algoritme"
@@ -750,22 +750,22 @@ msgid "Hide Unsubscribed"
 msgstr "Skjul u/abonnement"
 
 msgid "High Priority"
-msgstr "Høg prioritet"
+msgstr "HÃ¸g prioritet"
 
 msgid "High"
-msgstr "Høg"
+msgstr "HÃ¸g"
 
 msgid "Highest"
-msgstr "Høgast"
+msgstr "HÃ¸gast"
 
 msgid "How do you want to display attachments?"
 msgstr "Korleis vil du vise vedlegg?"
 
 msgid "How to prefix quoted lines in a reply:"
-msgstr "Prefiks på siterte linjer i eit svar:"
+msgstr "Prefiks pÃ¥ siterte linjer i eit svar:"
 
 msgid "IMAP over SSL (self-signed)"
-msgstr "IMAP over SSL (sjølv-signert)"
+msgstr "IMAP over SSL (sjÃ¸lv-signert)"
 
 msgid "IMAP over SSL"
 msgstr "IMAP over SSL"
@@ -795,7 +795,7 @@ msgid "Identity"
 msgstr "Identitet"
 
 msgid "Identity's name:"
-msgstr "Namn på identitet:"
+msgstr "Namn pÃ¥ identitet:"
 
 msgid "Ignore All"
 msgstr "Ignorer alle"
@@ -804,25 +804,25 @@ msgid "Ignore"
 msgstr "Ignorer"
 
 msgid "Import Key"
-msgstr "Importer nøkkel"
+msgstr "Importer nÃ¸kkel"
 
 msgid "Import Keypair"
-msgstr "Importer nøkkelpar"
+msgstr "Importer nÃ¸kkelpar"
 
 msgid "Import PGP Key"
-msgstr "Importer PGP-nøkkel"
+msgstr "Importer PGP-nÃ¸kkel"
 
 msgid "Import Personal Private PGP Key"
-msgstr "Importer personleg privat PGP-nøkkel"
+msgstr "Importer personleg privat PGP-nÃ¸kkel"
 
 msgid "Import Personal Public PGP Key"
-msgstr "Importer personleg offentleg PGP-nøkkel"
+msgstr "Importer personleg offentleg PGP-nÃ¸kkel"
 
 msgid "Import Public Key"
-msgstr "Importer offentleg nøkkel"
+msgstr "Importer offentleg nÃ¸kkel"
 
 msgid "Import Public PGP Key"
-msgstr "Importer offentleg PGP-nøkkel"
+msgstr "Importer offentleg PGP-nÃ¸kkel"
 
 msgid "Important messages"
 msgstr "Viktige meldingar"
@@ -835,19 +835,19 @@ msgstr "Inkludere original melding i svar?"
 
 #, c-format
 msgid "Information on %s Public Key"
-msgstr "Informasjon om %s offentleg nøkkel"
+msgstr "Informasjon om %s offentleg nÃ¸kkel"
 
 msgid "Information on Personal Private Key"
-msgstr "Informasjon om personleg privat nøkkel"
+msgstr "Informasjon om personleg privat nÃ¸kkel"
 
 msgid "Information on Personal Public Key"
-msgstr "Informasjon om personleg offentleg nøkkel"
+msgstr "Informasjon om personleg offentleg nÃ¸kkel"
 
 msgid "Insert Key Here"
-msgstr "Set inn nøkkel her"
+msgstr "Set inn nÃ¸kkel her"
 
 msgid "Invalid PGP Key."
-msgstr "Ugyldig PGP-nøkkel."
+msgstr "Ugyldig PGP-nÃ¸kkel."
 
 msgid "Invalid Remote Mailbox"
 msgstr "Ugyldig ekstern postkasse"
@@ -856,13 +856,13 @@ msgid "Invalid Username/Password"
 msgstr "Ugyldig brukarnamn/passord"
 
 msgid "Invalid key"
-msgstr "Ugyldig PGP-nøkkel."
+msgstr "Ugyldig PGP-nÃ¸kkel."
 
 msgid "Invalid personal PGP private key."
-msgstr "Ugydlig personleg prvat PGP-nøkkel."
+msgstr "Ugydlig personleg prvat PGP-nÃ¸kkel."
 
 msgid "Invalid personal PGP public key."
-msgstr "Ugyldig personleg offentleg PGP-nøkkel."
+msgstr "Ugyldig personleg offentleg PGP-nÃ¸kkel."
 
 msgid "January"
 msgstr "Januar"
@@ -874,19 +874,19 @@ msgid "June"
 msgstr "Juni"
 
 msgid "Key Creation"
-msgstr "Nøkkeloppretting"
+msgstr "NÃ¸kkeloppretting"
 
 msgid "Key Fingerprint"
-msgstr "Fingeravtrykk for nøkkel"
+msgstr "Fingeravtrykk for nÃ¸kkel"
 
 msgid "Key Length"
-msgstr "Nøkkellengde"
+msgstr "NÃ¸kkellengde"
 
 msgid "Key Type"
-msgstr "Nøkkeltype"
+msgstr "NÃ¸kkeltype"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "Last Page"
 msgstr "Siste side"
@@ -899,7 +899,7 @@ msgid "Last login: Never"
 msgstr "Siste innlogging: Aldri"
 
 msgid "Light Blue"
-msgstr "Lys blå"
+msgstr "Lys blÃ¥"
 
 msgid "List-Archive"
 msgstr "Liste-Arkiv"
@@ -933,7 +933,7 @@ msgid "Log in"
 msgstr "Logg inn"
 
 msgid "Login Tasks"
-msgstr "Oppgåver ved innlogging"
+msgstr "OppgÃ¥ver ved innlogging"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
@@ -976,7 +976,7 @@ msgid "Mark as:"
 msgstr "Marker som:"
 
 msgid "Mark different levels of quoting with different colors?"
-msgstr "Merk ulike nivå av sitering med ulike fargar?"
+msgstr "Merk ulike nivÃ¥ av sitering med ulike fargar?"
 
 msgid "May"
 msgstr "Mai"
@@ -988,7 +988,7 @@ msgid "Message Date"
 msgstr "Meldingsdato"
 
 msgid "Message Search"
-msgstr "Meldingssøk"
+msgstr "MeldingssÃ¸k"
 
 msgid "Message Size"
 msgstr "Meldingsstorleik"
@@ -1070,10 +1070,10 @@ msgid "Next"
 msgstr "Neste"
 
 msgid "No Keys in Keyring"
-msgstr "Ingen nøklar i nøkkelknippe"
+msgstr "Ingen nÃ¸klar i nÃ¸kkelknippe"
 
 msgid "No PGP public key imported."
-msgstr "Ingen offentleg PGP-nøkkel importert."
+msgstr "Ingen offentleg PGP-nÃ¸kkel importert."
 
 msgid "No Subject"
 msgstr "Tomt emne"
@@ -1088,16 +1088,16 @@ msgid "No message body text"
 msgstr "Inga tekst i meldingskropp"
 
 msgid "No messages matched your search"
-msgstr "Ingen meldingar samsvara med søket ditt"
+msgstr "Ingen meldingar samsvara med sÃ¸ket ditt"
 
 msgid "No messages to fetch..."
-msgstr "Ingen meldingar å hente..."
+msgstr "Ingen meldingar Ã¥ hente..."
 
 msgid "No personal PGP private key imported."
-msgstr "Ingen personleg privat PGP-nøkkel importert."
+msgstr "Ingen personleg privat PGP-nÃ¸kkel importert."
 
 msgid "No personal PGP public key imported."
-msgstr "Ingen personleg offentleg PGP-nøkkel importert."
+msgstr "Ingen personleg offentleg PGP-nÃ¸kkel importert."
 
 msgid "No spelling errors"
 msgstr "Ingen stavefeil"
@@ -1127,7 +1127,7 @@ msgid "Not Personal"
 msgstr "Ikkje personleg"
 
 msgid "Not a valid public key."
-msgstr "Ikkje ein gyldig offentleg nøkkel."
+msgstr "Ikkje ein gyldig offentleg nÃ¸kkel."
 
 msgid "Not deleted messages"
 msgstr "Ikkje sletta meldingar"
@@ -1140,7 +1140,7 @@ msgstr "November"
 
 msgid "Number of old sent-mail folders to keep if deleting monthly"
 msgstr ""
-"Talet på gamle mapper med sendt post å ta vare på ved månadleg sletting"
+"Talet pÃ¥ gamle mapper med sendt post Ã¥ ta vare pÃ¥ ved mÃ¥nadleg sletting"
 
 msgid "OK"
 msgstr "OK"
@@ -1183,7 +1183,7 @@ msgid "PGP Error: For message encryption, there can only be one recipient."
 msgstr "PGP-feil: For meldingskryptering kan det berre vere ein mottakar."
 
 msgid "PGP Error: Need passphrase for personal private key."
-msgstr "PGP-feil: Treng passordfrase for personleg privat nøkkel."
+msgstr "PGP-feil: Treng passordfrase for personleg privat nÃ¸kkel."
 
 msgid "PGP NOT Active"
 msgstr "PGP IKKJE aktiv"
@@ -1195,24 +1195,24 @@ msgid "PGP Passphrase Input"
 msgstr "PGP inntasting av passordfrase"
 
 msgid "PGP Personal Keypair support requires a secure web connection."
-msgstr "Støtte for personleg PGP-nøkkelpar krev ei sikker web-kopling."
+msgstr "StÃ¸tte for personleg PGP-nÃ¸kkelpar krev ei sikker web-kopling."
 
 #, c-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "Offentleg PGP-nøkkel for \"%s (%s)\" vart lagt til."
+msgstr "Offentleg PGP-nÃ¸kkel for \"%s (%s)\" vart lagt til."
 
 #, c-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "Offentleg PGP-nøkkel for \"%s\" vart sletta."
+msgstr "Offentleg PGP-nÃ¸kkel for \"%s\" vart sletta."
 
 msgid "PGP Public Key"
-msgstr "Offentleg PGP-nøkkel"
+msgstr "Offentleg PGP-nÃ¸kkel"
 
 msgid "PGP Public Keyring"
-msgstr "Offentleg PGP-nøkkelring"
+msgstr "Offentleg PGP-nÃ¸kkelring"
 
 msgid "PGP Public/Private Keypair successfully added."
-msgstr "Offentleg/private PGP-nøkkelpar vart lagt til."
+msgstr "Offentleg/private PGP-nÃ¸kkelpar vart lagt til."
 
 msgid "PGP Sign Message"
 msgstr "PGP Signer melding"
@@ -1224,25 +1224,25 @@ msgid "PGP Signed/Encrypted Data"
 msgstr "PGP-signert/-kryptert data"
 
 msgid "PGP support is disabled on this system."
-msgstr "PGP-støtte er slått av på dette systemet."
+msgstr "PGP-stÃ¸tte er slÃ¥tt av pÃ¥ dette systemet."
 
 msgid ""
 "PGP support is not currently active so the digital signature is unable to be "
 "verified."
 msgstr ""
-"PGP-støtte er for tida ikkje aktiv, så den digitale signaturen kan ikkje "
+"PGP-stÃ¸tte er for tida ikkje aktiv, sÃ¥ den digitale signaturen kan ikkje "
 "verifiserast."
 
 msgid ""
 "PGP support is not currently active so the message is unable to be decrypted."
 msgstr ""
-"PGP-støtte er for tida ikkje aktiv, så meldinga kan ikkje dekrypterast."
+"PGP-stÃ¸tte er for tida ikkje aktiv, sÃ¥ meldinga kan ikkje dekrypterast."
 
 msgid "PGP"
 msgstr "PGP"
 
 msgid "POP3 over SSL (self-signed)"
-msgstr "POP3 over SSL (sjølv-signert)"
+msgstr "POP3 over SSL (sjÃ¸lv-signert)"
 
 msgid "POP3"
 msgstr "POP3"
@@ -1282,28 +1282,28 @@ msgid "Password:"
 msgstr "Passord:"
 
 msgid "Perform maintenance operations on login"
-msgstr "Køyr vedlikehaldsoperasjonar ved innlogging"
+msgstr "KÃ¸yr vedlikehaldsoperasjonar ved innlogging"
 
 msgid "Perform maintenance operations on login?"
-msgstr "Køyr vedlikehaldsoperasjonar ved innlogging?"
+msgstr "KÃ¸yr vedlikehaldsoperasjonar ved innlogging?"
 
 msgid "Personal Information"
 msgstr "Personleg informasjon"
 
 msgid "Personal PGP keypair generated successfully."
-msgstr "Personleg PGP-nøkkelpar vart generert."
+msgstr "Personleg PGP-nÃ¸kkelpar vart generert."
 
 msgid "Personal PGP keys deleted successfully."
-msgstr "Personleg PGP-nøklar vart sletta."
+msgstr "Personleg PGP-nÃ¸klar vart sletta."
 
 msgid "Personal"
 msgstr "Personleg"
 
 msgid "Place your signature before replies and forwards?"
-msgstr "Plasser signatur før svar og vidaresendt?"
+msgstr "Plasser signatur fÃ¸r svar og vidaresendt?"
 
 msgid "Please enter the name of the new folder:"
-msgstr "Skriv inn namnet på den nye mappa:"
+msgstr "Skriv inn namnet pÃ¥ den nye mappa:"
 
 msgid "Please enter the new name:"
 msgstr "Skriv inn det nye namnet:"
@@ -1312,11 +1312,11 @@ msgid ""
 "Please enter the passphrase for your PGP private key. You will only need to "
 "enter this passphrase once per IMP session."
 msgstr ""
-"Skriv inn passordfrasen for din private PGP-nøkkel. Du treng berre å skrive "
-"inn denne passordfrasen ein gong per IMP-økt."
+"Skriv inn passordfrasen for din private PGP-nÃ¸kkel. Du treng berre Ã¥ skrive "
+"inn denne passordfrasen ein gong per IMP-Ã¸kt."
 
 msgid "Please enter valid search criteria."
-msgstr "Skriv inn eit gyldig søkekriterium."
+msgstr "Skriv inn eit gyldig sÃ¸kekriterium."
 
 msgid "Please provide your username and password"
 msgstr "Skriv inn ditt brukarnamn og passord"
@@ -1325,10 +1325,10 @@ msgid "Please resolve ambiguous or invalid addresses."
 msgstr "Ordne opp i fleirtydige eller ugyldige adresser."
 
 msgid "Please select a folder before you perform any actions."
-msgstr "Vel ei mappe før du køyrer ei eller fleire handlingar."
+msgstr "Vel ei mappe fÃ¸r du kÃ¸yrer ei eller fleire handlingar."
 
 msgid "Please select at least one folder to search."
-msgstr "Vel minst ei mappe å søke i."
+msgstr "Vel minst ei mappe Ã¥ sÃ¸ke i."
 
 msgid "Please select only one folder for this operation."
 msgstr "Vel kun ei mappe for denne operasjonen."
@@ -1337,7 +1337,7 @@ msgid "Please select or edit right next:"
 msgstr "Vel eller endre rett neste:"
 
 msgid "Precede your signature with dashes ('-- ')"
-msgstr "Bruk strekar ('-- ') før signaturen din."
+msgstr "Bruk strekar ('-- ') fÃ¸r signaturen din."
 
 msgid "Preferences successfully updated."
 msgstr "Innstillingar vart oppdaterte."
@@ -1355,7 +1355,7 @@ msgid "Priority"
 msgstr "Prioritet"
 
 msgid "Private Key"
-msgstr "Privat nøkkel"
+msgstr "Privat nÃ¸kkel"
 
 #, c-format
 msgid "Problem with filter rule %d: folder does not exist: %s"
@@ -1368,26 +1368,26 @@ msgid "Protocol:"
 msgstr "Protokoll:"
 
 msgid "Public Key"
-msgstr "Offentleg nøkkel"
+msgstr "Offentleg nÃ¸kkel"
 
 msgid "Public PGP keyserver support has been disabled."
-msgstr "Støtte for offentleg PGP-nøkkeltenar er slått av."
+msgstr "StÃ¸tte for offentleg PGP-nÃ¸kkeltenar er slÃ¥tt av."
 
 msgid "Purge Deleted"
 msgstr "Fjern sletta"
 
 msgid "Purge Trash how often:"
-msgstr "Tøm søppelkorga kor ofte:"
+msgstr "TÃ¸m sÃ¸ppelkorga kor ofte:"
 
 msgid "Purge messages in Trash folder older than this amount of days"
-msgstr "Fjern meldingar i søppelkorga som er eldre enn dette talet på dagar"
+msgstr "Fjern meldingar i sÃ¸ppelkorga som er eldre enn dette talet pÃ¥ dagar"
 
 msgid "Purge old message in the Trash folder"
-msgstr "Fjern gamle meldingar frå søppelkorga"
+msgstr "Fjern gamle meldingar frÃ¥ sÃ¸ppelkorga"
 
 #, c-format
 msgid "Purging %d message(s) from Trash folder."
-msgstr "Fjerner %d melding(ar) frå søppelkorga."
+msgstr "Fjerner %d melding(ar) frÃ¥ sÃ¸ppelkorga."
 
 msgid "Quoting"
 msgstr "Siterer"
@@ -1396,10 +1396,10 @@ msgid "Received after"
 msgstr "Motteke etter"
 
 msgid "Received before"
-msgstr "Motteke før"
+msgstr "Motteke fÃ¸r"
 
 msgid "Received on"
-msgstr "Motteke på"
+msgstr "Motteke pÃ¥"
 
 msgid "Redirect Message"
 msgstr "Omdiriger melding"
@@ -1435,11 +1435,11 @@ msgid "Rename Folder"
 msgstr "Gi nytt namn til mappe"
 
 msgid "Rename sent-mail folder at beginning of month"
-msgstr "Endre namn på mappe for sendt post ved starten av månaden"
+msgstr "Endre namn pÃ¥ mappe for sendt post ved starten av mÃ¥naden"
 
 #, c-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "Kunne ikkje endre namn på \"%s\" til \"%s\". Dette er kva tenaren sa"
+msgstr "Kunne ikkje endre namn pÃ¥ \"%s\" til \"%s\". Dette er kva tenaren sa"
 
 msgid "Replace with:"
 msgstr "Erstatt med:"
@@ -1469,7 +1469,7 @@ msgid "Reply:"
 msgstr "Svar:"
 
 msgid "Report as Spam"
-msgstr "Raporter som søppelpost"
+msgstr "Raporter som sÃ¸ppelpost"
 
 msgid "Request a Return Receipt"
 msgstr "Be om returkvittering"
@@ -1490,12 +1490,12 @@ msgid "Return to Personal Information"
 msgstr "Tilbake til Personleg informasjon"
 
 msgid "Return to Previous Screen"
-msgstr "Tilbake til førre skjerm"
+msgstr "Tilbake til fÃ¸rre skjerm"
 
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"Gå tilbake til postbokslista etter å ha sletta, flytta eller kopiert ei "
+"GÃ¥ tilbake til postbokslista etter Ã¥ ha sletta, flytta eller kopiert ei "
 "melding?"
 
 msgid "Rule Definition"
@@ -1521,16 +1521,16 @@ msgid "Saving the draft failed. This is what the server said: %s"
 msgstr "Kunne ikkje lagre kladd. Dette er kva tenaren sa: %s"
 
 msgid "Search Results"
-msgstr "Søkeresultat"
+msgstr "SÃ¸keresultat"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "Seen"
 msgstr "Lest"
 
 msgid "Select addressbook sources for adding and searching for addresses."
-msgstr "Vel kjelder for adressebok til å legge til og søke etter adresser i."
+msgstr "Vel kjelder for adressebok til Ã¥ legge til og sÃ¸ke etter adresser i."
 
 msgid "Select all"
 msgstr "Vel alle"
@@ -1551,13 +1551,13 @@ msgid "Select your color scheme."
 msgstr "Vel ditt fargeskjema."
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Select"
 msgstr "Vel"
 
 msgid "Selected Addressbooks:"
-msgstr "Valde adressebøker:"
+msgstr "Valde adressebÃ¸ker:"
 
 msgid "Send Message"
 msgstr "Send melding"
@@ -1578,20 +1578,20 @@ msgid "Server:"
 msgstr "Tenar:"
 
 msgid "Set preferences for filtering messages for unwanted content."
-msgstr "Set innstillingar for å filtrere meldingar for uønska innhald."
+msgstr "Set innstillingar for Ã¥ filtrere meldingar for uÃ¸nska innhald."
 
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
-"Set innstillingar for kva som skjer når du flyttar og slettar meldingar."
+"Set innstillingar for kva som skjer nÃ¥r du flyttar og slettar meldingar."
 
 msgid "Set the X-Priority header when composing messages?"
-msgstr "Set X-Priority-meldingshovud når ein skriv meldingar?"
+msgstr "Set X-Priority-meldingshovud nÃ¥r ein skriv meldingar?"
 
 msgid "Set the current time zone."
 msgstr "Set gjeldande tidssone."
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Vel språk for menyar, forklaringar og hjelp."
+msgstr "Vel sprÃ¥k for menyar, forklaringar og hjelp."
 
 msgid "Should the compose window be closed after saving a draft?"
 msgstr ""
@@ -1628,10 +1628,10 @@ msgid "Some of IMP's configuration files are missing:"
 msgstr "Nokre av IMP sine konfigureringsfiler manglar:"
 
 msgid "Sort Direction"
-msgstr "Sorteringsrekkefølgje"
+msgstr "SorteringsrekkefÃ¸lgje"
 
 msgid "Spam Report from"
-msgstr "Søppelpostrapport frå"
+msgstr "SÃ¸ppelpostrapport frÃ¥"
 
 msgid "Special Characters"
 msgstr "Spesialteikn"
@@ -1664,7 +1664,7 @@ msgid "Submit"
 msgstr "Send"
 
 msgid "Subscribe to Folder(s)"
-msgstr "Abonnere på mappe(r)"
+msgstr "Abonnere pÃ¥ mappe(r)"
 
 msgid "Success"
 msgstr "Suksess"
@@ -1676,7 +1676,7 @@ msgid "Sun"
 msgstr "Sol"
 
 msgid "Terms of Service file not specified in conf.php"
-msgstr "Vilkår for tenesta-fila ikkje spesifisert i conf.php"
+msgstr "VilkÃ¥r for tenesta-fila ikkje spesifisert i conf.php"
 
 msgid "Text"
 msgstr "Tekst"
@@ -1691,7 +1691,7 @@ msgstr "Kontoen \"%s\" vart lagra."
 
 #, c-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "Namnet på gjeldande mappe(r) \"%s\" vil bli endra til \"%s\"."
+msgstr "Namnet pÃ¥ gjeldande mappe(r) \"%s\" vil bli endra til \"%s\"."
 
 #, c-format
 msgid "The folder '%s' was not deleted. This is what the server said"
@@ -1706,16 +1706,16 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"Namnet på mappa \"%s\" inneheld ulovlege teikn. Dette kan skape problem. "
+"Namnet pÃ¥ mappa \"%s\" inneheld ulovlege teikn. Dette kan skape problem. "
 "Kontakt din systemadministrator."
 
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "Mappa \"%s\" vart oppretta, men du abonnerer ikkje på den."
+msgstr "Mappa \"%s\" vart oppretta, men du abonnerer ikkje pÃ¥ den."
 
 #, c-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "Mappa \"%s\" vart sletta, men du abonnerer framleis på den."
+msgstr "Mappa \"%s\" vart sletta, men du abonnerer framleis pÃ¥ den."
 
 #, c-format
 msgid "The folder \"%s\" was not created. This is what the server said"
@@ -1745,7 +1745,7 @@ msgid "The message being composed has been closed.  Exiting."
 msgstr "Meldinga som blir skriven vart lukka. Avsluttar."
 
 msgid "The requested file does not exist in the MS-TNEF attachment."
-msgstr "Den førespurde fila eksisterer ikkje i MS-TNEF-vedlegget."
+msgstr "Den fÃ¸respurde fila eksisterer ikkje i MS-TNEF-vedlegget."
 
 msgid "The signature couldn't be replaced."
 msgstr "Signaturen kunne ikkje bli erstatta."
@@ -1758,29 +1758,29 @@ msgstr "Det er ingen meldingar i denne postkassa."
 
 #, c-format
 msgid "There was a problem expunging %s. This is what the server said"
-msgstr "Problem ved tømming av %s. Dette er kva tenaren sa"
+msgstr "Problem ved tÃ¸mming av %s. Dette er kva tenaren sa"
 
 msgid "There was a problem expunging the mailbox. This is what the server said"
-msgstr "Problem ved tømming av postkasse. Dette er kva tenaren sa"
+msgstr "Problem ved tÃ¸mming av postkasse. Dette er kva tenaren sa"
 
 #, c-format
 msgid ""
 "There was a problem expunging the mailbox. This is what the server said: %s"
-msgstr "Problem ved tømming av postkasse. Dette er kva tenaren sa: %s"
+msgstr "Problem ved tÃ¸mming av postkasse. Dette er kva tenaren sa: %s"
 
 #, c-format
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"Problem ved opplasting av fil. Fila er kanskje større enn maksimalt tillaten "
+"Problem ved opplasting av fil. Fila er kanskje stÃ¸rre enn maksimalt tillaten "
 "storleik. (%d MB)."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Problem ved opplasting av fil. Fila er kanskje større enn maksimalt tillaten "
+"Problem ved opplasting av fil. Fila er kanskje stÃ¸rre enn maksimalt tillaten "
 "storleik."
 
 #, c-format
@@ -1793,7 +1793,7 @@ msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Problem ved sletting av meldingar frå mappa \"%s\". Dette er kva tenaren sa"
+"Problem ved sletting av meldingar frÃ¥ mappa \"%s\". Dette er kva tenaren sa"
 
 #, c-format
 msgid ""
@@ -1827,14 +1827,14 @@ msgstr "Problem ved flytting av meldingar til \"%s\". Dette er kva tenaren sa"
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
 msgstr ""
-"Problem ved flytting av meldingar til søppelkorga. Dette er kva tenaren sa"
+"Problem ved flytting av meldingar til sÃ¸ppelkorga. Dette er kva tenaren sa"
 
 #, c-format
 msgid ""
 "There was an error moving messages to the trash. This is what the server "
 "said: %s"
 msgstr ""
-"Problem ved flytting av meldingar til søppelkorga. Dette er kva tenaren sa: %"
+"Problem ved flytting av meldingar til sÃ¸ppelkorga. Dette er kva tenaren sa: %"
 "s"
 
 msgid "There was an error saving a draft."
@@ -1845,16 +1845,16 @@ msgid "There was an error sending your message: %s"
 msgstr "Problem ved sending av meldinga di: %s"
 
 msgid "There was an error undeleting messages. This is what the server said"
-msgstr "Problem med å angre sletting av melding. Dette er kva tenaren sa"
+msgstr "Problem med Ã¥ angre sletting av melding. Dette er kva tenaren sa"
 
 msgid "There was an error viewing the requested message."
-msgstr "Problem med å vise den førespurte meldinga."
+msgstr "Problem med Ã¥ vise den fÃ¸respurte meldinga."
 
 msgid "There were no alternative parts that can be displayed inline."
 msgstr "Det var ingen alternative delar som kunne visast innebygd."
 
 msgid "This PGP Public Key was attached to the message."
-msgstr "Denne offentlege PGP-nøkkelen var lagt ved meldinga."
+msgstr "Denne offentlege PGP-nÃ¸kkelen var lagt ved meldinga."
 
 msgid ""
 "This file controls local MIME drivers for IMP, specifically what kinds of "
@@ -1867,21 +1867,21 @@ msgid ""
 "This file controls the default preferences for IMP, and also controls which "
 "preferences users can alter."
 msgstr ""
-"Denne fila kontrollerer standardinnstillingane for IMP, og kontrollerer også "
+"Denne fila kontrollerer standardinnstillingane for IMP, og kontrollerer ogsÃ¥ "
 "kva innstillingar brukarane kan endre."
 
 msgid ""
 "This file controls the default settings for IMP, and also defines the list "
 "of available servers if you are using the server list."
 msgstr ""
-"Denne fila kontrollerer standardvala for IMP, og definerer også lista over "
+"Denne fila kontrollerer standardvala for IMP, og definerer ogsÃ¥ lista over "
 "tilgjengelege tenarar dersom du brukar tenarlista."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"Denne fila kontrollerer stilarket som blir brukt til Ã¥ definere fargar og "
 "skrifttypar, og legg til eller overstyrer standardverdiane til Horde."
 
 msgid ""
@@ -1892,13 +1892,13 @@ msgstr ""
 "alternativ for skripta i IMP."
 
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr "Dette kan ta ein del tid. Er du sikker på at du vil halde fram?"
+msgstr "Dette kan ta ein del tid. Er du sikker pÃ¥ at du vil halde fram?"
 
 msgid ""
 "This message does not appear to be in the correct PGP format (according to "
 "RFC 2015)."
 msgstr ""
-"Denne meldinga ser ikkje ut til å vere i korrekt PGP-format (i følgje RFC "
+"Denne meldinga ser ikkje ut til Ã¥ vere i korrekt PGP-format (i fÃ¸lgje RFC "
 "2015)."
 
 msgid "This message has been digitally signed via PGP."
@@ -1909,22 +1909,22 @@ msgstr "Denne meldinga er kryptert med PGP."
 
 msgid "This message has been reported as spam to your system administrator."
 msgstr ""
-"Denne meldinga er rapportert som søppelpost til din systemadministrator."
+"Denne meldinga er rapportert som sÃ¸ppelpost til din systemadministrator."
 
 msgid "This message has been reported as spam."
-msgstr "Denne meldinga er rapportert som søppelpost."
+msgstr "Denne meldinga er rapportert som sÃ¸ppelpost."
 
 msgid "This message to"
 msgstr "Denne meldinga til"
 
 msgid "This window must be called from compose window"
-msgstr "Dette vindauget må kallast frå vindauget for skriv melding"
+msgstr "Dette vindauget mÃ¥ kallast frÃ¥ vindauget for skriv melding"
 
 msgid "Thread View"
-msgstr "Trådvising"
+msgstr "TrÃ¥dvising"
 
 msgid "Thread"
-msgstr "Tråd"
+msgstr "TrÃ¥d"
 
 msgid "Time Zone"
 msgstr "Tidssone"
@@ -1940,7 +1940,7 @@ msgid "Total Size: %s KB"
 msgstr "Total storleik: %s KB"
 
 msgid "Trash folder:"
-msgstr "Søppelkorg:"
+msgstr "SÃ¸ppelkorg:"
 
 msgid "Unanswered messages"
 msgstr "Ubesvarte meldingar"
@@ -1970,19 +1970,19 @@ msgid "Unseen"
 msgstr "Ulest"
 
 msgid "Unsubscribe from Folder(s)"
-msgstr "Sei opp abonnement på mappe(r)"
+msgstr "Sei opp abonnement pÃ¥ mappe(r)"
 
 msgid "Upload"
 msgstr "Last opp"
 
 msgid "Use Ctrl/Option+Click to select multiple fields"
-msgstr "Bruk Ctrl-klikk for å velje fleire felt"
+msgstr "Bruk Ctrl-klikk for Ã¥ velje fleire felt"
 
 msgid "Use Default Value"
 msgstr "Bruk standardverdi"
 
 msgid "Use IMAP folder subscriptions"
-msgstr "Bruk abonnement på IMAP-mapper"
+msgstr "Bruk abonnement pÃ¥ IMAP-mapper"
 
 msgid "User Options"
 msgstr "Brukaralternativ"
@@ -1995,17 +1995,17 @@ msgstr "Brukarnamn:"
 
 #, c-format
 msgid "View %s Public Key"
-msgstr "Vis %s offentleg nøkkel"
+msgstr "Vis %s offentleg nÃ¸kkel"
 
 #, c-format
 msgid "View %s"
 msgstr "Vis %s"
 
 msgid "View Personal Private Key"
-msgstr "Vis personleg privat nøkkel"
+msgstr "Vis personleg privat nÃ¸kkel"
 
 msgid "View Personal Public Key"
-msgstr "Vis personleg offentleg nøkkel"
+msgstr "Vis personleg offentleg nÃ¸kkel"
 
 msgid "View messages in "
 msgstr "Vis meldingar i"
@@ -2024,26 +2024,26 @@ msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted."
 msgstr ""
-"Ved sletting av meldingar, flytt dei til søppelkorga i staden for å markere "
+"Ved sletting av meldingar, flytt dei til sÃ¸ppelkorga i staden for Ã¥ markere "
 "dei som sletta."
 
 msgid "Wrap text at this many characters."
-msgstr "Bryt tekst etter så mange teikn."
+msgstr "Bryt tekst etter sÃ¥ mange teikn."
 
 msgid "Yes"
 msgstr "Ja"
 
 msgid "You are attempting to delete the following folders:"
-msgstr "Du prøver å slette følgjande mapper:"
+msgstr "Du prÃ¸ver Ã¥ slette fÃ¸lgjande mapper:"
 
 msgid "You are creating a sub-folder to "
 msgstr "Du opprettar ei undermappe til"
 
 msgid "You are creating a top-level folder."
-msgstr "Du opprettar ei toppnivå-mappe."
+msgstr "Du opprettar ei toppnivÃ¥-mappe."
 
 msgid "You are renaming the folder: "
-msgstr "Du endrar namn på mappa:"
+msgstr "Du endrar namn pÃ¥ mappa:"
 
 msgid "You didn't specify a Mail Server"
 msgstr "Du spesifiserte ein e-posttenar"
@@ -2065,66 +2065,66 @@ msgid "You have been logged out.<br />Thank you for using the system."
 msgstr "Du er logga ut.<br />Takk for at du brukar dette systemet."
 
 msgid "You have new mail in the following folder:"
-msgstr "Du har ny post i følgjande mappe:"
+msgstr "Du har ny post i fÃ¸lgjande mappe:"
 
 msgid "You have new mail in the following folders:"
-msgstr "Du har ny post i følgjande mapper:"
+msgstr "Du har ny post i fÃ¸lgjande mapper:"
 
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message"
 msgstr ""
-"Du må skrive inn passordfrasa for din private PGP-nøkkel for å vise denne "
+"Du mÃ¥ skrive inn passordfrasa for din private PGP-nÃ¸kkel for Ã¥ vise denne "
 "meldinga"
 
 msgid "You must first select the attachment(s) to delete."
-msgstr "Du må først velje vedlegg som skal slettast."
+msgstr "Du mÃ¥ fÃ¸rst velje vedlegg som skal slettast."
 
 msgid "You must first specify the file to attach."
-msgstr "Du må først spesifisere fila som skal vedleggast."
+msgstr "Du mÃ¥ fÃ¸rst spesifisere fila som skal vedleggast."
 
 msgid "You must have at least one recipient."
-msgstr "Du må ha minst ein mottakar."
+msgstr "Du mÃ¥ ha minst ein mottakar."
 
 msgid "You must select a target mailbox first."
-msgstr "Du må først velje ei målmappe."
+msgstr "Du mÃ¥ fÃ¸rst velje ei mÃ¥lmappe."
 
 msgid "You must select an account to be deleted."
-msgstr "Du må velje ein konto som skal slettast."
+msgstr "Du mÃ¥ velje ein konto som skal slettast."
 
 msgid "You must select an address first."
-msgstr "Du må først velje ei adresse."
+msgstr "Du mÃ¥ fÃ¸rst velje ei adresse."
 
 msgid "You must select an identity to be deleted."
-msgstr "Du må velje ein identitet som skal slettast."
+msgstr "Du mÃ¥ velje ein identitet som skal slettast."
 
 msgid "You must select at least one message first."
-msgstr "Du må først velje minst ei melding."
+msgstr "Du mÃ¥ fÃ¸rst velje minst ei melding."
 
 msgid "You must specify a recipient."
-msgstr "Du må spesifisere ein mottakar."
+msgstr "Du mÃ¥ spesifisere ein mottakar."
 
 #, c-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "Kunne ikkje abonnere på \"%s\". Dette er kva tenaren sa"
+msgstr "Kunne ikkje abonnere pÃ¥ \"%s\". Dette er kva tenaren sa"
 
 #, c-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "Ditt abonnement på \"%s\" vart ikkje sagt opp. Dette er kva tenaren sa"
+msgstr "Ditt abonnement pÃ¥ \"%s\" vart ikkje sagt opp. Dette er kva tenaren sa"
 
 #, c-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "Du abonnerer no på \"%s\""
+msgstr "Du abonnerer no pÃ¥ \"%s\""
 
 #, c-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "Ditt abonnement på \"%s\" er sagt opp"
+msgstr "Ditt abonnement pÃ¥ \"%s\" er sagt opp"
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "Økta di (%s) har gått ut på tid. Logg inn på nytt."
+msgstr "Ã˜kta di (%s) har gÃ¥tt ut pÃ¥ tid. Logg inn pÃ¥ nytt."
 
 msgid "Your From: address:"
-msgstr "Di Frå: adresse:"
+msgstr "Di FrÃ¥: adresse:"
 
 msgid "Your Information"
 msgstr "Din informasjon"
@@ -2133,13 +2133,13 @@ msgid "Your Name"
 msgstr "Ditt namn"
 
 msgid "Your PGP Public/Private Keys"
-msgstr "Dine offentlege/private PGP-nøklar"
+msgstr "Dine offentlege/private PGP-nÃ¸klar"
 
 msgid "Your Private Key"
-msgstr "Din private nøkkel"
+msgstr "Din private nÃ¸kkel"
 
 msgid "Your Public Key"
-msgstr "Din offentlege nøkkel"
+msgstr "Din offentlege nÃ¸kkel"
 
 msgid "Your Reply-to: address: <i>(optional)</i>"
 msgstr "Di Svar-til: adresse: <i>(valfritt)</i>"
@@ -2148,13 +2148,13 @@ msgid "Your accounts:"
 msgstr "Dine kontoar:"
 
 msgid "Your browser does not support inline display of this image type"
-msgstr "Nettlesaren din støttar ikkje vising av bilete av denne typen"
+msgstr "Nettlesaren din stÃ¸ttar ikkje vising av bilete av denne typen"
 
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Nettlesaren din støttar ikkje denne utskriftsfunksjonen. Vel Ctrl+P for å "
+"Nettlesaren din stÃ¸ttar ikkje denne utskriftsfunksjonen. Vel Ctrl+P for Ã¥ "
 "skrive ut."
 
 msgid "Your current time zone:"
@@ -2173,14 +2173,14 @@ msgid ""
 "Your session will expire in 1 minute. Do you want to reload the page to "
 "prevent losing your work?"
 msgstr ""
-"Økta di går ut om 1 minutt. Vil du laste inn sida på nytt for å ikkje miste "
+"Ã˜kta di gÃ¥r ut om 1 minutt. Vil du laste inn sida pÃ¥ nytt for Ã¥ ikkje miste "
 "arbeidet ditt?"
 
 msgid ""
 "Your session will expire in 5 minutes. Do you want to reload the page to "
 "prevent losing your work?"
 msgstr ""
-"Økta di går ut om 5 minutt. Vil du laste inn sida på nytt for å ikkje miste "
+"Ã˜kta di gÃ¥r ut om 5 minutt. Vil du laste inn sida pÃ¥ nytt for Ã¥ ikkje miste "
 "arbeidet ditt?"
 
 msgid "Your signature:"
@@ -2193,7 +2193,7 @@ msgid "add source"
 msgstr "legg til kjelde"
 
 msgid "cannot move past the beginning"
-msgstr "kan ikkje flytte til før starten"
+msgstr "kan ikkje flytte til fÃ¸r starten"
 
 msgid "cannot move past the end"
 msgstr "kan ikkje flytte til etter enden"
@@ -2202,7 +2202,7 @@ msgid "delete message"
 msgstr "slett melding"
 
 msgid "from"
-msgstr "frå"
+msgstr "frÃ¥"
 
 msgid "move down"
 msgstr "flytt ned"

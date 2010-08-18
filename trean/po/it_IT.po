@@ -12,14 +12,14 @@ msgstr ""
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit.php:237
 #, php-format
 msgid "\"%s\" was not renamed: %s."
-msgstr "\"%s\" non è stato rinominato: %s."
+msgstr "\"%s\" non Ã¨ stato rinominato: %s."
 
 #: data.php:156
 #, php-format
@@ -150,7 +150,7 @@ msgstr "Crescente (A a Z)"
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "Si è cercato di pubblicare una condivisione non esistente."
+msgstr "Si Ã¨ cercato di pubblicare una condivisione non esistente."
 
 #: lib/Trean.php:208
 msgid "Bad Gateway"
@@ -227,7 +227,7 @@ msgstr "Copia"
 #: edit.php:222
 #, php-format
 msgid "Copying folders is not supported."
-msgstr "La copia delle cartelle non è supportata."
+msgstr "La copia delle cartelle non Ã¨ supportata."
 
 #: lib/Trean.php:175
 msgid "Created"
@@ -380,11 +380,11 @@ msgstr "Versione HTTP non supportata"
 
 #: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
 msgid "Highest Rated"
-msgstr "Più votati"
+msgstr "PiÃ¹ votati"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
 msgid "Highest-rated Bookmarks"
-msgstr "Preferiti più votati"
+msgstr "Preferiti piÃ¹ votati"
 
 #: templates/data/import.inc:16
 msgid "Import"
@@ -440,11 +440,11 @@ msgstr "Metodo Non Permesso"
 
 #: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
 msgid "Most Clicked"
-msgstr "Più Cliccati"
+msgstr "PiÃ¹ Cliccati"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
 msgid "Most-clicked Bookmarks"
-msgstr "Preferiti più cliccati"
+msgstr "Preferiti piÃ¹ cliccati"
 
 #: templates/search.php:71
 msgid "Move"
@@ -558,7 +558,7 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"Nelle nuove versioni di Internet Explorer, ti potrà essere richiesto di "
+"Nelle nuove versioni di Internet Explorer, ti potrÃ  essere richiesto di "
 "aggiungere  %s://%s alla tua Trusted Zone."
 
 #: perms.php:56
@@ -566,7 +566,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Solo il proprietario o l'amministratore di sistema può cambiare la proprietà "
+"Solo il proprietario o l'amministratore di sistema puÃ² cambiare la proprietÃ  "
 "o i permessi per una condivisione"
 
 #: config/prefs.php.dist:54
@@ -628,7 +628,7 @@ msgstr "URI-richiesto troppo grande"
 
 #: lib/Trean.php:204
 msgid "Requested range not satisfiable"
-msgstr "Il range richiesto non è realizzabile"
+msgstr "Il range richiesto non Ã¨ realizzabile"
 
 #: lib/Trean.php:179
 msgid "Reset Content"
@@ -684,7 +684,7 @@ msgstr ""
 
 #: config/prefs.php.dist:66
 msgid "Should your list of bookmark folders be open when you log in?"
-msgstr "La tua lista dei Preferiti dovrà essere aperta quando ti colleghi?"
+msgstr "La tua lista dei Preferiti dovrÃ  essere aperta quando ti colleghi?"
 
 #: config/prefs.php.dist:45
 msgid "Show folder actions panel?"
@@ -722,7 +722,7 @@ msgstr "Non ci sono preferiti in questa cartella."
 #: edit.php:216
 #, php-format
 msgid "There was a problem copying the bookmark: %s"
-msgstr "Si è verificato un errore copiando il preferito: %s"
+msgstr "Si Ã¨ verificato un errore copiando il preferito: %s"
 
 #: edit.php:53 edit.php:112
 #, php-format
@@ -742,7 +742,7 @@ msgstr "Si e' verificato un errore nell'aggiunta del preferito: %s"
 #: edit.php:176
 #, php-format
 msgid "There was a problem moving the folder: %s"
-msgstr "Si è verificato un errore nello spostare la cartella: %s "
+msgstr "Si Ã¨ verificato un errore nello spostare la cartella: %s "
 
 #: add.php:61
 #, php-format
@@ -752,17 +752,17 @@ msgstr "Si e' verificato un errore nell'aggiunta del preferito: %s"
 #: add.php:45 add.php:102 edit.php:147 edit.php:201
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "Si è verificato un errore nell'aggiungere la cartella: %s"
+msgstr "Si Ã¨ verificato un errore nell'aggiungere la cartella: %s"
 
 #: edit.php:74
 #, php-format
 msgid "There was an error saving the bookmark: %s"
-msgstr "Si è verificato un errore durante il salvataggio del preferito: %s"
+msgstr "Si Ã¨ verificato un errore durante il salvataggio del preferito: %s"
 
 #: edit.php:87
 #, php-format
 msgid "There was an error saving the folder: %s"
-msgstr "Si è verificato un errore durante il salvataggio della cartella: %s"
+msgstr "Si Ã¨ verificato un errore durante il salvataggio della cartella: %s"
 
 #: templates/add.html.php:37 templates/views/BookmarkList.php:25
 #: templates/edit/bookmark.inc:10 lib/Forms/Search.php:21
@@ -824,12 +824,12 @@ msgstr "Si"
 #: add.php:23 data.php:65 data.php:132
 #, php-format
 msgid "You are not allowed to create more than %d bookmarks."
-msgstr "Non hai il permesso di creare più di %d preferiti."
+msgstr "Non hai il permesso di creare piÃ¹ di %d preferiti."
 
 #: add.php:86 data.php:56 data.php:107
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Non ti è permesso creare più di %d cartelle."
+msgstr "Non ti Ã¨ permesso creare piÃ¹ di %d cartelle."
 
 #: browse.php:45
 msgid "You do not have permission to view this folder."

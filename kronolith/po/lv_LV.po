@@ -1,7 +1,7 @@
-# Latvieğu valodas tulkojums Horde Framework komponentei.
-# Kronolith - Kalendârs
+# LatvieÅ¡u valodas tulkojums Horde Framework komponentei.
+# Kronolith - KalendÄrs
 # Copyright 2004 Free Software Foundation, Inc.
-# Ivars Stivriòğ <ivars@kraslava.lv>, 2004.
+# Ivars StivriÅ†Å¡ <ivars@kraslava.lv>, 2004.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Ivars Stivrins <ivars@kraslava.lv>\n"
 "Language-Team: Latvian <ivars@kraslava.lv>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1257\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #, c-format
@@ -20,11 +20,11 @@ msgstr "%d stunda"
 
 #, c-format
 msgid "%d hour, %d minute"
-msgstr "%d stunda, %d minûte"
+msgstr "%d stunda, %d minÅ«te"
 
 #, c-format
 msgid "%d hour, %d minutes"
-msgstr "%d stunda, %d minûtes"
+msgstr "%d stunda, %d minÅ«tes"
 
 #, c-format
 msgid "%d hours"
@@ -32,57 +32,57 @@ msgstr "%d stundas"
 
 #, c-format
 msgid "%d hours, %d minute"
-msgstr "%d stundas, %d minûte"
+msgstr "%d stundas, %d minÅ«te"
 
 #, c-format
 msgid "%d hours, %d minutes"
-msgstr "%d stundas, %d minûtes"
+msgstr "%d stundas, %d minÅ«tes"
 
 #, c-format
 msgid "%d minute"
-msgstr "%d minûte"
+msgstr "%d minÅ«te"
 
 #, c-format
 msgid "%d minutes"
-msgstr "%d minûtes"
+msgstr "%d minÅ«tes"
 
 #, c-format
 msgid "%s Minutes before"
-msgstr "Pirms %s minûtçm"
+msgstr "Pirms %s minÅ«tÄ“m"
 
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s datne sekmîgi ielâdçta"
+msgstr "%s datne sekmÄ«gi ielÄdÄ“ta"
 
 #, c-format
 msgid "%s is in progress."
-msgstr "%s notiek pağreiz..."
+msgstr "%s notiek paÅ¡reiz..."
 
 #, c-format
 msgid "%s is starting now."
-msgstr "%s jau sâkas"
+msgstr "%s jau sÄkas"
 
 #, c-format
 msgid "%s starts in %s"
-msgstr "%s sâkas pçc %s"
+msgstr "%s sÄkas pÄ“c %s"
 
 msgid "<b>Description</b> (optional)"
-msgstr "<b>Apraksts</b> (neobligâts)"
+msgstr "<b>Apraksts</b> (neobligÄts)"
 
 msgid "<b>Description</b>"
 msgstr "<b>Apraksts</b>"
 
 msgid "<b>Keywords</b> (optional)"
-msgstr "<b>Atslçgvârdi</b> (neobligâti)"
+msgstr "<b>AtslÄ“gvÄrdi</b> (neobligÄti)"
 
 msgid "<b>Keywords</b>"
-msgstr "<b>Atslçgvârdi</b>"
+msgstr "<b>AtslÄ“gvÄrdi</b>"
 
 msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>Atkârtoğanâs</b> (neobligâti)"
+msgstr "<b>AtkÄrtoÅ¡anÄs</b> (neobligÄti)"
 
 msgid "<b>Recurrence</b>"
-msgstr "<b>Atkârtoğanâs</b>"
+msgstr "<b>AtkÄrtoÅ¡anÄs</b>"
 
 msgid "Add Event"
 msgstr "Pievienot notikumu"
@@ -91,19 +91,19 @@ msgid "Add a new event"
 msgstr "Pievienot jaunu notikumu"
 
 msgid "Add, remove, and edit categories."
-msgstr "Pievienot, dzçst un labot kategorijas"
+msgstr "Pievienot, dzÄ“st un labot kategorijas"
 
 msgid "Alarm Date"
-msgstr "Atgâdinâjuma datums"
+msgstr "AtgÄdinÄjuma datums"
 
 msgid "Alarm Span (minutes)"
-msgstr "Atgâdinâjuma laika sprîdis (minûtçs)"
+msgstr "AtgÄdinÄjuma laika sprÄ«dis (minÅ«tÄ“s)"
 
 msgid "Alarm Time"
-msgstr "Atgâdinâjuma laiks"
+msgstr "AtgÄdinÄjuma laiks"
 
 msgid "Alarm"
-msgstr "Atgâdinâjums"
+msgstr "AtgÄdinÄjums"
 
 msgid "All day event"
 msgstr "Visi dienas notikumi"
@@ -119,10 +119,10 @@ msgstr "Viss"
 
 #, c-format
 msgid "Any events in a category that is deleted will become %s."
-msgstr "Visi notikumi kategorijâ, kas tiks dzçsta kïûs %s"
+msgstr "Visi notikumi kategorijÄ, kas tiks dzÄ“sta kÄ¼Å«s %s"
 
 msgid "April"
-msgstr "Aprîlis"
+msgstr "AprÄ«lis"
 
 msgid "At"
 msgstr "-"
@@ -131,28 +131,28 @@ msgid "August"
 msgstr "Augusts"
 
 msgid "Birthday"
-msgstr "Dzimğanas diena"
+msgstr "DzimÅ¡anas diena"
 
 msgid "Cancel"
 msgstr "Atcelt"
 
 msgid "Category Management"
-msgstr "Kategoriju administrçğana"
+msgstr "Kategoriju administrÄ“Å¡ana"
 
 msgid "Category"
 msgstr "Kategorija"
 
 msgid "Change the way dates and times are formatted."
-msgstr "Mainît datumu un laika atrâdîğanas veidu"
+msgstr "MainÄ«t datumu un laika atrÄdÄ«Å¡anas veidu"
 
 msgid "Choose Color"
-msgstr "Izvçlçties krâsu"
+msgstr "IzvÄ“lÄ“ties krÄsu"
 
 msgid "Color Picker"
-msgstr "Krâsu palete"
+msgstr "KrÄsu palete"
 
 msgid "Confirm deletion of events?"
-msgstr "Apstiprinât notikumu dzçğanu"
+msgstr "ApstiprinÄt notikumu dzÄ“Å¡anu"
 
 msgid "Create New Category"
 msgstr "Izveidot jaunu kategoriju"
@@ -161,10 +161,10 @@ msgid "Create a New Event"
 msgstr "Izveidot jaunu notikumu"
 
 msgid "Current"
-msgstr "Pasreizçjais"
+msgstr "PasreizÄ“jais"
 
 msgid "Daily: Recurs every"
-msgstr "Dienâ: Atkârtoties katru"
+msgstr "DienÄ: AtkÄrtoties katru"
 
 msgid "Date and Time Options"
 msgstr "DAtuma un laika opcijas"
@@ -184,32 +184,32 @@ msgstr "Datums %s"
 
 #, c-format
 msgid "Delete '%s'"
-msgstr "Dzçst '%s'"
+msgstr "DzÄ“st '%s'"
 
 msgid "Delete Event"
-msgstr "Dzçst notikumu"
+msgstr "DzÄ“st notikumu"
 
 msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"Dzçst tikai esoğo notikumu, ğajâ un visâs nâkamajâs reizçs, vaivienmçr?"
+"DzÄ“st tikai esoÅ¡o notikumu, Å¡ajÄ un visÄs nÄkamajÄs reizÄ“s, vaivienmÄ“r?"
 
 msgid "Delete"
-msgstr "Dzçst"
+msgstr "DzÄ“st"
 
 msgid "Description"
 msgstr "Paskaidrojums"
 
 msgid "Display 24-hour times?"
-msgstr "Râdît 24 stundu laiku"
+msgstr "RÄdÄ«t 24 stundu laiku"
 
 msgid "Display Options"
 msgstr "Displeja parametri"
 
 #, c-format
 msgid "Due: %s"
-msgstr "Sakarâ ar: %s"
+msgstr "SakarÄ ar: %s"
 
 msgid "Duration"
 msgstr "Ilgums"
@@ -235,13 +235,13 @@ msgid "End Time"
 msgstr "Beigu laiks"
 
 msgid "Export Calendar"
-msgstr "Eksportçt kalendâru"
+msgstr "EksportÄ“t kalendÄru"
 
 msgid "Export"
-msgstr "Eksportçt"
+msgstr "EksportÄ“t"
 
 msgid "February"
-msgstr "Februâris"
+msgstr "FebruÄris"
 
 msgid "Fr"
 msgstr "Pi"
@@ -250,73 +250,73 @@ msgid "Friday"
 msgstr "Piektdiena"
 
 msgid "Future"
-msgstr "Nâkotnç"
+msgstr "NÄkotnÄ“"
 
 msgid "Game"
-msgstr "Spçle"
+msgstr "SpÄ“le"
 
 msgid "Goto"
 msgstr "Iet uz"
 
 msgid "Help"
-msgstr "Palîdzîba"
+msgstr "PalÄ«dzÄ«ba"
 
 msgid "Hour(s)"
 msgstr "Stunda(s)"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "Ja ievelkam CSV datus: vai pirmâ rinda satur lauku vârdus?"
+msgstr "Ja ievelkam CSV datus: vai pirmÄ rinda satur lauku vÄrdus?"
 
 msgid "Illegal or malformed form data."
-msgstr "Nepieïaujami vai neveiksmîgi noformçti dati"
+msgstr "NepieÄ¼aujami vai neveiksmÄ«gi noformÄ“ti dati"
 
 msgid "Import Calendar"
-msgstr "Ievilkt kalendâru"
+msgstr "Ievilkt kalendÄru"
 
 msgid "Import"
 msgstr "Ievilkt"
 
 msgid "Import/Export Calendar"
-msgstr "Ievilkt/Eksportçt kalendâru"
+msgstr "Ievilkt/EksportÄ“t kalendÄru"
 
 msgid "Import/Export"
-msgstr "Ievilkt/Eksportçt"
+msgstr "Ievilkt/EksportÄ“t"
 
 msgid "Invalid category entered."
-msgstr "Nepareiza kategorija ievadîta"
+msgstr "Nepareiza kategorija ievadÄ«ta"
 
 msgid "January"
-msgstr "Janvâris"
+msgstr "JanvÄris"
 
 msgid "July"
-msgstr "Jûlijs"
+msgstr "JÅ«lijs"
 
 msgid "June"
-msgstr "Jûnija"
+msgstr "JÅ«nija"
 
 msgid "Keywords"
-msgstr "Atslçgvârdi"
+msgstr "AtslÄ“gvÄrdi"
 
 msgid "Kronolith is not properly configured"
-msgstr "Kronoltith nav pareizi nokonfigurçts"
+msgstr "Kronoltith nav pareizi nokonfigurÄ“ts"
 
 msgid "Language"
 msgstr "Valoda"
 
 msgid "Last Month"
-msgstr "Pçdçjais mçnesis"
+msgstr "PÄ“dÄ“jais mÄ“nesis"
 
 msgid "Last week"
-msgstr "Pçdçjâ nedçïa"
+msgstr "PÄ“dÄ“jÄ nedÄ“Ä¼a"
 
 msgid "Lasts"
-msgstr "Pçdçjâs(-ie)"
+msgstr "PÄ“dÄ“jÄs(-ie)"
 
 msgid "Limit the time span to export:"
-msgstr "Ierobeşot laika grafiku datu eksportam"
+msgstr "IerobeÅ¾ot laika grafiku datu eksportam"
 
 msgid "Location"
-msgstr "Atrağanâs"
+msgstr "AtraÅ¡anÄs"
 
 msgid "March"
 msgstr "Marts"
@@ -325,13 +325,13 @@ msgid "May"
 msgstr "Maijs"
 
 msgid "Meeting"
-msgstr "Tikğanâs"
+msgstr "TikÅ¡anÄs"
 
 msgid "Minute(s)"
-msgstr "Minûte(s)"
+msgstr "MinÅ«te(s)"
 
 msgid "Minutes"
-msgstr "Minûtes"
+msgstr "MinÅ«tes"
 
 msgid "Mo"
 msgstr "Pi"
@@ -340,10 +340,10 @@ msgid "Monday"
 msgstr "Pirmdiena"
 
 msgid "Month"
-msgstr "Mçnesis"
+msgstr "MÄ“nesis"
 
 msgid "Monthly: Recurs every"
-msgstr "Mçneğos: Atkârtoties katru"
+msgstr "MÄ“neÅ¡os: AtkÄrtoties katru"
 
 msgid "New Category"
 msgstr "Jauna kategorija"
@@ -352,16 +352,16 @@ msgid "New Event"
 msgstr "Jauns notikums"
 
 msgid "Next Month"
-msgstr "Nâkoğais mçnesis"
+msgstr "NÄkoÅ¡ais mÄ“nesis"
 
 msgid "Next day"
-msgstr "Nâkoğâ diena"
+msgstr "NÄkoÅ¡Ä diena"
 
 msgid "Next week"
-msgstr "Nâkoğâ nedçïa"
+msgstr "NÄkoÅ¡Ä nedÄ“Ä¼a"
 
 msgid "No configuration information specified for SQL Calendar."
-msgstr "Nav nekâdas informâcijas norâdîtas SQL kalendâram"
+msgstr "Nav nekÄdas informÄcijas norÄdÄ«tas SQL kalendÄram"
 
 msgid "No end date"
 msgstr "Nav beigu datuma"
@@ -373,8 +373,8 @@ msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"Piezîme: Ievilkğana nav iespçjama sakarâ ar konfigurâcijas failujo ir kïûda "
-"kalendâra dzinî"
+"PiezÄ«me: IevilkÅ¡ana nav iespÄ“jama sakarÄ ar konfigurÄcijas failujo ir kÄ¼Å«da "
+"kalendÄra dzinÄ«"
 
 msgid "November"
 msgstr "Novembris"
@@ -392,70 +392,70 @@ msgid "Pattern"
 msgstr "Veids"
 
 msgid "Permanently delete this event?"
-msgstr "Dzçst ğo notikumu pilnîbâ"
+msgstr "DzÄ“st Å¡o notikumu pilnÄ«bÄ"
 
 msgid "Please enter a name for the new category:"
-msgstr "Lûdzu ievadiet jaunâs kategorijas nosaukumu"
+msgstr "LÅ«dzu ievadiet jaunÄs kategorijas nosaukumu"
 
 msgid "Please enter a new name for this category:"
-msgstr "Lûdzu ievadiet jaunu kategorijas nosaukumu"
+msgstr "LÅ«dzu ievadiet jaunu kategorijas nosaukumu"
 
 msgid "Previous day"
-msgstr "Iepriekğçjâ diena"
+msgstr "IepriekÅ¡Ä“jÄ diena"
 
 msgid "Print"
-msgstr "Drukât"
+msgstr "DrukÄt"
 
 msgid "Problem?"
-msgstr "Problçma"
+msgstr "ProblÄ“ma"
 
 msgid "Recur Until"
-msgstr "Atkârtojas"
+msgstr "AtkÄrtojas"
 
 msgid "Recurrence Data"
-msgstr "Atkârtoğanâs datums"
+msgstr "AtkÄrtoÅ¡anÄs datums"
 
 msgid "Recurrence End Date"
-msgstr "Atkârtoğanâs iztecçjuma (beigu) datums"
+msgstr "AtkÄrtoÅ¡anÄs iztecÄ“juma (beigu) datums"
 
 msgid "Recurrence Interval"
-msgstr "Atkârtoğanâs intervâls"
+msgstr "AtkÄrtoÅ¡anÄs intervÄls"
 
 msgid "Recurrence Type"
-msgstr "Atkârtoğanâs laiks"
+msgstr "AtkÄrtoÅ¡anÄs laiks"
 
 msgid "Recurs daily"
-msgstr "Atkârtoties katru dienu"
+msgstr "AtkÄrtoties katru dienu"
 
 msgid "Recurs monthly"
-msgstr "Atkârtoties katru mçnesi"
+msgstr "AtkÄrtoties katru mÄ“nesi"
 
 msgid "Recurs not"
-msgstr "Neatkârtoties "
+msgstr "NeatkÄrtoties "
 
 msgid "Recurs weekly"
-msgstr "Atkârtoties ik nedçïu"
+msgstr "AtkÄrtoties ik nedÄ“Ä¼u"
 
 msgid "Recurs yearly"
-msgstr "Atkârtoties ik gadu"
+msgstr "AtkÄrtoties ik gadu"
 
 msgid "Rename"
-msgstr "Pârdçvçt"
+msgstr "PÄrdÄ“vÄ“t"
 
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "Nepiecieğamâ 'hostspec' nav norâdîta kalendâra konfigurâcijâ. "
+msgstr "NepiecieÅ¡amÄ 'hostspec' nav norÄdÄ«ta kalendÄra konfigurÄcijÄ. "
 
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "Nepiecieğamâ 'password' nav norâdîta kalendâra konfigurâcijâ."
+msgstr "NepiecieÅ¡amÄ 'password' nav norÄdÄ«ta kalendÄra konfigurÄcijÄ."
 
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "Nepiecieğamais 'phptype' nav norâdîts kalendâra konfigurâcijâ."
+msgstr "NepiecieÅ¡amais 'phptype' nav norÄdÄ«ts kalendÄra konfigurÄcijÄ."
 
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "Nepiecieğamais 'username' nav norâdîts kalendâra konfigurâcijâ"
+msgstr "NepiecieÅ¡amais 'username' nav norÄdÄ«ts kalendÄra konfigurÄcijÄ"
 
 msgid "Reset to Defaults"
-msgstr "Atiestatît noklusçjuma parametrus"
+msgstr "AtiestatÄ«t noklusÄ“juma parametrus"
 
 msgid "Sa"
 msgstr "Se"
@@ -464,80 +464,80 @@ msgid "Saturday"
 msgstr "Sestdiena"
 
 msgid "Save As New"
-msgstr "Saglabât kâ jaunu"
+msgstr "SaglabÄt kÄ jaunu"
 
 msgid "Save Event"
-msgstr "Saglabât notikumu"
+msgstr "SaglabÄt notikumu"
 
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
 msgstr ""
-"Izvçlieties apstiprinâjuma parametrus, izvçlîeties vienu no "
-"vairâkiemapskates (attçlojuma) veidiem."
+"IzvÄ“lieties apstiprinÄjuma parametrus, izvÄ“lÄ«eties vienu no "
+"vairÄkiemapskates (attÄ“lojuma) veidiem."
 
 msgid "Select how to display Dates:"
-msgstr "Izvçlieties kâ atspoguïot datumus:"
+msgstr "IzvÄ“lieties kÄ atspoguÄ¼ot datumus:"
 
 msgid "Select if to show due tasks in the calendar."
-msgstr "Izvçlieties ja râdît kopâ ar notikumiem kalendârâ."
+msgstr "IzvÄ“lieties ja rÄdÄ«t kopÄ ar notikumiem kalendÄrÄ."
 
 msgid "Select the file to import:"
-msgstr "Izvçlieties datni ko ielasît:"
+msgstr "IzvÄ“lieties datni ko ielasÄ«t:"
 
 msgid "Select the first weekday:"
-msgstr "Izvçlieties nedçïas pirmo dienu."
+msgstr "IzvÄ“lieties nedÄ“Ä¼as pirmo dienu."
 
 msgid "Select the format to export to:"
-msgstr "Izvçlieties formâtu kâdâ eksportçt:"
+msgstr "IzvÄ“lieties formÄtu kÄdÄ eksportÄ“t:"
 
 msgid "Select the source to import from:"
-msgstr "Izvçlieties no kurienes ielasît:"
+msgstr "IzvÄ“lieties no kurienes ielasÄ«t:"
 
 msgid "Select the time span to show:"
-msgstr "Izvçlieties laika sprîdi cik ilgi râdît:"
+msgstr "IzvÄ“lieties laika sprÄ«di cik ilgi rÄdÄ«t:"
 
 msgid "Select the view to display after login:"
-msgstr "Izvçlieties skatu ko râdît pçc autorizâcijas sistçmâ:"
+msgstr "IzvÄ“lieties skatu ko rÄdÄ«t pÄ“c autorizÄcijas sistÄ“mÄ:"
 
 msgid "Select which events to show in the Horde summary."
-msgstr "Izvçlieties kâdus notikumus râdît kopskatâ."
+msgstr "IzvÄ“lieties kÄdus notikumus rÄdÄ«t kopskatÄ."
 
 msgid "September"
 msgstr "Septembris"
 
 msgid "Set the current time zone."
-msgstr "Izvçlieties laika joslu"
+msgstr "IzvÄ“lieties laika joslu"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Izvçlieties valodu"
+msgstr "IzvÄ“lieties valodu"
 
 msgid "Set your preferred display language."
-msgstr "Iestatît noklusçto valodu"
+msgstr "IestatÄ«t noklusÄ“to valodu"
 
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr "Râdît "
+msgstr "RÄdÄ«t "
 
 msgid "Show due tasks in the calendar?"
-msgstr "Râdît ar notikumiem kalendârâ?"
+msgstr "RÄdÄ«t ar notikumiem kalendÄrÄ?"
 
 msgid "Show half hour slots in day and week views?"
-msgstr "Râdît ceturdaïkvadrâtiòus dienu un nedçïu skatos?"
+msgstr "RÄdÄ«t ceturdaÄ¼kvadrÄtiÅ†us dienu un nedÄ“Ä¼u skatos?"
 
 msgid "Show only events that have an alarm set?"
-msgstr "Râdît tikai notikumus ar atgâdinâjumu?"
+msgstr "RÄdÄ«t tikai notikumus ar atgÄdinÄjumu?"
 
 msgid "Some of Kronolith's configuration files are missing:"
-msgstr "Trûkst daşi no Kronolith konfigurâcijas failiem:"
+msgstr "TrÅ«kst daÅ¾i no Kronolith konfigurÄcijas failiem:"
 
 msgid "Start Date"
-msgstr "Sâkuma datums"
+msgstr "SÄkuma datums"
 
 msgid "Start On"
-msgstr "Sâksies"
+msgstr "SÄksies"
 
 msgid "Start Time"
-msgstr "Sâkuma laiks"
+msgstr "SÄkuma laiks"
 
 msgid "Su"
 msgstr "Sv"
@@ -546,7 +546,7 @@ msgid "Summary"
 msgstr "Kopsavilkums"
 
 msgid "Sunday"
-msgstr "Svçtdiena"
+msgstr "SvÄ“tdiena"
 
 msgid "Tasks"
 msgstr "Uzdevumi"
@@ -555,55 +555,55 @@ msgid "Th"
 msgstr "Ce"
 
 msgid "The Options window has closed. Exiting."
-msgstr "Iestatîjumu logs ticis aizvçrts. Atteikğanâs..."
+msgstr "IestatÄ«jumu logs ticis aizvÄ“rts. AtteikÅ¡anÄs..."
 
 msgid "The data was lost."
-msgstr "Dati tikuği pazaudçti."
+msgstr "Dati tikuÅ¡i pazaudÄ“ti."
 
 msgid "The end date must be later than the start date."
-msgstr "Beigu datumam ir jâbût vçlâk kâ sâkuma."
+msgstr "Beigu datumam ir jÄbÅ«t vÄ“lÄk kÄ sÄkuma."
 
 msgid "The file contained no data."
-msgstr "Datne nesatur nekâdus datus"
+msgstr "Datne nesatur nekÄdus datus"
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Problçmas ar datnes augğupielâdi. Iespçjams , ka datne ir lielâkakâ to "
-"atïauj servera parametri."
+"ProblÄ“mas ar datnes augÅ¡upielÄdi. IespÄ“jams , ka datne ir lielÄkakÄ to "
+"atÄ¼auj servera parametri."
 
 msgid "There was an error importing the data."
-msgstr "Kïûda ielasot datus"
+msgstr "KÄ¼Å«da ielasot datus"
 
 msgid "There was an error importing the uploaded file"
-msgstr "Kïûda ielasot augğupielâdçto datni"
+msgstr "KÄ¼Å«da ielasot augÅ¡upielÄdÄ“to datni"
 
 msgid "There were no events to export."
-msgstr "Nav notikumu ko eksportçt"
+msgstr "Nav notikumu ko eksportÄ“t"
 
 msgid "These changes can not be undone!"
-msgstr "Izmaiòas nevar atcelt!"
+msgstr "IzmaiÅ†as nevar atcelt!"
 
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Datne satur noklusçtos parametrus un nosaka kâdusparametrus lietotâjs drîkst "
-"mainît"
+"Datne satur noklusÄ“tos parametrus un nosaka kÄdusparametrus lietotÄjs drÄ«kst "
+"mainÄ«t"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
-msgstr "Datne satur stilus fontus un krâsas."
+msgstr "Datne satur stilus fontus un krÄsas."
 
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
-msgstr "Galvenâ konfigurâcijas datneSatur ceïus un opcijas visiem kodiem"
+msgstr "GalvenÄ konfigurÄcijas datneSatur ceÄ¼us un opcijas visiem kodiem"
 
 msgid "This window must be called from an Options window"
-msgstr "Ğo logu var aizvçrt no parametru loga"
+msgstr "Å o logu var aizvÄ“rt no parametru loga"
 
 msgid "Thursday"
 msgstr "Ceturdiena"
@@ -615,10 +615,10 @@ msgid "Title"
 msgstr "Nosaukums"
 
 msgid "Today"
-msgstr "Ğodiena"
+msgstr "Å odiena"
 
 msgid "Tomorrow"
-msgstr "Rîtdiena"
+msgstr "RÄ«tdiena"
 
 msgid "Tu"
 msgstr "Ot"
@@ -630,24 +630,24 @@ msgid "Type"
 msgstr "Tips"
 
 msgid "Unable to create calendar instance."
-msgstr "Navar izveidot kalendâra ierakstu"
+msgstr "Navar izveidot kalendÄra ierakstu"
 
 #, c-format
 msgid "Unable to delete %s."
-msgstr "Nevar neodzçst %s."
+msgstr "Nevar neodzÄ“st %s."
 
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "Nevar ielâdçt definîciju iekğ %s."
+msgstr "Nevar ielÄdÄ“t definÄ«ciju iekÅ¡ %s."
 
 msgid "Unfiled"
-msgstr "Neaizpildîts"
+msgstr "NeaizpildÄ«ts"
 
 msgid "User Interface"
-msgstr "Lietotâja skats"
+msgstr "LietotÄja skats"
 
 msgid "User Options"
-msgstr "Lietotâja parametri"
+msgstr "LietotÄja parametri"
 
 #, c-format
 msgid "View %s"
@@ -657,57 +657,57 @@ msgid "We"
 msgstr "Tr"
 
 msgid "Wednesday"
-msgstr "Treğdiena"
+msgstr "TreÅ¡diena"
 
 #, c-format
 msgid "Week %d"
-msgstr "Nedçïas %d"
+msgstr "NedÄ“Ä¼as %d"
 
 msgid "Week"
-msgstr "Nedçïa"
+msgstr "NedÄ“Ä¼a"
 
 #, c-format
 msgid "Week&nbsp;%d"
-msgstr "Nedçïa&nbsp;%d"
+msgstr "NedÄ“Ä¼a&nbsp;%d"
 
 msgid "Week(s)"
-msgstr "Nedçïa(s)"
+msgstr "NedÄ“Ä¼a(s)"
 
 msgid "Weekly: Recurs every"
-msgstr "Nedçïa: Atkârtoties katru"
+msgstr "NedÄ“Ä¼a: AtkÄrtoties katru"
 
 msgid ""
 "What time should day and week views end, when there are no later events?"
-msgstr "Kâdâ laikâ dienai un nedçïai jâbeidzas, ja nav citu ierakstu?"
+msgstr "KÄdÄ laikÄ dienai un nedÄ“Ä¼ai jÄbeidzas, ja nav citu ierakstu?"
 
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
-msgstr "Kâdâ laikâ dienai un nedçïai jâsâkas, ja nav citu ierakstu?"
+msgstr "KÄdÄ laikÄ dienai un nedÄ“Ä¼ai jÄsÄkas, ja nav citu ierakstu?"
 
 msgid "Work Week"
-msgstr "Darba nedçïa"
+msgstr "Darba nedÄ“Ä¼a"
 
 msgid "Yearly: Recurs every"
-msgstr "Ikgadus: Atkârtoties katru"
+msgstr "Ikgadus: AtkÄrtoties katru"
 
 msgid "You are creating a new category."
-msgstr "Jûs veidojat jaunu kategoriju."
+msgstr "JÅ«s veidojat jaunu kategoriju."
 
 msgid "You must choose a category."
-msgstr "Jums ir jâizvçlas kategorija"
+msgstr "Jums ir jÄizvÄ“las kategorija"
 
 msgid "Your Information"
-msgstr "Jûsu informâcija"
+msgstr "JÅ«su informÄcija"
 
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"Jûsu pârlûkprogramma nesaprot kâ var printçt automâtiski, nospiediet Ctrl + "
-"Plai drukâtu"
+"JÅ«su pÄrlÅ«kprogramma nesaprot kÄ var printÄ“t automÄtiski, nospiediet Ctrl + "
+"Plai drukÄtu"
 
 msgid "Your current time zone:"
-msgstr "Jûsu laika josla ir:"
+msgstr "JÅ«su laika josla ir:"
 
 msgid "[none]"
 msgstr "[nav]"
@@ -722,28 +722,28 @@ msgid "days"
 msgstr "dienas"
 
 msgid "iCalendar file successfully imported"
-msgstr "i-kalendârs sekmîgi ierakstîts"
+msgstr "i-kalendÄrs sekmÄ«gi ierakstÄ«ts"
 
 msgid "month(s)"
-msgstr "mçnesis(-ği)"
+msgstr "mÄ“nesis(-Å¡i)"
 
 msgid "no time"
 msgstr "laika nav"
 
 msgid "on the same date"
-msgstr "tajâ pağâ datumâ"
+msgstr "tajÄ paÅ¡Ä datumÄ"
 
 msgid "on the same weekday"
-msgstr "tajâ pağâ nedçïas dienâ"
+msgstr "tajÄ paÅ¡Ä nedÄ“Ä¼as dienÄ"
 
 msgid "week"
-msgstr "nedçïa"
+msgstr "nedÄ“Ä¼a"
 
 msgid "week(s) on:"
-msgstr "nedçlâ(-âs) :"
+msgstr "nedÄ“lÄ(-Äs) :"
 
 msgid "weeks"
-msgstr "nedçïas"
+msgstr "nedÄ“Ä¼as"
 
 msgid "year(s)"
 msgstr "gads(-i)"

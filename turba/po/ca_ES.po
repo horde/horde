@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jordi Giralt <projecte.k2@upcnet.es>\n"
 "Language-Team: Catalan <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/prefs/imsp_opt.inc:40
@@ -31,12 +31,12 @@ msgstr "\"%s\" ja existeix i no s'ha importat.  "
 #: browse.php:140
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
-msgstr "\"%s\" no ha estat copiat perquË Ès una llista."
+msgstr "\"%s\" no ha estat copiat perqu√® √©s una llista."
 
 #: browse.php:138
 #, php-format
 msgid "\"%s\" was not moved because it is a list."
-msgstr "\"%s\" no ha estat mogut perquË Ès una llista"
+msgstr "\"%s\" no ha estat mogut perqu√® √©s una llista"
 
 #: config/prefs.php.dist:137
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
@@ -68,7 +68,7 @@ msgstr "Llibreta d'adreces - %s"
 
 #: lib/Block/minisearch.php:42
 msgid "A browser that supports iFrames is required"
-msgstr "…s necessari un navegador que accepti iFrames "
+msgstr "√âs necessari un navegador que accepti iFrames "
 
 #: config/prefs.php.dist:160
 msgid "Above search form"
@@ -77,7 +77,7 @@ msgstr "El formulari de cerca anterior"
 #: view.php:52
 #, php-format
 msgid "Access denied to %s"
-msgstr "AccÈs denegat a %s."
+msgstr "Acc√©s denegat a %s."
 
 #: add.php:56 templates/browse/actions.inc:29
 msgid "Add"
@@ -139,11 +139,11 @@ msgstr "Llibretes d'adreces que no es mostraran: "
 
 #: search.php:88 templates/browse/search.inc:38
 msgid "Advanced Search"
-msgstr "Cerca avanÁada"
+msgstr "Cerca avan√ßada"
 
 #: config/attributes.php.dist:64
 msgid "Alias"
-msgstr "¿lies"
+msgstr "√Älies"
 
 #: templates/browse/footerAlpha.inc:7 templates/browse/footerAlpha.inc:10
 #: templates/browse/actions.inc:48
@@ -157,11 +157,11 @@ msgstr "Encara existeix"
 #: templates/browse/javascript.inc:93
 #, php-format
 msgid "Are you sure that you want to delete %s?"
-msgstr "Est‡ segur que desitja eliminar %s? "
+msgstr "Est√† segur que desitja eliminar %s? "
 
 #: templates/browse/javascript.inc:67
 msgid "Are you sure that you want to delete the selected entries?"
-msgstr "Est‡ segur que desitja eliminar les entrades seleccionades?"
+msgstr "Est√† segur que desitja eliminar les entrades seleccionades?"
 
 #: config/prefs.php.dist:96
 msgid "Ascending"
@@ -173,12 +173,12 @@ msgstr "Cerca simple"
 
 #: config/prefs.php.dist:159
 msgid "Below search form"
-msgstr "El formulari de cerca de mÈs avall"
+msgstr "El formulari de cerca de m√©s avall"
 
 #: lib/Driver/ldap.php:77 lib/Driver/ldap.php:80
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "…s impossible efectuar el vincle: (%s) %s"
+msgstr "√âs impossible efectuar el vincle: (%s) %s"
 
 #: config/attributes.php.dist:178
 msgid "Birthday"
@@ -251,14 +251,14 @@ msgstr "Empresa"
 
 #: config/attributes.php.dist:144
 msgid "Company Address"
-msgstr "AdreÁa de l'empresa"
+msgstr "Adre√ßa de l'empresa"
 
 #: lib/api.php:320 lib/api.php:365 lib/api.php:409 lib/api.php:515
 #: lib/api.php:641 lib/api.php:728 lib/api.php:781 lib/api.php:862
 #: lib/api.php:1059 lib/api.php:1147
 #, php-format
 msgid "Connection failed: %s"
-msgstr "…s impossible establir una connexiÛ: %s"
+msgstr "√âs impossible establir una connexi√≥: %s"
 
 #: lib/Driver/ldap.php:58
 msgid "Connection failure"
@@ -275,7 +275,7 @@ msgstr "Contactes de la llista: %s"
 
 #: templates/browse/actions.inc:18
 msgid "Copy"
-msgstr "CÚpia"
+msgstr "C√≤pia"
 
 #: templates/addressbooks.inc:54
 #, fuzzy
@@ -297,7 +297,7 @@ msgstr "Creat"
 
 #: config/prefs.php.dist:98
 msgid "Default sorting direction:"
-msgstr "DirecciÛ d'ordenaciÛ per defecte"
+msgstr "Direcci√≥ d'ordenaci√≥ per defecte"
 
 #: templates/addressbooks.inc:77 templates/browse/actions.inc:3
 #: lib/Object.php:328 lib/Renderer.php:47 lib/Renderer.php:50
@@ -310,16 +310,16 @@ msgstr "Elimina llibreta d'adreces"
 
 #: config/prefs.php.dist:38
 msgid "Delete Confirmation"
-msgstr "Opcions d'eliminaciÛ"
+msgstr "Opcions d'eliminaci√≥"
 
 #: config/prefs.php.dist:39
 msgid "Delete button behaviour"
-msgstr "Comportament del botÛ d'eliminar"
+msgstr "Comportament del bot√≥ d'eliminar"
 
 #: lib/Driver/ldap.php:270
 #, php-format
 msgid "Delete failed: (%s) %s"
-msgstr "No Ès possible eliminar: (%s) %s"
+msgstr "No √©s possible eliminar: (%s) %s"
 
 #: lib/Driver/null.php:62
 msgid "Deleting contacts is not available."
@@ -327,7 +327,7 @@ msgstr "No es pot eliminar contactes."
 
 #: delete.php:38
 msgid "Deletion failed"
-msgstr "No Ès possible fer la elimaciÛ"
+msgstr "No √©s possible fer la elimaci√≥"
 
 #: config/attributes.php.dist:213
 msgid "Department"
@@ -339,7 +339,7 @@ msgstr "Descendent"
 
 #: templates/addressbooks.inc:116
 msgid "Description"
-msgstr "DescripciÛ"
+msgstr "Descripci√≥"
 
 #: templates/browse/search.inc:119
 msgid "Directory"
@@ -347,12 +347,12 @@ msgstr "Directori"
 
 #: config/prefs.php.dist:24
 msgid "Display"
-msgstr "VisualitzaciÛ per defecte"
+msgstr "Visualitzaci√≥ per defecte"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
 #: config/prefs.php.dist:30
 msgid "Display Options"
-msgstr "Opcions de visualitzaciÛ"
+msgstr "Opcions de visualitzaci√≥"
 
 #: config/prefs.php.dist:177
 msgid "Do you want to confirm deleting entries?"
@@ -388,59 +388,59 @@ msgstr "Modificar l'entrada per a %s "
 
 #: config/attributes.php.dist:58
 msgid "Email"
-msgstr "Correu electrÚnic"
+msgstr "Correu electr√≤nic"
 
 #: edit.php:154
 #, php-format
 msgid "Entry for %s updated, but saving the uploaded file failed: %s"
 msgstr ""
-"S'ha actualitzat l'entrada de %s, perÚ no s'ha pogut guardar l'arxiu "
+"S'ha actualitzat l'entrada de %s, per√≤ no s'ha pogut guardar l'arxiu "
 "carregat: %s "
 
 #: edit.php:156 edit.php:159
 #, php-format
 msgid "Entry for %s updated."
-msgstr "L'entrada per a %s est‡ actualitzada"
+msgstr "L'entrada per a %s est√† actualitzada"
 
 #: browse.php:216 browse.php:264
 #, php-format
 msgid "Error adding %d contact(s) to list."
-msgstr "S'ha produÔt un error a l'afegir %d contacte(s) a la llista. "
+msgstr "S'ha produ√Øt un error a l'afegir %d contacte(s) a la llista. "
 
 #: browse.php:218 browse.php:266
 #, php-format
 msgid "Error adding %d of %d requested contact(s) to list."
 msgstr ""
-"S'ha produÔt un error a l'afegir %d de %d contacte(s) sol∑licitat(s) a la "
+"S'ha produ√Øt un error a l'afegir %d de %d contacte(s) sol¬∑licitat(s) a la "
 "llista. "
 
 #: browse.php:86
 #, php-format
 msgid "Error deleting %d contact(s)."
-msgstr "S'ha produÔt un error a l'eliminar %d contacte(s). "
+msgstr "S'ha produ√Øt un error a l'eliminar %d contacte(s). "
 
 #: browse.php:88
 #, php-format
 msgid "Error deleting %d of %d requested contacts(s)."
 msgstr ""
-"Es va produir un error a l'eliminar %d de %d contacte(s) sol∑licitat(s). "
+"Es va produir un error a l'eliminar %d de %d contacte(s) sol¬∑licitat(s). "
 
 #: browse.php:66
 #, php-format
 msgid "Error removing %d contact(s) from list."
-msgstr "S'ha produÔt un error a l'eliminar %d contacte(s) de la llista. "
+msgstr "S'ha produ√Øt un error a l'eliminar %d contacte(s) de la llista. "
 
 #: browse.php:68
 #, php-format
 msgid "Error removing %d of %d requested contact(s) from list."
 msgstr ""
-"S'ha produÔt un error a l'eliminar %d de %d contacte(s) sol∑licitat(s) de la "
+"S'ha produ√Øt un error a l'eliminar %d de %d contacte(s) sol¬∑licitat(s) de la "
 "llista. "
 
 #: lib/api.php:415
 #, php-format
 msgid "Error searching the address book: %s"
-msgstr "S'ha produÔt un error buscant en la llibreta d'adreces: %s"
+msgstr "S'ha produ√Øt un error buscant en la llibreta d'adreces: %s"
 
 #: templates/browse/actions.inc:10 templates/data/export.inc:41
 msgid "Export"
@@ -452,41 +452,41 @@ msgstr "Exporta la llibreta d'adreces"
 
 #: templates/data/export.inc:21
 msgid "Export only the selected contacts."
-msgstr "Exporta nomÈs els contactes seleccionats"
+msgstr "Exporta nom√©s els contactes seleccionats"
 
 #: templates/data/export.inc:27
 msgid "Export the following address book completely."
-msgstr "Exporta tota la llibreta d'adreces seg¸ent"
+msgstr "Exporta tota la llibreta d'adreces seg√ºent"
 
 #: data.php:134 data.php:228 data.php:297 browse.php:35 browse.php:103
 #: browse.php:130 add.php:67 search.php:37
 #, php-format
 msgid "Failed to access the address book: %s"
-msgstr "…s impossible accedir a la libreta d'adreces: %s."
+msgstr "√âs impossible accedir a la libreta d'adreces: %s."
 
 #: browse.php:158
 #, php-format
 msgid "Failed to add %s to %s: %s"
-msgstr "…s impossible afegir %s a %s: %s"
+msgstr "√âs impossible afegir %s a %s: %s"
 
 #: browse.php:312
 msgid "Failed to browse list"
-msgstr "…s impossible examinar la llista"
+msgstr "√âs impossible examinar la llista"
 
 #: browse.php:350
 msgid "Failed to browse the directory"
-msgstr "…s impossible examinar el directori"
+msgstr "√âs impossible examinar el directori"
 
 #: lib/Driver/ldap.php:309
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr ""
-"…s impossible canviar el nom: (%s) %s; DN antic = %s, DN nou = %s, arrel = %s"
+"√âs impossible canviar el nom: (%s) %s; DN antic = %s, DN nou = %s, arrel = %s"
 
 #: browse.php:134
 #, php-format
 msgid "Failed to find object to be added: %s"
-msgstr "…s impossible trobar l'objecte que s'ha d'afegir: %s"
+msgstr "√âs impossible trobar l'objecte que s'ha d'afegir: %s"
 
 #: search.php:79
 msgid "Failed to search the address book"
@@ -495,7 +495,7 @@ msgstr "No es pot buscar en la llibreta d'adreces "
 #: data.php:149
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "…s impossible cercar al directori: %s"
+msgstr "√âs impossible cercar al directori: %s"
 
 #: config/attributes.php.dist:167
 msgid "Fax"
@@ -537,7 +537,7 @@ msgstr "Grup"
 
 #: config/attributes.php.dist:82
 msgid "Home Address"
-msgstr "AdreÁa personal"
+msgstr "Adre√ßa personal"
 
 #: config/attributes.php.dist:93
 msgid "Home City"
@@ -545,11 +545,11 @@ msgstr "Ciutat natal"
 
 #: config/attributes.php.dist:108
 msgid "Home Country"
-msgstr "PaÌs natal"
+msgstr "Pa√≠s natal"
 
 #: config/attributes.php.dist:150
 msgid "Home Phone"
-msgstr "TelËfon particular"
+msgstr "Tel√®fon particular"
 
 #: config/attributes.php.dist:103
 msgid "Home Postal Code"
@@ -557,15 +557,15 @@ msgstr "Codi postal"
 
 #: config/attributes.php.dist:98
 msgid "Home State/Province"
-msgstr "ProvÌncia/estat natal"
+msgstr "Prov√≠ncia/estat natal"
 
 #: config/attributes.php.dist:88
 msgid "Home Street Address"
-msgstr "AdreÁa personal"
+msgstr "Adre√ßa personal"
 
 #: config/prefs.php.dist:47
 msgid "IMSP Address Book Administration"
-msgstr "AdministraciÛ de llibreta d'adreces IMSP "
+msgstr "Administraci√≥ de llibreta d'adreces IMSP "
 
 #: templates/data/import.inc:7
 #, php-format
@@ -578,44 +578,44 @@ msgstr "Importar/Exportar les llibretes d'adreces"
 
 #: lib/api.php:636 lib/api.php:723
 msgid "Invalid ID"
-msgstr "La identificaciÛ no Ès v‡lida."
+msgstr "La identificaci√≥ no √©s v√†lida."
 
 #: lib/api.php:232 lib/api.php:404 lib/api.php:447 lib/api.php:481
 #: lib/api.php:510 lib/api.php:632 lib/api.php:719 lib/api.php:771
 #: lib/api.php:1130
 msgid "Invalid address book"
-msgstr "La llibreta d'adreces no Ès v‡lida."
+msgstr "La llibreta d'adreces no √©s v√†lida."
 
 #: lib/api.php:1134 lib/api.php:1208 lib/api.php:1261
 msgid "Invalid email"
-msgstr "L'adreÁa electrÚnica no Ès v‡lida."
+msgstr "L'adre√ßa electr√≤nica no √©s v√†lida."
 
 #: lib/api.php:1142
 msgid "Invalid entry"
-msgstr "L'entrada no Ès v‡lida."
+msgstr "L'entrada no √©s v√†lida."
 
 #: lib/Driver/ldap.php:266
 msgid "Invalid key specified."
-msgstr "La clau especificada no Ès v‡lida."
+msgstr "La clau especificada no √©s v√†lida."
 
 #: lib/api.php:1138
 msgid "Invalid name"
-msgstr "El nom no Ès v‡lid."
+msgstr "El nom no √©s v√†lid."
 
 #: lib/api.php:775
 msgid "Invalid objectId"
-msgstr "El ID de l'objecte no Ès v‡lid."
+msgstr "El ID de l'objecte no √©s v√†lid."
 
 #: lib/Driver/ldap.php:30
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"…s necessari el LDAP, perÚ el mÚdul LDAP no est‡ disponible o no est‡ "
+"√âs necessari el LDAP, per√≤ el m√≤dul LDAP no est√† disponible o no est√† "
 "carregat."
 
 #: lib/ObjectView.php:138
 msgid "Last Modified"
-msgstr "Darrera modificaciÛ"
+msgstr "Darrera modificaci√≥"
 
 #: config/attributes.php.dist:53
 msgid "Last Name"
@@ -631,33 +631,33 @@ msgstr "Que coincideixi amb"
 
 #: lib/api.php:207
 msgid "Maximum Number of Contacts"
-msgstr "Nombre m‡xim de Contactes "
+msgstr "Nombre m√†xim de Contactes "
 
 #: config/prefs.php.dist:107
 msgid "Maximum number of pages"
-msgstr "Nombre m‡xim de p‡gines"
+msgstr "Nombre m√†xim de p√†gines"
 
 #: lib/Block/tree_menu.php:3
 #, fuzzy
 msgid "Menu List"
-msgstr "Llista de men˙"
+msgstr "Llista de men√∫"
 
 #: lib/Driver/ldap.php:302
 msgid "Missing DN in LDAP source configuration."
-msgstr "Falta el DN a la configuraciÛ de la font del LDAP"
+msgstr "Falta el DN a la configuraci√≥ de la font del LDAP"
 
 #: config/attributes.php.dist:162
 msgid "Mobile Phone"
-msgstr "TelËfon mÚbil"
+msgstr "Tel√®fon m√≤bil"
 
 #: lib/Driver/ldap.php:331 lib/Driver/ldap.php:347
 #, php-format
 msgid "Modify failed: (%s) %s"
-msgstr "…s impossible modificar: (%s) %s"
+msgstr "√âs impossible modificar: (%s) %s"
 
 #: lib/api.php:1247
 msgid "More than 1 entry found"
-msgstr "S'ha trobat mÈs d'una entrada."
+msgstr "S'ha trobat m√©s d'una entrada."
 
 #: templates/browse/actions.inc:16
 msgid "Move"
@@ -666,12 +666,12 @@ msgstr "Mou"
 #: templates/prefs/columnselect.inc:247
 #: templates/prefs/addressbookselect.inc:184
 msgid "Move left"
-msgstr "DesplaÁa a l'esquerra"
+msgstr "Despla√ßa a l'esquerra"
 
 #: templates/prefs/columnselect.inc:249
 #: templates/prefs/addressbookselect.inc:186
 msgid "Move right"
-msgstr "DesplaÁa a la dreta"
+msgstr "Despla√ßa a la dreta"
 
 #: data.php:52 templates/data/import.inc:16
 msgid "Mulberry Address Book"
@@ -682,7 +682,7 @@ msgstr "Llibreta d'adreces de Mulberry"
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr ""
-"Diverses persones amb l'adreÁa [%s], perÚ encara no n'hi ha cap amb el nom [%"
+"Diverses persones amb l'adre√ßa [%s], per√≤ encara no n'hi ha cap amb el nom [%"
 "s]"
 
 #: config/sources.php.dist:112 config/sources.php.dist:248
@@ -711,7 +711,7 @@ msgstr "Nou contacte"
 
 #: edit.php:95 edit.php:102 edit.php:209 templates/data/import.inc:45
 msgid "Next"
-msgstr "Seg¸ent"
+msgstr "Seg√ºent"
 
 #: config/attributes.php.dist:218
 msgid "Nickname"
@@ -744,7 +744,7 @@ msgstr "Notes"
 
 #: config/prefs.php.dist:115
 msgid "Number of items per page"
-msgstr "Nombre d'Ìtems per p‡gina"
+msgstr "Nombre d'√≠tems per p√†gina"
 
 #: lib/api.php:654 lib/api.php:787
 msgid "Object not found"
@@ -760,13 +760,13 @@ msgid ""
 "deleted. If this is not what you want, then you must change your selection "
 "to \"None\"."
 msgstr ""
-"Una vegada guardi aquesta p‡gina d'opcions, la llibreta d'adreces "
-"s'esborrar‡ definitivament. Si no Ès el que desitja, hauria de canviar la "
-"selecciÛ a \"Cap\". "
+"Una vegada guardi aquesta p√†gina d'opcions, la llibreta d'adreces "
+"s'esborrar√† definitivament. Si no √©s el que desitja, hauria de canviar la "
+"selecci√≥ a \"Cap\". "
 
 #: lib/api.php:814
 msgid "Only one vcard supported."
-msgstr "NomÈs es suporta el format vcard."
+msgstr "Nom√©s es suporta el format vcard."
 
 #: config/prefs.php.dist:37 config/prefs.php.dist:46
 msgid "Other Options"
@@ -774,16 +774,16 @@ msgstr "Altres opcions"
 
 #: config/attributes.php.dist:190
 msgid "PGP Public Key"
-msgstr "Clau p˙blica PGP"
+msgstr "Clau p√∫blica PGP"
 
 #: lib/api.php:519 lib/api.php:645 lib/api.php:732 lib/api.php:987
 #: lib/api.php:1151
 msgid "Permission Denied"
-msgstr "PermÌs denegat"
+msgstr "Perm√≠s denegat"
 
 #: lib/Driver.php:551
 msgid "Permission denied"
-msgstr "PermÌs denegat"
+msgstr "Perm√≠s denegat"
 
 #: templates/addressbooks.inc:100
 #, fuzzy
@@ -809,16 +809,16 @@ msgstr "Llibreta d'adreces privada"
 #: lib/Driver/ldap.php:147
 #, php-format
 msgid "Query failed: (%s) %s"
-msgstr "…s impossible fer la consulta: (%s) %s"
+msgstr "√âs impossible fer la consulta: (%s) %s"
 
 #: templates/block/minisearch.inc:15
 msgid "Quick Search"
-msgstr "Cerca r‡pida"
+msgstr "Cerca r√†pida"
 
 #: lib/Driver/ldap.php:191 lib/Driver/ldap.php:199 lib/Driver/ldap.php:428
 #, php-format
 msgid "Read failed: (%s) %s"
-msgstr "…s impossible fer la lectura: (%s) %s"
+msgstr "√âs impossible fer la lectura: (%s) %s"
 
 #: lib/Driver/null.php:52
 msgid "Reading contacts is not available."
@@ -849,12 +849,12 @@ msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"Substituir la llibreta existent per la importada? <strong> Advertiment: …sto "
-"eliminar‡ totes les entrades de la seva llibreta d'adreces actual. </strong>"
+"Substituir la llibreta existent per la importada? <strong> Advertiment: √âsto "
+"eliminar√† totes les entrades de la seva llibreta d'adreces actual. </strong>"
 
 #: lib/Driver.php:439
 msgid "Requested object not found."
-msgstr "No s'ha trobat l'objecte sol∑licitat"
+msgstr "No s'ha trobat l'objecte sol¬∑licitat"
 
 #: add.php:37 templates/browse/search.inc:114
 msgid "Reset to Defaults"
@@ -862,7 +862,7 @@ msgstr "Restaura els valors predeterminats"
 
 #: config/attributes.php.dist:196
 msgid "S/MIME Public Certificate"
-msgstr "Certificat S/MIME p˙blic"
+msgstr "Certificat S/MIME p√∫blic"
 
 #: lib/Driver/ldap.php:69
 #, php-format
@@ -918,11 +918,11 @@ msgstr "Seleccioni la llibreta d'adreces a la qual importar: "
 
 #: templates/data/import.inc:35
 msgid "Select the charset of the source file:"
-msgstr "Seleccioni el joc de car‡cters de l'arxiu origen:"
+msgstr "Seleccioni el joc de car√†cters de l'arxiu origen:"
 
 #: templates/data/export.inc:10
 msgid "Select the export format:"
-msgstr "Seleccioni el format d'exportaciÛ: "
+msgstr "Seleccioni el format d'exportaci√≥: "
 
 #: templates/data/import.inc:43
 msgid "Select the file to import:"
@@ -938,7 +938,7 @@ msgstr "Seleccioni el format usat per a mostrar els noms: "
 
 #: config/prefs.php.dist:25
 msgid "Select view to display by default, sort options, and paging options."
-msgstr "Seleccioneu la visualitzaciÛ que es mostra per defecte. "
+msgstr "Seleccioneu la visualitzaci√≥ que es mostra per defecte. "
 
 #: config/prefs.php.dist:18
 msgid "Select which fields to display in the address lists."
@@ -977,7 +977,7 @@ msgstr "Mostra llistes"
 #: templates/browse/column_headers.inc:21
 #: templates/browse/column_headers.inc:36
 msgid "Sort Direction"
-msgstr "Ordre de classificaciÛ"
+msgstr "Ordre de classificaci√≥"
 
 #: lib/api.php:200
 msgid "Sources"
@@ -985,7 +985,7 @@ msgstr "Fonts"
 
 #: config/prefs.php.dist:158
 msgid "Specify where you want advanced search results to appear."
-msgstr "Indiqui on desitja que apareguin els resultats de la cerca avanÁada.  "
+msgstr "Indiqui on desitja que apareguin els resultats de la cerca avan√ßada.  "
 
 #: browse.php:214 browse.php:262
 #, php-format
@@ -1022,7 +1022,7 @@ msgstr "Valors separats per tabuladors"
 
 #: view.php:15
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Cal configurar el motor VFS per a permetre la c‡rrega d'adjunts. "
+msgstr "Cal configurar el motor VFS per a permetre la c√†rrega d'adjunts. "
 
 #: lib/Driver.php:1077
 #, php-format
@@ -1051,7 +1051,7 @@ msgstr "No s'ha pogut buidar la llibreta d'adreces: %s"
 
 #: edit.php:51 vcard.php:22 display.php:23 view.php:26
 msgid "The contact you requested does not exist."
-msgstr "El contacte sol∑licitat no existeix. "
+msgstr "El contacte sol¬∑licitat no existeix. "
 
 #: edit.php:123
 #, php-format
@@ -1060,7 +1060,7 @@ msgstr "S'ha eliminat correctament el fitxer \"%s\". "
 
 #: data.php:284
 msgid "The import can be finished despite the warnings."
-msgstr "Es pot completar la importaciÛ a pesar dels avisos. "
+msgstr "Es pot completar la importaci√≥ a pesar dels avisos. "
 
 #: browse.php:31
 msgid "There are no browseable address books."
@@ -1072,9 +1072,9 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"No hi ha llibretes d'adreces en quË es pugui escriure. Cap de les llibretes "
-"d'adreces disponibles no est‡ configurada perquË hi pugueu afegir noves "
-"entrades. Si considereu que aixÚ Ès un error, contacteu amb l'administrador "
+"No hi ha llibretes d'adreces en qu√® es pugui escriure. Cap de les llibretes "
+"d'adreces disponibles no est√† configurada perqu√® hi pugueu afegir noves "
+"entrades. Si considereu que aix√≤ √©s un error, contacteu amb l'administrador "
 "de sistemes."
 
 #: add.php:121
@@ -1082,8 +1082,8 @@ msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
 msgstr ""
-"S'ha produÔt un error a l'afegir el contacte. Contacti a l'administrador de "
-"sistemes per a mÈs informaciÛ. "
+"S'ha produ√Øt un error a l'afegir el contacte. Contacti a l'administrador de "
+"sistemes per a m√©s informaci√≥. "
 
 #: browse.php:271
 msgid "There was an error creating a new list."
@@ -1092,13 +1092,13 @@ msgstr "Hi ha hagut un error en crear una nova llista."
 #: addressbooks.php:38
 #, php-format
 msgid "There was an error creating this address book: %s"
-msgstr "S'ha produÔt un error al crear aquesta llibreta d'adreces: %s "
+msgstr "S'ha produ√Øt un error al crear aquesta llibreta d'adreces: %s "
 
 #: browse.php:166
 #, php-format
 msgid "There was an error deleting \"%s\" from the source address book."
 msgstr ""
-"S'ha produÔt un error a l'eliminar \"%s\" de la llibreta d'adreces origen. "
+"S'ha produ√Øt un error a l'eliminar \"%s\" de la llibreta d'adreces origen. "
 
 #: delete.php:37
 #, php-format
@@ -1107,7 +1107,7 @@ msgstr "Hi ha hagut un error en eliminar aquest contacte: %s."
 
 #: browse.php:318
 msgid "There was an error displaying the list"
-msgstr "S'ha produÔt un error al mostrar la llista "
+msgstr "S'ha produ√Øt un error al mostrar la llista "
 
 #: data.php:335
 #, php-format
@@ -1121,12 +1121,12 @@ msgstr "Hi ha hagut un error en importar les dades iCalendar."
 #: addressbooks.php:58 addressbooks.php:63 addressbooks.php:69
 #, php-format
 msgid "There was an error removing this address book: %s"
-msgstr "S'ha produÔt un error a l'eliminar aquesta llibreta d'adreces: %s "
+msgstr "S'ha produ√Øt un error a l'eliminar aquesta llibreta d'adreces: %s "
 
 #: addressbooks.php:87
 #, php-format
 msgid "There was an error updating this address book: %s"
-msgstr "S'ha produÔt un error a l'actualitzar aquesta llibreta d'adreces: %s "
+msgstr "S'ha produ√Øt un error a l'actualitzar aquesta llibreta d'adreces: %s "
 
 #: edit.php:165
 #, php-format
@@ -1147,21 +1147,21 @@ msgstr "Aquestes columnes es mostraran en aquest ordre"
 
 #: data.php:269
 msgid "This file format is not supported."
-msgstr "No Ès possible utilitzar aquest format d'arxiu"
+msgstr "No √©s possible utilitzar aquest format d'arxiu"
 
 #: lib/api.php:1175 lib/api.php:1188
 #, php-format
 msgid "This person already has a %s entry in the address book"
-msgstr "Aquesta persona ja tÈ una entrada %s en la llibreta d'adreces."
+msgstr "Aquesta persona ja t√© una entrada %s en la llibreta d'adreces."
 
 #: config/prefs.php.dist:148
 msgid ""
 "This will be the default address book when adding or importing contacts."
-msgstr "Aquesta ser‡ la llibreta per omissiÛ a l'afegir o importar contactes. "
+msgstr "Aquesta ser√† la llibreta per omissi√≥ a l'afegir o importar contactes. "
 
 #: config/attributes.php.dist:70
 msgid "Title"
-msgstr "TÌtol"
+msgstr "T√≠tol"
 
 #: lib/Turba.php:443
 #, php-format
@@ -1171,7 +1171,7 @@ msgstr "No es pot crear un nou \"share\". Falta el tipus d'origen. "
 #: lib/Driver.php:1001
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "No s'ha pogut carregar la definiciÛ de %s."
+msgstr "No s'ha pogut carregar la definici√≥ de %s."
 
 #: edit.php:95 edit.php:98 edit.php:101 edit.php:106 edit.php:203
 msgid "Undo Changes"
@@ -1205,7 +1205,7 @@ msgstr "URL del web"
 
 #: config/attributes.php.dist:113
 msgid "Work Address"
-msgstr "AdreÁa de la feina"
+msgstr "Adre√ßa de la feina"
 
 #: config/attributes.php.dist:124
 msgid "Work City"
@@ -1213,11 +1213,11 @@ msgstr "Ciutat de la feina"
 
 #: config/attributes.php.dist:139
 msgid "Work Country"
-msgstr "PaÌs de la feina"
+msgstr "Pa√≠s de la feina"
 
 #: config/attributes.php.dist:156
 msgid "Work Phone"
-msgstr "TelËfon de la feina"
+msgstr "Tel√®fon de la feina"
 
 #: config/attributes.php.dist:134
 msgid "Work Postal Code"
@@ -1225,24 +1225,24 @@ msgstr "Codi postal de la feina"
 
 #: config/attributes.php.dist:129
 msgid "Work State/Province"
-msgstr "ProvÌncia/estat de la feina"
+msgstr "Prov√≠ncia/estat de la feina"
 
 #: config/attributes.php.dist:119
 msgid "Work Street Address"
-msgstr "AdreÁa de la feina"
+msgstr "Adre√ßa de la feina"
 
 #: data.php:237 browse.php:106 browse.php:227 add.php:73
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
-msgstr "No disposa de permisos per a crear mÈs de %d contactes en \"%s\". "
+msgstr "No disposa de permisos per a crear m√©s de %d contactes en \"%s\". "
 
 #: edit.php:73 display.php:52 view.php:36
 msgid "You do not have permission to view this contact."
-msgstr "No est‡ autoritzat a visualitzar aquest contacte."
+msgstr "No est√† autoritzat a visualitzar aquest contacte."
 
 #: vcard.php:40
 msgid "You do not have permission to view this object."
-msgstr "No est‡ autoritzat a visualitzar aquest objecte."
+msgstr "No est√† autoritzat a visualitzar aquest objecte."
 
 #: lib/Turba.php:531
 msgid "You do not have permissions to delete this source."
@@ -1250,11 +1250,11 @@ msgstr "No disposa de privilegis per a eliminar aquest origen."
 
 #: templates/browse/javascript.inc:55
 msgid "You must select a target address book."
-msgstr "Ha de seleccionar una llibreta d'adreces de destinaciÛ."
+msgstr "Ha de seleccionar una llibreta d'adreces de destinaci√≥."
 
 #: templates/browse/javascript.inc:23
 msgid "You must select a target list."
-msgstr "Ha de seleccionar una llista de destinaciÛ."
+msgstr "Ha de seleccionar una llista de destinaci√≥."
 
 #: edit.php:32
 msgid "You must select at least one contact first."
@@ -1263,15 +1263,15 @@ msgstr "Primer ha de seleccionar almenys un contacte. "
 #: templates/browse/javascript.inc:17 templates/browse/javascript.inc:49
 #: templates/browse/javascript.inc:72
 msgid "You must select at least one entry first."
-msgstr "Primer ha de seleccionar com a mÌnim una entrada."
+msgstr "Primer ha de seleccionar com a m√≠nim una entrada."
 
 #: edit.php:77
 msgid "You only have permission to view this contact."
-msgstr "NomÈs est‡ autoritzat a visualitzar aquest contacte."
+msgstr "Nom√©s est√† autoritzat a visualitzar aquest contacte."
 
 #: browse.php:325
 msgid "Your default address book is not browseable."
-msgstr "La llibreta per omissiÛ no es pot fullejar. "
+msgstr "La llibreta per omissi√≥ no es pot fullejar. "
 
 #: templates/browse/row.inc:6 templates/browse/contactrow.inc:12
 msgid "[no value]"

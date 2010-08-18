@@ -1,5 +1,5 @@
 # Danish translations for Passwd package
-# Danske oversættelser for pakke Passwd
+# Danske oversÃ¦ttelser for pakke Passwd
 # Copyright 2003-2009 The Horde Project
 # This file is distributed under the same license as the Passwd package.
 # Anders Bruun Olsen <anders@bruun-olsen.net>, 2003.
@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -26,7 +26,7 @@ msgstr "%s findes ikke eller er ikke eksekverbar."
 #: lib/Driver/composite.php:65
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: kan ikke indlæse driver: %s"
+msgstr "%s: kan ikke indlÃ¦se driver: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
@@ -35,7 +35,7 @@ msgstr "ADSI fejl %s."
 
 #: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
 msgid "Access Denied."
-msgstr "Adgang nægtet."
+msgstr "Adgang nÃ¦gtet."
 
 #: lib/Driver.php:85
 msgid "Backend not correctly implemented."
@@ -47,7 +47,7 @@ msgstr "Skift kodeord"
 
 #: templates/main/main.inc:127
 msgid "Change password on:"
-msgstr "Skift kodeord på:"
+msgstr "Skift kodeord pÃ¥:"
 
 #: templates/main/main.inc:62
 msgid "Change your password"
@@ -56,11 +56,11 @@ msgstr "Skift dit kodeord"
 #: templates/main/main.inc:69
 #, php-format
 msgid "Changing password on %s"
-msgstr "Skifter kodeord på %s"
+msgstr "Skifter kodeord pÃ¥ %s"
 
 #: templates/main/main.inc:114
 msgid "Confirm new password:"
-msgstr "Bekræft nyt kodeord:"
+msgstr "BekrÃ¦ft nyt kodeord:"
 
 #: lib/Driver/kolab.php:54 lib/Driver/ldap.php:99 lib/Driver/ldap.php:189
 msgid "Could not bind to LDAP server"
@@ -68,11 +68,11 @@ msgstr "Kunne ikke koble til LDAP-server"
 
 #: lib/Driver/kolab.php:46 lib/Driver/ldap.php:74
 msgid "Could not connect to LDAP server"
-msgstr "Kunne ikke opnå forbindelse til LDAP-server"
+msgstr "Kunne ikke opnÃ¥ forbindelse til LDAP-server"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "Kunne ikke åbne forbindelse til smbpasswd."
+msgstr "Kunne ikke Ã¥bne forbindelse til smbpasswd."
 
 #: lib/Driver/ldap.php:80
 msgid "Could not start TLS connection to LDAP server"
@@ -80,7 +80,7 @@ msgstr "Kunne ikke start TLS-forbindelse til LDAP-server"
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
-msgstr "Fejl ved dataoverførsel til smbpasswd."
+msgstr "Fejl ved dataoverfÃ¸rsel til smbpasswd."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
@@ -89,7 +89,7 @@ msgstr "Kontrol af gammelt kodeord fejlede."
 #: main.php:211 lib/Driver/composite.php:104
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "Der skete en fejl ved ændring af kodeord på %s: %s"
+msgstr "Der skete en fejl ved Ã¦ndring af kodeord pÃ¥ %s: %s"
 
 #: lib/Driver.php:56 lib/Driver/kolab.php:78 lib/Driver/ldap.php:190
 #: lib/Driver/poppassd.php:114 lib/Driver/vmailmgr.php:42
@@ -98,7 +98,7 @@ msgstr "Forkert kodeord"
 
 #: lib/Driver/ldap.php:166
 msgid "Minimum password age has not yet expired"
-msgstr "Minimum kodeordsalder er endnu ikke udstået"
+msgstr "Minimum kodeordsalder er endnu ikke udstÃ¥et"
 
 #: templates/main/main.inc:102
 msgid "New password:"
@@ -124,7 +124,7 @@ msgstr "Passwd-modulet er ikke sat korrekt op."
 #: main.php:203
 #, php-format
 msgid "Password changed on %s."
-msgstr "Kodeord er skiftet på %s."
+msgstr "Kodeord er skiftet pÃ¥ %s."
 
 #: lib/Driver/sql.php:127
 #, php-format
@@ -137,11 +137,11 @@ msgstr "Passwd-modulet kan ikke finde den angivne <code>bin</code>."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Passwd-modulet mangler krævede parametre."
+msgstr "Passwd-modulet mangler krÃ¦vede parametre."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Passwd-modulet mangler mål-parametre."
+msgstr "Passwd-modulet mangler mÃ¥l-parametre."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
@@ -157,23 +157,23 @@ msgstr "Du skal angive et nyt kodeord"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Indtast venligst dit nuværende kodeord"
+msgstr "Indtast venligst dit nuvÃ¦rende kodeord"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Du skal bekræfte dit nye kodeord"
+msgstr "Du skal bekrÃ¦fte dit nye kodeord"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "Påkrævet 'drivers' er forkert konfigureret i Composite-konfiguration."
+msgstr "PÃ¥krÃ¦vet 'drivers' er forkert konfigureret i Composite-konfiguration."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Påkrævet 'phptype' er ikke specificeret i Passwd SQL-opsætning."
+msgstr "PÃ¥krÃ¦vet 'phptype' er ikke specificeret i Passwd SQL-opsÃ¦tning."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Påkrævet 'phptype' er ikke specificeret i SQL opsætning"
+msgstr "PÃ¥krÃ¦vet 'phptype' er ikke specificeret i SQL opsÃ¦tning"
 
 #: templates/main/main.inc:143
 msgid "Reset"
@@ -181,7 +181,7 @@ msgstr "Nulstil"
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
-msgstr "Websitet, hvortil brugeres kodeord ændres, kunne ikke nås."
+msgstr "Websitet, hvortil brugeres kodeord Ã¦ndres, kunne ikke nÃ¥s."
 
 #: lib/Driver/http.php:74
 msgid "The username could not be found."
@@ -189,7 +189,7 @@ msgstr "Brugernavnet kunne ikke findes."
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "Kunne ikke opnå forbindelse til SQL serveren."
+msgstr "Kunne ikke opnÃ¥ forbindelse til SQL serveren."
 
 #: lib/Driver/poppassd.php:108 lib/Driver/sql.php:135
 #: lib/Driver/vpopmail.php:150
@@ -211,7 +211,7 @@ msgstr "Du kan ikke skifte kodeord for brugeren %s"
 
 #: main.php:55
 msgid "You must give your current password"
-msgstr "Du skal angive dit nuværende kodeord"
+msgstr "Du skal angive dit nuvÃ¦rende kodeord"
 
 #: main.php:64
 msgid "You must give your new password"
@@ -219,7 +219,7 @@ msgstr "Du skal angive et nyt kodeord"
 
 #: main.php:68
 msgid "You must verify your new password"
-msgstr "Du skal bekræfte dit nye kodeord"
+msgstr "Du skal bekrÃ¦fte dit nye kodeord"
 
 #: main.php:88
 #, php-format
@@ -227,24 +227,24 @@ msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
-"Dit nye kodeord er for langt. Kodeord må ikke være mere end %d tegn lange!"
+"Dit nye kodeord er for langt. Kodeord mÃ¥ ikke vÃ¦re mere end %d tegn lange!"
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Dit nye kodeord er for simpelt at gætte!  Det er ikke blevet skiftet!"
+msgstr "Dit nye kodeord er for simpelt at gÃ¦tte!  Det er ikke blevet skiftet!"
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Dit nye kodeord er for simpelt at gætte!  Det er ikke blevet skiftet!"
+msgstr "Dit nye kodeord er for simpelt at gÃ¦tte!  Det er ikke blevet skiftet!"
 
 #: main.php:83
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Dit nye kodeord skal være mindst %d tegn langt!"
+msgstr "Dit nye kodeord skal vÃ¦re mindst %d tegn langt!"
 
 #: main.php:76
 msgid "Your new password must be different from your current password"
-msgstr "Dit nye kodeord skal være forskelligt fra dit nuværende kodeord"
+msgstr "Dit nye kodeord skal vÃ¦re forskelligt fra dit nuvÃ¦rende kodeord"
 
 #: main.php:128
 #, php-format
@@ -268,7 +268,7 @@ msgstr ""
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Dit nye kodeord skal indeholde mindst %d små bogstaver."
+msgstr "Dit nye kodeord skal indeholde mindst %d smÃ¥ bogstaver."
 
 #: main.php:123
 #, php-format
@@ -283,11 +283,11 @@ msgstr "Dit nye kodeord skal indeholde mindst %d store bogstaver."
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Dit nye kodeord skal indeholde færre end %d mellemrumstegn."
+msgstr "Dit nye kodeord skal indeholde fÃ¦rre end %d mellemrumstegn."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
-msgstr "Dit nye kodeord må ikke indeholde mellemrumstegn."
+msgstr "Dit nye kodeord mÃ¥ ikke indeholde mellemrumstegn."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
@@ -295,7 +295,7 @@ msgstr "Dit nye kodeord er ikke ens i begge felter"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "Dit kodeord kunne ikke ændres."
+msgstr "Dit kodeord kunne ikke Ã¦ndres."
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"

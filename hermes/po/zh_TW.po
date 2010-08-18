@@ -1,5 +1,5 @@
 # Hermes Traditional Chinese Translation
-# Copyright 2002 David Chang.±i¨}¤å,¥xÆW
+# Copyright 2002 David Chang.å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2002.
 msgid ""
 msgstr ""
@@ -10,169 +10,169 @@ msgstr ""
 "Last-Translator: David Chang <david@thbuo.gov.tw>\n"
 "Language-Team: Traditional Chinese <david@thbuo.gov.tw>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/api.php:116
 #, php-format
 msgid "'%s' is not a defined table."
-msgstr "'%s' ¤£¬O¤@­Ó¤w©w¸qªºªí®æ."
+msgstr "'%s' ä¸æ˜¯ä¸€å€‹å·²å®šç¾©çš„è¡¨æ ¼."
 
 #: lib/Data/iif.php:67
 msgid "; Notes: "
-msgstr "; ³Æµù: "
+msgstr "; å‚™è¨»: "
 
 #: lib/Driver/sql.php:130
 msgid "Access denied; user cannot modify this timeslice."
-msgstr "¦s¨ú¾D©Ú;¨Ï¥ÎªÌµLªk­×§ï³o­Ó®É¬q."
+msgstr "å­˜å–é­æ‹’;ä½¿ç”¨è€…ç„¡æ³•ä¿®æ”¹é€™å€‹æ™‚æ®µ."
 
 #: admin.php:56 admin.php:217
 msgid "Add Job Type"
-msgstr "·s¼WÂ¾·~«¬ºA"
+msgstr "æ–°å¢è·æ¥­å‹æ…‹"
 
 #: lib/TimeForm.php:128 lib/TimeForm.php:211 lib/api.php:87
 msgid "Additional Notes"
-msgstr "¥[µù"
+msgstr "åŠ è¨»"
 
 #: admin.php:33
 msgid "Administration"
-msgstr "ºŞ²z"
+msgstr "ç®¡ç†"
 
 #: lib/Search.php:49 lib/TimeForm.php:47
 #, php-format
 msgid "An error occurred listing clients: %s"
-msgstr "¦C¥X«È¤á: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆ—å‡ºå®¢æˆ¶: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Search.php:62 lib/TimeForm.php:34
 #, php-format
 msgid "An error occurred listing job types: %s"
-msgstr "¦C¥XÂ¾·~«¬ºA: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆ—å‡ºè·æ¥­å‹æ…‹: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Hermes.php:162
 #, php-format
 msgid "An error occurred listing users: %s"
-msgstr "¦C¥X¨Ï¥ÎªÌ: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "åˆ—å‡ºä½¿ç”¨è€…: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/api.php:79
 msgid "Bill?"
-msgstr "¤ä¥I?"
+msgstr "æ”¯ä»˜?"
 
 #: lib/api.php:184
 msgid "Billable Hours"
-msgstr "¥i¤ä¥I®É¼Æ?"
+msgstr "å¯æ”¯ä»˜æ™‚æ•¸?"
 
 #: lib/TimeForm.php:124 lib/TimeForm.php:207
 msgid "Billable?"
-msgstr "¤ä¥I?"
+msgstr "æ”¯ä»˜?"
 
 #: lib/Admin.php:143 lib/TimeForm.php:114 lib/TimeForm.php:197 lib/api.php:67
 msgid "Client"
-msgstr "«È¤á"
+msgstr "å®¢æˆ¶"
 
 #: lib/Admin.php:119
 msgid "Client Name"
-msgstr "«È¤á¦WºÙ"
+msgstr "å®¢æˆ¶åç¨±"
 
 #: lib/Search.php:23
 msgid "Clients"
-msgstr "«È¤á"
+msgstr "å®¢æˆ¶"
 
 #: lib/Search.php:132
 msgid "Comma-Separated Variable (.csv)"
-msgstr "³rÂI¤À¹j­È (.csv)"
+msgstr "é€—é»åˆ†éš”å€¼ (.csv)"
 
 #: search.php:76
 msgid "Could not retrieve timeslice: invalid id"
-msgstr "µLªkÅª¨ú®É¬q: µL®ÄªºÃÑ§O¸¹½X(id)"
+msgstr "ç„¡æ³•è®€å–æ™‚æ®µ: ç„¡æ•ˆçš„è­˜åˆ¥è™Ÿç¢¼(id)"
 
 #: lib/TimeForm.php:111 lib/TimeForm.php:193 lib/api.php:58
 msgid "Date"
-msgstr "¤é´Á"
+msgstr "æ—¥æœŸ"
 
 #: lib/api.php:155 lib/api.php:156
 msgid "Delete Entry"
-msgstr "§R°£¬ö¿ı"
+msgstr "åˆªé™¤ç´€éŒ„"
 
 #: admin.php:85 admin.php:216
 msgid "Delete Job Type"
-msgstr "§R°£Â¾·~«¬ºA"
+msgstr "åˆªé™¤è·æ¥­å‹æ…‹"
 
 #: admin.php:90 admin.php:204
 msgid "Delete Job Type: Confirmation"
-msgstr "§R°£Â¾·~«¬ºA: ½T»{"
+msgstr "åˆªé™¤è·æ¥­å‹æ…‹: ç¢ºèª"
 
 #: scripts/purge.php:24
 #, php-format
 msgid "Deleting data that was exported/billed more than %s days ago.\n"
-msgstr "§R°£ %s ¤Ñ«e©Ò¦³¤w¶×¥X/¤w¤ä¥Iªº¸ê®Æ.\n"
+msgstr "åˆªé™¤ %s å¤©å‰æ‰€æœ‰å·²åŒ¯å‡º/å·²æ”¯ä»˜çš„è³‡æ–™.\n"
 
 #: lib/TimeForm.php:127 lib/TimeForm.php:210 lib/api.php:85
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: lib/Search.php:32
 msgid "Do not include entries after"
-msgstr "¤£­n¥]¬A¤§«áªº¬ö¿ı"
+msgstr "ä¸è¦åŒ…æ‹¬ä¹‹å¾Œçš„ç´€éŒ„"
 
 #: lib/Search.php:30
 msgid "Do not include entries before"
-msgstr "¤£­n¥]¬A¤§«eªº¬ö¿ı"
+msgstr "ä¸è¦åŒ…æ‹¬ä¹‹å‰çš„ç´€éŒ„"
 
 #: admin.php:127 admin.php:218
 msgid "Edit Client Settings"
-msgstr "½s¿è«È¤áªº³]©w"
+msgstr "ç·¨è¼¯å®¢æˆ¶çš„è¨­å®š"
 
 #: admin.php:119 admin.php:177
 msgid "Edit Client Settings, Step 2"
-msgstr "½s¿è«È¤áªº³]©w, ¨BÆJ 2"
+msgstr "ç·¨è¼¯å®¢æˆ¶çš„è¨­å®š, æ­¥é©Ÿ 2"
 
 #: lib/api.php:153 lib/api.php:154
 msgid "Edit Entry"
-msgstr "½s¿è¬ö¿ı"
+msgstr "ç·¨è¼¯ç´€éŒ„"
 
 #: admin.php:72 admin.php:216
 msgid "Edit Job Type"
-msgstr "½s¿èÂ¾·~«¬ºA"
+msgstr "ç·¨è¼¯è·æ¥­å‹æ…‹"
 
 #: admin.php:77
 msgid "Edit Job Type, Step 2"
-msgstr "½s¿èÂ¾·~«¬ºA, ¨BÆJ 2"
+msgstr "ç·¨è¼¯è·æ¥­å‹æ…‹, æ­¥é©Ÿ 2"
 
 #: admin.php:100
 msgid "Edit job type"
-msgstr "½s¿èÂ¾·~«¬ºA"
+msgstr "ç·¨è¼¯è·æ¥­å‹æ…‹"
 
 #: admin.php:152
 msgid "Edit job type, Step 2"
-msgstr "½s¿èÂ¾·~«¬ºA, ¨BÆJ 2"
+msgstr "ç·¨è¼¯è·æ¥­å‹æ…‹, æ­¥é©Ÿ 2"
 
 #: lib/TimeForm.php:191 lib/api.php:63
 msgid "Employee"
-msgstr "­û¤u"
+msgstr "å“¡å·¥"
 
 #: lib/Search.php:18
 msgid "Employees"
-msgstr "­û¤u"
+msgstr "å“¡å·¥"
 
 #: entry.php:61 lib/TimeForm.php:82
 msgid "Enter Time"
-msgstr "¿é¤J®É¶¡"
+msgstr "è¼¸å…¥æ™‚é–“"
 
 #: lib/TimeForm.php:83
 msgid "Enter my time"
-msgstr "¿é¤J§Úªº®É¶¡"
+msgstr "è¼¸å…¥æˆ‘çš„æ™‚é–“"
 
 #: lib/Search.php:130
 msgid "Export Search Results"
-msgstr "¶×¥X·j´Mµ²ªG"
+msgstr "åŒ¯å‡ºæœå°‹çµæœ"
 
 #: lib/Search.php:41
 msgid "Exported?"
-msgstr "¤w¶×¥X ?"
+msgstr "å·²åŒ¯å‡º ?"
 
 #: lib/TimeForm.php:120 lib/TimeForm.php:203 lib/api.php:73
 msgid "Hours"
-msgstr "®É"
+msgstr "æ™‚"
 
 #: lib/Admin.php:151
 msgid ""
@@ -183,44 +183,44 @@ msgstr ""
 #: lib/Admin.php:19 lib/Admin.php:66 lib/Admin.php:91 lib/TimeForm.php:119
 #: lib/TimeForm.php:202 lib/api.php:71
 msgid "Job Type"
-msgstr "Â¾·~«¬ºA"
+msgstr "è·æ¥­å‹æ…‹"
 
 #: lib/Search.php:27
 msgid "Job Types"
-msgstr "Â¾·~«¬ºA"
+msgstr "è·æ¥­å‹æ…‹"
 
 #: lib/Admin.php:41
 msgid "JobType Name"
-msgstr "Â¾·~«¬ºAªº¦WºÙ"
+msgstr "è·æ¥­å‹æ…‹çš„åç¨±"
 
 #: lib/Search.php:143
 msgid "Mark the time as exported?"
-msgstr "±N¦¹®É¶¡¼Ğ°O¦¨¤w¶×¥X ?"
+msgstr "å°‡æ­¤æ™‚é–“æ¨™è¨˜æˆå·²åŒ¯å‡º ?"
 
 #: time.php:54
 msgid "My Time"
-msgstr "§Úªº®É¶¡"
+msgstr "æˆ‘çš„æ™‚é–“"
 
 #: time.php:75
 msgid "My Unsubmitted Time"
-msgstr "§Ú©|¥¼°e¥Xªº®É¶¡"
+msgstr "æˆ‘å°šæœªé€å‡ºçš„æ™‚é–“"
 
 #: lib/Hermes.php:65
 msgid "My _Time"
-msgstr "§Úªº®É¶¡"
+msgstr "æˆ‘çš„æ™‚é–“"
 
 #: lib/Admin.php:87 lib/Search.php:37 lib/Search.php:142 lib/TimeForm.php:123
 #: lib/TimeForm.php:206 lib/api.php:46
 msgid "No"
-msgstr "§_"
+msgstr "å¦"
 
 #: time.php:36
 msgid "No timeslices were selected to submit."
-msgstr "°e¥X®É¨S¦³¿ï¾Ü®É¬q."
+msgstr "é€å‡ºæ™‚æ²’æœ‰é¸æ“‡æ™‚æ®µ."
 
 #: lib/api.php:189
 msgid "Non-billable Hours"
-msgstr "¥¼¤ä¥I®É¼Æ."
+msgstr "æœªæ”¯ä»˜æ™‚æ•¸."
 
 #: lib/Search.php:134
 msgid "QuickBooks (.iif)"
@@ -228,27 +228,27 @@ msgstr ""
 
 #: lib/Admin.php:94
 msgid "Really delete this job type? This may cause data problems!!"
-msgstr "½T©w­n§R°£¦¹Â¾·~«¬ºA? ³o»ò§@¦³¥i¯à³y¦¨¸ê®Æ¤Wªº°İÃD!!"
+msgstr "ç¢ºå®šè¦åˆªé™¤æ­¤è·æ¥­å‹æ…‹? é€™éº¼ä½œæœ‰å¯èƒ½é€ æˆè³‡æ–™ä¸Šçš„å•é¡Œ!!"
 
 #: lib/Search.php:14
 msgid "Search For Time"
-msgstr "·j´M®É¶¡"
+msgstr "æœå°‹æ™‚é–“"
 
 #: search.php:104 lib/api.php:105
 msgid "Search Results"
-msgstr "·j´Mµ²ªG"
+msgstr "æœå°‹çµæœ"
 
 #: search.php:67
 msgid "Search for Time"
-msgstr "·j´M®É¶¡"
+msgstr "æœå°‹æ™‚é–“"
 
 #: lib/Admin.php:146 lib/TimeForm.php:93 lib/TimeForm.php:163
 msgid "See Attached Timesheet"
-msgstr "°Ñ¾\ªş¥[ªº®É¶¡¬ö¿ı¥d"
+msgstr "åƒé–±é™„åŠ çš„æ™‚é–“ç´€éŒ„å¡"
 
 #: lib/Search.php:136
 msgid "Select the export format"
-msgstr "¿ï¾Ü¶×¥X®æ¦¡"
+msgstr "é¸æ“‡åŒ¯å‡ºæ ¼å¼"
 
 #: lib/Admin.php:146
 #, php-format
@@ -256,15 +256,15 @@ msgid ""
 "Should users enter descriptions of their timeslices for this client? If not, "
 "the description will automatically be \"%s\"."
 msgstr ""
-"¨Ï¥ÎªÌ¬O§_À³¸Ó¬°¦¹«È¤á¿é¤J¥L­Ìªº®É¬q´y­z ? ¦pªG¤£¬O,´y­z±N¦Û°Ê¥H\"%s\"¥N´À."
+"ä½¿ç”¨è€…æ˜¯å¦æ‡‰è©²ç‚ºæ­¤å®¢æˆ¶è¼¸å…¥ä»–å€‘çš„æ™‚æ®µæè¿° ? å¦‚æœä¸æ˜¯,æè¿°å°‡è‡ªå‹•ä»¥\"%s\"ä»£æ›¿."
 
 #: templates/time/form-footer.html:1
 msgid "Submit Selected Time"
-msgstr "°e¥X©Ò¿ï¾Üªº®É¶¡"
+msgstr "é€å‡ºæ‰€é¸æ“‡çš„æ™‚é–“"
 
 #: lib/Search.php:38
 msgid "Submitted?"
-msgstr "¤w°e¥X ?"
+msgstr "å·²é€å‡º ?"
 
 #: lib/Search.php:133
 msgid "Tab-Separated Variable (.tsv,.txt)"
@@ -272,145 +272,145 @@ msgstr ""
 
 #: admin.php:171
 msgid "The client settings have been modified."
-msgstr "«È¤áªº³]©w¤w­×§ï."
+msgstr "å®¢æˆ¶çš„è¨­å®šå·²ä¿®æ”¹."
 
 #: admin.php:48
 #, php-format
 msgid "The job type '%s' has been added."
-msgstr "Â¾·~«¬ºA '%s' ¤w·s¼W."
+msgstr "è·æ¥­å‹æ…‹ '%s' å·²æ–°å¢."
 
 #: admin.php:193
 msgid "The job type has been deleted."
-msgstr "Â¾·~«¬ºA '%s' ¤w§R°£."
+msgstr "è·æ¥­å‹æ…‹ '%s' å·²åˆªé™¤."
 
 #: admin.php:144
 msgid "The job type has been modified."
-msgstr "Â¾·~«¬ºA¤w­×§ï."
+msgstr "è·æ¥­å‹æ…‹å·²ä¿®æ”¹."
 
 #: admin.php:198
 msgid "The job type was not deleted."
-msgstr "Â¾·~«¬ºA¥¼§R°£."
+msgstr "è·æ¥­å‹æ…‹æœªåˆªé™¤."
 
 #: search.php:29 time.php:26
 msgid "The time entry was successfully deleted."
-msgstr "®É¶¡¬ö¿ı¤w§R°£§¹¦¨."
+msgstr "æ™‚é–“ç´€éŒ„å·²åˆªé™¤å®Œæˆ."
 
 #: search.php:48
 msgid "The timeslice was successfully updated."
-msgstr "®É¬q¤wÅÜ§ó§¹¦¨."
+msgstr "æ™‚æ®µå·²è®Šæ›´å®Œæˆ."
 
 #: lib/Admin.php:116
 msgid "There are no clients to edit"
-msgstr "¨S¦³«È¤á¥i¨Ñ½s¿è"
+msgstr "æ²’æœ‰å®¢æˆ¶å¯ä¾›ç·¨è¼¯"
 
 #: lib/TimeForm.php:52
 msgid "There are no clients which you have access to."
-msgstr "§A¥Ø«e©|¥¼¦s¨ú¥ô¦ó«È¤á."
+msgstr "ä½ ç›®å‰å°šæœªå­˜å–ä»»ä½•å®¢æˆ¶."
 
 #: lib/TimeForm.php:39
 msgid "There are no job types configured."
-msgstr "¥¼³]©w¥ô¦óªºÂ¾·~«¬ºA."
+msgstr "æœªè¨­å®šä»»ä½•çš„è·æ¥­å‹æ…‹."
 
 #: lib/Admin.php:38
 msgid "There are no job types to edit"
-msgstr "¥¼½s¿è¥ô¦óªºÂ¾·~«¬ºA"
+msgstr "æœªç·¨è¼¯ä»»ä½•çš„è·æ¥­å‹æ…‹"
 
 #: admin.php:50
 #, php-format
 msgid "There was an error adding the job type: %s."
-msgstr "·s¼WÂ¾·~«¬ºA: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "æ–°å¢è·æ¥­å‹æ…‹: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: admin.php:195
 #, php-format
 msgid "There was an error deleting the job type: %s."
-msgstr "§R°£Â¾·~«¬ºA: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åˆªé™¤è·æ¥­å‹æ…‹: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: search.php:27 time.php:24
 #, php-format
 msgid "There was an error deleting the time: %s"
-msgstr "§R°£®É¶¡: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åˆªé™¤æ™‚é–“: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: admin.php:169
 #, php-format
 msgid "There was an error editing the client settings: %s."
-msgstr "½s¿è«È¤á³]©w: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "ç·¨è¼¯å®¢æˆ¶è¨­å®š: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: admin.php:146
 #, php-format
 msgid "There was an error editing the job type: %s."
-msgstr "½s¿èÂ¾·~«¬ºA: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "ç·¨è¼¯è·æ¥­å‹æ…‹: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: entry.php:33 search.php:46
 #, php-format
 msgid "There was an error storing your timesheet: %s"
-msgstr "Àx¦s®É¶¡¬ö¿ı¥d: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "å„²å­˜æ™‚é–“ç´€éŒ„å¡: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: time.php:44
 #, php-format
 msgid "There was an error submitting your time: %s"
-msgstr "°e¥X®É¶¡: %s ®Éµo¥Í¤@­Ó¿ù»~"
+msgstr "é€å‡ºæ™‚é–“: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤"
 
 #: lib/Admin.php:136
 msgid "This is not a valid client."
-msgstr "³o¤£¬O¤@­Ó¦³®Äªº«È¤á."
+msgstr "é€™ä¸æ˜¯ä¸€å€‹æœ‰æ•ˆçš„å®¢æˆ¶."
 
 #: lib/Admin.php:58
 msgid "This is not a valid job type."
-msgstr "³o¤£¬O¤@­Ó¦³®ÄªºÂ¾·~«¬ºA."
+msgstr "é€™ä¸æ˜¯ä¸€å€‹æœ‰æ•ˆçš„è·æ¥­å‹æ…‹."
 
 #: lib/api.php:29
 msgid "Time Review Screen"
-msgstr "®É¶¡¦^ÅUµe­±"
+msgstr "æ™‚é–“å›é¡§ç•«é¢"
 
 #: lib/api.php:193
 msgid "Total Hours"
-msgstr "Á`®É¼Æ"
+msgstr "ç¸½æ™‚æ•¸"
 
 #: lib/TimeForm.php:153
 msgid "Update Submitted Time"
-msgstr "ÅÜ§ó°e¥Xªº®É¶¡"
+msgstr "è®Šæ›´é€å‡ºçš„æ™‚é–“"
 
 #: lib/TimeForm.php:79
 msgid "Update Time"
-msgstr "ÅÜ§ó®É¶¡"
+msgstr "è®Šæ›´æ™‚é–“"
 
 #: lib/TimeForm.php:80
 msgid "Update my time"
-msgstr "ÅÜ§ó§Úªº®É¶¡"
+msgstr "è®Šæ›´æˆ‘çš„æ™‚é–“"
 
 #: lib/TimeForm.php:154
 msgid "Update time"
-msgstr "ÅÜ§ó®É¶¡"
+msgstr "è®Šæ›´æ™‚é–“"
 
 #: lib/Admin.php:87 lib/Search.php:36 lib/Search.php:141 lib/TimeForm.php:123
 #: lib/TimeForm.php:206 lib/api.php:45
 msgid "Yes"
-msgstr "¬O"
+msgstr "æ˜¯"
 
 #: entry.php:28
 msgid "Your time was successfully entered."
-msgstr "§Aªº®É¶¡¤w¿é¤J§¹¦¨."
+msgstr "ä½ çš„æ™‚é–“å·²è¼¸å…¥å®Œæˆ."
 
 #: time.php:46
 msgid "Your time was successfully submitted."
-msgstr "§Aªº®É¶¡¤w°e¥X§¹¦¨."
+msgstr "ä½ çš„æ™‚é–“å·²é€å‡ºå®Œæˆ."
 
 #: entry.php:25
 msgid "Your time was successfully updated."
-msgstr "§Aªº®É¶¡¤wÅÜ§ó§¹¦¨."
+msgstr "ä½ çš„æ™‚é–“å·²è®Šæ›´å®Œæˆ."
 
 #: lib/Hermes.php:76
 msgid "_Admin"
-msgstr "ºŞ²z_A"
+msgstr "ç®¡ç†_A"
 
 #: lib/Hermes.php:66
 msgid "_Enter Time"
-msgstr "¿é¤J®É¶¡_E"
+msgstr "è¼¸å…¥æ™‚é–“_E"
 
 #: lib/Hermes.php:71
 msgid "_Print"
-msgstr "¦C¦L_P"
+msgstr "åˆ—å°_P"
 
 #: lib/Hermes.php:67
 msgid "_Search"
-msgstr "·j´M_S"
+msgstr "æœå°‹_S"

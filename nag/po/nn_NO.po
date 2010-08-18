@@ -11,41 +11,41 @@ msgstr ""
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
 msgid "%d tasks"
-msgstr "%d oppgåver"
+msgstr "%d oppgÃ¥ver"
 
 msgid "1 task"
-msgstr "1 oppgåve"
+msgstr "1 oppgÃ¥ve"
 
 msgid "Adding A New Task"
-msgstr "Legge til ei ny oppgåve"
+msgstr "Legge til ei ny oppgÃ¥ve"
 
 msgid "Are you sure you want to permanently delete these tasks?"
-msgstr "Er du sikker på at du vil slette desse oppgåvene permanent?"
+msgstr "Er du sikker pÃ¥ at du vil slette desse oppgÃ¥vene permanent?"
 
 msgid "Ascending"
 msgstr "Stigande"
 
 msgid "Back to Task List"
-msgstr "Tilbake til oppgåveliste"
+msgstr "Tilbake til oppgÃ¥veliste"
 
 msgid "Category"
 msgstr "Kategori"
 
 msgid "Change your task sorting and display options."
-msgstr "Endre sortering for oppgåver og visingsalternativ"
+msgstr "Endre sortering for oppgÃ¥ver og visingsalternativ"
 
 #, c-format
 msgid "Changed %d tasks to priority %d."
-msgstr "Endra %d oppgåver til prioritet %d."
+msgstr "Endra %d oppgÃ¥ver til prioritet %d."
 
 #, c-format
 msgid "Changed 1 task to priority %d."
-msgstr "Endra ei oppgåve til prioritet %d."
+msgstr "Endra ei oppgÃ¥ve til prioritet %d."
 
 msgid "Choose Action:"
 msgstr "Vel handling:"
@@ -54,35 +54,35 @@ msgid "Clear Form"
 msgstr "Nullstill skjema"
 
 msgid "Complete Task"
-msgstr "Fullfør oppgåve"
+msgstr "FullfÃ¸r oppgÃ¥ve"
 
 msgid "Complete Tasks"
-msgstr "Fullfør oppgåver"
+msgstr "FullfÃ¸r oppgÃ¥ver"
 
 msgid "Completed?"
-msgstr "Fullført?"
+msgstr "FullfÃ¸rt?"
 
 msgid "Completion Status"
-msgstr "Fullføringsgrad"
+msgstr "FullfÃ¸ringsgrad"
 
 msgid "Default sorting criteria:"
 msgstr "Standard sorteringskriterium:"
 
 msgid "Default sorting direction:"
-msgstr "Standard sorteringsrekkefølgje:"
+msgstr "Standard sorteringsrekkefÃ¸lgje:"
 
 msgid "Delete Task"
-msgstr "Slett oppgåve"
+msgstr "Slett oppgÃ¥ve"
 
 msgid "Delete Tasks"
-msgstr "Slett oppgåver"
+msgstr "Slett oppgÃ¥ver"
 
 #, c-format
 msgid "Deleted %d tasks."
-msgstr "Sletta %d oppgåver."
+msgstr "Sletta %d oppgÃ¥ver."
 
 msgid "Deleted 1 task."
-msgstr "Sletta ei oppgåve."
+msgstr "Sletta ei oppgÃ¥ve."
 
 msgid "Descending"
 msgstr "Synkande"
@@ -103,20 +103,20 @@ msgid "Help"
 msgstr "Hjelp"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "List Tasks"
-msgstr "Vis oppgåver"
+msgstr "Vis oppgÃ¥ver"
 
 #, c-format
 msgid "Marked %d tasks as completed."
-msgstr "Markerte %d oppgåver som fullførte."
+msgstr "Markerte %d oppgÃ¥ver som fullfÃ¸rte."
 
 msgid "Marked 1 task as completed."
-msgstr "Markerte ei oppgåve som fullført."
+msgstr "Markerte ei oppgÃ¥ve som fullfÃ¸rt."
 
 msgid "Modify Task"
-msgstr "Endre oppgåver"
+msgstr "Endre oppgÃ¥ver"
 
 msgid "Modifying:"
 msgstr "Endringar:"
@@ -128,19 +128,19 @@ msgid "Name"
 msgstr "Namn"
 
 msgid "New Task"
-msgstr "Ny oppgåve"
+msgstr "Ny oppgÃ¥ve"
 
 msgid "No configuration information specified for SQL Tasks."
-msgstr "Ingen konfigurasjonsinformasjon spesifisert for SQL-oppgåver."
+msgstr "Ingen konfigurasjonsinformasjon spesifisert for SQL-oppgÃ¥ver."
 
 msgid "No due date."
 msgstr "Ingen forfallsdato."
 
 msgid "No tasks were changed."
-msgstr "Ingen oppgåver vart endra."
+msgstr "Ingen oppgÃ¥ver vart endra."
 
 msgid "No tasks were deleted."
-msgstr "Ingen oppgåver vart sletta."
+msgstr "Ingen oppgÃ¥ver vart sletta."
 
 msgid "No"
 msgstr "Nei"
@@ -155,14 +155,14 @@ msgid "Other Options"
 msgstr "Andre alternativ"
 
 msgid "Please enter the task priority (1-5):"
-msgstr "Skriv inn prioritet for oppgåva (1-5):"
+msgstr "Skriv inn prioritet for oppgÃ¥va (1-5):"
 
 msgid "Pri"
 msgstr "Pri"
 
 msgid "Priorities must be between 1 and 5. Please enter a valid priority:"
 msgstr ""
-"Prioritetar må vere mellom 1 og 5. Ver venleg og bruk ein lovleg prioritet:"
+"Prioritetar mÃ¥ vere mellom 1 og 5. Ver venleg og bruk ein lovleg prioritet:"
 
 msgid "Priority"
 msgstr "Prioritet"
@@ -174,64 +174,64 @@ msgid "Refresh List"
 msgstr "Frisk opp liste"
 
 msgid "Required 'database' not specified in tasks configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Required 'hostspec' not specified in tasks configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Required 'password' not specified in tasks configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Required 'phptype' not specified in tasks configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Required 'table' not specified in tasks configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Required 'username' not specified in tasks configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for oppgåver."
+msgstr "NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for oppgÃ¥ver."
 
 msgid "Save Task"
-msgstr "Lagre oppgåve"
+msgstr "Lagre oppgÃ¥ve"
 
 msgid "Search Results"
-msgstr "Søkeresultat"
+msgstr "SÃ¸keresultat"
 
 msgid "Search Scope"
-msgstr "Søkeområde"
+msgstr "SÃ¸keomrÃ¥de"
 
 msgid "Search Text"
-msgstr "Søkestreng"
+msgstr "SÃ¸kestreng"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Selected?"
 msgstr "Valt?"
 
 msgid "Set Task Priority"
-msgstr "Set oppgåveprioritet"
+msgstr "Set oppgÃ¥veprioritet"
 
 msgid "Set the your preferred display language."
-msgstr "Vel ønska språk."
+msgstr "Vel Ã¸nska sprÃ¥k."
 
 msgid "Show completed tasks in the task list?"
-msgstr "Vis fullførte oppgåver i oppgåvelista?"
+msgstr "Vis fullfÃ¸rte oppgÃ¥ver i oppgÃ¥velista?"
 
 msgid "Some of Nag's configuration files are missing:"
 msgstr "Nokre av Nag sine konfigurasjonsfiler manglar:"
 
 msgid "Sort Direction"
-msgstr "Sorteringsrekkefølgje"
+msgstr "SorteringsrekkefÃ¸lgje"
 
 msgid "Sort by Category"
 msgstr "Sorter etter kategori"
 
 msgid "Sort by Completion Status"
-msgstr "Sorter etter fullføringsgrad"
+msgstr "Sorter etter fullfÃ¸ringsgrad"
 
 msgid "Sort by Due Date"
 msgstr "Sorter etter forfallsdato"
@@ -243,37 +243,37 @@ msgid "Sort by Priority"
 msgstr "Sorter etter prioritet"
 
 msgid "Task Details"
-msgstr "Oppgåvedetaljar"
+msgstr "OppgÃ¥vedetaljar"
 
 msgid "Task List"
-msgstr "Oppgåveliste"
+msgstr "OppgÃ¥veliste"
 
 msgid "Task Name"
-msgstr "Oppgåvenamn"
+msgstr "OppgÃ¥venamn"
 
 msgid "Task Note"
-msgstr "Oppgåvemerknad"
+msgstr "OppgÃ¥vemerknad"
 
 msgid "Task Note?"
-msgstr "Oppgåvemerknad?"
+msgstr "OppgÃ¥vemerknad?"
 
 msgid "The requested task does not exist."
-msgstr "Den førespurde oppgåva eksisterer ikkje."
+msgstr "Den fÃ¸respurde oppgÃ¥va eksisterer ikkje."
 
 msgid "The task was saved."
-msgstr "Oppgåva vart lagra."
+msgstr "OppgÃ¥va vart lagra."
 
 msgid "There was a problem deleting tasks."
-msgstr "Problem ved sletting av oppgåver."
+msgstr "Problem ved sletting av oppgÃ¥ver."
 
 msgid "There was a problem saving the task."
-msgstr "Problem ved lagring av oppgåve."
+msgstr "Problem ved lagring av oppgÃ¥ve."
 
 msgid "There was a problem setting task completion status."
-msgstr "Problem med å setje fullføringsgrad."
+msgstr "Problem med Ã¥ setje fullfÃ¸ringsgrad."
 
 msgid "There was a problem setting task priority."
-msgstr "Problem med å setje oppgåveprioritet."
+msgstr "Problem med Ã¥ setje oppgÃ¥veprioritet."
 
 msgid "This file contains preferences for Nag."
 msgstr "Denne fila inneheld innstillingar for Nag."
@@ -282,7 +282,7 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"Denne fila kontrollerer stilarket som blir brukt til Ã¥ definere fargar og "
 "skrifttypar, legg til eller overstyrer standardverdiar i Horde."
 
 msgid ""
@@ -299,7 +299,7 @@ msgid "Unfiled"
 msgstr "Uarkivert"
 
 msgid "Unknown task"
-msgstr "Ukjent oppgåve"
+msgstr "Ukjent oppgÃ¥ve"
 
 msgid "Unknown"
 msgstr "Ukjent"
@@ -308,19 +308,19 @@ msgid "User Options"
 msgstr "Brukaralternativ"
 
 msgid "View Task Details"
-msgstr "Vis oppgåvedetaljar"
+msgstr "Vis oppgÃ¥vedetaljar"
 
 msgid "Yes"
 msgstr "Ja"
 
 msgid "You must select at least one task first."
-msgstr "Du må først velje minst ei oppgåve."
+msgstr "Du mÃ¥ fÃ¸rst velje minst ei oppgÃ¥ve."
 
 msgid "Your Information"
 msgstr "Din informasjon"
 
 msgid "Your task list is empty."
-msgstr "Oppgåvelista di er tom."
+msgstr "OppgÃ¥velista di er tom."
 
 msgid "at"
 msgstr "den"

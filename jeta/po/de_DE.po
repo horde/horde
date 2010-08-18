@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -30,7 +30,7 @@ msgstr "Grundlegende Einstellungen"
 
 #: config/prefs.php.dist:11
 msgid "Change your base settings."
-msgstr "Ändern Sie Ihre grundlegenden Einstellungen."
+msgstr "Ã„ndern Sie Ihre grundlegenden Einstellungen."
 
 #: config/prefs.php.dist:228
 msgid "Close the SSH session if you leave the page?"
@@ -39,7 +39,7 @@ msgstr "SSH-Session beenden, wenn die Seite verlassen wird?"
 #: config/prefs.php.dist:219
 msgid "Close the detached window if the SSH session is lost?"
 msgstr ""
-"Das losgelöste Fenster schließen, wenn die SSH-Session unterbrochen wird?"
+"Das losgelÃ¶ste Fenster schlieÃŸen, wenn die SSH-Session unterbrochen wird?"
 
 #: config/prefs.php.dist:188
 msgid "Connect"
@@ -54,11 +54,11 @@ msgid ""
 "Detach the actual terminal display and its components from the browser "
 "window and run in a separate window?"
 msgstr ""
-"Das Terminal vom Browserfenster lösen und in einem eigenen Fenster anzeigen?"
+"Das Terminal vom Browserfenster lÃ¶sen und in einem eigenen Fenster anzeigen?"
 
 #: config/prefs.php.dist:102
 msgid "Disable the hostkey verification?"
-msgstr "Hostkey-Überprüfung deaktivieren?"
+msgstr "Hostkey-ÃœberprÃ¼fung deaktivieren?"
 
 #: config/prefs.php.dist:197
 msgid "Disconnect"
@@ -68,12 +68,12 @@ msgstr "Trennen"
 msgid ""
 "Enable auto-hiding of the tool bar, menu bar, status bar and scroll bar?"
 msgstr ""
-"Werkzeugleiste, Menüleiste, Statusleiste und Bildlaufleiste automatisch "
+"Werkzeugleiste, MenÃ¼leiste, Statusleiste und Bildlaufleiste automatisch "
 "ausblenden?"
 
 #: config/prefs.php.dist:120
 msgid "Enable the menubar?"
-msgstr "Menüleiste aktivieren?"
+msgstr "MenÃ¼leiste aktivieren?"
 
 #: config/prefs.php.dist:138
 msgid "Enable the scrollbar?"
@@ -97,8 +97,8 @@ msgid ""
 "selected, user will need to press start button before applet becomes "
 "detached."
 msgstr ""
-"Applet sofort beim Laden der Seite lösen? Anderenfalls muss der Start-Knopf "
-"gedrückt werden, bevor das Applet gelöst wird."
+"Applet sofort beim Laden der Seite lÃ¶sen? Anderenfalls muss der Start-Knopf "
+"gedrÃ¼ckt werden, bevor das Applet gelÃ¶st wird."
 
 #: config/prefs.php.dist:63
 msgid "JTA (non-commerical use only)"
@@ -110,7 +110,7 @@ msgstr "JTA Einstellungen"
 
 #: config/prefs.php.dist:165
 msgid "Make the detached window fill the entire screen?"
-msgstr "Losgelöstes Fenster im Vollbildmodus anzeigen?"
+msgstr "LosgelÃ¶stes Fenster im Vollbildmodus anzeigen?"
 
 #: config/prefs.php.dist:30
 msgid "Options that control the behavior of the JTA applet."
@@ -142,27 +142,27 @@ msgstr "Verbindungsdialog anzeigen?"
 
 #: config/prefs.php.dist:210
 msgid "Show the menubar in the detached applet?"
-msgstr "Die Menüleiste im losgelösten Applet anzeigen?"
+msgstr "Die MenÃ¼leiste im losgelÃ¶sten Applet anzeigen?"
 
 #: config/prefs.php.dist:53
 msgid "The default port to connect to."
-msgstr "Der Standardport für die Verbindungen."
+msgstr "Der Standardport fÃ¼r die Verbindungen."
 
 #: config/prefs.php.dist:44
 msgid "The default server name to connect to."
-msgstr "Der Standard-Servername für die Verbindungen."
+msgstr "Der Standard-Servername fÃ¼r die Verbindungen."
 
 #: config/prefs.php.dist:201
 msgid "The text to use for the disconnect button."
-msgstr "Der Text für den Trennen-Knopf."
+msgstr "Der Text fÃ¼r den Trennen-Knopf."
 
 #: config/prefs.php.dist:192
 msgid "The text to use for the start button."
-msgstr "Der Text für den Start-Knopf."
+msgstr "Der Text fÃ¼r den Start-Knopf."
 
 #: config/prefs.php.dist:174
 msgid "The window title of the detached applet."
-msgstr "Fenstertitel des losgelösten Applets."
+msgstr "Fenstertitel des losgelÃ¶sten Applets."
 
 #: lib/Jeta.php:21
 msgid "_Shell"
@@ -174,4 +174,4 @@ msgstr "Passwort"
 
 #: config/prefs.php.dist:74
 msgid "publickey"
-msgstr "Öffentlicher Schlüssel"
+msgstr "Ã–ffentlicher SchlÃ¼ssel"

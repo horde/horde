@@ -12,40 +12,40 @@ msgstr ""
 "Last-Translator: liaobin <liaobin@jite.net>\n"
 "Language-Team: Chinese <i18n@linux.net.cn>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=GB2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin.php:597
 #, fuzzy, php-format
 msgid "%s added to those responsible for '%s'"
-msgstr "'%s' ÏÖÔÚ½«¶Ô '%s' µ£¸ºÔğÈÎ"
+msgstr "'%s' ç°åœ¨å°†å¯¹ '%s' æ‹…è´Ÿè´£ä»»"
 
 #: templates/reports/stats.inc:20
 #, php-format
 msgid "%s days"
-msgstr "%s Ìì"
+msgstr "%s å¤©"
 
 #: templates/comment.inc:55
 #, php-format
 msgid "%s removed from this ticket by %s on %s"
-msgstr "%s ÒÑÉ¾³ı´Ó´Ë¹¤×÷µ¥±»%sÔÚ%s"
+msgstr "%s å·²åˆ é™¤ä»æ­¤å·¥ä½œå•è¢«%såœ¨%s"
 
 #: admin.php:636
 #, php-format
 msgid "'%s' is no longer among those responsible for '%s'"
-msgstr "'%s' ½«²»ÔÙ¶Ô '%s' µ£¸ºÔğÈÎ"
+msgstr "'%s' å°†ä¸å†å¯¹ '%s' æ‹…è´Ÿè´£ä»»"
 
 #: admin.php:79
 msgid "- Stage 1"
-msgstr "- ²½Öè 1"
+msgstr "- æ­¥éª¤ 1"
 
 #: admin.php:84
 msgid "- Stage 2"
-msgstr "- ²½Öè 2"
+msgstr "- æ­¥éª¤ 2"
 
 #: scripts/mail-filter.php:98
 msgid "--priority option must be supplied."
-msgstr "--ÓÅÏÈ¼¶Ñ¡Ïî±ØĞë±»Ö§³Ö¡£"
+msgstr "--ä¼˜å…ˆçº§é€‰é¡¹å¿…é¡»è¢«æ”¯æŒã€‚"
 
 #: scripts/mail-filter.php:70
 msgid "--queue option must be supplied."
@@ -53,646 +53,646 @@ msgstr ""
 
 #: scripts/mail-filter.php:112
 msgid "--state option must be supplied."
-msgstr "--×´Ì¬Ñ¡Ïî±ØĞë±»Ö§³Ö¡£"
+msgstr "--çŠ¶æ€é€‰é¡¹å¿…é¡»è¢«æ”¯æŒã€‚"
 
 #: scripts/mail-filter.php:84
 msgid "--type option must be supplied."
-msgstr "--ÀàĞÍÑ¡Ïî±ØĞë±»Ö§³Ö¡£"
+msgstr "--ç±»å‹é€‰é¡¹å¿…é¡»è¢«æ”¯æŒã€‚"
 
 #: lib/Driver.php:277
 #, php-format
 msgid "-Added By: %s\n"
-msgstr "-±»: %s ĞÂÔö\n"
+msgstr "-è¢«: %s æ–°å¢\n"
 
 #: lib/Driver.php:322 lib/Driver.php:343 lib/Driver.php:364 lib/Driver.php:384
 #, php-format
 msgid "-Client: %s"
-msgstr "-¿Í»§£º %s"
+msgstr "-å®¢æˆ·ï¼š %s"
 
 #: lib/Driver.php:257 lib/Driver.php:275
 #, php-format
 msgid "-Client: %s\n"
-msgstr "-¿Í»§£º %s\n"
+msgstr "-å®¢æˆ·ï¼š %s\n"
 
 #: lib/Driver.php:259
 #, php-format
 msgid "-Created By: %s\n"
-msgstr "-±»: %s ½¨Á¢\n"
+msgstr "-è¢«: %s å»ºç«‹\n"
 
 #: lib/Driver.php:345
 #, php-format
 msgid "-New Priority: %s"
-msgstr "-ĞÂ½¨ÓÅÏÈÈ¨: %s"
+msgstr "-æ–°å»ºä¼˜å…ˆæƒ: %s"
 
 #: lib/Driver.php:386
 #, php-format
 msgid "-New Queue: %s"
-msgstr "-ĞÂ½¨¶ÓÁĞ: %s"
+msgstr "-æ–°å»ºé˜Ÿåˆ—: %s"
 
 #: lib/Driver.php:324
 #, php-format
 msgid "-New State: %s"
-msgstr "-ĞÂ½¨×´Ì¬: %s"
+msgstr "-æ–°å»ºçŠ¶æ€: %s"
 
 #: lib/Driver.php:366
 #, fuzzy, php-format
 msgid "-New Type: %s"
-msgstr "-ĞÂ½¨×´Ì¬: %s"
+msgstr "-æ–°å»ºçŠ¶æ€: %s"
 
 #: lib/Driver.php:320 lib/Driver.php:341 lib/Driver.php:362
 #, php-format
 msgid "-Queue: %s"
-msgstr "-¶ÓÁĞ: %s"
+msgstr "-é˜Ÿåˆ—: %s"
 
 #: lib/Driver.php:255 lib/Driver.php:273
 #, php-format
 msgid "-Queue: %s\n"
-msgstr "-¶ÓÁĞ: %s\n"
+msgstr "-é˜Ÿåˆ—: %s\n"
 
 #: lib/Driver.php:260 lib/Driver.php:278 lib/Driver.php:325 lib/Driver.php:346
 #: lib/Driver.php:367 lib/Driver.php:387
 msgid "-Summary:"
-msgstr "-ÕªÒª:"
+msgstr "-æ‘˜è¦:"
 
 #: lib/Driver.php:319 lib/Driver.php:340 lib/Driver.php:361 lib/Driver.php:382
 #, php-format
 msgid "-Ticket %s"
-msgstr "-¹¤×÷µ¥ %s"
+msgstr "-å·¥ä½œå• %s"
 
 #: lib/Driver.php:254 lib/Driver.php:272
 #, php-format
 msgid "-Ticket %s\n"
-msgstr "-¹¤×÷µ¥ %s\n"
+msgstr "-å·¥ä½œå• %s\n"
 
 #: lib/api.php:171
 msgid "<i>No summary</i>"
-msgstr "<i>Ã»ÓĞÕªÒª</i>"
+msgstr "<i>æ²¡æœ‰æ‘˜è¦</i>"
 
 #: view.php:55
 #, php-format
 msgid "Access denied to %s"
-msgstr "Ã»ÓĞÈ¨ÏŞ %s"
+msgstr "æ²¡æœ‰æƒé™ %s"
 
 #: lib/Admin.php:719
 msgid "Add Attribute"
-msgstr "ĞÂÔöÊôĞÔ"
+msgstr "æ–°å¢å±æ€§"
 
 #: lib/Query.php:536
 msgid "Add Attribute Criterion"
-msgstr "ĞÂÔöÊôĞÔ¹æÔò"
+msgstr "æ–°å¢å±æ€§è§„åˆ™"
 
 #: details.php:39
 msgid "Add Comment"
-msgstr "ĞÂÔöÆÀÂÛ"
+msgstr "æ–°å¢è¯„è®º"
 
 #: details.php:105
 msgid "Add Comment Succeeded"
-msgstr "ĞÂÔöÆÀÂÛ³É¹¦"
+msgstr "æ–°å¢è¯„è®ºæˆåŠŸ"
 
 #: query.php:178
 msgid "Add Criterion"
-msgstr "ĞÂÔö¹æÔò"
+msgstr "æ–°å¢è§„åˆ™"
 
 #: lib/Admin.php:543
 msgid "Add Priority"
-msgstr "ĞÂÔöÓÅÏÈÈ¨"
+msgstr "æ–°å¢ä¼˜å…ˆæƒ"
 
 #: lib/Query.php:481
 msgid "Add Property Criterion"
-msgstr "ĞÂÔöÌØĞÔ¹æÔò"
+msgstr "æ–°å¢ç‰¹æ€§è§„åˆ™"
 
 #: lib/Admin.php:102 lib/Admin.php:103
 msgid "Add Queue"
-msgstr "ĞÂÔö¶ÓÁĞ"
+msgstr "æ–°å¢é˜Ÿåˆ—"
 
 #: lib/Admin.php:451
 msgid "Add State"
-msgstr "ĞÂÔö×´Ì¬"
+msgstr "æ–°å¢çŠ¶æ€"
 
 #: lib/Admin.php:14 lib/Admin.php:15
 msgid "Add Subject"
-msgstr "ĞÂÔöÖ÷Ìâ"
+msgstr "æ–°å¢ä¸»é¢˜"
 
 #: lib/Query.php:440
 msgid "Add Text Criterion"
-msgstr "ĞÂÔöÄÚÈİ¹æÔò"
+msgstr "æ–°å¢å†…å®¹è§„åˆ™"
 
 #: lib/Admin.php:308 lib/Admin.php:309
 msgid "Add Type"
-msgstr "ĞÂÔöÀàĞÍ"
+msgstr "æ–°å¢ç±»å‹"
 
 #: admin.php:79 admin.php:84
 #, php-format
 msgid "Add Type %s"
-msgstr "ĞÂÔöÀàĞÍ %s"
+msgstr "æ–°å¢ç±»å‹ %s"
 
 #: lib/Query.php:389
 msgid "Add User Criterion"
-msgstr "ĞÂÔöÓÃ»§¹æÔò"
+msgstr "æ–°å¢ç”¨æˆ·è§„åˆ™"
 
 #: lib/Admin.php:245
 msgid "Add Users"
-msgstr "ĞÂÔöÓÃ»§"
+msgstr "æ–°å¢ç”¨æˆ·"
 
 #: lib/Admin.php:631
 msgid "Add Version"
-msgstr "ĞÂÔö°æ±¾"
+msgstr "æ–°å¢ç‰ˆæœ¬"
 
 #: lib/Driver.php:189
 #, php-format
 msgid "Added a %s link to %s."
-msgstr "ÒÑÌí¼Ó%sÁ¬½Óµ½'%s"
+msgstr "å·²æ·»åŠ %sè¿æ¥åˆ°'%s"
 
 #: create.php:147
 #, php-format
 msgid "Adding your ticket failed: %s."
-msgstr "ĞÂÔö¹¤×÷µ¥Ê§°Ü: %s."
+msgstr "æ–°å¢å·¥ä½œå•å¤±è´¥: %s."
 
 #: lib/Search.php:175 lib/Search.php:236
 msgid "Additional Comment"
-msgstr "¸½¼ÓÆÀÂÛ"
+msgstr "é™„åŠ è¯„è®º"
 
 #: templates/menu/menu.inc:23 lib/api.php:146
 msgid "Admin"
-msgstr "¹ÜÀí"
+msgstr "ç®¡ç†"
 
 #: admin.php:50
 msgid "Administration"
-msgstr "¹ÜÀí"
+msgstr "ç®¡ç†"
 
 #: create.php:153
 msgid "An appropriate person has been notified of this request."
-msgstr "ÔÚÕâ´ÎµÄÍ¶Æ±ÖĞÒÑÍ¨ÖªÒ»Î»ÊÊµ±µÄÈËÔ±"
+msgstr "åœ¨è¿™æ¬¡çš„æŠ•ç¥¨ä¸­å·²é€šçŸ¥ä¸€ä½é€‚å½“çš„äººå‘˜"
 
 #: templates/queryrenderer.inc:97 lib/Query.php:345
 msgid "And"
-msgstr "ÇÒ"
+msgstr "ä¸”"
 
 #: search.php:49 search.php:59 search.php:62 search.php:78 search.php:95
 #: lib/Query.php:487 lib/Query.php:491 lib/Search.php:29 lib/Search.php:71
 #: lib/Search.php:75
 msgid "Any"
-msgstr "ÈÎºÏ"
+msgstr "ä»»åˆ"
 
 #: lib/Search.php:152 lib/Search.php:181 lib/Search.php:240 lib/Search.php:316
 #: lib/Search.php:356 lib/Search.php:414 lib/Search.php:483 lib/Search.php:585
 msgid "Any Group"
-msgstr "ÈÎºÎÓÃ»§×é"
+msgstr "ä»»ä½•ç”¨æˆ·ç»„"
 
 #: config/prefs.php.dist:47
 msgid "Ascending"
-msgstr "ÓÉÏÈÖÁºó"
+msgstr "ç”±å…ˆè‡³å"
 
 #: details.php:42
 msgid "Assign Ticket"
-msgstr "·ÖÅä¹¤×÷µ¥"
+msgstr "åˆ†é…å·¥ä½œå•"
 
 #: details.php:173
 msgid "Assign Ticket Succeeded"
-msgstr "·ÖÅä¹¤×÷µ¥³É¹¦"
+msgstr "åˆ†é…å·¥ä½œå•æˆåŠŸ"
 
 #: lib/Whups.php:321 lib/Search.php:116 lib/Driver.php:74
 #: config/prefs.php.dist:36
 msgid "Assigned"
-msgstr "ÒÑ·ÖÅä"
+msgstr "å·²åˆ†é…"
 
 #: lib/Driver.php:301
 #, php-format
 msgid "Assigned By : %s"
-msgstr "±»: %s ·ÖÅä"
+msgstr "è¢«: %s åˆ†é…"
 
 #: lib/Driver.php:300
 #, php-format
 msgid "Assigned To : %s"
-msgstr "ÒÑ·ÖÅä¸ø: %s"
+msgstr "å·²åˆ†é…ç»™: %s"
 
 #: admin.php:1012
 msgid "Associations updated successfully."
-msgstr "ÁªÏµ¸üĞÂ³É¹¦¡£"
+msgstr "è”ç³»æ›´æ–°æˆåŠŸã€‚"
 
 #: lib/Search.php:174
 msgid "Attachment"
-msgstr "¸½¼ş"
+msgstr "é™„ä»¶"
 
 #: templates/comment.inc:105
 #, php-format
 msgid "Attachment '%s' uploaded by %s on %s"
-msgstr "¸½¼ş%sÒÑ±»%sÔÚ%sÉÏ´«"
+msgstr "é™„ä»¶%så·²è¢«%såœ¨%sä¸Šä¼ "
 
 #: details.php:129
 msgid "Attachment successfully uploaded"
-msgstr "¸½¼şÒÑ³É¹¦ÉÏ´«"
+msgstr "é™„ä»¶å·²æˆåŠŸä¸Šä¼ "
 
 #: lib/Search.php:118
 msgid "Attachments"
-msgstr "¸½¼ş"
+msgstr "é™„ä»¶"
 
 #: query.php:40
 msgid "Attribute Criteria"
-msgstr "ÊôĞÔ¹æÔò"
+msgstr "å±æ€§è§„åˆ™"
 
 #: lib/Admin.php:723 lib/Admin.php:769 lib/Admin.php:792
 msgid "Attribute Description"
-msgstr "ÊôĞÔÃèÊö"
+msgstr "å±æ€§æè¿°"
 
 #: lib/Admin.php:722 lib/Admin.php:747 lib/Admin.php:766 lib/Admin.php:789
 msgid "Attribute Name"
-msgstr "ÊôĞÔÃû³Æ"
+msgstr "å±æ€§åç§°"
 
 #: lib/Admin.php:380
 msgid "Attributes for this Type"
-msgstr "´ËÊôĞÔµÄ×´Ì¬"
+msgstr "æ­¤å±æ€§çš„çŠ¶æ€"
 
 #: config/prefs.php.dist:118
 msgid "Autolink to other tickets in comments?"
-msgstr "ÔÚÆÀÂÛÖĞ×Ô¶¯Á¬½Óµ½ÆäËü¹¤×÷µ¥?"
+msgstr "åœ¨è¯„è®ºä¸­è‡ªåŠ¨è¿æ¥åˆ°å…¶å®ƒå·¥ä½œå•?"
 
 #: lib/Reports.php:9
 msgid "Average days to close by Owner"
-msgstr "ÒÔÓµÓĞÕßÆ½¾ùÈÕÊı¹Ø±Õ"
+msgstr "ä»¥æ‹¥æœ‰è€…å¹³å‡æ—¥æ•°å…³é—­"
 
 #: lib/Reports.php:11
 msgid "Average days to close by Queue"
-msgstr "ÒÔ¶ÓÁĞÆ½¾ùÈÕÊı¹Ø±Õ"
+msgstr "ä»¥é˜Ÿåˆ—å¹³å‡æ—¥æ•°å…³é—­"
 
 #: lib/Reports.php:10
 msgid "Average days to close by Requester"
-msgstr "ÒÔÍ¶Æ±ÕßÆ½¾ùÈÕÊı¹Ø±Õ"
+msgstr "ä»¥æŠ•ç¥¨è€…å¹³å‡æ—¥æ•°å…³é—­"
 
 #: lib/Reports.php:13
 msgid "Average time a ticket is unresolved"
-msgstr "ÒÔÎ´½â¾öÆ½¾ùÈÕÊı¹Ø±Õ"
+msgstr "ä»¥æœªè§£å†³å¹³å‡æ—¥æ•°å…³é—­"
 
 #: scripts/mail-filter.php:94
 #, php-format
 msgid "Bad type `%s' for queue."
-msgstr "¶ÓÁĞ´íÎóµÄÀàĞÍ%s"
+msgstr "é˜Ÿåˆ—é”™è¯¯çš„ç±»å‹%s"
 
 #: lib/Query.php:350
 msgid "Branch Type"
-msgstr "·ÖÖ§ÀàĞÍ"
+msgstr "åˆ†æ”¯ç±»å‹"
 
 #: lib/Admin.php:156
 msgid "Can tickets in this Queue be assigned to any client?"
-msgstr "ÔÚÕâ¸ö¶ÓÁĞÖĞµÄ¹¤×÷µ¥ÄÜ·ÖÅä¸øÈÎºÎ¿Í»§Âğ£¿"
+msgstr "åœ¨è¿™ä¸ªé˜Ÿåˆ—ä¸­çš„å·¥ä½œå•èƒ½åˆ†é…ç»™ä»»ä½•å®¢æˆ·å—ï¼Ÿ"
 
 #: lib/Query.php:44
 msgid "Case Insensitive Substring"
-msgstr "×Ó×Ö·û´®²»·Ö´óĞ¡Ğ´"
+msgstr "å­å­—ç¬¦ä¸²ä¸åˆ†å¤§å°å†™"
 
 #: lib/Query.php:45
 msgid "Case Sensitive Substring"
-msgstr "×Ó×Ö·û´®Çø·Ö´óĞ¡Ğ´"
+msgstr "å­å­—ç¬¦ä¸²åŒºåˆ†å¤§å°å†™"
 
 #: templates/queryrenderer.inc:28
 msgid "Change"
-msgstr "±ä¸ü"
+msgstr "å˜æ›´"
 
 #: lib/Query.php:361
 msgid "Change Ticket Type"
-msgstr "±ä¸ü¹¤×÷µ¥ÀàĞÍ"
+msgstr "å˜æ›´å·¥ä½œå•ç±»å‹"
 
 #: config/prefs.php.dist:11
 #, fuzzy
 msgid "Change display options such as how search results are sorted."
-msgstr "¸ü¸ÄÏÔÊ¾Ñ¡Ïî, Èç³ÊÏÖ·ç¸ñ,²éÕÒ½á¹ûÈçºÎÅÅĞòµÈ."
+msgstr "æ›´æ”¹æ˜¾ç¤ºé€‰é¡¹, å¦‚å‘ˆç°é£æ ¼,æŸ¥æ‰¾ç»“æœå¦‚ä½•æ’åºç­‰."
 
 #: config/prefs.php.dist:18
 msgid "Change options for email notifications of ticket activity."
-msgstr "¹¤×÷µ¥»î¶¯µÄÓÊ¼şÍ¨ÖªÑ¡Ïî±ä¸ü."
+msgstr "å·¥ä½œå•æ´»åŠ¨çš„é‚®ä»¶é€šçŸ¥é€‰é¡¹å˜æ›´."
 
 #: query.php:45
 msgid "Choose Action:"
-msgstr "Ñ¡Ôñ»î¶¯:"
+msgstr "é€‰æ‹©æ´»åŠ¨:"
 
 #: config/prefs.php.dist:128
 msgid "Chronological (oldest first)"
-msgstr "°´Äê´úË³Ğò(ÀÏµÄÓÅÏÈ)"
+msgstr "æŒ‰å¹´ä»£é¡ºåº(è€çš„ä¼˜å…ˆ)"
 
 #: templates/savedsearches.inc:23
 msgid "Clear All Searches"
-msgstr "Çå¿ÕËùÓĞ²éÑ¯"
+msgstr "æ¸…ç©ºæ‰€æœ‰æŸ¥è¯¢"
 
 #: lib/Create.php:70 lib/Search.php:51 lib/Search.php:104
 msgid "Client"
-msgstr "¿Í»§"
+msgstr "å®¢æˆ·"
 
 #: lib/Driver.php:298
 #, php-format
 msgid "Client      : %s"
-msgstr "¿Í»§       £º%s"
+msgstr "å®¢æˆ·       ï¼š%s"
 
 #: lib/Search.php:516
 msgid "Clients"
-msgstr "¿Í»§"
+msgstr "å®¢æˆ·"
 
 #: lib/Admin.php:431
 msgid "Clone"
-msgstr "¿ËÂ¡"
+msgstr "å…‹éš†"
 
 #: lib/Admin.php:437
 msgid "Clone Description"
-msgstr "¿ËÂ¡ÃèÊö"
+msgstr "å…‹éš†æè¿°"
 
 #: admin.php:120 lib/Admin.php:323
 msgid "Clone Type"
-msgstr "¿ËÂ¡ÀàĞÍ"
+msgstr "å…‹éš†ç±»å‹"
 
 #: config/templates.php.dist:43
 msgid "Comma Separated Values (CSV file)"
-msgstr "¶ººÅ·Ö¸ôÖµ (CSV ÀàĞÍÎÄ¼ş)"
+msgstr "é€—å·åˆ†éš”å€¼ (CSV ç±»å‹æ–‡ä»¶)"
 
 #: templates/queryrenderer.inc:111 lib/Search.php:145 lib/Search.php:310
 #: lib/Search.php:350 lib/Search.php:390 lib/Search.php:408 lib/Search.php:477
 #: lib/Search.php:579
 msgid "Comment"
-msgstr "ÆÀÂÛ"
+msgstr "è¯„è®º"
 
 #: lib/Driver.php:451
 #, fuzzy, php-format
 msgid "Comment by %s on %s:"
-msgstr "-%s ÓÚ %s ÆÀÂÛ:"
+msgstr "-%s äº %s è¯„è®º:"
 
 #: templates/comment.inc:153
 #, fuzzy, php-format
 msgid "Comment from %s on %s"
-msgstr "-%s ÓÚ %s ÆÀÂÛ:"
+msgstr "-%s äº %s è¯„è®º:"
 
 #: templates/queryrenderer.inc:110
 msgid "Commentor"
-msgstr "ÆÀÂÛÕß"
+msgstr "è¯„è®ºè€…"
 
 #: lib/Admin.php:435
 #, php-format
 msgid "Copy of %s"
-msgstr "%sµÄ¿½±´"
+msgstr "%sçš„æ‹·è´"
 
 #: lib/Admin.php:374
 msgid "Create Default Priorities"
-msgstr "½¨Á¢Ä¬ÈÏÓÅÏÈ¼¶"
+msgstr "å»ºç«‹é»˜è®¤ä¼˜å…ˆçº§"
 
 #: lib/Admin.php:364
 msgid "Create Default States"
-msgstr "½¨Á¢Ä¬ÈÏ²½Öè"
+msgstr "å»ºç«‹é»˜è®¤æ­¥éª¤"
 
 #: config/prefs.php.dist:60
 msgid "Create Ticket"
-msgstr "½¨Á¢¹¤×÷µ¥"
+msgstr "å»ºç«‹å·¥ä½œå•"
 
 #: lib/Create.php:24
 msgid "Create Ticket - Step 1"
-msgstr "½¨Á¢¹¤×÷µ¥ - ²½Öè 1"
+msgstr "å»ºç«‹å·¥ä½œå• - æ­¥éª¤ 1"
 
 #: lib/Create.php:50
 msgid "Create Ticket - Step 2"
-msgstr "½¨Á¢¹¤×÷µ¥ - ²½Öè 2"
+msgstr "å»ºç«‹å·¥ä½œå• - æ­¥éª¤ 2"
 
 #: lib/Create.php:95
 msgid "Create Ticket - Step 3"
-msgstr "½¨Á¢¹¤×÷µ¥ - ²½Öè 3"
+msgstr "å»ºç«‹å·¥ä½œå• - æ­¥éª¤ 3"
 
 #: lib/Create.php:131
 msgid "Create Ticket - Step 4"
-msgstr "½¨Á¢¹¤×÷µ¥ - ²½Öè 4"
+msgstr "å»ºç«‹å·¥ä½œå• - æ­¥éª¤ 4"
 
 #: lib/Whups.php:320 lib/Search.php:115 config/prefs.php.dist:35
 msgid "Created"
-msgstr "ÒÑ½¨Á¢"
+msgstr "å·²å»ºç«‹"
 
 #: query.php:168 query.php:185
 msgid "Current Query"
-msgstr "Ä¿Ç°²éÑ¯"
+msgstr "ç›®å‰æŸ¥è¯¢"
 
 #: templates/queryrenderer.inc:26
 msgid "Current Ticket Type"
-msgstr "Ä¿Ç°¹¤×÷µ¥ÀàĞÍ"
+msgstr "ç›®å‰å·¥ä½œå•ç±»å‹"
 
 #: lib/Query.php:363
 msgid "Current Type"
-msgstr "Ä¿Ç°ÀàĞÍ"
+msgstr "ç›®å‰ç±»å‹"
 
 #: config/prefs.php.dist:91
 msgid "Date/Time format for search results"
-msgstr "ÒÔ ÈÕÆÚ/Ê±¼ä Îª²éÕÒ½á¹ûµÄ¸ñÊ½"
+msgstr "ä»¥ æ—¥æœŸ/æ—¶é—´ ä¸ºæŸ¥æ‰¾ç»“æœçš„æ ¼å¼"
 
 #: config/prefs.php.dist:38
 msgid "Default sorting criteria:"
-msgstr "Ô¤ÉèÅÅÁĞ¹æÔò:"
+msgstr "é¢„è®¾æ’åˆ—è§„åˆ™:"
 
 #: config/prefs.php.dist:49
 msgid "Default sorting direction:"
-msgstr "Ô¤ÉèÅÅÁĞ·½Ïò:"
+msgstr "é¢„è®¾æ’åˆ—æ–¹å‘:"
 
 #: query.php:46
 msgid "Delete"
-msgstr "É¾³ı"
+msgstr "åˆ é™¤"
 
 #: admin.php:900 lib/Admin.php:735
 msgid "Delete Attribute"
-msgstr "É¾³ıÊôĞÔ"
+msgstr "åˆ é™¤å±æ€§"
 
 #: lib/Admin.php:781
 msgid "Delete Attribute Confirmation"
-msgstr "É¾³ıÊôĞÔÈ·ÈÏ"
+msgstr "åˆ é™¤å±æ€§ç¡®è®¤"
 
 #: admin.php:509 lib/Admin.php:559
 msgid "Delete Priority"
-msgstr "É¾³ıÓÅÏÈÈ¨"
+msgstr "åˆ é™¤ä¼˜å…ˆæƒ"
 
 #: lib/Admin.php:605
 msgid "Delete Priority Confirmation"
-msgstr "É¾³ıÓÅÏÈÈ¨È·ÈÏ"
+msgstr "åˆ é™¤ä¼˜å…ˆæƒç¡®è®¤"
 
 #: admin.php:277 lib/Admin.php:118
 msgid "Delete Queue"
-msgstr "É¾³ı¶ÓÁĞ"
+msgstr "åˆ é™¤é˜Ÿåˆ—"
 
 #: lib/Admin.php:220
 msgid "Delete Queue Confirmation"
-msgstr "É¾³ı¶ÓÁĞÈ·ÈÏ"
+msgstr "åˆ é™¤é˜Ÿåˆ—ç¡®è®¤"
 
 #: templates/savedsearches.inc:29 templates/savedsearches.inc:30
 msgid "Delete Search"
-msgstr "É¾³ı²éÑ¯"
+msgstr "åˆ é™¤æŸ¥è¯¢"
 
 #: admin.php:391 lib/Admin.php:468
 msgid "Delete State"
-msgstr "É¾³ı×´Ì¬"
+msgstr "åˆ é™¤çŠ¶æ€"
 
 #: lib/Admin.php:517
 msgid "Delete State Confirmation"
-msgstr "É¾³ı×´Ì¬È·ÈÏ"
+msgstr "åˆ é™¤çŠ¶æ€ç¡®è®¤"
 
 #: admin.php:683 lib/Admin.php:29
 msgid "Delete Subject"
-msgstr "É¾³ıÖ÷Ìâ"
+msgstr "åˆ é™¤ä¸»é¢˜"
 
 #: lib/Admin.php:80
 msgid "Delete Subject Confirmation"
-msgstr "É¾³ıÖ÷ÌâÈ·ÈÏ"
+msgstr "åˆ é™¤ä¸»é¢˜ç¡®è®¤"
 
 #: details.php:52
 msgid "Delete Ticket"
-msgstr "É¾³ı¹¤×÷µ¥"
+msgstr "åˆ é™¤å·¥ä½œå•"
 
 #: details.php:350
 msgid "Delete Ticket Succeeded"
-msgstr "É¾³ı¹¤×÷µ¥³É¹¦"
+msgstr "åˆ é™¤å·¥ä½œå•æˆåŠŸ"
 
 #: admin.php:114 lib/Admin.php:323
 msgid "Delete Type"
-msgstr "É¾³ıÀàĞÍ"
+msgstr "åˆ é™¤ç±»å‹"
 
 #: lib/Admin.php:394
 msgid "Delete Type Confirmation"
-msgstr "É¾³ıÀàĞÍÈ·ÈÏ"
+msgstr "åˆ é™¤ç±»å‹ç¡®è®¤"
 
 #: admin.php:783 lib/Admin.php:647
 msgid "Delete Version"
-msgstr "É¾³ı°æ±¾"
+msgstr "åˆ é™¤ç‰ˆæœ¬"
 
 #: lib/Admin.php:693
 msgid "Delete Version Confirmation"
-msgstr "É¾³ı°æ±¾È·ÈÏ"
+msgstr "åˆ é™¤ç‰ˆæœ¬ç¡®è®¤"
 
 #: config/prefs.php.dist:48
 msgid "Descending"
-msgstr "½µĞò"
+msgstr "é™åº"
 
 #: lib/Create.php:120
 msgid "Description"
-msgstr "ÃèÊö"
+msgstr "æè¿°"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "ÏÔÊ¾Ñ¡Ïî"
+msgstr "æ˜¾ç¤ºé€‰é¡¹"
 
 #: lib/Whups.php:451
 msgid "Download"
-msgstr "ÏÂÔØ"
+msgstr "ä¸‹è½½"
 
 #: query.php:47
 msgid "Edit"
-msgstr "±à¼­"
+msgstr "ç¼–è¾‘"
 
 #: lib/Admin.php:143 lib/Admin.php:348
 #, php-format
 msgid "Edit %s"
-msgstr "±à¼­ %s"
+msgstr "ç¼–è¾‘ %s"
 
 #: admin.php:895 lib/Admin.php:735 lib/Admin.php:758
 msgid "Edit Attribute"
-msgstr "±à¼­ÊôĞÔ"
+msgstr "ç¼–è¾‘å±æ€§"
 
 #: details.php:49 lib/Admin.php:382
 msgid "Edit Attributes"
-msgstr "±à¼­ÊôĞÔ"
+msgstr "ç¼–è¾‘å±æ€§"
 
 #: lib/Admin.php:372
 msgid "Edit Priorities"
-msgstr "±à¼­ÓÅÏÈÈ¨"
+msgstr "ç¼–è¾‘ä¼˜å…ˆæƒ"
 
 #: admin.php:504 lib/Admin.php:559 lib/Admin.php:582
 msgid "Edit Priority"
-msgstr "±à¼­ÓÅÏÈÈ¨"
+msgstr "ç¼–è¾‘ä¼˜å…ˆæƒ"
 
 #: runquery.php:24
 msgid "Edit Query"
-msgstr "±à¼­²éÑ¯"
+msgstr "ç¼–è¾‘æŸ¥è¯¢"
 
 #: admin.php:271 lib/Admin.php:118
 msgid "Edit Queue"
-msgstr "±à¼­¶ÓÁĞ"
+msgstr "ç¼–è¾‘é˜Ÿåˆ—"
 
 #: admin.php:28
 msgid "Edit Queues"
-msgstr "±à¼­¶ÓÁĞ"
+msgstr "ç¼–è¾‘é˜Ÿåˆ—"
 
 #: admin.php:386 lib/Admin.php:468 lib/Admin.php:491
 msgid "Edit State"
-msgstr "±à¼­×´Ì¬"
+msgstr "ç¼–è¾‘çŠ¶æ€"
 
 #: lib/Admin.php:362
 msgid "Edit States"
-msgstr "±à¼­×´Ì¬"
+msgstr "ç¼–è¾‘çŠ¶æ€"
 
 #: admin.php:678 lib/Admin.php:29 lib/Admin.php:51
 msgid "Edit Subject"
-msgstr "±à¼­Ö÷Ìâ"
+msgstr "ç¼–è¾‘ä¸»é¢˜"
 
 #: admin.php:30
 msgid "Edit Subjects"
-msgstr "±à¼­Ö÷Ìâ"
+msgstr "ç¼–è¾‘ä¸»é¢˜"
 
 #: admin.php:108 lib/Admin.php:323
 msgid "Edit Type"
-msgstr "±à¼­ÀàĞÍ"
+msgstr "ç¼–è¾‘ç±»å‹"
 
 #: admin.php:29
 msgid "Edit Types"
-msgstr "±à¼­ÀàĞÍ"
+msgstr "ç¼–è¾‘ç±»å‹"
 
 #: admin.php:778 lib/Admin.php:647 lib/Admin.php:670
 msgid "Edit Version"
-msgstr "±à¼­°æ±¾"
+msgstr "ç¼–è¾‘ç‰ˆæœ¬"
 
 #: lib/Admin.php:734
 msgid "Edit or Delete Attributes"
-msgstr "±à¼­»òÉ¾³ıÊôĞÔ"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤å±æ€§"
 
 #: lib/Admin.php:558
 msgid "Edit or Delete Priorities"
-msgstr "±à¼­»òÉ¾³ıÓÅÏÈÈ¨"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤ä¼˜å…ˆæƒ"
 
 #: lib/Admin.php:117
 msgid "Edit or Delete Queues"
-msgstr "±à¼­»òÉ¾³ı¶ÓÁĞ"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤é˜Ÿåˆ—"
 
 #: lib/Admin.php:467
 msgid "Edit or Delete States"
-msgstr "±à¼­»òÉ¾³ı×´Ì¬"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤çŠ¶æ€"
 
 #: lib/Admin.php:28
 msgid "Edit or Delete Subjects"
-msgstr "±à¼­»òÉ¾³ıÖ÷Ìâ"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤ä¸»é¢˜"
 
 #: lib/Admin.php:322
 msgid "Edit or Delete Types"
-msgstr "±à¼­»òÉ¾³ıÀàĞÍ"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤ç±»å‹"
 
 #: lib/Admin.php:646
 msgid "Edit or Delete Versions"
-msgstr "±à¼­»òÉ¾³ı°æ±¾"
+msgstr "ç¼–è¾‘æˆ–åˆ é™¤ç‰ˆæœ¬"
 
 #: lib/Admin.php:196
 msgid "Edit the permissions on this queue"
-msgstr "±à¼­´Ë¶ÓÁĞµÄÈ¨ÏŞ"
+msgstr "ç¼–è¾‘æ­¤é˜Ÿåˆ—çš„æƒé™"
 
 #: lib/Admin.php:191
 msgid "Edit the users responsible for this queue"
-msgstr "±à¼­´Ë¶ÓÁĞµÄ¸ºÔğÈË"
+msgstr "ç¼–è¾‘æ­¤é˜Ÿåˆ—çš„è´Ÿè´£äºº"
 
 #: lib/Admin.php:171
 msgid "Edit the versions for this queue"
-msgstr "±à¼­´Ë¶ÓÁĞµÄ°æ±¾"
+msgstr "ç¼–è¾‘æ­¤é˜Ÿåˆ—çš„ç‰ˆæœ¬"
 
 #: lib/Search.php:45
 #, php-format
 msgid "Error fetching clients: %s"
-msgstr "»ñÈ¡¿Í»§´íÎó£º%s"
+msgstr "è·å–å®¢æˆ·é”™è¯¯ï¼š%s"
 
 #: query.php:156
 #, php-format
 msgid "Error: Unknown query form %s, defaulting to properties"
-msgstr "´íÎó: À´×Ô %s µÄÎ´Öª²éÑ¯,Ô¤ÉèÎªĞÔÖÊ"
+msgstr "é”™è¯¯: æ¥è‡ª %s çš„æœªçŸ¥æŸ¥è¯¢,é¢„è®¾ä¸ºæ€§è´¨"
 
 #: lib/Query.php:43
 msgid "Exact Match"
-msgstr "¾«È·Æ¥Åä"
+msgstr "ç²¾ç¡®åŒ¹é…"
 
 #: runquery.php:70 runquery.php:86 query.php:30
 msgid "Execute Query"
-msgstr "Ö´ĞĞ²éÑ¯"
+msgstr "æ‰§è¡ŒæŸ¥è¯¢"
 
 #: lib/Admin.php:819
 msgid "For tickets from these queues"
@@ -704,39 +704,39 @@ msgstr ""
 
 #: templates/menu/menu.inc:48
 msgid "Go"
-msgstr "×ªµ½"
+msgstr "è½¬åˆ°"
 
 #: lib/Create.php:158 lib/Search.php:226
 msgid "Group Owners"
-msgstr "ÓÃ»§×éÓµÓĞÕß"
+msgstr "ç”¨æˆ·ç»„æ‹¥æœ‰è€…"
 
 #: templates/menu/menu.inc:37
 msgid "Help"
-msgstr "°ïÖú"
+msgstr "å¸®åŠ©"
 
 #: lib/api.php:707
 msgid "Hidden Comments"
-msgstr "Òş²ØÆÀÂÛ"
+msgstr "éšè—è¯„è®º"
 
 #: lib/Search.php:81
 msgid "Hide Assigned"
-msgstr "Òş²ØÒÑ·ÖÅä"
+msgstr "éšè—å·²åˆ†é…"
 
 #: lib/Search.php:80
 msgid "Hide New"
-msgstr "Òş²ØĞÂ½¨"
+msgstr "éšè—æ–°å»º"
 
 #: lib/Search.php:82
 msgid "Hide Resolved"
-msgstr "Òş²ØÒÑ½â¾ö"
+msgstr "éšè—å·²è§£å†³"
 
 #: lib/Search.php:79
 msgid "Hide Unconfirmed"
-msgstr "Òş²ØÎ´È·ÈÏ"
+msgstr "éšè—æœªç¡®è®¤"
 
 #: query.php:49
 msgid "Hoist"
-msgstr "ÉıÆğ"
+msgstr "å‡èµ·"
 
 #: templates/queryrenderer.inc:105 lib/Whups.php:313 lib/Query.php:483
 #: config/prefs.php.dist:28
@@ -746,12 +746,12 @@ msgstr "Id"
 #: lib/Admin.php:159
 #, fuzzy
 msgid "If not, select clients associated with this Queue"
-msgstr "ÓëÕâ¸ö¶ÓÁĞÏà¹ØÁªµÄÖ÷Ìâ"
+msgstr "ä¸è¿™ä¸ªé˜Ÿåˆ—ç›¸å…³è”çš„ä¸»é¢˜"
 
 #: lib/Driver.php:405
 #, php-format
 msgid "If you believe you have recieved this mail in error, please contact %s."
-msgstr "Èç¹ûÄú¾õµÃÊÕµÄÕâ·âĞÅ¼şÓĞ´íÎó,ÇëÓë %s ÁªÂç."
+msgstr "å¦‚æœæ‚¨è§‰å¾—æ”¶çš„è¿™å°ä¿¡ä»¶æœ‰é”™è¯¯,è¯·ä¸ %s è”ç»œ."
 
 #: lib/Search.php:54
 msgid ""
@@ -773,7 +773,7 @@ msgstr ""
 #: templates/comment.inc:74
 #, fuzzy, php-format
 msgid "Initial priority of '%s' set by %s on %s"
-msgstr ", ³õÊ¼ÓÅÏÈÈ¨ '%s'."
+msgstr ", åˆå§‹ä¼˜å…ˆæƒ '%s'."
 
 #: templates/comment.inc:94
 #, php-format
@@ -783,350 +783,350 @@ msgstr ""
 #: templates/comment.inc:64
 #, fuzzy, php-format
 msgid "Initial state of '%s' set by %s on %s"
-msgstr "'%s' µÄ³õÊ¼×´Ì¬"
+msgstr "'%s' çš„åˆå§‹çŠ¶æ€"
 
 #: templates/comment.inc:84
 #, fuzzy, php-format
 msgid "Initial type of '%s' set by %s on %s"
-msgstr "'%s' µÄ³õÊ¼×´Ì¬"
+msgstr "'%s' çš„åˆå§‹çŠ¶æ€"
 
 #: query.php:50
 msgid "Insert And"
-msgstr "²åÈëÇÒ"
+msgstr "æ’å…¥ä¸”"
 
 #: lib/Query.php:342
 msgid "Insert Branch"
-msgstr "²åÈë·ÖÖ§"
+msgstr "æ’å…¥åˆ†æ”¯"
 
 #: query.php:52
 msgid "Insert Not"
-msgstr "²åÈë²»ÊÇ"
+msgstr "æ’å…¥ä¸æ˜¯"
 
 #: query.php:51
 msgid "Insert Or"
-msgstr "²åÈë»ò"
+msgstr "æ’å…¥æˆ–"
 
 #: query.php:53
 msgid "Insert Query"
-msgstr "²åÈë²éÑ¯"
+msgstr "æ’å…¥æŸ¥è¯¢"
 
 #: lib/Admin.php:169
 msgid "Keep a set of versions for this queue?"
-msgstr "Îª´Ë¶ÓÁĞ¹Ì¶¨Ò»×é°æ±¾?"
+msgstr "ä¸ºæ­¤é˜Ÿåˆ—å›ºå®šä¸€ç»„ç‰ˆæœ¬?"
 
 #: lib/Driver.php:191
 msgid "Link added."
-msgstr "Á¬½ÓÒÑÌí¼õ¡£"
+msgstr "è¿æ¥å·²æ·»å‡ã€‚"
 
 #: runquery.php:26 query.php:31 lib/Query.php:612
 msgid "Load Query"
-msgstr "¼ÓÔØ²éÑ¯"
+msgstr "åŠ è½½æŸ¥è¯¢"
 
 #: templates/menu/menu.inc:28
 msgid "Login"
-msgstr "µÇÂ¼"
+msgstr "ç™»å½•"
 
 #: config/prefs.php.dist:89
 msgid "MM/DD/YY"
-msgstr "ÔÂ/ÈÕ/Äê"
+msgstr "æœˆ/æ—¥/å¹´"
 
 #: config/prefs.php.dist:90
 msgid "MM/DD/YY HH:MM:SS"
-msgstr "ÔÂ/ÈÕ/Äê Ê±:·Ö:Ãë"
+msgstr "æœˆ/æ—¥/å¹´ æ—¶:åˆ†:ç§’"
 
 #: lib/Admin.php:429
 #, php-format
 msgid "Make a clone of %s"
-msgstr "´´½¨%sµÄ¿ËÂ¡"
+msgstr "åˆ›å»º%sçš„å…‹éš†"
 
 #: lib/Query.php:542
 msgid "Match"
-msgstr "Æ¥Åä"
+msgstr "åŒ¹é…"
 
 #: lib/Query.php:392 lib/Query.php:443 lib/Query.php:543
 msgid "Match Operator"
-msgstr "Æ¥Åä·û"
+msgstr "åŒ¹é…ç¬¦"
 
 #: lib/Query.php:47
 msgid "Match Pattern"
-msgstr "ÓëÑù±¾Æ¥Åä"
+msgstr "ä¸æ ·æœ¬åŒ¹é…"
 
 #: lib/Query.php:46
 msgid "Match Word"
-msgstr "Óë×Ö·û´®Æ¥Åä"
+msgstr "ä¸å­—ç¬¦ä¸²åŒ¹é…"
 
 #: lib/Reports.php:14
 msgid "Maximum time a ticket is unresolved"
-msgstr "Ò»¸ö¹¤×÷µ¥Î´½â¾öµÄ×î´óÊ±¼ä"
+msgstr "ä¸€ä¸ªå·¥ä½œå•æœªè§£å†³çš„æœ€å¤§æ—¶é—´"
 
 #: lib/Reports.php:15
 msgid "Minimum time a ticket is unresolved"
-msgstr "Ò»¸ö¹¤×÷µ¥Î´½â¾öµÄ×îĞ¡Ê±¼ä"
+msgstr "ä¸€ä¸ªå·¥ä½œå•æœªè§£å†³çš„æœ€å°æ—¶é—´"
 
 #: config/prefs.php.dist:129
 msgid "Most recent first"
-msgstr "×î½üµÄÓÅÏÈ"
+msgstr "æœ€è¿‘çš„ä¼˜å…ˆ"
 
 #: query.php:48
 msgid "Move"
-msgstr "ÒÆ¶¯"
+msgstr "ç§»åŠ¨"
 
 #: details.php:332
 #, php-format
 msgid "Moved ticket %d to '%s'"
-msgstr "ÒÆ¶¯¹¤×÷µ¥%dµ½%s"
+msgstr "ç§»åŠ¨å·¥ä½œå•%dåˆ°%s"
 
 #: mybugs.php:61 templates/menu/menu.inc:8
 #, php-format
 msgid "My %s"
-msgstr "ÎÒµÄ %s"
+msgstr "æˆ‘çš„ %s"
 
 #: mybugs.php:42
 msgid "My Assigned Tickets"
-msgstr "ÎÒµÄÒÑ·ÖÅä¹¤×÷µ¥"
+msgstr "æˆ‘çš„å·²åˆ†é…å·¥ä½œå•"
 
 #: mybugs.php:58
 msgid "My Open Requests"
-msgstr "ÎÒËù¿ª·ÅµÄÍ¶Æ±"
+msgstr "æˆ‘æ‰€å¼€æ”¾çš„æŠ•ç¥¨"
 
 #: mybugs.php:75 search.php:176
 msgid "My Searches"
-msgstr "ÎÒµÄ²éÕÒ"
+msgstr "æˆ‘çš„æŸ¥æ‰¾"
 
 #: config/prefs.php.dist:58
 msgid "My Tickets"
-msgstr "ÎÒµÄ¹¤×÷µ¥"
+msgstr "æˆ‘çš„å·¥ä½œå•"
 
 #: lib/Query.php:591 lib/Query.php:628
 msgid "Name"
-msgstr "Ãû³Æ"
+msgstr "åç§°"
 
 #: lib/Admin.php:434
 msgid "Name of the cloned copy"
-msgstr "¿ËÂ¡¿½±´µÄÃû³Æ"
+msgstr "å…‹éš†æ‹·è´çš„åç§°"
 
 #: lib/Driver.php:73
 msgid "New"
-msgstr "ĞÂÔö"
+msgstr "æ–°å¢"
 
 #: lib/Search.php:348 lib/Search.php:388
 msgid "New Priority"
-msgstr "ĞÂÔöÓÅÏÈÈ¨"
+msgstr "æ–°å¢ä¼˜å…ˆæƒ"
 
 #: query.php:29
 msgid "New Query"
-msgstr "ĞÂÔö²éÑ¯"
+msgstr "æ–°å¢æŸ¥è¯¢"
 
 #: lib/Search.php:476
 #, fuzzy
 msgid "New Queue"
-msgstr "ĞÂÔö²éÑ¯"
+msgstr "æ–°å¢æŸ¥è¯¢"
 
 #: lib/Search.php:235 lib/Search.php:308
 msgid "New State"
-msgstr "ĞÂÔö×´Ì¬"
+msgstr "æ–°å¢çŠ¶æ€"
 
 #: create.php:26 templates/menu/menu.inc:11 lib/Block/summary.php:24
 msgid "New Ticket"
-msgstr "ĞÂÔö¹¤×÷µ¥"
+msgstr "æ–°å¢å·¥ä½œå•"
 
 #: lib/Search.php:407
 msgid "New Type"
-msgstr "ĞÂÔöÀàĞÍ"
+msgstr "æ–°å¢ç±»å‹"
 
 #: lib/Driver.php:270
 #, php-format
 msgid "New comment for ticket %s"
-msgstr "ĞÂÔö¹¤×÷µ¥ %s µÄÆÀÂÛ"
+msgstr "æ–°å¢å·¥ä½œå• %s çš„è¯„è®º"
 
 #: lib/Driver.php:252
 #, php-format
 msgid "New ticket (%s): %s"
-msgstr "ĞÂÔö¹¤×÷µ¥ (%s): %s"
+msgstr "æ–°å¢å·¥ä½œå• (%s): %s"
 
 #: lib/Admin.php:90 lib/Admin.php:233 lib/Admin.php:415 lib/Admin.php:531
 #: lib/Admin.php:619 lib/Admin.php:707 lib/Admin.php:795 lib/Search.php:280
 msgid "No"
-msgstr "·ñ"
+msgstr "å¦"
 
 #: clearsearch.php:34
 msgid "No searches cleared."
-msgstr "Ã»ÓĞ²éÑ¯±»Çå¿Õ¡£"
+msgstr "æ²¡æœ‰æŸ¥è¯¢è¢«æ¸…ç©ºã€‚"
 
 #: reports.php:17
 msgid "No stats available."
-msgstr "Ã»ÓĞÓĞĞ§µÄ×´Ì¬¡£"
+msgstr "æ²¡æœ‰æœ‰æ•ˆçš„çŠ¶æ€ã€‚"
 
 #: lib/Driver.php:66
 #, php-format
 msgid "No such backend '%s' found"
-msgstr "ÕÒ²»µ½·şÎñ¶Ë '%s'"
+msgstr "æ‰¾ä¸åˆ°æœåŠ¡ç«¯ '%s'"
 
 #: details.php:23
 msgid "No such ticket."
-msgstr "ÎŞ´Ë¹¤×÷µ¥."
+msgstr "æ— æ­¤å·¥ä½œå•."
 
 #: lib/Whups.php:352
 msgid "No tickets matched your search criteria."
-msgstr "Ã»ÓĞ¹¤×÷µ¥·ûºÏÄúµÄ²éÑ¯Ìõ¼ş¡£"
+msgstr "æ²¡æœ‰å·¥ä½œå•ç¬¦åˆæ‚¨çš„æŸ¥è¯¢æ¡ä»¶ã€‚"
 
 #: lib/Block/summary.php:75
 msgid "No tickets to display"
-msgstr "Ã»ÓĞ¹¤×÷µ¥¿ÉÒÔÏÔÊ¾"
+msgstr "æ²¡æœ‰å·¥ä½œå•å¯ä»¥æ˜¾ç¤º"
 
 #: lib/Reports.php:79
 msgid "None"
-msgstr "ÎŞ"
+msgstr "æ— "
 
 #: templates/queryrenderer.inc:99 lib/Query.php:347
 msgid "Not"
-msgstr "²»ÊÇ"
+msgstr "ä¸æ˜¯"
 
 #: query.php:86
 msgid "Not yet implemented..."
-msgstr "ÉĞÎ´Íê³É..."
+msgstr "å°šæœªå®Œæˆ..."
 
 #: config/prefs.php.dist:17
 msgid "Notification Options"
-msgstr "Í¨ÖªÑ¡Ïî"
+msgstr "é€šçŸ¥é€‰é¡¹"
 
 #: config/prefs.php.dist:109
 msgid "Only notify me of ticket changes from other users"
-msgstr "¹¤×÷µ¥±»ÆäËüÈË±ä¸üÊ±Ö»Í¨ÖªÎÒ"
+msgstr "å·¥ä½œå•è¢«å…¶å®ƒäººå˜æ›´æ—¶åªé€šçŸ¥æˆ‘"
 
 #: lib/Reports.php:8
 msgid "Open Tickets by Owner"
-msgstr "ÒÔÓµÓĞÕß¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥æ‹¥æœ‰è€…å¼€å¯å·¥ä½œå•"
 
 #: lib/Reports.php:6
 msgid "Open Tickets by Priority"
-msgstr "ÒÔÓÅÏÈÈ¨¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥ä¼˜å…ˆæƒå¼€å¯å·¥ä½œå•"
 
 #: lib/Reports.php:3
 msgid "Open Tickets by Queue"
-msgstr "ÒÔ¶ÓÁĞ¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥é˜Ÿåˆ—å¼€å¯å·¥ä½œå•"
 
 #: lib/Reports.php:7
 msgid "Open Tickets by Requester"
-msgstr "ÒÔÍ¶Æ±Õß¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥æŠ•ç¥¨è€…å¼€å¯å·¥ä½œå•"
 
 #: lib/Reports.php:4
 msgid "Open Tickets by State"
-msgstr "ÒÔ×´Ì¬¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥çŠ¶æ€å¼€å¯å·¥ä½œå•"
 
 #: lib/Reports.php:5
 msgid "Open Tickets by Type"
-msgstr "ÒÔÀàĞÍ¿ªÆô¹¤×÷µ¥"
+msgstr "ä»¥ç±»å‹å¼€å¯å·¥ä½œå•"
 
 #: templates/menu/menu.inc:18
 msgid "Options"
-msgstr "Ñ¡Ïî"
+msgstr "é€‰é¡¹"
 
 #: templates/queryrenderer.inc:98 lib/Query.php:346
 msgid "Or"
-msgstr "»ò"
+msgstr "æˆ–"
 
 #: config/prefs.php.dist:9 config/prefs.php.dist:16
 msgid "Other Options"
-msgstr "ÆäËüÑ¡Ïî"
+msgstr "å…¶å®ƒé€‰é¡¹"
 
 #: templates/queryrenderer.inc:108
 msgid "Owner"
-msgstr "ÓµÓĞÕß"
+msgstr "æ‹¥æœ‰è€…"
 
 #: lib/Search.php:111
 msgid "Owner(s)"
-msgstr "ÓµÓĞÕß"
+msgstr "æ‹¥æœ‰è€…"
 
 #: lib/Create.php:152 lib/Create.php:164 lib/Whups.php:319 lib/Search.php:220
 #: lib/Search.php:232
 msgid "Owners"
-msgstr "ÓµÓĞÕß"
+msgstr "æ‹¥æœ‰è€…"
 
 #: lib/Query.php:349
 msgid "Path"
-msgstr "Â·¾¶"
+msgstr "è·¯å¾„"
 
 #: lib/Search.php:251 lib/Search.php:287 lib/Search.php:327 lib/Search.php:367
 #: lib/Search.php:425 lib/Search.php:456 lib/Search.php:494 lib/Search.php:525
 #: lib/Search.php:551
 msgid "Permission Denied."
-msgstr "Ã»ÓĞÈ¨ÏŞ¡£"
+msgstr "æ²¡æœ‰æƒé™ã€‚"
 
 #: lib/Admin.php:370 lib/Admin.php:412
 msgid "Priorities for this Type"
-msgstr "´ËÀàĞÍµÄÓÅÏÈÈ¨"
+msgstr "æ­¤ç±»å‹çš„ä¼˜å…ˆæƒ"
 
 #: templates/queryrenderer.inc:121 lib/Create.php:118 lib/Whups.php:317
 #: lib/Query.php:492 lib/Search.php:76 lib/Search.php:109 lib/Search.php:450
 #: lib/Search.php:545 config/prefs.php.dist:32
 msgid "Priority"
-msgstr "ÓÅÏÈÈ¨"
+msgstr "ä¼˜å…ˆæƒ"
 
 #: lib/Admin.php:547 lib/Admin.php:593 lib/Admin.php:616
 msgid "Priority Description"
-msgstr "ÓÅÏÈÈ¨µÄÃèÊö"
+msgstr "ä¼˜å…ˆæƒçš„æè¿°"
 
 #: lib/Admin.php:546 lib/Admin.php:571 lib/Admin.php:590 lib/Admin.php:613
 msgid "Priority Name"
-msgstr "ÓÅÏÈÈ¨µÄÃû³Æ"
+msgstr "ä¼˜å…ˆæƒçš„åç§°"
 
 #: templates/comment.inc:77
 #, fuzzy, php-format
 msgid "Priority changed to '%s' by %s on %s"
-msgstr ", ÓÅÏÈÈ¨±ä¸üÎª '%s'."
+msgstr ", ä¼˜å…ˆæƒå˜æ›´ä¸º '%s'."
 
 #: templates/comment.inc:152
 msgid "Private"
-msgstr "Ë½ÓĞµÄ"
+msgstr "ç§æœ‰çš„"
 
 #: query.php:36
 msgid "Property Criteria"
-msgstr "ĞÔÖÊ¹æÔò"
+msgstr "æ€§è´¨è§„åˆ™"
 
 #: query.php:133 templates/menu/menu.inc:13
 msgid "Query Builder"
-msgstr "²éÑ¯½¨Á¢Õß"
+msgstr "æŸ¥è¯¢å»ºç«‹è€…"
 
 #: lib/Query.php:101
 msgid "Query Parameters"
-msgstr "²éÕÒ²ÎÊı"
+msgstr "æŸ¥æ‰¾å‚æ•°"
 
 #: runquery.php:75
 msgid "Query Results"
-msgstr "²éÕÒ½á¹û"
+msgstr "æŸ¥æ‰¾ç»“æœ"
 
 #: templates/queryrenderer.inc:106 lib/Whups.php:318 config/prefs.php.dist:33
 msgid "Queue"
-msgstr "¶ÓÁĞ"
+msgstr "é˜Ÿåˆ—"
 
 #: lib/Driver.php:296
 #, fuzzy, php-format
 msgid "Queue       : %s"
-msgstr "-¶ÓÁĞ: %s"
+msgstr "-é˜Ÿåˆ—: %s"
 
 #: lib/Admin.php:106 lib/Admin.php:150 lib/Admin.php:230
 msgid "Queue Description"
-msgstr "¶ÓÁĞÃèÊö"
+msgstr "é˜Ÿåˆ—æè¿°"
 
 #: lib/Admin.php:105 lib/Admin.php:129 lib/Admin.php:147 lib/Admin.php:227
 #: lib/Create.php:28 lib/Create.php:36 lib/Search.php:39 lib/Search.php:96
 msgid "Queue Name"
-msgstr "¶ÓÁĞÃû³Æ"
+msgstr "é˜Ÿåˆ—åç§°"
 
 #: lib/Create.php:83 lib/Search.php:99
 msgid "Queue Version"
-msgstr "¶ÓÁĞ°æ±¾"
+msgstr "é˜Ÿåˆ—ç‰ˆæœ¬"
 
 #: scripts/mail-filter.php:80
 #, fuzzy, php-format
 msgid "Queue `%s' does not exist."
-msgstr "µãÑ¡µÄÑù°å²¢²»´æÔÚ."
+msgstr "ç‚¹é€‰çš„æ ·æ¿å¹¶ä¸å­˜åœ¨."
 
 #: templates/comment.inc:97
 #, fuzzy, php-format
 msgid "Queue changed to '%s' by %s on %s"
-msgstr "×´Ì¬ÒÑ±ä¸üÎª '%s'"
+msgstr "çŠ¶æ€å·²å˜æ›´ä¸º '%s'"
 
 #: admin.php:31 templates/admin/mtmatrix.inc:6
 msgid "Queue/Type Matrix"
@@ -1140,56 +1140,56 @@ msgstr ""
 #: search.php:104
 #, fuzzy, php-format
 msgid "Queue: %s, Ticket: %s, Category: %s, Type: %s"
-msgstr "¶ÓÁĞ: %s ¹¤×÷µ¥: %s"
+msgstr "é˜Ÿåˆ—: %s å·¥ä½œå•: %s"
 
 #: lib/api.php:710
 msgid "Queues"
-msgstr "¶ÓÁĞ"
+msgstr "é˜Ÿåˆ—"
 
 #: runquery.php:25
 msgid "Re-execute Query"
-msgstr "ÖØĞÂÖ´ĞĞ²éÑ¯"
+msgstr "é‡æ–°æ‰§è¡ŒæŸ¥è¯¢"
 
 #: lib/Admin.php:796
 msgid "Really delete this attribute? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸öÊôĞÔ£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªå±æ€§ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Admin.php:620
 msgid "Really delete this priority? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸öÓÅÏÈ£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªä¼˜å…ˆï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Admin.php:234
 msgid "Really delete this queue? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸ö¶ÓÁĞ£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªé˜Ÿåˆ—ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Admin.php:532
 msgid "Really delete this state? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸ö×´Ì¬£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªçŠ¶æ€ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Admin.php:91
 msgid "Really delete this subject? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâÖ÷Ìâ£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸»é¢˜ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Search.php:281
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸ö¹¤×÷µ¥? ¹¤×÷µ¥ÉĞÎ´±¸·İÒò´Ë½«ÓÀ¾ÃÉ¾³ı."
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªå·¥ä½œå•? å·¥ä½œå•å°šæœªå¤‡ä»½å› æ­¤å°†æ°¸ä¹…åˆ é™¤."
 
 #: lib/Admin.php:416
 msgid "Really delete this type? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸öÀàĞÍ£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªç±»å‹ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: lib/Admin.php:708
 msgid "Really delete this version? This may cause data problems!!"
-msgstr "È·¶¨ÒªÉ¾³ıÕâ¸ö°æ±¾£¿ ÕâÓĞ¿ÉÄÜµ¼ÖÂÊı¾İÉÏµÄÎÊÌâ !!"
+msgstr "ç¡®å®šè¦åˆ é™¤è¿™ä¸ªç‰ˆæœ¬ï¼Ÿ è¿™æœ‰å¯èƒ½å¯¼è‡´æ•°æ®ä¸Šçš„é—®é¢˜ !!"
 
 #: search.php:153
 msgid "Refine Search"
-msgstr "¸ß¼¶²éÕÒ"
+msgstr "é«˜çº§æŸ¥æ‰¾"
 
 #: search.php:151
 msgid "Refine search"
-msgstr "¸ß¼¶²éÕÒ"
+msgstr "é«˜çº§æŸ¥æ‰¾"
 
 #: admin.php:981
 msgid "Reminders were sent."
@@ -1197,90 +1197,90 @@ msgstr ""
 
 #: lib/Admin.php:277
 msgid "Remove User"
-msgstr "É¾³ıÓÃ»§"
+msgstr "åˆ é™¤ç”¨æˆ·"
 
 #: reports.php:22 templates/menu/menu.inc:14
 msgid "Reports"
-msgstr "±¨±í"
+msgstr "æŠ¥è¡¨"
 
 #: templates/queryrenderer.inc:109 lib/Search.php:114
 msgid "Requester"
-msgstr "Í¶Æ±Õß"
+msgstr "æŠ•ç¥¨è€…"
 
 #: lib/Whups.php:322 lib/Search.php:117 lib/Driver.php:75
 #: config/prefs.php.dist:37
 msgid "Resolved"
-msgstr "ÒÑ½â¾ö"
+msgstr "å·²è§£å†³"
 
 #: lib/Admin.php:279
 #, fuzzy
 msgid "Responsible Users"
-msgstr "É¾³ıÓÃ»§"
+msgstr "åˆ é™¤ç”¨æˆ·"
 
 #: lib/Admin.php:175
 msgid "Restrict ticket subjects to a specified list?"
-msgstr "ÏŞÖÆ¹¤×÷µ¥Ö÷Ìâ¸øÌØ¶¨µÄÃûµ¥?"
+msgstr "é™åˆ¶å·¥ä½œå•ä¸»é¢˜ç»™ç‰¹å®šçš„åå•?"
 
 #: templates/searchresults.inc:47
 msgid "Save"
-msgstr "±£´æ"
+msgstr "ä¿å­˜"
 
 #: runquery.php:27 query.php:32 lib/Query.php:589
 msgid "Save Query"
-msgstr "±£´æ²éÑ¯"
+msgstr "ä¿å­˜æŸ¥è¯¢"
 
 #: templates/searchresults.inc:41
 msgid "Save these results as: "
-msgstr "Áí´æÕâĞ©½á¹ûÎª: "
+msgstr "å¦å­˜è¿™äº›ç»“æœä¸º: "
 
 #: search.php:170 templates/menu/menu.inc:10
 msgid "Search"
-msgstr "²éÕÒ"
+msgstr "æŸ¥æ‰¾"
 
 #: lib/Query.php:546
 #, php-format
 msgid "Search %s Attribute"
-msgstr "²éÕÒ %s ÊôĞÔ"
+msgstr "æŸ¥æ‰¾ %s å±æ€§"
 
 #: lib/Query.php:549
 msgid "Search Attribute"
-msgstr "²éÕÒÊôĞÔ"
+msgstr "æŸ¥æ‰¾å±æ€§"
 
 #: lib/Query.php:395 lib/Query.php:445
 msgid "Search Comments"
-msgstr "²éÕÒÆÀÂÛ"
+msgstr "æŸ¥æ‰¾è¯„è®º"
 
 #: lib/Query.php:393
 msgid "Search Owners"
-msgstr "²éÕÒÓµÓĞÕß"
+msgstr "æŸ¥æ‰¾æ‹¥æœ‰è€…"
 
 #: lib/Query.php:394
 msgid "Search Requester"
-msgstr "²éÕÒÍ¶Æ±Õß"
+msgstr "æŸ¥æ‰¾æŠ•ç¥¨è€…"
 
 #: search.php:144
 msgid "Search Results"
-msgstr "²éÕÒ½á¹û"
+msgstr "æŸ¥æ‰¾ç»“æœ"
 
 #: lib/Query.php:444
 msgid "Search Summary"
-msgstr "²éÕÒÕªÒª"
+msgstr "æŸ¥æ‰¾æ‘˜è¦"
 
 #: search.php:26 search.php:168 config/prefs.php.dist:59
 msgid "Search Tickets"
-msgstr "²éÕÒ¹¤×÷µ¥"
+msgstr "æŸ¥æ‰¾å·¥ä½œå•"
 
 #: clearsearch.php:27
 msgid "Search cleared."
-msgstr "²éÕÒÒÑÇå³ı"
+msgstr "æŸ¥æ‰¾å·²æ¸…é™¤"
 
 #: clearsearch.php:30
 msgid "Searches cleared."
-msgstr "²éÕÒÒÑÇå³ı"
+msgstr "æŸ¥æ‰¾å·²æ¸…é™¤"
 
 #: config/prefs.php.dist:61
 msgid "Select the view to display after login:"
-msgstr "Ñ¡ÔñµÇÂ¼ºóµÄÏÔÊ¾·½Ê½:"
+msgstr "é€‰æ‹©ç™»å½•åçš„æ˜¾ç¤ºæ–¹å¼:"
 
 #: admin.php:32 lib/Admin.php:807
 msgid "Send Reminders"
@@ -1292,39 +1292,39 @@ msgstr ""
 
 #: details.php:44 details.php:47
 msgid "Set Priority"
-msgstr "ÉèÖÃÓÅÏÈÈ¨"
+msgstr "è®¾ç½®ä¼˜å…ˆæƒ"
 
 #: details.php:45
 msgid "Set Queue"
-msgstr "ÉèÖÃ¶ÓÁĞ"
+msgstr "è®¾ç½®é˜Ÿåˆ—"
 
 #: details.php:43
 msgid "Set State"
-msgstr "ÉèÖÃ×´Ì¬"
+msgstr "è®¾ç½®çŠ¶æ€"
 
 #: details.php:234
 msgid "Set Ticket Attributes"
-msgstr "ÉèÖÃ¹¤×÷µ¥ÊôĞÔ"
+msgstr "è®¾ç½®å·¥ä½œå•å±æ€§"
 
 #: details.php:153 details.php:213
 msgid "Set Ticket Priority"
-msgstr "ÉèÖÃ¹¤×÷µ¥ÓÅÏÈÈ¨"
+msgstr "è®¾ç½®å·¥ä½œå•ä¼˜å…ˆæƒ"
 
 #: details.php:193
 msgid "Set Ticket State Succeeded"
-msgstr "ÉèÖÃ¹¤×÷µ¥×´Ì¬³É¹¦"
+msgstr "è®¾ç½®å·¥ä½œå•çŠ¶æ€æˆåŠŸ"
 
 #: details.php:269
 msgid "Set Ticket Type"
-msgstr "ÉèÖÃ¹¤×÷µ¥ÀàĞÍ"
+msgstr "è®¾ç½®å·¥ä½œå•ç±»å‹"
 
 #: details.php:51
 msgid "Set Type"
-msgstr "ÉèÖÃÀàĞÍ"
+msgstr "è®¾ç½®ç±»å‹"
 
 #: config/prefs.php.dist:100
 msgid "Show \"(X Days Ago)\" in Date field of search results?"
-msgstr "ÔÚ²éÕÒ½á¹ûÖĞÏÔÊ¾\"(¼¸Ììºó)\"µÄÈÕÆÚ×Ö¶Î?"
+msgstr "åœ¨æŸ¥æ‰¾ç»“æœä¸­æ˜¾ç¤º\"(å‡ å¤©å)\"çš„æ—¥æœŸå­—æ®µ?"
 
 #: config/prefs.php.dist:127
 msgid "Show comments in chronological order, or most recent first?"
@@ -1332,227 +1332,227 @@ msgstr ""
 
 #: config/prefs.php.dist:78
 msgid "Show ticket IDs in the summary view?"
-msgstr "ÓÚÕªÒªÏÔÊ¾ÖĞÏÔÊ¾¹¤×÷µ¥Ê¶±ğÂë?"
+msgstr "äºæ‘˜è¦æ˜¾ç¤ºä¸­æ˜¾ç¤ºå·¥ä½œå•è¯†åˆ«ç ?"
 
 #: config/prefs.php.dist:70
 msgid "Show tickets you have requested in the summary view?"
-msgstr "ÓÚÕªÒªÏÔÊ¾ÖĞÏÔÊ¾ÄúËùµãÑ¡µÄ¹¤×÷µ¥?"
+msgstr "äºæ‘˜è¦æ˜¾ç¤ºä¸­æ˜¾ç¤ºæ‚¨æ‰€ç‚¹é€‰çš„å·¥ä½œå•?"
 
 #: config/templates.php.dist:16
 msgid "Simple HTML Report"
-msgstr "¼òµ¥µÄ HTML ±¨±í"
+msgstr "ç®€å•çš„ HTML æŠ¥è¡¨"
 
 #: templates/searchresults.inc:72
 msgid "Sort Direction"
-msgstr "ÅÅÁĞ·½Ïò"
+msgstr "æ’åˆ—æ–¹å‘"
 
 #: templates/searchresults.inc:73 templates/searchresults.inc:77
 #, php-format
 msgid "Sort by %s"
-msgstr "ÒÑ %s ÅÅÁĞ"
+msgstr "å·² %s æ’åˆ—"
 
 #: templates/queryrenderer.inc:116 lib/Whups.php:315 lib/Query.php:488
 #: lib/Search.php:449 lib/Search.php:544 config/prefs.php.dist:30
 msgid "State"
-msgstr "×´Ì¬"
+msgstr "çŠ¶æ€"
 
 #: lib/Driver.php:302
 #, fuzzy, php-format
 msgid "State       : %s"
-msgstr "-×´Ì¬: %s"
+msgstr "-çŠ¶æ€: %s"
 
 #: lib/Admin.php:456 lib/Admin.php:505
 msgid "State Category"
-msgstr "×´Ì¬·ÖÀà"
+msgstr "çŠ¶æ€åˆ†ç±»"
 
 #: lib/Admin.php:455 lib/Admin.php:502 lib/Admin.php:528
 msgid "State Description"
-msgstr "×´Ì¬ÃèÊö"
+msgstr "çŠ¶æ€æè¿°"
 
 #: lib/Admin.php:454 lib/Admin.php:480 lib/Admin.php:499 lib/Admin.php:525
 msgid "State Name"
-msgstr "×´Ì¬Ãû³Æ"
+msgstr "çŠ¶æ€åç§°"
 
 #: templates/comment.inc:67
 #, fuzzy, php-format
 msgid "State changed to '%s' by %s on %s"
-msgstr "×´Ì¬ÒÑ±ä¸üÎª '%s'"
+msgstr "çŠ¶æ€å·²å˜æ›´ä¸º '%s'"
 
 #: lib/Admin.php:360 lib/Admin.php:408
 msgid "States for this Type"
-msgstr "´ËÀàĞÍµÄ×´Ì¬"
+msgstr "æ­¤ç±»å‹çš„çŠ¶æ€"
 
 #: lib/Create.php:119 config/prefs.php.dist:29
 msgid "Subject"
-msgstr "Ö÷Ìâ"
+msgstr "ä¸»é¢˜"
 
 #: lib/Admin.php:17 lib/Admin.php:40 lib/Admin.php:65 lib/Admin.php:87
 msgid "Subject Name"
-msgstr "Ö÷ÌâÃû³Æ"
+msgstr "ä¸»é¢˜åç§°"
 
 #: lib/Admin.php:179
 msgid "Subjects associated with this Queue"
-msgstr "ÓëÕâ¸ö¶ÓÁĞÏà¹ØÁªµÄÖ÷Ìâ"
+msgstr "ä¸è¿™ä¸ªé˜Ÿåˆ—ç›¸å…³è”çš„ä¸»é¢˜"
 
 #: create.php:96
 msgid "Submit"
-msgstr "Ìá½»"
+msgstr "æäº¤"
 
 #: admin.php:163
 #, php-format
 msgid "Successfully Cloned %s to %s."
-msgstr "ÒÑ³É¹¦¿ËÂ¡%sÎª%s"
+msgstr "å·²æˆåŠŸå…‹éš†%sä¸º%s"
 
 #: templates/queryrenderer.inc:112 lib/Whups.php:314
 msgid "Summary"
-msgstr "ÕªÒª"
+msgstr "æ‘˜è¦"
 
 #: lib/Driver.php:304
 msgid "Summary:"
-msgstr "ÕªÒª:"
+msgstr "æ‘˜è¦:"
 
 #: lib/Query.php:442
 msgid "Text"
-msgstr "ÄÚÈİ"
+msgstr "å†…å®¹"
 
 #: query.php:39
 msgid "Text Criteria"
-msgstr "ÄÚÈİ¹æÔò"
+msgstr "å†…å®¹è§„åˆ™"
 
 #: view.php:44 lib/Driver.php:218
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "VFS·şÎñÆ÷ĞèÒªÅäÖÃÔÊĞí¸½¼şÉÏ´«¡£"
+msgstr "VFSæœåŠ¡å™¨éœ€è¦é…ç½®å…è®¸é™„ä»¶ä¸Šä¼ ã€‚"
 
 #: admin.php:862
 #, php-format
 msgid "The attribute '%s' has been added to %s."
-msgstr "´ËÊôĞÔ '%s' ÒÑ±»ĞÂÔöµ½ %s."
+msgstr "æ­¤å±æ€§ '%s' å·²è¢«æ–°å¢åˆ° %s."
 
 #: admin.php:950
 msgid "The attribute has been deleted."
-msgstr "´ËÊôĞÔÒÑ±»É¾³ı."
+msgstr "æ­¤å±æ€§å·²è¢«åˆ é™¤."
 
 #: admin.php:919
 msgid "The attribute has been modified."
-msgstr "´ËÊôĞÔÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤å±æ€§å·²è¢«ä¿®æ”¹."
 
 #: admin.php:955
 msgid "The attribute was not deleted."
-msgstr "´ËÊôĞÔ²¢Î´±»É¾³ı."
+msgstr "æ­¤å±æ€§å¹¶æœªè¢«åˆ é™¤."
 
 #: admin.php:471
 #, php-format
 msgid "The priority '%s' has been added to %s."
-msgstr "´ËÓÅÏÈÈ¨ '%s' ÒÑ±»ĞÂÔöµ½ %s."
+msgstr "æ­¤ä¼˜å…ˆæƒ '%s' å·²è¢«æ–°å¢åˆ° %s."
 
 #: admin.php:558
 msgid "The priority has been deleted."
-msgstr "´ËÓÅÏÈÈ¨ÒÑ±»É¾³ı."
+msgstr "æ­¤ä¼˜å…ˆæƒå·²è¢«åˆ é™¤."
 
 #: admin.php:528
 msgid "The priority has been modified."
-msgstr "´ËÓÅÏÈÈ¨ÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤ä¼˜å…ˆæƒå·²è¢«ä¿®æ”¹."
 
 #: admin.php:563
 msgid "The priority was not deleted."
-msgstr "´ËÓÅÏÈÈ¨²¢Î´±»É¾³ı."
+msgstr "æ­¤ä¼˜å…ˆæƒå¹¶æœªè¢«åˆ é™¤."
 
 #: admin.php:247
 #, php-format
 msgid "The queue '%s' has been created."
-msgstr "´Ë¶ÓÁĞ '%s' ÒÑ±»½¨Á¢."
+msgstr "æ­¤é˜Ÿåˆ— '%s' å·²è¢«å»ºç«‹."
 
 #: admin.php:330
 msgid "The queue has been deleted."
-msgstr "´Ë¶ÓÁĞÒÑ±»É¾³ı."
+msgstr "æ­¤é˜Ÿåˆ—å·²è¢«åˆ é™¤."
 
 #: admin.php:310
 msgid "The queue has been modified."
-msgstr "´Ë¶ÓÁĞÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤é˜Ÿåˆ—å·²è¢«ä¿®æ”¹."
 
 #: admin.php:335
 msgid "The queue was not deleted."
-msgstr "´Ë¶ÓÁĞ²¢Î´±»É¾³ı."
+msgstr "æ­¤é˜Ÿåˆ—å¹¶æœªè¢«åˆ é™¤."
 
 #: data.php:24
 msgid "The requested template does not exist."
-msgstr "µãÑ¡µÄÑù°å²¢²»´æÔÚ."
+msgstr "ç‚¹é€‰çš„æ ·æ¿å¹¶ä¸å­˜åœ¨."
 
 #: admin.php:352
 #, php-format
 msgid "The state '%s' has been added to %s."
-msgstr "´Ë×´Ì¬ '%s' ÒÑ±»ĞÂÔöµ½ %s."
+msgstr "æ­¤çŠ¶æ€ '%s' å·²è¢«æ–°å¢åˆ° %s."
 
 #: admin.php:441
 msgid "The state has been deleted."
-msgstr "´Ë×´Ì¬ÒÑ±»É¾³ı."
+msgstr "æ­¤çŠ¶æ€å·²è¢«åˆ é™¤."
 
 #: admin.php:410
 msgid "The state has been modified."
-msgstr "´Ë×´Ì¬ÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤çŠ¶æ€å·²è¢«ä¿®æ”¹."
 
 #: admin.php:446
 msgid "The state was not deleted."
-msgstr "´Ë×´Ì¬²¢Î´±»É¾³ı."
+msgstr "æ­¤çŠ¶æ€å¹¶æœªè¢«åˆ é™¤."
 
 #: admin.php:660
 #, php-format
 msgid "The subject '%s' has been added."
-msgstr "´ËÖ÷Ìâ '%s' ÒÑ±»ĞÂÔö."
+msgstr "æ­¤ä¸»é¢˜ '%s' å·²è¢«æ–°å¢."
 
 #: admin.php:722
 msgid "The subject has been deleted."
-msgstr "´ËÖ÷ÌâÒÑ±»É¾³ı."
+msgstr "æ­¤ä¸»é¢˜å·²è¢«åˆ é™¤."
 
 #: admin.php:701
 msgid "The subject has been modified."
-msgstr "´ËÖ÷ÌâÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤ä¸»é¢˜å·²è¢«ä¿®æ”¹."
 
 #: admin.php:727
 msgid "The subject was not deleted."
-msgstr "´ËÖ÷Ìâ²¢Î´±»É¾³ı."
+msgstr "æ­¤ä¸»é¢˜å¹¶æœªè¢«åˆ é™¤."
 
 #: details.php:359
 msgid "The ticket was not deleted."
-msgstr "´Ë¹¤×÷µ¥Î´±»É¾³ı."
+msgstr "æ­¤å·¥ä½œå•æœªè¢«åˆ é™¤."
 
 #: admin.php:182
 #, php-format
 msgid "The type '%s' has been modified."
-msgstr "´ËÀàĞÍ '%s' ÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤ç±»å‹ '%s' å·²è¢«ä¿®æ”¹."
 
 #: admin.php:226
 msgid "The type has been deleted."
-msgstr "´ËÀàĞÍÒÑ±»É¾³ı."
+msgstr "æ­¤ç±»å‹å·²è¢«åˆ é™¤."
 
 #: admin.php:231
 msgid "The type was not deleted."
-msgstr "´ËÀàĞÍ²¢Î´±»É¾³ı."
+msgstr "æ­¤ç±»å‹å¹¶æœªè¢«åˆ é™¤."
 
 #: admin.php:744
 #, php-format
 msgid "The version '%s' has been added to %s."
-msgstr "´Ë°æ±¾ '%s' ÒÑ±»Ôö¼Óµ½ %s."
+msgstr "æ­¤ç‰ˆæœ¬ '%s' å·²è¢«å¢åŠ åˆ° %s."
 
 #: admin.php:832
 msgid "The version has been deleted."
-msgstr "´Ë°æ±¾ÒÑ±»É¾³ı."
+msgstr "æ­¤ç‰ˆæœ¬å·²è¢«åˆ é™¤."
 
 #: admin.php:802
 msgid "The version has been modified."
-msgstr "´Ë°æ±¾ÒÑ±»ĞŞ¸Ä."
+msgstr "æ­¤ç‰ˆæœ¬å·²è¢«ä¿®æ”¹."
 
 #: admin.php:837
 msgid "The version was not deleted."
-msgstr "´Ë°æ±¾²¢Î´±»É¾³ı."
+msgstr "æ­¤ç‰ˆæœ¬å¹¶æœªè¢«åˆ é™¤."
 
 #: lib/Admin.php:743
 msgid "There are no attribute types to edit"
-msgstr "Ã»ÓĞÊôĞÔÀàĞÍ¿É¹©±à¼­"
+msgstr "æ²¡æœ‰å±æ€§ç±»å‹å¯ä¾›ç¼–è¾‘"
 
 #: lib/Query.php:549
 msgid "There are no attributes defined for the current type"
-msgstr "Ä¿Ç°Õâ¸öÀàĞÍÃ»ÓĞ¶¨ÒåÊôĞÔ."
+msgstr "ç›®å‰è¿™ä¸ªç±»å‹æ²¡æœ‰å®šä¹‰å±æ€§."
 
 #: lib/Create.php:65
 #, fuzzy
@@ -1560,211 +1560,211 @@ msgid ""
 "There are no clients associated with this module; until there are, you "
 "cannot create any tickets in this module."
 msgstr ""
-"Ã»ÓĞ¹¤×÷µ¥ÀàĞÍÍ¬Õâ¸ö¶ÓÁĞ¹ØÁª£»³ı·ÇÓĞÒ»¸ö¹ØÁª£¬·ñÔòÄú²»ÄÜÔÚ´Ë¶ÓÁĞÖĞ´´½¨ÈÎºÎ¹¤"
-"×÷µ¥¡£"
+"æ²¡æœ‰å·¥ä½œå•ç±»å‹åŒè¿™ä¸ªé˜Ÿåˆ—å…³è”ï¼›é™¤éæœ‰ä¸€ä¸ªå…³è”ï¼Œå¦åˆ™æ‚¨ä¸èƒ½åœ¨æ­¤é˜Ÿåˆ—ä¸­åˆ›å»ºä»»ä½•å·¥"
+"ä½œå•ã€‚"
 
 #: lib/Admin.php:567
 msgid "There are no priorities to edit"
-msgstr "Ã»ÓĞÓÅÏÈÈ¨¿É¹©±à¼­"
+msgstr "æ²¡æœ‰ä¼˜å…ˆæƒå¯ä¾›ç¼–è¾‘"
 
 #: lib/Admin.php:815
 msgid "There are no queues available."
-msgstr "Ã»ÓĞÓĞĞ§¶ÓÁĞ"
+msgstr "æ²¡æœ‰æœ‰æ•ˆé˜Ÿåˆ—"
 
 #: lib/Admin.php:126
 msgid "There are no queues to edit"
-msgstr "Ã»ÓĞ¶ÓÁĞ¿É¹©±à¼­"
+msgstr "æ²¡æœ‰é˜Ÿåˆ—å¯ä¾›ç¼–è¾‘"
 
 #: lib/Create.php:36
 msgid "There are no queues which you can create tickets in."
-msgstr "Ã»ÓĞ¶ÓÁĞ¿É¹©Äú½¨Á¢¹¤×÷µ¥."
+msgstr "æ²¡æœ‰é˜Ÿåˆ—å¯ä¾›æ‚¨å»ºç«‹å·¥ä½œå•."
 
 #: lib/Search.php:32
 msgid "There are no queues which you can search."
-msgstr "Ã»ÓĞ¶ÓÁĞ¿É¹©Äú²éÕÒ."
+msgstr "æ²¡æœ‰é˜Ÿåˆ—å¯ä¾›æ‚¨æŸ¥æ‰¾."
 
 #: lib/Admin.php:476
 msgid "There are no states to edit"
-msgstr "Ã»ÓĞ×´Ì¬¿É¹©±à¼­"
+msgstr "æ²¡æœ‰çŠ¶æ€å¯ä¾›ç¼–è¾‘"
 
 #: lib/Admin.php:37
 msgid "There are no subjects to edit"
-msgstr "Ã»ÓĞÖ÷Ìâ¿É¹©±à¼­"
+msgstr "æ²¡æœ‰ä¸»é¢˜å¯ä¾›ç¼–è¾‘"
 
 #: lib/Create.php:57
 msgid ""
 "There are no ticket types associated with this module; until there are, you "
 "cannot create any tickets in this module."
 msgstr ""
-"Ã»ÓĞ¹¤×÷µ¥ÀàĞÍÍ¬Õâ¸ö¶ÓÁĞ¹ØÁª£»³ı·ÇÓĞÒ»¸ö¹ØÁª£¬·ñÔòÄú²»ÄÜÔÚ´Ë¶ÓÁĞÖĞ´´½¨ÈÎºÎ¹¤"
-"×÷µ¥¡£"
+"æ²¡æœ‰å·¥ä½œå•ç±»å‹åŒè¿™ä¸ªé˜Ÿåˆ—å…³è”ï¼›é™¤éæœ‰ä¸€ä¸ªå…³è”ï¼Œå¦åˆ™æ‚¨ä¸èƒ½åœ¨æ­¤é˜Ÿåˆ—ä¸­åˆ›å»ºä»»ä½•å·¥"
+"ä½œå•ã€‚"
 
 #: lib/Admin.php:331
 msgid "There are no types to edit"
-msgstr "Ã»ÓĞÀàĞÍ¿É¹©±à¼­"
+msgstr "æ²¡æœ‰ç±»å‹å¯ä¾›ç¼–è¾‘"
 
 #: lib/Admin.php:293
 msgid "There are no users responsible for this queue."
-msgstr "Õâ¸ö¶ÓÁĞÃ»ÓĞ¸ºÔğÈË."
+msgstr "è¿™ä¸ªé˜Ÿåˆ—æ²¡æœ‰è´Ÿè´£äºº."
 
 #: lib/Create.php:163 lib/Search.php:231
 msgid "There are no users to which this ticket can be assigned."
-msgstr "ÔÚ´Ë¹¤×÷µ¥ÖĞÃ»ÓĞÓÃ»§¿É¹©·ÖÅä."
+msgstr "åœ¨æ­¤å·¥ä½œå•ä¸­æ²¡æœ‰ç”¨æˆ·å¯ä¾›åˆ†é…."
 
 #: lib/Admin.php:655
 msgid "There are no versions to edit"
-msgstr "Ã»ÓĞ°æ±¾¿É¹©±à¼­"
+msgstr "æ²¡æœ‰ç‰ˆæœ¬å¯ä¾›ç¼–è¾‘"
 
 #: graph.php:30
 msgid "There is no data for this graph."
-msgstr "´ËÍ¼ĞÎÖĞÃ»ÓĞÊı¾İ."
+msgstr "æ­¤å›¾å½¢ä¸­æ²¡æœ‰æ•°æ®."
 
 #: lib/Reports.php:154
 msgid "There is no data for this report."
-msgstr "´Ë±¨±íÖĞÃ»ÓĞÊı¾İ."
+msgstr "æ­¤æŠ¥è¡¨ä¸­æ²¡æœ‰æ•°æ®."
 
 #: admin.php:599
 #, php-format
 msgid "There was an error adding '%s' to the responsible list for '%s': %s"
-msgstr "ĞÂÔö '%s' µ½¸ºÔğÃûµ¥ '%s': %s Ê±·¢ÉúÒ»¸ö´íÎó"
+msgstr "æ–°å¢ '%s' åˆ°è´Ÿè´£åå• '%s': %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯"
 
 #: admin.php:662
 #, php-format
 msgid "There was an error adding the subject: %s."
-msgstr "ĞÂÔöÖ÷Ìâ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "æ–°å¢ä¸»é¢˜: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:865
 #, php-format
 msgid "There was an error creating the attribute: %s."
-msgstr "½¨Á¢ÊôĞÔ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "å»ºç«‹å±æ€§: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:473
 #, php-format
 msgid "There was an error creating the priority: %s."
-msgstr "½¨Á¢ÓÅÏÈÈ¨: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "å»ºç«‹ä¼˜å…ˆæƒ: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:255
 #, php-format
 msgid "There was an error creating the queue: %s."
-msgstr "½¨Á¢¶ÓÁĞ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "å»ºç«‹é˜Ÿåˆ—: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:354
 #, php-format
 msgid "There was an error creating the state: %s."
-msgstr "½¨Á¢×´Ì¬: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "å»ºç«‹çŠ¶æ€: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:746
 #, php-format
 msgid "There was an error creating the version: %s."
-msgstr "½¨Á¢°æ±¾: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "å»ºç«‹ç‰ˆæœ¬: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:952
 #, php-format
 msgid "There was an error deleting the attribute: %s."
-msgstr "É¾³ıÊôĞÔ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤å±æ€§: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:560
 #, php-format
 msgid "There was an error deleting the priority: %s."
-msgstr "É¾³ıÓÅÏÈÈ¨: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤ä¼˜å…ˆæƒ: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:332
 #, php-format
 msgid "There was an error deleting the queue: %s."
-msgstr "É¾³ı¶ÓÁĞ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤é˜Ÿåˆ—: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:443
 #, php-format
 msgid "There was an error deleting the state: %s."
-msgstr "É¾³ı×´Ì¬: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤çŠ¶æ€: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:724
 #, php-format
 msgid "There was an error deleting the subject: %s."
-msgstr "É¾³ıÖ÷Ìâ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤ä¸»é¢˜: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: details.php:355
 #, php-format
 msgid "There was an error deleting the ticket: %s"
-msgstr "É¾³ı¹¤×÷µ¥: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤å·¥ä½œå•: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:228
 #, php-format
 msgid "There was an error deleting the type: %s."
-msgstr "É¾³ıÀàĞÍ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤ç±»å‹: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:834
 #, php-format
 msgid "There was an error deleting the version: %s."
-msgstr "É¾³ı°æ±¾: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ é™¤ç‰ˆæœ¬: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:926
 #, php-format
 msgid "There was an error editing the attribute: %s."
-msgstr "±à¼­ÊôĞÔ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘å±æ€§: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:533
 #, php-format
 msgid "There was an error editing the priority: %s."
-msgstr "±à¼­ÓÅÏÈÈ¨: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘ä¼˜å…ˆæƒ: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:314
 #, php-format
 msgid "There was an error editing the queue: %s."
-msgstr "±à¼­¶ÓÁĞ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘é˜Ÿåˆ—: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:415
 #, php-format
 msgid "There was an error editing the state: %s."
-msgstr "±à¼­×´Ì¬: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘çŠ¶æ€: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:706
 #, php-format
 msgid "There was an error editing the subject: %s."
-msgstr "±à¼­Ö÷Ìâ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘ä¸»é¢˜: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:807
 #, php-format
 msgid "There was an error editing the version: %s."
-msgstr "±à¼­°æ±¾: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ç¼–è¾‘ç‰ˆæœ¬: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: mybugs.php:37
 #, php-format
 msgid "There was an error listing your assigned tickets: %s"
-msgstr "ÁĞ³öÄúÒÑ·ÖÅäµÄ¹¤×÷µ¥: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ—å‡ºæ‚¨å·²åˆ†é…çš„å·¥ä½œå•: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: mybugs.php:53
 #, php-format
 msgid "There was an error listing your open requests: %s"
-msgstr "ÁĞ³öÄúËù¿ª·ÅµÄÍ¶Æ±: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "åˆ—å‡ºæ‚¨æ‰€å¼€æ”¾çš„æŠ•ç¥¨: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:180
 #, php-format
 msgid "There was an error modifying the type: %s."
-msgstr "ĞŞ¸ÄÀàĞÍ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "ä¿®æ”¹ç±»å‹: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: search.php:137
 #, php-format
 msgid "There was an error performing your search: %s"
-msgstr "Ö´ĞĞ²éÕÒ: %s Ê±·¢ÉúÒ»¸ö´íÎó."
+msgstr "æ‰§è¡ŒæŸ¥æ‰¾: %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯."
 
 #: admin.php:638
 #, php-format
 msgid "There was an error removing '%s' from the responsible list for '%s': %s"
-msgstr "É¾³ı '%s' ×Ô¸ºÔğÃûµ¥ '%s': %s Ê±·¢ÉúÒ»¸ö´íÎó"
+msgstr "åˆ é™¤ '%s' è‡ªè´Ÿè´£åå• '%s': %s æ—¶å‘ç”Ÿä¸€ä¸ªé”™è¯¯"
 
 #: data.php:27
 msgid "This is not a search results template."
-msgstr "Õâ²»ÊÇÒ»¸ö²éÕÒ½á¹ûµÄÄ£°æ."
+msgstr "è¿™ä¸æ˜¯ä¸€ä¸ªæŸ¥æ‰¾ç»“æœçš„æ¨¡ç‰ˆ."
 
 #: lib/Admin.php:57
 msgid "This is not a valid subject."
-msgstr "Õâ²»ÊÇÒ»¸öºÏ·¨µÄÖ÷Ìâ."
+msgstr "è¿™ä¸æ˜¯ä¸€ä¸ªåˆæ³•çš„ä¸»é¢˜."
 
 #: lib/Driver.php:402
 #, php-format
 msgid "This mail was automatically generated by %s"
-msgstr "ÕâÊÇÒ»·âÓÉ %s ×Ô¶¯²úÉúµÄĞÅ¼ş"
+msgstr "è¿™æ˜¯ä¸€å°ç”± %s è‡ªåŠ¨äº§ç”Ÿçš„ä¿¡ä»¶"
 
 #: lib/Create.php:78
 msgid ""
@@ -1772,99 +1772,99 @@ msgid ""
 "associated with it. Until versions are created for this module, you will not "
 "be able to create tickets."
 msgstr ""
-"Õâ¸ö¶ÓÁĞ±ØĞëÒªÄúÎªËüÖ¸¶¨Ò»¸ö°æ±¾,µ«ÊÇ²¢Ã»ÓĞ°æ±¾ÓëÆäÏà¹ØÁª.Äú½«ÎŞ·¨½¨Á¢¹¤×÷µ¥,"
-"Ö±µ½ÄúÎª´ËÒ»¶ÓÁĞ½¨Á¢°æ±¾."
+"è¿™ä¸ªé˜Ÿåˆ—å¿…é¡»è¦æ‚¨ä¸ºå®ƒæŒ‡å®šä¸€ä¸ªç‰ˆæœ¬,ä½†æ˜¯å¹¶æ²¡æœ‰ç‰ˆæœ¬ä¸å…¶ç›¸å…³è”.æ‚¨å°†æ— æ³•å»ºç«‹å·¥ä½œå•,"
+"ç›´åˆ°æ‚¨ä¸ºæ­¤ä¸€é˜Ÿåˆ—å»ºç«‹ç‰ˆæœ¬."
 
 #: lib/Driver.php:295
 #, php-format
 msgid "Ticket      : %s"
-msgstr "¹¤×÷µ¥     £º %s"
+msgstr "å·¥ä½œå•     ï¼š %s"
 
 #: templates/menu/menu.inc:48
 msgid "Ticket #"
-msgstr "¹¤×÷µ¥ #"
+msgstr "å·¥ä½œå• #"
 
 #: details.php:534
 #, php-format
 msgid "Ticket %s Comments"
-msgstr "¹¤×÷µ¥ %s µÄÆÀÂÛ"
+msgstr "å·¥ä½œå• %s çš„è¯„è®º"
 
 #: details.php:527
 #, php-format
 msgid "Ticket %s Details"
-msgstr "¹¤×÷µ¥ %s µÄÏ¸½Ú"
+msgstr "å·¥ä½œå• %s çš„ç»†èŠ‚"
 
 #: lib/Driver.php:291
 #, php-format
 msgid "Ticket %s has been assigned"
-msgstr "¹¤×÷µ¥ %s µÄ·ÖÅäÒÑ±ä¸ü"
+msgstr "å·¥ä½œå• %s çš„åˆ†é…å·²å˜æ›´"
 
 #: lib/Driver.php:380
 #, php-format
 msgid "Ticket %s has changed module"
-msgstr "¹¤×÷µ¥ %s µÄÄ£¿éÒÑ±ä¸ü"
+msgstr "å·¥ä½œå• %s çš„æ¨¡å—å·²å˜æ›´"
 
 #: lib/Driver.php:338
 #, php-format
 msgid "Ticket %s has changed priority"
-msgstr "¹¤×÷µ¥ %s µÄÓÅÏÈÈ¨ÒÑ±ä¸ü"
+msgstr "å·¥ä½œå• %s çš„ä¼˜å…ˆæƒå·²å˜æ›´"
 
 #: lib/Driver.php:317
 #, php-format
 msgid "Ticket %s has changed state"
-msgstr "¹¤×÷µ¥ %s µÄ×´Ì¬ÒÑ±ä¸ü"
+msgstr "å·¥ä½œå• %s çš„çŠ¶æ€å·²å˜æ›´"
 
 #: lib/Driver.php:359
 #, php-format
 msgid "Ticket %s has changed type"
-msgstr "¹¤×÷µ¥ %s µÄÀàĞÍÒÑ±ä¸ü"
+msgstr "å·¥ä½œå• %s çš„ç±»å‹å·²å˜æ›´"
 
 #: lib/Driver/sql.php:898
 #, php-format
 msgid "Ticket %s was not found."
-msgstr "ÕÒ²»µ½¹¤×÷µ¥ %s ."
+msgstr "æ‰¾ä¸åˆ°å·¥ä½œå• %s ."
 
 #: details.php:367
 msgid "Ticket Details"
-msgstr "¹¤×÷µ¥Ï¸½Ú"
+msgstr "å·¥ä½œå•ç»†èŠ‚"
 
 #: lib/Search.php:38
 msgid "Ticket ID"
-msgstr "¹¤×÷µ¥Ê¶±ğºÅÂë"
+msgstr "å·¥ä½œå•è¯†åˆ«å·ç "
 
 #: lib/Create.php:117 lib/Search.php:72 lib/Search.php:108
 msgid "Ticket State"
-msgstr "¹¤×÷µ¥×´Ì¬"
+msgstr "å·¥ä½œå•çŠ¶æ€"
 
 #: templates/reports/stats.inc:4
 msgid "Ticket Stats"
-msgstr "¹¤×÷µ¥Í³¼Æ"
+msgstr "å·¥ä½œå•ç»Ÿè®¡"
 
 #: lib/Search.php:95 lib/Search.php:277 lib/api.php:139
 msgid "Ticket Summary"
-msgstr "¹¤×÷µ¥ÕªÒª"
+msgstr "å·¥ä½œå•æ‘˜è¦"
 
 #: lib/Create.php:72 lib/Search.php:107
 msgid "Ticket Type"
-msgstr "¹¤×÷µ¥ÀàĞÍ"
+msgstr "å·¥ä½œå•ç±»å‹"
 
 #: lib/Admin.php:165
 msgid "Ticket Types associated with this Queue"
-msgstr "Óë´Ë¶ÓÁĞÓĞ¹ØÁªµÄ¹¤×÷µ¥ÀàĞÍ"
+msgstr "ä¸æ­¤é˜Ÿåˆ—æœ‰å…³è”çš„å·¥ä½œå•ç±»å‹"
 
 #: lib/Driver.php:293
 #, fuzzy, php-format
 msgid "Ticket URL: %s"
-msgstr "-¹¤×÷µ¥ %s"
+msgstr "-å·¥ä½œå• %s"
 
 #: templates/comment.inc:50
 #, php-format
 msgid "Ticket assigned to %s by %s on %s"
-msgstr "¹¤×÷µ¥ÒÑ·ÖÅä¸ø%s±»%sÔÚ%s"
+msgstr "å·¥ä½œå•å·²åˆ†é…ç»™%sè¢«%såœ¨%s"
 
 #: lib/Block/summary.php:52
 msgid "Tickets assigned to you"
-msgstr "ÒÑ·ÖÅä¸øÄúµÄ¹¤×÷µ¥"
+msgstr "å·²åˆ†é…ç»™æ‚¨çš„å·¥ä½œå•"
 
 #: lib/Search.php:54
 msgid "Tickets which are"
@@ -1872,121 +1872,121 @@ msgstr ""
 
 #: lib/Block/summary.php:69
 msgid "Tickets you requested"
-msgstr "ÄúÒÑµãÑ¡µÄ¹¤×÷µ¥"
+msgstr "æ‚¨å·²ç‚¹é€‰çš„å·¥ä½œå•"
 
 #: templates/queryrenderer.inc:107 lib/Whups.php:316 lib/Search.php:519
 #: config/prefs.php.dist:31
 msgid "Type"
-msgstr "ÀàĞÍ"
+msgstr "ç±»å‹"
 
 #: lib/Admin.php:311 lib/Admin.php:355 lib/Admin.php:404
 msgid "Type Description"
-msgstr "ÀàĞÍÃèÊö"
+msgstr "ç±»å‹æè¿°"
 
 #: lib/Admin.php:310 lib/Admin.php:334 lib/Admin.php:352 lib/Admin.php:401
 msgid "Type Name"
-msgstr "ÀàĞÍÃû³Æ"
+msgstr "ç±»å‹åç§°"
 
 #: templates/comment.inc:87
 #, fuzzy, php-format
 msgid "Type changed to '%s' by %s on %s"
-msgstr "×´Ì¬ÒÑ±ä¸üÎª '%s'"
+msgstr "çŠ¶æ€å·²å˜æ›´ä¸º '%s'"
 
 #: lib/Search.php:57
 msgid "Types"
-msgstr "ÀàĞÍ"
+msgstr "ç±»å‹"
 
 #: lib/Search.php:112
 msgid "Unassigned"
-msgstr "Î´±»·ÖÅä"
+msgstr "æœªè¢«åˆ†é…"
 
 #: lib/Admin.php:826
 msgid "Unassigned tickets"
-msgstr "Î´·ÖÅäµÄ¹¤×÷µ¥"
+msgstr "æœªåˆ†é…çš„å·¥ä½œå•"
 
 #: lib/Driver.php:72
 msgid "Unconfirmed"
-msgstr "Î´È·ÈÏ"
+msgstr "æœªç¡®è®¤"
 
 #: templates/queryrenderer.inc:146
 #, php-format
 msgid "Unknown node type %s"
-msgstr "Î´ÖªµÄ½Úµã(node)ÀàĞÍ %s"
+msgstr "æœªçŸ¥çš„èŠ‚ç‚¹(node)ç±»å‹ %s"
 
 #: templates/admin/mtmatrix.inc:28
 msgid "Update Associations"
-msgstr "¸üĞÂ¹ØÁª"
+msgstr "æ›´æ–°å…³è”"
 
 #: details.php:40
 msgid "Upload Attachment"
-msgstr "ÉÏ´«¸½¼ş"
+msgstr "ä¸Šä¼ é™„ä»¶"
 
 #: lib/Admin.php:263 lib/Admin.php:265
 msgid "User"
-msgstr "ÓÃ»§"
+msgstr "ç”¨æˆ·"
 
 #: query.php:37
 msgid "User Criteria"
-msgstr "ÓÃ»§¹æÔò"
+msgstr "ç”¨æˆ·è§„åˆ™"
 
 #: lib/Query.php:391
 msgid "User ID"
-msgstr "ÓÃ»§ID"
+msgstr "ç”¨æˆ·ID"
 
 #: lib/Admin.php:189
 msgid "Users responsible for this Queue"
-msgstr "¶ÓÁĞ¸ºÔğÈË"
+msgstr "é˜Ÿåˆ—è´Ÿè´£äºº"
 
 #: lib/Admin.php:297
 msgid "Users responsible for this queue"
-msgstr "¶ÓÁĞ¸ºÔğÈË"
+msgstr "é˜Ÿåˆ—è´Ÿè´£äºº"
 
 #: config/prefs.php.dist:34
 msgid "Version"
-msgstr "°æ±¾"
+msgstr "ç‰ˆæœ¬"
 
 #: lib/Admin.php:635 lib/Admin.php:681 lib/Admin.php:704
 msgid "Version Description"
-msgstr "°æ±¾ÃèÊö"
+msgstr "ç‰ˆæœ¬æè¿°"
 
 #: lib/Admin.php:634 lib/Admin.php:659 lib/Admin.php:678 lib/Admin.php:701
 msgid "Version Name"
-msgstr "°æ±¾Ãû³Æ"
+msgstr "ç‰ˆæœ¬åç§°"
 
 #: templates/reports/graphs.inc:14
 msgid "View Graphs"
-msgstr "ÏÔÊ¾Í¼ĞÎ"
+msgstr "æ˜¾ç¤ºå›¾å½¢"
 
 #: lib/Search.php:156 lib/Search.php:185 lib/Search.php:244 lib/Search.php:320
 #: lib/Search.php:360 lib/Search.php:418 lib/Search.php:487 lib/Search.php:589
 msgid "Viewable only by members of"
-msgstr "Ö»ÓĞ³ÉÔ±¿ÉÒÔÏÔÊ¾"
+msgstr "åªæœ‰æˆå‘˜å¯ä»¥æ˜¾ç¤º"
 
 #: config/prefs.php.dist:87
 msgid "Weekday Day Month"
-msgstr "ĞÇÆÚ ÈÕ ÔÂ"
+msgstr "æ˜ŸæœŸ æ—¥ æœˆ"
 
 #: config/prefs.php.dist:88
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "ĞÇÆÚ ÈÕ ÔÂ Ê±:·Ö:Ãë Ê±Çø"
+msgstr "æ˜ŸæœŸ æ—¥ æœˆ æ—¶:åˆ†:ç§’ æ—¶åŒº"
 
 #: lib/Admin.php:90 lib/Admin.php:233 lib/Admin.php:415 lib/Admin.php:531
 #: lib/Admin.php:619 lib/Admin.php:707 lib/Admin.php:795 lib/Search.php:280
 msgid "Yes"
-msgstr "ÊÇ"
+msgstr "æ˜¯"
 
 #: details.php:75 view.php:40
 msgid "You are not allowed to view this ticket."
-msgstr "ÄúÃ»ÓĞ²é¿´´Ë¹¤×÷µ¥µÄÈ¨ÏŞ."
+msgstr "æ‚¨æ²¡æœ‰æŸ¥çœ‹æ­¤å·¥ä½œå•çš„æƒé™."
 
 #: lib/Driver/sql.php:901
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
-msgstr "ÄúÃ»ÓĞ´æÈ¡´Ë¹¤×÷µ¥ (%s) µÄÈ¨ÏŞ."
+msgstr "æ‚¨æ²¡æœ‰å­˜å–æ­¤å·¥ä½œå• (%s) çš„æƒé™."
 
 #: lib/Query.php:625
 msgid "You have no saved queries."
-msgstr "Ã»ÓĞÄúµÄÒÑ±£´æ²éÑ¯Êı¾İ."
+msgstr "æ²¡æœ‰æ‚¨çš„å·²ä¿å­˜æŸ¥è¯¢æ•°æ®."
 
 #: lib/Whups.php:346
 msgid "You must select at least one queue to send reminders for."
@@ -1994,38 +1994,38 @@ msgstr ""
 
 #: lib/Admin.php:206
 msgid "You must select clients."
-msgstr "Äú±ØĞëÑ¡ÔñÒ»¸ö¿Í»§"
+msgstr "æ‚¨å¿…é¡»é€‰æ‹©ä¸€ä¸ªå®¢æˆ·"
 
 #: lib/Create.php:30 lib/Search.php:143 lib/Search.php:172 lib/Search.php:385
 msgid "Your Email Address"
-msgstr "ÄúµÄµç×ÓÓÊ¼şµØÖ·"
+msgstr "æ‚¨çš„ç”µå­é‚®ä»¶åœ°å€"
 
 #: create.php:152
 #, php-format
 msgid "Your ticket id is %s. "
-msgstr "ÄúµÄ¹¤×÷µ¥Ê¶±ğºÅÂëÎª %s. "
+msgstr "æ‚¨çš„å·¥ä½œå•è¯†åˆ«å·ç ä¸º %s. "
 
 #: scripts/mail-filter.php:108
 #, fuzzy, php-format
 msgid "bad priority `%s' for type."
-msgstr "´ËÀàĞÍµÄÓÅÏÈÈ¨"
+msgstr "æ­¤ç±»å‹çš„ä¼˜å…ˆæƒ"
 
 #: scripts/mail-filter.php:122
 #, fuzzy, php-format
 msgid "bad state `%s' for type."
-msgstr "´ËÀàĞÍµÄ×´Ì¬"
+msgstr "æ­¤ç±»å‹çš„çŠ¶æ€"
 
 #: templates/queryrenderer.inc:136
 msgid "contains (case insensitive) substring"
-msgstr "°üº¬(²»·Ö´óĞ¡Ğ´)×Ó×Ö·û´®"
+msgstr "åŒ…å«(ä¸åˆ†å¤§å°å†™)å­å­—ç¬¦ä¸²"
 
 #: templates/queryrenderer.inc:137
 msgid "contains (case sensitive) substring"
-msgstr "°üº¬(Çø·Ö´óĞ¡Ğ´)×Ó×Ö·û´®"
+msgstr "åŒ…å«(åŒºåˆ†å¤§å°å†™)å­å­—ç¬¦ä¸²"
 
 #: templates/queryrenderer.inc:138
 msgid "contains the word"
-msgstr "°üº¬Õâ¸ö×Ö"
+msgstr "åŒ…å«è¿™ä¸ªå­—"
 
 #: scripts/mail-filter.php:133
 #, php-format
@@ -2034,16 +2034,16 @@ msgstr ""
 
 #: templates/queryrenderer.inc:135
 msgid "is"
-msgstr "ÊÇ"
+msgstr "æ˜¯"
 
 #: templates/queryrenderer.inc:133
 msgid "is greater than"
-msgstr "´óÓÚ"
+msgstr "å¤§äº"
 
 #: templates/queryrenderer.inc:134
 msgid "is less than"
-msgstr "Ğ¡ÓÚ"
+msgstr "å°äº"
 
 #: templates/queryrenderer.inc:139
 msgid "matches the pattern"
-msgstr "ÓëÑù±¾Æ¥Åä"
+msgstr "ä¸æ ·æœ¬åŒ¹é…"

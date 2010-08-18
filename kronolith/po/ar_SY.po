@@ -13,467 +13,467 @@ msgstr ""
 "Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
 "Language-Team: Arabic <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1256\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/Kronolith.php:354
 #, c-format
 msgid "%d hour"
-msgstr "%d ÓÇÚÉ"
+msgstr "%d Ø³Ø§Ø¹Ø©"
 
 #: lib/Kronolith.php:356
 #, c-format
 msgid "%d hour, %d minute"
-msgstr "%d ÓÇÚÉ, %d ÏŞíŞÉ"
+msgstr "%d Ø³Ø§Ø¹Ø©, %d Ø¯Ù‚ÙŠÙ‚Ø©"
 
 #: lib/Kronolith.php:358
 #, c-format
 msgid "%d hour, %d minutes"
-msgstr "%d ÓÇÚÉ, %d ÏŞÇÆŞ"
+msgstr "%d Ø³Ø§Ø¹Ø©, %d Ø¯Ù‚Ø§Ø¦Ù‚"
 
 #: lib/Kronolith.php:346
 #, c-format
 msgid "%d hours"
-msgstr "%d ÓÇÚÇÊ"
+msgstr "%d Ø³Ø§Ø¹Ø§Øª"
 
 #: lib/Kronolith.php:348
 #, c-format
 msgid "%d hours, %d minute"
-msgstr "%d ÓÇÚÇÊ, %d ÏŞÇÆŞ"
+msgstr "%d Ø³Ø§Ø¹Ø§Øª, %d Ø¯Ù‚Ø§Ø¦Ù‚"
 
 #: lib/Kronolith.php:350
 #, c-format
 msgid "%d hours, %d minutes"
-msgstr "%d ÓÇÚÇÊ, %d ÓÇÚÇÊ"
+msgstr "%d Ø³Ø§Ø¹Ø§Øª, %d Ø³Ø§Ø¹Ø§Øª"
 
 #: lib/Kronolith.php:364
 #, c-format
 msgid "%d minute"
-msgstr "%d ÏŞíŞÉ"
+msgstr "%d Ø¯Ù‚ÙŠÙ‚Ø©"
 
 #: lib/Kronolith.php:366
 #, c-format
 msgid "%d minutes"
-msgstr "%d ÏŞÇÆŞ"
+msgstr "%d Ø¯Ù‚Ø§Ø¦Ù‚"
 
 #: lib/Event.php:1063
 #, c-format
 msgid "%s Minutes before"
-msgstr "%s ÏŞÇÆŞ ŞÈá"
+msgstr "%s Ø¯Ù‚Ø§Ø¦Ù‚ Ù‚Ø¨Ù„"
 
 #: data.php:171
 #, c-format
 msgid "%s file successfully imported"
-msgstr "%s Êã ÇÓÊíÑÇÏ Çáãáİ ÈäÌÇÍ"
+msgstr "%s ØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù…Ù„Ù Ø¨Ù†Ø¬Ø§Ø­"
 
 #: status.php:27
 #, c-format
 msgid "%s is in progress."
-msgstr "%s ÌÇÑí ÇáÚãá"
+msgstr "%s Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¹Ù…Ù„"
 
 #: status.php:25
 #, c-format
 msgid "%s is starting now."
-msgstr "%s íÈÏÃ ÇáÚãá"
+msgstr "%s ÙŠØ¨Ø¯Ø£ Ø§Ù„Ø¹Ù…Ù„"
 
 #: status.php:29
 #, c-format
 msgid "%s starts in %s"
-msgstr "%s ÓíÈÏÃ ÇáÚãá ÎáÇá %s"
+msgstr "%s Ø³ÙŠØ¨Ø¯Ø£ Ø§Ù„Ø¹Ù…Ù„ Ø®Ù„Ø§Ù„ %s"
 
 #: templates/view/view.inc:85
 msgid "<b>Description</b>"
-msgstr "<b>ÇáæÕİ</b>"
+msgstr "<b>Ø§Ù„ÙˆØµÙ</b>"
 
 #: templates/edit/edit.inc:232
 msgid "<b>Description</b> (optional)"
-msgstr "<b>ÇáæÕİ</b> (ÇÎÊíÇÑí)"
+msgstr "<b>Ø§Ù„ÙˆØµÙ</b> (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)"
 
 #: templates/view/view.inc:137
 msgid "<b>Keywords</b>"
-msgstr "<b>ÇáßáãÇÊ ÇáãİÊÇÍíÉ</b>"
+msgstr "<b>Ø§Ù„ÙƒÙ„Ù…Ø§Øª Ø§Ù„Ù…ÙØªØ§Ø­ÙŠØ©</b>"
 
 #: templates/edit/edit.inc:318
 msgid "<b>Keywords</b> (optional)"
-msgstr "<b>ÇáßáãÇÊ ÇáãİÊÇÍíÉ</b> (ÇÎÊíÇÑí)"
+msgstr "<b>Ø§Ù„ÙƒÙ„Ù…Ø§Øª Ø§Ù„Ù…ÙØªØ§Ø­ÙŠØ©</b> (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)"
 
 #: templates/view/view.inc:97
 msgid "<b>Recurrence</b>"
-msgstr "<b>ÇáÊßÑÇÑ</b>"
+msgstr "<b>Ø§Ù„ØªÙƒØ±Ø§Ø±</b>"
 
 #: templates/edit/edit.inc:244
 msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>ÇáÊßÑÇÑ</b>  (ÇÎÊíÇÑí)"
+msgstr "<b>Ø§Ù„ØªÙƒØ±Ø§Ø±</b>  (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)"
 
 #: templates/edit/edit.inc:47
 msgid "Add Event"
-msgstr "ÅÖÇİÉ ÍÏË"
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø­Ø¯Ø«"
 
 #: addevent.php:31
 msgid "Add a new event"
-msgstr "ÅÖÇİÉ ÍÏË ÌÏíÏ"
+msgstr "Ø¥Ø¶Ø§ÙØ© Ø­Ø¯Ø« Ø¬Ø¯ÙŠØ¯"
 
 #: config/prefs.php.dist:37
 msgid "Add, remove, and edit categories."
-msgstr "ÅÖÇİÉ ¡ ÍĞİ Ãæ ÊÍÑíÑ ÊÕäíİ"
+msgstr "Ø¥Ø¶Ø§ÙØ© ØŒ Ø­Ø°Ù Ø£Ùˆ ØªØ­Ø±ÙŠØ± ØªØµÙ†ÙŠÙ"
 
 #: templates/edit/edit.inc:194 templates/view/view.inc:57
 msgid "Alarm"
-msgstr "ÊäÈíå"
+msgstr "ØªÙ†Ø¨ÙŠÙ‡"
 
 #: data.php:210
 msgid "Alarm Date"
-msgstr "ÊÇÑíÎ ÇáÊäÈíå"
+msgstr "ØªØ§Ø±ÙŠØ® Ø§Ù„ØªÙ†Ø¨ÙŠÙ‡"
 
 #: data.php:209
 msgid "Alarm Span (minutes)"
-msgstr "ãÏÉ ÇáÊäÈíå (ÈÇáÏŞÇÆŞ)"
+msgstr "Ù…Ø¯Ø© Ø§Ù„ØªÙ†Ø¨ÙŠÙ‡ (Ø¨Ø§Ù„Ø¯Ù‚Ø§Ø¦Ù‚)"
 
 #: data.php:211
 msgid "Alarm Time"
-msgstr "Òãä ÇáÊäÈíå"
+msgstr "Ø²Ù…Ù† Ø§Ù„ØªÙ†Ø¨ÙŠÙ‡"
 
 #: templates/delete/delete.inc:33
 msgid "All"
-msgstr "ÇáÌãíÚ"
+msgstr "Ø§Ù„Ø¬Ù…ÙŠØ¹"
 
 #: lib/DayView.php:71 lib/DayView.php:73 lib/WeekView.php:100
 #: templates/edit/edit.inc:188
 msgid "All day"
-msgstr "ßá Çáíæã"
+msgstr "ÙƒÙ„ Ø§Ù„ÙŠÙˆÙ…"
 
 #: lib/api.php:98
 msgid "All day event"
-msgstr "ÌãíÚ ÃÍÏÇË Çáíæã"
+msgstr "Ø¬Ù…ÙŠØ¹ Ø£Ø­Ø¯Ø§Ø« Ø§Ù„ÙŠÙˆÙ…"
 
 #: templates/data/export.inc:24
 msgid "All events"
-msgstr "ÌãíÚ ÇáÃÍÏÇË"
+msgstr "Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø£Ø­Ø¯Ø§Ø«"
 
 #: templates/prefs/category_management.inc:41
 #, c-format
 msgid "Any events in a category that is deleted will become %s."
-msgstr "Ãí ÍÏË Öãä ÇáÊÕäíİ ÓíÕÈÍ « %s » ÅĞÇ Êã ÍĞİå."
+msgstr "Ø£ÙŠ Ø­Ø¯Ø« Ø¶Ù…Ù† Ø§Ù„ØªØµÙ†ÙŠÙ Ø³ÙŠØµØ¨Ø­ Â«Â %sÂ Â» Ø¥Ø°Ø§ ØªÙ… Ø­Ø°ÙÙ‡."
 
 #: templates/javascript/goto.inc:74
 msgid "April"
-msgstr "äíÓÇä"
+msgstr "Ù†ÙŠØ³Ø§Ù†"
 
 #: templates/edit/edit.inc:110 templates/edit/edit.inc:159
 #: templates/data/export.inc:72 templates/data/export.inc:159
 msgid "At"
-msgstr "İí"
+msgstr "ÙÙŠ"
 
 #: templates/javascript/goto.inc:78
 msgid "August"
-msgstr "ÂÈ"
+msgstr "Ø¢Ø¨"
 
 #: config/keywords.php.dist:17
 msgid "Birthday"
-msgstr "ÚíÏ ãíáÇÏ"
+msgstr "Ø¹ÙŠØ¯ Ù…ÙŠÙ„Ø§Ø¯"
 
 #: templates/edit/edit.inc:57 templates/edit/edit.inc:354
 #: templates/delete/one.inc:32 templates/delete/delete.inc:34
 msgid "Cancel"
-msgstr "ÅáÛÇÁ"
+msgstr "Ø¥Ù„ØºØ§Ø¡"
 
 #: templates/edit/edit.inc:74 templates/view/view.inc:30 data.php:213
 msgid "Category"
-msgstr "ÊÕäíİ"
+msgstr "ØªØµÙ†ÙŠÙ"
 
 #: config/prefs.php.dist:36 config/prefs.php.dist:194
 msgid "Category Management"
-msgstr "ÅÏÇÑÉ ÇáÊÕäíİÇÊ"
+msgstr "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„ØªØµÙ†ÙŠÙØ§Øª"
 
 #: config/prefs.php.dist:19
 msgid "Change the way dates and times are formatted."
-msgstr "ÊÚÏíá äÙÇã ÇáÊÇÑíÎ æÇáæŞÊ"
+msgstr "ØªØ¹Ø¯ÙŠÙ„ Ù†Ø¸Ø§Ù… Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª"
 
 #: config/prefs.php.dist:186
 msgid "Choose Color"
-msgstr "ÇÎÊíÇÑ Çááæä"
+msgstr "Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù„ÙˆÙ†"
 
 #: templates/prefs/category_management.inc:64 util/colorpicker.php:14
 msgid "Color Picker"
-msgstr "áæÍÉ ÇáÃáæÇä"
+msgstr "Ù„ÙˆØ­Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù†"
 
 #: config/prefs.php.dist:155
 msgid "Confirm deletion of events?"
-msgstr "ÊÃßíÏ ÍĞİ ÇáÃÍÏÇË¿"
+msgstr "ØªØ£ÙƒÙŠØ¯ Ø­Ø°Ù Ø§Ù„Ø£Ø­Ø¯Ø§Ø«ØŸ"
 
 #: templates/prefs/category_management.inc:47
 msgid "Create New Category"
-msgstr "ÅäÔÇÁ ÊÕäíİ ÌÏíÏ"
+msgstr "Ø¥Ù†Ø´Ø§Ø¡ ØªØµÙ†ÙŠÙ Ø¬Ø¯ÙŠØ¯"
 
 #: lib/DayView.php:71 lib/DayView.php:166 templates/week/head.inc:22
 #: month.php:118
 msgid "Create a New Event"
-msgstr "ÅäÔÇÁ ÍÏË ÌÏíÏ"
+msgstr "Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø¯Ø« Ø¬Ø¯ÙŠØ¯"
 
 #: templates/delete/delete.inc:31
 msgid "Current"
-msgstr "ÇáÍÇáí"
+msgstr "Ø§Ù„Ø­Ø§Ù„ÙŠ"
 
 #: templates/edit/edit.inc:258 templates/view/view.inc:103
 msgid "Daily: Recurs every"
-msgstr "íæãíÇğ: ÊßÑÇÑ ßá"
+msgstr "ÙŠÙˆÙ…ÙŠØ§Ù‹: ØªÙƒØ±Ø§Ø± ÙƒÙ„"
 
 #: config/prefs.php.dist:18
 msgid "Date and Time Options"
-msgstr "ÎíÇÑÇÊ ÇáÊÇÑíÎ æÇáæŞÊ"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„ØªØ§Ø±ÙŠØ® ÙˆØ§Ù„ÙˆÙ‚Øª"
 
 #: templates/menu/menu.inc:20 config/prefs.php.dist:91
 msgid "Day"
-msgstr "íæã"
+msgstr "ÙŠÙˆÙ…"
 
 #: templates/edit/edit.inc:188 templates/edit/edit.inc:224
 #: templates/view/view.inc:66
 msgid "Day(s)"
-msgstr "íæã (ÃíÇã)"
+msgstr "ÙŠÙˆÙ… (Ø£ÙŠØ§Ù…)"
 
 #: templates/javascript/goto.inc:82
 msgid "December"
-msgstr "ßÇäæä ÇáÃæá"
+msgstr "ÙƒØ§Ù†ÙˆÙ† Ø§Ù„Ø£ÙˆÙ„"
 
 #: templates/view/view.inc:20 templates/view/view.inc:155
 #: templates/prefs/category_management.inc:61
 msgid "Delete"
-msgstr "ÍĞİ"
+msgstr "Ø­Ø°Ù"
 
 #: lib/Event.php:1071 templates/delete/delete.inc:20
 #: templates/delete/one.inc:20 delevent.php:33
 #, c-format
 msgid "Delete %s"
-msgstr "ÍĞİ %s"
+msgstr "Ø­Ø°Ù %s"
 
 #: templates/view/view.inc:20 templates/view/view.inc:155
 #, c-format
 msgid "Delete '%s'"
-msgstr "ÍĞİ '%s'"
+msgstr "Ø­Ø°Ù '%s'"
 
 #: templates/edit/edit.inc:55 templates/edit/edit.inc:352
 msgid "Delete Event"
-msgstr "ÍĞİ ÇáÍÏË"
+msgstr "Ø­Ø°Ù Ø§Ù„Ø­Ø¯Ø«"
 
 #: templates/delete/delete.inc:25
 msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"ÍĞİ ÇáÍÏË ÇáÍÇáí  İŞØ ¡ åĞå ÇáãÑÉ æÇáãÑÇÊ ÇáŞÇÏãÉ ÃæÃæ ÌãíÚ ÇáãÑÇÊ ÇáÊÇáíÉ¿"
+"Ø­Ø°Ù Ø§Ù„Ø­Ø¯Ø« Ø§Ù„Ø­Ø§Ù„ÙŠ  ÙÙ‚Ø· ØŒ Ù‡Ø°Ù‡ Ø§Ù„Ù…Ø±Ø© ÙˆØ§Ù„Ù…Ø±Ø§Øª Ø§Ù„Ù‚Ø§Ø¯Ù…Ø© Ø£ÙˆØ£Ùˆ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ø±Ø§Øª Ø§Ù„ØªØ§Ù„ÙŠØ©ØŸ"
 
 #: data.php:212
 msgid "Description"
-msgstr "ÇáÔÑÍ"
+msgstr "Ø§Ù„Ø´Ø±Ø­"
 
 #: config/prefs.php.dist:83
 msgid "Display 24-hour times?"
-msgstr "ÅÙåÇÑ 24 ÓÇÚÉ¿"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± 24 Ø³Ø§Ø¹Ø©ØŸ"
 
 #: config/prefs.php.dist:17 config/prefs.php.dist:23 config/prefs.php.dist:29
 #: config/prefs.php.dist:42
 msgid "Display Options"
-msgstr "ÅÙåÇÑ ÇáÎíÇÑÇÊ"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª"
 
 #: lib/Kronolith.php:300
 #, c-format
 msgid "Due: %s"
-msgstr "ÇÓÊÍŞÇŞ: %s"
+msgstr "Ø§Ø³ØªØ­Ù‚Ø§Ù‚: %s"
 
 #: templates/edit/edit.inc:133
 msgid "Duration"
-msgstr "ÇáİÊÑÉ"
+msgstr "Ø§Ù„ÙØªØ±Ø©"
 
 #: templates/view/view.inc:21 templates/view/view.inc:156
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Ø©diter"
 
 #: templates/edit/edit.inc:47 editevent.php:26
 #, c-format
 msgid "Edit %s"
-msgstr "ÊÍÑíÑ %s"
+msgstr "ØªØ­Ø±ÙŠØ± %s"
 
 #: templates/view/view.inc:21 templates/view/view.inc:156
 #, c-format
 msgid "Edit '%s'"
-msgstr "ÊÍÑíÑ « %s »"
+msgstr "ØªØ­Ø±ÙŠØ± Â«Â %sÂ Â»"
 
 #: data.php:207
 msgid "End Date"
-msgstr "ÊÇÑíÎ ÇáÅäÊåÇÁ"
+msgstr "ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¥Ù†ØªÙ‡Ø§Ø¡"
 
 #: templates/edit/edit.inc:137 templates/view/view.inc:51
 #: templates/data/export.inc:112
 msgid "End On"
-msgstr "ÊäÊåí ÈÊÇÑíÍ"
+msgstr "ØªÙ†ØªÙ‡ÙŠ Ø¨ØªØ§Ø±ÙŠØ­"
 
 #: data.php:208
 msgid "End Time"
-msgstr "ÊæŞíÊ ÇáÅäÊåÇÁ"
+msgstr "ØªÙˆÙ‚ÙŠØª Ø§Ù„Ø¥Ù†ØªÙ‡Ø§Ø¡"
 
 #: templates/data/export.inc:192
 msgid "Export"
-msgstr "ÊÕÏíÑ"
+msgstr "ØªØµØ¯ÙŠØ±"
 
 #: templates/data/export.inc:7
 msgid "Export Calendar"
-msgstr "ÊÕÏíÑ ÇáÃÌäÏÉ"
+msgstr "ØªØµØ¯ÙŠØ± Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/javascript/goto.inc:72
 msgid "February"
-msgstr "ÔÈÇØ"
+msgstr "Ø´Ø¨Ø§Ø·"
 
 #: templates/edit/edit.inc:271
 msgid "Fr"
-msgstr "ÇáÌãÚÉ"
+msgstr "Ø§Ù„Ø¬Ù…Ø¹Ø©"
 
 #: templates/view/view.inc:111 templates/month/head.inc:29
 msgid "Friday"
-msgstr "ÇáÌãÚÉ"
+msgstr "Ø§Ù„Ø¬Ù…Ø¹Ø©"
 
 #: templates/delete/delete.inc:32
 msgid "Future"
-msgstr "ãÓÊŞÈáÇğ"
+msgstr "Ù…Ø³ØªÙ‚Ø¨Ù„Ø§Ù‹"
 
 #: config/keywords.php.dist:17
 msgid "Game"
-msgstr "áÚÈÉ"
+msgstr "Ù„Ø¹Ø¨Ø©"
 
 #: templates/menu/menu.inc:18
 msgid "Goto"
-msgstr "ÅĞåÈ Åáì"
+msgstr "Ø¥Ø°Ù‡Ø¨ Ø¥Ù„Ù‰"
 
 #: templates/menu/menu.inc:49
 msgid "Help"
-msgstr "ãÓÇÚÏÉ"
+msgstr "Ù…Ø³Ø§Ø¹Ø¯Ø©"
 
 #: templates/edit/edit.inc:188 templates/edit/edit.inc:223
 #: templates/view/view.inc:69
 msgid "Hour(s)"
-msgstr "ÓÇÚÉ (ÓÇÚ"
+msgstr "Ø³Ø§Ø¹Ø© (Ø³Ø§Ø¹"
 
 #: templates/data/import.inc:25
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "İí ÍÇá ÇÓÊíÑÇÏ ãáİ CVS ¡ åá íÍÊæí ÇáÕİ ÇáÃæá Úáì ÊÓãíÇÊ ÇáÍŞæá¿"
+msgstr "ÙÙŠ Ø­Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ù…Ù„Ù CVS ØŒ Ù‡Ù„ ÙŠØ­ØªÙˆÙŠ Ø§Ù„ØµÙ Ø§Ù„Ø£ÙˆÙ„ Ø¹Ù„Ù‰ ØªØ³Ù…ÙŠØ§Øª Ø§Ù„Ø­Ù‚ÙˆÙ„ØŸ"
 
 #: data.php:182
 msgid "Illegal or malformed form data."
-msgstr "ÎØÃ İí ÇáÈíÇäÇÊ Ãæ İí"
+msgstr "Ø®Ø·Ø£ ÙÙŠ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø£Ùˆ ÙÙŠ"
 
 #: templates/data/import.inc:28
 msgid "Import"
-msgstr "ÇÓÊíÑÇÏ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯"
 
 #: templates/data/import.inc:7
 msgid "Import Calendar"
-msgstr "ÇÓÊíÑÇÏ ÈíÇäÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/menu/menu.inc:31
 msgid "Import/Export"
-msgstr "ÇÓÊíÑÇÏ/ÊÕÏíÑ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯/ØªØµØ¯ÙŠØ±"
 
 #: data.php:294
 msgid "Import/Export Calendar"
-msgstr "ÇÓÊíÑÇÏ/ÊÕÏíÑ ÈíÇäÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ø³ØªÙŠØ±Ø§Ø¯/ØªØµØ¯ÙŠØ± Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/javascript/goto.inc:71
 msgid "January"
-msgstr "ßÇäæä ÇáËÇäí"
+msgstr "ÙƒØ§Ù†ÙˆÙ† Ø§Ù„Ø«Ø§Ù†ÙŠ"
 
 #: templates/javascript/goto.inc:77
 msgid "July"
-msgstr "ÍÒíÑÇä"
+msgstr "Ø­Ø²ÙŠØ±Ø§Ù†"
 
 #: templates/javascript/goto.inc:76
 msgid "June"
-msgstr "ÊãæÒ"
+msgstr "ØªÙ…ÙˆØ²"
 
 #: data.php:215
 msgid "Keywords"
-msgstr "ÇáßáãÇÊ ÇáãİÊÇÍíÉ"
+msgstr "Ø§Ù„ÙƒÙ„Ù…Ø§Øª Ø§Ù„Ù…ÙØªØ§Ø­ÙŠØ©"
 
 #: templates/index/notconfigured.inc:4
 msgid "Kronolith is not properly configured"
-msgstr "íæÌÏ ÎØÃ İí ÅÚÏÇÏÇÊ ÇáßæÑäæáíË"
+msgstr "ÙŠÙˆØ¬Ø¯ Ø®Ø·Ø£ ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ÙƒÙˆØ±Ù†ÙˆÙ„ÙŠØ«"
 
 #: config/prefs.php.dist:6
 msgid "Language"
-msgstr "ÇááÛÉ"
+msgstr "Ø§Ù„Ù„ØºØ©"
 
 #: templates/month/head.inc:13
 msgid "Last month"
-msgstr "ÇáÔåÑ ÇáÃÎíÑ"
+msgstr "Ø§Ù„Ø´Ù‡Ø± Ø§Ù„Ø£Ø®ÙŠØ±"
 
 #: templates/week/head.inc:4
 msgid "Last week"
-msgstr "ÇáÃÓÈæÚ ÇáÃÎíÑ"
+msgstr "Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø£Ø®ÙŠØ±"
 
 #: templates/edit/edit.inc:185
 msgid "Lasts"
-msgstr "ÇáÃÎíÑÉ"
+msgstr "Ø§Ù„Ø£Ø®ÙŠØ±Ø©"
 
 #: templates/data/export.inc:20
 msgid "Limit the time span to export:"
-msgstr "ÊÍÏíÏ ÇáİÊÑÉ ÇáÒãäíÉ áÊÕÏíÑåÇ"
+msgstr "ØªØ­Ø¯ÙŠØ¯ Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ø²Ù…Ù†ÙŠØ© Ù„ØªØµØ¯ÙŠØ±Ù‡Ø§"
 
 #: templates/edit/edit.inc:83 templates/view/view.inc:39 data.php:214
 msgid "Location"
-msgstr "ÇáãßÇä"
+msgstr "Ø§Ù„Ù…ÙƒØ§Ù†"
 
 #: templates/javascript/goto.inc:73
 msgid "March"
-msgstr "ÂĞÇÑ"
+msgstr "Ø¢Ø°Ø§Ø±"
 
 #: templates/javascript/goto.inc:75
 msgid "May"
-msgstr "ÃíÇÑ"
+msgstr "Ø£ÙŠØ§Ø±"
 
 #: config/keywords.php.dist:17
 msgid "Meeting"
-msgstr "ÇÌÊãÇÚ"
+msgstr "Ø§Ø¬ØªÙ…Ø§Ø¹"
 
 #: templates/edit/edit.inc:222 templates/view/view.inc:72
 msgid "Minute(s)"
-msgstr "ÏŞíŞÉ (ÏŞÇÆŞ)"
+msgstr "Ø¯Ù‚ÙŠÙ‚Ø© (Ø¯Ù‚Ø§Ø¦Ù‚)"
 
 #: templates/edit/edit.inc:188
 msgid "Minutes"
-msgstr "ÏŞÇÆŞ"
+msgstr "Ø¯Ù‚Ø§Ø¦Ù‚"
 
 #: templates/edit/edit.inc:267
 msgid "Mo"
-msgstr "ÇáÅËäíä"
+msgstr "Ø§Ù„Ø¥Ø«Ù†ÙŠÙ†"
 
 #: templates/view/view.inc:107 templates/month/head.inc:25
 #: config/prefs.php.dist:113
 msgid "Monday"
-msgstr "ÇáÅËäíä"
+msgstr "Ø§Ù„Ø¥Ø«Ù†ÙŠÙ†"
 
 #: templates/menu/menu.inc:23 config/prefs.php.dist:94
 msgid "Month"
-msgstr "ÇáÔåÑ"
+msgstr "Ø§Ù„Ø´Ù‡Ø±"
 
 #: templates/edit/edit.inc:278 templates/edit/edit.inc:284
 #: templates/view/view.inc:117 templates/view/view.inc:119
 msgid "Monthly: Recurs every"
-msgstr "ÔåÑíÇğ: ÊßÑÇÑ ßá"
+msgstr "Ø´Ù‡Ø±ÙŠØ§Ù‹: ØªÙƒØ±Ø§Ø± ÙƒÙ„"
 
 #: lib/Kronolith.php:710
 msgid "New Category"
-msgstr "ÊÕäíİ ÌÏíÏ"
+msgstr "ØªØµÙ†ÙŠÙ Ø¬Ø¯ÙŠØ¯"
 
 #: templates/month/head.inc:15
 msgid "Next Month"
-msgstr "ÇáÔåÑ ÇáÊÇáí"
+msgstr "Ø§Ù„Ø´Ù‡Ø± Ø§Ù„ØªØ§Ù„ÙŠ"
 
 #: templates/day/head.inc:6
 msgid "Next day"
-msgstr "Çáíæã ÇáÊÇáí"
+msgstr "Ø§Ù„ÙŠÙˆÙ… Ø§Ù„ØªØ§Ù„ÙŠ"
 
 #: templates/week/head.inc:6
 msgid "Next week"
-msgstr "ÇáÃÓÈæÚ ÇáŞÇÆã"
+msgstr "Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ù‚Ø§Ø¦Ù…"
 
 #: lib/Driver/sql.php:393
 msgid "No configuration information specified for SQL Calendar."
@@ -481,506 +481,506 @@ msgstr "Aucune information de configuration fournie pour le calendrier SQL."
 
 #: templates/edit/edit.inc:302 templates/view/view.inc:129
 msgid "No end date"
-msgstr "áÇíæÌÏ ÊÇÑíÎ ÇäÊåÇÁ"
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯ ØªØ§Ø±ÙŠØ® Ø§Ù†ØªÙ‡Ø§Ø¡"
 
 #: templates/edit/edit.inc:218 templates/edit/edit.inc:253
 #: templates/view/view.inc:77
 msgid "None"
-msgstr "áÇíæÌÏ"
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯"
 
 #: templates/data/import.inc:15
 msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"ãáÇÍÙÉ: ÇáÊÕÏíÑ ÛíÑ ããßä ÈÇáÅÚÏÇÏÇÊ ÇáÍÇáíÉ æĞáß ÈÓÈÈ ÎØÃİí ÈÑäÇãÌ ŞíÇÏÉ "
-"ÇáÃÌäÏÉ"
+"Ù…Ù„Ø§Ø­Ø¸Ø©: Ø§Ù„ØªØµØ¯ÙŠØ± ØºÙŠØ± Ù…Ù…ÙƒÙ† Ø¨Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø­Ø§Ù„ÙŠØ© ÙˆØ°Ù„Ùƒ Ø¨Ø³Ø¨Ø¨ Ø®Ø·Ø£ÙÙŠ Ø¨Ø±Ù†Ø§Ù…Ø¬ Ù‚ÙŠØ§Ø¯Ø© "
+"Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/javascript/goto.inc:81
 msgid "November"
-msgstr "ÊÔÑíä ÇáËÇäí"
+msgstr "ØªØ´Ø±ÙŠÙ† Ø§Ù„Ø«Ø§Ù†ÙŠ"
 
 #: templates/javascript/goto.inc:80
 msgid "October"
-msgstr "ÊÔÑíä ÇáÃæá"
+msgstr "ØªØ´Ø±ÙŠÙ† Ø§Ù„Ø£ÙˆÙ„"
 
 #: templates/menu/menu.inc:26
 msgid "Options"
-msgstr "ÇáÎíÇÑÇÊ"
+msgstr "Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª"
 
 #: config/prefs.php.dist:35
 msgid "Other Options"
-msgstr "ÇáÎíÇÑÇÊ ÇáÃÎÑì"
+msgstr "Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ø£Ø®Ø±Ù‰"
 
 #: templates/edit/edit.inc:247 templates/view/view.inc:100
 msgid "Pattern"
-msgstr "äãæĞÌ"
+msgstr "Ù†Ù…ÙˆØ°Ø¬"
 
 #: templates/delete/one.inc:25
 msgid "Permanently delete this event?"
-msgstr "ÍĞİ åĞÇ ÇáÍÏË ÈÔßá äåÇÆí¿"
+msgstr "Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ø­Ø¯Ø« Ø¨Ø´ÙƒÙ„ Ù†Ù‡Ø§Ø¦ÙŠØŸ"
 
 #: templates/prefs/category_management.inc:24
 msgid "Please enter a name for the new category:"
-msgstr "ÇáÑÌÇÁ ÅÏÎÇá ÇÓã ááÊÕäíİ ÇáÌÏíÏ:"
+msgstr "Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ù„Ù„ØªØµÙ†ÙŠÙ Ø§Ù„Ø¬Ø¯ÙŠØ¯:"
 
 #: templates/prefs/category_management.inc:12
 msgid "Please enter a new name for this category:"
-msgstr "ÇáÑÌÇÁ ÅÏÎÇá ÇÓã ÌÏíÏ áåĞÇ ÇáÊÕäíİ"
+msgstr "Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø¬Ø¯ÙŠØ¯ Ù„Ù‡Ø°Ø§ Ø§Ù„ØªØµÙ†ÙŠÙ"
 
 #: templates/day/head.inc:4
 msgid "Previous day"
-msgstr "Çáíæã ÇáÓÇÈŞ"
+msgstr "Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø³Ø§Ø¨Ù‚"
 
 #: templates/menu/menu.inc:36
 msgid "Print"
-msgstr "ÇØÈÚ"
+msgstr "Ø§Ø·Ø¨Ø¹"
 
 #: templates/menu/menu.inc:41
 msgid "Problem?"
-msgstr "ãÔßáÉ¿"
+msgstr "Ù…Ø´ÙƒÙ„Ø©ØŸ"
 
 #: templates/edit/edit.inc:300 templates/view/view.inc:128
 msgid "Recur Until"
-msgstr "ÊßÑÇÑ ÍÊì"
+msgstr "ØªÙƒØ±Ø§Ø± Ø­ØªÙ‰"
 
 #: data.php:219
 msgid "Recurrence Data"
-msgstr "ÈíÇäÇÊ ÇáÊßÑÇÑ"
+msgstr "Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ØªÙƒØ±Ø§Ø±"
 
 #: data.php:217
 msgid "Recurrence End Date"
-msgstr "ÊÇÑíÎ ÇäÊåÇÁ ÇáÊßÑÇÑ"
+msgstr "ØªØ§Ø±ÙŠØ® Ø§Ù†ØªÙ‡Ø§Ø¡ Ø§Ù„ØªÙƒØ±Ø§Ø±"
 
 #: data.php:218
 msgid "Recurrence Interval"
-msgstr "ÇáİÇÕá ÇáÒãäí"
+msgstr "Ø§Ù„ÙØ§ØµÙ„ Ø§Ù„Ø²Ù…Ù†ÙŠ"
 
 #: data.php:216
 msgid "Recurrence Type"
-msgstr "äæÚ ÇáÊßÑÇÑ"
+msgstr "Ù†ÙˆØ¹ Ø§Ù„ØªÙƒØ±Ø§Ø±"
 
 #: lib/Kronolith.php:378
 msgid "Recurs daily"
-msgstr "ÊßÑÇÑ íæãí"
+msgstr "ØªÙƒØ±Ø§Ø± ÙŠÙˆÙ…ÙŠ"
 
 #: lib/Kronolith.php:383
 msgid "Recurs monthly"
-msgstr "ÊßÑÇÑ ÔåÑí"
+msgstr "ØªÙƒØ±Ø§Ø± Ø´Ù‡Ø±ÙŠ"
 
 #: lib/Kronolith.php:376
 msgid "Recurs not"
-msgstr "Ïæä ÊßÑÇÑ"
+msgstr "Ø¯ÙˆÙ† ØªÙƒØ±Ø§Ø±"
 
 #: lib/Kronolith.php:380
 msgid "Recurs weekly"
-msgstr "ÊßÑÇÑ ÇÓÈæÚí"
+msgstr "ØªÙƒØ±Ø§Ø± Ø§Ø³Ø¨ÙˆØ¹ÙŠ"
 
 #: lib/Kronolith.php:385
 msgid "Recurs yearly"
-msgstr "ÊßÑÇÑ Óäæí"
+msgstr "ØªÙƒØ±Ø§Ø± Ø³Ù†ÙˆÙŠ"
 
 #: templates/prefs/category_management.inc:62
 msgid "Rename"
-msgstr "ÅÚÇÏÉ ÊÓãíÉ"
+msgstr "Ø¥Ø¹Ø§Ø¯Ø© ØªØ³Ù…ÙŠØ©"
 
 #: lib/Driver/sql.php:59
 msgid "Required 'database' not specified in calendar configuration."
-msgstr "ŞæÇÚÏ ÇáÈíÇäÇÊ ÇáÖÑæÑíÉ ááÃÌäÏÉ ÛíÑ ãæÌæÏÉ İí ÇáÅÚÏÇÏÇÊ"
+msgstr "Ù‚ÙˆØ§Ø¹Ø¯ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¶Ø±ÙˆØ±ÙŠØ© Ù„Ù„Ø£Ø¬Ù†Ø¯Ø© ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø© ÙÙŠ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª"
 
 #: lib/Driver/sql.php:399
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr "ÇáãíÒÉ 'hotspec' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ù„Ù…ÙŠØ²Ø© 'hotspec' ØºÙŠØ± Ù…Ø¹Ø±ÙØ© ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: lib/Driver/sql.php:405
 msgid "Required 'password' not specified in calendar configuration."
-msgstr "ÇáÎÇÕÉ 'password' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ù„Ø®Ø§ØµØ© 'password' ØºÙŠØ± Ù…Ø¹Ø±ÙØ© ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: lib/Driver/sql.php:396
 msgid "Required 'phptype' not specified in calendar configuration."
-msgstr "ÇáÎÇÕÉ 'phptype'  ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ù„Ø®Ø§ØµØ© 'phptype'  ØºÙŠØ± Ù…Ø¹Ø±ÙØ© ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: lib/Driver/sql.php:402
 msgid "Required 'username' not specified in calendar configuration."
-msgstr "ÇáÎÇÕÉ 'username'  ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "Ø§Ù„Ø®Ø§ØµØ© 'username'  ØºÙŠØ± Ù…Ø¹Ø±ÙØ© ÙÙŠ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/edit/edit.inc:58 templates/edit/edit.inc:355
 msgid "Reset to Defaults"
-msgstr "ÇáÅÚÏÇÏÇÊ ÇáÇİÊÑÇÖíÉ"
+msgstr "Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠØ©"
 
 #: templates/edit/edit.inc:272
 msgid "Sa"
-msgstr "ÇáÃÍÏ"
+msgstr "Ø§Ù„Ø£Ø­Ø¯"
 
 #: templates/view/view.inc:112 templates/month/head.inc:30
 msgid "Saturday"
-msgstr "ÇáÃÍÏ"
+msgstr "Ø§Ù„Ø£Ø­Ø¯"
 
 #: templates/edit/edit.inc:54 templates/edit/edit.inc:351
 msgid "Save As New"
-msgstr "ÍİÙ ßÌÏíÏ"
+msgstr "Ø­ÙØ¸ ÙƒØ¬Ø¯ÙŠØ¯"
 
 #: templates/edit/edit.inc:52 templates/edit/edit.inc:349
 msgid "Save Event"
-msgstr "ÍİÙ ÇáÍÏË"
+msgstr "Ø­ÙØ¸ Ø§Ù„Ø­Ø¯Ø«"
 
 #: config/prefs.php.dist:25
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
-msgstr "ÇÎÊÑ ÅÚÏÇÏÇÊ ÇáÊÃßíÏ ¡ ßíİ íÊã ÇáÅÙåÇÑ æÇÎÊÑ ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí"
+msgstr "Ø§Ø®ØªØ± Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ£ÙƒÙŠØ¯ ØŒ ÙƒÙŠÙ ÙŠØªÙ… Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± ÙˆØ§Ø®ØªØ± Ø§Ù„Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠ"
 
 #: config/prefs.php.dist:75
 msgid "Select how to display Dates:"
-msgstr "ÇÎÊÑ ØÑíŞÉ ÅÙåÇÑ ÇáÊæÇÑíÎ"
+msgstr "Ø§Ø®ØªØ± Ø·Ø±ÙŠÙ‚Ø© Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„ØªÙˆØ§Ø±ÙŠØ®"
 
 #: config/prefs.php.dist:44
 msgid "Select if to show due tasks in the calendar."
-msgstr "ÇÎÊÑ ÅĞÇ ãÇ íÌÈ ÅÙåÇÑ ÇáãåãÇÊ ÇáãÓÊÍŞÉ İí ÇáÃÌäÏÉ"
+msgstr "Ø§Ø®ØªØ± Ø¥Ø°Ø§ Ù…Ø§ ÙŠØ¬Ø¨ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù…Ù‡Ù…Ø§Øª Ø§Ù„Ù…Ø³ØªØ­Ù‚Ø© ÙÙŠ Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©"
 
 #: templates/data/import.inc:26
 msgid "Select the file to import:"
-msgstr "ÇÎÊÑ ãáİ áíÊã ÇÓÊíÑÇÏå:"
+msgstr "Ø§Ø®ØªØ± Ù…Ù„Ù Ù„ÙŠØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯Ù‡:"
 
 #: config/prefs.php.dist:111
 msgid "Select the first weekday:"
-msgstr "ÇÎÊÑ íæã ÈÏÇíÉ ÇáÃÓÈæÚ"
+msgstr "Ø§Ø®ØªØ± ÙŠÙˆÙ… Ø¨Ø¯Ø§ÙŠØ© Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹"
 
 #: templates/data/export.inc:14
 msgid "Select the format to export to:"
-msgstr "ÇÎÊÑ ÇáÊäÓíŞ áíÊã ÇáÊÕÏíÑ Åáì:"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„ØªÙ†Ø³ÙŠÙ‚ Ù„ÙŠØªÙ… Ø§Ù„ØªØµØ¯ÙŠØ± Ø¥Ù„Ù‰:"
 
 #: templates/data/import.inc:17
 msgid "Select the source to import from:"
-msgstr "ÇÎÊÑ ÇáãÕÏÑ ááÅÓÊíÑÇÏ ãä:"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„Ù…ØµØ¯Ø± Ù„Ù„Ø¥Ø³ØªÙŠØ±Ø§Ø¯ Ù…Ù†:"
 
 #: config/prefs.php.dist:121
 msgid "Select the time span to show:"
-msgstr "ÇÎÊÑ ÇáİÊÑÉ ÇáÒãäíÉ áÅÙåÇÑåÇ:"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ø²Ù…Ù†ÙŠØ© Ù„Ø¥Ø¸Ù‡Ø§Ø±Ù‡Ø§:"
 
 #: config/prefs.php.dist:95
 msgid "Select the view to display after login:"
-msgstr "ÇÎÊÑ Ôßá ÅÙåÇÑ ÇáÔÇÔÉ ÈÚÏ ÇáÏÎæá:"
+msgstr "Ø§Ø®ØªØ± Ø´ÙƒÙ„ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø´Ø§Ø´Ø© Ø¨Ø¹Ø¯ Ø§Ù„Ø¯Ø®ÙˆÙ„:"
 
 #: config/prefs.php.dist:31
 msgid "Select which events to show in the Horde summary."
-msgstr "ÇÎÊÑ ÃíÉ ÃÍÏÇË áÊÙåÑ İí ÇáãáÎÕ."
+msgstr "Ø§Ø®ØªØ± Ø£ÙŠØ© Ø£Ø­Ø¯Ø§Ø« Ù„ØªØ¸Ù‡Ø± ÙÙŠ Ø§Ù„Ù…Ù„Ø®Øµ."
 
 #: templates/javascript/goto.inc:79
 msgid "September"
-msgstr "Åíáæá"
+msgstr "Ø¥ÙŠÙ„ÙˆÙ„"
 
 #: config/prefs.php.dist:13
 msgid "Set the current time zone."
-msgstr "ÇÎÊÑ ÇáãäØŞÉ ÇáÒãäíÉ"
+msgstr "Ø§Ø®ØªØ± Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø²Ù…Ù†ÙŠØ©"
 
 #: config/prefs.php.dist:55
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "ÇÍÊÑ áÛÉ ÇáÃæÇãÑ ¡ ÇáÔÑÍ æÇáãÓÇÚÏÉ."
+msgstr "Ø§Ø­ØªØ± Ù„ØºØ© Ø§Ù„Ø£ÙˆØ§Ù…Ø± ØŒ Ø§Ù„Ø´Ø±Ø­ ÙˆØ§Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©."
 
 #: config/prefs.php.dist:7
 msgid "Set your preferred display language."
-msgstr "ÇÎÊÑ áÛÉ ÇáÔÇÔÉ ÇáãİÖáÉ"
+msgstr "Ø§Ø®ØªØ± Ù„ØºØ© Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ù…ÙØ¶Ù„Ø©"
 
 #: config/prefs.php.dist:202
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr "ÅÙåÇÑ ÃíŞæäÇÊ ÇáÍĞİ ¡ ÇáÊäÈíå æÇáÊßÑÇÑ İí ÇáÅÌäÏÉ¿"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø£ÙŠÙ‚ÙˆÙ†Ø§Øª Ø§Ù„Ø­Ø°Ù ØŒ Ø§Ù„ØªÙ†Ø¨ÙŠÙ‡ ÙˆØ§Ù„ØªÙƒØ±Ø§Ø± ÙÙŠ Ø§Ù„Ø¥Ø¬Ù†Ø¯Ø©ØŸ"
 
 #: config/prefs.php.dist:147
 msgid "Show due tasks in the calendar?"
-msgstr "ÅÙåÇÑ ÇáÃÍÏÇË ÇáãÓÊÍŞÉ İí ÇáÃÌäÏÉ¿"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø£Ø­Ø¯Ø§Ø« Ø§Ù„Ù…Ø³ØªØ­Ù‚Ø© ÙÙŠ Ø§Ù„Ø£Ø¬Ù†Ø¯Ø©ØŸ"
 
 #: config/prefs.php.dist:103
 msgid "Show half hour slots in day and week views?"
-msgstr "ÅÙåÇÑ ÇáİÑÇÛÇÊ ÇáäÕİ-ÓÇÚíÉ İí Çáíæã İí ÇáÇÓÊÚÑÇÖ ÇáÃÓÈæÚí¿"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„ÙØ±Ø§ØºØ§Øª Ø§Ù„Ù†ØµÙ-Ø³Ø§Ø¹ÙŠØ© ÙÙŠ Ø§Ù„ÙŠÙˆÙ… ÙÙŠ Ø§Ù„Ø§Ø³ØªØ¹Ø±Ø§Ø¶ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ÙŠØŸ"
 
 #: config/prefs.php.dist:139
 msgid "Show only events that have an alarm set?"
-msgstr "ÅÙåÇÑ ÇáÃÍÏÇË ÇáÊí Êã ÅÚÏÇÏåÇ ãÚ ÊäÈíå"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø£Ø­Ø¯Ø§Ø« Ø§Ù„ØªÙŠ ØªÙ… Ø¥Ø¹Ø¯Ø§Ø¯Ù‡Ø§ Ù…Ø¹ ØªÙ†Ø¨ÙŠÙ‡"
 
 #: templates/index/notconfigured.inc:13
 msgid "Some of Kronolith's configuration files are missing:"
-msgstr "ÈÚÖ ÇáÅÚÏÇÏÇÊ ÛíÑ ãæÌæÏÉ"
+msgstr "Ø¨Ø¹Ø¶ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø©"
 
 #: data.php:205
 msgid "Start Date"
-msgstr "ÊÇÑíÎ ÇáÈÏÇíÉ"
+msgstr "ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©"
 
 #: templates/edit/edit.inc:91 templates/view/view.inc:45
 #: templates/data/export.inc:28
 msgid "Start On"
-msgstr "íÈÏÃ İí"
+msgstr "ÙŠØ¨Ø¯Ø£ ÙÙŠ"
 
 #: data.php:206
 msgid "Start Time"
-msgstr "Òãä ÇáÈÏÇíÉ"
+msgstr "Ø²Ù…Ù† Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©"
 
 #: templates/edit/edit.inc:273
 msgid "Su"
-msgstr "ÇáÃÍÏ"
+msgstr "Ø§Ù„Ø£Ø­Ø¯"
 
 #: config/prefs.php.dist:30
 msgid "Summary"
-msgstr "ÇáÊáÎíÕ"
+msgstr "Ø§Ù„ØªÙ„Ø®ÙŠØµ"
 
 #: templates/view/view.inc:113 templates/month/head.inc:23
 #: templates/month/head.inc:32 config/prefs.php.dist:112
 msgid "Sunday"
-msgstr "ÇáÃÍÏ"
+msgstr "Ø§Ù„Ø£Ø­Ø¯"
 
 #: config/prefs.php.dist:43
 msgid "Tasks"
-msgstr "ÇáãåãÇÊ"
+msgstr "Ø§Ù„Ù…Ù‡Ù…Ø§Øª"
 
 #: templates/edit/edit.inc:270
 msgid "Th"
-msgstr "ÇáÎãíÓ"
+msgstr "Ø§Ù„Ø®Ù…ÙŠØ³"
 
 #: util/colorpicker.php:29
 msgid "The Options window has closed. Exiting."
-msgstr "Êã ÅÛáÇŞ äÇİĞÉ ÇáÎíÇÑÇÊ. ÓíÊã ÇáÎÑæÌ"
+msgstr "ØªÙ… Ø¥ØºÙ„Ø§Ù‚ Ù†Ø§ÙØ°Ø© Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª. Ø³ÙŠØªÙ… Ø§Ù„Ø®Ø±ÙˆØ¬"
 
 #: data.php:33 data.php:82
 msgid "The data was lost."
-msgstr "Êã İŞÏÇä ÇáÈíÇäÇÊ"
+msgstr "ØªÙ… ÙÙ‚Ø¯Ø§Ù† Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª"
 
 #: templates/edit/javascript.inc:146
 msgid "The end date must be later than the start date."
-msgstr "íÌÈ Ãä íßæä ÊÇÑíÎ ÇáäåÇíÉ ãÊÃÎÑÇğ Úä ÊÇÑíÎ ÇáÈÏÇíÉ"
+msgstr "ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ© Ù…ØªØ£Ø®Ø±Ø§Ù‹ Ø¹Ù† ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©"
 
 #: data.php:234
 msgid "The file contained no data."
-msgstr "áÇÊæÌÏ ÈíÇäÇÊ Öãä Çáãáİ."
+msgstr "Ù„Ø§ØªÙˆØ¬Ø¯ Ø¨ÙŠØ§Ù†Ø§Øª Ø¶Ù…Ù† Ø§Ù„Ù…Ù„Ù."
 
 #: data.php:179
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ÍÕá ÎØÃ ÎáÇá ÊÍãíá Çáãáİ. ŞÏ íßæä Çáãáİ ÃßÈÑãä ÇáÍÌã ÇáÃÚÙãí ÇáãÓãæÍ Èå"
+"Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù„Ù. Ù‚Ø¯ ÙŠÙƒÙˆÙ† Ø§Ù„Ù…Ù„Ù Ø£ÙƒØ¨Ø±Ù…Ù† Ø§Ù„Ø­Ø¬Ù… Ø§Ù„Ø£Ø¹Ø¸Ù…ÙŠ Ø§Ù„Ù…Ø³Ù…ÙˆØ­ Ø¨Ù‡"
 
 #: data.php:157
 msgid "There was an error importing the data."
-msgstr "ÍÕá ÎØÃ ÎáÇá ÇÓÊíÑÇÏ ÇáÈíÇäÇÊ."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø£ Ø®Ù„Ø§Ù„ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª."
 
 #: data.php:199
 msgid "There was an error importing the uploaded file"
-msgstr "ÍÕá ÎØÇ İí ÇÓÊíÑÇÏ Çáãáİ ÇáĞí Êã ÊÍãíáå."
+msgstr "Ø­ØµÙ„ Ø®Ø·Ø§ ÙÙŠ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø°ÙŠ ØªÙ… ØªØ­Ù…ÙŠÙ„Ù‡."
 
 #: data.php:257
 msgid "There were no events to export."
-msgstr "áÇÊæÌÏ ãåãÇÊ áÊÕÏíÑåÇ."
+msgstr "Ù„Ø§ØªÙˆØ¬Ø¯ Ù…Ù‡Ù…Ø§Øª Ù„ØªØµØ¯ÙŠØ±Ù‡Ø§."
 
 #: templates/prefs/category_management.inc:71
 msgid "These changes can not be undone!"
-msgstr "åĞå ÇáÊÛíÑÇÊ ÛíÑ ŞÇÈáÉ ááÊÑÇÌÚ!"
+msgstr "Ù‡Ø°Ù‡ Ø§Ù„ØªØºÙŠØ±Ø§Øª ØºÙŠØ± Ù‚Ø§Ø¨Ù„Ø© Ù„Ù„ØªØ±Ø§Ø¬Ø¹!"
 
 #: templates/index/notconfigured.inc:32
 msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"íÍÊæí åĞÇ Çáãáİ Úáì ÇáÅÚÏÇÏÊ ÇáÇİÊÑÇÖíÉ ááãÓÊÎÏãæÅÚÏÇÏÇÊ ÇáãÓÊÎÏã ÇáÊí "
-"íÎÊÇÑåÇ ÈäİÓå İíãÇ ÈÚÏ"
+"ÙŠØ­ØªÙˆÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¹Ù„Ù‰ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Øª Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠØ© Ù„Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙˆØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø§Ù„ØªÙŠ "
+"ÙŠØ®ØªØ§Ø±Ù‡Ø§ Ø¨Ù†ÙØ³Ù‡ ÙÙŠÙ…Ø§ Ø¨Ø¹Ø¯"
 
 #: templates/index/notconfigured.inc:25
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"íÍÊæí åĞÇ Çáãáİ Úáì ÅÚÏÇÏÇÊ ÇáÃáæÇä æÇáÎØæØ ÅÖÇİÉ áÅÚÏÇÏÇÊ åæÑÏí Ãæ ÈÏáåÇ"
+"ÙŠØ­ØªÙˆÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù Ø¹Ù„Ù‰ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø£Ù„ÙˆØ§Ù† ÙˆØ§Ù„Ø®Ø·ÙˆØ· Ø¥Ø¶Ø§ÙØ© Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ù‡ÙˆØ±Ø¯ÙŠ Ø£Ùˆ Ø¨Ø¯Ù„Ù‡Ø§"
 
 #: templates/index/notconfigured.inc:18
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
 msgstr ""
-"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí ááßÑæäæáíË. æåæ íÍÊæí Úáì ÇáãÓÇÑÇÊ æÇáÎíÇÑÇÊ áÌãíÚ "
-"ÇáÈÑíãÌÇÊ"
+"Ù‡Ø°Ø§ Ù…Ù„Ù Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ Ù„Ù„ÙƒØ±ÙˆÙ†ÙˆÙ„ÙŠØ«. ÙˆÙ‡Ùˆ ÙŠØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ø§Ù„Ù…Ø³Ø§Ø±Ø§Øª ÙˆØ§Ù„Ø®ÙŠØ§Ø±Ø§Øª Ù„Ø¬Ù…ÙŠØ¹ "
+"Ø§Ù„Ø¨Ø±ÙŠÙ…Ø¬Ø§Øª"
 
 #: util/colorpicker.php:35
 msgid "This window must be called from an Options window"
-msgstr "íÌÈ ÇÓÊÏÚÇÁ åĞå ÇáäÇİĞÉ ãä äÇİĞÉ ÇáÎíÇÑÇÊ"
+msgstr "ÙŠØ¬Ø¨ Ø§Ø³ØªØ¯Ø¹Ø§Ø¡ Ù‡Ø°Ù‡ Ø§Ù„Ù†Ø§ÙØ°Ø© Ù…Ù† Ù†Ø§ÙØ°Ø© Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª"
 
 #: templates/view/view.inc:110 templates/month/head.inc:28
 msgid "Thursday"
-msgstr "ÇáÎãíÓ"
+msgstr "Ø§Ù„Ø®Ù…ÙŠØ³"
 
 #: config/prefs.php.dist:12
 msgid "Time Zone"
-msgstr "ÇáãäØŞÉ ÇáÒãäíÉ"
+msgstr "Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø²Ù…Ù†ÙŠØ©"
 
 #: templates/edit/edit.inc:65 data.php:204
 msgid "Title"
-msgstr "ÇáÚäæÇä"
+msgstr "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†"
 
 #: lib/api.php:64 templates/menu/menu.inc:16
 msgid "Today"
-msgstr "Çáíæã ÇáÍÇáí"
+msgstr "Ø§Ù„ÙŠÙˆÙ… Ø§Ù„Ø­Ø§Ù„ÙŠ"
 
 #: lib/api.php:66
 msgid "Tomorrow"
-msgstr "ÛÏÇğ"
+msgstr "ØºØ¯Ø§Ù‹"
 
 #: templates/edit/edit.inc:268
 msgid "Tu"
-msgstr "ÇáËáÇËÇÁ"
+msgstr "Ø§Ù„Ø«Ù„Ø§Ø«Ø§Ø¡"
 
 #: config/keywords.php.dist:17
 msgid "Type"
-msgstr "äæÚ"
+msgstr "Ù†ÙˆØ¹"
 
 #: lib/base.php:74
 msgid "Unable to create calendar instance."
-msgstr "Impossible de créer une instance du calendrier."
+msgstr "Impossible de crÃ©er une instance du calendrier."
 
 #: lib/Driver/mcal.php:53
 #, c-format
 msgid "Unable to delete %s."
-msgstr "áÇíãßä ÍĞİ %s."
+msgstr "Ù„Ø§ÙŠÙ…ÙƒÙ† Ø­Ø°Ù %s."
 
 #: lib/Driver.php:73
 #, c-format
 msgid "Unable to load the definition of %s."
-msgstr "áÇíãßä ÊÍãíá ÇáÊÚÑíİ áÜ  %s."
+msgstr "Ù„Ø§ÙŠÙ…ÙƒÙ† ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØªØ¹Ø±ÙŠÙ Ù„Ù€  %s."
 
 #: lib/Kronolith.php:737 templates/prefs/category_management.inc:41
 msgid "Unfiled"
-msgstr "ÛíÑ ãÚÑİ"
+msgstr "ØºÙŠØ± Ù…Ø¹Ø±Ù"
 
 #: config/prefs.php.dist:24
 msgid "User Interface"
-msgstr "æÇÌåÉ ÇáãÓÊÎÏã"
+msgstr "ÙˆØ§Ø¬Ù‡Ø© Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…"
 
 #: prefs.php:82
 msgid "User Options"
-msgstr "ÎíÇÑÇÊ ÇáãÓÊÎÏã"
+msgstr "Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…"
 
 #: viewevent.php:54
 #, c-format
 msgid "View %s"
-msgstr "ÅÙåÇÑ %s"
+msgstr "Ø¥Ø¸Ù‡Ø§Ø± %s"
 
 #: templates/edit/edit.inc:269
 msgid "We"
-msgstr "ÇáÃÑÈÚÇÁ"
+msgstr "Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡"
 
 #: templates/view/view.inc:109 templates/month/head.inc:27
 msgid "Wednesday"
-msgstr "ÇáÃÑÈÚÇÁ"
+msgstr "Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡"
 
 #: templates/menu/menu.inc:22 config/prefs.php.dist:92
 msgid "Week"
-msgstr "ÇáÇÓÈæÚ"
+msgstr "Ø§Ù„Ø§Ø³Ø¨ÙˆØ¹"
 
 #: week.php:27 workweek.php:23 month.php:110
 #, c-format
 msgid "Week %d"
-msgstr "ÇáÇÓÈæÚ %d"
+msgstr "Ø§Ù„Ø§Ø³Ø¨ÙˆØ¹ %d"
 
 #: month.php:110
 #, c-format
 msgid "Week&nbsp;%d"
-msgstr "ÇáÃÓÈæÚ&nbsp;%d"
+msgstr "Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹&nbsp;%d"
 
 #: templates/edit/edit.inc:225 templates/view/view.inc:63
 msgid "Week(s)"
-msgstr "ÇáÃÓÈæÚ (ÃÓÇÈíÚ)"
+msgstr "Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ (Ø£Ø³Ø§Ø¨ÙŠØ¹)"
 
 #: templates/edit/edit.inc:264 templates/view/view.inc:115
 msgid "Weekly: Recurs every"
-msgstr "ÃÓÈæÚíÇğ: ÊßÑÇÑ ßá"
+msgstr "Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹: ØªÙƒØ±Ø§Ø± ÙƒÙ„"
 
 #: config/prefs.php.dist:171
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"ãÇåæ ÂÎÑ æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ÈÚÏå İí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
+"Ù…Ø§Ù‡Ùˆ Ø¢Ø®Ø± ÙˆÙ‚Øª ÙŠØªÙ… Ø¥Ø¸Ù‡Ø§Ø±Ù‡ Ø­ÙŠÙ† Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø­Ø¯Ø§Ø« Ø¨Ø¹Ø¯Ù‡ ÙÙŠ ÙˆØ¶Ø¹ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„ÙŠÙˆÙ… ÙˆØ§Ù„Ø£Ø³Ø¨ÙˆØ¹ØŸ"
 
 #: config/prefs.php.dist:163
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"ãÇåæ Ãæá æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ŞÈáåİí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
+"Ù…Ø§Ù‡Ùˆ Ø£ÙˆÙ„ ÙˆÙ‚Øª ÙŠØªÙ… Ø¥Ø¸Ù‡Ø§Ø±Ù‡ Ø­ÙŠÙ† Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ø­Ø¯Ø§Ø« Ù‚Ø¨Ù„Ù‡ÙÙŠ ÙˆØ¶Ø¹ Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„ÙŠÙˆÙ… ÙˆØ§Ù„Ø£Ø³Ø¨ÙˆØ¹ØŸ"
 
 #: config/prefs.php.dist:93
 msgid "Work Week"
-msgstr "ÇÓÈæÚ ÇáÚãá"
+msgstr "Ø§Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø¹Ù…Ù„"
 
 #: templates/menu/menu.inc:21
 msgid "Work&nbsp;Week"
-msgstr "ÇÓÈæÚ&nbsp;ÇáÚãá"
+msgstr "Ø§Ø³Ø¨ÙˆØ¹&nbsp;Ø§Ù„Ø¹Ù…Ù„"
 
 #: templates/edit/edit.inc:290 templates/view/view.inc:121
 msgid "Yearly: Recurs every"
-msgstr "ÓäæíÇğ: ÊßÑÇÑ ßá"
+msgstr "Ø³Ù†ÙˆÙŠØ§Ù‹: ØªÙƒØ±Ø§Ø± ÙƒÙ„"
 
 #: config/prefs.php.dist:5 config/prefs.php.dist:11
 msgid "Your Information"
-msgstr "ÇáÈíÇäÇÊ ÇáÔÎÕíÉ"
+msgstr "Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø´Ø®ØµÙŠØ©"
 
 #: templates/javascript/print.inc:27
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
-msgstr "áÇ íÏÚã ãÊÕİÍßã ÊŞäíÉ ÇáØÈÇÚÉ åĞå. ÅÖÛØ (Control/Option +P)ááØÈÇÚÉ"
+msgstr "Ù„Ø§ ÙŠØ¯Ø¹Ù… Ù…ØªØµÙØ­ÙƒÙ… ØªÙ‚Ù†ÙŠØ© Ø§Ù„Ø·Ø¨Ø§Ø¹Ø© Ù‡Ø°Ù‡. Ø¥Ø¶ØºØ· (Control/Option +P)Ù„Ù„Ø·Ø¨Ø§Ø¹Ø©"
 
 #: config/prefs.php.dist:63
 msgid "Your current time zone:"
-msgstr "ÇáãäØŞÉ ÇáÒãäíÉ:"
+msgstr "Ø§Ù„Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ø²Ù…Ù†ÙŠØ©:"
 
 #: lib/Event.php:438 lib/Event.php:445
 msgid "[none]"
-msgstr "[áÇÔíÁ]"
+msgstr "[Ù„Ø§Ø´ÙŠØ¡]"
 
 #: config/prefs.php.dist:122
 msgid "day"
-msgstr "Çáíæã"
+msgstr "Ø§Ù„ÙŠÙˆÙ…"
 
 #: templates/edit/edit.inc:259 templates/view/view.inc:103
 msgid "day(s)"
-msgstr "Çáíæã (ÇáÃíÇã)"
+msgstr "Ø§Ù„ÙŠÙˆÙ… (Ø§Ù„Ø£ÙŠØ§Ù…)"
 
 #: config/prefs.php.dist:123 config/prefs.php.dist:124
 #: config/prefs.php.dist:125 config/prefs.php.dist:126
 #: config/prefs.php.dist:127
 msgid "days"
-msgstr "ÇáÃíÇã"
+msgstr "Ø§Ù„Ø£ÙŠØ§Ù…"
 
 #: data.php:230
 msgid "iCalendar file successfully imported"
-msgstr "Êã ÇÓÊíÑÇÏ Çáãáİ ÈäÌÇÍ"
+msgstr "ØªÙ… Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù…Ù„Ù Ø¨Ù†Ø¬Ø§Ø­"
 
 #: templates/edit/edit.inc:279 templates/edit/edit.inc:285
 #: templates/view/view.inc:117 templates/view/view.inc:119
 msgid "month(s)"
-msgstr "ÔåÑ (ÃÔåÑ)"
+msgstr "Ø´Ù‡Ø± (Ø£Ø´Ù‡Ø±)"
 
 #: lib/Kronolith.php:362
 msgid "no time"
-msgstr "áÇíæÌÏ æŞÊ"
+msgstr "Ù„Ø§ÙŠÙˆØ¬Ø¯ ÙˆÙ‚Øª"
 
 #: templates/edit/edit.inc:279 templates/view/view.inc:117
 msgid "on the same date"
-msgstr "à la même date"
+msgstr "Ã  la mÃªme date"
 
 #: templates/edit/edit.inc:285 templates/view/view.inc:119
 msgid "on the same weekday"
-msgstr "äİÓ Çáíæã İí ÇáÇÓÈæÚ"
+msgstr "Ù†ÙØ³ Ø§Ù„ÙŠÙˆÙ… ÙÙŠ Ø§Ù„Ø§Ø³Ø¨ÙˆØ¹"
 
 #: config/prefs.php.dist:128
 msgid "week"
-msgstr "ÇÓÈæÚ"
+msgstr "Ø§Ø³Ø¨ÙˆØ¹"
 
 #: templates/edit/edit.inc:266 templates/view/view.inc:115
 msgid "week(s) on:"
-msgstr "ÇáÃÓÈæÚ (ÃÓÇÈíÚ) İí:"
+msgstr "Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ (Ø£Ø³Ø§Ø¨ÙŠØ¹) ÙÙŠ:"
 
 #: config/prefs.php.dist:129 config/prefs.php.dist:130
 #: config/prefs.php.dist:131
 msgid "weeks"
-msgstr "ÇáÃÓÇÈíÚ"
+msgstr "Ø§Ù„Ø£Ø³Ø§Ø¨ÙŠØ¹"
 
 #: templates/edit/edit.inc:291 templates/view/view.inc:121
 msgid "year(s)"
-msgstr "ÓäÉ (ÓäæÇÊ)"
+msgstr "Ø³Ù†Ø© (Ø³Ù†ÙˆØ§Øª)"

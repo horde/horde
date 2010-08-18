@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Nethesis srl <info@nethesis.it>\n"
 "Language-Team: Italian <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/view/task.inc:35
@@ -81,7 +81,7 @@ msgstr "%s inizia ora."
 #: task.php:238
 #, php-format
 msgid "%s is now incomplete."
-msgstr "%s adesso Ë incompleta."
+msgstr "%s adesso √® incompleta."
 
 #: data.php:212
 #, php-format
@@ -91,53 +91,53 @@ msgstr "%s file importato con successo"
 #: lib/Nag.php:545 lib/Forms/DeleteTaskList.php:86
 #, php-format
 msgid "%s's Task List"
-msgstr "%s's Lista Attivit‡"
+msgstr "%s's Lista Attivit√†"
 
 #: lib/Nag.php:344 lib/Forms/task.php:61
 msgid "(highest)"
-msgstr "(pi˘ alta)"
+msgstr "(pi√π alta)"
 
 #: lib/Nag.php:344 lib/Forms/task.php:62
 msgid "(lowest)"
-msgstr "(pi˘ bassa)"
+msgstr "(pi√π bassa)"
 
 #: task.php:222
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "Accesso negato completando attivit‡ %s."
+msgstr "Accesso negato completando attivit√† %s."
 
 #: task.php:27
 msgid "Access denied deleting task."
-msgstr "Accesso negato nella cancellazione dell'attivit‡."
+msgstr "Accesso negato nella cancellazione dell'attivit√†."
 
 #: task.php:91 task.php:97
 msgid "Access denied editing task."
-msgstr "Accesso negato modificando l'attivit‡."
+msgstr "Accesso negato modificando l'attivit√†."
 
 #: task.php:89
 #, php-format
 msgid "Access denied editing task: %s"
-msgstr "Accesso negato modificando l'attivit‡: %s."
+msgstr "Accesso negato modificando l'attivit√†: %s."
 
 #: task.php:170
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "Accesso negato salvano attivit‡ in %s."
+msgstr "Accesso negato salvano attivit√† in %s."
 
 #: task.php:173
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "Accesso negato rimuovendo le attivit‡ da %s."
+msgstr "Accesso negato rimuovendo le attivit√† da %s."
 
 #: task.php:132
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "Accesso negato salvano attivit‡ in %s."
+msgstr "Accesso negato salvano attivit√† in %s."
 
 #: task.php:128
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "Accesso negato salvano attivit‡ in %s."
+msgstr "Accesso negato salvano attivit√† in %s."
 
 #: data.php:57 templates/view/task.inc:26 lib/Forms/task.php:91
 msgid "Alarm"
@@ -145,15 +145,15 @@ msgstr "Allarme"
 
 #: config/prefs.php.dist:200
 msgid "All tasks"
-msgstr "Tutte le Attivit‡"
+msgstr "Tutte le Attivit√†"
 
 #: lib/Block/summary.php:75
 msgid "Always show completed tasks?"
-msgstr "Attivit‡ incomplete"
+msgstr "Attivit√† incomplete"
 
 #: lib/Block/summary.php:71
 msgid "Always show overdue tasks?"
-msgstr "Mostra sempre le attivit‡ scadute?"
+msgstr "Mostra sempre le attivit√† scadute?"
 
 #: config/prefs.php.dist:117
 msgid "Ascending"
@@ -194,27 +194,27 @@ msgstr "Cambia Permessi"
 
 #: config/prefs.php.dist:14
 msgid "Change your task sorting and display options."
-msgstr "Cambia le tue opzioni di ordinamento e visualizzazione delle attivit‡."
+msgstr "Cambia le tue opzioni di ordinamento e visualizzazione delle attivit√†."
 
 #: config/prefs.php.dist:179
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr "Selezionare la modalit‡ preferita per gli allarmi:"
+msgstr "Selezionare la modalit√† preferita per gli allarmi:"
 
 #: config/prefs.php.dist:170
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
-"Scegliere se si desidera ricevere notifiche via email per la nuove attivit‡, "
-"attivit‡ modificate o eliminate:"
+"Scegliere se si desidera ricevere notifiche via email per la nuove attivit√†, "
+"attivit√† modificate o eliminate:"
 
 #: config/prefs.php.dist:42
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr ""
-"Scegliere se si vuole essere informati di modifiche e allarmi sulle attivit‡"
+"Scegliere se si vuole essere informati di modifiche e allarmi sulle attivit√†"
 
 #: config/prefs.php.dist:35
 msgid "Choose your default task list."
-msgstr "Lista delle Attivit‡ di default:"
+msgstr "Lista delle Attivit√† di default:"
 
 #: templates/tasklist_list.php:31 templates/tasklist_list.php:32
 msgid "Click or copy this URL to display this task list"
@@ -239,11 +239,11 @@ msgstr "Completa %s"
 
 #: templates/view/task.inc:42
 msgid "Complete Task"
-msgstr "Completa attivit‡"
+msgstr "Completa attivit√†"
 
 #: config/prefs.php.dist:202
 msgid "Complete tasks"
-msgstr "Completa Attivit‡"
+msgstr "Completa Attivit√†"
 
 #: lib/Nag.php:408 lib/Block/summary.php:189
 msgid "Completed"
@@ -252,15 +252,15 @@ msgstr "Completata"
 #: task.php:236
 #, php-format
 msgid "Completed %s."
-msgstr "Attivit‡ %s Completata"
+msgstr "Attivit√† %s Completata"
 
 #: templates/search/search.inc:27
 msgid "Completed Tasks"
-msgstr "Attivit‡ Complete"
+msgstr "Attivit√† Complete"
 
 #: templates/list/task_summaries.inc:16
 msgid "Completed parent task, mark it as incomplete first"
-msgstr "Attivit‡ genitori completate, marcarle prima come incomplete"
+msgstr "Attivit√† genitori completate, marcarle prima come incomplete"
 
 #: templates/view/task.inc:38 templates/list/task_headers.inc:31
 #: lib/Forms/task.php:97 config/prefs.php.dist:91 config/prefs.php.dist:106
@@ -286,11 +286,11 @@ msgstr "Crea"
 
 #: lib/Forms/CreateTaskList.php:34
 msgid "Create Task List"
-msgstr "Crea Lista delle Attivit‡ "
+msgstr "Crea Lista delle Attivit√† "
 
 #: templates/tasklist_list.php:8
 msgid "Create a new Task List"
-msgstr "Crea Lista delle Attivit‡ "
+msgstr "Crea Lista delle Attivit√† "
 
 #: templates/view/task.inc:57
 msgid "Created"
@@ -306,11 +306,11 @@ msgstr "Giorno(i)"
 
 #: config/prefs.php.dist:34
 msgid "Default Task List"
-msgstr "Lista delle Attivit‡ di default:"
+msgstr "Lista delle Attivit√† di default:"
 
 #: config/prefs.php.dist:28
 msgid "Defaults for new tasks"
-msgstr "Default per le nuove attivit‡:"
+msgstr "Default per le nuove attivit√†:"
 
 #: lib/Forms/task.php:90
 msgid "Delay Start Until"
@@ -336,7 +336,7 @@ msgstr "Comportamento del pulsante di cancellazione"
 
 #: task.php:112 lib/Forms/task.php:102 lib/Forms/task.php:129
 msgid "Delete this task"
-msgstr "Elimina questa Attivit‡"
+msgstr "Elimina questa Attivit√†"
 
 #: task.php:37
 #, php-format
@@ -345,7 +345,7 @@ msgstr "Cancella %s"
 
 #: lib/api.php:686
 msgid "Deleting entire tasklists is not supported."
-msgstr "Eliminare dell'intera lista attivit‡ non supportata."
+msgstr "Eliminare dell'intera lista attivit√† non supportata."
 
 #: config/prefs.php.dist:118
 msgid "Descending"
@@ -396,7 +396,7 @@ msgstr "Modifica %s"
 
 #: templates/list/task_headers.inc:42
 msgid "Edit Task"
-msgstr "Modifica Attivit‡"
+msgstr "Modifica Attivit√†"
 
 #: templates/list/task_headers.inc:58
 msgid "Edit categories and colors"
@@ -410,7 +410,7 @@ msgstr "Modifica: \"%s\""
 #: task.php:20
 #, php-format
 msgid "Error deleting task: %s"
-msgstr "Si Ë verificato un problema eliminando: %s"
+msgstr "Si √® verificato un problema eliminando: %s"
 
 #: data.php:61 templates/view/task.inc:34 lib/Forms/task.php:96
 msgid "Estimated Time"
@@ -422,7 +422,7 @@ msgstr "Esporta"
 
 #: templates/data/export.inc:6
 msgid "Export Tasks"
-msgstr "Esporta attivit‡"
+msgstr "Esporta attivit√†"
 
 #: config/prefs.php.dist:56
 msgid "External Data"
@@ -443,35 +443,35 @@ msgstr "Ora(e)"
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "Importazione attivit‡, Step %d"
+msgstr "Importazione attivit√†, Step %d"
 
 #: data.php:218
 msgid "Import/Export Tasks"
-msgstr "Importa/Esporta Attivit‡"
+msgstr "Importa/Esporta Attivit√†"
 
 #: list.php:112
 msgid "Incom_plete tasks"
-msgstr "Attivit‡ incomplete"
+msgstr "Attivit√† incomplete"
 
 #: templates/search/search.inc:26
 msgid "Incomplete Tasks"
-msgstr "Attivit‡ incomplete"
+msgstr "Attivit√† incomplete"
 
 #: templates/list/task_summaries.inc:8
 msgid "Incomplete sub tasks, complete them first"
-msgstr "Sub Attivit‡ Incomplete, completarle prima"
+msgstr "Sub Attivit√† Incomplete, completarle prima"
 
 #: config/prefs.php.dist:201
 msgid "Incomplete tasks"
-msgstr "Attivit‡ incomplete"
+msgstr "Attivit√† incomplete"
 
 #: lib/api.php:520
 msgid "Invalid tasklist name supplied."
-msgstr "Fornito nome lista attivit‡ non valido."
+msgstr "Fornito nome lista attivit√† non valido."
 
 #: lib/api.php:386
 msgid "Invalid tasklist requested."
-msgstr "Lista attivit‡ richiesta non valida."
+msgstr "Lista attivit√† richiesta non valida."
 
 #: templates/view/task.inc:64
 msgid "Last Modified"
@@ -492,7 +492,7 @@ msgstr "Marca come incompleta"
 
 #: lib/api.php:125
 msgid "Maximum Number of Tasks"
-msgstr "Numero massimo di attivit‡"
+msgstr "Numero massimo di attivit√†"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
@@ -520,15 +520,15 @@ msgstr "MaggioriOpzioni..."
 
 #: lib/api.php:1179
 msgid "Multiple iCalendar components found; only one vTodo is supported."
-msgstr "Diversi iCalendar trovati; solo un vTodo Ë supportato."
+msgstr "Diversi iCalendar trovati; solo un vTodo √® supportato."
 
 #: templates/panel.inc:72
 msgid "My Task Lists:"
-msgstr "Le Mie Liste Attivit‡:"
+msgstr "Le Mie Liste Attivit√†:"
 
 #: list.php:34
 msgid "My Tasks"
-msgstr "Le mie Attivit‡"
+msgstr "Le mie Attivit√†"
 
 #: templates/search/search.inc:18
 msgid "N_ame"
@@ -541,7 +541,7 @@ msgstr "No_me"
 #: lib/Driver/kolab.php:741
 #, php-format
 msgid "Nag/kolab: Did not find task %s"
-msgstr "Nag/kolab: attivvit‡ %s non trovata"
+msgstr "Nag/kolab: attivvit√† %s non trovata"
 
 #: data.php:52 lib/Forms/CreateTaskList.php:36 lib/Forms/EditTaskList.php:43
 #: lib/Forms/task.php:68
@@ -550,7 +550,7 @@ msgstr "Nome"
 
 #: task.php:81 task.php:116 lib/Block/tree_menu.php:26
 msgid "New Task"
-msgstr "Nuova Attivit‡"
+msgstr "Nuova Attivit√†"
 
 #: templates/data/import.inc:39
 msgid "Next"
@@ -574,7 +574,7 @@ msgstr "Nessun iCalendar trovato."
 
 #: lib/Forms/task.php:53
 msgid "No parent task"
-msgstr "Nessuna attivit‡ genitore"
+msgstr "Nessuna attivit√† genitore"
 
 #: lib/Nag.php:634
 msgid "No task lists are available to guests."
@@ -582,11 +582,11 @@ msgstr "Nessun calendario disponibile per gli ospiti."
 
 #: templates/list/task_footers.inc:5
 msgid "No tasks match"
-msgstr "Nessuna attivit‡ corrisponde"
+msgstr "Nessuna attivit√† corrisponde"
 
 #: lib/Block/summary.php:245
 msgid "No tasks to display"
-msgstr "Nessuna attivit‡ da visualizzare"
+msgstr "Nessuna attivit√† da visualizzare"
 
 #: lib/Nag.php:450 lib/UI/VarRenderer/nag.php:151
 msgid "None"
@@ -618,7 +618,7 @@ msgstr "In tutte le liste in cui ho accesso in lettura"
 
 #: config/prefs.php.dist:167
 msgid "On my task lists only"
-msgstr "Solo nelle mie liste attivit‡"
+msgstr "Solo nelle mie liste attivit√†"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
@@ -626,7 +626,7 @@ msgstr "P_ri"
 
 #: lib/Forms/task.php:75
 msgid "Parent task"
-msgstr "Attivit‡ Genitore"
+msgstr "Attivit√† Genitore"
 
 #: lib/api.php:769 lib/api.php:807 lib/api.php:840 lib/api.php:876
 #: lib/api.php:998 lib/api.php:1053 lib/api.php:1117 lib/api.php:1154
@@ -641,7 +641,7 @@ msgstr "Permesso Negato"
 #: data.php:59 templates/view/task.inc:30 lib/Forms/task.php:93
 #: config/prefs.php.dist:87 config/prefs.php.dist:102
 msgid "Priority"
-msgstr "Priorit‡"
+msgstr "Priorit√†"
 
 #: templates/view/task.inc:14 lib/Driver.php:903
 msgid "Private"
@@ -649,7 +649,7 @@ msgstr "Riservata"
 
 #: data.php:60 lib/Driver.php:901
 msgid "Private Task"
-msgstr "Attivit‡ Riservata"
+msgstr "Attivit√† Riservata"
 
 #: templates/view/task.inc:12 lib/Forms/task.php:88
 msgid "Private?"
@@ -661,12 +661,12 @@ msgid ""
 "Really delete the task list \"%s\"? This cannot be undone and all data on "
 "this task list will be permanently removed."
 msgstr ""
-"Sei sicuro di eliminare la lista %s? Questa operazione non puÚ essere "
+"Sei sicuro di eliminare la lista %s? Questa operazione non pu√≤ essere "
 "annullata e i dati saranno eliminati permanentemente."
 
 #: view.php:121
 msgid "Really delete this task?"
-msgstr "Confermi cancellazione di questa Attivit‡"
+msgstr "Confermi cancellazione di questa Attivit√†"
 
 #: templates/panel.inc:90 lib/Forms/EditTaskList.php:46 lib/Forms/task.php:100
 #: lib/Forms/task.php:127
@@ -676,7 +676,7 @@ msgstr "Salva"
 #: task.php:201
 #, php-format
 msgid "Saved %s."
-msgstr "Attivit‡ %s Salvata."
+msgstr "Attivit√† %s Salvata."
 
 #: search.php:14 templates/search/search.inc:31 templates/list/header.inc:4
 #: lib/Block/tree_menu.php:46
@@ -693,7 +693,7 @@ msgstr "Cerca _Testo:"
 
 #: templates/panel.inc:60
 msgid "Search for Task Lists:"
-msgstr "Cerca lista attivit‡ :"
+msgstr "Cerca lista attivit√† :"
 
 #: templates/search/search.inc:24
 msgid "Search:"
@@ -722,11 +722,11 @@ msgstr "Seleziona il formato verso cui esportare:"
 
 #: templates/panel.inc:81
 msgid "Shared Task Lists:"
-msgstr "lista attivit‡ condivise:"
+msgstr "lista attivit√† condivise:"
 
 #: config/prefs.php.dist:68
 msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "Visualizzare la colonna TaskList nella lista delle Attivit‡?"
+msgstr "Visualizzare la colonna TaskList nella lista delle Attivit√†?"
 
 #: lib/Block/summary.php:51
 msgid "Show action buttons?"
@@ -734,7 +734,7 @@ msgstr "Mostra Contatti"
 
 #: config/prefs.php.dist:203
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "Mostra attivit‡ complete, incomplete o tutte nella lista attivit‡?"
+msgstr "Mostra attivit√† complete, incomplete o tutte nella lista attivit√†?"
 
 #: config/prefs.php.dist:190
 msgid "Show data from any of these other applications in your task list?"
@@ -742,7 +742,7 @@ msgstr "Visualizza informazioni da ognuna di questo applicazioni?"
 
 #: config/prefs.php.dist:57
 msgid "Show data from other applications or sources."
-msgstr "Mostra Attivit‡ da altre applicazioni o sorgenti."
+msgstr "Mostra Attivit√† da altre applicazioni o sorgenti."
 
 #: lib/Block/summary.php:55
 msgid "Show due dates?"
@@ -750,7 +750,7 @@ msgstr "Mostra data di scadenza?"
 
 #: lib/Block/summary.php:47
 msgid "Show priorities?"
-msgstr "Mostra priorit‡?"
+msgstr "Mostra priorit√†?"
 
 #: lib/Block/summary.php:63
 msgid "Show task alarms?"
@@ -762,19 +762,19 @@ msgstr "Sfoglia questa categoria"
 
 #: config/prefs.php.dist:78
 msgid "Show task list options panel?"
-msgstr "Mostra pannello delle opzioni della lista attivit‡?"
+msgstr "Mostra pannello delle opzioni della lista attivit√†?"
 
 #: lib/Block/summary.php:59
 msgid "Show tasklist name?"
-msgstr "Mostra nome lista attivit‡?"
+msgstr "Mostra nome lista attivit√†?"
 
 #: lib/Block/summary.php:84
 msgid "Show tasks from these categories"
-msgstr "Mostra Attivit‡ da queste categorie"
+msgstr "Mostra Attivit√† da queste categorie"
 
 #: lib/Block/summary.php:79
 msgid "Show tasks from these tasklists"
-msgstr "Mostra Attivit‡ da queste liste?"
+msgstr "Mostra Attivit√† da queste liste?"
 
 #: templates/list/task_headers.inc:53
 msgid "Sort by Category"
@@ -794,7 +794,7 @@ msgstr "Ordina per nome"
 
 #: templates/list/task_headers.inc:39
 msgid "Sort by Priority"
-msgstr "Ordina per priorit‡"
+msgstr "Ordina per priorit√†"
 
 #: templates/list/task_headers.inc:35
 msgid "Sort by User Name"
@@ -806,7 +806,7 @@ msgstr "Direzione di ordinamento"
 
 #: config/prefs.php.dist:93
 msgid "Sort tasks by:"
-msgstr "Ordina Attivit‡ per"
+msgstr "Ordina Attivit√† per"
 
 #: data.php:58
 msgid "Start"
@@ -826,32 +826,32 @@ msgstr "URL di sottoscrizione"
 
 #: templates/list/task_summaries.inc:60
 msgid "Task Alarm"
-msgstr "Allarme Attivit‡"
+msgstr "Allarme Attivit√†"
 
 #: templates/list/task_headers.inc:48
 msgid "Task Alarm?"
-msgstr "Allarme Attivit‡?"
+msgstr "Allarme Attivit√†?"
 
 #: config/prefs.php.dist:27
 msgid "Task Defaults"
-msgstr "Default attivit‡"
+msgstr "Default attivit√†"
 
 #: lib/Driver/sql.php:100
 msgid "Task ID not found"
-msgstr "ID attivit‡ non trovato"
+msgstr "ID attivit√† non trovato"
 
 #: templates/tasklist_list.php:15 lib/Forms/task.php:71
 #: config/prefs.php.dist:92 config/prefs.php.dist:107
 msgid "Task List"
-msgstr "Lista Attivit‡"
+msgstr "Lista Attivit√†"
 
 #: templates/panel.inc:5
 msgid "Task List Information"
-msgstr "Informazionei Lista Attivit‡"
+msgstr "Informazionei Lista Attivit√†"
 
 #: templates/tasklist_list.php:12
 msgid "Task List List"
-msgstr "Liste Attivit‡"
+msgstr "Liste Attivit√†"
 
 #: config/prefs.php.dist:33 config/prefs.php.dist:40 config/prefs.php.dist:55
 msgid "Task List and Share Options"
@@ -860,86 +860,86 @@ msgstr "Torna alle Opzioni Calendario"
 #: templates/tasklist_info.php:6
 #, php-format
 msgid "Task List owned by %s."
-msgstr "Liste Attivit‡ di %s"
+msgstr "Liste Attivit√† di %s"
 
 #: templates/panel.inc:54 templates/panel.inc:55
 msgid "Task Lists"
-msgstr "Liste Attivit‡"
+msgstr "Liste Attivit√†"
 
 #: config/prefs.php.dist:88 config/prefs.php.dist:103
 msgid "Task Name"
-msgstr "Nome attivit‡"
+msgstr "Nome attivit√†"
 
 #: templates/list/task_summaries.inc:58
 msgid "Task Note"
-msgstr "Nota dell'Attivit‡"
+msgstr "Nota dell'Attivit√†"
 
 #: templates/list/task_headers.inc:47
 msgid "Task Note?"
-msgstr "Nota dell'Attivit‡?"
+msgstr "Nota dell'Attivit√†?"
 
 #: templates/search/search.inc:6
 msgid "Task Search"
-msgstr "Cerca attivit‡"
+msgstr "Cerca attivit√†"
 
 #: lib/Driver/sql.php:136
 msgid "Task UID not found"
-msgstr "UID attivit‡ non trovato"
+msgstr "UID attivit√† non trovato"
 
 #: lib/Nag.php:659
 msgid "Task added:"
-msgstr "Attivit‡ aggiunta:"
+msgstr "Attivit√† aggiunta:"
 
 #: lib/Nag.php:669
 msgid "Task deleted:"
-msgstr "Attvit‡ eliminata:"
+msgstr "Attvit√† eliminata:"
 
 #: lib/Nag.php:664
 msgid "Task modified:"
-msgstr "Attivit‡ Modificata:"
+msgstr "Attivit√† Modificata:"
 
 #: task.php:95 view.php:43
 msgid "Task not found."
-msgstr "Attivit‡ non trovata."
+msgstr "Attivit√† non trovata."
 
 #: lib/api.php:698
 msgid "Tasklist does not exist or no permission to delete"
-msgstr "La lista attivit‡ non esiste o non si hanno i permessi di eliminazione"
+msgstr "La lista attivit√† non esiste o non si hanno i permessi di eliminazione"
 
 #: lib/api.php:526
 msgid "Tasklist does not exist or no permission to edit"
-msgstr "La lista attivit‡ non esiste o non si hanno i permessi di modifica"
+msgstr "La lista attivit√† non esiste o non si hanno i permessi di modifica"
 
 #: lib/api.php:1236
 msgid "Tasks"
-msgstr "Attivit‡"
+msgstr "Attivit√†"
 
 #: lib/Block/summary.php:3
 msgid "Tasks Summary"
-msgstr "Sommario Attivit‡"
+msgstr "Sommario Attivit√†"
 
 #: lib/api.php:348
 #, php-format
 msgid "Tasks from %s"
-msgstr "Attivit‡ da %s"
+msgstr "Attivit√† da %s"
 
 #: data.php:206
 #, php-format
 msgid "The %s file didn't contain any tasks."
-msgstr "Il file %s non contiene attivit‡."
+msgstr "Il file %s non contiene attivit√†."
 
 #: lib/Driver.php:56
 msgid "The Tasks backend is not currently available."
-msgstr "Il backend Attivit‡ non Ë disponibile."
+msgstr "Il backend Attivit√† non √® disponibile."
 
 #: lib/Driver.php:137
 #, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "Il backend Attivit‡ non Ë disponibile: %s"
+msgstr "Il backend Attivit√† non √® disponibile: %s"
 
 #: lib/Forms/task.php:160
 msgid "The alarm value must not be empty."
-msgstr "Il nome della Lista della Attivit‡ Ë vuoto."
+msgstr "Il nome della Lista della Attivit√† √® vuoto."
 
 #: templates/prefs/defaultduetimeselect.inc:8
 msgid "The current hour"
@@ -950,7 +950,7 @@ msgstr "L'ora corrente"
 msgid ""
 "The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
 msgstr ""
-"l'attivit‡ \"%s\" Ë stata aggiunta alla lista \"%s\", con scadenza: %s."
+"l'attivit√† \"%s\" √® stata aggiunta alla lista \"%s\", con scadenza: %s."
 
 #: lib/Nag.php:670
 #, php-format
@@ -958,34 +958,34 @@ msgid ""
 "The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
 "s."
 msgstr ""
-"L'attivit‡ \"%s\" Ë stata eliminata dalla lista \"%s\", con scadenza: %s."
+"L'attivit√† \"%s\" √® stata eliminata dalla lista \"%s\", con scadenza: %s."
 
 #: lib/Nag.php:665
 #, php-format
 msgid ""
 "The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
 msgstr ""
-"L'attivit‡ \"%s\" Ë stata modificata nella lista \"%s\", con scadenza: %s."
+"L'attivit√† \"%s\" √® stata modificata nella lista \"%s\", con scadenza: %s."
 
 #: tasklists/create.php:31
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "La lista delle Attivit‡ \"%s\" Ë stata creata."
+msgstr "La lista delle Attivit√† \"%s\" √® stata creata."
 
 #: tasklists/delete.php:48
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "La Lista delle Attivit‡ \"%s\" Ë stata cancellata."
+msgstr "La Lista delle Attivit√† \"%s\" √® stata cancellata."
 
 #: tasklists/edit.php:42
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "La lista delle Attivit‡ \"%s\" Ë statrinominata in %s."
+msgstr "La lista delle Attivit√† \"%s\" √® statrinominata in %s."
 
 #: tasklists/edit.php:44
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "La Lista delle Attivit‡\"%s\" Ë stata salvata."
+msgstr "La Lista delle Attivit√†\"%s\" √® stata salvata."
 
 #: config/prefs.php.dist:108
 msgid "Then:"
@@ -993,43 +993,43 @@ msgstr "Poi:"
 
 #: templates/list/empty.inc:2
 msgid "There are no tasks matching the current criteria."
-msgstr "Non ci sono attivit‡ di questo tipo."
+msgstr "Non ci sono attivit√† di questo tipo."
 
 #: task.php:232
 #, php-format
 msgid "There was a problem completing %s: %s"
-msgstr "Si Ë verificato un problema completando %s: %s"
+msgstr "Si √® verificato un problema completando %s: %s"
 
 #: task.php:33
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "Si Ë verificato un problema eliminando %s: %s"
+msgstr "Si √® verificato un problema eliminando %s: %s"
 
 #: task.php:199
 #, php-format
 msgid "There was a problem saving the task: %s."
-msgstr "Si Ë verificato un problema salvando l'attivit‡: %s."
+msgstr "Si √® verificato un problema salvando l'attivit√†: %s."
 
 #: data.php:209
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Si Ë verificato un problema importando i dati: %s."
+msgstr "Si √® verificato un problema importando i dati: %s."
 
 #: lib/api.php:545 lib/api.php:894 lib/api.php:1166
 msgid "There was an error importing the iCalendar data."
-msgstr "Si Ë verificato un problema importando i dati."
+msgstr "Si √® verificato un problema importando i dati."
 
 #: data.php:89
 msgid "There were no tasks to export."
-msgstr "Non vi sono attivit‡ da esportare."
+msgstr "Non vi sono attivit√† da esportare."
 
 #: data.php:138
 msgid "This file format is not supported."
-msgstr "Questo formato di file non Ë supportato."
+msgstr "Questo formato di file non √® supportato."
 
 #: tasklists/delete.php:24
 msgid "This task list cannot be deleted."
-msgstr "La Lista delle Attivit‡ \"%s\"  non puÚ essere eliminata."
+msgstr "La Lista delle Attivit√† \"%s\"  non pu√≤ essere eliminata."
 
 #: templates/tasklist_info.php:7
 msgid "To subscribe to this task list from another program, use this URL: "
@@ -1044,7 +1044,7 @@ msgstr "Impossibile eliminare \"%s\": %s"
 #: lib/api.php:719
 #, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
-msgstr "Impossibile eliminare la lista attivit‡ \"%s\": %s"
+msgstr "Impossibile eliminare la lista attivit√† \"%s\": %s"
 
 #: lib/Driver.php:140
 #, php-format
@@ -1084,7 +1084,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Desideriamo ricordarle la scadenza della seguente attivit‡:\n"
+"Desideriamo ricordarle la scadenza della seguente attivit√†:\n"
 "\n"
 "%s\n"
 "\n"
@@ -1099,23 +1099,23 @@ msgstr "Settimana(e)"
 
 #: templates/prefs/defaultduetimeselect.inc:6
 msgid "What do you want to be the default due time for tasks?"
-msgstr "Quale tempo di scadenza di default si desidera per le attivit‡?"
+msgstr "Quale tempo di scadenza di default si desidera per le attivit√†?"
 
 #: config/prefs.php.dist:146
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
-"Quando si crea una nuova attivit‡, di quanti giorni Ë la scadenza di "
+"Quando si crea una nuova attivit√†, di quanti giorni √® la scadenza di "
 "default  (0 significa oggi)?"
 
 #: config/prefs.php.dist:137
 msgid "When creating a new task, should it default to having a due date?"
-msgstr "Quando si crea una nuova attivit‡, deve avere di default una scadenza?"
+msgstr "Quando si crea una nuova attivit√†, deve avere di default una scadenza?"
 
 #: templates/data/import.inc:21
 msgid "Which tasklist should the tasks be added to?"
-msgstr "A quale Lista delle Attivit‡ aggiungere l'Attivit‡? "
+msgstr "A quale Lista delle Attivit√† aggiungere l'Attivit√†? "
 
 #: lib/UI/VarRenderer/nag.php:53 lib/UI/VarRenderer/nag.php:102
 msgid "Year"
@@ -1123,43 +1123,43 @@ msgstr "Anno"
 
 #: tasklists/edit.php:28
 msgid "You are not allowed to change this task list."
-msgstr "Non sei abilitato a midificare questa lista  attivit‡."
+msgstr "Non sei abilitato a midificare questa lista  attivit√†."
 
 #: data.php:41 data.php:163 task.php:68
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "No sei abilitato a creare pi˘ di %d attivit‡."
+msgstr "No sei abilitato a creare pi√π di %d attivit√†."
 
 #: tasklists/delete.php:35
 msgid "You are not allowed to delete this task list."
-msgstr "Non sei abilitato a eliminare questa lista attivit‡."
+msgstr "Non sei abilitato a eliminare questa lista attivit√†."
 
 #: view.php:54
 msgid "You do not have permission to view this tasklist."
-msgstr "Non hai permesso di visualizzare questa Lista delle Attivit‡."
+msgstr "Non hai permesso di visualizzare questa Lista delle Attivit√†."
 
 #: lib/Nag.php:660
 msgid "You requested to be notified when tasks are added to your tasklists."
 msgstr ""
-"Hai richiesto di essere informato quando una attivit‡ Ë inserita nella tua "
+"Hai richiesto di essere informato quando una attivit√† √® inserita nella tua "
 "lista."
 
 #: lib/Nag.php:670
 msgid ""
 "You requested to be notified when tasks are deleted from your tasklists."
 msgstr ""
-"Hai richiesto di essere informato quando una attivit‡ Ë eliminata dalla tua "
+"Hai richiesto di essere informato quando una attivit√† √® eliminata dalla tua "
 "lista."
 
 #: lib/Nag.php:665
 msgid "You requested to be notified when tasks are edited on your tasklists."
 msgstr ""
-"Hai richiesto di essere informato quando una attivit‡ Ë modificata nella tua "
+"Hai richiesto di essere informato quando una attivit√† √® modificata nella tua "
 "lista."
 
 #: templates/prefs/tasklistselect.inc:10
 msgid "Your default task list:"
-msgstr "Lista delle tue Attivit‡ di default:"
+msgstr "Lista delle tue Attivit√† di default:"
 
 #: templates/panel.inc:67
 msgid "[Manage Task Lists]"
@@ -1172,11 +1172,11 @@ msgstr "[nessuno]"
 
 #: templates/search/search.inc:25
 msgid "_All Tasks"
-msgstr "_Tutte le Attivit‡"
+msgstr "_Tutte le Attivit√†"
 
 #: list.php:111
 msgid "_All tasks"
-msgstr "_Tutte le Attivit‡"
+msgstr "_Tutte le Attivit√†"
 
 #: templates/search/search.inc:20
 msgid "_Category"
@@ -1188,7 +1188,7 @@ msgstr "_Completo"
 
 #: list.php:114
 msgid "_Completed tasks"
-msgstr "_Attivit‡ Complete"
+msgstr "_Attivit√† Complete"
 
 #: view.php:121
 msgid "_Delete"
@@ -1208,7 +1208,7 @@ msgstr "_Modifica"
 
 #: list.php:113
 msgid "_Future tasks"
-msgstr "_Attivit‡ Future"
+msgstr "_Attivit√† Future"
 
 #: lib/Nag.php:582
 msgid "_Import/Export"
@@ -1216,11 +1216,11 @@ msgstr "_Importa/Esporta"
 
 #: lib/Nag.php:569
 msgid "_List Tasks"
-msgstr "_Lista Attivit‡"
+msgstr "_Lista Attivit√†"
 
 #: lib/Nag.php:574
 msgid "_New Task"
-msgstr "_Nuova Attivit‡"
+msgstr "_Nuova Attivit√†"
 
 #: lib/Nag.php:587
 msgid "_Print"
@@ -1232,7 +1232,7 @@ msgstr "_Cerca"
 
 #: templates/list/task_headers.inc:35
 msgid "_Task List"
-msgstr "_Lista Attivit‡"
+msgstr "_Lista Attivit√†"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 msgid "am"

@@ -12,14 +12,14 @@ msgstr ""
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data.php:153
 #, php-format
 msgid "%d Folders and %d Bookmarks imported."
-msgstr "%d Mappen en %d Bladwijzers geïmporteerd"
+msgstr "%d Mappen en %d Bladwijzers geÃ¯mporteerd"
 
 #: templates/reports/http-status.inc:127
 #, php-format
@@ -29,7 +29,7 @@ msgstr "%s Bladwijzers"
 #: templates/browse/subcategories.inc:10
 #, php-format
 msgid "%s Categories"
-msgstr "%s Categorieën:"
+msgstr "%s CategorieÃ«n:"
 
 #: templates/reports/clicks.inc:49
 #, php-format
@@ -124,12 +124,12 @@ msgstr "Alle Bladwijzers"
 #: lib/Trean.php:32
 #, php-format
 msgid "An error occured listing categories: %s"
-msgstr "Een fout vond plaats bij het tonen van categorieën: %s"
+msgstr "Een fout vond plaats bij het tonen van categorieÃ«n: %s"
 
 #: lib/Trean.php:61
 #, php-format
 msgid "An error occurred counting categories: %s"
-msgstr "Een fout vond plaats in het aantal categorieën: %s"
+msgstr "Een fout vond plaats in het aantal categorieÃ«n: %s"
 
 #: templates/search/search.inc:30
 msgid "And"
@@ -145,7 +145,7 @@ msgstr "Weet u zeker dat u de geselecteerde bladwijzers wilt verwijderen?"
 
 #: templates/browse/javascript.inc:163
 msgid "Are you sure you want to delete the selected categories?"
-msgstr "Weet u zeker dat u de geselecteerde catagorieën wilt verwijderen?"
+msgstr "Weet u zeker dat u de geselecteerde catagorieÃ«n wilt verwijderen?"
 
 #: perms.php:50
 msgid "Attempt to edit a non-existent share."
@@ -177,7 +177,7 @@ msgstr "Afbreken"
 
 #: templates/browse/subcategories.inc:10 templates/browse/browse.html:4
 msgid "Categories"
-msgstr "Categorieën"
+msgstr "CategorieÃ«n"
 
 #: templates/edit/edit.inc:75 templates/add/add.inc:51
 #: lib/Block/bookmarks.php:37
@@ -222,11 +222,11 @@ msgstr "Doorgaan"
 
 #: edit.php:164
 msgid "Copied bookmark: "
-msgstr "Gekopiëerde bladwijzer"
+msgstr "GekopiÃ«erde bladwijzer"
 
 #: templates/search/results_header.inc:18 templates/browse/bookmarks.inc:48
 msgid "Copy"
-msgstr "Kopiëren"
+msgstr "KopiÃ«ren"
 
 #: lib/Trean.php:246
 #, fuzzy
@@ -240,7 +240,7 @@ msgstr "DNS- of andere fout (%s)"
 
 #: templates/add/nocategories.inc:9
 msgid "Define one or more categories for your bookmarks"
-msgstr "Maak één of meer categorieën voor je bladwijzers"
+msgstr "Maak Ã©Ã©n of meer categorieÃ«n voor je bladwijzers"
 
 #: templates/search/results_header.inc:16 templates/browse/bookmarks.inc:39
 #: templates/browse/subcategories.inc:21
@@ -367,7 +367,7 @@ msgstr "Bladwijzers importeren"
 
 #: templates/data/export.inc:9
 msgid "Include Subcategories"
-msgstr "Inclusief Subcategorieën"
+msgstr "Inclusief SubcategorieÃ«n"
 
 #: lib/Trean.php:277
 msgid "Internal Server Error"
@@ -399,7 +399,7 @@ msgstr "Maximum aantal Bladwijzers."
 
 #: lib/api.php:31
 msgid "Maximum Number of Categories"
-msgstr "Maximum aantal Categorieën."
+msgstr "Maximum aantal CategorieÃ«n."
 
 #: lib/Block/tree_menu.php:3
 #, fuzzy
@@ -654,7 +654,7 @@ msgstr "Instellen rechten"
 
 #: config/prefs.php.dist:46
 msgid "Should your list of bookmark categories be open when you log in?"
-msgstr "Moet je categorieënlijst openen bij aanloggen?"
+msgstr "Moet je categorieÃ«nlijst openen bij aanloggen?"
 
 #: lib/Trean.php:244
 msgid "Switching Protocols"
@@ -793,7 +793,7 @@ msgstr "Maximum aantal bladwijzers is: %d"
 #: data.php:52 data.php:103 add.php:84
 #, php-format
 msgid "You are not allowed to create more than %d categories."
-msgstr "Maximum aantal categorieën: %d"
+msgstr "Maximum aantal categorieÃ«n: %d"
 
 #: templates/browse/javascript.inc:42
 msgid "You are renaming the current category folder."

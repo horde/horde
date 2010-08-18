@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Janis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1257\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
@@ -35,12 +35,12 @@ msgstr "%s mapes un 1 objekts (%s Kb)"
 #: manager.php:170
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s veiksmîgi ievilkts."
+msgstr "%s veiksmÄ«gi ievilkts."
 
 #: manager.php:67
 #, php-format
 msgid "'%s' renamed to '%s'"
-msgstr "'%s' pârdçvçts par '%s'"
+msgstr "'%s' pÄrdÄ“vÄ“ts par '%s'"
 
 #: templates/manager/file_footers.inc:10
 #, php-format
@@ -71,35 +71,35 @@ msgstr "Pievienot kolonnu"
 
 #: templates/manager/header.inc:180
 msgid "Are you sure you wish to continue?"
-msgstr "Vai esat pilnîgi pârliecinâts, ka vçlaties turpinât?"
+msgstr "Vai esat pilnÄ«gi pÄrliecinÄts, ka vÄ“laties turpinÄt?"
 
 #: templates/manager/header.inc:176
 msgid "Are you sure?"
-msgstr "Vai esat pârliecinâts?"
+msgstr "Vai esat pÄrliecinÄts?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
-msgstr "Augoği"
+msgstr "AugoÅ¡i"
 
 #: config/prefs.php.dist:94
 msgid "Ask"
-msgstr "Jautât"
+msgstr "JautÄt"
 
 #: templates/manager/header.inc:429
 msgid "Attributes"
-msgstr "Atribûti"
+msgstr "AtribÅ«ti"
 
 #: templates/prefs/columnselect.inc:232
 msgid "Available Columns:"
-msgstr "Pieejamâs kolonnas:"
+msgstr "PieejamÄs kolonnas:"
 
 #: lib/api.php:46
 msgid "Backends"
-msgstr "Programmatûra"
+msgstr "ProgrammatÅ«ra"
 
 #: templates/xppublish/browse.inc:7
 msgid "Browse to the folder to upload files to"
-msgstr "Pârejiet uz mapi, kurâ vçlaties ielâdçt objektus"
+msgstr "PÄrejiet uz mapi, kurÄ vÄ“laties ielÄdÄ“t objektus"
 
 #: templates/selectlist/footer.inc:5 templates/manager/header.inc:457
 #: templates/manager/header.inc:490 templates/manager/header.inc:522
@@ -110,11 +110,11 @@ msgstr "Atcelt"
 #: manager.php:89
 #, php-format
 msgid "Cannot chmod %s"
-msgstr "Nevar izmanît pieejas tiesîbas %s"
+msgstr "Nevar izmanÄ«t pieejas tiesÄ«bas %s"
 
 #: manager.php:146
 msgid "Cannot copy items onto clipboard."
-msgstr "Nevar kopçt objektus uz starpliktuvi."
+msgstr "Nevar kopÄ“t objektus uz starpliktuvi."
 
 #: manager.php:148
 msgid "Cannot cut items onto clipboard."
@@ -123,54 +123,54 @@ msgstr "Nevar izgriezt objektus uz starpliktuvi."
 #: manager.php:97
 #, php-format
 msgid "Cannot delete '%s': %s"
-msgstr "Nevar izdzçst '%s': %s"
+msgstr "Nevar izdzÄ“st '%s': %s"
 
 #: manager.php:168
 #, php-format
 msgid "Cannot paste '%s' (clipboard cleared): %s"
-msgstr "Nevar ielîmçt '%s' (starpliktuve notîrîta): %s"
+msgstr "Nevar ielÄ«mÄ“t '%s' (starpliktuve notÄ«rÄ«ta): %s"
 
 #: templates/manager/header.inc:535 templates/manager/header.inc:615
 #: lib/Gollem.php:730
 msgid "Change Folder"
-msgstr "Mainît mapi"
+msgstr "MainÄ«t mapi"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "Mainît objektu un mapju apstrâdes iestatîjumus."
+msgstr "MainÄ«t objektu un mapju apstrÄdes iestatÄ«jumus."
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Mainît objektu ğíiroğanas iestatîjumus."
+msgstr "MainÄ«t objektu Å¡Ä·iroÅ¡anas iestatÄ«jumus."
 
 #: templates/manager/file_headers.inc:11
 msgid "Check _All/None"
-msgstr "Pârbaudît visus/nevienu"
+msgstr "PÄrbaudÄ«t visus/nevienu"
 
 #: templates/manager/header.inc:628
 msgid "Chmod Items"
-msgstr "Pieejas tiesîbas objektiem"
+msgstr "Pieejas tiesÄ«bas objektiem"
 
 #: manager.php:87
 msgid "Chmod done: "
-msgstr "Pieejas tiesîbas mainîtas: "
+msgstr "Pieejas tiesÄ«bas mainÄ«tas: "
 
 #: templates/manager/header.inc:613
 msgid "Choose Action:"
-msgstr "Izvçlieties darbîbu:"
+msgstr "IzvÄ“lieties darbÄ«bu:"
 
 #: templates/prefs/columnselect.inc:226
 msgid "Choose the columns to display in the file manager."
-msgstr "Izvçlieties kolonnas, kuras râdît objektu pârvaldniekâ."
+msgstr "IzvÄ“lieties kolonnas, kuras rÄdÄ«t objektu pÄrvaldniekÄ."
 
 #: templates/xppublish/backend.inc:33 templates/login/login.inc:89
 #, php-format
 msgid "Connect to: %s"
-msgstr "Pieslçgties: %s"
+msgstr "PieslÄ“gties: %s"
 
 #: templates/manager/header.inc:631
 msgid "Copy Items"
-msgstr "Kopçt objektus"
+msgstr "KopÄ“t objektus"
 
 #: templates/manager/header.inc:503 templates/manager/header.inc:618
 #: lib/Gollem.php:727
@@ -183,41 +183,41 @@ msgstr "Izgriezt objektus"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Noklusçtais ğíiroğanas kritçrijs:"
+msgstr "NoklusÄ“tais Å¡Ä·iroÅ¡anas kritÄ“rijs:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Noklusçtâ ğíiroğanas secîba:"
+msgstr "NoklusÄ“tÄ Å¡Ä·iroÅ¡anas secÄ«ba:"
 
 #: templates/xppublish/backend.inc:33 templates/login/login.inc:89
 #, php-format
 msgid "Defaulted to: %s"
-msgstr "Pieòemts noklusçtais: %s"
+msgstr "PieÅ†emts noklusÄ“tais: %s"
 
 #: templates/manager/header.inc:625
 msgid "Delete Items"
-msgstr "Dzçst objektus"
+msgstr "DzÄ“st objektus"
 
 #: config/prefs.php.dist:96
 msgid "Delete folders recursively?"
-msgstr "Dzçst visu mapi ar apakğmapçm?"
+msgstr "DzÄ“st visu mapi ar apakÅ¡mapÄ“m?"
 
 #: config/prefs.php.dist:70
 msgid "Descending"
-msgstr "Dilstoği"
+msgstr "DilstoÅ¡i"
 
 #: templates/selectlist/footer.inc:4
 msgid "Done"
-msgstr "Izpildîts"
+msgstr "IzpildÄ«ts"
 
 #: manager.php:218 templates/manager/file_headers.inc:25
 msgid "Download"
-msgstr "Lejupielâdçt"
+msgstr "LejupielÄdÄ“t"
 
 #: xppublish.php:147
 #, php-format
 msgid "ERROR: %s"
-msgstr "KÏÛDA: %s"
+msgstr "KÄ»ÅªDA: %s"
 
 #: config/credentials.php.dist:28
 msgid "Email"
@@ -237,11 +237,11 @@ msgstr "Fails 3:"
 
 #: config/prefs.php.dist:13
 msgid "File Display"
-msgstr "Parâdît failu"
+msgstr "ParÄdÄ«t failu"
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "Pçdçjâs faila izmaiòas"
+msgstr "PÄ“dÄ“jÄs faila izmaiÅ†as"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
@@ -249,7 +249,7 @@ msgstr "Faila nosaukums"
 
 #: config/prefs.php.dist:57
 msgid "File Size"
-msgstr "Faila izmçrs"
+msgstr "Faila izmÄ“rs"
 
 #: config/prefs.php.dist:54
 msgid "File Type"
@@ -257,24 +257,24 @@ msgstr "Faila tips"
 
 #: templates/xppublish/javascript.inc:63
 msgid "File Upload"
-msgstr "Faila ielâde"
+msgstr "Faila ielÄde"
 
 #: manager.php:93
 msgid "File deleted: "
-msgstr "Fails izdzçsts: "
+msgstr "Fails izdzÄ“sts: "
 
 #: manager.php:119
 #, php-format
 msgid "File received: %s"
-msgstr "Fails saòemts: %s"
+msgstr "Fails saÅ†emts: %s"
 
 #: manager.php:95
 msgid "Folder removed: "
-msgstr "Mape izdzçsta: "
+msgstr "Mape izdzÄ“sta: "
 
 #: templates/manager/header.inc:543
 msgid "Go to:"
-msgstr "Pâriet uz:"
+msgstr "PÄriet uz:"
 
 #: templates/manager/file_headers.inc:47
 msgid "Group"
@@ -282,7 +282,7 @@ msgstr "Grupa"
 
 #: lib/Gollem.php:723
 msgid "Home"
-msgstr "Galvenâ"
+msgstr "GalvenÄ"
 
 #: manager.php:71
 msgid "Incorrect number of items."
@@ -291,7 +291,7 @@ msgstr "Nepareizs objektu skaits."
 #: manager.php:139
 #, php-format
 msgid "Item copied to clipboard: %s"
-msgstr "Objekts nokopçts uz starpliktuvi: %s"
+msgstr "Objekts nokopÄ“ts uz starpliktuvi: %s"
 
 #: manager.php:141
 #, php-format
@@ -300,32 +300,32 @@ msgstr "Objekts izgriezts uz starpliktuvi: %s"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
-msgstr "Râdît mapes saraksta sâkumâ?"
+msgstr "RÄdÄ«t mapes saraksta sÄkumÄ?"
 
 #: login.php:104 xppublish.php:84
 msgid "Locked"
-msgstr "Slçgts"
+msgstr "SlÄ“gts"
 
 #: templates/login/login.inc:118
 msgid "Log in"
-msgstr "Pieslçgties"
+msgstr "PieslÄ“gties"
 
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Pieslçgties %s"
+msgstr "PieslÄ“gties %s"
 
 #: templates/manager/file_headers.inc:30
 msgid "Modified"
-msgstr "Pçdçjâs izmaiòas"
+msgstr "PÄ“dÄ“jÄs izmaiÅ†as"
 
 #: templates/prefs/columnselect.inc:246
 msgid "Move left"
-msgstr "Pârvietot pa kreisi"
+msgstr "PÄrvietot pa kreisi"
 
 #: templates/prefs/columnselect.inc:248
 msgid "Move right"
-msgstr "Pârvietot pa labi"
+msgstr "PÄrvietot pa labi"
 
 #: templates/manager/file_headers.inc:21
 msgid "Name"
@@ -333,15 +333,15 @@ msgstr "Nosaukums"
 
 #: templates/manager/header.inc:479 templates/manager/header.inc:511
 msgid "Name:"
-msgstr "Vârds:"
+msgstr "VÄrds:"
 
 #: manager.php:48
 msgid "New folder created: "
-msgstr "Radîta jauna mape: "
+msgstr "RadÄ«ta jauna mape: "
 
 #: config/prefs.php.dist:92
 msgid "No"
-msgstr "Nç"
+msgstr "NÄ“"
 
 #: templates/manager/header.inc:489 templates/manager/header.inc:521
 #: templates/manager/header.inc:553
@@ -350,7 +350,7 @@ msgstr "OK"
 
 #: templates/manager/file_headers.inc:43
 msgid "Owner"
-msgstr "Îpağnieks"
+msgstr "ÄªpaÅ¡nieks"
 
 #: templates/xppublish/login.inc:14 config/credentials.php.dist:23
 msgid "Password"
@@ -358,11 +358,11 @@ msgstr "Parole"
 
 #: templates/manager/header.inc:637
 msgid "Paste Items"
-msgstr "Ielîmçt objektus"
+msgstr "IelÄ«mÄ“t objektus"
 
 #: templates/manager/file_headers.inc:39
 msgid "Permission"
-msgstr "Pieejas tiesîbas"
+msgstr "Pieejas tiesÄ«bas"
 
 #: manager.php:198 selectlist.php:61 templates/xppublish/browse.inc:28
 #, php-format
@@ -371,27 +371,27 @@ msgstr "Pieeja %s liegta: %s"
 
 #: xppublish.php:55
 msgid "Please enter your Username and Password."
-msgstr "Ievadiet lietotâja vârdu un paroli."
+msgstr "Ievadiet lietotÄja vÄrdu un paroli."
 
 #: templates/login/login.inc:31
 msgid "Please provide your password."
-msgstr "Lûdzu ievadiet paroli."
+msgstr "LÅ«dzu ievadiet paroli."
 
 #: templates/login/login.inc:26
 msgid "Please provide your username."
-msgstr "Lûdzu ievadiet lietotâja vârdu."
+msgstr "LÅ«dzu ievadiet lietotÄja vÄrdu."
 
 #: templates/prefs/columnselect.inc:217
 msgid "Please select a backend:"
-msgstr "Izvçlieties servera tipu:"
+msgstr "IzvÄ“lieties servera tipu:"
 
 #: templates/manager/header.inc:109
 msgid "Please select an item before this action."
-msgstr "Lûdzu izvçlieties objektu pirms operâcijas."
+msgstr "LÅ«dzu izvÄ“lieties objektu pirms operÄcijas."
 
 #: templates/manager/header.inc:226
 msgid "Please specify at least one file to upload."
-msgstr "Lûdzu norâdiet vismaz vienu ielâdçjamo failu."
+msgstr "LÅ«dzu norÄdiet vismaz vienu ielÄdÄ“jamo failu."
 
 #: templates/manager/header.inc:576
 msgid "Refresh"
@@ -399,15 +399,15 @@ msgstr "Atjaunot"
 
 #: templates/prefs/columnselect.inc:238
 msgid "Remove column"
-msgstr "Izdzçst kolonnu"
+msgstr "IzdzÄ“st kolonnu"
 
 #: templates/manager/header.inc:471
 msgid "Rename"
-msgstr "Pârdçvçt"
+msgstr "PÄrdÄ“vÄ“t"
 
 #: templates/manager/header.inc:622
 msgid "Rename Items"
-msgstr "Pârdçvçt objektus"
+msgstr "PÄrdÄ“vÄ“t objektus"
 
 #: lib/Gollem.php:689 lib/Gollem.php:694
 msgid "Root"
@@ -415,15 +415,15 @@ msgstr "Sakne"
 
 #: templates/manager/header.inc:456
 msgid "Save"
-msgstr "Saglabât"
+msgstr "SaglabÄt"
 
 #: templates/xppublish/backend.inc:27 templates/selectlist/footer.inc:3
 msgid "Select"
-msgstr "Izvçlies"
+msgstr "IzvÄ“lies"
 
 #: templates/prefs/columnselect.inc:242
 msgid "Selected Columns:"
-msgstr "Izvçlçtâs kolonnas:"
+msgstr "IzvÄ“lÄ“tÄs kolonnas:"
 
 #: templates/xppublish/backend.inc:22 templates/xppublish/backend.inc:40
 #: templates/login/login.inc:79 templates/login/login.inc:96
@@ -432,44 +432,44 @@ msgstr "Serveris"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "Iestatîjumi"
+msgstr "IestatÄ«jumi"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
-msgstr "Râdît failus, kuru nosaukums sâkas ar (.)?"
+msgstr "RÄdÄ«t failus, kuru nosaukums sÄkas ar (.)?"
 
 #: templates/manager/file_headers.inc:35
 msgid "Size"
-msgstr "Izmçrs"
+msgstr "IzmÄ“rs"
 
 #: templates/manager/file_headers.inc:15 templates/manager/file_headers.inc:20
 #: templates/manager/file_headers.inc:29 templates/manager/file_headers.inc:34
 msgid "Sort Direction"
-msgstr "Ğíiroğanas secîba"
+msgstr "Å Ä·iroÅ¡anas secÄ«ba"
 
 #: templates/manager/header.inc:180
 msgid "The following item(s) are folders: "
-msgstr "Ğis(-e) objekts(-i) ir mape(s): "
+msgstr "Å is(-e) objekts(-i) ir mape(s): "
 
 #: templates/manager/header.inc:176
 msgid "The following items will be permanently deleted: "
-msgstr "Ğie objekti tiks neatgriezeniski izdzçsti: "
+msgstr "Å ie objekti tiks neatgriezeniski izdzÄ“sti: "
 
 #: templates/selectlist/empty_dir.inc:2 templates/manager/empty_dir.inc:2
 msgid "There are no files in this folder."
-msgstr "Ğajâ mapç nav failu."
+msgstr "Å ajÄ mapÄ“ nav failu."
 
 #: templates/xppublish/browse.inc:74
 msgid ""
 "There are no folders in the current folder; click 'Next' if you want to "
 "upload files to this folder."
 msgstr ""
-"Pağreizçjâ mapç nav apakğmapju; nospiediet 'Tâlâk', ja vçlaties ielâdçs "
-"failus ğajâ mapç."
+"PaÅ¡reizÄ“jÄ mapÄ“ nav apakÅ¡mapju; nospiediet 'TÄlÄk', ja vÄ“laties ielÄdÄ“s "
+"failus Å¡ajÄ mapÄ“."
 
 #: lib/MIME/Viewer/plain.php:30
 msgid "There was an error viewing this file"
-msgstr "Kïûda attçlojot failu"
+msgstr "KÄ¼Å«da attÄ“lojot failu"
 
 #: templates/manager/file_headers.inc:16
 msgid "Type"
@@ -478,83 +478,83 @@ msgstr "Tips"
 #: lib/Gollem.php:694 lib/Gollem.php:704
 #, php-format
 msgid "Up to %s"
-msgstr "Atpakaï uz %s"
+msgstr "AtpakaÄ¼ uz %s"
 
 #: templates/manager/header.inc:595
 msgid "Upload File(s)"
-msgstr "Ielâdçt failu(s)"
+msgstr "IelÄdÄ“t failu(s)"
 
 #: templates/xppublish/javascript.inc:63
 #, php-format
 msgid "Upload Files to %s"
-msgstr "Ielâdçt failus %s"
+msgstr "IelÄdÄ“t failus %s"
 
 #: xppublish.php:37
 #, php-format
 msgid "Upload to %s"
-msgstr "Ielâdçt %s"
+msgstr "IelÄdÄ“t %s"
 
 #: xppublish.php:25
 #, php-format
 msgid "Upload your files to %s on %s."
-msgstr "Ielâdçt failus %s uz %s."
+msgstr "IelÄdÄ“t failus %s uz %s."
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "Lietotâja saskarne"
+msgstr "LietotÄja saskarne"
 
 #: templates/xppublish/login.inc:11 config/credentials.php.dist:18
 msgid "Username"
-msgstr "Lietotâja vârds"
+msgstr "LietotÄja vÄrds"
 
 #: xppublish.php:51
 msgid "Username and Password are incorrect."
-msgstr "Nepareizs lietotâja vârds un parole."
+msgstr "Nepareizs lietotÄja vÄrds un parole."
 
 #: login.php:148
 #, php-format
 msgid "Welcome to %s"
-msgstr "Laipni lûdzam %s"
+msgstr "Laipni lÅ«dzam %s"
 
 #: templates/xppublish/browse.inc:10
 msgid ""
 "When you are inside the folder you wish to upload to, click the 'Next' "
 "button to upload files."
 msgstr ""
-"Kad nonâkat mapç, kurâ vçlaties ielâdçt failus, nospiediet 'Tâlâk', lai "
-"sâktu ielâdi."
+"Kad nonÄkat mapÄ“, kurÄ vÄ“laties ielÄdÄ“t failus, nospiediet 'TÄlÄk', lai "
+"sÄktu ielÄdi."
 
 #: config/prefs.php.dist:93
 msgid "Yes"
-msgstr "Jâ"
+msgstr "JÄ"
 
 #: manager.php:52
 msgid "You do not have permission to create this folder."
-msgstr "Jums nav tiesîbu izveidot ğâdu mapi."
+msgstr "Jums nav tiesÄ«bu izveidot Å¡Ädu mapi."
 
 #: manager.php:152
 msgid "You do not have permission to cut/copy items."
-msgstr "Jums nav tiesîbu izgriezt/kopçt failus."
+msgstr "Jums nav tiesÄ«bu izgriezt/kopÄ“t failus."
 
 #: manager.php:103
 msgid "You do not have permission to delete or change permissions on items."
-msgstr "Jums nav tiesîbu dzçst vai mainît failu pieejas tiesîbas."
+msgstr "Jums nav tiesÄ«bu dzÄ“st vai mainÄ«t failu pieejas tiesÄ«bas."
 
 #: manager.php:178
 msgid "You do not have permission to paste items."
-msgstr "Jums nav tiesîbu ievilkt failus."
+msgstr "Jums nav tiesÄ«bu ievilkt failus."
 
 #: manager.php:74
 msgid "You do not have permission to rename items."
-msgstr "Jums nav tiesîbu pârdçvçt failus."
+msgstr "Jums nav tiesÄ«bu pÄrdÄ“vÄ“t failus."
 
 #: manager.php:124
 msgid "You do not have permission to upload items."
-msgstr "Jums nav tiesîbu ielâdçt failus."
+msgstr "Jums nav tiesÄ«bu ielÄdÄ“t failus."
 
 #: lib/MIME/Viewer/images.php:41
 msgid "Your browser does not support inline display of this image type"
-msgstr "Jûsu pârlûkprogramma neuztur ğâdu attçla formâtu"
+msgstr "JÅ«su pÄrlÅ«kprogramma neuztur Å¡Ädu attÄ“la formÄtu"
 
 #: lib/Gollem.php:167 lib/Gollem.php:180
 msgid "[home]"
@@ -562,7 +562,7 @@ msgstr "[galvenais]"
 
 #: lib/Gollem.php:748
 msgid "_Change Server"
-msgstr "Mainît serveri"
+msgstr "MainÄ«t serveri"
 
 #: lib/Gollem.php:740 lib/Gollem.php:743
 msgid "_Log out"
@@ -574,4 +574,4 @@ msgstr "mape"
 
 #: manager.php:220 selectlist.php:73
 msgid "symlink"
-msgstr "simboliskâ saite"
+msgstr "simboliskÄ saite"

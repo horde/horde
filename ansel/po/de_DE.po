@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -135,8 +135,8 @@ msgstr "(c) %s %s"
 #: scripts/ansel.php:273
 msgid "-a, --add[=filename]         Add local file to selected gallery"
 msgstr ""
-"-a, --add[=dateiname]          Lokale Datei zur ausgewählten Galerie\n"
-"                               hinzufügen"
+"-a, --add[=dateiname]          Lokale Datei zur ausgewÃ¤hlten Galerie\n"
+"                               hinzufÃ¼gen"
 
 #: scripts/ansel.php:271
 msgid ""
@@ -156,8 +156,8 @@ msgid ""
 "                             gallery"
 msgstr ""
 "-d, --dir[=verzeichnis]        Alle Dateien des Verzeichnisses zur "
-"ausgewählten\n"
-"                               Galerie hinzufügen"
+"ausgewÃ¤hlten\n"
+"                               Galerie hinzufÃ¼gen"
 
 #: scripts/recursive_import.php:194 scripts/remote_import.php:305
 msgid ""
@@ -166,7 +166,7 @@ msgid ""
 "                             a gallery for each directory"
 msgstr ""
 "-d, --dir[=verzeichnis]        Rekursiv alle Dateien des Verzeichnisses\n"
-"                               hinzufügen und dabei Galerien für jedes\n"
+"                               hinzufÃ¼gen und dabei Galerien fÃ¼r jedes\n"
 "                               Verzeichnis anlegen"
 
 #: scripts/all_images_exif_to_tags.php:100
@@ -184,11 +184,11 @@ msgid ""
 msgstr ""
 "-g, --gallery[=gallery_id]   Die ID der Galerie, zu der der "
 "Verzeichnisinhalt\n"
-"                             hinzugefügt werden soll"
+"                             hinzugefÃ¼gt werden soll"
 
 #: scripts/ansel.php:272
 msgid "-g, --gallery[=shortname]    Select gallery to use"
-msgstr "-g, --gallery[=kurzname]       Zu benutzende Galerie auswählen"
+msgstr "-g, --gallery[=kurzname]       Zu benutzende Galerie auswÃ¤hlen"
 
 #: scripts/recursive_import.php:193 scripts/ansel.php:269
 #: scripts/remote_import.php:304 scripts/all_images_exif_to_tags.php:97
@@ -200,7 +200,7 @@ msgid ""
 "-k, --keep                   Do not delete empty galleries after import is "
 "complete."
 msgstr ""
-"-k, --keep                   Leere Galerien nach dem Import nicht löschen."
+"-k, --keep                   Leere Galerien nach dem Import nicht lÃ¶schen."
 
 #: scripts/ansel.php:270
 msgid ""
@@ -223,7 +223,7 @@ msgid ""
 "-s, --slug[=gallery_slug]    The gallery slug to add directory contents to"
 msgstr ""
 "-s, --slug[=gallery_slug]    Der Kurzname der Galerie, zu der der\n"
-"                             Verzeichnisinhalt hinzugefügt werden soll."
+"                             Verzeichnisinhalt hinzugefÃ¼gt werden soll."
 
 #: scripts/ansel.php:277
 msgid "-t, --caption[=caption]      Caption for photo (if combined with -a)"
@@ -245,31 +245,31 @@ msgstr "Ein von Lightbox inspirierter Stil (Kein Hintergrund)"
 
 #: config/styles.php.dist:107
 msgid "A Lightbox Inspired Style (White Background)"
-msgstr "Ein von Lightbox inspirierter Stil (Weißer Hintergrund)"
+msgstr "Ein von Lightbox inspirierter Stil (WeiÃŸer Hintergrund)"
 
 #: lib/Api.php:336
 msgid "A gallery to add this photo to is required."
 msgstr ""
-"Die Galerie, zu der dieses Foto hinzugefügt werden soll, muss angegeben "
+"Die Galerie, zu der dieses Foto hinzugefÃ¼gt werden soll, muss angegeben "
 "werden."
 
 #: gallery.php:57
 #, php-format
 msgid "Access denied adding a gallery to \"%s\"."
-msgstr "Zugriff verweigert beim Hinzufügen der Galerie zu \"%s\"."
+msgstr "Zugriff verweigert beim HinzufÃ¼gen der Galerie zu \"%s\"."
 
 #: xppublish.php:175 scripts/ansel.php:112 lib/Api.php:197 lib/Api.php:346
 #, php-format
 msgid "Access denied adding photos to \"%s\"."
-msgstr "Zugriff verweigert beim Hinzufügen der Fotos zu \"%s\"."
+msgstr "Zugriff verweigert beim HinzufÃ¼gen der Fotos zu \"%s\"."
 
 #: lib/Gallery.php:692
 msgid "Access denied adding tags to this gallery."
-msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
+msgstr "Zugriff verweigert beim HinzufÃ¼gen von Tags zu dieser Galerie."
 
 #: lib/Image.php:1264
 msgid "Access denied adding tags to this photo."
-msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
+msgstr "Zugriff verweigert beim HinzufÃ¼gen von Tags zu diesem Foto."
 
 #: lib/Gallery.php:361
 #, php-format
@@ -282,17 +282,17 @@ msgstr "Zugriff verweigert beim Erstellen neuer Galerien."
 
 #: lib/Api.php:415 lib/Api.php:495
 msgid "Access denied deleting galleries."
-msgstr "Zugriff verweigert beim Löschen der Galerien."
+msgstr "Zugriff verweigert beim LÃ¶schen der Galerien."
 
 #: gallery/delete.php:30 gallery/delete.php:57 lib/Api.php:506
 #, php-format
 msgid "Access denied deleting gallery \"%s\"."
-msgstr "Zugriff verweigert beim Löschen der Galerie \"%s\"."
+msgstr "Zugriff verweigert beim LÃ¶schen der Galerie \"%s\"."
 
 #: image.php:567 lib/Api.php:426 lib/View/Results.php:85
 #, php-format
 msgid "Access denied deleting photos from \"%s\"."
-msgstr "Zugriff verweigert beim Löschen der Fotos aus \"%s\"."
+msgstr "Zugriff verweigert beim LÃ¶schen der Fotos aus \"%s\"."
 
 #: lib/Api.php:632
 #, php-format
@@ -340,7 +340,7 @@ msgstr "Zugriff verweigert beim Speichern des Fotos in \"%s\"."
 #: gallery/captions.php:28
 #, php-format
 msgid "Access denied setting captions for %s."
-msgstr "Zugriff verweigert beim Setzen der Fotosunterschrift für %s."
+msgstr "Zugriff verweigert beim Setzen der Fotosunterschrift fÃ¼r %s."
 
 #: lib/View/Base.php:150
 #, php-format
@@ -368,36 +368,36 @@ msgstr "Aktionen: "
 
 #: lib/Widget/Tags.php:51
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "HinzufÃ¼gen"
 
 #: browse.php:23
 msgid "Add Content"
-msgstr "Inhalt hinzufügen"
+msgstr "Inhalt hinzufÃ¼gen"
 
 #: img/upload.php:245
 msgid "Add Photo"
-msgstr "Foto Hinzufügen"
+msgstr "Foto HinzufÃ¼gen"
 
 #: templates/faces/gallery.inc:22
 msgid "Add a custom face range"
-msgstr "Ein Gesicht manuell hinzufügen"
+msgstr "Ein Gesicht manuell hinzufÃ¼gen"
 
 #: lib/Widget/Actions.php:134
 msgid "Add to bookmarks"
-msgstr "Zu Lesezeichen hinzufügen"
+msgstr "Zu Lesezeichen hinzufÃ¼gen"
 
 #: gallery.php:41 gallery.php:228
 msgid "Adding A New Gallery"
-msgstr "Neue Galerie hinzufügen"
+msgstr "Neue Galerie hinzufÃ¼gen"
 
 #: gallery.php:80
 #, php-format
 msgid "Adding A Subgallery to %s"
-msgstr "Untergalerie zu %s hinzufügen"
+msgstr "Untergalerie zu %s hinzufÃ¼gen"
 
 #: scripts/recursive_import.php:173 scripts/remote_import.php:239
 msgid "Adding subdirectories:"
-msgstr "Füge Unterverzeichnisse hinzu:"
+msgstr "FÃ¼ge Unterverzeichnisse hinzu:"
 
 #: lib/Application.php:96
 msgid "Administrators"
@@ -442,7 +442,7 @@ msgstr "Jeder"
 #: templates/view/gallery.inc:32 templates/view/gallerylightbox.inc:33
 #: templates/view/results.inc:20
 msgid "Are you sure you want to delete the selected photos?"
-msgstr "Sind Sie sicher, dass Sie die ausgewählten Fotos löschen möchten?"
+msgstr "Sind Sie sicher, dass Sie die ausgewÃ¤hlten Fotos lÃ¶schen mÃ¶chten?"
 
 #: templates/view/list.inc:24
 msgid "Ascending"
@@ -465,7 +465,7 @@ msgstr "Fotos automatisch mit Wasserzeichen markieren?"
 #: templates/view/image.inc:98 templates/view/image.inc:124
 #: templates/view/image.inc:125
 msgid "Back to gallery"
-msgstr "Zurück zur Galerie"
+msgstr "ZurÃ¼ck zur Galerie"
 
 #: image.php:622 image.php:665 lib/View/Results.php:135
 #: lib/View/Results.php:175
@@ -507,7 +507,7 @@ msgstr "Abbrechen"
 #: templates/image/preview_cropimage.inc:25
 #: templates/image/preview_image.inc:26 templates/image/preview_image.inc:27
 msgid "Cancel Change"
-msgstr "Änderungen verwerfen"
+msgstr "Ã„nderungen verwerfen"
 
 #: faces/search/image_save.php:75
 msgid "Cannot read photo signature"
@@ -527,7 +527,7 @@ msgstr "Fotounterschrift"
 
 #: gallery/captions.php:59
 msgid "Caption Editor"
-msgstr "Editor für Fotounterschriften"
+msgstr "Editor fÃ¼r Fotounterschriften"
 
 #: gallery/captions.php:50
 msgid "Captions Saved."
@@ -547,17 +547,17 @@ msgid ""
 "Change display options such as which view to display by default, how many "
 "photos to display on a page, and the default gallery style to use."
 msgstr ""
-"Legen Sie die Einstellungen für die Anzeige fest, z.B. welche Ansicht als "
+"Legen Sie die Einstellungen fÃ¼r die Anzeige fest, z.B. welche Ansicht als "
 "erstes angzeigt, wie viele Fotos pro Seite angezeigt und welcher Galeriestil "
-"standardmäßig verwendet werden soll."
+"standardmÃ¤ÃŸig verwendet werden soll."
 
 #: config/prefs.php.dist:19
 msgid "Change options dealing with tags and image metadata."
-msgstr "Legen Sie die Einstellungen für Tags und Metadaten fest."
+msgstr "Legen Sie die Einstellungen fÃ¼r Tags und Metadaten fest."
 
 #: lib/Widget/Actions.php:151
 msgid "Change properties"
-msgstr "Eigenschaften ändern"
+msgstr "Eigenschaften Ã¤ndern"
 
 #: config/prefs.php.dist:26
 msgid ""
@@ -574,7 +574,7 @@ msgstr "Legen Sie Ihre Wasserzeichen-Einstellungen fest."
 
 #: faces/savecustom.php:29
 msgid "Changes cancelled."
-msgstr "Änderungen abgebrochen."
+msgstr "Ã„nderungen abgebrochen."
 
 #: templates/tile/face.inc:28 lib/Faces.php:128
 msgid "Claim"
@@ -587,7 +587,7 @@ msgstr ""
 
 #: lib/Ajax/Imple/EditCaption.php:43
 msgid "Click to add caption..."
-msgstr "Klicken um Fotounterschrift hinzuzufügen..."
+msgstr "Klicken um Fotounterschrift hinzuzufÃ¼gen..."
 
 #: lib/Form/Ecard.php:33
 msgid "Comments:"
@@ -595,17 +595,17 @@ msgstr "Kommentare:"
 
 #: disclamer.php:23
 msgid "Content Disclaimer"
-msgstr "Inhaltserklärung"
+msgstr "InhaltserklÃ¤rung"
 
 #: lib/Report.php:91
 #, php-format
 msgid "Content abuse report in %s"
-msgstr "Anstößigen Inhalt in %s melden"
+msgstr "AnstÃ¶ÃŸigen Inhalt in %s melden"
 
 #: disclamer.php:30
 #, php-format
 msgid "Continue - I'm over %d"
-msgstr "Weiter - Ich bin über %d"
+msgstr "Weiter - Ich bin Ã¼ber %d"
 
 #: lib/View/Results.php:164
 #, php-format
@@ -649,8 +649,8 @@ msgstr ""
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", contains invalid characters."
 msgstr ""
-"Die Galerie konnte nicht gespeichert werden, der Kurzname \"%s\" enthält "
-"ungültige Zeichen."
+"Die Galerie konnte nicht gespeichert werden, der Kurzname \"%s\" enthÃ¤lt "
+"ungÃ¼ltige Zeichen."
 
 #: scripts/ansel.php:23
 msgid "Couldn't read command-line options."
@@ -662,7 +662,7 @@ msgstr "Erstellen"
 
 #: faces/custom.php:67 faces/search/image_define.php:23
 msgid "Create a new face"
-msgstr "Gesicht hinzufügen"
+msgstr "Gesicht hinzufÃ¼gen"
 
 #: templates/xppublish/new.inc:8
 msgid "Create a new gallery"
@@ -699,12 +699,12 @@ msgid ""
 "Custom text to display describing your galleries. This will be displayed in "
 "place of your username when grouping galleries by username."
 msgstr ""
-"Frei wählbarer Text, der Ihre Galerien beschreibt. Dieser wird anstelle "
+"Frei wÃ¤hlbarer Text, der Ihre Galerien beschreibt. Dieser wird anstelle "
 "Ihres Namens angezeigt, wenn Galerien nach Benutzernamen gruppiert werden."
 
 #: config/prefs.php.dist:108 config/prefs.php.dist:143
 msgid "Custom watermark to use for photos"
-msgstr "Standard-Wasserzeichentext für Fotos"
+msgstr "Standard-Wasserzeichentext fÃ¼r Fotos"
 
 #: templates/view/list.inc:19 lib/Block/recent_comments.php:121
 #: lib/Block/recently_added.php:113
@@ -717,39 +717,39 @@ msgstr "Standard"
 
 #: lib/Application.php:135
 msgid "Default style for galleries"
-msgstr "Standardstil für Galerien"
+msgstr "Standardstil fÃ¼r Galerien"
 
 #: templates/view/image.inc:64 templates/view/gallerylightbox.inc:160
 #: templates/view/results.inc:83 templates/view/slideshow.inc:21
 #: lib/View/GalleryRenderer/Gallery.php:118
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: lib/Widget/Actions.php:200
 msgid "Delete All Photos"
-msgstr "Alle Fotos löschen"
+msgstr "Alle Fotos lÃ¶schen"
 
 #: lib/Widget/Actions.php:201
 msgid "Delete Entire Gallery"
-msgstr "Gesamte Galerie löschen"
+msgstr "Gesamte Galerie lÃ¶schen"
 
 #: templates/faces/image.inc:6
 msgid "Delete face"
-msgstr "Gesicht löschen"
+msgstr "Gesicht lÃ¶schen"
 
 #: lib/Widget/Geotag.php:76
 msgid "Delete geotag"
-msgstr "Geotag löschen"
+msgstr "Geotag lÃ¶schen"
 
 #: image.php:572 lib/View/Results.php:89
 msgid "Deleted the photo."
-msgstr "Foto gelöscht."
+msgstr "Foto gelÃ¶scht."
 
 #: scripts/recursive_import.php:103 scripts/recursive_import.php:111
 #: scripts/remote_import.php:126 scripts/remote_import.php:134
 #, php-format
 msgid "Deleting empty gallery, \"%s\""
-msgstr "Lösche leere Galerie, \"%s\""
+msgstr "LÃ¶sche leere Galerie, \"%s\""
 
 #: templates/view/list.inc:28
 msgid "Descending"
@@ -757,7 +757,7 @@ msgstr "Absteigend"
 
 #: templates/image/crop_image.inc:134
 msgid "Desired dimensions:"
-msgstr "Gewünschtes Seitenverhältnis:"
+msgstr "GewÃ¼nschtes SeitenverhÃ¤ltnis:"
 
 #: templates/gallery/gallery.inc:40
 msgid "Display Mode"
@@ -773,16 +773,16 @@ msgstr "Kennen Sie jemanden auf diesem Foto?"
 
 #: report.php:17
 msgid "Do you really want to report this gallery?"
-msgstr "Möchten Sie wirklich diese Galerie melden?"
+msgstr "MÃ¶chten Sie wirklich diese Galerie melden?"
 
 #: report.php:28
 msgid "Do you really want to report this photo?"
-msgstr "Möchten Sie wirklich dieses Foto melden?"
+msgstr "MÃ¶chten Sie wirklich dieses Foto melden?"
 
 #: templates/view/image.inc:64
 #, php-format
 msgid "Do you want to permanently delete ''%s''?"
-msgstr "Möchten Sie ''%s'' endgültig löschen?"
+msgstr "MÃ¶chten Sie ''%s'' endgÃ¼ltig lÃ¶schen?"
 
 #: gallery/sort.php:83 scripts/all_images_exif_to_tags.php:86
 msgid "Done"
@@ -798,22 +798,22 @@ msgstr "Als ZIP-Datei herunterladen"
 
 #: lib/View/GalleryRenderer/Gallery.php:112
 msgid "Download selected images"
-msgstr "Ausgewählte Fotos herunterladen"
+msgstr "AusgewÃ¤hlte Fotos herunterladen"
 
 #: templates/view/gallerylightbox.inc:154
 msgid "Download selected photos"
-msgstr "Ausgewählte Fotos herunterladen"
+msgstr "AusgewÃ¤hlte Fotos herunterladen"
 
 #: lib/Ansel.php:906
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr ""
-"Das Herunterladen von ZIP-Dateien ist nicht möglich. Bitte wenden Sie sich "
+"Das Herunterladen von ZIP-Dateien ist nicht mÃ¶glich. Bitte wenden Sie sich "
 "an Ihren Administrator."
 
 #: gallery/sort.php:82
 msgid "Drag photos to the desired sort position."
-msgstr "Ziehen Sie die Fotos an die gewünschte Position."
+msgstr "Ziehen Sie die Fotos an die gewÃ¼nschte Position."
 
 #: xppublish.php:207
 #, php-format
@@ -822,7 +822,7 @@ msgstr "FEHLER: %s"
 
 #: img/ecard.php:76
 msgid "Ecard - "
-msgstr "Grußkarte - "
+msgstr "GruÃŸkarte - "
 
 #: templates/view/image.inc:61 templates/view/slideshow.inc:18
 #: templates/tile/image.inc:21
@@ -846,7 +846,7 @@ msgstr "Rechte bearbeiten"
 #: perms.php:258
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Rechte für '%s' bearbeiten"
+msgstr "Rechte fÃ¼r '%s' bearbeiten"
 
 #: image.php:501
 msgid "Edit Photo"
@@ -871,7 +871,7 @@ msgstr "Eigenschaften bearbeiten :: %s"
 
 #: lib/Form/ImageDate.php:26
 msgid "Editing dates for the following photos"
-msgstr "Daten für die folgenden Fotos bearbeiten"
+msgstr "Daten fÃ¼r die folgenden Fotos bearbeiten"
 
 #: lib/Widget/Links.php:47
 msgid "Embed: "
@@ -918,7 +918,7 @@ msgstr "Gesicht erfolgreich markiert"
 
 #: faces/savecustom.php:52
 msgid "Face successfuly updated"
-msgstr "Gesicht erfolgreich gelöscht"
+msgstr "Gesicht erfolgreich gelÃ¶scht"
 
 #: faces/search/image.php:17
 msgid "Face to search for"
@@ -964,7 +964,7 @@ msgstr "Andere Fotos suchen, in denen dieses Gesicht auftaucht"
 
 #: templates/faces/face.inc:14 templates/tile/face.inc:34 lib/Faces.php:133
 msgid "Find similar"
-msgstr "Ähnliche suchen"
+msgstr "Ã„hnliche suchen"
 
 #: templates/image/crop_image.inc:101 templates/image/edit_image.inc:17
 #: templates/image/resize_image.inc:48
@@ -1044,7 +1044,7 @@ msgstr "Galeriename"
 
 #: templates/gallery/gallery.inc:17
 msgid "Gallery Parent"
-msgstr "Übergalerie"
+msgstr "Ãœbergalerie"
 
 #: templates/gallery/gallery.inc:111
 msgid "Gallery Password"
@@ -1110,7 +1110,7 @@ msgstr "Galerien gruppieren nach"
 
 #: lib/Block/recently_added_geodata.php:45
 msgid "Height of map (width automatically adjusts to block)"
-msgstr "Höhe der Karte (Breite passt sich automatisch an den Block an)"
+msgstr "HÃ¶he der Karte (Breite passt sich automatisch an den Block an)"
 
 #: lib/Form/Watermark.php:43 config/prefs.php.dist:154
 msgid "Horizontal Alignment"
@@ -1118,7 +1118,7 @@ msgstr "Horizontale Ausrichtung"
 
 #: faces/claim.php:45
 msgid "I know who is on one of your photos"
-msgstr "Ich weiß, wer auf einem Deiner Fotos zu sehen ist"
+msgstr "Ich weiÃŸ, wer auf einem Deiner Fotos zu sehen ist"
 
 #: lib/Block/recent_comments.php:121
 msgid "Image"
@@ -1134,7 +1134,7 @@ msgstr "Bilder nicht gefunden"
 
 #: lib/Storage.php:519
 msgid "Incomplete photo"
-msgstr "Unvollständiges Foto"
+msgstr "UnvollstÃ¤ndiges Foto"
 
 #: protect.php:30
 msgid "Incorrect password"
@@ -1143,16 +1143,16 @@ msgstr "Falsches Passwort"
 #: scripts/ansel.php:106
 #, php-format
 msgid "Invalid gallery \"%s\" specified."
-msgstr "Ungültige Galerie \"%s\" angegeben."
+msgstr "UngÃ¼ltige Galerie \"%s\" angegeben."
 
 #: xppublish.php:83 xppublish.php:170 lib/Api.php:87
 msgid "Invalid gallery specified."
-msgstr "Ungültige Galerie angegeben."
+msgstr "UngÃ¼ltige Galerie angegeben."
 
 #: lib/Ajax/Imple/TagActions.php:52
 #, php-format
 msgid "Invalid input %s"
-msgstr "Ungültige Eingabe %s"
+msgstr "UngÃ¼ltige Eingabe %s"
 
 #: templates/image/crop_image.inc:149
 msgid "Landscape"
@@ -1160,11 +1160,11 @@ msgstr "Quer"
 
 #: lib/Form/Watermark.php:34 config/prefs.php.dist:175
 msgid "Large"
-msgstr "Groß"
+msgstr "GroÃŸ"
 
 #: lib/Block/my_galleries.php:73
 msgid "Last Modified"
-msgstr "Letzte Änderung"
+msgstr "Letzte Ã„nderung"
 
 #: templates/image/upload.inc:7
 msgid "Learn how to publish photos directly from Windows."
@@ -1211,7 +1211,7 @@ msgstr "Ort"
 
 #: lib/Api.php:626 lib/View/Image.php:71 lib/View/Gallery.php:65
 msgid "Locked galleries are not viewable via the api."
-msgstr "Gesperrte Galerien können nicht über die API betrachtet werden."
+msgstr "Gesperrte Galerien kÃ¶nnen nicht Ã¼ber die API betrachtet werden."
 
 #: scripts/recursive_import.php:68 scripts/ansel.php:97
 #: scripts/all_images_exif_to_tags.php:63
@@ -1230,14 +1230,14 @@ msgstr "Anmelden bei %s"
 
 #: lib/Form/Image.php:32 lib/Form/Upload.php:42
 msgid "Make this the default photo for this gallery?"
-msgstr "Soll dies das Standardfoto für diese Galerie sein?"
+msgstr "Soll dies das Standardfoto fÃ¼r diese Galerie sein?"
 
 #: scripts/recursive_import.php:191 scripts/ansel.php:267
 #: scripts/remote_import.php:302 scripts/all_images_exif_to_tags.php:95
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Pflichtwerte für lange Parameter sind auch für kurze Parameter verpflichtend."
+"Pflichtwerte fÃ¼r lange Parameter sind auch fÃ¼r kurze Parameter verpflichtend."
 
 #: templates/image/crop_image.inc:138
 msgid "Manual"
@@ -1249,7 +1249,7 @@ msgstr "Manuelle Gesichtsauswahl"
 
 #: lib/Form/Upload.php:70
 msgid "Maximum file size:"
-msgstr "Maximale Dateigröße:"
+msgstr "Maximale DateigrÃ¶ÃŸe:"
 
 #: lib/Block/recent_faces.php:31
 msgid "Maximum number of faces"
@@ -1269,12 +1269,12 @@ msgstr "Maximale Anzahl der anzuzeigenden Fotos (0 = keine Begrenzung)"
 
 #: lib/Form/Image.php:46 lib/Form/Upload.php:39
 msgid "Maximum photo size:"
-msgstr "Maximale Fotogröße:"
+msgstr "Maximale FotogrÃ¶ÃŸe:"
 
 #: lib/Form/Upload.php:49
 #, php-format
 msgid "Maximum photo size: %s; with a total of: %s"
-msgstr "Maximale Fotogröße: %s; mit einer Gesamtgröße von: %s"
+msgstr "Maximale FotogrÃ¶ÃŸe: %s; mit einer GesamtgrÃ¶ÃŸe von: %s"
 
 #: lib/Form/Watermark.php:33 config/prefs.php.dist:174
 msgid "Medium"
@@ -1287,7 +1287,7 @@ msgstr "Spiegeln"
 
 #: lib/Tile/Gallery.php:117
 msgid "Modified"
-msgstr "Geändert"
+msgstr "GeÃ¤ndert"
 
 #: gallery.php:110
 #, php-format
@@ -1326,7 +1326,7 @@ msgstr "Meine Galerien"
 
 #: browse_edit.php:25
 msgid "My Photos :: Add Content"
-msgstr "Meine Fotos :: Inhalt hinzufügen"
+msgstr "Meine Fotos :: Inhalt hinzufÃ¼gen"
 
 #: templates/view/list.inc:17
 msgid "Name"
@@ -1381,7 +1381,7 @@ msgid ""
 "at the same location."
 msgstr ""
 "Keine Ortsangaben vorhanden. Verorten Sie das Bild mit Hilfe der %sKarte%s, "
-"oder klicken Sie auf ein vorhandenes Bild, um dessen Ort zu übernehmen."
+"oder klicken Sie auf ein vorhandenes Bild, um dessen Ort zu Ã¼bernehmen."
 
 #: lib/Ajax/Imple/ImageSaveGeotag.php:82
 #, php-format
@@ -1390,7 +1390,7 @@ msgid ""
 "the same location."
 msgstr ""
 "Keine Ortsangaben vorhanden. Bitte benutzen Sie die %sKarte%s, oder klicken "
-"Sie auf ein vorhandenes Bild, um dessen Ort zu übernehmen."
+"Sie auf ein vorhandenes Bild, um dessen Ort zu Ã¼bernehmen."
 
 #: lib/Widget/Geotag.php:157
 msgid "No location data present. You may add some "
@@ -1399,7 +1399,7 @@ msgstr "Keine Ortsangaben vorhanden."
 #: lib/Ajax/Imple/ImageSaveGeotag.php:84
 #, php-format
 msgid "No location data present. You may add some %s."
-msgstr "Keine Ortsangaben vorhanden. Sie können diese %s hinzufügen."
+msgstr "Keine Ortsangaben vorhanden. Sie kÃ¶nnen diese %s hinzufÃ¼gen."
 
 #: templates/view/gallery.inc:136 templates/view/gallerylightbox.inc:150
 #: templates/view/results.inc:79 lib/Application.php:116
@@ -1418,7 +1418,7 @@ msgstr "Normal"
 
 #: map_edit.php:28
 msgid "Not Authorized. Details have been logged for the server administrator."
-msgstr "Nicht autorisiert. Details wurden für den Administrator mitgeloggt."
+msgstr "Nicht autorisiert. Details wurden fÃ¼r den Administrator mitgeloggt."
 
 #: config/prefs.php.dist:90
 msgid "Number of faces per page"
@@ -1442,7 +1442,7 @@ msgstr "Anzahl der Elemente pro Zeile"
 
 #: report.php:48
 msgid "Offensive content"
-msgstr "Anstößiger Inhalt"
+msgstr "AnstÃ¶ÃŸiger Inhalt"
 
 #: lib/Ajax/Imple/EditCaption.php:46
 msgid "Ok"
@@ -1454,7 +1454,7 @@ msgid ""
 "permissions for a share"
 msgstr ""
 "Nur der Besitzer oder der Systemadministrator kann den Besitzer oder die "
-"Besitzerrechte ändern"
+"Besitzerrechte Ã¤ndern"
 
 #: templates/image/crop_image.inc:145
 msgid "Orientation:"
@@ -1538,13 +1538,13 @@ msgstr "Fotos hochladen"
 #, php-format
 msgid "Photo content may be offensive. You must be over %d to continue."
 msgstr ""
-"Der Inhalt könnte als anstößig empfunden werden. Sie müssen über %d sein, um "
+"Der Inhalt kÃ¶nnte als anstÃ¶ÃŸig empfunden werden. Sie mÃ¼ssen Ã¼ber %d sein, um "
 "fortzufahren."
 
 #: faces/search/image_save.php:29 faces/search/image.php:36
 msgid "Photo is too small. Search photo must be at least 50x50 pixels."
 msgstr ""
-"Das Foto ist zu klein. Suchfotos müssen mindestens 50x50 Pixel groß sein."
+"Das Foto ist zu klein. Suchfotos mÃ¼ssen mindestens 50x50 Pixel groÃŸ sein."
 
 #: lib/Storage.php:467
 msgid "Photo not found"
@@ -1582,8 +1582,8 @@ msgid ""
 "Please describe the reasons. For example, you don't want to be mentioned "
 "etc..."
 msgstr ""
-"Bitte nennen Sie die Gründe, z.B. dass Sie nicht namentlich erwähnt werden "
-"möchten o.ä."
+"Bitte nennen Sie die GrÃ¼nde, z.B. dass Sie nicht namentlich erwÃ¤hnt werden "
+"mÃ¶chten o.Ã¤."
 
 #: xppublish.php:50
 msgid "Please enter your username and password."
@@ -1594,12 +1594,12 @@ msgid ""
 "Please upload photo with the face to search for. You can search only one "
 "face at a time."
 msgstr ""
-"Bitte laden Sie ein Foto hoch mit dem Gesicht, nach dem Sie suchen möchten. "
-"Sie können immer nur nach einem Gesicht gleichzeitig suchen."
+"Bitte laden Sie ein Foto hoch mit dem Gesicht, nach dem Sie suchen mÃ¶chten. "
+"Sie kÃ¶nnen immer nur nach einem Gesicht gleichzeitig suchen."
 
 #: config/styles.php.dist:97
 msgid "Polaroid Style Thumbnails (White Background)"
-msgstr "Polaroid-Vorschau (Weißer Hintergrund)"
+msgstr "Polaroid-Vorschau (WeiÃŸer Hintergrund)"
 
 #: templates/image/crop_image.inc:150
 msgid "Portrait"
@@ -1607,15 +1607,15 @@ msgstr "Hoch"
 
 #: xppublish.php:95 xppublish.php:145
 msgid "Press the \"Back\" button and try again."
-msgstr "Drücken Sie den \"Zurück\"-Knopf und versuchen Sie es noch einmal."
+msgstr "DrÃ¼cken Sie den \"ZurÃ¼ck\"-Knopf und versuchen Sie es noch einmal."
 
 #: config/styles.php.dist:67
 msgid "Pretty Thumbnails (No Background)"
-msgstr "Hübsche Vorschau (Kein Hintergrund)"
+msgstr "HÃ¼bsche Vorschau (Kein Hintergrund)"
 
 #: config/styles.php.dist:78
 msgid "Pretty Thumbnails (White Background)"
-msgstr "Hübsche Vorschau (Weißer Hintergrund)"
+msgstr "HÃ¼bsche Vorschau (WeiÃŸer Hintergrund)"
 
 #: templates/image/crop_image.inc:165
 msgid "Preview"
@@ -1624,13 +1624,13 @@ msgstr "Vorschau"
 #: image.php:506 image.php:731
 #, php-format
 msgid "Preview changes for %s :: %s"
-msgstr "Vorschau der Änderungen für %s :: %s"
+msgstr "Vorschau der Ã„nderungen fÃ¼r %s :: %s"
 
 #: templates/view/image.inc:93 templates/view/image.inc:94
 #: templates/view/image.inc:120 templates/view/image.inc:121
 #: templates/view/slideshow.inc:39 templates/view/slideshow.inc:40
 msgid "Previous"
-msgstr "Zurück"
+msgstr "ZurÃ¼ck"
 
 #: templates/view/image.inc:60 templates/view/slideshow.inc:17
 #: templates/tile/image.inc:20
@@ -1639,29 +1639,29 @@ msgstr "Eigenschaften"
 
 #: templates/xppublish/list.inc:7
 msgid "Publish Photos to:"
-msgstr "Fotos Veröffentlichen in:"
+msgstr "Fotos VerÃ¶ffentlichen in:"
 
 #: xppublish.php:31
 #, php-format
 msgid "Publish to %s"
-msgstr "Veröffentlichen in %s"
+msgstr "VerÃ¶ffentlichen in %s"
 
 #: xppublish.php:20
 #, php-format
 msgid "Publish your photos to %s on %s."
-msgstr "Veröffentlichen Sie Ihre Fotos in %s auf %s."
+msgstr "VerÃ¶ffentlichen Sie Ihre Fotos in %s auf %s."
 
 #: lib/Block/gallery.php:77
 msgid "Random Gallery"
-msgstr "Zufällige Galerie"
+msgstr "ZufÃ¤llige Galerie"
 
 #: lib/Block/gallery.php:42
 msgid "Random gallery"
-msgstr "Zufällige Galerie"
+msgstr "ZufÃ¤llige Galerie"
 
 #: lib/Block/random_photo.php:3 lib/Block/random_photo.php:38
 msgid "Random photo"
-msgstr "Zufälliges Foto"
+msgstr "ZufÃ¤lliges Foto"
 
 #: config/prefs.php.dist:204 config/prefs.php.dist:225
 msgid "Read and write"
@@ -1669,7 +1669,7 @@ msgstr "Lesen und Schreiben"
 
 #: config/prefs.php.dist:226
 msgid "Read, write, and delete"
-msgstr "Lesen, Schreiben und Löschen"
+msgstr "Lesen, Schreiben und LÃ¶schen"
 
 #: config/prefs.php.dist:203 config/prefs.php.dist:214
 #: config/prefs.php.dist:224
@@ -1678,37 +1678,37 @@ msgstr "Nur Lesen"
 
 #: templates/gallery/delete_confirmation.inc:12
 msgid "Really Delete"
-msgstr "Wirklich löschen"
+msgstr "Wirklich lÃ¶schen"
 
 #: templates/gallery/delete_confirmation.inc:12
 msgid "Really Empty"
-msgstr "Wirklich löschen"
+msgstr "Wirklich lÃ¶schen"
 
 #: templates/gallery/delete_confirmation.inc:3
 #, php-format
 msgid "Really delete %s and all of its subgalleries?"
-msgstr "%s und alle Untergalerien wirklich löschen?"
+msgstr "%s und alle Untergalerien wirklich lÃ¶schen?"
 
 #: templates/gallery/delete_confirmation.inc:7
 msgid ""
 "Really delete this gallery and all of the photos and subgalleries in it? "
 "This action cannot be undone."
 msgstr ""
-"Diese Galerie und alle enthaltenen Fotos und Untergalerien wirklich löschen? "
-"Dieser Vorgang kann nicht rückgängig gemacht werden."
+"Diese Galerie und alle enthaltenen Fotos und Untergalerien wirklich lÃ¶schen? "
+"Dieser Vorgang kann nicht rÃ¼ckgÃ¤ngig gemacht werden."
 
 #: templates/gallery/delete_confirmation.inc:3
 #, php-format
 msgid "Really empty %s?"
-msgstr "%s wirklich löschen?"
+msgstr "%s wirklich lÃ¶schen?"
 
 #: templates/gallery/delete_confirmation.inc:7
 msgid ""
 "Really empty this gallery and all of the photos in it? This action cannot be "
 "undone."
 msgstr ""
-"Diese Galerie wirklich leeren und alle enthaltenen Fotos löschen? Dieser "
-"Vorgang kann nicht rückgängig gemacht werden."
+"Diese Galerie wirklich leeren und alle enthaltenen Fotos lÃ¶schen? Dieser "
+"Vorgang kann nicht rÃ¼ckgÃ¤ngig gemacht werden."
 
 #: faces/report.php:32 faces/report.php:52
 msgid "Reason"
@@ -1780,11 +1780,11 @@ msgstr "Fotoansichten neu erstellen"
 
 #: templates/faces/gallery.inc:19
 msgid "Reget faces for this photo"
-msgstr "Gesichter für dieses Foto neu erkennen"
+msgstr "Gesichter fÃ¼r dieses Foto neu erkennen"
 
 #: templates/view/results.inc:128
 msgid "Related Tags"
-msgstr "Ähnliche Tags"
+msgstr "Ã„hnliche Tags"
 
 #: lib/Widget/Geotag.php:75
 msgid "Relocate this image"
@@ -1797,7 +1797,7 @@ msgstr "%s aus der Suche entfernen"
 
 #: lib/Widget/Tags.php:87 lib/Ajax/Imple/TagActions.php:106
 msgid "Remove Tag"
-msgstr "Tag löschen"
+msgstr "Tag lÃ¶schen"
 
 #: lib/Form/Image.php:45
 msgid "Replace photo with this file"
@@ -1812,7 +1812,7 @@ msgstr "Melden"
 #: templates/faces/face.inc:11 templates/faces/search.inc:15
 #: templates/tile/face.inc:30
 msgid "Report abuse or submit a removal request"
-msgstr "Mißbrauch melden oder Entfernung beantragen"
+msgstr "MiÃŸbrauch melden oder Entfernung beantragen"
 
 #: lib/Report.php:102
 msgid "Report by user"
@@ -1837,24 +1837,24 @@ msgstr "Meldetyp"
 #: templates/image/crop_image.inc:166 templates/image/resize_image.inc:77
 #: templates/faces/custom.inc:54 templates/faces/define.inc:39
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "ZurÃ¼cksetzen"
 
 #: lib/Widget/Actions.php:166
 msgid "Reset all thumbnails"
-msgstr "Vorschauen zurücksetzen"
+msgstr "Vorschauen zurÃ¼cksetzen"
 
 #: lib/Widget/Actions.php:182
 msgid "Reset default photo"
-msgstr "Standardfoto zurücksetzen"
+msgstr "Standardfoto zurÃ¼cksetzen"
 
 #: templates/image/crop_image.inc:115 templates/image/edit_image.inc:32
 #: templates/image/resize_image.inc:64
 msgid "Resize"
-msgstr "Größe ändern"
+msgstr "GrÃ¶ÃŸe Ã¤ndern"
 
 #: map_edit.php:57
 msgid "Return to Image View"
-msgstr "Zurück zu Bildansicht"
+msgstr "ZurÃ¼ck zu Bildansicht"
 
 #: lib/Form/Watermark.php:42 config/prefs.php.dist:152
 msgid "Right"
@@ -1863,7 +1863,7 @@ msgstr "Rechts"
 #: templates/image/crop_image.inc:97 templates/image/edit_image.inc:13
 #: templates/image/resize_image.inc:44
 msgid "Rotate 180"
-msgstr "Um 180° drehen"
+msgstr "Um 180Â° drehen"
 
 #: templates/image/crop_image.inc:96 templates/image/edit_image.inc:12
 #: templates/image/resize_image.inc:43
@@ -1889,7 +1889,7 @@ msgstr "Fotounterschriften speichern"
 #: templates/image/preview_cropimage.inc:21
 #: templates/image/preview_image.inc:22 templates/image/preview_image.inc:23
 msgid "Save Change"
-msgstr "Änderungen speichern"
+msgstr "Ã„nderungen speichern"
 
 #: templates/gallery/gallery.inc:118
 msgid "Save Gallery"
@@ -1931,15 +1931,15 @@ msgstr "Nach Gesichtern in %s suchen"
 
 #: templates/view/gallerylightbox.inc:149 templates/view/results.inc:78
 msgid "Select All"
-msgstr "Alle auswählen"
+msgstr "Alle auswÃ¤hlen"
 
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "Select None"
-msgstr "Keine auswählen"
+msgstr "Keine auswÃ¤hlen"
 
 #: templates/tile/image.inc:5
 msgid "Select for Action"
-msgstr "Für eine Aktion auswählen"
+msgstr "FÃ¼r eine Aktion auswÃ¤hlen"
 
 #: templates/view/gallery.inc:132
 msgid "Select:"
@@ -1953,7 +1953,7 @@ msgstr "Auswahl: %s, %s"
 #: templates/view/gallery.inc:140 templates/view/gallerylightbox.inc:168
 #: templates/view/results.inc:90
 msgid "Selected photos to"
-msgstr "ausgewählte Fotos nach"
+msgstr "ausgewÃ¤hlte Fotos nach"
 
 #: lib/Form/Ecard.php:16
 msgid "Send"
@@ -1962,15 +1962,15 @@ msgstr "Senden"
 #: img/ecard.php:89
 #, php-format
 msgid "Send Ecard :: %s"
-msgstr "Grußkarte verschicken :: %s"
+msgstr "GruÃŸkarte verschicken :: %s"
 
 #: templates/view/image.inc:67 templates/view/slideshow.inc:26
 msgid "Send an Ecard"
-msgstr "Grußkarte verschicken"
+msgstr "GruÃŸkarte verschicken"
 
 #: lib/Form/Ecard.php:32
 msgid "Send ecard to the following address:"
-msgstr "Grußkarte an folgende Adressen verschicken:"
+msgstr "GruÃŸkarte an folgende Adressen verschicken:"
 
 #: templates/gallery/gallery.inc:72 lib/Form/Upload.php:44
 msgid "Separate tags with commas."
@@ -1986,15 +1986,15 @@ msgstr "Rechte festlegen"
 
 #: config/styles.php.dist:87
 msgid "Shadowed Thumbnails (White Background)"
-msgstr "Vorschau mit Schatten (Weißer Hintergrund)"
+msgstr "Vorschau mit Schatten (WeiÃŸer Hintergrund)"
 
 #: config/prefs.php.dist:240
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
 msgstr ""
-"Soll der Fototitel beim Hochladen wenn möglich automatisch gesetzt werden? "
-"Falls ja, wählen Sie das Feld aus, von dem der Titel übernommen werden soll."
+"Soll der Fototitel beim Hochladen wenn mÃ¶glich automatisch gesetzt werden? "
+"Falls ja, wÃ¤hlen Sie das Feld aus, von dem der Titel Ã¼bernommen werden soll."
 
 #: config/prefs.php.dist:102
 msgid "Show EXIF data"
@@ -2002,11 +2002,11 @@ msgstr "EXIF-Daten anzeigen"
 
 #: lib/Widget/SimilarPhotos.php:27
 msgid "Similar Photos"
-msgstr "Ähnliche Fotos"
+msgstr "Ã„hnliche Fotos"
 
 #: templates/faces/face.inc:14 templates/tile/face.inc:34
 msgid "Similar faces"
-msgstr "Ähnliche Gesichter"
+msgstr "Ã„hnliche Gesichter"
 
 #: config/styles.php.dist:161
 msgid "Simple"
@@ -2023,11 +2023,11 @@ msgstr "Einzelnes Foto"
 #: templates/gallery/gallery.inc:66
 msgid "Slug names may contain only letters, numbers, @, or _ (underscore)."
 msgstr ""
-"Kurznamen dürfen nur Buchstaben, Zahlen, @ oder _ (Unterstrich) enthalten."
+"Kurznamen dÃ¼rfen nur Buchstaben, Zahlen, @ oder _ (Unterstrich) enthalten."
 
 #: templates/gallery/gallery.inc:65
 msgid "Slugs allows direct access to this gallery by visiting:"
-msgstr "Kurznamen ermöglichen den direkten Zugriff auf diese Galerie über:"
+msgstr "Kurznamen ermÃ¶glichen den direkten Zugriff auf diese Galerie Ã¼ber:"
 
 #: lib/Form/Watermark.php:32 config/prefs.php.dist:173
 msgid "Small"
@@ -2054,7 +2054,7 @@ msgstr "Speichere Foto \"%s\"..."
 
 #: templates/gallery/gallery.inc:33
 msgid "Style for this gallery"
-msgstr "Stil für diese Galerie"
+msgstr "Stil fÃ¼r diese Galerie"
 
 #: lib/Block/recent_comments.php:121
 msgid "Subject"
@@ -2066,20 +2066,20 @@ msgstr "Betreff"
 msgid "Successfully added %d photo (%s) to gallery \"%s\" from \"%s\"."
 msgid_plural "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\"."
 msgstr[0] ""
-"%d Foto (%s) wurde erfolgreich aus \"%4$s\" zur Galerie \"%3$s\" hinzugefügt."
+"%d Foto (%s) wurde erfolgreich aus \"%4$s\" zur Galerie \"%3$s\" hinzugefÃ¼gt."
 msgstr[1] ""
 "%d Fotos (%s) wurden erfolgreich aus \"%4$s\" zur Galerie \"%3$s\" "
-"hinzugefügt."
+"hinzugefÃ¼gt."
 
 #: scripts/ansel.php:181
 #, php-format
 msgid "Successfully added photo \"%s\" to gallery \"%s\"."
-msgstr "Foto \"%s\" wurde erfolgreich zu Galerie \"%s\" hinzugefügt."
+msgstr "Foto \"%s\" wurde erfolgreich zu Galerie \"%s\" hinzugefÃ¼gt."
 
 #: gallery/delete.php:36
 #, php-format
 msgid "Successfully deleted %s."
-msgstr "%s wurde erfolgreich gelöscht."
+msgstr "%s wurde erfolgreich gelÃ¶scht."
 
 #: gallery/delete.php:62
 #, php-format
@@ -2123,7 +2123,7 @@ msgstr "Das Verzeichnis \"%s\" existiert nicht."
 #: scripts/ansel.php:195
 #, php-format
 msgid "The directory \"%s\" had no valid photos."
-msgstr "Das Verzeichnis \"%s\" enthält keine gültigen Fotos."
+msgstr "Das Verzeichnis \"%s\" enthÃ¤lt keine gÃ¼ltigen Fotos."
 
 #: scripts/ansel.php:234
 #, php-format
@@ -2138,7 +2138,7 @@ msgstr "Die Datei \"%s\" existiert nicht."
 #: image.php:198 lib/Api.php:333 img/upload.php:185
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
-"Die Datei, die Sie hochgeladen haben, scheint kein gültiges Foto zu sein."
+"Die Datei, die Sie hochgeladen haben, scheint kein gÃ¼ltiges Foto zu sein."
 
 #: lib/Storage.php:149
 #, php-format
@@ -2162,15 +2162,15 @@ msgstr "Die Galerie wurde gespeichert."
 
 #: gallery.php:309
 msgid "The gallery's default photo has successfully been reset."
-msgstr "Das Standardfoto dieser Galerie wurde erfolgreich zurückgesetzt."
+msgstr "Das Standardfoto dieser Galerie wurde erfolgreich zurÃ¼ckgesetzt."
 
 #: gallery.php:329
 msgid "The gallery's thumbnails have successfully been reset."
-msgstr "Die Vorschauen dieser Galerie wurde erfolgreich zurückgesetzt."
+msgstr "Die Vorschauen dieser Galerie wurde erfolgreich zurÃ¼ckgesetzt."
 
 #: gallery.php:344
 msgid "The gallery's views have successfully been reset."
-msgstr "Die Ansichten dieser Galerie wurden erfolgreich zurückgesetzt."
+msgstr "Die Ansichten dieser Galerie wurden erfolgreich zurÃ¼ckgesetzt."
 
 #: faces/report.php:61
 msgid "The owner of the photo was notified."
@@ -2196,7 +2196,7 @@ msgstr ""
 
 #: lib/Block/random_photo.php:49 lib/View/List.php:126
 msgid "There are no photo galleries available."
-msgstr "Es sind keine Fotogalerien verfügbar."
+msgstr "Es sind keine Fotogalerien verfÃ¼gbar."
 
 #: lib/Ansel.php:928
 #, php-format
@@ -2212,18 +2212,18 @@ msgstr "In dieser Galerie befinden sich keine Fotos."
 #, php-format
 msgid "There was a problem adding the photo \"%s\" to gallery \"%s\": %s"
 msgstr ""
-"Beim Hinzufügen des Fotos \"%s\" zur Galerie \"%s\" ist ein Problem "
+"Beim HinzufÃ¼gen des Fotos \"%s\" zur Galerie \"%s\" ist ein Problem "
 "aufgetreten: %s"
 
 #: gallery/delete.php:40
 #, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"
+msgstr "Beim LÃ¶schen von %s ist ein Problem aufgetreten: %s"
 
 #: image.php:575 lib/View/Results.php:92
 #, php-format
 msgid "There was a problem deleting photos: %s"
-msgstr "Beim Löschen der Fotos ist ein Problem aufgetreten: %s"
+msgstr "Beim LÃ¶schen der Fotos ist ein Problem aufgetreten: %s"
 
 #: img/upload.php:110 img/upload.php:171 img/upload.php:200
 #, php-format
@@ -2275,7 +2275,7 @@ msgstr "Ein unbekannter Fehler ist aufgetreten. Meldung des Servers: %s"
 #: protect.php:22
 msgid "This gallery is protected by a password. Please enter it below."
 msgstr ""
-"Diese Galerie ist durch ein Passwort geschützt. Bitte geben Sie dieses unten "
+"Diese Galerie ist durch ein Passwort geschÃ¼tzt. Bitte geben Sie dieses unten "
 "an."
 
 #: lib/ImageGenerator.php:110
@@ -2284,7 +2284,7 @@ msgid ""
 "This install does not support the %s feature. Please contact your "
 "administrator."
 msgstr ""
-"Diese Installation unterstützt die Funktion \"%s\" nicht, bitte wenden Sie "
+"Diese Installation unterstÃ¼tzt die Funktion \"%s\" nicht, bitte wenden Sie "
 "sich an Ihren Administrator."
 
 #: lib/Form/Watermark.php:31 config/prefs.php.dist:172
@@ -2310,11 +2310,11 @@ msgstr "Der %s-Treiber konnte nicht geladen werden."
 
 #: rss.php:34
 msgid "Unable to retrieve requested feed"
-msgstr "Der gewünschte Feed konnte nicht gelesen werden"
+msgstr "Der gewÃ¼nschte Feed konnte nicht gelesen werden"
 
 #: templates/gallery/gallery.inc:119
 msgid "Undo Changes"
-msgstr "Änderungen rückgängig machen"
+msgstr "Ã„nderungen rÃ¼ckgÃ¤ngig machen"
 
 #: gallery.php:118
 msgid "Unknown Gallery"
@@ -2326,7 +2326,7 @@ msgstr "Unbenannt"
 
 #: lib/Report.php:115
 msgid "Unsupported"
-msgstr "Nicht unterstützt"
+msgstr "Nicht unterstÃ¼tzt"
 
 #: xppublish.php:131
 msgid "Untitled"
@@ -2376,7 +2376,7 @@ msgstr "Folgende Antwortadresse benutzen:"
 #: templates/gallery/gallery.inc:85
 #, php-format
 msgid "User must be over %d"
-msgstr "Benutzer muss über %d sein"
+msgstr "Benutzer muss Ã¼ber %d sein"
 
 #: templates/xppublish/login.inc:11
 msgid "Username"
@@ -2418,7 +2418,7 @@ msgstr "Ergebnisse von allen Benutzern anzeigen"
 
 #: templates/tile/image.inc:11
 msgid "View or leave comments"
-msgstr "Kommentare anzeigen oder hinzufügen"
+msgstr "Kommentare anzeigen oder hinzufÃ¼gen"
 
 #: config/prefs.php.dist:59
 msgid "View to display by default"
@@ -2442,7 +2442,7 @@ msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
 msgstr ""
-"Welche Rechte sollen den Mitgliedern aller Gruppen, zu denen Sie gehören, "
+"Welche Rechte sollen den Mitgliedern aller Gruppen, zu denen Sie gehÃ¶ren, "
 "erteilt werden, wenn eine neue Galerie angelegt wird?"
 
 #: config/prefs.php.dist:206
@@ -2458,7 +2458,7 @@ msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
 msgstr ""
-"Welche Rechte sollen Gästen erteilt werden, wenn eine neue Galerie angelegt "
+"Welche Rechte sollen GÃ¤sten erteilt werden, wenn eine neue Galerie angelegt "
 "wird?"
 
 #: config/prefs.php.dist:234
@@ -2471,24 +2471,24 @@ msgstr ""
 
 #: config/prefs.php.dist:195
 msgid "Who should be allowed to download original photos"
-msgstr "Wer soll Originalfotos herunterladen können?"
+msgstr "Wer soll Originalfotos herunterladen kÃ¶nnen?"
 
 #: templates/gallery/gallery.inc:99
 msgid "Who should be allowed to download original photos?"
-msgstr "Wer soll Originalfotos herunterladen können?"
+msgstr "Wer soll Originalfotos herunterladen kÃ¶nnen?"
 
 #: edit_dates.php:23
 msgid "You are not allowed to edit these photos."
-msgstr "Sie dürfen diese Fotos nicht bearbeiten."
+msgstr "Sie dÃ¼rfen diese Fotos nicht bearbeiten."
 
 #: img/upload.php:225
 msgid "You did not select any photos to upload."
-msgstr "Sie haben keine Fotos zum Hochladen ausgewählt."
+msgstr "Sie haben keine Fotos zum Hochladen ausgewÃ¤hlt."
 
 #: gallery.php:214
 #, php-format
 msgid "You do not have permission to add children to %s."
-msgstr "Sie haben nicht genügend Rechte, um Unterpunkte zu %s hinzuzufügen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um Unterpunkte zu %s hinzuzufÃ¼gen."
 
 #: img/ecard.php:44
 msgid ""
@@ -2497,7 +2497,7 @@ msgid ""
 "then most likely your mail reader does not support viewing text/html "
 "messages."
 msgstr ""
-"Sie haben eine Grußkarte bekommen. Um diese Grußkarte sehen zu können, muss "
+"Sie haben eine GruÃŸkarte bekommen. Um diese GruÃŸkarte sehen zu kÃ¶nnen, muss "
 "Ihr Emailprogramm in der Lage sein, HTML-Nachrichten anzuzeigen. Wenn Sie "
 "stattdessen diesen Text sehen, kann Ihr Emailprogramm vermutlich keine HTML-"
 "Nachrichten darstellen."
@@ -2511,59 +2511,59 @@ msgstr "Sie haben noch keine Fotogalerien, legen Sie sich eine an!"
 #: templates/view/results.inc:30 templates/view/results.inc:44
 msgid "You must choose a gallery to move photos to."
 msgstr ""
-"Sie müssen eine Galerie auswählen, zu der die Fotos verschoben werden sollen."
+"Sie mÃ¼ssen eine Galerie auswÃ¤hlen, zu der die Fotos verschoben werden sollen."
 
 #: templates/view/gallery.inc:29 templates/view/gallerylightbox.inc:29
 msgid "You must choose photos to delete."
-msgstr "Sie müssen die Fotos auswählen, die gelöscht werden sollen."
+msgstr "Sie mÃ¼ssen die Fotos auswÃ¤hlen, die gelÃ¶scht werden sollen."
 
 #: templates/view/gallery.inc:82 templates/view/gallerylightbox.inc:80
 msgid "You must choose photos to edit."
-msgstr "Sie müssen die Fotos auswählen, die bearbeitet werden sollen."
+msgstr "Sie mÃ¼ssen die Fotos auswÃ¤hlen, die bearbeitet werden sollen."
 
 #: img/ecard.php:34
 msgid "You must enter an e-mail address to send the message to."
 msgstr ""
-"Sie müssen eine Emailadresse eingeben, an die diese Nachricht geschickt "
+"Sie mÃ¼ssen eine Emailadresse eingeben, an die diese Nachricht geschickt "
 "werden soll."
 
 #: img/ecard.php:29
 msgid "You must enter your e-mail address."
-msgstr "Sie müssen Ihre Emailadresse angeben."
+msgstr "Sie mÃ¼ssen Ihre Emailadresse angeben."
 
 #: scripts/all_images_exif_to_tags.php:70
 msgid "You must login with an administrative account."
-msgstr "Sie müssen sich mit einem Administratorenkonto anmelden."
+msgstr "Sie mÃ¼ssen sich mit einem Administratorenkonto anmelden."
 
 #: gallery.php:225
 msgid "You must provide a display name for your new gallery."
-msgstr "Sie müssen einen Anzeigenamen für die neue Galerie angeben."
+msgstr "Sie mÃ¼ssen einen Anzeigenamen fÃ¼r die neue Galerie angeben."
 
 #: edit_dates.php:34
 msgid "You must select at least on photo to edit."
-msgstr "Sie müssen erst mindestens ein Foto auswählen."
+msgstr "Sie mÃ¼ssen erst mindestens ein Foto auswÃ¤hlen."
 
 #: image.php:697
 msgid "You must select images to download."
-msgstr "Sie müssen Bilder zum Herunterladen auswählen."
+msgstr "Sie mÃ¼ssen Bilder zum Herunterladen auswÃ¤hlen."
 
 #: scripts/recursive_import.php:75 scripts/remote_import.php:105
 msgid "You must specify a valid directory."
-msgstr "Sie müssen ein gültiges Verzeichnis angeben."
+msgstr "Sie mÃ¼ssen ein gÃ¼ltiges Verzeichnis angeben."
 
 #: scripts/recursive_import.php:71 scripts/remote_import.php:97
 #: scripts/all_images_exif_to_tags.php:66
 msgid "You must specify a valid username and password."
-msgstr "Sie müssen einen gültigen Benutzernamen und Passwort angeben."
+msgstr "Sie mÃ¼ssen einen gÃ¼ltigen Benutzernamen und Passwort angeben."
 
 #: scripts/remote_import.php:101
 msgid "You must specify the url for the remote Horde RPC server."
-msgstr "Sie müssen die URL für den externen Horde-RPC-Server angeben."
+msgstr "Sie mÃ¼ssen die URL fÃ¼r den externen Horde-RPC-Server angeben."
 
 #: faces/search/image_save.php:19 faces/search/image_search.php:30
 #: faces/search/image_define.php:19
 msgid "You must upload the search photo first"
-msgstr "Sie müssen erst das Suchfoto hochladen"
+msgstr "Sie mÃ¼ssen erst das Suchfoto hochladen"
 
 #: lib/Form/Upload.php:63
 msgid "Zip File Upload"
@@ -2596,7 +2596,7 @@ msgstr "_Drucken"
 #: templates/image/crop_image.inc:160 templates/image/resize_image.inc:71
 #: templates/faces/define.inc:61
 msgid "height"
-msgstr "Höhe"
+msgstr "HÃ¶he"
 
 #: lib/Widget/Geotag.php:157 lib/Ajax/Imple/ImageSaveGeotag.php:84
 msgid "here"

@@ -14,232 +14,232 @@ msgstr ""
 "Last-Translator: Alexey Zakharov <baber@mosga.net>\n"
 "Language-Team: Russian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: config/prefs.php.dist:118
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
-msgstr "\"Имя Фамилия\" (Вася Пупкин)"
+msgstr "\"РРјСЏ Р¤Р°РјРёР»РёСЏ\" (Р’Р°СЃСЏ РџСѓРїРєРёРЅ)"
 
 #: config/prefs.php.dist:117
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
-msgstr "\"Фамилия, Имя\" (Пупкин, Вася)"
+msgstr "\"Р¤Р°РјРёР»РёСЏ, РРјСЏ\" (РџСѓРїРєРёРЅ, Р’Р°СЃСЏ)"
 
 #: view.php:54
 #, php-format
 msgid "Access denied to %s"
-msgstr "Доступ запрещен для %s"
+msgstr "Р”РѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ РґР»СЏ %s"
 
 #: templates/browse/actions.inc:30 lib/Forms/AddContact.php:25
 msgid "Add"
-msgstr "Добавить"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ"
 
 #: lib/Forms/AddContact.php:22
 msgid "Add Contact"
-msgstr "Добавить Контакт"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ РљРѕРЅС‚Р°РєС‚"
 
 #: templates/prefs/addressbookselect.inc:173
 #, fuzzy
 msgid "Add address book"
-msgstr "Адресная книга"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР°"
 
 #: templates/prefs/columnselect.inc:237
 #, fuzzy
 msgid "Add column"
-msgstr "добавить столбец"
+msgstr "РґРѕР±Р°РІРёС‚СЊ СЃС‚РѕР»Р±РµС†"
 
 # fuzzy
 #: lib/Forms/EditContact.php:34
 msgid "Add file"
-msgstr "загрузить"
+msgstr "Р·Р°РіСЂСѓР·РёС‚СЊ"
 
 # fuzzy
 #: templates/browse/actions.inc:30
 msgid "Add to"
-msgstr "Добавить"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ"
 
 #: lib/Driver.php:1561 lib/Driver/null.php:57
 #, fuzzy
 msgid "Adding contacts is not available."
-msgstr "Нет доступных настроек."
+msgstr "РќРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… РЅР°СЃС‚СЂРѕРµРє."
 
 #: templates/addressbooks.inc:87 templates/addressbook_list.php:15
 msgid "Address Book"
-msgstr "Адресная книга"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР°"
 
 #: templates/addressbook_list.php:12
 #, fuzzy
 msgid "Address Book List"
-msgstr "Содержание адресной книги"
+msgstr "РЎРѕРґРµСЂР¶Р°РЅРёРµ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 #: lib/Views/Browse.php:78 config/prefs.php.dist:106
 msgid "Address Book Listing"
-msgstr "Содержание адресной книги"
+msgstr "РЎРѕРґРµСЂР¶Р°РЅРёРµ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 #: config/prefs.php.dist:10
 msgid "Address Books"
-msgstr "Адресные книги"
+msgstr "РђРґСЂРµСЃРЅС‹Рµ РєРЅРёРіРё"
 
 #: data.php:331
 #, fuzzy
 msgid "Address book successfully purged."
-msgstr "Файл %s успешно импортирован"
+msgstr "Р¤Р°Р№Р» %s СѓСЃРїРµС€РЅРѕ РёРјРїРѕСЂС‚РёСЂРѕРІР°РЅ"
 
 #: templates/addressbooks.inc:63
 #, fuzzy
 msgid "Address book to delete "
-msgstr "Адресная книга доступна только для чтения."
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ РґР»СЏ С‡С‚РµРЅРёСЏ."
 
 #: templates/prefs/addressbookselect.inc:167
 #: templates/prefs/addressbookselect.inc:169
 msgid "Address books that will not be displayed:"
-msgstr "Эти адресные книги НЕ будут отображены:"
+msgstr "Р­С‚Рё Р°РґСЂРµСЃРЅС‹Рµ РєРЅРёРіРё РќР• Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹:"
 
 #: search.php:160 templates/browse/search.inc:47
 msgid "Advanced Search"
-msgstr "Расширенный Поиск"
+msgstr "Р Р°СЃС€РёСЂРµРЅРЅС‹Р№ РџРѕРёСЃРє"
 
 #: config/attributes.php.dist:83
 msgid "Alias"
-msgstr "Псевдоним"
+msgstr "РџСЃРµРІРґРѕРЅРёРј"
 
 #: templates/list/alphaPager.inc:7 templates/list/alphaPager.inc:10
 #: templates/browse/footerAlpha.inc:7 templates/browse/footerAlpha.inc:10
 msgid "All"
-msgstr "Все"
+msgstr "Р’СЃРµ"
 
 # fuzzy, php-format
 #: templates/browse/javascript.inc:85
 #, fuzzy, php-format
 msgid "Are you sure that you want to delete %s?"
-msgstr "Вы уверены, что хотите сделать это?"
+msgstr "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ СЃРґРµР»Р°С‚СЊ СЌС‚Рѕ?"
 
 # fuzzy
 #: templates/browse/javascript.inc:66
 msgid "Are you sure that you want to delete the selected contacts?"
-msgstr "Вы уверены, что хотите удалить эти контакты?"
+msgstr "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚Рё РєРѕРЅС‚Р°РєС‚С‹?"
 
 #: config/attributes.php.dist:377
 #, fuzzy
 msgid "Assistant"
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 # fuzzy
 #: search.php:157 templates/browse/search.inc:46
 msgid "Basic Search"
-msgstr "Поиск"
+msgstr "РџРѕРёСЃРє"
 
 #: lib/Driver/ldap.php:92 lib/Driver/ldap.php:95
 #, fuzzy, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "Ошибка при удалении"
+msgstr "РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё"
 
 #: config/attributes.php.dist:95
 msgid "Birthday"
-msgstr "День рождения"
+msgstr "Р”РµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ"
 
 #: config/attributes.php.dist:99
 #, fuzzy
 msgid "Birthdays"
-msgstr "День рождения"
+msgstr "Р”РµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ"
 
 #: contact.php:103 templates/browse/row.inc:6
 #, fuzzy
 msgid "Blank name"
-msgstr "Имя задачи"
+msgstr "РРјСЏ Р·Р°РґР°С‡Рё"
 
 #: templates/browse/actions.inc:51
 msgid "Both"
-msgstr "Вместе"
+msgstr "Р’РјРµСЃС‚Рµ"
 
 # fuzzy
 #: templates/menu.inc:8
 #, fuzzy
 msgid "Browse"
-msgstr "Выбрать"
+msgstr "Р’С‹Р±СЂР°С‚СЊ"
 
 #: config/attributes.php.dist:288
 #, fuzzy
 msgid "Business Category"
-msgstr "Новая категория"
+msgstr "РќРѕРІР°СЏ РєР°С‚РµРіРѕСЂРёСЏ"
 
 #: data.php:60
 msgid "CSV"
-msgstr "CSV-файл"
+msgstr "CSV-С„Р°Р№Р»"
 
 #: lib/Forms/DeleteAddressBook.php:45 lib/Forms/DeleteAddressBook.php:54
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "РћС‚РјРµРЅР°"
 
 # fuzzy, php-format
 # php-format
 #: lib/Driver/kolab.php:620
 #, fuzzy, php-format
 msgid "Cannot delete all address book entries for %s"
-msgstr "Добавить в адресную книгу (%s)"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ РІ Р°РґСЂРµСЃРЅСѓСЋ РєРЅРёРіСѓ (%s)"
 
 # fuzzy
 #: config/attributes.php.dist:349
 msgid "Category"
-msgstr "Категория"
+msgstr "РљР°С‚РµРіРѕСЂРёСЏ"
 
 #: templates/browse/column_headers.inc:7
 msgid "Check _All/None"
-msgstr "Выделить все"
+msgstr "Р’С‹РґРµР»РёС‚СЊ РІСЃРµ"
 
 #: templates/prefs/addressbookselect.inc:163
 msgid "Choose which address books to display, and in what order:"
-msgstr "Какие адресные книги будут отображены, и в каком порядке:"
+msgstr "РљР°РєРёРµ Р°РґСЂРµСЃРЅС‹Рµ РєРЅРёРіРё Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹, Рё РІ РєР°РєРѕРј РїРѕСЂСЏРґРєРµ:"
 
 #: config/prefs.php.dist:11
 msgid "Choose which address books to use."
-msgstr "Выбор адресных книг для использования"
+msgstr "Р’С‹Р±РѕСЂ Р°РґСЂРµСЃРЅС‹С… РєРЅРёРі РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ"
 
 # fuzzy
 #: templates/prefs/columnselect.inc:227
 msgid "Choose which columns to display and in what order:"
-msgstr "Выберите свойства, который будут отображены"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ СЃРІРѕР№СЃС‚РІР°, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹"
 
 # fuzzy
 #: templates/block/minisearch.inc:27
 msgid "Close"
-msgstr "Закрыть"
+msgstr "Р—Р°РєСЂС‹С‚СЊ"
 
 #: templates/browse/header.inc:7
 #, fuzzy
 msgid "Close Search"
-msgstr "Очистить"
+msgstr "РћС‡РёСЃС‚РёС‚СЊ"
 
 # fuzzy
 #: config/prefs.php.dist:17
 msgid "Column Options"
-msgstr "Столбцы"
+msgstr "РЎС‚РѕР»Р±С†С‹"
 
 #: templates/prefs/columnselect.inc:231 templates/prefs/columnselect.inc:233
 msgid "Columns that will not be displayed:"
-msgstr "Неотображаемые свойства:"
+msgstr "РќРµРѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Рµ СЃРІРѕР№СЃС‚РІР°:"
 
 #: templates/data/import.inc:13 templates/data/export.inc:12
 msgid "Comma separated values"
-msgstr "CSV-файл (разделенный запятыми)"
+msgstr "CSV-С„Р°Р№Р» (СЂР°Р·РґРµР»РµРЅРЅС‹Р№ Р·Р°РїСЏС‚С‹РјРё)"
 
 #: templates/data/export.inc:13
 msgid "Comma separated values (Microsoft Outlook)"
-msgstr "CSV-файл (формат Microsoft Outlook)"
+msgstr "CSV-С„Р°Р№Р» (С„РѕСЂРјР°С‚ Microsoft Outlook)"
 
 #: config/sources.php.dist:229 config/sources.php.dist:905
 #, fuzzy
 msgid "Communications"
-msgstr "Настройки"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё"
 
 #: config/attributes.php.dist:294
 msgid "Company"
-msgstr "Компания"
+msgstr "РљРѕРјРїР°РЅРёСЏ"
 
 #: config/attributes.php.dist:223
 #, fuzzy
 msgid "Company Address"
-msgstr "Домашний адрес"
+msgstr "Р”РѕРјР°С€РЅРёР№ Р°РґСЂРµСЃ"
 
 #: scripts/import_squirrelmail_abook.php:112 lib/api.php:398 lib/api.php:443
 #: lib/api.php:494 lib/api.php:529 lib/api.php:578 lib/api.php:624
@@ -247,138 +247,138 @@ msgstr "Домашний адрес"
 #: lib/api.php:1020 lib/api.php:1229 lib/api.php:1301 lib/api.php:1386
 #, fuzzy, php-format
 msgid "Connection failed: %s"
-msgstr "Ошибка при удалении"
+msgstr "РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё"
 
 #: lib/Driver/ldap.php:68
 #, fuzzy
 msgid "Connection failure"
-msgstr "Ошибка при удалении"
+msgstr "РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё"
 
 # fuzzy
 #: lib/Block/minisearch.php:3 lib/Block/minisearch.php:26
 msgid "Contact Search"
-msgstr "Найти контакт"
+msgstr "РќР°Р№С‚Рё РєРѕРЅС‚Р°РєС‚"
 
 #: config/sources.php.dist:837
 #, fuzzy
 msgid "Contacts"
-msgstr "Показать Контакты"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РљРѕРЅС‚Р°РєС‚С‹"
 
 #: templates/list/numPager.inc:3
 #, fuzzy
 msgid "Contacts displayed:"
-msgstr "Нет замечаний для отображения"
+msgstr "РќРµС‚ Р·Р°РјРµС‡Р°РЅРёР№ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ"
 
 # fuzzy, php-format
 #: lib/Views/Browse.php:338
 #, php-format
 msgid "Contacts in list: %s"
-msgstr "Контакты в группе: %s"
+msgstr "РљРѕРЅС‚Р°РєС‚С‹ РІ РіСЂСѓРїРїРµ: %s"
 
 #: templates/browse/actions.inc:18
 #, fuzzy
 msgid "Copy"
-msgstr "Компания"
+msgstr "РљРѕРјРїР°РЅРёСЏ"
 
 #: templates/addressbooks.inc:54 lib/Forms/CreateAddressBook.php:39
 msgid "Create"
-msgstr "Создать"
+msgstr "РЎРѕР·РґР°С‚СЊ"
 
 #: templates/addressbooks.inc:41 lib/Forms/CreateAddressBook.php:34
 #, fuzzy
 msgid "Create Address Book"
-msgstr "Содержание адресной книги"
+msgstr "РЎРѕРґРµСЂР¶Р°РЅРёРµ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 #: templates/addressbook_list.php:8
 #, fuzzy
 msgid "Create a new Address Book"
-msgstr "Содержание адресной книги"
+msgstr "РЎРѕРґРµСЂР¶Р°РЅРёРµ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 # fuzzy
 # fuzzy
 #: lib/ListView.php:443
 msgid "Create a new Contact List in:"
-msgstr "Создать новую группу в:"
+msgstr "РЎРѕР·РґР°С‚СЊ РЅРѕРІСѓСЋ РіСЂСѓРїРїСѓ РІ:"
 
 #: lib/ObjectView.php:133 lib/Views/Contact.php:74
 #, fuzzy
 msgid "Created"
-msgstr "Создать"
+msgstr "РЎРѕР·РґР°С‚СЊ"
 
 #: contact.php:86
 #, fuzzy
 msgid "De_lete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 #: addressbooks/index.php:41 templates/addressbooks.inc:77
 #: templates/addressbook_list.php:33 templates/browse/actions.inc:3
 #: lib/Renderer.php:47 lib/Renderer.php:50 lib/Views/DeleteContact.php:58
 #: lib/Forms/DeleteAddressBook.php:45
 msgid "Delete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 #: lib/Views/DeleteContact.php:28 lib/Forms/DeleteAddressBook.php:40
 #, php-format
 msgid "Delete %s"
-msgstr "Удалить %s"
+msgstr "РЈРґР°Р»РёС‚СЊ %s"
 
 #: config/attributes.php.dist:300
 #, fuzzy
 msgid "Department"
-msgstr "Прикрепляемое"
+msgstr "РџСЂРёРєСЂРµРїР»СЏРµРјРѕРµ"
 
 # fuzzy
 #: templates/addressbooks.inc:116 lib/Forms/EditAddressBook.php:44
 #: lib/Forms/CreateAddressBook.php:37
 msgid "Description"
-msgstr "Описание"
+msgstr "РћРїРёСЃР°РЅРёРµ"
 
 #: templates/browse/search.inc:125
 msgid "Directory"
-msgstr "Каталог"
+msgstr "РљР°С‚Р°Р»РѕРі"
 
 #: config/prefs.php.dist:24
 msgid "Display"
-msgstr "Оболочка"
+msgstr "РћР±РѕР»РѕС‡РєР°"
 
 # fuzzy
 #: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
 #: config/prefs.php.dist:30
 msgid "Display Options"
-msgstr "Основные настройки"
+msgstr "РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё"
 
 # fuzzy
 #: lib/Object.php:348
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Р—Р°РіСЂСѓР·РёС‚СЊ"
 
 # fuzzy
 #: templates/browse/row.inc:13 templates/browse/contactrow.inc:25
 msgid "Download vCard"
-msgstr "Загрузить vCard"
+msgstr "Р—Р°РіСЂСѓР·РёС‚СЊ vCard"
 
 #: addressbooks/index.php:39 templates/addressbooks.inc:103
 #: templates/addressbook_list.php:29 templates/browse/row.inc:21
 #: templates/browse/column_headers.inc:10 templates/browse/actions.inc:6
 #: templates/browse/contactrow.inc:33 lib/Renderer.php:42
 msgid "Edit"
-msgstr "Редактирование"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ"
 
 #: edit.php:91 templates/browse/contactrow.inc:33
 #, fuzzy, php-format
 msgid "Edit \"%s\""
-msgstr "Редактирование '%s'"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ '%s'"
 
 #: lib/Views/EditContact.php:35 lib/Forms/EditAddressBook.php:40
 #, php-format
 msgid "Edit %s"
-msgstr "Редактирование %s"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ %s"
 
 # fuzzy
 #: templates/addressbooks.inc:82
 #, fuzzy
 msgid "Edit Address Books"
-msgstr "Адресные книги"
+msgstr "РђРґСЂРµСЃРЅС‹Рµ РєРЅРёРіРё"
 
 #: config/attributes.php.dist:237
 msgid "Email"
@@ -387,98 +387,98 @@ msgstr "E-mail"
 #: lib/Views/Browse.php:134
 #, fuzzy, php-format
 msgid "Error deleting %d contact(s)."
-msgstr "Ошибка при импорте данных."
+msgstr "РћС€РёР±РєР° РїСЂРё РёРјРїРѕСЂС‚Рµ РґР°РЅРЅС‹С…."
 
 #: lib/api.php:535
 #, fuzzy, php-format
 msgid "Error searching the address book: %s"
-msgstr "Ошибка при доступе к указанной адресной книге."
+msgstr "РћС€РёР±РєР° РїСЂРё РґРѕСЃС‚СѓРїРµ Рє СѓРєР°Р·Р°РЅРЅРѕР№ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРµ."
 
 #: templates/browse/actions.inc:10 templates/data/export.inc:42
 msgid "Export"
-msgstr "Экспорт"
+msgstr "Р­РєСЃРїРѕСЂС‚"
 
 # fuzzy
 #: templates/data/export.inc:6
 msgid "Export Address Book"
-msgstr "Экспорт адресной книги"
+msgstr "Р­РєСЃРїРѕСЂС‚ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 #: templates/data/export.inc:22
 #, fuzzy
 msgid "Export only the selected contacts."
-msgstr "Horde не правильно настроен"
+msgstr "Horde РЅРµ РїСЂР°РІРёР»СЊРЅРѕ РЅР°СЃС‚СЂРѕРµРЅ"
 
 #: lib/Views/Browse.php:186
 #, fuzzy, php-format
 msgid "Failed to find object to be added: %s"
-msgstr "Ошибка при поиске в каталоге: %s"
+msgstr "РћС€РёР±РєР° РїСЂРё РїРѕРёСЃРєРµ РІ РєР°С‚Р°Р»РѕРіРµ: %s"
 
 #: search.php:151
 #, fuzzy
 msgid "Failed to search the address book"
-msgstr "Ошибка при доступе к указанной адресной книге."
+msgstr "РћС€РёР±РєР° РїСЂРё РґРѕСЃС‚СѓРїРµ Рє СѓРєР°Р·Р°РЅРЅРѕР№ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРµ."
 
 #: data.php:158
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "Ошибка при поиске в каталоге: %s"
+msgstr "РћС€РёР±РєР° РїСЂРё РїРѕРёСЃРєРµ РІ РєР°С‚Р°Р»РѕРіРµ: %s"
 
 #: config/sources.php.dist:536
 #, fuzzy
 msgid "Favourite Recipients"
-msgstr "Нераскрытые получатели"
+msgstr "РќРµСЂР°СЃРєСЂС‹С‚С‹Рµ РїРѕР»СѓС‡Р°С‚РµР»Рё"
 
 #: config/attributes.php.dist:264
 msgid "Fax"
-msgstr "Факс"
+msgstr "Р¤Р°РєСЃ"
 
 # fuzzy
 # fuzzy
 #: display.php:99 lib/Forms/Contact.php:41
 msgid "Files"
-msgstr "Файлы"
+msgstr "Р¤Р°Р№Р»С‹"
 
 #: templates/browse/search.inc:104
 msgid "Find"
-msgstr "Найти"
+msgstr "РќР°Р№С‚Рё"
 
 #: lib/Forms/EditContact.php:121 lib/Forms/EditContact.php:159
 #, fuzzy
 msgid "Finish"
-msgstr "Найти"
+msgstr "РќР°Р№С‚Рё"
 
 #: config/attributes.php.dist:53
 #, fuzzy
 msgid "First Name"
-msgstr "Первая страница"
+msgstr "РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р°"
 
 #: templates/browse/search.inc:98
 msgid "From"
-msgstr "От"
+msgstr "РћС‚"
 
 #: config/attributes.php.dist:123
 msgid "Home Address"
-msgstr "Домашний адрес"
+msgstr "Р”РѕРјР°С€РЅРёР№ Р°РґСЂРµСЃ"
 
 #: config/attributes.php.dist:249
 msgid "Home Phone"
-msgstr "Домашний телефон"
+msgstr "Р”РѕРјР°С€РЅРёР№ С‚РµР»РµС„РѕРЅ"
 
 # fuzzy, php-format
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Address Book, Step %d"
-msgstr "Импорт адресной книги, Шаг %d"
+msgstr "РРјРїРѕСЂС‚ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё, РЁР°Рі %d"
 
 # fuzzy
 #: data.php:388
 msgid "Import/Export Address Books"
-msgstr "Импорт/Экспорт адресной книги"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 # fuzzy
 #: lib/api.php:777 lib/api.php:864
 msgid "Invalid ID"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 # fuzzy
 #: scripts/import_squirrelmail_abook.php:105 lib/api.php:310 lib/api.php:524
@@ -486,230 +486,230 @@ msgstr "Некорректное имя."
 #: lib/api.php:860 lib/api.php:918 lib/api.php:1369
 #, fuzzy, php-format
 msgid "Invalid address book: %s"
-msgstr "Некорректная адресная книга."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ Р°РґСЂРµСЃРЅР°СЏ РєРЅРёРіР°."
 
 # fuzzy
 #: lib/api.php:1373 lib/api.php:1447 lib/api.php:1503
 msgid "Invalid email"
-msgstr "Некорректный e-mail."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ e-mail."
 
 # fuzzy
 #: lib/api.php:1381
 msgid "Invalid entry"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 #: lib/Driver/ldap.php:281
 #, fuzzy
 msgid "Invalid key specified."
-msgstr "Была указана некорректная величина."
+msgstr "Р‘С‹Р»Р° СѓРєР°Р·Р°РЅР° РЅРµРєРѕСЂСЂРµРєС‚РЅР°СЏ РІРµР»РёС‡РёРЅР°."
 
 # fuzzy
 #: lib/api.php:1377
 msgid "Invalid name"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 #: lib/api.php:922
 #, fuzzy
 msgid "Invalid objectId"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 #: config/attributes.php.dist:276
 #, fuzzy
 msgid "Job Title"
-msgstr "Заголовок"
+msgstr "Р—Р°РіРѕР»РѕРІРѕРє"
 
 #: data.php:65 templates/data/import.inc:18 templates/data/export.inc:16
 msgid "LDIF Address Book"
-msgstr "Адресная книга LDIF"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР° LDIF"
 
 #: config/attributes.php.dist:389
 msgid "Language"
-msgstr "Язык"
+msgstr "РЇР·С‹Рє"
 
 #: templates/browse/column_headers.inc:16
 msgid "List"
-msgstr "Список"
+msgstr "РЎРїРёСЃРѕРє"
 
 #: config/sources.php.dist:224 config/sources.php.dist:901
 msgid "Location"
-msgstr "Расположение"
+msgstr "Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ"
 
 #: templates/browse/search.inc:109
 msgid "Matching"
-msgstr "Совпадение"
+msgstr "РЎРѕРІРїР°РґРµРЅРёРµ"
 
 #: lib/api.php:285
 #, fuzzy
 msgid "Maximum Number of Contacts"
-msgstr "Максимальное количество страниц"
+msgstr "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂР°РЅРёС†"
 
 #: config/prefs.php.dist:88
 msgid "Maximum number of pages"
-msgstr "Максимальное количество страниц"
+msgstr "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂР°РЅРёС†"
 
 #: config/attributes.php.dist:65
 #, fuzzy
 msgid "Middle Names"
-msgstr "Имя файла"
+msgstr "РРјСЏ С„Р°Р№Р»Р°"
 
 # fuzzy
 #: config/attributes.php.dist:259
 msgid "Mobile Phone"
-msgstr "Мобильный телефон"
+msgstr "РњРѕР±РёР»СЊРЅС‹Р№ С‚РµР»РµС„РѕРЅ"
 
 #: lib/Driver/ldap.php:340 lib/Driver/ldap.php:356
 #, fuzzy, php-format
 msgid "Modify failed: (%s) %s"
-msgstr "Ошибка при удалении"
+msgstr "РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё"
 
 #: templates/browse/header.inc:8
 #, fuzzy
 msgid "More Options..."
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 #: templates/browse/actions.inc:16
 msgid "Move"
-msgstr "Переместить"
+msgstr "РџРµСЂРµРјРµСЃС‚РёС‚СЊ"
 
 #: templates/prefs/columnselect.inc:248
 #: templates/prefs/addressbookselect.inc:184
 #, fuzzy
 msgid "Move left"
-msgstr "сместить влево"
+msgstr "СЃРјРµСЃС‚РёС‚СЊ РІР»РµРІРѕ"
 
 #: templates/prefs/columnselect.inc:250
 #: templates/prefs/addressbookselect.inc:186
 #, fuzzy
 msgid "Move right"
-msgstr "сместить вправо"
+msgstr "СЃРјРµСЃС‚РёС‚СЊ РІРїСЂР°РІРѕ"
 
 # fuzzy
 #: data.php:63 templates/data/import.inc:16
 msgid "Mulberry Address Book"
-msgstr "Адресная книга Mulberry"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР° Mulberry"
 
 # fuzzy
 # fuzzy
 #: config/sources.php.dist:161
 msgid "My Address Book"
-msgstr "Адресная книга"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР°"
 
 # fuzzy
 # fuzzy
 #: addressbooks.php:119
 #, fuzzy
 msgid "My Address Books"
-msgstr "Адресная книга"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР°"
 
 #: templates/addressbooks.inc:108 lib/Forms/EditAddressBook.php:43
 #: lib/Forms/CreateAddressBook.php:36 config/attributes.php.dist:47
 msgid "Name"
-msgstr "Имя"
+msgstr "РРјСЏ"
 
 # fuzzy
 #: config/prefs.php.dist:31
 msgid "Name Format"
-msgstr "Имена"
+msgstr "РРјРµРЅР°"
 
 #: config/attributes.php.dist:71
 #, fuzzy
 msgid "Name Prefixes"
-msgstr "Клеточная радиосвязь"
+msgstr "РљР»РµС‚РѕС‡РЅР°СЏ СЂР°РґРёРѕСЃРІСЏР·СЊ"
 
 # fuzzy
 #: templates/browse/search_vbook.inc:6
 msgid "Name:"
-msgstr "Имя"
+msgstr "РРјСЏ"
 
 # fuzzy
 #: add.php:70 lib/Block/tree_menu.php:27
 msgid "New Contact"
-msgstr "Добавить новую запись"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ"
 
 #: templates/data/import.inc:46 lib/Forms/EditContact.php:112
 #: lib/Forms/EditContact.php:119 lib/Forms/EditContact.php:174
 msgid "Next"
-msgstr "Далее"
+msgstr "Р”Р°Р»РµРµ"
 
 #: config/attributes.php.dist:89
 #, fuzzy
 msgid "Nickname"
-msgstr "Имя"
+msgstr "РРјСЏ"
 
 #: config/attributes.php.dist:314
 msgid "Notes"
-msgstr "Заметки"
+msgstr "Р—Р°РјРµС‚РєРё"
 
 #: config/prefs.php.dist:96
 msgid "Number of items per page"
-msgstr "Кол-во записей на странице"
+msgstr "РљРѕР»-РІРѕ Р·Р°РїРёСЃРµР№ РЅР° СЃС‚СЂР°РЅРёС†Рµ"
 
 #: lib/api.php:793 lib/api.php:937
 #, fuzzy
 msgid "Object not found"
-msgstr "Отменить изменения"
+msgstr "РћС‚РјРµРЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ"
 
 #: config/attributes.php.dist:282
 #, fuzzy
 msgid "Occupation"
-msgstr "Настройки"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё"
 
 #: config/attributes.php.dist:306
 #, fuzzy
 msgid "Office"
-msgstr "Заголовок"
+msgstr "Р—Р°РіРѕР»РѕРІРѕРє"
 
 #: config/attributes.php.dist:332
 msgid "PGP Public Key"
-msgstr "Публичный ключ PGP"
+msgstr "РџСѓР±Р»РёС‡РЅС‹Р№ РєР»СЋС‡ PGP"
 
 #: config/attributes.php.dist:269
 #, fuzzy
 msgid "Pager"
-msgstr "Вставить"
+msgstr "Р’СЃС‚Р°РІРёС‚СЊ"
 
 # fuzzy
 # fuzzy
 #: lib/Views/DeleteContact.php:57
 #, fuzzy
 msgid "Permanently delete this contact?"
-msgstr "Удалить зту задачу"
+msgstr "РЈРґР°Р»РёС‚СЊ Р·С‚Сѓ Р·Р°РґР°С‡Сѓ"
 
 #: deletefile.php:36 lib/Driver.php:701 lib/api.php:669 lib/api.php:786
 #: lib/api.php:873 lib/api.php:931 lib/api.php:1390 lib/Driver/sql.php:481
 #, fuzzy
 msgid "Permission denied"
-msgstr "Настройки пользователя"
+msgstr "РќР°СЃС‚СЂРѕР№РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
 
 # fuzzy
 #: templates/addressbooks.inc:100
 msgid "Permissions"
-msgstr "Права доступа"
+msgstr "РџСЂР°РІР° РґРѕСЃС‚СѓРїР°"
 
 #: config/sources.php.dist:221 config/sources.php.dist:897
 msgid "Personal"
-msgstr "Личные"
+msgstr "Р›РёС‡РЅС‹Рµ"
 
 # fuzzy
 #: data.php:64 templates/data/import.inc:17
 msgid "Pine Address Book"
-msgstr "Адресная книга Pine"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР° Pine"
 
 # fuzzy
 #: templates/browse/javascript.inc:27
 msgid "Please name the new contact list:"
-msgstr "Пожалуйста введите новое имя:"
+msgstr "РџРѕР¶Р°Р»СѓР№СЃС‚Р° РІРІРµРґРёС‚Рµ РЅРѕРІРѕРµ РёРјСЏ:"
 
 #: lib/Forms/EditContact.php:115 lib/Forms/EditContact.php:118
 #: lib/Forms/EditContact.php:166
 #, fuzzy
 msgid "Previous"
-msgstr "Предыдущая страница"
+msgstr "РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°"
 
 # fuzzy
 #: templates/browse/actions.inc:3
 msgid "Remove from this list"
-msgstr "Удалить из группы"
+msgstr "РЈРґР°Р»РёС‚СЊ РёР· РіСЂСѓРїРїС‹"
 
 # fuzzy
 #: templates/data/import.inc:22
@@ -717,103 +717,103 @@ msgid ""
 "Replace existing address book with the imported one? <strong>Warning: This "
 "deletes all entries in your current address book.</strong>"
 msgstr ""
-"Полностью заменить существующую адресную книгу. <b>При этом будут удалены "
-"ВСЕ записи из текущей адресной книги</b>"
+"РџРѕР»РЅРѕСЃС‚СЊСЋ Р·Р°РјРµРЅРёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰СѓСЋ Р°РґСЂРµСЃРЅСѓСЋ РєРЅРёРіСѓ. <b>РџСЂРё СЌС‚РѕРј Р±СѓРґСѓС‚ СѓРґР°Р»РµРЅС‹ "
+"Р’РЎР• Р·Р°РїРёСЃРё РёР· С‚РµРєСѓС‰РµР№ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё</b>"
 
 #: templates/browse/search.inc:120
 msgid "Reset to Defaults"
-msgstr "Сбросить"
+msgstr "РЎР±СЂРѕСЃРёС‚СЊ"
 
 #: templates/addressbooks.inc:125 lib/Forms/EditContact.php:26
 #: lib/Forms/EditAddressBook.php:46
 msgid "Save"
-msgstr "Сохранить"
+msgstr "РЎРѕС…СЂР°РЅРёС‚СЊ"
 
 #: templates/browse/search.inc:111 templates/browse/search.inc:119
 #: templates/browse/header.inc:3 templates/block/minisearch.inc:26
 #: lib/Block/tree_menu.php:58 config/prefs.php.dist:107
 msgid "Search"
-msgstr "Поиск"
+msgstr "РџРѕРёСЃРє"
 
 # fuzzy
 #: templates/data/export.inc:33
 msgid "Select the address book to export from:"
-msgstr "Выберите адресную книгу для экспорта:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ Р°РґСЂРµСЃРЅСѓСЋ РєРЅРёРіСѓ РґР»СЏ СЌРєСЃРїРѕСЂС‚Р°:"
 
 # fuzzy
 #: templates/data/import.inc:27
 msgid "Select the address book to import to:"
-msgstr "Куда Вы хотите импортировать:"
+msgstr "РљСѓРґР° Р’С‹ С…РѕС‚РёС‚Рµ РёРјРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ:"
 
 # fuzzy
 # fuzzy
 #: templates/data/import.inc:36
 msgid "Select the charset of the source file:"
-msgstr "Укажите кодировку импортируемого файла:"
+msgstr "РЈРєР°Р¶РёС‚Рµ РєРѕРґРёСЂРѕРІРєСѓ РёРјРїРѕСЂС‚РёСЂСѓРµРјРѕРіРѕ С„Р°Р№Р»Р°:"
 
 # fuzzy
 #: templates/data/export.inc:10
 msgid "Select the export format:"
-msgstr "Выберите формат экспортируемого файла:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ СЌРєСЃРїРѕСЂС‚РёСЂСѓРµРјРѕРіРѕ С„Р°Р№Р»Р°:"
 
 #: templates/data/import.inc:44
 msgid "Select the file to import:"
-msgstr "Импортируемый файл:"
+msgstr "РРјРїРѕСЂС‚РёСЂСѓРµРјС‹Р№ С„Р°Р№Р»:"
 
 # fuzzy
 #: templates/data/import.inc:11
 msgid "Select the format of the source file:"
-msgstr "Выберите формат импортируемого файла:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ РёРјРїРѕСЂС‚РёСЂСѓРµРјРѕРіРѕ С„Р°Р№Р»Р°:"
 
 # fuzzy
 #: config/prefs.php.dist:116
 msgid "Select the format used to display names:"
-msgstr "Выберите формат отображения имен:"
+msgstr "Р’С‹Р±РµСЂРёС‚Рµ С„РѕСЂРјР°С‚ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅ:"
 
 # fuzzy
 #: config/prefs.php.dist:25
 msgid "Select view to display by default, sort options, and paging options."
-msgstr "Настройка режима отображения по умолчанию"
+msgstr "РќР°СЃС‚СЂРѕР№РєР° СЂРµР¶РёРјР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ"
 
 # fuzzy
 #: config/prefs.php.dist:18
 msgid "Select which fields to display in the address lists."
-msgstr "Выбор порядка отображения столбцов в списке адресов."
+msgstr "Р’С‹Р±РѕСЂ РїРѕСЂСЏРґРєР° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃС‚РѕР»Р±С†РѕРІ РІ СЃРїРёСЃРєРµ Р°РґСЂРµСЃРѕРІ."
 
 #: config/prefs.php.dist:32
 msgid "Select which format to display names."
-msgstr "Выбор формата отображения имен"
+msgstr "Р’С‹Р±РѕСЂ С„РѕСЂРјР°С‚Р° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅ"
 
 #: templates/browse/actions.inc:50
 msgid "Show Contacts"
-msgstr "Показать Контакты"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РљРѕРЅС‚Р°РєС‚С‹"
 
 #: templates/browse/actions.inc:49
 msgid "Show Lists"
-msgstr "Показать Группы"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ Р“СЂСѓРїРїС‹"
 
 # fuzzy, php-format
 #: lib/Views/Browse.php:260 lib/Views/Browse.php:300
 #, php-format
 msgid "Successfully added %d contact(s) to list."
-msgstr "%d был успешно добавлен"
+msgstr "%d Р±С‹Р» СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ"
 
 # fuzzy, php-format
 #: lib/Views/Browse.php:214
 #, php-format
 msgid "Successfully added %s to %s"
-msgstr "Добавлено \"%s\" в \"%s\"."
+msgstr "Р”РѕР±Р°РІР»РµРЅРѕ \"%s\" РІ \"%s\"."
 
 # fuzzy, php-format
 #: lib/Views/Browse.php:290
 #, php-format
 msgid "Successfully created the contact list \"%s\"."
-msgstr "Создана группа '%s'"
+msgstr "РЎРѕР·РґР°РЅР° РіСЂСѓРїРїР° '%s'"
 
 #: search.php:126
 #, fuzzy, php-format
 msgid "Successfully created virtual address book \"%s\""
-msgstr "Некорректная адресная книга."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ Р°РґСЂРµСЃРЅР°СЏ РєРЅРёРіР°."
 
 # fuzzy, php-format
 # fuzzy, php-format
@@ -821,203 +821,203 @@ msgstr "Некорректная адресная книга."
 #: lib/Views/Browse.php:132
 #, php-format
 msgid "Successfully deleted %d contact(s)."
-msgstr "Удалено %d контактов"
+msgstr "РЈРґР°Р»РµРЅРѕ %d РєРѕРЅС‚Р°РєС‚РѕРІ"
 
 # fuzzy, php-format
 #: lib/Views/Browse.php:115
 #, php-format
 msgid "Successfully removed %d contact(s) from list."
-msgstr "Удалено %d контактов из группы"
+msgstr "РЈРґР°Р»РµРЅРѕ %d РєРѕРЅС‚Р°РєС‚РѕРІ РёР· РіСЂСѓРїРїС‹"
 
 #: templates/data/import.inc:14 templates/data/export.inc:14
 msgid "Tab separated values"
-msgstr "TSV-файл (разделенный табуляцией)"
+msgstr "TSV-С„Р°Р№Р» (СЂР°Р·РґРµР»РµРЅРЅС‹Р№ С‚Р°Р±СѓР»СЏС†РёРµР№)"
 
 #: addressbooks.php:71
 #, php-format
 msgid "The address book \"%s\" was removed successfully."
-msgstr "Папка \"%s\" была успешно удалена."
+msgstr "РџР°РїРєР° \"%s\" Р±С‹Р»Р° СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°."
 
 #: lib/Views/EditContact.php:43 lib/Views/Contact.php:59
 #: lib/Views/DeleteContact.php:36
 #, fuzzy
 msgid "The requested contact was not found."
-msgstr "Прикрепленные"
+msgstr "РџСЂРёРєСЂРµРїР»РµРЅРЅС‹Рµ"
 
 #: lib/Views/Browse.php:80
 msgid "There are no browseable address books."
-msgstr "Нет адресных книг, доступных для выбора."
+msgstr "РќРµС‚ Р°РґСЂРµСЃРЅС‹С… РєРЅРёРі, РґРѕСЃС‚СѓРїРЅС‹С… РґР»СЏ РІС‹Р±РѕСЂР°."
 
 # fuzzy
 #: templates/prefs/addressbookselect.inc:178
 #: templates/prefs/addressbookselect.inc:180
 msgid "These address books will display in this order:"
-msgstr "Эти книги будут отображены в следующем порядке:"
+msgstr "Р­С‚Рё РєРЅРёРіРё Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹ РІ СЃР»РµРґСѓСЋС‰РµРј РїРѕСЂСЏРґРєРµ:"
 
 # fuzzy
 #: templates/prefs/columnselect.inc:242 templates/prefs/columnselect.inc:244
 msgid "These columns will display in this order:"
-msgstr "Эти свойства будут отображены"
+msgstr "Р­С‚Рё СЃРІРѕР№СЃС‚РІР° Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹"
 
 #: config/prefs.php.dist:129
 msgid ""
 "This will be the default address book when adding or importing contacts."
-msgstr "Адресная книга по умолчанию для добавления или импорта контактов"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РёР»Рё РёРјРїРѕСЂС‚Р° РєРѕРЅС‚Р°РєС‚РѕРІ"
 
 #: lib/Driver.php:1431 lib/Turba.php:643
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Невозможно загрузить определение %s."
+msgstr "РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РѕРїСЂРµРґРµР»РµРЅРёРµ %s."
 
 #: lib/Forms/EditContact.php:26 lib/Forms/EditContact.php:112
 #: lib/Forms/EditContact.php:115 lib/Forms/EditContact.php:118
 #: lib/Forms/EditContact.php:168
 msgid "Undo Changes"
-msgstr "Отменить изменения"
+msgstr "РћС‚РјРµРЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ"
 
 # fuzzy
 #: config/attributes.php.dist:352
 msgid "Unfiled"
-msgstr "Пустой"
+msgstr "РџСѓСЃС‚РѕР№"
 
 #: lib/api.php:715 lib/api.php:818 lib/api.php:970
 #, fuzzy, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Некорректное имя."
+msgstr "РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ."
 
 # fuzzy, php-format
 #: templates/browse/contactrow.inc:27
 #, php-format
 msgid "View \"%s\""
-msgstr "Просмотр %s"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ %s"
 
 #: minisearch.php:76
 #, fuzzy
 msgid "View Contact"
-msgstr "Добавить новую запись"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ"
 
 #: config/prefs.php.dist:105
 msgid "View to display by default:"
-msgstr "Режим по умолчанию:"
+msgstr "Р РµР¶РёРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:"
 
 #: config/attributes.php.dist:173
 msgid "Work Address"
-msgstr "Рабочий адрес"
+msgstr "Р Р°Р±РѕС‡РёР№ Р°РґСЂРµСЃ"
 
 #: config/attributes.php.dist:254
 msgid "Work Phone"
-msgstr "Рабочий телефон"
+msgstr "Р Р°Р±РѕС‡РёР№ С‚РµР»РµС„РѕРЅ"
 
 #: templates/browse/contactrow.inc:12
 #, fuzzy
 msgid "[no value]"
-msgstr "Заметки"
+msgstr "Р—Р°РјРµС‚РєРё"
 
 # fuzzy
 #: lib/Turba.php:585
 msgid "_Browse"
-msgstr "Выбрать"
+msgstr "Р’С‹Р±СЂР°С‚СЊ"
 
 #: templates/browse/actions.inc:50
 #, fuzzy
 msgid "_Contacts"
-msgstr "Показать Контакты"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РљРѕРЅС‚Р°РєС‚С‹"
 
 # fuzzy
 #: templates/browse/actions.inc:3
 msgid "_Delete"
-msgstr "Удалить"
+msgstr "РЈРґР°Р»РёС‚СЊ"
 
 # fuzzy
 #: contact.php:82
 msgid "_Edit"
-msgstr "Редактировать"
+msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ"
 
 # fuzzy
 #: lib/Turba.php:594
 msgid "_Import/Export"
-msgstr "Импорт/Экспорт"
+msgstr "РРјРїРѕСЂС‚/Р­РєСЃРїРѕСЂС‚"
 
 #: templates/browse/actions.inc:49
 #, fuzzy
 msgid "_Lists"
-msgstr "Список"
+msgstr "РЎРїРёСЃРѕРє"
 
 # fuzzy
 # fuzzy
 #: lib/Turba.php:582
 #, fuzzy
 msgid "_My Address Books"
-msgstr "Адресная книга"
+msgstr "РђРґСЂРµСЃРЅР°СЏ РєРЅРёРіР°"
 
 # fuzzy
 # fuzzy
 #: lib/Turba.php:588
 msgid "_New Contact"
-msgstr "Добавить"
+msgstr "Р”РѕР±Р°РІРёС‚СЊ"
 
 # fuzzy
 #: lib/Turba.php:599
 msgid "_Print"
-msgstr "Печать"
+msgstr "РџРµС‡Р°С‚СЊ"
 
 #: templates/browse/actions.inc:3
 #, fuzzy
 msgid "_Remove from this list"
-msgstr "Удалить пару"
+msgstr "РЈРґР°Р»РёС‚СЊ РїР°СЂСѓ"
 
 # fuzzy
 #: lib/Turba.php:590
 msgid "_Search"
-msgstr "Поиск"
+msgstr "РџРѕРёСЃРє"
 
 # fuzzy
 #: contact.php:79
 #, fuzzy
 msgid "_View"
-msgstr "Просмотр"
+msgstr "РџСЂРѕСЃРјРѕС‚СЂ"
 
 #: templates/browse/column_headers.inc:24
 #, fuzzy
 msgid "ascending"
-msgstr "По возрастанию"
+msgstr "РџРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ"
 
 #: vcard.php:45
 #, fuzzy
 msgid "contact"
-msgstr "Показать Контакты"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РљРѕРЅС‚Р°РєС‚С‹"
 
 #: data.php:233
 #, fuzzy
 msgid "contacts.ldif"
-msgstr "Показать Контакты"
+msgstr "РџРѕРєР°Р·Р°С‚СЊ РљРѕРЅС‚Р°РєС‚С‹"
 
 #: lib/Block/tree_menu.php:37
 msgid "in %s"
-msgstr "в %s"
+msgstr "РІ %s"
 
 #: config/attributes.php.dist:386
 #, fuzzy
 msgid "male"
-msgstr "Заголовок"
+msgstr "Р—Р°РіРѕР»РѕРІРѕРє"
 
 #: config/prefs.php.dist:119
 msgid "no formatting"
-msgstr "без форматирования"
+msgstr "Р±РµР· С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ"
 
 #: templates/prefs/imsp_opt.inc:32
 msgid "none"
-msgstr "нет"
+msgstr "РЅРµС‚"
 
 # fuzzy
 #: templates/browse/actions.inc:33
 msgid "to a Contact List"
-msgstr "в группу"
+msgstr "РІ РіСЂСѓРїРїСѓ"
 
 #: templates/browse/actions.inc:22
 #, fuzzy
 msgid "to a different Address Book"
-msgstr "Экспорт адресной книги"
+msgstr "Р­РєСЃРїРѕСЂС‚ Р°РґСЂРµСЃРЅРѕР№ РєРЅРёРіРё"
 
 #: data.php:62 templates/browse/column_headers.inc:13
 #: templates/data/import.inc:15 templates/data/export.inc:15

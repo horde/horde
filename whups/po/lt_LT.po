@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: admin/index.php:605
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
-msgstr "\"%s\" jau nebeatsakingas uş \"%s\""
+msgstr "\"%s\" jau nebeatsakingas uÅ¾ \"%s\""
 
 #: templates/menu.inc:5
 msgid "#Id"
@@ -29,17 +29,17 @@ msgstr "#Id"
 #: templates/ticket/watchers.inc:3
 #, php-format
 msgid "%d people watching, %d people responsible"
-msgstr "Stebi %d asmenø, %d asmenys yra atsakingi"
+msgstr "Stebi %d asmenÅ³, %d asmenys yra atsakingi"
 
 #: lib/Driver.php:368
 #, php-format
 msgid "%s (%s) wrote:"
-msgstr "%s (%s) rağë:"
+msgstr "%s (%s) raÅ¡Ä—:"
 
 #: admin/index.php:569
 #, php-format
 msgid "%s added to those responsible for \"%s\""
-msgstr "%s nuo ğiol atsakingas uş \"%s\""
+msgstr "%s nuo Å¡iol atsakingas uÅ¾ \"%s\""
 
 #: templates/reports/stats.inc:17
 #, php-format
@@ -49,20 +49,20 @@ msgstr "%s dienos"
 #: ticket/watch.php:58
 #, php-format
 msgid "%s will be notified when this ticket is updated."
-msgstr "%s gaus praneğimus apie bilieto atnaujinimà."
+msgstr "%s gaus praneÅ¡imus apie bilieto atnaujinimÄ…."
 
 #: ticket/watch.php:70
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
-msgstr "%s daugiau nebegaus praneğimø apie bilieto atnaujinimà."
+msgstr "%s daugiau nebegaus praneÅ¡imÅ³ apie bilieto atnaujinimÄ…."
 
 #: admin/index.php:82
 msgid "- Stage 1"
-msgstr "- 1 şingsnis"
+msgstr "- 1 Å¾ingsnis"
 
 #: admin/index.php:87
 msgid "- Stage 2"
-msgstr "- 2 şingnis"
+msgstr "- 2 Å¾ingnis"
 
 #: templates/prevnext.inc:12
 msgid "<<First"
@@ -75,72 +75,72 @@ msgstr "<Ankst"
 #: view.php:66
 #, php-format
 msgid "Access denied to %s"
-msgstr "Neturite teisiø á %s."
+msgstr "Neturite teisiÅ³ Ä¯ %s."
 
 #: lib/Forms/Admin.php:619
 msgid "Add Attribute"
-msgstr "Pridëti atributà"
+msgstr "PridÄ—ti atributÄ…"
 
 #: lib/Query.php:809
 msgid "Add Attribute Criterion"
-msgstr "Pridëti atributo kriterijø"
+msgstr "PridÄ—ti atributo kriterijÅ³"
 
 #: mybugs.php:53
 msgid "Add Content"
-msgstr "Pridëtá turiná"
+msgstr "PridÄ—tÄ¯ turinÄ¯"
 
 #: query.php:211
 msgid "Add Criterion"
-msgstr "Pridëti kriterijø"
+msgstr "PridÄ—ti kriterijÅ³"
 
 #: lib/Query.php:640
 msgid "Add Group Criterion"
-msgstr "Pridëti grupës kriterijø"
+msgstr "PridÄ—ti grupÄ—s kriterijÅ³"
 
 #: lib/Forms/Admin.php:445
 msgid "Add Priority"
-msgstr "Pridëti svarbà"
+msgstr "PridÄ—ti svarbÄ…"
 
 #: lib/Query.php:717
 msgid "Add Property Criterion"
-msgstr "Pridëti savybës kriterijø"
+msgstr "PridÄ—ti savybÄ—s kriterijÅ³"
 
 #: lib/Forms/Admin.php:20 lib/Forms/Admin.php:21
 msgid "Add Queue"
-msgstr "Sukurti eilæ"
+msgstr "Sukurti eilÄ™"
 
 #: lib/Forms/Admin.php:355
 msgid "Add State"
-msgstr "Pridëti bûsenà"
+msgstr "PridÄ—ti bÅ«senÄ…"
 
 #: lib/Query.php:675
 msgid "Add Text Criterion"
-msgstr "Pridëti teksto kriterijø"
+msgstr "PridÄ—ti teksto kriterijÅ³"
 
 #: lib/Forms/Admin.php:208 lib/Forms/Admin.php:209
 msgid "Add Type"
-msgstr "Sukurti tipà"
+msgstr "Sukurti tipÄ…"
 
 #: admin/index.php:82 admin/index.php:87
 #, php-format
 msgid "Add Type %s"
-msgstr "Sukurti tipà %s"
+msgstr "Sukurti tipÄ… %s"
 
 #: lib/Query.php:589
 msgid "Add User Criterion"
-msgstr "Pridëti vartotojo kriterijø"
+msgstr "PridÄ—ti vartotojo kriterijÅ³"
 
 #: lib/Forms/Admin.php:139
 msgid "Add Users"
-msgstr "Pridëti vartotojus"
+msgstr "PridÄ—ti vartotojus"
 
 #: lib/Forms/Admin.php:531
 msgid "Add Version"
-msgstr "Pridëti versijà"
+msgstr "PridÄ—ti versijÄ…"
 
 #: ticket/watch.php:47
 msgid "Add Watcher"
-msgstr "Pridëti stebëtojà"
+msgstr "PridÄ—ti stebÄ—tojÄ…"
 
 #: ticket/create.php:50
 #, php-format
@@ -163,11 +163,11 @@ msgstr "Bet kuri"
 #: ticket/type.php:45 ticket/queue.php:44 lib/Forms/AddComment.php:37
 #: lib/Forms/EditTicket.php:96
 msgid "Any Group"
-msgstr "Bet kuri grupë"
+msgstr "Bet kuri grupÄ—"
 
 #: config/prefs.php.dist:55
 msgid "Ascending"
-msgstr "Didëjimo tvarka"
+msgstr "DidÄ—jimo tvarka"
 
 #: lib/api.php:836
 msgid "Assign"
@@ -185,7 +185,7 @@ msgstr "Paskirta %s"
 
 #: admin/index.php:887
 msgid "Associations updated successfully."
-msgstr "Sàsajos sëkmingai atnaujintos."
+msgstr "SÄ…sajos sÄ—kmingai atnaujintos."
 
 #: lib/Forms/CreateTicket.php:121 lib/Forms/AddComment.php:24
 #: lib/Forms/EditTicket.php:85
@@ -195,7 +195,7 @@ msgstr "Prikabintas failas"
 #: ticket/deleteAttachment.php:29
 #, php-format
 msgid "Attachment %s deleted."
-msgstr "Prikabintas failas %s iğtrintas."
+msgstr "Prikabintas failas %s iÅ¡trintas."
 
 #: lib/Ticket.php:405
 #, php-format
@@ -212,7 +212,7 @@ msgstr "Atributo kriterijos"
 
 #: lib/Forms/Admin.php:623 lib/Forms/Admin.php:673 lib/Forms/Admin.php:696
 msgid "Attribute Description"
-msgstr "Atributo aprağymas"
+msgstr "Atributo apraÅ¡ymas"
 
 #: lib/Forms/Admin.php:622 lib/Forms/Admin.php:651 lib/Forms/Admin.php:670
 #: lib/Forms/Admin.php:693
@@ -221,27 +221,27 @@ msgstr "Atributo pavadinimas"
 
 #: lib/Forms/Admin.php:284
 msgid "Attributes for this Type"
-msgstr "Atributai ğiam tipui"
+msgstr "Atributai Å¡iam tipui"
 
 #: config/prefs.php.dist:117
 msgid "Autolink to other tickets in comments?"
-msgstr "Komentaruose automatiğkai generuoti nuorodas á kitus bilietus?"
+msgstr "Komentaruose automatiÅ¡kai generuoti nuorodas Ä¯ kitus bilietus?"
 
 #: lib/Reports.php:12
 msgid "Average days to close by Owner"
-msgstr "Vidutinis bilieto uşdarymo dienø skaièius pagal savininkà"
+msgstr "Vidutinis bilieto uÅ¾darymo dienÅ³ skaiÄius pagal savininkÄ…"
 
 #: lib/Reports.php:14
 msgid "Average days to close by Queue"
-msgstr "Vidutinis bilieto uşdarymo dienø skaièius pagal eilæ"
+msgstr "Vidutinis bilieto uÅ¾darymo dienÅ³ skaiÄius pagal eilÄ™"
 
 #: lib/Reports.php:13
 msgid "Average days to close by Requester"
-msgstr "Vidutinis bilieto uşdarymo dienø skaièius pagal uşsakovà"
+msgstr "Vidutinis bilieto uÅ¾darymo dienÅ³ skaiÄius pagal uÅ¾sakovÄ…"
 
 #: lib/Reports.php:19
 msgid "Average time a ticket is unresolved"
-msgstr "Vidutinis neiğspræsto bilieto laikas"
+msgstr "Vidutinis neiÅ¡sprÄ™sto bilieto laikas"
 
 #: lib/Query.php:575
 msgid "Branch Type"
@@ -249,7 +249,7 @@ msgstr "Skyriaus tipas"
 
 #: lib/Query.php:51
 msgid "Case Insensitive Substring"
-msgstr "Teksto gabaliukas nekreipiant dëmesio á didşiasias/maşiasias raides"
+msgstr "Teksto gabaliukas nekreipiant dÄ—mesio Ä¯ didÅ¾iasias/maÅ¾iasias raides"
 
 #: templates/queryrenderer.inc:27
 msgid "Change"
@@ -258,19 +258,19 @@ msgstr "Keisti"
 #: config/prefs.php.dist:11
 msgid "Change display options such as how search results are sorted."
 msgstr ""
-"Vaizdavimo nustatymø, tokiø kaip, paieğkos rezultatø rûğiavimas, keitimas."
+"Vaizdavimo nustatymÅ³, tokiÅ³ kaip, paieÅ¡kos rezultatÅ³ rÅ«Å¡iavimas, keitimas."
 
 #: config/prefs.php.dist:18
 msgid "Change options for email notifications of ticket activity."
-msgstr "El. pağto perspëjimø apie bilietø bûsenà nustatymø keitimas."
+msgstr "El. paÅ¡to perspÄ—jimÅ³ apie bilietÅ³ bÅ«senÄ… nustatymÅ³ keitimas."
 
 #: query.php:145
 msgid "Choose Action:"
-msgstr "Pasirinkite veiksmà:"
+msgstr "Pasirinkite veiksmÄ…:"
 
 #: lib/Query.php:221
 msgid "Choose New Query instead of deleting the root node."
-msgstr "Pasirinkite naujà uşklausà ir netrinkite pagrindinës ğaknies."
+msgstr "Pasirinkite naujÄ… uÅ¾klausÄ… ir netrinkite pagrindinÄ—s Å¡aknies."
 
 #: lib/Forms/CreateTicket.php:37 lib/Forms/CreateTicket.php:64
 msgid "Choose:"
@@ -278,7 +278,7 @@ msgstr "Pasirinkite:"
 
 #: config/prefs.php.dist:127
 msgid "Chronological (oldest first)"
-msgstr "Chronologiğkai (pirma seniausi)"
+msgstr "ChronologiÅ¡kai (pirma seniausi)"
 
 #: lib/Forms/Admin.php:335
 msgid "Clone"
@@ -286,15 +286,15 @@ msgstr "Kopijuoti"
 
 #: lib/Forms/Admin.php:341
 msgid "Clone Description"
-msgstr "Kopijuoti aprağymà"
+msgstr "Kopijuoti apraÅ¡ymÄ…"
 
 #: lib/Forms/Admin.php:223 admin/index.php:121
 msgid "Clone Type"
-msgstr "Kopijuoti tipà"
+msgstr "Kopijuoti tipÄ…"
 
 #: config/templates.php.dist:43
 msgid "Comma Separated Values (CSV file)"
-msgstr "Kableliais atskirtos reikğmës (CSV failas)"
+msgstr "Kableliais atskirtos reikÅ¡mÄ—s (CSV failas)"
 
 #: ticket/type.php:35 ticket/queue.php:32 lib/Forms/AddComment.php:23
 #: lib/Forms/EditTicket.php:86 templates/queryrenderer.inc:101
@@ -304,7 +304,7 @@ msgstr "Komentaras"
 
 #: ticket/comment.php:69
 msgid "Comment added"
-msgstr "Komentaras árağytas"
+msgstr "Komentaras Ä¯raÅ¡ytas"
 
 #: ticket/comment.php:34
 #, php-format
@@ -322,11 +322,11 @@ msgstr "%s kopija"
 
 #: lib/MIME/Viewer/zip.php:52
 msgid "Could not extract the requested file from the Zip archive."
-msgstr "Nepavyko iğarchyvuoti Zip archyvo."
+msgstr "Nepavyko iÅ¡archyvuoti Zip archyvo."
 
 #: lib/Query.php:645
 msgid "Could not find any groups."
-msgstr "Nepavyko rasti jokiø grupiø."
+msgstr "Nepavyko rasti jokiÅ³ grupiÅ³."
 
 #: lib/Mail.php:88
 #, php-format
@@ -335,31 +335,31 @@ msgstr "Nepavyko rasti bilieto \"%s\"."
 
 #: lib/Forms/Admin.php:274
 msgid "Create Default Priorities"
-msgstr "Sukurti standartines svarbos reikğmes"
+msgstr "Sukurti standartines svarbos reikÅ¡mes"
 
 #: lib/Forms/Admin.php:264
 msgid "Create Default States"
-msgstr "Sukurti standartines bûsenø reikğmes"
+msgstr "Sukurti standartines bÅ«senÅ³ reikÅ¡mes"
 
 #: config/prefs.php.dist:68
 msgid "Create Ticket"
-msgstr "Bilieto kûrimas"
+msgstr "Bilieto kÅ«rimas"
 
 #: lib/Forms/CreateTicket.php:23
 msgid "Create Ticket - Step 1"
-msgstr "Bilieto kûrimas - 1 şingsnis"
+msgstr "Bilieto kÅ«rimas - 1 Å¾ingsnis"
 
 #: lib/Forms/CreateTicket.php:55
 msgid "Create Ticket - Step 2"
-msgstr "Bilieto kûrimas - 2 şingsnis"
+msgstr "Bilieto kÅ«rimas - 2 Å¾ingsnis"
 
 #: lib/Forms/CreateTicket.php:95
 msgid "Create Ticket - Step 3"
-msgstr "Bilieto kûrimas - 3 şingsnis"
+msgstr "Bilieto kÅ«rimas - 3 Å¾ingsnis"
 
 #: lib/Forms/CreateTicket.php:161
 msgid "Create Ticket - Step 4"
-msgstr "Bilieto kûrimas - 4 şingsnis"
+msgstr "Bilieto kÅ«rimas - 4 Å¾ingsnis"
 
 #: lib/Whups.php:496 lib/Ticket.php:675 lib/api.php:936
 #: config/prefs.php.dist:43
@@ -372,7 +372,7 @@ msgstr "Autorius"
 
 #: query.php:202 query.php:218
 msgid "Current Query"
-msgstr "Dabartinë uşklausa"
+msgstr "DabartinÄ— uÅ¾klausa"
 
 #: templates/queryrenderer.inc:25
 msgid "Current Ticket Type"
@@ -380,37 +380,37 @@ msgstr "Dabartinis bilieto tipas"
 
 #: lib/Ticket.php:553
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
-msgstr "NEATSAKYKITE Á ĞÁ LAIĞKÀ. ĞIS EL. PAĞTO ADRESAS NËRA STEBIMAS."
+msgstr "NEATSAKYKITE Ä® Å Ä® LAIÅ KÄ„. Å IS EL. PAÅ TO ADRESAS NÄ–RA STEBIMAS."
 
 #: config/prefs.php.dist:99
 msgid "Date/Time format for search results"
-msgstr "Paieğkos rezultatø datos/laiko formatas"
+msgstr "PaieÅ¡kos rezultatÅ³ datos/laiko formatas"
 
 #: config/prefs.php.dist:46
 msgid "Default sorting criteria:"
-msgstr "Standartinis rûğiavimo kriterijus:"
+msgstr "Standartinis rÅ«Å¡iavimo kriterijus:"
 
 #: config/prefs.php.dist:57
 msgid "Default sorting direction:"
-msgstr "Standartinë rûğiavimo kryptis:"
+msgstr "StandartinÄ— rÅ«Å¡iavimo kryptis:"
 
 #: query.php:146
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: lib/Whups.php:678 lib/Whups.php:679
 #, php-format
 msgid "Delete %s"
-msgstr "Iğtrinti %s"
+msgstr "IÅ¡trinti %s"
 
 #: ticket/delete.php:58
 #, php-format
 msgid "Delete %s?"
-msgstr "Iğtrinti %s?"
+msgstr "IÅ¡trinti %s?"
 
 #: lib/Forms/Admin.php:635 admin/index.php:777
 msgid "Delete Attribute"
-msgstr "Iğtrinti atributà"
+msgstr "IÅ¡trinti atributÄ…"
 
 #: lib/Forms/Admin.php:685
 msgid "Delete Attribute Confirmation"
@@ -418,7 +418,7 @@ msgstr "Atributo trynimo patvirtinimas"
 
 #: lib/Forms/Admin.php:461 admin/index.php:487
 msgid "Delete Priority"
-msgstr "Iğtrinti svarbà"
+msgstr "IÅ¡trinti svarbÄ…"
 
 #: lib/Forms/Admin.php:507
 msgid "Delete Priority Confirmation"
@@ -426,27 +426,27 @@ msgstr "Svarbo trynimo patvirtinimas"
 
 #: lib/Query.php:924
 msgid "Delete Query?"
-msgstr "Iğtrinti uşklausà?"
+msgstr "IÅ¡trinti uÅ¾klausÄ…?"
 
 #: lib/Forms/Admin.php:37 admin/index.php:269
 msgid "Delete Queue"
-msgstr "Iğtrinti eilæ"
+msgstr "IÅ¡trinti eilÄ™"
 
 #: lib/Forms/Admin.php:114
 msgid "Delete Queue Confirmation"
-msgstr "Eilës trynimo patvirtinimas"
+msgstr "EilÄ—s trynimo patvirtinimas"
 
 #: lib/Forms/Admin.php:372 admin/index.php:377
 msgid "Delete State"
-msgstr "Iğtrinti bûsenà"
+msgstr "IÅ¡trinti bÅ«senÄ…"
 
 #: lib/Forms/Admin.php:421
 msgid "Delete State Confirmation"
-msgstr "Bûsenos trynimo patvirtinimas"
+msgstr "BÅ«senos trynimo patvirtinimas"
 
 #: lib/Forms/Admin.php:223 admin/index.php:115
 msgid "Delete Type"
-msgstr "Iğtrinti tipà"
+msgstr "IÅ¡trinti tipÄ…"
 
 #: lib/Forms/Admin.php:298
 msgid "Delete Type Confirmation"
@@ -454,7 +454,7 @@ msgstr "Tipo trynimo patvirtinimas"
 
 #: lib/Forms/Admin.php:547 admin/index.php:666
 msgid "Delete Version"
-msgstr "Iğtrinti versijà"
+msgstr "IÅ¡trinti versijÄ…"
 
 #: lib/Forms/Admin.php:593
 msgid "Delete Version Confirmation"
@@ -462,20 +462,20 @@ msgstr "Vertijos trynimo patvirtinimas"
 
 #: lib/Ticket.php:495 lib/Ticket.php:544
 msgid "Deleted Attachment"
-msgstr "Prikabintas failas iğtrintas."
+msgstr "Prikabintas failas iÅ¡trintas."
 
 #: templates/comment.inc:60
 #, php-format
 msgid "Deleted Attachment: %s"
-msgstr "Prikabintas failas iğtrintas: %s"
+msgstr "Prikabintas failas iÅ¡trintas: %s"
 
 #: config/prefs.php.dist:56
 msgid "Descending"
-msgstr "Maşëjimo tvarka"
+msgstr "MaÅ¾Ä—jimo tvarka"
 
 #: lib/Forms/CreateTicket.php:122
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
@@ -483,7 +483,7 @@ msgstr "Vaizdavimo nustatymai"
 
 #: lib/Whups.php:670
 msgid "Download"
-msgstr "Atsisiøsti"
+msgstr "AtsisiÅ³sti"
 
 #: lib/Ticket.php:485 lib/Ticket.php:599 lib/Ticket.php:676 lib/api.php:940
 msgid "Due"
@@ -500,7 +500,7 @@ msgstr "Atlikimo data"
 
 #: lib/Query.php:198
 msgid "E_xecute Query"
-msgstr "Vykdyti uşklausà"
+msgstr "Vykdyti uÅ¾klausÄ…"
 
 #: query.php:147
 msgid "Edit"
@@ -513,7 +513,7 @@ msgstr "Redaguoti %s"
 
 #: lib/Forms/Admin.php:635 lib/Forms/Admin.php:662 admin/index.php:772
 msgid "Edit Attribute"
-msgstr "Keisti atributà"
+msgstr "Keisti atributÄ…"
 
 #: lib/Forms/Admin.php:286
 msgid "Edit Attributes"
@@ -525,11 +525,11 @@ msgstr "Keisti svarbas"
 
 #: lib/Forms/Admin.php:461 lib/Forms/Admin.php:484 admin/index.php:482
 msgid "Edit Priority"
-msgstr "Keisti svarbà"
+msgstr "Keisti svarbÄ…"
 
 #: lib/Forms/Admin.php:37 lib/Forms/Admin.php:40 admin/index.php:263
 msgid "Edit Queue"
-msgstr "Keisti eilæ"
+msgstr "Keisti eilÄ™"
 
 #: lib/Forms/Admin.php:39
 msgid "Edit Queues"
@@ -537,19 +537,19 @@ msgstr "Keisti eiles"
 
 #: lib/Forms/Admin.php:372 lib/Forms/Admin.php:395 admin/index.php:372
 msgid "Edit State"
-msgstr "Keisti bûsenà"
+msgstr "Keisti bÅ«senÄ…"
 
 #: lib/Forms/Admin.php:262
 msgid "Edit States"
-msgstr "Keisti bûsenas"
+msgstr "Keisti bÅ«senas"
 
 #: lib/Forms/Admin.php:223 admin/index.php:109
 msgid "Edit Type"
-msgstr "Keisti tipà"
+msgstr "Keisti tipÄ…"
 
 #: lib/Forms/Admin.php:547 lib/Forms/Admin.php:570 admin/index.php:661
 msgid "Edit Version"
-msgstr "Keisti versijà"
+msgstr "Keisti versijÄ…"
 
 #: lib/Query.php:194
 msgid "Edit _Permissions"
@@ -561,52 +561,52 @@ msgstr "Keisti tipus"
 
 #: lib/Forms/Admin.php:634
 msgid "Edit or Delete Attributes"
-msgstr "Atributø keitimas arba trynimas"
+msgstr "AtributÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:460
 msgid "Edit or Delete Priorities"
-msgstr "Svarbø keitimas arba trynimas"
+msgstr "SvarbÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:36
 msgid "Edit or Delete Queues"
-msgstr "Eiliø keitimas arba trynimas"
+msgstr "EiliÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:371
 msgid "Edit or Delete States"
-msgstr "Bûsënø keitimas arba trynimas"
+msgstr "BÅ«sÄ—nÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:222
 msgid "Edit or Delete Types"
-msgstr "Tipø keitimas arba trynimas"
+msgstr "TipÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:546
 msgid "Edit or Delete Versions"
-msgstr "Versijø keitimas arba trynimas"
+msgstr "VersijÅ³ keitimas arba trynimas"
 
 #: lib/Forms/Admin.php:101
 msgid "Edit the permissions on this queue"
-msgstr "Keisti ğios eilës teises"
+msgstr "Keisti Å¡ios eilÄ—s teises"
 
 #: lib/Forms/Admin.php:96
 msgid "Edit the users responsible for this queue"
-msgstr "Keisti vartotojus atsakingus uş ğià eilæ"
+msgstr "Keisti vartotojus atsakingus uÅ¾ Å¡iÄ… eilÄ™"
 
 #: lib/Forms/Admin.php:83
 msgid "Edit the versions for this queue"
-msgstr "Keisti ğios eilës versijas"
+msgstr "Keisti Å¡ios eilÄ—s versijas"
 
 #: ticket/watch.php:23
 msgid "Email address to notify"
-msgstr "El. pağto adresas perspëjimui"
+msgstr "El. paÅ¡to adresas perspÄ—jimui"
 
 #: ticket/watch.php:35
 msgid "Email address to remove"
-msgstr "El. pağto adresas, kurá reikia iğtrinti"
+msgstr "El. paÅ¡to adresas, kurÄ¯ reikia iÅ¡trinti"
 
 #: query.php:174
 #, php-format
 msgid "Error: Unknown query form %s, defaulting to properties"
-msgstr "Klaida: neşinoma uşklausos forma %s, naudojamos standartinës reikğmës"
+msgstr "Klaida: neÅ¾inoma uÅ¾klausos forma %s, naudojamos standartinÄ—s reikÅ¡mÄ—s"
 
 #: lib/Query.php:50
 msgid "Exact Match"
@@ -614,11 +614,11 @@ msgstr "Tikslus atitikmuo"
 
 #: runquery.php:73 runquery.php:87
 msgid "Execute Query"
-msgstr "Vykdyti uşklausà"
+msgstr "Vykdyti uÅ¾klausÄ…"
 
 #: lib/Forms/Admin.php:723
 msgid "For tickets from these queues"
-msgstr "Bilietams ğiose eilëse"
+msgstr "Bilietams Å¡iose eilÄ—se"
 
 #: lib/Forms/Admin.php:727
 msgid "For tickets which are"
@@ -630,15 +630,15 @@ msgstr "Rodyti"
 
 #: lib/Forms/CreateTicket.php:192 lib/Forms/EditTicket.php:79
 msgid "Group Owners"
-msgstr "Grupës savininkas"
+msgstr "GrupÄ—s savininkas"
 
 #: lib/Query.php:646 lib/Query.php:648 templates/queryrenderer.inc:98
 msgid "Groups"
-msgstr "Grupës"
+msgstr "GrupÄ—s"
 
 #: lib/api.php:824
 msgid "Hidden Comments"
-msgstr "Paslëpti komentarai"
+msgstr "PaslÄ—pti komentarai"
 
 #: ticket/index.php:46
 msgid "History"
@@ -646,7 +646,7 @@ msgstr "Istorija"
 
 #: query.php:148
 msgid "Hoist"
-msgstr "Pakëlimas"
+msgstr "PakÄ—limas"
 
 #: lib/Whups.php:481 lib/Whups.php:488 lib/Query.php:719
 #: templates/queryrenderer.inc:96 config/prefs.php.dist:36
@@ -658,37 +658,37 @@ msgid ""
 "If you don't select any categories, no filtering will be done on ticket "
 "category."
 msgstr ""
-"Jeigu nepasirinksite nei vienos kategorijos, bilietø kategorijos nebus "
+"Jeigu nepasirinksite nei vienos kategorijos, bilietÅ³ kategorijos nebus "
 "filtruojamos."
 
 #: lib/Forms/Search.php:46
 msgid ""
 "If you don't select any types, no filtering will be done on ticket type."
-msgstr "Jeigu nepasirinksite nei vieno tipo, bilietø tipai nebus filtruojami."
+msgstr "Jeigu nepasirinksite nei vieno tipo, bilietÅ³ tipai nebus filtruojami."
 
 #: lib/Forms/Admin.php:730
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
 msgstr ""
-"Jeigu pasirinksite bilietà, kuris neturi savininko, kam tokiu atveju siøsti "
-"el. laiğkus?"
+"Jeigu pasirinksite bilietÄ…, kuris neturi savininko, kam tokiu atveju siÅ³sti "
+"el. laiÅ¡kus?"
 
 #: query.php:149
 msgid "Insert And"
-msgstr "Áterpti Ir"
+msgstr "Ä®terpti Ir"
 
 #: lib/Query.php:567
 msgid "Insert Branch"
-msgstr "Áterpti skyriø"
+msgstr "Ä®terpti skyriÅ³"
 
 #: query.php:151
 msgid "Insert Not"
-msgstr "Áterpti Ne"
+msgstr "Ä®terpti Ne"
 
 #: query.php:150
 msgid "Insert Or"
-msgstr "Áterpti Arba"
+msgstr "Ä®terpti Arba"
 
 #: lib/Whups.php:163
 msgid "Invalid Ticket Id"
@@ -696,22 +696,22 @@ msgstr "Neteisingas bilieto ID"
 
 #: lib/api.php:650
 msgid "Invalid argument: Missing attribute name or value."
-msgstr "Neteisingas argumentas: nëra atributo pavadinimo arba reikğmës."
+msgstr "Neteisingas argumentas: nÄ—ra atributo pavadinimo arba reikÅ¡mÄ—s."
 
 #: lib/api.php:635
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
-"Neteisingi argumentai: turite nurodyti bilieto pavadinimà ir naujus "
+"Neteisingi argumentai: turite nurodyti bilieto pavadinimÄ… ir naujus "
 "atributus."
 
 #: lib/api.php:592
 #, php-format
 msgid "Invalid ticket data supplied: %s"
-msgstr "Ávesti neteisingi bilieto duomenys: %s"
+msgstr "Ä®vesti neteisingi bilieto duomenys: %s"
 
 #: lib/Forms/Admin.php:80
 msgid "Keep a set of versions for this queue?"
-msgstr "Ğioje eilëje naudoti versijas?"
+msgstr "Å ioje eilÄ—je naudoti versijas?"
 
 #: templates/prevnext.inc:17
 msgid "Last>>"
@@ -719,7 +719,7 @@ msgstr "Paskutinis>>"
 
 #: lib/Query.php:888
 msgid "Load Query"
-msgstr "Uşkrauti uşklausà"
+msgstr "UÅ¾krauti uÅ¾klausÄ…"
 
 #: config/prefs.php.dist:97
 msgid "MM/DD/YY"
@@ -748,28 +748,28 @@ msgstr "Atitinkanti forma"
 
 #: lib/Query.php:53
 msgid "Match Word"
-msgstr "Atitinkantis şodis"
+msgstr "Atitinkantis Å¾odis"
 
 #: lib/Reports.php:20
 msgid "Maximum time a ticket is unresolved"
-msgstr "Maksimalus neiğspræsto bilieto laikas"
+msgstr "Maksimalus neiÅ¡sprÄ™sto bilieto laikas"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Meniu sàrağas"
+msgstr "Meniu sÄ…raÅ¡as"
 
 #: lib/Reports.php:21
 msgid "Minimum time a ticket is unresolved"
-msgstr "Minimalus neiğspræsto bilieto laikas"
+msgstr "Minimalus neiÅ¡sprÄ™sto bilieto laikas"
 
 #: config/prefs.php.dist:128
 msgid "Most recent first"
-msgstr "Iğ pradşiø naujausi"
+msgstr "IÅ¡ pradÅ¾iÅ³ naujausi"
 
 #: ticket/queue.php:174
 #, php-format
 msgid "Moved ticket %d to \"%s\""
-msgstr "Bilietas %d perkeltas á \"%s\""
+msgstr "Bilietas %d perkeltas Ä¯ \"%s\""
 
 #: mybugs.php:52
 #, php-format
@@ -779,15 +779,15 @@ msgstr "Mano %s"
 #: mybugs_edit.php:32
 #, php-format
 msgid "My %s :: Add Content"
-msgstr "Mano %s :: Pridëti turiná"
+msgstr "Mano %s :: PridÄ—ti turinÄ¯"
 
 #: search.php:106 lib/Block/myqueries.php:3 lib/Block/myqueries.php:24
 msgid "My Queries"
-msgstr "Mano uşklausos"
+msgstr "Mano uÅ¾klausos"
 
 #: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
 msgid "My Requests"
-msgstr "Mano prağymai"
+msgstr "Mano praÅ¡ymai"
 
 #: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
 #: config/prefs.php.dist:66
@@ -796,19 +796,19 @@ msgstr "Mano bilietai"
 
 #: lib/api.php:902
 msgid "My tickets by assignment date"
-msgstr "Mano bilietai pagal paskyrimo datà"
+msgstr "Mano bilietai pagal paskyrimo datÄ…"
 
 #: lib/api.php:901
 msgid "My tickets by creation date"
-msgstr "Mano bilietai pagal sukûrimo datà"
+msgstr "Mano bilietai pagal sukÅ«rimo datÄ…"
 
 #: lib/api.php:903
 msgid "My tickets by due date"
-msgstr "Mano bilietai pagal vykdymo datà"
+msgstr "Mano bilietai pagal vykdymo datÄ…"
 
 #: lib/api.php:904
 msgid "My tickets by resolution date"
-msgstr "Mano bilietai pagal iğsprendimo datà"
+msgstr "Mano bilietai pagal iÅ¡sprendimo datÄ…"
 
 #: lib/Query.php:867 lib/Query.php:899
 msgid "Name"
@@ -820,7 +820,7 @@ msgstr "Kopijos pavadinimas"
 
 #: lib/Query.php:184
 msgid "Ne_w Query"
-msgstr "Nauja uşklausa"
+msgstr "Nauja uÅ¾klausa"
 
 #: lib/Driver.php:164
 msgid "New"
@@ -837,7 +837,7 @@ msgstr "Naujas prikabintas failas: %s"
 
 #: ticket/queue.php:31
 msgid "New Queue"
-msgstr "Nauja eilë"
+msgstr "Nauja eilÄ—"
 
 #: ticket/create.php:60 lib/Block/tree_menu.php:21
 msgid "New Ticket"
@@ -859,24 +859,24 @@ msgstr "Ne"
 
 #: lib/Block/myqueries.php:44
 msgid "No queries have been saved."
-msgstr "Neiğsaugota nei viena uşklausa."
+msgstr "NeiÅ¡saugota nei viena uÅ¾klausa."
 
 #: lib/Block/query.php:64 lib/Driver/sql.php:420
 msgid "No query to run"
-msgstr "Uşklausø nëra"
+msgstr "UÅ¾klausÅ³ nÄ—ra"
 
 #: lib/Block/queuecontents.php:25
 msgid "No queues available."
-msgstr "Eiliø nëra."
+msgstr "EiliÅ³ nÄ—ra."
 
 #: reports.php:19
 msgid "No stats available."
-msgstr "Statistikos nëra."
+msgstr "Statistikos nÄ—ra."
 
 #: lib/Driver.php:404
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "Posistemë \"%s\" nerasta"
+msgstr "PosistemÄ— \"%s\" nerasta"
 
 #: lib/Block/mytickets.php:45
 msgid "No tickets are assigned to you."
@@ -884,19 +884,19 @@ msgstr "Jums nepaskirtas nei vienas bilietas."
 
 #: lib/Block/unassigned.php:45
 msgid "No tickets are unassigned!"
-msgstr "Nepaskirtø bilietø nëra!"
+msgstr "NepaskirtÅ³ bilietÅ³ nÄ—ra!"
 
 #: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
 msgid "No tickets in queue."
-msgstr "Eilëje bilietø nëra."
+msgstr "EilÄ—je bilietÅ³ nÄ—ra."
 
 #: lib/Whups.php:530
 msgid "No tickets matched your search criteria."
-msgstr "Nerastas nei vienas bilietas atitinkantis jûsø paieğkà."
+msgstr "Nerastas nei vienas bilietas atitinkantis jÅ«sÅ³ paieÅ¡kÄ…."
 
 #: lib/Reports.php:88
 msgid "None"
-msgstr "Nëra"
+msgstr "NÄ—ra"
 
 #: lib/Query.php:572 templates/queryrenderer.inc:92
 msgid "Not"
@@ -908,11 +908,11 @@ msgstr "Dar nerealizuota."
 
 #: config/prefs.php.dist:17
 msgid "Notification Options"
-msgstr "Praneğimø nustatymai"
+msgstr "PraneÅ¡imÅ³ nustatymai"
 
 #: config/prefs.php.dist:108
 msgid "Only notify me of ticket changes from other users"
-msgstr "Perspëti mane tik jeigu bilietà keièia kiti vartotojai"
+msgstr "PerspÄ—ti mane tik jeigu bilietÄ… keiÄia kiti vartotojai"
 
 #: lib/Block/queuesummary.php:48
 msgid "Open Tickets"
@@ -920,32 +920,32 @@ msgstr "Atviri bilietai"
 
 #: lib/Reports.php:11
 msgid "Open Tickets by Owner"
-msgstr "Atviri bilietai pagal savininkà"
+msgstr "Atviri bilietai pagal savininkÄ…"
 
 #: lib/Reports.php:9
 msgid "Open Tickets by Priority"
-msgstr "Atviri bilietai pagal svarbà"
+msgstr "Atviri bilietai pagal svarbÄ…"
 
 #: lib/Reports.php:6
 msgid "Open Tickets by Queue"
-msgstr "Atviri bilietai pagal eilæ"
+msgstr "Atviri bilietai pagal eilÄ™"
 
 #: lib/Reports.php:10
 msgid "Open Tickets by Requester"
-msgstr "Atviri bilietai pagal uşsakovà"
+msgstr "Atviri bilietai pagal uÅ¾sakovÄ…"
 
 #: lib/Reports.php:7
 msgid "Open Tickets by State"
-msgstr "Atviri bilietai pagal bûsenà"
+msgstr "Atviri bilietai pagal bÅ«senÄ…"
 
 #: lib/Reports.php:8
 msgid "Open Tickets by Type"
-msgstr "Atviri bilietai pagal tipà"
+msgstr "Atviri bilietai pagal tipÄ…"
 
 #: lib/Block/queuecontents.php:47
 #, php-format
 msgid "Open Tickets in %s"
-msgstr "Atviri bilietai eilëje %s"
+msgstr "Atviri bilietai eilÄ—je %s"
 
 #: lib/Query.php:571 templates/queryrenderer.inc:91
 msgid "Or"
@@ -965,25 +965,25 @@ msgstr "Savininkai"
 #: lib/Whups.php:678
 #, php-format
 msgid "Permanently delete %s?"
-msgstr "Visiğkai iğtrinti %s?"
+msgstr "VisiÅ¡kai iÅ¡trinti %s?"
 
 #: ticket/update.php:23 ticket/delete.php:17 ticket/type.php:17
 #: ticket/queue.php:124 ticket/deleteAttachment.php:17
 msgid "Permission Denied"
-msgstr "Neuştenka teisiø"
+msgstr "NeuÅ¾tenka teisiÅ³"
 
 #: ticket/delete.php:44 lib/Forms/EditTicket.php:104
 msgid "Permission Denied."
-msgstr "Neuştenka teisiø."
+msgstr "NeuÅ¾tenka teisiÅ³."
 
 #: query.php:31 runquery.php:38 lib/Query.php:936
 #, php-format
 msgid "Permission denied."
-msgstr "Neuştenka teisiø."
+msgstr "NeuÅ¾tenka teisiÅ³."
 
 #: lib/Forms/Admin.php:270 lib/Forms/Admin.php:316
 msgid "Priorities for this Type"
-msgstr "Ğio tipo svarbos"
+msgstr "Å io tipo svarbos"
 
 #: ticket/type.php:69 ticket/queue.php:110 lib/Whups.php:483 lib/Whups.php:492
 #: lib/Ticket.php:484 lib/Ticket.php:598 lib/Ticket.php:667 lib/Query.php:746
@@ -999,7 +999,7 @@ msgstr "Svarba &rArr; %s"
 
 #: lib/Forms/Admin.php:449 lib/Forms/Admin.php:495 lib/Forms/Admin.php:518
 msgid "Priority Description"
-msgstr "Svarbos aprağymas"
+msgstr "Svarbos apraÅ¡ymas"
 
 #: lib/Forms/Admin.php:448 lib/Forms/Admin.php:473 lib/Forms/Admin.php:492
 #: lib/Forms/Admin.php:515
@@ -1008,121 +1008,121 @@ msgstr "Svarbos pavadinimas"
 
 #: query.php:155
 msgid "Query Builder"
-msgstr "Uşklausos"
+msgstr "UÅ¾klausos"
 
 #: lib/Forms/QueryParameterForm.php:20
 msgid "Query Parameters"
-msgstr "Uşklausos parametrai"
+msgstr "UÅ¾klausos parametrai"
 
 #: runquery.php:81 lib/Block/query.php:3 lib/Block/query.php:51
 msgid "Query Results"
-msgstr "Uşklausos rezultatai"
+msgstr "UÅ¾klausos rezultatai"
 
 #: lib/Block/query.php:33
 msgid "Query to run"
-msgstr "Paleisti uşklausà"
+msgstr "Paleisti uÅ¾klausÄ…"
 
 #: lib/Whups.php:493 lib/Ticket.php:480 lib/Ticket.php:594 lib/Ticket.php:648
 #: lib/Ticket.php:652 lib/Query.php:729 lib/Block/queuesummary.php:48
 #: lib/Block/queuecontents.php:32 lib/Forms/Search.php:38
 #: templates/queryrenderer.inc:107 config/prefs.php.dist:41
 msgid "Queue"
-msgstr "Eilë"
+msgstr "EilÄ—"
 
 #: templates/comment.inc:86
 #, php-format
 msgid "Queue &rArr; %s"
-msgstr "Eilë &rArr; %s"
+msgstr "EilÄ— &rArr; %s"
 
 #: lib/Block/queuecontents.php:3 lib/Block/queuecontents.php:49
 msgid "Queue Contents"
-msgstr "Eilës turinys"
+msgstr "EilÄ—s turinys"
 
 #: lib/Forms/Admin.php:24 lib/Forms/Admin.php:73 lib/Forms/Admin.php:124
 msgid "Queue Description"
-msgstr "Eilës aprağymas"
+msgstr "EilÄ—s apraÅ¡ymas"
 
 #: lib/Forms/CreateTicket.php:27 lib/Forms/CreateTicket.php:37
 #: lib/Forms/Admin.php:23 lib/Forms/Admin.php:52 lib/Forms/Admin.php:70
 #: lib/Forms/Admin.php:121
 msgid "Queue Name"
-msgstr "Eilës pavadinimas"
+msgstr "EilÄ—s pavadinimas"
 
 #: lib/Block/queuesummary.php:3 lib/Block/queuesummary.php:24
 msgid "Queue Summary"
-msgstr "Eilës santrauka"
+msgstr "EilÄ—s santrauka"
 
 #: ticket/queue.php:79 lib/Ticket.php:657 lib/Ticket.php:661
 #: lib/Forms/CreateTicket.php:77
 msgid "Queue Version"
-msgstr "Eilës versija"
+msgstr "EilÄ—s versija"
 
 #: admin/index.php:36
 msgid "Queue/Type Matri_x"
-msgstr "Eilës/Tipo matrica"
+msgstr "EilÄ—s/Tipo matrica"
 
 #: templates/admin/mtmatrix.inc:6
 msgid "Queue/Type Matrix"
-msgstr "Eilës/Tipo matrica"
+msgstr "EilÄ—s/Tipo matrica"
 
 #: lib/api.php:167 lib/api.php:827
 msgid "Queues"
-msgstr "Eilës"
+msgstr "EilÄ—s"
 
 #: lib/Forms/Admin.php:700
 msgid "Really delete this attribute? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğá atributà? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡Ä¯ atributÄ…? Tai sukels problemÅ³ su duomenimis!"
 
 #: lib/Forms/Admin.php:522
 msgid "Really delete this priority? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğià svarbà? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡iÄ… svarbÄ…? Tai sukels problemÅ³ su duomenimis!"
 
 #: lib/Query.php:927
 msgid "Really delete this query? This operation is not undoable."
-msgstr "Ar tikrai iğtrinti ğià uşklausà? Graşinti atgal nebegalësite."
+msgstr "Ar tikrai iÅ¡trinti Å¡iÄ… uÅ¾klausÄ…? GraÅ¾inti atgal nebegalÄ—site."
 
 #: lib/Forms/Admin.php:128
 msgid "Really delete this queue? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğià eilæ? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡iÄ… eilÄ™? Tai sukels problemÅ³ su duomenimis!"
 
 #: lib/Forms/Admin.php:436
 msgid "Really delete this state? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğià bûsenà? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡iÄ… bÅ«senÄ…? Tai sukels problemÅ³ su duomenimis!"
 
 #: ticket/delete.php:38
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"Ar tikrai iğtrinti ğá bilietà? Jis NËRA archyvuojamas ir bus iğtrintas "
-"amşiams."
+"Ar tikrai iÅ¡trinti Å¡Ä¯ bilietÄ…? Jis NÄ–RA archyvuojamas ir bus iÅ¡trintas "
+"amÅ¾iams."
 
 #: lib/Forms/Admin.php:320
 msgid "Really delete this type? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğá tipà? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡Ä¯ tipÄ…? Tai sukels problemÅ³ su duomenimis!"
 
 #: lib/Forms/Admin.php:608
 msgid "Really delete this version? This may cause data problems!"
-msgstr "Ar tikrai iğtrinti ğià versijà? Tai sukels problemø su duomenimis!"
+msgstr "Ar tikrai iÅ¡trinti Å¡iÄ… versijÄ…? Tai sukels problemÅ³ su duomenimis!"
 
 #: search.php:87
 msgid "Refine Search"
-msgstr "Pakeisti paieğkà"
+msgstr "Pakeisti paieÅ¡kÄ…"
 
 #: admin/index.php:854
 msgid "Reminders were sent."
-msgstr "Priminimai iğsiøsti."
+msgstr "Priminimai iÅ¡siÅ³sti."
 
 #: lib/Forms/Admin.php:177
 msgid "Remove User"
-msgstr "Iğtrinti vartotojà"
+msgstr "IÅ¡trinti vartotojÄ…"
 
 #: ticket/watch.php:48
 msgid "Remove Watcher"
-msgstr "Iğtrinti stebëtojà"
+msgstr "IÅ¡trinti stebÄ—tojÄ…"
 
 #: templates/comment.inc:81
 msgid "Reply to this comment"
-msgstr "Atsakyti á ğá komentarà"
+msgstr "Atsakyti Ä¯ Å¡Ä¯ komentarÄ…"
 
 #: reports.php:24
 msgid "Reports"
@@ -1130,12 +1130,12 @@ msgstr "Raportai"
 
 #: lib/Whups.php:494 lib/Ticket.php:672 templates/queryrenderer.inc:99
 msgid "Requester"
-msgstr "Uşsakovas"
+msgstr "UÅ¾sakovas"
 
 #: lib/Whups.php:499 lib/Driver.php:166 lib/Ticket.php:679 lib/api.php:945
 #: config/prefs.php.dist:45
 msgid "Resolved"
-msgstr "Iğspræsta"
+msgstr "IÅ¡sprÄ™sta"
 
 #: lib/Forms/Admin.php:179
 msgid "Responsible Users"
@@ -1147,110 +1147,110 @@ msgstr "Leisti komentuoti tik:"
 
 #: templates/prevnext.inc:26
 msgid "Return to Search Results"
-msgstr "Gráşti á paieğkos rezultatus"
+msgstr "GrÄ¯Å¾ti Ä¯ paieÅ¡kos rezultatus"
 
 #: lib/Whups.php:201
 msgid "S_et Queue"
-msgstr "Nustatyti eilæ"
+msgstr "Nustatyti eilÄ™"
 
 #: lib/Query.php:202
 msgid "Sa_ve Query"
-msgstr "Iğsaugoti uşklausà"
+msgstr "IÅ¡saugoti uÅ¾klausÄ…"
 
 #: lib/Query.php:865 templates/searchresults.inc:79
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: lib/Query.php:864
 msgid "Save Query"
-msgstr "Iğsaugoti uşklausà"
+msgstr "IÅ¡saugoti uÅ¾klausÄ…"
 
 #: templates/searchresults.inc:73
 msgid "Save these results as: "
-msgstr "Iğsaugoti ğiuos rezultatus kaip: "
+msgstr "IÅ¡saugoti Å¡iuos rezultatus kaip: "
 
 #: search.php:26 lib/Block/tree_menu.php:30
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: lib/Query.php:822
 #, php-format
 msgid "Search %s Attribute"
-msgstr "Ieğkoti %s atributo"
+msgstr "IeÅ¡koti %s atributo"
 
 #: lib/Query.php:825
 msgid "Search Attribute"
-msgstr "Ieğkoti atribute"
+msgstr "IeÅ¡koti atribute"
 
 #: lib/Query.php:595 lib/Query.php:680
 msgid "Search Comments"
-msgstr "Ieğkoti komentaruose"
+msgstr "IeÅ¡koti komentaruose"
 
 #: lib/Query.php:593
 msgid "Search Owners"
-msgstr "Ieğkoti tarp savininkø"
+msgstr "IeÅ¡koti tarp savininkÅ³"
 
 #: lib/Query.php:594
 msgid "Search Requester"
-msgstr "Ieğkoti tarp uşsakovø"
+msgstr "IeÅ¡koti tarp uÅ¾sakovÅ³"
 
 #: search.php:82
 msgid "Search Results"
-msgstr "Paieğkos rezultatai"
+msgstr "PaieÅ¡kos rezultatai"
 
 #: templates/prevnext.inc:22
 #, php-format
 msgid "Search Results: %s of %s"
-msgstr "Paieğkos rezultatai: %s iğ %s"
+msgstr "PaieÅ¡kos rezultatai: %s iÅ¡ %s"
 
 #: lib/Query.php:679
 msgid "Search Summary"
-msgstr "Paieğkos santrauka"
+msgstr "PaieÅ¡kos santrauka"
 
 #: config/prefs.php.dist:67
 msgid "Search Tickets"
-msgstr "Bilietø paieğka"
+msgstr "BilietÅ³ paieÅ¡ka"
 
 #: config/prefs.php.dist:69
 msgid "Select the view to display after login:"
-msgstr "Pasirinkite, kurá puslapá rodyti po prisijungimo:"
+msgstr "Pasirinkite, kurÄ¯ puslapÄ¯ rodyti po prisijungimo:"
 
 #: admin/index.php:37
 msgid "Sen_d Reminders"
-msgstr "Siøsti priminimus"
+msgstr "SiÅ³sti priminimus"
 
 #: lib/Forms/Admin.php:711
 msgid "Send Reminders"
-msgstr "Siøsti priminimus"
+msgstr "SiÅ³sti priminimus"
 
 #: lib/Forms/Admin.php:722
 msgid "Send only for this list of ticket ids"
-msgstr "Siøsti tik bilietams su ğiais id"
+msgstr "SiÅ³sti tik bilietams su Å¡iais id"
 
 #: ticket/queue.php:195 ticket/queue.php:204 ticket/queue.php:216
 msgid "Set Queue - Step 1"
-msgstr "Eilës nustatymas - 1 şingsnis"
+msgstr "EilÄ—s nustatymas - 1 Å¾ingsnis"
 
 #: ticket/queue.php:196 ticket/queue.php:205
 msgid "Set Queue - Step 2"
-msgstr "Eilës nustatymas - 2 şingsnis"
+msgstr "EilÄ—s nustatymas - 2 Å¾ingsnis"
 
 #: ticket/queue.php:206
 msgid "Set Queue - Step 3"
-msgstr "Eilës nustatymas - 3 şingsnis"
+msgstr "EilÄ—s nustatymas - 3 Å¾ingsnis"
 
 #: ticket/queue.php:182
 #, php-format
 msgid "Set Queue for %s"
-msgstr "%s eilës nustatymas"
+msgstr "%s eilÄ—s nustatymas"
 
 #: ticket/type.php:137 ticket/type.php:146
 msgid "Set Type - Step 1"
-msgstr "Tipo nustatymas - 1 şingsnis"
+msgstr "Tipo nustatymas - 1 Å¾ingsnis"
 
 #: ticket/type.php:138
 msgid "Set Type - Step 2"
-msgstr "Tipo nustatymas - 2 şingsnis"
+msgstr "Tipo nustatymas - 2 Å¾ingsnis"
 
 #: ticket/type.php:124
 #, php-format
@@ -1259,19 +1259,19 @@ msgstr "%s tipo nustatymas"
 
 #: lib/Whups.php:205
 msgid "Set _Type"
-msgstr "Nustatyti tipà"
+msgstr "Nustatyti tipÄ…"
 
 #: config/prefs.php.dist:126
 msgid "Show comments in chronological order, or most recent first?"
-msgstr "Rodyti komentarus chronologine tvarka ar iğ pradşiø naujausius?"
+msgstr "Rodyti komentarus chronologine tvarka ar iÅ¡ pradÅ¾iÅ³ naujausius?"
 
 #: config/prefs.php.dist:86
 msgid "Show ticket IDs in the summary view?"
-msgstr "Santraukoje rodyti bilietø ID?"
+msgstr "Santraukoje rodyti bilietÅ³ ID?"
 
 #: config/prefs.php.dist:78
 msgid "Show tickets you have requested in the summary view?"
-msgstr "Santraukoje rodyti jûsø sukurtus bilietus?"
+msgstr "Santraukoje rodyti jÅ«sÅ³ sukurtus bilietus?"
 
 #: config/templates.php.dist:16
 msgid "Simple HTML Report"
@@ -1280,58 +1280,58 @@ msgstr "Paprastas HTML raportas"
 #: templates/searchresults.inc:98 templates/searchresults.inc:101
 #, php-format
 msgid "Sort by %s"
-msgstr "Rûğiuoti pagal %s"
+msgstr "RÅ«Å¡iuoti pagal %s"
 
 #: lib/Forms/CreateTicket.php:113 lib/Forms/CreateTicket.php:142
 #: lib/Forms/AddComment.php:20 lib/Forms/AddComment.php:51
 msgid "Spam protection"
-msgstr "Apsauga nuo ğiukğliø"
+msgstr "Apsauga nuo Å¡iukÅ¡liÅ³"
 
 #: ticket/type.php:68 ticket/queue.php:109 lib/Whups.php:484 lib/Whups.php:490
 #: lib/Ticket.php:483 lib/Ticket.php:597 lib/Ticket.php:666 lib/Query.php:741
 #: lib/Forms/EditTicket.php:29 templates/queryrenderer.inc:130
 #: config/prefs.php.dist:38
 msgid "State"
-msgstr "Bûsena"
+msgstr "BÅ«sena"
 
 #: templates/comment.inc:94
 #, php-format
 msgid "State &rArr; %s"
-msgstr "Bûsena &rArr; %s"
+msgstr "BÅ«sena &rArr; %s"
 
 #: lib/Forms/Admin.php:360 lib/Forms/Admin.php:409
 msgid "State Category"
-msgstr "Bûsenos kategorija"
+msgstr "BÅ«senos kategorija"
 
 #: lib/Forms/Admin.php:359 lib/Forms/Admin.php:406 lib/Forms/Admin.php:432
 msgid "State Description"
-msgstr "Bûsenos aprağymas"
+msgstr "BÅ«senos apraÅ¡ymas"
 
 #: lib/Forms/Admin.php:358 lib/Forms/Admin.php:384 lib/Forms/Admin.php:403
 #: lib/Forms/Admin.php:429
 msgid "State Name"
-msgstr "Bûsenos pavadinimas"
+msgstr "BÅ«senos pavadinimas"
 
 #: lib/Forms/Admin.php:260 lib/Forms/Admin.php:312
 msgid "States for this Type"
-msgstr "Ğio tipo bûsena"
+msgstr "Å io tipo bÅ«sena"
 
 #: templates/ticket/watchers.inc:1
 msgid "Status"
-msgstr "Bûsena"
+msgstr "BÅ«sena"
 
 #: ticket/create.php:124
 msgid "Submit"
-msgstr "Ávesti"
+msgstr "Ä®vesti"
 
 #: admin/index.php:162
 #, php-format
 msgid "Successfully Cloned %s to %s."
-msgstr "%s sëkmingai nukopijuotas á %s."
+msgstr "%s sÄ—kmingai nukopijuotas Ä¯ %s."
 
 #: ticket/type.php:115
 msgid "Successfully changed ticket type."
-msgstr "Bilieto tipas sëkmingai pakeistas."
+msgstr "Bilieto tipas sÄ—kmingai pakeistas."
 
 #: ticket/delete.php:34 lib/Whups.php:482 lib/Whups.php:489 lib/Ticket.php:492
 #: lib/Ticket.php:508 lib/Ticket.php:509 lib/Ticket.php:511 lib/Ticket.php:604
@@ -1353,7 +1353,7 @@ msgstr "Pavadinimas"
 #: templates/comment.inc:69
 #, php-format
 msgid "Taken from %s"
-msgstr "Paimta iğ %s"
+msgstr "Paimta iÅ¡ %s"
 
 #: lib/Query.php:677
 msgid "Text"
@@ -1361,16 +1361,16 @@ msgstr "Tekstas"
 
 #: view.php:55 lib/Ticket.php:356 lib/Ticket.php:394
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Prikabintø failø galimybei turi bûti ájungta VFS posistemë."
+msgstr "PrikabintÅ³ failÅ³ galimybei turi bÅ«ti Ä¯jungta VFS posistemÄ—."
 
 #: admin/index.php:739
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
-msgstr "Atributas \"%s\" pridëtas á %s."
+msgstr "Atributas \"%s\" pridÄ—tas Ä¯ %s."
 
 #: admin/index.php:825
 msgid "The attribute has been deleted."
-msgstr "Atributas iğtrintas."
+msgstr "Atributas iÅ¡trintas."
 
 #: admin/index.php:794
 msgid "The attribute has been modified."
@@ -1378,16 +1378,16 @@ msgstr "Atributas pakeistas."
 
 #: admin/index.php:830
 msgid "The attribute was not deleted."
-msgstr "Atributas neiğtrintas."
+msgstr "Atributas neiÅ¡trintas."
 
 #: admin/index.php:451
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
-msgstr "Svarba \"%s\" pridëta á %s."
+msgstr "Svarba \"%s\" pridÄ—ta Ä¯ %s."
 
 #: admin/index.php:532
 msgid "The priority has been deleted."
-msgstr "Svarba iğtrinta."
+msgstr "Svarba iÅ¡trinta."
 
 #: admin/index.php:504
 msgid "The priority has been modified."
@@ -1395,68 +1395,68 @@ msgstr "Svarba pakeistas."
 
 #: admin/index.php:537
 msgid "The priority was not deleted."
-msgstr "Svarba neiğtrinta."
+msgstr "Svarba neiÅ¡trinta."
 
 #: lib/Query.php:940
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
-msgstr "Nepavyko iğtrinti uşklausos \"%s\": %s"
+msgstr "Nepavyko iÅ¡trinti uÅ¾klausos \"%s\": %s"
 
 #: lib/Query.php:942
 #, php-format
 msgid "The query \"%s\" has been deleted."
-msgstr "Uşklausa \"%s\" iğtrinta."
+msgstr "UÅ¾klausa \"%s\" iÅ¡trinta."
 
 #: lib/Query.php:907
 #, php-format
 msgid "The query couldn't be loaded:"
-msgstr "Nepavyko uşkrauti uşklausos:"
+msgstr "Nepavyko uÅ¾krauti uÅ¾klausos:"
 
 #: admin/index.php:241
 #, php-format
 msgid "The queue \"%s\" has been created."
-msgstr "Eilë \"%s\" sukurta."
+msgstr "EilÄ— \"%s\" sukurta."
 
 #: admin/index.php:320
 msgid "The queue has been deleted."
-msgstr "Eilë iğtrinta."
+msgstr "EilÄ— iÅ¡trinta."
 
 #: admin/index.php:292
 msgid "The queue has been modified."
-msgstr "Eilë pakeista."
+msgstr "EilÄ— pakeista."
 
 #: admin/index.php:325
 msgid "The queue was not deleted."
-msgstr "Eilë neiğtrinta."
+msgstr "EilÄ— neiÅ¡trinta."
 
 #: lib/MIME/Viewer/zip.php:58
 msgid "The requested file does not exist in the Zip attachment."
-msgstr "Ğios bylos nëra Zip archyve."
+msgstr "Å ios bylos nÄ—ra Zip archyve."
 
 #: data.php:26
 msgid "The requested template does not exist."
-msgstr "Nurodytas ğablonas neegzistuoja."
+msgstr "Nurodytas Å¡ablonas neegzistuoja."
 
 #: admin/index.php:340
 #, php-format
 msgid "The state \"%s\" has been added to %s."
-msgstr "Bûsena \"%s\" pridëta á %s."
+msgstr "BÅ«sena \"%s\" pridÄ—ta Ä¯ %s."
 
 #: admin/index.php:423
 msgid "The state has been deleted."
-msgstr "Bûsena iğtrinta."
+msgstr "BÅ«sena iÅ¡trinta."
 
 #: admin/index.php:394
 msgid "The state has been modified."
-msgstr "Bûsena pakeista."
+msgstr "BÅ«sena pakeista."
 
 #: admin/index.php:428
 msgid "The state was not deleted."
-msgstr "Bûsena neiğtrinta."
+msgstr "BÅ«sena neiÅ¡trinta."
 
 #: ticket/delete.php:75
 msgid "The ticket was not deleted."
-msgstr "Bilietas neiğtrintas."
+msgstr "Bilietas neiÅ¡trintas."
 
 #: admin/index.php:180
 #, php-format
@@ -1465,20 +1465,20 @@ msgstr "Tipas \"%s\" pakeistas."
 
 #: admin/index.php:222
 msgid "The type has been deleted."
-msgstr "Tipas iğtrintas."
+msgstr "Tipas iÅ¡trintas."
 
 #: admin/index.php:227
 msgid "The type was not deleted."
-msgstr "Tipas neiğtrintas."
+msgstr "Tipas neiÅ¡trintas."
 
 #: admin/index.php:629
 #, php-format
 msgid "The version \"%s\" has been added to %s."
-msgstr "Versija \"%s\" pridëta á %s."
+msgstr "Versija \"%s\" pridÄ—ta Ä¯ %s."
 
 #: admin/index.php:711
 msgid "The version has been deleted."
-msgstr "Versija iğtrinta."
+msgstr "Versija iÅ¡trinta."
 
 #: admin/index.php:683
 msgid "The version has been modified."
@@ -1486,186 +1486,186 @@ msgstr "Versija pakeista."
 
 #: admin/index.php:716
 msgid "The version was not deleted."
-msgstr "Versija neiğtrinta."
+msgstr "Versija neiÅ¡trinta."
 
 #: lib/Forms/Admin.php:647
 msgid "There are no attribute types to edit"
-msgstr "Atributø tipø redagavimui nëra"
+msgstr "AtributÅ³ tipÅ³ redagavimui nÄ—ra"
 
 #: lib/Query.php:825
 msgid "There are no attributes defined for the current type"
-msgstr "Ğiam tipui nëra aprağytø atributø"
+msgstr "Å iam tipui nÄ—ra apraÅ¡ytÅ³ atributÅ³"
 
 #: lib/Block/queuesummary.php:43
 msgid "There are no open tickets."
-msgstr "Atvirø bilietø nëra."
+msgstr "AtvirÅ³ bilietÅ³ nÄ—ra."
 
 #: lib/Forms/Admin.php:469
 msgid "There are no priorities to edit"
-msgstr "Svarbø redagavimui nëra"
+msgstr "SvarbÅ³ redagavimui nÄ—ra"
 
 #: lib/Forms/Admin.php:719
 msgid "There are no queues available."
-msgstr "Eiliø nëra."
+msgstr "EiliÅ³ nÄ—ra."
 
 #: lib/Forms/Admin.php:49
 msgid "There are no queues to edit"
-msgstr "Eiliø redagavimui nëra"
+msgstr "EiliÅ³ redagavimui nÄ—ra"
 
 #: lib/Forms/CreateTicket.php:27
 msgid "There are no queues which you can create tickets in."
-msgstr "Eiliø, kuriose galite kurti bilietus, nëra."
+msgstr "EiliÅ³, kuriose galite kurti bilietus, nÄ—ra."
 
 #: lib/Forms/Search.php:36
 msgid "There are no queues which you can search."
-msgstr "Eiliø, kuriose galite ieğkoti, nëra."
+msgstr "EiliÅ³, kuriose galite ieÅ¡koti, nÄ—ra."
 
 #: lib/Forms/Admin.php:380
 msgid "There are no states to edit"
-msgstr "Bûsenø redagavimui nëra"
+msgstr "BÅ«senÅ³ redagavimui nÄ—ra"
 
 #: lib/Forms/CreateTicket.php:61
 msgid ""
 "There are no ticket types associated with this queue; until there are, you "
 "cannot create any tickets in this queue."
 msgstr ""
-"Su ğia eile nëra susietø tipø; kol tai nebus padaryta, jûs negalësite ğioje "
-"eilëje kurti naujø bilietø."
+"Su Å¡ia eile nÄ—ra susietÅ³ tipÅ³; kol tai nebus padaryta, jÅ«s negalÄ—site Å¡ioje "
+"eilÄ—je kurti naujÅ³ bilietÅ³."
 
 #: lib/Forms/Admin.php:231
 msgid "There are no types to edit"
-msgstr "Tipø redagavimui nëra"
+msgstr "TipÅ³ redagavimui nÄ—ra"
 
 #: lib/Forms/Admin.php:193
 msgid "There are no users responsible for this queue."
-msgstr "Vartotojø, atsakingø uş ğià eilæ, nëra."
+msgstr "VartotojÅ³, atsakingÅ³ uÅ¾ Å¡iÄ… eilÄ™, nÄ—ra."
 
 #: lib/Forms/CreateTicket.php:197
 msgid "There are no users to which this ticket can be assigned."
-msgstr "Vartotojø, kuriems gali bûti paskirti bilietai, nëra."
+msgstr "VartotojÅ³, kuriems gali bÅ«ti paskirti bilietai, nÄ—ra."
 
 #: lib/Forms/Admin.php:555
 msgid "There are no versions to edit"
-msgstr "Versijø redagavimui nëra"
+msgstr "VersijÅ³ redagavimui nÄ—ra"
 
 #: lib/Reports.php:161
 msgid "There is no data for this report."
-msgstr "Ğiam raportui neuştenka duomenø."
+msgstr "Å iam raportui neuÅ¾tenka duomenÅ³."
 
 #: admin/index.php:571
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\": %s"
-msgstr "Klaida pridedant \"%s\" kaip atsakingà uş \"%s\": %s"
+msgstr "Klaida pridedant \"%s\" kaip atsakingÄ… uÅ¾ \"%s\": %s"
 
 #: admin/index.php:742
 #, php-format
 msgid "There was an error creating the attribute: %s."
-msgstr "Klaida kuriant atributà: %s."
+msgstr "Klaida kuriant atributÄ…: %s."
 
 #: admin/index.php:453
 #, php-format
 msgid "There was an error creating the priority: %s."
-msgstr "Klaida kuriant svarbà: %s."
+msgstr "Klaida kuriant svarbÄ…: %s."
 
 #: admin/index.php:249
 #, php-format
 msgid "There was an error creating the queue: %s."
-msgstr "Klaida kuriant eilæ: %s."
+msgstr "Klaida kuriant eilÄ™: %s."
 
 #: admin/index.php:342
 #, php-format
 msgid "There was an error creating the state: %s."
-msgstr "Klaida kuriant bûsenà: %s."
+msgstr "Klaida kuriant bÅ«senÄ…: %s."
 
 #: admin/index.php:631
 #, php-format
 msgid "There was an error creating the version: %s."
-msgstr "Klaida kuriant versijà: %s."
+msgstr "Klaida kuriant versijÄ…: %s."
 
 #: admin/index.php:827
 #, php-format
 msgid "There was an error deleting the attribute: %s."
-msgstr "Klaida trinant atributà: %s."
+msgstr "Klaida trinant atributÄ…: %s."
 
 #: admin/index.php:534
 #, php-format
 msgid "There was an error deleting the priority: %s."
-msgstr "Klaida trinant svarbà: %s."
+msgstr "Klaida trinant svarbÄ…: %s."
 
 #: admin/index.php:322
 #, php-format
 msgid "There was an error deleting the queue: %s."
-msgstr "Klaida trinant eilæ: %s."
+msgstr "Klaida trinant eilÄ™: %s."
 
 #: admin/index.php:425
 #, php-format
 msgid "There was an error deleting the state: %s."
-msgstr "Klaida trinant bûsenà: %s."
+msgstr "Klaida trinant bÅ«senÄ…: %s."
 
 #: ticket/delete.php:72
 #, php-format
 msgid "There was an error deleting the ticket: %s"
-msgstr "Klaida trinant bilietà: %s"
+msgstr "Klaida trinant bilietÄ…: %s"
 
 #: admin/index.php:224
 #, php-format
 msgid "There was an error deleting the type: %s."
-msgstr "Klaida trinant tipà: %s."
+msgstr "Klaida trinant tipÄ…: %s."
 
 #: admin/index.php:713
 #, php-format
 msgid "There was an error deleting the version: %s."
-msgstr "Klaida trinant versijà: %s."
+msgstr "Klaida trinant versijÄ…: %s."
 
 #: admin/index.php:802
 #, php-format
 msgid "There was an error editing the attribute: %s."
-msgstr "Klaida keièiant atributà: %s."
+msgstr "Klaida keiÄiant atributÄ…: %s."
 
 #: admin/index.php:509
 #, php-format
 msgid "There was an error editing the priority: %s."
-msgstr "Klaida keièiant svarbà: %s."
+msgstr "Klaida keiÄiant svarbÄ…: %s."
 
 #: admin/index.php:306
 #, php-format
 msgid "There was an error editing the queue: %s."
-msgstr "Klaida keièiant eilæ: %s."
+msgstr "Klaida keiÄiant eilÄ™: %s."
 
 #: admin/index.php:399
 #, php-format
 msgid "There was an error editing the state: %s."
-msgstr "Klaida keièiant bûsenà: %s."
+msgstr "Klaida keiÄiant bÅ«senÄ…: %s."
 
 #: admin/index.php:688
 #, php-format
 msgid "There was an error editing the version: %s."
-msgstr "Klaida keièiant versijà: %s."
+msgstr "Klaida keiÄiant versijÄ…: %s."
 
 #: lib/Forms/Admin.php:153
 #, php-format
 msgid "There was an error listing users: %s; %s"
-msgstr "Klaida parodant vartotojø sàrağà: %s; %s"
+msgstr "Klaida parodant vartotojÅ³ sÄ…raÅ¡Ä…: %s; %s"
 
 #: admin/index.php:178
 #, php-format
 msgid "There was an error modifying the type: %s."
-msgstr "Klaida keièiant tipà:: %s."
+msgstr "Klaida keiÄiant tipÄ…:: %s."
 
 #: search.php:76
 #, php-format
 msgid "There was an error performing your search: %s"
-msgstr "Klaida atliekant jûsø paieğkà: %s"
+msgstr "Klaida atliekant jÅ«sÅ³ paieÅ¡kÄ…: %s"
 
 #: admin/index.php:607
 #, php-format
 msgid ""
 "There was an error removing \"%s\" from the responsible list for \"%s\": %s"
-msgstr "Klaida trinant \"%s\" iğ atsakingø uş \"%s\" sàrağo: %s"
+msgstr "Klaida trinant \"%s\" iÅ¡ atsakingÅ³ uÅ¾ \"%s\" sÄ…raÅ¡o: %s"
 
 #: data.php:29
 msgid "This is not a search results template."
-msgstr "Tai nëra paieğkos rezultatø ğablonas."
+msgstr "Tai nÄ—ra paieÅ¡kos rezultatÅ³ Å¡ablonas."
 
 #: ticket/queue.php:74 lib/Forms/CreateTicket.php:72
 msgid ""
@@ -1673,8 +1673,8 @@ msgid ""
 "associated with it. Until versions are created for this queue, you will not "
 "be able to create tickets."
 msgstr ""
-"Ğioje eilëje reikia nurodyti versijas, taèiau su ja nesusieta jokia versija. "
-"Jûs negalësite kurti naujø bilietø tol, kol eilei nebus sukurtos versijos."
+"Å ioje eilÄ—je reikia nurodyti versijas, taÄiau su ja nesusieta jokia versija. "
+"JÅ«s negalÄ—site kurti naujÅ³ bilietÅ³ tol, kol eilei nebus sukurtos versijos."
 
 #: lib/Ticket.php:505 lib/Ticket.php:611
 msgid "Ticket"
@@ -1683,7 +1683,7 @@ msgstr "Bilietas"
 #: ticket/delete.php:68
 #, php-format
 msgid "Ticket %d has been deleted."
-msgstr "Bilietas %d iğtrintas."
+msgstr "Bilietas %d iÅ¡trintas."
 
 #: lib/api.php:873
 #, php-format
@@ -1697,11 +1697,11 @@ msgstr "Bilietas %s nerastas."
 
 #: search.php:98
 msgid "Ticket Search"
-msgstr "Bilieto paieğka"
+msgstr "Bilieto paieÅ¡ka"
 
 #: lib/Forms/CreateTicket.php:117
 msgid "Ticket State"
-msgstr "Bilieto bûsena"
+msgstr "Bilieto bÅ«sena"
 
 #: templates/reports/stats.inc:3
 msgid "Ticket Stats"
@@ -1713,7 +1713,7 @@ msgstr "Bilieto tipas"
 
 #: lib/Forms/Admin.php:76
 msgid "Ticket Types associated with this Queue"
-msgstr "Bilietø tipai susieti su ğia eile"
+msgstr "BilietÅ³ tipai susieti su Å¡ia eile"
 
 #: lib/Ticket.php:501
 #, php-format
@@ -1745,7 +1745,7 @@ msgstr "Tipas &rArr; %s"
 
 #: lib/Forms/Admin.php:211 lib/Forms/Admin.php:255 lib/Forms/Admin.php:308
 msgid "Type Description"
-msgstr "Tipo aprağymas"
+msgstr "Tipo apraÅ¡ymas"
 
 #: lib/Forms/Admin.php:210 lib/Forms/Admin.php:234 lib/Forms/Admin.php:252
 #: lib/Forms/Admin.php:305
@@ -1775,7 +1775,7 @@ msgstr "Nepatvirtintas"
 #: templates/queryrenderer.inc:148 templates/queryrenderer.inc:188
 #, php-format
 msgid "Unknown node type %s"
-msgstr "Neşinomas ğakos tipas %s"
+msgstr "NeÅ¾inomas Å¡akos tipas %s"
 
 #: lib/api.php:841
 msgid "Update"
@@ -1788,7 +1788,7 @@ msgstr "Atnaujinti %s"
 
 #: templates/admin/mtmatrix.inc:29
 msgid "Update Associations"
-msgstr "Atnaujinti sàsajas"
+msgstr "Atnaujinti sÄ…sajas"
 
 #: lib/Whups.php:497 lib/Ticket.php:677
 msgid "Updated"
@@ -1808,11 +1808,11 @@ msgstr "Vartotojo ID"
 
 #: lib/Forms/Admin.php:94
 msgid "Users responsible for this Queue"
-msgstr "Vartotojø atsakingi uş ğià eilæ"
+msgstr "VartotojÅ³ atsakingi uÅ¾ Å¡iÄ… eilÄ™"
 
 #: lib/Forms/Admin.php:197
 msgid "Users responsible for this queue"
-msgstr "Vartotojø atsakingi uş ğià eilæ"
+msgstr "VartotojÅ³ atsakingi uÅ¾ Å¡iÄ… eilÄ™"
 
 #: lib/Ticket.php:481 lib/Ticket.php:595 lib/Query.php:733
 #: templates/queryrenderer.inc:115 config/prefs.php.dist:42
@@ -1821,7 +1821,7 @@ msgstr "Versija"
 
 #: lib/Forms/Admin.php:535 lib/Forms/Admin.php:581 lib/Forms/Admin.php:604
 msgid "Version Description"
-msgstr "Versijos aprağymas"
+msgstr "Versijos apraÅ¡ymas"
 
 #: lib/Forms/Admin.php:534 lib/Forms/Admin.php:559 lib/Forms/Admin.php:578
 #: lib/Forms/Admin.php:601
@@ -1830,24 +1830,24 @@ msgstr "Versijos pavadinimas"
 
 #: ticket/type.php:46 ticket/queue.php:45 lib/Forms/AddComment.php:38
 msgid "Viewable only by members of"
-msgstr "Gali perşiûrëti tik grupës nariai"
+msgstr "Gali perÅ¾iÅ«rÄ—ti tik grupÄ—s nariai"
 
 #: lib/Forms/AddComment.php:25
 msgid "Watch this ticket"
-msgstr "Stebëti ğá bilietà"
+msgstr "StebÄ—ti Å¡Ä¯ bilietÄ…"
 
 #: ticket/watch.php:76
 #, php-format
 msgid "Watchers for %s"
-msgstr "%s stebëtojai"
+msgstr "%s stebÄ—tojai"
 
 #: config/prefs.php.dist:95
 msgid "Weekday Day Month"
-msgstr "Savaitës diena Diena Mënuo"
+msgstr "SavaitÄ—s diena Diena MÄ—nuo"
 
 #: config/prefs.php.dist:96
 msgid "Weekday Day Month HH:MM:SS TZ"
-msgstr "Savaitës diena Diena Mënuo HH:MM:SS LZ"
+msgstr "SavaitÄ—s diena Diena MÄ—nuo HH:MM:SS LZ"
 
 #: ticket/delete.php:37 lib/Query.php:926 lib/Forms/Admin.php:127
 #: lib/Forms/Admin.php:319 lib/Forms/Admin.php:435 lib/Forms/Admin.php:521
@@ -1857,32 +1857,32 @@ msgstr "Taip"
 
 #: view.php:51
 msgid "You are not allowed to view this ticket."
-msgstr "Jûs neturite teisiø matyti ğio bilieto."
+msgstr "JÅ«s neturite teisiÅ³ matyti Å¡io bilieto."
 
 #: lib/Driver/sql.php:874
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
-msgstr "Jûs neturite teisiø perşiûrëti ğio bilieto (%s)."
+msgstr "JÅ«s neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¡io bilieto (%s)."
 
 #: lib/api.php:570
 msgid "You do not have permission to update this ticket."
-msgstr "Jûs neturite teisiø keisti ğio bilieto."
+msgstr "JÅ«s neturite teisiÅ³ keisti Å¡io bilieto."
 
 #: lib/Block/myrequests.php:46
 msgid "You have no open requests."
-msgstr "Jûs neturite atvirø bilietø apie kuriuos praneğëte jûs pats."
+msgstr "JÅ«s neturite atvirÅ³ bilietÅ³ apie kuriuos praneÅ¡Ä—te jÅ«s pats."
 
 #: lib/Query.php:896 lib/Block/query.php:28
 msgid "You have no saved queries."
-msgstr "Jûs neturite iğsaugotø uşklausø."
+msgstr "JÅ«s neturite iÅ¡saugotÅ³ uÅ¾klausÅ³."
 
 #: lib/Whups.php:524
 msgid "You must select at least one queue to send reminders for."
-msgstr "Priminimø iğsiuntimui turite pasirinkti bent vienà eilæ."
+msgstr "PriminimÅ³ iÅ¡siuntimui turite pasirinkti bent vienÄ… eilÄ™."
 
 #: lib/Forms/CreateTicket.php:111 lib/Forms/AddComment.php:18
 msgid "Your Email Address"
-msgstr "Jûsø el. pağto adresas"
+msgstr "JÅ«sÅ³ el. paÅ¡to adresas"
 
 #: ticket/create.php:53
 #, php-format
@@ -1890,7 +1890,7 @@ msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
 "request."
 msgstr ""
-"Jûsø bilieto ID yra %s. Apie ğià uşklausà buvo praneğta atsakingam asmeniui."
+"JÅ«sÅ³ bilieto ID yra %s. Apie Å¡iÄ… uÅ¾klausÄ… buvo praneÅ¡ta atsakingam asmeniui."
 
 #: lib/Whups.php:587
 msgid "_Admin"
@@ -1902,15 +1902,15 @@ msgstr "Komentaras"
 
 #: lib/Whups.php:206
 msgid "_Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: lib/Query.php:205
 msgid "_Delete Query"
-msgstr "Iğtrinti uşklausà"
+msgstr "IÅ¡trinti uÅ¾klausÄ…"
 
 #: lib/Query.php:186
 msgid "_Edit Query"
-msgstr "Keisti uşklausà"
+msgstr "Keisti uÅ¾klausÄ…"
 
 #: admin/index.php:34
 msgid "_Edit Queues"
@@ -1922,7 +1922,7 @@ msgstr "Rodyti"
 
 #: query.php:139
 msgid "_Group Criteria"
-msgstr "Grupës kriterijus"
+msgstr "GrupÄ—s kriterijus"
 
 #: lib/Whups.php:192
 msgid "_History"
@@ -1930,7 +1930,7 @@ msgstr "Istorija"
 
 #: lib/Query.php:199
 msgid "_Load Query"
-msgstr "Uşkrauti uşklausà"
+msgstr "UÅ¾krauti uÅ¾klausÄ…"
 
 #: lib/Whups.php:578
 #, php-format
@@ -1943,11 +1943,11 @@ msgstr "Naujas bilietas"
 
 #: query.php:137
 msgid "_Property Criteria"
-msgstr "Savybës kriterijus"
+msgstr "SavybÄ—s kriterijus"
 
 #: lib/Whups.php:582
 msgid "_Query Builder"
-msgstr "Uşklausos"
+msgstr "UÅ¾klausos"
 
 #: lib/Whups.php:583
 msgid "_Reports"
@@ -1955,7 +1955,7 @@ msgstr "Raportai"
 
 #: lib/Whups.php:580
 msgid "_Search"
-msgstr "_Ieğkoti"
+msgstr "_IeÅ¡koti"
 
 #: query.php:141
 msgid "_Text Criteria"
@@ -1971,19 +1971,19 @@ msgstr "Vartotojo kriterijus"
 
 #: lib/Whups.php:198
 msgid "_Watch"
-msgstr "Stebëti"
+msgstr "StebÄ—ti"
 
 #: templates/queryrenderer.inc:168
 msgid "contains (case insensitive) substring"
-msgstr "turi tekstà (didşiosios/maşosios nesvarbu)"
+msgstr "turi tekstÄ… (didÅ¾iosios/maÅ¾osios nesvarbu)"
 
 #: templates/queryrenderer.inc:172
 msgid "contains (case sensitive) substring"
-msgstr "turi tekstà (didşiosios/maşosios svarbu)"
+msgstr "turi tekstÄ… (didÅ¾iosios/maÅ¾osios svarbu)"
 
 #: templates/queryrenderer.inc:176
 msgid "contains the word"
-msgstr "turi şodá"
+msgstr "turi Å¾odÄ¯"
 
 #: lib/api.php:882
 msgid "estimated time"
@@ -1999,8 +1999,8 @@ msgstr "didesnis nei"
 
 #: templates/queryrenderer.inc:160
 msgid "is less than"
-msgstr "maşesnis nei"
+msgstr "maÅ¾esnis nei"
 
 #: templates/queryrenderer.inc:180
 msgid "matches the pattern"
-msgstr "atitinka formà"
+msgstr "atitinka formÄ…"

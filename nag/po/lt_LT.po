@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: templates/view/task.inc:35
 #, php-format
 msgid " (%s including sub-tasks)"
-msgstr " (%s áskaitant susijusius darbus)"
+msgstr " (%s Ä¯skaitant susijusius darbus)"
 
 #: lib/Nag.php:71
 #, php-format
@@ -71,7 +71,7 @@ msgstr "%s %s"
 #: lib/Nag.php:590 lib/Block/tree_alarms.php:42 lib/Block/summary.php:106
 #, php-format
 msgid "%s is due in %s"
-msgstr "%s prasidës po %s"
+msgstr "%s prasidÄ—s po %s"
 
 #: lib/Nag.php:588 lib/Block/tree_alarms.php:44 lib/Block/summary.php:104
 #, php-format
@@ -86,12 +86,12 @@ msgstr "%s dar nebaigtas."
 #: data.php:199
 #, php-format
 msgid "%s successfully imported"
-msgstr "%s failas sëkmingai ákeltas"
+msgstr "%s failas sÄ—kmingai Ä¯keltas"
 
 #: tasklists.php:104 lib/Nag.php:516
 #, php-format
 msgid "%s's Task List"
-msgstr "%s darbø sàrağas"
+msgstr "%s darbÅ³ sÄ…raÅ¡as"
 
 #: lib/Nag.php:315 lib/Forms/task.php:55
 msgid "(highest)"
@@ -99,50 +99,50 @@ msgstr "(labai svarbu)"
 
 #: lib/Nag.php:315 lib/Forms/task.php:56
 msgid "(lowest)"
-msgstr "(visiğkai nesvarbu)"
+msgstr "(visiÅ¡kai nesvarbu)"
 
 #: task.php:215
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "Neturite teisiø pabaigti darbà %s."
+msgstr "Neturite teisiÅ³ pabaigti darbÄ… %s."
 
 #: task.php:24
 #, php-format
 msgid "Access denied deleting %s"
-msgstr "Neturite teisiø iğtrinti %s"
+msgstr "Neturite teisiÅ³ iÅ¡trinti %s"
 
 #: task.php:84 task.php:90
 msgid "Access denied editing task."
-msgstr "Neturite teisiø redaguoti ğio darbo."
+msgstr "Neturite teisiÅ³ redaguoti Å¡io darbo."
 
 #: task.php:82
 #, php-format
 msgid "Access denied editing task: %s"
-msgstr "Neturite teisiø redaguoti darbo: %s"
+msgstr "Neturite teisiÅ³ redaguoti darbo: %s"
 
 #: task.php:163
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "Neturite teisiø perkelti darbà á %s."
+msgstr "Neturite teisiÅ³ perkelti darbÄ… Ä¯ %s."
 
 #: task.php:166
 #, php-format
 msgid "Access denied removing task from %s."
-msgstr "Neturite teisiø perkelti darbà %s."
+msgstr "Neturite teisiÅ³ perkelti darbÄ… %s."
 
 #: task.php:125
 #, php-format
 msgid "Access denied saving task to %s."
-msgstr "Neturite teisiø iğsaugoti darbà %s."
+msgstr "Neturite teisiÅ³ iÅ¡saugoti darbÄ… %s."
 
 #: task.php:121
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "Neturite teisiø iğsaugoti darbà: %s"
+msgstr "Neturite teisiÅ³ iÅ¡saugoti darbÄ…: %s"
 
 #: lib/Forms/task.php:85 templates/view/task.inc:26
 msgid "Alarm"
-msgstr "Perspëjimas"
+msgstr "PerspÄ—jimas"
 
 #: config/prefs.php.dist:201
 msgid "All tasks"
@@ -158,7 +158,7 @@ msgstr "Visada rodyti pasibaigusius darbus?"
 
 #: config/prefs.php.dist:118
 msgid "Ascending"
-msgstr "Didëjimo tvarka"
+msgstr "DidÄ—jimo tvarka"
 
 #: lib/Block/summary.php:39
 msgid "Block title"
@@ -188,30 +188,30 @@ msgstr "Keisti"
 
 #: config/prefs.php.dist:15
 msgid "Change your task sorting and display options."
-msgstr "Darbø rûğiavimo ir rodymo nustatymai."
+msgstr "DarbÅ³ rÅ«Å¡iavimo ir rodymo nustatymai."
 
 #: config/prefs.php.dist:180
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr "Pasirinkite kaip norite gauti priminimus apie darbus su perspëjimais:"
+msgstr "Pasirinkite kaip norite gauti priminimus apie darbus su perspÄ—jimais:"
 
 #: config/prefs.php.dist:171
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
-"Pasirinkite ar norite, kad jums bûtø praneğta apie naujus, pakeistus ir "
-"iğtrintus darbus el. pağtu:"
+"Pasirinkite ar norite, kad jums bÅ«tÅ³ praneÅ¡ta apie naujus, pakeistus ir "
+"iÅ¡trintus darbus el. paÅ¡tu:"
 
 #: config/prefs.php.dist:43
 msgid "Choose if you want to be notified of task changes and task alarms."
-msgstr "Perspëjimø pasikeitus darbams pasirinkimas."
+msgstr "PerspÄ—jimÅ³ pasikeitus darbams pasirinkimas."
 
 #: config/prefs.php.dist:36
 msgid "Choose your default task list."
-msgstr "Jûsø pagrindinio darbø sàrağo pasirinkimas."
+msgstr "JÅ«sÅ³ pagrindinio darbÅ³ sÄ…raÅ¡o pasirinkimas."
 
 #: templates/list/header.inc:8
 msgid "Close Search"
-msgstr "Iğvalyti paieğkà"
+msgstr "IÅ¡valyti paieÅ¡kÄ…"
 
 #: view.php:99
 msgid "Complete"
@@ -245,7 +245,7 @@ msgstr "Atlikti darbai"
 
 #: templates/list/task_summaries.inc:16
 msgid "Completed parent task, mark it as incomplete first"
-msgstr "Susijæs darbas baigtas, iğ pradşiø paşymëkite já kaip nebaigtà"
+msgstr "SusijÄ™s darbas baigtas, iÅ¡ pradÅ¾iÅ³ paÅ¾ymÄ—kite jÄ¯ kaip nebaigtÄ…"
 
 #: lib/Forms/task.php:91 templates/view/task.inc:38
 #: templates/list/task_headers.inc:31 config/prefs.php.dist:92
@@ -255,7 +255,7 @@ msgstr "Atliktas?"
 
 #: data.php:58
 msgid "Completion Status"
-msgstr "Atlikimo bûsena"
+msgstr "Atlikimo bÅ«sena"
 
 #: lib/api.php:317 lib/api.php:544
 #, php-format
@@ -280,19 +280,19 @@ msgstr "Diena(os)"
 
 #: config/prefs.php.dist:35
 msgid "Default Task List"
-msgstr "Jûsø pagrindinis darbø sàrağas"
+msgstr "JÅ«sÅ³ pagrindinis darbÅ³ sÄ…raÅ¡as"
 
 #: config/prefs.php.dist:29
 msgid "Defaults for new tasks"
-msgstr "Standartiniai naujø darbø nustatymai"
+msgstr "Standartiniai naujÅ³ darbÅ³ nustatymai"
 
 #: lib/Forms/task.php:84
 msgid "Delay Start Until"
-msgstr "Nepradëti iki"
+msgstr "NepradÄ—ti iki"
 
 #: view.php:106 templates/tasklists/tasklists.inc:87
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: config/prefs.php.dist:21
 msgid "Delete Confirmation"
@@ -304,24 +304,24 @@ msgstr "Trynimo mygtuko elgesys"
 
 #: task.php:105 lib/Forms/task.php:96
 msgid "Delete this task"
-msgstr "Iğtrinti ğá darbà"
+msgstr "IÅ¡trinti Å¡Ä¯ darbÄ…"
 
 #: task.php:32
 #, php-format
 msgid "Deleted %s."
-msgstr "%s iğtrintas."
+msgstr "%s iÅ¡trintas."
 
 #: config/prefs.php.dist:119
 msgid "Descending"
-msgstr "Maşëjimo tvarka"
+msgstr "MaÅ¾Ä—jimo tvarka"
 
 #: data.php:53 lib/Forms/task.php:92
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: templates/tasklists/tasklists.inc:75
 msgid "Description:"
-msgstr "Aprağymas:"
+msgstr "ApraÅ¡ymas:"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
@@ -329,7 +329,7 @@ msgstr "Vaizdavimo nustatymai"
 
 #: config/prefs.php.dist:129
 msgid "Do you want to confirm deleting entries?"
-msgstr "Ar norite, kad prieğ kiekvienà árağø trynimà prağytø patviritimo?"
+msgstr "Ar norite, kad prieÅ¡ kiekvienÄ… Ä¯raÅ¡Å³ trynimÄ… praÅ¡ytÅ³ patviritimo?"
 
 #: data.php:55 lib/Forms/task.php:83 templates/view/task.inc:22
 msgid "Due By"
@@ -341,7 +341,7 @@ msgstr "Atlikimo data"
 
 #: lib/UI/VarRenderer/nag.php:99
 msgid "Due date specified."
-msgstr "Árağyta atlikimo data."
+msgstr "Ä®raÅ¡yta atlikimo data."
 
 #: view.php:102
 msgid "Edit"
@@ -354,7 +354,7 @@ msgstr "Redaguoti \"%s\""
 
 #: templates/list/task_headers.inc:42
 msgid "Edit Task"
-msgstr "Redaguoti darbà"
+msgstr "Redaguoti darbÄ…"
 
 #: templates/list/task_headers.inc:58
 msgid "Edit categories and colors"
@@ -368,23 +368,23 @@ msgstr "Redaguoti: %s"
 #: task.php:19
 #, php-format
 msgid "Error deleting task: %s"
-msgstr "Klaida trinant darbà: %s"
+msgstr "Klaida trinant darbÄ…: %s"
 
 #: lib/Forms/task.php:90 templates/view/task.inc:34
 msgid "Estimated Time"
-msgstr "Apskaièiuotas laikas"
+msgstr "ApskaiÄiuotas laikas"
 
 #: templates/data/export.inc:17
 msgid "Export"
-msgstr "Iğkelti"
+msgstr "IÅ¡kelti"
 
 #: templates/data/export.inc:6
 msgid "Export Tasks"
-msgstr "Darbø iğkëlimas"
+msgstr "DarbÅ³ iÅ¡kÄ—limas"
 
 #: config/prefs.php.dist:57
 msgid "External Data"
-msgstr "Iğoriniai duomenys"
+msgstr "IÅ¡oriniai duomenys"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:27
 msgid "General Options"
@@ -401,11 +401,11 @@ msgstr "Valanda(os)"
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "Darbø ákëlimas, %d-as şingsnis"
+msgstr "DarbÅ³ Ä¯kÄ—limas, %d-as Å¾ingsnis"
 
 #: data.php:205
 msgid "Import/Export Tasks"
-msgstr "Ákelti/Iğkelti darbus"
+msgstr "Ä®kelti/IÅ¡kelti darbus"
 
 #: list.php:112
 msgid "Incom_plete tasks"
@@ -417,7 +417,7 @@ msgstr "Neatlikti darbai"
 
 #: templates/list/task_summaries.inc:8
 msgid "Incomplete sub tasks, complete them first"
-msgstr "Susijæ darbai nebaigti, iğ pradşiø baikite juos"
+msgstr "SusijÄ™ darbai nebaigti, iÅ¡ pradÅ¾iÅ³ baikite juos"
 
 #: config/prefs.php.dist:202
 msgid "Incomplete tasks"
@@ -425,44 +425,44 @@ msgstr "Neatlikti darbai"
 
 #: templates/view/task.inc:64
 msgid "Last Modified"
-msgstr "Paskutiná kartà redaguota"
+msgstr "PaskutinÄ¯ kartÄ… redaguota"
 
 #: templates/list/task_summaries.inc:19
 #, php-format
 msgid "Mark \"%s\" as incomplete"
-msgstr "Paşymëti \"%s\" kaip nebaigtà"
+msgstr "PaÅ¾ymÄ—ti \"%s\" kaip nebaigtÄ…"
 
 #: templates/view/task.inc:44
 msgid "Mark as incomplete"
-msgstr "Paşymëti kaip nebaigtà"
+msgstr "PaÅ¾ymÄ—ti kaip nebaigtÄ…"
 
 #: lib/api.php:120
 msgid "Maximum Number of Tasks"
-msgstr "Maksimalus darbø skaièius"
+msgstr "Maksimalus darbÅ³ skaiÄius"
 
 #: lib/Block/tree_alarms.php:3
 msgid "Menu Alarms"
-msgstr "Meniu perspëjimai"
+msgstr "Meniu perspÄ—jimai"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Meniu sàrağas"
+msgstr "Meniu sÄ…raÅ¡as"
 
 #: lib/UI/VarRenderer/nag.php:112
 msgid "Minute"
-msgstr "Minutë"
+msgstr "MinutÄ—"
 
 #: lib/Nag.php:417 lib/UI/VarRenderer/nag.php:135
 msgid "Minute(s)"
-msgstr "Minutë(s)"
+msgstr "MinutÄ—(s)"
 
 #: lib/UI/VarRenderer/nag.php:52 lib/UI/VarRenderer/nag.php:101
 msgid "Month"
-msgstr "Mënuo"
+msgstr "MÄ—nuo"
 
 #: templates/list/header.inc:9
 msgid "More Options..."
-msgstr "Daugiau nustatymø..."
+msgstr "Daugiau nustatymÅ³..."
 
 #: lib/api.php:986
 msgid "Multiple iCalendar components found; only one vTodo is supported."
@@ -470,7 +470,7 @@ msgstr "Kiti iCalendar komponentai nerasti; rastas tik vTodo modulis."
 
 #: templates/panel.inc:38
 msgid "My Tasklists:"
-msgstr "Mano darbø sàrağai:"
+msgstr "Mano darbÅ³ sÄ…raÅ¡ai:"
 
 #: list.php:34
 msgid "My Tasks"
@@ -515,11 +515,11 @@ msgstr "Neatideliojamas"
 
 #: lib/UI/VarRenderer/nag.php:95
 msgid "No due date."
-msgstr "Nëra pabaigos datos."
+msgstr "NÄ—ra pabaigos datos."
 
 #: lib/api.php:405 lib/api.php:709 lib/api.php:767 lib/api.php:979
 msgid "No iCalendar data was found."
-msgstr "iCalendar duomenø nëra."
+msgstr "iCalendar duomenÅ³ nÄ—ra."
 
 #: lib/Forms/task.php:50
 msgid "No parent task"
@@ -527,15 +527,15 @@ msgstr "Nesusieti su kitu darbu"
 
 #: lib/Nag.php:605
 msgid "No task lists are available to guests."
-msgstr "Darbø sàrağø sveèiams nëra."
+msgstr "DarbÅ³ sÄ…raÅ¡Å³ sveÄiams nÄ—ra."
 
 #: templates/list/task_footers.inc:5
 msgid "No tasks match"
-msgstr "Atitinkanèiø darbø nëra"
+msgstr "AtitinkanÄiÅ³ darbÅ³ nÄ—ra"
 
 #: lib/Block/summary.php:222
 msgid "No tasks to display"
-msgstr "Darbø nëra"
+msgstr "DarbÅ³ nÄ—ra"
 
 #: lib/Nag.php:421 lib/UI/VarRenderer/nag.php:151
 msgid "None"
@@ -555,19 +555,19 @@ msgstr "Nerasta"
 
 #: config/prefs.php.dist:42
 msgid "Notifications"
-msgstr "Praneğimai"
+msgstr "PraneÅ¡imai"
 
 #: config/prefs.php.dist:169
 msgid "On all shown tasklists"
-msgstr "Visiems rodomiems darbø sàrağams"
+msgstr "Visiems rodomiems darbÅ³ sÄ…raÅ¡ams"
 
 #: config/prefs.php.dist:170
 msgid "On all tasklists I have read access to"
-msgstr "Visiems darbø sàrağams, kuriuos ağ galiu skaityti"
+msgstr "Visiems darbÅ³ sÄ…raÅ¡ams, kuriuos aÅ¡ galiu skaityti"
 
 #: config/prefs.php.dist:168
 msgid "On my tasklists only"
-msgstr "Mano darbø sàrağams"
+msgstr "Mano darbÅ³ sÄ…raÅ¡ams"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
@@ -575,20 +575,20 @@ msgstr "_Sva"
 
 #: lib/Forms/task.php:69
 msgid "Parent task"
-msgstr "Susijæs darbas"
+msgstr "SusijÄ™s darbas"
 
 #: templates/tasklists/tasklists.inc:71
 msgid "Permission"
-msgstr "Teisës"
+msgstr "TeisÄ—s"
 
 #: lib/api.php:683 lib/api.php:805 lib/api.php:860 lib/api.php:924
 #: lib/api.php:961
 msgid "Permission Denied"
-msgstr "Neuştenka teisiø"
+msgstr "NeuÅ¾tenka teisiÅ³"
 
 #: lib/api.php:178
 msgid "Permission denied"
-msgstr "Neuştenka teisiø"
+msgstr "NeuÅ¾tenka teisiÅ³"
 
 #: data.php:57 lib/Forms/task.php:87 templates/view/task.inc:30
 #: config/prefs.php.dist:88 config/prefs.php.dist:103
@@ -609,96 +609,96 @@ msgstr "Privatus?"
 
 #: view.php:106
 msgid "Really delete this task?"
-msgstr "Tikrai iğtrinti ğá darbà?"
+msgstr "Tikrai iÅ¡trinti Å¡Ä¯ darbÄ…?"
 
 #: templates/tasklists/tasklists.inc:81
 msgid "Remote Subscription URL"
-msgstr "Iğorinë uşsisakymo URL nuoroda"
+msgstr "IÅ¡orinÄ— uÅ¾sisakymo URL nuoroda"
 
 #: lib/Forms/task.php:94 templates/panel.inc:57
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: task.php:194
 #, php-format
 msgid "Saved %s."
-msgstr "%s iğsaugotas."
+msgstr "%s iÅ¡saugotas."
 
 #: search.php:14 lib/Block/tree_menu.php:47 templates/list/header.inc:4
 #: templates/search/search.inc:31
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #: templates/search/search.inc:17
 msgid "Search In:"
-msgstr "Ieğkoti:"
+msgstr "IeÅ¡koti:"
 
 #: templates/search/search.inc:12
 msgid "Search _Text:"
-msgstr "Ieğkoti _teksto:"
+msgstr "IeÅ¡koti _teksto:"
 
 #: templates/search/search.inc:24
 msgid "Search:"
-msgstr "Ieğkoti:"
+msgstr "IeÅ¡koti:"
 
 #: list.php:73
 #, php-format
 msgid "Search: Results for \"%s\""
-msgstr "Paieğka: \"%s\" rezultatai"
+msgstr "PaieÅ¡ka: \"%s\" rezultatai"
 
 #: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
 msgid "Select a date"
-msgstr "Pasirinkite datà"
+msgstr "Pasirinkite datÄ…"
 
 #: templates/tasklists/tasklists.inc:62
 msgid "Select a tasklist"
-msgstr "Pasirinkite darbø sàrağà"
+msgstr "Pasirinkite darbÅ³ sÄ…raÅ¡Ä…"
 
 #: templates/tasklists/tasklists.inc:24 templates/tasklists/tasklists.inc:82
 msgid "Select a tasklist above to display the Remote Subscription URL"
 msgstr ""
-"Pasirinkite darbø sàrağà, kurio iğorinæ uşsisakymo URL nuorodà norite "
+"Pasirinkite darbÅ³ sÄ…raÅ¡Ä…, kurio iÅ¡orinÄ™ uÅ¾sisakymo URL nuorodÄ… norite "
 "pamatyti"
 
 #: templates/tasklists/tasklists.inc:23 templates/tasklists/tasklists.inc:80
 msgid "Select a tasklist above to display the URL"
-msgstr "Pasirinkite darbø sàrağà, kurio URL nuorodà norite pamatyti"
+msgstr "Pasirinkite darbÅ³ sÄ…raÅ¡Ä…, kurio URL nuorodÄ… norite pamatyti"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "Pasirinkite iğkëlimo formatà:"
+msgstr "Pasirinkite iÅ¡kÄ—limo formatÄ…:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "Pasirinkite ákeliamà failà:"
+msgstr "Pasirinkite Ä¯keliamÄ… failÄ…:"
 
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
-msgstr "Pasirinkite ákëliamo failo formatà:"
+msgstr "Pasirinkite Ä¯kÄ—liamo failo formatÄ…:"
 
 #: templates/panel.inc:48
 msgid "Shared Tasklists:"
-msgstr "Bendri darbø sàrağai:"
+msgstr "Bendri darbÅ³ sÄ…raÅ¡ai:"
 
 #: config/prefs.php.dist:69
 msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "Ar rodyti darbø sàrağà atskirame stulpelyje darbø sàrağe?"
+msgstr "Ar rodyti darbÅ³ sÄ…raÅ¡Ä… atskirame stulpelyje darbÅ³ sÄ…raÅ¡e?"
 
 #: lib/Block/summary.php:45
 msgid "Show action buttons?"
-msgstr "Rodyti veiksmø mygtukus?"
+msgstr "Rodyti veiksmÅ³ mygtukus?"
 
 #: config/prefs.php.dist:204
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "Rodyti atliktus, neatliktus, arba visus darbus darbø sàrağe?"
+msgstr "Rodyti atliktus, neatliktus, arba visus darbus darbÅ³ sÄ…raÅ¡e?"
 
 #: config/prefs.php.dist:191
 msgid "Show data from any of these other applications in your task list?"
-msgstr "Darbø sàrağe rodyti duomenis iğ ğiø kitø moduliø?"
+msgstr "DarbÅ³ sÄ…raÅ¡e rodyti duomenis iÅ¡ Å¡iÅ³ kitÅ³ moduliÅ³?"
 
 #: config/prefs.php.dist:58
 msgid "Show data from other applications or sources."
-msgstr "Rodyti duomenis iğ kitø moduliø."
+msgstr "Rodyti duomenis iÅ¡ kitÅ³ moduliÅ³."
 
 #: lib/Block/summary.php:48
 msgid "Show due dates?"
@@ -706,83 +706,83 @@ msgstr "Rodyti galiojimo datas?"
 
 #: lib/Block/summary.php:42
 msgid "Show priorities?"
-msgstr "Rodyti svarbà?"
+msgstr "Rodyti svarbÄ…?"
 
 #: lib/Block/summary.php:54
 msgid "Show task alarms?"
-msgstr "Rodyti perspëjimus?"
+msgstr "Rodyti perspÄ—jimus?"
 
 #: lib/Block/summary.php:57
 msgid "Show task category?"
-msgstr "Rodyti kategorijà?"
+msgstr "Rodyti kategorijÄ…?"
 
 #: config/prefs.php.dist:79
 msgid "Show task list options panel?"
-msgstr "Rodyti darbø sàrağo nustatymø pultà?"
+msgstr "Rodyti darbÅ³ sÄ…raÅ¡o nustatymÅ³ pultÄ…?"
 
 #: lib/Block/summary.php:51
 msgid "Show tasklist name?"
-msgstr "Rodyti darbø sàrağo pavadinimà?"
+msgstr "Rodyti darbÅ³ sÄ…raÅ¡o pavadinimÄ…?"
 
 #: lib/Block/summary.php:70
 msgid "Show tasks from these categories"
-msgstr "Rodyti darbus iğ ğiø kategorijø"
+msgstr "Rodyti darbus iÅ¡ Å¡iÅ³ kategorijÅ³"
 
 #: lib/Block/summary.php:66
 msgid "Show tasks from these tasklists"
-msgstr "Rodyti darbus iğ ğiø darbø sàrağø"
+msgstr "Rodyti darbus iÅ¡ Å¡iÅ³ darbÅ³ sÄ…raÅ¡Å³"
 
 #: templates/list/task_headers.inc:53
 msgid "Sort by Category"
-msgstr "Rûğiuoti pagal kategorijà"
+msgstr "RÅ«Å¡iuoti pagal kategorijÄ…"
 
 #: templates/list/task_headers.inc:31
 msgid "Sort by Completion Status"
-msgstr "Rûğiuoti pagal atlikimo statusà"
+msgstr "RÅ«Å¡iuoti pagal atlikimo statusÄ…"
 
 #: templates/list/task_headers.inc:50
 msgid "Sort by Due Date"
-msgstr "Rûğiuoti pagal pabaigos datà"
+msgstr "RÅ«Å¡iuoti pagal pabaigos datÄ…"
 
 #: templates/list/task_headers.inc:45
 msgid "Sort by Name"
-msgstr "Rûğiuoti pagal pavadinimà"
+msgstr "RÅ«Å¡iuoti pagal pavadinimÄ…"
 
 #: templates/list/task_headers.inc:39
 msgid "Sort by Priority"
-msgstr "Rûğiuoti pagal svarbà"
+msgstr "RÅ«Å¡iuoti pagal svarbÄ…"
 
 #: templates/list/task_headers.inc:35
 msgid "Sort by User Name"
-msgstr "Rûğiuoti pagal vartotojà"
+msgstr "RÅ«Å¡iuoti pagal vartotojÄ…"
 
 #: config/prefs.php.dist:120
 msgid "Sort direction:"
-msgstr "Rûğiavimo kryptis:"
+msgstr "RÅ«Å¡iavimo kryptis:"
 
 #: config/prefs.php.dist:94
 msgid "Sort tasks by:"
-msgstr "Rûğiuoti darbus pagal:"
+msgstr "RÅ«Å¡iuoti darbus pagal:"
 
 #: data.php:56
 msgid "Start"
-msgstr "Pradëti"
+msgstr "PradÄ—ti"
 
 #: templates/view/task.inc:18
 msgid "Start Date"
-msgstr "Pradşios data"
+msgstr "PradÅ¾ios data"
 
 #: lib/UI/VarRenderer/nag.php:50
 msgid "Start date specified."
-msgstr "Nurodyta pradşios data."
+msgstr "Nurodyta pradÅ¾ios data."
 
 #: templates/list/task_summaries.inc:57
 msgid "Task Alarm"
-msgstr "Perspëjimas"
+msgstr "PerspÄ—jimas"
 
 #: templates/list/task_headers.inc:48
 msgid "Task Alarm?"
-msgstr "Perspëjimas?"
+msgstr "PerspÄ—jimas?"
 
 #: config/prefs.php.dist:28
 msgid "Task Defaults"
@@ -790,15 +790,15 @@ msgstr "Standartiniai darbo nustatymai"
 
 #: lib/Forms/task.php:65
 msgid "Task List"
-msgstr "Darbø sàrağas"
+msgstr "DarbÅ³ sÄ…raÅ¡as"
 
 #: config/prefs.php.dist:34 config/prefs.php.dist:41 config/prefs.php.dist:56
 msgid "Task List and Share Options"
-msgstr "Darbø sàrağo ir dalijimosi nustatymai"
+msgstr "DarbÅ³ sÄ…raÅ¡o ir dalijimosi nustatymai"
 
 #: tasklists.php:117
 msgid "Task Lists"
-msgstr "Darbø sàrağai"
+msgstr "DarbÅ³ sÄ…raÅ¡ai"
 
 #: config/prefs.php.dist:89 config/prefs.php.dist:104
 msgid "Task Name"
@@ -810,11 +810,11 @@ msgstr "Pastaba"
 
 #: templates/list/task_headers.inc:47
 msgid "Task Note?"
-msgstr "Yra pastabø?"
+msgstr "Yra pastabÅ³?"
 
 #: templates/search/search.inc:6
 msgid "Task Search"
-msgstr "Darbo paieğka"
+msgstr "Darbo paieÅ¡ka"
 
 #: lib/Nag.php:630
 msgid "Task added:"
@@ -822,11 +822,11 @@ msgstr "Darbas sukurtas:"
 
 #: lib/Nag.php:640
 msgid "Task deleted:"
-msgstr "Darbas iğtrintas:"
+msgstr "Darbas iÅ¡trintas:"
 
 #: tasklists.php:32
 msgid "Task lists must have a name."
-msgstr "Darbø sàrağui reikia pavadinimo."
+msgstr "DarbÅ³ sÄ…raÅ¡ui reikia pavadinimo."
 
 #: lib/Nag.php:635
 msgid "Task modified:"
@@ -838,16 +838,16 @@ msgstr "Darbas nerastas."
 
 #: config/prefs.php.dist:93 config/prefs.php.dist:108
 msgid "Tasklist"
-msgstr "Darbø sàrağas"
+msgstr "DarbÅ³ sÄ…raÅ¡as"
 
 #: templates/panel.inc:30 templates/panel.inc:31
 #: templates/tasklists/tasklists.inc:58
 msgid "Tasklists"
-msgstr "Darbø sàrağai"
+msgstr "DarbÅ³ sÄ…raÅ¡ai"
 
 #: templates/tasklists/tasklists.inc:60
 msgid "Tasklists:"
-msgstr "Darbø sàrağai:"
+msgstr "DarbÅ³ sÄ…raÅ¡ai:"
 
 #: lib/api.php:1041
 msgid "Tasks"
@@ -860,31 +860,31 @@ msgstr "Trumpas turinys"
 #: data.php:193
 #, php-format
 msgid "The %s file didn't contain any tasks."
-msgstr "Faile %s nëra jokiø darbø."
+msgstr "Faile %s nÄ—ra jokiÅ³ darbÅ³."
 
 #: lib/Driver.php:56
 msgid "The Tasks backend is not currently available."
-msgstr "Darbø posistemë ğiuo metu nepasiekiama."
+msgstr "DarbÅ³ posistemÄ— Å¡iuo metu nepasiekiama."
 
 #: lib/Driver.php:137
 #, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "Darbø posistemë ğiuo metu nepasiekiama: %s"
+msgstr "DarbÅ³ posistemÄ— Å¡iuo metu nepasiekiama: %s"
 
 #: lib/Forms/task.php:130
 msgid "The alarm value must not be empty."
-msgstr "Perspëjimo reikğmë negali bûti tuğèia."
+msgstr "PerspÄ—jimo reikÅ¡mÄ— negali bÅ«ti tuÅ¡Äia."
 
 #: templates/prefs/defaultduetimeselect.inc:8
 msgid "The current hour"
-msgstr "Dabartinë valanda"
+msgstr "DabartinÄ— valanda"
 
 #: lib/Nag.php:631
 #, php-format
 msgid ""
 "The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
 msgstr ""
-"Darbas \"%s\" pridëtas prie \"%s\" darbø sàrağo, o jo pabaigos data: %s."
+"Darbas \"%s\" pridÄ—tas prie \"%s\" darbÅ³ sÄ…raÅ¡o, o jo pabaigos data: %s."
 
 #: lib/Nag.php:641
 #, php-format
@@ -892,38 +892,38 @@ msgid ""
 "The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
 "s."
 msgstr ""
-"Darbas \"%s\" iğtrintas iğ \"%s\" darbø sàrağo, o jo pabaigos data: %s."
+"Darbas \"%s\" iÅ¡trintas iÅ¡ \"%s\" darbÅ³ sÄ…raÅ¡o, o jo pabaigos data: %s."
 
 #: lib/Nag.php:636
 #, php-format
 msgid ""
 "The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
-msgstr "Darbas \"%s\" pakeistas \"%s\" darbø sàrağe, o jo pabaigos data: %s."
+msgstr "Darbas \"%s\" pakeistas \"%s\" darbÅ³ sÄ…raÅ¡e, o jo pabaigos data: %s."
 
 #: tasklists.php:49
 #, php-format
 msgid "The task list \"%s\" couldn't be created: %s"
-msgstr "Nepavyko sukurti darbø sàrağo \"%s\": %s"
+msgstr "Nepavyko sukurti darbÅ³ sÄ…raÅ¡o \"%s\": %s"
 
 #: tasklists.php:60
 #, php-format
 msgid "The task list \"%s\" couldn't be saved: %s"
-msgstr "Darbø sàrağas \"%s\" neiğsaugotas: %s"
+msgstr "DarbÅ³ sÄ…raÅ¡as \"%s\" neiÅ¡saugotas: %s"
 
 #: tasklists.php:51
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "Darbø sàrağas \"%s\" sukurtas."
+msgstr "DarbÅ³ sÄ…raÅ¡as \"%s\" sukurtas."
 
 #: tasklists.php:85
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "Darbø sàrağas \"%s\" iğtrintas."
+msgstr "DarbÅ³ sÄ…raÅ¡as \"%s\" iÅ¡trintas."
 
 #: tasklists.php:62
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "Darbø sàrağas \"%s\" iğsaugotas."
+msgstr "DarbÅ³ sÄ…raÅ¡as \"%s\" iÅ¡saugotas."
 
 #: config/prefs.php.dist:109
 msgid "Then:"
@@ -931,7 +931,7 @@ msgstr "Tada:"
 
 #: templates/list/empty.inc:2
 msgid "There are no tasks matching the current criteria."
-msgstr "Iğkëlimui duomenø nëra."
+msgstr "IÅ¡kÄ—limui duomenÅ³ nÄ—ra."
 
 #: task.php:225
 #, php-format
@@ -946,20 +946,20 @@ msgstr "Klaida trinant %s: %s"
 #: task.php:192
 #, php-format
 msgid "There was a problem saving the task: %s."
-msgstr "Nepavyko iğsaugoti darbo: %s."
+msgstr "Nepavyko iÅ¡saugoti darbo: %s."
 
 #: data.php:196
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Klaida ákeliant duomenis: %s"
+msgstr "Klaida Ä¯keliant duomenis: %s"
 
 #: lib/api.php:397 lib/api.php:701 lib/api.php:973
 msgid "There was an error importing the iCalendar data."
-msgstr "Klaida ákeliant iCalendar duomenis."
+msgstr "Klaida Ä¯keliant iCalendar duomenis."
 
 #: data.php:80
 msgid "There were no tasks to export."
-msgstr "Iğkëlimui duomenø nëra."
+msgstr "IÅ¡kÄ—limui duomenÅ³ nÄ—ra."
 
 #: data.php:126
 msgid "This file format is not supported."
@@ -972,12 +972,12 @@ msgstr "URL"
 #: tasklists.php:81
 #, php-format
 msgid "Unable to delete \"%s\": %s"
-msgstr "Negaliu iğtrinti \"%s\": %s"
+msgstr "Negaliu iÅ¡trinti \"%s\": %s"
 
 #: lib/Driver.php:140
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Nepavyko uşkrauti %s aprağymo."
+msgstr "Nepavyko uÅ¾krauti %s apraÅ¡ymo."
 
 #: lib/Nag.php:850 lib/Nag.php:851 lib/Nag.php:865 lib/Nag.php:866
 #: lib/Block/summary.php:31 lib/Block/summary.php:215 lib/Forms/task.php:78
@@ -989,7 +989,7 @@ msgstr "Nenurodyta"
 #: lib/api.php:1011
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "Neşinoma Content-Type antrağtë: %s"
+msgstr "NeÅ¾inoma Content-Type antraÅ¡tÄ—: %s"
 
 #: lib/Driver.php:1079
 #, php-format
@@ -1003,7 +1003,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Norime priminti apie ğá vykdomà darbà.\n"
+"Norime priminti apie Å¡Ä¯ vykdomÄ… darbÄ….\n"
 "\n"
 "%s\n"
 "\n"
@@ -1014,27 +1014,27 @@ msgstr ""
 
 #: lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
 msgid "Week(s)"
-msgstr "Savaitë(s)"
+msgstr "SavaitÄ—(s)"
 
 #: templates/prefs/defaultduetimeselect.inc:6
 msgid "What do you want to be the default due time for tasks?"
-msgstr "Koks vykdymo laikas turëtø bûti standartinis darbams?"
+msgstr "Koks vykdymo laikas turÄ—tÅ³ bÅ«ti standartinis darbams?"
 
 #: config/prefs.php.dist:147
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
-"Kuriant naujus darbus, uş kiek dienø á prieká turëtø darbas prasidëti (0 "
-"reiğkia ğiandien)?"
+"Kuriant naujus darbus, uÅ¾ kiek dienÅ³ Ä¯ priekÄ¯ turÄ—tÅ³ darbas prasidÄ—ti (0 "
+"reiÅ¡kia Å¡iandien)?"
 
 #: config/prefs.php.dist:138
 msgid "When creating a new task, should it default to having a due date?"
-msgstr "Kuriant naujus darbus nurodyti darbo pradşià ir pabaigà?"
+msgstr "Kuriant naujus darbus nurodyti darbo pradÅ¾iÄ… ir pabaigÄ…?"
 
 #: templates/data/import.inc:21
 msgid "Which tasklist should the tasks be added to?"
-msgstr "Prie kurio darbø sàrağo pridëti darbus?"
+msgstr "Prie kurio darbÅ³ sÄ…raÅ¡o pridÄ—ti darbus?"
 
 #: lib/UI/VarRenderer/nag.php:53 lib/UI/VarRenderer/nag.php:102
 msgid "Year"
@@ -1043,49 +1043,49 @@ msgstr "Metai"
 #: data.php:41 data.php:151 task.php:61
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "Jûs neturite teisiø kurti daugiau nei %d darbø."
+msgstr "JÅ«s neturite teisiÅ³ kurti daugiau nei %d darbÅ³."
 
 #: view.php:52
 msgid "You do not have permission to view this tasklist."
-msgstr "Neturite teisiø perşiûrëti ğio darbø sàrağo."
+msgstr "Neturite teisiÅ³ perÅ¾iÅ«rÄ—ti Å¡io darbÅ³ sÄ…raÅ¡o."
 
 #: tasklists.php:88
 msgid "You must select a task list to be deleted."
-msgstr "Pasirinkite trinamà darbø sàrağà."
+msgstr "Pasirinkite trinamÄ… darbÅ³ sÄ…raÅ¡Ä…."
 
 #: templates/tasklists/tasklists.inc:47
 msgid "You must select a tasklist to be deleted."
-msgstr "Pasirinkite trinamà darbø sàrağà."
+msgstr "Pasirinkite trinamÄ… darbÅ³ sÄ…raÅ¡Ä…."
 
 #: lib/Nag.php:631
 msgid "You requested to be notified when tasks are added to your tasklists."
 msgstr ""
-"Jûs pasirinkote bûti perspëtas, kai jûsø darbø sàrağe bus sukurti nauji "
+"JÅ«s pasirinkote bÅ«ti perspÄ—tas, kai jÅ«sÅ³ darbÅ³ sÄ…raÅ¡e bus sukurti nauji "
 "darbai."
 
 #: lib/Nag.php:641
 msgid ""
 "You requested to be notified when tasks are deleted from your tasklists."
 msgstr ""
-"Jûs pasirinkote bûti perspëtas, kai darbai iğ jûsø darbø sàrağo bus iğtrinti."
+"JÅ«s pasirinkote bÅ«ti perspÄ—tas, kai darbai iÅ¡ jÅ«sÅ³ darbÅ³ sÄ…raÅ¡o bus iÅ¡trinti."
 
 #: lib/Nag.php:636
 msgid "You requested to be notified when tasks are edited on your tasklists."
 msgstr ""
-"Jûs pasirinkote bûti perspëtas, kai darbai jûsø darbø sàrağe bus pakeisti."
+"JÅ«s pasirinkote bÅ«ti perspÄ—tas, kai darbai jÅ«sÅ³ darbÅ³ sÄ…raÅ¡e bus pakeisti."
 
 #: templates/prefs/tasklistselect.inc:10
 msgid "Your default task list:"
-msgstr "Jûsø pagrindinis darbø sàrağas:"
+msgstr "JÅ«sÅ³ pagrindinis darbÅ³ sÄ…raÅ¡as:"
 
 #: templates/panel.inc:43
 msgid "[Manage My Tasklists]"
-msgstr "[Valdyti mano darbø sàrağus]"
+msgstr "[Valdyti mano darbÅ³ sÄ…raÅ¡us]"
 
 #: lib/Block/summary.php:101 lib/Block/summary.php:199
 #: templates/list/task_summaries.inc:46
 msgid "[none]"
-msgstr "[nëra]"
+msgstr "[nÄ—ra]"
 
 #: templates/search/search.inc:25
 msgid "_All Tasks"
@@ -1109,11 +1109,11 @@ msgstr "_Atlikti darbai"
 
 #: view.php:106
 msgid "_Delete"
-msgstr "_Iğtrinti"
+msgstr "_IÅ¡trinti"
 
 #: templates/search/search.inc:19
 msgid "_Description"
-msgstr "_Aprağymas"
+msgstr "_ApraÅ¡ymas"
 
 #: templates/list/task_headers.inc:50
 msgid "_Due Date"
@@ -1125,15 +1125,15 @@ msgstr "_Redaguoti"
 
 #: list.php:113
 msgid "_Future tasks"
-msgstr "Bûsimi darbai"
+msgstr "BÅ«simi darbai"
 
 #: lib/Nag.php:553
 msgid "_Import/Export"
-msgstr "Ákelti/Iğkelti"
+msgstr "Ä®kelti/IÅ¡kelti"
 
 #: lib/Nag.php:540
 msgid "_List Tasks"
-msgstr "_Darbø sàrağas"
+msgstr "_DarbÅ³ sÄ…raÅ¡as"
 
 #: lib/Nag.php:545
 msgid "_New Task"
@@ -1145,11 +1145,11 @@ msgstr "_Spausdinti"
 
 #: lib/Nag.php:549
 msgid "_Search"
-msgstr "I_eğkoti"
+msgstr "I_eÅ¡koti"
 
 #: templates/list/task_headers.inc:35
 msgid "_Task List"
-msgstr "Darbø sàrağas"
+msgstr "DarbÅ³ sÄ…raÅ¡as"
 
 #: templates/prefs/defaultduetimeselect.inc:15
 msgid "am"

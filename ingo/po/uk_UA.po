@@ -11,58 +11,58 @@ msgstr ""
 "Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1251\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: filters.php:221
 msgid " and"
-msgstr " і"
+msgstr " С–"
 
 #: filters.php:221
 msgid " or"
-msgstr " або"
+msgstr " Р°Р±Рѕ"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
-msgstr "Додаткові налаштування"
+msgstr "Р”РѕРґР°С‚РєРѕРІС– РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 
 #: forward.php:41
 msgid "Address(es) to forward to:"
-msgstr "Адреса(и) для пересилання:"
+msgstr "РђРґСЂРµСЃР°(Рё) РґР»СЏ РїРµСЂРµСЃРёР»Р°РЅРЅСЏ:"
 
 #: vacation.php:48
 msgid "Advanced Settings"
-msgstr "Розширені налаштування"
+msgstr "Р РѕР·С€РёСЂРµРЅС– РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 
 #: templates/rule/header.inc:44
 msgid "All of the following"
-msgstr "Все з наступного"
+msgstr "Р’СЃРµ Р· РЅР°СЃС‚СѓРїРЅРѕРіРѕ"
 
 #: lib/api.php:54
 msgid "Allow Rules"
-msgstr "Дозволити правила"
+msgstr "Р”РѕР·РІРѕР»РёС‚Рё РїСЂР°РІРёР»Р°"
 
 #: templates/rule/footer.inc:34
 msgid "Answered"
-msgstr "З відповіддю"
+msgstr "Р— РІС–РґРїРѕРІС–РґРґСЋ"
 
 #: templates/rule/header.inc:45
 msgid "Any of the following"
-msgstr "Будь-що з наступного"
+msgstr "Р‘СѓРґСЊ-С‰Рѕ Р· РЅР°СЃС‚СѓРїРЅРѕРіРѕ"
 
 #: templates/filters/footer.inc:8
 msgid "Apply Filters"
-msgstr "Застосувати фільтри"
+msgstr "Р—Р°СЃС‚РѕСЃСѓРІР°С‚Рё С„С–Р»СЊС‚СЂРё"
 
 #: filters.php:250
 msgid "Are you sure you want to delete this rule?"
-msgstr "Впевнені, що хочете витерти це правило?"
+msgstr "Р’РїРµРІРЅРµРЅС–, С‰Рѕ С…РѕС‡РµС‚Рµ РІРёС‚РµСЂС‚Рё С†Рµ РїСЂР°РІРёР»Рѕ?"
 
 #: vacation.php:39
 msgid "Basic Settings"
-msgstr "Основні налаштування"
+msgstr "РћСЃРЅРѕРІРЅС– РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
@@ -70,25 +70,25 @@ msgstr "Bcc"
 
 #: lib/Storage.php:346
 msgid "Begins with"
-msgstr "Починається з"
+msgstr "РџРѕС‡РёРЅР°С”С‚СЊСЃСЏ Р·"
 
 #: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "Під'єднання невдале: (%s) %s"
+msgstr "РџС–Рґ'С”РґРЅР°РЅРЅСЏ РЅРµРІРґР°Р»Рµ: (%s) %s"
 
 #: filters.php:172 templates/blacklist/blacklist.inc:7
 #: lib/Block/overview.php:95 lib/Block/overview.php:98
 msgid "Blacklist"
-msgstr "Чорний список"
+msgstr "Р§РѕСЂРЅРёР№ СЃРїРёСЃРѕРє"
 
 #: config/fields.php.dist:100
 msgid "Body"
-msgstr "Тіло"
+msgstr "РўС–Р»Рѕ"
 
 #: rule.php:300 filters.php:218
 msgid "Case Sensitive"
-msgstr "Враховуючи регістр"
+msgstr "Р’СЂР°С…РѕРІСѓСЋС‡Рё СЂРµРіС–СЃС‚СЂ"
 
 #: config/fields.php.dist:43
 msgid "Cc"
@@ -97,373 +97,373 @@ msgstr "Cc"
 #: blacklist.php:75 spam.php:91 vacation.php:79 whitelist.php:38 rule.php:130
 #: forward.php:54
 msgid "Changes saved."
-msgstr "Зміни збережено."
+msgstr "Р—РјС–РЅРё Р·Р±РµСЂРµР¶РµРЅРѕ."
 
 #: lib/Driver/ldap.php:73
 msgid "Connection failure"
-msgstr "Помилка з'єднання"
+msgstr "РџРѕРјРёР»РєР° Р·'С”РґРЅР°РЅРЅСЏ"
 
 #: lib/Storage.php:342
 msgid "Contains"
-msgstr "містить"
+msgstr "РјС–СЃС‚РёС‚СЊ"
 
 #: lib/Template.php:235
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "Не можу зберегти скомпільований файл шаблону '%s'."
+msgstr "РќРµ РјРѕР¶Сѓ Р·Р±РµСЂРµРіС‚Рё СЃРєРѕРјРїС–Р»СЊРѕРІР°РЅРёР№ С„Р°Р№Р» С€Р°Р±Р»РѕРЅСѓ '%s'."
 
 #: lib/Ingo.php:62
 msgid "Create new folder"
-msgstr "Створити нову папку"
+msgstr "РЎС‚РІРѕСЂРёС‚Рё РЅРѕРІСѓ РїР°РїРєСѓ"
 
 #: filters.php:250 filters.php:251
 #, php-format
 msgid "Delete %s"
-msgstr "Витерти %s"
+msgstr "Р’РёС‚РµСЂС‚Рё %s"
 
 #: lib/Storage.php:290
 msgid "Delete message completely"
-msgstr "Витерти лист повністю"
+msgstr "Р’РёС‚РµСЂС‚Рё Р»РёСЃС‚ РїРѕРІРЅС–СЃС‚СЋ"
 
 #: templates/rule/footer.inc:36
 msgid "Deleted"
-msgstr "Витерті"
+msgstr "Р’РёС‚РµСЂС‚С–"
 
 #: lib/Storage.php:278
 msgid "Deliver into my Inbox"
-msgstr "Доручити в мій Inbox"
+msgstr "Р”РѕСЂСѓС‡РёС‚Рё РІ РјС–Р№ Inbox"
 
 #: lib/Storage.php:304
 msgid "Deliver into my Inbox and copy to"
-msgstr "Доручити в мій Inbox і копію до"
+msgstr "Р”РѕСЂСѓС‡РёС‚Рё РІ РјС–Р№ Inbox С– РєРѕРїС–СЋ РґРѕ"
 
 #: lib/Storage.php:299
 msgid "Deliver into my Inbox and redirect to"
-msgstr "Доручити в мій Inbox і перенаправити до"
+msgstr "Р”РѕСЂСѓС‡РёС‚Рё РІ РјС–Р№ Inbox С– РїРµСЂРµРЅР°РїСЂР°РІРёС‚Рё РґРѕ"
 
 #: lib/Storage.php:284
 msgid "Deliver to folder"
-msgstr "Доручити в папку"
+msgstr "Р”РѕСЂСѓС‡РёС‚Рё РІ РїР°РїРєСѓ"
 
 #: config/fields.php.dist:83
 msgid "Destination (To,Cc,Bcc,etc)"
-msgstr "Призначення (To,Cc,Bcc,тощо)"
+msgstr "РџСЂРёР·РЅР°С‡РµРЅРЅСЏ (To,Cc,Bcc,С‚РѕС‰Рѕ)"
 
 #: lib/Storage.php:347
 msgid "Doesn't begin with"
-msgstr "не починається з"
+msgstr "РЅРµ РїРѕС‡РёРЅР°С”С‚СЊСЃСЏ Р·"
 
 #: lib/Storage.php:343
 msgid "Doesn't contain"
-msgstr "не містить"
+msgstr "РЅРµ РјС–СЃС‚РёС‚СЊ"
 
 #: lib/Storage.php:349
 msgid "Doesn't end with"
-msgstr "не закінчується на"
+msgstr "РЅРµ Р·Р°РєС–РЅС‡СѓС”С‚СЊСЃСЏ РЅР°"
 
 #: lib/Storage.php:351
 msgid "Doesn't exist"
-msgstr "не існує"
+msgstr "РЅРµ С–СЃРЅСѓС”"
 
 #: templates/filters/header.inc:47 lib/Block/overview.php:63
 #: lib/Block/overview.php:72 lib/Block/overview.php:87
 #: lib/Block/overview.php:97 lib/Block/overview.php:107
 msgid "Edit"
-msgstr "Редагувати"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё"
 
 #: filters.php:239 filters.php:241 filters.php:245 filters.php:246
 #, php-format
 msgid "Edit %s"
-msgstr "Редагувати %s"
+msgstr "Р РµРґР°РіСѓРІР°С‚Рё %s"
 
 #: vacation.php:43
 msgid "End of vacation:"
-msgstr "Кінець вакацій:"
+msgstr "РљС–РЅРµС†СЊ РІР°РєР°С†С–Р№:"
 
 #: lib/Storage.php:348
 msgid "Ends with"
-msgstr "закінчується на"
+msgstr "Р·Р°РєС–РЅС‡СѓС”С‚СЊСЃСЏ РЅР°"
 
 #: lib/Driver/ldap.php:138 lib/Driver/ldap.php:148 lib/Driver/ldap.php:157
 #: lib/Driver/ldap.php:167
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
-msgstr "Помилка отримання поточного скрипта: (%d) %s"
+msgstr "РџРѕРјРёР»РєР° РѕС‚СЂРёРјР°РЅРЅСЏ РїРѕС‚РѕС‡РЅРѕРіРѕ СЃРєСЂРёРїС‚Р°: (%d) %s"
 
 #: blacklist.php:73
 msgid "Error saving changes."
-msgstr "Помилка збереження змін."
+msgstr "РџРѕРјРёР»РєР° Р·Р±РµСЂРµР¶РµРЅРЅСЏ Р·РјС–РЅ."
 
 #: templates/filters/header.inc:41
 msgid "Existing Rules"
-msgstr "Існуючі правила"
+msgstr "Р†СЃРЅСѓСЋС‡С– РїСЂР°РІРёР»Р°"
 
 #: lib/Storage.php:350
 msgid "Exists"
-msgstr "існує"
+msgstr "С–СЃРЅСѓС”"
 
 #: lib/Driver/ldap.php:143
 #, php-format
 msgid "Expected 1 object, got %d."
-msgstr "Очікувався 1 об'єкт, отримано %d."
+msgstr "РћС‡С–РєСѓРІР°РІСЃСЏ 1 РѕР±'С”РєС‚, РѕС‚СЂРёРјР°РЅРѕ %d."
 
 #: templates/rule/filter.inc:10
 msgid "Field"
-msgstr "Поле"
+msgstr "РџРѕР»Рµ"
 
 #: templates/filters/settings.inc:22
 msgid "Filter All Messages"
-msgstr "Фільтрувати всі листи"
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°С‚Рё РІСЃС– Р»РёСЃС‚Рё"
 
 #: templates/filters/settings.inc:24
 msgid "Filter Only Seen Messages"
-msgstr "Фільтрувати тільки читані листи"
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°С‚Рё С‚С–Р»СЊРєРё С‡РёС‚Р°РЅС– Р»РёСЃС‚Рё"
 
 #: templates/filters/settings.inc:23
 msgid "Filter Only Unseen Messages"
-msgstr "Фільтрувати тільки нечитані листи"
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°С‚Рё С‚С–Р»СЊРєРё РЅРµС‡РёС‚Р°РЅС– Р»РёСЃС‚Рё"
 
 #: templates/filters/settings.inc:20
 msgid "Filter Options"
-msgstr "Опції фільтрування"
+msgstr "РћРїС†С–С— С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ"
 
 #: templates/rule/header.inc:25
 msgid "Filter Rule"
-msgstr "Правило фільтрування"
+msgstr "РџСЂР°РІРёР»Рѕ С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ"
 
 #: filters.php:137
 msgid "Filter Rules"
-msgstr "Правила фільтрування"
+msgstr "РџСЂР°РІРёР»Р° С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ"
 
 #: lib/Ingo.php:378
 msgid "Filter _Rules"
-msgstr "Правила фільтрування"
+msgstr "РџСЂР°РІРёР»Р° С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ"
 
 #: lib/Script/imap.php:342
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr "Фільтрування: %s лист(ів) скопійовано до папки \"%s\"."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: %s Р»РёСЃС‚(С–РІ) СЃРєРѕРїС–Р№РѕРІР°РЅРѕ РґРѕ РїР°РїРєРё \"%s\"."
 
 #: lib/Script/imap.php:328
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "Фільтрування: %s лист(ів) витерто."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: %s Р»РёСЃС‚(С–РІ) РІРёС‚РµСЂС‚Рѕ."
 
 #: lib/Script/imap.php:306
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr "Фільтрування: %s лист(ів) перенесено до папки \"%s\"."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: %s Р»РёСЃС‚(С–РІ) РїРµСЂРµРЅРµСЃРµРЅРѕ РґРѕ РїР°РїРєРё \"%s\"."
 
 #: lib/Script/imap.php:339
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
-msgstr "Фільтрування: Лист \"%s\" від \"%s\" скопійовано до папки \"%s\"."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: Р›РёСЃС‚ \"%s\" РІС–Рґ \"%s\" СЃРєРѕРїС–Р№РѕРІР°РЅРѕ РґРѕ РїР°РїРєРё \"%s\"."
 
 #: lib/Script/imap.php:323
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Фільтрування: Лист \"%s\" від \"%s\" витерто."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: Р›РёСЃС‚ \"%s\" РІС–Рґ \"%s\" РІРёС‚РµСЂС‚Рѕ."
 
 #: lib/Script/imap.php:300
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
-msgstr "Фільтрування: Лист \"%s\" від \"%s\" перенесено в папку \"%s\"."
+msgstr "Р¤С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ: Р›РёСЃС‚ \"%s\" РІС–Рґ \"%s\" РїРµСЂРµРЅРµСЃРµРЅРѕ РІ РїР°РїРєСѓ \"%s\"."
 
 #: rule.php:178
 msgid "Filter not found."
-msgstr "Фільтр не знайдено."
+msgstr "Р¤С–Р»СЊС‚СЂ РЅРµ Р·РЅР°Р№РґРµРЅРѕ."
 
 #: spam.php:75
 msgid "Folder to receive spam:"
-msgstr "Папка для отримання спаму:"
+msgstr "РџР°РїРєР° РґР»СЏ РѕС‚СЂРёРјР°РЅРЅСЏ СЃРїР°РјСѓ:"
 
 #: forward.php:95 filters.php:190 lib/Block/overview.php:71
 #: lib/Block/overview.php:73
 msgid "Forward"
-msgstr "Переслати"
+msgstr "РџРµСЂРµСЃР»Р°С‚Рё"
 
 #: config/fields.php.dist:39
 msgid "From"
-msgstr "Від"
+msgstr "Р’С–Рґ"
 
 #: lib/Storage.php:357
 msgid "Greater than"
-msgstr "більше ніж"
+msgstr "Р±С–Р»СЊС€Рµ РЅС–Р¶"
 
 #: lib/Storage.php:358
 msgid "Greater than or equal to"
-msgstr "більше або рівне"
+msgstr "Р±С–Р»СЊС€Рµ Р°Р±Рѕ СЂС–РІРЅРµ"
 
 #: lib/Script/sieve.php:2062
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "Вказана неіснуюча скринька для доручення листа."
+msgstr "Р’РєР°Р·Р°РЅР° РЅРµС–СЃРЅСѓСЋС‡Р° СЃРєСЂРёРЅСЊРєР° РґР»СЏ РґРѕСЂСѓС‡РµРЅРЅСЏ Р»РёСЃС‚Р°."
 
 #: lib/Storage.php:344
 msgid "Is"
-msgstr "є"
+msgstr "С”"
 
 #: lib/Storage.php:345
 msgid "Isn't"
-msgstr "не є"
+msgstr "РЅРµ С”"
 
 #: lib/Driver/ldap.php:23
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"Необхідна підтримка LDAP, але модуль LDAP відсутній або не завантажний."
+"РќРµРѕР±С…С–РґРЅР° РїС–РґС‚СЂРёРјРєР° LDAP, Р°Р»Рµ РјРѕРґСѓР»СЊ LDAP РІС–РґСЃСѓС‚РЅС–Р№ Р°Р±Рѕ РЅРµ Р·Р°РІР°РЅС‚Р°Р¶РЅРёР№."
 
 #: lib/Storage.php:355
 msgid "Less than"
-msgstr "менше ніж"
+msgstr "РјРµРЅС€Рµ РЅС–Р¶"
 
 #: lib/Storage.php:356
 msgid "Less than or equal to"
-msgstr "менше або рівне"
+msgstr "РјРµРЅС€Рµ Р°Р±Рѕ СЂС–РІРЅРµ"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "Mar_k message as deleted"
-msgstr "Помітити лист як витертий"
+msgstr "РџРѕРјС–С‚РёС‚Рё Р»РёСЃС‚ СЏРє РІРёС‚РµСЂС‚РёР№"
 
 #: templates/rule/footer.inc:25
 msgid "Mark message as:"
-msgstr "Помітити лист як:"
+msgstr "РџРѕРјС–С‚РёС‚Рё Р»РёСЃС‚ СЏРє:"
 
 #: lib/api.php:57
 msgid "Maximum Number of Rules"
-msgstr "Максимальна кількість правил"
+msgstr "РњР°РєСЃРёРјР°Р»СЊРЅР° РєС–Р»СЊРєС–СЃС‚СЊ РїСЂР°РІРёР»"
 
 #: templates/filters/header.inc:51
 msgid "Move"
-msgstr "Перенести"
+msgstr "РџРµСЂРµРЅРµСЃС‚Рё"
 
 #: filters.php:154 filters.php:271
 msgid "Move Rule Down"
-msgstr "Посунути правило вниз"
+msgstr "РџРѕСЃСѓРЅСѓС‚Рё РїСЂР°РІРёР»Рѕ РІРЅРёР·"
 
 #: filters.php:155 filters.php:270
 msgid "Move Rule Up"
-msgstr "Посунути правило вгору"
+msgstr "РџРѕСЃСѓРЅСѓС‚Рё РїСЂР°РІРёР»Рѕ РІРіРѕСЂСѓ"
 
 #: vacation.php:51
 msgid "My email addresses:"
-msgstr "Мої адреси е-пошти:"
+msgstr "РњРѕС— Р°РґСЂРµСЃРё Рµ-РїРѕС€С‚Рё:"
 
 #: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
 #: lib/Storage.php:874
 msgid "New Rule"
-msgstr "Нове правило"
+msgstr "РќРѕРІРµ РїСЂР°РІРёР»Рѕ"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "Інші опції"
+msgstr "Р†РЅС€С– РѕРїС†С–С—"
 
 #: lib/Block/overview.php:3
 msgid "Overview"
-msgstr "Загальний огляд"
+msgstr "Р—Р°РіР°Р»СЊРЅРёР№ РѕРіР»СЏРґ"
 
 #: templates/javascript/new_folder.js:7
 msgid "Please enter the name of the new folder:"
-msgstr "Введіть назву нової папки:"
+msgstr "Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ РЅРѕРІРѕС— РїР°РїРєРё:"
 
 #: vacation.php:46
 msgid "Reason:"
-msgstr "Причина:"
+msgstr "РџСЂРёС‡РёРЅР°:"
 
 #: config/fields.php.dist:63
 msgid "Received"
-msgstr "Отриманих на"
+msgstr "РћС‚СЂРёРјР°РЅРёС… РЅР°"
 
 #: templates/rule/footer.inc:61
 msgid "Return to Filters List"
-msgstr "Назад до списку фільтрів"
+msgstr "РќР°Р·Р°Рґ РґРѕ СЃРїРёСЃРєСѓ С„С–Р»СЊС‚СЂС–РІ"
 
 #: spam.php:63 spam.php:131 vacation.php:32 vacation.php:115 forward.php:32
 #: forward.php:86 templates/whitelist/whitelist.inc:24
 #: templates/blacklist/blacklist.inc:42
 msgid "Return to Rules List"
-msgstr "Назад до списку правил"
+msgstr "РќР°Р·Р°Рґ РґРѕ СЃРїРёСЃРєСѓ РїСЂР°РІРёР»"
 
 #: templates/filters/header.inc:48
 msgid "Rule"
-msgstr "Правило"
+msgstr "РџСЂР°РІРёР»Рѕ"
 
 #: templates/rule/header.inc:33
 msgid "Rule Name:"
-msgstr "Назва правила"
+msgstr "РќР°Р·РІР° РїСЂР°РІРёР»Р°"
 
 #: lib/Script/sieve.php:2402
 msgid "Rule:"
-msgstr "Правило:"
+msgstr "РџСЂР°РІРёР»Рѕ:"
 
 #: lib/Driver/ldap.php:86
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "Невдача STARTTLS: (%s) %s"
+msgstr "РќРµРІРґР°С‡Р° STARTTLS: (%s) %s"
 
 #: lib/Ingo.php:393
 msgid "S_pam"
-msgstr "Спам"
+msgstr "РЎРїР°Рј"
 
 #: spam.php:80 vacation.php:60 forward.php:43 templates/rule/footer.inc:60
 #: templates/whitelist/whitelist.inc:23 templates/blacklist/blacklist.inc:41
 msgid "Save"
-msgstr "Зберегти"
+msgstr "Р—Р±РµСЂРµРіС‚Рё"
 
 #: templates/filters/settings.inc:31
 msgid "Save Settings"
-msgstr "Зберегти налаштування"
+msgstr "Р—Р±РµСЂРµРіС‚Рё РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 
 #: templates/rule/footer.inc:30
 msgid "Seen"
-msgstr "Прочитані"
+msgstr "РџСЂРѕС‡РёС‚Р°РЅС–"
 
 #: rule.php:208
 msgid "Select a field"
-msgstr "Виберіть поле"
+msgstr "Р’РёР±РµСЂС–С‚СЊ РїРѕР»Рµ"
 
 #: templates/menu.inc:6 templates/menu.inc:8
 msgid "Select ruleset to display:"
-msgstr "Виберіть набір правил для показу:"
+msgstr "Р’РёР±РµСЂС–С‚СЊ РЅР°Р±С–СЂ РїСЂР°РІРёР» РґР»СЏ РїРѕРєР°Р·Сѓ:"
 
 #: rule.php:326 templates/blacklist/blacklist.inc:23 lib/Ingo.php:59
 msgid "Select target folder"
-msgstr "Виберіть папку призначення"
+msgstr "Р’РёР±РµСЂС–С‚СЊ РїР°РїРєСѓ РїСЂРёР·РЅР°С‡РµРЅРЅСЏ"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "Відправник"
+msgstr "Р’С–РґРїСЂР°РІРЅРёРє"
 
 #: filters.php:116
 msgid "Settings successfully updated."
-msgstr "Налаштування успішно оновлено."
+msgstr "РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ СѓСЃРїС–С€РЅРѕ РѕРЅРѕРІР»РµРЅРѕ."
 
 #: config/fields.php.dist:95
 msgid "Size"
-msgstr "Об'єм"
+msgstr "РћР±'С”Рј"
 
 #: vacation.php:41
 msgid "Start of vacation:"
-msgstr "Початок вакацій:"
+msgstr "РџРѕС‡Р°С‚РѕРє РІР°РєР°С†С–Р№:"
 
 #: config/fields.php.dist:31
 msgid "Subject"
-msgstr "Тема"
+msgstr "РўРµРјР°"
 
 #: lib/Script/sieve.php:2401
 msgid "Subject:"
-msgstr "Тема:"
+msgstr "РўРµРјР°:"
 
 #: lib/Ingo.php:141
 msgid "The driver said: "
-msgstr "Драйвер повідомив: "
+msgstr "Р”СЂР°Р№РІРµСЂ РїРѕРІС–РґРѕРјРёРІ: "
 
 #: config/fields.php.dist:27
 msgid "To"
-msgstr "До"
+msgstr "Р”Рѕ"
 
 #: templates/filters/filter.html:30
 msgid "To:"
@@ -472,64 +472,64 @@ msgstr "To:"
 #: lib/Script.php:126
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Не можу завантажити визначення для %s."
+msgstr "РќРµ РјРѕР¶Сѓ Р·Р°РІР°РЅС‚Р°Р¶РёС‚Рё РІРёР·РЅР°С‡РµРЅРЅСЏ РґР»СЏ %s."
 
 #: vacation.php:155 filters.php:184 lib/Block/overview.php:61
 #: lib/Block/overview.php:64 lib/Script/maildrop.php:265
 #: lib/Script/procmail.php:266 lib/Script/sieve.php:396
 msgid "Vacation"
-msgstr "Вакація"
+msgstr "Р’Р°РєР°С†С–СЏ"
 
 #: rule.php:332
 msgid "Value"
-msgstr "Значення"
+msgstr "Р—РЅР°С‡РµРЅРЅСЏ"
 
 #: filters.php:178 templates/whitelist/whitelist.inc:8
 #: lib/Block/overview.php:85 lib/Block/overview.php:88
 msgid "Whitelist"
-msgstr "Білий список"
+msgstr "Р‘С–Р»РёР№ СЃРїРёСЃРѕРє"
 
 #: rule.php:162 filters.php:69
 #, php-format
 msgid "You are not allowed to create more than %d rules."
-msgstr "Не дозволено створювати більше, ніж %d правил."
+msgstr "РќРµ РґРѕР·РІРѕР»РµРЅРѕ СЃС‚РІРѕСЂСЋРІР°С‚Рё Р±С–Р»СЊС€Рµ, РЅС–Р¶ %d РїСЂР°РІРёР»."
 
 #: rule.php:23 filters.php:61
 msgid "You are not allowed to create or edit custom rules."
-msgstr "Вам не дозволено створювати або редагувати власні правила."
+msgstr "Р’Р°Рј РЅРµ РґРѕР·РІРѕР»РµРЅРѕ СЃС‚РІРѕСЂСЋРІР°С‚Рё Р°Р±Рѕ СЂРµРґР°РіСѓРІР°С‚Рё РІР»Р°СЃРЅС– РїСЂР°РІРёР»Р°."
 
 #: rule.php:140 filters.php:50
 msgid "You do not have permission to delete filter rules."
-msgstr "Ви не маєте прав для стирання правил фільтрування."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІ РґР»СЏ СЃС‚РёСЂР°РЅРЅСЏ РїСЂР°РІРёР» С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ."
 
 #: rule.php:58 rule.php:155 filters.php:43 filters.php:110 filters.php:121
 msgid "You do not have permission to edit filter rules."
-msgstr "Ви не маєте прав для редагування правил фільтрування."
+msgstr "Р’Рё РЅРµ РјР°С”С‚Рµ РїСЂР°РІ РґР»СЏ СЂРµРґР°РіСѓРІР°РЅРЅСЏ РїСЂР°РІРёР» С„С–Р»СЊС‚СЂСѓРІР°РЅРЅСЏ."
 
 #: lib/Script/sieve.php:2399
 msgid "You have received a new message"
-msgstr "Ви отримали нового листа"
+msgstr "Р’Рё РѕС‚СЂРёРјР°Р»Рё РЅРѕРІРѕРіРѕ Р»РёСЃС‚Р°"
 
 #: lib/Script/imap.php:301 lib/Script/imap.php:324 lib/Script/imap.php:339
 msgid "[No Subject]"
-msgstr "[Без теми]"
+msgstr "[Р‘РµР· С‚РµРјРё]"
 
 #: lib/Ingo.php:383
 msgid "_Blacklist"
-msgstr "Чорний список"
+msgstr "Р§РѕСЂРЅРёР№ СЃРїРёСЃРѕРє"
 
 #: lib/Ingo.php:399
 msgid "_Permissions"
-msgstr "Права"
+msgstr "РџСЂР°РІР°"
 
 #: lib/Ingo.php:380
 msgid "_Whitelist"
-msgstr "Білий список"
+msgstr "Р‘С–Р»РёР№ СЃРїРёСЃРѕРє"
 
 #: templates/rule/filter.inc:4
 msgid "and"
-msgstr "і"
+msgstr "С–"
 
 #: templates/rule/filter.inc:4
 msgid "or"
-msgstr "або"
+msgstr "Р°Р±Рѕ"

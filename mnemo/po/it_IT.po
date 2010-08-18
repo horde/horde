@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: nethesis srl <info@nethesis.it>\n"
 "Language-Team: Italian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/memo/memo.inc:53
@@ -194,7 +194,7 @@ msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
 msgstr ""
-"Il supporto alla cifratura non è stato configurato, contattare "
+"Il supporto alla cifratura non Ã¨ stato configurato, contattare "
 "l'amministratore"
 
 #: templates/data/export.inc:16
@@ -346,7 +346,7 @@ msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
 "notepad will be permanently removed."
 msgstr ""
-"Vuoi eliminare il blocco \"%s\"? Questa operazione non può essere annullata "
+"Vuoi eliminare il blocco \"%s\"? Questa operazione non puÃ² essere annullata "
 "e tutti i dati verranno eliminati definitivamente."
 
 #: templates/view/memo.inc:16
@@ -437,36 +437,36 @@ msgstr "Il file %s non contiene appunti"
 
 #: lib/Driver.php:53
 msgid "The Notes backend is not currently available."
-msgstr "L'appunto seguente non è attualmente disponibile"
+msgstr "L'appunto seguente non Ã¨ attualmente disponibile"
 
 #: lib/Driver.php:227
 #, php-format
 msgid "The Notes backend is not currently available: %s"
-msgstr "L'appunto seguente %s non è attualmente disponibile"
+msgstr "L'appunto seguente %s non Ã¨ attualmente disponibile"
 
 #: memo.php:198
 msgid "The note was deleted."
-msgstr "L'appunto è stato eliminato."
+msgstr "L'appunto Ã¨ stato eliminato."
 
 #: notepads/create.php:31
 #, php-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Il Blocco Appunti \"%s\" è stato creato."
+msgstr "Il Blocco Appunti \"%s\" Ã¨ stato creato."
 
 #: notepads/delete.php:48
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
-msgstr "Il blocco appunti \"%s\" è stato eliminato."
+msgstr "Il blocco appunti \"%s\" Ã¨ stato eliminato."
 
 #: notepads/edit.php:42
 #, php-format
 msgid "The notepad \"%s\" has been renamed to \"%s\"."
-msgstr "Il Blocco Appunti \"%s\" è stato rinominato in %s."
+msgstr "Il Blocco Appunti \"%s\" Ã¨ stato rinominato in %s."
 
 #: notepads/edit.php:44
 #, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Il blocco appunti \"%s\" è stato salvato."
+msgstr "Il blocco appunti \"%s\" Ã¨ stato salvato."
 
 #: data.php:197
 #, php-format
@@ -515,7 +515,7 @@ msgstr "Appunto cifrato, immettere la password."
 #: view.php:100 view.php:108 memo.php:80 memo.php:88 lib/Driver/sql.php:448
 #: lib/Driver/kolab.php:766
 msgid "This note has been encrypted."
-msgstr "L'appunto  è stato cifrato."
+msgstr "L'appunto  Ã¨ stato cifrato."
 
 #: notepads/delete.php:24
 msgid "This notepad cannot be deleted"
@@ -558,7 +558,7 @@ msgstr "Non puoi modificare questo blocco."
 #: data.php:42 data.php:129 memo.php:37
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Non ti è permesso creare più di %d appunti."
+msgstr "Non ti Ã¨ permesso creare piÃ¹ di %d appunti."
 
 #: notepads/delete.php:35
 msgid "You are not allowed to delete this notepad."

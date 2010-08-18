@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,63 +20,63 @@ msgstr ""
 #: templates/list/header.inc:9
 #, php-format
 msgid "%d notes"
-msgstr "%d poznámek"
+msgstr "%d poznÃ¡mek"
 
 #: data.php:161
 #, php-format
 msgid "%s file successfully imported"
-msgstr "soubor %s byl úspì¹nì importován"
+msgstr "soubor %s byl ÃºspÄ›Å¡nÄ› importovÃ¡n"
 
 #: notepads.php:90 lib/base.php:95
 #, php-format
 msgid "%s's Notepad"
-msgstr "%s's Zápisník"
+msgstr "%s's ZÃ¡pisnÃ­k"
 
 #: templates/list/header.inc:9
 msgid "1 note"
-msgstr "1 poznámka"
+msgstr "1 poznÃ¡mka"
 
 #: memo.php:137
 msgid "Access denied deleting note."
-msgstr "Smazání poznámky nebylo povoleno."
+msgstr "SmazÃ¡nÃ­ poznÃ¡mky nebylo povoleno."
 
 #: memo.php:94 memo.php:97
 msgid "Access denied moving the note."
-msgstr "Pøesunutí poznámky nebylo povoleno."
+msgstr "PÅ™esunutÃ­ poznÃ¡mky nebylo povoleno."
 
 #: memo.php:69
 #, php-format
 msgid "Access denied saving note to %s."
-msgstr "Nebylo povoleno ulo¾ení poznámky do %s."
+msgstr "Nebylo povoleno uloÅ¾enÃ­ poznÃ¡mky do %s."
 
 #: memo.php:67
 #, php-format
 msgid "Access denied saving note: %s"
-msgstr "Nebylo povoleno ulo¾ení poznámky: %s"
+msgstr "Nebylo povoleno uloÅ¾enÃ­ poznÃ¡mky: %s"
 
 #: templates/prefs/showsummaryselect.inc:103
 msgid "Add category"
-msgstr "Pøidat kategorii"
+msgstr "PÅ™idat kategorii"
 
 #: memo.php:37
 msgid "Adding A New Note"
-msgstr "Pøidát Novou Poznámku"
+msgstr "PÅ™idÃ¡t Novou PoznÃ¡mku"
 
 #: config/prefs.php.dist:44
 msgid "Ascending"
-msgstr "Vzestupnì"
+msgstr "VzestupnÄ›"
 
 #: templates/prefs/showsummaryselect.inc:99
 msgid "Available Categories:"
-msgstr "Dostupné Kategorie:"
+msgstr "DostupnÃ© Kategorie:"
 
 #: templates/view/memo.inc:28 templates/view/memo.inc:65
 msgid "Back to Notepad"
-msgstr "Zpìt do Zápisníku"
+msgstr "ZpÄ›t do ZÃ¡pisnÃ­ku"
 
 #: templates/notepads/notepads.inc:97
 msgid "Back to Notepad Options"
-msgstr "Zpìt do Mo¾ností pro Zápisník"
+msgstr "ZpÄ›t do MoÅ¾nostÃ­ pro ZÃ¡pisnÃ­k"
 
 #: data.php:28 templates/data/import.inc:17
 msgid "CSV"
@@ -88,48 +88,48 @@ msgstr "Kategorie"
 
 #: templates/notepads/notepads.inc:22
 msgid "Change"
-msgstr "Zmìnit"
+msgstr "ZmÄ›nit"
 
 #: templates/list/memo_headers.inc:6 templates/list/memo_headers.inc:10
 msgid "Change sort direction"
-msgstr "Zmìnit Typ Tøídìní"
+msgstr "ZmÄ›nit Typ TÅ™Ã­dÄ›nÃ­"
 
 #: config/prefs.php.dist:15
 msgid "Change your note sorting and display options."
-msgstr "Zmìò mo¾nosti tøídení a zobrazení poznámek."
+msgstr "ZmÄ›Åˆ moÅ¾nosti tÅ™Ã­denÃ­ a zobrazenÃ­ poznÃ¡mek."
 
 #: templates/prefs/showsummaryselect.inc:93
 msgid "Choose the memo categories to list in the summary view."
-msgstr "Vyberte kategorie poznámek pro seznam v pøehledovém zobrazení."
+msgstr "Vyberte kategorie poznÃ¡mek pro seznam v pÅ™ehledovÃ©m zobrazenÃ­."
 
 #: config/prefs.php.dist:22
 msgid "Choose your default Notepad."
-msgstr "Zvolit implicitní zápisník:"
+msgstr "Zvolit implicitnÃ­ zÃ¡pisnÃ­k:"
 
 #: templates/search/search.inc:32
 msgid "Clear Form"
-msgstr "Vyèistit Formuláø"
+msgstr "VyÄistit FormulÃ¡Å™"
 
 #: templates/notepads/notepads.inc:17 templates/notepads/notepads.inc:94
 #: templates/notepads/notepads.inc:96
 msgid "Create"
-msgstr "Vytvoøit"
+msgstr "VytvoÅ™it"
 
 #: templates/view/memo.inc:35
 msgid "Created"
-msgstr "Vytvoøeno"
+msgstr "VytvoÅ™eno"
 
 #: config/prefs.php.dist:21
 msgid "Default Notepad"
-msgstr "Implicitní Zápisník:"
+msgstr "ImplicitnÃ­ ZÃ¡pisnÃ­k:"
 
 #: config/prefs.php.dist:35
 msgid "Default sorting criteria:"
-msgstr "Implicitní tøídící kritéria:"
+msgstr "ImplicitnÃ­ tÅ™Ã­dÃ­cÃ­ kritÃ©ria:"
 
 #: config/prefs.php.dist:46
 msgid "Default sorting direction:"
-msgstr "Implicitní smìr tøídìní:"
+msgstr "ImplicitnÃ­ smÄ›r tÅ™Ã­dÄ›nÃ­:"
 
 #: templates/view/memo.inc:25 templates/view/memo.inc:62
 #: templates/notepads/notepads.inc:95 templates/memo/memo.inc:56
@@ -138,7 +138,7 @@ msgstr "Smazat"
 
 #: config/prefs.php.dist:45
 msgid "Descending"
-msgstr "Sestupnì"
+msgstr "SestupnÄ›"
 
 #: templates/notepads/notepads.inc:85
 msgid "Description:"
@@ -146,7 +146,7 @@ msgstr "Popis:"
 
 #: config/prefs.php.dist:14
 msgid "Display Options"
-msgstr "Mo¾nosti Zobrazení"
+msgstr "MoÅ¾nosti ZobrazenÃ­"
 
 #: templates/view/memo.inc:21 templates/view/memo.inc:58
 msgid "Edit"
@@ -155,11 +155,11 @@ msgstr "Upravit"
 #: templates/list/memo_headers.inc:4 templates/list/memo_summaries.inc:4
 #: templates/list/memo_summaries.inc:5 lib/Block/summary.php:82
 msgid "Edit Note"
-msgstr "Upravit Poznámku"
+msgstr "Upravit PoznÃ¡mku"
 
 #: templates/list/memo_summaries.inc:9
 msgid "Empty Note"
-msgstr "Prázdná Poznámka"
+msgstr "PrÃ¡zdnÃ¡ PoznÃ¡mka"
 
 #: templates/data/export.inc:19
 msgid "Export"
@@ -167,121 +167,121 @@ msgstr "Exportovat"
 
 #: templates/data/export.inc:8
 msgid "Export Notes"
-msgstr "Exportovat Poznámky"
+msgstr "Exportovat PoznÃ¡mky"
 
 #: templates/search/search.inc:21
 msgid "F_ull Text"
-msgstr "Ú_plnı Text"
+msgstr "Ãš_plnÃ½ Text"
 
 #: templates/data/import.inc:8
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Importovat Poznámku, Krok %d"
+msgstr "Importovat PoznÃ¡mku, Krok %d"
 
 #: data.php:167
 msgid "Import/Export Notes"
-msgstr "Importovat/Exportovat Poznámky"
+msgstr "Importovat/Exportovat PoznÃ¡mky"
 
 #: templates/view/memo.inc:42
 msgid "Last Modified"
-msgstr "Naposledy Zmìnìno"
+msgstr "Naposledy ZmÄ›nÄ›no"
 
 #: data.php:39
 msgid "Memo Text"
-msgstr "Text Poznámky"
+msgstr "Text PoznÃ¡mky"
 
 #: memo.php:53
 #, php-format
 msgid "Modifying %s"
-msgstr "Upravování %s"
+msgstr "UpravovÃ¡nÃ­ %s"
 
 #: list.php:31
 msgid "My Notes"
-msgstr "Moje Poznámky"
+msgstr "Moje PoznÃ¡mky"
 
 #: lib/Block/summary.php:22
 msgid "New Note"
-msgstr "Nová Poznámka"
+msgstr "NovÃ¡ PoznÃ¡mka"
 
 #: templates/data/import.inc:40
 msgid "Next"
-msgstr "Dal¹í"
+msgstr "DalÅ¡Ã­"
 
 #: templates/menu.inc:7
 msgid "No notepads are available to guests."
-msgstr "®ádnı ze zápisníkù není dostupnı pro hosty."
+msgstr "Å½Ã¡dnÃ½ ze zÃ¡pisnÃ­kÅ¯ nenÃ­ dostupnÃ½ pro hosty."
 
 #: templates/list/header.inc:9
 msgid "No notes"
-msgstr "®ádné Poznámky"
+msgstr "Å½Ã¡dnÃ© PoznÃ¡mky"
 
 #: templates/list/empty.inc:3
 msgid "No notes match the current criteria."
-msgstr "®ádné poznámky se neshodují se souèasnım kritériem."
+msgstr "Å½Ã¡dnÃ© poznÃ¡mky se neshodujÃ­ se souÄasnÃ½m kritÃ©riem."
 
 #: lib/Block/summary.php:108
 msgid "No notes to display"
-msgstr "®ádné poznámky pro zobrazení"
+msgstr "Å½Ã¡dnÃ© poznÃ¡mky pro zobrazenÃ­"
 
 #: templates/list/memo_headers.inc:7
 msgid "No_te"
-msgstr "Po_známka"
+msgstr "Po_znÃ¡mka"
 
 #: config/prefs.php.dist:34
 msgid "Note Category"
-msgstr "Nová Kategorie"
+msgstr "NovÃ¡ Kategorie"
 
 #: view.php:61 templates/view/memo.inc:9
 msgid "Note Details"
-msgstr "Detaily pro Poznámku"
+msgstr "Detaily pro PoznÃ¡mku"
 
 #: notepads.php:101
 msgid "Note Lists"
-msgstr "Seznam Poznámek"
+msgstr "Seznam PoznÃ¡mek"
 
 #: config/prefs.php.dist:33
 msgid "Note Text"
-msgstr "Text Poznámky"
+msgstr "Text PoznÃ¡mky"
 
 #: templates/memo/memo.inc:14
 msgid "Note _Text"
-msgstr "_Text Poznámky"
+msgstr "_Text PoznÃ¡mky"
 
 #: memo.php:45 view.php:38
 msgid "Note not found."
-msgstr "Poznámka nebyla nalezena."
+msgstr "PoznÃ¡mka nebyla nalezena."
 
 #: templates/memo/memo.inc:21
 msgid "Note_pad"
-msgstr "Zápis_ník"
+msgstr "ZÃ¡pis_nÃ­k"
 
 #: templates/notepads/notepads.inc:79
 msgid "Notepad's name:"
-msgstr "Název Zápisníku:"
+msgstr "NÃ¡zev ZÃ¡pisnÃ­ku:"
 
 #: templates/notepads/notepads.inc:61
 msgid "Notepads"
-msgstr "Zápisníky"
+msgstr "ZÃ¡pisnÃ­ky"
 
 #: notepads.php:28
 msgid "Notepads must have a name."
-msgstr "Zápisník musí mít název."
+msgstr "ZÃ¡pisnÃ­k musÃ­ mÃ­t nÃ¡zev."
 
 #: lib/Block/summary.php:3
 msgid "Notes Summary"
-msgstr "Shrnutí Poznámek"
+msgstr "ShrnutÃ­ PoznÃ¡mek"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20
 msgid "Other Options"
-msgstr "Dal¹í Mo¾nosti"
+msgstr "DalÅ¡Ã­ MoÅ¾nosti"
 
 #: lib/api.php:119 lib/api.php:190 lib/api.php:260 lib/api.php:289
 msgid "Permission Denied"
-msgstr "Nepovolenı pøístup"
+msgstr "NepovolenÃ½ pÅ™Ã­stup"
 
 #: templates/notepads/notepads.inc:82
 msgid "Permissions"
-msgstr "Práva"
+msgstr "PrÃ¡va"
 
 #: templates/list/header.inc:4 templates/list/header.inc:5
 msgid "Refresh List"
@@ -293,11 +293,11 @@ msgstr "Odstranit kategorii"
 
 #: templates/notepads/notepads.inc:96
 msgid "Reset"
-msgstr "Vyèistit"
+msgstr "VyÄistit"
 
 #: templates/memo/memo.inc:48
 msgid "Save"
-msgstr "Ulo¾it"
+msgstr "UloÅ¾it"
 
 #: search.php:13 templates/search/search.inc:4 templates/search/search.inc:31
 msgid "Search"
@@ -305,35 +305,35 @@ msgstr "Vyhledat"
 
 #: list.php:53
 msgid "Search Results"
-msgstr "Vısledky Vyhledávání"
+msgstr "VÃ½sledky VyhledÃ¡vÃ¡nÃ­"
 
 #: templates/search/search.inc:17
 msgid "Search Scope"
-msgstr "Vyhledávání v Oblasti"
+msgstr "VyhledÃ¡vÃ¡nÃ­ v Oblasti"
 
 #: templates/search/search.inc:9
 msgid "Search _Text"
-msgstr "Hledanı _Text"
+msgstr "HledanÃ½ _Text"
 
 #: templates/notepads/notepads.inc:67
 msgid "Select a notepad"
-msgstr "Vybrat zápisník"
+msgstr "Vybrat zÃ¡pisnÃ­k"
 
 #: templates/data/export.inc:15
 msgid "Select the export format:"
-msgstr "Vybrat formát exportu:"
+msgstr "Vybrat formÃ¡t exportu:"
 
 #: templates/data/import.inc:37
 msgid "Select the file to import:"
-msgstr "Vybrat soubor k importování:"
+msgstr "Vybrat soubor k importovÃ¡nÃ­:"
 
 #: templates/data/import.inc:15
 msgid "Select the format of the source file:"
-msgstr "Vybrat formát zdrojového souboru:"
+msgstr "Vybrat formÃ¡t zdrojovÃ©ho souboru:"
 
 #: templates/prefs/showsummaryselect.inc:109
 msgid "Selected Categories:"
-msgstr "Vybrané Kategorie:"
+msgstr "VybranÃ© Kategorie:"
 
 #: templates/menu.inc:16
 msgid "Show"
@@ -341,88 +341,88 @@ msgstr "Zobrazit"
 
 #: templates/menu.inc:22
 msgid "Show Notepads:"
-msgstr "Zobrazit Zápisníky:"
+msgstr "Zobrazit ZÃ¡pisnÃ­ky:"
 
 #: lib/Block/summary.php:38
 msgid "Show action buttons?"
-msgstr "Zobrazit akèní tlaèítka?"
+msgstr "Zobrazit akÄnÃ­ tlaÄÃ­tka?"
 
 #: lib/Block/summary.php:41
 msgid "Show notepad name?"
-msgstr "Zobrazit název zápisníku?"
+msgstr "Zobrazit nÃ¡zev zÃ¡pisnÃ­ku?"
 
 #: lib/Block/summary.php:44
 msgid "Show notes from these categories"
-msgstr "Zobrazit poznámky v tìchto kategoriích"
+msgstr "Zobrazit poznÃ¡mky v tÄ›chto kategoriÃ­ch"
 
 #: templates/list/memo_headers.inc:11
 msgid "Sort by Category"
-msgstr "Setøídit podle Kategorií"
+msgstr "SetÅ™Ã­dit podle KategoriÃ­"
 
 #: templates/list/memo_headers.inc:7
 msgid "Sort by Note Text"
-msgstr "Setøídit podle Textu Poznámek"
+msgstr "SetÅ™Ã­dit podle Textu PoznÃ¡mek"
 
 #: memo.php:111
 #, php-format
 msgid "Successfully saved '%s'."
-msgstr "'%s' úspì¹nì ulo¾eno."
+msgstr "'%s' ÃºspÄ›Å¡nÄ› uloÅ¾eno."
 
 #: memo.php:134
 msgid "The note was deleted."
-msgstr "Poznámka byla vymazána."
+msgstr "PoznÃ¡mka byla vymazÃ¡na."
 
 #: notepads.php:41
 #, php-format
 msgid "The notepad \"%s\" couldn't be created: %s"
-msgstr "Nelze vytvoøit zápisník \"%s\": %s"
+msgstr "Nelze vytvoÅ™it zÃ¡pisnÃ­k \"%s\": %s"
 
 #: notepads.php:43
 #, php-format
 msgid "The notepad \"%s\" has been created."
-msgstr "Zápisník \"%s\" byl vytvoøen."
+msgstr "ZÃ¡pisnÃ­k \"%s\" byl vytvoÅ™en."
 
 #: notepads.php:73
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
-msgstr "Zápisník \"%s\" byl smazán."
+msgstr "ZÃ¡pisnÃ­k \"%s\" byl smazÃ¡n."
 
 #: notepads.php:51
 #, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Zápisník \"%s\" byl ulo¾en."
+msgstr "ZÃ¡pisnÃ­k \"%s\" byl uloÅ¾en."
 
 #: data.php:158
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Nastala chyba pøi importování dat: %s."
+msgstr "Nastala chyba pÅ™i importovÃ¡nÃ­ dat: %s."
 
 #: lib/api.php:143 lib/api.php:308
 msgid "There was an error importing the vNote data."
-msgstr "Nastala chyba pøi importování vNote dat."
+msgstr "Nastala chyba pÅ™i importovÃ¡nÃ­ vNote dat."
 
 #: memo.php:132
 #, php-format
 msgid "There was an error removing the note: %s"
-msgstr "Nastala chyba pøi odstraòování poznámky: %s"
+msgstr "Nastala chyba pÅ™i odstraÅˆovÃ¡nÃ­ poznÃ¡mky: %s"
 
 #: memo.php:109
 #, php-format
 msgid "There was an error saving the note: %s"
-msgstr "Nastala chyba pøi ukládní poznámky: %s"
+msgstr "Nastala chyba pÅ™i uklÃ¡dnÃ­ poznÃ¡mky: %s"
 
 #: view.php:24
 #, php-format
 msgid "There was an error viewing this notepad: %s"
-msgstr "Nastala chyba pøi prohlí¾ení zápisníku: %s"
+msgstr "Nastala chyba pÅ™i prohlÃ­Å¾enÃ­ zÃ¡pisnÃ­ku: %s"
 
 #: data.php:65
 msgid "There were no memos to export."
-msgstr "Neljous zde ¾ádné poznámky k exportování."
+msgstr "Neljous zde Å¾Ã¡dnÃ© poznÃ¡mky k exportovÃ¡nÃ­."
 
 #: data.php:91
 msgid "This file format is not supported."
-msgstr "Tento formát souboru nelze pou¾ít."
+msgstr "Tento formÃ¡t souboru nelze pouÅ¾Ã­t."
 
 #: notepads.php:69
 #, php-format
@@ -431,45 +431,45 @@ msgstr "Nelze smazat \"%s\": %s."
 
 #: templates/memo/memo.inc:59
 msgid "Undo Changes"
-msgstr "Storno Zmìny"
+msgstr "Storno ZmÄ›ny"
 
 #: templates/view/memo.inc:16 templates/list/memo_summaries.inc:11
 #: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:49
 msgid "Unfiled"
-msgstr "Nevyplnìno"
+msgstr "NevyplnÄ›no"
 
 #: lib/api.php:152 lib/api.php:224 lib/api.php:316
 msgid "Unsupported Content-Type."
-msgstr "Nepodporovanı Typ Obsahu."
+msgstr "NepodporovanÃ½ Typ Obsahu."
 
 #: templates/list/memo_summaries.inc:9
 msgid "View Note Details"
-msgstr "Prohlídnout Detaily Poznámky"
+msgstr "ProhlÃ­dnout Detaily PoznÃ¡mky"
 
 #: templates/data/import.inc:22
 msgid "Which Notepad should the notes be added to?"
-msgstr "Do kterého Zápisníku se mají poznámky ukládat?"
+msgstr "Do kterÃ©ho ZÃ¡pisnÃ­ku se majÃ­ poznÃ¡mky uklÃ¡dat?"
 
 #: view.php:28
 #, php-format
 msgid "You do not have permission to view the notepad %s."
-msgstr "Nedostateèná práva pro prohlí¾ení zápisníku %s."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro prohlÃ­Å¾enÃ­ zÃ¡pisnÃ­ku %s."
 
 #: notepads.php:76
 msgid "You must select a notepad to be deleted."
-msgstr "Musíte vybrat zápisník, kterı si pøejete smazat."
+msgstr "MusÃ­te vybrat zÃ¡pisnÃ­k, kterÃ½ si pÅ™ejete smazat."
 
 #: templates/prefs/notepadselect.inc:10
 msgid "Your default notepad:"
-msgstr "Vá¹ implicitní zápisník:"
+msgstr "VÃ¡Å¡ implicitnÃ­ zÃ¡pisnÃ­k:"
 
 #: templates/notepads/notepads.inc:65
 msgid "Your notepads:"
-msgstr "Va¹e zápisníky:"
+msgstr "VaÅ¡e zÃ¡pisnÃ­ky:"
 
 #: templates/view/memo.inc:28 templates/view/memo.inc:65
 msgid "_Back to Notepad"
-msgstr "_Zpìt k Zápisníku"
+msgstr "_ZpÄ›t k ZÃ¡pisnÃ­ku"
 
 #: templates/memo/memo.inc:39 templates/list/memo_headers.inc:11
 msgid "_Category"
@@ -485,7 +485,7 @@ msgstr "_Upravit"
 
 #: templates/search/search.inc:20
 msgid "_First Line"
-msgstr "_První Øádek"
+msgstr "_PrvnÃ­ Å˜Ã¡dek"
 
 #: lib/Mnemo.php:198
 msgid "_Import/Export"
@@ -493,15 +493,15 @@ msgstr "_Importovat/Exportovat"
 
 #: lib/Mnemo.php:184
 msgid "_List Notes"
-msgstr "_Seznam Poznámek"
+msgstr "_Seznam PoznÃ¡mek"
 
 #: lib/Mnemo.php:193
 msgid "_My Notepads"
-msgstr "_Poznámky"
+msgstr "_PoznÃ¡mky"
 
 #: lib/Mnemo.php:186
 msgid "_New Note"
-msgstr "_Nová Poznámka"
+msgstr "_NovÃ¡ PoznÃ¡mka"
 
 #: lib/Mnemo.php:203
 msgid "_Print"

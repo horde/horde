@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -37,7 +37,7 @@ msgid "Addressbook is read-only."
 msgstr "Adresseboka er berre lesbar"
 
 msgid "Advanced Search"
-msgstr "Avansert søk"
+msgstr "Avansert sÃ¸k"
 
 msgid "Alias"
 msgstr "Alias"
@@ -55,10 +55,10 @@ msgid "Cell Phone"
 msgstr "Mobiltelefon"
 
 msgid "Choose the order of the columns to display in the address list."
-msgstr "Vel rekkefølgja på kolonnene som skal visast i adresselista."
+msgstr "Vel rekkefÃ¸lgja pÃ¥ kolonnene som skal visast i adresselista."
 
 msgid "Clear Search"
-msgstr "Nullstill søk"
+msgstr "Nullstill sÃ¸k"
 
 msgid "Column Options"
 msgstr "Alternativ for kolonne"
@@ -96,7 +96,7 @@ msgid "Email"
 msgstr "E-post"
 
 msgid "Error while searching directory."
-msgstr "Feil ved søking i katalog."
+msgstr "Feil ved sÃ¸king i katalog."
 
 msgid "Export Addressbook"
 msgstr "Eksporter adressebok"
@@ -116,10 +116,10 @@ msgstr "Kunne ikkje kople til den spesifiserte katalogen."
 
 #, c-format
 msgid "Failed to search the directory: %s"
-msgstr "Kunne ikkje søke i katalogen: %s"
+msgstr "Kunne ikkje sÃ¸ke i katalogen: %s"
 
 msgid "Failed to search the specified directory."
-msgstr "Kunne ikkje søke i den spesifiserte katalogen."
+msgstr "Kunne ikkje sÃ¸ke i den spesifiserte katalogen."
 
 msgid "Fax"
 msgstr "Faks"
@@ -128,7 +128,7 @@ msgid "Find"
 msgstr "Finn"
 
 msgid "From"
-msgstr "Frå"
+msgstr "FrÃ¥"
 
 msgid "Help"
 msgstr "Hjelp"
@@ -140,7 +140,7 @@ msgid "Home Phone"
 msgstr "Telefon, privat"
 
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "Dersom du importerer CSV-data; inneheld den første rada feltnamn?"
+msgstr "Dersom du importerer CSV-data; inneheld den fÃ¸rste rada feltnamn?"
 
 msgid "Illegal or malformed form data."
 msgstr "Ulovleg eller feil utforma data."
@@ -152,7 +152,7 @@ msgid "Import"
 msgstr "Import"
 
 msgid "Import/Export Addressbooks"
-msgstr "Importer/eksporter adressebøker"
+msgstr "Importer/eksporter adressebÃ¸ker"
 
 msgid "Import/Export"
 msgstr "Import/eksport"
@@ -170,10 +170,10 @@ msgid "Invalid name."
 msgstr "Ugyldig namn."
 
 msgid "Invalid public key."
-msgstr "Ugyldig offentleg nøkkel."
+msgstr "Ugyldig offentleg nÃ¸kkel."
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "List"
 msgstr "List"
@@ -182,7 +182,7 @@ msgid "Matching"
 msgstr "samsvarande med"
 
 msgid "More than 1 entry returned."
-msgstr "Meir enn 1 oppføring returnert."
+msgstr "Meir enn 1 oppfÃ¸ring returnert."
 
 msgid "Mulberry addressbook sucessfully imported"
 msgstr "Mulberry-adressebok vart importert"
@@ -192,15 +192,15 @@ msgstr "Namn"
 
 #, c-format
 msgid "No public key found for %s."
-msgstr "Fann ingen offentleg nøkkel for %s."
+msgstr "Fann ingen offentleg nÃ¸kkel for %s."
 
 msgid ""
 "None of the available address books are configured to allow you to add new "
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"Ingen av deil tilgjengelege adressebøkene er konfigurert til å la deg legge "
-"til nye oppføringar. Dersom du meinar dette er feil, ver venleg og kontakt "
+"Ingen av deil tilgjengelege adressebÃ¸kene er konfigurert til Ã¥ la deg legge "
+"til nye oppfÃ¸ringar. Dersom du meinar dette er feil, ver venleg og kontakt "
 "din systemadministrator."
 
 msgid "Notes"
@@ -210,13 +210,13 @@ msgid "Options"
 msgstr "Alternativ"
 
 msgid "PGP Public Key"
-msgstr "PGP offentleg nøkkel"
+msgstr "PGP offentleg nÃ¸kkel"
 
 msgid "Pine addressbook sucessfully imported"
 msgstr "Pine-adressebok vart importert"
 
 msgid "Please choose an address book to add a contact to."
-msgstr "Vel ei adressebok for å legge til ei kontakt."
+msgstr "Vel ei adressebok for Ã¥ legge til ei kontakt."
 
 msgid "Please select a directory:"
 msgstr "Vel ein katalog:"
@@ -234,28 +234,28 @@ msgid "Save"
 msgstr "Lagre"
 
 msgid "Search Results"
-msgstr "Søkeresultat"
+msgstr "SÃ¸keresultat"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "Search&nbsp;Results"
-msgstr "Søkeresultat"
+msgstr "SÃ¸keresultat"
 
 msgid "Select the destination to import to:"
-msgstr "Vel mål for import:"
+msgstr "Vel mÃ¥l for import:"
 
 msgid "Select the file to import:"
 msgstr "Vel fil som skal importerast:"
 
 msgid "Select the format to export to:"
-msgstr "Vel format å eksportere til:"
+msgstr "Vel format Ã¥ eksportere til:"
 
 msgid "Select the format to import from:"
-msgstr "Vel format å importere frå:"
+msgstr "Vel format Ã¥ importere frÃ¥:"
 
 msgid "Select the source to export from:"
-msgstr "Vel kjelde å eksportere frå:"
+msgstr "Vel kjelde Ã¥ eksportere frÃ¥:"
 
 msgid "Select view to display by default."
 msgstr "Vel vising som skal brukast som standard."
@@ -264,7 +264,7 @@ msgid "Select which fields to display in the address lists."
 msgstr "Vel kva felt som skal visast i adresselistene."
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Selected Columns:"
 msgstr "Tilgjengelege kolonner:"
@@ -274,7 +274,7 @@ msgid "Send mail to %s"
 msgstr "Send post til %s"
 
 msgid "Set your preferred display language."
-msgstr "Set ønska språk."
+msgstr "Set Ã¸nska sprÃ¥k."
 
 msgid "Some of Turba's configuration files are missing:"
 msgstr "Nokre av Turba sine konfigurasjonsfiler manglar:"
@@ -289,34 +289,34 @@ msgid "The file contained no data."
 msgstr "Fila inneheld ingen data."
 
 msgid "There are no browseable address books."
-msgstr "Ingen adressebøker tilgjengeleg for gjennomsyning."
+msgstr "Ingen adressebÃ¸ker tilgjengeleg for gjennomsyning."
 
 #, c-format
 msgid "There are no entries in %s."
-msgstr "Ingen oppføringar i %s."
+msgstr "Ingen oppfÃ¸ringar i %s."
 
 msgid "There are no writeable address books."
-msgstr "Ingen adressebøker med skrivetilgang."
+msgstr "Ingen adressebÃ¸ker med skrivetilgang."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"Problem ved opplasting av fil. Fila var kanskje større enn den maksimalt "
+"Problem ved opplasting av fil. Fila var kanskje stÃ¸rre enn den maksimalt "
 "tillatte storleiken."
 
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
 msgstr ""
-"Feil når objektet skulle leggast til. Kontakt din systemadministrator for "
+"Feil nÃ¥r objektet skulle leggast til. Kontakt din systemadministrator for "
 "vidare hjelp."
 
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
 msgstr ""
-"Feil når objektet skulle slettast. Kontakt din systemadministrator for "
+"Feil nÃ¥r objektet skulle slettast. Kontakt din systemadministrator for "
 "vidare hjelp."
 
 msgid "There was an error importing the data."
@@ -330,13 +330,13 @@ msgid ""
 "which preferences users can alter."
 msgstr ""
 "Denne fila kontrollerer standardinnstillingane for Turba, og kontrollerer "
-"også kva innstillingar brukarar kan endre."
+"ogsÃ¥ kva innstillingar brukarar kan endre."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"Denne fila kontrollerer stilarket som blir brukt til Ã¥ definere fargar og "
 "skrifttypar, og legg til eller overstyrer standardverdiane til Horde."
 
 msgid ""
@@ -357,7 +357,7 @@ msgstr ""
 "alternativ for skripta i Turba."
 
 msgid "This person already has a public key in the addressbook."
-msgstr "Denne personen har allereie ein offentleg nøkkel i adresseboka."
+msgstr "Denne personen har allereie ein offentleg nÃ¸kkel i adresseboka."
 
 msgid "This person is already in your addressbook."
 msgstr "Denne personen er allereie i adresseboka di."
@@ -388,7 +388,7 @@ msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"Du kopla ingen felt frå den importerte fila til korresponderande felt i "
+"Du kopla ingen felt frÃ¥ den importerte fila til korresponderande felt i "
 "Turba."
 
 msgid "Your Information"
@@ -404,7 +404,7 @@ msgid "move left"
 msgstr "flytt venstre"
 
 msgid "move right"
-msgstr "flytt høgre"
+msgstr "flytt hÃ¸gre"
 
 msgid "remove column"
 msgstr "fjern kolonne"

@@ -11,14 +11,14 @@ msgstr ""
 "Last-Translator: Toomas Aas <toomas.aas@raad.tartu.ee>\n"
 "Language-Team: Estonian <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
 msgid "%s does not exist or is not executable."
-msgstr "%s puudub vıi pole k‰ivitatav."
+msgstr "%s puudub v√µi pole k√§ivitatav."
 
 #: lib/Driver/expectpecl.php:73
 #, php-format
@@ -28,7 +28,7 @@ msgstr "%s laiendust ei saa laadida!"
 #: lib/Driver/composite.php:63
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: ei ınnestu laadida draiverit: %s"
+msgstr "%s: ei √µnnestu laadida draiverit: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
@@ -37,7 +37,7 @@ msgstr "ADSI viga %s."
 
 #: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
 msgid "Access Denied."
-msgstr "Juurdep‰‰s keelatud."
+msgstr "Juurdep√§√§s keelatud."
 
 #: lib/Driver.php:101
 msgid "Backend not correctly implemented."
@@ -45,28 +45,28 @@ msgstr "Alusrakendus ei ole korralikult paigaldatud."
 
 #: lib/Driver/poppassd.php:90
 msgid "Cannot send command to server."
-msgstr "K‰sku ei ınnestunud serverile saata."
+msgstr "K√§sku ei √µnnestunud serverile saata."
 
 #: main.php:281 templates/main/main.inc:141
 msgid "Change Password"
-msgstr "Vaheta salasına"
+msgstr "Vaheta salas√µna"
 
 #: templates/main/main.inc:126
 msgid "Change password for:"
-msgstr "Vaheta salasına s¸steemis:"
+msgstr "Vaheta salas√µna s√ºsteemis:"
 
 #: templates/main/main.inc:67
 msgid "Change your password"
-msgstr "Muuda oma salasına"
+msgstr "Muuda oma salas√µna"
 
 #: templates/main/main.inc:65
 #, php-format
 msgid "Changing password for %s"
-msgstr "Salasına muutmine s¸steemis %s"
+msgstr "Salas√µna muutmine s√ºsteemis %s"
 
 #: templates/main/main.inc:113
 msgid "Confirm new password:"
-msgstr "Korda uut salasına:"
+msgstr "Korda uut salas√µna:"
 
 #: lib/Driver/kolab.php:60 lib/Driver/ldap.php:120
 msgid "Could not bind to LDAP server"
@@ -74,35 +74,35 @@ msgstr "Ei saanud sisse LDAP serverisse"
 
 #: lib/Driver/expectpecl.php:118
 msgid "Could not change password (bad old password?)"
-msgstr "Salasına muutmine nurjus (vale vana salasına?)"
+msgstr "Salas√µna muutmine nurjus (vale vana salas√µna?)"
 
 #: lib/Driver/expectpecl.php:138
 msgid "Could not change password."
-msgstr "Salasına muutmine nurjus."
+msgstr "Salas√µna muutmine nurjus."
 
 #: lib/Driver/kolab.php:46 lib/Driver/ldap.php:80
 msgid "Could not connect to LDAP server"
-msgstr "Ei saanud ¸hendust LDAP serveriga."
+msgstr "Ei saanud √ºhendust LDAP serveriga."
 
 #: lib/Driver/expectpecl.php:98
 msgid "Could not login to system (no password prompt)"
-msgstr "S¸steemi sisselogimine nurjus (ei n‰inud parooliviipa)"
+msgstr "S√ºsteemi sisselogimine nurjus (ei n√§inud parooliviipa)"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "Ei ınnestunud avada toru smbpasswd-ga."
+msgstr "Ei √µnnestunud avada toru smbpasswd-ga."
 
 #: lib/Driver/ldap.php:86
 msgid "Could not start TLS connection to LDAP server"
-msgstr "Ei ınnestunud avada TLS ¸hendust LDAP serveriga."
+msgstr "Ei √µnnestunud avada TLS √ºhendust LDAP serveriga."
 
 #: lib/Driver/expectpecl.php:108
 msgid "Could not start passwd program (no old password prompt)"
-msgstr "passwd programmi k‰ivitamine nurjus (ei n‰inud vana parooli viipa)"
+msgstr "passwd programmi k√§ivitamine nurjus (ei n√§inud vana parooli viipa)"
 
 #: lib/Driver/expectpecl.php:44
 msgid "End of file."
-msgstr "Faili lıpp."
+msgstr "Faili l√µpp."
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
@@ -110,33 +110,33 @@ msgstr "Viga andmete saatmisel smbpasswd-le."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "Vana salasına kontroll nurjus."
+msgstr "Vana salas√µna kontroll nurjus."
 
 #: main.php:235 lib/Driver/composite.php:102
 #, php-format
 msgid "Failure in changing password for %s: %s"
-msgstr "Salasına muutmine %s s¸steemis nurjus: %s"
+msgstr "Salas√µna muutmine %s s√ºsteemis nurjus: %s"
 
 #: lib/Driver/expectpecl.php:50
 msgid "Full buffer."
-msgstr "Puhver t‰is"
+msgstr "Puhver t√§is"
 
 #: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/vmailmgr.php:42
 #: lib/Driver/kolab.php:84 lib/Driver/poppassd.php:120 lib/Driver/ldap.php:138
 msgid "Incorrect old password."
-msgstr "Vale vana salasına."
+msgstr "Vale vana salas√µna."
 
 #: lib/Driver/ldap.php:204
 msgid "Minimum password age has not yet expired"
-msgstr "Salasına v‰him kehtivusaeg pole veel t‰is"
+msgstr "Salas√µna v√§him kehtivusaeg pole veel t√§is"
 
 #: lib/Driver/expectpecl.php:128
 msgid "New password not valid (too short, bad password, too similar, ...)"
-msgstr "Uus salasına ei sobi (liiga l¸hike, lubamatu sına, liiga sarnane, ...)"
+msgstr "Uus salas√µna ei sobi (liiga l√ºhike, lubamatu s√µna, liiga sarnane, ...)"
 
 #: templates/main/main.inc:101
 msgid "New password:"
-msgstr "Uus salasına:"
+msgstr "Uus salas√µna:"
 
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
@@ -149,89 +149,89 @@ msgstr "Alusrakendust \"%s\" ei leitud."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
-msgstr "Vana salasına:"
+msgstr "Vana salas√µna:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd moodul ei ole korralikult h‰‰lestatud."
+msgstr "Passwd moodul ei ole korralikult h√§√§lestatud."
 
 #: main.php:222
 #, php-format
 msgid "Password changed on %s."
-msgstr "Salasına s¸steemis %s muudetud."
+msgstr "Salas√µna s√ºsteemis %s muudetud."
 
 #: lib/Driver/sql.php:127
 #, php-format
 msgid "Password column \"%s\" not found in password table."
-msgstr "Salasınade tabelis ei leitud salasına veergu \"%s\"."
+msgstr "Salas√µnade tabelis ei leitud salas√µna veergu \"%s\"."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "Salasına moodul ei leia etteantud programmi."
+msgstr "Salas√µna moodul ei leia etteantud programmi."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Salasına moodulil puuduvad vajalikud parameetrid."
+msgstr "Salas√µna moodulil puuduvad vajalikud parameetrid."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Salasına moodulil puudub target parameeter."
+msgstr "Salas√µna moodulil puudub target parameeter."
 
 #: main.php:196 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "Salasına moodul ei ole korralikult h‰‰lestatud"
+msgstr "Salas√µna moodul ei ole korralikult h√§√§lestatud"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "Salasına moodul ei ole korralikult h‰‰lestatud."
+msgstr "Salas√µna moodul ei ole korralikult h√§√§lestatud."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Sa pead sisestama uue salasına"
+msgstr "Sa pead sisestama uue salas√µna"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Sa pead sisestama kehtiva salasına"
+msgstr "Sa pead sisestama kehtiva salas√µna"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Uus salasına tuleb sisestada kaks korda"
+msgstr "Uus salas√µna tuleb sisestada kaks korda"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
-"Kohustuslik parameeter 'drivers' on Composite seadistuses valesti m‰‰ratud."
+"Kohustuslik parameeter 'drivers' on Composite seadistuses valesti m√§√§ratud."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
-msgstr "Passwd mooduli SQL h‰‰lestuses puudub vajalik 'phptype'."
+msgstr "Passwd mooduli SQL h√§√§lestuses puudub vajalik 'phptype'."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "SQL h‰‰lestuses puudub vajalik 'phptype'."
+msgstr "SQL h√§√§lestuses puudub vajalik 'phptype'."
 
 #: templates/main/main.inc:142
 msgid "Reset"
-msgstr "T¸hjenda vorm"
+msgstr "T√ºhjenda vorm"
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
-msgstr "Salasına muutmise veebisaidiga ei saanud ¸hendust."
+msgstr "Salas√µna muutmise veebisaidiga ei saanud √ºhendust."
 
 #: lib/Driver/http.php:74
 msgid "The username could not be found."
 msgstr "Kasutajanime ei leitud."
 
 msgid "Time out."
-msgstr "Ajalimiidi ¸letamine."
+msgstr "Ajalimiidi √ºletamine."
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "Ei saa ¸hendust SQL serveriga."
+msgstr "Ei saa √ºhendust SQL serveriga."
 
 #: lib/Driver/ldap.php:92
 msgid "Unable to disable directory referrals"
-msgstr "Kataloogiviiteid ei saa v‰lja l¸litada."
+msgstr "Kataloogiviiteid ei saa v√§lja l√ºlitada."
 
 #: lib/Driver/expectpecl.php:93
 msgid "Unable to open expect stream!"
@@ -254,59 +254,59 @@ msgstr "Kasutajanimi:"
 #: main.php:60
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "Sa ei saa muuta kasutaja %s salasına"
+msgstr "Sa ei saa muuta kasutaja %s salas√µna"
 
 #: main.php:68
 msgid "You must give your current password"
-msgstr "Sa pead sisestama oma kehtiva salasına"
+msgstr "Sa pead sisestama oma kehtiva salas√µna"
 
 #: main.php:77
 msgid "You must give your new password"
-msgstr "Sa pead sisestama oma uue salasına"
+msgstr "Sa pead sisestama oma uue salas√µna"
 
 #: main.php:81
 msgid "You must verify your new password"
-msgstr "Uus salasına tuleb sisestada kaks korda"
+msgstr "Uus salas√µna tuleb sisestada kaks korda"
 
 #: main.php:101
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "Uus salasına on liiga pikk; salasına ei tohi olla pikem kui %d m‰rki!"
+msgstr "Uus salas√µna on liiga pikk; salas√µna ei tohi olla pikem kui %d m√§rki!"
 
 #: main.php:185
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Uut salasına on liiga lihtne ‰ra arvata! Salasına ei muudetud!"
+msgstr "Uut salas√µna on liiga lihtne √§ra arvata! Salas√µna ei muudetud!"
 
 #: main.php:176
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Uut salasına on liiga lihtne ‰ra arvata. Salasına ei muudetud!"
+msgstr "Uut salas√µna on liiga lihtne √§ra arvata. Salas√µna ei muudetud!"
 
 #: main.php:96
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Uus salasına peab olema v‰hemalt %d m‰rki pikk!"
+msgstr "Uus salas√µna peab olema v√§hemalt %d m√§rki pikk!"
 
 #: main.php:89
 msgid "Your new password must be different from your current password"
-msgstr "Uus salasına peab erinema praegusest salasınast"
+msgstr "Uus salas√µna peab erinema praegusest salas√µnast"
 
 #: main.php:141
 #, php-format
 msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
 "Your new password must contain at least %d alphabetic characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d t‰hte."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d t‰hte."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d t√§hte."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d t√§hte."
 
 #: main.php:146
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
 "Your new password must contain at least %d alphanumeric characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d t‰hte vıi numbrit."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d t‰hte vıi numbrit."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d t√§hte v√µi numbrit."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d t√§hte v√µi numbrit."
 
 #: main.php:151
 #, php-format
@@ -314,54 +314,54 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"Uus salasına peab sisaldama v‰hemalt %d eri t¸¸pi m‰rki. T¸¸bid on: "
-"v‰iket‰ht, suurt‰ht, number ja muu m‰rk."
+"Uus salas√µna peab sisaldama v√§hemalt %d eri t√º√ºpi m√§rki. T√º√ºbid on: "
+"v√§iket√§ht, suurt√§ht, number ja muu m√§rk."
 
 #: main.php:131
 #, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d v‰iket‰hte."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d v‰iket‰hte."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d v√§iket√§hte."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d v√§iket√§hte."
 
 #: main.php:136
 #, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d numbrit."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d numbrit."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d numbrit."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d numbrit."
 
 #: main.php:165
 #, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d erim‰rki."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d erim‰rki."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d erim√§rki."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d erim√§rki."
 
 #: main.php:126
 #, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
-msgstr[0] "Uus salasına peab sisaldama v‰hemalt %d suurt‰hte."
-msgstr[1] "Uus salasına peab sisaldama v‰hemalt %d suurt‰hte."
+msgstr[0] "Uus salas√µna peab sisaldama v√§hemalt %d suurt√§hte."
+msgstr[1] "Uus salas√µna peab sisaldama v√§hemalt %d suurt√§hte."
 
 #: main.php:157
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Uus salasına peab sisaldama v‰hem kui %d t¸hikut."
+msgstr "Uus salas√µna peab sisaldama v√§hem kui %d t√ºhikut."
 
 #: main.php:159
 msgid "Your new password must not contain whitespace characters."
-msgstr "Uus salasına ei tohi sisaldada t¸hikuid."
+msgstr "Uus salas√µna ei tohi sisaldada t√ºhikuid."
 
 #: main.php:85
 msgid "Your new passwords didn't match"
-msgstr "Sisestatud salasınad ei klapi"
+msgstr "Sisestatud salas√µnad ei klapi"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "Salasınad ei ınnestunud muuta."
+msgstr "Salas√µnad ei √µnnestunud muuta."
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Salasınad ei klapi"
+msgstr "Salas√µnad ei klapi"

@@ -1,4 +1,4 @@
-# translation of pt_BR.po to PortuguÍs brasileiro
+# translation of pt_BR.po to Portugu√™s brasileiro
 # Portuguese translations for Wicked package.
 # Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the Wicked package.
@@ -12,9 +12,9 @@ msgstr ""
 "POT-Creation-Date: 2008-08-01 10:45+0200\n"
 "PO-Revision-Date: 2008-12-28 16:40-0200\n"
 "Last-Translator: Luis Felipe Marzagao <duli@fedoraproject.org>\n"
-"Language-Team: PortuguÍs brasileiro <i18n@lists.horde.org>\n"
+"Language-Team: Portugu√™s brasileiro <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -24,8 +24,8 @@ msgstr ""
 msgid ""
 "%s does not exist, but maybe you were looking for one of the following pages?"
 msgstr ""
-"%s n„o existe, mas talvez vocÍ estivesse procurando por uma das seguintes "
-"p·ginas?"
+"%s n√£o existe, mas talvez voc√™ estivesse procurando por uma das seguintes "
+"p√°ginas?"
 
 #: templates/edit/create.inc:30
 #, php-format
@@ -33,13 +33,13 @@ msgid ""
 "%s does not exist. Click on \"Create\" below if you want to create this page "
 "now and start editing."
 msgstr ""
-"%s n„o existe. Clique em \"Criar\" abaixo se vocÍ deseja criar esta p·gina e "
-"edit·-la."
+"%s n√£o existe. Clique em \"Criar\" abaixo se voc√™ deseja criar esta p√°gina e "
+"edit√°-la."
 
 #: lib/Page/Search.php:111
 #, php-format
 msgid "%s does not exist. You can create it now."
-msgstr "%s n„o existe. VocÍ pode cri·-la agora."
+msgstr "%s n√£o existe. Voc√™ pode cri√°-la agora."
 
 #: templates/edit/create.inc:37
 msgid "(None)"
@@ -79,34 +79,34 @@ msgstr "-u, --username[=username]    Horde login username"
 
 #: templates/display/MergeOrRename.html:31
 msgid "Add the text from this page"
-msgstr "Adicionar o texto desta p·gina"
+msgstr "Adicionar o texto desta p√°gina"
 
 #: lib/Page/AddPage.php:108
 #, php-format
 msgid "AddPage: %s"
-msgstr "AdicionarP·gina: %s"
+msgstr "AdicionarP√°gina: %s"
 
 #: lib/Page/AllPages.php:90
 msgid "AllPages"
-msgstr "TodasAsP·ginas"
+msgstr "TodasAsP√°ginas"
 
 #: lib/Page/DeletePage.php:83
 msgid ""
 "Are you sure you want to delete this page? All versions will be permanently "
 "removed."
 msgstr ""
-"Deseja realmente apagar esta p·gina? Todas as versıes ser„o removidas de "
+"Deseja realmente apagar esta p√°gina? Todas as vers√µes ser√£o removidas de "
 "forma permanente."
 
 #: lib/Page/DeletePage.php:85
 #, php-format
 msgid "Are you sure you want to delete version %s of this page?"
-msgstr "Deseja realmente apagar a vers„o %s desta p·gina?"
+msgstr "Deseja realmente apagar a vers√£o %s desta p√°gina?"
 
 #: lib/Page/RevertPage.php:71
 #, php-format
 msgid "Are you sure you want to revert to version %s of this page?"
-msgstr "Deseja realmente reverter para a vers„o %s desta p·gina?"
+msgstr "Deseja realmente reverter para a vers√£o %s desta p√°gina?"
 
 #: templates/display/AttachedFiles.html:88
 msgid "Attach File"
@@ -139,7 +139,7 @@ msgstr "Anexos"
 
 #: lib/Page/AttachedFiles.php:225
 msgid "Attachments with spaces can't be embedded into a page."
-msgstr "Anexos com espaÁos n„o podem ser incorporados em uma p·gina."
+msgstr "Anexos com espa√ßos n√£o podem ser incorporados em uma p√°gina."
 
 #: templates/history/header.inc:23 templates/pagelist/header.inc:7
 #: templates/edit/create.inc:19 lib/Page/Search.php:157
@@ -166,17 +166,17 @@ msgstr "Referenciadores: %s"
 
 #: lib/Page/AttachedFiles.php:231
 msgid "Can't read uploaded file."
-msgstr "ImpossÌvel ler arquivo enviado."
+msgstr "Imposs√≠vel ler arquivo enviado."
 
 #: lib/Page/RevertPage.php:120
 #, php-format
 msgid "Can't revert to an unknown version."
-msgstr "ImpossÌvel reverter para uma vers„o desconhecida."
+msgstr "Imposs√≠vel reverter para uma vers√£o desconhecida."
 
 #: lib/Page/AttachedFiles.php:271
 #, php-format
 msgid "Can't update \"%s\": no such attachment."
-msgstr "ImpossÌvel atualizar \"%s\": anexo inexistente."
+msgstr "Imposs√≠vel atualizar \"%s\": anexo inexistente."
 
 #: templates/edit/create.inc:47 templates/edit/standard.inc:27
 #: lib/Page/DeletePage.php:104 lib/Page/RevertPage.php:88
@@ -186,40 +186,40 @@ msgstr "Cancelar"
 
 #: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
 msgid "Change Log"
-msgstr "Log de AlteraÁıes"
+msgstr "Log de Altera√ß√µes"
 
 #: templates/edit/standard.inc:29
 msgid "Change log"
-msgstr "Log de alteraÁıes"
+msgstr "Log de altera√ß√µes"
 
 #: templates/display/AttachedFiles.html:80
 #: templates/display/AttachedFiles.html:146
 msgid "Change log entry"
-msgstr "Registro do log de alteraÁıes"
+msgstr "Registro do log de altera√ß√µes"
 
 #: templates/display/MergeOrRename.html:40
 msgid "Change references to this page from:"
-msgstr "Alterar referÍncias para essa p·gina de:"
+msgstr "Alterar refer√™ncias para essa p√°gina de:"
 
 #: lib/Page/MergeOrRename.php:253
 #, php-format
 msgid "Changed references from %s to %s"
-msgstr "ReferÍncias alteradas de %s para %s"
+msgstr "Refer√™ncias alteradas de %s para %s"
 
 #: templates/edit/standard.inc:28
 msgid "Changelog is required"
-msgstr "Log de alteraÁıes È necess·rio"
+msgstr "Log de altera√ß√µes √© necess√°rio"
 
 #: templates/edit/create.inc:26
 msgid ""
 "Click on \"Create\" below if you want to create this page now and start "
 "editing."
 msgstr ""
-"Clique em \"Criar\" abaixo se vocÍ deseja criar esta p·gina e edit·-la."
+"Clique em \"Criar\" abaixo se voc√™ deseja criar esta p√°gina e edit√°-la."
 
 #: scripts/wicked.php:42
 msgid "Couldn't read command-line options."
-msgstr "N„o foi possÌvel ler opÁıes de linha de comando."
+msgstr "N√£o foi poss√≠vel ler op√ß√µes de linha de comando."
 
 #: templates/edit/create.inc:46
 msgid "Create"
@@ -228,7 +228,7 @@ msgstr "Criar"
 #: lib/Page/NewPage.php:135
 #, php-format
 msgid "Create Failed: %s"
-msgstr "CriaÁ„o Falhou: %s"
+msgstr "Cria√ß√£o Falhou: %s"
 
 #: templates/history/header.inc:24
 msgid "Created"
@@ -237,7 +237,7 @@ msgstr "Criado"
 #: templates/pagelist/header.inc:8 templates/edit/create.inc:20
 #: lib/Page/Search.php:158
 msgid "Creation Date"
-msgstr "Data de CriaÁ„o"
+msgstr "Data de Cria√ß√£o"
 
 #: templates/display/AttachedFiles.html:11
 msgid "Date"
@@ -263,12 +263,12 @@ msgstr "Delete Version %s"
 
 #: lib/Page/DeletePage.php:97 lib/Page/DeletePage.php:120
 msgid "DeletePage"
-msgstr "ApagarP·gina"
+msgstr "ApagarP√°gina"
 
 #: lib/Page/DeletePage.php:142
 #, php-format
 msgid "Deleted version %s of \"%s\"."
-msgstr "Apagar vers„o %s de \"%s\"."
+msgstr "Apagar vers√£o %s de \"%s\"."
 
 #: templates/history/header.inc:26
 msgid "Diff From"
@@ -291,7 +291,7 @@ msgstr "Exibir %s"
 #: templates/history/summary.inc:2 templates/pagelist/summary.inc:6
 #, php-format
 msgid "Display Version %s"
-msgstr "Exibir Vers„o %s"
+msgstr "Exibir Vers√£o %s"
 
 #: templates/display/AttachedFiles.html:13
 msgid "Downloads"
@@ -304,27 +304,27 @@ msgstr "Editar %s"
 
 #: templates/history/header.inc:18
 msgid "Edit Version"
-msgstr "Editar Vers„o"
+msgstr "Editar Vers√£o"
 
 #: templates/history/summary.inc:16
 #, php-format
 msgid "Edit Version %s"
-msgstr "Editar Vers„o %s"
+msgstr "Editar Vers√£o %s"
 
 #: templates/edit/standard.inc:21 lib/Page/EditPage.php:93
 msgid "EditPage"
-msgstr "EditarP·gina"
+msgstr "EditarP√°gina"
 
 #: templates/display/AttachedFiles.html:67
 msgid "Enter a name for this file (if blank, will use the file's current name)"
 msgstr ""
-"Digite um nome para este arquivo (se vazio, ser· usado o nome atual do "
+"Digite um nome para este arquivo (se vazio, ser√° usado o nome atual do "
 "arquivo)"
 
 #: scripts/mail-filter.php:127
 #, php-format
 msgid "Error creating new page: %s"
-msgstr "Erro ao criar nova p·gina: %s"
+msgstr "Erro ao criar nova p√°gina: %s"
 
 #: lib/Page/MergeOrRename.php:202
 #, php-format
@@ -363,7 +363,7 @@ msgstr "Erro ao atualizar %s: %s"
 
 #: lib/Page/Search.php:164
 msgid "Exact Match"
-msgstr "CorrespondÍncia Exata"
+msgstr "Correspond√™ncia Exata"
 
 #: lib/Page/MergeOrRename.php:164
 #, php-format
@@ -376,21 +376,21 @@ msgstr "Convidado"
 
 #: templates/display/standard.inc:85
 msgid "Hi_story"
-msgstr "Hi_stÛrico"
+msgstr "Hi_st√≥rico"
 
 #: templates/display/standard.inc:84
 #, php-format
 msgid "History of %s"
-msgstr "HistÛrico de %s"
+msgstr "Hist√≥rico de %s"
 
 #: lib/Page/StandardPage/StdHistoryPage.php:46
 msgid "History page not found"
-msgstr "P·gina de histÛrico n„o encontrada"
+msgstr "P√°gina de hist√≥rico n√£o encontrada"
 
 #: history.php:30 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
-msgstr "HistÛrico: %s"
+msgstr "Hist√≥rico: %s"
 
 #: lib/Wicked.php:130
 msgid "HowTo_UseWiki"
@@ -398,28 +398,28 @@ msgstr "Como_UsarWiki"
 
 #: templates/display/MergeOrRename.html:26
 msgid "If a page with the new name already exists, then"
-msgstr "Se uma p·gina com o novo nome j· existir, ent„o"
+msgstr "Se uma p√°gina com o novo nome j√° existir, ent√£o"
 
 #: history.php:18 display.php:18
 msgid "Internal error viewing requested page"
-msgstr "Erro interno ao exibir a p·gina requisitada"
+msgstr "Erro interno ao exibir a p√°gina requisitada"
 
 #: diff.php:39
 #, php-format
 msgid "Internal error viewing requested page: %s"
-msgstr "Erro interno ao exibir a p·gina requisitada: %s"
+msgstr "Erro interno ao exibir a p√°gina requisitada: %s"
 
 #: lib/api.php:224
 msgid "Invalid page requested."
-msgstr "P·gina requisitada inv·lida."
+msgstr "P√°gina requisitada inv√°lida."
 
 #: templates/display/AttachedFiles.html:133
 msgid "Is this a minor update?"
-msgstr "Esta È uma pequena atualizaÁ„o?"
+msgstr "Esta √© uma pequena atualiza√ß√£o?"
 
 #: templates/display/standard.inc:72
 msgid "L_ikePages"
-msgstr "P·ginasParec_idas"
+msgstr "P√°ginasParec_idas"
 
 #: templates/display/title.inc:6 templates/edit/standard.inc:20
 #, php-format
@@ -432,12 +432,12 @@ msgstr "MenosPopular"
 
 #: templates/display/standard.inc:72
 msgid "LikePages"
-msgstr "P·ginasParecidas"
+msgstr "P√°ginasParecidas"
 
 #: lib/Page/LikePages.php:82
 #, php-format
 msgid "LikePages: %s"
-msgstr "P·ginasParecidas: %s"
+msgstr "P√°ginasParecidas: %s"
 
 #: templates/display/standard.inc:40
 #, php-format
@@ -456,14 +456,14 @@ msgstr "Sucesso ao entrar como \"%s\"."
 
 #: scripts/wicked.php:100
 msgid "Login is incorrect."
-msgstr "Login est· errado."
+msgstr "Login est√° errado."
 
 #: scripts/wicked.php:158
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Argumentos essenciais para opÁıes longas s„o essenciais para opÁıes pequenas "
-"tambÈm."
+"Argumentos essenciais para op√ß√µes longas s√£o essenciais para op√ß√µes pequenas "
+"tamb√©m."
 
 #: templates/display/standard.inc:60
 msgid "MergeOrRename"
@@ -482,7 +482,7 @@ msgstr "\"%s\" combinada em \"%s\"."
 #: lib/Page/MergeOrRename.php:210
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
-msgstr "\"%s\" combinada em \"%s\". Nova p·gina: %s\n"
+msgstr "\"%s\" combinada em \"%s\". Nova p√°gina: %s\n"
 
 #: lib/Page/MergeOrRename.php:191
 #, php-format
@@ -491,7 +491,7 @@ msgstr "Combinada de %s"
 
 #: templates/edit/standard.inc:30
 msgid "Minor Change"
-msgstr "Pequena AlteraÁ„o"
+msgstr "Pequena Altera√ß√£o"
 
 #: lib/Page/MostPopular.php:93
 msgid "MostPopular"
@@ -499,7 +499,7 @@ msgstr "MaisPopular"
 
 #: lib/Block/page.php:41
 msgid "Name of wiki page to display"
-msgstr "Nome da p·gina wiki para exibir"
+msgstr "Nome da p√°gina wiki para exibir"
 
 #: lib/Page.php:263
 msgid "Never"
@@ -508,7 +508,7 @@ msgstr "Nunca"
 #: lib/Page/AttachedFiles.php:303
 #, php-format
 msgid "New attachment \"%s\" to page \"%s\"."
-msgstr "Novo anexo \"%s\" para a p·gina \"%s\"."
+msgstr "Novo anexo \"%s\" para a p√°gina \"%s\"."
 
 #: templates/display/MergeOrRename.html:15
 msgid "New name"
@@ -516,113 +516,113 @@ msgstr "Novo nome"
 
 #: lib/Page/MergeOrRename.php:151
 msgid "New name is the same as old name."
-msgstr "Novo nome È o mesmo que o anterior."
+msgstr "Novo nome √© o mesmo que o anterior."
 
 #: lib/Page/NewPage.php:112
 msgid "NewPage"
-msgstr "NovaP·gina"
+msgstr "NovaP√°gina"
 
 #: templates/edit/new.inc:20
 #, php-format
 msgid "NewPage: %s"
-msgstr "NovaP·gina: %s"
+msgstr "NovaP√°gina: %s"
 
 #: lib/api.php:159 lib/Page/EditPage.php:124
 msgid "No changes made"
-msgstr "Nenhuma mudanÁa feita"
+msgstr "Nenhuma mudan√ßa feita"
 
 #: lib/Driver.php:124
 msgid "Not implemented."
-msgstr "N„o Implementado."
+msgstr "N√£o Implementado."
 
 #: templates/pagelist/header.inc:5 templates/edit/create.inc:17
 #: lib/Page/Search.php:155
 msgid "Page"
-msgstr "P·gina"
+msgstr "P√°gina"
 
 #: lib/Page/MergeOrRename.php:179
 #, php-format
 msgid "Page \"%s\" already exists."
-msgstr "P·gina \"%s\" j· existe."
+msgstr "P√°gina \"%s\" j√° existe."
 
 #: lib/Page/NewPage.php:138
 msgid "Page Created"
-msgstr "P·gina Criada"
+msgstr "P√°gina Criada"
 
 #: lib/Page/EditPage.php:131
 msgid "Page Saved"
-msgstr "P·gina Gravada"
+msgstr "P√°gina Gravada"
 
 #: templates/edit/create.inc:35
 msgid "Page Template:"
-msgstr "Modelo de P·gina:"
+msgstr "Modelo de P√°gina:"
 
 #: lib/Page/Search.php:178
 msgid "Page Text Matches"
-msgstr "CorrespondÍncias de Textos de P·gina"
+msgstr "Correspond√™ncias de Textos de P√°gina"
 
 #: lib/Page/Search.php:171
 msgid "Page Title Matches"
-msgstr "CorrespondÍncias de TÌtulos de P·gina"
+msgstr "Correspond√™ncias de T√≠tulos de P√°gina"
 
 #: templates/pagelist/header.inc:10
 msgid "Page Views"
-msgstr "ExibiÁıes da P·gina"
+msgstr "Exibi√ß√µes da P√°gina"
 
 #: display.php:32
 #, php-format
 msgid "Page failed to lock: %s"
-msgstr "Falha ao proteger p·gina: %s"
+msgstr "Falha ao proteger p√°gina: %s"
 
 #: display.php:47
 #, php-format
 msgid "Page failed to unlock: %s"
-msgstr "Falha ao desproteger p·gina: %s"
+msgstr "Falha ao desproteger p√°gina: %s"
 
 #: display.php:35
 msgid "Page locked"
-msgstr "P·gina protegida"
+msgstr "P√°gina protegida"
 
 #: lib/Driver/sql.php:587 lib/Page/AddPage.php:53 lib/Page/NewPage.php:72
 msgid "Page name must not be empty"
-msgstr "Nome da p·gina n„o pode ser vazio"
+msgstr "Nome da p√°gina n√£o pode ser vazio"
 
 #: display.php:50
 msgid "Page unlocked"
-msgstr "P·gina desprotegida"
+msgstr "P√°gina desprotegida"
 
 #: lib/api.php:73 lib/api.php:76
 msgid "Pages"
-msgstr "P·ginas"
+msgstr "P√°ginas"
 
 #: lib/Page/NewPage.php:129
 msgid "Pages cannot be empty."
-msgstr "P·ginas n„o podem ser vazias."
+msgstr "P√°ginas n√£o podem ser vazias."
 
 #: templates/display/standard.inc:100
 msgid "Permissio_ns"
-msgstr "Permissı_es"
+msgstr "Permiss√µ_es"
 
 #: lib/api.php:220
 msgid "Permission denied."
-msgstr "Permiss„o negada."
+msgstr "Permiss√£o negada."
 
 #: templates/edit/new.inc:25 templates/edit/standard.inc:26
 msgid "Preview"
-msgstr "PrÈ-visualizaÁ„o"
+msgstr "Pr√©-visualiza√ß√£o"
 
 #: lib/Page/EditPage.php:112
 msgid "Random string did not match."
-msgstr "Frase aleatÛria n„o correspondeu."
+msgstr "Frase aleat√≥ria n√£o correspondeu."
 
 #: lib/Page/RecentChanges.php:113
 msgid "RecentChanges"
-msgstr "AlteraÁıesRecentes"
+msgstr "Altera√ß√µesRecentes"
 
 #: lib/Page/AttachedFiles.php:67
 #, php-format
 msgid "Referrer \"%s\" does not exist."
-msgstr "Referenciador \"%s\" n„o existe."
+msgstr "Referenciador \"%s\" n√£o existe."
 
 #: lib/Page/AttachedFiles.php:129
 #, php-format
@@ -631,11 +631,11 @@ msgstr "Recarregar \"%s\""
 
 #: templates/history/header.inc:8
 msgid "Reload History"
-msgstr "Recarregar HistÛrico"
+msgstr "Recarregar Hist√≥rico"
 
 #: templates/display/title.inc:32 templates/display/title.inc:33
 msgid "Reload Page"
-msgstr "Recarregar P·gina"
+msgstr "Recarregar P√°gina"
 
 #: lib/Page/MergeOrRename.php:222
 #, php-format
@@ -645,16 +645,16 @@ msgstr "Renomeada \"%s\" para \"%s\"."
 #: lib/Page/MergeOrRename.php:225
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
-msgstr "\"%s\" renomeada para \"%s\". Nova p·gina: %s\n"
+msgstr "\"%s\" renomeada para \"%s\". Nova p√°gina: %s\n"
 
 #: lib/Driver/sql.php:676
 #, php-format
 msgid "Renamed page from %s"
-msgstr "P·gina renomeada de %s"
+msgstr "P√°gina renomeada de %s"
 
 #: templates/history/header.inc:20
 msgid "Restore Version"
-msgstr "Restaurar Vers„o"
+msgstr "Restaurar Vers√£o"
 
 #: lib/Page/RevertPage.php:87
 msgid "Revert"
@@ -663,20 +663,20 @@ msgstr "Reverter"
 #: templates/history/summary.inc:26
 #, php-format
 msgid "Revert to version %s"
-msgstr "Reverter para vers„o %s"
+msgstr "Reverter para vers√£o %s"
 
 #: lib/Page/RevertPage.php:81 lib/Page/RevertPage.php:104
 msgid "RevertPage"
-msgstr "ReverterP·gina"
+msgstr "ReverterP√°gina"
 
 #: lib/Page/RevertPage.php:127
 #, php-format
 msgid "Reverted to version %s of \"%s\"."
-msgstr "Revertida para vers„o %s de \"%s\"."
+msgstr "Revertida para vers√£o %s de \"%s\"."
 
 #: lib/Driver/sql.php:591
 msgid "Robots are not allowed to create pages"
-msgstr "RobÙs n„o podem criar p·ginas"
+msgstr "Rob√¥s n√£o podem criar p√°ginas"
 
 #: templates/edit/new.inc:24 templates/edit/standard.inc:25
 msgid "Save"
@@ -685,7 +685,7 @@ msgstr "Gravar"
 #: lib/Page/EditPage.php:128
 #, php-format
 msgid "Save Failed: %s"
-msgstr "GravaÁ„o Falhou: %s"
+msgstr "Grava√ß√£o Falhou: %s"
 
 #: templates/menu.inc:19 lib/Page/Search.php:203
 msgid "Search"
@@ -707,25 +707,25 @@ msgstr "Selecione o arquivo para atualizar"
 #: templates/display/standard.inc:99
 #, php-format
 msgid "Set permissions for %s"
-msgstr "Ajustar permissıes para %s"
+msgstr "Ajustar permiss√µes para %s"
 
 #: templates/display/title.inc:16 lib/Page/RecentChanges.php:56
 #, php-format
 msgid "Show changes for %s"
-msgstr "Exibir alteraÁıes para %s"
+msgstr "Exibir altera√ß√µes para %s"
 
 #: lib/Page/RecentChanges.php:63
 #, php-format
 msgid "Show version %s"
-msgstr "Exibir vers„o %s"
+msgstr "Exibir vers√£o %s"
 
 #: templates/edit/standard.inc:41
 msgid "Spam Protection - Enter the letters below:"
-msgstr "ProteÁ„o contra Spam - Digite as letras abaixo:"
+msgstr "Prote√ß√£o contra Spam - Digite as letras abaixo:"
 
 #: templates/display/MergeOrRename.html:33
 msgid "Stop and don't do anything"
-msgstr "Parar e n„o fazer nada"
+msgstr "Parar e n√£o fazer nada"
 
 #: templates/display/MergeOrRename.html:61
 msgid "Submit"
@@ -739,29 +739,29 @@ msgstr "\"%s\" excluido com sucesso."
 #: lib/Page/AttachedFiles.php:207
 #, php-format
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
-msgstr "Vers„o %s de \"%s\" de \"%s\" apagada com sucesso."
+msgstr "Vers√£o %s de \"%s\" de \"%s\" apagada com sucesso."
 
 #: lib/Page.php:485
 msgid "Table of Contents"
-msgstr "Õndice"
+msgstr "√çndice"
 
 #: lib/Page/AttachedFiles.php:280
 #, php-format
 msgid "There is already an attachment named \"%s\"."
-msgstr "J· existe um anexo chamado \"%s\"."
+msgstr "J√° existe um anexo chamado \"%s\"."
 
 #: lib/Page/MergeOrRename.php:149 lib/Page/MergeOrRename.php:155
 msgid "This is a required field."
-msgstr "Este È um campo necess·rio."
+msgstr "Este √© um campo necess√°rio."
 
 #: display.php:62
 msgid "This page does not have a history"
-msgstr "Esta p·gina n„o possui um histÛrico"
+msgstr "Esta p√°gina n√£o possui um hist√≥rico"
 
 #: lib/Page/MergeOrRename.php:100
 #, php-format
 msgid "This page is referenced from %d other page(s)."
-msgstr "Esta p·gina È referenciada a partir de %d outra(s) p·gina(s)."
+msgstr "Esta p√°gina √© referenciada a partir de %d outra(s) p√°gina(s)."
 
 #: templates/display/standard.inc:35
 msgid "Un_lock"
@@ -770,11 +770,11 @@ msgstr "_Desproteger"
 #: lib/Page/StandardPage.php:79
 #, php-format
 msgid "Unable to create %s"
-msgstr "ImpossÌvel criar %s"
+msgstr "Imposs√≠vel criar %s"
 
 #: lib/Page/StandardPage.php:87
 msgid "Unable to create WikiHome. The wiki is not configured."
-msgstr "ImpossÌvel criar WikiHome. O wiki n„o est· configurado."
+msgstr "Imposs√≠vel criar WikiHome. O wiki n√£o est√° configurado."
 
 #: templates/display/standard.inc:34
 #, php-format
@@ -790,7 +790,7 @@ msgstr "Desproteger %s"
 #: lib/Page.php:423 lib/Page.php:520 lib/Page.php:531 lib/Page.php:536
 #: lib/Page.php:541 lib/Page.php:546 lib/Page.php:586
 msgid "Unsupported"
-msgstr "N„o suportado"
+msgstr "N√£o suportado"
 
 #: templates/display/AttachedFiles.html:154
 msgid "Update File"
@@ -803,7 +803,7 @@ msgstr "Atualizar um Anexo"
 #: lib/Page/AttachedFiles.php:300
 #, php-format
 msgid "Updated attachment \"%s\" on page \"%s\"."
-msgstr "Atualizado anexo \"%s\" na p·gina \"%s\"."
+msgstr "Atualizado anexo \"%s\" na p√°gina \"%s\"."
 
 #: scripts/wicked.php:156
 #, php-format
@@ -814,11 +814,11 @@ msgstr "Usage: %s [OPTIONS]..."
 #: templates/edit/create.inc:18 lib/Page/Search.php:156
 #: templates/display/AttachedFiles.html:9
 msgid "Version"
-msgstr "Vers„o"
+msgstr "Vers√£o"
 
 #: lib/Page/AttachedFiles.php:309
 msgid "View page: "
-msgstr "Exibir p·gina: "
+msgstr "Exibir p√°gina: "
 
 #: lib/api.php:181
 msgid "Wiki Templates"
@@ -826,56 +826,56 @@ msgstr "Modelos de Wiki"
 
 #: lib/Block/page.php:3
 msgid "Wiki page"
-msgstr "P·gina Wiki"
+msgstr "P√°gina Wiki"
 
 #: display.php:26
 msgid "You are not allowed to lock this page"
-msgstr "VocÍ n„o pode proteger esta p·gina"
+msgstr "Voc√™ n√£o pode proteger esta p√°gina"
 
 #: display.php:41
 msgid "You are not allowed to unlock this page"
-msgstr "VocÍ n„o pode desproteger esta p·gina"
+msgstr "Voc√™ n√£o pode desproteger esta p√°gina"
 
 #: lib/Page/AttachedFiles.php:196
 msgid "You do not have permission to delete attachments from this page."
-msgstr "VocÍ n„o tem permiss„o para apagar anexos dessa p·gina."
+msgstr "Voc√™ n√£o tem permiss√£o para apagar anexos dessa p√°gina."
 
 #: lib/Page/AttachedFiles.php:237 lib/Page/MergeOrRename.php:169
 #: lib/Page/MergeOrRename.php:184
 #, php-format
 msgid "You do not have permission to edit \"%s\""
-msgstr "VocÍ n„o tem permiss„o para editar \"%s\""
+msgstr "Voc√™ n√£o tem permiss√£o para editar \"%s\""
 
 #: lib/Page/NewPage.php:125
 #, php-format
 msgid "You don't have permission to create \"%s\"."
-msgstr "VocÍ n„o tem permiss„o para criar \"%s\"."
+msgstr "Voc√™ n√£o tem permiss√£o para criar \"%s\"."
 
 #: lib/Page/DeletePage.php:150
 #, php-format
 msgid "You don't have permission to delete \"%s\"."
-msgstr "VocÍ n„o tem permiss„o para apagar \"%s\"."
+msgstr "Voc√™ n√£o tem permiss√£o para apagar \"%s\"."
 
 #: lib/api.php:141 lib/Page/EditPage.php:107 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
-msgstr "VocÍ n„o tem permiss„o para editar \"%s\"."
+msgstr "Voc√™ n√£o tem permiss√£o para editar \"%s\"."
 
 #: display.php:74 display.php:77
 msgid "You don't have permission to view this page."
-msgstr "VocÍ n„o tem permiss„o para ver esta p·gina."
+msgstr "Voc√™ n√£o tem permiss√£o para ver esta p√°gina."
 
 #: lib/Page/AttachedFiles.php:245
 msgid "You must enter a change description to attach this file."
-msgstr "VocÍ deve digitar uma descriÁ„o de alteraÁ„o para anexar esse arquivo."
+msgstr "Voc√™ deve digitar uma descri√ß√£o de altera√ß√£o para anexar esse arquivo."
 
 #: lib/api.php:145 lib/Page/EditPage.php:118
 msgid "You must provide a change log."
-msgstr "VocÍ deve fornecer um log de alteraÁ„o."
+msgstr "Voc√™ deve fornecer um log de altera√ß√£o."
 
 #: lib/Wicked.php:130
 msgid "_AllPages"
-msgstr "TodasA_sP·ginas"
+msgstr "TodasA_sP√°ginas"
 
 #: templates/display/standard.inc:67
 msgid "_BackLinks"
@@ -887,7 +887,7 @@ msgstr "E_xcluir"
 
 #: templates/display/standard.inc:25
 msgid "_EditPage"
-msgstr "_EditarP·gina"
+msgstr "_EditarP√°gina"
 
 #: templates/display/standard.inc:41
 msgid "_Lock"
@@ -899,7 +899,7 @@ msgstr "Co_mbinarOuRenomear"
 
 #: lib/Wicked.php:130
 msgid "_RecentChanges"
-msgstr "_AlteraÁıesRecentes"
+msgstr "_Altera√ß√µesRecentes"
 
 #: lib/Wicked.php:130
 msgid "_WikiHome"
@@ -912,4 +912,4 @@ msgstr "anexo"
 #: scripts/wicked.php:123
 #, php-format
 msgid "page \"%s\" doesn't exist."
-msgstr "p·gina \"%s\" n„o existe."
+msgstr "p√°gina \"%s\" n√£o existe."

@@ -14,7 +14,7 @@ msgstr ""
 "Last-Translator: Nethesis srl <info@nethesis.it>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -111,12 +111,12 @@ msgstr "%s MB"
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:39
 #, php-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s esiste gi‡. La cartella %s non Ë stata rinominata."
+msgstr "%s esiste gi√†. La cartella %s non √® stata rinominata."
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:37
 #, php-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "La cartella %s verr‡ rinominata ad inizio mese."
+msgstr "La cartella %s verr√† rinominata ad inizio mese."
 
 #: lib/api.php:180 lib/api.php:183 lib/api.php:188
 #, php-format
@@ -171,7 +171,7 @@ msgstr "%s richiede la tua presenza a \"%s\"."
 #: lib/Message.php:470
 #, php-format
 msgid "%s was successfully added to \"%s\"."
-msgstr "%s Ë stato aggiunto con successo a %s."
+msgstr "%s √® stato aggiunto con successo a %s."
 
 #: lib/MIME/Viewer/itip.php:638
 #, php-format
@@ -250,7 +250,7 @@ msgstr "500 caratteri"
 #, php-format
 msgid "A PDF file named %s is attached to this message. A thumbnail is below."
 msgstr ""
-"Un file PDF chiamato %s Ë allegato a questo messaggio. Una miniatura Ë "
+"Un file PDF chiamato %s √® allegato a questo messaggio. Una miniatura √® "
 "disponibile sotto."
 
 #: lib/MIME/Viewer/notification.php:49
@@ -264,8 +264,8 @@ msgid ""
 "A popup window could not be opened. Perhaps you have set your browser to "
 "block popup windows?"
 msgstr ""
-"La finestra di composizione non puÚ essere aperta. Probabilmente il tuo "
-"browser Ë impostato per bloccare i popup"
+"La finestra di composizione non pu√≤ essere aperta. Probabilmente il tuo "
+"browser √® impostato per bloccare i popup"
 
 #: templates/search/search.html:61
 msgid "AND"
@@ -324,7 +324,7 @@ msgstr "Aggiungi al mio calendario"
 
 #: lib/MIME/Viewer/itip.php:812
 msgid "Add this to my tasklist"
-msgstr "Aggiungi alla mia lista attivit‡"
+msgstr "Aggiungi alla mia lista attivit√†"
 
 #: lib/MIME/Viewer/itip.php:629
 msgid "Add to my calendar"
@@ -397,7 +397,7 @@ msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
 msgstr ""
-"Indirizzi da legare esplicitamente a questa identit‡: <em>(opzionale, "
+"Indirizzi da legare esplicitamente a questa identit√†: <em>(opzionale, "
 "inserisci ogni indirizzo in una nuova riga)</em>"
 
 #: lib/IMAP/ACL/rfc2086.php:57 lib/IMAP/ACL/rfc4314.php:59
@@ -414,7 +414,7 @@ msgid ""
 "All messages in the folder(s) \"%s\" older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Tutti i messaggi nella cartella \"%s\", pi˘ vecchi di %s giorni, saranno "
+"Tutti i messaggi nella cartella \"%s\", pi√π vecchi di %s giorni, saranno "
 "eliminati definitivamente."
 
 #: templates/javascript_defs.php:62
@@ -431,20 +431,20 @@ msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"Tutti i messaggi nella cartella \"%s\", pi˘ vecchi di %s giorni, saranno "
+"Tutti i messaggi nella cartella \"%s\", pi√π vecchi di %s giorni, saranno "
 "eliminati per sempre."
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:59
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr ""
-"Tutte le cartelle di Posta Inviata pi˘ vecchie di %s mesi saranno cancellate."
+"Tutte le cartelle di Posta Inviata pi√π vecchie di %s mesi saranno cancellate."
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:72
 #, php-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
 msgstr ""
-"Tutte le cartelle di Posta Inviata pi˘ vecchie di %s mesi saranno cancellate."
+"Tutte le cartelle di Posta Inviata pi√π vecchie di %s mesi saranno cancellate."
 
 #: acl.php:88 acl.php:129
 #, php-format
@@ -484,16 +484,16 @@ msgstr ""
 #, php-format
 msgid "An image named %s is attached to this message. A thumbnail is below."
 msgstr ""
-"Un'immagine nominata %s Ë allegata a questo messaggio. Una miniatura Ë "
+"Un'immagine nominata %s √® allegata a questo messaggio. Una miniatura √® "
 "disponibile sotto."
 
 #: lib/Message.php:444
 msgid "An unknown error occured while creating the new note."
-msgstr "Si Ë verificato un errore sconosciuto creando una nuova nota."
+msgstr "Si √® verificato un errore sconosciuto creando una nuova nota."
 
 #: lib/Message.php:443
 msgid "An unknown error occured while creating the new task."
-msgstr "Si Ë verificato un errore sconosciuto aggiungendo la nuova voce."
+msgstr "Si √® verificato un errore sconosciuto aggiungendo la nuova voce."
 
 #: lib/MIME/Viewer/itip.php:798
 msgid "An unknown person"
@@ -506,7 +506,7 @@ msgstr "Risposto"
 
 #: lib/Search.php:770
 msgid "Answered messages"
-msgstr "Messaggi a cui si Ë risposto"
+msgstr "Messaggi a cui si √® risposto"
 
 #: mailbox.php:420
 msgid "Apply Filters"
@@ -523,12 +523,12 @@ msgstr "Applica le regole del filtro a inizio sessione?"
 
 #: filterprefs.php:109
 msgid "Apply filter rules whenever Inbox is displayed?"
-msgstr "Applica le regole del filtro ogni volta che INBOX Ë mostrato?"
+msgstr "Applica le regole del filtro ogni volta che INBOX √® mostrato?"
 
 #: filterprefs.php:110
 msgid "Apply filter rules whenever sidebar is refreshed?"
 msgstr ""
-"Applica le regole del filtro ogni volta che la barra laterale Ë aggiornata?"
+"Applica le regole del filtro ogni volta che la barra laterale √® aggiornata?"
 
 #: thread.php:169
 msgid "Are you sure you want to delete all messages in this thread?"
@@ -546,7 +546,7 @@ msgstr "Sicuro di voler cancellare questa chiave pubblica?"
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
 msgstr ""
-"Sei sicuro di voler eliminare questa regola? (Questo NON Ë raccomandato!)"
+"Sei sicuro di voler eliminare questa regola? (Questo NON √® raccomandato!)"
 
 #: templates/javascript_defs.php:34
 msgid "Are you sure you want to do this?"
@@ -621,7 +621,7 @@ msgstr "File Allegato:"
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
 msgstr ""
-"La dimensione del file allegato \"%s\" Ë superiore a quella consentita. File "
+"La dimensione del file allegato \"%s\" √® superiore a quella consentita. File "
 "non allegato."
 
 #: lib/MIME/Viewer/itip.php:387
@@ -671,7 +671,7 @@ msgid ""
 "Automatically show images in HTML messages when the sender is in my address "
 "book?"
 msgstr ""
-"Mostra in automatico le immagini nei messaggi HTML quando il mittente Ë "
+"Mostra in automatico le immagini nei messaggi HTML quando il mittente √® "
 "nella mia rubrica?"
 
 #: templates/prefs/sourceselect.inc:293 templates/prefs/sourceselect.inc:295
@@ -730,7 +730,7 @@ msgstr "Prima della firma"
 
 #: lib/MIME/Viewer/status.php:160
 msgid "Below is the raw text of the status information message."
-msgstr "Qui sotto c'Ë il testo completo dello messaggio informativo."
+msgstr "Qui sotto c'√® il testo completo dello messaggio informativo."
 
 #: config/prefs.php.dist:930
 msgid "Below the message text"
@@ -811,14 +811,14 @@ msgstr "Annulla Messaggio"
 #: templates/javascript_defs.php:34
 msgid "Cancelling this message will permanently discard its contents."
 msgstr ""
-"Annullando questo messaggio si perder‡ il suo contenuto definitivamente."
+"Annullando questo messaggio si perder√† il suo contenuto definitivamente."
 
 #: lib/prefs.php:150
 msgid ""
 "Cannot activate both a Trash folder and Virtual Trash. A Trash folder will "
 "be used."
 msgstr ""
-"Non posso attivare sia la cartella cestino che il cestino virtuale. Verr‡ "
+"Non posso attivare sia la cartella cestino che il cestino virtuale. Verr√† "
 "usata la cartella cestino."
 
 #: lib/prefs.php:153
@@ -826,7 +826,7 @@ msgid ""
 "Cannot activate both a Trash folder and Virtual Trash. A Virtual Trash "
 "folder will be used."
 msgstr ""
-"Non posso attivare sia la cartella cestino che il cestino virtuale. Verr‡ "
+"Non posso attivare sia la cartella cestino che il cestino virtuale. Verr√† "
 "usato il cestino virtuale."
 
 #: lib/Fetchmail/imap.php:151
@@ -839,7 +839,7 @@ msgstr "Impossibile connettersi al server di posta remoto: "
 
 #: lib/prefs.php:164
 msgid "Cannot delete to trash unless a Trash folder is defined."
-msgstr "Non posso eliminare finchË non viene definita una cartella Cestino"
+msgstr "Non posso eliminare finch√® non viene definita una cartella Cestino"
 
 #: lib/MIME/Viewer/partial.php:47
 #, php-format
@@ -864,8 +864,8 @@ msgid ""
 "Certificate import is not available. File upload is not enabled on this "
 "server."
 msgstr ""
-"L'importazione del certificato non Ë disponibile. Il caricamento dei file "
-"non Ë abilitato in questo server."
+"L'importazione del certificato non √® disponibile. Il caricamento dei file "
+"non √® abilitato in questo server."
 
 #: lib/MIME/Viewer/itip.php:739 lib/MIME/Viewer/itip.php:871
 msgid "Chair Person"
@@ -912,7 +912,7 @@ msgstr "Seleziona Tutti/Nessuno"
 
 #: templates/folders/actions.html:29
 msgid "Check for New Mail"
-msgstr "Controlla se Ë arrivata Nuova Posta"
+msgstr "Controlla se √® arrivata Nuova Posta"
 
 #: config/prefs.php.dist:640
 msgid "Check spelling before sending a message?"
@@ -1005,11 +1005,11 @@ msgstr ""
 #: config/prefs.php.dist:1198
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr ""
-"Cliccando sull'indirizzo si comporr‡ un nuovo messaggio per il mittente"
+"Cliccando sull'indirizzo si comporr√† un nuovo messaggio per il mittente"
 
 #: config/prefs.php.dist:1199
 msgid "Clicking on the address will open the message to be read"
-msgstr "Cliccando sull'indirizzo si aprir‡ il messaggio"
+msgstr "Cliccando sull'indirizzo si aprir√† il messaggio"
 
 #: templates/newmsg/alert.html:17 templates/fetchmail/fetchmail.html:33
 msgid "Close"
@@ -1134,7 +1134,7 @@ msgstr "Non posso creare il backend VFS: %s"
 #, php-format
 msgid "Could not delete messages from %s. The server said: %s"
 msgstr ""
-"Impossibile cancellare messaggi da %s. Questo Ë il messaggio del server: %s"
+"Impossibile cancellare messaggi da %s. Questo √® il messaggio del server: %s"
 
 #: lib/Session.php:332
 msgid "Could not execute maintenance operations."
@@ -1458,19 +1458,19 @@ msgstr "Dettagli"
 #: lib/Compose.php:2877
 #, php-format
 msgid "Did not attach \"%s\" as it was only partially uploaded."
-msgstr "%s non Ë stato allegato in quanto Ë stato caricato solo parzialmente."
+msgstr "%s non √® stato allegato in quanto √® stato caricato solo parzialmente."
 
 #: lib/Compose.php:2886
 #, php-format
 msgid "Did not attach \"%s\" as the file was empty."
-msgstr "%s non Ë stato allegato in quanto il file Ë vuoto."
+msgstr "%s non √® stato allegato in quanto il file √® vuoto."
 
 #: lib/Compose.php:2873
 #, php-format
 msgid ""
 "Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
 msgstr ""
-"%s non Ë stato allegato in quanto Ë stata superata la dimensione massima."
+"%s non √® stato allegato in quanto √® stata superata la dimensione massima."
 
 #: lib/Compose.php:2881
 #, php-format
@@ -1478,7 +1478,7 @@ msgid ""
 "Did not attach \"%s\" as the server configuration did not allow the file to "
 "be uploaded."
 msgstr ""
-"%s non Ë stato allegato in quanto la configurazione del server non permette "
+"%s non √® stato allegato in quanto la configurazione del server non permette "
 "il caricamento di file."
 
 #: config/prefs.php.dist:877
@@ -1539,7 +1539,7 @@ msgstr "Non generare un link nella colona Da:"
 
 #: templates/javascript_defs.php:35
 msgid "Doing so will discard this message permanently."
-msgstr "Questo eliminer‡ questo messaggio definitivamente."
+msgstr "Questo eliminer√† questo messaggio definitivamente."
 
 #: login.php:431
 msgid "Don't have an account? Sign up."
@@ -1667,11 +1667,11 @@ msgstr "Svuota Cartella"
 
 #: pgp.php:458 templates/pgp/pgp.html:2
 msgid "Enable PGP functionality?"
-msgstr "Abilita Funzionalit‡ PGP?"
+msgstr "Abilita Funzionalit√† PGP?"
 
 #: smime.php:351 templates/smime/smime.html:2
 msgid "Enable S/MIME functionality?"
-msgstr "Abilita funzionalit‡ S/MIME?"
+msgstr "Abilita funzionalit√† S/MIME?"
 
 #: config/prefs.php.dist:1053
 msgid "Enable message previews?"
@@ -1740,7 +1740,7 @@ msgstr "Errori durante la connessione al server IMAP: [%s] %s."
 
 #: lib/MIME/Contents.php:150
 msgid "Error displaying message."
-msgstr "Si Ë verificato un errore visualizzando questa parte del messaggio."
+msgstr "Si √® verificato un errore visualizzando questa parte del messaggio."
 
 #: lib/MIME/Viewer/itip.php:316 lib/MIME/Viewer/itip.php:419
 #, php-format
@@ -1864,7 +1864,7 @@ msgstr "Controlla se nei messaggi ci sono parole offensive."
 
 #: templates/filters/prefs.html:7
 msgid "Filter support is disabled on this system."
-msgstr "Il Supporto filtri Ë disabilitato su questo sistema."
+msgstr "Il Supporto filtri √® disabilitato su questo sistema."
 
 #: config/prefs.php.dist:149
 msgid "Filters"
@@ -1927,7 +1927,7 @@ msgstr "Condivisione cartelle non abilitato."
 
 #: folders.php:46
 msgid "Folder use is not enabled."
-msgstr "Uso di cartelle non Ë abilitato."
+msgstr "Uso di cartelle non √® abilitato."
 
 #: config/prefs.php.dist:553
 msgid "Font Color"
@@ -2061,7 +2061,7 @@ msgstr "Alta"
 
 #: message.php:293
 msgid "High Priority"
-msgstr "Alta Priorit‡"
+msgstr "Alta Priorit√†"
 
 #: compose.php:1001
 msgid "Highest"
@@ -2126,7 +2126,7 @@ msgstr "Immagine"
 
 #: lib/MIME/Viewer/html.php:153
 msgid "Images have been blocked to protect your privacy."
-msgstr "L'immagine Ë stata bloccata per proteggere la tua privacy."
+msgstr "L'immagine √® stata bloccata per proteggere la tua privacy."
 
 #: templates/folders/import.html:17
 msgid "Import"
@@ -2351,13 +2351,13 @@ msgid ""
 "Key generation may take a long time to complete.  Continue with key "
 "generation?"
 msgstr ""
-"La creazione della Chiave puÚ impiegare molto tempo. Continuare con la "
+"La creazione della Chiave pu√≤ impiegare molto tempo. Continuare con la "
 "creazione?"
 
 #: templates/smime/smime.html:42 templates/pgp/pgp.html:50
 msgid "Key import is not available. File upload is not enabled on this server."
 msgstr ""
-"L'importazione della Chiave non Ë disponibile. Il caricamento di file non Ë "
+"L'importazione della Chiave non √® disponibile. Il caricamento di file non √® "
 "abilitato in questo server."
 
 #: templates/smime/smime.html:45 templates/pgp/pgp.html:53
@@ -2365,7 +2365,7 @@ msgid ""
 "Key import is not available. You have no address book defined to add your "
 "contacts."
 msgstr ""
-"L'importazione della chiave non Ë disponibile. Non ci sono rubriche definite "
+"L'importazione della chiave non √® disponibile. Non ci sono rubriche definite "
 "per aggiungere contatti."
 
 #: pgp.php:343
@@ -2394,12 +2394,12 @@ msgstr "Collegamento Allegati?"
 
 #: attachment.php:34 lib/Compose.php:2568
 msgid "Linked attachments are forbidden."
-msgstr "Il collegamento agli allegati non Ë permesso"
+msgstr "Il collegamento agli allegati non √® permesso"
 
 #: lib/Compose.php:2584
 #, php-format
 msgid "Links will expire on %s"
-msgstr "Il collegamento scadr‡ il %s"
+msgstr "Il collegamento scadr√† il %s"
 
 #: lib/IMAP/ACL/rfc2086.php:49 lib/IMAP/ACL/rfc4314.php:49
 msgid "List"
@@ -2452,7 +2452,7 @@ msgstr "Bassa"
 
 #: message.php:297
 msgid "Low Priority"
-msgstr "Bassa Priorit‡"
+msgstr "Bassa Priorit√†"
 
 #: compose.php:1005
 msgid "Lowest"
@@ -2542,11 +2542,11 @@ msgstr "Numero massimo di Cartelle per Periodo di Tempo."
 
 #: templates/compose/compose.html:255
 msgid "Maximum number of attachments reached."
-msgstr "Il numero massimo di allegati Ë stato raggiunto."
+msgstr "Il numero massimo di allegati √® stato raggiunto."
 
 #: templates/compose/compose.html:252
 msgid "Maximum total attachment size reached."
-msgstr "Il totale massimo di allegati Ë stato raggiunto."
+msgstr "Il totale massimo di allegati √® stato raggiunto."
 
 #: lib/Block/tree_folders.php:3
 msgid "Menu Folder List"
@@ -2605,7 +2605,7 @@ msgstr "Il Messaggi ha allegati"
 
 #: lib/UI/Mailbox.php:153
 msgid "Message is encrypted"
-msgstr "Il Messaggio Ë Cifrato"
+msgstr "Il Messaggio √® Cifrato"
 
 #: lib/UI/Mailbox.php:152
 msgid "Message is signed"
@@ -2638,11 +2638,11 @@ msgstr "Minimale"
 
 #: templates/login/login.html:129
 msgid "Mode"
-msgstr "Modalit‡"
+msgstr "Modalit√†"
 
 #: login.php:309
 msgid "Mode:"
-msgstr "Modalit‡:"
+msgstr "Modalit√†:"
 
 #: templates/search/search.html:91
 msgid "Month"
@@ -2654,7 +2654,7 @@ msgstr "Sposta"
 
 #: templates/prefs/sourceselect.inc:314
 msgid "Move down"
-msgstr "Sposta gi˘"
+msgstr "Sposta gi√π"
 
 #: config/prefs.php.dist:820
 msgid "Move spam messages to spam folder and innocent messages to INBOX"
@@ -2826,7 +2826,7 @@ msgstr "Nessuna chiave privata S/MIME importata."
 msgid ""
 "No personal private key exists so the message is unable to be decrypted."
 msgstr ""
-"Non esiste nessuna chiave personale privata, per cui il messaggio non puÚ "
+"Non esiste nessuna chiave personale privata, per cui il messaggio non pu√≤ "
 "essere decifrato."
 
 #: lib/IMAP/Client.php:374
@@ -2883,7 +2883,7 @@ msgstr "Mai"
 
 #: lib/Maintenance/Task/fetchmail_login.php:70
 msgid "Note that this can take some time"
-msgstr "Nota che questo puÚ richiedere un po' di tempo"
+msgstr "Nota che questo pu√≤ richiedere un po' di tempo"
 
 #: lib/IMP.php:542
 msgid "Notepads"
@@ -2899,7 +2899,7 @@ msgstr "Niente"
 
 #: attachment.php:108
 msgid "Notification: Linked attachment downloaded"
-msgstr "Notifica: l'allegato collegato Ë stato scaricato"
+msgstr "Notifica: l'allegato collegato √® stato scaricato"
 
 #: config/prefs.php.dist:419
 msgid "Number of months to keep old linked attachments if deleting monthly."
@@ -2931,7 +2931,7 @@ msgstr "Mostra solo cartelle con messeggi non letti?"
 
 #: templates/javascript_defs.php:58
 msgid "Only one folder should be selected for this action."
-msgstr "Solo una cartella puÚ essere selezionata per questa azione"
+msgstr "Solo una cartella pu√≤ essere selezionata per questa azione"
 
 #: lib/IMP.php:922 lib/IMP.php:927
 msgid "Open Fo_lder"
@@ -3003,12 +3003,12 @@ msgstr "Il supporto della chiave PGP necessita di una connessione sicura."
 #: pgp.php:154
 #, php-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "La chiave Pubblica PGP per \"%s (%s)\" Ë stata aggiunta con successo."
+msgstr "La chiave Pubblica PGP per \"%s (%s)\" √® stata aggiunta con successo."
 
 #: pgp.php:250
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "La Chiave Pubblica PGP per \"%s\" Ë stata eliminata con successo."
+msgstr "La Chiave Pubblica PGP per \"%s\" √® stata eliminata con successo."
 
 #: templates/pgp/pgp.html:29
 msgid "PGP Public Keyring"
@@ -3031,7 +3031,7 @@ msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
 msgstr ""
-"La cifratura PGP non puÚ essere usata di default in quanto non Ë possibile "
+"La cifratura PGP non pu√≤ essere usata di default in quanto non √® possibile "
 "trovare la chiave pubblica per tutti gli utenti."
 
 #: pgp.php:207
@@ -3052,17 +3052,17 @@ msgid ""
 "set to disable popup windows, you must change this setting or else the PGP "
 "features will not work correctly."
 msgstr ""
-"Il supporto PGP necessita di utlizzare finestre popup. Se il tuo browser Ë "
+"Il supporto PGP necessita di utlizzare finestre popup. Se il tuo browser √® "
 "settato per non utilizzare finestre popup, devi modificare le impostazioni "
 "del browser o le funzioni PGP non funzioneranno correttamente."
 
 #: lib/Compose.php:1335
 msgid "PGP: Need passphrase for personal private key."
-msgstr "PGP: Ë necessaria una parola chiave per la chiave privata personale."
+msgstr "PGP: √® necessaria una parola chiave per la chiave privata personale."
 
 #: lib/Compose.php:1344
 msgid "PGP: Need passphrase to encrypt your message with."
-msgstr "PGP: Ë necessaria una parola chiave per cifrare il messaggio."
+msgstr "PGP: √® necessaria una parola chiave per cifrare il messaggio."
 
 #: lib/IMAP.php:281
 msgid "POP3"
@@ -3226,8 +3226,8 @@ msgid ""
 msgstr ""
 "Si prega di effettuare nuovamente l'accesso per riprendere la composizione "
 "del messaggio. Se non state utilizzando cookies e state scrivendo il "
-"messaggio in una finestra di popup, sar‡ necessario accedere di nuovo anche "
-"dalla finestra principale. Questo comportamento Ë dovuto al sistema di "
+"messaggio in una finestra di popup, sar√† necessario accedere di nuovo anche "
+"dalla finestra principale. Questo comportamento √® dovuto al sistema di "
 "protezione che evita che gli attacker utilizzino il vostro ID di sessione. "
 "Ci scusiamo per ogni inconveniente."
 
@@ -3257,7 +3257,7 @@ msgstr "Seleziona o scrivi nella casella a destra:"
 
 #: config/prefs.php.dist:1258
 msgid "Poll all folders for new mail?"
-msgstr "Controlla se Ë arrivata Nuova Posta in tutte le cartelle?"
+msgstr "Controlla se √® arrivata Nuova Posta in tutte le cartelle?"
 
 #: lib/api.php:161 templates/login/login.html:67
 msgid "Port"
@@ -3309,7 +3309,7 @@ msgstr "Stampato da"
 
 #: message.php:670 lib/MIME/Viewer/itip.php:834
 msgid "Priority"
-msgstr "Priorit‡"
+msgstr "Priorit√†"
 
 #: templates/smime/import_key.html:59
 msgid "Private Key Password:"
@@ -3363,16 +3363,16 @@ msgstr "Ogni quanto svuotare il Cestino:"
 #: config/prefs.php.dist:447
 msgid "Purge messages in Spam folder older than this amount of days."
 msgstr ""
-"Elimina i messaggi dalla cartella Spam pi˘ vecchi di questo numero di giorni."
+"Elimina i messaggi dalla cartella Spam pi√π vecchi di questo numero di giorni."
 
 #: config/prefs.php.dist:475
 msgid "Purge messages in Trash folder older than this amount of days."
-msgstr "Elimina i messaggi dalla cartella Cestino pi˘ vecchi di giorni."
+msgstr "Elimina i messaggi dalla cartella Cestino pi√π vecchi di giorni."
 
 #: config/prefs.php.dist:401
 msgid "Purge messages in sent-mail folder(s) older than this amount of days."
 msgstr ""
-"Elimina i messaggi dalle cartelle posta Inviata pi˘ vecchi di questo numero "
+"Elimina i messaggi dalle cartelle posta Inviata pi√π vecchi di questo numero "
 "di giorni."
 
 #: config/prefs.php.dist:428
@@ -3527,7 +3527,7 @@ msgstr "Rinomina la cartella di Posta Inviata ad inizio mese?"
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr ""
-"Notifica da parte del server: non Ë stato possibile cambiare il nome   \"%s"
+"Notifica da parte del server: non √® stato possibile cambiare il nome   \"%s"
 "\" con \"%s\" . "
 
 #: message.php:556
@@ -3666,7 +3666,7 @@ msgstr "Errore S/MIME: "
 
 #: lib/Compose.php:1386
 msgid "S/MIME Error: Need passphrase for personal private key."
-msgstr "Errore S/MIME: Ë necessaria la parola chiave per la chiave privata."
+msgstr "Errore S/MIME: √® necessaria la parola chiave per la chiave privata."
 
 #: config/prefs.php.dist:173
 msgid "S/MIME Options"
@@ -3684,7 +3684,7 @@ msgstr ""
 #: smime.php:155
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
-msgstr "La Chiave Pubblica PGP per \"%s\" Ë stata eliminata con successo."
+msgstr "La Chiave Pubblica PGP per \"%s\" √® stata eliminata con successo."
 
 #: smime.php:177
 msgid "S/MIME Public Key successfully added."
@@ -3708,14 +3708,14 @@ msgstr "Firma/Cifra messaggio S/MIME"
 
 #: templates/smime/smime.html:86
 msgid "S/MIME support is disabled on this system."
-msgstr "Il supporto S/MIME Ë disabilitato sul sistema."
+msgstr "Il supporto S/MIME √® disabilitato sul sistema."
 
 #: lib/MIME/Viewer/pkcs7.php:297
 msgid ""
 "S/MIME support is not currently enabled so the message is unable to be "
 "decrypted."
 msgstr ""
-"Il supporto S/MIME non Ë abilitato, pertanto il messaggio non puÚ essere "
+"Il supporto S/MIME non √® abilitato, pertanto il messaggio non pu√≤ essere "
 "decifrato."
 
 #: lib/MIME/Viewer/pkcs7.php:204
@@ -3723,20 +3723,20 @@ msgid ""
 "S/MIME support is not enabled so the contents of this signed message cannot "
 "be displayed."
 msgstr ""
-"Il supporto S/MIME non Ë abilitato, pertanto il contenuto del messaggio "
-"firmato non puÚ visualizzato."
+"Il supporto S/MIME non √® abilitato, pertanto il contenuto del messaggio "
+"firmato non pu√≤ visualizzato."
 
 #: lib/MIME/Viewer/pkcs7.php:177
 msgid ""
 "S/MIME support is not enabled so the digital signature is unable to be "
 "verified."
 msgstr ""
-"Il supporto S/MIME non Ë abilitato, pertanto la firma digitale non puÚ "
+"Il supporto S/MIME non √® abilitato, pertanto la firma digitale non pu√≤ "
 "essere verificata."
 
 #: lib/MIME/Viewer/pkcs7.php:134
 msgid "S/MIME support is not enabled."
-msgstr "Il supporto S/MIME Ë disabilitato sul sistema."
+msgstr "Il supporto S/MIME √® disabilitato sul sistema."
 
 #: templates/smime/smime.html:4
 msgid ""
@@ -3745,7 +3745,7 @@ msgid ""
 "the S/MIME features will not work correctly."
 msgstr ""
 "Il supporto S/MIME necessita di utlizzare finestre popup. Se il tuo browser "
-"Ë settato per non utilizzare finestre popup, devi modificare le impostazioni "
+"√® settato per non utilizzare finestre popup, devi modificare le impostazioni "
 "del browser o le funzioni PGP non funzioneranno correttamente"
 
 #: templates/login/login.html:108
@@ -3851,7 +3851,7 @@ msgstr ""
 #: lib/Compose.php:247
 #, php-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "Non Ë stato possibile salvare la bozza. Codice del server: %s"
+msgstr "Non √® stato possibile salvare la bozza. Codice del server: %s"
 
 #: mailbox.php:424 search.php:134 lib/Search.php:569
 #: lib/Block/tree_folders.php:43 templates/contacts/contacts.html:25
@@ -4036,7 +4036,7 @@ msgid ""
 "toggled easily whichever you choose."
 msgstr ""
 "Larghi blocchi di testo quotato devono essere nascosti o visualizzati di "
-"default? PuÚ essere modificato facilmente quando si desidera."
+"default? Pu√≤ essere modificato facilmente quando si desidera."
 
 #: templates/pgp/pgp.html:11
 msgid "Should the body of text/plain messages be scanned for PGP data?"
@@ -4327,11 +4327,11 @@ msgstr "Casella di Posta Destinazione:"
 
 #: lib/IMP.php:525
 msgid "Task Lists"
-msgstr "Liste Attivit‡"
+msgstr "Liste Attivit√†"
 
 #: config/hooks.php.dist:463
 msgid "Tasks"
-msgstr "Attivit‡"
+msgstr "Attivit√†"
 
 #: compose.php:1106
 msgid "Te_xt"
@@ -4389,7 +4389,7 @@ msgstr "La forcella delle risorse Macintosh."
 #: lib/MIME/Viewer/appledouble.php:40
 #, php-format
 msgid "The Macintosh resource fork can be downloaded %s."
-msgstr "Il file originale puÚ essere scaricato %s."
+msgstr "Il file originale pu√≤ essere scaricato %s."
 
 #: lib/MIME/Viewer/pkcs7.php:255
 #, php-format
@@ -4399,16 +4399,16 @@ msgstr "Il certificasto S/MIME di %s: "
 #: fetchmailprefs.php:85
 #, php-format
 msgid "The account \"%s\" has been deleted."
-msgstr "L' account \"%s\" Ë stato eliminato."
+msgstr "L' account \"%s\" √® stato eliminato."
 
 #: fetchmailprefs.php:78
 #, php-format
 msgid "The account \"%s\" has been saved."
-msgstr "L'account \"%s\" Ë stato salvato."
+msgstr "L'account \"%s\" √® stato salvato."
 
 #: attachment.php:43
 msgid "The attachment was not found."
-msgstr "L'allegato non Ë stato trovato."
+msgstr "L'allegato non √® stato trovato."
 
 #: config/prefs.php.dist:589
 msgid "The buttons NOT to show when using Xinha."
@@ -4429,13 +4429,13 @@ msgstr "Seguono sotto i contenuti del file Macintosh."
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:73
 #, php-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "La cartella \"%s\" verr‡ rinominata in \"%s\"."
+msgstr "La cartella \"%s\" verr√† rinominata in \"%s\"."
 
 #: templates/acl/acl.html:29
 msgid ""
 "The current list of users with access to this folder could not be retrieved."
 msgstr ""
-"La lista degli utenti con accesso a questa cartella non Ë stata ottenuta"
+"La lista degli utenti con accesso a questa cartella non √® stata ottenuta"
 
 #: config/prefs.php.dist:920
 msgid "The default charset for messages with no charset information:"
@@ -4444,15 +4444,15 @@ msgstr "Il set di caratteri di default per messaggi senza set di catatteri:"
 #: lib/Compose.php:257
 #, php-format
 msgid "The draft has been saved to the \"%s\" folder."
-msgstr "La bozza Ë stata salvata nella cartella \"%s\"."
+msgstr "La bozza √® stata salvata nella cartella \"%s\"."
 
 #: lib/MIME/Viewer/itip.php:141
 msgid "The event was added to your calendar."
-msgstr "L'evento Ë stato aggiunto al tuo calendario."
+msgstr "L'evento √® stato aggiunto al tuo calendario."
 
 #: lib/MIME/Viewer/itip.php:147
 msgid "The event was updated in your calendar."
-msgstr "L'evento Ë stato aggiornato nel tuo calendario."
+msgstr "L'evento √® stato aggiornato nel tuo calendario."
 
 #: lib/Compose.php:2015
 #, php-format
@@ -4462,49 +4462,49 @@ msgstr "Impossibile allegare il file %s"
 #: lib/Folder.php:284
 #, php-format
 msgid "The folder \"%s\" already exists"
-msgstr "La cartella \"%s\" esiste gi‡"
+msgstr "La cartella \"%s\" esiste gi√†"
 
 #: folders.php:247 lib/Folder.php:190
 #, php-format
 msgid "The folder \"%s\" may not be deleted."
-msgstr "La cartella \"%s\" non pu˘ essere eliminata."
+msgstr "La cartella \"%s\" non pu√π essere eliminata."
 
 #: lib/Folder.php:363
 #, php-format
 msgid "The folder \"%s\" may not be renamed."
-msgstr "La cartella \"%s\" non pu˘ essere rinominata."
+msgstr "La cartella \"%s\" non pu√π essere rinominata."
 
 #: lib/Folder.php:306
 #, php-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "La cartella \"%s\" Ë stata creata ma non Ë stata sottoscritta."
+msgstr "La cartella \"%s\" √® stata creata ma non √® stata sottoscritta."
 
 #: lib/Folder.php:293
 #, php-format
 msgid "The folder \"%s\" was not created. This is what the server said"
 msgstr ""
-"La cartella \"%s\" non Ë stata creata. Questo Ë il messaggio del server"
+"La cartella \"%s\" non √® stata creata. Questo √® il messaggio del server"
 
 #: lib/Folder.php:194
 #, php-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
 msgstr ""
-"La cartella \"%s\" non Ë stata eliminata. Questo Ë il messaggio del server"
+"La cartella \"%s\" non √® stata eliminata. Questo √® il messaggio del server"
 
 #: lib/Folder.php:309
 #, php-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "La cartella \"%s\" Ë stata creata con successo."
+msgstr "La cartella \"%s\" √® stata creata con successo."
 
 #: lib/Folder.php:199
 #, php-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "La cartella \"%s\" Ë stata eliminata con successo."
+msgstr "La cartella \"%s\" √® stata eliminata con successo."
 
 #: lib/Folder.php:388
 #, php-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "La cartella \"%s\" Ë stata rinominata in \"%s\"."
+msgstr "La cartella \"%s\" √® stata rinominata in \"%s\"."
 
 #: lib/MIME/Viewer/tnef.php:93
 msgid "The following files were attached to this part:"
@@ -4537,7 +4537,7 @@ msgstr "Il server di posta ha generato il seguente messaggio:"
 #: lib/Message.php:798
 #, php-format
 msgid "The mailbox %s is already empty."
-msgstr "La cartella \"%s\" Ë gi‡ vuota."
+msgstr "La cartella \"%s\" √® gi√† vuota."
 
 #: lib/Fetchmail.php:238
 #, php-format
@@ -4547,7 +4547,7 @@ msgstr ""
 
 #: templates/javascript_defs.php:53
 msgid "The message being composed has been closed. Exiting."
-msgstr "Il messaggio in composizione Ë stato chiuso. In uscita."
+msgstr "Il messaggio in composizione √® stato chiuso. In uscita."
 
 #: lib/MIME/Viewer/pgp.php:376
 msgid ""
@@ -4567,15 +4567,15 @@ msgstr ""
 
 #: lib/MIME/Viewer/pgp.php:371
 msgid "The message below has been compressed with PGP."
-msgstr "Il messaggio Ë stato compresso con PGP."
+msgstr "Il messaggio √® stato compresso con PGP."
 
 #: lib/MIME/Viewer/pgp.php:201
 msgid ""
 "The message below has been digitally signed and encrypted with PGP, but the "
 "signature cannot be verified."
 msgstr ""
-"Il Messaggio Ë stato firmato elettronicamente e cifrato con PGP, ma la firma "
-"non puÚ essere verificata."
+"Il Messaggio √® stato firmato elettronicamente e cifrato con PGP, ma la firma "
+"non pu√≤ essere verificata."
 
 #: lib/MIME/Viewer/pgp.php:207
 msgid "The message below has been digitally signed and encrypted with PGP."
@@ -4586,7 +4586,7 @@ msgid ""
 "The message below has been digitally signed with PGP, but the signature "
 "cannot be verified."
 msgstr ""
-"Il Messaggio Ë stato firmato elettronicamente con PGP, ma la firma non puÚ "
+"Il Messaggio √® stato firmato elettronicamente con PGP, ma la firma non pu√≤ "
 "essere verificata."
 
 #: lib/MIME/Viewer/pgp.php:209
@@ -4598,16 +4598,16 @@ msgid ""
 "The message below has been encrypted with PGP, however, PGP support is "
 "disabled so the message cannot be decrypted."
 msgstr ""
-"Messaggio cifrato con PGP, ma il supporto PGP Ë disabilitato, per cui il "
-"messaggio non puÚ essere decifrato."
+"Messaggio cifrato con PGP, ma il supporto PGP √® disabilitato, per cui il "
+"messaggio non pu√≤ essere decifrato."
 
 #: lib/MIME/Viewer/pgp.php:355
 msgid ""
 "The message below has been encrypted with PGP, however, no personal private "
 "key exists so the message cannot be decrypted."
 msgstr ""
-"Il Messaggio Ë stato cifrato con PGP, ma non esiste nessuna chiave personale "
-"iprivata, per cui il messaggio non puÚ essere decifrato."
+"Il Messaggio √® stato cifrato con PGP, ma non esiste nessuna chiave personale "
+"iprivata, per cui il messaggio non pu√≤ essere decifrato."
 
 #: lib/MIME/Viewer/pgp.php:371
 msgid "The message below has been encrypted with PGP."
@@ -4618,7 +4618,7 @@ msgid ""
 "The message below has been encrypted with PGP. You must enter the passphrase "
 "for your PGP private key before it can be decrypted."
 msgstr ""
-"Il Messaggio Ë stato cifrato con PGP. Occorre inserire la parola chiave per "
+"Il Messaggio √® stato cifrato con PGP. Occorre inserire la parola chiave per "
 "la chiave privata PGP prima di poterlo decifrare."
 
 #: lib/MIME/Viewer/pgp.php:348
@@ -4626,16 +4626,16 @@ msgid ""
 "The message below has been encrypted with PGP. You must enter the passphrase "
 "that was used to encrypt this message."
 msgstr ""
-"Il messaggio Ë stato cifrato con PGP. Devi inserire la password per la tua "
+"Il messaggio √® stato cifrato con PGP. Devi inserire la password per la tua "
 "parola chiave usata per cifrare il messaggio."
 
 #: lib/MIME/Viewer/pgp.php:455
 msgid "The message below has been verified."
-msgstr "Il messaggio Ë stato verificato."
+msgstr "Il messaggio √® stato verificato."
 
 #: lib/Crypt/PGP.php:380
 msgid "The message below has not been digitally signed or encrypted with PGP."
-msgstr "Messaggio non Ë stato firmato elettronicamente o cifrato con PGP."
+msgstr "Messaggio non √® stato firmato elettronicamente o cifrato con PGP."
 
 #: templates/javascript_defs.php:39
 msgid "The message does not have a Subject entered."
@@ -4643,36 +4643,36 @@ msgstr "Il messaggio non ha l'Oggetto."
 
 #: lib/Filter.php:72 lib/Spam.php:222
 msgid "The message has been deleted."
-msgstr "Il messaggio Ë stato eliminato."
+msgstr "Il messaggio √® stato eliminato."
 
 #: lib/Spam.php:203
 msgid "The message has been reported as not spam to your system administrator."
 msgstr ""
-"Questo messaggio Ë stato segnalato come Non-Spam al tuo amministratore di "
+"Questo messaggio √® stato segnalato come Non-Spam al tuo amministratore di "
 "sistema."
 
 #: lib/Spam.php:183
 msgid "The message has been reported as not spam."
-msgstr "Questo messaggio Ë stato segnalato come non-spam."
+msgstr "Questo messaggio √® stato segnalato come non-spam."
 
 #: lib/Spam.php:195
 msgid "The message has been reported as spam to your system administrator."
 msgstr ""
-"Questo messaggio Ë stato segnalato come spam al tuo amministratore di "
+"Questo messaggio √® stato segnalato come spam al tuo amministratore di "
 "sistema."
 
 #: lib/Spam.php:175
 msgid "The message has been reported as spam."
-msgstr "Questo messaggio Ë stato segnalato come spam"
+msgstr "Questo messaggio √® stato segnalato come spam"
 
 #: lib/MIME/Viewer/pkcs7.php:450
 #, php-format
 msgid "The message has been verified. Sender: %s."
-msgstr "Il messaggio Ë stato verificato. Mittente: %s"
+msgstr "Il messaggio √® stato verificato. Mittente: %s"
 
 #: lib/Filter.php:74
 msgid "The messages have been deleted."
-msgstr "Il messaggio Ë stato eliminato."
+msgstr "Il messaggio √® stato eliminato."
 
 #: lib/MIME/Viewer/tnef.php:59
 msgid "The requested file does not exist in the MS-TNEF attachment."
@@ -4698,7 +4698,7 @@ msgstr "Non era possibile sostituire la firma."
 
 #: templates/javascript_defs.php:37
 msgid "The signature was successfully replaced."
-msgstr "La firma Ë stata sostituita con successo."
+msgstr "La firma √® stata sostituita con successo."
 
 #: attachment.php:59
 msgid ""
@@ -4709,26 +4709,26 @@ msgstr ""
 
 #: attachment.php:128
 msgid "The specified file cannot be read."
-msgstr "Il file specificato non puÚ essere letto."
+msgstr "Il file specificato non pu√≤ essere letto."
 
 #: stationery.php:84
 #, php-format
 msgid "The stationery \"%s\" has been added."
-msgstr "Il Modello \"%s\" Ë stato aggiunto."
+msgstr "Il Modello \"%s\" √® stato aggiunto."
 
 #: stationery.php:74
 #, php-format
 msgid "The stationery \"%s\" has been deleted."
-msgstr "Il Modello \"%s\" Ë stato eliminato."
+msgstr "Il Modello \"%s\" √® stato eliminato."
 
 #: stationery.php:87
 #, php-format
 msgid "The stationery \"%s\" has been updated."
-msgstr "Il Modello \"%s\" Ë stato aggiornato."
+msgstr "Il Modello \"%s\" √® stato aggiornato."
 
 #: lib/MIME/Viewer/itip.php:171
 msgid "The task has been added to your tasklist."
-msgstr "L'attivit‡ Ë stata aggiunta nella tua tasklist."
+msgstr "L'attivit√† √® stata aggiunta nella tua tasklist."
 
 #: lib/MIME/Viewer/status.php:94
 msgid "The text of the message"
@@ -4737,7 +4737,7 @@ msgstr "Testo del messaggio"
 #: lib/MIME/Viewer/status.php:93
 #, php-format
 msgid "The text of the message can be viewed %s."
-msgstr "Il testo del messaggio puÚ essere visto %s."
+msgstr "Il testo del messaggio pu√≤ essere visto %s."
 
 #: lib/MIME/Viewer/status.php:79
 msgid "The text of the returned message"
@@ -4746,7 +4746,7 @@ msgstr "Testo del messaggio restituito"
 #: lib/MIME/Viewer/status.php:78
 #, php-format
 msgid "The text of the returned message can be viewed %s."
-msgstr "Il testo del messaggio restituito puÚ essere visto %s."
+msgstr "Il testo del messaggio restituito pu√≤ essere visto %s."
 
 #: lib/MIME/Viewer/notification.php:67
 msgid "The text of the sent message"
@@ -4755,7 +4755,7 @@ msgstr "Testo del messaggio inviato"
 #: lib/MIME/Viewer/notification.php:67
 #, php-format
 msgid "The text of the sent message can be viewed %s."
-msgstr "Il testo del messaggio inviato puÚ essere visto %s."
+msgstr "Il testo del messaggio inviato pu√≤ essere visto %s."
 
 #: lib/MIME/Viewer/itip.php:156
 msgid "The user's free/busy information was sucessfully stored."
@@ -4771,7 +4771,7 @@ msgstr "Non ci sono messaggi in questa casella di posta."
 
 #: thread.php:104
 msgid "There is no text that can be displayed inline."
-msgstr "Non c'Ë nessun testo che puÚ essere mostrato inline."
+msgstr "Non c'√® nessun testo che pu√≤ essere mostrato inline."
 
 #: lib/Message.php:140
 #, php-format
@@ -4779,8 +4779,8 @@ msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Si Ë verificato un errore nel copiare i messaggi da \"%s\" a \"%s\". Questo "
-"Ë il messaggio del server"
+"Si √® verificato un errore nel copiare i messaggi da \"%s\" a \"%s\". Questo "
+"√® il messaggio del server"
 
 #: lib/Message.php:270
 #, php-format
@@ -4788,8 +4788,8 @@ msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"Si Ë verificato un errore nell'eliminazione dei files dalla cartella \"%s\". "
-"Questo Ë il messaggio del server"
+"Si √® verificato un errore nell'eliminazione dei files dalla cartella \"%s\". "
+"Questo √® il messaggio del server"
 
 #: lib/MIME/Viewer/itip.php:101
 msgid "There was an error deleting the event:"
@@ -4797,7 +4797,7 @@ msgstr "Errore nell'eliminazione dell'evento:"
 
 #: lib/MIME/Viewer/enriched.php:36 lib/MIME/Viewer/plain.php:50
 msgid "There was an error displaying this message part"
-msgstr "Si Ë verificato un errore visualizzando questa parte del messaggio"
+msgstr "Si √® verificato un errore visualizzando questa parte del messaggio"
 
 #: lib/Message.php:635
 #, php-format
@@ -4805,13 +4805,13 @@ msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"Si Ë verificato un errore marcando dei messaggi nella cartella \"%s\". "
-"Questo Ë il messaggio del server"
+"Si √® verificato un errore marcando dei messaggi nella cartella \"%s\". "
+"Questo √® il messaggio del server"
 
 #: folders.php:147
 #, php-format
 msgid "There was an error importing %s."
-msgstr "Si Ë verificato un errore importando %s."
+msgstr "Si √® verificato un errore importando %s."
 
 #: lib/MIME/Viewer/itip.php:138
 msgid "There was an error importing the event:"
@@ -4819,12 +4819,12 @@ msgstr "Errore nell'importazione dell'evento:"
 
 #: lib/MIME/Viewer/itip.php:168
 msgid "There was an error importing the task:"
-msgstr "Errore nell'importazione dell'attivit‡:"
+msgstr "Errore nell'importazione dell'attivit√†:"
 
 #: lib/MIME/Viewer/itip.php:154
 msgid "There was an error importing user's free/busy information:"
 msgstr ""
-"Si Ë verificato un errore nell'importazione delle informazioni libero/"
+"Si √® verificato un errore nell'importazione delle informazioni libero/"
 "occupato dell'utente:"
 
 #: lib/Message.php:136
@@ -4833,13 +4833,13 @@ msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr ""
-"Si Ë verificato un errore spostando i messaggi da \"%s\" a \"%s\". Questo Ë "
+"Si √® verificato un errore spostando i messaggi da \"%s\" a \"%s\". Questo √® "
 "il messaggio del server"
 
 #: lib/Compose.php:724
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "Si Ë verificato un errore inviando il messaggio: %s"
+msgstr "Si √® verificato un errore inviando il messaggio: %s"
 
 #: lib/MIME/Viewer/itip.php:115
 msgid "There was an error updating the event:"
@@ -4847,21 +4847,21 @@ msgstr "Errore nell'aggiornamento dell'evento:"
 
 #: lib/MIME/Viewer/pgp.php:166
 msgid "This PGP Public Key was attached to the message."
-msgstr "Questa chiave pubblica PGP Ë stata allegata al messaggio."
+msgstr "Questa chiave pubblica PGP √® stata allegata al messaggio."
 
 #: lib/MIME/Viewer/itip.php:106 lib/MIME/Viewer/itip.php:120
 #: lib/MIME/Viewer/itip.php:145 lib/MIME/Viewer/itip.php:159
 #: lib/MIME/Viewer/itip.php:175 lib/MIME/Viewer/itip.php:321
 msgid "This action is not supported."
-msgstr "Questa azione non Ë supportata."
+msgstr "Questa azione non √® supportata."
 
 #: lib/MIME/Viewer/itip.php:181 lib/MIME/Viewer/itip.php:431
 msgid "This action is not yet implemented."
-msgstr "Questa azione non Ë ancora implementata."
+msgstr "Questa azione non √® ancora implementata."
 
 #: templates/javascript_defs.php:66
 msgid "This folder may not be renamed:"
-msgstr "La cartella \"%s\" non puÚ essere rinominata:"
+msgstr "La cartella \"%s\" non pu√≤ essere rinominata:"
 
 #: templates/javascript_defs.php:63
 msgid "This may take some time. Are you sure you want to continue?"
@@ -4876,12 +4876,12 @@ msgid ""
 "This message contains an attachment that has been digitally signed via S/"
 "MIME."
 msgstr ""
-"Il messaggio contiene in allegato che Ë stato firmato digitalmente con S/"
+"Il messaggio contiene in allegato che √® stato firmato digitalmente con S/"
 "MIME."
 
 #: lib/MIME/Viewer/pkcs7.php:480
 msgid "This message contains an attachment that has been encrypted via S/MIME."
-msgstr "Il messaggio contiene in allegato che Ë stato cifrato con S/MIME."
+msgstr "Il messaggio contiene in allegato che √® stato cifrato con S/MIME."
 
 #: lib/MIME/Viewer/status.php:159
 msgid ""
@@ -4889,7 +4889,7 @@ msgid ""
 "this message is unknown."
 msgstr ""
 "Questo messaggio contiene informazioni sullo stato di spedizione della mail, "
-"ma il formato di questo messaggio Ë sconosciuto"
+"ma il formato di questo messaggio √® sconosciuto"
 
 #: lib/MIME/Viewer/pkcs7.php:201
 msgid "This message does not appear to be in the correct S/MIME format."
@@ -4906,7 +4906,7 @@ msgstr "Messaggio cifrato con S/MIME."
 #: lib/MIME/Contents.php:437
 msgid "This message part cannot be viewed because it is too large."
 msgstr ""
-"Questa porzione del messaggio non puÚ essere visualizzata in quanto troppo "
+"Questa porzione del messaggio non pu√≤ essere visualizzata in quanto troppo "
 "grande."
 
 #: message.php:520
@@ -4919,7 +4919,7 @@ msgid ""
 "This request cannot be completed because the link you followed or the form "
 "you submitted was only valid for %d minutes. Please try again now."
 msgstr ""
-"La richiesta non puÚ essere completata in quanto il link usato o il form "
+"La richiesta non pu√≤ essere completata in quanto il link usato o il form "
 "inviato erano validi solo per %d minuti. Si prega di riprovare ora."
 
 #: acl.php:47
@@ -5113,7 +5113,7 @@ msgstr "Destinatario Sconosciuto"
 
 #: lib/MIME/Viewer/itip.php:819
 msgid "Unknown Task"
-msgstr "Attivit‡ Sconosciuta"
+msgstr "Attivit√† Sconosciuta"
 
 #: pgp.php:433 smime.php:339
 msgid "Unload Passphrase"
@@ -5253,7 +5253,7 @@ msgstr "Visualizzazione o cartella da mostrare appena entrato:"
 
 #: lib/MIME/Viewer/itip.php:172
 msgid "View task"
-msgstr "Visualizza attivit‡"
+msgstr "Visualizza attivit√†"
 
 #: mailbox.php:367 mailbox.php:368
 msgid "Virtual Folder"
@@ -5262,7 +5262,7 @@ msgstr "Cartella Virtuale"
 #: search.php:77
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
-msgstr "La Cartella Virtuale \"%s\" Ë stata creata con successo."
+msgstr "La Cartella Virtuale \"%s\" √® stata creata con successo."
 
 #: lib/IMAP/Tree.php:88 templates/search/search.html:164
 msgid "Virtual Folders"
@@ -5377,7 +5377,7 @@ msgstr "Anno"
 #: templates/javascript_defs.php:48 config/prefs.php.dist:1226
 #: config/prefs.php.dist:1248 templates/compose/compose.html:292
 msgid "Yes"
-msgstr "SÏ"
+msgstr "S√¨"
 
 #: lib/Maintenance/Task/fetchmail_login.php:57
 msgid "You are about to fetch email from the following account(s):"
@@ -5414,7 +5414,7 @@ msgstr "Non sei abilitato alla creazione di cartelle."
 #: lib/Folder.php:272
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Non sei abilitato alla creazione di pi˘ di %d cartelle."
+msgstr "Non sei abilitato alla creazione di pi√π di %d cartelle."
 
 #: lib/Compose.php:961
 #, php-format
@@ -5422,12 +5422,12 @@ msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
 msgstr ""
-"Non sei abilitato all'invio di messaggi a pi˘ di %d destinatari ogni %d ore"
+"Non sei abilitato all'invio di messaggi a pi√π di %d destinatari ogni %d ore"
 
 #: lib/Compose.php:1240
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
-msgstr "Non sei abilitato all'invio di messaggi a pi˘ di %d destinatari."
+msgstr "Non sei abilitato all'invio di messaggi a pi√π di %d destinatari."
 
 #: templates/javascript_defs.php:64
 msgid "You are renaming the folder:"
@@ -5473,7 +5473,7 @@ msgstr "Hai un nuovo messaggio."
 
 #: compose.php:128
 msgid "You have already submitted this page."
-msgstr "Hai gi‡ inviato questa pagina."
+msgstr "Hai gi√† inviato questa pagina."
 
 #: templates/newmsg/alert.html:3
 msgid "You have new mail in:"
@@ -5555,14 +5555,14 @@ msgstr "Hai risposto a questo messaggio il %s."
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr ""
-"Notifica da parte del server: la sottoscrizione a \"%s\" NON Ë andata a buon "
+"Notifica da parte del server: la sottoscrizione a \"%s\" NON √® andata a buon "
 "fine"
 
 #: lib/Folder.php:490
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr ""
-"Notifica da parte del server: Non Ë stata annullata la sottoscrizione da \"%s"
+"Notifica da parte del server: Non √® stata annullata la sottoscrizione da \"%s"
 "\". "
 
 #: lib/Folder.php:443
@@ -5638,7 +5638,7 @@ msgid ""
 "Click on the following link to permanently delete the attachment:\n"
 "%s"
 msgstr ""
-"L'allegato collegato Ë stato scaricato da almeno un utente.\n"
+"L'allegato collegato √® stato scaricato da almeno un utente.\n"
 "\n"
 "Nome Allegato: %s\n"
 "Data Allegato: %s\n"
@@ -5648,7 +5648,7 @@ msgstr ""
 
 #: lib/MIME/Viewer/status.php:88
 msgid "Your message was successfully delivered."
-msgstr "Il tuo messaggio Ë stato consegnato con successo."
+msgstr "Il tuo messaggio √® stato consegnato con successo."
 
 #: config/prefs.php.dist:219
 msgid "Your signature:"
@@ -5711,7 +5711,7 @@ msgstr "Car_telle"
 
 #: compose.php:906
 msgid "_Identity"
-msgstr "_Identit‡"
+msgstr "_Identit√†"
 
 #: lib/IMP.php:829
 msgid "_Inbox"
@@ -5735,7 +5735,7 @@ msgstr "_Stampa"
 
 #: compose.php:996
 msgid "_Priority"
-msgstr "_Priorit‡"
+msgstr "_Priorit√†"
 
 #: mailbox.php:354
 #, php-format

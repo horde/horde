@@ -14,38 +14,38 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: moderate.php:32
 #, php-format
 msgid "%d messages was approved."
-msgstr "%d Beiträge wurden freigegeben."
+msgstr "%d BeitrÃ¤ge wurden freigegeben."
 
 #: moderate.php:38
 #, php-format
 msgid "%d messages was deleted."
-msgstr "%d Beiträge wurden gelöscht."
+msgstr "%d BeitrÃ¤ge wurden gelÃ¶scht."
 
 #: scripts/phorum2agora.php:182
 msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
 msgstr ""
-"-a, --agora_id[=aid]         ID des Forums in dem Beiträge gespeichert "
+"-a, --agora_id[=aid]         ID des Forums in dem BeitrÃ¤ge gespeichert "
 "werden\n"
 "                             sollen."
 
 #: scripts/phorum2agora.php:185
 msgid "-c, --count[=messages]       Number of messages to move at once"
 msgstr ""
-"-c, --count[=messages]       Anzahl der Beiträge die auf einmal verschoben\n"
+"-c, --count[=messages]       Anzahl der BeitrÃ¤ge die auf einmal verschoben\n"
 "                             werden sollen"
 
 #: scripts/phorum2agora.php:184
 msgid ""
 "-f, --from[=offset]          Offset from where to start to read messages"
 msgstr ""
-"-f, --from[=offset]          Offset ab dem Beiträge gelesen werden sollen"
+"-f, --from[=offset]          Offset ab dem BeitrÃ¤ge gelesen werden sollen"
 
 #: scripts/phorum2agora.php:180
 msgid "-h, --help                   Show this help"
@@ -54,17 +54,17 @@ msgstr "-h, --help                   Diese Hilfe anzeigen"
 #: scripts/phorum2agora.php:181
 msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
 msgstr ""
-"-p, --phorum_id[=pid]        Phorum Foren-ID von dem Beiträge gelesen "
+"-p, --phorum_id[=pid]        Phorum Foren-ID von dem BeitrÃ¤ge gelesen "
 "werden\n"
 "                             sollen"
 
 #: scripts/phorum2agora.php:183
 msgid "-t, --phorum_table[=table]   Phorum messages tablename"
-msgstr "-t, --phorum_table[=table]   Phorum Tabellenname für Beiträge"
+msgstr "-t, --phorum_table[=table]   Phorum Tabellenname fÃ¼r BeitrÃ¤ge"
 
 #: lib/Api.php:684
 msgid "Add a comment"
-msgstr "Kommentar hinzufügen"
+msgstr "Kommentar hinzufÃ¼gen"
 
 #: lib/Application.php:63
 msgid "Admin"
@@ -80,7 +80,7 @@ msgstr "Alle Foren"
 
 #: lib/Forms/Forum.php:39
 msgid "Allow attachments in this forum?"
-msgstr "Anhänge in diesem Forum erlauben?"
+msgstr "AnhÃ¤nge in diesem Forum erlauben?"
 
 #: messages/lock.php:44
 msgid "Allow replies in this thread"
@@ -111,7 +111,7 @@ msgstr "Avatar"
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
-msgstr "Avatare müssen kleiner als %s mal %s Pixel und kleiner als %sKB sein."
+msgstr "Avatare mÃ¼ssen kleiner als %s mal %s Pixel und kleiner als %sKB sein."
 
 #: ban.php:51 lib/Messages.php:1508
 msgid "Ban"
@@ -133,15 +133,15 @@ msgstr "Abbrechen"
 
 #: lib/Messages.php:1931
 msgid "Cannot create a forum with an empty name."
-msgstr "Foren mit leeren Namen können nicht erstellt werden."
+msgstr "Foren mit leeren Namen kÃ¶nnen nicht erstellt werden."
 
 #: config/prefs.php.dist:78
 msgid "Choose from a gallery of avatars:"
-msgstr "Wählen Sie einen Avatar aus der Galerie aus:"
+msgstr "WÃ¤hlen Sie einen Avatar aus der Galerie aus:"
 
 #: config/prefs.php.dist:78
 msgid "Click to Show Gallery"
-msgstr "Zurück zur Galerie"
+msgstr "ZurÃ¼ck zur Galerie"
 
 #: lib/Api.php:310 lib/Comments.php:52
 msgid "Comments"
@@ -164,12 +164,12 @@ msgstr "Forum konnte nicht erstellt werden. %s"
 #: deleteforum.php:60
 #, php-format
 msgid "Could not delete the forum. %s"
-msgstr "Forum konnte nicht gelöscht erstellt werden. %s"
+msgstr "Forum konnte nicht gelÃ¶scht erstellt werden. %s"
 
 #: messages/delete.php:56 lib/Api.php:585 lib/Api.php:596 lib/Api.php:610
 #, php-format
 msgid "Could not delete the message. %s"
-msgstr "Beitrag konnte nicht gelöscht werden. %s"
+msgstr "Beitrag konnte nicht gelÃ¶scht werden. %s"
 
 #: threads.php:26
 #, php-format
@@ -186,7 +186,7 @@ msgstr "Das Thema konnte nicht gesperrt werden. %s"
 #: messages/delete.php:27 messages/split.php:25
 #, php-format
 msgid "Could not open the message. %s"
-msgstr "Beitrag konnte nicht geöffnet werden. %s"
+msgstr "Beitrag konnte nicht geÃ¶ffnet werden. %s"
 
 #: messages/edit.php:27 messages/edit.php:77 lib/Api.php:445 lib/Api.php:501
 msgid "Could not post the message: "
@@ -238,28 +238,28 @@ msgstr "Standard-Sortierreihenfolge der Themen:"
 #: messages/delete.php:42 messages/delete.php:47 lib/Api.php:602
 #: lib/Api.php:607 lib/Messages.php:952 lib/Messages.php:1824
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: messages/delete.php:41 lib/Api.php:601
 #, php-format
 msgid "Delete \"%s\" and all replies?"
-msgstr "\"%s\" und alle Antworten löschen?"
+msgstr "\"%s\" und alle Antworten lÃ¶schen?"
 
 #: deleteforum.php:37 lib/Messages.php:1506
 msgid "Delete Forum"
-msgstr "Forum löschen"
+msgstr "Forum lÃ¶schen"
 
 #: lib/Messages.php:1824
 msgid "Delete forum"
-msgstr "Forum löschen"
+msgstr "Forum lÃ¶schen"
 
 #: lib/Messages.php:952
 msgid "Delete message"
-msgstr "Beitrag löschen"
+msgstr "Beitrag lÃ¶schen"
 
 #: lib/Messages.php:1558
 msgid "Delete the existing attachment?"
-msgstr "Den aktuellen Anhang löschen?"
+msgstr "Den aktuellen Anhang lÃ¶schen?"
 
 #: lib/Comments.php:72 config/prefs.php.dist:101 config/prefs.php.dist:140
 #: config/prefs.php.dist:183 config/prefs.php.dist:267
@@ -318,7 +318,7 @@ msgstr "Beitrag bearbeiten"
 
 #: lib/Forms/Forum.php:35
 msgid "Enter a brief description of this forum"
-msgstr "Geben Sie eine kurze Beschreibung für dieses Forum ein"
+msgstr "Geben Sie eine kurze Beschreibung fÃ¼r dieses Forum ein"
 
 #: messages/index.php:160 lib/Comments.php:58 config/prefs.php.dist:245
 msgid "Flat"
@@ -337,7 +337,7 @@ msgstr "Das Forum %s existiert nicht."
 
 #: editforum.php:42
 msgid "Forum Modified"
-msgstr "Forum geändert"
+msgstr "Forum geÃ¤ndert"
 
 #: editforum.php:42
 msgid "Forum created."
@@ -345,7 +345,7 @@ msgstr "Forum erstellt."
 
 #: deleteforum.php:62
 msgid "Forum deleted."
-msgstr "Forum gelöscht."
+msgstr "Forum gelÃ¶scht."
 
 #: deleteforum.php:43 templates/moderators.html.php:9 lib/Forms/Forum.php:27
 msgid "Forum name"
@@ -353,7 +353,7 @@ msgstr "Forumsname"
 
 #: deleteforum.php:65
 msgid "Forum not deleted."
-msgstr "Forum nicht gelöscht."
+msgstr "Forum nicht gelÃ¶scht."
 
 #: templates/forums.html.php:9 templates/common-header.inc:27
 #: lib/Application.php:64 lib/Block/forums.php:3 lib/Block/forums.php:27
@@ -383,17 +383,17 @@ msgstr "Beitragstexte ausblenden"
 
 #: lib/Messages.php:866
 msgid "Hot thread"
-msgstr "\"Heißes\" Thema"
+msgstr "\"HeiÃŸes\" Thema"
 
 #: lib/Forms/Forum.php:39
 msgid "If selected users will be able to attach files to their messages."
-msgstr "Wenn markiert, können alle Benutzer Dateien an ihre Beiträge anhängen."
+msgstr "Wenn markiert, kÃ¶nnen alle Benutzer Dateien an ihre BeitrÃ¤ge anhÃ¤ngen."
 
 #: messages/edit.php:110
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
 msgstr ""
-"Ungültiger Ursprungsbeitrag. Ihr Beitrag wird als neues Thema erstellt."
+"UngÃ¼ltiger Ursprungsbeitrag. Ihr Beitrag wird als neues Thema erstellt."
 
 #: lib/Forms/Forum.php:36
 msgid "Is this a moderated forum?"
@@ -401,7 +401,7 @@ msgstr "Ist dies ein moderiertes Forum?"
 
 #: lib/Forms/Search.php:41
 msgid "Keywords"
-msgstr "Stichwörter"
+msgstr "StichwÃ¶rter"
 
 #: config/prefs.php.dist:89
 msgid "Last Message"
@@ -418,7 +418,7 @@ msgstr "Letzter Beitrag"
 #: owner.php:28
 #, php-format
 msgid "Last posts in forums owned by %s"
-msgstr "Letzte Beiträge in Foren von %s"
+msgstr "Letzte BeitrÃ¤ge in Foren von %s"
 
 #: lib/Messages.php:956
 msgid "Lock"
@@ -435,26 +435,26 @@ msgstr "Thema \"%s\" sperren"
 
 #: lib/Agora.php:345
 msgid "Malformed avatar."
-msgstr "Ungültiger Avatar."
+msgstr "UngÃ¼ltiger Avatar."
 
 #: lib/Agora.php:368
 msgid "Malformed database entry."
-msgstr "Ungültiger Datenbankeintrag."
+msgstr "UngÃ¼ltiger Datenbankeintrag."
 
 #: scripts/phorum2agora.php:178
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Pflichtwerte für lange Parameter sind auch für kurze Parameter verpflichtend."
+"Pflichtwerte fÃ¼r lange Parameter sind auch fÃ¼r kurze Parameter verpflichtend."
 
 #: messages/merge.php:40 messages/merge.php:66 lib/Messages.php:967
 msgid "Merge"
-msgstr "Zusammenfügen"
+msgstr "ZusammenfÃ¼gen"
 
 #: messages/merge.php:39
 #, php-format
 msgid "Merge \"%s\" with another thread"
-msgstr "\"%s\" mit anderem Thema zusammenfügen"
+msgstr "\"%s\" mit anderem Thema zusammenfÃ¼gen"
 
 #: lib/Messages.php:1553
 msgid "Message"
@@ -476,11 +476,11 @@ msgstr "Beitragsansicht"
 
 #: messages/delete.php:58 lib/Api.php:612
 msgid "Message deleted."
-msgstr "Beitrag gelöscht."
+msgstr "Beitrag gelÃ¶scht."
 
 #: messages/delete.php:48 lib/Api.php:617
 msgid "Message not deleted."
-msgstr "Der Beitrag wurde nicht gelöscht."
+msgstr "Der Beitrag wurde nicht gelÃ¶scht."
 
 #: messages/edit.php:82 lib/Api.php:503
 msgid "Message posted."
@@ -488,15 +488,15 @@ msgstr "Beitrag gespeichert."
 
 #: templates/messages/index.html.php:1 config/prefs.php.dist:88
 msgid "Messages"
-msgstr "Beiträge"
+msgstr "BeitrÃ¤ge"
 
 #: moderate.php:80 templates/moderate.html.php:11
 msgid "Messages Awaiting Moderation"
-msgstr "Zu moderierende Beiträge"
+msgstr "Zu moderierende BeitrÃ¤ge"
 
 #: lib/Messages.php:1843
 msgid "Moderate"
-msgstr "Mäßig"
+msgstr "MÃ¤ÃŸig"
 
 #: moderators.php:68 templates/messages/flat_thread.html.php:10
 #: templates/messages/flat.html.php:11 templates/messages/message.html.php:21
@@ -536,7 +536,7 @@ msgstr "Neues Thema"
 
 #: lib/Messages.php:867
 msgid "New posts"
-msgstr "Neue Beiträge"
+msgstr "Neue BeitrÃ¤ge"
 
 #: config/prefs.php.dist:192
 msgid "No"
@@ -544,11 +544,11 @@ msgstr "Nein"
 
 #: lib/Block/threads.php:112
 msgid "No available threads."
-msgstr "Keine Themen verfügbar."
+msgstr "Keine Themen verfÃ¼gbar."
 
 #: lib/Block/threads.php:91
 msgid "No forum selected"
-msgstr "Kein Forum ausgewählt."
+msgstr "Kein Forum ausgewÃ¤hlt."
 
 #: templates/forums.html.php:60
 msgid "No forums have been created."
@@ -560,7 +560,7 @@ msgstr "Emoticons nicht anzeigen"
 
 #: moderate.php:49
 msgid "No messages are waiting for moderation."
-msgstr "Keine Beiträge zu moderieren."
+msgstr "Keine BeitrÃ¤ge zu moderieren."
 
 #: messages/abuse.php:32
 msgid "No moderators are associated with this forum."
@@ -584,16 +584,16 @@ msgstr "Anzahl der Foren pro Seite"
 
 #: config/prefs.php.dist:209
 msgid "Number of message to display on each page"
-msgstr "Anzahl der Beiträge pro Seite"
+msgstr "Anzahl der BeitrÃ¤ge pro Seite"
 
 #: config/prefs.php.dist:161 config/prefs.php.dist:282
 msgid "Number of messages to display on each page"
-msgstr "Anzahl der Beiträge pro Seite"
+msgstr "Anzahl der BeitrÃ¤ge pro Seite"
 
 #: config/prefs.php.dist:148
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
 msgstr ""
-"Anzahl der Seitenaufrufe innerhalb von 24 Stunden, um ein Thema als \"heiß\" "
+"Anzahl der Seitenaufrufe innerhalb von 24 Stunden, um ein Thema als \"heiÃŸ\" "
 "zu markieren:"
 
 #: lib/Block/forums.php:38
@@ -607,7 +607,7 @@ msgstr "Maximal so viele Themen anzeigen (0 um alle Themen anzuzeigen)"
 #: lib/Forms/Forum.php:37
 msgid "Optional email address to recieve a copy of each posted message"
 msgstr ""
-"Optionale E-Mail-Adresse, an die Kopien aller neuen Beiträge geschickt "
+"Optionale E-Mail-Adresse, an die Kopien aller neuen BeitrÃ¤ge geschickt "
 "werden sollen."
 
 #: templates/forums.html.php:34
@@ -621,7 +621,7 @@ msgstr "Seite %d"
 
 #: lib/Forms/Forum.php:30
 msgid "Parent forum"
-msgstr "Übergeordnetes Forum"
+msgstr "Ãœbergeordnetes Forum"
 
 #: lib/Messages.php:1522
 msgid "Post"
@@ -663,7 +663,7 @@ msgstr "Geschrieben von %s am %s"
 #: threads.php:54 forums.php:53 lib/Block/forums.php:87
 #: config/prefs.php.dist:128
 msgid "Posts"
-msgstr "Beiträge"
+msgstr "BeitrÃ¤ge"
 
 #: lib/Messages.php:1545
 msgid "Quote"
@@ -683,7 +683,7 @@ msgstr "Missbrauch melden"
 
 #: lib/Forms/Search.php:42
 msgid "Require all keywords?"
-msgstr "Nach allen Wörtern suchen?"
+msgstr "Nach allen WÃ¶rtern suchen?"
 
 #: lib/Messages.php:1522
 msgid "Save"
@@ -703,7 +703,7 @@ msgstr "Suchergebnisse"
 
 #: lib/Forms/Search.php:50
 msgid "Search in message contents?"
-msgstr "In Beiträgen suchen?"
+msgstr "In BeitrÃ¤gen suchen?"
 
 #: lib/Forms/Search.php:46
 msgid "Search in subjects?"
@@ -716,31 +716,31 @@ msgstr "Diese Foren durchsuchen"
 #: config/prefs.php.dist:12
 msgid "Set the avatar image that is shown with your posts."
 msgstr ""
-"Legen Sie das Avatarbild fest, das neben Ihren Beiträgen angezeigt wird."
+"Legen Sie das Avatarbild fest, das neben Ihren BeitrÃ¤gen angezeigt wird."
 
 #: lib/Forms/Forum.php:36
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
 msgstr ""
-"Markieren Sie diese Einstellung, wenn alle Beiträge von einem Moderator "
+"Markieren Sie diese Einstellung, wenn alle BeitrÃ¤ge von einem Moderator "
 "kontrolliert werden sollen, bevor sie erscheinen."
 
 #: config/prefs.php.dist:20
 msgid "Set your options for the forums view."
-msgstr "Legen Sie Ihre Einstellungen für die Forenansicht fest."
+msgstr "Legen Sie Ihre Einstellungen fÃ¼r die Forenansicht fest."
 
 #: config/prefs.php.dist:47
 msgid "Set your options for the message view."
-msgstr "Legen Sie Ihre Einstellungen für die Beitragsansicht fest."
+msgstr "Legen Sie Ihre Einstellungen fÃ¼r die Beitragsansicht fest."
 
 #: config/prefs.php.dist:37 config/prefs.php.dist:54
 msgid "Set your options for the single thread view."
-msgstr "Legen Sie Ihre Einstellungen für die Ansicht einzelner Themen fest."
+msgstr "Legen Sie Ihre Einstellungen fÃ¼r die Ansicht einzelner Themen fest."
 
 #: config/prefs.php.dist:27
 msgid "Set your options for the threads view."
-msgstr "Legen Sie Ihre Einstellungen für die Themenansicht fest."
+msgstr "Legen Sie Ihre Einstellungen fÃ¼r die Themenansicht fest."
 
 #: config/prefs.php.dist:217
 msgid "Show graphical emoticons"
@@ -820,7 +820,7 @@ msgstr "Keine Foren gefunden."
 
 #: templates/threads.html.php:69
 msgid "There are no threads in this forum."
-msgstr "In diesem Forum befinden sich noch keine Beiträge."
+msgstr "In diesem Forum befinden sich noch keine BeitrÃ¤ge."
 
 #: lib/Messages.php:156
 msgid "This thread has been locked."
@@ -829,8 +829,8 @@ msgstr "Dieses Thema wurde geschlossen."
 #: deleteforum.php:42
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
-"Damit wird das Forum, alle Unterforen und alle dazugehörigen Beiträge "
-"gelöscht."
+"Damit wird das Forum, alle Unterforen und alle dazugehÃ¶rigen BeitrÃ¤ge "
+"gelÃ¶scht."
 
 #: messages/index.php:139 messages/index.php:151 lib/Comments.php:59
 #: lib/Block/thread.php:36 lib/Block/thread.php:93 config/prefs.php.dist:125
@@ -841,7 +841,7 @@ msgstr "Thema"
 #: messages/merge.php:71
 #, php-format
 msgid "Thread %s merged with thread %s after message %s."
-msgstr "Thema %s mit Thema %s nach Beitrag %s zusammengefügt."
+msgstr "Thema %s mit Thema %s nach Beitrag %s zusammengefÃ¼gt."
 
 #: messages/move.php:57
 #, php-format
@@ -854,11 +854,11 @@ msgstr "Themenliste"
 
 #: templates/messages/message.html.php:34
 msgid "Thread Summary"
-msgstr "Themenübersicht"
+msgstr "ThemenÃ¼bersicht"
 
 #: messages/delete.php:63
 msgid "Thread deleted."
-msgstr "Thema gelöscht."
+msgstr "Thema gelÃ¶scht."
 
 #: messages/index.php:201 messages/lock.php:56
 msgid "Thread locked."
@@ -894,11 +894,11 @@ msgstr "Themen in %s"
 
 #: lib/Block/thread.php:81
 msgid "Unable to fetch selected thread."
-msgstr "Das ausgewählte Thema konnte nicht gelesen werden."
+msgstr "Das ausgewÃ¤hlte Thema konnte nicht gelesen werden."
 
 #: lib/Block/threads.php:97
 msgid "Unable to fetch threads for selected forum."
-msgstr "Die Themen für das ausgewählte Forum konnten nicht gelesen werden."
+msgstr "Die Themen fÃ¼r das ausgewÃ¤hlte Forum konnten nicht gelesen werden."
 
 #: lib/Messages.php:956
 msgid "Unlock"
@@ -947,51 +947,51 @@ msgstr "Ja, Antworten zulassen"
 
 #: config/prefs.php.dist:194
 msgid "Yes, and don't thread them"
-msgstr "Ja, ohne einzurücken"
+msgstr "Ja, ohne einzurÃ¼cken"
 
 #: lib/Messages.php:1706
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
-msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s anzuzeigen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um BeitrÃ¤ge im Forum %s anzuzeigen."
 
 #: messages/merge.php:31 messages/move.php:31 messages/lock.php:33
 #: messages/delete.php:33 messages/split.php:31 lib/Api.php:590
 #: lib/Messages.php:585 lib/Messages.php:763
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
-msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu löschen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um BeitrÃ¤ge im Forum %s zu lÃ¶schen."
 
 #: messages/edit.php:33 messages/index.php:195 lib/Api.php:454
 #: lib/Messages.php:161
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
-msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu erstellen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um BeitrÃ¤ge im Forum %s zu erstellen."
 
 #: lib/Messages.php:838
 #, php-format
 msgid "You don't have permission to read messages in forum %s."
-msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu lesen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um BeitrÃ¤ge im Forum %s zu lesen."
 
 #: ban.php:24
 #, php-format
 msgid "You don't have permissions to ban users from forum %s."
 msgstr ""
-"Sie haben nicht genügend Rechte, um Benutzer vom Forum %s zu verbannen."
+"Sie haben nicht genÃ¼gend Rechte, um Benutzer vom Forum %s zu verbannen."
 
 #: editforum.php:31
 #, php-format
 msgid "You don't have permissions to create a new forum in %s"
-msgstr "Sie haben nicht genügend Rechte, um ein neues Forum in %s zu erstellen"
+msgstr "Sie haben nicht genÃ¼gend Rechte, um ein neues Forum in %s zu erstellen"
 
 #: deleteforum.php:23
 #, php-format
 msgid "You don't have permissions to delete forums in %s"
-msgstr "Sie haben nicht genügend Rechte, um Foren in %s zu löschen"
+msgstr "Sie haben nicht genÃ¼gend Rechte, um Foren in %s zu lÃ¶schen"
 
 #: editforum.php:27
 #, php-format
 msgid "You don't have permissions to edit forum %s"
-msgstr "Sie haben nicht genügend Rechte, um Forum %s zu bearbeiten"
+msgstr "Sie haben nicht genÃ¼gend Rechte, um Forum %s zu bearbeiten"
 
 #: messages/edit.php:80
 msgid ""
@@ -1040,7 +1040,7 @@ msgstr "am: "
 #: lib/Messages.php:1653
 #, php-format
 msgid "size: %s"
-msgstr "Größe: %s"
+msgstr "GrÃ¶ÃŸe: %s"
 
 #: lib/Messages.php:1653
 #, php-format

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Torstein S. Hansen <huleboer@techbee.no>\n"
 "Language-Team: Norwegian (Bokmal) <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -25,7 +25,7 @@ msgid "Adding A New Task"
 msgstr "Legg til en ny oppgave"
 
 msgid "Are you sure you want to permanently delete these tasks?"
-msgstr "Er du sikker på at du vil slette disse oppgavene for godt?"
+msgstr "Er du sikker pÃ¥ at du vil slette disse oppgavene for godt?"
 
 msgid "Ascending"
 msgstr "Oppstigenede"
@@ -51,19 +51,19 @@ msgid "Choose Action:"
 msgstr "Velg handling:"
 
 msgid "Clear Form"
-msgstr "Tøm blankett"
+msgstr "TÃ¸m blankett"
 
 msgid "Complete Task"
-msgstr "Fullfør oppgave"
+msgstr "FullfÃ¸r oppgave"
 
 msgid "Complete Tasks"
-msgstr "Fullfør oppgavene"
+msgstr "FullfÃ¸r oppgavene"
 
 msgid "Completed?"
-msgstr "Fullført?"
+msgstr "FullfÃ¸rt?"
 
 msgid "Completion Status"
-msgstr "Fullførings status"
+msgstr "FullfÃ¸rings status"
 
 msgid "Default sorting criteria:"
 msgstr "Standar sorterings criteria:"
@@ -103,17 +103,17 @@ msgid "Help"
 msgstr "Hjelp"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "List Tasks"
 msgstr "Vis oppgaver"
 
 #, c-format
 msgid "Marked %d tasks as completed."
-msgstr "Merk %d oppgave som fullført."
+msgstr "Merk %d oppgave som fullfÃ¸rt."
 
 msgid "Marked 1 task as completed."
-msgstr "Merk 1 oppgave som fullført."
+msgstr "Merk 1 oppgave som fullfÃ¸rt."
 
 msgid "Modify Task"
 msgstr "Endre oppgave"
@@ -134,7 +134,7 @@ msgid "No configuration information specified for SQL Tasks."
 msgstr "Ingen konfigurasjons informasjon er spesifisert for SQL oppgavene."
 
 msgid "No due date."
-msgstr "Ingen fullførings dato."
+msgstr "Ingen fullfÃ¸rings dato."
 
 msgid "No tasks were changed."
 msgstr "Ingen oppgaver ble forandret."
@@ -161,7 +161,7 @@ msgid "Pri"
 msgstr "Prioritet"
 
 msgid "Priorities must be between 1 and 5. Please enter a valid priority:"
-msgstr "Prioritetet må være mellom 1 og 5. Vennligst sett inn et gydlig valg:"
+msgstr "Prioritetet mÃ¥ vÃ¦re mellom 1 og 5. Vennligst sett inn et gydlig valg:"
 
 msgid "Priority"
 msgstr "Prioritet"
@@ -173,40 +173,40 @@ msgid "Refresh List"
 msgstr "Oppdater listen"
 
 msgid "Required 'database' not specified in tasks configuration."
-msgstr "Nødvendig 'database' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'database' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Required 'hostspec' not specified in tasks configuration."
-msgstr "Nødvendig 'hotspec' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'hotspec' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Required 'password' not specified in tasks configuration."
-msgstr "Nødvendig 'passord' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'passord' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Required 'phptype' not specified in tasks configuration."
-msgstr "Nødvendig 'phptype' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'phptype' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Required 'table' not specified in tasks configuration."
-msgstr "Nødvendig 'tabell' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'tabell' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Required 'username' not specified in tasks configuration."
-msgstr "Nødvendig 'brukernavn' er ikke spesifisert i oppgave konfigurasjon."
+msgstr "NÃ¸dvendig 'brukernavn' er ikke spesifisert i oppgave konfigurasjon."
 
 msgid "Save Task"
 msgstr "Lagre oppgave"
 
 msgid "Search Results"
-msgstr "Søke resultat"
+msgstr "SÃ¸ke resultat"
 
 msgid "Search Scope"
-msgstr "Søk rekkevidde"
+msgstr "SÃ¸k rekkevidde"
 
 msgid "Search Text"
-msgstr "Søke tekst"
+msgstr "SÃ¸ke tekst"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "SÃ¸k"
 
 msgid "Select your preferred language:"
-msgstr "Velg språk:"
+msgstr "Velg sprÃ¥k:"
 
 msgid "Selected?"
 msgstr "Valgt?"
@@ -215,10 +215,10 @@ msgid "Set Task Priority"
 msgstr "Sett oppgave prioritet."
 
 msgid "Set the your preferred display language."
-msgstr "Sett visnings språk."
+msgstr "Sett visnings sprÃ¥k."
 
 msgid "Show completed tasks in the task list?"
-msgstr "Vis fullførte oppgaver i oppgave listen?"
+msgstr "Vis fullfÃ¸rte oppgaver i oppgave listen?"
 
 msgid "Some of Nag's configuration files are missing:"
 msgstr "Noen av Nag's konfigurasjons filer mangler:"
@@ -227,16 +227,16 @@ msgid "Sort Direction"
 msgstr "Sortering rettning"
 
 msgid "Sort by Category"
-msgstr "Sorter på kategori"
+msgstr "Sorter pÃ¥ kategori"
 
 msgid "Sort by Completion Status"
-msgstr "Sorter på sluttførelse status"
+msgstr "Sorter pÃ¥ sluttfÃ¸relse status"
 
 msgid "Sort by Due Date"
-msgstr "Sorter på slutt dato"
+msgstr "Sorter pÃ¥ slutt dato"
 
 msgid "Sort by Name"
-msgstr "Sorter på navn"
+msgstr "Sorter pÃ¥ navn"
 
 msgid "Sort by Priority"
 msgstr "Sort etter prioritet"
@@ -260,16 +260,16 @@ msgid "The requested task does not exist."
 msgstr "Det forespurte oppgaven eksisterer ikke."
 
 msgid "There was a problem deleting tasks."
-msgstr "Det var et problem å slette oppgavene."
+msgstr "Det var et problem Ã¥ slette oppgavene."
 
 msgid "There was a problem saving the task."
-msgstr "Det var et problem å lagre oppgaven."
+msgstr "Det var et problem Ã¥ lagre oppgaven."
 
 msgid "There was a problem setting task completion status."
-msgstr "Det var et problem å sette oppgave fullførelse satus."
+msgstr "Det var et problem Ã¥ sette oppgave fullfÃ¸relse satus."
 
 msgid "There was a problem setting task priority."
-msgstr "Det var er problem å sette oppgave prioriteten."
+msgstr "Det var er problem Ã¥ sette oppgave prioriteten."
 
 msgid "This file contains preferences for Nag."
 msgstr "Denne filen inneholder innstillinger for Nag."
@@ -278,7 +278,7 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Denne fila kontrollerer stilarket som blir brukt til å definere farger og "
+"Denne fila kontrollerer stilarket som blir brukt til Ã¥ definere farger og "
 "skrifttyper, og legg til eller overstyrer standardverdiane til Horde."
 
 msgid ""
@@ -310,7 +310,7 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "You must select at least one task first."
-msgstr "Do må minst velge en oppgave først."
+msgstr "Do mÃ¥ minst velge en oppgave fÃ¸rst."
 
 msgid "Your Information"
 msgstr "Din informasjon"

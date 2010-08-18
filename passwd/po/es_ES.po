@@ -1,5 +1,5 @@
 # Spanish translations for passwd package
-# Traducciones al español para el paquete passwd.
+# Traducciones al espaÃ±ol para el paquete passwd.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the passwd package.
 # Automatically generated, 2008.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -25,7 +25,7 @@ msgstr "%s no existe o no es ejecutable."
 #: lib/Driver/expectpecl.php:73
 #, php-format
 msgid "%s extension cannot be loaded!"
-msgstr "¡No se puede cargar la extensión %s!"
+msgstr "Â¡No se puede cargar la extensiÃ³n %s!"
 
 #: lib/Driver/composite.php:63
 #, php-format
@@ -51,24 +51,24 @@ msgstr "No se puede enviar el comando al servidor."
 
 #: main.php:268 templates/main/main.inc:141
 msgid "Change Password"
-msgstr "Cambiar la contraseña"
+msgstr "Cambiar la contraseÃ±a"
 
 #: templates/main/main.inc:126
 msgid "Change password for:"
-msgstr "Cambiar contraseña de:"
+msgstr "Cambiar contraseÃ±a de:"
 
 #: templates/main/main.inc:67
 msgid "Change your password"
-msgstr "Cambiar la contraseña"
+msgstr "Cambiar la contraseÃ±a"
 
 #: templates/main/main.inc:65
 #, php-format
 msgid "Changing password for %s"
-msgstr "Cambiando la contraseña de %s"
+msgstr "Cambiando la contraseÃ±a de %s"
 
 #: templates/main/main.inc:113
 msgid "Confirm new password:"
-msgstr "Confirmar la nueva contraseña:"
+msgstr "Confirmar la nueva contraseÃ±a:"
 
 #: lib/Driver/ldap.php:114 lib/Driver/kolab.php:60
 msgid "Could not bind to LDAP server"
@@ -76,11 +76,11 @@ msgstr "No se pudo enlazar al servidor LDAP"
 
 #: lib/Driver/expectpecl.php:118
 msgid "Could not change password (bad old password?)"
-msgstr "No se pudo cambiar la contraseña (¿antigua contraseña incorrecta)"
+msgstr "No se pudo cambiar la contraseÃ±a (Â¿antigua contraseÃ±a incorrecta)"
 
 #: lib/Driver/expectpecl.php:138
 msgid "Could not change password."
-msgstr "No se pudo cambiar la contraseña."
+msgstr "No se pudo cambiar la contraseÃ±a."
 
 #: lib/Driver/ldap.php:80 lib/Driver/kolab.php:46
 msgid "Could not connect to LDAP server"
@@ -89,20 +89,20 @@ msgstr "No se pudo conectar al servidor LDAP"
 #: lib/Driver/expectpecl.php:98
 msgid "Could not login to system (no password prompt)"
 msgstr ""
-"No se pudo iniciar sesión en el sistema (no hay solicitud de contraseña)"
+"No se pudo iniciar sesiÃ³n en el sistema (no hay solicitud de contraseÃ±a)"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "No se pudo abrir una canalización a smbpasswd."
+msgstr "No se pudo abrir una canalizaciÃ³n a smbpasswd."
 
 #: lib/Driver/ldap.php:86
 msgid "Could not start TLS connection to LDAP server"
-msgstr "No se pudo iniciar una conexión TLS al servidor LDAP"
+msgstr "No se pudo iniciar una conexiÃ³n TLS al servidor LDAP"
 
 #: lib/Driver/expectpecl.php:108
 msgid "Could not start passwd program (no old password prompt)"
 msgstr ""
-"No se pudo iniciar el programa passwd (no hay solicitud de contraseña "
+"No se pudo iniciar el programa passwd (no hay solicitud de contraseÃ±a "
 "antigua)"
 
 #: lib/Driver/expectpecl.php:44
@@ -115,12 +115,12 @@ msgstr "Error al enviar los datos a smbpasswd."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "La comprobación de la contraseña antigua ha fallado."
+msgstr "La comprobaciÃ³n de la contraseÃ±a antigua ha fallado."
 
 #: main.php:222 lib/Driver/composite.php:102
 #, php-format
 msgid "Failure in changing password for %s: %s"
-msgstr "Fallo al cambiar la contraseña de %s: %s"
+msgstr "Fallo al cambiar la contraseÃ±a de %s: %s"
 
 #: lib/Driver/expectpecl.php:50
 msgid "Full buffer."
@@ -129,98 +129,98 @@ msgstr "Buffer lleno."
 #: lib/Driver.php:72 lib/Driver/ldap.php:131 lib/Driver/poppassd.php:120
 #: lib/Driver/vmailmgr.php:42 lib/Driver/http.php:72 lib/Driver/kolab.php:84
 msgid "Incorrect old password."
-msgstr "Contraseña antigua incorrecta"
+msgstr "ContraseÃ±a antigua incorrecta"
 
 #: lib/Driver/ldap.php:190
 msgid "Minimum password age has not yet expired"
-msgstr "La antigüedad mínima de la contraseña no ha caducado aún"
+msgstr "La antigÃ¼edad mÃ­nima de la contraseÃ±a no ha caducado aÃºn"
 
 #: lib/Driver/expectpecl.php:128
 msgid "New password not valid (too short, bad password, too similar, ...)"
 msgstr ""
-"La contraseña nueva no es válida (demasiado corta, incorrecta, muy "
+"La contraseÃ±a nueva no es vÃ¡lida (demasiado corta, incorrecta, muy "
 "parecida, ...)"
 
 #: templates/main/main.inc:101
 msgid "New password:"
-msgstr "Nueva contraseña:"
+msgstr "Nueva contraseÃ±a:"
 
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
-msgstr "El servidor no devolvió una solicitud."
+msgstr "El servidor no devolviÃ³ una solicitud."
 
 #: lib/Driver.php:128
 #, php-format
 msgid "No such backend \"%s\" found."
-msgstr "No se encontró el motor \"%s\"."
+msgstr "No se encontrÃ³ el motor \"%s\"."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
-msgstr "Antigua contraseña:"
+msgstr "Antigua contraseÃ±a:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd no está bien configurado."
+msgstr "Passwd no estÃ¡ bien configurado."
 
 #: main.php:214
 #, php-format
 msgid "Password changed on %s."
-msgstr "Se ha cambiado la contraseña en %s."
+msgstr "Se ha cambiado la contraseÃ±a en %s."
 
 #: lib/Driver/sql.php:127
 #, php-format
 msgid "Password column \"%s\" not found in password table."
 msgstr ""
-"No se encontró la columna de contraseña \"%s\" en la tabla de contraseñas."
+"No se encontrÃ³ la columna de contraseÃ±a \"%s\" en la tabla de contraseÃ±as."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "El módulo de contraseñas no puede localizar el binario indicado."
+msgstr "El mÃ³dulo de contraseÃ±as no puede localizar el binario indicado."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Al módulo de contraseñas le faltan parámetros necesarios."
+msgstr "Al mÃ³dulo de contraseÃ±as le faltan parÃ¡metros necesarios."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Al módulo de contraseñas le falta el parámetro de destino."
+msgstr "Al mÃ³dulo de contraseÃ±as le falta el parÃ¡metro de destino."
 
 #: main.php:188 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "El módulo de contraseñas no está bien configurado"
+msgstr "El mÃ³dulo de contraseÃ±as no estÃ¡ bien configurado"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "El módulo de contraseñas no está bien configurado."
+msgstr "El mÃ³dulo de contraseÃ±as no estÃ¡ bien configurado."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Introduzca una nueva contraseña"
+msgstr "Introduzca una nueva contraseÃ±a"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Introduzca su contraseña actual"
+msgstr "Introduzca su contraseÃ±a actual"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Compruebe la contraseña nueva"
+msgstr "Compruebe la contraseÃ±a nueva"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
-"Los 'controladores' requeridos están desconfigurados en la configuración de "
-"Redacción."
+"Los 'controladores' requeridos estÃ¡n desconfigurados en la configuraciÃ³n de "
+"RedacciÃ³n."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
 msgstr ""
-"No se ha especificado en la configuración de Passwd SQL el 'phptype' "
+"No se ha especificado en la configuraciÃ³n de Passwd SQL el 'phptype' "
 "requerido."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
 msgstr ""
-"No se ha especificado en la configuración de SQL el 'phptype' requerido."
+"No se ha especificado en la configuraciÃ³n de SQL el 'phptype' requerido."
 
 #: templates/main/main.inc:142
 msgid "Reset"
@@ -229,7 +229,7 @@ msgstr "Limpiar"
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
 msgstr ""
-"El sitio web solicitado para cambiar las contraseñas de los usuarios no se "
+"El sitio web solicitado para cambiar las contraseÃ±as de los usuarios no se "
 "pudo alcanzar."
 
 #: lib/Driver/http.php:74
@@ -246,17 +246,17 @@ msgstr "Incapaz de conectarse al servidor SQL."
 
 #: lib/Driver/expectpecl.php:93
 msgid "Unable to open expect stream!"
-msgstr "¡Incapaz de abrir el canal esperado!"
+msgstr "Â¡Incapaz de abrir el canal esperado!"
 
 #: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
 #: lib/Driver/vpopmail.php:150
 msgid "User not found"
-msgstr "No se encontró el usuario"
+msgstr "No se encontrÃ³ el usuario"
 
 #: lib/Driver/pine.php:231 lib/Driver/ldap.php:167 lib/Driver/ldap.php:249
 #: lib/Driver/smbldap.php:160 lib/Driver/kolab.php:76
 msgid "User not found."
-msgstr "No se encontró el usuario."
+msgstr "No se encontrÃ³ el usuario."
 
 #: templates/main/main.inc:76
 msgid "Username:"
@@ -269,15 +269,15 @@ msgstr "No puede cambiar la clave del usuario %s"
 
 #: main.php:60
 msgid "You must give your current password"
-msgstr "Tiene que introducir su contraseña actual"
+msgstr "Tiene que introducir su contraseÃ±a actual"
 
 #: main.php:69
 msgid "You must give your new password"
-msgstr "Tiene que introducir su nueva contraseña"
+msgstr "Tiene que introducir su nueva contraseÃ±a"
 
 #: main.php:73
 msgid "You must verify your new password"
-msgstr "Tiene que comprobar la contraseña nueva"
+msgstr "Tiene que comprobar la contraseÃ±a nueva"
 
 #: main.php:93
 #, php-format
@@ -285,27 +285,27 @@ msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
-"Su nueva contraseña es demasiado larga; ¡las contraseñas no pueden tener más "
+"Su nueva contraseÃ±a es demasiado larga; Â¡las contraseÃ±as no pueden tener mÃ¡s "
 "de %d caracteres!"
 
 #: main.php:177
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr ""
-"¡Su nueva contraseña es demasiado fácil de adivinar! ¡No se ha cambiado!"
+"Â¡Su nueva contraseÃ±a es demasiado fÃ¡cil de adivinar! Â¡No se ha cambiado!"
 
 #: main.php:168
 msgid "Your new password is too simple to guess. Not changed!"
 msgstr ""
-"¡Su nueva contraseña es demasiado fácil de adivinar! ¡No se ha cambiado!"
+"Â¡Su nueva contraseÃ±a es demasiado fÃ¡cil de adivinar! Â¡No se ha cambiado!"
 
 #: main.php:88
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "¡Su nueva contraseña tiene que tener al menos %d caracteres!"
+msgstr "Â¡Su nueva contraseÃ±a tiene que tener al menos %d caracteres!"
 
 #: main.php:81
 msgid "Your new password must be different from your current password"
-msgstr "Su nueva contraseña tiene que ser distinta de la actual"
+msgstr "Su nueva contraseÃ±a tiene que ser distinta de la actual"
 
 #: main.php:133
 #, php-format
@@ -313,9 +313,9 @@ msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
 "Your new password must contain at least %d alphabetic characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter alfabético."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter alfabÃ©tico."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres alfabéticos."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres alfabÃ©ticos."
 
 #: main.php:138
 #, php-format
@@ -323,9 +323,9 @@ msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
 "Your new password must contain at least %d alphanumeric characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter alfanumérico."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter alfanumÃ©rico."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres alfanuméricos."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres alfanumÃ©ricos."
 
 #: main.php:143
 #, php-format
@@ -333,62 +333,62 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"Su nueva contraseña tiene que contener al menos %d tipos distintos de "
-"caracteres. Los tipos son: minúsculas, mayúsculas, números y símbolos."
+"Su nueva contraseÃ±a tiene que contener al menos %d tipos distintos de "
+"caracteres. Los tipos son: minÃºsculas, mayÃºsculas, nÃºmeros y sÃ­mbolos."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter en minúsculas."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter en minÃºsculas."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres en minúsculas."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres en minÃºsculas."
 
 #: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter numérico."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter numÃ©rico."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres numéricos."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres numÃ©ricos."
 
 #: main.php:157
 #, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter de puntuación."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter de puntuaciÃ³n."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres de puntuación."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres de puntuaciÃ³n."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
 msgstr[0] ""
-"Su nueva contraseña tiene que contener al menos %d carácter en mayúsculas."
+"Su nueva contraseÃ±a tiene que contener al menos %d carÃ¡cter en mayÃºsculas."
 msgstr[1] ""
-"Su nueva contraseña tiene que contener al menos %d caracteres en mayúsculas."
+"Su nueva contraseÃ±a tiene que contener al menos %d caracteres en mayÃºsculas."
 
 #: main.php:149
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
-msgstr "Su nueva contraseña tiene que contener menos de %d espacios."
+msgstr "Su nueva contraseÃ±a tiene que contener menos de %d espacios."
 
 #: main.php:151
 msgid "Your new password must not contain whitespace characters."
-msgstr "Su nueva contraseña no puede contener espacios."
+msgstr "Su nueva contraseÃ±a no puede contener espacios."
 
 #: main.php:77
 msgid "Your new passwords didn't match"
-msgstr "La contraseña nueva y la antigua no concuerdan"
+msgstr "La contraseÃ±a nueva y la antigua no concuerdan"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "Su contraseña no se pudo cambiar"
+msgstr "Su contraseÃ±a no se pudo cambiar"
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Sus contraseñas no concuerdan"
+msgstr "Sus contraseÃ±as no concuerdan"

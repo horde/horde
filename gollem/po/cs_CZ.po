@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,67 +20,67 @@ msgstr ""
 #: templates/manager/header.inc:580
 #, php-format
 msgid "%d items"
-msgstr "%d polo¾ek"
+msgstr "%d poloÅ¾ek"
 
 #: templates/manager/file_footers.inc:15
 #, php-format
 msgid "%s Folders and %s Files (%s Kb)"
-msgstr "%s Adresáøù a %s Souborù (%s Kb)"
+msgstr "%s AdresÃ¡Å™Å¯ a %s SouborÅ¯ (%s Kb)"
 
 #: templates/manager/file_footers.inc:13
 #, php-format
 msgid "%s Folders and 1 File (%s Kb)"
-msgstr "%s Adresáøù a 1 Soubor (%s Kb)"
+msgstr "%s AdresÃ¡Å™Å¯ a 1 Soubor (%s Kb)"
 
 #: templates/xppublish/backend.inc:10 templates/login/login.inc:67
 #, php-format
 msgid "%s Login"
-msgstr "%s Pøihlásit se"
+msgstr "%s PÅ™ihlÃ¡sit se"
 
 #: manager.php:170
 #, php-format
 msgid "%s was successfully pasted."
-msgstr "%s byl úspì¹nì vlo¾en."
+msgstr "%s byl ÃºspÄ›Å¡nÄ› vloÅ¾en."
 
 #: manager.php:67
 #, php-format
 msgid "'%s' renamed to '%s'"
-msgstr "'%s' pøejmenován na '%s'"
+msgstr "'%s' pÅ™ejmenovÃ¡n na '%s'"
 
 #: templates/manager/file_footers.inc:10
 #, php-format
 msgid "1 Folder and %s Files (%s Kb)"
-msgstr "1 Adresáø a %s Souborù (%s Kb)"
+msgstr "1 AdresÃ¡Å™ a %s SouborÅ¯ (%s Kb)"
 
 #: templates/manager/file_footers.inc:8
 #, php-format
 msgid "1 Folder and 1 File (%s Kb)"
-msgstr "1 Adresáø a 1 Soubor (%s Kb)"
+msgstr "1 AdresÃ¡Å™ a 1 Soubor (%s Kb)"
 
 #: templates/manager/header.inc:580
 msgid "1 item"
-msgstr "1 polo¾ka"
+msgstr "1 poloÅ¾ka"
 
 #: view.php:23
 #, php-format
 msgid "Access denied to %s"
-msgstr "Nebyl povolen pøístup k: %s"
+msgstr "Nebyl povolen pÅ™Ã­stup k: %s"
 
 #: lib/Gollem.php:100
 msgid "Access denied: "
-msgstr "Pøístup zamítnut:"
+msgstr "PÅ™Ã­stup zamÃ­tnut:"
 
 #: templates/prefs/columnselect.inc:236
 msgid "Add column"
-msgstr "Pøidat sloupec"
+msgstr "PÅ™idat sloupec"
 
 #: templates/manager/header.inc:435
 msgid "All"
-msgstr "V¹e"
+msgstr "VÅ¡e"
 
 #: templates/manager/header.inc:180
 msgid "Are you sure you wish to continue?"
-msgstr "Jste si jistí, ¾e chcete pokraèovat?"
+msgstr "Jste si jistÃ­, Å¾e chcete pokraÄovat?"
 
 #: templates/manager/header.inc:176
 msgid "Are you sure?"
@@ -88,7 +88,7 @@ msgstr "Opravdu?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
-msgstr "Vzestupnì"
+msgstr "VzestupnÄ›"
 
 #: config/prefs.php.dist:94
 msgid "Ask"
@@ -100,7 +100,7 @@ msgstr "Atributy"
 
 #: templates/prefs/columnselect.inc:232
 msgid "Available Columns:"
-msgstr "Mo¾né Sloupce:"
+msgstr "MoÅ¾nÃ© Sloupce:"
 
 #: lib/api.php:46
 msgid "Backends"
@@ -108,7 +108,7 @@ msgstr "Backendy"
 
 #: templates/xppublish/browse.inc:7
 msgid "Browse to the folder to upload files to"
-msgstr "Pøesunout se do adresáøe a vlo¾it tam soubory"
+msgstr "PÅ™esunout se do adresÃ¡Å™e a vloÅ¾it tam soubory"
 
 #: templates/selectlist/footer.inc:5 templates/manager/header.inc:457
 #: templates/manager/header.inc:490 templates/manager/header.inc:522
@@ -119,15 +119,15 @@ msgstr "Storno"
 #: manager.php:89
 #, php-format
 msgid "Cannot chmod %s"
-msgstr "Nelze provést chmod %s"
+msgstr "Nelze provÃ©st chmod %s"
 
 #: manager.php:146
 msgid "Cannot copy items onto clipboard."
-msgstr "Nelze kopírovat polo¾ky do pøechodné schránky."
+msgstr "Nelze kopÃ­rovat poloÅ¾ky do pÅ™echodnÃ© schrÃ¡nky."
 
 #: manager.php:148
 msgid "Cannot cut items onto clipboard."
-msgstr "Nelze vlo¾it polo¾ky do pøechodné schránky."
+msgstr "Nelze vloÅ¾it poloÅ¾ky do pÅ™echodnÃ© schrÃ¡nky."
 
 #: manager.php:97
 #, php-format
@@ -137,28 +137,28 @@ msgstr "Nelze smazat '%s': %s"
 #: manager.php:168
 #, php-format
 msgid "Cannot paste '%s' (clipboard cleared): %s"
-msgstr "Nelze vlo¾it '%s' (pøechodná schránka vyprázdnìna): %s"
+msgstr "Nelze vloÅ¾it '%s' (pÅ™echodnÃ¡ schrÃ¡nka vyprÃ¡zdnÄ›na): %s"
 
 #: templates/manager/header.inc:535 templates/manager/header.inc:615
 #: lib/Gollem.php:730
 msgid "Change Folder"
-msgstr "Zmìnit Adresáø"
+msgstr "ZmÄ›nit AdresÃ¡Å™"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "Zmìnit nastavení pro práci se soubory a adresáøemi."
+msgstr "ZmÄ›nit nastavenÃ­ pro prÃ¡ci se soubory a adresÃ¡Å™emi."
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Zmìnit mo¾nosti pro tøídìní souborù"
+msgstr "ZmÄ›nit moÅ¾nosti pro tÅ™Ã­dÄ›nÃ­ souborÅ¯"
 
 #: templates/manager/file_headers.inc:11
 msgid "Check _All/None"
-msgstr "Vybrat _V¹e/®ádné"
+msgstr "Vybrat _VÅ¡e/Å½Ã¡dnÃ©"
 
 #: templates/manager/header.inc:628
 msgid "Chmod Items"
-msgstr "Chmod Polo¾ek"
+msgstr "Chmod PoloÅ¾ek"
 
 #: manager.php:87
 msgid "Chmod done: "
@@ -166,54 +166,54 @@ msgstr "Chmod proveden: "
 
 #: templates/manager/header.inc:613
 msgid "Choose Action:"
-msgstr "Vybrat Úkon:"
+msgstr "Vybrat Ãškon:"
 
 #: templates/prefs/columnselect.inc:226
 msgid "Choose the columns to display in the file manager."
-msgstr "Vybrat zobrazení sloupcù ve správci souborù."
+msgstr "Vybrat zobrazenÃ­ sloupcÅ¯ ve sprÃ¡vci souborÅ¯."
 
 #: templates/xppublish/backend.inc:33 templates/login/login.inc:90
 #, php-format
 msgid "Connect to: %s"
-msgstr "Pøipojit se: %s"
+msgstr "PÅ™ipojit se: %s"
 
 #: templates/manager/header.inc:631
 msgid "Copy Items"
-msgstr "Kopírovat Polo¾ky"
+msgstr "KopÃ­rovat PoloÅ¾ky"
 
 #: templates/manager/header.inc:503 templates/manager/header.inc:618
 #: lib/Gollem.php:727
 msgid "Create Folder"
-msgstr "Vytvoøit Adresáø"
+msgstr "VytvoÅ™it AdresÃ¡Å™"
 
 #: templates/manager/header.inc:630
 msgid "Cut Items"
-msgstr "Vyjmout Polo¾ky"
+msgstr "Vyjmout PoloÅ¾ky"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Implicitní tøídící kritéria:"
+msgstr "ImplicitnÃ­ tÅ™Ã­dÃ­cÃ­ kritÃ©ria:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Implicitní smìr tøídìní:"
+msgstr "ImplicitnÃ­ smÄ›r tÅ™Ã­dÄ›nÃ­:"
 
 #: templates/xppublish/backend.inc:33 templates/login/login.inc:90
 #, php-format
 msgid "Defaulted to: %s"
-msgstr "Pøepnuto na: %s"
+msgstr "PÅ™epnuto na: %s"
 
 #: templates/manager/header.inc:625
 msgid "Delete Items"
-msgstr "Smazat Polo¾ky"
+msgstr "Smazat PoloÅ¾ky"
 
 #: config/prefs.php.dist:96
 msgid "Delete folders recursively?"
-msgstr "Smazat Adresáøe rekurzivnì?"
+msgstr "Smazat AdresÃ¡Å™e rekurzivnÄ›?"
 
 #: config/prefs.php.dist:70
 msgid "Descending"
-msgstr "Sestupnì"
+msgstr "SestupnÄ›"
 
 #: templates/selectlist/footer.inc:4
 msgid "Done"
@@ -234,7 +234,7 @@ msgstr "Email"
 
 #: templates/manager/header.inc:450
 msgid "Execute"
-msgstr "Provést"
+msgstr "ProvÃ©st"
 
 #: templates/manager/header.inc:592
 msgid "File 1:"
@@ -254,11 +254,11 @@ msgstr "Zobrazit Soubor"
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "Èas Zmìny Souboru"
+msgstr "ÄŒas ZmÄ›ny Souboru"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
-msgstr "Název Souboru"
+msgstr "NÃ¡zev Souboru"
 
 #: config/prefs.php.dist:57
 msgid "File Size"
@@ -270,24 +270,24 @@ msgstr "Typ Souboru"
 
 #: templates/xppublish/javascript.inc:63
 msgid "File Upload"
-msgstr "Vlo¾it Soubor"
+msgstr "VloÅ¾it Soubor"
 
 #: manager.php:93
 msgid "File deleted: "
-msgstr "Soubor smazán: "
+msgstr "Soubor smazÃ¡n: "
 
 #: manager.php:119
 #, php-format
 msgid "File received: %s"
-msgstr "Soubor pøijat: %s"
+msgstr "Soubor pÅ™ijat: %s"
 
 #: manager.php:95
 msgid "Folder removed: "
-msgstr "Adresáø odstranìn: "
+msgstr "AdresÃ¡Å™ odstranÄ›n: "
 
 #: templates/manager/header.inc:543
 msgid "Go to:"
-msgstr "Pøesunout se na:"
+msgstr "PÅ™esunout se na:"
 
 #: templates/manager/file_headers.inc:47 templates/manager/header.inc:434
 msgid "Group"
@@ -299,38 +299,38 @@ msgstr "Gollem"
 
 #: manager.php:71
 msgid "Incorrect number of items."
-msgstr "Nesprávnı poèet polo¾ek."
+msgstr "NesprÃ¡vnÃ½ poÄet poloÅ¾ek."
 
 #: manager.php:139
 #, php-format
 msgid "Item copied to clipboard: %s"
-msgstr "Polo¾ka zkopírována do pøechodné schránky: %s"
+msgstr "PoloÅ¾ka zkopÃ­rovÃ¡na do pÅ™echodnÃ© schrÃ¡nky: %s"
 
 #: manager.php:141
 #, php-format
 msgid "Item cut to clipboard: %s"
-msgstr "Polo¾ka pøesunuta do pøechodné schránky: %s"
+msgstr "PoloÅ¾ka pÅ™esunuta do pÅ™echodnÃ© schrÃ¡nky: %s"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
-msgstr "Ukázat nejdøíve seznam adresáøù?"
+msgstr "UkÃ¡zat nejdÅ™Ã­ve seznam adresÃ¡Å™Å¯?"
 
 #: login.php:104 xppublish.php:84
 msgid "Locked"
-msgstr "Uzamèeno"
+msgstr "UzamÄeno"
 
 #: templates/login/login.inc:119
 msgid "Log in"
-msgstr "Pøihlásit se"
+msgstr "PÅ™ihlÃ¡sit se"
 
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Pøihlásit se do %s"
+msgstr "PÅ™ihlÃ¡sit se do %s"
 
 #: templates/manager/file_headers.inc:30
 msgid "Modified"
-msgstr "Zmìnìno"
+msgstr "ZmÄ›nÄ›no"
 
 #: templates/prefs/columnselect.inc:246
 msgid "Move left"
@@ -342,15 +342,15 @@ msgstr "Posunout doprava"
 
 #: templates/manager/file_headers.inc:21
 msgid "Name"
-msgstr "Název"
+msgstr "NÃ¡zev"
 
 #: templates/manager/header.inc:479 templates/manager/header.inc:511
 msgid "Name:"
-msgstr "Název:"
+msgstr "NÃ¡zev:"
 
 #: manager.php:48
 msgid "New folder created: "
-msgstr "Zalo¾en novı adresáø: "
+msgstr "ZaloÅ¾en novÃ½ adresÃ¡Å™: "
 
 #: config/prefs.php.dist:92
 msgid "No"
@@ -363,7 +363,7 @@ msgstr "OK"
 
 #: templates/manager/file_headers.inc:43 templates/manager/header.inc:433
 msgid "Owner"
-msgstr "Vlastník"
+msgstr "VlastnÃ­k"
 
 #: templates/xppublish/login.inc:14 config/credentials.php.dist:23
 msgid "Password"
@@ -371,28 +371,28 @@ msgstr "Heslo"
 
 #: templates/manager/header.inc:637
 msgid "Paste Items"
-msgstr "Vlo¾it Polo¾ky"
+msgstr "VloÅ¾it PoloÅ¾ky"
 
 #: templates/manager/file_headers.inc:39
 msgid "Permission"
-msgstr "Práva"
+msgstr "PrÃ¡va"
 
 #: manager.php:198 selectlist.php:65 templates/xppublish/browse.inc:28
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "Nepovolenı pøístup k %s: %s"
+msgstr "NepovolenÃ½ pÅ™Ã­stup k %s: %s"
 
 #: xppublish.php:55
 msgid "Please enter your Username and Password."
-msgstr "Prosím zadejte Va¹e U¾ivatelské Jméno a Heslo"
+msgstr "ProsÃ­m zadejte VaÅ¡e UÅ¾ivatelskÃ© JmÃ©no a Heslo"
 
 #: templates/login/login.inc:31
 msgid "Please provide your password."
-msgstr "Prosím zadejte Va¹e heslo."
+msgstr "ProsÃ­m zadejte VaÅ¡e heslo."
 
 #: templates/login/login.inc:26
 msgid "Please provide your username."
-msgstr "Prosím zadejte Va¹e u¾ivatelské jméno."
+msgstr "ProsÃ­m zadejte VaÅ¡e uÅ¾ivatelskÃ© jmÃ©no."
 
 #: templates/prefs/columnselect.inc:217
 msgid "Please select a backend:"
@@ -400,15 +400,15 @@ msgstr "Prosim vyberte backend:"
 
 #: templates/manager/header.inc:109
 msgid "Please select an item before this action."
-msgstr "Prosím vyberte polo¾ku pøed provedeními tohoto úkonu."
+msgstr "ProsÃ­m vyberte poloÅ¾ku pÅ™ed provedenÃ­mi tohoto Ãºkonu."
 
 #: templates/manager/header.inc:226
 msgid "Please specify at least one file to upload."
-msgstr "Prosím zadejte alespoò jeden soubor pro upload."
+msgstr "ProsÃ­m zadejte alespoÅˆ jeden soubor pro upload."
 
 #: templates/manager/header.inc:438
 msgid "Read"
-msgstr "Ètecí"
+msgstr "ÄŒtecÃ­"
 
 #: templates/manager/header.inc:577
 msgid "Refresh"
@@ -420,19 +420,19 @@ msgstr "Odstranit sloupec"
 
 #: templates/manager/header.inc:471
 msgid "Rename"
-msgstr "Pøejmenovat"
+msgstr "PÅ™ejmenovat"
 
 #: templates/manager/header.inc:622
 msgid "Rename Items"
-msgstr "Pøejmenovat Polo¾ky"
+msgstr "PÅ™ejmenovat PoloÅ¾ky"
 
 #: lib/Gollem.php:689 lib/Gollem.php:694
 msgid "Root"
-msgstr "Koøenovı adresáø"
+msgstr "KoÅ™enovÃ½ adresÃ¡Å™"
 
 #: templates/manager/header.inc:456
 msgid "Save"
-msgstr "Ulo¾it"
+msgstr "UloÅ¾it"
 
 #: templates/xppublish/backend.inc:27 templates/selectlist/footer.inc:3
 msgid "Select"
@@ -440,7 +440,7 @@ msgstr "Vybrat"
 
 #: templates/prefs/columnselect.inc:242
 msgid "Selected Columns:"
-msgstr "Vybrané Sloupce:"
+msgstr "VybranÃ© Sloupce:"
 
 #: templates/xppublish/backend.inc:22 templates/xppublish/backend.inc:40
 #: templates/login/login.inc:80 templates/login/login.inc:97
@@ -449,11 +449,11 @@ msgstr "Server"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "Mo¾nosti Nastavení"
+msgstr "MoÅ¾nosti NastavenÃ­"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
-msgstr "Zobrazit soubory zaèínající teèkou?"
+msgstr "Zobrazit soubory zaÄÃ­najÃ­cÃ­ teÄkou?"
 
 #: templates/manager/file_headers.inc:35
 msgid "Size"
@@ -462,31 +462,31 @@ msgstr "Velikost"
 #: templates/manager/file_headers.inc:15 templates/manager/file_headers.inc:20
 #: templates/manager/file_headers.inc:29 templates/manager/file_headers.inc:34
 msgid "Sort Direction"
-msgstr "Smìr Tøídìní"
+msgstr "SmÄ›r TÅ™Ã­dÄ›nÃ­"
 
 #: templates/manager/header.inc:180
 msgid "The following item(s) are folders: "
-msgstr "Následující polo¾ka(y) je/jsou adresáø(e): "
+msgstr "NÃ¡sledujÃ­cÃ­ poloÅ¾ka(y) je/jsou adresÃ¡Å™(e): "
 
 #: templates/manager/header.inc:176
 msgid "The following items will be permanently deleted: "
-msgstr "Následujíci polo¾ky budou permanentnì vymazány: "
+msgstr "NÃ¡sledujÃ­ci poloÅ¾ky budou permanentnÄ› vymazÃ¡ny: "
 
 #: templates/selectlist/empty_dir.inc:2 templates/manager/empty_dir.inc:2
 msgid "There are no files in this folder."
-msgstr "Tento adresáø neobsahuje ¾ádné soubory."
+msgstr "Tento adresÃ¡Å™ neobsahuje Å¾Ã¡dnÃ© soubory."
 
 #: templates/xppublish/browse.inc:74
 msgid ""
 "There are no folders in the current folder; click 'Next' if you want to "
 "upload files to this folder."
 msgstr ""
-"Tento adresáø neobsahuje ¾ádné soubory; kliknìte na 'Dal¹í' pokud si pøejete "
-"uploadovat soubory do toho to adresáøe."
+"Tento adresÃ¡Å™ neobsahuje Å¾Ã¡dnÃ© soubory; kliknÄ›te na 'DalÅ¡Ã­' pokud si pÅ™ejete "
+"uploadovat soubory do toho to adresÃ¡Å™e."
 
 #: lib/MIME/Viewer/plain.php:30
 msgid "There was an error viewing this file"
-msgstr "Nastala chyba pøi prohlí¾ení toho to souboru."
+msgstr "Nastala chyba pÅ™i prohlÃ­Å¾enÃ­ toho to souboru."
 
 #: templates/manager/file_headers.inc:16
 msgid "Type"
@@ -518,28 +518,28 @@ msgstr "Uploadovat soubory do %s na %s."
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "U¾ivatelské Rozhraní"
+msgstr "UÅ¾ivatelskÃ© RozhranÃ­"
 
 #: templates/xppublish/login.inc:11 config/credentials.php.dist:18
 msgid "Username"
-msgstr "U¾ivatelské Jméno"
+msgstr "UÅ¾ivatelskÃ© JmÃ©no"
 
 #: xppublish.php:51
 msgid "Username and Password are incorrect."
-msgstr "Nesprávné U¾ivatelské Jméno a Heslo."
+msgstr "NesprÃ¡vnÃ© UÅ¾ivatelskÃ© JmÃ©no a Heslo."
 
 #: login.php:148
 #, php-format
 msgid "Welcome to %s"
-msgstr "Vítejte v %s"
+msgstr "VÃ­tejte v %s"
 
 #: templates/xppublish/browse.inc:10
 msgid ""
 "When you are inside the folder you wish to upload to, click the 'Next' "
 "button to upload files."
 msgstr ""
-"Pokud jste uvnitø adresáøe, kde si pøejete uploadovat soubory, kliknìte na  "
-"'Dal¹í'."
+"Pokud jste uvnitÅ™ adresÃ¡Å™e, kde si pÅ™ejete uploadovat soubory, kliknÄ›te na  "
+"'DalÅ¡Ã­'."
 
 #: templates/manager/header.inc:444
 msgid "Write"
@@ -551,48 +551,48 @@ msgstr "Ano"
 
 #: manager.php:52
 msgid "You do not have permission to create this folder."
-msgstr "Nedostateèná práva pro zalo¾ení adresáøe %s."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro zaloÅ¾enÃ­ adresÃ¡Å™e %s."
 
 #: manager.php:152
 msgid "You do not have permission to cut/copy items."
-msgstr "Nedostateèná práva pro vyjmutí/kopírování polo¾ek.."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro vyjmutÃ­/kopÃ­rovÃ¡nÃ­ poloÅ¾ek.."
 
 #: manager.php:103
 msgid "You do not have permission to delete or change permissions on items."
-msgstr "Nedostateèná práva pro smazání nebo zmìnu práv pro tyto polo¾ky."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro smazÃ¡nÃ­ nebo zmÄ›nu prÃ¡v pro tyto poloÅ¾ky."
 
 #: manager.php:178
 msgid "You do not have permission to paste items."
-msgstr "Nedostateèná práva pro vlo¾ení polo¾ek."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro vloÅ¾enÃ­ poloÅ¾ek."
 
 #: manager.php:74
 msgid "You do not have permission to rename items."
-msgstr "Nedostateèná práva pro pøejmenování polo¾ek."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro pÅ™ejmenovÃ¡nÃ­ poloÅ¾ek."
 
 #: manager.php:124
 msgid "You do not have permission to upload items."
-msgstr "Nedostateèná práva pro uploadování polo¾ek."
+msgstr "NedostateÄnÃ¡ prÃ¡va pro uploadovÃ¡nÃ­ poloÅ¾ek."
 
 #: lib/MIME/Viewer/images.php:41
 msgid "Your browser does not support inline display of this image type"
-msgstr "Vá¹ prohlí¾eè nepodporuje zobrazení tohoto typu obrázku v tìle zprávy."
+msgstr "VÃ¡Å¡ prohlÃ­Å¾eÄ nepodporuje zobrazenÃ­ tohoto typu obrÃ¡zku v tÄ›le zprÃ¡vy."
 
 #: lib/Gollem.php:167 lib/Gollem.php:180
 msgid "[home]"
-msgstr "[domovskı adresáø]"
+msgstr "[domovskÃ½ adresÃ¡Å™]"
 
 #: lib/Gollem.php:749
 msgid "_Change Server"
-msgstr "_Zmìnit Server"
+msgstr "_ZmÄ›nit Server"
 
 #: lib/Gollem.php:740 lib/Gollem.php:743
 msgid "_Log out"
-msgstr "_Odhlá¹ení"
+msgstr "_OdhlÃ¡Å¡enÃ­"
 
 #: manager.php:219 selectlist.php:76
 msgid "folder"
-msgstr "adresáø"
+msgstr "adresÃ¡Å™"
 
 #: manager.php:220 selectlist.php:77
 msgid "symlink"
-msgstr "symbolická linka"
+msgstr "symbolickÃ¡ linka"

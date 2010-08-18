@@ -12,28 +12,28 @@ msgstr ""
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: templates/annotate/header.inc:4
 msgid "#"
-msgstr "èíslo"
+msgstr "ÄÃ­slo"
 
 #: templates/patchsets/ps.inc:12 templates/log/rev.inc:24
 #, php-format
 msgid "%s ago"
-msgstr "pøed %s"
+msgstr "pÅ™ed %s"
 
 #: templates/diff/hr/footer.inc:19
 #, php-format
 msgid "Added in v.%s"
-msgstr "Pøidáno v.%s"
+msgstr "PÅ™idÃ¡no v.%s"
 
 #: templates/log/request.inc:57
 msgid "All Branches"
-msgstr "V¹echny vìtve"
+msgstr "VÅ¡echny vÄ›tve"
 
 #: co.php:68 templates/log/rev.inc:8
 msgid "Annotate"
@@ -46,61 +46,61 @@ msgstr "Autor"
 
 #: templates/directory/back.inc:4
 msgid "Back"
-msgstr "Zpìt"
+msgstr "ZpÄ›t"
 
 #: templates/log/rev.inc:29 templates/checkout/checkout.inc:27
 msgid "Branch Point for:"
-msgstr "Vìtvící bod pro:"
+msgstr "VÄ›tvÃ­cÃ­ bod pro:"
 
 #: templates/patchsets/ps.inc:14 templates/log/rev.inc:26
 #: templates/checkout/checkout.inc:11
 msgid "Branch:"
-msgstr "Vìtev"
+msgstr "VÄ›tev"
 
 #: lib/Chora.php:467
 msgid "Branches"
-msgstr "Vìtve"
+msgstr "VÄ›tve"
 
 #: templates/history/branch_cell.inc:2
 msgid "Branching to"
-msgstr "Vìtvící se do"
+msgstr "VÄ›tvÃ­cÃ­ se do"
 
 #: templates/log/rev.inc:35 templates/checkout/checkout.inc:35
 #, php-format
 msgid "Changed since <b>%s</b>"
-msgstr "Zmìny od <b>%s</b>"
+msgstr "ZmÄ›ny od <b>%s</b>"
 
 #: templates/history/rev.inc:8
 #, php-format
 msgid "Changed: %s"
-msgstr "Zmìnìn: %s"
+msgstr "ZmÄ›nÄ›n: %s"
 
 #: co.php:66
 #, php-format
 msgid "Checkout of %s (revision %s)"
-msgstr "Obdr¾ení %s (revize %s)"
+msgstr "ObdrÅ¾enÃ­ %s (revize %s)"
 
 #: templates/cvsgraph/cvsgraph.inc:11
 msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
-msgstr "Pro obdr¾ení diff, kliknìte na linky mezi po¾adovanıma revizema."
+msgstr "Pro obdrÅ¾enÃ­ diff, kliknÄ›te na linky mezi poÅ¾adovanÃ½ma revizema."
 
 #: templates/cvsgraph/cvsgraph.inc:10
 msgid "Click on the revisions and branches to display the file."
-msgstr "Pro zobrazení souboru, kliknìte na revize a vìtve."
+msgstr "Pro zobrazenÃ­ souboru, kliknÄ›te na revize a vÄ›tve."
 
 #: templates/log/rev.inc:40 templates/log/rev.inc:49
 msgid "Colored"
-msgstr "Zabarvení"
+msgstr "ZabarvenÃ­"
 
 #: templates/patchsets/ps.inc:17 templates/checkout/checkout.inc:19
 msgid "Commit Tags:"
-msgstr "Ukládající Znaèky:"
+msgstr "UklÃ¡dajÃ­cÃ­ ZnaÄky:"
 
 #: templates/stats/stats.inc:4
 msgid "Commits"
-msgstr "Ulo¾ené zmìny"
+msgstr "UloÅ¾enÃ© zmÄ›ny"
 
 #: templates/log/request.inc:28
 msgid "Context"
@@ -108,7 +108,7 @@ msgstr "Kontext"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Upravit úkoly, které se mají provést pøi pøihlá¹ení se do Chory."
+msgstr "Upravit Ãºkoly, kterÃ© se majÃ­ provÃ©st pÅ™i pÅ™ihlÃ¡Å¡enÃ­ se do Chory."
 
 #: templates/directory/header.inc:23
 msgid "Da_te"
@@ -120,15 +120,15 @@ msgstr "Datum"
 
 #: patchsets.php:66
 msgid "Deleted"
-msgstr "Smazáno"
+msgstr "SmazÃ¡no"
 
 #: templates/directory/file.inc:6 templates/directory/file.inc:18
 msgid "Deleted File"
-msgstr "Smazané Soubory"
+msgstr "SmazanÃ© Soubory"
 
 #: templates/log/rev.inc:13
 msgid "Deselect"
-msgstr "Zru¹it Vıbìr"
+msgstr "ZruÅ¡it VÃ½bÄ›r"
 
 #: patchsets.php:63
 msgid "Diff"
@@ -136,7 +136,7 @@ msgstr "Diff"
 
 #: patchsets.php:46
 msgid "Diff All Files"
-msgstr "Diff V¹ech Souborù"
+msgstr "Diff VÅ¡ech SouborÅ¯"
 
 #: diff.php:69
 #, php-format
@@ -155,7 +155,7 @@ msgstr "Diffs do verze %s"
 
 #: templates/directory/dir.inc:5 templates/directory/dir.inc:7
 msgid "Directory"
-msgstr "Adresáø"
+msgstr "AdresÃ¡Å™"
 
 #: annotate.php:30 co.php:69 templates/log/rev.inc:10
 msgid "Download"
@@ -180,7 +180,7 @@ msgstr "Soubor"
 
 #: templates/patchsets/ps.inc:21
 msgid "Files Changed:"
-msgstr "Zmìnìné Soubory:"
+msgstr "ZmÄ›nÄ›nÃ© Soubory:"
 
 #: templates/log/request.inc:44
 msgid "Get Diffs"
@@ -197,24 +197,24 @@ msgstr "Graf pro %s"
 
 #: browse.php:40
 msgid "Hide Deleted Files"
-msgstr "Skrıt Smazané Soubory"
+msgstr "SkrÃ½t SmazanÃ© Soubory"
 
 #: browse.php:40
 msgid "Hide _Deleted Files"
-msgstr "Skrıt _Smazané Soubory"
+msgstr "SkrÃ½t _SmazanÃ© Soubory"
 
 #: templates/log/request.inc:26
 msgid "Human Readable"
-msgstr "Èitelné Èlovìku"
+msgstr "ÄŒitelnÃ© ÄŒlovÄ›ku"
 
 #: templates/directory/header.inc:25
 msgid "Last Log"
-msgstr "Poslední Záznam"
+msgstr "PoslednÃ­ ZÃ¡znam"
 
 #: templates/diff/hr/header.inc:5
 #, php-format
 msgid "Last Log Message for rev %s:"
-msgstr "Poslední Zaznamenaná Zpráva pro rev %s:"
+msgstr "PoslednÃ­ ZaznamenanÃ¡ ZprÃ¡va pro rev %s:"
 
 #: templates/diff/hr/footer.inc:5
 msgid "Legend:"
@@ -222,60 +222,60 @@ msgstr "Legenda:"
 
 #: templates/annotate/header.inc:7
 msgid "Line"
-msgstr "Øádek"
+msgstr "Å˜Ã¡dek"
 
 #: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
 #, php-format
 msgid "Line %s"
-msgstr "Øádek %s"
+msgstr "Å˜Ã¡dek %s"
 
 #: templates/headerbar.inc:11
 msgid "Location:"
-msgstr "Místo:"
+msgstr "MÃ­sto:"
 
 #: templates/checkout/checkout.inc:42
 msgid "Log:"
-msgstr "Záznam:"
+msgstr "ZÃ¡znam:"
 
 #: config/prefs.php.dist:10
 msgid "Login Tasks"
-msgstr "Úkony Provádìné pøi Pøihlá¹ení"
+msgstr "Ãškony ProvÃ¡dÄ›nÃ© pÅ™i PÅ™ihlÃ¡Å¡enÃ­"
 
 #: lib/Chora.php:461
 msgid "Logs"
-msgstr "Záznamy"
+msgstr "ZÃ¡znamy"
 
 #: templates/log/rev.inc:41 templates/log/rev.inc:50
 msgid "Long"
-msgstr "Dlouhı"
+msgstr "DlouhÃ½"
 
 #: diff.php:61
 msgid "Malformed Query"
-msgstr "©pantì Formulovanı Dotaz"
+msgstr "Å pantÄ› FormulovanÃ½ Dotaz"
 
 #: patchsets.php:59
 msgid "New File"
-msgstr "Novı Soubor"
+msgstr "NovÃ½ Soubor"
 
 #: templates/diff/hr/nochange.inc:6
 msgid "No Viewable Change"
-msgstr "®ádné Viditelné Zmìny"
+msgstr "Å½Ã¡dnÃ© ViditelnÃ© ZmÄ›ny"
 
 #: templates/log/rev.inc:42 templates/log/rev.inc:51
 msgid "NoWhitespaceChanges"
-msgstr "®ádné Zmìny Mezer èi Prázdnıch Øádkù"
+msgstr "Å½Ã¡dnÃ© ZmÄ›ny Mezer Äi PrÃ¡zdnÃ½ch Å˜Ã¡dkÅ¯"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "Dal¹í Mo¾nosti"
+msgstr "DalÅ¡Ã­ MoÅ¾nosti"
 
 #: lib/Chora.php:369
 msgid "Other Repositories"
-msgstr "Dal¹í zdroje CVS"
+msgstr "DalÅ¡Ã­ zdroje CVS"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
-msgstr "Adresáø Pùvodu"
+msgstr "AdresÃ¡Å™ PÅ¯vodu"
 
 #: templates/patchsets/ps.inc:6
 #, php-format
@@ -293,7 +293,7 @@ msgstr "Patchsets pro %s"
 
 #: templates/error_page.inc:13
 msgid "Please contact"
-msgstr "Prosím kontaktujte"
+msgstr "ProsÃ­m kontaktujte"
 
 #: templates/diff/hr/footer.inc:11
 #, php-format
@@ -302,7 +302,7 @@ msgstr "Odstranit v v.%s"
 
 #: templates/log/request.inc:14
 msgid "Retrieve diffs between:"
-msgstr "Obdr¾et diffs mezi:"
+msgstr "ObdrÅ¾et diffs mezi:"
 
 #: templates/directory/header.inc:13 templates/annotate/header.inc:6
 msgid "Rev"
@@ -316,19 +316,19 @@ msgstr "Nebyla nalezena revize %s pro soubor %s."
 #: templates/checkout/checkout.inc:4
 #, php-format
 msgid "Revision <b>%s</b>, <i>%s</i> (%s ago) by %s"
-msgstr "Revize <b>%s</b>, <i>%s</i> (pøed %s) provedl(a) %s"
+msgstr "Revize <b>%s</b>, <i>%s</i> (pÅ™ed %s) provedl(a) %s"
 
 #: templates/log/rev.inc:15
 msgid "Select for Diff"
-msgstr "Vybráno pro Diff"
+msgstr "VybrÃ¡no pro Diff"
 
 #: browse.php:42
 msgid "Show Deleted Files"
-msgstr "Zobrazit Smazané Soubory"
+msgstr "Zobrazit SmazanÃ© Soubory"
 
 #: browse.php:42
 msgid "Show _Deleted Files"
-msgstr "Zobrazit _Smazané Soubory"
+msgstr "Zobrazit _SmazanÃ© Soubory"
 
 #: templates/log/request.inc:29
 msgid "Side-by-Side"
@@ -337,27 +337,27 @@ msgstr "Vedle Sebe"
 #: templates/directory/header.inc:7 templates/directory/header.inc:12
 #: templates/directory/header.inc:17 templates/directory/header.inc:22
 msgid "Sort Order"
-msgstr "Poøadí Uspoøádání"
+msgstr "PoÅ™adÃ­ UspoÅ™Ã¡dÃ¡nÃ­"
 
 #: annotate.php:27
 #, php-format
 msgid "Source Annotation of %s for version %s"
-msgstr "Zdrojovı Komentáø k %s pro verze %s"
+msgstr "ZdrojovÃ½ KomentÃ¡Å™ k %s pro verze %s"
 
 #: history.php:160
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "Zdrojové Zobrazení Vìtvení pro %s"
+msgstr "ZdrojovÃ© ZobrazenÃ­ VÄ›tvenÃ­ pro %s"
 
 #: browse.php:32
 #, php-format
 msgid "Source Directory of /%s"
-msgstr "Zdrojovı Adresáø pro /%s"
+msgstr "ZdrojovÃ½ AdresÃ¡Å™ pro /%s"
 
 #: browse.php:126
 #, php-format
 msgid "Source Log for %s"
-msgstr "Zdrojovı Záznam pro %s"
+msgstr "ZdrojovÃ½ ZÃ¡znam pro %s"
 
 #: lib/Chora.php:183
 msgid ""
@@ -365,8 +365,8 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"Koøenovı adresáø zdroje nebyl nalezen! Toto mù¾e bıt zpùsobeno ¹patnou "
-"konfigurací nebo server není dostupnı. Prosím zkuste to pozdìji."
+"KoÅ™enovÃ½ adresÃ¡Å™ zdroje nebyl nalezen! Toto mÅ¯Å¾e bÃ½t zpÅ¯sobeno Å¡patnou "
+"konfiguracÃ­ nebo server nenÃ­ dostupnÃ½. ProsÃ­m zkuste to pozdÄ›ji."
 
 #: lib/Chora.php:472
 msgid "Statistics"
@@ -379,7 +379,7 @@ msgstr "Statistiky pro %s"
 
 #: templates/log/rev.inc:32
 msgid "Tags:"
-msgstr "Znaèky:"
+msgstr "ZnaÄky:"
 
 #: templates/log/request.inc:5
 msgid ""
@@ -387,13 +387,13 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-"Tato forma Vám umo¾ní vypsaní diffs mezi dvìma revizemi souboru. Symbolické "
-"revizní jméno mù¾e bıt zvoleno z vıbìrového menu nebo zadáním numerického "
-"jména v textovém rámeèku."
+"Tato forma VÃ¡m umoÅ¾nÃ­ vypsanÃ­ diffs mezi dvÄ›ma revizemi souboru. SymbolickÃ© "
+"reviznÃ­ jmÃ©no mÅ¯Å¾e bÃ½t zvoleno z vÃ½bÄ›rovÃ©ho menu nebo zadÃ¡nÃ­m numerickÃ©ho "
+"jmÃ©na v textovÃ©m rÃ¡meÄku."
 
 #: templates/headerbar.inc:16
 msgid "Tracking Branch"
-msgstr "Sledování Vìtve"
+msgstr "SledovÃ¡nÃ­ VÄ›tve"
 
 #: templates/log/request.inc:23
 msgid "Type:"
@@ -401,15 +401,15 @@ msgstr "Typ:"
 
 #: templates/log/request.inc:27
 msgid "Unified"
-msgstr "Sjednocenı"
+msgstr "SjednocenÃ½"
 
 #: templates/log/request.inc:18 templates/log/request.inc:38
 msgid "Use Text Field"
-msgstr "Pou¾ít Textovıch Polí"
+msgstr "PouÅ¾Ã­t TextovÃ½ch PolÃ­"
 
 #: config/prefs.php.dist:37
 msgid "Use last viewed file or directory at login time"
-msgstr "Pou¾ít poslední prohlídnutı soubor nebo adresáø pøi pøihlá¹ení"
+msgstr "PouÅ¾Ã­t poslednÃ­ prohlÃ­dnutÃ½ soubor nebo adresÃ¡Å™ pÅ™i pÅ™ihlÃ¡Å¡enÃ­"
 
 #: annotate.php:29 templates/log/rev.inc:9
 msgid "View"
@@ -417,7 +417,7 @@ msgstr "Zobrazit"
 
 #: templates/log/request.inc:60
 msgid "View Branch"
-msgstr "Zobrazit Vìtev"
+msgstr "Zobrazit VÄ›tev"
 
 #: templates/log/request.inc:54
 msgid "View revisions on:"
@@ -433,11 +433,11 @@ msgstr "_Autor"
 
 #: lib/Chora.php:467
 msgid "_Branches"
-msgstr "_Vìtve"
+msgstr "_VÄ›tve"
 
 #: lib/Chora.php:441
 msgid "_Browse"
-msgstr "_Prohlí¾et"
+msgstr "_ProhlÃ­Å¾et"
 
 #: templates/directory/header.inc:8
 msgid "_File"
@@ -449,7 +449,7 @@ msgstr "_Graf"
 
 #: lib/Chora.php:461
 msgid "_Logs"
-msgstr "_Záznamy"
+msgstr "_ZÃ¡znamy"
 
 #: lib/Chora.php:464
 msgid "_Patchsets"
@@ -474,7 +474,7 @@ msgstr "podle %s"
 
 #: templates/diff/hr/footer.inc:15
 msgid "changed lines"
-msgstr "zmìnìné øádky"
+msgstr "zmÄ›nÄ›nÃ© Å™Ã¡dky"
 
 #: lib/Chora.php:32
 msgid "day"
@@ -482,11 +482,11 @@ msgstr "den"
 
 #: lib/Chora.php:32
 msgid "days"
-msgstr "dnù"
+msgstr "dnÅ¯"
 
 #: templates/error_page.inc:14
 msgid "for further information."
-msgstr "pro dal¹í informace."
+msgstr "pro dalÅ¡Ã­ informace."
 
 #: lib/Chora.php:31
 msgid "hour"
@@ -506,11 +506,11 @@ msgstr "minuty"
 
 #: lib/Chora.php:34
 msgid "month"
-msgstr "mìsíc"
+msgstr "mÄ›sÃ­c"
 
 #: lib/Chora.php:34
 msgid "months"
-msgstr "mìsícù"
+msgstr "mÄ›sÃ­cÅ¯"
 
 #: templates/history/branch_cell.inc:6
 #, php-format
@@ -532,15 +532,15 @@ msgstr "verze %s"
 
 #: lib/Chora.php:43
 msgid "very little time"
-msgstr "pøed chvílí"
+msgstr "pÅ™ed chvÃ­lÃ­"
 
 #: lib/Chora.php:33
 msgid "week"
-msgstr "tıden"
+msgstr "tÃ½den"
 
 #: lib/Chora.php:33
 msgid "weeks"
-msgstr "tıdny"
+msgstr "tÃ½dny"
 
 #: lib/Chora.php:35
 msgid "year"
@@ -548,4 +548,4 @@ msgstr "rok"
 
 #: lib/Chora.php:35
 msgid "years"
-msgstr "rokù"
+msgstr "rokÅ¯"

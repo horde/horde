@@ -13,688 +13,688 @@ msgstr ""
 "Last-Translator: Konstantinos C. Milosis <kmilosis@yahoo.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: filters.php:167
 msgid " and"
-msgstr " και"
+msgstr " ΞΊΞ±ΞΉ"
 
 #: filters.php:167
 msgid " or"
-msgstr " ή"
+msgstr " Ξ®"
 
 #: templates/blacklist/blacklist.inc:19
 msgid "Action for blacklisted addresses:"
-msgstr "Ενέργεια για διευθύνσεις μαύρης λίστας:"
+msgstr "Ξ•Ξ½Ξ­ΟΞ³ΞµΞΉΞ± Ξ³ΞΉΞ± Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΞΌΞ±ΟΟΞ·Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚:"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
-msgstr "Ενεργοποίηση προγράμματος (script)"
+msgstr "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script)"
 
 #: templates/filters/settings.inc:9
 msgid "Additional Settings"
-msgstr "Πρόσθετες Ρυθμίσεις"
+msgstr "Ξ ΟΟΟƒΞΈΞµΟ„ΞµΟ‚ Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚"
 
 #: templates/rule/header.inc:53
 msgid "All of the following"
-msgstr "Ολα τα παρακάτω"
+msgstr "ΞΞ»Ξ± Ο„Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰"
 
 #: templates/rule/footer.inc:44
 msgid "Answered"
-msgstr "Απαντημένο"
+msgstr "Ξ‘Ο€Ξ±Ξ½Ο„Ξ·ΞΌΞ­Ξ½ΞΏ"
 
 #: templates/rule/header.inc:56
 msgid "Any of the following"
-msgstr "Οποιοδήποτε από τα παρακάτω"
+msgstr "ΞΟ€ΞΏΞΉΞΏΞ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ±Ο€Ο Ο„Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰"
 
 #: templates/filters/footer.inc:16
 msgid "Apply Filters"
-msgstr "Εφαρμογή Φίλτρων"
+msgstr "Ξ•Ο†Ξ±ΟΞΌΞΏΞ³Ξ® Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: filters.php:196
 msgid "Are you sure you want to delete this rule?"
-msgstr "Είστε σίγουροι για τη διαγραφή αυτού του κανόνα;"
+msgstr "Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΞΉ Ξ³ΞΉΞ± Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΊΞ±Ξ½ΟΞ½Ξ±;"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Αυτόματη ενημέρωση του προγράμματος (script) μετά από κάθε αλλαγή;"
+msgstr "Ξ‘Ο…Ο„ΟΞΌΞ±Ο„Ξ· ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script) ΞΌΞµΟ„Ξ¬ Ξ±Ο€Ο ΞΊΞ¬ΞΈΞµ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®;"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
-msgstr "Κ.Κοιν"
+msgstr "Ξ.ΞΞΏΞΉΞ½"
 
 #: lib/Storage.php:349
 msgid "Begins with"
-msgstr "Αρχίζει με"
+msgstr "Ξ‘ΟΟ‡Ξ―Ξ¶ΞµΞΉ ΞΌΞµ"
 
 #: filters.php:126 templates/blacklist/blacklist.inc:8
 msgid "Blacklist"
-msgstr "Μαύρη Λίστα"
+msgstr "ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: blacklist.php:100
 msgid "Blacklist Edit"
-msgstr "Επεξεργασία Μαύρης Λίστας"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΞ±ΟΟΞ·Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚"
 
 #: blacklist.php:17
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "Δεν υποστηρίζεται Μαύρη Λίστα με τον τρέχοντα οδηγό φίλτρων."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ± ΞΌΞµ Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΏΞ΄Ξ·Ξ³Ο Ο†Ξ―Ξ»Ο„ΟΟ‰Ξ½."
 
 #: lib/Script/procmail.php:209
 msgid "Blacklisted Address"
-msgstr "Διεύθυνση σε Μαύρη Λίστα"
+msgstr "Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· ΟƒΞµ ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: lib/Script/sieve.php:245
 msgid "Blacklisted Addresses"
-msgstr "Διευθύνσεις σε Μαύρη Λίστα"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΟƒΞµ ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: config/fields.php.dist:88
 msgid "Body"
-msgstr "Σώμα Κειμένου"
+msgstr "Ξ£ΟΞΌΞ± ΞΞµΞΉΞΌΞ­Ξ½ΞΏΟ…"
 
 #: filters.php:164 rule.php:238
 msgid "Case Sensitive"
-msgstr "Διαχωρισμός Πεζών/Κεφαλαίων"
+msgstr "Ξ”ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΞΌΟΟ‚ Ξ ΞµΞ¶ΟΞ½/ΞΞµΟ†Ξ±Ξ»Ξ±Ξ―Ο‰Ξ½"
 
 #: config/fields.php.dist:43
 msgid "Cc"
-msgstr "Κοιν."
+msgstr "ΞΞΏΞΉΞ½."
 
 #: rule.php:105 whitelist.php:36 forward.php:33 vacation.php:41
 #: blacklist.php:69
 msgid "Changes saved."
-msgstr "Οι αλλαγές αποθηκέυθηκαν."
+msgstr "ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞ­Ο…ΞΈΞ·ΞΊΞ±Ξ½."
 
 #: lib/Storage.php:345
 msgid "Contains"
-msgstr "Περιέχει"
+msgstr "Ξ ΞµΟΞΉΞ­Ο‡ΞµΞΉ"
 
 msgid "Compose"
-msgstr "Σύνθεση"
+msgstr "Ξ£ΟΞ½ΞΈΞµΟƒΞ·"
 
 #: filters.php:204 filters.php:205
 msgid "Copy %s"
-msgstr "Αντιγραφή %s"
+msgstr "Ξ‘Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ® %s"
 
 #: lib/Storage.php:775
 msgid "Copy of %s"
-msgstr "Αντιγραφή του %s"
+msgstr "Ξ‘Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… %s"
 
 #: lib/Ingo.php:53
 msgid "Create new folder"
-msgstr "Δημιουργία νέου φακέλου"
+msgstr "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…"
 
 #: templates/filters/filter.html:16
 msgid "DISABLED"
-msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
+msgstr "Ξ‘Ξ Ξ•ΞΞ•Ξ΅Ξ“ΞΞ ΞΞ™Ξ—ΞΞ•ΞΞ"
 
 #: lib/Script/procmail.php:354
 msgid "DISABLED: "
-msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ: "
+msgstr "Ξ‘Ξ Ξ•ΞΞ•Ξ΅Ξ“ΞΞ ΞΞ™Ξ—ΞΞ•ΞΞ: "
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
-msgstr "Απενεργοποίηση προγράμματος (Script)"
+msgstr "Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (Script)"
 
 #: filters.php:196 filters.php:197
 msgid "Delete %s"
-msgstr "Διαγραφή %s"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® %s"
 
 #: templates/rule/filter.inc:30
 msgid "Delete Condition"
-msgstr "Διαγραφή Συνθήκης"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ£Ο…Ξ½ΞΈΞ®ΞΊΞ·Ο‚"
 
 #: lib/Storage.php:301
 msgid "Delete message completely"
-msgstr "Πλήρης διαγραφή μηνύματος"
+msgstr "Ξ Ξ»Ξ®ΟΞ·Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚"
 
 #: templates/rule/footer.inc:47
 msgid "Deleted"
-msgstr "Διαγράφηκε"
+msgstr "Ξ”ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ"
 
 #: lib/Storage.php:289
 msgid "Deliver into my INBOX"
-msgstr "Αποθήκευση στα Εισερχόμενα (INBOX)"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟƒΟ„Ξ± Ξ•ΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½Ξ± (INBOX)"
 
 #: lib/Storage.php:315
 msgid "Deliver into my INBOX and copy to"
-msgstr "Αποθήκευση στα Εισερχόμενα (INBOX) και αντιγραφή σε"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟƒΟ„Ξ± Ξ•ΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½Ξ± (INBOX) ΞΊΞ±ΞΉ Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ® ΟƒΞµ"
 
 #: lib/Storage.php:310
 msgid "Deliver into my INBOX and redirect to"
-msgstr "Αποθήκευση στα Εισερχόμενα (ΙΝΒΟΧ) και ανακατεύθυνση σε"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟƒΟ„Ξ± Ξ•ΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½Ξ± (Ξ™ΞΞ’ΞΞ§) ΞΊΞ±ΞΉ Ξ±Ξ½Ξ±ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· ΟƒΞµ"
 
 #: lib/Storage.php:295
 msgid "Deliver to folder"
-msgstr "Αποθήκευση στο φάκελλο"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»Ξ»ΞΏ"
 
 #: filters.php:218 filters.php:219
 msgid "Disable %s"
-msgstr "Απενεργοποίηση %s"
+msgstr "Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· %s"
 
 #: templates/whitelist/whitelist.inc:9 templates/blacklist/blacklist.inc:10
 #: templates/vacation/vacation.inc:9 templates/forward/forward.inc:9
 #: templates/rule/header.inc:30
 msgid "Disabled"
-msgstr "Απενεργοποιήθηκε"
+msgstr "Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ"
 
 #: templates/filters/settings.inc:21
 msgid "Display detailed notification when each filter is applied?"
-msgstr "Να εμφανίζονται λεπτομερείς πληροφορίες όταν εφαρμόζεται κάθε φίλτρο;"
+msgstr "ΞΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ξ»ΞµΟ€Ο„ΞΏΞΌΞµΟΞµΞ―Ο‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΟΟ„Ξ±Ξ½ ΞµΟ†Ξ±ΟΞΌΟΞ¶ΞµΟ„Ξ±ΞΉ ΞΊΞ¬ΞΈΞµ Ο†Ξ―Ξ»Ο„ΟΞΏ;"
 
 #: templates/vacation/vacation.inc:38
 msgid "Do _not send responses to bulk or list messages"
-msgstr "Να μη στέλνονται απαντήσεις μαζικά ή σε λίστες μηνυμάτων"
+msgstr "ΞΞ± ΞΌΞ· ΟƒΟ„Ξ­Ξ»Ξ½ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΞ±Ξ¶ΞΉΞΊΞ¬ Ξ® ΟƒΞµ Ξ»Ξ―ΟƒΟ„ΞµΟ‚ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½"
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
-msgstr "Κάνε αυτό:"
+msgstr "ΞΞ¬Ξ½Ξµ Ξ±Ο…Ο„Ο:"
 
 #: lib/Storage.php:350
 msgid "Doesn't begin with"
-msgstr "Δεν αρχίζει με"
+msgstr "Ξ”ΞµΞ½ Ξ±ΟΟ‡Ξ―Ξ¶ΞµΞΉ ΞΌΞµ"
 
 #: lib/Storage.php:346
 msgid "Doesn't contain"
-msgstr "Δεν περιέχει"
+msgstr "Ξ”ΞµΞ½ Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ"
 
 #: lib/Storage.php:352
 msgid "Doesn't end with"
-msgstr "Δεν τελειώνει σε"
+msgstr "Ξ”ΞµΞ½ Ο„ΞµΞ»ΞµΞΉΟΞ½ΞµΞΉ ΟƒΞµ"
 
 #: lib/Storage.php:354
 msgid "Doesn't exist"
-msgstr "Δεν υπάρχει"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ"
 
 #: lib/Storage.php:357
 msgid "Doesn't match (with placeholders)"
-msgstr "Δεν ταιριάζει (με αντικαταστάσεις)"
+msgstr "Ξ”ΞµΞ½ Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ (ΞΌΞµ Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ¬ΟƒΞµΞΉΟ‚)"
 
 msgid "Due _By"
-msgstr "Διάρκεια ως"
+msgstr "Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ο‰Ο‚"
 
 #: templates/filters/header.inc:20
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±"
 
 #: filters.php:185 filters.php:187 filters.php:191 filters.php:192
 msgid "Edit %s"
-msgstr "Επεξεργασία %s"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± %s"
 
 #: filters.php:222 filters.php:223
 msgid "Enable %s"
-msgstr "Ενεργοποίηση %s"
+msgstr "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· %s"
 
 #: templates/filters/header.inc:22
 msgid "Enabled"
-msgstr "Ενεργοποιήθηκε"
+msgstr "Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ"
 
 #: lib/Storage.php:351
 msgid "Ends with"
-msgstr "Τελειώνει σε"
+msgstr "Ξ¤ΞµΞ»ΞµΞΉΟΞ½ΞµΞΉ ΟƒΞµ"
 
 #: lib/Storage.php:362
 msgid "Equal to"
-msgstr "Ισο με"
+msgstr "Ξ™ΟƒΞΏ ΞΌΞµ"
 
 #: templates/filters/header.inc:7
 msgid "Existing Rules"
-msgstr "Υπάρχοντες Κανόνες"
+msgstr "Ξ¥Ο€Ξ¬ΟΟ‡ΞΏΞ½Ο„ΞµΟ‚ ΞΞ±Ξ½ΟΞ½ΞµΟ‚"
 
 #: lib/Storage.php:353
 msgid "Exists"
-msgstr "Υπάρχει"
+msgstr "Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ"
 
 #: templates/filters/settings.inc:30
 msgid "Filter All Messages"
-msgstr "Φιλτράρισε όλα τα Μηνύματα"
+msgstr "Ξ¦ΞΉΞ»Ο„ΟΞ¬ΟΞΉΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΞ·Ξ½ΟΞΌΞ±Ο„Ξ±"
 
 #: templates/filters/settings.inc:32
 msgid "Filter Only Seen Messages"
-msgstr "Φιλτράρισμα μόνο των αναγνωσμένων Μηνύματα"
+msgstr "Ξ¦ΞΉΞ»Ο„ΟΞ¬ΟΞΉΟƒΞΌΞ± ΞΌΟΞ½ΞΏ Ο„Ο‰Ξ½ Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟƒΞΌΞ­Ξ½Ο‰Ξ½ ΞΞ·Ξ½ΟΞΌΞ±Ο„Ξ±"
 
 #: templates/filters/settings.inc:31
 msgid "Filter Only Unseen Messages"
-msgstr "Φιλτράρισμα μόνο των μη αναγνωσμένων Μηνυμάτων"
+msgstr "Ξ¦ΞΉΞ»Ο„ΟΞ¬ΟΞΉΟƒΞΌΞ± ΞΌΟΞ½ΞΏ Ο„Ο‰Ξ½ ΞΌΞ· Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟƒΞΌΞ­Ξ½Ο‰Ξ½ ΞΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½"
 
 #: templates/filters/settings.inc:28
 msgid "Filter Options"
-msgstr "Επιλογές Φίλτρων"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: templates/rule/header.inc:28
 msgid "Filter Rule"
-msgstr "Κανόνας Φίλτρων"
+msgstr "ΞΞ±Ξ½ΟΞ½Ξ±Ο‚ Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: filters.php:92
 msgid "Filter Rules"
-msgstr "Κανόνες Φίλτρων"
+msgstr "ΞΞ±Ξ½ΟΞ½ΞµΟ‚ Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: script.php:52
 msgid "Filter Script Display"
-msgstr "Εμφάνιση προγράμματος (script) φίλτρου"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script) Ο†Ξ―Ξ»Ο„ΟΞΏΟ…"
 
 #: lib/Ingo.php:269
 msgid "Filter _Rules"
-msgstr "Κανόνες Φίλτρων"
+msgstr "ΞΞ±Ξ½ΟΞ½ΞµΟ‚ Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: lib/Script/imap.php:321
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr "Δραστηριότητα Φίλτρου: %s Μήνυμα(τα) αντιγράφθηκαν στο φάκελο \"%s\"."
+msgstr "Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: %s ΞΞ®Ξ½Ο…ΞΌΞ±(Ο„Ξ±) Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬Ο†ΞΈΞ·ΞΊΞ±Ξ½ ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ \"%s\"."
 
 #: lib/Script/imap.php:308
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "Δραστηριότητα Φίλτρου: %s Μήνυμα(τα) διαγράφηκαν."
+msgstr "Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: %s ΞΞ®Ξ½Ο…ΞΌΞ±(Ο„Ξ±) Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞ±Ξ½."
 
 #: lib/Script/imap.php:286
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr "Δραστηριότητα Φίλτρου: %s Μήνυμα(τα) μεταφέρθηκαν στο φάκελο \"%s\"."
+msgstr "Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: %s ΞΞ®Ξ½Ο…ΞΌΞ±(Ο„Ξ±) ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞΈΞ·ΞΊΞ±Ξ½ ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ \"%s\"."
 
 #: lib/Script/imap.php:189
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
-"Δραστηριότητα Φίλτρου: %s Μήνυμα(τα) που ταίριαζαν στη Μαύρη Λίστα "
-"διαγράφηκαν."
+"Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: %s ΞΞ®Ξ½Ο…ΞΌΞ±(Ο„Ξ±) Ο€ΞΏΟ… Ο„Ξ±Ξ―ΟΞΉΞ±Ξ¶Ξ±Ξ½ ΟƒΟ„Ξ· ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ± "
+"Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞ±Ξ½."
 
 #: lib/Script/imap.php:318
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
-"Δραστηριότητα Φίλτρου: Το μήνυμα \"%s\" από \"%s\" αντιγράφηκε στο φάκελο \"%"
+"Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± \"%s\" Ξ±Ο€Ο \"%s\" Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬Ο†Ξ·ΞΊΞµ ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ \"%"
 "s\"."
 
 #: lib/Script/imap.php:303
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "Δραστηριότητα Φίλτρου: Το μήνυμα \"%s\" από \"%s\" διαγράφηκε."
+msgstr "Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± \"%s\" Ξ±Ο€Ο \"%s\" Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ."
 
 #: lib/Script/imap.php:280
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Δραστηριότητα Φίλτρου: Το μήνυμα \"%s\" από \"%s\" μεταφέρθηκε στο φάκελο \"%"
+"Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΞΏΟ…: Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± \"%s\" Ξ±Ο€Ο \"%s\" ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ \"%"
 "s\"."
 
 #: rule.php:133
 msgid "Filter not found."
-msgstr "Το φίλτρο δεν βρέθηκε."
+msgstr "Ξ¤ΞΏ Ο†Ξ―Ξ»Ο„ΟΞΏ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ."
 
 #: templates/rule/header.inc:48
 msgid "For an incoming message that matches:"
-msgstr "Για ένα εισερχόμενο μήνυμα που ταιριάζει:"
+msgstr "Ξ“ΞΉΞ± Ξ­Ξ½Ξ± ΞµΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€ΞΏΟ… Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ:"
 
 #: filters.php:144 templates/forward/forward.inc:7
 msgid "Forward"
-msgstr "Προώθηση"
+msgstr "Ξ ΟΞΏΟΞΈΞ·ΟƒΞ·"
 
 #: forward.php:16
 msgid "Forward is not supported in the current filtering driver."
-msgstr "Η προώθηση δεν υποστηρίζεται από τον τρέχοντα οδηγό φίλτρων."
+msgstr "Ξ— Ο€ΟΞΏΟΞΈΞ·ΟƒΞ· Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ±Ο€Ο Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΏΞ΄Ξ·Ξ³Ο Ο†Ξ―Ξ»Ο„ΟΟ‰Ξ½."
 
 #: lib/Script/procmail.php:296
 msgid "Forwards"
-msgstr "Προωθήσεις"
+msgstr "Ξ ΟΞΏΟ‰ΞΈΞ®ΟƒΞµΞΉΟ‚"
 
 #: forward.php:46
 msgid "Forwards Edit"
-msgstr "Επεξεργασία Προωθήσεων"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ ΟΞΏΟ‰ΞΈΞ®ΟƒΞµΟ‰Ξ½"
 
 #: config/fields.php.dist:39
 msgid "From"
-msgstr "Από"
+msgstr "Ξ‘Ο€Ο"
 
 #: lib/Storage.php:360
 msgid "Greater than"
-msgstr "Μεγαλύτερο από"
+msgstr "ΞΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ±Ο€Ο"
 
 #: lib/Storage.php:361
 msgid "Greater than or equal to"
-msgstr "Μεγαλύτερο ή ίσο με"
+msgstr "ΞΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ® Ξ―ΟƒΞΏ ΞΌΞµ"
 
 #: templates/rule/footer.inc:41
 msgid "Important"
-msgstr "Σημαντικό"
+msgstr "Ξ£Ξ·ΞΌΞ±Ξ½Ο„ΞΉΞΊΟ"
 
 #: rule.php:26
 msgid "Individual rules are not supported in the current filtering driver."
-msgstr "Μεμονωμένοι κανονες δεν υποστηρίζονται από τον τρέχοντα οδηγό φίλτρων."
+msgstr "ΞΞµΞΌΞΏΞ½Ο‰ΞΌΞ­Ξ½ΞΏΞΉ ΞΊΞ±Ξ½ΞΏΞ½ΞµΟ‚ Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ο€Ο Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΏΞ΄Ξ·Ξ³Ο Ο†Ξ―Ξ»Ο„ΟΟ‰Ξ½."
 
 #: lib/Script/sieve.php:1783
 msgid "Inexistant mailbox specified for message delivery."
 msgstr ""
-"Καθορίσατε ανύπαρκτη γραμματοθυρίδα (mailbox) για αποθήκευση μηνυμάτων."
+"ΞΞ±ΞΈΞΏΟΞ―ΟƒΞ±Ο„Ξµ Ξ±Ξ½ΟΟ€Ξ±ΟΞΊΟ„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ±Ο„ΞΏΞΈΟ…ΟΞ―Ξ΄Ξ± (mailbox) Ξ³ΞΉΞ± Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½."
 
 #: lib/Storage.php:347
 msgid "Is"
-msgstr "Είναι"
+msgstr "Ξ•Ξ―Ξ½Ξ±ΞΉ"
 
 #: lib/Storage.php:348
 msgid "Isn't"
-msgstr "Δεν είναι"
+msgstr "Ξ”ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ"
 
 #: lib/Storage.php:358
 msgid "Less than"
-msgstr "Μιγρότερο από"
+msgstr "ΞΞΉΞ³ΟΟΟ„ΞµΟΞΏ Ξ±Ο€Ο"
 
 #: lib/Storage.php:359
 msgid "Less than or equal to"
-msgstr "Μικρότερο ή ίσο με"
+msgstr "ΞΞΉΞΊΟΟΟ„ΞµΟΞΏ Ξ® Ξ―ΟƒΞΏ ΞΌΞµ"
 
 #: config/fields.php.dist:59
 msgid "List-ID"
-msgstr "Αναγνωριστικό (ID) Λίστας"
+msgstr "Ξ‘Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΟ (ID) Ξ›Ξ―ΟƒΟ„Ξ±Ο‚"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "Mar_k message as deleted"
-msgstr "Μαρκάρισμα μηνύματος για διαγραφή"
+msgstr "ΞΞ±ΟΞΊΞ¬ΟΞΉΟƒΞΌΞ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®"
 
 #: templates/rule/footer.inc:33
 msgid "Mark message as:"
-msgstr "Μαρκάρισμα μηνύματος σαν:"
+msgstr "ΞΞ±ΟΞΊΞ¬ΟΞΉΟƒΞΌΞ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞ±Ξ½:"
 
 #: lib/Storage.php:356
 msgid "Matches (with placeholders)"
-msgstr "Ταιριάζει (με αντικαταστάσεις)"
+msgstr "Ξ¤Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ (ΞΌΞµ Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ¬ΟƒΞµΞΉΟ‚)"
 
 #: lib/Storage.php:487
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Ξεπεράσθηκε ο μέγιστος αριθμός διευθύνσεων Μαύρης Λίστας (Σύνολο "
-"διευθύνσεων: %s, Μέγιστος αριθμός: %s). Δεν μπορούν να προστεθούν νέες "
-"διευθύνσεις στη Μαύρη Λίστα."
+"ΞΞµΟ€ΞµΟΞ¬ΟƒΞΈΞ·ΞΊΞµ ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½ ΞΞ±ΟΟΞ·Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚ (Ξ£ΟΞ½ΞΏΞ»ΞΏ "
+"Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½: %s, ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚: %s). Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο€ΟΞΏΟƒΟ„ΞµΞΈΞΏΟΞ½ Ξ½Ξ­ΞµΟ‚ "
+"Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΟƒΟ„Ξ· ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ±."
 
 #: lib/Storage.php:541
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Ξεπεράσθηκε ο μέγιστος αριθμός διευθύνσεων Λευκής Λίστας (Σύνολο "
-"διευθύνσεων: %s, Μέγιστος αριθμός: %s). Δεν μπορούν να προστεθούν νέες "
-"διευθύνσεις στη Λευκή Λίστα."
+"ΞΞµΟ€ΞµΟΞ¬ΟƒΞΈΞ·ΞΊΞµ ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½ Ξ›ΞµΟ…ΞΊΞ®Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚ (Ξ£ΟΞ½ΞΏΞ»ΞΏ "
+"Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½: %s, ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚: %s). Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο€ΟΞΏΟƒΟ„ΞµΞΈΞΏΟΞ½ Ξ½Ξ­ΞµΟ‚ "
+"Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ ΟƒΟ„Ξ· Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ±."
 
 #: lib/Script/sieve.php:1646
 msgid "Missing address to redirect message to"
-msgstr "Λείπει η διεύθυνση για ανακατεύθυνση μηνύματος"
+msgstr "Ξ›ΞµΞ―Ο€ΞµΞΉ Ξ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ³ΞΉΞ± Ξ±Ξ½Ξ±ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚"
 
 #: lib/Script/sieve.php:1680
 msgid "Missing reason for reject"
-msgstr "Λείπει λόγος για απόρριψη"
+msgstr "Ξ›ΞµΞ―Ο€ΞµΞΉ Ξ»ΟΞ³ΞΏΟ‚ Ξ³ΞΉΞ± Ξ±Ο€ΟΟΟΞΉΟΞ·"
 
 #: lib/Script/sieve.php:1850
 msgid "Missing reason in vacation."
-msgstr "Λείπει λόγος 'σε διακοπές'"
+msgstr "Ξ›ΞµΞ―Ο€ΞµΞΉ Ξ»ΟΞ³ΞΏΟ‚ 'ΟƒΞµ Ξ΄ΞΉΞ±ΞΊΞΏΟ€Ξ­Ο‚'"
 
 #: templates/filters/header.inc:23
 msgid "Move"
-msgstr "Μετακίνηση"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ·"
 
 #: filters.php:109 filters.php:215
 msgid "Move Rule Down"
-msgstr "Μετακίνηση κανόνα Κάτω"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞΊΞ±Ξ½ΟΞ½Ξ± ΞΞ¬Ο„Ο‰"
 
 #: filters.php:110 filters.php:214
 msgid "Move Rule Up"
-msgstr "Μετακίνηση κανόνα Πάνω"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞΊΞ±Ξ½ΟΞ½Ξ± Ξ Ξ¬Ξ½Ο‰"
 
 #: templates/vacation/vacation.inc:46
 msgid "N_umber of days between vacation replies:"
-msgstr "Αριθμός ημερών μεταξύ απαντήσεων 'διακοπών':"
+msgstr "Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ·ΞΌΞµΟΟΞ½ ΞΌΞµΟ„Ξ±ΞΎΟ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ 'Ξ΄ΞΉΞ±ΞΊΞΏΟ€ΟΞ½':"
 
 #: templates/filters/filter-none.inc:4 templates/filters/footer.inc:13
 #: lib/Storage.php:726
 msgid "New Rule"
-msgstr "Νέος Κανόνας"
+msgstr "ΞΞ­ΞΏΟ‚ ΞΞ±Ξ½ΟΞ½Ξ±Ο‚"
 
 #: lib/Ingo.php:204 lib/Ingo.php:206
 msgid "No '%s' element found in backend configuration."
-msgstr "Κανένα '%s' αντικείμενο δεν βρέθηκε στη διαμόρφωση backend."
+msgstr "ΞΞ±Ξ½Ξ­Ξ½Ξ± '%s' Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΟ„Ξ· Ξ΄ΞΉΞ±ΞΌΟΟΟ†Ο‰ΟƒΞ· backend."
 
 #: lib/Ingo.php:202
 msgid "No backend configured for this host"
-msgstr "Δεν υπάρχει διαμόρφωση backend για αυτόν τον εξυπηρετητή"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ΄ΞΉΞ±ΞΌΟΟΟ†Ο‰ΟƒΞ· backend Ξ³ΞΉΞ± Ξ±Ο…Ο„ΟΞ½ Ο„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞµΟ„Ξ·Ο„Ξ®"
 
 #: lib/Ingo.php:179
 msgid "No backends configured in backends.php"
-msgstr "Δεν έχουν διαμορφωθεί backends in backends.php"
+msgstr "Ξ”ΞµΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±ΞΌΞΏΟΟ†Ο‰ΞΈΞµΞ― backends in backends.php"
 
 #: templates/filters/filter-none.inc:4
 msgid "No filters. Click '%s' to create a new filter."
-msgstr "Δεν υπάρχουν κανόνες. Κάντε κλικ στο '%s', για να δημιουργήσετε."
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΞΊΞ±Ξ½ΟΞ½ΞµΟ‚. ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ '%s', Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ."
 
 #: lib/Script/sieve.php:1233 lib/Script/sieve.php:1333
 #: lib/Script/sieve.php:1515
 msgid "No headers specified"
-msgstr "Δεν καθορίσθηκαν επικεφαλίδες"
+msgstr "Ξ”ΞµΞ½ ΞΊΞ±ΞΈΞΏΟΞ―ΟƒΞΈΞ·ΞΊΞ±Ξ½ ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄ΞµΟ‚"
 
 #: script.php:67
 msgid "No script generated."
-msgstr "Δεν δημιουργήθηκε πρόγραμμα (script)."
+msgstr "Ξ”ΞµΞ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (script)."
 
 #: lib/Script/sieve.php:1530
 msgid "No strings specified"
-msgstr "Δεν καθορίσθηκαν συμβολοσειρές (strings)"
+msgstr "Ξ”ΞµΞ½ ΞΊΞ±ΞΈΞΏΟΞ―ΟƒΞΈΞ·ΞΊΞ±Ξ½ ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏΟƒΞµΞΉΟΞ­Ο‚ (strings)"
 
 #: lib/Storage.php:363
 msgid "Not equal to"
-msgstr "Δεν είναι ίσο με"
+msgstr "Ξ”ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ―ΟƒΞΏ ΞΌΞµ"
 
 #: config/prefs.php.dist:19
 msgid "Options about script updating."
-msgstr "Επιλογές για ενημέρωση προγραμμάτων (scripts)"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ± ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο€ΟΞΏΞ³ΟΞ±ΞΌΞΌΞ¬Ο„Ο‰Ξ½ (scripts)"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "Αλλες επιλογές"
+msgstr "Ξ‘Ξ»Ξ»ΞµΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚"
 
 #: templates/javascript/new_folder.js:6
 msgid "Please enter the name of the new folder:"
-msgstr "Παρακαλώ δώστε το όνομα του νέου φακέλου:"
+msgstr "Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ΄ΟΟƒΟ„Ξµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… Ξ½Ξ­ΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…:"
 
 #: templates/vacation/vacation.inc:64
 msgid "R_eason"
-msgstr "Λόγος"
+msgstr "Ξ›ΟΞ³ΞΏΟ‚"
 
 #: config/fields.php.dist:63
 msgid "Received"
-msgstr "Παραλήφθηκε"
+msgstr "Ξ Ξ±ΟΞ±Ξ»Ξ®Ο†ΞΈΞ·ΞΊΞµ"
 
 #: lib/Storage.php:306
 msgid "Redirect to"
-msgstr "Ανακατεύθυνση προς"
+msgstr "Ξ‘Ξ½Ξ±ΞΊΞ±Ο„ΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο€ΟΞΏΟ‚"
 
 #: lib/Storage.php:355
 msgid "Regular expression"
-msgstr "Κανονική συνθήκη"
+msgstr "ΞΞ±Ξ½ΞΏΞ½ΞΉΞΊΞ® ΟƒΟ…Ξ½ΞΈΞ®ΞΊΞ·"
 
 #: lib/Storage.php:321
 msgid "Reject with reason"
-msgstr "Απόρριψη με λόγο"
+msgstr "Ξ‘Ο€ΟΟΟΞΉΟΞ· ΞΌΞµ Ξ»ΟΞ³ΞΏ"
 
 #: config/fields.php.dist:55
 msgid "Resent To"
-msgstr "Ξαναστείλτο προς"
+msgstr "ΞΞ±Ξ½Ξ±ΟƒΟ„ΞµΞ―Ξ»Ο„ΞΏ Ο€ΟΞΏΟ‚"
 
 #: config/fields.php.dist:51
 msgid "Resent-from"
-msgstr "Ξαναστείλτο-από (Resent-from)"
+msgstr "ΞΞ±Ξ½Ξ±ΟƒΟ„ΞµΞ―Ξ»Ο„ΞΏ-Ξ±Ο€Ο (Resent-from)"
 
 #: templates/rule/footer.inc:72
 msgid "Return to Filters List"
-msgstr "Επιστροφή στη Λίστα Φίλτρων"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ›Ξ―ΟƒΟ„Ξ± Ξ¦Ξ―Ξ»Ο„ΟΟ‰Ξ½"
 
 #: templates/whitelist/whitelist.inc:28 templates/blacklist/blacklist.inc:43
 #: templates/vacation/vacation.inc:75 templates/forward/forward.inc:38
 msgid "Return to Rules List"
-msgstr "Επιστροφή στη Λίστα Κανόνων"
+msgstr "Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ›Ξ―ΟƒΟ„Ξ± ΞΞ±Ξ½ΟΞ½Ο‰Ξ½"
 
 #: templates/filters/header.inc:21
 msgid "Rule"
-msgstr "Κανόνας"
+msgstr "ΞΞ±Ξ½ΟΞ½Ξ±Ο‚"
 
 #: filters.php:45
 msgid "Rule Copied"
-msgstr "Ο Κανόνας αντιγράφηκε"
+msgstr "Ξ ΞΞ±Ξ½ΟΞ½Ξ±Ο‚ Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬Ο†Ξ·ΞΊΞµ"
 
 #: filters.php:39
 msgid "Rule Deleted"
-msgstr "Ο κανόνας διαγράφηκε"
+msgstr "Ξ ΞΊΞ±Ξ½ΟΞ½Ξ±Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ"
 
 #: filters.php:59
 msgid "Rule Disabled"
-msgstr "Ο κανόνας απενεργοποιήθηκε"
+msgstr "Ξ ΞΊΞ±Ξ½ΟΞ½Ξ±Ο‚ Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ"
 
 #: filters.php:64
 msgid "Rule Enabled"
-msgstr "Ο κανόνας ενεργοποιήθηκε"
+msgstr "Ξ ΞΊΞ±Ξ½ΟΞ½Ξ±Ο‚ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ"
 
 #: templates/rule/header.inc:39
 msgid "Rule Name"
-msgstr "Ονομα Κανόνα"
+msgstr "ΞΞ½ΞΏΞΌΞ± ΞΞ±Ξ½ΟΞ½Ξ±"
 
 #: templates/whitelist/whitelist.inc:27 templates/blacklist/blacklist.inc:42
 #: templates/vacation/vacation.inc:74 templates/forward/forward.inc:37
 #: templates/rule/footer.inc:71
 msgid "Save"
-msgstr "Αποθήκευση"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·"
 
 #: templates/filters/settings.inc:47
 msgid "Save Settings"
-msgstr "Αποθήκευση Ρυθμίσεων"
+msgstr "Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½"
 
 #: templates/script/header.inc:3
 msgid "Script"
-msgstr "Πρόγραμμα (Script)"
+msgstr "Ξ ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (Script)"
 
 #: config/prefs.php.dist:18
 msgid "Script Updating"
-msgstr "Ενημερώνοντας Πρόγραμμα (Script)"
+msgstr "Ξ•Ξ½Ξ·ΞΌΞµΟΟΞ½ΞΏΞ½Ο„Ξ±Ο‚ Ξ ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (Script)"
 
 #: lib/Ingo.php:229
 msgid "Script not updated."
-msgstr "Το πρόγραμμα (script) δεν ενημερώθηκε."
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (script) Ξ΄ΞµΞ½ ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ."
 
 #: lib/Ingo.php:136
 msgid "Script successfully activated."
-msgstr "Το πρόγραμμα (script) ενεργοποιήθηκε επιτυχώς."
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (script) ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚."
 
 #: lib/Ingo.php:135
 msgid "Script successfully deactivated."
-msgstr "Το πρόγραμμα (script) απενεργοποιήθηκε επιτυχώς."
+msgstr "Ξ¤ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (script) Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚."
 
 #: templates/rule/footer.inc:38
 msgid "Seen"
-msgstr "Αναγνωσμένα"
+msgstr "Ξ‘Ξ½Ξ±Ξ³Ξ½Ο‰ΟƒΞΌΞ­Ξ½Ξ±"
 
 #: rule.php:163
 msgid "Select a field"
-msgstr "Επιλέξτε ένα πεδίο"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ο€ΞµΞ΄Ξ―ΞΏ"
 
 #: lib/Ingo.php:50
 msgid "Select target folder"
-msgstr "Επιλέξτε φάκελο προορισμού"
+msgstr "Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο†Ξ¬ΞΊΞµΞ»ΞΏ Ο€ΟΞΏΞΏΟΞΉΟƒΞΌΞΏΟ"
 
 #: rule.php:184
 msgid "Self-Defined Header"
-msgstr "Αυτόματα οριζόμενη Επικεφαλίδα"
+msgstr "Ξ‘Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΞΏΟΞΉΞ¶ΟΞΌΞµΞ½Ξ· Ξ•Ο€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ±"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "Αποστολέας"
+msgstr "Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚"
 
 #: filters.php:78
 msgid "Settings successfully updated."
-msgstr "Οι ρυθμίσεις ενημερώθηκαν επιτυχώς."
+msgstr "ΞΞΉ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞ±Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚."
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
-msgstr "Εμφάνιση Ενεργών Προγραμμάτων (Scripts)"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ•Ξ½ΞµΟΞ³ΟΞ½ Ξ ΟΞΏΞ³ΟΞ±ΞΌΞΌΞ¬Ο„Ο‰Ξ½ (Scripts)"
 
 #: templates/script/activate.inc:31
 msgid "Show Current Script"
-msgstr "Εμφάνιση τρέχοντος προγράμματος (script)"
+msgstr "Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΟΞ­Ο‡ΞΏΞ½Ο„ΞΏΟ‚ Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script)"
 
 #: config/fields.php.dist:83
 msgid "Size"
-msgstr "Μέγεθος"
+msgstr "ΞΞ­Ξ³ΞµΞΈΞΏΟ‚"
 
 #: templates/rule/footer.inc:61
 msgid "Stop checking if this rule matches?"
-msgstr "Να σταματήσει ο έλεγχος για ταίριασμα αυτού του κανόνα;"
+msgstr "ΞΞ± ΟƒΟ„Ξ±ΞΌΞ±Ο„Ξ®ΟƒΞµΞΉ ΞΏ Ξ­Ξ»ΞµΞ³Ο‡ΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ±Ξ―ΟΞΉΞ±ΟƒΞΌΞ± Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΊΞ±Ξ½ΟΞ½Ξ±;"
 
 #: templates/vacation/vacation.inc:55
 msgid "Subje_ct of vacation message:"
-msgstr "Θέμα του μηνύματος διακοπών:"
+msgstr "ΞΞ­ΞΌΞ± Ο„ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ξ΄ΞΉΞ±ΞΊΞΏΟ€ΟΞ½:"
 
 #: config/fields.php.dist:31
 msgid "Subject"
-msgstr "Θέμα"
+msgstr "ΞΞ­ΞΌΞ±"
 
 msgid "The address \"%s\" has been added to your whitelist."
-msgstr "Η διεύθυνση \"%σ\" προστέθηκε στη Λευκή Λίστα σας."
+msgstr "Ξ— Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· \"%Οƒ\" Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ ΟƒΟ„Ξ· Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ± ΟƒΞ±Ο‚."
 
 #: lib/Ingo.php:131
 msgid "The driver said: "
-msgstr "Ο οδηγός (driver) λέει: "
+msgstr "Ξ ΞΏΞ΄Ξ·Ξ³ΟΟ‚ (driver) Ξ»Ξ­ΞµΞΉ: "
 
 #: lib/Ingo.php:130
 msgid "There was an error activating the script."
-msgstr "Υπήρξε λάθος κατά την ενεργοποίηση του προγράμματος (script)."
+msgstr "Ξ¥Ο€Ξ®ΟΞΎΞµ Ξ»Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script)."
 
 #: lib/Ingo.php:129
 msgid "There was an error deactivating the script."
-msgstr "Υπήρξε λάθος κατά την απενεργοποίηση του προγράμματος (script)."
+msgstr "Ξ¥Ο€Ξ®ΟΞΎΞµ Ξ»Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚ (script)."
 
 #: config/fields.php.dist:27
 msgid "To"
-msgstr "Προς"
+msgstr "Ξ ΟΞΏΟ‚"
 
 #: lib/Script.php:116
 msgid "Unable to load the definition of %s."
-msgstr "Αδύνατη η φόρτωση του ορισμού %s."
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ο†ΟΟΟ„Ο‰ΟƒΞ· Ο„ΞΏΟ… ΞΏΟΞΉΟƒΞΌΞΏΟ %s."
 
 #: filters.php:138 templates/vacation/vacation.inc:7
 #: lib/Script/procmail.php:272
 msgid "Vacation"
-msgstr "Διακοπές"
+msgstr "Ξ”ΞΉΞ±ΞΊΞΏΟ€Ξ­Ο‚"
 
 #: vacation.php:66
 msgid "Vacation Edit"
-msgstr "Επεξεργασία Διακοπών"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ”ΞΉΞ±ΞΊΞΏΟ€ΟΞ½"
 
 #: lib/Script/sieve.php:352
 msgid "Vacation Message"
-msgstr "Μήνυμα Διακοπών"
+msgstr "ΞΞ®Ξ½Ο…ΞΌΞ± Ξ”ΞΉΞ±ΞΊΞΏΟ€ΟΞ½"
 
 #: vacation.php:16
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "Οι Διακοπές δεν υποστηρίζονται από τον τρέχοντα οδηγό φίλτρων."
+msgstr "ΞΞΉ Ξ”ΞΉΞ±ΞΊΞΏΟ€Ξ­Ο‚ Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ο€Ο Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΏΞ΄Ξ·Ξ³Ο Ο†Ξ―Ξ»Ο„ΟΟ‰Ξ½."
 
 #: templates/whitelist/whitelist.inc:18
 msgid "Wh_itelist addresses:"
-msgstr "Διευθύνσεις Λευκής Λίστας:"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ›ΞµΟ…ΞΊΞ®Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚:"
 
 #: filters.php:132 templates/whitelist/whitelist.inc:7
 msgid "Whitelist"
-msgstr "Λευκή Λίστα"
+msgstr "Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: whitelist.php:55
 msgid "Whitelist Edit"
-msgstr "Επεξεργασία Λευκής Λίστας"
+msgstr "Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ›ΞµΟ…ΞΊΞ®Ο‚ Ξ›Ξ―ΟƒΟ„Ξ±Ο‚"
 
 #: whitelist.php:18
 msgid "Whitelist is not supported in the current filtering driver."
-msgstr "Η Λευκή Λίστα δεν υποστηρίζεται από τον τρέχοντα οδηγό φίλτρων."
+msgstr "Ξ— Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ± Ξ΄ΞµΞ½ Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ±Ο€Ο Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± ΞΏΞ΄Ξ·Ξ³Ο Ο†Ξ―Ξ»Ο„ΟΟ‰Ξ½."
 
 #: lib/Script/procmail.php:240 lib/Script/sieve.php:299
 msgid "Whitelisted Addresses"
-msgstr "Διευθύνσεις που υπάρχουν στη Λευκή Λίστα"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ο€ΞΏΟ… Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΟƒΟ„Ξ· Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: config/fields.php.dist:79
 msgid "X-Priority"
-msgstr "Προτεραιότητα"
+msgstr "Ξ ΟΞΏΟ„ΞµΟΞ±ΞΉΟΟ„Ξ·Ο„Ξ±"
 
 #: config/fields.php.dist:67
 msgid "X-Spam-Level"
@@ -713,81 +713,81 @@ msgid ""
 "You must specify at least one email address for which the vacation messages "
 "should be activated."
 msgstr ""
-"Πρέπει να ορίσετε τουλάχιστον μια διεύθυνση email για την οποία θα "
-"ενεργοποιηθούν τα μηνύματα διακοπών."
+"Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ ΞΌΞΉΞ± Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· email Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞΏΟ€ΞΏΞ―Ξ± ΞΈΞ± "
+"ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½ Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ξ΄ΞΉΞ±ΞΊΞΏΟ€ΟΞ½."
 
 #: lib/Script/imap.php:281 lib/Script/imap.php:304 lib/Script/imap.php:318
 msgid "[No Subject]"
-msgstr "[Χωρίς Θέμα]"
+msgstr "[Ξ§Ο‰ΟΞ―Ο‚ ΞΞ­ΞΌΞ±]"
 
 #: templates/forward/forward.inc:27
 msgid "_Address(es) to forward to:"
-msgstr "Διευθύνσεις για προώθηση προς:"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο€ΟΞΏΟΞΈΞ·ΟƒΞ· Ο€ΟΞΏΟ‚:"
 
 #: templates/vacation/vacation.inc:28
 msgid "_Addresses to not send responses to:"
-msgstr "Διευθύνσεις για τις οποιες δεν θα αποστέλλονται απαντήσεις:"
+msgstr "Ξ”ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„ΞΉΟ‚ ΞΏΟ€ΞΏΞΉΞµΟ‚ Ξ΄ΞµΞ½ ΞΈΞ± Ξ±Ο€ΞΏΟƒΟ„Ξ­Ξ»Ξ»ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚:"
 
 #: lib/Ingo.php:274
 msgid "_Blacklist"
-msgstr "Μαύρη Λίστα"
+msgstr "ΞΞ±ΟΟΞ· Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "_Delete message completely"
-msgstr "Πλήρης διαγραφή μηνύματος"
+msgstr "Ξ Ξ»Ξ®ΟΞ·Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚"
 
 #: templates/blacklist/blacklist.inc:33
 msgid "_Enter each address on a new line:"
-msgstr "Εισαγωγή κάθε διεύθυνσης σε νέα γραμμή:"
+msgstr "Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® ΞΊΞ¬ΞΈΞµ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚ ΟƒΞµ Ξ½Ξ­Ξ± Ξ³ΟΞ±ΞΌΞΌΞ®:"
 
 #: lib/Ingo.php:280
 msgid "_Forward"
-msgstr "Προώθηση"
+msgstr "Ξ ΟΞΏΟΞΈΞ·ΟƒΞ·"
 
 #: templates/forward/forward.inc:19
 msgid "_Keep a copy of messages in this account?"
-msgstr "Διατήρηση αντιγράφων των μηνυμάτων σε αυτό το λογαριασμό;"
+msgstr "Ξ”ΞΉΞ±Ο„Ξ®ΟΞ·ΟƒΞ· Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬Ο†Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ;"
 
 #: templates/blacklist/blacklist.inc:24
 msgid "_Move message to folder:"
-msgstr "Μετακίνηση μηνυμάτων στο φάκελο:"
+msgstr "ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΟ„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ:"
 
 #: templates/vacation/vacation.inc:18
 msgid "_My email addresses:"
-msgstr "Η email διεύθυνσή μου:"
+msgstr "Ξ— email Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ® ΞΌΞΏΟ…:"
 
 #: lib/Ingo.php:283
 msgid "_Script"
-msgstr "Πρόγραμμα (Script)"
+msgstr "Ξ ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (Script)"
 
 #: lib/Ingo.php:277
 msgid "_Vacation"
-msgstr "Διακοπές"
+msgstr "Ξ”ΞΉΞ±ΞΊΞΏΟ€Ξ­Ο‚"
 
 #: lib/Ingo.php:271
 msgid "_Whitelist"
-msgstr "Λευκή Λίστα"
+msgstr "Ξ›ΞµΟ…ΞΊΞ® Ξ›Ξ―ΟƒΟ„Ξ±"
 
 #: templates/rule/filter.inc:4
 msgid "and"
-msgstr "και"
+msgstr "ΞΊΞ±ΞΉ"
 
 #: filters.php:162
 msgid "field"
-msgstr "Πεδίο"
+msgstr "Ξ ΞµΞ΄Ξ―ΞΏ"
 
 #: filters.php:162
 msgid "match"
-msgstr "ταιριάζει"
+msgstr "Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ"
 
 #: templates/rule/filter.inc:4
 msgid "or"
-msgstr "ή"
+msgstr "Ξ®"
 
 #: lib/Script/procmail.php:126
 msgid "procmail script generated by Ingo"
-msgstr "Πρόγραμμα (script) που δημιουργήθηκε από το Ingo"
+msgstr "Ξ ΟΟΞ³ΟΞ±ΞΌΞΌΞ± (script) Ο€ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ Ξ±Ο€Ο Ο„ΞΏ Ingo"
 
 #: lib/Script/sieve.php:111
 msgid "sieve filter generated by Ingo"
-msgstr "Φίλτρο 'κόσκινο' που δημιουργήθηκε από το Ingo"
+msgstr "Ξ¦Ξ―Ξ»Ο„ΟΞΏ 'ΞΊΟΟƒΞΊΞΉΞ½ΞΏ' Ο€ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ Ξ±Ο€Ο Ο„ΞΏ Ingo"

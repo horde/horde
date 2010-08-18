@@ -11,36 +11,36 @@ msgstr ""
 "Last-Translator: Surasak Srisawan <surasak@rirc.ac.th>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=TIS-620\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: compose.php:635
 msgid "      To: "
-msgstr "      ∂÷ß: "
+msgstr "      ‡∏ñ‡∏∂‡∏á: "
 
 #: compose.php:619
 msgid "    Date: "
-msgstr "    «—π∑’Ë: "
+msgstr "    ‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà: "
 
 #: compose.php:623
 msgid "    From: "
-msgstr "    ®“°: "
+msgstr "    ‡∏à‡∏≤‡∏Å: "
 
 #: folders.php:439 lib/api.php:84
 msgid " - $nm new message"
-msgstr " - $nm ¢ÈÕ§«“¡„À¡Ë"
+msgstr " - $nm ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏´‡∏°‡πà"
 
 #: folders.php:439 lib/api.php:84
 msgid " - $nm new messages"
-msgstr " - $nm ¢ÈÕ§«“¡„À¡Ë"
+msgstr " - $nm ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏´‡∏°‡πà"
 
 #: compose.php:631
 msgid " Subject: "
-msgstr " ‡√◊ËÕß: "
+msgstr " ‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á: "
 
 #: templates/compose/spelling.inc:59
 msgid " in "
-msgstr " „π "
+msgstr " ‡πÉ‡∏ô "
 
 #: templates/mailbox/message_headers.inc:9
 msgid "#"
@@ -54,51 +54,51 @@ msgstr "%c"
 #: mailbox.php:552
 #, c-format
 msgid "%d of %d Messages"
-msgstr "%d ®“° %d ¢ÈÕ§«“¡"
+msgstr "%d ‡∏à‡∏≤‡∏Å %d ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: mailbox.php:550
 #, c-format
 msgid "%d to %d of %d Messages"
-msgstr "%d ∂÷ß %d ®“° %d ¢ÈÕ§«“¡"
+msgstr "%d ‡∏ñ‡∏∂‡∏á %d ‡∏à‡∏≤‡∏Å %d ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:42
 #, c-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s ¡’Õ¬ŸË·≈È« ‚ø≈‡¥Õ√Ï %s ®÷ß‰¡Ë∂Ÿ°‡ª≈’Ë¬π™◊ËÕ"
+msgstr "%s ‡∏°‡∏µ‡∏≠‡∏¢‡∏π‡πà‡πÅ‡∏•‡πâ‡∏ß ‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå %s ‡∏à‡∏∂‡∏á‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠"
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:40
 #, c-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "‚ø≈‡¥Õ√Ï %s ®–∂Ÿ°‡ª≈’Ë¬π™◊ËÕ∑ÿ°Ê µÈπ‡¥◊Õπ"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå %s ‡∏à‡∏∞‡∏ñ‡∏π‡∏Å‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡∏ó‡∏∏‡∏Å‡πÜ ‡∏ï‡πâ‡∏ô‡πÄ‡∏î‡∏∑‡∏≠‡∏ô"
 
 #: templates/message/navbar_aux_top.inc:13
 #, c-format
 msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
-msgstr "%s: %s (%d&nbsp;®“°&nbsp;%d)"
+msgstr "%s: %s (%d&nbsp;‡∏à‡∏≤‡∏Å&nbsp;%d)"
 
 #: templates/compose/spelling.inc:126
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(∫—π∑÷°§«“¡‡ª≈’Ë¬π·ª≈ß·≈È«‰ª¬—ßÀπÈ“µËÕ‰ª)"
+msgstr "(‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡∏Ñ‡∏ß‡∏≤‡∏°‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á‡πÅ‡∏•‡πâ‡∏ß‡πÑ‡∏õ‡∏¢‡∏±‡∏á‡∏´‡∏ô‡πâ‡∏≤‡∏ï‡πà‡∏≠‡πÑ‡∏õ)"
 
 #: templates/compose/spelling.inc:113
 msgid "(Discard all changes and return to the compose screen.)"
-msgstr "(¬°‡≈‘°°“√‡ª≈’Ë¬π·ª≈ß∑—ÈßÀ¡¥·≈–°≈—∫ ŸËÀπÈ“®Õ‡¢’¬π®¥À¡“¬"
+msgstr "(‡∏¢‡∏Å‡πÄ‡∏•‡∏¥‡∏Å‡∏Å‡∏≤‡∏£‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î‡πÅ‡∏•‡∏∞‡∏Å‡∏•‡∏±‡∏ö‡∏™‡∏π‡πà‡∏´‡∏ô‡πâ‡∏≤‡∏à‡∏≠‡πÄ‡∏Ç‡∏µ‡∏¢‡∏ô‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢"
 
 #: templates/compose/spelling.inc:119
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(∫—π∑÷°‡©æ“–°“√‡ª≈’Ë¬π·ª≈ß∑’ËºË“π¡“·≈È«·≈–°≈—∫ ŸËÀπÈ“®Õ‡¢’¬π®¥À¡“¬ "
-"§«“¡‡ª≈’Ë¬π·ª≈ß∑’Ë‡°‘¥¢÷Èπ„πÀπÈ“®Õπ’È®–‰¡Ë∂Ÿ°∫—π∑÷°)"
+"(‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏â‡∏û‡∏≤‡∏∞‡∏Å‡∏≤‡∏£‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á‡∏ó‡∏µ‡πà‡∏ú‡πà‡∏≤‡∏ô‡∏°‡∏≤‡πÅ‡∏•‡πâ‡∏ß‡πÅ‡∏•‡∏∞‡∏Å‡∏•‡∏±‡∏ö‡∏™‡∏π‡πà‡∏´‡∏ô‡πâ‡∏≤‡∏à‡∏≠‡πÄ‡∏Ç‡∏µ‡∏¢‡∏ô‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢ "
+"‡∏Ñ‡∏ß‡∏≤‡∏°‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á‡∏ó‡∏µ‡πà‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡∏∂‡πâ‡∏ô‡πÉ‡∏ô‡∏´‡∏ô‡πâ‡∏≤‡∏à‡∏≠‡∏ô‡∏µ‡πâ‡∏à‡∏∞‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å)"
 
 #: templates/contacts/contacts.inc:56
 msgid "* Add these by clicking OK *"
-msgstr "* ‡æ‘Ë¡™◊ËÕµËÕ‰ªπ’È‚¥¬§≈‘°∑’ËªÿË¡ OK *"
+msgstr "* ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏ä‡∏∑‡πà‡∏≠‡∏ï‡πà‡∏≠‡πÑ‡∏õ‡∏ô‡∏µ‡πâ‡πÇ‡∏î‡∏¢‡∏Ñ‡∏•‡∏¥‡∏Å‡∏ó‡∏µ‡πà‡∏õ‡∏∏‡πà‡∏° OK *"
 
 #: templates/contacts/contacts.inc:40
 msgid "* Please select address(es) *"
-msgstr "* °√ÿ≥“‡≈◊Õ°™◊ËÕ∑’ËµÈÕß°“√ *"
+msgstr "* ‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏ä‡∏∑‡πà‡∏≠‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£ *"
 
 #: lib/MIME/Viewer/enriched.php:176 lib/MIME/Viewer/text.php:96
 #, c-format
@@ -107,1212 +107,1212 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>¢ÈÕ§«“¡π’È∂Ÿ°‡¢’¬π¢÷Èπ¥È«¬™ÿ¥Õ—°¢√–∑’Ë·µ°µË“ß®“°∑’Ë§ÿ≥„™È À“°°“√· ¥ßº≈„πÀπÈ“®Õπ’È‰¡Ë∂Ÿ°µÈÕß „ÀÈ"
-"%s§≈‘°∑’Ëπ’Ë</a> ‡æ◊ËÕ· ¥ßº≈„πÀπÈ“µË“ß„À¡Ë</i></p>\n"
+"<p><i>‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ô‡∏µ‡πâ‡∏ñ‡∏π‡∏Å‡πÄ‡∏Ç‡∏µ‡∏¢‡∏ô‡∏Ç‡∏∂‡πâ‡∏ô‡∏î‡πâ‡∏ß‡∏¢‡∏ä‡∏∏‡∏î‡∏≠‡∏±‡∏Å‡∏Ç‡∏£‡∏∞‡∏ó‡∏µ‡πà‡πÅ‡∏ï‡∏Å‡∏ï‡πà‡∏≤‡∏á‡∏à‡∏≤‡∏Å‡∏ó‡∏µ‡πà‡∏Ñ‡∏∏‡∏ì‡πÉ‡∏ä‡πâ ‡∏´‡∏≤‡∏Å‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏•‡πÉ‡∏ô‡∏´‡∏ô‡πâ‡∏≤‡∏à‡∏≠‡∏ô‡∏µ‡πâ‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á ‡πÉ‡∏´‡πâ"
+"%s‡∏Ñ‡∏•‡∏¥‡∏Å‡∏ó‡∏µ‡πà‡∏ô‡∏µ‡πà</a> ‡πÄ‡∏û‡∏∑‡πà‡∏≠‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏•‡πÉ‡∏ô‡∏´‡∏ô‡πâ‡∏≤‡∏ï‡πà‡∏≤‡∏á‡πÉ‡∏´‡∏°‡πà</i></p>\n"
 
 #: templates/filters/manage.inc:50
 msgid "Action"
-msgstr "°“√°√–∑”"
+msgstr "‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏∞‡∏ó‡∏≥"
 
 #: message.php:58
 #, c-format
 msgid "Add to Addressbook (%s)"
-msgstr "‡æ‘Ë¡≈ß„π∑’Ëµ‘¥µËÕ (%s)"
+msgstr "‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏•‡∏á‡πÉ‡∏ô‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠ (%s)"
 
 #: compose.php:956
 msgid "Added an attachment."
-msgstr "·π∫‡Õ° “√"
+msgstr "‡πÅ‡∏ô‡∏ö‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£"
 
 #: templates/compose/compose.inc:298
 msgid "Address Book"
-msgstr "∑’Ëµ‘¥µËÕ"
+msgstr "‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠"
 
 #: config/prefs.php.dist:114
 msgid "Addressbooks"
-msgstr "∑’Ëµ‘¥µËÕ"
+msgstr "‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠"
 
 #: templates/mailbox/navbar.inc:10
 msgid "All"
-msgstr "∑—ÈßÀ¡¥"
+msgstr "‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: lib/Maintenance/Task/purge_trash.php:90
 #, c-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
-msgstr "®¥À¡“¬∑’Ë§È“ßÕ¬ŸË„π‚ø≈‡¥Õ√Ï \"%s\" π“π°«Ë“ %s «—π ®–∂Ÿ°≈∫Õ¬Ë“ß∂“«√"
+msgstr "‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏ó‡∏µ‡πà‡∏Ñ‡πâ‡∏≤‡∏á‡∏≠‡∏¢‡∏π‡πà‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡∏ô‡∏≤‡∏ô‡∏Å‡∏ß‡πà‡∏≤ %s ‡∏ß‡∏±‡∏ô ‡∏à‡∏∞‡∏ñ‡∏π‡∏Å‡∏•‡∏ö‡∏≠‡∏¢‡πà‡∏≤‡∏á‡∏ñ‡∏≤‡∏ß‡∏£"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:72
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr "≈∫‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°∑’Ë¡’Õ“¬ÿπ“π°«Ë“ %s ‡¥◊Õπ"
+msgstr "‡∏•‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å‡∏ó‡∏µ‡πà‡∏°‡∏µ‡∏≠‡∏≤‡∏¢‡∏∏‡∏ô‡∏≤‡∏ô‡∏Å‡∏ß‡πà‡∏≤ %s ‡πÄ‡∏î‡∏∑‡∏≠‡∏ô"
 
 #: prefs.php:98
 msgid "An illegal value was specified."
-msgstr "¢ÈÕ¡Ÿ≈∑’Ë√–∫ÿ¡“¡’§Ë“‰¡Ë∂Ÿ°µÈÕß"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏ó‡∏µ‡πà‡∏£‡∏∞‡∏ö‡∏∏‡∏°‡∏≤‡∏°‡∏µ‡∏Ñ‡πà‡∏≤‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á"
 
 #: message.php:391
 msgid "An unknown error occured adding the new entry."
-msgstr "‡°‘¥§«“¡º‘¥æ≈“¥√–À«Ë“ß°“√‡æ‘Ë¡™◊ËÕ"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡∏£‡∏∞‡∏´‡∏ß‡πà‡∏≤‡∏á‡∏Å‡∏≤‡∏£‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏ä‡∏∑‡πà‡∏≠"
 
 #: templates/mailbox/legend.inc:12 templates/mailbox/navbar.inc:17
 #: templates/mailbox/navbar.inc:34 config/conf.php.dist:132
 msgid "Answered"
-msgstr "µÕ∫·≈È«"
+msgstr "‡∏ï‡∏≠‡∏ö‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/search/main.inc:180
 msgid "Answered messages"
-msgstr "¢ÈÕ§«“¡∑’ËµÕ∫°≈—∫·≈È«"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/mailbox/header.inc:21
 msgid "Apply Filters on"
-msgstr "„™Èµ—«°√Õß°—∫"
+msgstr "‡πÉ‡∏ä‡πâ‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á‡∏Å‡∏±‡∏ö"
 
 #: config/prefs.php.dist:318
 msgid "Apply filter rules upon logging on."
-msgstr "„™Èµ—«°√Õß‡¡◊ËÕ≈ß∫—π∑÷°‡¢È“"
+msgstr "‡πÉ‡∏ä‡πâ‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤"
 
 #: config/prefs.php.dist:328
 msgid "Apply filter rules when mailbox is refreshed."
-msgstr "„™Èµ—«°√Õß‡¡◊ËÕµŸÈ‰ª√…≥’¬Ï∂Ÿ°√’‡ø√™"
+msgstr "‡πÉ‡∏ä‡πâ‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå‡∏ñ‡∏π‡∏Å‡∏£‡∏µ‡πÄ‡∏ü‡∏£‡∏ä"
 
 #: templates/search/main.inc:79 templates/search/main.inc:108
 #: templates/search/main.inc:137
 msgid "April"
-msgstr "‡¡…“¬π"
+msgstr "‡πÄ‡∏°‡∏©‡∏≤‡∏¢‡∏ô"
 
 #: message.php:543
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "§ÿ≥µÈÕß°“√≈∫¢ÈÕ§«“¡‡À≈Ë“π’ÈÕ¬Ë“ß∂“«√À√◊Õ‰¡Ë?"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÄ‡∏´‡∏•‡πà‡∏≤‡∏ô‡∏µ‡πâ‡∏≠‡∏¢‡πà‡∏≤‡∏á‡∏ñ‡∏≤‡∏ß‡∏£‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà?"
 
 #: templates/menu/menu.inc:18
 msgid "Are you sure you wish to empty your trash folder?"
-msgstr "§ÿ≥µÈÕß°“√≈∫¢ÈÕ§«“¡∑—ÈßÀ¡¥„π‚ø≈‡¥Õ√Ï∂—ß¢¬–À√◊Õ‰¡Ë?"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà?"
 
 #: config/prefs.php.dist:506
 msgid "Arrival Time"
-msgstr "‡«≈“∑’Ë‰¥È√—∫"
+msgstr "‡πÄ‡∏ß‡∏•‡∏≤‡∏ó‡∏µ‡πà‡πÑ‡∏î‡πâ‡∏£‡∏±‡∏ö"
 
 #: config/prefs.php.dist:521
 msgid "Ascending"
-msgstr "‡√’¬ß®“°ÀπÈ“‰ªÀ≈—ß"
+msgstr "‡πÄ‡∏£‡∏µ‡∏¢‡∏á‡∏à‡∏≤‡∏Å‡∏´‡∏ô‡πâ‡∏≤‡πÑ‡∏õ‡∏´‡∏•‡∏±‡∏á"
 
 #: templates/compose/compose.inc:402
 msgid "Attachment"
-msgstr "‡Õ° “√·π∫"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£‡πÅ‡∏ô‡∏ö"
 
 #: templates/compose/compose.inc:307 templates/compose/compose.inc:397
 msgid "Attachments"
-msgstr "‡Õ° “√·π∫"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£‡πÅ‡∏ô‡∏ö"
 
 #: templates/search/main.inc:83 templates/search/main.inc:112
 #: templates/search/main.inc:141
 msgid "August"
-msgstr " ‘ßÀ“§¡"
+msgstr "‡∏™‡∏¥‡∏á‡∏´‡∏≤‡∏Ñ‡∏°"
 
 #: templates/prefs/sourceselect.inc:264
 msgid "Available Addressbooks:"
-msgstr "∑’Ëµ‘¥µËÕ∑’Ëæ∫:"
+msgstr "‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏ó‡∏µ‡πà‡∏û‡∏ö:"
 
 #: templates/message/navbar.inc:29
 #, c-format
 msgid "Back to %s"
-msgstr "°≈—∫‰ª ŸË %s"
+msgstr "‡∏Å‡∏•‡∏±‡∏ö‡πÑ‡∏õ‡∏™‡∏π‡πà %s"
 
 #: templates/compose/compose.inc:215 templates/message/headers.inc:20
 msgid "Bcc"
-msgstr " ”‡π“´ËÕπ∂÷ß"
+msgstr "‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡∏ã‡πà‡∏≠‡∏ô‡∏ñ‡∏∂‡∏á"
 
 #: templates/mailbox/actions.inc:16 templates/message/navbar.inc:14
 msgid "Blacklist"
-msgstr "∫—≠™’¥”"
+msgstr "‡∏ö‡∏±‡∏ç‡∏ä‡∏µ‡∏î‡∏≥"
 
 #: filters.php:141 templates/filters/manage.inc:17
 #: templates/search/main.inc:62
 msgid "Body"
-msgstr "‡π◊ÈÕÀ“"
+msgstr "‡πÄ‡∏ô‡∏∑‡πâ‡∏≠‡∏´‡∏≤"
 
 #: templates/search/main.inc:174 templates/search/main.inc:188
 #: templates/search/main.inc:202 templates/search/main.inc:216
 msgid "Both"
-msgstr "∑—Èß Õßª√–‡¿∑"
+msgstr "‡∏ó‡∏±‡πâ‡∏á‡∏™‡∏≠‡∏á‡∏õ‡∏£‡∏∞‡πÄ‡∏†‡∏ó"
 
 #: templates/compose/compose.inc:159 templates/message/headers.inc:16
 #: templates/search/main.inc:46
 msgid "Cc"
-msgstr " ”‡π“∂÷ß"
+msgstr "‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡∏ñ‡∏∂‡∏á"
 
 #: filters.php:138 templates/filters/manage.inc:14
 msgid "Cc:"
-msgstr " ”‡π“∂÷ß:"
+msgstr "‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡∏ñ‡∏∂‡∏á:"
 
 #: templates/compose/spelling.inc:68
 msgid "Change"
-msgstr "‡ª≈’Ë¬π·ª≈ß"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á"
 
 #: templates/compose/spelling.inc:69
 msgid "Change All"
-msgstr "‡ª≈’Ë¬π·ª≈ß∑—ÈßÀ¡¥"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÅ‡∏õ‡∏•‡∏á‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: config/prefs.php.dist:84
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
-msgstr "‡ª≈’Ë¬πµ—«‡≈◊Õ°„π°“√· ¥ßº≈ ‡™Ëπ ®”π«π®¥À¡“¬µËÕÀπÈ“·≈–°“√®—¥‡√’¬ß®¥À¡“¬"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏• ‡πÄ‡∏ä‡πà‡∏ô ‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πâ‡∏≤‡πÅ‡∏•‡∏∞‡∏Å‡∏≤‡∏£‡∏à‡∏±‡∏î‡πÄ‡∏£‡∏µ‡∏¢‡∏á‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:32
 msgid "Change mail server settings."
-msgstr "‡ª≈’Ë¬π°“√µ—Èß§Ë“‡§√◊ËÕß∫√‘°“√‡¡≈"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏Å‡∏≤‡∏£‡∏ï‡∏±‡πâ‡∏á‡∏Ñ‡πà‡∏≤‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡πÄ‡∏°‡∏•"
 
 #: config/prefs.php.dist:25
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr "‡ª≈’Ë¬π™◊ËÕ, ∑’ËÕ¬ŸË ·≈–≈“¬‡´Áπ∑’Ë Ëß‰ªæ√ÈÕ¡°—∫Õ’‡¡≈"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠, ‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà ‡πÅ‡∏•‡∏∞‡∏•‡∏≤‡∏¢‡πÄ‡∏ã‡πá‡∏ô‡∏ó‡∏µ‡πà‡∏™‡πà‡∏á‡πÑ‡∏õ‡∏û‡∏£‡πâ‡∏≠‡∏°‡∏Å‡∏±‡∏ö‡∏≠‡∏µ‡πÄ‡∏°‡∏•"
 
 #: templates/folders/actions.inc:13
 msgid "Check Folder(s) for New Mail"
-msgstr " ”√«®®¥À¡“¬„À¡Ë"
+msgstr "‡∏™‡∏≥‡∏£‡∏ß‡∏à‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/mailbox/message_headers.inc:6
 msgid "Checkbox"
-msgstr "µ—«‡≈◊Õ°"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: templates/folders/actions.inc:4
 msgid "Choose Action:"
-msgstr "‡≈◊Õ°°“√°√–∑”:"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏∞‡∏ó‡∏≥:"
 
 #: templates/prefs/sourceselect.inc:304
 msgid "Choose the addressbook to use when adding addresses."
-msgstr "‡≈◊Õ°∑’Ëµ‘¥µËÕ∑’ËµÈÕß°“√„™È„π°“√‡æ‘Ë¡√“¬™◊ËÕ"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠"
 
 #: templates/prefs/sourceselect.inc:258
 msgid "Choose the order of addressbooks to search when expanding addresses."
-msgstr "°”Àπ¥≈”¥—∫¢Õß∑’Ëµ‘¥µËÕ∑’ËµÈÕß°“√„ÀÈ§ÈπÀ“„π¢≥–∑”°“√‡µ‘¡‡µÁ¡™◊ËÕ"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏•‡∏≥‡∏î‡∏±‡∏ö‡∏Ç‡∏≠‡∏á‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤‡πÉ‡∏ô‡∏Ç‡∏ì‡∏∞‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡πÄ‡∏ï‡∏¥‡∏°‡πÄ‡∏ï‡πá‡∏°‡∏ä‡∏∑‡πà‡∏≠"
 
 #: folders.php:259
 #, c-format
 msgid "Cleared all messages from %s."
-msgstr "≈∫®¥À¡“¬∑—ÈßÀ¡¥®“° %s"
+msgstr "‡∏•‡∏ö‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î‡∏à‡∏≤‡∏Å %s"
 
 #: templates/prefs/sourceselect.inc:287
 msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
 "search."
-msgstr "§≈‘° ¡ÿ¥√“¬™◊ËÕ∑’ËµÈÕß°“√ ·≈È«‡≈◊Õ°‡¢µ¢ÈÕ§«“¡∑’ËµÈÕß°“√§ÈπÀ“"
+msgstr "‡∏Ñ‡∏•‡∏¥‡∏Å‡∏™‡∏°‡∏∏‡∏î‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£ ‡πÅ‡∏•‡πâ‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤"
 
 #: folders.php:359
 msgid "Closed Folder"
-msgstr "ª‘¥‚ø≈‡¥Õ√Ï"
+msgstr "‡∏õ‡∏¥‡∏î‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/folders/actions.inc:29
 msgid "Collapse All"
-msgstr "¬ÿ∫∑—ÈßÀ¡¥"
+msgstr "‡∏¢‡∏∏‡∏ö‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: templates/folders/actions.inc:28
 msgid "Collapse All Folders"
-msgstr "¬ÿ∫‚ø≈‡¥Õ√Ï∑—ÈßÀ¡¥"
+msgstr "‡∏¢‡∏∏‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: folders.php:367 folders.php:368
 msgid "Collapse Folder"
-msgstr "¬ÿ∫‚ø≈‡¥Õ√Ï"
+msgstr "‡∏¢‡∏∏‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: lib/api.php:37 templates/menu/menu.inc:20
 msgid "Compose"
-msgstr " √È“ß"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á"
 
 #: mailbox.php:840 message.php:53
 #, c-format
 msgid "Compose Message (%s)"
-msgstr " √È“ß¢ÈÕ§«“¡ (%s)"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° (%s)"
 
 #: compose.php:419 compose.php:428 compose.php:443 compose.php:493
 msgid "Compose a message"
-msgstr " √È“ß¢ÈÕ§«“¡„À¡Ë"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏´‡∏°‡πà"
 
 #: config/prefs.php.dist:638
 msgid "Compose messages in a separate window."
-msgstr " √È“ß¢ÈÕ§«“¡„πÀπÈ“µË“ß„À¡Ë"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô‡∏´‡∏ô‡πâ‡∏≤‡∏ï‡πà‡∏≤‡∏á‡πÉ‡∏´‡∏°‡πà"
 
 #: contacts.php:89 templates/contacts/contacts.inc:8
 msgid "Contact List"
-msgstr "√“¬™◊ËÕµ‘¥µËÕ"
+msgstr "‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠"
 
 #: config/prefs.php.dist:108
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
-msgstr "§«∫§ÿ¡°“√µ√«® Õ∫®¥À¡“¬„À¡Ë·≈–°“√‡µ◊Õπ‡¡◊ËÕ¡’®¥À¡“¬„À¡Ë"
+msgstr "‡∏Ñ‡∏ß‡∏ö‡∏Ñ‡∏∏‡∏°‡∏Å‡∏≤‡∏£‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà‡πÅ‡∏•‡∏∞‡∏Å‡∏≤‡∏£‡πÄ‡∏ï‡∏∑‡∏≠‡∏ô‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏°‡∏µ‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/mailbox/navbar.inc:62 templates/message/navbar_aux_bottom.inc:6
 #: templates/message/navbar_aux_top.inc:19
 msgid "Copy"
-msgstr " ”‡π“"
+msgstr "‡∏™‡∏≥‡πÄ‡∏ô‡∏≤"
 
 #: templates/compose/spelling.inc:52
 msgid "Correct"
-msgstr "∂Ÿ°µÈÕß"
+msgstr "‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á"
 
 #: templates/compose/spelling.inc:131
 msgid "Corrected Text"
-msgstr "¢ÈÕ§«“¡∑’Ë·°È‰¢·≈È«"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡πÅ‡∏•‡πâ‡∏ß"
 
 #: folders.php:248 folders.php:253 folders.php:255
 #, c-format
 msgid "Could not delete messages from %s: %s"
-msgstr "‰¡Ë “¡“√∂≈∫¢ÈÕ§«“¡®“° %s: %s"
+msgstr "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏à‡∏≤‡∏Å %s: %s"
 
 #: templates/folders/actions.inc:5
 msgid "Create Folder"
-msgstr " √È“ß‚ø≈‡¥Õ√Ï"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/prefs/folderselect.inc:24
 msgid "Create a new drafts folder"
-msgstr " √È“ß‚ø≈‡¥Õ√Ï·∫∫√Ë“ß"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: templates/identities/manage.inc:95
 msgid "Create a new sent mail folder"
-msgstr " √È“ß‚ø≈‡¥Õ√Ï®¥À¡“¬∑’Ë Ëß·≈È«"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏ó‡∏µ‡πà‡∏™‡πà‡∏á‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/prefs/trashselect.inc:24
 msgid "Create a new trash folder"
-msgstr " √È“ß‚ø≈‡¥Õ√Ï∂—ß¢¬–"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: config/prefs.php.dist:53
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
-msgstr " √È“ßµ—«°√Õß‡æ◊ËÕ®—¥°“√®¥À¡“¬¢“‡¢È“, ®—¥‡°Á∫≈ß‚ø≈‡¥Õ√Ï ·≈–≈∫®¥À¡“¬¢¬–"
+msgstr "‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á‡πÄ‡∏û‡∏∑‡πà‡∏≠‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡πÄ‡∏Ç‡πâ‡∏≤, ‡∏à‡∏±‡∏î‡πÄ‡∏Å‡πá‡∏ö‡∏•‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå ‡πÅ‡∏•‡∏∞‡∏•‡∏ö‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏¢‡∏∞"
 
 #: config/prefs.php.dist:93
 msgid "Customize how you send mail and where drafts are saved."
-msgstr "°”Àπ¥≈—°…≥–°“√ Ëß®¥À¡“¬·≈–°“√∫—π∑÷°·∫∫√Ë“ß"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏•‡∏±‡∏Å‡∏©‡∏ì‡∏∞‡∏Å‡∏≤‡∏£‡∏™‡πà‡∏á‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÅ‡∏•‡∏∞‡∏Å‡∏≤‡∏£‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: config/prefs.php.dist:74
 #, c-format
 msgid "Customize maintenance operations run upon login to %s."
-msgstr "°”Àπ¥ªØ‘∫—µ‘°“√∫”√ÿß√—°…“√–∫∫‡¡◊ËÕ≈ß™◊ËÕ‡¢È“ ŸË %s"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏õ‡∏è‡∏¥‡∏ö‡∏±‡∏ï‡∏¥‡∏Å‡∏≤‡∏£‡∏ö‡∏≥‡∏£‡∏∏‡∏á‡∏£‡∏±‡∏Å‡∏©‡∏≤‡∏£‡∏∞‡∏ö‡∏ö‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà %s"
 
 #: config/prefs.php.dist:101
 #, c-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "°”Àπ¥ß“π∑’ËµÈÕß°“√„ÀÈ√—π‡¡◊ËÕ≈ß™◊ËÕ‡¢È“ ŸË %s"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏á‡∏≤‡∏ô‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡∏£‡∏±‡∏ô‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà %s"
 
 #: templates/mailbox/message_headers.inc:13 templates/message/headers.inc:4
 msgid "Date"
-msgstr "«—π∑’Ë"
+msgstr "‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà"
 
 #: templates/search/main.inc:87 templates/search/main.inc:116
 #: templates/search/main.inc:145
 msgid "December"
-msgstr "∏—π«“§¡"
+msgstr "‡∏ò‡∏±‡∏ô‡∏ß‡∏≤‡∏Ñ‡∏°"
 
 #: templates/prefs/identityselect.inc:5
 msgid "Default Identity"
-msgstr "‡Õ°≈—°…≥Ï‚¥¬ª√‘¬“¬"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡πÇ‡∏î‡∏¢‡∏õ‡∏£‡∏¥‡∏¢‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:512
 msgid "Default sorting criteria:"
-msgstr "‡ß◊ËÕπ‰¢°“√®—¥‡√’¬ß‚¥¬ª√‘¬“¬:"
+msgstr "‡πÄ‡∏á‡∏∑‡πà‡∏≠‡∏ô‡πÑ‡∏Ç‡∏Å‡∏≤‡∏£‡∏à‡∏±‡∏î‡πÄ‡∏£‡∏µ‡∏¢‡∏á‡πÇ‡∏î‡∏¢‡∏õ‡∏£‡∏¥‡∏¢‡∏≤‡∏¢:"
 
 #: config/prefs.php.dist:523
 msgid "Default sorting direction:"
-msgstr "∑‘»∑“ß°“√®—¥‡√’¬ß‚¥¬ª√‘¬“¬:"
+msgstr "‡∏ó‡∏¥‡∏®‡∏ó‡∏≤‡∏á‡∏Å‡∏≤‡∏£‡∏à‡∏±‡∏î‡πÄ‡∏£‡∏µ‡∏¢‡∏á‡πÇ‡∏î‡∏¢‡∏õ‡∏£‡∏¥‡∏¢‡∏≤‡∏¢:"
 
 #: templates/mailbox/actions.inc:9 templates/message/navbar.inc:7
 msgid "Delete"
-msgstr "≈∫"
+msgstr "‡∏•‡∏ö"
 
 #: templates/folders/actions.inc:7
 msgid "Delete Folder(s)"
-msgstr "≈∫‚ø≈‡¥Õ√Ï"
+msgstr "‡∏•‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/filters/list.inc:38
 msgid "Delete messages"
-msgstr "≈∫®¥À¡“¬"
+msgstr "‡∏•‡∏ö‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:446
 msgid "Delete old sent-mail folders at beginning of month"
-msgstr "≈∫‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°∑ÿ°Ê µÈπ‡¥◊Õπ"
+msgstr "‡∏•‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å‡∏ó‡∏∏‡∏Å‡πÜ ‡∏ï‡πâ‡∏ô‡πÄ‡∏î‡∏∑‡∏≠‡∏ô"
 
 #: templates/mailbox/legend.inc:16 templates/mailbox/navbar.inc:19
 #: templates/mailbox/navbar.inc:37 config/conf.php.dist:128
 msgid "Deleted"
-msgstr "≈∫·≈È«"
+msgstr "‡∏•‡∏ö‡πÅ‡∏•‡πâ‡∏ß"
 
 #: compose.php:981
 msgid "Deleted an attachment."
-msgstr "≈∫‡Õ° “√·π∫"
+msgstr "‡∏•‡∏ö‡πÄ‡∏≠‡∏Å‡∏™‡∏≤‡∏£‡πÅ‡∏ô‡∏ö"
 
 #: templates/search/main.inc:208
 msgid "Deleted messages"
-msgstr "¢ÈÕ§«“¡∑’Ë∂Ÿ°≈∫"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏ñ‡∏π‡∏Å‡∏•‡∏ö"
 
 #: config/prefs.php.dist:66
 msgid "Deleting and Moving Messages"
-msgstr "°“√≈∫·≈–‡§≈◊ËÕπ¬È“¬®¥À¡“¬"
+msgstr "‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡πÅ‡∏•‡∏∞‡πÄ‡∏Ñ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏¢‡πâ‡∏≤‡∏¢‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:522
 msgid "Descending"
-msgstr "‡√’¬ß®“°À≈—ß‰ªÀπÈ“"
+msgstr "‡πÄ‡∏£‡∏µ‡∏¢‡∏á‡∏à‡∏≤‡∏Å‡∏´‡∏•‡∏±‡∏á‡πÑ‡∏õ‡∏´‡∏ô‡πâ‡∏≤"
 
 #: config/prefs.php.dist:597
 msgid "Dim signatures?"
-msgstr "· ¥ß≈“¬‡´Áπ¥È«¬ ’ÕËÕπ?"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏•‡∏≤‡∏¢‡πÄ‡∏ã‡πá‡∏ô‡∏î‡πâ‡∏ß‡∏¢‡∏™‡∏µ‡∏≠‡πà‡∏≠‡∏ô?"
 
 #: templates/contacts/contacts.inc:65
 msgid "Display"
-msgstr "· ¥ßº≈"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏•"
 
 #: config/prefs.php.dist:83
 msgid "Display Options"
-msgstr "µ—«‡≈◊Õ°°“√· ¥ßº≈"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏•"
 
 #: config/prefs.php.dist:338
 msgid "Display message when filters have been applied."
-msgstr "· ¥ß¢ÈÕ§«“¡∑’Ë°√Õß·≈È«"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏Å‡∏£‡∏≠‡∏á‡πÅ‡∏•‡πâ‡∏ß"
 
 #: config/prefs.php.dist:723
 msgid "Display pop-up notification of new mail."
-msgstr "· ¥ßµ—«‡µ◊Õπ‡¡◊ËÕ¡’®¥À¡“¬„À¡Ë"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏ï‡∏±‡∏ß‡πÄ‡∏ï‡∏∑‡∏≠‡∏ô‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏°‡∏µ‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/folders/actions.inc:14
 msgid "Do Not Check Folder(s) for New Mail"
-msgstr "‰¡ËµÈÕß°“√µ√«® Õ∫®¥À¡“¬„À¡Ë"
+msgstr "‡πÑ‡∏°‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà"
 
 #: lib/IMP.php:950
 msgid "Download"
-msgstr "¥“«πÏ‚À≈¥"
+msgstr "‡∏î‡∏≤‡∏ß‡∏ô‡πå‡πÇ‡∏´‡∏•‡∏î"
 
 #: lib/IMP.php:949
 #, c-format
 msgid "Download %s"
-msgstr "¥“«πÏ‚À≈¥ %s"
+msgstr "‡∏î‡∏≤‡∏ß‡∏ô‡πå‡πÇ‡∏´‡∏•‡∏î %s"
 
 #: templates/folders/actions.inc:16
 msgid "Download Folder(s)"
-msgstr "¥“«πÏ‚À≈¥‚ø≈‡¥Õ√Ï"
+msgstr "‡∏î‡∏≤‡∏ß‡∏ô‡πå‡πÇ‡∏´‡∏•‡∏î‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/mailbox/navbar.inc:21 templates/mailbox/navbar.inc:40
 #: config/conf.php.dist:136
 msgid "Draft"
-msgstr "·∫∫√Ë“ß"
+msgstr "‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: templates/prefs/folderselect.inc:23
 msgid "Drafts folder:"
-msgstr "‚ø≈‡¥Õ√Ï·∫∫√Ë“ß"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: config/prefs.php.dist:308
 msgid "Edit your filter rules"
-msgstr "·°È‰¢µ—«°√Õß"
+msgstr "‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á"
 
 #: config/prefs.php.dist:170
 msgid "Edit your identities"
-msgstr "·°È‰¢‡Õ°≈—°…≥Ï¢Õß§ÿ≥"
+msgstr "‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/contacts/contacts.inc:68
 msgid "Email Address"
-msgstr "∑’ËÕ¬ŸËÕ’‡¡≈"
+msgstr "‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà‡∏≠‡∏µ‡πÄ‡∏°‡∏•"
 
 #: templates/folders/actions.inc:17
 msgid "Empty Folder(s)"
-msgstr "≈È“ß‚ø≈‡¥Õ√Ï"
+msgstr "‡∏•‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/menu/menu.inc:18
 msgid "Empty Trash"
-msgstr "≈È“ß∂—ß¢¬–"
+msgstr "‡∏•‡πâ‡∏≤‡∏á‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: templates/mailbox/actions.inc:32
 msgid "Empty Trash folder"
-msgstr "≈È“ß‚ø≈‡¥Õ√Ï∂—ß¢¬–"
+msgstr "‡∏•‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: compose.php:644
 msgid "End forwarded message"
-msgstr "®∫°“√ ËßµËÕ¢ÈÕ§«“¡"
+msgstr "‡∏à‡∏ö‡∏Å‡∏≤‡∏£‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: message.php:393
 #, c-format
 msgid "Entry \"%s\" was successfully added to the addressbook"
-msgstr "\"%s\" ∂Ÿ°‡æ‘Ë¡‡µ‘¡≈ß„π∑’Ëµ‘¥µËÕ‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "\"%s\" ‡∏ñ‡∏π‡∏Å‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÄ‡∏ï‡∏¥‡∏°‡∏•‡∏á‡πÉ‡∏ô‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: status.php:35
 msgid "Error"
-msgstr "º‘¥æ≈“¥"
+msgstr "‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î"
 
 #: config/prefs.php.dist:712
 msgid "Every 15 minutes"
-msgstr "∑ÿ° 15 π“∑’"
+msgstr "‡∏ó‡∏∏‡∏Å 15 ‡∏ô‡∏≤‡∏ó‡∏µ"
 
 #: config/prefs.php.dist:709
 msgid "Every 30 seconds"
-msgstr "∑ÿ° 30 «‘π“∑’"
+msgstr "‡∏ó‡∏∏‡∏Å 30 ‡∏ß‡∏¥‡∏ô‡∏≤‡∏ó‡∏µ"
 
 #: config/prefs.php.dist:711
 msgid "Every 5 minutes"
-msgstr "∑ÿ° 5 π“∑’"
+msgstr "‡∏ó‡∏∏‡∏Å 5 ‡∏ô‡∏≤‡∏ó‡∏µ"
 
 #: config/prefs.php.dist:713
 msgid "Every half hour"
-msgstr "∑ÿ°§√÷Ëß™—Ë«‚¡ß"
+msgstr "‡∏ó‡∏∏‡∏Å‡∏Ñ‡∏£‡∏∂‡πà‡∏á‡∏ä‡∏±‡πà‡∏ß‡πÇ‡∏°‡∏á"
 
 #: config/prefs.php.dist:710
 msgid "Every minute"
-msgstr "∑ÿ°π“∑’"
+msgstr "‡∏ó‡∏∏‡∏Å‡∏ô‡∏≤‡∏ó‡∏µ"
 
 #: templates/folders/actions.inc:27
 msgid "Expand All"
-msgstr "¢¬“¬∑—ÈßÀ¡¥"
+msgstr "‡∏Ç‡∏¢‡∏≤‡∏¢‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: templates/folders/actions.inc:26
 msgid "Expand All Folders"
-msgstr "¢¬“¬‚ø≈‡¥Õ√Ï∑—ÈßÀ¡¥"
+msgstr "‡∏Ç‡∏¢‡∏≤‡∏¢‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: folders.php:371 folders.php:372
 msgid "Expand Folder"
-msgstr "¢¬“¬‚ø≈‡¥Õ√Ï"
+msgstr "‡∏Ç‡∏¢‡∏≤‡∏¢‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/compose/compose.inc:299
 msgid "Expand Names"
-msgstr "‡µ‘¡™◊ËÕ"
+msgstr "‡πÄ‡∏ï‡∏¥‡∏°‡∏ä‡∏∑‡πà‡∏≠"
 
 #: config/prefs.php.dist:553
 msgid "Expand the entire folder tree by default in the folders view."
-msgstr "°”Àπ¥„ÀÈ¢¬“¬‚§√ß √È“ß‚ø≈‡¥Õ√Ï∑—ÈßÀ¡¥‡¡◊ËÕÕ¬ŸË„π¡ÿ¡¡Õß√“¬°“√‚ø≈‡¥Õ√Ï"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÉ‡∏´‡πâ‡∏Ç‡∏¢‡∏≤‡∏¢‡πÇ‡∏Ñ‡∏£‡∏á‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏≠‡∏¢‡∏π‡πà‡πÉ‡∏ô‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡∏£‡∏≤‡∏¢‡∏Å‡∏≤‡∏£‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/search/main.inc:77 templates/search/main.inc:106
 #: templates/search/main.inc:135
 msgid "February"
-msgstr "°ÿ¡¿“æ—π∏ÏËË"
+msgstr "‡∏Å‡∏∏‡∏°‡∏†‡∏≤‡∏û‡∏±‡∏ô‡∏ò‡πå‡πà‡πà"
 
 #: templates/filters/manage.inc:7
 msgid "Field"
-msgstr "‡¢µ¢ÈÕ§«“¡"
+msgstr "‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/compose/compose.inc:430
 msgid "Filename"
-msgstr "™◊ËÕ·øÈ¡"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡πÅ‡∏ü‡πâ‡∏°"
 
 #: mailbox.php:332
 #, c-format
 msgid "Filter Activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "º≈°“√°√Õß: ®¥À¡“¬ \"%s\" ®“° \"%s\" ‰¥È∂Ÿ°≈∫‰ª·≈È«"
+msgstr "‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏≠‡∏á: ‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢ \"%s\" ‡∏à‡∏≤‡∏Å \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏•‡∏ö‡πÑ‡∏õ‡πÅ‡∏•‡πâ‡∏ß"
 
 #: mailbox.php:343
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
-msgstr "º≈°“√°√Õß: ®¥À¡“¬ \"%s\" ®“° \"%s\" ‰¥È∂Ÿ°‡§≈◊ËÕπ¬È“¬‰ª∑’Ë‚ø≈‡¥Õ√Ï \"%s\" ·≈È«"
+msgstr "‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏≠‡∏á: ‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢ \"%s\" ‡∏à‡∏≤‡∏Å \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡πÄ‡∏Ñ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏¢‡πâ‡∏≤‡∏¢‡πÑ‡∏õ‡∏ó‡∏µ‡πà‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÅ‡∏•‡πâ‡∏ß"
 
 #: mailbox.php:330
 #, c-format
 msgid ""
 "Filter Activity: The message \"%s\" from \"%s\" has been moved to your Trash "
 "folder."
-msgstr "º≈°“√°√Õß: ¢ÈÕ§«“¡ \"%s\" ®“° \"%s\" ‰¥È∂Ÿ°¬È“¬‰ª≈ß‚ø≈‡¥Õ√Ï∂—ß¢¬–·≈È«"
+msgstr "‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏≠‡∏á: ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° \"%s\" ‡∏à‡∏≤‡∏Å \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏¢‡πâ‡∏≤‡∏¢‡πÑ‡∏õ‡∏•‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/filters/list.inc:10
 msgid "Filter Rules"
-msgstr "°Ø°“√°√Õß"
+msgstr "‡∏Å‡∏è‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏≠‡∏á"
 
 #: config/prefs.php.dist:361
 msgid "Filter message content for profanity."
-msgstr "°√Õß¢ÈÕ§«“¡∑’Ë‰¡Ë‡À¡“– ¡"
+msgstr "‡∏Å‡∏£‡∏≠‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡πÑ‡∏°‡πà‡πÄ‡∏´‡∏°‡∏≤‡∏∞‡∏™‡∏°"
 
 #: config/prefs.php.dist:52
 msgid "Filters"
-msgstr "µ—«°√Õß"
+msgstr "‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á"
 
 #: templates/contacts/contacts.inc:18
 msgid "Find"
-msgstr "§ÈπÀ“"
+msgstr "‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤"
 
 #: mailbox.php:488 mailbox.php:489 mailbox.php:495 mailbox.php:496
 msgid "First Page"
-msgstr "ÀπÈ“·√°"
+msgstr "‡∏´‡∏ô‡πâ‡∏≤‡πÅ‡∏£‡∏Å"
 
 #: folders.php:275 templates/folders/head.inc:5
 #: templates/prefs/initialpageselect.inc:5
 #: templates/prefs/initialpageselect.inc:8
 msgid "Folder Navigator"
-msgstr "µ—«π”∑“ß‚ø≈‡¥Õ√Ï"
+msgstr "‡∏ï‡∏±‡∏ß‡∏ô‡∏≥‡∏ó‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/login/login.inc:130
 msgid "Folder Prefix"
-msgstr "µ—«π”‚ø≈‡¥Õ√Ï"
+msgstr "‡∏ï‡∏±‡∏ß‡∏ô‡∏≥‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/menu/menu.inc:22
 msgid "Folders"
-msgstr "‚ø≈‡¥Õ√Ï"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: compose.php:651 templates/message/navbar.inc:11
 msgid "Forward"
-msgstr " ËßµËÕ"
+msgstr "‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠"
 
 #: compose.php:648
 msgid "Forward:"
-msgstr " ËßµËÕ:"
+msgstr "‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠:"
 
 #: compose.php:615
 #, c-format
 msgid "Forwarded message from %s"
-msgstr "¢ÈÕ§«“¡∑’Ë ËßµËÕ¡“®“° %s"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠‡∏°‡∏≤‡∏à‡∏≤‡∏Å %s"
 
 #: templates/compose/compose.inc:80 templates/mailbox/message_headers.inc:17
 #: templates/message/headers.inc:8 templates/search/main.inc:30
 msgid "From"
-msgstr "®“°"
+msgstr "‡∏à‡∏≤‡∏Å"
 
 #: config/prefs.php.dist:508
 msgid "From Address"
-msgstr "∑’ËÕ¬ŸËºŸÈ Ëß"
+msgstr "‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà‡∏ú‡∏π‡πâ‡∏™‡πà‡∏á"
 
 #: filters.php:139 templates/filters/manage.inc:15
 msgid "From:"
-msgstr "®“°:"
+msgstr "‡∏à‡∏≤‡∏Å:"
 
 #: compose.php:647 compose.php:650
 msgid "Fwd:"
-msgstr " ËßµËÕ:"
+msgstr "‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠:"
 
 #: templates/menu/menu.inc:41
 msgid "Help"
-msgstr "™Ë«¬‡À≈◊Õ"
+msgstr "‡∏ä‡πà‡∏ß‡∏¢‡πÄ‡∏´‡∏•‡∏∑‡∏≠"
 
 #: mailbox.php:546
 msgid "Hide Deleted"
-msgstr "´ËÕπ∑’Ë≈∫·≈È«"
+msgstr "‡∏ã‡πà‡∏≠‡∏ô‡∏ó‡∏µ‡πà‡∏•‡∏ö‡πÅ‡∏•‡πâ‡∏ß"
 
 #: folders.php:266
 msgid "Hide Unsubscribed"
-msgstr "´ËÕπ∑’Ë‡≈‘°„™È‰ª·≈È«"
+msgstr "‡∏ã‡πà‡∏≠‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ‡πÑ‡∏õ‡πÅ‡∏•‡πâ‡∏ß"
 
 #: config/prefs.php.dist:629
 msgid "How to prefix quoted lines in a reply:"
-msgstr "°“√‡µ‘¡¢ÈÕ§«“¡ÀπÈ“∫√√∑—¥¢ÈÕ§«“¡„π°“√µÕ∫°≈—∫:"
+msgstr "‡∏Å‡∏≤‡∏£‡πÄ‡∏ï‡∏¥‡∏°‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏´‡∏ô‡πâ‡∏≤‡∏ö‡∏£‡∏£‡∏ó‡∏±‡∏î‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö:"
 
 #: templates/index/notconfigured.inc:4
 msgid "IMP is not properly configured"
-msgstr "°“√µ—Èß§Ë“¢Õß IMP ‰¡Ë∂Ÿ°µÈÕß"
+msgstr "‡∏Å‡∏≤‡∏£‡∏ï‡∏±‡πâ‡∏á‡∏Ñ‡πà‡∏≤‡∏Ç‡∏≠‡∏á IMP ‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á"
 
 #: folders.php:346 templates/menu/menu.inc:16
 msgid "INBOX"
-msgstr "µŸÈ¢“‡¢È“"
+msgstr "‡∏ï‡∏π‡πâ‡∏Ç‡∏≤‡πÄ‡∏Ç‡πâ‡∏≤"
 
 #: identities.php:129 templates/identities/manage.inc:5
 msgid "Identities"
-msgstr "‡Õ°≈—°…≥Ï"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå"
 
 #: templates/compose/compose.inc:65
 msgid "Identity"
-msgstr "‡Õ°≈—°…≥Ï"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå"
 
 #: templates/identities/manage.inc:47
 msgid "Identity's name:"
-msgstr "™◊ËÕ‡√’¬°‡Õ°≈—°…≥Ï"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå"
 
 #: templates/compose/spelling.inc:70
 msgid "Ignore"
-msgstr "≈–‡«Èπ"
+msgstr "‡∏•‡∏∞‡πÄ‡∏ß‡πâ‡∏ô"
 
 #: templates/compose/spelling.inc:71
 msgid "Ignore All"
-msgstr "≈–‡«Èπ∑—ÈßÀ¡¥"
+msgstr "‡∏•‡∏∞‡πÄ‡∏ß‡πâ‡∏ô‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: templates/mailbox/legend.inc:14 templates/mailbox/navbar.inc:15
 #: templates/mailbox/navbar.inc:32 config/conf.php.dist:134
 msgid "Important"
-msgstr " ”§—≠"
+msgstr "‡∏™‡∏≥‡∏Ñ‡∏±‡∏ç"
 
 #: templates/search/main.inc:194
 msgid "Important messages"
-msgstr "¢ÈÕ§«“¡ ”§—≠"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏™‡∏≥‡∏Ñ‡∏±‡∏ç"
 
 #: config/prefs.php.dist:620
 msgid "Include original message in a reply?"
-msgstr "·π∫¢ÈÕ§«“¡µÈπ©∫—∫‰ª°—∫°“√µÕ∫°≈—∫À√◊Õ‰¡Ë?"
+msgstr "‡πÅ‡∏ô‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ï‡πâ‡∏ô‡∏â‡∏ö‡∏±‡∏ö‡πÑ‡∏õ‡∏Å‡∏±‡∏ö‡∏Å‡∏≤‡∏£‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà?"
 
 #: templates/search/main.inc:76 templates/search/main.inc:105
 #: templates/search/main.inc:134
 msgid "January"
-msgstr "¡°√“§¡"
+msgstr "‡∏°‡∏Å‡∏£‡∏≤‡∏Ñ‡∏°"
 
 #: templates/search/main.inc:82 templates/search/main.inc:111
 #: templates/search/main.inc:140
 msgid "July"
-msgstr "°√°Æ“§¡"
+msgstr "‡∏Å‡∏£‡∏Å‡∏é‡∏≤‡∏Ñ‡∏°"
 
 #: templates/search/main.inc:81 templates/search/main.inc:110
 #: templates/search/main.inc:139
 msgid "June"
-msgstr "¡‘∂ÿπ“¬π"
+msgstr "‡∏°‡∏¥‡∏ñ‡∏∏‡∏ô‡∏≤‡∏¢‡∏ô"
 
 #: templates/login/login.inc:140 config/prefs.php.dist:38
 msgid "Language"
-msgstr "¿“…“"
+msgstr "‡∏†‡∏≤‡∏©‡∏≤"
 
 #: mailbox.php:519 mailbox.php:520 mailbox.php:525 mailbox.php:526
 msgid "Last Page"
-msgstr "ÀπÈ“ ÿ¥∑È“¬"
+msgstr "‡∏´‡∏ô‡πâ‡∏≤‡∏™‡∏∏‡∏î‡∏ó‡πâ‡∏≤‡∏¢"
 
 #: lib/IMP.php:304
 #, c-format
 msgid "Last login: %s"
-msgstr "≈ß∫—π∑÷°‡¢È“§√—Èß≈Ë“ ÿ¥: %s"
+msgstr "‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤‡∏Ñ‡∏£‡∏±‡πâ‡∏á‡∏•‡πà‡∏≤‡∏™‡∏∏‡∏î: %s"
 
 #: lib/IMP.php:302
 msgid "Last login: Never"
-msgstr "≈ß∫—π∑÷°‡¢È“§√—Èß≈Ë“ ÿ¥: ‰¡Ë‡§¬"
+msgstr "‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤‡∏Ñ‡∏£‡∏±‡πâ‡∏á‡∏•‡πà‡∏≤‡∏™‡∏∏‡∏î: ‡πÑ‡∏°‡πà‡πÄ‡∏Ñ‡∏¢"
 
 #: lib/api.php:72
 #, c-format
 msgid "Log in to %s"
-msgstr "≈ß∫—π∑÷°‡¢È“ %s"
+msgstr "‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤ %s"
 
 #: config/prefs.php.dist:100
 msgid "Login Tasks"
-msgstr "ß“π„π¢≥–≈ß™◊ËÕ‡¢È“"
+msgstr "‡∏á‡∏≤‡∏ô‡πÉ‡∏ô‡∏Ç‡∏ì‡∏∞‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤"
 
 #: login.php:22
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"‡°‘¥§«“¡º‘¥æ≈“¥∫“ßª√–°“√„π°“√≈ß∫—π∑÷°‡¢È“ Õ“®‡ªÁπ‰ª‰¥È«Ë“™◊ËÕºŸÈ„™ÈÀ√◊Õ√À— ºË“π¢Õß§ÿ≥‰¡Ë∂Ÿ°µÈÕß"
+"‡πÄ‡∏Å‡∏¥‡∏î‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡∏ö‡∏≤‡∏á‡∏õ‡∏£‡∏∞‡∏Å‡∏≤‡∏£‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤ ‡∏≠‡∏≤‡∏à‡πÄ‡∏õ‡πá‡∏ô‡πÑ‡∏õ‡πÑ‡∏î‡πâ‡∏ß‡πà‡∏≤‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡πÉ‡∏ä‡πâ‡∏´‡∏£‡∏∑‡∏≠‡∏£‡∏´‡∏±‡∏™‡∏ú‡πà‡∏≤‡∏ô‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á"
 
 #: templates/menu/menu.inc:54 templates/menu/menu.inc:56
 msgid "Logout"
-msgstr "≈ß∫—π∑÷°ÕÕ°"
+msgstr "‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡∏≠‡∏≠‡∏Å"
 
 #: filters.php:129
 msgid "Mail Filters"
-msgstr "µ—«°√Õß®¥À¡“¬"
+msgstr "‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:51 config/prefs.php.dist:58 config/prefs.php.dist:65
 #: config/prefs.php.dist:72
 msgid "Mail Management"
-msgstr "°“√®—¥°“√Õ’‡¡≈"
+msgstr "‡∏Å‡∏≤‡∏£‡∏à‡∏±‡∏î‡∏Å‡∏≤‡∏£‡∏≠‡∏µ‡πÄ‡∏°‡∏•"
 
 #: folders.php:348 folders.php:350 folders.php:352
 msgid "Mailbox"
-msgstr "µŸÈ‰ª√…≥’¬Ï"
+msgstr "‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå"
 
 #: config/prefs.php.dist:73
 msgid "Maintenance Operations"
-msgstr "°“√¥”‡π‘π°“√∫”√ÿß√—°…“"
+msgstr "‡∏Å‡∏≤‡∏£‡∏î‡∏≥‡πÄ‡∏ô‡∏¥‡∏ô‡∏Å‡∏≤‡∏£‡∏ö‡∏≥‡∏£‡∏∏‡∏á‡∏£‡∏±‡∏Å‡∏©‡∏≤"
 
 #: templates/search/main.inc:78 templates/search/main.inc:107
 #: templates/search/main.inc:136
 msgid "March"
-msgstr "¡’π“§¡"
+msgstr "‡∏°‡∏µ‡∏ô‡∏≤‡∏Ñ‡∏°"
 
 #: templates/mailbox/navbar.inc:29
 msgid "Mark as:"
-msgstr "°”Àπ¥„ÀÈ‡ªÁπ"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÉ‡∏´‡πâ‡πÄ‡∏õ‡πá‡∏ô"
 
 #: config/prefs.php.dist:588
 msgid "Mark different levels of quoting with different colors?"
-msgstr "°”Àπ¥ ’„ÀÈ·µ°µË“ß°—π ”À√—∫·µË≈–√–¥—∫¢Õß°“√ÕÈ“ßÕ‘ßÀ√◊Õ‰¡Ë"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏™‡∏µ‡πÉ‡∏´‡πâ‡πÅ‡∏ï‡∏Å‡∏ï‡πà‡∏≤‡∏á‡∏Å‡∏±‡∏ô‡∏™‡∏≥‡∏´‡∏£‡∏±‡∏ö‡πÅ‡∏ï‡πà‡∏•‡∏∞‡∏£‡∏∞‡∏î‡∏±‡∏ö‡∏Ç‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà"
 
 #: templates/search/main.inc:80 templates/search/main.inc:109
 #: templates/search/main.inc:138
 msgid "May"
-msgstr "æƒ…¿“§¡"
+msgstr "‡∏û‡∏§‡∏©‡∏†‡∏≤‡∏Ñ‡∏°"
 
 #: status.php:48
 msgid "Message"
-msgstr "¢ÈÕ§«“¡"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: compose.php:422 compose.php:1022 config/prefs.php.dist:92
 msgid "Message Composition"
-msgstr "‡¢’¬π¢ÈÕ§«“¡„À¡Ë"
+msgstr "‡πÄ‡∏Ç‡∏µ‡∏¢‡∏ô‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏´‡∏°‡πà"
 
 #: config/prefs.php.dist:507
 msgid "Message Date"
-msgstr "«—π∑’Ë¢Õß¢ÈÕ§«“¡"
+msgstr "‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡∏Ç‡∏≠‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: search.php:24
 msgid "Message Search"
-msgstr "§ÈπÀ“¢ÈÕ§«“¡"
+msgstr "‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: config/prefs.php.dist:510
 msgid "Message Size"
-msgstr "¢π“¥¢Õß¢ÈÕ§«“¡"
+msgstr "‡∏Ç‡∏ô‡∏≤‡∏î‡∏Ç‡∏≠‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/message/navbar.inc:17
 msgid "Message Source"
-msgstr "µÈπ©∫—∫¢ÈÕ§«“¡"
+msgstr "‡∏ï‡πâ‡∏ô‡∏â‡∏ö‡∏±‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: config/prefs.php.dist:59
 msgid "Message Viewing"
-msgstr "°“√· ¥ß¢ÈÕ§«“¡"
+msgstr "‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/search/main.inc:26
 msgid "Message fields"
-msgstr "‡¢µ¢ÈÕ§«“¡"
+msgstr "‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/search/main.inc:156
 msgid "Message flags"
-msgstr "µ—«∫Ëß™’È¢ÈÕ§«“¡"
+msgstr "‡∏ï‡∏±‡∏ß‡∏ö‡πà‡∏á‡∏ä‡∏µ‡πâ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/search/main.inc:224
 msgid "Message folders"
-msgstr "‚ø≈‡¥Õ√Ï"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: config/prefs.php.dist:532
 msgid "Messages per page in the mailbox view."
-msgstr "®”π«π¢ÈÕ§«“¡µËÕÀπÈ“„π¡ÿ¡¡ÕßµŸÈ‰ª√…≥’¬Ï"
+msgstr "‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ï‡πà‡∏≠‡∏´‡∏ô‡πâ‡∏≤‡πÉ‡∏ô‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå"
 
 #: mailbox.php:376
 msgid "Messages to"
-msgstr "¢ÈÕ§«“¡‰ª¬—ß"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ‡∏¢‡∏±‡∏á"
 
 #: templates/compose/compose.inc:432
 msgid "Mime Type"
-msgstr "™π‘¥¢Õß‰¡¡Ï"
+msgstr "‡∏ä‡∏ô‡∏¥‡∏î‡∏Ç‡∏≠‡∏á‡πÑ‡∏°‡∏°‡πå"
 
 #: templates/mailbox/navbar.inc:61 templates/message/navbar_aux_bottom.inc:5
 #: templates/message/navbar_aux_top.inc:18
 msgid "Move"
-msgstr "¬È“¬"
+msgstr "‡∏¢‡πâ‡∏≤‡∏¢"
 
 #: templates/filters/list.inc:40
 #, c-format
 msgid "Move messages to the <b>%s</b> folder"
-msgstr "¬È“¬¢ÈÕ§«“¡‰ª¬—ß‚ø≈‡¥Õ√Ï <b>%s</b>"
+msgstr "‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ‡∏¢‡∏±‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå <b>%s</b>"
 
 #: templates/contacts/contacts.inc:67
 msgid "Name"
-msgstr "™◊ËÕ"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠"
 
 #: config/prefs.php.dist:708
 msgid "Never"
-msgstr "‰¡Ë‡≈◊Õ°"
+msgstr "‡πÑ‡∏°‡πà‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: templates/mailbox/legend.inc:8
 msgid "New"
-msgstr "„À¡Ë"
+msgstr "‡πÉ‡∏´‡∏°‡πà"
 
 #: config/prefs.php.dist:107
 msgid "New Mail"
-msgstr "®¥À¡“¬„À¡Ë"
+msgstr "‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/search/main.inc:170
 msgid "New messages"
-msgstr "¢ÈÕ§«“¡„À¡Ë"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/message/navbar.inc:38
 msgid "Next Message"
-msgstr "¢ÈÕ§«“¡µËÕ‰ª"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ï‡πà‡∏≠‡πÑ‡∏õ"
 
 #: mailbox.php:516 mailbox.php:517 mailbox.php:523 mailbox.php:524
 msgid "Next Page"
-msgstr "ÀπÈ“µËÕ‰ª"
+msgstr "‡∏´‡∏ô‡πâ‡∏≤‡∏ï‡πà‡∏≠‡πÑ‡∏õ"
 
 #: config/prefs.php.dist:550
 msgid "No"
-msgstr "‰¡Ë"
+msgstr "‡πÑ‡∏°‡πà"
 
 #: mailbox.php:733
 msgid "No Subject"
-msgstr "‰¡Ë¡’™◊ËÕ‡√◊ËÕß"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á"
 
 #: folders.php:197 folders.php:207 lib/Folder.php:404 lib/Folder.php:438
 msgid "No folders were specified"
-msgstr "°√ÿ≥“√–∫ÿ‚ø≈‡¥Õ√Ï∑’ËµÈÕß°“√"
+msgstr "‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡∏£‡∏∞‡∏ö‡∏∏‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£"
 
 #: templates/mailbox/empty_mailbox.inc:4
 msgid "No messages matched your search"
-msgstr "‰¡Ë¡’¢ÈÕ§«“¡„¥µ√ß°—∫°“√§ÈπÀ“¢Õß§ÿ≥"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏î‡∏ï‡∏£‡∏á‡∏Å‡∏±‡∏ö‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/compose/spelling.inc:28
 msgid "No spelling errors"
-msgstr "‰¡Ëæ∫§”∑’Ë –°¥º‘¥"
+msgstr "‡πÑ‡∏°‡πà‡∏û‡∏ö‡∏Ñ‡∏≥‡∏ó‡∏µ‡πà‡∏™‡∏∞‡∏Å‡∏î‡∏ú‡∏¥‡∏î"
 
 #: templates/compose/spelling.inc:88
 msgid "No suggestions"
-msgstr "‰¡Ë¡’§”·π–π”"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Ñ‡∏≥‡πÅ‡∏ô‡∏∞‡∏ô‡∏≥"
 
 #: templates/identities/manage.inc:93 templates/mailbox/navbar.inc:11
 #: templates/prefs/sourceselect.inc:26
 msgid "None"
-msgstr "‰¡Ë‡≈◊Õ°"
+msgstr "‡πÑ‡∏°‡πà‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: templates/mailbox/navbar.inc:20 templates/mailbox/navbar.inc:38
 msgid "Not Deleted"
-msgstr "‰¡Ë∂Ÿ°≈∫"
+msgstr "‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏•‡∏ö"
 
 #: templates/mailbox/navbar.inc:22 templates/mailbox/navbar.inc:41
 msgid "Not Draft"
-msgstr "‰¡Ë„™Ë·∫∫√Ë“ß"
+msgstr "‡πÑ‡∏°‡πà‡πÉ‡∏ä‡πà‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: templates/mailbox/navbar.inc:16 templates/mailbox/navbar.inc:33
 msgid "Not Important"
-msgstr "‰¡Ë„™Ë¢ÈÕ§«“¡ ”§—≠"
+msgstr "‡πÑ‡∏°‡πà‡πÉ‡∏ä‡πà‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏™‡∏≥‡∏Ñ‡∏±‡∏ç"
 
 #: templates/mailbox/navbar.inc:24
 msgid "Not Personal"
-msgstr "‰¡Ë„™Ë¢ÈÕ§«“¡ Ë«πµ—«"
+msgstr "‡πÑ‡∏°‡πà‡πÉ‡∏ä‡πà‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏™‡πà‡∏ß‡∏ô‡∏ï‡∏±‡∏ß"
 
 #: templates/search/main.inc:212
 msgid "Not deleted messages"
-msgstr "‰¡Ë„™Ë¢ÈÕ§«“¡∑’Ë∂Ÿ°≈∫"
+msgstr "‡πÑ‡∏°‡πà‡πÉ‡∏ä‡πà‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏ñ‡∏π‡∏Å‡∏•‡∏ö"
 
 #: templates/search/main.inc:198
 msgid "Not important messages"
-msgstr "‰¡Ë„™Ë¢ÈÕ§«“¡ ”§—≠"
+msgstr "‡πÑ‡∏°‡πà‡πÉ‡∏ä‡πà‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏™‡∏≥‡∏Ñ‡∏±‡∏ç"
 
 #: templates/search/main.inc:86 templates/search/main.inc:115
 #: templates/search/main.inc:144
 msgid "November"
-msgstr "æƒ»®‘°“¬π"
+msgstr "‡∏û‡∏§‡∏®‡∏à‡∏¥‡∏Å‡∏≤‡∏¢‡∏ô"
 
 #: config/prefs.php.dist:455
 msgid "Number of old sent-mail folders to keep if deleting monthly"
-msgstr "®”π«π‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°∑’ËµÈÕß°“√‡°Á∫‰«È À“°∑”°“√≈∫∑‘Èß‡ªÁπ√“¬‡¥◊Õπ"
+msgstr "‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÄ‡∏Å‡πá‡∏ö‡πÑ‡∏ß‡πâ ‡∏´‡∏≤‡∏Å‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏ó‡∏¥‡πâ‡∏á‡πÄ‡∏õ‡πá‡∏ô‡∏£‡∏≤‡∏¢‡πÄ‡∏î‡∏∑‡∏≠‡∏ô"
 
 #: templates/search/main.inc:85 templates/search/main.inc:114
 #: templates/search/main.inc:143
 msgid "October"
-msgstr "µÿ≈“§¡"
+msgstr "‡∏ï‡∏∏‡∏•‡∏≤‡∏Ñ‡∏°"
 
 #: templates/search/main.inc:166
 msgid "Old messages"
-msgstr "¢ÈÕ§«“¡‡°Ë“"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÄ‡∏Å‡πà‡∏≤"
 
 #: lib/Maintenance/Task/delete_sentmail_monthly.php:49
 msgid "Old sent-mail folders being purged."
-msgstr "°”≈—ß°”®—¥‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°¢Õß‡¥◊Õπ°ËÕπÊ"
+msgstr "‡∏Å‡∏≥‡∏•‡∏±‡∏á‡∏Å‡∏≥‡∏à‡∏±‡∏î‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å‡∏Ç‡∏≠‡∏á‡πÄ‡∏î‡∏∑‡∏≠‡∏ô‡∏Å‡πà‡∏≠‡∏ô‡πÜ"
 
 #: folders.php:357 templates/menu/menu.inc:65
 msgid "Open Folder"
-msgstr "‡ª‘¥‚ø≈‡¥Õ√Ï"
+msgstr "‡πÄ‡∏õ‡∏¥‡∏î‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/compose/compose.inc:288 templates/menu/menu.inc:25
 msgid "Options"
-msgstr "µ—«‡≈◊Õ°"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: config/prefs.php.dist:82 config/prefs.php.dist:91 config/prefs.php.dist:99
 #: config/prefs.php.dist:106 config/prefs.php.dist:113
 msgid "Other Options"
-msgstr "µ—«‡≈◊Õ°Õ◊Ëπ"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏≠‡∏∑‡πà‡∏ô"
 
 #: templates/mailbox/header.inc:26
 #, c-format
 msgid "Page %d of %d"
-msgstr "ÀπÈ“∑’Ë %d ®“° %d"
+msgstr "‡∏´‡∏ô‡πâ‡∏≤‡∏ó‡∏µ‡πà %d ‡∏à‡∏≤‡∏Å %d"
 
 #: templates/message/headers.inc:32
 msgid "Part(s)"
-msgstr " Ë«πª√–°Õ∫"
+msgstr "‡∏™‡πà‡∏ß‡∏ô‡∏õ‡∏£‡∏∞‡∏Å‡∏≠‡∏ö"
 
 #: templates/login/login.inc:76
 msgid "Password"
-msgstr "√À— ºË“π"
+msgstr "‡∏£‡∏´‡∏±‡∏™‡∏ú‡πà‡∏≤‡∏ô"
 
 #: config/prefs.php.dist:428
 msgid "Perform maintenance operations on login"
-msgstr "¥”‡π‘π°“√∫”√ÿß√—°…“√–∫∫„π¢≥–≈ß™◊ËÕ‡¢È“"
+msgstr "‡∏î‡∏≥‡πÄ‡∏ô‡∏¥‡∏ô‡∏Å‡∏≤‡∏£‡∏ö‡∏≥‡∏£‡∏∏‡∏á‡∏£‡∏±‡∏Å‡∏©‡∏≤‡∏£‡∏∞‡∏ö‡∏ö‡πÉ‡∏ô‡∏Ç‡∏ì‡∏∞‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤"
 
 #: templates/mailbox/navbar.inc:23 config/conf.php.dist:138
 msgid "Personal"
-msgstr " Ë«πµ—«"
+msgstr "‡∏™‡πà‡∏ß‡∏ô‡∏ï‡∏±‡∏ß"
 
 #: config/prefs.php.dist:24
 msgid "Personal Information"
-msgstr "¢ÈÕ¡Ÿ≈ Ë«πµ—«"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏™‡πà‡∏ß‡∏ô‡∏ï‡∏±‡∏ß"
 
 #: templates/identities/manage.inc:82
 msgid "Place your signature before replies and forwards?"
-msgstr "‡µ‘¡≈“¬‡´Áπ¢Õß§ÿ≥„π°“√µÕ∫°≈—∫·≈– ËßµËÕ?"
+msgstr "‡πÄ‡∏ï‡∏¥‡∏°‡∏•‡∏≤‡∏¢‡πÄ‡∏ã‡πá‡∏ô‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡πÅ‡∏•‡∏∞‡∏™‡πà‡∏á‡∏ï‡πà‡∏≠?"
 
 #: compose.php:225 compose.php:240
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "°√ÿ≥“µ√«® Õ∫∑’ËÕ¬ŸË´È”À√◊Õæ‘¡æÏº‘¥"
+msgstr "‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà‡∏ã‡πâ‡∏≥‡∏´‡∏£‡∏∑‡∏≠‡∏û‡∏¥‡∏°‡∏û‡πå‡∏ú‡∏¥‡∏î"
 
 #: templates/compose/compose.inc:116 templates/compose/compose.inc:172
 #: templates/compose/compose.inc:228
 msgid "Please select or edit right next:"
-msgstr "°√ÿ≥“‡≈◊Õ°À√◊Õ·°È‰¢µËÕ‰ª:"
+msgstr "‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏´‡∏£‡∏∑‡∏≠‡πÅ‡∏Å‡πâ‡πÑ‡∏Ç‡∏ï‡πà‡∏≠‡πÑ‡∏õ:"
 
 #: templates/identities/manage.inc:77
 msgid "Precede your signature with dashes ('-- ')"
-msgstr "‡µ‘¡¢’¥ ('--') ‰«È¢È“«ÀπÈ“≈“¬‡´Áπ¢Õß§ÿ≥"
+msgstr "‡πÄ‡∏ï‡∏¥‡∏°‡∏Ç‡∏µ‡∏î ('--') ‡πÑ‡∏ß‡πâ‡∏Ç‡πâ‡∏≤‡∏ß‡∏´‡∏ô‡πâ‡∏≤‡∏•‡∏≤‡∏¢‡πÄ‡∏ã‡πá‡∏ô‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/message/navbar.inc:32
 msgid "Previous Message"
-msgstr "¢ÈÕ§«“¡∑’Ë·≈È«"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡πÅ‡∏•‡πâ‡∏ß"
 
 #: mailbox.php:491 mailbox.php:492 mailbox.php:497 mailbox.php:498
 msgid "Previous Page"
-msgstr "ÀπÈ“∑’Ë·≈È«"
+msgstr "‡∏´‡∏ô‡πâ‡∏≤‡∏ó‡∏µ‡πà‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/message/navbar.inc:23
 msgid "Print"
-msgstr "æ‘¡æÏ"
+msgstr "‡∏û‡∏¥‡∏°‡∏û‡πå"
 
 #: mailbox.php:349
 #, c-format
 msgid "Problem with filter rule %d: folder does not exist: %s"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥°—∫µ—«°√Õß %d: ‰¡Ëæ∫‚ø≈‡¥Õ√Ï: %s"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡∏Å‡∏±‡∏ö‡∏ï‡∏±‡∏ß‡∏Å‡∏£‡∏≠‡∏á %d: ‡πÑ‡∏°‡πà‡∏û‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå: %s"
 
 #: templates/menu/menu.inc:33
 msgid "Problem?"
-msgstr "·®Èßª—≠À“"
+msgstr "‡πÅ‡∏à‡πâ‡∏á‡∏õ‡∏±‡∏ç‡∏´‡∏≤"
 
 #: templates/mailbox/actions.inc:26
 msgid "Purge Deleted"
-msgstr "≈∫‚¥¬∂“«√"
+msgstr "‡∏•‡∏ö‡πÇ‡∏î‡∏¢‡∏ñ‡∏≤‡∏ß‡∏£"
 
 #: config/prefs.php.dist:474
 msgid "Purge Trash how often:"
-msgstr "§«“¡∂’Ë„π°“√°”®—¥∂—ß¢¬–"
+msgstr "‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ñ‡∏µ‡πà‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏Å‡∏≥‡∏à‡∏±‡∏î‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: config/prefs.php.dist:483
 msgid "Purge messages in Trash folder older than this amount of days"
-msgstr "®”π«π«—π∑’Ë‡°Á∫¢ÈÕ§«“¡‰«È„π‚ø≈‡¥Õ√Ï∂—ß¢¬–°ËÕπ°“√°”®—¥"
+msgstr "‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡∏ß‡∏±‡∏ô‡∏ó‡∏µ‡πà‡πÄ‡∏Å‡πá‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏ß‡πâ‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞‡∏Å‡πà‡∏≠‡∏ô‡∏Å‡∏≤‡∏£‡∏Å‡∏≥‡∏à‡∏±‡∏î"
 
 #: config/prefs.php.dist:464
 msgid "Purge old message in the Trash folder"
-msgstr "°”®—¥¢ÈÕ§«“¡‡°Ë“„π‚ø≈‡¥Õ√Ï∂—ß¢¬–"
+msgstr "‡∏Å‡∏≥‡∏à‡∏±‡∏î‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÄ‡∏Å‡πà‡∏≤‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: lib/Maintenance/Task/purge_trash.php:60
 #, c-format
 msgid "Purging %d message(s) from Trash folder."
-msgstr "°”®—¥ %d ¢ÈÕ§«“¡ÕÕ°®“°‚ø≈‡¥Õ√Ï∂—ß¢¬–"
+msgstr "‡∏Å‡∏≥‡∏à‡∏±‡∏î %d ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏≠‡∏≠‡∏Å‡∏à‡∏≤‡∏Å‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞"
 
 #: compose.php:584
 msgid "Quoting"
-msgstr "ÕÈ“ßÕ‘ß"
+msgstr "‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á"
 
 #: templates/search/main.inc:128
 msgid "Received after"
-msgstr "‰¥È√—∫À≈—ß"
+msgstr "‡πÑ‡∏î‡πâ‡∏£‡∏±‡∏ö‡∏´‡∏•‡∏±‡∏á"
 
 #: templates/search/main.inc:99
 msgid "Received before"
-msgstr "‰¥È√—∫°ËÕπ"
+msgstr "‡πÑ‡∏î‡πâ‡∏£‡∏±‡∏ö‡∏Å‡πà‡∏≠‡∏ô"
 
 #: templates/search/main.inc:70
 msgid "Received on"
-msgstr "‰¥È√—∫‡¡◊ËÕ"
+msgstr "‡πÑ‡∏î‡πâ‡∏£‡∏±‡∏ö‡πÄ‡∏°‡∏∑‡πà‡∏≠"
 
 #: templates/message/navbar.inc:12
 msgid "Redirect"
-msgstr "‡ª≈’Ë¬π‡ Èπ∑“ß"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÄ‡∏™‡πâ‡∏ô‡∏ó‡∏≤‡∏á"
 
 #: compose.php:986
 msgid "Redirect this message"
-msgstr "‡ª≈’Ë¬π‡ Èπ∑“ß¢ÈÕ§«“¡π’È"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡πÄ‡∏™‡πâ‡∏ô‡∏ó‡∏≤‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ô‡∏µ‡πâ"
 
 #: compose.php:709
 msgid "Redirecting failed."
-msgstr "°“√‡ª’Ë¬π‡ Èπ∑“ß≈È¡‡À≈«"
+msgstr "‡∏Å‡∏≤‡∏£‡πÄ‡∏õ‡∏µ‡πà‡∏¢‡∏ô‡πÄ‡∏™‡πâ‡∏ô‡∏ó‡∏≤‡∏á‡∏•‡πâ‡∏°‡πÄ‡∏´‡∏•‡∏ß"
 
 #: templates/mailbox/header.inc:19
 msgid "Refresh"
-msgstr "√’‡ø√™"
+msgstr "‡∏£‡∏µ‡πÄ‡∏ü‡∏£‡∏ä"
 
 #: config/prefs.php.dist:714
 msgid "Refresh Folder Views:"
-msgstr "√’‡ø√™¡ÿ¡¡Õß‚ø≈‡¥Õ√Ï"
+msgstr "‡∏£‡∏µ‡πÄ‡∏ü‡∏£‡∏ä‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/folders/head.inc:6 templates/folders/head.inc:7
 msgid "Reload View"
-msgstr "√’‚À≈¥¡ÿ¡¡Õß"
+msgstr "‡∏£‡∏µ‡πÇ‡∏´‡∏•‡∏î‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á"
 
 #: config/prefs.php.dist:552
 msgid "Remember the last view"
-msgstr "®¥®”¡ÿ¡¡Õß≈Ë“ ÿ¥"
+msgstr "‡∏à‡∏î‡∏à‡∏≥‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡∏•‡πà‡∏≤‡∏™‡∏∏‡∏î"
 
 #: templates/compose/compose.inc:455
 msgid "Remove Selected"
-msgstr "≈∫∑’Ë∂Ÿ°‡≈◊Õ°"
+msgstr "‡∏•‡∏ö‡∏ó‡∏µ‡πà‡∏ñ‡∏π‡∏Å‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: templates/folders/actions.inc:6
 msgid "Rename Folder"
-msgstr "‡ª≈’Ë¬π™◊ËÕ‚ø≈‡¥Õ√Ï"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: config/prefs.php.dist:437
 msgid "Rename sent-mail folder at beginning of month"
-msgstr "‡ª≈’Ë¬π™◊ËÕ‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°∑ÿ°Ê µÈπ‡¥◊Õπ"
+msgstr "‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å‡∏ó‡∏∏‡∏Å‡πÜ ‡∏ï‡πâ‡∏ô‡πÄ‡∏î‡∏∑‡∏≠‡∏ô"
 
 #: lib/Folder.php:371
 #, c-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "°“√‡ª≈’Ë¬π™◊ËÕ®“° \"%s\" ‡ªÁπ \"%s\" ≈È¡‡À≈« ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡∏Å‡∏≤‡∏£‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡∏à‡∏≤‡∏Å \"%s\" ‡πÄ‡∏õ‡πá‡∏ô \"%s\" ‡∏•‡πâ‡∏°‡πÄ‡∏´‡∏•‡∏ß ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: templates/compose/spelling.inc:96
 msgid "Replace with:"
-msgstr "·∑π∑’Ë¥È«¬:"
+msgstr "‡πÅ‡∏ó‡∏ô‡∏ó‡∏µ‡πà‡∏î‡πâ‡∏ß‡∏¢:"
 
 #: templates/message/navbar.inc:9
 msgid "Reply"
-msgstr "µÕ∫°≈—∫"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö"
 
 #: templates/message/navbar.inc:10
 msgid "Reply to All"
-msgstr "µÕ∫°≈—∫∑—ÈßÀ¡¥"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: compose.php:599
 msgid "Reply to All:"
-msgstr "µÕ∫°≈—∫∑—ÈßÀ¡¥:"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î:"
 
 #: compose.php:627
 msgid "Reply-To: "
-msgstr "µÕ∫°≈—∫‰ª¬—ß:"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡πÑ‡∏õ‡∏¢‡∏±‡∏á:"
 
 #: templates/message/headers.inc:24
 msgid "Reply-to"
-msgstr "µÕ∫°≈—∫‰ª¬—ß"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö‡πÑ‡∏õ‡∏¢‡∏±‡∏á"
 
 #: compose.php:597
 msgid "Reply:"
-msgstr "µÕ∫°≈—∫"
+msgstr "‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö"
 
 #: templates/message/navbar.inc:25
 msgid "Report as Spam"
-msgstr "√“¬ß“π«Ë“‡ªÁπ"
+msgstr "‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤‡πÄ‡∏õ‡πá‡∏ô"
 
 #: templates/compose/compose.inc:348
 msgid "Request a Return Receipt"
-msgstr "√ÈÕß¢Õ„∫µÕ∫√—∫"
+msgstr "‡∏£‡πâ‡∏≠‡∏á‡∏Ç‡∏≠‡πÉ‡∏ö‡∏ï‡∏≠‡∏ö‡∏£‡∏±‡∏ö"
 
 #: templates/message/navbar.inc:20
 msgid "Resume"
-msgstr "∑”µËÕ"
+msgstr "‡∏ó‡∏≥‡∏ï‡πà‡∏≠"
 
 #: config/prefs.php.dist:376
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
-msgstr "µÈÕß°“√°≈—∫ ŸË√“¬°“√µŸÈ‰ª√…≥’¬ÏÀ≈—ß®“°∑”°“√≈∫, ¬È“¬ À√◊Õ ”‡π“¢ÈÕ§«“¡À√◊Õ‰¡Ë?"
+msgstr "‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏Å‡∏•‡∏±‡∏ö‡∏™‡∏π‡πà‡∏£‡∏≤‡∏¢‡∏Å‡∏≤‡∏£‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå‡∏´‡∏•‡∏±‡∏á‡∏à‡∏≤‡∏Å‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡∏•‡∏ö, ‡∏¢‡πâ‡∏≤‡∏¢ ‡∏´‡∏£‡∏∑‡∏≠‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà?"
 
 #: templates/filters/manage.inc:4
 msgid "Rule Definition"
-msgstr "°“√°”Àπ¥°Ø‡°≥±Ï"
+msgstr "‡∏Å‡∏≤‡∏£‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏Å‡∏è‡πÄ‡∏Å‡∏ì‡∏ë‡πå"
 
 #: templates/compose/compose.inc:327
 msgid "Save a copy in "
-msgstr "∫—π∑÷° ”‡π“„π"
+msgstr "‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡πÉ‡∏ô"
 
 #: templates/message/navbar.inc:22
 msgid "Save as"
-msgstr "∫—π∑÷°‡ªÁπ"
+msgstr "‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏õ‡πá‡∏ô"
 
 #: templates/identities/manage.inc:87
 msgid "Save sent mail"
-msgstr "∫—π∑÷°®¥À¡“¬¢“ÕÕ°"
+msgstr "‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å"
 
 #: compose.php:923
 #, c-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "°“√∫—π∑÷°·∫∫√Ë“ß≈È¡‡À≈« ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“: %s"
+msgstr "‡∏Å‡∏≤‡∏£‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á‡∏•‡πâ‡∏°‡πÄ‡∏´‡∏•‡∏ß ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤: %s"
 
 #: templates/menu/menu.inc:27 templates/search/main.inc:8
 msgid "Search"
-msgstr "§ÈπÀ“"
+msgstr "‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤"
 
 #: lib/IMP.php:441
 msgid "Search Results"
-msgstr "º≈°“√§ÈπÀ“"
+msgstr "‡∏ú‡∏•‡∏Å‡∏≤‡∏£‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤"
 
 #: templates/mailbox/legend.inc:10 templates/mailbox/navbar.inc:13
 #: templates/mailbox/navbar.inc:30
 msgid "Seen"
-msgstr "ÕË“π·≈È«"
+msgstr "‡∏≠‡πà‡∏≤‡∏ô‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/mailbox/navbar.inc:9
 msgid "Select"
-msgstr "‡≈◊Õ°"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å"
 
 #: config/prefs.php.dist:115
 msgid "Select addressbook sources for adding and searching for addresses."
-msgstr "‡≈◊Õ°·À≈Ëß∑’Ëµ‘¥µËÕ‡æ◊ËÕ∑”°“√‡æ‘Ë¡·≈–§ÈπÀ“√“¬™◊ËÕ"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÅ‡∏´‡∏•‡πà‡∏á‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡πÄ‡∏û‡∏∑‡πà‡∏≠‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÅ‡∏•‡∏∞‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤‡∏£‡∏≤‡∏¢‡∏ä‡∏∑‡πà‡∏≠"
 
 #: templates/search/main.inc:229
 msgid "Select all"
-msgstr "‡≈◊Õ°∑—ÈßÀ¡¥"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏ó‡∏±‡πâ‡∏á‡∏´‡∏°‡∏î"
 
 #: templates/identities/manage.inc:12
 msgid "Select an identity"
-msgstr "‡≈◊Õ°‡Õ°≈—°…≥ÏËËËËËËËËËËËËËËËËË"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà‡πà"
 
 #: templates/message/navbar.inc:48
 msgid "Select charset:"
-msgstr "‡≈◊Õ°™ÿ¥Õ—°¢√–:"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏ä‡∏∏‡∏î‡∏≠‡∏±‡∏Å‡∏Ç‡∏£‡∏∞:"
 
 #: templates/search/main.inc:230
 msgid "Select none"
-msgstr "‰¡Ë‡≈◊Õ°‡≈¬"
+msgstr "‡πÑ‡∏°‡πà‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏•‡∏¢"
 
 #: config/prefs.php.dist:279
 msgid "Select your preferred language:"
-msgstr "‡≈◊Õ°¿“…“∑’ËµÈÕß°“√:"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏†‡∏≤‡∏©‡∏≤‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£:"
 
 #: templates/prefs/sourceselect.inc:275
 msgid "Selected Addressbooks:"
-msgstr "∑’Ëµ‘¥µËÕ∑’Ë‡≈◊Õ°:"
+msgstr "‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏ó‡∏µ‡πà‡πÄ‡∏•‡∏∑‡∏≠‡∏Å:"
 
 #: templates/identities/manage.inc:91
 msgid "Sent mail folder:"
-msgstr "‚ø≈‡¥Õ√Ï®¥À¡“¬¢“ÕÕ°"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏≤‡∏≠‡∏≠‡∏Å"
 
 #: templates/search/main.inc:84 templates/search/main.inc:113
 #: templates/search/main.inc:142
 msgid "September"
-msgstr "°—π¬“¬π"
+msgstr "‡∏Å‡∏±‡∏ô‡∏¢‡∏≤‡∏¢‡∏ô"
 
 #: templates/login/login.inc:85 templates/login/login.inc:91
 msgid "Server"
-msgstr "‡§√◊ËÕß∫√‘°“√"
+msgstr "‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£"
 
 #: config/prefs.php.dist:31
 msgid "Server Information"
-msgstr "¢ÈÕ¡Ÿ≈‡§√◊ËÕß∫√‘°“√"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£"
 
 #: config/prefs.php.dist:60
 msgid "Set preferences for filtering messages for unwanted content."
-msgstr "°”Àπ¥§Ë“ ”À√—∫°“√°√Õß¢ÈÕ§«“¡∑’Ë¡’§”∑’Ë‰¡Ë‡À¡“– ¡"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏Ñ‡πà‡∏≤‡∏™‡∏≥‡∏´‡∏£‡∏±‡∏ö‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏≠‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏°‡∏µ‡∏Ñ‡∏≥‡∏ó‡∏µ‡πà‡πÑ‡∏°‡πà‡πÄ‡∏´‡∏°‡∏≤‡∏∞‡∏™‡∏°"
 
 #: config/prefs.php.dist:67
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr "°”Àπ¥§Ë“°“√°√–∑”‡¡◊ËÕ∑”°“√¬È“¬·≈–≈∫¢ÈÕ§«“¡"
+msgstr "‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏Ñ‡πà‡∏≤‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏∞‡∏ó‡∏≥‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡∏¢‡πâ‡∏≤‡∏¢‡πÅ‡∏•‡∏∞‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: config/prefs.php.dist:46
 msgid "Set the current time zone."
-msgstr "µ—Èß§Ë“‡¢µ‡«≈“"
+msgstr "‡∏ï‡∏±‡πâ‡∏á‡∏Ñ‡πà‡∏≤‡πÄ‡∏Ç‡∏ï‡πÄ‡∏ß‡∏•‡∏≤"
 
 #: config/prefs.php.dist:39
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "‡≈◊Õ°¿“…“∑’ËµÈÕß°“√„™È„π°“√· ¥ß‡¡πŸ, §”Õ∏‘∫“¬ ·≈–§«“¡™Ë«¬‡À≈◊Õ"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏†‡∏≤‡∏©‡∏≤‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏ä‡πâ‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡πÄ‡∏°‡∏ô‡∏π, ‡∏Ñ‡∏≥‡∏≠‡∏ò‡∏¥‡∏ö‡∏≤‡∏¢ ‡πÅ‡∏•‡∏∞‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ä‡πà‡∏ß‡∏¢‡πÄ‡∏´‡∏•‡∏∑‡∏≠"
 
 #: config/prefs.php.dist:659
 msgid "Should the compose window be closed after saving a draft?"
-msgstr "µÈÕß°“√„ÀÈª‘¥ÀπÈ“µË“ß‡¢’¬π®¥À¡“¬À≈—ß®“°∫—π∑÷°·∫∫√Ë“ßÀ√◊Õ‰¡Ë?"
+msgstr "‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡∏õ‡∏¥‡∏î‡∏´‡∏ô‡πâ‡∏≤‡∏ï‡πà‡∏≤‡∏á‡πÄ‡∏Ç‡∏µ‡∏¢‡∏ô‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏´‡∏•‡∏±‡∏á‡∏à‡∏≤‡∏Å‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà?"
 
 #: mailbox.php:544
 msgid "Show Deleted"
-msgstr "· ¥ß∑’Ë∂Ÿ°≈∫"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏ó‡∏µ‡πà‡∏ñ‡∏π‡∏Å‡∏•‡∏ö"
 
 #: folders.php:266
 msgid "Show Unsubscribed"
-msgstr "· ¥ß∑’Ë‡≈‘°„™È‰ª·≈È«"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏ó‡∏µ‡πà‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ‡πÑ‡∏õ‡πÅ‡∏•‡πâ‡∏ß"
 
 #: config/prefs.php.dist:674
 msgid "Show last login time when logging in"
-msgstr "· ¥ß‡«≈“≈ß∫—π∑÷°‡¢È“§√—Èß≈Ë“ ÿ¥¢≥–°”≈—ß‡¢È“ ŸË√–∫∫"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡πÄ‡∏ß‡∏•‡∏≤‡∏•‡∏á‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÄ‡∏Ç‡πâ‡∏≤‡∏Ñ‡∏£‡∏±‡πâ‡∏á‡∏•‡πà‡∏≤‡∏™‡∏∏‡∏î‡∏Ç‡∏ì‡∏∞‡∏Å‡∏≥‡∏•‡∏±‡∏á‡πÄ‡∏Ç‡πâ‡∏≤‡∏™‡∏π‡πà‡∏£‡∏∞‡∏ö‡∏ö"
 
 #: config/prefs.php.dist:579
 msgid "Show legend in the mailbox view."
-msgstr "· ¥ß§”Õ∏‘∫“¬ —≠≈—°…≥Ï„π¡ÿ¡¡ÕßµŸÈ‰ª√…≥’¬Ï"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏Ñ‡∏≥‡∏≠‡∏ò‡∏¥‡∏ö‡∏≤‡∏¢‡∏™‡∏±‡∏ç‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡πÉ‡∏ô‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå"
 
 #: templates/compose/compose.inc:431 templates/mailbox/message_headers.inc:33
 msgid "Size"
-msgstr "¢π“¥"
+msgstr "‡∏Ç‡∏ô‡∏≤‡∏î"
 
 #: templates/index/notconfigured.inc:13
 msgid "Some of IMP's configuration files are missing:"
-msgstr "‰¡Ëæ∫·øÈ¡‚§√ß√Ë“ß∫“ß·øÈ¡¢Õß IMP"
+msgstr "‡πÑ‡∏°‡πà‡∏û‡∏ö‡πÅ‡∏ü‡πâ‡∏°‡πÇ‡∏Ñ‡∏£‡∏á‡∏£‡πà‡∏≤‡∏á‡∏ö‡∏≤‡∏á‡πÅ‡∏ü‡πâ‡∏°‡∏Ç‡∏≠‡∏á IMP"
 
 #: templates/mailbox/message_headers.inc:8
 #: templates/mailbox/message_headers.inc:12
@@ -1321,71 +1321,71 @@ msgstr "‰¡Ëæ∫·øÈ¡‚§√ß√Ë“ß∫“ß·øÈ¡¢Õß IMP"
 #: templates/mailbox/message_headers.inc:26
 #: templates/mailbox/message_headers.inc:32
 msgid "Sort Direction"
-msgstr "∑‘»∑“ß°“√®—¥‡√’¬ß"
+msgstr "‡∏ó‡∏¥‡∏®‡∏ó‡∏≤‡∏á‡∏Å‡∏≤‡∏£‡∏à‡∏±‡∏î‡πÄ‡∏£‡∏µ‡∏¢‡∏á"
 
 #: message.php:366
 msgid "Spam Report from"
-msgstr "√“¬ß“π®¥À¡“¬¢¬–®“°"
+msgstr "‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏à‡∏î‡∏´‡∏°‡∏≤‡∏¢‡∏Ç‡∏¢‡∏∞‡∏à‡∏≤‡∏Å"
 
 #: templates/compose/compose.inc:305
 msgid "Special Characters"
-msgstr "Õ—°¢√–æ‘‡»…"
+msgstr "‡∏≠‡∏±‡∏Å‡∏Ç‡∏£‡∏∞‡∏û‡∏¥‡πÄ‡∏®‡∏©"
 
 #: templates/compose/compose.inc:302
 msgid "Spell Check"
-msgstr "µ√«®§” –°¥"
+msgstr "‡∏ï‡∏£‡∏ß‡∏à‡∏Ñ‡∏≥‡∏™‡∏∞‡∏Å‡∏î"
 
 #: templates/compose/spelling.inc:26
 msgid "Spell Checker"
-msgstr "µ—«µ√«®§” –°¥"
+msgstr "‡∏ï‡∏±‡∏ß‡∏ï‡∏£‡∏ß‡∏à‡∏Ñ‡∏≥‡∏™‡∏∞‡∏Å‡∏î"
 
 #: templates/compose/spelling.inc:28 templates/compose/spelling.inc:36
 msgid "Spell check complete"
-msgstr "µ√«®§” –°¥‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡∏ï‡∏£‡∏ß‡∏à‡∏Ñ‡∏≥‡∏™‡∏∞‡∏Å‡∏î‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: config/prefs.php.dist:541
 msgid "Spelling errors per screen when spell checking."
-msgstr "®”π«π§«“¡º‘¥æ≈“¥∑’Ë· ¥ß„πÀπ÷ËßÀπÈ“®Õ¢≥–∑”°“√µ√«®§” –°¥"
+msgstr "‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡∏ó‡∏µ‡πà‡πÅ‡∏™‡∏î‡∏á‡πÉ‡∏ô‡∏´‡∏ô‡∏∂‡πà‡∏á‡∏´‡∏ô‡πâ‡∏≤‡∏à‡∏≠‡∏Ç‡∏ì‡∏∞‡∏ó‡∏≥‡∏Å‡∏≤‡∏£‡∏ï‡∏£‡∏ß‡∏à‡∏Ñ‡∏≥‡∏™‡∏∞‡∏Å‡∏î"
 
 #: templates/compose/compose.inc:270 templates/mailbox/message_headers.inc:24
 #: templates/mailbox/message_headers.inc:27 templates/message/headers.inc:28
 #: templates/search/main.inc:54
 msgid "Subject"
-msgstr "™◊ËÕ‡√◊ËÕß"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á"
 
 #: config/prefs.php.dist:509
 msgid "Subject Field"
-msgstr "‡¢µ¢ÈÕ§«“¡™◊ËÕ‡√◊ËÕß"
+msgstr "‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á"
 
 #: filters.php:140 templates/filters/manage.inc:16
 msgid "Subject:"
-msgstr "™◊ËÕ‡√◊ËÕß:"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á:"
 
 #: templates/folders/actions.inc:9
 msgid "Subscribe to Folder(s)"
-msgstr "‡≈◊Õ°„™Èß“π‚ø≈‡¥Õ√Ï"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: status.php:39
 msgid "Success"
-msgstr " ”‡√Á®"
+msgstr "‡∏™‡∏≥‡πÄ‡∏£‡πá‡∏à"
 
 #: templates/compose/spelling.inc:74
 msgid "Suggestions"
-msgstr "§”·π–π”"
+msgstr "‡∏Ñ‡∏≥‡πÅ‡∏ô‡∏∞‡∏ô‡∏≥"
 
 #: templates/filters/manage.inc:30
 msgid "Text"
-msgstr "¡’§”«Ë“"
+msgstr "‡∏°‡∏µ‡∏Ñ‡∏≥‡∏ß‡πà‡∏≤"
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:89
 #, c-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "‚ø≈‡¥Õ√Ïª—®®ÿ∫—π \"%s\" ®–∂Ÿ°‡ª≈’Ë¬π™◊ËÕ‡ªÁπ \"%s\""
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏õ‡∏±‡∏à‡∏à‡∏∏‡∏ö‡∏±‡∏ô \"%s\" ‡∏à‡∏∞‡∏ñ‡∏π‡∏Å‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏õ‡πá‡∏ô \"%s\""
 
 #: lib/Folder.php:299
 #, c-format
 msgid "The folder \"%s\" already exists"
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ¡’Õ¬ŸË·≈È«"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡∏°‡∏µ‡∏≠‡∏¢‡∏π‡πà‡πÅ‡∏•‡πâ‡∏ß"
 
 #: lib/Folder.php:132
 #, c-format
@@ -1393,72 +1393,72 @@ msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"‚ø≈‡¥Õ√Ï \"%s\" ¡’µ—«Õ—°…√∑’Ë‰¡Ë∂Ÿ°µÈÕßÕ¬ŸË„π™◊ËÕ ´÷ËßÕ“®∑”„ÀÈ‡°‘¥ª—≠À“‰¥È "
-"°√ÿ≥“µ‘¥µËÕºŸÈ¥Ÿ·≈–√–∫∫¢Õß§ÿ≥"
+"‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡∏°‡∏µ‡∏ï‡∏±‡∏ß‡∏≠‡∏±‡∏Å‡∏©‡∏£‡∏ó‡∏µ‡πà‡πÑ‡∏°‡πà‡∏ñ‡∏π‡∏Å‡∏ï‡πâ‡∏≠‡∏á‡∏≠‡∏¢‡∏π‡πà‡πÉ‡∏ô‡∏ä‡∏∑‡πà‡∏≠ ‡∏ã‡∏∂‡πà‡∏á‡∏≠‡∏≤‡∏à‡∏ó‡∏≥‡πÉ‡∏´‡πâ‡πÄ‡∏Å‡∏¥‡∏î‡∏õ‡∏±‡∏ç‡∏´‡∏≤‡πÑ‡∏î‡πâ "
+"‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏ú‡∏π‡πâ‡∏î‡∏π‡πÅ‡∏•‡∏∞‡∏£‡∏∞‡∏ö‡∏ö‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: lib/Folder.php:312
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ‰¥È∂Ÿ° √È“ß¢÷Èπ·≈È« ·µË¬—ß‰¡Ë‰¥È‡√’¬°„™È"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Ç‡∏∂‡πâ‡∏ô‡πÅ‡∏•‡πâ‡∏ß ‡πÅ‡∏ï‡πà‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ"
 
 #: lib/Folder.php:265
 #, c-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ‰¥È∂Ÿ°≈∫‰ªÕÕ°·≈È« ·µË§ÿ≥¬—ß‰¡Ë‰¥È‡≈‘°„™È"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏•‡∏ö‡πÑ‡∏õ‡∏≠‡∏≠‡∏Å‡πÅ‡∏•‡πâ‡∏ß ‡πÅ‡∏ï‡πà‡∏Ñ‡∏∏‡∏ì‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ"
 
 #: lib/Folder.php:305
 #, c-format
 msgid "The folder \"%s\" was not created. This is what the server said"
-msgstr "‰¡Ë “¡“√∂ √È“ß‚ø≈‡¥Õ√Ï \"%s\" ‰¥È ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏™‡∏£‡πâ‡∏≤‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Folder.php:259
 #, c-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
-msgstr "‰¡Ë “¡“√∂≈∫‚ø≈‡¥Õ√Ï \"%s\" ‰¥È ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏•‡∏ö‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Folder.php:317
 #, c-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ‰¥È∂Ÿ° √È“ß¢÷Èπ‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏™‡∏£‡πâ‡∏≤‡∏á‡∏Ç‡∏∂‡πâ‡∏ô‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: lib/Folder.php:268
 #, c-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ‰¥È∂Ÿ°≈∫‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏•‡∏ö‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: lib/Folder.php:368
 #, c-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "‚ø≈‡¥Õ√Ï \"%s\" ‰¥È∂Ÿ°‡ª≈’Ë¬π™◊ËÕ‡ªÁπ \"%s\" ‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡πÄ‡∏õ‡∏•‡∏µ‡πà‡∏¢‡∏ô‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏õ‡πá‡∏ô \"%s\" ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: identities.php:121
 #, c-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "‡Õ°≈—°…≥Ï \"%s\" ‰¥È∂Ÿ°≈∫·≈È«"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏•‡∏ö‡πÅ‡∏•‡πâ‡∏ß"
 
 #: identities.php:114
 #, c-format
 msgid "The identity \"%s\" has been saved."
-msgstr "‡Õ°≈—°…≥Ï \"%s\" ‰¥È∂Ÿ°∫—π∑÷°·≈È«"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå \"%s\" ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/mailbox/empty_mailbox.inc:4
 msgid "There are no messages in this mailbox."
-msgstr "‰¡Ë¡’¢ÈÕ§«“¡„πµŸÈ‰ª√…≥’¬Ïπ’È"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå‡∏ô‡∏µ‡πâ"
 
 #: mailbox.php:205
 #, c-format
 msgid "There was a problem expunging %s. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫ %s ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö %s ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: mailbox.php:214
 msgid "There was a problem expunging the mailbox. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫µŸÈ‰ª√…≥’¬Ï ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: mailbox.php:365
 #, c-format
 msgid ""
 "There was a problem expunging the mailbox. This is what the server said: %s"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫µŸÈ‰ª√…≥’¬Ï ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“: %s"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤: %s"
 
 #: compose.php:946
 #, c-format
@@ -1466,374 +1466,374 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√Õ—æ‚À≈¥ ·øÈ¡¢ÈÕ¡Ÿ≈Õ“®¡’¢π“¥„À≠Ë‡°‘π°«Ë“¢π“¥∑’Ë°”Àπ¥‰«È (%d ‡¡°–‰∫µÏ)"
+"‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏≠‡∏±‡∏û‡πÇ‡∏´‡∏•‡∏î ‡πÅ‡∏ü‡πâ‡∏°‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏≠‡∏≤‡∏à‡∏°‡∏µ‡∏Ç‡∏ô‡∏≤‡∏î‡πÉ‡∏´‡∏ç‡πà‡πÄ‡∏Å‡∏¥‡∏ô‡∏Å‡∏ß‡πà‡∏≤‡∏Ç‡∏ô‡∏≤‡∏î‡∏ó‡∏µ‡πà‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÑ‡∏ß‡πâ (%d ‡πÄ‡∏°‡∏Å‡∏∞‡πÑ‡∏ö‡∏ï‡πå)"
 
 #: compose.php:958
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√Õ—æ‚À≈¥ ·øÈ¡¢ÈÕ¡Ÿ≈Õ“®¡’¢π“¥„À≠Ë‡°‘π°«Ë“¢π“¥∑’Ë°”Àπ¥‰«È"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏≠‡∏±‡∏û‡πÇ‡∏´‡∏•‡∏î ‡πÅ‡∏ü‡πâ‡∏°‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏≠‡∏≤‡∏à‡∏°‡∏µ‡∏Ç‡∏ô‡∏≤‡∏î‡πÉ‡∏´‡∏ç‡πà‡πÄ‡∏Å‡∏¥‡∏ô‡∏Å‡∏ß‡πà‡∏≤‡∏Ç‡∏ô‡∏≤‡∏î‡∏ó‡∏µ‡πà‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÑ‡∏ß‡πâ"
 
 #: lib/Message.php:115
 #, c-format
 msgid ""
 "There was an error copying messages to \"%s\". This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√ ”‡π“¢ÈÕ§«“¡‰ª¬—ß \"%s\" ‡§√◊ËÕß∫√‘°“√·®Èß«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏™‡∏≥‡πÄ‡∏ô‡∏≤‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ‡∏¢‡∏±‡∏á \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡πÅ‡∏à‡πâ‡∏á‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:217
 #, c-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫¢ÈÕ§«“¡®“°‚ø≈‡¥Õ√Ï \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏à‡∏≤‡∏Å‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:292
 #, c-format
 msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫¢ÈÕ§«“¡„π‚ø≈‡¥Õ√Ï \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:247 lib/Message.php:255
 msgid "There was an error deleting messages. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√≈∫¢ÈÕ§«“¡ ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/MIME/Viewer/enriched.php:41 lib/MIME/Viewer/text.php:29
 msgid "There was an error displaying this message part"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√· ¥ß Ë«ππ’È¢Õß¢ÈÕ§«“¡"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏™‡πà‡∏ß‡∏ô‡∏ô‡∏µ‡πâ‡∏Ç‡∏≠‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: lib/Message.php:354 lib/Message.php:369
 #, c-format
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√∫Ëß™’È¢ÈÕ§«“¡„π‚ø≈‡¥Õ√Ï \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏ö‡πà‡∏á‡∏ä‡∏µ‡πâ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:377
 msgid "There was an error flagging messages. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√∫Ëß™’È¢ÈÕ§«“¡ ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏ö‡πà‡∏á‡∏ä‡∏µ‡πâ‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:111
 #, c-format
 msgid ""
 "There was an error moving messages to \"%s\". This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√¬È“¬¢ÈÕ§«“¡‰ª \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Message.php:211 lib/Message.php:241
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√¬È“¬¢ÈÕ§«“¡‰ª¬—ß∂—ß¢¬– ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ‡∏¢‡∏±‡∏á‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞ ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: compose.php:939
 msgid "There was an error saving a draft."
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√∫—π∑÷°·∫∫√Ë“ß"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏ö‡∏±‡∏ô‡∏ó‡∏∂‡∏Å‡πÅ‡∏ö‡∏ö‡∏£‡πà‡∏≤‡∏á"
 
 #: compose.php:860
 #, c-format
 msgid "There was an error sending your message: %s"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√ Ëß¢ÈÕ§«“¡¢Õß§ÿ≥: %s"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏™‡πà‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì: %s"
 
 #: lib/Message.php:305
 msgid "There was an error undeleting messages. This is what the server said"
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√°ŸÈ§◊π¢ÈÕ§«“¡ ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡∏Å‡∏π‡πâ‡∏Ñ‡∏∑‡∏ô‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: mailbox.php:145
 msgid "There was an error viewing the requested message."
-msgstr "‡°‘¥¢ÈÕº‘¥æ≈“¥„π°“√· ¥ß¢ÈÕ§«“¡∑’Ë√–∫ÿ"
+msgstr "‡πÄ‡∏Å‡∏¥‡∏î‡∏Ç‡πâ‡∏≠‡∏ú‡∏¥‡∏î‡∏û‡∏•‡∏≤‡∏î‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÅ‡∏™‡∏î‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏£‡∏∞‡∏ö‡∏∏"
 
 #: message.php:377
 msgid "This message has been reported as spam to your system administrator."
-msgstr "¢ÈÕ§«“¡π’È‰¥È∂Ÿ°√“¬ß“π«Ë“‡ªÁπ°“√√∫°«π‰ª¬—ßºŸÈ¥Ÿ·≈√–∫∫¢Õß§ÿ≥·≈È«"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ô‡∏µ‡πâ‡πÑ‡∏î‡πâ‡∏ñ‡∏π‡∏Å‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤‡πÄ‡∏õ‡πá‡∏ô‡∏Å‡∏≤‡∏£‡∏£‡∏ö‡∏Å‡∏ß‡∏ô‡πÑ‡∏õ‡∏¢‡∏±‡∏á‡∏ú‡∏π‡πâ‡∏î‡∏π‡πÅ‡∏•‡∏£‡∏∞‡∏ö‡∏ö‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì‡πÅ‡∏•‡πâ‡∏ß"
 
 #: message.php:399
 msgid "This message to"
-msgstr "¢ÈÕ§«“¡π’È‰ª¬—ß"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ô‡∏µ‡πâ‡πÑ‡∏õ‡∏¢‡∏±‡∏á"
 
 #: prefs.php:107
 msgid "This number must be at least one."
-msgstr "µ—«‡≈¢π’ÈµÈÕß¡’§Ë“Õ¬Ë“ßπÈÕ¬‡∑Ë“°—∫Àπ÷Ëß"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏Ç‡∏ô‡∏µ‡πâ‡∏ï‡πâ‡∏≠‡∏á‡∏°‡∏µ‡∏Ñ‡πà‡∏≤‡∏≠‡∏¢‡πà‡∏≤‡∏á‡∏ô‡πâ‡∏≠‡∏¢‡πÄ‡∏ó‡πà‡∏≤‡∏Å‡∏±‡∏ö‡∏´‡∏ô‡∏∂‡πà‡∏á"
 
 #: prefs.php:105
 msgid "This value must be a number."
-msgstr "¢ÈÕ¡Ÿ≈π’ÈµÈÕß¡’§Ë“‡ªÁπµ—«‡≈¢"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏ô‡∏µ‡πâ‡∏ï‡πâ‡∏≠‡∏á‡∏°‡∏µ‡∏Ñ‡πà‡∏≤‡πÄ‡∏õ‡πá‡∏ô‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏Ç"
 
 #: templates/mailbox/message_headers.inc:23
 #: templates/mailbox/message_headers.inc:28
 msgid "Thread"
-msgstr "‡∑√¥"
+msgstr "‡πÄ‡∏ó‡∏£‡∏î"
 
 #: config/prefs.php.dist:511
 msgid "Thread View"
-msgstr "¡ÿ¡¡Õß‡∑√¥"
+msgstr "‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡πÄ‡∏ó‡∏£‡∏î"
 
 #: config/prefs.php.dist:45
 msgid "Time Zone"
-msgstr "‡¢µ‡«≈“"
+msgstr "‡πÄ‡∏Ç‡∏ï‡πÄ‡∏ß‡∏•‡∏≤"
 
 #: mailbox.php:701 templates/compose/bounce.inc:28
 #: templates/compose/compose.inc:103 templates/message/headers.inc:12
 #: templates/search/main.inc:38
 msgid "To"
-msgstr "∂÷ß"
+msgstr "‡∏ñ‡∏∂‡∏á"
 
 #: filters.php:137 templates/filters/manage.inc:13
 msgid "To:"
-msgstr "∂÷ß:"
+msgstr "‡∏ñ‡∏∂‡∏á:"
 
 #: templates/compose/compose.inc:456
 #, c-format
 msgid "Total Size: %s KB"
-msgstr "¢π“¥‚¥¬√«¡: %s °‘‚≈‰∫µÏ"
+msgstr "‡∏Ç‡∏ô‡∏≤‡∏î‡πÇ‡∏î‡∏¢‡∏£‡∏ß‡∏°: %s ‡∏Å‡∏¥‡πÇ‡∏•‡πÑ‡∏ö‡∏ï‡πå"
 
 #: templates/prefs/trashselect.inc:23
 msgid "Trash folder:"
-msgstr "‚ø≈‡¥Õ√Ï∂—ß¢¬–:"
+msgstr "‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞:"
 
 #: templates/mailbox/navbar.inc:18 templates/mailbox/navbar.inc:35
 msgid "Unanswered"
-msgstr "‰¡Ë‰¥ÈµÕ∫°≈—∫"
+msgstr "‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö"
 
 #: templates/search/main.inc:184
 msgid "Unanswered messages"
-msgstr "¢ÈÕ§«“¡∑’Ë‰¡Ë‰¥ÈµÕ∫°≈—∫"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡∏ï‡∏≠‡∏ö‡∏Å‡∏•‡∏±‡∏ö"
 
 #: templates/mailbox/actions.inc:13 templates/message/navbar.inc:5
 msgid "Undelete"
-msgstr "°ŸÈ§◊π"
+msgstr "‡∏Å‡∏π‡πâ‡∏Ñ‡∏∑‡∏ô"
 
 #: mailbox.php:699 message.php:69
 msgid "Undisclosed Recipients"
-msgstr "ºŸÈ√—∫∑’Ë‰¡Ë‡ª‘¥‡º¬"
+msgstr "‡∏ú‡∏π‡πâ‡∏£‡∏±‡∏ö‡∏ó‡∏µ‡πà‡πÑ‡∏°‡πà‡πÄ‡∏õ‡∏¥‡∏î‡πÄ‡∏ú‡∏¢"
 
 #: identities.php:71 identities.php:72
 msgid "Unnamed"
-msgstr "‰¡Ë¡’™◊ËÕ"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏ä‡∏∑‡πà‡∏≠"
 
 #: config/conf.php.dist:130
 msgid "Unread"
-msgstr "¬—ß‰¡Ë‰¥ÈÕË“π"
+msgstr "‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡∏≠‡πà‡∏≤‡∏ô"
 
 #: templates/mailbox/navbar.inc:14 templates/mailbox/navbar.inc:31
 msgid "Unseen"
-msgstr "¬—ß‰¡Ë‰¥È‡ª‘¥"
+msgstr "‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏õ‡∏¥‡∏î"
 
 #: templates/folders/actions.inc:32
 msgid "Unseen Messages"
-msgstr "¢ÈÕ§«“¡∑’Ë¬—ß‰¡Ë‰¥È‡ª‘¥"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏õ‡∏¥‡∏î"
 
 #: templates/folders/actions.inc:10
 msgid "Unsubscribe from Folder(s)"
-msgstr "‡≈‘°„™È‚ø≈‡¥Õ√Ï"
+msgstr "‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/prefs/sourceselect.inc:288
 msgid "Use Ctrl/Option+Click to select multiple fields"
-msgstr "„ÀÈ°¥ªÿË¡ Ctrl æ√ÈÕ¡°—∫§≈‘°µ—«‡≈◊Õ° ‡æ◊ËÕ‡≈◊Õ°À≈“¬‡¢µ¢ÈÕ§«“¡æ√ÈÕ¡Ê °—π"
+msgstr "‡πÉ‡∏´‡πâ‡∏Å‡∏î‡∏õ‡∏∏‡πà‡∏° Ctrl ‡∏û‡∏£‡πâ‡∏≠‡∏°‡∏Å‡∏±‡∏ö‡∏Ñ‡∏•‡∏¥‡∏Å‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å ‡πÄ‡∏û‡∏∑‡πà‡∏≠‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏´‡∏•‡∏≤‡∏¢‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏û‡∏£‡πâ‡∏≠‡∏°‡πÜ ‡∏Å‡∏±‡∏ô"
 
 #: templates/identities/manage.inc:94
 msgid "Use Default Value"
-msgstr "„™È§Ë“‚¥¬ª√‘¬“¬"
+msgstr "‡πÉ‡∏ä‡πâ‡∏Ñ‡πà‡∏≤‡πÇ‡∏î‡∏¢‡∏õ‡∏£‡∏¥‡∏¢‡∏≤‡∏¢"
 
 #: config/prefs.php.dist:263
 msgid "Use IMAP folder subscriptions"
-msgstr "„™È°“√‡√’¬°„™È‚ø≈‡¥Õ√Ï¢Õß‰Õ·¡æ"
+msgstr "‡πÉ‡∏ä‡πâ‡∏Å‡∏≤‡∏£‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏Ç‡∏≠‡∏á‡πÑ‡∏≠‡πÅ‡∏°‡∏û"
 
 #: prefs.php:286
 msgid "User Options"
-msgstr "µ—«‡≈◊Õ°‡°’Ë¬«°—∫ºŸÈ„™È"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏Å‡∏µ‡πà‡∏¢‡∏ß‡∏Å‡∏±‡∏ö‡∏ú‡∏π‡πâ‡πÉ‡∏ä‡πâ"
 
 #: templates/login/login.inc:69
 msgid "Username"
-msgstr "™◊ËÕºŸÈ„™È"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡πÉ‡∏ä‡πâ"
 
 #: lib/IMP.php:936 lib/MIME/Viewer/enriched.php:177
 #: lib/MIME/Viewer/text.php:97
 #, c-format
 msgid "View %s"
-msgstr "· ¥ß %s"
+msgstr "‡πÅ‡∏™‡∏î‡∏á %s"
 
 #: folders.php:342
 msgid "View messages in "
-msgstr "· ¥ß¢ÈÕ§«“¡„π"
+msgstr "‡πÅ‡∏™‡∏î‡∏á‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÉ‡∏ô"
 
 #: templates/prefs/initialpageselect.inc:20
 msgid "View or mailbox to display after login:"
-msgstr "¡ÿ¡¡ÕßÀ√◊ÕµŸÈ‰ª√…≥’¬Ï∑’ËµÈÕß°“√„ÀÈ· ¥ßÀ≈—ß®“°≈ß™◊ËÕ‡¢È“:"
+msgstr "‡∏°‡∏∏‡∏°‡∏°‡∏≠‡∏á‡∏´‡∏£‡∏∑‡∏≠‡∏ï‡∏π‡πâ‡πÑ‡∏õ‡∏£‡∏©‡∏ì‡∏µ‡∏¢‡πå‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡πÅ‡∏™‡∏î‡∏á‡∏´‡∏•‡∏±‡∏á‡∏à‡∏≤‡∏Å‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤:"
 
 #: status.php:43
 msgid "Warning"
-msgstr "§”‡µ◊Õπ"
+msgstr "‡∏Ñ‡∏≥‡πÄ‡∏ï‡∏∑‡∏≠‡∏ô"
 
 #: login.php:157 templates/login/login.inc:63
 #, c-format
 msgid "Welcome to %s"
-msgstr "¬‘π¥’µÈÕπ√—∫ ŸË %s"
+msgstr "‡∏¢‡∏¥‡∏ô‡∏î‡∏µ‡∏ï‡πâ‡∏≠‡∏ô‡∏£‡∏±‡∏ö‡∏™‡∏π‡πà %s"
 
 #: config/prefs.php.dist:387
 msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted."
 msgstr ""
-"‡¡◊ËÕµÈÕß°“√≈∫¢ÈÕ§«“¡ „ÀÈ¬È“¬¢ÈÕ§«“¡π—ÈπÊ ‰ª¬—ß‚ø≈‡¥Õ√Ï∂—ß¢¬– ·∑π°“√°”Àπ¥„ÀÈ‡ªÁπ¢ÈÕ§«“¡∑’Ë∂Ÿ°≈∫"
+"‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° ‡πÉ‡∏´‡πâ‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ô‡∏±‡πâ‡∏ô‡πÜ ‡πÑ‡∏õ‡∏¢‡∏±‡∏á‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡∏ñ‡∏±‡∏á‡∏Ç‡∏¢‡∏∞ ‡πÅ‡∏ó‡∏ô‡∏Å‡∏≤‡∏£‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÉ‡∏´‡πâ‡πÄ‡∏õ‡πá‡∏ô‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡∏ó‡∏µ‡πà‡∏ñ‡∏π‡∏Å‡∏•‡∏ö"
 
 #: config/prefs.php.dist:611
 msgid "Wrap text at this many characters."
-msgstr "®”π«πµ—«Õ—°…√∑’ËµÈÕß°“√„ÀÈ· ¥ßº≈„πÀπ÷Ëß∫√√∑—¥"
+msgstr "‡∏à‡∏≥‡∏ô‡∏ß‡∏ô‡∏ï‡∏±‡∏ß‡∏≠‡∏±‡∏Å‡∏©‡∏£‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡πÉ‡∏´‡πâ‡πÅ‡∏™‡∏î‡∏á‡∏ú‡∏•‡πÉ‡∏ô‡∏´‡∏ô‡∏∂‡πà‡∏á‡∏ö‡∏£‡∏£‡∏ó‡∏±‡∏î"
 
 #: config/prefs.php.dist:551
 msgid "Yes"
-msgstr "„™Ë"
+msgstr "‡πÉ‡∏ä‡πà"
 
 #: login.php:21
 msgid "You have been logged out.<br />Thank you for using the system."
-msgstr "§ÿ≥‰¥È≈ß™◊ËÕÕÕ°‡√’¬∫√ÈÕ¬·≈È« <br />¢Õ∫§ÿ≥∑’Ë„™È∫√‘°“√"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏î‡πâ‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡∏≠‡∏≠‡∏Å‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß <br />‡∏Ç‡∏≠‡∏ö‡∏Ñ‡∏∏‡∏ì‡∏ó‡∏µ‡πà‡πÉ‡∏ä‡πâ‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£"
 
 #: compose.php:721
 msgid "You must have at least one recipient."
-msgstr "µÈÕß°”Àπ¥„ÀÈ¡’™◊ËÕºŸÈ√—∫Õ¬Ë“ßπÈÕ¬Àπ÷Ëß™◊ËÕ"
+msgstr "‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡πÉ‡∏´‡πâ‡∏°‡∏µ‡∏ä‡∏∑‡πà‡∏≠‡∏ú‡∏π‡πâ‡∏£‡∏±‡∏ö‡∏≠‡∏¢‡πà‡∏≤‡∏á‡∏ô‡πâ‡∏≠‡∏¢‡∏´‡∏ô‡∏∂‡πà‡∏á‡∏ä‡∏∑‡πà‡∏≠"
 
 #: identities.php:123
 msgid "You must select an identity to be deleted."
-msgstr "§ÿ≥µÈÕß‡≈◊Õ°‡Õ°≈—°…≥Ï∑’ËµÈÕß°“√®–≈∫‡ ’¬°ËÕπ"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡∏ï‡πâ‡∏≠‡∏á‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£‡∏à‡∏∞‡∏•‡∏ö‡πÄ‡∏™‡∏µ‡∏¢‡∏Å‡πà‡∏≠‡∏ô"
 
 #: lib/Folder.php:395
 #, c-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "§ÿ≥¬—ß‰¡Ë‰¥È‡√’¬°„™È \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Folder.php:429
 #, c-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "§ÿ≥¬—ß‰¡Ë‰¥È‡≈‘°„™È \"%s\" ‡§√◊ËÕß∫√‘°“√√“¬ß“π«Ë“"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡∏¢‡∏±‡∏á‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ \"%s\" ‡πÄ‡∏Ñ‡∏£‡∏∑‡πà‡∏≠‡∏á‡∏ö‡∏£‡∏¥‡∏Å‡∏≤‡∏£‡∏£‡∏≤‡∏¢‡∏á‡∏≤‡∏ô‡∏ß‡πà‡∏≤"
 
 #: lib/Folder.php:399
 #, c-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "§ÿ≥‰¥È‡√’¬°„™È \"%s\" ‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏î‡πâ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ \"%s\" ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: lib/Folder.php:433
 #, c-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "§ÿ≥‰¥È‡≈‘°„™È \"%s\" ‡√’¬∫√ÈÕ¬·≈È«"
+msgstr "‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏î‡πâ‡πÄ‡∏•‡∏¥‡∏Å‡πÉ‡∏ä‡πâ \"%s\" ‡πÄ‡∏£‡∏µ‡∏¢‡∏ö‡∏£‡πâ‡∏≠‡∏¢‡πÅ‡∏•‡πâ‡∏ß"
 
 #: login.php:20
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "™Ë«ß‡«≈“ ◊ËÕ “√ %s ¢Õß§ÿ≥‰¥ÈÀ¡¥‡«≈“≈ß·≈È« °√ÿ≥“≈ß™◊ËÕ‡¢È“„À¡Ë"
+msgstr "‡∏ä‡πà‡∏ß‡∏á‡πÄ‡∏ß‡∏•‡∏≤‡∏™‡∏∑‡πà‡∏≠‡∏™‡∏≤‡∏£ %s ‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏î‡πâ‡∏´‡∏°‡∏î‡πÄ‡∏ß‡∏•‡∏≤‡∏•‡∏á‡πÅ‡∏•‡πâ‡∏ß ‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡∏•‡∏á‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡πâ‡∏≤‡πÉ‡∏´‡∏°‡πà"
 
 #: templates/identities/manage.inc:59
 msgid "Your From: address:"
-msgstr "∑’ËÕ¬ŸË ºŸÈ Ëß: ¢Õß§ÿ≥:"
+msgstr "‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà ‡∏ú‡∏π‡πâ‡∏™‡πà‡∏á: ‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì:"
 
 #: config/prefs.php.dist:23 config/prefs.php.dist:30 config/prefs.php.dist:37
 #: config/prefs.php.dist:44
 msgid "Your Information"
-msgstr "¢ÈÕ¡Ÿ≈¢Õß§ÿ≥"
+msgstr "‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/identities/manage.inc:64
 msgid "Your Reply-to: address: <i>(optional)</i>"
-msgstr "∑’ËÕ¬ŸË ∑’Ëµ‘¥µËÕ°≈—∫: ¢Õß§ÿ≥: <i>(∂È“µÈÕß°“√)</i>"
+msgstr "‡∏ó‡∏µ‡πà‡∏≠‡∏¢‡∏π‡πà ‡∏ó‡∏µ‡πà‡∏ï‡∏¥‡∏î‡∏ï‡πà‡∏≠‡∏Å‡∏•‡∏±‡∏ö: ‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì: <i>(‡∏ñ‡πâ‡∏≤‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£)</i>"
 
 #: config/prefs.php.dist:295
 msgid "Your current time zone:"
-msgstr "‡¢µ‡«≈“¢Õß§ÿ≥"
+msgstr "‡πÄ‡∏Ç‡∏ï‡πÄ‡∏ß‡∏•‡∏≤‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/prefs/identityselect.inc:14
 msgid "Your default identity:"
-msgstr "‡Õ°≈—°…≥Ï‚¥¬ª√‘¬“¬¢Õß§ÿ≥"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡πÇ‡∏î‡∏¢‡∏õ‡∏£‡∏¥‡∏¢‡∏≤‡∏¢‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/identities/manage.inc:54
 msgid "Your full name:"
-msgstr "™◊ËÕ‡µÁ¡¢Õß§ÿ≥"
+msgstr "‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏ï‡πá‡∏°‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì"
 
 #: templates/identities/manage.inc:10
 msgid "Your identities:"
-msgstr "‡Õ°≈—°…≥Ï¢Õß§ÿ≥:"
+msgstr "‡πÄ‡∏≠‡∏Å‡∏•‡∏±‡∏Å‡∏©‡∏ì‡πå‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì:"
 
 #: prefs.php:254
 msgid "Your options have been updated."
-msgstr "µ—«‡≈◊Õ°¢Õß§ÿ≥‰¥È√—∫°“√ª√—∫ª√ÿß·≈È«"
+msgstr "‡∏ï‡∏±‡∏ß‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì‡πÑ‡∏î‡πâ‡∏£‡∏±‡∏ö‡∏Å‡∏≤‡∏£‡∏õ‡∏£‡∏±‡∏ö‡∏õ‡∏£‡∏∏‡∏á‡πÅ‡∏•‡πâ‡∏ß"
 
 #: templates/identities/manage.inc:69
 msgid "Your signature:"
-msgstr "≈“¬‡´Áπ¢Õß§ÿ≥:"
+msgstr "‡∏•‡∏≤‡∏¢‡πÄ‡∏ã‡πá‡∏ô‡∏Ç‡∏≠‡∏á‡∏Ñ‡∏∏‡∏ì:"
 
 #: mailbox.php:330 mailbox.php:332 mailbox.php:343 message.php:450
 msgid "[No Subject]"
-msgstr "[‰¡Ë¡’™◊ËÕ‡√◊ËÕß]"
+msgstr "[‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏ä‡∏∑‡πà‡∏≠‡πÄ‡∏£‡∏∑‡πà‡∏≠‡∏á]"
 
 #: templates/prefs/sourceselect.inc:269
 msgid "add source"
-msgstr "‡æ‘Ë¡·À≈Ëß"
+msgstr "‡πÄ‡∏û‡∏¥‡πà‡∏°‡πÅ‡∏´‡∏•‡πà‡∏á"
 
 #: filters.php:118
 msgid "cannot move past the beginning"
-msgstr "‰¡Ë “¡“√∂‡§≈◊ËÕπ¬È“¬ºË“π®ÿ¥‡√‘Ë¡µÈπ"
+msgstr "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏Ñ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏¢‡πâ‡∏≤‡∏¢‡∏ú‡πà‡∏≤‡∏ô‡∏à‡∏∏‡∏î‡πÄ‡∏£‡∏¥‡πà‡∏°‡∏ï‡πâ‡∏ô"
 
 #: filters.php:101
 msgid "cannot move past the end"
-msgstr "‰¡Ë “¡“√∂‡§≈◊ËÕπ¬È“¬ºË“π®ÿ¥ ‘Èπ ÿ¥"
+msgstr "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÄ‡∏Ñ‡∏•‡∏∑‡πà‡∏≠‡∏ô‡∏¢‡πâ‡∏≤‡∏¢‡∏ú‡πà‡∏≤‡∏ô‡∏à‡∏∏‡∏î‡∏™‡∏¥‡πâ‡∏ô‡∏™‡∏∏‡∏î"
 
 #: templates/filters/manage.inc:56
 msgid "delete message"
-msgstr "≈∫¢ÈÕ§«“¡"
+msgstr "‡∏•‡∏ö‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°"
 
 #: templates/contacts/contacts.inc:21
 msgid "from"
-msgstr "®“°"
+msgstr "‡∏à‡∏≤‡∏Å"
 
 #: templates/prefs/sourceselect.inc:282
 msgid "move down"
-msgstr "¬È“¬≈ß"
+msgstr "‡∏¢‡πâ‡∏≤‡∏¢‡∏•‡∏á"
 
 #: templates/filters/manage.inc:58
 msgid "move message to"
-msgstr "¬È“¬¢ÈÕ§«“¡‰ª"
+msgstr "‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏õ"
 
 #: templates/prefs/sourceselect.inc:280
 msgid "move up"
-msgstr "¬È“¬¢÷Èπ"
+msgstr "‡∏¢‡πâ‡∏≤‡∏¢‡∏Ç‡∏∂‡πâ‡∏ô"
 
 #: filters.php:43 filters.php:66
 msgid "no folder selected"
-msgstr "‰¡Ë‰¥È‡≈◊Õ°‚ø≈‡¥Õ√Ï‰«È"
+msgstr "‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå‡πÑ‡∏ß‡πâ"
 
 #: filters.php:77 filters.php:88 filters.php:105 filters.php:122
 msgid "no rule selected"
-msgstr "‰¡Ë¡’°Ø„¥∂Ÿ°‡≈◊Õ°‰«È"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ‡∏Å‡∏è‡πÉ‡∏î‡∏ñ‡∏π‡∏Å‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÑ‡∏ß‡πâ"
 
 #: filters.php:73
 msgid "no text specified"
-msgstr "‰¡Ë‰¥È√–∫ÿ¢ÈÕ§«“¡‰«È"
+msgstr "‡πÑ‡∏°‡πà‡πÑ‡∏î‡πâ‡∏£‡∏∞‡∏ö‡∏∏‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°‡πÑ‡∏ß‡πâ"
 
 #: templates/compose/spelling.inc:64 templates/filters/list.inc:25
 msgid "none"
-msgstr "‰¡Ë¡’"
+msgstr "‡πÑ‡∏°‡πà‡∏°‡∏µ"
 
 #: filters.php:149 templates/compose/spelling.inc:94
 msgid "or"
-msgstr "À√◊Õ"
+msgstr "‡∏´‡∏£‡∏∑‡∏≠"
 
 #: filters.php:51
 msgid "please fill in the text and choose a field and an action"
-msgstr "°√ÿ≥“‡µ‘¡¢ÈÕ§«“¡,‡≈◊Õ°‡¢µ¢ÈÕ¡Ÿ≈·≈–‡≈◊Õ°°“√°√–∑”"
+msgstr "‡∏Å‡∏£‡∏∏‡∏ì‡∏≤‡πÄ‡∏ï‡∏¥‡∏°‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏°,‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡πÅ‡∏•‡∏∞‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡∏Å‡∏≤‡∏£‡∏Å‡∏£‡∏∞‡∏ó‡∏≥"
 
 #: templates/prefs/sourceselect.inc:271
 msgid "remove source"
-msgstr "π”·À≈Ëß¢ÈÕ¡Ÿ≈ÕÕ°"
+msgstr "‡∏ô‡∏≥‡πÅ‡∏´‡∏•‡πà‡∏á‡∏Ç‡πâ‡∏≠‡∏°‡∏π‡∏•‡∏≠‡∏≠‡∏Å"
 
 #: filters.php:156
 msgid "select folder"
-msgstr "‡≈◊Õ°‚ø≈‡¥Õ√Ï"
+msgstr "‡πÄ‡∏•‡∏∑‡∏≠‡∏Å‡πÇ‡∏ü‡∏•‡πÄ‡∏î‡∏≠‡∏£‡πå"
 
 #: templates/compose/spelling.inc:26
 msgid "spelling error"
-msgstr " –°¥§”º‘¥"
+msgstr "‡∏™‡∏∞‡∏Å‡∏î‡∏Ñ‡∏≥‡∏ú‡∏¥‡∏î"
 
 #: templates/compose/spelling.inc:26
 msgid "spelling errors"
-msgstr " –°¥§”º‘¥"
+msgstr "‡∏™‡∏∞‡∏Å‡∏î‡∏Ñ‡∏≥‡∏ú‡∏¥‡∏î"
 
 #: templates/filters/list.inc:42
 #, c-format
 msgid "where the %s field contains <b>%s</b>"
-msgstr "‡¡◊ËÕ‡¢µ¢ÈÕ§«“¡ %s ¡’§”«Ë“ <b>%s</b>"
+msgstr "‡πÄ‡∏°‡∏∑‡πà‡∏≠‡πÄ‡∏Ç‡∏ï‡∏Ç‡πâ‡∏≠‡∏Ñ‡∏ß‡∏≤‡∏° %s ‡∏°‡∏µ‡∏Ñ‡∏≥‡∏ß‡πà‡∏≤ <b>%s</b>"

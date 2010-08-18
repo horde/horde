@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jordi Giralt <projecte.k2@upcnet.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -26,7 +26,7 @@ msgstr "o"
 
 #: templates/blacklist/blacklist.inc:17
 msgid "Action for blacklisted addresses:"
-msgstr "Acció per a adreces de la llista negra:"
+msgstr "AcciÃ³ per a adreces de la llista negra:"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
@@ -35,7 +35,7 @@ msgstr "Activar Script"
 #: lib/Driver/ldap.php:232
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "Ha fallat l'activació de l'script per a \"%s\": (%d) %s"
+msgstr "Ha fallat l'activaciÃ³ de l'script per a \"%s\": (%d) %s"
 
 #: templates/filters/settings.inc:6
 msgid "Additional Settings"
@@ -67,7 +67,7 @@ msgstr "Esteu segur que voleu eliminar aquesta regla?"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Actualitzar automàticament l'script després de cada canvi?"
+msgstr "Actualitzar automÃ ticament l'script desprÃ©s de cada canvi?"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
@@ -75,12 +75,12 @@ msgstr "Bcc"
 
 #: lib/Storage.php:379
 msgid "Begins with"
-msgstr "Comença per"
+msgstr "ComenÃ§a per"
 
 #: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "Ha fallat la vinculació: (%s) %s"
+msgstr "Ha fallat la vinculaciÃ³: (%s) %s"
 
 #: filters.php:149 templates/blacklist/blacklist.inc:7
 #: lib/Block/overview.php:87 lib/Block/overview.php:90
@@ -106,7 +106,7 @@ msgstr "Cos"
 
 #: filters.php:187 rule.php:281
 msgid "Case Sensitive"
-msgstr "Distingeix majúscules i minúscules"
+msgstr "Distingeix majÃºscules i minÃºscules"
 
 #: config/fields.php.dist:43
 msgid "Cc"
@@ -119,11 +119,11 @@ msgstr "S'han desat els canvis."
 
 #: lib/Driver/ldap.php:75
 msgid "Connection failure"
-msgstr "Error de connexió"
+msgstr "Error de connexiÃ³"
 
 #: lib/Storage.php:375
 msgid "Contains"
-msgstr "Conté"
+msgstr "ContÃ©"
 
 #: filters.php:230 filters.php:231
 #, php-format
@@ -133,7 +133,7 @@ msgstr "Copiar %s"
 #: lib/Storage.php:875
 #, php-format
 msgid "Copy of %s"
-msgstr "Còpia de %s"
+msgstr "CÃ²pia de %s"
 
 #: lib/Ingo.php:62
 msgid "Create new folder"
@@ -154,7 +154,7 @@ msgstr "Elimina %s"
 
 #: templates/rule/filter.inc:30
 msgid "Delete Condition"
-msgstr "Elimina la condició"
+msgstr "Elimina la condiciÃ³"
 
 #: lib/Storage.php:323
 msgid "Delete message completely"
@@ -166,15 +166,15 @@ msgstr "Eliminat"
 
 #: lib/Storage.php:311
 msgid "Deliver into my Inbox"
-msgstr "Entregar en la meva bústia d'entrada"
+msgstr "Entregar en la meva bÃºstia d'entrada"
 
 #: lib/Storage.php:337
 msgid "Deliver into my Inbox and copy to"
-msgstr "Entregar en la meva bústia d'entrada i copiar a"
+msgstr "Entregar en la meva bÃºstia d'entrada i copiar a"
 
 #: lib/Storage.php:332
 msgid "Deliver into my Inbox and redirect to"
-msgstr "Entregar en la meva bústia d'entrada i reenviar a"
+msgstr "Entregar en la meva bÃºstia d'entrada i reenviar a"
 
 #: lib/Storage.php:317
 msgid "Deliver to folder"
@@ -202,15 +202,15 @@ msgstr ""
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
-msgstr "Fer això:"
+msgstr "Fer aixÃ²:"
 
 #: lib/Storage.php:380
 msgid "Doesn't begin with"
-msgstr "No comença per"
+msgstr "No comenÃ§a per"
 
 #: lib/Storage.php:376
 msgid "Doesn't contain"
-msgstr "No conté"
+msgstr "No contÃ©"
 
 #: lib/Storage.php:382
 msgid "Doesn't end with"
@@ -281,11 +281,11 @@ msgstr "Filtrar tots els missatges"
 
 #: templates/filters/settings.inc:22
 msgid "Filter Only Seen Messages"
-msgstr "Filtrar només missatges llegits"
+msgstr "Filtrar nomÃ©s missatges llegits"
 
 #: templates/filters/settings.inc:21
 msgid "Filter Only Unseen Messages"
-msgstr "Filtrar només missatges no llegits"
+msgstr "Filtrar nomÃ©s missatges no llegits"
 
 #: templates/filters/settings.inc:18
 msgid "Filter Options"
@@ -392,11 +392,11 @@ msgstr "De:"
 
 #: lib/Storage.php:390
 msgid "Greater than"
-msgstr "Més gran que"
+msgstr "MÃ©s gran que"
 
 #: lib/Storage.php:391
 msgid "Greater than or equal to"
-msgstr "Més gran o igual que"
+msgstr "MÃ©s gran o igual que"
 
 #: templates/rule/footer.inc:31
 msgid "Important"
@@ -408,30 +408,30 @@ msgstr "L'actual controlador de filtratge no suporta regles individuals."
 
 #: lib/Script/sieve.php:1860
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "No existeix la bústia especificada per a l'entrega de correu."
+msgstr "No existeix la bÃºstia especificada per a l'entrega de correu."
 
 #: lib/Storage.php:377
 msgid "Is"
-msgstr "És"
+msgstr "Ã‰s"
 
 #: lib/Storage.php:378
 msgid "Isn't"
-msgstr "No és"
+msgstr "No Ã©s"
 
 #: lib/Driver/ldap.php:23
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
-"Es requereix el suport LDAP i no es disposa del mòdul LDAP o no ha estat "
+"Es requereix el suport LDAP i no es disposa del mÃ²dul LDAP o no ha estat "
 "carregat."
 
 #: lib/Storage.php:388
 msgid "Less than"
-msgstr "Més petit que"
+msgstr "MÃ©s petit que"
 
 #: lib/Storage.php:389
 msgid "Less than or equal to"
-msgstr "Més petit o igual que"
+msgstr "MÃ©s petit o igual que"
 
 #: config/fields.php.dist:59
 msgid "List-ID"
@@ -451,7 +451,7 @@ msgstr "Coincideix (amb comodins)"
 
 #: lib/api.php:57
 msgid "Maximum Number of Rules"
-msgstr "Nombre màxim de regles"
+msgstr "Nombre mÃ xim de regles"
 
 #: lib/Storage.php:513
 #, php-format
@@ -459,8 +459,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"S'ha superat el nombre màxim d'adreces de la llista negra (Adreces totals: %"
-"s, Màxim d'adreces: %s). No es poden afegir més adreces a la llista negra."
+"S'ha superat el nombre mÃ xim d'adreces de la llista negra (Adreces totals: %"
+"s, MÃ xim d'adreces: %s). No es poden afegir mÃ©s adreces a la llista negra."
 
 #: lib/Storage.php:566
 #, php-format
@@ -468,16 +468,16 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"S'ha superat el nombre màxim d'adreces de la llista blanca (Adreces totals: %"
-"s, Màxim d'adreces: %s). No es poden afegir més adreces a la llista blanca."
+"S'ha superat el nombre mÃ xim d'adreces de la llista blanca (Adreces totals: %"
+"s, MÃ xim d'adreces: %s). No es poden afegir mÃ©s adreces a la llista blanca."
 
 #: lib/Script/sieve.php:2070
 msgid "Missing address to notify"
-msgstr "Falta l'adreça on enviar la notificació"
+msgstr "Falta l'adreÃ§a on enviar la notificaciÃ³"
 
 #: lib/Script/sieve.php:1728
 msgid "Missing address to redirect message to"
-msgstr "Falta l'adreça on reenviar el missatge"
+msgstr "Falta l'adreÃ§a on reenviar el missatge"
 
 #: lib/Script/sieve.php:1760
 msgid "Missing reason for reject"
@@ -485,7 +485,7 @@ msgstr "Falta el motiu del rebuig"
 
 #: lib/Script/sieve.php:1927
 msgid "Missing reason in vacation."
-msgstr "Falta el motiu de l'absència."
+msgstr "Falta el motiu de l'absÃ¨ncia."
 
 #: templates/filters/header.inc:29
 msgid "Move"
@@ -501,7 +501,7 @@ msgstr "Moure la regla cap amunt"
 
 #: templates/vacation/vacation.inc:42
 msgid "N_umber of days between vacation replies:"
-msgstr "Nombre de _dies entre respostes per absència:"
+msgstr "Nombre de _dies entre respostes per absÃ¨ncia:"
 
 #: templates/filters/footer.inc:5 templates/filters/filter-none.inc:3
 #: lib/Storage.php:771
@@ -511,7 +511,7 @@ msgstr "Nova regla"
 #: lib/Ingo.php:235 lib/Ingo.php:237
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
-msgstr "No s'ha trobat cap element \"%s\" en la configuració del motor."
+msgstr "No s'ha trobat cap element \"%s\" en la configuraciÃ³ del motor."
 
 #: lib/Ingo.php:233
 msgid "No backend configured for this host"
@@ -529,7 +529,7 @@ msgstr "No hi ha filtres. Feu clic a \"%s\" per crear-ne un."
 #: lib/Script/sieve.php:1332 lib/Script/sieve.php:1425
 #: lib/Script/sieve.php:1599
 msgid "No headers specified"
-msgstr "No s'ha especificat cap capçalera"
+msgstr "No s'ha especificat cap capÃ§alera"
 
 #: script.php:67
 msgid "No script generated."
@@ -545,15 +545,15 @@ msgstr "Diferent de"
 
 #: lib/Storage.php:353
 msgid "Notify email address"
-msgstr "Adreça de correu per a avisos"
+msgstr "AdreÃ§a de correu per a avisos"
 
 #: lib/Storage.php:347
 msgid "Only flag the message"
-msgstr "Només marcar el missatge"
+msgstr "NomÃ©s marcar el missatge"
 
 #: config/prefs.php.dist:19
 msgid "Options about script updating."
-msgstr "Opcions d'actualització d'scripts."
+msgstr "Opcions d'actualitzaciÃ³ d'scripts."
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
@@ -561,11 +561,11 @@ msgstr "Altres opcions"
 
 #: lib/Block/overview.php:3
 msgid "Overview"
-msgstr "Introducció"
+msgstr "IntroducciÃ³"
 
 #: templates/javascript/new_folder.js:6
 msgid "Please enter the name of the new folder:"
-msgstr "Introduïu el nom de la nova carpeta:"
+msgstr "IntroduÃ¯u el nom de la nova carpeta:"
 
 #: templates/vacation/vacation.inc:60
 msgid "R_eason"
@@ -581,7 +581,7 @@ msgstr "Redirigir cap a"
 
 #: lib/Storage.php:385
 msgid "Regular expression"
-msgstr "Expressió regular"
+msgstr "ExpressiÃ³ regular"
 
 #: lib/Storage.php:343
 msgid "Reject with reason"
@@ -647,14 +647,14 @@ msgstr "Desar"
 msgid "Save Settings"
 msgstr "Desa les opcions"
 
-# ¿Dónde está?
+# Â¿DÃ³nde estÃ¡?
 #: templates/script/header.inc:2
 msgid "Script"
 msgstr "script"
 
 #: config/prefs.php.dist:18
 msgid "Script Updating"
-msgstr "Actualització de l'script"
+msgstr "ActualitzaciÃ³ de l'script"
 
 #: lib/Ingo.php:186
 msgid "Script not updated."
@@ -662,11 +662,11 @@ msgstr "Script no actualitzat."
 
 #: lib/Ingo.php:141
 msgid "Script successfully activated."
-msgstr "Script activat amb èxit."
+msgstr "Script activat amb Ã¨xit."
 
 #: lib/Ingo.php:140
 msgid "Script successfully deactivated."
-msgstr "Script desactivat amb èxit."
+msgstr "Script desactivat amb Ã¨xit."
 
 #: templates/rule/footer.inc:29
 msgid "Seen"
@@ -678,11 +678,11 @@ msgstr "Seleccioneu un camp"
 
 #: lib/Ingo.php:59
 msgid "Select target folder"
-msgstr "Seleccioneu la carpeta destí"
+msgstr "Seleccioneu la carpeta destÃ­"
 
 #: rule.php:227
 msgid "Self-Defined Header"
-msgstr "Capçalera auto-definida"
+msgstr "CapÃ§alera auto-definida"
 
 #: config/fields.php.dist:35
 msgid "Sender"
@@ -690,7 +690,7 @@ msgstr "Remitent"
 
 #: filters.php:98
 msgid "Settings successfully updated."
-msgstr "Opcions actualitzades amb èxit."
+msgstr "Opcions actualitzades amb Ã¨xit."
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
@@ -702,15 +702,15 @@ msgstr "Mostrar script actual"
 
 #: config/fields.php.dist:83
 msgid "Size"
-msgstr "Grandària"
+msgstr "GrandÃ ria"
 
 #: templates/rule/footer.inc:49
 msgid "Stop checking if this rule matches?"
-msgstr "Aturar la comprovació si aquesta regla coincideix?"
+msgstr "Aturar la comprovaciÃ³ si aquesta regla coincideix?"
 
 #: templates/vacation/vacation.inc:51
 msgid "Subje_ct of vacation message:"
-msgstr "_Assumpte del missatge d'absència:"
+msgstr "_Assumpte del missatge d'absÃ¨ncia:"
 
 #: config/fields.php.dist:31
 msgid "Subject"
@@ -723,12 +723,12 @@ msgstr "Assumpte:"
 #: lib/api.php:85
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
-msgstr "L'adreça \"%s\" ha estat afegida a la llista negra."
+msgstr "L'adreÃ§a \"%s\" ha estat afegida a la llista negra."
 
 #: lib/api.php:104
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
-msgstr "L'adreça \"%s\" ha estat afegida a la llista blanca."
+msgstr "L'adreÃ§a \"%s\" ha estat afegida a la llista blanca."
 
 #: lib/Ingo.php:136
 msgid "The driver said: "
@@ -736,11 +736,11 @@ msgstr "El controlador ha dit: "
 
 #: lib/Ingo.php:135
 msgid "There was an error activating the script."
-msgstr "S'ha produït un error en activar l'script."
+msgstr "S'ha produÃ¯t un error en activar l'script."
 
 #: lib/Ingo.php:134
 msgid "There was an error deactivating the script."
-msgstr "S'ha produït un error en desactivar l'script."
+msgstr "S'ha produÃ¯t un error en desactivar l'script."
 
 #: config/fields.php.dist:27
 msgid "To"
@@ -753,21 +753,21 @@ msgstr "Per a:"
 #: lib/Script.php:127
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "No és possible carregar la definició de %s."
+msgstr "No Ã©s possible carregar la definiciÃ³ de %s."
 
 #: filters.php:161 templates/vacation/vacation.inc:5 lib/Block/overview.php:60
 #: lib/Block/overview.php:62 lib/Script/procmail.php:262
 #: lib/Script/sieve.php:352
 msgid "Vacation"
-msgstr "Absència"
+msgstr "AbsÃ¨ncia"
 
 #: vacation.php:71
 msgid "Vacation Edit"
-msgstr "Editar el missatge d'absència"
+msgstr "Editar el missatge d'absÃ¨ncia"
 
 #: vacation.php:16
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "L'actual controlador de filtratge no suporta notificacions d'absència."
+msgstr "L'actual controlador de filtratge no suporta notificacions d'absÃ¨ncia."
 
 #: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
@@ -810,7 +810,7 @@ msgstr "X-Spam-Status"
 #: filters.php:56 rule.php:144
 #, php-format
 msgid "You are not allowed to create more than %d rules."
-msgstr "No disposeu de privilegis per crear més de %d regles."
+msgstr "No disposeu de privilegis per crear mÃ©s de %d regles."
 
 #: filters.php:48 rule.php:21
 msgid "You are not allowed to create or edit custom rules."
@@ -826,8 +826,8 @@ msgid ""
 "You must specify at least one email address for which the vacation messages "
 "should be activated."
 msgstr ""
-"Heu d'especificar com a mínim una adreça de correu per a la qual activar els "
-"missatges d'absència."
+"Heu d'especificar com a mÃ­nim una adreÃ§a de correu per a la qual activar els "
+"missatges d'absÃ¨ncia."
 
 #: lib/Script/imap.php:274 lib/Script/imap.php:297 lib/Script/imap.php:311
 msgid "[No Subject]"
@@ -851,7 +851,7 @@ msgstr "_Eliminar completament el missatge"
 
 #: templates/blacklist/blacklist.inc:31
 msgid "_Enter each address on a new line:"
-msgstr "_Intruduïu cada adreça en una línia diferent:"
+msgstr "_IntruduÃ¯u cada adreÃ§a en una lÃ­nia diferent:"
 
 #: lib/Ingo.php:333
 msgid "_Forward"
@@ -859,7 +859,7 @@ msgstr "_Reenviar"
 
 #: templates/forward/forward.inc:17
 msgid "_Keep a copy of messages in this account?"
-msgstr "Guardar una _còpia dels missatges en aquest compte?"
+msgstr "Guardar una _cÃ²pia dels missatges en aquest compte?"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "_Move message to folder:"
@@ -869,14 +869,14 @@ msgstr "_Moure el missatge a la carpeta:"
 msgid "_My email addresses:"
 msgstr "_Les meves adreces de correu:"
 
-# ¿Dónde está?
+# Â¿DÃ³nde estÃ¡?
 #: lib/Ingo.php:336
 msgid "_Script"
 msgstr "_Script"
 
 #: lib/Ingo.php:330
 msgid "_Vacation"
-msgstr "A_bsència"
+msgstr "A_bsÃ¨ncia"
 
 #: lib/Ingo.php:324
 msgid "_Whitelist"

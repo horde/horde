@@ -1,5 +1,5 @@
 # Turkish translations for Trean package
-# Yer İmleri paketi için Türkçe çeviriler.
+# Yer Ä°mleri paketi iÃ§in TÃ¼rkÃ§e Ã§eviriler.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the Trean package.
 # horde-tr at metu.edu.tr, 2008.
@@ -10,28 +10,28 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-04-15 12:57+0300\n"
 "PO-Revision-Date: 2008-04-15 12:57+0300\n"
-"Last-Translator: Onur Koşar\n"
+"Last-Translator: Onur KoÅŸar\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: edit.php:237
 #, php-format
 msgid "\"%s\" was not renamed: %s."
-msgstr "\"%s\" tekrar adlandırılamadı: %s."
+msgstr "\"%s\" tekrar adlandÄ±rÄ±lamadÄ±: %s."
 
 #: data.php:156
 #, php-format
 msgid "%d Folders and %d Bookmarks imported."
-msgstr "%d Klasörleri %d Yerimleri içe aktarıldı."
+msgstr "%d KlasÃ¶rleri %d Yerimleri iÃ§e aktarÄ±ldÄ±."
 
 #: templates/star_rating_helper.php:21 templates/star_rating_helper.php:22
 #: templates/star_rating_helper.php:23 templates/star_rating_helper.php:24
 #, php-format
 msgid "%d stars out of 5"
-msgstr "yıldızlar 5 üzerinden %d "
+msgstr "yÄ±ldÄ±zlar 5 Ã¼zerinden %d "
 
 #: templates/reports.php:104
 #, php-format
@@ -41,71 +41,71 @@ msgstr "%s Yer imleri"
 #: reports.php:25
 #, php-format
 msgid "%s Response Codes"
-msgstr "%s yanıt kodu"
+msgstr "%s yanÄ±t kodu"
 
 #: lib/base.php:78
 #, php-format
 msgid "%s's Bookmarks"
-msgstr "%s'ın yer imleri"
+msgstr "%s'Ä±n yer imleri"
 
 #: lib/Block/highestrated.php:38 lib/Block/mostclicked.php:38
 #: lib/Block/bookmarks.php:63
 msgid "1 Line"
-msgstr "1 çizgi"
+msgstr "1 Ã§izgi"
 
 #: templates/star_rating_helper.php:20
 msgid "1 star out of 5"
-msgstr "5 üzerinden 1 yıldız"
+msgstr "5 Ã¼zerinden 1 yÄ±ldÄ±z"
 
 #: lib/Block/highestrated.php:30 lib/Block/mostclicked.php:30
 #: lib/Block/bookmarks.php:55
 msgid "10 rows"
-msgstr "10 satır"
+msgstr "10 satÄ±r"
 
 #: lib/Block/highestrated.php:31 lib/Block/mostclicked.php:31
 #: lib/Block/bookmarks.php:56
 msgid "15 rows"
-msgstr "15 satır"
+msgstr "15 satÄ±r"
 
 #: templates/reports.php:36
 #, php-format
 msgid "1xx Response Codes (%s)"
-msgstr "1xx Yanıt Kodları (%s)"
+msgstr "1xx YanÄ±t KodlarÄ± (%s)"
 
 #: lib/Block/highestrated.php:37 lib/Block/mostclicked.php:37
 #: lib/Block/bookmarks.php:62
 msgid "2 Line"
-msgstr "2 Çizgi"
+msgstr "2 Ã‡izgi"
 
 #: lib/Block/highestrated.php:32 lib/Block/mostclicked.php:32
 #: lib/Block/bookmarks.php:57
 msgid "25 rows"
-msgstr "25 satır"
+msgstr "25 satÄ±r"
 
 #: templates/reports.php:42
 #, php-format
 msgid "2xx Response Codes (%s)"
-msgstr "2xx Yanıt Kodları (%s)"
+msgstr "2xx YanÄ±t KodlarÄ± (%s)"
 
 #: lib/Block/highestrated.php:36 lib/Block/mostclicked.php:36
 #: lib/Block/bookmarks.php:61
 msgid "3 Line"
-msgstr "3 Çizgi"
+msgstr "3 Ã‡izgi"
 
 #: templates/reports.php:53
 #, php-format
 msgid "3xx Response Codes (%s)"
-msgstr "3xx Yanıt Kodları (%s)"
+msgstr "3xx YanÄ±t KodlarÄ± (%s)"
 
 #: templates/reports.php:64
 #, php-format
 msgid "4xx Response Codes (%s)"
-msgstr "4xx Yanıt Kodları  (%s)"
+msgstr "4xx YanÄ±t KodlarÄ±  (%s)"
 
 #: templates/reports.php:86
 #, php-format
 msgid "5xx Response Codes (%s)"
-msgstr "5xx Yanıt Kodları (%s)"
+msgstr "5xx YanÄ±t KodlarÄ± (%s)"
 
 #: lib/Forms/Search.php:24
 msgid "AND"
@@ -113,7 +113,7 @@ msgstr "VE"
 
 #: lib/Trean.php:176
 msgid "Accepted"
-msgstr "Onaylandı"
+msgstr "OnaylandÄ±"
 
 #: templates/add/add.inc:59 lib/Block/tree_menu.php:24
 msgid "Add"
@@ -125,25 +125,25 @@ msgstr "Yer imlerine ekle"
 
 #: templates/search.php:65
 msgid "All"
-msgstr "Tümü"
+msgstr "TÃ¼mÃ¼"
 
 #: data.php:39 perms.php:239 lib/Block/bookmarks.php:32
 #, php-format
 msgid "An error occured listing folders: %s"
-msgstr "Dosyaları listelerken hata oluştu: %s"
+msgstr "DosyalarÄ± listelerken hata oluÅŸtu: %s"
 
 #: lib/Trean.php:49
 #, php-format
 msgid "An error occurred counting folders: %s"
-msgstr "Dosyaları sayarken hata oluştu: %s"
+msgstr "DosyalarÄ± sayarken hata oluÅŸtu: %s"
 
 #: lib/Forms/Search.php:25
 msgid "Any Part of the field"
-msgstr "Alanın herhangi bir kısmı"
+msgstr "AlanÄ±n herhangi bir kÄ±smÄ±"
 
 #: templates/search.php:29
 msgid "Are you sure you want to delete the selected bookmarks?"
-msgstr "Seçilen Yer imlerini silmekten emin misiniz?"
+msgstr "SeÃ§ilen Yer imlerini silmekten emin misiniz?"
 
 #: config/prefs.php.dist:33
 msgid "Ascending (A to Z)"
@@ -151,15 +151,15 @@ msgstr "Artan (A' dan Z' ye)"
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "Varolmayan bir paylaşımı silmeye çalışıyorsunuz."
+msgstr "Varolmayan bir paylaÅŸÄ±mÄ± silmeye Ã§alÄ±ÅŸÄ±yorsunuz."
 
 #: lib/Trean.php:208
 msgid "Bad Gateway"
-msgstr "Kötü Geçiş yolu"
+msgstr "KÃ¶tÃ¼ GeÃ§iÅŸ yolu"
 
 #: lib/Trean.php:188
 msgid "Bad Request"
-msgstr "Kötü İstek"
+msgstr "KÃ¶tÃ¼ Ä°stek"
 
 #: add.php:66
 msgid "Bookmark Added"
@@ -167,23 +167,23 @@ msgstr "Yer imi eklendi"
 
 #: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
 msgid "Bookmarks"
-msgstr "Yer İmleri"
+msgstr "Yer Ä°mleri"
 
 #: templates/common-header.inc:27
 msgid "Bookmarks Feed"
-msgstr "Yer imleri kaynağı"
+msgstr "Yer imleri kaynaÄŸÄ±"
 
 #: browse.php:37
 msgid "Browse"
-msgstr "Gözat"
+msgstr "GÃ¶zat"
 
 #: templates/edit/footer.inc:2 templates/add/add.inc:60
 msgid "Cancel"
-msgstr "İptal"
+msgstr "Ä°ptal"
 
 #: templates/views/BookmarkList.php:28
 msgid "Clicks"
-msgstr "Tıklamalar"
+msgstr "TÄ±klamalar"
 
 #: templates/add/add.inc:82
 msgid "Close"
@@ -191,15 +191,15 @@ msgstr "Kapat"
 
 #: lib/Forms/Search.php:24
 msgid "Combine"
-msgstr "Birleştir"
+msgstr "BirleÅŸtir"
 
 #: config/prefs.php.dist:63
 msgid "Completely collapsed"
-msgstr "Tamamıyla çakıştı"
+msgstr "TamamÄ±yla Ã§akÄ±ÅŸtÄ±"
 
 #: config/prefs.php.dist:65
 msgid "Completely expanded"
-msgstr "Tamamıyla genişletildi"
+msgstr "TamamÄ±yla geniÅŸletildi"
 
 #: edit.php:247
 msgid "Confirm Deletion"
@@ -207,7 +207,7 @@ msgstr "Silmeyi Onayla"
 
 #: lib/Trean.php:197
 msgid "Conflict"
-msgstr "Karışıklık"
+msgstr "KarÄ±ÅŸÄ±klÄ±k"
 
 #: lib/Trean.php:172
 msgid "Continue"
@@ -215,7 +215,7 @@ msgstr "Devam"
 
 #: templates/browse.php:105 templates/browse.php:106
 msgid "Control access to this folder"
-msgstr "Bu dosyaya erişimi kontrol edin"
+msgstr "Bu dosyaya eriÅŸimi kontrol edin"
 
 #: edit.php:214
 msgid "Copied bookmark: "
@@ -232,12 +232,12 @@ msgstr "Dosya kopyalama desteklenmiyor."
 
 #: lib/Trean.php:175
 msgid "Created"
-msgstr "Oluşturuldu"
+msgstr "OluÅŸturuldu"
 
 #: templates/reports.php:96
 #, php-format
 msgid "DNS Failure or Other Error (%s)"
-msgstr "DNS hatası ya da başka bir hata(%s)"
+msgstr "DNS hatasÄ± ya da baÅŸka bir hata(%s)"
 
 #: templates/browse.php:90 templates/search.php:70
 msgid "Delete"
@@ -249,7 +249,7 @@ msgstr "Yer imini sil "
 
 #: templates/browse.php:91
 msgid "Delete this folder"
-msgstr "Bu dosyayı sil"
+msgstr "Bu dosyayÄ± sil"
 
 #: edit.php:51 edit.php:110
 msgid "Deleted bookmark: "
@@ -257,12 +257,12 @@ msgstr "Yer imini sil: "
 
 #: edit.php:123
 msgid "Deleted folder: "
-msgstr "Dosyayı sil: "
+msgstr "DosyayÄ± sil: "
 
 #: edit.php:269
 #, php-format
 msgid "Deleted the folder \"%s\""
-msgstr " \"%s\" dosyasını sil"
+msgstr " \"%s\" dosyasÄ±nÄ± sil"
 
 #: config/prefs.php.dist:34
 msgid "Descending (9 to 1)"
@@ -271,64 +271,64 @@ msgstr "Azalan (9' dan 1' e)"
 #: templates/edit/bookmark.inc:15 templates/add/add.inc:42
 #: lib/Forms/Search.php:22
 msgid "Description"
-msgstr "Açıklama"
+msgstr "AÃ§Ä±klama"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Görüntüleme Seçenekleri"
+msgstr "GÃ¶rÃ¼ntÃ¼leme SeÃ§enekleri"
 
 #: lib/Block/bookmarks.php:52
 msgid "Display Rows"
-msgstr "Satırları görüntüle"
+msgstr "SatÄ±rlarÄ± gÃ¶rÃ¼ntÃ¼le"
 
 #: templates/data/export.inc:11
 msgid "Download Folder"
-msgstr "İnenler Dosyası"
+msgstr "Ä°nenler DosyasÄ±"
 
 #: templates/add/add.inc:73
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
-"\"Yer imlerine ekle\" bağlantıyı \"Yer imleri\" Çubuğu altına sürükleyerek "
+"\"Yer imlerine ekle\" baÄŸlantÄ±yÄ± \"Yer imleri\" Ã‡ubuÄŸu altÄ±na sÃ¼rÃ¼kleyerek "
 "ekle"
 
 #: templates/add/add.inc:71
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
-"\"Yer imlerine ekle\" Kişisel araç çubuğu \"'na bağlantıyı sürükleyerek ekle "
+"\"Yer imlerine ekle\" KiÅŸisel araÃ§ Ã§ubuÄŸu \"'na baÄŸlantÄ±yÄ± sÃ¼rÃ¼kleyerek ekle "
 
 #: templates/search.php:69
 msgid "Edit"
-msgstr "Düzenle"
+msgstr "DÃ¼zenle"
 
 #: edit.php:287
 msgid "Edit Bookmark"
-msgstr "Yer imini düzenle"
+msgstr "Yer imini dÃ¼zenle"
 
 #: templates/browse.php:155
 msgid "Edit Bookmarks"
-msgstr "Yer imini düzenle"
+msgstr "Yer imini dÃ¼zenle"
 
 #: perms.php:235
 msgid "Edit Permissions"
-msgstr "İzinleri Düzenle"
+msgstr "Ä°zinleri DÃ¼zenle"
 
 #: perms.php:242
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "'%s' için izinleri düzenle"
+msgstr "'%s' iÃ§in izinleri dÃ¼zenle"
 
 #: lib/Trean.php:205
 msgid "Expectation Failed"
-msgstr "Beklenti Başarısız"
+msgstr "Beklenti BaÅŸarÄ±sÄ±z"
 
 #: templates/data/export.inc:4
 msgid "Export Bookmarks"
-msgstr "Yer imlerini dışa aktar"
+msgstr "Yer imlerini dÄ±ÅŸa aktar"
 
 #: templates/data/import.inc:9
 msgid "File to import:"
-msgstr "İçe aktarılacak dosya:"
+msgstr "Ä°Ã§e aktarÄ±lacak dosya:"
 
 #: templates/add/add.inc:70
 msgid "Firefox/Mozilla"
@@ -336,7 +336,7 @@ msgstr "Firefox/Mozilla"
 
 #: config/prefs.php.dist:64
 msgid "First level shown"
-msgstr "İlk seviye gösterildi"
+msgstr "Ä°lk seviye gÃ¶sterildi"
 
 #: templates/edit/bookmark.inc:25 templates/add/add.inc:47
 #: templates/views/BookmarkList.php:26 lib/Block/bookmarks.php:42
@@ -345,15 +345,15 @@ msgstr "Dizin"
 
 #: templates/browse.php:70 templates/browse.php:71
 msgid "Folder Actions"
-msgstr "Dosya İşlemleri"
+msgstr "Dosya Ä°ÅŸlemleri"
 
 #: lib/Bookmarks.php:354
 msgid "Folder names must be non-empty"
-msgstr "Dosya adları boş girilmemeli"
+msgstr "Dosya adlarÄ± boÅŸ girilmemeli"
 
 #: templates/data/import.inc:11
 msgid "Folder to import into:"
-msgstr "İçe aktarılacak dosya:"
+msgstr "Ä°Ã§e aktarÄ±lacak dosya:"
 
 #: lib/Trean.php:191
 msgid "Forbidden"
@@ -365,11 +365,11 @@ msgstr "Bulundu"
 
 #: lib/Trean.php:210
 msgid "Gateway Time-out"
-msgstr "Geçit yolu zaman aşımı"
+msgstr "GeÃ§it yolu zaman aÅŸÄ±mÄ±"
 
 #: lib/Trean.php:198
 msgid "Gone"
-msgstr "Gönderildi"
+msgstr "GÃ¶nderildi"
 
 #: reports.php:25 templates/reports.php:33
 msgid "HTTP Status"
@@ -381,27 +381,27 @@ msgstr "HTTP-Versiyonu desteklenmiyor"
 
 #: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
 msgid "Highest Rated"
-msgstr "En çok oy alan"
+msgstr "En Ã§ok oy alan"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
 msgid "Highest-rated Bookmarks"
-msgstr "En çok oy alan Yer imi "
+msgstr "En Ã§ok oy alan Yer imi "
 
 #: templates/data/import.inc:16
 msgid "Import"
-msgstr "(İçeri) Aktar"
+msgstr "(Ä°Ã§eri) Aktar"
 
 #: data.php:184 templates/data/import.inc:4
 msgid "Import Bookmarks"
-msgstr "Yer imlerini içe aktar"
+msgstr "Yer imlerini iÃ§e aktar"
 
 #: templates/data/export.inc:9
 msgid "Include Subfolders"
-msgstr "Alt dosyaları da içer"
+msgstr "Alt dosyalarÄ± da iÃ§er"
 
 #: lib/Trean.php:206
 msgid "Internal Server Error"
-msgstr "Yerel sunucu hatası"
+msgstr "Yerel sunucu hatasÄ±"
 
 #: templates/add/add.inc:72
 msgid "Internet Explorer"
@@ -412,8 +412,8 @@ msgid ""
 "Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
-"Internet Explorer kullanıcıları kendi favorileri yer imlerini aktarmaları "
-"için \"Dosya\" menusünden \"Aktar\" seçeneğini seçmeliler."
+"Internet Explorer kullanÄ±cÄ±larÄ± kendi favorileri yer imlerini aktarmalarÄ± "
+"iÃ§in \"Dosya\" menusÃ¼nden \"Aktar\" seÃ§eneÄŸini seÃ§meliler."
 
 #: lib/Trean.php:199
 msgid "Length Required"
@@ -421,19 +421,19 @@ msgstr "Uzunluk gerekli"
 
 #: lib/Forms/Search.php:25
 msgid "Match"
-msgstr "Eşleşen"
+msgstr "EÅŸleÅŸen"
 
 #: lib/api.php:93
 msgid "Maximum Number of Bookmarks"
-msgstr "Maksimum Yer imi sayısı"
+msgstr "Maksimum Yer imi sayÄ±sÄ±"
 
 #: lib/api.php:90
 msgid "Maximum Number of Folders"
-msgstr "En Fazla Dizin Sayısı"
+msgstr "En Fazla Dizin SayÄ±sÄ±"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Menü listesi"
+msgstr "MenÃ¼ listesi"
 
 #: lib/Trean.php:193
 msgid "Method Not Allowed"
@@ -441,39 +441,39 @@ msgstr "Method'a izin verilmedi"
 
 #: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
 msgid "Most Clicked"
-msgstr "En çok tıklanan"
+msgstr "En Ã§ok tÄ±klanan"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
 msgid "Most-clicked Bookmarks"
-msgstr "En çok tıklanan Yer imleri"
+msgstr "En Ã§ok tÄ±klanan Yer imleri"
 
 #: templates/search.php:71
 msgid "Move"
-msgstr "Taşı"
+msgstr "TaÅŸÄ±"
 
 #: lib/Trean.php:182
 msgid "Moved Permanently"
-msgstr "Tamamen Taşındı"
+msgstr "Tamamen TaÅŸÄ±ndÄ±"
 
 #: edit.php:161
 msgid "Moved bookmark: "
-msgstr "Taşınan Yer imi: "
+msgstr "TaÅŸÄ±nan Yer imi: "
 
 #: edit.php:174
 msgid "Moved folder: "
-msgstr "Taşınan dosya: "
+msgstr "TaÅŸÄ±nan dosya: "
 
 #: templates/data/import.inc:6
 msgid ""
 "Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
-"Mozilla-Fİrefox kullanıcıları kendi yer imlerini aktarmaları için \"Yer imi "
-"yöneticisi ile\" \"\" Araçlar menüsünden \"Export\"-Menüsüseçilmelidir."
+"Mozilla-FÄ°refox kullanÄ±cÄ±larÄ± kendi yer imlerini aktarmalarÄ± iÃ§in \"Yer imi "
+"yÃ¶neticisi ile\" \"\" AraÃ§lar menÃ¼sÃ¼nden \"Export\"-MenÃ¼sÃ¼seÃ§ilmelidir."
 
 #: lib/Trean.php:181
 msgid "Multiple Choices"
-msgstr "Çoklu Seçimler"
+msgstr "Ã‡oklu SeÃ§imler"
 
 #: templates/edit/folder.inc:9
 msgid "Name"
@@ -493,20 +493,20 @@ msgstr "Yeni Dosya"
 
 #: templates/edit/delete_folder_confirmation.inc:15
 msgid "No"
-msgstr "Hayır"
+msgstr "HayÄ±r"
 
 #: templates/search.php:76
 msgid "No Bookmarks found"
-msgstr "Hiçbir Yer imi bulunamadı"
+msgstr "HiÃ§bir Yer imi bulunamadÄ±"
 
 #: lib/Trean.php:178
 msgid "No Content"
-msgstr "İçerik Yok"
+msgstr "Ä°Ã§erik Yok"
 
 #: lib/Block/highestrated.php:73 lib/Block/mostclicked.php:73
 #: lib/Block/bookmarks.php:128
 msgid "No bookmarks to display"
-msgstr "Gösterilecek Yer imi yok"
+msgstr "GÃ¶sterilecek Yer imi yok"
 
 #: lib/Trean.php:177
 msgid "Non-Authoritative Information"
@@ -514,15 +514,15 @@ msgstr "Yetkisiz\tBilgi"
 
 #: templates/search.php:66
 msgid "None"
-msgstr "Hiçbiri"
+msgstr "HiÃ§biri"
 
 #: lib/Trean.php:194
 msgid "Not Acceptable"
-msgstr "Kabul edilebilir Değil"
+msgstr "Kabul edilebilir DeÄŸil"
 
 #: lib/Trean.php:192
 msgid "Not Found"
-msgstr "Bulunamadı"
+msgstr "BulunamadÄ±"
 
 #: lib/Trean.php:207
 msgid "Not Implemented"
@@ -530,7 +530,7 @@ msgstr "Yerine getirilemedi"
 
 #: lib/Trean.php:185
 msgid "Not Modified"
-msgstr "Değişiklik yapılamadı"
+msgstr "DeÄŸiÅŸiklik yapÄ±lamadÄ±"
 
 #: templates/add/add.inc:76
 msgid "Note:"
@@ -538,11 +538,11 @@ msgstr "Not:"
 
 #: edit.php:281
 msgid "Nothing to edit."
-msgstr "Düzenlenecek birşey yok."
+msgstr "DÃ¼zenlenecek birÅŸey yok."
 
 #: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
 msgid "Number of bookmarks to show"
-msgstr "Gösterilecel Yer imi sayısı"
+msgstr "GÃ¶sterilecel Yer imi sayÄ±sÄ±"
 
 #: lib/Trean.php:174
 msgid "OK"
@@ -558,7 +558,7 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"Internet Explorer'ın yeni versiyonlarında %s://%s, güvenilen alanlara "
+"Internet Explorer'Ä±n yeni versiyonlarÄ±nda %s://%s, gÃ¼venilen alanlara "
 "eklemelidir."
 
 #: perms.php:56
@@ -566,32 +566,32 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Yalnızca paylaşımın sahibi ya da sistem yöneticisi, paylaşım için sahiplik "
-"hakları ve izinlerini değiştirebilir"
+"YalnÄ±zca paylaÅŸÄ±mÄ±n sahibi ya da sistem yÃ¶neticisi, paylaÅŸÄ±m iÃ§in sahiplik "
+"haklarÄ± ve izinlerini deÄŸiÅŸtirebilir"
 
 #: config/prefs.php.dist:54
 msgid "Open links in a new window?"
-msgstr "Bağlantılar yeni bir pencerede açılsın mı?"
+msgstr "BaÄŸlantÄ±lar yeni bir pencerede aÃ§Ä±lsÄ±n mÄ±?"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "Diğer Seçenekler"
+msgstr "DiÄŸer SeÃ§enekler"
 
 #: lib/Trean.php:180
 msgid "Partial Content"
-msgstr "Kısmi İçerik"
+msgstr "KÄ±smi Ä°Ã§erik"
 
 #: lib/Trean.php:190
 msgid "Payment Required"
-msgstr "ödeneme Gerekiyor"
+msgstr "Ã¶deneme Gerekiyor"
 
 #: templates/add/add.inc:4
 msgid "Please enter a name for the new folder:"
-msgstr "Lütfen yeni posta kutusu için bir ad girin:"
+msgstr "LÃ¼tfen yeni posta kutusu iÃ§in bir ad girin:"
 
 #: lib/Trean.php:200
 msgid "Precondition Failed"
-msgstr "önkoşul Başarısız"
+msgstr "Ã¶nkoÅŸul BaÅŸarÄ±sÄ±z"
 
 #: lib/Trean.php:195
 msgid "Proxy Authentication Required"
@@ -599,16 +599,16 @@ msgstr "Vekil Sunucu Yetkilendirmesi Gerekiyor"
 
 #: templates/views/BookmarkList.php:27
 msgid "Rating"
-msgstr "Beğenilme"
+msgstr "BeÄŸenilme"
 
 #: templates/edit/delete_folder_confirmation.inc:3
 #, php-format
 msgid "Really delete \"%s\" and all of its bookmarks?"
-msgstr "\"%s\" ve tüm Yer imleri silinsin mi?"
+msgstr "\"%s\" ve tÃ¼m Yer imleri silinsin mi?"
 
 #: templates/browse.php:98
 msgid "Rename this folder"
-msgstr "Dosyayı yeniden adlandır"
+msgstr "DosyayÄ± yeniden adlandÄ±r"
 
 #: reports.php:18
 msgid "Reports"
@@ -616,23 +616,23 @@ msgstr "Raporlar"
 
 #: lib/Trean.php:201
 msgid "Request Entity Too Large"
-msgstr "İstek çok büyük."
+msgstr "Ä°stek Ã§ok bÃ¼yÃ¼k."
 
 #: lib/Trean.php:196
 msgid "Request Time-out"
-msgstr "İstek zaman aşımına uğradı"
+msgstr "Ä°stek zaman aÅŸÄ±mÄ±na uÄŸradÄ±"
 
 #: lib/Trean.php:202
 msgid "Request-URI Too Large"
-msgstr "İstenilen URI çok büyük"
+msgstr "Ä°stenilen URI Ã§ok bÃ¼yÃ¼k"
 
 #: lib/Trean.php:204
 msgid "Requested range not satisfiable"
-msgstr "İstek sınırları tatminkar değil"
+msgstr "Ä°stek sÄ±nÄ±rlarÄ± tatminkar deÄŸil"
 
 #: lib/Trean.php:179
 msgid "Reset Content"
-msgstr "Yeniden başlatma içeriği"
+msgstr "Yeniden baÅŸlatma iÃ§eriÄŸi"
 
 #: templates/edit/footer.inc:1
 msgid "Save"
@@ -649,62 +649,62 @@ msgstr "Yer imlerini ara"
 #: search.php:59
 #, php-format
 msgid "Search Results (%s)"
-msgstr "Arama Sonuçları (%s)"
+msgstr "Arama SonuÃ§larÄ± (%s)"
 
 #: lib/Trean.php:184
 msgid "See Other"
-msgstr "Diğerlerini de gör"
+msgstr "DiÄŸerlerini de gÃ¶r"
 
 #: templates/search.php:65
 msgid "Select All"
-msgstr "Hepsini seç"
+msgstr "Hepsini seÃ§"
 
 #: templates/views/BookmarkList.php:29
 msgid "Select All/Select None"
-msgstr "Hepsini seç/Hiçbirini seçme"
+msgstr "Hepsini seÃ§/HiÃ§birini seÃ§me"
 
 #: templates/search.php:66
 msgid "Select None"
-msgstr "Hiçbirini seçme"
+msgstr "HiÃ§birini seÃ§me"
 
 #: templates/search.php:64
 #, php-format
 msgid "Select: %s, %s"
-msgstr "Seç: %s, %s"
+msgstr "SeÃ§: %s, %s"
 
 #: lib/Trean.php:209
 msgid "Service Unavailable"
-msgstr "Servis Erişilebilir Değil"
+msgstr "Servis EriÅŸilebilir DeÄŸil"
 
 #: config/prefs.php.dist:11
 msgid "Set how to display bookmark listings and how to open links."
 msgstr ""
-"Yer imi listesininin nasıl gösterileceğini ve bağlantıların nasıl "
-"açılacağınıayarla"
+"Yer imi listesininin nasÄ±l gÃ¶sterileceÄŸini ve baÄŸlantÄ±larÄ±n nasÄ±l "
+"aÃ§Ä±lacaÄŸÄ±nÄ±ayarla"
 
 #: config/prefs.php.dist:66
 msgid "Should your list of bookmark folders be open when you log in?"
-msgstr "Sisteme giriş yapıldığında Yer imleri dosyalarınız açık olsun mu? "
+msgstr "Sisteme giriÅŸ yapÄ±ldÄ±ÄŸÄ±nda Yer imleri dosyalarÄ±nÄ±z aÃ§Ä±k olsun mu? "
 
 #: config/prefs.php.dist:45
 msgid "Show folder actions panel?"
-msgstr "Dosya işlemleri paneli gösterilsin mi?"
+msgstr "Dosya iÅŸlemleri paneli gÃ¶sterilsin mi?"
 
 #: config/prefs.php.dist:24
 msgid "Sort bookmarks by:"
-msgstr "Yer imlerini sırala:"
+msgstr "Yer imlerini sÄ±rala:"
 
 #: lib/Block/bookmarks.php:46
 msgid "Sort by"
-msgstr "ile Sırala"
+msgstr "ile SÄ±rala"
 
 #: config/prefs.php.dist:35
 msgid "Sort direction:"
-msgstr "Sıralama Yönü:"
+msgstr "SÄ±ralama YÃ¶nÃ¼:"
 
 #: lib/Trean.php:173
 msgid "Switching Protocols"
-msgstr "Yönlendirme Protokolleri"
+msgstr "YÃ¶nlendirme Protokolleri"
 
 #: lib/Block/highestrated.php:33 lib/Block/mostclicked.php:33
 #: lib/Block/bookmarks.php:58
@@ -713,66 +713,66 @@ msgstr "Taslak"
 
 #: lib/Trean.php:187
 msgid "Temporary Redirect"
-msgstr "Geçici Yönlendirme"
+msgstr "GeÃ§ici YÃ¶nlendirme"
 
 #: templates/browse.php:169
 msgid "There are no bookmarks in this folder"
-msgstr "Bu dosyada hiç yer imi yok"
+msgstr "Bu dosyada hiÃ§ yer imi yok"
 
 #: edit.php:216
 #, php-format
 msgid "There was a problem copying the bookmark: %s"
-msgstr "Yer imi kopyalanmasında sorun oluştu: %s"
+msgstr "Yer imi kopyalanmasÄ±nda sorun oluÅŸtu: %s"
 
 #: edit.php:53 edit.php:112
 #, php-format
 msgid "There was a problem deleting the bookmark: %s"
-msgstr "Yer imi silinmesinde sorun oluştu: %s"
+msgstr "Yer imi silinmesinde sorun oluÅŸtu: %s"
 
 #: edit.php:125
 #, php-format
 msgid "There was a problem deleting the folder: %s"
-msgstr "Dosya silinmesinde sorun oluştu: %s"
+msgstr "Dosya silinmesinde sorun oluÅŸtu: %s"
 
 #: edit.php:163
 #, php-format
 msgid "There was a problem moving the bookmark: %s"
-msgstr "Yer imi taşınmasında sorun oluştu: %s"
+msgstr "Yer imi taÅŸÄ±nmasÄ±nda sorun oluÅŸtu: %s"
 
 #: edit.php:176
 #, php-format
 msgid "There was a problem moving the folder: %s"
-msgstr "Dosya taşınmasında sorun oluştu: %s"
+msgstr "Dosya taÅŸÄ±nmasÄ±nda sorun oluÅŸtu: %s"
 
 #: add.php:61
 #, php-format
 msgid "There was an error adding the bookmark: %s"
-msgstr "Yer imi eklenmesinde sorun oluştu: %s"
+msgstr "Yer imi eklenmesinde sorun oluÅŸtu: %s"
 
 #: edit.php:147 edit.php:201 add.php:45 add.php:102
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "Dosya eklenmesinde sorun oluştu: %s."
+msgstr "Dosya eklenmesinde sorun oluÅŸtu: %s."
 
 #: edit.php:74
 #, php-format
 msgid "There was an error saving the bookmark: %s"
-msgstr "Yer imi kaydedilirken sorun oluştu: %s"
+msgstr "Yer imi kaydedilirken sorun oluÅŸtu: %s"
 
 #: edit.php:87
 #, php-format
 msgid "There was an error saving the folder: %s"
-msgstr "Dosya kaydedilirken sorun oluştu: %s"
+msgstr "Dosya kaydedilirken sorun oluÅŸtu: %s"
 
 #: templates/edit/bookmark.inc:10 templates/add/add.inc:37
 #: templates/views/BookmarkList.php:25 lib/Block/bookmarks.php:49
 #: lib/Forms/Search.php:21 config/prefs.php.dist:21
 msgid "Title"
-msgstr "Başlık"
+msgstr "BaÅŸlÄ±k"
 
 #: templates/add/add.inc:69
 msgid "To be able to quickly add bookmarks from your web browser:"
-msgstr "Web tarayıcınıza kolaylıkla Yer imi eklemek için:"
+msgstr "Web tarayÄ±cÄ±nÄ±za kolaylÄ±kla Yer imi eklemek iÃ§in:"
 
 #: templates/reports.php:103
 msgid "Total"
@@ -794,12 +794,12 @@ msgstr "Bilinmeyen (%s)"
 
 #: lib/Trean.php:203
 msgid "Unsupported Media Type"
-msgstr "Desteklenmeyen Medya Türü"
+msgstr "Desteklenmeyen Medya TÃ¼rÃ¼"
 
 #: perms.php:228
 #, php-format
 msgid "Updated %s."
-msgstr "%s Güncellendi."
+msgstr "%s GÃ¼ncellendi."
 
 #: lib/Trean.php:186
 msgid "Use Proxy"
@@ -810,12 +810,12 @@ msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
 msgstr ""
-"Internet'de Gezinirken kullnılan sayfayı Yer imlerine eklemek için \"Yeni "
-"Yer imi ekle\" kısayolunu tıklayabilirsiniz"
+"Internet'de Gezinirken kullnÄ±lan sayfayÄ± Yer imlerine eklemek iÃ§in \"Yeni "
+"Yer imi ekle\" kÄ±sayolunu tÄ±klayabilirsiniz"
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"
-msgstr "Tüm Alanlar"
+msgstr "TÃ¼m Alanlar"
 
 #: templates/edit/delete_folder_confirmation.inc:9
 msgid "Yes"
@@ -829,19 +829,19 @@ msgstr "%d 'den fazla Yer imi yaratma izniniz yok ."
 #: data.php:56 data.php:107 add.php:86
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "%d'den fazla dizin yaratmanıza izin verilmiyor."
+msgstr "%d'den fazla dizin yaratmanÄ±za izin verilmiyor."
 
 #: browse.php:24
 msgid "You do not have permission to view this folder."
-msgstr "Bu dosyayı görme izniniz yok."
+msgstr "Bu dosyayÄ± gÃ¶rme izniniz yok."
 
 #: templates/add/add.inc:11
 msgid "You must select a target folder first"
-msgstr "öncelikle bir hedef dosya seçmelisiniz"
+msgstr "Ã¶ncelikle bir hedef dosya seÃ§melisiniz"
 
 #: lib/Trean.php:149
 msgid "_Browse"
-msgstr "_Gözat"
+msgstr "_GÃ¶zat"
 
 #: templates/browse.php:161
 msgid "_Delete Bookmarks"
@@ -849,11 +849,11 @@ msgstr "Yer imlerini _Sil "
 
 #: templates/browse.php:156
 msgid "_Edit Bookmarks"
-msgstr "Yer imlerini _Düzenle"
+msgstr "Yer imlerini _DÃ¼zenle"
 
 #: lib/Trean.php:155
 msgid "_Import/Export"
-msgstr "İçeri/_Dışarı Aktar"
+msgstr "Ä°Ã§eri/_DÄ±ÅŸarÄ± Aktar"
 
 #: templates/browse.php:151
 msgid "_New Bookmark"
@@ -870,9 +870,9 @@ msgstr "_Arama"
 #: templates/block/1line.inc:22 templates/block/2line.inc:26
 #: templates/block/standard.inc:24
 msgid "click"
-msgstr "Tıkla"
+msgstr "TÄ±kla"
 
 #: templates/block/1line.inc:22 templates/block/2line.inc:26
 #: templates/block/standard.inc:24
 msgid "clicks"
-msgstr "Tıklama"
+msgstr "TÄ±klama"

@@ -1,6 +1,6 @@
 # Gollem Swedish translation
-# Copyright 2002-2005 Andreas Dahlén.
-# Andreas Dahlén <andreas@dahlen.ws>, 2005.
+# Copyright 2002-2005 Andreas DahlÃ©n.
+# Andreas DahlÃ©n <andreas@dahlen.ws>, 2005.
 #
 msgid ""
 msgstr ""
@@ -8,10 +8,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-06-14 22:08+0200\n"
 "PO-Revision-Date: 2005-06-16 08:48+0100\n"
-"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Last-Translator: Andreas DahlÃ©n <andreas@dahlen.ws>\n"
 "Language-Team: Swedish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/manager/header.inc:639
@@ -42,7 +42,7 @@ msgstr "%s klistrades in."
 #: manager.php:67
 #, php-format
 msgid "'%s' renamed to '%s'"
-msgstr "namet på '%s' byttes till '%s'"
+msgstr "namet pÃ¥ '%s' byttes till '%s'"
 
 #: templates/manager/file_headers.inc:17
 #, php-format
@@ -71,15 +71,15 @@ msgstr "Access nekades till mapp '%s'."
 
 #: templates/manager/header.inc:660
 msgid "Actions"
-msgstr "Åtgärder"
+msgstr "Ã…tgÃ¤rder"
 
 #: templates/selectlist/footer.inc:3
 msgid "Add"
-msgstr "Lägg till"
+msgstr "LÃ¤gg till"
 
 #: templates/prefs/columnselect.inc:234
 msgid "Add column"
-msgstr "Lägg till kolumn"
+msgstr "LÃ¤gg till kolumn"
 
 #: templates/manager/header.inc:499
 msgid "All"
@@ -87,11 +87,11 @@ msgstr "Alla"
 
 #: templates/manager/header.inc:180
 msgid "Are you sure you wish to continue?"
-msgstr "Är det säkert att du vill fortsätta?"
+msgstr "Ã„r det sÃ¤kert att du vill fortsÃ¤tta?"
 
 #: templates/manager/header.inc:176
 msgid "Are you sure?"
-msgstr "Är du säker?"
+msgstr "Ã„r du sÃ¤ker?"
 
 #: config/prefs.php.dist:69
 msgid "Ascending"
@@ -99,7 +99,7 @@ msgstr "Stigande"
 
 #: config/prefs.php.dist:94
 msgid "Ask"
-msgstr "Fråga"
+msgstr "FrÃ¥ga"
 
 #: templates/manager/header.inc:493
 msgid "Attributes"
@@ -107,7 +107,7 @@ msgstr "Attribut"
 
 #: templates/prefs/columnselect.inc:230
 msgid "Available Columns:"
-msgstr "Tillgängliga kolumner:"
+msgstr "TillgÃ¤ngliga kolumner:"
 
 #: lib/api.php:46
 msgid "Backends"
@@ -115,7 +115,7 @@ msgstr "Backends"
 
 #: templates/xppublish/browse.inc:7
 msgid "Browse to the folder to upload files to"
-msgstr "Bläddra till den mapp som filer skall laddas upp till"
+msgstr "BlÃ¤ddra till den mapp som filer skall laddas upp till"
 
 #: templates/manager/header.inc:521 templates/manager/header.inc:554
 #: templates/manager/header.inc:586 templates/manager/header.inc:618
@@ -154,19 +154,19 @@ msgstr "Kan inte klistra in '%s' (urklippshanteraren rensad): %s"
 #: lib/Gollem.php:751 templates/manager/header.inc:599
 #: templates/manager/header.inc:662
 msgid "Change Folder"
-msgstr "Ändra mapp"
+msgstr "Ã„ndra mapp"
 
 #: templates/menu.inc:8 templates/selectlist/header.inc:17
 msgid "Change Server"
-msgstr "_Ändra server"
+msgstr "_Ã„ndra server"
 
 #: config/prefs.php.dist:21
 msgid "Change file and folder handling settings."
-msgstr "Ändra inställningar för hantering av mappar och filer."
+msgstr "Ã„ndra instÃ¤llningar fÃ¶r hantering av mappar och filer."
 
 #: config/prefs.php.dist:14
 msgid "Change your file sorting options."
-msgstr "Ändra inställningar för sortering av filer."
+msgstr "Ã„ndra instÃ¤llningar fÃ¶r sortering av filer."
 
 #: templates/manager/file_headers.inc:28
 msgid "Check _All/None"
@@ -182,7 +182,7 @@ msgstr "Chmod klar: "
 
 #: templates/prefs/columnselect.inc:224
 msgid "Choose the columns to display in the file manager."
-msgstr "Välj kolumner som visas i filhanteraren."
+msgstr "VÃ¤lj kolumner som visas i filhanteraren."
 
 #: templates/login/login.inc:95 templates/xppublish/backend.inc:33
 #, php-format
@@ -204,11 +204,11 @@ msgstr "Klipp ut poster"
 
 #: config/prefs.php.dist:59
 msgid "Default sorting criteria:"
-msgstr "Förvald sorteringsordning:"
+msgstr "FÃ¶rvald sorteringsordning:"
 
 #: config/prefs.php.dist:72
 msgid "Default sorting direction:"
-msgstr "Förvald sorteringsriktning:"
+msgstr "FÃ¶rvald sorteringsriktning:"
 
 #: templates/manager/header.inc:672
 msgid "Delete Items"
@@ -228,7 +228,7 @@ msgstr "Klar"
 
 #: manager.php:222 templates/manager/file_headers.inc:42
 msgid "Download"
-msgstr "Hämta"
+msgstr "HÃ¤mta"
 
 #: xppublish.php:138
 #, php-format
@@ -241,7 +241,7 @@ msgstr "E-post"
 
 #: templates/manager/header.inc:514
 msgid "Execute"
-msgstr "Kör"
+msgstr "KÃ¶r"
 
 #: templates/manager/header.inc:464 templates/manager/header.inc:649
 msgid "File"
@@ -253,7 +253,7 @@ msgstr "Visa fil"
 
 #: config/prefs.php.dist:56
 msgid "File Modification Time"
-msgstr "Ändringstid"
+msgstr "Ã„ndringstid"
 
 #: config/prefs.php.dist:55
 msgid "File Name"
@@ -286,7 +286,7 @@ msgstr "Mapp raderad: "
 
 #: templates/manager/header.inc:607
 msgid "Go to:"
-msgstr "Gå till:"
+msgstr "GÃ¥ till:"
 
 #: templates/manager/header.inc:498 templates/manager/file_headers.inc:64
 msgid "Group"
@@ -312,7 +312,7 @@ msgstr "Poster urklippta till klippbord: %s"
 
 #: config/prefs.php.dist:81
 msgid "List folders first?"
-msgstr "Visa mappar först?"
+msgstr "Visa mappar fÃ¶rst?"
 
 #: templates/login/login.inc:119
 msgid "Log in"
@@ -321,7 +321,7 @@ msgstr "Logga in"
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Logga in på %s"
+msgstr "Logga in pÃ¥ %s"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -329,15 +329,15 @@ msgstr "Menylista"
 
 #: templates/manager/file_headers.inc:47
 msgid "Modified"
-msgstr "Ändrad"
+msgstr "Ã„ndrad"
 
 #: templates/prefs/columnselect.inc:244
 msgid "Move left"
-msgstr "Flytta vänster"
+msgstr "Flytta vÃ¤nster"
 
 #: templates/prefs/columnselect.inc:246
 msgid "Move right"
-msgstr "Flytta höger"
+msgstr "Flytta hÃ¶ger"
 
 #: templates/manager/file_headers.inc:38
 msgid "Name"
@@ -362,11 +362,11 @@ msgstr "OK"
 
 #: templates/manager/header.inc:497 templates/manager/file_headers.inc:60
 msgid "Owner"
-msgstr "Ägare"
+msgstr "Ã„gare"
 
 #: templates/xppublish/login.inc:14 config/credentials.php.dist:23
 msgid "Password"
-msgstr "Lösenord"
+msgstr "LÃ¶senord"
 
 #: templates/manager/header.inc:684
 msgid "Paste Items"
@@ -374,37 +374,37 @@ msgstr "Klistra in post"
 
 #: templates/manager/file_headers.inc:56
 msgid "Permission"
-msgstr "Behörighet"
+msgstr "BehÃ¶righet"
 
 #: selectlist.php:65 templates/xppublish/browse.inc:28
 #, php-format
 msgid "Permission denied to %s: %s"
-msgstr "Behörighet nekades till %s: %s"
+msgstr "BehÃ¶righet nekades till %s: %s"
 
 #: manager.php:202
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
-msgstr "Behörighet nekades till mapp '%s': %s"
+msgstr "BehÃ¶righet nekades till mapp '%s': %s"
 
 #: xppublish.php:55
 msgid "Please enter your Username and Password."
-msgstr "Ange ditt användarnamn och lösenord."
+msgstr "Ange ditt anvÃ¤ndarnamn och lÃ¶senord."
 
 #: templates/login/login.inc:36
 msgid "Please provide your password."
-msgstr "Ange ditt lösenord."
+msgstr "Ange ditt lÃ¶senord."
 
 #: templates/login/login.inc:31
 msgid "Please provide your username."
-msgstr "Ange ditt användarnamn."
+msgstr "Ange ditt anvÃ¤ndarnamn."
 
 #: templates/prefs/columnselect.inc:215
 msgid "Please select a backend:"
-msgstr "Völj backend:"
+msgstr "VÃ¶lj backend:"
 
 #: templates/manager/header.inc:109
 msgid "Please select an item before this action."
-msgstr "Välj en post först."
+msgstr "VÃ¤lj en post fÃ¶rst."
 
 #: templates/manager/header.inc:435
 msgid "Please specify at least one file to upload."
@@ -412,11 +412,11 @@ msgstr "Ange minst en fil att ladda upp."
 
 #: templates/manager/header.inc:502
 msgid "Read"
-msgstr "Läs"
+msgstr "LÃ¤s"
 
 #: templates/manager/header.inc:642
 msgid "Refresh"
-msgstr "Förnya"
+msgstr "FÃ¶rnya"
 
 #: templates/prefs/columnselect.inc:236
 msgid "Remove column"
@@ -428,7 +428,7 @@ msgstr "Byt namn"
 
 #: templates/manager/header.inc:669
 msgid "Rename Items"
-msgstr "Byt namn på poster"
+msgstr "Byt namn pÃ¥ poster"
 
 #: lib/Gollem.php:710 lib/Gollem.php:715
 msgid "Root"
@@ -440,7 +440,7 @@ msgstr "Spara"
 
 #: templates/xppublish/backend.inc:27
 msgid "Select"
-msgstr "Välj"
+msgstr "VÃ¤lj"
 
 #: templates/prefs/columnselect.inc:240
 msgid "Selected Columns:"
@@ -452,7 +452,7 @@ msgstr "Server"
 
 #: config/prefs.php.dist:20
 msgid "Settings"
-msgstr "Inställningar"
+msgstr "InstÃ¤llningar"
 
 #: config/prefs.php.dist:30
 msgid "Show dotfiles?"
@@ -469,11 +469,11 @@ msgstr "Sorteringsriktning"
 
 #: templates/manager/header.inc:180
 msgid "The following item(s) are folders: "
-msgstr "Följande post(er) är mappar: "
+msgstr "FÃ¶ljande post(er) Ã¤r mappar: "
 
 #: templates/manager/header.inc:176
 msgid "The following items will be permanently deleted: "
-msgstr "Följande post(er) kommer att raderas: "
+msgstr "FÃ¶ljande post(er) kommer att raderas: "
 
 #: templates/manager/empty_dir.inc:1 templates/selectlist/empty_dir.inc:2
 msgid "There are no files in this folder."
@@ -484,7 +484,7 @@ msgid ""
 "There are no folders in the current folder; click 'Next' if you want to "
 "upload files to this folder."
 msgstr ""
-"Det finns inga mappar i aktuell mapp; klicka 'Nästa' om du vill ladda upp "
+"Det finns inga mappar i aktuell mapp; klicka 'NÃ¤sta' om du vill ladda upp "
 "filer till aktuell mapp."
 
 #: templates/manager/file_headers.inc:33
@@ -513,31 +513,31 @@ msgstr "Ladda upp till %s"
 #: xppublish.php:25
 #, php-format
 msgid "Upload your files to %s on %s."
-msgstr "Ladda upp filer till %s på %s."
+msgstr "Ladda upp filer till %s pÃ¥ %s."
 
 #: config/prefs.php.dist:12 config/prefs.php.dist:19
 msgid "User Interface"
-msgstr "Användargränssnitt"
+msgstr "AnvÃ¤ndargrÃ¤nssnitt"
 
 #: templates/xppublish/login.inc:11 config/credentials.php.dist:18
 msgid "Username"
-msgstr "Användarnamn"
+msgstr "AnvÃ¤ndarnamn"
 
 #: xppublish.php:51
 msgid "Username and Password are incorrect."
-msgstr "Felaktigt användarnamn och/eller lösenord."
+msgstr "Felaktigt anvÃ¤ndarnamn och/eller lÃ¶senord."
 
 #: login.php:167
 #, php-format
 msgid "Welcome to %s"
-msgstr "Välkommen till %s"
+msgstr "VÃ¤lkommen till %s"
 
 #: templates/xppublish/browse.inc:10
 msgid ""
 "When you are inside the folder you wish to upload to, click the 'Next' "
 "button to upload files."
 msgstr ""
-"När du är i den mapp som du vill ladda upp till, klicka på 'Nästa' för att "
+"NÃ¤r du Ã¤r i den mapp som du vill ladda upp till, klicka pÃ¥ 'NÃ¤sta' fÃ¶r att "
 "ladda upp filer."
 
 #: templates/manager/header.inc:508
@@ -550,31 +550,31 @@ msgstr "Ja"
 
 #: manager.php:52
 msgid "You do not have permission to create this folder."
-msgstr "Behörighet saknas för att skapa mapp."
+msgstr "BehÃ¶righet saknas fÃ¶r att skapa mapp."
 
 #: manager.php:153
 msgid "You do not have permission to cut/copy items."
-msgstr "Behörighet saknas för att kopiera/klippa ut poster."
+msgstr "BehÃ¶righet saknas fÃ¶r att kopiera/klippa ut poster."
 
 #: manager.php:103
 msgid "You do not have permission to delete or change permissions on items."
-msgstr "Behörighet saknas för att radera eller ändra behörigheter på poster."
+msgstr "BehÃ¶righet saknas fÃ¶r att radera eller Ã¤ndra behÃ¶righeter pÃ¥ poster."
 
 #: manager.php:179
 msgid "You do not have permission to paste items."
-msgstr "Behörighet saknas för att klistra in poster."
+msgstr "BehÃ¶righet saknas fÃ¶r att klistra in poster."
 
 #: manager.php:74
 msgid "You do not have permission to rename items."
-msgstr "Börighet saknas för att byta namn på poster."
+msgstr "BÃ¶righet saknas fÃ¶r att byta namn pÃ¥ poster."
 
 #: manager.php:125
 msgid "You do not have permission to upload items."
-msgstr "Behörighet saknas för att ladda upp poster."
+msgstr "BehÃ¶righet saknas fÃ¶r att ladda upp poster."
 
 #: lib/MIME/Viewer/images.php:39
 msgid "Your browser does not support inline display of this image type"
-msgstr "Din webläsare stödjer inte inline-visning av den här bildtypen"
+msgstr "Din weblÃ¤sare stÃ¶djer inte inline-visning av den hÃ¤r bildtypen"
 
 #: lib/Gollem.php:183 lib/Gollem.php:194
 msgid "[home]"
@@ -582,7 +582,7 @@ msgstr "[hem]"
 
 #: templates/menu.inc:6 templates/menu.inc:19
 msgid "_Change Server"
-msgstr "_Ändra server"
+msgstr "_Ã„ndra server"
 
 #: manager.php:223 selectlist.php:76
 msgid "folder"

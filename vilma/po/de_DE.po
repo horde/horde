@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -43,12 +43,12 @@ msgstr "Spitzname"
 
 #: users/delete.php:119
 msgid "Alias deleted."
-msgstr "Alias gelöscht."
+msgstr "Alias gelÃ¶scht."
 
 #: lib/Driver/qmailldap.php:354
 #, php-format
 msgid "Alias for %s"
-msgstr "Alias für %s"
+msgstr "Alias fÃ¼r %s"
 
 #: users/editAlias.php:46
 msgid "Alias saved."
@@ -70,34 +70,34 @@ msgstr "Nur Eingehendes abweisen"
 #: virtuals/delete.php:30 virtuals/delete.php:34
 #: lib/Forms/DeleteDomainForm.php:25
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: users/delete.php:82
 #, php-format
 msgid "Delete %s"
-msgstr "%s löschen"
+msgstr "%s lÃ¶schen"
 
 #: domains/index.php:45 lib/Forms/DeleteDomainForm.php:15
 msgid "Delete Domain"
-msgstr "Domain löschen"
+msgstr "Domain lÃ¶schen"
 
 #: users/index.php:137 virtuals/index.php:53
 msgid "Delete User"
-msgstr "Benutzer löschen"
+msgstr "Benutzer lÃ¶schen"
 
 #: virtuals/delete.php:27
 msgid "Delete Virtual Email Address"
-msgstr "Virtuelle E-Mail-Adresse löschen"
+msgstr "Virtuelle E-Mail-Adresse lÃ¶schen"
 
 #: lib/Forms/DeleteDomainForm.php:27
 #, php-format
 msgid "Delete domain \"%s\" and all associated email addresses?"
-msgstr "Domain \"%s\" und alle dazugehörigen E-Mail-Adressen löschen?"
+msgstr "Domain \"%s\" und alle dazugehÃ¶rigen E-Mail-Adressen lÃ¶schen?"
 
 #: virtuals/delete.php:32
 #, php-format
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
-msgstr "Virtuelle E-Mail-Adresse \"%s\" => \"%s\" löschen?"
+msgstr "Virtuelle E-Mail-Adresse \"%s\" => \"%s\" lÃ¶schen?"
 
 #: virtuals/edit.php:59 templates/virtuals/index.html:20
 msgid "Destination"
@@ -123,7 +123,7 @@ msgstr "Anzeigelisten"
 #: virtuals/delete.php:30 virtuals/delete.php:48
 #: lib/Forms/DeleteDomainForm.php:25
 msgid "Do not delete"
-msgstr "Nicht löschen"
+msgstr "Nicht lÃ¶schen"
 
 #: lib/Forms/EditDomainForm.php:34 templates/domains/index.html:16
 msgid "Domain"
@@ -134,17 +134,17 @@ msgid ""
 "Domain added but an error was encountered while calling the configured "
 "hook.  Contact your administrator for futher assistance."
 msgstr ""
-"Die Domain wurde hinzugefügt, aber beim Aufruf des konfigurierten Hooks ist "
+"Die Domain wurde hinzugefÃ¼gt, aber beim Aufruf des konfigurierten Hooks ist "
 "ein Fehler aufgetreten. Bitte wenden Sie sich an Ihren Systemadministrator "
-"für weitere Hilfe."
+"fÃ¼r weitere Hilfe."
 
 #: domains/delete.php:32
 msgid "Domain deleted."
-msgstr "Domain gelöscht."
+msgstr "Domain gelÃ¶scht."
 
 #: domains/delete.php:37
 msgid "Domain not deleted."
-msgstr "Domain nicht gelöscht."
+msgstr "Domain nicht gelÃ¶scht."
 
 #: domains/edit.php:33
 msgid "Domain saved."
@@ -195,46 +195,46 @@ msgid ""
 "alphanumerical character, it must contain only alphanumerical and '._-' "
 "characters, and must end with an alphanumerical character."
 msgstr ""
-"Geben Sie eine virtuelle E-Mail-Adresse für die \"@%s\" Domain an und tragen "
+"Geben Sie eine virtuelle E-Mail-Adresse fÃ¼r die \"@%s\" Domain an und tragen "
 "Sie unten ein, wohin Nachrichten, die an diese Adresse geschickt werden, "
-"ausgeliefert werden sollen. E-Mail-Adressen müssen mit einem "
-"alphanumerischen Zeichen beginnen und enden und dürfen nur alphanumerische "
+"ausgeliefert werden sollen. E-Mail-Adressen mÃ¼ssen mit einem "
+"alphanumerischen Zeichen beginnen und enden und dÃ¼rfen nur alphanumerische "
 "und die Zeichen \"._-\" enthalten."
 
 #: lib/Driver/qmailldap.php:1178
 #, php-format
 msgid "Error adding account to LDAP: %s"
-msgstr "Fehler beim Hinzufügen des Kontos in LDAP: %s"
+msgstr "Fehler beim HinzufÃ¼gen des Kontos in LDAP: %s"
 
 #: lib/Driver/qmailldap.php:711
 #, php-format
 msgid "Error deleting account from LDAP: %s"
-msgstr "Fehler beim Löschen des Kontos in LDAP: %s"
+msgstr "Fehler beim LÃ¶schen des Kontos in LDAP: %s"
 
 #: users/delete.php:117
 #, php-format
 msgid "Error deleting alias. %s."
-msgstr "Fehler beim Löschen des Alias. %s."
+msgstr "Fehler beim LÃ¶schen des Alias. %s."
 
 #: domains/delete.php:30
 #, php-format
 msgid "Error deleting domain. %s."
-msgstr "Fehler beim Löschen der Domain. %s."
+msgstr "Fehler beim LÃ¶schen der Domain. %s."
 
 #: users/delete.php:134
 #, php-format
 msgid "Error deleting forward. %s."
-msgstr "Fehler beim Löschen der Weiterleitung. %s."
+msgstr "Fehler beim LÃ¶schen der Weiterleitung. %s."
 
 #: users/delete.php:149
 #, php-format
 msgid "Error deleting user. %s."
-msgstr "Fehler beim Löschen des Benutzers. %s."
+msgstr "Fehler beim LÃ¶schen des Benutzers. %s."
 
 #: virtuals/delete.php:40
 #, php-format
 msgid "Error deleting virtual email. %s."
-msgstr "Fehler beim Löschen der virtuellen E-Mail-Adresse. %s."
+msgstr "Fehler beim LÃ¶schen der virtuellen E-Mail-Adresse. %s."
 
 #: lib/Driver/qmailldap.php:193 lib/Driver/qmailldap.php:198
 #, php-format
@@ -270,11 +270,11 @@ msgstr "Fehler beim Lesen LDAP-Ergebnisse: %s"
 #: lib/Driver/qmailldap.php:505
 #, php-format
 msgid "Error returning LDAP results: %s"
-msgstr "Fehler bei der Rückgabe der LDAP-Ergebnisse: %s"
+msgstr "Fehler bei der RÃ¼ckgabe der LDAP-Ergebnisse: %s"
 
 #: lib/Driver.php:271
 msgid "Error running authentication update script."
-msgstr "Fehler beim Ausführen des Update-Skripts."
+msgstr "Fehler beim AusfÃ¼hren des Update-Skripts."
 
 #: users/editAlias.php:34
 #, php-format
@@ -310,7 +310,7 @@ msgstr "Fehler bei der LDAP-Suche: %s"
 
 #: lib/Driver.php:356
 msgid "Error while calling hook to delete domain."
-msgstr "Fehler beim Aufruf des Hooks zum Löschen der Domain."
+msgstr "Fehler beim Aufruf des Hooks zum LÃ¶schen der Domain."
 
 #: lib/Driver/qmailldap.php:779 lib/Driver/qmailldap.php:930
 #, php-format
@@ -323,7 +323,7 @@ msgstr "Weiterleiten"
 
 #: users/delete.php:136
 msgid "Forward deleted."
-msgstr "Weiterleitung gelöscht."
+msgstr "Weiterleitung gelÃ¶scht."
 
 #: lib/Vilma.php:69
 msgid "Forwards"
@@ -331,7 +331,7 @@ msgstr "Weiterleitung"
 
 #: lib/Forms/EditUserForm.php:55 templates/users/index.html:16
 msgid "Full Name"
-msgstr "Vollständiger Name"
+msgstr "VollstÃ¤ndiger Name"
 
 #: lib/Vilma.php:65
 msgid "Group"
@@ -376,12 +376,12 @@ msgid ""
 "More than one DN returned for this alias.  Please contact an administrator "
 "to resolve this error."
 msgstr ""
-"Mehr als eine DN für diesen Alias gefunden. Bitte wenden Sie sich an einen "
+"Mehr als eine DN fÃ¼r diesen Alias gefunden. Bitte wenden Sie sich an einen "
 "Administrator, um diesen Fehler zu beheben."
 
 #: lib/Driver/qmailldap.php:669 lib/Driver/qmailldap.php:706
 msgid "More than one DN returned.  Aborting delete operation."
-msgstr "Mehr als eine DN zurückgeliefert.  Löschvorgang abgebrochen."
+msgstr "Mehr als eine DN zurÃ¼ckgeliefert.  LÃ¶schvorgang abgebrochen."
 
 #: lib/Forms/EditUserForm.php:49
 msgid ""
@@ -395,7 +395,7 @@ msgstr ""
 #: lib/Forms/EditAliasForm.php:23
 #, php-format
 msgid "New Alias for %s"
-msgstr "Neuer Alias für %s"
+msgstr "Neuer Alias fÃ¼r %s"
 
 #: lib/Forms/EditDomainForm.php:19
 msgid "New Domain"
@@ -404,12 +404,12 @@ msgstr "Neue Domain"
 #: lib/Forms/EditForwardForm.php:23
 #, php-format
 msgid "New Forward for %s"
-msgstr "Neue Weiterleitung für %s"
+msgstr "Neue Weiterleitung fÃ¼r %s"
 
 #: lib/Forms/EditUserForm.php:29
 #, php-format
 msgid "New User @%s"
-msgstr "Neuer Benutzer für Domain @%s"
+msgstr "Neuer Benutzer fÃ¼r Domain @%s"
 
 #: virtuals/index.php:46
 msgid "New Virtual Email"
@@ -453,7 +453,7 @@ msgstr "Nicht implementiert."
 msgid "Only enter a password if you wish to change this user's password"
 msgstr ""
 "Geben Sie nur ein Passwort ein, wenn Sie das Passwort dieses Benutzers "
-"ändern möchten"
+"Ã¤ndern mÃ¶chten"
 
 #: lib/Forms/EditUserForm.php:51 lib/Forms/EditUserForm.php:53
 msgid "Password"
@@ -501,18 +501,18 @@ msgid ""
 "The email address to add as an alias for this user.  Note that the server "
 "must be configured to receive mail for the domain contained in this address."
 msgstr ""
-"Die E-Mail-Adresse, die als Alias zu diesem Benutzer hinzugefügt werden "
-"soll. Beachten Sie, dass der Server dafür konfiguriert sein muss, "
-"Nachrichten für die Domain dieser Adresse entgegen zu nehmen."
+"Die E-Mail-Adresse, die als Alias zu diesem Benutzer hinzugefÃ¼gt werden "
+"soll. Beachten Sie, dass der Server dafÃ¼r konfiguriert sein muss, "
+"Nachrichten fÃ¼r die Domain dieser Adresse entgegen zu nehmen."
 
 #: lib/Forms/EditForwardForm.php:37
 msgid ""
 "The email address to add as an forward for this user.  Note that the server "
 "must be configured to receive mail for the domain contained in this address."
 msgstr ""
-"Die E-Mail-Adresse, die als Weiterleitung zu diesem Benutzer hinzugefügt "
-"werden soll. Beachten Sie, dass der Server dafür konfiguriert sein muss, "
-"Nachrichten für die Domain dieser Adresse entgegen zu nehmen."
+"Die E-Mail-Adresse, die als Weiterleitung zu diesem Benutzer hinzugefÃ¼gt "
+"werden soll. Beachten Sie, dass der Server dafÃ¼r konfiguriert sein muss, "
+"Nachrichten fÃ¼r die Domain dieser Adresse entgegen zu nehmen."
 
 #: lib/MailboxDriver.php:76
 msgid "This driver cannot create mailboxes."
@@ -520,7 +520,7 @@ msgstr "Dieses Treiber kann keine Mailboxen anlegen."
 
 #: lib/MailboxDriver.php:92
 msgid "This driver cannot delete mailboxes."
-msgstr "Dieser Treiber kann keine Mailboxen löschen."
+msgstr "Dieser Treiber kann keine Mailboxen lÃ¶schen."
 
 #: lib/Forms/EditDomainForm.php:36
 msgid "Transport"
@@ -532,7 +532,7 @@ msgstr "Typ"
 
 #: lib/Driver/qmailldap.php:667 lib/Driver/qmailldap.php:704
 msgid "Unable to acquire handle on DN.  Aborting delete operation."
-msgstr "DN nicht gefunden.  Löschvorgang abgebrochen."
+msgstr "DN nicht gefunden.  LÃ¶schvorgang abgebrochen."
 
 #: lib/Driver/qmailldap.php:1045
 msgid "Unable to acquire handle on address."
@@ -542,13 +542,13 @@ msgstr "Adresse nicht gefunden."
 #: lib/Driver/qmailldap.php:1252
 msgid "Unable to bind to the LDAP server.  Check authentication credentials."
 msgstr ""
-"Anbindung an LDAP-Server fehlgeschlagen. Überprüfen Sie die "
+"Anbindung an LDAP-Server fehlgeschlagen. ÃœberprÃ¼fen Sie die "
 "Authentifizierungsdaten."
 
 #: lib/Driver/qmailldap.php:794 lib/Driver/qmailldap.php:852
 #: lib/Driver/qmailldap.php:945 lib/Driver/qmailldap.php:1010
 msgid "Unable to bind to the LDAP server. Check authentication credentials."
-msgstr "LDAP-Server-Binding fehlgeschlagen. Überprüfen Sie die Anmeldedaten."
+msgstr "LDAP-Server-Binding fehlgeschlagen. ÃœberprÃ¼fen Sie die Anmeldedaten."
 
 #: lib/Driver/qmailldap.php:1183
 msgid "Unable to connect to LDAP server"
@@ -573,7 +573,7 @@ msgstr "Die LDAP-Protokollversion konnte nicht gesetzt werden"
 
 #: lib/Driver.php:275
 msgid "Unknown error running authentication update script."
-msgstr "Unbekannter Fehler beim Ausführen des Update-Skripts."
+msgstr "Unbekannter Fehler beim AusfÃ¼hren des Update-Skripts."
 
 #: lib/Vilma.php:56
 msgid "User"
@@ -589,7 +589,7 @@ msgstr "Benutzer deaktiviert."
 
 #: users/delete.php:159
 msgid "User not deleted."
-msgstr "Benutzer wurde nicht gelöscht."
+msgstr "Benutzer wurde nicht gelÃ¶scht."
 
 #: lib/Driver.php:155
 msgid "User ready."
@@ -617,11 +617,11 @@ msgstr "Virtuelle E-Mail-Adresse"
 
 #: virtuals/delete.php:42
 msgid "Virtual email deleted."
-msgstr "Virtuelle E-Mail-Adresse gelöscht."
+msgstr "Virtuelle E-Mail-Adresse gelÃ¶scht."
 
 #: virtuals/delete.php:49
 msgid "Virtual email not deleted."
-msgstr "Virtuelle E-Mail-Adresse nicht gelöscht."
+msgstr "Virtuelle E-Mail-Adresse nicht gelÃ¶scht."
 
 #: virtuals/edit.php:74
 msgid "Virtual email saved."

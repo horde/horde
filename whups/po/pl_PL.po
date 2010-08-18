@@ -15,7 +15,7 @@ msgstr ""
 "Last-Translator: Piotr Tarnowski <drfugazi@drfugazi.eu.org>\n"
 "Language-Team: Polish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: admin/index.php:605
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
-msgstr "\"%s\" nie jest ju¿ wspó³odpowiedzialny za \"%s\""
+msgstr "\"%s\" nie jest juÅ¼ wspÃ³Å‚odpowiedzialny za \"%s\""
 
 #: templates/menu.inc:5
 msgid "#Id"
@@ -32,12 +32,12 @@ msgstr "#Id"
 #: templates/ticket/watchers.inc:3
 #, php-format
 msgid "%d people watching, %d people responsible"
-msgstr "%d ludzi obserwuj±cych, %d ludzi odpowiedzialnych"
+msgstr "%d ludzi obserwujÄ…cych, %d ludzi odpowiedzialnych"
 
 #: lib/Driver.php:368
 #, php-format
 msgid "%s (%s) wrote:"
-msgstr "%s (%s) napisa³:"
+msgstr "%s (%s) napisaÅ‚:"
 
 #: admin/index.php:569
 #, php-format
@@ -52,13 +52,13 @@ msgstr "%s dni"
 #: ticket/watch.php:58
 #, php-format
 msgid "%s will be notified when this ticket is updated."
-msgstr "%s zostanie poinformowany o aktualizacji zg³oszenia."
+msgstr "%s zostanie poinformowany o aktualizacji zgÅ‚oszenia."
 
 #: ticket/watch.php:70
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
 msgstr ""
-"%s nie bêdzie ju¿ otrzymywaæ informacji o aktualizacji tego zg³oszenia."
+"%s nie bÄ™dzie juÅ¼ otrzymywaÄ‡ informacji o aktualizacji tego zgÅ‚oszenia."
 
 #: admin/index.php:82
 msgid "- Stage 1"
@@ -71,19 +71,19 @@ msgstr "- Faza 2"
 #: scripts/mail-filter.php:164
 msgid "--priority-name or --priority-id must specify a valid Priority."
 msgstr ""
-"--nazwa-priorytetu lub --id-priorytetu musi okre¶laæ prawid³owy priorytet"
+"--nazwa-priorytetu lub --id-priorytetu musi okreÅ›laÄ‡ prawidÅ‚owy priorytet"
 
 #: scripts/mail-filter.php:158
 msgid "--queue-name or --queue-id must specify a valid Queue."
-msgstr "--nazwa-kolejki lub --id-kolejki musi okre¶laæ prawid³ow± kolejkê."
+msgstr "--nazwa-kolejki lub --id-kolejki musi okreÅ›laÄ‡ prawidÅ‚owÄ… kolejkÄ™."
 
 #: scripts/mail-filter.php:167
 msgid "--state-name or --state-id must specify a valid State."
-msgstr "--nazwa-statusu lub --id-statusu musi okre¶laæ prawid³owy status."
+msgstr "--nazwa-statusu lub --id-statusu musi okreÅ›laÄ‡ prawidÅ‚owy status."
 
 #: scripts/mail-filter.php:161
 msgid "--type-name or --type-id must specify a valid Type."
-msgstr "--nazwa-typu lub --id-typu musi okre¶laæ prawid³owy typ."
+msgstr "--nazwa-typu lub --id-typu musi okreÅ›laÄ‡ prawidÅ‚owy typ."
 
 #: templates/prevnext.inc:12
 msgid "<<First"
@@ -96,7 +96,7 @@ msgstr "<Poprzedni"
 #: view.php:66
 #, php-format
 msgid "Access denied to %s"
-msgstr "Brak dostêpu do %s"
+msgstr "Brak dostÄ™pu do %s"
 
 #: lib/Forms/Admin.php:619
 msgid "Add Attribute"
@@ -108,7 +108,7 @@ msgstr "Dodaj kryterium atrybutu"
 
 #: mybugs.php:53
 msgid "Add Content"
-msgstr "Dodaj zawarto¶æ"
+msgstr "Dodaj zawartoÅ›Ä‡"
 
 #: query.php:211
 msgid "Add Criterion"
@@ -124,11 +124,11 @@ msgstr "Dodaj priorytet"
 
 #: lib/Query.php:717
 msgid "Add Property Criterion"
-msgstr "Dodaj kryterium w³a¶ciwo¶ci"
+msgstr "Dodaj kryterium wÅ‚aÅ›ciwoÅ›ci"
 
 #: lib/Forms/Admin.php:20 lib/Forms/Admin.php:21
 msgid "Add Queue"
-msgstr "Dodaj kolejkê"
+msgstr "Dodaj kolejkÄ™"
 
 #: lib/Forms/Admin.php:355
 msgid "Add State"
@@ -149,15 +149,15 @@ msgstr "Dodaj typ %s"
 
 #: lib/Query.php:589
 msgid "Add User Criterion"
-msgstr "Dodaj kryterium u¿ytkownika"
+msgstr "Dodaj kryterium uÅ¼ytkownika"
 
 #: lib/Forms/Admin.php:139
 msgid "Add Users"
-msgstr "Dodaj u¿ytkowników"
+msgstr "Dodaj uÅ¼ytkownikÃ³w"
 
 #: lib/Forms/Admin.php:531
 msgid "Add Version"
-msgstr "Dodaj wersjê"
+msgstr "Dodaj wersjÄ™"
 
 #: ticket/watch.php:47
 msgid "Add Watcher"
@@ -166,7 +166,7 @@ msgstr "Dodaj obserwatora"
 #: ticket/create.php:50
 #, php-format
 msgid "Adding your ticket failed: %s."
-msgstr "Dodanie Twojego zg³oszenia nie powiod³o siê: %s."
+msgstr "Dodanie Twojego zgÅ‚oszenia nie powiodÅ‚o siÄ™: %s."
 
 #: lib/api.php:773 admin/index.php:55
 msgid "Administration"
@@ -188,7 +188,7 @@ msgstr "Dowolna grupa"
 
 #: config/prefs.php.dist:55
 msgid "Ascending"
-msgstr "Rosn±co"
+msgstr "RosnÄ…co"
 
 #: lib/api.php:788
 msgid "Assign"
@@ -206,26 +206,26 @@ msgstr "Przypisany do %s"
 
 #: admin/index.php:887
 msgid "Associations updated successfully."
-msgstr "Przyporz±dkowania pomy¶lnie zaktualizowane."
+msgstr "PrzyporzÄ…dkowania pomyÅ›lnie zaktualizowane."
 
 #: lib/Forms/AddComment.php:24 lib/Forms/CreateTicket.php:121
 #: lib/Forms/EditTicket.php:85
 msgid "Attachment"
-msgstr "Za³±cznik"
+msgstr "ZaÅ‚Ä…cznik"
 
 #: ticket/deleteAttachment.php:29
 #, php-format
 msgid "Attachment %s deleted."
-msgstr "Skasowano za³±cznik %s."
+msgstr "Skasowano zaÅ‚Ä…cznik %s."
 
 #: lib/Ticket.php:405
 #, php-format
 msgid "Attachment %s not found."
-msgstr "Nie znaleziono za³±cznika %s."
+msgstr "Nie znaleziono zaÅ‚Ä…cznika %s."
 
 #: lib/Ticket.php:681
 msgid "Attachments"
-msgstr "Za³±czniki"
+msgstr "ZaÅ‚Ä…czniki"
 
 #: query.php:142
 msgid "Attri_bute Criteria"
@@ -246,11 +246,11 @@ msgstr "Atrybuty dla tego typu"
 
 #: config/prefs.php.dist:117
 msgid "Autolink to other tickets in comments?"
-msgstr "Automatycznie przy³±czyæ do innych zg³oszeñ w komentarzach?"
+msgstr "Automatycznie przyÅ‚Ä…czyÄ‡ do innych zgÅ‚oszeÅ„ w komentarzach?"
 
 #: lib/Reports.php:12
 msgid "Average days to close by Owner"
-msgstr "¦rednia ilo¶æ dni do zamkniêcia przez w³a¶ciciela"
+msgstr "Åšrednia iloÅ›Ä‡ dni do zamkniÄ™cia przez wÅ‚aÅ›ciciela"
 
 #: lib/Reports.php:14
 msgid "Average days to close by Queue"
@@ -274,7 +274,7 @@ msgstr ""
 
 #: templates/queryrenderer.inc:27
 msgid "Change"
-msgstr "Zmieñ"
+msgstr "ZmieÅ„"
 
 #: config/prefs.php.dist:11
 msgid "Change display options such as how search results are sorted."
@@ -342,7 +342,7 @@ msgstr "Kopia %s"
 
 #: lib/MIME/Viewer/zip.php:53
 msgid "Could not extract the requested file from the Zip archive."
-msgstr "Nie mo¿na wyodrêbniæ ¿±danego pliku z archiwum Zip."
+msgstr "Nie moÅ¼na wyodrÄ™bniÄ‡ Å¼Ä…danego pliku z archiwum Zip."
 
 #: lib/Query.php:645
 msgid "Could not find any groups."
@@ -408,69 +408,69 @@ msgstr ""
 
 #: config/prefs.php.dist:46
 msgid "Default sorting criteria:"
-msgstr "Domy¶lne kryteria sortowania:"
+msgstr "DomyÅ›lne kryteria sortowania:"
 
 #: config/prefs.php.dist:57
 msgid "Default sorting direction:"
-msgstr "Domy¶lny kierunek sortowania:"
+msgstr "DomyÅ›lny kierunek sortowania:"
 
 #: query.php:146
 msgid "Delete"
-msgstr "Usuñ"
+msgstr "UsuÅ„"
 
 #: lib/Whups.php:680 lib/Whups.php:681
 #, php-format
 msgid "Delete %s"
-msgstr "Usuñ %s"
+msgstr "UsuÅ„ %s"
 
 #: ticket/delete.php:58
 #, php-format
 msgid "Delete %s?"
-msgstr "Usun±æ %s?"
+msgstr "UsunÄ…Ä‡ %s?"
 
 #: lib/Forms/Admin.php:635 admin/index.php:777
 msgid "Delete Attribute"
-msgstr "Usuñ atrybut"
+msgstr "UsuÅ„ atrybut"
 
 #: lib/Forms/Admin.php:685
 msgid "Delete Attribute Confirmation"
-msgstr "Potwierdzenie usuniêcia atrybutu"
+msgstr "Potwierdzenie usuniÄ™cia atrybutu"
 
 #: lib/Forms/Admin.php:461 admin/index.php:487
 msgid "Delete Priority"
-msgstr "Usuñ priorytet"
+msgstr "UsuÅ„ priorytet"
 
 #: lib/Forms/Admin.php:507
 msgid "Delete Priority Confirmation"
-msgstr "Potwierdzenie usuniêcia priorytetu"
+msgstr "Potwierdzenie usuniÄ™cia priorytetu"
 
 #: lib/Query.php:924
 msgid "Delete Query?"
-msgstr "Usun±æ zapytanie?"
+msgstr "UsunÄ…Ä‡ zapytanie?"
 
 #: lib/Forms/Admin.php:37 admin/index.php:269
 msgid "Delete Queue"
-msgstr "Usuñ kolejkê"
+msgstr "UsuÅ„ kolejkÄ™"
 
 #: lib/Forms/Admin.php:114
 msgid "Delete Queue Confirmation"
-msgstr "Potwierdzenie usuniêcia kolejki"
+msgstr "Potwierdzenie usuniÄ™cia kolejki"
 
 #: lib/Forms/Admin.php:372 admin/index.php:377
 msgid "Delete State"
-msgstr "Usuñ status"
+msgstr "UsuÅ„ status"
 
 #: lib/Forms/Admin.php:421
 msgid "Delete State Confirmation"
-msgstr "Potwierdzenie usuniêcia statusu"
+msgstr "Potwierdzenie usuniÄ™cia statusu"
 
 #: lib/Forms/Admin.php:223 admin/index.php:115
 msgid "Delete Type"
-msgstr "Usuñ typ"
+msgstr "UsuÅ„ typ"
 
 #: lib/Forms/Admin.php:298
 msgid "Delete Type Confirmation"
-msgstr "Potwierdzenie usuniêcia typu"
+msgstr "Potwierdzenie usuniÄ™cia typu"
 
 #: lib/Forms/Admin.php:547 admin/index.php:666
 msgid "Delete Version"
@@ -491,7 +491,7 @@ msgstr ""
 
 #: config/prefs.php.dist:56
 msgid "Descending"
-msgstr "Malej±co"
+msgstr "MalejÄ…co"
 
 #: lib/Forms/CreateTicket.php:122
 msgid "Description"
@@ -499,7 +499,7 @@ msgstr "Opis"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opcje wy¶wietlania"
+msgstr "Opcje wyÅ›wietlania"
 
 #: lib/Whups.php:672
 msgid "Download"
@@ -646,7 +646,7 @@ msgstr ""
 
 #: templates/menu.inc:5
 msgid "Go"
-msgstr "Id¼"
+msgstr "IdÅº"
 
 #: lib/Forms/CreateTicket.php:192 lib/Forms/EditTicket.php:79
 msgid "Group Owners"
@@ -797,12 +797,12 @@ msgstr "Moje zapytania"
 
 #: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
 msgid "My Requests"
-msgstr "Moje zg³oszenia"
+msgstr "Moje zgÅ‚oszenia"
 
 #: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
 #: config/prefs.php.dist:66
 msgid "My Tickets"
-msgstr "Moje zg³oszenia"
+msgstr "Moje zgÅ‚oszenia"
 
 #: lib/api.php:854
 msgid "My tickets by assignment date"
@@ -869,7 +869,7 @@ msgstr "Nie"
 
 #: lib/Block/myqueries.php:44
 msgid "No queries have been saved."
-msgstr "Nie zapisano ¿adnych zapytañ."
+msgstr "Nie zapisano Å¼adnych zapytaÅ„."
 
 #: lib/Block/query.php:64 lib/Driver/sql.php:420
 msgid "No query to run"
@@ -890,19 +890,19 @@ msgstr ""
 
 #: lib/Block/mytickets.php:45
 msgid "No tickets are assigned to you."
-msgstr "Nie ma ¿adnych przypisanych do Ciebie zg³oszeñ."
+msgstr "Nie ma Å¼adnych przypisanych do Ciebie zgÅ‚oszeÅ„."
 
 #: lib/Block/unassigned.php:45
 msgid "No tickets are unassigned!"
-msgstr "Brak nieprzypisanych zg³oszeñ!"
+msgstr "Brak nieprzypisanych zgÅ‚oszeÅ„!"
 
 #: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
 msgid "No tickets in queue."
-msgstr "Brak zg³oszeñ w kolejce."
+msgstr "Brak zgÅ‚oszeÅ„ w kolejce."
 
 #: lib/Whups.php:532
 msgid "No tickets matched your search criteria."
-msgstr "¯adne zg³oszenia nie pasuj± do Twoich kryteriów wyszukiwania."
+msgstr "Å»adne zgÅ‚oszenia nie pasujÄ… do Twoich kryteriÃ³w wyszukiwania."
 
 #: lib/Reports.php:88
 msgid "None"
@@ -980,7 +980,7 @@ msgstr ""
 #: ticket/update.php:23 ticket/delete.php:17 ticket/type.php:17
 #: ticket/deleteAttachment.php:17 ticket/queue.php:124
 msgid "Permission Denied"
-msgstr "Dostêp zabroniony"
+msgstr "DostÄ™p zabroniony"
 
 #: lib/Forms/EditTicket.php:104 ticket/delete.php:44
 msgid "Permission Denied."
@@ -1143,7 +1143,7 @@ msgstr ""
 #: lib/Driver.php:166 lib/api.php:897 lib/Ticket.php:679 lib/Whups.php:501
 #: config/prefs.php.dist:45
 msgid "Resolved"
-msgstr "Rozwi±zany"
+msgstr "RozwiÄ…zany"
 
 #: lib/Forms/Admin.php:179
 msgid "Responsible Users"
@@ -1330,7 +1330,7 @@ msgstr "Status"
 
 #: ticket/create.php:124
 msgid "Submit"
-msgstr "Wy¶lij"
+msgstr "WyÅ›lij"
 
 #: admin/index.php:162
 #, php-format
@@ -1369,7 +1369,7 @@ msgstr "Tekst"
 
 #: view.php:55 lib/Ticket.php:356 lib/Ticket.php:394
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Aby wgrywaæ za³±czniki musi byæ skonfigurowany backend VFS."
+msgstr "Aby wgrywaÄ‡ zaÅ‚Ä…czniki musi byÄ‡ skonfigurowany backend VFS."
 
 #: admin/index.php:739
 #, php-format
@@ -1439,7 +1439,7 @@ msgstr ""
 
 #: lib/MIME/Viewer/zip.php:59
 msgid "The requested file does not exist in the Zip attachment."
-msgstr "¯±dany plik nie wystêpuje w za³±czniku Zip."
+msgstr "Å»Ä…dany plik nie wystÄ™puje w zaÅ‚Ä…czniku Zip."
 
 #: data.php:26
 msgid "The requested template does not exist."
@@ -1682,7 +1682,7 @@ msgstr ""
 
 #: lib/Ticket.php:505 lib/Ticket.php:611
 msgid "Ticket"
-msgstr "Zg³oszenia"
+msgstr "ZgÅ‚oszenia"
 
 #: ticket/delete.php:68
 #, php-format
@@ -1701,7 +1701,7 @@ msgstr ""
 
 #: search.php:98
 msgid "Ticket Search"
-msgstr "Wyszukiwanie zg³oszeñ"
+msgstr "Wyszukiwanie zgÅ‚oszeÅ„"
 
 #: lib/Forms/CreateTicket.php:117
 msgid "Ticket State"
@@ -1730,11 +1730,11 @@ msgstr ""
 
 #: lib/api.php:846
 msgid "Tickets"
-msgstr "Zg³oszenia"
+msgstr "ZgÅ‚oszenia"
 
 #: lib/Forms/Search.php:38
 msgid "Tickets which are"
-msgstr "Zg³oszenia, które s±"
+msgstr "ZgÅ‚oszenia, ktÃ³re sÄ…"
 
 #: lib/Query.php:722 lib/Ticket.php:482 lib/Ticket.php:596 lib/Ticket.php:665
 #: lib/Whups.php:493 templates/queryrenderer.inc:121 ticket/queue.php:82
@@ -1804,7 +1804,7 @@ msgstr ""
 
 #: lib/Forms/Admin.php:152 lib/Forms/Admin.php:162 lib/Forms/Admin.php:165
 msgid "User"
-msgstr "U¿ytkownik"
+msgstr "UÅ¼ytkownik"
 
 #: lib/Query.php:591
 msgid "User ID"
@@ -1874,7 +1874,7 @@ msgstr ""
 
 #: lib/Block/myrequests.php:46
 msgid "You have no open requests."
-msgstr "Nie masz otwartych zg³oszeñ."
+msgstr "Nie masz otwartych zgÅ‚oszeÅ„."
 
 #: lib/Query.php:896 lib/Block/query.php:28
 msgid "You have no saved queries."
@@ -1886,7 +1886,7 @@ msgstr ""
 
 #: lib/Forms/AddComment.php:18 lib/Forms/CreateTicket.php:111
 msgid "Your Email Address"
-msgstr "Twój adres email"
+msgstr "TwÃ³j adres email"
 
 #: ticket/create.php:53
 #, php-format
@@ -1905,7 +1905,7 @@ msgstr ""
 
 #: lib/Whups.php:208
 msgid "_Delete"
-msgstr "Usuñ"
+msgstr "UsuÅ„"
 
 #: lib/Query.php:205
 msgid "_Delete Query"
@@ -1942,7 +1942,7 @@ msgstr "_Moje %s"
 
 #: lib/Whups.php:583
 msgid "_New Ticket"
-msgstr "_Nowe zg³oszenie"
+msgstr "_Nowe zgÅ‚oszenie"
 
 #: query.php:137
 msgid "_Property Criteria"
@@ -1950,7 +1950,7 @@ msgstr ""
 
 #: lib/Whups.php:584
 msgid "_Query Builder"
-msgstr "Konstruktor zapytañ"
+msgstr "Konstruktor zapytaÅ„"
 
 #: lib/Whups.php:585
 msgid "_Reports"

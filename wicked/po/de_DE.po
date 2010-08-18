@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -38,12 +38,12 @@ msgid ""
 "now and start editing."
 msgstr ""
 "%s existiert nicht. Klicken Sie unten auf \"Erstellen\", wenn Sie diese "
-"Seite jetzt anlegen und bearbeiten möchten."
+"Seite jetzt anlegen und bearbeiten mÃ¶chten."
 
 #: lib/Page/Search.php:109
 #, php-format
 msgid "%s does not exist. You can create it now."
-msgstr "%s existiert nicht. Sie können es jetzt anlegen."
+msgstr "%s existiert nicht. Sie kÃ¶nnen es jetzt anlegen."
 
 #: templates/edit/create.inc:37
 msgid "(None)"
@@ -53,14 +53,14 @@ msgstr "(Keine)"
 msgid ""
 "-d, --debug                  Run in debug mode (displays extra information)"
 msgstr ""
-"-d, --debug                  Im Debugmodus ausführen (Zeigt zusätzliche\n"
+"-d, --debug                  Im Debugmodus ausfÃ¼hren (Zeigt zusÃ¤tzliche\n"
 "                             Informationen an)"
 
 #: scripts/wicked.php:145
 msgid ""
 "-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
 msgstr ""
-"-g, --get[=pagetitle]        Liefert alle Seiten zurück (außer wenn "
+"-g, --get[=pagetitle]        Liefert alle Seiten zurÃ¼ck (auÃŸer wenn "
 "spezieller\n"
 "                             Seitentitel angeben wird)"
 
@@ -96,7 +96,7 @@ msgstr "Seite anlegen: %s"
 
 #: templates/display/MergeOrRename.html:31
 msgid "Add the text from this page"
-msgstr "den Text von dieser Seite hinzufügen"
+msgstr "den Text von dieser Seite hinzufÃ¼gen"
 
 #: lib/Page/AllPages.php:87
 msgid "All Pages"
@@ -107,33 +107,33 @@ msgid ""
 "Are you sure you want to delete this page? All versions will be permanently "
 "removed."
 msgstr ""
-"Sind Sie sicher, dass Sie diese Seite löschen möchten? Alle alten Versionen "
-"werden dauerhaft gelöscht."
+"Sind Sie sicher, dass Sie diese Seite lÃ¶schen mÃ¶chten? Alle alten Versionen "
+"werden dauerhaft gelÃ¶scht."
 
 #: lib/Page/DeletePage.php:81
 #, php-format
 msgid "Are you sure you want to delete version %s of this page?"
-msgstr "Sind Sie sicher, dass Sie die Version %s dieser Seite löschen möchten?"
+msgstr "Sind Sie sicher, dass Sie die Version %s dieser Seite lÃ¶schen mÃ¶chten?"
 
 #: lib/Page/RevertPage.php:68
 #, php-format
 msgid "Are you sure you want to revert to version %s of this page?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Version %s dieser Seite wiederherstellen "
-"möchten?"
+"mÃ¶chten?"
 
 #: templates/display/AttachedFiles.html:88
 msgid "Attach File"
-msgstr "Datei anhängen"
+msgstr "Datei anhÃ¤ngen"
 
 #: templates/display/AttachedFiles.html:52
 msgid "Attach a New File"
-msgstr "Eine neue Datei anhängen"
+msgstr "Eine neue Datei anhÃ¤ngen"
 
 #: lib/Page/AttachedFiles.php:165
 #, php-format
 msgid "Attached Files: %s"
-msgstr "Angehängte Dateien: %s"
+msgstr "AngehÃ¤ngte Dateien: %s"
 
 #: templates/display/AttachedFiles.html:7
 msgid "Attachment Name"
@@ -142,11 +142,11 @@ msgstr "Anhangname"
 #: templates/display/standard.inc:80 templates/display/standard.inc:81
 #: templates/display/standard.inc:120
 msgid "Attachments"
-msgstr "Anhänge"
+msgstr "AnhÃ¤nge"
 
 #: lib/Page/AttachedFiles.php:221
 msgid "Attachments with spaces can't be embedded into a page."
-msgstr "Anhänge mit Leerzeichen können nicht in eine Seite eingebettet werden."
+msgstr "AnhÃ¤nge mit Leerzeichen kÃ¶nnen nicht in eine Seite eingebettet werden."
 
 #: templates/history/header.inc:23 templates/pagelist/header.inc:7
 #: templates/sync/list.inc:24 templates/sync/list.inc:50
@@ -158,24 +158,24 @@ msgstr "Autor"
 
 #: templates/display/standard.inc:107
 msgid "Ba_ck to"
-msgstr "_Zurück zu"
+msgstr "_ZurÃ¼ck zu"
 
 #: templates/display/standard.inc:107
 msgid "Back to"
-msgstr "Zurück zu"
+msgstr "ZurÃ¼ck zu"
 
 #: templates/display/standard.inc:70
 msgid "Backlinks"
-msgstr "Rückverweise"
+msgstr "RÃ¼ckverweise"
 
 #: lib/Page/BackLinks.php:78
 #, php-format
 msgid "Backlinks: %s"
-msgstr "Rückverweise: %s"
+msgstr "RÃ¼ckverweise: %s"
 
 #: lib/Page/SyncPages.php:243 lib/Page/SyncPages.php:246
 msgid "By default, your login data will be used"
-msgstr "Standardmäßig werden Ihre Anmeldedaten verwendet"
+msgstr "StandardmÃ¤ÃŸig werden Ihre Anmeldedaten verwendet"
 
 #: lib/Page/AttachedFiles.php:227
 msgid "Can't read uploaded file."
@@ -184,7 +184,7 @@ msgstr "Hochgeladene Datei konnte nicht gelesen werden."
 #: lib/Page/RevertPage.php:117
 #, php-format
 msgid "Can't revert to an unknown version."
-msgstr "Wiederherstellung einer unbekannten Version nicht möglich."
+msgstr "Wiederherstellung einer unbekannten Version nicht mÃ¶glich."
 
 #: lib/Page/AttachedFiles.php:267
 #, php-format
@@ -199,34 +199,34 @@ msgstr "Abbrechen"
 
 #: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
 msgid "Change Log"
-msgstr "Änderung"
+msgstr "Ã„nderung"
 
 #: templates/sync/diff.inc:26 templates/sync/diff.inc:62
 #: templates/edit/standard.inc:29
 msgid "Change log"
-msgstr "Änderung"
+msgstr "Ã„nderung"
 
 #: templates/display/AttachedFiles.html:80
 #: templates/display/AttachedFiles.html:146
 msgid "Change log entry"
-msgstr "Änderungseintrag"
+msgstr "Ã„nderungseintrag"
 
 #: templates/display/MergeOrRename.html:40
 msgid "Change references to this page from:"
-msgstr "Verweise von folgenden Seiten ändern:"
+msgstr "Verweise von folgenden Seiten Ã¤ndern:"
 
 #: lib/Page/MergeOrRename.php:272
 #, php-format
 msgid "Changed references from %s to %s"
-msgstr "Verweise von %s nach %s geändert"
+msgstr "Verweise von %s nach %s geÃ¤ndert"
 
 #: templates/edit/standard.inc:28
 msgid "Changelog is required"
-msgstr "Änderungseintrag ist notwendig"
+msgstr "Ã„nderungseintrag ist notwendig"
 
 #: templates/sync/diff.inc:27 templates/sync/diff.inc:63
 msgid "Checksum"
-msgstr "Prüfsumme"
+msgstr "PrÃ¼fsumme"
 
 #: templates/edit/create.inc:26
 msgid ""
@@ -234,7 +234,7 @@ msgid ""
 "editing."
 msgstr ""
 "Klicken Sie unten auf \"Erstellen\", wenn Sie diese Seite jetzt anlegen und "
-"bearbeiten möchten."
+"bearbeiten mÃ¶chten."
 
 #: scripts/wicked.php:24
 msgid "Couldn't read command-line options."
@@ -270,30 +270,30 @@ msgstr "Datum"
 
 #: lib/Page/DeletePage.php:99
 msgid "Delete"
-msgstr "Löschen"
+msgstr "LÃ¶schen"
 
 #: templates/display/standard.inc:55
 #, php-format
 msgid "Delete %s"
-msgstr "%s löschen"
+msgstr "%s lÃ¶schen"
 
 #: lib/Page/DeletePage.php:93 lib/Page/DeletePage.php:116
 msgid "Delete Page"
-msgstr "Seite löschen"
+msgstr "Seite lÃ¶schen"
 
 #: templates/history/header.inc:16
 msgid "Delete Version"
-msgstr "Version löschen"
+msgstr "Version lÃ¶schen"
 
 #: templates/history/summary.inc:6
 #, php-format
 msgid "Delete Version %s"
-msgstr "Version %s löschen"
+msgstr "Version %s lÃ¶schen"
 
 #: lib/Page/DeletePage.php:138
 #, php-format
 msgid "Deleted version %s of \"%s\"."
-msgstr "Version %s von \"%s\" gelöscht."
+msgstr "Version %s von \"%s\" gelÃ¶scht."
 
 #: templates/history/header.inc:26
 msgid "Diff From"
@@ -375,7 +375,7 @@ msgstr "Extern bearbeiten"
 #: templates/display/AttachedFiles.html:67
 msgid "Enter a name for this file (if blank, will use the file's current name)"
 msgstr ""
-"Geben Sie einen Namen für diese Datei an (Dateiname wird verwendet, falls "
+"Geben Sie einen Namen fÃ¼r diese Datei an (Dateiname wird verwendet, falls "
 "nichts anderen angegeben)"
 
 #: scripts/mail-filter.php:107
@@ -386,7 +386,7 @@ msgstr "Fehler beim Anlegen einer neuen Seite: %s"
 #: lib/Page/MergeOrRename.php:221
 #, php-format
 msgid "Error deleting %s: %s"
-msgstr "Fehler beim Löschen von %s: %s"
+msgstr "Fehler beim LÃ¶schen von %s: %s"
 
 #: scripts/mail-filter.php:22
 #, php-format
@@ -406,7 +406,7 @@ msgstr "Fehler beim Lesen von %s: %s"
 #: lib/Page/AttachedFiles.php:109 lib/Page/AttachedFiles.php:249
 #, php-format
 msgid "Error retrieving attachments: %s"
-msgstr "Fehler beim Lesen der Anhänge: %s"
+msgstr "Fehler beim Lesen der AnhÃ¤nge: %s"
 
 #: lib/Page/AddPage.php:65
 #, php-format
@@ -476,16 +476,16 @@ msgstr "Interner Fehler beim Anzeigen dieser Seite: %s"
 
 #: lib/Api.php:285
 msgid "Invalid page requested."
-msgstr "Ungültige Seite angefordert."
+msgstr "UngÃ¼ltige Seite angefordert."
 
 #: templates/display/AttachedFiles.html:133
 msgid "Is this a minor update?"
-msgstr "Handelt es sich um eine kleinere Änderung?"
+msgstr "Handelt es sich um eine kleinere Ã„nderung?"
 
 #: templates/display/title.inc:6 templates/edit/standard.inc:20
 #, php-format
 msgid "Last Modified %s by %s"
-msgstr "Letzte Änderung am %s durch %s"
+msgstr "Letzte Ã„nderung am %s durch %s"
 
 #: templates/display/standard.inc:142
 msgid "Latex"
@@ -527,7 +527,7 @@ msgstr "Anmeldedaten sind nicht korrekt."
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
-"Pflichtwerte für lange Parameter sind auch für kurze Parameter verpflichtend."
+"Pflichtwerte fÃ¼r lange Parameter sind auch fÃ¼r kurze Parameter verpflichtend."
 
 #: templates/display/standard.inc:63
 msgid "Merge/Rename"
@@ -541,21 +541,21 @@ msgstr "Umbenennen: %s"
 #: lib/Page/MergeOrRename.php:226
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
-msgstr "\"%s\" mit \"%s\" zusammengeführt."
+msgstr "\"%s\" mit \"%s\" zusammengefÃ¼hrt."
 
 #: lib/Page/MergeOrRename.php:229
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
-msgstr "\"%s\" mit \"%s\" zusammengeführt. Neue Seite: %s\n"
+msgstr "\"%s\" mit \"%s\" zusammengefÃ¼hrt. Neue Seite: %s\n"
 
 #: lib/Page/MergeOrRename.php:210
 #, php-format
 msgid "Merged from %s"
-msgstr "Zusammengeführt von %s:"
+msgstr "ZusammengefÃ¼hrt von %s:"
 
 #: templates/edit/standard.inc:30
 msgid "Minor Change"
-msgstr "Kleinere Änderung"
+msgstr "Kleinere Ã„nderung"
 
 #: lib/Page/MostPopular.php:90
 msgid "Most Popular"
@@ -581,7 +581,7 @@ msgstr "Neue Seite: %s"
 #: lib/Page/AttachedFiles.php:299
 #, php-format
 msgid "New attachment \"%s\" to page \"%s\"."
-msgstr "Neuer Anhang \"%s\" für Seite \"%s\"."
+msgstr "Neuer Anhang \"%s\" fÃ¼r Seite \"%s\"."
 
 #: templates/display/MergeOrRename.html:15
 msgid "New name"
@@ -601,7 +601,7 @@ msgstr "Neue Seiten auf dem externen Server"
 
 #: lib/Api.php:221 lib/Page/SyncPages.php:384 lib/Page/EditPage.php:175
 msgid "No changes made"
-msgstr "Keine Änderungen vorgenommen"
+msgstr "Keine Ã„nderungen vorgenommen"
 
 #: templates/sync/list.inc:18 templates/sync/list.inc:44
 msgid "No pages found"
@@ -687,7 +687,7 @@ msgstr "Seiten"
 
 #: lib/Page/NewPage.php:126
 msgid "Pages cannot be empty."
-msgstr "Seiten dürfen nicht leer sein."
+msgstr "Seiten dÃ¼rfen nicht leer sein."
 
 #: templates/sync/list.inc:68
 msgid "Pages to sync"
@@ -711,7 +711,7 @@ msgstr "Einfacher Text"
 
 #: lib/Page/SyncPages.php:237
 msgid "Prefix"
-msgstr "Präfix"
+msgstr "PrÃ¤fix"
 
 #: templates/edit/new.inc:25 templates/edit/standard.inc:26
 msgid "Preview"
@@ -719,11 +719,11 @@ msgstr "Vorschau"
 
 #: lib/Page/EditPage.php:161
 msgid "Random string did not match."
-msgstr "Die Buchstaben stimmen nicht überein."
+msgstr "Die Buchstaben stimmen nicht Ã¼berein."
 
 #: lib/Page/RecentChanges.php:111
 msgid "Recent Changes"
-msgstr "Letzte Änderungen"
+msgstr "Letzte Ã„nderungen"
 
 #: lib/Page/AttachedFiles.php:65
 #, php-format
@@ -769,7 +769,7 @@ msgstr "Seite umbenannt von %s"
 
 #: lib/Page/SyncPages.php:191
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "ZurÃ¼cksetzen"
 
 #: templates/history/header.inc:20
 msgid "Restore Version"
@@ -795,11 +795,11 @@ msgstr "Version %s von \"%s\" wiederhergestellt."
 
 #: lib/Driver/sql.php:553
 msgid "Robots are not allowed to create pages"
-msgstr "Roboter dürfen keine Seiten erstellen"
+msgstr "Roboter dÃ¼rfen keine Seiten erstellen"
 
 #: templates/display/standard.inc:75
 msgid "S_imilar Pages"
-msgstr "Ähnl_iche Seiten"
+msgstr "Ã„hnl_iche Seiten"
 
 #: templates/edit/new.inc:24 templates/edit/standard.inc:25
 msgid "Save"
@@ -825,25 +825,25 @@ msgstr "Suchergebnisse"
 #: templates/display/AttachedFiles.html:58
 #: templates/display/AttachedFiles.html:110
 msgid "Select file to attach:"
-msgstr "Wählen Sie die Datei aus, die angehängt werden soll:"
+msgstr "WÃ¤hlen Sie die Datei aus, die angehÃ¤ngt werden soll:"
 
 #: templates/display/AttachedFiles.html:119
 msgid "Select the file to update"
-msgstr "Wählen Sie die Datei aus, die aktualisiert werden soll"
+msgstr "WÃ¤hlen Sie die Datei aus, die aktualisiert werden soll"
 
 #: templates/display/standard.inc:102
 #, php-format
 msgid "Set permissions for %s"
-msgstr "Rechte für %s festlegen"
+msgstr "Rechte fÃ¼r %s festlegen"
 
 #: templates/sync/list.inc:79
 msgid "Show changes"
-msgstr "Änderungen anzeigen"
+msgstr "Ã„nderungen anzeigen"
 
 #: templates/display/title.inc:16 lib/Page/RecentChanges.php:55
 #, php-format
 msgid "Show changes for %s"
-msgstr "Änderungen für %s anzeigen"
+msgstr "Ã„nderungen fÃ¼r %s anzeigen"
 
 #: lib/Page/RecentChanges.php:62
 #, php-format
@@ -852,12 +852,12 @@ msgstr "Version %s anzeigen"
 
 #: templates/display/standard.inc:75
 msgid "Similar Pages"
-msgstr "Ähnliche Seiten"
+msgstr "Ã„hnliche Seiten"
 
 #: lib/Page/LikePages.php:80
 #, php-format
 msgid "Similar Pages: %s"
-msgstr "Ähnliche Seiten: %s"
+msgstr "Ã„hnliche Seiten: %s"
 
 #: templates/edit/standard.inc:41
 msgid "Spam Protection - Enter the letters below:"
@@ -865,7 +865,7 @@ msgstr "Spamschutz - Geben sie die Buchstaben unten ein:"
 
 #: templates/display/MergeOrRename.html:33
 msgid "Stop and don't do anything"
-msgstr "abbrechen und nichts ändern"
+msgstr "abbrechen und nichts Ã¤ndern"
 
 #: lib/Page/SyncPages.php:228
 msgid "Stored"
@@ -878,12 +878,12 @@ msgstr "Abschicken"
 #: lib/Page/DeletePage.php:132
 #, php-format
 msgid "Successfully deleted \"%s\"."
-msgstr "\"%s\" wurde erfolgreich gelöscht."
+msgstr "\"%s\" wurde erfolgreich gelÃ¶scht."
 
 #: lib/Page/AttachedFiles.php:201
 #, php-format
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
-msgstr "Version %s von \"%s\" erfolgreich aus \"%s\" gelöscht"
+msgstr "Version %s von \"%s\" erfolgreich aus \"%s\" gelÃ¶scht"
 
 #: lib/Page/SyncDiff.php:127
 msgid "Sync Diff"
@@ -903,7 +903,7 @@ msgstr "Anmeldedaten wurden entfernt."
 
 #: lib/Page/SyncPages.php:292
 msgid "Sync login info was stored"
-msgstr "Die Anmeldedaten für die Synchronisation wurden gespeichert"
+msgstr "Die Anmeldedaten fÃ¼r die Synchronisation wurden gespeichert"
 
 #: lib/Page/SyncDiff.php:50
 msgid "Synchronization is disabled"
@@ -933,7 +933,7 @@ msgstr "Diese Seite hat keine Geschichte"
 #: display.php:126
 #, php-format
 msgid "This page is locked by %s for %d Minutes."
-msgstr "Diese Seite wurde von %s für %d Minuten gesperrt."
+msgstr "Diese Seite wurde von %s fÃ¼r %d Minuten gesperrt."
 
 #: lib/Page/MergeOrRename.php:120
 #, php-format
@@ -969,7 +969,7 @@ msgstr "%s freigeben"
 #: lib/Page.php:395 lib/Page.php:405 lib/Page.php:512 lib/Page.php:523
 #: lib/Page.php:528 lib/Page.php:533 lib/Page.php:538 lib/Page.php:578
 msgid "Unsupported"
-msgstr "Nicht unterstützt"
+msgstr "Nicht unterstÃ¼tzt"
 
 #: templates/display/AttachedFiles.html:154
 msgid "Update File"
@@ -1035,50 +1035,50 @@ msgstr "Wikiseite"
 
 #: display.php:24
 msgid "You are not allowed to lock this page"
-msgstr "Sie dürfen diese Seite nicht blockieren."
+msgstr "Sie dÃ¼rfen diese Seite nicht blockieren."
 
 #: display.php:37
 msgid "You are not allowed to unlock this page"
-msgstr "Sie dürfen diese Seite nicht freigeben."
+msgstr "Sie dÃ¼rfen diese Seite nicht freigeben."
 
 #: lib/Page/AttachedFiles.php:190
 msgid "You do not have permission to delete attachments from this page."
 msgstr ""
-"Sie haben nicht genügend Rechte, um Anhänge von dieser Seite zu löschen."
+"Sie haben nicht genÃ¼gend Rechte, um AnhÃ¤nge von dieser Seite zu lÃ¶schen."
 
 #: lib/Page/AttachedFiles.php:233 lib/Page/MergeOrRename.php:188
 #: lib/Page/MergeOrRename.php:203
 #, php-format
 msgid "You do not have permission to edit \"%s\""
-msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten"
+msgstr "Sie haben nicht genÃ¼gend Rechte, um \"%s\" zu bearbeiten"
 
 #: lib/Page/NewPage.php:122
 #, php-format
 msgid "You don't have permission to create \"%s\"."
-msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu erstellen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um \"%s\" zu erstellen."
 
 #: lib/Page/DeletePage.php:144
 #, php-format
 msgid "You don't have permission to delete \"%s\"."
-msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu löschen."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um \"%s\" zu lÃ¶schen."
 
 #: lib/Api.php:203 lib/Page/SyncPages.php:368 lib/Page/EditPage.php:156
 #: lib/Page/RevertPage.php:128
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
-msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten."
+msgstr "Sie haben nicht genÃ¼gend Rechte, um \"%s\" zu bearbeiten."
 
 #: display.php:66 display.php:69 display.php:110 display.php:113
 msgid "You don't have permission to view this page."
-msgstr "Sie haben nicht die nötigen Rechte um diese Seite anzuzeigen."
+msgstr "Sie haben nicht die nÃ¶tigen Rechte um diese Seite anzuzeigen."
 
 #: lib/Page/AttachedFiles.php:241
 msgid "You must enter a change description to attach this file."
-msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen."
+msgstr "Sie mÃ¼ssen einen Ã„nderungseintrag eingeben, um diese Datei anzuhÃ¤ngen."
 
 #: lib/Api.php:207 lib/Page/EditPage.php:167
 msgid "You must provide a change log."
-msgstr "Sie müssen einen Änderungseintrag angeben."
+msgstr "Sie mÃ¼ssen einen Ã„nderungseintrag angeben."
 
 #: lib/Wicked.php:102
 msgid "_All Pages"
@@ -1086,11 +1086,11 @@ msgstr "_Alle Seiten"
 
 #: templates/display/standard.inc:70
 msgid "_Backlinks"
-msgstr "Rück_verweise"
+msgstr "RÃ¼ck_verweise"
 
 #: templates/display/standard.inc:56
 msgid "_Delete"
-msgstr "Lös_chen"
+msgstr "LÃ¶s_chen"
 
 #: templates/display/standard.inc:25
 msgid "_Edit"
@@ -1110,7 +1110,7 @@ msgstr "_Umbenennen"
 
 #: lib/Wicked.php:101
 msgid "_Recent Changes"
-msgstr "_Letzte Änderungen"
+msgstr "_Letzte Ã„nderungen"
 
 #: lib/Wicked.php:100
 msgid "_Usage"

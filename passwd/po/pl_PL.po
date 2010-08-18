@@ -18,7 +18,7 @@ msgstr ""
 "Last-Translator: Piotr Tarnowski <drfugazi@drfugazi.eu.org>\n"
 "Language-Team: Polish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
@@ -31,21 +31,21 @@ msgstr "%s nie istnieje lub nie jest wykonywalny."
 #: lib/Driver/expectpecl.php:73
 #, php-format
 msgid "%s extension cannot be loaded!"
-msgstr "Nie mo¿na za³adowaæ rozszerzenia %s!"
+msgstr "Nie moÅ¼na zaÅ‚adowaÄ‡ rozszerzenia %s!"
 
 #: lib/Driver/composite.php:63
 #, php-format
 msgid "%s: unable to load driver: %s"
-msgstr "%s: nie mo¿na za³adowaæ drivera: %s"
+msgstr "%s: nie moÅ¼na zaÅ‚adowaÄ‡ drivera: %s"
 
 #: lib/Driver/adsi.php:61
 #, php-format
 msgid "ADSI error %s."
-msgstr "B³±d ADSI %s."
+msgstr "BÅ‚Ä…d ADSI %s."
 
 #: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
 msgid "Access Denied."
-msgstr "Dostêp zabroniony"
+msgstr "DostÄ™p zabroniony"
 
 #: lib/Driver.php:89
 msgid "Backend not correctly implemented."
@@ -53,60 +53,60 @@ msgstr "Backend nie poprawnie zaimplementowany."
 
 #: lib/Driver/poppassd.php:90
 msgid "Cannot send command to server."
-msgstr "Nie mo¿na wys³aæ polecenia do serwera."
+msgstr "Nie moÅ¼na wysÅ‚aÄ‡ polecenia do serwera."
 
 #: main.php:255 templates/main/main.inc:141
 msgid "Change Password"
-msgstr "Zmieñ has³o"
+msgstr "ZmieÅ„ hasÅ‚o"
 
 #: templates/main/main.inc:126
 msgid "Change password on:"
-msgstr "Zmieñ has³o na:"
+msgstr "ZmieÅ„ hasÅ‚o na:"
 
 #: templates/main/main.inc:67
 msgid "Change your password"
-msgstr "Zmieñ swoje has³o"
+msgstr "ZmieÅ„ swoje hasÅ‚o"
 
 #: templates/main/main.inc:65
 #, php-format
 msgid "Changing password on %s"
-msgstr "Zmiana has³a na %s"
+msgstr "Zmiana hasÅ‚a na %s"
 
 #: templates/main/main.inc:113
 msgid "Confirm new password:"
-msgstr "Powtórz nowe has³o:"
+msgstr "PowtÃ³rz nowe hasÅ‚o:"
 
 #: lib/Driver/ldap.php:99 lib/Driver/ldap.php:189 lib/Driver/kolab.php:60
 msgid "Could not bind to LDAP server"
-msgstr "Nie mo¿na przy³±czyæ do serwera LDAP"
+msgstr "Nie moÅ¼na przyÅ‚Ä…czyÄ‡ do serwera LDAP"
 
 #: lib/Driver/expectpecl.php:118
 msgid "Could not change password (bad old password?)"
-msgstr "Nie mo¿na zmieniæ has³a (b³êdne stare has³o?)"
+msgstr "Nie moÅ¼na zmieniÄ‡ hasÅ‚a (bÅ‚Ä™dne stare hasÅ‚o?)"
 
 #: lib/Driver/expectpecl.php:138
 msgid "Could not change password."
-msgstr "Nie mo¿na zmieniæ has³a."
+msgstr "Nie moÅ¼na zmieniÄ‡ hasÅ‚a."
 
 #: lib/Driver/ldap.php:74 lib/Driver/kolab.php:46
 msgid "Could not connect to LDAP server"
-msgstr "Nie mo¿na po³±czyæ z serwerem LDAP"
+msgstr "Nie moÅ¼na poÅ‚Ä…czyÄ‡ z serwerem LDAP"
 
 #: lib/Driver/expectpecl.php:98
 msgid "Could not login to system (no password prompt)"
-msgstr "Nie mo¿na zalogowaæ siê do systemu (brak promptu has³a)"
+msgstr "Nie moÅ¼na zalogowaÄ‡ siÄ™ do systemu (brak promptu hasÅ‚a)"
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "Nie mo¿na otworzyæ tunelu do smbpasswd."
+msgstr "Nie moÅ¼na otworzyÄ‡ tunelu do smbpasswd."
 
 #: lib/Driver/ldap.php:80
 msgid "Could not start TLS connection to LDAP server"
-msgstr "Nie mo¿na ustanowiæ szyfrowanego po³±czenia TLS do serwera LDAP"
+msgstr "Nie moÅ¼na ustanowiÄ‡ szyfrowanego poÅ‚Ä…czenia TLS do serwera LDAP"
 
 #: lib/Driver/expectpecl.php:108
 msgid "Could not start passwd program (no old password prompt)"
-msgstr "Nie mo¿na uruchomiæ programu passwd (brak promptu do starego has³a)"
+msgstr "Nie moÅ¼na uruchomiÄ‡ programu passwd (brak promptu do starego hasÅ‚a)"
 
 #: lib/Driver/expectpecl.php:44
 msgid "End of file."
@@ -114,37 +114,37 @@ msgstr "Koniec pliku."
 
 #: lib/Driver/smbpasswd.php:79
 msgid "Error sending data to smbpasswd."
-msgstr "B³±d przy wysy³aniu danych do smbpasswd."
+msgstr "BÅ‚Ä…d przy wysyÅ‚aniu danych do smbpasswd."
 
 #: lib/Driver/pspasswd.php:93
 msgid "Failed to verify old password."
-msgstr "B³±d podczas weryfikacji starego has³a."
+msgstr "BÅ‚Ä…d podczas weryfikacji starego hasÅ‚a."
 
 #: main.php:211 lib/Driver/composite.php:102
 #, php-format
 msgid "Failure in changing password on %s: %s"
-msgstr "B³±d przy zmianie has³a na %s: %s"
+msgstr "BÅ‚Ä…d przy zmianie hasÅ‚a na %s: %s"
 
 #: lib/Driver/expectpecl.php:50
 msgid "Full buffer."
-msgstr "Pe³ny bufor."
+msgstr "PeÅ‚ny bufor."
 
 #: lib/Driver.php:60 lib/Driver/vmailmgr.php:42 lib/Driver/ldap.php:190
 #: lib/Driver/kolab.php:84 lib/Driver/poppassd.php:120
 msgid "Incorrect Password"
-msgstr "Nieprawid³owe has³o"
+msgstr "NieprawidÅ‚owe hasÅ‚o"
 
 #: lib/Driver/ldap.php:166
 msgid "Minimum password age has not yet expired"
-msgstr "Minimalny wiek has³a jeszcze nie min±³"
+msgstr "Minimalny wiek hasÅ‚a jeszcze nie minÄ…Å‚"
 
 #: lib/Driver/expectpecl.php:128
 msgid "New password not valid (too short, bad password, too similar, ...)"
-msgstr "Nowe has³o nie jest poprawne (zbyt krótkie, z³e, zbyt podobne itp.)"
+msgstr "Nowe hasÅ‚o nie jest poprawne (zbyt krÃ³tkie, zÅ‚e, zbyt podobne itp.)"
 
 #: templates/main/main.inc:101
 msgid "New password:"
-msgstr "Nowe has³o:"
+msgstr "Nowe hasÅ‚o:"
 
 #: lib/Driver/poppassd.php:67
 msgid "No prompt returned from server."
@@ -157,125 +157,125 @@ msgstr "Nie znaleziono backendu \"%s\"."
 
 #: lib/Driver/http.php:72
 msgid "Old password is incorrect."
-msgstr "Stare has³o jest nieprawid³owe."
+msgstr "Stare hasÅ‚o jest nieprawidÅ‚owe."
 
 #: templates/main/main.inc:89
 msgid "Old password:"
-msgstr "Stare has³o:"
+msgstr "Stare hasÅ‚o:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd nie jest prawid³owo skonfigurowane."
+msgstr "Passwd nie jest prawidÅ‚owo skonfigurowane."
 
 #: main.php:203
 #, php-format
 msgid "Password changed on %s."
-msgstr "Zmieniono has³o na %s."
+msgstr "Zmieniono hasÅ‚o na %s."
 
 #: lib/Driver/sql.php:127
 #, php-format
 msgid "Password column \"%s\" not found in password table."
-msgstr "Nie znaleziono kolumny has³a \"%s\" w tabeli hase³."
+msgstr "Nie znaleziono kolumny hasÅ‚a \"%s\" w tabeli haseÅ‚."
 
 #: lib/Driver/pspasswd.php:75
 msgid "Password module can't find the supplied bin."
-msgstr "Modu³ hase³ nie móg³ znale¼æ w³a¶ciwej binarki."
+msgstr "ModuÅ‚ haseÅ‚ nie mÃ³gÅ‚ znaleÅºÄ‡ wÅ‚aÅ›ciwej binarki."
 
 #: lib/Driver/pspasswd.php:73
 msgid "Password module is missing required parameters."
-msgstr "Modu³owi hase³ brakuje wymaganych parametrów."
+msgstr "ModuÅ‚owi haseÅ‚ brakuje wymaganych parametrÃ³w."
 
 #: lib/Driver/adsi.php:51
 msgid "Password module is missing target parameter."
-msgstr "Modu³owi hase³ brakuje docelowego parametru."
+msgstr "ModuÅ‚owi haseÅ‚ brakuje docelowego parametru."
 
 #: main.php:178 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "Modu³ hase³ nie jest poprawnie skonfigurowany"
+msgstr "ModuÅ‚ haseÅ‚ nie jest poprawnie skonfigurowany"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "Modu³ hase³ nie jest skonfigurowany prawid³owo."
+msgstr "ModuÅ‚ haseÅ‚ nie jest skonfigurowany prawidÅ‚owo."
 
 #: templates/main/main.inc:11
 msgid "Please provide a new password"
-msgstr "Proszê podaæ nowe has³o"
+msgstr "ProszÄ™ podaÄ‡ nowe hasÅ‚o"
 
 #: templates/main/main.inc:7
 msgid "Please provide your current password"
-msgstr "Proszê podaæ aktualne has³o"
+msgstr "ProszÄ™ podaÄ‡ aktualne hasÅ‚o"
 
 #: templates/main/main.inc:15
 msgid "Please verify your new password"
-msgstr "Proszê zweryfikowaæ swoje nowe has³o"
+msgstr "ProszÄ™ zweryfikowaÄ‡ swoje nowe hasÅ‚o"
 
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
-msgstr "Wymagane 'drivery' s± ¼le skonfigurowane w konfiguracji composite"
+msgstr "Wymagane 'drivery' sÄ… Åºle skonfigurowane w konfiguracji composite"
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
 msgstr ""
-"Wymagany parametr 'phptype' nie jest okre¶lony w konfiguracji has³a SQL."
+"Wymagany parametr 'phptype' nie jest okreÅ›lony w konfiguracji hasÅ‚a SQL."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "Wymagany parametr 'phptype' nie jest okre¶lony w konfiguracji SQL."
+msgstr "Wymagany parametr 'phptype' nie jest okreÅ›lony w konfiguracji SQL."
 
 #: templates/main/main.inc:142
 msgid "Reset"
-msgstr "Przywróæ"
+msgstr "PrzywrÃ³Ä‡"
 
 #: lib/Driver/http.php:65
 msgid "The requested website for changing user passwords could not be reached."
-msgstr "Nie mo¿na wy¶wietliæ wymaganej do zmiany hase³ u¿ytkowników strony."
+msgstr "Nie moÅ¼na wyÅ›wietliÄ‡ wymaganej do zmiany haseÅ‚ uÅ¼ytkownikÃ³w strony."
 
 #: lib/Driver/http.php:74
 msgid "The username could not be found."
-msgstr "Nazwa u¿ytkownika nie zosta³a znaleziona."
+msgstr "Nazwa uÅ¼ytkownika nie zostaÅ‚a znaleziona."
 
 #: lib/Driver/expectpecl.php:47
 msgid "Time out."
-msgstr "Czas min±³."
+msgstr "Czas minÄ…Å‚."
 
 #: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
 msgid "Unable to connect to SQL server."
-msgstr "Nie mo¿na po³±czyæ z serwerem SQL."
+msgstr "Nie moÅ¼na poÅ‚Ä…czyÄ‡ z serwerem SQL."
 
 #: lib/Driver/expectpecl.php:93
 msgid "Unable to open expect stream!"
-msgstr "Nie mo¿na otworzyæ oczekiwanego strumienia!"
+msgstr "Nie moÅ¼na otworzyÄ‡ oczekiwanego strumienia!"
 
 #: lib/Driver/sql.php:135 lib/Driver/vpopmail.php:150
 #: lib/Driver/poppassd.php:114
 msgid "User not found"
-msgstr "Nie znaleziono u¿ytkownika"
+msgstr "Nie znaleziono uÅ¼ytkownika"
 
 #: lib/Driver/ldap.php:133 lib/Driver/smbldap.php:140 lib/Driver/pine.php:231
 #: lib/Driver/kolab.php:76
 msgid "User not found."
-msgstr "Nie znaleziono u¿ytkownika."
+msgstr "Nie znaleziono uÅ¼ytkownika."
 
 #: templates/main/main.inc:76
 msgid "Username:"
-msgstr "U¿ytkownik:"
+msgstr "UÅ¼ytkownik:"
 
 #: main.php:47
 #, php-format
 msgid "You can't change password for user %s"
-msgstr "Nie mo¿esz zmieniæ has³a dla u¿ytkownika %s"
+msgstr "Nie moÅ¼esz zmieniÄ‡ hasÅ‚a dla uÅ¼ytkownika %s"
 
 #: main.php:55
 msgid "You must give your current password"
-msgstr "Musisz wpisaæ swoje obecne has³o"
+msgstr "Musisz wpisaÄ‡ swoje obecne hasÅ‚o"
 
 #: main.php:64
 msgid "You must give your new password"
-msgstr "Musisz wprowadziæ swoje nowe has³o"
+msgstr "Musisz wprowadziÄ‡ swoje nowe hasÅ‚o"
 
 #: main.php:68
 msgid "You must verify your new password"
-msgstr "Musisz zweryfikowaæ swoje nowe has³o"
+msgstr "Musisz zweryfikowaÄ‡ swoje nowe hasÅ‚o"
 
 #: main.php:88
 #, php-format
@@ -283,35 +283,35 @@ msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
-"Twoje howe has³o jest zbyt d³ugie. Has³o nie mo¿e byæ d³u¿sze ni¿ %d znaków!"
+"Twoje howe hasÅ‚o jest zbyt dÅ‚ugie. HasÅ‚o nie moÅ¼e byÄ‡ dÅ‚uÅ¼sze niÅ¼ %d znakÃ³w!"
 
 #: main.php:167
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "Twoje nowe has³o jest zbyt proste do odgadniêcia! Nie zmieniam!"
+msgstr "Twoje nowe hasÅ‚o jest zbyt proste do odgadniÄ™cia! Nie zmieniam!"
 
 #: main.php:158
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "Twoje nowe has³o jest zbyt proste do odgadniêcia. Nie zmieniam!"
+msgstr "Twoje nowe hasÅ‚o jest zbyt proste do odgadniÄ™cia. Nie zmieniam!"
 
 #: main.php:83
 #, php-format
 msgid "Your new password must be at least %d characters long!"
-msgstr "Twoje has³o musi posiadaæ przynajmniej %d znaków!"
+msgstr "Twoje hasÅ‚o musi posiadaÄ‡ przynajmniej %d znakÃ³w!"
 
 #: main.php:76
 msgid "Your new password must be different from your current password"
-msgstr "Twoje nowe has³o musi siê ró¿niæ od obecnego"
+msgstr "Twoje nowe hasÅ‚o musi siÄ™ rÃ³Å¼niÄ‡ od obecnego"
 
 #: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d alphabetic characters."
-msgstr "Twoje nowe has³o musi zawieraæ przynajmniej %d liter."
+msgstr "Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d liter."
 
 #: main.php:133
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric characters."
 msgstr ""
-"Twoje nowe has³o musi zawieraæ przynajmniej %d znaków alfanumerycznych."
+"Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d znakÃ³w alfanumerycznych."
 
 #: main.php:138
 #, php-format
@@ -319,42 +319,42 @@ msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
-"Twoje nowe has³o musi zawieraæ przynajmniej %d ró¿ne typów znaków. Typy "
-"znaków to: ma³e litery, du¿e litery, cyfry, symbole."
+"Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d rÃ³Å¼ne typÃ³w znakÃ³w. Typy "
+"znakÃ³w to: maÅ‚e litery, duÅ¼e litery, cyfry, symbole."
 
 #: main.php:118
 #, php-format
 msgid "Your new password must contain at least %d lowercase characters."
-msgstr "Twoje nowe has³o musi zawieraæ przynajmniej %d ma³ych liter."
+msgstr "Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d maÅ‚ych liter."
 
 #: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d numeric characters."
-msgstr "Twoje nowe has³o musi zawieraæ przynajmniej %d cyfrê(y)."
+msgstr "Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d cyfrÄ™(y)."
 
 #: main.php:113
 #, php-format
 msgid "Your new password must contain at least %d uppercase characters."
-msgstr "Twoje nowe has³o musi zawieraæ przynajmniej %d du¿ych liter."
+msgstr "Twoje nowe hasÅ‚o musi zawieraÄ‡ przynajmniej %d duÅ¼ych liter."
 
 #: main.php:144
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr ""
-"Twoje nowe has³o musi zawieraæ mniej ni¿ %d bia³ych znaków (spacji itp.)."
+"Twoje nowe hasÅ‚o musi zawieraÄ‡ mniej niÅ¼ %d biaÅ‚ych znakÃ³w (spacji itp.)."
 
 #: main.php:146
 msgid "Your new password must not contain whitespace characters."
-msgstr "Twoje has³o nie mo¿e zawieraæ bia³ych znaków (spacji itp.)."
+msgstr "Twoje hasÅ‚o nie moÅ¼e zawieraÄ‡ biaÅ‚ych znakÃ³w (spacji itp.)."
 
 #: main.php:72
 msgid "Your new passwords didn't match"
-msgstr "Twoje nowe has³a nie zgadzaj± siê"
+msgstr "Twoje nowe hasÅ‚a nie zgadzajÄ… siÄ™"
 
 #: lib/Driver/http.php:76
 msgid "Your password could not be changed."
-msgstr "Twoje has³o nie mo¿e byæ zmienione."
+msgstr "Twoje hasÅ‚o nie moÅ¼e byÄ‡ zmienione."
 
 #: templates/main/main.inc:19
 msgid "Your passwords do not match"
-msgstr "Twoje has³a nie s± zgodne"
+msgstr "Twoje hasÅ‚a nie sÄ… zgodne"

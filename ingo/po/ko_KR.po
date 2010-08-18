@@ -1,5 +1,5 @@
 # Korean translations for horde package
-# horde ÆĞÅ°Áö¿¡ ´ëÇÑ ÇÑ±¹¾î ¹ø¿ª¹®.
+# horde íŒ¨í‚¤ì§€ì— ëŒ€í•œ í•œêµ­ì–´ ë²ˆì—­ë¬¸.
 # Copyright 2005-2010 The Horde Project
 # This file is distributed under the same license as the horde package.
 #
@@ -12,41 +12,41 @@ msgstr ""
 "Last-Translator: Jinhyok Heo <novembre@ournature.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: filters.php:167
 msgid " and"
-msgstr " ±×¸®°í"
+msgstr " ê·¸ë¦¬ê³ "
 
 #: filters.php:167
 msgid " or"
-msgstr " ¶Ç´Â"
+msgstr " ë˜ëŠ”"
 
 #: templates/blacklist/blacklist.inc:19
 msgid "Action for blacklisted addresses:"
-msgstr "¼ö½Å°ÅºÎ ÁÖ¼Ò¿¡ ´ëÇÑ ¸í·É"
+msgstr "ìˆ˜ì‹ ê±°ë¶€ ì£¼ì†Œì— ëŒ€í•œ ëª…ë ¹"
 
 #: templates/filters/settings.inc:9
 msgid "Additional Settings"
-msgstr "Ãß°¡ÀûÀÎ ¼³Á¤"
+msgstr "ì¶”ê°€ì ì¸ ì„¤ì •"
 
 #: templates/rule/header.inc:53
 msgid "All of the following"
-msgstr "´ÙÀ½ÀÇ ÀüºÎ"
+msgstr "ë‹¤ìŒì˜ ì „ë¶€"
 
 #: templates/rule/footer.inc:44
 msgid "Answered"
-msgstr "´äÀåÇÑ ¸ŞÀÏ"
+msgstr "ë‹µì¥í•œ ë©”ì¼"
 
 #: templates/rule/header.inc:56
 msgid "Any of the following"
-msgstr "´ÙÀ½ Áß ÇÏ³ª ÀÌ»ó"
+msgstr "ë‹¤ìŒ ì¤‘ í•˜ë‚˜ ì´ìƒ"
 
 #: templates/filters/footer.inc:16
 msgid "Apply Filters"
-msgstr "ÇÊÅÍ Àû¿ëÇÏ±â"
+msgstr "í•„í„° ì ìš©í•˜ê¸°"
 
 #: filters.php:196
 #, fuzzy
@@ -56,278 +56,278 @@ msgstr ""
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?\n"
+"ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?\n"
+"ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?\n"
+"ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?\n"
+"ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"ÀÌ ¸Ş½ÃÁö¸¦ ¿µ¿øÈ÷ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?"
+"ì´ ë©”ì‹œì§€ë¥¼ ì˜ì›íˆ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
-msgstr "¼ûÀº ÂüÁ¶"
+msgstr "ìˆ¨ì€ ì°¸ì¡°"
 
 #: filters.php:126 templates/blacklist/blacklist.inc:8
 msgid "Blacklist"
-msgstr "¼ö½Å°ÅºÎ"
+msgstr "ìˆ˜ì‹ ê±°ë¶€"
 
 #: blacklist.php:100
 msgid "Blacklist Edit"
-msgstr "¼ö½Å°ÅºÎ ¸ñ·Ï ¼öÁ¤"
+msgstr "ìˆ˜ì‹ ê±°ë¶€ ëª©ë¡ ìˆ˜ì •"
 
 #: lib/Script/procmail.php:209
 msgid "Blacklisted Address"
-msgstr "¼ö½Å°ÅºÎµÈ ÁÖ¼Ò"
+msgstr "ìˆ˜ì‹ ê±°ë¶€ëœ ì£¼ì†Œ"
 
 #: lib/Script/sieve.php:245
 msgid "Blacklisted Addresses"
-msgstr "¼ö½Å°ÅºÎµÈ ÁÖ¼Ò"
+msgstr "ìˆ˜ì‹ ê±°ë¶€ëœ ì£¼ì†Œ"
 
 #: config/fields.php.dist:88
 msgid "Body"
-msgstr "º»¹®"
+msgstr "ë³¸ë¬¸"
 
 #: filters.php:164 rule.php:238
 msgid "Case Sensitive"
-msgstr "´ë¼Ò¹®ÀÚ ±¸ºĞ"
+msgstr "ëŒ€ì†Œë¬¸ì êµ¬ë¶„"
 
 #: config/fields.php.dist:43
 msgid "Cc"
-msgstr "ÂüÁ¶"
+msgstr "ì°¸ì¡°"
 
 #: rule.php:105 whitelist.php:36 forward.php:33 vacation.php:41
 #: blacklist.php:69
 msgid "Changes saved."
-msgstr "¼öÁ¤»çÇ× ÀúÀåµÊ"
+msgstr "ìˆ˜ì •ì‚¬í•­ ì €ì¥ë¨"
 
 #: lib/Storage.php:345
 msgid "Contains"
-msgstr "Æ÷ÇÔ"
+msgstr "í¬í•¨"
 
 #: filters.php:204 filters.php:205
 msgid "Copy %s"
-msgstr "º¹»ç %s"
+msgstr "ë³µì‚¬ %s"
 
 #: lib/Storage.php:775
 msgid "Copy of %s"
-msgstr "%s º¹»ç"
+msgstr "%s ë³µì‚¬"
 
 #: lib/Ingo.php:53
 msgid "Create new folder"
-msgstr "»õ Æú´õ ¸¸µé±â"
+msgstr "ìƒˆ í´ë” ë§Œë“¤ê¸°"
 
 #: templates/filters/filter.html:16
 msgid "DISABLED"
-msgstr "»ç¿ë¾ÈÇÔ"
+msgstr "ì‚¬ìš©ì•ˆí•¨"
 
 #: lib/Script/procmail.php:354
 msgid "DISABLED: "
-msgstr "»ç¿ë¾ÈÇÔ:"
+msgstr "ì‚¬ìš©ì•ˆí•¨:"
 
 #: filters.php:196 filters.php:197
 msgid "Delete %s"
-msgstr "»èÁ¦ %s"
+msgstr "ì‚­ì œ %s"
 
 #: templates/rule/filter.inc:30
 msgid "Delete Condition"
-msgstr "»èÁ¦ Á¶°Ç"
+msgstr "ì‚­ì œ ì¡°ê±´"
 
 #: lib/Storage.php:301
 msgid "Delete message completely"
-msgstr "¸Ş½ÃÁö ¿ÏÀü »èÁ¦"
+msgstr "ë©”ì‹œì§€ ì™„ì „ ì‚­ì œ"
 
 #: templates/rule/footer.inc:47
 msgid "Deleted"
-msgstr "»èÁ¦µÈ ¸ŞÀÏ"
+msgstr "ì‚­ì œëœ ë©”ì¼"
 
 #: lib/Storage.php:289
 msgid "Deliver into my INBOX"
-msgstr "¹ŞÀºÆíÁöÇÔÀ¸·Î Àü´Ş"
+msgstr "ë°›ì€í¸ì§€í•¨ìœ¼ë¡œ ì „ë‹¬"
 
 #: lib/Storage.php:315
 msgid "Deliver into my INBOX and copy to"
-msgstr "¹ŞÀºÆíÁöÇÔÀ¸·Î Àü´ŞÇÏ°í ´ÙÀ½ ÆíÁöÇÔÀ¸·Î º¹»çÇÏ±â"
+msgstr "ë°›ì€í¸ì§€í•¨ìœ¼ë¡œ ì „ë‹¬í•˜ê³  ë‹¤ìŒ í¸ì§€í•¨ìœ¼ë¡œ ë³µì‚¬í•˜ê¸°"
 
 #: lib/Storage.php:310
 msgid "Deliver into my INBOX and redirect to"
-msgstr "¹ŞÀºÆíÁöÇÔÀ¸·Î Àü´ŞÇÏ°í ´ÙÀ½ÁÖ¼Ò·Î Àü´Ş"
+msgstr "ë°›ì€í¸ì§€í•¨ìœ¼ë¡œ ì „ë‹¬í•˜ê³  ë‹¤ìŒì£¼ì†Œë¡œ ì „ë‹¬"
 
 #: lib/Storage.php:295
 msgid "Deliver to folder"
-msgstr "Æú´õ·Î ÀÌµ¿"
+msgstr "í´ë”ë¡œ ì´ë™"
 
 #: filters.php:218 filters.php:219
 msgid "Disable %s"
-msgstr "»ç¿ë¾ÈÇÔ: %s"
+msgstr "ì‚¬ìš©ì•ˆí•¨: %s"
 
 #: templates/whitelist/whitelist.inc:9 templates/blacklist/blacklist.inc:10
 #: templates/vacation/vacation.inc:9 templates/forward/forward.inc:9
 #: templates/rule/header.inc:30
 msgid "Disabled"
-msgstr "»ç¿ë¾ÈÇÔ"
+msgstr "ì‚¬ìš©ì•ˆí•¨"
 
 #: templates/filters/settings.inc:21
 msgid "Display detailed notification when each filter is applied?"
-msgstr "ÇÊÅÍ°¡ Àû¿ëµÉ ¶§ ÀÚ¼¼ÇÑ ¾Ë¸² ¸Ş½ÃÁö¸¦ Ç¥½ÃÇÕ´Ï´Ù."
+msgstr "í•„í„°ê°€ ì ìš©ë  ë•Œ ìì„¸í•œ ì•Œë¦¼ ë©”ì‹œì§€ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤."
 
 #: templates/vacation/vacation.inc:38
 msgid "Do _not send responses to bulk or list messages"
-msgstr "_n¹úÅ© È¤Àº ¸®½ºÆ® ¸Ş½ÃÁö¿¡ ´ëÇØ ÀÀ´äÀ» º¸³»Áö ¾Ê´Â´Ù"
+msgstr "_në²Œí¬ í˜¹ì€ ë¦¬ìŠ¤íŠ¸ ë©”ì‹œì§€ì— ëŒ€í•´ ì‘ë‹µì„ ë³´ë‚´ì§€ ì•ŠëŠ”ë‹¤"
 
 #: templates/filters/header.inc:20
 msgid "Edit"
-msgstr "¼öÁ¤"
+msgstr "ìˆ˜ì •"
 
 #: filters.php:185 filters.php:187 filters.php:191 filters.php:192
 msgid "Edit %s"
-msgstr "¼öÁ¤ '%s'"
+msgstr "ìˆ˜ì • '%s'"
 
 #: filters.php:222 filters.php:223
 msgid "Enable %s"
-msgstr "»ç¿ëÇÏ±â: %s"
+msgstr "ì‚¬ìš©í•˜ê¸°: %s"
 
 #: templates/filters/header.inc:22
 msgid "Enabled"
-msgstr "»ç¿ëÁß"
+msgstr "ì‚¬ìš©ì¤‘"
 
 #: lib/Storage.php:351
 #, fuzzy
 msgid "Ends with"
-msgstr "¼öÁ¤"
+msgstr "ìˆ˜ì •"
 
 #: templates/filters/header.inc:7
 msgid "Existing Rules"
-msgstr "Á¸ÀçÇÏ´Â ÇÊÅÍ¸µ"
+msgstr "ì¡´ì¬í•˜ëŠ” í•„í„°ë§"
 
 #: lib/Storage.php:353
 msgid "Exists"
-msgstr "Á¸ÀçÇÔ"
+msgstr "ì¡´ì¬í•¨"
 
 #: templates/filters/settings.inc:30
 msgid "Filter All Messages"
-msgstr "¸ğµç ¸Ş½ÃÁö ÇÊÅÍ"
+msgstr "ëª¨ë“  ë©”ì‹œì§€ í•„í„°"
 
 #: templates/filters/settings.inc:32
 msgid "Filter Only Seen Messages"
-msgstr "ÀĞÀº ¸ŞÀÏ¸¸ ÇÊÅÍ"
+msgstr "ì½ì€ ë©”ì¼ë§Œ í•„í„°"
 
 #: templates/filters/settings.inc:31
 msgid "Filter Only Unseen Messages"
-msgstr "ÀĞÁö ¾ÊÀº ¸ŞÀÏ¸¸ ÇÊÅÍ"
+msgstr "ì½ì§€ ì•Šì€ ë©”ì¼ë§Œ í•„í„°"
 
 #: templates/filters/settings.inc:28
 msgid "Filter Options"
-msgstr "ÇÊÅÍ ¼±ÅÃ»çÇ×"
+msgstr "í•„í„° ì„ íƒì‚¬í•­"
 
 #: templates/rule/header.inc:28
 msgid "Filter Rule"
-msgstr "ÇÊÅÍ Å¥Ä¢"
+msgstr "í•„í„° íì¹™"
 
 #: filters.php:92
 msgid "Filter Rules"
-msgstr "ÇÊÅÍ Å¥Ä¢"
+msgstr "í•„í„° íì¹™"
 
 #: script.php:52
 #, fuzzy
 msgid "Filter Script Display"
-msgstr "±âÅ¸ ¼³Á¤"
+msgstr "ê¸°íƒ€ ì„¤ì •"
 
 #: lib/Ingo.php:269
 msgid "Filter _Rules"
-msgstr "_rÇÊÅÍ Å¥Ä¢"
+msgstr "_rí•„í„° íì¹™"
 
 #: lib/Script/imap.php:308
 #, fuzzy, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "%d°³ ¸Ş½ÃÁö Áö¿öÁü. "
+msgstr "%dê°œ ë©”ì‹œì§€ ì§€ì›Œì§. "
 
 #: lib/Script/imap.php:303
 #, fuzzy, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "¸Ş½ÃÁö Áö¿öÁü"
+msgstr "ë©”ì‹œì§€ ì§€ì›Œì§"
 
 #: rule.php:133
 msgid "Filter not found."
-msgstr "ÇÊÅÍ Ã£Áö ¸øÇÔ"
+msgstr "í•„í„° ì°¾ì§€ ëª»í•¨"
 
 #: filters.php:144 templates/forward/forward.inc:7
 msgid "Forward"
-msgstr "Àü´Ş"
+msgstr "ì „ë‹¬"
 
 #: lib/Script/procmail.php:296
 msgid "Forwards"
-msgstr "Àü´Ş"
+msgstr "ì „ë‹¬"
 
 #: forward.php:46
 msgid "Forwards Edit"
-msgstr "Àü´Ş ¼öÁ¤"
+msgstr "ì „ë‹¬ ìˆ˜ì •"
 
 #: config/fields.php.dist:39
 msgid "From"
-msgstr "À§Ä¡"
+msgstr "ìœ„ì¹˜"
 
 #: lib/Storage.php:360
 #, fuzzy
 msgid "Greater than"
-msgstr "¸µÅ© ¸¸µé±â"
+msgstr "ë§í¬ ë§Œë“¤ê¸°"
 
 #: templates/rule/footer.inc:41
 msgid "Important"
-msgstr "Áß¿äÇÑ ¸ŞÀÏ"
+msgstr "ì¤‘ìš”í•œ ë©”ì¼"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "Mar_k message as deleted"
-msgstr "_kÁö¿öÁø ¸Ş½ÃÁö·Î Ç¥½Ã"
+msgstr "_kì§€ì›Œì§„ ë©”ì‹œì§€ë¡œ í‘œì‹œ"
 
 #: templates/rule/footer.inc:33
 #, fuzzy
 msgid "Mark message as:"
-msgstr "¸Ş½ÃÁö ±¸ºĞ"
+msgstr "ë©”ì‹œì§€ êµ¬ë¶„"
 
 #: templates/filters/header.inc:23
 msgid "Move"
-msgstr "ÀÌµ¿"
+msgstr "ì´ë™"
 
 #: filters.php:109 filters.php:215
 msgid "Move Rule Down"
-msgstr "¾Æ·¡·Î ÀÌµ¿"
+msgstr "ì•„ë˜ë¡œ ì´ë™"
 
 #: filters.php:110 filters.php:214
 msgid "Move Rule Up"
-msgstr "À§·Î ÀÌµ¿"
+msgstr "ìœ„ë¡œ ì´ë™"
 
 #: templates/filters/filter-none.inc:4 templates/filters/footer.inc:13
 #: lib/Storage.php:726
 msgid "New Rule"
-msgstr "»õ·Î¿î ±ÔÄ¢"
+msgstr "ìƒˆë¡œìš´ ê·œì¹™"
 
 #: lib/Ingo.php:204 lib/Ingo.php:206
 #, fuzzy, php-format
 msgid "No '%s' element found in backend configuration."
-msgstr "VFS ¼³Á¤ Á¤º¸¿¡¼­ 'port'ÀÌ ¾ø½À´Ï´Ù."
+msgstr "VFS ì„¤ì • ì •ë³´ì—ì„œ 'port'ì´ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/filters/filter-none.inc:4
 msgid "No filters. Click '%s' to create a new filter."
-msgstr "ÇÊÅÍ°¡ ¾øÀ½. '%s'¸¦ ´­·¯ »õ ÇÊÅÍ¸¦ ¸¸µå¼¼¿ä."
+msgstr "í•„í„°ê°€ ì—†ìŒ. '%s'ë¥¼ ëˆŒëŸ¬ ìƒˆ í•„í„°ë¥¼ ë§Œë“œì„¸ìš”."
 
 #: lib/Script/sieve.php:1233 lib/Script/sieve.php:1333
 #: lib/Script/sieve.php:1515
 #, fuzzy
 msgid "No headers specified"
-msgstr "¹®ÀÚ¿­ ÀÔ·Â ¿À·ù"
+msgstr "ë¬¸ìì—´ ì…ë ¥ ì˜¤ë¥˜"
 
 #: script.php:67
 #, fuzzy
 msgid "No script generated."
-msgstr "»èÁ¦µÇÁö ¾ÊÀº ¸ŞÀÏ"
+msgstr "ì‚­ì œë˜ì§€ ì•Šì€ ë©”ì¼"
 
 #: lib/Script/sieve.php:1530
 #, fuzzy
 msgid "No strings specified"
-msgstr "Æú´õ¸¦ ¼±ÅÃÇÏ¼¼¿ä"
+msgstr "í´ë”ë¥¼ ì„ íƒí•˜ì„¸ìš”"
 
 #: lib/Storage.php:363
 #, fuzzy
@@ -353,110 +353,110 @@ msgstr ""
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾ø½¿\n"
+"ì œëª© ì—†ìŠ´\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½\n"
+"ì œëª© ì—†ìŒ\n"
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
-"Á¦¸ñ ¾øÀ½"
+"ì œëª© ì—†ìŒ"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "±âÅ¸ ¼³Á¤"
+msgstr "ê¸°íƒ€ ì„¤ì •"
 
 #: templates/javascript/new_folder.js:6
 msgid "Please enter the name of the new folder:"
-msgstr "\\n»õ·Î¿î Æú´õÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:\\n"
+msgstr "\\nìƒˆë¡œìš´ í´ë”ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:\\n"
 
 #: templates/rule/footer.inc:72
 msgid "Return to Filters List"
-msgstr "ÇÊÅÍ ¸ñ·ÏÀ¸·Î µ¹¾Æ°¡±â"
+msgstr "í•„í„° ëª©ë¡ìœ¼ë¡œ ëŒì•„ê°€ê¸°"
 
 #: templates/whitelist/whitelist.inc:28 templates/blacklist/blacklist.inc:43
 #: templates/vacation/vacation.inc:75 templates/forward/forward.inc:38
 msgid "Return to Rules List"
-msgstr "±ÔÄ¢ ¸ñ·Ï·Î µ¹¾Æ°¡±â"
+msgstr "ê·œì¹™ ëª©ë¡ë¡œ ëŒì•„ê°€ê¸°"
 
 #: templates/filters/header.inc:21
 msgid "Rule"
-msgstr "±ÔÄ¢"
+msgstr "ê·œì¹™"
 
 #: filters.php:45
 msgid "Rule Copied"
-msgstr "±ÔÄ¢ º¹»çµÊ"
+msgstr "ê·œì¹™ ë³µì‚¬ë¨"
 
 #: filters.php:39
 msgid "Rule Deleted"
-msgstr "±ÔÄ¢ Áö¿öÁü"
+msgstr "ê·œì¹™ ì§€ì›Œì§"
 
 #: filters.php:59
 msgid "Rule Disabled"
-msgstr "±ÔÄ¢ »ç¿ë¾ÈÇÔ"
+msgstr "ê·œì¹™ ì‚¬ìš©ì•ˆí•¨"
 
 #: filters.php:64
 msgid "Rule Enabled"
-msgstr "±ÔÄ¢ »ç¿ëÇÔ"
+msgstr "ê·œì¹™ ì‚¬ìš©í•¨"
 
 #: templates/rule/header.inc:39
 msgid "Rule Name"
-msgstr "±ÔÄ¢ ÀÌ¸§"
+msgstr "ê·œì¹™ ì´ë¦„"
 
 #: templates/whitelist/whitelist.inc:27 templates/blacklist/blacklist.inc:42
 #: templates/vacation/vacation.inc:74 templates/forward/forward.inc:37
 #: templates/rule/footer.inc:71
 msgid "Save"
-msgstr "ÀúÀå"
+msgstr "ì €ì¥"
 
 #: templates/filters/settings.inc:47
 msgid "Save Settings"
-msgstr "¼³Á¤ ÀúÀå"
+msgstr "ì„¤ì • ì €ì¥"
 
 #: templates/script/header.inc:3
 #, fuzzy
 msgid "Script"
-msgstr "¾Æ·¡Ã·ÀÚ"
+msgstr "ì•„ë˜ì²¨ì"
 
 #: lib/Ingo.php:229
 #, fuzzy
 msgid "Script not updated."
-msgstr "%s ¼öÁ¤µÊ"
+msgstr "%s ìˆ˜ì •ë¨"
 
 #: lib/Ingo.php:136
 #, fuzzy
@@ -493,69 +493,69 @@ msgstr ""
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸ŞÀÏÇÔ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"ë©”ì¼í•¨ \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù."
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: lib/Ingo.php:135
 #, fuzzy
@@ -592,103 +592,103 @@ msgstr ""
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸ŞÀÏÇÔ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"ë©”ì¼í•¨ \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n"
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"Æú´õ \"%s\"ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù."
+"í´ë” \"%s\"ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: templates/rule/footer.inc:38
 msgid "Seen"
-msgstr "ÀĞÀº ¸ŞÀÏ"
+msgstr "ì½ì€ ë©”ì¼"
 
 #: rule.php:163
 msgid "Select a field"
-msgstr "Ç×¸ñ ¼±ÅÃ"
+msgstr "í•­ëª© ì„ íƒ"
 
 #: lib/Ingo.php:50
 msgid "Select target folder"
-msgstr "Æú´õ ¼±ÅÃ"
+msgstr "í´ë” ì„ íƒ"
 
 #: filters.php:78
 msgid "Settings successfully updated."
-msgstr "¼³Á¤ÀÌ ¼º°øÀûÀ¸·Î ÀúÀåµÇ¾ú½À´Ï´Ù."
+msgstr "ì„¤ì •ì´ ì„±ê³µì ìœ¼ë¡œ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤."
 
 #: templates/script/activate.inc:31
 #, fuzzy
 msgid "Show Current Script"
-msgstr "¿¬¶ôÃ³ º¸±â"
+msgstr "ì—°ë½ì²˜ ë³´ê¸°"
 
 #: config/fields.php.dist:83
 msgid "Size"
-msgstr "Å©±â"
+msgstr "í¬ê¸°"
 
 #: config/fields.php.dist:31
 msgid "Subject"
-msgstr "Á¦¸ñ"
+msgstr "ì œëª©"
 
 #: lib/Ingo.php:130
 #, fuzzy
 msgid "There was an error activating the script."
-msgstr "µ¥ÀÌÅ¸ ÀÓÆ÷Æ® ¿À·ù"
+msgstr "ë°ì´íƒ€ ì„í¬íŠ¸ ì˜¤ë¥˜"
 
 #: lib/Ingo.php:129
 #, fuzzy
@@ -700,123 +700,123 @@ msgstr ""
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "#-#-#-#-#  compendium.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö Àü¼Û ¿À·ù\n"
+"ë©”ì‹œì§€ ì „ì†¡ ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù\n"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù\n"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù\n"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù\n"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù\n"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜\n"
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"¸Ş½ÃÁö º¸³»±â ¿À·ù"
+"ë©”ì‹œì§€ ë³´ë‚´ê¸° ì˜¤ë¥˜"
 
 #: config/fields.php.dist:27
 msgid "To"
-msgstr "¹Ş´Â »ç¶÷"
+msgstr "ë°›ëŠ” ì‚¬ëŒ"
 
 #: lib/Script.php:116
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s Á¤ÀÇ¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù."
+msgstr "%s ì •ì˜ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 
 #: filters.php:138 templates/vacation/vacation.inc:7
 #: lib/Script/procmail.php:272
 #, fuzzy
 msgid "Vacation"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: vacation.php:66
 #, fuzzy
 msgid "Vacation Edit"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: lib/Script/sieve.php:352
 #, fuzzy
 msgid "Vacation Message"
-msgstr "¸Ş½ÃÁö·Î °¡±â"
+msgstr "ë©”ì‹œì§€ë¡œ ê°€ê¸°"
 
 #: templates/whitelist/whitelist.inc:18
 msgid "Wh_itelist addresses:"
-msgstr "_i¼ö½Å½ÂÀÎ ÁÖ¼Ò"
+msgstr "_iìˆ˜ì‹ ìŠ¹ì¸ ì£¼ì†Œ"
 
 #: filters.php:132 templates/whitelist/whitelist.inc:7
 msgid "Whitelist"
-msgstr "¼ö½Å½ÂÀÎ"
+msgstr "ìˆ˜ì‹ ìŠ¹ì¸"
 
 #: whitelist.php:55
 msgid "Whitelist Edit"
-msgstr "¼ö½Å½ÂÀÎ ¸ñ·Ï ¼öÁ¤"
+msgstr "ìˆ˜ì‹ ìŠ¹ì¸ ëª©ë¡ ìˆ˜ì •"
 
 #: lib/Script/procmail.php:240 lib/Script/sieve.php:299
 msgid "Whitelisted Addresses"
-msgstr "¼ö½Å½ÂÀÎµÈ ÁÖ¼Ò"
+msgstr "ìˆ˜ì‹ ìŠ¹ì¸ëœ ì£¼ì†Œ"
 
 #: lib/Script/imap.php:281 lib/Script/imap.php:304 lib/Script/imap.php:318
 msgid "[No Subject]"
-msgstr "[Á¦¸ñ ¾øÀ½]"
+msgstr "[ì œëª© ì—†ìŒ]"
 
 #: lib/Ingo.php:274
 msgid "_Blacklist"
-msgstr "_B¼ö½Å°ÅºÎ"
+msgstr "_Bìˆ˜ì‹ ê±°ë¶€"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "_Delete message completely"
-msgstr "_d¸Ş½ÃÁö ¿ÏÀü »èÁ¦"
+msgstr "_dë©”ì‹œì§€ ì™„ì „ ì‚­ì œ"
 
 #: templates/blacklist/blacklist.inc:33
 msgid "_Enter each address on a new line:"
-msgstr "_eÇÑ ÁÙ¿¡ ÁÖ¼Ò ÇÏ³ª¾¿ ÀÔ·ÂÇÏ¼¼¿ä:"
+msgstr "_eí•œ ì¤„ì— ì£¼ì†Œ í•˜ë‚˜ì”© ì…ë ¥í•˜ì„¸ìš”:"
 
 #: lib/Ingo.php:280
 msgid "_Forward"
-msgstr "_fÀü´Ş"
+msgstr "_fì „ë‹¬"
 
 #: templates/forward/forward.inc:19
 #, fuzzy
 msgid "_Keep a copy of messages in this account?"
-msgstr "ÀÌ Æú´õ¿¡ ¸Ş½ÃÁö°¡ ¾ø½À´Ï´Ù."
+msgstr "ì´ í´ë”ì— ë©”ì‹œì§€ê°€ ì—†ìŠµë‹ˆë‹¤."
 
 #: templates/blacklist/blacklist.inc:24
 msgid "_Move message to folder:"
-msgstr "_mÆú´õ·Î ÀÌµ¿:"
+msgstr "_mí´ë”ë¡œ ì´ë™:"
 
 #: templates/vacation/vacation.inc:18
 msgid "_My email addresses:"
-msgstr "_m³ªÀÇ ÀÌ¸ŞÀÏ ÁÖ¼Ò:"
+msgstr "_më‚˜ì˜ ì´ë©”ì¼ ì£¼ì†Œ:"
 
 #: lib/Ingo.php:283
 #, fuzzy
 msgid "_Script"
-msgstr "¾Æ·¡Ã·ÀÚ"
+msgstr "ì•„ë˜ì²¨ì"
 
 #: lib/Ingo.php:277
 #, fuzzy
 msgid "_Vacation"
-msgstr "½ÇÇà"
+msgstr "ì‹¤í–‰"
 
 #: lib/Ingo.php:271
 msgid "_Whitelist"
-msgstr "_W¼ö½Å½ÂÀÎ"
+msgstr "_Wìˆ˜ì‹ ìŠ¹ì¸"
 
 #: templates/rule/filter.inc:4
 #, fuzzy
 msgid "and"
-msgstr "È®Àå"
+msgstr "í™•ì¥"
 
 #: filters.php:162
 #, fuzzy
 msgid "field"
-msgstr "ÇÊµå"
+msgstr "í•„ë“œ"
 
 #: filters.php:162
 #, fuzzy
 msgid "match"
-msgstr "Ã£´Â ¹®ÀÚ¿­"
+msgstr "ì°¾ëŠ” ë¬¸ìì—´"
 
 #: templates/rule/filter.inc:4
 msgid "or"
-msgstr "¶Ç´Â"
+msgstr "ë˜ëŠ”"

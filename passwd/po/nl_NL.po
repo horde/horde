@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Resan Sa-Ardnuam <horde@sa-ardnuam.nl\n"
 "Language-Team: <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Change your password"
@@ -109,7 +109,7 @@ msgid "You must give your userid"
 msgstr "U moet uw nieuwe gebruikersnaam geven"
 
 msgid "You must verify your new password"
-msgstr "U moet uw nieuwe wachtwoord verifiëren"
+msgstr "U moet uw nieuwe wachtwoord verifiÃ«ren"
 
 msgid "Your Information"
 msgstr "Uw Informatie"

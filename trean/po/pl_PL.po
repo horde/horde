@@ -1,5 +1,5 @@
 # Polish translations for Horde package
-# Polskie t³umaczenia dla pakietu PACKAGE.
+# Polskie tÅ‚umaczenia dla pakietu PACKAGE.
 # Copyright 2007-2009 The Horde Project
 # This file is distributed under the same license as the Horde package.
 # Automatically generated, 2007.
@@ -16,13 +16,13 @@ msgstr ""
 "Last-Translator: adamcios@go2.pl\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: edit.php:227
 #, php-format
 msgid "\"%s\" was not renamed: %s."
-msgstr "Nazwa \"%s\" nie zosta³a zmieniona: %s."
+msgstr "Nazwa \"%s\" nie zostaÅ‚a zmieniona: %s."
 
 #: data.php:155
 #, php-format
@@ -32,7 +32,7 @@ msgstr "%d Foldery i %d Ulubione zaimportowano."
 #: templates/reports.php:104
 #, php-format
 msgid "%s Bookmarks"
-msgstr "%s zak³adki"
+msgstr "%s zakÅ‚adki"
 
 #: reports.php:24
 #, php-format
@@ -42,7 +42,7 @@ msgstr "%s kody odpowiedzi"
 #: lib/base.php:74
 #, php-format
 msgid "%s's Bookmarks"
-msgstr "Zak³adki %s"
+msgstr "ZakÅ‚adki %s"
 
 #: lib/Block/bookmarks.php:63 lib/Block/highestrated.php:38
 #: lib/Block/mostclicked.php:38
@@ -133,7 +133,7 @@ msgstr "Dodaj"
 
 #: templates/add/add.inc:87
 msgid "Add to Bookmarks"
-msgstr "Dodaj do zak³adek"
+msgstr "Dodaj do zakÅ‚adek"
 
 #: templates/search.php:65
 msgid "All"
@@ -142,52 +142,52 @@ msgstr "Wszystko"
 #: data.php:38 perms.php:239 lib/Block/bookmarks.php:32
 #, php-format
 msgid "An error occured listing folders: %s"
-msgstr "Wyst±pi³ b³±d wylistowanych folderów: %s"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d wylistowanych folderÃ³w: %s"
 
 #: lib/Trean.php:49
 #, php-format
 msgid "An error occurred counting folders: %s"
-msgstr "Wyst±pi³ b³±d podczas zliczania folderów: %s"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d podczas zliczania folderÃ³w: %s"
 
 #: lib/Forms/Search.php:25
 msgid "Any Part of the field"
-msgstr "Jakakolwiek czê¶æ pola"
+msgstr "Jakakolwiek czÄ™Å›Ä‡ pola"
 
 #: templates/search.php:29
 msgid "Are you sure you want to delete the selected bookmarks?"
-msgstr "Czy jeste¶ pewien, ¿e chcesz skasowaæ wybrane zak³adki?"
+msgstr "Czy jesteÅ› pewien, Å¼e chcesz skasowaÄ‡ wybrane zakÅ‚adki?"
 
 #: config/prefs.php.dist:33
 msgid "Ascending (A to Z)"
-msgstr "Rosn±co (A do Z)"
+msgstr "RosnÄ…co (A do Z)"
 
 #: perms.php:44
 msgid "Attempt to edit a non-existent share."
-msgstr "Próba edycji nieistniej±cego udzia³u.."
+msgstr "PrÃ³ba edycji nieistniejÄ…cego udziaÅ‚u.."
 
 #: lib/Trean.php:203
 msgid "Bad Gateway"
-msgstr "Z³a bramka"
+msgstr "ZÅ‚a bramka"
 
 #: lib/Trean.php:183
 msgid "Bad Request"
-msgstr "Z³a odpowied¼"
+msgstr "ZÅ‚a odpowiedÅº"
 
 #: add.php:64
 msgid "Bookmark Added"
-msgstr "Dodano zak³adkê"
+msgstr "Dodano zakÅ‚adkÄ™"
 
 #: data.php:17 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
 msgid "Bookmarks"
-msgstr "Zak³adki"
+msgstr "ZakÅ‚adki"
 
 #: templates/common-header.inc:27
 msgid "Bookmarks Feed"
-msgstr "Dostarczono zak³adki"
+msgstr "Dostarczono zakÅ‚adki"
 
 #: browse.php:35
 msgid "Browse"
-msgstr "Przegl±daj"
+msgstr "PrzeglÄ…daj"
 
 #: templates/edit/footer.inc:2 templates/add/add.inc:60
 msgid "Cancel"
@@ -195,7 +195,7 @@ msgstr "Anuluj"
 
 #: templates/views/BookmarkList.php:28
 msgid "Clicks"
-msgstr "Klikniêcia"
+msgstr "KlikniÄ™cia"
 
 #: templates/add/add.inc:82
 msgid "Close"
@@ -203,19 +203,19 @@ msgstr "Zamknij"
 
 #: lib/Forms/Search.php:24
 msgid "Combine"
-msgstr "£±cz"
+msgstr "ÅÄ…cz"
 
 #: config/prefs.php.dist:63
 msgid "Completely collapsed"
-msgstr "Ca³kowicie zwiniêty"
+msgstr "CaÅ‚kowicie zwiniÄ™ty"
 
 #: config/prefs.php.dist:65
 msgid "Completely expanded"
-msgstr "Ca³kowicie rozwiniêty"
+msgstr "CaÅ‚kowicie rozwiniÄ™ty"
 
 #: edit.php:237
 msgid "Confirm Deletion"
-msgstr "Potwierd¼ usuniêcie"
+msgstr "PotwierdÅº usuniÄ™cie"
 
 #: lib/Trean.php:192
 msgid "Conflict"
@@ -227,11 +227,11 @@ msgstr "Kontynuuj"
 
 #: templates/browse.php:105 templates/browse.php:106
 msgid "Control access to this folder"
-msgstr "Zarz±dzanie dostêpem  dla tego folderu"
+msgstr "ZarzÄ…dzanie dostÄ™pem  dla tego folderu"
 
 #: edit.php:204
 msgid "Copied bookmark: "
-msgstr "Skopiowane zak³adki: "
+msgstr "Skopiowane zakÅ‚adki: "
 
 #: templates/search.php:72
 msgid "Copy"
@@ -240,7 +240,7 @@ msgstr "Kopiuj"
 #: edit.php:212
 #, php-format
 msgid "Copying folders is not supported."
-msgstr "Kopiowanie folderów jest niewspierane"
+msgstr "Kopiowanie folderÃ³w jest niewspierane"
 
 #: lib/Trean.php:170
 msgid "Created"
@@ -249,23 +249,23 @@ msgstr "Utworzony"
 #: templates/reports.php:96
 #, php-format
 msgid "DNS Failure or Other Error (%s)"
-msgstr "Awaria DNS lub Inny b³±d (%s)"
+msgstr "Awaria DNS lub Inny bÅ‚Ä…d (%s)"
 
 #: templates/browse.php:90 templates/search.php:70
 msgid "Delete"
-msgstr "Usuñ"
+msgstr "UsuÅ„"
 
 #: templates/browse.php:146
 msgid "Delete Bookmark"
-msgstr "Usuniête zak³adki"
+msgstr "UsuniÄ™te zakÅ‚adki"
 
 #: templates/browse.php:91
 msgid "Delete this folder"
-msgstr "Usuñ ten folder"
+msgstr "UsuÅ„ ten folder"
 
 #: edit.php:49 edit.php:100
 msgid "Deleted bookmark: "
-msgstr "Skasowane zak³adki: "
+msgstr "Skasowane zakÅ‚adki: "
 
 #: edit.php:113
 msgid "Deleted folder: "
@@ -278,7 +278,7 @@ msgstr "Skasowany folder \"%s\""
 
 #: config/prefs.php.dist:34
 msgid "Descending (9 to 1)"
-msgstr "Malej±co (9 do 1)"
+msgstr "MalejÄ…co (9 do 1)"
 
 #: templates/edit/bookmark.inc:16 templates/add/add.inc:42
 #: lib/Forms/Search.php:22
@@ -287,27 +287,27 @@ msgstr "Opis"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opcje wy¶wietlania"
+msgstr "Opcje wyÅ›wietlania"
 
 #: lib/Block/bookmarks.php:52
 msgid "Display Rows"
-msgstr "Wy¶wietl wiersze"
+msgstr "WyÅ›wietl wiersze"
 
 #: templates/data/export.inc:11
 msgid "Download Folder"
-msgstr "¦ci±gniete foldery"
+msgstr "ÅšciÄ…gniete foldery"
 
 #: templates/add/add.inc:73
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
-"Przeci±gnij \"Dodaj do zak³adek\" poni¿szy link na swój± belkê \"Linki\""
+"PrzeciÄ…gnij \"Dodaj do zakÅ‚adek\" poniÅ¼szy link na swÃ³jÄ… belkÄ™ \"Linki\""
 
 #: templates/add/add.inc:71
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
-"Przeci±gnij \"Dodaj do zak³adek\" poni¿szy link na swój  \"Osobisty pasek "
-"zadañ\""
+"PrzeciÄ…gnij \"Dodaj do zakÅ‚adek\" poniÅ¼szy link na swÃ³j  \"Osobisty pasek "
+"zadaÅ„\""
 
 #: templates/search.php:69
 msgid "Edit"
@@ -315,11 +315,11 @@ msgstr "Edytuj"
 
 #: edit.php:277
 msgid "Edit Bookmark"
-msgstr "Edytuj zak³adkê"
+msgstr "Edytuj zakÅ‚adkÄ™"
 
 #: templates/browse.php:141
 msgid "Edit Bookmarks"
-msgstr "Edytuj zak³adki"
+msgstr "Edytuj zakÅ‚adki"
 
 #: perms.php:235
 msgid "Edit Permissions"
@@ -332,11 +332,11 @@ msgstr "Edytuj uprawnienia dla %s"
 
 #: lib/Trean.php:200
 msgid "Expectation Failed"
-msgstr "B³êdna oczekiwana"
+msgstr "BÅ‚Ä™dna oczekiwana"
 
 #: templates/data/export.inc:4
 msgid "Export Bookmarks"
-msgstr "Eksport zak³adek"
+msgstr "Eksport zakÅ‚adek"
 
 #: templates/data/import.inc:9
 msgid "File to import:"
@@ -357,11 +357,11 @@ msgstr "Folder"
 
 #: templates/browse.php:70 templates/browse.php:71
 msgid "Folder Actions"
-msgstr "Czynno¶ci na folderach"
+msgstr "CzynnoÅ›ci na folderach"
 
 #: lib/Bookmarks.php:353
 msgid "Folder names must be non-empty"
-msgstr "Nazwal folderu nie mo¿e byæ pusta"
+msgstr "Nazwal folderu nie moÅ¼e byÄ‡ pusta"
 
 #: templates/data/import.inc:11
 msgid "Folder to import into:"
@@ -393,11 +393,11 @@ msgstr "Nie wspierana wersja HTTP"
 
 #: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
 msgid "Highest Rated"
-msgstr "Najczê¶ciej odwiedzane"
+msgstr "NajczÄ™Å›ciej odwiedzane"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
 msgid "Highest-rated Bookmarks"
-msgstr "Najczê¶ciej odwiedzane zak³adki"
+msgstr "NajczÄ™Å›ciej odwiedzane zakÅ‚adki"
 
 #: templates/data/import.inc:16
 msgid "Import"
@@ -405,15 +405,15 @@ msgstr "Import"
 
 #: data.php:183 templates/data/import.inc:4
 msgid "Import Bookmarks"
-msgstr "Import Zak³adek"
+msgstr "Import ZakÅ‚adek"
 
 #: templates/data/export.inc:9
 msgid "Include Subfolders"
-msgstr "W³±czaj±c podfoldery"
+msgstr "WÅ‚Ä…czajÄ…c podfoldery"
 
 #: lib/Trean.php:201
 msgid "Internal Server Error"
-msgstr "Wewnêtrzny b³±d serwera"
+msgstr "WewnÄ™trzny bÅ‚Ä…d serwera"
 
 #: templates/add/add.inc:72
 msgid "Internet Explorer"
@@ -424,24 +424,24 @@ msgid ""
 "Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
-"U¿ytkownicy Internt Explorer musz± wyeksportowaæ Ulubione przez menu\"Plik\" "
-"wybieraj±c opcjê \"Importi Ekspor\"."
+"UÅ¼ytkownicy Internt Explorer muszÄ… wyeksportowaÄ‡ Ulubione przez menu\"Plik\" "
+"wybierajÄ…c opcjÄ™ \"Importi Ekspor\"."
 
 #: lib/Trean.php:194
 msgid "Length Required"
-msgstr "Wymagana d³ugo¶æ"
+msgstr "Wymagana dÅ‚ugoÅ›Ä‡"
 
 #: lib/Forms/Search.php:25
 msgid "Match"
-msgstr "Pasuj±ce"
+msgstr "PasujÄ…ce"
 
 #: lib/api.php:30
 msgid "Maximum Number of Bookmarks"
-msgstr "Maksymalna liczba zak³adek"
+msgstr "Maksymalna liczba zakÅ‚adek"
 
 #: lib/api.php:27
 msgid "Maximum Number of Folders"
-msgstr "Maksymalna liczba folderów "
+msgstr "Maksymalna liczba folderÃ³w "
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
@@ -453,23 +453,23 @@ msgstr ""
 
 #: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
 msgid "Most Clicked"
-msgstr "Najczê¶ciej odwiedzane"
+msgstr "NajczÄ™Å›ciej odwiedzane"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
 msgid "Most-clicked Bookmarks"
-msgstr "Najczê¶ciej odwiedzane zak³adki"
+msgstr "NajczÄ™Å›ciej odwiedzane zakÅ‚adki"
 
 #: templates/search.php:71
 msgid "Move"
-msgstr "Przenie¶"
+msgstr "PrzenieÅ›"
 
 #: lib/Trean.php:177
 msgid "Moved Permanently"
-msgstr "Przesuniêto na sta³e"
+msgstr "PrzesuniÄ™to na staÅ‚e"
 
 #: edit.php:151
 msgid "Moved bookmark: "
-msgstr "Przesuniêto zak³adki: "
+msgstr "PrzesuniÄ™to zakÅ‚adki: "
 
 #: edit.php:164
 msgid "Moved folder: "
@@ -480,8 +480,8 @@ msgid ""
 "Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
-"U¿ytkownicy Mozilla/Firefox bêd± musieli eksportowaæ swoje Zak³adki przez "
-"przej¶cie do \"Menad¿er zak³±dek\" i wybranie \"Eksport\" z menu \"Narzêdzia"
+"UÅ¼ytkownicy Mozilla/Firefox bÄ™dÄ… musieli eksportowaÄ‡ swoje ZakÅ‚adki przez "
+"przejÅ›cie do \"MenadÅ¼er zakÅ‚Ä…dek\" i wybranie \"Eksport\" z menu \"NarzÄ™dzia"
 "\"."
 
 #: lib/Trean.php:176
@@ -494,7 +494,7 @@ msgstr "Nazwa"
 
 #: add.php:111 templates/browse.php:136 templates/add/add.inc:27
 msgid "New Bookmark"
-msgstr "Nowa zak³adka"
+msgstr "Nowa zakÅ‚adka"
 
 #: lib/Trean.php:85
 msgid "New Folder"
@@ -510,16 +510,16 @@ msgstr "Nie"
 
 #: templates/search.php:76
 msgid "No Bookmarks found"
-msgstr "Nie znaleziono zak³adek"
+msgstr "Nie znaleziono zakÅ‚adek"
 
 #: lib/Trean.php:173
 msgid "No Content"
-msgstr "Brak zawarto¶ci"
+msgstr "Brak zawartoÅ›ci"
 
 #: lib/Block/bookmarks.php:128 lib/Block/highestrated.php:73
 #: lib/Block/mostclicked.php:73
 msgid "No bookmarks to display"
-msgstr "Brak zak³adek do wy¶wietlenia"
+msgstr "Brak zakÅ‚adek do wyÅ›wietlenia"
 
 #: lib/Trean.php:172
 msgid "Non-Authoritative Information"
@@ -527,7 +527,7 @@ msgstr "Nie oficjalna informacja"
 
 #: templates/search.php:66
 msgid "None"
-msgstr "¯aden"
+msgstr "Å»aden"
 
 #: lib/Trean.php:189
 msgid "Not Acceptable"
@@ -555,7 +555,7 @@ msgstr "Nic do edycji."
 
 #: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
 msgid "Number of bookmarks to show"
-msgstr "Lista zak³adek do pokazania"
+msgstr "Lista zakÅ‚adek do pokazania"
 
 #: lib/Trean.php:169
 msgid "OK"
@@ -571,20 +571,20 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"W nowszej wersji Internet Eksplorer mo¿esz bêdziesz musia³ dodaæ %s://%s do "
-"strefy zaufania by móc pracowaæ."
+"W nowszej wersji Internet Eksplorer moÅ¼esz bÄ™dziesz musiaÅ‚ dodaÄ‡ %s://%s do "
+"strefy zaufania by mÃ³c pracowaÄ‡."
 
 #: perms.php:56
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Tylko w³a¶ciciel lub administrator systemu mo¿e zmieniæ wspó³w³asno¶æ lub "
-"w³a¶ciciela uprawnieñ dla udzia³u"
+"Tylko wÅ‚aÅ›ciciel lub administrator systemu moÅ¼e zmieniÄ‡ wspÃ³Å‚wÅ‚asnoÅ›Ä‡ lub "
+"wÅ‚aÅ›ciciela uprawnieÅ„ dla udziaÅ‚u"
 
 #: config/prefs.php.dist:54
 msgid "Open links in a new window?"
-msgstr "Czy otworzyæ odno¶nik w nowym oknie?"
+msgstr "Czy otworzyÄ‡ odnoÅ›nik w nowym oknie?"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
@@ -592,15 +592,15 @@ msgstr "Inne opcje"
 
 #: lib/Trean.php:175
 msgid "Partial Content"
-msgstr "Czê¶ciowa zawarto¶æ"
+msgstr "CzÄ™Å›ciowa zawartoÅ›Ä‡"
 
 #: lib/Trean.php:185
 msgid "Payment Required"
-msgstr "Wymagana op³ata"
+msgstr "Wymagana opÅ‚ata"
 
 #: templates/add/add.inc:4
 msgid "Please enter a name for the new folder:"
-msgstr "Proszê podaæ nazwê dla nowego folderu:"
+msgstr "ProszÄ™ podaÄ‡ nazwÄ™ dla nowego folderu:"
 
 #: lib/Trean.php:195
 msgid "Precondition Failed"
@@ -617,11 +617,11 @@ msgstr "Notowanie"
 #: templates/edit/delete_folder_confirmation.inc:3
 #, php-format
 msgid "Really delete \"%s\" and all of its bookmarks?"
-msgstr "Czy napewno skasowaæ \"%s\" i wszystkie zak³adki w ¶rodnku?"
+msgstr "Czy napewno skasowaÄ‡ \"%s\" i wszystkie zakÅ‚adki w Å›rodnku?"
 
 #: templates/browse.php:98
 msgid "Rename this folder"
-msgstr "Zmieñ nazwê tego folderu"
+msgstr "ZmieÅ„ nazwÄ™ tego folderu"
 
 #: reports.php:17
 msgid "Reports"
@@ -629,23 +629,23 @@ msgstr "Raporty"
 
 #: lib/Trean.php:196
 msgid "Request Entity Too Large"
-msgstr "¯±dana jednostka jest za du¿a"
+msgstr "Å»Ä…dana jednostka jest za duÅ¼a"
 
 #: lib/Trean.php:191
 msgid "Request Time-out"
-msgstr "Up³yna³ czas ¿±dania"
+msgstr "UpÅ‚ynaÅ‚ czas Å¼Ä…dania"
 
 #: lib/Trean.php:197
 msgid "Request-URI Too Large"
-msgstr "¯±dany-URI za du¿y"
+msgstr "Å»Ä…dany-URI za duÅ¼y"
 
 #: lib/Trean.php:199
 msgid "Requested range not satisfiable"
-msgstr "¯±dany przedzia³ nie spe³niony"
+msgstr "Å»Ä…dany przedziaÅ‚ nie speÅ‚niony"
 
 #: lib/Trean.php:174
 msgid "Reset Content"
-msgstr "Wyczy¶æ zawarto¶æ"
+msgstr "WyczyÅ›Ä‡ zawartoÅ›Ä‡"
 
 #: templates/edit/footer.inc:1
 msgid "Save"
@@ -657,7 +657,7 @@ msgstr "Wyszukiwanie"
 
 #: lib/Forms/Search.php:18
 msgid "Search Bookmarks"
-msgstr "Znajd¼ zak³adki"
+msgstr "ZnajdÅº zakÅ‚adki"
 
 #: search.php:57
 #, php-format
@@ -687,7 +687,7 @@ msgstr "Wybierz:  %s, %s"
 
 #: lib/Trean.php:204
 msgid "Service Unavailable"
-msgstr "Serwis niedostêpny"
+msgstr "Serwis niedostÄ™pny"
 
 #: config/prefs.php.dist:11
 msgid ""
@@ -697,16 +697,16 @@ msgstr ""
 
 #: config/prefs.php.dist:66
 msgid "Should your list of bookmark folders be open when you log in?"
-msgstr "Czy otworzyæ folder z twoj± list± zak³±dek podczas logowania?"
+msgstr "Czy otworzyÄ‡ folder z twojÄ… listÄ… zakÅ‚Ä…dek podczas logowania?"
 
 #: config/prefs.php.dist:45
 #, fuzzy
 msgid "Show folder actions panel?"
-msgstr "Pozwoliæ tworzyæ foldery?"
+msgstr "PozwoliÄ‡ tworzyÄ‡ foldery?"
 
 #: config/prefs.php.dist:24
 msgid "Sort bookmarks by:"
-msgstr "Srotuj zak³adki wg:"
+msgstr "Srotuj zakÅ‚adki wg:"
 
 #: lib/Block/bookmarks.php:46
 msgid "Sort by"
@@ -718,7 +718,7 @@ msgstr "Kierunek sortowania"
 
 #: lib/Trean.php:168
 msgid "Switching Protocols"
-msgstr "Prze³±cza nie protoko³ów"
+msgstr "PrzeÅ‚Ä…cza nie protokoÅ‚Ã³w"
 
 #: lib/Block/bookmarks.php:58 lib/Block/highestrated.php:33
 #: lib/Block/mostclicked.php:33
@@ -731,66 +731,66 @@ msgstr "Tymczasowo przeadresowany"
 
 #: templates/browse.php:155
 msgid "There are no bookmarks in this folder"
-msgstr "Brak zak³adek w folderze"
+msgstr "Brak zakÅ‚adek w folderze"
 
 #: edit.php:206
 #, php-format
 msgid "There was a problem copying the bookmark: %s"
-msgstr "Wyst±pi³ problem podczas kopiowania zak³adki: %s"
+msgstr "WystÄ…piÅ‚ problem podczas kopiowania zakÅ‚adki: %s"
 
 #: edit.php:51 edit.php:102
 #, php-format
 msgid "There was a problem deleting the bookmark: %s"
-msgstr "Wyst±pi³ problem podczas usuówania zak³adki: %s"
+msgstr "WystÄ…piÅ‚ problem podczas usuÃ³wania zakÅ‚adki: %s"
 
 #: edit.php:115
 #, php-format
 msgid "There was a problem deleting the folder: %s"
-msgstr "Wyst±pi³ problem podczas kasowania folderu: %s"
+msgstr "WystÄ…piÅ‚ problem podczas kasowania folderu: %s"
 
 #: edit.php:153
 #, php-format
 msgid "There was a problem moving the bookmark: %s"
-msgstr "Wyst±pi³ problem podczas przenoszenia zak³±dki: %s"
+msgstr "WystÄ…piÅ‚ problem podczas przenoszenia zakÅ‚Ä…dki: %s"
 
 #: edit.php:166
 #, php-format
 msgid "There was a problem moving the folder: %s"
-msgstr "Wyst±pi³ problem podczas przenoszenia folderu: %s"
+msgstr "WystÄ…piÅ‚ problem podczas przenoszenia folderu: %s"
 
 #: add.php:59
 #, php-format
 msgid "There was an error adding the bookmark: %s"
-msgstr "Wyst±pi³ b³±d podczas dodawania zak³±dki: %s"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d podczas dodawania zakÅ‚Ä…dki: %s"
 
 #: add.php:43 add.php:100 edit.php:137 edit.php:191
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "Wyst±pi³ problem podczas dodawania folderu: %s"
+msgstr "WystÄ…piÅ‚ problem podczas dodawania folderu: %s"
 
 #: edit.php:72
 #, php-format
 msgid "There was an error saving the bookmark: %s"
-msgstr "Wyst±pi³ b³±d podczas zapisywania zak³adki: %s"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d podczas zapisywania zakÅ‚adki: %s"
 
 #: edit.php:85
 #, php-format
 msgid "There was an error saving the folder: %s"
-msgstr "Wyst±pi³ b³±d podczas zapisywania folderu: %s"
+msgstr "WystÄ…piÅ‚ bÅ‚Ä…d podczas zapisywania folderu: %s"
 
 #: templates/views/BookmarkList.php:25 templates/edit/bookmark.inc:11
 #: templates/add/add.inc:37 lib/Forms/Search.php:21 lib/Block/bookmarks.php:49
 #: config/prefs.php.dist:21
 msgid "Title"
-msgstr "Tytu³"
+msgstr "TytuÅ‚"
 
 #: templates/add/add.inc:69
 msgid "To be able to quickly add bookmarks from your web browser:"
-msgstr "Aby byæ w stanie szybko dodaæ zak³adki od twojej przegl±darki:"
+msgstr "Aby byÄ‡ w stanie szybko dodaÄ‡ zakÅ‚adki od twojej przeglÄ…darki:"
 
 #: templates/reports.php:103
 msgid "Total"
-msgstr "Ca³kowity"
+msgstr "CaÅ‚kowity"
 
 #: templates/edit/bookmark.inc:21 templates/add/add.inc:32
 #: lib/Forms/Search.php:23
@@ -808,7 +808,7 @@ msgstr "Nieznane (%s)"
 
 #: lib/Trean.php:198
 msgid "Unsupported Media Type"
-msgstr "Nieobs³ugiwany typ mediów"
+msgstr "NieobsÅ‚ugiwany typ mediÃ³w"
 
 #: perms.php:228
 #, php-format
@@ -824,12 +824,12 @@ msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
 msgstr ""
-"Podczas przegl±dania bêdziesz mia³ mo¿liwo¶æ dodania aktualnej strony do "
-"zak³adek poprzez klikniêcie swojego nowego skrótu \"Dodaj do zak³adek\"."
+"Podczas przeglÄ…dania bÄ™dziesz miaÅ‚ moÅ¼liwoÅ›Ä‡ dodania aktualnej strony do "
+"zakÅ‚adek poprzez klikniÄ™cie swojego nowego skrÃ³tu \"Dodaj do zakÅ‚adek\"."
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"
-msgstr "Ca³e pole"
+msgstr "CaÅ‚e pole"
 
 #: templates/edit/delete_folder_confirmation.inc:9
 msgid "Yes"
@@ -838,32 +838,32 @@ msgstr "Tak"
 #: add.php:21 data.php:64 data.php:131
 #, php-format
 msgid "You are not allowed to create more than %d bookmarks."
-msgstr "Nie masz uprawnieñ do tworzenia wiêcej ni¿ %d zak³adek."
+msgstr "Nie masz uprawnieÅ„ do tworzenia wiÄ™cej niÅ¼ %d zakÅ‚adek."
 
 #: add.php:84 data.php:55 data.php:106
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Nie masz pozwolenia do tworzenia wiêcej ni¿ %d folderów."
+msgstr "Nie masz pozwolenia do tworzenia wiÄ™cej niÅ¼ %d folderÃ³w."
 
 #: browse.php:22
 msgid "You do not have permission to view this folder."
-msgstr "Nie masz uprawnieñ do przegl±dania tego folderu."
+msgstr "Nie masz uprawnieÅ„ do przeglÄ…dania tego folderu."
 
 #: templates/add/add.inc:11
 msgid "You must select a target folder first"
-msgstr "Najperw musisz wybraæ folder docelowy."
+msgstr "Najperw musisz wybraÄ‡ folder docelowy."
 
 #: lib/Trean.php:144
 msgid "_Browse"
-msgstr "Przegl±daj (_b)"
+msgstr "PrzeglÄ…daj (_b)"
 
 #: templates/browse.php:147
 msgid "_Delete Bookmarks"
-msgstr "Usuñ zak³a_dki"
+msgstr "UsuÅ„ zakÅ‚a_dki"
 
 #: templates/browse.php:142
 msgid "_Edit Bookmarks"
-msgstr "_Edytuj zak³adki"
+msgstr "_Edytuj zakÅ‚adki"
 
 #: lib/Trean.php:150
 msgid "_Import/Export"
@@ -871,7 +871,7 @@ msgstr "_Import/Eksport"
 
 #: templates/browse.php:137
 msgid "_New Bookmark"
-msgstr "_Nowa zak³adka"
+msgstr "_Nowa zakÅ‚adka"
 
 #: lib/Trean.php:146
 msgid "_Reports"
@@ -889,4 +889,4 @@ msgstr "klik"
 #: templates/block/1line.inc:22 templates/block/2line.inc:26
 #: templates/block/standard.inc:24
 msgid "clicks"
-msgstr "klikniêcia"
+msgstr "klikniÄ™cia"

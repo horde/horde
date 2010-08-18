@@ -11,13 +11,13 @@ msgstr ""
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: managemessage.php:96
 msgid "... as a reply to message"
-msgstr "... en réponse au message"
+msgstr "... en rÃ©ponse au message"
 
 #: lib/Agora.php:154 lib/Menu.php:76
 msgid "Add Forum"
@@ -29,7 +29,7 @@ msgstr "Administration"
 
 #: templates/index/notconfigured.inc:4
 msgid "Agora is not properly configured"
-msgstr "Agora n'est pas configuré correctement"
+msgstr "Agora n'est pas configurÃ© correctement"
 
 #: lib/ManageMessage.php:46 forums.php:58
 msgid "Author"
@@ -37,20 +37,20 @@ msgstr "Auteur"
 
 #: lib/ManageForum.php:35
 msgid "Brief forum description"
-msgstr "Déscription brève pour le Forum"
+msgstr "DÃ©scription brÃ¨ve pour le Forum"
 
 #: lib/Agora.php:76
 msgid "Can not create a forum with an empty name."
-msgstr "Impossible de créer un Forum sans nom"
+msgstr "Impossible de crÃ©er un Forum sans nom"
 
 #: lib/Agora.php:85
 msgid "Can not create a message thread without message id."
-msgstr "Ne peut pas créer un thread de message sans un identifiant de message"
+msgstr "Ne peut pas crÃ©er un thread de message sans un identifiant de message"
 
 #: manageforum.php:83
 #, c-format
 msgid "Could not create the forum. %s"
-msgstr "Erreur lors de la création du Forum. %s"
+msgstr "Erreur lors de la crÃ©ation du Forum. %s"
 
 #: managemessage.php:79
 #, c-format
@@ -59,12 +59,12 @@ msgstr "N'a pas pu envoyer le message %s"
 
 #: manageforum.php:65
 msgid "Create a New Forum"
-msgstr "Créer un nouveau Forum"
+msgstr "CrÃ©er un nouveau Forum"
 
 #: lib/ManageForum.php:31
 #, c-format
 msgid "Creating a subforum of %s."
-msgstr "Création d'un sous Forum de %s."
+msgstr "CrÃ©ation d'un sous Forum de %s."
 
 #: lib/ManageMessage.php:47 forums.php:58
 msgid "Date"
@@ -76,7 +76,7 @@ msgstr "Forum"
 
 #: manageforum.php:87
 msgid "Forum Details"
-msgstr "Détails du Forum"
+msgstr "DÃ©tails du Forum"
 
 #: lib/Agora.php:147 lib/Menu.php:62
 msgid "Forum Home"
@@ -84,7 +84,7 @@ msgstr "Accueil du Forum"
 
 #: manageforum.php:85
 msgid "Forum created."
-msgstr "Forum créé"
+msgstr "Forum crÃ©Ã©"
 
 #: lib/ManageForum.php:33
 msgid "Forum name"
@@ -96,7 +96,7 @@ msgstr "Forums"
 
 #: lib/api.php:54
 msgid "Forums Summary"
-msgstr "Résumé pour le forum"
+msgstr "RÃ©sumÃ© pour le forum"
 
 #: lib/Menu.php:117
 msgid "Help"
@@ -116,7 +116,7 @@ msgstr "Identifiant"
 
 #: lib/Menu.php:125
 msgid "Logout"
-msgstr "Déconnection"
+msgstr "DÃ©connection"
 
 #: lib/Agora.php:222
 msgid "Main"
@@ -124,11 +124,11 @@ msgstr "Accueil"
 
 #: manageforum.php:38
 msgid "Manage Forums"
-msgstr "Gèrer les Forums"
+msgstr "GÃ¨rer les Forums"
 
 #: managemessage.php:39
 msgid "Manage Messages"
-msgstr "Gèrer les messages"
+msgstr "GÃ¨rer les messages"
 
 #: lib/ManageMessage.php:28 lib/ManageMessage.php:48 managemessage.php:83
 msgid "Message"
@@ -140,7 +140,7 @@ msgstr "Sujet du Message"
 
 #: managemessage.php:81
 msgid "Message submitted."
-msgstr "Message envoyé"
+msgstr "Message envoyÃ©"
 
 #: forums.php:52
 msgid "Messages"
@@ -148,11 +148,11 @@ msgstr "Messages"
 
 #: lib/Agora.php:150
 msgid "Moderated"
-msgstr "Modéré"
+msgstr "ModÃ©rÃ©"
 
 #: lib/ManageForum.php:34
 msgid "Moderated forum"
-msgstr "Forum Modéré"
+msgstr "Forum ModÃ©rÃ©"
 
 #: lib/api.php:91
 msgid "New Campaign"
@@ -180,7 +180,7 @@ msgstr "Envoyer un nouveau message"
 
 #: forums.php:52
 msgid "Posted By"
-msgstr "Envoyé par"
+msgstr "EnvoyÃ© par"
 
 #: managemessage.php:99
 #, c-format
@@ -189,23 +189,23 @@ msgstr "Re: %s"
 
 #: lib/Agora.php:160 lib/Menu.php:92
 msgid "Reply"
-msgstr "Répondre"
+msgstr "RÃ©pondre"
 
 #: config/prefs.php.dist:16
 msgid "Select your preferred language:"
-msgstr "Sélectionner votre langue préfèrée"
+msgstr "SÃ©lectionner votre langue prÃ©fÃ¨rÃ©e"
 
 #: lib/ManageForum.php:34
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted"
 msgstr ""
-"Cochez ceci pour faire modèrer tous les messages par un modérateur avant "
-"qu'ils ne soient envoyés"
+"Cochez ceci pour faire modÃ¨rer tous les messages par un modÃ©rateur avant "
+"qu'ils ne soient envoyÃ©s"
 
 #: config/prefs.php.dist:7
 msgid "Set your preferred display language."
-msgstr "Choisissez votre langue d'affichage préfèrée"
+msgstr "Choisissez votre langue d'affichage prÃ©fÃ¨rÃ©e"
 
 #: templates/index/notconfigured.inc:40
 msgid "Some of Agora's configuration files are missing:"
@@ -216,8 +216,8 @@ msgid ""
 "Some of the HTML templates in agora/config/templates/ are missing. These "
 "files control the look and feel of Agora."
 msgstr ""
-"Certains des modèle HTML dans agora/config/templates sont manquants.Ces "
-"fichiers gèrent l'apparence d'Agora"
+"Certains des modÃ¨le HTML dans agora/config/templates sont manquants.Ces "
+"fichiers gÃ¨rent l'apparence d'Agora"
 
 #: lib/ManageForum.php:36
 msgid "Store"
@@ -236,7 +236,7 @@ msgid ""
 "This file controls the default preferences for Agora, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Ce fichier contrôle les préférences de Agora, et aussi quellespréférences "
+"Ce fichier contrÃ´le les prÃ©fÃ©rences de Agora, et aussi quellesprÃ©fÃ©rences "
 "les utilisateurs peuvent changer."
 
 #: templates/index/notconfigured.inc:52
@@ -244,17 +244,17 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Ce fichier contrôle les feuilles de style utilisées pour choisir les "
-"couleurs et les polices de caractères"
+"Ce fichier contrÃ´le les feuilles de style utilisÃ©es pour choisir les "
+"couleurs et les polices de caractÃ¨res"
 
 #: manageforum.php:58 managemessage.php:59
 msgid "This forum has been deleted."
-msgstr "Ce Forum à été supprimé."
+msgstr "Ce Forum Ã  Ã©tÃ© supprimÃ©."
 
 #: manageforum.php:56 managemessage.php:57
 #, c-format
 msgid "This forum has been deleted. %s"
-msgstr "Ce Forum à été supprimé. %s"
+msgstr "Ce Forum Ã  Ã©tÃ© supprimÃ©. %s"
 
 #: templates/index/notconfigured.inc:45
 msgid ""

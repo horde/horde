@@ -1,5 +1,5 @@
 # Spanish translations for jonah package
-# Traducciones al español para el paquete jonah.
+# Traducciones al espaÃ±ol para el paquete jonah.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the jonah package.
 # Automatically generated, 2008.
@@ -13,13 +13,13 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Block/news_popular.php:77 lib/Block/news_popular.php:80
 msgid " - Most read stories"
-msgstr " - Historias más leídas"
+msgstr " - Historias mÃ¡s leÃ­das"
 
 #: lib/Block/delivery.php:48
 #, php-format
@@ -70,28 +70,28 @@ msgid ""
 "A confirmation message has been sent to %s. Click on the link in that "
 "message to finally subscribe to channel \"%s\"."
 msgstr ""
-"Se ha enviado un mensaje de confirmación a %s. Pulse el vínculo de ese "
+"Se ha enviado un mensaje de confirmaciÃ³n a %s. Pulse el vÃ­nculo de ese "
 "mensaje para terminar de suscribirse al canal \"%s\"."
 
 #: stories/share.php:86
 msgid "A link to the story"
-msgstr "Vínculo a la historia"
+msgstr "VÃ­nculo a la historia"
 
 #: channels/aggregate.php:56
 msgid "Add"
-msgstr "Añadir"
+msgstr "AÃ±adir"
 
 #: content.php:34
 msgid "Add Content"
-msgstr "Añadir contenido"
+msgstr "AÃ±adir contenido"
 
 #: lib/Forms/Story.php:37
 msgid "Add New Story"
-msgstr "Añadir historia"
+msgstr "AÃ±adir historia"
 
 #: channels/index.php:71
 msgid "Add story"
-msgstr "Añadir historia"
+msgstr "AÃ±adir historia"
 
 #: lib/api.php:118
 msgid "Administrator"
@@ -99,7 +99,7 @@ msgstr "Administrador"
 
 #: lib/News.php:512 lib/Jonah.php:138
 msgid "Aggregated Feed"
-msgstr "Suscripción asociada"
+msgstr "SuscripciÃ³n asociada"
 
 #: channels/aggregate.php:55
 #, php-format
@@ -108,7 +108,7 @@ msgstr "Canales asociados del canal \"%s\""
 
 #: channels/delete.php:55
 msgid "All stories created in this channel will be lost!"
-msgstr "¡Se perderán todas las historias del canal!"
+msgstr "Â¡Se perderÃ¡n todas las historias del canal!"
 
 #: stories/results.php:114
 #, php-format
@@ -123,7 +123,7 @@ msgstr "Se ha producido un error al traer los canales: %s"
 #: channels/delete.php:57
 msgid "Any cached stories for this channel will be lost!"
 msgstr ""
-"¡Se perderán todas las historias de este canal almacenadas temporalmente!"
+"Â¡Se perderÃ¡n todas las historias de este canal almacenadas temporalmente!"
 
 #: lib/Forms/Feed.php:83 lib/Forms/Feed.php:94
 msgid "Caching"
@@ -155,8 +155,8 @@ msgid ""
 "Channel URL for further pages, if not the default one. %c gets replaced by "
 "the feed ID, %n by the story offset."
 msgstr ""
-"URL de las páginas siguientes del canal, si no está por omisión. %c se "
-"sustituye por el ID de la suscripción, %n por el desplazamiento de la "
+"URL de las pÃ¡ginas siguientes del canal, si no estÃ¡ por omisiÃ³n. %c se "
+"sustituye por el ID de la suscripciÃ³n, %n por el desplazamiento de la "
 "historia."
 
 #: lib/Forms/Feed.php:112
@@ -164,15 +164,15 @@ msgid ""
 "Channel URL if not the default one. %c gets replaced by the feed ID, %n by "
 "the story offset."
 msgstr ""
-"URL del canal si no está por omisión. %c se sustituye por el ID de la "
-"suscripción, %n por el desplazamiento de la historia."
+"URL del canal si no estÃ¡ por omisiÃ³n. %c se sustituye por el ID de la "
+"suscripciÃ³n, %n por el desplazamiento de la historia."
 
 #: lib/Forms/Feed.php:76
 #, php-format
 msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
 msgstr ""
-"URL del canal si no está por omisión. %c se sustituye por el ID de la "
-"suscripción."
+"URL del canal si no estÃ¡ por omisiÃ³n. %c se sustituye por el ID de la "
+"suscripciÃ³n."
 
 #: channels/delete.php:75
 msgid "Channel has not been deleted."
@@ -197,7 +197,7 @@ msgstr "Compactar"
 
 #: lib/News.php:515 lib/Jonah.php:141
 msgid "Composite Feed"
-msgstr "Suscripción compuesta"
+msgstr "SuscripciÃ³n compuesta"
 
 #: lib/Forms/Feed.php:114
 msgid "Composite feeds"
@@ -206,7 +206,7 @@ msgstr "Suscripciones compuestas"
 #: lib/News.php:358
 #, php-format
 msgid "Could not deliver to the %s distribution list. %s"
-msgstr "No se puede enviar a la lista de distribución %s. %s"
+msgstr "No se puede enviar a la lista de distribuciÃ³n %s. %s"
 
 #: lib/Jonah.php:87
 #, php-format
@@ -216,7 +216,7 @@ msgstr "No se puede abrir %s."
 #: lib/Block/latest.php:49
 msgid "Count reads of the latest story when this block is displayed"
 msgstr ""
-"Cuando este bloque se muestra se cuentan las lecturas de la última historia"
+"Cuando este bloque se muestra se cuentan las lecturas de la Ãºltima historia"
 
 #: lib/Block/story.php:49
 msgid "Count reads of this story when this block is displayed"
@@ -238,12 +238,12 @@ msgstr "Eliminar"
 #: channels/delete.php:47
 #, php-format
 msgid "Delete News Channel \"%s\"?"
-msgstr "¿Eliminar canal de noticias \"%s\"?"
+msgstr "Â¿Eliminar canal de noticias \"%s\"?"
 
 #: stories/delete.php:47
 #, php-format
 msgid "Delete News Story \"%s\"?"
-msgstr "¿Eliminar historia de noticias \"%s\"?"
+msgstr "Â¿Eliminar historia de noticias \"%s\"?"
 
 #: channels/index.php:49
 msgid "Delete channel"
@@ -272,7 +272,7 @@ msgstr "Entrega de \"%s\" historias"
 
 #: lib/Forms/Feed.php:75 lib/Forms/Feed.php:93 lib/Forms/Feed.php:111
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: stories/delete.php:51 channels/delete.php:50
 msgid "Do not delete"
@@ -280,7 +280,7 @@ msgstr "No eliminar"
 
 #: lib/Forms/Feed.php:40
 msgid "Edit Feed"
-msgstr "Modificar suscripción"
+msgstr "Modificar suscripciÃ³n"
 
 #: lib/Forms/Story.php:37
 msgid "Edit Story"
@@ -314,12 +314,12 @@ msgstr "Entrega de correo de \"%s\""
 
 #: delivery/email.php:78 lib/Block/delivery_email.php:96
 msgid "Email address"
-msgstr "Correo electrónico"
+msgstr "Correo electrÃ³nico"
 
 #: lib/News.php:554
 #, php-format
 msgid "Error fetching feed: %s"
-msgstr "Error al traer la suscripción: %s"
+msgstr "Error al traer la suscripciÃ³n: %s"
 
 #: stories/pdf.php:15 stories/share.php:66 stories/view.php:25
 #: stories/view.php:35 lib/Block/latest.php:91 lib/Block/story.php:91
@@ -330,7 +330,7 @@ msgstr "Error al traer la historia: %s"
 #: lib/News.php:793
 #, php-format
 msgid "Error parsing external feed from %s: %s"
-msgstr "Error al procesar la suscripción externa de %s: %s"
+msgstr "Error al procesar la suscripciÃ³n externa de %s: %s"
 
 #: lib/api.php:109
 msgid "External Channels"
@@ -338,25 +338,25 @@ msgstr "Canales externos"
 
 #: lib/News.php:506 lib/Jonah.php:135
 msgid "External Feed"
-msgstr "Suscripción externa"
+msgstr "SuscripciÃ³n externa"
 
 #: lib/Forms/Feed.php:51
 msgid "Extra information for this feed type"
-msgstr "Información adicional para este tipo de suscripción"
+msgstr "InformaciÃ³n adicional para este tipo de suscripciÃ³n"
 
 #: lib/Block/news_popular.php:32 lib/Block/story.php:42 lib/Block/news.php:3
 #: lib/Block/news.php:30
 msgid "Feed"
-msgstr "Suscripción"
+msgstr "SuscripciÃ³n"
 
 #: lib/News.php:113
 #, php-format
 msgid "Feed \"%s\" is not authored on this system."
-msgstr "La suscripción \"%s\" no se ha generado en este sistema."
+msgstr "La suscripciÃ³n \"%s\" no se ha generado en este sistema."
 
 #: channels/edit.php:56
 msgid "Feed type changed."
-msgstr "Se ha cambiado el tipo de suscripción."
+msgstr "Se ha cambiado el tipo de suscripciÃ³n."
 
 #: lib/Block/delivery.php:3 lib/Block/delivery.php:25 channels/index.php:96
 msgid "Feeds"
@@ -381,7 +381,7 @@ msgstr "Entrega HTML de \"%s\""
 
 #: lib/News.php:693
 msgid "HTML Version of Story"
-msgstr "Versión HTML de la historia"
+msgstr "VersiÃ³n HTML de la historia"
 
 #: lib/Block/delivery.php:67
 #, php-format
@@ -399,8 +399,8 @@ msgid ""
 "of the full story."
 msgstr ""
 "Si introduce una URL sin un texto completo de historia, al hacer click en la "
-"historia se enviará al lector directamente a la URL, de otro modo se le "
-"mostrará al final de la historia completa."
+"historia se enviarÃ¡ al lector directamente a la URL, de otro modo se le "
+"mostrarÃ¡ al final de la historia completa."
 
 #: lib/Forms/Feed.php:87 channels/aggregate.php:61
 msgid "Image"
@@ -421,22 +421,22 @@ msgstr "Canales internos"
 #: stories/index.php:43 stories/results.php:49
 #, php-format
 msgid "Invalid channel requested. %s"
-msgstr "Se ha solicitado un canal no válido. %s"
+msgstr "Se ha solicitado un canal no vÃ¡lido. %s"
 
 #: channels/delete.php:35
 msgid "Invalid channel specified for deletion."
-msgstr "Se ha indicado un canal no válido para eliminar."
+msgstr "Se ha indicado un canal no vÃ¡lido para eliminar."
 
 #: lists/delete.php:37 lists/edit.php:36 delivery/html.php:33
 #: delivery/email.php:55
 msgid "Invalid channel."
-msgstr "Canal no válido."
+msgstr "Canal no vÃ¡lido."
 
 #: lists/delete.php:27
 msgid "Invalid request to delete recipient from delivery list."
 msgstr ""
-"Petición no válida de eliminación de destinatario de la lista de "
-"distribución."
+"PeticiÃ³n no vÃ¡lida de eliminaciÃ³n de destinatario de la lista de "
+"distribuciÃ³n."
 
 #: delivery/email.php:69
 msgid "Join this channel"
@@ -444,11 +444,11 @@ msgstr "Unirse al canal"
 
 #: channels/index.php:91
 msgid "Last Update"
-msgstr "Última actualización"
+msgstr "Ãšltima actualizaciÃ³n"
 
 #: lib/Block/latest.php:3 lib/Block/latest.php:65
 msgid "Latest News"
-msgstr "Últimas Noticias"
+msgstr "Ãšltimas Noticias"
 
 #: delivery/email.php:70
 msgid "Leave this channel"
@@ -456,7 +456,7 @@ msgstr "Abandonar este canal"
 
 #: lib/Forms/Feed.php:86 channels/aggregate.php:60
 msgid "Link"
-msgstr "Vínculo"
+msgstr "VÃ­nculo"
 
 #: stories/index.php:128
 msgid "Lists"
@@ -464,7 +464,7 @@ msgstr "Listas"
 
 #: lib/News.php:509 lib/Jonah.php:132
 msgid "Local Feed"
-msgstr "Suscripción local"
+msgstr "SuscripciÃ³n local"
 
 #: channels/index.php:90
 msgid "Manage Feeds"
@@ -472,7 +472,7 @@ msgstr "Gestionar suscripciones"
 
 #: lib/Block/news_popular.php:53 lib/Block/news.php:49
 msgid "Maximum Stories"
-msgstr "Cantidad máxima de historias"
+msgstr "Cantidad mÃ¡xima de historias"
 
 #: config/.bak/templates.php.dist:20
 msgid "Media"
@@ -480,7 +480,7 @@ msgstr "Medio"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Lista del menú"
+msgstr "Lista del menÃº"
 
 #: stories/share.php:87
 msgid "Message"
@@ -488,7 +488,7 @@ msgstr "Mensaje"
 
 #: lists/index.php:125
 msgid "Method"
-msgstr "Método"
+msgstr "MÃ©todo"
 
 #: lib/News.php:74
 msgid "Missing channel id."
@@ -496,7 +496,7 @@ msgstr "Falta el id del canal."
 
 #: lib/Block/news_popular.php:3
 msgid "Most Popular Stories"
-msgstr "Historias más populares"
+msgstr "Historias mÃ¡s populares"
 
 #: content.php:31 templates/content/header.inc:2
 msgid "My News"
@@ -504,7 +504,7 @@ msgstr "Mis noticias"
 
 #: content_edit.php:32
 msgid "My News :: Add Content"
-msgstr "Mis noticias :: Añadir contenido"
+msgstr "Mis noticias :: AÃ±adir contenido"
 
 #: lists/index.php:125 delivery/email.php:83 lib/Forms/Feed.php:50
 #: lib/Delivery/email.php:197 lib/Block/delivery_email.php:97
@@ -514,7 +514,7 @@ msgstr "Nombre"
 
 #: lib/Forms/Feed.php:40
 msgid "New Feed"
-msgstr "Añadir suscripción"
+msgstr "AÃ±adir suscripciÃ³n"
 
 #: stories/index.php:122 lib/Block/news_popular.php:86
 msgid "New Story"
@@ -542,7 +542,7 @@ msgstr "Noticias por correo"
 
 #: lists/index.php:40 channels/index.php:25
 msgid "News is not enabled."
-msgstr "No están activadas las noticias."
+msgstr "No estÃ¡n activadas las noticias."
 
 #: stories/index.php:51 stories/results.php:57
 msgid "No available stories."
@@ -566,7 +566,7 @@ msgstr "No hay canales disponibles."
 
 #: lib/Block/news_popular.php:99 lib/Block/news.php:92
 msgid "No feed specified."
-msgstr "No se ha indicado una suscripción."
+msgstr "No se ha indicado una suscripciÃ³n."
 
 #: lib/Block/delivery.php:76
 msgid "No feeds are available."
@@ -587,12 +587,12 @@ msgstr "No se ha seleccionado ninguna historia."
 #: lib/Delivery.php:215
 #, php-format
 msgid "No such action \"%s\" found"
-msgstr "No se encontró el tipo de acción \"%s\""
+msgstr "No se encontrÃ³ el tipo de acciÃ³n \"%s\""
 
 #: lib/News.php:743
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "No se encontró el motor \"%s\""
+msgstr "No se encontrÃ³ el motor \"%s\""
 
 #: stories/results.php:40
 msgid "No tag requested."
@@ -600,7 +600,7 @@ msgstr "No se ha solicitado una etiqueta."
 
 #: stories/delete.php:36
 msgid "No valid story requested for deletion."
-msgstr "No se ha solicitado una historia válida para borrar."
+msgstr "No se ha solicitado una historia vÃ¡lida para borrar."
 
 #: stories/share.php:25
 msgid "Note"
@@ -611,8 +611,8 @@ msgid ""
 "Note: this story won't be delivered to distribution lists automatically if "
 "this time is in the future."
 msgstr ""
-"Observación: esta historia no se enviará de forma automática a las listas de "
-"distribución si esta hora está en el futuro."
+"ObservaciÃ³n: esta historia no se enviarÃ¡ de forma automÃ¡tica a las listas de "
+"distribuciÃ³n si esta hora estÃ¡ en el futuro."
 
 #: lib/Forms/Story.php:55
 msgid "Or publish on this date:"
@@ -620,7 +620,7 @@ msgstr "O publicar en esta fecha:"
 
 #: stories/index.php:87 stories/results.php:81
 msgid "PDF version"
-msgstr "Versión PDF"
+msgstr "VersiÃ³n PDF"
 
 #: channels/delete.php:22
 msgid "Permission Denied."
@@ -628,16 +628,16 @@ msgstr "Permiso denegado."
 
 #: lib/News.php:688
 msgid "Plaintext Version of Story"
-msgstr "Versión en texto de la historia"
+msgstr "VersiÃ³n en texto de la historia"
 
 #: lib/Forms/Story.php:45
 msgid "Publish Now?"
-msgstr "¿Publicar ahora?"
+msgstr "Â¿Publicar ahora?"
 
 #: lib/Block/delivery.php:59
 #, php-format
 msgid "RSS Feed of \"%s\""
-msgstr "Suscripción RSS de \"%s\""
+msgstr "SuscripciÃ³n RSS de \"%s\""
 
 #: templates/stories/index.html:32
 msgid "Read"
@@ -645,11 +645,11 @@ msgstr "Leer"
 
 #: channels/delete.php:53
 msgid "Really delete this News Channel?"
-msgstr "¿Eliminar realmente este canal de noticias?"
+msgstr "Â¿Eliminar realmente este canal de noticias?"
 
 #: stories/delete.php:54
 msgid "Really delete this News Story?"
-msgstr "¿Eliminar realmente esta historia de noticias?"
+msgstr "Â¿Eliminar realmente esta historia de noticias?"
 
 #: lists/index.php:125
 msgid "Recipient"
@@ -673,7 +673,7 @@ msgstr "Actualizar canal"
 
 #: lists/delete.php:54
 msgid "Removal of recipient failed."
-msgstr "Ha fallado la eliminación del destinatario."
+msgstr "Ha fallado la eliminaciÃ³n del destinatario."
 
 #: channels/aggregate.php:26
 #, php-format
@@ -729,7 +729,7 @@ msgstr "Compartir esta historia"
 
 #: lib/Forms/Story.php:44
 msgid "Short Description"
-msgstr "Descripción corta"
+msgstr "DescripciÃ³n corta"
 
 #: lib/Forms/Feed.php:85 channels/aggregate.php:59
 msgid "Source URL"
@@ -741,7 +741,7 @@ msgstr "URLs origen"
 
 #: config/.bak/templates.php.dist:9
 msgid "Standard"
-msgstr "Estándar"
+msgstr "EstÃ¡ndar"
 
 #: templates/stories/index.html:9
 msgid "Stories"
@@ -760,15 +760,15 @@ msgstr "Historia"
 #: lib/News.php:764
 #, php-format
 msgid "Story \"%s\" not found in \"%s\"."
-msgstr "No se encontró la historia \"%s\" en \"%s\"."
+msgstr "No se encontrÃ³ la historia \"%s\" en \"%s\"."
 
 #: stories/share.php:109
 msgid "Story Link"
-msgstr "Vínculo de la historia"
+msgstr "VÃ­nculo de la historia"
 
 #: lib/Forms/Story.php:43
 msgid "Story Title (Headline)"
-msgstr "Título de la historia (Titular)"
+msgstr "TÃ­tulo de la historia (Titular)"
 
 #: lib/Forms/Story.php:82
 msgid "Story URL"
@@ -777,7 +777,7 @@ msgstr "URL de la historia"
 #: lib/News/sql.php:456
 #, php-format
 msgid "Story URL \"%s\" not found."
-msgstr "No se encontró la URL \"%s\" de la historia."
+msgstr "No se encontrÃ³ la URL \"%s\" de la historia."
 
 #: lib/Forms/Feed.php:78 lib/Forms/Feed.php:113
 #, php-format
@@ -785,8 +785,8 @@ msgid ""
 "Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
 "story ID."
 msgstr ""
-"La URL de la historia no es la URL por omisión. %c se sustituye por el ID de "
-"la suscripción, %s por el ID de la historia."
+"La URL de la historia no es la URL por omisiÃ³n. %c se sustituye por el ID de "
+"la suscripciÃ³n, %s por el ID de la historia."
 
 #: lib/Forms/Story.php:61
 msgid "Story body type"
@@ -795,7 +795,7 @@ msgstr "Tipo de cuerpo de la historia"
 #: stories/edit.php:34
 #, php-format
 msgid "Story editing failed: %s"
-msgstr "Falló la modificación de la historia: %s"
+msgstr "FallÃ³ la modificaciÃ³n de la historia: %s"
 
 #: stories/delete.php:71
 msgid "Story has not been deleted."
@@ -804,7 +804,7 @@ msgstr "No se ha eliminado la historia."
 #: lib/News/sql.php:424
 #, php-format
 msgid "Story id \"%s\" not found."
-msgstr "No se encontró el id \"%s\" de historia."
+msgstr "No se encontrÃ³ el id \"%s\" de historia."
 
 #: stories/share.php:85
 msgid "Subject"
@@ -813,7 +813,7 @@ msgstr "Asunto"
 #: lib/News.php:363
 #, php-format
 msgid "Successfully delivered to the %s distribution list."
-msgstr "Se ha enviado correctamente a la lista de distribución %s."
+msgstr "Se ha enviado correctamente a la lista de distribuciÃ³n %s."
 
 #: lib/Block/cloud.php:3 lib/Block/cloud.php:35
 msgid "Tag Cloud"
@@ -822,7 +822,7 @@ msgstr "Conjunto de etiquetas"
 #: lib/News.php:834 lib/News.php:839 lib/News.php:844 lib/News.php:850
 #: lib/News.php:855
 msgid "Tag support not enabled in backend."
-msgstr "El soporte de etiquetas no está habilitado en el motor."
+msgstr "El soporte de etiquetas no estÃ¡ habilitado en el motor."
 
 #: lib/Forms/Story.php:79
 msgid "Tags"
@@ -862,7 +862,7 @@ msgstr "El texto completo de la historia"
 #: channels/edit.php:70
 #, php-format
 msgid "The feed \"%s\" has been saved."
-msgstr "Se ha guardado la suscripción \"%s\"."
+msgstr "Se ha guardado la suscripciÃ³n \"%s\"."
 
 #: lib/Forms/Feed.php:94
 msgid ""
@@ -871,7 +871,7 @@ msgid ""
 msgstr ""
 "Intervalo antes de que se vuelvan a comprobar las actualizaciones de las "
 "historias asociadas a estas suscripciones. Si es nulo, las historias se "
-"traerán siempre del origen."
+"traerÃ¡n siempre del origen."
 
 #: lib/Forms/Feed.php:83
 msgid ""
@@ -879,7 +879,7 @@ msgid ""
 "then stories will always be refetched from the source."
 msgstr ""
 "Intervalo antes de que se vuelvan a comprobar las actualizaciones de las "
-"historias de esta suscripción. Si es nulo, las historias se traerán siempre "
+"historias de esta suscripciÃ³n. Si es nulo, las historias se traerÃ¡n siempre "
 "del origen."
 
 #: stories/edit.php:63
@@ -893,7 +893,7 @@ msgstr "Se ha eliminado la historia."
 
 #: stories/share.php:120
 msgid "The story was sent successfully."
-msgstr "Se envío correctamente la historia."
+msgstr "Se envÃ­o correctamente la historia."
 
 #: lib/Forms/Feed.php:85 channels/aggregate.php:59
 msgid ""
@@ -926,7 +926,7 @@ msgstr "Se produjo un error al guardar el canal: %s"
 #: channels/edit.php:68
 #, php-format
 msgid "There was an error saving the feed: %s"
-msgstr "Se produjo un error al guardar la suscripción: %s"
+msgstr "Se produjo un error al guardar la suscripciÃ³n: %s"
 
 #: stories/edit.php:61
 #, php-format
@@ -943,12 +943,12 @@ msgid ""
 "This driver allows the delivery of news stories via email to one or more "
 "recipients."
 msgstr ""
-"Este controlador permite el envío por correo de historias de noticias a uno "
-"o más destinatarios."
+"Este controlador permite el envÃ­o por correo de historias de noticias a uno "
+"o mÃ¡s destinatarios."
 
 #: channels/aggregate.php:43
 msgid "This is no aggregated channel."
-msgstr "Éste no es un canal asociado."
+msgstr "Ã‰ste no es un canal asociado."
 
 #: stories/share.php:84
 msgid "To"
@@ -982,14 +982,14 @@ msgstr "Ver"
 
 #: delivery/email.php:67
 msgid "What do you want to do?"
-msgstr "¿Qué desea hacer?"
+msgstr "Â¿QuÃ© desea hacer?"
 
 #: lists/index.php:34 lists/delete.php:45 lists/edit.php:44
 #: stories/index.php:31 stories/delete.php:22 stories/results.php:24
 #: stories/edit.php:42 channels/index.php:19 channels/aggregate.php:50
 #: channels/edit.php:43
 msgid "You are not authorised for this action."
-msgstr "Carece de autorización para realizar esta acción."
+msgstr "Carece de autorizaciÃ³n para realizar esta acciÃ³n."
 
 #: channels/edit.php:72
 msgid "You can now edit the sub-feeds."
@@ -1001,8 +1001,8 @@ msgid ""
 "You have requested to receive \"%s\" stories by email. Click on this link to "
 "confirm the request: %s"
 msgstr ""
-"Ha solicitado recibir por correo las historias de \"%s\". Pulse este vínculo "
-"para confirmar la petición: %s"
+"Ha solicitado recibir por correo las historias de \"%s\". Pulse este vÃ­nculo "
+"para confirmar la peticiÃ³n: %s"
 
 #: lib/Delivery/email.php:75
 #, php-format
@@ -1011,7 +1011,7 @@ msgid ""
 "link to confirm the request: %s"
 msgstr ""
 "Ha solicitado dejar de recibir por correo las historias de \"%s\". Pulse "
-"este vínculo para confirmar la petición: %s"
+"este vÃ­nculo para confirmar la peticiÃ³n: %s"
 
 #: lib/Delivery.php:272
 msgid "You must configure a Horde Datatree backend to use Jonah."
@@ -1019,7 +1019,7 @@ msgstr "Para usar Jonah tiene que configurar un motor de DataTree."
 
 #: lib/News.php:806
 msgid "[No title]"
-msgstr "[Sin título]"
+msgstr "[Sin tÃ­tulo]"
 
 #: lib/Jonah.php:266
 msgid "_Feeds"
@@ -1031,7 +1031,7 @@ msgstr ":Mis noticias"
 
 #: lib/Jonah.php:267
 msgid "_New Feed"
-msgstr "_Añadir suscripción"
+msgstr "_AÃ±adir suscripciÃ³n"
 
 #: lib/News.php:472
 msgid "none"

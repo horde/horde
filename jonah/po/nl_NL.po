@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Resan Sa-Ardnuam <horde@sa-ardnuam.nl>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Block/delivery_email.php:59

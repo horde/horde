@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
@@ -20,19 +20,19 @@ msgstr ""
 #: users/edit.php:53
 #, php-format
 msgid "\"%s\" already has the maximum number of users allowed."
-msgstr "\"%s\" jau pasiekë maksimalø vartotojø skaièiø."
+msgstr "\"%s\" jau pasiekÄ— maksimalÅ³ vartotojÅ³ skaiÄiÅ³."
 
 #: lib/Driver/qmailldap.php:670
 msgid "Account Status"
-msgstr "Pağto dëşutës bûsena"
+msgstr "PaÅ¡to dÄ—Å¾utÄ—s bÅ«sena"
 
 #: lib/Driver/qmailldap.php:678
 msgid "Account is active"
-msgstr "Pağto dëşutë ájungta"
+msgstr "PaÅ¡to dÄ—Å¾utÄ— Ä¯jungta"
 
 #: lib/Driver/qmailldap.php:681
 msgid "Account is disabled"
-msgstr "Pağto dëşutë iğjungta"
+msgstr "PaÅ¡to dÄ—Å¾utÄ— iÅ¡jungta"
 
 #: templates/users/index.html:13
 msgid "Address"
@@ -40,7 +40,7 @@ msgstr "Adresas"
 
 #: lib/Vilma.php:60
 msgid "Alias"
-msgstr "Pravardë"
+msgstr "PravardÄ—"
 
 #: lib/Driver/qmailldap.php:371
 #, php-format
@@ -53,57 +53,57 @@ msgstr "Susieti adresai"
 
 #: lib/Vilma.php:54 lib/Vilma.php:55
 msgid "All"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #: lib/Driver/qmailldap.php:680
 msgid "Bounce Incoming Only"
-msgstr "Tik persiøsti gaunamus"
+msgstr "Tik persiÅ³sti gaunamus"
 
 #: domains/delete.php:29 domains/delete.php:33 users/delete.php:34
 #: users/delete.php:38 virtuals/delete.php:34 virtuals/delete.php:38
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: domains/index.php:44 domains/delete.php:26
 msgid "Delete Domain"
-msgstr "Iğtrinti domenà"
+msgstr "IÅ¡trinti domenÄ…"
 
 #: users/index.php:82 users/delete.php:31 virtuals/index.php:55
 msgid "Delete User"
-msgstr "Iğtrinti vartotojà"
+msgstr "IÅ¡trinti vartotojÄ…"
 
 #: virtuals/delete.php:31
 msgid "Delete Virtual Email Address"
-msgstr "Iğtrinti virtualø el. pağto adresà"
+msgstr "IÅ¡trinti virtualÅ³ el. paÅ¡to adresÄ…"
 
 #: domains/delete.php:31
 #, php-format
 msgid "Delete domain \"%s\", all the users and virtual email addresses?"
 msgstr ""
-"Iğtrinti domenà \"%s\", visus vartotojus ir virtualius el. pağto adresus?"
+"IÅ¡trinti domenÄ… \"%s\", visus vartotojus ir virtualius el. paÅ¡to adresus?"
 
 #: virtuals/delete.php:36
 #, php-format
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
-msgstr "Iğtrinti virtualø el. pağto adresà \"%s\" => \"%s\"?"
+msgstr "IÅ¡trinti virtualÅ³ el. paÅ¡to adresÄ… \"%s\" => \"%s\"?"
 
 #: users/delete.php:36
 #, php-format
 msgid "Delete user \"%s\" and all associated virtual email addresses?"
 msgstr ""
-"Iğtrinti vartotojà \"%s\" ir visus susijusius virtualius el. pağto adresus?"
+"IÅ¡trinti vartotojÄ… \"%s\" ir visus susijusius virtualius el. paÅ¡to adresus?"
 
 #: virtuals/edit.php:64 templates/virtuals/index.html:20
 msgid "Destination"
-msgstr "Gavëjas"
+msgstr "GavÄ—jas"
 
 #: virtuals/edit.php:54
 msgid "Destination type"
-msgstr "Gavëjo tipas"
+msgstr "GavÄ—jo tipas"
 
 #: lib/Driver/qmailldap.php:679
 msgid "Disable Delivery Only"
-msgstr "Tik iğjungti pristatymà"
+msgstr "Tik iÅ¡jungti pristatymÄ…"
 
 #: config/prefs.php.dist:10
 msgid "Display details"
@@ -111,7 +111,7 @@ msgstr "Vaizdavimo nustatymai"
 
 #: config/prefs.php.dist:9
 msgid "Display listings"
-msgstr "Sàrağo rodymas"
+msgstr "SÄ…raÅ¡o rodymas"
 
 #: domains/delete.php:29 domains/delete.php:47 users/delete.php:34
 #: users/delete.php:52 virtuals/delete.php:34 virtuals/delete.php:52
@@ -124,32 +124,32 @@ msgstr "Domenas"
 
 #: domains/delete.php:41
 msgid "Domain deleted."
-msgstr "Domenas iğtrintas."
+msgstr "Domenas iÅ¡trintas."
 
 #: domains/delete.php:48
 msgid "Domain not deleted."
-msgstr "Domenas neiğtrintas."
+msgstr "Domenas neiÅ¡trintas."
 
 #: domains/edit.php:35
 msgid "Domain saved."
-msgstr "Domenas iğsaugotas."
+msgstr "Domenas iÅ¡saugotas."
 
 #: domains/index.php:45 lib/Forms/EditDomainForm.php:20
 msgid "Edit Domain"
-msgstr "Redaguoti domenà"
+msgstr "Redaguoti domenÄ…"
 
 #: users/index.php:83 virtuals/index.php:56
 msgid "Edit User"
-msgstr "Redaguoti vartotojà"
+msgstr "Redaguoti vartotojÄ…"
 
 #: lib/Forms/EditUserForm.php:22
 #, php-format
 msgid "Edit User for \"%s\""
-msgstr "Redaguoti \"%s\" vartotojà"
+msgstr "Redaguoti \"%s\" vartotojÄ…"
 
 #: virtuals/edit.php:47
 msgid "Edit Virtual Email Address"
-msgstr "Redaguoti virtualius el. pağto adresus"
+msgstr "Redaguoti virtualius el. paÅ¡to adresus"
 
 #: virtuals/edit.php:53
 #, php-format
@@ -159,39 +159,39 @@ msgid ""
 "alphanumerical character, it must contain only alphanumerical and '._-' "
 "characters, and must end with an alphanumerical character."
 msgstr ""
-"Árağykite virtualø el. pağto adresà domenui @%s. Adresas turi prasidëti "
-"skaièiais arba raidëm, viduje gali turëti skaièius, raides arba '._-' "
-"simbolius, ir turi baigtis skaièiais arba raidëmis."
+"Ä®raÅ¡ykite virtualÅ³ el. paÅ¡to adresÄ… domenui @%s. Adresas turi prasidÄ—ti "
+"skaiÄiais arba raidÄ—m, viduje gali turÄ—ti skaiÄius, raides arba '._-' "
+"simbolius, ir turi baigtis skaiÄiais arba raidÄ—mis."
 
 #: lib/Driver/qmailldap.php:616
 #, php-format
 msgid "Error deleting account from LDAP: %s"
-msgstr "Klaida trinant vartotojo vardà iğ LDAP: %s"
+msgstr "Klaida trinant vartotojo vardÄ… iÅ¡ LDAP: %s"
 
 #: domains/delete.php:39
 #, php-format
 msgid "Error deleting domain. %s."
-msgstr "Klaida trinant domenà. %s."
+msgstr "Klaida trinant domenÄ…. %s."
 
 #: users/delete.php:44
 #, php-format
 msgid "Error deleting user. %s."
-msgstr "Klaida trinant vartotojà. %s."
+msgstr "Klaida trinant vartotojÄ…. %s."
 
 #: virtuals/delete.php:44
 #, php-format
 msgid "Error deleting virtual email. %s."
-msgstr "Klaida trinant virtualø el. pağto adresà. %s."
+msgstr "Klaida trinant virtualÅ³ el. paÅ¡to adresÄ…. %s."
 
 #: lib/Driver/qmailldap.php:210 lib/Driver/qmailldap.php:215
 #, php-format
 msgid "Error in LDAP search: %s"
-msgstr "Klaida atliekant LDAP paieğkà: %s"
+msgstr "Klaida atliekant LDAP paieÅ¡kÄ…: %s"
 
 #: users/edit.php:35
 #, php-format
 msgid "Error reading address information from backend: %s"
-msgstr "Klaida iğ posistemës skaitant adresø informacijà: %s"
+msgstr "Klaida iÅ¡ posistemÄ—s skaitant adresÅ³ informacijÄ…: %s"
 
 #: lib/Driver/qmailldap.php:606
 #, php-format
@@ -202,32 +202,32 @@ msgstr "Klaida gaunant LDAP rezultatus: %s"
 #: lib/Driver/qmailldap.php:507
 #, php-format
 msgid "Error returning LDAP results: %s"
-msgstr "Klaida graşinant LDAP rezultatus: %s"
+msgstr "Klaida graÅ¾inant LDAP rezultatus: %s"
 
 #: lib/Driver.php:195
 msgid "Error running authentication update script."
-msgstr "Klaida leidşiant autentifikacijos atnaujinimo skriptà."
+msgstr "Klaida leidÅ¾iant autentifikacijos atnaujinimo skriptÄ…."
 
 #: domains/edit.php:33
 #, php-format
 msgid "Error saving domain: %s."
-msgstr "Klaida iğsaugant domenà: %s."
+msgstr "Klaida iÅ¡saugant domenÄ…: %s."
 
 #: users/edit.php:64
 #, php-format
 msgid "Error saving user. %s"
-msgstr "Klaida iğsaugant vartotojà. %s"
+msgstr "Klaida iÅ¡saugant vartotojÄ…. %s"
 
 #: virtuals/edit.php:77
 #, php-format
 msgid "Error saving virtual email. %s."
-msgstr "Klaida iğsaugant virtualø el. pağto adresà. %s."
+msgstr "Klaida iÅ¡saugant virtualÅ³ el. paÅ¡to adresÄ…. %s."
 
 #: lib/Driver/qmailldap.php:341 lib/Driver/qmailldap.php:429
 #: lib/Driver/qmailldap.php:501 lib/Driver/qmailldap.php:600
 #, php-format
 msgid "Error searching LDAP: %s"
-msgstr "Klaida atliekant LDAP paieğkà: %s"
+msgstr "Klaida atliekant LDAP paieÅ¡kÄ…: %s"
 
 #: lib/Forms/EditUserForm.php:41 templates/users/index.html:16
 msgid "Full Name"
@@ -235,15 +235,15 @@ msgstr "Pilnas vardas"
 
 #: lib/Vilma.php:63
 msgid "Group/Forward"
-msgstr "Grupë/Persiuntimas"
+msgstr "GrupÄ—/Persiuntimas"
 
 #: lib/Vilma.php:64
 msgid "Groups and Forwards"
-msgstr "Grupës ir persiuntimai"
+msgstr "GrupÄ—s ir persiuntimai"
 
 #: config/prefs.php.dist:20
 msgid "How many domain to display per page."
-msgstr "Kiek domenø rodyti viename puslapyje."
+msgstr "Kiek domenÅ³ rodyti viename puslapyje."
 
 #: virtuals/edit.php:56
 msgid "Local user"
@@ -252,7 +252,7 @@ msgstr "Vietinis vartotojas"
 #: lib/MailboxDriver/imap.php:45
 #, php-format
 msgid "Mailbox '%s@%s' does not exist."
-msgstr "Pağto dëşutë '%s@%s' neegzistuoja."
+msgstr "PaÅ¡to dÄ—Å¾utÄ— '%s@%s' neegzistuoja."
 
 #: lib/MailboxDriver/maildrop.php:45
 #, php-format
@@ -261,22 +261,22 @@ msgstr "Maildrop katalogas \"%s\" neegzistuoja."
 
 #: templates/domains/index.html:19
 msgid "Max Users"
-msgstr "Maks. vartotojø skaièius"
+msgstr "Maks. vartotojÅ³ skaiÄius"
 
 #: lib/Forms/EditDomainForm.php:35
 msgid "Max users"
-msgstr "Maks. vartotojø skaièius"
+msgstr "Maks. vartotojÅ³ skaiÄius"
 
 #: users/index.php:69
 msgid "Maximum Users"
-msgstr "Maks. vartotojø skaièius"
+msgstr "Maks. vartotojÅ³ skaiÄius"
 
 #: lib/Driver/qmailldap.php:511
 msgid ""
 "More than one DN returned for this alias.  Please contact an administrator "
 "to resolve this error."
 msgstr ""
-"Rastas daugiau nei vienas DN atitinkantis ğá vartotojà. Susisiekite su "
+"Rastas daugiau nei vienas DN atitinkantis Å¡Ä¯ vartotojÄ…. Susisiekite su "
 "administratoriumi."
 
 #: lib/Driver/qmailldap.php:610
@@ -289,8 +289,8 @@ msgid ""
 "alphanumeric and '._-' characters, and must end with an alphanumeric "
 "character."
 msgstr ""
-"Vardas turi prasidëti skaièiais arba raidëm, viduje gali turëti skaièius, "
-"raides arba simbolius '._-', ir turi baigtis skaièiais arba raidëmis."
+"Vardas turi prasidÄ—ti skaiÄiais arba raidÄ—m, viduje gali turÄ—ti skaiÄius, "
+"raides arba simbolius '._-', ir turi baigtis skaiÄiais arba raidÄ—mis."
 
 #: lib/Forms/EditDomainForm.php:20
 msgid "New Domain"
@@ -303,11 +303,11 @@ msgstr "Naujas @%s vartotojas"
 
 #: virtuals/index.php:48
 msgid "New Virtual Email"
-msgstr "Naujas virtualus el. pağtas"
+msgstr "Naujas virtualus el. paÅ¡tas"
 
 #: virtuals/edit.php:47
 msgid "New Virtual Email Address"
-msgstr "Naujas virtualus el. pağto adresas"
+msgstr "Naujas virtualus el. paÅ¡to adresas"
 
 #: lib/Vilma.php:169
 msgid "New _Address"
@@ -315,11 +315,11 @@ msgstr "Naujas adresas"
 
 #: lib/MailboxDriver/maildrop.php:19
 msgid "No 'mail_dir_base' parameter specified to maildrop driver."
-msgstr "Maildrop tvarkyklëje neárağytas 'mail_dir_base' parametras."
+msgstr "Maildrop tvarkyklÄ—je neÄ¯raÅ¡ytas 'mail_dir_base' parametras."
 
 #: lib/MailboxDriver/maildrop.php:60
 msgid "No 'system_user' parameter specified to maildrop driver."
-msgstr "Maildrop tvarkyklëje neárağytas 'system_user' parametras."
+msgstr "Maildrop tvarkyklÄ—je neÄ¯raÅ¡ytas 'system_user' parametras."
 
 #: lib/Driver.php:108
 #, php-format
@@ -329,15 +329,15 @@ msgstr "Adresas %s, kurio tipas %s, nerastas."
 #: lib/Driver.php:329
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "Posistemë \"%s\" nerasta"
+msgstr "PosistemÄ— \"%s\" nerasta"
 
 #: users/edit.php:74
 msgid ""
 "No virtual email address set up for this user. You should set up at least "
 "one virtual email address if this user is to receive any emails."
 msgstr ""
-"Ğis vartotojas neturi virtualiø el. pağto adresø. Jeigu ğis vartotojas gauna "
-"el. laiğkus, turëtumëte nurodyti bent vienà virtualø el. pağto adresà."
+"Å is vartotojas neturi virtualiÅ³ el. paÅ¡to adresÅ³. Jeigu Å¡is vartotojas gauna "
+"el. laiÅ¡kus, turÄ—tumÄ—te nurodyti bent vienÄ… virtualÅ³ el. paÅ¡to adresÄ…."
 
 #: lib/Driver.php:249
 msgid "Not implemented."
@@ -345,15 +345,15 @@ msgstr "Nerealizuota."
 
 #: lib/Forms/EditUserForm.php:37
 msgid "Only enter a password if you wish to change this user's password"
-msgstr "Slaptaşodá árağykite tik tada, jeigu já keièiate"
+msgstr "SlaptaÅ¾odÄ¯ Ä¯raÅ¡ykite tik tada, jeigu jÄ¯ keiÄiate"
 
 #: lib/Forms/EditUserForm.php:37 lib/Forms/EditUserForm.php:39
 msgid "Password"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #: lib/Driver/sql.php:465
 msgid "Password must be supplied when creating a new user."
-msgstr "Kurdami naujà vartotojà, privalote árağyti slaptaşodá."
+msgstr "Kurdami naujÄ… vartotojÄ…, privalote Ä¯raÅ¡yti slaptaÅ¾odÄ¯."
 
 #: lib/Forms/EditDomainForm.php:36
 msgid "Quota"
@@ -361,19 +361,19 @@ msgstr "Vieta serveryje"
 
 #: virtuals/edit.php:57
 msgid "Remote address"
-msgstr "Iğoriniai adresai"
+msgstr "IÅ¡oriniai adresai"
 
 #: virtuals/edit.php:61
 msgid "Remote e-mail address"
-msgstr "Iğorinis el. pağto adresas"
+msgstr "IÅ¡orinis el. paÅ¡to adresas"
 
 #: config/prefs.php.dist:11
 msgid "Set default display parameters."
-msgstr "Standartinio vaizdavimo parametrø nustatymas."
+msgstr "Standartinio vaizdavimo parametrÅ³ nustatymas."
 
 #: templates/users/index.html:22
 msgid "Status"
-msgstr "Bûsena"
+msgstr "BÅ«sena"
 
 #: lib/api.php:43
 msgid "Super Administrator"
@@ -381,11 +381,11 @@ msgstr "Super administratorius"
 
 #: lib/MailboxDriver.php:78
 msgid "This driver cannot create mailboxes."
-msgstr "Ği tvarkyklë negali kurti pağto dëşuèiø."
+msgstr "Å i tvarkyklÄ— negali kurti paÅ¡to dÄ—Å¾uÄiÅ³."
 
 #: lib/MailboxDriver.php:94
 msgid "This driver cannot delete mailboxes."
-msgstr "Ği tvarkyklë negali trinti pağto dëşuèiø."
+msgstr "Å i tvarkyklÄ— negali trinti paÅ¡to dÄ—Å¾uÄiÅ³."
 
 #: lib/Forms/EditDomainForm.php:34
 msgid "Transport"
@@ -398,16 +398,16 @@ msgstr "Tipas"
 #: lib/Driver/qmailldap.php:715
 msgid "Unable to bind to the LDAP server.  Check authentication credentials."
 msgstr ""
-"Nepavyko autentifikuotis á LDAP serverá. Patikrinkite vartotojo vardà bei "
-"slaptaşodá."
+"Nepavyko autentifikuotis Ä¯ LDAP serverÄ¯. Patikrinkite vartotojo vardÄ… bei "
+"slaptaÅ¾odÄ¯."
 
 #: lib/Driver/qmailldap.php:710
 msgid "Unable to set LDAP protocol version"
-msgstr "Klaida keièiant LDAP protokolo versijà"
+msgstr "Klaida keiÄiant LDAP protokolo versijÄ…"
 
 #: lib/Driver.php:199
 msgid "Unknown error running authentication update script."
-msgstr "Bevykdant autentifikacijos atnaujinimo skriptà ávyko neşinoma klaida."
+msgstr "Bevykdant autentifikacijos atnaujinimo skriptÄ… Ä¯vyko neÅ¾inoma klaida."
 
 #: lib/Vilma.php:57
 msgid "User"
@@ -419,23 +419,23 @@ msgstr "Vartotojo vardas"
 
 #: users/delete.php:46
 msgid "User deleted."
-msgstr "Vartotojas iğtrintas."
+msgstr "Vartotojas iÅ¡trintas."
 
 #: users/edit.php:66
 msgid "User details saved."
-msgstr "Vartotojo aprağymas iğsaugotas."
+msgstr "Vartotojo apraÅ¡ymas iÅ¡saugotas."
 
 #: lib/Driver.php:132
 msgid "User disabled."
-msgstr "Vartotojas iğjungtas"
+msgstr "Vartotojas iÅ¡jungtas"
 
 #: users/delete.php:53
 msgid "User not deleted."
-msgstr "Vartotojas neiğtrintas."
+msgstr "Vartotojas neiÅ¡trintas."
 
 #: lib/Driver.php:155
 msgid "User ready."
-msgstr "Vartotojas paruoğtas."
+msgstr "Vartotojas paruoÅ¡tas."
 
 #: lib/Vilma.php:58 virtuals/index.php:51
 msgid "Users"
@@ -443,7 +443,7 @@ msgstr "Vartotojai"
 
 #: lib/Forms/EditDomainForm.php:36
 msgid "Value in MB"
-msgstr "Reikğmë MB"
+msgstr "ReikÅ¡mÄ— MB"
 
 #: lib/Driver.php:210
 msgid "Vilma_Driver::deleteUser(): Method Not Implemented."
@@ -451,29 +451,29 @@ msgstr "Vilma_Driver::deleteUser(): metodas nerealizuotas."
 
 #: virtuals/edit.php:53
 msgid "Virtual Email"
-msgstr "Virtualus el. pağtas"
+msgstr "Virtualus el. paÅ¡tas"
 
 #: templates/virtuals/index.html:17
 msgid "Virtual Email Address"
-msgstr "Virtualus el. pağto adresas"
+msgstr "Virtualus el. paÅ¡to adresas"
 
 #: virtuals/delete.php:46
 msgid "Virtual email deleted."
-msgstr "Virtualus el. pağto adresas iğtrintas."
+msgstr "Virtualus el. paÅ¡to adresas iÅ¡trintas."
 
 #: virtuals/delete.php:53
 msgid "Virtual email not deleted."
-msgstr "Virtualus el. pağto adresas neiğtrintas."
+msgstr "Virtualus el. paÅ¡to adresas neiÅ¡trintas."
 
 #: virtuals/edit.php:79
 msgid "Virtual email saved."
-msgstr "Virtualus el. pağto adresas iğsaugotas."
+msgstr "Virtualus el. paÅ¡to adresas iÅ¡saugotas."
 
 #: lib/Driver/qmailldap.php:35
 msgid "You must configure a Horde DataTree backend to use Vilma."
 msgstr ""
-"Norëdami naugotis pağto valdymo sistema, turite sukonfigûruoti duomenø "
-"medşio posistemæ."
+"NorÄ—dami naugotis paÅ¡to valdymo sistema, turite sukonfigÅ«ruoti duomenÅ³ "
+"medÅ¾io posistemÄ™."
 
 #: lib/Vilma.php:166
 msgid "_Domains"

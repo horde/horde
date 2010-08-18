@@ -11,66 +11,66 @@ msgstr ""
 "Last-Translator: Stojan Pesov <ssp@eureka.com.mk>\n"
 "Language-Team: Macedonian <i18n@list.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.1\n"
 
 msgid "      To: "
-msgstr "      ґЮ: "
+msgstr "      Р”Рѕ: "
 
 msgid "    Date: "
-msgstr "    ґРвгЬ: "
+msgstr "    Р”Р°С‚СѓРј: "
 
 msgid "    From: "
-msgstr "    ѕФ: "
+msgstr "    РћРґ: "
 
 msgid " - $nm new message"
-msgstr " - $nm ЭЮТР ЯЮаРЪР"
+msgstr " - $nm РЅРѕРІР° РїРѕСЂР°РєР°"
 
 msgid " - $nm new messages"
-msgstr " - $nm ЭЮТШ ЯЮаРЪШ"
+msgstr " - $nm РЅРѕРІРё РїРѕСЂР°РєРё"
 
 msgid " Subject: "
-msgstr " ЅРбЫЮТ: "
+msgstr " РќР°СЃР»РѕРІ: "
 
 msgid " in "
-msgstr " ТЮ "
+msgstr " РІРѕ "
 
 msgid "%A, %B %e, %Y, %I:%M:%S %p %Z"
 msgstr "%A, %B %e, %Y, %I:%M:%S %p %Z"
 
 #, c-format
 msgid "%d of %d Messages"
-msgstr "%d ЮФ %d ЯЮаРЪШ"
+msgstr "%d РѕРґ %d РїРѕСЂР°РєРё"
 
 #, c-format
 msgid "%d to %d of %d Messages"
-msgstr "%d ФЮ %d ЮФ %d ЯЮаРЪШ"
+msgstr "%d РґРѕ %d РѕРґ %d РїРѕСЂР°РєРё"
 
 #, c-format
 msgid "%s already exists. Your %s folder was not renamed."
-msgstr "%s ТХьХ ЯЮбвЮШ. ІРиРвР %s ЯРЯЪР ЭХ Х аХШЬХЭгТРЭР."
+msgstr "%s РІРµСњРµ РїРѕСЃС‚РѕРё. Р’Р°С€Р°С‚Р° %s РїР°РїРєР° РЅРµ Рµ СЂРµРёРјРµРЅСѓРІР°РЅР°."
 
 #, c-format
 msgid "%s folder being renamed at the start of the month."
-msgstr "%s Х аХШЬХЭгТРЭР ЭР ЯЮзХвЮЪЮв ЭР ЬХбХжЮв."
+msgstr "%s Рµ СЂРµРёРјРµРЅСѓРІР°РЅР° РЅР° РїРѕС‡РµС‚РѕРєРѕС‚ РЅР° РјРµСЃРµС†РѕС‚."
 
 #, c-format
 msgid "%s: %s (%d&nbsp;of&nbsp;%d)"
-msgstr "%s: %s (%d&nbsp;ЮФ&nbsp;%d)"
+msgstr "%s: %s (%d&nbsp;РѕРґ&nbsp;%d)"
 
 msgid "(Apply these changes and move to next screen.)"
-msgstr "(їаШЬХЭШ УШ ЯаЮЬХЭШвХ Ш ЮФШ ЭР бЫХФЭШЮв ЯаЮЧЮа.)"
+msgstr "(РџСЂРёРјРµРЅРё РіРё РїСЂРѕРјРµРЅРёС‚Рµ Рё РѕРґРё РЅР° СЃР»РµРґРЅРёРѕС‚ РїСЂРѕР·РѕСЂ.)"
 
 msgid "(Discard all changes and return to the compose screen.)"
-msgstr "(ѕвдаЫШ УШ ЯаЮЬХЭШвХ Ш ТаРвШ бХ ЭР БЮбвРТШ ЯаЮЧЮаЮв.)"
+msgstr "(РћС‚С„СЂР»Рё РіРё РїСЂРѕРјРµРЅРёС‚Рµ Рё РІСЂР°С‚Рё СЃРµ РЅР° РЎРѕСЃС‚Р°РІРё РїСЂРѕР·РѕСЂРѕС‚.)"
 
 msgid ""
 "(Return to the compose screen after applying all changes made thus far.  "
 "Changes on the current screen will NOT be applied.)"
 msgstr ""
-"(ІаРвШ бХ ЭР БЮбвРТШ ЯаЮЧЮаЮв ЯЮ ЯаШЬХЭгТРъХ ЭР бШвХ ЯаЮЬХЭШ ЭРЯаРТХЭШ ФЮ "
-"бХУР. їаЮЬХЭШвХ ЮФ вХЪЮТЭШЮв ЯаЮЧЮа Ѕµј° ФР СШФРв ЯаШЬХЭХвШ.)"
+"(Р’СЂР°С‚Рё СЃРµ РЅР° РЎРѕСЃС‚Р°РІРё РїСЂРѕР·РѕСЂРѕС‚ РїРѕ РїСЂРёРјРµРЅСѓРІР°СљРµ РЅР° СЃРёС‚Рµ РїСЂРѕРјРµРЅРё РЅР°РїСЂР°РІРµРЅРё РґРѕ "
+"СЃРµРіР°. РџСЂРѕРјРµРЅРёС‚Рµ РѕРґ С‚РµРєРѕРІРЅРёРѕС‚ РїСЂРѕР·РѕСЂ РќР•РњРђ РґР° Р±РёРґР°С‚ РїСЂРёРјРµРЅРµС‚Рё.)"
 
 #, c-format
 msgid ""
@@ -78,1034 +78,1034 @@ msgid ""
 "is not displayed correctly, %sclick here</a> to open it in a new window.</"
 "i></p>\n"
 msgstr ""
-"<p><i>ѕТРР ЯЮаРЪР СХиХ ЭРЯШиРЭР ТЮ ЯЮШЭРЪЮТ character set ЮФ вТЮшЮв. °ЪЮ ЭХ "
-"Х ЯаШЪРЦРЭ ЯаРТШЫЭЮ, %sclick ЮТФХ</a> ЧР ФР УЮ ЮвТЮаХвХ ТЮ ЭЮТ ЯаЮЧЮа.</i></"
+"<p><i>РћРІР°Р° РїРѕСЂР°РєР° Р±РµС€Рµ РЅР°РїРёС€Р°РЅР° РІРѕ РїРѕРёРЅР°РєРѕРІ character set РѕРґ С‚РІРѕСРѕС‚. РђРєРѕ РЅРµ "
+"Рµ РїСЂРёРєР°Р¶Р°РЅ РїСЂР°РІРёР»РЅРѕ, %sclick РѕРІРґРµ</a> Р·Р° РґР° РіРѕ РѕС‚РІРѕСЂРµС‚Рµ РІРѕ РЅРѕРІ РїСЂРѕР·РѕСЂ.</i></"
 "p>\n"
 
 msgid "Action"
-msgstr "ґХшбвТШХ"
+msgstr "Р”РµССЃС‚РІРёРµ"
 
 #, c-format
 msgid "Add to Addressbook (%s)"
-msgstr "ґЮФРФШ ТЮ РФаХбРа (%s)"
+msgstr "Р”РѕРґР°РґРё РІРѕ Р°РґСЂРµСЃР°СЂ (%s)"
 
 msgid "Added an attachment."
-msgstr "їаШЪРзХЭ Х дРшЫ."
+msgstr "РџСЂРёРєР°С‡РµРЅ Рµ С„Р°СР»."
 
 msgid "Addressbooks"
-msgstr "°ФаХбРаШ"
+msgstr "РђРґСЂРµСЃР°СЂРё"
 
 msgid ""
 "All messages in the folder(s) will be lost!\\nAre you completely sure you "
 "wish to continue?\\n"
 msgstr ""
-"БШвХ ЯЮаРЪШ ЮФ ЯРЯЪРвР ьХ СШФРв ШЧУгСХЭШ\\nґРЫШ бвХ бШУгаЭШ ФХЪР бРЪРвХ ФР "
-"ЯаЮФЮЫЦШвХ?\\n"
+"РЎРёС‚Рµ РїРѕСЂР°РєРё РѕРґ РїР°РїРєР°С‚Р° СњРµ Р±РёРґР°С‚ РёР·РіСѓР±РµРЅРё\\nР”Р°Р»Рё СЃС‚Рµ СЃРёРіСѓСЂРЅРё РґРµРєР° СЃР°РєР°С‚Рµ РґР° "
+"РїСЂРѕРґРѕР»Р¶РёС‚Рµ?\\n"
 
 msgid ""
 "All messages in the following folder(s) will be downloaded into one MBOX "
 "file:"
-msgstr "БШвХ ЯЮаРЪШ ЮФ ЯРЯЪРТР ьХ СШФРв ЯаХдаЫХЭШ ТЮ ХФХЭ MBOX дРшЫ:"
+msgstr "РЎРёС‚Рµ РїРѕСЂР°РєРё РѕРґ РїР°РїРєР°РІР° СњРµ Р±РёРґР°С‚ РїСЂРµС„СЂР»РµРЅРё РІРѕ РµРґРµРЅ MBOX С„Р°СР»:"
 
 #, c-format
 msgid ""
 "All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"БШвХ ЯЮаРЪШ ЮФ ТРиРвР \"%s\" ЯРЯЪР ЯЮбвРаШ ЮФ %s ФХЭЮТШ ьХ СШФРв жХЫЮбЭЮ "
-"ШЧСаШиРЭШ."
+"РЎРёС‚Рµ РїРѕСЂР°РєРё РѕРґ РІР°С€Р°С‚Р° \"%s\" РїР°РїРєР° РїРѕСЃС‚Р°СЂРё РѕРґ %s РґРµРЅРѕРІРё СњРµ Р±РёРґР°С‚ С†РµР»РѕСЃРЅРѕ "
+"РёР·Р±СЂРёС€Р°РЅРё."
 
 #, c-format
 msgid "All old sent-mail folders more than %s months old will be deleted."
-msgstr "БШвХ sent-mail ЯРЯЪШ ЯЮбвРаШ ЮФ %s ЬХбХжШ ьХ СШФРв ШЧСаШиРЭШ."
+msgstr "РЎРёС‚Рµ sent-mail РїР°РїРєРё РїРѕСЃС‚Р°СЂРё РѕРґ %s РјРµСЃРµС†Рё СњРµ Р±РёРґР°С‚ РёР·Р±СЂРёС€Р°РЅРё."
 
 msgid ""
 "All sessions begin at the Login screen.  Before you can use any of the "
 "webmail features, you must connect to your IMAP account using the username "
 "and password assigned to you by your network administrator."
-msgstr "БШвХ бХбШШ ЧРЯЮзЭгТРРв"
+msgstr "РЎРёС‚Рµ СЃРµСЃРёРё Р·Р°РїРѕС‡РЅСѓРІР°Р°С‚"
 
 msgid "All"
-msgstr "БШвХ"
+msgstr "РЎРёС‚Рµ"
 
 msgid "An illegal value was specified."
-msgstr "ІЭХбХЭР Х ЭХТРЫШФЭР ТаХФЭЮбв."
+msgstr "Р’РЅРµСЃРµРЅР° Рµ РЅРµРІР°Р»РёРґРЅР° РІСЂРµРґРЅРѕСЃС‚."
 
 msgid "An unknown error occured adding the new entry."
-msgstr "БХ ЯЮшРТШ ЭХФХдШЭШаРЭР УаХиЪР ЯаШ ФЮФРТРъХ ЭЮТР ТаХФЭЮбв."
+msgstr "РЎРµ РїРѕСР°РІРё РЅРµРґРµС„РёРЅРёСЂР°РЅР° РіСЂРµС€РєР° РїСЂРё РґРѕРґР°РІР°СљРµ РЅРѕРІР° РІСЂРµРґРЅРѕСЃС‚."
 
 msgid "Answered messages"
-msgstr "ѕФУЮТЮаХЭШ ЯЮаРЪШ"
+msgstr "РћРґРіРѕРІРѕСЂРµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Answered"
-msgstr "ѕФУЮТЮаХЭШ"
+msgstr "РћРґРіРѕРІРѕСЂРµРЅРё"
 
 msgid "Apply All Rules"
-msgstr "їаШЬХЭШ УШ бШвХ ЯаРТШЫР"
+msgstr "РџСЂРёРјРµРЅРё РіРё СЃРёС‚Рµ РїСЂР°РІРёР»Р°"
 
 msgid "Apply Filters on"
-msgstr "їаШЬХЭШ дШЫваШ"
+msgstr "РџСЂРёРјРµРЅРё С„РёР»С‚СЂРё"
 
 msgid "Apply filter rules upon logging on."
-msgstr "їаШЬХЭШ ЯаРТШЫР ЭР дШЫваШаРъХ ЯаШ ЯаШшРТгТРъХ."
+msgstr "РџСЂРёРјРµРЅРё РїСЂР°РІРёР»Р° РЅР° С„РёР»С‚СЂРёСЂР°СљРµ РїСЂРё РїСЂРёСР°РІСѓРІР°СљРµ."
 
 msgid "April"
-msgstr "°ЯаШЫ"
+msgstr "РђРїСЂРёР»"
 
 msgid "Are you SURE you want to continue?"
-msgstr "ґРЫШ бвХ БёіГАЅё ФХЪР бРЪРвХ ФР ЯаЮФЮЫЦШвХ?"
+msgstr "Р”Р°Р»Рё СЃС‚Рµ РЎРР“РЈР РќР РґРµРєР° СЃР°РєР°С‚Рµ РґР° РїСЂРѕРґРѕР»Р¶РёС‚Рµ?"
 
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "ґРЫШ бРЪРвХ єѕјї»µВЅѕ ФР УШ ШЧСаШиХвХ ЯЮаРЪШТХ?"
+msgstr "Р”Р°Р»Рё СЃР°РєР°С‚Рµ РљРћРњРџР›Р•РўРќРћ РґР° РіРё РёР·Р±СЂРёС€РµС‚Рµ РїРѕСЂР°РєРёРІРµ?"
 
 msgid "Arrival Time"
-msgstr "ІаХЬХ ЭР ЯаШбвШУЭгТРъХ"
+msgstr "Р’СЂРµРјРµ РЅР° РїСЂРёСЃС‚РёРіРЅСѓРІР°СљРµ"
 
 msgid "Ascending"
-msgstr "АРбвХзЪШ"
+msgstr "Р Р°СЃС‚РµС‡РєРё"
 
 msgid "Attach"
-msgstr "їаШЪРзШ"
+msgstr "РџСЂРёРєР°С‡Рё"
 
 msgid "Attachment"
-msgstr "їаШЪРзХЭ дРшЫ"
+msgstr "РџСЂРёРєР°С‡РµРЅ С„Р°СР»"
 
 msgid "Attachments"
-msgstr "їаШЪРзХЭШ дРшЫЮТШ"
+msgstr "РџСЂРёРєР°С‡РµРЅРё С„Р°СР»РѕРІРё"
 
 msgid "August"
-msgstr "°ТУгбв"
+msgstr "РђРІРіСѓСЃС‚"
 
 msgid "Available Addressbooks:"
-msgstr "ґЮбвРЯЭШ РФаХбРаШ:"
+msgstr "Р”РѕСЃС‚Р°РїРЅРё Р°РґСЂРµСЃР°СЂРё:"
 
 #, c-format
 msgid "Back to %s"
-msgstr "ЅРЧРФ ФЮ %s"
+msgstr "РќР°Р·Р°Рґ РґРѕ %s"
 
 msgid "Bcc"
-msgstr "ЅХТШФЫШТР ЪЮЯШшР"
+msgstr "РќРµРІРёРґР»РёРІР° РєРѕРїРёСР°"
 
 msgid ""
 "Begin by entering your user and password in the appropriate fields.  You'll "
 "then need to select the IMAP mail server to which you'd like to connect."
 msgstr ""
-"·РЯЮзЭХвХ бЮ ТЭХбгТРъХ ЭР ТРиХвЮ ЪЮаШбЭШзЪЮ ШЬХ Ш ЫЮЧШЭЪР ТЮ бЮЮФТХвЭШвХ "
-"ЯЮЫШъР."
+"Р—Р°РїРѕС‡РЅРµС‚Рµ СЃРѕ РІРЅРµСЃСѓРІР°СљРµ РЅР° РІР°С€РµС‚Рѕ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ Рё Р»РѕР·РёРЅРєР° РІРѕ СЃРѕРѕРґРІРµС‚РЅРёС‚Рµ "
+"РїРѕР»РёСљР°."
 
 msgid "Blacklist"
-msgstr "ЖаЭР ЫШбвР"
+msgstr "Р¦СЂРЅР° Р»РёСЃС‚Р°"
 
 msgid "Body"
-msgstr "ВХЫЮ"
+msgstr "РўРµР»Рѕ"
 
 msgid "Body:"
-msgstr "ВХЫЮ:"
+msgstr "РўРµР»Рѕ:"
 
 msgid "Both"
-msgstr "ё ФТХвХ"
+msgstr "Р РґРІРµС‚Рµ"
 
 msgid "Cancel Message"
-msgstr "ѕвЪРЦШ шР ЯЮаРЪРвР"
+msgstr "РћС‚РєР°Р¶Рё СР° РїРѕСЂР°РєР°С‚Р°"
 
 msgid "Cancel"
-msgstr "ѕвЪРЦШ"
+msgstr "РћС‚РєР°Р¶Рё"
 
 msgid ""
 "Cancelling this message will permanently discard its contents.\\nAre you "
 "sure you want to do this?"
 msgstr ""
-"БЮ ЮвЪРЦгТРъХ ЭР ЯЮаРЪРТР шР УгСШвХ Ш ЭХшЧШЭРвР бЮФаиШЭР.\\nґРЫШ бвХ бШУгаЭШ "
-"ФХЪР УЮ бРЪРвХ вЮР?"
+"РЎРѕ РѕС‚РєР°Р¶СѓРІР°СљРµ РЅР° РїРѕСЂР°РєР°РІР° СР° РіСѓР±РёС‚Рµ Рё РЅРµСР·РёРЅР°С‚Р° СЃРѕРґСЂС€РёРЅР°.\\nР”Р°Р»Рё СЃС‚Рµ СЃРёРіСѓСЂРЅРё "
+"РґРµРєР° РіРѕ СЃР°РєР°С‚Рµ С‚РѕР°?"
 
 msgid "Cc"
-msgstr "єЮЯШшР"
+msgstr "РљРѕРїРёСР°"
 
 msgid "Cc:"
-msgstr "єЮЯШшР:"
+msgstr "РљРѕРїРёСР°:"
 
 msgid "Change All"
-msgstr "їаЮЬХЭШ УШ бШвХ"
+msgstr "РџСЂРѕРјРµРЅРё РіРё СЃРёС‚Рµ"
 
 msgid "Change Folder"
-msgstr "їаЮЬХЭШ ЯРЯЪР"
+msgstr "РџСЂРѕРјРµРЅРё РїР°РїРєР°"
 
 msgid ""
 "Change display options such as how many messages you see on each page and "
 "how messages are sorted."
 msgstr ""
-"їаЮЬХЭШ УШ ЮЯжШШвХ ЧР ЯаШЪРЧ ЭР СаЮшЮв ЭР ЯЮаРЪШ ЯЮ бваРЭР Ш ЯаРТШЫРвР ЧР "
-"бЮавШаРъХ."
+"РџСЂРѕРјРµРЅРё РіРё РѕРїС†РёРёС‚Рµ Р·Р° РїСЂРёРєР°Р· РЅР° Р±СЂРѕСРѕС‚ РЅР° РїРѕСЂР°РєРё РїРѕ СЃС‚СЂР°РЅР° Рё РїСЂР°РІРёР»Р°С‚Р° Р·Р° "
+"СЃРѕСЂС‚РёСЂР°СљРµ."
 
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
 msgstr ""
-"їаЮЬХЭШ УШ ШЬХвЮ, РФаХбРвР Ш ЯЮвЯШбЮв ивЮ ЫгуХвЮ УШ УЫХФРРв ЪЮУР УШ зШвРРв Ш "
-"ЮФУЮТРаРРв ЭР вТЮШвХ ЯЮаРЪШ."
+"РџСЂРѕРјРµРЅРё РіРё РёРјРµС‚Рѕ, Р°РґСЂРµСЃР°С‚Р° Рё РїРѕС‚РїРёСЃРѕС‚ С€С‚Рѕ Р»СѓС“РµС‚Рѕ РіРё РіР»РµРґР°Р°С‚ РєРѕРіР° РіРё С‡РёС‚Р°Р°С‚ Рё "
+"РѕРґРіРѕРІР°СЂР°Р°С‚ РЅР° С‚РІРѕРёС‚Рµ РїРѕСЂР°РєРё."
 
 msgid "Change your mail server and folder information."
-msgstr "їаЮЬХЭШ УШ ШЭдЮаЬРжШШвХ ЧР бХаТХаЮв Ш ЯРЯЪРвР."
+msgstr "РџСЂРѕРјРµРЅРё РіРё РёРЅС„РѕСЂРјР°С†РёРёС‚Рµ Р·Р° СЃРµСЂРІРµСЂРѕС‚ Рё РїР°РїРєР°С‚Р°."
 
 msgid "Change"
-msgstr "їаЮЬХЭШ"
+msgstr "РџСЂРѕРјРµРЅРё"
 
 msgid "Check Folder(s) for New Mail"
-msgstr "ЅРЧЭРзШ ЯРЯЪР(Ш) ЧР ЭЮТР ЯЮивР"
+msgstr "РќР°Р·РЅР°С‡Рё РїР°РїРєР°(Рё) Р·Р° РЅРѕРІР° РїРѕС€С‚Р°"
 
 msgid "Checkbox"
-msgstr "їЮЫХ ЧР бХЫХЪвШаРъХ"
+msgstr "РџРѕР»Рµ Р·Р° СЃРµР»РµРєС‚РёСЂР°СљРµ"
 
 msgid "Choose Action:"
-msgstr "ёЧСХаШ ФХшбвТШХ:"
+msgstr "РР·Р±РµСЂРё РґРµССЃС‚РІРёРµ:"
 
 msgid "Choose the addressbook to use when adding addresses."
-msgstr "ёЧСХаШ РФаХбРа ЧР ФЮФРТРъХ ЭЮТШ РФаХбШ."
+msgstr "РР·Р±РµСЂРё Р°РґСЂРµСЃР°СЂ Р·Р° РґРѕРґР°РІР°СљРµ РЅРѕРІРё Р°РґСЂРµСЃРё."
 
 msgid "Choose the order of addressbooks to search when expanding addresses."
 msgstr ""
-"ёЧСХаШ ЯЮ ЪЮш аХФ ФР бХ ЯаХСРагТРРв РФаХбРаШвХ ЯаШ аРиШагТРъХ ЭР РФаХбШвХ."
+"РР·Р±РµСЂРё РїРѕ РєРѕС СЂРµРґ РґР° СЃРµ РїСЂРµР±Р°СЂСѓРІР°Р°С‚ Р°РґСЂРµСЃР°СЂРёС‚Рµ РїСЂРё СЂР°С€РёСЂСѓРІР°СљРµ РЅР° Р°РґСЂРµСЃРёС‚Рµ."
 
 msgid ""
 "Click on one of your selected addressbooks and then select all fields to "
 "search."
 msgstr ""
-"їаШвШбЭХвХ ЭР ХФХЭ ЮФ ШЧСаРЭШвХ РФаХбРаШ Ш ЯЮвЮР ШЧСХаХвХ УШ ЯЮЫШъРвР ЧР "
-"ЯаХСРагТРъХ."
+"РџСЂРёС‚РёСЃРЅРµС‚Рµ РЅР° РµРґРµРЅ РѕРґ РёР·Р±СЂР°РЅРёС‚Рµ Р°РґСЂРµСЃР°СЂРё Рё РїРѕС‚РѕР° РёР·Р±РµСЂРµС‚Рµ РіРё РїРѕР»РёСљР°С‚Р° Р·Р° "
+"РїСЂРµР±Р°СЂСѓРІР°СљРµ."
 
 msgid "Closed Folder"
-msgstr "·РвТЮаХЭР ЯРЯЪР"
+msgstr "Р—Р°С‚РІРѕСЂРµРЅР° РїР°РїРєР°"
 
 msgid "Collapse All Folders"
-msgstr "БЮСХаШ УШ бШвХ ЯРЯЪШ"
+msgstr "РЎРѕР±РµСЂРё РіРё СЃРёС‚Рµ РїР°РїРєРё"
 
 msgid "Collapse All"
-msgstr "БЮСХаШ УШ бШвХ"
+msgstr "РЎРѕР±РµСЂРё РіРё СЃРёС‚Рµ"
 
 msgid "Collapse Folder"
-msgstr "БЮСХаШ ЯРЯЪР"
+msgstr "РЎРѕР±РµСЂРё РїР°РїРєР°"
 
 #, c-format
 msgid "Compose Message (%s)"
-msgstr "БЮбвРТШ ЯЮаРЪР (%s)"
+msgstr "РЎРѕСЃС‚Р°РІРё РїРѕСЂР°РєР° (%s)"
 
 msgid "Compose a message"
-msgstr "БЮбвРТШ ЯЮаРЪР"
+msgstr "РЎРѕСЃС‚Р°РІРё РїРѕСЂР°РєР°"
 
 msgid "Compose messages in a separate window."
-msgstr "БЮбвРТгТРъХ ЭР ЯЮаРЪШ ТЮ ЭЮТ (ЯЮбХСХЭ) ЯаЮЧЮаХж."
+msgstr "РЎРѕСЃС‚Р°РІСѓРІР°СљРµ РЅР° РїРѕСЂР°РєРё РІРѕ РЅРѕРІ (РїРѕСЃРµР±РµРЅ) РїСЂРѕР·РѕСЂРµС†."
 
 msgid "Compose"
-msgstr "БЮбвРТШ"
+msgstr "РЎРѕСЃС‚Р°РІРё"
 
 msgid "Conclusion"
-msgstr "·РЪЫгзЮЪ"
+msgstr "Р—Р°РєР»СѓС‡РѕРє"
 
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
 msgstr ""
-"єЮЭваЮЫР ЭРФ даХЪТХЭвЭЮбв ЭР ЯаЮТХагТРъХ ФРЫШ ШЬР ЭЮТШ ЯЮаРЪШ Ш ФРЫШ ФР бХ "
-"ТаиШ ШЧТХбвгТРъХ ЧР ЭШТЭЮвЮ ЯаШбвШУЭгТРъХ."
+"РљРѕРЅС‚СЂРѕР»Р° РЅР°Рґ С„СЂРµРєРІРµРЅС‚РЅРѕСЃС‚ РЅР° РїСЂРѕРІРµСЂСѓРІР°СљРµ РґР°Р»Рё РёРјР° РЅРѕРІРё РїРѕСЂР°РєРё Рё РґР°Р»Рё РґР° СЃРµ "
+"РІСЂС€Рё РёР·РІРµСЃС‚СѓРІР°СљРµ Р·Р° РЅРёРІРЅРѕС‚Рѕ РїСЂРёСЃС‚РёРіРЅСѓРІР°СљРµ."
 
 msgid "Copy"
-msgstr "єЮЯШаРш"
+msgstr "РљРѕРїРёСЂР°С"
 
 msgid "Correct"
-msgstr "єЮаХУШаРш"
+msgstr "РљРѕСЂРµРіРёСЂР°С"
 
 msgid "Corrected Text"
-msgstr "єЮаХУШаРЭ вХЪбв"
+msgstr "РљРѕСЂРµРіРёСЂР°РЅ С‚РµРєСЃС‚"
 
 msgid "Create Folder"
-msgstr "єаХШаРш ЯРЯЪР"
+msgstr "РљСЂРµРёСЂР°С РїР°РїРєР°"
 
 msgid "Create a new drafts folder"
-msgstr "єаХШаРш ЭЮТР ЯРЯЪР ЧР ЭХЧРТаиХЭШ ЯЮаРЪШ"
+msgstr "РљСЂРµРёСЂР°С РЅРѕРІР° РїР°РїРєР° Р·Р° РЅРµР·Р°РІСЂС€РµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Create a new sent mail folder"
-msgstr "єаХШаРш ЭЮТР ЯРЯЪР ЧР ЯаРвХЭШ ЯЮаРЪШ"
+msgstr "РљСЂРµРёСЂР°С РЅРѕРІР° РїР°РїРєР° Р·Р° РїСЂР°С‚РµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Create a new trash folder"
-msgstr "єаХШаРш ЭЮТР ЯРЯЪР ЧР ЮвЯРФЮжШ"
+msgstr "РљСЂРµРёСЂР°С РЅРѕРІР° РїР°РїРєР° Р·Р° РѕС‚РїР°РґРѕС†Рё"
 
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into folders, "
 "and delete spam."
 msgstr ""
-"єаХШаРш ЯаРТШЫР ЧР дШЫваШаРъХ Ш ЮаУРЭШЧШаРъХ ЭР ЯЮаРЪШвХ ивЮ бХ ЯаШЬРРв, "
-"бЮавШаРъХ ЭР ШбвШвХ ТЮ ЯРЯЪШ Ш СаШиХъХ ЭР ЭХЯЮЦХЫЭШвХ ЯЮаРЪШ."
+"РљСЂРµРёСЂР°С РїСЂР°РІРёР»Р° Р·Р° С„РёР»С‚СЂРёСЂР°СљРµ Рё РѕСЂРіР°РЅРёР·РёСЂР°СљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ С€С‚Рѕ СЃРµ РїСЂРёРјР°Р°С‚, "
+"СЃРѕСЂС‚РёСЂР°СљРµ РЅР° РёСЃС‚РёС‚Рµ РІРѕ РїР°РїРєРё Рё Р±СЂРёС€РµСљРµ РЅР° РЅРµРїРѕР¶РµР»РЅРёС‚Рµ РїРѕСЂР°РєРё."
 
 msgid "Create"
-msgstr "єаХШаРш"
+msgstr "РљСЂРµРёСЂР°С"
 
 msgid "Customize how you send mail and where drafts are saved."
 msgstr ""
-"ёЧСХаШ ЪРЪЮ ФР бХ ЯаРьРРв ЯЮаРЪШвХ Ш ЪРФХ ьХ бХ згТРРв ЭХЧРТаиХЭШвХ ЯЮаРЪШ."
+"РР·Р±РµСЂРё РєР°РєРѕ РґР° СЃРµ РїСЂР°СњР°Р°С‚ РїРѕСЂР°РєРёС‚Рµ Рё РєР°РґРµ СњРµ СЃРµ С‡СѓРІР°Р°С‚ РЅРµР·Р°РІСЂС€РµРЅРёС‚Рµ РїРѕСЂР°РєРё."
 
 msgid "Customize maintenance operations run upon login to IMP."
-msgstr "ёЧСХаШ ЮЯХаРжШШ ЧР ЮФаЦгТРъХ ЪЮШ ьХ бХ ШЧТаигТРРв ЯаШ ЯаШшРТгТРъХ."
+msgstr "РР·Р±РµСЂРё РѕРїРµСЂР°С†РёРё Р·Р° РѕРґСЂР¶СѓРІР°СљРµ РєРѕРё СњРµ СЃРµ РёР·РІСЂС€СѓРІР°Р°С‚ РїСЂРё РїСЂРёСР°РІСѓРІР°СљРµ."
 
 msgid "Customize tasks to run upon logon to IMP."
-msgstr "ёЧСХаШ ЧРФРзШ ЪЮШ ьХ бХ ШЧТаигТРРв ЯаШ ЯаШшРТгТРъХ."
+msgstr "РР·Р±РµСЂРё Р·Р°РґР°С‡Рё РєРѕРё СњРµ СЃРµ РёР·РІСЂС€СѓРІР°Р°С‚ РїСЂРё РїСЂРёСР°РІСѓРІР°СљРµ."
 
 msgid "Date"
-msgstr "ґРвгЬ"
+msgstr "Р”Р°С‚СѓРј"
 
 msgid "December"
-msgstr "ґХЪХЬТаШ"
+msgstr "Р”РµРєРµРјРІСЂРё"
 
 msgid "Default sorting criteria:"
-msgstr "БвРЭФРаФХЭ ЪаШвХагЬ ЧР бЮавШаРъХ:"
+msgstr "РЎС‚Р°РЅРґР°СЂРґРµРЅ РєСЂРёС‚РµСЂСѓРј Р·Р° СЃРѕСЂС‚РёСЂР°СљРµ:"
 
 msgid "Default sorting direction:"
-msgstr "БвРЭФРаФХЭ аХФЮбЫХФ ЧР бЮавШаРъХ:"
+msgstr "РЎС‚Р°РЅРґР°СЂРґРµРЅ СЂРµРґРѕСЃР»РµРґ Р·Р° СЃРѕСЂС‚РёСЂР°СљРµ:"
 
 msgid "Delete Folder(s)"
-msgstr "ёЧСаШиШ ЯРЯЪР(Ш)"
+msgstr "РР·Р±СЂРёС€Рё РїР°РїРєР°(Рё)"
 
 msgid "Delete messages"
-msgstr "ёЧСаШиШ ЯЮаРЪШ"
+msgstr "РР·Р±СЂРёС€Рё РїРѕСЂР°РєРё"
 
 msgid "Delete old sent-mail folders at beginning of month"
-msgstr "ёЧСаШиШ УШ бвРаШвХ sent-mail ЯРЯЪШ ЭР ЯЮзХвЮЪЮв ЭР ЬХбХжЮв"
+msgstr "РР·Р±СЂРёС€Рё РіРё СЃС‚Р°СЂРёС‚Рµ sent-mail РїР°РїРєРё РЅР° РїРѕС‡РµС‚РѕРєРѕС‚ РЅР° РјРµСЃРµС†РѕС‚"
 
 msgid "Delete"
-msgstr "ёЧСаШиШ"
+msgstr "РР·Р±СЂРёС€Рё"
 
 msgid "Deleted an attachment."
-msgstr "ёЧСаШиШ ЯаШЪРзХЭ дРшЫ"
+msgstr "РР·Р±СЂРёС€Рё РїСЂРёРєР°С‡РµРЅ С„Р°СР»"
 
 msgid "Deleted messages"
-msgstr "ёЧСаШиРЭШ ЯЮаРЪШ"
+msgstr "РР·Р±СЂРёС€Р°РЅРё РїРѕСЂР°РєРё"
 
 msgid "Deleted"
-msgstr "ёЧСаШиРЭШ"
+msgstr "РР·Р±СЂРёС€Р°РЅРё"
 
 msgid "Deleting and Moving Messages"
-msgstr "±аШиХъХ Ш ЯаХЬХбвгТРъХ ЯЮаРЪШ"
+msgstr "Р‘СЂРёС€РµСљРµ Рё РїСЂРµРјРµСЃС‚СѓРІР°СљРµ РїРѕСЂР°РєРё"
 
 msgid "Descending"
-msgstr "ѕЯРуРзЪШ"
+msgstr "РћРїР°С“Р°С‡РєРё"
 
 msgid "Display Options"
-msgstr "їЮФХбгТРъР ЧР ЯаШЪРЧ"
+msgstr "РџРѕРґРµСЃСѓРІР°СљР° Р·Р° РїСЂРёРєР°Р·"
 
 msgid "Display message when filters have been applied."
-msgstr "їаШЪРЦШ ЯЮаРЪР ЪЮУР дШЫваШвХ бХ ЯаШЬХЭХвШ."
+msgstr "РџСЂРёРєР°Р¶Рё РїРѕСЂР°РєР° РєРѕРіР° С„РёР»С‚СЂРёС‚Рµ СЃРµ РїСЂРёРјРµРЅРµС‚Рё."
 
 msgid "Display pop-up notification of new mail."
-msgstr "їаШЪРЦШ ШЧТХбвгТРъХ ЧР ЭЮТР ЯЮаРЪР."
+msgstr "РџСЂРёРєР°Р¶Рё РёР·РІРµСЃС‚СѓРІР°СљРµ Р·Р° РЅРѕРІР° РїРѕСЂР°РєР°."
 
 msgid "Do Not Check Folder(s) for New Mail"
-msgstr "ЅХ шР ЯаЮТХагТРш ЯРЯЪРвР ЧР ЭЮТР ЯЮивР"
+msgstr "РќРµ СР° РїСЂРѕРІРµСЂСѓРІР°С РїР°РїРєР°С‚Р° Р·Р° РЅРѕРІР° РїРѕС€С‚Р°"
 
 #, c-format
 msgid "Do you want to open %s?"
-msgstr "БРЪРвХ ЫШ ФР шР ЮвТЮаШвХ %s?"
+msgstr "РЎР°РєР°С‚Рµ Р»Рё РґР° СР° РѕС‚РІРѕСЂРёС‚Рµ %s?"
 
 msgid "Done"
-msgstr "·РТаиШ"
+msgstr "Р—Р°РІСЂС€Рё"
 
 #, c-format
 msgid "Download %s"
-msgstr "їаХТЧХЬШ %s"
+msgstr "РџСЂРµРІР·РµРјРё %s"
 
 msgid "Download Folder(s)"
-msgstr "їаХТЧХЬШ ЯРЯЪР(Ш)"
+msgstr "РџСЂРµРІР·РµРјРё РїР°РїРєР°(Рё)"
 
 msgid "Download"
-msgstr "їаХТЧХЬШ"
+msgstr "РџСЂРµРІР·РµРјРё"
 
 msgid "Draft"
-msgstr "ЅХЧРТаиХЭШ"
+msgstr "РќРµР·Р°РІСЂС€РµРЅРё"
 
 msgid "Drafts folder:"
-msgstr "їРЯЪР ЅХЧРТаиХЭШ:"
+msgstr "РџР°РїРєР° РќРµР·Р°РІСЂС€РµРЅРё:"
 
 msgid "Edit my filter rules"
-msgstr "ГаХФШ УШ ЬЮШвХ ЯаРТШЫР ЧР дШЫваШаРъХ"
+msgstr "РЈСЂРµРґРё РіРё РјРѕРёС‚Рµ РїСЂР°РІРёР»Р° Р·Р° С„РёР»С‚СЂРёСЂР°СљРµ"
 
 msgid "Edit your identities"
-msgstr "ГаХФШ УШ ШФХЭвШвХвШвХ"
+msgstr "РЈСЂРµРґРё РіРё РёРґРµРЅС‚РёС‚РµС‚РёС‚Рµ"
 
 msgid "Edit"
-msgstr "ГаХФШ"
+msgstr "РЈСЂРµРґРё"
 
 msgid "End forwarded message"
-msgstr "·РТаиШ шР ЯаХЯаРвХЭРвР ЯЮаРЪР"
+msgstr "Р—Р°РІСЂС€Рё СР° РїСЂРµРїСЂР°С‚РµРЅР°С‚Р° РїРѕСЂР°РєР°"
 
 msgid "Enter the name for your new drafts folder"
-msgstr "ІЭХбХвХ ШЬХ ЧР ЭЮТРвР ЯРЯЪР ЧР ЭХЧРТаиХЭШ ЯЮаРЪШ"
+msgstr "Р’РЅРµСЃРµС‚Рµ РёРјРµ Р·Р° РЅРѕРІР°С‚Р° РїР°РїРєР° Р·Р° РЅРµР·Р°РІСЂС€РµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Enter the name for your new sent mail folder"
-msgstr "ІЭХбХвХ ШЬХ ЧР ЭЮТРвР ЯРЯЪР ЧР ЯаРвХЭШ ЯЮаРЪШ"
+msgstr "Р’РЅРµСЃРµС‚Рµ РёРјРµ Р·Р° РЅРѕРІР°С‚Р° РїР°РїРєР° Р·Р° РїСЂР°С‚РµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Enter the name for your new trash folder"
-msgstr "ІЭХбХвХ ШЬХ ЧР ЭЮТРвР ЯРЯЪР ЧР ЮвЯРФЮжШ"
+msgstr "Р’РЅРµСЃРµС‚Рµ РёРјРµ Р·Р° РЅРѕРІР°С‚Р° РїР°РїРєР° Р·Р° РѕС‚РїР°РґРѕС†Рё"
 
 #, c-format
 msgid "Entry \"%s\" was successfully added to the addressbook"
-msgstr "ІЭХбЮв \"%s\" Х гбЯХиЭЮ ФЮФРФХЭ ТЮ РФаХбРаЮв"
+msgstr "Р’РЅРµСЃРѕС‚ \"%s\" Рµ СѓСЃРїРµС€РЅРѕ РґРѕРґР°РґРµРЅ РІРѕ Р°РґСЂРµСЃР°СЂРѕС‚"
 
 msgid "Error"
-msgstr "іаХиЪР"
+msgstr "Р“СЂРµС€РєР°"
 
 msgid "Every 15 minutes"
-msgstr "БХЪЮШ 15 ЬШЭгвШ"
+msgstr "РЎРµРєРѕРё 15 РјРёРЅСѓС‚Рё"
 
 msgid "Every 30 seconds"
-msgstr "БХЪЮШ 30 бХЪгЭФШ"
+msgstr "РЎРµРєРѕРё 30 СЃРµРєСѓРЅРґРё"
 
 msgid "Every 5 minutes"
-msgstr "БХЪЮШ 5 ЬШЭгвШ"
+msgstr "РЎРµРєРѕРё 5 РјРёРЅСѓС‚Рё"
 
 msgid "Every half hour"
-msgstr "БХЪЮш ЯЮЫР зРб"
+msgstr "РЎРµРєРѕС РїРѕР»Р° С‡Р°СЃ"
 
 msgid "Every minute"
-msgstr "БХЪЮшР ЬШЭгвР"
+msgstr "РЎРµРєРѕСР° РјРёРЅСѓС‚Р°"
 
 msgid "Expand All Folders"
-msgstr "АРиШаШ УШ бШвХ ЯРЯЪШ"
+msgstr "Р Р°С€РёСЂРё РіРё СЃРёС‚Рµ РїР°РїРєРё"
 
 msgid "Expand All"
-msgstr "АРиШаШ УШ бШвХ"
+msgstr "Р Р°С€РёСЂРё РіРё СЃРёС‚Рµ"
 
 msgid "Expand Folder"
-msgstr "АРиШаШ дЮЫФХа"
+msgstr "Р Р°С€РёСЂРё С„РѕР»РґРµСЂ"
 
 msgid "Expand Names"
-msgstr "АРиШаШ ШЬШъР"
+msgstr "Р Р°С€РёСЂРё РёРјРёСљР°"
 
 msgid "Expand the entire folder tree by default in the folders view."
-msgstr "АРиШаШ УЮ жХЫЮвЮ ФаТЮ ЮФ ЯРЯЪШ ЯаШ ЯаШЪРЧ ЭР ЯРЯЪШвХ."
+msgstr "Р Р°С€РёСЂРё РіРѕ С†РµР»РѕС‚Рѕ РґСЂРІРѕ РѕРґ РїР°РїРєРё РїСЂРё РїСЂРёРєР°Р· РЅР° РїР°РїРєРёС‚Рµ."
 
 msgid "February"
-msgstr "ДХТагРаШ"
+msgstr "Р¤РµРІСЂСѓР°СЂРё"
 
 msgid "Field"
-msgstr "їЮЫХ"
+msgstr "РџРѕР»Рµ"
 
 msgid "Filename"
-msgstr "ёЬХ ЭР дРшЫ"
+msgstr "РРјРµ РЅР° С„Р°СР»"
 
 msgid "Filter Rules"
-msgstr "їаРТШЫР ЧР дШЫваШаРъХ"
+msgstr "РџСЂР°РІРёР»Р° Р·Р° С„РёР»С‚СЂРёСЂР°СљРµ"
 
 msgid "Filter message content for profanity."
-msgstr "ДШЫваШаРш шР бЮФаЦШЭРвР ЭР ЯЮаРЪРвР бЯЮаХФ бЮФаЦШЭР."
+msgstr "Р¤РёР»С‚СЂРёСЂР°С СР° СЃРѕРґСЂР¶РёРЅР°С‚Р° РЅР° РїРѕСЂР°РєР°С‚Р° СЃРїРѕСЂРµРґ СЃРѕРґСЂР¶РёРЅР°."
 
 msgid "Filter"
-msgstr "ДШЫвХа"
+msgstr "Р¤РёР»С‚РµСЂ"
 
 msgid "Filters"
-msgstr "ДШЫваШ"
+msgstr "Р¤РёР»С‚СЂРё"
 
 msgid "First Page"
-msgstr "їаТР бваРЭР"
+msgstr "РџСЂРІР° СЃС‚СЂР°РЅР°"
 
 msgid "Folder Navigator"
-msgstr "ЅРТШУРвЮа ЧР ЯРЯЪШ"
+msgstr "РќР°РІРёРіР°С‚РѕСЂ Р·Р° РїР°РїРєРё"
 
 msgid "Folder Prefix"
-msgstr "їаХдШЪб ЭР ЯРЯЪР"
+msgstr "РџСЂРµС„РёРєСЃ РЅР° РїР°РїРєР°"
 
 msgid "Folders"
-msgstr "їРЯЪШ"
+msgstr "РџР°РїРєРё"
 
 msgid "Forward"
-msgstr "їаХЯаРвШ"
+msgstr "РџСЂРµРїСЂР°С‚Рё"
 
 msgid "Forward:"
-msgstr "їаХЯаРвШ:"
+msgstr "РџСЂРµРїСЂР°С‚Рё:"
 
 #, c-format
 msgid "Forwarded message from %s"
-msgstr "їаХЯаРвХЭР ЯЮаРЪР ЮФ %s"
+msgstr "РџСЂРµРїСЂР°С‚РµРЅР° РїРѕСЂР°РєР° РѕРґ %s"
 
 msgid "From Address"
-msgstr "ѕФ РФаХбР"
+msgstr "РћРґ Р°РґСЂРµСЃР°"
 
 msgid "From"
-msgstr "ѕФ"
+msgstr "РћРґ"
 
 msgid "From:"
-msgstr "ѕФ:"
+msgstr "РћРґ:"
 
 msgid "Fwd:"
-msgstr "їаХЯаРвШ:"
+msgstr "РџСЂРµРїСЂР°С‚Рё:"
 
 msgid "Getting Started"
-msgstr "ґР ЧРЯЮзЭХЬХ"
+msgstr "Р”Р° Р·Р°РїРѕС‡РЅРµРјРµ"
 
 msgid "Help"
-msgstr "їЮЬЮи"
+msgstr "РџРѕРјРѕС€"
 
 msgid "Hide Deleted"
-msgstr "БЪаШш УШ ШЧСаШиРЭШвХ"
+msgstr "РЎРєСЂРёС РіРё РёР·Р±СЂРёС€Р°РЅРёС‚Рµ"
 
 msgid "Hide Unsubscribed"
-msgstr "БЪаШш УШ ЭХЯаХТЧХЬРЭШвХ"
+msgstr "РЎРєСЂРёС РіРё РЅРµРїСЂРµРІР·РµРјР°РЅРёС‚Рµ"
 
 msgid "How to prefix quoted lines in a reply:"
-msgstr "їаХдШЪб ЯаХФ жШвШаРЭШЮв вХЪбв ЯаШ ЮФУЮТЮа:"
+msgstr "РџСЂРµС„РёРєСЃ РїСЂРµРґ С†РёС‚РёСЂР°РЅРёРѕС‚ С‚РµРєСЃС‚ РїСЂРё РѕРґРіРѕРІРѕСЂ:"
 
 msgid "IMP is not properly configured"
-msgstr "IMP ЭХ Х ЯаРТШЫЭЮ ЪЮЭдШУгаШаРЭ"
+msgstr "IMP РЅРµ Рµ РїСЂР°РІРёР»РЅРѕ РєРѕРЅС„РёРіСѓСЂРёСЂР°РЅ"
 
 msgid "INBOX"
-msgstr "БРЭФРзХ"
+msgstr "РЎР°РЅРґР°С‡Рµ"
 
 msgid "Identities"
-msgstr "ёФХЭвШвХвШвХ"
+msgstr "РРґРµРЅС‚РёС‚РµС‚РёС‚Рµ"
 
 msgid "Identity's name:"
-msgstr "ёЬХ ЭР ШФХЭвШвХвЮв:"
+msgstr "РРјРµ РЅР° РёРґРµРЅС‚РёС‚РµС‚РѕС‚:"
 
 msgid "Ignore All"
-msgstr "ёУЭЮаШаРш бХ"
+msgstr "РРіРЅРѕСЂРёСЂР°С СЃРµ"
 
 msgid "Ignore"
-msgstr "ёУЭЮаШаРш"
+msgstr "РРіРЅРѕСЂРёСЂР°С"
 
 msgid "Important messages"
-msgstr "ІРЦЭШ ЯЮаРЪШ"
+msgstr "Р’Р°Р¶РЅРё РїРѕСЂР°РєРё"
 
 msgid "Important"
-msgstr "ІРЦЭШ"
+msgstr "Р’Р°Р¶РЅРё"
 
 #, c-format
 msgid "Introduction to %s"
-msgstr "ІЮТХФ ТЮ %s"
+msgstr "Р’РѕРІРµРґ РІРѕ %s"
 
 msgid "Introduction"
-msgstr "ІЮТХФ"
+msgstr "Р’РѕРІРµРґ"
 
 msgid "January"
-msgstr "ЁРЭгРаШ"
+msgstr "Р€Р°РЅСѓР°СЂРё"
 
 msgid "July"
-msgstr "ЁгЫШ"
+msgstr "Р€СѓР»Рё"
 
 msgid "June"
-msgstr "ЁгЭШ"
+msgstr "Р€СѓРЅРё"
 
 msgid "Language"
-msgstr "ЁРЧШЪ"
+msgstr "Р€Р°Р·РёРє"
 
 msgid "Last Page"
-msgstr "їЮбЫХФЭР бваРЭР"
+msgstr "РџРѕСЃР»РµРґРЅР° СЃС‚СЂР°РЅР°"
 
 #, c-format
 msgid "Last login: %s"
-msgstr "їЮбЫХФЭЮ ЯаШшРТгТРъХ: %s"
+msgstr "РџРѕСЃР»РµРґРЅРѕ РїСЂРёСР°РІСѓРІР°СљРµ: %s"
 
 msgid "Last login: Never"
-msgstr "їЮбЫХФЭЮ ЯаШшРТгТРъХ: ЭШЪЮУРи"
+msgstr "РџРѕСЃР»РµРґРЅРѕ РїСЂРёСР°РІСѓРІР°СљРµ: РЅРёРєРѕРіР°С€"
 
 #, c-format
 msgid "Log in to %s"
-msgstr "їаШшРТШ бХ ТЮ %s"
+msgstr "РџСЂРёСР°РІРё СЃРµ РІРѕ %s"
 
 msgid "Log in"
-msgstr "їаШшРТгТРъХ"
+msgstr "РџСЂРёСР°РІСѓРІР°СљРµ"
 
 msgid "Logging In"
-msgstr "їаШшРТгТРъХ"
+msgstr "РџСЂРёСР°РІСѓРІР°СљРµ"
 
 msgid "Login Tasks"
-msgstr "·РФРзШ ЯаШ ЯаШшРТгТРъХ"
+msgstr "Р—Р°РґР°С‡Рё РїСЂРё РїСЂРёСР°РІСѓРІР°СљРµ"
 
 msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"їаШшРТгТРъХвЮ ЭХ СХиХ гбЯХиЭЮ, ЭРшТХаЮшРвЭЮ ЯЮаРФШ ЭХЯаРТШЫЭЮ ТЭХбгТРъХ ЭР "
-"ЪЮаШбЭШзЪЮвЮ ШЬХ ШЫШ ЫЮЧШЭЪРвР."
+"РџСЂРёСР°РІСѓРІР°СљРµС‚Рѕ РЅРµ Р±РµС€Рµ СѓСЃРїРµС€РЅРѕ, РЅР°СРІРµСЂРѕСР°С‚РЅРѕ РїРѕСЂР°РґРё РЅРµРїСЂР°РІРёР»РЅРѕ РІРЅРµСЃСѓРІР°СљРµ РЅР° "
+"РєРѕСЂРёСЃРЅРёС‡РєРѕС‚Рѕ РёРјРµ РёР»Рё Р»РѕР·РёРЅРєР°С‚Р°."
 
 msgid "Logout"
-msgstr "ѕФшРТР"
+msgstr "РћРґСР°РІР°"
 
 msgid "Mail Filters"
-msgstr "їЮивХЭбЪШ дШЫваШ"
+msgstr "РџРѕС€С‚РµРЅСЃРєРё С„РёР»С‚СЂРё"
 
 msgid "Mail Management"
-msgstr "їЮивХЭбЪШ ЬХЭРяЬХЭв"
+msgstr "РџРѕС€С‚РµРЅСЃРєРё РјРµРЅР°СџРјРµРЅС‚"
 
 msgid "Mailbox"
-msgstr "їЮивХЭбЪЮ бРЭФРзХ"
+msgstr "РџРѕС€С‚РµРЅСЃРєРѕ СЃР°РЅРґР°С‡Рµ"
 
 msgid "Maintenance Operations"
-msgstr "ѕЯХаРжШШ ЧР ЮФаЦгТРъХ"
+msgstr "РћРїРµСЂР°С†РёРё Р·Р° РѕРґСЂР¶СѓРІР°СљРµ"
 
 msgid "March"
-msgstr "јРав"
+msgstr "РњР°СЂС‚"
 
 msgid "Mark as:"
-msgstr "јРаЪШаРш ЪРЪЮ:"
+msgstr "РњР°СЂРєРёСЂР°С РєР°РєРѕ:"
 
 msgid "May"
-msgstr "јРш"
+msgstr "РњР°С"
 
 msgid "Message Composition"
-msgstr "БЮбвРТгТРъХ ЯЮаРЪР"
+msgstr "РЎРѕСЃС‚Р°РІСѓРІР°СљРµ РїРѕСЂР°РєР°"
 
 msgid "Message Date"
-msgstr "ґРвгЬ ЭР ЯЮаРЪР"
+msgstr "Р”Р°С‚СѓРј РЅР° РїРѕСЂР°РєР°"
 
 msgid "Message Search"
-msgstr "±РаРш ЯЮаРЪР"
+msgstr "Р‘Р°СЂР°С РїРѕСЂР°РєР°"
 
 msgid "Message Size"
-msgstr "іЮЫХЬШЭР ЭР ЯЮаРЪР"
+msgstr "Р“РѕР»РµРјРёРЅР° РЅР° РїРѕСЂР°РєР°"
 
 msgid "Message Source"
-msgstr "ёЧТЮа ЭР ЯЮаРЪР"
+msgstr "РР·РІРѕСЂ РЅР° РїРѕСЂР°РєР°"
 
 msgid "Message Viewing"
-msgstr "їаХУЫХФгТРъХ ЯЮаРЪШ"
+msgstr "РџСЂРµРіР»РµРґСѓРІР°СљРµ РїРѕСЂР°РєРё"
 
 msgid "Message fields"
-msgstr "їЮЫШъР ЭР ЯЮаРЪР"
+msgstr "РџРѕР»РёСљР° РЅР° РїРѕСЂР°РєР°"
 
 msgid "Message flags"
-msgstr "°ваШСгвШ ЭР ЯЮаРЪР"
+msgstr "РђС‚СЂРёР±СѓС‚Рё РЅР° РїРѕСЂР°РєР°"
 
 msgid "Message folders"
-msgstr "їРЯЪШ ЧР ЯЮаРЪШ"
+msgstr "РџР°РїРєРё Р·Р° РїРѕСЂР°РєРё"
 
 msgid "Message sent successfully, but not saved to"
-msgstr "їЮаРЪРвР Х гбЯХиЭЮ ЯаРвХЭР, ЭЮ ЭХ Х ЧРзгТРЭР ТЮ"
+msgstr "РџРѕСЂР°РєР°С‚Р° Рµ СѓСЃРїРµС€РЅРѕ РїСЂР°С‚РµРЅР°, РЅРѕ РЅРµ Рµ Р·Р°С‡СѓРІР°РЅР° РІРѕ"
 
 msgid "Message"
-msgstr "їЮаРЪР"
+msgstr "РџРѕСЂР°РєР°"
 
 msgid "Messages per page in the mailbox view."
-msgstr "±аЮш ЭР ЯЮаРЪШ ЯЮ бваРЭР ЯаШ ЯаШЪРЧ ЭР ЯЮивХЭбЪЮвЮ бРЭФРзХ"
+msgstr "Р‘СЂРѕС РЅР° РїРѕСЂР°РєРё РїРѕ СЃС‚СЂР°РЅР° РїСЂРё РїСЂРёРєР°Р· РЅР° РїРѕС€С‚РµРЅСЃРєРѕС‚Рѕ СЃР°РЅРґР°С‡Рµ"
 
 msgid "Messages to"
-msgstr "їЮаРЪШ ФЮ"
+msgstr "РџРѕСЂР°РєРё РґРѕ"
 
 msgid "Modify"
-msgstr "јЮФШдШжШаРш"
+msgstr "РњРѕРґРёС„РёС†РёСЂР°С"
 
 msgid "Move Down"
-msgstr "ѕФШ ФЮЫХ"
+msgstr "РћРґРё РґРѕР»Рµ"
 
 msgid "Move Up"
-msgstr "ѕФШ УЮаХ"
+msgstr "РћРґРё РіРѕСЂРµ"
 
 #, c-format
 msgid "Move messages to the <b>%s</b> folder"
-msgstr "їаХЬХбвШ УШ ЯЮаРЪШвХ ТЮ <b>%s</b> ЯРЯЪРвР"
+msgstr "РџСЂРµРјРµСЃС‚Рё РіРё РїРѕСЂР°РєРёС‚Рµ РІРѕ <b>%s</b> РїР°РїРєР°С‚Р°"
 
 msgid "Move"
-msgstr "їаХЬХбвШ"
+msgstr "РџСЂРµРјРµСЃС‚Рё"
 
 msgid "Never"
-msgstr "ЅШЪЮУРи"
+msgstr "РќРёРєРѕРіР°С€"
 
 msgid "New Mail"
-msgstr "ЅЮТР ЯЮаРЪР"
+msgstr "РќРѕРІР° РїРѕСЂР°РєР°"
 
 msgid "New User Introduction"
-msgstr "ІЮТХФ ЧР ЭЮТШ ЪЮаШбЭШжШ"
+msgstr "Р’РѕРІРµРґ Р·Р° РЅРѕРІРё РєРѕСЂРёСЃРЅРёС†Рё"
 
 msgid "New messages"
-msgstr "ЅЮТШ ЯЮаРЪШ"
+msgstr "РќРѕРІРё РїРѕСЂР°РєРё"
 
 msgid "New"
-msgstr "ЅЮТ"
+msgstr "РќРѕРІ"
 
 msgid "Next Message"
-msgstr "БЫХФЭР ЯЮаРЪР"
+msgstr "РЎР»РµРґРЅР° РїРѕСЂР°РєР°"
 
 msgid "Next Page"
-msgstr "БЫХФЭР бваРЭР"
+msgstr "РЎР»РµРґРЅР° СЃС‚СЂР°РЅР°"
 
 msgid "Next"
-msgstr "БЫХФЭЮ"
+msgstr "РЎР»РµРґРЅРѕ"
 
 msgid "No folders were specified"
-msgstr "ЅХ бХ ЭРТХФХЭШ ЯРЯЪШ"
+msgstr "РќРµ СЃРµ РЅР°РІРµРґРµРЅРё РїР°РїРєРё"
 
 msgid "No messages matched your search"
-msgstr "ЅХ Х ЯаЮЭРшФХЭР ЭШвг ХФЭР ЯЮаРЪР"
+msgstr "РќРµ Рµ РїСЂРѕРЅР°СРґРµРЅР° РЅРёС‚Сѓ РµРґРЅР° РїРѕСЂР°РєР°"
 
 msgid "No spelling errors"
-msgstr "ЅХЬР ЯаРТЮЯШбЭШ УаХиЪШ"
+msgstr "РќРµРјР° РїСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё"
 
 msgid "No subject"
-msgstr "±ХЧ вХЬР"
+msgstr "Р‘РµР· С‚РµРјР°"
 
 msgid "No"
-msgstr "ЅХ"
+msgstr "РќРµ"
 
 msgid "None"
-msgstr "ЅШХФЭР"
+msgstr "РќРёРµРґРЅР°"
 
 msgid "Not Deleted"
-msgstr "ЅХ ШЧСаШиРЭШ"
+msgstr "РќРµ РёР·Р±СЂРёС€Р°РЅРё"
 
 msgid "Not Draft"
-msgstr "ЅХ ЭХЧРТаиХЭШ (Draft)"
+msgstr "РќРµ РЅРµР·Р°РІСЂС€РµРЅРё (Draft)"
 
 msgid "Not Important"
-msgstr "ЅХТРЦЭШ"
+msgstr "РќРµРІР°Р¶РЅРё"
 
 msgid "Not Personal"
-msgstr "ЅХ ЫШзЭШ"
+msgstr "РќРµ Р»РёС‡РЅРё"
 
 msgid "Not deleted messages"
-msgstr "ЅХ ШЧСаШиРЭШ ЯЮаРЪШ"
+msgstr "РќРµ РёР·Р±СЂРёС€Р°РЅРё РїРѕСЂР°РєРё"
 
 msgid "Not important messages"
-msgstr "ЅХТРЦЭШ ЯЮаРЪШ"
+msgstr "РќРµРІР°Р¶РЅРё РїРѕСЂР°РєРё"
 
 msgid "November"
-msgstr "ЅЮХЬТаШ"
+msgstr "РќРѕРµРјРІСЂРё"
 
 msgid "Number of old sent-mail folders to keep if deleting monthly"
-msgstr "±аЮш ЭР бвРаШ sent-mail ЯРЯЪШ ФР бХ згТРРв, РЪЮ бХ СаШиХ ХФЭРи ЬХбХзЭЮ"
+msgstr "Р‘СЂРѕС РЅР° СЃС‚Р°СЂРё sent-mail РїР°РїРєРё РґР° СЃРµ С‡СѓРІР°Р°С‚, Р°РєРѕ СЃРµ Р±СЂРёС€Рµ РµРґРЅР°С€ РјРµСЃРµС‡РЅРѕ"
 
 msgid "October"
-msgstr "ѕЪвЮЬТаШ"
+msgstr "РћРєС‚РѕРјРІСЂРё"
 
 msgid "Old messages"
-msgstr "БвРаШ ЯЮаРЪШ"
+msgstr "РЎС‚Р°СЂРё РїРѕСЂР°РєРё"
 
 msgid "Old sent-mail folders being purged."
-msgstr "БвРаШвХ sent-mail ЯРЯЪШ бХ ШбзШбвХЭШ."
+msgstr "РЎС‚Р°СЂРёС‚Рµ sent-mail РїР°РїРєРё СЃРµ РёСЃС‡РёСЃС‚РµРЅРё."
 
 msgid ""
 "Once you've filled in these three fields, click the \"Login\" button to "
 "proceed."
 msgstr ""
-"їЮ ЯЮЯЮЫЭгТРъХ ЭР ЮТШХ ваШ ЯЮЫШъР, ЯаШвШбЭШ ЭР ЪЮЯзХвЮ \"їаШшРТгТРъХ\" ЧР ФР "
-"ТЫХЧХвХ ТЮ бШбвХЬЮв."
+"РџРѕ РїРѕРїРѕР»РЅСѓРІР°СљРµ РЅР° РѕРІРёРµ С‚СЂРё РїРѕР»РёСљР°, РїСЂРёС‚РёСЃРЅРё РЅР° РєРѕРїС‡РµС‚Рѕ \"РџСЂРёСР°РІСѓРІР°СљРµ\" Р·Р° РґР° "
+"РІР»РµР·РµС‚Рµ РІРѕ СЃРёСЃС‚РµРјРѕС‚."
 
 msgid "Open Folder"
-msgstr "ѕвТЮаШ ЯРЯЪР"
+msgstr "РћС‚РІРѕСЂРё РїР°РїРєР°"
 
 msgid "Options"
-msgstr "ѕЯжШШ"
+msgstr "РћРїС†РёРё"
 
 msgid "Other Options"
-msgstr "ґагУШ ЮЯжШШ"
+msgstr "Р”СЂСѓРіРё РѕРїС†РёРё"
 
 #, c-format
 msgid "Page %d of %d"
-msgstr "БваРЭР %d ЮФ %d"
+msgstr "РЎС‚СЂР°РЅР° %d РѕРґ %d"
 
 msgid "Part(s)"
-msgstr "ґХЫ(ЮТШ)"
+msgstr "Р”РµР»(РѕРІРё)"
 
 msgid "Password"
-msgstr "»ЮЧШЭЪР"
+msgstr "Р›РѕР·РёРЅРєР°"
 
 msgid "Path to your mail folders:"
-msgstr "їРвХЪР ФЮ ТРиШвХ ЯЮивХЭбЪШ ЯРЯЪШ:"
+msgstr "РџР°С‚РµРєР° РґРѕ РІР°С€РёС‚Рµ РїРѕС€С‚РµРЅСЃРєРё РїР°РїРєРё:"
 
 msgid "Personal Information"
-msgstr "»ШзЭШ ШЭдЮаЬРжШШ"
+msgstr "Р›РёС‡РЅРё РёРЅС„РѕСЂРјР°С†РёРё"
 
 msgid "Personal"
-msgstr "»ШзЭЮ"
+msgstr "Р›РёС‡РЅРѕ"
 
 msgid "Place your signature before replies and forwards?"
-msgstr "ІЬХвЭШ ЯЮвЯШб ЯаХФ вХЪбвЮв ЭР ЪЮш бХ ЮФУЮТРаР ШЫШ ЯаХЯаРьР?"
+msgstr "Р’РјРµС‚РЅРё РїРѕС‚РїРёСЃ РїСЂРµРґ С‚РµРєСЃС‚РѕС‚ РЅР° РєРѕС СЃРµ РѕРґРіРѕРІР°СЂР° РёР»Рё РїСЂРµРїСЂР°СњР°?"
 
 msgid "Please enter the new name:"
-msgstr "ІЭХбХвХ УЮ ЭЮТЮвЮ ШЬХ:"
+msgstr "Р’РЅРµСЃРµС‚Рµ РіРѕ РЅРѕРІРѕС‚Рѕ РёРјРµ:"
 
 msgid "Please enter valid search criteria."
-msgstr "ІЭХбХвХ ТРЫШФХЭ ЪаШвХаШгЬ ЧР ЯаХСРагТРъХ."
+msgstr "Р’РЅРµСЃРµС‚Рµ РІР°Р»РёРґРµРЅ РєСЂРёС‚РµСЂРёСѓРј Р·Р° РїСЂРµР±Р°СЂСѓРІР°СљРµ."
 
 msgid "Please provide your username and password"
-msgstr "ІХ ЬЮЫШЬХ ЭРТХФХвХ ТРиХ ЪЮаШбЭШзЪЮ ШЬХ Ш ЫЮЧШЭЪР"
+msgstr "Р’Рµ РјРѕР»РёРјРµ РЅР°РІРµРґРµС‚Рµ РІР°С€Рµ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ Рё Р»РѕР·РёРЅРєР°"
 
 msgid "Please resolve ambiguous or invalid addresses."
-msgstr "АРЧаХиШ ФТЮбЬШбЫХЭШ ШЫШ ЭХТРЫШФЭШ РФаХбШ."
+msgstr "Р Р°Р·СЂРµС€Рё РґРІРѕСЃРјРёСЃР»РµРЅРё РёР»Рё РЅРµРІР°Р»РёРґРЅРё Р°РґСЂРµСЃРё."
 
 msgid "Please select a folder before you perform any actions."
-msgstr "ёЧСХаШ ЯРЯЪР ЯаХФ ШЧТаигТРъХ ЭР СШЫЮ ЪЮшР РЪжШшР."
+msgstr "РР·Р±РµСЂРё РїР°РїРєР° РїСЂРµРґ РёР·РІСЂС€СѓРІР°СљРµ РЅР° Р±РёР»Рѕ РєРѕСР° Р°РєС†РёСР°."
 
 msgid "Please select at least one folder to search."
-msgstr "ёЧСХаШ СРаХЬ ХФЭР ЯРЯЪР ЧР ЯаХСРагТРъХ."
+msgstr "РР·Р±РµСЂРё Р±Р°СЂРµРј РµРґРЅР° РїР°РїРєР° Р·Р° РїСЂРµР±Р°СЂСѓРІР°СљРµ."
 
 msgid "Please select only one folder for this operation."
-msgstr "ёЧСХаШ бРЬЮ ХФЭР ЯРЯЪР ЧР ЮТРР ЮЯХаРжШшР."
+msgstr "РР·Р±РµСЂРё СЃР°РјРѕ РµРґРЅР° РїР°РїРєР° Р·Р° РѕРІР°Р° РѕРїРµСЂР°С†РёСР°."
 
 msgid "Please select or edit right next:"
-msgstr "ёЧСХаШ ШЫШ гаХФШ бЫХФЭЮ:"
+msgstr "РР·Р±РµСЂРё РёР»Рё СѓСЂРµРґРё СЃР»РµРґРЅРѕ:"
 
 msgid "Preceed your signature with dashes ('-- ')"
-msgstr "ѕФФХЫШ УЮ ЯЮвЯШбЮв бЮ жавШ ('-- ')"
+msgstr "РћРґРґРµР»Рё РіРѕ РїРѕС‚РїРёСЃРѕС‚ СЃРѕ С†СЂС‚Рё ('-- ')"
 
 msgid "Previous Message"
-msgstr "їаХвеЮФЭР ЯЮаРЪР"
+msgstr "РџСЂРµС‚С…РѕРґРЅР° РїРѕСЂР°РєР°"
 
 msgid "Previous Page"
-msgstr "їаХвеЮФЭР бваРЭР"
+msgstr "РџСЂРµС‚С…РѕРґРЅР° СЃС‚СЂР°РЅР°"
 
 msgid "Print"
-msgstr "їХзРвШ"
+msgstr "РџРµС‡Р°С‚Рё"
 
 msgid "Problem?"
-msgstr "їаЮСЫХЬ?"
+msgstr "РџСЂРѕР±Р»РµРј?"
 
 msgid "Purge Deleted"
-msgstr "ѕбваРЭШ ШЧСаШиРЭШ"
+msgstr "РћСЃС‚СЂР°РЅРё РёР·Р±СЂРёС€Р°РЅРё"
 
 msgid "Purge Trash how often:"
-msgstr "єЮЫЪг зХбвЮ ФР УШ ЮвбваРЭгТРЬ ШЧСаШиРЭШвХ ЮФ ЯРЯЪРвР ЧР ЮвЯРФЮжШ:"
+msgstr "РљРѕР»РєСѓ С‡РµСЃС‚Рѕ РґР° РіРё РѕС‚СЃС‚СЂР°РЅСѓРІР°Рј РёР·Р±СЂРёС€Р°РЅРёС‚Рµ РѕРґ РїР°РїРєР°С‚Р° Р·Р° РѕС‚РїР°РґРѕС†Рё:"
 
 msgid "Purge messages in Trash folder older than this amount of days"
-msgstr "ФХЭР бвРаШвХ ЯЮаРЪШ ЮвбваРЭШ УШ ЮФ ЯРЯЪРвР ЧР ЮвЯРФЮжШ"
+msgstr "РґРµРЅР° СЃС‚Р°СЂРёС‚Рµ РїРѕСЂР°РєРё РѕС‚СЃС‚СЂР°РЅРё РіРё РѕРґ РїР°РїРєР°С‚Р° Р·Р° РѕС‚РїР°РґРѕС†Рё"
 
 msgid "Purge old message in the Trash folder"
 msgstr "Purge old message in the Trash folder"
 
 msgid "Purging "
-msgstr "ѕвбваРЭгТРъХ"
+msgstr "РћС‚СЃС‚СЂР°РЅСѓРІР°СљРµ"
 
 msgid " message(s) from Trash folder."
-msgstr " ЯЮаРЪР(Ш) ЮФ ЯРЯЪРвР ЧР ЮвЯРФЮжШ."
+msgstr " РїРѕСЂР°РєР°(Рё) РѕРґ РїР°РїРєР°С‚Р° Р·Р° РѕС‚РїР°РґРѕС†Рё."
 
 msgid "Quoting"
-msgstr "ЖШвРв"
+msgstr "Р¦РёС‚Р°С‚"
 
 msgid "Received after:"
-msgstr "їаШЬХЭШ ЯЮбЫХ:"
+msgstr "РџСЂРёРјРµРЅРё РїРѕСЃР»Рµ:"
 
 msgid "Received before:"
-msgstr "їаШЬХЭШ ЯаХФ:"
+msgstr "РџСЂРёРјРµРЅРё РїСЂРµРґ:"
 
 msgid "Received on:"
-msgstr "їаШЬХЭШ ЭР:"
+msgstr "РџСЂРёРјРµРЅРё РЅР°:"
 
 msgid "Redirect Message"
-msgstr "їаХЭРбЮзШ ЯЮаРЪР:"
+msgstr "РџСЂРµРЅР°СЃРѕС‡Рё РїРѕСЂР°РєР°:"
 
 msgid "Redirect this message"
-msgstr "їаХЭРбЮзШ шР ЯЮаРЪРТР:"
+msgstr "РџСЂРµРЅР°СЃРѕС‡Рё СР° РїРѕСЂР°РєР°РІР°:"
 
 msgid "Redirect"
-msgstr "їаХЭРбЮзШ"
+msgstr "РџСЂРµРЅР°СЃРѕС‡Рё"
 
 msgid "Redirecting failed."
-msgstr "ЅХ гбЯХиЭЮ ЯаХЭРбЮзгТРъХ."
+msgstr "РќРµ СѓСЃРїРµС€РЅРѕ РїСЂРµРЅР°СЃРѕС‡СѓРІР°СљРµ."
 
 msgid "Refresh Folder Views:"
-msgstr "ѕбТХЦШ ЯаШЪРЧ ЭР ЯРЯЪШ:"
+msgstr "РћСЃРІРµР¶Рё РїСЂРёРєР°Р· РЅР° РїР°РїРєРё:"
 
 msgid "Refresh"
-msgstr "ѕбТХЦШ"
+msgstr "РћСЃРІРµР¶Рё"
 
 msgid "Reload View"
-msgstr "ѕбТХЦШ ЯаШЪРЧ"
+msgstr "РћСЃРІРµР¶Рё РїСЂРёРєР°Р·"
 
 msgid "Remember the last view"
-msgstr "·РЯРЬХвШ ЯЮбЫХФХЭ ЯаШЪРЧ"
+msgstr "Р—Р°РїР°РјРµС‚Рё РїРѕСЃР»РµРґРµРЅ РїСЂРёРєР°Р·"
 
 msgid "Remove Selected"
-msgstr "ѕФбваРЭШ бХЫХЪвШаРЭШ"
+msgstr "РћРґСЃС‚СЂР°РЅРё СЃРµР»РµРєС‚РёСЂР°РЅРё"
 
 msgid "Rename Folder"
-msgstr "їаХШЬХЭгТРш ЯРЯЪР"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°С РїР°РїРєР°"
 
 msgid "Rename sent-mail folder at beginning of month"
-msgstr "їаХШЬХЭгТРш шР ЯРЯЪРвР їаРвХЭШ ЭР ЯЮзХвЮЪЮв ЮФ ЬХбХжЮв"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°С СР° РїР°РїРєР°С‚Р° РџСЂР°С‚РµРЅРё РЅР° РїРѕС‡РµС‚РѕРєРѕС‚ РѕРґ РјРµСЃРµС†РѕС‚"
 
 #, c-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "їаХШЬХЭгТРъХвЮ ЭР \"%s\" ТЮ \"%s\" ЭХ гбЯХР. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РџСЂРµРёРјРµРЅСѓРІР°СљРµС‚Рѕ РЅР° \"%s\" РІРѕ \"%s\" РЅРµ СѓСЃРїРµР°. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "Replace with:"
-msgstr "·РЬХЭШ бЮ:"
+msgstr "Р—Р°РјРµРЅРё СЃРѕ:"
 
 msgid "Reply to All"
-msgstr "ѕФУЮТЮаШ ЭР бШвХ"
+msgstr "РћРґРіРѕРІРѕСЂРё РЅР° СЃРёС‚Рµ"
 
 msgid "Reply to All:"
-msgstr "ѕФУЮТЮаШ ЭР бШвХ:"
+msgstr "РћРґРіРѕРІРѕСЂРё РЅР° СЃРёС‚Рµ:"
 
 msgid "Reply"
-msgstr "ѕФУЮТЮаШ"
+msgstr "РћРґРіРѕРІРѕСЂРё"
 
 msgid "Reply-To: "
-msgstr "ѕФУЮТЮаШ ЭР: "
+msgstr "РћРґРіРѕРІРѕСЂРё РЅР°: "
 
 msgid "Reply-to"
-msgstr "ѕФУЮТЮаШ ЭР"
+msgstr "РћРґРіРѕРІРѕСЂРё РЅР°"
 
 msgid "Reply:"
-msgstr "ѕФУЮТЮаШ:"
+msgstr "РћРґРіРѕРІРѕСЂРё:"
 
 msgid "Report as Spam"
-msgstr "ґХдШЭШаРш ЪРЪЮ ЅХЯЮЦХЫЭР ЯЮаРЪР"
+msgstr "Р”РµС„РёРЅРёСЂР°С РєР°РєРѕ РќРµРїРѕР¶РµР»РЅР° РїРѕСЂР°РєР°"
 
 msgid "Request a Return Receipt"
-msgstr "їЮСРаРш ЯЮвТаФР ЧР ЯаШЬХЭР ЯЮаРЪР"
+msgstr "РџРѕР±Р°СЂР°С РїРѕС‚РІСЂРґР° Р·Р° РїСЂРёРјРµРЅР° РїРѕСЂР°РєР°"
 
 msgid "Reset"
-msgstr "ѕФЭЮТЮ"
+msgstr "РћРґРЅРѕРІРѕ"
 
 msgid "Resume"
-msgstr "їаЮФЮЫЦШ"
+msgstr "РџСЂРѕРґРѕР»Р¶Рё"
 
 msgid "Return to Welcome Screen"
-msgstr "ІаРвХвХ бХ ЭР бваРЭРвР ґЮСаХФЮшФХ"
+msgstr "Р’СЂР°С‚РµС‚Рµ СЃРµ РЅР° СЃС‚СЂР°РЅР°С‚Р° Р”РѕР±СЂРµРґРѕСРґРµ"
 
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
-"ІаРвШ бХ ЭР ЯЮивХЭбЪЮвЮ бРЭФРзХ ЯЮ СаШиХъХ, ЯаХЬХбвгТРъХ ШЫШ ЪЮЯШаРъХ ЯЮаРЪШ?"
+"Р’СЂР°С‚Рё СЃРµ РЅР° РїРѕС€С‚РµРЅСЃРєРѕС‚Рѕ СЃР°РЅРґР°С‡Рµ РїРѕ Р±СЂРёС€РµСљРµ, РїСЂРµРјРµСЃС‚СѓРІР°СљРµ РёР»Рё РєРѕРїРёСЂР°СљРµ РїРѕСЂР°РєРё?"
 
 msgid "Rule Definition"
-msgstr "ґХдШЭШжШшР ЭР ЯаРТШЫЮ"
+msgstr "Р”РµС„РёРЅРёС†РёСР° РЅР° РїСЂР°РІРёР»Рѕ"
 
 msgid "Save Draft"
-msgstr "·РзгТРш ЭХЧРТаиХЭР"
+msgstr "Р—Р°С‡СѓРІР°С РЅРµР·Р°РІСЂС€РµРЅР°"
 
 msgid "Save a copy in "
-msgstr "·РзгТРш ЪЮЯШшР ТЮ "
+msgstr "Р—Р°С‡СѓРІР°С РєРѕРїРёСР° РІРѕ "
 
 msgid "Save as"
-msgstr "·РзгТРш ЪРЪЮ"
+msgstr "Р—Р°С‡СѓРІР°С РєР°РєРѕ"
 
 msgid "Save as..."
-msgstr "·РзгТРш.ЪРЪЮ..."
+msgstr "Р—Р°С‡СѓРІР°С.РєР°РєРѕ..."
 
 msgid "Save sent mail"
-msgstr "·РзгТРш ЯаРвХЭР ЯЮаРЪР"
+msgstr "Р—Р°С‡СѓРІР°С РїСЂР°С‚РµРЅР° РїРѕСЂР°РєР°"
 
 #, c-format
 msgid "Saving the draft failed. This is what the server said: %s"
-msgstr "ЅХгбЯХиЭЮ ЧРзгТгТРъХ ТЮ ЯРЯЪРвР ЅХЧРТаиХЭШ. ѕТР УЮ ТаРвШ бХаТХаЮв: %s"
+msgstr "РќРµСѓСЃРїРµС€РЅРѕ Р·Р°С‡СѓРІСѓРІР°СљРµ РІРѕ РїР°РїРєР°С‚Р° РќРµР·Р°РІСЂС€РµРЅРё. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚: %s"
 
 msgid "Search Results"
-msgstr "АХЧгЫвРвШ ЮФ ЯаХСРагТРъХвЮ"
+msgstr "Р РµР·СѓР»С‚Р°С‚Рё РѕРґ РїСЂРµР±Р°СЂСѓРІР°СљРµС‚Рѕ"
 
 msgid "Search"
-msgstr "їаХСРагТРш"
+msgstr "РџСЂРµР±Р°СЂСѓРІР°С"
 
 msgid "Seen"
-msgstr "їаЮзШвРЭШ"
+msgstr "РџСЂРѕС‡РёС‚Р°РЅРё"
 
 msgid "Select addressbook sources for adding and searching for addresses."
-msgstr "ёЧСХаШ ШЧТЮа ЧР СРаРъХ Ш ФЮФРТРъХ РФаХбШ ТЮ РФаХбРаЮв."
+msgstr "РР·Р±РµСЂРё РёР·РІРѕСЂ Р·Р° Р±Р°СЂР°СљРµ Рё РґРѕРґР°РІР°СљРµ Р°РґСЂРµСЃРё РІРѕ Р°РґСЂРµСЃР°СЂРѕС‚."
 
 msgid "Select all"
-msgstr "ёЧСХаШ УШ бШвХ"
+msgstr "РР·Р±РµСЂРё РіРё СЃРёС‚Рµ"
 
 msgid "Select an identity"
-msgstr "ёЧСХаШ ШФХЭвШвХв"
+msgstr "РР·Р±РµСЂРё РёРґРµРЅС‚РёС‚РµС‚"
 
 msgid "Select charset:"
-msgstr "ёЧСХаШ charset:"
+msgstr "РР·Р±РµСЂРё charset:"
 
 msgid "Select none"
-msgstr "ёЧСХаШ ЭШХФЭЮ"
+msgstr "РР·Р±РµСЂРё РЅРёРµРґРЅРѕ"
 
 msgid "Select your preferred language:"
-msgstr "ѕФСХаШ УЮ бТЮшЮв ЬРвШзХЭ шРЧШЪ:"
+msgstr "РћРґР±РµСЂРё РіРѕ СЃРІРѕСРѕС‚ РјР°С‚РёС‡РµРЅ СР°Р·РёРє:"
 
 msgid "Select"
-msgstr "ёЧСХаШ"
+msgstr "РР·Р±РµСЂРё"
 
 msgid "Selected Addressbooks:"
-msgstr "ёЧСаРЭШ РФаХбРаШ:"
+msgstr "РР·Р±СЂР°РЅРё Р°РґСЂРµСЃР°СЂРё:"
 
 msgid "Send Message"
-msgstr "ёбЯаРвШ ЯЮаРЪР"
+msgstr "РСЃРїСЂР°С‚Рё РїРѕСЂР°РєР°"
 
 msgid "Sent mail folder:"
-msgstr "їРЯЪР їаРвХЭШ:"
+msgstr "РџР°РїРєР° РџСЂР°С‚РµРЅРё:"
 
 msgid "September"
-msgstr "БХЯвХЬТаШ"
+msgstr "РЎРµРїС‚РµРјРІСЂРё"
 
 msgid "Server Information"
-msgstr "ёЭдЮаЬРжШшР ЧР бХаТХаЮв"
+msgstr "РРЅС„РѕСЂРјР°С†РёСР° Р·Р° СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "Server"
-msgstr "БХаТХа"
+msgstr "РЎРµСЂРІРµСЂ"
 
 msgid "Set preferences for filtering messages for unwanted content."
-msgstr "ёЧСХаХвХ ЯЮФХбгТРъР ЧР дШЫваШаРъХ ЯЮаРЪШ бЮ ЭХбРЪРЭР бЮФаЦШЭР."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїРѕРґРµСЃСѓРІР°СљР° Р·Р° С„РёР»С‚СЂРёСЂР°СљРµ РїРѕСЂР°РєРё СЃРѕ РЅРµСЃР°РєР°РЅР° СЃРѕРґСЂР¶РёРЅР°."
 
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
-"ёЧСХаХвХ ЯЮФХбгТРъР ЧР ЮЭР ивЮ бХ бЫгзгТР ЯаШ ЯаХЬХбвгТРъХ Ш СаШиХъХ ЯЮаРЪШ."
+"РР·Р±РµСЂРµС‚Рµ РїРѕРґРµСЃСѓРІР°СљР° Р·Р° РѕРЅР° С€С‚Рѕ СЃРµ СЃР»СѓС‡СѓРІР° РїСЂРё РїСЂРµРјРµСЃС‚СѓРІР°СљРµ Рё Р±СЂРёС€РµСљРµ РїРѕСЂР°РєРё."
 
 msgid "Set the current time zone."
-msgstr "ёЧСХаШ вХЪЮТЭР ТаХЬХЭбЪР ЧЮЭР"
+msgstr "РР·Р±РµСЂРё С‚РµРєРѕРІРЅР° РІСЂРµРјРµРЅСЃРєР° Р·РѕРЅР°"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "ЅРТХФШ шРЧШЪ ЧР ЬХЭШшРвР, ЮСшРбЭгТРъРвР Ш ЯЮЬЮивР."
+msgstr "РќР°РІРµРґРё СР°Р·РёРє Р·Р° РјРµРЅРёСР°С‚Р°, РѕР±СР°СЃРЅСѓРІР°СљР°С‚Р° Рё РїРѕРјРѕС€С‚Р°."
 
 msgid "Should the compose window be closed after saving a draft?"
 msgstr ""
-"ґРЫШ ФР УЮ ЧРвТЮаРЬ ЯаЮЧЮаЮв БЮбвРТШ ЯЮ ЧРзгТгТРъХ ЭР ЯЮаРЪРвР ТЮ ЅХЧРТаиХЭШ?"
+"Р”Р°Р»Рё РґР° РіРѕ Р·Р°С‚РІРѕСЂР°Рј РїСЂРѕР·РѕСЂРѕС‚ РЎРѕСЃС‚Р°РІРё РїРѕ Р·Р°С‡СѓРІСѓРІР°СљРµ РЅР° РїРѕСЂР°РєР°С‚Р° РІРѕ РќРµР·Р°РІСЂС€РµРЅРё?"
 
 msgid "Show Deleted"
-msgstr "їаШЪРЦШ ШЧСаШиРЭШ"
+msgstr "РџСЂРёРєР°Р¶Рё РёР·Р±СЂРёС€Р°РЅРё"
 
 msgid "Show Unsubscribed"
-msgstr "їаШЪРЦШ ЭХЯаХТЧХЬРЭШ"
+msgstr "РџСЂРёРєР°Р¶Рё РЅРµРїСЂРµРІР·РµРјР°РЅРё"
 
 msgid "Show last login time when logging in"
-msgstr "їаШЪРЦШ ЪЮУР ЯЮбЫХФХЭ ЯРв бвХ бХ ЯаШшРТШЫХ ЯаШ ЯаШшРТгТРъХ"
+msgstr "РџСЂРёРєР°Р¶Рё РєРѕРіР° РїРѕСЃР»РµРґРµРЅ РїР°С‚ СЃС‚Рµ СЃРµ РїСЂРёСР°РІРёР»Рµ РїСЂРё РїСЂРёСР°РІСѓРІР°СљРµ"
 
 msgid "Size"
-msgstr "іЮЫХЬШЭР"
+msgstr "Р“РѕР»РµРјРёРЅР°"
 
 msgid "Some of IMP's configuration files are missing:"
-msgstr "ЅХЪЮШ ЮФ ЪЮЭдШУгаРжШЮЭШвХ дРшЫЮТШ ЭР IMPЭХФЮбвРбгТРРв:"
+msgstr "РќРµРєРѕРё РѕРґ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРёС‚Рµ С„Р°СР»РѕРІРё РЅР° IMPРЅРµРґРѕСЃС‚Р°СЃСѓРІР°Р°С‚:"
 
 msgid "Sort Direction"
-msgstr "БЮавШаРзЪШ аХФЮбЫХФ"
+msgstr "РЎРѕСЂС‚РёСЂР°С‡РєРё СЂРµРґРѕСЃР»РµРґ"
 
 msgid "Spam Report from"
-msgstr "ёЧТХбвгТРъХ ЧР ЭХЯЮЦХЫЭШ ЯЮаРЪШ ЮФ"
+msgstr "РР·РІРµСЃС‚СѓРІР°СљРµ Р·Р° РЅРµРїРѕР¶РµР»РЅРё РїРѕСЂР°РєРё РѕРґ"
 
 msgid "Special Characters"
-msgstr "БЯХжШшРЫЭШ ЧЭРжШ"
+msgstr "РЎРїРµС†РёСР°Р»РЅРё Р·РЅР°С†Рё"
 
 msgid "Spell Check"
-msgstr "їаЮТХаЪР ЭР ЯаРТЮЯШб"
+msgstr "РџСЂРѕРІРµСЂРєР° РЅР° РїСЂР°РІРѕРїРёСЃ"
 
 msgid "Spell Checker"
-msgstr "їаЮТХагТРз ЭР ЯаРТЮЯШб"
+msgstr "РџСЂРѕРІРµСЂСѓРІР°С‡ РЅР° РїСЂР°РІРѕРїРёСЃ"
 
 msgid "Spell check complete"
-msgstr "·РТаиШ ЯаЮТХаЪРвР ЭР ЯаРТЮЯШб"
+msgstr "Р—Р°РІСЂС€Рё РїСЂРѕРІРµСЂРєР°С‚Р° РЅР° РїСЂР°РІРѕРїРёСЃ"
 
 msgid "Spelling errors per screen when spell checking."
-msgstr "їаРТЮЯШбЭШ УаХиЪШ ЯЮ ЯаЮЧЮа ЯаШ ЯаЮТХаЪР ЭР ЯаРТЮЯШбЮв."
+msgstr "РџСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё РїРѕ РїСЂРѕР·РѕСЂ РїСЂРё РїСЂРѕРІРµСЂРєР° РЅР° РїСЂР°РІРѕРїРёСЃРѕС‚."
 
 msgid "Subject Field"
-msgstr "ВХЬР ЭР ЯЮаРЪР"
+msgstr "РўРµРјР° РЅР° РїРѕСЂР°РєР°"
 
 msgid "Subject"
-msgstr "ВХЬР"
+msgstr "РўРµРјР°"
 
 msgid "Subject:"
-msgstr "ВХЬР:"
+msgstr "РўРµРјР°:"
 
 msgid "Subscribe to Folder(s)"
-msgstr "їаХТЧХЬШ ЯРЯЪР(Ш)"
+msgstr "РџСЂРµРІР·РµРјРё РїР°РїРєР°(Рё)"
 
 msgid "Success"
-msgstr "ГбЯХиЭЮ"
+msgstr "РЈСЃРїРµС€РЅРѕ"
 
 msgid "Suggestions"
-msgstr "їаХФЫЮЧШ"
+msgstr "РџСЂРµРґР»РѕР·Рё"
 
 msgid "Text"
-msgstr "ВХЪбв"
+msgstr "РўРµРєСЃС‚"
 
 msgid ""
 "The Compose Window allows you to set, among other things, the message "
@@ -1117,31 +1117,31 @@ msgid ""
 "Once you're done composing your new message, click the \"Send\" button to "
 "send the message to the recipient."
 msgstr ""
-"БЮбвРТШ ЯаЮЧЮаХжЮв ЮТЮЧЬЮЦгТР ФР ЭРТХФХвХ ЯаШЬРз (РФаХбР ЪЮЬг шР ЯаРьРвХ "
-"ЯЮаРЪРвР), вХЬР ЭР ЯЮаРЪРвР Ш ЭХшЧШЭР бЮФаЦШЭР.  µФЭЮбвРТЭЮ ЯЮЯЮЫЭХвХ УШ "
-"бЮЮФТХвЭШвХ ЯЮЫШъР (ЧРФЮЫЦШвХЫЭЮ Х бРЬЮ ЯЮЫХвЮ ґЮ:, ФЮФХЪР ЯЮЫХвЮ ВХЬР: Х "
-"ЯаХЯЮаРзЫШТЮ) Ш ЭРЯШиХвХ шР ТРиРвР ЯЮаРЪР ТЮ УЮЫХЬЮвЮ ЯЮЫХ ЧР вХЪбв.  їЮвЮР "
-"ЬЮЦХвХ ФР ШЧСХаХвХ ЯаЮТХаЪР ЭР ЯаРТЮЯШбЮв.  ЅР ЪаРш ЯаХвШбЭХвХ ЭР ЪЮЯзХвЮ "
-"\"ёбЯаРвШ\" ЧР ФР шР ЯаРвШвХ ЯЮаРЪРвР."
+"РЎРѕСЃС‚Р°РІРё РїСЂРѕР·РѕСЂРµС†РѕС‚ РѕРІРѕР·РјРѕР¶СѓРІР° РґР° РЅР°РІРµРґРµС‚Рµ РїСЂРёРјР°С‡ (Р°РґСЂРµСЃР° РєРѕРјСѓ СР° РїСЂР°СњР°С‚Рµ "
+"РїРѕСЂР°РєР°С‚Р°), С‚РµРјР° РЅР° РїРѕСЂР°РєР°С‚Р° Рё РЅРµСР·РёРЅР° СЃРѕРґСЂР¶РёРЅР°.  Р•РґРЅРѕСЃС‚Р°РІРЅРѕ РїРѕРїРѕР»РЅРµС‚Рµ РіРё "
+"СЃРѕРѕРґРІРµС‚РЅРёС‚Рµ РїРѕР»РёСљР° (Р·Р°РґРѕР»Р¶РёС‚РµР»РЅРѕ Рµ СЃР°РјРѕ РїРѕР»РµС‚Рѕ Р”Рѕ:, РґРѕРґРµРєР° РїРѕР»РµС‚Рѕ РўРµРјР°: Рµ "
+"РїСЂРµРїРѕСЂР°С‡Р»РёРІРѕ) Рё РЅР°РїРёС€РµС‚Рµ СР° РІР°С€Р°С‚Р° РїРѕСЂР°РєР° РІРѕ РіРѕР»РµРјРѕС‚Рѕ РїРѕР»Рµ Р·Р° С‚РµРєСЃС‚.  РџРѕС‚РѕР° "
+"РјРѕР¶РµС‚Рµ РґР° РёР·Р±РµСЂРµС‚Рµ РїСЂРѕРІРµСЂРєР° РЅР° РїСЂР°РІРѕРїРёСЃРѕС‚.  РќР° РєСЂР°С РїСЂРµС‚РёСЃРЅРµС‚Рµ РЅР° РєРѕРїС‡РµС‚Рѕ "
+"\"РСЃРїСЂР°С‚Рё\" Р·Р° РґР° СР° РїСЂР°С‚РёС‚Рµ РїРѕСЂР°РєР°С‚Р°."
 
 msgid "The Compose Window"
-msgstr "БЮбвРТШ ЯаЮЧЮаХжЮв"
+msgstr "РЎРѕСЃС‚Р°РІРё РїСЂРѕР·РѕСЂРµС†РѕС‚"
 
 msgid "The Mailbox Listing"
-msgstr "їаХУЫХФ ЭР ЯЮивХЭбЪЮ бРЭФРзХ"
+msgstr "РџСЂРµРіР»РµРґ РЅР° РїРѕС€С‚РµРЅСЃРєРѕ СЃР°РЅРґР°С‡Рµ"
 
 msgid ""
 "The Message Screen display the contents of the selected message.  From here, "
 "you can browse message attachments, reply to the current message, delete the "
 "current message, or advance to the next message in your current mailbox."
 msgstr ""
-"їаЮЧЮаХжЮв ЧР ЯаХУЫХФ ЭР ЯЮаРЪРвР шР ЯаШЪРЦгТР бЮФаЦШЭРвР ЭР ШЧСаРЭРвР "
-"ЯЮаРЪР.  ѕФ ЮТФХ ЬЮЦХвХ ФР УШ ЯаХУЫХФРвХ ЯаШЪРзХЭШвХ дРшЫЮТШ, ФР ЮФУЮТЮаШвХ "
-"ЭР ЯЮаРЪРвР, ФР шР ШЧСаШиХвХ ШбвРвР, ШЫШ ФР ЯаХЬШЭХвХ ЭР бЫХФЭРвР ЯЮаРЪР ЮФ "
-"вХЪЮТЭРвР ЯРЯЪР."
+"РџСЂРѕР·РѕСЂРµС†РѕС‚ Р·Р° РїСЂРµРіР»РµРґ РЅР° РїРѕСЂР°РєР°С‚Р° СР° РїСЂРёРєР°Р¶СѓРІР° СЃРѕРґСЂР¶РёРЅР°С‚Р° РЅР° РёР·Р±СЂР°РЅР°С‚Р° "
+"РїРѕСЂР°РєР°.  РћРґ РѕРІРґРµ РјРѕР¶РµС‚Рµ РґР° РіРё РїСЂРµРіР»РµРґР°С‚Рµ РїСЂРёРєР°С‡РµРЅРёС‚Рµ С„Р°СР»РѕРІРё, РґР° РѕРґРіРѕРІРѕСЂРёС‚Рµ "
+"РЅР° РїРѕСЂР°РєР°С‚Р°, РґР° СР° РёР·Р±СЂРёС€РµС‚Рµ РёСЃС‚Р°С‚Р°, РёР»Рё РґР° РїСЂРµРјРёРЅРµС‚Рµ РЅР° СЃР»РµРґРЅР°С‚Р° РїРѕСЂР°РєР° РѕРґ "
+"С‚РµРєРѕРІРЅР°С‚Р° РїР°РїРєР°."
 
 msgid "The Message Screen"
-msgstr "їаЮЧЮаХж ЧР ЯаХУЫХФ ЭР ЯЮаРЪР"
+msgstr "РџСЂРѕР·РѕСЂРµС† Р·Р° РїСЂРµРіР»РµРґ РЅР° РїРѕСЂР°РєР°"
 
 msgid ""
 "The contents of your Inbox folder will be displayed immediately upon logging "
@@ -1150,184 +1150,184 @@ msgid ""
 "heading.  Clicking on the heading will cause the listing to be sorted by "
 "that column."
 msgstr ""
-"БЮФаЦШЭРвР ЭР ТРиРвР ЯРЯЪР БРЭФРзХ ьХ СШФХ РТвЮЬРвбЪШ ЯаШЪРЦРЭР ЯЮ "
-"ЯаШшРТгТРъХ ТЮ бШбвХЬЮ.  ІЮ ЯЮивХЭбЪЮвЮ бРЭФРзХ ьХ ЬЮЦХвХ ФР шР ТШФШвХ "
-"бЮФаЦШЭРвР ЮФ ЧРУЫРТшХвЮ ЭР бХЪЮшР ЯЮаРЪР (бвРвгб, ФРвгЬ ЭР ШбЯаРьРъХ, "
-"ШбЯаРьРз, вХЬР Ш УЮЫХЬШЭР). БХЪЮшР ЪЮЫЮЭР бЮФаЦШ ЭРбЫЮТ. БЮ ЪЫШЪРъХ ЭР "
-"ЭРбЫЮТЮв ьХ ЯаХФШЧТШЪРвХ бЮавШаРъХ ЯЮ вРР ЪЮЫЮЭР."
+"РЎРѕРґСЂР¶РёРЅР°С‚Р° РЅР° РІР°С€Р°С‚Р° РїР°РїРєР° РЎР°РЅРґР°С‡Рµ СњРµ Р±РёРґРµ Р°РІС‚РѕРјР°С‚СЃРєРё РїСЂРёРєР°Р¶Р°РЅР° РїРѕ "
+"РїСЂРёСР°РІСѓРІР°СљРµ РІРѕ СЃРёСЃС‚РµРјРѕ.  Р’Рѕ РїРѕС€С‚РµРЅСЃРєРѕС‚Рѕ СЃР°РЅРґР°С‡Рµ СњРµ РјРѕР¶РµС‚Рµ РґР° СР° РІРёРґРёС‚Рµ "
+"СЃРѕРґСЂР¶РёРЅР°С‚Р° РѕРґ Р·Р°РіР»Р°РІСРµС‚Рѕ РЅР° СЃРµРєРѕСР° РїРѕСЂР°РєР° (СЃС‚Р°С‚СѓСЃ, РґР°С‚СѓРј РЅР° РёСЃРїСЂР°СњР°СљРµ, "
+"РёСЃРїСЂР°СњР°С‡, С‚РµРјР° Рё РіРѕР»РµРјРёРЅР°). РЎРµРєРѕСР° РєРѕР»РѕРЅР° СЃРѕРґСЂР¶Рё РЅР°СЃР»РѕРІ. РЎРѕ РєР»РёРєР°СљРµ РЅР° "
+"РЅР°СЃР»РѕРІРѕС‚ СњРµ РїСЂРµРґРёР·РІРёРєР°С‚Рµ СЃРѕСЂС‚РёСЂР°СљРµ РїРѕ С‚Р°Р° РєРѕР»РѕРЅР°."
 
 #, c-format
 msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
-msgstr "їРЯЪРвР(ШвХ) \"%s\" ьХ СШФРв ЯаХШЬХЭгТРЭШ ТЮ \"%s\"."
+msgstr "РџР°РїРєР°С‚Р°(РёС‚Рµ) \"%s\" СњРµ Р±РёРґР°С‚ РїСЂРµРёРјРµРЅСѓРІР°РЅРё РІРѕ \"%s\"."
 
 #, c-format
 msgid "The folder \"%s\" already exists"
-msgstr "їРЯЪРвР \"%s\" ТХьХ ЯЮбвЮШ"
+msgstr "РџР°РїРєР°С‚Р° \"%s\" РІРµСњРµ РїРѕСЃС‚РѕРё"
 
 #, c-format
 msgid ""
 "The folder \"%s\" contains illegal characters in its name. It may cause "
 "problems. Please see your system administrator."
 msgstr ""
-"їРЯЪРвР \"%s\" бЮФаЦШ ЭХТРЫШФЭШ ЧЭРжШ ТЮ ШЬХвЮ, ивЮ ЬЮЦХ ФР ЯаХФШЧТШЪР "
-"ЯаЮСЫХЬШ. ѕСаРвХвХ бХ ФЮ ТРиШЮв бШбвХЬ РФЬШЭШбваРвЮа."
+"РџР°РїРєР°С‚Р° \"%s\" СЃРѕРґСЂР¶Рё РЅРµРІР°Р»РёРґРЅРё Р·РЅР°С†Рё РІРѕ РёРјРµС‚Рѕ, С€С‚Рѕ РјРѕР¶Рµ РґР° РїСЂРµРґРёР·РІРёРєР° "
+"РїСЂРѕР±Р»РµРјРё. РћР±СЂР°С‚РµС‚Рµ СЃРµ РґРѕ РІР°С€РёРѕС‚ СЃРёСЃС‚РµРј Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ."
 
 #, c-format
 msgid "The folder \"%s\" was created but you were not subscribed to it."
-msgstr "їРЯЪРвР \"%s\" Х ЪаХШаРЭР, ЭЮ бХ гивХ шР ЭХЬРвХ ЯаХТЧХЬРЭЮ."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Рµ РєСЂРµРёСЂР°РЅР°, РЅРѕ СЃРµ СѓС€С‚Рµ СР° РЅРµРјР°С‚Рµ РїСЂРµРІР·РµРјР°РЅРѕ."
 
 #, c-format
 msgid "The folder \"%s\" was deleted but you were not unsubscribed from it."
-msgstr "їРЯЪРвР \"%s\" Х ШЧСаШиРЭР, ЭЮ бХ гивХ шР ШЬРвХ ЯаХТЧХЬРЭЮ."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Рµ РёР·Р±СЂРёС€Р°РЅР°, РЅРѕ СЃРµ СѓС€С‚Рµ СР° РёРјР°С‚Рµ РїСЂРµРІР·РµРјР°РЅРѕ."
 
 #, c-format
 msgid "The folder \"%s\" was not created. This is what the server said"
-msgstr "їРЯЪРвР \"%s\" ЭХ Х ЪаХШаРЭР. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РџР°РїРєР°С‚Р° \"%s\" РЅРµ Рµ РєСЂРµРёСЂР°РЅР°. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid "The folder \"%s\" was not deleted. This is what the server said"
-msgstr "їРЯЪРвР \"%s\" ЭХ Х ШЧСаШиРЭР. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РџР°РїРєР°С‚Р° \"%s\" РЅРµ Рµ РёР·Р±СЂРёС€Р°РЅР°. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid "The folder \"%s\" was successfully created."
-msgstr "їРЯЪРвР \"%s\" Х гбЯХиЭЮ ЪаХШаРЭР."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Рµ СѓСЃРїРµС€РЅРѕ РєСЂРµРёСЂР°РЅР°."
 
 #, c-format
 msgid "The folder \"%s\" was successfully deleted."
-msgstr "їРЯЪРвР \"%s\" Х гбЯХиЭЮ ШЧСаШиРЭР."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Рµ СѓСЃРїРµС€РЅРѕ РёР·Р±СЂРёС€Р°РЅР°."
 
 #, c-format
 msgid "The folder \"%s\" was successfully renamed to \"%s\"."
-msgstr "їРЯЪРвР \"%s\" Х гбЯХиЭЮ ЯаХШЬХЭгТРЭР ТЮ \"%s\"."
+msgstr "РџР°РїРєР°С‚Р° \"%s\" Рµ СѓСЃРїРµС€РЅРѕ РїСЂРµРёРјРµРЅСѓРІР°РЅР° РІРѕ \"%s\"."
 
 #, c-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "ёФХЭвШвХвЮв \"%s\" Х ШЧСаШиРЭ."
+msgstr "РРґРµРЅС‚РёС‚РµС‚РѕС‚ \"%s\" Рµ РёР·Р±СЂРёС€Р°РЅ."
 
 #, c-format
 msgid "The identity \"%s\" has been saved."
-msgstr "ёФХЭвШвХвЮв \"%s\" Х ЧРзгТРЭ."
+msgstr "РРґРµРЅС‚РёС‚РµС‚РѕС‚ \"%s\" Рµ Р·Р°С‡СѓРІР°РЅ."
 
 msgid "The signature couldn't be replaced."
-msgstr "їЮвЯШбЮв ЭХ ЬЮЦХ ФР СШФХ ЧРЬХЭХв."
+msgstr "РџРѕС‚РїРёСЃРѕС‚ РЅРµ РјРѕР¶Рµ РґР° Р±РёРґРµ Р·Р°РјРµРЅРµС‚."
 
 msgid "The signature was successfully replaced."
-msgstr "їЮвЯШбЮв Х гбЯХиЭЮ ЧРЬХЭХв."
+msgstr "РџРѕС‚РїРёСЃРѕС‚ Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РјРµРЅРµС‚."
 
 msgid "There are no messages in this mailbox."
-msgstr "ЅХЬР ЯЮаРЪШ ТЮ ЮТР ЯЮивХЭбЪЮ бРЭФРзХ."
+msgstr "РќРµРјР° РїРѕСЂР°РєРё РІРѕ РѕРІР° РїРѕС€С‚РµРЅСЃРєРѕ СЃР°РЅРґР°С‡Рµ."
 
 #, c-format
 msgid "There was a problem expunging %s. This is what the server said"
-msgstr "ЅРбвРЭР ЯаЮСЫХЬ ЯаШ СаШиХъХ ЭР %s. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РќР°СЃС‚Р°РЅР° РїСЂРѕР±Р»РµРј РїСЂРё Р±СЂРёС€РµСљРµ РЅР° %s. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "There was a problem expunging the mailbox. This is what the server said"
 msgstr ""
-"ЅРбвРЭР ЯаЮСЫХЬ ЯаШ СаШиХъХ ЭР ЯЮивХЭбЪЮвЮ бРЭФРзХ. ѕТР УЮ ТаРвШ бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РїСЂРѕР±Р»РµРј РїСЂРё Р±СЂРёС€РµСљРµ РЅР° РїРѕС€С‚РµРЅСЃРєРѕС‚Рѕ СЃР°РЅРґР°С‡Рµ. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size (%d MB)."
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ бЭШЬРъХ ЭР ФЮЪгЬХЭвЮв. јЮЦХСШ дРшЫЮв Х ЯЮУЮЫХЬ ЮФ "
-"ЬРЪбШЬРЫЭЮ ФЮЧТЮЫХЭРвР УЮЫХЬШЭР (%d MB)."
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё СЃРЅРёРјР°СљРµ РЅР° РґРѕРєСѓРјРµРЅС‚РѕС‚. РњРѕР¶РµР±Рё С„Р°СР»РѕС‚ Рµ РїРѕРіРѕР»РµРј РѕРґ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕР·РІРѕР»РµРЅР°С‚Р° РіРѕР»РµРјРёРЅР° (%d MB)."
 
 msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ бЭШЬРъХ ЭР ФЮЪгЬХЭвЮв. јЮЦХСШ ФЮЪгЬХЭвЮв Х ЯЮУЮЫХЬ ЮФ "
-"ЬРЪбШЬРЫЭЮ ФЮЧТЮЫХЭРвР УЮЫХЬШЭР."
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё СЃРЅРёРјР°СљРµ РЅР° РґРѕРєСѓРјРµРЅС‚РѕС‚. РњРѕР¶РµР±Рё РґРѕРєСѓРјРµРЅС‚РѕС‚ Рµ РїРѕРіРѕР»РµРј РѕРґ "
+"РјР°РєСЃРёРјР°Р»РЅРѕ РґРѕР·РІРѕР»РµРЅР°С‚Р° РіРѕР»РµРјРёРЅР°."
 
 #, c-format
 msgid ""
 "There was an error copying messages to \"%s\". This is what the server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ЪЮЯШаРъХ ЭР ЯЮаРЪШвХ ТЮ \"%s\". ѕТР УЮ ТаРвШ бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РєРѕРїРёСЂР°СљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ РІРѕ \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid ""
 "There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ СаШиХъХ ЭР ЯЮаРЪШвХ ЮФ ЯРЯЪРвР \"%s\". ѕТР УЮ ТаРвШ "
-"бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё Р±СЂРёС€РµСљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ РѕРґ РїР°РїРєР°С‚Р° \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё "
+"СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid ""
 "There was an error deleting messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ СаШиХъХ ЭР ЯЮаРЪШвХ ТЮ ЯРЯЪРвР \"%s\". ѕТР УЮ ТаРвШ "
-"бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё Р±СЂРёС€РµСљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ РІРѕ РїР°РїРєР°С‚Р° \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё "
+"СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "There was an error deleting messages. This is what the server said"
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ СаШиХъХ ЭР ЯЮаРЪШвХ. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё Р±СЂРёС€РµСљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid ""
 "There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ЯЮбвРТгТРъХ РваШСгвШ ЭР ЯЮаРЪШвХ ТЮ ЯРЯЪРвР \"%s\". ѕТР "
-"УЮ ТаРвШ бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїРѕСЃС‚Р°РІСѓРІР°СљРµ Р°С‚СЂРёР±СѓС‚Рё РЅР° РїРѕСЂР°РєРёС‚Рµ РІРѕ РїР°РїРєР°С‚Р° \"%s\". РћРІР° "
+"РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "There was an error flagging messages. This is what the server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ЯЮбвРТгТРъХ РваШСгвШ ЭР ЯЮаРЪШвХ. ѕТР УЮ ТаРвШ бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїРѕСЃС‚Р°РІСѓРІР°СљРµ Р°С‚СЂРёР±СѓС‚Рё РЅР° РїРѕСЂР°РєРёС‚Рµ. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid ""
 "There was an error moving messages to \"%s\". This is what the server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ЯаХЬХбвгТРъХ ЭР ЯЮаРЪШвХ ТЮ \"%s\". ѕТР УЮ ТаРвШ бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚СѓРІР°СљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ РІРѕ \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 msgid ""
 "There was an error moving messages to the trash. This is what the server said"
 msgstr ""
-"ЅРбвРЭР УаХиЪР ЯаШ ЯаХЬХбвгТРъХ ЭР ЯЮаРЪШвХ ТЮ ѕвЯРФЮЪ ЯРЯЪРвР. ѕТР УЮ ТаРвШ "
-"бХаТХаЮв"
+"РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїСЂРµРјРµСЃС‚СѓРІР°СљРµ РЅР° РїРѕСЂР°РєРёС‚Рµ РІРѕ РћС‚РїР°РґРѕРє РїР°РїРєР°С‚Р°. РћРІР° РіРѕ РІСЂР°С‚Рё "
+"СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "There was an error saving a draft."
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ ЧРзгТгТРъХ ЭР ЭХЧРТаиХЭР ЯЮаРЪР."
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё Р·Р°С‡СѓРІСѓРІР°СљРµ РЅР° РЅРµР·Р°РІСЂС€РµРЅР° РїРѕСЂР°РєР°."
 
 msgid "There was an error sending your message"
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ ЯаРьРъХ ЭР ЯЮаРЪРвР"
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїСЂР°СњР°СљРµ РЅР° РїРѕСЂР°РєР°С‚Р°"
 
 msgid "There was an error undeleting messages. This is what the server said"
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ аХбвРТаРжШшР ЭР ЯЮаРЪШвХ. ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё СЂРµСЃС‚Р°РІСЂР°С†РёСР° РЅР° РїРѕСЂР°РєРёС‚Рµ. РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 msgid "There was an error viewing the requested message."
-msgstr "ЅРбвРЭР УаХиЪР ЯаШ ЯаШЪРЧ ЭР СРаРЭРвР ЯЮаРЪР."
+msgstr "РќР°СЃС‚Р°РЅР° РіСЂРµС€РєР° РїСЂРё РїСЂРёРєР°Р· РЅР° Р±Р°СЂР°РЅР°С‚Р° РїРѕСЂР°РєР°."
 
 msgid ""
 "This file controls local MIME drivers for IMP, specifically what kinds of "
 "attachments are viewable and/or downloadable."
 msgstr ""
-"ѕТЮш дРшЫ УШ ЪЮЭваЮЫШаР ЫЮЪРЫЭШвХ MIME ФаРшТХаШ ЧР IMP, ЮФЭЮбЭЮ ЪРЪТШ вШЯЮТШ "
-"ЭР ЯаШЪРзХЭШ дРшЫЮТШ бХ ЯаШЪРЦЫШТШ Ш/ШЫШ ЬЮЦРв ФР бХ ЯаХТЧХЬРв."
+"РћРІРѕС С„Р°СР» РіРё РєРѕРЅС‚СЂРѕР»РёСЂР° Р»РѕРєР°Р»РЅРёС‚Рµ MIME РґСЂР°СРІРµСЂРё Р·Р° IMP, РѕРґРЅРѕСЃРЅРѕ РєР°РєРІРё С‚РёРїРѕРІРё "
+"РЅР° РїСЂРёРєР°С‡РµРЅРё С„Р°СР»РѕРІРё СЃРµ РїСЂРёРєР°Р¶Р»РёРІРё Рё/РёР»Рё РјРѕР¶Р°С‚ РґР° СЃРµ РїСЂРµРІР·РµРјР°С‚."
 
 msgid ""
 "This file controls the default preferences for IMP, and also controls which "
 "preferences users can alter."
 msgstr ""
-"ѕТЮш дРшЫ УШ ЪЮЭваЮЫШаР бвРЭФРаФЭШвХ ЯЮФХбгТРъР ЧР IMP ЪРЪЮ Ш вЮР ЪЮШ "
-"ЯЮФХбгТРъР ЬЮЦРв ФР СШФРв ШЧЬХЭХвШ ЮФ бваРЭР ЭР ЪЮаШбЭШжШвХ."
+"РћРІРѕС С„Р°СР» РіРё РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚Р°РЅРґР°СЂРґРЅРёС‚Рµ РїРѕРґРµСЃСѓРІР°СљР° Р·Р° IMP РєР°РєРѕ Рё С‚РѕР° РєРѕРё "
+"РїРѕРґРµСЃСѓРІР°СљР° РјРѕР¶Р°С‚ РґР° Р±РёРґР°С‚ РёР·РјРµРЅРµС‚Рё РѕРґ СЃС‚СЂР°РЅР° РЅР° РєРѕСЂРёСЃРЅРёС†РёС‚Рµ."
 
 msgid ""
 "This file controls the default settings for IMP, and also defines the list "
 "of available servers if you are using the server list."
 msgstr ""
-"ѕТЮш дРшЫ УШ ЪЮЭваЮЫШаР бвРЭФРаФЭШвХ ЯЮФХбгТРъР ЧР IMP Ш бЮФаЦШ ЫШбвР ЭР "
-"ФЮбвРЯЭШ бХаТХаШ, РЪЮ ЪЮаШбвШвХ ЫШбвР ЭР бХаТХаШ."
+"РћРІРѕС С„Р°СР» РіРё РєРѕРЅС‚СЂРѕР»РёСЂР° СЃС‚Р°РЅРґР°СЂРґРЅРёС‚Рµ РїРѕРґРµСЃСѓРІР°СљР° Р·Р° IMP Рё СЃРѕРґСЂР¶Рё Р»РёСЃС‚Р° РЅР° "
+"РґРѕСЃС‚Р°РїРЅРё СЃРµСЂРІРµСЂРё, Р°РєРѕ РєРѕСЂРёСЃС‚РёС‚Рµ Р»РёСЃС‚Р° РЅР° СЃРµСЂРІРµСЂРё."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"ѕТЮш ФЮЪгЬХЭв бЮФаЦШ ЯЮФХбгТРъР ЪЮШ УШ ЧРЬХЭгТРРв ШЫШ ФЮЯЮЫЭгТРРв ЯЮзХвЭШвХ "
-"ЯЮФХбгТРъР ЧР Horde."
+"РћРІРѕС РґРѕРєСѓРјРµРЅС‚ СЃРѕРґСЂР¶Рё РїРѕРґРµСЃСѓРІР°СљР° РєРѕРё РіРё Р·Р°РјРµРЅСѓРІР°Р°С‚ РёР»Рё РґРѕРїРѕР»РЅСѓРІР°Р°С‚ РїРѕС‡РµС‚РЅРёС‚Рµ "
+"РїРѕРґРµСЃСѓРІР°СљР° Р·Р° Horde."
 
 msgid ""
 "This has hopefully given you a general understanding of how to web mail "
@@ -1335,255 +1335,255 @@ msgid ""
 "easy and convenient it is for reading and sending mail, as well as managing "
 "your IMAP mail account."
 msgstr ""
-"БХ ЭРФХТРЬХ ФХЪР ТЮ УЫЮСРЫР бдРвШТвХ ЪРЪЮ web mail бШбвХЬЮв дгЭЪжШЮЭШаР.  "
-"їЮЫХбЭЮ ьХ ТШ СШФХ ЮвЪРЪЮ ьХ ЯаЮТХаШвХ ЪЮЫЪг Х ЫХбЭЮ ФР бХ зШвР Ш ЯаРьР "
-"ЯЮивР, ЪРЪЮ Ш гаХФгТРъХ ЭР ТРиШЮв IMAP бШбвХЬ."
+"РЎРµ РЅР°РґРµРІР°РјРµ РґРµРєР° РІРѕ РіР»РѕР±Р°Р»Р° СЃС„Р°С‚РёРІС‚Рµ РєР°РєРѕ web mail СЃРёСЃС‚РµРјРѕС‚ С„СѓРЅРєС†РёРѕРЅРёСЂР°.  "
+"РџРѕР»РµСЃРЅРѕ СњРµ РІРё Р±РёРґРµ РѕС‚РєР°РєРѕ СњРµ РїСЂРѕРІРµСЂРёС‚Рµ РєРѕР»РєСѓ Рµ Р»РµСЃРЅРѕ РґР° СЃРµ С‡РёС‚Р° Рё РїСЂР°СњР° "
+"РїРѕС€С‚Р°, РєР°РєРѕ Рё СѓСЂРµРґСѓРІР°СљРµ РЅР° РІР°С€РёРѕС‚ IMAP СЃРёСЃС‚РµРј."
 
 msgid ""
 "This is the main IMP configuration file. It contains paths and options for "
 "the IMP scripts."
 msgstr ""
-"ѕТР Х УЫРТЭШЮв ЪЮЭдШУгаРжШЮЭХЭ дРшЫ ЧР IMP бШбвХЬЮв. БЮФаЦШ ЯРвХЪШ Ш ЮЯжШШ "
-"ЧР ЭХУЮТШвХ бЪаШЯвШ."
+"РћРІР° Рµ РіР»Р°РІРЅРёРѕС‚ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРµРЅ С„Р°СР» Р·Р° IMP СЃРёСЃС‚РµРјРѕС‚. РЎРѕРґСЂР¶Рё РїР°С‚РµРєРё Рё РѕРїС†РёРё "
+"Р·Р° РЅРµРіРѕРІРёС‚Рµ СЃРєСЂРёРїС‚Рё."
 
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr "ѕТР ЬЮЦХ ФР ЯЮваРХ. ґРЫШ бвХ бШУгаЭШ ФХЪР бРЪРвХ ФР ЯаЮФЮЫЦШвХ?"
+msgstr "РћРІР° РјРѕР¶Рµ РґР° РїРѕС‚СЂР°Рµ. Р”Р°Р»Рё СЃС‚Рµ СЃРёРіСѓСЂРЅРё РґРµРєР° СЃР°РєР°С‚Рµ РґР° РїСЂРѕРґРѕР»Р¶РёС‚Рµ?"
 
 msgid "This message has been reported as spam to your system administrator."
-msgstr "°ФЬШЭШбваРвЮаЮв СХиХ ШЧТХбвХЭ ФХЪР ЮТРР ЯЮаРЪР Х ЭХЯЮЦХЫЭР."
+msgstr "РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕС‚ Р±РµС€Рµ РёР·РІРµСЃС‚РµРЅ РґРµРєР° РѕРІР°Р° РїРѕСЂР°РєР° Рµ РЅРµРїРѕР¶РµР»РЅР°."
 
 msgid "This message to"
-msgstr "ѕТРР ЯЮаРЪР ФЮ"
+msgstr "РћРІР°Р° РїРѕСЂР°РєР° РґРѕ"
 
 msgid "This number must be at least one."
-msgstr "ѕТЮш СаЮш ЬЮаР ФР СШФХ СРаХЬ ХФХЭ."
+msgstr "РћРІРѕС Р±СЂРѕС РјРѕСЂР° РґР° Р±РёРґРµ Р±Р°СЂРµРј РµРґРµРЅ."
 
 msgid "This value must be a number."
-msgstr "ѕТРР ТаХФЭЮбв ЬЮаР ФР СШФХ СаЮш."
+msgstr "РћРІР°Р° РІСЂРµРґРЅРѕСЃС‚ РјРѕСЂР° РґР° Р±РёРґРµ Р±СЂРѕС."
 
 msgid "Time Zone"
-msgstr "ІаХЬХЭбЪР ЧЮЭР"
+msgstr "Р’СЂРµРјРµРЅСЃРєР° Р·РѕРЅР°"
 
 msgid ""
 "To view the contents of a message, click on the message's subject.  You'll "
 "be taken to the Message screen."
-msgstr "·Р ЯаШЪРЧ ЭР бЮФаЦШЭРвР ЭР ЯЮаРЪРвР, ЪЫШЪЭХвХ ЭР вХЬРвР ЭР ЯЮаРЪРвР."
+msgstr "Р—Р° РїСЂРёРєР°Р· РЅР° СЃРѕРґСЂР¶РёРЅР°С‚Р° РЅР° РїРѕСЂР°РєР°С‚Р°, РєР»РёРєРЅРµС‚Рµ РЅР° С‚РµРјР°С‚Р° РЅР° РїРѕСЂР°РєР°С‚Р°."
 
 msgid "To"
-msgstr "ґЮ"
+msgstr "Р”Рѕ"
 
 msgid "To:"
-msgstr "ґЮ:"
+msgstr "Р”Рѕ:"
 
 #, c-format
 msgid "Total Size: %s KB"
-msgstr "ІЪгЯЭР УЮЫХЬШЭР: %s KB"
+msgstr "Р’РєСѓРїРЅР° РіРѕР»РµРјРёРЅР°: %s KB"
 
 msgid "Trash folder:"
-msgstr "їРЯЪР ѕвЯРФЮЪ:"
+msgstr "РџР°РїРєР° РћС‚РїР°РґРѕРє:"
 
 msgid "Unanswered messages"
-msgstr "ЅХЮФУЮТЮаХЭШ ЯЮаРЪШ"
+msgstr "РќРµРѕРґРіРѕРІРѕСЂРµРЅРё РїРѕСЂР°РєРё"
 
 msgid "Unanswered"
-msgstr "ЅХЮФУЮТЮаХЭШ"
+msgstr "РќРµРѕРґРіРѕРІРѕСЂРµРЅРё"
 
 msgid "Undelete"
-msgstr "їЮТаРвШ"
+msgstr "РџРѕРІСЂР°С‚Рё"
 
 msgid "Undisclosed Recipients"
-msgstr "ЅХЯЮЧЭРв ЯаШЬРвХЫ"
+msgstr "РќРµРїРѕР·РЅР°С‚ РїСЂРёРјР°С‚РµР»"
 
 msgid "Unnamed"
-msgstr "ЅХШЬХЭгТРЭ"
+msgstr "РќРµРёРјРµРЅСѓРІР°РЅ"
 
 msgid "Unread"
-msgstr "ЅХЯаЮзШвРЭР"
+msgstr "РќРµРїСЂРѕС‡РёС‚Р°РЅР°"
 
 msgid "Unseen Messages"
-msgstr "ЅХЯаЮзШвРЭШ ЯЮаРЪШ"
+msgstr "РќРµРїСЂРѕС‡РёС‚Р°РЅРё РїРѕСЂР°РєРё"
 
 msgid "Unseen"
-msgstr "ЅХЯаЮзШвРЭШ"
+msgstr "РќРµРїСЂРѕС‡РёС‚Р°РЅРё"
 
 msgid "Unsubscribe from Folder(s)"
-msgstr "БЮЪаШш ЯРЯЪР(Ш)"
+msgstr "РЎРѕРєСЂРёС РїР°РїРєР°(Рё)"
 
 msgid "Use Ctrl/Option+Click to select multiple fields"
-msgstr "єЮаШбвХвХ Use Ctrl/ѕЯжШшР+Click ЧР ФР ШЧСХаХвХ ЯЮТХьХ ЯЮЫШъР"
+msgstr "РљРѕСЂРёСЃС‚РµС‚Рµ Use Ctrl/РћРїС†РёСР°+Click Р·Р° РґР° РёР·Р±РµСЂРµС‚Рµ РїРѕРІРµСњРµ РїРѕР»РёСљР°"
 
 msgid "Use IMAP folder subscriptions"
-msgstr "єЮаШбвХвХ ЯРЯЪШ ЯаХТЧХЬХЭШ ЮФ IMAP"
+msgstr "РљРѕСЂРёСЃС‚РµС‚Рµ РїР°РїРєРё РїСЂРµРІР·РµРјРµРЅРё РѕРґ IMAP"
 
 msgid "User Preferences"
-msgstr "єЮаШбЭШзЪШ ЯЮФХбгТРъР"
+msgstr "РљРѕСЂРёСЃРЅРёС‡РєРё РїРѕРґРµСЃСѓРІР°СљР°"
 
 msgid "Username"
-msgstr "єЮаШбЭШзЪЮ ШЬХ"
+msgstr "РљРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ"
 
 #, c-format
 msgid "View %s"
-msgstr "їаШЪРЦШ %s"
+msgstr "РџСЂРёРєР°Р¶Рё %s"
 
 msgid "View messages in "
-msgstr "їаШЪРЦШ ЯЮаРЪШ ТЮ "
+msgstr "РџСЂРёРєР°Р¶Рё РїРѕСЂР°РєРё РІРѕ "
 
 msgid "Warning"
-msgstr "ІЭШЬРЭШХ"
+msgstr "Р’РЅРёРјР°РЅРёРµ"
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "ґЮСаХФЮшФЮТвХ ТЮ %s"
+msgstr "Р”РѕР±СЂРµРґРѕСРґРѕРІС‚Рµ РІРѕ %s"
 
 msgid ""
 "Welcome to the Internet Message Program (IMP)!  Through IMP's intuitive "
 "interface, you'll be able to access and manage your IMAP mail account using "
 "the simplicity of a standard web browser."
 msgstr ""
-"ґЮСаХФЮшФЮТвХ ТЮ Internet Message Program (IMP)!  їаХЪг ШЭвгШвШТЭШЮв "
-"IMPШЧУЫХФ, ЬЮЦХвХ ФР ЯаШбвРЯШвХ Ш ФР УЮ гаХФШвХ ТРиРвР IMAP бХаТШбЪЮаШбвХшьШ "
-"шР ХФЭЮбвРТЭЮбвР ЭР бвРЭФРаФХЭ ШЭвХаЭХв ЯаХваРЦгТРз."
+"Р”РѕР±СЂРµРґРѕСРґРѕРІС‚Рµ РІРѕ Internet Message Program (IMP)!  РџСЂРµРєСѓ РёРЅС‚СѓРёС‚РёРІРЅРёРѕС‚ "
+"IMPРёР·РіР»РµРґ, РјРѕР¶РµС‚Рµ РґР° РїСЂРёСЃС‚Р°РїРёС‚Рµ Рё РґР° РіРѕ СѓСЂРµРґРёС‚Рµ РІР°С€Р°С‚Р° IMAP СЃРµСЂРІРёСЃРєРѕСЂРёСЃС‚РµССњРё "
+"СР° РµРґРЅРѕСЃС‚Р°РІРЅРѕСЃС‚Р° РЅР° СЃС‚Р°РЅРґР°СЂРґРµРЅ РёРЅС‚РµСЂРЅРµС‚ РїСЂРµС‚СЂР°Р¶СѓРІР°С‡."
 
 msgid "Welcome"
-msgstr "ґЮСаХФЮшФХ"
+msgstr "Р”РѕР±СЂРµРґРѕСРґРµ"
 
 msgid ""
 "When deleting messages, move them to your Trash folder instead of marking "
 "them as deleted."
 msgstr ""
-"їаШ СаШиХъХ ЭР ЯЮаРЪШ, ЯаХЬХбвШ УШ ТЮ ЯРЯЪРвР ѕвЯРФЮЪ ЭРЬХбвЮ ФР УШ "
-"ЮЧЭРзгТРи ЪРЪЮ ШЧСаШиРЭШ."
+"РџСЂРё Р±СЂРёС€РµСљРµ РЅР° РїРѕСЂР°РєРё, РїСЂРµРјРµСЃС‚Рё РіРё РІРѕ РїР°РїРєР°С‚Р° РћС‚РїР°РґРѕРє РЅР°РјРµСЃС‚Рѕ РґР° РіРё "
+"РѕР·РЅР°С‡СѓРІР°С€ РєР°РєРѕ РёР·Р±СЂРёС€Р°РЅРё."
 
 msgid "Wrap text at this many characters."
-msgstr "їЮФаХФШ УЮ вХЪбвЮв ЭР ТЮЫЪг ЧЭРжШ."
+msgstr "РџРѕРґСЂРµРґРё РіРѕ С‚РµРєСЃС‚РѕС‚ РЅР° РІРѕР»РєСѓ Р·РЅР°С†Рё."
 
 msgid "Yes"
-msgstr "ґР"
+msgstr "Р”Р°"
 
 msgid "You are attempting to delete the following folders:"
-msgstr "БХ ЮСШФгТРвХ ФР УШ ШЧСаШиХвХ бЫХФЭШТХ ЯРЯЪШ:"
+msgstr "РЎРµ РѕР±РёРґСѓРІР°С‚Рµ РґР° РіРё РёР·Р±СЂРёС€РµС‚Рµ СЃР»РµРґРЅРёРІРµ РїР°РїРєРё:"
 
 msgid "You are creating a sub-folder to "
-msgstr "єаХШаРвХ ЭЮТР ЯРЯЪР ТЮ "
+msgstr "РљСЂРµРёСЂР°С‚Рµ РЅРѕРІР° РїР°РїРєР° РІРѕ "
 
 msgid ""
 "You are creating a top-level folder.\\nPlease enter the name of the new "
 "folder:\\n"
-msgstr "єаХШаРвХ ЯРЯЪР ТЮ ЭРшТШбЮЪЮвЮ ЭШТЮ.\\nІЭХбХвХ ШЬХ ЧР ЭЮТРвР ЯРЯЪР.\\n"
+msgstr "РљСЂРµРёСЂР°С‚Рµ РїР°РїРєР° РІРѕ РЅР°СРІРёСЃРѕРєРѕС‚Рѕ РЅРёРІРѕ.\\nР’РЅРµСЃРµС‚Рµ РёРјРµ Р·Р° РЅРѕРІР°С‚Р° РїР°РїРєР°.\\n"
 
 msgid "You are renaming the folder: "
-msgstr "ЁР аХШЬХЭгТРвХ ЯРЯЪРвР: "
+msgstr "Р€Р° СЂРµРёРјРµРЅСѓРІР°С‚Рµ РїР°РїРєР°С‚Р°: "
 
 msgid ""
 "You can send mail in a variety ways.  You might choose to compose a new "
 "message or perhaps to reply to an existing message.  Whichever method you "
 "choose, however, will open the standard Compose Window."
 msgstr ""
-"јЮЦХвХ ФР ЯаРьРвХ ЯЮивР ЭР аРЧЫШзЭШ ЭРзШЭШ.  јЮЦХвХ ФР ШЧСХаХвХ ФР бЮбвРТХвХ "
-"ЭЮТР ЯЮаРЪР ШЫШ ЬЮЦХСШ ФР ЮФУЮТЮаШвХ ЭР ЯЮбвЮХзЪР ЯЮаРЪР.  єЮш ЬХвЮФ Ш ФР УЮ "
-"ЮФСХаХвХ, ьХ ТШ бХ ЮвТЮаШ бвРЭФРаФЭШЮв ЯаЮЧЮаХж БЮбвРТШ."
+"РњРѕР¶РµС‚Рµ РґР° РїСЂР°СњР°С‚Рµ РїРѕС€С‚Р° РЅР° СЂР°Р·Р»РёС‡РЅРё РЅР°С‡РёРЅРё.  РњРѕР¶РµС‚Рµ РґР° РёР·Р±РµСЂРµС‚Рµ РґР° СЃРѕСЃС‚Р°РІРµС‚Рµ "
+"РЅРѕРІР° РїРѕСЂР°РєР° РёР»Рё РјРѕР¶РµР±Рё РґР° РѕРґРіРѕРІРѕСЂРёС‚Рµ РЅР° РїРѕСЃС‚РѕРµС‡РєР° РїРѕСЂР°РєР°.  РљРѕС РјРµС‚РѕРґ Рё РґР° РіРѕ "
+"РѕРґР±РµСЂРµС‚Рµ, СњРµ РІРё СЃРµ РѕС‚РІРѕСЂРё СЃС‚Р°РЅРґР°СЂРґРЅРёРѕС‚ РїСЂРѕР·РѕСЂРµС† РЎРѕСЃС‚Р°РІРё."
 
 #, c-format
 msgid "You have %s new messages."
-msgstr "ёЬРвХ %s ЭЮТШ ЯЮаРЪШ."
+msgstr "РРјР°С‚Рµ %s РЅРѕРІРё РїРѕСЂР°РєРё."
 
 msgid "You have 1 new message."
-msgstr "ёЬРвХ ХФЭР ЭЮТР ЯЮаРЪР."
+msgstr "РРјР°С‚Рµ РµРґРЅР° РЅРѕРІР° РїРѕСЂР°РєР°."
 
 #, c-format
 msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
 msgstr ""
-"ІШХ бХ ЮФшРТШТвХ ЮФ %s. ±ЫРУЮФРаШЬХ ивЮ УЮ ЪЮаШбвХТвХ ЭРиШЮв бШбвХЬ. °ЪЮ "
-"бРЪРвХ ЯЮТвЮаЭЮ ФР бХ ЯаШшРТШвХ, ЪЮаШбвХвХ шР дЮаЬРвР ФЮЫг."
+"Р’РёРµ СЃРµ РѕРґСР°РІРёРІС‚Рµ РѕРґ %s. Р‘Р»Р°РіРѕРґР°СЂРёРјРµ С€С‚Рѕ РіРѕ РєРѕСЂРёСЃС‚РµРІС‚Рµ РЅР°С€РёРѕС‚ СЃРёСЃС‚РµРј. РђРєРѕ "
+"СЃР°РєР°С‚Рµ РїРѕРІС‚РѕСЂРЅРѕ РґР° СЃРµ РїСЂРёСР°РІРёС‚Рµ, РєРѕСЂРёСЃС‚РµС‚Рµ СР° С„РѕСЂРјР°С‚Р° РґРѕР»Сѓ."
 
 msgid "You have new mail in the following folders:\\n"
-msgstr "ёЬРвХ ЭЮТШ ЯЮаРЪШ ТЮ бЫХФЭШТХ ЯРЯЪШ:\\n"
+msgstr "РРјР°С‚Рµ РЅРѕРІРё РїРѕСЂР°РєРё РІРѕ СЃР»РµРґРЅРёРІРµ РїР°РїРєРё:\\n"
 
 msgid "You must first select the attachment(s) to delete."
-msgstr "ёЧСХаХвХ ЯаТЮ ЪЮш ЯаШЪРзХЭ дРшЫ ФР бХ ШЧСаШиХ."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРІРѕ РєРѕС РїСЂРёРєР°С‡РµРЅ С„Р°СР» РґР° СЃРµ РёР·Р±СЂРёС€Рµ."
 
 msgid "You must first specify the file to attach."
-msgstr "ёЧСХаХвХ ЯаТЮ ЪЮш дРшЫ ФР бХ ЯаШЪРзШ."
+msgstr "РР·Р±РµСЂРµС‚Рµ РїСЂРІРѕ РєРѕС С„Р°СР» РґР° СЃРµ РїСЂРёРєР°С‡Рё."
 
 msgid "You must have at least one recipient."
-msgstr "јЮаР ФР ТЭХбХвХ СРаХЬ ХФХЭ ЯаШЬРз."
+msgstr "РњРѕСЂР° РґР° РІРЅРµСЃРµС‚Рµ Р±Р°СЂРµРј РµРґРµРЅ РїСЂРёРјР°С‡."
 
 msgid "You must select a target mailbox first."
-msgstr "јЮаР ЯаТЮ ФР бХЫХЪвШаРвХ жХЫЭЮ ЯЮивХЭбЪЮ бРЭФРзХ."
+msgstr "РњРѕСЂР° РїСЂРІРѕ РґР° СЃРµР»РµРєС‚РёСЂР°С‚Рµ С†РµР»РЅРѕ РїРѕС€С‚РµРЅСЃРєРѕ СЃР°РЅРґР°С‡Рµ."
 
 msgid "You must select an identity to be deleted."
-msgstr "јЮаР ФР ШЧСХаХвХ ЪЮш ШФХЭвШвХв ФР бХ ШЧСаШиХ."
+msgstr "РњРѕСЂР° РґР° РёР·Р±РµСЂРµС‚Рµ РєРѕС РёРґРµРЅС‚РёС‚РµС‚ РґР° СЃРµ РёР·Р±СЂРёС€Рµ."
 
 msgid "You must select at least one message first."
-msgstr "јЮаР ЯаТЮ ФР ШЧСХаХвХ СРаХЬ ХФЭР ЯЮаРЪР."
+msgstr "РњРѕСЂР° РїСЂРІРѕ РґР° РёР·Р±РµСЂРµС‚Рµ Р±Р°СЂРµРј РµРґРЅР° РїРѕСЂР°РєР°."
 
 msgid "You must specify a recipient."
-msgstr "јЮаР ФР ТЭХбХвХ ЯаШЬРз."
+msgstr "РњРѕСЂР° РґР° РІРЅРµСЃРµС‚Рµ РїСЂРёРјР°С‡."
 
 #, c-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "ЅХ шР ШЬРвХ ЯаХТЧХЬРЭЮ ЯРЯЪРвР \"%s\". ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РќРµ СР° РёРјР°С‚Рµ РїСЂРµРІР·РµРјР°РЅРѕ РїР°РїРєР°С‚Р° \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "ЅХ шР ШЬРвХ бЪаШХЭЮ ЯРЯЪРвР \"%s\". ѕТР УЮ ТаРвШ бХаТХаЮв"
+msgstr "РќРµ СР° РёРјР°С‚Рµ СЃРєСЂРёРµРЅРѕ РїР°РїРєР°С‚Р° \"%s\". РћРІР° РіРѕ РІСЂР°С‚Рё СЃРµСЂРІРµСЂРѕС‚"
 
 #, c-format
 msgid "You were successfully subscribed to \"%s\""
-msgstr "ГбЯХиЭЮ шР ЯаХТЧХЬРТвХ ЯРЯЪРвР \"%s\"."
+msgstr "РЈСЃРїРµС€РЅРѕ СР° РїСЂРµРІР·РµРјР°РІС‚Рµ РїР°РїРєР°С‚Р° \"%s\"."
 
 #, c-format
 msgid "You were successfully unsubscribed from \"%s\""
-msgstr "ГбЯХиЭЮ шР бЮЪаШТвХ ЯРЯЪРвР \"%s\"."
+msgstr "РЈСЃРїРµС€РЅРѕ СР° СЃРѕРєСЂРёРІС‚Рµ РїР°РїРєР°С‚Р° \"%s\"."
 
 #, c-format
 msgid "Your %s session has expired. Please login again."
-msgstr "ІРиРвР %s бХбШшР ЧРТаиШ. їаШшРТХвХ бХ ЯЮТвЮаЭЮ."
+msgstr "Р’Р°С€Р°С‚Р° %s СЃРµСЃРёСР° Р·Р°РІСЂС€Рё. РџСЂРёСР°РІРµС‚Рµ СЃРµ РїРѕРІС‚РѕСЂРЅРѕ."
 
 msgid "Your From: address:"
-msgstr "°ФаХбР ЮФ ЪЮшР ЯаРьРвХ:"
+msgstr "РђРґСЂРµСЃР° РѕРґ РєРѕСР° РїСЂР°СњР°С‚Рµ:"
 
 msgid "Your Information"
-msgstr "ІРиШ ШЭдЮаЬРжШШ"
+msgstr "Р’Р°С€Рё РёРЅС„РѕСЂРјР°С†РёРё"
 
 msgid "Your Reply-to: address: <i>(optional)</i>"
-msgstr "°ФаХбР ЭР ЪЮшР ьХ ТШ ЮФУЮТЮаРРв: <i>(ЭХЧРФЮЫЦШвХЫЭЮ)</i>"
+msgstr "РђРґСЂРµСЃР° РЅР° РєРѕСР° СњРµ РІРё РѕРґРіРѕРІРѕСЂР°Р°С‚: <i>(РЅРµР·Р°РґРѕР»Р¶РёС‚РµР»РЅРѕ)</i>"
 
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
 msgstr ""
-"ІРиШЮв ЯаХваРЦгТРз ЭХ ЯЮФаЦгТР ТРЪТЮ ЯХзРвХъХ. їаШвШбЭХвХ Control/ѕЯжШшР + P "
-"ЧР ФР ЯХзРвХвХ."
+"Р’Р°С€РёРѕС‚ РїСЂРµС‚СЂР°Р¶СѓРІР°С‡ РЅРµ РїРѕРґСЂР¶СѓРІР° РІР°РєРІРѕ РїРµС‡Р°С‚РµСљРµ. РџСЂРёС‚РёСЃРЅРµС‚Рµ Control/РћРїС†РёСР° + P "
+"Р·Р° РґР° РїРµС‡Р°С‚РµС‚Рµ."
 
 msgid "Your current time zone:"
-msgstr "јЮЬХЭвРЫЭР ТаХЬХЭбЪР ЧЮЭР:"
+msgstr "РњРѕРјРµРЅС‚Р°Р»РЅР° РІСЂРµРјРµРЅСЃРєР° Р·РѕРЅР°:"
 
 msgid "Your default identity:"
-msgstr "ІРи бвРЭФРаФХЭ ШФХЭвШвХв:"
+msgstr "Р’Р°С€ СЃС‚Р°РЅРґР°СЂРґРµРЅ РёРґРµРЅС‚РёС‚РµС‚:"
 
 msgid "Your full name:"
-msgstr "ёЬХ Ш ЯаХЧШЬХ:"
+msgstr "РРјРµ Рё РїСЂРµР·РёРјРµ:"
 
 msgid "Your identities:"
-msgstr "ІРиШ ШФХЭвШвХвШ:"
+msgstr "Р’Р°С€Рё РёРґРµРЅС‚РёС‚РµС‚Рё:"
 
 msgid "Your preferences have been updated."
-msgstr "ІРиШвХ ЯЮФХбгТРъР бХ ЯаШдРвХЭШ Ш ЯаШЬХЭХвШ."
+msgstr "Р’Р°С€РёС‚Рµ РїРѕРґРµСЃСѓРІР°СљР° СЃРµ РїСЂРёС„Р°С‚РµРЅРё Рё РїСЂРёРјРµРЅРµС‚Рё."
 
 msgid "Your signature:"
-msgstr "їЮвЯШб:"
+msgstr "РџРѕС‚РїРёСЃ:"
 
 msgid "[No subject]"
-msgstr "[±ХЧ вХЬР]"
+msgstr "[Р‘РµР· С‚РµРјР°]"
 
 msgid "\\nPlease enter the name of the new folder:\\n"
-msgstr "\\nІЭХбХвХ ШЬХ ЭР ЭЮТРвР ЯРЯЪР:\\n"
+msgstr "\\nР’РЅРµСЃРµС‚Рµ РёРјРµ РЅР° РЅРѕРІР°С‚Р° РїР°РїРєР°:\\n"
 
 msgid "add source"
-msgstr "ФЮФРФШ ШЧТЮа"
+msgstr "РґРѕРґР°РґРё РёР·РІРѕСЂ"
 
 msgid "cannot move past the beginning"
 msgstr "cannot move past the beginning"
@@ -1592,50 +1592,50 @@ msgid "cannot move past the end"
 msgstr "cannot move past the end"
 
 msgid "delete message"
-msgstr "ШЧСаШиШ ЯЮаРЪР"
+msgstr "РёР·Р±СЂРёС€Рё РїРѕСЂР°РєР°"
 
 msgid "move down"
-msgstr "ЮФШ ФЮЫХ"
+msgstr "РѕРґРё РґРѕР»Рµ"
 
 msgid "move message to"
-msgstr "ЯаХЬХбвШ ЯЮаРЪР ТЮ"
+msgstr "РїСЂРµРјРµСЃС‚Рё РїРѕСЂР°РєР° РІРѕ"
 
 msgid "move up"
-msgstr "ЯаХЬХбвШ УЮаХ"
+msgstr "РїСЂРµРјРµСЃС‚Рё РіРѕСЂРµ"
 
 msgid "no folder selected"
-msgstr "ЭХ Х ШЧСаРЭР ЯРЯЪР"
+msgstr "РЅРµ Рµ РёР·Р±СЂР°РЅР° РїР°РїРєР°"
 
 msgid "no rule selected"
-msgstr "ЭХ Х ШЧСаРЭЮ ЯаРТШЫЮ"
+msgstr "РЅРµ Рµ РёР·Р±СЂР°РЅРѕ РїСЂР°РІРёР»Рѕ"
 
 msgid "no text specified"
-msgstr "ЭХ Х ЭРТХФХЭ вХЪбв"
+msgstr "РЅРµ Рµ РЅР°РІРµРґРµРЅ С‚РµРєСЃС‚"
 
 msgid "none"
-msgstr "ЭШХФЭР"
+msgstr "РЅРёРµРґРЅР°"
 
 msgid "or"
-msgstr "ШЫШ"
+msgstr "РёР»Рё"
 
 msgid "or:"
-msgstr "ШЫШ:"
+msgstr "РёР»Рё:"
 
 msgid "please fill in the text and choose a field and an action"
-msgstr "ТЭХбШ вХЪбв Ш ШЧСХаШ ЯЮЫХ Ш РЪжШшР"
+msgstr "РІРЅРµСЃРё С‚РµРєСЃС‚ Рё РёР·Р±РµСЂРё РїРѕР»Рµ Рё Р°РєС†РёСР°"
 
 msgid "remove source"
-msgstr "ЮФбваРЭШ ШЧТЮа"
+msgstr "РѕРґСЃС‚СЂР°РЅРё РёР·РІРѕСЂ"
 
 msgid "select folder"
-msgstr "ШЧСХаШ ЯРЯЪР"
+msgstr "РёР·Р±РµСЂРё РїР°РїРєР°"
 
 msgid "spelling error"
-msgstr "ЯаРТЮЯШбЭР УаХиЪР"
+msgstr "РїСЂР°РІРѕРїРёСЃРЅР° РіСЂРµС€РєР°"
 
 msgid "spelling errors"
-msgstr "ЯаРТЮЯШбЭШ УаХиЪШ"
+msgstr "РїСЂР°РІРѕРїРёСЃРЅРё РіСЂРµС€РєРё"
 
 #, c-format
 msgid "where the %s field contains <b>%s</b>"
-msgstr "ЪРФХ ивЮ %s ЯЮЫХвЮ бЮФаЦШ <b>%s</b>"
+msgstr "РєР°РґРµ С€С‚Рѕ %s РїРѕР»РµС‚Рѕ СЃРѕРґСЂР¶Рё <b>%s</b>"

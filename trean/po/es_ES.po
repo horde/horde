@@ -1,5 +1,5 @@
 # Spanish translations for trean package
-# Traducciones al español para el paquete trean.
+# Traducciones al espaÃ±ol para el paquete trean.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the trean package.
 # Automatically generated, 2008.
@@ -13,14 +13,14 @@ msgstr ""
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit.php:237
 #, php-format
 msgid "\"%s\" was not renamed: %s."
-msgstr "No se renombró \"%s\": %s."
+msgstr "No se renombrÃ³ \"%s\": %s."
 
 #: data.php:156
 #, php-format
@@ -41,7 +41,7 @@ msgstr "Marcadores de %s"
 #: reports.php:25
 #, php-format
 msgid "%s Response Codes"
-msgstr "%s códigos de respuesta"
+msgstr "%s cÃ³digos de respuesta"
 
 #: lib/base.php:78
 #, php-format
@@ -51,7 +51,7 @@ msgstr "Marcadores de %s"
 #: lib/Block/mostclicked.php:38 lib/Block/highestrated.php:38
 #: lib/Block/bookmarks.php:63
 msgid "1 Line"
-msgstr "1 línea"
+msgstr "1 lÃ­nea"
 
 #: templates/star_rating_helper.php:20
 msgid "1 star out of 5"
@@ -70,12 +70,12 @@ msgstr "15 filas"
 #: templates/reports.php:36
 #, php-format
 msgid "1xx Response Codes (%s)"
-msgstr "1xx códigos de respuesta (%s)"
+msgstr "1xx cÃ³digos de respuesta (%s)"
 
 #: lib/Block/mostclicked.php:37 lib/Block/highestrated.php:37
 #: lib/Block/bookmarks.php:62
 msgid "2 Line"
-msgstr "2 líneas"
+msgstr "2 lÃ­neas"
 
 #: lib/Block/mostclicked.php:32 lib/Block/highestrated.php:32
 #: lib/Block/bookmarks.php:57
@@ -85,27 +85,27 @@ msgstr "25 filas"
 #: templates/reports.php:42
 #, php-format
 msgid "2xx Response Codes (%s)"
-msgstr "2xx códigos de respuesta (%s)"
+msgstr "2xx cÃ³digos de respuesta (%s)"
 
 #: lib/Block/mostclicked.php:36 lib/Block/highestrated.php:36
 #: lib/Block/bookmarks.php:61
 msgid "3 Line"
-msgstr "3 líneas"
+msgstr "3 lÃ­neas"
 
 #: templates/reports.php:53
 #, php-format
 msgid "3xx Response Codes (%s)"
-msgstr "3xx códigos de respuesta (%s)"
+msgstr "3xx cÃ³digos de respuesta (%s)"
 
 #: templates/reports.php:64
 #, php-format
 msgid "4xx Response Codes (%s)"
-msgstr "4xx códigos de respuesta (%s)"
+msgstr "4xx cÃ³digos de respuesta (%s)"
 
 #: templates/reports.php:86
 #, php-format
 msgid "5xx Response Codes (%s)"
-msgstr "5xx códigos de respuesta (%s)"
+msgstr "5xx cÃ³digos de respuesta (%s)"
 
 #: lib/Forms/Search.php:24
 msgid "AND"
@@ -117,11 +117,11 @@ msgstr "Aceptado"
 
 #: templates/add/add.inc:59 lib/Block/tree_menu.php:24
 msgid "Add"
-msgstr "Añadir"
+msgstr "AÃ±adir"
 
 #: templates/add/add.inc:87
 msgid "Add to Bookmarks"
-msgstr "Añadir a los marcadores"
+msgstr "AÃ±adir a los marcadores"
 
 #: templates/search.php:65
 msgid "All"
@@ -143,7 +143,7 @@ msgstr "Cualquier parte del campo"
 
 #: templates/search.php:29
 msgid "Are you sure you want to delete the selected bookmarks?"
-msgstr "¿Seguro que desea eliminar los marcadores seleccionados?"
+msgstr "Â¿Seguro que desea eliminar los marcadores seleccionados?"
 
 #: config/.bak/prefs.php.dist:33
 msgid "Ascending (A to Z)"
@@ -159,11 +159,11 @@ msgstr "Pasarela incorrecta"
 
 #: lib/Trean.php:188
 msgid "Bad Request"
-msgstr "Petición incorrecta"
+msgstr "PeticiÃ³n incorrecta"
 
 #: add.php:66
 msgid "Bookmark Added"
-msgstr "Marcador añadido"
+msgstr "Marcador aÃ±adido"
 
 #: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
 msgid "Bookmarks"
@@ -171,7 +171,7 @@ msgstr "Marcadores"
 
 #: templates/common-header.inc:27
 msgid "Bookmarks Feed"
-msgstr "Suscripción de marcadores"
+msgstr "SuscripciÃ³n de marcadores"
 
 #: browse.php:37
 msgid "Browse"
@@ -191,7 +191,7 @@ msgstr "Cerrar"
 
 #: lib/Forms/Search.php:24
 msgid "Combine"
-msgstr "Combinación"
+msgstr "CombinaciÃ³n"
 
 #: config/.bak/prefs.php.dist:63
 msgid "Completely collapsed"
@@ -203,7 +203,7 @@ msgstr "Totalmente expandido"
 
 #: edit.php:247
 msgid "Confirm Deletion"
-msgstr "Confirmar eliminación"
+msgstr "Confirmar eliminaciÃ³n"
 
 #: lib/Trean.php:197
 msgid "Conflict"
@@ -228,7 +228,7 @@ msgstr "Copiar"
 #: edit.php:222
 #, php-format
 msgid "Copying folders is not supported."
-msgstr "La copia de carpetas no está implementada."
+msgstr "La copia de carpetas no estÃ¡ implementada."
 
 #: lib/Trean.php:175
 msgid "Created"
@@ -271,11 +271,11 @@ msgstr "Descendente (9 a 1)"
 #: templates/edit/bookmark.inc:15 templates/add/add.inc:42
 #: lib/Forms/Search.php:22
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opciones de Visualización"
+msgstr "Opciones de VisualizaciÃ³n"
 
 #: lib/Block/bookmarks.php:52
 msgid "Display Rows"
@@ -288,14 +288,14 @@ msgstr "Carpeta de descarga"
 #: templates/add/add.inc:73
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
-"Arrastre el vínculo  inferior \"Añadir a los marcadores\" a su barra de "
-"\"Vínculos\""
+"Arrastre el vÃ­nculo  inferior \"AÃ±adir a los marcadores\" a su barra de "
+"\"VÃ­nculos\""
 
 #: templates/add/add.inc:71
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
-"Arrastre el vínculo inferior \"Añadir a los marcadores\" a su \"Barra "
+"Arrastre el vÃ­nculo inferior \"AÃ±adir a los marcadores\" a su \"Barra "
 "personal\""
 
 #: templates/search.php:69
@@ -350,7 +350,7 @@ msgstr "Acciones de carpeta"
 
 #: lib/Bookmarks.php:354
 msgid "Folder names must be non-empty"
-msgstr "Los nombres de carpeta no pueden estar vacíos"
+msgstr "Los nombres de carpeta no pueden estar vacÃ­os"
 
 #: templates/data/import.inc:11
 msgid "Folder to import into:"
@@ -378,15 +378,15 @@ msgstr "Estado HTTP"
 
 #: lib/Trean.php:211
 msgid "HTTP Version not supported"
-msgstr "Versión HTTP no implementada"
+msgstr "VersiÃ³n HTTP no implementada"
 
 #: lib/Block/bookmarks.php:50 config/.bak/prefs.php.dist:22
 msgid "Highest Rated"
-msgstr "Máxima prioridad"
+msgstr "MÃ¡xima prioridad"
 
 #: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
 msgid "Highest-rated Bookmarks"
-msgstr "Marcadores de máxima prioridad"
+msgstr "Marcadores de mÃ¡xima prioridad"
 
 #: templates/data/import.inc:16
 msgid "Import"
@@ -413,12 +413,12 @@ msgid ""
 "Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
-"Los usuarios de Internet Explorer tendrán que exportar sus Favoritos "
-"seleccionando \"Importar y exportar\" en el menú \"Archivo\"."
+"Los usuarios de Internet Explorer tendrÃ¡n que exportar sus Favoritos "
+"seleccionando \"Importar y exportar\" en el menÃº \"Archivo\"."
 
 #: lib/Trean.php:199
 msgid "Length Required"
-msgstr "Se precisa el tamaño"
+msgstr "Se precisa el tamaÃ±o"
 
 #: lib/Forms/Search.php:25
 msgid "Match"
@@ -426,27 +426,27 @@ msgstr "Coincidencia"
 
 #: lib/api.php:93
 msgid "Maximum Number of Bookmarks"
-msgstr "Máximo número de marcadores"
+msgstr "MÃ¡ximo nÃºmero de marcadores"
 
 #: lib/api.php:90
 msgid "Maximum Number of Folders"
-msgstr "Máximo número de carpetas"
+msgstr "MÃ¡ximo nÃºmero de carpetas"
 
 #: lib/Block/tree_menu.php:3
 msgid "Menu List"
-msgstr "Lista del menú"
+msgstr "Lista del menÃº"
 
 #: lib/Trean.php:193
 msgid "Method Not Allowed"
-msgstr "Método no permitido"
+msgstr "MÃ©todo no permitido"
 
 #: lib/Block/bookmarks.php:51 config/.bak/prefs.php.dist:23
 msgid "Most Clicked"
-msgstr "Más visitados"
+msgstr "MÃ¡s visitados"
 
 #: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
 msgid "Most-clicked Bookmarks"
-msgstr "Marcadores más visitados"
+msgstr "Marcadores mÃ¡s visitados"
 
 #: templates/search.php:71
 msgid "Move"
@@ -469,8 +469,8 @@ msgid ""
 "Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
-"Los usuarios de Mozilla/Firefox tendrán que exportar los marcadores mediante "
-"el \"Administrador de marcadores\" y seleccionando \"Exportar\" en el menú "
+"Los usuarios de Mozilla/Firefox tendrÃ¡n que exportar los marcadores mediante "
+"el \"Administrador de marcadores\" y seleccionando \"Exportar\" en el menÃº "
 "\"Herramientas\"."
 
 #: lib/Trean.php:181
@@ -487,11 +487,11 @@ msgstr "Nuevo marcador"
 
 #: lib/Trean.php:90
 msgid "New Folder"
-msgstr "Añadir carpeta"
+msgstr "AÃ±adir carpeta"
 
 #: templates/browse.php:80
 msgid "New folder"
-msgstr "Añadir carpeta"
+msgstr "AÃ±adir carpeta"
 
 #: templates/edit/delete_folder_confirmation.inc:15
 msgid "No"
@@ -512,7 +512,7 @@ msgstr "Sin marcadores visibles"
 
 #: lib/Trean.php:177
 msgid "Non-Authoritative Information"
-msgstr "Información no autoritativa"
+msgstr "InformaciÃ³n no autoritativa"
 
 #: templates/search.php:66
 msgid "None"
@@ -560,20 +560,20 @@ msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
 "Trusted Zone for this to work."
 msgstr ""
-"En versiones recientes de Internet Explorer para que ésto funcione puede que "
-"tenga que añadir %s://%s a su zona de confianza."
+"En versiones recientes de Internet Explorer para que Ã©sto funcione puede que "
+"tenga que aÃ±adir %s://%s a su zona de confianza."
 
 #: perms.php:56
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Sólo de propietario o el administrador del sistema puede cambiar la "
+"SÃ³lo de propietario o el administrador del sistema puede cambiar la "
 "propiedad o los permisos del propietario de un recurso compartido"
 
 #: config/.bak/prefs.php.dist:54
 msgid "Open links in a new window?"
-msgstr "¿Abrir vínculos en ventanas nuevas?"
+msgstr "Â¿Abrir vÃ­nculos en ventanas nuevas?"
 
 #: config/.bak/prefs.php.dist:9
 msgid "Other Options"
@@ -593,11 +593,11 @@ msgstr "Introduzca el nombre de la carpeta nueva:"
 
 #: lib/Trean.php:200
 msgid "Precondition Failed"
-msgstr "Ha fallado la condición previa"
+msgstr "Ha fallado la condiciÃ³n previa"
 
 #: lib/Trean.php:195
 msgid "Proxy Authentication Required"
-msgstr "Se necesita autentificación en el proxy"
+msgstr "Se necesita autentificaciÃ³n en el proxy"
 
 #: templates/views/BookmarkList.php:27
 msgid "Rating"
@@ -606,7 +606,7 @@ msgstr "Prioridad"
 #: templates/edit/delete_folder_confirmation.inc:3
 #, php-format
 msgid "Really delete \"%s\" and all of its bookmarks?"
-msgstr "¿Eliminar realmente \"%s\" y todos sus marcadores?"
+msgstr "Â¿Eliminar realmente \"%s\" y todos sus marcadores?"
 
 #: templates/browse.php:98
 msgid "Rename this folder"
@@ -651,7 +651,7 @@ msgstr "Buscar marcadores"
 #: search.php:59
 #, php-format
 msgid "Search Results (%s)"
-msgstr "Resultados de la búsqueda (%s)"
+msgstr "Resultados de la bÃºsqueda (%s)"
 
 #: lib/Trean.php:184
 msgid "See Other"
@@ -680,15 +680,15 @@ msgstr "Servicio no disponible"
 
 #: config/.bak/prefs.php.dist:11
 msgid "Set how to display bookmark listings and how to open links."
-msgstr "Define cómo mostrar listados de marcadores y cómo abrir los vínculos."
+msgstr "Define cÃ³mo mostrar listados de marcadores y cÃ³mo abrir los vÃ­nculos."
 
 #: config/.bak/prefs.php.dist:66
 msgid "Should your list of bookmark folders be open when you log in?"
-msgstr "¿Abrir el listado de marcadores al iniciar sesión?"
+msgstr "Â¿Abrir el listado de marcadores al iniciar sesiÃ³n?"
 
 #: config/.bak/prefs.php.dist:45
 msgid "Show folder actions panel?"
-msgstr "¿Mostrar panel de acciones de carpeta?"
+msgstr "Â¿Mostrar panel de acciones de carpeta?"
 
 #: config/.bak/prefs.php.dist:24
 msgid "Sort bookmarks by:"
@@ -700,11 +700,11 @@ msgstr "Ordenar por"
 
 #: config/.bak/prefs.php.dist:35
 msgid "Sort direction:"
-msgstr "Sentido de clasificación:"
+msgstr "Sentido de clasificaciÃ³n:"
 
 #: lib/Trean.php:173
 msgid "Switching Protocols"
-msgstr "Protocolos de conmutación"
+msgstr "Protocolos de conmutaciÃ³n"
 
 #: lib/Block/mostclicked.php:33 lib/Block/highestrated.php:33
 #: lib/Block/bookmarks.php:58
@@ -713,7 +713,7 @@ msgstr "Plantilla"
 
 #: lib/Trean.php:187
 msgid "Temporary Redirect"
-msgstr "Redirección temporal"
+msgstr "RedirecciÃ³n temporal"
 
 #: templates/browse.php:169
 msgid "There are no bookmarks in this folder"
@@ -747,12 +747,12 @@ msgstr "Se produjo un pronlema al trasladar la carpeta: %s"
 #: add.php:61
 #, php-format
 msgid "There was an error adding the bookmark: %s"
-msgstr "Se produjo un error al añadir el marcador: %s"
+msgstr "Se produjo un error al aÃ±adir el marcador: %s"
 
 #: add.php:45 add.php:102 edit.php:147 edit.php:201
 #, php-format
 msgid "There was an error adding the folder: %s"
-msgstr "Se produjo un error al añadir la carpeta: %s"
+msgstr "Se produjo un error al aÃ±adir la carpeta: %s"
 
 #: edit.php:74
 #, php-format
@@ -768,11 +768,11 @@ msgstr "Se produjo un error al guardar la carpeta: %s"
 #: templates/add/add.inc:37 lib/Forms/Search.php:21 lib/Block/bookmarks.php:49
 #: config/.bak/prefs.php.dist:21
 msgid "Title"
-msgstr "Título"
+msgstr "TÃ­tulo"
 
 #: templates/add/add.inc:69
 msgid "To be able to quickly add bookmarks from your web browser:"
-msgstr "Para poder añadir rápidamente marcadores de su navegador:"
+msgstr "Para poder aÃ±adir rÃ¡pidamente marcadores de su navegador:"
 
 #: templates/reports.php:103
 msgid "Total"
@@ -785,7 +785,7 @@ msgstr "URL"
 
 #: lib/Trean.php:189
 msgid "Unauthorized"
-msgstr "Sin autorización"
+msgstr "Sin autorizaciÃ³n"
 
 #: templates/reports.php:100
 #, php-format
@@ -810,8 +810,8 @@ msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
 msgstr ""
-"Puede añadir un marcador de la página actual miestras navega pulsando sobre "
-"el nuevo acceso directo \"Añadir a los marcadores\"."
+"Puede aÃ±adir un marcador de la pÃ¡gina actual miestras navega pulsando sobre "
+"el nuevo acceso directo \"AÃ±adir a los marcadores\"."
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"
@@ -819,17 +819,17 @@ msgstr "Campo completo"
 
 #: templates/edit/delete_folder_confirmation.inc:9
 msgid "Yes"
-msgstr "Sí"
+msgstr "SÃ­"
 
 #: data.php:65 data.php:132 add.php:23
 #, php-format
 msgid "You are not allowed to create more than %d bookmarks."
-msgstr "Carece de permisos para crear más de %d marcadores."
+msgstr "Carece de permisos para crear mÃ¡s de %d marcadores."
 
 #: data.php:56 data.php:107 add.php:86
 #, php-format
 msgid "You are not allowed to create more than %d folders."
-msgstr "Carece de permisos para crear más de %d carpetas."
+msgstr "Carece de permisos para crear mÃ¡s de %d carpetas."
 
 #: browse.php:24
 msgid "You do not have permission to view this folder."
@@ -857,7 +857,7 @@ msgstr "_Importar/Exportar"
 
 #: templates/browse.php:151
 msgid "_New Bookmark"
-msgstr "_Añadir"
+msgstr "_AÃ±adir"
 
 #: lib/Trean.php:151
 msgid "_Reports"

@@ -1,5 +1,5 @@
 # Chinese translations for Ingo package
-# PACKAGE Èí¼ş°üµÄ¼òÌåÖĞÎÄ·­Òë.
+# PACKAGE è½¯ä»¶åŒ…çš„ç®€ä½“ä¸­æ–‡ç¿»è¯‘.
 # Copyright 2007-2010 The Horde Project
 # This file is distributed under the same license as the Ingo package.
 # Automatically generated, 2007.
@@ -13,485 +13,485 @@ msgstr ""
 "Last-Translator: Anna Chen <annachen2008@yahoo.com.cn>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=GB2312\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: filters.php:220
 msgid " and"
-msgstr "ºÍ"
+msgstr "å’Œ"
 
 #: filters.php:220
 msgid " or"
-msgstr "»ò"
+msgstr "æˆ–"
 
 #: templates/blacklist/blacklist.inc:17
 msgid "Action for blacklisted addresses:"
-msgstr "¶ÔºÚÃûµ¥ÉÏµÄµØÖ·Ö´ĞĞµÄ²Ù×÷£º"
+msgstr "å¯¹é»‘åå•ä¸Šçš„åœ°å€æ‰§è¡Œçš„æ“ä½œï¼š"
 
 #: templates/script/activate.inc:10
 msgid "Activate Script"
-msgstr "¼¤»î½Å±¾"
+msgstr "æ¿€æ´»è„šæœ¬"
 
 #: lib/Driver/ldap.php:229
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
-msgstr "¼¤»î¡°%s¡±½Å±¾Ê§°Ü£º(%d) %s"
+msgstr "æ¿€æ´»â€œ%sâ€è„šæœ¬å¤±è´¥ï¼š(%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
-msgstr "¸½¼ÓÉèÖÃ"
+msgstr "é™„åŠ è®¾ç½®"
 
 #: forward.php:41
 msgid "Address(es) to forward to:"
-msgstr "×ª·¢µØÖ·£º"
+msgstr "è½¬å‘åœ°å€ï¼š"
 
 #: vacation.php:50
 msgid "Addresses to not send responses to:"
-msgstr "²»·¢ËÍ»Ø¸´µÄµØÖ·£º"
+msgstr "ä¸å‘é€å›å¤çš„åœ°å€ï¼š"
 
 #: vacation.php:44
 msgid "Advanced Settings"
-msgstr "¸ß¼¶ÉèÖÃ"
+msgstr "é«˜çº§è®¾ç½®"
 
 #: templates/rule/header.inc:44
 msgid "All of the following"
-msgstr "ÏÂÁĞËùÓĞÏî"
+msgstr "ä¸‹åˆ—æ‰€æœ‰é¡¹"
 
 #: lib/api.php:54
 msgid "Allow Rules"
-msgstr "Ó¦ÓÃ¹æÔò"
+msgstr "åº”ç”¨è§„åˆ™"
 
 #: templates/rule/footer.inc:34
 msgid "Answered"
-msgstr "ÒÑ»Ø¸´"
+msgstr "å·²å›å¤"
 
 #: templates/rule/header.inc:45
 msgid "Any of the following"
-msgstr "ÏÂÁĞÈÎÒ»Ïî"
+msgstr "ä¸‹åˆ—ä»»ä¸€é¡¹"
 
 #: templates/filters/footer.inc:8
 msgid "Apply Filters"
-msgstr "Ó¦ÓÃ¹ıÂËÆ÷"
+msgstr "åº”ç”¨è¿‡æ»¤å™¨"
 
 #: filters.php:249
 msgid "Are you sure you want to delete this rule?"
-msgstr "ÄúÈ·¶¨ÒªÉ¾³ı´Ë¹æ¸ñÂğ£¿"
+msgstr "æ‚¨ç¡®å®šè¦åˆ é™¤æ­¤è§„æ ¼å—ï¼Ÿ"
 
 #: config/prefs.php.dist:33
 msgid "Automatically update the script after each change?"
-msgstr "Ã¿´Î¸ü¸ÄºóÊÇ·ñ×Ô¶¯¸üĞÂ½Å±¾£¿"
+msgstr "æ¯æ¬¡æ›´æ”¹åæ˜¯å¦è‡ªåŠ¨æ›´æ–°è„šæœ¬ï¼Ÿ"
 
 #: vacation.php:39
 msgid "Basic Settings"
-msgstr "»ù±¾ÉèÖÃ"
+msgstr "åŸºæœ¬è®¾ç½®"
 
 #: config/fields.php.dist:47
 msgid "Bcc"
-msgstr "ÃÜ¼ş³­ËÍ"
+msgstr "å¯†ä»¶æŠ„é€"
 
 #: lib/Storage.php:386
 msgid "Begins with"
-msgstr "¿ªÊ¼±ê¼Ç"
+msgstr "å¼€å§‹æ ‡è®°"
 
 #: lib/Driver/ldap.php:106 lib/Driver/ldap.php:111
 #, php-format
 msgid "Bind failed: (%s) %s"
-msgstr "°ó¶¨Ê§°Ü£º(%s) %s"
+msgstr "ç»‘å®šå¤±è´¥ï¼š(%s) %s"
 
 #: filters.php:171 templates/blacklist/blacklist.inc:7
 #: lib/Block/overview.php:95 lib/Block/overview.php:98
 msgid "Blacklist"
-msgstr "ºÚÃûµ¥"
+msgstr "é»‘åå•"
 
 #: blacklist.php:107
 msgid "Blacklist Edit"
-msgstr "±à¼­ºÚÃûµ¥"
+msgstr "ç¼–è¾‘é»‘åå•"
 
 #: blacklist.php:17
 msgid "Blacklist is not supported in the current filtering driver."
-msgstr "µ±Ç°¹ıÂËÇı¶¯³ÌĞò²»Ö§³ÖºÚÃûµ¥¡£"
+msgstr "å½“å‰è¿‡æ»¤é©±åŠ¨ç¨‹åºä¸æ”¯æŒé»‘åå•ã€‚"
 
 #: lib/Script/procmail.php:207 lib/Script/sieve.php:251
 #: lib/Script/maildrop.php:186
 msgid "Blacklisted Addresses"
-msgstr "ºÚÃûµ¥ËùÁĞµØÖ·"
+msgstr "é»‘åå•æ‰€åˆ—åœ°å€"
 
 #: config/fields.php.dist:88
 msgid "Body"
-msgstr "ÕıÎÄ"
+msgstr "æ­£æ–‡"
 
 #: filters.php:217 rule.php:298
 msgid "Case Sensitive"
-msgstr "Çø·Ö´óĞ¡Ğ´"
+msgstr "åŒºåˆ†å¤§å°å†™"
 
 #: config/fields.php.dist:43
 msgid "Cc"
-msgstr "³­ËÍ"
+msgstr "æŠ„é€"
 
 #: spam.php:89 rule.php:128 whitelist.php:36 forward.php:54 vacation.php:71
 #: blacklist.php:73
 msgid "Changes saved."
-msgstr "ÒÑ±£´æ¸ü¸Ä¡£"
+msgstr "å·²ä¿å­˜æ›´æ”¹ã€‚"
 
 #: lib/Driver/ldap.php:73
 msgid "Connection failure"
-msgstr "Á¬½ÓÊ§°Ü"
+msgstr "è¿æ¥å¤±è´¥"
 
 #: lib/Storage.php:382
 msgid "Contains"
-msgstr "°üº¬"
+msgstr "åŒ…å«"
 
 #: filters.php:260 filters.php:261
 #, php-format
 msgid "Copy %s"
-msgstr "¸´ÖÆ %s"
+msgstr "å¤åˆ¶ %s"
 
 #: lib/Storage.php:972 lib/Storage/sql.php:573
 #, php-format
 msgid "Copy of %s"
-msgstr "%s ¸±±¾"
+msgstr "%s å‰¯æœ¬"
 
 #: lib/Template.php:236
 #, php-format
 msgid "Could not save the compiled template file '%s'."
-msgstr "ÎŞ·¨±£´æ±à¼­µÄÄ£°åÎÄ¼ş¡°%s¡±¡£"
+msgstr "æ— æ³•ä¿å­˜ç¼–è¾‘çš„æ¨¡æ¿æ–‡ä»¶â€œ%sâ€ã€‚"
 
 #: lib/Ingo.php:62
 msgid "Create new folder"
-msgstr "´´½¨ĞÂÎÄ¼ş¼Ğ"
+msgstr "åˆ›å»ºæ–°æ–‡ä»¶å¤¹"
 
 #: lib/Script/procmail.php:336 lib/Script/maildrop.php:317
 msgid "DISABLED: "
-msgstr "ÒÑ½ûÓÃ£º"
+msgstr "å·²ç¦ç”¨ï¼š"
 
 #: templates/script/activate.inc:17
 msgid "Deactivate Script"
-msgstr "Í£ÓÃ½Å±¾"
+msgstr "åœç”¨è„šæœ¬"
 
 #: filters.php:249 filters.php:250
 #, php-format
 msgid "Delete %s"
-msgstr "É¾³ı %s"
+msgstr "åˆ é™¤ %s"
 
 #: templates/rule/filter.inc:33
 msgid "Delete Condition"
-msgstr "É¾³ıÌõ¼ş"
+msgstr "åˆ é™¤æ¡ä»¶"
 
 #: lib/Storage.php:330
 msgid "Delete message completely"
-msgstr "ÍêÈ«É¾³ıÓÊ¼ş"
+msgstr "å®Œå…¨åˆ é™¤é‚®ä»¶"
 
 #: templates/rule/footer.inc:36
 msgid "Deleted"
-msgstr "ÒÑÉ¾³ı"
+msgstr "å·²åˆ é™¤"
 
 #: lib/Storage.php:318
 msgid "Deliver into my Inbox"
-msgstr "·¢µ½ÎÒµÄÊÕ¼şÏä"
+msgstr "å‘åˆ°æˆ‘çš„æ”¶ä»¶ç®±"
 
 #: lib/Storage.php:344
 msgid "Deliver into my Inbox and copy to"
-msgstr "·¢µ½ÎÒµÄÊÕ¼şÏä²¢¸´ÖÆµ½"
+msgstr "å‘åˆ°æˆ‘çš„æ”¶ä»¶ç®±å¹¶å¤åˆ¶åˆ°"
 
 #: lib/Storage.php:339
 msgid "Deliver into my Inbox and redirect to"
-msgstr "·¢µ½ÎÒµÄÊÕ¼şÏä²¢×ª·¢µ½"
+msgstr "å‘åˆ°æˆ‘çš„æ”¶ä»¶ç®±å¹¶è½¬å‘åˆ°"
 
 #: lib/Storage.php:324
 msgid "Deliver to folder"
-msgstr "·¢µ½ÎÄ¼ş¼Ğ"
+msgstr "å‘åˆ°æ–‡ä»¶å¤¹"
 
 #: filters.php:274 filters.php:275
 #, php-format
 msgid "Disable %s"
-msgstr "½ûÓÃ %s"
+msgstr "ç¦ç”¨ %s"
 
 #: spam.php:148 forward.php:97 vacation.php:134
 #: templates/whitelist/whitelist.inc:10 templates/blacklist/blacklist.inc:10
 #: templates/rule/header.inc:26
 msgid "Disabled"
-msgstr "ÒÑ½ûÓÃ"
+msgstr "å·²ç¦ç”¨"
 
 #: templates/filters/settings.inc:15
 msgid "Display detailed notification when each filter is applied?"
-msgstr "ÔÚÓ¦ÓÃÃ¿¸ö¹ıÂËÆ÷Ê±£¬ÊÇ·ñÏÔÊ¾ÏêÏ¸Í¨Öª£¿"
+msgstr "åœ¨åº”ç”¨æ¯ä¸ªè¿‡æ»¤å™¨æ—¶ï¼Œæ˜¯å¦æ˜¾ç¤ºè¯¦ç»†é€šçŸ¥ï¼Ÿ"
 
 #: vacation.php:52
 msgid "Do not send responses to bulk or list messages?"
-msgstr "Çë²»Òª»Ø¸´Èº·¢»òÁĞ±íÓÊ¼ş£¿"
+msgstr "è¯·ä¸è¦å›å¤ç¾¤å‘æˆ–åˆ—è¡¨é‚®ä»¶ï¼Ÿ"
 
 #: templates/rule/footer.inc:10
 msgid "Do this:"
-msgstr "Ö´ĞĞ²Ù×÷"
+msgstr "æ‰§è¡Œæ“ä½œ"
 
 #: lib/Storage.php:387
 msgid "Doesn't begin with"
-msgstr "²»Ê¹ÓÃ¿ªÊ¼±ê¼Ç"
+msgstr "ä¸ä½¿ç”¨å¼€å§‹æ ‡è®°"
 
 #: lib/Storage.php:383
 msgid "Doesn't contain"
-msgstr "²»°üº¬"
+msgstr "ä¸åŒ…å«"
 
 #: lib/Storage.php:389
 msgid "Doesn't end with"
-msgstr "²»Ê¹ÓÃ½áÊø±ê¼Ç"
+msgstr "ä¸ä½¿ç”¨ç»“æŸæ ‡è®°"
 
 #: lib/Storage.php:391
 msgid "Doesn't exist"
-msgstr "²»´æÔÚ"
+msgstr "ä¸å­˜åœ¨"
 
 #: lib/Storage.php:394
 msgid "Doesn't match (with placeholders)"
-msgstr "²»Æ¥Åä(ÓëÕ¼Î»·û)"
+msgstr "ä¸åŒ¹é…(ä¸å ä½ç¬¦)"
 
 #: templates/filters/header.inc:47 lib/Block/overview.php:63
 #: lib/Block/overview.php:72 lib/Block/overview.php:87
 #: lib/Block/overview.php:97 lib/Block/overview.php:107
 msgid "Edit"
-msgstr "±à¼­"
+msgstr "ç¼–è¾‘"
 
 #: filters.php:238 filters.php:240 filters.php:244 filters.php:245
 #, php-format
 msgid "Edit %s"
-msgstr "±à¼­ %s"
+msgstr "ç¼–è¾‘ %s"
 
 #: filters.php:284 filters.php:285
 #, php-format
 msgid "Enable %s"
-msgstr "ÆôÓÃ %s"
+msgstr "å¯ç”¨ %s"
 
 #: templates/filters/header.inc:49
 msgid "Enabled"
-msgstr "ÒÑÆôÓÃ"
+msgstr "å·²å¯ç”¨"
 
 #: lib/Storage.php:388
 msgid "Ends with"
-msgstr "½áÊø±ê¼Ç"
+msgstr "ç»“æŸæ ‡è®°"
 
 #: lib/Storage.php:399
 msgid "Equal to"
-msgstr "µÈÓÚ"
+msgstr "ç­‰äº"
 
 #: lib/Driver/ldap.php:138 lib/Driver/ldap.php:148 lib/Driver/ldap.php:157
 #: lib/Driver/ldap.php:167
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
-msgstr "¼ìË÷µ±Ç°½Å±¾Ê±³ö´í£º(%d) %s"
+msgstr "æ£€ç´¢å½“å‰è„šæœ¬æ—¶å‡ºé”™ï¼š(%d) %s"
 
 #: blacklist.php:71
 msgid "Error saving changes."
-msgstr "±£´æ¸ü¸ÄÊ±³ö´í¡£"
+msgstr "ä¿å­˜æ›´æ”¹æ—¶å‡ºé”™ã€‚"
 
 #: templates/filters/header.inc:41
 msgid "Existing Rules"
-msgstr "ÏÖÓĞ¹æÔò"
+msgstr "ç°æœ‰è§„åˆ™"
 
 #: lib/Storage.php:390
 msgid "Exists"
-msgstr "ÏÖÓĞ"
+msgstr "ç°æœ‰"
 
 #: lib/Driver/ldap.php:143
 #, php-format
 msgid "Expected 1 object, got %d."
-msgstr "Ô¤ÆÚ 1 ¸ö¶ÔÏó£¬µÃµ½ %d ¸ö¡£"
+msgstr "é¢„æœŸ 1 ä¸ªå¯¹è±¡ï¼Œå¾—åˆ° %d ä¸ªã€‚"
 
 #: lib/Driver/sivtest.php:205
 msgid "Failed to read from socket: "
-msgstr "¶ÁÈ¡Ì×½Ó×ÖÊ§°Ü£º"
+msgstr "è¯»å–å¥—æ¥å­—å¤±è´¥ï¼š"
 
 #: lib/Driver/sivtest.php:200
 msgid "Failed to write to socket: "
-msgstr "Ğ´ÈëÌ×½Ó×ÖÊ§°Ü£º"
+msgstr "å†™å…¥å¥—æ¥å­—å¤±è´¥ï¼š"
 
 #: lib/Driver/sivtest.php:195
 msgid "Failed to write to socket: (connection lost!)"
-msgstr "Ğ´ÈëÌ×½Ó×ÖÊ§°Ü£º(Á¬½Ó¶ªÊ§£¡)"
+msgstr "å†™å…¥å¥—æ¥å­—å¤±è´¥ï¼š(è¿æ¥ä¸¢å¤±ï¼)"
 
 #: templates/rule/filter.inc:10
 msgid "Field"
-msgstr "×Ö¶Î"
+msgstr "å­—æ®µ"
 
 #: templates/filters/settings.inc:22
 msgid "Filter All Messages"
-msgstr "¹ıÂËËùÓĞÓÊ¼ş"
+msgstr "è¿‡æ»¤æ‰€æœ‰é‚®ä»¶"
 
 #: templates/filters/settings.inc:24
 msgid "Filter Only Seen Messages"
-msgstr "½ö¹ıÂËÒÑ¶ÁÓÊ¼ş"
+msgstr "ä»…è¿‡æ»¤å·²è¯»é‚®ä»¶"
 
 #: templates/filters/settings.inc:23
 msgid "Filter Only Unseen Messages"
-msgstr "½ö¹ıÂËÎ´¶ÁÓÊ¼ş"
+msgstr "ä»…è¿‡æ»¤æœªè¯»é‚®ä»¶"
 
 #: templates/filters/settings.inc:20
 msgid "Filter Options"
-msgstr "¹ıÂËÑ¡Ïî"
+msgstr "è¿‡æ»¤é€‰é¡¹"
 
 #: templates/rule/header.inc:25
 msgid "Filter Rule"
-msgstr "¹ıÂË¹æÔò"
+msgstr "è¿‡æ»¤è§„åˆ™"
 
 #: filters.php:136
 msgid "Filter Rules"
-msgstr "¹ıÂË¹æÔò"
+msgstr "è¿‡æ»¤è§„åˆ™"
 
 #: script.php:52
 msgid "Filter Script Display"
-msgstr "ÏÔÊ¾¹ıÂË½Å±¾"
+msgstr "æ˜¾ç¤ºè¿‡æ»¤è„šæœ¬"
 
 #: lib/Ingo.php:379
 msgid "Filter _Rules"
-msgstr "¹ıÂË¹æÔò_R"
+msgstr "è¿‡æ»¤è§„åˆ™_R"
 
 #: lib/Script/imap.php:342
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½« %s ÓÊ¼ş¸´ÖÆµ½ÎÄ¼ş¼Ğ¡°%s¡±ÖĞ¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°† %s é‚®ä»¶å¤åˆ¶åˆ°æ–‡ä»¶å¤¹â€œ%sâ€ä¸­ã€‚"
 
 #: lib/Script/imap.php:328
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑÉ¾³ı %s ÓÊ¼ş¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²åˆ é™¤ %s é‚®ä»¶ã€‚"
 
 #: lib/Script/imap.php:306
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½«ÓÊ¼ş %s ÒÆ¶¯µ½ÎÄ¼ş¼Ğ¡°%s¡±ÖĞ¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°†é‚®ä»¶ %s ç§»åŠ¨åˆ°æ–‡ä»¶å¤¹â€œ%sâ€ä¸­ã€‚"
 
 #: lib/Script/imap.php:206
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½«ÔÚºÚÃûµ¥ÉÏµÄ %s ÓÊ¼şÉ¾³ı¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°†åœ¨é»‘åå•ä¸Šçš„ %s é‚®ä»¶åˆ é™¤ã€‚"
 
 #: lib/Script/imap.php:339
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½«À´×Ô¡°%s¡±µÄÓÊ¼ş¡°%s¡±¸´ÖÆµ½ÎÄ¼ş¼Ğ¡°%s¡±ÖĞ¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°†æ¥è‡ªâ€œ%sâ€çš„é‚®ä»¶â€œ%sâ€å¤åˆ¶åˆ°æ–‡ä»¶å¤¹â€œ%sâ€ä¸­ã€‚"
 
 #: lib/Script/imap.php:323
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½«À´×Ô¡°%s¡±µÄÓÊ¼ş¡°%s¡±É¾³ı¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°†æ¥è‡ªâ€œ%sâ€çš„é‚®ä»¶â€œ%sâ€åˆ é™¤ã€‚"
 
 #: lib/Script/imap.php:300
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
-msgstr "¹ıÂËÆ÷²Ù×÷£ºÒÑ½«À´×Ô¡°%s¡±µÄÓÊ¼ş¡°%s¡±ÒÆ¶¯µ½ÎÄ¼ş¼Ğ¡°%s¡±ÖĞ¡£"
+msgstr "è¿‡æ»¤å™¨æ“ä½œï¼šå·²å°†æ¥è‡ªâ€œ%sâ€çš„é‚®ä»¶â€œ%sâ€ç§»åŠ¨åˆ°æ–‡ä»¶å¤¹â€œ%sâ€ä¸­ã€‚"
 
 #: rule.php:176
 msgid "Filter not found."
-msgstr "Î´ÕÒµ½¹ıÂËÆ÷¡£"
+msgstr "æœªæ‰¾åˆ°è¿‡æ»¤å™¨ã€‚"
 
 #: spam.php:73
 msgid "Folder to receive spam:"
-msgstr "½ÓÊÕÀ¬»øÓÊ¼şµÄÎÄ¼ş¼Ğ£º"
+msgstr "æ¥æ”¶åƒåœ¾é‚®ä»¶çš„æ–‡ä»¶å¤¹ï¼š"
 
 #: templates/rule/header.inc:42
 msgid "For an incoming message that matches:"
-msgstr "·ûºÏ´Ë¹æÔòµÄÀ´¼ş£º"
+msgstr "ç¬¦åˆæ­¤è§„åˆ™çš„æ¥ä»¶ï¼š"
 
 #: filters.php:189 forward.php:95 lib/Block/overview.php:71
 #: lib/Block/overview.php:73
 msgid "Forward"
-msgstr "×ª·¢"
+msgstr "è½¬å‘"
 
 #: forward.php:16
 msgid "Forward is not supported in the current filtering driver."
-msgstr "µ±Ç°¹ıÂËÇı¶¯³ÌĞò²»Ö§³Ö×ª·¢¹¦ÄÜ¡£"
+msgstr "å½“å‰è¿‡æ»¤é©±åŠ¨ç¨‹åºä¸æ”¯æŒè½¬å‘åŠŸèƒ½ã€‚"
 
 #: lib/Script/procmail.php:282 lib/Script/sieve.php:211
 #: lib/Script/maildrop.php:235
 msgid "Forwards"
-msgstr "×ª·¢"
+msgstr "è½¬å‘"
 
 #: forward.php:102
 msgid "Forwards Edit"
-msgstr "±à¼­×ª·¢ÓÊ¼ş"
+msgstr "ç¼–è¾‘è½¬å‘é‚®ä»¶"
 
 #: config/fields.php.dist:39
 msgid "From"
-msgstr "·¢¼şÈË"
+msgstr "å‘ä»¶äºº"
 
 #: lib/Script/sieve.php:2149
 msgid "From:"
-msgstr "·¢¼şÈË£º"
+msgstr "å‘ä»¶äººï¼š"
 
 #: lib/Script/sieve.php:110
 msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "ÓÉ Ingo Éú³É (http://www.horde.org/ingo/)"
+msgstr "ç”± Ingo ç”Ÿæˆ (http://www.horde.org/ingo/)"
 
 #: lib/Storage.php:397
 msgid "Greater than"
-msgstr "´óÓÚ"
+msgstr "å¤§äº"
 
 #: lib/Storage.php:398
 msgid "Greater than or equal to"
-msgstr "´óÓÚ»òµÈÓÚ"
+msgstr "å¤§äºæˆ–ç­‰äº"
 
 #: templates/rule/footer.inc:32
 msgid "Important"
-msgstr "ÖØÒª"
+msgstr "é‡è¦"
 
 #: rule.php:36
 msgid "Individual rules are not supported in the current filtering driver."
-msgstr "µ±Ç° ¹ıÂËÆô¶¯³ÌĞò²»Ö§³Öµ¥¸ö¹æÔò¡£"
+msgstr "å½“å‰ è¿‡æ»¤å¯åŠ¨ç¨‹åºä¸æ”¯æŒå•ä¸ªè§„åˆ™ã€‚"
 
 #: lib/Script/sieve.php:1946
 msgid "Inexistant mailbox specified for message delivery."
-msgstr "Ö¸¶¨µÄ·¢¼şÏä²»´æÔÚ¡£"
+msgstr "æŒ‡å®šçš„å‘ä»¶ç®±ä¸å­˜åœ¨ã€‚"
 
 #: lib/Storage.php:384
 msgid "Is"
-msgstr "ÊÇ"
+msgstr "æ˜¯"
 
 #: lib/Storage.php:385
 msgid "Isn't"
-msgstr "²»ÊÇ"
+msgstr "ä¸æ˜¯"
 
 #: forward.php:39
 msgid "Keep a copy of messages in this account?"
-msgstr "ÊÇ·ñ±£Áô´ËÕÊ»§µÄÓÊ¼ş¸±±¾£¿"
+msgstr "æ˜¯å¦ä¿ç•™æ­¤å¸æˆ·çš„é‚®ä»¶å‰¯æœ¬ï¼Ÿ"
 
 #: lib/Driver/ldap.php:23
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
-msgstr "ĞèÒª LDAP Ö§³Ö£¬µ« LDAP Ä£¿é²»¿ÉÓÃ»òÎ´¼ÓÔØ¡£"
+msgstr "éœ€è¦ LDAP æ”¯æŒï¼Œä½† LDAP æ¨¡å—ä¸å¯ç”¨æˆ–æœªåŠ è½½ã€‚"
 
 #: lib/Storage.php:395
 msgid "Less than"
-msgstr "Ğ¡ÓÚ"
+msgstr "å°äº"
 
 #: lib/Storage.php:396
 msgid "Less than or equal to"
-msgstr "Ğ¡ÓÚ»òµÈÓÚ"
+msgstr "å°äºæˆ–ç­‰äº"
 
 #: config/fields.php.dist:59
 msgid "List-ID"
-msgstr "ÁĞ±í ID"
+msgstr "åˆ—è¡¨ ID"
 
 #: templates/blacklist/blacklist.inc:20
 msgid "Mar_k message as deleted"
-msgstr "½«ÓÊ¼ş±ê¼ÇÎªÒÑÉ¾³ı_K"
+msgstr "å°†é‚®ä»¶æ ‡è®°ä¸ºå·²åˆ é™¤_K"
 
 #: templates/rule/footer.inc:25
 msgid "Mark message as:"
-msgstr "½«ÓÊ¼ş±ê¼ÇÎª£º"
+msgstr "å°†é‚®ä»¶æ ‡è®°ä¸ºï¼š"
 
 #: templates/rule/filter.inc:23
 msgid "Match type"
-msgstr "Æ¥ÅäÀàĞÍ"
+msgstr "åŒ¹é…ç±»å‹"
 
 #: lib/Storage.php:393
 msgid "Matches (with placeholders)"
-msgstr "Æ¥Åä(ÓëÕ¼Î»·û)"
+msgstr "åŒ¹é…(ä¸å ä½ç¬¦)"
 
 #: lib/api.php:57
 msgid "Maximum Number of Rules"
-msgstr "¹æÔò×î´óÊıÁ¿"
+msgstr "è§„åˆ™æœ€å¤§æ•°é‡"
 
 #: lib/Storage.php:520
 #, php-format
@@ -499,8 +499,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"³¬³öºÚÃûµ¥Ëùº¬µØÖ·ÊıµÄ×î´óÖµ(¹²£º%s£¬µØÖ·Êı×î´óÖµ£º%s)¡£ÎŞ·¨½«ĞÂµØÖ·Ìí¼Óµ½ºÚ"
-"Ãûµ¥ÖĞ¡£"
+"è¶…å‡ºé»‘åå•æ‰€å«åœ°å€æ•°çš„æœ€å¤§å€¼(å…±ï¼š%sï¼Œåœ°å€æ•°æœ€å¤§å€¼ï¼š%s)ã€‚æ— æ³•å°†æ–°åœ°å€æ·»åŠ åˆ°é»‘"
+"åå•ä¸­ã€‚"
 
 #: lib/Storage.php:573
 #, php-format
@@ -508,418 +508,418 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"³¬³ö°×Ãûµ¥Ëùº¬µØÖ·ÊıµÄ×î´óÖµ(¹²£º%s£¬µØÖ·Êı×î´óÖµ£º%s)¡£ÎŞ·¨½«ĞÂµØÖ·Ìí¼Óµ½°×"
-"Ãûµ¥ÖĞ¡£"
+"è¶…å‡ºç™½åå•æ‰€å«åœ°å€æ•°çš„æœ€å¤§å€¼(å…±ï¼š%sï¼Œåœ°å€æ•°æœ€å¤§å€¼ï¼š%s)ã€‚æ— æ³•å°†æ–°åœ°å€æ·»åŠ åˆ°ç™½"
+"åå•ä¸­ã€‚"
 
 #: spam.php:70
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
-msgstr "½«´óÓÚ»òµÈÓÚ´Ë·ÖÊıµÄÓÊ¼şÊÓÎªÀ¬»øÓÊ¼ş¡£"
+msgstr "å°†å¤§äºæˆ–ç­‰äºæ­¤åˆ†æ•°çš„é‚®ä»¶è§†ä¸ºåƒåœ¾é‚®ä»¶ã€‚"
 
 #: lib/Script/sieve.php:2157
 msgid "Missing address to notify"
-msgstr "¶ªÊ§Í¨ÖªµØÖ·"
+msgstr "ä¸¢å¤±é€šçŸ¥åœ°å€"
 
 #: lib/Script/sieve.php:1814
 msgid "Missing address to redirect message to"
-msgstr "¶ªÊ§ÖØ¶¨ÏòÓÊ¼şµØÖ·"
+msgstr "ä¸¢å¤±é‡å®šå‘é‚®ä»¶åœ°å€"
 
 #: lib/Script/sieve.php:1846
 msgid "Missing reason for reject"
-msgstr "¶ªÊ§¾ÜÊÕÔ­Òò"
+msgstr "ä¸¢å¤±æ‹’æ”¶åŸå› "
 
 #: lib/Script/sieve.php:2013
 msgid "Missing reason in vacation."
-msgstr "¶ªÊ§¼ÙÆÚÔ­Òò¡£"
+msgstr "ä¸¢å¤±å‡æœŸåŸå› ã€‚"
 
 #: templates/filters/header.inc:51
 msgid "Move"
-msgstr "ÒÆ¶¯"
+msgstr "ç§»åŠ¨"
 
 #: filters.php:153 filters.php:270
 msgid "Move Rule Down"
-msgstr "ÏÂÒÆ¹æÔò"
+msgstr "ä¸‹ç§»è§„åˆ™"
 
 #: filters.php:154 filters.php:269
 msgid "Move Rule Up"
-msgstr "ÉÏÒÆ¹æÔò"
+msgstr "ä¸Šç§»è§„åˆ™"
 
 #: vacation.php:47
 msgid "My email addresses:"
-msgstr "ÎÒµÄµç×ÓÓÊ¼şµØÖ·£º"
+msgstr "æˆ‘çš„ç”µå­é‚®ä»¶åœ°å€ï¼š"
 
 #: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
 #: lib/Storage.php:868
 msgid "New Rule"
-msgstr "ĞÂ½¨¹æÔò"
+msgstr "æ–°å»ºè§„åˆ™"
 
 #: lib/Ingo.php:230 lib/Ingo.php:232
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
-msgstr "Î´ÔÚºó¶ËÅäÖÃÖĞÕÒµ½¡°%s¡±ÔªËØ¡£"
+msgstr "æœªåœ¨åç«¯é…ç½®ä¸­æ‰¾åˆ°â€œ%sâ€å…ƒç´ ã€‚"
 
 #: lib/Ingo.php:223
 msgid "No backend configured for this host"
-msgstr "Î´¸ø´ËÖ÷»úÅäÖÃºó¶Ë"
+msgstr "æœªç»™æ­¤ä¸»æœºé…ç½®åç«¯"
 
 #: lib/Ingo.php:199
 msgid "No backends configured in backends.php"
-msgstr "Î´ÔÚ backends.php ÖĞÅäÖÃºó¶Ë"
+msgstr "æœªåœ¨ backends.php ä¸­é…ç½®åç«¯"
 
 #: templates/filters/filter-none.inc:3
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
-msgstr "ÎŞ¹ıÂËÆ÷¡£Çëµ¥»÷¡°%s¡±´´½¨ĞÂ¹ıÂËÆ÷¡£"
+msgstr "æ— è¿‡æ»¤å™¨ã€‚è¯·å•å‡»â€œ%sâ€åˆ›å»ºæ–°è¿‡æ»¤å™¨ã€‚"
 
 #: lib/Script/sieve.php:1414 lib/Script/sieve.php:1507
 #: lib/Script/sieve.php:1684
 msgid "No headers specified"
-msgstr "Î´Ö¸¶¨±êÌâ"
+msgstr "æœªæŒ‡å®šæ ‡é¢˜"
 
 #: script.php:67
 msgid "No script generated."
-msgstr "Î´Éú³É½Å±¾¡£"
+msgstr "æœªç”Ÿæˆè„šæœ¬ã€‚"
 
 #: lib/Script/sieve.php:1700
 msgid "No strings specified"
-msgstr "Î´Ö¸¶¨×Ö·û´®"
+msgstr "æœªæŒ‡å®šå­—ç¬¦ä¸²"
 
 #: lib/Storage.php:400
 msgid "Not equal to"
-msgstr "²»µÈÓÚ"
+msgstr "ä¸ç­‰äº"
 
 #: lib/Storage.php:360
 msgid "Notify email address"
-msgstr "Í¨Öªµç×ÓÓÊ¼şµØÖ·"
+msgstr "é€šçŸ¥ç”µå­é‚®ä»¶åœ°å€"
 
 #: vacation.php:54
 msgid "Number of days between vacation replies:"
-msgstr "¼ÙÆÚ»Ø¸´ÓÊ¼şËù¸ôµÄÌìÊı£º"
+msgstr "å‡æœŸå›å¤é‚®ä»¶æ‰€éš”çš„å¤©æ•°ï¼š"
 
 #: lib/Storage.php:354
 msgid "Only flag the message"
-msgstr "½ö±ê¼Ç´ËÓÊ¼ş"
+msgstr "ä»…æ ‡è®°æ­¤é‚®ä»¶"
 
 #: config/prefs.php.dist:19
 msgid "Options about script updating."
-msgstr "½Å±¾¸üĞÂÑ¡Ïî¡£"
+msgstr "è„šæœ¬æ›´æ–°é€‰é¡¹ã€‚"
 
 #: config/prefs.php.dist:17
 msgid "Other Options"
-msgstr "ÆäËûÑ¡Ïî"
+msgstr "å…¶ä»–é€‰é¡¹"
 
 #: lib/Block/overview.php:3
 msgid "Overview"
-msgstr "¸ÅÊö"
+msgstr "æ¦‚è¿°"
 
 #: templates/javascript/new_folder.js:7
 msgid "Please enter the name of the new folder:"
-msgstr "ÇëÊäÈëĞÂÎÄ¼ş¼ĞÃû³Æ£º"
+msgstr "è¯·è¾“å…¥æ–°æ–‡ä»¶å¤¹åç§°ï¼š"
 
 #: vacation.php:42
 msgid "Reason:"
-msgstr "Ô­Òò£º"
+msgstr "åŸå› ï¼š"
 
 #: config/fields.php.dist:63
 msgid "Received"
-msgstr "ÒÑ½ÓÊÕ"
+msgstr "å·²æ¥æ”¶"
 
 #: lib/Storage.php:335
 msgid "Redirect to"
-msgstr "ÖØ¶¨Ïòµ½"
+msgstr "é‡å®šå‘åˆ°"
 
 #: lib/Storage.php:392
 msgid "Regular expression"
-msgstr "ÕıÔò±í´ïÊ½"
+msgstr "æ­£åˆ™è¡¨è¾¾å¼"
 
 #: lib/Storage.php:350
 msgid "Reject with reason"
-msgstr "¾ÜÊÕÔ­Òò"
+msgstr "æ‹’æ”¶åŸå› "
 
 #: config/fields.php.dist:55
 msgid "Resent To"
-msgstr "ÖØ·¢µ½"
+msgstr "é‡å‘åˆ°"
 
 #: config/fields.php.dist:51
 msgid "Resent-from"
-msgstr "ÖØ·¢´ËÈËÀ´¼ş"
+msgstr "é‡å‘æ­¤äººæ¥ä»¶"
 
 #: templates/rule/footer.inc:61
 msgid "Return to Filters List"
-msgstr "·µ»Ø¹ıÂËÁĞ±í"
+msgstr "è¿”å›è¿‡æ»¤åˆ—è¡¨"
 
 #: spam.php:61 spam.php:129 forward.php:32 forward.php:86 vacation.php:32
 #: vacation.php:106 templates/whitelist/whitelist.inc:24
 #: templates/blacklist/blacklist.inc:42
 msgid "Return to Rules List"
-msgstr "·µ»Ø¹æÔòÁĞ±í"
+msgstr "è¿”å›è§„åˆ™åˆ—è¡¨"
 
 #: templates/filters/header.inc:48
 msgid "Rule"
-msgstr "¹æÔò"
+msgstr "è§„åˆ™"
 
 #: filters.php:76
 msgid "Rule Copied"
-msgstr "Ëù¸´ÖÆ¹æÔò"
+msgstr "æ‰€å¤åˆ¶è§„åˆ™"
 
 #: filters.php:55
 msgid "Rule Deleted"
-msgstr "ËùÉ¾³ı¹æÔò"
+msgstr "æ‰€åˆ é™¤è§„åˆ™"
 
 #: spam.php:105 filters.php:92 forward.php:70 vacation.php:87
 msgid "Rule Disabled"
-msgstr "Ëù½ûÓÃ¹æÔò"
+msgstr "æ‰€ç¦ç”¨è§„åˆ™"
 
 #: spam.php:96 filters.php:97 forward.php:61 vacation.php:78
 msgid "Rule Enabled"
-msgstr "ËùÆôÓÃ¹æÔò"
+msgstr "æ‰€å¯ç”¨è§„åˆ™"
 
 #: templates/rule/header.inc:33
 msgid "Rule Name:"
-msgstr "¹æÔòÃû³Æ£º"
+msgstr "è§„åˆ™åç§°ï¼š"
 
 #: lib/Script/sieve.php:2151
 msgid "Rule:"
-msgstr "¹æÔò£º"
+msgstr "è§„åˆ™ï¼š"
 
 #: lib/Driver/ldap.php:86
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
-msgstr "STARTTLS Ê§°Ü£º(%s) %s"
+msgstr "STARTTLS å¤±è´¥ï¼š(%s) %s"
 
 #: lib/Ingo.php:394
 msgid "S_pam"
-msgstr "À¬»øÓÊ¼ş_P"
+msgstr "åƒåœ¾é‚®ä»¶_P"
 
 #: spam.php:78 forward.php:43 vacation.php:56
 #: templates/whitelist/whitelist.inc:23 templates/blacklist/blacklist.inc:41
 #: templates/rule/footer.inc:60
 msgid "Save"
-msgstr "±£´æ"
+msgstr "ä¿å­˜"
 
 #: templates/filters/settings.inc:31
 msgid "Save Settings"
-msgstr "±£´æÉèÖÃ"
+msgstr "ä¿å­˜è®¾ç½®"
 
 #: spam.php:99 spam.php:125 forward.php:64 forward.php:82 vacation.php:81
 #: vacation.php:102
 msgid "Save and Disable"
-msgstr "±£´æºÍ½ûÓÃ"
+msgstr "ä¿å­˜å’Œç¦ç”¨"
 
 #: spam.php:90 spam.php:127 forward.php:55 forward.php:84 vacation.php:72
 #: vacation.php:104
 msgid "Save and Enable"
-msgstr "±£´æºÍÆôÓÃ"
+msgstr "ä¿å­˜å’Œå¯ç”¨"
 
 #: templates/script/header.inc:2
 msgid "Script"
-msgstr "½Å±¾"
+msgstr "è„šæœ¬"
 
 #: config/prefs.php.dist:18
 msgid "Script Updating"
-msgstr "½Å±¾¸üĞÂ"
+msgstr "è„šæœ¬æ›´æ–°"
 
 #: lib/Ingo.php:175
 msgid "Script not updated."
-msgstr "Î´¸üĞÂ½Å±¾¡£"
+msgstr "æœªæ›´æ–°è„šæœ¬ã€‚"
 
 #: lib/Ingo.php:146
 msgid "Script successfully activated."
-msgstr "³É¹¦¼¤»î½Å±¾¡£"
+msgstr "æˆåŠŸæ¿€æ´»è„šæœ¬ã€‚"
 
 #: lib/Ingo.php:145
 msgid "Script successfully deactivated."
-msgstr "³É¹¦Í£ÓÃ½Å±¾¡£"
+msgstr "æˆåŠŸåœç”¨è„šæœ¬ã€‚"
 
 #: templates/rule/footer.inc:30
 msgid "Seen"
-msgstr "ÒÑ¶Á"
+msgstr "å·²è¯»"
 
 #: rule.php:206
 msgid "Select a field"
-msgstr "Ñ¡Ôñ×Ö¶Î"
+msgstr "é€‰æ‹©å­—æ®µ"
 
 #: templates/menu.inc:6 templates/menu.inc:8
 msgid "Select ruleset to display:"
-msgstr "Ñ¡ÔñÒªÏÔÊ¾µÄ¹æÔò¼¯£º"
+msgstr "é€‰æ‹©è¦æ˜¾ç¤ºçš„è§„åˆ™é›†ï¼š"
 
 #: rule.php:324 templates/blacklist/blacklist.inc:23 lib/Ingo.php:59
 msgid "Select target folder"
-msgstr "Ñ¡ÔñÄ¿±êÎÄ¼ş¼Ğ"
+msgstr "é€‰æ‹©ç›®æ ‡æ–‡ä»¶å¤¹"
 
 #: rule.php:243
 msgid "Self-Defined Header"
-msgstr "×Ô¶¨Òå±êÌâ"
+msgstr "è‡ªå®šä¹‰æ ‡é¢˜"
 
 #: config/fields.php.dist:35
 msgid "Sender"
-msgstr "·¢¼şÈË"
+msgstr "å‘ä»¶äºº"
 
 #: filters.php:116
 msgid "Settings successfully updated."
-msgstr "³É¹¦¸üĞÂÉèÖÃ¡£"
+msgstr "æˆåŠŸæ›´æ–°è®¾ç½®ã€‚"
 
 #: templates/script/activate.inc:24
 msgid "Show Active Script"
-msgstr "ÏÔÊ¾»î¶¯½Å±¾"
+msgstr "æ˜¾ç¤ºæ´»åŠ¨è„šæœ¬"
 
 #: templates/script/activate.inc:31
 msgid "Show Current Script"
-msgstr "ÏÔÊ¾µ±Ç°½Å±¾"
+msgstr "æ˜¾ç¤ºå½“å‰è„šæœ¬"
 
 #: spam.php:17
 msgid "Simple spam filtering is not supported in the current filtering driver."
-msgstr "µ±Ç°¹ıÂËÇı¶¯³ÌĞò²»Ö§³Ö¼òÒ×ĞÍÀ¬»øÓÊ¼ş¹ıÂË¡£"
+msgstr "å½“å‰è¿‡æ»¤é©±åŠ¨ç¨‹åºä¸æ”¯æŒç®€æ˜“å‹åƒåœ¾é‚®ä»¶è¿‡æ»¤ã€‚"
 
 #: config/fields.php.dist:83
 msgid "Size"
-msgstr "´óĞ¡"
+msgstr "å¤§å°"
 
 #: filters.php:195 lib/Script/sieve.php:413 lib/Block/overview.php:105
 #: lib/Block/overview.php:108
 msgid "Spam Filter"
-msgstr "À¬»øÓÊ¼ş¹ıÂËÆ÷"
+msgstr "åƒåœ¾é‚®ä»¶è¿‡æ»¤å™¨"
 
 #: spam.php:146 spam.php:153
 msgid "Spam Filtering"
-msgstr "À¬»øÓÊ¼ş¹ıÂËÆ÷"
+msgstr "åƒåœ¾é‚®ä»¶è¿‡æ»¤å™¨"
 
 #: spam.php:70
 msgid "Spam Level:"
-msgstr "À¬»øÓÊ¼ş¼¶±ğ£º"
+msgstr "åƒåœ¾é‚®ä»¶çº§åˆ«ï¼š"
 
 #: templates/rule/footer.inc:50
 msgid "Stop checking if this rule matches?"
-msgstr "Èç¹û·ûºÏ´Ë¹æÔò£¬ÊÇ·ñÍ£Ö¹¼ì²é£¿"
+msgstr "å¦‚æœç¬¦åˆæ­¤è§„åˆ™ï¼Œæ˜¯å¦åœæ­¢æ£€æŸ¥ï¼Ÿ"
 
 #: config/fields.php.dist:31
 msgid "Subject"
-msgstr "Ö÷Ìâ"
+msgstr "ä¸»é¢˜"
 
 #: vacation.php:40
 msgid "Subject of vacation message:"
-msgstr "¼ÙÆÚÓÊ¼şÖ÷Ìâ£º"
+msgstr "å‡æœŸé‚®ä»¶ä¸»é¢˜ï¼š"
 
 #: lib/Script/sieve.php:2150
 msgid "Subject:"
-msgstr "Ö÷Ìâ£º"
+msgstr "ä¸»é¢˜ï¼š"
 
 #: lib/api.php:89
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
-msgstr "ÒÑ½«´ËµØÖ·¡°%s¡±Ìí¼Óµ½ºÚÃûµ¥ÖĞ¡£"
+msgstr "å·²å°†æ­¤åœ°å€â€œ%sâ€æ·»åŠ åˆ°é»‘åå•ä¸­ã€‚"
 
 #: lib/api.php:112
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
-msgstr "ÒÑ½«´ËµØÖ·¡°%s¡±Ìí¼Óµ½°×Ãûµ¥ÖĞ¡£"
+msgstr "å·²å°†æ­¤åœ°å€â€œ%sâ€æ·»åŠ åˆ°ç™½åå•ä¸­ã€‚"
 
 #: lib/Ingo.php:141
 msgid "The driver said: "
-msgstr "Çı¶¯³ÌĞò±¨¸æ£º"
+msgstr "é©±åŠ¨ç¨‹åºæŠ¥å‘Šï¼š"
 
 #: lib/Ingo.php:140
 msgid "There was an error activating the script."
-msgstr "¼¤»î½Å±¾Ê±³ö´í¡£"
+msgstr "æ¿€æ´»è„šæœ¬æ—¶å‡ºé”™ã€‚"
 
 #: lib/Ingo.php:139
 msgid "There was an error deactivating the script."
-msgstr "Í£ÓÃ½Å±¾Ê±³ö´í¡£"
+msgstr "åœç”¨è„šæœ¬æ—¶å‡ºé”™ã€‚"
 
 #: config/fields.php.dist:27
 msgid "To"
-msgstr "ÊÕ¼şÈË"
+msgstr "æ”¶ä»¶äºº"
 
 #: templates/filters/filter.html:30
 msgid "To:"
-msgstr "ÊÕ¼şÈË£º"
+msgstr "æ”¶ä»¶äººï¼š"
 
 #: lib/Script.php:126
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "ÎŞ·¨¼ÓÔØ %s ¶¨Òå¡£"
+msgstr "æ— æ³•åŠ è½½ %s å®šä¹‰ã€‚"
 
 #: templates/rule/filter.inc:15
 msgid "User header"
-msgstr "ÓÃ»§±êÌâ"
+msgstr "ç”¨æˆ·æ ‡é¢˜"
 
 #: filters.php:183 vacation.php:132 lib/Script/procmail.php:262
 #: lib/Script/sieve.php:380 lib/Script/maildrop.php:265
 #: lib/Block/overview.php:61 lib/Block/overview.php:64
 msgid "Vacation"
-msgstr "¼ÙÆÚ"
+msgstr "å‡æœŸ"
 
 #: vacation.php:139
 msgid "Vacation Edit"
-msgstr "±à¼­¼ÙÆÚ"
+msgstr "ç¼–è¾‘å‡æœŸ"
 
 #: vacation.php:16
 msgid "Vacation is not supported in the current filtering driver."
-msgstr "µ±Ç°¹ıÂËÇı¶¯³ÌĞò²»Ö§³Ö¼ÙÆÚ¹¦ÄÜ¡£"
+msgstr "å½“å‰è¿‡æ»¤é©±åŠ¨ç¨‹åºä¸æ”¯æŒå‡æœŸåŠŸèƒ½ã€‚"
 
 #: rule.php:330
 msgid "Value"
-msgstr "Öµ"
+msgstr "å€¼"
 
 #: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
-msgstr "°×Ãûµ¥µØÖ·_I£º"
+msgstr "ç™½åå•åœ°å€_Iï¼š"
 
 #: filters.php:177 templates/whitelist/whitelist.inc:8
 #: lib/Block/overview.php:85 lib/Block/overview.php:88
 msgid "Whitelist"
-msgstr "°×Ãûµ¥"
+msgstr "ç™½åå•"
 
 #: whitelist.php:55
 msgid "Whitelist Edit"
-msgstr "±à¼­°×Ãûµ¥"
+msgstr "ç¼–è¾‘ç™½åå•"
 
 #: whitelist.php:18
 msgid "Whitelist is not supported in the current filtering driver."
-msgstr "µ±Ç°¹ıÂËÇı¶¯³ÌĞò²»Ö§³Ö°×Ãûµ¥¡£"
+msgstr "å½“å‰è¿‡æ»¤é©±åŠ¨ç¨‹åºä¸æ”¯æŒç™½åå•ã€‚"
 
 #: lib/Script/procmail.php:234 lib/Script/sieve.php:314
 #: lib/Script/maildrop.php:213
 msgid "Whitelisted Addresses"
-msgstr "°×Ãûµ¥ÉÏµÄµØÖ·"
+msgstr "ç™½åå•ä¸Šçš„åœ°å€"
 
 #: config/fields.php.dist:79
 msgid "X-Priority"
-msgstr "X-ÓÅÏÈ¼¶"
+msgstr "X-ä¼˜å…ˆçº§"
 
 #: config/fields.php.dist:67
 msgid "X-Spam-Level"
-msgstr "X-À¬»øÓÊ¼ş-¼¶±ğ"
+msgstr "X-åƒåœ¾é‚®ä»¶-çº§åˆ«"
 
 #: config/fields.php.dist:71
 msgid "X-Spam-Score"
-msgstr "X-À¬»øÓÊ¼ş-·ÖÊı"
+msgstr "X-åƒåœ¾é‚®ä»¶-åˆ†æ•°"
 
 #: config/fields.php.dist:75
 msgid "X-Spam-Status"
-msgstr "X-À¬»øÓÊ¼ş-×´Ì¬"
+msgstr "X-åƒåœ¾é‚®ä»¶-çŠ¶æ€"
 
 #: filters.php:69 rule.php:160
 #, php-format
 msgid "You are not allowed to create more than %d rules."
-msgstr "´´½¨µÄ¹æÔò²»¿ÉÒÔ³¬¹ı %d Ìõ¡£ "
+msgstr "åˆ›å»ºçš„è§„åˆ™ä¸å¯ä»¥è¶…è¿‡ %d æ¡ã€‚ "
 
 #: filters.php:61 rule.php:21
 msgid "You are not allowed to create or edit custom rules."
-msgstr "²»ÔÊĞí´´½¨»ò±à¼­×Ô¶¨Òå¹æÔò¡£"
+msgstr "ä¸å…è®¸åˆ›å»ºæˆ–ç¼–è¾‘è‡ªå®šä¹‰è§„åˆ™ã€‚"
 
 #: filters.php:50 rule.php:138
 msgid "You do not have permission to delete filter rules."
-msgstr "Äú²»¾ßÓĞÉ¾³ı¹ıÂË¹æÔòµÄÈ¨ÏŞ¡£"
+msgstr "æ‚¨ä¸å…·æœ‰åˆ é™¤è¿‡æ»¤è§„åˆ™çš„æƒé™ã€‚"
 
 #: filters.php:43 filters.php:110 filters.php:121 rule.php:56 rule.php:153
 msgid "You do not have permission to edit filter rules."
-msgstr "Äú²»¾ßÓĞ±à¼­¹ıÂË¹æÔòµÄÈ¨ÏŞ¡£"
+msgstr "æ‚¨ä¸å…·æœ‰ç¼–è¾‘è¿‡æ»¤è§„åˆ™çš„æƒé™ã€‚"
 
 #: lib/Script/sieve.php:2148
 msgid "You have received a new message"
-msgstr "ÄúÓĞĞÂÓÊ¼ş"
+msgstr "æ‚¨æœ‰æ–°é‚®ä»¶"
 
 #: lib/Script/imap.php:301 lib/Script/imap.php:324 lib/Script/imap.php:339
 msgid "[No Subject]"
@@ -927,72 +927,72 @@ msgstr "[No Subject]"
 
 #: lib/Ingo.php:384
 msgid "_Blacklist"
-msgstr "ºÚÃûµ¥_B"
+msgstr "é»‘åå•_B"
 
 #: templates/blacklist/blacklist.inc:18
 msgid "_Delete message completely"
-msgstr "ÍêÈ«É¾³ıÓÊ¼ş_D"
+msgstr "å®Œå…¨åˆ é™¤é‚®ä»¶_D"
 
 #: templates/blacklist/blacklist.inc:32
 msgid "_Enter each address on a new line:"
-msgstr "Ò»ĞĞÊäÈëÒ»¸öµØÖ·_E£º"
+msgstr "ä¸€è¡Œè¾“å…¥ä¸€ä¸ªåœ°å€_Eï¼š"
 
 #: lib/Ingo.php:390
 msgid "_Forward"
-msgstr "×ª·¢_F"
+msgstr "è½¬å‘_F"
 
 #: templates/blacklist/blacklist.inc:22
 msgid "_Move message to folder:"
-msgstr "½«ÓÊ¼şÒÆ¶¯µ½ÎÄ¼ş¼Ğ_M£º"
+msgstr "å°†é‚®ä»¶ç§»åŠ¨åˆ°æ–‡ä»¶å¤¹_Mï¼š"
 
 #: lib/Ingo.php:400
 msgid "_Permissions"
-msgstr "È¨ÏŞ_P"
+msgstr "æƒé™_P"
 
 #: lib/Ingo.php:397
 msgid "_Script"
-msgstr "½Å±¾_S"
+msgstr "è„šæœ¬_S"
 
 #: lib/Ingo.php:387
 msgid "_Vacation"
-msgstr "Ğİ¼Ù_V"
+msgstr "ä¼‘å‡_V"
 
 #: lib/Ingo.php:381
 msgid "_Whitelist"
-msgstr "°×Ãûµ¥_W"
+msgstr "ç™½åå•_W"
 
 #: lib/Block/overview.php:54
 msgid "active"
-msgstr "ÆôÓÃ"
+msgstr "å¯ç”¨"
 
 #: templates/rule/filter.inc:4
 msgid "and"
-msgstr "ºÍ"
+msgstr "å’Œ"
 
 #: templates/filters/filter.html:19
 msgid "disabled - click to enable"
-msgstr "ÒÑ½ûÓÃ - µ¥»÷ÆôÓÃ"
+msgstr "å·²ç¦ç”¨ - å•å‡»å¯ç”¨"
 
 #: filters.php:215
 msgid "field"
-msgstr "×Ö¶Î"
+msgstr "å­—æ®µ"
 
 #: lib/Block/overview.php:52
 msgid "inactive"
-msgstr "½ûÓÃ"
+msgstr "ç¦ç”¨"
 
 #: lib/Script/maildrop.php:127
 msgid "maildrop script generated by Ingo"
-msgstr "Ingo Éú³ÉµÄ maildrop ½Å±¾"
+msgstr "Ingo ç”Ÿæˆçš„ maildrop è„šæœ¬"
 
 #: filters.php:215
 msgid "match"
-msgstr "Æ¥Åä"
+msgstr "åŒ¹é…"
 
 #: templates/rule/filter.inc:4
 msgid "or"
-msgstr "»ò"
+msgstr "æˆ–"
 
 #: lib/Script/procmail.php:128
 msgid "procmail script generated by Ingo"
-msgstr "Ingo Éú³ÉµÄ procmail ½Å±¾"
+msgstr "Ingo ç”Ÿæˆçš„ procmail è„šæœ¬"

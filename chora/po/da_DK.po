@@ -1,5 +1,5 @@
 # Danish translations for Chora package
-# Danske oversættelser for pakke Chora.
+# Danske oversÃ¦ttelser for pakke Chora.
 # Copyright 2006-2010 The Horde Project
 # This file is distributed under the same license as the Chora package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -30,7 +30,7 @@ msgstr "%s siden"
 #: templates/diff/hr/footer.inc:19
 #, php-format
 msgid "Added in v.%s"
-msgstr "Tilføjet i v.%s"
+msgstr "TilfÃ¸jet i v.%s"
 
 #: templates/log/request.inc:57
 msgid "All Branches"
@@ -38,7 +38,7 @@ msgstr "Alle forgreninger"
 
 #: co.php:72 templates/log/rev.inc:8
 msgid "Annotate"
-msgstr "Annotér"
+msgstr "AnnotÃ©r"
 
 #: templates/stats/stats.inc:3 templates/directory/header.inc:12
 #: templates/annotate/header.inc:4
@@ -64,17 +64,17 @@ msgstr "Forgreninger"
 
 #: templates/history/branch_cell.inc:2
 msgid "Branching to"
-msgstr "Forgrén til"
+msgstr "ForgrÃ©n til"
 
 #: templates/log/rev.inc:37 templates/checkout/checkout.inc:35
 #, php-format
 msgid "Changed since <strong>%s</strong>"
-msgstr "Ændret siden <strong>%s</strong>"
+msgstr "Ã†ndret siden <strong>%s</strong>"
 
 #: templates/history/rev.inc:8
 #, php-format
 msgid "Changed: %s"
-msgstr "Ændret: %s"
+msgstr "Ã†ndret: %s"
 
 #: co.php:70
 #, php-format
@@ -86,12 +86,12 @@ msgid ""
 "Click on the links in between revisions to get a diff between those "
 "revisions."
 msgstr ""
-"Klik på henvisningen mellem revisioner for at få en diff mellem disse "
+"Klik pÃ¥ henvisningen mellem revisioner for at fÃ¥ en diff mellem disse "
 "revisioner."
 
 #: templates/cvsgraph/cvsgraph.inc:10
 msgid "Click on the revisions and branches to display the file."
-msgstr "Klik på revisionerne og forgreningerne for at vise filen."
+msgstr "Klik pÃ¥ revisionerne og forgreningerne for at vise filen."
 
 #: templates/log/rev.inc:42 templates/log/rev.inc:50
 msgid "Colored"
@@ -99,19 +99,19 @@ msgstr "Farvet"
 
 #: templates/patchsets/ps.inc:17 templates/checkout/checkout.inc:19
 msgid "Commit Tags:"
-msgstr "Fastlæggelsesmærke:"
+msgstr "FastlÃ¦ggelsesmÃ¦rke:"
 
 #: templates/stats/stats.inc:4
 msgid "Commits"
-msgstr "Fastlæggelser"
+msgstr "FastlÃ¦ggelser"
 
 #: templates/log/request.inc:28
 msgid "Context"
-msgstr "Sammenhæng"
+msgstr "SammenhÃ¦ng"
 
 #: config/prefs.php.dist:11
 msgid "Customize tasks to run upon logging in to Chora."
-msgstr "Tilpas opgaver, der bliver udført, når du logger ind i Chora."
+msgstr "Tilpas opgaver, der bliver udfÃ¸rt, nÃ¥r du logger ind i Chora."
 
 #: templates/directory/header.inc:15
 msgid "Da_te"
@@ -131,7 +131,7 @@ msgstr "Slettet fil"
 
 #: templates/log/rev.inc:13
 msgid "Deselect"
-msgstr "Fravælg"
+msgstr "FravÃ¦lg"
 
 #: patchsets.php:70
 msgid "Diff"
@@ -174,7 +174,7 @@ msgstr "Fejl"
 
 #: templates/error_page.inc:7
 msgid "Error Encountered"
-msgstr "Fejl optrådt"
+msgstr "Fejl optrÃ¥dt"
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:19
 #: templates/directory/header.inc:6
@@ -183,7 +183,7 @@ msgstr "Fil"
 
 #: templates/patchsets/ps.inc:21
 msgid "Files Changed:"
-msgstr "Filer ændret:"
+msgstr "Filer Ã¦ndret:"
 
 #: templates/log/request.inc:44
 msgid "Get Diffs"
@@ -208,7 +208,7 @@ msgstr "Skjul slettede filer"
 
 #: templates/log/request.inc:26
 msgid "Human Readable"
-msgstr "Læsbart"
+msgstr "LÃ¦sbart"
 
 #: templates/directory/header.inc:17
 msgid "Last Log"
@@ -254,7 +254,7 @@ msgstr "Lang"
 
 #: diff.php:61
 msgid "Malformed Query"
-msgstr "Forkert udformet søgning"
+msgstr "Forkert udformet sÃ¸gning"
 
 #: patchsets.php:66
 msgid "New File"
@@ -262,7 +262,7 @@ msgstr "Ny fil"
 
 #: templates/diff/hr/nochange.inc:6
 msgid "No Viewable Change"
-msgstr "Ingen synlig ændring"
+msgstr "Ingen synlig Ã¦ndring"
 
 #: templates/log/rev.inc:44 templates/log/rev.inc:52
 msgid "NoWhitespaceChanges"
@@ -278,7 +278,7 @@ msgstr "Andre arkiver"
 
 #: templates/directory/back.inc:3
 msgid "Parent Directory"
-msgstr "Forældre-katalog"
+msgstr "ForÃ¦ldre-katalog"
 
 #: templates/patchsets/ps.inc:6
 #, php-format
@@ -327,7 +327,7 @@ msgstr "Revision <strong>%s</strong>, <em>%s</em> (%s siden) af %s"
 
 #: templates/log/rev.inc:15
 msgid "Select for Diff"
-msgstr "Vælg for Diff"
+msgstr "VÃ¦lg for Diff"
 
 #: browse.php:42
 msgid "Show Deleted Files"
@@ -367,9 +367,9 @@ msgid ""
 "administrator, or the server could be having temporary problems. Please try "
 "again later."
 msgstr ""
-"Kilderod ikke fundet! Dette kan være en fejlkonfiguration af "
-"serveradministratoren, eller serveren kan være ude for midlertidige "
-"problemer. Prøv igen senere."
+"Kilderod ikke fundet! Dette kan vÃ¦re en fejlkonfiguration af "
+"serveradministratoren, eller serveren kan vÃ¦re ude for midlertidige "
+"problemer. PrÃ¸v igen senere."
 
 #: lib/Chora.php:460
 msgid "Statistics"
@@ -382,7 +382,7 @@ msgstr "Statistikker for %s"
 
 #: templates/log/rev.inc:34
 msgid "Tags:"
-msgstr "Mærker:"
+msgstr "MÃ¦rker:"
 
 #: templates/log/request.inc:5
 msgid ""
@@ -390,8 +390,8 @@ msgid ""
 "You may select a symbolic revision name using the selection box or you may "
 "type in a numeric name using the type-in text box."
 msgstr ""
-"Dette skema tillader dig at anmode om diff'er mellem vilkårlige, to "
-"revisioner af en fil. Du kan vælge et symbolsk revisionsnavn ved brug af "
+"Dette skema tillader dig at anmode om diff'er mellem vilkÃ¥rlige, to "
+"revisioner af en fil. Du kan vÃ¦lge et symbolsk revisionsnavn ved brug af "
 "valg-kasserne eller du kan indtaste et numerisk navn ved brug af tekst-"
 "indtastningsfeltet."
 
@@ -425,7 +425,7 @@ msgstr "Se gren"
 
 #: templates/log/request.inc:54
 msgid "View revisions on:"
-msgstr "Se revisioner på:"
+msgstr "Se revisioner pÃ¥:"
 
 #: lib/Chora.php:462
 msgid "View:"
@@ -457,7 +457,7 @@ msgstr "Logninger"
 
 #: lib/Chora.php:452
 msgid "_Patchsets"
-msgstr "Lappesæt"
+msgstr "LappesÃ¦t"
 
 #: templates/directory/header.inc:9
 msgid "_Rev"
@@ -478,7 +478,7 @@ msgstr "af %s"
 
 #: templates/diff/hr/footer.inc:15
 msgid "changed lines"
-msgstr "ændrede linier"
+msgstr "Ã¦ndrede linier"
 
 #: lib/Chora.php:31
 msgid "day"
@@ -510,11 +510,11 @@ msgstr "minutter"
 
 #: lib/Chora.php:33
 msgid "month"
-msgstr "måned"
+msgstr "mÃ¥ned"
 
 #: lib/Chora.php:33
 msgid "months"
-msgstr "måneder"
+msgstr "mÃ¥neder"
 
 #: templates/history/branch_cell.inc:6
 #, php-format
@@ -548,8 +548,8 @@ msgstr "uger"
 
 #: lib/Chora.php:34
 msgid "year"
-msgstr "år"
+msgstr "Ã¥r"
 
 #: lib/Chora.php:34
 msgid "years"
-msgstr "år"
+msgstr "Ã¥r"

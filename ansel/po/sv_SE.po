@@ -1,6 +1,6 @@
 # Horde Swedish translation
-# Copyright 2002-2005 Andreas Dahlén.
-# Andreas Dahlén <andreas@dahlen.ws>, 2005.
+# Copyright 2002-2005 Andreas DahlÃ©n.
+# Andreas DahlÃ©n <andreas@dahlen.ws>, 2005.
 #
 msgid ""
 msgstr ""
@@ -8,16 +8,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-06-14 22:08+0200\n"
 "PO-Revision-Date: 2005-06-16 15:48+0100\n"
-"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Last-Translator: Andreas DahlÃ©n <andreas@dahlen.ws>\n"
 "Language-Team: Swedish <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: scripts/recursive_import.php:110
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "'%s' är inte en katalog"
+msgstr "'%s' Ã¤r inte en katalog"
 
 #: image.php:287
 #, php-format
@@ -64,7 +64,7 @@ msgstr "%s's gallerier"
 msgid ""
 "'%s' is an invalid unique name; it may already be taken. Please choose a "
 "different unique name."
-msgstr "'%s' är ett felaktigt namn; det kanske redan används. Var god välj "
+msgstr "'%s' Ã¤r ett felaktigt namn; det kanske redan anvÃ¤nds. Var god vÃ¤lj "
 
 #: lib/Gallery.php:1156
 #, php-format
@@ -73,7 +73,7 @@ msgstr "(c) %s %s"
 
 #: templates/xppublish/new.inc:14
 msgid "(must be unique)"
-msgstr "(måste vara unikt)"
+msgstr "(mÃ¥ste vara unikt)"
 
 #: scripts/ansel.php:296
 msgid "-a, --add[=filename]         Add local file to selected gallery"
@@ -197,57 +197,57 @@ msgstr ""
 #: gallery.php:311 lib/api.php:259
 #, php-format
 msgid "Access denied deleting gallery %s."
-msgstr "Behörighet saknas att radera galleri %s."
+msgstr "BehÃ¶righet saknas att radera galleri %s."
 
 #: image.php:524 image.php:560
 #, php-format
 msgid "Access denied deleting image %s."
-msgstr "Behörighet saknas att radera bild %s."
+msgstr "BehÃ¶righet saknas att radera bild %s."
 
 #: gallery.php:81
 #, php-format
 msgid "Access denied downloading %s."
-msgstr "Behörighet saknas att ladda ner %s."
+msgstr "BehÃ¶righet saknas att ladda ner %s."
 
 #: gallery.php:138
 msgid "Access denied editing galleries."
-msgstr "Behörighet saknas att ändra gallerier."
+msgstr "BehÃ¶righet saknas att Ã¤ndra gallerier."
 
 #: gallery.php:194
 #, php-format
 msgid "Access denied saving gallery %s."
-msgstr "Behörighet saknas att spara galleri %s."
+msgstr "BehÃ¶righet saknas att spara galleri %s."
 
 #: image.php:198 image.php:369
 #, php-format
 msgid "Access denied saving image to %s."
-msgstr "Behörighet saknas att spara bild till %s."
+msgstr "BehÃ¶righet saknas att spara bild till %s."
 
 #: captions.php:29
 #, php-format
 msgid "Access denied setting captions for %s."
-msgstr "Behörighet saknas att sätta rubriker för %s."
+msgstr "BehÃ¶righet saknas att sÃ¤tta rubriker fÃ¶r %s."
 
 #: image.php:160
 msgid "Add Image"
-msgstr "Lägg till bild"
+msgstr "LÃ¤gg till bild"
 
 #: templates/view/gallery.inc:101
 msgid "Add Subgallery"
-msgstr "Lägg till undergalleri"
+msgstr "LÃ¤gg till undergalleri"
 
 #: gallery.php:40 gallery.php:259 gallery.php:267
 msgid "Adding A New Gallery"
-msgstr "Lägger till nytt galleri"
+msgstr "LÃ¤gger till nytt galleri"
 
 #: gallery.php:73
 #, php-format
 msgid "Adding A Subgallery to %s"
-msgstr "Lägger till undergalleri till %s"
+msgstr "LÃ¤gger till undergalleri till %s"
 
 #: scripts/recursive_import.php:170
 msgid "Adding subdirectories:"
-msgstr "Lägger till underkataloger:"
+msgstr "LÃ¤gger till underkataloger:"
 
 #: search.php:83
 msgid "After"
@@ -260,7 +260,7 @@ msgstr "Alla"
 #: lib/Ansel.php:121
 #, php-format
 msgid "An error occurred counting galleries: %s"
-msgstr "Fel vid räkning av gallerier: %s"
+msgstr "Fel vid rÃ¤kning av gallerier: %s"
 
 #: lib/Ansel.php:62
 #, php-format
@@ -269,22 +269,22 @@ msgstr "Fel vid listning av gallerier: %s"
 
 #: lib/Exif.php:347
 msgid "Aperture"
-msgstr "Bländare"
+msgstr "BlÃ¤ndare"
 
 #: templates/gallery/gallery.inc:93
 msgid "Are you sure you want to delete all of the images in this gallery?"
-msgstr "Är du säker att du vill radera alla bilder i aktuellt galleri?"
+msgstr "Ã„r du sÃ¤ker att du vill radera alla bilder i aktuellt galleri?"
 
 #: templates/view/gallery.inc:43
 msgid "Are you sure you want to delete the selected images?"
-msgstr "Är du säker att du vill radera valda bilder?"
+msgstr "Ã„r du sÃ¤ker att du vill radera valda bilder?"
 
 #: templates/view/gallery.inc:110
 msgid ""
 "Are you sure you want to delete this gallery? All images in it will be "
 "deleted."
 msgstr ""
-"Är du säker att du vill radera aktuellt galleri? Alla bilder kommer att "
+"Ã„r du sÃ¤ker att du vill radera aktuellt galleri? Alla bilder kommer att "
 "raderas."
 
 #: lib/Exif.php:360
@@ -297,11 +297,11 @@ msgstr "Stigande"
 
 #: perms.php:50
 msgid "Attempt to edit a non-existent share."
-msgstr "Försök att ändra en utdelning som inte finns."
+msgstr "FÃ¶rsÃ¶k att Ã¤ndra en utdelning som inte finns."
 
 #: config/prefs.php.dist:112
 msgid "Automatically generate unique name for new galleries?"
-msgstr "Generera iautomatiskt unika namn på nya gallerier?"
+msgstr "Generera iautomatiskt unika namn pÃ¥ nya gallerier?"
 
 #: lib/Exif.php:129
 msgid "Av-priority"
@@ -313,11 +313,11 @@ msgstr ""
 
 #: search.php:84
 msgid "Before"
-msgstr "Före"
+msgstr "FÃ¶re"
 
 #: search.php:53
 msgid "Begins With"
-msgstr "Börjar med"
+msgstr "BÃ¶rjar med"
 
 #: search.php:82
 msgid "Between"
@@ -325,11 +325,11 @@ msgstr "Mellan"
 
 #: slideshow.php:35
 msgid "Blend"
-msgstr "Sammansmältning"
+msgstr "SammansmÃ¤ltning"
 
 #: slideshow.php:36
 msgid "Blinds"
-msgstr "Sammansmälter"
+msgstr "SammansmÃ¤lter"
 
 #: image.php:113
 msgid "Bottom"
@@ -337,7 +337,7 @@ msgstr "Botten"
 
 #: lib/Exif.php:332
 msgid "Camera Make"
-msgstr "Kameramärke"
+msgstr "KameramÃ¤rke"
 
 #: lib/Exif.php:333
 msgid "Camera Model"
@@ -350,11 +350,11 @@ msgstr "Kameraorientering"
 #: lib/Ansel.php:321
 #, php-format
 msgid "Can't get unknown file type '%s'."
-msgstr "Kan inte hämta okänd filtyp '%s'."
+msgstr "Kan inte hÃ¤mta okÃ¤nd filtyp '%s'."
 
 #: templates/image/preview_image.inc:29
 msgid "Cancel Change"
-msgstr "Avbryt ändring"
+msgstr "Avbryt Ã¤ndring"
 
 #: image.php:37 image.php:65 templates/search/search.html:9
 msgid "Caption"
@@ -386,23 +386,23 @@ msgstr ""
 
 #: config/prefs.php.dist:22
 msgid "Change your display options."
-msgstr "Ändra visningsinställningar."
+msgstr "Ã„ndra visningsinstÃ¤llningar."
 
 #: config/prefs.php.dist:30
 msgid "Change your gallery creation options."
-msgstr "Ändra inställningar för hur gallerier skapas."
+msgstr "Ã„ndra instÃ¤llningar fÃ¶r hur gallerier skapas."
 
 #: config/prefs.php.dist:15
 msgid "Change your gallery sorting options."
-msgstr "Ändra inställningar för sortering av gallerier."
+msgstr "Ã„ndra instÃ¤llningar fÃ¶r sortering av gallerier."
 
 #: slideshow.php:37
 msgid "Checkerboard"
-msgstr "Sckackbräde"
+msgstr "SckackbrÃ¤de"
 
 #: templates/xppublish/list.inc:8
 msgid "Choose an existing gallery"
-msgstr "Välj ett befintligt galleri"
+msgstr "VÃ¤lj ett befintligt galleri"
 
 #: lib/Exif.php:245
 msgid "Cloudy"
@@ -438,7 +438,7 @@ msgstr ""
 
 #: search.php:55
 msgid "Contains"
-msgstr "Innehåller"
+msgstr "InnehÃ¥ller"
 
 #: image.php:612
 #, php-format
@@ -459,7 +459,7 @@ msgstr "Kan inte visa gallerier."
 
 #: scripts/ansel.php:40
 msgid "Couldn't read command-line options."
-msgstr "Kunde inte läsa kommandoraden."
+msgstr "Kunde inte lÃ¤sa kommandoraden."
 
 #: templates/xppublish/list.inc:18
 msgid "Create"
@@ -471,7 +471,7 @@ msgstr "Skapa nytt galleri"
 
 #: templates/xppublish/list.inc:16
 msgid "Create a new gallery instead"
-msgstr "Skapa nytt galleri istället"
+msgstr "Skapa nytt galleri istÃ¤llet"
 
 #: templates/list/images.inc:20
 msgid "Created"
@@ -485,11 +485,11 @@ msgstr ""
 #: lib/Ansel.php:524 templates/image/edit_image.inc:24
 #: templates/crop/crop.inc:44
 msgid "Crop"
-msgstr "Beskära"
+msgstr "BeskÃ¤ra"
 
 #: crop.php:56
 msgid "Crop Image"
-msgstr "Beskär bild"
+msgstr "BeskÃ¤r bild"
 
 #: templates/crop/crop.inc:55
 msgid "Cropped"
@@ -501,11 +501,11 @@ msgstr ""
 
 #: image.php:102
 msgid "Custom Watermark"
-msgstr "Vattenmärke"
+msgstr "VattenmÃ¤rke"
 
 #: config/prefs.php.dist:128
 msgid "Custom watermark to use for images"
-msgstr "Vattenmärke som läggs till på bilder"
+msgstr "VattenmÃ¤rke som lÃ¤ggs till pÃ¥ bilder"
 
 #: config/prefs.php.dist:44
 msgid "Date Created"
@@ -513,11 +513,11 @@ msgstr "Datum skapad"
 
 #: search.php:86
 msgid "Date Field"
-msgstr "Datumfält"
+msgstr "DatumfÃ¤lt"
 
 #: search.php:61
 msgid "Date Fields"
-msgstr "Datumfält"
+msgstr "DatumfÃ¤lt"
 
 #: lib/Exif.php:338
 msgid "Date Image Digitized"
@@ -525,7 +525,7 @@ msgstr "Datum bild digitaliserades"
 
 #: lib/Exif.php:336
 msgid "Date Image Modified"
-msgstr "Datum bild ändrad"
+msgstr "Datum bild Ã¤ndrad"
 
 #: lib/Exif.php:337
 msgid "Date Image Taken"
@@ -533,7 +533,7 @@ msgstr "Datum bild tagen"
 
 #: config/prefs.php.dist:45
 msgid "Date Modified"
-msgstr "Datum ändrar"
+msgstr "Datum Ã¤ndrar"
 
 #: search.php:87
 msgid "Date Operator"
@@ -545,15 +545,15 @@ msgstr "Datum uppladdad"
 
 #: config/prefs.php.dist:46
 msgid "Default sorting criteria:"
-msgstr "Förvald sorteringsordning:"
+msgstr "FÃ¶rvald sorteringsordning:"
 
 #: config/prefs.php.dist:57
 msgid "Default sorting direction:"
-msgstr "Förvald sorteringsriktning:"
+msgstr "FÃ¶rvald sorteringsriktning:"
 
 #: templates/slideshow/slideshow.inc:222
 msgid "Delay"
-msgstr "Fördröjning"
+msgstr "FÃ¶rdrÃ¶jning"
 
 #: templates/image/edit_image.inc:46 templates/view/gallery.inc:110
 #: templates/view/navbar-image.inc:19 templates/view/navbar-gallery.inc:11
@@ -582,22 +582,22 @@ msgstr "Diagonal"
 
 #: config/prefs.php.dist:21
 msgid "Display Options"
-msgstr "Visningsinställningar"
+msgstr "VisningsinstÃ¤llningar"
 
 #: templates/list/header.inc:7
 #, php-format
 msgid "Displaying from %s to %s of %s galleries"
-msgstr "Visar från %s till %s av %s gallerier"
+msgstr "Visar frÃ¥n %s till %s av %s gallerier"
 
 #: templates/group/header.inc:3
 #, php-format
 msgid "Displaying from %s to %s of %s groups"
-msgstr "Visar från %s till %s av %s grupper"
+msgstr "Visar frÃ¥n %s till %s av %s grupper"
 
 #: templates/view/gallery.inc:87
 #, php-format
 msgid "Displaying from %s to %s of %s images"
-msgstr "Visar från %s till %s av %s bilder"
+msgstr "Visar frÃ¥n %s till %s av %s bilder"
 
 #: templates/view/navbar-image.inc:19
 #, php-format
@@ -606,15 +606,15 @@ msgstr "Vill du radera %s?"
 
 #: search.php:56
 msgid "Does Not Contain"
-msgstr "Innehåller inte"
+msgstr "InnehÃ¥ller inte"
 
 #: slideshow.php:39
 msgid "Doors"
-msgstr "Döörar"
+msgstr "DÃ¶Ã¶rar"
 
 #: lib/Ansel.php:411
 msgid "Download"
-msgstr "Hämta"
+msgstr "HÃ¤mta"
 
 #: templates/view/navbar-image.inc:27
 msgid "Download Full Image"
@@ -641,38 +641,38 @@ msgstr "E-vukort - "
 #: lib/Ansel.php:519 templates/view/gallery.inc:163
 #: templates/view/navbar-image.inc:16
 msgid "Edit"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: image.php:353
 #, php-format
 msgid "Edit %s :: %s"
-msgstr "Ändra %s :: %s"
+msgstr "Ã„ndra %s :: %s"
 
 #: image.php:436
 msgid "Edit Image"
-msgstr "Ändra bild"
+msgstr "Ã„ndra bild"
 
 #: perms.php:241
 msgid "Edit Permissions"
-msgstr "Öndra behörighet"
+msgstr "Ã–ndra behÃ¶righet"
 
 #: perms.php:244
 #, php-format
 msgid "Edit Permissions for %s"
-msgstr "Ändra behörigheter för %s"
+msgstr "Ã„ndra behÃ¶righeter fÃ¶r %s"
 
 #: image.php:212
 msgid "Edit an image"
-msgstr "Ändra en bild"
+msgstr "Ã„ndra en bild"
 
 #: image.php:173
 #, php-format
 msgid "Edit properties :: %s"
-msgstr "Ändra egenskaper :: %s"
+msgstr "Ã„ndra egenskaper :: %s"
 
 #: templates/gallery/gallery.inc:86
 msgid "Empty Gallery"
-msgstr "Töm galleri"
+msgstr "TÃ¶m galleri"
 
 #: search.php:89
 msgid "End Date"
@@ -685,7 +685,7 @@ msgstr "Slutar med"
 #: captions.php:23
 #, php-format
 msgid "Error accessing %s: %s"
-msgstr "Fel vid åtkomst av %s: %s"
+msgstr "Fel vid Ã¥tkomst av %s: %s"
 
 #: lib/Exif.php:344
 msgid "Exposure"
@@ -697,7 +697,7 @@ msgstr "Diagonal exponering"
 
 #: lib/Exif.php:351
 msgid "Exposure Mode"
-msgstr "Exponeringsläge"
+msgstr "ExponeringslÃ¤ge"
 
 #: lib/Exif.php:348
 msgid "F-Number"
@@ -726,7 +726,7 @@ msgstr "Blixt"
 
 #: lib/Exif.php:353
 msgid "Flash Setting"
-msgstr "Blixtinställning"
+msgstr "BlixtinstÃ¤llning"
 
 #: lib/Exif.php:271
 msgid "Flash, Auto-Mode"
@@ -758,15 +758,15 @@ msgstr ""
 
 #: lib/Exif.php:345
 msgid "Focal Length"
-msgstr "Brännvidd"
+msgstr "BrÃ¤nnvidd"
 
 #: lib/Exif.php:346
 msgid "Focal Length (35mm equiv)"
-msgstr "Brännvidd (35 mm)"
+msgstr "BrÃ¤nnvidd (35 mm)"
 
 #: templates/slideshow/slideshow.inc:87
 msgid "Forward direction"
-msgstr "Riktning framåt"
+msgstr "Riktning framÃ¥t"
 
 #: lib/Ansel.php:481
 msgid "Galleries"
@@ -775,7 +775,7 @@ msgstr "Gallerier"
 #: templates/group/header.inc:6
 #, php-format
 msgid "Galleries grouped by %s"
-msgstr "Gallerier grupperade på %s"
+msgstr "Gallerier grupperade pÃ¥ %s"
 
 #: list.php:50 list.php:53
 #, php-format
@@ -808,11 +808,11 @@ msgstr "Gallerinamn"
 
 #: config/prefs.php.dist:29
 msgid "Gallery Options"
-msgstr "Galleriinställningar"
+msgstr "GalleriinstÃ¤llningar"
 
 #: config/prefs.php.dist:43
 msgid "Gallery Owner"
-msgstr "Ägare"
+msgstr "Ã„gare"
 
 #: templates/xppublish/new.inc:14
 msgid "Gallery Short Name"
@@ -820,7 +820,7 @@ msgstr "Kortnamn"
 
 #: templates/gallery/gallery.inc:19
 msgid "Gallery Short Name (must be unique)"
-msgstr "Kortnamn (måste vara unikt)"
+msgstr "Kortnamn (mÃ¥ste vara unikt)"
 
 #: lib/Ansel.php:179
 #, php-format
@@ -829,11 +829,11 @@ msgstr "Unikt namn '%s' finns redan."
 
 #: xppublish.php:121
 msgid "Gallery Unique name is already taken."
-msgstr "Unikt namn på galleri finns redan."
+msgstr "Unikt namn pÃ¥ galleri finns redan."
 
 #: lib/Gallery.php:31
 msgid "Gallery names must be non-empty"
-msgstr "Namn på galleri får inte vara tomt"
+msgstr "Namn pÃ¥ galleri fÃ¥r inte vara tomt"
 
 #: image.php:442
 msgid "Gallery not found."
@@ -853,15 +853,15 @@ msgstr "Gradient"
 
 #: templates/image/edit_image.inc:38
 msgid "Grayscale"
-msgstr "Gråskala"
+msgstr "GrÃ¥skala"
 
 #: config/prefs.php.dist:68
 msgid "Group galleries by"
-msgstr "Grupper gallerier på"
+msgstr "Grupper gallerier pÃ¥"
 
 #: lib/Exif.php:340
 msgid "Height"
-msgstr "Höjd"
+msgstr "HÃ¶jd"
 
 #: image.php:110
 msgid "Horizontal Alignment"
@@ -869,7 +869,7 @@ msgstr "Horisontell justering"
 
 #: lib/Exif.php:349
 msgid "ISO Setting"
-msgstr "ISO inställning"
+msgstr "ISO instÃ¤llning"
 
 #: templates/search/search.html:7
 msgid "Image"
@@ -885,7 +885,7 @@ msgstr "bildtyp"
 
 #: lib/Gallery.php:51
 msgid "Image names must be non-empty"
-msgstr "Namn på bild får inte vara tomt"
+msgstr "Namn pÃ¥ bild fÃ¥r inte vara tomt"
 
 #: view.php:56
 msgid "Image not found."
@@ -906,11 +906,11 @@ msgstr "Iris"
 
 #: search.php:51
 msgid "Is"
-msgstr "Är"
+msgstr "Ã„r"
 
 #: search.php:52
 msgid "Is Not"
-msgstr "Är inte"
+msgstr "Ã„r inte"
 
 #: image.php:105
 msgid "Large"
@@ -918,11 +918,11 @@ msgstr "Stor"
 
 #: image.php:109
 msgid "Left"
-msgstr "Vänster"
+msgstr "VÃ¤nster"
 
 #: templates/crop/crop.inc:22
 msgid "Left X"
-msgstr "Vänster X"
+msgstr "VÃ¤nster X"
 
 #: scripts/ansel.php:167
 msgid "Listing Gallery/Name"
@@ -945,7 +945,7 @@ msgstr "Felaktig inloggning."
 #: templates/xppublish/login.inc:2
 #, php-format
 msgid "Login to %s"
-msgstr "Logga in på %s"
+msgstr "Logga in pÃ¥ %s"
 
 #: templates/slideshow/slideshow.inc:251
 msgid "Loop?"
@@ -957,7 +957,7 @@ msgstr "Minska Y"
 
 #: image.php:36 image.php:64
 msgid "Make this the default image for this gallery?"
-msgstr "Sät bilden som default för aktuellt galleri?"
+msgstr "SÃ¤t bilden som default fÃ¶r aktuellt galleri?"
 
 #: scripts/ansel.php:290 scripts/recursive_import.php:186
 msgid ""
@@ -1000,20 +1000,20 @@ msgstr "Speglad"
 
 #: templates/list/images.inc:21
 msgid "Modified"
-msgstr "Ändrad"
+msgstr "Ã„ndrad"
 
 #: templates/view/gallery.inc:102
 msgid "Modify"
-msgstr "Ändra"
+msgstr "Ã„ndra"
 
 #: templates/view/gallery.inc:102
 msgid "Modify Gallery"
-msgstr "Ändra galleri"
+msgstr "Ã„ndra galleri"
 
 #: gallery.php:127
 #, php-format
 msgid "Modifying: %s"
-msgstr "Ändrar: %s"
+msgstr "Ã„ndrar: %s"
 
 #: templates/view/navbar-gallery.inc:13
 msgid "Move"
@@ -1047,16 +1047,16 @@ msgstr "Namn"
 
 #: templates/xppublish/new.inc:33
 msgid "New Gallery Description"
-msgstr "Ny beskrivinig på galleri"
+msgstr "Ny beskrivinig pÃ¥ galleri"
 
 #: templates/xppublish/new.inc:24
 msgid "New Gallery Title"
-msgstr "Titel på nytt galleri"
+msgstr "Titel pÃ¥ nytt galleri"
 
 #: templates/view/description-image.inc:60
 #: templates/view/description-image.inc:61
 msgid "Next"
-msgstr "Nästa"
+msgstr "NÃ¤sta"
 
 #: config/prefs.php.dist:110
 msgid "No"
@@ -1093,7 +1093,7 @@ msgstr "Inte definierad"
 
 #: crop.php:26 image.php:152
 msgid "Not found or error accessing gallery."
-msgstr "Saknas eller fel vid årkomst av galleri."
+msgstr "Saknas eller fel vid Ã¥rkomst av galleri."
 
 #: config/prefs.php.dist:93
 msgid "Number of galleries per page"
@@ -1120,7 +1120,7 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Endast ägare eller systemadministratör kan ändra ägare eller behörigheter på "
+"Endast Ã¤gare eller systemadministratÃ¶r kan Ã¤ndra Ã¤gare eller behÃ¶righeter pÃ¥ "
 "en utdelning"
 
 #: templates/crop/crop.inc:27
@@ -1133,11 +1133,11 @@ msgstr "Annan"
 
 #: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:28
 msgid "Other Options"
-msgstr "Andra inställningar"
+msgstr "Andra instÃ¤llningar"
 
 #: templates/list/images.inc:25 config/prefs.php.dist:65
 msgid "Owner"
-msgstr "Ägare"
+msgstr "Ã„gare"
 
 #: lib/Exif.php:236
 msgid "Partial"
@@ -1145,11 +1145,11 @@ msgstr "Delvis"
 
 #: templates/xppublish/login.inc:14
 msgid "Password"
-msgstr "Lösenord"
+msgstr "LÃ¶senord"
 
 #: templates/view/gallery.inc:107
 msgid "Permissions"
-msgstr "behörigheter"
+msgstr "behÃ¶righeter"
 
 #: templates/xppublish/javascript.inc:63
 msgid "Photo Upload"
@@ -1169,21 +1169,21 @@ msgstr "Starta"
 
 #: xppublish.php:54
 msgid "Please enter your Username and Password."
-msgstr "Ange ditt användarnamn och lösenord."
+msgstr "Ange ditt anvÃ¤ndarnamn och lÃ¶senord."
 
 #: xppublish.php:99 xppublish.php:155
 msgid "Press the 'Back' button and try again."
-msgstr "Tryck på 'Tillbaka' och försök igen."
+msgstr "Tryck pÃ¥ 'Tillbaka' och fÃ¶rsÃ¶k igen."
 
 #: image.php:448
 #, php-format
 msgid "Preview changes for %s :: %s"
-msgstr "Förhandsgranska ändringar för %s :: %s"
+msgstr "FÃ¶rhandsgranska Ã¤ndringar fÃ¶r %s :: %s"
 
 #: templates/view/description-image.inc:46
 #: templates/view/description-image.inc:47
 msgid "Previous"
-msgstr "Föregående"
+msgstr "FÃ¶regÃ¥ende"
 
 #: lib/Ansel.php:426
 msgid "Print"
@@ -1209,7 +1209,7 @@ msgstr "Publicera till %s"
 #: xppublish.php:23
 #, php-format
 msgid "Publish your photos to %s on %s."
-msgstr "Publicera dina bilder till %s på %s."
+msgstr "Publicera dina bilder till %s pÃ¥ %s."
 
 #: slideshow.php:44
 msgid "Radial"
@@ -1234,15 +1234,15 @@ msgstr "Slumpvis bild"
 #: reorder.php:77
 #, php-format
 msgid "Re-order the images in %s"
-msgstr "Ändra ordning på bilder i %s"
+msgstr "Ã„ndra ordning pÃ¥ bilder i %s"
 
 #: lib/Exif.php:275
 msgid "Red Eye"
-msgstr "Röda ögon"
+msgstr "RÃ¶da Ã¶gon"
 
 #: lib/Exif.php:281
 msgid "Red Eye, Auto-Mode"
-msgstr "Röda ögon, automatiskt"
+msgstr "RÃ¶da Ã¶gon, automatiskt"
 
 #: lib/Exif.php:283
 msgid "Red Eye, Auto-Mode, Return light detected"
@@ -1254,7 +1254,7 @@ msgstr ""
 
 #: lib/Exif.php:278
 msgid "Red Eye, Compulsory Flash"
-msgstr "Röda ögon, Tvingande blixt"
+msgstr "RÃ¶da Ã¶gon, Tvingande blixt"
 
 #: lib/Exif.php:280
 msgid "Red Eye, Compulsory Flash, Return light detected"
@@ -1274,37 +1274,37 @@ msgstr ""
 
 #: templates/view/gallery.inc:88
 msgid "Refresh Gallery View"
-msgstr "Förnya gallerivy"
+msgstr "FÃ¶rnya gallerivy"
 
 #: templates/list/header.inc:10 templates/list/header.inc:11
 #: templates/group/header.inc:7 templates/group/header.inc:8
 #: templates/view/gallery.inc:88
 msgid "Refresh List"
-msgstr "Förnya lista"
+msgstr "FÃ¶rnya lista"
 
 #: templates/view/gallery.inc:104
 msgid "Reorder"
-msgstr "Ändra ordning"
+msgstr "Ã„ndra ordning"
 
 #: templates/view/gallery.inc:104
 msgid "Reorder Gallery"
-msgstr "Ändra ordning på galleri"
+msgstr "Ã„ndra ordning pÃ¥ galleri"
 
 #: templates/crop/crop.inc:3
 msgid "Resize selection"
-msgstr "Ändra storlek på markering"
+msgstr "Ã„ndra storlek pÃ¥ markering"
 
 #: templates/slideshow/slideshow.inc:90 templates/slideshow/slideshow.inc:221
 msgid "Reverse direction"
-msgstr "Omvänd riktning"
+msgstr "OmvÃ¤nd riktning"
 
 #: image.php:109
 msgid "Right"
-msgstr "Höger"
+msgstr "HÃ¶ger"
 
 #: templates/crop/crop.inc:50
 msgid "Right X"
-msgstr "Höger X"
+msgstr "HÃ¶ger X"
 
 #: templates/image/edit_image.inc:28
 msgid "Rotate 180"
@@ -1312,11 +1312,11 @@ msgstr "Rotera 180"
 
 #: templates/image/edit_image.inc:27
 msgid "Rotate Left"
-msgstr "Rotera vänster"
+msgstr "Rotera vÃ¤nster"
 
 #: templates/image/edit_image.inc:29
 msgid "Rotate Right"
-msgstr "Rotera höger"
+msgstr "Rotera hÃ¶ger"
 
 #: reorder.php:26 image.php:29 image.php:52 image.php:96
 msgid "Save"
@@ -1328,7 +1328,7 @@ msgstr "Spara rubriker"
 
 #: templates/image/preview_image.inc:24
 msgid "Save Change"
-msgstr "Spara ändring"
+msgstr "Spara Ã¤ndring"
 
 #: templates/gallery/gallery.inc:84
 msgid "Save Gallery"
@@ -1340,41 +1340,41 @@ msgstr "Spara bild"
 
 #: templates/gallery/gallery.inc:75
 msgid "Screen Image Height"
-msgstr "Skärmbilds höjd"
+msgstr "SkÃ¤rmbilds hÃ¶jd"
 
 #: templates/gallery/gallery.inc:68
 msgid "Screen Image Width"
-msgstr "Skärmbilds bredd"
+msgstr "SkÃ¤rmbilds bredd"
 
 #: search.php:28
 msgid "Search"
-msgstr "Sök"
+msgstr "SÃ¶k"
 
 #: search.php:60
 msgid "Search Type"
-msgstr "Sök på"
+msgstr "SÃ¶k pÃ¥"
 
 #: search.php:97 search.php:102
 #, php-format
 msgid "Search for Images"
-msgstr "Sök efter bilder"
+msgstr "SÃ¶k efter bilder"
 
 #: templates/view/navbar-gallery.inc:5
 msgid "Select All"
-msgstr "Välj alla"
+msgstr "VÃ¤lj alla"
 
 #: templates/view/navbar-gallery.inc:6
 msgid "Select None"
-msgstr "Välj ingen"
+msgstr "VÃ¤lj ingen"
 
 #: templates/xppublish/list.inc:6
 msgid "Select the Gallery to publish images to"
-msgstr "Välj galleri att publicera bilder till"
+msgstr "VÃ¤lj galleri att publicera bilder till"
 
 #: templates/view/navbar-gallery.inc:4
 #, php-format
 msgid "Select: %s, %s"
-msgstr "Välj: %s, %s"
+msgstr "VÃ¤lj: %s, %s"
 
 #: templates/view/navbar-gallery.inc:20
 msgid "Selected images to"
@@ -1395,7 +1395,7 @@ msgstr "Skicka som e-vykort"
 
 #: ecard.php:41
 msgid "Send ecard to the following address:"
-msgstr "Skicka e-vykort till följande adresser:"
+msgstr "Skicka e-vykort till fÃ¶ljande adresser:"
 
 #: lib/Exif.php:356
 msgid "Sensing Method"
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: templates/view/gallery.inc:107
 msgid "Set Permissions"
-msgstr "Sätt behörigheter"
+msgstr "SÃ¤tt behÃ¶righeter"
 
 #: config/prefs.php.dist:120
 msgid "Show EXIF data"
@@ -1432,11 +1432,11 @@ msgstr "Bildspel"
 #: slideshow.php:52
 #, php-format
 msgid "Slide show for %s"
-msgstr "Bildspel för %s"
+msgstr "Bildspel fÃ¶r %s"
 
 #: templates/slideshow/slideshow.inc:79
 msgid "Slide show is running"
-msgstr "Bildspel är aktivt"
+msgstr "Bildspel Ã¤r aktivt"
 
 #: image.php:105
 msgid "Small"
@@ -1444,7 +1444,7 @@ msgstr "Liten"
 
 #: slideshow.php:47
 msgid "Snow"
-msgstr "Snö"
+msgstr "SnÃ¶"
 
 #: templates/list/gallery_headers.inc:6 templates/list/gallery_headers.inc:21
 msgid "Sort Direction"
@@ -1452,63 +1452,63 @@ msgstr "Sorteringsriktning"
 
 #: config/prefs.php.dist:14
 msgid "Sort Options"
-msgstr "Sorteringsinställningar"
+msgstr "SorteringsinstÃ¤llningar"
 
 #: templates/list/gallery_headers.inc:22
 msgid "Sort by Description"
-msgstr "Sortera på beskrivning"
+msgstr "Sortera pÃ¥ beskrivning"
 
 #: templates/list/gallery_headers.inc:7
 msgid "Sort by Name"
-msgstr "Sortera på namn"
+msgstr "Sortera pÃ¥ namn"
 
 #: gallery.php:186
 #, php-format
 msgid "Specified screen image height is too large, value has been set to %s"
 msgstr ""
-"Angivet värde på skärmbilds höjd är för stort. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ skÃ¤rmbilds hÃ¶jd Ã¤r fÃ¶r stort. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:183
 #, php-format
 msgid "Specified screen image height is too small, value has been set to %s"
 msgstr ""
-"Angivet värde på skärmbilds höjd är för litet. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ skÃ¤rmbilds hÃ¶jd Ã¤r fÃ¶r litet. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:177
 #, php-format
 msgid "Specified screen image width is too large, value has been set to %s"
 msgstr ""
-"Angivet värde på skärmbilds bredd är för stort. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ skÃ¤rmbilds bredd Ã¤r fÃ¶r stort. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:174
 #, php-format
 msgid "Specified screen image width is too small, value has been set to %s"
 msgstr ""
-"Angivet värde på skärmbilds bredd är för litet. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ skÃ¤rmbilds bredd Ã¤r fÃ¶r litet. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:168
 #, php-format
 msgid "Specified thumbnail height is too large, value has been set to %s"
 msgstr ""
-"Angivet värde på miniatyrbilds höjd är för stort. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ miniatyrbilds hÃ¶jd Ã¤r fÃ¶r stort. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:165
 #, php-format
 msgid "Specified thumbnail height is too small, value has been set to %s"
 msgstr ""
-"Angivet värde på miniatyrbilds höjd är för litet. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ miniatyrbilds hÃ¶jd Ã¤r fÃ¶r litet. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:159
 #, php-format
 msgid "Specified thumbnail width is too large, value has been set to %s"
 msgstr ""
-"Angivet värde på miniatyrbilds bredd är för stort. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ miniatyrbilds bredd Ã¤r fÃ¶r stort. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: gallery.php:156
 #, php-format
 msgid "Specified thumbnail width is too small, value has been set to %s"
 msgstr ""
-"Angivet värde på miniatyrbilds bredd är för litet. Värdet har ändrats till %s"
+"Angivet vÃ¤rde pÃ¥ miniatyrbilds bredd Ã¤r fÃ¶r litet. VÃ¤rdet har Ã¤ndrats till %s"
 
 #: slideshow.php:48
 msgid "Spiral"
@@ -1534,7 +1534,7 @@ msgstr "Sparar bild '%s'..."
 
 #: slideshow.php:49
 msgid "Stretch"
-msgstr "Sträck"
+msgstr "StrÃ¤ck"
 
 #: templates/view/subgallery_header.inc:5
 #, php-format
@@ -1548,7 +1548,7 @@ msgstr "Undergalleri"
 #: scripts/ansel.php:207 scripts/recursive_import.php:165
 #, php-format
 msgid "Successfully added %d image(s) (%s) to gallery '%s' from '%s'."
-msgstr "La till %d bild(er) (%s) till galleri '%s' från '%s'."
+msgstr "La till %d bild(er) (%s) till galleri '%s' frÃ¥n '%s'."
 
 #: scripts/ansel.php:194
 #, php-format
@@ -1566,11 +1566,11 @@ msgstr "Soligt"
 
 #: search.php:66
 msgid "Text Field"
-msgstr "Textfält"
+msgstr "TextfÃ¤lt"
 
 #: search.php:61
 msgid "Text Fields"
-msgstr "Textfält"
+msgstr "TextfÃ¤lt"
 
 #: search.php:67
 msgid "Text Operator"
@@ -1578,7 +1578,7 @@ msgstr "Text operator"
 
 #: search.php:68
 msgid "Text Value"
-msgstr "Textvärde"
+msgstr "TextvÃ¤rde"
 
 #: scripts/ansel.php:233
 #, php-format
@@ -1588,12 +1588,12 @@ msgstr "Katalogen '%s' existerar inte."
 #: scripts/ansel.php:212
 #, php-format
 msgid "The directory '%s' had no valid images."
-msgstr "Katalogen '%s' saknar godkända bilder."
+msgstr "Katalogen '%s' saknar godkÃ¤nda bilder."
 
 #: scripts/ansel.php:250
 #, php-format
 msgid "The directory '%s' is empty."
-msgstr "Katalogen '%s' är tom."
+msgstr "Katalogen '%s' Ã¤r tom."
 
 #: lib/Ansel.php:312
 #, php-format
@@ -1602,7 +1602,7 @@ msgstr "Filen '%s' finns inte."
 
 #: image.php:295 lib/api.php:157
 msgid "The file you uploaded does not appear to be a valid image."
-msgstr "Filen verkar inte vara en godkänd bild-fil."
+msgstr "Filen verkar inte vara en godkÃ¤nd bild-fil."
 
 #: scripts/recursive_import.php:124
 #, php-format
@@ -1635,16 +1635,16 @@ msgstr "Bilden sparades."
 
 #: templates/slideshow/slideshow.inc:70
 msgid "The slide show is stopped, click [Play] to resume."
-msgstr "Bildspelet är stoppat, klicka på [Starta] för att starta igen."
+msgstr "Bildspelet Ã¤r stoppat, klicka pÃ¥ [Starta] fÃ¶r att starta igen."
 
 #: image.php:556 image.php:603
 msgid "The target gallery was not found."
-msgstr "Målgalleri saknas."
+msgstr "MÃ¥lgalleri saknas."
 
 #: image.php:320
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
-msgstr "Uppladdad fil verkar vara tom. Den kanske inte finns på din dator."
+msgstr "Uppladdad fil verkar vara tom. Den kanske inte finns pÃ¥ din dator."
 
 #: gallery.php:88
 #, php-format
@@ -1661,12 +1661,12 @@ msgstr "Det finns inga bilder i aktuellt galleri."
 
 #: list.php:63 lib/Block/random_gallery.php:37 lib/Block/random_photo.php:38
 msgid "There are no photo galleries available."
-msgstr "Inget galleri tillgängligt."
+msgstr "Inget galleri tillgÃ¤ngligt."
 
 #: scripts/ansel.php:190 scripts/ansel.php:269
 #, php-format
 msgid "There was a problem adding the image '%s' to gallery '%s'."
-msgstr "Problem med att lägga till '%s' till galleri '%s'."
+msgstr "Problem med att lÃ¤gga till '%s' till galleri '%s'."
 
 #: image.php:614
 #, php-format
@@ -1701,7 +1701,7 @@ msgstr "Problem vid flytt av '%s': %s"
 #: image.php:278 image.php:311
 #, php-format
 msgid "There was a problem saving the image: %s"
-msgstr "Fel uppstod när bilden skulle sparas: %s"
+msgstr "Fel uppstod nÃ¤r bilden skulle sparas: %s"
 
 #: xppublish.php:199
 msgid "There was a problem uploading the image."
@@ -1732,7 +1732,7 @@ msgstr "Miniatyrbild"
 
 #: templates/gallery/gallery.inc:61
 msgid "Thumbnail Height"
-msgstr "Miniatyrbild, höjd"
+msgstr "Miniatyrbild, hÃ¶jd"
 
 #: templates/gallery/gallery.inc:54
 msgid "Thumbnail Width"
@@ -1756,7 +1756,7 @@ msgstr "Top Y"
 
 #: templates/slideshow/slideshow.inc:245
 msgid "Transition"
-msgstr "Övergång"
+msgstr "Ã–vergÃ¥ng"
 
 #: lib/Exif.php:297
 msgid "Trilinear Sensor"
@@ -1780,7 +1780,7 @@ msgstr "Okalibrerad"
 
 #: templates/gallery/gallery.inc:85
 msgid "Undo Changes"
-msgstr "Ångra ändringar"
+msgstr "Ã…ngra Ã¤ndringar"
 
 #: list.php:50 templates/group/category.inc:8
 msgid "Unfiled"
@@ -1788,15 +1788,15 @@ msgstr "Ej kategoriserad"
 
 #: lib/Exif.php:230
 msgid "Unknown"
-msgstr "Okänd"
+msgstr "OkÃ¤nd"
 
 #: gallery.php:129
 msgid "Unknown gallery"
-msgstr "Okänt galleri"
+msgstr "OkÃ¤nt galleri"
 
 #: lib/Ansel.php:194
 msgid "Unnamed"
-msgstr "Namnlös"
+msgstr "NamnlÃ¶s"
 
 #: xppublish.php:141
 msgid "Untitled"
@@ -1828,7 +1828,7 @@ msgstr "Upp och ner"
 #: lib/Exif.php:158
 #, php-format
 msgid "Upsidedown Mirrored"
-msgstr "Upp och ner, spegelvänd"
+msgstr "Upp och ner, spegelvÃ¤nd"
 
 #: scripts/ansel.php:288 scripts/recursive_import.php:184
 #, php-format
@@ -1837,11 +1837,11 @@ msgstr ""
 
 #: templates/gallery/gallery.inc:25 templates/xppublish/new.inc:17
 msgid "Use Default"
-msgstr "Använd förvalt"
+msgstr "AnvÃ¤nd fÃ¶rvalt"
 
 #: ecard.php:32
 msgid "Use the following return address:"
-msgstr "Använd följande avsändaradress:"
+msgstr "AnvÃ¤nd fÃ¶ljande avsÃ¤ndaradress:"
 
 #: lib/Exif.php:354
 msgid "User Comment"
@@ -1849,15 +1849,15 @@ msgstr "Kommentar"
 
 #: templates/xppublish/login.inc:11
 msgid "Username"
-msgstr "Användarnamn"
+msgstr "AnvÃ¤ndarnamn"
 
 #: xppublish.php:50
 msgid "Username and Password are incorrect."
-msgstr "Felaktigt användarnamn och/eller lösenord."
+msgstr "Felaktigt anvÃ¤ndarnamn och/eller lÃ¶senord."
 
 #: scripts/recursive_import.php:79
 msgid "Username or password is incorrect."
-msgstr "Felaktigt användarnamn och/eller lösenord."
+msgstr "Felaktigt anvÃ¤ndarnamn och/eller lÃ¶senord."
 
 #: image.php:114
 msgid "Vertical Alignment"
@@ -1876,11 +1876,11 @@ msgstr "Visa bild"
 
 #: image.php:406 image.php:412 templates/image/edit_image.inc:42
 msgid "Watermark"
-msgstr "Vattenmärke"
+msgstr "VattenmÃ¤rke"
 
 #: image.php:106
 msgid "Watermark Font"
-msgstr "Vattenmärke, typsnitt"
+msgstr "VattenmÃ¤rke, typsnitt"
 
 #: lib/Exif.php:357
 msgid "White Balance"
@@ -1892,11 +1892,11 @@ msgstr "Bredd"
 
 #: lib/Exif.php:341
 msgid "X Resolution"
-msgstr "X-upplösning"
+msgstr "X-upplÃ¶sning"
 
 #: lib/Exif.php:342
 msgid "Y Resolution"
-msgstr "Y-upplösning"
+msgstr "Y-upplÃ¶sning"
 
 #: config/prefs.php.dist:109
 msgid "Yes"
@@ -1904,43 +1904,43 @@ msgstr "Ja"
 
 #: config/prefs.php.dist:111
 msgid "Yes, and don't prompt to change it"
-msgstr "Ja, och fråga inte om att ändra"
+msgstr "Ja, och frÃ¥ga inte om att Ã¤ndra"
 
 #: lib/Ansel.php:375
 msgid "Yesterday"
-msgstr "i går"
+msgstr "i gÃ¥r"
 
 #: image.php:343
 msgid "You are not allowed to edit this image."
-msgstr "Du har inte behörighet att redigera aktuell bild."
+msgstr "Du har inte behÃ¶righet att redigera aktuell bild."
 
 #: xppublish.php:91 xppublish.php:184
 msgid "You cannot add photos in that gallery."
-msgstr "Du kan inte lägga till bilder i galleriet."
+msgstr "Du kan inte lÃ¤gga till bilder i galleriet."
 
 #: scripts/ansel.php:136
 #, php-format
 msgid "You cannot add photos to the gallery '%s'."
-msgstr "Du kan inte lägga till bilder i galleri '%s'."
+msgstr "Du kan inte lÃ¤gga till bilder i galleri '%s'."
 
 #: gallery.php:313
 #, php-format
 msgid "You cannot delete %s, it contains nested galleries."
-msgstr "Du kan inte radera %s, det innehåller gallerier."
+msgstr "Du kan inte radera %s, det innehÃ¥ller gallerier."
 
 #: gallery.php:53 gallery.php:245
 #, php-format
 msgid "You do not have permission to add children to %s."
-msgstr "Du har inte behörighet att lägga till barnd till %s."
+msgstr "Du har inte behÃ¶righet att lÃ¤gga till barnd till %s."
 
 #: gallery.php:348
 #, php-format
 msgid "You do not have permission to empty %s."
-msgstr "Behörighet saknas för att tömma %s."
+msgstr "BehÃ¶righet saknas fÃ¶r att tÃ¶mma %s."
 
 #: reorder.php:47 slideshow.php:24 view.php:27
 msgid "You do not have permission to view this gallery."
-msgstr "Du har inte behörighet att visa aktuellt galleri."
+msgstr "Du har inte behÃ¶righet att visa aktuellt galleri."
 
 #: ecard.php:102
 msgid ""
@@ -1952,31 +1952,31 @@ msgstr ""
 
 #: templates/view/gallery.inc:53
 msgid "You must choose a gallery to copy images to."
-msgstr "Välj galleri att kopiera bilder till"
+msgstr "VÃ¤lj galleri att kopiera bilder till"
 
 #: templates/view/gallery.inc:67
 msgid "You must choose a gallery to move images to."
-msgstr "Välj galleri att flytta bilder till"
+msgstr "VÃ¤lj galleri att flytta bilder till"
 
 #: ecard.php:76
 msgid "You must enter an e-mail address to send the message to."
-msgstr "Du måste ange en e-postadress att skicka meddelandet till."
+msgstr "Du mÃ¥ste ange en e-postadress att skicka meddelandet till."
 
 #: ecard.php:71
 msgid "You must enter your e-mail address."
-msgstr "Du måste ange din e-postadress."
+msgstr "Du mÃ¥ste ange din e-postadress."
 
 #: gallery.php:265
 msgid "You must provide a display name for your new gallery."
-msgstr "Du måste ange ett namn på ditt nya galleri."
+msgstr "Du mÃ¥ste ange ett namn pÃ¥ ditt nya galleri."
 
 #: scripts/recursive_import.php:88
 msgid "You must specify a valid directory."
-msgstr "Välj en godkänd katalog."
+msgstr "VÃ¤lj en godkÃ¤nd katalog."
 
 #: scripts/recursive_import.php:84
 msgid "You must specify a valid username and password."
-msgstr "Du måste ange ett godkänt användarnamn och lösenord."
+msgstr "Du mÃ¥ste ange ett godkÃ¤nt anvÃ¤ndarnamn och lÃ¶senord."
 
 #: image.php:76
 msgid "Zip File Upload"
@@ -2000,7 +2000,7 @@ msgstr "_Nytt galleri"
 
 #: lib/Ansel.php:430
 msgid "_Search"
-msgstr "_Sök"
+msgstr "_SÃ¶k"
 
 #: lib/Exif.php:305
 msgid "sRGB"

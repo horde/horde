@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -453,7 +453,7 @@ msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
-"Klik op één van uw geselecteerde adresboeken en selecteer daarna alle velden "
+"Klik op Ã©Ã©n van uw geselecteerde adresboeken en selecteer daarna alle velden "
 "welke doorzocht dienen te worden."
 
 #: templates/perms/perms.inc:9
@@ -677,7 +677,7 @@ msgstr "Aanwezigen bewerken"
 
 #: templates/category_legend.inc:20
 msgid "Edit categories and colors"
-msgstr "Categorieën en kleuren bewerken"
+msgstr "CategorieÃ«n en kleuren bewerken"
 
 #: templates/perms/perms.inc:11
 #, php-format
@@ -886,7 +886,7 @@ msgid ""
 "To decline the event:\n"
 "%s\n"
 msgstr ""
-"Als uw email client geen iTip verzoeken ondersteund, kunt één van de "
+"Als uw email client geen iTip verzoeken ondersteund, kunt Ã©Ã©n van de "
 "volgende links gebruiken voor accepteren of afwijzen van de gebeurtenis.\n"
 "\n"
 "Om de gebeurtenis te accepteren:\n"
@@ -1070,7 +1070,7 @@ msgstr "Naar boven"
 #: lib/api.php:911
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr ""
-"Meerdere iCalendar onderdelen gevonden; slecht één vEvent wordt ondersteund."
+"Meerdere iCalendar onderdelen gevonden; slecht Ã©Ã©n vEvent wordt ondersteund."
 
 #: calendars.php:133
 msgid "My Calendars"
@@ -1351,15 +1351,15 @@ msgstr "Voorgaande gebeurtenissen"
 #: lib/Driver.php:1422
 #, php-format
 msgid "Private Event from %s to %s"
-msgstr "Privé gebeurtenis van %s tot %s"
+msgstr "PrivÃ© gebeurtenis van %s tot %s"
 
 #: lib/Driver.php:2208 lib/Driver.php:2209
 msgid "Private event"
-msgstr "Privé gebeurtenis"
+msgstr "PrivÃ© gebeurtenis"
 
 #: templates/edit/edit.inc:120
 msgid "Private?"
-msgstr "Privé?"
+msgstr "PrivÃ©?"
 
 #: templates/perms/perms.inc:31 templates/perms/perms.inc:61
 #: templates/perms/perms.inc:87 templates/perms/perms.inc:102
@@ -1470,7 +1470,7 @@ msgid ""
 "Replace existing calendar with the imported one? <strong>Warning: This "
 "deletes all entries in your current calendar.</strong>"
 msgstr ""
-"Vervang de bestaande agenda door de geïmporteerde? <b>Waarschuwing: Dit "
+"Vervang de bestaande agenda door de geÃ¯mporteerde? <b>Waarschuwing: Dit "
 "verwijdert de hele inhoud uit uw huidige agenda.</b>"
 
 #: lib/Kronolith.php:1216
