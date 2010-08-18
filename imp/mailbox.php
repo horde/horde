@@ -148,11 +148,12 @@ case 'undelete_messages':
 case 'move_messages':
 case 'copy_messages':
     if (isset($vars->targetMbox) && count($indices)) {
+        $targetMbox = IMP::formMbox($vars->targetMbox, false);
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
-            $targetMbox = IMP::folderPref($vars->targetMbox, true);
+            $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
         } else {
-            $targetMbox = $vars->targetMbox;
+            $targetMbox = $targetMbox;
             $newMbox = false;
         }
         $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, array('create' => $newMbox));

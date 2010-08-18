@@ -105,13 +105,14 @@ case 'undelete_message':
 case 'move_message':
 case 'copy_message':
     if (isset($vars->targetMbox)) {
+        $targetMbox = IMP::formMbox($vars->targetMbox, false);
         if ($vars->newMbox) {
-            $vars->targetMbox = IMP::folderPref($vars->targetMbox, true);
+            $vars->targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, array('create' => $newMbox));
+        $imp_message->copy($targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, array('create' => $newMbox));
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
