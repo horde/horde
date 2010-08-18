@@ -1234,6 +1234,10 @@ class Horde_Registry
         if ($app) {
             $this->_onAppSwitch($app);
         }
+        $this->setTextdomain(
+            $app,
+            $this->get('fileroot', $app) . '/locale'
+        );
 
         return $previous;
     }
