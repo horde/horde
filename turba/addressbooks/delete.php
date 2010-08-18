@@ -56,5 +56,5 @@ if ($form->validate(new Horde_Variables($_POST))) {
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, Horde::applicationUrl('delete.php'), 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::applicationUrl('addressbooks/delete.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
