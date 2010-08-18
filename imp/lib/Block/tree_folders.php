@@ -20,7 +20,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 {
     protected $_app = 'imp';
 
-    protected function _buildTree($tree, $indent = 0, $parent = null)
+    protected function _buildTree($tree, $indent = 0, $parent = '')
     {
         global $injector, $prefs, $registry;
 
@@ -37,7 +37,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             false,
             array(
                 'icon' => Horde_Themes::img('compose.png'),
-                'url' => strval(IMP::composeLink())
+                'url' => IMP::composeLink()
             )
         );
 
@@ -66,7 +66,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             IMP_Imap_Tree::FLIST_VFOLDER;
 
         $unseen = 0;
-        $inbox = null;
 
         foreach ($imaptree->folderList($mask) as $val) {
             $label = $val->name;
@@ -77,12 +76,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                     $unseen += $poll_info->unseen;
                     $label = '<span dir="ltr"><strong>' . $label . '</strong> (' . $poll_info->unseen . '/' . $poll_info->msgs . ')</span>';
                 }
-            }
-
-            /* If this is the INBOX, save it to later rewrite our parent node
-             * to include new mail notification. */
-            if ($val->value == 'INBOX') {
-                $inbox = $val;
             }
 
             $icon = $val->icon;
@@ -102,34 +95,31 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
         /* We want to rewrite the parent node of the INBOX to include new mail
          * notification. */
-        if ($inbox) {
-            $url = $registry->get('url', $parent);
-            if (empty($url)) {
-                $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
-                    ? null
-                    : $registry->getInitialPage($parent);
-            }
-
-            $node_params = array(
-                'icon' => strval($registry->get('icon', $parent)),
-                'url' => $url
-            );
-            $name = $registry->get('name', $parent);
-
-            if ($unseen) {
-                $node_params['icon'] = Horde_Themes::img('newmail.png');
-                $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
-            }
-
-            $tree->addNode(
-                $parent,
-                $registry->get('menu_parent', $parent),
-                $name,
-                $indent - 1,
-                $imaptree->isOpen($parent),
-                $node_params
-            );
+        if (!($url = $registry->get('url', $parent))) {
+            $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
+                ? null
+                : $registry->getInitialPage($parent);
         }
+
+        $node_params = array(
+            'icon' => $registry->get('icon', $parent),
+            'url' => $url
+        );
+        $name = $registry->get('name', $parent);
+
+        if ($unseen) {
+            $node_params['icon'] = Horde_Themes::img('newmail.png');
+            $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
+        }
+
+        $tree->addNode(
+            $parent,
+            $registry->get('menu_parent', $parent),
+            $name,
+            $indent - 1,
+            $imaptree->isOpen($parent),
+            $node_params
+        );
     }
 
 }
