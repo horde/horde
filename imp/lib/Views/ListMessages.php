@@ -307,8 +307,7 @@ class IMP_Views_ListMessages
             } catch (Horde_Imap_Client_Exception $e) {}
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-                $threadob = $imp_mailbox->getThreadOb();
-                $imp_thread = new IMP_Imap_Thread($threadob);
+                $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
                 $md->thread = $imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
             }
         } else {
