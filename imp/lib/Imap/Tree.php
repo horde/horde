@@ -1114,7 +1114,7 @@ class IMP_Imap_Tree implements ArrayAccess
         $this->_initPollList();
 
         $plist = $prune
-            ? array_values(array_intersect(array_keys($this->_poll), $this->folderList()))
+            ? array_values(array_intersect(array_keys($this->_poll), array_keys($this->folderList())))
             : array_keys($this->_poll);
 
         if ($sort) {
