@@ -42,37 +42,35 @@ if (!$browser->hasFeature('javascript') ||
 }
 
 $imp_search = $injector->getInstance('IMP_Search');
+$vars = Horde_Variables::getDefaultVariables();
 
 $charset = $registry->getCharset();
-$criteria = Horde_Util::getFormData('criteria_form');
 $dimp_view = ($_SESSION['imp']['view'] == 'dimp');
 $search_fields = $imp_search->searchFields();
-$search_mailbox = Horde_Util::getFormData('search_mailbox', 'INBOX');
+$search_mailbox = isset($vars->search_mailbox)
+    ? $vars->search_mailbox
+    : 'INBOX';
 
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
-if (!empty($criteria)) {
-    $criteria = Horde_Serialize::unserialize($criteria, Horde_Serialize::JSON);
-    $folders = Horde_Util::getFormData('search_folders_form');
+if ($vars->criteria_form) {
+    $criteria = Horde_Serialize::unserialize($vars->criteria_form, Horde_Serialize::JSON);
 
     /* Create the search query. */
     $imp_ui_search = new IMP_Ui_Search();
     $query = $imp_ui_search->createQuery($criteria);
 
     /* Save the search if requested. */
-    if (Horde_Util::getFormData('search_save')) {
-        $search_label = Horde_Util::getFormData('search_label');
-
-        switch (Horde_Util::getFormData('search_type')) {
+    if ($vars->search_save) {
+        switch ($vars->search_type) {
         case 'vfolder':
-            $edit_query_vfolder = Horde_Util::getFormData('edit_query_vfolder');
-            $id = $imp_search->addVFolder($query, $folders, $criteria, $search_label, empty($edit_query_vfolder) ? null : $edit_query_vfolder);
-            $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $search_label), 'horde.success');
+            $id = $imp_search->addVFolder($query, $vars->search_folders_form, $criteria, $vars->search_label, $vars->edit_query_vfolder);
+            $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $vars->search_label), 'horde.success');
             break;
         }
     } else {
         /* Set the search in the session. */
-        $id = $imp_search->createSearchQuery($query, $folders, $criteria, _("Search Results"));
+        $id = $imp_search->createSearchQuery($query, $vars->search_folders_form, $criteria, _("Search Results"));
     }
 
     /* Redirect to the mailbox page. */
@@ -94,7 +92,7 @@ $imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
 $mask = IMP_Imap_Tree::FLIST_CONTAINER;
 
 $subscribe = $prefs->getValue('subscribe');
-if (!$subscribe || Horde_Util::getFormData('show_unsub')) {
+if (!$subscribe || $vars->show_unsub) {
     $mask |= IMP_Imap_Tree::FLIST_UNSUB;
 }
 
@@ -112,7 +110,7 @@ foreach ($raw_rows as $key => $val) {
     );
 }
 
-if (Horde_Util::getFormData('show_unsub') !== null) {
+if ($vars->show_unsub) {
     Horde::sendHTTPResponse($folders, 'json');
 }
 
@@ -145,17 +143,16 @@ $t->set('subscribe', $subscribe);
 $t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
 
 /* Determine if we are editing a current search folder. */
-$edit_query = Horde_Util::getFormData('edit_query');
-if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
-    if ($imp_search->isVFolder($edit_query)) {
-        if (!$imp_search->isEditableVFolder($edit_query)) {
+if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
+    if ($imp_search->isVFolder($vars->edit_query)) {
+        if (!$imp_search->isEditableVFolder($vars->edit_query)) {
             $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
             Horde::applicationUrl('mailbox.php', true)->redirect();
         }
-        $t->set('edit_query_vfolder', htmlspecialchars($edit_query));
+        $t->set('edit_query_vfolder', htmlspecialchars($vars->edit_query));
     }
-    $js_load[] = 'ImpSearch.updateSearchCriteria(' . Horde_Serialize::serialize($imp_search->getCriteria($edit_query), Horde_Serialize::JSON, $charset) . ')';
-    $js_load[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($imp_search->getLabel($edit_query), Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateSearchCriteria(' . Horde_Serialize::serialize($imp_search->getCriteria($vars->edit_query), Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($imp_search->getLabel($vars->edit_query), Horde_Serialize::JSON, $charset) . ')';
 }
 
 $f_fields = $s_fields = $types = array();
