@@ -148,11 +148,11 @@ class Gollem_Application extends Horde_Registry_Application
             }
 
             return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which address books to display, and in what order:"),
-                'selectlabel' => _("These addressbooks will display in this order:"),
+                'mainlabel' => _("Choose which backends to display, and in what order:"),
+                'selectlabel' => _("These backends will display in this order:"),
                 'sourcelabel' => _("Select a backend:"),
-                'sources' => $foo,
-                'unselectlabel' => _("Address books that will not be displayed:")
+                'sources' => $sources,
+                'unselectlabel' => _("Backends that will not be displayed:")
             ));
         }
 
