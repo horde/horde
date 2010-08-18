@@ -415,7 +415,7 @@ class IMP_Imap
     public function __call($method, $params)
     {
         if (!$this->ob || !method_exists($this->ob, $method)) {
-            throw new IMP_Exception(sprintf(_("%s: Invalid method call '%s'."), __CLASS__, $method));
+            throw new IMP_Exception(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
         return call_user_func_array(array($this->ob, $method), $params);

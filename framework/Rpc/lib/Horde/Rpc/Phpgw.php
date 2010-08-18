@@ -157,7 +157,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         } elseif ($http->getResponseCode() != 200) {
             throw new Horde_Rpc_Exception(_("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode());
         } elseif (strpos($http->getResponseBody(), '<?xml') === false) {
-            throw new Horde_Rpc_Exception(_("No valid XML data returned:\n") . $http->getResponseBody());
+            throw new Horde_Rpc_Exception(_("No valid XML data returned:") . "\n" . $http->getResponseBody());
         } else {
             $response = @xmlrpc_decode(substr($http->getResponseBody(), strpos($http->getResponseBody(), '<?xml')));
             if (is_array($response) && isset($response['faultString'])) {

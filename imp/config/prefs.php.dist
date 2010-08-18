@@ -888,7 +888,7 @@ $_prefs['delete_spam_after_report'] = array(
         1 => _("Delete message"),
         2 => _("Move to spam folder")
     ),
-    'desc' => _("What should we do with spam messages after they have been reported as spam?"),
+    'desc' => _("What should we do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report'
 );
 
@@ -900,7 +900,7 @@ $_prefs['move_ham_after_report'] = array(
         0 => _("Nothing"),
         1 => _("Move to Inbox")
     ),
-    'desc' => _("What should we do with spam messages after they have been reported as innocent?"),
+    'desc' => _("What should we do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_ham_after_report'
 );
 

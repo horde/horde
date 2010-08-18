@@ -22,7 +22,7 @@ try {
 /* Retrieve the desired revision from the GET variable. */
 $rev = Horde_Util::getFormData('rev');
 if (!$rev || !$VC->isValidRevision($rev)) {
-    Chora::fatal(sprintf(_("Revision %s not found"), $rev ? $rev : _("NONE")), '404 Not Found');
+    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
 switch (Horde_Util::getFormData('actionID')) {

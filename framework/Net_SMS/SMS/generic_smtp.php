@@ -99,7 +99,7 @@ class Net_SMS_generic_smtp extends Net_SMS {
     {
         return array(
             'carrier'     => array('label' => _("Carrier"), 'type' => 'text'),
-            'mailBackend' => array('label' => _("Horde_Mail:: backend"), 'type' => 'text')
+            'mailBackend' => array('label' => _("Mail backend"), 'type' => 'text')
         );
     }
 

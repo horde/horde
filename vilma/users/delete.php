@@ -79,7 +79,7 @@ $domain = $vilma->driver->getDomainByName($domain);
 $vars->set('domain', $domain);
 $vars->set('mode', 'edit');
 
-$form = new Horde_Form($vars, _("Delete " . $type));
+$form = new Horde_Form($vars, sprintf(_("Delete %s"), $type));
 /* Set up the form. */
 $form->setButtons(array(_("Delete"), _("Do not delete")));
 //$form->addHidden($user_id, 'user_id', 'text', false);

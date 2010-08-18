@@ -1132,7 +1132,7 @@ class IMP_Prefs_Ui
             }
         } elseif (isset($ui->vars->unset_pgp_passphrase)) {
             $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->unsetPassphrase('personal');
-            $GLOBALS['notification']->push(_("PHP passphrase successfully unloaded."), 'horde.success');
+            $GLOBALS['notification']->push(_("PGP passphrase successfully unloaded."), 'horde.success');
         }
     }
 

@@ -10,7 +10,7 @@ if (count($groups) > 1) {
     <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
-      <?php printf($type == 'internal' ? _("%sDon't share this calendar%s") : _("%sDon't share this task list%s"), '<label for="kronolithC' . $type . 'PNone">', '</label>') ?><br />
+      <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
     </div>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />

@@ -383,7 +383,7 @@ class SyncPages extends Page {
             if (trim($text) == trim($content)) {
                 return PEAR::raiseError(_("No changes made"));
             }
-            $result = $page->updateText($text, _("Downloded from remote server"), true);
+            $result = $page->updateText($text, _("Downloaded from remote server"), true);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }

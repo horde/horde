@@ -12,7 +12,7 @@
      </div>
     <else:have_offline>
      <div class="fbbluebox">
-      <tag:app_name /><gettext> can interact with your Facebook account, but you must login to Facebook manually each time.</gettext>
+      <gettext><tag:app_name /> can interact with your Facebook account, but you must login to Facebook manually each time.</gettext>
       <div class="fbaction"><gettext>Authorize an infinite session:</gettext><a class="fbbutton" href="<tag:authUrl />">Facebook</a></div>
      </div>
     </else:have_offline>
@@ -23,7 +23,7 @@
      </div>
     <else:have_publish>
      <div class="fbbluebox">
-      <tag:app_name /> <gettext>cannot set your status messages or publish other content to Facebook.</gettext>
+      <gettext><tag:app_name /> cannot set your status messages or publish other content to Facebook.</gettext>
       <div class="fbaction"><getttext>Authorize Publish:</gettext><a class="fbbutton" href="<tag:publish_url />">Facebook</a></div>
      </div>
     </else:have_publish>
@@ -35,7 +35,7 @@
      </div>
     <else:have_read>
      <div class="fbbluebox">
-      <tag:app_name /> <gettext>cannot read your stream messages.</gettext>
+      <gettext><tag:app_name /> cannot read your stream messages.</gettext>
       <div class="fbaction"><gettext>Authorize Read:</gettext><a class="fbbutton" href="<tag:read_url />">Facebook</a></div>
      </div>
     </else:have_read>
@@ -43,7 +43,7 @@
 <else:have_session>
     <div class="notice">Could not find authorization for <tag:user_name /> to interact with your Facebook account.</div>
     <br />
-    <gettext>Login to Facebook and authorize</gettext> <tag:application_name />
-    <a href="<tag:authUrl />" class="fbbutton"><gettext>Facebook</gettext></a>
+    <gettext>Login to Facebook and authorize <tag:application_name /></gettext>
+    <a href="<tag:authUrl />" class="fbbutton">Facebook</a>
 </else:have_session>
 </if:have_session>

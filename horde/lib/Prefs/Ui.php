@@ -777,7 +777,7 @@ class Horde_Prefs_Ui
         if ($ui->vars->wipeid) {
             $stateMachine->loadDeviceInfo($ui->vars->wipeid, $GLOBALS['registry']->getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
-            $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped during the next SYNC request."), $ui->vars->wipe));
+            $GLOBALS['notification']->push(sprintf(_("A remote wipe for device id %s has been initiated. The device will be wiped during the next synchronisation."), $ui->vars->wipe));
         } elseif ($ui->vars->cancelwipe) {
             $stateMachine->loadDeviceInfo($ui->vars->cancelwipe, $GLOBALS['registry']->getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);

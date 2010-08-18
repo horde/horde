@@ -6,18 +6,18 @@
     </div>
     <div class="clear">&nbsp;</div>
     <div>
-      <tag:appname /> <gettext>can interact with your Twitter account</gettext>.
+      <gettext><tag:appname /> can interact with your Twitter account</gettext>.
       <div><input type="submit" class="button" value="<gettext>Disable</gettext>" onclick="document.prefs.twitteractionID.value='revokeInfinite'; return true" /></div>
     </div>
 <else:haveSession>
     <div class="notice">
-      <gettext>Could not find authorization for</gettext> <tag:appname /> <gettext>to interact with your Twitter account</gettext>
+      <gettext>Could not find authorization for <tag:appname /> to interact with your Twitter account</gettext>
     </div>
     <script type="text/javascript">
       function openTwitterWindow() {
           <tag:popupjs />
       }
     </script>
-    <gettext>Login to Twitter and authorize the</gettext> <tag:appname /> <gettext>application</gettext>: <tag:link />
+    <gettext>Login to Twitter and authorize the <tag:appname /> application</gettext>: <tag:link />
 </else:haveSession>
 </if:haveSession>

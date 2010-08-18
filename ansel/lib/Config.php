@@ -24,7 +24,7 @@ class Ansel_Config
     public function get($config)
     {
         if (!isset($this->_config[$config])) {
-            throw InvalidArgumentException($config . _(" not found"));
+            throw InvalidArgumentException($config . ' not found');
         }
         return $this->_config[$config];
     }

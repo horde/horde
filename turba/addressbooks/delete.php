@@ -22,7 +22,7 @@ if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) 
 $vars = Horde_Variables::getDefaultVariables();
 $addressbook_id = $vars->get('a');
 if ($addressbook_id == $GLOBALS['registry']->getAuth()) {
-    $notification->push(_("This addressbook cannot be deleted"), 'horde.warning');
+    $notification->push(_("This address book cannot be deleted"), 'horde.warning');
     Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
