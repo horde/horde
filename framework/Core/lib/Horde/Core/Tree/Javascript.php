@@ -70,8 +70,8 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         $this->_static = $static;
 
         $opts = array(
-            'extraColsLeft' => $this->_extra_cols_left,
-            'extraColsRight' => $this->_extra_cols_right,
+            'extraColsLeft' => $this->_colsLeft,
+            'extraColsRight' => $this->_colsRight,
             'header' => $this->_header,
             'options' => $this->_options,
             'target' => $this->_instance,

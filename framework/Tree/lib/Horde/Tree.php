@@ -13,16 +13,10 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree
+class Horde_Tree implements Countable
 {
-    /**
-     * Display extra columns to the left of the main tree.
-     */
+    /* Display extra columns. */
     const EXTRA_LEFT = 0;
-
-    /**
-     * Display extra columns to the right of the main tree.
-     */
     const EXTRA_RIGHT = 1;
 
     /**
@@ -65,7 +59,7 @@ class Horde_Tree
      *
      * @var integer
      */
-    protected $_extra_cols_left = 0;
+    protected $_colsLeft = 0;
 
     /**
      * Keep count of how many extra columns there are on the right side
@@ -73,7 +67,7 @@ class Horde_Tree
      *
      * @var integer
      */
-    protected $_extra_cols_right = 0;
+    protected $_colsRight = 0;
 
     /**
      * Option values.
@@ -380,15 +374,15 @@ class Horde_Tree
         switch ($side) {
         case self::EXTRA_LEFT:
             $this->_nodes[$id]['extra'][self::EXTRA_LEFT] = $extra;
-            if ($col_count > $this->_extra_cols_left) {
-                $this->_extra_cols_left = $col_count;
+            if ($col_count > $this->_colsLeft) {
+                $this->_colsLeft = $col_count;
             }
             break;
 
         case self::EXTRA_RIGHT:
             $this->_nodes[$id]['extra'][self::EXTRA_RIGHT] = $extra;
-            if ($col_count > $this->_extra_cols_right) {
-                $this->_extra_cols_right = $col_count;
+            if ($col_count > $this->_colsRight) {
+                $this->_colsRight = $col_count;
             }
             break;
         }
@@ -504,6 +498,13 @@ class Horde_Tree
     protected function _nodeId($id)
     {
         return rawurlencode($id);
+    }
+
+    /* Countable methods. */
+
+    public function count()
+    {
+        return count($this->_nodes);
     }
 
 }
