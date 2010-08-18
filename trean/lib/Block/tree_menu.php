@@ -49,7 +49,7 @@ class Horde_Block_trean_tree_menu extends Horde_Block
                     false,
                     array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => $browse->copy()->add('f', $folder->getId()
+                        'url' => $browse->copy()->add('f', $folder->getId())
                     )
                 );
             }
