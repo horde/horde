@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde Project
+# Copyright (C) YEAR Horde Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-08-01 10:44+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: edit.php:237
+#: edit.php:232
 #, php-format
 msgid "\"%s\" was not renamed: %s."
 msgstr ""
@@ -37,18 +37,18 @@ msgstr ""
 msgid "%s Bookmarks"
 msgstr ""
 
-#: reports.php:25
+#: reports.php:26
 #, php-format
 msgid "%s Response Codes"
 msgstr ""
 
-#: lib/base.php:78
+#: lib/Trean.php:26
 #, php-format
 msgid "%s's Bookmarks"
 msgstr ""
 
-#: lib/Block/highestrated.php:38 lib/Block/bookmarks.php:63
-#: lib/Block/mostclicked.php:38
+#: lib/Block/highestrated.php:36 lib/Block/bookmarks.php:61
+#: lib/Block/mostclicked.php:36
 msgid "1 Line"
 msgstr ""
 
@@ -56,13 +56,13 @@ msgstr ""
 msgid "1 star out of 5"
 msgstr ""
 
-#: lib/Block/highestrated.php:30 lib/Block/bookmarks.php:55
-#: lib/Block/mostclicked.php:30
+#: lib/Block/highestrated.php:28 lib/Block/bookmarks.php:53
+#: lib/Block/mostclicked.php:28
 msgid "10 rows"
 msgstr ""
 
-#: lib/Block/highestrated.php:31 lib/Block/bookmarks.php:56
-#: lib/Block/mostclicked.php:31
+#: lib/Block/highestrated.php:29 lib/Block/bookmarks.php:54
+#: lib/Block/mostclicked.php:29
 msgid "15 rows"
 msgstr ""
 
@@ -71,13 +71,13 @@ msgstr ""
 msgid "1xx Response Codes (%s)"
 msgstr ""
 
-#: lib/Block/highestrated.php:37 lib/Block/bookmarks.php:62
-#: lib/Block/mostclicked.php:37
+#: lib/Block/highestrated.php:35 lib/Block/bookmarks.php:60
+#: lib/Block/mostclicked.php:35
 msgid "2 Line"
 msgstr ""
 
-#: lib/Block/highestrated.php:32 lib/Block/bookmarks.php:57
-#: lib/Block/mostclicked.php:32
+#: lib/Block/highestrated.php:30 lib/Block/bookmarks.php:55
+#: lib/Block/mostclicked.php:30
 msgid "25 rows"
 msgstr ""
 
@@ -86,8 +86,8 @@ msgstr ""
 msgid "2xx Response Codes (%s)"
 msgstr ""
 
-#: lib/Block/highestrated.php:36 lib/Block/bookmarks.php:61
-#: lib/Block/mostclicked.php:36
+#: lib/Block/highestrated.php:34 lib/Block/bookmarks.php:59
+#: lib/Block/mostclicked.php:34
 msgid "3 Line"
 msgstr ""
 
@@ -110,11 +110,11 @@ msgstr ""
 msgid "AND"
 msgstr ""
 
-#: lib/Trean.php:176
+#: lib/Trean.php:188
 msgid "Accepted"
 msgstr ""
 
-#: templates/add.html.php:59 lib/Block/tree_menu.php:24
+#: templates/add.html.php:59 lib/Block/tree_menu.php:20
 msgid "Add"
 msgstr ""
 
@@ -126,12 +126,12 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: data.php:39 perms.php:239 lib/Block/bookmarks.php:32
+#: data.php:39 perms.php:239 lib/Block/bookmarks.php:30
 #, php-format
 msgid "An error occured listing folders: %s"
 msgstr ""
 
-#: lib/Trean.php:49
+#: lib/Trean.php:65
 #, php-format
 msgid "An error occurred counting folders: %s"
 msgstr ""
@@ -152,19 +152,19 @@ msgstr ""
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
-#: lib/Trean.php:208
+#: lib/Trean.php:220
 msgid "Bad Gateway"
 msgstr ""
 
-#: lib/Trean.php:188
+#: lib/Trean.php:200
 msgid "Bad Request"
 msgstr ""
 
-#: add.php:66
+#: add.php:65
 msgid "Bookmark Added"
 msgstr ""
 
-#: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
+#: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:79
 msgid "Bookmarks"
 msgstr ""
 
@@ -180,11 +180,11 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/views/BookmarkList.php:28
+#: templates/views/BookmarkList.php:29
 msgid "Clicks"
 msgstr ""
 
-#: lib/api.php:438
+#: lib/Api.php:338
 msgid "Close"
 msgstr ""
 
@@ -200,15 +200,15 @@ msgstr ""
 msgid "Completely expanded"
 msgstr ""
 
-#: edit.php:247
+#: edit.php:240
 msgid "Confirm Deletion"
 msgstr ""
 
-#: lib/Trean.php:197
+#: lib/Trean.php:209
 msgid "Conflict"
 msgstr ""
 
-#: lib/Trean.php:172
+#: lib/Trean.php:184
 msgid "Continue"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Control access to this folder"
 msgstr ""
 
-#: edit.php:214
+#: edit.php:211
 msgid "Copied bookmark: "
 msgstr ""
 
@@ -224,12 +224,12 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: edit.php:222
+#: edit.php:219
 #, php-format
 msgid "Copying folders is not supported."
 msgstr ""
 
-#: lib/Trean.php:175
+#: lib/Trean.php:187
 msgid "Created"
 msgstr ""
 
@@ -250,15 +250,15 @@ msgstr ""
 msgid "Delete this folder"
 msgstr ""
 
-#: edit.php:51 edit.php:110
+#: edit.php:51 edit.php:111
 msgid "Deleted bookmark: "
 msgstr ""
 
-#: edit.php:123
+#: edit.php:124
 msgid "Deleted folder: "
 msgstr ""
 
-#: edit.php:273
+#: edit.php:264
 #, php-format
 msgid "Deleted the folder \"%s\""
 msgstr ""
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Display Options"
 msgstr ""
 
-#: lib/Block/bookmarks.php:52
+#: lib/Block/bookmarks.php:50
 msgid "Display Rows"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: edit.php:292
+#: edit.php:279
 msgid "Edit Bookmark"
 msgstr ""
 
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Edit Permissions for %s"
 msgstr ""
 
-#: lib/Trean.php:205
+#: lib/Trean.php:217
 msgid "Expectation Failed"
 msgstr ""
 
@@ -334,8 +334,8 @@ msgstr ""
 msgid "First level shown"
 msgstr ""
 
-#: templates/add.html.php:47 templates/views/BookmarkList.php:26
-#: templates/edit/bookmark.inc:25 lib/Block/bookmarks.php:42
+#: templates/add.html.php:47 templates/views/BookmarkList.php:27
+#: templates/edit/bookmark.inc:25 lib/Block/bookmarks.php:40
 msgid "Folder"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Folder Actions"
 msgstr ""
 
-#: lib/Bookmarks.php:354
+#: lib/Bookmarks.php:350
 msgid "Folder names must be non-empty"
 msgstr ""
 
@@ -351,35 +351,35 @@ msgstr ""
 msgid "Folder to import into:"
 msgstr ""
 
-#: lib/Trean.php:191
+#: lib/Trean.php:203
 msgid "Forbidden"
 msgstr ""
 
-#: lib/Trean.php:183
+#: lib/Trean.php:195
 msgid "Found"
 msgstr ""
 
-#: lib/Trean.php:210
+#: lib/Trean.php:222
 msgid "Gateway Time-out"
 msgstr ""
 
-#: lib/Trean.php:198
+#: lib/Trean.php:210
 msgid "Gone"
 msgstr ""
 
-#: reports.php:25 templates/reports.php:33
+#: reports.php:26 templates/reports.php:33
 msgid "HTTP Status"
 msgstr ""
 
-#: lib/Trean.php:211
+#: lib/Trean.php:223
 msgid "HTTP Version not supported"
 msgstr ""
 
-#: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
+#: lib/Block/bookmarks.php:48 config/prefs.php.dist:22
 msgid "Highest Rated"
 msgstr ""
 
-#: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
+#: lib/Block/highestrated.php:3 lib/Block/highestrated.php:46
 msgid "Highest-rated Bookmarks"
 msgstr ""
 
@@ -395,7 +395,7 @@ msgstr ""
 msgid "Include Subfolders"
 msgstr ""
 
-#: lib/Trean.php:206
+#: lib/Trean.php:218
 msgid "Internal Server Error"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgid ""
 "to the \"File\" menu and selecting \"Import and Export\"."
 msgstr ""
 
-#: lib/Trean.php:199
+#: lib/Trean.php:211
 msgid "Length Required"
 msgstr ""
 
@@ -417,11 +417,11 @@ msgstr ""
 msgid "Match"
 msgstr ""
 
-#: lib/api.php:98
+#: lib/Application.php:76
 msgid "Maximum Number of Bookmarks"
 msgstr ""
 
-#: lib/api.php:95
+#: lib/Application.php:73
 msgid "Maximum Number of Folders"
 msgstr ""
 
@@ -429,15 +429,15 @@ msgstr ""
 msgid "Menu List"
 msgstr ""
 
-#: lib/Trean.php:193
+#: lib/Trean.php:205
 msgid "Method Not Allowed"
 msgstr ""
 
-#: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
+#: lib/Block/bookmarks.php:49 config/prefs.php.dist:23
 msgid "Most Clicked"
 msgstr ""
 
-#: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
+#: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:46
 msgid "Most-clicked Bookmarks"
 msgstr ""
 
@@ -445,15 +445,15 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: lib/Trean.php:182
+#: lib/Trean.php:194
 msgid "Moved Permanently"
 msgstr ""
 
-#: edit.php:161
+#: edit.php:160
 msgid "Moved bookmark: "
 msgstr ""
 
-#: edit.php:174
+#: edit.php:173
 msgid "Moved folder: "
 msgstr ""
 
@@ -463,7 +463,7 @@ msgid ""
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
 msgstr ""
 
-#: lib/Trean.php:181
+#: lib/Trean.php:193
 msgid "Multiple Choices"
 msgstr ""
 
@@ -471,11 +471,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: add.php:113 templates/browse.php:160 templates/add.html.php:27
+#: add.php:118 templates/browse.php:160 templates/add.html.php:27
 msgid "New Bookmark"
 msgstr ""
 
-#: lib/Trean.php:90
+#: lib/Trean.php:105
 msgid "New Folder"
 msgstr ""
 
@@ -491,16 +491,16 @@ msgstr ""
 msgid "No Bookmarks found"
 msgstr ""
 
-#: lib/Trean.php:178
+#: lib/Trean.php:190
 msgid "No Content"
 msgstr ""
 
-#: lib/Block/highestrated.php:73 lib/Block/bookmarks.php:128
-#: lib/Block/mostclicked.php:73
+#: lib/Block/highestrated.php:70 lib/Block/bookmarks.php:126
+#: lib/Block/mostclicked.php:70
 msgid "No bookmarks to display"
 msgstr ""
 
-#: lib/Trean.php:177
+#: lib/Trean.php:189
 msgid "Non-Authoritative Information"
 msgstr ""
 
@@ -508,19 +508,19 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: lib/Trean.php:194
+#: lib/Trean.php:206
 msgid "Not Acceptable"
 msgstr ""
 
-#: lib/Trean.php:192
+#: lib/Trean.php:204
 msgid "Not Found"
 msgstr ""
 
-#: lib/Trean.php:207
+#: lib/Trean.php:219
 msgid "Not Implemented"
 msgstr ""
 
-#: lib/Trean.php:185
+#: lib/Trean.php:197
 msgid "Not Modified"
 msgstr ""
 
@@ -528,15 +528,15 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
-#: edit.php:286
+#: edit.php:275
 msgid "Nothing to edit."
 msgstr ""
 
-#: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
+#: lib/Block/highestrated.php:25 lib/Block/mostclicked.php:25
 msgid "Number of bookmarks to show"
 msgstr ""
 
-#: lib/Trean.php:174
+#: lib/Trean.php:186
 msgid "OK"
 msgstr ""
 
@@ -565,11 +565,11 @@ msgstr ""
 msgid "Other Options"
 msgstr ""
 
-#: lib/Trean.php:180
+#: lib/Trean.php:192
 msgid "Partial Content"
 msgstr ""
 
-#: lib/Trean.php:190
+#: lib/Trean.php:202
 msgid "Payment Required"
 msgstr ""
 
@@ -577,15 +577,15 @@ msgstr ""
 msgid "Please enter a name for the new folder:"
 msgstr ""
 
-#: lib/Trean.php:200
+#: lib/Trean.php:212
 msgid "Precondition Failed"
 msgstr ""
 
-#: lib/Trean.php:195
+#: lib/Trean.php:207
 msgid "Proxy Authentication Required"
 msgstr ""
 
-#: templates/views/BookmarkList.php:27
+#: templates/views/BookmarkList.php:28
 msgid "Rating"
 msgstr ""
 
@@ -598,27 +598,27 @@ msgstr ""
 msgid "Rename this folder"
 msgstr ""
 
-#: reports.php:18
+#: reports.php:19
 msgid "Reports"
 msgstr ""
 
-#: lib/Trean.php:201
+#: lib/Trean.php:213
 msgid "Request Entity Too Large"
 msgstr ""
 
-#: lib/Trean.php:196
+#: lib/Trean.php:208
 msgid "Request Time-out"
 msgstr ""
 
-#: lib/Trean.php:202
+#: lib/Trean.php:214
 msgid "Request-URI Too Large"
 msgstr ""
 
-#: lib/Trean.php:204
+#: lib/Trean.php:216
 msgid "Requested range not satisfiable"
 msgstr ""
 
-#: lib/Trean.php:179
+#: lib/Trean.php:191
 msgid "Reset Content"
 msgstr ""
 
@@ -626,7 +626,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: search.php:23 lib/Forms/Search.php:20 lib/Block/tree_menu.php:33
+#: search.php:19 lib/Forms/Search.php:20 lib/Block/tree_menu.php:29
 msgid "Search"
 msgstr ""
 
@@ -634,12 +634,12 @@ msgstr ""
 msgid "Search Bookmarks"
 msgstr ""
 
-#: search.php:59
+#: search.php:55
 #, php-format
 msgid "Search Results (%s)"
 msgstr ""
 
-#: lib/Trean.php:184
+#: lib/Trean.php:196
 msgid "See Other"
 msgstr ""
 
@@ -647,7 +647,7 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: templates/views/BookmarkList.php:29
+#: templates/views/BookmarkList.php:24
 msgid "Select All/Select None"
 msgstr ""
 
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Select: %s, %s"
 msgstr ""
 
-#: lib/Trean.php:209
+#: lib/Trean.php:221
 msgid "Service Unavailable"
 msgstr ""
 
@@ -680,7 +680,7 @@ msgstr ""
 msgid "Sort bookmarks by:"
 msgstr ""
 
-#: lib/Block/bookmarks.php:46
+#: lib/Block/bookmarks.php:44
 msgid "Sort by"
 msgstr ""
 
@@ -688,16 +688,16 @@ msgstr ""
 msgid "Sort direction:"
 msgstr ""
 
-#: lib/Trean.php:173
+#: lib/Trean.php:185
 msgid "Switching Protocols"
 msgstr ""
 
-#: lib/Block/highestrated.php:33 lib/Block/bookmarks.php:58
-#: lib/Block/mostclicked.php:33
+#: lib/Block/highestrated.php:31 lib/Block/bookmarks.php:56
+#: lib/Block/mostclicked.php:31
 msgid "Template"
 msgstr ""
 
-#: lib/Trean.php:187
+#: lib/Trean.php:199
 msgid "Temporary Redirect"
 msgstr ""
 
@@ -705,37 +705,37 @@ msgstr ""
 msgid "There are no bookmarks in this folder"
 msgstr ""
 
-#: edit.php:216
+#: edit.php:213
 #, php-format
 msgid "There was a problem copying the bookmark: %s"
 msgstr ""
 
-#: edit.php:53 edit.php:112
+#: edit.php:53 edit.php:113
 #, php-format
 msgid "There was a problem deleting the bookmark: %s"
 msgstr ""
 
-#: edit.php:125
+#: edit.php:126
 #, php-format
 msgid "There was a problem deleting the folder: %s"
 msgstr ""
 
-#: edit.php:163
+#: edit.php:162
 #, php-format
 msgid "There was a problem moving the bookmark: %s"
 msgstr ""
 
-#: edit.php:176
+#: edit.php:175
 #, php-format
 msgid "There was a problem moving the folder: %s"
 msgstr ""
 
-#: add.php:61
+#: add.php:60
 #, php-format
 msgid "There was an error adding the bookmark: %s"
 msgstr ""
 
-#: edit.php:147 edit.php:201 add.php:45 add.php:102
+#: edit.php:146 edit.php:198 add.php:44 add.php:103
 #, php-format
 msgid "There was an error adding the folder: %s"
 msgstr ""
@@ -750,9 +750,9 @@ msgstr ""
 msgid "There was an error saving the folder: %s"
 msgstr ""
 
-#: templates/add.html.php:37 templates/views/BookmarkList.php:25
+#: templates/add.html.php:37 templates/views/BookmarkList.php:26
 #: templates/edit/bookmark.inc:10 lib/Forms/Search.php:21
-#: lib/Block/bookmarks.php:49 config/prefs.php.dist:21
+#: lib/Block/bookmarks.php:47 config/prefs.php.dist:21
 msgid "Title"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: lib/Trean.php:189
+#: lib/Trean.php:201
 msgid "Unauthorized"
 msgstr ""
 
@@ -778,7 +778,7 @@ msgstr ""
 msgid "Unknown (%s)"
 msgstr ""
 
-#: lib/Trean.php:203
+#: lib/Trean.php:215
 msgid "Unsupported Media Type"
 msgstr ""
 
@@ -787,7 +787,7 @@ msgstr ""
 msgid "Updated %s."
 msgstr ""
 
-#: lib/Trean.php:186
+#: lib/Trean.php:198
 msgid "Use Proxy"
 msgstr ""
 
@@ -815,7 +815,7 @@ msgstr ""
 msgid "You are not allowed to create more than %d folders."
 msgstr ""
 
-#: browse.php:45
+#: browse.php:46
 msgid "You do not have permission to view this folder."
 msgstr ""
 
@@ -823,7 +823,7 @@ msgstr ""
 msgid "You must select a target folder first"
 msgstr ""
 
-#: lib/Trean.php:149
+#: lib/Trean.php:161
 msgid "_Browse"
 msgstr ""
 
@@ -835,7 +835,7 @@ msgstr ""
 msgid "_Edit Bookmarks"
 msgstr ""
 
-#: lib/Trean.php:155
+#: lib/Trean.php:167
 msgid "_Import/Export"
 msgstr ""
 
@@ -843,11 +843,11 @@ msgstr ""
 msgid "_New Bookmark"
 msgstr ""
 
-#: lib/Trean.php:151
+#: lib/Trean.php:163
 msgid "_Reports"
 msgstr ""
 
-#: lib/Trean.php:150
+#: lib/Trean.php:162
 msgid "_Search"
 msgstr ""
 

@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde Project
+# Copyright (C) YEAR Horde Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-08-01 10:44+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ident.php:79
+#: symbol.php:75
 #, php-format
 msgid "%s :: Symbol \"%s\""
 msgstr ""
 
-#: lib/Tagger.php:46 lib/Tagger.php:101
+#: lib/Tagger.php:38 lib/Tagger.php:85
 #, php-format
 msgid "%s was already indexed."
 msgstr ""
 
-#: lib/Tagger.php:30 lib/Tagger.php:84
-#, php-format
-msgid "Can't build language class for file %s."
-msgstr ""
-
-#: lib/Tagger.php:57 lib/Tagger.php:112
+#: lib/Tagger.php:49 lib/Tagger.php:96
 #, php-format
 msgid "Can't create copy of file %s."
 msgstr ""
@@ -41,130 +36,124 @@ msgstr ""
 msgid "Can't open directory %s"
 msgstr ""
 
-#: lib/Lang/Generic.php:117
+#: lib/Lang/Generic.php:115
 #, php-format
 msgid "Can't open file %s."
 msgstr ""
 
-#: lib/Lang/Generic.php:75
+#: lib/Lang/Generic.php:73
 msgid "Can't run ectags."
 msgstr ""
 
-#: source.php:95
+#: source.php:84
 #, php-format
 msgid "Could not markup file %s."
 msgstr ""
 
-#: source.php:18
+#: templates/directory.html.php:6
 msgid "Date (GMT)"
 msgstr ""
 
-#: templates/ident/ident.html:7
+#: templates/symbol.html.php:8
 msgid "Declarations"
 msgstr ""
 
-#: search.php:60
+#: search.php:53
 msgid "Declared as "
 msgstr ""
 
-#: ident.php:43
+#: symbol.php:39
 #, php-format
 msgid "Declared as a %s"
 msgstr ""
 
-#: source.php:19
+#: templates/directory.html.php:7
 msgid "Description"
 msgstr ""
 
-#: source.php:150
+#: source.php:131
 #, php-format
 msgid "Directory Listing :: %s"
 msgstr ""
 
-#: lib/Lang/Generic.php:65
+#: lib/Lang/Generic.php:63
 #, php-format
 msgid "Exuberant ctags version 5 or above required, found version %s"
 msgstr ""
 
-#: scripts/genxref.php:56
-#, php-format
-msgid "Indexing %s"
-msgstr ""
-
-#: ident.php:49 ident.php:73
+#: symbol.php:45 symbol.php:69
 #, php-format
 msgid "Line %s"
 msgstr ""
 
-#: templates/headerbar.inc:2
+#: templates/headerbar.inc:3
 msgid "Location:"
 msgstr ""
 
-#: source.php:153
+#: source.php:134
 #, php-format
 msgid "Markup of %s"
 msgstr ""
 
-#: source.php:16
+#: templates/directory.html.php:4
 msgid "Name"
 msgstr ""
 
-#: lib/Luxor.php:60
+#: lib/Luxor.php:78
 msgid "Other Sources"
 msgstr ""
 
-#: lib/Luxor.php:138
+#: lib/Luxor.php:152
 msgid "Parent Directory"
 msgstr ""
 
-#: templates/ident/ident.html:8
+#: templates/symbol.html.php:20
 msgid "Referenced in"
 msgstr ""
 
-#: scripts/genxref.php:61
-#, php-format
-msgid "Referencing %s"
-msgstr ""
-
-#: source.php:17
+#: templates/directory.html.php:5
 msgid "Size"
 msgstr ""
 
-#: search.php:35
+#: templates/menu.inc:13
+msgid "Symbol Search"
+msgstr ""
+
+#: search.php:28
 #, php-format
 msgid "Symbol Search for \"%s\""
 msgstr ""
 
-#: ident.php:26
+#: symbol.php:22
 msgid "Symbol not found"
 msgstr ""
 
-#: source.php:89
+#: source.php:78
 #, php-format
 msgid "The file %s can't be opened or doesn't exist."
 msgstr ""
 
-#: templates/headerbar.inc:9
+#: templates/headerbar.inc:10
 msgid "Tracking Branch"
 msgstr ""
 
-#: lib/Luxor.php:137
+#: lib/Luxor.php:151
 msgid "Up to parent"
 msgstr ""
 
-#: source.php:39
+#: source.php:36
 #, php-format
 msgid "You do not have permission to view %s."
 msgstr ""
 
-#: lib/Luxor.php:448
+#: lib/Luxor.php:454
 msgid "_Browse"
 msgstr ""
 
-#: lib/Luxor.php:149
+#: lib/Luxor.php:163
 msgid "bytes"
 msgstr ""
 
-#: lib/Luxor.php:151
+#: lib/Luxor.php:165
 msgid "kbytes"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-04-12 11:00+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,56 +21,56 @@ msgstr ""
 msgid "%s Invited to join %s."
 msgstr ""
 
-#: edit/friends/add.php:42
+#: edit/friends/add.php:40
 #, php-format
 msgid "%s added you as a friend on %s"
 msgstr ""
 
-#: edit/friends/approve.php:39
+#: edit/friends/approve.php:37
 #, php-format
 msgid "%s approved you as a friend on %s"
 msgstr ""
 
-#: edit/friends/reject.php:38
+#: edit/friends/reject.php:36
 #, php-format
 msgid "%s rejected you as a friend on %s"
 msgstr ""
 
-#: user.php:69
+#: user.php:64
 #, php-format
 msgid "%s's profile"
 msgstr ""
 
-#: edit/edit.php:30 edit/edit.php:46
+#: edit/edit.php:29 edit/edit.php:43
 msgid "--- Select ---"
 msgstr ""
 
-#: scripts/mail.php:157
+#: scripts/mail.php:139
 msgid "-c, --count                  Limit count"
 msgstr ""
 
-#: scripts/mail.php:158
+#: scripts/mail.php:140
 msgid "-f, --from                   Limit offset"
 msgstr ""
 
-#: scripts/mail.php:156
+#: scripts/mail.php:138
 msgid "-h, --help                   Show this help"
 msgstr ""
 
-#: scripts/mail.php:160
+#: scripts/mail.php:142
 msgid "-p, --password[=password]    Horde login password"
 msgstr ""
 
-#: scripts/mail.php:159
+#: scripts/mail.php:141
 msgid "-u, --username[=username]    Horde login username"
 msgstr ""
 
-#: edit/friends/add.php:41
+#: edit/friends/add.php:53
 #, php-format
 msgid "A confirmation was send to \"%s\"."
 msgstr ""
 
-#: lib/Friends/shared.php:83 lib/Friends/shared.php:158
+#: lib/Friends/shared.php:79 lib/Friends/shared.php:153
 msgid "A group names cannot be empty"
 msgstr ""
 
@@ -79,8 +79,8 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: activity.php:17 templates/user/user.php:102 templates/user/user.php:341
-#: templates/list/list.php:7 templates/edit/activity.php:18 edit/tabs.php:27
+#: activity.php:16 templates/user/user.php:102 templates/user/user.php:341
+#: templates/list/list.php:7 templates/edit/activity.php:18 edit/tabs.php:25
 #: edit/activity.php:19 lib/Forms/Activity.php:22 lib/Forms/Activity.php:24
 msgid "Activity"
 msgstr ""
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Activity successfully deleted"
 msgstr ""
 
-#: user.php:60 friends.php:31 edit/activity.php:40
+#: user.php:56 friends.php:30 edit/activity.php:39
 msgid "Activity successfully posted"
 msgstr ""
 
@@ -124,11 +124,11 @@ msgstr ""
 msgid "Add friend"
 msgstr ""
 
-#: edit/friends/groups.php:82
+#: edit/friends/groups.php:79
 msgid "Add group"
 msgstr ""
 
-#: edit/friends/add.php:62 edit/friends/blacklist.php:79
+#: edit/friends/add.php:63 edit/friends/blacklist.php:77
 msgid "Add or remove user"
 msgstr ""
 
@@ -139,17 +139,17 @@ msgstr ""
 msgid "Add your content"
 msgstr ""
 
-#: account/signup.php:44
+#: account/signup.php:43
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
 msgstr ""
 
-#: edit/friends/approve.php:51
+#: edit/friends/approve.php:49
 #, php-format
 msgid "Added user %s as a friend."
 msgstr ""
 
-#: report.php:36
+#: report.php:28
 msgid "Advertisement content"
 msgstr ""
 
@@ -178,11 +178,11 @@ msgstr ""
 msgid "All users"
 msgstr ""
 
-#: edit/privacy.php:33
+#: edit/privacy.php:32
 msgid "All visitors"
 msgstr ""
 
-#: edit/comments.php:28
+#: edit/comments.php:27
 msgid "Any one"
 msgstr ""
 
@@ -206,11 +206,11 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-#: lib/Folks.php:143 lib/Folks.php:147
+#: lib/Folks.php:142 lib/Folks.php:146
 msgid "Aquarius"
 msgstr ""
 
-#: lib/Folks.php:151 lib/Folks.php:155
+#: lib/Folks.php:150 lib/Folks.php:154
 msgid "Aries"
 msgstr ""
 
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
-#: edit/comments.php:29
+#: edit/comments.php:28
 msgid "Authenticated users"
 msgstr ""
 
@@ -230,12 +230,11 @@ msgstr ""
 msgid "Available services"
 msgstr ""
 
-#: birthday.php:17 templates/list/list.php:9 account/facebook.php:75
-#: edit/edit.php:29
+#: birthday.php:16 templates/list/list.php:9 edit/edit.php:28
 msgid "Birthday"
 msgstr ""
 
-#: templates/user/actions.php:21 templates/edit/header.php:34 edit/tabs.php:24
+#: templates/user/actions.php:21 templates/edit/header.php:34 edit/tabs.php:22
 #: edit/friends/blacklist.php:18
 msgid "Blacklist"
 msgstr ""
@@ -244,81 +243,61 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: report.php:34 edit/friends/groups.php:55 edit/friends/groups.php:61
+#: report.php:26 edit/friends/groups.php:54 edit/friends/groups.php:60
 msgid "Cancel"
 msgstr ""
 
-#: lib/Folks.php:163 lib/Folks.php:167
+#: lib/Folks.php:162 lib/Folks.php:166
 msgid "Cancer"
 msgstr ""
 
-#: scripts/mail-filter.php:120
+#: scripts/mail-filter.php:103
 msgid "Cannot authenticate at mail server:"
 msgstr ""
 
-#: account/resetpassword.php:34
+#: account/resetpassword.php:39
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 
-#: lib/Folks.php:286
+#: lib/Folks.php:282
 msgid "Cannot retrieve user email."
 msgstr ""
 
-#: edit/password.php:20
-msgid "Cannot update password, contact your administrator."
-msgstr ""
-
-#: lib/Folks.php:143 lib/Folks.php:187
+#: lib/Folks.php:142 lib/Folks.php:186
 msgid "Capricorn"
 msgstr ""
 
-#: edit/password.php:25
+#: edit/password.php:26
 msgid "Change Your Password"
 msgstr ""
 
-#: account/facebook.php:68 edit/password.php:30
+#: edit/password.php:31
 msgid "Choose a password"
 msgstr ""
 
-#: account/facebook.php:63
-msgid "Choose a username"
-msgstr ""
-
-#: account/facebook.php:63
-#, php-format
-msgid ""
-"Choose a username to be used as your nickname on %s. It can be up to %d "
-"long. Username can contain only alphanumeric characters, underscore and "
-"minus."
-msgstr ""
-
-#: templates/user/user.php:97 templates/list/list.php:30 edit/edit.php:31
+#: templates/user/user.php:97 templates/list/list.php:30 edit/edit.php:30
 #: lib/Forms/Search.php:20 lib/Forms/Search.php:22
 msgid "City"
 msgstr ""
 
-#: templates/user/private.php:9 templates/user/friends.php:9
+#: templates/user/private.php:9
 msgid "Click here"
 msgstr ""
 
-#: templates/user/authenticated.php:7 templates/user/authenticated.php:8
-msgid "Click here to login."
-msgstr ""
-
-#: save_search.php:18 save_search.php:51
+#: save_search.php:17 save_search.php:48
 msgid "Close"
 msgstr ""
 
-#: lib/api.php:177
+#: lib/Api.php:83
 #, php-format
 msgid "Commented user %s."
 msgstr ""
 
-#: edit/tabs.php:32 edit/comments.php:18
+#: edit/tabs.php:30 edit/comments.php:18
 msgid "Comments"
 msgstr ""
 
-#: edit/comments.php:57
+#: edit/comments.php:54
 msgid "Comments deleted successfuly"
 msgstr ""
 
@@ -326,16 +305,15 @@ msgstr ""
 msgid "Confirm email"
 msgstr ""
 
-#: config/hooks.php.dist:356
+#: config/hooks.php.dist:336
 msgid "Confirmation code"
 msgstr ""
 
-#: account/resetpassword.php:43 account/facebook.php:61 edit/password.php:28
-#: edit/password.php:190
+#: account/resetpassword.php:47 edit/password.php:29 edit/password.php:182
 msgid "Continue"
 msgstr ""
 
-#: report.php:39
+#: report.php:31
 msgid "Copyright infringement"
 msgstr ""
 
@@ -349,22 +327,22 @@ msgid ""
 "Could not find authorization for %s to interact with your Facebook account."
 msgstr ""
 
-#: account/resetpassword.php:109
+#: account/resetpassword.php:112
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
 "further help."
 msgstr ""
 
-#: scripts/mail.php:43
+#: scripts/mail.php:22
 msgid "Couldn't read command-line options."
 msgstr ""
 
-#: edit/edit.php:32
+#: edit/edit.php:31
 msgid "Country"
 msgstr ""
 
-#: edit/password.php:29
+#: edit/password.php:30
 msgid "Current password"
 msgstr ""
 
@@ -372,7 +350,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: scripts/mail-filter.php:176
+#: scripts/mail-filter.php:162
 #, php-format
 msgid ""
 "Dear %s, we tried to send you an email, but if turns out that the mail is "
@@ -385,11 +363,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: edit/comments.php:40 edit/comments.php:47
+#: edit/comments.php:39 edit/comments.php:46
 msgid "Delete all current comments"
 msgstr ""
 
-#: edit/edit.php:52 edit/edit.php:77
+#: edit/edit.php:51 edit/edit.php:75
 msgid "Delete picture"
 msgstr ""
 
@@ -397,32 +375,24 @@ msgstr ""
 msgid "Descesending"
 msgstr ""
 
-#: templates/user/user.php:325 templates/list/list.php:34
-#: account/facebook.php:81 edit/edit.php:50 lib/Forms/Search.php:20
+#: templates/user/user.php:325 templates/list/list.php:34 edit/edit.php:49
+#: lib/Forms/Search.php:20
 msgid "Description"
-msgstr ""
-
-#: edit/personal.php:28
-msgid "Display 24-hour times?"
 msgstr ""
 
 #: templates/edit/groups.php:27
 msgid "Do you really want to delete this group?"
 msgstr ""
 
-#: report.php:33
+#: report.php:22
 msgid "Do you really want to report this user?"
-msgstr ""
-
-#: templates/login/facebook.php:16
-msgid "Do you use Facebook?"
 msgstr ""
 
 #: lib/Block/random.php:39
 msgid "Does not metter"
 msgstr ""
 
-#: account/tabs.php:25
+#: account/tabs.php:23
 msgid "Don't have an account? Sign up."
 msgstr ""
 
@@ -430,11 +400,11 @@ msgstr ""
 msgid "E-mail"
 msgstr ""
 
-#: perms.php:219
+#: perms.php:220
 msgid "Edit Permissions"
 msgstr ""
 
-#: perms.php:221
+#: perms.php:222
 #, php-format
 msgid "Edit Permissions for %s"
 msgstr ""
@@ -451,33 +421,23 @@ msgstr ""
 msgid "Edit my firends"
 msgstr ""
 
-#: edit/edit.php:18 edit/tabs.php:22
+#: edit/edit.php:18 edit/tabs.php:20
 msgid "Edit my profile"
 msgstr ""
 
-#: edit/personal.php:18
-msgid "Edit personal information"
-msgstr ""
-
-#: lib/Folks.php:303
+#: lib/Folks.php:297
 msgid "Edit profile"
 msgstr ""
 
-#: account/facebook.php:70 edit/edit.php:28
+#: edit/edit.php:27
 msgid "Email"
 msgstr ""
 
-#: scripts/mail-filter.php:175
+#: scripts/mail-filter.php:161
 msgid "Email problem"
 msgstr ""
 
-#: account/facebook.php:70
-msgid ""
-"Email will be used only for admistration reasons and it won't be published "
-"or passed to third parties."
-msgstr ""
-
-#: edit/friends/groups.php:87
+#: edit/friends/groups.php:84
 msgid "Enter custom name"
 msgstr ""
 
@@ -490,7 +450,7 @@ msgstr ""
 msgid "Enter your password. Please be aware that password is case sensitive."
 msgstr ""
 
-#: edit/tabs.php:36 edit/facebook.php:18 lib/Notification/facebook.php:32
+#: edit/tabs.php:34 edit/facebook.php:18 lib/Notification/facebook.php:32
 msgid "Facebook"
 msgstr ""
 
@@ -506,16 +466,16 @@ msgstr ""
 msgid "Feeds"
 msgstr ""
 
-#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:30
+#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:29
 #: lib/Forms/Search.php:21
 msgid "Female"
 msgstr ""
 
-#: account/tabs.php:29
+#: account/tabs.php:27
 msgid "Forgot your password?"
 msgstr ""
 
-#: account/username.php:17 account/tabs.php:32
+#: account/username.php:17 account/tabs.php:30
 msgid "Forgot your username?"
 msgstr ""
 
@@ -537,13 +497,13 @@ msgid "Friend's e-mail"
 msgstr ""
 
 #: friends.php:21 templates/user/user.php:125 templates/edit/header.php:1
-#: edit/tabs.php:25 edit/friends/friends.php:18 lib/Folks.php:302
-#: lib/Friends/prefs.php:164 lib/Friends/sql.php:193 lib/Block/friends.php:3
+#: edit/tabs.php:23 edit/friends/friends.php:18 lib/Folks.php:296
+#: lib/Friends/prefs.php:163 lib/Friends/sql.php:193 lib/Block/friends.php:3
 #: lib/Block/friends.php:22
 msgid "Friends"
 msgstr ""
 
-#: lib/api.php:330
+#: lib/Api.php:236
 msgid "Friends Birthdays"
 msgstr ""
 
@@ -560,11 +520,11 @@ msgstr ""
 msgid "Friends we are waiting approval from"
 msgstr ""
 
-#: lib/Folks.php:159 lib/Folks.php:163
+#: lib/Folks.php:158 lib/Folks.php:162
 msgid "Gemini"
 msgstr ""
 
-#: templates/user/user.php:93 templates/list/list.php:26 edit/edit.php:30
+#: templates/user/user.php:93 templates/list/list.php:26 edit/edit.php:29
 #: lib/Forms/Search.php:21
 msgid "Gender"
 msgstr ""
@@ -578,22 +538,22 @@ msgstr ""
 msgid "Group \"%s\" has been deleted."
 msgstr ""
 
-#: edit/friends/groups.php:71
+#: edit/friends/groups.php:69
 #, php-format
 msgid "Group \"%s\" has been renamed to \"%s\"."
 msgstr ""
 
-#: edit/friends/groups.php:62
+#: edit/friends/groups.php:61
 #, php-format
 msgid "Group \"%s\" has not been renamed."
 msgstr ""
 
-#: edit/friends/groups.php:103
+#: edit/friends/groups.php:100
 #, php-format
 msgid "Group \"%s\" was success added."
 msgstr ""
 
-#: edit/tabs.php:26 edit/friends/groups.php:18
+#: edit/tabs.php:24 edit/friends/groups.php:18
 msgid "Groups"
 msgstr ""
 
@@ -601,11 +561,11 @@ msgstr ""
 msgid "Has no picture"
 msgstr ""
 
-#: scripts/mail-filter.php:159 scripts/mail-filter.php:170
+#: scripts/mail-filter.php:145 scripts/mail-filter.php:156
 msgid "Have no one to notify"
 msgstr ""
 
-#: templates/user/user.php:111 templates/list/list.php:32 edit/edit.php:34
+#: templates/user/user.php:111 templates/list/list.php:32 edit/edit.php:33
 msgid "Homepage"
 msgstr ""
 
@@ -613,7 +573,7 @@ msgstr ""
 msgid "How to preview users"
 msgstr ""
 
-#: account/resetpassword.php:67
+#: account/resetpassword.php:73
 msgid "Human check"
 msgstr ""
 
@@ -641,7 +601,7 @@ msgstr ""
 msgid "Last activity"
 msgstr ""
 
-#: lib/Block/my_comments.php:3 lib/Block/my_comments.php:31
+#: lib/Block/my_comments.php:3 lib/Block/my_comments.php:29
 msgid "Last comments on my profile"
 msgstr ""
 
@@ -649,11 +609,11 @@ msgstr ""
 msgid "Last time online"
 msgstr ""
 
-#: lib/Folks.php:167 lib/Folks.php:171
+#: lib/Folks.php:166 lib/Folks.php:170
 msgid "Leo"
 msgstr ""
 
-#: lib/Folks.php:175 lib/Folks.php:179
+#: lib/Folks.php:174 lib/Folks.php:178
 msgid "Libra"
 msgstr ""
 
@@ -661,7 +621,7 @@ msgstr ""
 msgid "Limit"
 msgstr ""
 
-#: list.php:17 templates/list/list.php:10 lib/Folks.php:306
+#: list.php:16 templates/list/list.php:10 lib/Folks.php:300
 msgid "List"
 msgstr ""
 
@@ -673,24 +633,24 @@ msgstr ""
 msgid "Log when we comment a user?"
 msgstr ""
 
-#: scripts/mail.php:92
+#: scripts/mail.php:71
 #, php-format
 msgid "Logged in successfully as \"%s\"."
 msgstr ""
 
-#: account/tabs.php:22 lib/Forms/Login.php:20
+#: account/tabs.php:20 lib/Forms/Login.php:20
 msgid "Login"
 msgstr ""
 
-#: scripts/mail.php:88
+#: scripts/mail.php:67
 msgid "Login is incorrect."
 msgstr ""
 
-#: login.php:58
+#: login.php:56
 msgid "Login reminder"
 msgstr ""
 
-#: login.php:129
+#: login.php:126
 #, php-format
 msgid "Login to %s"
 msgstr ""
@@ -699,12 +659,12 @@ msgstr ""
 msgid "Look at this profile"
 msgstr ""
 
-#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:30
+#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:29
 #: lib/Forms/Search.php:21
 msgid "Male"
 msgstr ""
 
-#: scripts/mail.php:154
+#: scripts/mail.php:136
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
@@ -721,7 +681,7 @@ msgstr ""
 msgid "Might know"
 msgstr ""
 
-#: edit/comments.php:30
+#: edit/comments.php:29
 msgid "Moderate comments - I will approve every single comment"
 msgstr ""
 
@@ -737,7 +697,7 @@ msgstr ""
 msgid "Most popular users"
 msgstr ""
 
-#: lib/Folks.php:301
+#: lib/Folks.php:295
 msgid "My profile"
 msgstr ""
 
@@ -745,16 +705,16 @@ msgstr ""
 msgid "My queries"
 msgstr ""
 
-#: save_search.php:49 edit/friends/groups.php:86 edit/friends/groups.php:87
+#: save_search.php:46 edit/friends/groups.php:83 edit/friends/groups.php:84
 #: lib/Forms/Search.php:20
 msgid "Name"
 msgstr ""
 
-#: new.php:17 templates/list/list.php:4
+#: new.php:16 templates/list/list.php:4
 msgid "New"
 msgstr ""
 
-#: edit/friends/groups.php:58
+#: edit/friends/groups.php:57
 msgid "New name"
 msgstr ""
 
@@ -767,22 +727,17 @@ msgid "New users"
 msgstr ""
 
 #: templates/list/list.php:77 templates/list/list.php:78
-#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:49
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:48
 #: config/prefs.php.dist:67 config/prefs.php.dist:77 config/prefs.php.dist:87
 #: config/prefs.php.dist:97
 msgid "No"
 msgstr ""
 
-#: lib/FBConnect.php:77 lib/Friends/facebook.php:73
-#: lib/Notification/facebook.php:127
+#: lib/Friends/facebook.php:71 lib/Notification/facebook.php:127
 msgid "No Facebook integration exists."
 msgstr ""
 
-#: account/facebook.php:27
-msgid "No facebook session passed."
-msgstr ""
-
-#: edit/privacy.php:36 edit/comments.php:27
+#: edit/privacy.php:35 edit/comments.php:26
 msgid "No one"
 msgstr ""
 
@@ -798,7 +753,7 @@ msgstr ""
 msgid "No, only for this view"
 msgstr ""
 
-#: lib/Notification.php:255
+#: lib/Notification.php:253
 #, php-format
 msgid "Notification driver %s does not exists."
 msgstr ""
@@ -807,7 +762,7 @@ msgstr ""
 msgid "Notify friends that I loged in"
 msgstr ""
 
-#: edit/privacy.php:49
+#: edit/privacy.php:48
 msgid "Notify online friends that I logged in"
 msgstr ""
 
@@ -815,7 +770,7 @@ msgstr ""
 msgid "Number of activities to display"
 msgstr ""
 
-#: lib/Block/my_comments.php:19
+#: lib/Block/my_comments.php:17
 msgid "Number of comments to display"
 msgstr ""
 
@@ -823,7 +778,7 @@ msgstr ""
 msgid "Number of users perpage"
 msgstr ""
 
-#: report.php:38
+#: report.php:30
 msgid "Offensive content"
 msgstr ""
 
@@ -832,11 +787,11 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
-#: edit/friends/groups.php:56
+#: edit/friends/groups.php:55
 msgid "Old name"
 msgstr ""
 
-#: online.php:17 templates/block/users.php:15 templates/user/user.php:48
+#: online.php:16 templates/block/users.php:15 templates/user/user.php:48
 #: templates/list/list.php:3 templates/edit/friends.php:29
 #: lib/Block/random.php:38 lib/Block/friends.php:36
 msgid "Online"
@@ -852,7 +807,7 @@ msgstr ""
 msgid "Online users"
 msgstr ""
 
-#: edit/privacy.php:34
+#: edit/privacy.php:33
 msgid "Only authenticated users"
 msgstr ""
 
@@ -860,11 +815,11 @@ msgstr ""
 msgid "Only authenticated users can post comments."
 msgstr ""
 
-#: edit/privacy.php:35
+#: edit/privacy.php:34
 msgid "Only my friedns"
 msgstr ""
 
-#: perms.php:54
+#: perms.php:55
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -881,7 +836,7 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: edit/tabs.php:28 lib/Forms/Login.php:26
+#: edit/tabs.php:26 lib/Forms/Login.php:26
 msgid "Password"
 msgstr ""
 
@@ -899,11 +854,11 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-#: edit/edit.php:51 lib/Forms/Search.php:25
+#: edit/edit.php:50 lib/Forms/Search.php:25
 msgid "Picture"
 msgstr ""
 
-#: lib/Folks.php:147 lib/Folks.php:151
+#: lib/Folks.php:146 lib/Folks.php:150
 msgid "Pisces"
 msgstr ""
 
@@ -911,15 +866,11 @@ msgstr ""
 msgid "Please enter the text above"
 msgstr ""
 
-#: account/facebook.php:58
-msgid "Please fill out yout data"
-msgstr ""
-
-#: account/resetpassword.php:62
+#: account/resetpassword.php:68
 msgid "Please respond to your security question: "
 msgstr ""
 
-#: popularity.php:17 templates/user/user.php:106 templates/list/list.php:6
+#: popularity.php:16 templates/user/user.php:106 templates/list/list.php:6
 msgid "Popularity"
 msgstr ""
 
@@ -935,23 +886,23 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: edit/privacy.php:18 edit/tabs.php:23
+#: edit/privacy.php:18 edit/tabs.php:21
 msgid "Privacy"
 msgstr ""
 
-#: edit/privacy.php:31
+#: edit/privacy.php:30
 msgid "Private"
 msgstr ""
 
-#: edit/privacy.php:27
+#: edit/privacy.php:26
 msgid "Public"
 msgstr ""
 
-#: edit/privacy.php:28
+#: edit/privacy.php:27
 msgid "Public - only authenticated users can see my personal data"
 msgstr ""
 
-#: edit/privacy.php:30
+#: edit/privacy.php:29
 msgid "Public - only my friends can see my presonal data"
 msgstr ""
 
@@ -971,17 +922,17 @@ msgstr ""
 msgid "Remember login?"
 msgstr ""
 
-#: edit/friends/index.php:35 edit/friends/blacklist.php:73
+#: edit/friends/index.php:35 edit/friends/blacklist.php:71
 #: edit/friends/friends.php:36
 msgid "Remove"
 msgstr ""
 
-#: templates/edit/groups.php:26 edit/friends/groups.php:55
-#: edit/friends/groups.php:65
+#: templates/edit/groups.php:26 edit/friends/groups.php:54
+#: edit/friends/groups.php:63
 msgid "Rename"
 msgstr ""
 
-#: edit/friends/groups.php:52
+#: edit/friends/groups.php:51
 msgid "Rename group"
 msgstr ""
 
@@ -989,19 +940,19 @@ msgstr ""
 msgid "Renew account"
 msgstr ""
 
-#: report.php:34 report.php:51 templates/user/actions.php:24
+#: report.php:26 report.php:43 templates/user/actions.php:24
 msgid "Report"
 msgstr ""
 
-#: report.php:46 report.php:55
+#: report.php:38 report.php:47
 msgid "Report reason"
 msgstr ""
 
-#: report.php:45 report.php:54
+#: report.php:37 report.php:46
 msgid "Report type"
 msgstr ""
 
-#: report.php:30 templates/user/actions.php:23
+#: templates/user/actions.php:23
 msgid "Report user"
 msgstr ""
 
@@ -1010,19 +961,19 @@ msgid ""
 "Require my confirmation if someone would like to add me to his freidn list."
 msgstr ""
 
-#: edit/password.php:190 edit/friends/groups.php:55
+#: edit/password.php:182 edit/friends/groups.php:54
 msgid "Reset"
 msgstr ""
 
-#: account/resetpassword.php:41
+#: account/resetpassword.php:45
 msgid "Reset Your Password"
 msgstr ""
 
-#: lib/Folks.php:183 lib/Folks.php:187
+#: lib/Folks.php:182 lib/Folks.php:186
 msgid "Sagittarius"
 msgstr ""
 
-#: save_search.php:51 edit/edit.php:52 edit/edit.php:57 edit/comments.php:40
+#: save_search.php:48 edit/edit.php:51 edit/edit.php:56 edit/comments.php:39
 msgid "Save"
 msgstr ""
 
@@ -1030,11 +981,11 @@ msgstr ""
 msgid "Save search criteria"
 msgstr ""
 
-#: lib/Folks.php:179 lib/Folks.php:183
+#: lib/Folks.php:178 lib/Folks.php:182
 msgid "Scorpio"
 msgstr ""
 
-#: search.php:18 lib/Folks.php:305 lib/Forms/Search.php:27
+#: search.php:17 lib/Folks.php:299 lib/Forms/Search.php:27
 msgid "Search"
 msgstr ""
 
@@ -1042,23 +993,23 @@ msgstr ""
 msgid "Search by"
 msgstr ""
 
-#: save_search.php:39
+#: save_search.php:37
 msgid "Search criteria deleted."
 msgstr ""
 
-#: save_search.php:28
+#: save_search.php:27
 msgid "Search criteria saved successfuly"
 msgstr ""
 
-#: account/resetpassword.php:64 edit/password.php:195
+#: account/resetpassword.php:70 edit/password.php:187
 msgid "Security answer"
 msgstr ""
 
-#: edit/password.php:192
+#: edit/password.php:184
 msgid "Security question"
 msgstr ""
 
-#: edit/password.php:189
+#: edit/password.php:181
 msgid "Security question used when reseting password"
 msgstr ""
 
@@ -1083,7 +1034,7 @@ msgstr ""
 msgid "Send this profile to a friend"
 msgstr ""
 
-#: lib/Folks.php:304
+#: lib/Folks.php:298
 msgid "Services"
 msgstr ""
 
@@ -1107,7 +1058,7 @@ msgstr ""
 msgid "Show friends that are"
 msgstr ""
 
-#: account/signup.php:61
+#: account/signup.php:52
 msgid "Sign up"
 msgstr ""
 
@@ -1152,7 +1103,7 @@ msgid "Sort by Video"
 msgstr ""
 
 #: templates/user/user.php:44 templates/edit/friends.php:15
-#: edit/privacy.php:40
+#: edit/privacy.php:39
 msgid "Status"
 msgstr ""
 
@@ -1167,31 +1118,31 @@ msgid ""
 "request has been approved."
 msgstr ""
 
-#: lib/Folks.php:155 lib/Folks.php:159
+#: lib/Folks.php:154 lib/Folks.php:158
 msgid "Taurus"
 msgstr ""
 
-#: report.php:37
+#: report.php:29
 msgid "Terms and conditions infringement"
 msgstr ""
 
-#: account/approve.php:65 account/renew.php:65
+#: account/approve.php:60 account/renew.php:60
 msgid ""
 "The code is not right. If you copy and paste the link from your email, "
 "please check if you copied the whole string."
 msgstr ""
 
-#: account/resetpassword.php:66
+#: account/resetpassword.php:72
 msgid ""
 "The picture above is for antispam checking. Please retype the characters "
 "from the picture. They are case sensitive."
 msgstr ""
 
-#: config/hooks.php.dist:304
+#: config/hooks.php.dist:286
 msgid "There is already an user registered with this email"
 msgstr ""
 
-#: config/hooks.php.dist:302
+#: config/hooks.php.dist:284
 msgid "There is already an user registered with this username"
 msgstr ""
 
@@ -1199,117 +1150,108 @@ msgstr ""
 msgid "There is no activity logged for your account."
 msgstr ""
 
-#: account/signup.php:50 account/signup.php:52
+#: account/signup.php:48
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr ""
 
-#: account/facebook.php:35 account/facebook.php:48
-msgid "There was an error in passed session data."
-msgstr ""
-
-#: config/hooks.php.dist:256
+#: config/hooks.php.dist:241
 msgid "There was an error login into your mail account."
 msgstr ""
 
-#: login.php:190
+#: login.php:187
 msgid "This account was deleted or is expired."
 msgstr ""
 
-#: login.php:184
+#: login.php:181
 msgid ""
 "This account was still not activated. Check your inbox, we send you the "
 "activation code there."
 msgstr ""
 
-#: lib/Block/my_comments.php:56
+#: lib/Block/my_comments.php:53
 msgid "Title"
 msgstr ""
 
-#: lib/Friends/application.php:25 lib/Friends/application.php:40
-#: lib/Friends/application.php:55 lib/Friends/application.php:70
-#: lib/Friends/application.php:85 lib/Friends/application.php:100
+#: lib/Friends/application.php:23 lib/Friends/application.php:38
+#: lib/Friends/application.php:53 lib/Friends/application.php:68
+#: lib/Friends/application.php:83 lib/Friends/application.php:98
 msgid "Unsupported"
 msgstr ""
 
-#: perms.php:211
+#: perms.php:212
 #, php-format
 msgid "Updated \"%s\"."
 msgstr ""
 
-#: edit/edit.php:68
+#: edit/edit.php:67
 msgid "Updated his/her profile details."
 msgstr ""
 
-#: edit/edit.php:70
+#: edit/edit.php:69
 msgid "Updated his/her profile picture."
 msgstr ""
 
-#: edit/edit.php:45
+#: edit/edit.php:42
 msgid "Upload a new video"
 msgstr ""
 
-#: scripts/mail.php:152
+#: scripts/mail.php:134
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
 msgstr ""
 
-#: templates/login/facebook.php:18
-#, php-format
-msgid "Use Facebook to register for %s:"
-msgstr ""
-
-#: report.php:53 lib/Block/my_comments.php:57
+#: report.php:45 lib/Block/my_comments.php:54
 msgid "User"
 msgstr ""
 
-#: lib/Driver.php:329 lib/Driver/sql.php:308
+#: lib/Driver.php:309 lib/Driver/sql.php:312
 #, php-format
 msgid "User \"%s\" does not exists."
 msgstr ""
 
-#: lib/Friends.php:224 lib/Friends.php:293
+#: lib/Friends.php:225 lib/Friends.php:294
 #, php-format
 msgid "User \"%s\" does not exits"
 msgstr ""
 
-#: lib/Friends.php:301
+#: lib/Friends.php:302
 #, php-format
 msgid "User \"%s\" is already in fiend list"
 msgstr ""
 
-#: lib/Friends.php:309
+#: lib/Friends.php:310
 #, php-format
 msgid ""
 "User \"%s\" is already in fiend list, but we are waiting his/her approval."
 msgstr ""
 
-#: account/renew.php:43
+#: account/renew.php:40
 #, php-format
 msgid "User \"%s\" is not market to be in the removal process."
 msgstr ""
 
-#: edit/friends/add.php:55
+#: edit/friends/add.php:57
 #, php-format
 msgid "User \"%s\" was added as your friend."
 msgstr ""
 
-#: edit/friends/blacklist.php:41
+#: edit/friends/blacklist.php:40
 #, php-format
 msgid "User \"%s\" was added to your blacklist."
 msgstr ""
 
-#: account/approve.php:43
+#: account/approve.php:40
 #, php-format
 msgid "User \"%s\" was already activated."
 msgstr ""
 
-#: edit/friends/approve.php:37
+#: edit/friends/approve.php:35
 #, php-format
 msgid "User \"%s\" was confirmed as a friend."
 msgstr ""
 
-#: edit/friends/reject.php:36
+#: edit/friends/reject.php:34
 #, php-format
 msgid "User \"%s\" was rejected as a friend."
 msgstr ""
@@ -1324,7 +1266,7 @@ msgstr ""
 msgid "User \"%s\" was removed from your friend list."
 msgstr ""
 
-#: edit/friends/add.php:45
+#: edit/friends/add.php:43
 #, php-format
 msgid ""
 "User %s added you to his firends list on %s. \n"
@@ -1333,7 +1275,7 @@ msgid ""
 "To see to his profile, go to: %s \n"
 msgstr ""
 
-#: edit/friends/approve.php:43
+#: edit/friends/approve.php:41
 #, php-format
 msgid ""
 "User %s confirmed you as a friend on %s.. \n"
@@ -1345,24 +1287,19 @@ msgstr ""
 msgid "User %s does not wish to be commented."
 msgstr ""
 
-#: templates/user/deleted.php:4
-#, php-format
-msgid "User %s has been disabled."
-msgstr ""
-
 #: templates/user/inactive.php:4
 #, php-format
 msgid "User %s is inactive."
 msgstr ""
 
-#: login.php:56
+#: login.php:54
 #, php-format
 msgid ""
 "User %s just logged in.\n"
 "%s"
 msgstr ""
 
-#: edit/friends/reject.php:42
+#: edit/friends/reject.php:40
 #, php-format
 msgid ""
 "User %s rejected you as a friend on %s.. \n"
@@ -1386,11 +1323,11 @@ msgstr ""
 msgid "User %s would like to remain private."
 msgstr ""
 
-#: account/signup.php:21
+#: account/signup.php:20
 msgid "User Registration has been disabled for this site."
 msgstr ""
 
-#: lib/Friends/facebook.php:80
+#: lib/Friends/facebook.php:78
 msgid "User has no link."
 msgstr ""
 
@@ -1398,7 +1335,7 @@ msgstr ""
 msgid "User is currently online?"
 msgstr ""
 
-#: report.php:25
+#: report.php:18
 msgid "User is not selected"
 msgstr ""
 
@@ -1406,26 +1343,21 @@ msgstr ""
 msgid "User list"
 msgstr ""
 
-#: report.php:62 report.php:68
+#: report.php:54 report.php:60
 msgid "User was not reported."
 msgstr ""
 
-#: report.php:65
+#: report.php:57
 msgid "User was reported."
 msgstr ""
 
 #: templates/list/list.php:24 templates/edit/friends.php:14
-#: account/resetpassword.php:58 lib/Forms/AddFriend.php:18
+#: account/resetpassword.php:64 lib/Forms/AddFriend.php:18
 #: lib/Forms/Login.php:22 config/prefs.php.dist:40
 msgid "Username"
 msgstr ""
 
-#: account/facebook.php:91
-#, php-format
-msgid "Username \"%s\" already exists."
-msgstr ""
-
-#: config/hooks.php.dist:289
+#: config/hooks.php.dist:271
 msgid ""
 "Username can contain only alphanumeric characters, underscore and minus."
 msgstr ""
@@ -1446,20 +1378,20 @@ msgstr ""
 msgid "Users waiting our approval"
 msgstr ""
 
-#: templates/list/list.php:38 edit/edit.php:46 lib/Forms/Search.php:25
+#: templates/list/list.php:38 edit/edit.php:43 lib/Forms/Search.php:25
 msgid "Video"
 msgstr ""
 
 #: templates/friends/friends.php:28 templates/friends/friends.php:47
 #: edit/friends/know.php:39 edit/friends/for.php:35 edit/friends/index.php:39
 #: edit/friends/of.php:35 edit/friends/from.php:35
-#: edit/friends/blacklist.php:77 edit/friends/friends.php:40
+#: edit/friends/blacklist.php:75 edit/friends/friends.php:40
 #: lib/Block/random.php:61 lib/Block/know.php:48 lib/Block/new.php:60
 #: lib/Block/recent.php:55 lib/Block/friends.php:82
 msgid "View profile"
 msgstr ""
 
-#: lib/Folks.php:171 lib/Folks.php:175
+#: lib/Folks.php:170 lib/Folks.php:174
 msgid "Virgo"
 msgstr ""
 
@@ -1479,19 +1411,19 @@ msgstr ""
 msgid "We are friends of"
 msgstr ""
 
-#: user.php:54 friends.php:25 edit/activity.php:34
+#: user.php:50 friends.php:24 edit/activity.php:33
 msgid "What are you doing right now?"
 msgstr ""
 
-#: edit/comments.php:38
+#: edit/comments.php:37
 msgid "Who can post comments to your profile"
 msgstr ""
 
-#: edit/privacy.php:46
+#: edit/privacy.php:45
 msgid "Who can see my acticity log on my profile"
 msgstr ""
 
-#: edit/privacy.php:43
+#: edit/privacy.php:42
 msgid "Who can see when I was last time online"
 msgstr ""
 
@@ -1500,7 +1432,7 @@ msgid "Word"
 msgstr ""
 
 #: templates/list/list.php:77 templates/list/list.php:78
-#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:49
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:48
 #: config/prefs.php.dist:68 config/prefs.php.dist:78 config/prefs.php.dist:88
 #: config/prefs.php.dist:98
 msgid "Yes"
@@ -1510,16 +1442,16 @@ msgstr ""
 msgid "Yes, remember me so the next time I don't neet to login"
 msgstr ""
 
-#: account/approve.php:62 account/renew.php:62
+#: account/approve.php:57 account/renew.php:57
 msgid "You account is activated, you can login now."
 msgstr ""
 
-#: lib/Friends/shared.php:163
+#: lib/Friends/shared.php:158
 #, php-format
 msgid "You already have a group named \"%s\"."
 msgstr ""
 
-#: login.php:140
+#: login.php:137
 msgid "You are entering your data too fast!"
 msgstr ""
 
@@ -1528,42 +1460,37 @@ msgstr ""
 msgid "You are on %s blacklist."
 msgstr ""
 
-#: templates/user/private.php:8 templates/user/friends.php:8
+#: templates/user/private.php:8
 #, php-format
 msgid "You can still send a private message to user %s."
 msgstr ""
 
-#: lib/Friends.php:229
+#: lib/Friends.php:230
 #, php-format
 msgid "You cannot add \"%s\" to your blacklist."
 msgstr ""
 
-#: lib/Friends.php:287
+#: lib/Friends.php:288
 msgid "You cannot add yourself as your own friend."
 msgstr ""
 
-#: lib/Friends.php:218
+#: lib/Friends.php:219
 msgid "You cannot add yourself to your blacklist."
 msgstr ""
 
-#: lib/api.php:397
+#: lib/Api.php:304
 msgid "You cannot log activities for other users."
 msgstr ""
 
-#: lib/Driver.php:701 lib/Forms/Activity.php:37
+#: lib/Driver.php:676 lib/Forms/Activity.php:37
 msgid "You cannot post an empty activity message."
-msgstr ""
-
-#: account/facebook.php:137
-#, php-format
-msgid "You have successfully sign up to %s"
 msgstr ""
 
 #: account/approve.php:20 account/renew.php:20
 msgid "You must supply a confirmation code."
 msgstr ""
 
-#: account/approve.php:28 account/renew.php:28 edit/friends/approve.php:23
+#: account/approve.php:27 account/renew.php:27 edit/friends/approve.php:23
 #: edit/friends/reject.php:23
 msgid "You must supply a username."
 msgstr ""
@@ -1572,15 +1499,11 @@ msgstr ""
 msgid "Your activities"
 msgstr ""
 
-#: edit/comments.php:81
+#: edit/comments.php:80
 msgid "Your comments preference was sucessfuly saved."
 msgstr ""
 
-#: edit/personal.php:25
-msgid "Your current time zone:"
-msgstr ""
-
-#: edit/edit.php:66 edit/privacy.php:65
+#: edit/edit.php:65 edit/privacy.php:64
 msgid "Your data were successfully updated."
 msgstr ""
 
@@ -1588,15 +1511,11 @@ msgstr ""
 msgid "Your email"
 msgstr ""
 
-#: edit/personal.php:22
-msgid "Your full name:"
-msgstr ""
-
-#: edit/edit.php:82
+#: edit/edit.php:80
 msgid "Your image was deleted successfully."
 msgstr ""
 
-#: account/resetpassword.php:95
+#: account/resetpassword.php:99
 #, php-format
 msgid ""
 "Your new password for %s is: %s. \n"
@@ -1624,7 +1543,7 @@ msgstr ""
 msgid "Your new password must be at least %d characters long!"
 msgstr ""
 
-#: edit/password.php:44
+#: edit/password.php:45
 msgid "Your new password must be different from your current password"
 msgstr ""
 
@@ -1669,22 +1588,22 @@ msgstr ""
 msgid "Your new password must not contain whitespace characters."
 msgstr ""
 
-#: edit/password.php:50
+#: edit/password.php:51
 msgid "Your old password didn't match"
 msgstr ""
 
-#: account/resetpassword.php:101
+#: account/resetpassword.php:105
 msgid "Your password has been reset"
 msgstr ""
 
-#: account/resetpassword.php:103
+#: account/resetpassword.php:107
 #, php-format
 msgid ""
 "Your password has been reset, check your email (%s) and log in with your new "
 "password."
 msgstr ""
 
-#: edit/password.php:185
+#: edit/password.php:177
 msgid "Your securiy questions was updated."
 msgstr ""
 
@@ -1696,7 +1615,7 @@ msgid ""
 " It was requested by %s on %s"
 msgstr ""
 
-#: config/hooks.php.dist:350
+#: config/hooks.php.dist:330
 #, php-format
 msgid ""
 "Your username on %s %s is: %s. \n"
@@ -1705,7 +1624,7 @@ msgid ""
 " %s"
 msgstr ""
 
-#: login.php:161
+#: login.php:158
 msgid "Your username or password is incorrect."
 msgstr ""
 
@@ -1718,13 +1637,13 @@ msgstr ""
 msgid "Your username was sent, check your email (%s)."
 msgstr ""
 
-#: login.php:177
+#: login.php:174
 #, php-format
 msgid ""
 "Your username was temporary deacirvated. For any additional information "
 "please write to %s, and don't forgot to incluide your username."
 msgstr ""
 
-#: account/facebook.php:68 edit/password.php:30
+#: edit/password.php:31
 msgid "type the password twice to confirm"
 msgstr ""

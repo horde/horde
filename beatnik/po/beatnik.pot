@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-07-06 10:53+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: scripts/export_config.php:139
+#: scripts/export_config.php:132
 msgid "-h, --help                   Show this help"
 msgstr ""
 
-#: scripts/export_config.php:141
+#: scripts/export_config.php:134
 msgid "-p, --password[=password]    Horde login password"
 msgstr ""
 
-#: scripts/export_config.php:143
+#: scripts/export_config.php:136
 msgid "-r, --rpc[=http://example.com/horde/rpc.php]    Remote url"
 msgstr ""
 
-#: scripts/export_config.php:142
+#: scripts/export_config.php:135
 msgid "-t, --type[=type]    Export format"
 msgstr ""
 
-#: scripts/export_config.php:140
+#: scripts/export_config.php:133
 msgid "-u, --username[=username]    Horde login username"
 msgstr ""
 
@@ -40,253 +40,263 @@ msgstr ""
 msgid "A (Address)"
 msgstr ""
 
-#: templates/listzones/header.inc:45 templates/view/header.inc:43
+#: lib/Beatnik.php:64
+msgid "AAAA (IPv6 Address)"
+msgstr ""
+
+#: templates/listzones/header.inc:43 templates/view/header.inc:41
 msgid "Actions"
 msgstr ""
 
-#: lib/Forms/EditRecord.php:31
+#: lib/Forms/EditRecord.php:29
 msgid "Add DNS Record"
 msgstr ""
 
-#: lib/Beatnik.php:32
+#: lib/Beatnik.php:30
 msgid "Add Record"
 msgstr ""
 
-#: lib/Beatnik.php:34
+#: lib/Beatnik.php:32
 msgid "Add Zone"
 msgstr ""
 
-#: lib/Driver/pdnsgsql.php:134 lib/Driver/pdnsgsql.php:191
+#: lib/Driver/pdnsgsql.php:131 lib/Driver/pdnsgsql.php:185
 msgid ""
 "An error occurred while searching the database.  Details have been logged "
 "for the administrator."
 msgstr ""
 
-#: lib/Forms/DeleteRecord.php:19
+#: lib/Forms/DeleteRecord.php:17
 msgid "Are you sure you want to delete this record?"
 msgstr ""
 
-#: autogenerate.php:25 autogenerate.php:40 templates/listzones/row.inc:16
-#: lib/Forms/Autogenerate.php:22
+#: autogenerate.php:24 autogenerate.php:38 templates/listzones/row.inc:14
+#: lib/Forms/Autogenerate.php:20
 msgid "Autogenerate"
 msgstr ""
 
-#: autogenerate.php:33
+#: autogenerate.php:32
 msgid "Autogeneration not performed"
 msgstr ""
 
-#: lib/Beatnik.php:65
+#: lib/Beatnik.php:66
 msgid "CNAME (Alias)"
 msgstr ""
 
-#: lib/Forms/DeleteRecord.php:37 lib/Forms/Autogenerate.php:22
+#: lib/Forms/DeleteRecord.php:35 lib/Forms/Autogenerate.php:20
 msgid "Cancel"
 msgstr ""
 
-#: lib/Forms/Autogenerate.php:21
+#: lib/Forms/Autogenerate.php:19
 msgid "Choose a template for autogenerating the records:"
 msgstr ""
 
-#: lib/Beatnik.php:42
+#: lib/Beatnik.php:40
 msgid "Commit All"
 msgstr ""
 
-#: templates/view/header.inc:13
+#: templates/view/header.inc:11
 msgid "Commit Changes"
 msgstr ""
 
-#: lib/Beatnik.php:133
+#: lib/Beatnik.php:136
 msgid "Contact e-mail address for this zone"
 msgstr ""
 
-#: lib/Driver/pdnsgsql.php:146
+#: lib/Driver/pdnsgsql.php:143
 msgid "Corrupt SOA found for zone.  Contact your administrator."
 msgstr ""
 
-#: scripts/export_config.php:44
+#: scripts/export_config.php:41
 msgid "Couldn't read command-line options."
 msgstr ""
 
-#: lib/Beatnik.php:337
+#: lib/Beatnik.php:361
 msgid "DNS Service Record Port Number"
 msgstr ""
 
-#: lib/Beatnik.php:317
+#: lib/Beatnik.php:341
 msgid "DNS Service Record Priority"
 msgstr ""
 
-#: lib/Beatnik.php:327
+#: lib/Beatnik.php:351
 msgid "DNS Service Record Weight"
 msgstr ""
 
-#: config/prefs.php.dist:44
+#: config/prefs.php.dist:42
 msgid "Default Time-To-Live for new records."
 msgstr ""
 
-#: delete.php:24 delete.php:49 templates/listzones/row.inc:18
-#: templates/view/record.inc:18 templates/view/header.inc:25
-#: lib/Forms/DeleteRecord.php:37
+#: delete.php:23 delete.php:47 templates/listzones/row.inc:16
+#: templates/view/record.inc:16 templates/view/header.inc:23
+#: lib/Forms/DeleteRecord.php:35
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php.dist:10
+#: config/prefs.php.dist:8
 msgid "Display Preferences"
 msgstr ""
 
-#: templates/listzones/header.inc:15
+#: templates/listzones/header.inc:13
 msgid "Domain Categories"
 msgstr ""
 
-#: lib/Beatnik.php:114 lib/Beatnik.php:275
+#: lib/Beatnik.php:117 lib/Beatnik.php:299
 msgid "Domain Name"
 msgstr ""
 
-#: lib/api.php:46
+#: lib/Application.php:96
 msgid "Domains"
 msgstr ""
 
-#: lib/Driver.php:326
+#: lib/Driver.php:312
 msgid "Driver not found."
 msgstr ""
 
-#: templates/listzones/row.inc:20 templates/view/record.inc:16
-#: templates/view/header.inc:23
+#: templates/listzones/row.inc:18 templates/view/record.inc:14
+#: templates/view/header.inc:21
 msgid "Edit"
 msgstr ""
 
-#: lib/Forms/EditRecord.php:31
+#: lib/Forms/EditRecord.php:29
 msgid "Edit DNS Record"
 msgstr ""
 
-#: lib/Beatnik.php:32
+#: lib/Beatnik.php:30
 msgid "Edit Record"
 msgstr ""
 
-#: templates/listzones/header.inc:20
+#: templates/listzones/header.inc:18
 msgid "Edit categories and colors"
 msgstr ""
 
-#: templates/listzones/header.inc:19
+#: templates/listzones/header.inc:17
 msgid "Edit domain groups and colors"
 msgstr ""
 
-#: config/autogenerate.php.dist:34
+#: lib/Driver/pdnsgsql.php:83
+msgid ""
+"Error getting domain list.  Details have been logged for the administrator."
+msgstr ""
+
+#: config/autogenerate.php.dist:32
 msgid "Example Template"
 msgstr ""
 
-#: lib/Beatnik.php:38
+#: lib/Beatnik.php:36
 msgid "Expert Mode"
 msgstr ""
 
-#: lib/base.php:76
+#: lib/Application.php:70
 msgid "Expert Mode ON"
 msgstr ""
 
-#: lib/base.php:73
+#: lib/Application.php:67
 msgid "Expert Mode off"
 msgstr ""
 
-#: lib/Beatnik.php:169
+#: lib/Beatnik.php:172
 msgid "Expiration"
 msgstr ""
 
-#: scripts/export_config.php:117
+#: scripts/export_config.php:110
 msgid "Have noting to do."
 msgstr ""
 
-#: lib/Beatnik.php:190 lib/Beatnik.php:211 lib/Beatnik.php:254
-#: lib/Beatnik.php:298 lib/Beatnik.php:349
+#: lib/Beatnik.php:193 lib/Beatnik.php:214 lib/Beatnik.php:235
+#: lib/Beatnik.php:278 lib/Beatnik.php:322 lib/Beatnik.php:373
 msgid "Hostname"
 msgstr ""
 
-#: lib/Beatnik.php:220 lib/Beatnik.php:232 lib/Beatnik.php:263
-#: lib/Beatnik.php:286 lib/Beatnik.php:307
+#: lib/Beatnik.php:244 lib/Beatnik.php:256 lib/Beatnik.php:287
+#: lib/Beatnik.php:310 lib/Beatnik.php:331
 msgid "Hostname Target"
 msgstr ""
 
-#: lib/Beatnik.php:264
+#: lib/Beatnik.php:288
 msgid "Hostname for CNAME alias"
 msgstr ""
 
-#: lib/Beatnik.php:308
+#: lib/Beatnik.php:332
 msgid "Hostname for DNS Service Record"
 msgstr ""
 
-#: lib/Beatnik.php:221
+#: lib/Beatnik.php:245
 msgid "Hostname for Reverse DNS"
 msgstr ""
 
-#: lib/Beatnik.php:287
+#: lib/Beatnik.php:311
 msgid "Hostname of Authoritative Name Server"
 msgstr ""
 
-#: lib/Beatnik.php:233
+#: lib/Beatnik.php:257
 msgid "Hostname of Mail eXchanger"
 msgstr ""
 
-#: config/prefs.php.dist:36
+#: config/prefs.php.dist:34
 msgid "How many domain to display per page."
 msgstr ""
 
-#: lib/Beatnik.php:199
+#: lib/Beatnik.php:202
 msgid "IP Address"
 msgstr ""
 
-#: lib/Beatnik.php:212
+#: lib/Beatnik.php:236
 msgid "IP in Reverse notation (.in-addr.arpa)"
 msgstr ""
 
-#: lib/Beatnik.php:200
+#: lib/Beatnik.php:203
 msgid "IPv4 Network Address"
 msgstr ""
 
-#: lib/Driver/pdnsgsql.php:71 lib/Driver/pdnsgsql.php:121
-#: lib/Driver/pdnsgsql.php:174 lib/Driver/pdnsgsql.php:283
-#: lib/Driver/pdnsgsql.php:421
-msgid ""
-"Internal database error.  Details have been logged for the administrator."
+#: lib/Beatnik.php:223
+msgid "IPv6 Address"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:246
+#: lib/Beatnik.php:224
+msgid "IPv6 Network Address"
+msgstr ""
+
+#: lib/Driver/ldap2dns.php:245
 #, php-format
 msgid "Internal error: %s"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:349
+#: lib/Driver/ldap2dns.php:347
 msgid "Invalid record type specified."
 msgstr ""
 
-#: lib/Beatnik.php:30
+#: lib/Beatnik.php:28
 msgid "List Domains"
 msgstr ""
 
-#: scripts/export_config.php:109
+#: scripts/export_config.php:102
 #, php-format
 msgid "Logged in successfully as \"%s\"."
 msgstr ""
 
-#: scripts/export_config.php:105
+#: scripts/export_config.php:98
 msgid "Login is incorrect."
 msgstr ""
 
-#: lib/Beatnik.php:66
+#: lib/Beatnik.php:67
 msgid "MX (Mail eXchange)"
 msgstr ""
 
-#: lib/Beatnik.php:242
+#: lib/Beatnik.php:266
 msgid "MX Preference (lower is more preferred)"
 msgstr ""
 
-#: scripts/export_config.php:137
+#: scripts/export_config.php:130
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
 
-#: lib/Beatnik.php:178
+#: lib/Beatnik.php:181
 msgid "Minimum"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:400
+#: lib/Driver/ldap2dns.php:398
 #, php-format
 msgid "Missing required field %s to save record."
 msgstr ""
@@ -295,43 +305,43 @@ msgstr ""
 msgid "NS (Name Server)"
 msgstr ""
 
-#: lib/Driver/pdnsgsql.php:424
+#: lib/Driver/pdnsgsql.php:412
 msgid "Not implemented."
 msgstr ""
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:16
+#: config/prefs.php.dist:7 config/prefs.php.dist:14
 msgid "Options"
 msgstr ""
 
-#: lib/Beatnik.php:64
+#: lib/Beatnik.php:65
 msgid "PTR (Reverse DNS)"
 msgstr ""
 
-#: lib/Beatnik.php:241
+#: lib/Beatnik.php:265
 msgid "Preference"
 msgstr ""
 
-#: lib/Beatnik.php:123
+#: lib/Beatnik.php:126
 msgid "Primary Nameserver"
 msgstr ""
 
-#: lib/Beatnik.php:124
+#: lib/Beatnik.php:127
 msgid "Primary nameserver for this zone"
 msgstr ""
 
-#: config/prefs.php.dist:17
+#: config/prefs.php.dist:15
 msgid "Record Defaults"
 msgstr ""
 
-#: lib/Beatnik.php:371
+#: lib/Beatnik.php:395
 msgid "Record Time-To-Live (seconds)"
 msgstr ""
 
-#: lib/Forms/EditRecord.php:39
+#: lib/Forms/EditRecord.php:37
 msgid "Record Type"
 msgstr ""
 
-#: lib/Beatnik.php:543
+#: lib/Beatnik.php:568
 #, php-format
 msgid "Record added: %s/%s"
 msgstr ""
@@ -340,206 +350,206 @@ msgstr ""
 msgid "Record deleted"
 msgstr ""
 
-#: delete.php:38
+#: delete.php:37
 msgid "Record not deleted"
 msgstr ""
 
-#: lib/Beatnik.php:160
+#: lib/Beatnik.php:163
 msgid "Retry"
 msgstr ""
 
-#: lib/Beatnik.php:61 lib/Forms/EditRecord.php:36
+#: lib/Beatnik.php:61 lib/Forms/EditRecord.php:34
 msgid "SOA (Start of Authority)"
 msgstr ""
 
-#: lib/Beatnik.php:67
+#: lib/Beatnik.php:68
 msgid "SRV (Service Record)"
 msgstr ""
 
-#: lib/Beatnik.php:336
+#: lib/Beatnik.php:360
 msgid "SRV Port"
 msgstr ""
 
-#: lib/Beatnik.php:316
+#: lib/Beatnik.php:340
 msgid "SRV Priority"
 msgstr ""
 
-#: lib/Beatnik.php:326
+#: lib/Beatnik.php:350
 msgid "SRV Weight"
 msgstr ""
 
-#: templates/menu.inc:17
+#: templates/menu.inc:15
 msgid "Select Domain"
 msgstr ""
 
-#: templates/menu.inc:11 templates/menu.inc:18
+#: templates/menu.inc:9 templates/menu.inc:16
 msgid "Select _Domain"
 msgstr ""
 
-#: lib/Beatnik.php:141
+#: lib/Beatnik.php:144
 msgid "Serial"
 msgstr ""
 
-#: config/prefs.php.dist:11
+#: config/prefs.php.dist:9
 msgid "Set default display parameters."
 msgstr ""
 
-#: config/prefs.php.dist:18
+#: config/prefs.php.dist:16
 msgid "Set default record parameters."
 msgstr ""
 
-#: lib/Beatnik.php:191 lib/Beatnik.php:255 lib/Beatnik.php:299
-#: lib/Beatnik.php:350
+#: lib/Beatnik.php:194 lib/Beatnik.php:215 lib/Beatnik.php:279
+#: lib/Beatnik.php:323 lib/Beatnik.php:374
 msgid "Short hostname for this record"
 msgstr ""
 
-#: lib/Beatnik.php:276
+#: lib/Beatnik.php:300
 msgid ""
 "Short sub-domain for NS record (leave blank unless creating a subdomain)"
 msgstr ""
 
-#: lib/Beatnik.php:536
+#: lib/Beatnik.php:563
 msgid "Skipping existing identical record"
 msgstr ""
 
-#: lib/Beatnik.php:359
+#: lib/Beatnik.php:383
 msgid "String payload for DNS TXT"
 msgstr ""
 
-#: lib/Beatnik.php:370
+#: lib/Beatnik.php:394
 msgid "TTL"
 msgstr ""
 
-#: lib/Beatnik.php:68
+#: lib/Beatnik.php:69
 msgid "TXT (Text Record)"
 msgstr ""
 
-#: lib/Forms/Autogenerate.php:29
+#: lib/Forms/Autogenerate.php:27
 msgid "Template"
 msgstr ""
 
-#: lib/Driver/pdnsgsql.php:138
+#: lib/Driver/pdnsgsql.php:135
 msgid "Too many domains matched that name.  Contact your administrator."
 msgstr ""
 
-#: templates/view/header.inc:44 lib/Forms/DeleteRecord.php:27
+#: templates/view/header.inc:42 lib/Forms/DeleteRecord.php:25
 msgid "Type"
 msgstr ""
 
-#: lib/Beatnik.php:102
+#: lib/Beatnik.php:105
 msgid "UID"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:469
+#: lib/Driver/ldap2dns.php:467
 #, php-format
 msgid "Unable to add record to LDAP. Reason: %s"
 msgstr ""
 
-#: commit.php:49
+#: commit.php:48
 #, php-format
 msgid "Unable to construct valid SOA for %s.  Not incrementing serial."
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:321
+#: lib/Driver/ldap2dns.php:320
 #, php-format
 msgid "Unable to delete record.  Reason: %s"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:300
+#: lib/Driver/ldap2dns.php:299
 msgid "Unable to delete record: No record ID specified."
 msgstr ""
 
-#: lib/Beatnik.php:430
+#: lib/Beatnik.php:454
 msgid "Unable to determine if domain needs committing: invalid parameter."
 msgstr ""
 
-#: lib/Driver.php:147
+#: lib/Driver.php:144
 msgid "Unable to locate requested record."
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:452
+#: lib/Driver/ldap2dns.php:450
 #, php-format
 msgid "Unable to modify record.  Reason: %s"
 msgstr ""
 
-#: lib/Driver.php:108
+#: lib/Driver.php:105
 #, php-format
 msgid "Unable to read requested domain %s"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:442
+#: lib/Driver/ldap2dns.php:440
 #, php-format
 msgid "Unable to rename old object.  Reason: %s"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:146
+#: lib/Driver/ldap2dns.php:144
 #, php-format
 msgid "Unable to retrieve data from LDAP results: %s"
 msgstr ""
 
-#: lib/Beatnik.php:103
+#: lib/Beatnik.php:106
 msgid "Unique Identifier (Used as Record ID)"
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:437
+#: lib/Driver/ldap2dns.php:435
 msgid "Unsupported operation: cannot rename a domain."
 msgstr ""
 
-#: lib/Driver/ldap2dns.php:309
+#: lib/Driver/ldap2dns.php:308
 msgid "Unsupported recursive delete."
 msgstr ""
 
-#: scripts/export_config.php:135
+#: scripts/export_config.php:128
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
 msgstr ""
 
-#: lib/Driver.php:79
+#: lib/Driver.php:77
 msgid "You are not permitted to view any domains."
 msgstr ""
 
-#: lib/Driver.php:207
+#: lib/Driver.php:204
 msgid "You do not have permission to create new domains."
 msgstr ""
 
-#: lib/Driver.php:220
+#: lib/Driver.php:217
 msgid "You do not have permssion to edit the SOA of this zone."
 msgstr ""
 
-#: lib/Driver.php:225
+#: lib/Driver.php:222
 msgid "You do not have permssion to edit this record."
 msgstr ""
 
-#: templates/common-header.inc:15
+#: templates/common-header.inc:13
 #, php-format
 msgid "You have uncommitted changes in %s."
 msgstr ""
 
-#: lib/Beatnik.php:132
+#: lib/Beatnik.php:135
 msgid "Zone Contact"
 msgstr ""
 
-#: lib/Beatnik.php:115
+#: lib/Beatnik.php:118
 msgid "Zone Domain Name"
 msgstr ""
 
-#: lib/Beatnik.php:170
+#: lib/Beatnik.php:173
 msgid "Zone Expiry"
 msgstr ""
 
-#: lib/Beatnik.php:179
+#: lib/Beatnik.php:182
 msgid "Zone Minimum"
 msgstr ""
 
-#: lib/Beatnik.php:152
+#: lib/Beatnik.php:155
 msgid "Zone Refresh"
 msgstr ""
 
-#: lib/Beatnik.php:161
+#: lib/Beatnik.php:164
 msgid "Zone Retry"
 msgstr ""
 
-#: lib/Beatnik.php:142
+#: lib/Beatnik.php:145
 msgid "Zone Serial Number"
 msgstr ""
 

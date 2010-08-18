@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-11-21 13:39+0100\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,47 +16,47 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Crumb.php:26
+#: lib/Crumb.php:24
 msgid "Add Client"
 msgstr ""
 
-#: addclient.php:34 lib/Forms/AddClient.php:19
+#: addclient.php:32 lib/Forms/AddClient.php:17
 msgid "Add New Client"
 msgstr ""
 
-#: addclient.php:25 lib/Forms/AddClient.php:61
+#: addclient.php:23 lib/Forms/AddClient.php:59
 msgid ""
 "An internal error has occurred.  Details have been logged for the "
 "administrator."
 msgstr ""
 
-#: lib/Forms/AddClient.php:35
+#: lib/Forms/AddClient.php:33
 msgid ""
 "An internal error has occurred.  Details have beenlogged for the "
 "administrator."
 msgstr ""
 
-#: lib/Forms/AddClient.php:22
+#: lib/Forms/AddClient.php:20
 msgid "Assign Existing"
 msgstr ""
 
-#: lib/Block/example.php:17 lib/Block/example.php:28
+#: lib/Block/example.php:15 lib/Block/example.php:26
 msgid "Color"
 msgstr ""
 
-#: lib/Forms/ContactSearch.php:32
+#: lib/Forms/ContactSearch.php:30
 msgid "Contact"
 msgstr ""
 
-#: lib/Forms/AddClient.php:26
+#: lib/Forms/AddClient.php:24
 msgid "Contact Information"
 msgstr ""
 
-#: lib/Forms/AddClient.php:21
+#: lib/Forms/AddClient.php:19
 msgid "Create New"
 msgstr ""
 
-#: lib/Forms/ContactSearch.php:19
+#: lib/Forms/ContactSearch.php:17
 msgid ""
 "Enter a few characters to search for all clients whose names contain the "
 "search text"
@@ -66,19 +66,19 @@ msgstr ""
 msgid "Example Block"
 msgstr ""
 
-#: lib/Forms/AddClient.php:73
+#: lib/Forms/AddClient.php:71
 msgid "Group"
 msgstr ""
 
-#: listclients.php:18
+#: listclients.php:16
 msgid "List"
 msgstr ""
 
-#: lib/Crumb.php:25
+#: lib/Crumb.php:23
 msgid "List Clients"
 msgstr ""
 
-#: lib/Forms/ContactSearch.php:19
+#: lib/Forms/ContactSearch.php:17
 msgid "Name"
 msgstr ""
 
@@ -90,11 +90,11 @@ msgstr ""
 msgid "Sample Prefs"
 msgstr ""
 
-#: lib/Forms/ContactSearch.php:17
+#: lib/Forms/ContactSearch.php:15
 msgid "Search for Client Contact Record"
 msgstr ""
 
-#: lib/Forms/ContactSearch.php:32
+#: lib/Forms/ContactSearch.php:30
 msgid "Select the matching contact record or begin a new search above"
 msgstr ""
 
@@ -106,6 +106,6 @@ msgstr ""
 msgid "This is your sample preference."
 msgstr ""
 
-#: lib/Forms/AddClient.php:52
+#: lib/Forms/AddClient.php:50
 msgid "Ticket Queue"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-11-21 13:07+0100\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: main.php:281 templates/main/main.inc:141
+#: main.php:275 templates/main/main.inc:141
 msgid "Change Password"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 msgid "Failed to verify old password."
 msgstr ""
 
-#: main.php:235 lib/Driver/composite.php:102
+#: main.php:232 lib/Driver/composite.php:102
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr ""
@@ -145,7 +145,7 @@ msgstr ""
 msgid "No prompt returned from server."
 msgstr ""
 
-#: lib/Driver.php:128
+#: lib/Driver.php:130
 #, php-format
 msgid "No such backend \"%s\" found."
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Passwd is not properly configured."
 msgstr ""
 
-#: main.php:222
+#: main.php:219
 #, php-format
 msgid "Password changed on %s."
 msgstr ""
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Password module is missing target parameter."
 msgstr ""
 
-#: main.php:196 lib/Driver/servuftp.php:71
+#: main.php:193 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
 msgstr ""
 
@@ -254,48 +254,48 @@ msgstr ""
 msgid "Username:"
 msgstr ""
 
-#: main.php:60
+#: main.php:57
 #, php-format
 msgid "You can't change password for user %s"
 msgstr ""
 
-#: main.php:68
+#: main.php:65
 msgid "You must give your current password"
 msgstr ""
 
-#: main.php:77
+#: main.php:74
 msgid "You must give your new password"
 msgstr ""
 
-#: main.php:81
+#: main.php:78
 msgid "You must verify your new password"
 msgstr ""
 
-#: main.php:101
+#: main.php:98
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
 msgstr ""
 
-#: main.php:185
+#: main.php:182
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr ""
 
-#: main.php:176
+#: main.php:173
 msgid "Your new password is too simple to guess. Not changed!"
 msgstr ""
 
-#: main.php:96
+#: main.php:93
 #, php-format
 msgid "Your new password must be at least %d characters long!"
 msgstr ""
 
-#: main.php:89
+#: main.php:86
 msgid "Your new password must be different from your current password"
 msgstr ""
 
-#: main.php:141
+#: main.php:138
 #, php-format
 msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
@@ -303,7 +303,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:146
+#: main.php:143
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
@@ -311,51 +311,51 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:151
+#: main.php:148
 #, php-format
 msgid ""
 "Your new password must contain at least %d different types of characters. "
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
 
-#: main.php:131
+#: main.php:128
 #, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:136
+#: main.php:133
 #, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:165
+#: main.php:162
 #, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:126
+#: main.php:123
 #, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: main.php:157
+#: main.php:154
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr ""
 
-#: main.php:159
+#: main.php:156
 msgid "Your new password must not contain whitespace characters."
 msgstr ""
 
-#: main.php:85
+#: main.php:82
 msgid "Your new passwords didn't match"
 msgstr ""
 

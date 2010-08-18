@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright YEAR Horde Project
+# Copyright (C) YEAR Horde Project
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-08-01 10:44+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,138 +16,138 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Block/news_popular.php:75 lib/Block/news_popular.php:78
+#: lib/Block/news_popular.php:66 lib/Block/news_popular.php:69
 msgid " - Most read stories"
 msgstr ""
 
-#: lib/Block/delivery.php:48
+#: lib/Block/delivery.php:39
 #, php-format
 msgid "\"%s\" stories in HTML"
 msgstr ""
 
-#: lib/News.php:461
+#: lib/News.php:427 lib/Driver.php:316
 msgid "1 hour"
 msgstr ""
 
-#: lib/News.php:465
+#: lib/News.php:431 lib/Driver.php:320
 msgid "12 hours"
 msgstr ""
 
-#: lib/News.php:462
+#: lib/News.php:428 lib/Driver.php:317
 msgid "2 hours"
 msgstr ""
 
-#: lib/News.php:466
+#: lib/News.php:432 lib/Driver.php:321
 msgid "24 hours"
 msgstr ""
 
-#: lib/News.php:460
+#: lib/News.php:426 lib/Driver.php:315
 msgid "30 mins"
 msgstr ""
 
-#: lib/News.php:463
+#: lib/News.php:429 lib/Driver.php:318
 msgid "4 hours"
 msgstr ""
 
-#: lib/News.php:464
+#: lib/News.php:430 lib/Driver.php:319
 msgid "8 hours"
 msgstr ""
 
-#: stories/share.php:86
+#: stories/share.php:84
 msgid "A link to the story"
 msgstr ""
 
-#: channels/aggregate.php:59
+#: channels/aggregate.php:54
 msgid "Add"
 msgstr ""
 
-#: content.php:37
-msgid "Add Content"
-msgstr ""
-
-#: lib/Forms/Story.php:37
+#: lib/Forms/Story.php:35
 msgid "Add New Story"
 msgstr ""
 
-#: channels/index.php:65
+#: channels/index.php:62
 msgid "Add story"
 msgstr ""
 
-#: lib/api.php:118
+#: lib/Application.php:58
 msgid "Administrator"
 msgstr ""
 
-#: lib/News.php:499 lib/Jonah.php:113
+#: lib/News.php:465 lib/Jonah.php:107
 msgid "Aggregated Feed"
 msgstr ""
 
-#: channels/aggregate.php:58
+#: channels/aggregate.php:53
 #, php-format
 msgid "Aggregated channels for channel \"%s\""
 msgstr ""
 
-#: channels/delete.php:56
+#: channels/delete.php:52
 msgid "All stories created in this channel will be lost!"
 msgstr ""
 
-#: stories/results.php:114
+#: stories/results.php:107
 #, php-format
 msgid "All stories tagged with %s"
 msgstr ""
 
-#: channels/index.php:35
+#: channels/index.php:32
 #, php-format
 msgid "An error occurred fetching channels: %s"
 msgstr ""
 
-#: channels/delete.php:58
+#: channels/delete.php:54
 msgid "Any cached stories for this channel will be lost!"
 msgstr ""
 
-#: lib/Forms/Feed.php:83 lib/Forms/Feed.php:94
+#: lib/Forms/Feed.php:88 lib/Forms/Feed.php:99
 msgid "Caching"
 msgstr ""
 
-#: stories/pdf.php:44
+#: stories/pdf.php:41
 msgid "Cannot generate PDFs of remote stories."
 msgstr ""
 
-#: lib/News/sql.php:510
+#: lib/Driver/Sql.php:644 lib/News/sql.php:496
 #, php-format
 msgid "Channel \"%s\" not found."
 msgstr ""
 
-#: channels/aggregate.php:61
+#: channels/aggregate.php:56
 msgid "Channel Name"
 msgstr ""
 
-#: lib/Forms/Feed.php:77
+#: lib/Forms/Feed.php:75
+msgid "Channel Slug"
+msgstr ""
+
+#: lib/Forms/Feed.php:82
 msgid ""
 "Channel URL for further pages, if not the default one. %c gets replaced by "
 "the feed ID, %n by the story offset."
 msgstr ""
 
-#: lib/Forms/Feed.php:112
+#: lib/Forms/Feed.php:117
 msgid ""
 "Channel URL if not the default one. %c gets replaced by the feed ID, %n by "
 "the story offset."
 msgstr ""
 
-#: lib/Forms/Feed.php:76
+#: lib/Forms/Feed.php:81
 #, php-format
 msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
 msgstr ""
 
-#: channels/delete.php:76
+#: channels/delete.php:70
 msgid "Channel has not been deleted."
 msgstr ""
 
-#: lib/News/sql.php:174
+#: lib/Driver/Sql.php:145 lib/News/sql.php:160
 #, php-format
 msgid "Channel id \"%s\" not found."
 msgstr ""
 
-#: stories/index.php:54
+#: stories/index.php:46
 msgid "Channel refreshed."
 msgstr ""
 
@@ -163,134 +163,138 @@ msgstr ""
 msgid "Compact"
 msgstr ""
 
-#: lib/News.php:502 lib/Jonah.php:116
+#: lib/News.php:468 lib/Jonah.php:110
 msgid "Composite Feed"
 msgstr ""
 
-#: lib/Forms/Feed.php:114
+#: lib/Forms/Feed.php:119
 msgid "Composite feeds"
 msgstr ""
 
-#: lib/Jonah.php:62
+#: lib/Jonah.php:54 lib/Jonah.php:57
 #, php-format
-msgid "Could not open %s."
+msgid "Could not open %s: %s"
 msgstr ""
 
-#: lib/Block/latest.php:49
+#: lib/Block/latest.php:43
 msgid "Count reads of the latest story when this block is displayed"
 msgstr ""
 
-#: lib/Block/story.php:49
+#: lib/Block/story.php:43
 msgid "Count reads of this story when this block is displayed"
 msgstr ""
 
-#: stories/index.php:124 stories/results.php:116
+#: stories/index.php:116 stories/results.php:109
 msgid "Date"
 msgstr ""
 
-#: stories/delete.php:61 stories/delete.php:66 channels/delete.php:51
-#: channels/delete.php:62
+#: stories/delete.php:55 stories/delete.php:60 channels/delete.php:47
+#: channels/delete.php:58
 msgid "Delete"
 msgstr ""
 
-#: channels/delete.php:48
+#: channels/delete.php:44
 #, php-format
 msgid "Delete News Channel \"%s\"?"
 msgstr ""
 
-#: stories/delete.php:57
+#: stories/delete.php:51
 #, php-format
 msgid "Delete News Story \"%s\"?"
 msgstr ""
 
-#: channels/index.php:49
+#: channels/index.php:46
 msgid "Delete channel"
 msgstr ""
 
-#: stories/index.php:100 stories/results.php:94
+#: stories/index.php:92 stories/results.php:87
 msgid "Delete story"
 msgstr ""
 
-#: lib/Forms/Feed.php:75 lib/Forms/Feed.php:93 lib/Forms/Feed.php:111
+#: lib/Forms/Feed.php:73 lib/Forms/Feed.php:98 lib/Forms/Feed.php:116
 msgid "Description"
 msgstr ""
 
-#: stories/delete.php:61 channels/delete.php:51
+#: stories/delete.php:55 channels/delete.php:47
 msgid "Do not delete"
 msgstr ""
 
-#: lib/Forms/Feed.php:40
+#: lib/Forms/Feed.php:38
 msgid "Edit Feed"
 msgstr ""
 
-#: lib/Forms/Story.php:37
+#: lib/Forms/Story.php:35
 msgid "Edit Story"
 msgstr ""
 
-#: lib/Forms/Feed.php:100
+#: lib/Forms/Feed.php:105
 msgid "Edit aggregated feeds"
 msgstr ""
 
-#: channels/index.php:44
+#: channels/index.php:41
 msgid "Edit channel"
 msgstr ""
 
-#: channels/aggregate.php:25
+#: channels/aggregate.php:19
 #, php-format
 msgid "Edit channel \"%s\""
 msgstr ""
 
-#: stories/index.php:94 stories/results.php:87
+#: stories/index.php:86 stories/results.php:80
 msgid "Edit story"
 msgstr ""
 
-#: lib/News.php:541
+#: lib/Forms/Story.php:77
+msgid "Enter keywords to tag this story, separated by commas"
+msgstr ""
+
+#: lib/News.php:507 lib/Driver.php:351
 #, php-format
 msgid "Error fetching feed: %s"
 msgstr ""
 
-#: stories/share.php:66 stories/pdf.php:15 stories/view.php:25
-#: stories/view.php:35 lib/Block/latest.php:91 lib/Block/story.php:91
+#: stories/share.php:66 stories/pdf.php:13 stories/view.php:23
+#: stories/view.php:33 lib/Block/latest.php:77 lib/Block/story.php:77
 #, php-format
 msgid "Error fetching story: %s"
 msgstr ""
 
-#: lib/News.php:780
+#: lib/News.php:745
 #, php-format
 msgid "Error parsing external feed from %s: %s"
 msgstr ""
 
-#: lib/api.php:109
+#: lib/Application.php:64
 msgid "External Channels"
 msgstr ""
 
-#: lib/News.php:493 lib/Jonah.php:110
+#: lib/News.php:459 lib/Jonah.php:104
 msgid "External Feed"
 msgstr ""
 
-#: lib/Forms/Feed.php:51
+#: lib/Forms/Feed.php:49
 msgid "Extra information for this feed type"
 msgstr ""
 
-#: lib/Block/news_popular.php:32 lib/Block/news.php:3 lib/Block/news.php:30
-#: lib/Block/story.php:42
+#: lib/Block/news_popular.php:27 lib/Block/news.php:3 lib/Block/news.php:26
+#: lib/Block/story.php:36
 msgid "Feed"
 msgstr ""
 
-#: lib/News.php:105
+#: lib/News.php:96
 #, php-format
 msgid "Feed \"%s\" is not authored on this system."
 msgstr ""
 
-#: channels/edit.php:56
+#: channels/edit.php:54
 msgid "Feed type changed."
 msgstr ""
 
-#: channels/index.php:93 lib/Block/delivery.php:3 lib/Block/delivery.php:25
+#: channels/index.php:94 lib/Block/delivery.php:3 lib/Block/delivery.php:23
 msgid "Feeds"
 msgstr ""
 
-#: lib/Block/news.php:54
+#: lib/Block/news.php:50
 msgid "First Story"
 msgstr ""
 
@@ -298,76 +302,80 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: lib/Forms/Story.php:74 lib/Forms/Story.php:76
+#: lib/Forms/Story.php:72 lib/Forms/Story.php:74
 msgid "Full Story Text"
 msgstr ""
 
-#: delivery/html.php:39
+#: delivery/html.php:45
 #, php-format
 msgid "HTML Delivery for \"%s\""
 msgstr ""
 
-#: lib/News.php:680
+#: lib/News.php:645 lib/Driver.php:492
 msgid "HTML Version of Story"
 msgstr ""
 
-#: lib/Forms/Story.php:82
+#: lib/Forms/Story.php:80
 msgid ""
 "If you enter a URL without a full story text, clicking on the story will "
 "send the reader straight to the URL, otherwise it will be shown at the end "
 "of the full story."
 msgstr ""
 
-#: channels/aggregate.php:64 lib/Forms/Feed.php:87
+#: channels/aggregate.php:59 lib/Forms/Feed.php:92
 msgid "Image"
 msgstr ""
 
-#: stories/share.php:86
+#: stories/share.php:84
 msgid "Include"
+msgstr ""
+
+#: lib/Forms/Feed.php:80
+msgid "Include full story content in syndicated feeds?"
 msgstr ""
 
 #: config/templates.php.dist:31
 msgid "Internal"
 msgstr ""
 
-#: lib/api.php:91
+#: lib/Application.php:62
 msgid "Internal Channels"
 msgstr ""
 
-#: stories/index.php:43 stories/results.php:49
+#: stories/index.php:37 stories/results.php:44
 #, php-format
 msgid "Invalid channel requested. %s"
 msgstr ""
 
-#: channels/delete.php:30
+#: channels/delete.php:28
 msgid "Invalid channel specified for deletion."
 msgstr ""
 
-#: delivery/html.php:33
+#: delivery/html.php:41
 msgid "Invalid channel."
 msgstr ""
 
-#: channels/index.php:87
+#: channels/index.php:84
 msgid "Last Update"
 msgstr ""
 
-#: lib/Block/latest.php:3 lib/Block/latest.php:65
+#: lib/Block/latest.php:3 lib/Block/latest.php:55
 msgid "Latest News"
 msgstr ""
 
-#: channels/aggregate.php:63 lib/Forms/Feed.php:86
+#: channels/aggregate.php:58 lib/Forms/Feed.php:91
 msgid "Link"
 msgstr ""
 
-#: lib/News.php:496 lib/Jonah.php:107
+#: lib/News.php:462 lib/Jonah.php:101
 msgid "Local Feed"
 msgstr ""
 
-#: channels/index.php:84
+#: channels/index.php:81
 msgid "Manage Feeds"
 msgstr ""
 
-#: lib/Block/news_popular.php:52 lib/Block/news.php:49
+#: lib/Block/news_popular.php:47 lib/Block/news.php:45
 msgid "Maximum Stories"
 msgstr ""
 
@@ -379,11 +387,11 @@ msgstr ""
 msgid "Menu List"
 msgstr ""
 
-#: stories/share.php:87
+#: stories/share.php:85
 msgid "Message"
 msgstr ""
 
-#: lib/News.php:66
+#: lib/News.php:57 lib/Driver.php:63
 msgid "Missing channel id."
 msgstr ""
 
@@ -391,43 +399,35 @@ msgstr ""
 msgid "Most Popular Stories"
 msgstr ""
 
-#: content.php:34 templates/content/header.inc:2
-msgid "My News"
-msgstr ""
-
-#: content_edit.php:33
-msgid "My News :: Add Content"
-msgstr ""
-
-#: channels/index.php:85 lib/Forms/Feed.php:50
+#: channels/index.php:82 lib/Forms/Feed.php:48
 msgid "Name"
 msgstr ""
 
-#: lib/Jonah.php:245 lib/Forms/Feed.php:40
+#: lib/Jonah.php:249 lib/Forms/Feed.php:38
 msgid "New Feed"
 msgstr ""
 
-#: lib/api.php:90 lib/api.php:108
+#: lib/Application.php:60
 msgid "News"
 msgstr ""
 
-#: lib/Block/latest.php:33
+#: lib/Block/latest.php:27
 msgid "News Source"
 msgstr ""
 
-#: channels/index.php:25
+#: channels/index.php:24
 msgid "News is not enabled."
 msgstr ""
 
-#: stories/index.php:51 stories/results.php:57
+#: stories/index.php:43 stories/results.php:50
 msgid "No available stories."
 msgstr ""
 
-#: stories/index.php:23
+#: stories/index.php:19
 msgid "No channel requested."
 msgstr ""
 
-#: lib/Block/latest.php:86
+#: lib/Block/latest.php:72
 msgid "No channel specified."
 msgstr ""
 
@@ -435,11 +435,11 @@ msgstr ""
 msgid "No channels are available."
 msgstr ""
 
-#: lib/Block/news_popular.php:91 lib/Block/news.php:92
+#: lib/Block/news_popular.php:78 lib/Block/news.php:80
 msgid "No feed specified."
 msgstr ""
 
-#: lib/Block/delivery.php:68
+#: lib/Block/delivery.php:58
 msgid "No feeds are available."
 msgstr ""
 
@@ -447,62 +447,60 @@ msgstr ""
 msgid "No feeds match"
 msgstr ""
 
-#: lib/News.php:571
+#: lib/News.php:537 lib/Driver.php:381
 msgid "No stories are currently available."
 msgstr ""
 
-#: lib/Block/story.php:86
+#: lib/Block/story.php:72
 msgid "No story is selected."
 msgstr ""
 
-#: lib/News.php:730
+#: lib/News.php:695 lib/Injector/Factory/Driver.php:62
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr ""
 
-#: stories/results.php:40
+#: stories/results.php:37
 msgid "No tag requested."
 msgstr ""
 
-#: stories/delete.php:46
+#: feed.php:39
+msgid "No valid feed name or ID requested."
+msgstr ""
+
+#: stories/delete.php:42
 msgid "No valid story requested for deletion."
 msgstr ""
 
-#: stories/share.php:25
+#: stories/share.php:26
 msgid "Note"
 msgstr ""
 
-#: lib/Forms/Story.php:58
-msgid ""
-"Note: this story won't be delivered to distribution lists automatically if "
-"this time is in the future."
-msgstr ""
-
-#: lib/Forms/Story.php:55
+#: lib/Forms/Story.php:53
 msgid "Or publish on this date:"
 msgstr ""
 
-#: stories/index.php:89 stories/results.php:81
+#: stories/index.php:81 stories/results.php:74
 msgid "PDF version"
 msgstr ""
 
-#: scripts/feed_tester.php:57
+#: scripts/feed_tester.php:27
 msgid "Parse failed:"
 msgstr ""
 
-#: scripts/feed_tester.php:60
+#: scripts/feed_tester.php:30
 msgid "Parse succeeded, structure is:"
 msgstr ""
 
-#: lib/News.php:675
+#: lib/News.php:640 lib/Driver.php:487
 msgid "Plaintext Version of Story"
 msgstr ""
 
-#: lib/Forms/Story.php:45
+#: lib/Forms/Story.php:43
 msgid "Publish Now?"
 msgstr ""
 
-#: lib/Block/delivery.php:59
+#: lib/Block/delivery.php:49
 #, php-format
 msgid "RSS Feed of \"%s\""
 msgstr ""
@@ -511,40 +509,40 @@ msgstr ""
 msgid "Read"
 msgstr ""
 
-#: channels/delete.php:54
+#: channels/delete.php:50
 msgid "Really delete this News Channel?"
 msgstr ""
 
-#: stories/delete.php:64
+#: stories/delete.php:58
 msgid "Really delete this News Story?"
 msgstr ""
 
-#: stories/index.php:123
+#: stories/index.php:115
 msgid "Refresh Channel"
 msgstr ""
 
-#: channels/index.php:73
+#: channels/index.php:70
 msgid "Refresh channel"
 msgstr ""
 
-#: channels/aggregate.php:26
+#: channels/aggregate.php:20
 #, php-format
 msgid "Remove channel \"%s\""
 msgstr ""
 
-#: lib/Block/cloud.php:28
+#: lib/Block/cloud.php:26
 msgid "Results URL"
 msgstr ""
 
-#: lib/Jonah.php:193
+#: lib/Jonah.php:202
 msgid "Rich Text"
 msgstr ""
 
-#: lib/Forms/Story.php:39
+#: lib/Forms/Story.php:37
 msgid "Save"
 msgstr ""
 
-#: channels/index.php:90 templates/channels/index.html:9
+#: templates/channels/index.html:9
 msgid "Search"
 msgstr ""
 
@@ -556,7 +554,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: stories/share.php:84
+#: stories/share.php:82
 msgid "Separate multiple email addresses with commas."
 msgstr ""
 
@@ -564,19 +562,26 @@ msgstr ""
 msgid "Share Story"
 msgstr ""
 
-#: stories/view.php:87
+#: stories/view.php:82
 msgid "Share this story"
 msgstr ""
 
-#: lib/Forms/Story.php:44
+#: lib/Forms/Story.php:42
 msgid "Short Description"
 msgstr ""
 
-#: channels/aggregate.php:62 lib/Forms/Feed.php:85
+#: lib/Forms/Feed.php:76
+#, php-format
+msgid ""
+"Slugs allows direct access to this channel's content by visiting: %s. <br /> "
+"Slug names may contain only letters, numbers or the _ (underscore) character."
+msgstr ""
+
+#: channels/aggregate.php:57 lib/Forms/Feed.php:90
 msgid "Source URL"
 msgstr ""
 
-#: lib/Forms/Feed.php:100
+#: lib/Forms/Feed.php:105
 msgid "Source URLs"
 msgstr ""
 
@@ -584,191 +589,192 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#: delivery/rss.php:58 stories/results.php:112
+#: delivery/rss.php:69 stories/results.php:105
 #, php-format
 msgid "Stories tagged with %s in %s"
 msgstr ""
 
-#: stories/index.php:124 stories/results.php:116 lib/Block/story.php:3
-#: lib/Block/story.php:46 lib/Block/story.php:65
+#: stories/index.php:116 stories/results.php:109 lib/Block/story.php:3
+#: lib/Block/story.php:40 lib/Block/story.php:55
 msgid "Story"
 msgstr ""
 
-#: lib/News.php:751
+#: lib/News.php:716
 #, php-format
 msgid "Story \"%s\" not found in \"%s\"."
 msgstr ""
 
-#: stories/share.php:109
+#: stories/share.php:107
 msgid "Story Link"
 msgstr ""
 
-#: lib/Forms/Story.php:43
+#: lib/Forms/Story.php:41
 msgid "Story Title (Headline)"
 msgstr ""
 
-#: lib/Forms/Story.php:82
+#: lib/Forms/Story.php:80
 msgid "Story URL"
 msgstr ""
 
-#: lib/News/sql.php:456
+#: lib/Driver/Sql.php:590 lib/News/sql.php:442
 #, php-format
 msgid "Story URL \"%s\" not found."
 msgstr ""
 
-#: lib/Forms/Feed.php:78 lib/Forms/Feed.php:113
+#: lib/Forms/Feed.php:83 lib/Forms/Feed.php:118
 #, php-format
 msgid ""
 "Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
 "story ID."
 msgstr ""
 
-#: lib/Forms/Story.php:61
+#: lib/Forms/Story.php:59
 msgid "Story body type"
 msgstr ""
 
-#: stories/edit.php:33 stories/delete.php:31
+#: stories/edit.php:32 stories/delete.php:30
 #, php-format
 msgid "Story editing failed: %s"
 msgstr ""
 
-#: stories/delete.php:81
+#: stories/delete.php:74
 msgid "Story has not been deleted."
 msgstr ""
 
-#: lib/News/sql.php:424
+#: lib/Driver/Sql.php:558 lib/News/sql.php:410
 #, php-format
 msgid "Story id \"%s\" not found."
 msgstr ""
 
-#: stories/share.php:85
+#: stories/share.php:83
 msgid "Subject"
 msgstr ""
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:35
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:33
 msgid "Tag Cloud"
 msgstr ""
 
-#: lib/News.php:838 lib/News.php:843 lib/News.php:848 lib/News.php:854
-#: lib/News.php:859
+#: lib/News.php:802 lib/News.php:807 lib/News.php:812 lib/News.php:818
+#: lib/News.php:823 lib/Driver.php:520 lib/Driver.php:525 lib/Driver.php:530
+#: lib/Driver.php:536 lib/Driver.php:541
 msgid "Tag support not enabled in backend."
 msgstr ""
 
-#: lib/Forms/Story.php:79
+#: lib/Forms/Story.php:77
 msgid "Tags"
 msgstr ""
 
-#: lib/Block/story.php:105 templates/stories/story.html:6
+#: lib/Block/story.php:90 templates/stories/story.html:6
 msgid "Tags: "
 msgstr ""
 
-#: lib/Jonah.php:200
+#: lib/Jonah.php:209
 msgid "Text"
 msgstr ""
 
-#: channels/aggregate.php:100
+#: channels/aggregate.php:96
 #, php-format
 msgid "The channel \"%s\" has been removed."
 msgstr ""
 
-#: channels/aggregate.php:79
+#: channels/aggregate.php:74
 #, php-format
 msgid "The channel \"%s\" has been saved."
 msgstr ""
 
-#: channels/aggregate.php:87 channels/aggregate.php:107
+#: channels/aggregate.php:82 channels/aggregate.php:103
 #, php-format
 msgid "The channel \"%s\" has been updated."
 msgstr ""
 
-#: channels/delete.php:69
+#: channels/delete.php:65
 msgid "The channel has been deleted."
 msgstr ""
 
-#: stories/share.php:86
+#: stories/share.php:84
 msgid "The complete text of the story"
 msgstr ""
 
-#: channels/edit.php:70
+#: channels/edit.php:68
 #, php-format
 msgid "The feed \"%s\" has been saved."
 msgstr ""
 
-#: lib/Forms/Feed.php:94
+#: lib/Forms/Feed.php:99
 msgid ""
 "The interval before stories aggregated into this feeds are rechecked for "
 "updates. If none, then stories will always be refetched from the sources."
 msgstr ""
 
-#: lib/Forms/Feed.php:83
+#: lib/Forms/Feed.php:88
 msgid ""
 "The interval before stories in this feed are rechecked for updates. If none, "
 "then stories will always be refetched from the source."
 msgstr ""
 
-#: stories/edit.php:61
+#: stories/edit.php:58
 #, php-format
 msgid "The story \"%s\" has been saved."
 msgstr ""
 
-#: stories/delete.php:73
+#: stories/delete.php:67
 msgid "The story has been deleted."
 msgstr ""
 
-#: stories/share.php:120
+#: stories/share.php:118
 msgid "The story was sent successfully."
 msgstr ""
 
-#: channels/aggregate.php:62 lib/Forms/Feed.php:85
+#: channels/aggregate.php:57 lib/Forms/Feed.php:90
 msgid ""
 "The url to use to fetch the stories, for example 'http://www.example.com/"
 "stories.rss'"
 msgstr ""
 
-#: channels/delete.php:67
+#: channels/delete.php:63
 #, php-format
 msgid "There was an error deleting the channel: %s"
 msgstr ""
 
-#: stories/delete.php:71
+#: stories/delete.php:65
 #, php-format
 msgid "There was an error deleting the story: %s"
 msgstr ""
 
-#: channels/aggregate.php:98
+#: channels/aggregate.php:94
 #, php-format
 msgid "There was an error removing the channel: %s"
 msgstr ""
 
-#: channels/aggregate.php:77
+#: channels/aggregate.php:72
 #, php-format
 msgid "There was an error saving the channel: %s"
 msgstr ""
 
-#: channels/edit.php:68
+#: channels/edit.php:66
 #, php-format
 msgid "There was an error saving the feed: %s"
 msgstr ""
 
-#: stories/edit.php:59
+#: stories/edit.php:56
 #, php-format
 msgid "There was an error saving the story: %s"
 msgstr ""
 
-#: channels/aggregate.php:85 channels/aggregate.php:105
+#: channels/aggregate.php:80 channels/aggregate.php:101
 #, php-format
 msgid "There was an error updating the channel: %s"
 msgstr ""
 
-#: channels/aggregate.php:46
+#: channels/aggregate.php:40
 msgid "This is no aggregated channel."
 msgstr ""
 
-#: stories/share.php:84
+#: stories/share.php:82
 msgid "To"
 msgstr ""
 
-#: channels/index.php:86 lib/Forms/Feed.php:45
+#: channels/index.php:83 lib/Forms/Feed.php:43
 msgid "Type"
 msgstr ""
 
@@ -776,45 +782,41 @@ msgstr ""
 msgid "Ultracompact"
 msgstr ""
 
-#: stories/share.php:118
+#: stories/share.php:116
 #, php-format
 msgid "Unable to send story: %s"
 msgstr ""
 
-#: channels/aggregate.php:115
+#: channels/aggregate.php:112
 msgid "Update"
 msgstr ""
 
-#: lib/Block/news_popular.php:45 lib/Block/news.php:41
+#: lib/Block/news_popular.php:40 lib/Block/news.php:37
 msgid "View"
 msgstr ""
 
-#: stories/edit.php:41 stories/index.php:31 stories/results.php:24
-#: stories/delete.php:39 channels/edit.php:43 channels/index.php:19
-#: channels/delete.php:38 channels/aggregate.php:53
+#: stories/edit.php:38 stories/index.php:25 stories/results.php:21
+#: stories/delete.php:36 channels/edit.php:41 channels/index.php:18
+#: channels/delete.php:34 channels/aggregate.php:48
 msgid "You are not authorised for this action."
 msgstr ""
 
-#: channels/edit.php:72
+#: channels/edit.php:70
 msgid "You can now edit the sub-feeds."
 msgstr ""
 
-#: lib/News.php:793
+#: lib/News.php:758
 msgid "[No title]"
 msgstr ""
 
-#: lib/Jonah.php:241
+#: lib/Jonah.php:245
 msgid "_Feeds"
 msgstr ""
 
-#: lib/Jonah.php:237
-msgid "_My News"
-msgstr ""
-
-#: lib/Jonah.php:254
+#: lib/Jonah.php:258
 msgid "_New Story"
 msgstr ""
 
-#: lib/News.php:459
+#: lib/News.php:425 lib/Driver.php:314
 msgid "none"
 msgstr ""

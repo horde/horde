@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-03-23 07:41+0100\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: report.php:97 report.php:98 report.php:99 report.php:100 report.php:101
-#: report.php:102 report.php:103
+#: report.php:95 report.php:96 report.php:97 report.php:98 report.php:99
+#: report.php:100 report.php:101
 msgid "%"
 msgstr ""
 
-#: postings.php:270
+#: postings.php:267
 #, php-format
 msgid "%d postings not saved."
 msgstr ""
@@ -31,158 +31,158 @@ msgstr ""
 msgid "%d selected Postings"
 msgstr ""
 
-#: postings.php:587
+#: postings.php:573
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: lib/Report/Trend.php:113 lib/Report/Analysis.php:125
+#: lib/Report/Analysis.php:123 lib/Report/Trend.php:111
 #, php-format
 msgid "%s Result"
 msgstr ""
 
-#: report.php:95
+#: report.php:93
 #, php-format
 msgid "%s [%s - %s - %s]"
 msgstr ""
 
-#: data.php:207
+#: data.php:199
 #, php-format
 msgid "%s successfully imported"
 msgstr ""
 
-#: postings.php:617
+#: postings.php:603
 #, php-format
 msgid "%s to %s of %s Postings"
 msgstr ""
 
-#: lib/Fima.php:728 lib/Forms/DeleteLedger.php:85
+#: lib/Fima.php:711 lib/Forms/DeleteLedger.php:79
 #, php-format
 msgid "%s's Ledger"
 msgstr ""
 
-#: config/prefs.php.dist:148
+#: config/prefs.php.dist:137
 msgid "-12 345 678,90"
 msgstr ""
 
-#: config/prefs.php.dist:149
+#: config/prefs.php.dist:138
 msgid "-12'345'678.90"
 msgstr ""
 
-#: config/prefs.php.dist:147
+#: config/prefs.php.dist:136
 msgid "-12,345,678.90"
 msgstr ""
 
-#: config/prefs.php.dist:146
+#: config/prefs.php.dist:135
 msgid "-12.345.678,90"
 msgstr ""
 
-#: config/prefs.php.dist:179
+#: config/prefs.php.dist:164
 msgid "1024 x 768 Pixel"
 msgstr ""
 
-#: config/prefs.php.dist:180
+#: config/prefs.php.dist:165
 msgid "1600 x 1200 Pixel"
 msgstr ""
 
-#: config/prefs.php.dist:177
+#: config/prefs.php.dist:162
 msgid "400 x 300 Pixel"
 msgstr ""
 
-#: config/prefs.php.dist:178
+#: config/prefs.php.dist:163
 msgid "800 x 600 Pixel"
 msgstr ""
 
-#: templates/postings/posting_headers.inc:21 templates/postings/shift.inc:21
+#: templates/postings/shift.inc:21 templates/postings/posting_headers.inc:21
 msgid "A_sset Account"
 msgstr ""
 
-#: account.php:209
+#: account.php:201
 #, php-format
 msgid "Access denied deleting account from %s."
 msgstr ""
 
-#: account.php:175
+#: account.php:168
 msgid "Access denied deleting account."
 msgstr ""
 
-#: accounts.php:29
+#: accounts.php:27
 msgid "Access denied deleting all accounts and postings."
 msgstr ""
 
-#: postings.php:289
+#: postings.php:284
 #, php-format
 msgid "Access denied deleting postings from %s."
 msgstr ""
 
-#: account.php:73
+#: account.php:69
 msgid "Access denied editing account."
 msgstr ""
 
-#: account.php:27
+#: account.php:24
 #, php-format
 msgid "Access denied on account: %s"
 msgstr ""
 
-#: accounts.php:21
+#: accounts.php:19
 #, php-format
 msgid "Access denied on accounts: %s"
 msgstr ""
 
-#: account.php:106
+#: account.php:101
 #, php-format
 msgid "Access denied saving account to %s."
 msgstr ""
 
-#: postings.php:174
+#: postings.php:171
 #, php-format
 msgid "Access denied saving postings to %s."
 msgstr ""
 
-#: postings.php:320
+#: postings.php:313
 #, php-format
 msgid "Access denied shifting postings in %s."
 msgstr ""
 
-#: postings.php:355 postings.php:359
+#: postings.php:346 postings.php:350
 #, php-format
 msgid "Access denied transfering postings in %s."
 msgstr ""
 
-#: data.php:40 lib/Report/Trend.php:71 lib/Report/Analysis.php:75
+#: data.php:36 lib/Report/Analysis.php:73 lib/Report/Trend.php:69
 msgid "Account"
 msgstr ""
 
-#: config/report.php.dist:11
+#: config/report.php.dist:9
 msgid "Account Overview"
 msgstr ""
 
-#: account.php:77 account.php:179
+#: account.php:73 account.php:172
 msgid "Account not found."
 msgstr ""
 
-#: lib/Block/tree_menu.php:20 templates/reports/reports.inc:34
+#: templates/reports/reports.inc:34 lib/Block/tree_menu.php:15
 msgid "Accounts"
 msgstr ""
 
-#: config/prefs.php.dist:14
+#: config/prefs.php.dist:8
 msgid "Active Configuration"
 msgstr ""
 
-#: lib/Fima.php:472 config/prefs.php.dist:52
+#: lib/Fima.php:456 config/prefs.php.dist:44
 msgid "Actual"
 msgstr ""
 
-#: postings.php:137 lib/Block/tree_menu.php:18
+#: postings.php:134 lib/Block/tree_menu.php:13
 msgid "Add Postings"
 msgstr ""
 
-#: lib/Fima.php:759
+#: lib/Fima.php:742
 msgid "Add _Postings"
 msgstr ""
 
-#: templates/postings/transfer.inc:14 templates/postings/transfer.inc:53
-#: templates/postings/navbar.inc:9
+#: templates/postings/navbar.inc:9 templates/postings/transfer.inc:14
+#: templates/postings/transfer.inc:53
 msgid "All"
 msgstr ""
 
@@ -190,11 +190,11 @@ msgstr ""
 msgid "Amo_unt"
 msgstr ""
 
-#: data.php:42 config/prefs.php.dist:98 config/prefs.php.dist:112
+#: data.php:38 config/prefs.php.dist:87 config/prefs.php.dist:101
 msgid "Amount"
 msgstr ""
 
-#: config/report.php.dist:13
+#: config/report.php.dist:11
 msgid "Analysis"
 msgstr ""
 
@@ -207,25 +207,25 @@ msgstr ""
 msgid "Are you sure you wish to PERMANENTLY delete these postings?"
 msgstr ""
 
-#: config/prefs.php.dist:123
+#: config/prefs.php.dist:112
 msgid "Ascending"
 msgstr ""
 
-#: lib/Fima.php:448 lib/Report/AssetOverview.php:68
+#: lib/Fima.php:432 lib/Report/AssetOverview.php:66
 msgid "Asset"
 msgstr ""
 
-#: data.php:39 config/prefs.php.dist:96 config/prefs.php.dist:110
+#: data.php:35 config/prefs.php.dist:85 config/prefs.php.dist:99
 msgid "Asset Account"
 msgstr ""
 
-#: config/report.php.dist:12
+#: config/report.php.dist:10
 msgid "Asset Overview"
 msgstr ""
 
-#: lib/Report/GeneralOverview.php:63 lib/Report/GeneralOverview.php:98
-#: lib/Report/PeriodOverview.php:78 lib/Report/AssetOverview.php:92
-#: lib/Block/summary.php:77
+#: lib/Report/PeriodOverview.php:76 lib/Report/AssetOverview.php:90
+#: lib/Report/GeneralOverview.php:61 lib/Report/GeneralOverview.php:96
+#: lib/Block/summary.php:75
 msgid "Asset Result"
 msgstr ""
 
@@ -233,15 +233,15 @@ msgstr ""
 msgid "Autofill"
 msgstr ""
 
-#: lib/Block/summary.php:35
+#: lib/Block/summary.php:33
 msgid "Block title"
 msgstr ""
 
-#: lib/Fima.php:474 config/prefs.php.dist:54
+#: lib/Fima.php:458 config/prefs.php.dist:46
 msgid "Budget"
 msgstr ""
 
-#: data.php:25
+#: data.php:21
 msgid "CSV"
 msgstr ""
 
@@ -249,15 +249,15 @@ msgstr ""
 msgid "C_umulate"
 msgstr ""
 
-#: lib/Forms/DeleteLedger.php:44 lib/Forms/DeleteLedger.php:50
+#: lib/Forms/DeleteLedger.php:39 lib/Forms/DeleteLedger.php:45
 msgid "Cancel"
 msgstr ""
 
-#: ledgers/index.php:35 templates/ledgers_list.php:33
+#: templates/ledgers_list.php:33 ledgers/index.php:33
 msgid "Change Permissions"
 msgstr ""
 
-#: config/prefs.php.dist:22
+#: config/prefs.php.dist:18
 msgid "Change the display and input options."
 msgstr ""
 
@@ -265,7 +265,7 @@ msgstr ""
 msgid "Check _All/None"
 msgstr ""
 
-#: config/prefs.php.dist:15
+#: config/prefs.php.dist:9
 msgid "Choose your active Ledger and Posting Type."
 msgstr ""
 
@@ -277,23 +277,23 @@ msgstr ""
 msgid "Clear Search Query"
 msgstr ""
 
-#: lib/Forms/account.php:47
+#: lib/Forms/account.php:42
 msgid "Closed"
 msgstr ""
 
-#: templates/prefs/closedperiodselect.inc:3
+#: lib/Application.php:34
 msgid "Closed by period:"
 msgstr ""
 
-#: templates/data/export.inc:12 templates/data/import.inc:13
+#: templates/data/import.inc:13 templates/data/export.inc:12
 msgid "Comma separated values"
 msgstr ""
 
-#: lib/Forms/CreateLedger.php:38
+#: lib/Forms/CreateLedger.php:33
 msgid "Create"
 msgstr ""
 
-#: lib/Forms/CreateLedger.php:33
+#: lib/Forms/CreateLedger.php:28
 msgid "Create Ledger"
 msgstr ""
 
@@ -309,7 +309,7 @@ msgstr ""
 msgid "Current Result"
 msgstr ""
 
-#: config/prefs.php.dist:134
+#: config/prefs.php.dist:123
 msgid "DOS (* and ?)"
 msgstr ""
 
@@ -317,17 +317,17 @@ msgstr ""
 msgid "Da_te"
 msgstr ""
 
-#: data.php:38 config/prefs.php.dist:95 config/prefs.php.dist:109
+#: data.php:34 config/prefs.php.dist:84 config/prefs.php.dist:98
 msgid "Date"
 msgstr ""
 
-#: lib/Forms/account.php:84 lib/Forms/DeleteLedger.php:44 ledgers/index.php:36
-#: templates/ledgers_list.php:35 templates/accounts/accounts.inc:43
-#: templates/accounts/accounts.inc:45 templates/postings/actions.inc:9
+#: templates/ledgers_list.php:35 templates/postings/actions.inc:9
+#: templates/accounts/accounts.inc:43 templates/accounts/accounts.inc:45
+#: ledgers/index.php:34 lib/Forms/account.php:79 lib/Forms/DeleteLedger.php:39
 msgid "Delete"
 msgstr ""
 
-#: lib/Forms/DeleteLedger.php:39 templates/accounts/accounts.inc:45
+#: templates/accounts/accounts.inc:45 lib/Forms/DeleteLedger.php:34
 #, php-format
 msgid "Delete %s"
 msgstr ""
@@ -336,52 +336,52 @@ msgstr ""
 msgid "Delete all"
 msgstr ""
 
-#: lib/UI/VarRenderer/fima.php:39
+#: lib/UI/VarRenderer/fima.php:31
 msgid "Delete postings."
 msgstr ""
 
-#: lib/UI/VarRenderer/fima.php:65
+#: lib/UI/VarRenderer/fima.php:57
 msgid "Delete subaccounts and postings."
 msgstr ""
 
-#: lib/UI/VarRenderer/fima.php:71
+#: lib/UI/VarRenderer/fima.php:63
 msgid "Delete subaccounts and shift postings to"
 msgstr ""
 
-#: account.php:92 lib/Forms/account.php:51
+#: account.php:87 lib/Forms/account.php:46
 msgid "Delete this account"
 msgstr ""
 
-#: account.php:185 account.php:202
+#: account.php:178 account.php:194
 #, php-format
 msgid "Delete: %s"
 msgstr ""
 
-#: postings.php:396
+#: postings.php:386
 #, php-format
 msgid "Deleted %d existing postings."
 msgstr ""
 
-#: postings.php:494
+#: postings.php:484
 #, php-format
 msgid "Deleted %d original postings."
 msgstr ""
 
-#: postings.php:305
+#: postings.php:300
 #, php-format
 msgid "Deleted %d postings."
 msgstr ""
 
-#: account.php:223
+#: account.php:214
 #, php-format
 msgid "Deleted %s."
 msgstr ""
 
-#: accounts.php:39
+#: accounts.php:37
 msgid "Deleted all accounts and postings."
 msgstr ""
 
-#: config/prefs.php.dist:124
+#: config/prefs.php.dist:113
 msgid "Descending"
 msgstr ""
 
@@ -389,25 +389,25 @@ msgstr ""
 msgid "Descriptio_n"
 msgstr ""
 
-#: data.php:41 lib/Forms/account.php:46 lib/Forms/CreateLedger.php:36
-#: lib/Forms/EditLedger.php:43 config/prefs.php.dist:99
-#: config/prefs.php.dist:113
+#: data.php:37 lib/Forms/account.php:41 lib/Forms/CreateLedger.php:31
+#: lib/Forms/EditLedger.php:38 config/prefs.php.dist:88
+#: config/prefs.php.dist:102
 msgid "Description"
 msgstr ""
 
-#: lib/Report/GeneralOverview.php:87 lib/Report/Analysis.php:89
-#: lib/Report/AccountOverview.php:87
+#: lib/Report/Analysis.php:87 lib/Report/AccountOverview.php:85
+#: lib/Report/GeneralOverview.php:85
 msgid "Diff. (%)"
 msgstr ""
 
-#: report.php:97 report.php:98 report.php:99 report.php:100 report.php:101
-#: report.php:102 report.php:103 lib/Report/GeneralOverview.php:84
-#: lib/Report/Analysis.php:86 lib/Report/Analysis.php:362
-#: lib/Report/AccountOverview.php:84
+#: report.php:95 report.php:96 report.php:97 report.php:98 report.php:99
+#: report.php:100 report.php:101 lib/Report/Analysis.php:84
+#: lib/Report/Analysis.php:360 lib/Report/AccountOverview.php:82
+#: lib/Report/GeneralOverview.php:82
 msgid "Difference"
 msgstr ""
 
-#: config/prefs.php.dist:168
+#: config/prefs.php.dist:154
 msgid "Do you want to confirm deleting postings?"
 msgstr ""
 
@@ -415,17 +415,17 @@ msgstr ""
 msgid "Don't summarize."
 msgstr ""
 
-#: ledgers/index.php:34 templates/ledgers_list.php:31
-#: templates/accounts/accounts.inc:44 templates/postings/actions.inc:10
+#: templates/ledgers_list.php:31 templates/postings/actions.inc:10
+#: templates/accounts/accounts.inc:44 ledgers/index.php:32
 msgid "Edit"
 msgstr ""
 
-#: lib/Forms/EditLedger.php:39 templates/accounts/accounts.inc:44
+#: templates/accounts/accounts.inc:44 lib/Forms/EditLedger.php:34
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: postings.php:147 postings.php:179
+#: postings.php:144 postings.php:176
 msgid "Edit Postings"
 msgstr ""
 
@@ -433,24 +433,24 @@ msgstr ""
 msgid "Edit Search Query"
 msgstr ""
 
-#: account.php:195 lib/Forms/account.php:86
+#: account.php:187 lib/Forms/account.php:81
 msgid "Edit this account"
 msgstr ""
 
-#: account.php:82 account.php:99
+#: account.php:78 account.php:94
 #, php-format
 msgid "Edit: %s"
 msgstr ""
 
-#: config/prefs.php.dist:159
+#: config/prefs.php.dist:147
 msgid "Enter expenses with negative sign?"
 msgstr ""
 
-#: lib/Block/summary.php:106 lib/Block/summary.php:122
+#: lib/Block/summary.php:104 lib/Block/summary.php:120
 msgid "Error when retrieving results."
 msgstr ""
 
-#: lib/Fima.php:450
+#: lib/Fima.php:434
 msgid "Expense"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgstr ""
 msgid "Export Postings"
 msgstr ""
 
-#: data.php:65 data.php:124 data.php:153
+#: data.php:61 data.php:118 data.php:148
 #, php-format
 msgid "Failed to access the ledger: %s"
 msgstr ""
@@ -471,11 +471,11 @@ msgstr ""
 msgid "Finances Results"
 msgstr ""
 
-#: postings.php:639 config/prefs.php.dist:84
+#: postings.php:625 config/prefs.php.dist:73
 msgid "First Page"
 msgstr ""
 
-#: lib/Fima.php:473 config/prefs.php.dist:53
+#: lib/Fima.php:457 config/prefs.php.dist:45
 msgid "Forecast"
 msgstr ""
 
@@ -483,11 +483,11 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
-#: config/prefs.php.dist:13 config/prefs.php.dist:20
+#: config/prefs.php.dist:7 config/prefs.php.dist:16
 msgid "General Options"
 msgstr ""
 
-#: config/report.php.dist:9
+#: config/report.php.dist:7
 msgid "General Overview"
 msgstr ""
 
@@ -496,15 +496,15 @@ msgstr ""
 msgid "Import Postings, Step %d"
 msgstr ""
 
-#: data.php:213
+#: data.php:205
 msgid "Import/Export Postings"
 msgstr ""
 
-#: lib/Fima.php:449
+#: lib/Fima.php:433
 msgid "Income"
 msgstr ""
 
-#: config/prefs.php.dist:21
+#: config/prefs.php.dist:17
 msgid "Interface Options"
 msgstr ""
 
@@ -512,15 +512,15 @@ msgstr ""
 msgid "Invert"
 msgstr ""
 
-#: lib/UI/VarRenderer/fima.php:59
+#: lib/UI/VarRenderer/fima.php:51
 msgid "Keep subaccounts and postings."
 msgstr ""
 
-#: postings.php:650 config/prefs.php.dist:85
+#: postings.php:636 config/prefs.php.dist:74
 msgid "Last Page"
 msgstr ""
 
-#: ledgers/index.php:33 templates/ledgers_list.php:16
+#: templates/ledgers_list.php:16 ledgers/index.php:31
 msgid "Ledger"
 msgstr ""
 
@@ -528,7 +528,7 @@ msgstr ""
 msgid "Ledger List"
 msgstr ""
 
-#: ledgers/index.php:40 templates/ledgers_list.php:2
+#: templates/ledgers_list.php:2 ledgers/index.php:37
 msgid "Manage Ledgers"
 msgstr ""
 
@@ -540,20 +540,20 @@ msgstr ""
 msgid "Monday"
 msgstr ""
 
-#: accounts.php:91
+#: accounts.php:88
 msgid "My Accounts"
 msgstr ""
 
-#: postings.php:39
+#: postings.php:36
 msgid "My Postings"
 msgstr ""
 
-#: lib/Forms/account.php:44 lib/Forms/CreateLedger.php:35
-#: lib/Forms/EditLedger.php:42
+#: lib/Forms/account.php:39 lib/Forms/CreateLedger.php:30
+#: lib/Forms/EditLedger.php:37
 msgid "Name"
 msgstr ""
 
-#: account.php:67 account.php:99
+#: account.php:63 account.php:94
 msgid "New Account"
 msgstr ""
 
@@ -561,11 +561,11 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: postings.php:648
+#: postings.php:634
 msgid "Next Page"
 msgstr ""
 
-#: postings.php:615
+#: postings.php:601
 msgid "No Postings"
 msgstr ""
 
@@ -573,21 +573,21 @@ msgstr ""
 msgid "No data for this report."
 msgstr ""
 
-#: lib/Report/GeneralOverview.php:45 lib/Report/Trend.php:50
-#: lib/Report/PeriodOverview.php:44 lib/Report/Analysis.php:51
-#: lib/Report/AccountOverview.php:44 lib/Report/AssetOverview.php:48
+#: lib/Report/Analysis.php:49 lib/Report/PeriodOverview.php:42
+#: lib/Report/Trend.php:48 lib/Report/AccountOverview.php:42
+#: lib/Report/AssetOverview.php:46 lib/Report/GeneralOverview.php:43
 msgid "No display type"
 msgstr ""
 
-#: lib/Report.php:170 lib/ReportGraph.php:175
+#: lib/Report.php:167 lib/ReportGraph.php:172
 msgid "No report driver loaded"
 msgstr ""
 
-#: lib/Block/summary.php:154
+#: lib/Block/summary.php:152
 msgid "No results to display"
 msgstr ""
 
-#: templates/prefs/closedperiodselect.inc:4 templates/postings/navbar.inc:10
+#: templates/postings/navbar.inc:10 lib/Application.php:36
 msgid "None"
 msgstr ""
 
@@ -596,15 +596,15 @@ msgstr ""
 msgid "Not %s"
 msgstr ""
 
-#: lib/Driver/sql.php:133 lib/Driver/sql.php:169 lib/Driver/sql.php:326
+#: lib/Driver/sql.php:129 lib/Driver/sql.php:164 lib/Driver/sql.php:317
 msgid "Not found"
 msgstr ""
 
-#: lib/Forms/account.php:42
+#: lib/Forms/account.php:37
 msgid "Number"
 msgstr ""
 
-#: lib/Block/summary.php:44
+#: lib/Block/summary.php:42
 msgid "Number of months to display"
 msgstr ""
 
@@ -629,11 +629,11 @@ msgstr ""
 msgid "Page %d of %d"
 msgstr ""
 
-#: lib/Report/PeriodOverview.php:67 lib/Report/AccountOverview.php:73
+#: lib/Report/PeriodOverview.php:65 lib/Report/AccountOverview.php:71
 msgid "Period"
 msgstr ""
 
-#: config/report.php.dist:10
+#: config/report.php.dist:8
 msgid "Period Overview"
 msgstr ""
 
@@ -645,7 +645,7 @@ msgstr ""
 msgid "Period to"
 msgstr ""
 
-#: lib/Forms/DeleteLedger.php:55
+#: lib/Forms/DeleteLedger.php:50
 msgid "Permission denied"
 msgstr ""
 
@@ -653,11 +653,11 @@ msgstr ""
 msgid "Please select another posting type where to transfer postings to."
 msgstr ""
 
-#: templates/postings/posting_headers.inc:26 templates/postings/shift.inc:29
+#: templates/postings/shift.inc:29 templates/postings/posting_headers.inc:26
 msgid "Posting A_ccount"
 msgstr ""
 
-#: config/prefs.php.dist:97 config/prefs.php.dist:111
+#: config/prefs.php.dist:86 config/prefs.php.dist:100
 msgid "Posting Account"
 msgstr ""
 
@@ -665,19 +665,19 @@ msgstr ""
 msgid "Posting T_ype"
 msgstr ""
 
-#: lib/Forms/account.php:81
+#: lib/Forms/account.php:76
 msgid "Postings"
 msgstr ""
 
-#: config/prefs.php.dist:75
+#: config/prefs.php.dist:65
 msgid "Postings per page in the list view."
 msgstr ""
 
-#: data.php:164
+#: data.php:159
 msgid "Postings successfully purged."
 msgstr ""
 
-#: postings.php:641
+#: postings.php:627
 msgid "Previous Page"
 msgstr ""
 
@@ -685,16 +685,16 @@ msgstr ""
 msgid "Re_ference"
 msgstr ""
 
-#: lib/Forms/DeleteLedger.php:42
+#: lib/Forms/DeleteLedger.php:37
 #, php-format
 msgid ""
 "Really delete the ledger \"%s\"? This cannot be undone and all data on this "
 "ledger will be permanently removed."
 msgstr ""
 
-#: report.php:96 report.php:99 report.php:101 report.php:102 report.php:103
-#: lib/Report/GeneralOverview.php:81 lib/Report/Analysis.php:83
-#: lib/Report/AccountOverview.php:81
+#: report.php:94 report.php:97 report.php:99 report.php:100 report.php:101
+#: lib/Report/Analysis.php:81 lib/Report/AccountOverview.php:79
+#: lib/Report/GeneralOverview.php:79
 msgid "Reference"
 msgstr ""
 
@@ -712,16 +712,16 @@ msgstr ""
 msgid "Repor_t"
 msgstr ""
 
-#: lib/ReportGraph.php:86 templates/reports/graph.inc:2
+#: templates/reports/graph.inc:2 lib/ReportGraph.php:84
 msgid "Report"
 msgstr ""
 
-#: report.php:152
+#: report.php:150
 #, php-format
 msgid "Report %s"
 msgstr ""
 
-#: report.php:111 lib/Block/tree_menu.php:21
+#: report.php:109 lib/Block/tree_menu.php:16
 msgid "Reports"
 msgstr ""
 
@@ -729,16 +729,16 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: lib/Report/Analysis.php:361
+#: lib/Report/Analysis.php:359
 msgid "Rest"
 msgstr ""
 
-#: lib/Report/GeneralOverview.php:61 lib/Report/PeriodOverview.php:76
-#: templates/postings/edit.inc:47
+#: templates/postings/edit.inc:47 lib/Report/PeriodOverview.php:74
+#: lib/Report/GeneralOverview.php:59
 msgid "Result"
 msgstr ""
 
-#: config/prefs.php.dist:135
+#: config/prefs.php.dist:124
 msgid "SQL (% and _)"
 msgstr ""
 
@@ -750,27 +750,28 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: lib/Forms/account.php:49 lib/Forms/EditLedger.php:45
-#: templates/postings/actions.inc:15
+#: templates/postings/actions.inc:15 lib/Forms/account.php:44
+#: lib/Forms/EditLedger.php:40
 msgid "Save"
 msgstr ""
 
-#: account.php:162 lib/Forms/account.php:49
+#: account.php:156 lib/Forms/account.php:44
 msgid "Save and New"
 msgstr ""
 
-#: postings.php:267
+#: postings.php:264
 #, php-format
 msgid "Saved %d postings."
 msgstr ""
 
-#: account.php:160
+#: account.php:154
 #, php-format
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Fima.php:760 lib/Block/tree_menu.php:19 templates/search/search.inc:106
-#: templates/accounts/accounts.inc:47 templates/postings/header.inc:7
+#: templates/search/search.inc:106 templates/postings/header.inc:7
+#: templates/accounts/accounts.inc:47 lib/Fima.php:743
+#: lib/Block/tree_menu.php:14
 msgid "Search"
 msgstr ""
 
@@ -802,11 +803,11 @@ msgstr ""
 msgid "Search Posting T_ype"
 msgstr ""
 
-#: search.php:71 templates/postings/header.inc:7
+#: search.php:73 templates/postings/header.inc:7
 msgid "Search Postings"
 msgstr ""
 
-#: postings.php:519
+#: postings.php:505
 msgid "Search Results"
 msgstr ""
 
@@ -822,15 +823,15 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: lib/Forms/account.php:146
+#: lib/Forms/account.php:141
 msgid "Select another account where to shift postings to."
 msgstr ""
 
-#: lib/Forms/account.php:181
+#: lib/Forms/account.php:176
 msgid "Select another account where to shift subaccount postings to."
 msgstr ""
 
-#: config/prefs.php.dist:181
+#: config/prefs.php.dist:167
 msgid "Select the canvas size for chart reports:"
 msgstr ""
 
@@ -846,11 +847,11 @@ msgstr ""
 msgid "Select the file to import:"
 msgstr ""
 
-#: config/prefs.php.dist:150
+#: config/prefs.php.dist:140
 msgid "Select the format for amounts:"
 msgstr ""
 
-#: config/prefs.php.dist:137
+#: config/prefs.php.dist:127
 msgid "Select the format for wildcards for text search:"
 msgstr ""
 
@@ -858,23 +859,19 @@ msgstr ""
 msgid "Select the format of the source file:"
 msgstr ""
 
-#: lib/Fima.php:432
-msgid "Set date"
-msgstr ""
-
 #: templates/postings/actions.inc:11
 msgid "Shift"
 msgstr ""
 
-#: postings.php:157
+#: postings.php:154
 msgid "Shift Postings"
 msgstr ""
 
-#: lib/UI/VarRenderer/fima.php:45
+#: lib/UI/VarRenderer/fima.php:37
 msgid "Shift postings to"
 msgstr ""
 
-#: postings.php:342
+#: postings.php:335
 #, php-format
 msgid "Shifted %d postings."
 msgstr ""
@@ -883,7 +880,7 @@ msgstr ""
 msgid "Shifting"
 msgstr ""
 
-#: lib/Block/summary.php:39
+#: lib/Block/summary.php:37
 msgid "Show summary of this ledger"
 msgstr ""
 
@@ -912,15 +909,15 @@ msgstr ""
 msgid "Sort by Posting Account"
 msgstr ""
 
-#: config/prefs.php.dist:125
+#: config/prefs.php.dist:115
 msgid "Sort direction:"
 msgstr ""
 
-#: config/prefs.php.dist:100
+#: config/prefs.php.dist:90
 msgid "Sort postings by:"
 msgstr ""
 
-#: lib/Forms/account.php:82
+#: lib/Forms/account.php:77
 msgid "Subaccounts"
 msgstr ""
 
@@ -932,11 +929,11 @@ msgstr ""
 msgid "Summarize by posting against"
 msgstr ""
 
-#: postings.php:429 postings.php:443 postings.php:454
+#: postings.php:419 postings.php:433 postings.php:444
 msgid "Summarized"
 msgstr ""
 
-#: postings.php:478
+#: postings.php:468
 #, php-format
 msgid "Summarized %d postings."
 msgstr ""
@@ -945,91 +942,91 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: data.php:26
+#: data.php:22
 msgid "TSV"
 msgstr ""
 
-#: templates/data/export.inc:13 templates/data/import.inc:14
+#: templates/data/import.inc:14 templates/data/export.inc:13
 msgid "Tab separated values"
 msgstr ""
 
-#: data.php:201
+#: data.php:196
 #, php-format
 msgid "The %s file didn't contain any postings."
 msgstr ""
 
-#: lib/Driver.php:72
+#: lib/Driver.php:70
 msgid "The Finances backend is not currently available."
 msgstr ""
 
-#: lib/Driver.php:364
+#: lib/Driver.php:354
 #, php-format
 msgid "The Finances backend is not currently available: %s"
 msgstr ""
 
-#: lib/ReportGraph.php:62
+#: lib/ReportGraph.php:60
 msgid "The Finances report graphs are not currently available."
 msgstr ""
 
-#: lib/ReportGraph.php:185
+#: lib/ReportGraph.php:182
 #, php-format
 msgid "The Finances report graphs are not currently available: %s"
 msgstr ""
 
-#: lib/Report.php:48
+#: lib/Report.php:46
 msgid "The Finances reports are not currently available."
 msgstr ""
 
-#: lib/Report.php:180
+#: lib/Report.php:177
 #, php-format
 msgid "The Finances reports are not currently available: %s"
 msgstr ""
 
-#: account.php:121
+#: account.php:115
 #, php-format
 msgid "The account including all postings was shifted from number %s to %s."
 msgstr ""
 
-#: account.php:118
+#: account.php:112
 #, php-format
 msgid "The account number %s is already used by the account %s."
 msgstr ""
 
-#: account.php:131
+#: account.php:125
 #, php-format
 msgid "The account type was set to %s."
 msgstr ""
 
-#: report.php:147
+#: report.php:145
 msgid "The graphs library could not be loaded."
 msgstr ""
 
-#: ledgers/create.php:31
+#: ledgers/create.php:28
 #, php-format
 msgid "The ledger \"%s\" has been created."
 msgstr ""
 
-#: ledgers/delete.php:48
+#: ledgers/delete.php:43
 #, php-format
 msgid "The ledger \"%s\" has been deleted."
 msgstr ""
 
-#: ledgers/edit.php:42
+#: ledgers/edit.php:38
 #, php-format
 msgid "The ledger \"%s\" has been renamed to \"%s\"."
 msgstr ""
 
-#: ledgers/edit.php:44
+#: ledgers/edit.php:40
 #, php-format
 msgid "The ledger \"%s\" has been saved."
 msgstr ""
 
-#: data.php:162
+#: data.php:157
 #, php-format
 msgid "The postings could not be purged: %s"
 msgstr ""
 
-#: config/prefs.php.dist:114
+#: config/prefs.php.dist:104
 msgid "Then:"
 msgstr ""
 
@@ -1037,72 +1034,67 @@ msgstr ""
 msgid "There are no appropriate postings."
 msgstr ""
 
-#: lib/Report.php:128
+#: lib/Report.php:125
 #, php-format
 msgid "There was a problem creating the report graph: %s."
 msgstr ""
 
-#: report.php:129
+#: report.php:127
 #, php-format
 msgid "There was a problem creating the report: %s."
 msgstr ""
 
-#: accounts.php:36
+#: accounts.php:34
 #, php-format
 msgid "There was a problem deleting all accounts and postings: %s"
 msgstr ""
 
-#: postings.php:389
+#: postings.php:379
 #, php-format
 msgid "There was a problem deleting an existing posting: %s"
 msgstr ""
 
-#: postings.php:487
+#: postings.php:477
 #, php-format
 msgid "There was a problem deleting an original posting: %s"
 msgstr ""
 
-#: postings.php:298
+#: postings.php:293
 #, php-format
 msgid "There was a problem deleting posting #%d: %s"
 msgstr ""
 
-#: account.php:221
+#: account.php:212
 #, php-format
 msgid "There was a problem deleting the account: %s."
 msgstr ""
 
-#: lib/Report.php:135
+#: lib/Report.php:132
 #, php-format
 msgid "There was a problem executing the report graph: %s."
 msgstr ""
 
-#: report.php:139
+#: report.php:137
 #, php-format
 msgid "There was a problem executing the report: %s."
 msgstr ""
 
-#: account.php:158
+#: account.php:152
 #, php-format
 msgid "There was a problem saving the account: %s."
 msgstr ""
 
-#: postings.php:244 postings.php:472
+#: postings.php:241 postings.php:462
 #, php-format
 msgid "There was a problem saving the posting: %s."
 msgstr ""
 
-#: postings.php:335
+#: postings.php:328
 #, php-format
 msgid "There was a problem shifting posting #%d: %s"
 msgstr ""
 
-#: data.php:204
-#, php-format
-msgid "There was an error importing the data: %s"
-msgstr ""
-
-#: data.php:103
+#: data.php:99
 msgid "There were no postings to export."
 msgstr ""
 
@@ -1110,7 +1102,7 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr ""
 
-#: ledgers/delete.php:24
+#: ledgers/delete.php:21
 msgid "This ledger cannot be deleted."
 msgstr ""
 
@@ -1118,10 +1110,10 @@ msgstr ""
 msgid "Thursday"
 msgstr ""
 
-#: lib/Report/Trend.php:79 lib/Report/Trend.php:156
-#: lib/Report/PeriodOverview.php:90 lib/Report/Analysis.php:201
-#: lib/Report/AccountOverview.php:101 lib/Report/AssetOverview.php:76
-#: lib/Block/summary.php:76 templates/postings/list.inc:13
+#: templates/postings/list.inc:13 lib/Report/Analysis.php:199
+#: lib/Report/PeriodOverview.php:88 lib/Report/Trend.php:77
+#: lib/Report/Trend.php:154 lib/Report/AccountOverview.php:99
+#: lib/Report/AssetOverview.php:74 lib/Block/summary.php:74
 msgid "Total Result"
 msgstr ""
 
@@ -1133,7 +1125,7 @@ msgstr ""
 msgid "Transfer"
 msgstr ""
 
-#: postings.php:165
+#: postings.php:162
 msgid "Transfer Postings"
 msgstr ""
 
@@ -1145,12 +1137,12 @@ msgstr ""
 msgid "Transfer to"
 msgstr ""
 
-#: postings.php:478
+#: postings.php:468
 #, php-format
 msgid "Transfered %d postings."
 msgstr ""
 
-#: config/report.php.dist:14
+#: config/report.php.dist:12
 msgid "Trend"
 msgstr ""
 
@@ -1158,26 +1150,26 @@ msgstr ""
 msgid "Tuesday"
 msgstr ""
 
-#: lib/Report/GeneralOverview.php:73 lib/Forms/account.php:43
+#: lib/Report/GeneralOverview.php:71 lib/Forms/account.php:38
 msgid "Type"
 msgstr ""
 
-#: lib/Forms/DeleteLedger.php:62
+#: lib/Forms/DeleteLedger.php:57
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr ""
 
-#: lib/Report.php:183 lib/ReportGraph.php:188 lib/Driver.php:367
+#: lib/Report.php:180 lib/Driver.php:357 lib/ReportGraph.php:185
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr ""
 
-#: lib/Forms/EditLedger.php:54
+#: lib/Forms/EditLedger.php:49
 #, php-format
 msgid "Unable to save ledger \"%s\": %s"
 msgstr ""
 
-#: postings.php:581 postings.php:590
+#: postings.php:567 postings.php:576
 msgid "Unknown"
 msgstr ""
 
@@ -1190,15 +1182,15 @@ msgstr ""
 msgid "Wednesday"
 msgstr ""
 
-#: config/prefs.php.dist:86
+#: config/prefs.php.dist:76
 msgid "When displaying the postings, which page do you want to start on?"
 msgstr ""
 
-#: ledgers/edit.php:28
+#: ledgers/edit.php:25
 msgid "You are not allowed to change this ledger."
 msgstr ""
 
-#: ledgers/delete.php:35
+#: ledgers/delete.php:31
 msgid "You are not allowed to delete this ledger."
 msgstr ""
 
@@ -1206,15 +1198,11 @@ msgstr ""
 msgid "You must select at least one posting first."
 msgstr ""
 
-#: templates/prefs/ledgerselect.inc:10
-msgid "Your active ledger:"
-msgstr ""
-
-#: config/prefs.php.dist:55
+#: config/prefs.php.dist:48
 msgid "Your active posting type:"
 msgstr ""
 
-#: lib/Fima.php:761
+#: lib/Fima.php:744
 msgid "_Accounts"
 msgstr ""
 
@@ -1238,7 +1226,7 @@ msgstr ""
 msgid "_Edit"
 msgstr ""
 
-#: lib/Fima.php:771
+#: lib/Fima.php:754
 msgid "_Import/Export"
 msgstr ""
 
@@ -1246,11 +1234,11 @@ msgstr ""
 msgid "_Keep original Postings"
 msgstr ""
 
-#: lib/Fima.php:758
+#: lib/Fima.php:741
 msgid "_List Postings"
 msgstr ""
 
-#: lib/Fima.php:764
+#: lib/Fima.php:747
 msgid "_My Ledgers"
 msgstr ""
 
@@ -1258,11 +1246,11 @@ msgstr ""
 msgid "_Null Rows"
 msgstr ""
 
-#: lib/Fima.php:775
+#: lib/Fima.php:758
 msgid "_Print"
 msgstr ""
 
-#: lib/Fima.php:768
+#: lib/Fima.php:751
 msgid "_Reports"
 msgstr ""
 
@@ -1283,32 +1271,32 @@ msgstr ""
 msgid "don't change"
 msgstr ""
 
-#: data.php:43 lib/Forms/account.php:45
-#: templates/postings/posting_headers.inc:43
+#: data.php:39 templates/postings/posting_headers.inc:43
+#: lib/Forms/account.php:40
 msgid "e.o."
 msgstr ""
 
-#: postings.php:587
+#: postings.php:573
 #, php-format
 msgid "e.o. %s"
 msgstr ""
 
-#: search.php:64
+#: search.php:62
 msgid "e.o. postings only"
 msgstr ""
 
-#: search.php:65
+#: search.php:63
 msgid "no e.o. postings"
 msgstr ""
 
-#: config/prefs.php.dist:136
+#: config/prefs.php.dist:125
 msgid "none"
 msgstr ""
 
-#: data.php:111 templates/data/export.inc:1
+#: data.php:106 templates/data/export.inc:1
 msgid "postings.csv"
 msgstr ""
 
-#: data.php:116
+#: data.php:110
 msgid "postings.tsv"
 msgstr ""

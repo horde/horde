@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-06-27 16:09+0200\n"
+"POT-Creation-Date: 2010-08-18 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,79 +16,79 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: moderate.php:35
+#: moderate.php:32
 #, php-format
 msgid "%d messages was approved."
 msgstr ""
 
-#: moderate.php:41
+#: moderate.php:38
 #, php-format
 msgid "%d messages was deleted."
 msgstr ""
 
-#: scripts/phorum2agora.php:217
+#: scripts/phorum2agora.php:182
 msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
 msgstr ""
 
-#: scripts/phorum2agora.php:220
+#: scripts/phorum2agora.php:185
 msgid "-c, --count[=messages]       Number of messages to move at once"
 msgstr ""
 
-#: scripts/phorum2agora.php:219
+#: scripts/phorum2agora.php:184
 msgid ""
 "-f, --from[=offset]          Offset from where to start to read messages"
 msgstr ""
 
-#: scripts/phorum2agora.php:215
+#: scripts/phorum2agora.php:180
 msgid "-h, --help                   Show this help"
 msgstr ""
 
-#: scripts/phorum2agora.php:216
+#: scripts/phorum2agora.php:181
 msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
 msgstr ""
 
-#: scripts/phorum2agora.php:218
+#: scripts/phorum2agora.php:183
 msgid "-t, --phorum_table[=table]   Phorum messages tablename"
 msgstr ""
 
-#: lib/api.php:860
+#: lib/Api.php:684
 msgid "Add a comment"
 msgstr ""
 
-#: lib/api.php:164
+#: lib/Application.php:63
 msgid "Admin"
 msgstr ""
 
-#: messages/merge.php:65
+#: messages/merge.php:59
 msgid "After Message: "
 msgstr ""
 
-#: forums.php:71
+#: forums.php:74
 msgid "All Forums"
 msgstr ""
 
-#: lib/Forms/Forum.php:41
+#: lib/Forms/Forum.php:39
 msgid "Allow attachments in this forum?"
 msgstr ""
 
-#: messages/lock.php:50
+#: messages/lock.php:44
 msgid "Allow replies in this thread"
 msgstr ""
 
-#: moderate.php:32 moderate.php:68
+#: moderate.php:29 moderate.php:64
 msgid "Approve"
 msgstr ""
 
-#: lib/Comments.php:73 config/prefs.php.dist:92 config/prefs.php.dist:127
-#: config/prefs.php.dist:168 config/prefs.php.dist:256
+#: lib/Comments.php:71 config/prefs.php.dist:100 config/prefs.php.dist:139
+#: config/prefs.php.dist:182 config/prefs.php.dist:266
 msgid "Ascending"
 msgstr ""
 
-#: lib/Messages.php:1568
+#: lib/Messages.php:1563
 msgid "Attachment"
 msgstr ""
 
-#: lib/Comments.php:68 lib/Forms/Search.php:55
+#: lib/Comments.php:66 lib/Forms/Search.php:53
 msgid "Author"
 msgstr ""
 
@@ -96,13 +96,13 @@ msgstr ""
 msgid "Avatar"
 msgstr ""
 
-#: config/prefs.php.dist:64
+#: config/prefs.php.dist:70
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
 msgstr ""
 
-#: ban.php:57 lib/Messages.php:1513
+#: ban.php:51 lib/Messages.php:1508
 msgid "Ban"
 msgstr ""
 
@@ -110,238 +110,242 @@ msgstr ""
 msgid "Banned"
 msgstr ""
 
-#: moderate.php:61
+#: moderate.php:57
 msgid "Body"
 msgstr ""
 
-#: deleteforum.php:44 messages/abuse.php:47 messages/abuse.php:55
-#: messages/merge.php:46 messages/move.php:46 messages/delete.php:48
-#: messages/split.php:46 lib/api.php:781
+#: deleteforum.php:39 messages/abuse.php:41 messages/abuse.php:49
+#: messages/merge.php:40 messages/move.php:40 messages/delete.php:42
+#: messages/split.php:40 lib/Api.php:602
 msgid "Cancel"
 msgstr ""
 
-#: lib/Messages.php:1944
+#: lib/Messages.php:1931
 msgid "Cannot create a forum with an empty name."
 msgstr ""
 
-#: templates/prefs/avatarselect.inc:8
-msgid "Choose from a gallery of avatars: "
+#: config/prefs.php.dist:78
+msgid "Choose from a gallery of avatars:"
 msgstr ""
 
-#: lib/Comments.php:54 lib/api.php:491
+#: config/prefs.php.dist:78
+msgid "Click to Show Gallery"
+msgstr ""
+
+#: lib/Api.php:310 lib/Comments.php:52
 msgid "Comments"
 msgstr ""
 
-#: rss/threads.php:63
+#: rss/threads.php:57
 #, php-format
 msgid "Comments on %s"
 msgstr ""
 
-#: config/prefs.php.dist:48
+#: config/prefs.php.dist:53
 msgid "Comments view"
 msgstr ""
 
-#: editforum.php:44
+#: editforum.php:39
 #, php-format
 msgid "Could not create the forum. %s"
 msgstr ""
 
-#: deleteforum.php:65
+#: deleteforum.php:60
 #, php-format
 msgid "Could not delete the forum. %s"
 msgstr ""
 
-#: messages/delete.php:62 lib/api.php:764 lib/api.php:775 lib/api.php:789
+#: messages/delete.php:56 lib/Api.php:585 lib/Api.php:596 lib/Api.php:610
 #, php-format
 msgid "Could not delete the message. %s"
 msgstr ""
 
-#: threads.php:30
+#: threads.php:26
 #, php-format
 msgid "Could not list threads. %s"
 msgstr ""
 
-#: messages/lock.php:59
+#: messages/lock.php:53
 #, php-format
 msgid "Could not lock the thread. %s"
 msgstr ""
 
-#: messages/abuse.php:30 messages/merge.php:30 messages/move.php:30
-#: messages/index.php:33 messages/index.php:55 messages/lock.php:32
-#: messages/delete.php:32 messages/split.php:30
+#: messages/abuse.php:25 messages/merge.php:25 messages/move.php:25
+#: messages/index.php:27 messages/index.php:48 messages/lock.php:27
+#: messages/delete.php:27 messages/split.php:25
 #, php-format
 msgid "Could not open the message. %s"
 msgstr ""
 
-#: messages/edit.php:30 messages/edit.php:82 lib/api.php:630 lib/api.php:683
+#: messages/edit.php:27 messages/edit.php:77 lib/Api.php:445 lib/Api.php:501
 msgid "Could not post the message: "
 msgstr ""
 
-#: scripts/phorum2agora.php:64
+#: scripts/phorum2agora.php:29
 msgid "Couldn't read command-line options."
 msgstr ""
 
-#: lib/Forms/Forum.php:26
+#: lib/Forms/Forum.php:24
 msgid "Create"
 msgstr ""
 
-#: lib/Messages.php:1564
+#: lib/Messages.php:1559
 msgid "Current attachment"
 msgstr ""
 
-#: owner.php:63 forums.php:54 moderate.php:61 messages/index.php:147
-#: lib/Comments.php:67 lib/Comments.php:87 lib/api.php:481
-#: lib/Block/threads.php:122 lib/Block/forums.php:86 lib/Block/thread.php:82
-#: config/prefs.php.dist:83 config/prefs.php.dist:117
-#: config/prefs.php.dist:159 config/prefs.php.dist:247
+#: owner.php:56 forums.php:53 moderate.php:57 messages/index.php:139
+#: lib/Api.php:300 lib/Comments.php:65 lib/Comments.php:85
+#: lib/Block/threads.php:116 lib/Block/forums.php:87 lib/Block/thread.php:93
+#: config/prefs.php.dist:91 config/prefs.php.dist:129
+#: config/prefs.php.dist:173 config/prefs.php.dist:257
 msgid "Date"
 msgstr ""
 
-#: config/prefs.php.dist:248
+#: config/prefs.php.dist:259
 msgid "Default comments view sort:"
 msgstr ""
 
-#: config/prefs.php.dist:84
+#: config/prefs.php.dist:93
 msgid "Default forums view sort:"
 msgstr ""
 
-#: config/prefs.php.dist:94 config/prefs.php.dist:129
-#: config/prefs.php.dist:170 config/prefs.php.dist:258
+#: config/prefs.php.dist:103 config/prefs.php.dist:142
+#: config/prefs.php.dist:185 config/prefs.php.dist:269
 msgid "Default sorting direction:"
 msgstr ""
 
-#: config/prefs.php.dist:160
+#: config/prefs.php.dist:175
 msgid "Default thread view sort:"
 msgstr ""
 
-#: config/prefs.php.dist:119
+#: config/prefs.php.dist:132
 msgid "Default threads view sort:"
 msgstr ""
 
-#: deleteforum.php:44 deleteforum.php:62 ban.php:54 moderators.php:65
-#: moderate.php:38 moderate.php:68 messages/index.php:123
-#: messages/delete.php:48 messages/delete.php:53 lib/Messages.php:955
-#: lib/Messages.php:1837 lib/api.php:781 lib/api.php:786
+#: deleteforum.php:39 deleteforum.php:57 ban.php:48 moderators.php:58
+#: moderate.php:35 moderate.php:64 messages/index.php:116
+#: messages/delete.php:42 messages/delete.php:47 lib/Api.php:602
+#: lib/Api.php:607 lib/Messages.php:952 lib/Messages.php:1824
 msgid "Delete"
 msgstr ""
 
-#: messages/delete.php:47 lib/api.php:780
+#: messages/delete.php:41 lib/Api.php:601
 #, php-format
 msgid "Delete \"%s\" and all replies?"
 msgstr ""
 
-#: deleteforum.php:42 lib/Messages.php:1511
+#: deleteforum.php:37 lib/Messages.php:1506
 msgid "Delete Forum"
 msgstr ""
 
-#: lib/Messages.php:1837
+#: lib/Messages.php:1824
 msgid "Delete forum"
 msgstr ""
 
-#: lib/Messages.php:955
+#: lib/Messages.php:952
 msgid "Delete message"
 msgstr ""
 
-#: lib/Messages.php:1563
+#: lib/Messages.php:1558
 msgid "Delete the existing attachment?"
 msgstr ""
 
-#: lib/Comments.php:74 config/prefs.php.dist:93 config/prefs.php.dist:128
-#: config/prefs.php.dist:169 config/prefs.php.dist:257
+#: lib/Comments.php:72 config/prefs.php.dist:101 config/prefs.php.dist:140
+#: config/prefs.php.dist:183 config/prefs.php.dist:267
 msgid "Descending"
 msgstr ""
 
-#: forums.php:54
+#: forums.php:53
 msgid "Description"
 msgstr ""
 
-#: config/prefs.php.dist:18 config/prefs.php.dist:25 config/prefs.php.dist:32
-#: config/prefs.php.dist:40 config/prefs.php.dist:47
+#: config/prefs.php.dist:18 config/prefs.php.dist:25 config/prefs.php.dist:35
+#: config/prefs.php.dist:45 config/prefs.php.dist:52
 msgid "Display Options"
 msgstr ""
 
-#: config/prefs.php.dist:237
+#: config/prefs.php.dist:248
 msgid "Display full message bodies in the comments view?"
 msgstr ""
 
-#: config/prefs.php.dist:181
+#: config/prefs.php.dist:196
 msgid "Display full message bodies in the thread list view?"
 msgstr ""
 
-#: config/prefs.php.dist:200
+#: config/prefs.php.dist:219
 msgid "Display graphical emoticons?"
 msgstr ""
 
-#: messages/index.php:120 lib/Messages.php:951 lib/Messages.php:1830
+#: messages/index.php:113 lib/Messages.php:948 lib/Messages.php:1817
 msgid "Edit"
 msgstr ""
 
-#: editforum.php:25 lib/Messages.php:1508
+#: editforum.php:21 lib/Messages.php:1503
 msgid "Edit Forum"
 msgstr ""
 
-#: lib/api.php:658
+#: lib/Api.php:476
 msgid "Edit Message"
 msgstr ""
 
-#: messages/edit.php:69
+#: messages/edit.php:64
 #, php-format
 msgid "Edit Message in \"%s\""
 msgstr ""
 
-#: lib/api.php:858
+#: lib/Api.php:682
 msgid "Edit a comment"
 msgstr ""
 
-#: lib/Messages.php:1830
+#: lib/Messages.php:1817
 msgid "Edit forum"
 msgstr ""
 
-#: lib/Messages.php:951
+#: lib/Messages.php:948
 msgid "Edit message"
 msgstr ""
 
-#: lib/Forms/Forum.php:37
+#: lib/Forms/Forum.php:35
 msgid "Enter a brief description of this forum"
 msgstr ""
 
-#: messages/index.php:168 lib/Comments.php:60 config/prefs.php.dist:235
+#: messages/index.php:160 lib/Comments.php:58 config/prefs.php.dist:245
 msgid "Flat"
 msgstr ""
 
-#: moderators.php:77 moderators.php:80 forums.php:54 moderate.php:61
-#: templates/moderators.html.php:8 messages/move.php:51
-#: lib/Block/threads.php:45 lib/Block/forums.php:86 config/prefs.php.dist:79
+#: moderators.php:70 moderators.php:73 forums.php:53 moderate.php:57
+#: templates/moderators.html.php:8 messages/move.php:45
+#: lib/Block/threads.php:41 lib/Block/forums.php:87 config/prefs.php.dist:87
 msgid "Forum"
 msgstr ""
 
-#: lib/Messages.php:1735 lib/api.php:758
+#: lib/Api.php:579 lib/Messages.php:1722
 #, php-format
 msgid "Forum %s does not exist."
 msgstr ""
 
-#: editforum.php:47
+#: editforum.php:42
 msgid "Forum Modified"
 msgstr ""
 
-#: editforum.php:47
+#: editforum.php:42
 msgid "Forum created."
 msgstr ""
 
-#: deleteforum.php:67
+#: deleteforum.php:62
 msgid "Forum deleted."
 msgstr ""
 
-#: deleteforum.php:48 templates/moderators.html.php:9 lib/Forms/Forum.php:29
+#: deleteforum.php:43 templates/moderators.html.php:9 lib/Forms/Forum.php:27
 msgid "Forum name"
 msgstr ""
 
-#: deleteforum.php:70
+#: deleteforum.php:65
 msgid "Forum not deleted."
 msgstr ""
 
-#: templates/forums.html.php:9 templates/common-header.inc:27 lib/api.php:165
-#: lib/Block/forums.php:3 lib/Block/forums.php:28
+#: templates/forums.html.php:9 templates/common-header.inc:27
+#: lib/Application.php:64 lib/Block/forums.php:3 lib/Block/forums.php:27
 msgid "Forums"
 msgstr ""
 
@@ -349,70 +353,70 @@ msgstr ""
 msgid "Forums View"
 msgstr ""
 
-#: rss/index.php:28
+#: rss/index.php:23
 #, php-format
 msgid "Forums in %s"
 msgstr ""
 
-#: lib/Messages.php:1545
+#: lib/Messages.php:1540
 msgid "From"
 msgstr ""
 
-#: templates/threads.html.php:44 templates/threads/threads.html.php:44
+#: templates/threads.html.php:44
 msgid "Goto page:"
 msgstr ""
 
-#: messages/index.php:158 messages/index.php:167
+#: messages/index.php:150 messages/index.php:159
 msgid "Hide bodies"
 msgstr ""
 
-#: lib/Messages.php:869
+#: lib/Messages.php:866
 msgid "Hot thread"
 msgstr ""
 
-#: lib/Forms/Forum.php:41
+#: lib/Forms/Forum.php:39
 msgid "If selected users will be able to attach files to their messages."
 msgstr ""
 
-#: messages/edit.php:115
+#: messages/edit.php:110
 msgid ""
 "Invalid parent message, you will be posting this message as a new thread."
 msgstr ""
 
-#: lib/Forms/Forum.php:38
+#: lib/Forms/Forum.php:36
 msgid "Is this a moderated forum?"
 msgstr ""
 
-#: lib/Forms/Search.php:43
+#: lib/Forms/Search.php:41
 msgid "Keywords"
 msgstr ""
 
-#: config/prefs.php.dist:81
+#: config/prefs.php.dist:89
 msgid "Last Message"
 msgstr ""
 
-#: forums.php:54 lib/Block/forums.php:86
+#: forums.php:53 lib/Block/forums.php:87
 msgid "Last Post"
 msgstr ""
 
-#: threads.php:59 config/prefs.php.dist:118
+#: threads.php:54 config/prefs.php.dist:130
 msgid "Last post"
 msgstr ""
 
-#: owner.php:35
+#: owner.php:28
 #, php-format
 msgid "Last posts in forums owned by %s"
 msgstr ""
 
-#: lib/Messages.php:959
+#: lib/Messages.php:956
 msgid "Lock"
 msgstr ""
 
-#: messages/index.php:126
+#: messages/index.php:119
 msgid "Lock thread"
 msgstr ""
 
-#: messages/lock.php:47
+#: messages/lock.php:41
 #, php-format
 msgid "Locking thread \"%s\""
 msgstr ""
@@ -425,78 +429,78 @@ msgstr ""
 msgid "Malformed database entry."
 msgstr ""
 
-#: scripts/phorum2agora.php:213
+#: scripts/phorum2agora.php:178
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too."
 msgstr ""
 
-#: messages/merge.php:46 messages/merge.php:72 lib/Messages.php:970
+#: messages/merge.php:40 messages/merge.php:66 lib/Messages.php:967
 msgid "Merge"
 msgstr ""
 
-#: messages/merge.php:45
+#: messages/merge.php:39
 #, php-format
 msgid "Merge \"%s\" with another thread"
 msgstr ""
 
-#: lib/Messages.php:1558
+#: lib/Messages.php:1553
 msgid "Message"
 msgstr ""
 
-#: messages/abuse.php:77
+#: messages/abuse.php:70
 #, php-format
 msgid "Message %s reported as abuse"
 msgstr ""
 
-#: lib/Messages.php:522
+#: lib/Messages.php:519
 #, php-format
 msgid "Message ID \"%d\" not found"
 msgstr ""
 
-#: config/prefs.php.dist:41
+#: config/prefs.php.dist:46
 msgid "Message View"
 msgstr ""
 
-#: messages/delete.php:64 lib/api.php:791
+#: messages/delete.php:58 lib/Api.php:612
 msgid "Message deleted."
 msgstr ""
 
-#: messages/delete.php:54 lib/api.php:796
+#: messages/delete.php:48 lib/Api.php:617
 msgid "Message not deleted."
 msgstr ""
 
-#: messages/edit.php:87 lib/api.php:685
+#: messages/edit.php:82 lib/Api.php:503
 msgid "Message posted."
 msgstr ""
 
-#: templates/messages/index.html.php:1 config/prefs.php.dist:80
+#: templates/messages/index.html.php:1 config/prefs.php.dist:88
 msgid "Messages"
 msgstr ""
 
-#: moderate.php:81 templates/moderate.html.php:11
+#: moderate.php:80 templates/moderate.html.php:11
 msgid "Messages Awaiting Moderation"
 msgstr ""
 
-#: lib/Messages.php:1856
+#: lib/Messages.php:1843
 msgid "Moderate"
 msgstr ""
 
-#: moderators.php:75 templates/messages/flat_thread.html.php:10
+#: moderators.php:68 templates/messages/flat_thread.html.php:10
 #: templates/messages/flat.html.php:11 templates/messages/message.html.php:21
-#: lib/Tree/flat.php:117
+#: lib/Tree/flat.php:115
 msgid "Moderator"
 msgstr ""
 
-#: moderators.php:69 templates/forums.html.php:39
+#: moderators.php:62 templates/forums.html.php:39
 #: templates/moderators.html.php:4 templates/moderators.html.php:10
 msgid "Moderators"
 msgstr ""
 
-#: messages/move.php:46 messages/move.php:58 lib/Messages.php:966
+#: messages/move.php:40 messages/move.php:52 lib/Messages.php:963
 msgid "Move"
 msgstr ""
 
-#: messages/move.php:45
+#: messages/move.php:39
 #, php-format
 msgid "Move \"%s\" to another forum"
 msgstr ""
@@ -505,11 +509,11 @@ msgstr ""
 msgid "My Information"
 msgstr ""
 
-#: editforum.php:25
+#: editforum.php:21
 msgid "New Forum"
 msgstr ""
 
-#: lib/Messages.php:1825
+#: lib/Messages.php:1812
 msgid "New Post"
 msgstr ""
 
@@ -517,19 +521,19 @@ msgstr ""
 msgid "New Thread"
 msgstr ""
 
-#: lib/Messages.php:870
+#: lib/Messages.php:867
 msgid "New posts"
 msgstr ""
 
-#: config/prefs.php.dist:178
+#: config/prefs.php.dist:192
 msgid "No"
 msgstr ""
 
-#: lib/Block/threads.php:118
+#: lib/Block/threads.php:112
 msgid "No available threads."
 msgstr ""
 
-#: lib/Block/threads.php:97
+#: lib/Block/threads.php:91
 msgid "No forum selected"
 msgstr ""
 
@@ -537,15 +541,15 @@ msgstr ""
 msgid "No forums have been created."
 msgstr ""
 
-#: config/prefs.php.dist:198
+#: config/prefs.php.dist:216
 msgid "No graphical emoticons"
 msgstr ""
 
-#: moderate.php:53
+#: moderate.php:49
 msgid "No messages are waiting for moderation."
 msgstr ""
 
-#: messages/abuse.php:38
+#: messages/abuse.php:32
 msgid "No moderators are associated with this forum."
 msgstr ""
 
@@ -553,39 +557,39 @@ msgstr ""
 msgid "No moderators have been created."
 msgstr ""
 
-#: owner.php:48 templates/block/threads.html.php:32
+#: owner.php:41 templates/block/threads.html.php:32
 msgid "No threads"
 msgstr ""
 
-#: messages/lock.php:50
+#: messages/lock.php:44
 msgid "No, do not allow replies"
 msgstr ""
 
-#: config/prefs.php.dist:103
+#: config/prefs.php.dist:116
 msgid "Number of forums to display on each page"
 msgstr ""
 
-#: config/prefs.php.dist:190
+#: config/prefs.php.dist:209
 msgid "Number of message to display on each page"
 msgstr ""
 
-#: config/prefs.php.dist:146 config/prefs.php.dist:267
+#: config/prefs.php.dist:161 config/prefs.php.dist:282
 msgid "Number of messages to display on each page"
 msgstr ""
 
-#: config/prefs.php.dist:137
+#: config/prefs.php.dist:148
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
 msgstr ""
 
-#: lib/Block/forums.php:35
+#: lib/Block/forums.php:38
 msgid "Only display this many forums (0 to display all forums)"
 msgstr ""
 
-#: lib/Block/threads.php:52
+#: lib/Block/threads.php:48
 msgid "Only display this many threads (0 to display all threads)"
 msgstr ""
 
-#: lib/Forms/Forum.php:39
+#: lib/Forms/Forum.php:37
 msgid "Optional email address to recieve a copy of each posted message"
 msgstr ""
 
@@ -593,86 +597,86 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: lib/Messages.php:917
+#: lib/Messages.php:914
 #, php-format
 msgid "Page %d"
 msgstr ""
 
-#: lib/Forms/Forum.php:32
+#: lib/Forms/Forum.php:30
 msgid "Parent forum"
 msgstr ""
 
-#: lib/Messages.php:1527
+#: lib/Messages.php:1522
 msgid "Post"
 msgstr ""
 
-#: lib/api.php:658
+#: lib/Api.php:476
 msgid "Post a New Message"
 msgstr ""
 
-#: messages/edit.php:70
+#: messages/edit.php:65
 #, php-format
 msgid "Post a New Message to \"%s\""
 msgstr ""
 
-#: messages/edit.php:68 messages/index.php:213
+#: messages/edit.php:63 messages/index.php:209
 #, php-format
 msgid "Post a Reply to \"%s\""
 msgstr ""
 
-#: lib/Messages.php:1502 lib/Messages.php:1825
+#: lib/Messages.php:1497 lib/Messages.php:1812
 msgid "Post message"
 msgstr ""
 
-#: owner.php:63 forums.php:54 moderate.php:61
-#: templates/messages/flat_thread.html.php:7 messages/index.php:147
-#: lib/Comments.php:85 lib/api.php:479 lib/Block/threads.php:122
-#: lib/Block/forums.php:86 lib/Block/thread.php:82 lib/Tree/flat.php:112
-#: config/prefs.php.dist:82 config/prefs.php.dist:115
-#: config/prefs.php.dist:158 config/prefs.php.dist:246
+#: owner.php:56 forums.php:53 moderate.php:57
+#: templates/messages/flat_thread.html.php:7 messages/index.php:139
+#: lib/Api.php:298 lib/Comments.php:83 lib/Block/threads.php:116
+#: lib/Block/forums.php:87 lib/Block/thread.php:93 lib/Tree/flat.php:110
+#: config/prefs.php.dist:90 config/prefs.php.dist:127
+#: config/prefs.php.dist:172 config/prefs.php.dist:256
 msgid "Posted by"
 msgstr ""
 
-#: templates/messages/flat.html.php:9 messages/index.php:91
-#: lib/Messages.php:567
+#: templates/messages/flat.html.php:9 messages/index.php:84
+#: lib/Messages.php:564
 #, php-format
 msgid "Posted by %s on %s"
 msgstr ""
 
-#: threads.php:59 forums.php:54 lib/Block/forums.php:86
-#: config/prefs.php.dist:116
+#: threads.php:54 forums.php:53 lib/Block/forums.php:87
+#: config/prefs.php.dist:128
 msgid "Posts"
 msgstr ""
 
-#: lib/Messages.php:1550
+#: lib/Messages.php:1545
 msgid "Quote"
 msgstr ""
 
-#: messages/index.php:114 lib/Messages.php:939
+#: messages/index.php:107 lib/Messages.php:936
 msgid "Reply"
 msgstr ""
 
-#: lib/Messages.php:939
+#: lib/Messages.php:936
 msgid "Reply to message"
 msgstr ""
 
-#: messages/abuse.php:46 messages/abuse.php:47 lib/Messages.php:945
+#: messages/abuse.php:40 messages/abuse.php:41 lib/Messages.php:942
 msgid "Report as abuse"
 msgstr ""
 
-#: lib/Forms/Search.php:44
+#: lib/Forms/Search.php:42
 msgid "Require all keywords?"
 msgstr ""
 
-#: lib/Messages.php:1527
+#: lib/Messages.php:1522
 msgid "Save"
 msgstr ""
 
-#: lib/Forms/Search.php:57
+#: lib/Forms/Search.php:55
 msgid "Search"
 msgstr ""
 
-#: search.php:69 lib/Forms/Search.php:33
+#: search.php:73 lib/Forms/Search.php:31
 msgid "Search Forums"
 msgstr ""
 
@@ -680,15 +684,15 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: lib/Forms/Search.php:52
+#: lib/Forms/Search.php:50
 msgid "Search in message contents?"
 msgstr ""
 
-#: lib/Forms/Search.php:48
+#: lib/Forms/Search.php:46
 msgid "Search in subjects?"
 msgstr ""
 
-#: lib/Forms/Search.php:37
+#: lib/Forms/Search.php:35
 msgid "Search in these forums"
 msgstr ""
 
@@ -696,7 +700,7 @@ msgstr ""
 msgid "Set the avatar image that is shown with your posts."
 msgstr ""
 
-#: lib/Forms/Forum.php:38
+#: lib/Forms/Forum.php:36
 msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted."
@@ -706,11 +710,11 @@ msgstr ""
 msgid "Set your options for the forums view."
 msgstr ""
 
-#: config/prefs.php.dist:42
+#: config/prefs.php.dist:47
 msgid "Set your options for the message view."
 msgstr ""
 
-#: config/prefs.php.dist:34 config/prefs.php.dist:49
+#: config/prefs.php.dist:37 config/prefs.php.dist:54
 msgid "Set your options for the single thread view."
 msgstr ""
 
@@ -718,109 +722,109 @@ msgstr ""
 msgid "Set your options for the threads view."
 msgstr ""
 
-#: config/prefs.php.dist:199
+#: config/prefs.php.dist:217
 msgid "Show graphical emoticons"
 msgstr ""
 
-#: lib/Block/thread.php:3 lib/Block/thread.php:52
+#: lib/Block/thread.php:3 lib/Block/thread.php:60
 msgid "Single Thread"
 msgstr ""
 
-#: config/prefs.php.dist:33
+#: config/prefs.php.dist:36
 msgid "Single Thread View"
 msgstr ""
 
-#: lib/Agora.php:192
+#: lib/Agora.php:189
 msgid "Sort Ascending"
 msgstr ""
 
-#: lib/Agora.php:192
+#: lib/Agora.php:189
 msgid "Sort Descending"
 msgstr ""
 
-#: lib/Comments.php:65
+#: lib/Comments.php:63
 msgid "Sort by"
 msgstr ""
 
-#: lib/Agora.php:200 lib/Agora.php:207
+#: lib/Agora.php:197 lib/Agora.php:204
 #, php-format
 msgid "Sort by %s"
 msgstr ""
 
-#: lib/Comments.php:71
+#: lib/Comments.php:69
 msgid "Sort direction"
 msgstr ""
 
-#: lib/Messages.php:1572 lib/Forms/Message.php:24
+#: lib/Messages.php:1567 lib/Forms/Message.php:22
 msgid "Spam protection"
 msgstr ""
 
-#: messages/split.php:46 messages/split.php:54 lib/Messages.php:975
+#: messages/split.php:40 messages/split.php:48 lib/Messages.php:972
 msgid "Split"
 msgstr ""
 
-#: messages/split.php:45
+#: messages/split.php:39
 #, php-format
 msgid "Split \"%s\""
 msgstr ""
 
-#: threads.php:59
+#: threads.php:54
 msgid "Started"
 msgstr ""
 
-#: deleteforum.php:56
+#: deleteforum.php:51
 msgid "Subforums"
 msgstr ""
 
-#: threads.php:59 owner.php:63 moderate.php:61 messages/index.php:147
-#: lib/Comments.php:69 lib/Comments.php:83 lib/Messages.php:1552
-#: lib/Messages.php:1555 lib/api.php:477 lib/Block/threads.php:122
-#: lib/Block/thread.php:82 config/prefs.php.dist:114 config/prefs.php.dist:157
-#: config/prefs.php.dist:245
+#: threads.php:54 owner.php:56 moderate.php:57 messages/index.php:139
+#: lib/Api.php:296 lib/Comments.php:67 lib/Comments.php:81
+#: lib/Messages.php:1547 lib/Messages.php:1550 lib/Block/threads.php:116
+#: lib/Block/thread.php:93 config/prefs.php.dist:126 config/prefs.php.dist:171
+#: config/prefs.php.dist:255
 msgid "Subject"
 msgstr ""
 
-#: lib/Agora.php:229
+#: lib/Agora.php:226
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 
-#: config/prefs.php.dist:61
+#: config/prefs.php.dist:66
 msgid "The location of your avatar image."
 msgstr ""
 
-#: lib/Block/forums.php:77
+#: lib/Block/forums.php:78
 msgid "There are no forums."
 msgstr ""
 
-#: templates/threads.html.php:69 templates/threads/threads.html.php:69
+#: templates/threads.html.php:69
 msgid "There are no threads in this forum."
 msgstr ""
 
-#: lib/Messages.php:159
+#: lib/Messages.php:156
 msgid "This thread has been locked."
 msgstr ""
 
-#: deleteforum.php:47
+#: deleteforum.php:42
 msgid "This will delete the forum, any subforums and all relative messages."
 msgstr ""
 
-#: messages/index.php:147 messages/index.php:159 lib/Comments.php:61
-#: lib/Block/thread.php:32 lib/Block/thread.php:82 config/prefs.php.dist:113
-#: config/prefs.php.dist:156 config/prefs.php.dist:236
+#: messages/index.php:139 messages/index.php:151 lib/Comments.php:59
+#: lib/Block/thread.php:36 lib/Block/thread.php:93 config/prefs.php.dist:125
+#: config/prefs.php.dist:170 config/prefs.php.dist:246
 msgid "Thread"
 msgstr ""
 
-#: messages/merge.php:77
+#: messages/merge.php:71
 #, php-format
 msgid "Thread %s merged with thread %s after message %s."
 msgstr ""
 
-#: messages/move.php:63
+#: messages/move.php:57
 #, php-format
 msgid "Thread %s moved to from forum %s to %s."
 msgstr ""
 
-#: templates/messages/index.html.php:10 lib/Block/thread.php:89
+#: templates/messages/index.html.php:10 lib/Block/thread.php:100
 msgid "Thread List"
 msgstr ""
 
@@ -828,26 +832,25 @@ msgstr ""
 msgid "Thread Summary"
 msgstr ""
 
-#: messages/delete.php:69
+#: messages/delete.php:63
 msgid "Thread deleted."
 msgstr ""
 
-#: messages/index.php:205 messages/lock.php:62
+#: messages/index.php:201 messages/lock.php:56
 msgid "Thread locked."
 msgstr ""
 
-#: messages/split.php:59
+#: messages/split.php:53
 #, php-format
 msgid "Thread splitted by message %s."
 msgstr ""
 
-#: messages/lock.php:64
+#: messages/lock.php:58
 msgid "Thread unlocked."
 msgstr ""
 
-#: forums.php:54 templates/threads.html.php:1
-#: templates/threads/threads.html.php:1 lib/Comments.php:77
-#: lib/Block/threads.php:3 lib/Block/threads.php:70 lib/Block/threads.php:76
+#: forums.php:53 templates/threads.html.php:1 lib/Comments.php:75
+#: lib/Block/threads.php:3 lib/Block/threads.php:64 lib/Block/threads.php:70
 msgid "Threads"
 msgstr ""
 
@@ -855,121 +858,117 @@ msgstr ""
 msgid "Threads View"
 msgstr ""
 
-#: lib/Block/threads.php:80
+#: lib/Block/threads.php:74
 #, php-format
 msgid "Threads in \"%s\""
 msgstr ""
 
-#: threads.php:66 threads.php:79 rss/threads.php:57
+#: threads.php:61 threads.php:78 rss/threads.php:51
 #, php-format
 msgid "Threads in %s"
 msgstr ""
 
-#: lib/Block/thread.php:70
+#: lib/Block/thread.php:81
 msgid "Unable to fetch selected thread."
 msgstr ""
 
-#: lib/Block/threads.php:103
+#: lib/Block/threads.php:97
 msgid "Unable to fetch threads for selected forum."
 msgstr ""
 
-#: lib/Messages.php:959
+#: lib/Messages.php:956
 msgid "Unlock"
 msgstr ""
 
-#: messages/index.php:126
+#: messages/index.php:119
 msgid "Unlock thread"
 msgstr ""
 
-#: messages/lock.php:48 lib/Forms/Forum.php:26
+#: messages/lock.php:42 lib/Forms/Forum.php:24
 msgid "Update"
 msgstr ""
 
-#: scripts/phorum2agora.php:211
+#: scripts/phorum2agora.php:176
 #, php-format
 msgid "Usage: %s [OPTIONS]..."
 msgstr ""
 
-#: ban.php:64
+#: ban.php:58
 msgid "User"
 msgstr ""
 
-#: lib/Comments.php:59
+#: lib/Comments.php:57
 msgid "View"
 msgstr ""
 
-#: messages/index.php:184
+#: messages/index.php:176
 msgid "View bodies"
 msgstr ""
 
-#: threads.php:59
+#: threads.php:54
 msgid "Views"
 msgstr ""
 
-#: messages/merge.php:56
+#: messages/merge.php:50
 msgid "With Thread: "
 msgstr ""
 
-#: config/prefs.php.dist:179
+#: config/prefs.php.dist:193
 msgid "Yes"
 msgstr ""
 
-#: messages/lock.php:50
+#: messages/lock.php:44
 msgid "Yes, allow replies"
 msgstr ""
 
-#: config/prefs.php.dist:180
+#: config/prefs.php.dist:194
 msgid "Yes, and don't thread them"
 msgstr ""
 
-#: owner.php:19
-msgid "You are not authorised for this action."
-msgstr ""
-
-#: lib/Messages.php:1719
+#: lib/Messages.php:1706
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
 msgstr ""
 
-#: messages/merge.php:37 messages/move.php:37 messages/lock.php:39
-#: messages/delete.php:39 messages/split.php:37 lib/Messages.php:588
-#: lib/Messages.php:766 lib/api.php:769
+#: messages/merge.php:31 messages/move.php:31 messages/lock.php:33
+#: messages/delete.php:33 messages/split.php:31 lib/Api.php:590
+#: lib/Messages.php:585 lib/Messages.php:763
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
 msgstr ""
 
-#: messages/edit.php:38 messages/index.php:199 lib/Messages.php:164
-#: lib/api.php:636
+#: messages/edit.php:33 messages/index.php:195 lib/Api.php:454
+#: lib/Messages.php:161
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
 msgstr ""
 
-#: lib/Messages.php:841
+#: lib/Messages.php:838
 #, php-format
 msgid "You don't have permission to read messages in forum %s."
 msgstr ""
 
-#: ban.php:29
+#: ban.php:24
 #, php-format
 msgid "You don't have permissions to ban users from forum %s."
 msgstr ""
 
-#: editforum.php:35
+#: editforum.php:31
 #, php-format
 msgid "You don't have permissions to create a new forum in %s"
 msgstr ""
 
-#: deleteforum.php:26
+#: deleteforum.php:23
 #, php-format
 msgid "You don't have permissions to delete forums in %s"
 msgstr ""
 
-#: editforum.php:31
+#: editforum.php:27
 #, php-format
 msgid "You don't have permissions to edit forum %s"
 msgstr ""
 
-#: messages/edit.php:85
+#: messages/edit.php:80
 msgid ""
 "Your message has been enqueued and is awaiting moderation.  It will become "
 "visible after moderator approval."
@@ -1000,24 +999,23 @@ msgid "_Threads"
 msgstr ""
 
 #: templates/forums.html.php:51 templates/threads.html.php:60
-#: templates/threads/threads.html.php:60
 msgid "by"
 msgstr ""
 
-#: lib/Messages.php:1665
+#: lib/Messages.php:1652
 msgid "download"
 msgstr ""
 
-#: templates/messages/flat_thread.html.php:8 lib/Tree/flat.php:113
+#: templates/messages/flat_thread.html.php:8 lib/Tree/flat.php:111
 msgid "on: "
 msgstr ""
 
-#: lib/Messages.php:1666
+#: lib/Messages.php:1653
 #, php-format
 msgid "size: %s"
 msgstr ""
 
-#: lib/Messages.php:1666
+#: lib/Messages.php:1653
 #, php-format
 msgid "type: %s"
 msgstr ""
