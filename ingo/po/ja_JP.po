@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo 1.2-RC1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2007-08-03 12:47+0100¥n"
-"PO-Revision-Date: 2007-11-30 20:41+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: Ingo 1.2-RC1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-08-03 12:47+0100\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: filters.php:223
 msgid " and"
@@ -34,8 +34,8 @@ msgstr "スクリプトを有効にする"
 
 #: lib/Driver/ldap.php:229
 #, php-format
-msgid "Activating the script for ¥"%s¥" failed: (%d) %s"
-msgstr "¥"%s¥" 用のスクリプト有効化失敗：(%d) %s"
+msgid "Activating the script for \"%s\" failed: (%d) %s"
+msgstr "\"%s\" 用のスクリプト有効化失敗：(%d) %s"
 
 #: templates/filters/settings.inc:8
 msgid "Additional Settings"
@@ -353,8 +353,8 @@ msgstr "_Rフィルタールール"
 
 #: lib/Script/imap.php:348
 #, php-format
-msgid "Filter activity: %s message(s) have been copied to the folder ¥"%s¥"."
-msgstr "フィルターの実行：%s メッセージはフォルダ ¥"%s¥" にコピーされました。"
+msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
+msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" にコピーされました。"
 
 #: lib/Script/imap.php:334
 #, php-format
@@ -363,8 +363,8 @@ msgstr "フィルターの実行：%s メッセージは削除されました。
 
 #: lib/Script/imap.php:312
 #, php-format
-msgid "Filter activity: %s message(s) have been moved to the folder ¥"%s¥"."
-msgstr "フィルターの実行：%s メッセージはフォルダ ¥"%s¥" に移動されました。"
+msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
+msgstr "フィルターの実行：%s メッセージはフォルダ \"%s\" に移動されました。"
 
 #: lib/Script/imap.php:206
 #, php-format
@@ -375,25 +375,25 @@ msgstr ""
 #: lib/Script/imap.php:345
 #, php-format
 msgid ""
-"Filter activity: The message ¥"%s¥" from ¥"%s¥" has been copied to the "
-"folder ¥"%s¥"."
+"Filter activity: The message \"%s\" from \"%s\" has been copied to the "
+"folder \"%s\"."
 msgstr ""
-"フィルターの実行：¥"%2$s¥" からのメッセージ ¥"%1$s¥" はフォルダ ¥"%3$s¥" にコ"
+"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" にコ"
 "ピーされました。"
 
 #: lib/Script/imap.php:329
 #, php-format
-msgid "Filter activity: The message ¥"%s¥" from ¥"%s¥" has been deleted."
+msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr ""
-"フィルターの実行：¥"%2$s¥" からのメッセージ ¥"%1$s¥" は削除されました。"
+"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" は削除されました。"
 
 #: lib/Script/imap.php:306
 #, php-format
 msgid ""
-"Filter activity: The message ¥"%s¥" from ¥"%s¥" has been moved to the folder "
-"¥"%s¥"."
+"Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
+"\"%s\"."
 msgstr ""
-"フィルターの実行：¥"%2$s¥" からのメッセージ ¥"%1$s¥" はフォルダ ¥"%3$s¥" に移"
+"フィルターの実行：\"%2$s\" からのメッセージ \"%1$s\" はフォルダ \"%3$s\" に移"
 "動されました。"
 
 #: rule.php:188
@@ -564,8 +564,8 @@ msgstr "新規ルール"
 
 #: lib/Ingo.php:230 lib/Ingo.php:232
 #, php-format
-msgid "No ¥"%s¥" element found in backend configuration."
-msgstr "¥"%s¥" 要素がバックエンドの設定にありません。"
+msgid "No \"%s\" element found in backend configuration."
+msgstr "\"%s\" 要素がバックエンドの設定にありません。"
 
 #: lib/Ingo.php:223
 msgid "No backend configured for this host"
@@ -577,9 +577,9 @@ msgstr "backends.php にバックエンドの設定がありません"
 
 #: templates/filters/filter-none.inc:3
 #, php-format
-msgid "No filters. Click ¥"%s¥" to create a new filter."
+msgid "No filters. Click \"%s\" to create a new filter."
 msgstr ""
-"フィルターがありません。¥"%s¥" をクリックして新しいフィルターを作成して下さ"
+"フィルターがありません。\"%s\" をクリックして新しいフィルターを作成して下さ"
 "い。"
 
 #: lib/Script/sieve.php:1685 lib/Script/sieve.php:1834
@@ -830,13 +830,13 @@ msgstr "件名："
 
 #: lib/api.php:89
 #, php-format
-msgid "The address ¥"%s¥" has been added to your blacklist."
-msgstr "アドレス ¥"%s¥" がブラックリストに追加されました。"
+msgid "The address \"%s\" has been added to your blacklist."
+msgstr "アドレス \"%s\" がブラックリストに追加されました。"
 
 #: lib/api.php:112
 #, php-format
-msgid "The address ¥"%s¥" has been added to your whitelist."
-msgstr "アドレス ¥"%s¥" がホワイトリストに追加されました。"
+msgid "The address \"%s\" has been added to your whitelist."
+msgstr "アドレス \"%s\" がホワイトリストに追加されました。"
 
 #: lib/Ingo.php:141
 msgid "The driver said: "
@@ -934,8 +934,8 @@ msgstr "あなたはルールの作成・編集が許可されていません。
 
 #: rule.php:96
 #, php-format
-msgid "You cannot create empty conditions. Please fill in a value for ¥"%s¥"."
-msgstr "条件が空です。¥"%s¥" の値を入力して下さい。"
+msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
+msgstr "条件が空です。\"%s\" の値を入力して下さい。"
 
 #: filters.php:52 rule.php:151
 msgid "You do not have permission to delete filter rules."

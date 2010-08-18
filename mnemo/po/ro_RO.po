@@ -3,7 +3,6 @@
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 1.1\n"

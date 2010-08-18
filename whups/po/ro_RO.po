@@ -275,12 +275,13 @@ msgid ""
 "Change display options such as the color scheme and how search results are "
 "sorted."
 msgstr ""
-"Schimbare optiuni afisaj precum schema de culor si modul in care rezultatele "
-" cautarii sunt sortate."
+"Schimbare optiuni afisaj precum schema de culor si modul in care "
+"rezultatele  cautarii sunt sortate."
 
 #: config/prefs.php.dist:21
 msgid "Change options for email notifications of ticket activity."
-msgstr "Schimbare optiuni pentru notificari e-mail ale activitatzii tichetului."
+msgstr ""
+"Schimbare optiuni pentru notificari e-mail ale activitatzii tichetului."
 
 #: query.php:53
 msgid "Choose Action:"
@@ -596,8 +597,7 @@ msgstr "Daca ati primit acest mail din greseala, contactati %s."
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
-msgstr ""
-"Daca selectati tichete fara proprietar, cui ar trebui trimis email ?"
+msgstr "Daca selectati tichete fara proprietar, cui ar trebui trimis email ?"
 
 #: templates/comment.inc:43
 msgid "Initial state of '%s'"
@@ -1292,8 +1292,8 @@ msgid ""
 "There are no ticket types associated with this module; until there are, you "
 "cannot create any tickets in this module."
 msgstr ""
-"Nu exista nici un tip de tichet asociat cu acest modul; pana vor exista, "
-"nu puteti crea nici un tichet in acest modul."
+"Nu exista nici un tip de tichet asociat cu acest modul; pana vor exista, nu "
+"puteti crea nici un tichet in acest modul."
 
 #: lib/Admin.php:301
 msgid "There are no types to edit"
@@ -1317,7 +1317,8 @@ msgstr "Nu exista date pentru acest raport."
 
 #: admin.php:546
 msgid "There was an error adding '%s' to the responsible list for '%s': %s"
-msgstr "S-a produs o eroare de adaugare '%s' in lista responsabili pentru '%s': %s"
+msgstr ""
+"S-a produs o eroare de adaugare '%s' in lista responsabili pentru '%s': %s"
 
 #: admin.php:609
 msgid "There was an error adding the subject: %s."
@@ -1417,15 +1418,16 @@ msgstr "S-a produs o eroare la efectuarea cautarii: %s"
 
 #: admin.php:585
 msgid "There was an error removing '%s' from the responsible list for '%s': %s"
-msgstr "S-a produs o eroare la stergerea '%s' din lista responsabili pentru '%s': %s"
+msgstr ""
+"S-a produs o eroare la stergerea '%s' din lista responsabili pentru '%s': %s"
 
 #: templates/index/notconfigured.inc:58
 msgid ""
 "This file controls the default preferences for Whups, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Acest fisier controleaza atat preferintele implicite pentru Whups, cat "
-"si alte preferinte pentru utilizatori."
+"Acest fisier controleaza atat preferintele implicite pentru Whups, cat si "
+"alte preferinte pentru utilizatori."
 
 #: templates/index/notconfigured.inc:51
 msgid ""
@@ -1469,9 +1471,9 @@ msgid ""
 "associated with it. Until versions are created for this module, you will not "
 "be able to create tickets."
 msgstr ""
-"Acest modul necesita specificare de versiune, dar nu exista versiuni asociate "
-"cu el. Pana versiunile vor fi create pentru acest modul, nu veti putea "
-"sa creati tichete."
+"Acest modul necesita specificare de versiune, dar nu exista versiuni "
+"asociate cu el. Pana versiunile vor fi create pentru acest modul, nu veti "
+"putea sa creati tichete."
 
 #: details.php:291
 msgid "Ticket %s Comments"
@@ -1633,7 +1635,8 @@ msgstr "Nu aveti chestionari salvate."
 
 #: lib/Whups.php:336
 msgid "You must select at least one queue to send reminders for."
-msgstr "Trebuie sa selectati cel putin un modul pentru care se trimit memorandumuri."
+msgstr ""
+"Trebuie sa selectati cel putin un modul pentru care se trimit memorandumuri."
 
 #: lib/Create.php:28 lib/Search.php:130 lib/Search.php:328
 msgid "Your Email Address"

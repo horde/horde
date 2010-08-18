@@ -5,21 +5,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gollem 1.1.1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2009-09-12 10:10+0200¥n"
-"PO-Revision-Date: 2010-04-29 11:52+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: Gollem 1.1.1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2009-09-12 10:10+0200\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: manager.php:57
 #, php-format
-msgid "¥"%s¥" renamed to ¥"%s¥""
-msgstr "¥"%s¥" は ¥"%s¥"　に名前が変更されました"
+msgid "\"%s\" renamed to \"%s\""
+msgstr "\"%s\" は \"%s\"　に名前が変更されました"
 
 #: quota.php:56
 #, php-format
@@ -67,7 +67,7 @@ msgstr "%s へのアクセスが拒否されました"
 #: lib/Gollem.php:109 lib/Gollem.php:431 lib/Gollem.php:493 lib/Gollem.php:514
 #: lib/Gollem.php:531
 #, php-format
-msgid "Access denied to folder ¥"%s¥"."
+msgid "Access denied to folder \"%s\"."
 msgstr "フォルダー %s へのアクセスが拒否されました。"
 
 #: templates/manager/manager.html:108
@@ -143,8 +143,8 @@ msgstr "クリップボードに移動できません。"
 
 #: manager.php:173
 #, php-format
-msgid "Cannot paste ¥"%s¥" (file cleared from clipboard): %s"
-msgstr "¥"%s¥" が貼り付けられません（クリップボードからクリアされました）： %s"
+msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+msgstr "\"%s\" が貼り付けられません（クリップボードからクリアされました）： %s"
 
 #: manager.php:318 templates/manager/manager.html:70
 msgid "Change Folder"
@@ -215,10 +215,10 @@ msgstr "フォルダ作成"
 #: permissions.php:47
 #, php-format
 msgid ""
-"Created empty permissions for ¥"%s¥". You must explicitly grant access to "
+"Created empty permissions for \"%s\". You must explicitly grant access to "
 "this backend now."
 msgstr ""
-"¥"%s¥" への空のアクセス権を作成しました。このバックエンドでのアクセス許可を今"
+"\"%s\" への空のアクセス権を作成しました。このバックエンドでのアクセス許可を今"
 "指定して下さい。"
 
 #: templates/clipboard/clipboard.html:17
@@ -447,8 +447,8 @@ msgstr "%s へのアクセスが拒否されました：%s"
 
 #: manager.php:220
 #, php-format
-msgid "Permission denied to folder ¥"%s¥": %s"
-msgstr "フォルダー ¥"%s¥" へのアクセスが拒否されました：%s"
+msgid "Permission denied to folder \"%s\": %s"
+msgstr "フォルダー \"%s\" へのアクセスが拒否されました：%s"
 
 #: lib/api.php:128 lib/api.php:246 lib/api.php:310 lib/api.php:387
 #: lib/api.php:452

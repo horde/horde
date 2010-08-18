@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Trean 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-04-03 14:53+0300\n"
-"PO-Revision-Date: 2008-04-03 14:53+0300\n"
+"PO-Revision-Date: 2010-08-18 22:01+0200\n"
 "Last-Translator: Janis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "%d punkti no 5"
 #: templates/reports.php:104
 #, php-format
 msgid "%s Bookmarks"
-msgstr "Grāmatzīmes"
+msgstr "%s Grāmatzīmes"
 
 #: reports.php:25
 #, php-format
@@ -287,11 +287,15 @@ msgstr "Lejupielādēt mapi"
 
 #: templates/add/add.inc:73
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
-msgstr "Aizvelciet zemāk redzamo saiti \"Pievienot grāmatzīmēm\" uz joslu \"Links\""
+msgstr ""
+"Aizvelciet zemāk redzamo saiti \"Pievienot grāmatzīmēm\" uz joslu \"Links\""
 
 #: templates/add/add.inc:71
-msgid "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
-msgstr "Aizvelciet zemāk redzamo saiti \"Pievienot grāmatzīmēm\" uz joslu \"Personal Toolbar\""
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Aizvelciet zemāk redzamo saiti \"Pievienot grāmatzīmēm\" uz joslu \"Personal "
+"Toolbar\""
 
 #: templates/search.php:69
 msgid "Edit"
@@ -404,9 +408,12 @@ msgid "Internet Explorer"
 msgstr "Internet Explorer"
 
 #: templates/data/import.inc:7
-msgid "Internet Explorer users will need to export their current Favorites by going "
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
 "to the \"File\" menu and selecting \"Import and Export\"."
-msgstr "Internet Explorer lietotājiem sākumā jāeksportē Favorites, izmantojot \"Import and Export\" izvēlnē File."
+msgstr ""
+"Internet Explorer lietotājiem sākumā jāeksportē Favorites, izmantojot "
+"\"Import and Export\" izvēlnē File."
 
 #: lib/Trean.php:199
 msgid "Length Required"
@@ -457,9 +464,12 @@ msgid "Moved folder: "
 msgstr "Pārvietotā mape: "
 
 #: templates/data/import.inc:6
-msgid "Mozilla/Firefox users will need to export their current Bookmarks by going "
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
 "into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
-msgstr "Mozilla/Firefox lietotājiem sākumā jāeksportē grāmatzīmes, izmantojot \"Bookmark Manager\" un izvēloties \"Export\" no izvēlenes \"Tools\""
+msgstr ""
+"Mozilla/Firefox lietotājiem sākumā jāeksportē grāmatzīmes, izmantojot "
+"\"Bookmark Manager\" un izvēloties \"Export\" no izvēlenes \"Tools\""
 
 #: lib/Trean.php:181
 msgid "Multiple Choices"
@@ -544,12 +554,20 @@ msgstr "VAI"
 
 #: templates/add/add.inc:77
 #, php-format
-msgid "On newer versions of Internet Explorer, you may have to add %s://%s to your Trusted Zone for this to work."
-msgstr "Lai tas darbotos arī jaunākās Internet Explorer versijās, Jums var būt nepieciešams pievienot %s://%s Jūsu Trusted Zone."
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"Lai tas darbotos arī jaunākās Internet Explorer versijās, Jums var būt "
+"nepieciešams pievienot %s://%s Jūsu Trusted Zone."
 
 #: perms.php:56
-msgid "Only the owner or system administrator may change ownership or owner permissions for a share"
-msgstr "Tikai objekta īpašnieks vais sistēmas administrators var manīti koplietojuma īpašnieku vai tā pieejas tiesības."
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Tikai objekta īpašnieks vais sistēmas administrators var manīti koplietojuma "
+"īpašnieku vai tā pieejas tiesības."
 
 #: config/prefs.php.dist:54
 msgid "Open links in a new window?"
@@ -786,8 +804,12 @@ msgid "Use Proxy"
 msgstr "Izmantot proxy"
 
 #: templates/add/add.inc:74
-msgid "While browsing you will be able to bookmark the current page by clicking your new \"Add to Bookmarks\" shortcut."
-msgstr "Pārlūkojot Internet Jūsu varēsiet pievienot grāmatzīmi, uzklikšķinot īsinājumikonai \"Pievienot grāmatzīmi\"."
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Pārlūkojot Internet Jūsu varēsiet pievienot grāmatzīmi, uzklikšķinot "
+"īsinājumikonai \"Pievienot grāmatzīmi\"."
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"

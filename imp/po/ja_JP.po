@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: IMP 4.2-RC1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2007-08-03 16:28+0200¥n"
-"PO-Revision-Date: 2007-12-13 21:34+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: IMP 4.2-RC1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-08-03 16:28+0200\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Compose.php:1748
 msgid "      Cc: "
@@ -123,8 +123,8 @@ msgstr "%s は受理されました。"
 
 #: lib/MIME/Viewer/itip.php:666
 #, php-format
-msgid "%s has cancelled ¥"%s¥"."
-msgstr "%s さんは ¥"%s¥" をキャンセルしました。"
+msgid "%s has cancelled \"%s\"."
+msgstr "%s さんは \"%s\" をキャンセルしました。"
 
 #: lib/MIME/Viewer/itip.php:266
 #, php-format
@@ -138,8 +138,8 @@ msgstr "%s さんが予定情報の要求に返答しました。"
 
 #: lib/MIME/Viewer/itip.php:658
 #, php-format
-msgid "%s has replied to the invitation to ¥"%s¥"."
-msgstr "%s さんが ¥"%s¥" への招待に返信しました。"
+msgid "%s has replied to the invitation to \"%s\"."
+msgstr "%s さんが \"%s\" への招待に返信しました。"
 
 #: lib/MIME/Viewer/itip.php:497
 #, php-format
@@ -158,29 +158,29 @@ msgstr "%s さんがあなたの予定情報を要求しています。"
 
 #: lib/MIME/Viewer/itip.php:621
 #, php-format
-msgid "%s requests your presence at ¥"%s¥"."
-msgstr "%s さんはあなたが ¥"%s¥" に出席することを要求しています。"
+msgid "%s requests your presence at \"%s\"."
+msgstr "%s さんはあなたが \"%s\" に出席することを要求しています。"
 
 #: lib/Message.php:468
 #, php-format
-msgid "%s was successfully added to ¥"%s¥"."
-msgstr "%s は ¥"%s¥" に追加されました。"
+msgid "%s was successfully added to \"%s\"."
+msgstr "%s は \"%s\" に追加されました。"
 
 #: lib/MIME/Viewer/itip.php:638
 #, php-format
-msgid "%s wishes to ammend ¥"%s¥"."
-msgstr "%s さんが ¥"%s¥" の改定を希望しています。"
+msgid "%s wishes to ammend \"%s\"."
+msgstr "%s さんが \"%s\" の改定を希望しています。"
 
 #: lib/MIME/Viewer/itip.php:593 lib/MIME/Viewer/itip.php:622
 #: lib/MIME/Viewer/itip.php:806
 #, php-format
-msgid "%s wishes to make you aware of ¥"%s¥"."
-msgstr "%s さんはあなたが ¥"%s¥" を承知することを希望しています。"
+msgid "%s wishes to make you aware of \"%s\"."
+msgstr "%s さんはあなたが \"%s\" を承知することを希望しています。"
 
 #: lib/MIME/Viewer/itip.php:645
 #, php-format
-msgid "%s wishes to receive the latest information about ¥"%s¥"."
-msgstr "%s さんが ¥"%s¥" についての最新情報を希望しています。"
+msgid "%s wishes to receive the latest information about \"%s\"."
+msgstr "%s さんが \"%s\" についての最新情報を希望しています。"
 
 #: compose.php:1143
 #, php-format
@@ -314,8 +314,8 @@ msgstr "私の予定表に追加する"
 
 #: lib/Compose.php:2689
 #, php-format
-msgid "Added ¥"%s¥" as an attachment."
-msgstr "¥"%s¥" を添付しました。"
+msgid "Added \"%s\" as an attachment."
+msgstr "\"%s\" を添付しました。"
 
 #: config/prefs.php.dist:831
 msgid ""
@@ -386,10 +386,10 @@ msgstr "すべて"
 #: lib/Maintenance/Task/purge_sentmail.php:82
 #, php-format
 msgid ""
-"All messages in the folder(s) ¥"%s¥" older than %s days will be permanently "
+"All messages in the folder(s) \"%s\" older than %s days will be permanently "
 "deleted."
 msgstr ""
-"作成してから %2$s 日以上経った ¥"%1$s¥" フォルダ内のメッセージはすべて削除さ"
+"作成してから %2$s 日以上経った \"%1$s\" フォルダ内のメッセージはすべて削除さ"
 "れます。"
 
 #: templates/javascript_defs.php:62
@@ -404,10 +404,10 @@ msgstr ""
 #: lib/Maintenance/Task/purge_spam.php:79
 #, php-format
 msgid ""
-"All messages in your ¥"%s¥" folder older than %s days will be permanently "
+"All messages in your \"%s\" folder older than %s days will be permanently "
 "deleted."
 msgstr ""
-"作成してから %2$s 日以上経った ¥"%1$s¥" フォルダ内のメッセージはすべて削除さ"
+"作成してから %2$s 日以上経った \"%1$s\" フォルダ内のメッセージはすべて削除さ"
 "れます。"
 
 #: lib/Maintenance/Task/delete_attachments_monthly.php:59
@@ -422,8 +422,8 @@ msgstr "作成してから %s ヶ月以上経った送信控えフォルダは�
 
 #: acl.php:88 acl.php:129
 #, php-format
-msgid "All rights on folder ¥"%s¥" successfully removed for user ¥"%s¥"."
-msgstr "フォルダ ¥"%s¥" のユーザ ¥"%s¥" へのアクセス権は全て削除されました。"
+msgid "All rights on folder \"%s\" successfully removed for user \"%s\"."
+msgstr "フォルダ \"%s\" のユーザ \"%s\" へのアクセス権は全て削除されました。"
 
 #: lib/api.php:93
 msgid "Allow Folder Creation?"
@@ -579,8 +579,8 @@ msgstr "添付ファイル："
 #: lib/Compose.php:1781 lib/Compose.php:1886
 #, php-format
 msgid ""
-"Attached file ¥"%s¥" exceeds the attachment size limits. File NOT attached."
-msgstr "添付ファイル ¥"%s¥" のサイズが大きすぎます。添付されません。"
+"Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
+msgstr "添付ファイル \"%s\" のサイズが大きすぎます。添付されません。"
 
 #: lib/MIME/Viewer/itip.php:386
 msgid "Attached is a reply to a calendar request you sent."
@@ -1314,8 +1314,8 @@ msgstr "削除されたメール"
 
 #: compose.php:214
 #, php-format
-msgid "Deleted the attachment ¥"%s¥"."
-msgstr "添付 ¥"%s¥" を削除しました。"
+msgid "Deleted the attachment \"%s\"."
+msgstr "添付 \"%s\" を削除しました。"
 
 #: config/prefs.php.dist:87
 msgid "Deleting and Moving Messages"
@@ -1349,27 +1349,27 @@ msgstr "詳細"
 
 #: lib/Compose.php:2671
 #, php-format
-msgid "Did not attach ¥"%s¥" as it was only partially uploaded."
-msgstr "¥"%s¥" は一部しかアップロードされていないので、添付しません。"
+msgid "Did not attach \"%s\" as it was only partially uploaded."
+msgstr "\"%s\" は一部しかアップロードされていないので、添付しません。"
 
 #: lib/Compose.php:2680
 #, php-format
-msgid "Did not attach ¥"%s¥" as the file was empty."
-msgstr "ファイル ¥"%s¥" は空白なので添付しません。"
+msgid "Did not attach \"%s\" as the file was empty."
+msgstr "ファイル \"%s\" は空白なので添付しません。"
 
 #: lib/Compose.php:2667
 #, php-format
 msgid ""
-"Did not attach ¥"%s¥" as the maximum allowed upload size has been exceeded."
-msgstr "ファイル ¥"%s¥" は許容サイズを超過しているので添付しません。"
+"Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
+msgstr "ファイル \"%s\" は許容サイズを超過しているので添付しません。"
 
 #: lib/Compose.php:2675
 #, php-format
 msgid ""
-"Did not attach ¥"%s¥" as the server configuration did not allow the file to "
+"Did not attach \"%s\" as the server configuration did not allow the file to "
 "be uploaded."
 msgstr ""
-"サーバーの設定でアップロードが許可されていないので ¥"%s¥" は添付しません。"
+"サーバーの設定でアップロードが許可されていないので \"%s\" は添付しません。"
 
 #: config/prefs.php.dist:802
 msgid "Dim signatures?"
@@ -1396,11 +1396,11 @@ msgid "Display pop-up notification of new mail?"
 msgstr "新着メール到着時にポップアップで通知しますか？"
 
 #: config/prefs.php.dist:919
-msgid "Display the ¥"Empty Spam¥" link in the menubar?"
+msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "メニューバーに「Spam清掃」を表示しますか？"
 
 #: config/prefs.php.dist:911
-msgid "Display the ¥"Empty Trash¥" link in the menubar?"
+msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "メニューバーに「ゴミ箱清掃」を表示しますか？"
 
 #: templates/compose/compose.html:322
@@ -1604,8 +1604,8 @@ msgstr "メッセージ全体"
 
 #: message.php:168 thread.php:71 lib/Compose.php:1064
 #, php-format
-msgid "Entry ¥"%s¥" was successfully added to the address book"
-msgstr "¥"%s¥" というエントリがアドレス帳に追加されました。"
+msgid "Entry \"%s\" was successfully added to the address book"
+msgstr "\"%s\" というエントリがアドレス帳に追加されました。"
 
 #: lib/MIME/Viewer/pkcs7.php:434 lib/MIME/Viewer/pgp.php:435
 #: lib/MIME/Viewer/status.php:71 lib/MIME/Viewer/status.php:162
@@ -1883,7 +1883,7 @@ msgstr "仮想 INBOX に移動"
 
 #: lib/IMP.php:353
 #, php-format
-msgid "Go to address book entry of ¥"%s¥""
+msgid "Go to address book entry of \"%s\""
 msgstr "アドレス帳の %s に移動する"
 
 #: message.php:432 lib/Filter.php:130 lib/MIME/Contents.php:425
@@ -2818,13 +2818,13 @@ msgstr "PGP 個人鍵の使用には安全な web 接続（SSL 接続）が必�
 
 #: pgp.php:155
 #, php-format
-msgid "PGP Public Key for ¥"%s (%s)¥" was successfully added."
-msgstr "¥"%s (%s)¥" の PGP 公開鍵が追加されました。"
+msgid "PGP Public Key for \"%s (%s)\" was successfully added."
+msgstr "\"%s (%s)\" の PGP 公開鍵が追加されました。"
 
 #: pgp.php:251
 #, php-format
-msgid "PGP Public Key for ¥"%s¥" was successfully deleted."
-msgstr "¥"%s¥" の PGP 公開鍵は削除されました。"
+msgid "PGP Public Key for \"%s\" was successfully deleted."
+msgstr "\"%s\" の PGP 公開鍵は削除されました。"
 
 #: templates/pgp/pgp.html:24
 msgid "PGP Public Keyring"
@@ -3313,8 +3313,8 @@ msgstr "送信控えフォルダの名前を毎月の初めに変更しますか
 
 #: lib/Folder.php:373
 #, php-format
-msgid "Renaming ¥"%s¥" to ¥"%s¥" failed. This is what the server said"
-msgstr "¥"%s¥" を ¥"%s¥" に変更できませんでした。サーバのエラー:"
+msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
+msgstr "\"%s\" を \"%s\" に変更できませんでした。サーバのエラー:"
 
 #: message.php:540
 msgid "Reply"
@@ -3424,8 +3424,8 @@ msgstr ""
 
 #: acl.php:114
 #, php-format
-msgid "Rights for user ¥"%s¥" cannot be modified."
-msgstr "ユーザ ¥"%s¥" のアクセス権を変更できませんでした。"
+msgid "Rights for user \"%s\" cannot be modified."
+msgstr "ユーザ \"%s\" のアクセス権を変更できませんでした。"
 
 #: lib/MIME/Viewer/itip.php:726 lib/MIME/Viewer/itip.php:854
 msgid "Role"
@@ -3462,8 +3462,8 @@ msgstr "S/MIME 個人鍵の使用には安全な web 接続（SSL 接続）が�
 
 #: smime.php:155
 #, php-format
-msgid "S/MIME Public Key for ¥"%s¥" was successfully deleted."
-msgstr "¥"%s¥" の S/MIME 公開鍵は削除されました。"
+msgid "S/MIME Public Key for \"%s\" was successfully deleted."
+msgstr "\"%s\" の S/MIME 公開鍵は削除されました。"
 
 #: smime.php:177
 msgid "S/MIME Public Key successfully added."
@@ -4122,12 +4122,12 @@ msgstr "%s　の S/MIME 証明書："
 
 #: fetchmailprefs.php:85
 #, php-format
-msgid "The account ¥"%s¥" has been deleted."
+msgid "The account \"%s\" has been deleted."
 msgstr "アカウント '%s' は削除されました。"
 
 #: fetchmailprefs.php:78
 #, php-format
-msgid "The account ¥"%s¥" has been saved."
+msgid "The account \"%s\" has been saved."
 msgstr "アカウント '%s' は保存されました。"
 
 #: attachment.php:43
@@ -4148,8 +4148,8 @@ msgstr "Macintosh ファイルの内容は以下の通りです。"
 
 #: lib/Maintenance/Task/rename_sentmail_monthly.php:73
 #, php-format
-msgid "The current folder(s) ¥"%s¥" will be renamed to ¥"%s¥"."
-msgstr "現在のフォルダ ¥"%s¥" は ¥"%s¥" という名前に変更されます。"
+msgid "The current folder(s) \"%s\" will be renamed to \"%s\"."
+msgstr "現在のフォルダ \"%s\" は \"%s\" という名前に変更されます。"
 
 #: templates/acl/acl.html:29
 msgid ""
@@ -4163,8 +4163,8 @@ msgstr "文字セット情報の無いメッセージのデフォルトの文字
 
 #: lib/Compose.php:250
 #, php-format
-msgid "The draft has been saved to the ¥"%s¥" folder."
-msgstr "下書きは ¥"%s¥" フォルダーに保存されました。"
+msgid "The draft has been saved to the \"%s\" folder."
+msgstr "下書きは \"%s\" フォルダーに保存されました。"
 
 #: lib/MIME/Viewer/itip.php:142
 msgid "The event was added to your calendar."
@@ -4177,48 +4177,48 @@ msgstr "ファイル %s を添付できませんでした。"
 
 #: lib/Folder.php:272
 #, php-format
-msgid "The folder ¥"%s¥" already exists"
-msgstr "フォルダ ¥"%s¥" は既に存在しています。"
+msgid "The folder \"%s\" already exists"
+msgstr "フォルダ \"%s\" は既に存在しています。"
 
 #: folders.php:240 lib/Folder.php:190
 #, php-format
-msgid "The folder ¥"%s¥" may not be deleted."
-msgstr "フォルダ ¥"%s¥" は削除されていないかもしてれません。"
+msgid "The folder \"%s\" may not be deleted."
+msgstr "フォルダ \"%s\" は削除されていないかもしてれません。"
 
 #: lib/Folder.php:351
 #, php-format
-msgid "The folder ¥"%s¥" may not be renamed."
-msgstr "フォルダ ¥"%s¥" の名前は変更されていないかもしれません。"
+msgid "The folder \"%s\" may not be renamed."
+msgstr "フォルダ \"%s\" の名前は変更されていないかもしれません。"
 
 #: lib/Folder.php:294
 #, php-format
-msgid "The folder ¥"%s¥" was created but you were not subscribed to it."
-msgstr "フォルダ ¥"%s¥" が作成されましたが、このフォルダを購読していません。"
+msgid "The folder \"%s\" was created but you were not subscribed to it."
+msgstr "フォルダ \"%s\" が作成されましたが、このフォルダを購読していません。"
 
 #: lib/Folder.php:281
 #, php-format
-msgid "The folder ¥"%s¥" was not created. This is what the server said"
-msgstr "フォルダ ¥"%s¥" を作成できませんでした。サーバからの応答:"
+msgid "The folder \"%s\" was not created. This is what the server said"
+msgstr "フォルダ \"%s\" を作成できませんでした。サーバからの応答:"
 
 #: lib/Folder.php:194
 #, php-format
-msgid "The folder ¥"%s¥" was not deleted. This is what the server said"
-msgstr "フォルダ ¥"%s¥" は削除できませんでした。サーバからの応答:"
+msgid "The folder \"%s\" was not deleted. This is what the server said"
+msgstr "フォルダ \"%s\" は削除できませんでした。サーバからの応答:"
 
 #: lib/Folder.php:297
 #, php-format
-msgid "The folder ¥"%s¥" was successfully created."
-msgstr "フォルダ ¥"%s¥" が作成されました。"
+msgid "The folder \"%s\" was successfully created."
+msgstr "フォルダ \"%s\" が作成されました。"
 
 #: lib/Folder.php:199
 #, php-format
-msgid "The folder ¥"%s¥" was successfully deleted."
-msgstr "フォルダ ¥"%s¥" が削除されました。"
+msgid "The folder \"%s\" was successfully deleted."
+msgstr "フォルダ \"%s\" が削除されました。"
 
 #: lib/Folder.php:376
 #, php-format
-msgid "The folder ¥"%s¥" was successfully renamed to ¥"%s¥"."
-msgstr "フォルダ ¥"%s¥" の名前が ¥"%s¥" に変更されました。"
+msgid "The folder \"%s\" was successfully renamed to \"%s\"."
+msgstr "フォルダ \"%s\" の名前が \"%s\" に変更されました。"
 
 #: lib/MIME/Viewer/tnef.php:93
 msgid "The following files were attached to this part:"
@@ -4247,9 +4247,9 @@ msgstr "メールボックス %s は既に空です。"
 
 #: lib/Fetchmail.php:238
 #, php-format
-msgid "The message ¥"%s¥" from ¥"%s¥" (%d bytes) exceeds fetch size limit."
+msgid "The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."
 msgstr ""
-"¥"%2$s¥" からのメッセージ ¥"%1$s¥"（%3$d バイト）は取り込みサイズの上限を超え"
+"\"%2$s\" からのメッセージ \"%1$s\"（%3$d バイト）は取り込みサイズの上限を超え"
 "ています。"
 
 #: templates/javascript_defs.php:53
@@ -4410,18 +4410,18 @@ msgstr "指定されたファイルは読めません。"
 
 #: stationery.php:87
 #, php-format
-msgid "The stationery ¥"%s¥" has been added."
-msgstr "定型句 ¥"%s¥" が追加されました。"
+msgid "The stationery \"%s\" has been added."
+msgstr "定型句 \"%s\" が追加されました。"
 
 #: stationery.php:63
 #, php-format
-msgid "The stationery ¥"%s¥" has been deleted."
-msgstr "定型句 ¥"%s¥" は削除されました。"
+msgid "The stationery \"%s\" has been deleted."
+msgstr "定型句 \"%s\" は削除されました。"
 
 #: stationery.php:90
 #, php-format
-msgid "The stationery ¥"%s¥" has been updated."
-msgstr "定型句 ¥"%s¥" は更新されました。"
+msgid "The stationery \"%s\" has been updated."
+msgstr "定型句 \"%s\" は更新されました。"
 
 #: lib/MIME/Viewer/itip.php:172
 msgid "The task has been added to your tasklist."
@@ -4473,17 +4473,17 @@ msgstr "インライン表示用文字列はありません。"
 #: lib/Message.php:140
 #, php-format
 msgid ""
-"There was an error copying messages from ¥"%s¥" to ¥"%s¥". This is what the "
+"There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "¥"%s¥" を ¥"%s¥" にコピー中にエラーが発生しました。サーバからの応答： "
+msgstr "\"%s\" を \"%s\" にコピー中にエラーが発生しました。サーバからの応答： "
 
 #: lib/Message.php:268
 #, php-format
 msgid ""
-"There was an error deleting messages from the folder ¥"%s¥". This is what "
+"There was an error deleting messages from the folder \"%s\". This is what "
 "the server said"
 msgstr ""
-"¥"%s¥" フォルダからメッセージを削除中にエラーが発生しました。サーバからの応"
+"\"%s\" フォルダからメッセージを削除中にエラーが発生しました。サーバからの応"
 "答："
 
 #: lib/MIME/Viewer/itip.php:102
@@ -4498,7 +4498,7 @@ msgstr "メッセージパートの表示でエラーが発生しました。"
 #: lib/Message.php:630
 #, php-format
 msgid ""
-"There was an error flagging messages in the folder ¥"%s¥". This is what the "
+"There was an error flagging messages in the folder \"%s\". This is what the "
 "server said"
 msgstr "フォルダ %s でエラーが発生しました。サーバからの応答： "
 
@@ -4525,9 +4525,9 @@ msgstr "予定情報をインポート中にエラーが発生しました：%s"
 #: lib/Message.php:136
 #, php-format
 msgid ""
-"There was an error moving messages from ¥"%s¥" to ¥"%s¥". This is what the "
+"There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "¥"%s¥" を ¥"%s¥" に移動中にエラーが発生しました。サーバからの応答： "
+msgstr "\"%s\" を \"%s\" に移動中にエラーが発生しました。サーバからの応答： "
 
 #: lib/Compose.php:698
 #, php-format
@@ -4819,7 +4819,7 @@ msgstr "ユーザ"
 #: acl.php:90 acl.php:131
 #, php-format
 msgid ""
-"User ¥"%s¥" successfully given the specified rights for the folder ¥"%s¥"."
+"User \"%s\" successfully given the specified rights for the folder \"%s\"."
 msgstr "ユーザ '%s' にフォルダ '%s' へのアクセス権が設定されました。"
 
 #: templates/login/login.html:85
@@ -4902,8 +4902,8 @@ msgstr "仮想フォルダ"
 
 #: search.php:151
 #, php-format
-msgid "Virtual Folder ¥"%s¥" created succesfully."
-msgstr "仮想フォルダ ¥"%s¥" が作成されました。"
+msgid "Virtual Folder \"%s\" created succesfully."
+msgstr "仮想フォルダ \"%s\" が作成されました。"
 
 #: lib/IMAP/Tree.php:88 templates/search/search.html:184
 msgid "Virtual Folders"
@@ -4975,7 +4975,7 @@ msgstr "送信控えを保存する際、添付も保存しますか？"
 #: config/prefs.php.dist:482
 msgid ""
 "When sending mail or expanding addresses, what domain should we append to "
-"unqualified addresses (email addresses without ¥"@¥")?"
+"unqualified addresses (email addresses without \"@\")?"
 msgstr ""
 "メール送信時やアドレス展開時にドメインが省略されていた場合に補完するドメイン"
 "名は？"
@@ -5064,8 +5064,8 @@ msgstr "定型句の中では次の記号による置換ができます：%c で
 
 #: lib/Folder.php:494
 #, php-format
-msgid "You cannot unsubscribe from ¥"%s¥"."
-msgstr "¥"%s¥" の購読を中止できません。"
+msgid "You cannot unsubscribe from \"%s\"."
+msgstr "\"%s\" の購読を中止できません。"
 
 #: lib/Maintenance/Task/tos_agreement.php:33
 msgid ""
@@ -5155,7 +5155,7 @@ msgstr "宛先を指定してください。"
 
 #: templates/fetchmail/fetchmailprefs.html:91
 msgid ""
-"You need to have ¥"Perform maintenance operations on login?¥" enabled in "
+"You need to have \"Perform maintenance operations on login?\" enabled in "
 "your maintenance options."
 msgstr ""
 "保守オプションで「ログイン時に保守作業を実行する」を有効にしておいてくださ"
@@ -5173,23 +5173,23 @@ msgstr "%s に返信しました。"
 
 #: lib/Folder.php:446
 #, php-format
-msgid "You were not subscribed to ¥"%s¥". Here is what the server said"
-msgstr "¥"%s¥" を購読していません。サーバからの応答： "
+msgid "You were not subscribed to \"%s\". Here is what the server said"
+msgstr "\"%s\" を購読していません。サーバからの応答： "
 
 #: lib/Folder.php:496
 #, php-format
-msgid "You were not unsubscribed from ¥"%s¥". Here is what the server said"
-msgstr "¥"%s¥" の購読を中止していません。サーバからの応答： "
+msgid "You were not unsubscribed from \"%s\". Here is what the server said"
+msgstr "\"%s\" の購読を中止していません。サーバからの応答： "
 
 #: lib/Folder.php:449
 #, php-format
-msgid "You were successfully subscribed to ¥"%s¥""
-msgstr "¥"%s¥" の購読を開始しました。"
+msgid "You were successfully subscribed to \"%s\""
+msgstr "\"%s\" の購読を開始しました。"
 
 #: lib/Folder.php:499
 #, php-format
-msgid "You were successfully unsubscribed from ¥"%s¥""
-msgstr "¥"%s¥" の購読を中止しました。"
+msgid "You were successfully unsubscribed from \"%s\""
+msgstr "\"%s\" の購読を中止しました。"
 
 #: templates/pgp/pgp.html:95
 msgid "Your Name:"
@@ -5244,20 +5244,20 @@ msgstr "送信時のデフォルトの暗号方法:"
 #: attachment.php:114
 #, php-format
 msgid ""
-"Your linked attachment has been downloaded by at least one user.¥n"
-"¥n"
-"Attachment name: %s¥n"
-"Attachment date: %s¥n"
-"¥n"
-"Click on the following link to permanently delete the attachment:¥n"
+"Your linked attachment has been downloaded by at least one user.\n"
+"\n"
+"Attachment name: %s\n"
+"Attachment date: %s\n"
+"\n"
+"Click on the following link to permanently delete the attachment:\n"
 "%s"
 msgstr ""
-"あなたのリンクした添付ファイルは少なくとも１人がダウンロードしました。¥n"
-"¥n"
-"添付ファイル名: %s¥n"
-"添付した日付: %s¥n"
-"¥n"
-"以下のリンクをクリックすればアップロードした添付ファイルを削除できます：¥n"
+"あなたのリンクした添付ファイルは少なくとも１人がダウンロードしました。\n"
+"\n"
+"添付ファイル名: %s\n"
+"添付した日付: %s\n"
+"\n"
+"以下のリンクをクリックすればアップロードした添付ファイルを削除できます：\n"
 "%s"
 
 #: lib/MIME/Viewer/status.php:88

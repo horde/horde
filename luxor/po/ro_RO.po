@@ -175,7 +175,7 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Acest fisier controleaza schema de culori si fonturi diferite de cele " 
+"Acest fisier controleaza schema de culori si fonturi diferite de cele "
 "implicite Horde."
 
 #: templates/index/notconfigured.inc:44

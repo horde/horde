@@ -289,8 +289,8 @@ msgid ""
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
-"验证电子邮件地址“%s”是否确为您的地址的信件已发出。确认此邮件之后，新电子邮"
-"件地址即激活。"
+"验证电子邮件地址“%s”是否确为您的地址的信件已发出。确认此邮件之后，新电子邮件"
+"地址即激活。"
 
 #: framework/Crypt/Crypt/pgp.php:1158
 msgid "A passphrase is required to decrypt a message."

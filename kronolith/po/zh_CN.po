@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-10-18 15:12+0200\n"
-"PO-Revision-Date: 2007-09-03 17:48+0800\n"
+"PO-Revision-Date: 2010-08-18 22:05+0200\n"
 "Last-Translator: Anna Chen <annachen2008@yahoo.com.cn>\n"
 "Language-Team: Zhang Bo <boozhang@sdb.ac.cn>\n"
 "MIME-Version: 1.0\n"
@@ -1901,26 +1901,6 @@ msgstr "日视图"
 msgid "We"
 msgstr "周三"
 
-#: lib/Scheduler/kronolith.php:266
-#, php-format
-msgid ""
-"We would like to remind you of this upcoming event.\n"
-"\n"
-"%s\n"
-"\n"
-"Location: %s\n"
-"\n"
-"Date: %s\n"
-"Time: %s\n"
-"\n"
-"%s"
-msgstr ""
-"我们会就即将到来的事件提醒您。\n"
-"\n"
-"%s\n"
-"\n"
-"位置：%s\n"
-
 #: templates/month/head.inc:19 templates/view/view.inc:101
 #: templates/edit/javascript.inc:69
 msgid "Wednesday"
@@ -1991,8 +1971,8 @@ msgid ""
 "You do not have an email address configured in your Personal Information "
 "Options. You must set one %shere%s before event notifications can be sent."
 msgstr ""
-"您未在“个人信息”选项中配置电子邮件地址。发送事件通知之前，请在 %shere%s 设"
-"置邮件地址。"
+"您未在“个人信息”选项中配置电子邮件地址。发送事件通知之前，请在 %shere%s 设置"
+"邮件地址。"
 
 #: add.php:30
 #, php-format

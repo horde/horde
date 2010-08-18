@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-07-06 23:19-0300\n"
-"PO-Revision-Date: 2008-07-03 12:20-0300\n"
+"PO-Revision-Date: 2010-08-18 22:04+0200\n"
 "Last-Translator: Luis Felipe Marzagao <duli@fedoraproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1363,8 +1363,8 @@ msgstr ""
 #, php-format
 msgid "There is %d contact in this list that is not viewable to you"
 msgid_plural "There are %d contacts in this list that are not viewable to you"
-msgstr[0] "Há %d contato(s) nesta lista que não pode ser visto por você"
-msgstr[1] ""
+msgstr[0] "Há %d contato nesta lista que não pode ser visto por você"
+msgstr[1] "Há %d contatos nesta lista que não pode ser visto por você"
 
 #: search.php:161
 #, php-format

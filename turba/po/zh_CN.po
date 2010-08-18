@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Turba 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2005-10-18 15:12+0200\n"
-"PO-Revision-Date: 2007-09-03 17:50+0800\n"
+"PO-Revision-Date: 2010-08-18 22:02+0200\n"
 "Last-Translator: Anna Chen <annachen2008@yahoo.com.cn>\n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -1065,11 +1065,6 @@ msgstr "来源："
 #: lib/api.php:246
 msgid "Sources"
 msgstr "来源"
-
-#: lib/Views/Browse.php:265 lib/Views/Browse.php:313
-#, php-format
-msgid "Successfully added %d contact(s) to list."
-msgstr "成功将 %s 添加到 %s。"
 
 #: lib/Views/Browse.php:211
 #, php-format

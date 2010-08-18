@@ -192,8 +192,8 @@ msgid ""
 "Either no weather data is available for the location you have selected, or "
 "you have not selected a valid location."
 msgstr ""
-"Ori datele despre vreme nu sunt disponibile pentru locatia selectata, ori "
-"nu ati selectat o locatie valida."
+"Ori datele despre vreme nu sunt disponibile pentru locatia selectata, ori nu "
+"ati selectat o locatie valida."
 
 #: config/prefs.php.dist:128
 msgid "Enter NASDAQ/AMEX/NYSE ticker symbols to watch, separated with commas:"

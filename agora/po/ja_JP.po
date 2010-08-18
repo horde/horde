@@ -5,15 +5,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Agora 1.0-cvs¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2008-02-07 11:24+0900¥n"
-"PO-Revision-Date: 2008-01-02 12:27+0100¥n"
-"Last-Translator: Takeshi Taguchi <taguchi@tcltk.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
+"Project-Id-Version: Agora 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-02-07 11:24+0900\n"
+"PO-Revision-Date: 2010-08-18 19:58+0200\n"
+"Last-Translator: Takeshi Taguchi <taguchi@tcltk.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: moderate.php:51
 #, php-format
@@ -185,7 +185,7 @@ msgstr "メッセージを投稿できません:"
 
 #: lib/Template.php:234
 #, php-format
-msgid "Could not save the compiled template file ¥"%s¥"."
+msgid "Could not save the compiled template file \"%s\"."
 msgstr "コンパイルした雛形ファイル '%s' を保存できませんでした。"
 
 #
@@ -245,8 +245,8 @@ msgstr "削除"
 
 #: messages/delete.php:51 lib/api.php:733
 #, php-format
-msgid "Delete ¥"%s¥" and all replies?"
-msgstr " ¥"%s¥"と全てのリプライを削除しますか?"
+msgid "Delete \"%s\" and all replies?"
+msgstr " \"%s\"と全てのリプライを削除しますか?"
 
 #
 #: deleteforum.php:45 lib/Messages.php:1397
@@ -311,8 +311,8 @@ msgstr "メッセージ編集"
 
 #: messages/edit.php:70
 #, php-format
-msgid "Edit Message in ¥"%s¥""
-msgstr "¥"%s¥" へのメッセージ編集"
+msgid "Edit Message in \"%s\""
+msgstr "\"%s\" へのメッセージ編集"
 
 #
 #: lib/api.php:811
@@ -448,8 +448,8 @@ msgstr "スレッドをロック"
 
 #: messages/lock.php:50
 #, php-format
-msgid "Locking thread ¥"%s¥""
-msgstr "ロックされたスレッド ¥"%s¥""
+msgid "Locking thread \"%s\""
+msgstr "ロックされたスレッド \"%s\""
 
 #: lib/Agora.php:361
 msgid "Malformed avatar."
@@ -471,8 +471,8 @@ msgstr "マージ"
 
 #: messages/merge.php:49
 #, php-format
-msgid "Merge ¥"%s¥" with another thread"
-msgstr "別のスレッドで¥"%s¥"をマージ"
+msgid "Merge \"%s\" with another thread"
+msgstr "別のスレッドで\"%s\"をマージ"
 
 #
 #: lib/Messages.php:1444
@@ -486,8 +486,8 @@ msgstr "メッセージ %s は不正なものとして報告されました。"
 
 #: lib/Messages.php:456
 #, php-format
-msgid "Message ID ¥"%d¥" not found"
-msgstr "メッセージID ¥"%d¥" は見つかりません。"
+msgid "Message ID \"%d\" not found"
+msgstr "メッセージID \"%d\" は見つかりません。"
 
 #
 #: config/prefs.php.dist:44
@@ -539,8 +539,8 @@ msgstr "移動"
 
 #: messages/move.php:48
 #, php-format
-msgid "Move ¥"%s¥" to another forum"
-msgstr "¥"%s¥"を別のフォーラムに移動"
+msgid "Move \"%s\" to another forum"
+msgstr "\"%s\"を別のフォーラムに移動"
 
 #
 #: config/prefs.php.dist:10
@@ -666,13 +666,13 @@ msgstr "新規メッセージを投稿"
 
 #: messages/edit.php:71
 #, php-format
-msgid "Post a New Message to ¥"%s¥""
+msgid "Post a New Message to \"%s\""
 msgstr "%s への新規メッセージ投稿"
 
 #: messages/edit.php:69 messages/index.php:213
 #, php-format
-msgid "Post a Reply to ¥"%s¥""
-msgstr "¥"%s¥"へのリプライを投稿"
+msgid "Post a Reply to \"%s\""
+msgstr "\"%s\"へのリプライを投稿"
 
 #
 #: lib/Messages.php:1389 lib/Messages.php:1689
@@ -831,8 +831,8 @@ msgstr "分割"
 
 #: messages/split.php:48
 #, php-format
-msgid "Split ¥"%s¥""
-msgstr "分割 ¥"%s¥""
+msgid "Split \"%s\""
+msgstr "分割 \"%s\""
 
 #
 #: threads.php:62
@@ -942,8 +942,8 @@ msgstr "スレッド表示"
 
 #: lib/Block/threads.php:82
 #, php-format
-msgid "Threads in ¥"%s¥""
-msgstr "¥"%s¥"のスレッド"
+msgid "Threads in \"%s\""
+msgstr "\"%s\"のスレッド"
 
 #: threads.php:70 threads.php:82
 #, php-format

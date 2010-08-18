@@ -5,21 +5,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Ansel 1.0-cvs¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2008-02-08 10:50+0900¥n"
-"PO-Revision-Date: 2008-01-31 22:30+0900¥n"
-"Last-Translator: taguchi@tcltk.jp¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=2; plural=(n != 1);¥n"
+"Project-Id-Version: Ansel 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-02-08 10:50+0900\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: taguchi@tcltk.jp\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: scripts/recursive_import.php:111
 #, php-format
-msgid "¥"%s¥" is not a directory."
-msgstr "¥"%s¥" はディレクトリではありません。"
+msgid "\"%s\" is not a directory."
+msgstr "\"%s\" はディレクトリではありません。"
 
 #: templates/group/category.inc:51 templates/group/owner.inc:52
 #, php-format
@@ -124,31 +124,31 @@ msgstr ""
 
 #: scripts/ansel.php:321
 msgid ""
-"-c, --create[=shortname/name/description/owner]¥n"
+"-c, --create[=shortname/name/description/owner]\n"
 "                             Create gallery (and use it)  Combined with -g "
 "to create a subgallery."
 msgstr ""
-"-c, --create[=shortname/name/description/owner]¥n"
+"-c, --create[=shortname/name/description/owner]\n"
 "                             ギャラリを生成(し、使用する) -g と組み合わせた場"
 "合、サブギャラリを生成。"
 
 #: scripts/ansel.php:324
 msgid ""
 "-d, --dir[=directory]        Add all files from the directory to the "
-"selected¥n"
+"selected\n"
 "                             gallery"
 msgstr ""
-"-d, --dir[=directory]        指定されたディレクトリ内のすべてのファイルを、¥n"
+"-d, --dir[=directory]        指定されたディレクトリ内のすべてのファイルを、\n"
 "選択されているギャラリに追加する。"
 
 #: scripts/recursive_import.php:190
 msgid ""
 "-d, --dir[=directory]        Recursively add all files from the directory, "
-"creating¥n"
+"creating\n"
 "                             a gallery for each directory"
 msgstr ""
 "-d, --dir[=directory]        指定されたディレクトリ内のサブディレクトリを再"
-"帰¥n"
+"帰\n"
 "的に検索し、ディレクトリ毎にギャラリを生成、すべてのファイルを追加する。"
 
 #: scripts/ansel.php:322
@@ -351,8 +351,8 @@ msgstr "カメラ方向"
 
 #: lib/Ansel.php:297
 #, php-format
-msgid "Can't get unknown file type ¥"%s¥"."
-msgstr "ファイルの種別を判別できません:¥"%s¥""
+msgid "Can't get unknown file type \"%s\"."
+msgstr "ファイルの種別を判別できません:\"%s\""
 
 #: templates/gallery/delete_confirmation.inc:11
 msgid "Cancel"
@@ -490,8 +490,8 @@ msgstr "生成済み:"
 
 #: scripts/recursive_import.php:120
 #, php-format
-msgid "Creating gallery: ¥"%s¥" (%s)"
-msgstr "ギャラリ生成: ¥"%s¥" (%s)"
+msgid "Creating gallery: \"%s\" (%s)"
+msgstr "ギャラリ生成: \"%s\" (%s)"
 
 #: lib/Exif.php:246
 msgid "Custom"
@@ -836,8 +836,8 @@ msgstr "不正なデータ"
 
 #: scripts/ansel.php:125
 #, php-format
-msgid "Invalid gallery ¥"%s¥" specified."
-msgstr "不正なギャラリ ¥"%s¥" が指定されました。"
+msgid "Invalid gallery \"%s\" specified."
+msgstr "不正なギャラリ \"%s\" が指定されました。"
 
 #: xppublish.php:87 xppublish.php:180
 msgid "Invalid gallery specified."
@@ -871,8 +871,8 @@ msgstr "%s の写真をリスト表示"
 
 #: scripts/ansel.php:116 scripts/recursive_import.php:81
 #, php-format
-msgid "Logged in successfully as ¥"%s¥"."
-msgstr "¥"%s¥"としてログインに成功しました。"
+msgid "Logged in successfully as \"%s\"."
+msgstr "\"%s\"としてログインに成功しました。"
 
 #: scripts/ansel.php:112
 msgid "Login is incorrect."
@@ -1136,8 +1136,8 @@ msgid "Polaroid"
 msgstr "ポラロイド"
 
 #: xppublish.php:99 xppublish.php:155
-msgid "Press the ¥"Back¥" button and try again."
-msgstr "¥"戻る¥"ボタンを押して再試行して下さい。"
+msgid "Press the \"Back\" button and try again."
+msgstr "\"戻る\"ボタンを押して再試行して下さい。"
 
 #: scripts/create_serialized_styles.php:48 config/prefs.php.dist:113
 msgid "Pretty Thumbnails"
@@ -1465,8 +1465,8 @@ msgstr "スライドショー開始"
 #: scripts/ansel.php:209 scripts/ansel.php:292
 #: scripts/recursive_import.php:156
 #, php-format
-msgid "Storing photo ¥"%s¥"..."
-msgstr "写真 ¥"%s¥" ... を並べ替え"
+msgid "Storing photo \"%s\"..."
+msgstr "写真 \"%s\" ... を並べ替え"
 
 #: templates/gallery/gallery.inc:31
 msgid "Style for this gallery"
@@ -1478,17 +1478,17 @@ msgstr "購読"
 
 #: scripts/ansel.php:232 scripts/recursive_import.php:166
 #, php-format
-msgid "Successfully added %d photo (%s) to gallery ¥"%s¥" from ¥"%s¥"."
-msgid_plural "Successfully added %d photos (%s) to gallery ¥"%s¥" from ¥"%s¥"."
+msgid "Successfully added %d photo (%s) to gallery \"%s\" from \"%s\"."
+msgid_plural "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\"."
 msgstr[0] ""
-"%d枚の写真(%s)をギャラリ ¥"%s¥" へ ¥"%s¥"から追加することに成功しました。"
+"%d枚の写真(%s)をギャラリ \"%s\" へ \"%s\"から追加することに成功しました。"
 msgstr[1] ""
-"%d枚の写真(%s)をギャラリ ¥"%s¥" へ ¥"%s¥"から追加することに成功しました。"
+"%d枚の写真(%s)をギャラリ \"%s\" へ \"%s\"から追加することに成功しました。"
 
 #: scripts/ansel.php:218
 #, php-format
-msgid "Successfully added photo ¥"%s¥" to gallery ¥"%s¥"."
-msgstr "写真¥"%s¥"のギャラリ¥"%s¥"への追加に成功しました。"
+msgid "Successfully added photo \"%s\" to gallery \"%s\"."
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加に成功しました。"
 
 #: gallery/delete.php:42
 #, php-format
@@ -1511,23 +1511,23 @@ msgstr "タグ"
 
 #: scripts/ansel.php:259
 #, php-format
-msgid "The directory ¥"%s¥" doesn't exist."
-msgstr "ディレクトリ¥"%s¥"は存在しません。"
+msgid "The directory \"%s\" doesn't exist."
+msgstr "ディレクトリ\"%s\"は存在しません。"
 
 #: scripts/ansel.php:237
 #, php-format
-msgid "The directory ¥"%s¥" had no valid photos."
-msgstr "ディレクトリ¥"%s¥"には、正しい写真がありません。"
+msgid "The directory \"%s\" had no valid photos."
+msgstr "ディレクトリ\"%s\"には、正しい写真がありません。"
 
 #: scripts/ansel.php:276
 #, php-format
-msgid "The directory ¥"%s¥" is empty."
-msgstr "ディレクトリ¥"%s¥"は空です。"
+msgid "The directory \"%s\" is empty."
+msgstr "ディレクトリ\"%s\"は空です。"
 
 #: lib/Ansel.php:287
 #, php-format
-msgid "The file ¥"%s¥" doesn't exist."
-msgstr "ファイル¥"%s¥"は存在しません。"
+msgid "The file \"%s\" doesn't exist."
+msgstr "ファイル\"%s\"は存在しません。"
 
 #: lib/api.php:249 img/upload.php:160
 msgid "The file you uploaded does not appear to be a valid photo."
@@ -1535,24 +1535,24 @@ msgstr "アップロードされたファイルは、正しい写真データに
 
 #: scripts/recursive_import.php:125
 #, php-format
-msgid "The gallery ¥"%s¥" (%s) was created successfully."
-msgstr "ギャラリ ¥"%s¥" (%s)は正常に生成されました。"
+msgid "The gallery \"%s\" (%s) was created successfully."
+msgstr "ギャラリ \"%s\" (%s)は正常に生成されました。"
 
 #: lib/Ansel.php:136
 #, php-format
-msgid "The gallery ¥"%s¥" could not be created: %s"
-msgstr "ギャラリ¥"%s¥"は生成出来ませんでした: %s"
+msgid "The gallery \"%s\" could not be created: %s"
+msgstr "ギャラリ\"%s\"は生成出来ませんでした: %s"
 
 #: xppublish.php:129 gallery.php:214 scripts/ansel.php:153
 #: scripts/recursive_import.php:123
 #, php-format
-msgid "The gallery ¥"%s¥" couldn't be created: %s"
-msgstr "ギャラリ¥"%s¥"は生成出来ませんでした: %s"
+msgid "The gallery \"%s\" couldn't be created: %s"
+msgstr "ギャラリ\"%s\"は生成出来ませんでした: %s"
 
 #: xppublish.php:133 gallery.php:220 scripts/ansel.php:158
 #, php-format
-msgid "The gallery ¥"%s¥" was created successfully."
-msgstr "ギャラリ¥"%s¥"は生成されました。"
+msgid "The gallery \"%s\" was created successfully."
+msgstr "ギャラリ\"%s\"は生成されました。"
 
 #: gallery.php:174
 msgid "The gallery was saved."
@@ -1585,13 +1585,13 @@ msgstr "このギャラリには写真がありません。"
 
 #: scripts/ansel.php:295
 #, php-format
-msgid "There was a problem adding the photo ¥"%s¥" to gallery ¥"%s¥"."
-msgstr "写真¥"%s¥"のギャラリ¥"%s¥"への追加で問題が発生しました。"
+msgid "There was a problem adding the photo \"%s\" to gallery \"%s\"."
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加で問題が発生しました。"
 
 #: scripts/ansel.php:212
 #, php-format
-msgid "There was a problem adding the photo ¥"%s¥" to gallery ¥"%s¥": %s"
-msgstr "写真¥"%s¥"のギャラリ¥"%s¥"への追加で問題が発生しました: %s"
+msgid "There was a problem adding the photo \"%s\" to gallery \"%s\": %s"
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加で問題が発生しました: %s"
 
 #: lib/api.php:406
 #, php-format
@@ -1854,8 +1854,8 @@ msgstr "このギャラリに写真を追加する権限がありません。"
 
 #: scripts/ansel.php:132
 #, php-format
-msgid "You cannot add photos to the gallery ¥"%s¥"."
-msgstr "ギャラリ¥"%s¥"に写真を追加する権限がありません。"
+msgid "You cannot add photos to the gallery \"%s\"."
+msgstr "ギャラリ\"%s\"に写真を追加する権限がありません。"
 
 #: gallery/delete.php:30
 #, php-format

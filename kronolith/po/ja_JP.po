@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: kronolith 2.2-RC1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2007-08-03 12:47+0100¥n"
-"PO-Revision-Date: 2007-12-13 21:05+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: kronolith 2.2-RC1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-08-03 12:47+0100\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/edit/edit.inc:211
 #, php-format
@@ -858,28 +858,28 @@ msgstr "何日分の予定情報を生成しますか？"
 #, php-format
 msgid ""
 "If your email client doesn't support iTip requests you can use one of the "
-"following links to accept or decline the event.¥n"
-"¥n"
-"To accept the event:¥n"
-"%s¥n"
-"¥n"
-"To accept the event tentatively:¥n"
-"%s¥n"
-"¥n"
-"To decline the event:¥n"
-"%s¥n"
+"following links to accept or decline the event.\n"
+"\n"
+"To accept the event:\n"
+"%s\n"
+"\n"
+"To accept the event tentatively:\n"
+"%s\n"
+"\n"
+"To decline the event:\n"
+"%s\n"
 msgstr ""
 "もしもお使いのメーラが iTip をサポートしていないなら、以下のリンクでイベント"
-"への受諾・謝絶ができます。¥n"
-"¥n"
-"イベントを受諾する：¥n"
-"%s¥n"
-"¥n"
-"イベントを仮受諾する：¥n"
-"%s¥n"
-"¥n"
-"イベントを謝絶する：¥n"
-"%s¥n"
+"への受諾・謝絶ができます。\n"
+"\n"
+"イベントを受諾する：\n"
+"%s\n"
+"\n"
+"イベントを仮受諾する：\n"
+"%s\n"
+"\n"
+"イベントを謝絶する：\n"
+"%s\n"
 
 #: templates/data/import.inc:7
 #, php-format
@@ -1821,28 +1821,28 @@ msgstr "参加者の編集画面がありませんので、終了します。"
 
 #: calendars.php:77
 #, php-format
-msgid "The calendar ¥"%s¥" cannot be deleted."
-msgstr "予定表 ¥"%s¥" は削除できませんでした。"
+msgid "The calendar \"%s\" cannot be deleted."
+msgstr "予定表 \"%s\" は削除できませんでした。"
 
 #: calendars.php:44
 #, php-format
-msgid "The calendar ¥"%s¥" has been created."
-msgstr "予定表 ¥"%s¥" は作成されました。"
+msgid "The calendar \"%s\" has been created."
+msgstr "予定表 \"%s\" は作成されました。"
 
 #: calendars.php:95
 #, php-format
-msgid "The calendar ¥"%s¥" has been deleted."
-msgstr "予定表 ¥"%s¥" は削除されました。"
+msgid "The calendar \"%s\" has been deleted."
+msgstr "予定表 \"%s\" は削除されました。"
 
 #: calendars.php:58
 #, php-format
-msgid "The calendar ¥"%s¥" has been renamed to ¥"%s¥"."
-msgstr "予定表 ¥"%s¥" は ¥"%s¥" に名前が変更されました。"
+msgid "The calendar \"%s\" has been renamed to \"%s\"."
+msgstr "予定表 \"%s\" は \"%s\" に名前が変更されました。"
 
 #: calendars.php:60
 #, php-format
-msgid "The calendar ¥"%s¥" has been saved."
-msgstr "予定表 ¥"%s¥" は保存されました。"
+msgid "The calendar \"%s\" has been saved."
+msgstr "予定表 \"%s\" は保存されました。"
 
 #: data.php:246
 #, php-format
@@ -1856,22 +1856,22 @@ msgstr "終了日時は開始日時よりも後でなければなりません。
 #: lib/Kronolith.php:1595
 #, php-format
 msgid ""
-"The event ¥"%s¥" has been added to ¥"%s¥" calendar, which is on %s at %s."
-msgstr "イベント ¥"%s¥" を予定表 ¥"%s¥" に追加しました。予定は %s の %s です。"
+"The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
+msgstr "イベント \"%s\" を予定表 \"%s\" に追加しました。予定は %s の %s です。"
 
 #: lib/Kronolith.php:1605
 #, php-format
 msgid ""
-"The event ¥"%s¥" has been deleted from ¥"%s¥" calendar, which was on %s at %"
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
 "s."
 msgstr ""
-"イベント ¥"%s¥" を予定表 ¥"%s¥" から削除しました。予定は %s の %s でした。"
+"イベント \"%s\" を予定表 \"%s\" から削除しました。予定は %s の %s でした。"
 
 #: lib/Kronolith.php:1600
 #, php-format
 msgid ""
-"The event ¥"%s¥" has been edited on ¥"%s¥" calendar, which is on %s at %s."
-msgstr "イベント ¥"%s¥" を予定表 ¥"%s¥" で変更しました。予定は %s の %s です。"
+"The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
+msgstr "イベント \"%s\" を予定表 \"%s\" で変更しました。予定は %s の %s です。"
 
 #: lib/Kronolith.php:1485
 #, php-format
@@ -2033,8 +2033,8 @@ msgstr "SQL サーバに接続できません。"
 
 #: calendars.php:91
 #, php-format
-msgid "Unable to delete ¥"%s¥": %s"
-msgstr "¥"%s¥" を削除できません：%s"
+msgid "Unable to delete \"%s\": %s"
+msgstr "\"%s\" を削除できません：%s"
 
 #: lib/Driver.php:206 lib/Storage.php:58
 #, php-format
@@ -2043,13 +2043,13 @@ msgstr "定義 %s をロードできません。"
 
 #: attendees.php:57
 #, php-format
-msgid "Unable to recognize ¥"%s¥" as an email address."
-msgstr "¥"%s¥" をメールアドレスと認識できません。"
+msgid "Unable to recognize \"%s\" as an email address."
+msgstr "\"%s\" をメールアドレスと認識できません。"
 
 #: calendars.php:55
 #, php-format
-msgid "Unable to rename ¥"%s¥": %s"
-msgstr "¥"%s¥" を変更できません：%s"
+msgid "Unable to rename \"%s\": %s"
+msgstr "\"%s\" を変更できません：%s"
 
 #: lib/Storage/kolab.php:57
 #, php-format
@@ -2058,8 +2058,8 @@ msgstr "%s さんの予定情報を所得できません"
 
 #: calendars.php:65
 #, php-format
-msgid "Unable to save calendar ¥"%s¥": %s"
-msgstr "予定表 ¥"%s¥" を保存できません：%s"
+msgid "Unable to save calendar \"%s\": %s"
+msgstr "予定表 \"%s\" を保存できません：%s"
 
 #: templates/view/view.inc:8
 msgid "Unfiled"
@@ -2077,8 +2077,8 @@ msgstr "これからのイベント"
 
 #: perms.php:256
 #, php-format
-msgid "Updated ¥"%s¥"."
-msgstr "¥"%s¥" を更新しました。"
+msgid "Updated \"%s\"."
+msgstr "\"%s\" を更新しました。"
 
 #: lib/Kronolith.php:1429
 #, php-format
@@ -2110,26 +2110,26 @@ msgstr "水"
 #: lib/Driver.php:1160 lib/Scheduler/kronolith.php:265
 #, php-format
 msgid ""
-"We would like to remind you of this upcoming event.¥n"
-"¥n"
-"%s¥n"
-"¥n"
-"Location: %s¥n"
-"¥n"
-"Date: %s¥n"
-"Time: %s¥n"
-"¥n"
+"We would like to remind you of this upcoming event.\n"
+"\n"
+"%s\n"
+"\n"
+"Location: %s\n"
+"\n"
+"Date: %s\n"
+"Time: %s\n"
+"\n"
 "%s"
 msgstr ""
-"あなたに今後のイベントをお知らせいたします。¥n"
-"¥n"
-"%s¥n"
-"¥n"
-"場所： %s¥n"
-"¥n"
-"日付： %s¥n"
-"時間： %s¥n"
-"¥n"
+"あなたに今後のイベントをお知らせいたします。\n"
+"\n"
+"%s\n"
+"\n"
+"場所： %s\n"
+"\n"
+"日付： %s\n"
+"時間： %s\n"
+"\n"
 "%s"
 
 #: templates/month/head.inc:19 templates/view/view.inc:101
@@ -2349,7 +2349,7 @@ msgid "before the event starts"
 msgstr "イベント開始前"
 
 #: templates/prefs/default_alarm_management.inc:31
-msgid "before the event starts. A value of ¥"0¥" means no default alarms."
+msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr "イベント開始前。「0」はアラーム無しを意味します。"
 
 #: config/prefs.php.dist:244

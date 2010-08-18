@@ -2,7 +2,7 @@
 # Copyright 2002 Per-Stian Vatne
 # This file is distributed under the same license as the Mnemo package.
 # Per-Stian Vatne <psv@orsta.org>, 2002.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.0-cvs\n"
@@ -197,11 +197,19 @@ msgstr "Problem ved sletting av notat."
 msgid "This file contains preferences for Mnemo."
 msgstr "Denne fila inneheld innstillingar for Mnemo."
 
-msgid "This file controls the stylesheet that is used to set colors and fonts in addition to or overriding Horde defaults."
-msgstr "Denne fila kontrollerer stilarket som blir brukt til å definere fargar og skrifttypar, legg til eller overstyrer standardverdiar i Horde."
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"skrifttypar, legg til eller overstyrer standardverdiar i Horde."
 
-msgid "This is the main Mnemo configuration file. It contains options for all Mnemo scripts."
-msgstr "Dette er hovedkonfigurasjonsfila for Mnemo. Den inneheld alternativ for alle Mnemo-skripta."
+msgid ""
+"This is the main Mnemo configuration file. It contains options for all Mnemo "
+"scripts."
+msgstr ""
+"Dette er hovedkonfigurasjonsfila for Mnemo. Den inneheld alternativ for alle "
+"Mnemo-skripta."
 
 msgid "Undo Changes"
 msgstr "Angre endringar"
@@ -226,4 +234,3 @@ msgstr "Du må først velje minst eitt notat."
 
 msgid "Your Information"
 msgstr "Din informasjon"
-

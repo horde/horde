@@ -183,8 +183,8 @@ msgid ""
 "Set this if you want all messages to be checked by a moderator before they "
 "are posted"
 msgstr ""
-"Setare pentru ca toate mesajele sa fie verificate de un moderator inainte "
-"de a fi publicate."
+"Setare pentru ca toate mesajele sa fie verificate de un moderator inainte de "
+"a fi publicate."
 
 #: config/prefs.php.dist:7
 msgid "Set your preferred display language."

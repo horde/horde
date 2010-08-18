@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-18 15:57+0200\n"
-"PO-Revision-Date: 2010-08-18 15:58+0200\n"
+"PO-Revision-Date: 2010-08-18 22:06+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgstr "Alarm:"
 #: templates/index/edit.inc:107 templates/index/task.inc:72
 #, php-format
 msgid "Alert me %s as default %s or %s using:"
-msgstr "Benachrichtigung %s wie immer %s oder per:"
+msgstr "Benachrichtigung %s wie immer %s oder %s per:"
 
 #: templates/delete/delete.inc:27 templates/index/agenda.inc:13
 #: templates/index/tasks.inc:8 templates/edit/edit.inc:43
@@ -1319,7 +1319,7 @@ msgid ""
 msgstr ""
 "Falls Ihr E-Mail-Programm keine iTip-Anfragen unterstützt, können Sie die "
 "folgenden Links verwenden, um den Termin: %szu bestätigen%s, %sunter "
-"Vorbehalt zu bestätigen%s oder %sabzulehnen%s.\n"
+"Vorbehalt zu bestätigen%s oder %sabzulehnen%s."
 
 #: templates/chunks/calendar.php:61
 msgid "Import"

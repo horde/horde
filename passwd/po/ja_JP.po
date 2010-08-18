@@ -5,15 +5,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd 3.0¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2005-10-09 16:51+0200¥n"
-"PO-Revision-Date: 2006-03-24 22:40+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: Japanese <LL@li.org>¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
+"Project-Id-Version: Passwd 3.0\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-10-09 16:51+0200\n"
+"PO-Revision-Date: 2010-08-18 20:00+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: Japanese <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Driver/expect.php:34
 #, php-format
@@ -99,8 +99,8 @@ msgstr "新しいパスワード："
 
 #: lib/Driver.php:112
 #, php-format
-msgid "No such backend ¥"%s¥" found."
-msgstr "バックエンド ¥"%s¥" が見付かりません。"
+msgid "No such backend \"%s\" found."
+msgstr "バックエンド \"%s\" が見付かりません。"
 
 #: templates/main/main.inc:90
 msgid "Old password:"

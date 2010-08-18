@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba 2.2-RC1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2007-08-03 14:42+0200¥n"
-"PO-Revision-Date: 2007-12-27 10:08+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: Turba 2.2-RC1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-08-03 14:42+0200\n"
+"PO-Revision-Date: 2010-08-18 20:00+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: templates/prefs/imsp_opt.inc:40
 msgid " Add an IMSP Address Book"
@@ -26,36 +26,36 @@ msgstr "IMSP アドレス帳を削除"
 
 #: data.php:351
 #, php-format
-msgid "¥"%s¥" already exists and was not imported."
-msgstr "¥"%s¥" は既に存在するのでインポートしませんでした。"
+msgid "\"%s\" already exists and was not imported."
+msgstr "\"%s\" は既に存在するのでインポートしませんでした。"
 
 #: lib/Forms/EditContact.php:76
 #, php-format
-msgid "¥"%s¥" updated, but saving the uploaded file failed: %s"
-msgstr "¥"%s¥" は更新されましたが、ファイルの保存に失敗しました：%s"
+msgid "\"%s\" updated, but saving the uploaded file failed: %s"
+msgstr "\"%s\" は更新されましたが、ファイルの保存に失敗しました：%s"
 
 #: lib/Forms/EditContact.php:78 lib/Forms/EditContact.php:81
 #, php-format
-msgid "¥"%s¥" updated."
-msgstr "¥"%s¥" は更新されました。"
+msgid "\"%s\" updated."
+msgstr "\"%s\" は更新されました。"
 
 #: lib/Views/Browse.php:192
 #, php-format
-msgid "¥"%s¥" was not copied because it is a list."
-msgstr "¥"%s¥" はリストなのでコピーしませんでした。"
+msgid "\"%s\" was not copied because it is a list."
+msgstr "\"%s\" はリストなのでコピーしませんでした。"
 
 #: lib/Views/Browse.php:190
 #, php-format
-msgid "¥"%s¥" was not moved because it is a list."
-msgstr "¥"%s¥" はリストなので移動しませんでした。"
+msgid "\"%s\" was not moved because it is a list."
+msgstr "\"%s\" はリストなので移動しませんでした。"
 
 #: config/prefs.php.dist:118
-msgid "¥"Firstname Lastname¥"  (ie. John Doe)"
-msgstr "¥"姓 名¥",¥"Firstname Lastname¥""
+msgid "\"Firstname Lastname\"  (ie. John Doe)"
+msgstr "\"姓 名\",\"Firstname Lastname\""
 
 #: config/prefs.php.dist:117
-msgid "¥"Lastname, Firstname¥" (ie. Doe, John)"
-msgstr "¥"名, 姓¥",¥"Lastname, Firstname¥""
+msgid "\"Lastname, Firstname\" (ie. Doe, John)"
+msgstr "\"名, 姓\",\"Lastname, Firstname\""
 
 #: lib/Forms/AddContact.php:83
 #, php-format
@@ -424,8 +424,8 @@ msgstr "編集"
 
 #: edit.php:91
 #, php-format
-msgid "Edit ¥"%s¥""
-msgstr "¥"%s¥" の編集"
+msgid "Edit \"%s\""
+msgstr "\"%s\" の編集"
 
 #: lib/Views/EditContact.php:35
 #, php-format
@@ -893,10 +893,10 @@ msgstr "会社"
 msgid ""
 "Once you save this option page, the address book will be permanently "
 "deleted. If this is not what you want, then you must change your selection "
-"to ¥"None¥"."
+"to \"None\"."
 msgstr ""
 "このオプション画面を保存すると、そのアドレス帳は完全に削除されます。それを望"
-"まないならば、¥"None¥" を選択して下さい。"
+"まないならば、\"None\" を選択して下さい。"
 
 #: lib/api.php:957
 msgid "Only one vcard supported."
@@ -1097,8 +1097,8 @@ msgstr "名前の表示形式を選択します。"
 
 #: lib/Forms/AddContact.php:42
 #, php-format
-msgid "Selected address book ¥"%s¥"."
-msgstr "選択されたアドレス帳 ¥"%s¥"。"
+msgid "Selected address book \"%s\"."
+msgstr "選択されたアドレス帳 \"%s\"。"
 
 #: templates/browse/actions.inc:49
 #, php-format
@@ -1160,13 +1160,13 @@ msgstr "%s は %s に追加されました"
 
 #: lib/Views/Browse.php:288
 #, php-format
-msgid "Successfully created the contact list ¥"%s¥"."
-msgstr "連絡先リスト ¥"%s¥" が追加されました。"
+msgid "Successfully created the contact list \"%s\"."
+msgstr "連絡先リスト \"%s\" が追加されました。"
 
 #: search.php:127
 #, php-format
-msgid "Successfully created virtual address book ¥"%s¥""
-msgstr "仮想アドレス帳 ¥"%s¥" が作成されました"
+msgid "Successfully created virtual address book \"%s\""
+msgstr "仮想アドレス帳 \"%s\" が作成されました"
 
 #: lib/Views/Browse.php:132
 #, php-format
@@ -1205,23 +1205,23 @@ msgstr "VFS バックエンドは添付のアップロードが許可されて�
 
 #: lib/Driver.php:1411
 #, php-format
-msgid "The address book ¥"%s¥" does not exist."
-msgstr "アドレス帳 ¥"%s¥" は存在しません。"
+msgid "The address book \"%s\" does not exist."
+msgstr "アドレス帳 \"%s\" は存在しません。"
 
 #: addressbooks.php:104
 #, php-format
-msgid "The address book ¥"%s¥" was created successfully."
-msgstr "アドレス帳 ¥"%s¥" が作成されました。"
+msgid "The address book \"%s\" was created successfully."
+msgstr "アドレス帳 \"%s\" が作成されました。"
 
 #: addressbooks.php:130
 #, php-format
-msgid "The address book ¥"%s¥" was removed successfully."
-msgstr "アドレス帳 ¥"%s¥" が削除されました。"
+msgid "The address book \"%s\" was removed successfully."
+msgstr "アドレス帳 \"%s\" が削除されました。"
 
 #: addressbooks.php:151
 #, php-format
-msgid "The address book ¥"%s¥" was successfully updated."
-msgstr "アドレス帳 ¥"%s¥" が更新されました。"
+msgid "The address book \"%s\" was successfully updated."
+msgstr "アドレス帳 \"%s\" が更新されました。"
 
 #: data.php:329
 #, php-format
@@ -1234,8 +1234,8 @@ msgstr "要求された連絡先は存在しません。"
 
 #: deletefile.php:46
 #, php-format
-msgid "The file ¥"%s¥" has been deleted."
-msgstr "ファイル ¥"%s¥" は削除されました。"
+msgid "The file \"%s\" has been deleted."
+msgstr "ファイル \"%s\" は削除されました。"
 
 #: data.php:302
 msgid "The import can be finished despite the warnings."
@@ -1284,8 +1284,8 @@ msgstr "アドレス帳の作成中にエラーがありました: %s"
 
 #: lib/Views/Browse.php:218
 #, php-format
-msgid "There was an error deleting ¥"%s¥" from the source address book."
-msgstr "アドレス帳から ¥"%s¥" を削除中にエラーがありました。"
+msgid "There was an error deleting \"%s\" from the source address book."
+msgstr "アドレス帳から \"%s\" を削除中にエラーがありました。"
 
 #: delete.php:39
 #, php-format
@@ -1433,9 +1433,9 @@ msgstr "勤務先の番地"
 
 #: data.php:251 add.php:48 lib/Views/Browse.php:159 lib/Views/Browse.php:271
 #, php-format
-msgid "You are not allowed to create more than %d contacts in ¥"%s¥"."
+msgid "You are not allowed to create more than %d contacts in \"%s\"."
 msgstr ""
-"あなたは ¥"%2$s¥" 中に %1$d 以上の連絡先を作成することを許可されていません。"
+"あなたは \"%2$s\" 中に %1$d 以上の連絡先を作成することを許可されていません。"
 
 #: lib/Driver/vbook.php:137
 msgid "You cannot add an entry to a virtual address book."

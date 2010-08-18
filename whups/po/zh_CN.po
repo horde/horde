@@ -2,7 +2,7 @@
 # Copyright 2002 David Chang.
 # David Chang <david@thbuo.gov.tw>, 2002.
 # liaobin <liaobin@jite.net>,2004
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: whups\n"

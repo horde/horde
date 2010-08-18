@@ -1,7 +1,7 @@
 # translation of wicked.po to Slovene
 # Copyright 2007-2010 The Horde Project
 # This file is distributed under the same license as the Horde package.
-# 
+#
 # Marko Milost <marko.milost@obala.si>, 2007.
 msgid ""
 msgstr ""
@@ -786,10 +786,9 @@ msgid "Unlock %s"
 msgstr "Odkleni %s"
 
 #: lib/Driver.php:80 lib/Driver.php:94 lib/Driver.php:106 lib/Driver.php:111
-#: lib/Driver.php:131 lib/Driver.php:136 lib/Driver.php:194
-#: lib/Driver.php:199 lib/Driver.php:204 lib/Driver.php:218
-#: lib/Driver.php:232 lib/Driver.php:246 lib/Driver.php:251
-#: lib/Driver.php:256 lib/Driver.php:274 lib/Driver.php:394
+#: lib/Driver.php:131 lib/Driver.php:136 lib/Driver.php:194 lib/Driver.php:199
+#: lib/Driver.php:204 lib/Driver.php:218 lib/Driver.php:232 lib/Driver.php:246
+#: lib/Driver.php:251 lib/Driver.php:256 lib/Driver.php:274 lib/Driver.php:394
 #: lib/Driver.php:420 lib/Driver.php:436 lib/Page.php:259 lib/Page.php:293
 #: lib/Page.php:298 lib/Page.php:397 lib/Page.php:407 lib/Page.php:417
 #: lib/Page.php:427 lib/Page.php:437 lib/Page.php:448 lib/Page.php:557

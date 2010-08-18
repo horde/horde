@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sl_SI\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-03-16 09:55+0100\n"
-"PO-Revision-Date: 2008-12-29 00:24+0100\n"
+"PO-Revision-Date: 2010-08-18 22:00+0200\n"
 "Last-Translator: Marko Milost <marko.milost@obala.si>\n"
 "Language-Team: Slovene <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -779,11 +779,6 @@ msgstr "Ni uporabnikov pod izbranimi kriteriji"
 #: lib/Forms/Login.php:29
 msgid "No, only for this view"
 msgstr "Samo za to prijavo"
-
-#: lib/Notification.php:254
-#, php-format
-msgid "Notification driver %s does not exists."
-msgstr "Gonilnik ne bostaja."
 
 #: config/prefs.php.dist:69
 msgid "Notify friends that I loged in"

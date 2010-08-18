@@ -5,15 +5,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Wicked 1.0-cvs¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2008-01-09 09:58+0900¥n"
-"PO-Revision-Date: 2007-12-16 15:08+0100¥n"
-"Last-Translator: Takeshi Taguchi <taguchi@iij.ad.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
+"Project-Id-Version: Wicked 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-09 09:58+0900\n"
+"PO-Revision-Date: 2010-08-18 20:00+0200\n"
+"Last-Translator: Takeshi Taguchi <taguchi@iij.ad.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Page/Search.php:111
 #, php-format
@@ -29,10 +29,10 @@ msgstr "%s は存在しません。が、以下のページがお探しのもの
 #: templates/edit/create.inc:30
 #, php-format
 msgid ""
-"%s does not exist. Click on ¥"Create¥" below if you want to create this page "
+"%s does not exist. Click on \"Create\" below if you want to create this page "
 "now and start editing."
 msgstr ""
-"%s は存在しません。作成されたい場合は¥"作成¥"をクリックし、編集を開始してくだ"
+"%s は存在しません。作成されたい場合は\"作成\"をクリックし、編集を開始してくだ"
 "さい。"
 
 #: templates/edit/create.inc:37
@@ -170,8 +170,8 @@ msgstr "未知のバージョンに復旧できません。"
 
 #: lib/Page/AttachedFiles.php:248
 #, php-format
-msgid "Can't update ¥"%s¥": no such attachment."
-msgstr "¥"%s¥" を更新できません: その様な添付はありません。"
+msgid "Can't update \"%s\": no such attachment."
+msgstr "\"%s\" を更新できません: その様な添付はありません。"
 
 #
 #: templates/edit/create.inc:47 templates/edit/standard.inc:27
@@ -212,10 +212,10 @@ msgstr "変更履歴が必要です"
 
 #: templates/edit/create.inc:26
 msgid ""
-"Click on ¥"Create¥" below if you want to create this page now and start "
+"Click on \"Create\" below if you want to create this page now and start "
 "editing."
 msgstr ""
-"このページを作成されたい場合は¥"Create¥"をクリックし、編集を開始して下さい。"
+"このページを作成されたい場合は\"Create\"をクリックし、編集を開始して下さい。"
 
 #
 #: scripts/wicked.php:42
@@ -272,8 +272,8 @@ msgstr "削除"
 
 #: lib/Page/DeletePage.php:142
 #, php-format
-msgid "Deleted version %s of ¥"%s¥"."
-msgstr "¥"%s¥" のバージョン¥"%s¥"を削除"
+msgid "Deleted version %s of \"%s\"."
+msgstr "\"%s\" のバージョン\"%s\"を削除"
 
 #
 #: templates/history/header.inc:26
@@ -342,13 +342,13 @@ msgstr "%sの削除エラー：%s"
 
 #: scripts/mail-filter.php:42
 #, php-format
-msgid "Error parsing MIME message: %s¥n"
-msgstr "MIMEメッセージ解析エラー: %s¥n"
+msgid "Error parsing MIME message: %s\n"
+msgstr "MIMEメッセージ解析エラー: %s\n"
 
 #: lib/Page/MergeOrRename.php:217
 #, php-format
-msgid "Error renaming ¥"%s¥": %s"
-msgstr "¥"%s¥" の名前変更エラー: %s"
+msgid "Error renaming \"%s\": %s"
+msgstr "\"%s\" の名前変更エラー: %s"
 
 #: lib/Page/MergeOrRename.php:247
 #, php-format
@@ -376,8 +376,8 @@ msgstr "完全に一致"
 
 #: lib/Page/MergeOrRename.php:164
 #, php-format
-msgid "Failed to retrieve ¥"%s¥": %s"
-msgstr "¥"%s¥"の受け取りに失敗：%s"
+msgid "Failed to retrieve \"%s\": %s"
+msgstr "\"%s\"の受け取りに失敗：%s"
 
 #
 #: lib/Page.php:274
@@ -454,8 +454,8 @@ msgstr "ロック済み"
 
 #: scripts/wicked.php:104
 #, php-format
-msgid "Logged in successfully as ¥"%s¥"."
-msgstr "Logged in successfully as ¥"%s¥"."
+msgid "Logged in successfully as \"%s\"."
+msgstr "Logged in successfully as \"%s\"."
 
 #: scripts/wicked.php:100
 msgid "Login is incorrect."
@@ -479,13 +479,13 @@ msgstr "統合または名前変更: %s"
 
 #: lib/Page/MergeOrRename.php:207
 #, php-format
-msgid "Merged ¥"%s¥" into ¥"%s¥"."
-msgstr "¥"%s¥"を¥"%s¥"に統合"
+msgid "Merged \"%s\" into \"%s\"."
+msgstr "\"%s\"を\"%s\"に統合"
 
 #: lib/Page/MergeOrRename.php:210
 #, php-format
-msgid "Merged ¥"%s¥" into ¥"%s¥". New page: %s¥n"
-msgstr "¥"%s¥"を¥"%s¥"に統合。新ページ: %s¥n"
+msgid "Merged \"%s\" into \"%s\". New page: %s\n"
+msgstr "\"%s\"を\"%s\"に統合。新ページ: %s\n"
 
 #: lib/Page/MergeOrRename.php:191
 #, php-format
@@ -513,8 +513,8 @@ msgstr "なし"
 
 #: lib/Page/AttachedFiles.php:274
 #, php-format
-msgid "New attachment ¥"%s¥" to page ¥"%s¥"."
-msgstr "ページ¥"%s¥"への新規添付¥"%s¥""
+msgid "New attachment \"%s\" to page \"%s\"."
+msgstr "ページ\"%s\"への新規添付\"%s\""
 
 #: templates/display/MergeOrRename.html:15
 msgid "New name"
@@ -551,8 +551,8 @@ msgstr "ページ"
 
 #: lib/Page/MergeOrRename.php:179
 #, php-format
-msgid "Page ¥"%s¥" already exists."
-msgstr "ページ ¥"%s¥" は既にあります。"
+msgid "Page \"%s\" already exists."
+msgstr "ページ \"%s\" は既にあります。"
 
 #
 #: lib/Page/NewPage.php:132
@@ -627,13 +627,13 @@ msgstr "最後の変更"
 
 #: lib/Page/AttachedFiles.php:63
 #, php-format
-msgid "Referrer ¥"%s¥" does not exist."
-msgstr "参照 ¥"%s¥" がありません。"
+msgid "Referrer \"%s\" does not exist."
+msgstr "参照 \"%s\" がありません。"
 
 #: lib/Page/AttachedFiles.php:123
 #, php-format
-msgid "Reload ¥"%s¥""
-msgstr "再読み込み ¥"%s¥""
+msgid "Reload \"%s\""
+msgstr "再読み込み \"%s\""
 
 #: templates/history/header.inc:8
 msgid "Reload History"
@@ -645,13 +645,13 @@ msgstr "ページを再読み込み"
 
 #: lib/Page/MergeOrRename.php:222
 #, php-format
-msgid "Renamed ¥"%s¥" to ¥"%s¥"."
-msgstr "¥"%s¥"を¥"%s¥"に名前変更"
+msgid "Renamed \"%s\" to \"%s\"."
+msgstr "\"%s\"を\"%s\"に名前変更"
 
 #: lib/Page/MergeOrRename.php:225
 #, php-format
-msgid "Renamed ¥"%s¥" to ¥"%s¥". New page: %s¥n"
-msgstr "¥"%s¥"を¥"%s¥"に名前変更。新ページ: %s¥n"
+msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
+msgstr "\"%s\"を\"%s\"に名前変更。新ページ: %s\n"
 
 #: lib/Driver/sql.php:674
 #, php-format
@@ -678,8 +678,8 @@ msgstr "復旧ページ"
 
 #: lib/Page/RevertPage.php:127
 #, php-format
-msgid "Reverted to version %s of ¥"%s¥"."
-msgstr "¥"%s¥"のバージョン%sへ復旧"
+msgid "Reverted to version %s of \"%s\"."
+msgstr "\"%s\"のバージョン%sへ復旧"
 
 #: lib/Driver/sql.php:589
 msgid "Robots are not allowed to create pages."
@@ -740,13 +740,13 @@ msgstr "実行"
 
 #: lib/Page/DeletePage.php:136
 #, php-format
-msgid "Successfully deleted ¥"%s¥"."
-msgstr "¥"%s¥" が削除されました。"
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" が削除されました。"
 
 #: lib/Page/AttachedFiles.php:198
 #, php-format
-msgid "Successfully deleted version %s of ¥"%s¥" from ¥"%s¥""
-msgstr "¥"%s¥"から ¥"%s¥" のバージョン%sが削除されました。"
+msgid "Successfully deleted version %s of \"%s\" from \"%s\""
+msgstr "\"%s\"から \"%s\" のバージョン%sが削除されました。"
 
 #: lib/Page.php:483
 msgid "Table of Contents"
@@ -754,8 +754,8 @@ msgstr "目次"
 
 #: lib/Page/AttachedFiles.php:254
 #, php-format
-msgid "There is already an attachment named ¥"%s¥"."
-msgstr "添付 ¥"%s¥" は既に存在しています。"
+msgid "There is already an attachment named \"%s\"."
+msgstr "添付 \"%s\" は既に存在しています。"
 
 #: lib/Page/MergeOrRename.php:149 lib/Page/MergeOrRename.php:155
 msgid "This is a required field."
@@ -810,8 +810,8 @@ msgstr "添付更新"
 
 #: lib/Page/AttachedFiles.php:272
 #, php-format
-msgid "Updated attachment ¥"%s¥" on page ¥"%s¥"."
-msgstr "ページ ¥"%s¥"の添付 ¥"%s¥" を更新しました。"
+msgid "Updated attachment \"%s\" on page \"%s\"."
+msgstr "ページ \"%s\"の添付 \"%s\" を更新しました。"
 
 #: scripts/wicked.php:156
 #, php-format
@@ -847,23 +847,23 @@ msgstr "あなたにはこのページから添付を削除する権限があり
 #: lib/Page/AttachedFiles.php:218 lib/Page/MergeOrRename.php:169
 #: lib/Page/MergeOrRename.php:184
 #, php-format
-msgid "You do not have permission to edit ¥"%s¥""
-msgstr "あなたには¥"%s¥"を編集する権限がありません。"
+msgid "You do not have permission to edit \"%s\""
+msgstr "あなたには\"%s\"を編集する権限がありません。"
 
 #: lib/Page/NewPage.php:119
 #, php-format
-msgid "You don't have permission to create ¥"%s¥"."
-msgstr "あなたには¥"%s¥"を作成する権限がありません。"
+msgid "You don't have permission to create \"%s\"."
+msgstr "あなたには\"%s\"を作成する権限がありません。"
 
 #: lib/Page/DeletePage.php:150
 #, php-format
-msgid "You don't have permission to delete ¥"%s¥"."
-msgstr "あなたには¥"%s¥"を削除する権限がありません。"
+msgid "You don't have permission to delete \"%s\"."
+msgstr "あなたには\"%s\"を削除する権限がありません。"
 
 #: lib/Page/EditPage.php:107 lib/Page/RevertPage.php:133
 #, php-format
-msgid "You don't have permission to edit ¥"%s¥"."
-msgstr "あなたには¥"%s¥"を編集する権限がありません。"
+msgid "You don't have permission to edit \"%s\"."
+msgstr "あなたには\"%s\"を編集する権限がありません。"
 
 #: display.php:82 display.php:85
 msgid "You don't have permission to view this page."
@@ -911,5 +911,5 @@ msgstr "_Wホーム"
 
 #: scripts/wicked.php:123
 #, php-format
-msgid "page ¥"%s¥" doesn't exist."
-msgstr "ページ ¥"%s¥" は存在しません。"
+msgid "page \"%s\" doesn't exist."
+msgstr "ページ \"%s\" は存在しません。"

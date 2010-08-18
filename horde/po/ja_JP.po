@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 3.2-RC1¥n"
-"Report-Msgid-Bugs-To: dev@lists.horde.org¥n"
-"POT-Creation-Date: 2007-12-03 11:22+0900¥n"
-"PO-Revision-Date: 2007-12-26 12:52+0900¥n"
-"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>¥n"
-"Language-Team: i18n@lists.horde.org¥n"
-"MIME-Version: 1.0¥n"
-"Content-Type: text/plain; charset=UTF-8¥n"
-"Content-Transfer-Encoding: 8bit¥n"
-"Plural-Forms: nplurals=1; plural=0;¥n"
+"Project-Id-Version: Horde 3.2-RC1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-12-03 11:22+0900\n"
+"PO-Revision-Date: 2010-08-18 19:58+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Form.php:2892
 #, php-format
@@ -50,48 +50,48 @@ msgstr " at "
 
 #: lib/VFS/smb.php:208
 #, php-format
-msgid "¥"%s¥" is not a directory."
-msgstr "¥"%s¥" はディレクトリーではありません。"
+msgid "\"%s\" is not a directory."
+msgstr "\"%s\" はディレクトリーではありません。"
 
 #: lib/Horde/CLI.php:328
 #, php-format
-msgid "¥"%s¥" is not a valid choice."
-msgstr "¥"%s¥" は正しい選択ではありません。"
+msgid "\"%s\" is not a valid choice."
+msgstr "\"%s\" は正しい選択ではありません。"
 
 #: lib/Horde/Form.php:2029
 #, php-format
-msgid "¥"%s¥" is not a valid email address."
-msgstr "¥"%s¥" は有効な電子メールアドレスではありません。"
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" は有効な電子メールアドレスではありません。"
 
 #: lib/Horde/Registry.php:732 lib/Horde/Registry.php:1095
 #, php-format
-msgid "¥"%s¥" is not configured in the Horde Registry."
-msgstr "¥"%s¥" は Horde レジストリに設定されていません。"
+msgid "\"%s\" is not configured in the Horde Registry."
+msgstr "\"%s\" は Horde レジストリに設定されていません。"
 
 #: lib/Horde/Share.php:119
 #, php-format
-msgid "¥"%s¥" share driver not found."
-msgstr "共有ドライブ ¥"%s¥" が見付かりません。"
+msgid "\"%s\" share driver not found."
+msgstr "共有ドライブ \"%s\" が見付かりません。"
 
 #: lib/Horde/Tree.php:171
 #, php-format
-msgid "¥"%s¥" tree renderer not found."
-msgstr "¥"%s¥" ツリー表示機能が見付かりません。"
+msgid "\"%s\" tree renderer not found."
+msgstr "\"%s\" ツリー表示機能が見付かりません。"
 
 #: admin/groups.php:62
 #, php-format
-msgid "¥"%s¥" was added to the groups system."
-msgstr "¥"%s¥" がグループシステムに追加されました。"
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\" がグループシステムに追加されました。"
 
 #: admin/perms/addchild.php:53
 #, php-format
-msgid "¥"%s¥" was added to the permissions system."
-msgstr "¥"%s¥" がアクセス権システムに追加されました。"
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\" がアクセス権システムに追加されました。"
 
 #: admin/groups.php:60 admin/perms/addchild.php:51
 #, php-format
-msgid "¥"%s¥" was not created: %s."
-msgstr "¥"%s¥" は作成されませんでした: %s。"
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\" は作成されませんでした: %s。"
 
 #: lib/Block/account.php:85
 #, php-format
@@ -305,11 +305,11 @@ msgstr "致命的なエラーが発生しました"
 #: lib/Horde/Identity.php:430
 #, php-format
 msgid ""
-"A message has been sent to ¥"%s¥" to verify that this is really your "
+"A message has been sent to \"%s\" to verify that this is really your "
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
-"メールアドレスを検証するためのメッセージが ¥"%s¥" に送信されました。新しい"
+"メールアドレスを検証するためのメッセージが \"%s\" に送信されました。新しい"
 "メールアドレスはそのメッセージを確認してから有効になります。"
 
 #: admin/setup/index.php:147
@@ -470,13 +470,13 @@ msgstr "アクセス権を追加"
 
 #: admin/groups.php:237 templates/admin/groups/addchild.inc:7
 #, php-format
-msgid "Add a child group to ¥"%s¥""
-msgstr "サブグループを ¥"%s¥" に追加"
+msgid "Add a child group to \"%s\""
+msgstr "サブグループを \"%s\" に追加"
 
 #: lib/Horde/Perms/UI.php:146
 #, php-format
-msgid "Add a child permission to ¥"%s¥""
-msgstr "サブアクセス権を ¥"%s¥" に追加"
+msgid "Add a child permission to \"%s\""
+msgstr "サブアクセス権を \"%s\" に追加"
 
 #: admin/groups.php:230
 msgid "Add a new group"
@@ -514,16 +514,16 @@ msgstr "ユーザを追加"
 #: admin/user.php:88
 #, php-format
 msgid ""
-"Added ¥"%s¥" to the system, but could not add additional signup information: "
+"Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"システムに ¥"%s¥" を追加しましたが、サインアップの情報が追加できませんでし"
+"システムに \"%s\" を追加しましたが、サインアップの情報が追加できませんでし"
 "た：%s"
 
 #: signup.php:41
 #, php-format
-msgid "Added ¥"%s¥" to the system. You can log in now."
-msgstr "システムに ¥"%s¥" を追加しましたので、ログインできます。"
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "システムに \"%s\" を追加しましたので、ログインできます。"
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
@@ -758,13 +758,13 @@ msgstr "本当に '%s' を削除していいですか？"
 
 #: templates/admin/user/removequeued.inc:10
 #, php-format
-msgid "Are you sure you want to remove the signup request for ¥"%s¥"?"
-msgstr "¥"%s¥" のサインアップ要求を本当に削除していいですか？"
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "\"%s\" のサインアップ要求を本当に削除していいですか？"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
-msgid "Are you sure you wish to delete ¥"%s¥" and any sub-groups?"
-msgstr "本当に ¥"%s¥" とサブグループ全てを削除していいですか？"
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "本当に \"%s\" とサブグループ全てを削除していいですか？"
 
 #: lib/Horde/NLS/countries.php:20 lib/Horde/NLS/GeoIP.php:58
 #: lib/Horde/NLS/tld.php:26
@@ -887,18 +887,18 @@ msgstr "Auth_ldap: LDAP拡張機能が見つかりません。"
 
 #: lib/Horde/Auth/ldap.php:348
 #, php-format
-msgid "Auth_ldap: Unable to add user ¥"%s¥". This is what the server said: "
-msgstr "Auth_ldap: ユーザ ¥"%s¥" を追加できません。サーバの応答: "
+msgid "Auth_ldap: Unable to add user \"%s\". This is what the server said: "
+msgstr "Auth_ldap: ユーザ \"%s\" を追加できません。サーバの応答: "
 
 #: lib/Horde/Auth/ldap.php:394
 #, php-format
-msgid "Auth_ldap: Unable to remove user ¥"%s¥""
-msgstr "Auth_ldap: ユーザ ¥"%s¥" を削除できません"
+msgid "Auth_ldap: Unable to remove user \"%s\""
+msgstr "Auth_ldap: ユーザ \"%s\" を削除できません"
 
 #: lib/Horde/Auth/ldap.php:508
 #, php-format
-msgid "Auth_ldap: Unable to update user ¥"%s¥""
-msgstr "Auth_ldap: ユーザ ¥"%s¥" を更新できません"
+msgid "Auth_ldap: Unable to update user \"%s\""
+msgstr "Auth_ldap: ユーザ \"%s\" を更新できません"
 
 #: lib/Horde/Auth/ldap.php:414
 msgid "Auth_ldap: Updating users is not supported for Active Directory."
@@ -906,18 +906,18 @@ msgstr "Auth_ldap: Active Directory でのユーザ更新はサポートされ�
 
 #: lib/Horde/Auth/msad.php:151
 #, php-format
-msgid "Auth_msad: Unable to add user ¥"%s¥". This is what the server said: "
-msgstr "Auth_msad: ユーザ ¥"%s¥" を追加できません。サーバの応答: "
+msgid "Auth_msad: Unable to add user \"%s\". This is what the server said: "
+msgstr "Auth_msad: ユーザ \"%s\" を追加できません。サーバの応答: "
 
 #: lib/Horde/Auth/msad.php:190
 #, php-format
-msgid "Auth_msad: Unable to remove user ¥"%s¥""
-msgstr "Auth_msad: ユーザ ¥"%s¥" を削除できません"
+msgid "Auth_msad: Unable to remove user \"%s\""
+msgstr "Auth_msad: ユーザ \"%s\" を削除できません"
 
 #: lib/Horde/Auth/msad.php:242
 #, php-format
-msgid "Auth_msad: Unable to update user ¥"%s¥""
-msgstr "Auth_msad： ユーザ ¥"%s¥" を更新できません"
+msgid "Auth_msad: Unable to update user \"%s\""
+msgstr "Auth_msad： ユーザ \"%s\" を更新できません"
 
 #: lib/Horde/Auth/smb.php:84
 msgid "Auth_smbauth: Required smbauth extension not found."
@@ -1007,8 +1007,8 @@ msgstr "バービー"
 
 #: util/icon_browser.php:33
 #, php-format
-msgid "Base graphics directory ¥"%s¥" not found."
-msgstr "基本グラフィクスのディレクトリー ¥"%s¥" がありません。"
+msgid "Base graphics directory \"%s\" not found."
+msgstr "基本グラフィクスのディレクトリー \"%s\" がありません。"
 
 #: lib/Horde/NLS/countries.php:30 lib/Horde/NLS/GeoIP.php:63
 #: lib/Horde/NLS/tld.php:50
@@ -1046,8 +1046,8 @@ msgstr "誕生日"
 
 #: lib/Horde/Block/Collection.php:362
 #, php-format
-msgid "Block ¥"%s¥" of application ¥"%s¥" not found."
-msgstr "アプリケーション ¥"%2$s¥" のブロック ¥"%1$s¥" がありません。"
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "アプリケーション \"%2$s\" のブロック \"%1$s\" がありません。"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -1209,8 +1209,8 @@ msgstr "ファイルをコピーできません ? コピー元とコピー先が
 
 #: lib/VFS/ftp.php:324 lib/VFS/ssh2.php:308
 #, php-format
-msgid "Cannot delete file ¥"%s¥"."
-msgstr "ファイル ¥"%s¥" を削除できません。"
+msgid "Cannot delete file \"%s\"."
+msgstr "ファイル \"%s\" を削除できません。"
 
 #: lib/VFS/ISOWriter/RealOutputStrategy/copy.php:52
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:46
@@ -1228,8 +1228,8 @@ msgstr "ファイルを移動できません ? 移動先は移動元の中です
 
 #: lib/File/CSV.php:453
 #, php-format
-msgid "Cannot open file ¥"%s¥"."
-msgstr "ファイル ¥"%s¥" が開けません。"
+msgid "Cannot open file \"%s\"."
+msgstr "ファイル \"%s\" が開けません。"
 
 #: lib/VFS/ISOWriter.php:91
 msgid "Cannot proceed without 'targetFile' parameter."
@@ -1237,8 +1237,8 @@ msgstr "'targetFile' パラメータなしでは続行できません。"
 
 #: lib/VFS/ftp.php:320 lib/VFS/ssh2.php:304
 #, php-format
-msgid "Cannot remove directory ¥"%s¥"."
-msgstr "ディレクトリー ¥"%s¥" を削除できません。"
+msgid "Cannot remove directory \"%s\"."
+msgstr "ディレクトリー \"%s\" を削除できません。"
 
 #: lib/Horde/DataTree.php:122
 #, php-format
@@ -1268,8 +1268,8 @@ msgstr "指定された番号にメッセージを配送できませんでした
 
 #: lib/File/CSV.php:358
 #, php-format
-msgid "Cannot write to file ¥"%s¥""
-msgstr "ファイル ¥"%s¥" に書けません"
+msgid "Cannot write to file \"%s\""
+msgstr "ファイル \"%s\" に書けません"
 
 #: lib/Horde/NLS/countries.php:49 lib/Horde/NLS/GeoIP.php:68
 #: lib/Horde/NLS/tld.php:66
@@ -1621,8 +1621,8 @@ msgstr "圧縮ファイルのコンテントタイプ： %s"
 #: lib/Horde/MIME/Viewer/rar.php:55 lib/Horde/MIME/Viewer/tgz.php:82
 #: lib/Horde/MIME/Viewer/zip.php:62
 #, php-format
-msgid "Contents of ¥"%s¥""
-msgstr "¥"%s¥" の内容"
+msgid "Contents of \"%s\""
+msgstr "\"%s\" の内容"
 
 #: services/changepassword.php:35 services/resetpassword.php:32
 msgid "Continue"
@@ -1704,8 +1704,8 @@ msgstr "LDAP サーバに接続できませんでした。"
 
 #: admin/setup/index.php:46
 #, php-format
-msgid "Could not connect to server ¥"%s¥" using FTP: %s"
-msgstr "FTP でサーバ ¥"%s¥" に接続できませんでした: %s"
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "FTP でサーバ \"%s\" に接続できませんでした: %s"
 
 #: lib/Net/SMS/sms2email_http.php:331
 #, php-format
@@ -1732,8 +1732,8 @@ msgstr "送信先リストが削除できませんでした。%s"
 
 #: admin/setup/scripts.php:39
 #, php-format
-msgid "Could not delete setup upgrade script ¥"%s¥"."
-msgstr "設定更新用スクリプト ¥"%s¥" を削除できませんでした。"
+msgid "Could not delete setup upgrade script \"%s\"."
+msgstr "設定更新用スクリプト \"%s\" を削除できませんでした。"
 
 #: lib/Horde/Crypt/pgp.php:1083 lib/Horde/Crypt/smime.php:381
 msgid "Could not determine the recipient's e-mail address."
@@ -1754,14 +1754,14 @@ msgstr "送信先リストが完全には取得できませんでした。"
 #: lib/VFS/ISOWriter/RealInputStrategy.php:84
 #: lib/VFS/ISOWriter/RealOutputStrategy.php:68
 #, php-format
-msgid "Could not load strategy ¥"%s¥"."
-msgstr "ストラテジー ¥"%s¥" をロードできませんでした。"
+msgid "Could not load strategy \"%s\"."
+msgstr "ストラテジー \"%s\" をロードできませんでした。"
 
 #: lib/VFS/ISOWriter/RealOutputStrategy/direct.php:30
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:110
 #, php-format
-msgid "Could not mkdir ¥"%s¥"."
-msgstr "Mkdir ¥"%s¥" に失敗しました。"
+msgid "Could not mkdir \"%s\"."
+msgstr "Mkdir \"%s\" に失敗しました。"
 
 #: lib/Horde/Crypt/pgp.php:745 lib/Horde/Crypt/pgp.php:841
 msgid "Could not obtain public key from the keyserver."
@@ -1769,8 +1769,8 @@ msgstr "公開鍵を鍵サーバから取得できませんでした。"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
-msgid "Could not open ¥"%s¥" for writing."
-msgstr "¥"%s¥" を書き込み用にオープンできませんでした。"
+msgid "Could not open \"%s\" for writing."
+msgstr "\"%s\" を書き込み用にオープンできませんでした。"
 
 #: lib/Net/SMS/clickatell_http.php:350 lib/Net/SMS/sms2email_http.php:683
 #: lib/Net/SMS/win_http.php:268
@@ -1785,8 +1785,8 @@ msgstr "保守作業モジュール %s を開けませんでした。"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
-msgid "Could not open directory ¥"%s¥"."
-msgstr "ディレクトリー ¥"%s¥" が開けませんでした。"
+msgid "Could not open directory \"%s\"."
+msgstr "ディレクトリー \"%s\" が開けませんでした。"
 
 #: lib/Horde/Group/ldap.php:74 lib/Horde/Group/ldap.php:110
 #: lib/Horde/Group/ldap.php:143 lib/Horde/Group/ldap.php:235
@@ -1854,8 +1854,8 @@ msgstr "設定を元に戻せませんでした。"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:94
 #, php-format
-msgid "Could not rmdir ¥"%s¥"."
-msgstr "¥"%s¥" ディレクトリーが削除できません。"
+msgid "Could not rmdir \"%s\"."
+msgstr "\"%s\" ディレクトリーが削除できません。"
 
 #: admin/setup/scripts.php:74
 #, php-format
@@ -1873,8 +1873,8 @@ msgstr "設定のバックアップを保存できませんでした：%s"
 
 #: admin/setup/scripts.php:102
 #, php-format
-msgid "Could not save setup upgrade script to: ¥"%s¥"."
-msgstr "設定更新用スクリプトを ¥"%s¥" に保存できませんでした。"
+msgid "Could not save setup upgrade script to: \"%s\"."
+msgstr "設定更新用スクリプトを \"%s\" に保存できませんでした。"
 
 #: admin/setup/config.php:65
 #, php-format
@@ -1900,8 +1900,8 @@ msgstr "MSAD サーバが検索できません。"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:86
 #, php-format
-msgid "Could not unlink ¥"%s¥"."
-msgstr "¥"%s¥" を削除(unlink)できませんでした。"
+msgid "Could not unlink \"%s\"."
+msgstr "\"%s\" を削除(unlink)できませんでした。"
 
 #: lib/Net/SMS/sms2email_http.php:228
 #, php-format
@@ -1915,8 +1915,8 @@ msgstr "送信先リストを更新できませんでした。%s"
 
 #: admin/setup/index.php:68
 #, php-format
-msgid "Could not write configuration for ¥"%s¥": %s"
-msgstr "¥"%s¥" の設定が書き込めません：%s"
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "\"%s\" の設定が書き込めません：%s"
 
 #: config/prefs.php.dist:401
 msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
@@ -1925,8 +1925,8 @@ msgstr "Mozilla のサイドバーが見付かりません。サイドバーを�
 #: lib/Horde/IMAP/ACL/rfc2086.php:169
 #, php-format
 msgid ""
-"Couldn't give user ¥"%s¥" the following rights for the folder ¥"%s¥": %s"
-msgstr "ユーザ ¥"%s¥" にフォルダ ¥"%s¥" のアクセス権を付与できません：%s"
+"Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"
+msgstr "ユーザ \"%s\" にフォルダ \"%s\" のアクセス権を付与できません：%s"
 
 #: lib/Horde/Form.php:1422
 msgid "Counted text"
@@ -2154,8 +2154,8 @@ msgstr "削除"
 
 #: admin/alarms.php:135 admin/groups.php:238
 #, php-format
-msgid "Delete ¥"%s¥""
-msgstr "¥"%s¥" を削除"
+msgid "Delete \"%s\""
+msgstr "\"%s\" を削除"
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:67
 msgid "Delete Folders"
@@ -2179,13 +2179,13 @@ msgstr "メッセージを削除"
 
 #: lib/Horde/Perms/UI.php:426
 #, php-format
-msgid "Delete permissions for ¥"%s¥""
-msgstr "¥"%s¥" のアクセス権を削除"
+msgid "Delete permissions for \"%s\""
+msgstr "\"%s\" のアクセス権を削除"
 
 #: lib/Horde/Perms/UI.php:429
 #, php-format
-msgid "Delete permissions for ¥"%s¥" and any sub-permissions?"
-msgstr "¥"%s¥" のアクセス権とそのサブアクセス権を全て削除しますか？"
+msgid "Delete permissions for \"%s\" and any sub-permissions?"
+msgstr "\"%s\" のアクセス権とそのサブアクセス権を全て削除しますか？"
 
 #: templates/prefs/deleteidentity.inc:15
 msgid "Delete selected identity"
@@ -2201,8 +2201,8 @@ msgstr "削除／清掃"
 
 #: admin/setup/scripts.php:37
 #, php-format
-msgid "Deleted setup upgrade script ¥"%s¥"."
-msgstr "設定更新用スクリプト ¥"%s¥" を削除しました。"
+msgid "Deleted setup upgrade script \"%s\"."
+msgstr "設定更新用スクリプト \"%s\" を削除しました。"
 
 #: lib/Net/SMS/clickatell_http.php:229 lib/Net/SMS/clickatell_http.php:261
 #: lib/Net/SMS/sms2email_http.php:572 lib/Net/SMS/sms2email_http.php:604
@@ -2375,8 +2375,8 @@ msgstr "編集"
 
 #: admin/alarms.php:104
 #, php-format
-msgid "Edit ¥"%s¥""
-msgstr "¥"%s¥" を編集"
+msgid "Edit \"%s\""
+msgstr "\"%s\" を編集"
 
 #: lib/Horde/Block/UI.php:50
 msgid "Edit Block"
@@ -2401,8 +2401,8 @@ msgstr "アクセス権の編集"
 #: lib/Horde/Perms/UI.php:366 services/shares/edit.php:266
 #: templates/shares/edit.inc:14
 #, php-format
-msgid "Edit permissions for ¥"%s¥""
-msgstr "¥"%s¥" のアクセス権の編集"
+msgid "Edit permissions for \"%s\""
+msgstr "\"%s\" のアクセス権の編集"
 
 #: lib/Block/fortune.php:40
 msgid "Education"
@@ -2518,18 +2518,18 @@ msgstr "同期ログの削除エラー: %s"
 
 #: lib/Horde/Kolab/LDAP.php:193
 #, php-format
-msgid "Error searching for user with the ID ¥"%s¥"!"
-msgstr "ID ¥"%s¥" によるユーザ検索エラー！"
+msgid "Error searching for user with the ID \"%s\"!"
+msgstr "ID \"%s\" によるユーザ検索エラー！"
 
 #: lib/Horde/Kolab/LDAP.php:171
 #, php-format
-msgid "Error searching for user with the email address ¥"%s¥"!"
-msgstr "メールアドレス ¥"%s¥" によるユーザ検索エラー！"
+msgid "Error searching for user with the email address \"%s\"!"
+msgstr "メールアドレス \"%s\" によるユーザ検索エラー！"
 
 #: lib/Horde/Kolab/LDAP.php:260
 #, php-format
-msgid "Error searching for user with the uid ¥"%s¥"!"
-msgstr "UID ¥"%s¥" によるユーザ検索エラー！"
+msgid "Error searching for user with the uid \"%s\"!"
+msgstr "UID \"%s\" によるユーザ検索エラー！"
 
 #: lib/Net/SMS/generic_smpp.php:139
 msgid "Error sending PDU"
@@ -2551,8 +2551,8 @@ msgstr "メールのエラーです。"
 
 #: lib/VFS/ISOWriter/RealInputStrategy/copy.php:142
 #, php-format
-msgid "Error writing ¥"%s¥"."
-msgstr "¥"%s¥" の書き込みエラーです。"
+msgid "Error writing \"%s\"."
+msgstr "\"%s\" の書き込みエラーです。"
 
 #: lib/Horde/NLS/countries.php:77 lib/Horde/NLS/GeoIP.php:70
 #: lib/Horde/NLS/tld.php:77
@@ -2677,13 +2677,13 @@ msgstr "SMB サーバに接続できませんでした。"
 
 #: lib/VFS/ftp.php:740 lib/VFS/ssh2.php:707
 #, php-format
-msgid "Failed to copy from ¥"%s¥"."
-msgstr "¥"%s¥" からのコピーに失敗しました。"
+msgid "Failed to copy from \"%s\"."
+msgstr "\"%s\" からのコピーに失敗しました。"
 
 #: lib/VFS/ftp.php:745 lib/VFS/ssh2.php:712
 #, php-format
-msgid "Failed to copy to ¥"%s¥"."
-msgstr "¥"%s¥" へのコピーに失敗しました。"
+msgid "Failed to copy to \"%s\"."
+msgstr "\"%s\" へのコピーに失敗しました。"
 
 #: lib/Horde/Auth/peclsasl.php:89
 msgid "Failed to create new SASL connection."
@@ -2701,8 +2701,8 @@ msgstr "Kolab XML ドライバー %s のロードに失敗しました。"
 
 #: lib/VFS/ftp.php:794 lib/VFS/smb.php:510 lib/VFS/ssh2.php:763
 #, php-format
-msgid "Failed to move to ¥"%s¥"."
-msgstr "¥"%s¥" への移動に失敗しました。"
+msgid "Failed to move to \"%s\"."
+msgstr "\"%s\" への移動に失敗しました。"
 
 #: lib/VFS/smb.php:459
 #, php-format
@@ -2836,8 +2836,8 @@ msgstr "濃霧"
 
 #: lib/VFS/musql.php:106 lib/VFS/sql.php:289
 #, php-format
-msgid "Folder ¥"%s¥" does not exist"
-msgstr "フォルダー ¥"%s¥" がありません"
+msgid "Folder \"%s\" does not exist"
+msgstr "フォルダー \"%s\" がありません"
 
 #: lib/Horde/Kolab/Freebusy.php:112
 #, php-format
@@ -2846,8 +2846,8 @@ msgstr "フォルダー %s がありません！"
 
 #: lib/Horde/Kolab/Freebusy.php:116
 #, php-format
-msgid "Folder %s has type ¥"%s¥" not ¥"event¥"!"
-msgstr "フォルダー %s は ¥"%s¥" であって、¥"event¥" ではありません！"
+msgid "Folder %s has type \"%s\" not \"event\"!"
+msgstr "フォルダー %s は \"%s\" であって、\"event\" ではありません！"
 
 #: lib/Horde/Form.php:4075
 msgid "Font"
@@ -3059,27 +3059,27 @@ msgstr "グループは作成されませんでした: %s."
 
 #: lib/Horde/Group/ldap.php:305
 #, php-format
-msgid "Group_ldap: Unable to add group ¥"%s¥". This is what the server said: "
-msgstr "Group_ldap: グループ ¥"%s¥" を追加できません。サーバの応答: "
+msgid "Group_ldap: Unable to add group \"%s\". This is what the server said: "
+msgstr "Group_ldap: グループ \"%s\" を追加できません。サーバの応答: "
 
 #: lib/Horde/Group/ldap.php:117 lib/Horde/Group/ldap.php:123
 #: lib/Horde/Group/ldap.php:419
 #, php-format
 msgid ""
-"Group_ldap: Unable to delete group ¥"%s¥". This is what the server said: %s"
-msgstr "Group_ldap: グループ ¥"%s¥" を削除できません。サーバの応答: %s"
+"Group_ldap: Unable to delete group \"%s\". This is what the server said: %s"
+msgstr "Group_ldap: グループ \"%s\" を削除できません。サーバの応答: %s"
 
 #: lib/Horde/Group/ldap.php:380
 #, php-format
 msgid ""
-"Group_ldap: Unable to update group ¥"%s¥". This is what the server said: "
-msgstr "Group_ldap: グループ ¥"%s¥" を更新できません。サーバの応答: "
+"Group_ldap: Unable to update group \"%s\". This is what the server said: "
+msgstr "Group_ldap: グループ \"%s\" を更新できません。サーバの応答: "
 
 #: lib/Horde/Group/ldap.php:336
 #, php-format
 msgid ""
-"Group_ldap: Unable to update group ¥"%s¥". This is what the server said: %s"
-msgstr "Group_ldap: グループ ¥"%s¥" を更新できません。サーバの応答: %s "
+"Group_ldap: Unable to update group \"%s\". This is what the server said: %s"
+msgstr "Group_ldap: グループ \"%s\" を更新できません。サーバの応答: %s "
 
 #: admin/groups.php:246 lib/Horde/Perms/UI.php:313
 #: templates/shares/edit.inc:258
@@ -3413,8 +3413,8 @@ msgstr "インポートされたフィールド："
 msgid ""
 "In the lists below select both, a field imported from the source file at the "
 "left, and the matching field available in your address book at the right. "
-"Then hit ¥"Add pair¥" to mark them for the import. Once your are finished "
-"hit ¥"Next¥"."
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
 msgstr ""
 "以下のリストは、左側にファイルからインポートされた項目が、右側にアドレス帳で"
 "使用可能な項目が並んでいますので、それぞれから１つづつクリックし、「ペアを追"
@@ -3596,8 +3596,8 @@ msgstr "不正なプロトコルです。"
 #: lib/Net/SMS/sms2email_http.php:102 lib/Net/SMS/win_http.php:80
 #: lib/Net/SMS/win_http.php:89
 #, php-format
-msgid "Invalid recipient: ¥"%s¥""
-msgstr "不正な受信者です：¥"%s¥""
+msgid "Invalid recipient: \"%s\""
+msgstr "不正な受信者です：\"%s\""
 
 #: admin/setup/index.php:93
 msgid "Invalid response from server."
@@ -4322,8 +4322,8 @@ msgstr "メソッド"
 #: lib/Horde/RPC/phpgw.php:80 lib/Horde/RPC/phpgw.php:81
 #: lib/Horde/RPC/soap.php:111
 #, php-format
-msgid "Method ¥"%s¥" is not defined"
-msgstr "メソッド ¥"%s¥" は定義されてません"
+msgid "Method \"%s\" is not defined"
+msgstr "メソッド \"%s\" は定義されてません"
 
 #: lib/Horde/NLS/countries.php:148 lib/Horde/NLS/GeoIP.php:95
 #: lib/Horde/NLS/tld.php:170
@@ -5292,8 +5292,8 @@ msgstr "アクセス権"
 
 #: admin/perms/delete.php:53
 #, php-format
-msgid "Permission ¥"%s¥" not deleted."
-msgstr "アクセス権 ¥"%s¥" は削除されませんでした。"
+msgid "Permission \"%s\" not deleted."
+msgstr "アクセス権 \"%s\" は削除されませんでした。"
 
 #: lib/VFS/smb.php:583
 msgid "Permission Denied"
@@ -5597,15 +5597,15 @@ msgstr "メッセージを読む"
 
 #: templates/admin/user/remove.inc:8
 #, php-format
-msgid "Really delete ¥"%s¥"? This operation cannot be undone."
-msgstr "本当に ¥"%s¥" を削除しますか? この操作は元に戻せません。"
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "本当に \"%s\" を削除しますか? この操作は元に戻せません。"
 
 #: templates/admin/user/clear.inc:8
 #, php-format
 msgid ""
-"Really remove user data for user ¥"%s¥"? This operation cannot be undone."
+"Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"本当にユーザ ¥"%s¥" のデータを削除しますか？ この操作は取り消せません。"
+"本当にユーザ \"%s\" のデータを削除しますか？ この操作は取り消せません。"
 
 #: admin/sessions.php:54
 msgid "Realm:"
@@ -5689,19 +5689,19 @@ msgstr "要求されたサービスは見つかりませんでした。"
 
 #: lib/Horde.php:197 lib/Horde.php:551
 #, php-format
-msgid "Required ¥"%s¥" not specified in %s configuration."
-msgstr "要求された ¥"%s¥" は %s の設定に指定されていません。"
+msgid "Required \"%s\" not specified in %s configuration."
+msgstr "要求された \"%s\" は %s の設定に指定されていません。"
 
 #: lib/VFS/ftp.php:881 lib/VFS/sql.php:768 lib/VFS/sql_file.php:748
 #: lib/VFS/ssh2.php:869
 #, php-format
-msgid "Required ¥"%s¥" not specified in VFS configuration."
-msgstr "要求された ¥"%s¥" は VFS 設定に指定されていません。"
+msgid "Required \"%s\" not specified in VFS configuration."
+msgstr "要求された \"%s\" は VFS 設定に指定されていません。"
 
 #: lib/Horde/Util.php:796
 #, php-format
-msgid "Required ¥"%s¥" not specified in configuration."
-msgstr "要求された ¥"%s¥" は設定に指定されていません。"
+msgid "Required \"%s\" not specified in configuration."
+msgstr "要求された \"%s\" は設定に指定されていません。"
 
 #: lib/Horde/Form/Renderer.php:334
 msgid "Required Field"
@@ -5912,8 +5912,8 @@ msgstr "保存"
 
 #: templates/shares/edit.inc:322 templates/admin/groups/edit.inc:59
 #, php-format
-msgid "Save ¥"%s¥""
-msgstr "¥"%s¥" を保存"
+msgid "Save \"%s\""
+msgstr "\"%s\" を保存"
 
 #: templates/prefs/end.inc:2
 msgid "Save Options"
@@ -5937,8 +5937,8 @@ msgstr "%s 設定を保存しました。"
 
 #: admin/setup/scripts.php:100
 #, php-format
-msgid "Saved setup upgrade script to: ¥"%s¥"."
-msgstr "設定更新用スクリプト ¥"%s¥" を保存しました。"
+msgid "Saved setup upgrade script to: \"%s\"."
+msgstr "設定更新用スクリプト \"%s\" を保存しました。"
 
 #: lib/Block/weatherdotcom_strings.php:65
 msgid "Scattered Showers"
@@ -6160,13 +6160,13 @@ msgstr "セーシェル共和国"
 
 #: lib/Horde/Share/kolab.php:129
 #, php-format
-msgid "Share ¥"%s¥" does not exist."
-msgstr "共有 ¥"%s¥" がありません。"
+msgid "Share \"%s\" does not exist."
+msgstr "共有 \"%s\" がありません。"
 
 #: lib/Horde/Share/kolab.php:181
 #, php-format
-msgid "Share ID ¥"%s¥" not found."
-msgstr "共有ID ¥"%s¥" が見つかりません。"
+msgid "Share ID \"%s\" not found."
+msgstr "共有ID \"%s\" が見つかりません。"
 
 #: lib/Horde/Auth/shibboleth.php:65
 msgid "Shibboleth authentication not available."
@@ -6451,8 +6451,8 @@ msgstr "日"
 
 #: util/icon_browser.php:39
 #, php-format
-msgid "Subdirectory ¥"%s¥" not found."
-msgstr "サブディレクトリ ¥"%s¥" がありません。"
+msgid "Subdirectory \"%s\" not found."
+msgstr "サブディレクトリ \"%s\" がありません。"
 
 #: lib/Horde/MIME/Viewer/rfc822.php:74
 msgid "Subject"
@@ -6465,10 +6465,10 @@ msgstr "実行"
 #: signup.php:47
 #, php-format
 msgid ""
-"Submitted request to add ¥"%s¥" to the system. You cannot log in until your "
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"システムへ　¥"%s¥"　の追加要求を送信しました。要求が受理されるまでログインは"
+"システムへ　\"%s\"　の追加要求を送信しました。要求が受理されるまでログインは"
 "できません。"
 
 #: admin/sqlshell.php:106 lib/Horde/Notification/Listener/status.php:28
@@ -6477,23 +6477,23 @@ msgstr "成功"
 
 #: admin/user.php:94
 #, php-format
-msgid "Successfully added ¥"%s¥" to the system."
-msgstr "¥"%s¥" はシステムに追加されました。"
+msgid "Successfully added \"%s\" to the system."
+msgstr "\"%s\" はシステムに追加されました。"
 
 #: admin/user.php:133
 #, php-format
-msgid "Successfully cleared data for user ¥"%s¥" from the system."
-msgstr "¥"%s¥" がシステムから削除されました。"
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr "\"%s\" がシステムから削除されました。"
 
 #: admin/groups.php:86 admin/perms/delete.php:47
 #, php-format
-msgid "Successfully deleted ¥"%s¥"."
-msgstr "¥"%s¥" が削除されました。"
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" が削除されました。"
 
 #: admin/user.php:114
 #, php-format
-msgid "Successfully removed ¥"%s¥" from the system."
-msgstr "¥"%s¥" がシステムから削除されました。"
+msgid "Successfully removed \"%s\" from the system."
+msgstr "\"%s\" がシステムから削除されました。"
 
 #: admin/setup/config.php:52
 msgid "Successfully reverted configuration. Reload to see changes."
@@ -6510,8 +6510,8 @@ msgstr "設定ファイルのバックアップ %s は正常に保存されま�
 
 #: admin/user.php:178
 #, php-format
-msgid "Successfully updated ¥"%s¥""
-msgstr "¥"%s¥" は正常に更新されました"
+msgid "Successfully updated \"%s\""
+msgstr "\"%s\" は正常に更新されました"
 
 #: admin/setup/config.php:72 admin/setup/index.php:70
 #, php-format
@@ -6690,8 +6690,8 @@ msgstr "気温<br />(%sHi%s/%sLo%s) &deg;%s"
 
 #: lib/Horde/Template.php:472
 #, php-format
-msgid "Template ¥"%s¥" not found."
-msgstr "テンプレート ¥"%s¥" がありません。"
+msgid "Template \"%s\" not found."
+msgstr "テンプレート \"%s\" がありません。"
 
 #: lib/Horde/Form.php:1200 lib/Horde/Form.php:4054 lib/Horde/Form.php:4073
 msgid "Text"
@@ -6728,8 +6728,8 @@ msgstr "履歴システムは無効になっています。"
 
 #: lib/Horde/Kolab.php:720
 #, php-format
-msgid "The Horde/Kolab integration engine does not support ¥"%s¥""
-msgstr "Horde/Kolab 統合エンジンは ¥"%s¥" をサポートしません"
+msgid "The Horde/Kolab integration engine does not support \"%s\""
+msgstr "Horde/Kolab 統合エンジンは \"%s\" をサポートしません"
 
 #: lib/Net/IMSP/Book.php:1298
 msgid "The IMSP log could not be initialized."
@@ -6832,8 +6832,8 @@ msgstr "以下のアプリケーションはユーザデータ削除中にエラ
 
 #: services/prefs.php:125
 #, php-format
-msgid "The identity ¥"%s¥" has been deleted."
-msgstr "ID ¥"%s¥" は削除されました。"
+msgid "The identity \"%s\" has been deleted."
+msgstr "ID \"%s\" は削除されました。"
 
 #: lib/Horde/Form.php:1701
 msgid ""
@@ -6855,11 +6855,11 @@ msgstr ""
 #: lib/Horde/MIME/MDN.php:195
 #, php-format
 msgid ""
-"The message sent on %s to %s with subject ¥"%s¥" has been displayed.¥n"
-"¥n"
+"The message sent on %s to %s with subject \"%s\" has been displayed.\n"
+"\n"
 "This is no guarantee that the message has been read or understood."
 msgstr ""
-"日付：%s、宛先：%s、件名：¥"%s¥" のメッセージが表示されました。¥n"
+"日付：%s、宛先：%s、件名：\"%s\" のメッセージが表示されました。\n"
 "しかし、相手に読まれたか、あるいは了解されたかは保証できません。"
 
 #: lib/Horde/Form.php:2222
@@ -6881,10 +6881,10 @@ msgstr "Horde_Crypt_smimeクラスにはopensslモジュールが必要です。
 #: lib/Horde/Prefs.php:243
 #, php-format
 msgid ""
-"The preference ¥"%s¥" could not be saved because its data exceeded the "
+"The preference \"%s\" could not be saved because its data exceeded the "
 "maximum allowable size"
 msgstr ""
-"プレファレンス¥"%s¥"はデータがサイズ制限を越えたため保存できませんでした."
+"プレファレンス\"%s\"はデータがサイズ制限を越えたため保存できませんでした."
 
 #: lib/Horde/Prefs/imsp.php:90 lib/Horde/Prefs/ldap.php:318
 #: lib/Horde/Prefs/sql.php:135
@@ -6922,13 +6922,13 @@ msgstr "区切り符は１文字でなければなりません。"
 
 #: services/portal/rpcsum.php:80
 #, php-format
-msgid "The server ¥"%s¥" has been deleted."
-msgstr "サーバ ¥"%s¥" は削除されました。"
+msgid "The server \"%s\" has been deleted."
+msgstr "サーバ \"%s\" は削除されました。"
 
 #: services/portal/rpcsum.php:51
 #, php-format
-msgid "The server ¥"%s¥" has been saved."
-msgstr "サーバ ¥"%s¥" は保存されました。"
+msgid "The server \"%s\" has been saved."
+msgstr "サーバ \"%s\" は保存されました。"
 
 #: lib/Block/vatid.php:71
 msgid "The service is currently not available. Try again later."
@@ -6940,8 +6940,8 @@ msgstr "このサービスは現在混んでいます。後で再度試して下
 
 #: admin/user.php:208
 #, php-format
-msgid "The signup request for ¥"%s¥" has been removed."
-msgstr "¥"%s¥" へのサインアップ要求は削除されました。"
+msgid "The signup request for \"%s\" has been removed."
+msgstr "\"%s\" へのサインアップ要求は削除されました。"
 
 #: lib/Horde/Block/Layout/Manager.php:468
 #, php-format
@@ -6962,8 +6962,8 @@ msgstr "アップロードデータを保存できませんでした。"
 
 #: admin/user.php:72
 #, php-format
-msgid "The user ¥"%s¥" already exists."
-msgstr "ユーザ　¥"%s¥" は既に存在します。"
+msgid "The user \"%s\" already exists."
+msgstr "ユーザ　\"%s\" は既に存在します。"
 
 #: lib/Block/weatherdotcom.php:54 lib/Block/weatherdotcom.php:115
 msgid "The weather.com block is not available."
@@ -6971,8 +6971,8 @@ msgstr "weather.com ブロックがありません。"
 
 #: util/icon_browser.php:27
 #, php-format
-msgid "Themes directory ¥"%s¥" not found."
-msgstr "テーマディレクトリー ¥"%s¥" がありません。"
+msgid "Themes directory \"%s\" not found."
+msgstr "テーマディレクトリー \"%s\" がありません。"
 
 #: lib/Horde/Identity.php:445 lib/Horde/Identity.php:449
 msgid "There are no email addresses to confirm."
@@ -6996,23 +6996,23 @@ msgstr[0] "文字数がこのフィールドに多過ぎます。%d の文字が
 
 #: signup.php:52 signup.php:54 admin/user.php:82
 #, php-format
-msgid "There was a problem adding ¥"%s¥" to the system: %s"
-msgstr "¥"%s¥" をシステムへ追加中に問題が発生しました: %s"
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "\"%s\" をシステムへ追加中に問題が発生しました: %s"
 
 #: admin/user.php:131
 #, php-format
-msgid "There was a problem clearing data for user ¥"%s¥" from the system: "
-msgstr "ユーザ ¥"%s¥" のデータをシステムから消去中に問題が発生しました:"
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr "ユーザ \"%s\" のデータをシステムから消去中に問題が発生しました:"
 
 #: admin/user.php:112
 #, php-format
-msgid "There was a problem removing ¥"%s¥" from the system: "
-msgstr "¥"%s¥" をシステムから削除中に問題が発生しました:"
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "\"%s\" をシステムから削除中に問題が発生しました:"
 
 #: admin/user.php:169
 #, php-format
-msgid "There was a problem updating ¥"%s¥": %s"
-msgstr "¥"%s¥" を更新中に問題が発生しました: %s"
+msgid "There was a problem updating \"%s\": %s"
+msgstr "\"%s\" を更新中に問題が発生しました: %s"
 
 #: lib/Horde/Browser.php:971
 #, php-format
@@ -7269,7 +7269,7 @@ msgstr "To"
 #: templates/data/csvmap.inc:95
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
-"select a field in the lists below and hit ¥"Remove pair¥"."
+"select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
 "インポートの中から除外する項目、あるいは間違った項目があるなら「ペアを削除」"
 "をクリックして下さい。"
@@ -7401,8 +7401,8 @@ msgstr "LDAP サーバ %s にバインドできませんでした。"
 
 #: lib/VFS/ftp.php:397 lib/VFS/ssh2.php:382
 #, php-format
-msgid "Unable to change permission for VFS file ¥"%s¥"."
-msgstr "VFS ファイル ¥"%s¥" のアクセス権は変更できません。"
+msgid "Unable to change permission for VFS file \"%s\"."
+msgstr "VFS ファイル \"%s\" のアクセス権は変更できません。"
 
 #: lib/VFS/file.php:412 lib/VFS/musql.php:479
 #, php-format
@@ -7416,13 +7416,13 @@ msgstr "%s に変更できません。"
 
 #: lib/VFS/ftp.php:106 lib/VFS/ssh2.php:100
 #, php-format
-msgid "Unable to check file size of ¥"%s¥"."
-msgstr "ファイル ¥"%s¥" のサイズがチェックきません。"
+msgid "Unable to check file size of \"%s\"."
+msgstr "ファイル \"%s\" のサイズがチェックきません。"
 
 #: lib/VFS/file.php:65 lib/VFS/sql.php:116
 #, php-format
-msgid "Unable to check file size of ¥"%s/%s¥"."
-msgstr "ファイル ¥"%s/%s¥" のサイズがチェックできません。"
+msgid "Unable to check file size of \"%s/%s\"."
+msgstr "ファイル \"%s/%s\" のサイズがチェックできません。"
 
 #: lib/VFS/ftp.php:890
 msgid "Unable to connect with SSL."
@@ -7435,8 +7435,8 @@ msgstr "VFS ファイルをコピーできません。"
 
 #: lib/VFS/ftp.php:374 lib/VFS/ssh2.php:359
 #, php-format
-msgid "Unable to create VFS directory ¥"%s¥"."
-msgstr "VFS ディレクトリ ¥"%s¥" を作成できません。"
+msgid "Unable to create VFS directory \"%s\"."
+msgstr "VFS ディレクトリ \"%s\" を作成できません。"
 
 #: lib/VFS/file.php:381 lib/VFS/musql.php:269 lib/VFS/sql_file.php:262
 msgid "Unable to create VFS directory."
@@ -7448,8 +7448,8 @@ msgstr "VFS ファイルを作成できません。"
 
 #: lib/VFS/smb.php:289
 #, php-format
-msgid "Unable to create VFS folder ¥"%s¥"."
-msgstr "VFS ディレクトリ ¥"%s¥" を作成できません。"
+msgid "Unable to create VFS folder \"%s\"."
+msgstr "VFS ディレクトリ \"%s\" を作成できません。"
 
 #: lib/Horde/RPC/webdav.php:233
 #, php-format
@@ -7467,13 +7467,13 @@ msgstr "データを圧縮できません。"
 
 #: lib/VFS/ftp.php:304 lib/VFS/smb.php:217 lib/VFS/ssh2.php:289
 #, php-format
-msgid "Unable to delete ¥"%s¥", the directory is not empty."
-msgstr "¥"%s¥"を削除できません. ディレクトリが空ではありません。"
+msgid "Unable to delete \"%s\", the directory is not empty."
+msgstr "\"%s\"を削除できません. ディレクトリが空ではありません。"
 
 #: admin/groups.php:84 admin/perms/delete.php:45
 #, php-format
-msgid "Unable to delete ¥"%s¥": %s."
-msgstr "¥"%s¥"を削除できません: %s."
+msgid "Unable to delete \"%s\": %s."
+msgstr "\"%s\"を削除できません: %s."
 
 #: lib/VFS/file.php:358 lib/VFS/musql.php:322 lib/VFS/sql.php:460
 #: lib/VFS/sql_file.php:358
@@ -7497,8 +7497,8 @@ msgstr "VFS ディレクトリを削除できません：%s"
 
 #: lib/VFS/ftp.php:238 lib/VFS/ssh2.php:230
 #, php-format
-msgid "Unable to delete VFS file ¥"%s¥"."
-msgstr "VFS ファイル ¥"%s¥" を削除できません。"
+msgid "Unable to delete VFS file \"%s\"."
+msgstr "VFS ファイル \"%s\" を削除できません。"
 
 #: lib/VFS/file.php:330 lib/VFS/musql.php:166 lib/VFS/musql.php:179
 #: lib/VFS/musql.php:186 lib/VFS/sql.php:344 lib/VFS/sql_file.php:407
@@ -7508,8 +7508,8 @@ msgstr "VFS ファイルを削除できません。"
 
 #: lib/VFS/smb.php:237
 #, php-format
-msgid "Unable to delete VFS folder ¥"%s¥"."
-msgstr "VFS ディレクトリ ¥"%s¥" を削除できません。"
+msgid "Unable to delete VFS folder \"%s\"."
+msgstr "VFS ディレクトリ \"%s\" を削除できません。"
 
 #: lib/VFS/sql.php:474
 #, php-format
@@ -7541,8 +7541,8 @@ msgstr "VFS ファイルが移動できません。"
 #: lib/VFS/ftp.php:131 lib/VFS/smb.php:93 lib/VFS/smb.php:101
 #: lib/VFS/smb.php:645 lib/VFS/ssh2.php:123
 #, php-format
-msgid "Unable to open VFS file ¥"%s¥"."
-msgstr "VFS ファイル ¥"%s¥" が開けません。"
+msgid "Unable to open VFS file \"%s\"."
+msgstr "VFS ファイル \"%s\" が開けません。"
 
 #: lib/VFS/file.php:304 lib/VFS/sql_file.php:109 lib/VFS/sql_file.php:112
 msgid "Unable to open VFS file for writing."
@@ -7596,8 +7596,8 @@ msgstr "VFS ディレクトリーの名前を変更できません：%s"
 
 #: lib/VFS/ftp.php:352 lib/VFS/smb.php:266 lib/VFS/ssh2.php:337
 #, php-format
-msgid "Unable to rename VFS file ¥"%s¥"."
-msgstr "VFS ファイル ¥"%s¥" の名前を変更できません。"
+msgid "Unable to rename VFS file \"%s\"."
+msgstr "VFS ファイル \"%s\" の名前を変更できません。"
 
 #: lib/VFS/file.php:645 lib/VFS/musql.php:240
 #, php-format
@@ -7633,8 +7633,8 @@ msgstr "URL %2$s のフォルダー %1$s の予定情報を更新させること
 #: lib/VFS/ftp.php:180 lib/VFS/ftp.php:183 lib/VFS/ssh2.php:168
 #: lib/VFS/ssh2.php:171
 #, php-format
-msgid "Unable to write VFS file ¥"%s¥"."
-msgstr "VFS ファイル ¥"%s¥" に書けません。"
+msgid "Unable to write VFS file \"%s\"."
+msgstr "VFS ファイル \"%s\" に書けません。"
 
 #: lib/VFS/file.php:177
 msgid "Unable to write VFS file (copy() failed)."
@@ -7746,8 +7746,8 @@ msgstr "ユーザを更新する"
 
 #: admin/groups.php:150 admin/perms/edit.php:103 services/shares/edit.php:254
 #, php-format
-msgid "Updated ¥"%s¥"."
-msgstr "¥"%s¥" を更新しました。"
+msgid "Updated \"%s\"."
+msgstr "\"%s\" を更新しました。"
 
 #: admin/setup/scripts.php:90
 msgid "Upgrade script deleted."
@@ -7822,8 +7822,8 @@ msgstr "ユーザ名"
 
 #: lib/Horde/Auth/Signup.php:111
 #, php-format
-msgid "Username ¥"%s¥" already exists."
-msgstr "ユーザ名 ¥"%s¥" は既にあります。"
+msgid "Username \"%s\" already exists."
+msgstr "ユーザ名 \"%s\" は既にあります。"
 
 #: templates/rpcsum/rpcsum.inc:78
 msgid "Username:"
@@ -8204,8 +8204,8 @@ msgid "You are not authenticated."
 msgstr "あなたは認証されていません。"
 
 #: lib/Horde/Identity.php:332
-msgid "You cannot have the '¥¥' character in your full name."
-msgstr "名前の中に '¥¥' という文字は使えません。"
+msgid "You cannot have the '\\' character in your full name."
+msgstr "名前の中に '\\' という文字は使えません。"
 
 #: lib/Horde/RPC/phpgw.php:109
 msgid "You did not authenticate."
@@ -8229,20 +8229,20 @@ msgstr "ログアウトしました."
 #: lib/Horde/Identity.php:394
 #, php-format
 msgid ""
-"You have requested to add the email address ¥"%s¥" to the list of your "
-"personal email addresses.¥n"
-"¥n"
-"Go to the following link to confirm that this is really your address:¥n"
-"%s¥n"
-"¥n"
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
 "If you don't know what this message means, you can delete it."
 msgstr ""
-"あなたはメールアドレス ¥"%s¥" をあなた個人のメールアドレスとして登録するよう"
-"に要求しました。¥n"
-"¥n"
-"次のリンクで、本当にあなたのメールアドレスかどうを確認して下さい：¥n"
-"%s¥n"
-"¥n"
+"あなたはメールアドレス \"%s\" をあなた個人のメールアドレスとして登録するよう"
+"に要求しました。\n"
+"\n"
+"次のリンクで、本当にあなたのメールアドレスかどうを確認して下さい：\n"
+"%s\n"
+"\n"
 "もしもこのメッセージに心当たりがないなら、このメッセージを削除して下さい。"
 
 #: lib/Horde/Auth/Signup.php:37
@@ -8281,8 +8281,8 @@ msgstr "少なくとも１つの電子メールアドレスを入力して下さ
 
 #: lib/Horde/Prefs/UI.php:149
 #, php-format
-msgid "You must provide a setting for ¥"%s¥"."
-msgstr "¥"%s¥" の設定をして下さい。"
+msgid "You must provide a setting for \"%s\"."
+msgstr "\"%s\" の設定をして下さい。"
 
 #: services/portal/rpcsum.php:82
 msgid "You must select an server to be deleted."
