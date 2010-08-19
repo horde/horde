@@ -1,5 +1,5 @@
 # Trean Traditional Chinese Translation.
-# Copyright 2002 Chih-Wei Yeh 
+# Copyright 2002 Chih-Wei Yeh
 # Chih-Wei Yeh <cwyeh@ccca.nctu.edu.tw>
 # David Chang <david@tmv.gov.tw>, 2005.
 #

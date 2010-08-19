@@ -1,4 +1,4 @@
-# INGO ESTONIAN TRANSLATION 
+# INGO ESTONIAN TRANSLATION
 #
 # Toomas Aas <toomas.aas@mail.ee>, 2006
 msgid ""

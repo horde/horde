@@ -1,4 +1,4 @@
-# HORDE ESTONIAN TRANSLATION 
+# HORDE ESTONIAN TRANSLATION
 #
 # Toomas Aas <toomas.aas@mail.ee>, 2002 - 2006
 #

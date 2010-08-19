@@ -1,7 +1,7 @@
 # Turba Dutch translation.
 # Copyright 2001 Jan Kuipers.
 # Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
-# Updated Han Spruyt 2005. 
+# Updated Han Spruyt 2005.
 #
 msgid ""
 msgstr ""

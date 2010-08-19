@@ -7495,7 +7495,7 @@ msgstr "Konfiguration"
 msgid "Setup upgrade scripts available"
 msgstr "Aktualisierungsskripte sind verfügbar"
 
-# Mehrere passende Orte mit diesem Parameter: 
+# Mehrere passende Orte mit diesem Parameter:
 #: lib/Block/weatherdotcom.php:190
 msgid "Several locations possible with the parameter: "
 msgstr "Mehrere passende Orte mit diesem Parameter: "

@@ -1,5 +1,5 @@
 # Nag Russian translation.
-# Copyright 
+# Copyright
 # Ignat Ikryanov <iignat@newmail.ru>, 2001.
 # Alexey Zakharov <baber@mosga.net>, 2008
 msgid ""
