@@ -1458,6 +1458,7 @@ ViewPort_Buffer = Class.create({
 
     initialize: function(vp, view)
     {
+        this.id = 0;
         this.vp = vp;
         this.view = view;
         this.clear();
@@ -1562,7 +1563,9 @@ ViewPort_Buffer = Class.create({
             if (!Object.isUndefined(e)) {
                 // We can directly write the rownum to the original object
                 // since we will always rewrite when creating rows.
-                e.VP_domid = 'VProw' + this.view + '_' + u;
+                if (!e.VP_domid) {
+                    e.VP_domid = 'VProw_' + (++this.id);
+                }
                 e.VP_rownum = this.uidlist.get(u);
                 e.VP_id = u;
                 return e;
@@ -1729,7 +1732,7 @@ ViewPort_Selection = Class.create({
             // Fall-through
 
         case 'domid':
-            return d.invoke('substring', 6 + this.buffer.getView().length);
+            return this._search({ VP_domid: { equal: d } }, this.buffer.getData(this.buffer.getAllUIDs())).get('uid');
 
         case 'rownum':
             return this.buffer.rowsToUIDs(d);
@@ -1781,7 +1784,12 @@ ViewPort_Selection = Class.create({
     //   regex - Matches the RegExp contained in the query.
     search: function(params)
     {
-        return new ViewPort_Selection(this.buffer, 'uid', this.get('dataob').findAll(function(i) {
+        return this._search(params, this.get('dataob'));
+    },
+
+    _search: function(params, data)
+    {
+        return new ViewPort_Selection(this.buffer, 'uid', data.findAll(function(i) {
             // i = data object
             return $H(params).all(function(k) {
                 // k.key = search key; k.value = search criteria
