@@ -185,7 +185,7 @@ class Horde_Tree_Html extends Horde_Tree
         if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_LEFT])) {
             $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_LEFT];
             $cMax = count($extra);
-            for ($c = 0; $c < $cMax; $c++) {
+            for ($c = 0; $c < $cMax; ++$c) {
                 $style = '';
                 if (isset($this->_header[$column]['width'])) {
                     $style .= 'width:' . $this->_header[$column]['width'] . ';';
@@ -216,13 +216,7 @@ class Horde_Tree_Html extends Horde_Tree
         }
 
         for ($i = intval($this->_static); $i < $this->_nodes[$node_id]['indent']; ++$i) {
-            $line .= '<img src="';
-            if ($this->_dropline[$i] && $this->getOption('lines', false, true)) {
-                $line .= $this->_images['line'] . '"';
-            } else {
-                $line .= $this->_images['blank'] . '"';
-            }
-            $line .= ' />';
+            $line .= $this->_generateImage(($this->_dropline[$i] && $this->getOption('lines', false, true)) ? $this->_images['line'] : $this->_images['blank']);
         }
         $line .= $this->_setNodeToggle($node_id) . $this->_setNodeIcon($node_id);
         if ($this->getOption('multiline')) {
@@ -235,12 +229,12 @@ class Horde_Tree_Html extends Horde_Tree
         }
 
         $line .= '</div>';
-        $column++;
+        ++$column;
 
         if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT])) {
             $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT];
             $cMax = count($extra);
-            for ($c = 0; $c < $cMax; $c++) {
+            for ($c = 0; $c < $cMax; ++$c) {
                 $style = '';
                 if (isset($this->_header[$column]['width'])) {
                     $style .= 'width:' . $this->_header[$column]['width'] . ';';
@@ -384,11 +378,7 @@ class Horde_Tree_Html extends Horde_Tree
 
         $link_end = ($link_start) ? '</a>' : '';
 
-        $img = $link_start .
-            '<img class="treeToggle" src="' . $img . '"' . ' />'
-            . $link_end;
-
-        return $img;
+        return $link_start . $this->_generateImage($img) . $link_end;
     }
 
     /**
@@ -401,9 +391,32 @@ class Horde_Tree_Html extends Horde_Tree
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        $url->add(self::TOGGLE . $this->_instance, $node_id);
+        return $url->add(self::TOGGLE . $this->_instance, $node_id)->link();
+    }
 
-        return '<a href="' . strval($url) . '">';
+    /**
+     * Generate the icon image.
+     *
+     * @param string $src    The source image.
+     * @param boolean $icon  Is this an icon image? If false, this is a
+     *                       tree/line image.
+     * @param string $alt    Alt text to add to the image.
+     *
+     * @return string  A HTML tag to display the image.
+     */
+    protected function _generateImage($src, $icon = false, $alt = null)
+    {
+        $img = '<img src="' . $src . '"';
+
+        if ($icon) {
+            $img .= ' class="treeIcon"';
+        }
+
+        if (!is_null($alt)) {
+            $img .= ' alt="' . $alt . '"';
+        }
+
+        return $img . ' />';
     }
 
     /**
@@ -419,6 +432,7 @@ class Horde_Tree_Html extends Horde_Tree
             if (empty($this->_nodes[$node_id]['icon'])) {
                 return '';
             }
+
             /* Node has a user defined icon. */
             if (isset($this->_nodes[$node_id]['iconopen']) &&
                 $this->_nodes[$node_id]['expanded']) {
@@ -439,14 +453,7 @@ class Horde_Tree_Html extends Horde_Tree
             }
         }
 
-        $imgtxt = '<img class="treeIcon" src="' . $img . '"';
-
-        /* Does the node have user defined alt text? */
-        if (isset($this->_nodes[$node_id]['iconalt'])) {
-            $imgtxt .= ' alt="' . htmlspecialchars($this->_nodes[$node_id]['iconalt']) . '"';
-        }
-
-        return $imgtxt . ' />';
+        return $this->_generateImage($img, true, isset($this->_nodes[$node_id]['iconalt']) ? htmlspecialchars($this->_nodes[$node_id]['iconalt']) : null);
     }
 
 }
