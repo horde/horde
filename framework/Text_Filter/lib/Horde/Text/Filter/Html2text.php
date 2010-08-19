@@ -114,7 +114,9 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                 libxml_use_internal_errors(false);
             }
 
-            $text = Horde_String::convertCharset($this->_node($doc, $doc), 'UTF-8', $this->_params['charset']);
+            $text = Horde_String::convertCharset($this->_node($doc, $doc), $doc->encoding, $this->_params['charset']);
+        } else {
+            $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
         }
 
         /* Bring down number of empty lines to 2 max, and remove trailing
@@ -306,7 +308,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     if (!$child->nextSibling) {
                         $tmp = rtrim($tmp);
                     }
-                    $out .= html_entity_decode($tmp, ENT_QUOTES, 'UTF-8');
+                    $out .= html_entity_decode($tmp, ENT_QUOTES, $this->_params['charset']);
                 }
             }
         }
