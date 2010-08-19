@@ -289,15 +289,24 @@ case 'print_attach':
                 $key = key($render);
                 $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
                 if ($browser->isBrowser('mozilla')) {
-                    /* Silence errors from parsing HTML. */
+                    $pstring = Horde_Mime::decodeParam('content-type', $render[$key]['type']);
+
                     $old_error = libxml_use_internal_errors(true);
-                    $doc = DOMDocument::loadHTML($render[$key]['data']);
+                    $doc = new DOMDocument();
+                    $doc->loadHTML($render[$key]['data']);
+                    if (!$doc->encoding) {
+                        /* If libxml can't auto-detect encoding, convert to
+                         * ISO-8859-1 manually. */
+                        $doc->loadHTML(Horde_String::convertCharset($render[$key]['data'], $pstring['params']['charset'], 'ISO-8859-1'));
+                    }
                     if (!$old_error) {
                         libxml_use_internal_errors(false);
                     }
+
                     $bodyelt = $doc->getElementsByTagName('body')->item(0);
                     $bodyelt->insertBefore($doc->importNode($div, true), $bodyelt->firstChild);
-                    echo $doc->saveHTML();
+
+                    echo Horde_String::convertCharset($doc->saveHTML(), $doc->encoding, $pstring['params']['charset']);
                 } else {
                     echo $render[$key]['data'];
                 }
