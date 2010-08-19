@@ -102,11 +102,14 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     public function postProcess($text)
     {
         if (extension_loaded('dom')) {
-            $text = Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8');
-
             $old_error = libxml_use_internal_errors(true);
             $doc = new DOMDocument();
-            $doc->loadHTML('<?xml encoding="UTF-8">' . $text);
+            $doc->loadHTML($text);
+            if (!$doc->encoding) {
+                /* If libxml can't auto-detect encoding, convert to ISO-8859-1
+                 * manually. */
+                $doc->loadHTML(Horde_String::convertCharset($text, $this->_params['charset'], 'ISO-8859-1'));
+            }
             if ($old_error) {
                 libxml_use_internal_errors(false);
             }
