@@ -53,7 +53,7 @@ class Horde_Block_Horde_feed extends Horde_Block
             $html = '';
             $count = 0;
             foreach ($this->_feed as $entry) {
-                if ($count++ > $this->_params['limit']) {
+                if (++$count > $this->_params['limit']) {
                     break;
                 }
                 $html .= '<a href="' . $entry->link. '"';
