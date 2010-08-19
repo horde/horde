@@ -34,8 +34,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
-* XSS filter now uses PHP DOM parser to process incoming text.
+ <notes> * Add callback parameter to the Html2text filter.
+ * XSS filter now uses PHP DOM parser to process incoming text.
  * Remove Horde/Core dependency.
  * Add Horde_Text_Filter_Exception::.
  * Html2text converter now uses XML parser to generate output.

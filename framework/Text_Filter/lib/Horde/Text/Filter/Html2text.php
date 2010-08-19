@@ -2,9 +2,13 @@
 /**
  * Takes HTML and converts it to formatted, plain text.
  *
- * Parameters:
+ * Optional parameters to constructor:
  * <pre>
- * charset - (string) The charset to use for html_entity_decode() calls.
+ * callback - (callback) Callback triggered on every node. Passed the
+ *            DOMDocument object and the DOMNode object. If the callback
+ *            returns non-null, add this text to the output and skip further
+ *            processing of the node.
+ * charset - (string) The charset of the text.
  * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *
@@ -55,6 +59,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
+        'callback' => null,
         'charset' => 'UTF-8',
         'width' => 75
     );
@@ -154,6 +159,12 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
         if ($node->hasChildNodes()) {
             foreach ($node->childNodes as $child) {
+                if ($this->_params['callback'] &&
+                    ($txt = call_user_func($this->_params['callback'], $doc, $child)) !== null) {
+                    $out .= $txt;
+                    continue;
+                }
+
                 if ($child instanceof DOMElement) {
                     switch (strtolower($child->tagName)) {
                     case 'h1':
@@ -308,7 +319,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     if (!$child->nextSibling) {
                         $tmp = rtrim($tmp);
                     }
-                    $out .= html_entity_decode($tmp, ENT_QUOTES, $this->_params['charset']);
+                    $out = $tmp;
                 }
             }
         }
