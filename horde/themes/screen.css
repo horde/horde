@@ -415,52 +415,40 @@ span.treeImg4 {
     background-image: url("graphics/tree/joinbottom.png");
 }
 span.treeImg5 {
-    background-image: url("graphics/tree/rev-line.png");
-}
-span.treeImg6 {
-    background-image: url("graphics/tree/rev-join.png");
-}
-span.treeImg7 {
-    background-image: url("graphics/tree/rev-joinbottom-down.png");
-}
-span.treeImg8 {
-    background-image: url("graphics/tree/rev-joinbottom.png");
-}
-span.treeImg9 {
     background-image: url("graphics/tree/minustop.png");
 }
-span.treeImg10 {
+span.treeImg6 {
     background-image: url("graphics/tree/minus.png");
 }
-span.treeImg11 {
+span.treeImg7 {
     background-image: url("graphics/tree/minusbottom.png");
 }
-span.treeImg12 {
-    background-image: url("graphics/tree/rev-minustop.png");
+span.treeImg8 {
+    background-image: url("graphics/tree/minusonly.png");
 }
-span.treeImg13 {
-    background-image: url("graphics/tree/rev-minus.png");
-}
-span.treeImg14 {
-    background-image: url("graphics/tree/rev-minusbottom.png");
-}
-span.treeImg15 {
+span.treeImg9 {
     background-image: url("graphics/tree/plustop.png");
 }
-span.treeImg16 {
+span.treeImg10 {
     background-image: url("graphics/tree/plus.png");
 }
-span.treeImg17 {
+span.treeImg11 {
     background-image: url("graphics/tree/plusbottom.png");
 }
-span.treeImg18 {
-    background-image: url("graphics/tree/rev-plustop.png");
+span.treeImg12 {
+    background-image: url("graphics/tree/plusonly.png");
 }
-span.treeImg19 {
-    background-image: url("graphics/tree/rev-plus.png");
+span.treeImg13 {
+    background-image: url("graphics/tree/nullonly.png");
 }
-span.treeImg20 {
-    background-image: url("graphics/tree/rev-plusbottom.png");
+span.treeImg14 {
+    background-image: url("graphics/tree/folder.png");
+}
+span.treeImg15 {
+    background-image: url("graphics/tree/folderopen.png");
+}
+span.treeImg16 {
+    background-image: url("graphics/tree/leaf.png");
 }
 
 /* Menu styles. */

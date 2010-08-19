@@ -101,7 +101,7 @@ option {
     padding-right: 0;
     padding-left: 2px;
 }
- 
+
 /* Preferences. */
 #services_prefs .header ul {
     float: left;
@@ -129,6 +129,50 @@ option {
 /* Redbox styles. */
 #RB_window {
     text-align: right;
+}
+
+/* Tree styles. */
+span.treeImg1 {
+    background-image: url("graphics/tree/rev-line.png");
+}
+span.treeImg2 {
+    background-image: url("graphics/tree/rev-join.png");
+}
+span.treeImg3 {
+    background-image: url("graphics/tree/rev-joinbottom-down.png");
+}
+span.treeImg4 {
+    background-image: url("graphics/tree/rev-joinbottom.png");
+}
+span.treeImg5 {
+    background-image: url("graphics/tree/rev-minustop.png");
+}
+span.treeImg6 {
+    background-image: url("graphics/tree/rev-minus.png");
+}
+span.treeImg7 {
+    background-image: url("graphics/tree/rev-minusbottom.png");
+}
+span.treeImg8 {
+    background-image: url("graphics/tree/rev-minusonly.png");
+}
+span.treeImg9 {
+    background-image: url("graphics/tree/rev-plustop.png");
+}
+span.treeImg10 {
+    background-image: url("graphics/tree/rev-plus.png");
+}
+span.treeImg11 {
+    background-image: url("graphics/tree/rev-plusbottom.png");
+}
+span.treeImg12 {
+    background-image: url("graphics/tree/rev-plusonly.png");
+}
+span.treeImg13 {
+    background-image: url("graphics/tree/rev-nullonly.png");
+}
+span.treeImg16 {
+    background-image: url("graphics/tree/rev-leaf.png");
 }
 
 /* Color picker styles. */

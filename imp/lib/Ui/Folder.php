@@ -77,30 +77,18 @@ class IMP_Ui_Folder
                     $alt = _("Collapse Folder");
                 }
 
-                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 9
-                        : ($peek ? 10 : 11);
-                } else {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 12
-                        : ($peek ? 13 : 14);
-                }
+                $tree_img = ($elt->value == 'INBOX')
+                    ? 5
+                    : ($peek ? 6 : 7);
             } else {
                 if (!is_null($dir)) {
                     $dir->add('actionID', 'expand_folder');
                     $alt = _("Expand Folder");
                 }
 
-                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 15
-                        : ($peek ? 16 : 17);
-                } else {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 18
-                        : ($peek ? 19 : 20);
-                }
+                $tree_img = ($elt->value == 'INBOX')
+                        ? 9
+                        : ($peek ? 10 : 11);
             }
 
             if (!is_null($dir)) {
@@ -110,15 +98,9 @@ class IMP_Ui_Folder
             if (($elt->value == 'INBOX') && !$peek) {
                 $dir = '<span class="treeImg"></span>' . $dir2;
             } else {
-                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 3
-                        : ($peek ? 2 : 4);
-                } else {
-                    $tree_img = ($elt->value == 'INBOX')
-                        ? 7
-                        : ($peek ? 6 : 8);
-                }
+                $tree_img = ($elt->value == 'INBOX')
+                    ? 3
+                    : ($peek ? 2 : 4);
                 $dir = '<span class="treeImg treeImg' . $tree_img . '"></span>' . $dir2;
             }
         }
@@ -126,7 +108,7 @@ class IMP_Ui_Folder
         $this->_moreMbox[$elt->level] = $peek;
         for ($i = 0; $i < $elt->level; ++$i) {
             $line .= $this->_moreMbox[$i]
-                ? '<span class="treeImg treeImg' . (empty($registry->nlsconfig['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>'
+                ? '<span class="treeImg treeImg1"></span>'
                 : '<span class="treeImg"></span>';
         }
 
