@@ -218,11 +218,9 @@ class Horde_Tree_Html extends Horde_Tree
         for ($i = $this->_static ? 1 : 0; $i < $this->_nodes[$node_id]['indent']; $i++) {
             $line .= '<img src="';
             if ($this->_dropline[$i] && $this->getOption('lines', false, true)) {
-                $line .= $this->_images['line'] . '" '
-                    . 'alt="|&nbsp;&nbsp;&nbsp;"';
+                $line .= $this->_images['line'] . '"';
             } else {
-                $line .= $this->_images['blank'] . '" '
-                    . 'alt="&nbsp;&nbsp;&nbsp;"';
+                $line .= $this->_images['blank'] . '"';
             }
             $line .= ' />';
         }
@@ -313,13 +311,10 @@ class Horde_Tree_Html extends Horde_Tree
                 return '';
             } elseif (!$this->getOption('lines', false, true)) {
                 $img = $this->_images['blank'];
-                $alt = '&nbsp;&nbsp;&nbsp;';
             } elseif ($this->_nodes[$node_id]['expanded']) {
                 $img = $this->_images['minus_only'];
-                $alt = '-';
             } else {
                 $img = $this->_images['plus_only'];
-                $alt = '+';
             }
 
             if (!$this->_static) {
@@ -332,20 +327,16 @@ class Horde_Tree_Html extends Horde_Tree
                 /* Not last node. */
                 if ($this->getOption('lines', false, true)) {
                     $img = $this->_images['join'];
-                    $alt = '|-';
                 } else {
                     $img = $this->_images['blank'];
-                    $alt = '&nbsp;&nbsp;&nbsp;';
                 }
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
             } else {
                 /* Last node. */
                 if ($this->getOption('lines', false, true)) {
                     $img = $this->_images['join_bottom'];
-                    $alt = '`-';
                 } else {
                     $img = $this->_images['blank'];
-                    $alt = '&nbsp;&nbsp;&nbsp;';
                 }
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
             }
@@ -355,32 +346,24 @@ class Horde_Tree_Html extends Horde_Tree
                 /* Not last node. */
                 if (!$this->getOption('lines', false, true)) {
                     $img = $this->_images['blank'];
-                    $alt = '&nbsp;&nbsp;&nbsp;';
                 } elseif ($this->_static) {
                     $img = $this->_images['join'];
-                    $alt = '|-';
                 } elseif ($this->_nodes[$node_id]['expanded']) {
                     $img = $this->_images['minus'];
-                    $alt = '-';
                 } else {
                     $img = $this->_images['plus'];
-                    $alt = '+';
                 }
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
             } else {
                 /* Last node. */
                 if (!$this->getOption('lines', false, true)) {
                     $img = $this->_images['blank'];
-                    $alt = '&nbsp;&nbsp;&nbsp;';
                 } elseif ($this->_static) {
                     $img = $this->_images['join_bottom'];
-                    $alt = '`-';
                 } elseif ($this->_nodes[$node_id]['expanded']) {
                     $img = $this->_images['minus_bottom'];
-                    $alt = '-';
                 } else {
                     $img = $this->_images['plus_bottom'];
-                    $alt = '+';
                 }
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
             }
@@ -395,19 +378,16 @@ class Horde_Tree_Html extends Horde_Tree
             }
             if ($this->getOption('lines', false, true)) {
                 $img = $this->_images['null_only'];
-                $alt = '&nbsp;&nbsp;';
             } else {
                 $img = $this->_images['blank'];
-                $alt = '&nbsp;&nbsp;&nbsp;';
             }
             $this->_dropline[0] = false;
         }
 
         $link_end = ($link_start) ? '</a>' : '';
 
-        $img = $link_start . '<img class="treeToggle" src="' . $img . '"'
-            . (isset($alt) ? ' alt="' . $alt . '"' : '')
-            . ' />'
+        $img = $link_start .
+            '<img class="treeToggle" src="' . $img . '"' . ' />'
             . $link_end;
 
         return $img;
