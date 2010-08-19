@@ -88,15 +88,15 @@ class Horde_Core_Factory_Vfs
         switch ($vfs['type']) {
         case 'sql':
             $db_pear = $this->_injector->getInstance('Horde_Db_Pear');
-            $vfs['db'] = $db_pear->getDb('read', 'horde', 'vfs');
-            $vfs['writedb'] = $db_pear->getDb('rw', 'horde', 'vfs');
             $vfs['params'] = $db_pear->getConfig('vfs');
+            $vfs['params']['db'] = $db_pear->getDb('read', 'horde', 'vfs');
+            $vfs['params']['writedb'] = $db_pear->getDb('rw', 'horde', 'vfs');
             break;
 
         case 'sql_file':
             $db_pear = $this->_injector->getInstance('Horde_Db_Pear');
-            $vfs['db'] = $db_pear->getDb('rw', 'horde', 'vfs');
             $vfs['params'] = $db_pear->getConfig('vfs');
+            $vfs['params']['db'] = $db_pear->getDb('rw', 'horde', 'vfs');
             break;
         }
 
