@@ -380,7 +380,7 @@ class IMP_Ui_Compose
         } elseif ($imp_identity->getValue('sig_first', $identity)) {
             return $sig . $data;
         } else {
-            return $msg . "\n" . $sig;
+            return $data . "\n" . $sig;
         }
     }
 
