@@ -398,7 +398,7 @@ var ViewPort = Class.create({
         });
     },
 
-    // vs = (Viewport_Selection) A Viewport_Selection object.
+    // vs = (ViewPort_Selection) A ViewPort_Selection object.
     // opts = (object) TODO [noupdate, view]
     remove: function(vs, opts)
     {
@@ -433,7 +433,7 @@ var ViewPort = Class.create({
         }
     },
 
-    // vs = (Viewport_Selection) A Viewport_Selection object.
+    // vs = (ViewPort_Selection) A ViewPort_Selection object.
     // opts = (object) TODO [noupdate, view]
     _removeids: function(vs, opts)
     {
@@ -1273,7 +1273,7 @@ var ViewPort = Class.create({
         return this.createSelection('uid', buffer ? buffer.getSelected().get('uid') : [], view);
     },
 
-    // vs = (Viewport_Selection | array) A Viewport_Selection object -or- if
+    // vs = (ViewPort_Selection | array) A ViewPort_Selection object -or- if
     //       opts.range is set, an array of row numbers.
     // opts = (object) TODO [add, range, search]
     select: function(vs, opts)
@@ -1313,7 +1313,7 @@ var ViewPort = Class.create({
         this.opts.container.fire('ViewPort:select', { opts: opts, vs: vs });
     },
 
-    // vs = (Viewport_Selection) A Viewport_Selection object.
+    // vs = (ViewPort_Selection) A ViewPort_Selection object.
     // opts = (object) TODO [clearall]
     deselect: function(vs, opts)
     {
@@ -1588,13 +1588,13 @@ ViewPort_Buffer = Class.create({
         return rows.collect(this.rowlist.get.bind(this.rowlist)).compact();
     },
 
-    // vs = (Viewport_Selection) TODO
+    // vs = (ViewPort_Selection) TODO
     select: function(vs)
     {
         this.selected.add('uid', vs.get('uid'));
     },
 
-    // vs = (Viewport_Selection) TODO
+    // vs = (ViewPort_Selection) TODO
     // clearall = (boolean) Clear all entries?
     deselect: function(vs, clearall)
     {
