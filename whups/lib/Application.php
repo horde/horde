@@ -39,7 +39,7 @@ class Whups_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H3 (2.0-git)';
+    public $version = 'H4 (2.0-git)';
 
     /**
      * Permissions cache

@@ -40,7 +40,7 @@ class Hermes_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H4 (2.0-cvs)';
+    public $version = 'H4 (2.0-git)';
 
     /**
      * Driver object for reading/writing time entries
