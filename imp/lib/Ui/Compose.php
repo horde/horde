@@ -16,6 +16,13 @@
 class IMP_Ui_Compose
 {
     /**
+     * Was the HTML signature replaced in the Html2text callback?
+     *
+     * @var boolean
+     */
+    protected $_replaced;
+
+    /**
      * Expand addresses in a string. Only the last address in the string will
      * be expanded.
      *
@@ -333,7 +340,7 @@ class IMP_Ui_Compose
     public function convertComposeText($data, $to, $identity)
     {
         $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $replaced = 0;
+        $this->_replaced = false;
 
         $html_sig = $imp_identity->getSignature('html', $identity);
         $txt_sig = $imp_identity->getSignature('text', $identity);
@@ -343,45 +350,54 @@ class IMP_Ui_Compose
         switch ($to) {
         case 'html':
             if ($txt_sig) {
-                $data = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($txt_sig, '/')) . '/', '###IMP_SIGNATURE###', $data, 1, $replaced);
+                $data = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($txt_sig, '/')) . '/', '###IMP_SIGNATURE###', $data, 1, $this->_replaced);
             }
             $data = IMP_Compose::text2html($data);
             $sig = $html_sig;
             break;
 
         case 'text':
-            if ($html_sig) {
-                /* Silence errors from parsing HTML. */
-                $old_error = libxml_use_internal_errors(true);
-                $doc = DOMDocument::loadHTML($data);
-                if (!$old_error) {
-                    libxml_use_internal_errors(false);
-                }
+            $callback = $html_sig
+                ? array($this, 'htmlSigCallback')
+                : null;
 
-                $xpath = new DOMXPath($doc);
-                $entries = $xpath->query("//div[@class='impComposeSignature']");
-                $node = $entries->item(0);
-                $node->parentNode->replaceChild($doc->createTextNode('###IMP_SIGNATURE###'), $node);
-                $replaced = 1;
+            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array(
+                'callback' => $callback,
+                'wrap' => false
+            ));
 
-                $data = '';
-                foreach ($doc->getElementsByTagName('body')->item(0)->childNodes as $node) {
-                    $data .= $doc->saveXML($node);
-                }
-            }
-
-            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array('wrap' => false));
             $sig = $txt_sig;
             break;
         }
 
-        if ($replaced) {
+        if ($this->_replaced) {
             return str_replace('###IMP_SIGNATURE###', $sig, $data);
         } elseif ($imp_identity->getValue('sig_first', $identity)) {
             return $sig . $data;
-        } else {
-            return $data . "\n" . $sig;
         }
+
+        return $data . "\n" . $sig;
+    }
+
+    /**
+     * Process DOM node (callback).
+     *
+     * @param DOMDocument $doc  Document node.
+     * @param DOMNode $node     Node.
+     *
+     * @return mixed  The text to replace the node with. Returns null if
+     *                regular node processing should continue.
+     */
+    public function htmlSigCallback($doc, $node)
+    {
+        if ($node instanceof DOMElement &&
+            (strtolower($node->tagName) == 'div') &&
+            ($node->getAttribute('class') == 'impComposeSignature')) {
+            $this->_replaced = true;
+            return '###IMP_SIGNATURE###';
+        }
+
+        return null;
     }
 
 }
