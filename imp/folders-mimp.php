@@ -51,12 +51,14 @@ $t = $injector->createInstance('Horde_Template');
 /* Start iterating through the list of mailboxes, displaying them. */
 $rows = array();
 foreach ($imptree->folderList($mask) as $val) {
-    $poll_info = $val->poll_info;
+    $poll_info = $val->polled
+        ? $val->poll_info
+        : null;
     $rows[] = array(
         'level' => str_repeat('&nbsp;', $val->level * 2),
         'label' => htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2))),
         'link' => ($val->container ? null : IMP::generateIMPUrl('mailbox-mimp.php', $val->value)),
-        'msgs' => (isset($poll_info->msgs) ? ($poll_info->unseen . '/' . $poll_info->msgs) : null)
+        'msgs' => ($poll_info ? ($poll_info->unseen . '/' . $poll_info->msgs) : null)
     );
 }
 $t->set('rows', $rows);
