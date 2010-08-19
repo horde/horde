@@ -376,9 +376,9 @@ class Horde_Tree_Html extends Horde_Tree
             $this->_dropline[0] = false;
         }
 
-        $link_end = ($link_start) ? '</a>' : '';
-
-        return $link_start . $this->_generateImage($img) . $link_end;
+        return $link_start .
+            $this->_generateImage($img, 'treeToggle') .
+            ($link_start ? '</a>' : '');
     }
 
     /**
@@ -398,18 +398,17 @@ class Horde_Tree_Html extends Horde_Tree
      * Generate the icon image.
      *
      * @param string $src    The source image.
-     * @param boolean $icon  Is this an icon image? If false, this is a
-     *                       tree/line image.
+     * @param string $class  Additional class to add to image.
      * @param string $alt    Alt text to add to the image.
      *
      * @return string  A HTML tag to display the image.
      */
-    protected function _generateImage($src, $icon = false, $alt = null)
+    protected function _generateImage($src, $class = '', $alt = null)
     {
         $img = '<img src="' . $src . '"';
 
-        if ($icon) {
-            $img .= ' class="treeIcon"';
+        if ($class) {
+            $img .= ' class="' . $class . '"';
         }
 
         if (!is_null($alt)) {
@@ -453,7 +452,7 @@ class Horde_Tree_Html extends Horde_Tree
             }
         }
 
-        return $this->_generateImage($img, true, isset($this->_nodes[$node_id]['iconalt']) ? htmlspecialchars($this->_nodes[$node_id]['iconalt']) : null);
+        return $this->_generateImage($img, 'treeIcon', isset($this->_nodes[$node_id]['iconalt']) ? htmlspecialchars($this->_nodes[$node_id]['iconalt']) : null);
     }
 
 }

@@ -17,47 +17,26 @@ class Horde_Core_Tree_Html extends Horde_Tree_Html
 {
     /**
      * Images array.
+     * Values correspond to 'treeImg#' CSS classes in horde/themes/screen.css.
      *
      * @var array
      */
     protected $_images = array(
-        'line' => 'line.png',
-        'blank' => 'blank.png',
-        'join' => 'join.png',
-        'join_bottom' => 'joinbottom.png',
-        'plus' => 'plus.png',
-        'plus_bottom' => 'plusbottom.png',
-        'plus_only' => 'plusonly.png',
-        'minus' => 'minus.png',
-        'minus_bottom' => 'minusbottom.png',
-        'minus_only' => 'minusonly.png',
-        'null_only' => 'nullonly.png',
-        'folder' => 'folder.png',
-        'folderopen' => 'folderopen.png',
-        'leaf' => 'leaf.png'
+        'line' => 1,
+        'blank' => '',
+        'join' => 2,
+        'join_bottom' => 4,
+        'plus' => 10,
+        'plus_bottom' => 11,
+        'plus_only' => 12,
+        'minus' => 6,
+        'minus_bottom' => 7,
+        'minus_only' => 8,
+        'null_only' => 13,
+        'folder' => 14,
+        'folderopen' => 15,
+        'leaf' => 16
     );
-
-    /**
-     * Constructor.
-     *
-     * @param string $name   @see parent::__construct().
-     * @param array $params  @see parent::__construct().
-     */
-    public function __construct($name, array $params = array())
-    {
-        parent::__construct($name, $params);
-
-        if (!empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']])) {
-            $no_rev = array('blank', 'folder', 'folder_open');
-            foreach (array_diff(array_keys($this->_images), $no_rev) as $key) {
-                $this->_images[$key] = 'rev-' . $this->_images[$key];
-            }
-        }
-
-        foreach (array_keys($this->_images) as $key) {
-            $this->_images[$key] = strval(Horde_Themes::img('tree/' . $this->_images[$key], array('app' => 'horde')));
-        }
-    }
 
     /**
      * Generate a link URL tag.
@@ -69,6 +48,39 @@ class Horde_Core_Tree_Html extends Horde_Tree_Html
     protected function _generateUrlTag($node_id)
     {
         return Horde::link(Horde::selfUrl()->add(self::TOGGLE . $this->_instance, $node_id));
+    }
+
+    /**
+     * Generate the icon image.
+     *
+     * @param string $src    The source image.
+     * @param string $class  Additional class to add to image.
+     * @param string $alt    Alt text to add to the image.
+     *
+     * @return string  A HTML tag to display the image.
+     */
+    protected function _generateImage($src, $class = '', $alt = null)
+    {
+        switch ($class) {
+        case 'treeIcon':
+            return parent::_generateImage($src, $class, $alt);
+
+        case 'treeToggle':
+            $class .= ' treeImg';
+            break;
+
+        default:
+            $class = 'treeImg';
+            break;
+        }
+
+        $img = '<span class="' . $class . ' treeImg' . $src . '"';
+
+        if (!is_null($alt)) {
+            $img.= ' alt="' . $alt . '"';
+        }
+
+        return $img . '></span>';
     }
 
 }

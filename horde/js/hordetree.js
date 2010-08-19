@@ -139,11 +139,11 @@ var Horde_Tree = Class.create({
 
         tmp = document.createDocumentFragment();
         for (i = Number(this.renderStatic); i < node.indent; ++i) {
-            tmp.appendChild(new Element('IMG', {
-                src: ((this.dropline[i] && this.opts.options.lines)
-                      ? this.opts.imgLine
-                      : this.opts.imgBlank)
-            }));
+            tmp.appendChild(new Element('SPAN').addClassName('treeImg').addClassName(
+                'treeImg' + ((this.dropline[i] && this.opts.options.lines)
+                    ? this.opts.imgLine
+                    : this.opts.imgBlank)
+            ));
         }
 
         tmp.appendChild(this._setNodeToggle(nodeId));
@@ -242,7 +242,7 @@ var Horde_Tree = Class.create({
             this.dropline[0] = false;
         }
 
-        return new Element('IMG', { id: "nodeToggle_" + nodeId, src: this._getNodeToggle(nodeId) }).addClassName('treeToggle');
+        return new Element('SPAN', { id: "nodeToggle_" + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
     },
 
     _getNodeToggle: function(nodeId)
@@ -316,19 +316,22 @@ var Horde_Tree = Class.create({
 
     _setNodeIcon: function(nodeId)
     {
-        var node = this.nodes[nodeId],
-            img = new Element('IMG', { id: "nodeIcon_" + nodeId }).addClassName('treeIcon');
+        var img,
+            node = this.nodes[nodeId];
 
         // Image.
         if (node.icon) {
             // Node has a user defined icon.
-            img.writeAttribute('src', node.iconopen && node.expanded ? node.iconopen : node.icon);
-        } else if (node.children) {
-            // Standard icon: node with children.
-            img.writeAttribute('src', node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
+            img = new Element('IMG', { id: "nodeIcon_" + nodeId, src: (node.iconopen && node.expanded ? node.iconopen : node.icon) }).addClassName('treeIcon')
         } else {
-            // Standard icon: node, no children.
-            img.writeAttribute('src', this.opts.imgLeaf);
+            img = new Element('SPAN', { id: "nodeIcon_" + nodeId }).addClassName('treeIcon');
+            if (node.children) {
+                // Standard icon: node with children.
+                img.addClassName('treeImg' + (node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder));
+            } else {
+                // Standard icon: node, no children.
+                img.addClassName('treeImg' + this.opts.imgLeaf);
+            }
         }
 
         if (node.iconalt) {
