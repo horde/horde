@@ -178,7 +178,7 @@ $message_token = Horde::getRequestToken('imp.message');
  * message array, so we will return to mailbox.php if that is the
  * case. */
 if (!$imp_mailbox->isValidIndex()) {
-    _returnToMailbox($imp_mailbox->getMessageCount());
+    _returnToMailbox(count($imp_mailbox));
     require IMP_BASE . '/mailbox.php';
     exit;
 }
@@ -414,7 +414,7 @@ $t_template->set('thismailbox', htmlspecialchars($mailbox_name));
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
 $t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));
-$t_template->set('msg_count', sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, $imp_mailbox->getMessageCount()));
+$t_template->set('msg_count', sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, count($imp_mailbox)));
 $t_template->set('status', $status);
 $t_template->set('message_token', $message_token);
 

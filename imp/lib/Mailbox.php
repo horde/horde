@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Mailbox
+class IMP_Mailbox implements Countable
 {
     /**
      * The mailbox to work with.
@@ -112,16 +112,6 @@ class IMP_Mailbox
                 ? json_encode(array('m' => $this->_sortedMbox, 's' => $sorted))
                 : json_encode($sorted);
         }
-    }
-
-    /**
-     * The mailbox this object works with.
-     *
-     * @return string  A mailbox name.
-     */
-    public function getMailboxName()
-    {
-        return $this->_mailbox;
     }
 
     /**
@@ -383,7 +373,7 @@ class IMP_Mailbox
                 $this->_searchmbox &&
                 ($type == 'unseen') &&
                 $GLOBALS['injector']->getInstance('IMP_Search')->isVINBOXFolder($this->_mailbox)) {
-                return $this->getMessageCount();
+                return count($this);
             }
 
             return $count ? 0 : array();
@@ -426,17 +416,6 @@ class IMP_Mailbox
     public function getMessageIndex()
     {
         return is_null($this->_arrayIndex) ? 1 : $this->_arrayIndex + 1;
-    }
-
-    /**
-     * Returns the current message count of the mailbox.
-     *
-     * @return integer  The mailbox message count.
-     */
-    public function getMessageCount()
-    {
-        $this->_buildMailbox();
-        return count($this->_sorted);
     }
 
     /**
@@ -802,6 +781,19 @@ class IMP_Mailbox
 
         /* This should generate a sufficiently random #. */
         return time() . mt_rand();
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the current message count of the mailbox.
+     *
+     * @return integer  The mailbox message count.
+     */
+    public function count()
+    {
+        $this->_buildMailbox();
+        return count($this->_sorted);
     }
 
 }

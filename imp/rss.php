@@ -50,9 +50,9 @@ $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb($mailbox);
 $imp_search = $injector->getInstance('IMP_Search');
 
 /* Obtain some information describing the mailbox state. */
-$total_num = $imp_mailbox->getMessageCount();
+$total_num = count($imp_mailbox);
 $unseen_num = ($imp_search->isVINBOXFolder($mailbox))
-    ? $imp_mailbox->getMessageCount()
+    ? $total_num
     : $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 
 $query = new Horde_Imap_Client_Search_Query();

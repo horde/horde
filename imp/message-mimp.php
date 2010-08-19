@@ -128,7 +128,7 @@ try {
 
 /* Get the starting index for the current message and the message count. */
 $msgindex = $imp_mailbox->getMessageIndex();
-$msgcount = $imp_mailbox->getMessageCount();
+$msgcount = count($imp_mailbox);
 
 /* Generate the mailbox link. */
 $mailbox_link = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msgindex);
