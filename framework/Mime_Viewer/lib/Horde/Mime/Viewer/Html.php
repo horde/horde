@@ -144,6 +144,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                 'charset' => $charset
             ),
             array(
+                'charset' => $charset,
                 'noprefetch' => !empty($options['noprefetch']),
                 'return_dom' => true,
                 'strip_styles' => (!empty($options['inline']) || $strip_style_attributes),
@@ -158,9 +159,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
         );
         $this->_phishWarn = false;
 
-        $this->_node($data, $data);
+        $this->_node($data->dom, $data->dom);
 
-        return Horde_String::convertCharset($data->saveHTML(), $data->encoding, $charset);
+        return $data->returnHtml();
     }
 
     /**

@@ -106,21 +106,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     public function postProcess($text)
     {
-        if (extension_loaded('dom')) {
-            $old_error = libxml_use_internal_errors(true);
-            $doc = new DOMDocument();
-            $doc->loadHTML($text);
-            if (!$doc->encoding) {
-                /* If libxml can't auto-detect encoding, convert to ISO-8859-1
-                 * manually. */
-                $doc->loadHTML(Horde_String::convertCharset($text, $this->_params['charset'], 'ISO-8859-1'));
-            }
-            if ($old_error) {
-                libxml_use_internal_errors(false);
-            }
-
-            $text = Horde_String::convertCharset($this->_node($doc, $doc), $doc->encoding, $this->_params['charset']);
-        } else {
+        try {
+            $dom = new Horde_Support_Domhtml($text, $this->_params['charset']);
+            $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), $dom->encoding, $this->_params['charset']);
+        } catch (Exception $e) {
             $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
         }
 

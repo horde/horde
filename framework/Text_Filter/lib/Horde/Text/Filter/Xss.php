@@ -15,8 +15,8 @@
  *                     the document.
  *                     DEFAULT: false (returns the contents contained inside
  *                              the BODY tag)
- * 'return_dom' - (boolean) If true, return a DOMDocument object instead of
- *                HTML text (overrides return_document).
+ * 'return_dom' - (boolean) If true, return a Horde_Support_Domhtml object
+ *                instead of HTML text (overrides return_document).
  *                DEFAULT: false
  * 'strip_styles' - (boolean) Strip style tags?
  *                  DEFAULT: true
@@ -94,59 +94,52 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
      *
      * @param string $text  The text after the filtering.
      *
-     * @return string|DOMDocument  The modified text or a DOMDocument object
-     *                             if the 'return_dom' parameter is set.
+     * @return string|Horde_Support_Domhtml  The modified text or a Domhtml
+     *                                       object if the 'return_dom'
+     *                                       parameter is set.
      */
     public function postProcess($text)
     {
-        if (!extension_loaded('dom')) {
+        try {
+            $dom = new Horde_Support_Domhtml($text, $this->_params['charset']);
+        } catch (Exception $e) {
             return $text;
         }
 
-        $old_error = libxml_use_internal_errors(true);
-        $doc = new DOMDocument();
-        $doc->loadHTML($text);
-        if (!$doc->encoding) {
-            /* If libxml can't auto-detect encoding, convert to ISO-8859-1
-             * manually. */
-            $doc->loadHTML(Horde_String::convertCharset($text, $this->_params['charset'], 'ISO-8859-1'));
-        }
-        if ($old_error) {
-            libxml_use_internal_errors(false);
-        }
-
-        $this->_node($doc, $doc);
+        $this->_node($dom->dom, $dom->dom);
 
         if (!$this->_params['return_document']) {
-            $body = $doc->getElementsByTagName('body')->item(0);
+            $body = $dom->dom->getElementsByTagName('body')->item(0);
         }
 
         if ($this->_params['noprefetch']) {
-            $meta = $doc->createElement('meta');
+            $meta = $dom->dom->createElement('meta');
             $meta->setAttribute('http-equiv', 'x-dns-prefetch-control');
             $meta->setAttribute('value-equiv', 'off');
 
             if ($this->_params['return_document']) {
-                $doc->getElementsByTagName('head')->item(0)->appendChild($meta);
+                $dom->dom->getElementsByTagName('head')->item(0)->appendChild($meta);
             } elseif ($body) {
                 $body->appendChild($meta);
             }
         }
 
         if ($this->_params['return_dom']) {
-            return $doc;
+            return $dom;
+        }
+
+        if ($this->_params['return_document']) {
+            return $dom->returnHtml();
         }
 
         $text = '';
-        if ($this->_params['return_document']) {
-            $text = $doc->saveHTML();
-        } elseif ($body && $body->hasChildNodes()) {
+        if ($body && $body->hasChildNodes()) {
             foreach ($body->childNodes as $child) {
-                $text .= $doc->saveXML($child);
+                $text .= $dom->dom->saveXML($child);
             }
         }
 
-        return Horde_String::convertCharset($text, $doc->encoding, $this->_params['charset']);
+        return Horde_String::convertCharset($text, $dom->encoding, $this->_params['charset']);
     }
 
     /**

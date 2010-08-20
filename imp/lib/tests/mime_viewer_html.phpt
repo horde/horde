@@ -9,9 +9,6 @@ Horde_Registry::appInit('imp', array(
     'cli' => true
 ));
 
-// Suppress DOM parsing errors.
-libxml_use_internal_errors(true);
-
 require_once dirname(__FILE__) . '/../Mime/Viewer/Html.php';
 class IMP_Html_Viewer_Test extends IMP_Horde_Mime_Viewer_Html
 {
@@ -25,10 +22,10 @@ class IMP_Html_Viewer_Test extends IMP_Horde_Mime_Viewer_Html
             'target' => '_blank'
         );
 
-        $doc = DOMDocument::loadHTML($html);
-        $this->_node($doc, $doc);
+        $dom = new Horde_Support_Domhtml($html);
+        $this->_node($dom->dom, $dom->dom);
 
-        return $doc->saveXML($doc->getElementsByTagName('body')->item(0)->firstChild) . "\n";
+        return $dom->dom->saveXML($dom->dom->getElementsByTagName('body')->item(0)->firstChild) . "\n";
     }
 
     protected function _node($doc, $node)
