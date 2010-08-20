@@ -2480,7 +2480,7 @@ class IMP_Compose
         $type = $part->getType();
         $part_charset = $part->getCharset();
         $charset = $GLOBALS['registry']->getCharset();
-        $msg = Horde_String::convertCharset($part->getContents(), $part_charset);
+        $msg = Horde_String::convertCharset($part->getContents(), $part_charset, $charset);
 
         /* Enforce reply limits. */
         if (!empty($options['replylimit']) &&
@@ -2492,7 +2492,7 @@ class IMP_Compose
         }
 
         if ($mode == 'html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true), array('strip_styles' => true, 'strip_style_attributes' => false)));
+            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true), array('charset' => $charset, 'strip_styles' => true, 'strip_style_attributes' => false)));
         } elseif ($type == 'text/html') {
             $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'html2text');
             $type = 'text/plain';
