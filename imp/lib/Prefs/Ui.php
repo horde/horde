@@ -273,6 +273,15 @@ class IMP_Prefs_Ui
             }
             break;
 
+        case 'standard':
+            if (!$prefs->getValue('preview_enabled')) {
+                $ui->suppress[] = 'preview_maxlen';
+                $ui->suppress[] = 'preview_strip_nl';
+                $ui->suppress[] = 'preview_show_unread';
+                $ui->suppress[] = 'preview_show_tooltip';
+            }
+            break;
+
         case 'viewing':
             if (empty($conf['maillog']['use_maillog'])) {
                 $ui->suppress[] = 'disposition_send_mdn';
