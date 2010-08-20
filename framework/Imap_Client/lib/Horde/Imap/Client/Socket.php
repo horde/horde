@@ -1097,10 +1097,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $select_opts[] = 'RECURSIVEMATCH';
             }
 
-            if (!empty($options['special_use'])) {
-                $select_opts[] = 'SPECIAL-USE';
-            }
-
             if (!empty($select_opts)) {
                 $cmd[] = $select_opts;
             }
@@ -1118,6 +1114,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (!empty($options['children'])) {
                 $return_opts[] = 'CHILDREN';
+            }
+
+            if (!empty($options['special_use']) &&
+                $this->queryCapability('CREATE-SPECIAL-USE')) {
+                $return_opts[] = 'SPECIAL-USE';
             }
 
             if (!empty($options['status']) &&
