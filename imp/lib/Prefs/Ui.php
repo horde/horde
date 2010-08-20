@@ -1560,7 +1560,7 @@ class IMP_Prefs_Ui
             'new_folder' => true,
             'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)
         )));
-        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['junk']));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['spam']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/spam.html');
     }
