@@ -288,7 +288,7 @@ class Horde_Themes
      */
     static public function img($name = null, $options = array())
     {
-        return self::_getObject('graphics', $name, $options);
+        return new Horde_Themes_Image($name, $options);
     }
 
     /**
@@ -307,81 +307,12 @@ class Horde_Themes
      * 'theme' - (string) Use this theme instead of the Horde default.
      * </pre>
      *
-     * @return Horde_Themes_Image  An object which contains the URI
+     * @return Horde_Themes_Sound  An object which contains the URI
      *                             and filesystem location of the sound.
      */
     static public function sound($name = null, $options = array())
     {
-        return self::_getObject('sounds', $name, $options);
-    }
-
-    /**
-     * Return the path to a themes element, using the default element if the
-     * image does not exist in the current theme.
-     *
-     * @param string $type    The element type ('graphics', 'sound').
-     * @param string $name    The element name. If null, will return the
-     *                        element directory.
-     * @param mixed $options  Additional options. If a string, is taken to be
-     *                        the 'app' parameter. If an array, the following
-     *                        options are available:
-     * <pre>
-     * 'app' - (string) Use this application instead of the current app.
-     * 'nohorde' - (boolean) If true, do not fallback to horde for element.
-     * 'notheme' - (boolean) If true, do not use themed data.
-     * 'theme' - (string) Use this theme instead of the Horde default.
-     * </pre>
-     *
-     * @return Horde_Themes_Element  An object which contains the URI and
-     *                               filesystem location of the element.
-     */
-    static protected function _getObject($type, $name, $options)
-    {
-        if (is_string($options)) {
-            $app = $options;
-            $options = array();
-        } else {
-            $app = empty($options['app'])
-                ? $GLOBALS['registry']->getApp()
-                : $options['app'];
-        }
-        if ($GLOBALS['registry']->get('status', $app) == 'heading') {
-            $app = 'horde';
-        }
-
-        $app_list = array($app);
-        if ($app != 'horde' && empty($options['nohorde'])) {
-            $app_list[] = 'horde';
-        }
-        $path = '/' . $type . (is_null($name) ? '' : '/' . $name);
-
-        $classname = ($type == 'graphics')
-            ? 'Horde_Themes_Image'
-            : 'Horde_Themes_Sound';
-
-        /* Check themes first. */
-        if (empty($options['notheme']) &&
-            isset($GLOBALS['prefs']) &&
-            (($theme = $GLOBALS['prefs']->getValue('theme')) ||
-             (!empty($options['theme']) && ($theme = $options['theme'])))) {
-            $tpath = '/' . $theme . $path;
-            foreach ($app_list as $app) {
-                $filepath = $GLOBALS['registry']->get('themesfs', $app) . $tpath;
-                if (is_null($name) || file_exists($filepath)) {
-                    return new $classname($GLOBALS['registry']->get('themesuri', $app) . $tpath, $filepath);
-                }
-            }
-        }
-
-        /* Fall back to app/horde defaults. */
-        foreach ($app_list as $app) {
-            $filepath = $GLOBALS['registry']->get('themesfs', $app) . $path;
-            if (file_exists($filepath)) {
-                return new $classname($GLOBALS['registry']->get('themesuri', $app) . $path, $filepath);
-            }
-        }
-
-        return '';
+        return new Horde_Themes_Sound($name, $options);
     }
 
     /**

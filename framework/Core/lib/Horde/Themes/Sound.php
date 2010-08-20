@@ -12,4 +12,13 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Themes_Sound extends Horde_Themes_Element {}
+class Horde_Themes_Sound extends Horde_Themes_Element
+{
+    /**
+     * The default directory name for this element type.
+     *
+     * @var string
+     */
+    protected $_dirname = 'sound';
+
+}
