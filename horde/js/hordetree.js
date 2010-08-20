@@ -356,10 +356,10 @@ var Horde_Tree = Class.create({
         if (icon = $('nodeIcon_' + nodeId)) {
             // Image.
             if (node.icon) {
-                src.writeAttribute('src', (node.expanded && node.iconopen) ? node.iconopen : node.icon);
+                icon.writeAttribute('src', (node.expanded && node.iconopen) ? node.iconopen : node.icon);
             } else {
                 // Use standard icon set.
-                src.writeAttribute('src', node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
+                icon.writeAttribute('src', node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
             }
         }
 
@@ -369,7 +369,7 @@ var Horde_Tree = Class.create({
         }
 
         if (toggle = $('nodeToggle_' + nodeId)) {
-            toggle.writeAttribute('src', this._getNodeToggle(nodeId));
+            toggle.writeAttribute('class', 'treeToggle treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
         }
 
         this.saveState(nodeId, node.expanded)
