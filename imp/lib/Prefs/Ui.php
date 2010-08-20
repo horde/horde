@@ -14,6 +14,16 @@
  */
 class IMP_Prefs_Ui
 {
+    /* Mailbox identifiers. */
+    const FLIST_SPECIALUSE = "specialuse\0";
+
+    /**
+     * Cached folder list.
+     *
+     * @var array
+     */
+    protected $_cache = null;
+
     /**
      * Populate dynamically-generated preference values.
      *
@@ -430,7 +440,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'draftsselect':
-            return $this->_updateSpecialFolders('drafts_folder', IMP::formMbox($ui->vars->drafts, false), $ui->vars->drafts_folder_new, $ui);
+            return $this->_updateSpecialFolders('drafts_folder', IMP::formMbox($ui->vars->drafts, false), $ui->vars->drafts_folder_new, 'drafts', $ui);
 
         case 'encryptselect':
             return $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
@@ -471,7 +481,7 @@ class IMP_Prefs_Ui
             return $this->_updateSource($ui);
 
         case 'spamselect':
-            return $this->_updateSpecialFolders('spam_folder', IMP::formMbox($ui->vars->spam, false), $ui->vars->spam_new, $ui);
+            return $this->_updateSpecialFolders('spam_folder', IMP::formMbox($ui->vars->spam, false), $ui->vars->spam_new, 'spam', $ui);
 
         case 'stationerymanagement':
             return $this->_updateStationeryManagement($ui);
@@ -870,6 +880,7 @@ class IMP_Prefs_Ui
             'new_folder' => true,
             'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)
         )));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['drafts']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/drafts.html');
     }
@@ -1253,6 +1264,7 @@ class IMP_Prefs_Ui
             'filter' => array('INBOX'),
             'new_folder' => true
         )));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['sentmail']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/sentmail.html');
     }
@@ -1275,16 +1287,20 @@ class IMP_Prefs_Ui
 
         $sent_mail_folder = IMP::formMbox($ui->vars->sent_mail_folder, false);
         if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
-            $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'));
+            $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+        } elseif (strpos($sent_mail_folder, self::FLIST_SPECIALUSE) === 0) {
+            $sent_mail_folder = substr($folder, strlen(self::FLIST_SPECIALUSE));
         } elseif (($sent_mail_folder == IMP::PREF_DEFAULT) &&
                   ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
-            $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sm_default);
+            $sent_mail_folder = $sm_default;
         }
+
+        $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sent_mail_folder);
 
         if ($sent_mail_folder) {
             $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
             if (!$imp_folder->exists($sent_mail_folder) &&
-                !$imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'))) {
+                !$imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'), array('sent' => true))) {
                 return false;
             }
         }
@@ -1542,6 +1558,7 @@ class IMP_Prefs_Ui
             'new_folder' => true,
             'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)
         )));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['junk']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/spam.html');
     }
@@ -1693,6 +1710,7 @@ class IMP_Prefs_Ui
             'new_folder' => true,
             'selected' => ($use_vtrash ? null : IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true))
         )));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['trash']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/trash.html');
     }
@@ -1711,23 +1729,18 @@ class IMP_Prefs_Ui
         $trash = IMP::formMbox($ui->vars->trash, false);
 
         if ($trash == IMP::PREF_VTRASH) {
-            if ($prefs->isLocked('use_vtrash')) {
-                return false;
-            }
-
-            $prefs->setValue('use_vtrash', 1);
-            $prefs->setValue('trash_folder', '');
-        } else {
-            if ($prefs->isLocked('trash_folder')) {
-                return false;
-            }
-
-            if ($this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, $ui)) {
-                $prefs->setValue('use_vtrash', 0);
-                $prefs->setDirty('trash_folder', true);
+            if (!$prefs->isLocked('use_vtrash')) {
+                $prefs->setValue('use_vtrash', 1);
+                $prefs->setValue('trash_folder', '');
                 return true;
             }
+        } elseif ($this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, 'trash', $ui)) {
+            $prefs->setValue('use_vtrash', 0);
+            $prefs->setDirty('trash_folder', true);
+            return true;
         }
+
+        return false;
     }
 
     /* Utility functions. */
@@ -1738,11 +1751,12 @@ class IMP_Prefs_Ui
      * @param string $pref             The pref name to update.
      * @param string $folder           The old name.
      * @param string $new              The new name.
+     * @param string $type             Folder type: 'drafts', 'spam', 'trash'.
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      *
      * @return boolean  True if preferences were updated.
      */
-    protected function _updateSpecialFolders($pref, $folder, $new, $ui)
+    protected function _updateSpecialFolders($pref, $folder, $new, $type, $ui)
     {
         global $prefs;
 
@@ -1755,10 +1769,12 @@ class IMP_Prefs_Ui
             return $prefs->setValue($pref, '');
         }
 
-        if (!empty($new)) {
+        if (strpos($folder, self::FLIST_SPECIALUSE) === 0) {
+            $folder = substr($folder, strlen(self::FLIST_SPECIALUSE));
+        } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
             $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
-            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'))) {
+            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
                 $folder = null;
             }
         }
@@ -1766,6 +1782,44 @@ class IMP_Prefs_Ui
         return strlen($folder)
             ? $prefs->setValue($pref, IMP::folderPref($folder, false))
             : false;
+    }
+
+    /**
+     * Get the list of special use mailboxes of a certain type.
+     *
+     * @param string $use  The special-use flag.
+     *
+     * @return string  HTML code.
+     */
+    protected function _getSpecialUse($use)
+    {
+        if (is_null($this->_cache)) {
+            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+                'attributes' => true,
+                'special_use' => true,
+                'sort' => true
+            ));
+        }
+
+        $special_use = array();
+        foreach ($this->_cache as $key => $val) {
+            if (in_array($use, $val['attributes'])) {
+                $special_use[] = array(
+                    'l' => htmlspecialchars(IMP::getLabel($val)),
+                    'v' => IMP::formMbox(FLIST_SPECIALUSE . $key, true)
+                );
+            }
+        }
+
+        if (empty($special_use)) {
+            return '';
+        }
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+        $t->set('special_use', $special_use);
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/specialuse.html');
     }
 
 }

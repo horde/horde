@@ -20,6 +20,18 @@
 class IMP_Folder
 {
     /**
+     * Mapping of special-use keys to their IMP equivalents.
+     *
+     * @var array
+     */
+    static public $specialUse = array(
+        'drafts' => '\\drafts',
+        'sent' => '\\sent',
+        'spam' => '\\junk',
+        'trash' => '\\trash'
+    );
+
+    /**
      * Keep around identical lists so that we don't hit the server more that
      * once in the same page for the same thing.
      *
@@ -212,6 +224,17 @@ class IMP_Folder
      *
      * @param string $folder      The folder to be created (UTF7-IMAP).
      * @param boolean $subscribe  Subscribe to folder?
+     * @param array $opts         Additional options:
+     * <pre>
+     * 'drafts' - (boolean) Is this a drafts mailbox?
+     *            DEFAULT: false
+     * 'spam' - (boolean) Is this a spam mailbox?
+     *          DEFAULT: false
+     * 'sent' - (boolean) Is this a sent-mail mailbox?
+     *          DEFAULT: false
+     * 'trash' - (boolean) Is this a trash mailbox?
+     *          DEFAULT: false
+     * </pre>
      *
      * @return boolean  Whether or not the folder was successfully created.
      * @throws Horde_Exception
@@ -245,9 +268,17 @@ class IMP_Folder
             return false;
         }
 
+        /* Special use flags. */
+        $special_use = array();
+        foreach ($this->specialUse as $key => $val) {
+            if (!empty($this->_opts[$key])) {
+                $special_use[] = $val;
+            }
+        }
+
         /* Attempt to create the mailbox. */
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->createMailbox($folder);
+            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->createMailbox($folder, array('special_use' => $special_use));
         } catch (Horde_Imap_Client_Exception $e) {
             $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
             return false;

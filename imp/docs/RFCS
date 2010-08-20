@@ -51,8 +51,9 @@ RFC 5530        IMAP Response Codes
 RFC 5550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
 RFC 5819        LIST-STATUS
 
-draft-ietf-morg-sortdisplay-02     SORT=DISPLAY
-draft-ietf-morg-inthread-00        THREAD=REFS
+draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
+draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
+draft-ietf-morg-inthread-00         THREAD=REFS
 
 
 POP3

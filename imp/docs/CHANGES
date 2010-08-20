@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add support for setting/retrieving special-use mailboxes from IMAP
+      server.
 [mms] Add preference to control if we check for recipient PGP public keys
       when replying (Request #7962).
 [mms] Add preference to allow for automatic spam reporting when explicitly
