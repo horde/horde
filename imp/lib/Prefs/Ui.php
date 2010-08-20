@@ -1646,7 +1646,7 @@ class IMP_Prefs_Ui
             ? $ui->vars->type
             : 'plain';
 
-        if ($ui->vars->last_type != $type) {
+        if ($content && ($ui->vars->last_type != $type)) {
             $content = ($type == 'plain')
                 ? $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($content, 'Html2text')
                 : nl2br(htmlspecialchars(htmlspecialchars($content)));
