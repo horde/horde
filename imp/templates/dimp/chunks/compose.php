@@ -160,7 +160,7 @@ $compose_link->pathInfo = 'addAttachment';
 
 <?php if (!$compose_disable): ?>
 <form id="redirect" name="redirect" style="display:none">
- <input type="hidden" id="redirect_composeCache" name="redirect_composeCache" value="<?php echo $composeCache ?>" />
+ <input type="hidden" id="composeCache" name="composeCache" value="<?php echo $composeCache ?>" />
 <?php echo Horde_Util::formInput() ?>
  <div class="msgwrite">
   <div class="dimpActions dimpActionsCompose">

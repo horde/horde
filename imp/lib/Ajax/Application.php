@@ -1554,7 +1554,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      * <pre>
-     * 'redirect_composeCache' - (string) The IMP_Compose cache identifier.
+     * 'composeCache' - (string) The IMP_Compose cache identifier.
      * 'redirect_to' - (string) The address(es) to redirect to.
      * </pre>
      *
@@ -1573,7 +1573,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->success = 1;
 
         try {
-            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->redirect_composeCache);
+            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->composeCache);
             $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 
             $result->mbox = $imp_compose->getMetadata('mailbox');
