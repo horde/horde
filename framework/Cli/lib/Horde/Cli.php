@@ -317,6 +317,7 @@ class Horde_Cli
         if (is_object($error) && method_exists($error, 'getMessage')) {
             $error = $error->getMessage();
         }
+        $this->writeln();
         $this->writeln($this->red('===================='));
         $this->writeln();
         $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
