@@ -340,11 +340,17 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * Create a mailbox.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     * @param array $opts      Additional options. See self::createMailbox().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _createMailbox($mailbox)
+    protected function _createMailbox($mailbox, $opts)
     {
+        if (isset($opts['special_use'])) {
+            $this->_getSocket()->createMailbox($mailbox, $opts);
+            return;
+        }
+
         $this->login();
 
         $old_error = error_reporting(0);

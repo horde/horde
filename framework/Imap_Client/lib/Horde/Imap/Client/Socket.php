@@ -40,8 +40,9 @@
  *   RFC 5530 - IMAP Response Codes
  *   RFC 5819 - LIST-STATUS
  *
- *   draft-ietf-morg-sortdisplay-02     SORT=DISPLAY
- *   draft-ietf-morg-inthread-00        THREAD=REFS
+ *   draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
+ *   draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
+ *   draft-ietf-morg-inthread-00         THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -905,18 +906,31 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Create a mailbox.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     * @param array $opts      Additional options. See self::createMailbox().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _createMailbox($mailbox)
+    protected function _createMailbox($mailbox, $opts)
     {
         $this->login();
 
-        // CREATE returns no untagged information (RFC 3501 [6.3.3])
-        $this->_sendLine(array(
+        $cmd = array(
             'CREATE',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
-        ));
+        );
+
+        if (isset($opts['special_use'])) {
+            $cmd[] = 'USE';
+
+            $flags = array();
+            foreach ($opts['special_use'] as $val) {
+                $flags[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
+            }
+            $cmd[] = $flags;
+        }
+
+        // CREATE returns no untagged information (RFC 3501 [6.3.3])
+        $this->_sendLine($cmd);
     }
 
     /**
@@ -1081,6 +1095,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (!empty($options['recursivematch'])) {
                 $select_opts[] = 'RECURSIVEMATCH';
+            }
+
+            if (!empty($options['special_use'])) {
+                $select_opts[] = 'SPECIAL-USE';
             }
 
             if (!empty($select_opts)) {

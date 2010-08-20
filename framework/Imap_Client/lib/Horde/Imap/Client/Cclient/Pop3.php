@@ -125,10 +125,11 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      * Create a mailbox.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     * @param array $opts      Additional options. See self::createMailbox().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _createMailbox($mailbox)
+    protected function _createMailbox($mailbox, $opts)
     {
         throw new Horde_Imap_Client_Exception('Creating mailboxes not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
     }

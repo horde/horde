@@ -695,22 +695,33 @@ abstract class Horde_Imap_Client_Base
      *
      * @param string $mailbox  The mailbox to create. Either in UTF7-IMAP or
      *                         UTF-8.
+     * @param array $opts      Additional options:
+     * <pre>
+     * 'special_use' - (array) An array of special-use flags to mark the
+     *                 mailbox with.  The server must support broadcast the
+     *                 CREATE-SPECIAL-USE capability string.
+     * </pre>
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function createMailbox($mailbox)
+    public function createMailbox($mailbox, array $opts = array())
     {
-        $this->_createMailbox(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox));
+        if (!$this->queryCapability('CREATE-SPECIAL-USE')) {
+            unset($opts['special_use']);
+        }
+
+        $this->_createMailbox(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), $opts);
     }
 
     /**
      * Create a mailbox.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     * @param array $opts      Additional options. See self::createMailbox().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    abstract protected function _createMailbox($mailbox);
+    abstract protected function _createMailbox($mailbox, $opts);
 
     /**
      * Delete a mailbox.
@@ -859,6 +870,14 @@ abstract class Horde_Imap_Client_Base
      * 'remote' - (boolean) Tell server to return mailboxes that reside on
      *            another server. Requires the LIST-EXTENDED extension.
      *            DEFAULT: false
+     * 'special_use' - (boolean) Tell server to return special-use attribute
+     *                 information (\Drafts, \Flagged, \Junk, \Sent, \Trash,
+     *                 \All, \Archive)). Server must support the SPECIAL-USE
+     *                 return option for this setting to have any effect.
+     *                 Server MAY return this attribute without this option.
+     *                 Aidditionaly, server SHOULD return this information if
+     *                 this option is given, but it is not guaranteed.
+     *                 DEFAULT: false
      * 'status' - (integer) Tell server to return status information. The
      *            value is a bitmask that may contain the following:
      *            Horde_Imap_Client::STATUS_MESSAGES,
