@@ -135,17 +135,16 @@ function usage()
 
 function check_binaries()
 {
-    global $gettext_version, $c;
+    global $c;
 
     $c->writeln('Searching gettext binaries...');
     foreach (array('gettext', 'msgattrib', 'msgcat', 'msgcomm', 'msgfmt', 'msginit', 'msgmerge', 'xgettext') as $binary) {
         $GLOBALS[$binary] = System::which($binary);
-        if ($GLOBALS[$binary]) {
-            $c->message($binary . ' found: ' . $GLOBALS[$binary], 'cli.success');
-        } else {
+        if (!$GLOBALS[$binary]) {
             $c->message($binary . ' not found', 'cli.error');
             footer();
         }
+        $c->message($binary . ' found: ' . $GLOBALS[$binary], 'cli.success');
     }
     $c->writeln();
 
@@ -155,15 +154,12 @@ function check_binaries()
     $version_string = 'gettext version: ' . $split[count($split) - 1];
     $gettext_version = explode('.', $split[count($split) - 1]);
     if ($gettext_version[0] == 0 && $gettext_version[1] < 12) {
-        $GLOBALS['php_support'] = false;
         $c->writeln();
-        $c->message($version_string, 'cli.warning');
-        $c->message('Your gettext version is too old and does not support PHP natively.', 'cli.warning');
-        $c->writeln('Not all strings will be extracted.');
-    } else {
-        $GLOBALS['php_support'] = true;
-        $c->message($version_string, 'cli.success');
+        $c->message($version_string, 'cli.error');
+        $c->message('Your gettext version is too old and does not support PHP natively.', 'cli.error');
+        footer();
     }
+    $c->message($version_string, 'cli.success');
     $c->writeln();
 }
 
@@ -218,42 +214,45 @@ function get_languages($dir)
 function search_modules()
 {
     $dirs = array();
-    if (is_dir(HORDE_BASE . DS . 'locale')) {
+    if (is_dir(HORDE_BASE . '/locale')) {
         $dirs[] = HORDE_BASE;
     }
     $dh = opendir(BASE);
-    if ($dh) {
-        while ($entry = readdir($dh)) {
-            $dir = BASE . DS . $entry;
-            if (is_dir($dir) &&
-                substr($entry, 0, 1) != '.' &&
-                fileinode(HORDE_BASE) != fileinode($dir)) {
-                $sub = opendir($dir);
-                if ($sub) {
-                    while ($subentry = readdir($sub)) {
-                        if ($subentry == 'locale' &&
-                            is_dir($dir . DS . $subentry)) {
-                            $dirs[] = $dir;
-                            break;
-                        }
-                        if ($entry == 'framework') {
-                            $framework = opendir($dir . DS . $subentry);
-                            if ($framework) {
-                                while ($package = readdir($framework)) {
-                                    if ($package == 'locale' &&
-                                        is_dir($dir . DS . $subentry . DS . $package)) {
-                                        $dirs[] = $dir . DS . $subentry;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+    if (!$dh) {
+        return array();
+    }
+    while ($entry = readdir($dh)) {
+        $dir = BASE . '/' . $entry;
+        if (!is_dir($dir) ||
+            substr($entry, 0, 1) == '.' ||
+            fileinode(HORDE_BASE) == fileinode($dir)) {
+            continue;
+        }
+        $sub = opendir($dir);
+        if (!$sub) {
+            continue;
+        }
+        while ($subentry = readdir($sub)) {
+            if ($subentry == 'locale' && is_dir($dir . '/' . $subentry)) {
+                $dirs[] = $dir;
+                break;
+            }
+            if ($entry != 'framework') {
+                continue;
+            }
+            $framework = opendir($dir . '/' . $subentry);
+            if (!$framework) {
+                continue;
+            }
+            while ($package = readdir($framework)) {
+                if ($package == 'locale' &&
+                    is_dir($dir . '/' . $subentry . '/' . $package)) {
+                    $dirs[] = $dir . '/' . $subentry;
+                    break;
                 }
             }
         }
     }
-
     return $dirs;
 }
 
@@ -268,7 +267,7 @@ function strip_horde($file)
 
 function xtract()
 {
-    global $cmd_options, $apps, $dirs, $debug, $test, $c, $gettext_version, $silence, $curdir;
+    global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence, $curdir;
 
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
@@ -282,11 +281,6 @@ function xtract()
         }
     }
 
-    if ($GLOBALS['php_support']) {
-        $language = 'PHP';
-    } else {
-        $language = 'C++';
-    }
     for ($i = 0; $i < count($dirs); $i++) {
         if (!empty($module) && $module != $apps[$i]) {
             continue;
@@ -301,28 +295,55 @@ function xtract()
         $files = array_filter($files, create_function('$file', 'return substr($file, 0, 9) != "." . DS . "config" . DS;'));
         $files = array_merge($files, search_ext('dist', 'config'));
         $file = 'locale' . DS . $apps[$i] . '.pot';
+        /* Store the file list because it gets too long to be passed on the
+         * command line. */
         file_put_contents($file . '.list', implode("\n", $files));
         if (file_exists($file) && !is_writable($file)) {
             $c->message(sprintf('%s is not writable.', $file), 'cli.error');
             footer();
         }
+        /* We must use a .pot extension, otherwise msgcomm complains about an
+         * invalid charset being used in this file. */
         $tmp_file = $file . '.tmp.pot';
-        $sh = $GLOBALS['xgettext'] . ' --language=' . $language .
-            ' --from-code=iso-8859-1 --keyword=_ --keyword=ngettext --keyword=t --keyword=n --sort-output --copyright-holder="Horde Project" --msgid-bugs-address="dev@lists.horde.org" --files-from=' . $file . '.list --output=' . $tmp_file;
+
+        if (file_exists($dirs[$i] . '/lib/Application.php')) {
+            include_once $dirs[$i] . '/lib/Application.php';
+            $className = $apps[$i] . '_Application';
+            $appOb = new $className;
+            $version = $appOb->version;
+        } else {
+            include_once $dirs[$i] . '/lib/version.php';
+            $version = constant(strtoupper($apps) . '_VERSION');
+        }
+        $sh = $GLOBALS['xgettext']
+            . ' --language=PHP'
+            . ' --from-code=iso-8859-1'
+            . ' --keyword=_ --keyword=ngettext --keyword=t --keyword=n'
+            . ' --sort-output'
+            . ' --package-name=' . ($apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]))
+            . ' --package-version=' . $version
+            . ' --copyright-holder="Horde Project"'
+            . ' --msgid-bugs-address="dev@lists.horde.org"'
+            . ' --files-from=' . $file . '.list'
+            . ' --output=' . $tmp_file;
         if ($debug) {
             $sh .= $silence;
         }
         if ($debug || $test) {
             $c->writeln('Executing:');
             $c->writeln($sh);
-            $c->writeln('In: ' . getcwd());
         }
         if (!$test) {
             exec($sh);
         }
         unlink($file . '.list');
+        $app = $apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]);
+        file_put_contents($tmp_file, str_replace('PACKAGE package.', $app . ' package.', file_get_contents($tmp_file)));
+
         $diff = array();
         if (file_exists($tmp_file)) {
+            /* Search for Horde_Template template files and extract <gettext>
+             * tags manually. */
             $files = search_ext('html', 'templates');
             if (!$test) $tmp = fopen($file . '.templates', 'w');
             foreach ($files as $template) {
@@ -356,6 +377,8 @@ function xtract()
                 }
                 fclose($fp);
             }
+
+            /* Merge with the base .pot file. */
             if (!$test) fclose($tmp);
             $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$tmp_file\" \"$file.templates\" --output-file \"$tmp_file\"" . $silence;
             if ($debug || $test) {
@@ -386,6 +409,8 @@ function xtract()
                     }
                 }
                 if (!$test) fclose($tmp);
+
+                /* Merge with the base .pot file. */
                 $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$tmp_file\" \"$file.config\" --output-file \"$tmp_file\"" . $silence;
                 if ($debug || $test) {
                     $c->writeln('Executing:');
@@ -616,23 +641,32 @@ function init()
         if (!empty($module) && $module != $apps[$i]) {
             continue;
         }
-        $package = ucfirst($apps[$i]);
-        $version = substr($apps[$i], 0, 6) == 'Horde_'
-            ? ''
-            : ' ' . $GLOBALS['registry']->getVersion($apps[$i]);
         printf('Initializing module %s... ', $apps[$i]);
         $dir = $dirs[$i] . DS . 'locale' . DS;
+        $targetdir = $dir . $lang . DS . 'LC_MESSAGES';
         $pot = $dir . $apps[$i] . '.pot';
+        $po = $targetdir . DS . $apps[$i] . '.po';
         if (!file_exists($pot)) {
             $c->writeln();
             $c->message(sprintf('%s not found. Run \'translation extract\' first.', $pot), 'cli.warning');
             continue;
         }
+        if (!is_dir($targetdir)) {
+            if ($debug) {
+                $c->writeln(sprintf('Making directory %s', $targetdir));
+            }
+            if (!$test && !System::mkdir("-p $targetdir")) {
+                $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
+                $c->writeln($targetdir);
+                $c->writeln();
+                continue;
+            }
+        }
         $sh = $GLOBALS['msginit'] . ' --no-translator -i ' . $pot;
         if (!empty($lang)) {
             $lcdir = $dir . $lang . DS . 'LC_MESSAGES';
             $pofile = $lcdir . DS . $apps[$i] . '.po';
-            $sh .= ' -o ' . $pofile . ' --locale=' . $lang;
+            $sh .= ' --output-file ' . $po . ' --locale=' . $lang;
             if (!is_dir($lcdir) && !System::mkdir('-p ' . $lcdir)) {
                 $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
                 $c->writeln($lcdir);
@@ -642,13 +676,6 @@ function init()
         }
         if (!$debug) {
             $sh .= $silence;
-        }
-        if (!empty($lang) && !OS_WINDOWS) {
-            $sh .= "; sed 's/PACKAGE package/$package module/' $pofile " .
-                   "| sed 's/PACKAGE VERSION/$package$version/' " .
-                   "| sed 's/messages for PACKAGE/messages for $package/' " .
-                   "| sed 's/Language-Team: none/Language-Team: i18n@lists.horde.org/' " .
-                   "> $pofile.tmp";
         }
         if ($debug || $test) {
             $c->writeln();
@@ -660,7 +687,15 @@ function init()
         } else {
             exec($sh, $out, $ret);
         }
-        rename($pofile . '.tmp', $pofile);
+        $app = $apps[$i] == 'imp' ? 'IMP' : ucfirst($apps[$i]);
+        file_put_contents($po,
+                          str_replace(array('Language-Team: none',
+                                            'PACKAGE package.',
+                                            'Content-Type: text/plain; charset=ASCII'),
+                                      array('Language-Team: i18n@lists.horde.org',
+                                            $app . ' package.',
+                                            'Content-Type: text/plain; charset=UTF-8'),
+                                      file_get_contents($po)));
         if ($ret == 0) {
             $c->writeln($c->green('done'));
         } else {
@@ -729,17 +764,6 @@ function make()
             $c->writeln(sprintf('Building locale %s...', $c->bold($locale)));
             $targetdir = sprintf($dir, $locale);
             $pofile = $targetdir . $apps[$i] . '.po';
-            if (!is_dir($targetdir)) {
-                if ($debug) {
-                    $c->writeln(sprintf('Making directory %s', $targetdir));
-                }
-                if (!$test && !System::mkdir("-p $targetdir")) {
-                    $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
-                    $c->writeln($targetdir);
-                    $c->writeln();
-                    continue;
-                }
-            }
 
             /* Convert to unix linebreaks. */
             $content = str_replace("\r", '', file_get_contents($pofile));
@@ -783,8 +807,7 @@ function make()
                     $c->writeln();
                     $sh .= '"' . $targetdir . DS . $apps[$i] . '.po"';
                 } else {
-                    $comm = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$pofile\"";
-                    $sh = $comm . " \"$horde_po\" | $sh -";
+                    $sh = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$pofile\" \"$horde_po\" | $sh -";
                 }
             } else {
                 $sh .= '"' . $pofile . '"';
@@ -882,11 +905,7 @@ function make()
     }
     $c->writeln($stats->getTable());
     if ($save_stats) {
-        $fp = fopen('translation_stats.txt', 'w');
-        if ($fp) {
-            fwrite($fp, serialize($stats_array));
-            fclose($fp);
-        }
+        file_put_contents('translation_stats.txt', serialize($stats_array));
     }
 }
 
