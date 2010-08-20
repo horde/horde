@@ -75,7 +75,7 @@ class Horde_Tree_Html extends Horde_Tree
      */
     public function getTree($static = false)
     {
-        $this->_static = $static;
+        $this->_static = (bool)$static;
         $this->_buildIndents($this->_root_nodes);
 
         $tree = $this->_buildHeader();
@@ -215,7 +215,7 @@ class Horde_Tree_Html extends Horde_Tree
             $line .= '<table cellspacing="0"><tr><td>';
         }
 
-        for ($i = $this->_static ? 1 : 0; $i < $this->_nodes[$node_id]['indent']; $i++) {
+        for ($i = intval($this->_static); $i < $this->_nodes[$node_id]['indent']; ++$i) {
             $line .= '<img src="';
             if ($this->_dropline[$i] && $this->getOption('lines', false, true)) {
                 $line .= $this->_images['line'] . '"';
@@ -325,19 +325,17 @@ class Horde_Tree_Html extends Horde_Tree
             /* Node without children. */
             if ($this->_node_pos[$node_id]['pos'] < $this->_node_pos[$node_id]['count']) {
                 /* Not last node. */
-                if ($this->getOption('lines', false, true)) {
-                    $img = $this->_images['join'];
-                } else {
-                    $img = $this->_images['blank'];
-                }
+                $img = $this->getOption('lines', false, true)
+                    ? $this->_images['join']
+                    : $this->_images['blank'];
+
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
             } else {
                 /* Last node. */
-                if ($this->getOption('lines', false, true)) {
-                    $img = $this->_images['join_bottom'];
-                } else {
-                    $img = $this->_images['blank'];
-                }
+                $img = $this->getOption('lines', false, true)
+                    ? $this->_images['join_bottom']
+                    : $this->_images['blank'];
+
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
             }
         } elseif (isset($this->_nodes[$node_id]['children'])) {
@@ -376,11 +374,11 @@ class Horde_Tree_Html extends Horde_Tree
             if ($this->_static) {
                 return '';
             }
-            if ($this->getOption('lines', false, true)) {
-                $img = $this->_images['null_only'];
-            } else {
-                $img = $this->_images['blank'];
-            }
+
+            $img = $this->getOption('lines', false, true)
+                ? $this->_images['null_only']
+                : $this->_images['blank'];
+
             $this->_dropline[0] = false;
         }
 
