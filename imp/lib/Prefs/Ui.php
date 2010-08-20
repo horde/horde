@@ -14,8 +14,10 @@
  */
 class IMP_Prefs_Ui
 {
-    /* Mailbox identifiers. */
-    const FLIST_SPECIALUSE = "specialuse\0";
+    const PREF_DEFAULT = "default\0";
+    const PREF_NO_FOLDER = "nofolder\0";
+    const PREF_SPECIALUSE = "specialuse\0";
+    const PREF_VTRASH = "vtrash\0";
 
     /**
      * Cached folder list.
@@ -874,7 +876,7 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('drafts', _("Drafts folder:")));
-        $t->set('nofolder', IMP::PREF_NO_FOLDER);
+        $t->set('nofolder', self::PREF_NO_FOLDER);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
@@ -1258,7 +1260,7 @@ class IMP_Prefs_Ui
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        $t->set('default', IMP::formMbox(IMP::PREF_DEFAULT, true));
+        $t->set('default', IMP::formMbox(self::PREF_DEFAULT, true));
         $t->set('label', Horde::label('sent_mail_folder', _("Sent mail folder:")));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
@@ -1288,9 +1290,9 @@ class IMP_Prefs_Ui
         $sent_mail_folder = IMP::formMbox($ui->vars->sent_mail_folder, false);
         if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
             $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
-        } elseif (strpos($sent_mail_folder, self::FLIST_SPECIALUSE) === 0) {
-            $sent_mail_folder = substr($folder, strlen(self::FLIST_SPECIALUSE));
-        } elseif (($sent_mail_folder == IMP::PREF_DEFAULT) &&
+        } elseif (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
+            $sent_mail_folder = substr($folder, strlen(self::PREF_SPECIALUSE));
+        } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
                   ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
             $sent_mail_folder = $sm_default;
         }
@@ -1552,7 +1554,7 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('spam', _("Spam folder:")));
-        $t->set('nofolder', IMP::PREF_NO_FOLDER);
+        $t->set('nofolder', self::PREF_NO_FOLDER);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
@@ -1702,8 +1704,8 @@ class IMP_Prefs_Ui
         $use_vtrash = $GLOBALS['prefs']->getValue('use_vtrash');
 
         $t->set('label', Horde::label('trash', _("Trash folder:")));
-        $t->set('nofolder', IMP::PREF_NO_FOLDER);
-        $t->set('vtrash', IMP::PREF_VTRASH);
+        $t->set('nofolder', self::PREF_NO_FOLDER);
+        $t->set('vtrash', self::PREF_VTRASH);
         $t->set('vtrash_select', $use_vtrash);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
@@ -1728,7 +1730,7 @@ class IMP_Prefs_Ui
 
         $trash = IMP::formMbox($ui->vars->trash, false);
 
-        if ($trash == IMP::PREF_VTRASH) {
+        if ($trash == self::PREF_VTRASH) {
             if (!$prefs->isLocked('use_vtrash')) {
                 $prefs->setValue('use_vtrash', 1);
                 $prefs->setValue('trash_folder', '');
@@ -1765,12 +1767,12 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        if ($folder == IMP::PREF_NO_FOLDER) {
+        if ($folder == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');
         }
 
-        if (strpos($folder, self::FLIST_SPECIALUSE) === 0) {
-            $folder = substr($folder, strlen(self::FLIST_SPECIALUSE));
+        if (strpos($folder, self::PREF_SPECIALUSE) === 0) {
+            $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
             $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
@@ -1806,7 +1808,7 @@ class IMP_Prefs_Ui
             if (in_array($use, $val['attributes'])) {
                 $special_use[] = array(
                     'l' => htmlspecialchars(IMP::getLabel($val)),
-                    'v' => IMP::formMbox(FLIST_SPECIALUSE . $key, true)
+                    'v' => IMP::formMbox(PREF_SPECIALUSE . $key, true)
                 );
             }
         }

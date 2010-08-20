@@ -33,11 +33,6 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* Preferences constants. */
-    const PREF_DEFAULT = "default\0";
-    const PREF_NO_FOLDER = "nofolder\0";
-    const PREF_VTRASH = "vtrash\0";
-
     /* Folder list actions. */
     const NOTEPAD_EDIT = "notepad\0";
     const TASKLIST_EDIT = "tasklist\0";
