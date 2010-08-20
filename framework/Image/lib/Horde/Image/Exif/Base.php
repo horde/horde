@@ -103,12 +103,11 @@ abstract class Horde_Image_Exif_Base
         // According to EXIF standard, GPS data can be in the form of
         // dd/1 mm/1 ss/1 or as a decimal reprentation.
         if (!is_array($data)) {
-            // Assume a scalar is a decimal representation - but strip it of
-            // any stray characters that may be there.
-            return (double)trim(str_replace(array('N', 'S', 'E', 'W'),
-                                            array('', '', '', ''),
-                                            $data));
+            // Assume a scalar is a decimal representation. Cast it to a float
+            // which will get rid of any stray ordinal indicators. (N, S, etc...)
+            return (double)$data;
         }
+
         if ($data[0] == 0) {
             return 0;
         }
