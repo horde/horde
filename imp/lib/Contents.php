@@ -524,19 +524,27 @@ class IMP_Contents
         // Retrieve 3x the size of $maxlen of bodytext data. This should
         // account for any content-encoding & HTML tags.
         $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
-        $ptext = $pmime->getContents();
-        $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
+        $charset = $GLOBALS['registry']->getCharset();
+
+        $ptext = Horde_String::convertCharset($pmime->getContents(), $pmime->getCharset(), $charset);
+
         if ($pmime->getType() == 'text/html') {
-            $ptext = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($ptext, 'Html2text');
+            $ptext = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($ptext, 'Html2text', array('charset' => $charset));
         }
 
         $this->_build = $oldbuild;
 
         if (Horde_String::length($ptext) > $maxlen) {
-            return array('cut' => true, 'text' => Horde_String::truncate($ptext, $maxlen));
+            return array(
+                'cut' => true,
+                'text' => Horde_String::truncate($ptext, $maxlen)
+            );
         }
 
-        return array('cut' => false, 'text' => $ptext);
+        return array(
+            'cut' => false,
+            'text' => $ptext
+        );
     }
 
     /**
