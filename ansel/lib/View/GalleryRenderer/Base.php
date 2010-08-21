@@ -117,7 +117,6 @@ abstract class Ansel_View_GalleryRenderer_Base
      * to display or otherwise interact with the renderer.
      *
      * @TODO: Not sure why I didn't put this in the const'r - try moving it.
-     *
      */
     public function init()
     {
