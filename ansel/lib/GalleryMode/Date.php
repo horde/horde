@@ -503,7 +503,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 
         /* Delete from storage */
         $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
-                ->deleteImage($image->id);
+                ->removeImage($image->id);
 
         if (!$isStack) {
             $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
