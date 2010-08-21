@@ -1233,11 +1233,11 @@ class Horde_Registry
         $app = $this->getApp();
         if ($app) {
             $this->_onAppSwitch($app);
+            $this->setTextdomain(
+                $app,
+                $this->get('fileroot', $app) . '/locale'
+            );
         }
-        $this->setTextdomain(
-            $app,
-            $this->get('fileroot', $app) . '/locale'
-        );
 
         return $previous;
     }
