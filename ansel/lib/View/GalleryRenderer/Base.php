@@ -163,17 +163,9 @@ abstract class Ansel_View_GalleryRenderer_Base
                 unset($this->style['widgets']['Actions']);
             }
 
-            // I *think* this is more efficient, iterate over the children
-            // since we already have them instead of calling listImages.
-            //$image_ids = $this->view->gallery->listImages($this->pagestart, $this->pagestart + $this->perpage);
-            $ids = array();
-            foreach ($this->children as $child) {
-                if ($child instanceof Ansel_Image) {
-                    $ids[] = $child->id;
-                }
-            }
             // Gallery widgets always receive an array of image ids for
             // the current page.
+            $ids = $this->getChildImageIds();
             foreach ($this->style['widgets'] as $wname => $wparams) {
                 $wparams = array_merge($wparams, array('images' => $ids));
                 $this->view->addWidget(Ansel_Widget::factory($wname, $wparams));
@@ -203,6 +195,17 @@ abstract class Ansel_View_GalleryRenderer_Base
 
         /* The last tile number to display on the current page */
         $this->pageend = min($this->numTiles, $this->pagestart + $this->perpage - 1);
+    }
+
+    public function getChildImageIds()
+    {
+        $ids = array();
+        foreach ($this->children as $child) {
+            if ($child instanceof Ansel_Image) {
+                $ids[] = $child->id;
+            }
+        }
+        return $ids;
     }
 
     /**
