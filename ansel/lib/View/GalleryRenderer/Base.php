@@ -32,7 +32,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      *
      * @var string
      */
-    var $gallerySlug; // Ditto.
+    public $gallerySlug;
 
     /**
      * The current page we are viewing
