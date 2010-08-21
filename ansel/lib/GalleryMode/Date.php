@@ -148,7 +148,6 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $this->_date = $date;
     }
 
-
     /**
      * Get the children of this gallery.
      *
@@ -552,32 +551,24 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      */
     public function getImages($from = 0, $count = 0)
     {
-        /* Get all of this grouping's children. */
-        $children = $this->getGalleryChildren(Horde_Perms::SHOW);
-
-        /* At day level, these are all Ansel_Images, otherwise they are
-         * Ansel_Gallery_Decorator_Date objects.
-         */
         if (!empty($this->_date['day'])) {
+            // Get all of this grouping's children. At day level, these are all
+            // Ansel_Images.
+            $children = $this->getGalleryChildren(Horde_Perms::SHOW);
             $images = $this->_getArraySlice($children, $from, $count, true);
+            return $images;
         } else {
-            // typeof $child == Ansel_Gallery_Decorator_Date
-            $ids = array();
-            foreach ($children as $child) {
-                $ids = array_merge($ids, $child->getImagesByGrouping());
-            }
-            $ids = $this->_getArraySlice($ids, $from, $count);
-            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $ids));
+            // We don't want to work with any images at this level in a DateMode
+            // gallery.
+            return array();
         }
-
-        return $images;
     }
 
-   /**
+    /**
      * Checks if the gallery has any subgalleries. This will always be false
      * for a gallery in date view.
-    *
-    * @return boolean
+     *
+     * @return boolean
      */
     public function hasSubGalleries()
     {
@@ -632,5 +623,4 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $this->_subGalleries = array_keys($subs);
         }
     }
-
 }
