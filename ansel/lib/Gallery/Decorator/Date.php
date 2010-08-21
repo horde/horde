@@ -16,7 +16,7 @@ class Ansel_Gallery_Decorator_Date
     protected $_modeHelper;
 
     /**
-     *  The gallery we are decorating
+     * The gallery we are decorating
      *
      * @var Ansel_Gallery
      */
@@ -80,6 +80,7 @@ class Ansel_Gallery_Decorator_Date
             return $this->_gallery->id;
         }
     }
+
     /**
      * Output the HTML for this gallery's tile.
      *
@@ -89,8 +90,7 @@ class Ansel_Gallery_Decorator_Date
      * @param array $params          Any additional parameters the Ansel_Tile
      *                               object may need.
      */
-    public function getTile($parent = null, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($parent = null, $style = null, $mini = false, $params = array())
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
@@ -111,8 +111,8 @@ class Ansel_Gallery_Decorator_Date
     public function getRecentImages($limit = 10)
     {
         return $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getScope()
-                ->getRecentImages(array($this->_gallery->id), $limit);
+            ->getScope()
+            ->getRecentImages(array($this->_gallery->id), $limit);
     }
 
     /**
@@ -122,7 +122,7 @@ class Ansel_Gallery_Decorator_Date
      *
      * @return Ansel_Image  The image object corresponding to the given id.
      */
-    public function &getImage($id)
+    public function getImage($id)
     {
         return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
     }
@@ -192,5 +192,4 @@ class Ansel_Gallery_Decorator_Date
     {
         return $this->_images;
     }
-
 }
