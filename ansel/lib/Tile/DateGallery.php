@@ -98,9 +98,9 @@ class Ansel_Tile_DateGallery
             $view_link = Ansel::getUrlFor('view', $params)->link();
         } else {
             $view_link = new Horde_Url(str_replace(array('%g', '%s'),
-                                             array($dgallery->id, $dgallery->get('slug')),
-                                             urldecode($params['gallery_view_url'])));
-            $view_link->add($next_date)->link();
+                                                   array($dgallery->id, $dgallery->get('slug')),
+                                                   urldecode($params['gallery_view_url'])));
+            $view_link = $view_link->add($next_date)->link();
         }
 
         /* Variables used in the template file */
