@@ -3,9 +3,9 @@
  * Ansel_Tile_DateGallery:: class wraps display of thumbnail tile for the
  * DateGallery psuedo gallery.
  *
- * @author Michael Rubinsky <mrubinsk@horde.org>
- * @category Horde
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @category Horde
  * @package  Ansel
  */
 class Ansel_Tile_DateGallery
@@ -14,16 +14,16 @@ class Ansel_Tile_DateGallery
      * Outputs the html for a DateGallery tile.
      *
      * @param Ansel_DateGallery $dgallery  The Ansel_Gallery_Date we are
-     *                                    displaying.
-     * @param array $style                A style definition array.
-     * @param boolean $mini               Force the use of a mini thumbail?
-     * @param array $params               An array containing additional
-     *                                    parameters. Currently,
-     *                                    gallery_view_url and
-     *                                    image_view_url are used to override
-     *                                    the respective urls. %g and %i are
-     *                                    replaced with image id and gallery id,
-     *                                    respectively
+     *                                     displaying.
+     * @param array $style                 A style definition array.
+     * @param boolean $mini                Force the use of a mini thumbail?
+     * @param array $params                An array containing additional
+     *                                     parameters. Currently,
+     *                                     gallery_view_url and
+     *                                     image_view_url are used to override
+     *                                     the respective urls. %g and %i are
+     *                                     replaced with image id and gallery id,
+     *                                     respectively
      *
      * @return  Outputs the HTML for the tile.
      */
@@ -32,7 +32,7 @@ class Ansel_Tile_DateGallery
         /* User's preferred date format */
         $date_format = $GLOBALS['prefs']->getValue('date_format');
 
-        /* Easier to work with a Horde_Date obejct */
+        /* Easier to work with a Horde_Date object */
         $date_array = $dgallery->getDate();
         if (empty($date_array['month'])) {
             $date_array['month'] = 1;
@@ -46,9 +46,8 @@ class Ansel_Tile_DateGallery
         /* Need the unaltered date part array */
         $date_array = $dgallery->getDate();
 
-        /* Figure out the needed link for the next drill down level.
-         * We *must* have at least a year since we are in a date tile.
-         */
+        /* Figure out the needed link for the next drill down level. We *must*
+         * have at least a year since we are in a date tile. */
         if (empty($date_array['month'])) {
             // unit == year
             $caption = $full_date->format('Y');
@@ -115,5 +114,4 @@ class Ansel_Tile_DateGallery
         include ANSEL_TEMPLATES . '/tile/dategallery' . ($mini ? 'mini' : '') . '.inc';
         return Horde::endBuffer();
     }
-
 }
