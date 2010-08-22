@@ -113,11 +113,7 @@ abstract class Ansel_View_Base
 
     public function __isset($property)
     {
-        if (empty($this->_params[$property])) {
-            return false;
-        }
-
-        return true;
+        return isset($this->_params[$property]);
     }
 
     /**
