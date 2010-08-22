@@ -49,11 +49,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         case 'image_captions':
         case 'faces':
             /* Only allowed when we are on a specific day */
-            if (!empty($this->_date['day'])) {
-                return true;
-            } else {
-                return false;
-            }
+            return !empty($this->_date['day']);
+
         default:
             return parent::hasFeature($feature);
         }
@@ -71,7 +68,6 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $month = !empty($this->_date['month']) ? $this->_date['month'] : 0;
         $day = !empty($this->_date['day']) ? $this->_date['day'] : 0;
         $trail = array();
-
 
         /* Do we have any date parts? */
         if (!empty($year)) {
@@ -108,9 +104,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                              'slug' => $this->_gallery->get('slug'),
                              'year' => $year);
             $trail[] = array('title' => $year, 'navdata' => $navdata);
-
         } else {
-
             // This is the first level of a date mode gallery.
             $navdata = array('view' => 'Gallery',
                              'gallery' => $this->_gallery->id,
