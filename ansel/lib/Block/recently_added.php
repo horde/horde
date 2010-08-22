@@ -68,24 +68,18 @@ class Horde_Block_ansel_recently_added extends Horde_Block
                 return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
 
-            // Build the gallery name.
-            if (isset($this->_params['gallery'])) {
-                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
-                                          $GLOBALS['registry']->getCharset());
-            }
-
+            $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             $style = $gallery->getStyle();
             $viewurl = Ansel::getUrlFor('view',
                                         array('slug' => $gallery->get('slug'),
                                               'gallery' => $gallery->id,
                                               'view' => 'Gallery'),
                                         true);
+            return sprintf(_("Recently Added Photos From %s"), $viewurl->link() . $name . '</a>');
         } else {
             $viewurl = Ansel::getUrlFor('view', array('view' => 'List'), true);
-            $name = _("All Galleries");
+            return _("Recently Added Photos");
         }
-
-        return sprintf(_("Recently Added Photos From %s"), $viewurl->link() . $name . '</a>');
     }
 
     /**
