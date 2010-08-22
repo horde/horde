@@ -1,5 +1,5 @@
 <?php
-class Horde_Ui_Layout
+class Horde_Core_Ui_Layout
 {
     protected $_view;
     protected $_layoutName;
