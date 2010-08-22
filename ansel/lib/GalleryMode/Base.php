@@ -48,7 +48,6 @@ abstract class Ansel_GalleryMode_Base
      */
     public function setDate($date = array())
     {
-        //noop
     }
 
     /**
@@ -149,5 +148,4 @@ abstract class Ansel_GalleryMode_Base
      * @return integer  The number of images in this gallery
      */
     abstract public function countImages($subgalleries = false);
-
 }
