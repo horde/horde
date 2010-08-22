@@ -938,18 +938,13 @@ class Ansel_Storage
     public function getRandomGallery($params = array())
     {
         $params = new Horde_Support_Array($params);
-        $num_galleries = $this->countGalleries($GLOBALS['registry']->getAuth(),
-                                               $params->perm,
-                                               $params->filter,
-                                               $params->parent,
-                                               $params->allLevels);
-        if (!$num_galleries) {
-            return $num_galleries;
-        }
         $galleries = $this->listGalleries($params);
-        $gallery = array_pop($galleries);
+        if (!$galleries) {
+            return false;
+        }
 
-        return $gallery;
+        $gallery_key = array_rand($galleries);
+        return $galleries[$gallery_key];
     }
 
     /**
