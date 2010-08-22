@@ -27,11 +27,10 @@ class Horde_Block_ansel_cloud extends Horde_Block
      */
     protected function _params()
     {
-        $params = array('count' => array(
-                            'name' => _("Number of tags to display"),
-                            'type' => 'int',
-                            'default' => 20));
-        return $params;
+        return array('count' => array(
+                         'name' => _("Number of tags to display"),
+                         'type' => 'int',
+                         'default' => 20));
     }
 
     /**
@@ -44,14 +43,10 @@ class Horde_Block_ansel_cloud extends Horde_Block
     }
 
     /**
-     *
-     * @global Horde_Registry $registry
      * @return string
      */
     protected function _content()
     {
-        global $registry;
-
         /* Get the tags */
         $tags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getCloud(null, $this->_params['count']);
         if (count($tags)) {
@@ -67,5 +62,4 @@ class Horde_Block_ansel_cloud extends Horde_Block
         }
         return $html;
     }
-
 }
