@@ -78,7 +78,7 @@ function previewImageMg(e, image_id)
 {
     $('ansel_preview').style.left = Event.pointerX(e) + 'px';
     $('ansel_preview').style.top = Event.pointerY(e) + 'px';
-    new Ajax.Updater({success: 'ansel_preview'}, '$preview_url', {method: 'post', parameters: '?image=' + image_id, onsuccess: $('ansel_preview').show()});
+    new Ajax.Updater({success: 'ansel_preview'}, '$preview_url', {method: 'get', parameters: 'image=' + image_id, onsuccess: $('ansel_preview').show()});
 }
 </script>
 <table class="linedRow" cellspacing="0" style="width:100%">
@@ -107,5 +107,4 @@ HEADER;
 
         return $html;
     }
-
 }

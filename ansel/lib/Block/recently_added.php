@@ -115,9 +115,9 @@ function previewImage(e, image_id) {
     $('ansel_preview').style.top = Event.pointerY(e) + 'px';
     new Ajax.Updater({success:'ansel_preview'},
                      '$preview_url',
-                     {method: 'post',
-                      parameters:'?image=' + image_id,
-                      onsuccess:$('ansel_preview').show()});
+                     {method: 'get',
+                      parameters: 'image=' + image_id,
+                      onsuccess: $('ansel_preview').show()});
 }
 </script>
 <table class="linedRow" cellspacing="0" style="width:100%">
