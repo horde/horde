@@ -208,6 +208,7 @@ Application Framework.</description>
        <file name="FlagImage.php" role="php" />
        <file name="JsCalendar.php" role="php" />
        <file name="Language.php" role="php" />
+       <file name="Layout.php" role="php" />
        <file name="Pager.php" role="php" />
        <file name="Tabs.php" role="php" />
        <file name="TagCloud.php" role="php" />
@@ -479,6 +480,7 @@ Application Framework.</description>
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />
+   <install as="Horde/Core/Ui/Layout.php" name="lib/Horde/Core/Ui/Layout.php" />
    <install as="Horde/Core/Ui/Pager.php" name="lib/Horde/Core/Ui/Pager.php" />
    <install as="Horde/Core/Ui/Tabs.php" name="lib/Horde/Core/Ui/Tabs.php" />
    <install as="Horde/Core/Ui/TagCloud.php" name="lib/Horde/Core/Ui/TagCloud.php" />
