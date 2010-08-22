@@ -11,7 +11,6 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
 class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
 {
     /**
@@ -309,5 +308,4 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
 
         return $this->_gallery->data['attribute_images'];
     }
-
 }

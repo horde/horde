@@ -55,7 +55,6 @@ class Ansel_View_Gallery extends Ansel_View_Base
                                    true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
-
             Horde::applicationUrl('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
@@ -70,12 +69,12 @@ class Ansel_View_Gallery extends Ansel_View_Base
                       'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $galleryurl = Ansel::getUrlFor('view', array_merge(
-                                   array('gallery' => $this->gallery->id,
-                                         'slug' => empty($params['slug']) ? '' : $params['slug'],
-                                         'page' => empty($params['page']) ? 0 : $params['page'],
-                                         'view' => 'Gallery'),
-                                   $date),
-                                   true);
+                    array('gallery' => $this->gallery->id,
+                          'slug' => empty($params['slug']) ? '' : $params['slug'],
+                          'page' => empty($params['page']) ? 0 : $params['page'],
+                          'view' => 'Gallery'),
+                    $date),
+                    true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
             Horde::applicationUrl('protect.php')->add($params)->setRaw(true)->redirect();
@@ -89,7 +88,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
         // Since this is a gallery view, the resource is just a reference to the
         // gallery. We keep both instance variables becuase both gallery and
         // image views are assumed to have a gallery object.
-        $this->resource = &$this->gallery;
+        $this->resource = $this->gallery;
 
         /* Do we have an explicit style set? If not, use the gallery's */
         if (!empty($this->_params['style'])) {
@@ -139,5 +138,4 @@ class Ansel_View_Gallery extends Ansel_View_Base
     {
         return 'Gallery';
     }
-
 }

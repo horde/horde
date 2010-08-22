@@ -471,7 +471,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         return $this->_modeHelper->getGalleryChildren($perm, $from, $to, $noauto);
     }
 
-
     /**
      * Return the count of this gallery's children
      *

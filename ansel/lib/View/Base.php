@@ -121,7 +121,7 @@ abstract class Ansel_View_Base
     }
 
     /**
-     *
+     * Todo
      *
      * @param integer $galleryId  The gallery id
      * @param string $slug        The gallery slug
@@ -217,10 +217,10 @@ abstract class Ansel_View_Base
      *
      * @param array $params  An array of parameters for this method:
      *   <pre>
-     *      images -     Array of Ansel_Images to generate JSON for [null]
-     *      full   -     Should a full URL be generated? [false]
-     *      from   -     Starting image count [0]
-     *      count  -     The number of images to include (starting at from) [0]
+     *      images     - Array of Ansel_Images to generate JSON for [null]
+     *      full       - Should a full URL be generated? [false]
+     *      from       - Starting image count [0]
+     *      count      - The number of images to include (starting at from) [0]
      *      image_view - The type of ImageGenerator to obtain the src url for. [screen]
      *      view_links - Should the JSON include links to the Image and/or Gallery View? [false]
      *      perpage    - Number of images per page [from user prefs]
@@ -232,12 +232,14 @@ abstract class Ansel_View_Base
     {
         global $conf, $prefs;
 
-        $default = array('full' => false,
-                         'from' => 0,
-                         'count' => 0,
-                         'image_view' => 'screen',
-                         'view_links' => false,
-                         'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']));
+        $default = array(
+            'full' => false,
+            'from' => 0,
+            'count' => 0,
+            'image_view' => 'screen',
+            'view_links' => false,
+            'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']),
+        );
 
         $params = array_merge($default, $params);
 

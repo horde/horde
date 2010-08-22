@@ -145,5 +145,4 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
 
         return Horde::endBuffer();
     }
-
 }
