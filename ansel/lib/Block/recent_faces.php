@@ -55,10 +55,9 @@ class Horde_Block_ansel_recent_faces extends Horde_Block
             $facename = htmlspecialchars($face['face_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
             $html .= '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $facename . '">'
                     . '<img src="' . $faces->getFaceUrl($face['image_id'], $face_id)
-                    . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facenane  . '" /></a>';
+                    . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facename  . '" /></a>';
         }
 
         return $html;
     }
-
 }
