@@ -619,125 +619,48 @@ class Kolab_Resource
      * @param string  $uid                    The UID of the event.
      * @param boolean $is_update              Is this an event update?
      */
-    function sendITipReply($cn, $resource, $itip, $type = RM_ITIP_ACCEPT,
-                           $organiser, $uid, $is_update)
-    {
+    function sendITipReply(
+        $cn, $resource, $itip, $type, $organiser, $uid, $is_update, $comment = null
+    ) {
         Horde::logMessage(sprintf('sendITipReply(%s, %s, %s, %s)',
-                                  $cn, $resource, get_class($itip), $type), 'DEBUG');
+                                  $cn, $resource, get_class($itip), $type),
+                          'DEBUG');
 
-        // Build the reply.
-        $vCal = new Horde_Icalendar();
-        $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
-        $vCal->setAttribute('METHOD', 'REPLY');
-
-        $summary = _('No summary available');
-
-        $itip_reply = Horde_Icalendar::newComponent('VEVENT', $vCal);
-        $itip_reply->setAttribute('UID', $uid);
-        if (!is_a($itip->getAttribute('SUMMARY'), 'PEAR_error')) {
-            $itip_reply->setAttribute('SUMMARY', $itip->getAttribute('SUMMARY'));
-            $summary = $itip->getAttribute('SUMMARY');
-        }
-        if (!is_a($itip->getAttribute('DESCRIPTION'), 'PEAR_error')) {
-            $itip_reply->setAttribute('DESCRIPTION', $itip->getAttribute('DESCRIPTION'));
-        }
-        if (!is_a($itip->getAttribute('LOCATION'), 'PEAR_error')) {
-            $itip_reply->setAttribute('LOCATION', $itip->getAttribute('LOCATION'));
-        }
-        $itip_reply->setAttribute('DTSTART', $itip->getAttribute('DTSTART'), array_pop($itip->getAttribute('DTSTART', true)));
-        if (!is_a($itip->getAttribute('DTEND'), 'PEAR_error')) {
-            $itip_reply->setAttribute('DTEND', $itip->getAttribute('DTEND'), array_pop($itip->getAttribute('DTEND', true)));
-        } else {
-            $itip_reply->setAttribute('DURATION', $itip->getAttribute('DURATION'), array_pop($itip->getAttribute('DURATION', true)));
-        }
-        if (!is_a($itip->getAttribute('SEQUENCE'), 'PEAR_error')) {
-            $itip_reply->setAttribute('SEQUENCE', $itip->getAttribute('SEQUENCE'));
-        } else {
-            $itip_reply->setAttribute('SEQUENCE', 0);
-        }
-        $itip_reply->setAttribute('ORGANIZER', $itip->getAttribute('ORGANIZER'), array_pop($itip->getAttribute('ORGANIZER', true)));
-
-        // Let's try and remove this code and just create
-        // the ATTENDEE stuff in the reply from scratch
-        //     $attendees = $itip->getAttribute( 'ATTENDEE' );
-        //     if( !is_array( $attendees ) ) {
-        //       $attendees = array( $attendees );
-        //     }
-        //     $params = $itip->getAttribute( 'ATTENDEE', true );
-        //     for( $i = 0; $i < count($attendees); $i++ ) {
-        //       $attendee = preg_replace('/^mailto:\s*/i', '', $attendees[$i]);
-        //       if ($attendee != $resource) {
-        //           continue;
-        //       }
-        //       $params = $params[$i];
-        //       break;
-        //     }
-
-        $params = array();
-        $params['CN'] = $cn;
-        switch ($type) {
+        $itip_reply = new Horde_Kolab_Resource_Itip_Response(
+            $itip,
+            new Horde_Kolab_Resource_Itip_Resource_Base(
+                $resource, $cn
+            )
+        );
+        switch($type) {
         case RM_ITIP_DECLINE:
-            Horde::logMessage(sprintf('Sending DECLINE iTip reply to %s',
-                                      $organiser), 'DEBUG');
-            $message = $is_update
-                ? sprintf(_("%s has declined the update to the following event:"), $resource) . "\n\n" . $summary
-                : sprintf(_("%s has declined the invitation to the following event:"), $resource) . "\n\n" . $summary;
-            $subject = _("Declined: ") . $summary;
-            $params['PARTSTAT'] = 'DECLINED';
+            $type = new Horde_Kolab_Resource_Itip_Response_Type_Decline(
+                $resource, $itip
+            );
             break;
-
         case RM_ITIP_ACCEPT:
-            Horde::logMessage(sprintf('Sending ACCEPT iTip reply to %s', $organiser), 'DEBUG');
-            $message = $is_update
-                ? sprintf(_("%s has accepted the update to the following event:"), $resource) . "\n\n" . $summary
-                : sprintf(_("%s has accepted the invitation to the following event:"), $resource) . "\n\n" . $summary;
-            $subject = _("Accepted: ") . $summary;
-            $params['PARTSTAT'] = 'ACCEPTED';
+            $type = new Horde_Kolab_Resource_Itip_Response_Type_Accept(
+                $resource, $itip
+            );
             break;
-
         case RM_ITIP_TENTATIVE:
-            Horde::logMessage(sprintf('Sending TENTATIVE iTip reply to %s', $organiser), 'DEBUG');
-            $message = $is_update
-                ? sprintf(_("%s has tentatively accepted the update to the following event:"), $resource) . "\n\n" . $summary
-                : sprintf(_("%s has tentatively accepted the invitation to the following event:"), $resource) . "\n\n" . $summary;
-            $subject = _("Tentative: ") . $summary;
-            $params['PARTSTAT'] = 'TENTATIVE';
+            $type = new Horde_Kolab_Resource_Itip_Response_Type_Tentative(
+                $resource, $itip
+            );
             break;
-
-        default:
-            Horde::logMessage(sprintf('Unknown iTip method (%s passed to sendITipReply())', $type), 'ERR');
         }
+        list($headers, $message) = $itip_reply->getMessage(
+            $type,
+            '-//kolab.org//NONSGML Kolab Server 2//EN',
+            $comment
+        );
 
-        $itip_reply->setAttribute('ATTENDEE', 'MAILTO:' . $resource, $params);
-        $vCal->addComponent($itip_reply);
-
-        $ics = new MIME_Part('text/calendar', $vCal->exportvCalendar(), 'UTF-8' );
-        //$ics->setName('event-reply.ics');
-        $ics->setContentTypeParameter('method', 'REPLY');
-
-        //$mime->addPart($body);
-        //$mime->addPart($ics);
-        // The following was ::convertMimePart($mime). This was removed so that we
-        // send out single-part MIME replies that have the iTip file as the body,
-        // with the correct mime-type header set, etc. The reason we want to do this
-        // is so that Outlook interprets the messages as it does Outlook-generated
-        // responses, i.e. double-clicking a reply will automatically update your
-        // meetings, showing different status icons in the UI, etc.
-        $mime = &MIME_Message::convertMimePart($ics);
-        $mime->setCharset('UTF-8');
-        $mime->setTransferEncoding('quoted-printable');
-        $mime->transferEncodeContents();
-
-        // Build the reply headers.
-        $msg_headers = new MIME_Headers();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('From', "$cn <$resource>");
-        $msg_headers->addHeader('To', $organiser);
-        $msg_headers->addHeader('Subject', $subject);
-        $msg_headers->addMIMEHeaders($mime);
+        Horde::logMessage(sprintf('Sending %s iTip reply to %s',
+                                  $type->getStatus(),
+                                  $organiser), 'DEBUG');
 
         $reply = new Horde_Kolab_Resource_Reply(
-            $resource, $organiser, $msg_headers, $mime
+            $resource, $organiser, $headers, $message
         );
         Horde::logMessage('Successfully prepared iTip reply', 'DEBUG');
         return $reply;

@@ -1,0 +1,202 @@
+Received: from localhost (example.org [127.0.0.1])
+	by example.org (Postfix) with ESMTP id 4E36AC2E001A
+	for <wrobel@example.org>; Fri, 26 Sep 2008 10:54:08 +0200 (CEST)
+X-Virus-Scanned: by amavisd-new at example.org
+X-Spam-Flag: NO
+X-Spam-Score: 3.704
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.704 tagged_above=3 required=6.3 tests=[AWL=-1.351,
+	HTML_IMAGE_ONLY_32=2.353, HTML_MESSAGE=0.001, MIME_BASE64_TEXT=2.701]
+Received: from example.org ([127.0.0.1])
+	by localhost (example.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 151vjdIDehPR for <wrobel@example.org>;
+	Fri, 26 Sep 2008 10:54:08 +0200 (CEST)
+Received: from localhost (example.org [127.0.0.1])
+	by example.org (Postfix) with ESMTP id 030C5C2E001C
+	for <wrobel@example.org>; Fri, 26 Sep 2008 10:54:08 +0200 (CEST)
+Received: from ug-out-1516.google.com (ug-out-1516.google.com [66.249.92.165])
+	by example.org (Postfix) with ESMTP id D88AAC2E001A
+	for <wrobel@example.org>; Fri, 26 Sep 2008 10:54:07 +0200 (CEST)
+Received: by ug-out-1516.google.com with SMTP id 34so6700uge.3
+        for <wrobel@example.org>; Fri, 26 Sep 2008 01:54:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=beta;
+        h=domainkey-signature:mime-version:reply-to:sender:auto-submitted
+         :received:message-id:date:subject:from:to:content-type;
+        bh=NIbM6hZNgbcIAu3CGNdscvaw1JuMHR0cmVT+UvW5YdU=;
+        b=sGwxgD6sW0IDPFRSJcK9zvMtsS4jqziu+eF+p2fb7RsxCPFjU5FJFKbwhZQdVvA6I/
+         rzueuvNP0EqBhfsdLVyA==
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=google.com; s=beta;
+        h=mime-version:reply-to:sender:auto-submitted:message-id:date:subject
+         :from:to:content-type;
+        b=oo9wYH7lmDU5KDHTT4tpQ+BRlw/FYHBN2zt/an5FPuXE+dNM05UBVi8h87ig2c5Tvl
+         p53+hzDD2DoB/SlhqInA==
+MIME-Version: 1.0
+Reply-To: Gunnar Wrobel <test@example.org>
+Sender: Google Kalender <calendar-notification@google.com>
+Auto-Submitted: auto-generated
+Received: by 10.210.130.14 with SMTP id c14mr120659ebd.11.1222419247313; Fri, 
+	26 Sep 2008 01:54:07 -0700 (PDT)
+Message-ID: <0015174c3d6200b58f0457c8a9b5@google.com>
+Date: Fri, 26 Sep 2008 01:54:07 -0700
+Subject: =?ISO-8859-1?B?W0VpbmxhZHVuZ10gdHJnIEAgVORnbGljaCB1bSAxMTowMCAocmVzQGRldi5wYXJkdXMu?=
+	=?ISO-8859-1?B?ZGUp?=
+From: Gunnar Wrobel <test@example.org>
+To: "wrobel@example.org" <wrobel@example.org>
+Content-Type: multipart/mixed; boundary=0015174c3d6200b57b0457c8a97d
+
+--0015174c3d6200b57b0457c8a97d
+Content-Type: multipart/alternative; boundary=0015174c3d6200b5720457c8a97b
+
+--0015174c3d6200b5720457c8a97b
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+cmVzQGRldi5wYXJkdXMuZGUsIFNpZSB3dXJkZW4gZWluZ2VsYWRlbiB6dQ0KDQpUaXRlbDogdHJn
+DQpaZWl0OiBU5GdsaWNoIHVtIDExOjAwIChaZWl0em9uZTogUm9tKQ0KS2FsZW5kZXI6IHJlc0Bk
+ZXYucGFyZHVzLmRlDQoNClNpZSBr9m5uZW4gZGllc2VuIFRlcm1pbiBhbnplaWdlbiB1bnRlciAg
+DQpodHRwOi8vd3d3Lmdvb2dsZS5jb20vY2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVZJRVcmZWlkPWJX
+czJiVzR6YUdGdWNEUTJhVGt3T0dWbGIyNHlaMmR1ZFdzZ2NtVnpRR1JsZGk1d1lYSmtkWE11WkdV
+JnRvaz1NaklqWjNkeWIySmxiRUJuYjI5bmJHVnRZV2xzTG1OdmJUQTNaVGc1Tm1aaFpqZGxZVEE0
+WmpjM1pqYzBNMk16T0dSak5ETXlaVGc0WkRFeU0yVXpNV1EmY3R6PUV1cm9wZSUyRlJvbWUmaGw9
+ZGUNCg0KDQoNCkRpZXNlIEUtTWFpbCB3dXJkZSBhbiByZXNAZGV2LnBhcmR1cy5kZSBnZXNlbmRl
+dCwgZGEgU2llIGVpbiBUZWlsbmVobWVyICANCmRpZXNlcyBUZXJtaW5zIHNpbmQuDQoNCkxlaG5l
+biBTaWUgZGllc2VuIFRlcm1pbiBhYiwgdW0ga2VpbmUgd2VpdGVyZW4gTmFjaHJpY2h0ZW4genUg
+ZGllc2VtIFRlcm1pbiAgDQp6dSBlcmhhbHRlbi4gU2llIGsmb3VtbDtubmVuIHNpY2ggYWx0ZXJu
+YXRpdiBmJnV1bWw7ciBlaW4gR29vZ2xlLUtvbnRvICANCnVudGVyIGh0dHA6Ly93d3cuZ29vZ2xl
+LmNvbS9jYWxlbmRhci8gYW5tZWxkZW4gdW5kIElocmUgIA0KQmVuYWNocmljaHRpZ3VuZ3NlaW5z
+dGVsbHVuZ2VuIGYmdXVtbDtyIElocmVuIGdlc2FtdGVuIEthbGVuZGVyIHN0ZXVlcm4uDQo=
+--0015174c3d6200b5720457c8a97b
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+
+<div style="padding:10px 7px; font-size:12px; line-height:1.4 font-family:Arial,Sans-serif; text-align:center;"><div><a href="http://www.google.com/calendar/"><img style="border-width:0" src="http://www.google.com/calendar/images/blue_beta_de.gif" alt="Google Kalender"></a></div>
+<div style="width:370px; background:#D2E6D2; border-style:solid;       border-color:#ccc; border-width:1px 1px 0 1px; padding:15px 15px 5px 15px;       margin:0 auto"><p style="margin:0;color:#0">wrobel@example.org,
+Sie wurden eingeladen zu</p>
+<h2 style="margin:5px 0; font-size:18px; line-height:1.4;color:#0">trg</h2>
+<p style="margin:0 0 .5em;"><span style="color:#0">T&auml;glich um 11:00</span>
+<br>
+<span style="color:#676;">(Zeitzone:
+Rom)</span>
+<br>
+<span style="color:#0"></span>
+<br>
+<span style="color:#0">Kalender:
+wrobel@example.org</span></p>
+<p style="margin:0 0 1em;color:#0; white-space:pre-wrap !important; white-space:-moz-pre-wrap !important; white-space:-pre-wrap !important; white-space:-o-pre-wrap !important; white-space:pre; word-wrap:break-word;"><a href="http://www.google.com/calendar/event?action=VIEW&amp;eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXMuZGU&amp;tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOGRjNDMyZTg4ZDEyM2UzMWQ&amp;ctz=Europe%2FRome&amp;hl=de">Weitere Termindetails&raquo;</a></p>
+<div style="margin:.5em 0 0; text-align:center;color:#0"><strong>Nehmen Sie teil?</strong></div>
+<div style="margin:4px 0 0; text-align:center;"><span style="background:#fff; border:1px solid #676;              padding:3px 5px; line-height:1.5;"><a href="http://www.google.com/calendar/event?action=RESPOND&amp;eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXMuZGU&amp;rst=1&amp;tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOGRjNDMyZTg4ZDEyM2UzMWQ&amp;ctz=Europe%2FRome&amp;hl=de">Ja</a>
+|<a href="http://www.google.com/calendar/event?action=RESPOND&amp;eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXMuZGU&amp;rst=3&amp;tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOGRjNDMyZTg4ZDEyM2UzMWQ&amp;ctz=Europe%2FRome&amp;hl=de">Vielleicht</a>
+|<a href="http://www.google.com/calendar/event?action=RESPOND&amp;eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXMuZGU&amp;rst=2&amp;tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOGRjNDMyZTg4ZDEyM2UzMWQ&amp;ctz=Europe%2FRome&amp;hl=de">Nein</a></span></div></div>
+<div><img src="http://www.google.com/calendar/images/envelope.gif" style="background:#D2E6D2; width:420px height:95px" alt=""></div><p style="margin:-15px 0 0;">&nbsp;</p>
+<p style="color:#676;">Diese E-Mail wurde an wrobel@example.org gesendet, da Sie ein Teilnehmer dieses Termins sind.</p><p style="color:#676;">Lehnen Sie diesen Termin ab, um keine weiteren Nachrichten zu diesem Termin zu erhalten. Sie k&ouml;nnen sich alternativ f&uuml;r ein Google-Konto unter http://www.google.com/calendar/ anmelden und Ihre Benachrichtigungseinstellungen f&uuml;r Ihren gesamten Kalender steuern.</p></div>
+--0015174c3d6200b5720457c8a97b
+Content-Type: text/calendar; charset=ISO-8859-1; method=REQUEST
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/Rome
+X-LIC-LOCATION:Europe/Rome
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Europe/Rome:20080926T110000
+DTEND;TZID=Europe/Rome:20080926T120000
+RRULE:FREQ=DAILY;WKST=SU
+DTSTAMP:20080926T085407Z
+ORGANIZER;CN=Gunnar Wrobel:mailto:test@example.org
+UID:mk6mn3hanp46i908eeon2ggnuk@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=wrobel@example.org;X-NUM-GUESTS=0:mailto:wrobel@example.org
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=Gunnar Wrobel;X-NUM-GUESTS=0:mailto:test@example.org
+CLASS:PRIVATE
+CREATED:20080926T085406Z
+DESCRIPTION:Zeigen Sie Ihren Termin unter http://www.google.com/calendar/ev
+ ent?action=VIEW&eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXM
+ uZGU&tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOG
+ RjNDMyZTg4ZDEyM2UzMWQ&ctz=Europe%2FRome&hl=de an.
+LAST-MODIFIED:20080926T085406Z
+LOCATION:Somewhere
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:trg
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+--0015174c3d6200b5720457c8a97b--
+--0015174c3d6200b57b0457c8a97d
+Content-Type: application/ics; name="invite.ics"
+Content-Disposition: attachment; filename="invite.ics"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/Rome
+X-LIC-LOCATION:Europe/Rome
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Europe/Rome:20080926T110000
+DTEND;TZID=Europe/Rome:20080926T120000
+RRULE:FREQ=DAILY;WKST=SU
+DTSTAMP:20080926T085407Z
+ORGANIZER;CN=Gunnar Wrobel:mailto:test@example.org
+UID:mk6mn3hanp46i908eeon2ggnuk@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=wrobel@example.org;X-NUM-GUESTS=0:mailto:wrobel@example.org
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=Gunnar Wrobel;X-NUM-GUESTS=0:mailto:test@example.org
+CLASS:PRIVATE
+CREATED:20080926T085406Z
+DESCRIPTION:Zeigen Sie Ihren Termin unter http://www.google.com/calendar/ev
+ ent?action=VIEW&eid=bWs2bW4zaGFucDQ2aTkwOGVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXM
+ uZGU&tok=MjIjZ3dyb2JlbEBnb29nbGVtYWlsLmNvbTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOG
+ RjNDMyZTg4ZDEyM2UzMWQ&ctz=Europe%2FRome&hl=de an.
+LAST-MODIFIED:20080926T085406Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:trg
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+--0015174c3d6200b57b0457c8a97d--
