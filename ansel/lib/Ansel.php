@@ -600,7 +600,7 @@ class Ansel
      *
      * @return string
      */
-    static public function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
+    static public function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
     {
         global $prefs;
 

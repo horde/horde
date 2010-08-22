@@ -241,7 +241,7 @@ if ($gallery->countImages() && $browser->hasFeature('javascript')) {
     $haveImages = true;
 }
 
-$breadcrumbs = Ansel::getBreadCrumbs(' &raquo; ', $gallery);
+$breadcrumbs = Ansel::getBreadCrumbs($gallery);
 $title = _("Add Photo");
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';

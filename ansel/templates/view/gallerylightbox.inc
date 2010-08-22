@@ -122,7 +122,7 @@ function downloadSelected()
     <?php endif; ?>
 </script>
 <div class="header" id="galleryHeader">
- <?php echo ($this->numTiles ? '<span class="rightFloat">' . ($this->numTiles > $this->perpage ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles) : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) . '</span>' : '') . Ansel::getBreadCrumbs(); ?>
+ <?php echo ($this->numTiles ? '<span class="rightFloat">' . ($this->numTiles > $this->perpage ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles) : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) . '</span>' : '') . Ansel::getBreadCrumbs($this->view->gallery) ?>
 </div>
 <?php if ($this->view->gallery->get('desc')): ?>
 <div class="gallery-desc" id="galleryDescription">

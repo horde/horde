@@ -105,7 +105,7 @@ function downloadSelected()
   <?php echo $this->numTiles > $this->perpage ? sprintf(_("%d to %d of %d items"), $this->pagestart, $this->pageend, $this->numTiles) : sprintf(ngettext("%d item", "%d items", $this->numTiles), $this->numTiles) ?>
   </span>
   <?php endif; ?>
-  <?php echo Ansel::getBreadCrumbs(); ?>
+  <?php echo Ansel::getBreadCrumbs($this->view->gallery) ?>
 </div>
 <?php if ($this->view->gallery->get('desc')): ?>
     <div id="galleryDescription" class="gallery-desc">
