@@ -1,20 +1,20 @@
 <?php
 /**
- * The Horde_Qc:: class is the entry point for the various quality control /
- * packaging actions provided by the package.
+ * The Horde_Element:: class is the entry point for the various Horde
+ * element actions provided by the package.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * The Horde_Qc:: class is the entry point for the various quality control /
- * packaging actions provided by the package.
+ * The Horde_Element:: class is the entry point for the various Horde
+ * element actions provided by the package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -22,12 +22,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc
+class Horde_Element
 {
     /**
      * The main entry point for the application.
@@ -47,7 +47,7 @@ class Horde_Qc
         $config->handleModules($modules);
         try {
             self::_validateArguments($config);
-        } catch (Horde_Qc_Exception $e) {
+        } catch (Horde_Element_Exception $e) {
             $parser->parserError($e->getMessage());
             return;
         }
@@ -72,9 +72,9 @@ class Horde_Qc
 
     static private function _prepareConfig(Horde_Argv_Parser $parser)
     {
-        $config = new Horde_Qc_Configs();
+        $config = new Horde_Element_Configs();
         $config->addConfigurationType(
-            new Horde_Qc_Config_Cli(
+            new Horde_Element_Config_Cli(
                 $parser
             )
         );
@@ -83,24 +83,24 @@ class Horde_Qc
 
     static private function _prepareModules()
     {
-        $modules = new Horde_Qc_Modules();
-        $modules->addModulesFromDirectory(dirname(__FILE__) . '/Qc/Module');
+        $modules = new Horde_Element_Modules();
+        $modules->addModulesFromDirectory(dirname(__FILE__) . '/Element/Module');
         return $modules;
     }
 
-    static private function _validateArguments(Horde_Qc_Config $config)
+    static private function _validateArguments(Horde_Element_Config $config)
     {
         $arguments = $config->getArguments();
         if (empty($arguments[0])) {
-            throw new Horde_Qc_Exception('Please specify the path of the PEAR package!');
+            throw new Horde_Element_Exception('Please specify the path of the PEAR package!');
         }
 
         if (!is_dir($arguments[0])) {
-            throw new Horde_Qc_Exception(sprintf('%s specifies no directory!', $arguments[0]));
+            throw new Horde_Element_Exception(sprintf('%s specifies no directory!', $arguments[0]));
         }
 
         if (!file_exists($arguments[0] . '/package.xml')) {
-            throw new Horde_Qc_Exception(sprintf('There is no package.xml at %s!', $arguments[0]));
+            throw new Horde_Element_Exception(sprintf('There is no package.xml at %s!', $arguments[0]));
         }
     }
 }

@@ -1,20 +1,20 @@
 <?php
 /**
- * Horde_Qc_Configs:: class represents configuration for the Horde quality
- * control tool.
+ * Horde_Element_Configs:: class represents configuration for the
+ * Horde element tool.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * Horde_Qc_Configs:: class represents configuration for the Horde quality
- * control tool.
+ * Horde_Element_Configs:: class represents configuration for the
+ * Horde element tool.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Configs
-implements Horde_Qc_Config
+class Horde_Element_Configs
+implements Horde_Element_Config
 {
 
     /**
@@ -48,21 +48,21 @@ implements Horde_Qc_Config
     /**
      * Add a configuration type to the configuration handler.
      *
-     * @param Horde_Qc_Config $type The configuration type.
+     * @param Horde_Element_Config $type The configuration type.
      *
      * @return NULL
      */
-    public function addConfigurationType(Horde_Qc_Config $type) {
+    public function addConfigurationType(Horde_Element_Config $type) {
         $this->_configs[] = $type;
     }
 
     /**
      * Provide each configuration handler with the list of supported modules.
      *
-     * @param Horde_Qc_Modules $modules A list of modules.
+     * @param Horde_Element_Modules $modules A list of modules.
      * @return NULL
      */
-    public function handleModules(Horde_Qc_Modules $modules)
+    public function handleModules(Horde_Element_Modules $modules)
     {
         foreach ($this->_configs as $config) {
             $config->handleModules($modules);

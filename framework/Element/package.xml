@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Qc</name>
+ <name>Element</name>
  <channel>pear.horde.org</channel>
- <summary>A package for preparing Horde PEAR releases.</summary>
- <description>The package provides utility methods usually required
- when preparing a new PEAR package release for Horde. It also includes
- a number of quality control checks.</description>
+ <summary>A package for handling Horde elements.</summary>
+ <description>The package provides utility methods required
+ when preparing a new element release for Horde. It also includes
+ quality control checks.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -42,40 +42,40 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <dir name="Qc">
+     <dir name="Element">
       <dir name="Config">
        <file name="Cli.php" role="php" />
-      </dir> <!-- /lib/Horde/Qc/Config -->
+      </dir> <!-- /lib/Horde/Element/Config -->
       <dir name="Module">
        <file name="PearPackageXml.php" role="php" />
-      </dir> <!-- /lib/Horde/Qc/Module -->
+      </dir> <!-- /lib/Horde/Element/Module -->
       <file name="Autoloader.php" role="php" />
       <file name="Config.php" role="php" />
       <file name="Configs.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Module.php" role="php" />
       <file name="Modules.php" role="php" />
-     </dir> <!-- /lib/Horde/Qc -->
-     <file name="Qc.php" role="php" />
+     </dir> <!-- /lib/Horde/Element -->
+     <file name="Element.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="script">
-    <file name="horde-quality-control.php" role="script" />
+    <file name="horde-element.php" role="script" />
    </dir> <!-- /script -->
    <dir name="test">
     <dir name="Horde">
-     <dir name="Qc">
+     <dir name="Element">
       <dir name="Integration">
-       <file name="QcTest.php" role="test" />
-      </dir> <!-- /test/Horde/Qc/Integration -->
+       <file name="ElementTest.php" role="test" />
+      </dir> <!-- /test/Horde/Element/Integration -->
       <dir name="Stub">
        <file name="Parser.php" role="test" />
-      </dir> <!-- /test/Horde/Qc/Stub -->
+      </dir> <!-- /test/Horde/Element/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="StoryTestCase.php" role="test" />
-     </dir> <!-- /test/Horde/Qc -->
+     </dir> <!-- /test/Horde/Element -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
@@ -107,22 +107,22 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Qc.php" name="lib/Horde/Qc.php" />
-   <install as="Horde/Qc/Autoloader.php" name="lib/Horde/Qc/Autoloader.php" />
-   <install as="Horde/Qc/Config.php" name="lib/Horde/Qc/Config.php" />
-   <install as="Horde/Qc/Configs.php" name="lib/Horde/Qc/Configs.php" />
-   <install as="Horde/Qc/Exception.php" name="lib/Horde/Qc/Exception.php" />
-   <install as="Horde/Qc/Module.php" name="lib/Horde/Qc/Module.php" />
-   <install as="Horde/Qc/Modules.php" name="lib/Horde/Qc/Modules.php" />
-   <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
-   <install as="Horde/Qc/Module/PearPackageXml.php" name="lib/Horde/Qc/Module/PearPackageXml.php" />
-   <install as="horde-quality-control" name="script/horde-quality-control.php" />
-   <install as="Horde/Qc/AllTests.php" name="test/Horde/Qc/AllTests.php" />
-   <install as="Horde/Qc/Autoload.php" name="test/Horde/Qc/Autoload.php" />
-   <install as="Horde/Qc/phpunit.xml" name="test/Horde/Qc/phpunit.xml" />
-   <install as="Horde/Qc/StoryTestCase.php" name="test/Horde/Qc/StoryTestCase.php" />
-   <install as="Horde/Qc/Integration/QcTest.php" name="test/Horde/Qc/Integration/QcTest.php" />
-   <install as="Horde/Qc/Stub/Parser.php" name="test/Horde/Qc/Stub/Parser.php" />
+   <install as="Horde/Element.php" name="lib/Horde/Element.php" />
+   <install as="Horde/Element/Autoloader.php" name="lib/Horde/Element/Autoloader.php" />
+   <install as="Horde/Element/Config.php" name="lib/Horde/Element/Config.php" />
+   <install as="Horde/Element/Configs.php" name="lib/Horde/Element/Configs.php" />
+   <install as="Horde/Element/Exception.php" name="lib/Horde/Element/Exception.php" />
+   <install as="Horde/Element/Module.php" name="lib/Horde/Element/Module.php" />
+   <install as="Horde/Element/Modules.php" name="lib/Horde/Element/Modules.php" />
+   <install as="Horde/Element/Config/Cli.php" name="lib/Horde/Element/Config/Cli.php" />
+   <install as="Horde/Element/Module/PearPackageXml.php" name="lib/Horde/Element/Module/PearPackageXml.php" />
+   <install as="horde-element" name="script/horde-element.php" />
+   <install as="Horde/Element/AllTests.php" name="test/Horde/Element/AllTests.php" />
+   <install as="Horde/Element/Autoload.php" name="test/Horde/Element/Autoload.php" />
+   <install as="Horde/Element/phpunit.xml" name="test/Horde/Element/phpunit.xml" />
+   <install as="Horde/Element/StoryTestCase.php" name="test/Horde/Element/StoryTestCase.php" />
+   <install as="Horde/Element/Integration/ElementTest.php" name="test/Horde/Element/Integration/ElementTest.php" />
+   <install as="Horde/Element/Stub/Parser.php" name="test/Horde/Element/Stub/Parser.php" />
   </filelist>
  </phprelease>
  <changelog>

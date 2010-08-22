@@ -1,20 +1,20 @@
 <?php
 /**
- * Horde_Qc_Config:: interface represents a configuration type for the Horde
- * quality control tool.
+ * Horde_Element_Config:: interface represents a configuration type for the Horde
+ * element tool.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * Horde_Qc_Config:: interface represents a configuration type for the Horde
- * quality control tool.
+ * Horde_Element_Config:: interface represents a configuration type for the Horde
+ * element tool.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -22,20 +22,20 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-interface Horde_Qc_Config
+interface Horde_Element_Config
 {
     /**
      * Provide each configuration handler with the list of supported modules.
      *
-     * @param Horde_Qc_Modules $modules A list of modules.
+     * @param Horde_Element_Modules $modules A list of modules.
      * @return NULL
      */
-    public function handleModules(Horde_Qc_Modules $modules);
+    public function handleModules(Horde_Element_Modules $modules);
 
     /**
      * Return the options provided by the configuration handlers.

@@ -5,11 +5,11 @@
  * PHP version 5
  *
  * @category   Horde
- * @package    Qc
+ * @package    Element
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Qc
+ * @link       http://pear.horde.org/index.php?package=Element
  */
 
 /**
@@ -21,13 +21,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Qc
+ * @package    Element
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Qc
+ * @link       http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_StoryTestCase
+class Horde_Element_StoryTestCase
 extends PHPUnit_Extensions_Story_TestCase
 {
     /**
@@ -42,7 +42,7 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runGiven(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'the default QC package setup':
+        case 'the default Element setup':
             break;
         default:
             return $this->notImplemented($action);
@@ -63,14 +63,14 @@ extends PHPUnit_Extensions_Story_TestCase
         switch($action) {
         case 'calling the package with the help option':
             $_SERVER['argv'] = array(
-                'hqc',
+                'horde-element',
                 '--help',
                 dirname(__FILE__) . '/fixture'
             );
             ob_start();
             $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Horde_Qc_Stub_Parser';
-            Horde_Qc::main($parameters);
+            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
+            Horde_Element::main($parameters);
             $world['output'] = ob_get_contents();
             ob_end_clean();
             break;

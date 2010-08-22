@@ -1,18 +1,20 @@
 <?php
 /**
- * Horde_Qc_Module:: interface represents a single quality control module.
+ * Horde_Element_Module_PearPackageXml:: can update the package.xml of
+ * a Horde element.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * Horde_Qc_Module:: interface represents a single quality control module.
+ * Horde_Element_Module_PearPackageXml:: can update the package.xml of
+ * a Horde element.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Module_PearPackageXml
-implements Horde_Qc_Module
+class Horde_Element_Module_PearPackageXml
+implements Horde_Element_Module
 {
     public function getOptionGroupTitle()
     {
@@ -61,7 +63,7 @@ implements Horde_Qc_Module
         );
     }
 
-    public function handle(Horde_Qc_Config $config)
+    public function handle(Horde_Element_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['packagexml']) ||
@@ -70,7 +72,7 @@ implements Horde_Qc_Module
         }
     }
 
-    public function run(Horde_Qc_Config $config)
+    public function run(Horde_Element_Config $config)
     {
         $arguments = $config->getArguments();
         $package_file = $arguments[0] . '/package.xml';

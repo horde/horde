@@ -1,18 +1,18 @@
 <?php
 /**
- * Horde_Qc_Module:: represents a single quality control module.
+ * Horde_Element_Module:: represents a task for a Horde element.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * Horde_Qc_Module:: represents a single quality control module.
+ * Horde_Element_Module:: represents a task for a Horde element.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,12 +20,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-interface Horde_Qc_Module
+interface Horde_Element_Module
 {
     public function getOptionGroupTitle();
 
@@ -33,7 +33,7 @@ interface Horde_Qc_Module
 
     public function getOptionGroupOptions();
 
-    public function handle(Horde_Qc_Config $config);
+    public function handle(Horde_Element_Config $config);
 
-    public function run(Horde_Qc_Config $config);
+    public function run(Horde_Element_Config $config);
 }

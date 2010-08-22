@@ -1,18 +1,18 @@
 <?php
 /**
- * The Horde_Qc_Modules:: class handles a set of Qc modules.
+ * The Horde_Element_Modules:: class handles a set of Element modules.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * The Horde_Qc_Modules:: class handles a set of Qc modules.
+ * The Horde_Element_Modules:: class handles a set of Element modules.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,12 +20,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Modules
+class Horde_Element_Modules
 implements Iterator, Countable
 {
     /**
@@ -52,7 +52,7 @@ implements Iterator, Countable
      */
     public function addModulesFromDirectory(
         $module_directory,
-        $base = 'Horde_Qc_Module_'
+        $base = 'Horde_Element_Module_'
     ) {
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($module_directory)) as $file) {
             if ($file->isFile() && preg_match('/.php$/', $file->getFilename())) {
@@ -66,7 +66,7 @@ implements Iterator, Countable
     }
 
     /**
-     * Implementation of the Iterator rewind() method. Reqinds the module list.
+     * Implementation of the Iterator rewind() method. Rewinds the module list.
      *
      * return NULL
      */
@@ -98,7 +98,7 @@ implements Iterator, Countable
     /**
      * Implementation of the Iterator next() method. Returns the next module.
      *
-     * @return Horde_Qc_Module|null The next module or null if there are no more
+     * @return Horde_Element_Module|null The next module or null if there are no more
      * modules.
      */
     public function next()

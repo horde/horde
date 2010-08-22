@@ -4,7 +4,7 @@ require_once 'Horde/Autoloader.php';
 require_once 'Horde/Autoloader/ClassPathMapper.php';
 require_once 'Horde/Autoloader/ClassPathMapper/Default.php';
 
-class Horde_Qc_Autoloader extends Horde_Autoloader
+class Horde_Element_Autoloader extends Horde_Autoloader
 {
     public function __construct()
     {
@@ -18,5 +18,5 @@ class Horde_Qc_Autoloader extends Horde_Autoloader
     }
 }
 
-$__autoloader = new Horde_Qc_Autoloader();
+$__autoloader = new Horde_Element_Autoloader();
 $__autoloader->registerAutoloader();

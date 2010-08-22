@@ -1,18 +1,18 @@
 <?php
 /**
- * This class provides the standard error class for the Qc package.
+ * This class provides the standard error class for the Element package.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * This class provides the standard error class for the Qc package.
+ * This class provides the standard error class for the Element package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,12 +20,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Exception
+class Horde_Element_Exception
 extends Exception
 {
 }

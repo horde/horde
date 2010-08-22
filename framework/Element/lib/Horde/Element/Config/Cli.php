@@ -1,20 +1,20 @@
 <?php
 /**
- * Horde_Qc_Config_Cli:: class provides the command line interface for the Horde
- * quality control tool.
+ * Horde_Element_Config_Cli:: class provides the command line interface for the Horde
+ * element tool.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
 
 /**
- * Horde_Qc_Config_Cli:: class provides the command line interface for the Horde
- * quality control tool.
+ * Horde_Element_Config_Cli:: class provides the command line interface for the Horde
+ * element tool.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Qc
+ * @package  Element
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Qc
+ * @link     http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Config_Cli
-implements Horde_Qc_Config
+class Horde_Element_Config_Cli
+implements Horde_Element_Config
 {
     /**
      * The command line argument parser.
@@ -64,10 +64,10 @@ implements Horde_Qc_Config
     /**
      * Load the options for the list of supported modules.
      *
-     * @param Horde_Qc_Modules $modules A list of modules.
+     * @param Horde_Element_Modules $modules A list of modules.
      * @return NULL
      */
-    public function handleModules(Horde_Qc_Modules $modules)
+    public function handleModules(Horde_Element_Modules $modules)
     {
         foreach ($modules as $module) {
             $this->_addOptionsFromModule($this->_parser, $module);
@@ -100,7 +100,7 @@ implements Horde_Qc_Config
      * Add an option group from the provided module to the parser.
      *
      * @param Horde_Argv_Parser $parser The parser.
-     * @param Horde_Qc_Module   $module The module providing the option group.
+     * @param Horde_Element_Module   $module The module providing the option group.
      *
      * @return NULL
      */

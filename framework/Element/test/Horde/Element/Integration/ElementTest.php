@@ -1,15 +1,15 @@
 <?php
 /**
- * Test the Qc package.
+ * Test the Element package.
  *
  * PHP version 5
  *
  * @category   Horde
- * @package    Qc
+ * @package    Element
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Qc
+ * @link       http://pear.horde.org/index.php?package=Element
  */
 
 /**
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the Qc package.
+ * Test the Element package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -26,21 +26,21 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Qc
+ * @package    Element
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Qc
+ * @link       http://pear.horde.org/index.php?package=Element
  */
-class Horde_Qc_Integration_QcTest
-extends Horde_Qc_StoryTestCase
+class Horde_Element_Integration_ElementTest
+extends Horde_Element_StoryTestCase
 {
     /**
      * @scenario
      */
     public function theHelpOptionResultsInHelpOutput()
     {
-        $this->given('the default QC package setup')
+        $this->given('the default Element setup')
             ->when('calling the package with the help option')
             ->then('the help will be displayed');
     }
@@ -50,7 +50,7 @@ extends Horde_Qc_StoryTestCase
      */
     public function thePearpackagexmlModuleAddsThePOptionInTheHelpOutput()
     {
-        $this->given('the default QC package setup')
+        $this->given('the default Element setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "p" option.');
     }
@@ -60,7 +60,7 @@ extends Horde_Qc_StoryTestCase
      */
     public function thePearpackagexmlModuleAddsTheUOptionInTheHelpOutput()
     {
-        $this->given('the default QC package setup')
+        $this->given('the default Element setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "u" option.');
     }
