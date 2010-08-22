@@ -24,7 +24,7 @@ if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
     !$gal->hasPasswd() &&
     $gal->isOldEnough()) {
 
-    echo '<img src="' . $img . '" alt="' . htmlspecialchars($image->filename) . '" />';
+    echo '<img src="' . $img . '" alt="' . htmlspecialchars($image->filename) . '">';
 } else {
     echo '';
 }
