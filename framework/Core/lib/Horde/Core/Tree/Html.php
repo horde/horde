@@ -26,6 +26,7 @@ class Horde_Core_Tree_Html extends Horde_Tree_Html
         'blank' => '',
         'join' => 2,
         'join_bottom' => 4,
+        'join_top' => 3,
         'plus' => 10,
         'plus_bottom' => 11,
         'plus_only' => 12,

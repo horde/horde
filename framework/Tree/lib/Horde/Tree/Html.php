@@ -70,6 +70,7 @@ class Horde_Tree_Html extends Horde_Tree
         'blank' => null,
         'join' => null,
         'join_bottom' => null,
+        'join_top' => null,
         'plus' => null,
         'plus_bottom' => null,
         'plus_only' => null,
@@ -275,7 +276,7 @@ class Horde_Tree_Html extends Horde_Tree
         }
 
         for ($i = intval($this->_static); $i < $this->_nodes[$node_id]['indent']; ++$i) {
-            $line .= $this->_generateImage(($this->_dropline[$i] && $this->getOption('lines', false, true)) ? $this->_images['line'] : $this->_images['blank']);
+            $line .= $this->_generateImage(($this->_dropline[$i] && $this->getOption('lines')) ? $this->_images['line'] : $this->_images['blank']);
         }
         $line .= $this->_setNodeToggle($node_id) . $this->_setNodeIcon($node_id);
         if ($this->getOption('multiline')) {
@@ -356,46 +357,81 @@ class Horde_Tree_Html extends Horde_Tree
     {
         $link_start = '';
 
-        if (($this->_nodes[$node_id]['indent'] == 0) &&
-            isset($this->_nodes[$node_id]['children'])) {
-            /* Top level node with children. */
+        /* Top level node. */
+        if ($this->_nodes[$node_id]['indent'] == 0) {
             $this->_dropline[0] = false;
+
             if ($this->_static) {
                 return '';
-            } elseif (!$this->getOption('lines', false, true)) {
-                $img = $this->_images['blank'];
-            } elseif ($this->_nodes[$node_id]['expanded']) {
-                $img = $this->_images['minus_only'];
-            } else {
-                $img = $this->_images['plus_only'];
             }
 
-            if (!$this->_static) {
+            /* KEY:
+             * 0: Only node
+             * 1: Top node
+             * 2: Middle node
+             * 3: Bottom node */
+            $node_type = 0;
+            if ($this->getOption('lines_base') &&
+                (count($this->_root_nodes) > 1)) {
+                switch (array_search($node_id, $this->_root_nodes)) {
+                case 0:
+                    $node_type = 1;
+                    $this->_dropline[0] = true;
+                    break;
+
+                case (count($this->_root_nodes) - 1):
+                    $node_type = 3;
+                    break;
+
+                default:
+                    $node_type = 2;
+                    $this->_dropline[0] = true;
+                    break;
+                }
+            }
+
+            if (isset($this->_nodes[$node_id]['children'])) {
+                if (!$this->getOption('lines')) {
+                    $img = $this->_images['blank'];
+                } elseif ($this->_nodes[$node_id]['expanded']) {
+                    $img = $node_type
+                        ? (($node_type == 2) ? $this->_images['minus'] : $this->_images['minus_bottom'])
+                        : $this->_images['minus_only'];
+                } else {
+                    $img = $node_type
+                        ? (($node_type == 2) ? $this->_images['plus'] : $this->_images['plus_bottom'])
+                        : $this->_images['plus_only'];
+                }
+
                 $link_start = $this->_generateUrlTag($node_id);
-            }
-        } elseif (($this->_nodes[$node_id]['indent'] != 0) &&
-            !isset($this->_nodes[$node_id]['children'])) {
-            /* Node without children. */
-            if ($this->_node_pos[$node_id]['pos'] < $this->_node_pos[$node_id]['count']) {
-                /* Not last node. */
-                $img = $this->getOption('lines', false, true)
-                    ? $this->_images['join']
-                    : $this->_images['blank'];
-
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
             } else {
-                /* Last node. */
-                $img = $this->getOption('lines', false, true)
-                    ? $this->_images['join_bottom']
-                    : $this->_images['blank'];
+                if ($this->getOption('lines')) {
+                    switch ($node_type) {
+                    case 0:
+                        $img = $this->_images['null_only'];
+                        break;
 
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
+                    case 1:
+                        $img = $this->_images['join_top'];
+                        break;
+
+                    case 2:
+                        $img = $this->_images['join'];
+                        break;
+
+                    case 3:
+                        $img = $this->_images['join_bottom'];
+                        break;
+                    }
+                } else {
+                    $img = $this->_images['blank'];
+                }
             }
         } elseif (isset($this->_nodes[$node_id]['children'])) {
             /* Node with children. */
             if ($this->_node_pos[$node_id]['pos'] < $this->_node_pos[$node_id]['count']) {
                 /* Not last node. */
-                if (!$this->getOption('lines', false, true)) {
+                if (!$this->getOption('lines')) {
                     $img = $this->_images['blank'];
                 } elseif ($this->_static) {
                     $img = $this->_images['join'];
@@ -407,7 +443,7 @@ class Horde_Tree_Html extends Horde_Tree
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
             } else {
                 /* Last node. */
-                if (!$this->getOption('lines', false, true)) {
+                if (!$this->getOption('lines')) {
                     $img = $this->_images['blank'];
                 } elseif ($this->_static) {
                     $img = $this->_images['join_bottom'];
@@ -423,16 +459,22 @@ class Horde_Tree_Html extends Horde_Tree
                 $link_start = $this->_generateUrlTag($node_id);
             }
         } else {
-            /* Top level node with no children. */
-            if ($this->_static) {
-                return '';
+            /* Node without children. */
+            if ($this->_node_pos[$node_id]['pos'] < $this->_node_pos[$node_id]['count']) {
+                /* Not last node. */
+                $img = $this->getOption('lines')
+                    ? $this->_images['join']
+                    : $this->_images['blank'];
+
+                $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
+            } else {
+                /* Last node. */
+                $img = $this->getOption('lines')
+                    ? $this->_images['join_bottom']
+                    : $this->_images['blank'];
+
+                $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
             }
-
-            $img = $this->getOption('lines', false, true)
-                ? $this->_images['null_only']
-                : $this->_images['blank'];
-
-            $this->_dropline[0] = false;
         }
 
         return $link_start .

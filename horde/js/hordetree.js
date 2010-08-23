@@ -215,23 +215,22 @@ var Horde_Tree = Class.create({
     {
         var node = this.nodes[nodeId];
 
-        if (node.indent == '0' && node.children) {
+        if (node.indent == '0') {
             // Top level with children.
             this.dropline[0] = false;
+
             if (this.renderStatic) {
                 return '';
             }
-        } else if (node.indent != '0' && !node.children) {
-            // Node no children.
-            this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
-        } else if (node.children) {
-            this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
+
+            switch (this._getLineType(nodeId)) {
+            case 1:
+            case 2:
+                this.dropline[0] = true;
+                break;
+            }
         } else {
-            // Top level node with no children.
-            if (this.renderStatic) {
-                return '';
-            }
-            this.dropline[0] = false;
+            this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
         }
 
         return new Element('SPAN', { id: "nodeToggle_" + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
@@ -239,34 +238,46 @@ var Horde_Tree = Class.create({
 
     _getNodeToggle: function(nodeId)
     {
-        var node = this.nodes[nodeId];
+        var type,
+            node = this.nodes[nodeId];
 
-        if (node.indent == '0' && node.children) {
-            // Top level with children.
+        if (node.indent == '0') {
             if (this.renderStatic) {
                 return '';
-            } else if (!this.opts.options.lines) {
+            }
+
+            if (!this.opts.options.lines) {
                 return this.opts.imgBlank;
-            } else if (node.expanded) {
-                return this.opts.imgMinusOnly;
             }
 
-            return this.opts.imgPlusOnly;
-        }
+            type = this._getLineType(nodeId);
 
-        if (node.indent != '0' && !node.children) {
-            // Node no children.
-            if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
-                // Not last node.
-                return this.opts.options.lines
-                    ? this.opts.imgJoin
-                    : this.opts.imgBlank;
+            if (node.children) {
+                // Top level with children.
+                if (node.expanded) {
+                    return type
+                        ? ((type == 2) ? this.opts.imgMinus : this.opts.imgMinusBottom)
+                        : this.opts.imgMinusOnly;
+                }
+
+                return type
+                    ? ((type == 2) ? this.opts.imgPlus : this.opts.imgPlusBottom)
+                    : this.opts.imgPlusOnly;
             }
 
-            // Last node.
-            return this.opts.options.lines
-                ? this.opts.imgJoinBottom
-                : this.opts.imgBlank;
+            switch (type) {
+            case 0:
+                return this.opts.imgNullOnly;
+
+            case 1:
+                return this.opts.imgJoinTop;
+
+            case 2:
+                return this.opts.imgJoin;
+
+            case 3:
+                return this.opts.imgJoinBottom;
+            }
         }
 
         if (node.children) {
@@ -296,14 +307,37 @@ var Horde_Tree = Class.create({
             return this.opts.imgPlusBottom;
         }
 
-        // Top level node with no children.
-        if (this.renderStatic) {
-            return '';
+        // Node no children.
+        if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
+            // Not last node.
+            return this.opts.options.lines
+                ? this.opts.imgJoin
+                : this.opts.imgBlank;
         }
 
+        // Last node.
         return this.opts.options.lines
-            ? this.opts.imgNullOnly
+            ? this.opts.imgJoinBottom
             : this.opts.imgBlank;
+    },
+
+    _getLineType: function(nodeId)
+    {
+        if (this.opts.options.lines_base &&
+            this.rootNodes.size() > 1) {
+            switch (this.rootNodes.indexOf(nodeId)) {
+            case 0:
+                return 1;
+
+            case (this.rootNodes.size() - 1):
+                return 3;
+
+            default:
+                return 2;
+            }
+        }
+
+        return 0;
     },
 
     _setNodeIcon: function(nodeId)

@@ -87,6 +87,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'imgLine' => $this->_images['line'],
             'imgJoin' => $this->_images['join'],
             'imgJoinBottom' => $this->_images['join_bottom'],
+            'imgJoinTop' => $this->_images['join_top'],
             'imgPlus' => $this->_images['plus'],
             'imgPlusBottom' => $this->_images['plus_bottom'],
             'imgPlusOnly' => $this->_images['plus_only'],
