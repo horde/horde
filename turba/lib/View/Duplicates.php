@@ -99,6 +99,8 @@ class Turba_View_Duplicates
                     $view->changed = $history['modified'];
                 } elseif (isset($history['created'])) {
                     $view->changed = $history['created'];
+                } else {
+                    unset($view->changed);
                 }
                 echo $view->render('contact_header');
                 $contactView = new Turba_Form_Contact($vars, $contact, false);
