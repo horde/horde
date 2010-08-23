@@ -47,6 +47,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Default.php" role="php" />
        <file name="Prefix.php" role="php" />
       </dir> <!-- /lib/Horde/Autoloader/ClassPathMapper -->
+      <file name="Default.php" role="php" />
      </dir> <!-- /lib/Horde/Autoloader -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -68,6 +69,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Autoloader/ClassPathMapper/Default.php" as="Horde/Autoloader/ClassPathMapper/Default.php" />
    <install name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" as="Horde/Autoloader/ClassPathMapper/Prefix.php" />
    <install name="lib/Horde/Autoloader/ClassPathMapper.php" as="Horde/Autoloader/ClassPathMapper.php" />
+   <install name="lib/Horde/Autoloader/Default.php" as="Horde/Autoloader/Default.php" />
    <install name="lib/Horde/Autoloader.php" as="Horde/Autoloader.php" />
   </filelist>
  </phprelease>
