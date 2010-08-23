@@ -26,6 +26,13 @@ class Horde_Tree implements Countable
     const TOGGLE = 'ht_toggle_';
 
     /**
+     * Allowed parameters for nodes.
+     *
+     * @var array
+     */
+    protected $_allowed = array();
+
+    /**
      * The name of this instance.
      *
      * @var string
@@ -318,18 +325,7 @@ class Horde_Tree implements Countable
      * Adds additional parameters to a node.
      *
      * @param string $id     The unique node id.
-     * @param array $params  Any other parameters to set.
-     * <pre>
-     * class - CSS class to use with this node
-     * icon - Icon to display next node
-     * iconalt - Alt text to use for the icon
-     * iconopen - Icon to indicate this node as expanded
-     * onclick - Onclick event attached to this node
-     * url - URL to link the node to
-     * urlclass - CSS class for the node's URL
-     * title - Link tooltip title
-     * target - Target for the 'url' link
-     * </pre>
+     * @param array $params  Parameters to set (key/value pairs).
      */
     public function addNodeParams($id, $params = array())
     {
@@ -339,17 +335,12 @@ class Horde_Tree implements Countable
             $params = array($params);
         }
 
-        $allowed = array(
-            'class', 'icon', 'iconalt', 'iconopen',
-            'onclick', 'url', 'urlclass', 'title', 'target',
-        );
-
-        foreach ($params as $param_id => $param_val) {
+        foreach ($params as $p_id => $p_val) {
             // Set only allowed and non-null params.
-            if (in_array($param_id, $allowed) && !is_null($param_val)) {
-                $this->_nodes[$id][$param_id] = is_object($param_val)
-                    ? strval($param_val)
-                    : $param_val;
+            if (!is_null($p_val) && in_array($p_id, $this->_allowed)) {
+                $this->_nodes[$id][$p_id] = is_object($p_val)
+                    ? strval($p_val)
+                    : $p_val;
             }
         }
     }

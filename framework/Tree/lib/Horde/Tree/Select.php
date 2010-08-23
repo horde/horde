@@ -16,11 +16,13 @@
 class Horde_Tree_Select extends Horde_Tree
 {
     /**
-     * Node list.
+     * Allowed parameters for nodes.
      *
      * @var array
      */
-    protected $_nodes = array();
+    protected $_allowed = array(
+        'selected'
+    );
 
     /**
      * Should the tree be rendered statically?
@@ -50,27 +52,14 @@ class Horde_Tree_Select extends Horde_Tree
      * Adds additional parameters to a node.
      *
      * @param string $id     The unique node id.
-     * @param array $params  Any other parameters to set.
+     * @param array $params  Parameters to set (key/value pairs).
      * <pre>
      * selected - (boolean) Whether this node is selected.
      * </pre>
      */
     public function addNodeParams($id, $params = array())
     {
-        $id = $this->_nodeId($id);
-
-        if (!is_array($params)) {
-            $params = array($params);
-        }
-
-        $allowed = array('selected');
-
-        foreach ($params as $param_id => $param_val) {
-            /* Set only allowed and non-null params. */
-            if (in_array($param_id, $allowed) && !is_null($param_val)) {
-                $this->_nodes[$id][$param_id] = $param_val;
-            }
-        }
+        parent::addNodeParams($id, $params);
     }
 
     /**

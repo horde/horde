@@ -44,6 +44,23 @@ class Horde_Tree_Html extends Horde_Tree
     protected $_alt_count = 0;
 
     /**
+     * Allowed parameters for nodes.
+     *
+     * @var array
+     */
+    protected $_allowed = array(
+        'class',
+        'icon',
+        'iconalt',
+        'iconopen',
+        'onclick',
+        'url',
+        'urlclass',
+        'title',
+        'target'
+    );
+
+    /**
      * Images array.
      *
      * @var array
