@@ -83,6 +83,23 @@ class Horde_Tree_Html extends Horde_Tree
     );
 
     /**
+     * Constructor.
+     *
+     * @param string $name   The name of this tree instance.
+     * @param array $params  Additional parameters:
+     * <pre>
+     * alternate - (boolean) Alternate shading in the table?
+     * class - (string) The class to use for the table.
+     * lines - (boolean) Show tree lines?
+     * multiline - (boolean) Do the node labels contain linebreaks?
+     * </pre>
+     */
+    public function __construct($name, array $params = array())
+    {
+        parent::__construct($name, $params);
+    }
+
+    /**
      * Returns the tree.
      *
      * @param boolean $static  If true the tree nodes can't be expanded and
@@ -100,6 +117,45 @@ class Horde_Tree_Html extends Horde_Tree
             $tree .= $this->_buildTree($node_id);
         }
         return $tree;
+    }
+
+    /**
+     * Adds additional parameters to a node.
+     *
+     * @param string $id     The unique node id.
+     * @param array $params  Parameters to set (key/value pairs).
+     * <pre>
+     * class - CSS class to use with this node
+     * icon - Icon to display next node
+     * iconalt - Alt text to use for the icon
+     * iconopen - Icon to indicate this node as expanded
+     * onclick - Onclick event attached to this node
+     * url - URL to link the node to
+     * urlclass - CSS class for the node's URL
+     * target - Target for the 'url' link
+     * title - Link tooltip title
+     * </pre>
+     */
+    public function addNodeParams($id, $params = array())
+    {
+        parent::addNodeParams($id, $params);
+    }
+
+    /**
+     * Adds column headers to the tree table.
+     *
+     * @param array $header  An array containing hashes with header
+     *                       information. The following keys are allowed:
+     * <pre>
+     * align - The alignment inside the header cell
+     * class - The CSS class of the header cell
+     * html - The HTML content of the header cell
+     * width - The width of the header cell
+     * </pre>
+     */
+    public function setHeader($header)
+    {
+        parent::setHeader($header);
     }
 
     /**

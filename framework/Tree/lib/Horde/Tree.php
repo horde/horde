@@ -144,12 +144,6 @@ class Horde_Tree implements Countable
      * @param string $name   The name of this tree instance.
      * @param array $params  Additional parameters.
      * <pre>
-     * alternate - (boolean) Alternate shading in the table?
-     * class - (string) The class to use for the table.
-     * hideHeaders - (boolean) Don't render any HTML for the header row, just
-     *               use the widths.
-     * lines - (boolean) Show tree lines?
-     * multiline - (boolean) Do the node labels contain linebreaks?
      * session - (string) The name of the session array key to store data.
      *           If this is an empty string, session storage will be disabled.
      *           DEFAULT: No session storage
@@ -261,7 +255,7 @@ class Horde_Tree implements Countable
      *                            based on the parent node.
      * @param boolean $expanded   Is this level expanded or not.
      * @param array $params       Any other parameters to set (@see
-     *                            addNodeParams() for full details).
+     *                            self::addNodeParams() for full details).
      * @param array $extra_right  Any other columns to display to the right of
      *                            the tree.
      * @param array $extra_left   Any other columns to display to the left of
@@ -440,13 +434,7 @@ class Horde_Tree implements Countable
      * Adds column headers to the tree table.
      *
      * @param array $header  An array containing hashes with header
-     *                       information. The following keys are allowed:
-     * <pre>
-     * align - The alignment inside the header cell
-     * class - The CSS class of the header cell
-     * html - The HTML content of the header cell
-     * width - The width of the header cell
-     * </pre>
+     *                       information.
      */
     public function setHeader($header)
     {
