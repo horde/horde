@@ -89,15 +89,27 @@ class Horde_Tree_Html extends Horde_Tree
      * @param array $params  Additional parameters:
      * <pre>
      * alternate - (boolean) Alternate shading in the table?
+     *             DEFAULT: false
      * class - (string) The class to use for the table.
+     *         DEFAULT: ''
      * hideHeaders - (boolean) Don't render any HTML for the header row, just
      *               use the widths.
+     *               DEFAULT: false
      * lines - (boolean) Show tree lines?
+     *         DEFAULT: true
+     * lines_base - (boolean) Show tree lines for the base level? Requires
+     *              'lines' to be true also.
+     *              DEFAULT: false
      * multiline - (boolean) Do the node labels contain linebreaks?
+     *             DEFAULT: false
      * </pre>
      */
     public function __construct($name, array $params = array())
     {
+        $params = array_merge(array(
+            'lines' => true
+        ), $params);
+
         parent::__construct($name, $params);
     }
 

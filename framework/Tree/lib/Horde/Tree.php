@@ -217,32 +217,15 @@ class Horde_Tree implements Countable
     /**
      * Gets an option's value.
      *
-     * @param string $option   The name of the option to fetch.
-     * @param boolean $html    Whether to format the return value in HTML.
-     * @param string $default  A default value to use in case none is set for
-     *                         the requested option.
+     * @param string $option  The name of the option to fetch.
      *
      * @return mixed  The option's value.
      */
-    public function getOption($option, $html = false, $default = null)
+    public function getOption($option)
     {
-        $value = null;
-
-        if (!isset($this->_options[$option]) && !is_null($default)) {
-            /* Requested option has not been but there is a
-             * default. */
-            $value = $default;
-        } elseif (isset($this->_options[$option])) {
-            /* Requested option has been set, get its value. */
-            $value = $this->_options[$option];
-        }
-
-        if ($html && !is_null($value)) {
-            /* Format value for html output. */
-            $value = sprintf(' %s="%s"', $option, $value);
-        }
-
-        return $value;
+        return isset($this->_options[$option])
+            ? $this->_options[$option]
+            : null;
     }
 
     /**
