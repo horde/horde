@@ -1853,8 +1853,8 @@ class DataTree_sql extends DataTree {
     function _init()
     {
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'datatree');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'datatree');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw');
         } catch (Horde_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
