@@ -16,7 +16,7 @@
  * @package  IMP
  * @todo     Add config param for storage vs message quota
  */
-class IMP_Quota_Maildir extends IMP_Quota_Driver
+class IMP_Quota_Maildir extends IMP_Quota_Base
 {
     /**
      * Constructor.

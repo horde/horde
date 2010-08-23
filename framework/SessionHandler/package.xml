@@ -50,7 +50,7 @@
     <dir name="Horde">
      <dir name="SessionHandler">
       <file name="Builtin.php" role="php" />
-      <file name="Driver.php" role="php" />
+      <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="External.php" role="php" />
       <file name="Ldap.php" role="php" />
@@ -99,7 +99,7 @@
   <filelist>
    <install as="Horde/SessionHandler.php" name="lib/Horde/SessionHandler.php" />
    <install as="Horde/SessionHandler/Builtin.php" name="lib/Horde/SessionHandler/Builtin.php" />
-   <install as="Horde/SessionHandler/Driver.php" name="lib/Horde/SessionHandler/Driver.php" />
+   <install as="Horde/SessionHandler/Base.php" name="lib/Horde/SessionHandler/Base.php" />
    <install as="Horde/SessionHandler/Exception.php" name="lib/Horde/SessionHandler/Exception.php" />
    <install as="Horde/SessionHandler/External.php" name="lib/Horde/SessionHandler/External.php" />
    <install as="Horde/SessionHandler/Ldap.php" name="lib/Horde/SessionHandler/Ldap.php" />

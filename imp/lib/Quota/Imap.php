@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Quota_Imap extends IMP_Quota_Driver
+class IMP_Quota_Imap extends IMP_Quota_Base
 {
     /**
      * Constructor.

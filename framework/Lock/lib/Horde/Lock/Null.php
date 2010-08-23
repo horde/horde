@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Lock
  */
-class Horde_Lock_Null extends Horde_Lock_Driver
+class Horde_Lock_Null extends Horde_Lock_Base
 {
     /**
      * Return an array of information about the requested lock.

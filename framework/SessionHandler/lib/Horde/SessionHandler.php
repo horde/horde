@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_SessionHandler:: defines an API for implementing custom PHP session
+ * Horde_SessionHandler defines an API for implementing custom PHP session
  * handlers.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Lock_Driver class defines the Horde_Lock driver API.
+ * The Horde_Lock_Base class defines the Horde_Lock driver API.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Lock
  */
-abstract class Horde_Lock_Driver
+abstract class Horde_Lock_Base
 {
     /**
      * Driver parameters.

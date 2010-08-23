@@ -1,6 +1,6 @@
 <?php
 /**
- * SessionHandler implementation for SQL databases.
+ * Horde_SessionHandler implementation for SQL databases.
  *
  * The table structure can be found in:
  *   horde/scripts/sql/horde_sessionhandler.sql.
@@ -14,7 +14,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Sql extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_Sql extends Horde_SessionHandler_Base
 {
     /**
      * Handle for the current database connection.

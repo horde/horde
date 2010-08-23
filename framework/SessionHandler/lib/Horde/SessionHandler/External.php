@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_SessionHandler_External:: implements an external save handler defined
+ * Horde_SessionHandler_External implements an external save handler defined
  * via driver configuration parameters.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_External extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_External extends Horde_SessionHandler_Base
 {
     /**
      * Constructor.

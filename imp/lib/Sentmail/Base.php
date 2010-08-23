@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Sentmail_Driver:: class is the abstract class that all driver
+ * The IMP_Sentmail_Base:: class is the abstract class that all driver
  * implementations inherit from.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @category Horde
  * @package  IMP
  */
-abstract class IMP_Sentmail_Driver
+abstract class IMP_Sentmail_Base
 {
     /**
      * Hash containing configuration parameters.

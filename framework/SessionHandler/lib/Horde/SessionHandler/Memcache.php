@@ -1,6 +1,6 @@
 <?php
 /**
- * SessionHandler implementation for memcache.
+ * Horde_SessionHandler implementation for memcache.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Memcache extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_Memcache extends Horde_SessionHandler_Base
 {
     /**
      * Memcache object.

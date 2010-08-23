@@ -1,6 +1,6 @@
 <?php
 /**
- * SessionHandler implementation for LDAP directories.
+ * Horde_SessionHandler implementation for LDAP directories.
  *
  * This code is adapted from the comments at
  * http://www.php.net/session-set-save-handler.
@@ -13,7 +13,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Base
 {
     /**
      * Horde_Ldap object.

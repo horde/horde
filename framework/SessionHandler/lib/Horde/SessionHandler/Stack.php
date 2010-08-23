@@ -1,7 +1,7 @@
 <?php
 /**
- * Horde_SessionHandler_Stack:: is an implementation that will loop through
- * a given list of Horde_SessionHandler_Drivers to return the session
+ * Horde_SessionHandler_Stack is an implementation that will loop through a
+ * given list of Horde_SessionHandler drivers to return the session
  * information.  This driver allows for use of caching backends on top of
  * persistent backends.
  *
@@ -14,7 +14,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Stack extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_Stack extends Horde_SessionHandler_Base
 {
     /**
      * Stack of sessionhandlers.

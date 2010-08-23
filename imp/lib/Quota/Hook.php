@@ -19,7 +19,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Quota_Hook extends IMP_Quota_Driver
+class IMP_Quota_Hook extends IMP_Quota_Base
 {
     /**
      * Get quota information (used/allocated), in bytes.

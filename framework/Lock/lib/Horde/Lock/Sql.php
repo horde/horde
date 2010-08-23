@@ -28,7 +28,7 @@
  * @category Horde
  * @package  Lock
  */
-class Horde_Lock_Sql extends Horde_Lock_Driver
+class Horde_Lock_Sql extends Horde_Lock_Base
 {
     /**
      * Handle for the current database connection.
@@ -73,7 +73,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     /**
      * Return an array of information about the requested lock.
      *
-     * @see Horde_Lock_Driver::getLockInfo()
+     * @see Horde_Lock_Base::getLockInfo()
      */
     public function getLockInfo($lockid)
     {
@@ -95,7 +95,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      * Return a list of valid locks with the option to limit the results
      * by principal, scope and/or type.
      *
-     * @see Horde_Lock_Driver::getLocks()
+     * @see Horde_Lock_Base::getLocks()
      */
     public function getLocks($scope = null, $principal = null, $type = null)
     {
@@ -137,7 +137,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     /**
      * Extend the valid lifetime of a valid lock to now + $newtimeout.
      *
-     * @see Horde_Lock_Driver::resetLock()
+     * @see Horde_Lock_Base::resetLock()
      */
     public function resetLock($lockid, $extend)
     {
@@ -166,7 +166,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      * Sets a lock on the requested principal and returns the generated lock
      * ID.
      *
-     * @see Horde_Lock_Driver::setLock()
+     * @see Horde_Lock_Base::setLock()
      */
     public function setLock($requestor, $scope, $principal,
                             $lifetime = 1, $type = Horde_Lock::TYPE_SHARED)
@@ -205,7 +205,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     /**
      * Removes a lock given the lock ID.
      *
-     * @see Horde_Lock_Driver::clearLock()
+     * @see Horde_Lock_Base::clearLock()
      */
     public function clearLock($lockid)
     {

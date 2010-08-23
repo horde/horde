@@ -32,7 +32,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
+class IMP_Sentmail_Sql extends IMP_Sentmail_Base
 {
     /**
      * Handle for the current database connection.

@@ -27,7 +27,7 @@ class Horde_Lock
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_Lock_Driver  The newly created concrete instance.
+     * @return Horde_Lock_Base  The newly created concrete instance.
      * @throws Horde_Lock_Exception
      */
     static public function factory($driver, $params = array())

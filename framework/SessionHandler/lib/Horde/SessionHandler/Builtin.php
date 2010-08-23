@@ -1,6 +1,6 @@
 <?php
 /**
- * SessionHandler:: implementation for PHP's built-in session handler.
+ * Horde_SessionHandler implementation for PHP's built-in session handler.
  * This doesn't do any session handling itself - instead, it exists to allow
  * utility features to be used with the built-in PHP handler.
  *
@@ -13,7 +13,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Driver
+class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
 {
     /**
      * Constructor.

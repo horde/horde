@@ -769,7 +769,7 @@ class IMP_Compose
         $timelimit = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
             $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-            if (!is_subclass_of($sentmail, 'IMP_Sentmail_Driver')) {
+            if (!($sentmail instanceof IMP_Sentmail_Base)) {
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                 throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }

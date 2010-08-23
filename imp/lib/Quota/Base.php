@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Quota_Driver:: class is the abstract class that all driver
+ * The IMP_Quota_Base:: class is the abstract class that all driver
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-abstract class IMP_Quota_Driver
+abstract class IMP_Quota_Base
 {
     /**
      * Driver parameters.

@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Sentmail_Null extends IMP_Sentmail_Driver
+class IMP_Sentmail_Null extends IMP_Sentmail_Base
 {
     /**
      * Garbage collect log entries.

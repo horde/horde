@@ -1,7 +1,7 @@
 <?php
 /**
- * Horde_SessionHandler_Driver:: is the abstract class that all drivers
- * inherit from.
+ * Horde_SessionHandler_Base is the abstract class that all drivers inherit
+ * from.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-abstract class Horde_SessionHandler_Driver
+abstract class Horde_SessionHandler_Base
 {
     /**
      * Hash containing connection parameters.
