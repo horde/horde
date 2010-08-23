@@ -57,9 +57,6 @@ implements Iterator, Countable
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($module_directory)) as $file) {
             if ($file->isFile() && preg_match('/.php$/', $file->getFilename())) {
                 $class = $base . preg_replace("/^(.*)\.php/", '\\1', $file->getFilename());
-                if (!class_exists($class)) {
-                    require $file->getPathname();
-                }
                 $this->_modules[$class] = new $class();
             }
         }

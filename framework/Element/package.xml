@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-07-05</date>
- <time>05:44:10</time>
+ <date>2010-08-22</date>
+ <time>21:12:03</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -47,6 +47,7 @@
        <file name="Cli.php" role="php" />
       </dir> <!-- /lib/Horde/Element/Config -->
       <dir name="Module">
+       <file name="Installer.php" role="php" />
        <file name="PearPackageXml.php" role="php" />
       </dir> <!-- /lib/Horde/Element/Module -->
       <file name="Autoloader.php" role="php" />
@@ -84,11 +85,15 @@
  <dependencies>
   <required>
    <php>
-    <min>5.0.0</min>
+    <min>5.2.1</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>PEAR_PackageFileManager2</name>
+    <channel>pear.php.net</channel>
+   </package>
    <package>
     <name>Autoloader</name>
     <channel>pear.horde.org</channel>
@@ -115,6 +120,7 @@
    <install as="Horde/Element/Module.php" name="lib/Horde/Element/Module.php" />
    <install as="Horde/Element/Modules.php" name="lib/Horde/Element/Modules.php" />
    <install as="Horde/Element/Config/Cli.php" name="lib/Horde/Element/Config/Cli.php" />
+   <install as="Horde/Element/Module/Installer.php" name="lib/Horde/Element/Module/Installer.php" />
    <install as="Horde/Element/Module/PearPackageXml.php" name="lib/Horde/Element/Module/PearPackageXml.php" />
    <install as="horde-element" name="script/horde-element.php" />
    <install as="Horde/Element/AllTests.php" name="test/Horde/Element/AllTests.php" />
@@ -135,7 +141,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-07-05</date>
+   <date>2010-08-22</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

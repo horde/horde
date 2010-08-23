@@ -102,6 +102,9 @@ implements Horde_Element_Module
             )
         );
 
+        if ($package instanceOf PEAR_Error) {
+            throw new Horde_Element_Exception($package->getMessage());
+        }
         $package->generateContents();
 
         /**

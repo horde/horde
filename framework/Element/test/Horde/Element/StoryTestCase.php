@@ -30,6 +30,13 @@
 class Horde_Element_StoryTestCase
 extends PHPUnit_Extensions_Story_TestCase
 {
+    public function tearDown()
+    {
+        if (!empty($this->_temp_dir)) {
+            $this->_rrmdir($this->_temp_dir);
+        }
+    }
+
     /**
      * Handle a "given" step.
      *
@@ -65,12 +72,42 @@ extends PHPUnit_Extensions_Story_TestCase
             $_SERVER['argv'] = array(
                 'horde-element',
                 '--help',
-                dirname(__FILE__) . '/fixture'
+                dirname(__FILE__) . '/fixture/empty'
             );
             ob_start();
             $parameters = array();
             $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
             Horde_Element::main($parameters);
+            $world['output'] = ob_get_contents();
+            ob_end_clean();
+            break;
+        case 'calling the package with the packagexml option and a Horde element':
+            $_SERVER['argv'] = array(
+                'horde-element',
+                '--packagexml',
+                dirname(__FILE__) . '/fixture/simple'
+            );
+            ob_start();
+            $parameters = array();
+            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
+            $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
+            Horde_Element::main($parameters);
+            error_reporting($old_errorreporting);
+            $world['output'] = ob_get_contents();
+            ob_end_clean();
+            break;
+        case 'calling the package with the install option and a Horde element':
+            $_SERVER['argv'] = array(
+                'horde-element',
+                '--install=' . $this->_getTemporaryDirectory(),
+                dirname(__FILE__) . '/../../../'
+            );
+            ob_start();
+            $parameters = array();
+            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
+            $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
+            Horde_Element::main($parameters);
+            error_reporting($old_errorreporting);
             $world['output'] = ob_get_contents();
             ob_end_clean();
             break;
@@ -109,9 +146,95 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'the help will contain the "i" option.':
+            $this->assertRegExp(
+                '/-i\s*INSTALL,\s*--install=INSTALL/',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml of the Horde element will be printed.':
+            $this->assertRegExp(
+                '/<file name="New.php" role="php" \/>/',
+                $world['output']
+            );
+            break;
+        case 'a new PEAR configuration file will be installed':
+            $this->assertTrue(
+                file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . '.pearrc')
+            );
+            break;
+        case 'the PEAR package will be installed':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'pear' . DIRECTORY_SEPARATOR 
+                    . 'php' . DIRECTORY_SEPARATOR
+                    . 'PEAR.php'
+                )
+            );
+            break;
+        case 'the non-Horde dependencies of the Horde element will get installed from the network.':
+            var_dump($world['output']);
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'pear' . DIRECTORY_SEPARATOR 
+                    . 'php' . DIRECTORY_SEPARATOR
+                    . 'PEAR' . DIRECTORY_SEPARATOR
+                    . 'PackageFileManager2.php'
+                )
+            );
+            break;
+        case 'the Horde dependencies of the Horde element will get installed from the current tree.':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'pear' . DIRECTORY_SEPARATOR 
+                    . 'php' . DIRECTORY_SEPARATOR
+                    . 'Horde' . DIRECTORY_SEPARATOR
+                    . 'Autoloader.php'
+                )
+            );
+            break;
+        case 'the Horde element will be installed':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'pear' . DIRECTORY_SEPARATOR 
+                    . 'php' . DIRECTORY_SEPARATOR
+                    . 'Horde' . DIRECTORY_SEPARATOR
+                    . 'Element.php'
+                )
+            );
+            break;
         default:
             return $this->notImplemented($action);
         }
     }
 
+    private function _getTemporaryDirectory()
+    {
+        $this->_temp_dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR
+            . 'Horde_Element_' . mt_rand();
+        mkdir($this->_temp_dir);
+        return $this->_temp_dir;
+    }
+
+    private function _rrmdir($dir)
+    {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != '.' && $object != '..') {
+                    if (filetype($dir . DIRECTORY_SEPARATOR . $object) == 'dir') {
+                        $this->_rrmdir($dir . DIRECTORY_SEPARATOR . $object);
+                    } else {
+                        unlink($dir . DIRECTORY_SEPARATOR . $object);
+                    }
+                }
+            }
+            reset($objects);
+            rmdir($dir);
+        }
+    } 
 }
