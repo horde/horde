@@ -270,7 +270,7 @@ class IMP_Folder
 
         /* Special use flags. */
         $special_use = array();
-        foreach ($this->specialUse as $key => $val) {
+        foreach (self::$specialUse as $key => $val) {
             if (!empty($this->_opts[$key])) {
                 $special_use[] = $val;
             }
