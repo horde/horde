@@ -257,7 +257,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                    $this->_genID('_h_' . $varname));
 
             /* Apply fixed ratio resize. */
-            $html .= Horde::link('#', _("Fix ratio"), '', '', 'src=getResizeSrc(\'' . $img->copy()->add('a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Fix ratio"), '', '', 'src=getResizeSrc(\'' . $img->copy()->add('a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio")) . '</a>';
 
             /* Keep also original if it has been requested. */
             if ($var->type->getProperty('show_keeporig')) {
