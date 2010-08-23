@@ -2399,9 +2399,9 @@ class Horde_Registry
     }
 
     /**
-     * Maps languages with common two-letter codes (such as nl) to the
-     * full gettext code (in this case, nl_NL). Returns the language
-     * unmodified if it isn't an alias.
+     * Maps languages with common two-letter codes (such as nl) to the full
+     * locale code (in this case, nl_NL). Returns the language unmodified if
+     * it isn't an alias.
      *
      * @param string $language  The language code to map.
      *
