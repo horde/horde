@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Token
  */
-class Horde_Token_Null extends Horde_Token_Driver
+class Horde_Token_Null extends Horde_Token_Base
 {
     /**
      * Does the token exist?
@@ -39,5 +39,4 @@ class Horde_Token_Null extends Horde_Token_Driver
     public function purge()
     {
     }
-
 }

@@ -22,7 +22,7 @@
  * @category Horde
  * @package  Token
  */
-class Horde_Token_Sql extends Horde_Token_Driver
+class Horde_Token_Sql extends Horde_Token_Base
 {
     /**
      * Handle for the database connection.

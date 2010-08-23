@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Token_Driver:: class provides a common abstracted interface for
- * a token driver.
+ * The Horde_Token_Base:: class provides a common abstracted interface for
+ * a token implementation.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Token
  */
-abstract class Horde_Token_Driver
+abstract class Horde_Token_Base
 {
     /**
      * Logger.

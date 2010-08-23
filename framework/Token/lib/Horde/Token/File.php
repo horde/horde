@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Token
  */
-class Horde_Token_File extends Horde_Token_Driver
+class Horde_Token_File extends Horde_Token_Base
 {
     /**
      * Handle for the open file descriptor.
