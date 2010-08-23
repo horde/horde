@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-22</date>
- <time>21:12:03</time>
+ <date>2010-08-23</date>
+ <time>17:28:27</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -50,7 +50,6 @@
        <file name="Installer.php" role="php" />
        <file name="PearPackageXml.php" role="php" />
       </dir> <!-- /lib/Horde/Element/Module -->
-      <file name="Autoloader.php" role="php" />
       <file name="Config.php" role="php" />
       <file name="Configs.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -66,6 +65,14 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Element">
+      <dir name="fixture">
+       <dir name="simple">
+        <dir name="lib">
+         <file name="New.php" role="test" />
+         <file name="Second.php" role="test" />
+        </dir> <!-- /test/Horde/Element/fixture/simple/lib -->
+       </dir> <!-- /test/Horde/Element/fixture/simple -->
+      </dir> <!-- /test/Horde/Element/fixture -->
       <dir name="Integration">
        <file name="ElementTest.php" role="test" />
       </dir> <!-- /test/Horde/Element/Integration -->
@@ -113,7 +120,6 @@
  <phprelease>
   <filelist>
    <install as="Horde/Element.php" name="lib/Horde/Element.php" />
-   <install as="Horde/Element/Autoloader.php" name="lib/Horde/Element/Autoloader.php" />
    <install as="Horde/Element/Config.php" name="lib/Horde/Element/Config.php" />
    <install as="Horde/Element/Configs.php" name="lib/Horde/Element/Configs.php" />
    <install as="Horde/Element/Exception.php" name="lib/Horde/Element/Exception.php" />
@@ -127,6 +133,8 @@
    <install as="Horde/Element/Autoload.php" name="test/Horde/Element/Autoload.php" />
    <install as="Horde/Element/phpunit.xml" name="test/Horde/Element/phpunit.xml" />
    <install as="Horde/Element/StoryTestCase.php" name="test/Horde/Element/StoryTestCase.php" />
+   <install as="Horde/Element/fixture/simple/lib/New.php" name="test/Horde/Element/fixture/simple/lib/New.php" />
+   <install as="Horde/Element/fixture/simple/lib/Second.php" name="test/Horde/Element/fixture/simple/lib/Second.php" />
    <install as="Horde/Element/Integration/ElementTest.php" name="test/Horde/Element/Integration/ElementTest.php" />
    <install as="Horde/Element/Stub/Parser.php" name="test/Horde/Element/Stub/Parser.php" />
   </filelist>
@@ -141,7 +149,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-08-22</date>
+   <date>2010-08-23</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release
