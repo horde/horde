@@ -46,7 +46,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($taskId);
 
         try {
-            $result = $this->_db->selectOne($query, $values);
+            $row = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
