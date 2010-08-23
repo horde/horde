@@ -1155,7 +1155,7 @@ EOT;
             $img->add('f', $image['img']['file']);
         }
 
-        return Horde::img($img, '', '', '');
+        return Horde::img((string)$img, '', '', '');
     }
 
     protected function _renderVarDisplay_phone($form, &$var, &$vars)
