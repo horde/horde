@@ -71,10 +71,10 @@ table#addressbook-list th.sortdown {
 
 /* Duplicates */
 .turba-duplicate {
-    overflow-y: hidden;
-    overflow-x: auto;
+    overflow: auto;
     white-space: nowrap;
     vertical-align: top;
+    max-height: 400px;
 }
 .turba-duplicate-contact {
     display: inline-block;
