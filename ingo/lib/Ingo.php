@@ -212,10 +212,10 @@ class Ingo
      */
     static public function activateScript($script, $deactivate = false)
     {
-        $driver = self::getDriver();
+        $transport = self::getTransport();
 
         try {
-            $res = $driver->setScriptActive($script);
+            $res = $transport->setScriptActive($script);
         } catch (Ingo_Exception $e) {
             $msg = ($deactivate)
               ? _("There was an error deactivating the script.")
@@ -243,7 +243,7 @@ class Ingo
      */
     static public function getScript()
     {
-        return self::getDriver()->getScript();
+        return self::getTransport()->getScript();
     }
 
     /**
@@ -311,8 +311,8 @@ class Ingo
 
         if (empty($backend['script'])) {
             throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'script'));
-        } elseif (empty($backend['driver'])) {
-            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'driver'));
+        } elseif (empty($backend['transport'])) {
+            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'transport'));
         }
 
         /* Make sure the 'params' entry exists. */
@@ -336,12 +336,12 @@ class Ingo
     }
 
     /**
-     * Returns an instance of the configured driver.
+     * Returns an instance of the configured transport driver.
      *
-     * @return Ingo_Driver  The configured driver.
+     * @return Ingo_Transport  The configured driver.
      * @throws Ingo_Exception
      */
-    static public function getDriver()
+    static public function getTransport()
     {
         $params = $_SESSION['ingo']['backend']['params'];
 
@@ -358,7 +358,7 @@ class Ingo
             $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
 
-        return Ingo_Driver::factory($_SESSION['ingo']['backend']['driver'], $params);
+        return Ingo_Transport::factory($_SESSION['ingo']['backend']['transport'], $params);
     }
 
     /**

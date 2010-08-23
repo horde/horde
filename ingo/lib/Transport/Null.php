@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Driver_Null:: implements a null api -- useful for just testing
+ * Ingo_Transport_Null implements a null api -- useful for just testing
  * the UI and storage.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -10,7 +10,7 @@
  * @package Ingo
  */
 
-class Ingo_Driver_Null extends Ingo_Driver
+class Ingo_Transport_Null extends Ingo_Transport
 {
     /**
      * Constructor.

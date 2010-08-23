@@ -62,8 +62,8 @@ class Ingo_Application extends Horde_Registry_Application
         Ingo::createSession();
 
         // Create shares if necessary.
-        $driver = Ingo::getDriver();
-        if ($driver->supportShares()) {
+        $transport = Ingo::getTransport();
+        if ($transport->supportShares()) {
             $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 

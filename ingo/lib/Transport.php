@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Driver:: defines an API to activate filter scripts on a server.
+ * Ingo_Transport defines an API to activate filter scripts on a server.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -8,7 +8,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Ingo
  */
-class Ingo_Driver
+class Ingo_Transport
 {
     /**
      * Driver specific parameters
@@ -34,7 +34,7 @@ class Ingo_Driver
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      *
-     * @return Ingo_Driver  The newly created concrete instance.
+     * @return Ingo_Transport  The newly created concrete instance.
      * @throws Ingo_Exception
      */
     static public function factory($driver, $params = array())

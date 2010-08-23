@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Driver_Ldap:: implements the Sieve_Driver api to allow scripts to be
+ * Ingo_Transport_Ldap implements the Sieve_Driver api to allow scripts to be
  * installed and set active via an LDAP server.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -9,7 +9,7 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Ingo
  */
-class Ingo_Driver_Ldap extends Ingo_Driver
+class Ingo_Transport_Ldap extends Ingo_Transport
 {
     /**
      * Constructor.

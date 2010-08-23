@@ -1,7 +1,7 @@
 <?php
 /**
- * Ingo_Driver_Timsieved:: implements the Sieve_Driver api to allow scripts to
- * be installed and set active via a Cyrus timsieved server.
+ * Ingo_Transport_Timsieved implements the Sieve_Driver api to allow scripts
+ * to be installed and set active via a Cyrus timsieved server.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Ingo
  */
-class Ingo_Driver_Timsieved extends Ingo_Driver
+class Ingo_Transport_Timsieved extends Ingo_Transport
 {
     /**
      * The Net_Sieve object.

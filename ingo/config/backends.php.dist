@@ -3,12 +3,12 @@
  * Ingo works purely on a preferred mechanism for server selection. There are
  * a number of properties that you can set for each backend:
  *
- * driver: (string) The Ingo_Driver:: driver to use to store the script on
- *         the backend server. Valid options:
- *           'ldap'      - LDAP server
- *           'null'      - No backend server
- *           'timsieved' - Cyrus timsieved server
- *           'vfs'       - Use Horde VFS
+ * transport: (string) The Ingo_Transport driver to use to store the script on
+ *            the backend server. Valid options:
+ *            - 'ldap':      LDAP server
+ *            - 'null':      No backend server
+ *            - 'timsieved': Timsieved (managesieve) server
+ *            - 'vfs':       Use Horde VFS
  *
  * preferred: (string) This is the field that is used to choose which server
  *            is used. The value for this field may be a single string or an
@@ -16,24 +16,24 @@
  *            server.
  *
  * hordeauth: (mixed) One of the following:
- *            true - Ingo will attempt to use the user's existing credentials
- *                   (the username/password they used to log in to Horde) to
- *                   login to this source. (DEFAULT)
- *            'full' - The username will be used unmodified.
+ *            - true:   Ingo will attempt to use the user's existing
+ *                      credentials (the username/password they used to log in
+ *                      to Horde) to login to this source. (DEFAULT)
+ *            - 'full': The username will be used unmodified.
  *
  * params: (array) An array containing any additional information that the
- *         Ingo_Driver:: class needs.
+ *         Ingo_Transport class needs.
  *
  * script: (string) The type of Ingo_Script driver this server uses.
  *         Valid options:
- *           'imap'     - IMAP client side filtering (POP3 servers NOT
-                          supported)
- *           'maildrop' - Maildrop scripts
- *           'procmail' - Procmail scripts
- *           'sieve'    - Sieve scripts
+ *         - 'imap':     IMAP client side filtering (POP3 servers NOT
+ *                       supported)
+ *         - 'maildrop': Maildrop scripts
+ *         - 'procmail': Procmail scripts
+ *         - 'sieve':    Sieve scripts
  *
  * scriptparams: (array) An array containing any additional information that
- *               the Ingo_Script:: driver needs.
+ *               the Ingo_Script driver needs.
  *
  * shares: (boolean) Some drivers support sharing filter rules with other
  *         users. Users can then configure filters for each other if they
@@ -45,7 +45,7 @@
 
 /* IMAP Example */
 $backends['imap'] = array(
-    'driver' => 'null',
+    'transport' => 'null',
     'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(),
@@ -56,7 +56,7 @@ $backends['imap'] = array(
 
 /* Maildrop Example */
 $backends['maildrop'] = array(
-    'driver' => 'vfs',
+    'transport' => 'vfs',
     'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
@@ -114,7 +114,7 @@ $backends['maildrop'] = array(
 
 /* Procmail Example */
 $backends['procmail'] = array(
-    'driver' => 'vfs',
+    'transport' => 'vfs',
     'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
@@ -187,7 +187,7 @@ $backends['procmail'] = array(
 
 /* Sieve Example */
 $backends['sieve'] = array(
-    'driver' => 'timsieved',
+    'transport' => 'timsieved',
     'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
@@ -223,7 +223,7 @@ $backends['sieve'] = array(
 
 /* sivtest Example */
 $backends['sivtest'] = array(
-    'driver' => 'sivtest',
+    'transport' => 'sivtest',
     'preferred' => 'example.com',
     'hordeauth' => true,
     'params' => array(
@@ -250,7 +250,7 @@ $backends['sivtest'] = array(
 
 /* Sun ONE/JES Example (LDAP/Sieve) */
 $backends['ldapsieve'] = array(
-    'driver' => 'ldap',
+    'transport' => 'ldap',
     'preferred' => 'example.com',
     'hordeauth' => false,
     'params' => array(
@@ -319,7 +319,7 @@ if ($GLOBALS['conf']['kolab']['enabled']) {
     }
 
     $backends['kolab'] = array(
-        'driver' => 'timsieved',
+        'transport' => 'timsieved',
         'preferred' => '',
         'hordeauth' => 'full',
         'params' => array(

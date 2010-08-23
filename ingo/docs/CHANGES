@@ -2,8 +2,10 @@
 v2.0-git
 --------
 
+[jan] Rename 'driver' configuration and classes to 'transport' to avoid
+      confusion with script and storage drivers.
 [mms] Use IMP API for IMAP actions.
-[mms] Convert to Horde 5 standards.
+[mms] Convert to Horde 4 standards.
 
 
 ----------
