@@ -587,7 +587,7 @@ class Turba {
         /* Add the new addressbook to the user's list of visible address
          * books. */
         $prefs = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
-        if (array_search($share_id, $prefs) === false) {
+        if (!is_array($prefs) || array_search($share_id, $prefs) === false) {
             $prefs[] = $share_id;
             $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
