@@ -27,19 +27,18 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
 }
 
 $imp_search = $injector->getInstance('IMP_Search');
+$vars = Horde_Variables::getDefaultVariables();
 
 /* If search_basic_mbox is set, we are processing the search query. */
-$search_mailbox = Horde_Util::getFormData('search_basic_mbox');
-if ($search_mailbox) {
+if ($vars->search_mailbox) {
     $imp_ui_search = new IMP_Ui_Search();
-    $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
+    $id = $imp_ui_search->processBasicSearch($vars->search_mailbox, $vars->search_criteria, $vars->search_criteria_text, $vars->search_criteria_not, $vars->search_flags);
 
     /* Redirect to the mailbox screen. */
     Horde::applicationUrl('mailbox.php', true)->add('mailbox', $imp_search->createSearchID($id))->redirect();
 }
 
 $f_fields = $s_fields = array();
-$search_mailbox = Horde_Util::getFormData('search_mailbox');
 
 foreach ($imp_search->searchFields() as $key => $val) {
     if (!in_array($val['type'], array('customhdr', 'date', 'within'))) {
@@ -62,8 +61,8 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::applicationUrl('search-basic.php'));
-$t->set('mbox', htmlspecialchars($search_mailbox));
-$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFolder($search_mailbox))));
+$t->set('mbox', htmlspecialchars($vars->search_mailbox));
+$t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFolder($vars->search_mailbox))));
 $t->set('s_fields', $s_fields);
 $t->set('f_fields', $f_fields);
 
@@ -74,7 +73,7 @@ IMP::menu();
 IMP::status();
 
 if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(Horde::applicationUrl('search.php')->add(array('search_mailbox' => $search_mailbox))));
+    $t->set('advsearch', Horde::link(Horde::applicationUrl('search.php')->add(array('search_mailbox' => $vars->search_mailbox))));
 }
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');

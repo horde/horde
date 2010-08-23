@@ -27,10 +27,8 @@ if (!$conf['compose']['link_attachments']) {
 }
 
 // Gather required form variables.
-$mail_user = Horde_Util::getFormData('u');
-$time_stamp = Horde_Util::getFormData('t');
-$file_name = Horde_Util::getFormData('f');
-if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
+$vars = Horde_Variables::getDefaultVariables();
+if (!$vars->mail_user || !$vars->$time_stamp || !$vars->file_name) {
     throw new IMP_Exception(_("The attachment was not found."));
 }
 
@@ -42,9 +40,9 @@ try {
 }
 
 // Check if the file exists.
-$mail_user = basename($mail_user);
-$time_stamp = basename($time_stamp);
-$file_name = escapeshellcmd(basename($file_name));
+$mail_user = basename($vars->mail_user);
+$time_stamp = basename($vars->time_stamp);
+$file_name = escapeshellcmd(basename($vars->file_name));
 $full_path = sprintf(IMP_Compose::VFS_LINK_ATTACH_PATH . '/%s/%d', $mail_user, $time_stamp);
 if (!$vfsroot->exists($full_path, $file_name)) {
     throw new IMP_Exception(_("The specified attachment does not exist. It may have been deleted by the original sender."));
@@ -53,10 +51,9 @@ if (!$vfsroot->exists($full_path, $file_name)) {
 // Check to see if we need to send a verification message.
 if ($conf['compose']['link_attachments_notify']) {
     if ($vfsroot->exists($full_path, $file_name . '.notify')) {
-        $delete_id = Horde_Util::getFormData('d');
         try {
             $read_id = $vfsroot->read($full_path, $file_name . '.notify');
-            if ($delete_id == $read_id) {
+            if ($vars->d == $read_id) {
                 $vfsroot->deleteFile($full_path, $file_name);
                 $vfsroot->deleteFile($full_path, $file_name . '.notify');
                 printf(_("Attachment %s deleted."), $file_name);

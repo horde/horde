@@ -31,6 +31,7 @@ $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
 $charset = $registry->getCharset();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();
@@ -47,28 +48,28 @@ $imp_folder = $injector->getInstance('IMP_Folder');
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
 /* $folder_list is already encoded in UTF7-IMAP. */
-$folder_list = Horde_Util::getFormData('folder_list', array());
+$folder_list = isset($vars->folder_list)
+    ? $vars->folder_list
+    : array();
 
 /* META refresh time (might be altered by actionID). */
 $refresh_time = $prefs->getValue('refresh_time');
 
 /* Run through the action handlers. */
-$actionID = Horde_Util::getFormData('actionID');
-if ($actionID) {
+if ($vars->actionID) {
     try {
-        Horde::checkRequestToken('imp.folders', Horde_Util::getFormData('folders_token'));
+        Horde::checkRequestToken('imp.folders', $vars->folders_token);
     } catch (Horde_Exception $e) {
         $notification->push($e);
-        $actionID = null;
+        $vars->actionID = null;
     }
 }
 
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'collapse_folder':
 case 'expand_folder':
-    $folder = Horde_Util::getFormData('folder');
-    if (!empty($folder)) {
-        ($actionID == 'expand_folder') ? $imaptree->expand($folder) : $imaptree->collapse($folder);
+    if ($vars->folder) {
+        ($vars->actionID == 'expand_folder') ? $imaptree->expand($vars->folder) : $imaptree->collapse($vars->folder);
     }
     break;
 
@@ -98,11 +99,10 @@ case 'delete_folder':
     break;
 
 case 'delete_search_query':
-    $queryid = Horde_Util::getFormData('queryid');
-    if (!empty($queryid)) {
+    if ($vars->queryid) {
         $imp_search = $injector->getInstance('IMP_Search');
-        $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($queryid)), 'horde.success');
-        $imp_search->deleteSearchQuery($queryid);
+        $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($vars->queryid)), 'horde.success');
+        $imp_search->deleteSearchQuery($vars->queryid);
     }
     break;
 
@@ -110,7 +110,7 @@ case 'download_folder':
 case 'download_folder_zip':
     if (!empty($folder_list)) {
         $mbox = $imp_folder->generateMbox($folder_list);
-        if ($actionID == 'download_folder') {
+        if ($vars->actionID == 'download_folder') {
             $data = $mbox;
             fseek($data, 0, SEEK_END);
             $browser->downloadHeaders($folder_list[0] . '.mbox', null, false, ftell($data));
@@ -134,11 +134,10 @@ case 'download_folder_zip':
     break;
 
 case 'import_mbox':
-    $import_folder = Horde_Util::getFormData('import_folder');
-    if (!empty($import_folder)) {
+    if ($vars->import_folder) {
         try {
             $browser->wasFileUploaded('mbox_upload', _("mailbox file"));
-            $res = $imp_folder->importMbox(Horde_String::convertCharset($import_folder, $charset, 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
+            $res = $imp_folder->importMbox(Horde_String::convertCharset($vars->import_folder, $charset, 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
             $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES['mbox_upload']['name']));
             if ($res === false) {
                 $notification->push(sprintf(_("There was an error importing %s."), $mbox_name), 'horde.error');
@@ -148,17 +147,16 @@ case 'import_mbox':
         } catch (Horde_Browser_Exception $e) {
             $notification->push($e);
         }
-        $actionID = null;
+        $vars->actionID = null;
     } else {
         $refresh_time = null;
     }
     break;
 
 case 'create_folder':
-    $new_mailbox = Horde_Util::getFormData('new_mailbox');
-    if (!empty($new_mailbox)) {
+    if ($vars->new_mailbox) {
         try {
-            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), Horde_String::convertCharset($new_mailbox, $charset, 'UTF7-IMAP'));
+            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), Horde_String::convertCharset($vars->new_mailbox, $charset, 'UTF7-IMAP'));
             $imp_folder->create($new_mailbox, $subscribe);
         } catch (Horde_Exception $e) {
             $notification->push($e);
@@ -168,8 +166,8 @@ case 'create_folder':
 
 case 'rename_folder':
     // $old_names already in UTF7-IMAP
-    $old_names = array_map('trim', explode("\n", Horde_Util::getFormData('old_names')));
-    $new_names = array_map('trim', explode("\n", Horde_Util::getFormData('new_names')));
+    $old_names = array_map('trim', explode("\n", $vars->old_names));
+    $new_names = array_map('trim', explode("\n", $vars->new_names));
 
     $iMax = count($new_names);
     if (!empty($new_names) &&
@@ -196,7 +194,7 @@ case 'rename_folder':
 case 'subscribe_folder':
 case 'unsubscribe_folder':
     if (!empty($folder_list)) {
-        if ($actionID == 'subscribe_folder') {
+        if ($vars->actionID == 'subscribe_folder') {
             $imp_folder->subscribe($folder_list);
         } else {
             $imp_folder->unsubscribe($folder_list);
@@ -235,7 +233,7 @@ case 'folders_empty_mailbox':
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
+        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('seen'), $folder_list, ($vars->actionID == 'mark_folder_seen'));
     }
     break;
 
@@ -245,7 +243,7 @@ case 'folders_empty_mailbox_confirm':
         $loop = array();
         $rowct = 0;
         foreach ($folder_list as $val) {
-            if (($actionID == 'delete_folder_confirm') &&
+            if (($vars->actionID == 'delete_folder_confirm') &&
                 !empty($conf['server']['fixed_folders']) &&
                 in_array(IMP::folderPref($val, false), $conf['server']['fixed_folders'])) {
                 $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($val)), 'horde.error');
@@ -277,8 +275,8 @@ case 'folders_empty_mailbox_confirm':
 
         $template = $injector->createInstance('Horde_Template');
         $template->setOption('gettext', true);
-        $template->set('delete', ($actionID == 'delete_folder_confirm'));
-        $template->set('empty', ($actionID == 'folders_empty_mailbox_confirm'));
+        $template->set('delete', ($vars->actionID == 'delete_folder_confirm'));
+        $template->set('empty', ($vars->actionID == 'folders_empty_mailbox_confirm'));
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
         $template->set('folders_token', Horde::getRequestToken('imp.folders'));
@@ -336,7 +334,7 @@ $folders_token = Horde::getRequestToken('imp.folders');
 $folders_url_ob = new Horde_Url($folders_url);
 $folders_url_ob->add('folders_token', $folders_token);
 
-if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
+if ($_SESSION['imp']['file_upload'] && ($vars->actionID == 'import_mbox')) {
     $title = _("Folder Navigator");
     IMP::prepareMenu();
     require IMP_TEMPLATES . '/common-header.inc';
