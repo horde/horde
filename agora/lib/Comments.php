@@ -78,12 +78,14 @@ class Agora_ViewComments {
         }
         $html .= '</div>';
 
-        $col_headers = array('message_thread' => _("Subject"),
-                             'message_thread_class_plain' => '',
-                             'message_author' => _("Posted by"),
-                             'message_author_class_plain' => '',
-                             'message_timestamp' => _("Date"),
-                             'message_timestamp_class_plain' => '');
+        $col_headers = array(
+            'message_thread' => _("Subject"),
+            'message_thread_class_plain' => 'msgThreadPlain',
+            'message_author' => _("Posted by"),
+            'message_author_class_plain' => 'msgAuthorPlain',
+            'message_timestamp' => _("Date"),
+            'message_timestamp_class_plain' => 'msgTimestampPlain'
+        );
 
         if ($view_bodies == 1) {
             $threads = $messages->getThreads(0, true, 'message_thread', 0, true, '', $base_url);

@@ -79,7 +79,11 @@ class Horde_Core_Perms_Ui
             'alternate' => true,
             'hideHeaders' => true
         ));
-        $tree->setHeader(array(array('width' => '50%')));
+        $tree->setHeader(array(
+            array(
+                'class' => 'treeHdrSpacer'
+            )
+        ));
 
         foreach ($nodes as $perm_id => $node) {
             $node_class = ($current == $perm_id)

@@ -214,9 +214,15 @@ $edit_img = Horde::img('edit.png', _("Edit Group"));
 $delete_img = Horde::img('delete.png', _("Delete Group"));
 
 /* Set up the tree. */
-$tree = $injector->getInstance('Horde_Tree')->getTree('admin_groups', 'Javascript');
-$tree->setOption(array('alternate' => true, 'hideHeaders' => true));
-$tree->setHeader(array(array('width' => '50%')));
+$tree = $injector->getInstance('Horde_Tree')->getTree('admin_groups', 'Javascript', array(
+    'alternate' => true,
+    'hideHeaders' => true
+));
+$tree->setHeader(array(
+    array(
+        'class' => 'treeHdrSpacer'
+    )
+));
 
 /* Explicitly check for > 0 since we can be called with current = -1
  * for the root node. */
@@ -226,20 +232,35 @@ if ($cid > 0) {
 
 foreach ($nodes as $id => $node) {
     $node_params = ($cid == $id) ? array('class' => 'selected') : array();
+
     if ($id == Horde_Group::ROOT) {
         $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), _("Add a new group")) . $add_img . '</a>';
 
         $base_node_params = array('icon' => strval(Horde_Themes::img('administration.png')));
-        $tree->addNode($id, null, _("All Groups"), 0, true, $base_node_params + $node_params, array($spacer, $add_link));
+        $tree->addNode(
+            $id,
+            null,
+            _("All Groups"),
+            0,
+            true,
+            $base_node_params + $node_params,
+            array($spacer, $add_link)
+        );
     } else {
         $name = $groups->getGroupShortName($node);
         $node_params['url'] = Horde_Util::addParameter($edit, 'cid', $id);
         $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), sprintf(_("Add a child group to \"%s\""), $name)) . $add_img . '</a>';
         $delete_link = Horde::link(Horde_Util::addParameter($delete, 'cid', $id), sprintf(_("Delete \"%s\""), $name)) . $delete_img . '</a>';
 
-        $parent_id = $groups->getGroupParent($id);
-        $group_extra = array($spacer, $add_link, $delete_link);
-        $tree->addNode($id, $parent_id, $groups->getGroupShortName($node), $groups->getLevel($id) + 1, (isset($cid_parents[$id])), $group_node + $node_params, $group_extra);
+        $tree->addNode(
+            $id,
+            $groups->getGroupParent($id),
+            $groups->getGroupShortName($node),
+            $groups->getLevel($id) + 1,
+            (isset($cid_parents[$id])),
+            $group_node + $node_params,
+            array($spacer, $add_link, $delete_link)
+        );
     }
 }
 

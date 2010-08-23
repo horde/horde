@@ -15,3 +15,13 @@
 .messageBody p {
     padding: 1em;
 }
+
+.msgThreadPlain {
+    width: 50%;
+}
+.msgAuthorPlain {
+    width: 25%;
+}
+.msgTimestampPlain {
+    width: 24%;
+}

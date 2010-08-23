@@ -67,18 +67,10 @@ var Horde_Tree = Class.create({
         var div = new Element('DIV');
 
         this.opts.header.each(function(h) {
-            var tmp = new Element('DIV').insert(h.html ? h.html : '&nbsp;');
+            var tmp = new Element('SPAN').insert(h.html ? h.html : '&nbsp;');
 
             if (h['class']) {
                 tmp.addClassName(h['class']);
-            }
-
-            if (h.width) {
-                tmp.setStyle({ width: h.width });
-            }
-
-            if (h.align) {
-                tmp.setStyle({ textAlign: h.align });
             }
 
             div.appendChild(tmp);
@@ -125,15 +117,15 @@ var Horde_Tree = Class.create({
         // any given cell of content.
         if (node.extra && node.extra[0]) {
             node.extra[0].each(function(n) {
-                div.insert(this._divWidth(new Element('DIV').update(n), column++));
+                div.insert(this._divClass(new Element('SPAN').update(n), column++));
             }, this);
         }
 
         for (; column < this.opts.extraColsLeft; ++column) {
-            div.insert(this._divWidth(new Element('DIV').update('&nbsp;'), column));
+            div.insert(this._divClass(new Element('SPAN').update('&nbsp;'), column));
         }
 
-        div.insert(this._divWidth(new Element('DIV'), column));
+        div.insert(this._divClass(new Element('SPAN'), column));
 
         tmp = document.createDocumentFragment();
         for (i = Number(this.renderStatic); i < node.indent; ++i) {
@@ -199,22 +191,24 @@ var Horde_Tree = Class.create({
 
         if (node.extra && node.extra[1]) {
             node.extra[1].each(function(n) {
-                div.insert(this._divWidth(new Element('DIV').update(n), column++));
+                div.insert(this._divClass(new Element('SPAN').update(n), column++));
             }, this);
         }
 
         for (; column < this.opts.extraColsRight; ++column) {
-            div.insert(this._divWidth(new Element('DIV').update('&nbsp;'), column));
+            div.insert(this._divClass(new Element('SPAN').update('&nbsp;'), column));
         }
 
         p.appendChild(div);
     },
 
-    _divWidth: function(div, c)
+    _divClass: function(div, c)
     {
-        if (this.opts.header[c] && this.opts.header[c]['width']) {
-            c.setStyle({ width: this.opts.header[c].width });
+        if (this.opts.header[c] && this.opts.header[c]['class']) {
+            c.addClassName(this.opts.header[c]['class']);
         }
+
+        return div;
     },
 
     _setNodeToggle: function(nodeId)

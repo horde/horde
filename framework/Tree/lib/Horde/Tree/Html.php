@@ -90,6 +90,8 @@ class Horde_Tree_Html extends Horde_Tree
      * <pre>
      * alternate - (boolean) Alternate shading in the table?
      * class - (string) The class to use for the table.
+     * hideHeaders - (boolean) Don't render any HTML for the header row, just
+     *               use the widths.
      * lines - (boolean) Show tree lines?
      * multiline - (boolean) Do the node labels contain linebreaks?
      * </pre>
@@ -147,10 +149,8 @@ class Horde_Tree_Html extends Horde_Tree
      * @param array $header  An array containing hashes with header
      *                       information. The following keys are allowed:
      * <pre>
-     * align - The alignment inside the header cell
      * class - The CSS class of the header cell
      * html - The HTML content of the header cell
-     * width - The width of the header cell
      * </pre>
      */
     public function setHeader($header)
@@ -165,39 +165,31 @@ class Horde_Tree_Html extends Horde_Tree
      */
     protected function _buildHeader()
     {
-        if (!count($this->_header)) {
+        if (!count($this->_header) ||
+            $this->getOption('hideHeaders')) {
             return '';
         }
 
-        $html = '<div';
+        $className = 'treeRowHeader';
+
         /* If using alternating row shading, work out correct
          * shade. */
         if ($this->getOption('alternate')) {
-            $html .= ' class="item' . $this->_alt_count . '"';
+            $className .= ' item' . $this->_alt_count;
             $this->_alt_count = 1 - $this->_alt_count;
         }
-        $html .= '>';
+
+        $html = '<div class="' . $className . '">';
 
         foreach ($this->_header as $header) {
-            $html .= '<div class="leftFloat';
+            $html .= '<span';
             if (!empty($header['class'])) {
-                $html .= ' ' . $header['class'];
+                $html .= ' class="' . $header['class'] . '"';
             }
-            $html .= '"';
 
-            $style = '';
-            if (!empty($header['width'])) {
-                $style .= 'width:' . $header['width'] . ';';
-            }
-            if (!empty($header['align'])) {
-                $style .= 'text-align:' . $header['align'] . ';';
-            }
-            if (!empty($style)) {
-                $html .= ' style="' . $style . '"';
-            }
-            $html .= '>';
-            $html .= empty($header['html']) ? '&nbsp;' : $header['html'];
-            $html .= '</div>';
+            $html .= '>' .
+                (empty($header['html']) ? '&nbsp;' : $header['html'])
+                . '</span>';
         }
 
         return $html . '</div>';
@@ -258,31 +250,13 @@ class Horde_Tree_Html extends Horde_Tree
         if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_LEFT])) {
             $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_LEFT];
             $cMax = count($extra);
-            for ($c = 0; $c < $cMax; ++$c) {
-                $style = '';
-                if (isset($this->_header[$column]['width'])) {
-                    $style .= 'width:' . $this->_header[$column]['width'] . ';';
-                }
-
-                $line .= '<div class="leftFloat"';
-                if (!empty($style)) {
-                    $line .= ' style="' . $style . '"';
-                }
-                $line .= '>' . $extra[$c] . '</div>';
-
+            while ($column < $cMax) {
+                $line .= $this->_addColumn($column) . $extra[$column] . '</span>';
                 $column++;
             }
         }
 
-        $style = '';
-        if (isset($this->_header[$column]['width'])) {
-            $style .= 'width:' . $this->_header[$column]['width'] . ';';
-        }
-        $line .= '<div class="leftFloat"';
-        if (!empty($style)) {
-            $line .= ' style="' . $style . '"';
-        }
-        $line .= '>';
+        $line .= $this->_addColumn($column++);
 
         if ($this->getOption('multiline')) {
             $line .= '<table cellspacing="0"><tr><td>';
@@ -301,29 +275,29 @@ class Horde_Tree_Html extends Horde_Tree
             $line .= '</td></tr></table>';
         }
 
-        $line .= '</div>';
-        ++$column;
+        $line .= '</span>';
 
         if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT])) {
             $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT];
             $cMax = count($extra);
-            for ($c = 0; $c < $cMax; ++$c) {
-                $style = '';
-                if (isset($this->_header[$column]['width'])) {
-                    $style .= 'width:' . $this->_header[$column]['width'] . ';';
-                }
-
-                $line .= '<div class="leftFloat"';
-                if (!empty($style)) {
-                    $line .= ' style="' . $style . '"';
-                }
-                $line .= '>' . $extra[$c] . '</div>';
-
+            for ($c = 0, $cMax = count($extra); $c < $cMax; ++$c) {
+                $line .= $this->_addColumn($column) . $extra[$c] . '</span>';
                 $column++;
             }
         }
 
         return $line . "</div>\n";
+    }
+
+    /**
+     */
+    protected function _addColumn($column)
+    {
+        $line = '<span';
+        if (isset($this->_header[$column]['class'])) {
+            $line .= ' class="' . $this->_header[$column]['class'] . '"';
+        }
+        return $line . '>';
     }
 
     /**

@@ -85,36 +85,72 @@ $device_node = array('icon' => strval(Horde_Themes::img('mobile.png')));
 $user_node = array('icon' => strval(Horde_Themes::img('user.png')));
 $users = array();
 
-$tree = $injector->getInstance('Horde_Tree')->getTree('admin_devices', 'Javascript');
-$tree->setOption(array('alternate' => true));
+$tree = $injector->getInstance('Horde_Tree')->getTree('admin_devices', 'Javascript', array(
+    'alternate' => true
+));
+
 $tree->setHeader(array(
-                   array('width' => '30%'),
-                   array('width' => '22%', 'html' => _("Last Sync Time")),
-                   array('html' => $spacer),
-                   array('width' => '6%', 'html' => _("Policy Key")),
-                   array('html' => $spacer),
-                   array('width' => '10%', 'html' => _("Status")),
-                   array('html' => $spacer),
-                   array('width' => '12%' , 'html' => _("Device ID")),
-                   array('html' => $spacer),
-                   array('width' => '10%', 'html' => _("Actions"))
- ));
+    array(
+        'class' => 'activesyncHdr1'
+    ),
+    array(
+        'class' => 'activesyncHdr2',
+        'html' => _("Last Sync Time")
+    ),
+    array(
+        'html' => $spacer
+    ),
+    array(
+        'class' => 'activesyncHdr3',
+        'html' => _("Policy Key")
+    ),
+    array(
+        'html' => $spacer
+    ),
+    array(
+        'class' => 'activesyncHdr4',
+        'html' => _("Status")
+    ),
+    array(
+        'html' => $spacer
+    ),
+    array(
+        'class' => 'activesyncHdr5',
+        'html' => _("Device ID")
+    ),
+    array(
+        'html' => $spacer
+    ),
+    array(
+        'class' => 'activesyncHdr6',
+        'html' => _("Actions")
+    )
+));
 
 /* Root tree node, and reprovision button */
-$tree->addNode('root',
-               null,
-               _("Registered User Devices"),
-               0,
-               true,
-               $base_node_params,
-               array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' ));
+$tree->addNode(
+    'root',
+    null,
+    _("Registered User Devices"),
+    0,
+    true,
+    $base_node_params,
+    array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' )
+);
 
 /* Build the device entry */
 foreach ($devices as $key => $device) {
     $node_params = array();
     if (array_search($device['device_user'], $users) === false) {
         $users[] = $device['device_user'];
-        $tree->addNode($device['device_user'], 'root', $device['device_user'], 0, false, $user_node);
+        $tree->addNode(
+            $device['device_user'],
+            'root',
+            $device['device_user'],
+            0,
+            false,
+            $user_node
+        );
     }
 
     /* Load this device */
@@ -149,13 +185,15 @@ foreach ($devices as $key => $device) {
     $actions .= '&nbsp;<input class="button removeDevice" type="button" value="' . _("Remove") . '" id="remove_' . $key . '" />';
 
     /* Add it */
-    $tree->addNode($device['device_id'],
-                   $device['device_user'],
-                   $device['device_type']. ' | ' . $device['device_agent'],
-                   0,
-                   true,
-                   $device_node + $node_params,
-                   array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions));
+    $tree->addNode(
+        $device['device_id'],
+        $device['device_user'],
+        $device['device_type']. ' | ' . $device['device_agent'],
+        0,
+        true,
+        $device_node + $node_params,
+        array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions)
+    );
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("ActiveSync Devices") . '</h1>';

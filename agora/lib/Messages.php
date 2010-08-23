@@ -1395,19 +1395,25 @@ class Agora_Messages {
         /* Render threaded lists with Horde_Tree. */
         $current = key($threads);
         if (!$template_file && isset($threads[$current]['indent'])) {
-            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('threads', 'Html');
-            $tree->setOption(array('multiline' => $bodies,
-                                   'lines' => !$bodies));
+            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('threads', 'Html', array(
+                'multiline' => $bodies,
+                'lines' => !$bodies
+            ));
+
             $tree->setHeader(array(
-                array('html' => '<strong>' . $col_headers['message_thread'] . '</strong>',
-                      'width' => '50%',
-                      'class' => $col_headers['message_thread_class_plain']),
-                array('html' => '<strong>' . $col_headers['message_author'] . '</strong>',
-                      'width' => '25%',
-                      'class' => $col_headers['message_author_class_plain']),
-                array('html' => '<strong>' . $col_headers['message_timestamp'] . '</strong>',
-                      'width' => '24%',
-                      'class' => $col_headers['message_timestamp_class_plain'])));
+                array(
+                    'class' => $col_headers['message_thread_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_thread'] . '</strong>'
+                ),
+                array(
+                    'class' => $col_headers['message_author_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_author'] . '</strong>'
+                ),
+                array(
+                    'class' => $col_headers['message_timestamp_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_timestamp'] . '</strong>'
+                )
+            ));
 
             foreach ($threads as &$thread) {
                 if ($bodies) {
@@ -1427,15 +1433,20 @@ class Agora_Messages {
                     }
                 }
 
-                $tree->addNode($thread['message_id'],
-                               $thread['parent'],
-                               $text,
-                               $thread['indent'],
-                               true,
-                               array('icon' => '',
-                                     'class' => 'linedRow'),
-                               array($thread['message_author'],
-                                     $thread['message_date']));
+                $tree->addNode(
+                    $thread['message_id'],
+                    $thread['parent'],
+                    $text,
+                    $thread['indent'],
+                    true,
+                    array(
+                        'class' => 'linedRow',
+                    ),
+                    array(
+                        $thread['message_author'],
+                        $thread['message_date']
+                    )
+                );
             }
 
             return $tree->getTree(true);
