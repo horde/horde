@@ -17,8 +17,8 @@ require_once 'Horde/DataTree.php';
  * @author  Ben Chavet <ben@horde.org>
  * @package Trean
  */
-class Trean_Bookmarks {
-
+class Trean_Bookmarks
+{
     /**
      * Pointer to a DataTree instance to manage/store shares
      *
@@ -76,7 +76,7 @@ class Trean_Bookmarks {
         }
 
         $driver = $conf['datatree']['driver'];
-        $this->_datatree = &DataTree::singleton(
+        $this->_datatree = DataTree::singleton(
             $driver,
             array_merge(Horde::getDriverConfig('datatree', $driver), array('group' => 'horde.shares.trean'))
         );
@@ -216,7 +216,7 @@ class Trean_Bookmarks {
      *
      * @return array  The requested shares.
      */
-    function &getShares($cids)
+    function getShares($cids)
     {
         $all_shares = array();
         $missing_ids = array();
@@ -311,7 +311,7 @@ class Trean_Bookmarks {
      *
      * @return array  The shares the user has access to.
      */
-    function &getFolders($userid, $perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
+    function getFolders($userid, $perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         $folderIds = $this->listFolders($userid, $perm, $parent, $allLevels);
         if (!count($folderIds) || is_a($folderIds, 'PEAR_Error')) {
@@ -344,7 +344,7 @@ class Trean_Bookmarks {
      *
      * @return DataTreeObject_Folder  A new folder object.
      */
-    function &newFolder($name, $properties = null)
+    function newFolder($name, $properties = null)
     {
         if (empty($name)) {
             $error = PEAR::raiseError(_("Folder names must be non-empty"));
@@ -367,7 +367,7 @@ class Trean_Bookmarks {
      *
      * @return DataTreeObject_Folder The requested folder.
      */
-    function &getFolder($cid)
+    function getFolder($cid)
     {
         if (isset($this->_shareMap[$cid])) {
             $share = $this->_cache[$this->_shareMap[$cid]];

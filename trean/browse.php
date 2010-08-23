@@ -18,12 +18,11 @@ require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 /* Get bookmarks to display. */
 $folderId = Horde_Util::getFormData('f');
 
-/* Default to the current user's default folder or if we are a guest, try to
- * get a list of folders we have Horde_Perms::READ for.
- */
+/* Default to the current user's default folder or if we are a guest, try to get
+ * a list of folders we have Horde_Perms::READ for. */
 if (empty($folderId) && $registry->getAuth()) {
     $folderId = $trean_shares->getId($registry->getAuth());
-    $folder = &$trean_shares->getFolder($folderId);
+    $folder = $trean_shares->getFolder($folderId);
     if ($folder instanceof PEAR_Error) {
         /* Can't redirect back to browse since that would set up a loop. */
         throw new Horde_Exception($folder);
@@ -35,7 +34,7 @@ if (empty($folderId) && $registry->getAuth()) {
         $folder = array_pop(array_values($folders));
     }
 } else {
-    $folder = &$trean_shares->getFolder($folderId);
+    $folder = $trean_shares->getFolder($folderId);
     if ($folder instanceof PEAR_Error) {
         /* Can't redirect back to browse since that would set up a loop. */
         throw new Horde_Exception($folder);

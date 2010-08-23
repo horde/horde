@@ -23,7 +23,7 @@ class Trean
             if (trim($name) == '') {
                 $name = Horde_Auth::removeHook($GLOBALS['registry']->getAuth());
             }
-            $folder = &$GLOBALS['trean_shares']->newFolder($GLOBALS['registry']->getAuth(), array('name' => sprintf(_("%s's Bookmarks"), $name)));
+            $folder = $GLOBALS['trean_shares']->newFolder($GLOBALS['registry']->getAuth(), array('name' => sprintf(_("%s's Bookmarks"), $name)));
             $result = $GLOBALS['trean_shares']->addFolder($folder);
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result);
@@ -45,7 +45,7 @@ class Trean
      *
      * @return array  A list of folders.
      */
-    function &listFolders($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
+    function listFolders($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         return $GLOBALS['trean_shares']->getFolders($GLOBALS['registry']->getAuth(), $perm, $parent, $allLevels);
     }
