@@ -1422,9 +1422,9 @@ HTML;
         /* Only encode image files if they are below the dataurl limit. */
         if (!($in instanceof Horde_Themes_Image)) {
             $in = Horde_Themes_Image::fromUri($in);
-            if (!file_exists($in->fs)) {
-                return $in->uri;
-            }
+        }
+        if (!file_exists($in->fs)) {
+            return $in->uri;
         }
 
         /* Delete approx. 50 chars from the limit to account for the various
