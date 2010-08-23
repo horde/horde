@@ -387,9 +387,9 @@ div.nicetitle {
     padding-right: 5px;
 }
 .treeRow {
-    overflow: hidden;
-    min-height: 20px;
     clear: both;
+    min-height: 20px;
+    overflow: hidden;
 }
 .treeToggle {
     cursor: pointer;
@@ -532,6 +532,9 @@ span.treeImg16 {
 
 #expandedSidebar {
     overflow: hidden;
+}
+#expandedSidebar #expandButton {
+    float: right;
 }
 
 #hiddenSidebar img {

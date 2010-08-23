@@ -96,8 +96,6 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'imgNullOnly' => $this->_images['null_only'],
             'imgLeaf' => $this->_images['leaf'],
 
-            'floatDir' => (empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'left' : 'right'),
-
             'initTree' => $this->renderNodeDefinitions()
         );
 

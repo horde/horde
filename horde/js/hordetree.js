@@ -36,10 +36,6 @@ var Horde_Tree = Class.create({
         this.node_pos = [];
         this.output = document.createDocumentFragment();
 
-        if (!this.div_temp) {
-            this.div_temp = new Element('DIV').setStyle({ cssFloat: this.opts.floatDir });
-        }
-
         this._buildHeader();
 
         this.rootNodes.each(function(r) {
@@ -71,7 +67,7 @@ var Horde_Tree = Class.create({
         var div = new Element('DIV');
 
         this.opts.header.each(function(h) {
-            var tmp = this.div_temp.clone().insert(h.html ? h.html : '&nbsp;');
+            var tmp = new Element('DIV').insert(h.html ? h.html : '&nbsp;');
 
             if (h['class']) {
                 tmp.addClassName(h['class']);
@@ -84,6 +80,8 @@ var Horde_Tree = Class.create({
             if (h.align) {
                 tmp.setStyle({ textAlign: h.align });
             }
+
+            div.appendChild(tmp);
         }, this);
 
         this.output.appendChild(div);
@@ -127,15 +125,15 @@ var Horde_Tree = Class.create({
         // any given cell of content.
         if (node.extra && node.extra[0]) {
             node.extra[0].each(function(n) {
-                div.insert(this._divWidth(this.div_temp.clone().update(n), column++));
+                div.insert(this._divWidth(new Element('DIV').update(n), column++));
             }, this);
         }
 
         for (; column < this.opts.extraColsLeft; ++column) {
-            div.insert(this._divWidth(this.div_temp.clone().update('&nbsp;'), column));
+            div.insert(this._divWidth(new Element('DIV').update('&nbsp;'), column));
         }
 
-        div.insert(this._divWidth(this.div_temp.clone(), column));
+        div.insert(this._divWidth(new Element('DIV'), column));
 
         tmp = document.createDocumentFragment();
         for (i = Number(this.renderStatic); i < node.indent; ++i) {
@@ -201,12 +199,12 @@ var Horde_Tree = Class.create({
 
         if (node.extra && node.extra[1]) {
             node.extra[1].each(function(n) {
-                div.insert(this._divWidth(this.div_temp.clone().update(n), column++));
+                div.insert(this._divWidth(new Element('DIV').update(n), column++));
             }, this);
         }
 
         for (; column < this.opts.extraColsRight; ++column) {
-            div.insert(this._divWidth(this.div_temp.clone().update('&nbsp;'), column));
+            div.insert(this._divWidth(new Element('DIV').update('&nbsp;'), column));
         }
 
         p.appendChild(div);

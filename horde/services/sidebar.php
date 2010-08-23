@@ -42,7 +42,6 @@ if (!Horde_Util::getFormData('ajaxui') &&
         'HordeSidebar.domain = ' . Horde_Serialize::serialize($conf['cookie']['domain'], Horde_Serialize::JSON, $charset),
         'HordeSidebar.path = ' . Horde_Serialize::serialize($conf['cookie']['path'], Horde_Serialize::JSON, $charset),
         'HordeSidebar.refresh = ' . intval($prefs->getValue('menu_refresh_time')),
-        'HordeSidebar.rtl = ' . $rtl,
         'HordeSidebar.url = ' . Horde_Serialize::serialize(strval($ajax_url), Horde_Serialize::JSON, $charset),
         'HordeSidebar.width = ' . $width
     ));

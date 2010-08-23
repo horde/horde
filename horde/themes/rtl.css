@@ -83,6 +83,9 @@ option {
     -webkit-border-bottom-right-radius: 0;
     -webkit-border-bottom-left-radius: 15px;
 }
+#expandedSidebar #expandButton {
+    float: left;
+}
 
 /* Tab styles. */
 .tabset {

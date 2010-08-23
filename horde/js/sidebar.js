@@ -7,7 +7,7 @@
 
 var HordeSidebar = {
     // Variables set in services/sidebar.php:
-    // domain, path, refresh, rtl, tree, url, width
+    // domain, path, refresh, tree, url, width
 
     toggleSidebar: function()
     {
@@ -49,14 +49,19 @@ var HordeSidebar = {
 
     setMargin: function(expanded)
     {
-        var margin = expanded
+        var hb = $('horde_body'),
+            margin = expanded
             ? this.width
             : $('hiddenSidebar').down().getWidth();
 
-        if (this.rtl) {
-            $('horde_body').setStyle({ marginRight: margin + 'px' });
-        } else {
-            $('horde_body').setStyle({ marginLeft: margin + 'px' });
+        switch ($(document.body).getStyle('direction')) {
+        case 'ltr':
+            hb.setStyle({ marginLeft: margin + 'px' });
+            break;
+
+        case 'rtl':
+            hb.setStyle({ marginRight: margin + 'px' });
+            break;
         }
     },
 
