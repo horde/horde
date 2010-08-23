@@ -124,7 +124,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
 
         /* Execute the query. */
         try {
-            $this->_db->addLimitOffset($query, array('limit' => $limit));
+            $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
             return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {
             throw new IMP_Exception($e);
