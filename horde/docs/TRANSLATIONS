@@ -33,9 +33,9 @@ People seem to like learning from examples better, so I have used dutch
 (nl_NL) as an example everywhere.
 
 There is a command line tool written in PHP for creating and managing
-translations in the ``horde/po/`` directory.  Usage instructions can be found
-in ``horde/po/README`` as well as instructions on how to start and maintain
-translations.
+translations in the ``horde/bin/`` directory.  Usage instructions can be found
+in the `Translator Guide`_ below as well as instructions on how to start and
+maintain translations.
 
 
 Translations don't work
@@ -50,7 +50,10 @@ You might also find some more information in the FAQ_.
 
 Please note that Dutch (nl_NL) is only used as an example here.  If you have
 problems with a certain translation use this translation's language code
-instead.
+instead. Most locales only use the language part of the locale name (the first
+two lowercase letters) for the actual translation directories, i.e. ``nl`` in
+this example. Prominent exceptions from this rule are Chinese (zh_TW, zh_CN)
+and Brazilian Portuguese (pt_BR).
 
 1. Is this locale (nl_NL) installed at all?
 
@@ -78,9 +81,9 @@ instead.
 4. Does the local Horde file work?
 
    Assuming that you have put the translated Horde file in
-   ``/data/www/horde/locale/nl_NL/LC_MESSAGES/horde.mo``::
+   ``/var/www/horde/locale/nl/LC_MESSAGES/horde.mo``::
 
-      $ export TEXTDOMAINDIR=/data/www/horde/locale
+      $ export TEXTDOMAINDIR=/var/www/horde/locale
       $ (LANG=nl_NL; LANGUAGE=nl_NL; LC_MESSAGES=nl_NL; gettext horde "Message" )
       Bericht
 
@@ -178,9 +181,8 @@ them by starting apache with one of the following commands::
 FreeBSD
 =======
 
-To enable UTF-8 support in Horde, you also need UTF-8 support in
-FreeBSD.  This is not installed by default, you need to install the
-``utf8locale-without-swidth-040319`` package or port.
+You also need UTF-8 support in FreeBSD.  This is not installed by default, you
+need to install the ``utf8locale-without-swidth-040319`` package or port.
 
 
 ------------------
@@ -257,20 +259,21 @@ outdated. Run::
 
   ./translation extract
 
-You now have to create a new PO file for your locale. A locale has the form
+You now have to create a new PO file for your language. A locale has the form
 ``ll_CC`` where ``ll`` is the two letter `ISO 639`_ code of the language and
 ``CC`` the two letter `ISO 3166`_ code of the country, e.g. ``de_DE``,
-``en_US`` or ``pt_BR``.
-``translation`` is able to guess the locale from the ``LANG`` environment
-variable but it is safer to specify the locale with the ``-l`` parameter.
-To create the PO file run::
+``en_US`` or ``pt_BR``. Only some languages require to specify the complete
+locale name, like Chinese (``zh_CN`` or ``zh_TW``). If you want to provide a
+country-specific language variant, e.g Brazilian Portuguese (``pt_BR``) or
+Canadian French (``fr_CA``) you need to use the full locale too. All other
+languages should only use the ``ll`` part of the locale as a parameter for the
+``translation`` script.
 
-  ./translation init -l ll_CC
+  ./translation init -l ll
 
-Now you can start the translation by editing the created ``ll_CC.po``
-files. It is important to set the charset for the locale in the
-``Content-Type:`` header to ``UTF-8``.  You should fill out the the complete
-header of the created ``ll_CC.po`` file, e.g.::
+Now you can start the translation by editing the created
+``locale/ll/LC_MESSAGES/[modulename].po`` files. You should fill out the the
+complete header of the created PO file, e.g.::
 
   # Dutch translation for Horde.
   # Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -279,19 +282,19 @@ header of the created ``ll_CC.po`` file, e.g.::
   #
   msgid ""
   msgstr ""
-  "Project-Id-Version: Horde 2.3\n"
+  "Project-Id-Version: Horde 4.0\n"
   "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
   "POT-Creation-Date: 2004-04-14 10:30+0200\n"
   "PO-Revision-Date: 2004-04-14 17:17+02:00\n"
   "Last-Translator: Joris Braakman <jbraakman@yahoo.com>\n"
   "Language-Team: i18n@lists.horde.org\n"
   "MIME-Version: 1.0\n"
-  "Content-Type: text/plain; charset=ISO-8859-1\n"
+  "Content-Type: text/plain; charset=UTF-8\n"
   "Content-Transfer-Encoding: 8-bit\n"
 
 To compile the translations to a binary format run::
 
-  ./translation make -l ll_CC
+  ./translation make -l ll
 
 After you created the new translation you have to add entries for this locale
 in the configuration file horde/config/nls.php.
@@ -315,7 +318,7 @@ before you can use it.
 
 To create a compendium of all existing translations for a certain locale run::
 
-  ./translation compendium -l ll_CC
+  ./translation compendium -l ll
 
 The ``compendium.po`` being created will contain all modules' translations of
 this locale merged into a single file. You should take a closer look at this
@@ -353,7 +356,7 @@ translated strings and compile them after.
 
 To update the translation for a module, run::
 
-  ./translation update -m modulename -l ll_CC
+  ./translation update -m modulename -l ll
 
 This extracts the new strings from the sources and tries to update them from
 already existing translations in the compendium. You just have to translate
@@ -363,16 +366,16 @@ all untranslated strings in the ``modulename.po`` file in the
 If extracting new strings fails for some reason, you can use the provided
 ``.pot`` file instead to update your translation::
 
-  ./translation merge -m modulename -l ll_CC
+  ./translation merge -m modulename -l ll
 
 If your compendium is in a different directory than the ``translation``
 script, you can specify the path to the compendium::
 
-  ./translation update -m modulename -l ll_CC -c /path/to/compendium
+  ./translation update -m modulename -l ll -c /path/to/compendium
 
 Once this is done, you can compile the translation by calling::
 
-  ./translation make -m modulename -l ll_CC
+  ./translation make -m modulename -l ll
 
 Extending existent translations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -400,7 +403,7 @@ screen:
           'name' => _("Mail Service of Computer Science Dpt.")
        ...
 
-  2. In ``horde/imp/po/de_DE.po`` you add two entries::
+  2. In ``horde/imp/locale/de/imp.po`` you add two entries::
 
        msgid "Central Mail Service"
        msgstr "Zentraler Mailserver"
@@ -475,15 +478,15 @@ Organization of the help files
 The help texts are available in the ``horde/locale/``, and
 ``horde/APP/locale/``, directories, where APP is any Horde application. Every
 available translation is kept in a file called ``help.xml``, in a subdirectory
-named according to RFC 3066. Examples:
+named according to the language name. Examples:
 
-- Horde's original help texts are in the ``horde/locale/en_US/help.xml`` file.
+- Horde's original help texts are in the ``horde/locale/en/help.xml`` file.
 - IMP's Brazilian help texts are in the ``horde/imp/locale/pt_BR/help.xml``
   file.
 
 When, for any desired application and locale, there is no ``help.xml`` file
 available, Horde's help system will use the application's
-``locale/en_US/help.xml`` file, instead.
+``locale/en/help.xml`` file, instead.
 
 The help files must be encoded in the UTF-8 character set.
 
@@ -604,15 +607,14 @@ The Horde menu will usually contain a general help item, which is generated in
 Creating a new translation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If necessary, define a suitable locale id ``ll_CC``, complying with RFC
-3066. E.g., if you plan to add an Austrian translation, you would use
-``de_AT`` as your locale id.
+If necessary, define a suitable language name. E.g., if you plan to add an
+Austrian translation, you would use ``de_AT`` as your language name.
 
 For Horde, and for all relevant applications, copy the ``help.xml`` files from
-the ``locale/en_US/`` subdirectories to the ``locale/ll_CC/`` subdirectories,
+the ``locale/en/`` subdirectories to the ``locale/ll/`` subdirectories,
 creating them if necessary.
 
-Translate each new ``locale/ll_CC/help.xml`` file, leaving all tags and
+Translate each new ``locale/ll/help.xml`` file, leaving all tags and
 attributes unchanged. Just translate the text between the tags.
 
 .. Important:: The ``id`` attributes must be kept unchanged, under any
@@ -628,7 +630,7 @@ Finishing a translation
 If you want to submit a translation to be included in the Horde code base,
 make sure that you have completed all translations. Then run::
 
-  ./translation make-help
+  ./translation make-help -l ll
 
 This will mark all entries as being up-to-date so that you or other
 translators can later see which entries have been changed since then.
@@ -638,7 +640,7 @@ Updating an existing translation
 
 Run::
 
-  ./translation update-help
+  ./translation update-help -l ll
 
 This will merge your existing help file with all changes from the original,
 English help file since your last translation. Changed entries are marked with
@@ -662,7 +664,7 @@ proceed as following:
 2. In the latter case, choose a suitable ``id`` for your new help entry.
 
 3. Edit the existing entry in, or add a new entry to, the application's
-   ``en_US/help.xml`` file. Change all translations needed in your site in the
+   ``en/help.xml`` file. Change all translations needed in your site in the
    same way. Be sure to use the same ``id`` everywhere.
 
 4. If you have added a new entry, you might want to add a link to it from a

@@ -1123,7 +1123,7 @@ function update_help()
         } else {
             $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
         }
-        $file_en  = $dirs[$i] . DS . 'locale' . DS . 'en_US' . DS . 'help.xml';
+        $file_en  = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
         if (!file_exists($file_en)) {
             $c->message(sprintf('There doesn\'t yet exist a help file for %s.', $c->bold($apps[$i])), 'cli.warning');
             $c->writeln();
@@ -1132,7 +1132,7 @@ function update_help()
         foreach ($files as $file_loc) {
             $locale = substr($file_loc, 0, strrpos($file_loc, DS));
             $locale = substr($locale, strrpos($locale, DS) + 1);
-            if ($locale == 'en_US') {
+            if ($locale == 'en') {
                 continue;
             }
             if (!file_exists($file_loc)) {
@@ -1256,7 +1256,7 @@ function make_help()
         } else {
             $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
         }
-        $file_en = $dirs[$i] . DS . 'locale' . DS . 'en_US' . DS . 'help.xml';
+        $file_en = $dirs[$i] . DS . 'locale' . DS . 'en' . DS . 'help.xml';
         if (!file_exists($file_en)) {
             continue;
         }
@@ -1276,7 +1276,7 @@ function make_help()
             }
             $locale = substr($file_loc, 0, strrpos($file_loc, DS));
             $locale = substr($locale, strrpos($locale, DS) + 1);
-            if ($locale == 'en_US') continue;
+            if ($locale == 'en') continue;
             $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
 
             if (!($doc_loc = DOMDocument::load($file_loc))) {

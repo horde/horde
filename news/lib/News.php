@@ -43,14 +43,14 @@ class News {
     }
 
     /**
-     * Returns a flag image for a language.
+     * Returns a flag image for a country.
      *
-     * @param string $lang  The language to return the flag for, e.g. 'en_US'.
+     * @param string $lang  The language to return the flag for, e.g. 'us'.
      */
-    static public function getFlag($lang)
+    static public function getFlag($country)
     {
-        $flag = 'flags/' . strtolower(substr($lang, -2)) . '.png';
-        return Horde::img($flag, $lang);
+        $flag = 'flags/' . strtolower(substr($country, -2)) . '.png';
+        return Horde::img($flag, $country);
     }
 
     /**

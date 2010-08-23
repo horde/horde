@@ -49,7 +49,7 @@ if ($module == 'admin') {
     $fileroot = $registry->get('fileroot', $module);
 }
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, array($fileroot . '/locale/' . $language . '/help.xml', $fileroot . '/locale/en_US/help.xml'));
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, array($fileroot . '/locale/' . $language . '/help.xml', $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml', $fileroot . '/locale/en/help.xml'));
 
 $bodyClass = 'help help_' . urlencode($show);
 require HORDE_TEMPLATES . '/common-header.inc';

@@ -2,6 +2,8 @@
 v4.0-cvs
 --------
 
+[jan] Move all translations from po/ to locale/ and use short locale
+      identifiers where possible.
 [jan] Remove frameset.
 [jan] Remove dhtmlHistory library.
 [mms] Removed support for krb5 authentication driver.

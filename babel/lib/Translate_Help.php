@@ -30,7 +30,7 @@ class Translate_Help {
 	    } else {
 		$files = array($dirs[$i] . '/' . 'locale' . '/' . $lang . '/' . 'help.xml');
 	    }
-	    $file_en  = $dirs[$i] . '/' . 'locale' . '/' . 'en_US' . '/' . 'help.xml';
+	    $file_en  = $dirs[$i] . '/' . 'locale' . '/' . 'en' . '/' . 'help.xml';
 	    if (!@file_exists($file_en)) {
 		Translate_Display::info(sprintf(_("Warning: There doesn't yet exist a help file for %s."), $apps[$i]));
 		Translate_Display::info();
@@ -39,7 +39,7 @@ class Translate_Help {
 	    foreach ($files as $file_loc) {
 		$locale = substr($file_loc, 0, strrpos($file_loc, '/'));
 		$locale = substr($locale, strrpos($locale, '/') + 1);
-		if ($locale == 'en_US') continue;
+		if ($locale == 'en') continue;
 		if (!@file_exists($file_loc)) {
 		    Translate_Display::info(sprintf(_("Warning: The %s help file for %s doesn't yet exist. Creating a new one."), $locale, $apps[$i]));
 		    $dir_loc = substr($file_loc, 0, -9);
@@ -164,7 +164,7 @@ class Translate_Help {
 	    } else {
 		$files = array($dirs[$i] . '/' . 'locale' . '/' . $lang . '/' . 'help.xml');
 	    }
-	    $file_en  = $dirs[$i] . '/' . 'locale' . '/' . 'en_US' . '/' . 'help.xml';
+	    $file_en  = $dirs[$i] . '/' . 'locale' . '/' . 'en' . '/' . 'help.xml';
 	    if (!@file_exists($file_en)) {
 		continue;
 	    }
@@ -176,7 +176,7 @@ class Translate_Help {
 		}
 		$locale = substr($file_loc, 0, strrpos($file_loc, '/'));
 		$locale = substr($locale, strrpos($locale, '/') + 1);
-		if ($locale == 'en_US') continue;
+		if ($locale == 'en') continue;
 		Translate_Display::info(sprintf(_("Updating %s help file for %s."), ($locale), ($apps[$i])));
 		$fp = fopen($file_loc, 'r');
 		$line = fgets($fp);

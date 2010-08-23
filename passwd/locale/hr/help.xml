@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="passwd-username" md5="2890a9812d76074ffb3e35957eea967d" state="uptodate">
+    <title>Korisni&#x10D;ko ime</title>
+    <para>Unesite svoje korisni&#x10D;ko ime (ako ve&#x107; nije automatski uneseno).
+    Neke instalacije ne podr&#x17E;avaju promjenu korisni&#x10D;kog imena.</para>
+  </entry>
+  <entry id="passwd-old-password" md5="5e55cb125b5778caaf1a51afca92ab59" state="uptodate">
+    <title>Stara lozinka</title>
+    <para>Ovdje unesite svoju trenutnu rade&#x107;u lozinku. Promjena lozinke ne&#x107;e
+    uspjeti ako ne unesete ispravnu trenutnu lozinku.</para>
+  </entry>
+  <entry id="passwd-new-password" md5="8fe6f2254a9d10984fa8ba876f148b53" state="uptodate">
+    <title>Nova lozinka</title>
+    <para>Unesite novu lozinku koju &#x17E;elite koristiti nakon promjene.
+    Ako nova lozinka ne zadovoljava odre&#x111;ene kriterije sigurnosti
+    (minimalna du&#x17E;ina, razli&#x10D;ita od korisni&#x10D;kog imena, odre&#x111;eni broj
+    slova, brojeva itd.) sustav &#x107;e prijaviti gre&#x161;ku i promjena lozinke
+    ne&#x107;e uspjeti.</para>
+  </entry>
+  <entry id="passwd-confirm-password" md5="38caae4b775cceda60bbc3c183a78fcb" state="uptodate">
+    <title>Potvrda nove lozinke</title>
+    <para>Jo&#x161; jednom unesite novu lozinku u polje Potvrda nove lozinke.
+    Ponavljanje lozinke slu&#x17E;i da gre&#x161;ka u unosu nove lozinke ne promijeni
+    lozinku na pogre&#x161;nu vrijednost i time onemogu&#x107;i ponovnu prijavu.</para>
+  </entry>
+  <entry id="passwd-server" md5="164edb880db7297eb259816ea42c0f8f" state="uptodate">
+    <title>Promjena lozinke za</title>
+    <para>Odaberite poslu&#x17E;itelj ili aplikaciju za koju &#x17E;elite promijeniti
+    lozinku. Neke instalacije ne podr&#x17E;avaju promjenu ovog polja.</para>
+  </entry>
+  <entry id="Change-your-password" md5="186993a347a9ad4d9cd2cbeead7f6e4e" state="uptodate">
+    <title>Promijeni lozinku</title>
+    <para>Klik na gumb "Promijeni lozinku" pokre&#x107;e proceduru promjene lozinke
+    na odabranom poslu&#x17E;itelju.</para>
+  </entry>
+  <entry id="reset" md5="87302fbc89b897c8d78445eb3e624d5e" state="uptodate">
+    <title>Resetiraj</title>
+    <para>Gumb Resetiraj bri&#x161;e sadr&#x17E;aj svih izmijenjenih polja i omogu&#x107;ava
+    ponovan unos lozinki.</para>
+  </entry>
+</help>

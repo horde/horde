@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<!-- $Horde: passwd/locale/fa_IR/help.xml,v 1.1 2005/04/21 01:38:40 persian-horde in MetaNET -->
+<help>
+
+<entry id="passwd-username">
+    <title>نام کاربر</title>
+    <heading>نام کاربری شما</heading>
+    <para>
+    نام کاربری خود را در اين قسمت وارد نماييد.
+    </para>
+</entry>
+
+
+<entry id="passwd-old-password">
+    <title>اسم رمز قبلی</title>
+    <heading>اسم رمز قبلی</heading>
+    <para>
+    اسم رمز فعلی خود را در اين قسمت وارد نماييد. اگر اسم رمز فعلی خود را به درستی وارد ننمائيد تغيير اسم رمز عبور ممکن نخواهد بود.
+    </para>
+</entry>
+
+<entry id="passwd-new-password">
+    <title>اسم رمز جديد</title>
+    <heading>اسم رمز جديد</heading>
+    <para>
+    اسم رمز جديد خود را وارد نمائيد. توجه داشته باشيد که اسم رمز جديد شما بايد برخی از استانداردهای ساده چون
+    حداقل طول مجاز، عدم يکسان بودن با نام کاربری شما، وجود ترکيبی از حروف الفبايي و عددی در آن و ... را رعايت نمايد.
+    </para>
+</entry>
+
+<entry id="passwd-confirm-password">
+    <title>تأييد اسم رمز جديد </title>
+    <heading>تأييد اسم رمز جديد</heading>
+    <para>
+    اسم رمز جديد خود را دوباره وارد نماييد. اين عمل برای اطمينان از صحت ورود اسم رمز جديد شما صورت می‌پذيرد.
+    </para>
+</entry>
+
+<entry id="Change-your-password">
+    <title>تغيير اسم رمز شما</title>
+    <heading>تغيير اسم رمز شما</heading>
+    <para>
+    کليد تغيير اسم رمز را به منظور تغيير اسم رمز خود بفشاريد
+    </para>
+</entry>
+
+<entry id="reset">
+    <title>باز نشانی</title>
+    <heading>باز نشانی</heading>
+    <para>
+    اين کليد را برای آغاز مجدد و پاک کردن کليه اطلاعات وارده قبلی بفشاريد.
+    </para>
+</entry>
+
+</help>
