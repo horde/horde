@@ -214,7 +214,7 @@ class Turba_View_List {
                 'val' => Horde_Util::getFormData('val'),
                 'source' => Horde_Util::getFormData('source', $default_source)
             ));
-            $viewurl = Horde::applicationUrl('search.php')-add($params);
+            $viewurl = Horde::applicationUrl('search.php')->add($params);
 
             $vars = Horde_Variables::getDefaultVariables();
             $pager = new Horde_Core_Ui_Pager('page', $vars,
