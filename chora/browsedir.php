@@ -21,6 +21,7 @@ if (!$atdir) {
 $onb = $VC->hasFeature('snapshots')
     ? Horde_Util::getFormData('onb')
     : null;
+$branchArgs = $onb ? array('onb' => $onb) : array();
 
 try {
     $atticFlags = (bool)$acts['sa'];
@@ -38,7 +39,7 @@ $title = ($where == '')
     : sprintf(_("Source Directory of /%s"), $where);
 
 $extraLink = $VC->hasFeature('deleted')
-    ? Horde::widget(Chora::url('browsedir', $where . '/', array('onb' => $onb, 'sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
+    ? Horde::widget(Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
     : '';
 
 $umap = array(
@@ -49,14 +50,11 @@ $umap = array(
 );
 
 foreach ($umap as $key => $val) {
-    $arg = array('sbt' => $val);
+    $args = $branchArgs + array('sbt' => $val);
     if ($acts['sbt'] == $val) {
-        $arg['ord'] = !$acts['ord'];
+        $args['ord'] = !$acts['ord'];
     }
-    if ($onb) {
-        $arg['onb'] = $onb;
-    }
-    $url[$key] = Chora::url('browsedir', $where . '/', $arg);
+    $url[$key] = Chora::url('browsedir', $where . '/', $args);
 }
 
 $branches = array();
@@ -76,7 +74,7 @@ require CHORA_TEMPLATES . '/directory/header.inc';
 
 /* Unless we're at the top, display the 'back' bar. */
 if ($where != '') {
-    $url = Chora::url('browsedir', preg_replace('|[^/]+$|', '', $where), array('onb' => $onb));
+    $url = Chora::url('browsedir', preg_replace('|[^/]+$|', '', $where), $branchArgs);
     require CHORA_TEMPLATES . '/directory/back.inc';
 }
 
@@ -87,7 +85,7 @@ if ($dirList) {
         if ($conf['hide_restricted'] && Chora::isRestricted($currentDir)) {
             continue;
         }
-        $url = Chora::url('browsedir', $where . '/' . $currentDir . '/', array('onb' => $onb));
+        $url = Chora::url('browsedir', $where . '/' . $currentDir . '/', $branchArgs);
         $currDir = $injector->getInstance('Horde_Text_Filter')->filter($currentDir, 'space2html', array('encode' => true, 'encode_all' => true));
         require CHORA_TEMPLATES . '/directory/dir.inc';
     }
@@ -116,7 +114,7 @@ if ($fileList) {
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
         $name = $injector->getInstance('Horde_Text_Filter')->filter($realname, 'space2html', array('encode' => true, 'encode_all' => true));
-        $url = Chora::url('browsefile', $fileName, array('onb' => $onb));
+        $url = Chora::url('browsefile', $fileName, $branchArgs);
         $readableDate = Chora::readableTime($date);
         if ($log) {
             $shortLog = Horde_String::truncate(str_replace("\n", ' ', trim($log)), $conf['options']['shortLogLength']);
