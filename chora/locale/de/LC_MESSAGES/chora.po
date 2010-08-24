@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-18 13:49+0200\n"
-"PO-Revision-Date: 2010-08-24 17:35+0200\n"
+"PO-Revision-Date: 2010-08-24 18:01+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -317,7 +317,7 @@ msgstr "Bitte kontaktieren Sie"
 
 #: templates/annotate/header.inc:7
 msgid "Prev"
-msgstr "Zurück"
+msgstr "Vorige"
 
 #: templates/diff/hr/header.inc:34
 msgid "Removed"
