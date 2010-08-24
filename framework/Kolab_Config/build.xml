@@ -16,7 +16,7 @@
  <!-- Run unit tests and generate junit.xml and clover.xml -->
  <target name="phpunit">
   <exec executable="php" failonerror="true">
-    <arg line="-c php.ini ${tooldir}/phpunit --" />
+    <arg line="-c php.ini ${tooldir}/phpunit" />
   </exec>
  </target>
 
@@ -55,7 +55,7 @@
  <!-- Generate pmd-cpd.xml -->
  <target name="phpcpd">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpcpd --
+   <arg line="-c php.ini ${tooldir}/phpcpd
               --log-pmd ${basedir}/build/logs/pmd-cpd.xml lib" />
   </exec>
  </target>
@@ -63,7 +63,7 @@
  <!-- Generate checkstyle.xml -->
  <target name="phpcs">
   <exec executable="php" output="/dev/null">
-   <arg line="-c php.ini ${tooldir}/phpcs --
+   <arg line="-c php.ini ${tooldir}/phpcs
               --report=checkstyle
               --report-file=${basedir}/build/logs/checkstyle.xml
               --standard=PEAR
@@ -81,10 +81,10 @@
 
  <target name="phpcb">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpcb --
-              --log    ${basedir}/build/logs
-              --source ${basedir}/lib
-              --output ${basedir}/build/code-browser" />
+   <arg line="-c php.ini ${tooldir}/phpcb
+              --log=${basedir}/build/logs
+              --source=${basedir}/lib
+              --output=${basedir}/build/code-browser" />
   </exec>
  </target>
 
