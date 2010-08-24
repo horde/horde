@@ -266,6 +266,7 @@ var ViewPort = Class.create({
 
         this.isbusy = this.page_size = null;
         this.request_num = 1;
+        this.id = 0;
 
         // Init empty string now.
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' }).insert(opts.empty_msg);
@@ -1458,7 +1459,6 @@ ViewPort_Buffer = Class.create({
 
     initialize: function(vp, view)
     {
-        this.id = 0;
         this.vp = vp;
         this.view = view;
         this.clear();
@@ -1564,7 +1564,7 @@ ViewPort_Buffer = Class.create({
                 // We can directly write the rownum to the original object
                 // since we will always rewrite when creating rows.
                 if (!e.VP_domid) {
-                    e.VP_domid = 'VProw_' + (++this.id);
+                    e.VP_domid = 'VProw_' + (++this.vp.id);
                 }
                 e.VP_rownum = this.uidlist.get(u);
                 e.VP_id = u;
