@@ -325,7 +325,8 @@ class Chora
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
-            if (empty($GLOBALS['conf']['paths']['cvsgraph'])) {
+            if (empty($GLOBALS['conf']['paths']['cvsgraph']) ||
+                !($GLOBALS['VC'] instanceof Horde_Vcs_Cvs)) {
                 $views[] = ($current == 'history')
                     ? '<em class="widget">' . _("Branches") . '</em>'
                     : Horde::widget(self::url('history', $where), _("Branches"), 'widget', '', '', _("_Branches"));
