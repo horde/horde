@@ -67,18 +67,7 @@ class Horde_Test_AllTests
         // Set up autoload
         $basedir = dirname(self::$_file);
         set_include_path($basedir . '/../../../lib' . PATH_SEPARATOR . get_include_path());
-        if (!spl_autoload_functions()) {
-            spl_autoload_register(
-                create_function(
-                    '$class',
-                    '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
-                    . '$err_mask = E_ALL ^ E_WARNING;'
-                    . '$oldErrorReporting = error_reporting($err_mask);'
-                    . 'include "$filename.php";'
-                    . 'error_reporting($oldErrorReporting);'
-                )
-            );
-        }
+        require_once 'Horde/Test/Autoload.php';
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . self::$_package);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
