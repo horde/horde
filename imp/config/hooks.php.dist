@@ -135,7 +135,7 @@ class IMP_Hooks
 
 
     /**
-     * Do MIME type determination for compose attachments.
+     * Perform actions on files uploaded for use as compose attachments.
      *
      * This hook is enabled by default.
      *
@@ -146,9 +146,12 @@ class IMP_Hooks
      * @param string $type      The MIME type as reported by the browser.
      *
      * @return string  The MIME type of the file.
+     * @throws IMP_Compose_Exception
      */
-     public function attachmimetype($filename, $tempfile, $type)
+     public function compose_attach($filename, $tempfile, $type)
      {
+        /* Do MIME type determination for compose attachments. */
+
         /* By default, we trust the MIME type reported by the browser if it is
          * something other than the generic octet-stream type. */
         if ($type == 'application/octet-stream') {
@@ -162,6 +165,24 @@ class IMP_Hooks
                 $type = Horde_Mime_Magic::filenameToMIME($filename, false);
             }
         }
+
+//        // Example: Do a virus scan on the attachment, and reject attachment
+//        // if a virus is found.
+//        // This example uses the open source ClamAV binary (tested with
+//        // v0.96). See: http://www.clamav.net/
+//        $clamscan = '/path/to/clamscan';
+//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), null, $return_var);
+//        switch ($return_var) {
+//        case 1:
+//            // Virus found.
+//            Horde::logMessage('Virus found in uploaded attachment', 'INFO');
+//            throw new IMP_Compose_Exception('Virus found in uploaded attachment. Attachment will not be added to the compose message.');
+//
+//        case 2:
+//            // Error occurred.
+//            Horde::logMessage('Unknown error when scanning message for virus.', 'INFO');
+//            break;
+//        }
 
         return $type;
     }

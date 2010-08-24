@@ -1829,9 +1829,9 @@ class IMP_Compose
             ? 'application/octet-stream'
             : $_FILES[$name]['type'];
 
-        /* User hook to do MIME magic determinations. */
+        /* User hook to do file scanning/MIME magic determinations. */
         try {
-            $type = Horde::callHook('attachmimetype', array($filename, $tempfile, $type), 'imp');
+            $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $part = new Horde_Mime_Part();
