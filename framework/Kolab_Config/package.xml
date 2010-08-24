@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-06-27</date>
- <time>18:56:35</time>
+ <date>2010-08-24</date>
+ <time>22:25:46</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -58,18 +58,28 @@
         <dir name="empty">
          <file name="no_config_file" role="test" />
         </dir> <!-- /test/Horde/Kolab/Config/fixture/empty -->
+        <dir name="global">
+         <file name="globals.conf" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Config/fixture/global -->
+        <dir name="local">
+         <file name="kolab.conf" role="test" />
+         <file name="kolab.globals" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Config/fixture/local -->
        </dir> <!-- /test/Horde/Kolab/Config/fixture -->
        <dir name="Integration">
         <file name="ConfigTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Config/Integration -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="conf.php.dist" role="test" />
        <file name="ConfigStoryTestCase.php" role="test" />
        <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Kolab/Config -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="build.xml" role="data" />
+   <file name="phpunit.xml" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -81,7 +91,12 @@
     <min>1.4.0b1</min>
    </pearinstaller>
   </required>
-  <optional />
+  <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -89,9 +104,13 @@
    <install as="Horde/Kolab/Config/Exception.php" name="lib/Horde/Kolab/Config/Exception.php" />
    <install as="Horde/Kolab/Config/AllTests.php" name="test/Horde/Kolab/Config/AllTests.php" />
    <install as="Horde/Kolab/Config/Autoload.php" name="test/Horde/Kolab/Config/Autoload.php" />
+   <install as="Horde/Kolab/Config/conf.php.dist" name="test/Horde/Kolab/Config/conf.php.dist" />
    <install as="Horde/Kolab/Config/ConfigStoryTestCase.php" name="test/Horde/Kolab/Config/ConfigStoryTestCase.php" />
    <install as="Horde/Kolab/Config/phpunit.xml" name="test/Horde/Kolab/Config/phpunit.xml" />
    <install as="Horde/Kolab/Config/fixture/empty/no_config_file" name="test/Horde/Kolab/Config/fixture/empty/no_config_file" />
+   <install as="Horde/Kolab/Config/fixture/global/globals.conf" name="test/Horde/Kolab/Config/fixture/global/globals.conf" />
+   <install as="Horde/Kolab/Config/fixture/local/kolab.conf" name="test/Horde/Kolab/Config/fixture/local/kolab.conf" />
+   <install as="Horde/Kolab/Config/fixture/local/kolab.globals" name="test/Horde/Kolab/Config/fixture/local/kolab.globals" />
    <install as="Horde/Kolab/Config/Integration/ConfigTest.php" name="test/Horde/Kolab/Config/Integration/ConfigTest.php" />
   </filelist>
  </phprelease>
@@ -105,7 +124,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-06-27</date>
+   <date>2010-08-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.
