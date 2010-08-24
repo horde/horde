@@ -3,6 +3,16 @@
  *
  * Optionally uses the Horde_Tooltip class (tooltips.js).
  *
+ * Custom Events
+ * -------------
+ * The 'memo' property of the Event object contains the original event object.
+ *
+ * 'Horde_Tree:expand'
+ *   Fired when a tree element is expanded.
+ *
+ * 'Horde_Tree:collapse'
+ *   Fired when a tree element is collapsed.
+ *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -397,6 +407,8 @@ var Horde_Tree = Class.create({
         if (toggle = $('nodeToggle_' + nodeId)) {
             toggle.writeAttribute('class', 'treeToggle treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
         }
+
+        $(this.opts.target).fire(node.expanded ? 'Horde_Tree:expand' : 'Horde_Tree:collapse', nodeId);
 
         this.saveState(nodeId, node.expanded)
     },
