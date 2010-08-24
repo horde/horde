@@ -82,7 +82,6 @@ case 'collapse_all_folders':
     break;
 
 case 'rebuild_tree':
-    $imp_folder->clearFlistCache();
     $imaptree->init();
     break;
 

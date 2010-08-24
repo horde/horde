@@ -305,7 +305,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if ($this->_vars->reload) {
-            $GLOBALS['injector']->getInstance('IMP_Folder')->clearFlistCache();
             $imptree->init();
         }
 

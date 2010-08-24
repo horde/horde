@@ -32,32 +32,6 @@ class IMP_Folder
     );
 
     /**
-     * Keep around identical lists so that we don't hit the server more that
-     * once in the same page for the same thing.
-     *
-     * @var array
-     */
-    protected $_listCache = null;
-
-    /**
-     * The cache ID used to store mailbox info.
-     *
-     * @var string
-     */
-    protected $_cacheid = null;
-
-    /**
-     * Constructor.
-     *
-     * @param string $cacheid  The cache ID to use, if folder list caching is
-     *                         enabled.
-     */
-    public function __construct($cacheid = null)
-    {
-        $this->_cacheid = $cacheid;
-    }
-
-    /**
      * Lists folders.
      *
      * @param array $filter  An list of mailboxes that should be left out of
@@ -90,29 +64,6 @@ class IMP_Folder
             $sub = $GLOBALS['prefs']->getValue('subscribe');
         }
 
-        /* Compute values that will uniquely identify this list. */
-        $sig = hash('md5', serialize(array(intval($sub), $filter)));
-
-        /* Either get the list from the cache, or go to the IMAP server to
-           obtain it. */
-        $cache = null;
-        if (is_null($this->_listCache)) {
-            if (!is_null($this->_cacheid) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
-                $ret = $cache->get($this->_cacheid, 3600);
-                if (!empty($ret)) {
-                    $this->_listCache = unserialize($ret);
-                }
-            }
-
-            if (empty($this->_listCache)) {
-                $this->_listCache = array();
-            }
-        }
-
-        if (isset($this->_listCache[$sig])) {
-            return $this->_listCache[$sig];
-        }
-
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $list_mask = IMP_Imap_Tree::FLIST_CONTAINER;
         if (!$sub) {
@@ -138,26 +89,7 @@ class IMP_Folder
             $list = $inbox_entry + $list;
         }
 
-        $this->_listCache[$sig] = $list;
-
-        /* Save in cache, if needed. */
-        if (!is_null($cache)) {
-            $cache->set($this->_cacheid, serialize($this->_listCache), 3600);
-        }
-
         return $list;
-    }
-
-    /**
-     * Clears the flist folder cache.
-     */
-    public function clearFlistCache()
-    {
-        if (!is_null($this->_cacheid) &&
-            ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
-            $cache->expire($this->_cacheid);
-        }
-        $this->_listCache = array();
     }
 
     /**
@@ -207,9 +139,6 @@ class IMP_Folder
      */
     protected function _onDelete($deleted)
     {
-        /* Reset the folder cache. */
-        $this->clearFlistCache();
-
         /* Recreate Virtual Folders. */
         $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
 
@@ -291,9 +220,6 @@ class IMP_Folder
         if ($subscribe) {
             $this->subscribe(array($folder));
         }
-
-        /* Reset the folder cache. */
-        $this->clearFlistCache();
 
         /* Update the mailbox tree. */
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($folder);
@@ -415,9 +341,6 @@ class IMP_Folder
 
         if (!empty($subscribed)) {
             $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->subscribe($subscribed);
-
-            /* Reset the folder cache. */
-            $this->clearFlistCache();
         }
 
         return $return_value;
@@ -459,9 +382,6 @@ class IMP_Folder
 
         if (!empty($unsubscribed)) {
             $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->unsubscribe($unsubscribed);
-
-            /* Reset the folder cache. */
-            $this->clearFlistCache();
         }
 
         return $return_value;

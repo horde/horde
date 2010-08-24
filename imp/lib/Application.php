@@ -95,7 +95,6 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Contents' => new IMP_Injector_Binder_Contents(),
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
-            'IMP_Folder' => new IMP_Injector_Binder_Folder(),
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),
             'IMP_Imap' => new IMP_Injector_Binder_Imap(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
@@ -464,7 +463,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function mailboxesChanged()
     {
-        $GLOBALS['injector']->getInstance('IMP_Folder')->clearFlistCache();
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
