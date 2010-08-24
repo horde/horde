@@ -248,11 +248,12 @@ class Horde_Menu
 
             /* Link. */
             $accesskey = Horde::getAccessKey($m['text']);
-            $link = Horde::link($m['url'], ($menu_view == 'icon') ? Horde::stripAccessKey($m['text']) : '',
-                                isset($m['class']) ? $m['class'] : '',
-                                isset($m['target']) ? $m['target'] : '',
-                                isset($m['onclick']) ? $m['onclick'] : '',
-                                '', $accesskey);
+            $link = $m['url']->setRaw(false)->link(
+                array('title' => $menu_view == 'icon' ? Horde::stripAccessKey($m['text']) : '',
+                      'class' => isset($m['class']) ? $m['class'] : '',
+                      'target' => $m['target'],
+                      'onclick' => $m['onclick'],
+                      'accesskey' => $accesskey));
 
             $output .= sprintf("\n<li>%s%s%s</a></li>",
                                $link, $icon, ($menu_view != 'icon') ? Horde::highlightAccessKey($m['text'], $accesskey) : '');
