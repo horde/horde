@@ -20,9 +20,7 @@
 
 <?php if (!empty($selAllBranches)): ?>
  <span>
-  <form method="get" action="browsefile.php">
-   <?php echo Chora::formInputs() ?>
-   <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
+  <form method="get" action="<?php echo Chora::url('browsefile', Horde_Util::getFormData('f')) ?>">
    <?php echo _("Show Branch:") ?>
    <select name="onb" onchange="this.form.submit()">
     <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>

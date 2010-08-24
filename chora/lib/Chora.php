@@ -58,7 +58,7 @@ class Chora
             if (!empty($dir)) {
                 $url = self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/'));
                 if (!empty($onb)) {
-                    $url = Horde_Util::addParameter($url, array('onb' => $onb));
+                    $url = $url->add('onb', $onb);
                 }
                 $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
             }
@@ -105,22 +105,23 @@ class Chora
      *
      * @return string  The URL, with session information if necessary.
      */
-    static public function url($script, $uri = '', $args = array(), $anchor = '')
+    static public function url($script, $uri = '', $args = array(),
+                               $anchor = '')
     {
-        $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], $args);
+        $arglist = self::_getArgList($GLOBALS['acts'],
+                                     $GLOBALS['defaultActs'],
+                                     $args);
         $script .= '.php';
 
         if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
-            if (in_array($script, array('browse.php', 'browsedir.php'))) {
+            if (in_array($script, array('browsefile.php', 'browsedir.php'))) {
                 if (substr($uri, 0, 1) == '/') {
                     $script = "browse$uri";
                 } else {
                     $script = "browse/$uri";
                 }
-                if (isset($args['rt'])) {
-                    $script = urlencode($arglist['rt']) . "/-/$script";
-                    unset($arglist['rt']);
-                }
+                $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . "/-/$script";
+                unset($arglist['rt']);
             } else {
                 $script .= '/' . $uri;
             }
@@ -128,9 +129,8 @@ class Chora
             $arglist['f'] = $uri;
         }
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl($script), $arglist);
+        return Horde::applicationUrl($script)->add($arglist)->setAnchor($anchor);
 
-        return empty($anchor) ? $url : ($url . '#' . $anchor);
     }
 
     /**
@@ -219,7 +219,7 @@ class Chora
         return '<form action="#" id="repository-picker">' .
             '<select onchange="location.href=this[this.selectedIndex].value">' .
             '<option value="">' . _("Change repositories:") . '</option>' .
-            implode(' , ', $arr) . '</select></form>';
+            implode('', $arr) . '</select></form>';
     }
 
     /**
@@ -356,7 +356,7 @@ class Chora
         $tags = array();
 
         foreach ($lg->querySymbolicBranches() as $symb => $bra) {
-            $tags[] = '<a href="' . self::url('browsefile', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
+            $tags[] = self::url('browsefile', $where, array('onb' => $bra))->link() . htmlspecialchars($symb) . '</a>';
         }
 
         foreach ($lg->queryTags() as $tag) {
