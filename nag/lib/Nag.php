@@ -767,9 +767,9 @@ class Nag
             (!empty($conf['hooks']['permsdenied']) ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('task.php', 'actionID', 'add_task')), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
+            $menu->add(Horde::applicationUrl('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                $menu->add('', _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
+                $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
 

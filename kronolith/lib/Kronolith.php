@@ -2961,7 +2961,7 @@ class Kronolith
                 'KronolithGoto.weekurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('week.php')), Horde_Serialize::JSON, $registry->getCharset()),
                 'KronolithGoto.yearurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('year.php')), Horde_Serialize::JSON, $registry->getCharset()),
             ));
-            $menu->add('#', _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
+            $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
         }
         $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
