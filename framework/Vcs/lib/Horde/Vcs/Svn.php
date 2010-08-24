@@ -124,7 +124,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function checkout($fullname, $rev)
     {
-        $rep->assertValidRevision($rev);
+        $this->assertValidRevision($rev);
 
         if ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
             return $RCS;
