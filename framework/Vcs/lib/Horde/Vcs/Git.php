@@ -787,7 +787,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
         $revs = array();
 
         if (isset($opts['file'])) {
-            $ob = $rep->getFileObject($file);
+            $ob = $rep->getFileObject($opts['file']);
             $revs = $ob->queryLogs();
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
