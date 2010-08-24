@@ -33,7 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Lock">
-      <file name="Driver.php" role="php" />
+      <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -80,7 +80,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Lock/Driver.php" as="Horde/Lock/Driver.php" />
+   <install name="lib/Horde/Lock/Base.php" as="Horde/Lock/Base.php" />
    <install name="lib/Horde/Lock/Exception.php" as="Horde/Lock/Exception.php" />
    <install name="lib/Horde/Lock/Null.php" as="Horde/Lock/Null.php" />
    <install name="lib/Horde/Lock/Sql.php" as="Horde/Lock/Sql.php" />
