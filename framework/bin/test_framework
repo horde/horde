@@ -13,7 +13,7 @@
 require_once 'PHPUnit/Util/Filter.php';
 require_once 'PHPUnit/TextUI/Command.php';
 set_include_path(dirname(dirname(dirname(__FILE__))) . '/lib:' . get_include_path());
-require 'Horde/Core/Autoloader.php';
+require 'Horde/Autoloader/Default.php';
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 

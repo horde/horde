@@ -14,7 +14,7 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Core/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 if (!defined('KOWARD_BASE')) {
     define('KOWARD_BASE', dirname(__FILE__) . '/../');

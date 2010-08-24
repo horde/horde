@@ -3,7 +3,7 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Core/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 /**
  * FIXME START

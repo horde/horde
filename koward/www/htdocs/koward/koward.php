@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../../koward/config/base.php';
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Core/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 /* Configure the Autoloader to handle the "Koward" pattern */
 $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Koward_/', 'Koward/'));

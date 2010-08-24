@@ -18,7 +18,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
  * Prepare the test setup.
  */
 @define('INGO_BASE', dirname(__FILE__) . '/../..');
-require_once 'Horde/Core/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 date_default_timezone_set('Europe/Berlin');
 
 /**
