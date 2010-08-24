@@ -162,6 +162,11 @@ var ImpFolders = {
         });
     },
 
+    toggleSubfolder: function(e, type)
+    {
+        new Ajax.Request(this.ajax + type + 'Mailboxes', { parameters: { encoded: 1, mboxes: Object.toJSON([ e.memo ]) } });
+    },
+
     changeHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
@@ -198,9 +203,18 @@ var ImpFolders = {
 
             elt = elt.up();
         }
+    },
+
+    onDomLoad: function()
+    {
+        if (this.mbox_expand) {
+            $('fmanager').observe('Horde_Tree:collapse', this.toggleSubfolder.bindAsEventListener(this, 'collapse'));
+            $('fmanager').observe('Horde_Tree:expand', this.toggleSubfolder.bindAsEventListener(this, 'expand'));
+        }
     }
 
 };
 
 document.observe('change', ImpFolders.changeHandler.bind(ImpFolders));
 document.observe('click', ImpFolders.clickHandler.bind(ImpFolders));
+document.observe('dom:loaded', ImpFolders.onDomLoad.bind(ImpFolders));

@@ -358,11 +358,40 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Expand mailboxes (saves expanded state in prefs).
+     *
+     * Variables used:
+     * <pre>
+     * 'encoded' - (integer) 1 if mboxes is URL encoded.
+     * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
+     *            array) if 'all' is 0.
+     * </pre>
+     *
+     * @return boolean  True.
+     */
+    public function expandMailboxes()
+    {
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
+        if (!empty($this->_vars->mboxes)) {
+            foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
+                if ($this->_vars->encoded) {
+                    $val = rawurldecode($val);
+                }
+                $imptree->expand($val);
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * AJAX action: Collapse mailboxes.
      *
      * Variables used:
      * <pre>
      * 'all' - (integer) 1 to show all mailboxes.
+     * 'encoded' - (integer) 1 if mboxes is URL encoded.
      * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
      *            array) if 'all' is 0.
      * </pre>
@@ -377,6 +406,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $imptree->collapseAll();
         } elseif (!empty($this->_vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
+                if ($this->_vars->encoded) {
+                    $val = rawurldecode($val);
+                }
                 $imptree->collapse($val);
             }
         }
