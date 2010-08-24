@@ -504,7 +504,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         }
 
         foreach ($log_list as $val) {
-            $this->_logs[$val] = $rep->getLogObject($this, $val);
+            $this->logs[$val] = $rep->getLogObject($this, $val);
         }
     }
 
@@ -517,10 +517,10 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function getHashForRevision($rev)
     {
-        if (!isset($this->_logs[$rev])) {
+        if (!isset($this->logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
-        return $this->_logs[$rev]->getHashForPath($this->queryModulePath());
+        return $this->logs[$rev]->getHashForPath($this->queryModulePath());
     }
 
     /**
@@ -600,8 +600,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 
         $rev = reset($this->_revlist[$this->_branch]);
         if (!is_null($rev)) {
-            if (isset($this->_logs[$rev])) {
-                return $this->_logs[$rev];
+            if (isset($this->logs[$rev])) {
+                return $this->logs[$rev];
             }
         }
 

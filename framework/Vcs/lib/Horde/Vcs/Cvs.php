@@ -479,7 +479,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
 
                     if ($onbranch) {
                         $this->_revs[] = $rev;
-                        $this->_logs[$rev] = $log;
+                        $this->logs[$rev] = $log;
                     }
 
                     $this->_accum = array();

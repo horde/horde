@@ -852,7 +852,7 @@ abstract class Horde_Vcs_File
     /**
      * TODO
      */
-    protected $_logs = array();
+    public $logs = array();
 
     /**
      * TODO
@@ -964,10 +964,10 @@ abstract class Horde_Vcs_File
      */
     public function queryLastLog()
     {
-        if (!isset($this->_revs[0]) || !isset($this->_logs[$this->_revs[0]])) {
+        if (!isset($this->_revs[0]) || !isset($this->logs[$this->_revs[0]])) {
             throw new Horde_Vcs_Exception('No revisions');
         }
-        return $this->_logs[$this->_revs[0]];
+        return $this->logs[$this->_revs[0]];
     }
 
     /**
@@ -994,7 +994,7 @@ abstract class Horde_Vcs_File
             break;
         }
 
-        uasort($this->_logs, array($this, 'sortBy' . $func));
+        uasort($this->logs, array($this, 'sortBy' . $func));
         return true;
     }
 
@@ -1061,8 +1061,8 @@ abstract class Horde_Vcs_File
     public function queryLogs($rev = null)
     {
         return is_null($rev)
-            ? $this->_logs
-            : (isset($this->_logs[$rev]) ? $this->_logs[$rev] : null);
+            ? $this->logs
+            : (isset($this->logs[$rev]) ? $this->logs[$rev] : null);
     }
 
     /**
