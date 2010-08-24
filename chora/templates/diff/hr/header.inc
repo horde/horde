@@ -1,5 +1,5 @@
 <div class="options">
- <span>
+ <div>
   <form method="get" action="diff.php">
    <?php echo Chora::formInputs() ?>
    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
@@ -22,17 +22,9 @@
    </select>
    <input class="button" type="submit" value="<?php echo _("Get Diff") ?>" /><br />
   </form>
- </span>
+ </div>
 </div>
 
-<table cellspacing="0" class="hrdiff">
-<caption>
- <?php $blank = Horde_Themes::img('blank.gif') ?>
- <img class="unmodified" src="<?php echo $blank ?>" alt="<?php echo _("Unmodified") ?>" /> <?php echo _("Unmodified") ?>
- <img class="added" src="<?php echo $blank ?>" alt="<?php echo _("Added") ?>" /> <?php echo _("Added") ?>
- <img class="modified" src="<?php echo $blank ?>" alt="<?php echo _("Modified") ?>" /> <?php echo _("Modified") ?>
- <img class="removed" src="<?php echo $blank ?>" alt="<?php echo _("Removed") ?>" /> <?php echo _("Removed") ?>
-</caption>
 <?php if (!empty($log_messages)): ?>
 <h3 class="revision_log"><?php echo _("Log Message") ?></h3>
 <div class="revision_log">
@@ -57,6 +49,15 @@
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
+
+<table cellspacing="0" class="hrdiff">
+<caption>
+ <?php $blank = Horde_Themes::img('blank.gif') ?>
+ <img class="unmodified" src="<?php echo $blank ?>" alt="<?php echo _("Unmodified") ?>" /> <?php echo _("Unmodified") ?>
+ <img class="added" src="<?php echo $blank ?>" alt="<?php echo _("Added") ?>" /> <?php echo _("Added") ?>
+ <img class="modified" src="<?php echo $blank ?>" alt="<?php echo _("Modified") ?>" /> <?php echo _("Modified") ?>
+ <img class="removed" src="<?php echo $blank ?>" alt="<?php echo _("Removed") ?>" /> <?php echo _("Removed") ?>
+</caption>
 <thead>
 <tr>
  <th><a href="<?php echo Chora::url('co', $where, array('r' => $r1)) ?>" title="<?php echo htmlspecialchars($r1) ?>"><?php printf(_("Version %s"), htmlspecialchars($abbrev_r1)) ?></a></th>

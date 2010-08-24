@@ -14,7 +14,7 @@ form#repository-picker {
 div.options, div.browsefileoptions {
     margin: 0 0 8px 5px;
 }
-div.options span, div.browsefileoptions span {
+div.options div, div.browsefileoptions div {
     display: -moz-inline-stack;
     display: inline-block;
     border: 1px solid #ccc;
@@ -22,7 +22,7 @@ div.options span, div.browsefileoptions span {
     background: #e9e9e9;
     vertical-align: top;
 }
-div.browsefileoptions span {
+div.browsefileoptions div {
     width: 31.3%;
 }
 div.options em, div.browsefileoptions em {

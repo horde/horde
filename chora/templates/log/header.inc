@@ -1,10 +1,10 @@
 <div class="browsefileoptions">
- <span>
+ <div>
   <?php echo _("Search Revisions:") ?>
   <input type="text" for="revlog_body" size="20" />
- </span>
+ </div>
 
- <span>
+ <div>
 <?php if (!$browser->hasFeature('javascript')): ?>
   <form method="get" action="diff.php">
    <?php echo Chora::formInputs() ?>
@@ -16,10 +16,10 @@
   </form>
 <?php endif; ?>
    <em><?php printf(_("%1\$s shows diffs to the previous revision. If you select a revision by clicking its row, %1\$s will show the differences to the selected row."), Horde::img('diff.png', _("Show Differences"))) ?></em>
- </span>
+ </div>
 
 <?php if (!empty($selAllBranches)): ?>
- <span>
+ <div>
   <form method="get" action="<?php echo Chora::url('browsefile', Horde_Util::getFormData('f')) ?>">
    <?php echo _("Show Branch:") ?>
    <select name="onb" onchange="this.form.submit()">
@@ -28,7 +28,7 @@
    </select>
    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
   </form>
- </span>
+ </div>
 <?php endif; ?>
 </div>
 

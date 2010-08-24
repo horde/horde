@@ -1,4 +1,4 @@
-div.options span, div.browsefileoptions span {
+div.options div, div.browsefileoptions div {
     zoom: 1;
     *display: inline;
 }

@@ -76,4 +76,5 @@ while (list(,$line) = each($lines)) {
     include CHORA_TEMPLATES . '/annotate/line.inc';
 }
 
+require CHORA_TEMPLATES . '/annotate/footer.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
