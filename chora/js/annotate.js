@@ -1,29 +1,22 @@
 /**
  * Chora annotate.php javascript code.
  *
- * @author Michael Slusarz <slusarz@horde.org>
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 
 var Chora_Annotate = {
     showLog: function(e) {
-        var elt = e.element(), rev, newelt;
-        if (!elt.hasClassName('logdisplay')) {
-            elt = elt.up('SPAN.logdisplay');
-            if (!elt) {
-                return;
-            }
+        var elt = e.findElement('span.logdisplay'), rev, newelt;
+        if (!elt) {
+            return;
         }
-
         e.stop();
-
-        rev = elt.hide().up('TD').down('A').readAttribute('rev');
-        newelt = new Element('TD', { colspan: 5 }).insert(Chora.loading_text);
-
-        elt.up('TR').insert({ after: new Element('TR', { className: 'logentry' }).insert(newelt) });
-
+        rev = elt.hide().up('td').down('a').readAttribute('rev');
+        newelt = new Element('td', { colspan: 5 }).insert(Chora.loading_text);
+        elt.up('tr').insert({ after: new Element('tr', { className: 'logentry' }).insert(newelt) });
         new Ajax.Updater(newelt, Chora.ANNOTATE_URL + '=' + rev);
     }
 };
