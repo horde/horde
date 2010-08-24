@@ -111,12 +111,12 @@ class IMP_Imap_Tree_Element
 
         case 'display':
             return $this->nonimap
-                ? $this->_mbox['l']
-                : IMP::displayFolder($this->_mbox['v']);
+                ? $this->label
+                : IMP::displayFolder($this->value);
 
         case 'editvfolder':
             return ($this->vfolder &&
-                $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($this->_mbox['v']));
+                $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($this->value));
 
         case 'is_open':
             return $this->_treeob->isOpen($this->_mbox);
@@ -131,10 +131,10 @@ class IMP_Imap_Tree_Element
             return $this->_mbox['c'];
 
         case 'mbox_val':
-            return htmlspecialchars($this->_mbox['v']);
+            return htmlspecialchars($this->value);
 
         case 'name':
-            return htmlspecialchars($this->_mbox['l']);
+            return htmlspecialchars($this->label);
 
         case 'nonimap':
             return $this->_treeob->isNonImapElt($this->_mbox);
@@ -152,7 +152,7 @@ class IMP_Imap_Tree_Element
             $info->unseen = 0;
 
             try {
-                if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->_mbox['v'], Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->value, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
                     if (!empty($msgs_info['recent'])) {
                         $info->recent = intval($msgs_info['recent']);
                     }
@@ -169,7 +169,7 @@ class IMP_Imap_Tree_Element
         case 'special':
             $this->_initCache();
 
-            switch ($this->_mbox['v']) {
+            switch ($this->value) {
             case 'INBOX':
             case $this->_eltCache['draft']:
             case $this->_eltCache['spam']:
@@ -179,7 +179,7 @@ class IMP_Imap_Tree_Element
                 return (!$GLOBALS['prefs']->getValue('use_vtrash'));
 
             default:
-                return in_array($this->_mbox['v'], $this->_eltCache['sent']);
+                return in_array($this->value, $this->_eltCache['sent']);
             }
 
             return false;
@@ -189,8 +189,8 @@ class IMP_Imap_Tree_Element
                 return false;
             }
             $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            return ($imp_search->isVTrashFolder($this->_mbox['v']) ||
-                    $imp_search->isVINBOXFolder($this->_mbox['v']));
+            return ($imp_search->isVTrashFolder($this->value) ||
+                    $imp_search->isVINBOXFolder($this->value));
 
         case 'sub':
             return $this->_treeob->isSubscribed($this->_mbox);
