@@ -10,6 +10,8 @@ v1.1.2-cvs
 ----------
 
 [jan] Add Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+[mms] SECURITY: Fix CSS vulnerability when viewing file data (found by
+      nightmare.lmw@anarchynet.org).
 
 
 ------

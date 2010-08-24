@@ -30,20 +30,15 @@ if ($driver != $GLOBALS['gollem_be']['driver']) {
 
 $stream = null;
 $data = '';
-if (is_callable(array($GLOBALS['gollem_vfs'], 'readStream'))) {
-    $stream = $GLOBALS['gollem_vfs']->readStream($filedir, $filename);
-    if (is_a($stream, 'PEAR_Error')) {
-        Horde::logMessage($stream, 'NOTICE');
-        printf(_("Access denied to %s"), $filename);
-        exit;
+try {
+    if (is_callable(array($gollem_vfs, 'readStream'))) {
+        $stream = $gollem_vfs->readStream($filedir, $filename);
+    } else {
+        $data = $gollem_vfs->read($filedir, $filename);
     }
-} else {
-    $data = $GLOBALS['gollem_vfs']->read($filedir, $filename);
-    if (is_a($data, 'PEAR_Error')) {
-        Horde::logMessage($data, 'NOTICE');
-        printf(_("Access denied to %s"), $filename);
-        exit;
-    }
+} catch (VFS_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
+    throw $e;
 }
 
 /* Run through action handlers. */
