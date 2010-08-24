@@ -68,6 +68,16 @@ extends Horde_Element_StoryTestCase
     /**
      * @scenario
      */
+    public function theDevpackageModuleAddsTheDOptionInTheHelpOutput()
+    {
+        $this->given('the default Element setup')
+            ->when('calling the package with the help option')
+            ->then('the help will contain the "d" option.');
+    }
+
+    /**
+     * @scenario
+     */
     public function theThePOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Element setup')

@@ -146,6 +146,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'the help will contain the "d" option.':
+            $this->assertRegExp(
+                '/-d,\s*--devpackage/',
+                $world['output']
+            );
+            break;
         case 'the help will contain the "i" option.':
             $this->assertRegExp(
                 '/-i\s*INSTALL,\s*--install=INSTALL/',
