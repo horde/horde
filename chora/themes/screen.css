@@ -265,7 +265,7 @@ table.hrdiff caption {
     font-weight: bold;
     padding: 5px;
 }
-table.hrdiff caption img, .statsImg {
+table.hrdiff caption img, img.chora-stats {
     border: 1px solid #000;
 }
 table.hrdiff caption img {

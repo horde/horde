@@ -13,7 +13,7 @@ $factor = $most / 400;
 foreach ($stats as $author => $commits): $width = (int)($commits / $factor); ?>
  <tr>
   <td class="rightAlign"><?php echo htmlspecialchars($author) ?>&nbsp;&nbsp;</td>
-  <td><img src="<?php echo $registry->get('webroot', 'horde') ?>/services/images/pixel.php?c=bbcbff" id="statsImg" width="<?php echo $width ?>" height="10" /> (<?php echo $commits ?>)</td>
+  <td><img src="<?php echo $registry->get('webroot', 'horde') ?>/services/images/pixel.php?c=bbcbff" class="chora-stats" width="<?php echo $width ?>" height="10" /> (<?php echo $commits ?>)</td>
  </tr>
 <?php endforeach ?>
 </tbody>
