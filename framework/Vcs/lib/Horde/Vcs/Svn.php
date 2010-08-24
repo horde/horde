@@ -362,8 +362,8 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
 
         $line = fgets($fl->logpipe);
 
-        if (feof($fl->logpipe)) {
-            return;
+        if (feof($fl->logpipe) || !$line) {
+            throw new Horde_Vcs_Exception('No more data');
         }
 
         if (preg_match('/^r([0-9]*) \| (.*?) \| (.*) \(.*\) \| ([0-9]*) lines?$/', $line, $matches)) {
@@ -433,11 +433,14 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;
+                $status = self::MODIFIED;
                 if ($action == 'A') {
-                    $from = 'INITIAL';
+                    $from = null;
+                    $status = self::ADDED;
                 } elseif ($action == 'D') {
                     $from = $to;
-                    $to = '(DEAD)';
+                    $to = null;
+                    $status = self::DELETED;
                 } else {
                     // This technically isn't the previous revision,
                     // but it works for diffing purposes.
@@ -446,7 +449,8 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
 
                 $this->_patchsets[$rev]['members'][] = array('file' => $file,
                                                              'from' => $from,
-                                                             'to' => $to);
+                                                             'to' => $to,
+                                                             'status' => $status);
             }
         }
 
