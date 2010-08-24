@@ -14,10 +14,16 @@ var Chora_Annotate = {
             return;
         }
         e.stop();
-        rev = elt.hide().up('td').down('a').readAttribute('rev');
-        newelt = new Element('td', { colspan: 5 }).insert(Chora.loading_text);
-        elt.up('tr').insert({ after: new Element('tr', { className: 'logentry' }).insert(newelt) });
-        new Ajax.Updater(newelt, Chora.ANNOTATE_URL + '=' + rev);
+        if (elt.retrieve('expanded')) {
+            elt.up('tr').next('tr').remove();
+            elt.store('expanded', false);
+        } else {
+            rev = elt.readAttribute('rev');
+            newelt = new Element('td', { colspan: 6 }).insert(Chora.loading_text);
+            elt.up('tr').insert({ after: new Element('tr', { className: 'logentry' }).insert(newelt) });
+            elt.store('expanded', true);
+            new Ajax.Updater(newelt, Chora.ANNOTATE_URL + '=' + rev);
+        }
     }
 };
 
