@@ -46,41 +46,42 @@ if (Horde_Util::getFormData('show_image')) {
 
     header('Content-Type: image/png');
     passthru($conf['paths']['cvsgraph'] . ' ' . $argstr . ' ' . $file);
-} else {
-    // Display the wrapper page for the image.
-    $title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Text_Filter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
-    $extraLink = Chora::getFileViews($where, 'cvsgraph');
-
-    require CHORA_TEMPLATES . '/common-header.inc';
-    require CHORA_TEMPLATES . '/menu.inc';
-    require CHORA_TEMPLATES . '/headerbar.inc';
-
-    $imgUrl = Chora::url('cvsgraph', $where, array('show_image' => 1));
-
-    $args = array('c' => $conf['paths']['cvsgraph_conf'],
-                  'M' => 'graphMap',
-                  'r' => $root,
-                  '0' => '&amp;',
-                  '1' => Chora::url('browsefile', $where, array('dummy' => 'true')),
-                  '2' => Chora::url('diff', $where, array('dummy' =>'true')),
-                  '3' => Chora::url('co', $where, array('dummy' => 'true')),
-    );
-
-    // Build up the argument string.
-    $argstr = '';
-    if (!strncasecmp(PHP_OS, 'WIN', 3)) {
-        foreach ($args as $key => $val) {
-            $argstr .= "-$key \"$val\" ";
-        }
-    } else {
-        foreach ($args as $key => $val) {
-            $argstr .= "-$key '$val' ";
-        }
-    }
-
-    // Generate the imagemap.
-    $map = shell_exec($conf['paths']['cvsgraph'] . ' ' . $argstr . ' -i ' . $file);
-
-    require CHORA_TEMPLATES . '/cvsgraph/cvsgraph.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    exit;
 }
+
+// Display the wrapper page for the image.
+$title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Text_Filter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
+$extraLink = Chora::getFileViews($where, 'cvsgraph');
+
+require CHORA_TEMPLATES . '/common-header.inc';
+require CHORA_TEMPLATES . '/menu.inc';
+require CHORA_TEMPLATES . '/headerbar.inc';
+
+$imgUrl = Chora::url('cvsgraph', $where, array('show_image' => 1));
+
+$args = array('c' => $conf['paths']['cvsgraph_conf'],
+              'M' => 'graphMap',
+              'r' => $root,
+              '0' => '&amp;',
+              '1' => Chora::url('browsefile', $where, array('dummy' => 'true')),
+              '2' => Chora::url('diff', $where, array('dummy' =>'true')),
+              '3' => Chora::url('co', $where, array('dummy' => 'true')),
+);
+
+// Build up the argument string.
+$argstr = '';
+if (!strncasecmp(PHP_OS, 'WIN', 3)) {
+    foreach ($args as $key => $val) {
+        $argstr .= "-$key \"$val\" ";
+    }
+} else {
+    foreach ($args as $key => $val) {
+        $argstr .= "-$key '$val' ";
+    }
+}
+
+// Generate the imagemap.
+$map = shell_exec($conf['paths']['cvsgraph'] . ' ' . $argstr . ' -i ' . $file);
+
+require CHORA_TEMPLATES . '/cvsgraph/cvsgraph.inc';
+require $registry->get('templates', 'horde') . '/common-footer.inc';
