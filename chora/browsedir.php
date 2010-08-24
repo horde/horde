@@ -53,7 +53,10 @@ foreach ($umap as $key => $val) {
     if ($acts['sbt'] == $val) {
         $arg['ord'] = !$acts['ord'];
     }
-    $url[$key] = Chora::url('browsedir', $where . '/', $arg, array('onb' => $onb));
+    if ($onb) {
+        $arg['onb'] = $onb;
+    }
+    $url[$key] = Chora::url('browsedir', $where . '/', $arg);
 }
 
 $branches = array();
