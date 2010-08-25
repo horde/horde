@@ -105,6 +105,10 @@ implements Horde_Element_Module
         if ($package instanceOf PEAR_Error) {
             throw new Horde_Element_Exception($package->getMessage());
         }
+        /**
+         * @todo: Looks like this throws away any <replace /> tags we have in
+         * the content list. Needs to be fixed.
+         */
         $package->generateContents();
 
         /**
