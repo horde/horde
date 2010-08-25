@@ -23,7 +23,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
      * @param array $params  @see parent::__construct(). Additional options:
      * <pre>
      * 'jsvar' - The JS variable name to store the tree object in.
-     *           DEFAULT: $_instance
+     *           DEFAULT: Instance name.
      * </pre>
      */
     public function __construct($name, array $params = array())
@@ -34,13 +34,13 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         Horde::addScriptFile('hordetree.js', 'horde');
 
         /* Check for a javascript session state. */
-        if (!empty($this->_options['session']) &&
+        if (($session = $this->getOption('session')) &&
             isset($_COOKIE[$this->_instance . '_expanded'])) {
             /* Remove "exp" prefix from cookie value. */
             $nodes = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
 
             /* Save nodes to the session. */
-            $_SESSION[$this->_options['session']][$this->_instance]['expanded'] = array_combine(
+            $_SESSION[$session][$this->_instance]['expanded'] = array_combine(
                 $nodes,
                 array_fill(0, count($nodes), true)
             );
@@ -100,9 +100,9 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'initTree' => $this->renderNodeDefinitions()
         );
 
-        $js_var = empty($this->_options['jsvar'])
-            ? $this->_instance
-            : $this->_options['jsvar'];
+        if (!($js_var = $this->getOption('jsvar'))) {
+            $js_var = $this->_instance;
+        }
 
         Horde::addInlineScript(array(
             'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')'
@@ -125,17 +125,19 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
     /**
      * Returns just the JS node definitions as a string.
      *
-     * @return array  The following keys: 'is_static', 'nodes', 'root_nodes'.
+     * @return object  Object with the following properties: 'is_static',
+     *                 'nodes', 'root_nodes'.
      */
     public function renderNodeDefinitions()
     {
         $this->_buildIndents($this->_root_nodes);
 
-        return array(
-            'is_static' => intval($this->_static),
-            'nodes' => $this->_nodes,
-            'root_nodes' => $this->_root_nodes
-        );
+        $result = new stdClass;
+        $result->is_static = intval($this->_static);
+        $result->nodes = $this->_nodes;
+        $result->root_nodes = $this->_root_nodes;
+
+        return $result;
     }
 
 }
