@@ -73,7 +73,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function folderlist()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
+        return iterator_to_array(array_keys($GLOBALS['injector']->getInstance('IMP_IMAP_Tree')));
     }
 
     /**

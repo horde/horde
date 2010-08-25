@@ -525,13 +525,7 @@ class IMP_Search
         }
 
         /* Create Virtual Trash with new folder list. */
-        $fl = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
-        $flist = array('INBOX');
-        foreach ($fl as $mbox) {
-            if (!empty($mbox['val'])) {
-                $flist[] = $mbox['val'];
-            }
-        }
+        $flist = array_keys(iterator_to_array($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\deleted', true);

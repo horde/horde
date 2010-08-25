@@ -96,12 +96,18 @@ class IMP_Views_Compose
                     }
                 }
 
+                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
+
                 $flist = array();
-                foreach ($imp_folder->flist() as $val) {
-                    $tmp = array('l' => $val['abbrev'], 'v' => $val['val']);
-                    $tmp2 = IMP::displayFolder($val['val']);
-                    if ($val['val'] != $tmp2) {
-                        $tmp['f'] = $tmp2;
+                foreach ($imaptree as $val) {
+                    $tmp = array(
+                        'f' => $val->display,
+                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->label, 30),
+                        'v' => $val->container ? '' : $val->value
+                    );
+                    if ($tmp['f'] == $tmp['v']) {
+                        unset($tmp['f']);
                     }
                     $flist[] = $tmp;
                 }
