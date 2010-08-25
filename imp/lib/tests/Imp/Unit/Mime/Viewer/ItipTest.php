@@ -342,18 +342,16 @@ extends PHPUnit_Framework_TestCase
 
     public function testResultMimeMessagePartOneHasRegistryCharset()
     {
-        $GLOBALS['registry']->setCharset('BIG5');
         $_GET['itip_action'] = array(0 => 'accept');
-        $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
+        $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar(), 'BIG5');
         $viewer->render('inline');
         $this->assertEquals('BIG5', $this->_getMimeMessage()->getPart(1)->getCharset());
     }
 
     public function testResultMimeMessagePartTwoHasRegistryCharset()
     {
-        $GLOBALS['registry']->setCharset('BIG5');
         $_GET['itip_action'] = array(0 => 'accept');
-        $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
+        $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar(), 'BIG5');
         $viewer->render('inline');
         $ics = $this->_getMimeMessage()->getPart(2);
         if (!$ics) {
@@ -459,11 +457,11 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('reply@example.org', $this->_getMailHeaders()->getValue('Reply-To'));
     }
 
-    private function _getViewer($invitation)
+    private function _getViewer($invitation, $charset = 'UTF-8')
     {
         $part = new Horde_Mime_Part();
         $part->setContents($invitation);
-        return new IMP_Horde_Mime_Viewer_Itip($part);
+        return new IMP_Mime_Viewer_Itip($part, array('charset' => $charset));
     }
 
     private function _getInvitation()
