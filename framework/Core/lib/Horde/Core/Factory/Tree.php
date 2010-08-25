@@ -64,11 +64,11 @@ class Horde_Core_Factory_Tree
      */
     public function getTree($name, $renderer, array $params = array())
     {
-        $renderer = Horde_String::lower($renderer);
-        $id = $name . '|' . $renderer;
+        $lc_renderer = Horde_String::lower($renderer);
+        $id = $name . '|' . $lc_renderer;
 
         if (!isset($this->_instances[$id])) {
-            switch ($renderer) {
+            switch ($lc_renderer) {
             case 'html':
                 $renderer = 'Horde_Core_Tree_Html';
                 break;
