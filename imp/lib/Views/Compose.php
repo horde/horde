@@ -96,10 +96,9 @@ class IMP_Views_Compose
                     }
                 }
 
-                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-                $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
-
                 $flist = array();
+                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
                 foreach ($imaptree as $val) {
                     $tmp = array(
                         'f' => $val->display,

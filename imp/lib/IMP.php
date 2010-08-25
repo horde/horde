@@ -192,10 +192,7 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
-
-        $tree = $imaptree->createTree('imp_flist_select', array(
+        $tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createTree('imp_flist_select', array(
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {

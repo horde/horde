@@ -38,7 +38,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
     const OPEN_USER = 2;
 
     /* The folder list filtering constants. */
-    const FLIST_CONTAINER = 1;
+    const FLIST_NOCONTAINER = 1;
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
     const FLIST_NOCHILDREN = 8;
@@ -1734,7 +1734,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      *
      * @param integer $mask  A mask with the following possible elements:
      * <pre>
-     * IMP_Imap_Tree::FLIST_CONTAINER - Include container elements.
+     * IMP_Imap_Tree::FLIST_NOCONTAINER - Don't include container elements.
      * IMP_Imap_Tree::FLIST_UNSUB - Include unsubscribed elements.
      * IMP_Imap_Tree::FLIST_VFOLDER - Include Virtual Folders.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't include child elements.
@@ -1804,7 +1804,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             /* Checks done when determining whether to mark current element as
              * valid. */
             if ($elt->container) {
-                if (!($c['mask'] & self::FLIST_CONTAINER) ||
+                if (($c['mask'] & self::FLIST_NOCONTAINER) ||
                     !$elt->children) {
                     return false;
                 }

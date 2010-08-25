@@ -38,8 +38,10 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
            the date. */
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $sent_mail_folders = $identity->getAllSentmailFolders();
+
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
 
         $folder_array = array();
 

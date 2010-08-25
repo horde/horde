@@ -219,7 +219,7 @@ class IMP_Folder
         $inserted = array($new);
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_UNSUB, $old);
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB, $old);
 
         /* Get list of any folders that are underneath this one. */
         $all_folders = array_merge(array($old), array_keys(iterator_to_array($imaptree)));

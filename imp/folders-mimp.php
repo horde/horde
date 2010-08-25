@@ -33,7 +33,7 @@ $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
-$mask = IMP_Imap_Tree::FLIST_CONTAINER;
+$mask = 0;
 
 /* Toggle subscribed view, if necessary. */
 if ($subscribe && Horde_Util::getFormData('ts')) {
