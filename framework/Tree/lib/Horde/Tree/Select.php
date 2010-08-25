@@ -71,20 +71,17 @@ class Horde_Tree_Select extends Horde_Tree
      */
     protected function _buildTree($node_id)
     {
-        $selected = $this->_nodes[$node_id]['selected']
-            ? ' selected="selected"'
-            : '';
+        $node = $this->_nodes[$node_id];
 
-        $output = '<option value="' . htmlspecialchars($node_id) . '"' . $selected . '>' .
-            str_repeat('&nbsp;&nbsp;', intval($this->_nodes[$node_id]['indent'])) . htmlspecialchars($this->_nodes[$node_id]['label']) .
+        $output = '<option value="' . htmlspecialchars($node_id) . '"' .
+            (empty($node['selected']) ? '' : ' selected="selected"') .
+            '>' .
+            str_repeat('&nbsp;&nbsp;', intval($node['indent'])) . htmlspecialchars($node['label']) .
             '</option>';
 
-        if (isset($this->_nodes[$node_id]['children']) &&
-            $this->_nodes[$node_id]['expanded']) {
-            $num_subnodes = count($this->_nodes[$node_id]['children']);
-            for ($c = 0; $c < $num_subnodes; ++$c) {
-                $child_node_id = $this->_nodes[$node_id]['children'][$c];
-                $output .= $this->_buildTree($child_node_id);
+        if (isset($node['children']) && $node['expanded']) {
+            foreach ($node['children'] as $val) {
+                $output .= $this->_buildTree($val);
             }
         }
 
