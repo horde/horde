@@ -76,7 +76,8 @@ class Horde_Tree_Select extends Horde_Tree
         $output = '<option value="' . htmlspecialchars($node_id) . '"' .
             (empty($node['selected']) ? '' : ' selected="selected"') .
             '>' .
-            str_repeat('&nbsp;&nbsp;', intval($node['indent'])) . htmlspecialchars($node['label']) .
+            str_repeat('&nbsp;', intval($node['indent']) * 2) .
+            htmlspecialchars($node['label']) .
             '</option>';
 
         if (isset($node['children']) && $node['expanded']) {
