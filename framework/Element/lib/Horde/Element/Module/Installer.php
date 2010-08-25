@@ -30,6 +30,8 @@
 class Horde_Element_Module_Installer
 implements Horde_Element_Module
 {
+    private $_run;
+
     public function getOptionGroupTitle()
     {
         return 'Installer';
@@ -94,6 +96,8 @@ implements Horde_Element_Module
         $element = basename(realpath($arguments[0]));
         $root_path = dirname(realpath($arguments[0]));
 
+        $this->_run = array();
+
         $this->_installHordeDependency(
             $installer,
             $pear_config,
@@ -128,6 +132,10 @@ implements Horde_Element_Module
         $dependencies = $pkg->getDeps();
         foreach ($dependencies as $dependency) {
             if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
+                $key = $dependency['channel'] . '/' . $dependency['name'];
+                if (in_array($key, $this->_run)) {
+                    continue;
+                }
                 $installer->doInstall(
                     'install',
                     array(
@@ -136,7 +144,13 @@ implements Horde_Element_Module
                     ),
                     array($dependency['name'])
                 );
+                $this->_run[] = $key;
             } else if (isset($dependency['channel'])) {
+                $key = $dependency['channel'] . '/' . $dependency['name'];
+                if (in_array($key, $this->_run)) {
+                    continue;
+                }
+                $this->_run[] = $key;
                 $this->_installHordeDependency(
                     $installer,
                     $pear_config,
@@ -145,10 +159,14 @@ implements Horde_Element_Module
                 );
             }
         }
+        if (in_array($package_file, $this->_run)) {
+            return;
+        }
         $installer->doInstall(
             'install',
             array('nodeps' => true),
             array($package_file)
         );
+        $this->_run[] = $package_file;
     }
 }
