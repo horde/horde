@@ -93,7 +93,8 @@ case Horde_Data::IMPORT_FILE:
 }
 
 $next_step = null;
-if (!$error) {
+if (!$error && $import_format) {
+    $data = null;
     try {
         $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
