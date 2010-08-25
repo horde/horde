@@ -61,7 +61,7 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter_Base
             ((?(1)\s*\]))
         |
             # Version 2 Pattern 9 and 10: simple email addresses.
-            (^|\s|&lt;|<)([\w-+.=]+@[-A-Z0-9.]*[A-Z0-9])
+            (^|\s|&lt;|<|\[)([\w-+.=]+@[-A-Z0-9.]*[A-Z0-9])
             # Pattern 11 to 13: Optional parameters
             ((\?)([^\s"<]*[\w+#?\/&=]))?
             # Pattern 14: Optional closing bracket
