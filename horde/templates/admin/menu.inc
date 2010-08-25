@@ -7,7 +7,7 @@
             $img = isset($val['icon'])
                 ? Horde_Themes::img($val['icon'])
                 : $registry->get('icon');
-            $menu->add(strval(Horde::url($registry->applicationWebPath($val['link']))), $val['name'], $img, '');
+            $menu->add(Horde::url($registry->applicationWebPath($val['link'])), $val['name'], $img, '');
         }
     } catch (Horde_Exception $e) {}
 
