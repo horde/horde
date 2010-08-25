@@ -1507,15 +1507,25 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             : Horde::applicationUrl('mailbox.php');
 
         foreach ($this as $val) {
-            $after = $class = '';
-            $url = null;
+            $after = '';
+            $params = array();
 
-            if ($opts['render_type'] == 'Simplehtml') {
-                $label =  htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
-                $icon = null;
-            } else {
+            switch ($opts['render_type']) {
+            case 'IMP_Tree_Flist':
+                $label = $val->name;
+                $params['orig_label'] = $val->label;
+                break;
+
+            case 'Javascript':
                 $label = $val->name;
                 $icon = $val->icon;
+                $params['icon'] = $icon->icon;
+                $params['iconopen'] = $icon->iconopen;
+                break;
+
+            case 'Simplehtml':
+                $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
+                break;
             }
 
             if (!empty($opts['poll_info']) && $val->polled) {
@@ -1534,10 +1544,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             }
 
             if (!$val->container) {
-                $url = $mailbox_url->add('mailbox', $val->value);
+                $params['url'] = $mailbox_url->add('mailbox', $val->value);
 
                 if ($this->_showunsub && !$val->sub) {
-                    $class = 'folderunsub';
+                    $params['class'] = 'folderunsub';
                 }
             }
 
@@ -1562,13 +1572,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 ($val->level) ? strval($parent) . $val->parent : $parent,
                 $label,
                 $indent + $val->level,
-                $val->is_open,
-                array(
-                    'class' => $class,
-                    'icon' => $icon ? $icon->icon : null,
-                    'iconopen' => $icon ? $icon->iconopen : null,
-                    'url' => $url
-                ),
+                ($this->_cache['filter']['mask'] & self::FLIST_EXPANDED) ? $val->is_open : true,
+                $params,
                 $after,
                 empty($opts['checkbox']) ? null : $checkbox . ' />'
             );

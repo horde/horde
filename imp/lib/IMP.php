@@ -162,10 +162,8 @@ class IMP
     }
 
     /**
-     * Wrapper around IMP_Folder::flist() which generates the body of a
-     * &lt;select&gt; form input from the generated folder list. The
-     * &lt;select&gt; and &lt;/select&gt; tags are NOT included in the output
-     * of this function.
+     * Generates a select form input from a folder list. The &lt;select&gt;
+     * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
      * <pre>
@@ -194,105 +192,18 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        /* Don't filter here - since we are going to parse through every
-         * member of the folder list below anyway, we can filter at that time.
-         * This allows us the have a single cached value for the folder list
-         * rather than a cached value for each different mailbox we may
-         * visit. */
-        $mailboxes = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
 
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        if (!empty($options['heading']) && (strlen($options['heading']) > 0)) {
-            $t->set('heading', $options['heading']);
+        $tree = $imaptree->createTree('imp_flist_select', array(
+            'render_type' => 'IMP_Tree_Flist'
+        ));
+        if (!empty($options['selected'])) {
+            $tree->addNodeParams($options['selected'], array('selected' => true));
         }
+        $tree->setOption($options);
 
-        if (!empty($options['new_folder']) &&
-            (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders') &&
-              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')))) {
-            $t->set('new_mbox', true);
-        }
-
-        /* Add the list of mailboxes to the lists. */
-        $filter = empty($options['filter'])
-            ? array()
-            : array_flip($options['filter']);
-        $mbox_list = array();
-
-        foreach ($mailboxes as $mbox) {
-            if (!isset($filter[$mbox['val']])) {
-                $label = (isset($options['abbrev']) && !$options['abbrev'])
-                    ? $mbox['label']
-                    : $mbox['abbrev'];
-
-                $mbox_list[] = array(
-                    'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($label, 'space2html', array('encode' => true)),
-                    'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
-                    'v' => self::formMbox($mbox['val'], true)
-                );
-            }
-        }
-        $t->set('mbox', $mbox_list);
-
-        /* Add the list of virtual folders to the list. */
-        if (!empty($options['inc_vfolder'])) {
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            $vfolders = $imp_search->listQueries(IMP_Search::LIST_VFOLDER);
-            if (!empty($vfolders)) {
-                $vfolder_list = array();
-                $vfolder_sel = $imp_search->searchMboxID();
-                foreach ($vfolders as $id => $val) {
-                    $vfolder_list[] = array(
-                        'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
-                        'sel' => ($vfolder_sel == $id),
-                        'v' => self::formMbox($imp_search->createSearchID($id), true)
-                    );
-                }
-                $t->set('vfolder', $vfolder_list);
-            }
-        }
-
-        /* Add the list of editable tasklists to the list. */
-        if (!empty($options['inc_tasklists']) &&
-            !empty($_SESSION['imp']['tasklistavail'])) {
-            try {
-                $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
-
-                if (count($tasklists)) {
-                    $tasklist_list = array();
-                    foreach ($tasklists as $id => $tasklist) {
-                        $tasklist_list[] = array(
-                            'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
-                            'v' => self::formMbox(self::TASKLIST_EDIT . $id, true)
-                        );
-                    }
-                    $t->set('tasklist', $tasklist_list);
-                }
-            } catch (Horde_Exception $e) {}
-        }
-
-        /* Add the list of editable notepads to the list. */
-        if (!empty($options['inc_notepads']) &&
-            !empty($_SESSION['imp']['notepadavail'])) {
-            try {
-                $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
-
-                if (count($notepads)) {
-                    $notepad_list[] = array();
-                    foreach ($notepads as $id => $notepad) {
-                        $notepad_list[] = array(
-                            'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($notepad->get('name'), 'space2html', array('encode' => true)),
-                            'v' => self::formMbox(self::NOTEPAD_EDIT . $id, true)
-                        );
-                    }
-                    $t->set('notepad', $notepad_list);
-                }
-            } catch (Horde_Exception $e) {}
-        }
-
-        return $t->fetch(IMP_TEMPLATES . '/imp/flist/flist.html');
+        return $tree->getTree();
     }
 
     /**
