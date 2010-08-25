@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-17 18:32+0200\n"
-"PO-Revision-Date: 2010-08-17 18:36+0200\n"
+"PO-Revision-Date: 2010-08-25 13:24+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -7436,7 +7436,7 @@ msgstr ""
 
 #: admin/sessions.php:14
 msgid "Session Admin"
-msgstr "Sesssionverwaltung"
+msgstr "Sessionverwaltung"
 
 #: ../framework/Net_SMS/SMS/clickatell_http.php:298
 msgid "Session ID expired."
