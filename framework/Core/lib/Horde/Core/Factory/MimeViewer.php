@@ -240,7 +240,7 @@ class Horde_Core_Factory_MimeViewer
         }
 
         try {
-            $aconfig = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers'), $app);
+            $aconfig = Horde::loadConfiguration('mime_drivers.php', 'mime_drivers', $app);
         } catch (Horde_Exception $e) {
             $aconfig = array();
         }
