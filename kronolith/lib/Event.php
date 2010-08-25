@@ -2390,7 +2390,7 @@ abstract class Kronolith_Event
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("Start Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $this->start->year .
                 '" type="text"' .
-                '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
+                ' id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'start[month]':
             $sel = $this->start->month;
@@ -2431,7 +2431,7 @@ abstract class Kronolith_Event
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("End Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $this->end->year .
                 '" type="text"' .
-                '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
+                ' id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'end[month]':
             $sel = $this->end ? $this->end->month : $this->start->month;
@@ -2476,7 +2476,7 @@ abstract class Kronolith_Event
             return  '<label for="' . $property . '" class="hidden">' . _("Duration Day") . '</label>' .
                 '<input name="' . $property . '" value="' . $dur->day .
                 '" type="text"' .
-                '" id="' . $property . '" size="4" maxlength="4" />';
+                ' id="' . $property . '" size="4" maxlength="4" />';
 
         case 'dur_hour':
             $dur = $this->getDuration();
@@ -2508,7 +2508,7 @@ abstract class Kronolith_Event
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("Recurrence End Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $end .
                 '" type="text"' .
-                '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
+                ' id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'recur_end[month]':
             if ($this->end) {
