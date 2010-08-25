@@ -31,7 +31,7 @@ if (!$GLOBALS['registry']->getAuth()) {
 }
 
 $edit_url_base = Horde::applicationUrl('tasklists/edit.php');
-$perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag', true);
+$perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag');
 $delete_url_base = Horde::applicationUrl('tasklists/delete.php');
 $display_url_base = Horde::applicationUrl('list.php', true, -1);
 $subscribe_url_base = $registry->get('webroot', 'horde');
