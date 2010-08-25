@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-23</date>
- <time>17:28:27</time>
+ <date>2010-08-25</date>
+ <time>09:00:14</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -40,6 +40,11 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="data">
+    <file name="hudson-element-build.xml.template" role="data" />
+    <file name="hudson-element-config.xml.template" role="data" />
+    <file name="hudson-element-phpunit.xml.template" role="data" />
+   </dir> <!-- /data -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Element">
@@ -53,6 +58,9 @@
       </dir> <!-- /lib/Horde/Element/Module -->
       <file name="Config.php" role="php" />
       <file name="Configs.php" role="php" />
+      <file name="Constants.php" role="php">
+       <replace from="@data_dir@" to="data_dir" type="pear-config"/>
+      </file>
       <file name="Exception.php" role="php" />
       <file name="Module.php" role="php" />
       <file name="Modules.php" role="php" />
@@ -120,9 +128,13 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="hudson-element-build.xml.template" name="data/hudson-element-build.xml.template" />
+   <install as="hudson-element-config.xml.template" name="data/hudson-element-config.xml.template" />
+   <install as="hudson-element-phpunit.xml.template" name="data/hudson-element-phpunit.xml.template" />
    <install as="Horde/Element.php" name="lib/Horde/Element.php" />
    <install as="Horde/Element/Config.php" name="lib/Horde/Element/Config.php" />
    <install as="Horde/Element/Configs.php" name="lib/Horde/Element/Configs.php" />
+   <install as="Horde/Element/Constants.php" name="lib/Horde/Element/Constants.php" />
    <install as="Horde/Element/Exception.php" name="lib/Horde/Element/Exception.php" />
    <install as="Horde/Element/Module.php" name="lib/Horde/Element/Module.php" />
    <install as="Horde/Element/Modules.php" name="lib/Horde/Element/Modules.php" />
@@ -151,7 +163,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-08-23</date>
+   <date>2010-08-25</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

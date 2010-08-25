@@ -1,0 +1,90 @@
+<project name="Kolab_Config" default="build" basedir=".">
+ <property name="tooldir" location="${basedir}/../../%1$s"/>
+
+ <target name="clean">
+  <!-- Clean up -->
+  <delete dir="build"/>
+
+  <!-- Create build directories -->
+  <mkdir dir="${basedir}/build/api"/>
+  <mkdir dir="${basedir}/build/code-browser"/>
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/pdepend"/>
+ </target>
+
+ <!-- Run unit tests and generate junit.xml and clover.xml -->
+ <target name="phpunit">
+  <exec executable="php" failonerror="true">
+    <arg line="-c php.ini ${tooldir}/phpunit" />
+  </exec>
+ </target>
+
+ <!-- Run pdepend, phpmd, phpcpd, and phpcs in parallel -->
+ <target name="parallelTasks">
+  <parallel>
+   <antcall target="pdepend"/>
+   <antcall target="phpmd"/>
+   <antcall target="phpcpd"/>
+   <antcall target="phpcs"/>
+   <antcall target="phpdoc"/>
+  </parallel>
+ </target>
+
+ <!-- Generate jdepend.xml and software metrics charts -->
+ <target name="pdepend">
+  <exec executable="php">
+   <arg line="-c php.ini ${tooldir}/pdepend
+              --jdepend-xml=${basedir}/build/logs/jdepend.xml
+              --jdepend-chart=${basedir}/build/pdepend/dependencies.svg
+              --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg
+              lib" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd.xml -->
+ <target name="phpmd">
+  <exec executable="php">
+   <arg line="-c php.ini ${tooldir}/phpmd
+              lib xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd-cpd.xml -->
+ <target name="phpcpd">
+  <exec executable="php">
+   <arg line="-c php.ini ${tooldir}/phpcpd
+              --log-pmd ${basedir}/build/logs/pmd-cpd.xml lib" />
+  </exec>
+ </target>
+
+ <!-- Generate checkstyle.xml -->
+ <target name="phpcs">
+  <exec executable="php" output="/dev/null">
+   <arg line="-c php.ini ${tooldir}/phpcs
+              --report=checkstyle
+              --report-file=${basedir}/build/logs/checkstyle.xml
+              --standard=PEAR
+              lib" />
+  </exec>
+ </target>
+
+ <!-- Generate API documentation -->
+ <target name="phpdoc">
+  <exec executable="php">
+   <arg line="-c php.ini ${tooldir}/phpdoc --
+              -d lib -t build/api" />
+  </exec>
+ </target>
+
+ <target name="phpcb">
+  <exec executable="php">
+   <arg line="-c php.ini ${tooldir}/phpcb
+              --log=${basedir}/build/logs
+              --source=${basedir}/lib
+              --output=${basedir}/build/code-browser" />
+  </exec>
+ </target>
+
+ <target name="build" depends="clean,pdepend,phpcpd,phpcs,phpdoc,phpmd,phpunit,phpcb"/>
+</project>
