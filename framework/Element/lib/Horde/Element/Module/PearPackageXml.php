@@ -123,6 +123,7 @@ implements Horde_Element_Module
             case 'example':
             case 'lib':
             case 'test':
+            case 'data':
                 $package->addInstallAs(
                     $file['attribs']['name'], $components[1]
                 );
