@@ -89,4 +89,7 @@
  </table>
 </form>
 
-<?php Horde::loadConfiguration('motd.php', null, null, true); ?>
+<?php
+try {
+    Horde::loadConfiguration('motd.php', null, null, true);
+} catch (Horde_Exception $e) {}
