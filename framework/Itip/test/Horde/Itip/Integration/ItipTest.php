@@ -390,8 +390,6 @@ extends PHPUnit_Framework_TestCase
 
     private function _getInvitation()
     {
-        $start = new Horde_Date('20080926T110000');
-        $end = new Horde_Date('20080926T120000');
         $vCal = new Horde_Icalendar();
         $inv = Horde_Icalendar::newComponent('VEVENT', $vCal);
         $inv->setAttribute('METHOD', 'REQUEST');
@@ -400,8 +398,8 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('DESCRIPTION', 'You are invited');
         $inv->setAttribute('LOCATION', 'Somewhere');
         $inv->setAttribute('ORGANIZER', 'orga@example.org');
-        $inv->setAttribute('DTSTART', $start->timestamp());
-        $inv->setAttribute('DTEND', $end->timestamp());
+        $inv->setAttribute('DTSTART', 1222419600);
+        $inv->setAttribute('DTEND', 1222423200);
         return $inv;
     }
 
