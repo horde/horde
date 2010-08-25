@@ -51,9 +51,10 @@ $app_fields = array('body' => _("Memo Text"),
 /* Initial values. */
 $param = array('file_types'  => $file_types);
 $import_format = Horde_Util::getFormData('import_format', '');
-$import_step = Horde_Util::getFormData('import_step', 0) + 1;
-$actionID = Horde_Util::getFormData('actionID');
-$error = false;
+$import_step   = Horde_Util::getFormData('import_step', 0) + 1;
+$next_step     = Horde_Data::IMPORT_FILE;
+$actionID      = Horde_Util::getFormData('actionID');
+$error         = false;
 
 /* Loop through the action handlers. */
 switch ($actionID) {
@@ -92,7 +93,6 @@ case Horde_Data::IMPORT_FILE:
     break;
 }
 
-$next_step = null;
 if (!$error && $import_format) {
     $data = null;
     try {
