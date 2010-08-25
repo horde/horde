@@ -326,6 +326,14 @@ class IMP_Contents
 
         $part = $this->_message->getPart($id);
 
+        /* Ticket #9201: Treat 'ISO-8859-1' as 'windows-1252'. 1252 has some
+         * characters (e.g. euro sign, back quote) not in 8859-1. There
+         * shouldn't be any issue doing this since the additional code points
+         * in 1252 don't map to anything in 8859-1. */
+        if (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0) {
+            $part->setCharset('windows-1252');
+        }
+
         /* Don't download contents of entire body if ID == 0 (indicating the
          * body of the main multipart message).  I'm pretty sure we never
          * want to download the body of that part here. */
