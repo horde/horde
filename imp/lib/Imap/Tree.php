@@ -1512,11 +1512,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
 
             switch ($opts['render_type']) {
             case 'IMP_Tree_Flist':
+                $is_open = true;
                 $label = $val->name;
                 $params['orig_label'] = $val->label;
                 break;
 
             case 'Javascript':
+                $is_open = $val->is_open;
                 $label = $val->name;
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
@@ -1524,6 +1526,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 break;
 
             case 'Simplehtml':
+                $is_open = true;
                 $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
                 break;
             }
@@ -1572,7 +1575,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 ($val->level) ? strval($parent) . $val->parent : $parent,
                 $label,
                 $indent + $val->level,
-                ($this->_cache['filter']['mask'] & self::FLIST_EXPANDED) ? $val->is_open : true,
+                $is_open,
                 $params,
                 $after,
                 empty($opts['checkbox']) ? null : $checkbox . ' />'

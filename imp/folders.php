@@ -396,10 +396,7 @@ $a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array(
 $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
 /* Build the folder tree. */
-// TODO: Javascript JSON loading
-//$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_EXPANDED);
 $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-
 $tree = $imaptree->createTree('imp_folders', array(
     'checkbox' => true,
     'editvfolder' => true,
