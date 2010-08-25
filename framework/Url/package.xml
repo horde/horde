@@ -57,10 +57,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Exception</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
  </dependencies>
  <phprelease>

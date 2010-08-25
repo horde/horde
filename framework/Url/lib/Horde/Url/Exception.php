@@ -12,6 +12,6 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Url
  */
-class Horde_Url_Exception extends Horde_Exception_Prior
+class Horde_Url_Exception extends Exception
 {
 }
