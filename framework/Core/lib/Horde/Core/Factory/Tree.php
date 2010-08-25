@@ -76,6 +76,10 @@ class Horde_Core_Factory_Tree
             case 'javascript':
                 $renderer = 'Horde_Core_Tree_Javascript';
                 break;
+
+            case 'simplehtml':
+                $renderer = 'Horde_Core_Tree_Simplehtml';
+                break;
             }
 
             $params['session'] = 'horde_tree';

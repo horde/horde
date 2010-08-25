@@ -199,6 +199,7 @@ Application Framework.</description>
       <dir name="Tree">
        <file name="Html.php" role="php" />
        <file name="Javascript.php" role="php" />
+       <file name="Simplehtml.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Tree -->
       <dir name="Ui">
        <dir name="VarRenderer">
@@ -473,6 +474,7 @@ Application Framework.</description>
    <install as="Horde/Core/Text/Filter/Highlightquotes.php" name="lib/Horde/Core/Text/Filter/Highlightquotes.php" />
    <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
    <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
+   <install as="Horde/Core/Tree/Simplehtml.php" name="lib/Horde/Core/Tree/Simplehtml.php" />
    <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
    <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
