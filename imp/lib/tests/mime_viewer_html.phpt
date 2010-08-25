@@ -22,7 +22,7 @@ class IMP_Html_Viewer_Test extends IMP_Horde_Mime_Viewer_Html
             'target' => '_blank'
         );
 
-        $dom = new Horde_Support_Domhtml($html);
+        $dom = new Horde_Domhtml($html);
         $this->_node($dom->dom, $dom->dom);
 
         return $dom->dom->saveXML($dom->dom->getElementsByTagName('body')->item(0)->firstChild) . "\n";

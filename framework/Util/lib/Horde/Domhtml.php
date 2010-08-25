@@ -1,9 +1,9 @@
 <?php
 /**
  * @category   Horde
- * @package    Support
+ * @package    Util
  * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
 
 /**
@@ -11,11 +11,11 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @package    Support
+ * @package    Util
  * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  */
-class Horde_Support_Domhtml
+class Horde_Domhtml
 {
     /**
      * DOM object.

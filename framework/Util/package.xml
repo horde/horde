@@ -27,8 +27,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
-* Removed Horde_Util::assertDriverConfig().
+ <notes>* Added Horde_Domhtml::.
+ * Removed Horde_Util::assertDriverConfig().
  * Removed Horde_Util::bufferOutput().
  * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
  * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
@@ -48,6 +48,7 @@
       </dir> <!-- /lib/Horde/Array/Sort -->
      </dir> <!-- /lib/Horde/Array -->
      <file name="Array.php" role="php" />
+     <file name="Domhtml.php" role="php" />
      <file name="String.php" role="php" />
      <file name="Util.php" role="php" />
      <file name="Variables.php" role="php" />
@@ -85,6 +86,9 @@
     <channel>pear.horde.org</channel>
    </package>
    <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
     <name>iconv</name>
    </extension>
    <extension>
@@ -98,6 +102,7 @@
  <phprelease>
   <filelist>
    <install as="Horde/Array.php" name="lib/Horde/Array.php" />
+   <install as="Horde/Domhtml.php" name="lib/Horde/Domhtml.php" />
    <install as="Horde/String.php" name="lib/Horde/String.php" />
    <install as="Horde/Util.php" name="lib/Horde/Util.php" />
    <install as="Horde/Variables.php" name="lib/Horde/Variables.php" />

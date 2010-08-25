@@ -21,8 +21,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Add Horde_Support_Domhtml::.
- * Add Horde_Support_Randomid::.
+ <notes>* Add Horde_Support_Randomid::.
  * Add Portuguese numerizer.
  </notes>
  <contents>
@@ -41,7 +40,6 @@
       <file name="Backtrace.php" role="php" />
       <file name="CombineStream.php" role="php" />
       <file name="ConsistentHash.php" role="php" />
-      <file name="Domhtml.php" role="php" />
       <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
       <file name="Numerizer.php" role="php" />
@@ -92,11 +90,6 @@
     <channel>pear.horde.org</channel>
    </package>
   </required>
-  <optional>
-   <extension>
-    <name>dom</name>
-   </extension>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -104,7 +97,6 @@
    <install as="Horde/Support/Backtrace.php" name="lib/Horde/Support/Backtrace.php" />
    <install as="Horde/Support/CombineStream.php" name="lib/Horde/Support/CombineStream.php" />
    <install as="Horde/Support/ConsistentHash.php" name="lib/Horde/Support/ConsistentHash.php" />
-   <install as="Horde/Support/Domhtml.php" name="lib/Horde/Support/Domhtml.php" />
    <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
    <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
    <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
