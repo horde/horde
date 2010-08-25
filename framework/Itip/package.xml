@@ -97,7 +97,8 @@
      </dir> <!-- /test/Horde/Itip -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="TODO" role="data" />
+   <file name="COPYING" role="doc" />
+   <file name="TODO" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

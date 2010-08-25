@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Filter
+ * @category Horde
+ * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Itip
  */
 
 /**
@@ -18,13 +18,13 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
  *
- * @category Kolab
- * @package  Kolab_Filter
+ * @category Horde
+ * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Itip
  */
 class Horde_Itip_Response_Type_Decline
 extends Horde_Itip_Response_Type_Base

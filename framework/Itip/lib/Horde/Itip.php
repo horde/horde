@@ -18,7 +18,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
  *
  * @category Horde
  * @package  Itip
@@ -54,7 +54,8 @@ class Horde_Itip
      */
     public function getVeventResponse(
         Horde_Itip_Response_Type $type
-    ) {
+    )
+    {
         return $this->_response->getVevent(
             $type, false
         );
@@ -72,7 +73,8 @@ class Horde_Itip
     public function getIcalendarResponse(
         Horde_Itip_Response_Type $type,
         $product_id
-    ) {
+    )
+    {
         return $this->_response->getIcalendar(
             $type, $product_id
         );
@@ -92,7 +94,8 @@ class Horde_Itip
         Horde_Itip_Response_Type $type,
         Horde_Itip_Response_Options $options,
         Horde_Mail_Transport $transport
-    ) {
+    )
+    {
         list($headers, $body) = $this->_response->getMessage(
             $type, $options
         );
@@ -116,7 +119,8 @@ class Horde_Itip
         Horde_Itip_Response_Type $type,
         Horde_Itip_Response_Options $options,
         Horde_Mail_Transport $transport
-    ) {
+    )
+    {
         list($headers, $body) = $this->_response->getMultiPartMessage(
             $type, $options
         );
@@ -138,7 +142,8 @@ class Horde_Itip
     static public function prepareResponse(
         Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
-    ) {
+    )
+    {
         return new Horde_Itip_Response(
             new Horde_Itip_Event_Vevent(
                 $vevent
@@ -158,7 +163,8 @@ class Horde_Itip
     static public function factory(
         Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
-    ) {
+    )
+    {
         return new Horde_Itip(
             self::prepareResponse($vevent, $resource)
         );

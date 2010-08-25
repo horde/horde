@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Filter
+ * @category Horde
+ * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Itip
  */
 
 /**
@@ -18,13 +18,13 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
  *
- * @category Kolab
- * @package  Kolab_Filter
+ * @category Horde
+ * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Itip
  */
 abstract class Horde_Itip_Response_Type_Base
 implements Horde_Itip_Response_Type
@@ -59,7 +59,8 @@ implements Horde_Itip_Response_Type
     public function __construct(
         Horde_Itip_Resource $resource,
         $comment = null
-    ) {
+    )
+    {
         $this->_resource = $resource;
         $this->_comment  = $comment;
     }
@@ -74,7 +75,8 @@ implements Horde_Itip_Response_Type
      */
     public function setRequest(
         Horde_Itip_Event $request
-    ) {
+    )
+    {
         $this->_request  = $request;
     }
 

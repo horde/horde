@@ -7,7 +7,7 @@
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 
@@ -18,12 +18,12 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
  *
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 interface Horde_Itip_Resource

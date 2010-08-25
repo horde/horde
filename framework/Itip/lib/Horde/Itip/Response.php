@@ -10,7 +10,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 
@@ -22,7 +22,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
  *
  * @category Horde
  * @package  Itip
@@ -30,7 +30,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 class Horde_Itip_Response
@@ -50,13 +50,6 @@ class Horde_Itip_Response
     private $_resource;
 
     /**
-     * The status type of this response.
-     *
-     * @var Horde_Itip_Response_Type
-     */
-    private $_type;
-
-    /**
      * Constructor.
      *
      * @param Horde_Itip_Event    $request  The request this instance will
@@ -66,7 +59,8 @@ class Horde_Itip_Response
     public function __construct(
         Horde_Itip_Event $request,
         Horde_Itip_Resource $resource
-    ) {
+    )
+    {
         $this->_request  = $request;
         $this->_resource = $resource;
     }
@@ -93,7 +87,8 @@ class Horde_Itip_Response
     public function getVevent(
         Horde_Itip_Response_Type $type,
         $vCal = false
-    ) {
+    )
+    {
         $itip_reply = new Horde_Itip_Event_Vevent(
             Horde_Icalendar::newComponent('VEVENT', $vCal)
         );
@@ -120,7 +115,8 @@ class Horde_Itip_Response
     public function getIcalendar(
         Horde_Itip_Response_Type $type,
         Horde_Itip_Response_Options $options
-    ) {
+    )
+    {
         $vCal = new Horde_Icalendar();
         $options->prepareIcalendar($vCal);
         $vCal->setAttribute('METHOD', 'REPLY');
@@ -140,7 +136,8 @@ class Horde_Itip_Response
     public function getMessage(
         Horde_Itip_Response_Type $type,
         Horde_Itip_Response_Options $options
-    ) {
+    )
+    {
         $message = new Horde_Mime_Part();
         $message->setType('text/calendar');
         $options->prepareIcsMimePart($message);
@@ -181,7 +178,8 @@ class Horde_Itip_Response
     public function getMultiPartMessage(
         Horde_Itip_Response_Type $type,
         Horde_Itip_Response_Options $options
-    ) {
+    )
+    {
         $message = new Horde_Mime_Part();
         $message->setType('multipart/alternative');
 
