@@ -52,6 +52,7 @@
        <file name="Cli.php" role="php" />
       </dir> <!-- /lib/Horde/Element/Config -->
       <dir name="Module">
+       <file name="CiSetup.php" role="php" />
        <file name="DevPackage.php" role="php" />
        <file name="Installer.php" role="php" />
        <file name="PearPackageXml.php" role="php" />
@@ -139,6 +140,7 @@
    <install as="Horde/Element/Module.php" name="lib/Horde/Element/Module.php" />
    <install as="Horde/Element/Modules.php" name="lib/Horde/Element/Modules.php" />
    <install as="Horde/Element/Config/Cli.php" name="lib/Horde/Element/Config/Cli.php" />
+   <install as="Horde/Element/Module/CiSetup.php" name="lib/Horde/Element/Module/CiSetup.php" />
    <install as="Horde/Element/Module/DevPackage.php" name="lib/Horde/Element/Module/DevPackage.php" />
    <install as="Horde/Element/Module/Installer.php" name="lib/Horde/Element/Module/Installer.php" />
    <install as="Horde/Element/Module/PearPackageXml.php" name="lib/Horde/Element/Module/PearPackageXml.php" />
