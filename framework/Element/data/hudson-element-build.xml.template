@@ -64,7 +64,7 @@
    <arg line="-c php.ini ${tooldir}/phpcs
               --report=checkstyle
               --report-file=${basedir}/build/logs/checkstyle.xml
-              --standard=PEAR
+              --standard=Horde
               lib" />
   </exec>
  </target>
