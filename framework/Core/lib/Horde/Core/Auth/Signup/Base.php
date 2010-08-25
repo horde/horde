@@ -118,12 +118,11 @@ abstract class Horde_Core_Auth_Signup_Base
     /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params mixed $info  Reference to array of parameters to be passed
-     *                      to hook
+     * @params object $signup  Signup data.
      *
      * @throws Horde_Exception
      */
-    abstract protected function _queueSignup(&$info);
+    abstract protected function _queueSignup($signup);
 
     /**
      * Get a user's queued signup information.
