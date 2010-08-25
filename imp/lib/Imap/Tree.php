@@ -1473,12 +1473,18 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      *            DEFAULT: null (add to base level)
      * 'poll_info' - (boolean) Include poll information?
      *               DEFAULT: false
+     * 'render_type' - (string) The renderer name.
+     *                 DEFAULT: Javascript
      * </pre>
      *
      * @return Horde_Tree  The tree object.
      */
     public function createTree($name, array $opts = array())
     {
+        $opts = array_merge(array(
+            'render_type' => 'Javascript'
+        ), $opts);
+
         $this->recent = array();
         $this->unseen = 0;
 
@@ -1487,7 +1493,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             $indent = $opts['indent'];
             $parent = $opts['parent'];
         } else {
-            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, 'Javascript', array(
+            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, $opts['render_type'], array(
                 'alternate' => true,
                 'lines' => true,
                 'lines_base' => true
@@ -1495,12 +1501,22 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             $indent = 0;
             $parent = null;
         }
-        $mailbox_url = Horde::applicationUrl('mailbox.php');
+
+        $mailbox_url = (IMP::getViewMode() == 'mimp')
+            ? Horde::applicationUrl('mailbox-mimp.php')
+            : Horde::applicationUrl('mailbox.php');
 
         foreach ($this as $val) {
             $after = $class = '';
-            $label = $val->name;
             $url = null;
+
+            if ($opts['render_type'] == 'Simplehtml') {
+                $label =  htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
+                $icon = null;
+            } else {
+                $label = $val->name;
+                $icon = $val->icon;
+            }
 
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
@@ -1541,7 +1557,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 }
             }
 
-            $icon = $val->icon;
             $tree->addNode(
                 strval($parent) . $val->value,
                 ($val->level) ? strval($parent) . $val->parent : $parent,
@@ -1550,8 +1565,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 $val->is_open,
                 array(
                     'class' => $class,
-                    'icon' => $icon->icon,
-                    'iconopen' => $icon->iconopen,
+                    'icon' => $icon ? $icon->icon : null,
+                    'iconopen' => $icon ? $icon->iconopen : null,
                     'url' => $url
                 ),
                 $after,
