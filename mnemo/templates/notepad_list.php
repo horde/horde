@@ -26,7 +26,7 @@
    <td><?php echo htmlspecialchars($notepad->get('name')) ?></td>
    <td><a href="<?php echo Horde_Util::addParameter($edit_url_base, 'n', $notepad->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><a onclick="return !popup(this.href);" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $notepad->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
+   <td><?php echo $perms_url_base->add('share', $notepad->getName())->link(array('target' => '_blank', 'title' => _("Change Permissions"), 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $notepad->getName()), 'urlencode' => true)) . 'return false;')) . $perms_img . '</a>' ?></td>
 <?php endif; ?>
    <td><a href="<?php echo Horde_Util::addParameter($delete_url_base, 'n', $notepad->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
   </tr>
