@@ -59,8 +59,8 @@ class Horde_Support_Domhtml
 
         if (!is_null($charset)) {
             if (!$doc->encoding) {
-                $doc->loadHTML(Horde_String::convertCharset($text, $charset, 'ISO-8859-1'));
-                $this->encoding = null;
+                $doc->loadHTML('<?xml encoding="UTF-8">' . Horde_String::convertCharset($text, $charset, 'UTF-8'));
+                $this->encoding = 'UTF-8';
             } elseif ($doc->encoding != $charset) {
                 /* If libxml can't auto-detect encoding, convert to what it
                  * *thinks* the encoding should be. */
