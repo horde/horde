@@ -429,7 +429,7 @@ Horde::addInlineScript(array(
     'ImpFolders.ajax = ' . Horde_Serialize::serialize(Horde::getServiceLink('ajax', 'imp')->url, Horde_Serialize::JSON, $charset),
     'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
     'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)
+    'ImpFolders.mbox_expand = ' . intval($prefs->getValue('nav_expanded') == 2)
 ));
 
 $title = _("Folder Navigator");
