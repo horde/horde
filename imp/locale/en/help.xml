@@ -772,7 +772,7 @@
 <entry id="prefs-disposition_send_mdn">
     <title>Preferences: Send Read Receipt</title>
     <para>
-    &quot;Send a MDN&quot; sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification. Other options include never sending these receipts or sending these receipts automatically without prompt if possible.
+    &quot;Send a MDN&quot; sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification.
     </para>
 </entry>
 
