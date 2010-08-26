@@ -93,7 +93,7 @@ class Turba_Object {
         if (isset($this->attributes[$attribute])) {
             try {
                 return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
-            } catch (Horde_Exception_HookNotSet $e) {}
+            } catch (Horde_Exception_HookNotSet $e) {
             } catch (Turba_Exception $e) {}
         }
 
@@ -126,8 +126,8 @@ class Turba_Object {
     function setValue($attribute, $value)
     {
         try {
-            $value = Horde::callHook('encode_attribute', array($attribute, $value, $this->attributes[$attribute], $this), 'turba');
-        } catch (Horde_Exception_HookNotSet $e) {}
+            $value = Horde::callHook('encode_attribute', array($attribute, $value, isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null, $this), 'turba');
+        } catch (Horde_Exception_HookNotSet $e) {
         } catch (Turba_Exception $e) {}
 
         if (isset($this->driver->map[$attribute]) &&
