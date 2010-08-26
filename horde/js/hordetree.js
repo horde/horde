@@ -216,7 +216,7 @@ var Horde_Tree = Class.create({
     _divClass: function(div, c)
     {
         if (this.opts.header[c] && this.opts.header[c]['class']) {
-            c.addClassName(this.opts.header[c]['class']);
+            div.addClassName(this.opts.header[c]['class']);
         }
 
         return div;
