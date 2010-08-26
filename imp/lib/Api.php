@@ -5,6 +5,8 @@
  * This file defines IMP's external API interface. Other applications
  * can interact with IMP through this API.
  *
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -82,7 +84,7 @@ class IMP_Api extends Horde_Registry_Api
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
      *
      * @return string  The full folder name created or false on failure.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function createFolder($folder)
     {
