@@ -644,6 +644,11 @@ class Horde_Form {
         $this->_errors = array();
     }
 
+    function getErrors()
+    {
+        return $this->_errors;
+    }
+
     function getError($var)
     {
         if (is_a($var, 'Horde_Form_Variable')) {
