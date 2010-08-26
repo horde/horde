@@ -115,7 +115,7 @@ if ($form == 'settypestep2form') {
             $ticket->show();
         }
     } else {
-        $notification->push(var_export($settypeform->getErrors()), 'horde.error');
+        $notification->push(var_export($settypeform->getErrors(), true), 'horde.error');
         $action = 'st2';
     }
 }
