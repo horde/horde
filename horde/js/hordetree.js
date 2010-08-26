@@ -43,7 +43,6 @@ var Horde_Tree = Class.create({
         this.rootNodes = rootNodes;
         this.renderStatic = renderStatic;
         this.dropline = [];
-        this.node_pos = [];
         this.output = document.createDocumentFragment();
 
         this._buildHeader();
@@ -93,18 +92,20 @@ var Horde_Tree = Class.create({
     // the output.
     buildTree: function(nodeId, p)
     {
-        var numSubnodes, tmp,
-            n = 0;
+        var last_subnode, tmp,
+            node = this.nodes[nodeId];
 
         this.buildLine(nodeId, p);
 
-        if (!Object.isUndefined(this.nodes[nodeId].children) &&
-            (numSubnodes = this.nodes[nodeId].children.size())) {
+        if (!Object.isUndefined(node.children)) {
+            last_subnode = node.children.last();
             tmp = new Element('DIV', { id: 'nodeChildren_' + nodeId });
-            [ tmp ] .invoke(this.nodes[nodeId].expanded ? 'show' : 'hide');
+            [ tmp ].invoke(node.expanded ? 'show' : 'hide');
 
-            this.nodes[nodeId].children.each(function(c) {
-                this.node_pos[c] = { count: numSubnodes, pos: ++n };
+            node.children.each(function(c) {
+                if (c == last_subnode) {
+                    this.nodes[c].node_last = true;
+                }
                 this.buildTree(c, tmp);
             }, this);
 
@@ -240,7 +241,7 @@ var Horde_Tree = Class.create({
                 break;
             }
         } else {
-            this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
+            this.dropline[node.indent] = !node.node_last;
         }
 
         return new Element('SPAN', { id: "nodeToggle_" + nodeId }).addClassName('treeToggle').addClassName('treeImg').addClassName('treeImg' + this._getNodeToggle(nodeId));
@@ -292,7 +293,7 @@ var Horde_Tree = Class.create({
 
         if (node.children) {
             // Node with children.
-            if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
+            if (!node.node_last) {
                 // Not last node.
                 if (!this.opts.options.lines) {
                     return this.opts.imgBlank;
@@ -318,7 +319,7 @@ var Horde_Tree = Class.create({
         }
 
         // Node no children.
-        if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
+        if (!node.node_last) {
             // Not last node.
             return this.opts.options.lines
                 ? this.opts.imgJoin
