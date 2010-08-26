@@ -61,10 +61,10 @@ class IMP_Ui_Message
     /**
      * Check if we need to send a MDN, and send if needed.
      *
-     * @param string $mailbox     The mailbox of the message.
-     * @param integer $uid        The UID of the message.
-     * @param array $headers      The headers of the message.
-     * @param boolean $confirmed  Has the MDN request been confirmed?
+     * @param string $mailbox              The mailbox of the message.
+     * @param integer $uid                 The UID of the message.
+     * @param Horde_Mime_Headers $headers  The headers of the message.
+     * @param boolean $confirmed           Has the MDN request been confirmed?
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
@@ -114,7 +114,13 @@ class IMP_Ui_Message
         if (!$confirmed &&
             ((intval($pref_val) == 1) ||
              $mdn->userConfirmationNeeded())) {
-            return true;
+            try {
+                if (Horde::callHook('mdn_check', array($headers), 'imp')) {
+                    return true;
+                }
+            } catch (Horde_Exception_HookNotSet $e) {
+                return true;
+            }
         }
 
         /* Send out the MDN now. */

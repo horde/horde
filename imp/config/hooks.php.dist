@@ -466,6 +466,7 @@ class IMP_Hooks
 //            : $label;
 //    }
 
+
     /**
      * Mark a mailbox as read-only.
      *
@@ -477,6 +478,27 @@ class IMP_Hooks
 //    {
 //        // Example #1: Make messages in the 'foo' mailbox readonly.
 //        return ($mailbox == 'foo');
+//    }
+
+
+    /**
+     * Determine whether to prompt a user to send a Message Disposition
+     * Notification (MDN; a/k/a read-receipt) if their preferences require
+     * a prompt.  Useful if MDNs should automatically be sent for a certain
+     * subset of messages, e.g. e-mail addresses within the domain.
+     *
+     * @param Horde_Mime_Headers $headers  A headers object.
+     *
+     * @return boolean  Should the user be prompted to send a MDN?
+     */
+//    public function mdn_check($headers)
+//    {
+//        // Example #1: Don't require MDN prompt if the message is sent by
+//        // someone within the same domain (NOTE: this does no checking on
+//        // spoofed e-mail addresses; further verification should probably
+//        // be done before automatically sending out a MDN).
+//        $from = $headers->getOb('from');
+//        return (strcasecmp($from['host'], 'example.com') !== 0);
 //    }
 
 
@@ -598,6 +620,7 @@ class IMP_Hooks
 //        return array($quota[1] * 1024, $quota[2] * 1024);
 //    }
 
+
     /**
      * Retrieves public S/MIME keys of message recipients.
      *
@@ -639,6 +662,7 @@ class IMP_Hooks
 //
 //        return $information[0][$attribute][0];
 //    }
+
 
     /**
      * Retrieves public PGP keys of message recipients.
@@ -683,6 +707,7 @@ class IMP_Hooks
 //        return $information[0][$attribute][0];
 //    }
 
+
     /**
      * DIMP: Allow additional information to be added to the array that is
      * passed to the message text display template:
@@ -720,7 +745,8 @@ class IMP_Hooks
      *                second element is an array of javascript commands, one
      *                command per array value.
      */
-//    public function dimp_previewview($msg) {
+//    public function dimp_previewview($msg)
+//    {
 //        // Example #1: Alter the subject
 //        $msg['subject'] .= 'test';
 //
