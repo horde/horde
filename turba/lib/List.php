@@ -24,13 +24,6 @@ class Turba_List implements Countable
     public $objects = array();
 
     /**
-     * Cached attributes array.
-     *
-     * @var array
-     */
-    protected $_attributes = null;
-
-    /**
      * The field to compare objects by.
      *
      * @var string
@@ -162,16 +155,12 @@ class Turba_List implements Countable
      */
     protected function _cmp($a, $b)
     {
-        if (is_null($this->_attributes)) {
-            $this->_attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
-        }
-
         foreach ($this->_usortCriteria as $field) {
             // Set the comparison type based on the type of attribute we're
             // sorting by.
             $sortmethod = 'text';
-            if (isset($this->_attributes[$field['field']])) {
-                $f = $this->_attributes[$field['field']];
+            if (isset($GLOBALS['attributes'][$field['field']])) {
+                $f = $GLOBALS['attributes'][$field['field']];
 
                 if (!empty($f['cmptype'])) {
                     $sortmethod = $f['cmptype'];

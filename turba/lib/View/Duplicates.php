@@ -68,8 +68,6 @@ class Turba_View_Duplicates
      */
     public function display()
     {
-        $attributes = Horde::loadConfiguration(TURBA_BASE . '/config/attributes.php', 'attributes', 'turba');
-
         $view = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search/duplicate'));
         new Horde_View_Helper_Text($view);
 
@@ -78,7 +76,7 @@ class Turba_View_Duplicates
             isset($this->_duplicates[$this->_type][$this->_duplicate]);
         if ($hasDuplicate) {
             $vars = new Horde_Variables();
-            $view->type = $attributes[$this->_type]['label'];
+            $view->type = $GLOBALS['attributes'][$this->_type]['label'];
             $view->value = $this->_duplicate;
             echo $view->render('header');
 
@@ -114,7 +112,7 @@ class Turba_View_Duplicates
 
         $view->duplicates = $this->_duplicates;
         $view->hasDuplicate = (bool)$hasDuplicate;
-        $view->attributes = $attributes;
+        $view->attributes = $GLOBALS['attributes'];
         $view->link = Horde::applicationUrl('search.php')
             ->add(array('source' => $this->_driver->name,
                         'search_mode' => 'duplicate'));

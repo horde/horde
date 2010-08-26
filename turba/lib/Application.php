@@ -46,7 +46,8 @@ class Turba_Application extends Horde_Registry_Application
      *
      * Global variables defined:
      *   $addSources   - TODO
-     *   $attributes   - TODO
+     *   $attributes - (array) Attribute data from the config/attributes.php
+     *                 file.
      *   $browse_source_count - TODO
      *   $browse_source_options - TODO
      *   $cfgSources   - TODO
@@ -57,7 +58,7 @@ class Turba_Application extends Horde_Registry_Application
     protected function _init()
     {
         // Turba source and attribute configuration.
-        include TURBA_BASE . '/config/attributes.php';
+        $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
         include TURBA_BASE . '/config/sources.php';
 
         /* UGLY UGLY UGLY - we should NOT be using this as a global
