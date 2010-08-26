@@ -26,6 +26,10 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
+ *
+ * @todo Clean this class up. Accessing private methods for copying the object
+ * is not nice. Reconsider if an interface is really needed. See also PMD
+ * report.
  */
 class Horde_Itip_Event_Vevent
 implements Horde_Itip_Event
@@ -112,6 +116,8 @@ implements Horde_Itip_Event
      * Return the organizer of the iTip event.
      *
      * @return string The organizer of the event.
+     *
+     * @todo Parse mailto using parse_url
      */
     public function getOrganizer()
     {

@@ -98,7 +98,6 @@
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
-   <file name="TODO" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

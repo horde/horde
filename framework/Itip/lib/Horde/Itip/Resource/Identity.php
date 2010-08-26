@@ -51,6 +51,7 @@ implements Horde_Itip_Resource
      * @param array              $attendees The attendees of the invitation.
      * @param string             $reply_to  The selected identity for sending the
      *                                      reply.
+     * @todo Parse mailto using parse_url
      */
     public function __construct($identity, $attendees, $reply_to)
     {
