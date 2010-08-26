@@ -36,7 +36,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
- <notes>* Add simple HTML renderer.
+ <notes>* Split driver code from main class into Base class.
+ * Add simple HTML renderer.
  * Remove dependency on horde/Core.
  * Move javascript renderer to horde/Core.
  * Add Horde_Tree_Exception::.
@@ -47,6 +48,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
+      <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Html.php" role="php" />
       <file name="Select.php" role="php" />
@@ -82,6 +84,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Tree/Base.php" as="Horde/Tree/Base.php" />
    <install name="lib/Horde/Tree/Exception.php" as="Horde/Tree/Exception.php" />
    <install name="lib/Horde/Tree/Html.php" as="Horde/Tree/Html.php" />
    <install name="lib/Horde/Tree/Select.php" as="Horde/Tree/Select.php" />

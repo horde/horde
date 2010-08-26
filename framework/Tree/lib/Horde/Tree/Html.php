@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Tree_Html:: class extends the Horde_Tree class to provide
- * HTML specific rendering functions.
+ * The Horde_Tree_Html:: class provides HTML specific rendering functions.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,15 +12,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree_Html extends Horde_Tree
+class Horde_Tree_Html extends Horde_Tree_Base
 {
-    /**
-     * Node list.
-     *
-     * @var array
-     */
-    protected $_nodes = array();
-
     /**
      * Node position list.
      *
@@ -263,8 +255,8 @@ class Horde_Tree_Html extends Horde_Tree
          * for any given cell of content. */
         $column = 0;
 
-        if (isset($node['extra'][self::EXTRA_LEFT])) {
-            $extra = $node['extra'][self::EXTRA_LEFT];
+        if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
+            $extra = $node['extra'][Horde_Tree::EXTRA_LEFT];
             $cMax = count($extra);
             while ($column < $cMax) {
                 $line .= $this->_addColumn($column) . $extra[$column] . '</span>';
@@ -293,8 +285,8 @@ class Horde_Tree_Html extends Horde_Tree
 
         $line .= '</span>';
 
-        if (isset($node['extra'][self::EXTRA_RIGHT])) {
-            $extra = $node['extra'][self::EXTRA_RIGHT];
+        if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
+            $extra = $node['extra'][Horde_Tree::EXTRA_RIGHT];
             $cMax = count($extra);
             for ($c = 0, $cMax = count($extra); $c < $cMax; ++$c) {
                 $line .= $this->_addColumn($column++) . $extra[$c] . '</span>';
@@ -495,7 +487,7 @@ class Horde_Tree_Html extends Horde_Tree
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        return $url->add(self::TOGGLE . $this->_instance, $node_id)->link();
+        return $url->add(Horde_Tree::TOGGLE . $this->_instance, $node_id)->link();
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Core_Tree_Javascript:: class extends the Horde_Core_Tree_Html
- * class to provide a javascript rendering of a tree.
+ * The Horde_Core_Tree_Javascript:: class provides javascript rendering of a
+ * tree.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Marko Djukic <marko@oblo.com>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core

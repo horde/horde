@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Tree_Simplehtml:: class extends the Horde_Tree class to provide
- * a simple HTML rendering of a tree (no graphics).
+ * The Horde_Tree_Simplehtml:: class provides simple HTML rendering of a tree
+ * (no graphics).
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree_Simplehtml extends Horde_Tree
+class Horde_Tree_Simplehtml extends Horde_Tree_Base
 {
     /**
      * Allowed parameters for nodes.
@@ -78,8 +78,8 @@ class Horde_Tree_Simplehtml extends Horde_Tree
         $output = '<div' .
             (empty($node['class']) ? '' : ' class="' . $node['class'] . '"') .
             '>';
-        if (isset($node['extra'][self::EXTRA_LEFT])) {
-            $output .= implode(' ', $node['extra'][self::EXTRA_LEFT]);
+        if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
+            $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_LEFT]);
         }
         $output .= str_repeat('&nbsp;', $node['indent'] * 2);
 
@@ -93,8 +93,8 @@ class Horde_Tree_Simplehtml extends Horde_Tree
         $output .= empty($node['url'])
             ? $node['label']
             : '<a href="' . strval($node['url']) . '">' . $node['label'] . '</a>';
-        if (isset($node['extra'][self::EXTRA_RIGHT])) {
-            $output .= implode(' ', $node['extra'][self::EXTRA_RIGHT]);
+        if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
+            $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_RIGHT]);
         }
         $output .= '</div>';
 
@@ -117,7 +117,7 @@ class Horde_Tree_Simplehtml extends Horde_Tree
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        return $url->add(self::TOGGLE . $this->_instance, $node_id)->link();
+        return $url->add(Horde_Tree::TOGGLE . $this->_instance, $node_id)->link();
     }
 
 }

@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Tree_Select:: class extends the Horde_Tree class to provide
- * <option> tag rendering.
+ * The Horde_Tree_Select:: class provides <option> tag rendering.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree_Select extends Horde_Tree
+class Horde_Tree_Select extends Horde_Tree_Base
 {
     /**
      * Allowed parameters for nodes.
@@ -34,9 +33,13 @@ class Horde_Tree_Select extends Horde_Tree
     /**
      * Returns the tree.
      *
+     * @param boolean $static  If true the tree nodes can't be expanded and
+     *                         collapsed and the tree gets rendered expanded.
+     *                         This option has no effect in this driver.
+     *
      * @return string  The HTML code of the rendered tree.
      */
-    public function getTree()
+    public function getTree($static = false)
     {
         $this->_buildIndents($this->_root_nodes);
 

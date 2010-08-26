@@ -59,7 +59,7 @@ class Horde_Core_Factory_Tree
      * @param array $params    Any additional parameters the constructor
      *                         needs.
      *
-     * @return Horde_Tree  The singleton instance.
+     * @return Horde_Tree_Base  The singleton instance.
      * @throws Horde_Tree_Exception
      */
     public function getTree($name, $renderer, array $params = array())

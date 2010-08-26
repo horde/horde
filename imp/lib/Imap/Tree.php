@@ -1488,7 +1488,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         $this->recent = array();
         $this->unseen = 0;
 
-        if ($name instanceof Horde_Tree) {
+        if ($name instanceof Horde_Tree_Base) {
             $tree = $name;
             $indent = $opts['indent'];
             $parent = $opts['parent'];

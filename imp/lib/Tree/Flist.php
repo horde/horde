@@ -1,14 +1,13 @@
 <?php
 /**
- * The IMP_Tree_Flist class extends the Horde_Tree_Select class to provide
- * output of an IMP dropdown folder list.
+ * The IMP_Tree_Flist class provides an IMP dropdown folder list.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category IMP
  * @license  http://www.fsf.org/copyleft/lgpl.html GPL
  * @package  Tree
@@ -69,9 +68,13 @@ class IMP_Tree_Flist extends Horde_Tree_Select
     /**
      * Returns the tree.
      *
+     * @param boolean $static  If true the tree nodes can't be expanded and
+     *                         collapsed and the tree gets rendered expanded.
+     *                         This option has no effect in this driver.
+     *
      * @return string  The HTML code of the rendered tree.
      */
-    public function getTree()
+    public function getTree($static = false)
     {
         global $conf, $injector, $registry;
 
