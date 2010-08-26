@@ -144,7 +144,7 @@ class Turba_View_Browse {
 
                 $max_contacts = Turba::getExtendedPermission($targetDriver, 'max_contacts');
                 if ($max_contacts !== true
-                    && $max_contacts <= $targetDriver->count()) {
+                    && $max_contacts <= count($targetDriver)) {
                     try {
                         $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                     } catch (Horde_Exception_HookNotSet $e) {
@@ -284,7 +284,7 @@ class Turba_View_Browse {
                     // Check permissions.
                     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
                     if ($max_contacts !== true &&
-                        $max_contacts <= $driver->count()) {
+                        $max_contacts <= count($driver)) {
                         try {
                             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                         } catch (Horde_Exception $e) {
@@ -358,8 +358,8 @@ class Turba_View_Browse {
                     if (!is_object($results = $list->listMembers($sortorder))) {
                         $notification->push(_("Failed to browse list"), 'horde.error');
                     } else {
-                        if ($results->count() != $list->count()) {
-                            $count = $list->count() - $results->count();
+                        if (count($results) != count($list)) {
+                            $count = count($list) - count($results);
                             $notification->push(sprintf(ngettext("There is %d contact in this list that is not viewable to you", "There are %d contacts in this list that are not viewable to you", $count), $count), 'horde.message');
                         }
                         $view = new Turba_View_List($results, null, $columns);

@@ -52,12 +52,12 @@ class Turba_KolabTest extends Turba_KolabTestBase {
 
         $result = $turba->search(array(), array('last-name'));
         $this->assertNoError($result);
-        $this->assertEquals(2, $result->count());
+        $this->assertEquals(2, count($result));
 
         $turba = Turba_Driver::singleton('INBOX%2Ftest2');
         $result = $turba->search(array(), array('last-name'));
 
-        $this->assertEquals(0, $result->count());
+        $this->assertEquals(0, count($result));
     }
 
     function testPhoto()

@@ -44,8 +44,8 @@ class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTa
                 if (is_a($lists, 'PEAR_Error')) {
                     return $lists;
                 }
-                $cnt = $lists->count();
-                for ($j = 0; $j < $cnt; ++$j) {
+
+                for ($j = 0, $cnt = count($lists); $j < $cnt; ++$j) {
                     $list = $lists->next();
                     $attributes = $list->getAttributes();
                     $members = @unserialize($attributes['__members']);

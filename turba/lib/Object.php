@@ -88,11 +88,11 @@ class Turba_Object {
      * @return mixed  The value of $attribute, an array (for photo type)
      *                or the empty string.
      */
-    function getValue($attribute)
+    public function getValue($attribute)
     {
         if (isset($this->attributes[$attribute])) {
             try {
-                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
+                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute]), 'turba');
             } catch (Horde_Exception_HookNotSet $e) {
             } catch (Turba_Exception $e) {}
         }
@@ -107,14 +107,18 @@ class Turba_Object {
         } elseif (!isset($this->attributes[$attribute])) {
             return null;
         } elseif (isset($GLOBALS['attributes'][$attribute]) &&
-                  $GLOBALS['attributes'][$attribute]['type'] == 'image') {
+                  ($GLOBALS['attributes'][$attribute]['type'] == 'image')) {
             return empty($this->attributes[$attribute])
                 ? null
-                : array('load' => array('file' => basename(tempnam(Horde::getTempDir(), 'horde_form_')),
-                                        'data' => $this->attributes[$attribute]));
-        } else {
-            return $this->attributes[$attribute];
+                : array(
+                      'load' => array(
+                          'data' => $this->attributes[$attribute],
+                          'file' => basename(tempnam(Horde::getTempDir(), 'horde_form_'))
+                      )
+                  );
         }
+
+        return $this->attributes[$attribute];
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php if ($this->count() > $prefs->getValue('perpage')): ?>
+<?php if (count($this) > $prefs->getValue('perpage')): ?>
 <div class="turbaPager">
 <?php
 $show = Horde_Util::getFormData('show', 'all');

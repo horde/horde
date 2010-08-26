@@ -31,7 +31,7 @@ $contact = null;
 $uid = $vars->get('uid');
 if (!empty($uid)) {
     $search = $driver->search(array('__uid' => $uid));
-    if (!($search instanceof PEAR_Error) && $search->count()) {
+    if (!($search instanceof PEAR_Error) && count($search)) {
         $contact = $search->next();
         $vars->set('key', $contact->getValue('__key'));
     }

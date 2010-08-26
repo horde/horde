@@ -8,7 +8,7 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_Driver
+class Turba_Driver implements Countable
 {
     /**
      * The internal name of this source.
@@ -909,24 +909,6 @@ class Turba_Driver
             }
         }
         return $object_id;
-    }
-
-    /**
-     * Returns the number of contacts of the current user in this address book.
-     *
-     * @return integer  The number of contacts that the user owns.
-     */
-    function count()
-    {
-        if (is_null($this->_count)) {
-            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
-            if (is_a($count, 'PEAR_Error')) {
-                return $count;
-            }
-            $this->_count = count($count);
-        }
-
-        return $this->_count;
     }
 
     /**
@@ -2815,6 +2797,27 @@ class Turba_Driver
         }
 
         return $params['default'];
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of contacts of the current user in this address book.
+     *
+     * @return integer  The number of contacts that the user owns.
+     * @throws Turba_Exception
+     */
+    public function count()
+    {
+        if (is_null($this->_count)) {
+            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
+            if ($count instanceof PEAR_Error) {
+                throw new Turba_Exception($count);
+            }
+            $this->_count = count($count);
+        }
+
+        return $this->_count;
     }
 
 }

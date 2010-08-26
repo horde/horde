@@ -347,7 +347,7 @@ case Horde_Data::IMPORT_FILE:
     /* Check permissions. */
     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
     if ($max_contacts !== true &&
-        $max_contacts <= $driver->count()) {
+        $max_contacts <= count($driver)) {
         try {
             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
         } catch (Horde_Exception_HookNotSet $e) {
@@ -449,7 +449,7 @@ if (is_array($next_step)) {
                 $notification->push($result, 'horde.error');
                 $error = true;
                 break;
-            } elseif ($result->count()) {
+            } elseif (count($result)) {
                 $result->reset();
                 $object = $result->next();
                 $notification->push(sprintf(_("\"%s\" already exists and was not imported."),

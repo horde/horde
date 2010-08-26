@@ -68,7 +68,7 @@ class Turba_View_Duplicates
      */
     public function display()
     {
-        require TURBA_BASE . '/config/attributes.php';
+        $attributes = Horde::loadConfiguration(TURBA_BASE . '/config/attributes.php', 'attributes', 'turba');
 
         $view = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search/duplicate'));
         new Horde_View_Helper_Text($view);

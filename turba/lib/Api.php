@@ -679,7 +679,7 @@ class Turba_Api extends Horde_Registry_Api
                             $result = $driver->search($content);
                             if ($result instanceof PEAR_Error) {
                                 throw new Horde_Exception($result->getMessage());
-                            } elseif ($result->count() > 0) {
+                            } elseif (count($result)) {
                                 continue;
                             }
                             $result = $driver->add($content);
@@ -715,7 +715,7 @@ class Turba_Api extends Horde_Registry_Api
         $result = $driver->search($content);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception($result->getMessage());
-        } elseif ($result->count() > 0) {
+        } elseif (count($result)) {
             $o = $result->objects[0];
             throw new Horde_Exception(_("Already Exists"));
         }
@@ -793,9 +793,9 @@ class Turba_Api extends Horde_Registry_Api
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
-            } elseif ($result->count() == 0) {
+            } elseif (count($result) == 0) {
                 continue;
-            } elseif ($result->count() > 1) {
+            } elseif (count($result) > 1) {
                 throw new Horde_Exception("Internal Horde Error: multiple turba objects with same objectId.");
             }
 
@@ -986,7 +986,7 @@ class Turba_Api extends Horde_Registry_Api
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
-            } elseif ($result->count() == 0) {
+            } elseif (count($result) == 0) {
                 continue;
             } else {
                 $r = $result->objects[0];
@@ -1049,9 +1049,9 @@ class Turba_Api extends Horde_Registry_Api
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
-            } elseif (!$result->count()) {
+            } elseif (!count($result)) {
                 continue;
-            } elseif ($result->count() > 1) {
+            } elseif (count($result) > 1) {
                 throw new Horde_Exception(_("Multiple contacts found with same unique ID."));
             }
 
@@ -1267,7 +1267,7 @@ class Turba_Api extends Horde_Registry_Api
                         if (!($members instanceof Turba_List)) {
                             continue;
                         }
-                        if ($members->count() > 0) {
+                        if (count($members)) {
                             if (!isset($results[$name])) {
                                 $results[$name] = array();
                             }
@@ -1645,13 +1645,13 @@ class Turba_Api extends Horde_Registry_Api
             throw new Horde_Exception(sprintf(_("Search failed: %s"), $res->getMessage()));
         }
 
-        if ($res->count() > 1) {
+        if (count($res) > 1) {
             $res2 = $driver->search(array('email' => trim($address), 'name' => trim($name)), null, 'AND');
             if ($res2 instanceof PEAR_Error) {
                 throw new Horde_Exception(sprintf(_("Search failed: %s"), $res2->getMessage()));
             }
 
-            if (!$res2->count()) {
+            if (!count($res2)) {
                 throw new Horde_Exception(sprintf(_("Multiple persons with address [%s], but none with name [%s] already exist"), trim($address), trim($name)));
             }
 
@@ -1660,20 +1660,20 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Horde_Exception(sprintf(_("Search failed: %s"), $res3->getMessage()));
             }
 
-            if ($res3->count()) {
+            if (count($res3)) {
                 throw new Horde_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
             }
 
             $ob = $res2->next();
             $ob->setValue($field, $value);
             $ob->store();
-        } elseif ($res->count() == 1) {
+        } elseif (count($res) == 1) {
             $res4 = $driver->search(array('email' => $address, $field => $value));
             if ($res4 instanceof PEAR_Error) {
                 throw new Horde_Exception(sprintf(_("Search failed: %s"), $res4->getMessage()));
             }
 
-            if ($res4->count()) {
+            if (count($res4)) {
                 throw new Horde_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
             }
 
@@ -1792,7 +1792,7 @@ class Turba_Api extends Horde_Registry_Api
 
                 $res = $driver->search(array('email' => $address));
                 if ($res instanceof Turba_List) {
-                    if ($res->count() > 1) {
+                    if (count($res) > 1) {
                         continue;
                     }
 

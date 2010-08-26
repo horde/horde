@@ -7,8 +7,8 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_View_List {
-
+class Turba_View_List implements Countable
+{
     /**
      * The Turba_List object that we are visualizing.
      *
@@ -141,17 +141,6 @@ class Turba_View_List {
         return $this->type;
     }
 
-    /**
-     * Returns the number of Turba_Objects that are in the list. Use this to
-     * hide internal implementation details from client objects.
-     *
-     * @return integer  The number of objects in the list.
-     */
-    function count()
-    {
-        return $this->list->count();
-    }
-
     function display()
     {
         global $prefs, $default_source, $copymove_source_options;
@@ -181,7 +170,7 @@ class Turba_View_List {
 
         if ($this->type == 'search') {
             $page = Horde_Util::getFormData('page', 0);
-            $numitem = $this->count();
+            $numitem = count($this);
             $maxpage = $prefs->getValue('maxpage');
             $perpage = $prefs->getValue('perpage');
 
@@ -229,7 +218,7 @@ class Turba_View_List {
             if (!preg_match('/^[A-Za-z*]$/', $page)) {
                 $page = '*';
             }
-            if ($this->count() > $prefs->getValue('perpage')) {
+            if (count($this) > $prefs->getValue('perpage')) {
                 $page = Horde_Util::getFormData('page', 'A');
                 if (!preg_match('/^[A-Za-z*]$/', $page)) {
                     $page = 'A';
@@ -262,7 +251,7 @@ class Turba_View_List {
     function getPage(&$numDisplayed, $min = 0, $max = null)
     {
         if (is_null($max)) {
-            $max = $this->list->count();
+            $max = count($this);
         }
         return $this->_get($numDisplayed,
                            new Turba_View_List_PageFilter($min, $max));
@@ -444,6 +433,19 @@ class Turba_View_List {
         }
 
         return array($addToList, $addToListSources);
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of Turba_Objects that are in the list. Use this to
+     * hide internal implementation details from client objects.
+     *
+     * @return integer  The number of objects in the list.
+     */
+    public function count()
+    {
+        return $this->list->count();
     }
 
 }

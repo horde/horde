@@ -40,7 +40,7 @@ if ($source) {
         /* Check permissions. */
         $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
         if ($max_contacts !== true &&
-            $max_contacts <= $driver->count()) {
+            $max_contacts <= count($driver)) {
             try {
                 $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
             } catch (Horde_Exception_HookNotSet $e) {
