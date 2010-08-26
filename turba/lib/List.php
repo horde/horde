@@ -140,7 +140,11 @@ class Turba_List implements Countable
         }
 
         $this->_usortCriteria = $order;
-        usort($sorted_objects, array($this, '_cmp'));
+
+        /* Exceptions thrown inside a sort incorrectly cause an error. See
+         * Bug #9202. */
+        @usort($sorted_objects, array($this, '_cmp'));
+
         $this->objects = $sorted_objects;
     }
 
