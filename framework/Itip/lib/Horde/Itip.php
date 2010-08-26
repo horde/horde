@@ -7,7 +7,7 @@
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 
@@ -23,7 +23,7 @@
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 class Horde_Itip
