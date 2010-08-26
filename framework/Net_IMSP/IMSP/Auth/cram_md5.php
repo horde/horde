@@ -88,7 +88,7 @@ class Net_IMSP_Auth_cram_md5 extends Net_IMSP_Auth {
      */
     function _hmac($key, $data)
     {
-        if (function_exists(hash_hmac)) {
+        if (function_exists('hash_hmac')) {
             return hash_hmac('md5', $data, $key);
         }
 
