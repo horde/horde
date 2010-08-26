@@ -165,7 +165,7 @@ class IMP_Spam
         /* Report what we've done. */
         if ($report_count == 1) {
             $hdrs = $imp_contents->getHeaderOb();
-            $subject = Horde_String::truncate($hdrs->getValue('subject'));
+            $subject = Horde_String::truncate($hdrs->getValue('subject'), 30);
 
             switch ($action) {
             case 'spam':
