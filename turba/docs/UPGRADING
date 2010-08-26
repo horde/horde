@@ -10,6 +10,16 @@ your existing data before running any of the steps described below. You can't
 use the updated data with your old Turba version anymore.
 
 
+Upgrading Turba from 2.x to 3.x
+===============================
+
+The ``_turba_hook_encode_{attribute}`` hook has been moved to the
+'encode_attribute' hook.
+
+The ``_turba_hook_decode_{attribute}`` hook has been moved to the
+'decode_attribute' hook.
+
+
 Upgrading Turba from 2.3.x to 2.3.3
 ===================================
 

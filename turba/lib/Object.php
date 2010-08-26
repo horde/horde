@@ -90,27 +90,11 @@ class Turba_Object {
      */
     function getValue($attribute)
     {
-        /* Cache hooks to avoid multiple file_exists() calls. */
-        static $hooks;
-        if (!isset($hooks)) {
-            $hooks = array();
+        if (isset($this->attributes[$attribute])) {
             try {
-                Horde::loadConfiguration('hooks.php', null, 'turba');
-            } catch (Horde_Exception $e) {}
-        }
-        if (!isset($hooks[$attribute])) {
-            $function = '_turba_hook_decode_' . $attribute;
-            if (function_exists($function)) {
-                $hooks[$attribute] = $function;
-            } else {
-                $hooks[$attribute] = false;
-            }
-        }
-
-        if (isset($this->attributes[$attribute]) &&
-            !empty($hooks[$attribute])) {
-            return call_user_func_array($hooks[$attribute],
-                                        array($this->attributes[$attribute], &$this));
+                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute], $this), 'turba');
+            } catch (Horde_Exception_HookNotSet $e) {}
+            } catch (Turba_Exception $e) {}
         }
 
         if (isset($this->driver->map[$attribute]) &&
@@ -141,25 +125,10 @@ class Turba_Object {
      */
     function setValue($attribute, $value)
     {
-        /* Cache hooks to avoid multiple file_exists() calls. */
-        static $hooks;
-        if (!isset($hooks)) {
-            $hooks = array();
-            try {
-                Horde::loadConfiguration('hooks.php', null, 'turba');
-            } catch (Horde_Exception $e) {}
-        }
-        if (!isset($hooks[$attribute])) {
-            $function = '_turba_hook_encode_' . $attribute;
-            if (function_exists($function)) {
-                $hooks[$attribute] = $function;
-            } else {
-                $hooks[$attribute] = false;
-            }
-        }
-        if ($hooks[$attribute]) {
-            $value = call_user_func_array($hooks[$attribute], array($value, $this->attributes[$attribute], &$this));
-        }
+        try {
+            $value = Horde::callHook('encode_attribute', array($attribute, $value, $this->attributes[$attribute], $this), 'turba');
+        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Turba_Exception $e) {}
 
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute]) &&
