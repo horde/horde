@@ -202,9 +202,9 @@ class Horde_Prefs_Ui
 
         if ($prefs->isDirty('language')) {
             $registry->setLanguageEnvironment($prefs->getValue('language'));
-            foreach ($registry->listAPIs() as $api) {
-                if ($registry->hasMethod($api . '/changeLanguage')) {
-                    $registry->call($api . '/changeLanguage');
+            foreach ($registry->listApps() as $app) {
+                if ($registry->hasAppMethod($app, 'changeLanguage')) {
+                    $registry->callAppMethod($app, 'changeLanguage');
                 }
             }
         }

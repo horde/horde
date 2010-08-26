@@ -18,9 +18,9 @@ $_SESSION['horde_language'] = $registry->preferredLanguage(Horde_Util::getForm('
 $prefs->setValue('language', $_SESSION['horde_language']);
 
 /* Update apps language */
-foreach ($registry->listAPIs() as $api) {
-    if ($registry->hasAppMethod($api, 'changeLanguage')) {
-        $registry->callAppMethod($api, 'changeLanguage');
+foreach ($registry->listApps() as $app) {
+    if ($registry->hasAppMethod($app, 'changeLanguage')) {
+        $registry->callAppMethod($app, 'changeLanguage');
     }
 }
 
