@@ -5,7 +5,15 @@
  * This file defines Turba's external API interface. Other applications can
  * interact with Turba through this API.
  *
- * @package Turba
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Api extends Horde_Registry_Api
 {
@@ -87,14 +95,14 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $source  The name of the source
      *
      * @return array  An array describing the fields.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function fields($source = null)
     {
         global $cfgSources, $attributes;
 
         if (empty($source) || !isset($cfgSources[$source])) {
-            throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
         }
 
         $fields = array();
@@ -171,7 +179,7 @@ class Turba_Api extends Horde_Registry_Api
      *                           'name', 'icon', and 'browseable'.
      *
      * @return array  Content of the specified path.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function browse($path = '', $properties = array())
     {
@@ -316,12 +324,12 @@ class Turba_Api extends Horde_Registry_Api
             // Load the Turba driver.
             $driver = Turba_Driver::singleton($parts[1]);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             $contacts = $driver->search(array());
             if ($contacts instanceof PEAR_Error) {
-                throw new Horde_Exception($contacts->getMessage());
+                throw new Turba_Exception($contacts);
             }
 
             $contacts->reset();
@@ -370,12 +378,12 @@ class Turba_Api extends Horde_Registry_Api
             // Load the Turba driver.
             $driver = Turba_Driver::singleton($parts[1]);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             $contact = $driver->getObject($parts[2]);
             if ($contact instanceof PEAR_Error) {
-                throw new Horde_Exception($contact->getMessage());
+                throw new Turba_Exception($contact);
             }
 
             $result = array('data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource()),
@@ -386,7 +394,7 @@ class Turba_Api extends Horde_Registry_Api
             }
             return $result;
         } else {
-            throw new Horde_Exception(_("Malformed request."));
+            throw new Turba_Exception(_("Malformed request."));
         }
     }
 
@@ -396,7 +404,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $path  The path to the file.
      *
      * @return string  The event's UID.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function path_delete($path)
     {
@@ -414,21 +422,21 @@ class Turba_Api extends Horde_Registry_Api
 
         if (count($parts) < 3) {
             // Deletes must be on individual contacts
-            throw new Horde_Exception(_("Delete denied."));
+            throw new Turba_Exception(_("Delete denied."));
         }
         if (!array_key_exists($parts[1], Turba::getAddressBooks())) {
-            throw new Horde_Exception("Address book does not exist");
+            throw new Turba_Exception("Address book does not exist");
         }
 
         // Load the Turba driver.
         $driver = Turba_Driver::singleton($parts[1]);
         if ($driveri instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
 
         $ret = $driver->delete($parts[2]);
         if ($ret instanceof PEAR_Error) {
-            throw new Horde_Exception($ret->getMessage());
+            throw new Turba_Exception($ret->getMessage());
         }
 
         return $ret;
@@ -444,7 +452,7 @@ class Turba_Api extends Horde_Registry_Api
      *                               used.
      *
      * @return array  An array of UIDs for all contacts the user can access.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function listContacts($sources = null)
     {
@@ -460,24 +468,24 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         $uids = array();
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             $storage = Turba_Driver::singleton($source);
             if ($storage instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $storage->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $storage->getMessage()));
             }
 
             $results = $storage->search(array());
 
             if ($results instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Error searching the address book: %s"), $results->getMessage()));
+                throw new Turba_Exception(sprintf(_("Error searching the address book: %s"), $results->getMessage()));
             }
 
             foreach ($results->objects as $o) {
@@ -501,7 +509,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      * @throws InvalidArgumentException
      */
     public function listBy($action, $timestamp, $sources = null, $end = null)
@@ -518,7 +526,7 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         $uids = array();
@@ -529,12 +537,12 @@ class Turba_Api extends Horde_Registry_Api
         }
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             $histories = $history->getByTimestamp(
@@ -562,7 +570,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return integer  The timestamp for this action.
      *
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      * @throws InvalidArgumentException
      */
     public function getActionTimestamp($uid, $action, $sources = null)
@@ -579,19 +587,19 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         $last = 0;
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             $ts = $history->getActionTimestamp('turba:' . $driver->getName()
@@ -616,7 +624,7 @@ class Turba_Api extends Horde_Registry_Api
      *                             imported.
      *
      * @return string  The new UID, or false on failure.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function import($content, $contentType = 'array',
                            $import_source = null)
@@ -635,16 +643,16 @@ class Turba_Api extends Horde_Registry_Api
 
         // Check existance of and permissions on the specified source.
         if (!isset($cfgSources[$import_source])) {
-            throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $import_source));
+            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
         }
 
         $driver = Turba_Driver::singleton($import_source);
         if ($driver instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
-            throw new Horde_Exception(_("Permission denied"));
+            throw new Turba_Exception(_("Permission denied"));
         }
 
         /* Create a category manager. */
@@ -661,11 +669,11 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/directory':
                 $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
-                    throw new Horde_Exception(_("There was an error importing the iCalendar data."));
+                    throw new Turba_Exception(_("There was an error importing the iCalendar data."));
                 }
                 switch ($iCal->getComponentCount()) {
                 case 0:
-                    throw new Horde_Exception(_("No vCard data was found."));
+                    throw new Turba_Exception(_("No vCard data was found."));
 
                 case 1:
                     $content = $iCal->getComponent(0);
@@ -678,13 +686,13 @@ class Turba_Api extends Horde_Registry_Api
                             $content = $driver->toHash($c);
                             $result = $driver->search($content);
                             if ($result instanceof PEAR_Error) {
-                                throw new Horde_Exception($result->getMessage());
+                                throw new Turba_Exception($result);
                             } elseif (count($result)) {
                                 continue;
                             }
                             $result = $driver->add($content);
                             if ($result instanceof PEAR_Error) {
-                                throw new Horde_Exception($result->getMessage());
+                                throw new Turba_Exception($result);
                             }
                             if (!empty($content['category']) &&
                                 !in_array($content['category'], $categories)) {
@@ -703,7 +711,7 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             default:
-                throw new Horde_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+                throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
             }
         }
 
@@ -714,15 +722,15 @@ class Turba_Api extends Horde_Registry_Api
         // Check if the entry already exists in the data source:
         $result = $driver->search($content);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            throw new Turba_Exception($result->getMessage());
         } elseif (count($result)) {
             $o = $result->objects[0];
-            throw new Horde_Exception(_("Already Exists"));
+            throw new Turba_Exception(_("Already Exists"));
         }
 
         $result = $driver->add($content);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            throw new Turba_Exception($result->getMessage());
         }
 
         if (!empty($content['category']) &&
@@ -753,7 +761,7 @@ class Turba_Api extends Horde_Registry_Api
      *                               properties with the requested fields.
      *
      * @return mixed  The requested data.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function export($uid, $contentType, $sources = null, $fields = null)
     {
@@ -769,21 +777,21 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             if (empty($uid)) {
-                throw new Horde_Exception(_("Invalid ID"));
+                throw new Turba_Exception(_("Invalid ID"));
             }
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             if (!$driver->hasPermission(Horde_Perms::READ)) {
@@ -792,11 +800,11 @@ class Turba_Api extends Horde_Registry_Api
 
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
+                throw new Turba_Exception($result->getMessage());
             } elseif (count($result) == 0) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Horde_Exception("Internal Horde Error: multiple turba objects with same objectId.");
+                throw new Turba_Exception("Internal Horde Error: multiple turba objects with same objectId.");
             }
 
 
@@ -817,7 +825,7 @@ class Turba_Api extends Horde_Registry_Api
                     $export .= $vcard->exportvCalendar();
                 }
                 return $export;
-            
+
             case 'array':
                 $attributes = array();
                 foreach ($result->objects as $object) {
@@ -836,27 +844,27 @@ class Turba_Api extends Horde_Registry_Api
                 return $driver->toASContact($return);
             }
 
-            throw new Horde_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+            throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
 
-        throw new Horde_Exception(_("Object not found"));
+        throw new Turba_Exception(_("Object not found"));
     }
 
     /**
      * Exports the user's own contact as a vCard string.
      *
      * @return string  The requested vCard data.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function ownVCard()
     {
         $contact = $this->getOwnContactObject();
         if ($contact instanceof PEAR_Error) {
-            throw new Horde_Exception($contact->getMessage());
+            throw new Turba_Exception($contact);
         }
         $driver = Turba_Driver::singleton($contact['source']);
         if ($driver instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
         $vcard = $driver->tovCard($contact['contact'], '3.0', null, true);
         $vcard->setAttribute('VERSION', '3.0');
@@ -868,15 +876,11 @@ class Turba_Api extends Horde_Registry_Api
      * Export the user's own contact as a hash
      *
      * @return array  The contact hash.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function ownContact()
     {
         $contact = $this->getOwnContactObject();
-        if ($contact instanceof PEAR_Error) {
-            throw new Horde_Exception($contact->getMessage());
-        }
-
         return $contact['contact']->getAttributes();
     }
 
@@ -885,7 +889,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @return array  A hash containing the Turba_Object representing the
      *                user's own contact and the source that it is from.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getOwnContactObject()
     {
@@ -893,26 +897,26 @@ class Turba_Api extends Horde_Registry_Api
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
         if (empty($own_contact)) {
-            throw new Horde_Exception(_("You didn't mark a contact as your own yet."));
+            throw new Turba_Exception(_("You didn't mark a contact as your own yet."));
         }
         @list($source, $id) = explode(';', $own_contact);
 
         if (!isset($cfgSources[$source])) {
-            throw new Horde_Exception(_("The address book with your own contact doesn't exist anymore."));
+            throw new Turba_Exception(_("The address book with your own contact doesn't exist anymore."));
         }
 
         $driver = Turba_Driver::singleton($source);
         if ($driver instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
 
         if (!$driver->hasPermission(Horde_Perms::READ)) {
-            throw new Horde_Exception(_("You don't have sufficient permissions to read the address book that contains your own contact."));
+            throw new Turba_Exception(_("You don't have sufficient permissions to read the address book that contains your own contact."));
         }
 
         $contact = $driver->getObject($id);
         if ($contact instanceof PEAR_Error) {
-            throw new Horde_Exception(_("Your own contact cannot be found in the address book."));
+            throw new Turba_Exception(_("Your own contact cannot be found in the address book."));
         }
 
         $return = array('contact' => $contact,
@@ -930,7 +934,7 @@ class Turba_Api extends Horde_Registry_Api
      *                               be deleted.
      *
      * @return boolean  Success or failure.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function delete($uid, $sources = null)
     {
@@ -938,10 +942,7 @@ class Turba_Api extends Horde_Registry_Api
         // at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                $result = $this->delete($uid, $source);
-                if ($result instanceof PEAR_Error) {
-                    throw new Horde_Exception($result->getMessage());
-                }
+                $this->delete($uid, $source);
             }
 
             return true;
@@ -959,21 +960,21 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             if (empty($uid)) {
-                throw new Horde_Exception(_("Invalid ID"));
+                throw new Turba_Exception(_("Invalid ID"));
             }
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             if (!$GLOBALS['registry']->isAdmin() &&
@@ -985,7 +986,7 @@ class Turba_Api extends Horde_Registry_Api
             // true. Otherwise, try to delete it and return success or failure.
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
+                throw new Turba_Exception($result->getMessage());
             } elseif (count($result) == 0) {
                 continue;
             } else {
@@ -1010,7 +1011,7 @@ class Turba_Api extends Horde_Registry_Api
      *                               replaced.
      *
      * @return boolean  Success or failure.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function replace($uid, $content, $contentType, $sources = null)
     {
@@ -1026,33 +1027,33 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
         if (empty($sources)) {
-            throw new Horde_Exception(_("No address book specified"));
+            throw new Turba_Exception(_("No address book specified"));
         }
 
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
-                throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+                throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
             if (empty($uid)) {
-                throw new Horde_Exception(_("Invalid contact unique ID"));
+                throw new Turba_Exception(_("Invalid contact unique ID"));
             }
 
             // Check permissions.
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
             if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                 continue;
             }
             $result = $driver->search(array('__uid' => $uid));
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
+                throw new Turba_Exception($result);
             } elseif (!count($result)) {
                 continue;
             } elseif (count($result) > 1) {
-                throw new Horde_Exception(_("Multiple contacts found with same unique ID."));
+                throw new Turba_Exception(_("Multiple contacts found with same unique ID."));
             }
 
             $object = $result->objects[0];
@@ -1066,12 +1067,12 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/directory':
                 $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
-                    throw new Horde_Exception(_("There was an error importing the iCalendar data."));
+                    throw new Turba_Exception(_("There was an error importing the iCalendar data."));
                 }
 
                 switch ($iCal->getComponentCount()) {
                 case 0:
-                    throw new Horde_Exception(_("No vCard data was found."));
+                    throw new Turba_Exception(_("No vCard data was found."));
 
                 case 1:
                     $content = $iCal->getComponent(0);
@@ -1079,7 +1080,7 @@ class Turba_Api extends Horde_Registry_Api
                     break;
 
                 default:
-                    throw new Horde_Exception(_("Only one vcard supported."));
+                    throw new Turba_Exception(_("Only one vcard supported."));
                 }
                 break;
             case 'activesync':
@@ -1094,7 +1095,7 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             default:
-                throw new Horde_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+                throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
             }
 
             foreach ($content as $attribute => $value) {
@@ -1106,7 +1107,7 @@ class Turba_Api extends Horde_Registry_Api
             return $object->store();
         }
 
-        throw new Horde_Exception(_("Object not found"));
+        throw new Turba_Exception(_("Object not found"));
     }
 
     /**
@@ -1121,7 +1122,7 @@ class Turba_Api extends Horde_Registry_Api
      *                              preferences?
      *
      * @return array  Hash containing the search results.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function search($names = array(), $sources = array(),
                            $fields = array(), $matchBegin = false,
@@ -1171,7 +1172,7 @@ class Turba_Api extends Horde_Registry_Api
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
             // Determine the name of the column to sort by.
@@ -1314,7 +1315,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $objectId  The unique id of the contact to retrieve
      *
      * @return array  The retrieved contact.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getContact($source = null, $objectId = '')
     {
@@ -1327,12 +1328,12 @@ class Turba_Api extends Horde_Registry_Api
         if (isset($cfgSources[$source])) {
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception($driver->getMessage());
+                throw new Turba_Exception($driver);
             }
 
             $object = $driver->getObject($objectId);
             if ($object instanceof PEAR_Error) {
-                throw new Horde_Exception($object->getMessage());
+                throw new Turba_Exception($object);
             }
 
             $attributes = array();
@@ -1352,7 +1353,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $objectIds  The unique ids of the contact to retrieve.
      *
      * @return array  The retrieved contact.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getContacts($source = '', $objectIds = array())
     {
@@ -1369,12 +1370,12 @@ class Turba_Api extends Horde_Registry_Api
         if (isset($cfgSources[$source])) {
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception($driver->getMessage());
+                throw new Turba_Exception($driver->getMessage());
             }
 
             $objects = $driver->getObjects($objectIds);
             if ($objects instanceof PEAR_Error) {
-                throw new Horde_Exception($objects->getMessage());
+                throw new Turba_Exception($objects->getMessage());
             }
 
             foreach ($objects as $object) {
@@ -1396,7 +1397,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $sources  Array containing the sources to look in
      *
      * @return array  An array of fields and possible values.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getAllAttributeValues($field = '', $sources = array())
     {
@@ -1415,12 +1416,12 @@ class Turba_Api extends Horde_Registry_Api
             if (isset($cfgSources[$source])) {
                 $driver = Turba_Driver::singleton($source);
                 if ($driver instanceof PEAR_Error) {
-                    throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                    throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
                 }
 
                 $res = $driver->search(array());
                 if (!($res instanceof Turba_List)) {
-                    throw new Horde_Exception(_("Search failed"));
+                    throw new Turba_Exception(_("Search failed"));
                 }
 
                 while ($ob = $res->next()) {
@@ -1468,7 +1469,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param mixed $end              The end date of the period.
      *
      * @return array  An array of timeObject results.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
@@ -1486,11 +1487,11 @@ class Turba_Api extends Horde_Registry_Api
             list($category, $source) = explode('/', $category, 2);
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
             $new_objects = $driver->listTimeObjects($start, $end, $category);
             if ($new_objects instanceof PEAR_Error) {
-                throw new Horde_Exception($new_objects->getMessage());
+                throw new Turba_Exception($new_objects);
             }
             $objects = array_merge($objects, $new_objects);
         }
@@ -1607,7 +1608,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $source   Contact source
      *
      * @return string  The new __key value on success.
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function addField($address = '', $name = '', $field = '',
                              $value = '',
@@ -1616,52 +1617,52 @@ class Turba_Api extends Horde_Registry_Api
         global $cfgSources;
 
         if (empty($source) || !isset($cfgSources[$source])) {
-            throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
+            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
         }
 
         if (empty($address)) {
-            throw new Horde_Exception(_("Invalid email"));
+            throw new Turba_Exception(_("Invalid email"));
         }
 
         if (empty($name)) {
-            throw new Horde_Exception(_("Invalid name"));
+            throw new Turba_Exception(_("Invalid name"));
         }
 
         if (empty($value)) {
-            throw new Horde_Exception(_("Invalid entry"));
+            throw new Turba_Exception(_("Invalid entry"));
         }
 
         $driver = Turba_Driver::singleton($source);
         if ($driver instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
+            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
-            throw new Horde_Exception(_("Permission denied"));
+            throw new Turba_Exception(_("Permission denied"));
         }
 
         $res = $driver->search(array('email' => trim($address)), null, 'AND');
         if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception(sprintf(_("Search failed: %s"), $res->getMessage()));
+            throw new Turba_Exception(sprintf(_("Search failed: %s"), $res->getMessage()));
         }
 
         if (count($res) > 1) {
             $res2 = $driver->search(array('email' => trim($address), 'name' => trim($name)), null, 'AND');
             if ($res2 instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Search failed: %s"), $res2->getMessage()));
+                throw new Turba_Exception(sprintf(_("Search failed: %s"), $res2->getMessage()));
             }
 
             if (!count($res2)) {
-                throw new Horde_Exception(sprintf(_("Multiple persons with address [%s], but none with name [%s] already exist"), trim($address), trim($name)));
+                throw new Turba_Exception(sprintf(_("Multiple persons with address [%s], but none with name [%s] already exist"), trim($address), trim($name)));
             }
 
             $res3 = $driver->search(array('email' => $address, 'name' => $name, $field => $value));
             if ($res3 instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Search failed: %s"), $res3->getMessage()));
+                throw new Turba_Exception(sprintf(_("Search failed: %s"), $res3->getMessage()));
             }
 
             if (count($res3)) {
-                throw new Horde_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
+                throw new Turba_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
             }
 
             $ob = $res2->next();
@@ -1670,11 +1671,11 @@ class Turba_Api extends Horde_Registry_Api
         } elseif (count($res) == 1) {
             $res4 = $driver->search(array('email' => $address, $field => $value));
             if ($res4 instanceof PEAR_Error) {
-                throw new Horde_Exception(sprintf(_("Search failed: %s"), $res4->getMessage()));
+                throw new Turba_Exception(sprintf(_("Search failed: %s"), $res4->getMessage()));
             }
 
             if (count($res4)) {
-                throw new Horde_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
+                throw new Turba_Exception(sprintf(_("This person already has a %s entry in the address book"), $field));
             }
 
             $ob = $res->next();
@@ -1698,7 +1699,7 @@ class Turba_Api extends Horde_Registry_Api
      *                           return an error if this is false.
      *
      * @return array  An array of field value(s).
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function getField($address = '', $field = '', $sources = array(),
                              $strict = false, $multiple = false)
@@ -1706,7 +1707,7 @@ class Turba_Api extends Horde_Registry_Api
         global $cfgSources;
 
         if (empty($address)) {
-            throw new Horde_Exception(_("Invalid email"));
+            throw new Turba_Exception(_("Invalid email"));
         }
 
         if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
@@ -1725,7 +1726,7 @@ class Turba_Api extends Horde_Registry_Api
 
             $driver = Turba_Driver::singleton($source);
             if ($driver instanceof PEAR_Error) {
-                throw new Horde_Exception($driver->getMessage());
+                throw new Turba_Exception($driver);
             }
 
             $list = $driver->search(array('email' => $address), null, 'AND', array(), $strict ? array('email') : array());
@@ -1744,10 +1745,10 @@ class Turba_Api extends Horde_Registry_Api
             if ($multiple) {
                 return $result;
             } else {
-                throw new Horde_Exception(_("More than 1 entry found"));
+                throw new Turba_Exception(_("More than 1 entry found"));
             }
         } elseif (empty($result)) {
-            throw new Horde_Exception(sprintf(_("No %s entry found for %s"), $field, $address));
+            throw new Turba_Exception(sprintf(_("No %s entry found for %s"), $field, $address));
         }
         return reset($result);
     }
@@ -1760,14 +1761,14 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $sources  Sources to delete value from
      *
      * @return boolean  TODO
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function deleteField($address = '', $field = '', $sources = array())
     {
         global $cfgSources;
 
         if (empty($address)) {
-            throw new Horde_Exception(_("Invalid email"));
+            throw new Turba_Exception(_("Invalid email"));
         }
 
         if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
@@ -1784,7 +1785,7 @@ class Turba_Api extends Horde_Registry_Api
             if (isset($cfgSources[$source])) {
                 $driver = Turba_Driver::singleton($source);
                 if ($driver instanceof PEAR_Error) {
-                    throw new Horde_Exception($driver->getMessage());
+                    throw new Turba_Exception($driver->getMessage());
                 }
                 if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                     continue;
@@ -1807,7 +1808,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (!$success) {
-            throw new Horde_Exception(sprintf(_("No %s entry found for %s"), $field, $address));
+            throw new Turba_Exception(sprintf(_("No %s entry found for %s"), $field, $address));
         }
 
         return;
