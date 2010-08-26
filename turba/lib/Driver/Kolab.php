@@ -903,34 +903,13 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
                 }
             } else {
                 // 'op' is LIKE
-                if (!empty($test['begin'])) {
-                    $begin = true;
-                } else {
-                    $begin = false;
-                }
-
-                // PHP 4 compatibility
-                $has_stripos = function_exists('stripos');
-                if (!$has_stripos) {
-                    $value = strtolower($value);
-                }
-
                 foreach ($entries as $entry) {
-                    if (empty($value)) {
+                    if (empty($value) ||
+                        (isset($entry[$field]) &&
+                         !empty($test['begin']) &&
+                         (($pos = stripos($entry[$field], $value)) !== false) &&
+                         ($pos == 0))) {
                         $ids[] = $entry['uid'];
-                    } else if (isset($entry[$field])) {
-                        if ($has_stripos) {
-                            $pos = stripos($entry[$field], $value);
-                        } else {
-                            $pos = strpos(strtolower($entry[$field]), $value);
-                        }
-
-                        if ($pos === false) {
-                            continue;
-                        }
-                        if (!$begin || $pos == 0) {
-                            $ids[] = $entry['uid'];
-                        }
                     }
                 }
             }
