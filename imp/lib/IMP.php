@@ -192,7 +192,9 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        $tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createTree('imp_flist_select', array(
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter();
+        $tree = $imaptree->createTree(strval(new Horde_Support_Randomid()), array(
             'render_type' => 'IMP_Tree_Flist'
         ));
         if (!empty($options['selected'])) {
