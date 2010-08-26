@@ -93,9 +93,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         }
 
         // Initiate driver
-        $driver = &Turba_Driver::singleton($import_source);
-        if (is_a($driver, 'PEAR_Error')) {
-            $cli->message('  ' . sprintf(_("Connection failed: %s"), $driver->getMessage()), 'cli.error');
+        try {
+            $driver = $injector->getInstance('Turba_Driver')->getDriver($import_source);
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . sprintf(_("Connection failed: %s"), $e->getMessage()), 'cli.error');
             continue;
         }
     }

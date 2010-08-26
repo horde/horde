@@ -21,9 +21,10 @@ if (!isset($GLOBALS['cfgSources'][$source])) {
 }
 
 /* Set the contact from the key requested. */
-$driver = Turba_Driver::singleton($source);
-if ($driver instanceof PEAR_Error) {
-    $notification->push($driver->getMessage(), 'horde.error');
+try {
+    $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 

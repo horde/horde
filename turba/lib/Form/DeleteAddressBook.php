@@ -35,6 +35,8 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
 
     /**
      * @TODO Remove share from 'addressbooks' pref
+     *
+     * @throws Turba_Exception
      */
     function execute()
     {
@@ -45,18 +47,15 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
 
         if (!$GLOBALS['registry']->getAuth() ||
             $this->_addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError(_("You do not have permissions to delete this address book."));
+            throw new Turba_Exception(_("You do not have permissions to delete this address book."));
         }
 
-        $driver = &Turba_Driver::singleton($this->_addressbook->getName());
-        if (is_a($driver, 'PEAR_Error')) {
-            return $driver;
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($this->_addressbook->getName());
 
         // We have a Turba_Driver, try to delete the address book.
         $result = $driver->deleteAll();
         if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Turba_Exception($result);
         }
 
         // Address book successfully deleted from backend, remove the

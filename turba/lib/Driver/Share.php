@@ -76,15 +76,12 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
-     * Initialize
+     * @throws Turba_Exception
      */
-    function _init()
+    protected function _init()
     {
         $this->_share = &$this->_params['config']['params']['share'];
-        $this->_driver = &Turba_Driver::factory($this->name, $this->_params['config']);
-        if (is_a($this->_driver, 'PEAR_Error')) {
-            return $this->_driver;
-        }
+        $this->_driver = Turba_Driver::factory($this->name, $this->_params['config']);
         $this->_driver->_contact_owner = $this->_getContactOwner();
     }
 

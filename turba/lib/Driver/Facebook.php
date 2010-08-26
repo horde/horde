@@ -18,13 +18,6 @@ class Turba_Driver_Facebook extends Turba_Driver
     private $_facebook;
 
     /**
-     */
-    function _init()
-    {
-        return true;
-    }
-
-    /**
      * Checks if the current user has the requested permissions on this
      * source.
      *

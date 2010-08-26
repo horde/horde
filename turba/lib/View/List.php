@@ -145,22 +145,12 @@ class Turba_View_List implements Countable
     {
         global $prefs, $default_source, $copymove_source_options;
 
-        $driver = Turba_Driver::singleton($default_source);
-        $hasDelete = false;
-        $hasEdit = false;
-        $hasExport = false;
-        if (!is_a($driver, 'PEAR_Error')) {
-            if ($driver->hasPermission(Horde_Perms::DELETE)) {
-                $hasDelete = true;
-            }
-            if ($driver->hasPermission(Horde_Perms::EDIT)) {
-                $hasEdit = true;
-            }
-            if ($GLOBALS['conf']['menu']['import_export']
-                && !empty($GLOBALS['cfgSources'][$default_source]['export'])) {
-                $hasExport = true;
-            }
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($default_source);
+
+        $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
+        $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
+        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+
         list($addToList, $addToListSources) = $this->getAddSources();
 
         $viewurl = Horde::applicationUrl('browse.php')->add(array(
@@ -404,7 +394,7 @@ class Turba_View_List implements Countable
                                             'name' => '&nbsp;&nbsp;' . htmlspecialchars($srcConfig['title']),
                                             'source' => htmlspecialchars($src));
 
-                $srcDriver = &Turba_Driver::singleton($src);
+                $srcDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($src);
                 $listList = $srcDriver->search(array('__type' => 'Group'),
                                                array(array('field' => 'name',
                                                            'ascending' => true)),

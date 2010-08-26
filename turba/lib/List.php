@@ -37,10 +37,10 @@ class Turba_List implements Countable
     {
         foreach ($ids as $value) {
             list($source, $key) = explode(':', $value);
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof Turba_Driver) {
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 $this->insert($driver->getObject($key));
-            }
+            } catch (Turba_Exception $e) {}
         }
     }
 

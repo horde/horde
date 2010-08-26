@@ -9,13 +9,6 @@
 class Turba_Driver_Prefs extends Turba_Driver
 {
     /**
-     */
-    function _init()
-    {
-        return true;
-    }
-
-    /**
      * Returns all entries - searching isn't implemented here for now. The
      * parameters are simply ignored.
      *

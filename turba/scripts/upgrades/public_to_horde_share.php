@@ -76,12 +76,9 @@ $share->save();
 $CLI->message('Created new Horde_Share object for the shared address book.', 'cli.success');
 
 // Share created, now get a Turba_Driver and make the changes.
-$driver = &Turba_Driver::singleton($sourceKey);
-if (is_a($driver, 'PEAR_Error')) {
-    var_dump($driver);
-    exit;
-}
-$db = & $driver->_db;
+$driver = $injector->getInstance('Turba_Driver')->getDriver($sourceKey);
+
+$db = &$driver->_db;
 if (is_a($db, 'PEAR_Error')) {
     var_dump($db);
 }

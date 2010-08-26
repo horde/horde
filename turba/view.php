@@ -27,7 +27,8 @@ $type = Horde_Util::getFormData('type');
 if (!isset($cfgSources[$source])) {
     throw new Turba_Exception(_("The contact you requested does not exist."));
 }
-$driver = Turba_Driver::singleton($source);
+
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 $object = $driver->getObject($key);
 if (is_a($object, 'PEAR_Error')) {
     throw new Turba_Exception($object);

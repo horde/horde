@@ -18,7 +18,7 @@ Horde_Registry::appInit('turba');
 
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 if ($conf['documents']['type'] != 'none') {
     $object = $driver->getObject($key);

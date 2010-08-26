@@ -50,26 +50,22 @@ class Turba_Driver_Vbook extends Turba_Driver
     }
 
     /**
+     * @throws Turba_Exception
      */
-    function _init()
+    protected function _init()
     {
         /* Grab a reference to the share for this vbook. */
         $this->_share = $this->_params['share'];
 
         /* Load the underlying driver. */
-        $this->_driver = &Turba_Driver::singleton($this->_params['source']);
-        if (is_a($this->_driver, 'PEAR_Error')) {
-            return $this->_driver;
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($this->_params['source']);
 
-        if (!empty($this->_params['criteria'])) {
-            $this->searchCriteria = $this->_params['criteria'];
-        } else {
-            $this->searchCriteria = array();
-        }
-        $this->searchType = count($this->searchCriteria) > 1 ? 'advanced' : 'basic';
-
-        return true;
+        $this->searchCriteria = empty($this->_params['criteria'])
+            ? array()
+            : $this->_params['criteria'];
+        $this->searchType = (count($this->searchCriteria) > 1)
+            ? 'advanced'
+            : 'basic';
     }
 
     /**

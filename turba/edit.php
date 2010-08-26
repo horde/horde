@@ -45,7 +45,7 @@ if ($source === null || !isset($cfgSources[$source])) {
     $url->redirect();
 }
 
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 /* Set the contact from the requested key. */
 $contact = $driver->getObject($key);

@@ -50,13 +50,13 @@ class Turba_Api extends Horde_Registry_Api
 
         @list($source, $key) = explode('.', $id, 2);
         if (isset($GLOBALS['cfgSources'][$source]) && $key) {
-            $driver = Turba_Driver::singleton($source);
-            if (!($driver instanceof PEAR_Error)) {
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 $object = $driver->getObject($key);
                 if (!($object instanceof PEAR_Error)) {
                     return $object->getValue('name');
                 }
-            }
+            } catch (Turba_Exception $e) {}
         }
 
         return false;
@@ -322,10 +322,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = Turba_Driver::singleton($parts[1]);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($parts[1]);
 
             $contacts = $driver->search(array());
             if ($contacts instanceof PEAR_Error) {
@@ -376,10 +373,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = Turba_Driver::singleton($parts[1]);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($parts[1]);
 
             $contact = $driver->getObject($parts[2]);
             if ($contact instanceof PEAR_Error) {
@@ -429,10 +423,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         // Load the Turba driver.
-        $driver = Turba_Driver::singleton($parts[1]);
-        if ($driveri instanceof PEAR_Error) {
-            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($parts[1]);
 
         $ret = $driver->delete($parts[2]);
         if ($ret instanceof PEAR_Error) {
@@ -477,13 +468,9 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $storage = Turba_Driver::singleton($source);
-            if ($storage instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $storage->getMessage()));
-            }
+            $storage = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $results = $storage->search(array());
-
             if ($results instanceof PEAR_Error) {
                 throw new Turba_Exception(sprintf(_("Error searching the address book: %s"), $results->getMessage()));
             }
@@ -540,10 +527,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $histories = $history->getByTimestamp(
                 '>', $timestamp, $filter,
@@ -597,10 +581,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
             }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $ts = $history->getActionTimestamp('turba:' . $driver->getName()
                 . ':' . $uid,
@@ -646,10 +627,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
         }
 
-        $driver = Turba_Driver::singleton($import_source);
-        if ($driver instanceof PEAR_Error) {
-            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($import_source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -789,10 +767,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(_("Invalid ID"));
             }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             if (!$driver->hasPermission(Horde_Perms::READ)) {
                 continue;
@@ -859,13 +834,8 @@ class Turba_Api extends Horde_Registry_Api
     public function ownVCard()
     {
         $contact = $this->getOwnContactObject();
-        if ($contact instanceof PEAR_Error) {
-            throw new Turba_Exception($contact);
-        }
-        $driver = Turba_Driver::singleton($contact['source']);
-        if ($driver instanceof PEAR_Error) {
-            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($contact['source']);
+
         $vcard = $driver->tovCard($contact['contact'], '3.0', null, true);
         $vcard->setAttribute('VERSION', '3.0');
 
@@ -905,10 +875,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("The address book with your own contact doesn't exist anymore."));
         }
 
-        $driver = Turba_Driver::singleton($source);
-        if ($driver instanceof PEAR_Error) {
-            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
         if (!$driver->hasPermission(Horde_Perms::READ)) {
             throw new Turba_Exception(_("You don't have sufficient permissions to read the address book that contains your own contact."));
@@ -972,10 +939,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(_("Invalid ID"));
             }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             if (!$GLOBALS['registry']->isAdmin() &&
                 !$driver->hasPermission(Horde_Perms::DELETE)) {
@@ -1040,10 +1004,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Check permissions.
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
             if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                 continue;
             }
@@ -1170,10 +1131,7 @@ class Turba_Api extends Horde_Registry_Api
                     continue;
                 }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             // Determine the name of the column to sort by.
             $columns = isset($sort_columns[$source])
@@ -1326,10 +1284,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (isset($cfgSources[$source])) {
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception($driver);
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $object = $driver->getObject($objectId);
             if ($object instanceof PEAR_Error) {
@@ -1368,14 +1323,11 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         if (isset($cfgSources[$source])) {
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception($driver->getMessage());
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $objects = $driver->getObjects($objectIds);
             if ($objects instanceof PEAR_Error) {
-                throw new Turba_Exception($objects->getMessage());
+                throw new Turba_Exception($objects);
             }
 
             foreach ($objects as $object) {
@@ -1414,10 +1366,7 @@ class Turba_Api extends Horde_Registry_Api
         $results = array();
         foreach ($sources as $source) {
             if (isset($cfgSources[$source])) {
-                $driver = Turba_Driver::singleton($source);
-                if ($driver instanceof PEAR_Error) {
-                    throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-                }
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
                 $res = $driver->search(array());
                 if (!($res instanceof Turba_List)) {
@@ -1485,10 +1434,7 @@ class Turba_Api extends Horde_Registry_Api
         $objects = array();
         foreach ($time_categories as $category) {
             list($category, $source) = explode('/', $category, 2);
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
             $new_objects = $driver->listTimeObjects($start, $end, $category);
             if ($new_objects instanceof PEAR_Error) {
                 throw new Turba_Exception($new_objects);
@@ -1632,10 +1578,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Invalid entry"));
         }
 
-        $driver = Turba_Driver::singleton($source);
-        if ($driver instanceof PEAR_Error) {
-            throw new Turba_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -1724,10 +1667,7 @@ class Turba_Api extends Horde_Registry_Api
                 continue;
             }
 
-            $driver = Turba_Driver::singleton($source);
-            if ($driver instanceof PEAR_Error) {
-                throw new Turba_Exception($driver);
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
 
             $list = $driver->search(array('email' => $address), null, 'AND', array(), $strict ? array('email') : array());
             if (!($list instanceof Turba_List)) {
@@ -1783,10 +1723,7 @@ class Turba_Api extends Horde_Registry_Api
 
         foreach ($sources as $source) {
             if (isset($cfgSources[$source])) {
-                $driver = Turba_Driver::singleton($source);
-                if ($driver instanceof PEAR_Error) {
-                    throw new Turba_Exception($driver->getMessage());
-                }
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                     continue;
                 }

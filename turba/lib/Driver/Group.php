@@ -21,14 +21,6 @@ class Turba_Driver_Group extends Turba_Driver
     }
 
     /**
-     * Initialize the group driver.
-     */
-    function _init()
-    {
-        return true;
-    }
-
-    /**
      * Checks if the current user has the requested permissions on this
      * source.  This source is always read only.
      *
