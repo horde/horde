@@ -308,7 +308,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     if (!$child->nextSibling) {
                         $tmp = rtrim($tmp);
                     }
-                    $out = $tmp;
+                    $out .= $tmp;
                 }
             }
         }
