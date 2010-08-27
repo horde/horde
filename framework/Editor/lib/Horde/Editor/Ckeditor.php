@@ -44,7 +44,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
             : 'ckeditor_basic.js';
-        $ck_path = $GLOBALS['registry']->get('webroot', 'horde') . '/services/editor/ckeditor/';
+        $ck_path = $GLOBALS['registry']->get('jsuri', 'horde') . '/ckeditor/';
 
         /* Globally disable spell check as you type. */
         $params['config']['scayt_autoStartup'] = false;
