@@ -32,6 +32,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>* Removed Xinha driver.
  * Added CKEditor driver.
+ * Removed FCKEditor driver
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -41,7 +42,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Editor">
       <file name="Ckeditor.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="Fckeditor.php" role="php" />
      </dir> <!-- /lib/Horde/Editor -->
      <file name="Editor.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -78,7 +78,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Editor/Ckeditor.php" as="Horde/Editor/Ckeditor.php" />
    <install name="lib/Horde/Editor/Exception.php" as="Horde/Editor/Exception.php" />
-   <install name="lib/Horde/Editor/Fckeditor.php" as="Horde/Editor/Fckeditor.php" />
    <install name="lib/Horde/Editor.php" as="Horde/Editor.php" />
   </filelist>
  </phprelease>
