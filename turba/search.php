@@ -12,29 +12,6 @@
  */
 
 /**
- * Add a virtual address book for the current user.
- *
- * @param array  The parameters for this virtual address book.
- *
- * @return mixed  The virtual address book ID | PEAR_Error
- */
-function _createVBook($params)
-{
-    $params = array(
-        'name' => $params['name'],
-        'params' => serialize(array('type' => 'vbook',
-                                    'source' => $params['source'],
-                                    'criteria' => $params['criteria'])));
-
-    try {
-        $share = Turba::createShare(strval(new Horde_Support_RandomId()), $params);
-    } catch (Horde_Share_Exception $e) {
-        throw new Turba_Exception($e);
-    }
-    return $share->getName();
-}
-
-/**
  * Check for requested changes in sort order and apply to prefs.
  */
 function updateSortOrderFromVars()
@@ -152,14 +129,21 @@ if ($driver) {
             /* Create the vbook. */
             $params = array(
                 'name' => $vname,
-                'source' => $source,
-                'criteria' => $_SESSION['turba']['search_mode'] == 'basic' ? array($criteria => $val) : $criteria,
+                'params' => serialize(array(
+                    'type' => 'vbook',
+                    'source' => $source,
+                    'criteria' => $_SESSION['turba']['search_mode'] == 'basic' ? array($criteria => $val) : $criteria
+                ))
             );
-            $vid = _createVBook($params);
-            if (is_a($vid, 'PEAR_Error')) {
-                $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $vid->getMessage()), 'horde.error');
+
+            try {
+                $share = Turba::createShare(strval(new Horde_Support_RandomId()), $params);
+                $vid = $share->getName();
+            } catch (Horde_Share_Exception $e) {
+                $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $e->getMessage()), 'horde.error');
                 Horde::applicationUrl('search.php', true)->redirect();
             }
+
             $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
 
             Horde::applicationUrl('browse.php', true)
