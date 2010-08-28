@@ -84,7 +84,7 @@ chmod($web_dir . '/static', $static_mode);
 
 print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
-system(dirname(__FILE__) . '/install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
+system(dirname(__FILE__) . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
 
 print "\nLINKING applications to web directory " . $web_dir . "\n";
 foreach ($apps as $app) {
