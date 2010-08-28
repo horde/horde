@@ -387,13 +387,13 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Horde_Exception
      */
     public function removeUserData($user)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            $user != $GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
+            ($user != $GLOBALS['registry']->getAuth())) {
+            throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
 
         /* We need a clean copy of the $cfgSources array here.*/
@@ -455,10 +455,8 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         if ($hasError) {
-            return PEAR::raiseError(sprintf(_("There was an error removing an address book for %s"), $user));
+            throw new Horde_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
         }
-
-        return true;
     }
 
 }
