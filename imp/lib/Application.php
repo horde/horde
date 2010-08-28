@@ -206,7 +206,7 @@ class IMP_Application extends Horde_Registry_Application
             : $allowed;
     }
 
-    /* Horde_Auth_Application methods. */
+    /* Horde_Core_Auth_Application methods. */
 
     /**
      * Return login parameters used on the login page.
@@ -308,7 +308,7 @@ class IMP_Application extends Horde_Registry_Application
      * Tries to transparently authenticate with the mail server and create a
      * mail session.
      *
-     * @param Horde_Auth_Application $auth_ob  The authentication object.
+     * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
@@ -339,12 +339,17 @@ class IMP_Application extends Horde_Registry_Application
      * @param array $credentials  An array of login credentials. For IMAP,
      *                            this must contain a password entry.
      *
-     * @throws Horde_Exception
-     * @throws IMP_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authAddUser($userId, $credentials)
     {
-        $GLOBALS['injector']->getInstance('IMP_AuthImap')->addUser($userId, $credentials);
+        try {
+            $GLOBALS['injector']->getInstance('IMP_AuthImap')->addUser($userId, $credentials);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
     }
 
     /**
@@ -352,24 +357,34 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
-     * @throws IMP_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authRemoveUser($userId)
     {
-        $GLOBALS['injector']->getInstance('IMP_AuthImap')->removeUser($userId);
+        try {
+            $GLOBALS['injector']->getInstance('IMP_AuthImap')->removeUser($userId);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
     }
 
     /**
      * Lists all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
-     * @throws IMP_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authUserList()
     {
-        return $GLOBALS['injector']->getInstance('IMP_AuthImap')->listUsers();
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_AuthImap')->listUsers();
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
     }
 
     /* Preferences display/handling methods. Code is contained in
