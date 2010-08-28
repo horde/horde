@@ -3,8 +3,15 @@
  * Read-only Turba_Driver implementation for creating a Horde_Group based
  * address book.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Turba
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Group extends Turba_Driver
 {
@@ -28,7 +35,7 @@ class Turba_Driver_Group extends Turba_Driver
      *
      * @return boolean  True if the user has permission, otherwise false.
      */
-    function hasPermission($perm)
+    public function hasPermission($perm)
     {
         switch ($perm) {
         case Horde_Perms::EDIT:
@@ -51,10 +58,12 @@ class Turba_Driver_Group extends Turba_Driver
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
         $results = array();
+
         foreach ($this->_getAddressBook() as $key => $contact) {
             $found = !isset($criteria['OR']);
             foreach ($criteria as $op => $vals) {
@@ -90,6 +99,7 @@ class Turba_Driver_Group extends Turba_Driver
                 $results[$key] = $contact;
             }
         }
+
         return $results;
     }
 
@@ -101,9 +111,9 @@ class Turba_Driver_Group extends Turba_Driver
      * @param string $id       Data identifier.
      * @param array $fields    List of fields to return.
      *
-     * @return  Hash containing the search results.
+     * @return array  Hash containing the search results.
      */
-    function _read($criteria, $ids, $fields)
+    protected function _read($criteria, $ids, $fields)
     {
         $book = $this->_getAddressBook();
         $results = array();
@@ -119,7 +129,10 @@ class Turba_Driver_Group extends Turba_Driver
         return $results;
     }
 
-    function _getAddressBook()
+    /**
+     * TODO
+     */
+    protected function _getAddressBook()
     {
         $groups = Horde_Group::singleton();
         $members = $groups->listAllUsers($this->_gid);
@@ -132,9 +145,9 @@ class Turba_Driver_Group extends Turba_Driver
             // with the same fullname, so no email = no entry in address book.
             if (!empty($email)) {
                 $addressbook[$email] = array(
-                                            'name' => ((!empty($name) ? $name : $member)),
-                                            'email' => $identity->getValue('from_addr')
-                                        );
+                    'name' => ((!empty($name) ? $name : $member)),
+                    'email' => $identity->getValue('from_addr')
+                );
             }
         }
 

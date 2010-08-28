@@ -250,16 +250,12 @@ case 'export':
         }
 
         /* Get the full, sorted contact list. */
-        if (count($objectkeys)) {
-            $results = &$driver->getObjects($objectkeys);
-        } else {
-            $results = $driver->search(array());
-            if ($results instanceof Turba_List) {
-                $results = $results->objects;
-            }
-        }
-        if ($results instanceof PEAR_Error) {
-            $notification->push(sprintf(_("Failed to search the directory: %s"), $results->getMessage()), 'horde.error');
+        try {
+            $results = count($objectkeys)
+                ? $driver->getObjects($objectkeys)
+                : $driver->search(array())->objects;
+        } catch (Turba_Exception $e) {
+            $notification->push(sprintf(_("Failed to search the directory: %s"), $e->getMessage()), 'horde.error');
             $error = true;
             break;
         }
@@ -382,23 +378,26 @@ case Horde_Data::IMPORT_DATETIME:
 
 if (!$error && !empty($import_format)) {
     // TODO
-    if ($import_format == 'ldif') {
-        $data = new Turba_Data_Ldif(
-            array('browser' => $this->_injector->getInstance('Horde_Browser'),
-                  'vars' => Horde_Variables::getDefaultVariables(),
-                  'cleanup' => '_cleanupData'));
-    } else {
-        $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
-    }
-    if ($data instanceof PEAR_Error) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
-        $next_step = $data->nextStep($actionID, $param);
-        if ($next_step instanceof PEAR_Error) {
-            $notification->push($next_step->getMessage(), 'horde.error');
-            $next_step = $data->cleanup();
+    try {
+        if ($import_format == 'ldif') {
+            $data = new Turba_Data_Ldif(array(
+                'browser' => $this->_injector->getInstance('Horde_Browser'),
+                'vars' => Horde_Variables::getDefaultVariables(),
+                'cleanup' => '_cleanupData'
+            ));
         } else {
+            $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
+        }
+    } catch (Turba_Exception $e) {
+        $notification->push(_("This file format is not supported."), 'horde.error');
+        $data = null;
+        $next_step = Horde_Data::IMPORT_FILE;
+    }
+
+    if ($data) {
+        try {
+            $next_step = $data->nextStep($actionID, $param);
+
             /* Raise warnings if some exist. */
             if (method_exists($data, 'warnings')) {
                 $warnings = $data->warnings();
@@ -409,6 +408,9 @@ if (!$error && !empty($import_format)) {
                     $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
                 }
             }
+        } catch (Turba_Exception $e) {
+            $notification->push($e, 'horde.error');
+            $next_step = $data->cleanup();
         }
     }
 }
@@ -434,11 +436,11 @@ if (is_array($next_step)) {
     } elseif ($driver) {
         /* Purge old address book if requested. */
         if ($_SESSION['import_data']['purge']) {
-            $result = $driver->deleteAll();
-            if ($result instanceof PEAR_Error) {
-                $notification->push(sprintf(_("The address book could not be purged: %s"), $result->getMessage()), 'horde.error');
-            } else {
+            try {
+                $driver->deleteAll();
                 $notification->push(_("Address book successfully purged."), 'horde.success');
+            } catch (Turba_Exception $e) {
+                $notification->push(sprintf(_("The address book could not be purged: %s"), $e->getMessage()), 'horde.error');
             }
         }
 
@@ -449,13 +451,15 @@ if (is_array($next_step)) {
             }
 
             /* Don't search for empty attributes. */
-            $row = array_filter($row, '_emptyAttributeFilter');
-            $result = $driver->search($row);
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result, 'horde.error');
+            try {
+                $result = $driver->search(array_filter($row, '_emptyAttributeFilter'));
+            } catch (Turba_Exception $e) {
+                $notification->push($e, 'horde.error');
                 $error = true;
                 break;
-            } elseif (count($result)) {
+            }
+
+            if (count($result)) {
                 $result->reset();
                 $object = $result->next();
                 $notification->push(sprintf(_("\"%s\" already exists and was not imported."),
@@ -470,10 +474,11 @@ if (is_array($next_step)) {
                     }
                 }
                 $row['__owner'] = $driver->getContactOwner();
-                $result = $driver->add($row);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                                $result->getMessage()), 'horde.error');
+
+                try {
+                    $driver->add($row);
+                } catch (Turba_Exception $e) {
+                    $notification->push(sprintf(_("There was an error importing the data: %s"), $e->getMessage()), 'horde.error');
                     $error = true;
                     break;
                 }

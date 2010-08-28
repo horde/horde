@@ -38,11 +38,13 @@ class Turba_Form_EditAddressBook extends Horde_Form
     {
         $this->_addressbook->set('name', $this->_vars->get('name'));
         $this->_addressbook->set('desc', $this->_vars->get('description'));
-        $result = $this->_addressbook->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save address book \"%s\": %s"), $id, $result->getMessage()));
+
+        try {
+            $this->_addressbook->save();
+            return true;
+        } catch (Turba_Exception $e) {
+            return PEAR::raiseError(sprintf(_("Unable to save address book \"%s\": %s"), $id, $e->getMessage()));
         }
-        return true;
     }
 
 }

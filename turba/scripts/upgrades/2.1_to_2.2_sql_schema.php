@@ -112,7 +112,7 @@ foreach ($queries as $query) {
     }
     if ($for_real) {
         $results = $db->query($query);
-        if (is_a($results, 'PEAR_Error')) {
+        if ($results instanceof PEAR_Error) {
             $cli->message($results->toString(), 'cli.error');
             $error = true;
             continue;
@@ -130,7 +130,7 @@ if ($do_name) {
     require_once HORDE_BASE . '/turba/lib/Turba.php';
     $sql = 'SELECT object_id, ' . ($for_real ? 'object_lastname' : 'object_name') . ' FROM ' . $db_table;
     $names = $db->getAssoc($sql);
-    if (is_a($names, 'PEAR_Error')) {
+    if ($names instanceof PEAR_Error) {
         $cli->message($names->toString(), 'cli.error');
         exit(1);
     }
@@ -161,7 +161,7 @@ if ($do_name) {
 if ($do_home) {
     $sql = 'SELECT object_id, ' . ($for_real ? 'object_homestreet' : 'object_homeaddress') . ' FROM ' . $db_table;
     $addresses = $db->getAssoc($sql);
-    if (is_a($addresses, 'PEAR_Error')) {
+    if ($addresses instanceof PEAR_Error) {
         $cli->message($addresses->toString(), 'cli.error');
         exit(1);
     }
@@ -179,7 +179,7 @@ if ($do_home) {
 if ($do_work) {
     $sql = 'SELECT object_id, ' . ($for_real ? 'object_workstreet' : 'object_workaddress') . ' FROM ' . $db_table;
     $addresses = $db->getAssoc($sql);
-    if (is_a($addresses, 'PEAR_Error')) {
+    if ($addresses instanceof PEAR_Error) {
         $cli->message($addresses->toString(), 'cli.error');
         exit(1);
     }
@@ -197,7 +197,7 @@ if ($do_work) {
 if ($do_email) {
     $sql = 'SELECT object_id, object_email FROM ' . $db_table;
     $emails = $db->getAssoc($sql);
-    if (is_a($emails, 'PEAR_Error')) {
+    if ($emails instanceof PEAR_Error) {
         $cli->message($emails->toString(), 'cli.error');
         exit(1);
     }

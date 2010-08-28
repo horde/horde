@@ -308,7 +308,7 @@ class Turba {
     {
         // We want to check the base source as extended permissions
         // are enforced per backend, not per share.
-        $key = $addressBook->name . ':' . $permission;
+        $key = $addressBook->getName() . ':' . $permission;
 
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('turba:sources:' . $key)) {
@@ -543,6 +543,7 @@ class Turba {
             Horde::logMessage($e, 'ERR');
             return array();
         }
+
         return $sources;
     }
 
@@ -552,9 +553,10 @@ class Turba {
      * @param string $share_id The id for the new share.
      * @param array $params Parameters for the new share.
      *
-     * @return mixed  The new share object or PEAR_Error
+     * @return Horde_Share  The new share object.
+     * @throws Turba_Exception
      */
-    function createShare($share_id, $params)
+    static public function createShare($share_id, $params)
     {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
@@ -585,7 +587,7 @@ class Turba {
             }
             $GLOBALS['turba_shares']->addShare($share);
             $result = $share->save();
-         } catch (Horde_Share_Exception $e) {
+        } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
         }

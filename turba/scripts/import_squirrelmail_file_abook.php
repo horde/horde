@@ -109,29 +109,30 @@ foreach($files as $file) {
             $gid = $driver->add($attributes);
             $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
             foreach ($members as $member) {
-                $result = $driver->add(array('firstname' => $member, 'email' => $member));
-                if ($result && !is_a($result, 'PEAR_Error')) {
-                    $added = $group->addMember($result, $import_source);
-                    if (is_a($added, 'PEAR_Error')) {
-                        $cli->message('  ' . $added->getMessage(), 'cli.error');
-                    } else {
-                        $cli->message('  Added ' . $member, 'cli.success');
-                    }
+                try {
+                    $result = $driver->add(array('firstname' => $member, 'email' => $member));
+                    $group->addMember($result, $import_source);
+                    $cli->message('  Added ' . $member, 'cli.success');
+                } catch (Turba_Exception $e) {
+                    $cli->message('  ' . $e->getMessage(), 'cli.error');
                 }
             }
             $group->store();
         } else {
             // entry only contains one contact, import it
-            $contact = array('alias' => $entry[0],
-                             'firstname' => $entry[1],
-                             'lastname' => $entry[2],
-                             'email' => $entry[3],
-                             'notes' => $entry[4]);
-            $added = $driver->add($contact);
-            if (is_a($added, 'PEAR_Error')) {
-                $cli->message('  ' . $added->getMessage(), 'cli.error');
-            } else {
+            $contact = array(
+                'alias' => $entry[0],
+                'firstname' => $entry[1],
+                'lastname' => $entry[2],
+                'email' => $entry[3],
+                'notes' => $entry[4]
+            );
+
+            try {
+                $driver->add($contact);
                 $cli->message('  Added ' . $entry[3], 'cli.success');
+            } catch (Turba_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
             }
         }
     }

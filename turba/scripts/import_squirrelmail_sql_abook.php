@@ -35,7 +35,7 @@ if ($db instanceof PEAR_Error) {
 
 // Loop through SquirrelMail address books.
 $handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
 $turba_shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
@@ -115,29 +115,30 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
         $count++;
         foreach ($members as $member) {
-            $result = $driver->add(array('firstname' => $member, 'email' => $member));
-            if ($result && !is_a($result, 'PEAR_Error')) {
-                $added = $group->addMember($result, $import_source);
-                if (is_a($added, 'PEAR_Error')) {
-                    $cli->message('  ' . $added->getMessage(), 'cli.error');
-                } else {
-                    $count++;
-                }
+            try {
+                $result = $driver->add(array('firstname' => $member, 'email' => $member));
+                $group->addMember($result, $import_source);
+                ++$count;
+            } catch (Turba_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
             }
         }
         $group->store();
     } else {
         // Entry only contains one contact, import it.
-        $contact = array('alias' => $row['nickname'],
-                         'firstname' => $row['firstname'],
-                         'lastname' => $row['lastname'],
-                         'email' => $row['email'],
-                         'notes' => $row['label']);
-        $added = $driver->add($contact);
-        if (is_a($added, 'PEAR_Error')) {
-            $cli->message('  ' . $added->getMessage(), 'cli.error');
-        } else {
-            $count++;
+        $contact = array(
+            'alias' => $row['nickname'],
+            'firstname' => $row['firstname'],
+            'lastname' => $row['lastname'],
+            'email' => $row['email'],
+            'notes' => $row['label']
+        );
+
+        try {
+            $driver->add($contact);
+            ++$count;
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . $e->getMessage(), 'cli.error');
         }
     }
 }

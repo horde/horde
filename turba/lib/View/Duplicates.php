@@ -114,7 +114,7 @@ class Turba_View_Duplicates
         $view->hasDuplicate = (bool)$hasDuplicate;
         $view->attributes = $GLOBALS['attributes'];
         $view->link = Horde::applicationUrl('search.php')
-            ->add(array('source' => $this->_driver->name,
+            ->add(array('source' => $this->_driver->getName(),
                         'search_mode' => 'duplicate'));
 
         echo $view->render('list');

@@ -21,28 +21,25 @@ $key = Horde_Util::getFormData('key');
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 if ($conf['documents']['type'] != 'none') {
-    $object = $driver->getObject($key);
-    if ($object instanceof PEAR_Error) {
-        $notification->push($object->getMessage(), 'horde.error');
-        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
-    }
-
-    $deleted = $object->deleteFiles();
-    if ($deleted instanceof PEAR_Error) {
-        $notification->push($deleted, 'horde.error');
+    try {
+        $object = $driver->getObject($key);
+        $object->deleteFiles();
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
         Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 
-$result = $driver->delete($key);
-if (!($result instanceof PEAR_Error)) {
+try {
+    $driver->delete($key);
     $url = ($url = Horde_Util::getFormData('url'))
         ? new Horde_Url($url)
         : Horde::applicationUrl($prefs->getValue('initial_page'), true);
     $url->redirect();
+} catch (Turba_Exception $e) {
+    $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');
 }
 
-$notification->push(sprintf(_("There was an error deleting this contact: %s"), $result->getMessage()), 'horde.error');
 $title = _("Deletion failed");
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';

@@ -217,15 +217,13 @@ class Turba_Data_Ldif extends Horde_Data
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
+     * @throws Horde_Data_Exception
      */
     function nextStep($action, $param = array())
     {
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
-            $next_step = parent::nextStep($action, $param);
-            if (is_a($next_step, 'PEAR_Error')) {
-                return $next_step;
-            }
+            parent::nextStep($action, $param);
 
             $_SESSION['import_data']['data'] = $this->importFile($_FILES['import_file']['tmp_name']);
             $data = array();

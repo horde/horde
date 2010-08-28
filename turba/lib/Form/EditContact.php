@@ -66,24 +66,25 @@ class Turba_Form_EditContact extends Turba_Form_Contact
             }
         }
 
-        $result = $this->_contact->store();
-        if (!is_a($result, 'PEAR_Error')) {
-            if ($conf['documents']['type'] != 'none' && isset($info['vfs'])) {
-                $result = $this->_contact->addFile($info['vfs']);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("\"%s\" updated, but saving the uploaded file failed: %s"), $this->_contact->getValue('name'), $result->getMessage()), 'horde.warning');
-                } else {
-                    $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
-                }
-            } else {
-                $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
-            }
-            return true;
-        } else {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $this->_contact->store();
+        } catch (Turba_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             $notification->push(_("There was an error saving the contact. Contact your system administrator for further help."), 'horde.error');
-            return $result;
+            return PEAR::raiseError($e->getMessage());
         }
+
+        if ($conf['documents']['type'] != 'none' && isset($info['vfs'])) {
+            try {
+                $this->_contact->addFile($info['vfs']);
+                $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
+            } catch (Turba_Exception $e) {
+                $notification->push(sprintf(_("\"%s\" updated, but saving the uploaded file failed: %s"), $this->_contact->getValue('name'), $e->getMessage()), 'horde.warning');
+        } else {
+            $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
+        }
+
+        return true;
     }
 
 }

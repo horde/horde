@@ -24,9 +24,11 @@ if ($source === null || !isset($cfgSources[$source])) {
 }
 
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
-$contact = $driver->getObject(Horde_Util::getPost('key'));
-if (is_a($contact, 'PEAR_Error')) {
-    $notification->push($contact, 'horde.error');
+
+try {
+    $contact = $driver->getObject(Horde_Util::getPost('key'));
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
@@ -36,10 +38,12 @@ if (!$contact->isEditable()) {
 }
 
 $file = Horde_Util::getPost('file');
-$result = $contact->deleteFile($file);
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result, 'horde.error');
-} else {
+
+try {
+    $contact->deleteFile($file);
     $notification->push(sprintf(_("The file \"%s\" has been deleted."), $file), 'horde.success');
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
 }
+
 $contact->url('Contact', true)->redirect();

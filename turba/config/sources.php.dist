@@ -832,9 +832,9 @@ if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
      if (empty($cfgSources['imsp']['use_shares'])) {
         $result = Net_IMSP_Utils::getAllBooks($cfgSources['imsp']);
 
-        if (!is_a($result, 'PEAR_Error')) {
+        if (!$result instanceof PEAR_Error) {
             $resultCount = count($result);
-            for ($i = 0; $i < $resultCount; $i++) {
+            for ($i = 0; $i < $resultCount; ++$i) {
                 // Make sure we didn't define this source explicitly,
                 // but set the acls from the server regardless.
                 $dup = false;

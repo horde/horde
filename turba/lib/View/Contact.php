@@ -22,7 +22,7 @@ class Turba_View_Contact {
 
     function getTitle()
     {
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             return _("Not Found");
         }
         return $this->contact->getValue('name');
@@ -32,7 +32,8 @@ class Turba_View_Contact {
     {
         global $conf, $prefs, $registry;
 
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error') || !$this->contact->hasPermission(Horde_Perms::READ)) {
+        if (!$this->contact ||
+            !$this->contact->hasPermission(Horde_Perms::READ)) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;
         }
@@ -55,9 +56,10 @@ class Turba_View_Contact {
 
         /* Comments. */
         if (!empty($conf['comments']['allow']) && $registry->hasMethod('forums/doComments')) {
-            $comments = $registry->call('forums/doComments', array('turba', $this->contact->driver->name . '.' . $this->contact->getValue('__key'), 'commentCallback'));
-            if (is_a($comments, 'PEAR_Error')) {
-                Horde::logMessage($comments, 'DEBUG');
+            try {
+                $comments = $registry->call('forums/doComments', array('turba', $this->contact->driver->getName() . '.' . $this->contact->getValue('__key'), 'commentCallback'));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
                 $comments = array();
             }
         }

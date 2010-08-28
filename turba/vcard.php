@@ -22,10 +22,10 @@ if (!isset($cfgSources[$source])) {
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 /* Set the contact from the key requested. */
-$key = Horde_Util::getFormData('key');
-$object = $driver->getObject($key);
-if (is_a($object, 'PEAR_Error')) {
-    $notification->push($object->getMessage(), 'horde.error');
+try {
+    $object = $driver->getObject(Horde_Util::getFormData('key'));
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 

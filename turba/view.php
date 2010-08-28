@@ -30,9 +30,6 @@ if (!isset($cfgSources[$source])) {
 
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 $object = $driver->getObject($key);
-if (is_a($object, 'PEAR_Error')) {
-    throw new Turba_Exception($object);
-}
 
 /* Check permissions. */
 if (!$object->hasPermission(Horde_Perms::READ)) {

@@ -22,26 +22,16 @@ if ($url = Horde_Util::getFormData('url')) {
     $url = new Horde_Url($url, true)->unique();
 }
 
-$contact = $driver->getObject($mergeInto);
-if (is_a($contact, 'PEAR_Error')) {
-    $notification->push($contact);
-    $url->redirect();
-}
-$toMerge = $driver->getObject($key);
-if (is_a($toMerge, 'PEAR_Error')) {
-    $notification->push($toMerge);
-    $url->redirect();
+try {
+    $contact = $driver->getObject($mergeInto);
+    $toMerge = $driver->getObject($key);
+    $contact->merge($toMerge);
+    $contact->store();
+    $driver->delete($key);
+
+    $notification->push(_("Successfully merged two contacts."), 'horde.success');
+} catch (Turba_Exception $e) {
+    $notification->push($e);
 }
 
-$contact->merge($toMerge);
-if (is_a($result = $contact->store(), 'PEAR_Error')) {
-    $notification->push($result);
-    $url->redirect();
-}
-if (is_a($result = $driver->delete($key), 'PEAR_Error')) {
-    $notification->push($result);
-    $url->redirect();
-}
-
-$notification->push(_("Successfully merged two contacts."), 'horde.success');
 $url->redirect();

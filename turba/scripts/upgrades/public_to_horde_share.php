@@ -67,11 +67,7 @@ if ($share instanceof Horde_Share_Exception) {
 $share->set('owner', $owner);
 $share->set('name', $title);
 $share->set('perm_default', Horde_Perms::SHOW | Horde_Perms::READ);
-$result = $turba_shares->addShare($share);
-if (is_a($result, 'PEAR_Error')) {
-    var_dump($result);
-    exit;
-}
+$turba_shares->addShare($share);
 $share->save();
 $CLI->message('Created new Horde_Share object for the shared address book.', 'cli.success');
 
@@ -79,9 +75,6 @@ $CLI->message('Created new Horde_Share object for the shared address book.', 'cl
 $driver = $injector->getInstance('Turba_Driver')->getDriver($sourceKey);
 
 $db = &$driver->_db;
-if (is_a($db, 'PEAR_Error')) {
-    var_dump($db);
-}
 
 // Get the tablename in case we aren't using horde defaults.
 $tableName = $db->dsn['table'];
@@ -90,7 +83,7 @@ $count = $db->getOne($SQL);
 $CLI->message("Moving $count contacts to $title.", 'cli.message');
 $SQL = 'UPDATE ' . $tableName . ' SET owner_id=\'' . $owner_uid . '\';';
 $result = $db->query($SQL);
-if (is_a($result, 'PEAR_Error')) {
+if ($result instanceof PEAR_Error) {
     var_dump($result);
     exit;
 }
@@ -101,19 +94,19 @@ if ($prefDriver == 'sql') {
     if ($autoAppend) {
         $SQL = 'SELECT pref_uid, pref_value FROM horde_prefs WHERE pref_scope=\'turba\' AND pref_name=\'addressbooks\';';
         $results = $db->getAll($SQL);
-        if (is_a($results, 'PEAR_Error')) {
+        if ($results instanceof PEAR_Error) {
            $CLI->message('There was an error updating the user preferences: ' . $results->getMessage(), 'cli.error');
         } else {
             foreach ($results as $row) {
                 $newValue = $row[1] . "\n$sourceKey:$owner_uid";
                 $SQL = 'UPDATE horde_prefs SET pref_value=\'' . $newValue . '\' WHERE pref_uid=\'' . $row[0] . '\' AND pref_scope=\'turba\' AND pref_name=\'addressbooks\';';
                 $result = $db->query($SQL);
-                if (is_a($result, 'PEAR_Error')) {
+                if ($result instanceof PEAR_Error) {
                     $CLI->message('Could not update preferences for ' . $row[0] . ': ' . $result->getMessage(), 'cli.error');
                 }
             }
         }
-        if (!is_a($results, 'PEAR_Error')) {
+        if (!($results instanceof PEAR_Error)) {
             $CLI->message('Successfully added new shared address book to the user preferences.', 'cli.success');
         }
     }

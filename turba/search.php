@@ -162,23 +162,27 @@ if ($driver) {
             } catch (Exception $e) {
                 $notification->push($e);
             }
-        } elseif (($_SESSION['turba']['search_mode'] == 'basic' &&
-             is_object($results = $driver->search(array($criteria => $val)))) ||
-            ($_SESSION['turba']['search_mode'] == 'advanced' &&
-             is_object($results = $driver->search($criteria)))) {
-            if (is_a($results, 'PEAR_Error')) {
-                $notification->push($results, 'horde.error');
-            } else {
-                /* Read the columns to display from the preferences. */
-                $sources = Turba::getColumns();
-                $columns = isset($sources[$source]) ? $sources[$source] : array();
-                $results->sort(Turba::getPreferredSortOrder());
-
-                $view = new Turba_View_List($results, null, $columns);
-                $view->setType('search');
-            }
         } else {
-            $notification->push(_("Failed to search the address book"), 'horde.error');
+            try {
+                if ((($_SESSION['turba']['search_mode'] == 'basic') &&
+                     ($results = $driver->search(array($criteria => $val)))) ||
+                    (($_SESSION['turba']['search_mode'] == 'advanced') &&
+                     ($results = $driver->search($criteria)))) {
+                    /* Read the columns to display from the preferences. */
+                    $sources = Turba::getColumns();
+                    $columns = isset($sources[$source])
+                        ? $sources[$source]
+                        : array();
+                    $results->sort(Turba::getPreferredSortOrder());
+
+                    $view = new Turba_View_List($results, null, $columns);
+                    $view->setType('search');
+                } else {
+                    $notification->push(_("Failed to search the address book"), 'horde.error');
+                }
+            } catch (Turba_Exception $e) {
+                $notification->push($results, 'horde.error');
+            }
         }
     }
 }

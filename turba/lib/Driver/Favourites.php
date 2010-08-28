@@ -3,8 +3,15 @@
  * Read-only Turba directory driver implementation for favourite
  * recipients. Relies on the contacts/favouriteRecipients API method.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Turba
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Favourites extends Turba_Driver
 {
@@ -16,12 +23,15 @@ class Turba_Driver_Favourites extends Turba_Driver
      *
      * @return boolean  True if the user has permission, otherwise false.
      */
-     function hasPermission($perm)
+     public function hasPermission($perm)
      {
          switch ($perm) {
-             case Horde_Perms::EDIT: return false;
-             case Horde_Perms::DELETE: return false;
-             default: return true;
+         case Horde_Perms::DELETE:
+         case Horde_Perms::EDIT:
+             return false;
+
+         default:
+             return true;
          }
      }
 
@@ -34,10 +44,12 @@ class Turba_Driver_Favourites extends Turba_Driver
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
         $results = array();
+
         foreach ($this->_getAddressBook() as $key => $contact) {
             $found = !isset($criteria['OR']);
             foreach ($criteria as $op => $vals) {
@@ -73,6 +85,7 @@ class Turba_Driver_Favourites extends Turba_Driver
                 $results[$key] = $contact;
             }
         }
+
         return $results;
     }
 
@@ -84,19 +97,18 @@ class Turba_Driver_Favourites extends Turba_Driver
      * @param string $id       Data identifier.
      * @param array $fields    List of fields to return.
      *
-     * @return  Hash containing the search results.
+     * @return arry  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _read($criteria, $ids, $owner, $fields)
+    protected function _read($criteria, $ids, $owner, $fields)
     {
         $book = $this->_getAddressBook();
-        if (is_a($book, 'PEAR_Error')) {
-            return $book;
-        }
 
         $results = array();
         if (!is_array($ids)) {
             $ids = array($ids);
         }
+
         foreach ($ids as $id) {
             if (isset($book[$id])) {
                 $results[] = $book[$id];
@@ -106,18 +118,20 @@ class Turba_Driver_Favourites extends Turba_Driver
         return $results;
     }
 
-    function _getAddressBook()
+    /**
+     * TODO
+     *
+     * @throws Turba_Exception
+     */
+    protected function _getAddressBook()
     {
         global $registry;
 
         if (!$registry->hasMethod('contacts/favouriteRecipients')) {
-            return PEAR::raiseError(_("No source for favourite recipients exists."));
+            throw new Turba_Exception(_("No source for favourite recipients exists."));
         }
 
         $addresses = $registry->call('contacts/favouriteRecipients', array($this->_params['limit']));
-        if (is_a($addresses, 'PEAR_Error')) {
-            return $addresses;
-        }
 
         $addressbook = array();
         foreach ($addresses as $address) {

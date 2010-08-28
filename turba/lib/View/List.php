@@ -395,22 +395,32 @@ class Turba_View_List implements Countable
                                             'source' => htmlspecialchars($src));
 
                 $srcDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($src);
-                $listList = $srcDriver->search(array('__type' => 'Group'),
-                                               array(array('field' => 'name',
-                                                           'ascending' => true)),
-                                               'AND', array('name'));
-                if (is_a($listList, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push($listList, 'horde.error');
-                } else {
+                try {
+                    $listList = $srcDriver->search(
+                        array('__type' => 'Group'),
+                        array(
+                            array(
+                                'field' => 'name',
+                                'ascending' => true
+                            )
+                        ),
+                        'AND',
+                        array('name')
+                    );
+
                     $listList->reset();
                     $currentList = Horde_Util::getFormData('key');
                     while ($listObject = $listList->next()) {
                         if ($listObject->getValue('__key') != $currentList) {
-                            $addToList[] = array('name' => htmlspecialchars($listObject->getValue('name')),
-                                                 'source' => htmlspecialchars($src),
-                                                 'key' => htmlspecialchars($listObject->getValue('__key')));
+                            $addToList[] = array(
+                                'name' => htmlspecialchars($listObject->getValue('name')),
+                                'source' => htmlspecialchars($src),
+                                'key' => htmlspecialchars($listObject->getValue('__key'))
+                            );
                         }
                     }
+                } catch (Turba_Exception $e) {
+                    $GLOBALS['notification']->push($e, 'horde.error');
                 }
             }
         }

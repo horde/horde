@@ -22,12 +22,12 @@ class Turba_Form_Contact extends Horde_Form
         /* List files. */
         $v_params = $GLOBALS['injector']->getInstance('Horde_Vfs')->getConfig('documents');
         if ($v_params['type'] != 'none') {
-            $files = $contact->listFiles();
-            if (is_a($files, 'PEAR_Error')) {
-                $notification->push($files, 'horde.error');
-            } else {
+            try {
+                $files = $contact->listFiles();
                 $this->addVariable(_("Files"), '__vfs', 'html', false);
                 $vars->set('__vfs', implode('<br />', array_map(array($contact, 'vfsEditUrl'), $files)));
+            } catch (Turba_Exception $e) {
+                $notification->push($files, 'horde.error');
             }
         }
     }

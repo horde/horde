@@ -25,7 +25,7 @@ $form = new Turba_Form_CreateAddressBook($vars);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } else {
         $notification->push(sprintf(_("The address book \"%s\" has been created."), $vars->get('name')), 'horde.success');

@@ -23,31 +23,28 @@ $source = Horde_Util::getFormData('source', Turba::getDefaultAddressBook());
 if (!is_null($search)) {
     try {
         $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
-    } catch (Turba_Exception $e) {
-        $driver = null;
-    }
-
-    if ($driver) {
         $criteria['name'] = trim($search);
         $res = $driver->search($criteria);
-        if ($res instanceof Turba_List) {
-            while ($ob = $res->next()) {
-                if ($ob->isGroup()) {
-                    continue;
-                }
-                $att = $ob->getAttributes();
-                foreach ($att as $key => $value) {
-                    if (!empty($attributes[$key]['type']) &&
-                        $attributes[$key]['type'] == 'email') {
-                        $results[] = array('name' => $ob->getValue('name'),
-                                           'email' => $value,
-                                           'url' => $ob->url());
-                        break;
-                    }
+
+        while ($ob = $res->next()) {
+            if ($ob->isGroup()) {
+                continue;
+            }
+
+            $att = $ob->getAttributes();
+            foreach ($att as $key => $value) {
+                if (!empty($attributes[$key]['type']) &&
+                    ($attributes[$key]['type'] == 'email')) {
+                    $results[] = array(
+                        'name' => $ob->getValue('name'),
+                        'email' => $value,
+                        'url' => $ob->url()
+                    );
+                    break;
                 }
             }
         }
-    }
+    } catch (Turba_Exception $e) {}
 }
 
 Horde::addScriptFile('prototype.js', 'horde');
@@ -61,22 +58,18 @@ if (count($results)) {
     foreach ($results as $contact) {
         echo '<li class="linedRow">';
 
-        $mail_link = $GLOBALS['registry']->call(
-            'mail/compose',
-            array(array('to' => addslashes($contact['email']))));
-        if (is_a($mail_link, 'PEAR_Error')) {
+        try {
+            $mail_link = $registry->call('mail/compose', array(
+                array('to' => addslashes($contact['email']))
+            ));
+        } catch (Turba_Exception $e) {
             $mail_link = 'mailto:' . urlencode($contact['email']);
-            $target = '';
-        } else {
-            $target = strpos($mail_link, 'javascript:') === 0
-                ? ''
-                : ' target="_parent"';
         }
 
         echo Horde::link(Horde::applicationUrl($contact['url']),
                         _("View Contact"), '', '_parent')
             . Horde::img('contact.png', _("View Contact")) . '</a> '
-            . '<a href="' . $mail_link . '"' . $target . '>'
+            . '<a href="' . $mail_link . '">'
             . htmlspecialchars($contact['name'] . ' <' . $contact['email'] . '>')
             . '</a></li>';
     }

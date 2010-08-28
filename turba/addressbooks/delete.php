@@ -44,7 +44,7 @@ $form = new Turba_Form_DeleteAddressBook($vars, $addressbook);
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } elseif ($result) {
         $notification->push(sprintf(_("The addressbook \"%s\" has been deleted."), $addressbook->get('name')), 'horde.success');

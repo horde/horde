@@ -48,9 +48,10 @@ if ($source === null || !isset($cfgSources[$source])) {
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 /* Set the contact from the requested key. */
-$contact = $driver->getObject($key);
-if (is_a($contact, 'PEAR_Error')) {
-    $notification->push($contact, 'horde.error');
+try {
+    $contact = $driver->getObject($key);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
     $url->redirect();
 }
 
@@ -74,7 +75,7 @@ if ($groupedit) {
 
 /* Execute() checks validation first. */
 $edited = $form->execute();
-if (!is_a($edited, 'PEAR_Error')) {
+if (!($edited instanceof PEAR_Error)) {
     $url = Horde_Util::getFormData('url');
     if (empty($url)) {
         $url = $contact->url('Contact', true);

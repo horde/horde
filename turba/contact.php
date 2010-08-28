@@ -31,16 +31,19 @@ try {
 $contact = null;
 $uid = $vars->get('uid');
 if (!empty($uid)) {
-    $search = $driver->search(array('__uid' => $uid));
-    if (!($search instanceof PEAR_Error) && count($search)) {
-        $contact = $search->next();
-        $vars->set('key', $contact->getValue('__key'));
-    }
+    try {
+        $search = $driver->search(array('__uid' => $uid));
+        if (count($search)) {
+            $contact = $search->next();
+            $vars->set('key', $contact->getValue('__key'));
+        }
+    } catch (Turba_Exception $e) {}
 }
-if (!$contact || ($contact instanceof PEAR_Error)) {
-    $contact = $driver->getObject($vars->get('key'));
-    if ($contact instanceof PEAR_Error) {
-        $notification->push($contact->getMessage(), 'horde.error');
+if (!$contact) {
+    try {
+        $contact = $driver->getObject($vars->get('key'));
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
         Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
 }

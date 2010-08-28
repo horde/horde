@@ -19,7 +19,7 @@ class Turba_View_EditContact {
 
     function getTitle()
     {
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             return _("Not Found");
         }
         return sprintf(_("Edit %s"), $this->contact->getValue('name'));
@@ -29,7 +29,7 @@ class Turba_View_EditContact {
     {
         global $conf, $prefs, $vars;
 
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;
         }

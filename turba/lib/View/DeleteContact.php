@@ -19,7 +19,7 @@ class Turba_View_DeleteContact {
 
     function getTitle()
     {
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             return _("Not Found");
         }
         return sprintf(_("Delete %s"), $this->contact->getValue('name'));
@@ -29,7 +29,7 @@ class Turba_View_DeleteContact {
     {
         global $conf, $prefs;
 
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;
         }
@@ -49,7 +49,7 @@ class Turba_View_DeleteContact {
     <form action="<?php echo Horde::applicationUrl('delete.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
-<input type="hidden" name="source" value="<?php echo htmlspecialchars($this->contact->driver->name) ?>" />
+<input type="hidden" name="source" value="<?php echo htmlspecialchars($this->contact->driver->getName()) ?>" />
 <input type="hidden" name="key" value="<?php echo htmlspecialchars($this->contact->getValue('__key')) ?>" />
 <div class="headerbox" style="padding: 8px">
  <p><?php echo _("Permanently delete this contact?") ?></p>

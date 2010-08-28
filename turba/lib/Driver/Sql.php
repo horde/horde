@@ -3,8 +3,15 @@
  * Turba directory driver implementation for PHP's PEAR database abstraction
  * layer.
  *
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * Copyright 2010 The Horde Project (http://www.horde.org)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Jon Parise <jon@csh.rit.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Sql extends Turba_Driver
 {
@@ -13,9 +20,9 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @var array
      */
-    var $_capabilities = array(
-        'delete_all' => true,
-        'delete_addressbook' => true
+    protected $_capabilities = array(
+        'delete_addressbook' => true,
+        'delete_all' => true
     );
 
     /**
@@ -23,7 +30,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -31,7 +38,14 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @var DB
      */
-    var $_write_db;
+    protected $_write_db;
+
+    /**
+     * count() cache.
+     *
+     * @var array
+     */
+    protected $_countCache = array();
 
     /**
      * @throws Turba_Exception
@@ -51,12 +65,10 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @return integer  The number of contacts that the user owns.
      */
-    function count()
+    public function count()
     {
-        static $count = array();
-
         $test = $this->getContactOwner();
-        if (!isset($count[$test])) {
+        if (!isset($this->_countCache[$test])) {
             /* Build up the full query. */
             $query = 'SELECT COUNT(*) FROM ' . $this->_params['table'] .
                      ' WHERE ' . $this->toDriver('__owner') . ' = ?';
@@ -66,10 +78,10 @@ class Turba_Driver_Sql extends Turba_Driver
             Horde::logMessage('SQL query by Turba_Driver_sql::count(): ' . $query, 'DEBUG');
 
             /* Run query. */
-            $count[$test] = $this->_db->getOne($query, $values);
+            $this->_countCache[$test] = $this->_db->getOne($query, $values);
         }
 
-        return $count[$test];
+        return $this->_countCache[$test];
     }
 
     /**
@@ -84,8 +96,9 @@ class Turba_Driver_Sql extends Turba_Driver
      *                             params are used as bind parameters.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields, $appendWhere = array())
+    protected function _search($criteria, $fields, $appendWhere = array())
     {
         /* Build the WHERE clause. */
         $where = '';
@@ -125,17 +138,17 @@ class Turba_Driver_Sql extends Turba_Driver
 
         /* Run query. */
         $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Turba_Exception($result);
         }
 
         $results = array();
         $iMax = count($fields);
         while ($row = $result->fetchRow()) {
-            if (is_a($row, 'PEAR_Error')) {
+            if ($row instanceof PEAR_Error) {
                 Horde::logMessage($row, 'ERR');
-                return $row;
+                throw new Turba_Exception($row);
             }
 
             $row = $this->_convertFromDriver($row);
@@ -161,12 +174,11 @@ class Turba_Driver_Sql extends Turba_Driver
     protected function _buildFields($array)
     {
         foreach ($array as &$entry) {
-            if (is_array($entry)) {
-                $entry = implode(',', $this->_buildFields($entry));
-            } else {
-                $entry = 'a1.' . $entry;
-            }
+            $entry = is_array($entry)
+                ? implode(',', $this->_buildFields($entry))
+                : 'a1.' . $entry;
         }
+
         return $array;
     }
 
@@ -185,6 +197,7 @@ class Turba_Driver_Sql extends Turba_Driver
             }
             $entry = 'a1.' . $entry . ' IS NOT NULL AND a1.' . $entry . ' <> \'\'';
         }
+
         return $array;
     }
 
@@ -198,12 +211,11 @@ class Turba_Driver_Sql extends Turba_Driver
     protected function _buildJoin($array)
     {
         foreach ($array as &$entry) {
-            if (is_array($entry)) {
-                $entry = implode(' AND ', $this->_buildJoin($entry));
-            } else {
-                $entry = 'a1.' . $entry . ' = a2.' . $entry;
-            }
+            $entry = is_array($entry)
+                ? implode(' AND ', $this->_buildJoin($entry))
+                : 'a1.' . $entry . ' = a2.' . $entry;
         }
+
         return $array;
     }
 
@@ -311,8 +323,10 @@ class Turba_Driver_Sql extends Turba_Driver
      * @param array $fields  List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _read($key, $ids, $owner, $fields, $blob_fields = array())
+    protected function _read($key, $ids, $owner, $fields,
+                             $blob_fields = array())
     {
         $values = array();
 
@@ -346,9 +360,9 @@ class Turba_Driver_Sql extends Turba_Driver
         Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query, 'DEBUG');
 
         $result = $this->_db->getAll($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Turba_Exception($result);
         }
 
         $results = array();
@@ -363,6 +377,7 @@ class Turba_Driver_Sql extends Turba_Driver
                     case 'mssql':
                         $entry[$field] = pack('H' . strlen($row[$i]), $row[$i]);
                         break;
+
                     default:
                         $entry[$field] = $row[$i];
                         break;
@@ -379,8 +394,12 @@ class Turba_Driver_Sql extends Turba_Driver
 
     /**
      * Adds the specified object to the SQL database.
+     *
+     * TODO
+     *
+     * @throws Turba_Exception
      */
-    function _add($attributes, $blob_fields = array())
+    protected function _add($attributes, $blob_fields = array())
     {
         $fields = $values = array();
         foreach ($attributes as $field => $value) {
@@ -391,8 +410,10 @@ class Turba_Driver_Sql extends Turba_Driver
                 case 'pgsql':
                     $values[] = bin2hex($value);
                     break;
+
                 default:
                     $values[] = $value;
+                    break;
                 }
             } else {
                 $values[] = $this->_convertToDriver($value);
@@ -403,15 +424,16 @@ class Turba_Driver_Sql extends Turba_Driver
             . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Turba_Exception($result);
         }
-
-        return true;
     }
 
-    function canAdd()
+    /**
+     * TODO
+     */
+    protected function _canAdd()
     {
         return true;
     }
@@ -419,7 +441,7 @@ class Turba_Driver_Sql extends Turba_Driver
     /**
      * Deletes the specified object from the SQL database.
      */
-    function _delete($object_key, $object_id)
+    protected function _delete($object_key, $object_id)
     {
         $query = 'DELETE FROM ' . $this->_params['table'] .
                  ' WHERE ' . $object_key . ' = ?';
@@ -429,38 +451,34 @@ class Turba_Driver_Sql extends Turba_Driver
         Horde::logMessage('SQL query by Turba_Driver_sql::_delete(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Turba_Exception($result);
         }
-
-        return true;
     }
 
     /**
      * Deletes all contacts from a specific address book.
      *
-     * @return boolean  True if the operation worked.
+     * @throws Turba_Exception
      */
-    function _deleteAll($sourceName = null)
+    protected function _deleteAll($sourceName = null)
     {
         if (!$GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError('permission denied');
+            throw new Turba_Exception('Permission denied');
         }
 
         /* Get owner id */
-        if (empty($sourceName)) {
-            $values = array($GLOBALS['registry']->getAuth());
-        } else {
-            $values = array($sourceName);
-        }
+        $values = empty($sourceName)
+            ? array($GLOBALS['registry']->getAuth())
+            : array($sourceName);
 
         /* Need a list of UIDs so we can notify History */
         $query = 'SELECT '. $this->map['__uid'] . ' FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
         Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
         $ids = $this->_write_db->query($query, $values);
-        if (is_a($ids, 'PEAR_Error')) {
-            return $ids;
+        if ($ids instanceof PEAR_Error) {
+            throw new Turba_Exception($ids);
         }
 
         /* Do the deletion */
@@ -468,8 +486,8 @@ class Turba_Driver_Sql extends Turba_Driver
         Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new Turba_Exception($result);
         }
 
         /* Update Horde_History */
@@ -486,14 +504,13 @@ class Turba_Driver_Sql extends Turba_Driver
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
-
-        return true;
     }
 
     /**
      * Saves the specified object in the SQL database.
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
     function _save($object)
     {
@@ -513,8 +530,10 @@ class Turba_Driver_Sql extends Turba_Driver
                 case 'pgsql':
                     $values[] = bin2hex($value);
                     break;
+
                 default:
                     $values[] = $value;
+                    break;
                 }
             } else {
                 $values[] = $this->_convertToDriver($value);
@@ -523,16 +542,15 @@ class Turba_Driver_Sql extends Turba_Driver
 
         $values[] = $object_id;
 
-        $query  = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(', ', $fields) . ' ';
-        $query .= 'WHERE ' . $where;
+        $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(', ', $fields) . ' WHERE ' . $where;
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage('SQL query by Turba_Driver_sql::_save(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Turba_Exception($result);
         }
 
         return $object_id;
@@ -546,7 +564,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    function _makeKey($attributes)
+    protected function _makeKey($attributes)
     {
         return strval(new Horde_Support_Randomid());
     }
@@ -560,7 +578,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return array  An SQL fragment and a list of values suitable for binding
      *                as an array.
      */
-    function _buildSearchQuery($glue, $criteria)
+    protected function _buildSearchQuery($glue, $criteria)
     {
         $clause = '';
         $values = array();
@@ -625,9 +643,9 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param mixed $value  A value to convert.
      *
-     * @return mixed        The converted value.
+     * @return mixed  The converted value.
      */
-    function _convertFromDriver($value)
+    protected function _convertFromDriver($value)
     {
         return Horde_String::convertCharset($value, $this->_params['charset']);
     }
@@ -637,9 +655,9 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param mixed $value  A value to convert.
      *
-     * @return mixed        The converted value.
+     * @return mixed  The converted value.
      */
-    function _convertToDriver($value)
+    protected function _convertToDriver($value)
     {
         return Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
     }
@@ -649,16 +667,16 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @param string $user  The user's data to remove.
      *
-     * @return mixed True | PEAR_Error
+     * @throws Turba_Exception
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
         // Make sure we are being called by an admin.
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("Permission denied"));
+            throw new Turba_Exception(_("Permission denied"));
         }
 
-        return $this->_deleteAll($user);
+        $this->_deleteAll($user);
     }
 
     /**
@@ -669,9 +687,10 @@ class Turba_Driver_Sql extends Turba_Driver
      * @param string $field      The address book field containing the
      *                           timeObject information (birthday, anniversary)
      *
-     * @return mixed  A Tubra_List of objects || PEAR_Error
+     * @return Turba_List  Object list.
+     * @throws Turba_Exception
      */
-    function _getTimeObjectTurbaList($start, $end, $field)
+    protected function _getTimeObjectTurbaList($start, $end, $field)
     {
         $t_object = $this->toDriver($field);
         $criteria = $this->makesearch(
@@ -682,9 +701,11 @@ class Turba_Driver_Sql extends Turba_Driver
 
         // Limit to entries that actually contain a birthday and that are in the
         // date range we are looking for.
-        $criteria['AND'][] = array('field' => $t_object,
-                                   'op' => '<>',
-                                   'test' => '');
+        $criteria['AND'][] = array(
+            'field' => $t_object,
+            'op' => '<>',
+            'test' => ''
+        );
 
         if ($start->year == $end->year) {
             $start = sprintf('%02d-%02d', $start->month, $start->mday);
@@ -695,12 +716,13 @@ class Turba_Driver_Sql extends Turba_Driver
         } else {
             $months = array();
             $diff = ($end->month + 12) - $start->month;
-            $newDate = new Horde_Date(array('month' => $start->month,
-                                            'mday' => $start->mday,
-                                            'year' => $start->year));
-            for ($i = 0; $i <= $diff; $i++) {
-                $months[] = sprintf('%02d', $newDate->month);
-                $newDate->month++;
+            $newDate = new Horde_Date(array(
+                'month' => $start->month,
+                'mday' => $start->mday,
+                'year' => $start->year
+            ));
+            for ($i = 0; $i <= $diff; ++$i) {
+                $months[] = sprintf('%02d', $newDate->month++);
             }
             $where = array('sql' => $t_object . ' IS NOT NULL AND SUBSTR('
                            . $t_object . ', 6, 2) IN ('
@@ -708,8 +730,11 @@ class Turba_Driver_Sql extends Turba_Driver
                            'params' => $months);
         }
 
-        $fields_pre = array('__key', '__type', '__owner', 'name',
-                            'birthday', 'category', 'anniversary');
+        $fields_pre = array(
+            '__key', '__type', '__owner', 'name', 'birthday', 'category',
+            'anniversary'
+        );
+
         $fields = array();
         foreach ($fields_pre as $field) {
             $result = $this->toDriver($field);
@@ -725,11 +750,7 @@ class Turba_Driver_Sql extends Turba_Driver
             }
         }
 
-        $res = $this->_search($criteria, $fields, $where);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-        return $this->_toTurbaObjects($res);
+        return $this->_toTurbaObjects($this->_search($criteria, $fields, $where));
     }
 
 }

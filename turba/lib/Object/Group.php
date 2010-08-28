@@ -71,12 +71,6 @@ class Turba_Object_Group extends Turba_Object {
             $contact = $driver->getObject($contactId);
         }
 
-        // Bail out if the contact being added doesn't exist or can't
-        // be retrieved.
-        if (is_a($contact, 'PEAR_Error')) {
-            throw new Turba_Exception($contact);
-        }
-
         // Explode members.
         $members = @unserialize($this->attributes['__members']);
         if (!is_array($members)) {
@@ -160,8 +154,9 @@ class Turba_Object_Group extends Turba_Object {
         $modified = false;
         foreach ($children as $member) {
             if (strpos($member, ':') === false) {
-                $contact = $this->driver->getObject($member);
-                if (is_a($contact, 'PEAR_Error')) {
+                try {
+                    $contact = $this->driver->getObject($member);
+                } catch (Turba_Exception $e) {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;
@@ -180,8 +175,9 @@ class Turba_Object_Group extends Turba_Object {
                     continue;
                 }
 
-                $contact = $driver->getObject($contactId);
-                if (is_a($contact, 'PEAR_Error')) {
+                try {
+                    $contact = $driver->getObject($contactId);
+                } catch (Turba_Exception $e) {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;

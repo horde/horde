@@ -4,25 +4,25 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@csh.rit.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver implements Countable
 {
-    /**
-     * The internal name of this source.
-     *
-     * @var string
-     */
-    var $name;
-
     /**
      * The symbolic title of this source.
      *
      * @var string
      */
-    var $title;
+    public $title;
 
     /**
      * Hash describing the mapping between Turba attributes and
@@ -30,14 +30,14 @@ class Turba_Driver implements Countable
      *
      * @var array
      */
-    var $map = array();
+    public $map = array();
 
     /**
      * Hash with all tabs and their fields.
      *
      * @var array
      */
-    var $tabs = array();
+    public $tabs = array();
 
     /**
      * List of all fields that can be accessed in the backend (excludes
@@ -45,14 +45,14 @@ class Turba_Driver implements Countable
      *
      * @var array
      */
-    var $fields = array();
+    public $fields = array();
 
     /**
      * Array of fields that must match exactly.
      *
      * @var array
      */
-    var $strict = array();
+    public $strict = array();
 
     /**
      * Array of fields to search "approximately" (@see
@@ -60,14 +60,14 @@ class Turba_Driver implements Countable
      *
      * @var array
      */
-    var $approximate = array();
+    public $approximate = array();
 
     /**
      * The name of a field to store contact list names in if not the default.
      *
      * @var string
      */
-    var $listNameField = null;
+    public $listNameField = null;
 
     /**
      * The name of a field to use as an alternative to the name field if that
@@ -75,35 +75,42 @@ class Turba_Driver implements Countable
      *
      * @var string
      */
-    var $alternativeName = null;
+    public $alternativeName = null;
+
+    /**
+     * The internal name of this source.
+     *
+     * @var string
+     */
+    protected $_name;
 
     /**
      * Hash holding the driver's additional parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * What can this backend do?
      *
      * @var array
      */
-    var $_capabilities = array();
+    protected $_capabilities = array();
 
     /**
      * Number of contacts in this source.
      *
      * @var integer
      */
-    var $_count = null;
+    protected $_count = null;
 
     /**
      * Hold the value for the owner of this address book.
      *
      * @var string
      */
-    var $_contact_owner = '';
+    protected $_contact_owner = '';
 
     /**
      * Constructs a new Turba_Driver object.
@@ -111,7 +118,7 @@ class Turba_Driver implements Countable
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    function Turba_Driver($params)
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -121,7 +128,7 @@ class Turba_Driver implements Countable
      *
      * @return array  Hash containing the driver's additional parameters.
      */
-    function getParams()
+    public function getParams()
     {
         return $this->_params;
     }
@@ -133,7 +140,7 @@ class Turba_Driver implements Countable
      *
      * @return boolean  Supported or not.
      */
-    function hasCapability($capability)
+    public function hasCapability($capability)
     {
         return !empty($this->_capabilities[$capability]);
     }
@@ -143,7 +150,7 @@ class Turba_Driver implements Countable
      *
      * @return array  List of blob attributes in the array keys.
      */
-    function getBlobs()
+    public function getBlobs()
     {
         global $attributes;
 
@@ -167,7 +174,7 @@ class Turba_Driver implements Countable
      *
      * @return array  Translated version of $hash.
      */
-    function toDriverKeys($hash)
+    public function toDriverKeys($hash)
     {
         /* Handle category. */
         if (!empty($hash['category'])) {
@@ -182,7 +189,8 @@ class Turba_Driver implements Countable
         // and the composite field will be saved to storage.
         // Otherwise composite fields won't be computed during an import.
         foreach ($this->map as $key => $val) {
-            if (!is_array($val) || empty($this->map[$key]['attribute']) ||
+            if (!is_array($val) ||
+                empty($this->map[$key]['attribute']) ||
                 array_key_exists($key, $hash)) {
                 continue;
             }
@@ -196,11 +204,13 @@ class Turba_Driver implements Countable
             }
         }
 
-        if (!empty($hash['name']) && !empty($this->listNameField) &&
-            !empty($hash['__type']) && is_array($this->map['name']) &&
-            $hash['__type'] == 'Group') {
-                $hash[$this->listNameField] = $hash['name'];
-                unset($hash['name']);
+        if (!empty($hash['name']) &&
+            !empty($this->listNameField) &&
+            !empty($hash['__type']) &&
+            is_array($this->map['name']) &&
+            ($hash['__type'] == 'Group')) {
+            $hash[$this->listNameField] = $hash['name'];
+            unset($hash['name']);
         }
 
         $fields = array();
@@ -211,19 +221,20 @@ class Turba_Driver implements Countable
                 } elseif (!empty($this->map[$key]['attribute'])) {
                     $fieldarray = array();
                     foreach ($this->map[$key]['fields'] as $mapfields) {
-                        if (isset($hash[$mapfields])) {
-                            $fieldarray[] = $hash[$mapfields];
-                        } else {
-                            $fieldarray[] = '';
-                        }
+                        $fieldarray[] = isset($hash[$mapfields])
+                            ? $hash[$mapfields]
+                            : '';
                     }
                     $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
                         $this->map[$key]['parse'] = array(
-                            array('format' => $this->map[$key]['format'],
-                                  'fields' => $this->map[$key]['fields']));
+                            array(
+                                'format' => $this->map[$key]['format'],
+                                'fields' => $this->map[$key]['fields']
+                            )
+                        );
                     }
                     foreach ($this->map[$key]['parse'] as $parse) {
                         $splitval = sscanf($val, $parse['format']);
@@ -264,15 +275,12 @@ class Turba_Driver implements Countable
      *
      * @return array  An array of search criteria.
      */
-    function makeSearch($criteria, $search_type, $strict, $match_begin = false)
+    public function makeSearch($criteria, $search_type, $strict,
+                               $match_begin = false)
     {
-        $search = array();
-        $strict_search = array();
-        $search_terms = array();
-        $subsearch = array();
-        $temp = '';
+        $search = $search_terms = $subsearch = $strict_search = array();
+        $glue = $temp = '';
         $lastChar = '\"';
-        $glue = '';
 
         foreach ($criteria as $key => $val) {
             if (isset($this->map[$key])) {
@@ -282,7 +290,7 @@ class Turba_Driver implements Countable
                     if (count($parts) > 1) {
                         /* Only parse if there was more than 1 search term and
                          * 'AND' the cumulative subsearches. */
-                        for ($i = 0; $i < count($parts); $i++) {
+                        for ($i = 0; $i < count($parts); ++$i) {
                             $term = $parts[$i];
                             $firstChar = substr($term, 0, 1);
                             if ($firstChar == '"') {
@@ -293,11 +301,10 @@ class Turba_Driver implements Countable
                                     if ($lastChar == '"') {
                                         $temp .= ' ' . substr($parts[$i + 1], 0, -1);
                                         $done = true;
-                                        $i++;
                                     } else {
                                         $temp .= ' ' . $parts[$i + 1];
-                                        $i++;
                                     }
+                                    ++$i;
                                 }
                                 $search_terms[] = $temp;
                             } else {
@@ -312,6 +319,7 @@ class Turba_Driver implements Countable
                         $search_terms[0] = $val;
                         $glue = 'OR';
                     }
+
                     foreach ($this->map[$key]['fields'] as $field) {
                         $field = $this->toDriver($field);
                         if (!empty($strict[$field])) {
@@ -329,7 +337,7 @@ class Turba_Driver implements Countable
                                 /* Build the 'OR' search for each search term
                                  * on this field. */
                                 $atomsearch = array();
-                                for ($i = 0; $i < count($search_terms); $i++) {
+                                for ($i = 0; $i < count($search_terms); ++$i) {
                                     $atomsearch[] = array(
                                         'field' => $field,
                                         'op' => 'LIKE',
@@ -389,15 +397,25 @@ class Turba_Driver implements Countable
         }
 
         if (count($strict_search) && count($search)) {
-            return array('AND' => array($search_type => $strict_search,
-                                        array($search_type => $search)));
+            return array(
+                'AND' => array(
+                    $search_type => $strict_search,
+                    array(
+                        $search_type => $search
+                    )
+                )
+            );
         } elseif (count($strict_search)) {
-            return array('AND' => $strict_search);
+            return array(
+                'AND' => $strict_search
+            );
         } elseif (count($search)) {
-            return array($search_type => $search);
-        } else {
-            return array();
+            return array(
+                $search_type => $search
+            );
         }
+
+        return array();
     }
 
     /**
@@ -409,17 +427,15 @@ class Turba_Driver implements Countable
      *
      * @return string  The driver name for this attribute.
      */
-    function toDriver($attribute)
+    public function toDriver($attribute)
     {
         if (!isset($this->map[$attribute])) {
             return null;
         }
 
-        if (is_array($this->map[$attribute])) {
-            return $this->map[$attribute]['fields'];
-        } else {
-            return $this->map[$attribute];
-        }
+        return is_array($this->map[$attribute])
+            ? $this->map[$attribute]['fields']
+            : $this->map[$attribute];
     }
 
     /**
@@ -431,17 +447,17 @@ class Turba_Driver implements Countable
      *
      * @return array  Translated version of $entry.
      */
-    function toTurbaKeys($entry)
+    public function toTurbaKeys($entry)
     {
         $new_entry = array();
         foreach ($this->map as $key => $val) {
             if (!is_array($val)) {
-                $new_entry[$key] = null;
-                if (isset($entry[$val]) && strlen($entry[$val])) {
-                    $new_entry[$key] = trim($entry[$val]);
-                }
+                $new_entry[$key] = (isset($entry[$val]) && strlen($entry[$val]))
+                    ? trim($entry[$val])
+                    : null;
             }
         }
+
         return $new_entry;
     }
 
@@ -462,11 +478,12 @@ class Turba_Driver implements Countable
      * @param boolean $match_begin    Whether to match only at beginning of
      *                                words.
      *
-     * @return  The sorted, filtered list of search results.
+     * @return Turba_List  The sorted, filtered list of search results.
+     * @throws Turba_Exception
      */
-    function &search($search_criteria, $sort_order = null,
-                     $search_type = 'AND', $return_fields = array(),
-                     $custom_strict = array(), $match_begin = false)
+    public function search($search_criteria, $sort_order = null,
+                           $search_type = 'AND', $return_fields = array(),
+                           $custom_strict = array(), $match_begin = false)
     {
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
@@ -512,12 +529,8 @@ class Turba_Driver implements Countable
 
         /* Retrieve the search results from the driver. */
         $objects = $this->_search($fields, $return_fields);
-        if (is_a($objects, 'PEAR_Error')) {
-            return $objects;
-        }
 
-        $results = $this->_toTurbaObjects($objects, $sort_order);
-        return $results;
+        return $this->_toTurbaObjects($objects, $sort_order);
     }
 
     /**
@@ -527,9 +540,9 @@ class Turba_Driver implements Countable
      * first name values.
      *
      * @return array  A hash with the following format:
-     *                <code>
-     *                array('name' => array('John Doe' => Turba_List, ...), ...)
-     *                </code>
+     * <code>
+     * array('name' => array('John Doe' => Turba_List, ...), ...)
+     * </code>
      * @throws Turba_Exception
      */
     public function searchDuplicates()
@@ -544,14 +557,17 @@ class Turba_Driver implements Countable
      * @param array $objects  An array of object hashes (keyed to backend).
      * @param array $order    Array of hashes describing sort fields.  Each
      *                        hash has the following fields:
-     *                        - field:     String sort field
-     *                        - ascending: Boolean indicating sort direction
+     * <pre>
+     * ascending - (boolean) Indicating sort direction.
+     * field - (string) Sort field.
+     * </pre>
      *
-     * @return Turba_List containing requested Turba_Objects
+     * @return Turba_List  A list object.
      */
-    function _toTurbaObjects($objects, $sort_order = null)
+    protected function _toTurbaObjects($objects, $sort_order = null)
     {
         $list = new Turba_List();
+
         foreach ($objects as $object) {
             /* Translate the driver-specific fields in the result back to the
              * more generalized common Turba attributes using the map. */
@@ -560,12 +576,7 @@ class Turba_Driver implements Countable
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {
-                $type = ucwords($object['__type']);
-                $class = 'Turba_Object_' . $type;
-                if (!class_exists($class)) {
-                    require_once TURBA_BASE . '/lib/Object/' . $type . '.php';
-                }
-
+                $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
                     $list->insert(new $class($this, $object));
                     $done = true;
@@ -575,7 +586,9 @@ class Turba_Driver implements Countable
                 $list->insert(new Turba_Object($this, $object));
             }
         }
+
         $list->sort($sort_order);
+
         /* Return the filtered (sorted) results. */
         return $list;
     }
@@ -588,17 +601,16 @@ class Turba_Driver implements Countable
      * @param Horde_Date $end    The end date of the valid period.
      * @param $category          The timeObjects category to return.
      *
-     * @return mixed  A list of timeObject hashes || PEAR_Error
+     * @return mixed  A list of timeObject hashes.
+     * @throws Turba Exception
      */
-    function listTimeObjects($start, $end, $category)
+    public function listTimeObjects($start, $end, $category)
     {
-        $res = $this->_getTimeObjectTurbaList($start, $end, $category);
-        if (is_a($res, 'PEAR_Error')) {
+        try {
+            $res = $this->getTimeObjectTurbaList($start, $end, $category);
+        } catch (Turba_Exception $e) {
             /* Try the default implementation before returning an error */
             $res = $this->_getTimeObjectTurbaListFallback($start, $end, $category);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
         }
 
         $t_objects = array();
@@ -610,9 +622,11 @@ class Turba_Driver implements Countable
                 continue;
             }
 
-            $t_object = new Horde_Date(array('mday' => $match[3],
-                                             'month' => $match[2],
-                                             'year' => $match[1]));
+            $t_object = new Horde_Date(array(
+                'mday' => $match[3],
+                'month' => $match[2],
+                'year' => $match[1]
+            ));
             if ($t_object->compareDate($end) > 0) {
                 continue;
             }
@@ -651,8 +665,8 @@ class Turba_Driver implements Countable
                 'category' => $ob->getValue('category'),
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
-                'params' => array('source' => $this->name, 'key' => $key),
-                'link' => Horde::applicationUrl('contact.php', true)->add(array('source' => $this->name, 'key' => $key))->setRaw(true));
+                'params' => array('source' => $this->_name, 'key' => $key),
+                'link' => Horde::applicationUrl('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true));
         }
 
         return $t_objects;
@@ -665,11 +679,13 @@ class Turba_Driver implements Countable
      * @param Horde_Date $start  The starting date.
      * @param Horde_Date $end    The ending date.
      * @param string $field      The address book field containing the
-     *                           timeObject information (birthday, anniversary)
+     *                           timeObject information (birthday,
+     *                           anniversary).
      *
-     * @return mixed  A Tubra_List of objects || PEAR_Error
+     * @return Turba_List  A list of objects.
+     * @throws Turba_Exception
      */
-    function _getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList($start, $end, $field)
     {
         return $this->_getTimeObjectTurbaListFallback($start, $end, $field);
     }
@@ -681,16 +697,15 @@ class Turba_Driver implements Countable
      * @param Horde_Date $start  The starting date.
      * @param Horde_Date $end    The ending date.
      * @param string $field      The address book field containing the
-     *                           timeObject information (birthday, anniversary)
+     *                           timeObject information (birthday,
+     *                           anniversary).
      *
-     * @return mixed  A Tubra_List of objects || PEAR_Error
+     * @return Turba_List  A list of objects.
+     * @throws Turba_Exception
      */
-    function _getTimeObjectTurbaListFallback($start, $end, $field)
+    protected function _getTimeObjectTurbaListFallback($start, $end, $field)
     {
-        $res = $this->search(array(), null, 'AND',
-                             array('name', $field, 'category'));
-
-        return $res;
+        return $this->search(array(), null, 'AND', array('name', $field, 'category'));
     }
 
     /**
@@ -699,19 +714,16 @@ class Turba_Driver implements Countable
      * @param array $objectIds  The unique ids of the objects to retrieve.
      *
      * @return array  The array of retrieved objects (Turba_Objects).
+     * @throws Turba_Exception
      */
-    function &getObjects($objectIds)
+    public function getObjects($objectIds)
     {
         $objects = $this->_read($this->map['__key'], $objectIds,
                                 $this->getContactOwner(),
                                 array_values($this->fields),
                                 $this->toDriverKeys($this->getBlobs()));
-        if (is_a($objects, 'PEAR_Error')) {
-            return $objects;
-        }
         if (!is_array($objects)) {
-            $result = PEAR::raiseError(_("Requested object not found."));
-            return $result;
+            throw new Turba_Exception(_("Requested object not found."));
         }
 
         $results = array();
@@ -720,13 +732,7 @@ class Turba_Driver implements Countable
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {
-
-                $type = ucwords($object['__type']);
-                $class = 'Turba_Object_' . $type;
-                if (!class_exists($class)) {
-                    require_once TURBA_BASE . '/lib/Object/' . $type . '.php';
-                }
-
+                $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
                     $results[] = new $class($this, $object);
                     $done = true;
@@ -746,19 +752,19 @@ class Turba_Driver implements Countable
      * @param string $objectId  The unique id of the object to retrieve.
      *
      * @return Turba_Object  The retrieved object.
+     * @throws Turba_Exception
      */
-    function &getObject($objectId)
+    public function getObject($objectId)
     {
-        $result = &$this->getObjects(array($objectId));
-        if (is_a($result, 'PEAR_Error')) {
-            // Fall through.
-        } elseif (empty($result[0])) {
-            $result = PEAR::raiseError('No results');
-        } else {
-            $result = $result[0];
-            if (!isset($this->map['__owner'])) {
-                $result->attributes['__owner'] = $this->getContactOwner();
-            }
+        $result = $this->getObjects(array($objectId));
+
+        if (empty($result[0])) {
+            throw new Turba_Exception('No results');
+        }
+
+        $result = $result[0];
+        if (!isset($this->map['__owner'])) {
+            $result->attributes['__owner'] = $this->getContactOwner();
         }
 
         return $result;
@@ -769,10 +775,10 @@ class Turba_Driver implements Countable
      *
      * @param array $attributes  The attributes of the new object to add.
      *
-     * @return mixed  The new __key value on success, or a PEAR_Error object
-     *                on failure.
+     * @return string  The new __key value on success.
+     * @throws Turba_Exception
      */
-    function add($attributes)
+    public function add($attributes)
     {
         /* Only set __type and __owner if they are not already set. */
         if (!isset($attributes['__type'])) {
@@ -790,10 +796,8 @@ class Turba_Driver implements Countable
         $uid = $attributes['__uid'];
 
         $attributes = $this->toDriverKeys($attributes);
-        $result = $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+
+        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
 
         /* Log the creation of this item in the history log. */
         try {
@@ -810,14 +814,19 @@ class Turba_Driver implements Countable
     /**
      * Returns ability of the backend to add new contacts.
      *
-     * @return boolean
+     * @return boolean  Can backend add?
      */
-    function canAdd()
+    public function canAdd()
     {
         return $this->_canAdd();
     }
 
-    function _canAdd()
+    /**
+     * Returns ability of the backend to add new contacts.
+     *
+     * @return boolean  Can backend add?
+     */
+    protected function _canAdd()
     {
         return false;
     }
@@ -826,22 +835,18 @@ class Turba_Driver implements Countable
      * Deletes the specified entry from the contact source.
      *
      * @param string $object_id  The ID of the object to delete.
+     *
+     * @throws Turba_Exception
      */
-    function delete($object_id)
+    public function delete($object_id)
     {
-        $object = &$this->getObject($object_id);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
+        $object = $this->getObject($object_id);
 
         if (!$object->hasPermission(Horde_Perms::DELETE)) {
-            return PEAR::raiseError(_("Permission denied"));
+            throw new Turba_Exception(_("Permission denied"));
         }
 
-        $result = $this->_delete($this->toDriver('__key'), $object_id);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_delete($this->toDriver('__key'), $object_id);
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
         if (!empty($own_contact)) {
@@ -868,20 +873,27 @@ class Turba_Driver implements Countable
     /**
      * Deletes all contacts from an address book.
      *
-     * @param string  $sourceName  The identifier of the address book to
-     *                             delete.  If omitted, will clear the current
-     *                             user's 'default' address book for this source
-     *                             type.
+     * @param string $sourceName  The identifier of the address book to
+     *                            delete.  If omitted, will clear the current
+     *                            user's 'default' address book for this
+     *                            source type.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Turba_Exception
      */
-    function deleteAll($sourceName = null)
+    public function deleteAll($sourceName = null)
     {
         if (!$this->hasCapability('delete_all')) {
-            return PEAR::raiseError('Not supported');
-        } else {
-            return $this->_deleteAll($sourceName);
+            throw new Turba_Exception('Not supported');
         }
+
+        $this->_deleteAll($sourceName);
+    }
+
+    /**
+     * TODO
+     */
+    protected function _deleteAll()
+    {
     }
 
     /**
@@ -890,13 +902,11 @@ class Turba_Driver implements Countable
      * @param Turba_Object $object  The object to update.
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
-    function save($object)
+    public function save($object)
     {
         $object_id = $this->_save($object);
-        if (is_a($object_id, 'PEAR_Error')) {
-            return $object_id;
-        }
 
         /* Log the modification of this item in the history log. */
         if ($object->getValue('__uid')) {
@@ -908,6 +918,7 @@ class Turba_Driver implements Countable
                 Horde::logMessage($e, 'ERR');
             }
         }
+
         return $object_id;
     }
 
@@ -916,10 +927,11 @@ class Turba_Driver implements Countable
      *
      * @return array  An array containing the criteria.
      */
-    function getCriteria()
+    public function getCriteria()
     {
         $criteria = $this->map;
         unset($criteria['__key']);
+
         return $criteria;
     }
 
@@ -929,7 +941,7 @@ class Turba_Driver implements Countable
      *
      * @return array  The field list.
      */
-    function getFields()
+    public function getFields()
     {
         return array_flip($this->fields);
     }
@@ -943,14 +955,17 @@ class Turba_Driver implements Countable
      *                              properties with the requested fields.
      * @param boolean $skipEmpty    Whether to skip empty fields.
      *
-     * @return Horde_Icalendar_vcard  A Horde_Icalendar_vcard object.
+     * @return Horde_Icalendar_Vcard  A vcard object.
      */
-    function tovCard($object, $version = '2.1', $fields = null, $skipEmpty = false)
+    public function tovCard($object, $version = '2.1', $fields = null,
+                            $skipEmpty = false)
     {
         $hash = $object->getAttributes();
         $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
-        $charset = $version == '2.1' ? array('CHARSET' => $GLOBALS['registry']->getCharset()) : array();
+        $charset = ($version == '2.1')
+            ? array('CHARSET' => $GLOBALS['registry']->getCharset())
+            : array();
 
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
@@ -969,6 +984,7 @@ class Turba_Driver implements Countable
                 $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 $formattedname = true;
                 break;
+
             case 'nickname':
             case 'alias':
                 if ($fields && !isset($fields['NICKNAME'])) {
@@ -991,6 +1007,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('LABEL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workAddress':
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
@@ -1004,27 +1021,21 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('LABEL', $val, array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'otherAddress':
                 if ($fields && !isset($fields['LABEL'])) {
                     break;
                 }
-                if ($version == '2.1') {
-                    $vcard->setAttribute('LABEL', $val);
-                } else {
-                    $vcard->setAttribute('LABEL', $val);
-                }
+                $vcard->setAttribute('LABEL', $val);
                 break;
 
             case 'phone':
                 if ($fields && !isset($fields['TEL'])) {
                     break;
                 }
-                if ($version == '2.1') {
-                    $vcard->setAttribute('TEL', $val);
-                } else {
-                    $vcard->setAttribute('TEL', $val);
-                }
+                $vcard->setAttribute('TEL', $val);
                 break;
+
             case 'homePhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1038,6 +1049,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workPhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1051,6 +1063,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'cellPhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1064,6 +1077,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'CELL'));
                 }
                 break;
+
             case 'homeCellPhone':
                 $parameters = array();
                 if ($fields) {
@@ -1098,6 +1112,7 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workCellPhone':
                 $parameters = array();
                 if ($fields) {
@@ -1146,6 +1161,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'VIDEO'));
                 }
                 break;
+
             case 'homeVideoCall':
                 $parameters = array();
                 if ($fields) {
@@ -1180,6 +1196,7 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workVideoCall':
                 $parameters = array();
                 if ($fields) {
@@ -1234,6 +1251,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('X-SIP', $val, array('TYPE' => 'POC'));
                 }
                 break;
+
             case 'voip':
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
@@ -1247,6 +1265,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('X-SIP', $val, array('TYPE' => 'VOIP'));
                 }
                 break;
+
             case 'shareView':
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
@@ -1281,6 +1300,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'FAX'));
                 }
                 break;
+
             case 'homeFax':
                 $parameters = array();
                 if ($fields) {
@@ -1315,6 +1335,7 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workFax':
                 $parameters = array();
                 if ($fields) {
@@ -1373,9 +1394,9 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL',
-                                     Horde_Icalendar_Vcard::getBareEmail($val));
+                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
                 break;
+
             case 'homeEmail':
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
@@ -1393,6 +1414,7 @@ class Turba_Driver implements Countable
                                          array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workEmail':
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
@@ -1410,14 +1432,14 @@ class Turba_Driver implements Countable
                                          array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'emails':
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
                 $emails = explode(',', $val);
                 foreach ($emails as $email) {
-                    $vcard->setAttribute('EMAIL',
-                                         Horde_Icalendar_Vcard::getBareEmail($email));
+                    $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($email));
                 }
                 break;
 
@@ -1425,23 +1447,21 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['TITLE'])) {
                     break;
                 }
-                $vcard->setAttribute('TITLE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('TITLE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
+
             case 'role':
                 if ($fields && !isset($fields['ROLE'])) {
                     break;
                 }
-                $vcard->setAttribute('ROLE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('ROLE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
 
             case 'notes':
                 if ($fields && !isset($fields['NOTE'])) {
                     break;
                 }
-                $vcard->setAttribute('NOTE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('NOTE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
 
             case 'businessCategory':
@@ -1476,6 +1496,7 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('URL', $val);
                 break;
+
             case 'homeWebsite':
                 if ($fields &&
                     (!isset($fields['URL']) ||
@@ -1489,6 +1510,7 @@ class Turba_Driver implements Countable
                     $vcard->setAttribute('URL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workWebsite':
                 if ($fields &&
                     (!isset($fields['URL']) ||
@@ -1527,6 +1549,7 @@ class Turba_Driver implements Countable
                                                'longitude' => $hash['longitude']));
                 }
                 break;
+
             case 'homeLatitude':
                 if ($fields &&
                     (!isset($fields['GEO']) ||
@@ -1548,6 +1571,7 @@ class Turba_Driver implements Countable
                    }
                 }
                 break;
+
             case 'workLatitude':
                 if ($fields &&
                     (!isset($fields['GEO']) ||
@@ -1836,7 +1860,7 @@ class Turba_Driver implements Countable
      *
      * @return array  A Turba attribute hash.
      */
-    function toHash(Horde_Icalendar_Vcard $vcard)
+    public function toHash(Horde_Icalendar_Vcard $vcard)
     {
         $hash = array();
         $attr = $vcard->getAllAttributes();
@@ -2261,22 +2285,27 @@ class Turba_Driver implements Countable
         $charset = $GLOBALS['registry']->getCharset();
         $hash = $object->getAttributes();
         foreach ($hash as $field => $value) {
-           switch ($field) {
+            switch ($field) {
             case 'name':
                 $message->fileas = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'lastname':
                 $message->lastname = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'firstname':
                 $message->firstname = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'middlenames':
                 $message->middlename = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'namePrefix':
                 $message->title = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'nameSuffix':
                 $message->suffix = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
@@ -2285,50 +2314,64 @@ class Turba_Driver implements Countable
                 $message->picture = base64_encode($value);
                 break;
 
-            /* Address (TODO: check for a single home/workAddress field instead) */
             case 'homeStreet':
+                /* Address (TODO: check for a single home/workAddress field
+                 * instead) */
                 $message->homestreet = Horde_String::convertCharset($hash['homeStreet'], $charset, 'utf-8');
                 break;
+
             case 'homeCity':
                 $message->homecity = Horde_String::convertCharset($hash['homeCity'], $charset, 'utf-8');
                 break;
+
             case 'homeProvince':
                 $message->homestate = Horde_String::convertCharset($hash['homeProvince'], $charset, 'utf-8');
                 break;
+
             case 'homePostalCode':
                 $message->homepostalcode = Horde_String::convertCharset($hash['homePostalCode'], $charset, 'utf-8');
                 break;
+
             case 'homeCountry':
                 $message->homecountry = Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['homeCountry']), $charset, 'utf-8');
                 break;
+
             case 'workStreet':
                 $message->businessstreet = Horde_String::convertCharset($hash['workStreet'], $charset, 'utf-8');
                 break;
+
             case 'workCity':
                 $message->businesscity = Horde_String::convertCharset($hash['workCity'], $charset, 'utf-8');
                 break;
+
             case 'workProvince':
                 $message->businessstate = Horde_String::convertCharset($hash['workProvince'], $charset, 'utf-8');
                 break;
+
             case 'workPostalCode':
                 $message->businesspostalcode = Horde_String::convertCharset($hash['workPostalCode'], $charset, 'utf-8');
                 break;
+
             case 'workCountry':
                 $message->businesscountry = Horde_String::convertCharset($hash['workCountry'], $charset, 'utf-8');
                 break;
+
             case 'homePhone':
                 /* Phone */
                 $message->homephonenumber = $hash['homePhone'];
                 break;
+
             case 'cellPhone':
                 $message->mobilephonenumber = $hash['cellPhone'];
                 break;
             case 'fax':
                 $message->businessfaxnumber = $hash['fax'];
                 break;
+
             case 'workPhone':
                 $message->businessphonenumber = $hash['workPhone'];
                 break;
+
             case 'pager':
                 $message->pagernumber = $hash['pager'];
                 break;
@@ -2344,6 +2387,7 @@ class Turba_Driver implements Countable
             case 'company':
                 $message->companyname = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
+
             case 'departnemt':
                 $message->department = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
@@ -2362,6 +2406,7 @@ class Turba_Driver implements Countable
                 $message->bodysize = strlen($message->body);
                 $message->bodytruncated = false;
                 break;
+
             case 'website':
                 $message->webpage = $value;
                 break;
@@ -2386,12 +2431,13 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Convert an ActiveSync contact message into a hash suitable for importing
-     * via add.
+     * Convert an ActiveSync contact message into a hash suitable for
+     * importing via self::add().
      *
-     * @param Horde_ActiveSync_Message_Contact $message  The contact message object
+     * @param Horde_ActiveSync_Message_Contact $message  The contact message
+     *                                                   object.
      *
-     * @return array  A contact hash
+     * @return array  A contact hash.
      */
     public function fromASContact($message)
     {
@@ -2495,6 +2541,7 @@ class Turba_Driver implements Countable
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
         }
+
         return $hash;
     }
 
@@ -2506,11 +2553,11 @@ class Turba_Driver implements Countable
      *
      * @return boolean  True if the user has permission, otherwise false.
      */
-    function hasPermission($perm)
+    public function hasPermission($perm)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        return $perms->exists('turba:sources:' . $this->name)
-            ? $perms->hasPermission('turba:sources:' . $this->name, $GLOBALS['registry']->getAuth(), $perm)
+        return $perms->exists('turba:sources:' . $this->_name)
+            ? $perms->hasPermission('turba:sources:' . $this->_name, $GLOBALS['registry']->getAuth(), $perm)
             // Assume we have permissions if they're not explicitly set.
             : true;
     }
@@ -2521,26 +2568,31 @@ class Turba_Driver implements Countable
      *
      * @string Address book name
      */
-    function getName()
+    public function getName()
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
      * Return the owner to use when searching or creating contacts in
      * this address book.
      *
-     * @return string
+     * @return string  Contact owner.
      */
-    function getContactOwner()
+    public function getContactOwner()
     {
-        if (empty($this->_contact_owner)) {
-           return $this->_getContactOwner();
-        }
-        return $this->_contact_owner;
+        return empty($this->_contact_owner)
+            ? $this->_getContactOwner()
+            : $this->_contact_owner;
     }
 
-    function _getContactOwner()
+    /**
+     * Return the owner to use when searching or creating contacts in
+     * this address book.
+     *
+     * @return string  Contact owner.
+     */
+    protected function _getContactOwner()
     {
         return $GLOBALS['registry']->getAuth();
     }
@@ -2552,12 +2604,13 @@ class Turba_Driver implements Countable
      *
      * @return Horde_Share  The share object.
      */
-    function createShare($share_id, $params)
+    public function createShare($share_id, $params)
     {
         // If the raw address book name is not set, use the share name
         if (empty($params['params']['name'])) {
             $params['params']['name'] = $share_id;
         }
+
         return Turba::createShare($share_id, $params);
     }
 
@@ -2569,9 +2622,9 @@ class Turba_Driver implements Countable
      *
      * @return string  A unique ID for the new object.
      */
-    function _makeKey($attributes)
+    protected function _makeKey($attributes)
     {
-        return md5(mt_rand());
+        return hash('md5', mt_rand());
     }
 
     /**
@@ -2596,7 +2649,7 @@ class Turba_Driver implements Countable
         }
 
         /* Store name and title. */
-        $driver->name = $name;
+        $driver->_name = $name;
         $driver->title = $config['title'];
 
         /* Initialize */
@@ -2650,10 +2703,11 @@ class Turba_Driver implements Countable
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
-        return PEAR::raiseError(_("Searching is not available."));
+        throw new Turba_Exception(_("Searching is not available."));
     }
 
     /**
@@ -2665,36 +2719,47 @@ class Turba_Driver implements Countable
      * @param array $fields  List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, $fields)
     {
-        return PEAR::raiseError(_("Reading contacts is not available."));
+        throw new Turba_Exception(_("Reading contacts is not available."));
     }
 
     /**
      * Adds the specified contact to the SQL database.
+     *
+     * @param array $attributes  TODO
+     *
+     * @throws Turba_Exception
      */
-    function _add($attributes)
+    protected function _add($attributes)
     {
-        return PEAR::raiseError(_("Adding contacts is not available."));
+        throw new Turba_Exception(_("Adding contacts is not available."));
     }
 
     /**
      * Deletes the specified contact from the SQL database.
+     *
+     * @param $object_key TODO
+     * @param $object_id TODO
+     *
+     * @throws Turba_Exception
      */
-    function _delete($object_key, $object_id)
+    protected function _delete($object_key, $object_id)
     {
-        return PEAR::raiseError(_("Deleting contacts is not available."));
+        throw new Turba_Exception(_("Deleting contacts is not available."));
     }
 
     /**
      * Saves the specified object in the SQL database.
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
-    function _save($object)
+    protected function _save($object)
     {
-        return PEAR::raiseError(_("Saving contacts is not available."));
+        throw new Turba_Exception(_("Saving contacts is not available."));
     }
 
     /**
@@ -2702,23 +2767,22 @@ class Turba_Driver implements Countable
      *
      * @param string $user  The user's data to remove.
      *
-     * @return mixed True | PEAR_Error
+     * @throws Turba_Exception
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
-        return PEAR::raiseError(_("Removing user data is not supported in the current address book storage driver."));
+        throw new Turba_Exception(_("Removing user data is not supported in the current address book storage driver."));
     }
 
     /**
      * Check if the passed in share is the default share for this source.
      *
-     * @param Horde_Share $share  The share object e
-     * @param array $srcconfig    The cfgSource entry for the share (not used in
-     *                            this method, but a child class may need it).
+     * @param Horde_Share $share  The share object.
+     * @param array $srcconfig    The cfgSource entry for the share.
      *
-     * @return boolean
+     * @return boolean TODO
      */
-    function checkDefaultShare($share, $srcconfig)
+    public function checkDefaultShare($share, $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {
@@ -2741,11 +2805,7 @@ class Turba_Driver implements Countable
     public function count()
     {
         if (is_null($this->_count)) {
-            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
-            if ($count instanceof PEAR_Error) {
-                throw new Turba_Exception($count);
-            }
-            $this->_count = count($count);
+            $this->_count = count($this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key'))));
         }
 
         return $this->_count;

@@ -411,9 +411,10 @@ class Turba_Application extends Horde_Registry_Application
                     continue;
                 }
 
-                $result = $driver->removeUserData($user);
-                if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
+                try {
+                    $driver->removeUserData($user);
+                } catch (Turba_Exception $e) {
+                    Horde::logMessage($e, 'ERR');
                 }
             }
         }
@@ -435,9 +436,10 @@ class Turba_Application extends Horde_Registry_Application
                         continue;
                     }
 
-                    $result = $driver->removeUserData($user);
-                    if ($result instanceof PEAR_Error) {
-                        Horde::logMessage($result, 'ERR');
+                    try {
+                        $driver->removeUserData($user);
+                    } catch (Turba_Exception $e) {
+                        Horde::logMessage($e, 'ERR');
                         $hasError = true;
                     }
                 }

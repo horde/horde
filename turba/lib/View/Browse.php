@@ -114,8 +114,10 @@ class Turba_View_Browse {
                     $errorCount = 0;
                     foreach ($keys as $sourceKey) {
                         list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                        if (is_a($driver->delete($objectKey), 'PEAR_Error')) {
-                            $errorCount++;
+                        try {
+                            $driver->delete($objectKey);
+                        } catch (Turba_Exception $e) {
+                            ++$errorCount;
                         }
                     }
                     if (!$errorCount) {
@@ -175,11 +177,14 @@ class Turba_View_Browse {
                         continue;
                     }
 
-                    $object = &$sourceDriver->getObject($objectKey);
-                    if (is_a($object, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("Failed to find object to be added: %s"), $object->getMessage()), 'horde.error');
+                    try {
+                        $object = $sourceDriver->getObject($objectKey);
+                    } catch (Turba_Exception $e) {
+                        $notification->push(sprintf(_("Failed to find object to be added: %s"), $e->getMessage()), 'horde.error');
                         continue;
-                    } elseif ($object->isGroup()) {
+                    }
+
+                    if ($object->isGroup()) {
                         if ($actionID == 'move') {
                             $notification->push(sprintf(_("\"%s\" was not moved because it is a list."), $object->getValue('name')), 'horde.warning');
                         } else {
@@ -204,9 +209,10 @@ class Turba_View_Browse {
                     }
                     unset($objAttributes['__owner']);
 
-                    $result = $targetDriver->add($objAttributes);
-                    if (is_a($result, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("Failed to add %s to %s: %s"), $object->getValue('name'), $targetDriver->title, $result->getMessage()), 'horde.error');
+                    try {
+                        $targetDriver->add($objAttributes);
+                    } catch (Turba_Exception $e) {
+                        $notification->push(sprintf(_("Failed to add %s to %s: %s"), $object->getValue('name'), $targetDriver->title, $e), 'horde.error');
                         break;
                     }
 
@@ -215,7 +221,9 @@ class Turba_View_Browse {
                     // If we're moving objects, and we succeeded,
                     // delete them from the original source now.
                     if ($actionID == 'move') {
-                        if (is_a($sourceDriver->delete($objectKey), 'PEAR_Error')) {
+                        try {
+                            $sourceDriver->delete($objectKey);
+                        } catch (Turba_Exception $e) {
                             $notification->push(sprintf(_("There was an error deleting \"%s\" from the source address book."), $object->getValue('name')), 'horde.error');
                         }
 
@@ -254,9 +262,11 @@ class Turba_View_Browse {
                         $notification->push($e, 'horde.error');
                         break;
                     }
-                    $target = &$targetDriver->getObject($targetKey);
-                    if (is_a($target, 'PEAR_Error')) {
-                        $notification->push($target, 'horde.error');
+
+                    try {
+                        $target = $targetDriver->getObject($targetKey);
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                         break;
                     }
                 } else {
@@ -302,34 +312,43 @@ class Turba_View_Browse {
                     }
 
                     // Adding contact to a new list.
-                    $newList = array('__owner' => $targetDriver->getContactOwner(),
-                                     '__type' => 'Group',
-                                     'name' => $targetKey);
-                    $targetKey = $targetDriver->add($newList);
-                    if (!is_a($targetKey, 'PEAR_Error')) {
-                        $target = &$targetDriver->getObject($targetKey);
-                        if (!is_a($target, 'PEAR_Error') && $target->isGroup()) {
-                            $notification->push(sprintf(_("Successfully created the contact list \"%s\"."), $newList['name']), 'horde.success');
-                            if (is_array($keys)) {
-                                $errorCount = 0;
-                                foreach ($keys as $sourceKey) {
-                                    list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                                    if (!$target->addMember($objectKey, $objectSource)) {
-                                        $errorCount++;
-                                    }
-                                }
-                                if (!$errorCount) {
-                                    $notification->push(sprintf(_("Successfully added %d contact(s) to list."), count($keys)), 'horde.success');
-                                } elseif ($errorCount == count($keys)) {
-                                    $notification->push(sprintf(_("Error adding %d contact(s) to list."), count($keys)), 'horde.error');
-                                } else {
-                                    $notification->push(sprintf(_("Error adding %d of %d requested contact(s) to list."), $errorCount, count($keys)), 'horde.error');
-                                }
-                                $target->store();
-                            }
-                        }
-                    } else {
+                    $newList = array(
+                        '__owner' => $targetDriver->getContactOwner(),
+                        '__type' => 'Group',
+                        'name' => $targetKey
+                    );
+
+                    try {
+                        $targetKey = $targetDriver->add($newList);
+                    } catch (Turba_Exception $e) {
                         $notification->push(_("There was an error creating a new list."), 'horde.error');
+                        $targetKey = null;
+                    }
+
+                    if ($targetKey) {
+                        try {
+                            $target = $targetDriver->getObject($targetKey);
+                            if ($target->isGroup()) {
+                                $notification->push(sprintf(_("Successfully created the contact list \"%s\"."), $newList['name']), 'horde.success');
+                                if (is_array($keys)) {
+                                    $errorCount = 0;
+                                    foreach ($keys as $sourceKey) {
+                                        list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
+                                        if (!$target->addMember($objectKey, $objectSource)) {
+                                            ++$errorCount;
+                                        }
+                                    }
+                                    if (!$errorCount) {
+                                        $notification->push(sprintf(_("Successfully added %d contact(s) to list."), count($keys)), 'horde.success');
+                                    } elseif ($errorCount == count($keys)) {
+                                        $notification->push(sprintf(_("Error adding %d contact(s) to list."), count($keys)), 'horde.error');
+                                    } else {
+                                        $notification->push(sprintf(_("Error adding %d of %d requested contact(s) to list."), $errorCount, count($keys)), 'horde.error');
+                                    }
+                                    $target->store();
+                                }
+                            }
+                        } catch (Turba_Exception $e) {}
                     }
                 }
                 break;
@@ -354,26 +373,30 @@ class Turba_View_Browse {
 
             if ($vars->get('key')) {
                 // We are displaying a list.
-                $list = &$driver->getObject($vars->get('key'));
-                if (isset($list) && is_object($list) &&
-                    !is_a($list, 'PEAR_Error') && $list->isGroup()) {
+                try {
+                    $list = $driver->getObject($vars->get('key'));
+                } catch (Turba_Exception $e) {
+                    $notification->push(_("There was an error displaying the list"), 'horde.error');
+                    $list = null;
+                }
+
+                if ($list && $list->isGroup()) {
                     $title = sprintf(_("Contacts in list: %s"),
                                      $list->getValue('name'));
                     $templates[] = '/browse/header.inc';
 
                     // Show List Members.
-                    if (!is_object($results = $list->listMembers($sortorder))) {
-                        $notification->push(_("Failed to browse list"), 'horde.error');
-                    } else {
+                    try {
+                        $results = $list->listMembers($sortorder);
                         if (count($results) != count($list)) {
                             $count = count($list) - count($results);
                             $notification->push(sprintf(ngettext("There is %d contact in this list that is not viewable to you", "There are %d contacts in this list that are not viewable to you", $count), $count), 'horde.message');
                         }
                         $view = new Turba_View_List($results, null, $columns);
                         $view->setType('list');
+                    } catch (Turba_Exception $e) {
+                        $notification->push(_("Failed to browse list"), 'horde.error');
                     }
-                } else {
-                    $notification->push(_("There was an error displaying the list"), 'horde.error');
                 }
             } else {
                 // We are displaying an address book.
@@ -392,14 +415,13 @@ class Turba_View_Browse {
                         $type_filter = array('__type' => 'Group');
                         break;
                     }
-                    $results = $driver->search($type_filter, $sortorder, 'AND', $columns ? $columns : array('name'));
-                    if (!is_object($results)) {
-                        $notification->push(_("Failed to browse the directory"), 'horde.error');
-                    } elseif (is_a($results, 'PEAR_Error')) {
-                        $notification->push($results, 'horde.error');
-                    } else {
+
+                    try {
+                        $results = $driver->search($type_filter, $sortorder, 'AND', $columns ? $columns : array('name'));
                         $view = new Turba_View_List($results, null, $columns);
                         $view->setType('directory');
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                     }
                 }
             }

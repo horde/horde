@@ -70,24 +70,27 @@ class Turba_Form_AddContact extends Turba_Form_Contact
         unset($contact['__owner']);
 
         /* Create Contact. */
-        $key = $driver->add($contact);
-        if (is_a($key, 'PEAR_Error')) {
-            Horde::logMessage($key, 'ERR');
-        } else {
+        try {
+            $key = $driver->add($contact);
+        } catch (Turba_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            $key = null;
+        }
+
+        if ($key) {
             // Try 3 times to get the new entry. We retry to allow setups like
             // LDAP replication to work.
-            for ($i = 0; $i < 3; $i++) {
-                $ob = $driver->getObject($key);
-                if (!is_a($ob, 'PEAR_Error')) {
+            for ($i = 0; $i < 3; ++$i) {
+                try {
+                    $ob = $driver->getObject($key);
                     $notification->push(sprintf(_("%s added."), $ob->getValue('name')), 'horde.success');
                     $url = empty($info['url'])
                         ? $ob->url('Contact', true)
                         : new Horde_Url($info['url']);
                     $url->redirect();
-                }
+                } catch (Turba_Exception $e) {}
                 sleep(1);
             }
-            Horde::logMessage($ob, 'ERR');
         }
 
         $notification->push(_("There was an error adding the new contact. Contact your system administrator for further help."), 'horde.error');

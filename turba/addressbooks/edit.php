@@ -38,7 +38,7 @@ $form = new Turba_Form_EditAddressBook($vars, $addressbook);
 if ($form->validate($vars)) {
     $original_name = $addressbook->get('name');
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } else {
         if ($addressbook->get('name') != $original_name) {

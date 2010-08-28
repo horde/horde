@@ -35,11 +35,7 @@ if (empty($vcard)) {
 }
 
 // Import data.
-$result = $registry->call('contacts/import',
-                          array($vcard, 'text/x-vcard', $source));
-if (is_a($result, 'PEAR_Error')) {
-    $cli->fatal($result->toString());
-}
+$result = $registry->call('contacts/import', array($vcard, 'text/x-vcard', $source));
 
 $cli->message('Imported successfully ' . count($result) . ' contacts', 'cli.success');
 

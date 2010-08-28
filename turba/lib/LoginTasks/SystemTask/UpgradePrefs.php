@@ -31,7 +31,7 @@ class Turba_LoginTasks_SystemTask_UpgradePrefs extends Horde_LoginTasks_SystemTa
     /**
      * Perform all functions for this task.
      *
-     * @return mixed True | PEAR_Error
+     * @return boolean  Success.
      */
     public function execute()
     {

@@ -41,12 +41,8 @@ class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTa
             foreach ($sources as $sourcekey) {
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourcekey);
+                    $lists = $driver->search($criteria);
                 } catch (Turba_Exception $e) {
-                    return false;
-                }
-
-                $lists = $driver->search($criteria);
-                if ($lists instanceof PEAR_Error) {
                     return false;
                 }
 

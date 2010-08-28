@@ -295,7 +295,7 @@ class Turba_Object {
     function url($view = null, $full = false)
     {
         $url = Horde::applicationUrl('contact.php', $full)->add(array(
-            'source' => $this->driver->name,
+            'source' => $this->driver->getName(),
             'key' => $this->getValue('__key')
         ));
 
@@ -409,7 +409,7 @@ class Turba_Object {
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'type' => $file['type'],
-                            'source' => $this->driver->name,
+                            'source' => $this->driver->getName(),
                             'key' => $this->getValue('__key'));
         $dl = Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
@@ -439,7 +439,7 @@ class Turba_Object {
             '" style="display:inline" method="post">' .
             Horde_Util::formInput() .
             '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .
-            '<input type="hidden" name="source" value="' . htmlspecialchars($this->driver->name) . '" />' .
+            '<input type="hidden" name="source" value="' . htmlspecialchars($this->driver->getName()) . '" />' .
             '<input type="hidden" name="key" value="' . htmlspecialchars($this->getValue('__key')) . '" />' .
             '<input type="image" class="img" src="' . Horde_Themes::img('delete.png') . '" />' .
             '</form>';
@@ -449,15 +449,12 @@ class Turba_Object {
 
     /**
      * Saves the current state of the object to the storage backend.
+     *
+     * @throws Turba_Exception
      */
-    function store()
+    public function store()
     {
-        $object_id = $this->driver->save($this);
-        if (is_a($object_id, 'PEAR_Error')) {
-            return $object_id;
-        }
-
-        return $this->setValue('__key', $object_id);
+        return $this->setValue('__key', $this->driver->save($this));
     }
 
     /**

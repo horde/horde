@@ -21,7 +21,7 @@ $db = $datatree->_db;
 // Get the root vbook element.
 $sql = "SELECT datatree_id FROM horde_datatree WHERE group_uid = 'horde.shares.turba' AND datatree_name = 'vbook'";
 $vbook_parent = $db->getOne($sql);
-if (is_a($vbook_parent, 'PEAR_Error')) {
+if ($vbook_parent instanceof PEAR_Error) {
     var_dump($vbook_parent);
     exit(1);
 }
@@ -30,7 +30,7 @@ $vbook_parent = (int)$vbook_parent;
 // Get child vbooks.
 $sql = "SELECT datatree_id FROM horde_datatree WHERE group_uid = 'horde.shares.turba' AND (datatree_parents = ':$vbook_parent' OR datatree_parents LIKE ':$vbook_parent:%')";
 $vbook_children = $db->getCol($sql);
-if (is_a($vbook_children, 'PEAR_Error')) {
+if ($vbook_children instanceof PEAR_Error) {
     var_dump($vbook_children);
     exit(1);
 }
