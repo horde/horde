@@ -319,7 +319,7 @@ class Horde_Cli
         $this->writeln($this->red(_("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
-        $this->writeln($backtrace->getMap());
+        $this->writeln((string)$backtrace);
         $this->writeln($this->red('===================='));
         exit(1);
     }

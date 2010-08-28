@@ -121,7 +121,7 @@ class Horde
                 $trace = debug_backtrace();
             }
             $backtrace = new Horde_Support_Backtrace($trace);
-            $errortext .= '<div id="backtrace"><pre>' . $backtrace->getMap() . '</pre></div>';
+            $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
             if (is_object($error)) {
                 $errortext .= '<h3>' . _("Details") . '</h3>';
                 $errortext .= '<h4>' . _("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
