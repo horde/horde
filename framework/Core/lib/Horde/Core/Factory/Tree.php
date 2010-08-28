@@ -57,7 +57,11 @@ class Horde_Core_Factory_Tree
      * @param string $name     The name of this tree instance.
      * @param mixed $renderer  The type of tree renderer.
      * @param array $params    Any additional parameters the constructor
-     *                         needs.
+     *                         needs. Defined by this class:
+     * <pre>
+     * 'nosession' - (boolean) Don't store tree state in the session.
+     *               DEFAULT: false
+     * </pre>
      *
      * @return Horde_Tree_Base  The singleton instance.
      * @throws Horde_Tree_Exception
@@ -82,7 +86,9 @@ class Horde_Core_Factory_Tree
                 break;
             }
 
-            $params['session'] = 'horde_tree';
+            if (empty($params['nosession'])) {
+                $params['session'] = 'horde_tree';
+            }
 
             $this->_instances[$id] = Horde_Tree::factory($name, $renderer, $params);
         }

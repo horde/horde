@@ -73,6 +73,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'extraColsLeft' => $this->_colsLeft,
             'extraColsRight' => $this->_colsRight,
             'header' => $this->_header,
+            'nocookie' => !$this->getOption('session'),
             'options' => $this->_options,
             'target' => $this->_instance,
 

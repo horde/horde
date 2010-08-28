@@ -442,6 +442,10 @@ var Horde_Tree = Class.create({
 
     saveState: function(nodeId, expanded)
     {
+        if (this.opts.nocookie) {
+            return;
+        }
+
         var newCookie = '',
             newNodes = [],
             oldCookie = this._getCookie(this.opts.target + '_expanded');
@@ -459,7 +463,7 @@ var Horde_Tree = Class.create({
             newCookie = newNodes.join(',');
         }
 
-        this._setCookie(this.opts.target + '_expanded', newCookie);
+        document.cookie = this.opts.target + '_expanded=exp' + escape(newCookie) + ';DOMAIN=' + this.opts.cookieDomain + ';PATH=' + this.opts.cookiePath + ';';
     },
 
     _getCookie: function(name)
@@ -486,10 +490,6 @@ var Horde_Tree = Class.create({
         return unescape(dc.substring(begin + prefix.length, end));
     },
 
-    _setCookie: function(name, value)
-    {
-        document.cookie = name + '=exp' + escape(value) + ';DOMAIN=' + this.opts.cookieDomain + ';PATH=' + this.opts.cookiePath + ';';
-    },
     _onClick: function(e)
     {
         var elt = e.element(),
