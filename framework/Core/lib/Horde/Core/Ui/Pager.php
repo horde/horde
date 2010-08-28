@@ -119,7 +119,7 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
                 ? $this->_config['nextHTML']
                 : htmlspecialchars(_("Next>"));
 
-            $html .= Horde::link($link, '', 'next') . $next_text . '</a>';
+            $html .= ' ' . Horde::link($link, '', 'next') . $next_text . '</a>';
         }
 
         return $html . '</div>';
