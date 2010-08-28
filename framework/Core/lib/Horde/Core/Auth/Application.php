@@ -215,12 +215,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     {
         if ($this->_base) {
             $this->_base->removeUser($userId);
-
-            try {
-                $GLOBALS['registry']->callAppMethod('horde', 'removeUserDataFromAllApplications', array('args' => array($userId)));
-            } catch (Horde_Exception $e) {
-                throw new Horde_Auth_Exception($e);
-            }
         } else {
             if ($this->hasCapability('remove')) {
                 $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['remove'], array('args' => array($userId)));
@@ -229,7 +223,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             }
 
             try {
-                $GLOBALS['registry']->callAppMethod($this->_app, 'removeUserData', array('args' => array($userId)));
+                $GLOBALS['registry']->callByPackage('horde', 'removeUserData', array($userId, !empty($this->_base)));
             } catch (Horde_Exception $e) {
                 throw new Horde_Auth_Exception($e);
             }

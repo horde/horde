@@ -196,24 +196,24 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes user data.
      *
-     * @param string $user  Name of user to remove data for.
+     * @param string $user      Name of user to remove data for.
+     * @param boolean $allapps  Remove data from all applications?
      *
      * @throws Horde_Exception
      */
-    public function removeUserData($user)
+    public function removeUserData($user, $allapps = false)
     {
-        if (!$GLOBALS['registry']->isAdmin() &&
-            $user != $GLOBALS['registry']->getAuth()) {
+        global $conf, $injector, $registry;
+
+        if (!$registry->isAdmin() && ($user != $registry->getAuth())) {
             throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
-
-        global $conf;
 
         /* Error flag */
         $haveError = false;
 
         /* Remove user's prefs */
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
             'user' => $user
         ));
         try {
@@ -236,7 +236,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         /* Remove the user from all application permissions */
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perms = $injector->getInstance('Horde_Perms');
         try {
             $tree = $perms->getTree();
         } catch (Horde_Perms_Exception $e) {
@@ -260,41 +260,21 @@ class Horde_Api extends Horde_Registry_Api
             }
         }
 
-        if ($haveError) {
-            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
-        }
-    }
-
-    /**
-     * Removes user data from all applications.
-     *
-     * @param string $user  Name of user to remove data for.
-     *
-     * @throws Horde_Exception
-     */
-    public function removeUserDataFromAllApplications($user)
-    {
-        global $registry;
-
-        if (!$registry->isAdmin() && ($user != $registry->getAuth())) {
-            throw new Horde_Exception(_("You are not allowed to remove user data."));
-        }
-
-        $errors = array();
-
-        foreach ($registry->listAllApps() as $app) {
-            if ($registry->hasAppMethod($app, 'removeUserData')) {
-                try {
-                    $registry->callAppMethod($app, 'removeUserData', array('args' => array($user)));
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
-                    $errors[] = $app;
+        if ($allapps) {
+            foreach ($registry->listAllApps() as $app) {
+                if ($registry->hasAppMethod($app, 'removeUserData')) {
+                    try {
+                        $registry->callAppMethod($app, 'removeUserData', array('args' => array($user)));
+                    } catch (Horde_Exception $e) {
+                        Horde::logMessage($e, 'ERR');
+                        $errors[] = $app;
+                    }
                 }
             }
         }
 
-        if (!empty($errors)) {
-            throw new Horde_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errors)));
+        if ($haveError) {
+            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
     }
 
