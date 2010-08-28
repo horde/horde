@@ -342,9 +342,10 @@ class Turba {
         $out = array();
 
         foreach ($in as $sourceId => $source) {
-            $driver = Turba_Driver::singleton($sourceId);
-            if (is_a($driver, 'PEAR_Error')) {
-                Horde::logMessage(sprintf("Could not instantiate the %s source: %s", $sourceId, $driver->getMessage()), 'ERR');
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
+            } catch (Turba_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 continue;
             }
 
@@ -406,14 +407,16 @@ class Turba {
 
                 // Default share?
                 if (empty($defaults[$params['source']])) {
-                    $driver = Turba_Driver::singleton($params['source']);
-                    if (!is_a($driver, 'PEAR_Error') && $driver->hasPermission(Horde_Perms::EDIT)) {
-                        $defaults[$params['source']] =
-                            $driver->checkDefaultShare(
+                    try {
+                        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($params['source']);
+                        if ($driver->hasPermission(Horde_Perms::EDIT)) {
+                            $defaults[$params['source']] = $driver->checkDefaultShare(
                                 $shares[$name],
-                                $sources[$params['source']]);
-                    } else {
-                        $notification->push($driver, 'horde.error');
+                                $sources[$params['source']]
+                            );
+                        }
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                     }
                 }
 
@@ -440,26 +443,33 @@ class Turba {
             }
             if ($GLOBALS['registry']->getAuth() && empty($defaults[$source])) {
                 // User's default share is missing.
-                $driver = Turba_Driver::singleton($source);
-                if (!($driver instanceof PEAR_Error)) {
-                    $sourceKey = md5(mt_rand());
-                    try {
-                        $share = $driver->createShare(
-                            $sourceKey,
-                            array('params' => array('source' => $source,
-                                                    'default' => true,
-                                                    'name' => $GLOBALS['registry']->getAuth())));
-                    } catch (Horde_Share_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
-                        continue;
-                    }
-
-                    $source_config = $sources[$source];
-                    $source_config['params']['share'] = $share;
-                    $newSources[$sourceKey] = $source_config;
-                } else {
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
+                } catch (Turba_Exception $e) {
                     $notification->push($driver, 'horde.error');
+                    continue;
                 }
+
+                $sourceKey = md5(mt_rand());
+                try {
+                    $share = $driver->createShare(
+                        $sourceKey,
+                        array(
+                            'params' => array(
+                                'source' => $source,
+                                'default' => true,
+                                'name' => $GLOBALS['registry']->getAuth()
+                            )
+                        )
+                    );
+                } catch (Horde_Share_Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                    continue;
+                }
+
+                $source_config = $sources[$source];
+                $source_config['params']['share'] = $share;
+                $newSources[$sourceKey] = $source_config;
             }
         }
 

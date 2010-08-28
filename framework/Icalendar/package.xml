@@ -119,6 +119,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Date</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>

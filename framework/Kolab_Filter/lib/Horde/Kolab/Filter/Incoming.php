@@ -24,6 +24,19 @@ require_once dirname(__FILE__) . '/Transport.php';
  */
 class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
 {
+    /**
+     * The application.
+     *
+     * @param Horde_Kolab_Filter
+     */
+    private $_application;
+
+    /**
+     * A temporary storage place for incoming messages.
+     *
+     * @param Horde_Kolab_Filter_Temporary
+     */
+    private $_temporary;
 
     /**
      * An array of headers to be added to the message
@@ -31,6 +44,37 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
      * @var array
      */
     var $_add_headers;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Filter_Configuration $config      The configuration.
+     * @param Horde_Kolab_Filter_Temporary     $temporary   Temporary storage
+     *                                                      location.
+     * @param Horde_Kolab_Filter_Logger        $logger      The logging backend.
+     * @param Horde_Kolab_Filter               $application Main application.
+     */
+    public function __construct(
+        Horde_Kolab_Filter_Configuration $config,
+        Horde_Kolab_Filter_Temporary $temporary,
+        Horde_Log_Logger $logger,
+        Horde_Kolab_Filter $application
+    ) {
+        parent::__construct($config, $logger);
+        $this->_temporary = $temporary;
+        $this->_application = $application;
+    }
+
+    /**
+     * Initialize the filter.
+     *
+     * @return NULL
+     */
+    public function init()
+    {
+        parent::init();
+        $this->_temporary->init();
+    }
 
     /**
      * Handle the message.
@@ -44,11 +88,6 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
     {
         global $conf;
 
-        $result = $this->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         if (empty($transport)) {
             if (isset($conf['kolab']['filter']['delivery_backend'])) {
                 $transport = $conf['kolab']['filter']['delivery_backend'];
@@ -56,6 +95,8 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 $transport = 'lmtp';
             }
         }
+
+        $this->_tmpfh = $this->_temporary->getHandle();
 
         $ical = false;
         $add_headers = array();
@@ -123,10 +164,12 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                                     OUT_LOG | EX_IOERR);
         }
 
+        $recipients = $this->_config->getRecipients();
+
         if ($ical) {
             require_once 'Horde/Kolab/Resource.php';
             $newrecips = array();
-            foreach ($this->_recipients as $recip) {
+            foreach ($recipients as $recip) {
                 if (strpos($recip, '+')) {
                     list($local, $rest)  = explode('+', $recip, 2);
                     list($rest, $domain) = explode('@', $recip, 2);
@@ -153,24 +196,24 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                     $newrecips[] = $resource;
                 }
             }
-            $this->_recipients = $newrecips;
+            $recipients = $newrecips;
             $this->_add_headers[] = 'X-Kolab-Scheduling-Message: TRUE';
         } else {
             $this->_add_headers[] = 'X-Kolab-Scheduling-Message: FALSE';
         }
 
         /* Check if we still have recipients */
-        if (empty($this->_recipients)) {
-            Horde::logMessage("No recipients left.", 'DEBUG');
+        if (empty($recipients)) {
+            $this->_logger->debug('No recipients left.');
             return;
         } else {
-            $result = $this->_deliver($transport);
+            $result = $this->_deliver($transport, $recipients);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
         }
 
-        Horde::logMessage("Filter_Incoming successfully completed.", 'DEBUG');
+        $this->_logger->debug('Filter_Incoming successfully completed.');
     }
 
     private function _transportItipReply(Horde_Kolab_Resource_Reply $reply)
@@ -218,7 +261,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
      *
      * @return mixed A PEAR_Error in case of an error, nothing otherwise.
      */
-    function _deliver($transport)
+    function _deliver($transport, $recipients)
     {
         global $conf;
 
@@ -233,17 +276,11 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             $port = 2003;
         }
 
-        /* Load the LDAP library */
-        require_once 'Horde/Kolab/Server.php';
-
-        $server = &Horde_Kolab_Server::singleton();
-        if (is_a($server, 'PEAR_Error')) {
-            $server->code = OUT_LOG | EX_TEMPFAIL;
-            return $server;
-        }
+        // @todo: extract as separate (optional) class
+        $userDb = $this->_application->getUserDb();
 
         $hosts = array();
-        foreach ($this->_recipients as $recipient) {
+        foreach ($recipients as $recipient) {
             if (strpos($recipient, '+')) {
                 list($local, $rest)  = explode('+', $recipient, 2);
                 list($rest, $domain) = explode('@', $recipient, 2);
@@ -251,25 +288,30 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             } else {
                 $real_recipient = $recipient;
             }
-            $dn = $server->uidForIdOrMail($real_recipient);
-            if (is_a($dn, 'PEAR_Error')) {
-                return $dn;
-            }
-            if (!$dn) {
-                Horde::logMessage(sprintf('User %s does not exist!', $real_recipient), 'DEBUG');
-            }
             try {
-                $user = $server->fetch($dn, 'Horde_Kolab_Server_Object_Kolab_User');
+                //@todo: fix anonymous binding in Kolab_Server. The method name should be explicit.
+                $userDb->server->connectGuid();
+                $guid = $userDb->search->searchGuidForUidOrMail($real_recipient);
+                if (empty($guid)) {
+                    throw new Horde_Kolab_Filter_Exception_Temporary(
+                        sprintf('User %s does not exist!', $real_recipient)
+                    );
+                }
+                $imapserver = $userDb->objects->fetch(
+                    $guid, 'Horde_Kolab_Server_Object_Kolab_User'
+                )->getSingle('kolabHomeServer');
             } catch (Horde_Kolab_Server_Exception $e) {
-                Horde::logMessage(sprintf('Failed fetching user object %s. Error was:',
-                                          $dn, $e->getMessage()), 'DEBUG');
-                $user->code = OUT_LOG | EX_TEMPFAIL;
-                return $user;
-            }
-            $imapserver = $user->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_IMAPHOST);
-            if (is_a($imapserver, 'PEAR_Error')) {
-                $imapserver->code = OUT_LOG | EX_TEMPFAIL;
-                return $imapserver;
+                //@todo: If a message made it till here than we shouldn't fail
+                // because the LDAP lookup fails. The safer alternative is to try the local
+                // delivery. LMTP should deny anyway in case the user is unknown
+                // (despite the initial postfix checks).
+                throw new Horde_Kolab_Filter_Exception_Temporary(
+                    sprintf(
+                        'Failed identifying IMAP host of user %s. Error was: %s',
+                        $real_recipient, $e->getMessage()
+                    ),
+                    $e
+                );
             }
             if (!empty($imapserver)) {
                 $uhost = $imapserver;
@@ -287,7 +329,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             }
             $transport = &Horde_Kolab_Filter_Transport::factory($transport, $params);
 
-            $tmpf = @fopen($this->_tmpfile, 'r');
+            $tmpf = $this->_temporary->getReadHandle();
             if (!$tmpf) {
                 $msg = $php_errormsg;
                 return PEAR::raiseError(sprintf("Error: Could not open %s for writing: %s",
@@ -295,7 +337,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                                         OUT_LOG | EX_IOERR);
             }
 
-            $result = $transport->start($this->_sender, $hosts[$imap_host]);
+            $result = $transport->start($this->_config->getSender(), $hosts[$imap_host]);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }

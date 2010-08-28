@@ -21,9 +21,10 @@ if (!isset($GLOBALS['cfgSources'][$source])) {
 }
 
 /* Set the contact from the key requested. */
-$driver = Turba_Driver::singleton($source);
-if ($driver instanceof PEAR_Error) {
-    $notification->push($driver->getMessage(), 'horde.error');
+try {
+    $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
@@ -31,7 +32,7 @@ $contact = null;
 $uid = $vars->get('uid');
 if (!empty($uid)) {
     $search = $driver->search(array('__uid' => $uid));
-    if (!($search instanceof PEAR_Error) && $search->count()) {
+    if (!($search instanceof PEAR_Error) && count($search)) {
         $contact = $search->next();
         $vars->set('key', $contact->getValue('__key'));
     }

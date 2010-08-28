@@ -3,16 +3,6 @@
  * @package Kolab_Filter
  */
 
-/* Load the iCal handling */
-require_once 'Horde/Icalendar.php';
-
-/* Load MIME handlers */
-require_once 'Horde/MIME.php';
-require_once 'Horde/MIME/Message.php';
-require_once 'Horde/MIME/Headers.php';
-require_once 'Horde/MIME/Part.php';
-require_once 'Horde/MIME/Structure.php';
-
 /**
  * Provides Mail rewriting for malformed Outlook messages
  *

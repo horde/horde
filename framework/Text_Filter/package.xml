@@ -113,10 +113,6 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Support</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>

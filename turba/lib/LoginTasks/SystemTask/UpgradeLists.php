@@ -31,7 +31,7 @@ class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTa
     /**
      * Perform all functions for this task.
      *
-     * @return mixed True | PEAR_Error
+     * @return boolean  Success.
      */
     public function execute()
     {
@@ -39,13 +39,18 @@ class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTa
             $criteria = array('__type' => 'Group');
             $sources = array_keys($GLOBALS['cfgSources']);
             foreach ($sources as $sourcekey) {
-                $driver = Turba_Driver::singleton($sourcekey);
-                $lists = $driver->search($criteria);
-                if (is_a($lists, 'PEAR_Error')) {
-                    return $lists;
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourcekey);
+                } catch (Turba_Exception $e) {
+                    return false;
                 }
-                $cnt = $lists->count();
-                for ($j = 0; $j < $cnt; ++$j) {
+
+                $lists = $driver->search($criteria);
+                if ($lists instanceof PEAR_Error) {
+                    return false;
+                }
+
+                for ($j = 0, $cnt = count($lists); $j < $cnt; ++$j) {
                     $list = $lists->next();
                     $attributes = $list->getAttributes();
                     $members = @unserialize($attributes['__members']);

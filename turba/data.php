@@ -241,9 +241,10 @@ case 'export':
     $all_fields = array();
     foreach ($sources as $source => $objectkeys) {
         /* Create a Turba storage instance. */
-        $driver = Turba_Driver::singleton($source);
-        if ($driver instanceof PEAR_Error) {
-            $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+        try {
+            $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        } catch (Turba_Exception $e) {
+            $notification->push($e, 'horde.error');
             $error = true;
             break;
         }
@@ -337,9 +338,10 @@ case 'export':
 
 case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
-    $driver = Turba_Driver::singleton($dest);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
         $error = true;
         break;
     }
@@ -347,7 +349,7 @@ case Horde_Data::IMPORT_FILE:
     /* Check permissions. */
     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
     if ($max_contacts !== true &&
-        $max_contacts <= $driver->count()) {
+        $max_contacts <= count($driver)) {
         try {
             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
         } catch (Horde_Exception_HookNotSet $e) {
@@ -419,13 +421,17 @@ if (is_array($next_step)) {
 
     /* Create a Turba storage instance. */
     $dest = $_SESSION['import_data']['target'];
-    $driver = Turba_Driver::singleton($dest);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
-    } elseif (!count($next_step)) {
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $driver = null;
+    }
+
+    if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any contacts."),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.error');
-    } else {
+    } elseif ($driver) {
         /* Purge old address book if requested. */
         if ($_SESSION['import_data']['purge']) {
             $result = $driver->deleteAll();
@@ -449,7 +455,7 @@ if (is_array($next_step)) {
                 $notification->push($result, 'horde.error');
                 $error = true;
                 break;
-            } elseif ($result->count()) {
+            } elseif (count($result)) {
                 $result->reset();
                 $object = $result->next();
                 $notification->push(sprintf(_("\"%s\" already exists and was not imported."),

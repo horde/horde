@@ -396,10 +396,7 @@ $a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array(
 $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
 /* Build the folder tree. */
-// TODO: Javascript JSON loading; save expanded view.
-//$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_EXPANDED);
-$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER);
-
+$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
 $tree = $imaptree->createTree('imp_folders', array(
     'checkbox' => true,
     'editvfolder' => true,
@@ -432,7 +429,7 @@ Horde::addInlineScript(array(
     'ImpFolders.ajax = ' . Horde_Serialize::serialize(Horde::getServiceLink('ajax', 'imp')->url, Horde_Serialize::JSON, $charset),
     'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
     'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)
+    'ImpFolders.mbox_expand = ' . intval($prefs->getValue('nav_expanded') == 2)
 ));
 
 $title = _("Folder Navigator");

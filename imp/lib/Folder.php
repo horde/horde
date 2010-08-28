@@ -32,67 +32,6 @@ class IMP_Folder
     );
 
     /**
-     * Lists folders.
-     *
-     * @param array $filter  An list of mailboxes that should be left out of
-     *                       the list (UTF7-IMAP).
-     * @param boolean $sub   Should we list only subscribed folders?
-     *
-     * @return array  An array of folders, where each array element is an
-     *                associative array containing three values:
-     * <pre>
-     * 'val' - (string)  Folder name (UTF7-IMAP)
-     * 'label' - (string) Full-length folder name (system charset)
-     * 'abbrev' - (string) Short (26 char) label (system charset)
-     * </pre>
-     */
-    public function flist($filter = array(), $sub = null)
-    {
-        $inbox_entry = array(
-            'INBOX' => array(
-                'val' => 'INBOX',
-                'label' => _("Inbox"),
-                'abbrev' => _("Inbox")
-            )
-        );
-
-        if ($_SESSION['imp']['protocol'] == 'pop') {
-            return $inbox_entry;
-        }
-
-        if (is_null($sub)) {
-            $sub = $GLOBALS['prefs']->getValue('subscribe');
-        }
-
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER;
-        if (!$sub) {
-            $list_mask |= IMP_Imap_Tree::FLIST_UNSUB;
-        }
-        $imaptree->setIteratorFilter($list_mask);
-
-        foreach ($imaptree as $ob) {
-            if (in_array($ob->value, $filter)) {
-                continue;
-            }
-
-            $label = str_repeat(' ', 2 * $ob->level) . $ob->label;
-            $list[$ob->value] = array(
-                'abbrev' => Horde_String::abbreviate($label, 30),
-                'label' => $label,
-                'val' => $ob->container ? '' : $ob->value
-            );
-        }
-
-        /* Add the INBOX on top of list if not in the filter list. */
-        if (!in_array('INBOX', $filter)) {
-            $list = $inbox_entry + $list;
-        }
-
-        return $list;
-    }
-
-    /**
      * Deletes one or more folders.
      *
      * @param array $folders  Folders to be deleted (UTF7-IMAP).
@@ -280,7 +219,7 @@ class IMP_Folder
         $inserted = array($new);
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_UNSUB, $old);
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB, $old);
 
         /* Get list of any folders that are underneath this one. */
         $all_folders = array_merge(array($old), array_keys(iterator_to_array($imaptree)));

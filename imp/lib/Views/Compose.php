@@ -97,11 +97,16 @@ class IMP_Views_Compose
                 }
 
                 $flist = array();
-                foreach ($imp_folder->flist() as $val) {
-                    $tmp = array('l' => $val['abbrev'], 'v' => $val['val']);
-                    $tmp2 = IMP::displayFolder($val['val']);
-                    if ($val['val'] != $tmp2) {
-                        $tmp['f'] = $tmp2;
+                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
+                foreach ($imaptree as $val) {
+                    $tmp = array(
+                        'f' => $val->display,
+                        'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->label, 30),
+                        'v' => $val->container ? '' : $val->value
+                    );
+                    if ($tmp['f'] == $tmp['v']) {
+                        unset($tmp['f']);
                     }
                     $flist[] = $tmp;
                 }

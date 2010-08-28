@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Tree_Html:: class extends the Horde_Tree class to provide
- * HTML specific rendering functions.
+ * The Horde_Tree_Html:: class provides HTML specific rendering functions.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,15 +12,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree_Html extends Horde_Tree
+class Horde_Tree_Html extends Horde_Tree_Base
 {
-    /**
-     * Node list.
-     *
-     * @var array
-     */
-    protected $_nodes = array();
-
     /**
      * Node position list.
      *
@@ -41,7 +33,7 @@ class Horde_Tree_Html extends Horde_Tree
      *
      * @var integer
      */
-    protected $_alt_count = 0;
+    protected $_altCount = 0;
 
     /**
      * Allowed parameters for nodes.
@@ -188,8 +180,8 @@ class Horde_Tree_Html extends Horde_Tree
         /* If using alternating row shading, work out correct
          * shade. */
         if ($this->getOption('alternate')) {
-            $className .= ' item' . $this->_alt_count;
-            $this->_alt_count = 1 - $this->_alt_count;
+            $className .= ' item' . $this->_altCount;
+            $this->_altCount = 1 - $this->_altCount;
         }
 
         $html = '<div class="' . $className . '">';
@@ -217,16 +209,16 @@ class Horde_Tree_Html extends Horde_Tree
      */
     protected function _buildTree($node_id)
     {
+        $node = $this->_nodes[$node_id];
         $output = $this->_buildLine($node_id);
 
-        if (isset($this->_nodes[$node_id]['children']) &&
-            $this->_nodes[$node_id]['expanded']) {
-            $num_subnodes = count($this->_nodes[$node_id]['children']);
-            for ($c = 0; $c < $num_subnodes; $c++) {
-                $child_node_id = $this->_nodes[$node_id]['children'][$c];
-                $this->_node_pos[$child_node_id] = array();
-                $this->_node_pos[$child_node_id]['pos'] = $c + 1;
-                $this->_node_pos[$child_node_id]['count'] = $num_subnodes;
+        if (isset($node['children']) && $node['expanded']) {
+            foreach ($node['children'] as $key => $val) {
+                $child_node_id = $node['children'][$key];
+                $this->_node_pos[$child_node_id] = array(
+                    'count' => count($node['children']),
+                    'pos' => $key + 1
+                );
                 $output .= $this->_buildTree($child_node_id);
             }
         }
@@ -243,15 +235,18 @@ class Horde_Tree_Html extends Horde_Tree
      */
     protected function _buildLine($node_id)
     {
+        $node = $this->_nodes[$node_id];
+
         $className = 'treeRow';
-        if (!empty($this->_nodes[$node_id]['class'])) {
-            $className .= ' ' . $this->_nodes[$node_id]['class'];
+        if (!empty($node['class'])) {
+            $className .= ' ' . $node['class'];
         }
+
         /* If using alternating row shading, work out correct
          * shade. */
         if ($this->getOption('alternate')) {
-            $className .= ' item' . $this->_alt_count;
-            $this->_alt_count = 1 - $this->_alt_count;
+            $className .= ' item' . $this->_altCount;
+            $this->_altCount = 1 - $this->_altCount;
         }
 
         $line = '<div class="' . $className . '">';
@@ -260,12 +255,12 @@ class Horde_Tree_Html extends Horde_Tree
          * for any given cell of content. */
         $column = 0;
 
-        if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_LEFT])) {
-            $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_LEFT];
+        if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
+            $extra = $node['extra'][Horde_Tree::EXTRA_LEFT];
             $cMax = count($extra);
             while ($column < $cMax) {
                 $line .= $this->_addColumn($column) . $extra[$column] . '</span>';
-                $column++;
+                ++$column;
             }
         }
 
@@ -275,7 +270,7 @@ class Horde_Tree_Html extends Horde_Tree
             $line .= '<table cellspacing="0"><tr><td>';
         }
 
-        for ($i = intval($this->_static); $i < $this->_nodes[$node_id]['indent']; ++$i) {
+        for ($i = intval($this->_static); $i < $node['indent']; ++$i) {
             $line .= $this->_generateImage(($this->_dropline[$i] && $this->getOption('lines')) ? $this->_images['line'] : $this->_images['blank']);
         }
         $line .= $this->_setNodeToggle($node_id) . $this->_setNodeIcon($node_id);
@@ -290,12 +285,11 @@ class Horde_Tree_Html extends Horde_Tree
 
         $line .= '</span>';
 
-        if (isset($this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT])) {
-            $extra = $this->_nodes[$node_id]['extra'][self::EXTRA_RIGHT];
+        if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
+            $extra = $node['extra'][Horde_Tree::EXTRA_RIGHT];
             $cMax = count($extra);
             for ($c = 0, $cMax = count($extra); $c < $cMax; ++$c) {
-                $line .= $this->_addColumn($column) . $extra[$c] . '</span>';
-                $column++;
+                $line .= $this->_addColumn($column++) . $extra[$c] . '</span>';
             }
         }
 
@@ -356,9 +350,10 @@ class Horde_Tree_Html extends Horde_Tree
     protected function _setNodeToggle($node_id)
     {
         $link_start = '';
+        $node = $this->_nodes[$node_id];
 
         /* Top level node. */
-        if ($this->_nodes[$node_id]['indent'] == 0) {
+        if ($node['indent'] == 0) {
             $this->_dropline[0] = false;
 
             if ($this->_static) {
@@ -390,10 +385,10 @@ class Horde_Tree_Html extends Horde_Tree
                 }
             }
 
-            if (isset($this->_nodes[$node_id]['children'])) {
+            if (isset($node['children'])) {
                 if (!$this->getOption('lines')) {
                     $img = $this->_images['blank'];
-                } elseif ($this->_nodes[$node_id]['expanded']) {
+                } elseif ($node['expanded']) {
                     $img = $node_type
                         ? (($node_type == 2) ? $this->_images['minus'] : $this->_images['minus_bottom'])
                         : $this->_images['minus_only'];
@@ -427,7 +422,7 @@ class Horde_Tree_Html extends Horde_Tree
                     $img = $this->_images['blank'];
                 }
             }
-        } elseif (isset($this->_nodes[$node_id]['children'])) {
+        } elseif (isset($node['children'])) {
             /* Node with children. */
             if ($this->_node_pos[$node_id]['pos'] < $this->_node_pos[$node_id]['count']) {
                 /* Not last node. */
@@ -435,24 +430,24 @@ class Horde_Tree_Html extends Horde_Tree
                     $img = $this->_images['blank'];
                 } elseif ($this->_static) {
                     $img = $this->_images['join'];
-                } elseif ($this->_nodes[$node_id]['expanded']) {
+                } elseif ($node['expanded']) {
                     $img = $this->_images['minus'];
                 } else {
                     $img = $this->_images['plus'];
                 }
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
+                $this->_dropline[$node['indent']] = true;
             } else {
                 /* Last node. */
                 if (!$this->getOption('lines')) {
                     $img = $this->_images['blank'];
                 } elseif ($this->_static) {
                     $img = $this->_images['join_bottom'];
-                } elseif ($this->_nodes[$node_id]['expanded']) {
+                } elseif ($node['expanded']) {
                     $img = $this->_images['minus_bottom'];
                 } else {
                     $img = $this->_images['plus_bottom'];
                 }
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
+                $this->_dropline[$node['indent']] = false;
             }
 
             if (!$this->_static) {
@@ -466,14 +461,14 @@ class Horde_Tree_Html extends Horde_Tree
                     ? $this->_images['join']
                     : $this->_images['blank'];
 
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = true;
+                $this->_dropline[$node['indent']] = true;
             } else {
                 /* Last node. */
                 $img = $this->getOption('lines')
                     ? $this->_images['join_bottom']
                     : $this->_images['blank'];
 
-                $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
+                $this->_dropline[$node['indent']] = false;
             }
         }
 
@@ -492,7 +487,7 @@ class Horde_Tree_Html extends Horde_Tree
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        return $url->add(self::TOGGLE . $this->_instance, $node_id)->link();
+        return $url->add(Horde_Tree::TOGGLE . $this->_instance, $node_id)->link();
     }
 
     /**
@@ -528,32 +523,28 @@ class Horde_Tree_Html extends Horde_Tree
      */
     protected function _setNodeIcon($node_id)
     {
-        if (isset($this->_nodes[$node_id]['icon'])) {
-            if (empty($this->_nodes[$node_id]['icon'])) {
+        $node = $this->_nodes[$node_id];
+
+        if (isset($node['icon'])) {
+            if (empty($node['icon'])) {
                 return '';
             }
 
             /* Node has a user defined icon. */
-            if (isset($this->_nodes[$node_id]['iconopen']) &&
-                $this->_nodes[$node_id]['expanded']) {
-                $img = $this->_nodes[$node_id]['iconopen'];
-            } else {
-                $img = $this->_nodes[$node_id]['icon'];
-            }
+            $img = (isset($node['iconopen']) && $node['expanded'])
+                ? $node['iconopen']
+                : $node['icon'];
+        } elseif (isset($node['children'])) {
+            /* Standard icon set: node with children. */
+            $img = $node['expanded']
+                ? $this->_images['folderopen']
+                : $this->_images['folder'];
         } else {
-            /* Use standard icon set. */
-            if (isset($this->_nodes[$node_id]['children'])) {
-                /* Node with children. */
-                $img = ($this->_nodes[$node_id]['expanded'])
-                    ? $this->_images['folderopen']
-                    : $this->_images['folder'];
-            } else {
-                /* Leaf node (no children). */
-                $img = $this->_images['leaf'];
-            }
+            /* Standard icon set: leaf node (no children). */
+            $img = $this->_images['leaf'];
         }
 
-        return $this->_generateImage($img, 'treeIcon', isset($this->_nodes[$node_id]['iconalt']) ? htmlspecialchars($this->_nodes[$node_id]['iconalt']) : null);
+        return $this->_generateImage($img, 'treeIcon', isset($node['iconalt']) ? htmlspecialchars($node['iconalt']) : null);
     }
 
 }

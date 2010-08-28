@@ -68,9 +68,10 @@ class Turba_View_Browse {
         if (!$browse_source_count && $vars->get('key') != '**search') {
             $notification->push(_("There are no browseable address books."), 'horde.warning');
         } else {
-            $driver = Turba_Driver::singleton($source);
-            if (is_a($driver, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+            } catch (Turba_Exception $e) {
+                $notification->push($e, 'horde.error');
                 unset($driver);
             }
         }
@@ -136,15 +137,17 @@ class Turba_View_Browse {
 
                 // If we have data, try loading the target address book driver.
                 $targetSource = $vars->get('targetAddressbook');
-                $targetDriver = Turba_Driver::singleton($targetSource);
-                if (is_a($targetDriver, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("Failed to access the address book: %s"), $targetDriver->getMessage()), 'horde.error');
+
+                try {
+                    $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                } catch (Turba_Exception $e) {
+                    $notification->push($e, 'horde.error');
                     break;
                 }
 
                 $max_contacts = Turba::getExtendedPermission($targetDriver, 'max_contacts');
                 if ($max_contacts !== true
-                    && $max_contacts <= $targetDriver->count()) {
+                    && $max_contacts <= count($targetDriver)) {
                     try {
                         $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                     } catch (Horde_Exception_HookNotSet $e) {
@@ -165,9 +168,10 @@ class Turba_View_Browse {
                     }
 
                     // Try and load the driver for the source.
-                    $sourceDriver = Turba_Driver::singleton($objectSource);
-                    if (is_a($sourceDriver, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("Failed to access the address book: %s"), $sourceDriver->getMessage()), 'horde.error');
+                    try {
+                        $sourceDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($objectSource);
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                         continue;
                     }
 
@@ -243,9 +247,11 @@ class Turba_View_Browse {
                     if (!isset($cfgSources[$targetSource])) {
                         break;
                     }
-                    $targetDriver = Turba_Driver::singleton($targetSource);
-                    if ($targetDriver instanceof PEAR_Error) {
-                        $notification->push(sprintf_("Could not load driver for %s", $targetSource), 'horde.error');
+
+                    try {
+                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                         break;
                     }
                     $target = &$targetDriver->getObject($targetKey);
@@ -255,9 +261,10 @@ class Turba_View_Browse {
                     }
                 } else {
                     $targetSource = $vars->get('targetAddressbook');
-                    $targetDriver = Turba_Driver::singleton($targetSource);
-                    if ($targetDriver instanceof PEAR_Error) {
-                        $notification->push(sprintf_("Could not load driver for %s", $targetSource), 'horde.error');
+                    try {
+                        $targetDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($targetSource);
+                    } catch (Turba_Exception $e) {
+                        $notification->push($e, 'horde.error');
                         break;
                     }
                 }
@@ -284,7 +291,7 @@ class Turba_View_Browse {
                     // Check permissions.
                     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
                     if ($max_contacts !== true &&
-                        $max_contacts <= $driver->count()) {
+                        $max_contacts <= count($driver)) {
                         try {
                             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                         } catch (Horde_Exception $e) {
@@ -358,8 +365,8 @@ class Turba_View_Browse {
                     if (!is_object($results = $list->listMembers($sortorder))) {
                         $notification->push(_("Failed to browse list"), 'horde.error');
                     } else {
-                        if ($results->count() != $list->count()) {
-                            $count = $list->count() - $results->count();
+                        if (count($results) != count($list)) {
+                            $count = count($list) - count($results);
                             $notification->push(sprintf(ngettext("There is %d contact in this list that is not viewable to you", "There are %d contacts in this list that are not viewable to you", $count), $count), 'horde.message');
                         }
                         $view = new Turba_View_List($results, null, $columns);

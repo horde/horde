@@ -15,7 +15,7 @@
     <?php foreach ($duplicates as $value => $list): ?>
     <tr>
       <td><a href="<?php echo $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?php echo $this->h($value) ?></a></td>
-      <td><a href="<?php echo $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?php echo $list->count() ?></a></td>
+      <td><a href="<?php echo $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?php echo count($list) ?></a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

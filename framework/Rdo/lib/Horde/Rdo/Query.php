@@ -390,7 +390,7 @@ class Horde_Rdo_Query
             if ($test['value'] instanceof Horde_Rdo_Query_Literal) {
                 $clauses[] = $clause . ' ' . (string)$test['value'];
             } else {
-                if ($test['test'] == 'IN' && is_array($test['value'])) {
+                if (($test['test'] == 'IN' || $test['test'] == 'NOT IN') && is_array($test['value'])) {
                     $clauses[] = $clause . '(?' . str_repeat(',?', count($test['value']) - 1) . ')';
                     $bindParams = array_merge($bindParams, array_values($test['value']));
                 } else {

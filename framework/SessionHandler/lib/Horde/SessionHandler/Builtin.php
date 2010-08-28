@@ -16,6 +16,13 @@
 class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
 {
     /**
+     * Directory with session files.
+     *
+     * @var string
+     */
+    protected $_path;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters.
@@ -25,6 +32,11 @@ class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
         parent::__construct(array_merge($params, array(
             'noset' => true
         )));
+
+        $this->_path = session_save_path();
+        if (!$this->_path) {
+            $this->_path = Horde_Util::getTempDir();
+        }
     }
 
     /**
@@ -55,7 +67,7 @@ class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
      */
     protected function _read($id)
     {
-        $file = session_save_path() . DIRECTORY_SEPARATOR . 'sess_' . $id;
+        $file = $this->_path . '/sess_' . $id;
         $session_data = @file_get_contents($file);
         if (($session_data === false) && $this->_logger) {
             $this->_logger->log('Unable to read file: ' . $file, 'ERR');
@@ -114,10 +126,8 @@ class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
     {
         $sessions = array();
 
-        $path = session_save_path();
-
         try {
-            $di = new DirectoryIterator(empty($path) ? Horde_Util::getTempDir() : $path);
+            $di = new DirectoryIterator($this->_path);
         } catch (UnexpectedValueException $e) {
             return $sessions;
         }
@@ -126,7 +136,7 @@ class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
             /* Make sure we're dealing with files that start with sess_. */
             if ($val->isFile() &&
                 (strpos($val->getFilename(), 'sess_') === 0)) {
-                $sessions[] = substr($entry, strlen('sess_'));
+                $sessions[] = substr($val->getFilename(), strlen('sess_'));
             }
         }
 

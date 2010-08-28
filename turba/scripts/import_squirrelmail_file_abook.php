@@ -84,9 +84,10 @@ foreach($files as $file) {
     }
 
     // Initiate driver
-    $driver = &Turba_Driver::singleton($import_source);
-    if (is_a($driver, 'PEAR_Error')) {
-        PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $import_source);
+    try {
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($import_source);
+    } catch (Turba_Exception $e) {
+        PEAR::raiseError(sprintf(_("Connection failed: %s"), $e->getMessage()), 'horde.error', null, null, $import_source);
         continue;
     }
 

@@ -88,29 +88,13 @@ class Turba_Object {
      * @return mixed  The value of $attribute, an array (for photo type)
      *                or the empty string.
      */
-    function getValue($attribute)
+    public function getValue($attribute)
     {
-        /* Cache hooks to avoid multiple file_exists() calls. */
-        static $hooks;
-        if (!isset($hooks)) {
-            $hooks = array();
+        if (isset($this->attributes[$attribute])) {
             try {
-                Horde::loadConfiguration('hooks.php', null, 'turba');
-            } catch (Horde_Exception $e) {}
-        }
-        if (!isset($hooks[$attribute])) {
-            $function = '_turba_hook_decode_' . $attribute;
-            if (function_exists($function)) {
-                $hooks[$attribute] = $function;
-            } else {
-                $hooks[$attribute] = false;
-            }
-        }
-
-        if (isset($this->attributes[$attribute]) &&
-            !empty($hooks[$attribute])) {
-            return call_user_func_array($hooks[$attribute],
-                                        array($this->attributes[$attribute], &$this));
+                return Horde::callHook('decode_attribute', array($attribute, $this->attributes[$attribute]), 'turba');
+            } catch (Horde_Exception_HookNotSet $e) {
+            } catch (Turba_Exception $e) {}
         }
 
         if (isset($this->driver->map[$attribute]) &&
@@ -123,14 +107,18 @@ class Turba_Object {
         } elseif (!isset($this->attributes[$attribute])) {
             return null;
         } elseif (isset($GLOBALS['attributes'][$attribute]) &&
-                  $GLOBALS['attributes'][$attribute]['type'] == 'image') {
+                  ($GLOBALS['attributes'][$attribute]['type'] == 'image')) {
             return empty($this->attributes[$attribute])
                 ? null
-                : array('load' => array('file' => basename(tempnam(Horde::getTempDir(), 'horde_form_')),
-                                        'data' => $this->attributes[$attribute]));
-        } else {
-            return $this->attributes[$attribute];
+                : array(
+                      'load' => array(
+                          'data' => $this->attributes[$attribute],
+                          'file' => basename(tempnam(Horde::getTempDir(), 'horde_form_'))
+                      )
+                  );
         }
+
+        return $this->attributes[$attribute];
     }
 
     /**
@@ -141,25 +129,10 @@ class Turba_Object {
      */
     function setValue($attribute, $value)
     {
-        /* Cache hooks to avoid multiple file_exists() calls. */
-        static $hooks;
-        if (!isset($hooks)) {
-            $hooks = array();
-            try {
-                Horde::loadConfiguration('hooks.php', null, 'turba');
-            } catch (Horde_Exception $e) {}
-        }
-        if (!isset($hooks[$attribute])) {
-            $function = '_turba_hook_encode_' . $attribute;
-            if (function_exists($function)) {
-                $hooks[$attribute] = $function;
-            } else {
-                $hooks[$attribute] = false;
-            }
-        }
-        if ($hooks[$attribute]) {
-            $value = call_user_func_array($hooks[$attribute], array($value, $this->attributes[$attribute], &$this));
-        }
+        try {
+            $value = Horde::callHook('encode_attribute', array($attribute, $value, isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null, $this), 'turba');
+        } catch (Horde_Exception_HookNotSet $e) {
+        } catch (Turba_Exception $e) {}
 
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute]) &&

@@ -23,7 +23,7 @@ if ($source === null || !isset($cfgSources[$source])) {
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 $contact = $driver->getObject(Horde_Util::getPost('key'));
 if (is_a($contact, 'PEAR_Error')) {
     $notification->push($contact, 'horde.error');

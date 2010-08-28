@@ -21,11 +21,16 @@ $source = Horde_Util::getFormData('source', Turba::getDefaultAddressBook());
 
 // Do the search if we have one.
 if (!is_null($search)) {
-    $driver = Turba_Driver::singleton($source);
-    if (!is_a($driver, 'PEAR_Error')) {
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $driver = null;
+    }
+
+    if ($driver) {
         $criteria['name'] = trim($search);
         $res = $driver->search($criteria);
-        if (is_a($res, 'Turba_List')) {
+        if ($res instanceof Turba_List) {
             while ($ob = $res->next()) {
                 if ($ob->isGroup()) {
                     continue;

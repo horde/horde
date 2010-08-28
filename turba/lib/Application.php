@@ -7,10 +7,12 @@
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (APL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apl.html.
  *
- * @package Turba
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apl.html APL
+ * @package  Turba
  */
 
 /* Determine the base directories. */
@@ -46,7 +48,8 @@ class Turba_Application extends Horde_Registry_Application
      *
      * Global variables defined:
      *   $addSources   - TODO
-     *   $attributes   - TODO
+     *   $attributes - (array) Attribute data from the config/attributes.php
+     *                 file.
      *   $browse_source_count - TODO
      *   $browse_source_options - TODO
      *   $cfgSources   - TODO
@@ -56,8 +59,17 @@ class Turba_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        /* Add Turba-specific binders. */
+        $binders = array(
+            'Turba_Driver' => new Turba_Injector_Binder_Driver()
+        );
+
+        foreach ($binders as $key => $val) {
+            $GLOBALS['injector']->addBinder($key, $val);
+        }
+
         // Turba source and attribute configuration.
-        include TURBA_BASE . '/config/attributes.php';
+        $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
         include TURBA_BASE . '/config/sources.php';
 
         /* UGLY UGLY UGLY - we should NOT be using this as a global
@@ -391,15 +403,17 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($cfgSources as $source) {
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
-                $driver = Turba_Driver::singleton($source);
-                if (is_a($driver, 'PEAR_Error')) {
-                    Horde::logMessage($driver, 'ERR');
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+                } catch (Turba_Exception $e) {
+                    Horde::logMessage($e, 'ERR');
                     $hasError = true;
-                } else {
-                    $result = $driver->removeUserData($user);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage($result, 'ERR');
-                    }
+                    continue;
+                }
+
+                $result = $driver->removeUserData($user);
+                if ($result instanceof PEAR_Error) {
+                    Horde::logMessage($result, 'ERR');
                 }
             }
         }
@@ -415,9 +429,14 @@ class Turba_Application extends Horde_Registry_Application
                 /* Only attempt to delete the user's default share */
                 if (!empty($params['default'])) {
                     $config = Turba::getSourceFromShare($share);
-                    $driver = Turba_Driver::singleton($config);
+                    try {
+                        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($config);
+                    } catch (Turba_Exception $e) {
+                        continue;
+                    }
+
                     $result = $driver->removeUserData($user);
-                    if (is_a($result, 'PEAR_Error')) {
+                    if ($result instanceof PEAR_Error) {
                         Horde::logMessage($result, 'ERR');
                         $hasError = true;
                     }

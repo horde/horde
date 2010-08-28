@@ -38,7 +38,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
     const OPEN_USER = 2;
 
     /* The folder list filtering constants. */
-    const FLIST_CONTAINER = 1;
+    const FLIST_NOCONTAINER = 1;
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
     const FLIST_NOCHILDREN = 8;
@@ -1488,7 +1488,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         $this->recent = array();
         $this->unseen = 0;
 
-        if ($name instanceof Horde_Tree) {
+        if ($name instanceof Horde_Tree_Base) {
             $tree = $name;
             $indent = $opts['indent'];
             $parent = $opts['parent'];
@@ -1507,15 +1507,28 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             : Horde::applicationUrl('mailbox.php');
 
         foreach ($this as $val) {
-            $after = $class = '';
-            $url = null;
+            $after = '';
+            $params = array();
 
-            if ($opts['render_type'] == 'Simplehtml') {
-                $label =  htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
-                $icon = null;
-            } else {
+            switch ($opts['render_type']) {
+            case 'IMP_Tree_Flist':
+                $is_open = true;
+                $label = $val->name;
+                $params['orig_label'] = $val->label;
+                break;
+
+            case 'Javascript':
+                $is_open = $val->is_open;
                 $label = $val->name;
                 $icon = $val->icon;
+                $params['icon'] = $icon->icon;
+                $params['iconopen'] = $icon->iconopen;
+                break;
+
+            case 'Simplehtml':
+                $is_open = true;
+                $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
+                break;
             }
 
             if (!empty($opts['poll_info']) && $val->polled) {
@@ -1534,10 +1547,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             }
 
             if (!$val->container) {
-                $url = $mailbox_url->add('mailbox', $val->value);
+                $params['url'] = $mailbox_url->add('mailbox', $val->value);
 
                 if ($this->_showunsub && !$val->sub) {
-                    $class = 'folderunsub';
+                    $params['class'] = 'folderunsub';
                 }
             }
 
@@ -1562,13 +1575,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 ($val->level) ? strval($parent) . $val->parent : $parent,
                 $label,
                 $indent + $val->level,
-                $val->is_open,
-                array(
-                    'class' => $class,
-                    'icon' => $icon ? $icon->icon : null,
-                    'iconopen' => $icon ? $icon->iconopen : null,
-                    'url' => $url
-                ),
+                $is_open,
+                $params,
                 $after,
                 empty($opts['checkbox']) ? null : $checkbox . ' />'
             );
@@ -1729,7 +1737,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      *
      * @param integer $mask  A mask with the following possible elements:
      * <pre>
-     * IMP_Imap_Tree::FLIST_CONTAINER - Include container elements.
+     * IMP_Imap_Tree::FLIST_NOCONTAINER - Don't include container elements.
      * IMP_Imap_Tree::FLIST_UNSUB - Include unsubscribed elements.
      * IMP_Imap_Tree::FLIST_VFOLDER - Include Virtual Folders.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't include child elements.
@@ -1799,7 +1807,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             /* Checks done when determining whether to mark current element as
              * valid. */
             if ($elt->container) {
-                if (!($c['mask'] & self::FLIST_CONTAINER) ||
+                if (($c['mask'] & self::FLIST_NOCONTAINER) ||
                     !$elt->children) {
                     return false;
                 }

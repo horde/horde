@@ -48,7 +48,7 @@ class Horde_Core_Tree_Html extends Horde_Tree_Html
      */
     protected function _generateUrlTag($node_id)
     {
-        return Horde::link(Horde::selfUrl()->add(self::TOGGLE . $this->_instance, $node_id));
+        return Horde::link(Horde::selfUrl()->add(Horde_Tree::TOGGLE . $this->_instance, $node_id));
     }
 
     /**

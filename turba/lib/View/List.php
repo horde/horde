@@ -7,8 +7,8 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_View_List {
-
+class Turba_View_List implements Countable
+{
     /**
      * The Turba_List object that we are visualizing.
      *
@@ -141,37 +141,16 @@ class Turba_View_List {
         return $this->type;
     }
 
-    /**
-     * Returns the number of Turba_Objects that are in the list. Use this to
-     * hide internal implementation details from client objects.
-     *
-     * @return integer  The number of objects in the list.
-     */
-    function count()
-    {
-        return $this->list->count();
-    }
-
     function display()
     {
         global $prefs, $default_source, $copymove_source_options;
 
-        $driver = Turba_Driver::singleton($default_source);
-        $hasDelete = false;
-        $hasEdit = false;
-        $hasExport = false;
-        if (!is_a($driver, 'PEAR_Error')) {
-            if ($driver->hasPermission(Horde_Perms::DELETE)) {
-                $hasDelete = true;
-            }
-            if ($driver->hasPermission(Horde_Perms::EDIT)) {
-                $hasEdit = true;
-            }
-            if ($GLOBALS['conf']['menu']['import_export']
-                && !empty($GLOBALS['cfgSources'][$default_source]['export'])) {
-                $hasExport = true;
-            }
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($default_source);
+
+        $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
+        $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
+        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+
         list($addToList, $addToListSources) = $this->getAddSources();
 
         $viewurl = Horde::applicationUrl('browse.php')->add(array(
@@ -181,7 +160,7 @@ class Turba_View_List {
 
         if ($this->type == 'search') {
             $page = Horde_Util::getFormData('page', 0);
-            $numitem = $this->count();
+            $numitem = count($this);
             $maxpage = $prefs->getValue('maxpage');
             $perpage = $prefs->getValue('perpage');
 
@@ -229,7 +208,7 @@ class Turba_View_List {
             if (!preg_match('/^[A-Za-z*]$/', $page)) {
                 $page = '*';
             }
-            if ($this->count() > $prefs->getValue('perpage')) {
+            if (count($this) > $prefs->getValue('perpage')) {
                 $page = Horde_Util::getFormData('page', 'A');
                 if (!preg_match('/^[A-Za-z*]$/', $page)) {
                     $page = 'A';
@@ -262,7 +241,7 @@ class Turba_View_List {
     function getPage(&$numDisplayed, $min = 0, $max = null)
     {
         if (is_null($max)) {
-            $max = $this->list->count();
+            $max = count($this);
         }
         return $this->_get($numDisplayed,
                            new Turba_View_List_PageFilter($min, $max));
@@ -415,7 +394,7 @@ class Turba_View_List {
                                             'name' => '&nbsp;&nbsp;' . htmlspecialchars($srcConfig['title']),
                                             'source' => htmlspecialchars($src));
 
-                $srcDriver = &Turba_Driver::singleton($src);
+                $srcDriver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($src);
                 $listList = $srcDriver->search(array('__type' => 'Group'),
                                                array(array('field' => 'name',
                                                            'ascending' => true)),
@@ -444,6 +423,19 @@ class Turba_View_List {
         }
 
         return array($addToList, $addToListSources);
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of Turba_Objects that are in the list. Use this to
+     * hide internal implementation details from client objects.
+     *
+     * @return integer  The number of objects in the list.
+     */
+    public function count()
+    {
+        return $this->list->count();
     }
 
 }

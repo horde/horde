@@ -106,11 +106,16 @@ if (!isset($addressBooks[$source])) {
 $criteria = Horde_Util::getFormData('criteria');
 $val = Horde_Util::getFormData('val');
 $action = Horde_Util::getFormData('actionID');
-$driver = Turba_Driver::singleton($source);
-if (is_a($driver, 'PEAR_Error')) {
-    $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+
+try {
+    $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
+    $driver = null;
     $map = array();
-} else {
+}
+
+if ($driver) {
     $map = $driver->getCriteria();
     if ($_SESSION['turba']['search_mode'] == 'advanced') {
         $criteria = array();

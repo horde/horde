@@ -212,7 +212,7 @@ class IMP_Imap_Tree_Element
     /**
      * Return icon information.
      *
-     * TODO
+     * @return stdClass  TODO
      */
     protected function _getIcon()
     {

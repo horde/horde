@@ -8,7 +8,7 @@
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_Driver
+class Turba_Driver implements Countable
 {
     /**
      * The internal name of this source.
@@ -909,24 +909,6 @@ class Turba_Driver
             }
         }
         return $object_id;
-    }
-
-    /**
-     * Returns the number of contacts of the current user in this address book.
-     *
-     * @return integer  The number of contacts that the user owns.
-     */
-    function count()
-    {
-        if (is_null($this->_count)) {
-            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
-            if (is_a($count, 'PEAR_Error')) {
-                return $count;
-            }
-            $this->_count = count($count);
-        }
-
-        return $this->_count;
     }
 
     /**
@@ -2611,28 +2593,24 @@ class Turba_Driver
     }
 
     /**
-     * Static method to construct Turba_Driver objects. Use this so that we
-     * can return PEAR_Error objects if anything goes wrong.
-     *
-     * Should only be called by Turba_Driver::singleton().
-     *
-     * @see Turba_Driver::singleton()
-     * @access private
+     * Static method to construct Turba_Driver objects.
      *
      * @param string $name   String containing the internal name of this
      *                       source.
      * @param array $config  Array containing the configuration information for
      *                       this source.
+     *
+     * @return Turba_Driver  The concrete driver object.
+     * @throws Turba_Exception
      */
-    function &factory($name, $config)
+    static public function factory($name, $config)
     {
-        $class = 'Turba_Driver_' . ucfirst(basename($config['type']));
+        $class = __CLASS__ . '_' . ucfirst(basename($config['type']));
 
         if (class_exists($class)) {
             $driver = new $class($config['params']);
         } else {
-            $driver = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
-            return $driver;
+            throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
         }
 
         /* Store name and title. */
@@ -2640,11 +2618,7 @@ class Turba_Driver
         $driver->title = $config['title'];
 
         /* Initialize */
-        $result = $driver->_init();
-        if (is_a($result, 'PEAR_Error')) {
-            $driver = PEAR::raiseError($result->getMessage());
-            return $driver;
-        }
+        $driver->_init();
 
         /* Store and translate the map at the Source level. */
         $driver->map = $config['map'];
@@ -2677,55 +2651,12 @@ class Turba_Driver
     }
 
     /**
-     * Attempts to return a reference to a concrete Turba_Driver instance
-     * based on the $config array. It will only create a new instance if no
-     * Turba_Driver instance with the same parameters currently exists.
-     *
-     * This method must be invoked as:
-     *   $driver = &Turba_Driver::singleton()
-     *
-     * @param mixed $name  Either a string containing the internal name of this
-     *                     source, or a config array describing the source.
-     *
-     * @return Turba_Driver  The concrete Turba_Driver reference, or a
-     *                       PEAR_Error on error.
-     */
-    function &singleton($name)
-    {
-        static $instances = array();
-
-        if (is_array($name)) {
-            $key = md5(serialize($name));
-            $srcName = '';
-            $srcConfig = $name;
-        } else {
-            $key = $name;
-            $srcName = $name;
-            if (!empty($GLOBALS['cfgSources'][$name])) {
-                $srcConfig = $GLOBALS['cfgSources'][$name];
-            } else {
-                $error = PEAR::raiseError('Source not found');
-                return $error;
-            }
-        }
-
-        if (!isset($instances[$key])) {
-            if (!is_array($name) && !isset($GLOBALS['cfgSources'][$name])) {
-                $error = PEAR::raiseError(sprintf(_("The address book \"%s\" does not exist."), $name));
-                return $error;
-            }
-            $instances[$key] = Turba_Driver::factory($srcName, $srcConfig);
-        }
-
-        return $instances[$key];
-    }
-
-    /**
      * Initialize the driver.
+     *
+     * @throws Turba_Exception
      */
-    function _init()
+    protected function _init()
     {
-        return true;
     }
 
     /**
@@ -2815,6 +2746,27 @@ class Turba_Driver
         }
 
         return $params['default'];
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of contacts of the current user in this address book.
+     *
+     * @return integer  The number of contacts that the user owns.
+     * @throws Turba_Exception
+     */
+    public function count()
+    {
+        if (is_null($this->_count)) {
+            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
+            if ($count instanceof PEAR_Error) {
+                throw new Turba_Exception($count);
+            }
+            $this->_count = count($count);
+        }
+
+        return $this->_count;
     }
 
 }

@@ -15,8 +15,8 @@
  *                     the document.
  *                     DEFAULT: false (returns the contents contained inside
  *                              the BODY tag)
- * 'return_dom' - (boolean) If true, return a Horde_Support_Domhtml object
- *                instead of HTML text (overrides return_document).
+ * 'return_dom' - (boolean) If true, return a Horde_Domhtml object instead of
+ *                HTML text (overrides return_document).
  *                DEFAULT: false
  * 'strip_styles' - (boolean) Strip style tags?
  *                  DEFAULT: true
@@ -94,14 +94,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
      *
      * @param string $text  The text after the filtering.
      *
-     * @return string|Horde_Support_Domhtml  The modified text or a Domhtml
-     *                                       object if the 'return_dom'
-     *                                       parameter is set.
+     * @return string|Horde_Domhtml  The modified text or a Domhtml object if
+     *                               the 'return_dom' parameter is set.
      */
     public function postProcess($text)
     {
         try {
-            $dom = new Horde_Support_Domhtml($text, $this->_params['charset']);
+            $dom = new Horde_Domhtml($text, $this->_params['charset']);
         } catch (Exception $e) {
             return $text;
         }

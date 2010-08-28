@@ -16,7 +16,7 @@ Horde_Registry::appInit('turba');
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
 $mergeInto = Horde_Util::getFormData('merge_into');
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 if ($url = Horde_Util::getFormData('url')) {
     $url = new Horde_Url($url, true)->unique();

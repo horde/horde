@@ -70,30 +70,31 @@ class Turba_Driver_Imsp extends Turba_Driver
 
     /**
      * Initialize the IMSP connection and check for error.
+     *
+     * @throws Turba_Exception
      */
-    function _init()
+    protected function _init()
     {
         global $conf;
 
         $this->_bookName = $this->getContactOwner();
         $this->_imsp = Net_IMSP::singleton('Book', $this->params);
         $result = $this->_imsp->init();
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $this->_authenticated = false;
-            return $result;
+            throw new Turba_Exception($result);
         }
 
         if (!empty($conf['log'])) {
             $logParams = $conf['log'];
             $result = $this->_imsp->setLogger($conf['log']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            if ($result instanceof PEAR_Error) {
+                throw new Turba_Exception($result);
             }
         }
 
         Horde::logMessage('IMSP Driver initialized for ' . $this->_bookName, 'DEBUG');
         $this->_authenticated = true;
-        return true;
     }
 
     /**

@@ -149,9 +149,9 @@ class Horde_Prefs_Ui
 
         case 'twittermanagement':
             return $this->_twitterManagement($ui);
+        }
 
         return '';
-        }
     }
 
     /**
@@ -200,49 +200,12 @@ class Horde_Prefs_Ui
     {
         global $prefs, $registry;
 
-        $need_reload = false;
-        $old_sidebar = $prefs->getValue('show_sidebar');
-
         if ($prefs->isDirty('language')) {
-            if ($prefs->isDirty('language')) {
-                $registry->setLanguageEnvironment($prefs->getValue('language'));
-                foreach ($registry->listAPIs() as $api) {
-                    if ($registry->hasMethod($api . '/changeLanguage')) {
-                        $registry->call($api . '/changeLanguage');
-                    }
+            $registry->setLanguageEnvironment($prefs->getValue('language'));
+            foreach ($registry->listApps() as $app) {
+                if ($registry->hasAppMethod($app, 'changeLanguage')) {
+                    $registry->callAppMethod($app, 'changeLanguage');
                 }
-            }
-
-            $need_reload = true;
-        } else {
-            /* Do reload on change of any of these variables. */
-            $need_reload = (
-                $prefs->isDirty('sidebar_width') ||
-                $prefs->isDirty('theme') ||
-                $prefs->isDirty('menu_view') ||
-                $prefs->isDirty('menu_refresh_time')
-            );
-        }
-
-        if ($prefs->isDirty('show_sidebar')) {
-            $need_reload = true;
-            $old_sidebar = !$old_sidebar;
-        }
-
-        if ($need_reload) {
-            $url = Horde::applicationUrl('index.php')->setRaw(true)->add(array(
-                'force_sidebar' => true,
-                'url' => strval(Horde::selfUrl(true, false, true))
-            ));
-
-            /* If the old view was with sidebar, need to reload the entire
-             * frame. */
-            if ($old_sidebar) {
-                Horde::addInlineScript(
-                    'window.parent.frames.location = ' . Horde_Serialize::serialize((string)$url, Horde_Serialize::JSON, $registry->getCharset()) . ';'
-                );
-            } else {
-                Horde::redirect($url);
             }
         }
     }

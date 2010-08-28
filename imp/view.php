@@ -291,7 +291,7 @@ case 'print_attach':
                 if ($browser->isBrowser('mozilla')) {
                     $pstring = Horde_Mime::decodeParam('content-type', $render[$key]['type']);
 
-                    $doc = new Horde_Support_Domhtml($render[$key]['data'], $pstring['params']['charset']);
+                    $doc = new Horde_Domhtml($render[$key]['data'], $pstring['params']['charset']);
 
                     $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
                     $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);

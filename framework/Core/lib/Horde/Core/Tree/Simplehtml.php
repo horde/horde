@@ -8,7 +8,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
@@ -24,7 +24,7 @@ class Horde_Core_Tree_Simplehtml extends Horde_Tree_Simplehtml
      */
     protected function _generateUrlTag($node_id)
     {
-        return Horde::link(Horde::selfUrl()->add(self::TOGGLE . $this->_instance, $node_id));
+        return Horde::link(Horde::selfUrl()->add(Horde_Tree::TOGGLE . $this->_instance, $node_id));
     }
 
 }

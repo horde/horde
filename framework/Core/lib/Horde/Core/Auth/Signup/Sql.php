@@ -26,9 +26,10 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
      */
     public function __construct()
     {
-        $this->_params = array_merge($this->_params, array(
-            'table' => 'horde_signups'
-        ), Horde::getDriverConfig('signup', 'Sql'));
+        $this->_params = array_merge(
+            $this->_params,
+            array('table' => 'horde_signups'),
+            Horde::getDriverConfig('signup', 'Sql'));
     }
 
     /**

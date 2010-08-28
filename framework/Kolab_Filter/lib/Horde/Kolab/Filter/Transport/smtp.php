@@ -22,7 +22,7 @@ class Horde_Kolab_Filter_Transport_smtp extends Horde_Kolab_Filter_Transport
      *
      * @return Net_SMTP The SMTP handler.
      */
-    function &_createTransport()
+    function _createTransport()
     {
         require_once 'Net/SMTP.php';
 

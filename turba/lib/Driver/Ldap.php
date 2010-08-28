@@ -56,14 +56,17 @@ class Turba_Driver_Ldap extends Turba_Driver
         parent::__construct($params);
     }
 
+    /**
+     * @throws Turba_Exception
+     */
     function _init()
     {
         if (!Horde_Util::extensionExists('ldap')) {
-            return PEAR::raiseError(_("LDAP support is required but the LDAP module is not available or not loaded."));
+            throw new Turba_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
         }
 
         if (!($this->_ds = @ldap_connect($this->_params['server'], $this->_params['port']))) {
-            return PEAR::raiseError(_("Connection failure"));
+            throw new Turba_Exception(_("Connection failure"));
         }
 
         /* Set the LDAP protocol version. */
@@ -82,23 +85,22 @@ class Turba_Driver_Ldap extends Turba_Driver
         }
 
         /* Start TLS if we're using it. */
-        if (!empty($this->_params['tls'])) {
-            if (!@ldap_start_tls($this->_ds)) {
-                return PEAR::raiseError(sprintf(_("STARTTLS failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
-            }
+        if (!empty($this->_params['tls']) &&
+            !@ldap_start_tls($this->_ds)) {
+            throw new Turba_Exception(sprintf(_("STARTTLS failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         /* Bind to the server. */
         if (isset($this->_params['bind_dn']) &&
             isset($this->_params['bind_password'])) {
-            if (!@ldap_bind($this->_ds, $this->_params['bind_dn'], $this->_params['bind_password'])) {
-                return PEAR::raiseError(sprintf(_("Bind failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
-            }
-        } elseif (!(@ldap_bind($this->_ds))) {
-            return PEAR::raiseError(sprintf(_("Bind failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+            $error = !@ldap_bind($this->_ds, $this->_params['bind_dn'], $this->_params['bind_password']);
+        } else {
+            $error = !(@ldap_bind($this->_ds));
         }
 
-        return true;
+        if ($error) {
+            throw new Turba_Exception(sprintf(_("Bind failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+        }
     }
 
     /**

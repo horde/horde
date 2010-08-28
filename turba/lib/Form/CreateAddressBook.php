@@ -27,15 +27,15 @@ class Turba_Form_CreateAddressBook extends Horde_Form
         $this->setButtons(array(_("Create")));
     }
 
+    /**
+     * @throws Turba_Exception
+     */
     function execute()
     {
         // Need a clean cfgSources array
         include TURBA_BASE . '/config/sources.php';
 
-        $driver = Turba_Driver::singleton($cfgSources[$GLOBALS['conf']['shares']['source']]);
-        if ($driver instanceof PEAR_Error) {
-            return $driver;
-        }
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($cfgSources[$GLOBALS['conf']['shares']['source']]);
 
         $params = array(
             'params' => array('source' => $GLOBALS['conf']['shares']['source']),

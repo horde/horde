@@ -33,14 +33,18 @@ if (!$addSources) {
 
 /* A source has been selected, connect and set up the fields. */
 if ($source) {
-    $driver = Turba_Driver::singleton($source);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
-    } else {
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $driver = null;
+    }
+
+    if (!is_null($driver)) {
         /* Check permissions. */
         $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
         if ($max_contacts !== true &&
-            $max_contacts <= $driver->count()) {
+            $max_contacts <= count($driver)) {
             try {
                 $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
             } catch (Horde_Exception_HookNotSet $e) {

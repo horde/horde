@@ -19,7 +19,7 @@ if (!isset($cfgSources[$source])) {
     Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 /* Set the contact from the key requested. */
 $key = Horde_Util::getFormData('key');

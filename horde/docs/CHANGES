@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[cjh] Remove fckeditor, standardizing on ckeditor.
 [jan] Move all translations from po/ to locale/ and use short locale
       identifiers where possible.
 [jan] Remove frameset.

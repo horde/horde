@@ -86,9 +86,7 @@ if ($vars->criteria_form) {
 }
 
 /* Generate master folder list. */
-$imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
-$imp_imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
-$tree = $imp_imap_tree->createTree('imp_search', array(
+$tree = $injector->getInstance('IMP_Imap_Tree')->createTree('imp_search', array(
     'checkbox' => true,
 ));
 

@@ -1,4 +1,4 @@
-<form name="directory_list" action="<?php echo Horde::applicationUrl('browse.php') ?>" method="get">
+<form name="directory_list" action="<?php echo Horde::applicationUrl('browse.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <div id="menu">
 <?php if ($browse_source_count > 1): ?>

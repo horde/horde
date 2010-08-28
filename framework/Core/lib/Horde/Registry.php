@@ -2377,10 +2377,7 @@ class Horde_Registry
             $charset = $this->getCharset();
         }
 
-        /* The existence of this function depends on the platform. */
-        if (function_exists('bind_textdomain_codeset')) {
-            $this->_cachedCharset(0, bind_textdomain_codeset($app, $charset));
-        }
+        $this->_cachedCharset(0, bind_textdomain_codeset($app, $charset));
 
         if (!Horde::contentSent()) {
             header('Content-Type: text/html; charset=' . $charset);

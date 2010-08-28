@@ -701,6 +701,7 @@ HTML;
 
         // Track if we've included some version (main or vhosted) of
         // the config file.
+        $filelist = array();
         $was_included = false;
 
         // Load global configuration file.
@@ -708,21 +709,47 @@ HTML;
             ? HORDE_BASE . '/config/'
             : $registry->get('fileroot', $app) . '/config/';
         $file = $config_dir . $config_file;
-
         if (file_exists($file)) {
+            $filelist[$file] = 1;
+        }
+
+        // Load global configuration stanzas in .d directory
+        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
+        if (file_exists($directory) &&
+            is_dir($directory) &&
+            ($sub_files = glob("$directory/*.php"))) {
+            foreach ($sub_files as $val) {
+                $filelist[$val] = 0;
+            }
+        }
+
+        // Load vhost configuration file.
+        if (!empty($conf['vhosts']) || !empty($GLOBALS['conf']['vhosts'])) {
+            $server_name = isset($GLOBALS['conf'])
+                ? $GLOBALS['conf']['server']['name']
+                : $conf['server']['name'];
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+
+            if (file_exists($file)) {
+                $filelist[$file] = 0;
+            }
+        }
+
+        foreach ($filelist as $file => $log_check) {
             /* If we are not exporting variables located in the configuration
              * file, or we are not capturing the output, then there is no
              * need to load the configuration file more than once. */
-            ob_start();
+            Horde::startBuffer();
             $success = (is_null($var_names) && !$show_output)
                 ? include_once $file
                 : include $file;
-            $output = ob_get_clean();
+            $output = Horde::endBuffer();
 
             if (!empty($output) && !$show_output) {
                 /* Horde 3 -> 4 conversion checking. This is the only place
                  * to catch PEAR_LOG errors. */
-                if (isset($conf['log']['priority']) &&
+                if ($log_check &&
+                    isset($conf['log']['priority']) &&
                     (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
                     $conf['log']['priority'] = 'INFO';
                     self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
@@ -738,60 +765,10 @@ HTML;
             $was_included = true;
         }
 
-        // Load global configuration stanzas in .d directory
-        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
-        if (file_exists($directory) && is_dir($directory)) {
-            $sub_files = glob("$directory/*.php");
-            if ($sub_files) {
-                foreach ($sub_files as $sub_file) {
-                    ob_start();
-                    $success = (is_null($var_names) && !$show_output)
-                        ? include_once $sub_file
-                        : include $sub_file;
-                    $output = ob_get_clean();
-
-                    if (!empty($output) && !$show_output) {
-                        throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $sub_file) . strip_tags($output));
-                    }
-
-                    if (!$success) {
-                        throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $sub_file));
-                    }
-                }
-            }
-        }
-
-        // Load vhost configuration file.
-        if (!empty($conf['vhosts']) || !empty($GLOBALS['conf']['vhosts'])) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
-
-            if (file_exists($file)) {
-                ob_start();
-                $success = (is_null($var_names) && !$show_output)
-                    ? include_once $file
-                    : include $file;
-                $output = ob_get_clean();
-
-                if (!empty($output) && !$show_output) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
-                }
-
-                if (!$success) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-                }
-
-                $was_included = true;
-            }
-        }
-
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), 'DEBUG');
-            return is_array($var_names) ? array() : null;
+            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
         }
 
         if (isset($output) && $show_output) {

@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Tree_Select:: class extends the Horde_Tree class to provide
- * <option> tag rendering.
+ * The Horde_Tree_Select:: class provides <option> tag rendering.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Tree
  */
-class Horde_Tree_Select extends Horde_Tree
+class Horde_Tree_Select extends Horde_Tree_Base
 {
     /**
      * Allowed parameters for nodes.
@@ -34,9 +33,13 @@ class Horde_Tree_Select extends Horde_Tree
     /**
      * Returns the tree.
      *
+     * @param boolean $static  If true the tree nodes can't be expanded and
+     *                         collapsed and the tree gets rendered expanded.
+     *                         This option has no effect in this driver.
+     *
      * @return string  The HTML code of the rendered tree.
      */
-    public function getTree()
+    public function getTree($static = false)
     {
         $this->_buildIndents($this->_root_nodes);
 
@@ -71,20 +74,18 @@ class Horde_Tree_Select extends Horde_Tree
      */
     protected function _buildTree($node_id)
     {
-        $selected = $this->_nodes[$node_id]['selected']
-            ? ' selected="selected"'
-            : '';
+        $node = $this->_nodes[$node_id];
 
-        $output = '<option value="' . htmlspecialchars($node_id) . '"' . $selected . '>' .
-            str_repeat('&nbsp;&nbsp;', intval($this->_nodes[$node_id]['indent'])) . htmlspecialchars($this->_nodes[$node_id]['label']) .
+        $output = '<option value="' . htmlspecialchars($node_id) . '"' .
+            (empty($node['selected']) ? '' : ' selected="selected"') .
+            '>' .
+            str_repeat('&nbsp;', intval($node['indent']) * 2) .
+            htmlspecialchars($node['label']) .
             '</option>';
 
-        if (isset($this->_nodes[$node_id]['children']) &&
-            $this->_nodes[$node_id]['expanded']) {
-            $num_subnodes = count($this->_nodes[$node_id]['children']);
-            for ($c = 0; $c < $num_subnodes; ++$c) {
-                $child_node_id = $this->_nodes[$node_id]['children'][$c];
-                $output .= $this->_buildTree($child_node_id);
+        if (isset($node['children']) && $node['expanded']) {
+            foreach ($node['children'] as $val) {
+                $output .= $this->_buildTree($val);
             }
         }
 
