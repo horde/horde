@@ -1,6 +1,6 @@
 <?php
 
-if ((@include_once 'Services/Weather.php') &&
+if (class_exists('Services_Weather') &&
     !empty($GLOBALS['conf']['sql']['phptype'])) {
     $block_name = _("Metar Weather");
 }
@@ -105,7 +105,7 @@ class Horde_Block_Horde_metar extends Horde_Block
      */
     protected function _content()
     {
-        if (!@include_once 'Services/Weather.php') {
+        if (!class_exists('Services_Weather')) {
             Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
             throw new Horde_Block_Exception(_("Metar block not available. Details have been logged for the administrator."));
         }

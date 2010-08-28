@@ -830,7 +830,6 @@ if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
      * will override any entries gathered dynamically below.
      */
      if (empty($cfgSources['imsp']['use_shares'])) {
-        require_once 'Net/IMSP/Utils.php';
         $result = Net_IMSP_Utils::getAllBooks($cfgSources['imsp']);
 
         if (!is_a($result, 'PEAR_Error')) {

@@ -19,8 +19,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
-require_once TURBA_BASE . '/lib/Object/Group.php';
-
 // Read command line parameters.
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');

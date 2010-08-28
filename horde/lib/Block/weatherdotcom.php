@@ -39,9 +39,9 @@ class Horde_Block_Horde_weatherdotcom extends Horde_Block
      */
     protected function _params()
     {
-        if (!(@include_once 'Services/Weather.php') ||
-            !(@include_once 'Cache.php') ||
-            !(@include_once 'XML/Serializer.php') ||
+        if (!class_exists('Services_Weather') ||
+            !class_exists('Cache') ||
+            !class_exists('XML_Serializer') ||
             !ini_get('allow_url_fopen')) {
             Horde::logMessage('The weather.com block will not work without PEAR\'s Services_Weather, Cache, and XML_ Serializer packages, and allow_url_fopen enabled. Run `pear install Services_Weather Cache XML_Serializer´ and ensure that allow_url_fopen is enabled in php.ini.', 'ERR');
             $params = array(
@@ -99,8 +99,8 @@ class Horde_Block_Horde_weatherdotcom extends Horde_Block
      */
     protected function _content()
     {
-        if (!(@include_once 'Services/Weather.php') ||
-            !(@include_once 'Cache.php') ||
+        if (!class_exists('Services_Weather') ||
+            !class_exists('Cache') ||
             !ini_get('allow_url_fopen')) {
             Horde::logMessage('The weather.com block will not work without the PEARServices_Weather and Cache packages, and allow_url_fopen enabled. Run pear install Services_Weather Cache, and ensure that allow_url_fopen_wrappers is enabled in php.ini.', 'ERR');
             throw new Horde_Block_Exception(_("The weather.com block is not available."));

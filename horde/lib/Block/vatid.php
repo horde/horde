@@ -54,7 +54,6 @@ class Horde_Block_Horde_vatid extends Horde_Block
 
         if (!empty($matches)) {
             $html .= '<br />';
-            @include_once 'SOAP/Client.php';
             if (!class_exists('SOAP_Client')) {
                 $html .= $this->_error(sprintf(_("%s not found."), '<a href="http://pear.php.net/SOAP" target="_blank">SOAP</a>'));
             } else {
