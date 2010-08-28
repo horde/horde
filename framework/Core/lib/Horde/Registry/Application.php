@@ -96,6 +96,105 @@ class Horde_Registry_Application
     {
     }
 
+
+    // Functions called from Horde's API.
+
+    /**
+     * Removes user data.
+     *
+     * @param string $user  Name of user to remove data for.
+     *
+     * @throws Horde_Exception
+     */
+    // public function removeUserData($user) {}
+
+
+    // Horde permissions.
+
+    /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    // public function perms() {}
+
+    /**
+     * Returns the specified permission for the given app permission.
+     *
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options ('value').
+     *
+     * @return mixed  The value of the specified permission.
+     */
+    // public function hasPermission($permission, $allowed, $opts = array()) {}
+
+
+    // Horde_Core_Auth_Application methods.
+
+    /**
+     * Return login parameters used on the login page.
+     *
+     * @return array  TODO
+     */
+    // public function authLoginParams()
+
+    /**
+     * Tries to authenticate with the server and create a session.
+     *
+     * @param string $userId      The username of the user.
+     * @param array $credentials  Credentials of the user.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    // public function authAuthenticate($userId, $credentials) {}
+
+    /**
+     * Tries to transparently authenticate with the server and create a
+     * session.
+     *
+     * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
+     *
+     * @return boolean  Whether transparent login is supported.
+     * @throws Horde_Auth_Exception
+     */
+    // public function authTransparent($auth_ob) {}
+
+    /**
+     * Does necessary authentication tasks reliant on a full app environment.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    // public function authAuthenticateCallback() {}
+
+    /**
+     * Adds a user defined by authentication credentials.
+     *
+     * @param string $userId      The userId to add.
+     * @param array $credentials  An array of login credentials.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    // public function authAddUser($userId, $credentials) {}
+
+    /**
+     * Deletes a user defined by authentication credentials.
+     *
+     * @param string $userId  The userId to delete.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    // public function authRemoveUser($userId) {}
+
+    /**
+     * Lists all users in the system.
+     *
+     * @return array  The array of userIds.
+     * @throws Horde_Auth_Exception
+     */
+    // public function authUserList() {}
+
+
     // Horde_Core_Prefs_Ui functions.
 
     /**
@@ -153,6 +252,13 @@ class Horde_Registry_Application
      */
     // public function prefsSpecialUpdate($ui, $item) {}
 
-    // END Horde_Core_Prefs_Ui functions.
+
+    // Language change callback.
+
+    /**
+     * Performs tasks necessary when the language is changed during the
+     * session.
+     */
+    // public function changeLanguage() {}
 
 }
