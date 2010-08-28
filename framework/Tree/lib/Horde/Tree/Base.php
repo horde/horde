@@ -105,9 +105,9 @@ abstract class Horde_Tree_Base implements Countable
         $this->_instance = $name;
         $this->setOption($params);
 
-        if (!empty($this->_options['session']) &&
-            !isset($_SESSION[$this->_options['session']][$this->_instance])) {
-            $_SESSION[$this->_options['session']][$this->_instance] = array();
+        if (($sess = $this->getOption('session')) &&
+            !isset($_SESSION[$sess][$this->_instance])) {
+            $_SESSION[$sess][$this->_instance] = array();
         }
     }
 
@@ -198,8 +198,8 @@ abstract class Horde_Tree_Base implements Countable
     {
         $nodeid = $this->_nodeId($id);
 
-        if (!empty($this->_options['session'])) {
-            $sess = &$_SESSION[$this->_options['session']][$this->_instance];
+        if (($session = $this->getOption('session'))) {
+            $sess = &$_SESSION[$session][$this->_instance];
             $toggle_id = Horde_Util::getFormData(Horde_Tree::TOGGLE . $this->_instance);
 
             if ($nodeid == $toggle_id) {
