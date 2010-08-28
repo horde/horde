@@ -1695,7 +1695,7 @@ class Turba_Driver implements Countable
                 Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['commonPostalCode'])
                     ? $hash['commonPostalCode'] : '',
                 Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['commonCountry'])
-                    ? Turba_Driver::getCountry($hash['commonCountry']) : '',
+                    ? Horde_Nls::getCountryISO($hash['commonCountry']) : '',
             );
 
             $val = implode(';', $a);
@@ -1750,7 +1750,7 @@ class Turba_Driver implements Countable
                 Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['homePostalCode'])
                     ? $hash['homePostalCode'] : '',
                 Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['homeCountry'])
-                    ? Turba_Driver::getCountry($hash['homeCountry']) : '',
+                    ? Horde_Nls::getCountryISO($hash['homeCountry']) : '',
             );
 
             $val = implode(';', $a);
@@ -1805,7 +1805,7 @@ class Turba_Driver implements Countable
                 Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['workPostalCode'])
                     ? $hash['workPostalCode'] : '',
                 Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['workCountry'])
-                    ? Turba_Driver::getCountry($hash['workCountry']) : '',
+                    ? Horde_Nls::getCountryISO($hash['workCountry']) : '',
             );
 
             $val = implode(';', $a);
@@ -1823,24 +1823,6 @@ class Turba_Driver implements Countable
         }
 
         return $vcard;
-    }
-
-    /**
-     * Returns the (localized) country name.
-     *
-     * @param string $country  The two-letter country code.
-     *
-     * @return string  The country name or the country code if a name cannot be
-     *                 found.
-     */
-    function getCountry($country)
-    {
-        static $countries;
-        if (!isset($countries)) {
-            include 'Horde/Nls/Countries.php';
-        }
-
-        return isset($countries[$country]) ? $countries[$country] : $country;
     }
 
     /**
@@ -2317,7 +2299,7 @@ class Turba_Driver implements Countable
                 $message->homepostalcode = Horde_String::convertCharset($hash['homePostalCode'], $charset, 'utf-8');
                 break;
             case 'homeCountry':
-                $message->homecountry = Horde_String::convertCharset(self::getCountry($hash['homeCountry']), $charset, 'utf-8');
+                $message->homecountry = Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['homeCountry']), $charset, 'utf-8');
                 break;
             case 'workStreet':
                 $message->businessstreet = Horde_String::convertCharset($hash['workStreet'], $charset, 'utf-8');
