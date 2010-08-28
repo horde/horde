@@ -79,8 +79,6 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'cookieDomain' => $GLOBALS['conf']['cookie']['domain'],
             'cookiePath' => $GLOBALS['conf']['cookie']['path'],
 
-            'scrollbar_in_way' => $GLOBALS['browser']->hasQuirk('scrollbar_in_way'),
-
             'imgBlank' => $this->_images['blank'],
             'imgFolder' => $this->_images['folder'],
             'imgFolderOpen' => $this->_images['folderopen'],

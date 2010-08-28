@@ -35,6 +35,8 @@ var Horde_Tree = Class.create({
         }
 
         $(this.opts.target).observe('click', this._onClick.bindAsEventListener(this));
+
+        this.opts.ie6 = (navigator.userAgent.toLowerCase().substr(25,6)=="msie 6");
     },
 
     renderTree: function(nodes, rootNodes, renderStatic)
@@ -54,7 +56,18 @@ var Horde_Tree = Class.create({
         $(this.opts.target).update('');
         $(this.opts.target).appendChild(this.output);
 
-        this._correctWidthForScrollbar();
+        if (this.opts.ie6) {
+            /* Correct for frame scrollbar in IE6 by determining if a scrollbar
+             * is present, and if not readjusting the marginRight property to
+             * 0. See http://www.xs4all.nl/~ppk/js/doctypes.html for why this
+             * works */
+            if (document.documentElement.clientHeight == document.documentElement.offsetHeight) {
+                // no scrollbar present, take away extra margin
+                $(document.body).setStyle({ marginRight: 0 });
+            } else {
+                $(document.body).setStyle({ marginRight: '15px' });
+            }
+        }
 
         // If using alternating row shading, work out correct shade.
         if (this.opts.options.alternate) {
@@ -477,23 +490,6 @@ var Horde_Tree = Class.create({
     {
         document.cookie = name + '=exp' + escape(value) + ';DOMAIN=' + this.opts.cookieDomain + ';PATH=' + this.opts.cookiePath + ';';
     },
-
-    _correctWidthForScrollbar: function()
-    {
-        if (this.opts.scrollbar_in_way) {
-            /* Correct for frame scrollbar in IE by determining if a scrollbar
-             * is present, and if not readjusting the marginRight property to
-             * 0. See http://www.xs4all.nl/~ppk/js/doctypes.html for why this
-             * works */
-            if (document.documentElement.clientHeight == document.documentElement.offsetHeight) {
-                // no scrollbar present, take away extra margin
-                $(document.body).setStyle({ marginRight: 0 });
-            } else {
-                $(document.body).setStyle({ marginRight: '15px' });
-            }
-        }
-    },
-
     _onClick: function(e)
     {
         var elt = e.element(),
