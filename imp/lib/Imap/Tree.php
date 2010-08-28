@@ -1496,7 +1496,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, $opts['render_type'], array(
                 'alternate' => true,
                 'lines' => true,
-                'lines_base' => true
+                'lines_base' => true,
+                'nosession' => true
             ));
             $indent = 0;
             $parent = null;
