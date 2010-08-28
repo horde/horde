@@ -117,7 +117,7 @@ class Horde_Support_Backtrace
      *
      * @return string  The backtrace map.
      */
-    public function getMap()
+    public function __toString()
     {
         $count = count($this->_backtrace);
         $pad = strlen($count);

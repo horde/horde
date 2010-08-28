@@ -84,16 +84,16 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($dbt), $backtrace->getNestingLevel());
     }
 
-    public function testGetMap()
+    public function testToString()
     {
         $backtrace = new Horde_Support_Backtrace(array_slice($this->instanceMethod(), 0, 4));
         $file = __FILE__;
-        $this->assertEquals("1. Horde_Support_BacktraceTest->testGetMap()
+        $this->assertEquals("1. Horde_Support_BacktraceTest->testToString()
 2. Horde_Support_BacktraceTest->instanceMethod() $file:89
 3. Horde_Support_BacktraceTest::staticMethod() $file:29
 4. backtraceTestFunction() $file:34
 ",
-                            $backtrace->getMap());
+                            (string)$backtrace);
     }
 
     public function returnBacktrace()
