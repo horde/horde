@@ -72,7 +72,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="GetItemEstimate.php" role="php" />
          <file name="SendMail.php" role="php" />
          <file name="Search.php" role="php" />
-         <file name="GetHierarchy" role="php" />
+         <file name="GetHierarchy.php" role="php" />
        </dir>
        <file name="Exception.php" role="php" />
        <file name="Wbxml.php" role="php" />

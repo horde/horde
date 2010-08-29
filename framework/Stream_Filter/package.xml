@@ -60,7 +60,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
   </required>
-  <optional/>
  </dependencies>
  <phprelease>
   <filelist>
