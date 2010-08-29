@@ -33,6 +33,8 @@ class IMP_Notification_Event_Status extends Horde_Core_Notification_Status
             break;
 
         case 'imp.reply':
+        case 'imp.reply_all':
+        case 'imp.reply_list':
             $img = 'mail_answered.png';
             $label = _("Reply");
             break;
