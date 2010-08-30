@@ -2167,7 +2167,7 @@ var DimpBase = {
         this.cfolderaction = action;
         IMPDialog.display({
             cancel_text: DIMP.text.cancel,
-            form_id: 'RB_Folder',
+            form_id: 'RB_confirm',
             input_val: val,
             ok_text: DIMP.text.ok,
             text: text
@@ -3130,7 +3130,7 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 
 /* IMPDialog listener. */
 document.observe('IMPDialog:onClick', function(e) {
-    if (e.element().identify() == 'RB_Folder') {
+    if (e.element().identify() == 'RB_confirm') {
         this.cfolderaction(e.memo);
     }
 }.bindAsEventListener(DimpBase));
