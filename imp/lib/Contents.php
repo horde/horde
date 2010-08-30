@@ -330,7 +330,8 @@ class IMP_Contents
          * characters (e.g. euro sign, back quote) not in 8859-1. There
          * shouldn't be any issue doing this since the additional code points
          * in 1252 don't map to anything in 8859-1. */
-        if (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0) {
+        if ($part &&
+            (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0)) {
             $part->setCharset('windows-1252');
         }
 
