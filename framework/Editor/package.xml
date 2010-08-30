@@ -412,6 +412,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
  </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
    <install name="js/LICENSE.html" as="js/ckeditor/LICENSE.html" />
