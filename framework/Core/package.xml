@@ -286,6 +286,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Interfaces</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Injector</name>
     <channel>pear.horde.org</channel>
    </package>

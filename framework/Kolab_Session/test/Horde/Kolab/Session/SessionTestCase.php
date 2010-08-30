@@ -56,7 +56,7 @@ class Horde_Kolab_Session_SessionTestCase extends PHPUnit_Framework_TestCase
     protected function setupFactoryMocks()
     {
         $this->server          = $this->_getMockedComposite();
-        $this->session_auth    = $this->getMock('Horde_Kolab_Session_Auth_Interface');
+        $this->session_auth    = $this->getMock('Horde_Interfaces_Registry_Auth');
         $this->session_storage = $this->getMock('Horde_Kolab_Session_Storage_Interface');
     }
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Interfaces</name>
+ <channel>pear.horde.org</channel>
+ <summary>A collection of Horde specific interfaces.</summary>
+ <description>This package provides the interfaces that are required for the communication between framework packages and the core application infrastructure of Horde. The main provider of implementations found in this package will be the Horde Core framework package.
+ </description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-03-02</date>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+  * Initial package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Interfaces">
+      <dir name="Registry">
+       <file name="Auth.php" role="php" />
+      </dir> <!-- /lib/Horde/Session -->
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Interfaces/Registry/Auth.php" as="Horde/Interfaces/Registry/Auth.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+ </changelog>
+</package>

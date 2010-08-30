@@ -35,6 +35,6 @@ class Horde_Kolab_Session_Class_Auth_MockTest extends Horde_Kolab_Session_Sessio
     public function testMethodGetcurrentuserHasResultStringTheCurrentUser()
     {
         $auth = new Horde_Kolab_Session_Auth_Mock('test');
-        $this->assertEquals('test', $auth->getCurrentUser());
+        $this->assertEquals('test', $auth->getAuth());
     }
 }

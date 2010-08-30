@@ -14,12 +14,6 @@
 /**
  * Interface for session validators.
  *
- * The core user credentials (login, pass) are kept within the Auth module and
- * can be retrieved using <code>Auth::getAuth()</code> respectively
- * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
- * relevant for the user session should be accessed via the Horde_Kolab_Session
- * class.
- *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -55,7 +49,7 @@ interface Horde_Kolab_Session_Valid_Interface
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
+     * @return Horde_Interfaces_Registry_Auth The auth driver set for this
      * validator.
      */
     public function getAuth();

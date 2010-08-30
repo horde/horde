@@ -1,50 +1,32 @@
 <?php
 /**
- * Mock authentication for the Kolab session information.
+ * Defines a provider of authentication information.
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Session
+ * @category Horde
+ * @package  Interfaces
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Session
+ * @link     http://pear.horde.org/index.php?package=Interfaces
  */
 
 /**
- * Mock authentication for the Kolab session information.
+ * Defines a provider of authentication information.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Session
+ * @category Horde
+ * @package  Interfaces
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Session
+ * @link     http://pear.horde.org/index.php?package=Interfaces
  */
-class Horde_Kolab_Session_Auth_Mock
-implements Horde_Interfaces_Registry_Auth
+interface Horde_Interfaces_Registry_Auth
 {
-    /**
-     * The user this instance will report.
-     *
-     * @var string
-     */
-    private $_user;
-
-    /**
-     * Constructor
-     *
-     * @param string $user The user this instance should report.
-     */
-    public function __construct($user)
-    {
-        $this->_user = $user;
-    }
-
     /**
      * Returns the currently logged in user, if there is one.
      *
@@ -61,27 +43,5 @@ implements Horde_Interfaces_Registry_Auth
      *
      * @return mixed  The user ID or false if no user is logged in.
      */
-    public function getAuth($format = null)
-    {
-        if (empty($this->_user)) {
-            return false;
-        }
-
-        $user = $this->_user;
-
-        switch ($format) {
-        case 'bare':
-            return (($pos = strpos($user, '@')) === false)
-                ? $user
-                : substr($user, 0, $pos);
-
-        case 'domain':
-            return (($pos = strpos($user, '@')) === false)
-                ? false
-                : substr($user, $pos + 1);
-
-        default:
-            return $user;
-        }
-    }
+    public function getAuth($format = null);
 }

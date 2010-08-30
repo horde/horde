@@ -48,8 +48,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Session.php" role="php" />
       <dir name="Session">
        <dir name="Auth">
-        <file name="Horde.php" role="php" />
-        <file name="Interface.php" role="php" />
         <file name="Mock.php" role="php" />
        </dir> <!-- /lib/Horde/Session/Auth -->
        <file name="Base.php" role="php" />
@@ -87,7 +85,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Autoload.php" role="test" />
        <dir name="Class">
         <dir name="Auth">
-         <file name="HordeTest.php" role="test" />
          <file name="MockTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Session/Class/Auth -->
         <file name="BaseTest.php" role="test" />
@@ -128,6 +125,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
+    <name>Interfaces</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Server</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -137,14 +138,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
   <optional>
-   <package>
-    <name>Auth</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Injector</name>
-    <channel>pear.horde.org</channel>
-   </package>
    <package>
     <name>Log</name>
     <channel>pear.horde.org</channel>
@@ -158,8 +151,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Kolab/Session.php" as="Horde/Kolab/Session.php" />
-   <install name="lib/Horde/Kolab/Session/Auth/Horde.php" as="Horde/Kolab/Session/Auth/Horde.php" />
-   <install name="lib/Horde/Kolab/Session/Auth/Interface.php" as="Horde/Kolab/Session/Auth/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Auth/Mock.php" as="Horde/Kolab/Session/Auth/Mock.php" />
    <install name="lib/Horde/Kolab/Session/Base.php" as="Horde/Kolab/Session/Base.php" />
    <install name="lib/Horde/Kolab/Session/Exception.php" as="Horde/Kolab/Session/Exception.php" />
@@ -176,7 +167,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Session/Valid/Interface.php" as="Horde/Kolab/Session/Valid/Interface.php" />
    <install name="test/Horde/Kolab/Session/AllTests.php" as="Horde/Kolab/Session/AllTests.php" />
    <install name="test/Horde/Kolab/Session/Autoload.php" as="Horde/Kolab/Session/Autoload.php" />
-   <install name="test/Horde/Kolab/Session/Class/Auth/HordeTest.php" as="Horde/Kolab/Session/Class/Auth/HordeTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Auth/MockTest.php" as="Horde/Kolab/Session/Class/Auth/MockTest.php" />
    <install name="test/Horde/Kolab/Session/Class/BaseTest.php" as="Horde/Kolab/Session/Class/BaseTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" as="Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" />

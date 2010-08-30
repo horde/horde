@@ -14,12 +14,6 @@
 /**
  * The Horde_Kolab_Session class holds user details in the current session.
  *
- * The core user credentials (login, pass) are kept within the Auth module and
- * can be retrieved using <code>Auth::getAuth()</code> respectively
- * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
- * relevant for the user session should be accessed via the Horde_Kolab_Session
- * class.
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
