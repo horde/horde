@@ -1,0 +1,16 @@
+<?php
+/**
+ * commit-update-tickets.php configuration
+ */
+// Path to git
+$git = '/usr/bin/git';
+
+// XML-RPC endpoint
+$rpc_endpoint = 'https://dev.horde.org/horde/rpc.php';
+
+// XML-RPC method to call
+$rpc_method = 'tickets.addComment';
+
+// XML-RPC options, usually username and password
+$rpc_options = array('user' => '',
+                     'pass' => '');
