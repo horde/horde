@@ -179,9 +179,11 @@ class Ansel_ImageGenerator
             $rnd = mt_rand(0, $cnt);
             try {
                 $temp = $gallery->getImages($rnd, 1);
-                $aimg = array_shift($temp);
-                $aimg->load('screen');
-                $images[] = $aimg->getHordeImage();
+                if (count($temp)) {
+                    $aimg = array_shift($temp);
+                    $aimg->load('screen');
+                    $images[] = $aimg->getHordeImage();
+                }
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
