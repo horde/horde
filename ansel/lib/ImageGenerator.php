@@ -146,12 +146,12 @@ class Ansel_ImageGenerator
     }
 
    /**
-     * Utility function to return an array of Horde_Images to use in building a
-    *  polaroid stack. Returns a random set of 5 images from the gallery, or the
-    *  explicitly set key image plus 4 others.
-     *
-     * @return array of Horde_Images
-     */
+    * Utility function to return an array of Horde_Images to use in building a
+    * polaroid stack. Returns a random set of 5 images from the gallery, or the
+    * explicitly set key image plus 4 others.
+    *
+    * @return array of Horde_Images
+    */
     protected function _getStackImages()
     {
         $images = array();
