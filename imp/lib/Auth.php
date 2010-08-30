@@ -465,22 +465,18 @@ class IMP_Auth
         if (empty($conf['user']['force_view'])) {
             if (empty($conf['user']['select_view']) ||
                 empty($sess['cache']['select_view'])) {
-                $sess['view'] = $GLOBALS['browser']->isMobile()
+                $view = $GLOBALS['browser']->isMobile()
                     ? 'mimp'
                     : ($GLOBALS['prefs']->getValue('dynamic_view') ? 'dimp' : 'imp');
             } else {
                 $setcookie = true;
-                $sess['view'] = $sess['cache']['select_view'];
+                $view = $sess['cache']['select_view'];
             }
         } else {
-            $sess['view'] = $conf['user']['force_view'];
+            $view = $conf['user']['force_view'];
         }
 
-        /* Enforce minimum browser standards for DIMP. */
-        if (($sess['view'] == 'dimp') && !Horde::ajaxAvailable()) {
-            $sess['view'] = 'imp';
-            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-        }
+        self::setViewMode($view);
 
         if ($setcookie) {
             setcookie('default_imp_view', $sess['view'], time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
@@ -507,6 +503,22 @@ class IMP_Auth
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->recoverSessionExpireDraft();
 
         self::_logMessage('login', 'NOTICE');
+    }
+
+    /**
+     * Sets the current view mode.
+     *
+     * @return string  Either 'dimp', 'imp', or 'mimp'.
+     */
+    static public function setViewMode($view)
+    {
+        /* Enforce minimum browser standards for DIMP. */
+        if (($view == 'dimp') && !Horde::ajaxAvailable()) {
+            $view = 'imp';
+            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+        }
+
+        $_SESSION['imp']['view'] = $view;
     }
 
 }

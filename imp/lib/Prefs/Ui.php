@@ -131,6 +131,12 @@ class IMP_Prefs_Ui
             }
             break;
 
+        case 'dimp':
+            if (!empty($conf['user']['force_view'])) {
+                $ui->suppress[] = 'dynamic_view';
+            }
+            break;
+
         case 'display':
             /* Set the timezone on this page so the 'time_format' output uses
              * the configured time zone's time, not the system's time zone. */
@@ -530,6 +536,14 @@ class IMP_Prefs_Ui
             }
             if ($prefs->isDirty('use_vtrash')) {
                 $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+            }
+            break;
+
+        case 'dimp':
+            if ($prefs->isDirty('dynamic_view')) {
+                $_SESSION['imp']['view'] = $prefs->getValue('dynamic_view')
+                    ? 'dimp'
+                    : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
             }
             break;
 
