@@ -37,6 +37,344 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
+   <dir name="js">
+    <file name="LICENSE.html" role="horde"/>
+    <file name="ckeditor.js" role="horde"/>
+    <file name="ckeditor_basic.js" role="horde"/>
+    <file name="config.js" role="horde"/>
+    <file name="contents.css" role="horde"/>
+    <dir name="images">
+     <file name="spacer.gif" role="horde"/>
+    </dir>
+    <dir name="lang">
+     <file name="_languages.js" role="horde"/>
+     <file name="af.js" role="horde"/>
+     <file name="ar.js" role="horde"/>
+     <file name="bg.js" role="horde"/>
+     <file name="bn.js" role="horde"/>
+     <file name="bs.js" role="horde"/>
+     <file name="ca.js" role="horde"/>
+     <file name="cs.js" role="horde"/>
+     <file name="cy.js" role="horde"/>
+     <file name="da.js" role="horde"/>
+     <file name="de.js" role="horde"/>
+     <file name="el.js" role="horde"/>
+     <file name="en-au.js" role="horde"/>
+     <file name="en-ca.js" role="horde"/>
+     <file name="en-gb.js" role="horde"/>
+     <file name="en.js" role="horde"/>
+     <file name="eo.js" role="horde"/>
+     <file name="es.js" role="horde"/>
+     <file name="et.js" role="horde"/>
+     <file name="eu.js" role="horde"/>
+     <file name="fa.js" role="horde"/>
+     <file name="fi.js" role="horde"/>
+     <file name="fo.js" role="horde"/>
+     <file name="fr-ca.js" role="horde"/>
+     <file name="fr.js" role="horde"/>
+     <file name="gl.js" role="horde"/>
+     <file name="gu.js" role="horde"/>
+     <file name="he.js" role="horde"/>
+     <file name="hi.js" role="horde"/>
+     <file name="hr.js" role="horde"/>
+     <file name="hu.js" role="horde"/>
+     <file name="is.js" role="horde"/>
+     <file name="it.js" role="horde"/>
+     <file name="ja.js" role="horde"/>
+     <file name="km.js" role="horde"/>
+     <file name="ko.js" role="horde"/>
+     <file name="lt.js" role="horde"/>
+     <file name="lv.js" role="horde"/>
+     <file name="mn.js" role="horde"/>
+     <file name="ms.js" role="horde"/>
+     <file name="nb.js" role="horde"/>
+     <file name="nl.js" role="horde"/>
+     <file name="no.js" role="horde"/>
+     <file name="pl.js" role="horde"/>
+     <file name="pt-br.js" role="horde"/>
+     <file name="pt.js" role="horde"/>
+     <file name="ro.js" role="horde"/>
+     <file name="ru.js" role="horde"/>
+     <file name="sk.js" role="horde"/>
+     <file name="sl.js" role="horde"/>
+     <file name="sr-latn.js" role="horde"/>
+     <file name="sr.js" role="horde"/>
+     <file name="sv.js" role="horde"/>
+     <file name="th.js" role="horde"/>
+     <file name="tr.js" role="horde"/>
+     <file name="uk.js" role="horde"/>
+     <file name="vi.js" role="horde"/>
+     <file name="zh-cn.js" role="horde"/>
+     <file name="zh.js" role="horde"/>
+    </dir>
+    <dir name="plugins">
+     <dir name="a11yhelp">
+      <dir name="dialogs">
+       <file name="a11yhelp.js" role="horde"/>
+      </dir>
+      <dir name="lang">
+       <file name="en.js" role="horde"/>
+       <file name="he.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="about">
+      <dir name="dialogs">
+       <file name="about.js" role="horde"/>
+       <file name="logo_ckeditor.png" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="clipboard">
+      <dir name="dialogs">
+       <file name="paste.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="colordialog">
+      <dir name="dialogs">
+       <file name="colordialog.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="dialog">
+      <file name="dialogDefinition.js" role="horde"/>
+     </dir>
+     <dir name="div">
+      <dir name="dialogs">
+       <file name="div.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="find">
+      <dir name="dialogs">
+       <file name="find.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="flash">
+      <dir name="dialogs">
+       <file name="flash.js" role="horde"/>
+      </dir>
+      <dir name="images">
+       <file name="placeholder.png" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="forms">
+      <dir name="dialogs">
+       <file name="button.js" role="horde"/>
+       <file name="checkbox.js" role="horde"/>
+       <file name="form.js" role="horde"/>
+       <file name="hiddenfield.js" role="horde"/>
+       <file name="radio.js" role="horde"/>
+       <file name="select.js" role="horde"/>
+       <file name="textarea.js" role="horde"/>
+       <file name="textfield.js" role="horde"/>
+      </dir>
+      <dir name="images">
+       <file name="hiddenfield.gif" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="iframedialog">
+      <file name="plugin.js" role="horde"/>
+     </dir>
+     <dir name="image">
+      <dir name="dialogs">
+       <file name="image.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="link">
+      <dir name="dialogs">
+       <file name="anchor.js" role="horde"/>
+       <file name="link.js" role="horde"/>
+      </dir>
+      <dir name="images">
+       <file name="anchor.gif" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="liststyle">
+      <dir name="dialogs">
+       <file name="liststyle.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="pagebreak">
+      <dir name="images">
+       <file name="pagebreak.gif" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="pastefromword">
+      <dir name="filter">
+       <file name="default.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="pastetext">
+      <dir name="dialogs">
+       <file name="pastetext.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="scayt">
+      <dir name="dialogs">
+       <file name="options.js" role="horde"/>
+       <file name="toolbar.css" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="showblocks">
+      <dir name="images">
+       <file name="block_address.png" role="horde"/>
+       <file name="block_blockquote.png" role="horde"/>
+       <file name="block_div.png" role="horde"/>
+       <file name="block_h1.png" role="horde"/>
+       <file name="block_h2.png" role="horde"/>
+       <file name="block_h3.png" role="horde"/>
+       <file name="block_h4.png" role="horde"/>
+       <file name="block_h5.png" role="horde"/>
+       <file name="block_h6.png" role="horde"/>
+       <file name="block_p.png" role="horde"/>
+       <file name="block_pre.png" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="smiley">
+      <dir name="dialogs">
+       <file name="smiley.js" role="horde"/>
+      </dir>
+      <dir name="images">
+       <file name="angel_smile.gif" role="horde"/>
+       <file name="angry_smile.gif" role="horde"/>
+       <file name="broken_heart.gif" role="horde"/>
+       <file name="confused_smile.gif" role="horde"/>
+       <file name="cry_smile.gif" role="horde"/>
+       <file name="devil_smile.gif" role="horde"/>
+       <file name="embaressed_smile.gif" role="horde"/>
+       <file name="envelope.gif" role="horde"/>
+       <file name="heart.gif" role="horde"/>
+       <file name="kiss.gif" role="horde"/>
+       <file name="lightbulb.gif" role="horde"/>
+       <file name="omg_smile.gif" role="horde"/>
+       <file name="regular_smile.gif" role="horde"/>
+       <file name="sad_smile.gif" role="horde"/>
+       <file name="shades_smile.gif" role="horde"/>
+       <file name="teeth_smile.gif" role="horde"/>
+       <file name="thumbs_down.gif" role="horde"/>
+       <file name="thumbs_up.gif" role="horde"/>
+       <file name="tounge_smile.gif" role="horde"/>
+       <file name="whatchutalkingabout_smile.gif" role="horde"/>
+       <file name="wink_smile.gif" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="specialchar">
+      <dir name="dialogs">
+       <file name="specialchar.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="styles">
+      <dir name="styles">
+       <file name="default.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="table">
+      <dir name="dialogs">
+       <file name="table.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="tabletools">
+      <dir name="dialogs">
+       <file name="tableCell.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="templates">
+      <dir name="dialogs">
+       <file name="templates.js" role="horde"/>
+      </dir>
+      <dir name="templates">
+       <file name="default.js" role="horde"/>
+       <dir name="images">
+        <file name="template1.gif" role="horde"/>
+        <file name="template2.gif" role="horde"/>
+        <file name="template3.gif" role="horde"/>
+       </dir>
+      </dir>
+     </dir>
+     <dir name="uicolor">
+      <dir name="dialogs">
+       <file name="uicolor.js" role="horde"/>
+      </dir>
+      <dir name="lang">
+       <file name="en.js" role="horde"/>
+      </dir>
+      <file name="plugin.js" role="horde"/>
+      <file name="uicolor.gif" role="horde"/>
+      <dir name="yui">
+       <dir name="assets">
+        <file name="hue_bg.png" role="horde"/>
+        <file name="hue_thumb.png" role="horde"/>
+        <file name="picker_mask.png" role="horde"/>
+        <file name="picker_thumb.png" role="horde"/>
+        <file name="yui.css" role="horde"/>
+       </dir>
+       <file name="yui.js" role="horde"/>
+      </dir>
+     </dir>
+     <dir name="wsc">
+      <dir name="dialogs">
+       <file name="ciframe.html" role="horde"/>
+       <file name="tmpFrameset.html" role="horde"/>
+       <file name="wsc.css" role="horde"/>
+       <file name="wsc.js" role="horde"/>
+      </dir>
+     </dir>
+    </dir>
+    <dir name="skins">
+     <dir name="kama">
+      <file name="dialog.css" role="horde"/>
+      <file name="editor.css" role="horde"/>
+      <file name="icons.png" role="horde"/>
+      <dir name="images">
+       <file name="dialog_sides.gif" role="horde"/>
+       <file name="dialog_sides.png" role="horde"/>
+       <file name="dialog_sides_rtl.png" role="horde"/>
+       <file name="mini.gif" role="horde"/>
+       <file name="noimage.png" role="horde"/>
+       <file name="sprites.png" role="horde"/>
+       <file name="sprites_ie6.png" role="horde"/>
+       <file name="toolbar_start.gif" role="horde"/>
+      </dir>
+      <file name="skin.js" role="horde"/>
+      <file name="templates.css" role="horde"/>
+     </dir>
+     <dir name="office2003">
+      <file name="dialog.css" role="horde"/>
+      <file name="editor.css" role="horde"/>
+      <file name="icons.png" role="horde"/>
+      <dir name="images">
+       <file name="dialog_sides.gif" role="horde"/>
+       <file name="dialog_sides.png" role="horde"/>
+       <file name="dialog_sides_rtl.png" role="horde"/>
+       <file name="mini.gif" role="horde"/>
+       <file name="noimage.png" role="horde"/>
+       <file name="sprites.png" role="horde"/>
+       <file name="sprites_ie6.png" role="horde"/>
+      </dir>
+      <file name="skin.js" role="horde"/>
+      <file name="templates.css" role="horde"/>
+     </dir>
+     <dir name="v2">
+      <file name="dialog.css" role="horde"/>
+      <file name="editor.css" role="horde"/>
+      <file name="icons.png" role="horde"/>
+      <dir name="images">
+       <file name="dialog_sides.gif" role="horde"/>
+       <file name="dialog_sides.png" role="horde"/>
+       <file name="dialog_sides_rtl.png" role="horde"/>
+       <file name="mini.gif" role="horde"/>
+       <file name="noimage.png" role="horde"/>
+       <file name="sprites.png" role="horde"/>
+       <file name="sprites_ie6.png" role="horde"/>
+       <file name="toolbar_start.gif" role="horde"/>
+      </dir>
+      <file name="skin.js" role="horde"/>
+      <file name="templates.css" role="horde"/>
+     </dir>
+    </dir>
+    <dir name="themes">
+     <dir name="default">
+      <file name="theme.js" role="horde"/>
+     </dir>
+    </dir>
+   </dir>
    <dir name="lib">
     <dir name="Horde">
      <dir name="Editor">
@@ -76,6 +414,198 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="js/LICENSE.html" as="js/ckeditor/LICENSE.html" />
+   <install name="js/ckeditor.js" as="js/ckeditor/ckeditor.js" />
+   <install name="js/ckeditor_basic.js" as="js/ckeditor/ckeditor_basic.js" />
+   <install name="js/config.js" as="js/ckeditor/config.js" />
+   <install name="js/contents.css" as="js/ckeditor/contents.css" />
+   <install name="js/images/spacer.gif" as="js/ckeditor/images/spacer.gif" />
+   <install name="js/lang/_languages.js" as="js/ckeditor/lang/_languages.js" />
+   <install name="js/lang/af.js" as="js/ckeditor/lang/af.js" />
+   <install name="js/lang/ar.js" as="js/ckeditor/lang/ar.js" />
+   <install name="js/lang/bg.js" as="js/ckeditor/lang/bg.js" />
+   <install name="js/lang/bn.js" as="js/ckeditor/lang/bn.js" />
+   <install name="js/lang/bs.js" as="js/ckeditor/lang/bs.js" />
+   <install name="js/lang/ca.js" as="js/ckeditor/lang/ca.js" />
+   <install name="js/lang/cs.js" as="js/ckeditor/lang/cs.js" />
+   <install name="js/lang/cy.js" as="js/ckeditor/lang/cy.js" />
+   <install name="js/lang/da.js" as="js/ckeditor/lang/da.js" />
+   <install name="js/lang/de.js" as="js/ckeditor/lang/de.js" />
+   <install name="js/lang/el.js" as="js/ckeditor/lang/el.js" />
+   <install name="js/lang/en-au.js" as="js/ckeditor/lang/en-au.js" />
+   <install name="js/lang/en-ca.js" as="js/ckeditor/lang/en-ca.js" />
+   <install name="js/lang/en-gb.js" as="js/ckeditor/lang/en-gb.js" />
+   <install name="js/lang/en.js" as="js/ckeditor/lang/en.js" />
+   <install name="js/lang/eo.js" as="js/ckeditor/lang/eo.js" />
+   <install name="js/lang/es.js" as="js/ckeditor/lang/es.js" />
+   <install name="js/lang/et.js" as="js/ckeditor/lang/et.js" />
+   <install name="js/lang/eu.js" as="js/ckeditor/lang/eu.js" />
+   <install name="js/lang/fa.js" as="js/ckeditor/lang/fa.js" />
+   <install name="js/lang/fi.js" as="js/ckeditor/lang/fi.js" />
+   <install name="js/lang/fo.js" as="js/ckeditor/lang/fo.js" />
+   <install name="js/lang/fr-ca.js" as="js/ckeditor/lang/fr-ca.js" />
+   <install name="js/lang/fr.js" as="js/ckeditor/lang/fr.js" />
+   <install name="js/lang/gl.js" as="js/ckeditor/lang/gl.js" />
+   <install name="js/lang/gu.js" as="js/ckeditor/lang/gu.js" />
+   <install name="js/lang/he.js" as="js/ckeditor/lang/he.js" />
+   <install name="js/lang/hi.js" as="js/ckeditor/lang/hi.js" />
+   <install name="js/lang/hr.js" as="js/ckeditor/lang/hr.js" />
+   <install name="js/lang/hu.js" as="js/ckeditor/lang/hu.js" />
+   <install name="js/lang/is.js" as="js/ckeditor/lang/is.js" />
+   <install name="js/lang/it.js" as="js/ckeditor/lang/it.js" />
+   <install name="js/lang/ja.js" as="js/ckeditor/lang/ja.js" />
+   <install name="js/lang/km.js" as="js/ckeditor/lang/km.js" />
+   <install name="js/lang/ko.js" as="js/ckeditor/lang/ko.js" />
+   <install name="js/lang/lt.js" as="js/ckeditor/lang/lt.js" />
+   <install name="js/lang/lv.js" as="js/ckeditor/lang/lv.js" />
+   <install name="js/lang/mn.js" as="js/ckeditor/lang/mn.js" />
+   <install name="js/lang/ms.js" as="js/ckeditor/lang/ms.js" />
+   <install name="js/lang/nb.js" as="js/ckeditor/lang/nb.js" />
+   <install name="js/lang/nl.js" as="js/ckeditor/lang/nl.js" />
+   <install name="js/lang/no.js" as="js/ckeditor/lang/no.js" />
+   <install name="js/lang/pl.js" as="js/ckeditor/lang/pl.js" />
+   <install name="js/lang/pt-br.js" as="js/ckeditor/lang/pt-br.js" />
+   <install name="js/lang/pt.js" as="js/ckeditor/lang/pt.js" />
+   <install name="js/lang/ro.js" as="js/ckeditor/lang/ro.js" />
+   <install name="js/lang/ru.js" as="js/ckeditor/lang/ru.js" />
+   <install name="js/lang/sk.js" as="js/ckeditor/lang/sk.js" />
+   <install name="js/lang/sl.js" as="js/ckeditor/lang/sl.js" />
+   <install name="js/lang/sr-latn.js" as="js/ckeditor/lang/sr-latn.js" />
+   <install name="js/lang/sr.js" as="js/ckeditor/lang/sr.js" />
+   <install name="js/lang/sv.js" as="js/ckeditor/lang/sv.js" />
+   <install name="js/lang/th.js" as="js/ckeditor/lang/th.js" />
+   <install name="js/lang/tr.js" as="js/ckeditor/lang/tr.js" />
+   <install name="js/lang/uk.js" as="js/ckeditor/lang/uk.js" />
+   <install name="js/lang/vi.js" as="js/ckeditor/lang/vi.js" />
+   <install name="js/lang/zh-cn.js" as="js/ckeditor/lang/zh-cn.js" />
+   <install name="js/lang/zh.js" as="js/ckeditor/lang/zh.js" />
+   <install name="js/plugins/a11yhelp/dialogs/a11yhelp.js" as="js/ckeditor/plugins/a11yhelp/dialogs/a11yhelp.js" />
+   <install name="js/plugins/a11yhelp/lang/en.js" as="js/ckeditor/plugins/a11yhelp/lang/en.js" />
+   <install name="js/plugins/a11yhelp/lang/he.js" as="js/ckeditor/plugins/a11yhelp/lang/he.js" />
+   <install name="js/plugins/about/dialogs/about.js" as="js/ckeditor/plugins/about/dialogs/about.js" />
+   <install name="js/plugins/about/dialogs/logo_ckeditor.png" as="js/ckeditor/plugins/about/dialogs/logo_ckeditor.png" />
+   <install name="js/plugins/clipboard/dialogs/paste.js" as="js/ckeditor/plugins/clipboard/dialogs/paste.js" />
+   <install name="js/plugins/colordialog/dialogs/colordialog.js" as="js/ckeditor/plugins/colordialog/dialogs/colordialog.js" />
+   <install name="js/plugins/dialog/dialogDefinition.js" as="js/ckeditor/plugins/dialog/dialogDefinition.js" />
+   <install name="js/plugins/div/dialogs/div.js" as="js/ckeditor/plugins/div/dialogs/div.js" />
+   <install name="js/plugins/find/dialogs/find.js" as="js/ckeditor/plugins/find/dialogs/find.js" />
+   <install name="js/plugins/flash/dialogs/flash.js" as="js/ckeditor/plugins/flash/dialogs/flash.js" />
+   <install name="js/plugins/flash/images/placeholder.png" as="js/ckeditor/plugins/flash/images/placeholder.png" />
+   <install name="js/plugins/forms/dialogs/button.js" as="js/ckeditor/plugins/forms/dialogs/button.js" />
+   <install name="js/plugins/forms/dialogs/checkbox.js" as="js/ckeditor/plugins/forms/dialogs/checkbox.js" />
+   <install name="js/plugins/forms/dialogs/form.js" as="js/ckeditor/plugins/forms/dialogs/form.js" />
+   <install name="js/plugins/forms/dialogs/hiddenfield.js" as="js/ckeditor/plugins/forms/dialogs/hiddenfield.js" />
+   <install name="js/plugins/forms/dialogs/radio.js" as="js/ckeditor/plugins/forms/dialogs/radio.js" />
+   <install name="js/plugins/forms/dialogs/select.js" as="js/ckeditor/plugins/forms/dialogs/select.js" />
+   <install name="js/plugins/forms/dialogs/textarea.js" as="js/ckeditor/plugins/forms/dialogs/textarea.js" />
+   <install name="js/plugins/forms/dialogs/textfield.js" as="js/ckeditor/plugins/forms/dialogs/textfield.js" />
+   <install name="js/plugins/forms/images/hiddenfield.gif" as="js/ckeditor/plugins/forms/images/hiddenfield.gif" />
+   <install name="js/plugins/iframedialog/plugin.js" as="js/ckeditor/plugins/iframedialog/plugin.js" />
+   <install name="js/plugins/image/dialogs/image.js" as="js/ckeditor/plugins/image/dialogs/image.js" />
+   <install name="js/plugins/link/dialogs/anchor.js" as="js/ckeditor/plugins/link/dialogs/anchor.js" />
+   <install name="js/plugins/link/dialogs/link.js" as="js/ckeditor/plugins/link/dialogs/link.js" />
+   <install name="js/plugins/link/images/anchor.gif" as="js/ckeditor/plugins/link/images/anchor.gif" />
+   <install name="js/plugins/liststyle/dialogs/liststyle.js" as="js/ckeditor/plugins/liststyle/dialogs/liststyle.js" />
+   <install name="js/plugins/pagebreak/images/pagebreak.gif" as="js/ckeditor/plugins/pagebreak/images/pagebreak.gif" />
+   <install name="js/plugins/pastefromword/filter/default.js" as="js/ckeditor/plugins/pastefromword/filter/default.js" />
+   <install name="js/plugins/pastetext/dialogs/pastetext.js" as="js/ckeditor/plugins/pastetext/dialogs/pastetext.js" />
+   <install name="js/plugins/scayt/dialogs/options.js" as="js/ckeditor/plugins/scayt/dialogs/options.js" />
+   <install name="js/plugins/scayt/dialogs/toolbar.css" as="js/ckeditor/plugins/scayt/dialogs/toolbar.css" />
+   <install name="js/plugins/showblocks/images/block_address.png" as="js/ckeditor/plugins/showblocks/images/block_address.png" />
+   <install name="js/plugins/showblocks/images/block_blockquote.png" as="js/ckeditor/plugins/showblocks/images/block_blockquote.png" />
+   <install name="js/plugins/showblocks/images/block_div.png" as="js/ckeditor/plugins/showblocks/images/block_div.png" />
+   <install name="js/plugins/showblocks/images/block_h1.png" as="js/ckeditor/plugins/showblocks/images/block_h1.png" />
+   <install name="js/plugins/showblocks/images/block_h2.png" as="js/ckeditor/plugins/showblocks/images/block_h2.png" />
+   <install name="js/plugins/showblocks/images/block_h3.png" as="js/ckeditor/plugins/showblocks/images/block_h3.png" />
+   <install name="js/plugins/showblocks/images/block_h4.png" as="js/ckeditor/plugins/showblocks/images/block_h4.png" />
+   <install name="js/plugins/showblocks/images/block_h5.png" as="js/ckeditor/plugins/showblocks/images/block_h5.png" />
+   <install name="js/plugins/showblocks/images/block_h6.png" as="js/ckeditor/plugins/showblocks/images/block_h6.png" />
+   <install name="js/plugins/showblocks/images/block_p.png" as="js/ckeditor/plugins/showblocks/images/block_p.png" />
+   <install name="js/plugins/showblocks/images/block_pre.png" as="js/ckeditor/plugins/showblocks/images/block_pre.png" />
+   <install name="js/plugins/smiley/dialogs/smiley.js" as="js/ckeditor/plugins/smiley/dialogs/smiley.js" />
+   <install name="js/plugins/smiley/images/angel_smile.gif" as="js/ckeditor/plugins/smiley/images/angel_smile.gif" />
+   <install name="js/plugins/smiley/images/angry_smile.gif" as="js/ckeditor/plugins/smiley/images/angry_smile.gif" />
+   <install name="js/plugins/smiley/images/broken_heart.gif" as="js/ckeditor/plugins/smiley/images/broken_heart.gif" />
+   <install name="js/plugins/smiley/images/confused_smile.gif" as="js/ckeditor/plugins/smiley/images/confused_smile.gif" />
+   <install name="js/plugins/smiley/images/cry_smile.gif" as="js/ckeditor/plugins/smiley/images/cry_smile.gif" />
+   <install name="js/plugins/smiley/images/devil_smile.gif" as="js/ckeditor/plugins/smiley/images/devil_smile.gif" />
+   <install name="js/plugins/smiley/images/embaressed_smile.gif" as="js/ckeditor/plugins/smiley/images/embaressed_smile.gif" />
+   <install name="js/plugins/smiley/images/envelope.gif" as="js/ckeditor/plugins/smiley/images/envelope.gif" />
+   <install name="js/plugins/smiley/images/heart.gif" as="js/ckeditor/plugins/smiley/images/heart.gif" />
+   <install name="js/plugins/smiley/images/kiss.gif" as="js/ckeditor/plugins/smiley/images/kiss.gif" />
+   <install name="js/plugins/smiley/images/lightbulb.gif" as="js/ckeditor/plugins/smiley/images/lightbulb.gif" />
+   <install name="js/plugins/smiley/images/omg_smile.gif" as="js/ckeditor/plugins/smiley/images/omg_smile.gif" />
+   <install name="js/plugins/smiley/images/regular_smile.gif" as="js/ckeditor/plugins/smiley/images/regular_smile.gif" />
+   <install name="js/plugins/smiley/images/sad_smile.gif" as="js/ckeditor/plugins/smiley/images/sad_smile.gif" />
+   <install name="js/plugins/smiley/images/shades_smile.gif" as="js/ckeditor/plugins/smiley/images/shades_smile.gif" />
+   <install name="js/plugins/smiley/images/teeth_smile.gif" as="js/ckeditor/plugins/smiley/images/teeth_smile.gif" />
+   <install name="js/plugins/smiley/images/thumbs_down.gif" as="js/ckeditor/plugins/smiley/images/thumbs_down.gif" />
+   <install name="js/plugins/smiley/images/thumbs_up.gif" as="js/ckeditor/plugins/smiley/images/thumbs_up.gif" />
+   <install name="js/plugins/smiley/images/tounge_smile.gif" as="js/ckeditor/plugins/smiley/images/tounge_smile.gif" />
+   <install name="js/plugins/smiley/images/whatchutalkingabout_smile.gif" as="js/ckeditor/plugins/smiley/images/whatchutalkingabout_smile.gif" />
+   <install name="js/plugins/smiley/images/wink_smile.gif" as="js/ckeditor/plugins/smiley/images/wink_smile.gif" />
+   <install name="js/plugins/specialchar/dialogs/specialchar.js" as="js/ckeditor/plugins/specialchar/dialogs/specialchar.js" />
+   <install name="js/plugins/styles/styles/default.js" as="js/ckeditor/plugins/styles/styles/default.js" />
+   <install name="js/plugins/table/dialogs/table.js" as="js/ckeditor/plugins/table/dialogs/table.js" />
+   <install name="js/plugins/tabletools/dialogs/tableCell.js" as="js/ckeditor/plugins/tabletools/dialogs/tableCell.js" />
+   <install name="js/plugins/templates/dialogs/templates.js" as="js/ckeditor/plugins/templates/dialogs/templates.js" />
+   <install name="js/plugins/templates/templates/default.js" as="js/ckeditor/plugins/templates/templates/default.js" />
+   <install name="js/plugins/templates/templates/images/template1.gif" as="js/ckeditor/plugins/templates/templates/images/template1.gif" />
+   <install name="js/plugins/templates/templates/images/template2.gif" as="js/ckeditor/plugins/templates/templates/images/template2.gif" />
+   <install name="js/plugins/templates/templates/images/template3.gif" as="js/ckeditor/plugins/templates/templates/images/template3.gif" />
+   <install name="js/plugins/uicolor/dialogs/uicolor.js" as="js/ckeditor/plugins/uicolor/dialogs/uicolor.js" />
+   <install name="js/plugins/uicolor/lang/en.js" as="js/ckeditor/plugins/uicolor/lang/en.js" />
+   <install name="js/plugins/uicolor/plugin.js" as="js/ckeditor/plugins/uicolor/plugin.js" />
+   <install name="js/plugins/uicolor/uicolor.gif" as="js/ckeditor/plugins/uicolor/uicolor.gif" />
+   <install name="js/plugins/uicolor/yui/assets/hue_bg.png" as="js/ckeditor/plugins/uicolor/yui/assets/hue_bg.png" />
+   <install name="js/plugins/uicolor/yui/assets/hue_thumb.png" as="js/ckeditor/plugins/uicolor/yui/assets/hue_thumb.png" />
+   <install name="js/plugins/uicolor/yui/assets/picker_mask.png" as="js/ckeditor/plugins/uicolor/yui/assets/picker_mask.png" />
+   <install name="js/plugins/uicolor/yui/assets/picker_thumb.png" as="js/ckeditor/plugins/uicolor/yui/assets/picker_thumb.png" />
+   <install name="js/plugins/uicolor/yui/assets/yui.css" as="js/ckeditor/plugins/uicolor/yui/assets/yui.css" />
+   <install name="js/plugins/uicolor/yui/yui.js" as="js/ckeditor/plugins/uicolor/yui/yui.js" />
+   <install name="js/plugins/wsc/dialogs/ciframe.html" as="js/ckeditor/plugins/wsc/dialogs/ciframe.html" />
+   <install name="js/plugins/wsc/dialogs/tmpFrameset.html" as="js/ckeditor/plugins/wsc/dialogs/tmpFrameset.html" />
+   <install name="js/plugins/wsc/dialogs/wsc.css" as="js/ckeditor/plugins/wsc/dialogs/wsc.css" />
+   <install name="js/plugins/wsc/dialogs/wsc.js" as="js/ckeditor/plugins/wsc/dialogs/wsc.js" />
+   <install name="js/skins/kama/dialog.css" as="js/ckeditor/skins/kama/dialog.css" />
+   <install name="js/skins/kama/editor.css" as="js/ckeditor/skins/kama/editor.css" />
+   <install name="js/skins/kama/icons.png" as="js/ckeditor/skins/kama/icons.png" />
+   <install name="js/skins/kama/images/dialog_sides.gif" as="js/ckeditor/skins/kama/images/dialog_sides.gif" />
+   <install name="js/skins/kama/images/dialog_sides.png" as="js/ckeditor/skins/kama/images/dialog_sides.png" />
+   <install name="js/skins/kama/images/dialog_sides_rtl.png" as="js/ckeditor/skins/kama/images/dialog_sides_rtl.png" />
+   <install name="js/skins/kama/images/mini.gif" as="js/ckeditor/skins/kama/images/mini.gif" />
+   <install name="js/skins/kama/images/noimage.png" as="js/ckeditor/skins/kama/images/noimage.png" />
+   <install name="js/skins/kama/images/sprites.png" as="js/ckeditor/skins/kama/images/sprites.png" />
+   <install name="js/skins/kama/images/sprites_ie6.png" as="js/ckeditor/skins/kama/images/sprites_ie6.png" />
+   <install name="js/skins/kama/images/toolbar_start.gif" as="js/ckeditor/skins/kama/images/toolbar_start.gif" />
+   <install name="js/skins/kama/skin.js" as="js/ckeditor/skins/kama/skin.js" />
+   <install name="js/skins/kama/templates.css" as="js/ckeditor/skins/kama/templates.css" />
+   <install name="js/skins/office2003/dialog.css" as="js/ckeditor/skins/office2003/dialog.css" />
+   <install name="js/skins/office2003/editor.css" as="js/ckeditor/skins/office2003/editor.css" />
+   <install name="js/skins/office2003/icons.png" as="js/ckeditor/skins/office2003/icons.png" />
+   <install name="js/skins/office2003/images/dialog_sides.gif" as="js/ckeditor/skins/office2003/images/dialog_sides.gif" />
+   <install name="js/skins/office2003/images/dialog_sides.png" as="js/ckeditor/skins/office2003/images/dialog_sides.png" />
+   <install name="js/skins/office2003/images/dialog_sides_rtl.png" as="js/ckeditor/skins/office2003/images/dialog_sides_rtl.png" />
+   <install name="js/skins/office2003/images/mini.gif" as="js/ckeditor/skins/office2003/images/mini.gif" />
+   <install name="js/skins/office2003/images/noimage.png" as="js/ckeditor/skins/office2003/images/noimage.png" />
+   <install name="js/skins/office2003/images/sprites.png" as="js/ckeditor/skins/office2003/images/sprites.png" />
+   <install name="js/skins/office2003/images/sprites_ie6.png" as="js/ckeditor/skins/office2003/images/sprites_ie6.png" />
+   <install name="js/skins/office2003/skin.js" as="js/ckeditor/skins/office2003/skin.js" />
+   <install name="js/skins/office2003/templates.css" as="js/ckeditor/skins/office2003/templates.css" />
+   <install name="js/skins/v2/dialog.css" as="js/ckeditor/skins/v2/dialog.css" />
+   <install name="js/skins/v2/editor.css" as="js/ckeditor/skins/v2/editor.css" />
+   <install name="js/skins/v2/icons.png" as="js/ckeditor/skins/v2/icons.png" />
+   <install name="js/skins/v2/images/dialog_sides.gif" as="js/ckeditor/skins/v2/images/dialog_sides.gif" />
+   <install name="js/skins/v2/images/dialog_sides.png" as="js/ckeditor/skins/v2/images/dialog_sides.png" />
+   <install name="js/skins/v2/images/dialog_sides_rtl.png" as="js/ckeditor/skins/v2/images/dialog_sides_rtl.png" />
+   <install name="js/skins/v2/images/mini.gif" as="js/ckeditor/skins/v2/images/mini.gif" />
+   <install name="js/skins/v2/images/noimage.png" as="js/ckeditor/skins/v2/images/noimage.png" />
+   <install name="js/skins/v2/images/sprites.png" as="js/ckeditor/skins/v2/images/sprites.png" />
+   <install name="js/skins/v2/images/sprites_ie6.png" as="js/ckeditor/skins/v2/images/sprites_ie6.png" />
+   <install name="js/skins/v2/images/toolbar_start.gif" as="js/ckeditor/skins/v2/images/toolbar_start.gif" />
+   <install name="js/skins/v2/skin.js" as="js/ckeditor/skins/v2/skin.js" />
+   <install name="js/skins/v2/templates.css" as="js/ckeditor/skins/v2/templates.css" />
+   <install name="js/themes/default/theme.js" as="js/ckeditor/themes/default/theme.js" />
    <install name="lib/Horde/Editor/Ckeditor.php" as="Horde/Editor/Ckeditor.php" />
    <install name="lib/Horde/Editor/Exception.php" as="Horde/Editor/Exception.php" />
    <install name="lib/Horde/Editor.php" as="Horde/Editor.php" />
