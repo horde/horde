@@ -283,7 +283,7 @@ class Accounts_Driver_localhost extends Accounts_Driver {
 
         if (!isset($information)) {
             // this won't work if we don't have posix extensions
-            if (!Util::extensionExists('posix')) {
+            if (!Horde_Util::extensionExists('posix')) {
                 return PEAR::raiseError(_("POSIX extension is missing"));
             }
 
