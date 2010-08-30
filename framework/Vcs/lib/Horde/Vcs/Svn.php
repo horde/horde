@@ -124,7 +124,7 @@ class Horde_Vcs_Svn extends Horde_Vcs
      */
     public function checkout($fullname, $rev)
     {
-        $this->assertValidRevision($rev);
+        $this->_rep->assertValidRevision($rev);
 
         if ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
             return $RCS;
@@ -282,23 +282,32 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File
     public $logpipe;
 
     /**
-     * Create a repository file object, and give it information about
-     * what its parent directory and repository objects are.
+     * Have we initalized logs and revisions?
      *
-     * @param TODO $rep    TODO
-     * @param string $fl   Full path to this file.
-     * @param array $opts  TODO
+     * @var boolean
      */
-    public function __construct($rep, $fl, $opts = array())
-    {
-        parent::__construct($rep, $fl, $opts);
+    private $_initialized = false;
 
-        /* This doesn't work; need to find another way to simply
-         * request the most recent revision:
-         *
-         * $flag = $this->_quicklog ? '-r HEAD ' : '';
-         */
-        $cmd = $rep->getCommand() . ' log -v ' . escapeshellarg($this->queryFullPath()) . ' 2>&1';
+    protected function _ensureRevisionsInitialized()
+    {
+        if (!$this->_initialized) { $this->_init(); }
+        $this->_initialized = true;
+    }
+
+    protected function _ensureLogsInitialized()
+    {
+        if (!$this->_initialized) { $this->_init(); }
+        $this->_initialized = true;
+    }
+
+    protected function _init()
+    {
+        // This doesn't work; need to find another way to simply
+        // request the most recent revision:
+        //
+        // $flag = $this->_quicklog ? '-r HEAD ' : '';
+
+        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->queryFullPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
@@ -310,10 +319,9 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File
         }
 
         $this->logpipe = $pipe;
-
         while (!feof($pipe)) {
             try {
-                $log = $rep->getLogObject($this, null);
+                $log = $this->_rep->getLogObject($this, null);
                 $rev = $log->queryRevision();
                 $this->logs[$rev] = $log;
                 $this->_revs[] = $rev;
@@ -354,15 +362,25 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
     protected $_files = array();
 
     /**
+     * @var boolean
+     */
+    private $_initialized;
+
+    protected function _ensureInitialized()
+    {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
+    }
+
+    /**
      * Constructor.
      */
-    public function __construct($rep, $fl, $rev)
+    protected function _init()
     {
-        parent::__construct($rep, $fl, $rev);
-
-        $line = fgets($fl->logpipe);
-
-        if (feof($fl->logpipe) || !$line) {
+        $line = fgets($this->_file->logpipe);
+        if (feof($this->_file->logpipe) || !$line) {
             throw new Horde_Vcs_Exception('No more data');
         }
 
@@ -375,18 +393,18 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
             throw new Horde_Vcs_Exception('SVN Error');
         }
 
-        fgets($fl->logpipe);
+        fgets($this->_file->logpipe);
 
-        while (($line = trim(fgets($fl->logpipe))) != '') {
+        while (($line = trim(fgets($this->_file->logpipe))) != '') {
             $this->_files[] = $line;
         }
 
         for ($i = 0; $i != $size; ++$i) {
-            $this->_log = $this->_log . chop(fgets($fl->logpipe)) . "\n";
+            $this->_log = $this->_log . chop(fgets($this->_file->logpipe)) . "\n";
         }
 
         $this->_log = chop($this->_log);
-        fgets($fl->logpipe);
+        fgets($this->_file->logpipe);
     }
 
     /**

@@ -416,19 +416,26 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
     protected $_revlist = array();
 
     /**
-     * Create a repository file object, and give it information about
-     * what its parent directory and repository objects are.
+     * Have we initalized logs and revisions?
      *
-     * @param TODO $rep    TODO
-     * @param string $fl   Full path to this file.
-     * @param array $opts  TODO
-     *
-     * @throws Horde_Vcs_Exception
+     * @var boolean
      */
-    public function __construct($rep, $fl, $opts = array())
-    {
-        parent::__construct($rep, $fl, $opts);
+    private $_initialized = false;
 
+    protected function _ensureRevisionsInitialized()
+    {
+        if (!$this->_initialized) { $this->_init(); }
+        $this->_initialized = true;
+    }
+
+    protected function _ensureLogsInitialized()
+    {
+        if (!$this->_initialized) { $this->_init(); }
+        $this->_initialized = true;
+    }
+
+    protected function _init()
+    {
         $log_list = null;
 
         /* First, grab the master list of revisions. If quicklog is specified,
@@ -436,13 +443,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
          * most recent revision for the given branch. */
         if ($this->_quicklog) {
             $branchlist = empty($this->_branch)
-                ? array($rep->getDefaultBranch())
+                ? array($this->_rep->getDefaultBranch())
                 : array($this->_branch);
         } else {
-            if (version_compare($rep->version, '1.6.0', '>=')) {
-                $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+            if (version_compare($this->_rep->version, '1.6.0', '>=')) {
+                $cmd = $this->_rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             } else {
-                $cmd = $rep->getCommand() . ' branch -v --no-abbrev';
+                $cmd = $this->_rep->getCommand() . ' branch -v --no-abbrev';
                 exec($cmd, $branch_heads);
                 if (stripos($branch_heads[0], 'fatal') === 0) {
                     throw new Horde_Vcs_Exception(implode(', ', $branch_heads));
@@ -452,13 +459,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
                     $hd = $line[1];
                 }
 
-                $cmd = $rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+                $cmd = $this->_rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             }
 
             exec($cmd, $revs);
             if (count($revs) == 0) {
-                if (!$rep->isFile($fl, isset($opts['branch']) ? $opts['branch'] : null)) {
-                    throw new Horde_Vcs_Exception('No such file: ' . $fl);
+                if (!$this->_rep->isFile($this->queryModulePath(), isset($opts['branch']) ? $opts['branch'] : null)) {
+                    throw new Horde_Vcs_Exception('No such file: ' . $this->queryModulePath());
                 } else {
                     throw new Horde_Vcs_Exception('No revisions found');
                 }
@@ -477,7 +484,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
          * those on $this->_branch, for branch determination reasons. */
         foreach ($branchlist as $key) {
             $revs = array();
-            $cmd = $rep->getCommand() . ' rev-list ' . ($this->_quicklog ? '-n 1' : '') . ' ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+            $cmd = $this->_rep->getCommand() . ' rev-list ' . ($this->_quicklog ? '-n 1' : '') . ' ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             exec($cmd, $revs);
 
             if (!empty($revs)) {
@@ -504,7 +511,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         }
 
         foreach ($log_list as $val) {
-            $this->logs[$val] = $rep->getLogObject($this, $val);
+            $this->logs[$val] = $this->_rep->getLogObject($this, $val);
         }
     }
 
@@ -607,7 +614,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 
         throw new Horde_Vcs_Exception('No revisions');
     }
-
 }
 
 /**
@@ -625,17 +631,23 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
     protected $_parent = null;
 
     /**
-     * Constructor.
-     *
-     * @throws Horde_Vcs_Exception
+     * @var boolean
      */
-    public function __construct($rep, $fl, $rev)
-    {
-        parent::__construct($rep, $fl, $rev);
+    private $_initialized;
 
+    protected function _ensureInitialized()
+    {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
+    }
+
+    protected function _init()
+    {
         /* Get diff statistics. */
         $stats = array();
-        $cmd = $rep->getCommand() . ' diff-tree --numstat ' . escapeshellarg($rev);
+        $cmd = $this->_rep->getCommand() . ' diff-tree --numstat ' . escapeshellarg($this->_rev);
         exec($cmd, $output);
 
         reset($output);
@@ -647,13 +659,12 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         }
 
         // @TODO use Commit, CommitDate, and Merge properties
-        $cmd = $rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . escapeshellarg($rev);
+        $cmd = $this->_rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
-        //$line = trim(fgets($pipe));
         while (true) {
             $line = trim(fgets($pipe));
             if (!strlen($line)) { break; }
@@ -666,9 +677,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 
             switch (trim($key)) {
             case 'Rev':
-                if ($rev != $value) {
+                if ($this->_rev != $value) {
                     fclose($pipe);
-                    throw new Horde_Vcs_Exception('Expected ' . $rev . ', got ' . $value);
+                    throw new Horde_Vcs_Exception('Expected ' . $this->_rev . ', got ' . $value);
                 }
                 break;
 

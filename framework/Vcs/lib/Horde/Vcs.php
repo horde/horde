@@ -513,6 +513,7 @@ class Horde_Vcs
 
         ksort($opts);
         $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
+        $fetchedFromCache = false;
 
         if (!empty($this->_cache)) {
             // TODO: Can't use filemtime() - Git bare repos contain no files
@@ -523,15 +524,15 @@ class Horde_Vcs
             }
             if ($this->_cache->exists($cacheId, $ctime)) {
                 $ob = unserialize($this->_cache->get($cacheId, $ctime));
-                $ob->setRepository($this);
-                return $ob;
+                $fetchedFromCache = true;
             }
         }
 
-        $ob = new $class($this, $filename, $opts);
+        if (!$ob) { $ob = new $class($filename, $opts); }
+        $ob->setRepository($this);
         $ob->applySort(self::SORT_AGE);
 
-        if (!empty($this->_cache)) {
+        if (!empty($this->_cache) && !$fetchedFromCache) {
             $this->_cache->set($cacheId, serialize($ob));
         }
 
@@ -551,12 +552,12 @@ class Horde_Vcs
             // Individual revisions can be cached forever
             if ($this->_cache->exists($cacheId, 0)) {
                 $ob = unserialize($this->_cache->get($cacheId, 0));
-                $ob->setRepository($this);
-                return $ob;
             }
         }
 
-        $ob = new $class($this, $fl, $rev);
+        if (!$ob) { $ob = new $class($rev); }
+        $ob->setRepository($this);
+        $ob->setFile($fl);
 
         if (!is_null($rev) && !empty($this->_cache)) {
             $this->_cache->set($cacheId, serialize($ob));
@@ -829,7 +830,6 @@ abstract class Horde_Vcs_Directory
     {
         return array();
     }
-
 }
 
 /**
@@ -878,19 +878,34 @@ abstract class Horde_Vcs_File
      * Create a repository file object, and give it information about
      * what its parent directory and repository objects are.
      *
-     * @param TODO $rep    TODO
-     * @param string $fl   Full path to this file.
-     * @param array $opts  TODO
+     * @param string $filename  Full path to this file.
+     * @param array  $opts      TODO
      */
-    public function __construct($rep, $fl, $opts = array())
+    public function __construct($filename, $opts = array())
     {
-        $this->_rep = $rep;
-        $this->_name = basename($fl);
-        $this->_dir = dirname($fl);
+        $this->_name = basename($filename);
+        $this->_dir = dirname($filename);
+
         $this->_quicklog = !empty($opts['quicklog']);
         if (!empty($opts['branch'])) {
             $this->_branch = $opts['branch'];
         }
+    }
+
+    protected function _ensureRevisionsInitialized()
+    {
+    }
+
+    protected function _ensureLogsInitialized()
+    {
+    }
+
+    /**
+     * When serializing, don't return the repository object
+     */
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_object_vars($this)), array('_rep'));
     }
 
     /**
@@ -899,6 +914,14 @@ abstract class Horde_Vcs_File
     public function setRepository($rep)
     {
         $this->_rep = $rep;
+    }
+
+    /**
+     * TODO - better name, wrap an object around this?
+     */
+    public function getBlob($revision)
+    {
+        return $this->_rep->checkout($this->queryPath(), $revision);
     }
 
     /**
@@ -939,6 +962,7 @@ abstract class Horde_Vcs_File
      */
     public function queryRevision()
     {
+        $this->_ensureRevisionsInitialized();
         if (!isset($this->_revs[0])) {
             throw new Horde_Vcs_Exception('No revisions');
         }
@@ -950,6 +974,7 @@ abstract class Horde_Vcs_File
      */
     public function queryPreviousRevision($rev)
     {
+        $this->_ensureRevisionsInitialized();
         $key = array_search($rev, $this->_revs);
         return (($key !== false) && isset($this->_revs[$key + 1]))
             ? $this->_revs[$key + 1]
@@ -964,6 +989,8 @@ abstract class Horde_Vcs_File
      */
     public function queryLastLog()
     {
+        $this->_ensureRevisionsInitialized();
+        $this->_ensureLogsInitialized();
         if (!isset($this->_revs[0]) || !isset($this->logs[$this->_revs[0]])) {
             throw new Horde_Vcs_Exception('No revisions');
         }
@@ -979,6 +1006,8 @@ abstract class Horde_Vcs_File
      */
     public function applySort($how = Horde_Vcs::SORT_REV)
     {
+        $this->_ensureLogsInitialized();
+
         switch ($how) {
         case Horde_Vcs::SORT_NAME:
             $func = 'Name';
@@ -1060,6 +1089,7 @@ abstract class Horde_Vcs_File
      */
     public function queryLogs($rev = null)
     {
+        $this->_ensureLogsInitialized();
         return is_null($rev)
             ? $this->logs
             : (isset($this->logs[$rev]) ? $this->logs[$rev] : null);
@@ -1070,6 +1100,7 @@ abstract class Horde_Vcs_File
      */
     public function revisionCount()
     {
+        $this->_ensureRevisionsInitialized();
         return count($this->_revs);
     }
 
@@ -1080,7 +1111,6 @@ abstract class Horde_Vcs_File
     {
         return array();
     }
-
 }
 
 /**
@@ -1105,11 +1135,21 @@ abstract class Horde_Vcs_Log
     /**
      * Constructor.
      */
-    public function __construct($rep, $fl, $rev)
+    public function __construct($rev)
     {
-        $this->_rep = $rep;
-        $this->_file = $fl;
         $this->_rev = $rev;
+    }
+
+    protected function _ensureInitialized()
+    {
+    }
+
+    /**
+     * When serializing, don't return the repository object
+     */
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_object_vars($this)), array('_file', '_rep'));
     }
 
     /**
@@ -1120,12 +1160,9 @@ abstract class Horde_Vcs_Log
         $this->_rep = $rep;
     }
 
-    /**
-     * TODO
-     */
-    public function queryDate()
+    public function setFile(Horde_Vcs_File $file)
     {
-        return $this->_date;
+        $this->_file = $file;
     }
 
     /**
@@ -1139,8 +1176,18 @@ abstract class Horde_Vcs_Log
     /**
      * TODO
      */
+    public function queryDate()
+    {
+        $this->_ensureInitialized();
+        return $this->_date;
+    }
+
+    /**
+     * TODO
+     */
     public function queryAuthor()
     {
+        $this->_ensureInitialized();
         return $this->_author;
     }
 
@@ -1149,6 +1196,7 @@ abstract class Horde_Vcs_Log
      */
     public function queryLog()
     {
+        $this->_ensureInitialized();
         return $this->_log;
     }
 
@@ -1157,6 +1205,7 @@ abstract class Horde_Vcs_Log
      */
     public function queryBranch()
     {
+        $this->_ensureInitialized();
         return array();
     }
 
@@ -1165,6 +1214,7 @@ abstract class Horde_Vcs_Log
      */
     public function queryChangedLines()
     {
+        $this->_ensureInitialized();
         return $this->_lines;
     }
 
@@ -1173,6 +1223,7 @@ abstract class Horde_Vcs_Log
      */
     public function queryTags()
     {
+        $this->_ensureInitialized();
         return $this->_tags;
     }
 
@@ -1185,6 +1236,8 @@ abstract class Horde_Vcs_Log
      */
     public function querySymbolicBranches()
     {
+        $this->_ensureInitialized();
+
         $symBranches = array();
         $branches = $this->_file->queryBranches();
 
@@ -1202,11 +1255,11 @@ abstract class Horde_Vcs_Log
      */
     public function queryFiles($file = null)
     {
+        $this->_ensureInitialized();
         return is_null($file)
             ? $this->_files
             : (isset($this->_files[$file]) ? $this->_files[$file] : array());
     }
-
 }
 
 /**
@@ -1257,5 +1310,4 @@ abstract class Horde_Vcs_Patchset
     {
         return $this->_patchsets;
     }
-
 }
