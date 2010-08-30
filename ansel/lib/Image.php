@@ -568,7 +568,7 @@ class Ansel_Image Implements Iterator
             return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
         }
 
-        /* New image, need to save the image files, exif etc... */
+        /* New image, need to save the image files */
         $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
 
         /* The EXIF functions require a stream, so we need to save before we read */
@@ -704,8 +704,7 @@ class Ansel_Image Implements Iterator
         /* Flag to determine if we need to resave the image data */
         $needUpdate = false;
 
-        /* Populate any local properties that come from EXIF
-         * Save any geo data to a seperate table as well */
+        /* Populate any local properties that come from EXIF */
         if (!empty($exif_fields['GPSLatitude']))
         {
             $this->lat = $exif_fields['GPSLatitude'];
