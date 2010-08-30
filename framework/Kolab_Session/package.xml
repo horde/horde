@@ -27,7 +27,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-03-02</date>
+ <date>2010-03-02</date>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
