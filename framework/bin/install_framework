@@ -192,7 +192,10 @@ foreach ($pkgs as $key => $val) {
     $cli->message('Installing package ' . $key);
 
     $pkg_ob = $pear_pkg->fromPackageFile($val . '/package.xml', PEAR_VALIDATE_NORMAL);
-
+    if ($pkg_ob instanceof PEAR_Error) {
+        $cli->message('Could not install package ' . $key . ': ' . $pkg_ob->getMessage(), 'cli.error');
+        continue;
+    }
     foreach ($pkg_ob->getInstallationFilelist() as $file) {
         $orig = realpath($val . '/' . $file['attribs']['name']);
 
