@@ -49,7 +49,9 @@
        <file name="Epoch.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Freebusy.php" role="php" />
+<!--
        <file name="Itip.php" role="php" />
+-->
        <file name="Reply.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Resource -->
       <file name="Resource.php" role="php" />
@@ -121,7 +123,9 @@
    <install as="Horde/Kolab/Resource/Epoch.php" name="lib/Horde/Kolab/Resource/Epoch.php" />
    <install as="Horde/Kolab/Resource/Exception.php" name="lib/Horde/Kolab/Resource/Exception.php" />
    <install as="Horde/Kolab/Resource/Freebusy.php" name="lib/Horde/Kolab/Resource/Freebusy.php" />
+<!--
    <install as="Horde/Kolab/Resource/Itip.php" name="lib/Horde/Kolab/Resource/Itip.php" />
+-->
    <install as="Horde/Kolab/Resource/Reply.php" name="lib/Horde/Kolab/Resource/Reply.php" />
    <install as="Horde/Kolab/Resource/Freebusy/Kolab.php" name="lib/Horde/Kolab/Resource/Freebusy/Kolab.php" />
    <install as="Horde/Kolab/Resource/Freebusy/Mock.php" name="lib/Horde/Kolab/Resource/Freebusy/Mock.php" />
