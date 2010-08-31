@@ -9,7 +9,7 @@
 
 // Constants for the API parameter names.
 extern NSString * const kTURAnselAPIParamScope;
-extern NSString * const kTURAnselAPIParamGaleryParams;
+extern NSString * const kTURAnselAPIParamGalleryParams;
 extern NSString * const kTURAnselAPIParamPerms;
 extern NSString * const kTURAnselAPIParamParent;
 extern NSString * const kTURAnselAPIParamAllLevels;
@@ -27,6 +27,9 @@ extern NSString * const kTURAnselAPIParamEncoding;
 
 // Constants specific to Ansel version 2 API parameters.
 extern NSString * const kTURAnselAPIParamSingleParameter;
+extern NSString * const kTURAnselAPIParamView;
+extern NSString * const kTURAnselAPIParamFull;
+extern NSString * const kTURAnselAPIParamEncoding;
 
 // Constants for the dictionary keys used to describe/create TURAnselGallery
 extern NSString * const kTURAnselGalleryKeyId;

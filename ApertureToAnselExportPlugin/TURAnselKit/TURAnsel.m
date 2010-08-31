@@ -76,9 +76,17 @@
  */
 - (NSDictionary *)createNewGallery: (NSDictionary *)params
 {
-    NSArray *apiparams = [NSArray arrayWithObjects: @"ansel", params, nil];
-    NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamGaleryParams, nil];
-
+    NSArray *apiparams;
+    NSArray *order;
+    
+    if ([[self valueForKey: @"version"] intValue] == 2) {
+        apiparams = [NSArray arrayWithObjects: params, nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamGalleryParams, nil];
+    } else {
+        apiparams = [NSArray arrayWithObjects: @"ansel", params, nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamGalleryParams, nil];
+    }
+    
     NSDictionary *response = [self callRPCMethod: @"images.createGallery"
                                       withParams: apiparams
                                        withOrder: order];
@@ -291,12 +299,12 @@
     NSArray *params;
     NSArray *order;
     
-    if (2 == [version intValue]) {
-        params = [[NSArray alloc] initWithObjects: [[NSDictionary alloc] initWithObjectsAndKeys:
+    if ([[self valueForKey: @"version"] intValue] == 2) {
+        params = [[NSArray alloc] initWithObjects: [NSDictionary dictionaryWithObjectsAndKeys:
                                                              [NSNumber numberWithInt: PERMS_EDIT], @"perm",
                                                              [self valueForKey:@"username"], @"filter",
                                                              nil] ,nil];    
-        order = [[NSArray arrayWithObjects kTURAnselAPIParamSingleParameter, nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamSingleParameter, nil];
     } else {
         // Assume it's version 1.x
         params = [[NSArray alloc] initWithObjects:

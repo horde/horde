@@ -2,5 +2,6 @@
 v1.0-git
 --------
 
+[mjr] Update for Ansel version 2.x API support
 [mjr] Load in 64 bit native mode.
 [mjr] initial CHANGES file creation

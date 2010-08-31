@@ -10,7 +10,7 @@
 
 // Constants for the API parameter names.
 NSString * const kTURAnselAPIParamScope             = @"scope";
-NSString * const kTURAnselAPIParamGaleryParams      = @"galleryParams";
+NSString * const kTURAnselAPIParamGalleryParams      = @"galleryParams";
 NSString * const kTURAnselAPIParamPerms             = @"perms";
 NSString * const kTURAnselAPIParamParent            = @"parent";
 NSString * const kTURAnselAPIParamAllLevels         = @"allLevels";
@@ -27,6 +27,8 @@ NSString * const kTURAnselAPIParamAdditionalData    = @"additionalData";
 NSString * const kTURAnselAPIParamEncoding          = @"encoding";
 
 NSString * const kTURAnselAPIParamSingleParameter   = @"params";
+NSString * const kTURAnselAPIParamView              = @"view";
+NSString * const kTURAnselAPIParamFull              = @"full";
 
 // Ansel gallery attribtues.
 NSString * const kTURAnselGalleryKeyId              = @"share_id";

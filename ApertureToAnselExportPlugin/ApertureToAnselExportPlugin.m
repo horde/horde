@@ -612,6 +612,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         // were returned as empty or null, so we need to check for that.
         // (Even if caption is nil, caption.length will still be zero, so we 
         // don't need a seperate case for that).
+        NSLog(@"Image: %@", image);
         NSString *caption = [image objectForKey:@"caption"];
         if (caption == (NSString *)[NSNull null] || [caption length] == 0) {
             caption = [image objectForKey:@"name"];
