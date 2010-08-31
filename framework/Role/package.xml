@@ -31,6 +31,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dir name="/">
    <file name="Horde.php" role="php" />
    <file name="Horde.xml" role="php" />
+   <file name="Setconfig.php" role="php">
+    <tasks:postinstallscript>
+     <tasks:paramgroup>
+      <tasks:id>first</tasks:id>
+      <tasks:param>
+       <tasks:name>horde_dir</tasks:name>
+       <tasks:prompt>Filesystem location where the Horde application is installed.</tasks:prompt>
+       <tasks:type>string</tasks:type>
+      </tasks:param>
+     </tasks:paramgroup>
+    </tasks:postinstallscript>
+   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
