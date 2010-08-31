@@ -20,6 +20,7 @@
 @synthesize rpcEndPoint;
 @synthesize username;
 @synthesize password;
+@synthesize version;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -37,6 +38,8 @@
             forKey: @"password"];
     [self setValue: @"The Ansel Cocoa XML-RPC Client"
             forKey: @"userAgent"];
+    [self setValue: [params objectForKey:@"version"]
+            forKey: @"version"];
 
     return self;
 }
@@ -49,6 +52,7 @@
     [username release];
     [password release];
     [userAgent release];
+    [version release];
     [super dealloc];
 }
 
@@ -284,20 +288,33 @@
  */
 - (void)doLogin
 {
-    NSArray *params = [[NSArray alloc] initWithObjects:
-                       @"ansel",                                 // Scope
-                       [NSNumber numberWithInt: PERMS_EDIT],     // Perms
-                       @"",                                      // No parent
-                       [NSNumber numberWithBool:YES],            // allLevels
-                       [NSNumber numberWithInt: 0],              // Offset
-                       [NSNumber numberWithInt: 0],              // Count
-                       [self valueForKey:@"username"], nil];     // Restrict to user (This should be an option eventually).
+    NSArray *params;
+    NSArray *order;
+    
+    if (2 == [version intValue]) {
+        params = [[NSArray alloc] initWithObjects: [[NSDictionary alloc] initWithObjectsAndKeys:
+                                                             [NSNumber numberWithInt: PERMS_EDIT], @"perm",
+                                                             [self valueForKey:@"username"], @"filter",
+                                                             nil] ,nil];    
+        order = [[NSArray arrayWithObjects kTURAnselAPIParamSingleParameter, nil];
+    } else {
+        // Assume it's version 1.x
+        params = [[NSArray alloc] initWithObjects:
+                           @"ansel",                                 // Scope
+                           [NSNumber numberWithInt: PERMS_EDIT],     // Perms
+                           @"",                                      // No parent
+                           [NSNumber numberWithBool:YES],            // allLevels
+                           [NSNumber numberWithInt: 0],              // Offset
+                           [NSNumber numberWithInt: 0],              // Count
+                           [self valueForKey:@"username"], nil];     // Restrict to user (This should be an option eventually).
 
-    NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamPerms,
-                                                kTURAnselAPIParamParent, kTURAnselAPIParamAllLevels,
-                                                kTURAnselAPIParamOffset, kTURAnselAPIParamCount,
-                                                kTURAnselAPIParamUserOnly, nil];
-
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamPerms,
+                                                    kTURAnselAPIParamParent, kTURAnselAPIParamAllLevels,
+                                                    kTURAnselAPIParamOffset, kTURAnselAPIParamCount,
+                                                    kTURAnselAPIParamUserOnly, nil];
+    }
+    
+    
     NSDictionary *results = [self callRPCMethod: @"images.listGalleries"
                                      withParams: params
                                       withOrder: order];

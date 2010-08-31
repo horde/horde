@@ -26,6 +26,8 @@ NSString * const kTURAnselAPIParamSetAsDefault      = @"default";
 NSString * const kTURAnselAPIParamAdditionalData    = @"additionalData";
 NSString * const kTURAnselAPIParamEncoding          = @"encoding";
 
+NSString * const kTURAnselAPIParamSingleParameter   = @"params";
+
 // Ansel gallery attribtues.
 NSString * const kTURAnselGalleryKeyId              = @"share_id";
 NSString * const kTURAnselGalleryKeyName            = @"attribute_name";

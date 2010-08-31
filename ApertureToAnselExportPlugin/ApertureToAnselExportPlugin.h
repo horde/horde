@@ -58,6 +58,7 @@
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
     IBOutlet NSButton *mMakeNewServerDefault;
+    IBOutlet NSPopUpButton *mAnselVersion;
     
     // Server list
     IBOutlet NSPanel *serverListPanel;
@@ -82,8 +83,6 @@
 }
 
 - (IBAction) showNewGallery: (id)sender;
-- (IBAction) doAddServer: (id)sender;
-- (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
 - (IBAction) clickViewGallery: (id)sender;
 - (IBAction) closeGalleryView: (id)sender;
@@ -92,4 +91,8 @@
 - (IBAction) closeServerList: (id)sender;
 - (IBAction) removeServer: (id)sender;
 - (NSWindow *)window;
+
+// New Server View
+- (IBAction) doAddServer: (id)sender;
+- (IBAction) doCancelAddServer: (id)sender;
 @end

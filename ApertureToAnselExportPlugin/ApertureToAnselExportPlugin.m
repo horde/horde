@@ -36,6 +36,7 @@ NSString * const TURAnselServerNickKey = @"nickname";
 NSString * const TURAnselServerEndpointKey = @"endpoint";
 NSString * const TURAnselServerUsernameKey = @"username";
 NSString * const TURAnselServerPasswordKey = @"password";
+NSString * const TURAnselServerVersionKey = @"version";
 
 @implementation ApertureToAnselExportPlugin
 
@@ -538,6 +539,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
                                [mServerSheetUsername stringValue], TURAnselServerUsernameKey,
                                [mServerSheetPassword stringValue], TURAnselServerPasswordKey,
+                               [NSNumber numberWithInt: [mAnselVersion indexOfSelectedItem] + 1] , TURAnselServerVersionKey,
                                nil];
     [_anselServers addObject: newServer];
     [NSApp endSheet: newServerSheet];
@@ -584,6 +586,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
             [self disconnect];
         }
         _currentServer = [[mServersPopUp selectedItem] representedObject];
+        NSLog(@"Current Server: %@", _currentServer);
         [self doConnect];
     }
 }
@@ -755,6 +758,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
        didEndSelector: nil
           contextInfo: nil];
     
+    // Populate the version popup
+    //[mAnselVersion addItemWithTitle:@"1.x"];
+    //[mAnselVersion addItemWithTitle:@"2.x"];
+    //[mAnselVersion setTitle:@"1.x"];
+    
     // Make sure these are cleared.
     [mServerSheetHostURL setStringValue: @""];
     [mServerSheetUsername setStringValue: @""];
@@ -786,8 +794,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
                                                               [_currentServer objectForKey:TURAnselServerEndpointKey],
                                                               [_currentServer objectForKey:TURAnselServerUsernameKey],
                                                               [_currentServer objectForKey:TURAnselServerPasswordKey],
+                                                              [_currentServer objectForKey:TURAnselServerVersionKey],
                                                               nil]
-                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
+                                                    forKeys: [NSArray arrayWithObjects:TURAnselServerEndpointKey, TURAnselServerUsernameKey, TURAnselServerPasswordKey, TURAnselServerVersionKey, nil]];
     // Create our controller
     [_anselController autorelease];
     _anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
