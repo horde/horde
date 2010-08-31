@@ -1,3 +1,7 @@
+/**
+ * @category Horde
+ * @package  Core
+ */
 var PrettyAutocompleter = Class.create({
 
     initialize: function(element, params)

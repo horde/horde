@@ -20,8 +20,11 @@
  * 'SpellChecker:noerror'
  *    Fired when no spellcheck errors are found.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  Core
  */
 
 var SpellChecker = Class.create({

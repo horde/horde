@@ -18,6 +18,9 @@
  * Horde_Calendar:selectYear
  *   params: Date object
  *   Fired when a year is selected.
+ *
+ * @category Horde
+ * @package  Core
  */
 
 var Horde_Calendar =

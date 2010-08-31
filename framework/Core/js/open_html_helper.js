@@ -8,12 +8,13 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Marko Djukic <marko@oblo.com>
- * @package Horde
- * @todo Add handling for font tags, tables, etc.
+ * @author   Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @package  Core
+ * @todo     Add handling for font tags, tables, etc.
  */
 
 var Horde_Html_Helper = {

@@ -55,6 +55,20 @@ Application Framework.</description>
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="js">
+    <file name="addressbooksprefs.js" role="horde" />
+    <file name="alarmprefs.js" role="horde" />
+    <file name="autocomplete.js" role="horde" />
+    <file name="calendar.js" role="horde" />
+    <file name="hordetree.js" role="horde" />
+    <file name="identityselect.js" role="horde" />
+    <file name="liquidmetal.js" role="horde" />
+    <file name="open_html_helper.js" role="horde" />
+    <file name="prefs.js" role="horde" />
+    <file name="prettyautocomplete.js" role="horde" />
+    <file name="spellchecker.js" role="horde" />
+    <file name="sourceselect.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Config">
@@ -373,8 +387,25 @@ Application Framework.</description>
    </package>
   </optional>
  </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
+   <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
+   <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
+   <install as="js/autocomplete.js" name="js/autocomplete.js" />
+   <install as="js/calendar.js" name="js/calendar.js" />
+   <install as="js/hordetree.js" name="js/hordetree.js" />
+   <install as="js/identityselect.js" name="js/identityselect.js" />
+   <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
+   <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
+   <install as="js/prefs.js" name="js/prefs.js" />
+   <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
+   <install as="js/spellchecker.js" name="js/spellchecker.js" />
+   <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />

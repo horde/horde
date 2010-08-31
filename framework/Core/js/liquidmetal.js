@@ -12,6 +12,9 @@
  *
  * Copyright (c) 2009, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
  * Modified by the Horde Project to use compressibility.
+ *
+ * @category Horde
+ * @package  Core
  */
 var LiquidMetal = {
 

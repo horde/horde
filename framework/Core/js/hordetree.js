@@ -15,12 +15,13 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Marko Djukic <marko@oblo.com>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @package  Core
  */
 
 var Horde_Tree = Class.create({
