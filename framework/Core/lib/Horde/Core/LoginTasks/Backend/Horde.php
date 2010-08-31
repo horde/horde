@@ -162,7 +162,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function redirect($url)
     {
-        $url = new Horde_url($url);
+        $url = new Horde_Url($url);
         $url->redirect();
     }
 
