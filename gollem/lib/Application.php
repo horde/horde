@@ -195,4 +195,40 @@ class Gollem_Application extends Horde_Registry_Application
         return Gollem::getMenu();
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        // TODO
+        return;
+
+        $login_url = Horde::applicationUrl('login.php');
+
+        foreach ($GLOBALS['gollem_backends'] as $key => $val) {
+            if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
+                $tree->addNode(
+                    $parent . $key,
+                    $parent,
+                    $val['name'],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('gollem.png'),
+                        'url' => $login_url->copy()->add(array('backend_key' => $key, 'change_backend' => 1))
+                    )
+                );
+            }
+        }
+    }
+
 }

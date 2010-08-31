@@ -10,7 +10,14 @@
 class Horde_Api extends Horde_Registry_Api
 {
     /**
-     * Returns a list of adminstrative links
+     * Returns a list of adminstrative links.
+     *
+     * @return array  Keys are link labels, values are array with these keys:
+     * <pre>
+     * 'link' - (string) Registry encoded link to page.
+     * 'name' - (string) Gettext label for page.
+     * 'icon' - (string) Graphic for page.
+     * </pre>
      */
     public function admin_list()
     {
@@ -18,52 +25,52 @@ class Horde_Api extends Horde_Registry_Api
             'configuration' => array(
                 'link' => '%application%/admin/setup/',
                 'name' => _("_Setup"),
-                'icon' => 'config.png'
+                'icon' => Horde_Themes::img('config.png')
             ),
             'users' => array(
                 'link' => '%application%/admin/user.php',
                 'name' => _("_Users"),
-                'icon' => 'user.png'
+                'icon' => Horde_Themes::img('user.png')
             ),
             'groups' => array(
                 'link' => '%application%/admin/groups.php',
                 'name' => _("_Groups"),
-                'icon' => 'group.png'
+                'icon' => Horde_Themes::img('group.png')
             ),
             'perms' => array(
                 'link' => '%application%/admin/perms/index.php',
                 'name' => _("_Permissions"),
-                'icon' => 'perms.png'
+                'icon' => Horde_Themes::img('perms.png')
             ),
             'alarms' => array(
                 'link' => '%application%/admin/alarms.php',
                 'name' => _("_Alarms"),
-                'icon' => 'alerts/alarm.png'
+                'icon' => Horde_Themes::img('alerts/alarm.png')
             ),
             'datatree' => array(
                 'link' => '%application%/admin/datatree.php',
                 'name' => _("_DataTree"),
-                'icon' => 'datatree.png'
+                'icon' => Horde_Themes::img('datatree.png')
             ),
             'sessions' => array(
                 'link' => '%application%/admin/sessions.php',
                 'name' => _("Sessions"),
-                'icon' => 'user.png'
+                'icon' => Horde_Themes::img('user.png')
             ),
             'phpshell' => array(
                 'link' => '%application%/admin/phpshell.php',
                 'name' => _("P_HP Shell"),
-                'icon' => 'mime/php.png'
+                'icon' => Horde_Themes::img('mime/php.png')
             ),
             'sqlshell' => array(
                 'link' => '%application%/admin/sqlshell.php',
                 'name' => _("S_QL Shell"),
-                'icon' => 'sql.png'
+                'icon' => Horde_Themes::img('sql.png')
             ),
             'cmdshell' => array(
                 'link' => '%application%/admin/cmdshell.php',
                 'name' => _("_CLI"),
-                'icon' => 'shell.png'
+                'icon' => Horde_Themes::img('shell.png')
             )
         );
 
@@ -71,7 +78,7 @@ class Horde_Api extends Horde_Registry_Api
             $admin['activesync'] = array(
                 'link' => '%application%/admin/activesync.php',
                 'name' => _("ActiveSync Devices"),
-                'icon' => 'mobile.png'
+                'icon' => Horde_Themes::img('mobile.png')
             );
         }
 

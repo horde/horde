@@ -458,6 +458,95 @@ class IMP_Application extends Horde_Registry_Application
         return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsMenu($ui);
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        global $injector, $prefs, $registry;
+
+        /* Run filters now */
+        if ($prefs->getValue('filter_on_display')) {
+            $injector->getInstance('IMP_Filter')->filter('INBOX');
+        }
+
+        $tree->addNode(
+            strval($parent) . 'compose',
+            $parent,
+            _("New Message"),
+            0,
+            false,
+            array(
+                'icon' => Horde_Themes::img('compose.png'),
+                'url' => IMP::composeLink()
+            )
+        );
+
+        /* Add link to the search page. */
+        $tree->addNode(
+            strval($parent) . 'search',
+            $parent,
+            _("Search"),
+            0,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
+
+        if ($_SESSION['imp']['protocol'] == 'pop') {
+            return;
+        }
+
+        $name_url = Horde::applicationUrl('mailbox.php');
+
+        /* Initialize the IMP_Tree object. */
+        $imaptree = $injector->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+        $imaptree->createTree($tree, array(
+            'parent' => $parent,
+            'poll_info' => true
+        ));
+
+        /* We want to rewrite the parent node of the INBOX to include new mail
+         * notification. */
+        if (!($url = $registry->get('url', $parent))) {
+            $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
+                ? null
+                : $registry->getInitialPage($parent);
+        }
+
+        $node_params = array(
+            'icon' => $registry->get('icon', $parent),
+            'url' => $url
+        );
+        $name = $registry->get('name', $parent);
+
+        if ($imaptree->unseen) {
+            $node_params['icon'] = Horde_Themes::img('newmail.png');
+            $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
+        }
+
+        $tree->addNode(
+            strval($parent),
+            $registry->get('menu_parent', $parent),
+            $name,
+            0,
+            $imaptree->isOpen($parent),
+            $node_params
+        );
+    }
+
     /* Language change callback. */
 
     /**

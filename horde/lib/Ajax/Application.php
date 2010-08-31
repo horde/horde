@@ -21,8 +21,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sidebarUpdate()
     {
-        $sidebar = new Horde_Ui_Sidebar();
-        return $sidebar->getTree()->renderNodeDefinitions();
+        return $sidebar->getInstance('Horde_Core_Sidebar')->getTree()->renderNodeDefinitions();
     }
 
 }

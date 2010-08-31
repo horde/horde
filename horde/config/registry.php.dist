@@ -29,8 +29,14 @@
  * menu_parent: (string) The name of the 'heading' group that this app should
  *              show up under. This can be left out or set to null for
  *              top-level items.
- * status: (string) 'inactive', 'hidden', 'notoolbar', 'heading',
- *         'block', 'admin', or 'active'.
+ * status: (string) One of the following:
+ *         'active'
+ *         'admin'
+ *         'heading'
+ *         'hidden'
+ *         'inactive'
+ *         'notoolbar'
+ *         'sidebar'
  * webroot: (string) The base URI path for the module.
  *          Usually the default should be fine (applications will occur one
  *          level below the horde directory). However, this setting is useful
@@ -45,11 +51,13 @@
  * jsfs: (string) The base filesystem path for static javascript files.
  * jsuri: (string) The base URI for static javascript files.
  * provides: (mixed) Service types the module provides.
+ * sidebar_prefs: (array) Additional params to pass to the sidebar generation
+                  function.
  * target: (string) The target frame for the link.
  * templates: (string) The filesystem path to the templates directory.
  * themesfs: (string) The base file system directory for the themes.
  * themesuri: (string) The base URI for the themes. This can be used to serve
- *                     all icons and style sheets from a separate server.
+ *            all icons and style sheets from a separate server.
  * url: (string) The URL of 'heading' entries.
  *
  *
@@ -117,10 +125,9 @@ $this->applications['vacation'] = array(
     'menu_parent' => 'imp'
 );
 
-$this->applications['imp-folders'] = array(
-    'status' => 'block',
+$this->applications['imp-menu'] = array(
+    'status' => 'sidebar',
     'app' => 'imp',
-    'blockname' => 'tree_folders',
     'menu_parent' => 'imp',
 );
 
@@ -139,9 +146,8 @@ $this->applications['turba'] = array(
 );
 
 $this->applications['turba-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'turba',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'turba',
 );
 
@@ -155,16 +161,20 @@ $this->applications['kronolith'] = array(
 );
 
 $this->applications['kronolith-alarms'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'kronolith',
-    'blockname' => 'tree_alarms',
+    'sidebar_params' => array(
+        'id' => 'alarms'
+    ),
     'menu_parent' => 'kronolith',
 );
 
 $this->applications['kronolith-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'kronolith',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'kronolith',
 );
 
@@ -178,16 +188,20 @@ $this->applications['nag'] = array(
 );
 
 $this->applications['nag-alarms'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'nag',
-    'blockname' => 'tree_alarms',
+    'sidebar_params' => array(
+        'id' => 'alarms'
+    ),
     'menu_parent' => 'nag',
 );
 
 $this->applications['nag-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'nag',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'nag',
 );
 
@@ -201,9 +215,8 @@ $this->applications['mnemo'] = array(
 );
 
 $this->applications['mnemo-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'mnemo',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'mnemo',
 );
 
@@ -226,9 +239,8 @@ $this->applications['trean'] = array(
 );
 
 $this->applications['trean-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'trean',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'trean',
 );
 
@@ -246,9 +258,8 @@ $this->applications['chora'] = array(
 );
 
 $this->applications['chora-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'chora',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'chora',
 );
 
@@ -262,9 +273,8 @@ $this->applications['whups'] = array(
 );
 
 $this->applications['whups-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'whups',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'whups',
 );
 
@@ -308,9 +318,8 @@ $this->applications['jonah'] = array(
 );
 
 $this->applications['jonah-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'jonah',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'jonah',
 );
 
@@ -365,16 +374,20 @@ $this->applications['hermes'] = array(
 );
 
 $this->applications['hermes-stopwatch'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'hermes',
-    'blockname' => 'tree_stopwatch',
+    'sidebar_params' => array(
+        'id' => 'stopwatch',
+    ),
     'menu_parent' => 'hermes',
 );
 
 $this->applications['hermes-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'hermes',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'hermes',
 );
 
@@ -393,9 +406,8 @@ $this->applications['gollem'] = array(
 );
 
 $this->applications['gollem-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'gollem',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'gollem',
 );
 

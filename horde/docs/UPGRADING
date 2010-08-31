@@ -51,6 +51,8 @@ Removed support for krb5 authentication driver.
 
 Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Srchighlite' instead.
 
+The registry.php file has changed ('status' => 'sidebar').
+
 
 Upgrading Horde from 3.3.x to 3.3.5
 ===================================

@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Instantiate the blocks objects.
-$blocks = &Horde_Block_Collection::singleton('news_layout', array('news'));
+$blocks = &Horde_Block_Collection::singleton(array('news'));
 $layout = &Horde_Block_Layout_Manager::singleton('news_layout', $blocks, unserialize($prefs->getValue('news_layout')));
 
 // Handle requested actions.

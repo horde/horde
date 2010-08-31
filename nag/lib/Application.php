@@ -281,4 +281,138 @@ class Nag_Application extends Horde_Registry_Application
         }
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        global $registry;
+
+        switch ($params['id']) {
+        case 'alarms':
+            // Get any alarms in the next hour.
+            $now = time();
+            $alarms = Nag::listAlarms($now);
+            if ($alarms instanceof PEAR_Error) {
+                return;
+            }
+
+            $alarmCount = 0;
+            $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+
+            foreach ($alarms as $taskId => $task) {
+                if ($horde_alarm->isSnoozed($task->uid, $registry->getAuth())) {
+                    continue;
+                }
+                ++$alarmCount;
+
+                $differential = $task->due - $now;
+                $title = ($differential >= 60)
+                    ? sprintf(_("%s is due in %s"), $task->name, Nag::secondsToString($differential))
+                    : sprintf(_("%s is due now."), $task->name);
+                $url = Horde::applicationUrl('view.php')->add(array(
+                    'task' => $task->id,
+                    'tasklist' => $task->tasklist
+                ));
+
+                $tree->addNode(
+                    $parent . $taskId,
+                    $parent,
+                    $task->name,
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('alarm.png'),
+                        'title' => $title,
+                        'url' => $url
+                    )
+                );
+            }
+
+            if ($registry->get('url', $parent)) {
+                $purl = $registry->get('url', $parent);
+            } elseif ($registry->get('status', $parent) == 'heading' ||
+                      !$registry->get('webroot')) {
+                $purl = null;
+            } else {
+                $purl = Horde::url($registry->getInitialPage($parent));
+            }
+
+            $pnode_name = $registry->get('name', $parent);
+            if ($alarmCount) {
+                $pnode_name = '<strong>' . $pnode_name . '</strong>';
+            }
+
+            $tree->addNode(
+                $parent,
+                $registry->get('menu_parent', $parent),
+                $pnode_name,
+                0,
+                false,
+                array(
+                    'icon' => strval($registry->get('icon', $parent)),
+                    'url' => $purl
+                )
+            );
+            break;
+
+        case 'menu':
+            $add = Horde::applicationUrl('task.php')->add('actionID', 'add_task');
+
+            $tree->addNode(
+                $parent . '__new',
+                $parent,
+                _("New Task"),
+                1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('add.png'),
+                    'url' => $add
+                )
+            );
+
+            foreach (Nag::listTasklists() as $name => $tasklist) {
+                if ($tasklist->get('owner') != $registry->getAuth() &&
+                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+                    continue;
+                }
+
+                $tree->addNode(
+                    $parent . $name . '__new',
+                    $parent . '__new',
+                    sprintf(_("in %s"), $tasklist->get('name')),
+                    2,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('add.png'),
+                        'url' => $add->copy()->add('tasklist_id', $name)
+                    )
+                );
+            }
+
+            $tree->addNode(
+                $parent . '__search',
+                $parent,
+                _("Search"),
+                1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('search.png'),
+                    'url' => Horde::applicationUrl('search.php')
+                )
+            );
+            break;
+        }
+    }
+
 }

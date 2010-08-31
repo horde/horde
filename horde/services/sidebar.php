@@ -19,13 +19,12 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 /* We may not be in global scope since this file can be included from other
  * scripts. */
-global $conf, $language, $prefs, $registry;
+global $conf, $injector, $language, $prefs, $registry;
 
 if (!Horde_Util::getFormData('ajaxui') &&
     ($conf['menu']['always'] ||
      ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
-    $sidebar = new Horde_Ui_Sidebar();
-    $tree = $sidebar->getTree();
+    $tree = $injector->getInstance('Horde_Core_Sidebar')->getTree();
 
     Horde::addScriptFile('prototype.js', 'horde');
     Horde::addScriptFile('sidebar.js', 'horde');

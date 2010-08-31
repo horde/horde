@@ -191,28 +191,6 @@ class Horde_Block
     }
 
     /**
-     * TODO
-     */
-    public function buildTree($tree, $indent = 0, $parent = null)
-    {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
-        try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
-        } catch (Horde_Exception $e) {
-            return $e->getMessage();
-        }
-
-        $this->_buildTree($tree, $indent, $parent);
-
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
-            $GLOBALS['registry']->popApp();
-        }
-    }
-
-    /**
      * Returns the title to go in this block.
      *
      * @return string  The block title.
@@ -240,13 +218,6 @@ class Horde_Block
     protected function _content()
     {
         return '';
-    }
-
-    /**
-     * Returns this block's content.
-     */
-    protected function _buildTree($tree, $indent = 0, $parent = null)
-    {
     }
 
 }

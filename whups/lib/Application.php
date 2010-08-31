@@ -192,4 +192,43 @@ class Whups_Application extends Horde_Registry_Application
         return $updated;
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        $tree->addNode(
+            $parent . '__new',
+            $parent,
+            _("New Ticket"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('create.png'),
+                'url' => Horde::applicationUrl('ticket/create.php')
+            )
+        );
+
+        $tree->addNode(
+            $parent . '__search',
+            $parent,
+            _("Search"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
+    }
+
 }

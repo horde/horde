@@ -30,13 +30,6 @@ class Horde_Block_Collection
     static protected $_blocksCache = array();
 
     /**
-     * What kind of blocks are we collecting? Defaults to any.
-     *
-     * @var string
-     */
-    protected $_type = 'portal';
-
-    /**
      * A hash storing the information about all available blocks from
      * all applications.
      *
@@ -47,17 +40,17 @@ class Horde_Block_Collection
     /**
      * Returns a single instance of the Horde_Blocks class.
      *
-     * @param string $type  The kind of blocks to list.
-     * @param array $apps   The applications whose blocks to list.
+     * @param array $apps  The applications whose blocks to list.
      *
      * @return Horde_Block_Collection  The Horde_Block_Collection instance.
      */
     static public function singleton($type = null, $apps = array())
     {
         sort($apps);
-        $signature = serialize(array($type, $apps));
+        $signature = hash('md5', serialize($apps));
+
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = new self($type, $apps);
+            self::$_instances[$signature] = new self($apps);
         }
 
         return self::$_instances[$signature];
@@ -66,15 +59,10 @@ class Horde_Block_Collection
     /**
      * Constructor.
      *
-     * @param string $type  The kind of blocks to list.
-     * @param array $apps   The applications whose blocks to list.
+     * @param array $apps  The applications whose blocks to list.
      */
-    public function __construct($type = null, $apps = array())
+    public function __construct($apps = array())
     {
-        if (!is_null($type)) {
-            $this->_type = $type;
-        }
-
         $signature = serialize($apps);
         if (isset($_SESSION['horde']['blocks'][$signature])) {
             $this->_blocks = &$_SESSION['horde']['blocks'][$signature];
@@ -100,16 +88,13 @@ class Horde_Block_Collection
                         continue;
                     }
 
-                    $block_name = $block_type = null;
+                    $block_name = null;
 
                     if (is_readable($blockdir . '/' . $file)) {
                         include_once $blockdir . '/' . $file;
                     }
 
-                    if (!empty($block_name) &&
-                        (is_null($block_type) ||
-                         is_null($this->_type) ||
-                         ($block_type == $this->_type))) {
+                    if (!empty($block_name)) {
                         $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
                     }
                 }

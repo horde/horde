@@ -1467,8 +1467,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      *              DEFAULT: false
      * 'editvfolder' - (boolean) Display vfolder edit links?
      *                 DEFAULT: false
-     * 'indent' - (integer) The base level to add nodes to.
-     *            DEFAULT: 0
      * 'parent' - (string) The parent object of the current level.
      *            DEFAULT: null (add to base level)
      * 'poll_info' - (boolean) Include poll information?
@@ -1490,7 +1488,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
 
         if ($name instanceof Horde_Tree_Base) {
             $tree = $name;
-            $indent = $opts['indent'];
             $parent = $opts['parent'];
         } else {
             $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, $opts['render_type'], array(
@@ -1499,7 +1496,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 'lines_base' => true,
                 'nosession' => true
             ));
-            $indent = 0;
             $parent = null;
         }
 
@@ -1575,7 +1571,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                 strval($parent) . $val->value,
                 ($val->level) ? strval($parent) . $val->parent : $parent,
                 $label,
-                $indent + $val->level,
+                $val->level,
                 $is_open,
                 $params,
                 $after,

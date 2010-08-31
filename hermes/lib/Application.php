@@ -87,4 +87,82 @@ class Hermes_Application extends Horde_Registry_Application
         return self::$_perms;
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        switch ($params['id']) {
+        case 'menu':
+            $tree->addNode(
+                $parent . '__add',
+                $parent,
+                _("Enter Time"),
+                1,
+                false,
+                array(
+                    'icon' => 'hermes.png',
+                    'url' => Horde::applicationUrl('entry.php')
+                )
+            );
+
+            $tree->addNode(
+                $parent . '__search',
+                $parent,
+                _("Search Time"),
+                1,
+                false,
+                array(
+                    'icon' => 'search.png',
+                    'url' => Horde::applicationUrl('search.php')
+                )
+            );
+            break;
+
+        case 'stopwatch':
+            Horde::addScriptFile('popup.js', 'horde');
+            $entry = Horde::applicationUrl('entry.php');
+
+            $tree->addNode(
+                $parent . '__start',
+                $parent,
+                _("Start Watch"),
+                1,
+                false,
+                array(
+                    'icon' => 'timer-start.png',
+                    'onclick' => "popup('" . Horde::applicationUrl('start.php') . "', 400, 100); return false;",
+                    'url' => '#'
+                )
+            );
+
+            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers', false))) {
+                foreach ($timers as $i => $timer) {
+                    $hours = round((float)(time() - $i) / 3600, 2);
+                    $tree->addNode(
+                        $parent . '__timer_' . $i,
+                        $parent,
+                        Horde_String::convertCharset($timer['name'], $prefs->getCharset()) . sprintf(" (%s)", $hours),
+                        1,
+                        false,
+                        array(
+                            'icon' => 'timer-stop.png',
+                            'url' => $entry->add('timer', $i)
+                        )
+                    );
+                }
+            }
+            break;
+        }
+    }
+
 }

@@ -117,4 +117,66 @@ class Mnemo_Application extends Horde_Registry_Application
         return Mnemo::getMenu();
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        $add = Horde::applicationUrl('memo.php')->add('actionID', 'add_memo');
+
+        $tree->addNode(
+            $parent . '__new',
+            $parent,
+            _("New Note"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('add.png'),
+                'url' => $add
+            )
+        );
+
+        foreach (Mnemo::listNotepads() as $name => $notepad) {
+            if ($notepad->get('owner') != $GLOBALS['registry']->getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($notepad->getName(), $GLOBALS['display_notepads'])) {
+
+                continue;
+            }
+
+            $tree->addNode(
+                $parent . $name . '__new',
+                $parent . '__new',
+                sprintf(_("in %s"), $notepad->get('name')),
+                2,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('add.png'),
+                    'url' => $add->copy()->add('memolist', $name)
+                )
+            );
+        }
+
+        $tree->addNode(
+            $parent . '__search',
+            $parent,
+            _("Search"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
+    }
+
 }

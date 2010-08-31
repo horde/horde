@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 // Instantiate the blocks objects.
-$blocks = Horde_Block_Collection::singleton('myphotos', array('ansel'));
+$blocks = Horde_Block_Collection::singleton(array('ansel'));
 $layout = Horde_Block_Layout_Manager::singleton('myphotos', $blocks, @unserialize($prefs->getValue('myansel_layout')));
 
 // Handle requested actions.

@@ -4,10 +4,7 @@
     $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
     try {
         foreach ($registry->callByPackage('horde', 'admin_list') as $val) {
-            $img = isset($val['icon'])
-                ? Horde_Themes::img($val['icon'])
-                : $registry->get('icon');
-            $menu->add(Horde::url($registry->applicationWebPath($val['link'])), $val['name'], $img, '');
+            $menu->add(Horde::url($registry->applicationWebPath($val['link'])), $val['name'], $val['icon'], '');
         }
     } catch (Horde_Exception $e) {}
 

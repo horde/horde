@@ -93,4 +93,46 @@ class Jonah_Application extends Horde_Registry_Application
         return Jonah::getMenu();
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
+            !in_array('internal', $GLOBALS['conf']['news']['enable'])) {
+            return;
+        }
+
+        $url = Horde::applicationUrl('stories/');
+        $news = Jonah_News::factory();
+        $channels = $news->getChannels('internal');
+        if ($channels instanceof PEAR_Error) {
+            return;
+        }
+        $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
+
+        foreach ($channels as $channel) {
+            $tree->addNode(
+                $parent . $channel['channel_id'],
+                $parent,
+                $channel['channel_name'],
+                1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('editstory.png'),
+                    'url' => $url->add('channel_id', $channel['channel_id'])
+                )
+            );
+        }
+    }
+
 }

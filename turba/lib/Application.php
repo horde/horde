@@ -455,4 +455,80 @@ class Turba_Application extends Horde_Registry_Application
         }
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        $add = Horde::applicationUrl('add.php');
+        $browse = Horde::applicationUrl('browse.php');
+
+        if ($GLOBALS['addSources']) {
+            $newimg = Horde_Themes::img('menu/new.png');
+
+            $tree->addNode(
+                $parent . '__new',
+                $parent,
+                _("New Contact"),
+                1,
+                false,
+                array(
+                    'icon' => $newimg,
+                    'url' => $add
+                )
+            );
+
+            foreach ($GLOBALS['addSources'] as $addressbook => $config) {
+                $tree->addNode(
+                    $parent . $addressbook . '__new',
+                    $parent . '__new',
+                    sprintf(_("in %s"), $config['title']),
+                    2,
+                    false,
+                    array(
+                        'icon' => $newimg,
+                        'url' => $add->copy()->add('source', $addressbook)
+                    )
+                );
+            }
+        }
+
+        foreach (Turba::getAddressBooks() as $addressbook => $config) {
+            if (!empty($config['browse'])) {
+                $tree->addNode(
+                    $parent . $addressbook,
+                    $parent,
+                    $config['title'],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('menu/browse.png'),
+                        'url' => $browse->copy()->add('source', $addressbook)
+                    )
+                );
+            }
+        }
+
+        $tree->addNode(
+            $parent . '__search',
+            $parent,
+            _("Search"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
+    }
+
 }

@@ -454,4 +454,104 @@ class Kronolith_Application extends Horde_Registry_Application
         }
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        switch ($params['id']) {
+        case 'alarms':
+            try {
+                $alarms = Kronolith::listAlarms(new Horde_Date($_SERVER['REQUEST_TIME']), $GLOBALS['display_calendars'], true);
+            } catch (Kronolith_Exception $e) {
+                return;
+            }
+
+            $alarmCount = 0;
+            $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+
+            foreach ($alarms as $calId => $calAlarms) {
+                foreach ($calAlarms as $event) {
+                    if ($horde_alarm->isSnoozed($event->uid, $GLOBALS['registry']->getAuth())) {
+                        continue;
+                    }
+                    ++$alarmCount;
+                    $tree->addNode(
+                        $parent . $calId . $event->id,
+                        $parent,
+                        htmlspecialchars($event->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCharset()),
+                        1,
+                        false,
+                        array(
+                            'icon' => Horde_Themes::img('alarm.png'),
+                            'url' => $event->getViewUrl()
+                        )
+                    );
+                }
+            }
+
+            if ($GLOBALS['registry']->get('url', $parent)) {
+                $purl = $GLOBALS['registry']->get('url', $parent);
+            } elseif ($GLOBALS['registry']->get('status', $parent) == 'heading' ||
+                      !$GLOBALS['registry']->get('webroot')) {
+                $purl = null;
+            } else {
+                $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
+            }
+
+            $pnode_name = $GLOBALS['registry']->get('name', $parent);
+            if ($alarmCount) {
+                $pnode_name = '<strong>' . $pnode_name . '</strong>';
+            }
+
+            $tree->addNode(
+                $parent,
+                $GLOBALS['registry']->get('menu_parent', $parent),
+                $pnode_name,
+                0,
+                false,
+                array(
+                    'icon' => $GLOBALS['registry']->get('icon', $parent),
+                    'url' => $purl,
+                )
+            );
+            break;
+
+        case 'menu':
+            $menus = array(
+                array('new', _("New Event"), 'new.png', Horde::applicationUrl('new.php')),
+                array('day', _("Day"), 'dayview.png', Horde::applicationUrl('day.php')),
+                array('work', _("Work Week"), 'workweekview.png', Horde::applicationUrl('workweek.php')),
+                array('week', _("Week"), 'weekview.png', Horde::applicationUrl('week.php')),
+                array('month', _("Month"), 'monthview.png', Horde::applicationUrl('month.php')),
+                array('year', _("Year"), 'yearview.png', Horde::applicationUrl('year.php')),
+                array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'))
+            );
+
+            foreach ($menus as $menu) {
+                $tree->addNode(
+                    $parent . $menu[0],
+                    $parent,
+                    $menu[1],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img($menu[2]),
+                        'url' => $menu[3]
+                    )
+                );
+            }
+            break;
+        }
+    }
+
 }

@@ -88,4 +88,64 @@ class Trean_Application extends Horde_Registry_Application
     {
         return Trean::getMenu();
     }
+
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        $tree->addNode(
+            $parent . '__new',
+            $parent,
+            _("Add"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('add.png'),
+                'url' => Horde::applicationUrl('add.php')
+            )
+        );
+
+        $tree->addNode(
+            $parent . '__search',
+            $parent,
+            _("Search"),
+            1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
+
+        $folders = Trean::listFolders();
+        if (!($folders instanceof PEAR_Error)) {
+            $browse = Horde::applicationUrl('browse.php');
+
+            foreach ($folders as $folder) {
+                $parent_id = $folder->getParent();
+                $tree->addNode(
+                    $parent . $folder->getId(),
+                    $parent . $parent_id,
+                    $folder->get('name'),
+                    substr_count($folder->getName(), ':') + 1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('tree/folder.png'),
+                        'url' => $browse->copy()->add('f', $folder->getId())
+                    )
+                );
+            }
+        }
+    }
+
 }

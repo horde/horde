@@ -205,4 +205,39 @@ class Chora_Application extends Horde_Registry_Application
         return Chora::getMenu();
     }
 
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        define('CHORA_ERROR_HANDLER', true);
+
+        $arr = array();
+        asort($GLOBALS['sourceroots']);
+
+        foreach ($GLOBALS['sourceroots'] as $key => $val) {
+            if (Chora::checkPerms($key)) {
+                $tree->addNode($parent . $key,
+                    $parent,
+                    $val['name'],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('tree/folder.png'),
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))
+                    )
+                );
+            }
+        }
+    }
+
 }

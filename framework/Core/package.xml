@@ -202,6 +202,7 @@ Application Framework.</description>
        <file name="Identity.php" role="php" />
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
+      <file name="Sidebar.php" role="php" />
       <dir name="Text">
        <dir name="Filter">
         <file name="Bbcode.php" role="php" />
@@ -503,6 +504,7 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />
    <install as="Horde/Core/Prefs/Ui.php" name="lib/Horde/Core/Prefs/Ui.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />

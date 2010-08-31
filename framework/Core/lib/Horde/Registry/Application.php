@@ -253,6 +253,21 @@ class Horde_Registry_Application
     // public function prefsSpecialUpdate($ui, $item) {}
 
 
+    // Horde_Core_Sidebar method.
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    // public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    //                               array $params = array()) {}
+
+
     // Language change callback.
 
     /**
