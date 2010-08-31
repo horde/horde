@@ -70,7 +70,7 @@ class Horde_Mime_Mail
      *
      * @var string
      */
-    protected $_charset;
+    protected $_charset = 'ISO-8859-1';
 
     /**
      * The Mail driver parameters.
@@ -83,13 +83,10 @@ class Horde_Mime_Mail
     /**
      * Constructor.
      *
-     * @param array $params  A hash with basic message information. The
-     *                       following values are supported:
-     *                       - subject: The message subject.
-     *                       - body:    The message body.
-     *                       - to:      The message recipient(s).
-     *                       - from:    The message sender.
-     *                       - charset: The character set of the message.
+     * @param array $params  A hash with basic message information. 'charset'
+     *                       is the character set of the message.  'body' is
+     *                       the message body. All other parameters are
+     *                       assumed to be message headers.
      *
      * @throws Horde_Mime_Exception
      */
@@ -101,20 +98,18 @@ class Horde_Mime_Mail
         }
 
         $this->_headers = new Horde_Mime_Headers();
-        $this->_charset = isset($params['charset']) ? $params['charset'] : 'iso-8859-1';
 
-        if (isset($params['subject'])) {
-            $this->addHeader('Subject', $params['subject'], $this->_charset);
+        if (isset($params['charset'])) {
+            $this->_charset = $params['charset'];
+            unset($params['charset']);
         }
-        if (isset($params['to'])) {
-            $this->addHeader('To', $params['to'], $this->_charset);
-        }
-        if (isset($params['from'])) {
-            $this->addHeader('From', $params['from'], $this->_charset);
-        }
+
         if (isset($params['body'])) {
             $this->setBody($params['body'], $this->_charset);
+            unset($params['body']);
         }
+
+        $this->addHeaders($params, $this->_charset);
     }
 
     /**
