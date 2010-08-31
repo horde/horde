@@ -37,9 +37,8 @@ class Ansel_Gallery_Decorator_Date
     /**
      * The Ansel_Gallery_Date constructor.
      *
-     * The client
-     * code (Ansel_GalleryMode_Date) needs to call the setDate() method on the
-     * new GalleryMode_Date object before it's used.
+     * The client code (Ansel_GalleryMode_Date) needs to call the setDate()
+     * method on the new GalleryMode_Date object before it's used.
      *
      * @param Ansel_Gallery $gallery  The gallery we are decorating.
      * @param array $images           An array of image ids that this grouping

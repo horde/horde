@@ -83,7 +83,6 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                                   'day' => $day);
 
                 $trail[] = array('title' => $text, 'navdata' => $navdata);
-
             }
 
             if (!empty($month)) {
@@ -145,11 +144,13 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     /**
      * Get the children of this gallery.
      *
-     * @param integer $perm  The permissions to limit to.
-     * @param integer $from  The child to start at.
-     * @param integer $to    The child to end with.
+     * @param integer $perm    The permissions to limit to.
+     * @param integer $from    The child to start at.
+     * @param integer $to      The child to end with.
+     * @param boolean $noauto  Whether or not to automatically drill down to the
+     *                         first grouping with more then one group.
      *
-     * @return A mixed array of Ansel_Gallery_Decorator_Date and Ansel_Image objects.
+     * @return array A mixed array of Ansel_Gallery_Decorator_Date and Ansel_Image objects.
      */
     public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
@@ -171,8 +172,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         } else {
             $gallery_where = 'gallery_id = ' . $this->_gallery->id;
         }
-
         $sorted_dates = array();
+
         /* First let's see how specific the date is */
         if (!count($this->_date) || empty($this->_date['year'])) {
             /* All available images - grouped by year */
