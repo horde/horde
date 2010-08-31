@@ -23,7 +23,7 @@
 #pragma mark -
 #pragma mark init/dealloc
 /**
- * Init a gallery object
+ * Initialize a gallery object
  */
 - (id)initWithObject:(id)galleryData controller:(TURAnsel *)controller
 {
@@ -67,6 +67,8 @@
  * Requests the gallery's key image url to be fetched from the server
  * (This information is not present in the gallery definition array returned
  *  from the images.listGalleries call).
+ *
+ * @return NSURL  The url object
  */
 - (NSURL *)galleryKeyImageURL
 {
@@ -75,7 +77,6 @@
     } else {
         NSArray *params;
         NSArray *order;
-        
         if ([[anselController valueForKey:@"version"] intValue] == 2) {
             // Version 2 API
             params = [NSArray arrayWithObjects:
@@ -122,7 +123,7 @@
     if (![imageList count]) {
         NSArray *params;
         NSArray *order;
-        
+
 //        if ([[anselController valueForKey:@"version"] intValue] == 2) {
 // listImages hasn't been refactored yet in version 2 API
 //        } else {
@@ -205,7 +206,7 @@
 
     NSArray *params;
     NSArray *order;
-    
+
     if ([[anselController valueForKey:@"version"] intValue] == 2) {
         params = [NSArray arrayWithObjects: [NSNumber numberWithInt: _galleryId],
                                             [imageParameters valueForKey: @"data"],
@@ -231,7 +232,7 @@
                                            kTURAnselAPIParamAdditionalData,
                                            kTURAnselAPIParamEncoding, nil];
     }
-    
+
     // Send the request up to the controller
     NSDictionary *result = [anselController callRPCMethod: @"images.saveImage"
                                                withParams: params

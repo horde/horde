@@ -2,7 +2,7 @@
  * AnselGalleryViewItem
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @implements IKImageBrowserItem
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
-@interface AnselGalleryViewItem: NSObject 
+@interface AnselGalleryViewItem: NSObject
 {
 	NSURL *image;
 	NSString *imageID;

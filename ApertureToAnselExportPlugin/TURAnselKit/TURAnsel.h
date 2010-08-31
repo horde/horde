@@ -40,7 +40,7 @@ typedef enum {
     NSString *username;
     NSString *password;
     NSString *version;
-    
+
     NSMutableArray *galleryList;
     TURAnselState state;
     id delegate;

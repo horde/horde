@@ -1,10 +1,12 @@
-//
-//  TURAnselConstants.m
-//  ApertureToAnselExportPlugin
-//
-//  Created by Michael Rubinsky on 9/22/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+/**
+ *  TURAnselConstants.m
+ *  ApertureToAnselExportPlugin
+ *
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ *
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 
 #import "TURAnselConstants.h"
 
