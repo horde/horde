@@ -670,8 +670,7 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function listGalleries($params = array())
     {
-        // If no app is given use Ansel's own gallery which is initialized in
-        // base.php
+        // If no app is given use Ansel's own gallery
         if (!empty($params['scope'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
@@ -808,6 +807,7 @@ class Ansel_Api extends Horde_Registry_Api
             if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
                 $imagelist[$id]['url']->add('app', $app);
             }
+            $imagelist[$id]['url'] = $imagelist[$id]['url']->toString();
         }
         return $imagelist;
     }
