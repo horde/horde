@@ -122,7 +122,7 @@ class Kronolith_Application extends Horde_Registry_Application
             if (!$prefs->isLocked('fb_cals')) {
                 $fb_list = array();
                 foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
-                    $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->get('name'));
+                    $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
                 }
                 $ui->override['fb_cals'] = $fb_list;
             }
