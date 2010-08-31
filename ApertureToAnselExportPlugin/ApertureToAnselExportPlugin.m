@@ -758,11 +758,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
        didEndSelector: nil
           contextInfo: nil];
     
-    // Populate the version popup
-    //[mAnselVersion addItemWithTitle:@"1.x"];
-    //[mAnselVersion addItemWithTitle:@"2.x"];
-    //[mAnselVersion setTitle:@"1.x"];
-    
     // Make sure these are cleared.
     [mServerSheetHostURL setStringValue: @""];
     [mServerSheetUsername setStringValue: @""];
@@ -790,11 +785,16 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
 
+    // NSDictionary objects cannot contain nil objects
+    NSNumber *apiversion = [_currentServer objectForKey: TURAnselServerVersionKey];
+    if (apiversion == nil) {
+        apiversion = [NSNumber numberWithInt: 1];
+    }
     NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
                                                               [_currentServer objectForKey:TURAnselServerEndpointKey],
                                                               [_currentServer objectForKey:TURAnselServerUsernameKey],
                                                               [_currentServer objectForKey:TURAnselServerPasswordKey],
-                                                              [_currentServer objectForKey:TURAnselServerVersionKey],
+                                                              apiversion,
                                                               nil]
                                                     forKeys: [NSArray arrayWithObjects:TURAnselServerEndpointKey, TURAnselServerUsernameKey, TURAnselServerPasswordKey, TURAnselServerVersionKey, nil]];
     // Create our controller
