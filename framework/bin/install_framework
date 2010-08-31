@@ -198,6 +198,10 @@ foreach ($pkgs as $key => $val) {
     }
     foreach ($pkg_ob->getInstallationFilelist() as $file) {
         $orig = realpath($val . '/' . $file['attribs']['name']);
+        if (empty($orig)) {
+            $cli->message('Install file does not seem to exist: ' . $val . '/' . $file['attribs']['name'], 'cli.error');
+            continue;
+        }
 
         switch ($file['attribs']['role']) {
         case 'horde':
