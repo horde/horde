@@ -191,7 +191,7 @@ foreach ($pkgs as $key => $val) {
     }
     $cli->message('Installing package ' . $key);
 
-    $pkg_ob = $pear_pkg->fromPackageFile($val . '/package.xml', PEAR_VALIDATE_NORMAL);
+    $pkg_ob = $pear_pkg->fromPackageFile($val . '/package.xml', 0);
     if ($pkg_ob instanceof PEAR_Error) {
         $cli->message('Could not install package ' . $key . ': ' . $pkg_ob->getMessage(), 'cli.error');
         continue;
@@ -221,6 +221,7 @@ foreach ($pkgs as $key => $val) {
 
         default:
             $dest = null;
+            break;
         }
 
         if (!is_null($dest)) {
