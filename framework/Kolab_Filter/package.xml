@@ -69,11 +69,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Test">
        <file name="Filter.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Test -->
-      <file name="Resource.php" role="php" />
-      <dir name="Resource">
-       <file name="Epoch.php" role="php" />
-       <file name="Itip.php" role="php" />
-      </dir> <!-- /lib/Horde/Kolab/Resource -->
       <dir name="Filter">
        <file name="Cli.php" role="php" />
        <dir name="Cli">
@@ -108,33 +103,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="stdout.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Filter/Transport -->
       </dir> <!-- /lib/Horde/Kolab/Filter -->
-      <dir name="Resource">
-       <file name="Freebusy.php" role="php" />
-       <dir name="Freebusy">
-        <file name="Mock.php" role="php" />
-        <file name="Kolab.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Resource/Freebusy -->
-      </dir> <!-- /lib/Horde/Kolab/Resource -->
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-   <dir name="locale" baseinstalldir="/">
-    <dir name="de_DE">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/de_DE/LC_MESSAGES -->
-    </dir> <!-- /locale/de_DE -->
-    <dir name="fr_FR">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/fr_FR/LC_MESSAGES -->
-    </dir> <!-- /locale/fr_FR -->
-    <dir name="nl_NL">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/nl_NL/LC_MESSAGES -->
-    </dir> <!-- /locale/nl_NL -->
-   </dir> <!-- /locale -->
    <dir name="po" baseinstalldir="/">
     <file name="Kolab_Filter.pot" role="data" />
     <file name="de_DE.po" role="data" />
@@ -160,11 +131,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
-       <file name="FilterTest.php" role="test" />
-       <file name="ContentTest.php" role="test" />
-       <file name="IncomingTest.php" role="test" />
-       <file name="LoadTest.php" role="test" />
-       <file name="ResourceTest.php" role="test" />
        <dir name="fixtures">
         <file name="allday_invitation.eml" role="test" />
         <file name="attendee_status_invitation.eml" role="test" />
@@ -255,12 +221,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="doc/Horde/Kolab/Filter/kolabfilter.1" as="man/man1/kolabfilter.1" />
-   <install name="lib/Horde/Kolab/Resource.php" as="Horde/Kolab/Resource.php" />
-   <install name="lib/Horde/Kolab/Resource/Epoch.php" as="Horde/Kolab/Resource/Epoch.php" />
-   <install name="lib/Horde/Kolab/Resource/Itip.php" as="Horde/Kolab/Resource/Itip.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy.php" as="Horde/Kolab/Resource/Freebusy.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy/Kolab.php" as="Horde/Kolab/Resource/Freebusy/Kolab.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy/Mock.php" as="Horde/Kolab/Resource/Freebusy/Mock.php" />
    <install name="lib/Horde/Kolab/Test/Filter.php" as="Horde/Kolab/Test/Filter.php" />
    <install name="lib/Horde/Kolab/Filter.php" as="Horde/Kolab/Filter.php" />
    <install name="lib/Horde/Kolab/Filter/Cli.php" as="Horde/Kolab/Filter/Cli.php" />
@@ -290,11 +250,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="script/Horde/Kolab/Filter/kolabmailboxfilter.php" as="kolabmailboxfilter" />
    <install name="script/Horde/Kolab/Filter/kolabfilter.php" as="kolabfilter" />
    <install name="test/Horde/Kolab/Filter/AllTests.php" as="Horde/Kolab/Filter/AllTests.php" />
-   <install name="test/Horde/Kolab/Filter/ContentTest.php" as="Horde/Kolab/Filter/ContentTest.php" />
-   <install name="test/Horde/Kolab/Filter/FilterTest.php" as="Horde/Kolab/Filter/FilterTest.php" />
-   <install name="test/Horde/Kolab/Filter/IncomingTest.php" as="Horde/Kolab/Filter/IncomingTest.php" />
-   <install name="test/Horde/Kolab/Filter/LoadTest.php" as="Horde/Kolab/Filter/LoadTest.php" />
-   <install name="test/Horde/Kolab/Filter/ResourceTest.php" as="Horde/Kolab/Filter/ResourceTest.php" />
    <install name="test/Horde/Kolab/Filter/fixtures/allday_invitation.eml" as="Horde/Kolab/Filter/fixtures/allday_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" as="Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty.eml" as="Horde/Kolab/Filter/fixtures/empty.eml" />
