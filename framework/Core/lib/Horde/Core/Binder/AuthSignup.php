@@ -11,7 +11,7 @@ class Horde_Core_Binder_AuthSignup implements Horde_Injector_Binder
             ? 'Null'
             : $GLOBALS['conf']['signup']['driver'];
 
-        return Horde_Core_Auth_Signup::factory($driver);
+        return Horde_Core_Auth_Signup::factory($driver, $GLOBALS['conf']['signup']['params']);
     }
 
     public function equals(Horde_Injector_Binder $binder)
