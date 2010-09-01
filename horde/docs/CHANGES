@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mms] Moved sidebar code out of block/portal code (Request #9160).
 [cjh] Remove fckeditor, standardizing on ckeditor.
 [jan] Move all translations from po/ to locale/ and use short locale
       identifiers where possible.
