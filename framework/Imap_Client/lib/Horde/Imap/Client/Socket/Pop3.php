@@ -650,7 +650,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             : reset($options['sort']);
 
         // Only support a single query: an ALL search sorted by sequence.
-        if (($options['_query']['query'] != 'ALL') ||
+        if ((reset($options['_query']['query']) != 'ALL') ||
             ($sort &&
              ((count($options['sort']) > 1) ||
               ($sort != Horde_Imap_Client::SORT_SEQUENCE)))) {

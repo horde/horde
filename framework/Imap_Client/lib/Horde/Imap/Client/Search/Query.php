@@ -101,8 +101,8 @@ class Horde_Imap_Client_Search_Query
      * 'charset' - (string) The charset of the search string.
      * 'exts' - (array) The list of IMAP extensions used to create the string.
      * 'imap4' - (boolean) True if the search uses IMAP4 criteria (as opposed
-     *           to IMAP2 search criteria)
-     * 'query' - (string) The IMAP search string
+     *           to IMAP2 search criteria).
+     * 'query' - (array) The IMAP search string.
      * </pre>
      * @throws Horde_Imap_Client_Exception
      */
