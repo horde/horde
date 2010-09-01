@@ -171,9 +171,6 @@ case 'strip_attachment':
     break;
 }
 
-/* Token to use in requests */
-$message_token = Horde::getRequestToken('imp.message');
-
 /* We may have done processing that has taken us past the end of the
  * message array, so we will return to mailbox.php if that is the
  * case. */
@@ -226,6 +223,7 @@ $page_label = IMP::getLabel(IMP::$mailbox);
 /* Generate the link to ourselves. */
 $msgindex = $imp_mailbox->getMessageIndex();
 $message_url = Horde::applicationUrl('message.php');
+$message_token = Horde::getRequestToken('imp.message');
 $self_link = IMP::generateIMPUrl('message.php', IMP::$mailbox, $uid, $mailbox_name)->add(array('start' => $msgindex, 'message_token' => $message_token));
 
 /* Develop the list of headers to display. */
