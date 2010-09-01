@@ -429,11 +429,6 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() &&
-            $user != $GLOBALS['registry']->getAuth()) {
-            throw new Kronolith_Exception(_("You are not allowed to remove user data."));
-        }
-
         /* Remove all events owned by the user in all calendars. */
         $result = Kronolith::getDriver()->removeUserData($user);
 
@@ -443,6 +438,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $result = $GLOBALS['kronolith_shares']->removeShare($share);
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
+            throw $e;
         }
 
         /* Get a list of all shares this user has perms to and remove the
@@ -454,6 +450,7 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
+            throw $e;
         }
     }
 

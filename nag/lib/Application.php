@@ -230,29 +230,22 @@ class Nag_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Nag_Exception
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() && $user != $GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
-        }
-
-        /* Error flag */
-        $hasError = false;
-
         /* Get the share for later deletion */
         try {
             $share = $GLOBALS['nag_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
         }
 
         /* Get the list of all tasks */
         $tasks = Nag::listTasks(null, null, null, $user, 1);
         if ($tasks instanceof PEAR_Error) {
-            $hasError = true;
-            Horde::logMessage($share, 'ERR');
+            Horde::logMessage($tasks, 'ERR');
+            throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         } else {
             $uids = array();
             $tasks->reset();
@@ -266,14 +259,13 @@ class Nag_Application extends Horde_Registry_Application
             }
         }
 
-
         /* ...and finally, delete the actual share */
         if (!empty($share)) {
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                $hasError = true;
-                Horde::logMessage($result, 'ERR');
+                Horde::logMessage($e, 'ERR');
+                throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
             }
         }
 
@@ -284,14 +276,8 @@ class Nag_Application extends Horde_Registry_Application
                $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            $hasError = true;
-            Horde::logMessage($shares, 'ERR');
-        }
-
-        if ($hasError) {
-            return PEAR::raiseError(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
-        } else {
-            return true;
+            Horde::logMessage($e, 'ERR');
+            throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         }
     }
 

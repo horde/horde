@@ -5,46 +5,38 @@
  * This file defines Mnemo's external API interface.  Other applications can
  * interact with Mnemo through this API.
  *
- * $Horde: mnemo/lib/api.php,v 1.99 2009-11-24 04:13:44 chuck Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @since   Mnemo 1.0
- * @package Mnemo
+ * @category Horde
+ * @package  Mnemo
  */
 
-class Mnemo_Api extends Horde_Registry_Api {
-
+class Mnemo_Api extends Horde_Registry_Api
+{
     /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Mnemo_Exception
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() && $user != $GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
-        }
-
-        /* Error flag */
-        $hasError = false;
-
         /* Get the share object for later deletion */
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e), 'ERR');
         }
+
         $GLOBALS['display_notepads'] = array($user);
         $memos = Mnemo::listMemos();
         if ($memos instanceof PEAR_Error) {
-            $hasError = true;
-            Horde::logMessage($mnemos->getMessage(), 'ERR');
+            Horde::logMessage($mnemos, 'ERR');
+            throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
         } else {
             $uids = array();
             foreach ($memos as $memo) {
@@ -62,27 +54,21 @@ class Mnemo_Api extends Horde_Registry_Api {
             try {
                 $GLOBALS['mnemo_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                $hasError = true;
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::logMessage($e, 'ERR');
+                throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
             }
         }
 
-        /* Get a list of all shares this user has perms to and remove the perms */
+        /* Get a list of all shares this user has perms to and remove the
+         * perms. */
         try {
             $shares = $GLOBALS['mnemo_shares']->listShares($user);
             foreach ($shares as $share) {
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            $hasError = true;
             Horde::logMessage($e, 'ERR');
-        }
-
-
-        if ($hasError) {
-            return PEAR::raiseError(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
-        } else {
-            return true;
+            throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
         }
     }
 

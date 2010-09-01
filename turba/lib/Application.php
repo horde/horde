@@ -387,18 +387,12 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @throws Horde_Exception
+     * @throws Turba_Exception
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() &&
-            ($user != $GLOBALS['registry']->getAuth())) {
-            throw new Horde_Exception(_("You are not allowed to remove user data."));
-        }
-
         /* We need a clean copy of the $cfgSources array here.*/
         require TURBA_BASE . '/config/sources.php';
-        $hasError = false;
 
         foreach ($cfgSources as $source) {
             if (empty($source['use_shares'])) {
@@ -407,7 +401,35 @@ class Turba_Application extends Horde_Registry_Application
                     $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
-                    $hasError = true;
+                    throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+                }
+
+                try {
+                    $driver->removeUserData($user);
+                } catch (Turba_Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                    throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+                }
+            }
+        }
+
+        /* Only attempt share removal if we have shares configured */
+        if (empty($_SESSION['turba']['has_share'])) {
+            return;
+        }
+
+        $shares = $GLOBALS['turba_shares']->listShares($user, Horde_Perms::EDIT, $user);
+
+        /* Look for the deleted user's default share and remove it */
+        foreach ($shares as $share) {
+            $params = @unserialize($share->get('params'));
+
+            /* Only attempt to delete the user's default share */
+            if (!empty($params['default'])) {
+                $config = Turba::getSourceFromShare($share);
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($config);
+                } catch (Turba_Exception $e) {
                     continue;
                 }
 
@@ -415,49 +437,21 @@ class Turba_Application extends Horde_Registry_Application
                     $driver->removeUserData($user);
                 } catch (Turba_Exception $e) {
                     Horde::logMessage($e, 'ERR');
+                    throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
                 }
             }
         }
 
-        /* Only attempt share removal if we have shares configured */
-        if (!empty($_SESSION['turba']['has_share'])) {
-            $shares = $GLOBALS['turba_shares']->listShares(
-                $user, Horde_Perms::EDIT, $user);
-
-            /* Look for the deleted user's default share and remove it */
+        /* Get a list of all shares this user has perms to and remove the
+         * perms. */
+        try {
+            $shares = $GLOBALS['turba_shares']->listShares($user);
             foreach ($shares as $share) {
-                $params = @unserialize($share->get('params'));
-                /* Only attempt to delete the user's default share */
-                if (!empty($params['default'])) {
-                    $config = Turba::getSourceFromShare($share);
-                    try {
-                        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($config);
-                    } catch (Turba_Exception $e) {
-                        continue;
-                    }
-
-                    try {
-                        $driver->removeUserData($user);
-                    } catch (Turba_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
-                        $hasError = true;
-                    }
-                }
+                $share->removeUser($user);
             }
-
-            /* Get a list of all shares this user has perms to and remove the perms. */
-            try {
-                $shares = $GLOBALS['turba_shares']->listShares($user);
-                foreach ($shares as $share) {
-                    $share->removeUser($user);
-                }
-            } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-            }
-        }
-
-        if ($hasError) {
-            throw new Horde_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
         }
     }
 

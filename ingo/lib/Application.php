@@ -157,21 +157,16 @@ class Ingo_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @throws Horde_Auth_Exception.
+     * @throws Ingo_Exception.
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() &&
-            ($user != $GLOBALS['registry']->getAuth())) {
-            throw new Horde_Auth_Exception(_("You are not allowed to remove user data."));
-        }
-
         /* Remove all filters/rules owned by the user. */
         try {
             $GLOBALS['ingo_storage']->removeUserData($user);
         } catch (Ingo_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            throw new Horde_Auth_Exception($e);
+            throw $e;
         }
 
         /* Now remove all shares owned by the user. */
@@ -181,7 +176,7 @@ class Ingo_Application extends Horde_Registry_Application
                 $share = $GLOBALS['ingo_shares']->getShare($user);
                 $GLOBALS['ingo_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
+                Horde::logMessage($e, 'ERR');
                 throw new Ingo_Exception($e);
             }
 
@@ -192,7 +187,7 @@ class Ingo_Application extends Horde_Registry_Application
                 foreach ($shares as $share) {
                     $share->removeUser($user);
                 }
-            } catch (Horde_Shares_Exception $e) {
+            } catch (Horde_Share_Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
 
