@@ -191,7 +191,6 @@ var DimpCompose = {
             }
         }
 
-        c.setStyle({ cursor: 'wait' });
         this.skip_spellcheck = false;
 
         if (action == 'addAttachment') {
@@ -207,7 +206,12 @@ var DimpCompose = {
 
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            DimpCore.doAction(action, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
+            DimpCore.doAction(action, c.serialize(true), {
+                ajaxopts: {
+                    onFailure: this.uniqueSubmitFailure.bind(this)
+                },
+                callback: this.uniqueSubmitCallback.bind(this)
+            });
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
@@ -315,17 +319,26 @@ var DimpCompose = {
         }
 
         this.setDisabled(false);
+    },
 
-        $((d.action == 'redirectMessage') ? 'redirect' : 'compose').setStyle({ cursor: null });
+    uniqueSubmitFailure: function(t, o)
+    {
+        if (this.disabled) {
+            this.setDisabled(false);
+            DimpCore.doActionOpts.onFailure(t, o);
+        }
     },
 
     setDisabled: function(disable)
     {
+        var redirect = $('redirect');
+
         this.disabled = disable;
 
-        if ($('redirect').visible()) {
+        if (redirect.visible()) {
             DimpCore.loadingImg('sendingImg', 'redirect', disable);
-            DimpCore.toggleButtons($('redirect').select('DIV.dimpActions A'), disable);
+            DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
+            redirect.setStyle({ cursor: disable ? null : 'wait' });
         } else {
             DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
@@ -336,6 +349,8 @@ var DimpCompose = {
             if (IMP_Compose_Base.editor_on) {
                 this.RTELoading(disable ? 'show' : 'hide', true);
             }
+
+            $('compose').setStyle({ cursor: disable ? null : 'wait' });
         }
     },
 

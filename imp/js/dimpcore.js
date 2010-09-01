@@ -18,7 +18,10 @@ var DimpCore = {
 
     doActionOpts: {
         onException: function(r, e) { DimpCore.debug('onException', e); },
-        onFailure: function(t, o) { DimpCore.debug('onFailure', t); },
+        onFailure: function(t, o) {
+            DimpCore.debug('onFailure', t);
+            DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_error } ]);
+        },
         evalJS: false,
         evalJSON: true
     },
