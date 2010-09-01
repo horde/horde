@@ -29,7 +29,7 @@ class Mnemo_Api extends Horde_Registry_Api
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e), 'ERR');
+            Horde::logMessage($e, 'ERR');
         }
 
         $GLOBALS['display_notepads'] = array($user);
