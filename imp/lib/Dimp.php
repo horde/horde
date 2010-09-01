@@ -33,15 +33,20 @@ class IMP_Dimp
      */
     static public function actionButton($params = array())
     {
-        return Horde::link('', '',
-                           empty($params['class']) ? '' : $params['class'],
-                           '', '', '', Horde::getAccessKey($params['title']),
-                           empty($params['id']) ? array() : array('id' => $params['id']),
-                           true)
-            . (!empty($params['icon'])
-                  ? '<span class="iconImg dimpaction' . $params['icon'] . '"></span>'
-                  : '')
-            . $params['title'] . '</a>';
+        return Horde::link(
+            '',
+            '',
+            empty($params['class']) ? '' : $params['class'],
+            '',
+            '',
+            '',
+            Horde::getAccessKey($params['title']),
+           empty($params['id']) ? array() : array('id' => $params['id']),
+           true
+       ) . (empty($params['icon'])
+            ? ''
+            : '<span class="iconImg dimpaction' . $params['icon'] . '"></span>').
+           $params['title'] . '</a>';
     }
 
     /**
