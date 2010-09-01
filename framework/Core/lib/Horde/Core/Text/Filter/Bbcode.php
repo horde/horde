@@ -17,8 +17,8 @@ class Horde_Core_Text_Filter_Bbcode extends Horde_Text_Filter_Bbcode
     /**
      * Return link for use in getPatterns() regexp.
      *
-     * @var string $url    The URL.
-     * @var string $title  The link title.
+     * @param string $url    The URL.
+     * @param string $title  The link title.
      *
      * @return string  The opening <a> tag.
      */

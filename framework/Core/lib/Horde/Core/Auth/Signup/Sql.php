@@ -35,7 +35,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
     /**
      * Stores the signup data in the backend.
      *
-     * @params Horde_Core_Auth_Signup_SqlObject $signup  Signup data.
+     * @param Horde_Core_Auth_Signup_SqlObject $signup  Signup data.
      *
      * @throws Horde_Db_Exception
      */

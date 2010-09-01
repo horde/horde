@@ -286,18 +286,18 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
 
     /**
      * Make a single mailbox tree element.
-     * An element consists of the following items (we use single letters here
-     * to save in session storage space):
-     *   'a'  --  Attributes
-     *   'c'  --  Level count
-     *   'l'  --  Label
-     *   'p'  --  Parent node
-     *   'v'  --  Value
      *
      * @param string $name         The mailbox name.
      * @param integer $attributes  The mailbox's attributes.
      *
-     * @return array  See above format.
+     * @return array  An array with the following keys (we use single letters
+     *                to save in session storage space):
+     * <pre>
+     * 'a' - (integer) Attributes mask.
+     * 'c' - (integer) Level count.
+     * 'l' - (string) Label.
+     * 'p' - (string) Parent node.
+     * 'v' - (string) Value.
      * @throws Horde_Exception
      */
     protected function _makeElt($name, $attributes = 0)

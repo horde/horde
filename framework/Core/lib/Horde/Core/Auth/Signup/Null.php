@@ -17,8 +17,8 @@ class Horde_Core_Auth_Signup_Null extends Horde_Core_Auth_Signup_Base
     /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params mixed $info  Reference to array of parameters to be passed
-     *                      to hook
+     * @param mixed $info  Reference to array of parameters to be passed
+     *                     to hook.
      */
     protected function _queueSignup(&$info)
     {

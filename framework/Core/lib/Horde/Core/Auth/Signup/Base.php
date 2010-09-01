@@ -20,8 +20,8 @@ abstract class Horde_Core_Auth_Signup_Base
      * Adds a new user to the system and handles any extra fields that may have
      * been compiled, relying on the hooks.php file.
      *
-     * @params mixed $info  Reference to array of parameters to be passed
-     *                      to hook.
+     * @param mixed $info  Reference to array of parameters to be passed
+     *                     to hook.
      *
      * @throws Horde_Exception
      */
@@ -44,8 +44,8 @@ abstract class Horde_Core_Auth_Signup_Base
     /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params mixed $info  Reference to array of parameters to be passed
-     *                      to hook
+     * @param mixed $info  Reference to array of parameters to be passed
+     *                     to hook.
      *
      * @throws Horde_Exception
      * @throws Horde_Mime_Exception
@@ -118,7 +118,7 @@ abstract class Horde_Core_Auth_Signup_Base
     /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params object $signup  Signup data.
+     * @param object $signup  Signup data.
      *
      * @throws Horde_Exception
      */

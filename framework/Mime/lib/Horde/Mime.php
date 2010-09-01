@@ -360,7 +360,7 @@ class Horde_Mime
      *                            to.
      *
      * @return string  The decoded text.
-     * @throw Horde_Mime_Exception
+     * @throws Horde_Mime_Exception
      */
     static public function decodeAddrString($string, $to_charset = null)
     {

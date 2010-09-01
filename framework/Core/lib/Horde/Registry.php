@@ -1282,9 +1282,9 @@ implements Horde_Interfaces_Registry_Auth
     /**
      * Check permissions on an application.
      *
-     * @param string $app      The name of the application
-     * @param integer $perms   The permission level to check for.
-     * @params array $options  Additional options:
+     * @param string $app     The name of the application
+     * @param integer $perms  The permission level to check for.
+     * @param array $options  Additional options:
      * <pre>
      * 'notransparent' - (boolean) Do not attempt transparent authentication.
      *                   DEFAULT: false
@@ -1730,7 +1730,7 @@ implements Horde_Interfaces_Registry_Auth
      * isn't, but the configured Auth driver supports transparent
      * authentication, then we try that.
      *
-     * @params array $options  Additional options:
+     * @param array $options  Additional options:
      * <pre>
      * 'app' - (string) Check authentication for this app.
      *         DEFAULT: Checks horde-wide authentication.
