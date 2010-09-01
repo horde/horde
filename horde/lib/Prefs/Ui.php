@@ -825,7 +825,7 @@ class Horde_Prefs_Ui
         case 'revokeInfinite':
             $twitter->account->endSession();
             $prefs->setValue('twitter', 'a:0:{}');
-            echo '<script type="text/javascript">location.href="' .  $url = Horde::url('services/prefs.php', true)->add(array('group' => 'twitter', 'app'  => 'horde')) . '";</script>';
+            echo '<script type="text/javascript">location.href="' . Horde::url('services/prefs.php', true)->add(array('group' => 'twitter', 'app'  => 'horde')) . '";</script>';
             exit;
         }
     }
