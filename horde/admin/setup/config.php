@@ -76,8 +76,7 @@ $template->set('php', htmlspecialchars($php), true);
 /* Create the link for the diff popup only if stored in session. */
 $diff_link = '';
 if (!empty($_SESSION['_config'][$app])) {
-    $url = Horde::url('admin/setup/diff.php', true);
-    $url = Horde_Util::addParameter($url, 'app', $app, false);
+    $url = Horde::url('admin/setup/diff.php', true)->add('app', $app);
     $diff_link = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
 }
 $template->set('diff_popup', $diff_link, true);

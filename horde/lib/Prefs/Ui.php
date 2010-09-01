@@ -521,7 +521,8 @@ class Horde_Prefs_Ui
             /* URL links */
             $url = $facebook->auth->getExtendedPermUrl(
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE,
-                Horde_Util::addParameter(Horde::url('services/facebook.php', true), 'action', 'authsuccess'));
+                Horde::url('services/facebook.php', true)->add('action', 'authsuccess')
+            );
             $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
             $t->set('user_pic_url', $user_info[0]['pic_with_logo']);

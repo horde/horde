@@ -49,7 +49,6 @@ if (empty($extra)) {
     $addForm->addVariable(_("Password"), 'password', 'passwordconfirm', false, false, _("type the password twice to confirm"));
 }
 
-
 // Process forms. Use Horde_Util::getPost() instead of Horde_Util::getFormData()
 // for a lot of the data because we want to actively ignore GET data
 // in some cases - adding/modifying users - as a security precaution.
@@ -79,22 +78,27 @@ case 'add':
                 }
             }
 
-            if (is_a($ret = $auth->addUser($info['user_name'], $credentials), 'PEAR_Error')) {
-                $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $ret->getMessage()), 'horde.error');
-            } else {
-                if (isset($info['extra'])) {
-                    try {
-                        Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
-                    } catch (Horde_Exception $e) {
-                        $notification->push(sprintf(_("Added \"%s\" to the system, but could not add additional signup information: %s."), $info['user_name'], $e->getMessage()), 'horde.warning');
-                    } catch (Horde_Exception_HookNotSet $e) {}
-                }
-                if (Horde_Util::getFormData('removeQueuedSignup')) {
-                    $signup->removeQueuedSignup($info['user_name']);
-                }
-                $notification->push(sprintf(_("Successfully added \"%s\" to the system."), $info['user_name']), 'horde.success');
-                $addForm->unsetVars($vars);
+            try {
+                $auth->addUser($info['user_name'], $credentials);
+            } catch (Horde_Auth_Exception $e) {
+                $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
+                break;
             }
+
+            if (isset($info['extra'])) {
+                try {
+                    Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
+                } catch (Horde_Exception $e) {
+                    $notification->push(sprintf(_("Added \"%s\" to the system, but could not add additional signup information: %s."), $info['user_name'], $e->getMessage()), 'horde.warning');
+                } catch (Horde_Exception_HookNotSet $e) {}
+            }
+
+            if (Horde_Util::getFormData('removeQueuedSignup')) {
+                $signup->removeQueuedSignup($info['user_name']);
+            }
+
+            $notification->push(sprintf(_("Successfully added \"%s\" to the system."), $info['user_name']), 'horde.success');
+            $addForm->unsetVars($vars);
         }
     }
     break;
@@ -109,10 +113,11 @@ case 'remove':
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to remove."), 'horde.message');
     } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        if (is_a($result = $auth->removeUser($f_user_name), 'PEAR_Error')) {
-            $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $result->getMessage(), $f_user_name), 'horde.error');
-        } else {
+        try {
+            $auth->removeUser($f_user_name);
             $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
+        } catch (Horde_Auth_Exception $e) {
+            $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }
     $vars->remove('user_name');
@@ -128,10 +133,11 @@ case 'clear':
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to clear out."), 'horde.message');
     } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        if (is_a($result = $auth->removeUserData($f_user_name), 'PEAR_Error')) {
-            $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $result->getMessage(), $f_user_name), 'horde.error');
-        } else {
+        try {
+            $auth->removeUserData($f_user_name);
             $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
+        } catch (Horde_Auth_Exception $e) {
+            $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }
     $vars->remove('user_name');
@@ -148,7 +154,8 @@ case 'update':
     $fullname = Horde_Util::getPost('user_fullname');
     $email = Horde_Util::getPost('user_email');
 
-    $result = false;
+    $vars->remove('user_name');
+
     if ($auth->hasCapability('update')) {
         $user_pass_1 = Horde_Util::getPost('user_pass_1');
         $user_pass_2 = Horde_Util::getPost('user_pass_2');
@@ -160,25 +167,21 @@ case 'update':
         } elseif ($user_pass_1 != $user_pass_2) {
             $notification->push(_("Passwords must match."), 'horde.error');
         } else {
-            $result = $auth->updateUser($user_name_1,
-                                        $user_name_2,
-                                        array('password' => $user_pass_1));
+            try {
+                $auth->updateUser($user_name_1, $user_name_2, array('password' => $user_pass_1));
+            } catch (Horde_Auth_Exception $e) {
+                $notification->push(sprintf(_("There was a problem updating \"%s\": %s"), $user_name_1, $e->getMessage()), 'horde.error');
+                break;
+            }
         }
     }
 
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was a problem updating \"%s\": %s"),
-                                    $user_name_1, $result->getMessage()), 'horde.error');
-    } else {
-        $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($user_name_1);
-        $identity->setValue('fullname', $fullname);
-        $identity->setValue('from_addr', $email);
-        $identity->save();
+    $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($user_name_1);
+    $identity->setValue('fullname', $fullname);
+    $identity->setValue('from_addr', $email);
+    $identity->save();
 
-        $notification->push(sprintf(_("Successfully updated \"%s\""),
-                                    $user_name_2), 'horde.success');
-    }
-    $vars->remove('user_name');
+    $notification->push(sprintf(_("Successfully updated \"%s\""), $user_name_2), 'horde.success');
     break;
 
 case 'approve_f':
@@ -201,11 +204,11 @@ case 'removequeued_f':
     break;
 
 case 'removequeued':
-    $result = $signup->removeQueuedSignup(Horde_Util::getFormData('user_name'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result);
-    } else {
+    try {
+        $signup->removeQueuedSignup(Horde_Util::getFormData('user_name'));
         $notification->push(sprintf(_("The signup request for \"%s\" has been removed."), Horde_Util::getFormData('user_name')));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
     break;
 }
@@ -248,15 +251,12 @@ if ($auth->hasCapability('list')) {
     $search_pattern = Horde_Util::getFormData('search_pattern', '');
 
     $users = $auth->listUsers();
-    if (is_a($users, 'PEAR_Error')) {
-        throw new Horde_Exception_Prior($users);
-    }
 
     /* Returns only users that match the specified pattern. */
     $users = preg_grep('/' . $search_pattern . '/', $users);
     sort($users);
 
-    $viewurl = Horde_Util::addParameter('admin/user.php', 'search_pattern', $search_pattern);
+    $viewurl = Horde::url('admin/user.php')->add('search_pattern', $search_pattern);
 
     $numitem = count($users);
     $perpage = 20;

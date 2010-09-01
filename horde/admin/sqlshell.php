@@ -58,7 +58,7 @@ if (isset($result)) {
 
     echo '<h1 class="header">' . _("Results") . '</h1><br />';
 
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         echo '<pre class="text">'; var_dump($result); echo '</pre>';
     } else {
         if (is_object($result)) {

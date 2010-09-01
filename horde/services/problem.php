@@ -69,23 +69,31 @@ case 'send_problem_report':
                                 array('summary' => $subject,
                                       'comment' => $body,
                                       'user_email' => $email));
-            $result = $registry->call('tickets/addTicket', array($info));
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result);
-            } else {
-                if ($attachment &&
-                    $registry->hasMethod('tickets/addAttachment')) {
-                    $result = $registry->call(
-                        'tickets/addAttachment',
-                        array('ticket_id' => $result,
-                              'name' => $attachment['name'],
-                              'data' => file_get_contents($attachment['tmp_name'])));
-                    if (is_a($result, 'PEAR_Error')) {
-                        $notification->push($result);
-                    }
-                }
-                _returnToPage();
+
+            try {
+                $registry->call('tickets/addTicket', array($info));
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
+                break;
             }
+
+            if ($attachment &&
+                $registry->hasMethod('tickets/addAttachment')) {
+                try {
+                    $registry->call(
+                        'tickets/addAttachment',
+                        array(
+                            'ticket_id' => $result,
+                            'name' => $attachment['name'],
+                            'data' => file_get_contents($attachment['tmp_name'])
+                        )
+                    );
+                } catch (Horde_Exception $e) {
+                    $notification->push($e);
+                }
+            }
+
+            _returnToPage();
         } else {
             /* Add user's name to the email address if provided. */
             if ($name) {

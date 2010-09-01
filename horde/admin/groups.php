@@ -235,7 +235,7 @@ foreach ($nodes as $id => $node) {
     $node_params = ($cid == $id) ? array('class' => 'selected') : array();
 
     if ($id == Horde_Group::ROOT) {
-        $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), _("Add a new group")) . $add_img . '</a>';
+        $add_link = Horde::link($add->copy()->add('cid', $id), _("Add a new group")) . $add_img . '</a>';
 
         $base_node_params = array('icon' => strval(Horde_Themes::img('administration.png')));
         $tree->addNode(
@@ -249,9 +249,9 @@ foreach ($nodes as $id => $node) {
         );
     } else {
         $name = $groups->getGroupShortName($node);
-        $node_params['url'] = Horde_Util::addParameter($edit, 'cid', $id);
-        $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), sprintf(_("Add a child group to \"%s\""), $name)) . $add_img . '</a>';
-        $delete_link = Horde::link(Horde_Util::addParameter($delete, 'cid', $id), sprintf(_("Delete \"%s\""), $name)) . $delete_img . '</a>';
+        $node_params['url'] = $edit->copy()->add('cid', $id);
+        $add_link = Horde::link($add->copy()->add('cid', $id), sprintf(_("Add a child group to \"%s\""), $name)) . $add_img . '</a>';
+        $delete_link = Horde::link($delete->copy()->add('cid', $id), sprintf(_("Delete \"%s\""), $name)) . $delete_img . '</a>';
 
         $tree->addNode(
             $id,

@@ -58,10 +58,9 @@ class Horde_Block_Horde_cloud extends Horde_Block
         $results = array();
         foreach ($GLOBALS['registry']->listAPIs() as $api) {
             if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
-                $result = $GLOBALS['registry']->call($api . '/listTagInfo');
-                if (!is_a($result, 'PEAR_Error')) {
-                    $results = array_merge($results, $result);
-                }
+                try {
+                    $results = array_merge($results, $GLOBALS['registry']->call($api . '/listTagInfo'));
+                } catch (Horde_Exception $e) {}
             }
         }
 
