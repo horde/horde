@@ -341,7 +341,7 @@ $_prefs['search_fields'] = array(
 );
 
 $_prefs['fb_url'] = array(
-    'value' => '<strong>' . _("My Free/Busy URL") . '</strong><div class="fburl"><div>' . _("Copy this URL for use wherever you need your Free/Busy URL:") . '</div><div class="fixed">' . Horde::url('fb.php', true, -1)->add('u', $GLOBALS['registry']->getAuth()) . '</div></div>',
+    'value' => '<strong>' . _("My Free/Busy URL") . '</strong><div class="fburl"><div>' . _("Copy this URL for use wherever you need your Free/Busy URL:") . '</div><div class="fixed">' . Horde::url('fb.php', true, array('append_session' => -1))->add('u', $GLOBALS['registry']->getAuth()) . '</div></div>',
     'type' => 'rawhtml'
 );
 

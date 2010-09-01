@@ -22,7 +22,7 @@ if (empty($fullname)) {
 $links = array();
 foreach ($registry->listApps() as $app) {
     if ($registry->hasMobileView($app)) {
-        $links[htmlspecialchars($registry->get('name', $app))] = Horde::url($registry->get('webroot', $app) . '/');
+        $links[htmlspecialchars($registry->get('name', $app))] = Horde::url('/', false, array('app' => $app));
     }
 }
 

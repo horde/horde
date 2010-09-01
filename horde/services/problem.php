@@ -11,7 +11,7 @@
 /* Send the browser back to the correct page. */
 function _returnToPage()
 {
-    $url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', true)));
+    $url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
     $url->redirect();
 }
 

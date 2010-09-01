@@ -69,7 +69,7 @@
      <tr>
       <td>&nbsp;</td>
       <td class="light leftAlign">
-       <?php echo Horde::link(Horde::url($registry->get('webroot', 'horde') . '/signup.php')->add('url', $vars->url), _("Don't have an account? Sign up."), 'light') . _("Don't have an account? Sign up.") ?></a>
+       <?php echo Horde::link(Horde::url('signup.php', false, array('app' => 'horde'))->add('url', $vars->url), _("Don't have an account? Sign up."), 'light') . _("Don't have an account? Sign up.") ?></a>
       </td>
      </tr>
 <?php endif; ?>
@@ -78,7 +78,7 @@
      <tr>
       <td>&nbsp;</td>
       <td class="light">
-       <?php echo Horde::link(Horde::url($registry->get('webroot', 'horde') . '/services/resetpassword.php')->add('url', $vars->url), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
+       <?php echo Horde::link(Horde::url('services/resetpassword.php', false, array('app' => 'horde'))->add('url', $vars->url), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
       </td>
      </tr>
 <?php endif; ?>

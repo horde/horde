@@ -302,16 +302,16 @@ class IMP_Hooks
 //        // name.
 //        if ((stripos($mailbox, "INBOX/Calendar") !== false) ||
 //            preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
-//            return $GLOBALS['registry']->get('webroot', 'kronolith');
+//            return Horde::url('', false, array('app' => 'kronolith'));
 //        } elseif ((stripos($mailbox, "INBOX/Tasks") !== false) ||
 //                  preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
-//            return $GLOBALS['registry']->get('webroot', 'nag');
+//            return Horde::url('', false, array('app' => 'nag'));
 //        } elseif ((strpos($mailbox, "INBOX/Notes") !== false) ||
 //                  preg_match("!^user/[^/]+/Notes!", $mailbox)) {
-//            return $GLOBALS['registry']->get('webroot', 'mnemo');
+//            return Horde::url('', false, array('app' => 'mnemo'));
 //        } elseif ((strpos($mailbox, "INBOX/Contacts") !== false) ||
 //                  preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
-//            return $GLOBALS['registry']->get('webroot', 'turba');
+//            return Horde::url('', false, array('app' => 'turba'));
 //        }
 //
 //        return '';
@@ -321,16 +321,16 @@ class IMP_Hooks
 //        require_once 'Horde/Kolab.php';
 //        switch (Kolab::getMailboxType($mailbox)) {
 //        case 'event':
-//            return $GLOBALS['registry']->get('webroot', 'kronolith');
+//            return Horde::url('', false, array('app' => 'kronolith'));
 //
 //        case 'task':
-//            return $GLOBALS['registry']->get('webroot', 'nag');
+//            return Horde::url('', false, array('app' => 'nag'));
 //
 //        case 'note':
-//            return $GLOBALS['registry']->get('webroot', 'mnemo');
+//            return Horde::url('', false, array('app' => 'mnemo'));
 //
 //        case 'contact':
-//            return $GLOBALS['registry']->get('webroot', 'turba');
+//            return Horde::url('', false, array('app' => 'turba'));
 //
 //        case 'prefs':
 //            return Horde::getServiceLink('options', 'horde');

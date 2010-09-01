@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 if (empty($conf['twitter']['enabled'])) {
-    Horde::url($registry->get('webroot', 'horde') . '/index.php')->redirect();
+    Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
 $twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');

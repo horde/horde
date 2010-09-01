@@ -506,7 +506,7 @@ class Horde_Hooks
 //            "\n\n" .
 //            $this->_signup_queued_walkdata($extraFields, $data) .
 //            "\n" .
-//            sprintf(_("You can approve this signup at %s"), Horde::url('admin/user.php', true, -1));
+//            sprintf(_("You can approve this signup at %s"), Horde::url('admin/user.php', true, array('append_session' => -1)));
 //
 //        $GLOBALS['injector']->getInstance('Horde_Mail')->send($_SERVER['SERVER_ADMIN'], $headers, $msg);
 //    }

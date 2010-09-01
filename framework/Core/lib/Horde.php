@@ -461,40 +461,41 @@ HTML;
      */
     static public function getServiceLink($type, $app = null)
     {
-        $webroot = $GLOBALS['registry']->get('webroot', 'horde');
+        $opts = array('app' => 'horde');
 
         switch ($type) {
         case 'ajax':
-            return self::url($webroot . '/services/ajax.php/' . $app . '/')
+            return self::url('services/ajax.php/' . $app . '/', false, $opts)
                 ->remove('ajaxui');
 
         case 'cache':
-            return self::url($webroot . '/services/cache.php', false, -1);
+            $opts['append_session'] = -1;
+            return self::url('services/cache.php', false, $opts);
 
         case 'download':
-            return self::url($webroot . '/services/download/')
+            return self::url('services/download/', false, $opts)
                 ->add('module', $app);
 
         case 'emailconfirm':
-            return self::url($webroot . '/services/confirm.php');
+            return self::url('services/confirm.php', false, $opts);
 
         case 'go':
-            return self::url($webroot . '/services/go.php')
+            return self::url('services/go.php', false, $opts)
                 ->remove('ajaxui');
 
         case 'help':
-            return self::url($webroot . '/services/help/')
+            return self::url('services/help/', false, $opts)
                 ->add('module', $app);
 
         case 'imple':
-            return self::url($webroot . '/services/imple.php')->
-                remove('ajaxui');
+            return self::url('services/imple.php', false, $opts)
+                ->remove('ajaxui');
 
         case 'login':
-            return self::url($webroot . '/login.php');
+            return self::url('login.php', false, $opts);
 
         case 'logintasks':
-            return self::url($webroot . '/services/logintasks.php')
+            return self::url('services/logintasks.php', false, $opts)
                 ->add('app', $app);
 
         case 'logout':
@@ -503,7 +504,7 @@ HTML;
         case 'options':
         case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'));
+                $url = self::url(($type == 'options') ? 'services/prefs.php' : 'services/prefs/', false, $opts);
                 if (!is_null($app)) {
                     $url->add('app', $app);
                 }
@@ -512,11 +513,11 @@ HTML;
             break;
 
         case 'problem':
-            return self::url($webroot . '/services/problem.php')
+            return self::url('services/problem.php', false, $opts)
                 ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
         case 'sidebar':
-            return self::url($webroot . '/services/sidebar.php');
+            return self::url('services/sidebar.php', false, $opts);
         }
 
         return false;
@@ -883,27 +884,40 @@ HTML;
      * If a full URL is requested, all parameter separators get converted to
      * "&", otherwise to "&amp;".
      *
-     * @param mixed $uri               The URI to be modified (either a string
-     *                                 or any object with a __toString()
-     *                                 function).
-     * @param boolean $full            Generate a full (http://server/path/)
-     *                                 URL.
-     * @param integer $append_session  0 = only if needed, 1 = always, -1 =
-     *                                 never.
-     * @param boolean $force_ssl       Ignore $conf['use_ssl'] and force
-     *                                 creation of a SSL URL?
+     * @param mixed $uri      The URI to be modified (either a string or any
+     *                        object with a __toString() function).
+     * @param boolean $full   Generate a full (http://server/path/) URL.
+     * @param mixed $opts     Additional options. If a string/integer, it is
+     *                        taken to be the 'append_session' option.  If an
+     *                        array, one of the following:
+     * <pre>
+     * 'app' - (string) Use this app for the webroot.
+     *         DEFAULT: current application
+     * 'append_session' - (integer) 0 = only if needed [DEFAULT], 1 = always,
+     *                    -1 = never.
+     * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
+     *               SSL URL?
+     *               DEFAULT: false
+     * </pre>
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
-    static public function url($uri, $full = false, $append_session = 0,
-                               $force_ssl = false)
+    static public function url($uri, $full = false, $opts = array())
     {
-        if ($force_ssl) {
-            $full = true;
+        if (is_array($opts)) {
+            $append_session = isset($opts['append_session'])
+                ? $opts['append_session']
+                : 0;
+            if (!empty($opts['force_ssl'])) {
+                $full = true;
+            }
+        } else {
+            $append_session = $opts;
+            $opts = array();
         }
 
         $url = '';
-        $webroot = $GLOBALS['registry']->get('webroot');
+        $webroot = $GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']);
 
         /* Skip if we already have a full URL. */
         if ($full && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
@@ -925,7 +939,7 @@ HTML;
 
             case 3:
                 $server_port = '';
-                if ($force_ssl) {
+                if (!empty($opts['force_ssl'])) {
                     $protocol = 'https';
                 }
                 break;
@@ -1237,7 +1251,7 @@ HTML;
             }
         }
 
-        $url = self::url($url, $full, 0, $force_ssl);
+        $url = self::url($url, $full, array('force_ssl' => $force_ssl));
 
         return ($nocache && $GLOBALS['browser']->hasQuirk('cache_same_url'))
             ? $url->unique()
@@ -1316,7 +1330,7 @@ HTML;
         /* If we can send as data, no need to get the full path */
         $src = self::base64ImgData($src);
         if (substr($src, 0, 10) != 'data:image') {
-            $src = self::url($src, true, -1);
+            $src = self::url($src, true, array('append_session' => -1));
         }
 
         $img = '<img';
