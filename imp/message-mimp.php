@@ -30,7 +30,7 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
-if (!$imp_mailbox->isValidIndex(false)) {
+if (!$imp_mailbox->isValidIndex()) {
     IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('a', 'm')->redirect();
 }
 

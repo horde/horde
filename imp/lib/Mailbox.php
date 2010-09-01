@@ -422,16 +422,10 @@ class IMP_Mailbox implements Countable
      * Checks to see if the current index is valid.
      * This function is only useful if an index was passed to the constructor.
      *
-     * @param boolean $rebuild  Rebuild mailbox list, if needed.
-     *
      * @return boolean  True if index is valid, false if not.
      */
     public function isValidIndex($rebuild = true)
     {
-        if ($rebuild) {
-            $this->_rebuild();
-            $this->setIndex(0);
-        }
         return !is_null($this->_arrayIndex);
     }
 
@@ -614,11 +608,15 @@ class IMP_Mailbox implements Countable
                 $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
             }
         } elseif (!is_null($this->_arrayIndex)) {
-            $this->_arrayIndex += $data;
-            if (empty($this->_sorted[$this->_arrayIndex])) {
-                $this->_arrayIndex = null;
+            $index = $this->_arrayIndex += $data;
+            if (isset($this->_sorted[$this->_arrayIndex])) {
+                $this->_rebuild();
+            } else {
+                $this->_rebuild(true);
+                $this->_arrayIndex = isset($this->_sorted[$index])
+                    ? $index
+                    : null;
             }
-            $this->_rebuild();
         }
     }
 
@@ -734,9 +732,6 @@ class IMP_Mailbox implements Countable
             return;
         }
 
-        $msgcount = 0;
-        $sortcount = count($this->_sorted);
-
         /* Remove the current entry and recalculate the range. */
         foreach ($indices as $mbox => $uid) {
             $val = $this->getArrayIndex($uid, $mbox);
@@ -744,7 +739,6 @@ class IMP_Mailbox implements Countable
             if ($this->_searchmbox) {
                 unset($this->_sortedMbox[$val]);
             }
-            ++$msgcount;
         }
 
         $this->_sorted = array_values($this->_sorted);

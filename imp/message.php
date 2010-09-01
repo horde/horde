@@ -35,7 +35,7 @@ if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$ma
 
 /* Make sure we have a valid index. */
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
-if (!$imp_mailbox->isValidIndex(false)) {
+if (!$imp_mailbox->isValidIndex()) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;
