@@ -19,24 +19,24 @@ if ($own_source == $ob->getSource() && $own_id == $ob->getValue('__key')) {
 
 $edit_url = $vcard_url = '&nbsp;';
 if ($ob->hasValue('__key')) {
-    $vcard_url = Horde::applicationUrl('vcard.php')->add(array(
+    $vcard_url = Horde::url('vcard.php')->add(array(
         'source' => $ob->getSource(),
         'key' => $ob->getValue('__key')
     ));
-    $vcard_url = Horde::link(Horde::applicationUrl($vcard_url),
+    $vcard_url = Horde::link(Horde::url($vcard_url),
                              _("Download vCard"))
         . Horde::img('mime/vcard.png', _("Download vCard"))
         . '</a>';
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
     if ($ob->hasPermission(Horde_Perms::EDIT)) {
-        $edit_url = Horde::applicationUrl('contact.php')->add(array(
+        $edit_url = Horde::url('contact.php')->add(array(
             'view' => 'EditContact',
             'source' => $ob->getSource(),
             'key' => $ob->getValue('__key'),
             'url' => Horde::selfUrl(true, false, true)
         ));
-        $edit_url = Horde::link(Horde::applicationUrl($edit_url), _("Edit"))
+        $edit_url = Horde::link(Horde::url($edit_url), _("Edit"))
             . Horde::img('edit.png', _("Edit"))
             . '</a>';
     }

@@ -567,7 +567,7 @@ class News_Driver_sql extends News_Driver {
 
         $i = 0;
         $tags = new News_TagCloud();
-        $tag_link = Horde::applicationUrl('search.php');
+        $tag_link = Horde::url('search.php');
         foreach ($tags_elemets as $tag => $time) {
             sort($time);
             $tags->addElement($tag, Horde_Util::addParameter($tag_link, array('word' => $tag)),

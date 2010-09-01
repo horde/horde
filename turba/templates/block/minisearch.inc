@@ -12,7 +12,7 @@ function hide_mini_search()
 }
 </script>
 
-<form name="turba_minisearch" action="<?php echo Horde::applicationUrl('minisearch.php') ?>" onsubmit="mini_search();" target="turba_minisearch_iframe">
+<form name="turba_minisearch" action="<?php echo Horde::url('minisearch.php') ?>" onsubmit="mini_search();" target="turba_minisearch_iframe">
 <?php Horde_Util::pformInput() ?>
 <?php echo Horde::label('search', _("Search for: ")) ?>
 <input name="search" id="search" size="35" />

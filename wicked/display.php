@@ -50,7 +50,7 @@ case 'unlock':
 case 'history':
     if ($page->allows(WICKED_MODE_HISTORY)) {
         /* Redirect to history page. */
-        Horde::applicationUrl('history.php')
+        Horde::url('history.php')
             ->add('page', $page->pageName())
             ->redirect();
     }

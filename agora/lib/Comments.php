@@ -51,7 +51,7 @@ class Agora_ViewComments {
         $sort_dir = Agora::getSortDir('comments');
         $html = '<div class="header">' . _("Comments") . ' (' . $messages->_forum['message_count'] . ')' . '&nbsp;&nbsp;';
         if (!$GLOBALS['prefs']->isLocked('comments_view_bodies')) {
-            $rss = Horde_Util::addParameter(Horde::applicationUrl('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
+            $rss = Horde_Util::addParameter(Horde::url('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
             $html .= '<span style="font-size: 0.8em;">';
             $html .= '<form action=' . urldecode($base_url) . ' method="post" name="sorter" style="display: inline;">';
             $html .= _("View") . ' <select name="bodies" onchange="document.sorter.submit()" >';

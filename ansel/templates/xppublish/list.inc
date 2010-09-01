@@ -1,5 +1,5 @@
 <div style="margin:5px">
-<form id="folder" name="folder" method="post" action="<?php echo Horde::applicationUrl('xppublish.php', true) ?>">
+<form id="folder" name="folder" method="post" action="<?php echo Horde::url('xppublish.php', true) ?>">
 <input type="hidden" name="cmd" value="select" />
 <?php Horde_Util::pformInput() ?>
 

@@ -9,5 +9,5 @@ if ($quickText = Horde_Util::getPost('quickText')) {
         throw new Nag_Exception($result);
     }
     $notification->push(sprintf(ngettext("Added %d task", "Added %d tasks", count($result)), count($result)), 'horde.success');
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }

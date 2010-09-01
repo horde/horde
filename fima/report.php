@@ -116,7 +116,7 @@ case 'display_report':
         $params['title'] = $_reports[$params['report_id']];
 
         /* Build report url. */
-        $params['url'] = Horde_Util::addParameter(Horde::applicationUrl('report.php'), 'actionID', 'display_report');
+        $params['url'] = Horde_Util::addParameter(Horde::url('report.php'), 'actionID', 'display_report');
 
         /* Add params from options. */
         $params['graphsize'] = $prefs->getValue('report_graphsize');

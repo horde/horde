@@ -13,25 +13,25 @@ require_once NAG_BASE . '/lib/Forms/DeleteTaskList.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $tasklist_id = $vars->get('t');
 if ($tasklist_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This task list cannot be deleted."), 'horde.warning');
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 try {
     $tasklist = $nag_shares->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($tasklist, 'horde.error');
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 
 $form = new Nag_DeleteTaskListForm($vars, $tasklist);
@@ -45,7 +45,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $notification->push($e, 'horde.error');
     }
 
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 
 $title = $form->getTitle();

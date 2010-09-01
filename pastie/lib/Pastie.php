@@ -18,7 +18,7 @@ class Pastie
     static public function getMenu()
     {
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('paste.php'), _("Paste"), 'pastie.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('paste.php'), _("Paste"), 'pastie.png', Horde_Themes::img(null, 'horde'));
 
         return $menu;
     }

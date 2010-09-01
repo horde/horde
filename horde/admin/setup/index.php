@@ -72,7 +72,7 @@ $success = Horde::img('alerts/success.png');
 $warning = Horde::img('alerts/warning.png');
 $error = Horde::img('alerts/error.png');
 
-$conf_url = Horde::applicationUrl('admin/setup/config.php');
+$conf_url = Horde::url('admin/setup/config.php');
 $a = $registry->listAllApps();
 $apps = array();
 $i = -1;
@@ -169,13 +169,13 @@ Horde_Array::arraySort($apps, 'sort');
 $actions = array();
 $ftpform = '';
 if (!empty($_SESSION['_config'])) {
-    $url = Horde::applicationUrl('admin/setup/diff.php');
+    $url = Horde::url('admin/setup/diff.php');
     $action = _("Show differences between currently saved and the newly generated configuration.");
     $actions[] = array('icon' => Horde::img('search.png', '', 'align="middle"'),
                        'link' => Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . $action . '</a>');
 
     /* Action to download the configuration upgrade PHP script. */
-    $url = Horde::applicationUrl('admin/setup/scripts.php')->add(array('setup' => 'conf', 'type' => 'php'));
+    $url = Horde::url('admin/setup/scripts.php')->add(array('setup' => 'conf', 'type' => 'php'));
     $action = _("Download generated configuration as PHP script.");
     $actions[] = array('icon' => Horde::img('download.png', '', 'align="middle"'),
                        'link' => Horde::link($url) . $action . '</a>');
@@ -196,7 +196,7 @@ if (!empty($_SESSION['_config'])) {
         $upload = _uploadFTP($info);
         if ($upload) {
             $notification->push(_("Uploaded all application setup files to the server."), 'horde.success');
-            Horde::applicationUrl('admin/setup/index.php', true)->redirect();
+            Horde::url('admin/setup/index.php', true)->redirect();
         }
     }
     /* Render the form. */
@@ -207,7 +207,7 @@ if (!empty($_SESSION['_config'])) {
 
 if (file_exists(Horde::getTempDir() . '/horde_setup_upgrade.php')) {
     /* Action to remove the configuration upgrade PHP script. */
-    $url = Horde::applicationUrl('admin/setup/scripts.php')->add('clean', 'tmp');
+    $url = Horde::url('admin/setup/scripts.php')->add('clean', 'tmp');
     $action = _("Remove saved script from server's temporary directory.");
     $actions[] = array('icon' => Horde::img('delete.png', '', 'align="middle"'),
                        'link' => Horde::link($url) . $action . '</a>');
@@ -217,7 +217,7 @@ if (file_exists(Horde::getTempDir() . '/horde_setup_upgrade.php')) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('versions', !empty($versions), true);
-$template->set('version_action', Horde::applicationUrl('admin/setup/index.php'));
+$template->set('version_action', Horde::url('admin/setup/index.php'));
 $template->set('version_input', Horde_Util::formInput());
 $template->set('apps', $apps);
 $template->set('actions', $actions, true);

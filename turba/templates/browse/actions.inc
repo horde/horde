@@ -3,11 +3,11 @@
           echo Horde::widget('#', $this->getType() == 'list' ? _("Remove from this list") : _("Delete"), 'widget', '', "Submit('delete'); return false;", $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete")) . ' | ';
       }
       if ($hasEdit) {
-          echo Horde::widget('#', _("Edit"), 'widget', '', "document.contacts.action='" . Horde::applicationUrl('edit.php') . "'; Submit('groupedit'); return false;", _("Edit")) . ' | ';
+          echo Horde::widget('#', _("Edit"), 'widget', '', "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", _("Edit")) . ' | ';
       }
 ?>
  <?php if ($hasExport): ?>
- <?php echo Horde::widget('#', _("Export"), 'widget', '', "document.contacts.action='" . Horde::applicationUrl('data.php') . "'; Submit('select'); return false;", _("Export")) . ' | ' ?>
+ <?php echo Horde::widget('#', _("Export"), 'widget', '', "document.contacts.action='" . Horde::url('data.php') . "'; Submit('select'); return false;", _("Export")) . ' | ' ?>
  <?php endif; ?>
  <?php if (!empty($copymove_source_options)): $id = md5(mt_rand()); ?>
  <form style="display:inline" name="f<?php echo $id ?>" action="javascript:void(0);" onsubmit="return false;">
@@ -43,7 +43,7 @@
  <?php endif; ?>
 
 <?php
-$browse_link = Horde::applicationUrl('browse.php');
+$browse_link = Horde::url('browse.php');
 if ($this->getType() == 'directory' &&
     !empty($cfgSources[$default_source]['map']['__type'])) {
     printf(_("Show %s"), Horde::widget($browse_link->copy()->add('show', 'lists'), _("Show Lists"), 'widget', '', '', _("_Lists")) . ', ' .

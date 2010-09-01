@@ -13,7 +13,7 @@ require_once NAG_BASE . '/lib/Forms/EditTaskList.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -21,12 +21,12 @@ try {
     $tasklist = $nag_shares->getShare($vars->get('t'));
 } catch (Horde_Share_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     $notification->push(_("You are not allowed to change this task list."), 'horde.error');
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 $form = new Nag_EditTaskListForm($vars, $tasklist);
 
@@ -44,7 +44,7 @@ if ($form->validate($vars)) {
         $notification->push($e, 'horde.error');
     }
 
-    Horde::applicationUrl('tasklists/', true)->redirect();
+    Horde::url('tasklists/', true)->redirect();
 }
 
 $vars->set('name', $tasklist->get('name'));

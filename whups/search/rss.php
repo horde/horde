@@ -52,7 +52,7 @@ $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', _("Search Results"));
 $template->set('items', $items, true);
-$template->set('url', Horde::applicationUrl('search.php'));
+$template->set('url', Horde::url('search.php'));
 $template->set('rss_url', Horde::selfUrl());
 $template->set('description', _("Search Results"));
 

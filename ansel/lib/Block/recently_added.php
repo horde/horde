@@ -103,7 +103,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
-        $preview_url = Horde::applicationUrl('preview.php', true);
+        $preview_url = Horde::url('preview.php', true);
         $header = array(_("Date"), _("Photo"), _("Gallery"));
 
         $html = <<<HEADER

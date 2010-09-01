@@ -13,10 +13,10 @@ require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
 
 $domains = array();
 if (Horde_Util::getGet('domain') == 'current') {
-    $url = Horde::applicationUrl('viewzone.php');
+    $url = Horde::url('viewzone.php');
     $domains[] = $_SESSION['beatnik']['curdomain'];
 } elseif (Horde_Util::getGet('domain') == 'all') {
-    $url = Horde::applicationUrl('listzones.php');
+    $url = Horde::url('listzones.php');
     foreach (Beatnik::needCommit() as $domain) {
         $domains[] = $beatnik->driver->getDomain($domain);
     }

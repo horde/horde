@@ -19,7 +19,7 @@ $actionID = Horde_Util::getFormData('actionID');
 if ($actionID == 'button') {
     if (Horde_Util::getFormData('new_bookmark') ||
         !is_null(Horde_Util::getFormData('new_bookmark_x'))) {
-        Horde::applicationUrl('add.php', true)->add('f', $folderId)->redirect();
+        Horde::url('add.php', true)->add('f', $folderId)->redirect();
     }
     if (Horde_Util::getFormData('edit_bookmarks')) {
         $actionID = null;
@@ -96,7 +96,7 @@ case 'save':
             $notification->notify();
         }
     } else {
-        Horde::applicationUrl('browse.php', true)
+        Horde::url('browse.php', true)
             ->add('f', $folderId)
             ->redirect();
     }
@@ -130,7 +130,7 @@ case 'delete':
     }
 
     // Return to the folder listing
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
 
 case 'move':
     $create_folder = Horde_Util::getFormData('create_folder');
@@ -179,7 +179,7 @@ case 'move':
     }
 
     // Return to the folder listing
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
 
 case 'copy':
     $create_folder = Horde_Util::getFormData('create_folder');
@@ -220,7 +220,7 @@ case 'copy':
     }
 
     // Return to the folder listing
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
 
 case 'rename':
     /* Rename a Bookmark Folder. */
@@ -231,7 +231,7 @@ case 'rename':
     if (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("\"%s\" was not renamed: %s."), $name, $result->getMessage()), 'horde.error');
     } else {
-        Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+        Horde::url('browse.php', true)->add('f', $folderId)->redirect();
     }
     break;
 
@@ -253,7 +253,7 @@ case 'del_folder_confirmed':
     $folder = &$trean_shares->getFolder($folderId);
     if (is_a($folder, 'PEAR_Error')) {
         $notification->push($folder->getMessage(), 'horde.error');
-        Horde::applicationUrl('browse.php')->redirect();
+        Horde::url('browse.php')->redirect();
     }
 
     $parent = $folder->getParent();
@@ -263,17 +263,17 @@ case 'del_folder_confirmed':
     } else {
         $notification->push(sprintf(_("Deleted the folder \"%s\""), $folder->get('name')), 'horde.success');
     }
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
     exit;
 
 case 'cancel':
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
 }
 
 // Return to browse if there is nothing to edit.
 if (!count($bookmarks) && !count($folder)) {
     $notification->push(_("Nothing to edit."), 'horde.message');
-    Horde::applicationUrl('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
 }
 
 $title = _("Edit Bookmark");

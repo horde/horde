@@ -1,4 +1,4 @@
-<form method="post" name="skoli_exportform" id="skoli_exportform" action="<?php echo Horde::downloadUrl(_("class.csv"), null, Horde::applicationUrl('data.php')) ?>">
+<form method="post" name="skoli_exportform" id="skoli_exportform" action="<?php echo Horde::downloadUrl(_("class.csv"), null, Horde::url('data.php')) ?>">
 <input type="hidden" name="actionID" value="export" />
 
 <h1 class="header">

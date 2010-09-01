@@ -242,11 +242,11 @@ class Jonah
 
         /* If authorized, show admin links. */
         if (Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
-            $menu->addArray(array('url' => Horde::applicationUrl('channels/index.php'), 'text' => _("_Feeds"), 'icon' => 'jonah.png'));
+            $menu->addArray(array('url' => Horde::url('channels/index.php'), 'text' => _("_Feeds"), 'icon' => 'jonah.png'));
         }
         foreach ($conf['news']['enable'] as $channel_type) {
             if (Jonah::checkPermissions($channel_type, Horde_Perms::EDIT)) {
-                $menu->addArray(array('url' => Horde::applicationUrl('channels/edit.php'), 'text' => _("New Feed"), 'icon' => 'new.png'));
+                $menu->addArray(array('url' => Horde::url('channels/edit.php'), 'text' => _("New Feed"), 'icon' => 'new.png'));
                 break;
             }
         }
@@ -255,7 +255,7 @@ class Jonah
             $channel = $news->getChannel($channel_id);
             if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
                 Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
-                $menu->addArray(array('url' => Horde::applicationUrl('stories/edit.php')->add('channel_id', (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
+                $menu->addArray(array('url' => Horde::url('stories/edit.php')->add('channel_id', (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
             }
         }
 

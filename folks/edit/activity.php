@@ -26,7 +26,7 @@ if ($activity_scope && $activity_date) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully deleted"), 'horde.success');
-        Horde::applicationUrl('edit/activity.php')->redirect();
+        Horde::url('edit/activity.php')->redirect();
     }
 }
 
@@ -37,7 +37,7 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully posted"), 'horde.success');
-        Horde::applicationUrl('edit/activity.php')->redirect();
+        Horde::url('edit/activity.php')->redirect();
     }
 }
 
@@ -47,7 +47,7 @@ if ($activities instanceof PEAR_Error) {
     Folks::getUrlFor('list', 'list')->redirect();
 }
 
-$delete_url = Horde::applicationUrl('edit/activity.php');
+$delete_url = Horde::url('edit/activity.php');
 $delete_img = Horde::img('delete.png');
 
 Horde::addScriptFile('tables.js', 'horde');

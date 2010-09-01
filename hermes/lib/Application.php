@@ -111,7 +111,7 @@ class Hermes_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => 'hermes.png',
-                    'url' => Horde::applicationUrl('entry.php')
+                    'url' => Horde::url('entry.php')
                 )
             );
 
@@ -123,14 +123,14 @@ class Hermes_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => 'search.png',
-                    'url' => Horde::applicationUrl('search.php')
+                    'url' => Horde::url('search.php')
                 )
             );
             break;
 
         case 'stopwatch':
             Horde::addScriptFile('popup.js', 'horde');
-            $entry = Horde::applicationUrl('entry.php');
+            $entry = Horde::url('entry.php');
 
             $tree->addNode(
                 $parent . '__start',
@@ -140,7 +140,7 @@ class Hermes_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => 'timer-start.png',
-                    'onclick' => "popup('" . Horde::applicationUrl('start.php') . "', 400, 100); return false;",
+                    'onclick' => "popup('" . Horde::url('start.php') . "', 400, 100); return false;",
                     'url' => '#'
                 )
             );

@@ -2,7 +2,7 @@
  <span id="listCounts" class="rightFloat">
    <?php if ($this->_g_perPage < $this->_numGalleries) printf(_("%d to %d of %d Galleries"), $this->_start, $end, $this->_numGalleries); else printf(ngettext("%d Gallery", "%d Galleries", $this->_numGalleries), $this->_numGalleries) ?>
  </span>
- <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::applicationUrl($refresh_link)->link(array('title' =>  _("Refresh List"))) . Horde::img('reload.png', _("Refresh List")) . '</a>' ?>
+ <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::url($refresh_link)->link(array('title' =>  _("Refresh List"))) . Horde::img('reload.png', _("Refresh List")) . '</a>' ?>
 </div>
 <?php if (empty($this->_params['api'])): ?>
 <div class="anselActions widget">

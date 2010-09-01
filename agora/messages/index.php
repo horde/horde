@@ -18,14 +18,14 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check if we must show bodies */
@@ -102,20 +102,20 @@ $actions = array();
 
 /* Check if the thread allows replies. */
 if (!$message['locked']) {
-    $url = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('messages/edit.php'));
+    $url = Agora::setAgoraId($forum_id, null, Horde::url('messages/edit.php'));
     $url = Horde_Util::addParameter($url, 'message_parent_id', $message_id);
     $actions[] = Horde::link($url, _("Reply")) . _("Reply") . '</a>';
 }
 
 /* Add admin permissons */
 if ($messages->hasPermission(Horde_Perms::DELETE)) {
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/edit.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/edit.php'));
     $actions[] = Horde::link($url, _("Edit")) . _("Edit") . '</a>';
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/delete.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/delete.php'));
     $actions[] = Horde::link($url, _("Delete")) . _("Delete") . '</a>';
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/lock.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/lock.php'));
     $label = ($message['locked']) ? _("Unlock thread") : _("Lock thread");
     $actions[] = Horde::link($url, $label) . $label . '</a>';
 }
@@ -124,7 +124,7 @@ if ($messages->hasPermission(Horde_Perms::DELETE)) {
 $threads_list = $messages->getThreads($message['message_thread'], true, $sort_by, $sort_dir, ($view_bodies ? 1 : 0), '', null, $thread_start, $thread_per_page);
 if ($threads_list instanceof PEAR_Error) {
     $notification->push($threads_list->getMessage(), 'horde.error');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Set up pager. */
@@ -140,7 +140,7 @@ $col_headers = array(array('message_thread' => _("Thread"), 'message_subject' =>
 $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'thread');
 
 /* Actions. */
-$url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php'));
+$url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php'));
 
 /* Get the thread table. */
 switch ($view_bodies) {
@@ -188,7 +188,7 @@ $view->notify = Horde::endBuffer();
 
 $view->actions = $actions;
 $view->threads = $threads;
-$view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
+$view->rss = Horde_Util::addParameter(Horde::url('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
 
 /* Display an edit-dialogue if the thread is not locked and we can edit messages in them. */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {

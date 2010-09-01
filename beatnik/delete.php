@@ -25,17 +25,17 @@ if ($form->validate($vars)) {
             $result = $beatnik->driver->deleteRecord($info);
         } catch (Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
-            Horde::applicationUrl('viewzone.php')->add($info)->redirect();
+            Horde::url('viewzone.php')->add($info)->redirect();
         }
         $notification->push(_("Record deleted"), 'horde.success');
         if ($info['rectype'] == 'soa') {
-            Horde::applicationUrl('listzones.php')->redirect();
+            Horde::url('listzones.php')->redirect();
         } else {
-            Horde::applicationUrl('viewzone.php')->redirect();
+            Horde::url('viewzone.php')->redirect();
         }
     } else {
         $notification->push(_("Record not deleted"), 'horde.warning');
-        Horde::applicationUrl('viewzone.php')->add($info)->redirect();
+        Horde::url('viewzone.php')->add($info)->redirect();
     }
 } elseif (!$form->isSubmitted() && $record) {
     foreach ($record as $field => $value) {
@@ -48,6 +48,6 @@ $title = _("Delete");
 require BEATNIK_BASE . '/templates/common-header.inc';
 require BEATNIK_BASE . '/templates/menu.inc';
 
-$form->renderActive(null, null, Horde::applicationUrl('delete.php'), 'post');
+$form->renderActive(null, null, Horde::url('delete.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -48,7 +48,7 @@ class RecentChanges extends Page {
 
             $version_url = Horde_Util::addParameter($page->pageUrl(), 'version',
                                               $page->version());
-            $diff_url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'),
+            $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
                                            array('page' => $page->pageName(),
                                                  'v1' => '?',
                                                  'v2' => $page->version()));

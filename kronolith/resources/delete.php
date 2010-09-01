@@ -12,14 +12,14 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/DeleteResource.php';
 
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -27,11 +27,11 @@ try {
     $resource = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
     if (!$resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(_("You are not allowed to delete this resource."), 'horde.error');
-        Horde::applicationUrl('resources/', true)->redirect();
+        Horde::url('resources/', true)->redirect();
     }
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl('resources/', true)->redirect();
+    Horde::url('resources/', true)->redirect();
 }
 
 $form = new Kronolith_DeleteResourceForm($vars, $resource);
@@ -45,7 +45,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $notification->push($e, 'horde.error');
     }
 
-    Horde::applicationUrl('resources/', true)->redirect();
+    Horde::url('resources/', true)->redirect();
 }
 
 $title = $form->getTitle();

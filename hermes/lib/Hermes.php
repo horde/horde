@@ -58,16 +58,16 @@ class Hermes {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), Horde_Themes::img('search.png'));
+        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), Horde_Themes::img('search.png'));
 
         if ($conf['time']['deliverables'] && $registry->isAdmin('hermes:deliverables')) {
-            $menu->add(Horde::applicationUrl('deliverables.php'), _("_Deliverables"), 'hermes.png');
+            $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
         }
 
         if ($conf['invoices']['driver'] && $registry->isAdmin('hermes:invoicing')) {
-            $menu->add(Horde::applicationUrl('invoicing.php'), _("_Invoicing"), 'invoices.png');
+            $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
         }
 
         /* Print. */
@@ -77,7 +77,7 @@ class Hermes {
 
         /* Administration. */
         if ($registry->isAdmin()) {
-            $menu->add(Horde::applicationUrl('admin.php'), _("_Admin"), 'hermes.png');
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
         }
 
         if ($returnType == 'object') {

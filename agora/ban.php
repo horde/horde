@@ -16,13 +16,13 @@ list($forum_id, , $scope) = Agora::getAgoraId();
 $forums = &Agora_Messages::singleton($scope, $forum_id);
 if ($forums instanceof PEAR_Error) {
     $notification->push($forums->message, 'horde.error');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permissions to ban users from forum %s."), $forum_id), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Ban action */
@@ -33,13 +33,13 @@ if (($action = Horde_Util::getFormData('action')) !== null) {
         $notification->push($result->getMessage(), 'horde.error');
     }
 
-    $url = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('ban.php'), $scope);
+    $url = Agora::setAgoraId($forum_id, null, Horde::url('ban.php'), $scope);
     header('Location: ' . $url);
     exit;
 }
 
 /* Get the list of banned users. */
-$delete = Horde_Util::addParameter(Horde::applicationUrl('ban.php'),
+$delete = Horde_Util::addParameter(Horde::url('ban.php'),
                             array('action' => 'delete',
                                   'scope' => $scope,
                                   'forum_id' => $forum_id));

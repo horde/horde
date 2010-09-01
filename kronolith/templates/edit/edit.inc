@@ -269,7 +269,7 @@ if ($event->alarm) {
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::applicationUrl('attendees.php')->link(array('class' => 'button', 'id' => 'attendees_button', 'target' => '_blank')) . _("Edit Attendees and Resources") . '</a>' ?>
+  <?php echo Horde::url('attendees.php')->link(array('class' => 'button', 'id' => 'attendees_button', 'target' => '_blank')) . _("Edit Attendees and Resources") . '</a>' ?>
  </td>
 </tr>
 </tbody>

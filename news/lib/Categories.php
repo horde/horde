@@ -488,7 +488,7 @@ class News_Categories {
         // prepare add link
         if ($have_add_item) {
             $add_img = Horde::img('mkdir.png', _("Add New Item"));
-            $add_item = Horde::applicationUrl('items/edit.php');
+            $add_item = Horde::url('items/edit.php');
         }
 
         foreach ($cats as $cid => $category) {

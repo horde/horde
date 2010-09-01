@@ -31,7 +31,7 @@ if (!$rss) {
         <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($title) . '</description>
-        <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
+        <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
     foreach ($forums_list as $forum_id => $forum) {
@@ -39,7 +39,7 @@ if (!$rss) {
         <item>
             <title>' . htmlspecialchars($forum['forum_name']) . ' </title>
             <description>' . htmlspecialchars($forum['forum_description']) . ' </description>
-            <link>' . Horde_Util::addParameter(Horde::applicationUrl('threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id)) . '</link>
+            <link>' . Horde_Util::addParameter(Horde::url('threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id)) . '</link>
         </item>';
     }
 

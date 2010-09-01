@@ -45,43 +45,43 @@ function doPrefsUpdate(column, sortDown)
   </th>
 <?php if (in_array('semesterstart', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SEMESTERSTART ?>"<?php if ($sortby_class == SKOLI_SORT_SEMESTERSTART) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTERSTART)), _("Sort by Semester Start Date"), 'sortlink', '', '', _("Semester Start")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTERSTART)), _("Sort by Semester Start Date"), 'sortlink', '', '', _("Semester Start")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('semesterend', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SEMESTEREND ?>"<?php if ($sortby_class == SKOLI_SORT_SEMESTEREND) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTEREND)), _("Sort by Semester End Date"), 'sortlink', '', '', _("Semester End")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTEREND)), _("Sort by Semester End Date"), 'sortlink', '', '', _("Semester End")) ?>&nbsp;
   </th>
 <?php endif; ?>
   <th id="s<?php echo SKOLI_SORT_NAME ?>"<?php if ($sortby_class == SKOLI_SORT_NAME) echo ' class="' . $sortdirclass_class . '"' ?>>
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_NAME)), _("Sort by Name"), 'sortlink', '', '', _("Name")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_NAME)), _("Sort by Name"), 'sortlink', '', '', _("Name")) ?>&nbsp;
   </th>
 <?php if (in_array('lastentry', $student_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_LASTENTRY ?>"<?php if ($sortby_student == SKOLI_SORT_LASTENTRY) echo ' class="' . $sortdirclass_student . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_LASTENTRY)), _("Sort by Last Entry"), 'sortlink', '', '', _("Last Entry")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_LASTENTRY)), _("Sort by Last Entry"), 'sortlink', '', '', _("Last Entry")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('summarks', $student_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SUMMARKS ?>"<?php if ($sortby_student == SKOLI_SORT_SUMMARKS) echo ' class="' . $sortdirclass_student . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_SUMMARKS)), _("Sort by Mark"), 'sortlink', '', '', _("Mark average")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_SUMMARKS)), _("Sort by Mark"), 'sortlink', '', '', _("Mark average")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('sumabsences', $student_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SUMABSENCES ?>"<?php if ($sortby_student == SKOLI_SORT_SUMABSENCES) echo ' class="' . $sortdirclass_student . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_SUMABSENCES)), _("Sort by Absences"), 'sortlink', '', '', _("Absences")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_student', SKOLI_SORT_SUMABSENCES)), _("Sort by Absences"), 'sortlink', '', '', _("Absences")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('grade', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_GRADE ?>"<?php if ($sortby_class == SKOLI_SORT_GRADE) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_GRADE)), _("Sort by Grade"), 'sortlink', '', '', _("Grade")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_GRADE)), _("Sort by Grade"), 'sortlink', '', '', _("Grade")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('semester', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SEMESTER ?>"<?php if ($sortby_class == SKOLI_SORT_SEMESTER) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTER)), _("Sort by Semester"), 'sortlink', '', '', _("Semester")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_SEMESTER)), _("Sort by Semester"), 'sortlink', '', '', _("Semester")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('location', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_LOCATION ?>"<?php if ($sortby_class == SKOLI_SORT_LOCATION) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_LOCATION)), _("Sort by Location"), 'sortlink', '', '', _("Location")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_LOCATION)), _("Sort by Location"), 'sortlink', '', '', _("Location")) ?>&nbsp;
   </th>
 <?php endif; if (in_array('category', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_CATEGORY ?>"<?php if ($sortby_class == SKOLI_SORT_CATEGORY) echo ' class="' . $sortdirclass_class . '"' ?> width="10%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("Category")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("Category")) ?>&nbsp;
    <?php
    if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {

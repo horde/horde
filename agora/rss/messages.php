@@ -38,11 +38,11 @@ if (!$rss) {
         <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($message['message_subject']) . '</description>
-        <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
+        <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
     foreach ($threads_list as $thread_id => $thread) {
-        $url = Horde::applicationUrl('messages/index.php', true, -1);
+        $url = Horde::url('messages/index.php', true, -1);
         $url = Agora::setAgoraId($forum_id, $thread_id, $url, $scope, true);
         $rss .= '
         <item>

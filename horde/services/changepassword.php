@@ -51,7 +51,7 @@ if ($vars->exists('formname')) {
 
                 $notification->push(_("Password changed successfully."), 'horde.success');
 
-                $index_url = Horde::applicationUrl('index.php', true);
+                $index_url = Horde::url('index.php', true);
                 if (!empty($info['return_to'])) {
                     $index_url->add('url', $info['return_to']);
                 }

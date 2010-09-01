@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->setAnchor('month:' . Kronolith::currentDate()->dateString())->redirect();
+    Horde::url('', true)->setAnchor('month:' . Kronolith::currentDate()->dateString())->redirect();
 }
 
 $view = Kronolith::getView('Month');

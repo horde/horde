@@ -94,23 +94,23 @@ class News {
 
         case 'news':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Horde_Util::addParameter(Horde::applicationUrl('news.php', $full, $append_session), 'id', $data);
+                return Horde_Util::addParameter(Horde::url('news.php', $full, $append_session), 'id', $data);
             } else {
-                return Horde::applicationUrl('article/' . $data, $full, $append_session);
+                return Horde::url('article/' . $data, $full, $append_session);
             }
 
         case 'category':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Horde_Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'category', $data);
+                return Horde_Util::addParameter(Horde::url('browse.php', $full, $append_session), 'category', $data);
             } else {
-                return Horde::applicationUrl('category/' . $data, $full, $append_session);
+                return Horde::url('category/' . $data, $full, $append_session);
             }
 
         case 'source':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Horde_Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'source', $data);
+                return Horde_Util::addParameter(Horde::url('browse.php', $full, $append_session), 'source', $data);
             } else {
-                return Horde::applicationUrl('source/' . $data, $full, $append_session);
+                return Horde::url('source/' . $data, $full, $append_session);
             }
         }
     }
@@ -193,12 +193,12 @@ class News {
 
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
             $delete_img = Horde::img('delete.png', _("Delete"), ' style="width: 16px height: 16px"');
-            $delete_url = Horde::applicationUrl('delete_file.php');
+            $delete_url = Horde::url('delete_file.php');
         }
 
         $dowload_img = Horde::img('save.png', _("Dowload"), ' style="width: 16px height: 16px"');
         $dowload_zip = Horde::img('mime/compressed.png', _("Dowload Zip Compressed"), 'style="width: 16px height: 16px"');
-        $view_url = Horde::applicationUrl('files.php');
+        $view_url = Horde::url('files.php');
 
         $html = '<table><tr valign="top"><td>';
         $html .= Horde::link(Horde_Util::addParameter($view_url, array('actionID' => 'download_zip_all', 'news_id' => $id)), _("Compress and dowload all files at once")) . $dowload_zip . '</a> ' . "\n";
@@ -348,7 +348,7 @@ class News {
     static public function getImageUrl($id, $view = 'small', $type = 'news')
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Horde_Util::addParameter(Horde::applicationUrl('view.php'),
+            return Horde_Util::addParameter(Horde::url('view.php'),
                                      array('type' => $type,
                                            'view' => $view,
                                            'id' => $id),
@@ -448,19 +448,19 @@ class News {
         $img_dir = Horde_Themes::img(null, 'horde');
 
         if ($GLOBALS['prefs']->getValue('news_layout') != '') {
-            $menu->add(Horde::applicationUrl('content.php'), _("Overview"), 'layout.png', $img_dir);
+            $menu->add(Horde::url('content.php'), _("Overview"), 'layout.png', $img_dir);
         }
-        $menu->add(Horde::applicationUrl('browse.php'), _("Archive"), 'info.png', $img_dir);
-        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $img_dir);
-        $menu->add(Horde::applicationUrl('add.php'), _("Add"), 'edit.png', $img_dir);
+        $menu->add(Horde::url('browse.php'), _("Archive"), 'info.png', $img_dir);
+        $menu->add(Horde::url('search.php'), _("Search"), 'search.png', $img_dir);
+        $menu->add(Horde::url('add.php'), _("Add"), 'edit.png', $img_dir);
 
         if ($GLOBALS['conf']['attributes']['tags']) {
-            $menu->add(Horde::applicationUrl('cloud.php'), _("Tag cloud"), 'colorpicker.png', $img_dir);
+            $menu->add(Horde::url('cloud.php'), _("Tag cloud"), 'colorpicker.png', $img_dir);
         }
 
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
-            $menu->add(Horde::applicationUrl('edit.php'), _("Editorship"), 'config.png', $img_dir);
-            $menu->add(Horde::applicationUrl('admin/categories/index.php'), _("Administration"), 'administration.png', $img_dir);
+            $menu->add(Horde::url('edit.php'), _("Editorship"), 'config.png', $img_dir);
+            $menu->add(Horde::url('admin/categories/index.php'), _("Administration"), 'administration.png', $img_dir);
         }
 
         return $menu;

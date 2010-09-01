@@ -334,15 +334,15 @@ class Trean_Api extends Horde_Registry_Api
         $browser = $GLOBALS['injector']->getInstance('Horde_Browser');
         if ($browser->hasFeature('javascript')) {
             if ($browser->hasFeature('dom')) {
-                $addurl = Horde_Util::addParameter(Horde::applicationUrl('add.php', true, -1), 'iframe', 1);
+                $addurl = Horde_Util::addParameter(Horde::url('add.php', true, -1), 'iframe', 1);
                 $url = "javascript:(function(){o=document.createElement('div');o.id='overlay';o.style.background='#000';o.style.position='absolute';o.style.top=0;o.style.left=0;o.style.width='100%';o.style.height='100%';o.style.zIndex=5000;o.style.opacity=.8;document.body.appendChild(o);i=document.createElement('iframe');i.id='frame';i.style.zIndex=5001;i.style.border='thin solid #000';i.src='$addurl'+'&title=' + encodeURIComponent(document.title) + '&url=' + encodeURIComponent(location.href);i.style.position='absolute';i.style.width='350px';i.style.height='150px';i.style.left='100px';i.style.top='100px';document.body.appendChild(i);l=document.createElement('a');l.style.position='absolute';l.style.background='#ccc';l.style.color='#000';l.style.border='thin solid #000';l.style.display='block';l.style.top='250px';l.style.left='100px';l.style.zIndex=5001;l.style.padding='5px';l.appendChild(document.createTextNode('" . _("Close") . "'));l.onclick=function(){var o=document.getElementById('overlay');o.parentNode.removeChild(o);var i=document.getElementById('frame');i.parentNode.removeChild(i);this.parentNode.removeChild(this);};document.body.appendChild(l);})()";
             } else {
-                $addurl = Horde::applicationUrl(Horde_Util::addParameter('add.php', 'popup', 1), true, -1);
+                $addurl = Horde::url(Horde_Util::addParameter('add.php', 'popup', 1), true, -1);
                 $url = "javascript:d = new Date(); w = window.open('$addurl' + '&amp;title=' + encodeURIComponent(document.title) + '&amp;url=' + encodeURIComponent(location.href) + '&amp;d=' + d.getTime(), d.getTime(), 'height=200,width=400'); w.focus();";
             }
         } else {
             // Fallback to a regular URL
-            $url = Horde::applicationUrl(Horde_Util::addParameter('add.php', $params), true);
+            $url = Horde::url(Horde_Util::addParameter('add.php', $params), true);
         }
 
         return $url;

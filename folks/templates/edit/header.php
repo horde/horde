@@ -19,19 +19,19 @@ if ($groups instanceof PEAR_Error) {
     $groups = array();
 }
 
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/add.php') . '">' . _("Add") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/invite.php') . '">' . _("Invite") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/index.php') . '">' . _("All") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/add.php') . '">' . _("Add") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/invite.php') . '">' . _("Invite") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/index.php') . '">' . _("All") . '</a>';
 
 foreach ($groups as $group_id => $group_name) {
-    echo '<tr><td><a href="' . Horde_Util::addParameter(Horde::applicationUrl('edit/friends/friends.php'), $group_id) . '">' . $group_name . '</a>';
+    echo '<tr><td><a href="' . Horde_Util::addParameter(Horde::url('edit/friends/friends.php'), $group_id) . '">' . $group_name . '</a>';
 }
 
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/know.php') . '">' . _("Might know") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/for.php') . '">' . _("Wainting for") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/from.php') . '">' . _("Wainting from") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/of.php') . '">' . _("I am friend of") . '</a>';
-echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/blacklist.php') . '">' . _("Blacklist") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/know.php') . '">' . _("Might know") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/for.php') . '">' . _("Wainting for") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/from.php') . '">' . _("Wainting from") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/of.php') . '">' . _("I am friend of") . '</a>';
+echo '<tr><td><a href="' . Horde::url('edit/friends/blacklist.php') . '">' . _("Blacklist") . '</a>';
 
 ?>
 </table>

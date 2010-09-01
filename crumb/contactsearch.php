@@ -23,7 +23,7 @@ if ($searchform->validate($vars)) {
 echo "Success!";
 }
 
-$url = Horde::applicationUrl(basename(__FILE__));
+$url = Horde::url(basename(__FILE__));
 $title = $searchform->getTitle();
 
 require CRUMB_TEMPLATES . '/common-header.inc';

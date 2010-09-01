@@ -25,11 +25,11 @@ if (is_a($domains, 'PEAR_Error')) {
     $domains = array();
 }
 foreach ($domains as $id => $domain) {
-    $url = Horde::applicationUrl('domains/edit.php');
+    $url = Horde::url('domains/edit.php');
     $domains[$id]['edit_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::applicationUrl('domains/delete.php');
+    $url = Horde::url('domains/delete.php');
     $domains[$id]['del_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::applicationUrl('users/index.php');
+    $url = Horde::url('users/index.php');
     $domains[$id]['view_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
 }
 

@@ -27,7 +27,7 @@ $closedperiod = (int)$prefs->getValue('closed_period');
 
 /* Create page array. */
 $pageOb = array();
-$pageOb['url'] = Horde::applicationUrl('postings.php');
+$pageOb['url'] = Horde::url('postings.php');
 if (($pageOb['page'] = Horde_Util::getFormData('page')) === null) {
     $pageOb['page'] = $prefs->getValue('startpage');
 }
@@ -169,7 +169,7 @@ case 'save_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving postings to %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     if ($postingset !== null) {
         $pageOb['mode'] = 'edit';
@@ -267,11 +267,11 @@ case 'save_postings':
             $notification->push(sprintf(_("%d postings not saved."), count($postings)), 'horde.error');
         } else {
             /* Return to the posting list. */
-            Horde::applicationUrl('postings.php', true)->redirect();
+            Horde::url('postings.php', true)->redirect();
         }
     } else {
         /* Return to the posting list. */
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     break;
 
@@ -282,7 +282,7 @@ case 'delete_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(sprintf(_("Access denied deleting postings from %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     if ($postingset !== null) {
         $storage = &Fima_Driver::singleton($ledger);
@@ -302,7 +302,7 @@ case 'delete_postings':
     }
 
     /* Return to the posting list. */
-    Horde::applicationUrl('postings.php', true)->redirect();
+    Horde::url('postings.php', true)->redirect();
 
 case 'update_postings':
     /* Get the form values. */
@@ -311,7 +311,7 @@ case 'update_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied shifting postings in %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     if ($postingset !== null) {
         $posting_type = Horde_Util::getFormData('type');
@@ -338,17 +338,17 @@ case 'update_postings':
     }
 
     /* Return to the posting list. */
-    Horde::applicationUrl('postings.php', true)->redirect();
+    Horde::url('postings.php', true)->redirect();
 
 case 'copymove_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('postings.php', true)->redirect();
+        Horde::url('postings.php', true)->redirect();
     }
     $type_from = Horde_Util::getFormData('type_from');
     $period_from = Horde_Util::getFormData('period_from');
@@ -486,7 +486,7 @@ case 'copymove_postings':
     }
 
     /* Return to the posting list. */
-    Horde::applicationUrl('postings.php', true)->redirect();
+    Horde::url('postings.php', true)->redirect();
 
 default:
     break;
@@ -495,7 +495,7 @@ default:
 /* Print. */
 $print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view && $pageOb['mode'] == 'list') {
-    $print_link = Horde_Util::addParameter(Horde::applicationUrl('postings.php'), array('print' => 1));
+    $print_link = Horde_Util::addParameter(Horde::url('postings.php'), array('print' => 1));
 }
 
 /* Filters. */

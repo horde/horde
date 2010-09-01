@@ -1,2 +1,2 @@
 <?php
-$Form->renderActive($RENDERER, $vars, Horde::applicationUrl('recordings.php'), 'post');
+$Form->renderActive($RENDERER, $vars, Horde::url('recordings.php'), 'post');

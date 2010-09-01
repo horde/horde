@@ -3,7 +3,7 @@
     <?php
     if ($class['_edit']) {
         $label = _("New Entry");
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), 'class', $class['_id']), $label) . Horde::img('add.png', $label) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::url('add.php'), 'class', $class['_id']), $label) . Horde::img('add.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -11,7 +11,7 @@
     <?php
     if ($class['_edit']) {
         $label = sprintf(_("Edit \"%s\""), $class['name']);
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('classes/edit.php'), 'c', $class['_id']), $label) . Horde::img('edit.png', $label) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::url('classes/edit.php'), 'c', $class['_id']), $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -28,7 +28,7 @@
         'class'    => $class['_id'],
         'student'  => 'all'
     );
-    echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), $params), $label) . htmlspecialchars($class['name']) . '</a>';
+    echo Horde::link(Horde_Util::addParameter(Horde::url('search.php'), $params), $label) . htmlspecialchars($class['name']) . '</a>';
     ?>
   </td>
 <?php if (in_array('lastentry', $student_columns)): ?>

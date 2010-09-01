@@ -27,7 +27,7 @@ if (!$addSources) {
     $notification->push(_("There are no writeable address books. None of the available address books are configured to allow you to add new entries to them. If you believe this is an error, please contact your system administrator."), 'horde.error');
     $url = $url
         ? Horde::url($url, true)
-        : Horde::applicationUrl('index.php', true);
+        : Horde::url('index.php', true);
     $url->redirect();
 }
 
@@ -53,7 +53,7 @@ if ($source) {
             $notification->push($message, 'horde.error', array('content.raw'));
             $url = $url
                 ? Horde::url($url, true)
-                : Horde::applicationUrl('index.php', true);
+                : Horde::url('index.php', true);
             $url->redirect();
         }
 
@@ -72,5 +72,5 @@ if ($form->validate()) {
 $title = _("New Contact");
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::applicationUrl('add.php'), 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

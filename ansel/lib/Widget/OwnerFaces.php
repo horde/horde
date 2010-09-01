@@ -35,7 +35,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             return null;
         }
 
-        $this->_title = Horde::applicationUrl('faces/search/owner.php')->add('owner', $this->_owner)->link()
+        $this->_title = Horde::url('faces/search/owner.php')->add('owner', $this->_owner)->link()
             . sprintf(_("People in galleries owned by %s (%d of %d)"), $this->_owner, min(12, $this->_count), number_format($this->_count))
             . '</a>';
 

@@ -1,4 +1,4 @@
-<form method="post" name="rule" action="<?php echo Horde::applicationUrl('rule.php') ?>">
+<form method="post" name="rule" action="<?php echo Horde::url('rule.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="conditionnumber" value="-1" />

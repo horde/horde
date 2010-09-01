@@ -31,7 +31,7 @@ $tabs = Vilma::getUserMgrTabs($vars);
 $addresses = $vilma->driver->getAddresses($curdomain['domain_name'], $section);
 if (is_a($addresses, 'PEAR_Error')) {
     $notification->push($addresses);
-    Horde::applicationUrl('index.php')->redirect();
+    Horde::url('index.php')->redirect();
 }
 
 // Page results
@@ -53,34 +53,34 @@ foreach ($addresses as $i => $address) {
     $id = $address['id'];
 
     if($type === 'alias') {
-        $url = Horde::applicationUrl('users/editAlias.php');
+        $url = Horde::url('users/editAlias.php');
         $url = Util::addParameter($url, 'alias', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
         $addresses[$i]['add_alias_url'] = false;
         $addresses[$i]['add_forward_url'] = false;
     } elseif($type === 'forward') {
-        $url = Horde::applicationUrl('users/editForward.php');
+        $url = Horde::url('users/editForward.php');
         $url = Util::addParameter($url, 'forward', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
         $addresses[$i]['add_alias_url'] = false;
         $addresses[$i]['add_forward_url'] = false;
     } else {
-        $url = Horde::applicationUrl('users/edit.php');
+        $url = Horde::url('users/edit.php');
         $url = Util::addParameter($url, 'address', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['edit_url'] = $url;
-        $url = Horde::applicationURL('users/editAlias.php');
+        $url = Horde::url('users/editAlias.php');
         $url = Util::addParameter($url, 'address', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['add_alias_url'] = $url;
-        $url = Horde::applicationURL('users/editForward.php');
+        $url = Horde::url('users/editForward.php');
         $url = Util::addParameter($url, 'address', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['add_forward_url'] = $url;
     }
-    $url = Horde::applicationUrl('users/delete.php');
+    $url = Horde::url('users/delete.php');
     $currentAddress = $address['address'];
     if(!isset($currentAddress) || empty($currentAddress)) {
         $currentAddress = $address['user_name'] . $address['domain'];
@@ -88,21 +88,21 @@ foreach ($addresses as $i => $address) {
     $url = Horde_Util::addParameter($url, 'address', $currentAddress);
     //$addresses[$i]['del_url'] = Horde_Util::addParameter($url, 'address', $id);
     $addresses[$i]['del_url'] = Horde_Util::addParameter($url, 'section', $section);
-    //$url = Horde::applicationUrl('users/edit.php');
+    //$url = Horde::url('users/edit.php');
     //$addresses[$i]['view_url'] = Horde_Util::addParameter($url, 'address', $address['user_name']);
 
     if($type === 'alias') {
-        $url = Horde::applicationUrl('users/editAlias.php');
+        $url = Horde::url('users/editAlias.php');
         $url = Util::addParameter($url, 'alias', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
     } elseif ($type === 'forward') {
-        $url = Horde::applicationUrl('users/editForward.php');
+        $url = Horde::url('users/editForward.php');
         $url = Util::addParameter($url, 'forward', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
     } else {
-        $url = Horde::applicationUrl('users/edit.php');
+        $url = Horde::url('users/edit.php');
         $url = Util::addParameter($url, 'address', $id);
         $url = Util::addParameter($url, 'section', $section);
         $addresses[$i]['view_url'] = $url;
@@ -113,13 +113,13 @@ foreach ($addresses as $i => $address) {
 
 /* Set up the template action links. */
 if ($vilma->driver->isBelowMaxUsers($curdomain['domain_name'])) {
-    $url = Horde::applicationUrl('users/edit.php');
+    $url = Horde::url('users/edit.php');
     $maxusers = '';
 } else {
     $maxusers = _("Maximum Users");
 }
 
-$url = Horde::applicationUrl('virtuals/edit.php');
+$url = Horde::url('virtuals/edit.php');
 
 /* Set up the template fields. */
 $template->set('addresses', $addresses, true);

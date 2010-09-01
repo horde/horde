@@ -22,7 +22,7 @@ class Kastalia {
 
         $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
 
-        $menu->add(Horde::applicationUrl('upload_menu.php'), _("Upload"), 'menu/upload.png', Horde_Themes::img());
+        $menu->add(Horde::url('upload_menu.php'), _("Upload"), 'menu/upload.png', Horde_Themes::img());
 
         return $menu;
     }

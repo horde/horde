@@ -1829,7 +1829,7 @@ abstract class Kronolith_Event
                                            'mday' => $match[3]));
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
-            . Horde::applicationUrl('edit.php')
+            . Horde::url('edit.php')
             ->add(array('calendar' => $this->calendar,
                         'eventID' => $this->id,
                         'del_exception' => $date,
@@ -2560,7 +2560,7 @@ abstract class Kronolith_Event
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::applicationUrl('event.php', $full)->setRaw(!$encoded)->add($params);
+        return Horde::url('event.php', $full)->setRaw(!$encoded)->add($params);
     }
 
     /**
@@ -2575,7 +2575,7 @@ abstract class Kronolith_Event
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::applicationUrl('event.php')->add($params);
+        return Horde::url('event.php')->add($params);
     }
 
     /**
@@ -2590,7 +2590,7 @@ abstract class Kronolith_Event
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::applicationUrl('event.php')->add($params);
+        return Horde::url('event.php')->add($params);
     }
 
     /**
@@ -2605,7 +2605,7 @@ abstract class Kronolith_Event
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::applicationUrl('event.php')->add($params);
+        return Horde::url('event.php')->add($params);
     }
 
     public function getLink($datetime = null, $icons = true, $from_url = null,

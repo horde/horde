@@ -17,7 +17,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $source = $vars->get('source');
 if (!isset($GLOBALS['cfgSources'][$source])) {
     $notification->push(_("The contact you requested does not exist."));
-    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 /* Set the contact from the key requested. */
@@ -25,7 +25,7 @@ try {
     $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 } catch (Turba_Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $contact = null;
@@ -44,7 +44,7 @@ if (!$contact) {
         $contact = $driver->getObject($vars->get('key'));
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
-        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+        Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 

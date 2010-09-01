@@ -1076,7 +1076,7 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
-            $pgp_url = Horde::applicationUrl('pgp.php');
+            $pgp_url = Horde::url('pgp.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('pgp_public_key') && $GLOBALS['prefs']->getValue('pgp_private_key'));
             if ($t->get('has_key')) {
@@ -1192,7 +1192,7 @@ class IMP_Prefs_Ui
             $pubkey_list = array();
         }
 
-        $pgp_url = Horde::applicationUrl('pgp.php');
+        $pgp_url = Horde::url('pgp.php');
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -1343,7 +1343,7 @@ class IMP_Prefs_Ui
         if (!Horde::isConnectionSecure()) {
             $t->set('notsecure', true);
         } else {
-            $smime_url = Horde::applicationUrl('smime.php');
+            $smime_url = Horde::url('smime.php');
 
             $t->set('has_key', $GLOBALS['prefs']->getValue('smime_public_key') && $GLOBALS['prefs']->getValue('smime_private_key'));
             if ($t->get('has_key')) {
@@ -1413,7 +1413,7 @@ class IMP_Prefs_Ui
             $pubkey_list = array();
         }
 
-        $smime_url = Horde::applicationUrl('smime.php');
+        $smime_url = Horde::url('smime.php');
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);

@@ -90,7 +90,7 @@ if ($category !== null) {
 
 if ($redirect) {
     $notification->push(_("Attempt to edit a non-existent permission."), 'horde.error');
-    Horde::applicationUrl('admin/perms/index.php', true)->redirect();
+    Horde::url('admin/perms/index.php', true)->redirect();
 }
 
 $ui = new Horde_Core_Perms_Ui($perms);
@@ -102,7 +102,7 @@ if ($ui->validateEditForm($info)) {
     $permission->updatePermissions($info);
     $permission->save();
     $notification->push(sprintf(_("Updated \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
-    Horde::applicationUrl('admin/perms/edit.php', true)
+    Horde::url('admin/perms/edit.php', true)
         ->add('perm_id', $permission->getId())
         ->redirect();
 }

@@ -1,11 +1,11 @@
-<form name="browse" action="<?php echo Horde::applicationURL('add.php'); ?>" method="post">
+<form name="browse" action="<?php echo Horde::url('add.php'); ?>" method="post">
 <?php Horde_Util::pformInput() ?>
   <input type="hidden" name="actionID" value="" />
   <input type="hidden" name="name" value="" />
   <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
 </form>
 
-<form name="edit" action="<?php echo Horde::applicationURL('edit.php'); ?>" method="post">
+<form name="edit" action="<?php echo Horde::url('edit.php'); ?>" method="post">
 <?php Horde_Util::pformInput() ?>
   <input type="hidden" name="actionID" value="" />
   <input type="hidden" name="name" value="" />
@@ -106,7 +106,7 @@ if (!empty($folder)):
 
  <?php if ($GLOBALS['folder']->get('owner') == $GLOBALS['registry']->getAuth()): ?>
   <p>
-   <?php echo Horde::link(Horde::applicationUrl('perms.php?cid=' . $GLOBALS['folder']->getId()), _("Control access to this folder"), '', '_blank', 'popup(this.href); return false;')
+   <?php echo Horde::link(Horde::url('perms.php?cid=' . $GLOBALS['folder']->getId()), _("Control access to this folder"), '', '_blank', 'popup(this.href); return false;')
        . Horde::img('perms.png') . _("Control access to this folder") . '</a>' ?>
   </p>
  <?php endif; ?>
@@ -134,7 +134,7 @@ if (!is_a($folders, 'PEAR_Error')) {
             $f_id = null;
         }
         $params['class'] = ($tf->getId() == $f_id) ? 'selected' : null;
-        $params['url'] = Horde::applicationUrl('browse.php?f=' . $tf->getId());
+        $params['url'] = Horde::url('browse.php?f=' . $tf->getId());
         $level = substr_count($tfn, ':');
 
         if ($expand == 'first') {

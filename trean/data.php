@@ -155,7 +155,7 @@ case 'import':
 
     $notification->push(sprintf(_("%d Folders and %d Bookmarks imported."), $folders, $bookmarks), 'horde.success');
 
-    Horde::applicationUrl('browse.php', true)
+    Horde::url('browse.php', true)
         ->add('f', $root->getId())
         ->redirect();
 

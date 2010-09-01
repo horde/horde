@@ -21,7 +21,7 @@ if (!$registry->isAuthenticated()) {
 $user = Horde_Util::getGet('user');
 if (empty($user)) {
     $notification->push(_("You must supply a username."));
-    Horde::applicationUrl('edit/friends/index.php')->redirect();
+    Horde::url('edit/friends/index.php')->redirect();
 }
 
 $friends = Folks_Friends::singleton();
@@ -29,7 +29,7 @@ $result = $friends->approveFriend($user);
 if ($result instanceof PEAR_Error) {
     $notification->push($result);
     $notification->push($result->getDebugInfo());
-    Horde::applicationUrl('edit/friends/index.php')->redirect();
+    Horde::url('edit/friends/index.php')->redirect();
 }
 
 $notification->push(sprintf(_("User \"%s\" was confirmed as a friend."), $user), 'horde.success');
@@ -48,4 +48,4 @@ $friends->sendNotification($user, $title, $body);
 $link = '<a href="' . Folks::getUrlFor('user', $user) . '">' . $user . '</a>';
 $folks_driver->logActivity(sprintf(_("Added user %s as a friend."), $link));
 
-Horde::applicationUrl('edit/friends/index.php')->redirect();
+Horde::url('edit/friends/index.php')->redirect();

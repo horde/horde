@@ -14,7 +14,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
-<form id="kronolithCalendarForminternal" method="post" action="<?php echo Horde::applicationUrl('data.php') ?>"<?php if ($file_upload) echo ' enctype="multipart/form-data"' ?>>
+<form id="kronolithCalendarForminternal" method="post" action="<?php echo Horde::url('data.php') ?>"<?php if ($file_upload) echo ' enctype="multipart/form-data"' ?>>
 <input type="hidden" name="type" value="internal" />
 <input id="kronolithCalendarinternalId" type="hidden" name="calendar" />
 <?php if ($file_upload): ?>

@@ -567,8 +567,8 @@ function t_templates_list_list_headers($c)
         $n = $i['name']; // shortcut
         if ($i['list']) {
             $s .= "<th class=\"<?php echo (\$sortby == ZOMBIE_SORT_$n) ? 'selected' : 'item' ?>\" width=\"2%\">
-                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter(\$sortbyurl, 'sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
-                <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter('list.php', 'sortby', ZOMBIE_SORT_$n)), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
+                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::url(Horde_Util::addParameter(\$sortbyurl, 'sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
+                <?php echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', ZOMBIE_SORT_$n)), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
         }
     }
 

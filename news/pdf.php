@@ -22,7 +22,7 @@ $row = $news->get($id);
 // Check if the news exists
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    Horde::applicationUrl('browse.php')->redirect();
+    Horde::url('browse.php')->redirect();
 }
 
 // Set up the PDF object.

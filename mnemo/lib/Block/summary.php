@@ -20,7 +20,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
             ? $this->_params['block_title']
             : $registry->get('name');
 
-        return Horde::link(Horde::applicationUrl($registry->getInitialPage(), true))
+        return Horde::link(Horde::url($registry->getInitialPage(), true))
             . htmlspecialchars($label) . '</a>';
     }
 
@@ -77,7 +77,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
                     array('memo' => $memo['memo_id'],
                           'memolist' => $memo['memolist_id']));
                 $html .= '<td width="1%">'
-                    . Horde::link(htmlspecialchars(Horde::applicationUrl(Horde_Util::addParameter($editurl, 'actionID', 'modify_memo'), true)), _("Edit Note"))
+                    . Horde::link(htmlspecialchars(Horde::url(Horde_Util::addParameter($editurl, 'actionID', 'modify_memo'), true)), _("Edit Note"))
                     . Horde::img($editImg, _("Edit Note"))
                     . '</a></td>';
             }
@@ -96,7 +96,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
 
             $html .= '<td>'
                 . Horde::linkTooltip(
-                    htmlspecialchars(Horde::applicationUrl($viewurl, true)),
+                    htmlspecialchars(Horde::url($viewurl, true)),
                     '', '', '', '',
                     $memo['body'] != $memo['desc'] ? Mnemo::getNotePreview($memo) : '')
                 . (strlen($memo['desc']) ? htmlspecialchars($memo['desc']) : '<em>' . _("Empty Note") . '</em>')
@@ -111,7 +111,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block
         }
         
         return '<link href="'
-            . htmlspecialchars(Horde::applicationUrl('themes/categoryCSS.php',
+            . htmlspecialchars(Horde::url('themes/categoryCSS.php',
                                                      true))
             . '" rel="stylesheet" type="text/css" />'
             . '<table cellspacing="0" width="100%" class="linedRow">' . $html

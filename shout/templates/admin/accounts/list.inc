@@ -6,7 +6,7 @@
             <td class="uheader">Admin PIN</td>
         </tr>
         <?php
-            $url = Horde::applicationUrl("admin/accounts.php");
+            $url = Horde::url("admin/accounts.php");
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($accounts as $acctinfo) {

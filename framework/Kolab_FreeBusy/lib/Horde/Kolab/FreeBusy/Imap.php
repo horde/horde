@@ -363,7 +363,7 @@ class Horde_Kolab_FreeBusy_Imap {
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
         // URL is not required, so out it goes...
-        //$vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $share->get('owner'), true, -1));
+        //$vFb->setAttribute('URL', Horde::url('fb.php?u=' . $share->get('owner'), true, -1));
 
         /* Add all the busy periods. */
         foreach ($events as $event) {

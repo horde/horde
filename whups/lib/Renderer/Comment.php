@@ -85,7 +85,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
                 if ($comment) {
                     $reply =
                         Horde::link(
-                            Horde::applicationUrl(
+                            Horde::url(
                                 Horde_Util::addParameter(
                                     $canUpdate ? 'ticket/update.php' : 'ticket/comment.php',
                                     array('id' => $vars->get('ticket_id'),
@@ -170,7 +170,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
             // Admins can delete entries.
             $delete_link = '';
             if (Whups::hasPermission($vars->get('queue'), 'queue', Horde_Perms::DELETE)) {
-                $delete_link = Horde::applicationUrl('ticket/delete_history.php')
+                $delete_link = Horde::url('ticket/delete_history.php')
                     ->add(array('transaction' => $transaction,
                                 'id' => $vars->get('ticket_id'),
                                 'url' => Whups::urlFor('ticket', $vars->get('ticket_id'), true)))

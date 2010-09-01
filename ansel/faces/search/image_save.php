@@ -17,7 +17,7 @@ $path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtensio
 
 if (!file_exists($path)) {
     $notification->push(_("You must upload the search photo first"));
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
 }
 
 $x1 = (int)Horde_Util::getFormData('x1');
@@ -27,7 +27,7 @@ $y2 = (int)Horde_Util::getFormData('y2');
 
 if ($x2 - $x1 < 50 || $y2 - $y1 < 50) {
     $notification->push(_("Photo is too small. Search photo must be at least 50x50 pixels."));
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
@@ -37,7 +37,7 @@ try {
     $result = $img->loadFile($path);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
@@ -46,7 +46,7 @@ try {
     $result = $img->crop($x1, $y1, $x2, $y2);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
@@ -58,14 +58,14 @@ try {
     }
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
 }
 
 /* Save image. */
 $path = $tmp . '/search_face_thumb_' . $registry->getAuth() . Ansel_Faces::getExtension();
 if (!file_put_contents($path, $img->raw())) {
     $notification->push(_("Cannot store search photo"));
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
@@ -73,17 +73,17 @@ if (!file_put_contents($path, $img->raw())) {
 $signature = $faces->getSignatureFromFile($path);
 if (empty($signature)) {
     $notification->push(_("Cannot read photo signature"));
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
 /* Save signature. */
 $path = $tmp . '/search_face_' . $registry->getAuth() . '.sig';
 if (file_put_contents($path, $signature)) {
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
     exit;
 }
 
 $notification->push(_("Cannot save photo signature"));
-Horde::applicationUrl('faces/search/image.php')->redirect();
+Horde::url('faces/search/image.php')->redirect();
 exit;

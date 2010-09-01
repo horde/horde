@@ -22,7 +22,7 @@ try {
 } catch (Exception $e) {
     /* If the permission fetched is an error return to permissions list. */
     $notification->push(_("Attempt to delete a non-existent permission."), 'horde.error');
-    Horde::applicationUrl('admin/perms/index.php', true)->redirect();
+    Horde::url('admin/perms/index.php', true)->redirect();
 }
 
 /* Set up form. */
@@ -34,13 +34,13 @@ if ($confirmed = $ui->validateDeleteForm($info)) {
     try {
         $result = $perms->removePermission($permission, true);
         $notification->push(sprintf(_("Successfully deleted \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
-        Horde::applicationUrl('admin/perms/index.php', true)->redirect();
+        Horde::url('admin/perms/index.php', true)->redirect();
     } catch (Exception $e) {
         $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $perms->getTitle($permission->getName()), $result->getMessage()), 'horde.error');
     }
 } elseif ($confirmed === false) {
     $notification->push(sprintf(_("Permission \"%s\" not deleted."), $perms->getTitle($permission->getName())), 'horde.success');
-    Horde::applicationUrl('admin/perms/index.php', true)->redirect();
+    Horde::url('admin/perms/index.php', true)->redirect();
 }
 
 $title = _("Permissions Administration");

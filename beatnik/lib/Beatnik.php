@@ -25,18 +25,18 @@ class Beatnik {
         $beatnikImgDir = Horde_Themes::img();
         $menu = new Horde_Menu();
 
-        $menu->add(Horde::applicationUrl('listzones.php'), _('List Domains'), 'website.png', $hordeImgDir);
+        $menu->add(Horde::url('listzones.php'), _('List Domains'), 'website.png', $hordeImgDir);
         if (!empty($_SESSION['beatnik']['curdomain'])) {
-            $menu->add(Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png', $hordeImgDir);
+            $menu->add(Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png', $hordeImgDir);
         } else {
-            $menu->add(Horde::applicationUrl('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png', $hordeImgDir);
+            $menu->add(Horde::url('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png', $hordeImgDir);
         }
 
         $url = Horde_Util::addParameter(Horde::selfUrl(true), array('expertmode' => 'toggle'));
         $menu->add($url, _('Expert Mode'), 'hide_panel.png', $hordeImgDir, '', null, ($_SESSION['beatnik']['expertmode']) ? 'current' : '');
 
         if (count(Beatnik::needCommit())) {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('commit.php'), array('domain' => 'all'));
+            $url = Horde_Util::addParameter(Horde::url('commit.php'), array('domain' => 'all'));
             $menu->add($url, _('Commit All'), 'commit-all.png', $beatnikImgDir);
         }
 

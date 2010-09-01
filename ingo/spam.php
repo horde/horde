@@ -43,7 +43,7 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
 
 if (!in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Simple spam filtering is not supported in the current filtering driver."), 'horde.error');
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Get the spam object and rule. */
@@ -54,7 +54,7 @@ $spam_rule = $filters->getRule($spam_id);
 
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->submitbutton == _("Return to Rules List")) {
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Build form. */

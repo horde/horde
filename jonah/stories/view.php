@@ -48,7 +48,7 @@ foreach ($allTags as $tag_id => $taginfo) {
 
 /* Prepare the story's tags for display */
 $tag_html = array();
-$tag_link = Horde_Util::addParameter(Horde::applicationUrl('stories/results.php'), 'channel_id', $channel_id);
+$tag_link = Horde_Util::addParameter(Horde::url('stories/results.php'), 'channel_id', $channel_id);
 foreach ($story['story_tags'] as $id => $tag) {
     $link = Horde_Util::addParameter($tag_link, 'tag_id', $id);
     $tag_html[] = Horde::link($link) . $tag . '</a>';
@@ -77,7 +77,7 @@ $view_template->set('story', $story_template->fetch(JONAH_TEMPLATES . '/stories/
 $view_template->set('cloud', '<div class="tagSelector" ' . $cloud->buildHTML() . '</div>', true);
 /* Insert link for sharing. */
 if ($conf['sharing']['allow']) {
-    $url = Horde::applicationUrl('stories/share.php');
+    $url = Horde::url('stories/share.php');
     $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
     $view_template->set('sharelink', Horde::link($url) . _("Share this story") . '</a>', true);
 } else {

@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Url.
-$url = Horde::applicationUrl('', true);
+$url = Horde::url('', true);
 
 // Name.
 $name = $registry->get('name', 'whups') . ' (' . $url . ')';

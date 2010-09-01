@@ -17,14 +17,14 @@ $auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Core_Ui_Tabs('what', $vars);
-$tabs->addTab(_("Login"), Horde::applicationUrl('login.php'), 'login');
+$tabs->addTab(_("Login"), Horde::url('login.php'), 'login');
 
 if ($conf['signup']['allow'] === true && $auth->hasCapability('add')) {
-    $tabs->addTab(_("Don't have an account? Sign up."), Horde::applicationUrl('account/signup.php'), 'signup');
+    $tabs->addTab(_("Don't have an account? Sign up."), Horde::url('account/signup.php'), 'signup');
 }
 
 if ($auth->hasCapability('resetpassword')) {
-    $tabs->addTab(_("Forgot your password?"), Horde::applicationUrl('account/resetpassword.php'), 'resetpassword');
+    $tabs->addTab(_("Forgot your password?"), Horde::url('account/resetpassword.php'), 'resetpassword');
 }
 
-$tabs->addTab(_("Forgot your username?"), Horde::applicationUrl('account/username.php'), 'username');
+$tabs->addTab(_("Forgot your username?"), Horde::url('account/username.php'), 'username');

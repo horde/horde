@@ -30,7 +30,7 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was removed from your blacklist."), $user), 'horde.success');
-            Horde::applicationUrl('edit/friends/blacklist.php')->redirect();
+            Horde::url('edit/friends/blacklist.php')->redirect();
         }
     } else {
         $result = $friends->addBlacklisted($user);
@@ -38,7 +38,7 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was added to your blacklist."), $user), 'horde.success');
-            Horde::applicationUrl('edit/friends/blacklist.php')->redirect();
+            Horde::url('edit/friends/blacklist.php')->redirect();
         }
     }
 }
@@ -65,11 +65,11 @@ if ($groups instanceof PEAR_Error) {
 
 // Prepare actions
 $actions = array(
-    array('url' => Horde::applicationUrl('edit/friends/blacklist.php'),
+    array('url' => Horde::url('edit/friends/blacklist.php'),
           'img' => Horde::img('delete.png'),
           'id' => 'user',
           'name' => _("Remove")),
-    array('url' => Horde::applicationUrl('user.php'),
+    array('url' => Horde::url('user.php'),
           'img' => Horde::img('user.png'),
           'id' => 'user',
           'name' => _("View profile")));

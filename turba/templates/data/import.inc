@@ -1,4 +1,4 @@
-<form method="post" name="import_form" enctype="multipart/form-data" action="<?php echo Horde::applicationUrl('data.php') ?>">
+<form method="post" name="import_form" enctype="multipart/form-data" action="<?php echo Horde::url('data.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="<?php echo htmlspecialchars($next_step) ?>" />
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />

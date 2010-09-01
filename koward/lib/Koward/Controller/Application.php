@@ -72,7 +72,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
         }
 
         if (!empty($this->koward->conf['koward']['menu']['queries'])) {
-            $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', Horde_Themes::img());
+            $menu->add(Horde::url('Queries'), _("_Queries"), 'query.png', Horde_Themes::img());
         }
         if (!empty($this->koward->conf['koward']['menu']['test'])) {
             $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),

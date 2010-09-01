@@ -32,7 +32,7 @@ class Horde_Block_News_sources extends Horde_Block {
         $sources = $GLOBALS['news']->getSources();
 
         $html = '';
-        $url = Horde::applicationUrl('browse.php');
+        $url = Horde::url('browse.php');
         foreach ($sources as $source_id => $source_name) {
             $html .= '- ' 
                   . Horde::link(Horde_Util::addparameter($url, 'source_id', $source_id), '', '', '_blank')

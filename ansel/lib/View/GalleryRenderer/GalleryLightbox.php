@@ -115,7 +115,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         $pager = new Horde_Core_Ui_Pager('page', $vars, $params);
         Horde::startBuffer();
         /* Create the js variables to pass to the lightbox script */
-        $jsvars = array('graphics_dir' => Horde::applicationUrl(Horde_Themes::img(), true, -1),
+        $jsvars = array('graphics_dir' => Horde::url(Horde_Themes::img(), true, -1),
                         'image_text' => _("Photo"),
                         'of_text' => _("of"),
                         'start_page' => $page);

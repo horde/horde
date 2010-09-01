@@ -120,7 +120,7 @@ class Ansel_View_List extends Ansel_View_Base
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {
                 if ($this->_owner && $filter == $this->_owner && $this->_owner == $GLOBALS['registry']->getAuth()) {
                     $notification->push(_("You have no photo galleries, add one!"), 'horde.message');
-                    Horde::applicationUrl('gallery.php')->add('actionID', 'add')->redirect();
+                    Horde::url('gallery.php')->add('actionID', 'add')->redirect();
                     exit;
                 }
                 $notification->push(_("There are no photo galleries available."), 'horde.message');

@@ -42,11 +42,9 @@ class IMP_Ui_Block
         $html = $onclick = '';
         $newmsgs = array();
 
-        if ($mode == 'imp') {
-            $mbox_url = Horde::applicationUrl('mailbox.php');
-        } else {
-            $mbox_url = Horde::applicationUrl('') . '#folder';
-        }
+        $mbox_url = ($mode == 'imp')
+            ? Horde::url('mailbox.php')
+            : Horde::url('')->setAnchor('folder');
 
         foreach ($poll as $folder) {
             if (isset($status[$folder]) &&

@@ -79,9 +79,9 @@ try {
 }
 
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
-    $self_url = Horde::applicationUrl('feed/' . $calendar, true, -1);
+    $self_url = Horde::url('feed/' . $calendar, true, -1);
 } else {
-    $self_url = Horde::applicationUrl('feed/index.php', true, -1)
+    $self_url = Horde::url('feed/index.php', true, -1)
         ->add('c', $calendar);
 }
 

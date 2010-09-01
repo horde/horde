@@ -18,7 +18,7 @@ class Jeta
         $menu = new Horde_Menu();
 
         /* Jeta Home. */
-        $menu->addArray(array('url' => Horde::applicationUrl('index.php'), 'text' => _("_Shell"), 'icon' => 'jeta.png', 'class' => (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'current' : ''));
+        $menu->addArray(array('url' => Horde::url('index.php'), 'text' => _("_Shell"), 'icon' => 'jeta.png', 'class' => (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'current' : ''));
 
         return $menu;
     }

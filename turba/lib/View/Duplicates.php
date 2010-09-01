@@ -80,8 +80,8 @@ class Turba_View_Duplicates
             $view->value = $this->_duplicate;
             echo $view->render('header');
 
-            $view->contactUrl = Horde::applicationUrl('contact.php');
-            $view->mergeUrl = Horde::applicationUrl('merge.php');
+            $view->contactUrl = Horde::url('contact.php');
+            $view->mergeUrl = Horde::url('merge.php');
             $view->first = true;
             $duplicate = $this->_duplicates[$this->_type][$this->_duplicate];
             while ($contact = $duplicate->next()) {
@@ -113,7 +113,7 @@ class Turba_View_Duplicates
         $view->duplicates = $this->_duplicates;
         $view->hasDuplicate = (bool)$hasDuplicate;
         $view->attributes = $GLOBALS['attributes'];
-        $view->link = Horde::applicationUrl('search.php')
+        $view->link = Horde::url('search.php')
             ->add(array('source' => $this->_driver->getName(),
                         'search_mode' => 'duplicate'));
 

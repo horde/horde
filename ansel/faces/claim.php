@@ -19,7 +19,7 @@ try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    Horde::applicationUrl('faces/search/all.php')->redirect();
+    Horde::url('faces/search/all.php')->redirect();
     exit;
 }
 
@@ -37,7 +37,7 @@ if ($form->validate()) {
         $report = Ansel_Report::factory();
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($face['gallery_id']);
 
-        $face_link = Horde::applicationUrl('faces/custom.php', true)->add(
+        $face_link = Horde::url('faces/custom.php', true)->add(
             array('name' => $vars->get('person'),
                   'face' => $face_id,
                   'image' => $face['image_id']))->setRaw(true);

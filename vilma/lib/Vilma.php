@@ -76,7 +76,7 @@ class Vilma {
      */
     function getUserMgrTabs(&$vars)
     {
-        $url = Horde::applicationUrl('users/index.php');
+        $url = Horde::url('users/index.php');
         $tabs = new Horde_Core_Ui_Tabs('section', $vars);
         foreach (Vilma::getUserMgrTypes() as $section => $desc) {
             $tabs->addTab($desc['plural'], $url, $section);
@@ -170,16 +170,16 @@ class Vilma {
     {
         $menu = new Horde_Menu();
 
-        $menu->add(Horde::applicationUrl('domains/index.php'), _("_Domains"), 'domain.png');
+        $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
 
         if (Vilma::getCurDomain()) {
             $domain = $_SESSION['vilma']['domain'];
-            $url = Horde::applicationUrl('users/index.php');
+            $url = Horde::url('users/index.php');
             $tmp = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-            $menu->add(Horde::applicationUrl($tmp), _($domain['domain_name']), 'domain.png');
-            $menu->add(Horde::applicationUrl('users/edit.php'), _("New _Address"), 'user.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url($tmp), _($domain['domain_name']), 'domain.png');
+            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png', Horde_Themes::img(null, 'horde'));
         } else {
-            $menu->add(Horde::applicationUrl('domains/edit.php'), _("_New Domain"), 'domain.png');
+            $menu->add(Horde::url('domains/edit.php'), _("_New Domain"), 'domain.png');
         }
 
         if ($returnType == 'object') {

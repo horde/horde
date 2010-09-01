@@ -29,7 +29,7 @@ class Trean_View_BookmarkList {
             $this->bookmarks = $bookmarks;
         }
         $this->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
-        $this->redirectUrl = Horde::applicationUrl('redirect.php');
+        $this->redirectUrl = Horde::url('redirect.php');
 
         $this->sortby = $GLOBALS['prefs']->getValue('sortby');
         $this->sortdir = $GLOBALS['prefs']->getValue('sortdir');
@@ -39,7 +39,7 @@ class Trean_View_BookmarkList {
     function folder($bookmark)
     {
         $folder = $GLOBALS['trean_shares']->getFolder($bookmark->folder);
-        return Horde::link(Horde_Util::addParameter(Horde::applicationUrl('browse.php'), 'f', $bookmark->folder)) . htmlspecialchars($folder->get('name')) . '</a>';
+        return Horde::link(Horde_Util::addParameter(Horde::url('browse.php'), 'f', $bookmark->folder)) . htmlspecialchars($folder->get('name')) . '</a>';
     }
 
     function render()

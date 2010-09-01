@@ -28,10 +28,10 @@ foreach ($users as $user):
 ?>
  <tr>
 <?php if ($remove): ?>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=remove_f&user_name=' . $user), _("Delete")) . Horde::img('delete.png', _("Delete")) ?></a></td>
+  <td width="1%"><?php echo Horde::link(Horde::url('admin/user.php?form=remove_f&user_name=' . $user), _("Delete")) . Horde::img('delete.png', _("Delete")) ?></a></td>
 <?php endif; ?>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=update_f&user_name=' . $user), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=clear_f&user_name=' . $user), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
+  <td width="1%"><?php echo Horde::link(Horde::url('admin/user.php?form=update_f&user_name=' . $user), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
+  <td width="1%"><?php echo Horde::link(Horde::url('admin/user.php?form=clear_f&user_name=' . $user), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
   <td class="leftAlign"><?php echo $user ?></td>
  </tr>
 <?php endforeach; ?>

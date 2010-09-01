@@ -199,7 +199,7 @@ class Ansel_View_Results extends Ansel_View_Base
 
         /* Check for empty tag search and redirect if empty */
         if ($this->_search->tagCount() < 1) {
-            Horde::applicationUrl('browse.php', true)->redirect();
+            Horde::url('browse.php', true)->redirect();
             exit;
         }
     }
@@ -253,7 +253,7 @@ class Ansel_View_Results extends Ansel_View_Base
         }
         $styleDef = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         $style = $styleDef['name'];
-        $viewurl = Horde::applicationUrl('view.php')->add(array('view' => 'Results',
+        $viewurl = Horde::url('view.php')->add(array('view' => 'Results',
                                                                 'actionID' => 'add'));
 
         $vars = Horde_Variables::getDefaultVariables();

@@ -9,7 +9,7 @@
             <td class="uheader">Recording ID</td>
         </tr>
         <?php
-            $url = Horde::applicationUrl("recordings.php");
+            $url = Horde::url("recordings.php");
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($recordings as $info) {
                 ?>

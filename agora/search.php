@@ -40,7 +40,7 @@ if ($form->isSubmitted() || $thread_page != null) {
     $searchResults = $messages->search($info, $sort_by, $sort_dir, $thread_start, $thread_per_page);
     if ($searchResults instanceof PEAR_Error) {
         $notification->push($searchResults->getMessage(), 'horde.error');
-        Horde::applicationUrl('search.php')->redirect();
+        Horde::url('search.php')->redirect();
     }
 
     if ($searchResults['total'] > count($searchResults['results'])) {

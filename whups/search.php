@@ -130,7 +130,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
             }
         }
         $_SESSION['whups']['query'] = serialize($whups_query);
-        Horde::applicationUrl('query/index.php', true)
+        Horde::url('query/index.php', true)
             ->add('action', 'save')
             ->redirect();
     }
@@ -140,7 +140,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
     } else {
         Whups::sortTickets($tickets);
 
-        $_SESSION['whups']['last_search'] = Horde::applicationUrl('search.php?' . _getSearchUrl($vars));
+        $_SESSION['whups']['last_search'] = Horde::url('search.php?' . _getSearchUrl($vars));
         $results = Whups_View::factory(
             'Results',
             array('title' => _("Search Results"),

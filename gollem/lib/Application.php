@@ -212,7 +212,7 @@ class Gollem_Application extends Horde_Registry_Application
         // TODO
         return;
 
-        $login_url = Horde::applicationUrl('login.php');
+        $login_url = Horde::url('login.php');
 
         foreach ($GLOBALS['gollem_backends'] as $key => $val) {
             if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {

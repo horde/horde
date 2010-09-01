@@ -25,7 +25,7 @@ class Horde_Block_jonah_cloud extends Horde_Block {
             'results_url' => array(
                 'name' => _("Results URL"),
                 'type' => 'text',
-                'default' => Horde::applicationUrl('stories/results.php?tag_id=@id@')));
+                'default' => Horde::url('stories/results.php?tag_id=@id@')));
     }
 
     function _title()

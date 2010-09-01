@@ -43,7 +43,7 @@ if (empty($folderId) && $registry->getAuth()) {
     /* Make sure user has permission to view this folder. */
     if (!$folder->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
         $notification->push(_("You do not have permission to view this folder."), 'horde.error');
-        Horde::applicationUrl('browse.php', true)->redirect();
+        Horde::url('browse.php', true)->redirect();
     }
 }
 

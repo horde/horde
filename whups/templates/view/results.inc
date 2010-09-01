@@ -84,7 +84,7 @@ function doResort(column, sortDown)
 <table width="100%" cellspacing="0">
  <tr>
   <td class="smallheader nowrap">
-    <form action="<?php echo Horde::downloadUrl('report.html', null, Horde::applicationUrl('data.php')) ?>" method="post" name="datagen">
+    <form action="<?php echo Horde::downloadUrl('report.html', null, Horde::url('data.php')) ?>" method="post" name="datagen">
       <?php Horde_Util::pformInput() ?>
       <input type="hidden" name="ids" value="<?php echo implode(',', $ids) ?>" />
       <?php echo _("Download these results as: ") ?>

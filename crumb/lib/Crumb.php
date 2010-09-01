@@ -20,8 +20,8 @@ class Crumb {
         global $conf, $registry, $browser, $print_link;
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('listclients.php'), _("List Clients"), 'user.png', Horde_Themes::img(null, 'horde'));
-        $menu->add(Horde::applicationUrl('addclient.php'), _("Add Client"), 'user.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('listclients.php'), _("List Clients"), 'user.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('addclient.php'), _("Add Client"), 'user.png', Horde_Themes::img(null, 'horde'));
 
         return $menu;
     }

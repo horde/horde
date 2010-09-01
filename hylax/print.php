@@ -19,4 +19,4 @@ if (is_a($print, 'PEAR_Error')) {
 }
 
 /* Redirect back. */
-Horde::applicationUrl($url, true)->redirect();
+Horde::url($url, true)->redirect();

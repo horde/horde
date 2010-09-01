@@ -14,7 +14,7 @@ Horde_Registry::appInit('whups');
 $ticket = Whups::getCurrentTicket();
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
 
@@ -29,6 +29,6 @@ if (is_a($result, 'PEAR_Error')) {
 if ($url = Horde_Util::getFormData('url')) {
     header('Location: ' . $url);
 } else {
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }

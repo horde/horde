@@ -20,7 +20,7 @@ $url = Horde_Util::getFormData('url');
 $page = Horde_Util::getFormData('page', 0);
 
 $back_url = empty($url)
-    ? Horde::applicationUrl('faces/gallery.php')->add(
+    ? Horde::url('faces/gallery.php')->add(
             array('gallery' => $gallery_id,
                   'page' => $page))->setRaw(true)
     : new Horde_Url($url);

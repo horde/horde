@@ -30,10 +30,10 @@ if (!$GLOBALS['registry']->getAuth()) {
     exit;
 }
 
-$edit_url_base = Horde::applicationUrl('tasklists/edit.php');
+$edit_url_base = Horde::url('tasklists/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag');
-$delete_url_base = Horde::applicationUrl('tasklists/delete.php');
-$display_url_base = Horde::applicationUrl('list.php', true, -1);
+$delete_url_base = Horde::url('tasklists/delete.php');
+$display_url_base = Horde::url('list.php', true, -1);
 $subscribe_url_base = $registry->get('webroot', 'horde');
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
     $subscribe_url_base .= '/rpc/nag/';

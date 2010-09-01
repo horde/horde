@@ -70,7 +70,7 @@ default:
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
-<link href="<?php echo Horde::applicationUrl('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
+<link href="<?php echo Horde::url('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
 <?php endif; ?>
 <?php if ($first_url = Horde_Util::nonInputVar('first_url')): ?>
 <link href="<?php echo $first_url ?>" rel="First" />
@@ -88,7 +88,7 @@ default:
 <link rel="alternate" type="application/rss+xml" href="<?php echo $rss_url ?>" />
 <?php endif; ?>
 <?php if (!Horde_Util::nonInputVar('login_page')): ?>
-<link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
+<link href="<?php echo Horde::url('search.php') ?>" rel="search" />
 <?php endif ?>
 </head>
 

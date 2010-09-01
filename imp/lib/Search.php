@@ -762,7 +762,7 @@ class IMP_Search
      */
     public function editUrl($id = null)
     {
-        return Horde::applicationUrl('search.php')->add(array('edit_query' => $this->createSearchID($this->_strip($id))));
+        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchID($this->_strip($id))));
     }
 
     /**
@@ -775,7 +775,7 @@ class IMP_Search
      */
     public function deleteUrl($id = null)
     {
-        return Horde::applicationUrl('folders.php')->add(array(
+        return Horde::url('folders.php')->add(array(
             'actionID' => 'delete_search_query',
             'folders_token' => Horde::getRequestToken('imp.folders'),
             'queryid' => $this->createSearchID($this->_strip($id))

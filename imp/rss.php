@@ -72,7 +72,7 @@ if (count($ids)) {
             'title' => $imp_ui->getSubject($ob['envelope']['subject']),
             'pubDate' => date('r', strtotime($ob['envelope']['date'])),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
-            'url' => Horde::applicationURL(IMP::generateIMPUrl('message.php', $mailbox, $ob['uid'], $mailbox), true, -1),
+            'url' => Horde::url(IMP::generateIMPUrl('message.php', $mailbox, $ob['uid'], $mailbox), true, -1),
             'fromAddr' => $from_addr['fullfrom'],
             'toAddr' => Horde_Mime_Address::addrArray2String(isset($ob['envelope']['to']) ? $ob['envelope']['to'] : array(), array('charset' => $registry->getCharset()))
         ));
@@ -90,7 +90,7 @@ $t->set('pubDate', htmlspecialchars(date('r')));
 $t->set('desc', htmlspecialchars($description));
 $t->set('title', htmlspecialchars($registry->get('name') . ' - ' . IMP::getLabel($mailbox)));
 $t->set('items', $items, true);
-$t->set('url', htmlspecialchars(Horde::applicationURL(IMP::generateIMPUrl('message.php', $mailbox), true, -1)));
-$t->set('rss_url', htmlspecialchars(Horde::applicationUrl('rss.php', true, -1)));
+$t->set('url', htmlspecialchars(Horde::url(IMP::generateIMPUrl('message.php', $mailbox), true, -1)));
+$t->set('rss_url', htmlspecialchars(Horde::url('rss.php', true, -1)));
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
 echo $t->fetch(IMP_TEMPLATES . '/rss/mailbox.rss');

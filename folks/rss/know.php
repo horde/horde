@@ -60,6 +60,6 @@ $users = array_keys($users);
 
 $title = _("People you might know");
 $link = Folks::getUrlFor('list', 'online', true);
-$rss_link = Horde::applicationUrl('rss/friends.php', true);
+$rss_link = Horde::url('rss/friends.php', true);
 
 require FOLKS_TEMPLATES . '/feed/feed.php';

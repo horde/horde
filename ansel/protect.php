@@ -16,7 +16,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($vars->get('gallery'));
 } catch (Ansel_Exception $e) {
     $notification->push($e->getMessage());
-    Horde::applicationUrl('list.php')->redirect();
+    Horde::url('list.php')->redirect();
     exit;
 }
 $form = new Horde_Form($vars, _("This gallery is protected by a password. Please enter it below."));
@@ -32,7 +32,7 @@ if ($form->validate()) {
         $_SESSION['ansel']['passwd'][$gallery->id] = md5($vars->get('passwd'));
         $url = $vars->get('url');
         if (empty($url)) {
-            $url = Horde::applicationUrl('view.php')->add('gallery', $gallery->id);
+            $url = Horde::url('view.php')->add('gallery', $gallery->id);
         }
         $url->redirect();
         exit;

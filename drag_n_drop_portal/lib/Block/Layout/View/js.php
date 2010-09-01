@@ -22,10 +22,10 @@ class Horde_Block_Layout_View_Js extends Horde_Block_Layout_View {
         $html = '<div id="page">';
         $js = '<script type="text/javascript">' . "\n";
         $js .= 'var confirm_remove = "' . _("Are sure to remove this block?") . '";' . "\n";
-        $js .= 'var edit_url = "' . Horde::applicationUrl('dragdrop/params.php') . '";' . "\n";
-        $js .= 'var load_url = "' . Horde::applicationUrl('dragdrop/block.php') . '";' . "\n";
-        $js .= 'var list_url = "' . Horde::applicationUrl('dragdrop/select.php') . '";' . "\n";
-        $js .= 'var save_url = "' . Horde::applicationUrl('dragdrop/save.php') . '";' . "\n";
+        $js .= 'var edit_url = "' . Horde::url('dragdrop/params.php') . '";' . "\n";
+        $js .= 'var load_url = "' . Horde::url('dragdrop/block.php') . '";' . "\n";
+        $js .= 'var list_url = "' . Horde::url('dragdrop/select.php') . '";' . "\n";
+        $js .= 'var save_url = "' . Horde::url('dragdrop/save.php') . '";' . "\n";
 
         $js_init = '<script type="text/javascript">'
                 . ' function init() {'

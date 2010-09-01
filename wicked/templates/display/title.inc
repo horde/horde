@@ -8,7 +8,7 @@ if (!is_a($v, 'PEAR_Error')) {
 
 $v = $this->version();
 if (!is_a($v, 'PEAR_Error') && $this->allows(WICKED_MODE_DIFF)) {
-    $diff_url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'),
+    $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
                                    array('page' => $this->pageName(),
                                          'v1' => '?',
                                          'v2' => $v));

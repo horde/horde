@@ -123,7 +123,7 @@ if ($driver) {
             $vname = Horde_Util::getFormData('vbook_name');
             if (empty($vname)) {
                 $notification->push(_("You must provide a name for virtual address books."), 'horde.error');
-                Horde::applicationUrl('search.php', true)->redirect();
+                Horde::url('search.php', true)->redirect();
             }
 
             /* Create the vbook. */
@@ -141,12 +141,12 @@ if ($driver) {
                 $vid = $share->getName();
             } catch (Horde_Share_Exception $e) {
                 $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $e->getMessage()), 'horde.error');
-                Horde::applicationUrl('search.php', true)->redirect();
+                Horde::url('search.php', true)->redirect();
             }
 
             $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
 
-            Horde::applicationUrl('browse.php', true)
+            Horde::url('browse.php', true)
                 ->add('source', $vid)
                 ->redirect();
         }
@@ -200,7 +200,7 @@ foreach ($addressBooks as $key => $entry) {
 }
 
 /* Build search mode tabs. */
-$sUrl = Horde::applicationUrl('search.php');
+$sUrl = Horde::url('search.php');
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Core_Ui_Tabs('search_mode', $vars);
 $tabs->addTab(_("Basic Search"), $sUrl, 'basic');

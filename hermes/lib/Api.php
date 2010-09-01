@@ -175,7 +175,7 @@ class Hermes_Api extends Horde_Registry_Api
 
                 // Set up edit/delete icons.
                 if (Hermes::canEditTimeslice($vals['id'])) {
-                    $edit_link = Horde::applicationUrl('entry.php', true);
+                    $edit_link = Horde::url('entry.php', true);
                     $edit_link = Horde_Util::addParameter($edit_link, 'id', $vals['id']);
                     $edit_link = Horde_Util::addParameter($edit_link, 'url', Horde::selfUrl(true, true, true));
 

@@ -15,7 +15,7 @@ $registry = new Horde_Registry();
 $registry->pushApp('wicked');
 
 // Url.
-$url = Horde::applicationUrl('', true);
+$url = Horde::url('', true);
 
 // Name.
 $name = $registry->get('name', 'wicked') . ' (' . $url . ')';

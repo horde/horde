@@ -68,7 +68,7 @@ function copySelected()
 function editDates()
 {
     var haveImages = false;
-    var imageDateUrl = '<?php echo Horde::applicationUrl('edit_dates.php')->add(array('gallery' => $this->galleryId)) ?>';
+    var imageDateUrl = '<?php echo Horde::url('edit_dates.php')->add(array('gallery' => $this->galleryId)) ?>';
     for (var i = 0; i< document.forms['gallery'].elements.length; ++i) {
        if (document.forms['gallery'].elements[i].checked == true &&
            document.forms['gallery'].elements[i].type == 'checkbox') {
@@ -133,7 +133,7 @@ function downloadSelected()
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
     <?php if (empty($this->view->api) && $option_select && $this->numTiles): ?>
-    <form name="gallery" action="<?php echo Horde::applicationUrl('image.php', true)?>" method="get">
+    <form name="gallery" action="<?php echo Horde::url('image.php', true)?>" method="get">
     <?php echo Horde_Util::formInput() ?>
     <input type="hidden" name="actionID" value="" />
     <input type="hidden" name="gallery" value="<?php echo $this->galleryId ?>" />

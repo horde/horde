@@ -181,7 +181,7 @@ class Luxor_Lang_Generic extends Luxor_Lang
             if (!in_array($string, $this->_langmap['reserved']) &&
                 !in_array($match[0][$id], $replaced) && $idx = $index->isSymbol($string, $altsources)) {
 
-                $link = Horde::applicationUrl(Horde_Util::addParameter('symbol.php', 'i', $idx));
+                $link = Horde::url(Horde_Util::addParameter('symbol.php', 'i', $idx));
                 $link = Horde_Util::addParameter($link, 'source', $sourceid);
                 $match0 = str_replace($string, '<a href="' . $link . '" class="fixed"><span class="symbol">' . $string . "</span></a>", $match[0][$id]);
                 $code = str_replace($match[0][$id], $match0, $code);

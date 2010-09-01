@@ -88,7 +88,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         echo '<tbody>';
 
         if ($addLinks) {
-            $newEventUrl = Horde::applicationUrl('new.php')
+            $newEventUrl = Horde::url('new.php')
                 ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                   $this->slots[0]['hour'], $this->slots[0]['min']),
                             'allday' => 1,
@@ -256,7 +256,7 @@ class Kronolith_View_Day extends Kronolith_Day {
             }
 
             if ($addLinks) {
-                $newEventUrl = Horde::applicationUrl('new.php')
+                $newEventUrl = Horde::url('new.php')
                     ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                       $this->slots[$i]['hour'], $this->slots[$i]['min']),
                                 'url' => $this->link(0, true)))
@@ -456,7 +456,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
     function link($offset = 0, $full = false)
     {
-        return Horde::applicationUrl('day.php', $full)
+        return Horde::url('day.php', $full)
             ->add('date', $this->getTime('%Y%m%d', $offset));
     }
 

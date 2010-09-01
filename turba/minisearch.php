@@ -66,7 +66,7 @@ if (count($results)) {
             $mail_link = 'mailto:' . urlencode($contact['email']);
         }
 
-        echo Horde::link(Horde::applicationUrl($contact['url']),
+        echo Horde::link(Horde::url($contact['url']),
                         _("View Contact"), '', '_parent')
             . Horde::img('contact.png', _("View Contact")) . '</a> '
             . '<a href="' . $mail_link . '">'

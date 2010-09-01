@@ -6,7 +6,7 @@
             <td class="uheader">Menu Name</td>
         </tr>
         <?php
-            $url = Horde::applicationUrl("admin/numbers.php");
+            $url = Horde::url("admin/numbers.php");
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($numbers as $numberinfo) {

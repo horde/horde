@@ -132,7 +132,7 @@ window.onload = function() {
 
 //-->
 </script>
-<form method="post" name="contacts" onsubmit="passAddresses();" action="<?php echo Horde::applicationUrl('contacts.php')->unique() ?>">
+<form method="post" name="contacts" onsubmit="passAddresses();" action="<?php echo Horde::url('contacts.php')->unique() ?>">
 <input type="hidden" name="sa" />
 <?php Horde_Util::pformInput() ?>
 

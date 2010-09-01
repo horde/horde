@@ -32,11 +32,11 @@ class IMP_Ui_Mimp
         }
 
         if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
-            $items[] = array(_("New Message"), Horde::applicationUrl('compose-mimp.php')->unique());
+            $items[] = array(_("New Message"), Horde::url('compose-mimp.php')->unique());
         }
 
         if (!in_array($page, array('folders', 'search'))) {
-            $items[] = array(_("Folders"), Horde::applicationUrl('folders-mimp.php'));
+            $items[] = array(_("Folders"), Horde::url('folders-mimp.php'));
         }
 
         $items[] = array(_("Log out"), Horde::getServiceLink('logout', 'imp'));

@@ -62,7 +62,7 @@ class News_View extends Horde_View {
         }
 
         $html = '';
-        $search = Horde::applicationUrl('search.php');
+        $search = Horde::url('search.php');
         foreach (explode(' ', $tags) as $tag) {
             $html .= '<a href="'
                     . Horde_Util::addParameter($search, array('word' => $tag))

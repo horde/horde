@@ -28,7 +28,7 @@ if ($addform->validate($vars)) {
 print_r($addform->getInfo());
 }
 
-$url = Horde::applicationUrl('addclient.php');
+$url = Horde::url('addclient.php');
 $title = _("Add New Client");
 
 require CRUMB_TEMPLATES . '/common-header.inc';

@@ -12,14 +12,14 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/EditResource.php';
 
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -27,11 +27,11 @@ try {
     $resource = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
     if (!$resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to change this resource."), 'horde.error');
-        Horde::applicationUrl('resources/', true)->redirect();
+        Horde::url('resources/', true)->redirect();
     }
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl('resources/', true)->redirect();
+    Horde::url('resources/', true)->redirect();
 }
 $form = new Kronolith_EditResourceForm($vars, $resource);
 
@@ -49,7 +49,7 @@ if ($form->validate($vars)) {
         $notification->push($e, 'horde.error');
     }
 
-    Horde::applicationUrl('resources/', true)->redirect();
+    Horde::url('resources/', true)->redirect();
 }
 
 $vars->set('name', $resource->get('name'));

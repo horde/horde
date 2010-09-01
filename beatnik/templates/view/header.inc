@@ -7,7 +7,7 @@
  */
 
 if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
-    $commit = Horde_Util::addParameter(Horde::applicationUrl('commit.php'), array('domain' => 'current'));
+    $commit = Horde_Util::addParameter(Horde::url('commit.php'), array('domain' => 'current'));
     echo Horde::link($commit, _('Commit Changes'), 'button') . _('Commit Changes') . '</a><br /><br />';
 }
 ?>

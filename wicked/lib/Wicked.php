@@ -83,7 +83,7 @@ class Wicked {
             $script = Horde_Util::addParameter('display.php', 'page', $page);
         }
 
-        return Horde::applicationUrl($script, $full, $append_session);
+        return Horde::url($script, $full, $append_session);
     }
 
     /**

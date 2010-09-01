@@ -17,7 +17,7 @@ $v2 = Horde_Util::getFormData('v2');
 /* Bail out if we didn't get any versions - at least one of these has
  * to be non-empty. */
 if (!$v1 && !$v2) {
-    Horde::applicationUrl('history.php', true)
+    Horde::url('history.php', true)
         ->add('page', Horde_Util::getFormData('page'))
         ->redirect();
 }

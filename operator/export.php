@@ -59,7 +59,7 @@ $title = _("Export Call Detail Records");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
-$form->renderActive($renderer, $vars, Horde::applicationUrl('export.php'), 'post');;
+$form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');;
 
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

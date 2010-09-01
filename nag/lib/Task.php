@@ -511,8 +511,8 @@ class Nag_Task {
         }
 
         if (!isset($view_url_list[$this->tasklist])) {
-            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::applicationUrl('view.php'), 'tasklist', $this->tasklist);
-            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::applicationUrl('task.php'), 'tasklist', $this->tasklist);
+            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('view.php'), 'tasklist', $this->tasklist);
+            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('task.php'), 'tasklist', $this->tasklist);
         }
 
         /* Obscure private tasks. */

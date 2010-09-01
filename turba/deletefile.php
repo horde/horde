@@ -20,7 +20,7 @@ if ($conf['documents']['type'] == 'none') {
 $source = Horde_Util::getPost('source');
 if ($source === null || !isset($cfgSources[$source])) {
     $notification->push(_("Not found"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
@@ -29,12 +29,12 @@ try {
     $contact = $driver->getObject(Horde_Util::getPost('key'));
 } catch (Turba_Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 if (!$contact->isEditable()) {
     $notification->push(_("Permission denied"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $file = Horde_Util::getPost('file');

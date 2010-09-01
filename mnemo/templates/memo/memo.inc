@@ -8,7 +8,7 @@ if ($memo_id):
 
     $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
- <span class="rightFloat"><input type="button" class="button" value="<?php echo _("Delete this note") ?>" onclick="window.location='<?php echo addslashes(Horde::applicationUrl(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos'))) ?>';" /></span>
+ <span class="rightFloat"><input type="button" class="button" value="<?php echo _("Delete this note") ?>" onclick="window.location='<?php echo addslashes(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos'))) ?>';" /></span>
 <?php endif; endif; ?>
 
 <?php if ($actionID == 'modify_memo' && $show_passphrase): ?>

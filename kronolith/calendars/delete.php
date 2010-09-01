@@ -15,30 +15,30 @@ require_once KRONOLITH_BASE . '/lib/Forms/DeleteCalendar.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
 if ($calendar_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
-    Horde::applicationUrl('calendars/', true)->redirect();
+    Horde::url('calendars/', true)->redirect();
 }
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $calendar_id)->redirect();
+    Horde::url('', true)->setAnchor('calendar:internal|' . $calendar_id)->redirect();
 }
 
 try {
     $calendar = $kronolith_shares->getShare($calendar_id);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl('calendars/', true)->redirect();
+    Horde::url('calendars/', true)->redirect();
 }
 if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
-    Horde::applicationUrl('calendars/', true)->redirect();
+    Horde::url('calendars/', true)->redirect();
 }
 $form = new Kronolith_DeleteCalendarForm($vars, $calendar);
 
@@ -50,7 +50,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    Horde::applicationUrl('calendars/', true)->redirect();
+    Horde::url('calendars/', true)->redirect();
 }
 
 $title = $form->getTitle();

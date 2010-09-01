@@ -282,7 +282,7 @@ case 'resizeedit':
                                            'page' => $page),
                                      $date),
                                      true);
-    $imageurl = Horde::applicationUrl('image.php')->add(
+    $imageurl = Horde::url('image.php')->add(
             array_merge(
                     array('gallery' => $gallery_id,
                           'slug' => $gallery->get('slug'),
@@ -368,7 +368,7 @@ case 'watermark':
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
         $image->updateData($image->raw('screen'), 'screen');
-        Horde::applicationUrl('image.php', true)->add(
+        Horde::url('image.php', true)->add(
                 array_merge(
                        array('gallery' => $gallery_id,
                              'image' => $image_id,
@@ -443,7 +443,7 @@ case 'resize':
         }
     }
 
-    Horde::applicationUrl('image.php', true)->add(
+    Horde::url('image.php', true)->add(
             array_merge(
                     array('gallery' => $gallery_id,
                           'image' => $image_id,
@@ -473,7 +473,7 @@ case 'setwatermark':
     exit;
 
 case 'previewcustomwatermark':
-    $imageurl = Horde::applicationUrl('image.php', true)->add(
+    $imageurl = Horde::url('image.php', true)->add(
             array_merge(
                array('gallery' => $gallery_id,
                      'image' => $image_id,
@@ -687,7 +687,7 @@ case 'downloadzip':
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
             $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
-            Horde::applicationUrl('view.php?view=List', true)->redirect();
+            Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
     }

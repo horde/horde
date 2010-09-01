@@ -6,7 +6,7 @@
 <td>
 
 <h1 class="header">
-<span style="float: right"><a href="<?php echo Horde::applicationUrl('edit/friends/index.php') ?>"><?php echo _("Edit friends") ?></a></span>
+<span style="float: right"><a href="<?php echo Horde::url('edit/friends/index.php') ?>"><?php echo _("Edit friends") ?></a></span>
 <?php echo _("Friends activities") ?></h1>
 <?php
 $list = $firendActivities;
@@ -20,10 +20,10 @@ require FOLKS_TEMPLATES . '/block/activities.php';
 <?php
 // Prepare actions
 $actions = array(
-    array('url' => Horde::applicationUrl('edit/friends/add.php'),
+    array('url' => Horde::url('edit/friends/add.php'),
           'id' => 'user',
           'name' => _("Add friend")),
-    array('url' => Horde::applicationUrl('user.php'),
+    array('url' => Horde::url('user.php'),
           'id' => 'user',
           'name' => _("View profile")));
 if ($registry->hasInterface('letter')) {
@@ -42,7 +42,7 @@ require FOLKS_TEMPLATES . '/block/users.php';
 <?php
 // Prepare actions
 $actions = array(
-    array('url' => Horde::applicationUrl('user.php'),
+    array('url' => Horde::url('user.php'),
           'id' => 'user',
           'name' => _("View profile")));
 if ($registry->hasInterface('letter')) {
@@ -58,7 +58,7 @@ require FOLKS_TEMPLATES . '/block/users.php';
 <br />
 
 <h1 class="header">
-<span style="float: right"><a href="<?php echo Horde::applicationUrl('edit/activity.php') ?>"><?php echo _("Edit activities") ?></a></span>
+<span style="float: right"><a href="<?php echo Horde::url('edit/activity.php') ?>"><?php echo _("Edit activities") ?></a></span>
 <?php echo _("Your activities") ?>
 </h1>
 <?php

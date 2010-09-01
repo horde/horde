@@ -13,7 +13,7 @@
             $line = 0;
             foreach ($devices as $devid => $info) {
 
-                $url = Horde::applicationUrl("devices.php");
+                $url = Horde::url("devices.php");
                 $url = Horde_Util::addParameter($url,
                     array(
                         'devid' => $devid,
@@ -40,7 +40,7 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde::applicationUrl('devices.php');
+    $addurl = Horde::url('devices.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
     <li><a class="button" href="<?php echo $addurl; ?>">

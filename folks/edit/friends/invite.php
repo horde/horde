@@ -33,7 +33,7 @@ try {
     $body = Horde::loadConfiguration('invite.php', 'body', 'folks');
     $body = sprintf($body, $registry->get('name', 'horde'),
                             Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true),
-                            Horde::applicationUrl('account/signup.php', true),
+                            Horde::url('account/signup.php', true),
                             $GLOBALS['registry']->getAuth());
 } catch (Horde_Exception $e) {
     $body = $body->getMessage();

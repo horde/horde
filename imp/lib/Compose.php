@@ -2375,7 +2375,7 @@ class IMP_Compose
         }
 
         $auth = $GLOBALS['registry']->getAuth();
-        $baseurl = Horde::applicationUrl('attachment.php', true)->setRaw(true);
+        $baseurl = Horde::url('attachment.php', true)->setRaw(true);
 
         try {
             $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();

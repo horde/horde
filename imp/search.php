@@ -82,7 +82,7 @@ if ($vars->criteria_form) {
         exit;
     }
 
-    Horde::applicationUrl('mailbox.php', true)->add('mailbox', $id)->redirect();
+    Horde::url('mailbox.php', true)->add('mailbox', $id)->redirect();
 }
 
 /* Generate master folder list. */
@@ -110,7 +110,7 @@ $js_load[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(arr
 /* Prepare the search template. */
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
-$t->set('action', Horde::applicationUrl('search.php'));
+$t->set('action', Horde::url('search.php'));
 $t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
 
 /* Determine if we are editing a current search folder. */
@@ -118,7 +118,7 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     if ($imp_search->isVFolder($vars->edit_query)) {
         if (!$imp_search->isEditableVFolder($vars->edit_query)) {
             $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
-            Horde::applicationUrl('mailbox.php', true)->redirect();
+            Horde::url('mailbox.php', true)->redirect();
         }
         $t->set('edit_query_vfolder', htmlspecialchars($vars->edit_query));
     }

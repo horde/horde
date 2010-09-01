@@ -308,15 +308,15 @@ class IMP
         if ($simplejs || ($view == 'dimp')) {
             $args['popup'] = 1;
 
-            $url = Horde::applicationUrl(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
+            $url = Horde::url(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
             $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif (($view != 'mimp') &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = Horde::applicationUrl('compose.php')->add($args);
+            $url = Horde::url('compose.php')->add($args);
             $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
-            $url = Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+            $url = Horde::url(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
         }
 
         return $url;
@@ -438,8 +438,8 @@ class IMP
     {
         global $conf, $prefs, $registry;
 
-        $menu_search_url = Horde::applicationUrl('search.php');
-        $menu_mailbox_url = Horde::applicationUrl('mailbox.php');
+        $menu_search_url = Horde::url('search.php');
+        $menu_mailbox_url = Horde::url('mailbox.php');
 
         $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
 
@@ -479,7 +479,7 @@ class IMP
         }
 
         if ($conf['user']['allow_folders']) {
-            $menu->add(Horde::applicationUrl('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
+            $menu->add(Horde::url('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
@@ -487,7 +487,7 @@ class IMP
         }
 
         if ($prefs->getValue('filter_menuitem')) {
-            $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
+            $menu->add(Horde::url('filterprefs.php'), _("Fi_lters"), 'filters.png');
         }
 
         return $menu;
@@ -691,7 +691,7 @@ class IMP
     {
         $url = ($page instanceof Horde_Url)
             ? clone $page
-            : Horde::applicationUrl($page);
+            : Horde::url($page);
 
         return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
     }

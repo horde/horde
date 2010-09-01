@@ -191,36 +191,36 @@ class Babel {
 
         $menu = new Horde_Menu();
 
-        $menu->addArray(array('url' => Horde::applicationUrl('index.php'),
+        $menu->addArray(array('url' => Horde::url('index.php'),
             'text' => _("_General"),
             'icon' => 'list.png'));
 
         if (Babel::hasPermission('view')) {
-            $menu->addArray(array('url' => Horde::applicationUrl('view.php'),
+            $menu->addArray(array('url' => Horde::url('view.php'),
                 'text' => _("_View"),
                 'icon' => 'view.png'));
         }
 
         if (Babel::hasPermission('stats')) {
-            $menu->addArray(array('url' => Horde::applicationUrl('stats.php'),
+            $menu->addArray(array('url' => Horde::url('stats.php'),
                 'text' => _("_Stats"),
                 'icon' => 'extract.png'));
         }
 
         if (Babel::hasPermission('extract')) {
-            $menu->addArray(array('url' => Horde::applicationUrl('extract.php'),
+            $menu->addArray(array('url' => Horde::url('extract.php'),
                 'text' => _("_Extract"),
                 'icon' => 'extract.png'));
         }
 
         if (Babel::hasPermission('make')) {
-            $menu->addArray(array('url' => Horde::applicationUrl('make.php'),
+            $menu->addArray(array('url' => Horde::url('make.php'),
                 'text' => _("_Make"),
                 'icon' => 'make.png'));
         }
 
         if (Babel::hasPermission('upload')) {
-            $menu->addArray(array('url' => Horde::applicationUrl('upload.php'),
+            $menu->addArray(array('url' => Horde::url('upload.php'),
                 'text' => _("_Upload"),
                 'icon' => 'upload.png'));
         }

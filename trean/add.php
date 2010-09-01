@@ -25,7 +25,7 @@ case 'add_bookmark':
             $message = Horde::callHook('_perms_hook_denied', array('trean:max_bookmarks'), 'horde', $message);
         }
         $notification->push($message, 'horde.error', array('content.raw'));
-        Horde::applicationUrl('browse.php', true)->redirect();
+        Horde::url('browse.php', true)->redirect();
     }
 
     $folderId = Horde_Util::getFormData('f');
@@ -66,7 +66,7 @@ case 'add_bookmark':
             require TREAN_TEMPLATES . '/common-header.inc';
             $notification->notify();
         } else {
-            Horde::applicationUrl('browse.php', true)
+            Horde::url('browse.php', true)
                 ->add('f', $folderId)
                 ->redirect();
         }
@@ -88,7 +88,7 @@ case 'add_folder':
             $message = Horde::callHook('_perms_hook_denied', array('trean:max_folders'), 'horde', $message);
         }
         $notification->push($message, 'horde.error', array('content.raw'));
-        Horde::applicationUrl('browse.php', true)
+        Horde::url('browse.php', true)
             ->add('f', $parent_id)
             ->redirect();
     }
@@ -102,7 +102,7 @@ case 'add_folder':
     if (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error adding the folder: %s"), $result->getMessage()), 'horde.error');
     } else {
-        Horde::applicationUrl('browse.php', true)
+        Horde::url('browse.php', true)
             ->add('f', $result)
             ->redirect();
     }

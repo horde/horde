@@ -1,4 +1,4 @@
-<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("contacts.csv"), null, Horde::applicationUrl('data.php')) ?>">
+<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("contacts.csv"), null, Horde::url('data.php')) ?>">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="export" />
 

@@ -62,8 +62,8 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Core_Ajax_Imple
         case 'untag':
             $image->geotag('', '', '');
             // Now get the "add geotag" stuff
-            $addurl = Horde::applicationUrl('map_edit.php')->add('image', $img);
-            $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
+            $addurl = Horde::url('map_edit.php')->add('image', $img);
+            $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::url('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
             $imgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';

@@ -319,7 +319,7 @@ class Nag_Application extends Horde_Registry_Application
                 $title = ($differential >= 60)
                     ? sprintf(_("%s is due in %s"), $task->name, Nag::secondsToString($differential))
                     : sprintf(_("%s is due now."), $task->name);
-                $url = Horde::applicationUrl('view.php')->add(array(
+                $url = Horde::url('view.php')->add(array(
                     'task' => $task->id,
                     'tasklist' => $task->tasklist
                 ));
@@ -366,7 +366,7 @@ class Nag_Application extends Horde_Registry_Application
             break;
 
         case 'menu':
-            $add = Horde::applicationUrl('task.php')->add('actionID', 'add_task');
+            $add = Horde::url('task.php')->add('actionID', 'add_task');
 
             $tree->addNode(
                 $parent . '__new',
@@ -408,7 +408,7 @@ class Nag_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => Horde_Themes::img('search.png'),
-                    'url' => Horde::applicationUrl('search.php')
+                    'url' => Horde::url('search.php')
                 )
             );
             break;

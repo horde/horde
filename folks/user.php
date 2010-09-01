@@ -54,7 +54,7 @@ if ($user == $GLOBALS['registry']->getAuth()) {
             $notification->push($result);
         } else {
             $notification->push(_("Activity successfully posted"), 'horde.success');
-            Horde::applicationUrl('user.php')->redirect();
+            Horde::url('user.php')->redirect();
         }
     }
 }

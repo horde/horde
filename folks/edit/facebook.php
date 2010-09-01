@@ -20,7 +20,7 @@ $title = _("Facebook");
 // Check FB installation
 if (!$conf['facebook']['enabled']) {
     $notification->push(sprintf(_("Could not find authorization for %s to interact with your Facebook account."), $GLOBALS['registry']->get('name', 'horde')));
-    Horde::applicationUrl('user.php')->redirect();
+    Horde::url('user.php')->redirect();
 }
 
 // Load horde central block
@@ -28,7 +28,7 @@ try {
     $block = $registry->call('horde/blockContent', array('horde', 'fb_summary'));
 } catch (Horde_Exception $e) {
     $notification->push($e);
-    Horde::applicationUrl('user.php')->redirect();
+    Horde::url('user.php')->redirect();
 }
 
 require FOLKS_TEMPLATES . '/common-header.inc';

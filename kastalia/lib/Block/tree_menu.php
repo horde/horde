@@ -29,7 +29,7 @@ class Horde_Block_kastalia_tree_menu extends Horde_Block {
             false,
             array(
                 'icon' => strval(Horde_Themes::img('menu/upload.png')),
-                'url' => Horde::applicationUrl('upload_menu.php')
+                'url' => Horde::url('upload_menu.php')
             )
         );
     }

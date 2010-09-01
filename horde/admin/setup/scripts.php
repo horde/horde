@@ -33,7 +33,7 @@ if ($clean == 'tmp') {
         $notification->push(sprintf(_("Could not delete setup upgrade script \"%s\"."), Horde_Util::realPath($path)), 'horde.error');
     }
     $registry->clearCache();
-    Horde::applicationUrl('admin/setup/index.php', true)->redirect();
+    Horde::url('admin/setup/index.php', true)->redirect();
 }
 
 $data = '';
@@ -95,4 +95,4 @@ if ($fp = @fopen($tmp_dir . '/' . $filename, 'w')) {
     $notification->push(sprintf(_("Could not save setup upgrade script to: \"%s\"."), $path), 'horde.error');
 }
 
-Horde::applicationUrl('admin/setup/index.php', true)->redirect();
+Horde::url('admin/setup/index.php', true)->redirect();

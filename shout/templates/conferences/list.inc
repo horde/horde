@@ -11,7 +11,7 @@
             <td class="uheader">Options</td>
         </tr>
         <?php
-            $url = Horde::applicationUrl("conferences.php");
+            $url = Horde::url("conferences.php");
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($conferences as $roomno => $info) {
@@ -42,7 +42,7 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde::applicationUrl('conferences.php');
+    $addurl = Horde::url('conferences.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
     <li><a class="button" href="<?php echo $addurl; ?>">

@@ -358,7 +358,7 @@ class IMP_Auth
             default:
                 $page = 'mailbox.php';
                 if ($url) {
-                    return Horde::applicationUrl($page, true)->add('mailbox', $init_url);
+                    return Horde::url($page, true)->add('mailbox', $init_url);
                 }
                 IMP::setCurrentMailboxInfo($init_url);
                 break;
@@ -366,7 +366,7 @@ class IMP_Auth
         }
 
         return $url
-            ? Horde::applicationUrl($page, true)
+            ? Horde::url($page, true)
             : IMP_BASE . '/' . $page;
     }
 

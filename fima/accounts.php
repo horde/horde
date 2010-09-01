@@ -43,8 +43,8 @@ default:
 }
 
 /* Prepare account folder structure */
-$account_url = Horde::applicationUrl('account.php');;
-$view_url = Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'search_postings');
+$account_url = Horde::url('account.php');;
+$view_url = Horde_Util::addParameter(Horde::url('postings.php'), 'actionID', 'search_postings');
 
 $accounts = array();
 $accounts['root'] = array('account_id' => 'root', 'owner' => $ledger, 'number' => '', 'type' => 'root', 'name' => $share->get('name'), 'desc' => '', 'icon' => 'accounts.png', 'closed' => false, 'expanded' => true, 'parent_id' => null);
@@ -81,7 +81,7 @@ foreach ($accountlist as $accountId => $account) {
 /* Print. */
 $print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view) {
-    $print_link = Horde::applicationUrl(Horde_Util::addParameter('accounts.php', array('print' => 1)));
+    $print_link = Horde::url(Horde_Util::addParameter('accounts.php', array('print' => 1)));
 }
 
 Horde::addScriptFile('tables.js', 'horde');

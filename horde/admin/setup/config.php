@@ -22,7 +22,7 @@ $title = sprintf(_("%s Setup"), $appname);
 
 if (empty($app) || !in_array($app, $registry->listAllApps())) {
     $notification->push(_("Invalid application."), 'horde.error');
-    Horde::applicationUrl('admin/setup/index.php', true)->redirect();
+    Horde::url('admin/setup/index.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -59,7 +59,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
         fclose($fp);
         $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
         $registry->clearCache();
-        Horde::applicationUrl('admin/setup/index.php', true)->redirect();
+        Horde::url('admin/setup/index.php', true)->redirect();
     } else {
         /* Cannot write. */
         $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($path . '/conf.php'), Horde::link(Horde::url('index.php') . '#update', _("Setup")) . _("Setup") . '</a>', Horde_Util::realPath($path . '/conf.php')), 'horde.warning', array('content.raw'));
@@ -76,7 +76,7 @@ $template->set('php', htmlspecialchars($php), true);
 /* Create the link for the diff popup only if stored in session. */
 $diff_link = '';
 if (!empty($_SESSION['_config'][$app])) {
-    $url = Horde::applicationUrl('admin/setup/diff.php', true);
+    $url = Horde::url('admin/setup/diff.php', true);
     $url = Horde_Util::addParameter($url, 'app', $app, false);
     $diff_link = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
 }

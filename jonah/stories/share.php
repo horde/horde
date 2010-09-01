@@ -56,7 +56,7 @@ $channel_id = $vars->get('channel_id');
 $story_id = $vars->get('story_id');
 
 if (!$conf['sharing']['allow']) {
-    Horde::applicationUrl('stories/view.php', true)
+    Horde::url('stories/view.php', true)
         ->add(array('story_id' => $story_id, 'channel_id' => $channel_id))
         ->redirect();
 }
@@ -89,7 +89,7 @@ if ($form->validate($vars)) {
 
     $channel = $news->getChannel($channel_id);
     if (empty($channel['channel_story_url'])) {
-        $story_url = Horde::applicationUrl('stories/view.php', true);
+        $story_url = Horde::url('stories/view.php', true);
         $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'story_id' => '%s'));
     } else {
         $story_url = $channel['channel_story_url'];

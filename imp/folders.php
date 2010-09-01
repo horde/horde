@@ -23,7 +23,7 @@ Horde::addScriptFile('folders.js', 'imp');
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$conf['user']['allow_folders']) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
-    Horde::applicationUrl('mailbox.php', true)->redirect();
+    Horde::url('mailbox.php', true)->redirect();
 }
 
 /* Decide whether or not to show all the unsubscribed folders */
@@ -434,7 +434,7 @@ Horde::addInlineScript(array(
 
 $title = _("Folder Navigator");
 IMP::prepareMenu();
-Horde::metaRefresh($refresh_time, Horde::applicationUrl('folders.php', true));
+Horde::metaRefresh($refresh_time, Horde::url('folders.php', true));
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

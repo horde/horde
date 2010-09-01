@@ -17,14 +17,14 @@ Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true
 /* Make sure we have a forum id. */
 list($forum_id, , $scope) = Agora::getAgoraId();
 if (empty($forum_id)) {
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check if this is a valid thread, otherwise show the forum list. */
 $threads = &Agora_Messages::singleton($scope, $forum_id);
 if ($threads instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not list threads. %s"), $threads->getMessage()), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Which thread page are we on?  Default to page 0. */
@@ -43,7 +43,7 @@ $sort_dir = Agora::getSortDir('threads');
 $threads_list = $threads->getThreads(0, false, $sort_by, $sort_dir, false, '', null, $thread_start, $threads_per_page);
 if ($threads_list instanceof PEAR_Error) {
     $notification->push($threads_list->getMessage(), 'horde.error');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 if (empty($threads_list)) {
     $threads_count = 0;
@@ -67,7 +67,7 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-$view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
+$view->rss = Horde_Util::addParameter(Horde::url('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();

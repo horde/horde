@@ -47,6 +47,6 @@ foreach ($friends as $friend) {
 
 $title = _("Online friends");
 $link = Folks::getUrlFor('list', 'online', true);
-$rss_link = Horde::applicationUrl('rss/friends.php', true);
+$rss_link = Horde::url('rss/friends.php', true);
 
 require FOLKS_TEMPLATES . '/feed/feed.php';

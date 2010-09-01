@@ -68,7 +68,7 @@ class Jonah_Driver
             $channel[$channel_id] = $this->_getChannel($channel_id);
             if (empty($channel[$channel_id]['channel_link'])) {
                 $channel[$channel_id]['channel_official'] =
-                    Horde::applicationUrl('delivery/html.php', true, -1)->add('channel_id', $channel_id)->setRaw(false);
+                    Horde::url('delivery/html.php', true, -1)->add('channel_id', $channel_id)->setRaw(false);
             } else {
                 $channel[$channel_id]['channel_official'] = str_replace(array('%25c', '%c'), array('%c', $channel_id), $channel[$channel_id]['channel_link']);
             }
@@ -201,7 +201,7 @@ class Jonah_Driver
     {
         global $conf, $registry;
 
-        $channel['channel_link'] = Horde::applicationUrl('delivery/html.php', true, -1)->add('channel_id', $channel['channel_id']);
+        $channel['channel_link'] = Horde::url('delivery/html.php', true, -1)->add('channel_id', $channel['channel_id']);
         $stories = $this->_legacyGetStories($channel['channel_id'], $max, $from, $date, $unreleased, $order);
         $date_format = $GLOBALS['prefs']->getValue('date_format');
         $comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages');
@@ -293,7 +293,7 @@ class Jonah_Driver
             !empty($channel['channel_story_url'])) {
             $url = $channel['channel_story_url'];
         } else {
-            $url = Horde::applicationUrl('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'story_id' => '%s'))->setRaw(false);
+            $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'story_id' => '%s'))->setRaw(false);
         }
         return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
                                          array('%c', '%s', $channel['channel_id'], $story['story_id']),

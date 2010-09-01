@@ -34,7 +34,7 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
             $result = $faces->getFromPicture($this->_params['image_id'], $autocreate);
         }
         if (!empty($result)) {
-            $customurl = Horde::applicationUrl('faces/custom.php');
+            $customurl = Horde::url('faces/custom.php');
             $url = (!empty($args['url']) ? urldecode($args['url']) : '');
             Horde::startBuffer();
             require_once ANSEL_TEMPLATES . '/faces/image.inc';
@@ -73,7 +73,7 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
                 }
                 if (!empty($result)) {
                     $imgdir = Horde_Themes::img(null, 'horde');
-                    $customurl = Horde::applicationUrl('faces/custom.php');
+                    $customurl = Horde::url('faces/custom.php');
                     $url = (!empty($args['url']) ? urldecode($args['url']) : '');
                     Horde::startBuffer();
                     require_once ANSEL_TEMPLATES . '/faces/image.inc';

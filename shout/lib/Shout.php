@@ -38,15 +38,15 @@ class Shout
         $mask = Horde_Menu::MASK_PROBLEM | Horde_Menu::MASK_LOGIN;
         $menu = new Horde_Menu($mask);
 
-        $menu->add(Horde::applicationUrl('dialplan.php'), _("Call Menus"), "dialplan.png");
-        $menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
-        $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "extension.png");
-        $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
-        $menu->add(Horde::applicationUrl('conferences.php'), _("Conferences"), "conference.png");
+        $menu->add(Horde::url('dialplan.php'), _("Call Menus"), "dialplan.png");
+        $menu->add(Horde::url('recordings.php'), _("Recordings"), "recordings.png");
+        $menu->add(Horde::url('extensions.php'), _("Extensions"), "extension.png");
+        $menu->add(Horde::url('devices.php'), _("Devices"), "shout.png");
+        $menu->add(Horde::url('conferences.php'), _("Conferences"), "conference.png");
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'shout:admin'))) {
-            $menu->add(Horde::applicationUrl('admin.php'), _("_Admin"), 'admin.png');
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'admin.png');
         }
 
         if ($returnType == 'object') {
@@ -247,10 +247,10 @@ class Shout
         $tabname = Horde_Util::getFormData('view');
         $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->addTab(_("Telephone Numbers"),
-                      Horde::applicationUrl('admin/numbers.php'),
+                      Horde::url('admin/numbers.php'),
                       array('view' => 'numbers', id => 'tabnumbers'));
         $tabs->addTab(_("Accounts"),
-                      Horde::applicationUrl('admin/accounts.php'),
+                      Horde::url('admin/accounts.php'),
                       array('view' => 'accounts', id => 'tabaccounts'));
         if ($view === null) {
             $view = 'numbers';

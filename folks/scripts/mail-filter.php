@@ -157,7 +157,7 @@ if ($user_uid instanceof PEAR_Error) {
 }
 
 // mail content
-$edit_url = Horde::applicationUrl('edit/edit.php', true);
+$edit_url = Horde::url('edit/edit.php', true);
 $title = _("Email problem");
 $body = _("Dear %s, we tried to send you an email, but if turns out that the mail is usable any more. Maybe you run over quota. If your mail is discontinued, please update your profile with the email you are using now at %s.");
 

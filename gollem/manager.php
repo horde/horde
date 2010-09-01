@@ -249,9 +249,9 @@ if (isset($_SESSION['gollem']['filter']) &&
 $_SESSION['gollem']['filter'] = $filter;
 
 /* Commonly used URLs. */
-$view_url = Horde::applicationUrl('view.php');
-$edit_url = Horde::applicationUrl('edit.php');
-$manager_url = Horde::applicationUrl('manager.php');
+$view_url = Horde::url('view.php');
+$edit_url = Horde::url('edit.php');
+$manager_url = Horde::url('manager.php');
 
 $refresh_params = array('page' => $page);
 if ($filter) {
@@ -303,7 +303,7 @@ if (!$template->get('hasclipboard') ||
     empty($_SESSION['gollem']['clipboard'])) {
     $template->set('clipboard', null);
 } else {
-    $template->set('clipboard', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('clipboard.php'), 'dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
+    $template->set('clipboard', Horde::link(Horde_Util::addParameter(Horde::url('clipboard.php'), 'dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
 }
 
 if ($edit_perms) {

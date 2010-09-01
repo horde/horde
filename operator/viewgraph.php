@@ -82,7 +82,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
 
 $graphs = array();
 if (!empty($stats)) {
-    $url = Horde::applicationUrl('graphgen.php');
+    $url = Horde::url('graphgen.php');
     $graphtypes = Operator::getGraphInfo();
 
     foreach($graphtypes as $type => $info) {
@@ -97,7 +97,7 @@ $title = _("Call Detail Records Graph");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 
-$form->renderActive($renderer, $vars, Horde::applicationUrl('viewgraph.php'), 'post');
+$form->renderActive($renderer, $vars, Horde::url('viewgraph.php'), 'post');
 
 if (!empty($stats) && !empty($graphs[$curgraph])) {
     echo '<br />';

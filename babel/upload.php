@@ -47,7 +47,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Upload")) {
 		system($cmd);
 		
 		// Redirect to page URL
-		Horde::applicationUrl('upload.php')->redirect();
+		Horde::url('upload.php')->redirect();
 	    }
 	}
     }

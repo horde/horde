@@ -24,7 +24,7 @@ class Horde_Block_agora_forums extends Horde_Block
 
     protected function _title()
     {
-        return Horde::applicationUrl('forums.php', true)->link() . _("Forums") . '</a>';
+        return Horde::url('forums.php', true)->link() . _("Forums") . '</a>';
     }
 
     /**

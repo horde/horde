@@ -19,7 +19,7 @@ if ($registry->isAdmin() || isset($allowed_cats[$row['category1']]) || isset($al
         $url = Horde_Util::addParameter($browse_url, array('page' => $page, 'actionID' => 'activate', 'id' => $row['id']));
         echo Horde::link($url,_("Activate")) . Horde::img('tick.png', _("Activate"), '', $img_dir) . '</a> ';
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), 'id',  $row['id']);
+        $url = Horde_Util::addParameter(Horde::url('delete.php'), 'id',  $row['id']);
         echo Horde::link($url,_("Delete"), '', '', '', _("Delete")) . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a>  &nbsp;';
 
         if ($row['status'] == News::LOCKED) {

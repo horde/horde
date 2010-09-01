@@ -63,7 +63,7 @@ if (empty($rss)) {
     <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
     <lastBuildDate>' . date('r', $lastnewstime) . '</lastBuildDate>
     <description>' . htmlspecialchars($title) . '</description>
-    <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
+    <link>' . Horde::url('index.php', true, -1) . '</link>
     <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
     $rssfooter = '

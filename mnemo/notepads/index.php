@@ -18,9 +18,9 @@ if (!$GLOBALS['registry']->getAuth()) {
     exit;
 }
 
-$edit_url_base = Horde::applicationUrl('notepads/edit.php');
+$edit_url_base = Horde::url('notepads/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=mnemo');
-$delete_url_base = Horde::applicationUrl('notepads/delete.php');
+$delete_url_base = Horde::url('notepads/delete.php');
 
 
 $notepads = Mnemo::listNotepads(true);

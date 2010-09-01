@@ -23,7 +23,7 @@ if (!$perms->hasAppPermission('allow_rules')) {
         $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
     $notification->push($message, 'horde.error', array('content.raw'));
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Load the Ingo_Script:: driver. */
@@ -33,7 +33,7 @@ $ingo_script = Ingo::loadIngoScript();
 $availActions = $ingo_script->availableActions();
 if (empty($availActions)) {
     $notification->push(_("Individual rules are not supported in the current filtering driver."), 'horde.error');
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* This provides the $ingo_fields array. */
@@ -51,7 +51,7 @@ case 'rule_update':
 case 'rule_delete':
     if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('filters.php', true));
+        header('Location: ' . Horde::url('filters.php', true));
         exit;
     }
 
@@ -128,7 +128,7 @@ case 'rule_delete':
         if (!isset($vars->edit)) {
             if ($perms->hasAppPermission('max_rules') !== true &&
                 $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
-                header('Location: ' . Horde::applicationUrl('filters.php', true));
+                header('Location: ' . Horde::url('filters.php', true));
                 exit;
             }
             $filters->addRule($rule);
@@ -142,14 +142,14 @@ case 'rule_delete':
             Ingo::updateScript();
         }
 
-        header('Location: ' . Horde::applicationUrl('filters.php'));
+        header('Location: ' . Horde::url('filters.php'));
         exit;
     }
 
     if ($vars->actionID == 'rule_delete') {
         if (!Ingo::hasSharePermission(Horde_Perms::DELETE)) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('filters.php', true));
+            header('Location: ' . Horde::url('filters.php', true));
             exit;
         }
         if (isset($vars->conditionnumber)) {
@@ -162,7 +162,7 @@ case 'rule_delete':
 default:
     if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('filters.php', true));
+        header('Location: ' . Horde::url('filters.php', true));
         exit;
     }
     if (!isset($vars->edit)) {
@@ -174,7 +174,7 @@ default:
                 $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
-            header('Location: ' . Horde::applicationUrl('filters.php', true));
+            header('Location: ' . Horde::url('filters.php', true));
             exit;
         }
         $rule = $filters->getDefaultRule();
@@ -186,7 +186,7 @@ default:
 
 if (!$rule) {
     $notification->push(_("Filter not found."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
+    header('Location: ' . Horde::url('filters.php', true));
     exit;
 }
 

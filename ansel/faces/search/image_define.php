@@ -17,7 +17,7 @@ $path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtensio
 
 if (file_exists($path) !== true) {
     $notification->push(_("You must upload the search photo first"));
-    Horde::applicationUrl('faces/search/image.php')->redirect();
+    Horde::url('faces/search/image.php')->redirect();
 }
 
 $title = _("Create a new face");

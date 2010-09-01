@@ -41,7 +41,7 @@ document.observe('dom:loaded', function() {
     $$('#pageControlsInner .tasklist-info').invoke('observe', 'click', function() {
         RedBox.loading();
         var tasklist_id = this.previous().down('.checkbox').value;
-        new Ajax.Request('<?php echo Horde::applicationUrl('tasklists/info.php') ?>', {
+        new Ajax.Request('<?php echo Horde::url('tasklists/info.php') ?>', {
             parameters: { t: tasklist_id },
             method: 'get',
             onSuccess: function(transport) {
@@ -68,7 +68,7 @@ document.observe('dom:loaded', function() {
 
 <?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
-  <a href="<?php echo Horde::applicationUrl('tasklists/') ?>"><?php echo _("[Manage Task Lists]") ?></a>
+  <a href="<?php echo Horde::url('tasklists/') ?>"><?php echo _("[Manage Task Lists]") ?></a>
  </p>
 <?php endif; ?>
 

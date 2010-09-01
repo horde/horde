@@ -64,11 +64,11 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         // although, currently, *that* page requires js as well so...
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
-            $html .= Horde::applicationUrl('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
+            $html .= Horde::url('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
                     array('id' => 'edit_faces',
                           'class' => 'widget'))
                   . $link_text . '</a> | '
-                  . Horde::applicationUrl('faces/custom.php')->add(
+                  . Horde::url('faces/custom.php')->add(
                             array('image' => $this->_view->resource->id,
                                   'url' => $this->_params['selfUrl']))->link(array('class' => 'widget'))
                     . _("Manual face selection") . '</a>';

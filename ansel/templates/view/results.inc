@@ -53,7 +53,7 @@ function copySelected()
 }
 </script>
 <?php if ($numimages): ?>
-<form name="gallery" action="<?php Horde::applicationUrl('view.php', true)?>" method="get">
+<form name="gallery" action="<?php Horde::url('view.php', true)?>" method="get">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="" />
 <input type="hidden" name="view" value="Results" />

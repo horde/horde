@@ -5,7 +5,7 @@
 <div class="header">
 <?php echo htmlspecialchars($title) ?>
 <?php if (isset($_SESSION['fima_search'])): ?>
-<?php echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query")) ?></a>
+<?php echo Horde::link(Horde_Util::addParameter(Horde::url('search.php'), 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query")) ?></a>
 <?php endif; ?>
 </div>
 

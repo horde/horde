@@ -334,7 +334,7 @@ if ($form->validate()) {
         $id = $news->write_db->nextID($news->prefix);
         if ($id instanceof PEAR_Error) {
             $notification->push($id);
-            Horde::applicationUrl('browse.php')->redirect();
+            Horde::url('browse.php')->redirect();
         }
 
         $query = 'INSERT INTO ' . $news->prefix
@@ -394,7 +394,7 @@ if ($form->validate()) {
     $result = $news->write_db->query($query, $data);
     if ($result instanceof PEAR_Error) {
         $notification->push($result->getDebugInfo(), 'horde.error');
-        Horde::applicationUrl('edit.php')->redirect();
+        Horde::url('edit.php')->redirect();
     }
 
     // Picture
@@ -537,9 +537,9 @@ if ($form->validate()) {
         $url = $return;
     } elseif (in_array($info['category1'], $allowed_cats) ||
               in_array($info['category2'], $allowed_cats)) {
-        $url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), 'id', $id);
+        $url = Horde_Util::addParameter(Horde::url('edit.php'), 'id', $id);
     } else {
-        $url = Horde::applicationUrl('browse.php');
+        $url = Horde::url('browse.php');
     }
 
     if ($info['status'] != News::CONFIRMED && $status_inserted == true) {
@@ -600,6 +600,6 @@ require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';
 require_once NEWS_TEMPLATES . '/add/before.inc';
 
-$form->renderActive(null, null, Horde_Util::addParameter(Horde::applicationUrl('add.php'), 'id', $id, false), 'post');
+$form->renderActive(null, null, Horde_Util::addParameter(Horde::url('add.php'), 'id', $id, false), 'post');
 
 require_once $registry->get('templates', 'horde') . '/common-footer.inc';

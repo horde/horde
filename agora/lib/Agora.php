@@ -240,32 +240,32 @@ class Agora {
         $scope = Horde_Util::getGet('scope', 'agora');
 
         /* Agora Home. */
-        $url = Horde_Util::addParameter(Horde::applicationUrl('forums.php'), 'scope', $scope);
+        $url = Horde_Util::addParameter(Horde::url('forums.php'), 'scope', $scope);
         $menu->add($url, _("_Forums"), 'forums.png', $img_dir, null, null,
                    dirname($_SERVER['PHP_SELF']) == $GLOBALS['registry']->get('webroot') && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         /* Thread list, if applicable. */
         if (isset($GLOBALS['forum_id'])) {
-            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
+            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
             if ($scope == 'agora' && $GLOBALS['registry']->getAuth()) {
-                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
+                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
             }
         }
 
         if ($scope == 'agora' && Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $menu->add(Horde::applicationUrl('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
+            $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
         }
 
         if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('moderate.php'), 'scope', $scope);
+            $url = Horde_Util::addParameter(Horde::url('moderate.php'), 'scope', $scope);
             $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
         }
 
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::applicationUrl('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
+            $menu->add(Horde::url('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
         }
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'scope', $scope);
+        $url = Horde_Util::addParameter(Horde::url('search.php'), 'scope', $scope);
         $menu->add($url, _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         if ($returnType == 'object') {
@@ -368,7 +368,7 @@ class Agora {
                 return PEAR::raiseError(_("Malformed database entry."));
             }
 
-            $avatar_path = Horde::applicationUrl('avatars/?id=' . urlencode($matches[4]) . ':' . $avatar_collection_id, true, $scopeend_sid);
+            $avatar_path = Horde::url('avatars/?id=' . urlencode($matches[4]) . ':' . $avatar_collection_id, true, $scopeend_sid);
             break;
         }
 

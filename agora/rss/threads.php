@@ -66,12 +66,12 @@ if (!$rss) {
         <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($title) . '</description>
-        <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
+        <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
     // Use commentCallback to get the return link
     // show is not enought as we can have many parameters, like turba source etc
-    $url = Horde::applicationUrl('messages/index.php', true, -1);
+    $url = Horde::url('messages/index.php', true, -1);
     if ($scope != 'agora' && $registry->hasMethod('commentCallback', $scope)) {
         $try = $registry->callByPackage($scope, 'commentCallback', array($forum_name, 'link'));
         if ($try instanceof PEAR_Error) {

@@ -17,7 +17,7 @@ $menu_view = $prefs->getValue('menu_view');
 ?>
 </span>
 <span style="float:right">
-    <form action="<?php echo Horde::applicationUrl('viewzone.php') ?>" method="get" name="menu">
+    <form action="<?php echo Horde::url('viewzone.php') ?>" method="get" name="menu">
         <?php Horde_Util::pformInput(); ?>
         <label for="domain" accesskey="<?php echo $accesskey ?>">
             <select id="domainSelector" name="curdomain"

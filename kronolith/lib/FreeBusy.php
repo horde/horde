@@ -108,7 +108,7 @@ class Kronolith_FreeBusy
         $vFb->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
-        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $user, true, -1));
+        $vFb->setAttribute('URL', Horde::url('fb.php?u=' . $user, true, -1));
 
         /* Add all the busy periods. */
         foreach ($busy as $events) {

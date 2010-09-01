@@ -42,7 +42,7 @@ if (!isset($whups_query) ||
     } elseif (isset($whups_query)) {
         $notification->push(_("Permission denied."), 'horde.error');
     }
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
 
@@ -72,7 +72,7 @@ if (!$whups_query->parameters) {
 
 if ($isvalid) {
     $tickets = $whups_driver->executeQuery($whups_query, $vars);
-    $_SESSION['whups']['last_search'] = Horde::applicationUrl('query/run.php');
+    $_SESSION['whups']['last_search'] = Horde::url('query/run.php');
 }
 
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
@@ -99,7 +99,7 @@ if (!is_null($tickets)) {
               'results' => $tickets,
               'extra' => $subscription,
               'values' => Whups::getSearchResultColumns(),
-              'url' => Horde::applicationUrl('query/run.php')));
+              'url' => Horde::url('query/run.php')));
 
     $results->html();
 } else {

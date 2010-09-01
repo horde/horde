@@ -19,7 +19,7 @@ if (!$registry->isAuthenticated()) {
 
 $id = Horde_Util::getFormData('id', 0);
 $actionID = Horde_Util::getFormData('actionID', false);
-$url = Horde::applicationUrl('reads.php');
+$url = Horde::url('reads.php');
 
 $sql = 'SELECT id, user, ip, readdate FROM ' . $news->prefix . '_user_reads WHERE ';
 if ($actionID) {

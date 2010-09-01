@@ -15,7 +15,7 @@ function stopSlideShow()
   <td>
     <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)): ?>
         <?php $url = new Horde_Url('#'); echo $url->link(array('onclick.raw' => $this->_urls['prop_popup'] . ' SlideController.pause(); return false;','id' => 'image_properties_link')) . _("Properties") ?></a>
-      | <?php echo Horde::applicationUrl($this->_urls['edit'])->link(array('id' => 'image_edit_link')) . _("Edit") ?></a>
+      | <?php echo Horde::url($this->_urls['edit'])->link(array('id' => 'image_edit_link')) . _("Edit") ?></a>
     <?php endif; ?>
     <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
       | <?php echo $this->_urls['delete']->link(array('id' => 'image_delete_link')) . _("Delete") ?></a>

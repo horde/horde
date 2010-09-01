@@ -30,11 +30,11 @@ if ($list instanceof PEAR_Error) {
 
 // Prepare actions
 $actions = array(
-    array('url' => Horde::applicationUrl('edit/friends/add.php'),
+    array('url' => Horde::url('edit/friends/add.php'),
           'img' => Horde::img('delete.png'),
           'id' => 'user',
           'name' => _("Remove")),
-    array('url' => Horde::applicationUrl('user.php'),
+    array('url' => Horde::url('user.php'),
           'img' => Horde::img('user.png'),
           'id' => 'user',
           'name' => _("View profile")));

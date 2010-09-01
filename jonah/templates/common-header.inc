@@ -22,7 +22,7 @@ if ($channel_id = Horde_Util::getFormData('channel_id')) {
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
         $rss_url_params['tag_id'] = $tag_id;
     }
-    echo '<link rel="alternate" type="application/rss+xml" title="RSS 0.91" href="' . Horde_Util::addParameter(Horde::applicationUrl('delivery/rss.php', true, -1), $rss_url_params) . '" />';
+    echo '<link rel="alternate" type="application/rss+xml" title="RSS 0.91" href="' . Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), $rss_url_params) . '" />';
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>

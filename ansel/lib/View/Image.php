@@ -61,7 +61,7 @@ class Ansel_View_Image extends Ansel_View_Base
 
             $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
-            Horde::applicationUrl('disclamer.php')->add($params)->setRaw(true)->redirect();
+            Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
@@ -86,7 +86,7 @@ class Ansel_View_Image extends Ansel_View_Base
 
             $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
-            Horde::applicationUrl('protect.php')->add($params)->setRaw(true)->redirect();
+            Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
@@ -156,13 +156,13 @@ class Ansel_View_Image extends Ansel_View_Base
 
         /* Not needed when being called via api */
         if (empty($this->_params['api'])) {
-            $this->_urls['ecard'] = Horde::applicationUrl('img/ecard.php')->add(
+            $this->_urls['ecard'] = Horde::url('img/ecard.php')->add(
                 array_merge(array('gallery' => $this->gallery->id,
                                   'image' => $this->resource->id),
                             $this->_date));
 
             /* Build the various urls */
-            $imageActionUrl = Horde::applicationUrl('image.php')->add(
+            $imageActionUrl = Horde::url('image.php')->add(
                 array_merge(array('gallery' => $this->gallery->id,
                                   'image' => $this->resource->id,
                                   'page' => $this->_page),
@@ -180,8 +180,8 @@ class Ansel_View_Image extends Ansel_View_Base
 
             $this->_urls['edit'] = $imageActionUrl->copy()->add('actionID', 'editimage');
             $this->_urls['delete'] = $imageActionUrl->copy()->add('actionID', 'delete');
-            $this->_urls['download'] = Horde::applicationUrl('img/download.php', true)->add('image', $this->resource->id);
-            $this->_urls['report'] = Horde::applicationUrl('report.php')->add(
+            $this->_urls['download'] = Horde::url('img/download.php', true)->add('image', $this->resource->id);
+            $this->_urls['report'] = Horde::url('report.php')->add(
                     array('gallery' =>  $this->gallery->id,
                           'image' => $this->resource->id));
         }
@@ -314,7 +314,7 @@ class Ansel_View_Image extends Ansel_View_Base
                                          array($this->resource->id, $this->gallery->id),
                                          urldecode($this->_params['slideshow_link']));
         } else {
-            $this->_urls['slideshow'] = Horde::applicationUrl('view.php')->add(
+            $this->_urls['slideshow'] = Horde::url('view.php')->add(
                 array_merge(array('gallery' => $this->gallery->id,
                                   'image' => $this->resource->id,
                                   'view' => 'Slideshow'),

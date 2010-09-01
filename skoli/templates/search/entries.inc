@@ -7,7 +7,7 @@
             'view'  => 'EditEntry',
             'entry' => $entry['_id']
         );
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('entry.php'), $params), $label) . Horde::img('edit.png', $label) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::url('entry.php'), $params), $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -18,7 +18,7 @@
         'view'  => 'Entry',
         'entry' => $entry['_id']
     );
-    echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('entry.php'), $params), _("View Entry")) . htmlspecialchars($entry['student']) . '</a>&nbsp;';
+    echo Horde::link(Horde_Util::addParameter(Horde::url('entry.php'), $params), _("View Entry")) . htmlspecialchars($entry['student']) . '</a>&nbsp;';
     ?>
  </td>
   <td><?php echo htmlspecialchars($entry['date']) ?>&nbsp;</td>

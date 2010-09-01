@@ -39,7 +39,7 @@ class Gollem_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     {
         $data = '';
         // TODO - set mimepart contents
-        //$url = Horde_Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'download_file', 'file' => $this->mime_part->getName(), 'dir' => Horde_Util::getFormData('dir'), 'driver' => Horde_Util::getFormData('driver')));
+        //$url = Horde_Util::addParameter(Horde::url('view.php'), array('actionID' => 'download_file', 'file' => $this->mime_part->getName(), 'dir' => Horde_Util::getFormData('dir'), 'driver' => Horde_Util::getFormData('driver')));
         return parent::_render();
     }
 

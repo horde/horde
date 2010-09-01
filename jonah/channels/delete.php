@@ -26,7 +26,7 @@ $channel_id = $vars->get('channel_id');
 $channel = $news->getChannel($channel_id);
 if (is_a($channel, 'PEAR_Error')) {
     $notification->push(_("Invalid channel specified for deletion."), 'horde.message');
-    Horde::applicationUrl('channels/index.php', true)->redirect();
+    Horde::url('channels/index.php', true)->redirect();
 }
 
 /* Check permissions and deny if not allowed. */
@@ -63,12 +63,12 @@ if ($form_submit == _("Delete")) {
             $notification->push(sprintf(_("There was an error deleting the channel: %s"), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("The channel has been deleted."), 'horde.success');
-            Horde::applicationUrl('channels/index.php', true)->redirect();
+            Horde::url('channels/index.php', true)->redirect();
         }
     }
 } elseif (!empty($form_submit)) {
     $notification->push(_("Channel has not been deleted."), 'horde.message');
-    Horde::applicationUrl('channels/index.php', true)->redirect();
+    Horde::url('channels/index.php', true)->redirect();
 }
 
 $template = new Horde_Template();

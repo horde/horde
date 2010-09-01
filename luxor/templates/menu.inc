@@ -5,7 +5,7 @@ function jump()
 }
 </script>
 
-<form method="get" action="<?php echo Horde::applicationUrl('search.php') ?>">
+<form method="get" action="<?php echo Horde::url('search.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <div id="menu">
  <div class="rightFloat">

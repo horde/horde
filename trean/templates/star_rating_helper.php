@@ -13,7 +13,7 @@ define('_STAR_WIDTH', 25);
  */
 function star_rating_helper($bookmark)
 {
-    $edit = Horde::applicationUrl('bookmark.php?b=' . $bookmark->id, true);
+    $edit = Horde::url('bookmark.php?b=' . $bookmark->id, true);
     return '
 <ol class="star-rating" for="' . htmlspecialchars($edit) . '">
  <li class="current-rating" style="width:' . (_STAR_WIDTH * $bookmark->rating) . 'px">' . str_repeat('*', $bookmark->rating) . '</li>

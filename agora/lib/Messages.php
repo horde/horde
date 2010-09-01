@@ -850,19 +850,19 @@ class Agora_Messages {
         }
 
         /* Set up the base urls for actions. */
-        $view_url = Horde::applicationUrl('messages/index.php');
+        $view_url = Horde::url('messages/index.php');
         if ($base_url) {
             $edit_url = $base_url;
             $del_url = Horde_Util::addParameter($base_url, 'delete', 'true');
         } else {
-            $edit_url = Horde::applicationUrl('messages/edit.php');
-            $del_url = Horde::applicationUrl('messages/delete.php');
+            $edit_url = Horde::url('messages/edit.php');
+            $del_url = Horde::url('messages/delete.php');
         }
 
         // Get needed prefs
         $per_page = $GLOBALS['prefs']->getValue('thread_per_page');
         $view_bodies = $GLOBALS['prefs']->getValue('thread_view_bodies');
-        $abuse_url = Horde::applicationUrl('messages/abuse.php');
+        $abuse_url = Horde::url('messages/abuse.php');
         $hot_img = Horde::img('hot.png', _("Hot thread"), array('title' => _("Hot thread")));
         $new_img = Horde::img('required.png', _("New posts"), array('title' => _("New posts")));
         $is_moderator = $this->hasPermission(Horde_Perms::DELETE);
@@ -952,23 +952,23 @@ class Agora_Messages {
                 $message['actions'][] = Horde::link($url, _("Delete"), '', '', '', _("Delete message")) . _("Delete") . '</a>';
 
                 /* Link to lock/unlock the message. */
-                $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/lock.php'), $this->_scope);
+                $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/lock.php'), $this->_scope);
                 $label = ($message['locked']) ? _("Unlock") : _("Lock");
                 $message['actions'][] = Horde::link($url, $label, '', '', '', $label) . $label . '</a>';
 
                 /* Link to move thread to another forum. */
                 if ($this->_scope == 'agora') {
                     if ($message['message_thread'] == $id) {
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/move.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/move.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Move"), '', '', '', _("Move")) . _("Move") . '</a>';
 
                         /* Link to merge a message thred with anoter thread. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/merge.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/merge.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Merge"), '', '', '', _("Merge")) . _("Merge") . '</a>';
                     } elseif ($message['message_thread'] != 0) {
 
                         /* Link to split thread to two threads, from this message after. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/split.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/split.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Split"), '', '', '', _("Split")) . _("Split") . '</a>';
                     }
                 }
@@ -1141,8 +1141,8 @@ class Agora_Messages {
         }
 
         /* Loop through the messages and set up the array. */
-        $approve_url = Horde_Util::addParameter(Horde::applicationUrl('moderate.php'), 'approve', true);
-        $del_url  = Horde::applicationUrl('messages/delete.php');
+        $approve_url = Horde_Util::addParameter(Horde::url('moderate.php'), 'approve', true);
+        $del_url  = Horde::url('messages/delete.php');
         foreach ($messages as $id => &$message) {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
             $message['message_id'] = $id;
@@ -1503,19 +1503,19 @@ class Agora_Messages {
         /* Actions. */
         $actions = array();
 
-        $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('messages/edit.php'));
+        $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('messages/edit.php'));
         if ($this->hasPermission(Horde_Perms::EDIT)) {
             $actions[] = array('url' => $url, 'label' => _("Post message"));
         }
 
         if ($this->hasPermission(Horde_Perms::DELETE)) {
             if ($this->_scope == 'agora') {
-                $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('editforum.php'));
+                $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('editforum.php'));
                 $actions[] = array('url' => $url, 'label' => _("Edit Forum"));
             }
-            $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('deleteforum.php'), $this->_scope);
+            $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('deleteforum.php'), $this->_scope);
             $actions[] = array('url' => $url, 'label' => _("Delete Forum"));
-            $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('ban.php'), $this->_scope);
+            $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('ban.php'), $this->_scope);
             $actions[] = array('url' => $url, 'label' => _("Ban"));
         }
 
@@ -1657,7 +1657,7 @@ class Agora_Messages {
 
         /* Constuct the link with a tooltip for further info on the download. */
         $html = '<br />';
-        $view_url = Horde::applicationUrl('view.php');
+        $view_url = Horde::url('view.php');
         foreach ($files as $file_id => $file) {
             $mime_icon = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
@@ -1788,9 +1788,9 @@ class Agora_Messages {
 
         $moderate = array();
         $user = $GLOBALS['registry']->getAuth();
-        $edit_url =  Horde::applicationUrl('messages/edit.php');
-        $editforum_url =  Horde::applicationUrl('editforum.php');
-        $delete_url = Horde::applicationUrl('deleteforum.php');
+        $edit_url =  Horde::url('messages/edit.php');
+        $editforum_url =  Horde::url('editforum.php');
+        $delete_url = Horde::url('deleteforum.php');
 
         foreach ($forums as $forum_id => &$forum) {
             if (!$this->hasPermission(Horde_Perms::SHOW, $forum_id, $forum['scope'])) {
@@ -1804,13 +1804,13 @@ class Agora_Messages {
                 continue;
             }
 
-            $forum['url'] = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('threads.php'), $forum['scope'], true);
+            $forum['url'] = Agora::setAgoraId($forum_id, null, Horde::url('threads.php'), $forum['scope'], true);
             $forum['message_count'] = number_format($forum['message_count']);
             $forum['thread_count'] = number_format($forum['thread_count']);
 
             if ($forum['last_message_id']) {
                 $forum['last_message_date'] = $this->dateFormat($forum['last_message_timestamp']);
-                $forum['last_message_url'] = Agora::setAgoraId($forum_id, $forum['last_message_id'], Horde::applicationUrl('messages/index.php'), $forum['scope'], true);
+                $forum['last_message_url'] = Agora::setAgoraId($forum_id, $forum['last_message_id'], Horde::url('messages/index.php'), $forum['scope'], true);
             }
 
             $forum['actions'] = array();
@@ -1851,7 +1851,7 @@ class Agora_Messages {
                 return $unapproved;
             }
 
-            $url = Horde::link(Horde::applicationUrl('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
+            $url = Horde::link(Horde::url('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
             foreach ($unapproved as $forum_id => $count) {
                 $forum['actions'][] = $url . ' (' . $count . ')' ;
             }
@@ -2146,8 +2146,8 @@ class Agora_Messages {
         }
 
         $results = array();
-        $msg_url = Horde::applicationUrl('messages/index.php');
-        $forum_url = Horde::applicationUrl('threads.php');
+        $msg_url = Horde::url('messages/index.php');
+        $forum_url = Horde::url('threads.php');
         while ($message = $messages->fetchRow()) {
             if (!isset($results[$message['forum_id']])) {
                 $index = array('agora' => $message['forum_id'], 'scope' => $this->_scope);

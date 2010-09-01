@@ -74,7 +74,7 @@ class FeedForm extends Horde_Form
             $this->addVariable(
                 _("Channel Slug"), 'channel_slug', 'text', true, false,
                sprintf(_("Slugs allows direct access to this channel's content by visiting: %s. <br /> Slug names may contain only letters, numbers or the _ (underscore) character."),
-                        Horde::applicationUrl('slugname', true)),
+                        Horde::url('slugname', true)),
                 array('/^[a-zA-Z1-9_]*$/'));
 
             $this->addVariable(_("Include full story content in syndicated feeds?"), 'channel_full_feed', 'boolean', false);
@@ -99,7 +99,7 @@ class FeedForm extends Horde_Form
             $v = &$this->addVariable(_("Caching"), 'channel_interval', 'enum', false, false, _("The interval before stories aggregated into this feeds are rechecked for updates. If none, then stories will always be refetched from the sources."), array($interval));
             $v->setDefault('86400');
             if (!empty($channel_id)) {
-                $edit_url = Horde::applicationUrl('channels/aggregate.php');
+                $edit_url = Horde::url('channels/aggregate.php');
                 $edit_url = Horde_Util::addParameter($edit_url, 'channel_id', $channel_id);
                 $edit_url = Horde_Util::addParameter($edit_url, 'channel_id', $channel_id);
                 $this->addVariable(_("Source URLs"), 'channel_urls', 'link', false, false, null, array(array('text' => _("Edit aggregated feeds"), 'url' => $edit_url)));

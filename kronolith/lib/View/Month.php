@@ -136,9 +136,9 @@ class Kronolith_View_Month {
 
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
-        $day_url = Horde::applicationUrl('day.php');
+        $day_url = Horde::url('day.php');
         $this_link = $this->link(0, true);
-        $new_url = Horde::applicationUrl('new.php')->add('url', $this_link);
+        $new_url = Horde::url('new.php')->add('url', $this_link);
         $new_img = Horde::img('new_small.png', '+');
 
         foreach ($this->_currentCalendars as $id => $cal) {
@@ -185,7 +185,7 @@ class Kronolith_View_Month {
                 }
 
                 if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
-                    $html .= Horde::applicationUrl('week.php')
+                    $html .= Horde::url('week.php')
                         ->add('date', $date->dateString())
                         ->link(array('class' => 'week'))
                         . sprintf(_("Week %d"), $week) . '</a>';
@@ -235,7 +235,7 @@ class Kronolith_View_Month {
     function link($offset = 0, $full = false)
     {
         $month = $this->getMonth($offset);
-        return Horde::applicationUrl('month.php', $full)
+        return Horde::url('month.php', $full)
             ->add('date', $month->dateString());
     }
 

@@ -116,7 +116,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         $results = $this->_asortbyindex($results, 'message_timestamp');
         $html = '<div id="ansel_preview"></div>'
             . '<script type="text/javascript">'
-            . 'function previewImage(e, image_id) {$(\'ansel_preview\').style.left = Event.pointerX(e) + \'px\'; $(\'ansel_preview\').style.top = Event.pointerY(e) + \'px\';new Ajax.Updater({success:\'ansel_preview\'}, \'' . Horde::applicationUrl('preview.php') . '\', {method: \'post\', parameters:\'?image=\' + image_id, onsuccess:$(\'ansel_preview\').show()});}'
+            . 'function previewImage(e, image_id) {$(\'ansel_preview\').style.left = Event.pointerX(e) + \'px\'; $(\'ansel_preview\').style.top = Event.pointerY(e) + \'px\';new Ajax.Updater({success:\'ansel_preview\'}, \'' . Horde::url('preview.php') . '\', {method: \'post\', parameters:\'?image=\' + image_id, onsuccess:$(\'ansel_preview\').show()});}'
             . '</script>'
             . '<table class="linedRow" cellspacing="0" style="width:100%"><thead><tr class="item nowrap"><th class="item leftAlign">' . _("Date") . '</th><th class="item leftAlign">' . _("Image") . '</th><th class="item leftAlign">' . _("Subject") . '</th><th class="item leftAlign">' . _("By") . '</th></tr></thead><tbody>';
 

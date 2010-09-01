@@ -25,7 +25,7 @@ if ($slug) {
 
 if (!$id || is_a($queue, 'PEAR_Error')) {
     $notification->push(_("Invalid queue"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
 

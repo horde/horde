@@ -40,10 +40,10 @@ foreach ($accounts as $accountId => $account) {
     $accountExtra = '';
     if (!$print_view) {
         if ($perm_delete && $accountId == 'root')           { $accountExtra .= '&nbsp;'.Horde::link('#', _("Delete all"), '', '', "Submit('delete_all'); return false;")                    . Horde::img('delete-small.png', _("Delete")) . '</a>'; }
-        if ($perm_edit   && isset($account['edit_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['edit_link']),   sprintf(_("Edit %s"), $accountLabel))   . Horde::img('edit-small.png', _("Edit"))     . '</a>'; }
-        if ($perm_delete && isset($account['delete_link'])) { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['delete_link']), sprintf(_("Delete %s"), $accountLabel)) . Horde::img('delete-small.png', _("Delete")) . '</a>'; }
-        if ($perm_edit   && isset($account['add_link']))    { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['add_link']), _("Create a New Account"))                 . Horde::img('new-small.png', '+')                                                            . '</a>'; }
-        if (                isset($account['view_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['view_link']), sprintf(_("View %s"), $accountLabel))     . Horde::img('search-small.png', _("Search"))                                                 . '</a>'; }
+        if ($perm_edit   && isset($account['edit_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::url($account['edit_link']),   sprintf(_("Edit %s"), $accountLabel))   . Horde::img('edit-small.png', _("Edit"))     . '</a>'; }
+        if ($perm_delete && isset($account['delete_link'])) { $accountExtra .= '&nbsp;'.Horde::link(Horde::url($account['delete_link']), sprintf(_("Delete %s"), $accountLabel)) . Horde::img('delete-small.png', _("Delete")) . '</a>'; }
+        if ($perm_edit   && isset($account['add_link']))    { $accountExtra .= '&nbsp;'.Horde::link(Horde::url($account['add_link']), _("Create a New Account"))                 . Horde::img('new-small.png', '+')                                                            . '</a>'; }
+        if (                isset($account['view_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::url($account['view_link']), sprintf(_("View %s"), $accountLabel))     . Horde::img('search-small.png', _("Search"))                                                 . '</a>'; }
     }
     $tree->addNode($accountId, $account['parent_id'], $accountLabel, 0, $print_view ? true : $account['expanded'], $params, $accountExtra);
 }

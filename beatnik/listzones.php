@@ -57,10 +57,10 @@ require BEATNIK_TEMPLATES . '/menu.inc';
 
 require BEATNIK_TEMPLATES . '/listzones/header.inc';
 foreach ($domains as $domain) {
-    $autourl = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $deleteurl = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $viewurl = Horde_Util::addParameter(Horde::applicationUrl('viewzone.php'), 'curdomain', $domain['zonename']);
-    $editurl = Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
+    $autourl = Horde_Util::addParameter(Horde::url('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $deleteurl = Horde_Util::addParameter(Horde::url('delete.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $viewurl = Horde_Util::addParameter(Horde::url('viewzone.php'), 'curdomain', $domain['zonename']);
+    $editurl = Horde_Util::addParameter(Horde::url('editrec.php'), array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
     require BEATNIK_TEMPLATES . '/listzones/row.inc';
 }
 require BEATNIK_TEMPLATES . '/listzones/footer.inc';

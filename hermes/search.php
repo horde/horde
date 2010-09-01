@@ -117,7 +117,7 @@ if (isset($_SESSION['hermes_search_criteria'])) {
 
     $template = new Horde_Template();
     $template->setOption('gettext', true);
-    $template->set('postUrl', Horde::applicationUrl('time.php', false, -1));
+    $template->set('postUrl', Horde::url('time.php', false, -1));
     $template->set('sessionId', Horde_Util::formInput());
     $template->set('table', $table->render());
 

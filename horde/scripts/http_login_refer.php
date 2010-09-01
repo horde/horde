@@ -27,7 +27,7 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
 if ($url = Horde_Util::getFormData('url')) {
     $url = new Horde_Url($url);
 } else {
-    $url = Horde::applicationUrl('login.php');
+    $url = Horde::url('login.php');
 }
 
 $url->redirect();

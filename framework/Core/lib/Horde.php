@@ -883,7 +883,9 @@ HTML;
      * If a full URL is requested, all parameter separators get converted to
      * "&", otherwise to "&amp;".
      *
-     * @param string $uri              The URI to be modified.
+     * @param mixed $uri               The URI to be modified (either a string
+     *                                 or any object with a __toString()
+     *                                 function).
      * @param boolean $full            Generate a full (http://server/path/)
      *                                 URL.
      * @param integer $append_session  0 = only if needed, 1 = always, -1 =
@@ -900,24 +902,33 @@ HTML;
             $full = true;
         }
 
-        if ($full) {
-            global $conf, $registry, $browser;
+        $url = '';
+        $webroot = $GLOBALS['registry']->get('webroot');
 
+        /* Skip if we already have a full URL. */
+        if ($full && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
             /* Store connection parameters in local variables. */
-            $server_name = $conf['server']['name'];
-            $server_port = $conf['server']['port'];
+            $server_name = $GLOBALS['conf']['server']['name'];
+            $server_port = $GLOBALS['conf']['server']['port'];
 
             $protocol = 'http';
-            if ($conf['use_ssl'] == 1) {
+            switch ($GLOBALS['conf']['use_ssl']) {
+            case 1:
                 $protocol = 'https';
-            } elseif ($conf['use_ssl'] == 2 &&
-                      $browser->usingSSLConnection()) {
-                $protocol = 'https';
-            } elseif ($conf['use_ssl'] == 3) {
+                break;
+
+            case 2:
+                if ($GLOBALS['browser']->usingSSLConnection()) {
+                    $protocol = 'https';
+                }
+                break;
+
+            case 3:
                 $server_port = '';
                 if ($force_ssl) {
                     $protocol = 'https';
                 }
+                break;
             }
 
             /* If using non-standard ports, add the port to the URL. */
@@ -927,36 +938,18 @@ HTML;
                 $server_name .= ':' . $server_port;
             }
 
-            /* Store the webroot in a local variable. */
-            $webroot = $registry->get('webroot');
-
             /* Don't prepend to webroot if it's already absolute. */
-            $url = preg_match('|^([\w+-]{1,20})://|', $webroot)
-                ? ''
-                : $protocol . '://' . $server_name;
-
-            if (substr($uri, 0, 1) != '/') {
-                /* Simple case for http:// absolute webroots. */
-                if (preg_match('|^([\w+-]{1,20})://|', $uri)) {
-                    $url = $uri;
-                } elseif (substr($webroot, -1) == '/') {
-                    $url .= $webroot . $uri;
-                } else {
-                    $url .= $webroot . '/' . $uri;
-                }
-            } else {
-                $url .= $uri;
-            }
-        } else {
-            $url = $uri;
-
-            if (!empty($_SERVER['HTTP_HOST'])) {
-                // Don't generate absolute URLs if we don't have to.
-                if (preg_match('|^([\w+-]{1,20}://' . preg_quote($_SERVER['HTTP_HOST'], '|') . ')/|', $url, $matches)) {
-                    $url = substr($url, strlen($matches[1]));
-                }
-            }
+            $url = $protocol . '://' . $server_name;
+        } elseif (!$full &&
+                  !empty($_SERVER['HTTP_HOST']) &&
+                  preg_match('|^([\w+-]{1,20}://' . preg_quote($_SERVER['HTTP_HOST'], '|') . ')/|', $uri, $matches)) {
+            // Don't generate absolute URLs if we don't have to.
+            $uri = substr($uri, strlen($matches[1]));
         }
+
+        $url .= (substr($uri, 0, 1) == '/')
+            ? $uri
+            : '/' . ltrim($webroot, '/') . '/' . $uri;
 
         $ob = new Horde_Url($url, $full);
 
@@ -966,37 +959,12 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
-        if (($append_session >= 0) && Horde_Util::getFormData('ajaxui')) {
+        if (($append_session >= 0) &&
+            Horde_Util::getFormData('ajaxui')) {
             $ob->add('ajaxui', 1);
         }
 
         return $ob;
-    }
-
-    /**
-     * Returns a session-id-ified version of $uri, using the current
-     * application's webroot setting.
-     *
-     * @param string $uri              The URI to be modified.
-     * @param boolean $full            Generate a full (http://server/path/)
-     *                                 URL.
-     * @param integer $append_session  0 = only if needed, 1 = always, -1 =
-     *                                 never.
-     *
-     * @return Horde_Url  The url with the session id appended.
-     */
-    static public function applicationUrl($uri, $full = false,
-                                          $append_session = 0)
-    {
-        if (substr($uri, 0, 1) != '/') {
-            $webroot = $GLOBALS['registry']->get('webroot');
-            if (substr($webroot, -1) != '/') {
-                $webroot .= '/';
-            }
-            $uri = $webroot . $uri;
-        }
-
-        return self::url($uri, $full, $append_session);
     }
 
     /**

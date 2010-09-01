@@ -130,7 +130,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 EOT;
             /* Special requirements for lightbox */
             if (!empty($lbjsurl)) {
-                $graphic_dir = Horde::applicationUrl(Horde_Themes::img(), true, -1);
+                $graphic_dir = Horde::url(Horde_Themes::img(), true, -1);
                 $imageText = _("Photo");
                 $labelOf = _("of");
                 $html .= <<<EOT

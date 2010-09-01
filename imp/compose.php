@@ -695,7 +695,7 @@ if (!$redirect) {
 /* Set up the base template now. */
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
-$t->set('post_action', Horde::applicationUrl('compose.php')->unique());
+$t->set('post_action', Horde::url('compose.php')->unique());
 $t->set('allow_compose', !$compose_disable);
 
 $blank_url = new Horde_Url('#');
@@ -713,7 +713,7 @@ if ($redirect) {
     if ($registry->hasMethod('contacts/search')) {
         $t->set('abook', $blank_url->copy()->link(array(
             'class' => 'widget',
-            'onclick.raw' => 'window.open("' . Horde::applicationUrl('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '", "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;',
+            'onclick.raw' => 'window.open("' . Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '", "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
     }
@@ -865,7 +865,7 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => $blank_url->copy()->link(array(
                 'class' => 'widget',
-                'onclick.raw' => 'window.open("' . Horde::applicationUrl('contacts.php') . '","contacts","toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;'
+                'onclick.raw' => 'window.open("' . Horde::url('contacts.php') . '","contacts","toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;'
             )),
             'img' => Horde::img('addressbook_browse.png'),
             'label' => $show_text ? _("Address Book") : ''
@@ -1020,7 +1020,7 @@ if ($redirect) {
                 );
 
                 if ($type != 'application/octet-stream') {
-                    $preview_url = Horde::applicationUrl('view.php')->add(array(
+                    $preview_url = Horde::url('view.php')->add(array(
                         'actionID' => 'compose_attach_preview',
                         'composeCache' => $composeCacheID,
                         'id' => $atc_num

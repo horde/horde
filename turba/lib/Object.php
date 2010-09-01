@@ -294,7 +294,7 @@ class Turba_Object {
      */
     function url($view = null, $full = false)
     {
-        $url = Horde::applicationUrl('contact.php', $full)->add(array(
+        $url = Horde::url('contact.php', $full)->add(array(
             'source' => $this->driver->getName(),
             'key' => $this->getValue('__key')
         ));
@@ -415,7 +415,7 @@ class Turba_Object {
 
         // Let's see if we can view this one, too.
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde::applicationUrl('view.php')->add('actionID', 'view_file');
+            $url = Horde::url('view.php')->add('actionID', 'view_file');
             $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {
             $link = $file['name'];
@@ -435,7 +435,7 @@ class Turba_Object {
     function vfsEditUrl($file)
     {
         $delform = '<form action="' .
-            Horde::applicationUrl('deletefile.php') .
+            Horde::url('deletefile.php') .
             '" style="display:inline" method="post">' .
             Horde_Util::formInput() .
             '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .

@@ -421,7 +421,7 @@ class Ansel_Faces_Base
 
         // If not viewing directly out of the VFS, hand off to img.php
         if ($conf['vfs']['src'] != 'direct') {
-            return Horde::applicationUrl('faces/img.php', $full)->add('face', $face_id);
+            return Horde::url('faces/img.php', $full)->add('face', $face_id);
         } else {
             $path = substr(str_pad($image_id, 2, 0, STR_PAD_LEFT), -2) . '/faces';
             return $GLOBALS['conf']['vfs']['path'] . htmlspecialchars($path . '/' . $face_id . Ansel_Faces::getExtension());

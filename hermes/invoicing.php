@@ -19,15 +19,15 @@ $hours = $hermes->driver->getHours(array('billable' => true,
                                  'submitted' => true));
 if (is_a($hours, 'PEAR_Error')) {
     $notification->push($hours->getMessage(), 'horde.error');
-    Horde::applicationUrl('time.php')->redirect();
+    Horde::url('time.php')->redirect();
 }
 if (empty($hours)) {
     $notification->push(_("There is no submitted billable hours."), 'horde.warning');
-    Horde::applicationUrl('time.php')->redirect();
+    Horde::url('time.php')->redirect();
 }
 if (!$registry->hasMethod('invoices/save')) {
     $notification->push(_("Invoicing system is not installed."), 'horde.warning');
-    Horde::applicationUrl('time.php')->redirect();
+    Horde::url('time.php')->redirect();
 }
 
 $headers = array(
@@ -120,13 +120,13 @@ if ($form->validate()) {
         }
     }
 
-    Horde::applicationUrl('time.php')->redirect();
+    Horde::url('time.php')->redirect();
 }
 
 require HERMES_TEMPLATES . '/common-header.inc';
 require HERMES_TEMPLATES . '/menu.inc';
 
 $renderer = new Horde_Form_Renderer(array('varrenderer_driver' => 'tableset_html'));
-$form->renderActive($renderer, null, Horde::applicationUrl('invoicing.php'), 'post');
+$form->renderActive($renderer, null, Horde::url('invoicing.php'), 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

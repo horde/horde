@@ -446,7 +446,7 @@ class Horde_Core_Prefs_Ui
                     if (isset($this->prefs[$pref]['img'])) {
                         $t->set('img', Horde::img($this->prefs[$pref]['img'], $this->prefs[$pref]['desc'], array('class' => 'prefsLinkImg')));
                     }
-                    $t->set('url', isset($this->prefs[$pref]['url']) ? Horde::applicationUrl($this->prefs[$pref]['url']) : $this->prefs[$pref]['xurl']);
+                    $t->set('url', isset($this->prefs[$pref]['url']) ? Horde::url($this->prefs[$pref]['url']) : $this->prefs[$pref]['xurl']);
                     if (isset($this->prefs[$pref]['target'])) {
                         $t->set('target', htmlspecialchars($this->prefs[$pref]['target']));
                     }

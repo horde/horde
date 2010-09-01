@@ -17,7 +17,7 @@ class Horde_Block_nag_summary extends Horde_Block
             ? $this->_params['block_title']
             : $registry->get('name');
 
-        return Horde::applicationUrl($registry->getInitialPage(), true)->link()
+        return Horde::url($registry->getInitialPage(), true)->link()
             . htmlspecialchars($label) . '</a>';
     }
 
@@ -113,7 +113,7 @@ class Horde_Block_nag_summary extends Horde_Block
                     array('task' => $task->id,
                           'tasklist' => $task->tasklist));
                 $link = Horde::link(
-                    htmlspecialchars(Horde::applicationUrl($viewurl, true)))
+                    htmlspecialchars(Horde::url($viewurl, true)))
                     . (!empty($task->name)
                        ? htmlspecialchars($task->name) : _("[none]"))
                     . '</a>';
@@ -181,7 +181,7 @@ class Horde_Block_nag_summary extends Horde_Block
                           'url' => Horde::selfUrl(true)));
                 $label = sprintf(_("Edit \"%s\""), $task->name);
                 $html .= '<td width="1%">'
-                    . Horde::link(htmlspecialchars(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task'), true)), $label)
+                    . Horde::link(htmlspecialchars(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task'), true)), $label)
                     . Horde::img('edit.png', $label)
                     . '</a></td>';
                 if ($task->completed) {
@@ -190,7 +190,7 @@ class Horde_Block_nag_summary extends Horde_Block
                 } else {
                     $label = sprintf(_("Complete \"%s\""), $task->name);
                     $html .= '<td width="1%">'
-                        . Horde::link(htmlspecialchars(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task'), true)), $label)
+                        . Horde::link(htmlspecialchars(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task'), true)), $label)
                         . Horde::img('unchecked.png', $label) . '</a></td>';
                 }
             }
@@ -217,7 +217,7 @@ class Horde_Block_nag_summary extends Horde_Block
                       'tasklist' => $task->tasklist));
             $html .= $task->treeIcons()
                 . Horde::link(
-                    htmlspecialchars(Horde::applicationUrl($viewurl, true)),
+                    htmlspecialchars(Horde::url($viewurl, true)),
                     $task->desc)
                 . (!empty($task->name)
                    ? htmlspecialchars($task->name) : _("[none]"))
@@ -248,7 +248,7 @@ class Horde_Block_nag_summary extends Horde_Block
         }
 
         return '<link href="'
-            . htmlspecialchars(Horde::applicationUrl('themes/categoryCSS.php',
+            . htmlspecialchars(Horde::url('themes/categoryCSS.php',
                                                      true))
             . '" rel="stylesheet" type="text/css" />'
             . '<table cellspacing="0" width="100%" class="linedRow">'

@@ -43,9 +43,9 @@
   <td>
   <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             if (empty($task->completed)) {
-                echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
+                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
             } else {
-                echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
+                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
             }
         } else {
             echo Nag::formatCompletion($task->completed) . '</a>';

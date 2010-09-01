@@ -1,2 +1,2 @@
 <?php
-$Form->renderActive(null, $vars, Horde::applicationUrl('dialplan.php'), 'post');
+$Form->renderActive(null, $vars, Horde::url('dialplan.php'), 'post');

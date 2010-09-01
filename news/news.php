@@ -21,7 +21,7 @@ $row = $news->get($id);
 // check if the news exists
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    Horde::applicationUrl('index.php')->redirect();
+    Horde::url('index.php')->redirect();
 }
 
 // check if the news exists
@@ -44,7 +44,7 @@ if (($version = Horde_Util::getFormData('version')) !== null) {
 
 $title = $row['title'];
 $template_path = News::getTemplatePath($row['category1'], 'news');
-$browse_url = Horde::applicationUrl('browse.php');
+$browse_url = Horde::url('browse.php');
 
 require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';

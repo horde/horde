@@ -36,7 +36,7 @@ if (($reload || empty($result))) {
 
 if (!empty($result)) {
     $imgdir = Horde_Themes::img(null, 'horde');
-    $customurl = Horde::applicationUrl('faces/custom.php');
+    $customurl = Horde::url('faces/custom.php');
     require_once ANSEL_TEMPLATES . '/faces/image.inc';
 } else {
     echo _("No faces found");

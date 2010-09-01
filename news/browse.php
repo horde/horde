@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $title = _("Browse");
 $page = Horde_Util::getGet('news_page', 0);
 $per_page = $prefs->getValue('per_page');
-$browse_url = Horde::applicationUrl('browse.php');
+$browse_url = Horde::url('browse.php');
 $cid = Horde_Util::getGet('cid');
 
 // Define creteria

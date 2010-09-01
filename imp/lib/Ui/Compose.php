@@ -237,7 +237,7 @@ class IMP_Ui_Compose
     public function mailboxReturnUrl($url = null)
     {
         if (!$url) {
-            $url = Horde::applicationUrl('mailbox.php');
+            $url = Horde::url('mailbox.php');
         }
 
         foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
@@ -255,7 +255,7 @@ class IMP_Ui_Compose
     public function popupSuccess()
     {
         $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-        $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
+        $menu->add(Horde::url('compose.php'), _("New Message"), 'compose.png');
         $menu->add(new Horde_Url(''), _("Close this window"), 'close.png', null, null, 'window.close();');
         require IMP_TEMPLATES . '/common-header.inc';
         $success_template = $GLOBALS['injector']->createInstance('Horde_Template');

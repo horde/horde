@@ -11,7 +11,7 @@
         <?php
             foreach ($extensions as $extension => $info) {
 
-                $url = Horde::applicationUrl("extensions.php");
+                $url = Horde::url("extensions.php");
                 $url = Horde_Util::addParameter($url,
                     array(
                         'extension' => $extension,
@@ -44,7 +44,7 @@
 <br />
 <ul id="extensionsControls" class="controls">
     <?php
-    $addurl = Horde::applicationUrl('extensions.php');
+    $addurl = Horde::url('extensions.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
     <li><span class="button" onclick="showExtensionForm()">

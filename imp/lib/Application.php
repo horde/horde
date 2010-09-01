@@ -500,7 +500,7 @@ class IMP_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::applicationUrl('search.php')
+                'url' => Horde::url('search.php')
             )
         );
 
@@ -508,7 +508,7 @@ class IMP_Application extends Horde_Registry_Application
             return;
         }
 
-        $name_url = Horde::applicationUrl('mailbox.php');
+        $name_url = Horde::url('mailbox.php');
 
         /* Initialize the IMP_Tree object. */
         $imaptree = $injector->getInstance('IMP_Imap_Tree');

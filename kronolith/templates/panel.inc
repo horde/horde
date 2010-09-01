@@ -62,8 +62,8 @@ $tagger = Kronolith::getTagger();
 
 <?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
-  <a href="<?php echo Horde::applicationUrl('calendars/') ?>"><?php echo _("[Manage Calendars]") ?></a><br />
-  <a href="<?php echo Horde::applicationUrl('resources/')?>"><?php echo ($GLOBALS['registry']->isAdmin() ? _("[Manage Resource Calendars]") : _("[Resource Calendars]"))?></a>
+  <a href="<?php echo Horde::url('calendars/') ?>"><?php echo _("[Manage Calendars]") ?></a><br />
+  <a href="<?php echo Horde::url('resources/')?>"><?php echo ($GLOBALS['registry']->isAdmin() ? _("[Manage Resource Calendars]") : _("[Resource Calendars]"))?></a>
  </p>
 <?php endif; ?>
 

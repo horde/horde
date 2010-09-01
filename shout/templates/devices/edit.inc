@@ -1,2 +1,2 @@
 <?php
-$Form->renderActive($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
+$Form->renderActive($RENDERER, $vars, Horde::url('devices.php'), 'post');

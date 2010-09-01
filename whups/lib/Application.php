@@ -214,7 +214,7 @@ class Whups_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('create.png'),
-                'url' => Horde::applicationUrl('ticket/create.php')
+                'url' => Horde::url('ticket/create.php')
             )
         );
 
@@ -226,7 +226,7 @@ class Whups_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::applicationUrl('search.php')
+                'url' => Horde::url('search.php')
             )
         );
     }

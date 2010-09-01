@@ -158,7 +158,7 @@ class Horde_Block_Kronolith_month extends Horde_Block
             $html .= '<td align="center" class="' . $td_class . '">';
 
             /* Set up the link to the day view. */
-            $url = Horde::applicationUrl('day.php', true)
+            $url = Horde::url('day.php', true)
                 ->add('date', $date_ob->dateString());
             if (isset($this->_params['calendar']) &&
                 $this->_params['calendar'] != '__all') {

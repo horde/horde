@@ -31,11 +31,11 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("The address book \"%s\" has been created."), $vars->get('name')), 'horde.success');
     }
 
-    Horde::applicationUrl('addressbooks/', true)->redirect();
+    Horde::url('addressbooks/', true)->redirect();
 }
 
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, Horde::applicationUrl('addressbooks/create.php'), 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

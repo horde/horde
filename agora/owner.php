@@ -41,7 +41,7 @@ foreach ($registry->listApps() as $scope) {
             echo _("No threads");
         } else {
             $link_back = $registry->hasMethod('show', $scope);
-            $url = Horde::applicationUrl('agora/messages/index.php');
+            $url = Horde::url('agora/messages/index.php');
 
             /* link threads if possible */
             foreach ($threads as &$thread) {

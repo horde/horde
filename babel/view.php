@@ -164,7 +164,7 @@ if (!$app) {
 
     if (Babel::hasPermission('view', 'tabs', Horde_Perms::EDIT)) {
 	$hmenu_desc = _("Edit Header");
-	$url = Horde::applicationUrl('edit.php');
+	$url = Horde::url('edit.php');
 	$url = Horde_Util::addParameter($url, array('module' => $app,
 					      'url'    => 'view'));
 
@@ -216,7 +216,7 @@ if (!$app) {
     Translate_Display::info();
 
     $filter_html = '';
-    $filter_html .=  '<form action="' . Horde::applicationUrl('view.php') . '" method="post" name="edit" id="edit">';
+    $filter_html .=  '<form action="' . Horde::url('view.php') . '" method="post" name="edit" id="edit">';
     $filter_html .= '<span class="smallheader">';
     $filter_html .= Horde::img('edit.png') . '&nbsp;';
     $filter_html .= '<b>' . _("Filter: ") . '</b>';
@@ -226,7 +226,7 @@ if (!$app) {
     } else {
 	$hmenu_desc = _("All");
     }
-    $url = Horde::applicationUrl('view.php');
+    $url = Horde::url('view.php');
     $url = Horde_Util::addParameter($url, array('module' => $app));
     $filter_html .= Horde::link($url, _("Edit Mode"), 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
@@ -236,7 +236,7 @@ if (!$app) {
     } else {
 	$hmenu_desc = _("Translated");
     }
-    $url = Horde::applicationUrl('view.php');
+    $url = Horde::url('view.php');
     $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'translated'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
@@ -247,7 +247,7 @@ if (!$app) {
     } else {
 	$hmenu_desc = _("Fuzzy");
     }
-    $url = Horde::applicationUrl('view.php');
+    $url = Horde::url('view.php');
     $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'fuzzy'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
@@ -257,7 +257,7 @@ if (!$app) {
     } else {
 	$hmenu_desc = _("Untranslated");
     }
-    $url = Horde::applicationUrl('view.php');
+    $url = Horde::url('view.php');
     $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'untranslated'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= ']&nbsp;';
@@ -345,7 +345,7 @@ if (!$app) {
 	    // Lock the current item for 5 minutes
 	    $locks->setLock($GLOBALS['registry']->getAuth(), md5($encstr), $lockscope, 300);
 
-	    echo '<form action="' . Horde::applicationUrl('view.php') . "#" . md5($encstr) . '" method="post" name="edit" id="edit">';
+	    echo '<form action="' . Horde::url('view.php') . "#" . md5($encstr) . '" method="post" name="edit" id="edit">';
 	    echo '<input type="hidden" name="module" value="' . $app . '">';
 	    echo '<input type="hidden" name="page" value="' . $page . '">';
 	    echo '<input type="hidden" name="filter" value="' . $filter . '">';
@@ -376,7 +376,7 @@ if (!$app) {
 		$sline = $m[2];
 
 		if (Babel::hasPermission('viewsource', 'tabs', Horde_Perms::EDIT)) {
-		    $surl = Horde::applicationUrl('viewsource.php');
+		    $surl = Horde::url('viewsource.php');
 		    $surl = Horde_Util::addParameter($surl, array('module' => $app,
 							    'file'   => $sfile,
 							    'line'   => $sline));
@@ -433,7 +433,7 @@ if (!$app) {
 	  } else {
 	      if (Babel::hasPermission('view', 'tabs', Horde_Perms::EDIT)) {
 		  if (!$editmode || $cstring != $encstr) {
-		      $surl = Horde::applicationUrl('view.php');
+		      $surl = Horde::url('view.php');
 		      $surl = Horde_Util::addParameter($surl, array('module' => $app, 'cstring' => $encstr, 'editmode' => 1, 'page' => $page, 'filter' => $filter, 'search' => $search));
 		      $surl .= "#" . md5($encstr);
 
@@ -485,7 +485,7 @@ if (!$app) {
 <table width="100%" class="item box">
 <tr><td>
 <?php
-  $viewurl = Horde::applicationUrl('view.php');
+  $viewurl = Horde::url('view.php');
 $viewurl = Horde_Util::addParameter($viewurl, array('editmode' => $editmode,
 					      'module' => $app,
 					      'filter' => $filter,

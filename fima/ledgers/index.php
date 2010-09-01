@@ -15,9 +15,9 @@ if (!$GLOBALS['registry']->getAuth()) {
     exit;
 }
 
-$edit_url_base = Horde::applicationUrl('ledgers/edit.php');
+$edit_url_base = Horde::url('ledgers/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=fima', true);
-$delete_url_base = Horde::applicationUrl('ledgers/delete.php');
+$delete_url_base = Horde::url('ledgers/delete.php');
 
 // Get the shares owned by the current user, and figure out what we will
 // display the share name as to the user.

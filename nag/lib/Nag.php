@@ -762,23 +762,23 @@ class Nag
         global $conf, $registry;
 
         $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
-            $menu->add(Horde::applicationUrl('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
+            $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
                 $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
 
         /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         return $menu;
@@ -911,7 +911,7 @@ class Nag
         foreach ($addresses as $lang => $twentyFour) {
             $GLOBALS['registry']->setLanguageEnvironment($lang);
 
-            $view_link = Horde_Util::addParameter(Horde::applicationUrl('view.php', true),
+            $view_link = Horde_Util::addParameter(Horde::url('view.php', true),
                                             array('tasklist' => $task->tasklist,
                                                   'task' => $task->id),
                                             null, false);

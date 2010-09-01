@@ -24,13 +24,13 @@ try {
     $addressbook = $turba_shares->getShare($vars->get('a'));
 } catch (Horde_Share_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    Horde::applicationUrl('addressbooks/', true)->redirect();
+    Horde::url('addressbooks/', true)->redirect();
 }
 if (!$GLOBALS['registry']->getAuth() ||
     $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
-    Horde::applicationUrl('addressbooks/', true)->redirect();
+    Horde::url('addressbooks/', true)->redirect();
 }
 $form = new Turba_Form_EditAddressBook($vars, $addressbook);
 
@@ -48,7 +48,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    Horde::applicationUrl('addressbooks/', true)->redirect();
+    Horde::url('addressbooks/', true)->redirect();
 }
 
 $vars->set('name', $addressbook->get('name'));
@@ -56,5 +56,5 @@ $vars->set('description', $addressbook->get('desc'));
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, Horde::applicationUrl('edit.php'), 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

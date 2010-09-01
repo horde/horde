@@ -29,7 +29,7 @@ try {
     $menus = $shout->storage->getMenus($curaccount['code']);
 
     if (!empty($menus) && !empty($menus[Shout::MAIN_MENU])) {
-        Horde::applicationUrl('dialplan.php', true)->redirect();
+        Horde::url('dialplan.php', true)->redirect();
     }
 
     // Create the default recording for the main menu

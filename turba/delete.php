@@ -26,7 +26,7 @@ if ($conf['documents']['type'] != 'none') {
         $object->deleteFiles();
     } catch (Turba_Exception $e) {
         $notification->push($e, 'horde.error');
-        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
+        Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 
@@ -34,7 +34,7 @@ try {
     $driver->delete($key);
     $url = ($url = Horde_Util::getFormData('url'))
         ? new Horde_Url($url)
-        : Horde::applicationUrl($prefs->getValue('initial_page'), true);
+        : Horde::url($prefs->getValue('initial_page'), true);
     $url->redirect();
 } catch (Turba_Exception $e) {
     $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');

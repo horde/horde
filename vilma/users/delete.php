@@ -118,7 +118,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
             } else {
                 $notification->push(_("Alias deleted."), 'horde.success');
             }
-            Horde::applicationUrl('users/index.php')
+            Horde::url('users/index.php')
                 ->add('domain_id', $domain['id'])
                 ->redirect();
         }
@@ -135,7 +135,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
             } else {
                 $notification->push(_("Forward deleted."), 'horde.success');
             }
-            Horde::applicationUrl('users/index.php')
+            Horde::url('users/index.php')
                 ->add('domain_id', $domain['id'])
                 ->redirect();
         }
@@ -150,14 +150,14 @@ if ($vars->get('submitbutton') == _("Delete")) {
             } else {
                 $notification->push(_("$type deleted."), 'horde.success');
             }
-            Horde::applicationUrl('users/index.php')
+            Horde::url('users/index.php')
                 ->add('domain_id', $domain['id'])
                 ->redirect();
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("User not deleted."), 'horde.message');
-    Horde::applicationUrl('users/index.php')
+    Horde::url('users/index.php')
         ->add('domain_id', $domain['id'])
         ->redirect();
 }

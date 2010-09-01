@@ -21,11 +21,11 @@ if ($sources instanceof PEAR_Error) {
     $sources = array();
 }
 
-$edit_url = Horde::applicationUrl('admin/sources/edit.php');
+$edit_url = Horde::url('admin/sources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));
-$delete_url = Horde::applicationUrl('admin/sources/delete.php');
+$delete_url = Horde::url('admin/sources/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"));
-$view_url = Horde::applicationUrl('browse.php');
+$view_url = Horde::url('browse.php');
 $view_img = Horde::img('category.png', _("View items"));
 
 foreach ($sources as $source_id => $source) {

@@ -1,6 +1,6 @@
 <?php
 $target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
-$bookmark_url = Horde_Util::addParameter(Horde::applicationUrl('redirect.php'), 'b', $bookmark->id);
+$bookmark_url = Horde_Util::addParameter(Horde::url('redirect.php'), 'b', $bookmark->id);
 if ($bookmark->http_status == 'error') {
     $status = 'error.png';
 } elseif ($bookmark->http_status == '') {

@@ -25,13 +25,13 @@ $formname = $vars->get('formname');
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check edit permissions */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("You don't have permission to post messages in forum %s."), $forum_id), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -84,7 +84,7 @@ if ($form->validate($vars)) {
         if (!empty($info['url'])) {
             $url = Horde::url($info['url'], true);
         } else {
-            $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+            $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
         }
         header('Location: ' . $url);
         exit;

@@ -129,7 +129,7 @@ class Chora
             $arglist['f'] = $uri;
         }
 
-        return Horde::applicationUrl($script)->add($arglist)->setAnchor($anchor);
+        return Horde::url($script)->add($arglist)->setAnchor($anchor);
 
     }
 

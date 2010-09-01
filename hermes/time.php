@@ -64,7 +64,7 @@ $table = new Horde_Core_Ui_Table('week', $vars,
 
 $template = new Horde_Template();
 $template->setOption('gettext', true);
-$template->set('postUrl', Horde::applicationUrl('time.php', false, -1));
+$template->set('postUrl', Horde::url('time.php', false, -1));
 $template->set('sessionId', Horde_Util::formInput());
 $template->set('table', $table->render());
 
@@ -78,7 +78,7 @@ require HERMES_TEMPLATES . '/common-header.inc';
 if ($print_view) {
     require $registry->get('templates', 'horde') . '/javascript/print.js';
 } else {
-    $print_link = Horde_Util::addParameter(Horde::applicationUrl('time.php'), 'print', 'true');
+    $print_link = Horde_Util::addParameter(Horde::url('time.php'), 'print', 'true');
     require HERMES_TEMPLATES . '/menu.inc';
 }
 

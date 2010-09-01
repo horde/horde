@@ -1,4 +1,4 @@
-<form method="post" name="memo" enctype="multipart/form-data" action="<?php echo Horde::applicationUrl('list.php') ?>">
+<form method="post" name="memo" enctype="multipart/form-data" action="<?php echo Horde::url('list.php') ?>">
 <input type="hidden" name="actionID" value="search_memos" />
 
 <h1 class="header"><?php echo _("Search") ?></h1>

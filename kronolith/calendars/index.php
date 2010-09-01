@@ -25,20 +25,20 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php')->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
 
-$edit_url_base = Horde::applicationUrl('calendars/edit.php');
-$remote_edit_url_base = Horde::applicationUrl('calendars/remote_edit.php');
-$delete_url_base = Horde::applicationUrl('calendars/delete.php');
-$remote_unsubscribe_url_base = Horde::applicationUrl('calendars/remote_unsubscribe.php');
-$perms_url_base = Horde::applicationUrl('perms.php', true);
-$display_url_base = Horde::applicationUrl('month.php', true, -1);
+$edit_url_base = Horde::url('calendars/edit.php');
+$remote_edit_url_base = Horde::url('calendars/remote_edit.php');
+$delete_url_base = Horde::url('calendars/delete.php');
+$remote_unsubscribe_url_base = Horde::url('calendars/remote_unsubscribe.php');
+$perms_url_base = Horde::url('perms.php', true);
+$display_url_base = Horde::url('month.php', true, -1);
 $subscribe_url_base = $registry->get('webroot', 'horde');
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
     $subscribe_url_base .= '/rpc/kronolith/';

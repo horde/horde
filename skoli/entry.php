@@ -13,7 +13,7 @@ require_once SKOLI_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -21,14 +21,14 @@ $driver = &Skoli_Driver::singleton();
 $entry = $driver->getEntry($vars->get('entry'));
 if (is_a($entry, 'PEAR_Error') || !count($entry)) {
     $notification->push(_("Entry not found."), 'horde.error');
-    Horde::applicationUrl('search.php', true)->redirect();
+    Horde::url('search.php', true)->redirect();
 }
 $share = $GLOBALS['skoli_shares']->getShare($entry['class_id']);
 
 // Check permissions
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You are not allowed to view this entry."), 'horde.error');
-    Horde::applicationUrl('search.php', true)
+    Horde::url('search.php', true)
         ->add('actionID', 'search')
         ->redirect();
 }
@@ -59,7 +59,7 @@ if ($viewName != 'DeleteEntry') {
                 $notification->push(sprintf(_("Couldn't update this entry: %s"), $result->getMessage()), 'horde.error');
             } else {
                 $notification->push(sprintf(_("The entry for \"%s\" has been saved."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-                Horde::applicationUrl('search.php', true)
+                Horde::url('search.php', true)
                     ->add('actionID', 'search')
                     ->redirect();
             }
@@ -74,14 +74,14 @@ if ($actionID == 'delete') {
         $notification->push(sprintf(_("There was an error deleting this entry: %s"), $deleted->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("The entry for \"%s\" has been deleted."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-        Horde::applicationUrl('search.php', true)
+        Horde::url('search.php', true)
             ->add('actionID', 'search')
             ->redirect();
     }
 }
 
 // Get tabs.
-$url = Horde_Util::addParameter(Horde::applicationUrl('entry.php'), 'entry', $entry['object_id']);
+$url = Horde_Util::addParameter(Horde::url('entry.php'), 'entry', $entry['object_id']);
 $tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("View"), $url, array('tabname' => 'Entry', 'id' => 'tabEntry'));
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {

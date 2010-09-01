@@ -26,7 +26,7 @@ if (!empty($uuid)) {
     }
 }
 
-$pasteurl = Horde::applicationUrl('paste.php');
+$pasteurl = Horde::url('paste.php');
 $vars = new Horde_Variables($paste);
 $form = new PasteForm($vars);
 

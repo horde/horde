@@ -11,12 +11,12 @@ require_once SKOLI_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
-$edit_url_base = Horde::applicationUrl('classes/edit.php');
+$edit_url_base = Horde::url('classes/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=skoli', true);
-$delete_url_base = Horde::applicationUrl('classes/delete.php');
+$delete_url_base = Horde::url('classes/delete.php');
 
 $classes = Skoli::listClasses(true);
 $sorted_classes = array();

@@ -3,7 +3,7 @@
         $menu = new Horde_Menu();
         if (($GLOBALS['registry']->getApp() == 'horde') &&
             !in_array($GLOBALS['registry']->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
-            $menu->add(Horde::applicationUrl('services/portal/'), _("_Home"), 'horde.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('services/portal/'), _("_Home"), 'horde.png', Horde_Themes::img(null, 'horde'));
         }
     }
 ?>

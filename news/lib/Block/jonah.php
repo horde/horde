@@ -41,7 +41,7 @@ class Horde_Block_News_jonah extends Horde_Block {
              . ' FROM jonah_channels WHERE channel_type = 1 ORDER BY channel_name';
         $chanels = $GLOBALS['news']->db->getAll($sql);
 
-        $html .= '<form action="' . Horde::applicationUrl('feed.php') . '" id="feed_select" name="feed_select">'
+        $html .= '<form action="' . Horde::url('feed.php') . '" id="feed_select" name="feed_select">'
               . '<select id="feed_id" name="feed_id" onchange="getFeed()">'
               . '<option>- - - - - - - </option>';
         foreach ($chanels as $chanel) {

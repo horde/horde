@@ -14,13 +14,13 @@ Horde_Registry::appInit('luxor');
 
 $symbol = Horde_Util::getFormData('s');
 if (!$symbol) {
-    Horde::applicationUrl('source.php', true)->redirect();
+    Horde::url('source.php', true)->redirect();
 }
 
 $ids = $index->searchSymbols($symbol);
 if (count($ids) == 1) {
     $id = current($ids);
-    Horde::applicationUrl('symbol.php', true)->add('i', $id)->redirect();
+    Horde::url('symbol.php', true)->add('i', $id)->redirect();
 }
 
 // If there are multiple search results, display some info for all of them.
@@ -40,7 +40,7 @@ foreach ($ids as $ident) {
     }
 
     $name = $index->symname($ident);
-    echo '<br /><span class="header">' . Horde::link(Horde::applicationUrl('symbol.php?i=' . $ident), $name, 'header') . $name . '</a></span><br />';
+    echo '<br /><span class="header">' . Horde::link(Horde::url('symbol.php?i=' . $ident), $name, 'header') . $name . '</a></span><br />';
 
     $references = $index->getIndex($ident);
     $sorted = array();

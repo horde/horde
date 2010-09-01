@@ -562,7 +562,7 @@ class Page {
             $url = Wicked::url($this->pageName());
             unset($params['page']);
         } else {
-            $url = Horde::applicationUrl($linkpage);
+            $url = Horde::url($linkpage);
         }
 
         return Horde_Util::addParameter($url, $params);

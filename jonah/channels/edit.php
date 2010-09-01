@@ -69,7 +69,7 @@ if ($formname && !$changed_type) {
             if ($channel_type == Jonah::AGGREGATED_CHANNEL) {
                 $notification->push(_("You can now edit the sub-feeds."), 'horde.message');
             } else {
-                Horde::applicationUrl('channels/index.php', true)->redirect();
+                Horde::url('channels/index.php', true)->redirect();
             }
         }
     }

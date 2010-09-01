@@ -43,7 +43,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 do {
@@ -234,7 +234,7 @@ $url = Horde_Util::getFormData('url');
 if (!empty($url)) {
     $url = new Horde_Url($url, true);
 } else {
-    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+    $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
         ->add(array('month' => Horde_Util::getFormData('month'),
                     'year' => Horde_Util::getFormData('year')));
 }

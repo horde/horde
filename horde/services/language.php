@@ -27,7 +27,7 @@ foreach ($registry->listApps() as $app) {
 /* Redirect to the url or login page if none given. */
 $url = Horde_Util::getFormData('url');
 $url = empty($url)
-    ? Horde::applicationUrl('index.php', true)
+    ? Horde::url('index.php', true)
     : $url;
 
 $url->redirect();

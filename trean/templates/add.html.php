@@ -77,7 +77,7 @@ function addBookmark() {
     <?php printf(_("On newer versions of Internet Explorer, you may have to add %s://%s to your Trusted Zone for this to work."), !empty($_SERVER['HTTPS']) ? 'https' : 'http', $conf['server']['name']) ?>
  </p>
 <?php
-$addurl = Horde::applicationUrl(Horde_Util::addParameter('add.php', 'popup', 1), true, -1);
+$addurl = Horde::url(Horde_Util::addParameter('add.php', 'popup', 1), true, -1);
 $url = "javascript:d = new Date(); w = window.open('$addurl' + '&amp;title=' + encodeURIComponent(document.title) + '&amp;url=' + encodeURIComponent(location.href) + '&amp;d=' + d.getTime(), d.getTime(), 'height=200,width=400'); w.focus();";
 echo '<p><a href="' . $url . '">' . Horde::img('add.png') . _("Add to Bookmarks") . '</a></p>';
 ?>

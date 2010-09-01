@@ -1500,8 +1500,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         }
 
         $mailbox_url = (IMP::getViewMode() == 'mimp')
-            ? Horde::applicationUrl('mailbox-mimp.php')
-            : Horde::applicationUrl('mailbox.php');
+            ? Horde::url('mailbox-mimp.php')
+            : Horde::url('mailbox.php');
 
         foreach ($this as $val) {
             $after = '';

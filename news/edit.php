@@ -19,14 +19,14 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $allowed_cats = $news_cat->getAllowed(Horde_Perms::DELETE);
 if (empty($allowed_cats)) {
     $notification->push(_("You have not editor permission on any category."));
-    Horde::applicationUrl('add.php')->redirect();
+    Horde::url('add.php')->redirect();
 }
 
 $id = (int)Horde_Util::getFormData('id', 0);
 $page = (int)Horde_Util::getFormData('page', 0);
-$browse_url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), array('page' => $page, 'id' => $id), null, false);
-$edit_url = Horde::applicationUrl('add.php');
-$read_url = Horde::applicationUrl('reads.php');
+$browse_url = Horde_Util::addParameter(Horde::url('edit.php'), array('page' => $page, 'id' => $id), null, false);
+$edit_url = Horde::url('add.php');
+$read_url = Horde::url('reads.php');
 $has_comments = $registry->hasMethod('forums/doComments');
 $actionID = Horde_Util::getFormData('actionID');
 

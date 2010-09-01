@@ -13,7 +13,7 @@ require_once FIMA_BASE . '/lib/Forms/CreateLedger.php';
 // Exit if this isn't an authenticated user or if the user can't
 // create new task lists (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('active_ledger')) {
-    Horde::applicationUrl('postings.php', true)->redirect();
+    Horde::url('postings.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -28,7 +28,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("The ledger \"%s\" has been created."), $vars->get('name')), 'horde.success');
     }
 
-    Horde::applicationUrl('ledgers/', true)->redirect();
+    Horde::url('ledgers/', true)->redirect();
 }
 
 $title = $form->getTitle();

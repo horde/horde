@@ -43,7 +43,7 @@ if ($form->validate()) {
         $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
     } else {
         $notification->push(_("Source saved succesfully."));
-        Horde::applicationUrl('admin/sources/index.php')->redirect();
+        Horde::url('admin/sources/index.php')->redirect();
     }
 }
 

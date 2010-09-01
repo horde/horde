@@ -21,7 +21,7 @@ $storage = &Mnemo_Driver::singleton();
 if ($uid = Horde_Util::getFormData('uid')) {
     $note = $storage->getByUID($uid, $passphrase);
     if ($note instanceof PEAR_Error) {
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
 
     $note_id = $note['memo_id'];
@@ -32,7 +32,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
     $note_id = Horde_Util::getFormData('note');
     $notelist_id = Horde_Util::getFormData('notepad');
     if (!isset($note_id) || !$notelist_id) {
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
 
     /* Get the current memo. */
@@ -42,17 +42,17 @@ try {
     $share = $GLOBALS['mnemo_shares']->getShare($notelist_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push(sprintf(_("There was an error viewing this notepad: %s"), $e->getMessage()), 'horde.error');
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 /* If the requested note doesn't exist, display an error message. */
 if (!$note || !isset($note['memo_id'])) {
     $notification->push(_("Note not found."), 'horde.error');
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 /* Let's assume that the note content can be converted to ISO-8859-1 if this

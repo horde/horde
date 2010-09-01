@@ -15,7 +15,7 @@ require_once SKOLI_BASE . '/lib/Forms/Entry.php';
 /* Redirect to create a new class if we don't have access to any class */
 if (count(Skoli::listClasses(false, Horde_Perms::EDIT)) == 0 && $GLOBALS['registry']->getAuth()) {
     $notification->push(_("Please create a new Class first."), 'horde.message');
-    Horde::applicationUrl('classes/create.php', true)->redirect();
+    Horde::url('classes/create.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -30,7 +30,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("The new entry for \"%s\" has been added."), $result), 'horde.success');
     }
 
-    Horde::applicationUrl('add.php', true)
+    Horde::url('add.php', true)
         ->add('class', $vars->get('class_id'))
         ->redirect();
     exit;

@@ -16,21 +16,21 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* We have any moderators? */
 $forum = $messages->getForum();
 if (!isset($forum['moderators'])) {
     $notification->push(_("No moderators are associated with this forum."), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -44,7 +44,7 @@ $form->addHidden('', 'scope', 'text', false);
 
 if ($form->validate()) {
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
 
     if ($vars->get('submitbutton') == _("Cancel")) {
         header('Location: ' . $url);

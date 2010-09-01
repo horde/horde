@@ -197,7 +197,7 @@ class Ansel_Search_Tag
         /* Use the local cache to preserve the order */
         $count = 0;
         foreach ($this->_tags as $tagname => $tagid) {
-            $remove_url = Horde::applicationUrl('view.php', true)->add(
+            $remove_url = Horde::url('view.php', true)->add(
                     array('view' => 'Results',
                           'tag' => $tagname,
                           'actionID' => 'remove'));

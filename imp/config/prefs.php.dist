@@ -414,7 +414,7 @@ $_prefs['mailto_handler'] = array(
     'xurl' => 'javascript:if(typeof navigator.registerProtocolHandler==\'undefined\')alert(\''
         . addslashes(_("Your browser does not support this feature."))
         . '\');else navigator.registerProtocolHandler(\'mailto\',\''
-        . Horde::applicationUrl('compose.php', true)->setRaw(true)->add(array('actionID' => 'mailto_link', 'to' => ''))
+        . Horde::url('compose.php', true)->setRaw(true)->add(array('actionID' => 'mailto_link', 'to' => ''))
         . '%s\',\'' . $GLOBALS['registry']->get('name') . '\');',
     'desc' => sprintf(_("Click here to open all mailto: links in %s."), $GLOBALS['registry']->get('name'))
 );

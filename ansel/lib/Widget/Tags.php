@@ -43,7 +43,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             ));
             $html .= Horde::endBuffer();
 
-            $actionUrl = Horde::applicationUrl('image.php')->add(
+            $actionUrl = Horde::url('image.php')->add(
                 array('image' => $this->_view->resource->id,
                       'gallery' => $this->_view->gallery->id));
 

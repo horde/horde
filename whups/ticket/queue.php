@@ -133,7 +133,7 @@ if (!empty($q)) {
 // Check permissions on this ticket.
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
 

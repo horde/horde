@@ -195,7 +195,7 @@ case 'clonetypeform':
         $notification->push(sprintf(_("Successfully Cloned %s to %s."),
                                     $type['name'], $vars->get('name')),
                             'horde.success');
-        Horde::applicationUrl('admin/?action=type', true)->redirect();
+        Horde::url('admin/?action=type', true)->redirect();
     } else {
         _open();
         $form->renderActive($renderer, $vars, $adminurl, 'post');
@@ -1225,8 +1225,8 @@ if (!_open(true)) {
         _open();
         $queues = $whups_driver->getQueues();
         $types = $whups_driver->getAllTypes();
-        $tlink = Horde::applicationUrl('admin/?formname=edittypeform');
-        $mlink = Horde::applicationUrl('admin/?formname=editqueueform');
+        $tlink = Horde::url('admin/?formname=edittypeform');
+        $mlink = Horde::url('admin/?formname=editqueueform');
         require WHUPS_TEMPLATES . '/admin/mtmatrix.inc';
         break;
 

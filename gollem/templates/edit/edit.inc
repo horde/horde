@@ -1,4 +1,4 @@
-<form name="edit_form" action="<?php echo Horde::applicationUrl('edit.php') ?>" method="post">
+<form name="edit_form" action="<?php echo Horde::url('edit.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="save_file" />
 <input type="hidden" name="driver" value="<?php echo $driver ?>" />

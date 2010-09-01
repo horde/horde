@@ -8,11 +8,11 @@ $currentDate = Kronolith::currentDate();
 
 /* Variables used in core javascript files. */
 $var = array(
-    'calendar_info_url' => (string)Horde::applicationUrl('calendars/info.php', true),
+    'calendar_info_url' => (string)Horde::url('calendars/info.php', true),
     'page_title' => $GLOBALS['registry']->get('name') . ' :: ',
     'pref_api_url' => (string)Horde::getServiceLink('prefsapi', 'kronolith'),
     'twentyFour' => intval($GLOBALS['prefs']->getValue('twentyFour')),
-    'view_url' => (string)Horde::applicationUrl('view.php'),
+    'view_url' => (string)Horde::url('view.php'),
 );
 
 /* Gettext strings used in core javascript files. */

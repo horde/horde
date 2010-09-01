@@ -72,7 +72,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("Error saving virtual email. %s."), $virtual_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Virtual email saved."), 'horde.success');
-        Horde::applicationUrl('virtuals/index.php')
+        Horde::url('virtuals/index.php')
             ->add('user', $info['virtual_destination'])
             ->redirect();
     }

@@ -6,12 +6,12 @@
    <img src="<?php echo $faces->getFaceUrl($face['image_id'], $face_id) ?>" style="padding: 5px;" alt="<?php echo $facename?>" /><br />
    <?php echo sprintf(ngettext("%d gallery", "%d galleries", count($face['galleries'])), count($face['galleries'])); ?><br />
    <?php if ($GLOBALS['conf']['report_content']['driver']): ?>
-   <?php echo Horde::applicationUrl('faces/report.php')->add('face', $face_id)->link(
+   <?php echo Horde::url('faces/report.php')->add('face', $face_id)->link(
            array('class' => 'small',
                  'title' => _("Report abuse or submit a removal request"))) . _("Report") . '</a><br />'?>
    <?php endif; ?>
    <?php if ($conf['faces']['search'] && Horde_Util::loadExtension('libpuzzle')) {
-        echo Horde::applicationUrl('faces/search/image_search.php')->add('face_id', $face_id)->link(array('title' => _("Find similar"))) . _("Similar faces") . '</a>';
+        echo Horde::url('faces/search/image_search.php')->add('face_id', $face_id)->link(array('title' => _("Find similar"))) . _("Similar faces") . '</a>';
     } ?>
   </td>
   <td>

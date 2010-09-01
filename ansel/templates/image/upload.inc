@@ -58,7 +58,7 @@ var carousel = null;
 
 function runTest() {
     updateCarouselSize();
-    carousel = new UI.Ajax.Carousel("horizontal_carousel", {url: "<?php echo Horde::applicationUrl('img/upload_preview.php')->add('gallery', $gallery->id) ?>", elementSize: 90})
+    carousel = new UI.Ajax.Carousel("horizontal_carousel", {url: "<?php echo Horde::url('img/upload_preview.php')->add('gallery', $gallery->id) ?>", elementSize: 90})
         .observe("request:started", function() {
             $('spinner').show().morph("opacity:0.8", {duration:0.5});
         })

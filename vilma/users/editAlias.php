@@ -44,7 +44,7 @@ if ($vars->exists('mode')) {
             }
         } else {
             $notification->push(_("Alias saved."), 'horde.success');
-            Horde::applicationUrl('users/index.php')
+            Horde::url('users/index.php')
                 ->add('domain_id', $domain['id'])
                 ->redirect();
         }

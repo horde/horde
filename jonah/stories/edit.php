@@ -30,7 +30,7 @@ $channel_id = $vars->get('channel_id');
 $channel = $news->isChannelEditable($channel_id);
 if (is_a($channel, 'PEAR_Error')) {
     $notification->push(sprintf(_("Story editing failed: %s"), $channel->getMessage()), 'horde.error');
-    Horde::applicationUrl('channels/index.php', true)->redirect();
+    Horde::url('channels/index.php', true)->redirect();
 }
 
 /* Check permissions. */
@@ -56,7 +56,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("There was an error saving the story: %s"), $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("The story \"%s\" has been saved."), $info['story_title']), 'horde.success');
-        Horde::applicationUrl('stories/index.php', true)
+        Horde::url('stories/index.php', true)
             ->add('channel_id', $channel_id)
             ->redirect();
     }

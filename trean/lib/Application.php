@@ -111,7 +111,7 @@ class Trean_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('add.png'),
-                'url' => Horde::applicationUrl('add.php')
+                'url' => Horde::url('add.php')
             )
         );
 
@@ -123,13 +123,13 @@ class Trean_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::applicationUrl('search.php')
+                'url' => Horde::url('search.php')
             )
         );
 
         $folders = Trean::listFolders();
         if (!($folders instanceof PEAR_Error)) {
-            $browse = Horde::applicationUrl('browse.php');
+            $browse = Horde::url('browse.php');
 
             foreach ($folders as $folder) {
                 $parent_id = $folder->getParent();

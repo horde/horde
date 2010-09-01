@@ -14,14 +14,14 @@ require KRONOLITH_TEMPLATES . '/menu.inc';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php')->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
-$edit_url_base = Horde::applicationUrl('resources/groups/edit.php');
+$edit_url_base = Horde::url('resources/groups/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));
 
 $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::EDIT, array('type' => Kronolith_Resource::TYPE_GROUP));
-//$display_url_base = Horde::applicationUrl('month.php', true, -1);
-$delete_url_base = Horde::applicationUrl('resources/groups/delete.php');
+//$display_url_base = Horde::url('month.php', true, -1);
+$delete_url_base = Horde::url('resources/groups/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"));
 ?>
 <script type="text/javascript">
@@ -43,7 +43,7 @@ function performAction(action, rid)
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Resource Group") ?>" />
-  <a class="button" href="<?php echo Horde::applicationUrl('resources')?>"><?php echo _("Return to Single Resources")?></a>
+  <a class="button" href="<?php echo Horde::url('resources')?>"><?php echo _("Return to Single Resources")?></a>
  </form>
 <?php endif ?>
 <table summary="<?php echo _("Resource Group List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">

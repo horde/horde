@@ -1,5 +1,5 @@
 <?php
-$uuid = Horde::applicationUrl('uuid');
+$uuid = Horde::url('uuid');
 ?>
 <div id="recentPastes">
 <h2>Recent Pastings</h2>

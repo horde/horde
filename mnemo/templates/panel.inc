@@ -43,7 +43,7 @@ function sbarToggle()
 
 <?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
-  <a href="<?php echo Horde::applicationUrl('notepads/') ?>"><?php echo _("[Manage Notepads]") ?></a>
+  <a href="<?php echo Horde::url('notepads/') ?>"><?php echo _("[Manage Notepads]") ?></a>
  </p>
 <?php endif; ?>
 

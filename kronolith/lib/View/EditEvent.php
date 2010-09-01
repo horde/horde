@@ -99,7 +99,7 @@ class Kronolith_View_EditEvent {
         if (isset($url)) {
             $cancelurl = new Horde_Url($url);
         } else {
-            $cancelurl = Horde::applicationUrl('month.php', true)
+            $cancelurl = Horde::url('month.php', true)
                 ->add(array('month' => $month, 'year' => $year));
         }
 

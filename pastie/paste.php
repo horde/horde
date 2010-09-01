@@ -16,7 +16,7 @@ $pastie = Horde_Registry::appInit('pastie');
 require_once PASTIE_BASE . '/lib/Forms/Paste.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-$url = Horde::applicationUrl('paste.php');
+$url = Horde::url('paste.php');
 
 $form = new PasteForm($vars);
 
@@ -28,7 +28,7 @@ if ($form->validate($vars)) {
 
         $notification->push(sprintf('Paste saved. %s', $uuid), 'horde.success');
 
-        Horde::applicationUrl('uuid/' . $uuid, true)->redirect();
+        Horde::url('uuid/' . $uuid, true)->redirect();
     } catch (Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }

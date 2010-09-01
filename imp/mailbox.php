@@ -42,7 +42,7 @@ $registry->setTimeZone();
 try {
     $redirect = Horde::callHook('mbox_redirect', array(IMP::$mailbox), 'imp');
     if (!empty($redirect)) {
-        Horde::applicationUrl($redirect, true)->redirect();
+        Horde::url($redirect, true)->redirect();
     }
 } catch (Horde_Exception_HookNotSet $e) {}
 
@@ -55,7 +55,7 @@ $vfolder = $imp_search->isVFolder();
 /* There is a chance that this page is loaded directly via message.php. If so,
  * don't re-include config files, and the following variables will already be
  * set: $actionID, $start. */
-$mailbox_url = Horde::applicationUrl('mailbox.php');
+$mailbox_url = Horde::url('mailbox.php');
 $mailbox_imp_url = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox)->add('newmail', 1);
 if (!Horde_Util::nonInputVar('from_message_page')) {
     $actionID = $vars->actionID;
@@ -129,10 +129,10 @@ case 'fwd_digest':
 
         if ($prefs->getValue('compose_popup')) {
             Horde::addInlineScript(array(
-                Horde::popupJs(Horde::applicationUrl('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
+                Horde::popupJs(Horde::url('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
             ), 'dom');
         } else {
-            Horde::applicationUrl('compose.php', true)->add($options)->redirect();
+            Horde::url('compose.php', true)->add($options)->redirect();
         }
     }
     break;
@@ -288,7 +288,7 @@ if (IMP::$mailbox == 'INBOX') {
 }
 
 if (!is_null($rss_box)) {
-    $rss_url = Horde::applicationUrl('rss.php') . $rss_box;
+    $rss_url = Horde::url('rss.php') . $rss_box;
 }
 
 /* If user wants the mailbox to be refreshed, set time here. */
@@ -392,7 +392,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
     $hdr_template->set('search_img', Horde::img('search.png', _("Search")));
 
     if (!$search_mbox) {
-        $hdr_template->set('search_url', Horde::applicationUrl('search-basic.php')->add('search_mailbox', IMP::$mailbox));
+        $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', IMP::$mailbox));
         if (!$readonly) {
             $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array(
                 'actionID' => 'empty_mailbox',
@@ -409,7 +409,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
         } elseif ($search_mbox && !isset($query_text)) {
             /* Mini search results. */
             $search_mailbox = reset($imp_search->getSearchFolders());
-            $hdr_template->set('search_url', Horde::applicationUrl('search-basic.php')->add('search_mailbox', $search_mailbox));
+            $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', $search_mailbox));
             $hdr_template->set('searchclose', IMP::generateIMPUrl('mailbox.php', $search_mailbox));
         } elseif (!$vfolder) {
             $edit_search = _("Edit Search Query");

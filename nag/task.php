@@ -46,7 +46,7 @@ function _delete($task_id, $tasklist_id)
         header('Location: ' . $url);
         exit;
     }
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
@@ -58,7 +58,7 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Redirect to the task list if no action has been requested. */
 $actionID = $vars->get('actionID');
 if (is_null($actionID)) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 /* Run through the action handlers. */
@@ -74,7 +74,7 @@ case 'add_task':
             $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         }
         $notification->push($message, 'horde.error', array('content.raw'));
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
 
     $vars->set('actionID', 'save_task');
@@ -111,7 +111,7 @@ case 'modify_task':
     }
 
     /* Return to the task list. */
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 
 case 'save_task':
     if ($vars->get('submitbutton') == _("Delete this task")) {
@@ -132,11 +132,11 @@ case 'save_task':
         $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
     } catch (Horde_Share_Exception $e) {
         $notification->push(sprintf(_("Access denied saving task: %s"), $e->getMessage()), 'horde.error');
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
 
     /* Add new category. */
@@ -165,7 +165,7 @@ case 'save_task':
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if ($perms->hasAppPermission('max_tasks') !== true &&
             $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
-            Horde::applicationUrl('list.php', true)->redirect();
+            Horde::url('list.php', true)->redirect();
         }
 
         /* Creating a new task. */
@@ -190,7 +190,7 @@ case 'save_task':
             header('Location: ' . $url);
             exit;
         }
-        Horde::applicationUrl('list.php', true)->redirect();
+        Horde::url('list.php', true)->redirect();
     }
 
     break;
@@ -235,10 +235,10 @@ case 'complete_task':
         header('Location: ' . $url);
         exit;
     }
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 
 default:
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $title = $form->getTitle();

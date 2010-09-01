@@ -16,7 +16,7 @@ if ($option_select): ?>
    <?php if ($option_edit): ?>
     <?php echo $image_url->copy()->add(array('actionID' => 'modify'))->link(
                 array('target' => '_blank',
-                      'onclick' => Horde::popupJs(Horde::applicationUrl($image_url), array('params' => array('actionID' => 'modify', 'urlencode' => true)))
+                      'onclick' => Horde::popupJs(Horde::url($image_url), array('params' => array('actionID' => 'modify', 'urlencode' => true)))
             . 'return false;')) . _("Properties")?></a>
     | <?php echo $image_url->copy()->add('actionID', 'editimage')->link() . _("Edit") ?></a>
    <?php endif; ?>

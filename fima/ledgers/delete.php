@@ -12,24 +12,24 @@ require_once FIMA_BASE . '/lib/Forms/DeleteLedger.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('postings.php', true)->redirect();
+    Horde::url('postings.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $ledger_id = $vars->get('l');
 if ($ledger_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This ledger cannot be deleted."), 'horde.warning');
-    Horde::applicationUrl('ledgers/', true)->redirect();
+    Horde::url('ledgers/', true)->redirect();
 }
 
 $ledger = $fima_shares->getShare($ledger_id);
 if (is_a($ledger, 'PEAR_Error')) {
     $notification->push($ledger, 'horde.error');
-    Horde::applicationUrl('ledgers/', true)->redirect();
+    Horde::url('ledgers/', true)->redirect();
 }
 if ($ledger->get('owner') != $GLOBALS['registry']->getAuth()) {
     $notification->push(_("You are not allowed to delete this ledger."), 'horde.error');
-    Horde::applicationUrl('ledgers/', true)->redirect();
+    Horde::url('ledgers/', true)->redirect();
 }
 
 $form = new Fima_DeleteLedgerForm($vars, $ledger);
@@ -43,7 +43,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $notification->push(sprintf(_("The ledger \"%s\" has been deleted."), $ledger->get('name')), 'horde.success');
     }
 
-    Horde::applicationUrl('ledgers/', true)->redirect();
+    Horde::url('ledgers/', true)->redirect();
 }
 
 $title = $form->getTitle();

@@ -31,7 +31,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("Error saving domain: %s."), $domain_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Domain saved."), 'horde.success');
-        Horde::applicationUrl('domains/index.php', true)->redirect();
+        Horde::url('domains/index.php', true)->redirect();
     }
 }
 

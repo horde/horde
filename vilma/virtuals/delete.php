@@ -40,14 +40,14 @@ if ($vars->get('submitbutton') == _("Delete")) {
             $notification->push(sprintf(_("Error deleting virtual email. %s."), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Virtual email deleted."), 'horde.success');
-            Horde::applicationUrl('virtuals/index.php')
+            Horde::url('virtuals/index.php')
                 ->add('domain_id', $domain['domain_id'])
                 ->redirect();
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("Virtual email not deleted."), 'horde.message');
-    Horde::applicationUrl('virtuals/index.php')
+    Horde::url('virtuals/index.php')
         ->add('domain_id', $domain['domain_id'])
         ->redirect();
 }

@@ -16,7 +16,7 @@ class Horde_Block_fima_summary extends Horde_Block {
         $label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
-        return Horde::link(Horde::applicationUrl($registry->getInitialPage(), true))
+        return Horde::link(Horde::url($registry->getInitialPage(), true))
             . htmlspecialchars($label) . '</a>';
     }
 

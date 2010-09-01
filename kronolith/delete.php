@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
@@ -28,7 +28,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         $event = $kronolith_driver->getEvent($eventID);
     } catch(Exception $e) {
         if (($url = Horde_Util::getFormData('url')) === null) {
-            $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
+            $url = Horde::url($prefs->getValue('defaultview') . '.php', true);
         } else {
             $url = new Horde_Url($url);
         }
@@ -104,7 +104,7 @@ if (!empty($url)) {
     $url = new Horde_Url($url, true);
 } else {
     $date = new Horde_Date(Horde_Util::getFormData('date'));
-    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+    $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
         ->add('date', Horde_Util::getFormData('date', date('Ymd')));
 }
 

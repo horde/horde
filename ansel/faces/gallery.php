@@ -40,7 +40,7 @@ $images = $gallery->getImages($page * $perpage, $perpage);
 
 $reloadimage = Horde::img('reload.png');
 $customimage = Horde::img('layout.png');
-$customurl = Horde::applicationUrl('faces/custom.php')->add('page', $page);
+$customurl = Horde::url('faces/custom.php')->add('page', $page);
 $face = $injector->getInstance('Ansel_Faces');
 $autogenerate = $face->canAutogenerate();
 

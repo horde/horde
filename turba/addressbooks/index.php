@@ -19,10 +19,10 @@ if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) 
     exit;
 }
 
-$browse_url_base = Horde::applicationUrl($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
-$edit_url_base = Horde::applicationUrl('addressbooks/edit.php');
+$browse_url_base = Horde::url($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
+$edit_url_base = Horde::url('addressbooks/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=turba', true);
-$delete_url_base = Horde::applicationUrl('addressbooks/delete.php');
+$delete_url_base = Horde::url('addressbooks/delete.php');
 
 // Get the shares owned by the current user, and figure out what we will
 // display the share name as to the user.

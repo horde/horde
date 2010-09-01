@@ -69,7 +69,7 @@ class Horde_Block_ansel_my_galleries extends Horde_Block
             return $e->getMessage();
         }
 
-        $preview_url = Horde::applicationUrl('preview.php');
+        $preview_url = Horde::url('preview.php');
         $header = array(_("Gallery Name"), _("Last Modified"), _("Photo Count"));
         $html = <<<HEADER
 <div id="ansel_preview"></div>

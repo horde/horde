@@ -528,13 +528,13 @@ class Kronolith_Application extends Horde_Registry_Application
 
         case 'menu':
             $menus = array(
-                array('new', _("New Event"), 'new.png', Horde::applicationUrl('new.php')),
-                array('day', _("Day"), 'dayview.png', Horde::applicationUrl('day.php')),
-                array('work', _("Work Week"), 'workweekview.png', Horde::applicationUrl('workweek.php')),
-                array('week', _("Week"), 'weekview.png', Horde::applicationUrl('week.php')),
-                array('month', _("Month"), 'monthview.png', Horde::applicationUrl('month.php')),
-                array('year', _("Year"), 'yearview.png', Horde::applicationUrl('year.php')),
-                array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'))
+                array('new', _("New Event"), 'new.png', Horde::url('new.php')),
+                array('day', _("Day"), 'dayview.png', Horde::url('day.php')),
+                array('work', _("Work Week"), 'workweekview.png', Horde::url('workweek.php')),
+                array('week', _("Week"), 'weekview.png', Horde::url('week.php')),
+                array('month', _("Month"), 'monthview.png', Horde::url('month.php')),
+                array('year', _("Year"), 'yearview.png', Horde::url('year.php')),
+                array('search', _("Search"), 'search.png', Horde::url('search.php'))
             );
 
             foreach ($menus as $menu) {

@@ -153,7 +153,7 @@ class Turba_View_List implements Countable
 
         list($addToList, $addToListSources) = $this->getAddSources();
 
-        $viewurl = Horde::applicationUrl('browse.php')->add(array(
+        $viewurl = Horde::url('browse.php')->add(array(
             'key' => Horde_Util::getFormData('key'),
             'url' => Horde::selfUrl(true, false, true)
         ));
@@ -193,7 +193,7 @@ class Turba_View_List implements Countable
                 'val' => Horde_Util::getFormData('val'),
                 'source' => Horde_Util::getFormData('source', $default_source)
             ));
-            $viewurl = Horde::applicationUrl('search.php')->add($params);
+            $viewurl = Horde::url('search.php')->add($params);
 
             $vars = Horde_Variables::getDefaultVariables();
             $pager = new Horde_Core_Ui_Pager('page', $vars,

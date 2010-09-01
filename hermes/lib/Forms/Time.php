@@ -172,7 +172,7 @@ class TimeEntryForm extends TimeForm {
 
         if ($vars->exists('id')) {
             parent::TimeForm($vars, _("Update Time"));
-            $delete_link = Horde::link(Horde_Util::addParameter(Horde::applicationUrl('time.php'), 'delete', $vars->get('id')), _("Delete Entry")) . _("Delete");
+            $delete_link = Horde::link(Horde_Util::addParameter(Horde::url('time.php'), 'delete', $vars->get('id')), _("Delete Entry")) . _("Delete");
             $this->setExtra('<span class="smallheader">' . $delete_link . '</a></span>');
         } else {
             parent::TimeForm($vars, _("New Time"));

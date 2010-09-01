@@ -55,7 +55,7 @@ case 'timeentryform':
         if ($do_redirect) {
             $url = $vars->get('url');
             if (empty($url)) {
-                $url = Horde::applicationUrl('time.php');
+                $url = Horde::url('time.php');
             }
             header('Location: ' . $url);
             exit;
@@ -69,7 +69,7 @@ default:
         $id = $vars->get('id');
         if (!Hermes::canEditTimeslice($id)) {
             $notification->push(_("Access denied; user cannot modify this timeslice."), 'horde.error');
-            Horde::applicationUrl('time.php')->redirect();
+            Horde::url('time.php')->redirect();
         }
         $myhours = $hermes->driver->getHours(array('id' => $id));
         if (is_array($myhours)) {

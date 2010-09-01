@@ -29,7 +29,7 @@ if ($list instanceof PEAR_Error) {
 
 // Prepare actions
 $actions = array(
-    array('url' => Horde::applicationUrl('user.php'),
+    array('url' => Horde::url('user.php'),
           'img' => Horde::img('user.png'),
           'id' => 'user',
           'name' => _("View profile")));

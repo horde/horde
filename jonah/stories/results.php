@@ -35,14 +35,14 @@ if (!is_null($channel_id)) {
 /* Make sure we actually requested a tag search */
 if (empty($tag_id)) {
     $notification->push(_("No tag requested."), 'horde.error');
-    Horde::applicationUrl('channels/index.php', true)->redirect();
+    Horde::url('channels/index.php', true)->redirect();
 }
 $tag_name = array_shift($news->getTagNames(array($tag_id)));
 
 $stories = $news->searchTagsById(array($tag_id), 10, 0, $channel_ids);
 if (is_a($stories, 'PEAR_Error')) {
     $notification->push(sprintf(_("Invalid channel requested. %s"), $stories->getMessage()), 'horde.error');
-    Horde::applicationUrl('channels/index.php', true)->redirect();
+    Horde::url('channels/index.php', true)->redirect();
 }
 
 /* Do some state tests. */
@@ -69,20 +69,20 @@ foreach ($stories as $key => $story) {
     $stories[$key]['view_link'] = Horde::link(Horde::url($story['story_link']), $story['story_desc']) . htmlspecialchars($story['story_title']) . '</a>';
 
     /* PDF link. */
-    $url = Horde::applicationUrl('stories/pdf.php');
+    $url = Horde::url('stories/pdf.php');
     $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
     $stories[$key]['pdf_link'] = Horde::link($url, _("PDF version")) . Horde::img('mime/pdf.png') . '</a>';
 
     /* Edit story link. */
     if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::EDIT, $channel_id)) {
-        $url = Horde::applicationUrl('stories/edit.php');
+        $url = Horde::url('stories/edit.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
         $stories[$key]['edit_link'] = Horde::link($url, _("Edit story")) . Horde::img('edit.png') . '</a>';
     }
 
     /* Delete story link. */
     if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::DELETE, $channel_id)) {
-        $url = Horde::applicationUrl('stories/delete.php');
+        $url = Horde::url('stories/delete.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
         $stories[$key]['delete_link'] = Horde::link($url, _("Delete story")) . Horde::img('delete.png') . '</a>';
     }

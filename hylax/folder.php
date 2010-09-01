@@ -17,24 +17,24 @@ $base_folders = Hylax::getBaseFolders();
 $folder_list = $hylax->storage->listFaxes($folder);
 
 /* Set up URLs which will be used in the list. */
-$view_url  = Horde::applicationUrl('view.php');
+$view_url  = Horde::url('view.php');
 $view_img  = Horde::img('view.gif', _("View"), 'align="middle"');
 
 $download_url = Horde_Util::addParameter($view_url, 'action', 'download');
 $download_img  = Horde::img('download.gif', _("Download"));
 
-$edit_url = Horde::applicationUrl('edit.php');
+$edit_url = Horde::url('edit.php');
 $edit_label = ($folder == 'pending') ? _("Edit") : _("Resend");
 $edit_img = Horde::img('edit.gif', $edit_label);
 
-$del_url  = Horde::applicationUrl('delete.php');
+$del_url  = Horde::url('delete.php');
 $del_img  = Horde::img('delete-small.gif', _("Delete"));
 
 $params = array('folder' => $folder, 'path' => $path);
 $warn_img = Horde::img('alerts/warning.gif', _("Warning"));
-$send_url  = Horde::applicationUrl('send.php');
+$send_url  = Horde::url('send.php');
 
-$print_url  = Horde::applicationUrl('print.php');
+$print_url  = Horde::url('print.php');
 $print_img  = Horde::img('print.gif', _("Print"));
 
 /* Loop through list and set up items. */
@@ -77,7 +77,7 @@ foreach ($folder_list as $key => $value) {
 $actions = array();
 foreach ($base_folders as $key => $value) {
     if ($folder != $key) {
-        $url = Horde_Util::addParameter(Horde::applicationUrl('folder.php'), 'folder', $key);
+        $url = Horde_Util::addParameter(Horde::url('folder.php'), 'folder', $key);
         $actions[] = Horde::link($url) . $value . '</a>';
     } else {
         $actions[] = $value;

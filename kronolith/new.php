@@ -12,11 +12,11 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->setAnchor('event')->redirect();
+    Horde::url('', true)->setAnchor('event')->redirect();
 }
 
 /* Check permissions. */
-$url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+$url = Horde::url($prefs->getValue('defaultview') . '.php', true)
       ->add(array('month' => Horde_Util::getFormData('month'),
                   'year' => Horde_Util::getFormData('year')));
 
@@ -64,7 +64,7 @@ $url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = new Horde_Url($url);
 } else {
-    $cancelurl = Horde::applicationUrl('month.php', true)->add('month', $month);
+    $cancelurl = Horde::url('month.php', true)->add('month', $month);
 }
 
 $calendars = Kronolith::listCalendars(Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE, true);

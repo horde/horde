@@ -73,8 +73,8 @@ if (!empty($criteria['tag_id'])) {
 $template->set('channel_desc', @htmlspecialchars($channel['channel_desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset()));
 $template->set('channel_updated', htmlspecialchars(date('r', $channel['channel_updated'])));
 $template->set('channel_official', htmlspecialchars($channel['channel_official']));
-$template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::applicationUrl('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
-$template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::applicationUrl('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
+$template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
+$template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
 foreach ($stories as &$story) {
     $story['story_title'] = @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     $story['story_desc'] = @htmlspecialchars($story['story_desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset());

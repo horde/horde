@@ -320,7 +320,7 @@ if (empty($header['subject'])) {
 $t->set('cacheid', htmlspecialchars($imp_compose->getCacheId()));
 $t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('compose'));
 $t->set('to', htmlspecialchars($header['to']));
-$t->set('url', Horde::applicationUrl('compose-mimp.php'));
+$t->set('url', Horde::url('compose-mimp.php'));
 
 if ($vars->a == 'rc') {
     $t->set('redirect', true);

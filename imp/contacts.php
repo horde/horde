@@ -73,7 +73,7 @@ foreach (explode('|', $vars->sa) as $addr) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
-$template->set('action', Horde::applicationUrl('contacts.php')->unique());
+$template->set('action', Horde::url('contacts.php')->unique());
 $template->set('formname', $vars->formname);
 $template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($vars->search));

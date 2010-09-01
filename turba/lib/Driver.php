@@ -666,7 +666,7 @@ class Turba_Driver implements Countable
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->_name, 'key' => $key),
-                'link' => Horde::applicationUrl('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true));
+                'link' => Horde::url('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true));
         }
 
         return $t_objects;

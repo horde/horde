@@ -20,7 +20,7 @@ $original_source = $vars->get('original_source');
 $key = $vars->get('key');
 $groupedit = $vars->get('actionID') == 'groupedit';
 $objectkeys = $vars->get('objectkeys');
-$url = new Horde_Url(Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true)));
+$url = new Horde_Url(Horde_Util::getFormData('url', Horde::url($prefs->getValue('initial_page'), true)));
 
 /* Edit the first of a list of contacts? */
 if ($groupedit && (!$key || $key == '**search')) {
@@ -89,5 +89,5 @@ $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::applicationUrl('edit.php'), 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

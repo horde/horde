@@ -40,41 +40,41 @@ class Whups {
                 } else {
                     $slug = (int)$data;
                 }
-                return Horde::applicationUrl('queue/' . $slug, $full, $append_session);
+                return Horde::url('queue/' . $slug, $full, $append_session);
             } else {
                 if (is_array($data)) {
                     $id = $data['id'];
                 } else {
                     $id = $data;
                 }
-                return Horde::applicationUrl('queue/?id=' . $id, $full, $append_session);
+                return Horde::url('queue/?id=' . $id, $full, $append_session);
             }
             break;
 
         case 'ticket':
             $id = (int)$data;
             if ($rewrite) {
-                return Horde::applicationUrl('ticket/' . $id, $full, $append_session);
+                return Horde::url('ticket/' . $id, $full, $append_session);
             } else {
-                return Horde::applicationUrl('ticket/?id=' . $id, $full, $append_session);
+                return Horde::url('ticket/?id=' . $id, $full, $append_session);
             }
             break;
 
         case 'ticket_rss':
             $id = (int)$data;
             if ($rewrite) {
-                return Horde::applicationUrl('ticket/' . $id . '/rss', $full, $append_session);
+                return Horde::url('ticket/' . $id . '/rss', $full, $append_session);
             } else {
-                return Horde::applicationUrl('ticket/rss.php?id=' . $id, $full, $append_session);
+                return Horde::url('ticket/rss.php?id=' . $id, $full, $append_session);
             }
             break;
 
         case 'ticket_action':
             list($controller, $id) = $data;
             if ($rewrite) {
-                return Horde::applicationUrl('ticket/' . $id . '/' . $controller, $full, $append_session = 0);
+                return Horde::url('ticket/' . $id . '/' . $controller, $full, $append_session = 0);
             } else {
-                return Horde::applicationUrl('ticket/' . $controller . '.php?id=' . $id, $full, $append_session = 0);
+                return Horde::url('ticket/' . $controller . '.php?id=' . $id, $full, $append_session = 0);
             }
 
         case 'query':
@@ -93,7 +93,7 @@ class Whups {
                 if ($controller == 'query_rss') {
                     $url .= '/rss';
                 }
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::url($url, $full, $append_session);
             } else {
                 if (is_array($data)) {
                     if (isset($data['slug'])) {
@@ -106,7 +106,7 @@ class Whups {
                 }
                 $url = $controller == 'query' ? 'query/run.php' : 'query/rss.php';
                 $url = Horde_Util::addParameter($url, $param);
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::url($url, $full, $append_session);
             }
             break;
         }
@@ -261,7 +261,7 @@ class Whups {
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
-            Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
+            Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
 
@@ -273,7 +273,7 @@ class Whups {
             } else {
                 $GLOBALS['notification']->push($ticket->getMessage(), 'horde.error');
             }
-            Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
+            Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
 
@@ -759,16 +759,16 @@ class Whups {
         $menu = new Horde_Menu();
 
         if ($GLOBALS['registry']->getAuth()) {
-            $menu->add(Horde::applicationUrl('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+            $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
         }
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
-        $menu->add(Horde::applicationUrl('ticket/create.php'), _("_New Ticket"), 'create.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'ticket/create' && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('query/index.php'), _("_Query Builder"), 'query.png');
-        $menu->add(Horde::applicationUrl('reports.php'), _("_Reports"), 'reports.png');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('ticket/create.php'), _("_New Ticket"), 'create.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'ticket/create' && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'query.png');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
-            $menu->add(Horde::applicationUrl('admin/'), _("_Admin"), 'admin.png');
+            $menu->add(Horde::url('admin/'), _("_Admin"), 'admin.png');
         }
 
         if ($returnType == 'object') {
@@ -823,7 +823,7 @@ class Whups {
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
         $viewer = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime_part);
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('view.php'),
+            $url = Horde_Util::addParameter(Horde::url('view.php'),
                                       array('actionID' => 'view_file',
                                             'type' => $file['type'],
                                             'file' => $file['name'],
@@ -842,7 +842,7 @@ class Whups {
         // Admins can delete attachments.
         if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
             $url = Horde_Util::addParameter(
-                Horde::applicationUrl('ticket/delete_attachment.php'),
+                Horde::url('ticket/delete_attachment.php'),
                 array('file' => $file['name'],
                       'id' => $ticket,
                       'url' => Horde::selfUrl(true, false, true)));

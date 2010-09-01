@@ -18,7 +18,7 @@ if (empty($cmd)) {
         $registry->getApp() . '-' . $conf['server']['name'],
         $registry->get('name'),
         Horde_String::convertCharset(sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']), $registry->getCharset(), $registry->getCharset(true)),
-        Horde::applicationUrl('xppublish.php', true, -1)->add('cmd', 'publish'),
+        Horde::url('xppublish.php', true, -1)->add('cmd', 'publish'),
         Horde::url(Horde_Themes::img('favicon.ico'), true, -1));
     exit;
 }
@@ -72,7 +72,7 @@ if ($cmd == 'publish') {
 $galleryId = Horde_Util::getFormData('gallery');
 if ($cmd == 'list') {
     $PUBLISH_ONNEXT = 'folder.submit();';
-    $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=publish', true) . '";';
+    $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=publish', true) . '";';
     $PUBLISH_BUTTONS = 'true,true,true';
     require ANSEL_TEMPLATES . '/xppublish/list.inc';
 }
@@ -93,7 +93,7 @@ if ($cmd == 'select') {
     if ($error) {
         echo '<span class="form-error">' . $error . '</span><br />';
         echo _("Press the \"Back\" button and try again.");
-        $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=list', true) . '";';
+        $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=list', true) . '";';
         $PUBLISH_BUTTONS = 'true,false,true';
     } else {
         echo '<form id="folder">';
@@ -132,7 +132,7 @@ if ($cmd == 'new') {
         }
         $PUBLISH_CMD = 'folder.gallery_name.focus(); folder.gallery_name.select();';
         $PUBLISH_ONNEXT = 'folder.submit();';
-        $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=list', true) . '";';
+        $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=list', true) . '";';
         $PUBLISH_BUTTONS = 'true,true,true';
         require ANSEL_TEMPLATES . '/xppublish/new.inc';
         require ANSEL_TEMPLATES . '/xppublish/javascript.inc';

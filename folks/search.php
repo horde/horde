@@ -66,7 +66,7 @@ if (!empty($criteria)) {
                                             'perpage' => $perpage));
 
     $pager->preserve($criteria);
-    $list_url = Horde::applicationUrl('search.php');
+    $list_url = Horde::url('search.php');
 
 } else {
     $count = 0;

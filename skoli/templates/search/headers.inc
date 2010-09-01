@@ -31,16 +31,16 @@ function doPrefsUpdate(column, sortDown)
    <?php echo Horde::img('edit.png', _("Edit Class")) ?>
   </th>
   <th id="s<?php echo SKOLI_SORT_CLASS ?>"<?php if ($sortby == SKOLI_SORT_CLASS) echo ' class="' . $sortdir_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_CLASS)), _("Sort by Class"), 'sortlink', '', '', _("Class")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_CLASS)), _("Sort by Class"), 'sortlink', '', '', _("Class")) ?>&nbsp;
   </th>
   <th id="s<?php echo SKOLI_SORT_STUDENT ?>"<?php if ($sortby == SKOLI_SORT_STUDENT) echo ' class="' . $sortdir_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_STUDENT)), _("Sort by Student Name"), 'sortlink', '', '', _("Student")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_STUDENT)), _("Sort by Student Name"), 'sortlink', '', '', _("Student")) ?>&nbsp;
   </th>
   <th id="s<?php echo SKOLI_SORT_DATE ?>"<?php if ($sortby == SKOLI_SORT_DATE) echo ' class="' . $sortdir_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_DATE)), _("Sort by Date"), 'sortlink', '', '', _("Date")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_DATE)), _("Sort by Date"), 'sortlink', '', '', _("Date")) ?>&nbsp;
   </th>
   <th id="s<?php echo SKOLI_SORT_TYPE ?>"<?php if ($sortby == SKOLI_SORT_TYPE) echo ' class="' . $sortdir_class . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_TYPE)), _("Sort by Type"), 'sortlink', '', '', _("Type")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', SKOLI_SORT_TYPE)), _("Sort by Type"), 'sortlink', '', '', _("Type")) ?>&nbsp;
   </th>
   <th class="nosort">
    <?php echo _("Entry") ?>&nbsp;

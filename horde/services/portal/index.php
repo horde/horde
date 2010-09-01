@@ -14,7 +14,7 @@ Horde_Registry::appInit('horde');
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
-    Horde::metaRefresh($r_time, Horde::applicationUrl('services/portal/'));
+    Horde::metaRefresh($r_time, Horde::url('services/portal/'));
 }
 
 // Load layout from preferences.
@@ -47,8 +47,8 @@ if (Horde_Util::getFormData('httpclient')) {
 // Render layout.
 $view = new Horde_Block_Layout_View(
     $layout_pref,
-    Horde::applicationUrl('services/portal/edit.php'),
-    Horde::applicationUrl('services/portal/index.php', true));
+    Horde::url('services/portal/edit.php'),
+    Horde::url('services/portal/index.php', true));
 $layout_html = $view->toHtml();
 
 $horde_css_stylesheets = array();
@@ -65,7 +65,7 @@ require HORDE_TEMPLATES . '/menu/menu.inc';
 echo '<div id="menuBottom">';
 echo htmlspecialchars($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getName());
 if (!$prefs->isLocked('portal_layout')) {
-    echo ' | <a href="' . Horde::applicationUrl('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
+    echo ' | <a href="' . Horde::url('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
 }
 echo '</div><br class="clear" />';
 $notification->notify(array('listeners' => 'status'));

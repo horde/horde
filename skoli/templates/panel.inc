@@ -45,7 +45,7 @@ function sbarToggle()
 
 <?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
-  <a href="<?php echo Horde::applicationUrl('classes/') ?>"><?php echo _("[Manage Classes]") ?></a>
+  <a href="<?php echo Horde::url('classes/') ?>"><?php echo _("[Manage Classes]") ?></a>
  </p>
 <?php endif; ?>
 

@@ -1,6 +1,6 @@
 <?php
 if (empty($url)) {
-    $url = Horde::applicationUrl('month.php', true)
+    $url = Horde::url('month.php', true)
         ->add(array('month' => $month, 'year' => $year));
 }
 ?>

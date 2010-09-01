@@ -21,7 +21,7 @@ if (!$rss) {
 
     $title = $registry->get('name', 'horde');
 
-    $read_url = Horde::applicationUrl('read.php', true, -1);
+    $read_url = Horde::url('read.php', true, -1);
     $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
     <rss version="2.0">
         <channel>
@@ -29,19 +29,19 @@ if (!$rss) {
         <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($title) . '</description>
-        <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
+        <link>' . Horde::url('index.php', true, -1) . '</link>
         <generator>' . htmlspecialchars($registry->get('name')) . '</generator>';
 
     $rss .= '
     <item>
         <title>' . _("Last news") . ' </title>
-        <link>' . Horde::applicationUrl('rss/news.php', true, -1) . '</link>
+        <link>' . Horde::url('rss/news.php', true, -1) . '</link>
     </item>';
 
     $rss .= '
     <item>
         <title>' . _("Last comments") . ' </title>
-        <link>' . Horde::applicationUrl('rss/comments.php', true, -1) . '</link>
+        <link>' . Horde::url('rss/comments.php', true, -1) . '</link>
     </item>';
 
     $rss .= '

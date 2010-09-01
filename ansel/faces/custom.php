@@ -21,13 +21,13 @@ $urlparams = array('page' => $page);
 if (!empty($url)) {
     $urlparams['url'] = $url;
 }
-$form_post = Horde::applicationUrl('faces/savecustom.php')->add($urlparams);
+$form_post = Horde::url('faces/savecustom.php')->add($urlparams);
 
 try {
     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
 } catch (Ansel_Exception $e) {
     $notification->push($image);
-    Horde::applicationUrl('list.php')->redirect();
+    Horde::url('list.php')->redirect();
     exit;
 }
 
@@ -57,7 +57,7 @@ if ($face_id) {
         }
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage());
-        Horde::applicationUrl('list.php')->redirect();
+        Horde::url('list.php')->redirect();
     }
 }
 

@@ -107,10 +107,10 @@ if (isset($type) && isset($queue['name'])) {
 $template->set('title', htmlspecialchars($rss_title));
 $template->set('items', $items, true);
 $template->set('url',
-               Horde_Util::addParameter(Horde::applicationUrl('queue/', true, -1),
+               Horde_Util::addParameter(Horde::url('queue/', true, -1),
                                   'id', $id));
 $template->set('rss_url',
-               Horde_Util::addParameter(Horde::applicationUrl('rss.php', true, -1),
+               Horde_Util::addParameter(Horde::url('rss.php', true, -1),
                                   'id',  $id));
 if (isset($queue['name'])) {
     $description = sprintf(_("Open tickets in %s"), $queue['name']);

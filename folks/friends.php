@@ -28,7 +28,7 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully posted"), 'horde.success');
-        Horde::applicationUrl('friends.php')->redirect();
+        Horde::url('friends.php')->redirect();
     }
 }
 

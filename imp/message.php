@@ -222,7 +222,7 @@ $page_label = IMP::getLabel(IMP::$mailbox);
 
 /* Generate the link to ourselves. */
 $msgindex = $imp_mailbox->getMessageIndex();
-$message_url = Horde::applicationUrl('message.php');
+$message_url = Horde::url('message.php');
 $message_token = Horde::getRequestToken('imp.message');
 $self_link = IMP::generateIMPUrl('message.php', IMP::$mailbox, $uid, $mailbox_name)->add(array('start' => $msgindex, 'message_token' => $message_token));
 
@@ -400,7 +400,7 @@ foreach ($flag_parse as $val) {
 $h_page_label = htmlspecialchars($page_label);
 $header_label = $h_page_label;
 if ($search_mbox) {
-    $header_label .= ' [' . Horde::link(Horde::applicationUrl('mailbox.php')->add('mailbox', $mailbox_name)) . IMP::displayFolder($mailbox_name) . '</a>]';
+    $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $mailbox_name)) . IMP::displayFolder($mailbox_name) . '</a>]';
 }
 
 /* Prepare the navbar top template. */

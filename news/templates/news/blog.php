@@ -12,7 +12,7 @@ if (!empty($row['trackback'])) {
     echo '</ul><br />';
 }
 
-$trackback_url = Horde_Util::addParameter(Horde::applicationUrl('trackback.php', true), 'id', $id);
+$trackback_url = Horde_Util::addParameter(Horde::url('trackback.php', true), 'id', $id);
 echo _("Use the following link to trackback from your own site: ") .
     '<br> <input value="' . $trackback_url . '" /><br />';
 

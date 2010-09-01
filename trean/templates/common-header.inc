@@ -20,7 +20,7 @@ if (!empty($title)) {
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
-$rss = Horde::applicationUrl('rss.php', true, -1);
+$rss = Horde::url('rss.php', true, -1);
 if (Horde_Util::getFormData('f')) {
     $rss = Horde_Util::addParameter($rss, 'f', Horde_Util::getFormData('f'), false);
 }

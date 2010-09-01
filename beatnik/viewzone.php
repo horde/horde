@@ -13,7 +13,7 @@ try {
     $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::applicationUrl('listzones.php')->redirect();
+    Horde::url('listzones.php')->redirect();
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
@@ -36,8 +36,8 @@ foreach ($fields as $field_id => $field) {
 }
 
 $img_dir = Horde_Themes::img(null, 'horde');
-$delete = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
-$edit = Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$delete = Horde_Util::addParameter(Horde::url('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$edit = Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $rectypes = Beatnik::getRecTypes();
 
 require BEATNIK_TEMPLATES . '/view/header.inc';

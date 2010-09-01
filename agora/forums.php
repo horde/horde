@@ -20,7 +20,7 @@ $forums = Agora_Messages::singleton($scope);
 
 /* Set up actions */
 if ($registry->isAdmin()) {
-    $url = Horde::applicationUrl('forums.php');
+    $url = Horde::url('forums.php');
     foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $app) {
         if ($registry->hasMethod('hasComments', $app) &&
             $registry->callByPackage($app, 'hasComments') === true) {

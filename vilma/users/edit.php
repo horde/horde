@@ -81,12 +81,12 @@ if ($form->validate($vars)) {
         $virtuals = $vilma->driver->getVirtuals($info['name']);
         if (count($virtuals)) {
             //User has virtual email addresses set up.
-            $url = Horde::applicationUrl('users/index.php', true);
+            $url = Horde::url('users/index.php', true);
             header('Location: ' . (Vilma::hasPermission($domain) ? $url : Horde_Util::addParameter($url, 'domain', $domain, false)));
         } else {
             //User does not have any virtual email addresses set up.
             $notification->push(_("No virtual email address set up for this user. You should set up at least one virtual email address if this user is to receive any emails."), 'horde.warning');
-            $url = Horde::applicationUrl('virtuals/edit.php', true);
+            $url = Horde::url('virtuals/edit.php', true);
             $url = Horde_Util::addParameter($url, array('domain' => $domain, 'stripped_email' => Vilma::stripUser($info['name']), 'virtual_destination' => $info['name']), null, false);
             header('Location: ' . (Vilma::hasPermission($domain) ? $url : Horde_Util::addParameter($url, 'domain', $domain, false)));
         }

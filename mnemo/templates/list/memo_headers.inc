@@ -30,15 +30,15 @@ function doPrefsUpdate(column, sortDown)
   <th class="nosort" width="3%"><?php echo Horde::img('edit.png', _("Edit Note"), '') ?></th>
 <?php if ($showNotepad): ?>
   <th id="s<?php echo Mnemo::SORT_NOTEPAD ?>"<?php if ($sortby == Mnemo::SORT_NOTEPAD) echo ' class="' . $sortdirclass . '"' ?> width="2%">
-   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', Mnemo::SORT_NOTEPAD)), _("Sort by Notepad"), 'sortlink', '', '', _("Notepad")) ?>&nbsp;
+   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', Mnemo::SORT_NOTEPAD)), _("Sort by Notepad"), 'sortlink', '', '', _("Notepad")) ?>&nbsp;
   </th>
 <?php endif; ?>
   <th id="s<?php echo Mnemo::SORT_DESC ?>"<?php if ($sortby == Mnemo::SORT_DESC) echo ' class="' . $sortdirclass . '"' ?> width="82%">
-    <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_DESC)), _("Sort by Note Text"), 'sortlink', '', '', _("No_te")) ?>
+    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_DESC)), _("Sort by Note Text"), 'sortlink', '', '', _("No_te")) ?>
   </th>
   <th id="s<?php echo Mnemo::SORT_CATEGORY ?>"<?php if ($sortby == Mnemo::SORT_CATEGORY) echo ' class="' . $sortdirclass . '"' ?> width="15%">
     <?php
-    echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("_Category"));
+    echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("_Category"));
     if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                             !$GLOBALS['prefs']->isLocked('category_colors'))) {
         $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));

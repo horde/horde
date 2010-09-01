@@ -127,7 +127,7 @@ function switchDateView(view, date)
    <span id="newAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </td>
 <?php if ($registry->hasMethod('contacts/search')): ?>
-  <td align="center"><?php echo Horde::url('#')->link(array('class' => 'widget', 'onclick' => 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;')) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
+  <td align="center"><?php echo Horde::url('#')->link(array('class' => 'widget', 'onclick' => 'window.open(\'' . Horde::url('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;')) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
 <?php endif; ?>
  </tr>
  <tr>

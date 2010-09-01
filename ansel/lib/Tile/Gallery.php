@@ -85,7 +85,7 @@ class Ansel_Tile_Gallery
                      . '</a>';
 
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) && !$mini) {
-            $properties_link = Horde::applicationUrl('gallery.php', true)->add(
+            $properties_link = Horde::url('gallery.php', true)->add(
                         array('gallery' => $gallery->id,
                               'actionID' => 'modify',
                               'havesearch' => $haveSearch,

@@ -203,7 +203,7 @@ class Whups_Query {
     function getTabs($vars)
     {
         // Create a few variables that are reused.
-        $queryurl = Horde::applicationUrl('query/index.php');
+        $queryurl = Horde::url('query/index.php');
         $edit = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         $delete = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
 
@@ -222,7 +222,7 @@ class Whups_Query {
                                                                    'onclick' => 'popup(\'' . $permsurl . '\'); return false;',
                                                                    'target' => '_blank'));
         }
-        $tabs->addTab(_("E_xecute Query"), Horde::applicationUrl('query/run.php'), 'run');
+        $tabs->addTab(_("E_xecute Query"), Horde::url('query/run.php'), 'run');
         $tabs->addTab(_("_Load Query"), $queryurl, 'load');
         if ((!$this->id && $GLOBALS['registry']->getAuth()) ||
             ($this->id && $edit)) {

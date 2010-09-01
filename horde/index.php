@@ -53,7 +53,7 @@ if ($main_page) {
     /* Always redirect to login page if there is no incoming URL and nobody
      * is authenticated. */
     if (!$registry->getAuth()) {
-        $main_page = Horde::applicationUrl('login.php', true);
+        $main_page = Horde::url('login.php', true);
     } else {
         /* Search for a user-specified initial application. */
         $initial_app = $prefs->getValue('initial_application');
@@ -67,12 +67,12 @@ if ($main_page) {
              * loops. */
             if (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
-                $main_page = Horde::applicationUrl($registry->applications['horde']['initial_page'], true);
+                $main_page = Horde::url($registry->applications['horde']['initial_page'], true);
             } else {
                 /* Finally, fallback to the portal page. */
                 $main_page = $browser->isMobile()
-                    ? Horde::applicationUrl('services/portal/mobile.php', true)
-                    : Horde::applicationUrl('services/portal/', true);
+                    ? Horde::url('services/portal/mobile.php', true)
+                    : Horde::url('services/portal/', true);
             }
         }
     }

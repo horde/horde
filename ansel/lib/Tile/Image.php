@@ -46,7 +46,7 @@ class Ansel_Tile_Image
         $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
 
         /* URL for image properties/actions etc... */
-        $image_url = Horde::applicationUrl('image.php')->add(
+        $image_url = Horde::url('image.php')->add(
              array_merge(
                array('gallery' => $image->gallery,
                      'page' => $page,

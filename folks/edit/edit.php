@@ -68,7 +68,7 @@ if ($form->validate()) {
             } else {
                 $folks_driver->logActivity(_("Updated his/her profile picture."));
             }
-            Horde::applicationUrl('edit/edit.php')->redirect();
+            Horde::url('edit/edit.php')->redirect();
         }
     break;
 

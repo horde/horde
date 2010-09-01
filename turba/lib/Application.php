@@ -469,8 +469,8 @@ class Turba_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        $add = Horde::applicationUrl('add.php');
-        $browse = Horde::applicationUrl('browse.php');
+        $add = Horde::url('add.php');
+        $browse = Horde::url('browse.php');
 
         if ($GLOBALS['addSources']) {
             $newimg = Horde_Themes::img('menu/new.png');
@@ -526,7 +526,7 @@ class Turba_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::applicationUrl('search.php')
+                'url' => Horde::url('search.php')
             )
         );
     }

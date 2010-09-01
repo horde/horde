@@ -28,7 +28,7 @@ if (isset($_SESSION['whups']['query'])) {
     $whups_query = unserialize($_SESSION['whups']['query']);
     if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
         $notification->push(_("Permission denied."), 'horde.error');
-        Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+        Horde::url($prefs->getValue('whups_default_view') . '.php', true)
             ->redirect();
     }
 } else {
@@ -146,7 +146,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
 $queryTabs = $whups_query->getTabs($vars);
 
 // Criterion form types.
-$queryurl = Horde::applicationUrl('query/index.php');
+$queryurl = Horde::url('query/index.php');
 $vars->set('action', $_SESSION['whups']['query_form']);
 $criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));

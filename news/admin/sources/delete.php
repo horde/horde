@@ -32,7 +32,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("Source was not deleted."), 'horde.warning');
     }
-    Horde::applicationUrl('admin/sources/index.php')->redirect();
+    Horde::url('admin/sources/index.php')->redirect();
 }
 
 require NEWS_BASE . '/templates/common-header.inc';

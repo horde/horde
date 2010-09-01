@@ -153,7 +153,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block
                     } else {
                         $dayname = $day->strftime($GLOBALS['prefs']->getValue('date_format'));
                     }
-                    $url = Horde::applicationUrl('day.php', true)
+                    $url = Horde::url('day.php', true)
                         ->setRaw(false)
                         ->add('date', $day->dateString());
                     if (isset($this->_params['calendar']) &&

@@ -36,10 +36,10 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
     {
         $html = $this->_htmlBegin();
         $id = $this->_view->gallery->id;
-        $galleryurl = Horde::applicationUrl('gallery.php')->add('gallery', $id);
+        $galleryurl = Horde::url('gallery.php')->add('gallery', $id);
 
         if ($this->_view->gallery->hasFeature('upload')) {
-            $uploadurl = Horde::applicationUrl('img/upload.php')->add(
+            $uploadurl = Horde::url('img/upload.php')->add(
                 array('gallery' => $id,
                       'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
         }
@@ -57,7 +57,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             } else {
                 /* Get any date info the gallery has */
                 $date = $this->_view->gallery->getDate();
-                $slideshow_url = Horde::applicationUrl('view.php')->add(
+                $slideshow_url = Horde::url('view.php')->add(
                     array_merge(array('gallery' => $id,
                                       'image' => array_pop($this->_view->gallery->listImages(0, 1)),
                                       'view' => 'Slideshow'),
@@ -97,7 +97,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         global $registry, $conf;
 
         $id = $this->_view->gallery->id;
-        $galleryurl = Horde::applicationUrl('gallery.php')->add('gallery', $id);
+        $galleryurl = Horde::url('gallery.php')->add('gallery', $id);
         $selfurl = Horde::selfUrl(true, false, true);
         $count = $this->_view->gallery->countImages();
         $date = $this->_view->gallery->getDate();
@@ -153,12 +153,12 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 /* Captions */
                 if ($this->_view->gallery->hasFeature('image_captions')) {
                     $params = array_merge(array('gallery' => $id), $date);
-                    $html .= '<li>' . Horde::applicationUrl('gallery/captions.php')->add($params)->link(array('class' => 'widget')) . Horde::img('text.png') . ' ' . _("Set captions") . ' ' . '</a></li>';
+                    $html .= '<li>' . Horde::url('gallery/captions.php')->add($params)->link(array('class' => 'widget')) . Horde::img('text.png') . ' ' . _("Set captions") . ' ' . '</a></li>';
                 }
 
                 /* Sort */
                 if ($this->_view->gallery->hasFeature('sort_images')) {
-                    $sorturl = Horde::applicationUrl('gallery/sort.php')->add(array_merge(array('gallery' => $id), $date));
+                    $sorturl = Horde::url('gallery/sort.php')->add(array_merge(array('gallery' => $id), $date));
                     $html .= '<li>' . $sorturl->copy()->add('actionId' , 'getOrder')->link(array('class' => 'widget')) . Horde::img('arrow_switch.png') . ' ' . _("Sort photos") . '</a></li>';
                 }
 
@@ -170,7 +170,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
                 /* Find faces */
                 if ($conf['faces']['driver'] && $this->_view->gallery->hasFeature('faces')) {
-                    $html .= '<li>' . Horde::applicationUrl('faces/gallery.php')->add(
+                    $html .= '<li>' . Horde::url('faces/gallery.php')->add(
                         array_merge($date,
                                     array('gallery' => $id, 'page' => (!empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0))))
                         ->link(array('class' => 'widget')) . Horde::img('user.png') . ' ' . _("Find faces") . '</a></li>';
@@ -186,13 +186,13 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         if ($GLOBALS['registry']->getAuth() &&
             $this->_view->gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
              $url = new Horde_Url('#');
-             $html .= '<li>' . $url->link(array('class' => 'popup widget', 'onclick' => Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;')) . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
+             $html .= '<li>' . $url->link(array('class' => 'popup widget', 'onclick' => Horde::popupJs(Horde::url('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;')) . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
             (($conf['report_content']['allow'] == 'authenticated' &&
             $registry->isAuthenticated()) ||
                    $conf['report_content']['allow'] == 'all')) {
 
-            $reporturl = Horde::applicationUrl('report.php')->add('gallery', $id);
+            $reporturl = Horde::url('report.php')->add('gallery', $id);
             $html .= '<li>' . $reporturl->link(array('class' => 'widget')) . _("Report") . '</a></li>';
         }
 

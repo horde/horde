@@ -102,13 +102,13 @@ if (sizeof($versions)>0) {
         }
         echo _(" by ") . $version['user_uid'] . _(" at ") . $version['created'] . "\n(";
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl('news.php'), array('id' => $id, 'version' => $version['version']));
+        $url = Horde_Util::addParameter(Horde::url('news.php'), array('id' => $id, 'version' => $version['version']));
         echo Horde::link($url, _("View"), '', '_blank', '', _("View")) . _("View") . '</a> | ';
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), array('id' => $id, 'actionID' => 'renew'));
+        $url = Horde_Util::addParameter(Horde::url('edit.php'), array('id' => $id, 'actionID' => 'renew'));
         echo Horde::link(Horde_Util::addParameter($url,'version', $version['version']),_("Renew")) . _("Renew") . '</a> | ';
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'), array('id' => $id, 'version' => $version['version']));
+        $url = Horde_Util::addParameter(Horde::url('diff.php'), array('id' => $id, 'version' => $version['version']));
         echo Horde::link('#', _("Diff"), '', '', Horde::popupJs($url, array('urlencode' => true)) . 'return false;') . _("Diff") . '</a> ';
 
         echo ')<br />' . "\n";

@@ -13,7 +13,7 @@ $jonah = Horde_Registry::appInit('jonah');
 
 function _getLinks($id, $subid, $name, $title)
 {
-    $url = Horde::applicationUrl('channels/aggregate.php');
+    $url = Horde::url('channels/aggregate.php');
     $url = Horde_Util::addParameter($url, 'channel_id', $id);
     $url = Horde_Util::addParameter($url, 'subchannel_id', $subid);
     $edit = array('url' => Horde_Util::addParameter($url,'action', 'edit'), 'text' => sprintf(_("Edit channel \"%s\""), $name), 'title' => $title);
@@ -38,7 +38,7 @@ $ids = preg_split('/:/', $channel['channel_url'], -1, PREG_SPLIT_NO_EMPTY);
 $channel_type = $channel['channel_type'];
 if ($channel_type != Jonah::AGGREGATED_CHANNEL) {
     $notification->push(_("This is no aggregated channel."), 'horde.error');
-    Horde::applicationUrl('channels/edit.php', true)
+    Horde::url('channels/edit.php', true)
         ->add('channel_id', $channel_id)
         ->redirect();
 }
@@ -83,7 +83,7 @@ if ($form->validate($vars)) {
             }
         }
 
-        Horde::applicationUrl('channels/aggregate.php', true)
+        Horde::url('channels/aggregate.php', true)
             ->add('channel_id', $channel_id)
             ->redirect();
     }
@@ -104,7 +104,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    Horde::applicationUrl('channels/aggregate.php', true)
+    Horde::url('channels/aggregate.php', true)
         ->add('channel_id', $channel_id)
         ->redirect();
 } elseif ($vars->get('action') == 'edit') {

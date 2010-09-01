@@ -333,7 +333,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             'uid' => $uid,
             'mime_id' => $id
         );
-        return Horde::popupJs(Horde::applicationUrl('smime.php'), array('params' => $params, 'height' => 200, 'width' => 450));
+        return Horde::popupJs(Horde::url('smime.php'), array('params' => $params, 'height' => 200, 'width' => 450));
     }
 
     /**
@@ -468,7 +468,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
-        $t->set('selfurl', Horde::applicationUrl('smime.php'));
+        $t->set('selfurl', Horde::url('smime.php'));
         $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);

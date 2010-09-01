@@ -14,7 +14,7 @@ Horde_Registry::appInit('ansel');
 // Redirect to the gallery list if no action has been requested.
 $actionID = Horde_Util::getFormData('actionID');
 if (is_null($actionID)) {
-    Horde::applicationUrl('view.php?view=List', true)->redirect();
+    Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
 
@@ -49,14 +49,14 @@ case 'addchild':
         $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($parentId);
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
-        Horde::applicationUrl('view.php?view=List', true)->redirect();
+        Horde::url('view.php?view=List', true)->redirect();
         exit;
     }
 
     if (!$parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied adding a gallery to \"%s\"."),
                             $parent->get('name')), 'horde.error');
-        Horde::applicationUrl('view.php?view=List', true)->redirect();
+        Horde::url('view.php?view=List', true)->redirect();
         exit;
     }
 
@@ -87,7 +87,7 @@ case 'downloadzip':
         !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
         $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
-        Horde::applicationUrl('view.php?view=List', true)->redirect();
+        Horde::url('view.php?view=List', true)->redirect();
         exit;
     }
 
@@ -126,7 +126,7 @@ case 'save':
         ($injector->getInstance('Horde_Perms')->exists('ansel') &&
          !$injector->getInstance('Horde_Perms')->hasPermission('ansel', $registry->getAuth(), Horde_Perms::EDIT))) {
         $notification->push(_("Access denied editing galleries."), 'horde.error');
-        Horde::applicationUrl('view.php?view=List', true)->redirect();
+        Horde::url('view.php?view=List', true)->redirect();
         exit;
     }
 
@@ -188,7 +188,7 @@ case 'save':
                     $result = $gallery->setParent($new_parent);
                 } catch (Ansel_Exception $e) {
                     $notification->push($e->getMessage(), 'horde.error');
-                    Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+                    Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                     exit;
                 }
             }
@@ -206,7 +206,7 @@ case 'save':
                 $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_parent);
             } catch (Ansel_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
-                Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+                Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                 exit;
             }
             if (!$parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
@@ -214,7 +214,7 @@ case 'save':
                     _("You do not have permission to add children to %s."),
                     $parent->get('name')), 'horde.error');
 
-                Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+                Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                 exit;
             }
         }
@@ -270,9 +270,9 @@ case 'save':
     $url = Horde_Util::getFormData('url');
     if (empty($url) && empty($exists)) {
         // Redirect to the images upload page for newly creted galleries
-        $url = Horde::applicationUrl('img/upload.php')->add('gallery', $galleryId);
+        $url = Horde::url('img/upload.php')->add('gallery', $galleryId);
     } elseif (empty($url)) {
-        $url = Horde::applicationUrl('index.php', true);
+        $url = Horde::url('index.php', true);
     } else {
         $url = new Horde_Url($url);
     }
@@ -297,7 +297,7 @@ case 'empty':
     }
 
     // Return to the gallery list.
-    Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+    Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
     exit;
 
 case 'generateDefault':
@@ -307,11 +307,11 @@ case 'generateDefault':
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
         $gallery->clearStacks();
         $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
-        Horde::applicationUrl('view.php', true)->add('gallery', $galleryId)->redirect();
+        Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
         exit;
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
-        Horde::applicationUrl('index.php', true)->redirect();
+        Horde::url('index.php', true)->redirect();
         exit;
     }
 
@@ -322,12 +322,12 @@ case 'generateThumbs':
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
-        Horde::applicationUrl('index.php', true)->redirect();
+        Horde::url('index.php', true)->redirect();
         exit;
     }
     $gallery->clearThumbs();
     $notification->push(_("The gallery's thumbnails have successfully been reset."), 'horde.success');
-    Horde::applicationUrl('view.php', true)->add('gallery', $galleryId)->redirect();
+    Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
     exit;
 
 case 'deleteCache':
@@ -337,16 +337,16 @@ case 'deleteCache':
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
-        Horde::applicationUrl('index.php', true)->redirect();
+        Horde::url('index.php', true)->redirect();
         exit;
     }
     $gallery->clearViews();
     $notification->push(_("The gallery's views have successfully been reset."), 'horde.success');
-    Horde::applicationUrl('view.php', true)->add('gallery', $galleryId)->redirect();
+    Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
     exit;
 
 default:
-    Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+    Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
     exit;
 }
 

@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 // Get the current attendees array from the session cache.
@@ -157,7 +157,7 @@ case 'dismiss':
         $url = new Horde_Url($url, true);
     } else {
         $date = new Horde_Date(Horde_Util::getFormData('date'));
-        $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+        $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
             ->add('date', $date->dateString());
     }
 

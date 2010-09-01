@@ -22,7 +22,7 @@ try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {
     $notification->push($face->getMessage());
-    Horde::applicationUrl('faces/index.php')->redirect();
+    Horde::url('faces/index.php')->redirect();
     exit;
 }
 

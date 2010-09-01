@@ -28,7 +28,7 @@ $bc = $prefs->getValue('show_panel')
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php Horde_Themes::includeStylesheetFiles() ?>
-<link href="<?php echo Horde::applicationUrl('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo Horde::url('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?>>

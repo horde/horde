@@ -27,13 +27,13 @@ if (!empty($user)) {
 
 if (is_a($virtuals, 'PEAR_Error')) {
     $notification->push($virtuals);
-    Horde::applicationUrl('index.php')->redirect();
+    Horde::url('index.php')->redirect();
 }
 
 foreach ($virtuals as $id => $virtual) {
-    $url = Horde::applicationUrl('virtuals/edit.php');
+    $url = Horde::url('virtuals/edit.php');
     $virtuals[$id]['edit_url'] = Horde_Util::addParameter($url, 'virtual_id', $virtual['virtual_id']);
-    $url = Horde::applicationUrl('virtuals/delete.php');
+    $url = Horde::url('virtuals/delete.php');
     $virtuals[$id]['del_url'] = Horde_Util::addParameter($url, 'virtual_id', $virtual['virtual_id']);
 }
 
@@ -41,10 +41,10 @@ $template->set('virtuals', $virtuals, true);
 
 /* Set up the template action links. */
 $actions = array();
-$url = Horde::applicationUrl('virtuals/edit.php');
+$url = Horde::url('virtuals/edit.php');
 $actions['new_url'] = (Vilma::isDomainAdmin() ? $url : Horde_Util::addParameter($url, 'domain', $domain));
 $actions['new_text'] = _("New Virtual Email");
-$url = Horde::applicationUrl('users/index.php');
+$url = Horde::url('users/index.php');
 $actions['users_url'] = (Vilma::isDomainAdmin() ? $url : Horde_Util::addParameter($url, 'domain', $domain));
 $actions['users_text'] = _("Users");
 $template->set('actions', $actions);

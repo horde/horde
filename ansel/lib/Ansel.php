@@ -178,7 +178,7 @@ class Ansel
                     } elseif ($groupby == 'none') {
                        $url = 'all/';
                     }
-                    $url = Horde::applicationUrl($url, $full, $append_session);
+                    $url = Horde::url($url, $full, $append_session);
                     // Keep the URL as clean as possible - don't append the page
                     // number if it's zero, which would be the default.
                     if (!empty($data['page'])) {
@@ -280,10 +280,10 @@ class Ansel
                                     'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::url($url, $full, $append_session);
 
             } else {
-                $url = Horde::applicationUrl('view.php', $full, $append_session);
+                $url = Horde::url('view.php', $full, $append_session);
 
                 /* See note above about delegating url generation to gallery/view */
                 if ($data['view'] == 'Image' &&
@@ -308,29 +308,29 @@ class Ansel
                 }
                 unset($data['groupby']);
 
-                $url = Horde::applicationUrl($url, $full, $append_session);
+                $url = Horde::url($url, $full, $append_session);
                 if (count($data)) {
                     $url->add($data);
                 }
                 return $url;
             } else {
-                return Horde::applicationUrl('group.php', $full, $append_session)->add($data);
+                return Horde::url('group.php', $full, $append_session)->add($data);
             }
 
         case 'rss_user':
             if ($rewrite) {
-                return Horde::applicationUrl('user/' . urlencode($data['owner']) . '/rss', $full, $append_session);
+                return Horde::url('user/' . urlencode($data['owner']) . '/rss', $full, $append_session);
             } else {
-                $url = Horde::applicationUrl(new Horde_Url('rss.php'), $full, $append_session);
+                $url = Horde::url(new Horde_Url('rss.php'), $full, $append_session);
                 return $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
             }
 
         case 'rss_gallery':
             if ($rewrite) {
                 $id = (!empty($data['slug'])) ? $data['slug'] : 'id/' . (int)$data['gallery'];
-                return Horde::applicationUrl(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
+                return Horde::url(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
             } else {
-                return Horde::applicationUrl('rss.php', $full, $append_session)->add(
+                return Horde::url('rss.php', $full, $append_session)->add(
                             array('stream_type' => 'gallery',
                                   'id' => (int)$data['gallery']));
             }
@@ -338,7 +338,7 @@ class Ansel
         case 'default_view':
             switch ($prefs->getValue('defaultview')) {
             case 'browse':
-                return Horde::applicationUrl(new Horde_Url('browse.php'), $full, $append_session);
+                return Horde::url(new Horde_Url('browse.php'), $full, $append_session);
 
             case 'galleries':
                 $url = Ansel::getUrlFor('view', array('view' => 'List'), true);
@@ -390,7 +390,7 @@ class Ansel
         }
 
         if (empty($imageId)) {
-            return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
+            return Horde::url((string)Ansel::getErrorImage($view), $full);
         }
 
         // Default to ansel_default since we really only need to know the style
@@ -408,12 +408,12 @@ class Ansel
                 $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
-                return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
+                return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
                 $image->createView($view, $style, false);
             } catch (Ansel_Exception $e) {
-                return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
+                return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             $viewHash = $image->getViewHash($view, $style) . '/' . $image->getVFSName($view);
         }
@@ -425,7 +425,7 @@ class Ansel
             if (!is_null($style)) {
                 $params['style'] = $style;
             }
-            return Horde::applicationUrl('img/' . $view . '.php', $full)->add($params);
+            return Horde::url('img/' . $view . '.php', $full)->add($params);
         }
 
         // Using vfs-direct
@@ -541,7 +541,7 @@ class Ansel
         $menu = new Horde_Menu();
 
         /* Browse/Search */
-        $menu->add(Horde::applicationUrl('browse.php'), _("_Browse"),
+        $menu->add(Horde::url('browse.php'), _("_Browse"),
                    'browse.png', null, null, null,
                    (($GLOBALS['prefs']->getValue('defaultview') == 'browse' &&
                      basename($_SERVER['PHP_SELF']) == 'index.php') ||
@@ -572,7 +572,7 @@ class Ansel
         if ($GLOBALS['registry']->isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $menu->add(Horde::applicationUrl('gallery.php')->add('actionID', 'add'),
+            $menu->add(Horde::url('gallery.php')->add('actionID', 'add'),
                        _("_New Gallery"), 'add.png', null, null, null,
                        (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
                         Horde_Util::getFormData('actionID') == 'add')
@@ -581,7 +581,7 @@ class Ansel
         }
 
         if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
-            $menu->add(Horde::applicationUrl('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
         }
 
         /* Print. */
@@ -848,7 +848,7 @@ class Ansel
         $css = array();
         if (!empty($GLOBALS['ansel_stylesheets'])) {
             foreach ($GLOBALS['ansel_stylesheets'] as $css_file) {
-                $css[] = array('u' => Horde::applicationUrl($themesuri . '/' . $css_file, true),
+                $css[] = array('u' => Horde::url($themesuri . '/' . $css_file, true),
                                'f' => $themesfs . '/' . $css_file);
             }
         }
@@ -904,7 +904,7 @@ class Ansel
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
             $GLOBALS['notification']->push(_("Downloading zip files is not enabled. Talk to your server administrator."));
-            Horde::applicationUrl('view.php?view=List', true)->redirect();
+            Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
@@ -928,7 +928,7 @@ class Ansel
             $notification->push(sprintf(_("There are no photos in %s to download."),
                                 $gallery->get('name')), 'horde.message');
 
-            Horde::applicationUrl('view.php?view=List', true)->redirect();
+            Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 

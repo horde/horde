@@ -15,7 +15,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $url = $vars->get('url');
 
 if (Kronolith::showAjaxView()) {
-    Horde::applicationUrl('', true)->setAnchor('calendar:remote|' . rawurlencode($url))->redirect();
+    Horde::url('', true)->setAnchor('calendar:remote|' . rawurlencode($url))->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/SubscribeRemoteCalendar.php';
@@ -23,7 +23,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/SubscribeRemoteCalendar.php';
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
-    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $form = new Kronolith_SubscribeRemoteCalendarForm($vars);
@@ -36,7 +36,7 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    Horde::applicationUrl('calendars/', true)->redirect();
+    Horde::url('calendars/', true)->redirect();
 }
 
 $title = $form->getTitle();

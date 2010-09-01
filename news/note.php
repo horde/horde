@@ -19,7 +19,7 @@ $id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    Horde::applicationUrl('browse.php')->redirect();
+    Horde::url('browse.php')->redirect();
 }
 
 $body = $row['title'] . "\n\n"

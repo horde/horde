@@ -491,17 +491,17 @@ class Skoli {
         global $conf, $registry, $browser, $print_link;
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('list.php'), _("List Classes"), 'skoli.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("List Classes"), 'skoli.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (count(Skoli::listClasses(false, Horde_Perms::EDIT))) {
-            $menu->add(Horde::applicationUrl('add.php'), _("_New Entry"), 'add.png', null, null, null, Horde_Util::getFormData('entry') ? '__noselection' : null);
+            $menu->add(Horde::url('add.php'), _("_New Entry"), 'add.png', null, null, null, Horde_Util::getFormData('entry') ? '__noselection' : null);
         }
 
         /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         // @TODO Implement an easy form to create timetables in e.g. Kronolith
@@ -509,7 +509,7 @@ class Skoli {
          * Show this item only if an application provides 'calendar/show' and we have permissions to view it.
         $app = $registry->hasMethod('calendar/show');
         if ($app !== false && $registry->get('status', $app) != 'inactive' && $registry->hasPermission($app, Horde_Perms::EDIT)) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('timetable.php', 'actionID', 'new_timetable')), _("_New Timetable"), 'timetable.png');
+            $menu->add(Horde::url(Horde_Util::addParameter('timetable.php', 'actionID', 'new_timetable')), _("_New Timetable"), 'timetable.png');
         }
         */
 

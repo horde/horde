@@ -28,13 +28,13 @@ if ($form->validate()) {
         $dimensions = $img->getDimensions();
     } catch (Horde_Image_Exception $e) {
         $notification->push($e->getMessage());
-        Horde::applicationUrl('faces/search/image.php')->redirect();
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
     if ($dimensions['width'] < 50 || $dimensions['height'] < 50) {
         $notification->push(_("Photo is too small. Search photo must be at least 50x50 pixels."));
-        Horde::applicationUrl('faces/search/image.php')->redirect();
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
@@ -43,16 +43,16 @@ if ($form->validate()) {
                      min($conf['screen']['height'], $dimensions['height']));
     } catch (Horde_Image_Exception $e) {
         $notification->push($e->getMessage());
-        Horde::applicationUrl('faces/search/image.php')->redirect();
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
     $path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtension();
     if (file_put_contents($path, $img->raw())) {
-        Horde::applicationUrl('faces/search/image_define.php')->redirect();
+        Horde::url('faces/search/image_define.php')->redirect();
     } else {
         $notification->push(_("Cannot store search photo"));
-        Horde::applicationUrl('faces/search/image.php')->redirect();
+        Horde::url('faces/search/image.php')->redirect();
     }
     exit;
 

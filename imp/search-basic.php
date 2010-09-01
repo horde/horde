@@ -35,7 +35,7 @@ if ($vars->search_mailbox) {
     $id = $imp_ui_search->processBasicSearch($vars->search_mailbox, $vars->search_criteria, $vars->search_criteria_text, $vars->search_criteria_not, $vars->search_flags);
 
     /* Redirect to the mailbox screen. */
-    Horde::applicationUrl('mailbox.php', true)->add('mailbox', $imp_search->createSearchID($id))->redirect();
+    Horde::url('mailbox.php', true)->add('mailbox', $imp_search->createSearchID($id))->redirect();
 }
 
 $f_fields = $s_fields = array();
@@ -60,7 +60,7 @@ foreach ($imp_search->flagFields() as $key => $val) {
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
-$t->set('action', Horde::applicationUrl('search-basic.php'));
+$t->set('action', Horde::url('search-basic.php'));
 $t->set('mbox', htmlspecialchars($vars->search_mailbox));
 $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFolder($vars->search_mailbox))));
 $t->set('s_fields', $s_fields);
@@ -73,7 +73,7 @@ IMP::menu();
 IMP::status();
 
 if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(Horde::applicationUrl('search.php')->add(array('search_mailbox' => $vars->search_mailbox))));
+    $t->set('advsearch', Horde::link(Horde::url('search.php')->add(array('search_mailbox' => $vars->search_mailbox))));
 }
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');

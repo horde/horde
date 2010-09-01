@@ -112,7 +112,7 @@ class Jonah_Application extends Horde_Registry_Application
             return;
         }
 
-        $url = Horde::applicationUrl('stories/');
+        $url = Horde::url('stories/');
         $news = Jonah_News::factory();
         $channels = $news->getChannels('internal');
         if ($channels instanceof PEAR_Error) {

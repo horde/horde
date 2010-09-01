@@ -20,7 +20,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
-    Horde::applicationUrl('view.php?view=List', true)->redirect();
+    Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
 

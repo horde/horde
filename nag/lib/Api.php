@@ -1356,9 +1356,9 @@ class Nag_Api extends Horde_Registry_Api
                 'variable_length' => false,
                 'params' => array('task' => $task->id,
                                   'tasklist' => $task->tasklist),
-                'link' => Horde::applicationUrl('view.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id)),
-                'edit_link' => Horde::applicationUrl('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'modify_task')),
-                'delete_link' => Horde::applicationUrl('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'delete_task')),
+                'link' => Horde::url('view.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id)),
+                'edit_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'modify_task')),
+                'delete_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'delete_task')),
                 'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id);
         }
 

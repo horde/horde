@@ -1,7 +1,7 @@
 <br />
 <h1 class="header"><?php echo _("Export Notes") ?></h1>
 
-<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("notes.csv"), null, Horde::applicationUrl('data.php')) ?>">
+<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("notes.csv"), null, Horde::url('data.php')) ?>">
 <input type="hidden" name="actionID" value="export" />
 
 <div class="item" style="padding:.5em">

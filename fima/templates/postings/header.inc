@@ -4,9 +4,9 @@
 <?php if ($pageOb['mode'] == 'list'): ?>
   <?php echo Horde::link($pageOb['url'], _("Refresh List")) . Horde::img('reload.png', _("Refresh List")) ?> </a>
 <?php if (!isset($_SESSION['fima_search'])): ?>
-  <?php echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'search_type', $prefs->getValue('active_postingtype')), _("Search Postings")) . Horde::img('search.png', _("Search")) ?></a>
+  <?php echo Horde::link(Horde_Util::addParameter(Horde::url('search.php'), 'search_type', $prefs->getValue('active_postingtype')), _("Search Postings")) . Horde::img('search.png', _("Search")) ?></a>
 <?php else: ?>
-  <?php echo Horde::link(Horde::applicationUrl('search.php'), _("Edit Search Query")) . Horde::img('edit.png', _("Edit Search Query")) ?></a>
+  <?php echo Horde::link(Horde::url('search.php'), _("Edit Search Query")) . Horde::img('edit.png', _("Edit Search Query")) ?></a>
   <?php echo Horde::link(Horde_Util::addParameter($pageOb['url'], 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query")) ?></a>
 <?php endif; ?>
 <?php endif; ?>

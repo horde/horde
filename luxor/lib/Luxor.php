@@ -48,7 +48,7 @@ class Luxor
             $uri = 'source.php';
         }
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl($uri), $arglist);
+        $url = Horde_Util::addParameter(Horde::url($uri), $arglist);
         if (!empty($anchor)) {
             $url .= "#$anchor";
         }
@@ -451,7 +451,7 @@ class Luxor
         global $registry;
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('source.php'), _("_Browse"), 'luxor.png');
+        $menu->add(Horde::url('source.php'), _("_Browse"), 'luxor.png');
 
         if ($returnType == 'object') {
             return $menu;

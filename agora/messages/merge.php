@@ -16,20 +16,20 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    Horde::applicationUrl('forums.php', true)->redirect();
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check delete permissions */
 if (!$messages->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permission to delete messages in forum %s."), $forum_id), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -69,7 +69,7 @@ if ($form->validate()) {
             $notification->push($merge->getMessage(), 'horde.error');
         } else {
             $notification->push(sprintf(_("Thread %s merged with thread %s after message %s."), $message_id, $info['new_thread_id'], $info['after_message_id']), 'horde.error');
-            header('Location: ' . Agora::setAgoraId($forum_id, $info['new_thread_id'], Horde::applicationUrl('messages/index.php', true), $scope));
+            header('Location: ' . Agora::setAgoraId($forum_id, $info['new_thread_id'], Horde::url('messages/index.php', true), $scope));
             exit;
         }
     }

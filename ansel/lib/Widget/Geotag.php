@@ -71,7 +71,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
     {
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
-        $url = Horde::applicationUrl('map_edit.php', true);
+        $url = Horde::url('map_edit.php', true);
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
 
@@ -135,8 +135,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
 
             } elseif ($permsEdit) {
                 // Image view, but no geotags, provide ability to add it.
-                $addurl = Horde::applicationUrl('map_edit.php')->add('image', $this->_params['images'][0]);
-                $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
+                $addurl = Horde::url('map_edit.php')->add('image', $this->_params['images'][0]);
+                $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::url('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
                 $imgs = $ansel_storage->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
                     if (count($imgs) > 0) {
                         $imgsrc = '<div class="ansel_location_sameas">';

@@ -12,7 +12,7 @@ $beatnik = Horde_Registry::appInit('beatnik');
 require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-$url = Horde::applicationUrl('editrec.php');
+$url = Horde::url('editrec.php');
 list($type, $record) = $beatnik->driver->getRecord(Horde_Util::getFormData('id'));
 
 $form = new EditRecord($vars);
@@ -32,9 +32,9 @@ if ($form->validate($vars)) {
     $edit = $vars->get('id');
     if ($info['rectype'] == 'soa' && !$edit) {
         // if added a soa redirect to the autogeneration page
-        $url = Horde::applicationUrl('autogenerate.php')->add(array('rectype' => 'soa', 'curdomain' => $info['zonename']));
+        $url = Horde::url('autogenerate.php')->add(array('rectype' => 'soa', 'curdomain' => $info['zonename']));
     } else {
-        $url = Horde::applicationUrl('viewzone.php');
+        $url = Horde::url('viewzone.php');
     }
 
     $url->redirect();

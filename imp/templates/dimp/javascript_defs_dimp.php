@@ -41,13 +41,13 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('fgc
 $code['conf'] = array_filter(array(
     // URL variables
     'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
-    'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add('ajaxui', 1),
-    'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
-    'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php')->setRaw(true)->add('ajaxui', 1),
-    'URI_PREFS' => (string) Horde::getServiceLink('prefsapi', 'imp'),
-    'URI_PREFS_IMP' => (string) Horde::getServiceLink('options', 'imp')->setRaw(true)->add('ajaxui', 1),
-    'URI_SEARCH' => (string) Horde::applicationUrl('search.php'),
-    'URI_VIEW' => (string) Horde::applicationUrl('view.php'),
+    'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
+    'URI_DIMP' => strval(Horde::url('index-dimp.php')),
+    'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
+    'URI_PREFS' => strval(Horde::getServiceLink('prefsapi', 'imp')),
+    'URI_PREFS_IMP' => strval(Horde::getServiceLink('options', 'imp')->setRaw(true)->add('ajaxui', 1)),
+    'URI_SEARCH' => strval(Horde::url('search.php')),
+    'URI_VIEW' => strval(Horde::url('view.php')),
 
     'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
@@ -176,7 +176,7 @@ if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-
     );
 
     if ($GLOBALS['registry']->hasMethod('contacts/search')) {
-        $code['conf_compose']['URI_ABOOK'] = (string) Horde::applicationUrl('contacts.php');
+        $code['conf_compose']['URI_ABOOK'] = strval(Horde::url('contacts.php'));
     }
 
     if ($GLOBALS['prefs']->getValue('set_priority')) {

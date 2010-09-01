@@ -14,7 +14,7 @@ class Horde_Block_News_last extends Horde_Block {
 
     function _title()
     {
-        return Horde::link(Horde::applicationUrl('browse.php'), _("Last news"), 'header') . _("Last news") . '</a>';
+        return Horde::link(Horde::url('browse.php'), _("Last news"), 'header') . _("Last news") . '</a>';
     }
 
     function _params()
@@ -55,7 +55,7 @@ class Horde_Block_News_last extends Horde_Block {
         }
         $view = new News_View();
         $view->news = $rows;
-        $view->moreurl = Horde::applicationUrl('browse.php');
+        $view->moreurl = Horde::url('browse.php');
 
         return $view->render('/block/news.php');
     }

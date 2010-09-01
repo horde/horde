@@ -131,7 +131,7 @@ class Mnemo_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        $add = Horde::applicationUrl('memo.php')->add('actionID', 'add_memo');
+        $add = Horde::url('memo.php')->add('actionID', 'add_memo');
 
         $tree->addNode(
             $parent . '__new',
@@ -174,7 +174,7 @@ class Mnemo_Application extends Horde_Registry_Application
             false,
             array(
                 'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::applicationUrl('search.php')
+                'url' => Horde::url('search.php')
             )
         );
     }

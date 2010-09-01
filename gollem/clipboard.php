@@ -43,7 +43,7 @@ $template->set('copygraphic', Horde::img('copy.png', _("Copy")));
 $template->set('currdir', Gollem::getDisplayPath($dir));
 $template->set('dir', $dir);
 $template->set('entry', $entry, true);
-$template->set('manager_url', Horde::applicationUrl('manager.php'));
+$template->set('manager_url', Horde::url('manager.php'));
 
 echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

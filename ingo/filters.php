@@ -42,13 +42,13 @@ case 'rule_disable':
 case 'rule_enable':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        Horde::applicationUrl('filters.php', true)->redirect();
+        Horde::url('filters.php', true)->redirect();
     }
     switch ($vars->actionID) {
     case 'rule_delete':
         if (!$delete_allowed) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
-            Horde::applicationUrl('filters.php', true)->redirect();
+            Horde::url('filters.php', true)->redirect();
         }
 
         $tmp = $filters->getFilter($vars->rulenumber);
@@ -114,7 +114,7 @@ case 'rule_enable':
 case 'settings_save':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        Horde::applicationUrl('filters.php', true)->redirect();
+        Horde::url('filters.php', true)->redirect();
     }
     $prefs->setValue('show_filter_msg', $vars->show_filter_msg);
     $prefs->setValue('filter_seen', $vars->filter_seen);
@@ -124,7 +124,7 @@ case 'settings_save':
 case 'apply_filters':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        Horde::applicationUrl('filters.php', true)->redirect();
+        Horde::url('filters.php', true)->redirect();
     }
     $ingo_script->apply();
     break;
@@ -144,8 +144,8 @@ Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
 
 /* Common URLs. */
-$filters_url = Horde::applicationUrl('filters.php');
-$rule_url = Horde::applicationUrl('rule.php');
+$filters_url = Horde::url('filters.php');
+$rule_url = Horde::url('rule.php');
 
 if (count($filter_list) == 0) {
     require INGO_TEMPLATES . '/filters/filter-none.inc';
@@ -171,31 +171,31 @@ if (count($filter_list) == 0) {
 
         switch ($filter['action']) {
         case Ingo_Storage::ACTION_BLACKLIST:
-            $editurl = Horde::applicationUrl('blacklist.php');
+            $editurl = Horde::url('blacklist.php');
             $entry['filterimg'] = Horde::img('blacklist.png');
             $name = _("Blacklist");
             break;
 
         case Ingo_Storage::ACTION_WHITELIST:
-            $editurl = Horde::applicationUrl('whitelist.php');
+            $editurl = Horde::url('whitelist.php');
             $entry['filterimg'] = Horde::img('whitelist.png');
             $name = _("Whitelist");
             break;
 
         case Ingo_Storage::ACTION_VACATION:
-            $editurl = Horde::applicationUrl('vacation.php');
+            $editurl = Horde::url('vacation.php');
             $entry['filterimg'] = Horde::img('vacation.png');
             $name = _("Vacation");
             break;
 
         case Ingo_Storage::ACTION_FORWARD:
-            $editurl = Horde::applicationUrl('forward.php');
+            $editurl = Horde::url('forward.php');
             $entry['filterimg'] = Horde::img('forward.png');
             $name = _("Forward");
             break;
 
         case Ingo_Storage::ACTION_SPAM:
-            $editurl = Horde::applicationUrl('spam.php');
+            $editurl = Horde::url('spam.php');
             $entry['filterimg'] = Horde::img('spam.png');
             $name = _("Spam Filter");
             break;

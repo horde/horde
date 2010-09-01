@@ -57,7 +57,7 @@ if ($valid1 && $valid2 && $valid3 &&
         $notification->push(sprintf(_("Adding your ticket failed: %s."),
                                     $ticket->getMessage()),
                             'horde.error');
-        Horde::applicationUrl('ticket/create.php', true)->redirect();
+        Horde::url('ticket/create.php', true)->redirect();
     }
     $notification->push(sprintf(_("Your ticket ID is %s. An appropriate person has been notified of this request."), $ticket->getId()), 'horde.success');
     $ticket->show();

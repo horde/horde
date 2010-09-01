@@ -16,7 +16,7 @@ Horde_Registry::appInit('ingo');
 /* Redirect if vacation is not available. */
 if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Vacation is not supported in the current filtering driver."), 'horde.error');
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Get vacation object and rules. */
@@ -28,7 +28,7 @@ $vac_rule = $filters->getRule($vac_id);
 /* Load libraries. */
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->submitbutton == _("Return to Rules List")) {
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Build form. */

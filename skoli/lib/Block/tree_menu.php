@@ -14,7 +14,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
     {
         require_once dirname(__FILE__) . '/../base.php';
 
-        $add = Horde::applicationUrl('add.php');
+        $add = Horde::url('add.php');
         $add_img = Horde_Themes::img('add.png');
 
         $classes = Skoli::listClasses(false, Horde_Perms::EDIT);
@@ -53,7 +53,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
                 false,
                 array(
                     'icon' => Horde_Themes::img('search.png'),
-                    'url' => Horde::applicationUrl('search.php')
+                    'url' => Horde::url('search.php')
                 )
             );
         }

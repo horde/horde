@@ -35,7 +35,7 @@
 var imgids = <?php echo Horde_Serialize::serialize($imageids, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()); ?>;
 
 function proccessImageFaces(image_id, reget) {
-    var url = '<?php echo Horde::applicationUrl('faces/image.php'); ?>';
+    var url = '<?php echo Horde::url('faces/image.php'); ?>';
     $('processface' + image_id).innerHTML = '<?php echo _("Loading...") ?>';
     var params = {'reload':reget, 'image': image_id};
     new Ajax.Updater({success:'processface' + image_id},
@@ -48,7 +48,7 @@ function proccessImageFaces(image_id, reget) {
 }
 
 function deleteFace(image_id, face_id) {
-    var url = '<?php echo Horde::applicationUrl('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
+    var url = '<?php echo Horde::url('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
     var params = {'image': image_id, face: face_id};
     new Ajax.Request(url + '/action=delete',
                      {
@@ -60,7 +60,7 @@ function deleteFace(image_id, face_id) {
 
 function setFaceName(image_id, face_id) {
     var params = {face: face_id, 'image': image_id, facename: encodeURIComponent($F('facename' + face_id))};
-    var url = '<?php echo Horde::applicationUrl('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
+    var url = '<?php echo Horde::url('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
     new Ajax.Updater({success: 'face' + face_id},
                      url + '/action=setname',
                      {

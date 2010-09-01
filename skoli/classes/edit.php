@@ -12,17 +12,17 @@ require_once SKOLI_BASE . '/lib/Forms/EditClass.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::applicationUrl('list.php', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $class = $skoli_shares->getShare($vars->get('c'));
 if (is_a($class, 'PEAR_Error')) {
     $notification->push($class, 'horde.error');
-    Horde::applicationUrl('classes/', true)->redirect();
+    Horde::url('classes/', true)->redirect();
 } elseif (!$class->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("You are not allowed to change this class."), 'horde.error');
-    Horde::applicationUrl('classes/', true)->redirect();
+    Horde::url('classes/', true)->redirect();
 }
 $vars->set('school', $class->get('school'));
 if (!$vars->exists('marks')) {
@@ -48,7 +48,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    Horde::applicationUrl('classes/', true)->redirect();
+    Horde::url('classes/', true)->redirect();
 }
 
 if (!$vars->exists('name')) {

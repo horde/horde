@@ -116,7 +116,7 @@ class Hylax {
             $url = Horde_Util::addParameter('img.php', $params);
             $img = Horde::img($url, sprintf(_("View page %s"), $i+1), '', $GLOBALS['registry']->get('webroot'));
 
-            $full_url = Horde::applicationUrl(Horde_Util::addParameter('img.php', array('fax_id' => $fax_id, 'page' => $i)));
+            $full_url = Horde::url(Horde_Util::addParameter('img.php', array('fax_id' => $fax_id, 'page' => $i)));
 
             $pages[] = Horde::link('', sprintf(_("View page %s"), $i+1), '', '', "popup('$full_url', $popup_w, $popup_h); return false;") . $img . '</a>';
         }
@@ -129,17 +129,17 @@ class Hylax {
 
         $menu = new Horde_Menu();
 
-        $menu->addArray(array('url' => Horde::applicationUrl('summary.php'),
+        $menu->addArray(array('url' => Horde::url('summary.php'),
                               'text' => _("Summary"),
                               'icon' => 'fax.png',
                               'icon_path' => Horde_Themes::img()));
 
-        $menu->addArray(array('url' => Horde::applicationUrl('folder.php'),
+        $menu->addArray(array('url' => Horde::url('folder.php'),
                               'text' => _("Folders"),
                               'icon' => 'folder.png',
                               'icon_path' => Horde_Themes::img()));
 
-        $menu->addArray(array('url' => Horde::applicationUrl('compose.php'),
+        $menu->addArray(array('url' => Horde::url('compose.php'),
                               'text' => _("Compose"),
                               'icon' => 'compose.png',
                               'icon_path' => Horde_Themes::img()));

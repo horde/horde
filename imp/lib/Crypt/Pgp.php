@@ -476,7 +476,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             'uid' => $uid,
             'mime_id' => $id
         );
-        return Horde::popupJs(Horde::applicationUrl('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
+        return Horde::popupJs(Horde::url('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
     }
 
     /**
@@ -634,7 +634,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
-        $t->set('selfurl', Horde::applicationUrl('pgp.php'));
+        $t->set('selfurl', Horde::url('pgp.php'));
         $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);

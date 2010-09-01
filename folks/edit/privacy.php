@@ -62,7 +62,7 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Your data were successfully updated."), 'horde.success');
-        Horde::applicationUrl('edit/privacy.php')->redirect();
+        Horde::url('edit/privacy.php')->redirect();
     }
 
 }

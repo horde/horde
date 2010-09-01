@@ -51,7 +51,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                     $html .= $html_pre .
                         Horde::img('vacation.png', _("Vacation")) .
                         '</td><td>' .
-                        Horde::applicationUrl('vacation.php')->link(array('title' => _("Edit"))) .
+                        Horde::url('vacation.php')->link(array('title' => _("Edit"))) .
                         _("Vacation") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -60,7 +60,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                 if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
                     $html .= $html_pre .
                         Horde::img('forward.png', _("Forward")) . '</td><td>' .
-                        Horde::applicationUrl('forward.php')->link(array('title' => _("Edit"))) .
+                        Horde::url('forward.php')->link(array('title' => _("Edit"))) .
                         _("Forward") . '</a> ' . $active;
                     $data = unserialize($GLOBALS['prefs']->getValue('forward'));
                     if (!empty($data['a'])) {
@@ -75,7 +75,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                     $html .= $html_pre .
                         Horde::img('whitelist.png', _("Whitelist")) .
                         '</td><td>' .
-                        Horde::applicationUrl('whitelist.php')->link(array('title' => _("Edit"))) .
+                        Horde::url('whitelist.php')->link(array('title' => _("Edit"))) .
                         _("Whitelist") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -85,7 +85,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                     $html .= $html_pre .
                         Horde::img('blacklist.png', _("Blacklist")) .
                         '</td><td>' .
-                        Horde::applicationUrl('blacklist.php')->link(array('title' => _("Edit"))) .
+                        Horde::url('blacklist.php')->link(array('title' => _("Edit"))) .
                         _("Blacklist") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -95,7 +95,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                     $html .= $html_pre .
                         Horde::img('spam.png', _("Spam Filter")) .
                         '</td><td>' .
-                        Horde::applicationUrl('spam.php')->link(array('title' => _("Edit"))) .
+                        Horde::url('spam.php')->link(array('title' => _("Edit"))) .
                         _("Spam Filter") . '</a> ' . $active . $html_post;
                 }
                 break;

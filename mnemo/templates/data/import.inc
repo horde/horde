@@ -1,6 +1,6 @@
 <h1 class="header"><?php printf(_("Import Notes, Step %d"), (int)$import_step) ?></h1>
 
-<form method="post" name="import_form" enctype="multipart/form-data" action="<?php echo Horde::applicationUrl('data.php') ?>">
+<form method="post" name="import_form" enctype="multipart/form-data" action="<?php echo Horde::url('data.php') ?>">
 <input type="hidden" name="actionID" value="<?php echo htmlspecialchars($next_step) ?>" />
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />
 <div class="item" style="padding:.5em">

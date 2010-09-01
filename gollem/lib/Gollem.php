@@ -321,7 +321,7 @@ class Gollem
             }
         }
 
-        return Horde::applicationUrl($url, true);
+        return Horde::url($url, true);
     }
 
     /**
@@ -675,19 +675,19 @@ class Gollem
     static public function getMenu()
     {
         $menu = new Horde_Menu();
-        $menu->add(Horde_Util::addParameter(Horde::applicationUrl('manager.php'), 'dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
+        $menu->add(Horde_Util::addParameter(Horde::url('manager.php'), 'dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
 
         if (!empty($_SESSION['gollem'])) {
             $backend_key = $_SESSION['gollem']['backend_key'];
             if ($GLOBALS['registry']->isAdmin()) {
-                $menu->add(Horde_Util::addParameter(Horde::applicationUrl('permissions.php'), 'backend', $backend_key), _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'));
+                $menu->add(Horde_Util::addParameter(Horde::url('permissions.php'), 'backend', $backend_key), _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'));
             }
 
             if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
                 if ($GLOBALS['browser']->hasFeature('javascript')) {
-                    $quota_url = 'javascript:' . Horde::popupJs(Horde::applicationUrl('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                    $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
                 } else {
-                    $quota_url = Horde_Util::addParameter(Horde::applicationUrl('quota.php'), 'backend', $backend_key);
+                    $quota_url = Horde_Util::addParameter(Horde::url('quota.php'), 'backend', $backend_key);
                 }
                 $menu->add($quota_url, _("Check Quota"), 'info_icon.png', Horde_Themes::img(null, 'horde'));
             }

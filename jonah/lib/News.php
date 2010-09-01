@@ -62,7 +62,7 @@ class Jonah_News
             $channel[$channel_id] = $this->_getChannel($channel_id);
             if (!is_a($channel[$channel_id], 'PEAR_Error')) {
                 if (empty($channel[$channel_id]['channel_link'])) {
-                    $channel[$channel_id]['channel_official'] = Horde_Util::addParameter(Horde::applicationUrl('delivery/html.php', true, -1), 'channel_id', $channel_id, false);
+                    $channel[$channel_id]['channel_official'] = Horde_Util::addParameter(Horde::url('delivery/html.php', true, -1), 'channel_id', $channel_id, false);
                 } else {
                     $channel[$channel_id]['channel_official'] = str_replace(array('%25c', '%c'), array('%c', $channel_id), $channel[$channel_id]['channel_link']);
                 }
@@ -369,7 +369,7 @@ class Jonah_News
             !empty($channel['channel_story_url'])) {
             $url = $channel['channel_story_url'];
         } else {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('stories/view.php', true, -1), array('channel_id' => '%c', 'story_id' => '%s'), null, false);
+            $url = Horde_Util::addParameter(Horde::url('stories/view.php', true, -1), array('channel_id' => '%c', 'story_id' => '%s'), null, false);
         }
         return str_replace(array('%25c', '%25s', '%c', '%s'),
                            array('%c', '%s', $channel['channel_id'], $story['story_id']),

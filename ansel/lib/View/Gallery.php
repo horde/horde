@@ -55,7 +55,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
                                    true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
-            Horde::applicationUrl('disclamer.php')->add($params)->setRaw(true)->redirect();
+            Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
@@ -77,7 +77,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
                     true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
-            Horde::applicationUrl('protect.php')->add($params)->setRaw(true)->redirect();
+            Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 

@@ -158,13 +158,13 @@ class Trean
         global $conf, $registry;
 
         $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png');
-        $menu->add(Horde::applicationUrl('reports.php'), _("_Reports"), 'reports.png');
+        $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png');
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
 
         if ($returnType == 'object') {
@@ -237,7 +237,7 @@ class Trean
             $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             if ($bookmark->favicon
                 && $vfs->exists('.horde/trean/favicons/', $bookmark->favicon)) {
-                return Horde_Util::addParameter(Horde::applicationUrl('favicon.php'),
+                return Horde_Util::addParameter(Horde::url('favicon.php'),
                                                 'bookmark_id', $bookmark->id);
             }
         } catch (Exception $e) {

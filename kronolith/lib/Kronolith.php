@@ -2073,9 +2073,9 @@ class Kronolith
     {
         if (isset($GLOBALS['conf']['urls']['pretty']) &&
             $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
-            return Horde::applicationUrl('feed/' . $calendar, true, -1);
+            return Horde::url('feed/' . $calendar, true, -1);
         }
-        return Horde::applicationUrl('feed/index.php', true, -1)
+        return Horde::url('feed/index.php', true, -1)
             ->add('c', $calendar);
     }
 
@@ -2304,7 +2304,7 @@ class Kronolith
             }
 
             if ($action == self::ITIP_REQUEST) {
-                $attend_link = Horde::applicationUrl('attend.php', true, -1)
+                $attend_link = Horde::url('attend.php', true, -1)
                     ->add(array('c' => $event->calendar,
                                 'e' => $event->id,
                                 'u' => $email));
@@ -2609,15 +2609,15 @@ class Kronolith
         $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->preserve('date', $date_stamp);
 
-        $tabs->addTab(_("Day"), Horde::applicationUrl('day.php'),
+        $tabs->addTab(_("Day"), Horde::url('day.php'),
                       array('tabname' => 'day', 'id' => 'tabday', 'onclick' => 'return ShowView(\'Day\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Work Week"), Horde::applicationUrl('workweek.php'),
+        $tabs->addTab(_("Work Week"), Horde::url('workweek.php'),
                       array('tabname' => 'workweek', 'id' => 'tabworkweek', 'onclick' => 'return ShowView(\'WorkWeek\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Week"), Horde::applicationUrl('week.php'),
+        $tabs->addTab(_("Week"), Horde::url('week.php'),
                       array('tabname' => 'week', 'id' => 'tabweek', 'onclick' => 'return ShowView(\'Week\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Month"), Horde::applicationUrl('month.php'),
+        $tabs->addTab(_("Month"), Horde::url('month.php'),
                       array('tabname' => 'month', 'id' => 'tabmonth', 'onclick' => 'return ShowView(\'Month\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Year"), Horde::applicationUrl('year.php'),
+        $tabs->addTab(_("Year"), Horde::url('year.php'),
                       array('tabname' => 'year', 'id' => 'tabyear', 'onclick' => 'return ShowView(\'Year\', \'' . $date_stamp . '\');'));
 
         if ($tabname === null) {
@@ -2940,12 +2940,12 @@ class Kronolith
 
         $menu = new Horde_Menu();
 
-        $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
+        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (self::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
-            $menu->add(Horde::applicationUrl('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
+            $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
             Horde_Core_Ui_JsCalendar::init(array(
@@ -2956,18 +2956,18 @@ class Kronolith
             ));
             Horde::addScriptFile('goto.js', 'kronolith');
             Horde::addInlineScript(array(
-                'KronolithGoto.dayurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('day.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.monthurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('month.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.weekurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('week.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.yearurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('year.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.dayurl = ' . Horde_Serialize::serialize(strval(Horde::url('day.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.monthurl = ' . Horde_Serialize::serialize(strval(Horde::url('month.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.weekurl = ' . Horde_Serialize::serialize(strval(Horde::url('week.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.yearurl = ' . Horde_Serialize::serialize(strval(Horde::url('year.php')), Horde_Serialize::JSON, $registry->getCharset()),
             ));
             $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
         }
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         return $menu;

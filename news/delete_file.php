@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!$registry->isAdmin(array('permission' => 'news:admin'))) {
     $notification->push(_("Only admin can delete a news."));
-    Horde::applicationUrl('edit.php')->redirect();
+    Horde::url('edit.php')->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();

@@ -16,7 +16,7 @@ Horde_Registry::appInit('ingo');
 /* Redirect if forward is not available. */
 if (!in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Forward is not supported in the current filtering driver."), 'horde.error');
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Get the forward object and rule. */
@@ -28,7 +28,7 @@ $fwd_rule = $filters->getRule($fwd_id);
 /* Load libraries. */
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->submitbutton == _("Return to Rules List")) {
-    Horde::applicationUrl('filters.php', true)->redirect();
+    Horde::url('filters.php', true)->redirect();
 }
 
 /* Build form. */

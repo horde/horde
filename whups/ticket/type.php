@@ -68,7 +68,7 @@ $ticket = Whups::getCurrentTicket();
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
 

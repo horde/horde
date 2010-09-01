@@ -3,7 +3,7 @@
 <tr><td class="header"><?php
     printf(_("%s Deliverables"), $clientname);
 
-    $newurl = Horde::applicationUrl('deliverables.php');
+    $newurl = Horde::url('deliverables.php');
     $newurl = Horde_Util::addParameter($newurl, array('new' => 1, 'client_id' => $vars->get('client_id')));
 
 ?> <a href="<?php echo $newurl ?>"><?php
