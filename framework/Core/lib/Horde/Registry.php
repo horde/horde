@@ -661,7 +661,8 @@ implements Horde_Interfaces_Registry_Auth
      *
      * @param array $filter   An array of the statuses that should be
      *                        returned. Defaults to non-hidden.
-     * @param boolean $assoc  Associative array with app names as keys.
+     * @param boolean $assoc  Associative array with app names as keys and
+     *                        config parameters as values.
      * @param integer $perms  The permission level to check for in the list.
      *                        If null, skips permission check.
      *
@@ -679,11 +680,11 @@ implements Horde_Interfaces_Registry_Auth
         foreach ($this->applications as $app => $params) {
             if (in_array($params['status'], $filter) &&
                 (is_null($perms) || $this->hasPermission($app, $perms))) {
-                $apps[$app] = $app;
+                $apps[$app] = $params;
             }
         }
 
-        return $assoc ? $apps : array_values($apps);
+        return $assoc ? $apps : array_keys($apps);
     }
 
     /**
@@ -693,10 +694,10 @@ implements Horde_Interfaces_Registry_Auth
      */
     public function listAllApps($filter = null)
     {
-        // Default to all installed (but possibly not configured) applications)
+        // Default to all installed (but possibly not configured) applications.
         if (is_null($filter)) {
             $filter = array(
-                'inactive', 'hidden', 'notoolbar', 'active', 'admin'
+                'active', 'admin', 'hidden', 'inactive', 'notoolbar'
             );
         }
 
@@ -1281,12 +1282,18 @@ implements Horde_Interfaces_Registry_Auth
     /**
      * Check permissions on an application.
      *
-     * @param string $app     The name of the application
-     * @param integer $perms  The permission level to check for.
+     * @param string $app      The name of the application
+     * @param integer $perms   The permission level to check for.
+     * @params array $options  Additional options:
+     * <pre>
+     * 'notransparent' - (boolean) Do not attempt transparent authentication.
+     *                   DEFAULT: false
+     * </pre>
      *
      * @return boolean  Whether access is allowed.
      */
-    public function hasPermission($app, $perms = Horde_Perms::READ, $params = array())
+    public function hasPermission($app, $perms = Horde_Perms::READ,
+                                  array $params = array())
     {
         /* Always do isAuthenticated() check first. You can be an admin, but
          * application auth != Horde admin auth. And there can *never* be
