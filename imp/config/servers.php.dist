@@ -181,7 +181,11 @@
  *
  *           DRIVER: 'maildir'
  *                   Use Maildir++ quota files to handle quotas.
- *           PARAMS: 'path' - [string] The path to the user's Maildir
+ *           PARAMS: 'msg_count' - [boolean] Display information on the
+ *                                 message limit rather than the storage
+ *                                 limit? The storage limit information is
+ *                                 displayed by default.
+ *                   'path' - [string] The path to the user's Maildir
  *                            directory. You may use the two-character
  *                            sequence "~U" to represent the user's account
  *                            name, and the actual username will be
