@@ -44,7 +44,7 @@ class Horde_Block_Collection
      *
      * @return Horde_Block_Collection  The Horde_Block_Collection instance.
      */
-    static public function singleton($type = null, $apps = array())
+    static public function singleton($apps = array())
     {
         sort($apps);
         $signature = hash('md5', serialize($apps));
@@ -132,11 +132,6 @@ class Horde_Block_Collection
             (($registry->get('status', $app) == 'admin') &&
              !$registry->isAdmin())) {
             throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
-        }
-
-        $path = $registry->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
-        if (is_readable($path)) {
-            include_once $path;
         }
 
         $class = 'Horde_Block_' . $app . '_' . $name;
