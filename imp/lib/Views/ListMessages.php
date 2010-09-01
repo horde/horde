@@ -374,7 +374,7 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'imapuid' => intval($ob['uid']),
+                'imapuid' => (($_SESSION['imp']['protocol'] == 'pop') ? $ob['uid'] : intval($ob['uid'])),
                 'view' => $ob['mailbox'],
             );
 

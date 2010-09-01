@@ -378,6 +378,9 @@ div.vpRowVert.flagUnseen {
 #logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalfolders {
     overflow-x: hidden;
 }
+#applicationfolders {
+    overflow: hidden;
+}
 
 #folderopts a {
     display: inline !important;

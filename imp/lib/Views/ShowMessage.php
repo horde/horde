@@ -100,7 +100,7 @@ class IMP_Views_ShowMessage
         $result = array(
             'js' => array(),
             'mailbox' => $mailbox,
-            'uid' => intval($uid)
+            'uid' => $uid
         );
 
         /* Set the current time zone. */

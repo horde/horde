@@ -302,7 +302,7 @@ var DimpBase = {
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
                $H({ folder: r.view,
-                    uid: Number(r.imapuid) }).toQueryString();
+                    uid: r.imapuid }).toQueryString();
         DimpCore.popupWindow(url, 'msgview' + r.view + r.imapuid);
     },
 
@@ -354,7 +354,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { imapuid: Number(this.uid) } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { imapuid: this.uid } : null), background: opts.background});
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -1538,15 +1538,20 @@ var DimpBase = {
     // 'noload' = (boolean) If true, don't load the mailbox
     quicksearchClear: function(noload)
     {
-        var f = this.folder;
+        var f = this.folder,
+            qs = $('qsearch');
 
-        if (!$('qsearch').hasClassName('qsearchFocus')) {
+        if (!qs) {
+            return;
+        }
+
+        if (!qs.hasClassName('qsearchFocus')) {
             this._setQsearchText(true);
         }
 
         if (this.isSearch()) {
             this.resetSelected();
-            $('qsearch', 'qsearch_icon', 'qsearch_input').invoke('show');
+            $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
             if (!noload) {
                 this.loadMailbox(this.search ? this.search.mbox : 'INBOX');
             }
@@ -2297,6 +2302,8 @@ var DimpBase = {
 
     _folderLoadCallback: function(r, callback)
     {
+        var nf = $('normalfolders');
+
         if (r.response.expand) {
             this.expandfolder = true;
         }
@@ -2316,7 +2323,7 @@ var DimpBase = {
         $('foldersLoading').hide();
         $('foldersSidebar').show();
 
-        if ($('normalfolders').getStyle('max-height') !== null) {
+        if (nf && nf.getStyle('max-height') !== null) {
             this._sizeFolderlist();
         }
 
@@ -2662,7 +2669,9 @@ var DimpBase = {
     _sizeFolderlist: function()
     {
         var nf = $('normalfolders');
-        nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+        if (nf) {
+            nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+        }
     },
 
     toggleSubscribed: function()

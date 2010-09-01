@@ -114,6 +114,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </ul>
     </div>
 <?php endif; ?>
+<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -125,6 +126,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
     </ul>
+<?php endif; ?>
    </div>
   </div>
 

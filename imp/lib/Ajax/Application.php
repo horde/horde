@@ -907,7 +907,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $args = array(
             'mailbox' => $mbox,
             'preview' => true,
-            'uid' => intval($idx)
+            'uid' => $idx
         );
         $result = new stdClass;
         $result->preview = new stdClass;
@@ -1381,10 +1381,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $result = $this->showPreview();
         $new_indices_list = $new_indices->getSingle();
-        $result->newuid = intval($new_indices_list[1]);
+        $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();
         $result->oldmbox = $old_indices_list[0];
-        $result->olduid = intval($old_indices_list[1]);
+        $result->olduid = $old_indices_list[1];
         $result->ViewPort = $this->_viewPortData(true);
 
         return $result;

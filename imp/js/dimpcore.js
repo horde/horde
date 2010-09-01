@@ -44,13 +44,13 @@ var DimpCore = {
                 return;
             }
 
-            var u = o.value.numericSort(),
+            var u = (DIMP.conf.pop3 ? o.value : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];
 
             u.each(function(k) {
-                if (last + 1 == k) {
+                if (!DIMP.conf.pop3 && (last + 1 == k)) {
                     last = k;
                 } else {
                     out.push(first + (last == first ? '' : (':' + last)));
@@ -93,8 +93,9 @@ var DimpCore = {
             uidstr.split(',').each(function(e) {
                 var r = e.split(':');
                 if (r.size() == 1) {
-                    uids.push(Number(e));
+                    uids.push(DIMP.conf.pop3 ? e : Number(e));
                 } else {
+                    // POP3 will never exist in range here.
                     uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
                 }
             });
