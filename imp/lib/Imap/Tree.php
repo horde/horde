@@ -1788,6 +1788,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
 
             /* If element exists in ancestors list, it is valid. */
             if (isset($c['ancestors']) &&
+                isset($c['ancestors'][$this->_currparent]) &&
                 ($c['ancestors'][$this->_currparent] == $this->_currkey)) {
                 return true;
             }
