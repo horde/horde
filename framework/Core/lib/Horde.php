@@ -961,6 +961,10 @@ HTML;
             $url .= '/' . ltrim($webroot, '/') . '/' . $puri['path'];
         }
 
+        if (isset($puri['query'])) {
+            $url .= '?' . $puri['query'];
+        }
+
         $ob = new Horde_Url($url, $full);
 
         if (empty($GLOBALS['conf']['session']['use_only_cookies']) &&
