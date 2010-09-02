@@ -2723,6 +2723,9 @@ var DimpBase = {
         return vs;
     },
 
+    // type = (string) AJAX action type
+    // opts = (Object) callback, mailbox, uid
+    // args = (Object) Parameters to pass to AJAX call
     _doMsgAction: function(type, opts, args)
     {
         var vs = this._getFlagSelection(opts);
@@ -2731,7 +2734,11 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.viewport.addRequestParams(args), { uids: vs, ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) } });
+            DimpCore.doAction(type, this.viewport.addRequestParams(args), {
+                ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
+                callback: opts.callback,
+                uids: vs
+            });
             return vs;
         }
 
@@ -2743,6 +2750,8 @@ var DimpBase = {
     reportSpam: function(spam, opts)
     {
         opts = opts || {};
+        opts.callback = this.loadingImg.bind(this, 'viewport', false);
+
         if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
             // Indicate to the user that something is happening (since spam
             // reporting may not be instantaneous).
