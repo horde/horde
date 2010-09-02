@@ -302,7 +302,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (!$res) {
                 $this->logout();
-                throw new Horde_Imap_Client_Exception('Could not open secure TLS connection to the IMAP server.');
+                throw new Horde_Imap_Client_Exception('Could not open secure TLS connection to the IMAP server.', Horde_Imap_Client_Exception::LOGIN_TLSFAILURE);
             }
 
             // Expire cached CAPABILITY information (RFC 3501 [6.2.1])
@@ -340,7 +340,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (empty($imap_auth_mech)) {
-                throw new Horde_Imap_Client_Exception('No supported IMAP authentication method could be found.');
+                throw new Horde_Imap_Client_Exception('No supported IMAP authentication method could be found.', Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD);
             }
 
             /* Use MD5 authentication first, if available. But no need to use
@@ -353,6 +353,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $first_login = false;
             $imap_auth_mech = array($this->_init['authmethod']);
         }
+
+        /* Default to AUTHENTICATIONFAILED error (see RFC 5530[3]). */
+        $t['loginerr'] = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
 
         foreach ($imap_auth_mech as $method) {
             $t['referral'] = null;
@@ -414,7 +417,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        throw new Horde_Imap_Client_Exception('IMAP server denied authentication.');
+        throw new Horde_Imap_Client_Exception('IMAP server denied authentication.', $t['loginerr']);
     }
 
     /**
@@ -429,7 +432,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (!empty($this->_params['secure']) && !extension_loaded('openssl')) {
-            throw new Horde_Imap_Client_Exception('Secure connections require the PHP openssl extension.');
+            throw new Horde_Imap_Client_Exception('Secure connections require the PHP openssl extension.', Horde_Imap_Client_Exception::SERVER_CONNECT);
         }
 
         switch ($this->_params['secure']) {
@@ -474,7 +477,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         switch ($ob['response']) {
         case 'BAD':
             // Server is rejecting our connection.
-            throw new Horde_Imap_Client_Exception('Server rejected connection: ' . $ob['line']);
+            throw new Horde_Imap_Client_Exception('Server rejected connection: ' . $ob['line'], Horde_Imap_Client_Exception::SERVER_CONNECT);
 
         case 'PREAUTH':
             // The user was pre-authenticated.
@@ -489,7 +492,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // Check for IMAP4rev1 support
         if (!$this->queryCapability('IMAP4REV1')) {
-            throw new Horde_Imap_Client_Exception('This server does not support IMAP4rev1 (RFC 3501).');
+            throw new Horde_Imap_Client_Exception('This server does not support IMAP4rev1 (RFC 3501).', Horde_Imap_Client_Exception::SERVER_CONNECT);
         }
 
         // Set language if not using imapproxy
@@ -4224,6 +4227,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         switch ($code) {
         case 'ALERT':
+        // Defined by RFC 5530 [3] - Treat as an alert for now.
+        case 'CONTACTADMIN':
             if (!isset($this->_temp['alerts'])) {
                 $this->_temp['alerts'] = array();
             }
@@ -4379,26 +4384,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'UNAVAILABLE':
             // Defined by RFC 5530 [3]
+            $this->_temp['loginerr'] = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
             break;
 
         case 'AUTHENTICATIONFAILED':
             // Defined by RFC 5530 [3]
+            $this->_temp['loginerr'] = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
             break;
 
         case 'AUTHORIZATIONFAILED':
             // Defined by RFC 5530 [3]
+            $this->_temp['loginerr'] = Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED;
             break;
 
         case 'EXPIRED':
             // Defined by RFC 5530 [3]
+            $this->_temp['loginerr'] = Horde_Imap_Client_Exception::LOGIN_EXPIRED;
             break;
 
         case 'PRIVACYREQUIRED':
             // Defined by RFC 5530 [3]
-            break;
-
-        case 'CONTACTADMIN':
-            // Defined by RFC 5530 [3]
+            $this->_temp['loginerr'] = Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED;
             break;
 
         case 'NOPERM':

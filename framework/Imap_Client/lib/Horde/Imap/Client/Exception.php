@@ -63,6 +63,29 @@ class Horde_Imap_Client_Exception extends Exception
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
+    // Login failures
+
+    // Could not start mandatory TLS connection.
+    const LOGIN_TLSFAILURE = 15;
+
+    // Could not find an available authentication method.
+    const LOGIN_NOAUTHMETHOD = 16;
+
+    // Generic authentication failure.
+    const LOGIN_AUTHENTICATIONFAILED = 17;
+
+    // Remote server is unavailable.
+    const LOGIN_UNAVAILABLE = 18;
+
+    // Authentication succeeded, but authorization failed.
+    const LOGIN_AUTHORIZATIONFAILED = 19;
+
+    // Authentication is no longer permitted with this passphrase.
+    const LOGIN_EXPIRED = 20;
+
+    // Login requires privacy.
+    const LOGIN_PRIVACYREQUIRED = 21;
+
     /**
      * Define a callback function used to log the exception. Will be passed
      * a single parameter - a copy of this object.
@@ -83,4 +106,5 @@ class Horde_Imap_Client_Exception extends Exception
             call_user_func(self::$logCallback, $this);
         }
     }
+
 }

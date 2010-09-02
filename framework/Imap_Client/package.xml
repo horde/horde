@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
+ <notes>* Improved login error reporting (Request #9211).
+ * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
  * Add Horde_Imap_Client_Base::validSearchCharset().
  * Add Horde_Imap_Client_Base::fetchFromSectionString().
  * Add support for RFC 4469 (CATENATE).
