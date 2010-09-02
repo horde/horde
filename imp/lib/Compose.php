@@ -2733,7 +2733,10 @@ class IMP_Compose
      */
     static public function text2html($msg)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'callback' => null));
+        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'Text2html', array(
+            'always_mailto' => true,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+        ));
     }
 
     /**
