@@ -64,7 +64,8 @@ class IMP_Auth
             }
 
             if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
-                self::_logMessage('failed');
+                self::_logMessage(false);
+                Horde::logMessage('Could not create IMAP object', 'ERR');
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
         }
@@ -72,12 +73,33 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            self::_logMessage('Login failed', 'INFO');
-            if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
-                throw new Horde_Auth_Exception(_("Could not connect to the remote server."));
+            self::_logMessage(false);
+
+            switch ($e->getCode()) {
+            case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
+            case Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED:
+                $code = Horde_Auth::REASON_BADLOGIN;
+                break;
+
+            case Horde_Imap_Client_Exception::LOGIN_EXPIRED:
+                $code = Horde_Auth::REASON_EXPIRED;
+                break;
+
+            case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
+                $code = Horde_Auth::REASON_MESSAGE;
+                $e = _("Remove server is down. Please try again later.");
+                break;
+
+            case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
+            case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
+            case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
+            case Horde_Imap_Client_Exception::SERVER_CONNECT:
+            default:
+                $code = Horde_Auth::REASON_FAILED;
+                break;
             }
 
-            throw new Horde_Auth_Exception($e->getMessage());
+            throw new Horde_Auth_Exception($e, $code);
         }
 
         return false;
@@ -118,35 +140,23 @@ class IMP_Auth
     /**
      * Log login related message.
      *
-     * @param Exception $status  Message should contain either 'login',
-     *                           'logout', 'failed', or an error message.
-     * @param mixed $level       The logging level. See Horde::logMessage().
+     * @param boolean $success  True on success, false on failure.
      */
-    static protected function _logMessage($status, $level)
+    static protected function _logMessage($status)
     {
-        switch ($status) {
-        case 'login':
-            $status_msg = 'Login success';
-            break;
-
-        case 'logout':
-            $status_msg = 'Logout';
-            break;
-
-        case 'failed':
-            $status_msg = 'FAILED LOGIN';
-            break;
-
-        default:
-            $status_msg = $status;
-            break;
+        if ($status) {
+            $msg = 'Login success';
+            $level = 'NOTICE';
+        } else {
+            $msg = 'FAILED LOGIN';
+            $level = 'INFO';
         }
 
         $auth_id = $GLOBALS['registry']->getAuth();
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         $msg = sprintf(
-            $status_msg . '%s [%s]%s to {%s:%s%s}',
+            $msg . ' %s [%s]%s to {%s:%s%s}',
             !strlen($auth_id) ? '' : ' for ' . $auth_id,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
@@ -502,7 +512,7 @@ class IMP_Auth
         /* Check for drafts due to session timeouts. */
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->recoverSessionExpireDraft();
 
-        self::_logMessage('login', 'NOTICE');
+        self::_logMessage(true);
     }
 
     /**

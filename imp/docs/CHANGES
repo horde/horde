@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Improved login error reporting/logging in IMP (Request #9211).
 [mms] Add hook to skip MDN prompt based on content of message headers.
 [mms] Allow expand/collapse of folders in MIMP.
 [mms] Use single, unified mailbox cache.
