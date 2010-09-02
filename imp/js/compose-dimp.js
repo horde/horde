@@ -10,8 +10,9 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl, last_msg, old_action, old_identity,
-    //   resizing, rte, skip_spellcheck, spellcheck, sc_submit, uploading
+    //   editor_wait, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
+    //   old_action, old_identity, resizing, rte, rte_loaded, skip_spellcheck,
+    //   spellcheck, sc_submit, uploading
 
     knl: {},
 
@@ -52,7 +53,7 @@ var DimpCompose = {
     closeQReply: function()
     {
         var al = $('attach_list').childElements();
-        this.last_msg = '';
+        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
         if (al.size()) {
             this.removeAttach(al);
@@ -364,18 +365,36 @@ var DimpCompose = {
             DIMP.SpellChecker.resume();
         }
 
-        var config, text;
+        var changed, config, text;
 
         if (IMP_Compose_Base.editor_on) {
+            changed = (this.msgHash() != this.md5_msgOrig);
             text = this.rte.getData();
             this.rte.destroy();
+            this.rte_loaded = false;
 
             this.RTELoading('show');
-            DimpCore.doAction('html2Text', { identity: $F('identity'), text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+            DimpCore.doAction('html2Text', {
+                changed: Number(changed),
+                identity: $F('identity'),
+                imp_compose: $F('composeCache'),
+                text: text
+            }, {
+                ajaxopts: { asynchronous: false },
+                callback: this.setMessageText.bind(this)
+            });
             this.RTELoading('hide');
         } else {
             if (!noupdate) {
-                DimpCore.doAction('text2Html', { identity: $F('identity'), text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+                DimpCore.doAction('text2Html', {
+                    changed: Number(this.msgHash() != this.md5_msgOrig),
+                    identity: $F('identity'),
+                    imp_compose: $F('composeCache'),
+                    text: $F('composeMessage')
+                }, {
+                    ajaxopts: { asynchronous: false },
+                    callback: this.setMessageText.bind(this)
+                });
             }
 
             config = Object.clone(IMP.ckeditor_config);
@@ -386,6 +405,7 @@ var DimpCompose = {
                 this.resizeMsgArea();
                 this.RTELoading('hide');
                 this.rte.focus();
+                this.rte_loaded = true;
             }.bind(this);
             this.RTELoading('show');
             this.rte = CKEDITOR.replace('composeMessage', config);
@@ -477,22 +497,6 @@ var DimpCompose = {
             identity = IMP_Compose_Base.getIdentity($F('last_identity'));
         opts = opts || {};
 
-        // Set auto-save-drafts now if not already active.
-        if (DIMP.conf_compose.auto_save_interval_val &&
-            !this.auto_save_interval) {
-            this.auto_save_interval = new PeriodicalExecuter(function() {
-                if ($('compose').visible()) {
-                    var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage')));
-                    if (this.last_msg && curr_hash != this.last_msg) {
-                        this.uniqueSubmit('autoSaveDraft');
-                    }
-                    this.last_msg = curr_hash;
-                }
-            }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
-            /* Immediately execute to get MD5 hash of empty message. */
-            this.auto_save_interval.execute();
-        }
-
         $('to').setValue(header.to);
         if (header.cc) {
             $('cc').setValue(header.cc);
@@ -551,6 +555,48 @@ var DimpCompose = {
                 this.focusEditor();
             }
         }
+
+        this.fillFormHash();
+    },
+
+    fillFormHash: function()
+    {
+        if (IMP_Compose_Base.editor_on && !this.rte_loaded) {
+            this.fillFormHash.bind(this).defer();
+            return;
+        }
+
+        // This value is used to determine if the text has changed when
+        // swapping compose modes.
+        this.md5_msgOrig = this.msgHash();
+
+        // Set auto-save-drafts now if not already active.
+        if (DIMP.conf_compose.auto_save_interval_val &&
+            !this.auto_save_interval) {
+            this.auto_save_interval = new PeriodicalExecuter(function() {
+                if ($('compose').visible()) {
+                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0')), msg;
+                    if (this.md5_hdrs) {
+                        msg = this.msgHash();
+                        if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
+                            this.uniqueSubmit('autoSaveDraft');
+                        }
+                    } else {
+                        msg = this.md5_msgOrig;
+                    }
+                    this.md5_hdrs = hdrs;
+                    this.md5_msg = msg;
+                }
+            }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
+
+            /* Immediately execute to get MD5 hash of headers. */
+            this.auto_save_interval.execute();
+        }
+    },
+
+    msgHash: function()
+    {
+        return MD5.hash(IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage'));
     },
 
     fadeNotice: function(elt)

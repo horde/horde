@@ -1460,15 +1460,44 @@ class IMP_Compose
             $this->_modified = true;
         }
 
+        return array_merge(array(
+            'headers' => $header,
+            'identity' => $match_identity,
+            'type' => $reply_type
+        ), $this->replyMessageText($contents));
+    }
+
+    /**
+     * Returns the reply text for a message.
+     *
+     * @param IMP_Contents $contents  An IMP_Contents object.
+     * @param array $opts             Additional options:
+     * <pre>
+     * 'format' - (string) Force to this format.
+     *            DEFAULT: Auto-determine.
+     * </pre>
+     *
+     * @return array  An array with the following keys:
+     * <pre>
+     * 'body'     - The text of the body part
+     * 'encoding' - The guessed charset to use for the reply
+     * 'format'   - The format of the body message
+     * </pre>
+     */
+    public function replyMessageText($contents, array $opts = array())
+    {
+        global $prefs;
+
         if (!$prefs->getValue('reply_quote')) {
             return array(
                 'body' => '',
-                'format' => 'text',
-                'headers' => $header,
-                'identity' => $match_identity,
-                'type' => $reply_type
+                'encoding' => '',
+                'format' => 'text'
             );
         }
+
+        $charset = $GLOBALS['registry']->getCharset();
+        $h = $contents->getHeaderOb();
 
         $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
 
@@ -1487,17 +1516,24 @@ class IMP_Compose
             $msg_post = '';
         }
 
-        $compose_html = (($_SESSION['imp']['view'] != 'mimp') && $GLOBALS['prefs']->getValue('compose_html'));
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            $compose_html = false;
+        } elseif (!empty($opts['format'])) {
+            $compose_html = ($opts['format'] == 'html');
+        } else {
+            $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('reply_format'));
+        }
 
         $msg_text = $this->_getMessageText($contents, array(
-            'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
+            'html' => $compose_html,
             'replylimit' => true,
             'toflowed' => true,
             'type' => 'reply'
         ));
 
         if (!empty($msg_text) &&
-            ($compose_html || ($msg_text['mode'] == 'html'))) {
+            ($prefs->getValue('compose_html') ||
+             ($msg_text['mode'] == 'html'))) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
                    '<blockquote type="cite" style="background-color:#f0f0f0;border-left:1px solid blue;padding-left:1em;">' .
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
@@ -1508,15 +1544,13 @@ class IMP_Compose
             $msg = empty($msg_text['text'])
                 ? '[' . _("No message body text") . ']'
                 : $msg_pre . $msg_text['text'] . $msg_post;
+            $msg_text['mode'] = 'text';
         }
 
         return array(
             'body' => $msg . "\n",
             'encoding' => $msg_text['encoding'],
-            'format' => $msg_text['mode'],
-            'headers' => $header,
-            'identity' => $match_identity,
-            'type' => $reply_type
+            'format' => $msg_text['mode']
         );
     }
 
@@ -1569,6 +1603,7 @@ class IMP_Compose
          * added to the outgoing messages. */
         $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
         $this->_metadata['reply_type'] = 'forward';
+        $this->_metadata['forward_type'] = $type;
         $this->_modified = true;
 
         $header['subject'] = $h->getValue('subject');
@@ -1581,44 +1616,89 @@ class IMP_Compose
             $header['subject'] = 'Fwd:';
         }
 
-        if (in_array($type, array('forward_body', 'forward_both'))) {
-            $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $GLOBALS['registry']->getCharset()));
-
-            $msg_pre = "\n----- " .
-                ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
-                " -----\n" . $this->_getMsgHeaders($h) . "\n";
-            $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
-
-            $compose_html = (($_SESSION['imp']['view'] != 'mimp') && $GLOBALS['prefs']->getValue('compose_html'));
-
-            $msg_text = $this->_getMessageText($contents, array(
-                'html' => ($GLOBALS['prefs']->getValue('forward_format') || $compose_html),
-                'type' => 'forward'
-            ));
-
-            if (!empty($msg_text) &&
-                ($compose_html || ($msg_text['mode'] == 'html'))) {
-                $msg = $this->text2html($msg_pre) .
-                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
-                    $this->text2html($msg_post);
-                $format = 'html';
-            } else {
-                $msg = $msg_pre . $msg_text['text'] . $msg_post;
-            }
-        }
-
         if ($attach &&
             in_array($type, array('forward_attach', 'forward_both'))) {
             $this->attachIMAPMessage(new IMP_Indices($contents));
         }
 
-        return array(
-            'body' => $msg,
-            'encoding' => isset($msg_text) ? $msg_text['encoding'] : $GLOBALS['registry']->getCharset(),
-            'format' => $format,
+        if (in_array($type, array('forward_body', 'forward_both'))) {
+            $ret = $this->forwardMessageText($contents);
+        } else {
+            $ret = array(
+                'body' => '',
+                'encoding' => '',
+                'format' => 'text'
+            );
+        }
+
+        return array_merge(array(
             'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h),
             'type' => $type
+        ), $ret);
+    }
+
+    /**
+     * Returns the forward text for a message.
+     *
+     * @param IMP_Contents $contents  An IMP_Contents object.
+     * @param array $opts             Additional options:
+     * <pre>
+     * 'format' - (string) Force to this format.
+     *            DEFAULT: Auto-determine.
+     * </pre>
+     *
+     * @return array  An array with the following keys:
+     * <pre>
+     * 'body'     - The text of the body part
+     * 'encoding' - The guessed charset to use for the reply
+     * 'format'   - The format of the body message
+     * </pre>
+     */
+    public function forwardMessageText($contents, array $opts = array())
+    {
+        global $prefs;
+
+        $h = $contents->getHeaderOb();
+
+        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array(
+            'charset' => $GLOBALS['registry']->getCharset()
+        ));
+
+        $msg_pre = "\n----- " .
+            ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
+            " -----\n" . $this->_getMsgHeaders($h) . "\n";
+        $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            $compose_html = false;
+        } elseif (!empty($opts['format'])) {
+            $compose_html = ($opts['format'] == 'html');
+        } else {
+            $compose_html = ($prefs->getValue('compose_html') || $prefs->getValue('forward_format'));
+        }
+
+        $msg_text = $this->_getMessageText($contents, array(
+            'html' => $compose_html,
+            'type' => 'forward'
+        ));
+
+        if (!empty($msg_text) &&
+            ($prefs->getValue('compose_html') ||
+             ($msg_text['mode'] == 'html'))) {
+            $msg = $this->text2html($msg_pre) .
+                (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
+                $this->text2html($msg_post);
+            $format = 'html';
+        } else {
+            $msg = $msg_pre . $msg_text['text'] . $msg_post;
+            $format = 'text';
+        }
+
+        return array(
+            'body' => $msg,
+            'encoding' => $msg_text['encoding'],
+            'format' => $format
         );
     }
 

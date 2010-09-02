@@ -941,7 +941,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      * <pre>
+     * 'changed' - (integer) Has the text changed from the original?
      * 'identity' - (integer) The current identity.
+     * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'text' - (string) The text to convert.
      * </pre>
      *
@@ -953,6 +955,34 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function html2Text()
     {
         $result = new stdClass;
+
+        if (!$this->_vars->changed) {
+            list($imp_compose, $imp_contents) = $this->_initCompose();
+
+            switch ($imp_compose->getMetadata('reply_type')) {
+            case 'forward':
+                switch ($imp_compose->getMetadata('forward_type')) {
+                case 'forward_body':
+                case 'forward_both':
+                    $data = $imp_compose->forwardMessageText($imp_contents, array(
+                        'format' => 'text'
+                    ));
+                    $result->text = $data['body'];
+                    return $result;
+                }
+                break;
+
+            case 'reply':
+            case 'reply_all':
+            case 'reply_list':
+                $data = $imp_compose->replyMessageText($imp_contents, array(
+                    'format' => 'text'
+                ));
+                $result->text = $data['body'];
+                return $result;
+            }
+        }
+
         $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->_vars->text, 'text', intval($this->_vars->identity));
 
         return $result;
@@ -963,7 +993,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      * <pre>
+     * 'changed' - (integer) Has the text changed from the original?
      * 'identity' - (integer) The current identity.
+     * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'text' - (string) The text to convert.
      * </pre>
      *
@@ -975,6 +1007,34 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function text2Html()
     {
         $result = new stdClass;
+
+        if (!$this->_vars->changed) {
+            list($imp_compose, $imp_contents) = $this->_initCompose();
+
+            switch ($imp_compose->getMetadata('reply_type')) {
+            case 'forward':
+                switch ($imp_compose->getMetadata('forward_type')) {
+                case 'forward_body':
+                case 'forward_both':
+                    $data = $imp_compose->forwardMessageText($imp_contents, array(
+                        'format' => 'html'
+                    ));
+                    $result->text = $data['body'];
+                    return $result;
+                }
+                break;
+
+            case 'reply':
+            case 'reply_all':
+            case 'reply_list':
+                $data = $imp_compose->replyMessageText($imp_contents, array(
+                    'format' => 'html'
+                ));
+                $result->text = $data['body'];
+                return $result;
+            }
+        }
+
         $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->_vars->text, 'html', intval($this->_vars->identity));
 
         return $result;

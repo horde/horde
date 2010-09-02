@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Use alternate text part to generate reply/forward text when switching
+      compose modes if user has not altered message text (DIMP).
 [mms] Improved login error reporting/logging in IMP (Request #9211).
 [mms] Add hook to skip MDN prompt based on content of message headers.
 [mms] Allow expand/collapse of folders in MIMP.
