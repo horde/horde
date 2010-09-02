@@ -821,7 +821,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * has been removed from the current mailbox. */
             $result->deleted->remove = 1;
         } elseif (!is_null($change)) {
-            $result = $this->_checkUidvalidity();
+            $result = $this->_checkUidvalidity(true);
         }
 
         return $result;
