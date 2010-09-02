@@ -40,20 +40,6 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     protected $_indent = 0;
 
     /**
-     * Current blockquote level.
-     *
-     * @var integer
-     */
-    protected $_bqlevel = 0;
-
-    /**
-     * Current blockquote data.
-     *
-     * @var array
-     */
-    protected $_bqdata = array();
-
-    /**
      * Filter parameters.
      *
      * @var array
@@ -91,8 +77,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     public function preProcess($text)
     {
-        $this->_bqlevel = $this->_indent = 0;
-        $this->_bqdata = $this->_linkList = array();
+        $this->_indent = 0;
+        $this->_linkList = array();
 
         return $text;
     }
@@ -230,59 +216,13 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'blockquote':
-                        if ($this->_bqlevel) {
-                            $this->_bqdata[] = array(
-                                'level' => $this->_bqlevel,
-                                'text' => $out
-                            );
-                            $out = '';
-                        }
-                        ++$this->_bqlevel;
-                        $this->_bqdata[] = array(
-                            'level' => $this->_bqlevel,
-                            'text' => $this->_node($doc, $child)
-                        );
-                        --$this->_bqlevel;
-
-                        if (!$this->_bqlevel) {
-                            $out .= "\n\n";
-                            foreach ($this->_bqdata as $val) {
-                                if (empty($val['text'])) {
-                                    continue;
-                                }
-
-                                if ($this->_params['width']) {
-                                    $tmp = array();
-                                    foreach (explode("\n", $val['text']) as $val2) {
-                                        $tmp = array_merge($tmp, explode("\n", wordwrap($val2, $this->_params['width'] - (2 * $val['level']))));
-                                    }
-                                } else {
-                                    $tmp = array($val['text']);
-                                }
-
-                                /* Clean out empty entries. */
-                                for ($i = 0, $cnt = count($tmp); $i < $cnt; ++$i) {
-                                    if (!empty($tmp[$i])) {
-                                        break;
-                                    }
-                                    unset($tmp[$i]);
-                                }
-
-                                $tmp = array_values($tmp);
-
-                                for ($i = count($tmp); $i >= 0; --$i) {
-                                    if (!empty($tmp[$i])) {
-                                        break;
-                                    }
-                                    unset($tmp[$i]);
-                                }
-
-                                foreach ($tmp as $val2) {
-                                    $out .= str_repeat("> ", $val['level']) . rtrim($val2) . "\n";
-                                }
+                        foreach (explode("\n", $this->_node($doc, $child)) as $line) {
+                            $quote = '>';
+                            if (($line[0] != '>') &&
+                                ($line[0] != ' ' || $line[0] != "\t")) {
+                                $quote .= ' ';
                             }
-                            $out .= "\n\n";
-                            $this->_bqdata = array();
+                            $out .= $quote . $line . "\n";
                         }
                         break;
 
