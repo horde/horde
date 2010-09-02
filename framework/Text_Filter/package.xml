@@ -34,7 +34,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes> * Add callback parameter to the Html2text filter.
+ <notes>* Html2text filter will use horde/Text_Filter, if available, to wrap text.
+ * Add callback parameter to the Html2text filter.
  * XSS filter now uses PHP DOM parser to process incoming text.
  * Remove Horde/Core dependency.
  * Add Horde_Text_Filter_Exception::.
@@ -120,6 +121,10 @@
   <optional>
    <package>
     <name>Text_Filter_Csstidy</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Text_Flowed</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

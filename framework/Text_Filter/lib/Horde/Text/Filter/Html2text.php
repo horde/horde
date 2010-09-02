@@ -79,6 +79,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     {
         $this->_indent = 0;
         $this->_linkList = array();
+        $this->_params['_bq'] = false;
 
         return $text;
     }
@@ -95,8 +96,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
         try {
             $dom = new Horde_Domhtml($text, $this->_params['charset']);
             $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), null, $this->_params['charset']);
+            $dom_convert = true;
         } catch (Exception $e) {
             $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
+            $dom_convert = false;
         }
 
         /* Bring down number of empty lines to 2 max, and remove trailing
@@ -105,7 +108,15 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
         /* Wrap the text to a readable format. */
         if ($this->_params['width']) {
-            $text = wordwrap($text, $this->_params['width']);
+            if ($dom_convert &&
+                $this->_params['_bq'] &&
+                class_exists('Horde_Text_Flowed')) {
+                $flowed = new Horde_Text_Flowed($text, $this->_params['charset']);
+                $flowed->setOptLength($this->_params['width']);
+                $text = $flowed->toFlowed();
+            } else {
+                $text = wordwrap($text, $this->_params['width']);
+            }
         }
 
         /* Add link list. */
@@ -216,9 +227,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'blockquote':
+                        $this->_params['_bq'] = true;
                         foreach (explode("\n", $this->_node($doc, $child)) as $line) {
                             $quote = '>';
-                            if (($line[0] != '>') &&
+                            if ($line &&
+                                ($line[0] != '>') &&
                                 ($line[0] != ' ' || $line[0] != "\t")) {
                                 $quote .= ' ';
                             }
