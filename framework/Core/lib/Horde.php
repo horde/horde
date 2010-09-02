@@ -916,11 +916,10 @@ HTML;
             $opts = array();
         }
 
+        $puri = parse_url($uri);
         $url = '';
-        $webroot = $GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']);
 
-        /* Skip if we already have a full URL. */
-        if ($full && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
+        if ($full && !isset($puri['scheme'])) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
             $server_port = $GLOBALS['conf']['server']['port'];
@@ -952,18 +951,15 @@ HTML;
                 $server_name .= ':' . $server_port;
             }
 
-            /* Don't prepend to webroot if it's already absolute. */
             $url = $protocol . '://' . $server_name;
-        } elseif (!$full &&
-                  !empty($_SERVER['HTTP_HOST']) &&
-                  preg_match('|^([\w+-]{1,20}://' . preg_quote($_SERVER['HTTP_HOST'], '|') . ')/|', $uri, $matches)) {
-            // Don't generate absolute URLs if we don't have to.
-            $uri = substr($uri, strlen($matches[1]));
         }
 
-        $url .= (substr($uri, 0, 1) == '/')
-            ? $uri
-            : '/' . ltrim($webroot, '/') . '/' . $uri;
+        if ($puri['path'][0] == '/') {
+            $url .= $puri['path'];
+        } else {
+            $webroot = $GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']);
+            $url .= '/' . ltrim($webroot, '/') . '/' . $puri['path'];
+        }
 
         $ob = new Horde_Url($url, $full);
 
