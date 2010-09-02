@@ -46,42 +46,6 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
     return $url;
 }
 
-function _getLogoutReasonString($auth, $vars)
-{
-    switch ($auth->getError()) {
-    case Horde_Auth::REASON_SESSION:
-        return _("Your session has expired. Please login again.");
-
-    case Horde_Core_Auth_Application::REASON_SESSIONIP:
-        return _("Your Internet Address has changed since the beginning of your session. To protect your security, you must login again.");
-
-    case Horde_Core_Auth_Application::REASON_BROWSER:
-        return _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
-
-    case Horde_Auth::REASON_LOGOUT:
-        return _("You have been logged out.");
-
-    case Horde_Auth::REASON_FAILED:
-        return _("Login failed.");
-
-    case Horde_Auth::REASON_BADLOGIN:
-        return _("Login failed because your username or password was entered incorrectly.");
-
-    case Horde_Auth::REASON_EXPIRED:
-        return _("Your login has expired.");
-
-    case Horde_Auth::REASON_MESSAGE:
-        $msg = $auth->getError(true);
-        if (!$msg) {
-            $msg = $vars->logout_msg;
-        }
-        return $msg;
-
-    default:
-        return '';
-    }
-}
-
 
 /* Try to login - if we are doing auth to an app, we need to auth to
  * Horde first or else we will lose the session. Ignore any auth errors.
@@ -142,8 +106,10 @@ if ($vars->url) {
     $url_anchor = $url_in = null;
 }
 
-$error_reason = $vars->logout_reason;
-if ($error_reason) {
+if (!($logout_reason = $auth->getError())) {;
+    $logout_reason = $vars->logout_reason;
+}
+if ($logout_reason) {
     if ($is_auth) {
         try {
             Horde::checkRequestToken('horde.logout', $vars->horde_logout_token);
@@ -163,7 +129,7 @@ if ($error_reason) {
 
     /* Redirect the user on logout if redirection is enabled and this is an
      * an intended logout. */
-    if ($error_reason == Horde_Auth::REASON_LOGOUT &&
+    if (($logout_reason == Horde_Auth::REASON_LOGOUT) &&
         !empty($conf['auth']['redirect_on_logout'])) {
         $logout_url = new Horde_Url($conf['auth']['redirect_on_logout'], true);
         if (!isset($_COOKIE[session_name()])) {
@@ -292,7 +258,44 @@ if (!$is_auth && !$prefs->isLocked('language')) {
 }
 
 $title = _("Log in");
-if ($reason = _getLogoutReasonString($auth, $vars)) {
+
+$reason = null;
+switch ($logout_reason) {
+case Horde_Auth::REASON_SESSION:
+    $reason = _("Your session has expired. Please login again.");
+    break;
+
+case Horde_Core_Auth_Application::REASON_SESSIONIP:
+    $reason = _("Your Internet Address has changed since the beginning of your session. To protect your security, you must login again.");
+    break;
+
+case Horde_Core_Auth_Application::REASON_BROWSER:
+    $reason = _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
+    break;
+
+case Horde_Auth::REASON_LOGOUT:
+    $reason = _("You have been logged out.");
+    break;
+
+case Horde_Auth::REASON_FAILED:
+    $reason = _("Login failed.");
+    break;
+
+case Horde_Auth::REASON_BADLOGIN:
+    $reason = _("Login failed because your username or password was entered incorrectly.");
+    break;
+
+case Horde_Auth::REASON_EXPIRED:
+    $reason = _("Your login has expired.");
+    break;
+
+case Horde_Auth::REASON_MESSAGE:
+    if (!($reason = $auth->getError(true))) {
+        $reason = $vars->logout_msg;
+    }
+    break;
+}
+if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
