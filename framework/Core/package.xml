@@ -34,7 +34,8 @@ Application Framework.</description>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
+ <notes>* Add Horde::addInlineJsVars().
+ * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
  * Absorb horde/Ui package.
  * Absorb horde/Ajax package.
  * Import application auth driver from horde/Auth.
