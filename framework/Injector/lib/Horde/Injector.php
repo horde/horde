@@ -10,12 +10,23 @@
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @category Horde
- * @package  Horde_Injector
+ * @package  Injector
  */
 class Horde_Injector implements Horde_Injector_Scope
 {
+    /**
+     * @var Horde_Injector_Scope
+     */
     private $_parentInjector;
+
+    /**
+     * @var array
+     */
     private $_bindings = array();
+
+    /**
+     * @var array
+     */
     private $_instances;
 
     /**
@@ -48,12 +59,9 @@ class Horde_Injector implements Horde_Injector_Scope
     }
 
     /**
-     * TODO
+     * Method overloader.  Handles $this->bind[BinderType] type calls.
      *
-     * @param string $name  TODO
-     * @param array $name   TODO
-     *
-     * @return TODO
+     * @return Horde_Injector_Binder  See _bind().
      * @throws BadMethodCallException
      */
     public function __call($name, $args)
@@ -88,11 +96,12 @@ class Horde_Injector implements Horde_Injector_Scope
 
         $reflectionClass = new ReflectionClass('Horde_Injector_Binder_' . $type);
 
-        if ($reflectionClass->getConstructor()) {
-            $this->_addBinder($interface, $reflectionClass->newInstanceArgs($args));
-        } else {
-            $this->_addBinder($interface, $reflectionClass->newInstance());
-        }
+        $this->_addBinder(
+            $interface,
+            $reflectionClass->getConstructor()
+                ? $reflectionClass->newInstanceArgs($args)
+                : $reflectionClass->newInstance()
+        );
 
         return $this->_getBinder($interface);
     }
@@ -102,15 +111,13 @@ class Horde_Injector implements Horde_Injector_Scope
      *
      * This is the method by which we bind an interface to a concrete
      * implentation or factory.  For convenience, binders may be added by
-     * bind[BinderType].
+     * $this->bind[BinderType].
      *
-     * bindFactory - creates a Horde_Injector_Binder_Factory
-     * bindImplementation - creates a Horde_Injector_Binder_Implementation
+     * bindFactory - Creates a Horde_Injector_Binder_Factory
+     * bindImplementation - Creates a Horde_Injector_Binder_Implementation
      *
      * All subsequent arguments are passed to the constructor of the
      * Horde_Injector_Binder object.
-     *
-     * Any Horde_Injector_Binder object may be created this way.
      *
      * @param string $interface              The interface to bind to.
      * @param Horde_Injector_Binder $binder  The binder to be bound to the
@@ -125,11 +132,11 @@ class Horde_Injector implements Horde_Injector_Scope
     }
 
     /**
-     * TODO
+     * @see self::addBinder()
      */
     private function _addBinder($interface, Horde_Injector_Binder $binder)
     {
-        // first we check to see if our parent already has an equal binder set.
+        // First we check to see if our parent already has an equal binder set.
         // if so we don't need to do anything
         if (!$binder->equals($this->_parentInjector->getBinder($interface))) {
             $this->_bindings[$interface] = $binder;
@@ -157,7 +164,13 @@ class Horde_Injector implements Horde_Injector_Scope
     }
 
     /**
-     * TODO
+     * Get the Binder associated with the specified instance.
+     *
+     * @param string $interface  The interface to retrieve binding information
+     *                           for.
+     *
+     * @return Horde_Injector_Binder  The binder object created. Useful for
+     *                                method chaining.
      */
     private function _getBinder($interface)
     {
@@ -205,33 +218,37 @@ class Horde_Injector implements Horde_Injector_Scope
      *
      * This method gets you an instance, and saves a reference to that
      * instance for later requests.
+     *
      * Interfaces must be bound to a concrete class to be created this way.
      * Concrete instances may be created through reflection.
+     *
      * It does not gaurantee that it is a new instance of the object.  For a
      * new instance see createInstance().
      *
      * @param string $interface  The interface name, or object class to be
      *                           created.
      *
-     * @return mixed  An object that implements $interface, not necessarily a
-     *                new one.
+     * @return mixed  An object that implements $interface, but not
+     *                necessarily a new one.
      */
     public function getInstance($interface)
     {
-        // do we have an instance?
+        // Do we have an instance?
         if (!isset($this->_instances[$interface])) {
-            // do we have a binding for this interface? if so then we don't ask our parent
+            // Do we have a binding for this interface? If so then we don't
+            // ask our parent
             if (!isset($this->_bindings[$interface])) {
-                // does our parent have an instance?
+                // Does our parent have an instance?
                 if ($instance = $this->_parentInjector->getInstance($interface)) {
                     return $instance;
                 }
             }
 
-            // we have to make our own instance
+            // We have to make our own instance
             $this->setInstance($interface, $this->createInstance($interface));
         }
 
         return $this->_instances[$interface];
     }
+
 }

@@ -1,10 +1,8 @@
 <?php
 /**
- * @author Bob Mckee <bmckee@bywires.com>
- * @author James Pepin <james@jamespepin.com>
+ * @author   Bob Mckee <bmckee@bywires.com>
+ * @author   James Pepin <james@jamespepin.com>
  * @category Horde
- * @package Horde_Injector
+ * @package  Injector
  */
-class Horde_Injector_Exception extends Exception
-{
-}
+class Horde_Injector_Exception extends Exception {}

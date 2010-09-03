@@ -5,7 +5,7 @@
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @category Horde
- * @package  Horde_Injector
+ * @package  Injector
  */
 class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
 {
@@ -22,16 +22,19 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     /**
      * TODO
      */
-    public function __construct($implementation, Horde_Injector_DependencyFinder $dependencyFinder = null)
+    public function __construct($implementation,
+                                Horde_Injector_DependencyFinder $finder = null)
     {
         $this->_implementation = $implementation;
-
-        if (is_null($dependencyFinder)) { $dependencyFinder = new Horde_Injector_DependencyFinder(); }
-        $this->_dependencyFinder = $dependencyFinder;
+        $this->_dependencyFinder = is_null($finder)
+            ? new Horde_Injector_DependencyFinder()
+            : $finder;
     }
 
     /**
      * TODO
+     *
+     * @return TODO
      */
     public function getImplementation()
     {
@@ -40,6 +43,8 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
 
     /**
      * TODO
+     *
+     * @return boolean  Equality.
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
@@ -70,10 +75,12 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     /**
      * TODO
      */
-    protected function _getInstance(Horde_Injector $injector, ReflectionClass $class)
+    protected function _getInstance(Horde_Injector $injector,
+                                    ReflectionClass $class)
     {
         return $class->getConstructor()
             ? $class->newInstanceArgs($this->_dependencyFinder->getMethodDependencies($injector, $class->getConstructor()))
             : $class->newInstance();
     }
+
 }

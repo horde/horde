@@ -6,6 +6,7 @@
  * provide a method or methods that accept a Horde_Injector, and return an
  * object that satisfies the instance requirement. For example:
  *
+ * <pre>
  * class MyFactory {
  *   ...
  *   public function create(Horde_Injector $injector)
@@ -14,21 +15,26 @@
  *   }
  *   ...
  * }
+ * </pre>
  *
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @category Horde
- * @package  Horde_Injector
+ * @package  Injector
  */
 class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
 {
     /**
      * TODO
+     *
+     * @var string
      */
     private $_factory;
 
     /**
      * TODO
+     *
+     * @var string
      */
     private $_method;
 
@@ -47,6 +53,10 @@ class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
 
     /**
      * TODO
+     *
+     * @param Horde_Injector_Binder $otherBinder  TODO
+     *
+     * @return boolean  Equality.
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
@@ -100,4 +110,5 @@ class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
          * type. */
         return $childInjector->getInstance($this->_factory)->{$this->_method}($childInjector);
     }
+
 }

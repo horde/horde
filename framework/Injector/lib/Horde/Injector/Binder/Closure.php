@@ -6,18 +6,22 @@
  * Horde_Injector and return an object that satisfies the instance
  * requirement. For example:
  *
+ * <pre>
  * $injector->bindClosure('database', function($injector) { return new my_mysql(); });
+ * </pre>
  *
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Injector
+ * @package  Injector
  */
 class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
 {
     /**
      * TODO
+     *
+     * @var Horde_Injector_Binder_Closure
      */
     private $_closure;
 
@@ -33,6 +37,10 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
 
     /**
      * TODO
+     *
+     * @param Horde_Injector_Binder $otherBinder  TODO
+     *
+     * @return boolean  Equality.
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
@@ -70,6 +78,8 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
     {
         $childInjector = $injector->createChildInjector();
         $closure = $this->_closure;
+
         return $closure($childInjector);
     }
+
 }

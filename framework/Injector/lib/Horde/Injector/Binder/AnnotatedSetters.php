@@ -8,7 +8,7 @@
  * @author   James Pepin <james@jamespepin.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Injector
+ * @package  Injector
  */
 class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
 {
@@ -23,18 +23,27 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     private $_dependencyFinder;
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Injector_Binder $binder            TODO
+     * @param Horde_Injector_DependencyFinder $finder  TODO
      *
      */
-    public function __construct(Horde_Injector_Binder $binder, Horde_Injector_DependencyFinder $dependencyFinder = null)
+    public function __construct(Horde_Injector_Binder $binder,
+                                Horde_Injector_DependencyFinder $finder = null)
     {
         $this->_binder = $binder;
-
-        if (is_null($dependencyFinder)) { $dependencyFinder = new Horde_Injector_DependencyFinder(); }
-        $this->_dependencyFinder = $dependencyFinder;
+        $this->_dependencyFinder = is_null($finder)
+            ? new Horde_Injector_DependencyFinder()
+            : $finder;
     }
 
     /**
      * TODO
+     *
+     * @param Horde_Injector_Binder $binder  TODO
+     *
+     * @return boolean  Equality.
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
@@ -42,6 +51,11 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
             $this->getBinder()->equals($otherBinder->getBinder());
     }
 
+    /**
+     * TODO
+     *
+     * @return Horde_Injector_Binder  TODO
+     */
     public function getBinder()
     {
         return $this->_binder;
@@ -65,9 +79,9 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
      * Find all public methods in $reflectionClass that are annotated with
      * @inject.
      *
-     * @param ReflectionClass $reflectionClass
+     * @param ReflectionClass $reflectionClass  TODO
      *
-     * @return array
+     * @return array  TODO
      */
     private function _findAnnotatedSetters(ReflectionClass $reflectionClass)
     {
@@ -82,10 +96,10 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     }
 
     /**
-     * Is a method a setter method, by the criteria we define (has a doc comment
-     * that includes @inject).
+     * Is a method a setter method, by the criteria we define (has a doc
+     * comment that includes @inject).
      *
-     * @param ReflectionMethod $reflectionMethod
+     * @param ReflectionMethod $reflectionMethod  TODO
      */
     private function _isSetterMethod(ReflectionMethod $reflectionMethod)
     {
@@ -103,11 +117,12 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
      * Call each ReflectionMethod in the $setters array, filling in its
      * dependencies with the $injector.
      *
-     * @param array $setters  Array of ReflectionMethods to call
-     * @param Horde_Injector $injector  The Horde_Injector to get dependencies from
-     * @param object $instance  The object to call setters on
+     * @param array $setters            Array of ReflectionMethods to call.
+     * @param Horde_Injector $injector  The injector to get dependencies from.
+     * @param object $instance          The object to call setters on.
      */
-    private function _callSetters(array $setters, Horde_Injector $injector, $instance)
+    private function _callSetters(array $setters, Horde_Injector $injector,
+                                  $instance)
     {
         foreach ($setters as $setterMethod) {
             $setterMethod->invokeArgs(
@@ -116,4 +131,5 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
             );
         }
     }
+
 }
