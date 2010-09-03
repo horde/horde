@@ -743,11 +743,11 @@ HTML;
             /* If we are not exporting variables located in the configuration
              * file, or we are not capturing the output, then there is no
              * need to load the configuration file more than once. */
-            Horde::startBuffer();
+            self::startBuffer();
             $success = (is_null($var_names) && !$show_output)
                 ? include_once $file
                 : include $file;
-            $output = Horde::endBuffer();
+            $output = self::endBuffer();
 
             if (!empty($output) && !$show_output) {
                 /* Horde 3 -> 4 conversion checking. This is the only place
@@ -1182,7 +1182,7 @@ HTML;
             $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
             error_reporting($old_error);
 
-            Horde::addScriptFile('tooltips.js', 'horde');
+            self::addScriptFile('tooltips.js', 'horde');
         }
 
         return self::link($url, $title, $class, $target, $onclick, null, $accesskey, $attributes, false);
@@ -1312,11 +1312,11 @@ HTML;
     }
 
     /**
-     * Same as Horde::img(), but returns a full source url for the image.
+     * Same as self::img(), but returns a full source url for the image.
      * Useful for when the image may be part of embedded Horde content on an
      * external site. Basically a stop-gap measure until Horde_View etc...
      *
-     * @see Horde::img()
+     * @see self::img()
      */
     static public function fullSrcImg($src, $options = array())
     {
@@ -1766,6 +1766,31 @@ HTML;
     }
 
     /**
+     * Add inline javascript variable definitions to the output buffer.
+     *
+     * @param array $data  Keys are the variable names, values are the data to
+     *                     JSON encode.  If the key begins with a '-', the
+     *                     data will be added to the output as-is.
+     */
+    static public function addInlineJsVars($data)
+    {
+        $charset = $GLOBALS['registry']->getCharset();
+        $out = array();
+
+        foreach ($data as $key => $val) {
+            if ($key[0] == '-') {
+                $key = substr($key, 1);
+            } else {
+                $val = Horde_Serialize::serialize($val, Horde_Serialize::JSON, $charset);
+            }
+
+            $out[] = $key . '=' . $val;
+        }
+
+        self::addInlineScript($out);
+    }
+
+    /**
      * Print pending inline javascript to the output buffer.
      *
      * @param boolean $nowrap  Don't wrap inline script.
@@ -1783,12 +1808,12 @@ HTML;
 
             switch ($key) {
             case 'dom':
-                Horde::addScriptFile('prototype.js', 'horde');
+                self::addScriptFile('prototype.js', 'horde');
                 $val = 'document.observe("dom:loaded", function() {' . $val . '});';
                 break;
 
             case 'load':
-                Horde::addScriptFile('prototype.js', 'horde');
+                self::addScriptFile('prototype.js', 'horde');
                 $val = 'Event.observe(window, "load", function() {' . $val . '});';
                 break;
             }
