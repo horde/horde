@@ -310,8 +310,8 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                     );
                 }
 
-                Horde::addInlineScript(array(
-                    'Horde_Html_Helper.iconlist = ' . Horde_Serialize::serialize($icon_list, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+                Horde::addInlineJsVars(array(
+                    'Horde_Html_Helper.iconlist' => $icon_list
                 ));
 
                 $html .= Horde::link('#', _("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;') . Horde::img('emoticons/smile.png', _("Emoticons"), 'id="' . $imgId . '"') . '</a>';

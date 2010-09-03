@@ -638,22 +638,15 @@ class Turba {
      */
     public function addBrowseJs()
     {
-        $js = array();
-        $js_text = array(
-            'confirmdelete' => _("Are you sure that you want to delete %s?"),
-            'contact1' => _("You must select at least one contact first."),
-            'contact2' => ("You must select a target contact list."),
-            'contact3' => _("Please name the new contact list:"),
-            'copymove' => _("You must select a target address book."),
-            'submit' => _("Are you sure that you want to delete the selected contacts?"),
-        );
-
-        foreach ($js_text as $key => $val) {
-            $js[] = 'TurbaBrowse.' . $key . ' = ' . Horde_Serialize::serialize($val, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset());
-        }
-
         Horde::addScriptFile('browse.js', 'turba');
-        Horde::addInlineScript($js);
+        Horde::addInlineJsVars(array(
+            'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),
+            'TurbaBrowse.contact1' => _("You must select at least one contact first."),
+            'TurbaBrowse.contact2' => ("You must select a target contact list."),
+            'TurbaBrowse.contact3' => _("Please name the new contact list:"),
+            'TurbaBrowse.copymove' => _("You must select a target address book."),
+            'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")
+        ));
     }
 
 }

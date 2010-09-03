@@ -2955,11 +2955,11 @@ class Kronolith
                 'full_weekdays' => true
             ));
             Horde::addScriptFile('goto.js', 'kronolith');
-            Horde::addInlineScript(array(
-                'KronolithGoto.dayurl = ' . Horde_Serialize::serialize(strval(Horde::url('day.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.monthurl = ' . Horde_Serialize::serialize(strval(Horde::url('month.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.weekurl = ' . Horde_Serialize::serialize(strval(Horde::url('week.php')), Horde_Serialize::JSON, $registry->getCharset()),
-                'KronolithGoto.yearurl = ' . Horde_Serialize::serialize(strval(Horde::url('year.php')), Horde_Serialize::JSON, $registry->getCharset()),
+            Horde::addInlineJsVars(array(
+                'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
+                'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
+                'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
+                'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
             ));
             $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
         }

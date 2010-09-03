@@ -258,8 +258,8 @@ class IMP_Prefs_Ui
 
             if (!empty($code)) {
                 Horde::addScriptFile('folderprefs.js', 'imp');
-                Horde::addInlineScript(array(
-                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+                Horde::addInlineJsVars(array(
+                    'ImpFolderPrefs.folders' => $code
                 ));
             }
             break;
@@ -590,8 +590,8 @@ class IMP_Prefs_Ui
     {
         $ui->nobuttons = true;
 
-        Horde::addInlineScript(array(
-            'ImpAccountsPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        Horde::addInlineHsVars(array(
+            'ImpAccountsPrefs.confirm_delete' => _("Are you sure you want to delete this account?")
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -927,9 +927,9 @@ class IMP_Prefs_Ui
      */
     protected function _flagManagement()
     {
-        Horde::addInlineScript(array(
-            'ImpFlagPrefs.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-            'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        Horde::addInlineJsVars(array(
+            'ImpFlagPrefs.new_prompt' => _("Please enter the label for the new flag:"),
+            'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")
         ));
 
         $msgflags_locked = $GLOBALS['prefs']->isLocked('msgflags');
@@ -1264,11 +1264,9 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('sent_mail_folder', $key);
         };
 
-        Horde::addInlineScript(array(
-            'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array(
-                'sent_mail_folder' => _("Create a new sent-mail folder")
-            ), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-            'ImpFolderPrefs.sentmail = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        Horde::addInlineJsVars(array(
+            'ImpFolderPrefs.folders' => array('sent_mail_folder' => _("Create a new sent-mail folder")),
+            'ImpFolderPrefs.sentmail' => $js
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -1485,8 +1483,8 @@ class IMP_Prefs_Ui
             $js[$key] = $identity->getValue('signature_html', $key);
         };
 
-        Horde::addInlineScript(array(
-            'ImpHtmlSignaturePrefs.sigs = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        Horde::addInlineJsVars(array(
+            'ImpHtmlSignaturePrefs.sigs' => $js
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

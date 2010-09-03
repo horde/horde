@@ -216,8 +216,8 @@ case 'removequeued':
 Horde::addScriptFile('stripe.js', 'horde');
 if (isset($update_form) && $auth->hasCapability('list')) {
     Horde::addScriptFile('userupdate.js', 'horde');
-    Horde::addInlineScript(array(
-        'HordeAdminUserUpdate.pass_error = ' . Horde_Serialize::serialize(_("Passwords must match."), Horde_Serialize::JSON, $registry->getCharset())
+    Horde::addInlineJsVars(array(
+        'HordeAdminUserUpdate.pass_error' => _("Passwords must match.")
     ));
 }
 

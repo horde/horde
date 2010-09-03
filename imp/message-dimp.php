@@ -22,14 +22,14 @@ if (!$vars->uid || !$vars->folder) {
 }
 
 $imp_ui = new IMP_Ui_Message();
-$js_onload = $js_out = array();
+$js_onload = $js_vars = array();
 $readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($vars->folder);
 
 switch ($vars->actionID) {
 case 'strip_attachment':
     try {
         $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($vars->folder, $vars->uid), $vars->id);
-        $js_out[] = 'DimpFullmessage.strip = 1';
+        $js_vars['-DimpFullmessage.strip'] = 1;
         list(,$vars->uid) = $indices->getSingle();
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (IMP_Exception $e) {
@@ -64,9 +64,10 @@ $scripts = array(
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
-        $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
+        $js_vars['DimpFullmessage.' . $val] = $show_msg_result[$val];
     }
 }
+$js_out = Horde::addInlineJsVars($js_vars, true);
 
 /* Determine if compose mode is disabled. */
 $disable_compose = !IMP::canCompose();

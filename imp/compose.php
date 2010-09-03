@@ -689,7 +689,7 @@ $js_code = array(
 
 /* Create javascript identities array. */
 if (!$redirect) {
-    $js_code[] = $imp_ui->identityJs();
+    $js_code = array_merge($js_code, $imp_ui->identityJs());
 }
 
 /* Set up the base template now. */

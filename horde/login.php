@@ -83,8 +83,8 @@ $loginparams = array(
     )
 );
 $js_code = array(
-    'HordeLogin.user_error = ' . Horde_Serialize::serialize(_("Please enter a username."), Horde_Serialize::JSON),
-    'HordeLogin.pass_error = ' . Horde_Serialize::serialize(_("Please enter a password."), Horde_Serialize::JSON)
+    'HordeLogin.user_error' => _("Please enter a username."),
+    'HordeLogin.pass_error' => _("Please enter a password.")
 );
 $js_files = array(
     array('login.js', 'horde')
@@ -332,11 +332,8 @@ if (!empty($js_files)) {
     }
 }
 
+Horde::addInlineJsVars($js_code);
+
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';
-
-if (!empty($js_code)) {
-    echo Horde::wrapInlineScript(array(implode(';', $js_code)));
-}
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -55,7 +55,7 @@ class IMP_Views_Compose
 
             /* Generate identities list. */
             $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
-            $result['js'][] = $imp_ui->identityJs();
+            $result['js'] = array_merge($result['js'], $imp_ui->identityJs());
 
             if ($composeCache &&
                 $imp_compose->numberOfAttachments()) {
@@ -110,10 +110,14 @@ class IMP_Views_Compose
                     }
                     $flist[] = $tmp;
                 }
-                $result['js'][] = 'DIMP.conf_compose.flist = ' . Horde_Serialize::serialize($flist, Horde_Serialize::JSON);
+                $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
+                    'DIMP.conf_compose.flist' => $flist
+                ), true));
             }
         } else {
-            $result['js'][] = 'DIMP.conf_compose.redirect = 1';
+            $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
+                '-DIMP.conf_compose.redirect' => 1
+            ), true));
             $redirect = true;
         }
 

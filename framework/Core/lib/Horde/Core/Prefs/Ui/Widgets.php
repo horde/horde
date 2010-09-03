@@ -82,8 +82,8 @@ class Horde_Core_Prefs_Ui_Widgets
                     'unselected' => $val[1]
                 );
             }
-            Horde::addInlineScript(array(
-                'HordeSourceSelectPrefs.source_list = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+            Horde::addInlineJsVars(array(
+                'HordeSourceSelectPrefs.source_list' => $js
             ));
         }
 
@@ -222,9 +222,9 @@ class Horde_Core_Prefs_Ui_Widgets
                 );
             }
 
-            Horde::addInlineScript(array(
-                'HordeAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-                'HordeAddressbooksPrefs.nonetext = ' . Horde_Serialize::serialize(_("No address book selected."), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+            Horde::addInlineJsVars(array(
+                'HordeAddressbooksPrefs.fields' => $js,
+                'HordeAddressbooksPrefs.nonetext' => _("No address book selected.")
             ));
         }
 
@@ -282,8 +282,8 @@ class Horde_Core_Prefs_Ui_Widgets
     {
         $pref = $data['pref'];
 
-        Horde::addInlineScript(array(
-            'HordeAlarmPrefs.pref = ' . Horde_Serialize::serialize($pref, Horde_Serialize::JSON)
+        Horde::addInlineJsVars(array(
+            'HordeAlarmPrefs.pref' => $pref
         ));
 
         $alarm_pref = unserialize($GLOBALS['prefs']->getValue($pref));

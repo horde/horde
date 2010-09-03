@@ -236,7 +236,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Show selection of alternate views. */
         $js_code = array(
-            'ImpLogin.server_key_error=' . Horde_Serialize::serialize(_("Please choose a mail server."), Horde_Serialize::JSON)
+            'ImpLogin.server_key_error' => _("Please choose a mail server.")
         );
         if (!empty($GLOBALS['conf']['user']['select_view'])) {
             if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
@@ -245,7 +245,7 @@ class IMP_Application extends Horde_Registry_Application
                     : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
             }
 
-            $js_code[] = 'ImpLogin.dimp_sel=' . intval($view_cookie == 'dimp');
+            $js_code['-ImpLogin.dimp_sel'] = intval($view_cookie == 'dimp');
 
             $params['imp_select_view'] = array(
                 'label' => _("Mode"),
@@ -269,7 +269,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return array(
-            'js_code' => $js_code,
+            'js_code' => Horde::addInlineJsVars($js_code, true),
             'js_files' => array(
                 array('login.js', 'imp')
             ),

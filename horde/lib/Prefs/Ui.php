@@ -221,8 +221,8 @@ class Horde_Prefs_Ui
     {
         Horde::addScriptFile('categoryprefs.js', 'horde');
         Horde::addScriptFile('colorpicker.js', 'horde');
-        Horde::addInlineScript(array(
-            'HordeAlarmPrefs.category_text = ' . Horde_Serialize::serialize(_("Enter a name for the new category:"), Horde_Serialize::JSON)
+        Horde::addInlineJsVars(array(
+            'HordeAlarmPrefs.category_text' => _("Enter a name for the new category:")
         ));
 
         $cManager = new Horde_Prefs_CategoryManager();
@@ -312,9 +312,8 @@ class Horde_Prefs_Ui
             );
         }
 
-        Horde::addInlineScript(array(
-            'HordeRpcPrefs.servers = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
-
+        Horde::addInlineJsVars(array(
+            'HordeRpcPrefs.servers' => $js
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -392,8 +391,8 @@ class Horde_Prefs_Ui
         }
 
         Horde::addScriptFile('activesyncprefs.js', 'horde');
-        Horde::addInlineScript(array(
-            'HordeActiveSyncPrefs.devices = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        Horde::addInlineJsVars(array(
+            'HordeActiveSyncPrefs.devices' => $js
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

@@ -298,6 +298,7 @@ class IMP_Ui_Compose
     }
 
     /**
+     * @return array  See Horde::addInlineJsVars().
      */
     public function identityJs()
     {
@@ -325,7 +326,9 @@ class IMP_Ui_Compose
             );
         }
 
-        return 'IMP_Compose_Base.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON);
+        return Horde::addInlineJsVars(array(
+            'IMP_Compose_Base.identities' => $identities
+        ), true);
     }
 
     /**

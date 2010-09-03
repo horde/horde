@@ -36,12 +36,12 @@ if (!Horde_Util::getFormData('ajaxui') &&
     $show_sidebar = !isset($_COOKIE['horde_sidebar_expanded']) || $_COOKIE['horde_sidebar_expanded'];
     $width = intval($prefs->getValue('sidebar_width'));
 
-    Horde::addInlineScript(array(
-        'HordeSidebar.domain = ' . Horde_Serialize::serialize($conf['cookie']['domain'], Horde_Serialize::JSON, $charset),
-        'HordeSidebar.path = ' . Horde_Serialize::serialize($conf['cookie']['path'], Horde_Serialize::JSON, $charset),
-        'HordeSidebar.refresh = ' . intval($prefs->getValue('menu_refresh_time')),
-        'HordeSidebar.url = ' . Horde_Serialize::serialize(strval($ajax_url), Horde_Serialize::JSON, $charset),
-        'HordeSidebar.width = ' . $width
+    Horde::addInlineJsVars(array(
+        'HordeSidebar.domain' => $conf['cookie']['domain'],
+        'HordeSidebar.path' => $conf['cookie']['path'],
+        '-HordeSidebar.refresh' => intval($prefs->getValue('menu_refresh_time')),
+        'HordeSidebar.url' => strval($ajax_url),
+        '-HordeSidebar.width' => $width
     ));
 
     require $registry->get('templates', 'horde') . '/sidebar/sidebar.inc';

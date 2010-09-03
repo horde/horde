@@ -37,8 +37,8 @@ $vars = Horde_Variables::getDefaultVariables();
 $folders_url = Horde::selfUrl();
 
 /* This JS define is required by all folder pages. */
-Horde::addInlineScript(array(
-    'ImpFolders.folders_url = ' . Horde_Serialize::serialize(strval($folders_url), Horde_Serialize::JSON, $charset)
+Horde::addInlineJsVars(array(
+    'ImpFolders.folders_url' => strval($folders_url)
 ));
 
 /* Initialize the IMP_Folder object. */
@@ -425,11 +425,11 @@ if (!empty($imaptree->recent)) {
     IMP::newmailAlerts($imaptree->recent);
 }
 
-Horde::addInlineScript(array(
-    'ImpFolders.ajax = ' . Horde_Serialize::serialize(Horde::getServiceLink('ajax', 'imp')->url, Horde_Serialize::JSON, $charset),
-    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.mbox_expand = ' . intval($prefs->getValue('nav_expanded') == 2)
+Horde::addInlineJsVars(array(
+    'ImpFolders.ajax' => Horde::getServiceLink('ajax', 'imp')->url,
+    'ImpFolders.displayNames' => $displayNames,
+    'ImpFolders.fullNames' => $fullNames,
+    '-ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)
 ));
 
 $title = _("Folder Navigator");

@@ -44,6 +44,7 @@ $vars = Horde_Variables::getDefaultVariables();
 
 $charset = $registry->getCharset();
 $dimp_view = ($_SESSION['imp']['view'] == 'dimp');
+$js_load = array();
 $search_fields = $imp_search->searchFields();
 $search_mailbox = isset($vars->search_mailbox)
     ? $vars->search_mailbox
@@ -172,9 +173,9 @@ $js_data = array(
     'types' => $types
 );
 
-Horde::addInlineScript(array(
-    'ImpSearch.data = ' . Horde_Serialize::serialize($js_data, Horde_Serialize::JSON, $charset),
-    'ImpSearch.text = ' . Horde_Serialize::serialize($gettext_strings, Horde_Serialize::JSON, $charset)
+Horde::addInlineJsVars(array(
+    'ImpSearch.data' => $js_data,
+    'ImpSearch.text' => $gettext_strings,
 ));
 Horde::addInlineScript($js_load, 'dom');
 

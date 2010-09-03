@@ -64,8 +64,8 @@ foreach ($devices as $key => $val) {
 }
 
 Horde::addScriptFile('activesyncadmin.js');
-Horde::addInlineScript(array(
-    'HordeActiveSyncAdmin.devices = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $registry->getCharset())
+Horde::addInlineJsVars(array(
+    'HordeActiveSyncAdmin.devices' => $js
 ));
 
 $title = _("ActiveSync Device Administration");

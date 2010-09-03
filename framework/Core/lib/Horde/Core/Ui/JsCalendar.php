@@ -64,20 +64,20 @@ class Horde_Core_Ui_JsCalendar
             }
         }
 
-        Horde::addScriptFile('calendar.js', 'horde');
-        Horde::addInlineScript(array(
-            'Horde_Calendar.click_month = ' . intval($params['click_month']),
-            'Horde_Calendar.click_week = ' . intval($params['click_week']),
-            'Horde_Calendar.click_year = ' . intval($params['click_year']),
-            'Horde_Calendar.firstDayOfWeek = ' . intval($GLOBALS['prefs']->getValue('first_week_day')),
-            'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-            'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize($weekdays, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        $js = array(
+            '-Horde_Calendar.click_month' => intval($params['click_month']),
+            '-Horde_Calendar.click_week' => intval($params['click_week']),
+            '-Horde_Calendar.click_year' => intval($params['click_year']),
+            '-Horde_Calendar.firstDayOfWeek' => intval($GLOBALS['prefs']->getValue('first_week_day')),
+            'Horde_Calendar.months' => self::months(),
+            'Horde_Calendar.weekdays' => $weekdays
         ));
         if ($params['full_weekdays']) {
-            Horde::addInlineScript(array(
-                'Horde_Calendar.fullweekdays = ' . Horde_Serialize::serialize(self::fullWeekdays(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
-            ));
+            $js['Horde_Calendar.fullweekdays'] = self::fullWeekdays();
         }
+
+        Horde::addScriptFile('calendar.js', 'horde');
+        Horde::addInlineJsVars($js);
     }
 
     /**

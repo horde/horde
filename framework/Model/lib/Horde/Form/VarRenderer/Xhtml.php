@@ -174,8 +174,8 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                     );
                 }
 
-                Horde::addInlineScript(array(
-                    'Horde_Html_Helper.iconlist = ' . Horde_Serialize::serialize($icon_list, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+                Horde::addInlineJsVars(array(
+                    'Horde_Html_Helper.iconlist' => $icon_list
                 ));
 
                 $html .= Horde::link('#', _("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
