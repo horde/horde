@@ -61,11 +61,11 @@ class Turba_Application extends Horde_Registry_Application
     {
         /* Add Turba-specific binders. */
         $binders = array(
-            'Turba_Driver' => new Turba_Injector_Binder_Driver()
+            'Turba_Driver' => 'Turba_Injector_Binder_Driver'
         );
 
         foreach ($binders as $key => $val) {
-            $GLOBALS['injector']->addBinder($key, $val);
+            $GLOBALS['injector']->addOndemandBinder($key, $val);
         }
 
         // Turba source and attribute configuration.

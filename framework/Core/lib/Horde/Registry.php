@@ -260,44 +260,44 @@ implements Horde_Interfaces_Registry_Auth
 
         /* Define binders. */
         $binders = array(
-            'Horde_Ajax' => new Horde_Core_Binder_Ajax(),
-            'Horde_Ajax_Imple' => new Horde_Core_Binder_Imple(),
-            'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
-            'Horde_Auth' => new Horde_Core_Binder_Auth(),
+            'Horde_Ajax' => 'Horde_Core_Binder_Ajax',
+            'Horde_Ajax_Imple' => 'Horde_Core_Binder_Imple',
+            'Horde_Alarm' => 'Horde_Core_Binder_Alarm',
+            'Horde_Auth' => 'Horde_Core_Binder_Auth',
             // 'Horde_Browser' - initialized below
-            'Horde_Cache' => new Horde_Core_Binder_Cache(),
-            'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-            'Horde_Crypt' => new Horde_Core_Binder_Crypt(),
-            'Horde_Data' => new Horde_Core_Binder_Data(),
-            'Horde_Db' => new Horde_Core_Binder_Db(),
-            'Horde_Db_Adapter_Base' => new Horde_Core_Binder_DbBase(),
-            'Horde_Db_Pear' => new Horde_Core_Binder_DbPear(),
-            'Horde_Editor' => new Horde_Core_Binder_Editor(),
-            'Horde_History' => new Horde_Core_Binder_History(),
-            'Horde_Http_Client' => new Horde_Core_Binder_HttpClient(),
-            'Horde_Ldap' => new Horde_Core_Binder_Ldap(),
-            'Horde_Lock' => new Horde_Core_Binder_Lock(),
-            'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
-            'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
-            'Horde_Mail' => new Horde_Core_Binder_Mail(),
-            'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
-            'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
-            'Horde_Notification' => new Horde_Core_Binder_Notification(),
-            'Horde_Perms' => new Horde_Core_Binder_Perms(),
-            'Horde_Prefs' => new Horde_Core_Binder_Prefs(),
-            'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
+            'Horde_Cache' => 'Horde_Core_Binder_Cache',
+            'Horde_Core_Auth_Signup' => 'Horde_Core_Binder_AuthSignup',
+            'Horde_Crypt' => 'Horde_Core_Binder_Crypt',
+            'Horde_Data' => 'Horde_Core_Binder_Data',
+            'Horde_Db' => 'Horde_Core_Binder_Db',
+            'Horde_Db_Adapter_Base' => 'Horde_Core_Binder_DbBase',
+            'Horde_Db_Pear' => 'Horde_Core_Binder_DbPear',
+            'Horde_Editor' => 'Horde_Core_Binder_Editor',
+            'Horde_History' => 'Horde_Core_Binder_History',
+            'Horde_Http_Client' => 'Horde_Core_Binder_HttpClient',
+            'Horde_Ldap' => 'Horde_Core_Binder_Ldap',
+            'Horde_Lock' => 'Horde_Core_Binder_Lock',
+            'Horde_Log_Logger' => 'Horde_Core_Binder_Logger',
+            'Horde_LoginTasks' => 'Horde_Core_Binder_LoginTasks',
+            'Horde_Mail' => 'Horde_Core_Binder_Mail',
+            'Horde_Memcache' => 'Horde_Core_Binder_Memcache',
+            'Horde_Mime_Viewer' => 'Horde_Core_Binder_MimeViewer',
+            'Horde_Notification' => 'Horde_Core_Binder_Notification',
+            'Horde_Perms' => 'Horde_Core_Binder_Perms',
+            'Horde_Prefs' => 'Horde_Core_Binder_Prefs',
+            'Horde_Prefs_Identity' => 'Horde_Core_Binder_Identity',
             // 'Horde_Registry' - initialized below
-            'Horde_Secret' => new Horde_Core_Binder_Secret(),
-            'Horde_Service_Facebook' => new Horde_Core_Binder_Facebook(),
-            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter(),
-            'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
-            'Horde_Share' => new Horde_Core_Binder_Share(),
-            'Horde_Template' => new Horde_Core_Binder_Template(),
-            'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
-            'Horde_Tree' => new Horde_Core_Binder_Tree(),
-            'Horde_Token' => new Horde_Core_Binder_Token(),
-            'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
-            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns(),
+            'Horde_Secret' => 'Horde_Core_Binder_Secret',
+            'Horde_Service_Facebook' => 'Horde_Core_Binder_Facebook',
+            'Horde_Service_Twitter' => 'Horde_Core_Binder_Twitter',
+            'Horde_SessionHandler' => 'Horde_Core_Binder_SessionHandler',
+            'Horde_Share' => 'Horde_Core_Binder_Share',
+            'Horde_Template' => 'Horde_Core_Binder_Template',
+            'Horde_Text_Filter' => 'Horde_Core_Binder_TextFilter',
+            'Horde_Tree' => 'Horde_Core_Binder_Tree',
+            'Horde_Token' => 'Horde_Core_Binder_Token',
+            'Horde_Vfs' => 'Horde_Core_Binder_Vfs',
+            'Net_DNS_Resolver' => 'Horde_Core_Binder_Dns',
         );
 
         /* Define factories. */
@@ -334,7 +334,7 @@ implements Horde_Interfaces_Registry_Auth
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         foreach ($binders as $key => $val) {
-            $injector->addBinder($key, $val);
+            $injector->addOndemandBinder($key, $val);
         }
         foreach ($factories as $key => $val) {
             $injector->bindFactory($key, $val[0], $val[1]);

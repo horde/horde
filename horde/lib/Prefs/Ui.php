@@ -451,10 +451,8 @@ class Horde_Prefs_Ui
     {
         global $prefs;
 
-        /* Horde_Service_Facebook */
-        $GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
         try {
-            $facebook = $GLOBALS['injector']->getInstance('Facebook');
+            $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
             return _($e->getMessage());
         }
@@ -766,10 +764,8 @@ class Horde_Prefs_Ui
     {
         global $prefs;
 
-        /* Horde_Service_Facebook */
-        $GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
         try {
-            $facebook = $GLOBALS['injector']->getInstance('Facebook');
+            $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
             return _($e->getMessage());
         }
