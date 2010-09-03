@@ -159,7 +159,10 @@ NSString * const TURAnselServerVersionKey = @"version";
 
 - (void)willBeActivated
 {
-    // noop
+    // Version/build
+    NSDictionary *info = [[NSBundle bundleForClass: [self class]] infoDictionary];
+    NSString *versionString = [NSString stringWithFormat:@"%@ %@", [info objectForKey:@"CFBundleName"], [info objectForKey:@"CFBundleVersion"]];
+    [mVersionString setStringValue: versionString];
 }
 
 - (void)willBeDeactivated

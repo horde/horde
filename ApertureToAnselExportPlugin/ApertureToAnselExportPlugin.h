@@ -51,6 +51,7 @@
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
+    IBOutlet NSTextField *mVersionString;
 
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
