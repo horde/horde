@@ -279,16 +279,8 @@ NSString * const TURAnselServerVersionKey = @"version";
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:anselServers  forKey:TURAnselServersKey];   
-    
-    int defaultState = [mMakeNewServerDefault state];
-    if (defaultState == NSOnState) {
-        [prefs setObject: currentServer forKey: TURAnselDefaultServerKey];
-    }
-
     [prefs synchronize];
-
     [self updateServersPopupMenu];
-    
     [newServer release];
 }
 

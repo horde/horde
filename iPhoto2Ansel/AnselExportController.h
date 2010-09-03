@@ -51,7 +51,6 @@
     IBOutlet NSTextField *mServerSheetUsername;    
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
-    IBOutlet NSButton *mMakeNewServerDefault;
     
     // Server list
     IBOutlet NSPanel *serverListPanel;
