@@ -217,7 +217,7 @@
                                            kTURAnselAPIParamSingleParameter,
                                            nil];
     } else {
-        params = [[NSArray alloc] initWithObjects:
+        params = [NSArray arrayWithObjects:
                            @"ansel",                                  // app
                            [NSNumber numberWithInt: _galleryId],      // gallery_id
                            [imageParameters valueForKey: @"data"],    // image data array
@@ -245,7 +245,5 @@
                                     waitUntilDone: NO];
         }
     }
-
-    [params release];
 }
 @end
