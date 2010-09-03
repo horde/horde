@@ -20,7 +20,6 @@ var DimpCompose = {
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
             if ((this.is_popup || DIMP.conf_compose.popup) &&
-                DIMP.baseWindow &&
                 DIMP.baseWindow.DimpBase &&
                 !DIMP.conf_compose.qreply) {
                 DIMP.baseWindow.focus();
@@ -34,6 +33,7 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.is_popup &&
+            DIMP.baseWindow.DimpBase &&
             DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DIMP.baseWindow.DimpBase.poll();
         }
@@ -241,7 +241,9 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.is_popup && !DIMP.conf_compose.qreply) {
+                    if (this.is_popup &&
+                        DIMP.baseWindow.DimpBase &&
+                        !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
@@ -966,7 +968,7 @@ var DimpCompose = {
         DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = (DIMP.baseWindow && DIMP.baseWindow.DimpBase);
+        this.is_popup = DIMP.baseWindow.DimpBase;
 
         /* Initialize redirect elements (always needed). */
         $('redirect').observe('submit', Event.stop);
