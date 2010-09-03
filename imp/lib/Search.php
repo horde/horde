@@ -183,17 +183,17 @@ class IMP_Search
                'not' => true
             ),
             'date_on' => array(
-                'label' => _("Date ="),
+                'label' => _("Date Equals (=)"),
                 'type' => 'date',
                 'not' => true
             ),
             'date_until' => array(
-                'label' => _("Date <"),
+                'label' => _("Date Until (<)"),
                 'type' => 'date',
                 'not' => true
             ),
             'date_since' => array(
-                'label' => _("Date >="),
+                'label' => _("Date Since (>=)"),
                 'type' => 'date',
                 'not' => true
             ),
@@ -732,7 +732,8 @@ class IMP_Search
                 break;
 
             case 'date':
-                $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], strftime("%x", mktime(0, 0, 0, $rule->v->m + 1, $rule->v->d, $rule->v->y)));
+                $date_ob = new Horde_Date($rule->v);
+                $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], $date_ob->strftime("%x"));
                 break;
 
             case 'within':

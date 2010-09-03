@@ -411,8 +411,8 @@ var ImpSearch = {
 
     calendarSelectHandler: function(e)
     {
-        var elt = e.element();
-        this.replaceDate(elt.up('TR').identify(), this.criteria[elt.identify()], e.memo);
+        var id = e.findElement('TR').identify();
+        this.replaceDate(id, this.criteria[id].t, e.memo);
     }
 
 };

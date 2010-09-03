@@ -78,7 +78,7 @@ class IMP_Ui_Search
 
             case 'date':
                 if (!empty($rule->v)) {
-                    $date = new Horde_Date(array('year' => $rule->v->y, 'month' => $rule->v->m + 1, 'mday' => $rule->v->d));
+                    $date = new Horde_Date($rule->v);
                     $ob->dateSearch($date, ($rule->t == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($rule->t == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
                     $search_array[] = $ob;
                 }

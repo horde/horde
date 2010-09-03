@@ -16,13 +16,16 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
+/* This is an IMP-only script. */
+if ($_SESSION['imp']['view'] != 'imp') {
+    exit;
+}
+
 if ($_SESSION['imp']['protocol'] == 'pop') {
-    if ($_SESSION['imp']['view'] == 'imp') {
-        $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
-        $from_message_page = true;
-        $actionID = $start = null;
-        require_once IMP_BASE . '/mailbox.php';
-    }
+    $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
+    $from_message_page = true;
+    $actionID = $start = null;
+    require_once IMP_BASE . '/mailbox.php';
     exit;
 }
 
@@ -30,7 +33,7 @@ $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
 /* If search_basic_mbox is set, we are processing the search query. */
-if ($vars->search_mailbox) {
+if ($vars->search_basic_mailbox) {
     $imp_ui_search = new IMP_Ui_Search();
     $id = $imp_ui_search->processBasicSearch($vars->search_mailbox, $vars->search_criteria, $vars->search_criteria_text, $vars->search_criteria_not, $vars->search_flags);
 
