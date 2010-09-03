@@ -33,7 +33,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Horde_Cache_Base::set() no longer returns a boolean result.
+ <notes>* Added Horde_Cache_Session::.
+ * Horde_Cache_Base::set() no longer returns a boolean result.
  * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
  * Initial Horde 4 package.</notes>
@@ -53,6 +54,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
       <file name="Memcache.php" role="php" />
       <file name="Mock.php" role="php" />
       <file name="Null.php" role="php" />
+      <file name="Session.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="Stack.php" role="php" />
       <file name="Xcache.php" role="php" />
@@ -110,6 +112,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    <install name="lib/Horde/Cache/Memcache.php" as="Horde/Cache/Memcache.php" />
    <install name="lib/Horde/Cache/Mock.php" as="Horde/Cache/Mock.php" />
    <install name="lib/Horde/Cache/Null.php" as="Horde/Cache/Null.php" />
+   <install name="lib/Horde/Cache/Session.php" as="Horde/Cache/Session.php" />
    <install name="lib/Horde/Cache/Sql.php" as="Horde/Cache/Sql.php" />
    <install name="lib/Horde/Cache/Stack.php" as="Horde/Cache/Stack.php" />
    <install name="lib/Horde/Cache/Xcache.php" as="Horde/Cache/Xcache.php" />
