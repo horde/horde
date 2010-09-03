@@ -38,7 +38,6 @@ if (count($search_results) == 1) {
 $title = _("Search Results");
 $memos = $search_results;
 
-Horde::addScriptFile('tooltips.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('quickfinder.js', 'horde', true);

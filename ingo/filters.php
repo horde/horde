@@ -133,7 +133,6 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-Horde::addScriptFile('tooltips.js', 'horde');
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('filters.js', 'ingo');
 Ingo::prepareMenu();

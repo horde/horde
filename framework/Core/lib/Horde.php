@@ -1178,6 +1178,8 @@ HTML;
             $old_error = error_reporting(0);
             $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
             error_reporting($old_error);
+
+            Horde::addScriptFile('tooltips.js', 'horde');
         }
 
         return self::link($url, $title, $class, $target, $onclick, null, $accesskey, $attributes, false);

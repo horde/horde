@@ -1652,9 +1652,6 @@ class Agora_Messages {
             return $files;
         }
 
-        /* Make sure we have the tooltips javascript. */
-        Horde::addScriptFile('tooltips.js', 'horde', true);
-
         /* Constuct the link with a tooltip for further info on the download. */
         $html = '<br />';
         $view_url = Horde::url('view.php');

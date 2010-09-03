@@ -20,7 +20,6 @@ if (Kronolith::showAjaxView()) {
 $view = Kronolith::getView('Year');
 $title = $view->year;
 
-Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 

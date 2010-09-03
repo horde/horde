@@ -70,8 +70,6 @@ class Horde_Block_Kronolith_month extends Horde_Block
             }
         }
 
-        Horde::addScriptFile('tooltips.js', 'horde');
-
         $year = date('Y');
         $month = date('m');
         $startday = new Horde_Date(array('mday' => 1,

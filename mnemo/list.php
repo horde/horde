@@ -54,7 +54,6 @@ case 'search_memos':
     break;
 }
 
-Horde::addScriptFile('tooltips.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('quickfinder.js', 'horde', true);
