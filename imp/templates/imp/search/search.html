@@ -87,9 +87,9 @@
  <div class="searchuiButtons">
   <input type="button" id="search_submit" class="button" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
   <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
-<if:return_mailbox_text>
-  <input type="button" id="search_dimp_return" class="button" value="<gettext>Return to</gettext> <tag:return_mailbox_text />" />
-</if:return_mailbox_text>
+<if:return_mailbox_val>
+  <input type="button" id="search_dimp_return" class="button" value="<tag:return_mailbox_val />" />
+</if:return_mailbox_val>
  </div>
 </form>
 

@@ -184,7 +184,7 @@ Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('search.js', 'imp');
 
 if ($dimp_view) {
-    $t->set('return_mailbox_text', htmlspecialchars($search_mailbox));
+    $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars($search_mailbox)));
 } else {
     IMP::prepareMenu();
 }
