@@ -30,7 +30,6 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
     {
         parent::__construct($name, $params);
 
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('hordetree.js', 'horde');
 
         /* Check for a javascript session state. */

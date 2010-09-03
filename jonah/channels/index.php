@@ -92,7 +92,6 @@ $GLOBALS['notification']->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
 $title = _("Feeds");
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('quickfinder.js', 'horde', true);
 require JONAH_TEMPLATES . '/common-header.inc';

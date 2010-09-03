@@ -21,7 +21,6 @@ class Whups_View_Results extends Whups_View {
 
     function html()
     {
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('tables.js', 'horde', true);
 
         global $prefs, $registry;

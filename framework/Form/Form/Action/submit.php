@@ -18,7 +18,6 @@ class Horde_Form_Action_submit extends Horde_Form_Action {
 
     function getActionScript($form, $renderer, $varname)
     {
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         return 'RedBox.loading(); document.' . $form->getName() . '.submit()';

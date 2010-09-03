@@ -64,7 +64,6 @@ try {
     $notification->push($e);
 }
 
-Horde::addScriptFile('prototype.js', 'horde');
 Horde::addScriptFile('scriptaculous.js', 'horde');
 Horde::addScriptFile('stripe.js', 'horde');
 

@@ -57,7 +57,6 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
      */
     public function attach()
     {
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('keynavlist.js', 'horde');
         Horde::addScriptFile('spellchecker.js', 'horde');

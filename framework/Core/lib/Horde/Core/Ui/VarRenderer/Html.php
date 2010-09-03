@@ -575,7 +575,6 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             . ' value="' . @htmlspecialchars($color, ENT_QUOTES, $this->_charset)
             . '" /></td>';
         if ($browser->hasFeature('javascript')) {
-            Horde::addScriptFile('prototype.js', 'horde');
             Horde::addScriptFile('colorpicker.js', 'horde');
             $html .= '<td>'
                 . Horde::link('#', _("Color Picker"), '', '',

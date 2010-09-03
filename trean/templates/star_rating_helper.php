@@ -2,7 +2,6 @@
 // Here we should tell the view using this helper to include the
 // relevant CSS and JavaScript. Currently CSS is in the main Trean CSS
 // file.
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('star_rating.js', 'trean', true);
 
 // Eventual class var.

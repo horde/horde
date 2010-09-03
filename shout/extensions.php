@@ -31,7 +31,6 @@ try {
 }
 
 Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('prototype.js', 'horde');
 Horde::addScriptFile('scriptaculous.js', 'horde');
 
 require SHOUT_TEMPLATES . '/common-header.inc';

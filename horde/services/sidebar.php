@@ -26,7 +26,6 @@ if (!Horde_Util::getFormData('ajaxui') &&
      ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
     $tree = $injector->getInstance('Horde_Core_Sidebar')->getTree();
 
-    Horde::addScriptFile('prototype.js', 'horde');
     Horde::addScriptFile('sidebar.js', 'horde');
 
     $ajax_url = Horde::getServiceLink('ajax', 'horde');

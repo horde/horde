@@ -174,6 +174,9 @@ HTML;
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include via includeScriptFiles().
      *
+     * As long as one script file is added, 'prototype.js' will be
+     * automatically added.
+     *
      * @param string $file    The full javascript file name.
      * @param string $app     The application name. Defaults to the current
      *                        application.
