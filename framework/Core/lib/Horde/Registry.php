@@ -266,6 +266,7 @@ implements Horde_Interfaces_Registry_Auth
             'Horde_Auth' => 'Horde_Core_Binder_Auth',
             // 'Horde_Browser' - initialized below
             'Horde_Cache' => 'Horde_Core_Binder_Cache',
+            'Horde_Cache_Factory' => 'Horde_Core_Binder_CacheFactory',
             'Horde_Core_Auth_Signup' => 'Horde_Core_Binder_AuthSignup',
             'Horde_Crypt' => 'Horde_Core_Binder_Crypt',
             'Horde_Data' => 'Horde_Core_Binder_Data',
