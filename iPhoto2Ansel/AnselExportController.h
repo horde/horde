@@ -37,6 +37,7 @@
     IBOutlet NSPopUpButton *mServersPopUp;
     IBOutlet NSTextField *mImageCountLabel;
     IBOutlet NSPopUpButton *mAnselVersion;
+    IBOutlet NSTextField *mVersionLabel;
     
     // Gallery View
     IBOutlet NSButton *viewGallery;

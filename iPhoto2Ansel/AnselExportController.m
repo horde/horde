@@ -7,6 +7,7 @@
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
+
 #import "TURAnselKit.h"
 #import "AnselExportController.h";
 #import "FBProgressController.h";
@@ -84,6 +85,10 @@ NSString * const TURAnselServerVersionKey = @"version";
                                              selector: @selector(exportWindowDidBecomeKey:)
                                                  name: NSWindowDidBecomeKeyNotification 
                                                object :nil];
+    // Version/build
+    NSDictionary *info = [[NSBundle bundleForClass: [self class]] infoDictionary];
+    NSString *versionString = [NSString stringWithFormat:@"%@ %@", [info objectForKey:@"CFBundleName"], [info objectForKey:@"CFBundleVersion"]];
+    [mVersionLabel setStringValue: versionString];
     
     // Holds gallery's images info for the gallery preview 
     browserData = [[NSMutableArray alloc] init];
