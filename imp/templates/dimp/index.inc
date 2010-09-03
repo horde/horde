@@ -260,6 +260,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
           </span>
          </div>
 <?php endif; ?>
+         <div style="display:none">
+          <span id="msg_resume_draft">
+           <span class="iconImg"></span>
+           <a><?php echo _("Resume Draft") ?></a>
+          </span>
+         </div>
         </div>
         <div id="msgHeadersContent">
          <table>

@@ -946,7 +946,7 @@ span.dimpactionDrafts {
 #ctx_message_source span.contextImg, #msg_view_source span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
-#ctx_message_resume span.contextImg {
+#ctx_message_resume span.contextImg, #msg_resume_draft span.iconImg {
     background-image: url("../graphics/mail_draft.png");
 }
 #oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {

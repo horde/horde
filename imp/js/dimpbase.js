@@ -1214,6 +1214,9 @@ var DimpBase = {
             $('msgLogInfo').hide();
         }
 
+        // Toggle resume link
+        [ $('msg_resume_draft').up() ].invoke(this.viewport.getSelection().get('dataob').first().draft ? 'show' : 'hide');
+
         $('messageBody').update(r.msgtext);
         this.loadingImg('msg', false);
         $('previewInfo').hide();
@@ -2057,6 +2060,10 @@ var DimpBase = {
 
             case 'msg_view_source':
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
+                break;
+
+            case 'msg_resume_draft':
+                this.composeMailbox('resume');
                 break;
 
             case 'applicationfolders':
