@@ -15,16 +15,29 @@
 class Horde_Injector implements Horde_Injector_Scope
 {
     /**
+     * Parent scope.
+     *
      * @var Horde_Injector_Scope
      */
     private $_parentInjector;
 
     /**
+     * Binders for objects/instances.
+     *
      * @var array
      */
     private $_bindings = array();
 
     /**
+     * Binders for objects/instances that are created on demand.
+     *
+     * @var array
+     */
+    private $_ondemand = array();
+
+    /**
+     * Created objects/instances.
+     *
      * @var array
      */
     private $_instances;
@@ -107,7 +120,7 @@ class Horde_Injector implements Horde_Injector_Scope
     }
 
     /**
-     * Add a Horde_Injector_Binder to an interface
+     * Add a Horde_Injector_Binder to an interface.
      *
      * This is the method by which we bind an interface to a concrete
      * implentation or factory.  For convenience, binders may be added by
@@ -144,6 +157,39 @@ class Horde_Injector implements Horde_Injector_Scope
     }
 
     /**
+     * Add a Horde_Injector_Binder to an interface. Unlike addBinder(), the
+     * binder interface will not be created until it is first accessed.
+     *
+     * @see self::addBinder()
+     *
+     * @param string $interface  The interface to bind to.
+     * @param string $name       The name of the binder class to create.
+     *
+     * @return Horde_Injector  A reference to itself for method chaining.
+     */
+    public function addOndemandBinder($interface, $name)
+    {
+        $this->_ondemand[$interface] = $name;
+        return $this;
+    }
+
+    /**
+     * Creates a binder object on demand from the current binder
+     * configuration.
+     *
+     * @param string $interface  The interface to bind to.
+     */
+    private function _addOndemandBinder($interface)
+    {
+        if (!isset($this->_bindings[$interface]) &&
+            isset($this->_ondemand[$interface])) {
+            $binder = new $this->_ondemand[$interface]();
+            $this->_addBinder($interface, $binder);
+            unset($this->_ondemand[$interface]);
+        }
+    }
+
+    /**
      * Get the Binder associated with the specified instance.
      *
      * Binders are objects responsible for binding a particular interface
@@ -158,6 +204,8 @@ class Horde_Injector implements Horde_Injector_Scope
      */
     public function getBinder($interface)
     {
+        $this->_addOndemandBinder($interface);
+
         return isset($this->_bindings[$interface])
             ? $this->_bindings[$interface]
             : $this->_parentInjector->getBinder($interface);
@@ -237,14 +285,15 @@ class Horde_Injector implements Horde_Injector_Scope
         if (!isset($this->_instances[$interface])) {
             // Do we have a binding for this interface? If so then we don't
             // ask our parent
-            if (!isset($this->_bindings[$interface])) {
+            if (!isset($this->_bindings[$interface]) &&
+                !isset($this->_ondemand[$interface])) {
                 // Does our parent have an instance?
                 if ($instance = $this->_parentInjector->getInstance($interface)) {
                     return $instance;
                 }
             }
 
-            // We have to make our own instance
+            // We have to make our own instance.
             $this->setInstance($interface, $this->createInstance($interface));
         }
 

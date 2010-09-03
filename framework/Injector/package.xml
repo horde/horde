@@ -33,7 +33,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>
+ <notes>* Add on-demand binders.
 * Initial release, contributed by Blue State Digital
  </notes>
  <contents>
