@@ -325,22 +325,59 @@ class IMP_Compose
      *
      * @return mixed  An array with the following keys:
      * <pre>
-     * 'msg' - (string) The message text.
-     * 'mode' - (string) 'html' or 'text'.
      * 'header' - (array) A list of headers to add to the outgoing message.
      * 'identity' - (integer) The identity used to create the message.
+     * 'mode' - (string) 'html' or 'text'.
+     * 'msg' - (string) The message text.
      * </pre>
      * @throws IMP_Compose_Exception
      */
     public function resumeDraft($indices)
     {
+        global $injector, $prefs;
+
         try {
-            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
+            $contents = $injector->getInstance('IMP_Contents')->getOb($indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
 
-        $msg_text = $this->_getMessageText($contents, array('type' => 'draft'));
+        $headers = $contents->getHeaderOb();
+        $reply_type = null;
+
+        if ($val = $headers->getValue('x-imp-draft-reply')) {
+            if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
+                $reply_type = 'reply';
+            }
+        } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
+            $reply_type = 'forward';
+        }
+
+        if ($_SESSION['imp']['view'] == 'mimp') {
+            $compose_html = false;
+        } elseif ($prefs->getValue('compose_html')) {
+            $compose_html = true;
+        } else {
+            switch ($reply_type) {
+            case 'forward':
+                $compose_html = $prefs->getValue('forward_format');
+                break;
+
+            case 'reply':
+                $compose_html = $prefs->getValue('reply_format');
+                break;
+
+            default:
+                $compose_html = false;
+                break;
+            }
+        }
+
+        $msg_text = $this->_getMessageText($contents, array(
+            'html' => $compose_html,
+            'toflowed' => true
+        ));
+
         if (empty($msg_text)) {
             $message = '';
             $mode = 'text';
@@ -361,9 +398,8 @@ class IMP_Compose
         }
 
         $identity_id = null;
-        $headers = $contents->getHeaderOb();
         if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
@@ -383,16 +419,8 @@ class IMP_Compose
             }
         }
 
-        if ($val = $headers->getValue('x-imp-draft-reply')) {
-            if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
-                $reply_type = 'reply';
-            }
-        } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
-            $reply_type = 'forward';
-        }
-
         if ($val) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {
@@ -402,7 +430,7 @@ class IMP_Compose
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
+                    $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
@@ -1527,8 +1555,7 @@ class IMP_Compose
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html,
             'replylimit' => true,
-            'toflowed' => true,
-            'type' => 'reply'
+            'toflowed' => true
         ));
 
         if (!empty($msg_text) &&
@@ -1679,8 +1706,7 @@ class IMP_Compose
         }
 
         $msg_text = $this->_getMessageText($contents, array(
-            'html' => $compose_html,
-            'type' => 'forward'
+            'html' => $compose_html
         ));
 
         if (!empty($msg_text) &&
@@ -2525,7 +2551,6 @@ class IMP_Compose
      * 'html' - (boolean) Return text/html part, if available.
      * 'replylimit' - (boolean) Enforce length limits?
      * 'toflowed' - (boolean) Convert to flowed?
-     * 'type' - (string) 'draft', 'forward', or 'reply'.
      * </pre>
      *
      * @return mixed  Null if bodypart not found, or array with the following
