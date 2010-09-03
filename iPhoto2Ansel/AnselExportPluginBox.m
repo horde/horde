@@ -1,14 +1,12 @@
-//
-//  AnselExportPluginBox.m
-//  iPhoto2Ansel
-//
-//  Generic PluginBox handles Enter key presses to initiate the
-//  export.
-//
-//  Created by Michael Rubinsky on 10/23/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
-
+/**
+ * AnselExportPluginBox.m
+ * iPhoto2Ansel
+ *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org)
+ *
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import "AnselExportPluginBox.h"
 
 @implementation AnselExportPluginBox
@@ -18,7 +16,7 @@
 {
     NSString *keyString = [anEvent charactersIgnoringModifiers];
     unichar keyChar = [keyString characterAtIndex:0];
-    
+
     switch (keyChar)
     {
         case NSFormFeedCharacter:
@@ -32,7 +30,7 @@
         default:
             break;
     }
-    
+
     return([super performKeyEquivalent:anEvent]);
 }
 @end

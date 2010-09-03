@@ -1,7 +1,8 @@
 /**
  * AnselExportController.m
+ * iPhoto2Ansel
  *
- * Copyright 2008 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org)
  * 
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -37,6 +38,7 @@ NSString * const TURAnselServerNickKey = @"nickname";
 NSString * const TURAnselServerEndpointKey = @"endpoint";
 NSString * const TURAnselServerUsernameKey = @"username";
 NSString * const TURAnselServerPasswordKey = @"password";
+NSString * const TURAnselServerVersionKey = @"version";
 
 @implementation AnselExportController
 
@@ -266,6 +268,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
                                [mServerSheetUsername stringValue], TURAnselServerUsernameKey,
                                [mServerSheetPassword stringValue], TURAnselServerPasswordKey,
+                               [NSNumber numberWithInt: [mAnselVersion indexOfSelectedItem] + 1] , TURAnselServerVersionKey,
                                 nil];
     [anselServers addObject: newServer];
     [NSApp endSheet: newServerSheet];
@@ -509,12 +512,23 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // NSDictionary objects cannot contain nil objects
+    NSNumber *apiversion = [currentServer objectForKey: TURAnselServerVersionKey];
+    if (apiversion == nil) {
+        apiversion = [NSNumber numberWithInt: 1];
+    }
     NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
                                                               [currentServer objectForKey:TURAnselServerEndpointKey],
                                                               [currentServer objectForKey:TURAnselServerUsernameKey],
                                                               [currentServer objectForKey:TURAnselServerPasswordKey],
+                                                              apiversion,
                                                               nil]
-                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
+                                                    forKeys: [NSArray arrayWithObjects:TURAnselServerEndpointKey,
+                                                                                       TURAnselServerUsernameKey,
+                                                                                       TURAnselServerPasswordKey,
+                                                                                       TURAnselServerVersionKey,
+                                                                                       nil]];
     // Create our controller
     anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
     [anselController setDelegate:self];

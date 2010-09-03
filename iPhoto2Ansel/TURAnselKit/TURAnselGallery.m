@@ -2,7 +2,7 @@
  * TURAnselGallery.m
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -23,7 +23,7 @@
 #pragma mark -
 #pragma mark init/dealloc
 /**
- * Init a gallery object
+ * Initialize a gallery object
  */
 - (id)initWithObject:(id)galleryData controller:(TURAnsel *)controller
 {
@@ -35,7 +35,7 @@
     [self setValue:[galleryData valueForKey: kTURAnselGalleryKeyName]
             forKey:@"galleryName"];
     [self setValue: [galleryData valueForKey: kTURAnselGalleryKeyImages]
-            forKey:@"galleryImageCount"];    
+            forKey:@"galleryImageCount"];
     [self setValue: [galleryData valueForKey: kTURAnselGalleryKeyDefaultImage]
             forKey:@"galleryKeyImage"];
     [self setAnselController: controller];
@@ -46,16 +46,16 @@
     NSLog(@"TURAnselGallery dealloc called on Gallery %@", self);
     [anselController release];
     anselController = nil;
-    
+
     [galleryKeyImageURL release];
     galleryKeyImageURL = nil;
-    
+
     [imageList release];
     imageList = nil;
-    
+
     [super dealloc];
 }
-- (id)description 
+- (id)description
 {
     NSString *text = [NSString stringWithFormat:@"Description: %@ Id: %d has: %d images", galleryName, _galleryId, galleryImageCount];
     return text;
@@ -66,37 +66,51 @@
 /**
  * Requests the gallery's key image url to be fetched from the server
  * (This information is not present in the gallery definition array returned
- *  from the images.listGalleries call). 
+ *  from the images.listGalleries call).
+ *
+ * @return NSURL  The url object
  */
 - (NSURL *)galleryKeyImageURL
 {
     if (galleryKeyImageURL) {
         return galleryKeyImageURL;
     } else {
-        NSArray *params = [[NSArray alloc] initWithObjects:
-                           @"ansel",                                         // Scope
-                           [NSNumber numberWithInt: galleryKeyImage],        // Image Id
-                           @"thumb",                                         // Thumbnail type
-                           [NSNumber numberWithBool:YES],                    // Full path
-                           nil];
+        NSArray *params;
+        NSArray *order;
+        if ([[anselController valueForKey:@"version"] intValue] == 2) {
+            // Version 2 API
+            params = [NSArray arrayWithObjects:
+                       [NSNumber numberWithInt: galleryKeyImage],
+                       [NSDictionary dictionaryWithObjectsAndKeys: @"thumb", kTURAnselAPIParamView, [NSNumber numberWithBool:YES], kTURAnselAPIParamFull, nil],
+                       nil];
+            order = [NSArray arrayWithObjects: kTURAnselAPIParamImageId,
+                                               kTURAnselAPIParamSingleParameter,
+                                               nil];
+        } else {
+            params = [NSArray arrayWithObjects:
+                               @"ansel",                                         // Scope
+                               [NSNumber numberWithInt: galleryKeyImage],        // Image Id
+                               @"thumb",                                         // Thumbnail type
+                               [NSNumber numberWithBool:YES],                    // Full path
+                               nil];
 
-        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
-                                                    kTURAnselAPIParamImageId,
-                                                    kTURAnselAPIParamThumbnailStyle,
-                                                    kTURAnselAPIParamFullPath, nil];
-        
+            order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                               kTURAnselAPIParamImageId,
+                                               kTURAnselAPIParamThumbnailStyle,
+                                               kTURAnselAPIParamFullPath, nil];
+        }
         NSDictionary *response = [anselController callRPCMethod: @"images.getImageUrl"
                                                        withParams: params
                                                         withOrder: order];
-        
+
         if (response) {
             NSDictionary *url = [response objectForKey:(id)kWSMethodInvocationResult];
             [galleryKeyImageURL autorelease];
             galleryKeyImageURL = [[NSURL URLWithString: [NSString stringWithFormat: @"%@", url]] retain];
             NSLog(@"galleryKeyImageURL: %@", galleryKeyImageURL);
             return galleryKeyImageURL;
-        } 
-        
+        }
+
         return nil;
     }
 }
@@ -104,39 +118,46 @@
 /**
  * Get the complete list of image ids and URLs
  */
-- (id)listImages
+- (NSMutableArray *)listImages
 {
-    if (!imageList) {
-        
-        NSArray *params = [[NSArray alloc] initWithObjects:
-                           @"ansel",                                //Scope
-                           [NSNumber numberWithInt: _galleryId],    //Gallery Id
-                           [NSNumber numberWithInt: 2],             //PERMS_SHOW
-                           @"thumb",                                // Thumbnail
-                           [NSNumber numberWithBool:YES],           // Full path
-                           nil];
-        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
-                                                    kTURAnselAPIParamGalleryId,
-                                                    kTURAnselAPIParamPerms,
-                                                    kTURAnselAPIParamThumbnailStyle,
-                                                    kTURAnselAPIParamFullPath, nil];
-        
+    if (![imageList count]) {
+        NSArray *params;
+        NSArray *order;
+
+//        if ([[anselController valueForKey:@"version"] intValue] == 2) {
+// listImages hasn't been refactored yet in version 2 API
+//        } else {
+            params = [NSArray arrayWithObjects:
+                               @"ansel",                                //Scope
+                               [NSNumber numberWithInt: _galleryId],    //Gallery Id
+                               [NSNumber numberWithInt: 2],             //PERMS_SHOW
+                               @"thumb",                                // Thumbnail
+                               [NSNumber numberWithBool:YES],           // Full path
+                               nil];
+            order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                               kTURAnselAPIParamGalleryId,
+                                               kTURAnselAPIParamPerms,
+                                               kTURAnselAPIParamThumbnailStyle,
+                                               kTURAnselAPIParamFullPath, nil];
+//        }
         NSDictionary *response = [anselController callRPCMethod: @"images.listImages"
                                                      withParams: params
                                                       withOrder: order];
         if (response) {
             [imageList autorelease];
-            imageList = [[response objectForKey: (id)kWSMethodInvocationResult] retain];
-            
+            if ([[anselController valueForKey:@"version"] intValue] == 2) {
+                // images.listImages returns a hash in version 2, not an array
+                imageList = [NSMutableArray arrayWithArray: [[[response objectForKey: (id)kWSMethodInvocationResult] retain] allValues]];
+            } else {
+                imageList = [[response objectForKey: (id)kWSMethodInvocationResult] retain];
+            }
             NSLog(@"listImages: %@", imageList);
-            
-            return imageList;
         }
     }
-    
-    return nil;
+
+    return imageList;;
 }
-    
+
 /**
  * Upload the provided image to this gallery.
  */
@@ -182,35 +203,47 @@
 #pragma mark PrivateAPI
 - (void)doUpload:(NSDictionary *)imageParameters
 {
-        // Need to build the params array now.
-        NSArray *params = [[NSArray alloc] initWithObjects:
+
+    NSArray *params;
+    NSArray *order;
+
+    if ([[anselController valueForKey:@"version"] intValue] == 2) {
+        params = [NSArray arrayWithObjects: [NSNumber numberWithInt: _galleryId],
+                                            [imageParameters valueForKey: @"data"],
+                                            [NSDictionary dictionaryWithObjectsAndKeys:@"base64", kTURAnselAPIParamEncoding, nil],
+                                            nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamGalleryId,
+                                           kTURAnselAPIParamImageData,
+                                           kTURAnselAPIParamSingleParameter,
+                                           nil];
+    } else {
+        params = [NSArray arrayWithObjects:
                            @"ansel",                                  // app
                            [NSNumber numberWithInt: _galleryId],      // gallery_id
-                           [imageParameters valueForKey: @"data"],    // image data array   
+                           [imageParameters valueForKey: @"data"],    // image data array
                            [imageParameters valueForKey: @"default"], // set as default?
-                           @"",                                       // Additional gallery data to set?      
-                           @"base64",                                 // Image data encoding      
+                           @"",                                       // Additional gallery data to set?
+                           @"base64",                                 // Image data encoding
                            nil];
-        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
-                                                    kTURAnselAPIParamGalleryId,
-                                                    kTURAnselAPIParamImageData,
-                                                    kTURAnselAPIParamSetAsDefault,
-                                                    kTURAnselAPIParamAdditionalData,
-                                                    kTURAnselAPIParamEncoding, nil];
-        
-        // Send the request up to the controller
-        NSDictionary *result = [anselController callRPCMethod: @"images.saveImage"
-                                                   withParams: params
-                                                    withOrder: order];
-    
-        if (result) {
-            if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
-                [delegate performSelectorOnMainThread: @selector(TURAnselGalleryDidUploadImage:)
-                                           withObject: self 
-                                        waitUntilDone: NO];
-            }
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                           kTURAnselAPIParamGalleryId,
+                                           kTURAnselAPIParamImageData,
+                                           kTURAnselAPIParamSetAsDefault,
+                                           kTURAnselAPIParamAdditionalData,
+                                           kTURAnselAPIParamEncoding, nil];
+    }
+
+    // Send the request up to the controller
+    NSDictionary *result = [anselController callRPCMethod: @"images.saveImage"
+                                               withParams: params
+                                                withOrder: order];
+
+    if (result) {
+        if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
+            [delegate performSelectorOnMainThread: @selector(TURAnselGalleryDidUploadImage:)
+                                       withObject: self
+                                    waitUntilDone: NO];
         }
-    
-        [params release];
+    }
 }
 @end

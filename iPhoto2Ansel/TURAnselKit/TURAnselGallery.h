@@ -2,7 +2,7 @@
  * TURAnselGallery
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -36,7 +36,7 @@
 - (void)setDelegate: (id)newDelegate;
 - (id)delegate;
 - (NSURL *)galleryKeyImageURL;
-- (id)listImages;
+- (NSMutableArray *)listImages;
 - (int)galleryId;
 - (void)setAnselController:(TURAnsel *)newController;
 @end

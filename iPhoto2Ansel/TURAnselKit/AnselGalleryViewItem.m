@@ -5,7 +5,7 @@
  * remote Ansel gallery in an IKImageBrowser.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @implements IKImageBrowserItem
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -25,7 +25,7 @@
     imageID = [[theURL absoluteString] retain];
     imageTitle = [theTitle retain];
     imageDate =  [theDate retain];
-    return self; 
+    return self;
 }
 - (void)dealloc
 {
