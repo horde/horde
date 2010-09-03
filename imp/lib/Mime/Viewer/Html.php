@@ -301,16 +301,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             case 'a':
             case 'area':
                 /* Convert links to open in new windows. Ignore
-                 * mailto: links, links that have an "#xyz" anchor,
-                 * and links that already have a target. */
+                 * mailto: links and links that already have a target. */
                 if ($node->hasAttribute('href')) {
                     $url = parse_url($node->getAttribute('href'));
                     if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
                         /* We don't include Horde.popup() in IFRAME, so need
                          * to use 'simple' links. */
                         $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
-                    } elseif (!$node->hasAttribute('target') &&
-                              empty($url['fragment'])) {
+                    } elseif (!$node->hasAttribute('target')) {
                         $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }
