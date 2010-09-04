@@ -40,4 +40,9 @@ class IMP_Stub_Registry
     {
         $this->_charset = $charset;
     }
+
+    public function get($parameter, $app = null)
+    {
+        return null;
+    }
 }
