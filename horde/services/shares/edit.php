@@ -27,27 +27,24 @@ $app = Horde_Util::getFormData('app');
 $shares = $injector->getInstance('Horde_Share')->getScope($app);
 $groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
-if ($registry->hasMethod('shareHelp', $app)) {
-    $help = $registry->callByPackage($app, 'shareHelp');
-} else {
-    $help = null;
-}
+$help = $registry->hasMethod('shareHelp', $app)
+    ? $registry->callByPackage($app, 'shareHelp')
+    : null;
 
 $form = null;
 $reload = false;
-$actionID = Horde_Util::getFormData('actionID', 'edit');
-switch ($actionID) {
+switch (Horde_Util::getFormData('actionID', 'edit')) {
 case 'edit':
     try {
-        $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
     } catch (Horde_Share_Exception $e) {
         if (($category = Horde_Util::getFormData('share')) !== null) {
             try {
                 $share = $shares->getShare($category);
                 $form = 'edit.inc';
-                $perm = &$share->getPermission();
+                $perm = $share->getPermission();
             } catch (Horde_Share_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }
@@ -55,16 +52,16 @@ case 'edit':
     }
 
     if (!$registry->getAuth() ||
-              (isset($share) &&
-               !$registry->isAdmin() &&
-               $registry->getAuth() != $share->get('owner'))) {
-        exit('permission denied');
+        (isset($share) &&
+         !$registry->isAdmin() &&
+         ($registry->getAuth() != $share->get('owner')))) {
+        throw new Horde_Exception('Permission denied.');
     }
     break;
 
 case 'editform':
     try {
-        $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     }
@@ -72,10 +69,10 @@ case 'editform':
     if (!empty($share)) {
         if (!$registry->getAuth() ||
             (!$registry->isAdmin() &&
-             $registry->getAuth() != $share->get('owner'))) {
-            exit('permission denied');
+             ($registry->getAuth() != $share->get('owner')))) {
+            throw new Horde_Exception('Permission denied.');
         }
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
@@ -258,11 +255,9 @@ case 'editform':
     break;
 }
 
-if (is_a($share, 'PEAR_Error')) {
-    $title = _("Edit permissions");
-} else {
-    $title = sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
-}
+$title = ($share instanceof PEAR_Error)
+    ? _("Edit permissions")
+    : sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
 
 $userList = array();
 if ($auth->hasCapability('list') &&

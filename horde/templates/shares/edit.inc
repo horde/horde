@@ -21,11 +21,9 @@
 
 <!-- Ownership -->
 <?php
-if (isset($userperms[$owner])) {
-    $operm = $userperms[$owner];
-} else {
-    $operm = Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE;
-}
+$operm = isset($userperms[$owner])
+    ? $userperms[$owner]
+    : Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE;
 ?>
 <tr valign="middle">
   <td class="header leftAlign" colspan="6">

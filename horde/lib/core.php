@@ -9,6 +9,10 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 /* Turn PHP stuff off that can really screw things up. */

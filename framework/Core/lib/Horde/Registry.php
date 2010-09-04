@@ -108,8 +108,13 @@ implements Horde_Interfaces_Registry_Auth
      * init() will be called after the initialization is completed.
      *
      * Global variables defined:
+     *   $browser - Horde_Browser object
      *   $cli - Horde_Cli object (if 'cli' is true)
+     *   $conf - Configuration array
+     *   $injector - Horde_Injector object
      *   $language - Language
+     *   $notification - Horde_Notification object
+     *   $prefs - Horde_Prefs object
      *   $registry - Horde_Registry object
      *
      * @param string $app  The application to initialize.
@@ -347,7 +352,8 @@ implements Horde_Interfaces_Registry_Auth
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);
 
-        /* Setup autoloader instance and callbacks. */
+        /* Setup autoloader instance and callbacks.
+         * $__autoloader is defined in horde/lib/core.php */
         $injector->setInstance('Horde_Autoloader', $GLOBALS['__autoloader']);
         foreach ($callbacks as $key => $val) {
             $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
