@@ -109,11 +109,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                       See Horde_Imap_Client::factory().
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
         if (!isset($params['username']) || !isset($params['password'])) {
-            throw new Horde_Imap_Client_Exception('Horde_Imap_Client requires a username and password.');
+            throw new InvalidArgumentException('Horde_Imap_Client requires a username and password.');
         }
 
         // Encrypt password.
