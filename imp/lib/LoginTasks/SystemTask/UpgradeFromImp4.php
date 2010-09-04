@@ -112,7 +112,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
 
         if (!$prefs->isDefault('initial_page') &&
             ($prefs->getValue('initial_page') == 'folders.php')) {
-            $prefs->setValue('initial_page', IMP::PREF_FOLDER_PAGE);
+            $prefs->setValue('initial_page', IMP_Prefs_Ui::PREF_FOLDER_PAGE);
         }
     }
 

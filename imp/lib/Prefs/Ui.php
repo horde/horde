@@ -15,6 +15,7 @@
 class IMP_Prefs_Ui
 {
     const PREF_DEFAULT = "default\0";
+    const PREF_FOLDER_PAGE = 'folders.php';
     const PREF_NO_FOLDER = "nofolder\0";
     const PREF_SPECIALUSE = "specialuse\0";
     const PREF_VTRASH = "vtrash\0";
@@ -1044,8 +1045,8 @@ class IMP_Prefs_Ui
             $t->set('nofolder', true);
         } else {
             $mailbox_selected = $GLOBALS['prefs']->getValue('initial_page');
-            $t->set('folder_page', IMP::formMbox(IMP::PREF_FOLDER_PAGE, true));
-            $t->set('folder_sel', $mailbox_selected == IMP::PREF_FOLDER_PAGE);
+            $t->set('folder_page', IMP::formMbox(self::PREF_FOLDER_PAGE, true));
+            $t->set('folder_sel', $mailbox_selected == self::PREF_FOLDER_PAGE);
             $t->set('flist', IMP::flistSelect(array(
                 'inc_vfolder' => true,
                 'selected' => $mailbox_selected
