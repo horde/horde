@@ -118,10 +118,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         // Encrypt password.
-        $key = Horde_Imap_Client::$encryptKey;
-        if (!is_null($key)) {
+        if ($params['encryptKey']) {
             $secret = new Horde_Secret();
-            $params['password'] = $secret->write($key, $params['password']);
+            $params['password'] = $secret->write($params['encryptKey'], $params['password']);
             $params['_passencrypt'] = true;
         }
 
@@ -200,6 +199,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $store[$val] = $this->$val;
         }
 
+        /* Don't store password encryption key. */
+        unset($store['_params']['encryptKey']);
+
         return serialize($store);
     }
 
@@ -266,6 +268,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * Sets the password encryption key. Required after calling unserialize()
+     * on this object if the password is encrypted.
+     *
+     * @param string $key  The encryption key.
+     */
+    public function setEncryptionKey($key)
+    {
+        $this->_params['encryptKey'] = $key;
+    }
+
+    /**
      * Returns a value from the internal params array.
      *
      * @param string $key  The param key.
@@ -276,12 +289,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         /* Passwords may be stored encrypted. */
         if (($key == 'password') && !empty($this->_params['_passencrypt'])) {
-            if (is_null(Horde_Imap_Client::$encryptKey)) {
+            if (!isset($this->_params['encryptKey'])) {
                 return null;
             }
 
             $secret = new Horde_Secret();
-            return $secret->read(Horde_Imap_Client::$encryptKey, $this->_params['password']);
+            return $secret->read($this->_params['encryptKey'], $this->_params['password']);
         }
 
         return isset($this->_params[$key])

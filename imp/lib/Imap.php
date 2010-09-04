@@ -64,9 +64,6 @@ class IMP_Imap
         /* Register the logging callback. */
         Horde_Imap_Client_Exception::$logCallback = array($this, 'logException');
 
-        /* Set the encryption key. */
-        Horde_Imap_Client::$encryptKey = $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
-
         /* Rebuild the Horde_Imap_Client object. */
         $this->_loadImapObject();
 
@@ -103,6 +100,7 @@ class IMP_Imap
 
         try {
             $this->ob = @unserialize($_SESSION['imp']['imap_ob'][$this->_serverkey]);
+            $this->ob->setEncryptionKey($GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp'));
         } catch (Exception $e) {
             /* Throw fatal error here - should never reach here and if we
              * do, we are out of luck. */
@@ -141,6 +139,7 @@ class IMP_Imap
             'capability_ignore' => empty($server['capability_ignore']) ? array() : $server['capability_ignore'],
             'comparator' => empty($server['comparator']) ? false : $server['comparator'],
             'debug' => isset($server['debug']) ? $server['debug'] : null,
+            'encryptKey' => $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp'),
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
             'id' => empty($server['id']) ? false : $server['id'],
             'lang' => empty($server['lang']) ? false : $server['lang'],

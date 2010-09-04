@@ -102,13 +102,6 @@ class Horde_Imap_Client
     const DATA_STRING = 8;
 
     /**
-     * The key used to encrypt the password within the object.
-     *
-     * @var string
-     */
-    static public $encryptKey = null;
-
-    /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.
      *
@@ -155,6 +148,8 @@ class Horde_Imap_Client
      *         identified. The value can be any PHP supported wrapper that can
      *         be opened via fopen().
      *         DEFAULT: No debug output
+     * encryptKey - (string) The key used to encrypt the password.
+     *              DEFAULT: No encryption
      * hostspec - (string) The hostname or IP address of the server.
      *            DEFAULT: 'localhost'
      * id - (array) Send ID information to the IMAP server (only if server
