@@ -15,7 +15,7 @@ v1.0-cvs
 [cjh] Merge Horde_Template_Compiling to stable Agora branch as Agora_Template.
 [mjr] Added batch api methods for retrieving message counts and threads for
       more than one forum at a time.
-[jan] Add Hungarian translation (Garami Gábor <hron@hronszoft.dyndns.biz>).
+[jan] Add Hungarian translation (Garami GÃ¡bor <hron@hronszoft.dyndns.biz>).
 [cjh] Migrate from DataTree to local SQL usage (Duck <duck@obala.net>).
 [jan] Add Slovenian translation (Duck <duck@obala.net>).
 [jan] Allow to manage forums and messages added throught the comments API.

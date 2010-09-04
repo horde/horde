@@ -56,7 +56,7 @@ v0.1
 [cjh] Add a Horde_Block for showing bookmark categories
       (Joel Vandal <joel@scopserv.com>).
 [jan] Add Finnish translation (Leena Heino <Leena.Heino@uta.fi>).
-[jan] Add French translation (Raphaël Jeudy <raphael.jeudy@fastorama.com>).
+[jan] Add French translation (RaphaÃ«l Jeudy <raphael.jeudy@fastorama.com>).
 [jan] Add German translation.
 [cjh] Bookmarks in search results are now editable/deletable.
 [cjh] Add deletion of bookmark categories
@@ -77,5 +77,5 @@ v0.1
       <cwyeh@ccca.nctu.edu.tw>).
 [mac] Update for new categories code (Chris Albertson <alb@chrisalbertson.com>).
 [mac] Add Edit and Delete options.
-[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Swedish translation (Andreas DahlÃ©n <andreas@dahlen.ws>).
 [mac] Initial Trean Version.
