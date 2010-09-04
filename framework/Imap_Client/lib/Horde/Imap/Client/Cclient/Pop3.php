@@ -39,6 +39,21 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
     }
 
     /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        parent::unserialize($data);
+
+        // Disable caching.
+        $this->_params['cache'] = array('fields' => array());
+    }
+
+    /**
      * Get CAPABILITY info from the IMAP server.
      *
      * @throws Horde_Imap_Client_Exception

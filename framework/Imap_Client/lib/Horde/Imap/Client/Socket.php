@@ -106,27 +106,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected $_stream = null;
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->logout();
-        parent::__destruct();
-    }
-
-    /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
-     */
-    public function __sleep()
-    {
-        $this->logout();
-        $this->_tag = 0;
-        parent::__sleep();
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('encryptKey'));
-    }
-
-    /**
      * Get CAPABILITY info from the IMAP server.
      *
      * @return array  The capability array.

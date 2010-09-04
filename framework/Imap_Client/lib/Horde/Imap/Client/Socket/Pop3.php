@@ -84,7 +84,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @param array $params  A hash containing configuration parameters.
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
         if (empty($params['port'])) {
             $params['port'] = ($params['secure'] == 'ssl') ? 995 : 110;
@@ -97,14 +97,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     }
 
     /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
      */
-    public function __sleep()
+    public function unserialize($data)
     {
-        $this->logout();
-        parent::__sleep();
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('encryptKey'));
+        parent::unserialize($data);
+
+        // Disable caching.
+        $this->_params['cache'] = array('fields' => array());
     }
 
     /**

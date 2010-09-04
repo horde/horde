@@ -15,8 +15,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-abstract class Horde_Imap_Client_Base
+abstract class Horde_Imap_Client_Base implements Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /**
      * The Horde_Imap_Client_Utils object
      *
@@ -84,6 +87,14 @@ abstract class Horde_Imap_Client_Base
      */
     protected $_debug = null;
 
+
+    /**
+     * The list of variables to serialize.
+     *
+     * @var array
+     */
+    protected $_store = array('_init', '_params');
+
     /**
      * Temp array (destroyed at end of process).
      *
@@ -92,13 +103,14 @@ abstract class Horde_Imap_Client_Base
     protected $_temp = array();
 
     /**
-     * Constructs a new Horde_Imap_Client object.
+     * Constructs a new Horde_Imap_Client_Base object.
      *
      * @param array $params  A hash containing configuration parameters.
+     *                       See Horde_Imap_Client::factory().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!isset($params['username']) || !isset($params['password'])) {
             throw new Horde_Imap_Client_Exception('Horde_Imap_Client requires a username and password.');
@@ -142,10 +154,19 @@ abstract class Horde_Imap_Client_Base
 
         $this->_params = $params;
 
+        $this->_init();
+    }
+
+    /**
+     * Do initialization tasks.
+     */
+    protected function _init()
+    {
         $this->utils = new Horde_Imap_Client_Utils();
 
-        // This will initialize debugging, if needed.
-        $this->__wakeup();
+        if (!empty($this->_params['debug'])) {
+            $this->_debug = @fopen($this->_params['debug'], 'a');
+        }
     }
 
     /**
@@ -153,41 +174,56 @@ abstract class Horde_Imap_Client_Base
      */
     public function __destruct()
     {
-        $this->_closeDebug();
-    }
+        $this->logout();
 
-    /**
-     * Do cleanup prior to serialization.
-     */
-    public function __sleep()
-    {
-        $this->_closeDebug();
-
-        // Don't store Horde_Imap_Client_Cache object or temp data.
-        $this->cache = null;
-        $this->_temp = array();
-    }
-
-    /**
-     * Do re-initialization on unserialize().
-     */
-    public function __wakeup()
-    {
-        if (!empty($this->_params['debug'])) {
-            $this->_debug = @fopen($this->_params['debug'], 'a');
-        }
-    }
-
-    /**
-     * Close debugging output.
-     */
-    protected function _closeDebug()
-    {
+        /* Close debugging output. */
         if (is_resource($this->_debug)) {
             fflush($this->_debug);
             fclose($this->_debug);
             $this->_debug = null;
         }
+    }
+
+    /**
+     * Serialize.
+     *
+     * @return string  Serialized representation of this object.
+     */
+    public function serialize()
+    {
+        $store = array(
+            '__version' => self::VERSION
+        );
+
+        foreach ($this->_store as $val) {
+            $store[$val] = $this->$val;
+        }
+
+        return serialize($store);
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data['__version']) ||
+            ($data['__version'] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+        unset($data['__version']);
+
+        foreach ($data as $key => $val) {
+            $this->$key = $val;
+        }
+
+        $this->_init();
     }
 
     /**

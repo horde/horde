@@ -107,23 +107,16 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      *
      * @param array $params  A hash containing configuration parameters.
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
         if (!isset($params['retries'])) {
             $params['retries'] = 3;
         }
-        parent::__construct($params);
-    }
 
-    /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
-     */
-    public function __sleep()
-    {
-        $this->logout();
-        parent::__sleep();
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('encryptKey'));
+        $this->_store[] = '_cstring';
+        $this->_store[] = '_service';
+
+        parent::__construct($params);
     }
 
     /**
