@@ -101,8 +101,9 @@ class IMP_Imap
             return false;
         }
 
-        $this->ob = @unserialize($_SESSION['imp']['imap_ob'][$this->_serverkey]);
-        if (empty($this->ob)) {
+        try {
+            $this->ob = @unserialize($_SESSION['imp']['imap_ob'][$this->_serverkey]);
+        } catch (Exception $e) {
             /* Throw fatal error here - should never reach here and if we
              * do, we are out of luck. */
             throw new IMP_Exception(_("Could not acquire mail server credentials from the session."));
