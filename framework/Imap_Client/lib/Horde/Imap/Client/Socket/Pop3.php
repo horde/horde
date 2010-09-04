@@ -316,7 +316,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $challenge = $this->_sendLine('AUTH CRAM-MD5');
 
             $auth_sasl = Auth_SASL::factory('crammd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode(substr($challenge['line'], 2))));
+            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode(substr($challenge['line'], 2))));
             $this->_sendLine($response, array('debug' => '[CRAM-MD5 Response]'));
             break;
 
@@ -329,7 +329,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $challenge = $this->_sendLine('AUTH DIGEST-MD5');
 
             $auth_sasl = Auth_SASL::factory('digestmd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode(substr($challenge['line'], 2)), $this->_params['hostspec'], 'pop3'));
+            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), $this->_params['hostspec'], 'pop3'));
 
             $sresponse = $this->_sendLine($response, array('debug' => '[DIGEST-MD5 Response]'));
             if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
@@ -344,12 +344,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034
             $this->_sendLine('AUTH LOGIN');
             $this->_sendLine(base64_encode($this->_params['username']));
-            $this->_sendLine(base64_encode($this->_params['password']));
+            $this->_sendLine(base64_encode($this->getParam('password')));
             break;
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->_params['password']));
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')));
             break;
 
         case 'APOP':
@@ -360,7 +360,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'USER':
             // RFC 1939 [7]
             $this->_sendLine('USER ' . $this->_params['username']);
-            $this->_sendLine('PASS ' . $this->_params['password']);
+            $this->_sendLine('PASS ' . $this->getParam('password'));
             break;
         }
     }

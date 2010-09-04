@@ -102,7 +102,7 @@ class Horde_Imap_Client
     const DATA_STRING = 8;
 
     /**
-     * The key used to encrypt the password when serializing.
+     * The key used to encrypt the password within the object.
      *
      * @var string
      */

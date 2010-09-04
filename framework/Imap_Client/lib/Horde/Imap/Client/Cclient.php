@@ -203,7 +203,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         $old_error = error_reporting(0);
         if (version_compare(PHP_VERSION, '5.2.1') != -1) {
-            $res = imap_open($this->_connString(), $this->_params['username'], $this->_params['password'], $mask, $this->_params['retries']);
+            $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask, $this->_params['retries']);
         } else {
             while (($res === false) &&
                    !strstr(strtolower(imap_last_error()), 'login failure') &&
@@ -211,7 +211,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if ($i != 0) {
                     sleep(1);
                 }
-                $res = imap_open($this->_connString(), $this->_params['username'], $this->_params['password'], $mask);
+                $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask);
             }
         }
         error_reporting($old_error);

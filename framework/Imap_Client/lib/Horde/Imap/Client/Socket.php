@@ -535,7 +535,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for CRAM-MD5 authentication');
                 }
                 $auth_sasl = Auth_SASL::factory('crammd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode($ob['line'])));
+                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line'])));
                 $this->_sendLine($response, array(
                     'debug' => '[CRAM-MD5 Response]',
                     'notag' => true
@@ -547,7 +547,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     throw new Horde_Imap_Client_Exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
                 }
                 $auth_sasl = Auth_SASL::factory('digestmd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->_params['password'], base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
+                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
                 $ob = $this->_sendLine($response, array(
                     'debug' => '[DIGEST-MD5 Response]',
                     'noparse' => true,
@@ -568,7 +568,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_sendLine(array(
                 'LOGIN',
                 array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $this->_params['username']),
-                array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $this->_params['password'])
+                array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $this->getParam('password'))
             ), array(
                 'debug' => sprintf('[LOGIN Command - username: %s]', $this->_params['username'])
             ));
@@ -576,7 +576,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 2595/4616 - PLAIN SASL mechanism
-            $auth = base64_encode(implode("\0", array($this->_params['username'], $this->_params['username'], $this->_params['password'])));
+            $auth = base64_encode(implode("\0", array($this->_params['username'], $this->_params['username'], $this->getParam('password'))));
             if ($this->queryCapability('SASL-IR')) {
                 // IMAP Extension for SASL Initial Client Response (RFC 4959)
                 $this->_sendLine(array(

@@ -104,6 +104,14 @@ abstract class Horde_Imap_Client_Base
             throw new Horde_Imap_Client_Exception('Horde_Imap_Client requires a username and password.');
         }
 
+        // Encrypt password.
+        $key = Horde_Imap_Client::$encryptKey;
+        if (!is_null($key)) {
+            $secret = new Horde_Secret();
+            $params['password'] = $secret->write($key, $params['password']);
+            $params['_passencrypt'] = true;
+        }
+
         // Default values.
         if (empty($params['hostspec'])) {
             $params['hostspec'] = 'localhost';
@@ -158,16 +166,6 @@ abstract class Horde_Imap_Client_Base
         // Don't store Horde_Imap_Client_Cache object or temp data.
         $this->cache = null;
         $this->_temp = array();
-
-        // Encrypt password in serialized object.
-        if (!isset($this->_params['_passencrypt'])) {
-            $key = Horde_Imap_Client::$encryptKey;
-            if (!is_null($key)) {
-                $secret = new Horde_Secret();
-                $this->_params['_passencrypt'] = $secret->write($key, $this->_params['password']);
-                $this->_params['password'] = null;
-            }
-        }
     }
 
     /**
@@ -175,12 +173,6 @@ abstract class Horde_Imap_Client_Base
      */
     public function __wakeup()
     {
-        if (isset($this->_params['_passencrypt']) &&
-            !is_null(Horde_Imap_Client::$encryptKey)) {
-            $secret = new Horde_Secret();
-            $this->_params['password'] = $secret->read(Horde_Imap_Client::$encryptKey, $this->_params['_passencrypt']);
-        }
-
         if (!empty($this->_params['debug'])) {
             $this->_debug = @fopen($this->_params['debug'], 'a');
         }
@@ -245,7 +237,19 @@ abstract class Horde_Imap_Client_Base
      */
     public function getParam($key)
     {
-        return isset($this->_params[$key]) ? $this->_params[$key] : null;
+        /* Passwords may be stored encrypted. */
+        if (($key == 'password') && !empty($this->_params['_passencrypt'])) {
+            if (is_null(Horde_Imap_Client::$encryptKey)) {
+                return null;
+            }
+
+            $secret = new Horde_Secret();
+            return $secret->read(Horde_Imap_Client::$encryptKey, $this->_params['password']);
+        }
+
+        return isset($this->_params[$key])
+            ? $this->_params[$key]
+            : null;
     }
 
     /**
