@@ -568,7 +568,7 @@ class Horde_Core_Prefs_Ui
         /* Show the current application and a form for switching
          * applications. */
         $t = clone $base_ui;
-        $t->set('horde', !empty($apps['horde']));
+        $t->set('horde', !empty($apps['horde']) && ($this->app != 'horde'));
         unset($apps['horde'], $apps[$this->app]);
         $tmp = array();
         foreach ($apps as $key => $val) {
