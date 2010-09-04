@@ -29,18 +29,23 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
     {
         $this->_injector = $injector;
 
+        $instance = null;
+
         if (empty($_SESSION['imp']['cache']['tree'])) {
             $_SESSION['imp']['cache']['tree'] = strval(new Horde_Support_Randomid());
-            $instance = null;
         } else {
             /* Since IMAP tree generation is so expensive/time-consuming,
              * fallback to storing in the session even if no permanent cache
              * backend is setup. */
             $cache = $injector->getInstance('Horde_Cache_Factory')->getCache(array('session' => true));
-            $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
+            try {
+                $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
+            } catch (Exception $e) {
+                Horde::logMessage('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
+            }
         }
 
-        if (empty($instance)) {
+        if (is_null($instance)) {
             $instance = new IMP_Imap_Tree();
         }
 

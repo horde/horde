@@ -18,8 +18,11 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Imap_Tree implements ArrayAccess, Iterator
+class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
     const ELT_NAMESPACE = 2;
@@ -171,17 +174,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         }
 
         $this->init();
-    }
-
-    /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
-     */
-    public function __sleep()
-    {
-        return array(
-            '_tree', '_showunsub', '_parent', '_delimiter', '_namespaces'
-        );
     }
 
     /**
@@ -1837,6 +1829,49 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
             $p,
             array_search($parent, $this->_parent[$p]) + ($inc ? 1 : 0)
         );
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            // Serialized data ID.
+            self::VERSION,
+            $this->_delimiter,
+            $this->_namespaces,
+            $this->_parent,
+            $this->_showunsub,
+            $this->_tree
+        ));
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_delimiter = $data[1];
+        $this->_namespaces = $data[2];
+        $this->_parent = $data[3];
+        $this->_showunsub = $data[4];
+        $this->_tree = $data[5];
     }
 
 }
