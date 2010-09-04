@@ -3794,7 +3794,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Tokenize response. */
                 $line = implode(' ', array_slice($read, 1));
                 $binary = $literal = false;
-                $this->_temp['token'] = null;
                 $this->_temp['literal8'] = array();
 
                 do {
@@ -3836,6 +3835,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 } while (true);
 
                 $ob['token'] = $this->_temp['token']['out'];
+                $this->_temp['token'] = null;
             }
             break;
 
@@ -3945,7 +3945,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _tokenizeData($line)
     {
-        if (is_null($this->_temp['token'])) {
+        if (empty($this->_temp['token'])) {
             $this->_temp['token'] = array(
                 'in_quote' => false,
                 'paren' => 0,
@@ -4245,9 +4245,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'CAPABILITY':
-            $this->_temp['token'] = null;
             $this->_tokenizeData($data);
             $this->_parseCapability($this->_temp['token']['out']);
+            $this->_temp['token'] = null;
             break;
 
         case 'PARSE':
@@ -4268,9 +4268,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'PERMANENTFLAGS':
-            $this->_temp['token'] = null;
             $this->_tokenizeData($data);
             $this->_temp['mailbox']['permflags'] = array_map('strtolower', reset($this->_temp['token']['out']));
+            $this->_temp['token'] = null;
             break;
 
         case 'UIDNEXT':
