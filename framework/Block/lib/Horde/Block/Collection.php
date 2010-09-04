@@ -133,7 +133,10 @@ class Horde_Block_Collection
              !$registry->isAdmin())) {
             throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
         }
-
+        $path = $registry->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
+        if (is_readable($path)) {
+            include_once $path;
+        }
         $class = 'Horde_Block_' . $app . '_' . $name;
         if (!class_exists($class)) {
             throw new Horde_Exception(sprintf('%s not found.', $class));
