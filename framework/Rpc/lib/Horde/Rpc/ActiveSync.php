@@ -166,7 +166,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
         /* Get user and possibly domain */
         $serverVars = $this->_request->getServerVars();
-        $user = $serverVars['PHP_AUTH_USER'];
+        $user = !empty($serverVars['PHP_AUTH_USER']) ? $serverVars['PHP_AUTH_USER'] : '';
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
@@ -176,7 +176,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         }
 
         /* Get passwd */
-        $pass = $serverVars['PHP_AUTH_PW'];
+        $pass = !empty($serverVars['PHP_AUTH_PW']) ? $serverVars['PHP_AUTH_PW'] : '';
 
         /* Attempt to auth to backend */
         $results = $this->_backend->logon($user, $pass, $domain);
