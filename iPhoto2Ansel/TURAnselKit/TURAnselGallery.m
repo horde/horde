@@ -124,9 +124,9 @@
         NSArray *params;
         NSArray *order;
 
-//        if ([[anselController valueForKey:@"version"] intValue] == 2) {
-// listImages hasn't been refactored yet in version 2 API
-//        } else {
+        //if ([[anselController valueForKey:@"version"] intValue] == 2) {
+            // listImages hasn't been refactored yet in version 2 API
+        //} else {
             params = [NSArray arrayWithObjects:
                                @"ansel",                                //Scope
                                [NSNumber numberWithInt: _galleryId],    //Gallery Id
@@ -139,19 +139,26 @@
                                                kTURAnselAPIParamPerms,
                                                kTURAnselAPIParamThumbnailStyle,
                                                kTURAnselAPIParamFullPath, nil];
-//        }
+        //}
         NSDictionary *response = [anselController callRPCMethod: @"images.listImages"
                                                      withParams: params
                                                       withOrder: order];
         if (response) {
-            [imageList autorelease];
             if ([[anselController valueForKey:@"version"] intValue] == 2) {
                 // images.listImages returns a hash in version 2, not an array
-                imageList = [NSMutableArray arrayWithArray: [[[response objectForKey: (id)kWSMethodInvocationResult] retain] allValues]];
+                // Not sure where the bug is here, PHP/Horde/Cocoa WS, but if
+                // the array returned by listImages only contains a single image,
+                // the image id key is ignored and it's taken as a NSArray object.
+                // This still works since all the methods called on the results
+                // object are shared by both NSDictionary and NSArray.
+                NSArray *results = [response objectForKey: (id)kWSMethodInvocationResult];
+                if (![results count]) {
+                    return imageList;
+                }
+                imageList = [[NSMutableArray arrayWithArray: results] retain];
             } else {
                 imageList = [[response objectForKey: (id)kWSMethodInvocationResult] retain];
             }
-            NSLog(@"listImages: %@", imageList);
         }
     }
 
