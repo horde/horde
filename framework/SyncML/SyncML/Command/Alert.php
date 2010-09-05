@@ -288,7 +288,7 @@ class SyncML_Command_Alert extends SyncML_Command {
             $sync = new SyncML_Sync($synctype,
                                     $this->_targetLocURI,
                                     $this->_sourceLocURI,
-                                    $serverAnchorLast, $serverAnchorNext,
+                                    (int)$serverAnchorLast, (int)$serverAnchorNext,
                                     $clientAnchorNext);
             $state->setSync($this->_targetLocURI, $sync);
         }

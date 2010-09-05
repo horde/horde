@@ -178,6 +178,15 @@ class SyncML_Sync {
      */
     var $_server_task_adds;
 
+    /**
+     *
+     * @param string $syncType
+     * @param string $serverURI
+     * @param string $clientURI
+     * @param integer $serverAnchorLast
+     * @param integer $serverAnchorNext
+     * @param string $clientAnchorNext
+     */
     function SyncML_Sync($syncType, $serverURI, $clientURI, $serverAnchorLast,
                          $serverAnchorNext, $clientAnchorNext)
     {
