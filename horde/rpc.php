@@ -45,7 +45,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
-} elseif ($_SERVER['CONTENT_TYPE']) {
+} elseif (!empty($_SERVER['CONTENT_TYPE'])) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
         $nocompress = true;
@@ -136,8 +136,9 @@ case 'ActiveSync':
     break;
 
 case 'Soap':
-    if (!$request->getServer('REQUEST_METHOD') ||
-        ($request->getServer('REQUEST_METHOD') != 'POST')) {
+    $serverVars = $request->getServerVars();
+    if (!$serverVars['REQUEST_METHOD'] ||
+        ($serverVars['REQUEST_METHOD'] != 'POST')) {
         $params['requireAuthorization'] = false;
         $input = (Horde_Util::getGet('wsdl') === null)
             ? 'disco'
