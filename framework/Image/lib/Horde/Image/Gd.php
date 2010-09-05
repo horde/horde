@@ -176,6 +176,9 @@ class Horde_Image_Gd extends Horde_Image_Base
      *
      * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
+     *
+     * @return void
+     * @throws Horde_Image_Exception
      */
     public function loadString($image_data)
     {
@@ -189,8 +192,8 @@ class Horde_Image_Gd extends Horde_Image_Base
      *                          the image data from. The filename will also be
      *                          used for the image id.
      *
-     * @return mixed  true on success | PEAR Error if file does not exist or
-     *                could not be loaded.
+     * @return boolean
+     * @throws Horde_Image_Exception
      */
     public function loadFile($filename)
     {

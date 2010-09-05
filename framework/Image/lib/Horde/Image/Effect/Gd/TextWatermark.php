@@ -71,20 +71,16 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
         switch ($this->_params['halign']) {
         case 'right':
             foreach ($lines as $line) {
-                if (is_a($result = $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin + $drop, ($y + $drop), $line, $shadow)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin, $y, $line, $color));
+                $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin + $drop, ($y + $drop), $line, $shadow));
+                $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin, $y, $line, $color));
                 $y += $fontheight;
             }
             break;
 
         case 'center':
             foreach ($lines as $line) {
-                if (is_a($result = $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2) + $drop, ($y + $drop), $line, $shadow)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2), $y, $line, $color));
+                $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2) + $drop, ($y + $drop), $line, $shadow));
+                $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2), $y, $line, $color));
                 $y += $fontheight;
             }
             break;
