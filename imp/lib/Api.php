@@ -211,7 +211,7 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @return Horde_Imap_Client_Base  The imap object.
      */
-    public function imapOb($mailbox, $indices)
+    public function imapOb()
     {
         return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->ob;
     }
