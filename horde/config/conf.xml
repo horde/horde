@@ -1853,26 +1853,16 @@
     <case name="true" desc="Enabled">
      <configsection name="state">
       <configheader>State Storage Settings</configheader>
-      <configswitch name="driver" desc="Choose the state driver to use.">history
-       <case name="history" desc="Native Horde history driver">
-         <configsection name="params">
-          <configstring name="devicetable" desc="Name of table to hold device
-          information:">horde_activesync_device</configstring>
-          <configstring name="statetable" desc="Name of table to hold state
-          data:">horde_activesync_state</configstring>
-          <configstring name="maptable" desc="Name of table to hold mapping data
-          for device-sent changes.">horde_activesync_map</configstring>
-          <configstring name="userstable" desc="Name of table to hold user-device
-          data:">horde_activesync_device_users</configstring>
-         </configsection>
-       </case>
-       <case name="file" desc="Generic file based driver">
-        <configsection name="params">
-         <configstring name="directory" desc="Directory to hold state files (this
-         directory should be writeable by the webserver):">/tmp</configstring>
-        </configsection>
-       </case>
-      </configswitch>
+       <configsection name="params">
+        <configstring name="devicetable" desc="Name of table to hold device
+        information:">horde_activesync_device</configstring>
+        <configstring name="statetable" desc="Name of table to hold state
+        data:">horde_activesync_state</configstring>
+        <configstring name="maptable" desc="Name of table to hold mapping data
+        for device-sent changes.">horde_activesync_map</configstring>
+        <configstring name="userstable" desc="Name of table to hold user-device
+        data:">horde_activesync_device_users</configstring>
+       </configsection>
      </configsection>
      <configheader>Logging</configheader>
      <configsection name="logging">

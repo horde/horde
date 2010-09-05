@@ -101,21 +101,10 @@ case 'ActiveSync':
         $params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
     }
 
-    switch ($conf['activesync']['state']['driver']) {
-    case 'file':
-        $stateMachine = new Horde_ActiveSync_State_File($conf['activesync']['state']['params']);
-        break;
-
-    case 'history':
-        $state_params = $conf['activesync']['state']['params'];
-        $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
-        $stateMachine = new Horde_ActiveSync_State_History($state_params);
-        break;
-    }
-
-    /* TODO: Probably want to bind a factory to injector for this? */
+    $state_params = $conf['activesync']['state']['params'];
+    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
+    $stateMachine = new Horde_ActiveSync_State_History($state_params);
     $params['registry'] = $registry;
-
     $driver_params = array(
         'connector' => new Horde_ActiveSync_Driver_Horde_Connector_Registry($params),
         'ping' => $conf['activesync']['ping'],
