@@ -118,7 +118,6 @@ case 'ActiveSync':
 
     $driver_params = array(
         'connector' => new Horde_ActiveSync_Driver_Horde_Connector_Registry($params),
-        'mail' => $injector->getInstance('Horde_Mail'),
         'ping' => $conf['activesync']['ping'],
         'state_basic' => $stateMachine,
     );
