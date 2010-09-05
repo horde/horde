@@ -80,6 +80,7 @@ class Turba_Form_EditContact extends Turba_Form_Contact
                 $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
             } catch (Turba_Exception $e) {
                 $notification->push(sprintf(_("\"%s\" updated, but saving the uploaded file failed: %s"), $this->_contact->getValue('name'), $e->getMessage()), 'horde.warning');
+            }
         } else {
             $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');
         }
