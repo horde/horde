@@ -35,24 +35,6 @@ class Horde_Imap_Client_Search_Query
     protected $_charset = null;
 
     /**
-     * The list of defined system flags (see RFC 3501 [2.3.2]).
-     *
-     * @var array
-     */
-    protected $_systemflags = array(
-        'ANSWERED', 'DELETED', 'DRAFT', 'FLAGGED', 'RECENT', 'SEEN'
-    );
-
-    /**
-     * The list of 'system' headers that have a specific search query.
-     *
-     * @var array
-     */
-    protected $_systemheaders = array(
-        'BCC', 'CC', 'FROM', 'SUBJECT', 'TO'
-    );
-
-    /**
      * The list of search params.
      *
      * @var array
@@ -152,6 +134,12 @@ class Horde_Imap_Client_Search_Query
         }
 
         if (!empty($ptr['header'])) {
+            /* The list of 'system' headers that have a specific search
+             * query. */
+            $systemheaders = array(
+                'BCC', 'CC', 'FROM', 'SUBJECT', 'TO'
+            );
+
             foreach ($ptr['header'] as $val) {
                 if ($val['not']) {
                     $cmds[] = 'NOT';
@@ -159,7 +147,7 @@ class Horde_Imap_Client_Search_Query
                     $imap4 = true;
                 }
 
-                if (in_array($val['header'], $this->_systemheaders)) {
+                if (in_array($val['header'], $systemheaders)) {
                     $cmds[] = $val['header'];
                 } else {
                     // HEADER searches were not in IMAP2
@@ -345,9 +333,15 @@ class Horde_Imap_Client_Search_Query
         if (!isset($this->_search['flag'])) {
             $this->_search['flag'] = array();
         }
+
+        /* The list of defined system flags (see RFC 3501 [2.3.2]). */
+        $systemflags = array(
+            'ANSWERED', 'DELETED', 'DRAFT', 'FLAGGED', 'RECENT', 'SEEN'
+        );
+
         $this->_search['flag'][$name] = array(
             'set' => $set,
-            'type' => in_array($name, $this->_systemflags) ? 'flag' : 'keyword'
+            'type' => in_array($name, $systemflags) ? 'flag' : 'keyword'
         );
     }
 
