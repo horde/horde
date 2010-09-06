@@ -30,8 +30,11 @@
  * @method void info() info($event) Log an event at the INFO log level
  * @method void debug() debug($event) Log an event at the DEBUG log level
  */
-class Horde_Log_Logger
+class Horde_Log_Logger implements Serializable
 {
+    /* Serialize version. */
+    const VERSION = 1;
+
     /**
      * Log levels where the keys are the level priorities and the values are
      * the level names.
@@ -61,12 +64,56 @@ class Horde_Log_Logger
      */
     public function __construct($handler = null)
     {
-        $r = new ReflectionClass('Horde_Log');
-        $this->_levels = array_flip($r->getConstants());
-
         if (!is_null($handler)) {
             $this->addHandler($handler);
         }
+
+        $this->_init();
+    }
+
+    /**
+     * Serialize.
+     *
+     * @return string  Serialized representation of this object.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            self::VERSION,
+            $this->_filters,
+            $this->_handlers
+        ));
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_filters = $data[1];
+        $this->_handlers = $data[2];
+
+        $this->_init();
+    }
+
+    /**
+     * Initialization tasks.
+     */
+    protected function _init()
+    {
+        $r = new ReflectionClass('Horde_Log');
+        $this->_levels = array_flip($r->getConstants());
     }
 
     /**
