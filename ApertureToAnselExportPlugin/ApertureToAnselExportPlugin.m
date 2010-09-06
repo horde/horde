@@ -291,9 +291,19 @@ NSString * const TURAnselServerVersionKey = @"version";
 
     NSLog(@"Image Type: %@", fileType);
 
+    NSDictionary *IPTC = [properties objectForKey: kExportKeyIPTCProperties];
+    
+    // Use the IPTC Caption property, if available, otherwise use the version
+    // name.
+    NSString *caption;
+    if ([IPTC objectForKey:@"Caption/Abstract"]) {
+        caption = [IPTC objectForKey:@"Caption/Abstract"];
+    } else {
+        caption = [properties objectForKey:kExportKeyVersionName];
+    }
     NSArray *values = [[NSArray alloc] initWithObjects:
                        path,
-                       [properties objectForKey: kExportKeyVersionName],
+                       caption,
                        base64ImageData,
                        fileType,
                        [properties objectForKey:kExportKeyKeywords],
