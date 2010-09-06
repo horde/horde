@@ -292,7 +292,8 @@ class Ansel_Api extends Horde_Registry_Api
      * @param array $image         Image data array.  This can either be the return
      *                             from Horde_Form_Type_image:: or an array with
      *                             the following four fields:
-     *                             'filename', 'description', 'data', 'type'
+     *                             'filename', 'description', 'data', 'type' and
+     *                             optionally 'tags'
      *
      * @param array $params  An array of additional parameters:
      * <pre>
