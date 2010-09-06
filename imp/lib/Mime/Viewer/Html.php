@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Catch case where using mimp on a javascript browser. */
         if ($_SESSION['imp']['view'] != 'mimp') {
-            $uid = 'htmldata_' . uniqid(mt_rand());
+            $uid = strval(new Horde_Support_Randomid());
 
             Horde::addScriptFile('imp.js', 'imp');
 
@@ -146,7 +146,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
                 'imgblock' => false,
                 'inline' => $inline,
-                'target' => 'target_' . uniqid(mt_rand())
+                'target' => strval(new Horde_Support_Randomid())
             );
 
             /* Image filtering. */

@@ -773,8 +773,7 @@ class IMP_Mailbox implements Countable
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
-        /* This should generate a sufficiently random #. */
-        return time() . mt_rand();
+        return strval(new Horde_Support_Randomid());
     }
 
     /* Countable methods. */

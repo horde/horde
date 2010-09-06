@@ -62,7 +62,7 @@ class IMP_Injector_Factory_Compose
     public function getOb($cacheid = null)
     {
         if (empty($cacheid)) {
-            $cacheid = uniqid(mt_rand());
+            $cacheid = strval(new Horde_Support_Randomid());
         } elseif (!isset($this->_instances[$cacheid])) {
             $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
             $this->_instances[$cacheid] = $obs->query($cacheid);

@@ -370,7 +370,9 @@ class IMP_Search
     public function createSearchQuery($query, $folders, $criteria, $label,
                                       $id = null)
     {
-        $id = is_null($id) ? uniqid(mt_rand()) : $this->_strip($id);
+        $id = is_null($id)
+            ? strval(new Horde_Support_Randomid())
+            : $this->_strip($id);
 
         $_SESSION['imp']['search'][$id] = array(
             'c' => $criteria,
