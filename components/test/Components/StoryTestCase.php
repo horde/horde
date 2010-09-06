@@ -5,11 +5,11 @@
  * PHP version 5
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
 
 /**
@@ -21,13 +21,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_StoryTestCase
+class Components_StoryTestCase
 extends PHPUnit_Extensions_Story_TestCase
 {
     public function tearDown()
@@ -49,7 +49,7 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runGiven(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'the default Element setup':
+        case 'the default Components setup':
             break;
         default:
             return $this->notImplemented($action);
@@ -70,43 +70,43 @@ extends PHPUnit_Extensions_Story_TestCase
         switch($action) {
         case 'calling the package with the help option':
             $_SERVER['argv'] = array(
-                'horde-element',
+                'horde-components',
                 '--help',
                 dirname(__FILE__) . '/fixture/empty'
             );
             ob_start();
             $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
-            Horde_Element::main($parameters);
+            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
+            Components::main($parameters);
             $world['output'] = ob_get_contents();
             ob_end_clean();
             break;
         case 'calling the package with the packagexml option and a Horde element':
             $_SERVER['argv'] = array(
-                'horde-element',
+                'horde-components',
                 '--packagexml',
                 dirname(__FILE__) . '/fixture/simple'
             );
             ob_start();
             $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
+            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
             $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
-            Horde_Element::main($parameters);
+            Components::main($parameters);
             error_reporting($old_errorreporting);
             $world['output'] = ob_get_contents();
             ob_end_clean();
             break;
         case 'calling the package with the install option and a Horde element':
             $_SERVER['argv'] = array(
-                'horde-element',
+                'horde-components',
                 '--install=' . $this->_getTemporaryDirectory(),
-                dirname(__FILE__) . '/../../../'
+                dirname(__FILE__) . '/../../'
             );
             ob_start();
             $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Horde_Element_Stub_Parser';
+            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
             $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
-            Horde_Element::main($parameters);
+            Components::main($parameters);
             error_reporting($old_errorreporting);
             $world['output'] = ob_get_contents();
             ob_end_clean();
@@ -209,7 +209,7 @@ extends PHPUnit_Extensions_Story_TestCase
                     . 'pear' . DIRECTORY_SEPARATOR 
                     . 'php' . DIRECTORY_SEPARATOR
                     . 'Horde' . DIRECTORY_SEPARATOR
-                    . 'Element.php'
+                    . 'Components.php'
                 )
             );
             break;
@@ -221,7 +221,7 @@ extends PHPUnit_Extensions_Story_TestCase
     private function _getTemporaryDirectory()
     {
         $this->_temp_dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR
-            . 'Horde_Element_' . mt_rand();
+            . 'Components_' . mt_rand();
         mkdir($this->_temp_dir);
         return $this->_temp_dir;
     }

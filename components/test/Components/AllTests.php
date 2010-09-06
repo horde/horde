@@ -1,22 +1,22 @@
 <?php
 /**
- * All tests for the Horde_Element:: package.
+ * All tests for the Components:: package.
  *
  * PHP version 5
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Element_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Components_AllTests::main');
 }
 
 /**
@@ -33,18 +33,18 @@ require_once 'Horde/Test/AllTests.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_AllTests extends Horde_Test_AllTests
+class Components_AllTests extends Horde_Test_AllTests
 {
 }
 
-Horde_Element_AllTests::init('Horde_Element', __FILE__);
+Components_AllTests::init('Components', __FILE__);
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Element_AllTests::main') {
-    Horde_Element_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'Components_AllTests::main') {
+    Components_AllTests::main();
 }

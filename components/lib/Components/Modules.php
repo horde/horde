@@ -1,18 +1,18 @@
 <?php
 /**
- * The Horde_Element_Modules:: class handles a set of Element modules.
+ * The Components_Modules:: class handles a set of Components modules.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * The Horde_Element_Modules:: class handles a set of Element modules.
+ * The Components_Modules:: class handles a set of Components modules.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,12 +20,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Modules
+class Components_Modules
 implements Iterator, Countable
 {
     /**
@@ -46,13 +46,13 @@ implements Iterator, Countable
     /**
      * Add all modules found in the specified directory.
      *
-     * @param string $module_directory Load the modules from this dirrectory.
+     * @param string $module_directory Load the modules from this directory.
      *
      * @return NULL
      */
     public function addModulesFromDirectory(
         $module_directory,
-        $base = 'Horde_Element_Module_'
+        $base = 'Components_Module_'
     ) {
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($module_directory)) as $file) {
             if ($file->isFile() && preg_match('/.php$/', $file->getFilename())) {
@@ -95,7 +95,7 @@ implements Iterator, Countable
     /**
      * Implementation of the Iterator next() method. Returns the next module.
      *
-     * @return Horde_Element_Module|null The next module or null if there are no more
+     * @return Components_Module|null The next module or null if there are no more
      * modules.
      */
     public function next()

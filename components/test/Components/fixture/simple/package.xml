@@ -3,7 +3,7 @@
  <name>Fixture</name>
  <channel>pear.horde.org</channel>
  <summary>Test fixture.</summary>
- <description>A dummy package.xml used for testing the Horde_Element package.</description>
+ <description>A dummy package.xml used for testing the Components package.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>

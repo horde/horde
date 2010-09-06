@@ -1,15 +1,15 @@
 <?php
 /**
- * Test the Element package.
+ * Test the Components package.
  *
  * PHP version 5
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
 
 /**
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the Element package.
+ * Test the Components package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -26,21 +26,21 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Integration_ElementTest
-extends Horde_Element_StoryTestCase
+class Components_Integration_ComponentsTest
+extends Components_StoryTestCase
 {
     /**
      * @scenario
      */
     public function theHelpOptionResultsInHelpOutput()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will be displayed');
     }
@@ -50,7 +50,7 @@ extends Horde_Element_StoryTestCase
      */
     public function thePearpackagexmlModuleAddsThePOptionInTheHelpOutput()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "p" option.');
     }
@@ -60,7 +60,7 @@ extends Horde_Element_StoryTestCase
      */
     public function thePearpackagexmlModuleAddsTheUOptionInTheHelpOutput()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "u" option.');
     }
@@ -70,7 +70,7 @@ extends Horde_Element_StoryTestCase
      */
     public function theDevpackageModuleAddsTheDOptionInTheHelpOutput()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "d" option.');
     }
@@ -80,7 +80,7 @@ extends Horde_Element_StoryTestCase
      */
     public function theThePOptionProvidesAnUpdatedPackageXml()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the packagexml option and a Horde element')
             ->then('the new package.xml of the Horde element will be printed.');
     }
@@ -100,7 +100,7 @@ extends Horde_Element_StoryTestCase
      */
     public function theInstallerModuleAddsTheIOptionInTheHelpOutput()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the "i" option.');
     }
@@ -110,7 +110,7 @@ extends Horde_Element_StoryTestCase
      */
     public function theTheIOptionInstallsThePackageFromTheCurrentTree()
     {
-        $this->given('the default Element setup')
+        $this->given('the default Components setup')
             ->when('calling the package with the install option and a Horde element')
             ->then('a new PEAR configuration file will be installed')
             ->and('the PEAR package will be installed')

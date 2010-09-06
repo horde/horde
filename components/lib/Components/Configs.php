@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_Element_Configs:: class represents configuration for the
+ * Components_Configs:: class represents configuration for the
  * Horde element tool.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Configs:: class represents configuration for the
+ * Components_Configs:: class represents configuration for the
  * Horde element tool.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Configs
-implements Horde_Element_Config
+class Components_Configs
+implements Components_Config
 {
 
     /**
@@ -48,21 +48,21 @@ implements Horde_Element_Config
     /**
      * Add a configuration type to the configuration handler.
      *
-     * @param Horde_Element_Config $type The configuration type.
+     * @param Components_Config $type The configuration type.
      *
      * @return NULL
      */
-    public function addConfigurationType(Horde_Element_Config $type) {
+    public function addConfigurationType(Components_Config $type) {
         $this->_configs[] = $type;
     }
 
     /**
      * Provide each configuration handler with the list of supported modules.
      *
-     * @param Horde_Element_Modules $modules A list of modules.
+     * @param Components_Modules $modules A list of modules.
      * @return NULL
      */
-    public function handleModules(Horde_Element_Modules $modules)
+    public function handleModules(Components_Modules $modules)
     {
         foreach ($this->_configs as $config) {
             $config->handleModules($modules);

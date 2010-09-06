@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Element</name>
+ <name>Components</name>
  <channel>pear.horde.org</channel>
- <summary>A package for handling Horde elements.</summary>
+ <summary>A package for handling Horde components.</summary>
  <description>The package provides utility methods required
- when preparing a new element release for Horde. It also includes
+ when preparing a new component release for Horde. It also includes
  quality control checks.</description>
  <lead>
   <name>Gunnar Wrobel</name>
@@ -41,22 +41,21 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="data">
-    <file name="hudson-element-build.xml.template" role="data" />
-    <file name="hudson-element-config.xml.template" role="data" />
-    <file name="hudson-element-phpunit.xml.template" role="data" />
+    <file name="hudson-component-build.xml.template" role="data" />
+    <file name="hudson-component-config.xml.template" role="data" />
+    <file name="hudson-component-phpunit.xml.template" role="data" />
    </dir> <!-- /data -->
    <dir name="lib">
-    <dir name="Horde">
-     <dir name="Element">
+    <dir name="Components">
       <dir name="Config">
        <file name="Cli.php" role="php" />
-      </dir> <!-- /lib/Horde/Element/Config -->
+      </dir> <!-- /lib/Components/Config -->
       <dir name="Module">
        <file name="CiSetup.php" role="php" />
        <file name="DevPackage.php" role="php" />
        <file name="Installer.php" role="php" />
        <file name="PearPackageXml.php" role="php" />
-      </dir> <!-- /lib/Horde/Element/Module -->
+      </dir> <!-- /lib/Components/Module -->
       <file name="Config.php" role="php" />
       <file name="Configs.php" role="php" />
       <file name="Constants.php" role="php">
@@ -65,36 +64,33 @@
       <file name="Exception.php" role="php" />
       <file name="Module.php" role="php" />
       <file name="Modules.php" role="php" />
-     </dir> <!-- /lib/Horde/Element -->
-     <file name="Element.php" role="php" />
-    </dir> <!-- /lib/Horde -->
+     </dir> <!-- /lib/Components -->
+     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="script">
-    <file name="horde-element.php" role="script" />
+    <file name="horde-components.php" role="script" />
    </dir> <!-- /script -->
    <dir name="test">
-    <dir name="Horde">
-     <dir name="Element">
+    <dir name="Components">
       <dir name="fixture">
        <dir name="simple">
         <dir name="lib">
          <file name="New.php" role="test" />
          <file name="Second.php" role="test" />
-        </dir> <!-- /test/Horde/Element/fixture/simple/lib -->
-       </dir> <!-- /test/Horde/Element/fixture/simple -->
-      </dir> <!-- /test/Horde/Element/fixture -->
+        </dir> <!-- /test/Components/fixture/simple/lib -->
+       </dir> <!-- /test/Components/fixture/simple -->
+      </dir> <!-- /test/Components/fixture -->
       <dir name="Integration">
-       <file name="ElementTest.php" role="test" />
-      </dir> <!-- /test/Horde/Element/Integration -->
+       <file name="ComponentsTest.php" role="test" />
+      </dir> <!-- /test/Components/Integration -->
       <dir name="Stub">
        <file name="Parser.php" role="test" />
-      </dir> <!-- /test/Horde/Element/Stub -->
+      </dir> <!-- /test/Components/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="StoryTestCase.php" role="test" />
-     </dir> <!-- /test/Horde/Element -->
-    </dir> <!-- /test/Horde -->
+     </dir> <!-- /test/Components -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
   </dir> <!-- / -->
@@ -119,6 +115,10 @@
     <name>Argv</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Injector</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
@@ -129,30 +129,30 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="hudson-element-build.xml.template" name="data/hudson-element-build.xml.template" />
-   <install as="hudson-element-config.xml.template" name="data/hudson-element-config.xml.template" />
-   <install as="hudson-element-phpunit.xml.template" name="data/hudson-element-phpunit.xml.template" />
-   <install as="Horde/Element.php" name="lib/Horde/Element.php" />
-   <install as="Horde/Element/Config.php" name="lib/Horde/Element/Config.php" />
-   <install as="Horde/Element/Configs.php" name="lib/Horde/Element/Configs.php" />
-   <install as="Horde/Element/Constants.php" name="lib/Horde/Element/Constants.php" />
-   <install as="Horde/Element/Exception.php" name="lib/Horde/Element/Exception.php" />
-   <install as="Horde/Element/Module.php" name="lib/Horde/Element/Module.php" />
-   <install as="Horde/Element/Modules.php" name="lib/Horde/Element/Modules.php" />
-   <install as="Horde/Element/Config/Cli.php" name="lib/Horde/Element/Config/Cli.php" />
-   <install as="Horde/Element/Module/CiSetup.php" name="lib/Horde/Element/Module/CiSetup.php" />
-   <install as="Horde/Element/Module/DevPackage.php" name="lib/Horde/Element/Module/DevPackage.php" />
-   <install as="Horde/Element/Module/Installer.php" name="lib/Horde/Element/Module/Installer.php" />
-   <install as="Horde/Element/Module/PearPackageXml.php" name="lib/Horde/Element/Module/PearPackageXml.php" />
-   <install as="horde-element" name="script/horde-element.php" />
-   <install as="Horde/Element/AllTests.php" name="test/Horde/Element/AllTests.php" />
-   <install as="Horde/Element/Autoload.php" name="test/Horde/Element/Autoload.php" />
-   <install as="Horde/Element/phpunit.xml" name="test/Horde/Element/phpunit.xml" />
-   <install as="Horde/Element/StoryTestCase.php" name="test/Horde/Element/StoryTestCase.php" />
-   <install as="Horde/Element/fixture/simple/lib/New.php" name="test/Horde/Element/fixture/simple/lib/New.php" />
-   <install as="Horde/Element/fixture/simple/lib/Second.php" name="test/Horde/Element/fixture/simple/lib/Second.php" />
-   <install as="Horde/Element/Integration/ElementTest.php" name="test/Horde/Element/Integration/ElementTest.php" />
-   <install as="Horde/Element/Stub/Parser.php" name="test/Horde/Element/Stub/Parser.php" />
+   <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
+   <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
+   <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
+   <install as="Components.php" name="lib/Components.php" />
+   <install as="Components/Config.php" name="lib/Components/Config.php" />
+   <install as="Components/Configs.php" name="lib/Components/Configs.php" />
+   <install as="Components/Constants.php" name="lib/Components/Constants.php" />
+   <install as="Components/Exception.php" name="lib/Components/Exception.php" />
+   <install as="Components/Module.php" name="lib/Components/Module.php" />
+   <install as="Components/Modules.php" name="lib/Components/Modules.php" />
+   <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
+   <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
+   <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
+   <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
+   <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
+   <install as="horde-components" name="script/horde-components.php" />
+   <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
+   <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
+   <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
+   <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
+   <install as="Components/fixture/simple/lib/New.php" name="test/Components/fixture/simple/lib/New.php" />
+   <install as="Components/fixture/simple/lib/Second.php" name="test/Components/fixture/simple/lib/Second.php" />
+   <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
+   <install as="Components/Stub/Parser.php" name="test/Components/Stub/Parser.php" />
   </filelist>
  </phprelease>
  <changelog>

@@ -10,11 +10,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category   Horde
- * @package    Element
+ * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Element
+ * @link       http://pear.horde.org/index.php?package=Components
  */
 
 if (!spl_autoload_functions()) {

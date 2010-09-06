@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_Element_Module_Installer:: installs a Horde element including
+ * Components_Module_Installer:: installs a Horde element including
  * its dependencies.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Module_Installer:: installs a Horde element including
+ * Components_Module_Installer:: installs a Horde element including
  * its dependencies.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Module_Installer
-implements Horde_Element_Module
+class Components_Module_Installer
+implements Components_Module
 {
     private $_run;
 
@@ -56,7 +56,7 @@ implements Horde_Element_Module
         );
     }
 
-    public function handle(Horde_Element_Config $config)
+    public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['install'])) {
@@ -64,10 +64,9 @@ implements Horde_Element_Module
         }
     }
 
-    public function run(Horde_Element_Config $config)
+    public function run(Components_Config $config)
     {
         $options = $config->getOptions();
-
         $pear = new PEAR();
         $pear->setErrorHandling(PEAR_ERROR_DIE);
 

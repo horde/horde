@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_Element_Module_PearPackageXml:: can update the package.xml of
+ * Components_Module_PearPackageXml:: can update the package.xml of
  * a Horde element.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Module_PearPackageXml:: can update the package.xml of
+ * Components_Module_PearPackageXml:: can update the package.xml of
  * a Horde element.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Module_PearPackageXml
-implements Horde_Element_Module
+class Components_Module_PearPackageXml
+implements Components_Module
 {
     public function getOptionGroupTitle()
     {
@@ -63,7 +63,7 @@ implements Horde_Element_Module
         );
     }
 
-    public function handle(Horde_Element_Config $config)
+    public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['packagexml']) ||
@@ -72,7 +72,7 @@ implements Horde_Element_Module
         }
     }
 
-    public function run(Horde_Element_Config $config)
+    public function run(Components_Config $config)
     {
         $arguments = $config->getArguments();
         $package_file = $arguments[0] . '/package.xml';
@@ -103,7 +103,7 @@ implements Horde_Element_Module
         );
 
         if ($package instanceOf PEAR_Error) {
-            throw new Horde_Element_Exception($package->getMessage());
+            throw new Components_Exception($package->getMessage());
         }
         /**
          * @todo: Looks like this throws away any <replace /> tags we have in

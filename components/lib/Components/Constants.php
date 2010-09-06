@@ -1,18 +1,18 @@
 <?php
 /**
- * Horde_Element_Constants:: provides the constants for this package.
+ * Components_Constants:: provides the constants for this package.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Constants:: provides the constants for this package.
+ * Components_Constants:: provides the constants for this package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -20,12 +20,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Constants
+class Components_Constants
 {
     const DATA_DIR = '@data_dir@';
 
@@ -37,6 +37,6 @@ class Horde_Element_Constants
                 array(dirname(__FILE__), '..', '..', '..', 'data')
             );
         }
-        return self::DATA_DIR . DIRECTORY_SEPARATOR . 'Element';
+        return self::DATA_DIR . DIRECTORY_SEPARATOR . 'Components';
     }
 }

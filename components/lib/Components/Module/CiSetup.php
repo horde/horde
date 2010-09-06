@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_Element_Module_CiSetup:: generates the configuration for Hudson based
+ * Components_Module_CiSetup:: generates the configuration for Hudson based
  * continuous integration of a Horde PEAR package.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Module_CiSetup:: generates the configuration for Hudson based
+ * Components_Module_CiSetup:: generates the configuration for Hudson based
  * continuous integration of a Horde PEAR package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Module_CiSetup
-implements Horde_Element_Module
+class Components_Module_CiSetup
+implements Components_Module
 {
     public function getOptionGroupTitle()
     {
@@ -70,7 +70,7 @@ implements Horde_Element_Module
         );
     }
 
-    public function handle(Horde_Element_Config $config)
+    public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['cisetup']) | !empty($options['ciprebuild'])) {
@@ -78,7 +78,7 @@ implements Horde_Element_Module
         }
     }
 
-    public function run(Horde_Element_Config $config)
+    public function run(Components_Config $config)
     {
         $options = $config->getOptions();
 
@@ -105,8 +105,8 @@ implements Horde_Element_Module
 
         if (!empty($options['cisetup'])) {
             $in = file_get_contents(
-                Horde_Element_Constants::getDataDirectory()
-                . DIRECTORY_SEPARATOR . 'hudson-element-config.xml.template',
+                Components_Constants::getDataDirectory()
+                . DIRECTORY_SEPARATOR . 'hudson-component-config.xml.template',
                 'r'
             );
             file_put_contents(
@@ -117,8 +117,8 @@ implements Horde_Element_Module
 
         if (!empty($options['ciprebuild'])) {
             $in = file_get_contents(
-                Horde_Element_Constants::getDataDirectory()
-                . DIRECTORY_SEPARATOR . 'hudson-element-build.xml.template',
+                Components_Constants::getDataDirectory()
+                . DIRECTORY_SEPARATOR . 'hudson-component-build.xml.template',
                 'r'
             );
             file_put_contents(
@@ -126,8 +126,8 @@ implements Horde_Element_Module
                 sprintf($in, $options['toolsdir'])
             );
             $in = file_get_contents(
-                Horde_Element_Constants::getDataDirectory()
-                . DIRECTORY_SEPARATOR . 'hudson-element-phpunit.xml.template',
+                Components_Constants::getDataDirectory()
+                . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml.template',
                 'r'
             );
             file_put_contents(

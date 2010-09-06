@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_Element_Module_DevPackage:: generates a development snapshot for the
+ * Components_Module_DevPackage:: generates a development snapshot for the
  * specified package.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
- * Horde_Element_Module_DevPackage:: generates a development snapshot for the
+ * Components_Module_DevPackage:: generates a development snapshot for the
  * specified package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -22,13 +22,13 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Element
+ * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Element
+ * @link     http://pear.horde.org/index.php?package=Components
  */
-class Horde_Element_Module_DevPackage
-implements Horde_Element_Module
+class Components_Module_DevPackage
+implements Components_Module
 {
     public function getOptionGroupTitle()
     {
@@ -54,7 +54,7 @@ implements Horde_Element_Module
         );
     }
 
-    public function handle(Horde_Element_Config $config)
+    public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
         if (!empty($options['devpackage'])) {
@@ -62,7 +62,7 @@ implements Horde_Element_Module
         }
     }
 
-    public function run(Horde_Element_Config $config)
+    public function run(Components_Config $config)
     {
         $options = $config->getOptions();
 
