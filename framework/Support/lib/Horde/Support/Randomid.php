@@ -7,8 +7,8 @@
  */
 
 /**
- * Class for generating a random ID string. This string uses all characters
- * in the class [0-9a-zA-Z].
+ * Class for generating a 24-character random ID string. This string uses all
+ * characters in the class [-_0-9a-zA-Z].
  *
  * <code>
  *  <?php
@@ -46,9 +46,9 @@ class Horde_Support_Randomid
      */
     public function generate()
     {
-        /* Base64 can have /, +, and = characters.  Restrict to just
-         * numbers and letters. */
-        $this->_rid = str_replace(array('/', '+', '='), 0, base64_encode(pack('H*', mt_rand() . str_replace('.', '', uniqid('', true)) . dechex(getmypid()))));
+        // Base64 can have /, +, and = characters. Restrict to URL-safe
+        // characters.
+        $this->_rid = str_replace(array('/', '+', '='), array('-', '_', ''), base64_encode(pack('I', mt_rand()) . pack('H*', str_replace('.', '', uniqid('', true)) . dechex(getmypid()))));
     }
 
     /**
