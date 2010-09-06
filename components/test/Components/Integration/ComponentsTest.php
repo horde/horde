@@ -116,6 +116,6 @@ extends Components_StoryTestCase
             ->and('the PEAR package will be installed')
             ->and('the non-Horde dependencies of the Horde element will get installed from the network.')
             ->and('the Horde dependencies of the Horde element will get installed from the current tree.')
-            ->and('the Horde element will be installed');
+            ->and('the Components library will be installed');
     }
 }

@@ -202,13 +202,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
-        case 'the Horde element will be installed':
+        case 'the Components library will be installed':
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'pear' . DIRECTORY_SEPARATOR 
                     . 'php' . DIRECTORY_SEPARATOR
-                    . 'Horde' . DIRECTORY_SEPARATOR
                     . 'Components.php'
                 )
             );
