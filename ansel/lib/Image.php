@@ -1138,7 +1138,7 @@ class Ansel_Image Implements Iterator
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
-            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($this->id, $tags, $gallery->get('owner'), 'image');
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag((string)$this->id, $tags, $gallery->get('owner'), 'image');
         } else {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding tags to this photo."));
         }
