@@ -14,8 +14,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_DateTime
+class Horde_Imap_Client_DateTime implements Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /**
      * The datetime string.
      *
@@ -52,11 +55,37 @@ class Horde_Imap_Client_DateTime
     }
 
     /**
-     * Called on serialize().
+     * Serialize.
+     *
+     * @return string  Serialized representation of this object.
      */
-    public function __sleep()
+    public function serialize()
     {
-        return array('_string', '_tz');
+        return serialize(array(
+            self::VERSION,
+            $this->_string,
+            $this->_tz
+        ));
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_string = $data[1];
+        $this->_tz = $data[2];
     }
 
     /**
