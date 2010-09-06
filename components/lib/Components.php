@@ -43,7 +43,15 @@ class Components
     {
         $parser = self::_prepareParser($parameters);
         $config = self::_prepareConfig($parser);
-        $modules = self::_prepareModules();
+        if (isset($parameters['dependencies'])
+            && $parameters['dependencies'] instanceOf Components_Dependencies) {
+            $dependencies = $parameters['dependencies'];
+        } else {
+            $dependencies = new Components_Dependencies_Injector(
+                $config
+            );
+        }
+        $modules = self::_prepareModules($dependencies);
         $config->handleModules($modules);
         try {
             self::_validateArguments($config);
@@ -81,9 +89,9 @@ class Components
         return $config;
     }
 
-    static private function _prepareModules()
+    static private function _prepareModules(Components_Dependencies $dependencies)
     {
-        $modules = new Components_Modules();
+        $modules = new Components_Modules($dependencies);
         $modules->addModulesFromDirectory(dirname(__FILE__) . '/Components/Module');
         return $modules;
     }

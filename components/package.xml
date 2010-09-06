@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-25</date>
- <time>09:00:14</time>
+ <date>2010-09-06</date>
+ <time>09:33:23</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -47,50 +47,63 @@
    </dir> <!-- /data -->
    <dir name="lib">
     <dir name="Components">
-      <dir name="Config">
-       <file name="Cli.php" role="php" />
-      </dir> <!-- /lib/Components/Config -->
-      <dir name="Module">
-       <file name="CiSetup.php" role="php" />
-       <file name="DevPackage.php" role="php" />
-       <file name="Installer.php" role="php" />
-       <file name="PearPackageXml.php" role="php" />
-      </dir> <!-- /lib/Components/Module -->
-      <file name="Config.php" role="php" />
-      <file name="Configs.php" role="php" />
-      <file name="Constants.php" role="php">
-       <replace from="@data_dir@" to="data_dir" type="pear-config"/>
-      </file>
-      <file name="Exception.php" role="php" />
-      <file name="Module.php" role="php" />
-      <file name="Modules.php" role="php" />
-     </dir> <!-- /lib/Components -->
-     <file name="Components.php" role="php" />
+     <dir name="Config">
+      <file name="Cli.php" role="php" />
+     </dir> <!-- /lib/Components/Config -->
+     <dir name="Dependencies">
+      <file name="Injector.php" role="php" />
+     </dir> <!-- /lib/Components/Dependencies -->
+     <dir name="Module">
+      <file name="Base.php" role="php" />
+      <file name="CiSetup.php" role="php" />
+      <file name="DevPackage.php" role="php" />
+      <file name="Installer.php" role="php" />
+      <file name="PearPackageXml.php" role="php" />
+     </dir> <!-- /lib/Components/Module -->
+     <dir name="Runner">
+      <file name="Installer.php" role="php" />
+     </dir> <!-- /lib/Components/Runner -->
+     <file name="Config.php" role="php" />
+     <file name="Configs.php" role="php" />
+     <file name="Constants.php" role="php">
+      <replace from="@data_dir@" to="data_dir" type="pear-config"/>
+     </file>
+     <file name="Dependencies.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="Module.php" role="php" />
+     <file name="Modules.php" role="php" />
+    </dir> <!-- /lib/Components -->
+    <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="script">
     <file name="horde-components.php" role="script" />
    </dir> <!-- /script -->
    <dir name="test">
     <dir name="Components">
-      <dir name="fixture">
-       <dir name="simple">
-        <dir name="lib">
-         <file name="New.php" role="test" />
-         <file name="Second.php" role="test" />
-        </dir> <!-- /test/Components/fixture/simple/lib -->
-       </dir> <!-- /test/Components/fixture/simple -->
-      </dir> <!-- /test/Components/fixture -->
-      <dir name="Integration">
-       <file name="ComponentsTest.php" role="test" />
-      </dir> <!-- /test/Components/Integration -->
-      <dir name="Stub">
-       <file name="Parser.php" role="test" />
-      </dir> <!-- /test/Components/Stub -->
-      <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
-      <file name="phpunit.xml" role="test" />
-      <file name="StoryTestCase.php" role="test" />
-     </dir> <!-- /test/Components -->
+     <dir name="fixture">
+      <dir name="channels">
+       <file name="pear.horde.org.channel.xml" role="test" />
+       <file name="pear.php.net.channel.xml" role="test" />
+       <file name="pear.phpunit.de.channel.xml" role="test" />
+      </dir> <!-- /test/Components/fixture/channels -->
+      <dir name="simple">
+       <dir name="lib">
+        <file name="New.php" role="test" />
+        <file name="Second.php" role="test" />
+       </dir> <!-- /test/Components/fixture/simple/lib -->
+      </dir> <!-- /test/Components/fixture/simple -->
+     </dir> <!-- /test/Components/fixture -->
+     <dir name="Integration">
+      <file name="ComponentsTest.php" role="test" />
+     </dir> <!-- /test/Components/Integration -->
+     <dir name="Stub">
+      <file name="Parser.php" role="test" />
+     </dir> <!-- /test/Components/Stub -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="StoryTestCase.php" role="test" />
+    </dir> <!-- /test/Components -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
   </dir> <!-- / -->
@@ -136,19 +149,26 @@
    <install as="Components/Config.php" name="lib/Components/Config.php" />
    <install as="Components/Configs.php" name="lib/Components/Configs.php" />
    <install as="Components/Constants.php" name="lib/Components/Constants.php" />
+   <install as="Components/Dependencies.php" name="lib/Components/Dependencies.php" />
    <install as="Components/Exception.php" name="lib/Components/Exception.php" />
    <install as="Components/Module.php" name="lib/Components/Module.php" />
    <install as="Components/Modules.php" name="lib/Components/Modules.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
+   <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
+   <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
+   <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="horde-components" name="script/horde-components.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
+   <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
+   <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
+   <install as="Components/fixture/channels/pear.phpunit.de.channel.xml" name="test/Components/fixture/channels/pear.phpunit.de.channel.xml" />
    <install as="Components/fixture/simple/lib/New.php" name="test/Components/fixture/simple/lib/New.php" />
    <install as="Components/fixture/simple/lib/Second.php" name="test/Components/fixture/simple/lib/Second.php" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
@@ -165,7 +185,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-08-25</date>
+   <date>2010-09-06</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

@@ -36,10 +36,20 @@ implements Iterator, Countable
     private $_modules;
 
     /**
-     * Constructor.
+     * The dependency provider.
+     *
+     * @var Components_Dependencies
      */
-    public function __construct()
+    private $_dependencies;
+
+    /**
+     * Constructor.
+     *
+     * @param Components_Dependencies $dependencies The dependency provider.
+     */
+    public function __construct(Components_Dependencies $dependencies)
     {
+        $this->_dependencies = $dependencies;
         $this->_modules = array();
     }
 
@@ -57,7 +67,9 @@ implements Iterator, Countable
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($module_directory)) as $file) {
             if ($file->isFile() && preg_match('/.php$/', $file->getFilename())) {
                 $class = $base . preg_replace("/^(.*)\.php/", '\\1', $file->getFilename());
-                $this->_modules[$class] = new $class();
+                if ($class != 'Components_Module_Base') {
+                    $this->_modules[$class] = new $class($this->_dependencies);
+                }
             }
         }
     }

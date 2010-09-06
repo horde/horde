@@ -27,13 +27,32 @@
  */
 interface Components_Module
 {
+    /**
+     * Return the title for the option group representing this module.
+     *
+     * @return string The group title.
+     */
     public function getOptionGroupTitle();
 
+    /**
+     * Return the description for the option group representing this module.
+     *
+     * @return string The group description.
+     */
     public function getOptionGroupDescription();
 
+    /**
+     * Return the options for this module.
+     *
+     * @return array The group options.
+     */
     public function getOptionGroupOptions();
 
+    /**
+     * Determine if this module should act. Run all required actions if it has
+     * been instructed to do so.
+     *
+     * @return NULL
+     */
     public function handle(Components_Config $config);
-
-    public function run(Components_Config $config);
 }
