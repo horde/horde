@@ -186,7 +186,7 @@ class IMP_Auth
      * 'notepadavail' - (boolean) Is listing of notepads available?
      * 'protocol' - (string) Either 'imap' or 'pop'.
      * 'rteavail' - (boolean) Is the HTML editor available?
-     * 'search' - (array) Settings used by the IMP_Search library.
+     * 'search' - (string) The serialized IMP_Search object.
      * 'server_key' - (string) Server used to login.
      * 'smime' - (array) Settings related to the S/MIME viewer.
      * 'smtp' - (array) SMTP options ('host' and 'port')
@@ -500,8 +500,10 @@ class IMP_Auth
             );
         }
 
-        /* Set up search information for the session. */
-        $GLOBALS['injector']->getInstance('IMP_Search')->initialize();
+        /* Set up search information for the session. Need to manually do
+         * first init() here since there is a cyclic IMP_Imap_Tree dependency
+         * otherwise. */
+        $GLOBALS['injector']->getInstance('IMP_Search')->init();
 
         /* If the user wants to run filters on login, make sure they get
            run. */

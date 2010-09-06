@@ -536,7 +536,7 @@ class IMP_Prefs_Ui
                 $ui->suppress = array_diff($ui->suppress, array('trashselect', 'empty_trash_menu'));
             }
             if ($prefs->isDirty('use_vtrash')) {
-                $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+                $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
             }
             break;
 
@@ -556,7 +556,7 @@ class IMP_Prefs_Ui
 
         case 'server':
             if ($prefs->isDirty('use_vinbox')) {
-                $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+                $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
             }
 
             if ($prefs->isDirty('subscribe')) {

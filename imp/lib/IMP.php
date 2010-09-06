@@ -120,9 +120,9 @@ class IMP
      */
     static public function getLabel($mbox)
     {
-        $label = IMP_Search::isSearchMbox($mbox)
-            ? $GLOBALS['injector']->getInstance('IMP_Search')->getLabel($mbox)
-            : self::displayFolder($mbox);
+        if (!($label = $GLOBALS['injector']->getInstance('IMP_Search')->getLabel($mbox))) {
+            $label = self::displayFolder($mbox);
+        }
 
         try {
             return Horde::callHook('mbox_label', array($mbox, $label), 'imp');
@@ -737,7 +737,7 @@ class IMP
 
         if (is_null($delhide) || $force) {
             if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                $delhide = !$GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder();
+                $delhide = !$GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox);
             } else {
                 $sortpref = self::getSort();
                 $delhide = ($GLOBALS['prefs']->getValue('delhide') &&

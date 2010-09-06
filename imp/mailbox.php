@@ -50,7 +50,7 @@ try {
 $imp_search = $injector->getInstance('IMP_Search');
 $search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
 $vars = Horde_Variables::getDefaultVariables();
-$vfolder = $imp_search->isVFolder();
+$vfolder = $imp_search->isVFolder(IMP::$mailbox);
 
 /* There is a chance that this page is loaded directly via message.php. If so,
  * don't re-include config files, and the following variables will already be
@@ -229,7 +229,7 @@ $sortpref = IMP::getSort(IMP::$mailbox);
 
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') &&
-    !$imp_search->isVINBOXFolder()) {
+    !$imp_search->isVINBOXFolder(IMP::$mailbox)) {
     $showdelete = array('hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD), 'purge' => true);
 } else {
     $showdelete = array('hide' => false, 'purge' => false);
@@ -309,7 +309,7 @@ if (!$preview_tooltip) {
 }
 
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-$vtrash = $imp_search->isVTrashFolder()
+$vtrash = $imp_search->isVTrashFolder(IMP::$mailbox)
     ? $imp_search->createSearchID($search_mbox)
     : null;
 
@@ -336,8 +336,8 @@ if ($unread) {
 }
 
 if ($vfolder ||
-    ($search_mbox && ($imp_search->searchMboxID() != IMP_Search::BASIC_SEARCH))) {
-    $query_text = wordwrap($imp_search->searchQueryText($imp_search->searchMboxID()));
+    ($search_mbox && (IMP::$mailbox != IMP_Search::BASIC_SEARCH))) {
+    $query_text = wordwrap($imp_search->searchQueryText(IMP::$mailbox));
     if ($vfolder) {
         $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
         $title .= ' [' . _("Virtual Folder") . ']';
@@ -400,13 +400,13 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
             $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
         }
     } else {
-        if ($imp_search->isEditableVFolder()) {
+        if ($imp_search->isEditableVFolder(IMP::$mailbox)) {
             $edit_search = _("Edit Virtual Folder");
-            $hdr_template->set('delete_vfolder_url', $imp_search->deleteUrl());
+            $hdr_template->set('delete_vfolder_url', $imp_search->deleteUrl(IMP::$mailbox));
             $hdr_template->set('delete_vfolder_img', Horde::img('delete.png', _("Delete Virtual Folder")));
         } elseif ($search_mbox && !isset($query_text)) {
             /* Mini search results. */
-            $search_mailbox = reset($imp_search->getSearchFolders());
+            $search_mailbox = reset($imp_search->getSearchFolders(IMP::$mailbox));
             $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', $search_mailbox));
             $hdr_template->set('searchclose', IMP::generateIMPUrl('mailbox.php', $search_mailbox));
         } elseif (!$vfolder) {
@@ -414,7 +414,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
         }
 
         if (isset($edit_search)) {
-            $hdr_template->set('edit_search_url', $imp_search->editUrl());
+            $hdr_template->set('edit_search_url', $imp_search->editUrl(IMP::$mailbox));
             $hdr_template->set('edit_search_title', $edit_search);
             $hdr_template->set('edit_search_img', Horde::img('edit.png', $edit_search));
         }

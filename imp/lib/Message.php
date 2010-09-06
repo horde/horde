@@ -257,7 +257,7 @@ class IMP_Message
                 if ($this->_usepop ||
                     !empty($options['nuke']) ||
                     ($use_trash && ($mbox == $trash)) ||
-                    ($use_vtrash && ($GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder()))) {
+                    ($use_vtrash && ($GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox)))) {
                     /* Purge messages immediately. */
                     $expunge_now = true;
                 } else {

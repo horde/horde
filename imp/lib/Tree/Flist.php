@@ -103,11 +103,10 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             $vfolders = $imp_search->listQueries(IMP_Search::LIST_VFOLDER);
             if (!empty($vfolders)) {
                 $vfolder_list = array();
-                $vfolder_sel = $imp_search->searchMboxID();
                 foreach ($vfolders as $id => $val) {
                     $vfolder_list[] = array(
                         'l' => $injector->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
-                        'sel' => ($vfolder_sel == $id),
+                        'sel' => (IMP::$mailbox == $id),
                         'v' => IMP::formMbox($imp_search->createSearchID($id), true)
                     );
                 }

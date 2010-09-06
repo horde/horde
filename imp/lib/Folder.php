@@ -79,7 +79,7 @@ class IMP_Folder
     protected function _onDelete($deleted)
     {
         /* Recreate Virtual Folders. */
-        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
 
         /* Clear the folder from the sort prefs. */
         foreach ($deleted as $val) {
@@ -164,7 +164,7 @@ class IMP_Folder
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($folder);
 
         /* Recreate Virtual Folders. */
-        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
 
         return true;
     }

@@ -557,7 +557,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         $this->init();
         $this->mailboxesChanged();
-        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
     }
 
     /* Helper methods. */

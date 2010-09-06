@@ -215,7 +215,7 @@ $search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&
     !$prefs->getValue('use_trash') &&
-    !$imp_search->isVINBOXFolder()) {
+    !$imp_search->isVINBOXFolder(IMP::$mailbox)) {
     $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
 }
 
@@ -247,7 +247,7 @@ if (!$search_mbox && IMP::threadSortAvailable($mailbox)) {
 /* Add search link. */
 if ($_SESSION['imp']['protocol'] == 'imap') {
     if ($search_mbox) {
-        $orig_mbox = reset($imp_search->getSearchFolders());
+        $orig_mbox = reset($imp_search->getSearchFolders(IMP::$mailbox));
         $menu[] = array(sprintf(_("New Search in %s"), IMP::getLabel($orig_mbox)), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
     } else {
         $menu[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));
