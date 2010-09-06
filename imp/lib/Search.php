@@ -20,7 +20,7 @@
  *     ....
  * );
  *
- * The format of the 'c' (search criteria) array is as folows:
+ * The format of the 'c' (search criteria) array is as follows:
  * array(
  *     stdClass object {
  *         't' => (string) 'Type' - The criteria type
@@ -91,11 +91,11 @@ class IMP_Search
     protected $_saveVFolder = true;
 
     /**
-     * The list of Virtual Folders obtained from the prefs.
+     * Cached data.
      *
      * @var array
      */
-    static protected $_vfolder = null;
+    protected $_cache = array();
 
     /**
      * Constructor.
@@ -457,18 +457,19 @@ class IMP_Search
      */
     protected function _getVFolderList()
     {
-        if (is_null(self::$_vfolder)) {
-            self::$_vfolder = $GLOBALS['prefs']->getValue('vfolder');
-            if (!empty(self::$_vfolder)) {
-                self::$_vfolder = @unserialize(self::$_vfolder);
+        if (!isset($this->_cache['vfolder'])) {
+            if ($vf = $GLOBALS['prefs']->getValue('vfolder')) {
+                $vf = @unserialize($vf);
             }
 
-            if (empty(self::$_vfolder) || !is_array(self::$_vfolder)) {
-                self::$_vfolder = array();
+            if (empty($vf) || !is_array($vf)) {
+                $vf = array();
             }
+
+            $this->_cache['vfolder'] = $vf;
         }
 
-        return self::$_vfolder;
+        return $this->_cache['vfolder'];
     }
 
     /**
@@ -479,7 +480,7 @@ class IMP_Search
     protected function _saveVFolderList($vfolder)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize($vfolder));
-        self::$_vfolder = $vfolder;
+        $this->_cache['vfolder'] = $vfolder;
     }
 
     /**
