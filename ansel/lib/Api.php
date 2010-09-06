@@ -590,7 +590,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         return (string)Ansel::getImageUrl($image_id,
                                           empty($params['view']) ? 'screen': $params['view'],
-                                          empty($params['full']) ? : $params['full'],
+                                          empty($params['full']) ? false : $params['full'],
                                           empty($params['style']) ? 'ansel_default' : $params['style']);
     }
 
