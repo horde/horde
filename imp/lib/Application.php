@@ -269,7 +269,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return array(
-            'js_code' => Horde::addInlineJsVars($js_code, true),
+            'js_code' => $js_code,
             'js_files' => array(
                 array('login.js', 'imp')
             ),
