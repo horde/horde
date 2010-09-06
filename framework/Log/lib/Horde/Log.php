@@ -7,7 +7,7 @@
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
  * @category Horde
- * @package  Horde_Log
+ * @package  Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -15,7 +15,7 @@
 
 /**
  * @category Horde
- * @package Horde_Log
+ * @package  Log
  */
 class Horde_Log {
 

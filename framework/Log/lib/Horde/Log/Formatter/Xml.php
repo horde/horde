@@ -6,30 +6,42 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Formatters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Formatters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Formatter_Xml implements Horde_Log_Formatter
 {
-    protected $_options = array('elementEntry'     => 'log',
-                                'elementTimestamp' => 'timestamp',
-                                'elementMessage'   => 'message',
-                                'elementLevel'     => 'level',
-                                'lineEnding'       => PHP_EOL);
+    /**
+     * Config options.
+     *
+     * @var array
+     */
+    protected $_options = array(
+        'elementEntry'     => 'log',
+        'elementTimestamp' => 'timestamp',
+        'elementMessage'   => 'message',
+        'elementLevel'     => 'level',
+        'lineEnding'       => PHP_EOL
+    );
 
+    /**
+     * Constructor.
+     *
+     * TODO
+     */
     public function __construct($options = array())
     {
         $this->_options = array_merge($this->_options, $options);
@@ -38,8 +50,9 @@ class Horde_Log_Formatter_Xml implements Horde_Log_Formatter
     /**
      * Formats an event to be written by the handler.
      *
-     * @param  array    $event    Log event
-     * @return string             XML string
+     * @param array $event  Log event.
+     *
+     * @return string  XML string.
      */
     public function format($event)
     {
@@ -50,10 +63,7 @@ class Horde_Log_Formatter_Xml implements Horde_Log_Formatter
         $elt->appendChild(new DOMElement($this->_options['elementMessage'], $event['message']));
         $elt->appendChild(new DOMElement($this->_options['elementLevel'], $event['level']));
 
-        $xml = $dom->saveXML();
-        $xml = preg_replace('/<\?xml version="1.0"( encoding="[^\"]*")?\?>\n/u', '', $xml);
-
-        return $xml . $this->_options['lineEnding'];
+        return preg_replace('/<\?xml version="1.0"( encoding="[^\"]*")?\?>\n/u', '', $dom->saveXML()) . $this->_options['lineEnding'];
     }
 
 }

@@ -6,61 +6,67 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Handler_Db extends Horde_Log_Handler_Base
 {
     /**
-     * Database adapter instance
+     * Database adapter instance.
+     *
      * @var Horde_Db_Adapter
      */
     private $_db;
 
     /**
-     * Name of the log table in the database
+     * Name of the log table in the database.
+     *
      * @var string
      */
     private $_table;
 
     /**
-     * Options to be set by setOption().  Sets the field names in the database table.
+     * Options to be set by setOption().
+     * Sets the field names in the database table.
      *
      * @var array
      */
-    protected $_options = array('fieldMessage'  => 'message',
-                                'fieldLevel'    => 'level');
+    protected $_options = array(
+        'fieldMessage' => 'message',
+        'fieldLevel' => 'level'
+    );
 
     /**
-     * Class constructor
+     * Constructor.
      *
-     * @param Horde_Db_Adapter $db  Database adapter instance
-     * @param string $table         Log table in database
+     * @param Horde_Db_Adapter $db  Database adapter instance.
+     * @param string $table         Log table in database.
      */
     public function __construct($db, $table)
     {
-        $this->_db    = $db;
+        $this->_db = $db;
         $this->_table = $table;
     }
 
     /**
      * Write a message to the log.
      *
-     * @param  array    $event    Log event
-     * @return bool               Always True
+     * @param array $event  Log event.
+     *
+     * @return bool  True.
      */
     public function write($event)
     {
@@ -70,6 +76,7 @@ class Horde_Log_Handler_Db extends Horde_Log_Handler_Base
         );
 
         $this->_db->insert($this->_table, $fields);
+
         return true;
     }
 

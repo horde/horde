@@ -6,32 +6,34 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
 {
     /**
      * Formats the log message before writing.
+     *
      * @var Horde_Log_Formatter
      */
     protected $_formatter;
 
     /**
      * Holds the PHP stream to log to.
+     *
      * @var null|stream
      */
     protected $_stream = null;
@@ -53,18 +55,20 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
     /**
      * Class Constructor
      *
-     * @param mixed $streamOrUrl              Stream or URL to open as a stream.
-     * @param string $mode                    Mode, only applicable if a URL is given.
+     * @param mixed $streamOrUrl              Stream or URL to open as a
+     *                                        stream.
+     * @param string $mode                    Mode, only applicable if a URL
+     *                                        is given.
      * @param Horde_Log_Formatter $formatter  Log formatter.
+     *
+     * @throws Horde_Log_Exception
      */
     public function __construct($streamOrUrl, $mode = 'a+',
                                 Horde_Log_Formatter $formatter = null)
     {
-        if (is_null($formatter)) {
-            $formatter = new Horde_Log_Formatter_Simple();
-        }
-
-        $this->_formatter = $formatter;
+        $this->_formatter = is_null($formatter)
+            ? new Horde_Log_Formatter_Simple()
+            : $formatter;
         $this->_mode = $mode;
         $this->_streamOrUrl = $streamOrUrl;
 
@@ -85,6 +89,8 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
 
     /**
      * Wakup function - reattaches stream.
+     *
+     * @throws Horde_Log_Exception
      */
     public function __wakeup()
     {
@@ -97,8 +103,10 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
     /**
      * Write a message to the log.
      *
-     * @param  array    $event    Log event
-     * @return bool               Always True
+     * @param array $event  Log event.
+     *
+     * @return boolean  True.
+     * @throws Horde_Log_Exception
      */
     public function write($event)
     {

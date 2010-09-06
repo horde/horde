@@ -6,19 +6,19 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
  * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @package  Log
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
  * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @package  Log
  *
  * @method void LOGLEVEL() LOGLEVEL($event) Log an event at LOGLEVEL, where LOGLEVEL has been added with addLevel() or already exists
  * @method void emerg() emerg($event) Log an event at the EMERG log level
@@ -33,45 +33,52 @@
 class Horde_Log_Logger
 {
     /**
-     * @var array of log levels where the keys are the
-     * level priorities and the values are the level names
+     * Log levels where the keys are the level priorities and the values are
+     * the level names.
+     *
+     * @var array
      */
     private $_levels = array();
 
     /**
-     * @var array of Horde_Log_Handler_Base objects
+     * Horde_Log_Handler_Base objects.
+     *
+     * @var array
      */
     private $_handlers = array();
 
     /**
-     * @var array of Horde_Log_Filter objects
+     * Horde_Log_Filter objects.
+     *
+     * @var array
      */
     private $_filters = array();
 
     /**
-     * Class constructor.  Create a new logger
+     * Constructor.
      *
-     * @param Horde_Log_Handler_Base|null  $handler  default handler
+     * @param Horde_Log_Handler_Base|null $handler  Default handler.
      */
     public function __construct($handler = null)
     {
         $r = new ReflectionClass('Horde_Log');
         $this->_levels = array_flip($r->getConstants());
 
-        if ($handler !== null) {
+        if (!is_null($handler)) {
             $this->addHandler($handler);
         }
     }
 
     /**
      * Undefined method handler allows a shortcut:
-     *   $log->levelName('message')
-     *     instead of
-     *   $log->log('message', Horde_Log_LEVELNAME)
+     * <pre>
+     * $log->levelName('message');
+     *   instead of
+     * $log->log('message', Horde_Log_LEVELNAME);
+     * </pre>
      *
-     * @param  string  $method  log level name
-     * @param  string  $params  message to log
-     * @return void
+     * @param string $method  Log level name.
+     * @param string $params  Message to log.
      */
     public function __call($method, $params)
     {
@@ -86,9 +93,9 @@ class Horde_Log_Logger
     /**
      * Log a message at a level
      *
-     * @param  mixed    $event  Message to log, either an array or a string
-     * @param  integer  $level  Log level of message, required if $message is a string
-     * @return void
+     * @param mixed $event    Message to log, either an array or a string.
+     * @param integer $level  Log level of message, required if $message is a
+     *                        string.
      */
     public function log($event, $level = null)
     {
@@ -104,11 +111,10 @@ class Horde_Log_Logger
                 throw new Horde_Log_Exception('Event array did not contain a message');
             }
             if (!isset($event['level'])) {
-                if ($level === null) {
+                if (is_null($level)) {
                     throw new Horde_Log_Exception('Event array did not contain a log level');
-                } else {
-                    $event['level'] = $level;
                 }
+                $event['level'] = $level;
             }
         } else {
             // Create an event array from the message and level
@@ -120,7 +126,8 @@ class Horde_Log_Logger
             throw new Horde_Log_Exception('Bad log level: ' . $event['level']);
         }
 
-        // Fill in the level name and timestamp for filters, formatters, handlers
+        // Fill in the level name and timestamp for filters, formatters,
+        // handlers.
         $event['levelName'] = $this->_levels[$event['level']];
 
         if (!isset($event['timestamp'])) {
@@ -142,8 +149,10 @@ class Horde_Log_Logger
     /**
      * Does this logger have the level $name already?
      *
-     * @param string   $name   The level name to check for
-     * @return boolean Whether the logger already has the specific level name
+     * @param string $name  The level name to check for.
+     *
+     * @return boolean  Whether the logger already has the specific level
+     *                  name.
      */
     public function hasLevel($name)
     {
@@ -153,9 +162,8 @@ class Horde_Log_Logger
     /**
      * Add a custom log level
      *
-     * @param  string  $name    Name of level
-     * @param  integer  $level  Numeric level
-     * @return void
+     * @param string $name    Name of level.
+     * @param integer $level  Numeric level.
      */
     public function addLevel($name, $level)
     {
@@ -174,24 +182,20 @@ class Horde_Log_Logger
      * Before a message will be received by any of the handlers, it
      * must be accepted by all filters added with this method.
      *
-     * @param  Horde_Log_Filter  $filter
-     * @return void
+     * @param Horde_Log_Filter $filter  Filter to add.
      */
     public function addFilter($filter)
     {
-        if (is_integer($filter)) {
-            $filter = new Horde_Log_Filter_Level($filter);
-        }
-
-        $this->_filters[] = $filter;
+        $this->_filters[] = is_integer($filter)
+            ? new Horde_Log_Filter_Level($filter)
+            : $filter;
     }
 
     /**
      * Add a handler.  A handler is responsible for taking a log
      * message and writing it out to storage.
      *
-     * @param  Horde_Log_Handler_Base $handler
-     * @return void
+     * @param Horde_Log_Handler_Base $handler  Handler to add.
      */
     public function addHandler($handler)
     {

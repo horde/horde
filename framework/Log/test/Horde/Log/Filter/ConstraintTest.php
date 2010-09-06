@@ -2,19 +2,19 @@
 /**
  * Horde Log package
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     James Pepin <james@jamespepin.com>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage UnitTests
- * @author   James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     James Pepin <james@jamespepin.com>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage UnitTests
- * @author   James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Filter_ConstraintTest extends Horde_Test_Case
 {
