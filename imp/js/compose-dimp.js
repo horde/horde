@@ -489,7 +489,6 @@ var DimpCompose = {
     // opts = auto, focus, fwd_list, noupdate, show_editor
     fillForm: function(msg, header, opts)
     {
-        // On IE, this can get loaded before DOM:loaded.
         if (!document.loaded) {
             this.fillForm.bind(this, msg, header, opts).defer();
             return;

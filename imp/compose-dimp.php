@@ -207,7 +207,7 @@ $fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirec
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }
-Horde::addInlineScript($compose_result['jsonload'], 'load');
+Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
     array('compose-base.js', 'imp'),
