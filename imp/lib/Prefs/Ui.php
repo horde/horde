@@ -1279,7 +1279,7 @@ class IMP_Prefs_Ui
             'filter' => array('INBOX'),
             'new_folder' => true
         )));
-        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['sentmail']));
+        $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['sent']));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/sentmail.html');
     }
