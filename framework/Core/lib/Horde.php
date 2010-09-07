@@ -1799,9 +1799,10 @@ HTML;
     /**
      * Print pending inline javascript to the output buffer.
      *
-     * @param boolean $nowrap  Don't wrap inline script.
+     * @param boolean $raw  Return the raw script (not wrapped in CDATA tags
+     *                      or observe wrappers)?
      */
-    static public function outputInlineScript($nowrap = false)
+    static public function outputInlineScript($raw = false)
     {
         if (empty(self::$_inlineScript)) {
             return;
@@ -1812,22 +1813,24 @@ HTML;
         foreach (self::$_inlineScript as $key => $val) {
             $val = implode('', $val);
 
-            switch ($key) {
-            case 'dom':
-                self::addScriptFile('prototype.js', 'horde');
-                $val = 'document.observe("dom:loaded", function() {' . $val . '});';
-                break;
+            if (!$raw) {
+                switch ($key) {
+                case 'dom':
+                    self::addScriptFile('prototype.js', 'horde');
+                    $val = 'document.observe("dom:loaded", function() {' . $val . '});';
+                    break;
 
-            case 'load':
-                self::addScriptFile('prototype.js', 'horde');
-                $val = 'Event.observe(window, "load", function() {' . $val . '});';
-                break;
+                case 'load':
+                    self::addScriptFile('prototype.js', 'horde');
+                    $val = 'Event.observe(window, "load", function() {' . $val . '});';
+                    break;
+                }
             }
 
             $script[] = $val;
         }
 
-        echo $nowrap
+        echo $raw
             ? implode('', $script)
             : self::wrapInlineScript($script);
 
