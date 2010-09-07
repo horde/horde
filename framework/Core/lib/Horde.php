@@ -960,8 +960,8 @@ HTML;
         if (isset($puri['path']) && $puri['path'][0] == '/') {
             $url .= $puri['path'];
         } else {
-            $webroot = $GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']);
-            $url .= '/' . ltrim($webroot, '/') . '/' . (isset($puri['path']) ? $puri['path'] : '');
+            $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
+            $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
 
         if (isset($puri['query'])) {
