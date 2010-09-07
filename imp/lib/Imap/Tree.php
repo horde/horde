@@ -422,8 +422,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     {
         $folder = $this->_convertName($folder);
 
-        if (isset($this->_tree[$folder]) &&
-            $this->isOpen($this->_tree[$folder])) {
+        if (isset($this->_tree[$folder])) {
             $this->changed = true;
             $this->_setOpen($this->_tree[$folder], false);
         }
