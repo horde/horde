@@ -308,6 +308,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $imptree->init();
         }
 
+        $imptree->showUnsubscribed($this->_vars->unsub);
+
         $folder_list = array();
         if (!empty($this->_vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
