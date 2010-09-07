@@ -77,8 +77,9 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
         if (!empty($this->params['persistent'])) {
             register_shutdown_function(array($this, 'shutdown'));
 
-            if (empty(self::$storage) && file_exists($this->params['persistent'])
-                && $data = @unserialize(file_get_contents($this->params['persistent']))) {
+            if (empty(self::$storage) &&
+                file_exists($this->params['persistent']) &&
+                ($data = @unserialize(file_get_contents($this->params['persistent'])))) {
                 self::$storage = $data;
             }
         }
