@@ -124,6 +124,13 @@ class Horde_Imap_Client_Cache
             throw new InvalidArgumentException('Missing required parameters to Horde_Imap_Client_Cache.');
         }
 
+        // Default parameters.
+        $params = array_merge(array(
+            'debug' => false,
+            'lifetime' => 604800,
+            'slicesize' => 50
+        ), array_filter($params));
+
         $compress = null;
         if (!empty($params['compress'])) {
             switch ($params['compress']) {
@@ -149,11 +156,11 @@ class Horde_Imap_Client_Cache
 
         $this->_params = array(
             'compress' => $compress,
-            'debug' => empty($params['debug']) ? false : $params['debug'],
+            'debug' => $params['debug'],
             'hostspec' => $params['hostspec'],
-            'lifetime' => empty($params['lifetime']) ? 604800 : intval($params['lifetime']),
+            'lifetime' => intval($params['lifetime']),
             'port' => $params['port'],
-            'slicesize' => empty($params['slicesize']) ? 50 : intval($params['slicesize']),
+            'slicesize' => intval($params['slicesize']),
             'username' => $params['username']
         );
     }

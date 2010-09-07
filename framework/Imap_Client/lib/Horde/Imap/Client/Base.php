@@ -125,17 +125,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         // Default values.
-        if (empty($params['hostspec'])) {
-            $params['hostspec'] = 'localhost';
-        }
-
-        if (empty($params['port'])) {
-            $params['port'] = (isset($params['secure']) && ($params['secure'] == 'ssl')) ? 993 : 143;
-        }
-
-        if (empty($params['timeout'])) {
-            $params['timeout'] = 30;
-        }
+        $params = array_merge(array(
+            'hostspec' => 'localhost',
+            'port' => ((isset($params['secure']) && ($params['secure'] == 'ssl')) ? 993 : 143),
+            'secure' => false,
+            'timeout' => 30
+        ), array_filter($params));
 
         if (empty($params['cache'])) {
             $params['cache'] = array('fields' => array());
