@@ -397,6 +397,10 @@ var Horde_Tree = Class.create({
         var icon, nodeToggle, toggle, children,
             node = this.nodes[nodeId];
 
+        if (!node.children) {
+            return;
+        }
+
         node.expanded = !node.expanded;
         if (children = $('nodeChildren_' + nodeId)) {
             children.setStyle({ display: node.expanded ? 'block' : 'none' });
