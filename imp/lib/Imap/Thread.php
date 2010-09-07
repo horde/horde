@@ -55,6 +55,10 @@ class IMP_Imap_Thread
         $thread_level = $tree = array();
         $t = &$this->_thread;
 
+        if (empty($indices)) {
+            return $tree;
+        }
+
         $indices = array_intersect($t->messageList($sortdir), $indices);
 
         /* If starting in the middle of a thread, the threadLevel tree needs
