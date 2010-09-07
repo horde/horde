@@ -136,7 +136,6 @@ class Horde_Imap_Client
      *   lifetime - [OPTIONAL] (integer) The lifetime of the cache data (in
      *              seconds).
      *   slicesize - [OPTIONAL] (integer) The slicesize to use.
-     *
      * capability_ignore - (array) A list of IMAP capabilites to ignore, even
      *                     if they are supported on the server.
      *                     DEFAULT: No supported capabilities are ignored
@@ -148,7 +147,9 @@ class Horde_Imap_Client
      *         identified. The value can be any PHP supported wrapper that can
      *         be opened via fopen().
      *         DEFAULT: No debug output
-     * encryptKey - (string) The key used to encrypt the password.
+     * encryptKey - (array) A callback to a function that returns the key
+     *              used to encrypt the password. This function MUST be
+     *              static.
      *              DEFAULT: No encryption
      * hostspec - (string) The hostname or IP address of the server.
      *            DEFAULT: 'localhost'
