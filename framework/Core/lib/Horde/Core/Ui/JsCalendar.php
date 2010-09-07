@@ -71,7 +71,7 @@ class Horde_Core_Ui_JsCalendar
             '-Horde_Calendar.firstDayOfWeek' => intval($GLOBALS['prefs']->getValue('first_week_day')),
             'Horde_Calendar.months' => self::months(),
             'Horde_Calendar.weekdays' => $weekdays
-        ));
+        );
         if ($params['full_weekdays']) {
             $js['Horde_Calendar.fullweekdays'] = self::fullWeekdays();
         }
