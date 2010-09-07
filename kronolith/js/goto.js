@@ -17,6 +17,11 @@ var KronolithGoto =
 
     calendarSelect: function(e, type)
     {
+        // Only trigger if this is the goto menu.
+        if (!e.findElement('A.kgotomenu')) {
+            return;
+        }
+
         var q, url,
             params = $H({ date: e.memo.getFullYear() + (e.memo.getMonth() + 1).toPaddedString(2) + (e.memo.getDate()).toPaddedString(2) });
 
