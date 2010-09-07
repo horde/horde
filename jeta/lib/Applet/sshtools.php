@@ -76,7 +76,7 @@ class Jeta_Applet_sshtools extends Jeta_Applet
     public function generateAppletCode()
     {
         $params = array(
-            'sshapps.connection.userName' => $GLOBALS['registry']->getAuth((empty($GLOBALS['conf']['user']['hordeauth']) || ($GLOBALS['conf']['user']['hordeauth'] === 'full')) ? null : 'bare');
+            'sshapps.connection.userName' => $GLOBALS['registry']->getAuth((empty($GLOBALS['conf']['user']['hordeauth']) || ($GLOBALS['conf']['user']['hordeauth'] === 'full')) ? null : 'bare')
         );
 
         foreach ($this->_sshtoolsParams as $key => $val) {
