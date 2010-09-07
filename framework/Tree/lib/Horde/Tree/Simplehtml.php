@@ -37,7 +37,7 @@ class Horde_Tree_Simplehtml extends Horde_Tree_Base
      *
      * @return string  The HTML code of the rendered tree.
      */
-    public function getTree()
+    public function getTree($static = false)
     {
         $this->_buildIndents($this->_root_nodes);
 
