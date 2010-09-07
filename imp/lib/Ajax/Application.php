@@ -575,7 +575,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if (!is_null($req_id)) {
                 $result->ViewPort->requestid = intval($req_id);
             }
-        } elseif ($changed || $this->_vars->rangeslice || !$this->_vars->checkcache) {
+        } elseif ($changed ||
+                  $this->_vars->rangeslice ||
+                  !$this->_vars->checkcache) {
             $result = new stdClass;
             $result->ViewPort = $this->_viewPortData($changed);
         } else {
