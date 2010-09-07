@@ -233,7 +233,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                          mailbox.
      *
      * @return boolean  Returns true if caching is enabled.
-     * @throws Horde_Imap_Client_Exception
      */
     protected function _initCache($current = false)
     {
@@ -244,12 +243,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (is_null($this->cache)) {
             $p = $this->_params;
-            $this->cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
-                'debug' => $this->_debug,
-                'hostspec' => $p['hostspec'],
-                'port' => $p['port'],
-                'username' => $p['username']
-            )));
+            try {
+                $this->cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
+                    'debug' => $this->_debug,
+                    'hostspec' => $p['hostspec'],
+                    'port' => $p['port'],
+                    'username' => $p['username']
+                )));
+            } catch (InvalidArgumentException $e) {
+                return false;
+            }
         }
 
         if (!$current) {

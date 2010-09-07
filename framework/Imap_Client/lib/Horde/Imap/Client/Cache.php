@@ -112,10 +112,9 @@ class Horde_Imap_Client_Cache
      *
      * @param array $params  The configuration parameters.
      *
-     * @throws Horde_Imap_Client_Exception
      * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (empty($params['cacheob']) ||
             empty($params['hostspec']) ||
@@ -148,7 +147,7 @@ class Horde_Imap_Client_Cache
             }
 
             if (is_null($compress)) {
-                throw new Horde_Imap_Client_Exception('Horde_Cache does not support the compression type given.');
+                throw new InvalidArgumentException('Horde_Cache does not support the compression type given.');
             }
         }
 
