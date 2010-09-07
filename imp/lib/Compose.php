@@ -595,22 +595,12 @@ class IMP_Compose
         }
         $headers->addUserAgentHeader();
 
-        /* Tack on any site-specific headers. */
-        try {
-            $headers_result = Horde::loadConfiguration('header.php', '_header');
-            if (is_array($headers_result)) {
-                foreach ($headers_result as $key => $val) {
-                    $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), $GLOBALS['registry']->getCharset(), $charset));
-                }
-            }
-        } catch (Horde_Exception $e) {}
-
-        $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-
         /* Send the messages out now. */
         if (!($reply_type = $this->getMetadata('reply_type'))) {
             $reply_type = 'new';
         }
+
+        $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
 
         foreach ($send_msgs as $val) {
             try {

@@ -133,9 +133,6 @@
 
  <configtab name="compose" desc="Compose">
   <configsection name="msg">
-   <configboolean name="prepend_header" desc="Should we include the contents of
-   imp/config/header.php in the headers of every message
-   sent?">true</configboolean>
    <configboolean name="append_trailer" desc="Should we append the contents of
    imp/config/trailer.txt to the end of every message
    sent?">true</configboolean>

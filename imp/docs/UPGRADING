@@ -53,8 +53,8 @@ hook.
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
-The 'cache_folders', 'limit_factor', and 'sort_limit' configuration options
-have been removed.
+The 'cache_folders', 'limit_factor', 'prepend_header', and 'sort_limit'
+configuration options have been removed.
 
 
 Preferences
@@ -84,6 +84,8 @@ The following hooks have been renamed:
 *  x-priority now handled in the core code
 *  old attachment icon handling see atc_flag pref
 *  msglist_flags hook now used to dynamically set flags on messages
+* The headers.php configuration file has been removed; setting custom headers
+  is now done via the 'pre_sent' hook.
 
 
 Fetchmail

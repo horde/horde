@@ -196,7 +196,25 @@ class IMP_Hooks
      */
 //    public function pre_sent($message, $headers)
 //    {
-//        // Do action here -- no return value from this hook.
+//        // Example: Add custom headers to outgoing message.
+//        $charset = $GLOBALS['registry']->getCharset();
+//        $custom_hdrs = array();
+//        $hdr_charset = $message->getHeaderCharset();
+//
+//        /* Add information on organization to which the sender belongs.
+//         * Not standardized for use in e-mail, but generally recognized.
+//         * See RFC 2076 [3.7]; RFC 1036 [2.2.8] */
+//        $custom_hdrs['Organization'] = 'Example Corp.';
+//
+//        // Add the IP of the remote browser
+//        $custom_hdrs['X-Originating-IP'] = $_SERVER['REMOTE_ADDR'];
+//
+//        // Add the Browser information of the remote browser
+//        $custom_hdrs['X-Remote-Browser'] = $_SERVER['HTTP_USER_AGENT'];
+//
+//        foreach ($custom_hdrs as $key => $val) {
+//            $headers->addHeader($key, Horde_String::convertCharset($val, $charset, $hdr_charset));
+//        }
 //    }
 
 
