@@ -132,12 +132,6 @@
  </configsection>
 
  <configtab name="compose" desc="Compose">
-  <configsection name="msg">
-   <configboolean name="append_trailer" desc="Should we append the contents of
-   imp/config/trailer.txt to the end of every message
-   sent?">true</configboolean>
-  </configsection>
-
   <configsection name="compose">
    <configboolean name="allow_receipts" desc="Can the user request a return
    receipt?">true</configboolean>

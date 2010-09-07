@@ -1052,29 +1052,16 @@ class IMP_Compose
             $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
         }
 
-        /* Get trailer message (if any). */
-        $trailer = $trailer_file = null;
-        if (empty($options['nofinal']) &&
-            $GLOBALS['conf']['msg']['append_trailer']) {
-            if (empty($GLOBALS['conf']['vhosts'])) {
-                if (is_readable(IMP_BASE . '/config/trailer.txt')) {
-                    $trailer_file = IMP_BASE . '/config/trailer.txt';
+        /* Get trailer text (if any). */
+        if (empty($options['nofinal'])) {
+            try {
+                if ($trailer = Horde::callHook('trailer', array(), 'imp')) {
+                    $body .= $trailer;
+                    if (!empty($options['html'])) {
+                        $body_html .= $this->text2html($trailer);
+                    }
                 }
-            } elseif (is_readable(IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt')) {
-                $trailer_file = IMP_BASE . '/config/trailer-' . $GLOBALS['conf']['server']['name'] . '.txt';
-            }
-
-            if (!empty($trailer_file)) {
-                $trailer = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter("\n" . file_get_contents($trailer_file), 'environment');
-                try {
-                    $trailer = Horde::callHook('trailer', array($trailer), 'imp');
-                } catch (Horde_Exception_HookNotSet $e) {}
-
-                $body .= $trailer;
-                if (!empty($options['html'])) {
-                    $body_html .= $this->text2html($trailer);
-                }
-            }
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         /* Set up the body part now. */
