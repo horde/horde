@@ -377,7 +377,7 @@ ContextSensitive.Element = Class.create({
         this.ctx = target;
         this.opts = opts;
         this.opts.left = Boolean(opts.left);
-        this.disable = false;
+        this.disable = opts.disable;
 
         target = $(target);
         if (target) {
