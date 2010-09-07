@@ -557,20 +557,20 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         /* Set the parent array to the value in $elt['p']. */
         if (empty($this->_parent[$elt['p']])) {
             $this->_parent[$elt['p']] = array();
-            // This is a case where it is possible that the parent element has
-            // changed (it now has children) but we can't catch it via the
-            // bitflag (since hasChildren() is dynamically determined).
-            if ($this->_trackdiff &&
-                !is_null($this->_eltdiff) &&
-                !isset($this->_eltdiff['a'][$elt['p']])) {
-                $this->_eltdiff['c'][$elt['p']] = 1;
-            }
         }
+
+        $prev = ($this->_trackdiff && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
+            ? $this->hasChildren($this->_tree[$elt['p']])
+            : null;
+
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
 
-        if ($this->_trackdiff && !is_null($this->_eltdiff)) {
+        if (!is_null($prev)) {
             $this->_eltdiff['a'][$elt['v']] = 1;
+            if ($this->hasChildren($this->_tree[$elt['p']]) != $prev) {
+                $this->_eltdiff['c'][$elt['p']] = 1;
+            }
         }
 
         /* Make sure we are sorted correctly. */
@@ -696,6 +696,11 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         } else {
             /* Rebuild the parent tree. */
             $this->_parent[$parent] = array_values($this->_parent[$parent]);
+
+            if (!is_null($this->_eltdiff) &&
+                !$this->hasChildren($this->_tree[$parent])) {
+                $this->_eltdiff['c'][$parent] = 1;
+            }
         }
 
         /* Remove the mailbox from the expanded folders list. */
