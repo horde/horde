@@ -172,6 +172,7 @@ case 'rename_folder':
     if (!empty($new_names) &&
         !empty($old_names) &&
         ($iMax == count($old_names))) {
+        $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
         for ($i = 0; $i < $iMax; ++$i) {
             $old_ns = $imp_imap->getNamespace($old_names[$i]);
             $new = trim($new_names[$i], $old_ns['delimiter']);
