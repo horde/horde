@@ -20,9 +20,9 @@ var DimpCompose = {
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
             if ((this.is_popup || DIMP.conf_compose.popup) &&
-                DIMP.baseWindow.DimpBase &&
+                DimpCore.base &&
                 !DIMP.conf_compose.qreply) {
-                DIMP.baseWindow.focus();
+                DimpCore.base.focus();
             }
             DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
@@ -33,9 +33,9 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.is_popup &&
-            DIMP.baseWindow.DimpBase &&
-            DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
-            DIMP.baseWindow.DimpBase.poll();
+            DimpCore.base &&
+            DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
+            DimpCore.base.DimpBase.poll();
         }
     },
 
@@ -242,9 +242,9 @@ var DimpCompose = {
 
                 if (d.action == 'saveDraft') {
                     if (this.is_popup &&
-                        DIMP.baseWindow.DimpBase &&
+                        DimpCore.base &&
                         !DIMP.conf_compose.qreply) {
-                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -254,38 +254,38 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup && DIMP.baseWindow.DimpBase) {
+                if (this.is_popup && DimpCore.base) {
                     if (d.reply_type) {
-                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
+                        DimpCore.base.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
                     }
 
                     if (d.mailbox) {
-                        DIMP.baseWindow.DimpBase.mailboxCallback(r);
+                        DimpCore.base.DimpBase.mailboxCallback(r);
                     }
 
                     if (d.draft_delete) {
-                        DIMP.baseWindow.DimpBase.poll();
+                        DimpCore.base.DimpBase.poll();
                     }
 
                     if (d.log) {
-                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
                 }
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup && DIMP.baseWindow.DimpBase) {
+                if (this.is_popup && DimpCore.base) {
                     if (d.log) {
-                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
                 }
@@ -967,7 +967,7 @@ var DimpCompose = {
         DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = DIMP.baseWindow.DimpBase;
+        this.is_popup = DimpCore.base;
 
         /* Initialize redirect elements (always needed). */
         $('redirect').observe('submit', Event.stop);

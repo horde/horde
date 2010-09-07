@@ -106,12 +106,12 @@ var DimpFullmessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DIMP.baseWindow.DimpBase) {
-                    DIMP.baseWindow.focus();
+                if (DimpCore.base) {
+                    DimpCore.base.focus();
                     if (id == 'button_deleted') {
-                        DIMP.baseWindow.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
                     } else {
-                        DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
                     }
                     window.close();
                 }
@@ -230,8 +230,8 @@ var DimpFullmessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
-        if (this.strip && DIMP.baseWindow.DimpBase) {
-            DIMP.baseWindow.DimpBase.poll();
+        if (this.strip && DimpCore.base) {
+            DimpCore.base.DimpBase.poll();
         }
 
         $('dimpLoading').hide();

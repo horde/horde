@@ -13,6 +13,7 @@ var DimpCore = {
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout
     //   onDoActionComplete
     alarms: {},
+    base: null,
     growler_log: true,
     server_error: 0,
 
@@ -594,12 +595,11 @@ var DimpCore = {
         /* Determine base window. Need a try/catch block here since, if the
          * page was loaded by an opener out of this current domain, this will
          * throw an exception. */
-        DIMP.baseWindow = {};
         try {
             if (parent.opener &&
                 parent.opener.location.host == window.location.host &&
                 parent.opener.DimpCore) {
-                DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
+                this.base = parent.opener.DimpCore.base || parent.opener;
             }
         } catch (e) {}
     }
