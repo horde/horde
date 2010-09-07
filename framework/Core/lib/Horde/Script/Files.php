@@ -104,7 +104,7 @@ class Horde_Script_Files
         // Always add prototype.js.
         if (!isset($this->_included[$app]['prototype.js']) &&
             ($file != 'prototype.js')) {
-            $this->add('prototype.js', 'horde');
+            $this->add('prototype.js', 'horde', $full);
         }
 
         // Add localized string for popup.js
