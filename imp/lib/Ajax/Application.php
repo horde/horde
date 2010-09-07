@@ -1930,6 +1930,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _viewPortData($change)
     {
+        // Ticket #7422: Listing messages may be a long-running operation,
+        // so close the session while we are doing it to prevent deadlocks.
+        session_write_close();
+
         $args = array(
             'applyfilter' => $this->_vars->applyfilter,
             'cache' => $this->_vars->cache,
@@ -1969,7 +1973,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $list_msg = new IMP_Views_ListMessages();
-        return $list_msg->listMessages($args);
+        $msgs = $list_msg->listMessages($args);
+
+        // Reopen the session.
+        session_start();
+
+        return $msgs;
     }
 
     /**
