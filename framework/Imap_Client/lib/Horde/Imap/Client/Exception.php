@@ -86,25 +86,4 @@ class Horde_Imap_Client_Exception extends Exception
     // Login requires privacy.
     const LOGIN_PRIVACYREQUIRED = 21;
 
-    /**
-     * Define a callback function used to log the exception. Will be passed
-     * a single parameter - a copy of this object.
-     *
-     * @var callback
-     */
-    static public $logCallback = null;
-
-    /**
-     * Constructor.
-     */
-    public function __construct($message = null, $code = 0)
-    {
-        parent::__construct($message, $code);
-
-        /* Call log function. */
-        if (!is_null(self::$logCallback)) {
-            call_user_func(self::$logCallback, $this);
-        }
-    }
-
 }

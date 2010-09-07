@@ -61,9 +61,6 @@ class IMP_Imap
     {
         $this->_serverkey = $serverkey;
 
-        /* Register the logging callback. */
-        Horde_Imap_Client_Exception::$logCallback = array($this, 'logException');
-
         /* Rebuild the Horde_Imap_Client object. */
         $this->_loadImapObject();
 
@@ -142,6 +139,7 @@ class IMP_Imap
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
             'id' => empty($server['id']) ? false : $server['id'],
             'lang' => empty($server['lang']) ? false : $server['lang'],
+            'log' => array(__CLASS__, 'logError'),
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
@@ -287,16 +285,6 @@ class IMP_Imap
         }
 
         return $_SESSION['imp']['cache']['uidvalid'][$mailbox];
-    }
-
-    /**
-     * Logs an exception from Horde_Imap_Client.
-     *
-     * @param object Horde_Imap_Client_Exception $e  The exception object.
-     */
-    public function logException($e)
-    {
-        Horde::logMessage($e, 'ERR');
     }
 
     /**
@@ -468,6 +456,11 @@ class IMP_Imap
     public function getEncryptKey()
     {
         return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
+    }
+
+    public function logError($e)
+    {
+        Horde::logMessage($e, 'ERR');
     }
 
 }

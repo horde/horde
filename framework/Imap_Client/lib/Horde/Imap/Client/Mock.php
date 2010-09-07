@@ -161,7 +161,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _noop()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -172,7 +172,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getNamespaces()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -183,7 +183,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     public function alerts()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -206,7 +206,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _logout()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -218,7 +218,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _sendID($info)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -230,7 +230,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getID()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -244,7 +244,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _setLanguage($langs)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -259,7 +259,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getLanguage($list)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -273,8 +273,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     {
         $folder = $this->_parseFolder($mailbox);
         if (!isset(self::$storage[$folder])) {
-            throw new Horde_Imap_Client_Exception(sprintf("IMAP folder %s does not exist!",
-                                                          $folder));
+            $this->_exception(sprintf("IMAP folder %s does not exist!", $folder));
         }
         return $folder;
     }
@@ -308,8 +307,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     {
         $mailbox = $this->_parseFolder($mailbox);
         if (isset(self::$storage[$mailbox])) {
-            throw new Horde_Imap_Client_Exception(sprintf("IMAP folder %s already exists!",
-                                                          $mailbox));
+            $this->_exception(sprintf("IMAP folder %s already exists!", $mailbox));
         }
         self::$storage[$mailbox] = array(
             'status' => array(
@@ -333,8 +331,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     {
         $folder = $this->_parseFolder($mailbox);
         if (!isset(self::$storage[$folder])) {
-            throw new Horde_Imap_Client_Exception(sprintf("IMAP folder %s does not exist!",
-                                                          $folder));
+            $this->_exception(sprintf("IMAP folder %s does not exist!", $folder));
         }
         unset(self::$storage[$folder]);
         return true;
@@ -354,12 +351,10 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
         $new = $this->_parseFolder($new);
 
         if (!isset(self::$storage[$old])) {
-            throw new Horde_Imap_Client_Exception(sprintf("IMAP folder %s does not exist!",
-                                                          $old));
+            $this->_exception(sprintf("IMAP folder %s does not exist!", $old));
         }
         if (isset(self::$storage[$new])) {
-            throw new Horde_Imap_Client_Exception(sprintf("IMAP folder %s already exists!",
-                                                          $new));
+            $this->_exception(sprintf("IMAP folder %s already exists!", $new));
         }
         self::$storage[$new] = self::$storage[$old];
         unset(self::$storage[$old]);
@@ -376,7 +371,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _subscribeMailbox($mailbox, $subscribe)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -473,7 +468,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _check()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -486,7 +481,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _close($options)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -539,8 +534,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
                 }
                 break;
             default:
-                throw new Horde_Imap_Client_Exception(sprintf('Search command %s not implemented!',
-                                                                $cmd));
+                $this->_exception(sprintf('Search command %s not implemented!', $cmd));
             }
         }
         return array('match' => $uids, 'count' => count($uids));
@@ -558,7 +552,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _setComparator($comparator)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -570,7 +564,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getComparator()
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -597,7 +591,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _thread($options)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -626,13 +620,13 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             switch ($type) {
             case Horde_Imap_Client::FETCH_HEADERTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
-                    throw new Horde_Imap_Client_Exception(sprintf("No IMAP message %s!", $uid));
+                    $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
                 $result['headertext'][$uid] = $this->_mbox['mails'][$uid]['header'];
                 break;
             case Horde_Imap_Client::FETCH_BODYTEXT:
                 if (!isset($this->_mbox['mails'][$uid])) {
-                    throw new Horde_Imap_Client_Exception(sprintf("No IMAP message %s!", $uid));
+                    $this->_exception(sprintf("No IMAP message %s!", $uid));
                 }
                 $result['bodytext'][$uid] =  $this->_mbox['mails'][$uid]['body'];
                 break;
@@ -650,7 +644,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_UID:
             case Horde_Imap_Client::FETCH_SEQ:
             case Horde_Imap_Client::FETCH_MODSEQ:
-                throw new Horde_Imap_Client_Exception('Not supported!');
+                $this->_exception('Not supported!');
             }
         }
         return $result;
@@ -670,7 +664,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
         foreach ($options['ids'] as $uid) {
 
             if (!isset($this->_mbox['mails'][$uid])) {
-                throw new Horde_Imap_Client_Exception(sprintf("No IMAP message %s!", $uid));
+                $this->_exception(sprintf("No IMAP message %s!", $uid));
             }
             foreach ($options['add'] as $flag) {
                 $flag = strtoupper($flag);
@@ -679,8 +673,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
                     $this->_mbox['mails'][$uid]['flags'] |= self::FLAG_DELETED;
                     break;
                 default:
-                    throw new Horde_Imap_Client_Exception(sprintf('Flag %s not implemented!',
-                                                                  $flag));
+                    $this->_exception(sprintf('Flag %s not implemented!', $flag));
                 }
             }
         }
@@ -704,7 +697,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
 
         foreach ($options['ids'] as $uid) {
             if (!isset($this->_mbox['mails'][$uid])) {
-                throw new Horde_Imap_Client_Exception(sprintf("No IMAP message %s!", $uid));
+                $this->_exception(sprintf("No IMAP message %s!", $uid));
             }
             $mail = $this->_mbox['mails'][$uid];
             if (!empty($options['move'])) {
@@ -726,7 +719,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _setQuota($root, $options)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -741,7 +734,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getQuota($root)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -757,7 +750,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getQuotaRoot($mailbox)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
@@ -809,7 +802,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _listACLRights($mailbox, $identifier)
     {
-        throw new Horde_Imap_Client_Exception('not implemented');
+        $this->_exception('not implemented');
     }
 
     /**
