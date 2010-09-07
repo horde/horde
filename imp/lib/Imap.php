@@ -62,9 +62,9 @@ class IMP_Imap
         $this->_serverkey = $serverkey;
 
         /* Rebuild the Horde_Imap_Client object. */
-        $this->_loadImapObject();
-
-        register_shutdown_function(array($this, 'shutdown'));
+        if (!$this->_loadImapObject()) {
+            register_shutdown_function(array($this, 'shutdown'));
+        }
     }
 
     /**
