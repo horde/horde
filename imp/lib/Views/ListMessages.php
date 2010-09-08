@@ -456,7 +456,7 @@ class IMP_Views_ListMessages
         $ob = new stdClass;
         $ob->cacheid = 0;
         $ob->data = array();
-        $ob->label = IMP::getLabel($mbox);
+        $ob->label = htmlspecialchars(IMP::getLabel($mbox));
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;

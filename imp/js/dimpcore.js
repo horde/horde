@@ -242,7 +242,7 @@ var DimpCore = {
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
-                this.Growler.growl(m.message, {
+                this.Growler.growl(m.message.escapeHTML(), {
                     className: m.type.replace('.', '-'),
                     life: (m.type == 'horde.error' ? 12 : 8),
                     log: 1
@@ -252,7 +252,7 @@ var DimpCore = {
             case 'imp.reply':
             case 'imp.forward':
             case 'imp.redirect':
-                this.Growler.growl(m.message, {
+                this.Growler.growl(m.message.escapeHTML(), {
                     className: m.type.replace('.', '-'),
                     life: 8
                 });
