@@ -554,7 +554,7 @@ var DimpBase = {
             if (!this.isSearch()) {
                 this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
             }
-            this.updateTitle();
+            this.updateTitle(this.viewport.getMetaData('noexist'));
 
             if (this.rownum) {
                 this.viewport.select(this.viewport.createSelection('rownum', this.rownum));
@@ -986,10 +986,13 @@ var DimpBase = {
         }
     },
 
-    updateTitle: function()
+    // nodefer - (boolean) If true, don't defer updating if folder element
+    //           does not exist.
+    updateTitle: function(nodefer)
     {
         var elt, unseen,
-            label = this.viewport.getMetaData('label');
+            // Label is HTML encoded - but this is not HTML code so unescape.
+            label = this.viewport.getMetaData('label').unescapeHTML();
 
         if (this.isSearch(null, true)) {
             label += ' (' + this.search.label + ')';
@@ -1000,10 +1003,11 @@ var DimpBase = {
                 if (unseen > 0) {
                     label += ' (' + unseen + ')';
                 }
-            } else {
+            } else if (!nodefer) {
                 this.updateTitle.bind(this).defer();
             }
         }
+
         DimpCore.setTitle(label);
     },
 
