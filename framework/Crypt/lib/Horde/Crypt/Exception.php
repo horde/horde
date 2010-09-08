@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Crypt package.
+ * Exception handler for the horde/Crypt package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
