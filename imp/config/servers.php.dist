@@ -5,8 +5,8 @@
  *
  * Properties that can be set for each server:
  *
- * name: (string) This is the plaintext, English name that you want displayed
- *       if using the drop down server list.
+ * name: (string) This is the name displayed in the server list on the login
+ *       screen.
  *
  * hostspec: (string) The hostname/IP address of the mail server to connect to.
  *
