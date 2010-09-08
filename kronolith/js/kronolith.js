@@ -57,7 +57,10 @@ KronolithCore = {
             this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
             this.debug('onException', e);
         }.bind(this),
-        onFailure: function(t, o) { KronolithCore.debug('onFailure', t); },
+        onFailure: function(t, o) {
+            KronolithCore.debug('onFailure', t);
+            KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
+        },
         evalJS: false,
         evalJSON: true
     },
