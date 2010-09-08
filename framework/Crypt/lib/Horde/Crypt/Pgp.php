@@ -1395,7 +1395,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $pgp_sign->setCharset($this->_params['email_charset']);
         $pgp_sign->setDisposition('inline');
         $pgp_sign->setDescription(Horde_String::convertCharset(_("PGP Digital Signature"), $this->_params['charset'], $this->_params['email_charset']));
-        $pgp_sign->setContents($msg_sign);
+        $pgp_sign->setContents($msg_sign, array('encoding' => '7bit'));
 
         /* Get the algorithim information from the signature. Since we are
          * analyzing a signature packet, we need to use the special keyword
@@ -1444,13 +1444,13 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part1 = new Horde_Mime_Part();
         $part1->setType('application/pgp-encrypted');
         $part1->setCharset(null);
-        $part1->setContents("Version: 1\n");
+        $part1->setContents("Version: 1\n", array('encoding' => '7bit'));
         $part->addPart($part1);
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
         $part2->setCharset(null);
-        $part2->setContents($message_encrypt);
+        $part2->setContents($message_encrypt, array('encoding' => '7bit'));
         $part2->setDisposition('inline');
         $part->addPart($part2);
 
@@ -1500,7 +1500,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part->setType('application/pgp-keys');
         $part->setCharset($this->_params['email_charset']);
         $part->setDescription(Horde_String::convertCharset(_("PGP Public Key"), $this->_params['charset'], $this->_params['charset']));
-        $part->setContents($key);
+        $part->setContents($key, array('encoding' => '7bit'));
 
         return $part;
     }
