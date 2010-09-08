@@ -85,16 +85,9 @@ class IMP
     /**
      * prepareMenu() cache.
      *
-     * @var array
+     * @var string
      */
     static private $_menu = null;
-
-    /**
-     * Sidebar buffer.
-     *
-     * @var array
-     */
-    static private $_sidebar;
 
     /**
      * Returns the current view mode for IMP.
@@ -518,13 +511,13 @@ class IMP
         }
         $t->set('menu_string', self::getMenu()->render());
 
-        self::$_menu = $t;
+        self::$_menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
 
         /* Need to buffer sidebar output here, because it may add things like
          * cookies which need to be sent before output begins. */
         Horde::startBuffer();
         require HORDE_BASE . '/services/sidebar.php';
-        self::$_sidebar = Horde::endBuffer();
+        self::$_menu .= Horde::endBuffer();
     }
 
     /**
@@ -533,9 +526,7 @@ class IMP
     static public function menu()
     {
         self::prepareMenu();
-
-        echo self::$_menu->fetch(IMP_TEMPLATES . '/imp/menu/menu.html') .
-             self::$_sidebar;
+        echo self::$_menu;
     }
 
     /**
