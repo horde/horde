@@ -1173,6 +1173,7 @@ class IMP_Compose
             !empty($GLOBALS['conf']['gnupg']['path']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
             $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+            $symmetric_passphrase = null;
 
             switch ($encrypt) {
             case IMP::PGP_SIGN:
