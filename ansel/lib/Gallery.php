@@ -824,7 +824,14 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         $old = $this->getParent();
         $reset_has_subgalleries = false;
         if (!is_null($old)) {
+            $vMode = $old->get('view_mode');
+            if ($vMode != 'Normal') {
+                $old->set('view_mode', 'Normal');
+            }
             $cnt = $old->countGalleryChildren(Horde_Perms::READ, true);
+            if ($vMode != 'Normal') {
+                $old->set('view_mode', $vMode);
+            }
             if ($cnt == 1) {
                 /* Count is 1, and we are about to delete it */
                 $reset_has_subgalleries = true;
