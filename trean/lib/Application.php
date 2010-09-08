@@ -67,16 +67,16 @@ class Trean_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-
-        $perms['tree']['trean']['max_folders'] = false;
-        $perms['title']['trean:max_folders'] = _("Maximum Number of Folders");
-        $perms['type']['trean:max_folders'] = 'int';
-        $perms['tree']['trean']['max_bookmarks'] = false;
-        $perms['title']['trean:max_bookmarks'] = _("Maximum Number of Bookmarks");
-        $perms['type']['trean:max_bookmarks'] = 'int';
-
-        return $perms;
+        return array(
+            'max_bookmarks' => array(
+                'title' => _("Maximum Number of Bookmarks"),
+                'type' => 'int'
+            ),
+            'max_folders' => array(
+                'title' => _("Maximum Number of Folders"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**

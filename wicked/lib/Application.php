@@ -59,22 +59,26 @@ class Wicked_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms['tree']['wicked']['pages'] = array();
-        $perms['title']['wicked:pages'] = _("Pages");
+        $perms = array(
+            'pages' => array(
+                'title' => _("Pages")
+            )
+        );
 
         foreach (array('AllPages', 'LeastPopular', 'MostPopular', 'RecentChanges') as $val) {
-            $perms['tree']['wicked']['pages'][$val] = false;
-            $perms['title']['wicked:pages:' . $val] = $val;
+            $perms['pages:' . $val] = array(
+                'title' => $val
+            );
         }
 
         $pages = $GLOBALS['wicked']->getPages();
         if (!($pages instanceof PEAR_Error)) {
+            sort($pages);
             foreach ($pages as $pagename) {
-                $pageId = $GLOBALS['wicked']->getPageId($pagename);
-                $perms['tree']['wicked']['pages'][$pageId] = false;
-                $perms['title']['wicked:pages:' . $pageId] = $pagename;
+                $perms['pages:' .$GLOBALS['wicked']->getPageId($pagename)] = array(
+                    'title' => $pagename
+                );
             }
-            ksort($perms['tree']['wicked']['pages']);
         }
 
         return $perms;

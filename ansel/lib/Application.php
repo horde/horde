@@ -91,11 +91,11 @@ class Ansel_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['ansel']['admin'] = false;
-        $perms['title']['ansel:admin'] = _("Administrators");
-
-        return $perms;
+        return array(
+            'admin' => array(
+                'title' => _("Administrators")
+            )
+        );
     }
 
     /**

@@ -67,13 +67,17 @@ class Operator_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms['tree']['operator']['accountcodes'] = false;
-        $perms['title']['operator:accountcodes'] = _("Account Codes");
+        $perms = array(
+            'accountcodes' => array(
+                'title' => _("Account Codes")
+            )
+        );
 
         $accountcodes = Operator::getAccountCodes();
         foreach ($accountcodes as $accountcode) {
-            $perms['tree']['operator']['accountcodes'][$accountcode] = false;
-            $perms['title']['operator:accountcodes:' . $accountcode] = $accountcode;
+            $perms['accountcodes:' . $accountcode] = array(
+                'title' => $accountcode
+            );
         }
 
         return $perms;

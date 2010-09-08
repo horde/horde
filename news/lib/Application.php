@@ -21,19 +21,25 @@ class News_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms['tree']['news']['admin'] = true;
-        $perms['title']['news:admin'] = _("Admin");
-
-        $perms['tree']['news']['editors'] = true;
-        $perms['title']['news:editors'] = _("Editors");
+        $perms = array(
+            'admin' => array(
+                'title' => _("Admin")
+            ),
+            'categories' => array(
+                'title' => _("Categories")
+            ),
+            'editors' => array(
+                'title' => _("Editors")
+            )
+        );
 
         require_once dirname(__FILE__) . '/base.php';
         $tree = $GLOBALS['news_cat']->getEnum();
 
-        $perms['title']['news:categories'] = _("Categories");
         foreach ($tree as $cat_id => $cat_name) {
-            $perms['tree']['news']['categories'][$cat_id] = false;
-            $perms['title']['news:categories:' . $cat_id] = $cat_name;
+            $perms['categories:' . $cat_id] = array(
+                'title' => $cat_name
+            );
         }
 
         return $perms;

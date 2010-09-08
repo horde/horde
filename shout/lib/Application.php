@@ -119,18 +119,22 @@ class Shout_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms['tree']['shout']['superadmin'] = false;
-        $perms['title']['shout:superadmin'] = _("Super Administrator");
+        $perms = array(
+            'accounts' => array(
+                'title' => _("Accounts")
+            ),
+            'superadmin' => array(
+                'title' => _("Super Administrator")
+            )
+        );
 
         $accounts = $this->storage->getAccounts();
 
-        $perms['tree']['shout']['accounts'] = false;
-        $perms['title']['shout:accounts'] = _("Accounts");
-
         // Run through every contact source.
         foreach ($accounts as $code => $info) {
-            $perms['tree']['shout']['accounts'][$code] = false;
-            $perms['title']['shout:accounts:' . $code] = $info['name'];
+            $perms['account:' . $code] = array(
+                'title' => $info['name']
+            );
 
             foreach(
                 array(
@@ -139,8 +143,9 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                $perms['tree']['shout']['accounts'][$code][$module] = false;
-                $perms['title']["shout:accounts:$code:$module"] = $modname;
+                $perms['accounts:' . $code . ':' . $module] = array(
+                    'title' => $modname
+                );
             }
         }
 

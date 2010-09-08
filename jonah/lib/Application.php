@@ -44,40 +44,40 @@ class Jonah_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
-
-        /* Loop through internal channels and add their ids to the
-         * perms. */
-        $perms = array();
-        foreach ($channels as $channel) {
-            $perms['tree']['jonah']['news']['internal_channels'][$channel['channel_id']] = false;
-        }
-
-        /* Human names and default permissions. */
-        $perms['title']['jonah:admin'] = _("Administrator");
-        $perms['tree']['jonah']['admin'] = false;
-        $perms['title']['jonah:news'] = _("News");
-        $perms['tree']['jonah']['news'] = false;
-        $perms['title']['jonah:news:internal_channels'] = _("Internal Channels");
-        $perms['tree']['jonah']['news']['internal_channels'] = false;
-        $perms['title']['jonah:news:external_channels'] = _("External Channels");
-        $perms['tree']['jonah']['news']['external_channels'] = false;
+        $perms = array(
+            'admin' => array(
+                'title' => _("Administrator")
+            ),
+            'news' => array(
+                'title' => _("News")
+            ),
+            'news:internal_channels' => array(
+                'title' => _("Internal Channels")
+            ),
+            'news:external_channels' => array(
+                'title' => _("External Channels")
+            )
+        );
 
         /* Loop through internal channels and add them to the perms
          * titles. */
-        foreach ($channels as $channel) {
-            $perms['title']['jonah:news:internal_channels:' . $channel['channel_id']] = $channel['channel_name'];
-            $perms['tree']['jonah']['news']['internal_channels'][$channel['channel_id']] = false;
-        }
+        $news = Jonah_News::factory();
+        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
 
-        $channels = $news->getChannels(Jonah::EXTERNAL_CHANNEL);
+        foreach ($channels as $channel) {
+            $perms['news:internal_channels:' . $channel['channel_id']] = array(
+                'title' => $channel['channel_name']
+            );
+        }
 
         /* Loop through external channels and add their ids to the
          * perms. */
+        $channels = $news->getChannels(Jonah::EXTERNAL_CHANNEL);
+
         foreach ($channels as $channel) {
-            $perms['title']['jonah:news:external_channels:' . $channel['channel_id']] = $channel['channel_name'];
-            $perms['tree']['jonah']['news']['external_channels'][$channel['channel_id']] = false;
+            $perms['news:external_channels:' . $channel['channel_id']] = array(
+                'title' => $channel['channel_name']
+            );
         }
 
         return $perms;

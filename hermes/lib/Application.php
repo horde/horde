@@ -67,15 +67,17 @@ class Hermes_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['hermes']['review'] = array();
-        $perms['title']['hermes:review'] = _("Time Review Screen");
-        $perms['tree']['hermes']['deliverables'] = array();
-        $perms['title']['hermes:deliverables'] = _("Deliverables");
-        $perms['tree']['hermes']['invoicing'] = array();
-        $perms['title']['hermes:invoicing'] = _("Invoicing");
-
-        return $perms;
+        return array(
+            'review' => array(
+                'title' => _("Time Review Screen")
+            ),
+            'deliverables' => array(
+                'title' => _("Deliverables")
+            ),
+            'invoicing' => array(
+                'title' => _("Invoicing");
+            )
+        );
     }
 
     /* Sidebar method. */

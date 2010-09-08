@@ -149,16 +149,21 @@ class Turba_Application extends Horde_Registry_Application
     {
         require TURBA_BASE . '/config/backends.php';
 
-        $perms['tree']['turba']['sources'] = false;
-        $perms['title']['turba:sources'] = _("Sources");
+        $parms = array(
+            'sources' => array(
+                'title' => _("Sources")
+            )
+        );
 
         // Run through every contact source.
         foreach ($cfgSources as $source => $curSource) {
-            $perms['tree']['turba']['sources'][$source] = false;
-            $perms['title']['turba:sources:' . $source] = $curSource['title'];
-            $perms['tree']['turba']['sources'][$source]['max_contacts'] = false;
-            $perms['title']['turba:sources:' . $source . ':max_contacts'] = _("Maximum Number of Contacts");
-            $perms['type']['turba:sources:' . $source . ':max_contacts'] = 'int';
+            $perms['sources:' . $source] = array(
+                'title' => $curSource['title']
+            );
+            $perms['sources:' . $source . ':max_contacts'] = array(
+                'title' => _("Maximum Number of Contacts"),
+                'type' => 'int'
+            );
         }
 
         return $perms;

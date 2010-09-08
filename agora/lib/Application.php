@@ -50,27 +50,31 @@ class Agora_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        self::$_perms['tree']['agora']['admin'] = true;
-        self::$_perms['title']['agora:admin'] = _("Admin");
-        self::$_perms['title']['agora:forums'] = _("Forums");
-
+        $perms = array(
+            'admin' => array(
+                'title' => _("Admin")
+            ),
+            'forums' => array(
+                'title' => _("Forums")
+            )
+        );
         foreach ($GLOBALS['registry']->listApps() as $scope) {
-            self::$_perms['title']['agora:forums:' . $scope] = $GLOBALS['registry']->get('name', $scope);
-            self::$_perms['tree']['agora']['forums'][$scope] = false;
+            $perms['forums:' . $scope] = array(
+                'title' => $GLOBALS['registry']->get('name', $scope)
+            );
 
             $forums = Agora_Messages::singleton($scope);
             $forums_list = $forums->getBareForums();
-            if (($forums_list instanceof PEAR_Error) || empty($forums_list)) {
-                continue;
-            }
-
-            foreach ($forums_list as $id => $title) {
-                self::$_perms['tree']['agora']['forums'][$scope][$id] = false;
-                self::$_perms['title']['agora:forums:' . $scope . ':' . $id] = $title;
+            if (!($forums_list instanceof PEAR_Error)) {
+                foreach ($forums_list as $id => $title) {
+                    $perms['forums:' . $scope . ':' . $id] = array(
+                        'title' => $title
+                    );
+                }
             }
         }
 
-        return self::$_perms;
+        return $perms;
     }
 
     /**

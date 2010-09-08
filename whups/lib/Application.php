@@ -65,20 +65,27 @@ class Whups_Application extends Horde_Registry_Application
     public function perms()
     {
         /* Available Whups permissions. */
-        $perms['tree']['whups']['admin'] = false;
-        $perms['title']['whups:admin'] = _("Administration");
-
-        $perms['tree']['whups']['hiddenComments'] = false;
-        $perms['title']['whups:hiddenComments'] = _("Hidden Comments");
-
-        $perms['tree']['whups']['queues'] = array();
-        $perms['title']['whups:queues'] = _("Queues");
+        $perms = array(
+            'admin' => array(
+                'title' => _("Administration")
+            ),
+            'hiddenComments' => array(
+                'title' => _("Hidden Comments")
+            ),
+            'queues' => array(
+                'title' => _("Queues")
+            ),
+            'replies' => array(
+                'title' => _("Form Replies")
+            )
+        );
 
         /* Loop through queues and add their titles. */
         $queues = $GLOBALS['whups_driver']->getQueues();
         foreach ($queues as $id => $name) {
-            $perms['tree']['whups']['queues'][$id] = false;
-            $perms['title']['whups:queues:' . $id] = $name;
+            $perms['queues:' . $id] = array(
+                'title' => $name
+            );
 
             $entries = array(
                 'assign' => _("Assign"),
@@ -87,21 +94,19 @@ class Whups_Application extends Horde_Registry_Application
             );
 
             foreach ($entries as $key => $val) {
-                $perms['tree']['whups']['queues'][$id][$key] = false;
-                $perms['title']['whups:queues:' . $id . ':' . $key] = $val;
-                $perms['type']['whups:queues:' . $id . ':' . $key] = 'boolean';
-                $perms['params']['whups:queues:' . $id . ':' . $key] = array();
+                $perms['queues:' . $id . ':' . $key] = array(
+                    'title' => $val,
+                    'type' => 'boolean'
+                );
             }
         }
-
-        $perms['tree']['whups']['replies'] = array();
-        $perms['title']['whups:replies'] = _("Form Replies");
 
         /* Loop through type and replies and add their titles. */
         foreach ($GLOBALS['whups_driver']->getAllTypes() as $type_id => $type_name) {
             foreach ($GLOBALS['whups_driver']->getReplies($type_id) as $reply_id => $reply) {
-                $perms['tree']['whups']['replies'][$reply_id] = false;
-                $perms['title']['whups:replies:' . $reply_id] = $type_name . ': ' . $reply['reply_name'];
+                $perms['replies:' . $reply_id] = array(
+                    'title' => $type_name . ': ' . $reply['reply_name']
+                );
             }
         }
 

@@ -33,16 +33,19 @@ class Vilma_Application extends Horde_Registry_Application
 
     public function perms()
     {
-        $perms['tree']['vilma']['superadmin'] = false;
-        $perms['title']['vilma:superadmin'] = _("Super Administrator");
+        $perms = array(
+            'superadmin' => array(
+                'title' => _("Super Administrator")
+            )
+        );
 
         $domains = $this->driver->getDomains();
 
         // Run through every domain
         foreach ($domains as $domain) {
-            $d = $domain['domain_id'];
-            $perms['tree']['vilma']['domains'][$d] = false;
-            $perms['title']['vilma:domains:' . $d] = $domain['name'];
+            $perms['domains:' . $domain['domain_id']] = array(
+                'title' => $domain['name']
+            );
         }
 
         return $perms;

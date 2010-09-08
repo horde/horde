@@ -63,12 +63,12 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['nag']['max_tasks'] = false;
-        $perms['title']['nag:max_tasks'] = _("Maximum Number of Tasks");
-        $perms['type']['nag:max_tasks'] = 'int';
-
-        return $perms;
+        return array(
+            'max_tasks' => array(
+                'title' => _("Maximum Number of Tasks"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**

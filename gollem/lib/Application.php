@@ -74,21 +74,17 @@ class Gollem_Application extends Horde_Registry_Application
     public function perms()
     {
         $perms = array(
-            'tree' => array(
-                'gollem' => array(
-                    'backends' => false
-                )
-            ),
-            'title' => array(
-                'gollem:backends' => _("Backends")
+            'backends' => array(
+                'title' => _("Backends")
             )
         );
 
         // Run through every backend.
         require GOLLEM_BASE . '/config/backends.php';
         foreach ($backends as $key => $val) {
-            $perms['tree']['gollem']['backends'][$key] = false;
-            $perms['title']['gollem:backends:' . $key] = $val['name'];
+            $perms['backends:' . $key] = array(
+                'title' => $val['name']
+            );
         }
 
         return $perms;

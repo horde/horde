@@ -80,12 +80,12 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['kronolith']['max_events'] = false;
-        $perms['title']['kronolith:max_events'] = _("Maximum Number of Events");
-        $perms['type']['kronolith:max_events'] = 'int';
-
-        return $perms;
+        return array(
+            'max_events' => array(
+                'title' => _("Maximum Number of Events"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**

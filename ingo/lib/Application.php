@@ -101,19 +101,13 @@ class Ingo_Application extends Horde_Registry_Application
     public function perms()
     {
         return array(
-            'title' => array(
-                'ingo:allow_rules' => _("Allow Rules"),
-                'ingo:max_rules' => _("Maximum Number of Rules")
+            'allow_rules' => array(
+                'title' => _("Allow Rules"),
+                'type' => 'boolean'
             ),
-            'tree' => array(
-                'ingo' => array(
-                    'allow_rules' => false,
-                    'max_rules' => false
-                )
-            ),
-            'type' => array(
-                'ingo:allow_rules' => 'boolean',
-                'ingo:max_rules' => 'int'
+            'max_rules' => array(
+                'title' => _("Maximum Number of Rules"),
+                'type' => 'int'
             )
         );
     }

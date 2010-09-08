@@ -155,25 +155,21 @@ class IMP_Application extends Horde_Registry_Application
     public function perms()
     {
         return array(
-            'tree' => array(
-                'imp' => array(
-                     'create_folders' => false,
-                     'max_folders' => false,
-                     'max_recipients' => false,
-                     'max_timelimit' => false,
-                 ),
+            'create_folders' => array(
+                'title' => _("Allow Folder Creation?"),
+                'type' => 'boolean'
             ),
-            'title' => array(
-                'imp:create_folders' => _("Allow Folder Creation?"),
-                'imp:max_folders' => _("Maximum Number of Folders"),
-                'imp:max_recipients' => _("Maximum Number of Recipients per Message"),
-                'imp:max_timelimit' => _("Maximum Number of Recipients per Time Period"),
+            'max_folders' => array(
+                'title' => _("Maximum Number of Folders"),
+                'type' => 'int'
             ),
-            'type' => array(
-                'imp:create_folders' => 'boolean',
-                'imp:max_folders' => 'int',
-                'imp:max_recipients' => 'int',
-                'imp:max_timelimit' => 'int',
+            'max_recipients' => array(
+                'title' => _("Maximum Number of Recipients per Message"),
+                'type' => 'int'
+            ),
+            'max_timelimit' => array(
+                'title' => _("Maximum Number of Recipients per Time Period"),
+                'type' => 'int'
             )
         );
     }

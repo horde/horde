@@ -33,13 +33,12 @@ class Horde_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-
-        $perms['tree']['horde']['max_blocks'] = false;
-        $perms['title']['horde:max_blocks'] = _("Maximum Number of Portal Blocks");
-        $perms['type']['horde:max_blocks'] = 'int';
-
-        return $perms;
+        return array(
+            'max_blocks' => array(
+                'title' => _("Maximum Number of Portal Blocks"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**

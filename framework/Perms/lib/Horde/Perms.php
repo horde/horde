@@ -234,10 +234,32 @@ class Horde_Perms
     {
         if (!isset($this->_appPerms[$app])) {
             try {
-                $this->_appPerms[$app] = $GLOBALS['registry']->callAppMethod($app, 'perms');
+                $perms = array(
+                    'title' => array(),
+                    'tree' => array(
+                        $app => array()
+                    ),
+                    'type' => array()
+                );
+
+                foreach ($GLOBALS['registry']->callAppMethod($app, 'perms') as $key => $val) {
+                    $ptr = &$perms['tree'][$app];
+                    foreach (explode(':', $key) as $kval) {
+                        $ptr[$kval] = false;
+                        $ptr = &$perms['tree'][$app];
+                    }
+                    if (isset($val['title'])) {
+                        $perms['title'][$app . ':' . $key] = $val['title'];
+                    }
+                    if (isset($val['type'])) {
+                        $perms['type'][$app . ':' . $key] = $val['type'];
+                    }
+                }
             } catch (Horde_Exception $e) {
-                $this->_appPerms[$app] = array();
+                $perms = array();
             }
+
+            $this->_appPerms[$app] = $perms;
         }
 
         return $this->_appPerms[$app];

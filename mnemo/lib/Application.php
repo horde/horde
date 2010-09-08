@@ -59,12 +59,12 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['mnemo']['max_notes'] = false;
-        $perms['title']['mnemo:max_notes'] = _("Maximum Number of Notes");
-        $perms['type']['mnemo:max_notes'] = 'int';
-
-        return $perms;
+        return array(
+            'max_notes' => array(
+                'title' => _("Maximum Number of Notes"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**
