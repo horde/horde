@@ -191,6 +191,8 @@ var DimpBase = {
                 if (!Object.isUndefined(this.folder) && !this.search) {
                     this.setHash(loc);
                 }
+            } else if (this.folder == f) {
+                this.setHash(loc);
             }
 
             this.loadMailbox(f);
