@@ -45,7 +45,7 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
             }
         }
 
-        if (is_null($instance)) {
+        if (!($instance instanceof IMP_Imap_Tree)) {
             $instance = new IMP_Imap_Tree();
         }
 
