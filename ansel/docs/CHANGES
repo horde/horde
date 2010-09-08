@@ -11,6 +11,7 @@ v2.0-git
 v1.1.2-cvs
 ----------
 
+[mjr] Fix issue where subgalleries would become invisible in certain conditions.
 [mjr] Fix parsing gps data in certain locales (Bug #9180).
 [mjr] Fix a bug that caused certain thumbnail types to be generated as jpeg
       images instead of the requested png type.
