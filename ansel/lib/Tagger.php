@@ -42,7 +42,11 @@ class Ansel_Tagger
             $this->_type_ids = unserialize($ids);
         } else {
             $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
-            $types = $type_mgr->ensureTypes(array('gallery', 'image'));
+            try {
+                $types = $type_mgr->ensureTypes(array('gallery', 'image'));
+            } catch (Content_Exception $e) {
+                throw new Ansel_Exception($e);
+            }
             $this->_type_ids = array('gallery' => (int)$types[0],
                                      'image' => (int)$types[1]);
             $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));

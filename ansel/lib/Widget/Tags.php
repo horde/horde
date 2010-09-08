@@ -32,7 +32,11 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
 
         /* Build the tag widget */
         $html = $this->_htmlBegin();
-        $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
+        try {
+            $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
+        } catch (Ansel_Exception $e) {
+            return $html . sprintf(_("There was an error fetching tags: %s"), $e->getMessage()) . $this->_htmlEnd();
+        }
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             Horde::startBuffer();
             /* Attach the Ajax action */
