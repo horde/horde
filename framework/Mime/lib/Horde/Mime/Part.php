@@ -1187,9 +1187,15 @@ class Horde_Mime_Part
                 break;
 
             default:
-                $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
-                    ? '8bit'
-                    : 'base64';
+                /* If transfer encoding has changed from the default, use that
+                 * value. */
+                if ($this->_transferEncoding != self::DEFAULT_ENCODING) {
+                    $encoding = $this->_transferEncoding;
+                } else {
+                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
+                        ? '8bit'
+                        : 'base64';
+                }
                 break;
             }
 
