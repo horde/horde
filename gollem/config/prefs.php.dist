@@ -5,27 +5,30 @@
  * $Id$
  */
 
+// *** File Display Preferences ***
+
 $prefGroups['display'] = array(
     'column' => _("User Interface"),
     'label' => _("File Display"),
-    'desc' => _("Change your file sorting options."),
+    'desc' => _("File display options."),
     'members' => array(
         'show_dotfiles', 'sortdirsfirst', 'columnselect', 'sortby', 'sortdir',
         'perpage'
     )
 );
 
-$prefGroups['settings'] = array(
-    'column' => _("User Interface"),
-    'label' => _("Settings"),
-    'desc' => _("Change file and folder handling settings."),
-    'members' => array('recursive_deletes'));
-
 // show dotfiles?
 $_prefs['show_dotfiles'] = array(
-    'value' => 1,
+    'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Show dotfiles?")
+);
+
+// always sort directories before files
+$_prefs['sortdirsfirst'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("List folders first?")
 );
 
 // columns selection widget
@@ -35,8 +38,10 @@ $_prefs['columnselect'] = array(
 
 // columns to be displayed
 $_prefs['columns'] = array(
-    'value' => "ftp\ttype\tname\tdownload\tmodified\tsize\tpermission\towner\tgroup"
+    // 'value' = json_encode(array())
+    'value' => '["ftp","type","name","download","modified","size","permission","owner","group"]'
 );
+
 
 // user preferred sorting column
 $_prefs['sortby'] = array(
@@ -62,19 +67,22 @@ $_prefs['sortdir'] = array(
     'desc' => _("Default sorting direction:")
 );
 
-// always sort directories before files
-$_prefs['sortdirsfirst'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("List folders first?")
-);
-
 // number of items per page
 $_prefs['perpage'] = array(
-    'value' => 20,
+    'value' => 30,
     'type' => 'number',
     'desc' => _("Items per page")
 );
+
+
+
+// *** File Actions Preferences ***
+
+$prefGroups['settings'] = array(
+    'column' => _("User Interface"),
+    'label' => _("File Actions"),
+    'desc' => _("File action settings."),
+    'members' => array('recursive_deletes'));
 
 // user preferred recursive deletes
 $_prefs['recursive_deletes'] = array(

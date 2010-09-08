@@ -7,53 +7,51 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Gollem
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
-$actionID = Horde_Util::getFormData('actionID');
-$driver = Horde_Util::getFormData('driver');
-$filedir = Horde_Util::getFormData('dir');
-$filename = Horde_Util::getFormData('file');
-$type = Horde_Util::getFormData('type');
+$vars = Horde_Variables::getDefaultVariables();
 
-if ($driver != $GLOBALS['gollem_be']['driver']) {
+if ($vars->driver != $GLOBALS['gollem_be']['driver']) {
     echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
 
 /* Run through action handlers. */
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'save_file':
-    $data = Horde_Util::getFormData('content');
-    $result = $gollem_vfs->writeData($filedir, $filename, $data);
-    if (is_a($result, 'PEAR_Error')) {
-        $message = sprintf(_("Access denied to %s"), $filename);
-    } else {
-        $message = sprintf(_("%s successfully saved."), $filename);
+    try {
+        $gollem_vfs->writeData($vars->filedir, $vars->filename, $vars->content);
+        $message = sprintf(_("%s successfully saved."), $vars->filename);
+    } catch (VFS_Exception $e) {
+        $message = sprintf(_("Access denied to %s"), $vars->filename);
     }
     echo Horde::wrapInlineScript(array(
-        'alert("' . addslashes($message) . '");',
-        'window.close();'
+        'alert("' . addslashes($message) . '")'
     ));
-    exit;
+    break;
 
 case 'edit_file':
-    $data = $gollem_vfs->read($filedir, $filename);
-    if (is_a($data, 'PEAR_Error')) {
+    try {
+        $data = $gollem_vfs->read($vars->filedir, $vars->filename);
+    } catch (VFS_Exception $e) {
         echo Horde::wrapInlineScript(array(
-            'alert("' . addslashes(sprintf(_("Access denied to %s"), $filename)) . '");',
-            'window.close();'
+            'alert("' . addslashes(sprintf(_("Access denied to %s"), $vars->filename)) . '")'
         ));
-        exit;
+        break;
     }
-    $mime_type = Horde_Mime_Magic::extToMIME($type);
+
+    $mime_type = Horde_Mime_Magic::extToMIME($vars->type);
     if (strpos($mime_type, 'text/') !== 0) {
-        echo Horde::wrapInlineScript(array('window.close();'));
+        break;
     }
+
     if ($mime_type == 'text/html') {
         $injector->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => 'content'));
     }
@@ -64,4 +62,4 @@ case 'edit_file':
     exit;
 }
 
-wcho Horde::wrapInlineScript(array('window.close();'));
+echo Horde::wrapInlineScript(array('window.close()'));

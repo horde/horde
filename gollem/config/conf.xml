@@ -13,9 +13,9 @@
    If it is 'shown', the user will be able to pick from any of the
    options.">none
     <values>
-     <value>none</value>
-     <value>hidden</value>
-     <value>shown</value>
+     <value desc="None">none</value>
+     <value desc="Hidden">hidden</value>
+     <value desc="Shown">shown</value>
     </values>
    </configenum>
   </configsection>

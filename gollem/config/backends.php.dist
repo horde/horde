@@ -1,58 +1,56 @@
 <?php
 /**
- * This file is where you specify what backends people using your
- * installation of Gollem can log in to. There are a number of properties
- * that you can set for each backend:
+ * This file specifies which tbackends people using your installation can
+ * log in to.
  *
- * name: This is the plaintext name that you want displayed if you are using
- *       the drop down server list.
+ * Properties that can be set for each server:
  *
- * driver: The VFS (Virtual File System) driver to use to connect.
- *         Valid options:
- *           'file'  --  Work with a local file system.
- *           'ftp'   --  Connect to a FTP server.
- *           'smb'   --  Connect to a SMB fileshare.
- *           'sql'   --  Connect to VFS filesystem stored in SQL database.
- *           'ssh2'  --  Connect to a remote server via SSH2.
+ * name: (string) This is the name displayed in the server list on the login
+ *       screen.
  *
- * preferred: This is only useful if you want to use the same backend.php
- *            file for different machines: if the hostname of the Gollem
- *            machine is identical to one of those in the preferred list,
- *            then the corresponding option in the select box will include
- *            SELECTED, i.e. it is selected by default. Otherwise the
- *            first entry in the list is selected.
+ * driver: (string) The VFS (Virtual File System) driver to use. Choose from:
+ *           file -  Work with a local file system.
+ *             TODO: params
+ *           ftp - Connect to a FTP server.
+ *             TODO: params
+ *           smb - Connect to a SMB fileshare.
+ *             TODO: params
+ *           sql - Connect to VFS filesystem stored in SQL database.
+ *             TODO: params
+ *           ssh2 - Connect to a remote server via SSH2.
+ *             TODO: params
  *
- * hordeauth: If this parameter is present and true, then Gollem will attempt
- *            to use the user's existing credentials (the username/password
- *            they used to log in to Horde) to log in to this source. If this
- *            parameter is 'full', the username will be used unmodified;
- *            otherwise, everything after and including the first @ in the
- *            username will be stripped before attempting authentication.
- *
- * params: A parameters array containing any additional information that the
- *         VFS driver needs.
+ * hordeauth: (mixed) One of the following values:
+ *              true - IMP will attempt to use the user's existing credentials
+ *                     (the username/password they used to log in to Horde) to
+ *                     login to this source.
+ *              false - Everything after and including the first @ in the
+ *                      username will be stripped off before attempting
+ *                      authentication. (DEFAULT)
+ *              'full' - The username will be used unmodified.
  *
  * loginparams: A list of parameters that can be changed by the user on the
  *              login screen.  The key is the parameter name that can be
  *              changed, the value is the text that will be displayed next to
  *              the entry box on the login screen.
  *
- * root: The directory that will be the "top" or "root" directory, being the
- *       topmost directory where users can change to. This is in addition to
- *       a vfsroot parameter set in the params array.
+ * root: (string) The directory that will be the "top" or "root" directory,
+ *       being the topmost directory where users can change to. This is in
+         addition to a vfsroot parameter set in the params array.
  *
- * home: The directory that will be used as home directory for the user.
- *       This parameter will overrule a home parameter in the params array.
+ * home: (string) The directory that will be used as home directory for the
+ *       user. This parameter will overrule a home parameter in the params.
  *       If empty, this will default to the active working directory
  *       immediately after logging into the VFS backend (i.e. for ftp,
  *       this will most likely be ~user, for SQL based VFS backends,
  *       this will probably be the root directory).
  *
- * createhome: If this parameter is set to true, and the home directory does
- *             not exist, attempt to create the home directory on login.
+ * createhome: (boolean) If this parameter is set to true, and the home
+ *             directory does not exist, attempt to create the home directory
+ *             on login.
  *
  * filter: If set, all files that match the regex will be hidden in the
- *         folder view.  The regex must be in pcre syntax (See
+ *         folder view.  The regex must be in PCRE syntax (See
  *         http://www.php.net/pcre).
  *
  * quota: If set, turn on VFS quota checking for the backend if it supports
@@ -63,22 +61,11 @@
  *        Examples: "2 MB", "2048 B", "1.5 GB"
  *        If false or not set, quota support is disabled.
  *
- *        ** For quotas to work, you must be using a version of Horde **
- *        ** that contains VFS quota support.                         **
+ * clipboard: (boolean) If true, allows the user to cut/copy/paste files.
+ *            TODO: Can this be auto-determined?
  *
- * clipboard: If set, allows the user to cut/copy/paste files. Since not all
- *            VFS backends have support for the necessary commands, and there
- *            is no way to auto-detect which backends do have support, this
- *            option must be manually set. True enables clipboard support,
- *            false (the default) disables support. In the examples below,
- *            clipboard has been enabled in all VFS backends that have
- *            cut/copy/paste support since the initial release of Horde 3.0.
- *            For all other backends, you will have to manually check and
- *            see if your current VFS version/backend supports the necessary
- *            commands.
- *
- * attributes: The list of attributes that the driver supports. Available
- *             attributes:
+ * attributes: (array) The list of attributes that the driver supports.
+ *             Available attributes:
  *               'edit'
  *               'download'
  *               'group'
@@ -88,6 +75,17 @@
  *               'permission'
  *               'size'
  *               'type'
+ *
+ *
+ * *** The following options should NOT be set unless you REALLY know what ***
+ * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
+ * *** (the default if the parameters are not set) SHOULD BE USED!         ***
+ *
+ * preferred: (string | array) Useful if you want to use the same servers.php
+ *            file for different machines. If the hostname of the IMP machine
+ *            is identical to one of those in the preferred list, then that
+ *            entry will be selected by default on the login screen. Otherwise
+ *            the first entry in the list is selected.
  *
  * $Id$
  */
@@ -153,8 +151,6 @@ $backends['hordeftp'] = array(
         // IDs from the local password file.  This is useful only if the FTP
         // server is running on localhost or if the local user/group
         // IDs are identical to the remote FTP server.
-        // You must be running a version of Horde >= 3.1 for this parameter to
-        // have any effect.
         // 'maplocalids' => true,
         // The default permissions to set for newly created folders and files.
         // 'permissions' => '750'
@@ -274,81 +270,75 @@ $backends['file'] = array(
 );
 
 // SMB Example
-// ** For the SMB backend to work, you must be using a version of Horde
-// ** that contains the SMB VFS driver.  See the test.php script to determine
-// ** whether the SMB driver is present on your system.
-// $backends['smb'] = array(
-//     'name' => 'SMB Server',
-//     'driver' => 'smb',
-//     'preferred' => '',
-//     'hordeauth' => false,
-//     'params' => array(
-//         'hostspec' => 'example',
-//         'port' => 139,
-//         'share' => 'homes',
-//         // Path to the smbclient executable.
-//         'smbclient' => '/usr/bin/smbclient',
-//         // IP address of server (only needed if hostname is different from
-//         // NetBIOS name).
-//         // 'ipaddress' => '127.0.0.1',
-//         // The default permissions to set for newly created folders and
-//         // files.
-//         // 'permissions' => '750'
-//     ),
-//     'loginparams' => array(
-//         // Allow the user to change to Samba server.
-//         // 'hostspec' => 'Hostname',
-//         // Allow the user to change the Samba port.
-//         // 'port' => 'Port',
-//         // Allow the user to change the Samba share.
-//         // 'share' => 'Share',
-//     ),
-//     // 'root' => '',
-//     // 'home' => '',
-//     // 'createhome' => false,
-//     // 'filter' => '^regex$',
-//     // 'quota' => false,
-//     'clipboard' => true,
-//     'attributes' => array('type', 'name', 'edit', 'download', 'modified', 'size')
-// );
+$backends['smb'] = array(
+    'name' => 'SMB Server',
+    'driver' => 'smb',
+    'preferred' => '',
+    'hordeauth' => false,
+    'params' => array(
+        'hostspec' => 'example',
+        'port' => 139,
+        'share' => 'homes',
+        // Path to the smbclient executable.
+        'smbclient' => '/usr/bin/smbclient',
+        // IP address of server (only needed if hostname is different from
+        // NetBIOS name).
+        // 'ipaddress' => '127.0.0.1',
+        // The default permissions to set for newly created folders and
+        // files.
+        // 'permissions' => '750'
+    ),
+    'loginparams' => array(
+        // Allow the user to change to Samba server.
+        // 'hostspec' => 'Hostname',
+        // Allow the user to change the Samba port.
+        // 'port' => 'Port',
+        // Allow the user to change the Samba share.
+        // 'share' => 'Share',
+    ),
+    // 'root' => '',
+    // 'home' => '',
+    // 'createhome' => false,
+    // 'filter' => '^regex$',
+    // 'quota' => false,
+    'clipboard' => true,
+    'attributes' => array('type', 'name', 'edit', 'download', 'modified', 'size')
+);
 
 // SSH2 Example
-// ** For the SSH2 backend to work, you must be using a version of Horde
-// ** that contains the SSH2 VFS driver. See the test.php script to determine
-// ** whether the SSH2 driver is present on your system.
-// $backends['ssh2'] = array(
-//     'name' => 'SSH2 Server',
-//     'driver' => 'ssh2',
-//     'preferred' => '',
-//     'hordeauth' => false,
-//     'params' => array(
-//         // The hostname/IP Address of the SSH server
-//         'hostspec' => 'ssh2.example.com',
-//         // The port number of the SSH server
-//         'port' => 22,
-//         // Set timeout (in seconds) for the SSH server. Default: 90 seconds
-//         // 'timeout' => 90,
-//         // If true and the POSIX extension is available the driver will map
-//         // the user and group IDs returned from the SSH server with the local
-//         // IDs from the local password file.  This is useful only if the SSH
-//         // server is running on localhost or if the local user/group
-//         // IDs are identical to the remote SSH server.
-//         // 'maplocalids' => true,
-//         // The default permissions to set for newly created folders and
-//         // files.
-//         // 'permissions' => '750'
-//     ),
-//     'loginparams' => array(
-//         // Allow the user to change the SSH server
-//         // 'hostspec' => 'Hostname',
-//         // Allow the user to change the SSH port
-//         // 'port' => 'Port'
-//     ),
-//     // 'root' => '',
-//     // 'home' => '',
-//     // 'createhome' => false,
-//     // 'filter' => '^regex$',
-//     // 'quota' => false,
-//     'clipboard' => true,
-//     'attributes' => array('type', 'name', 'edit', 'download', 'modified', 'size', 'permission', 'owner', 'group')
-// );
+$backends['ssh2'] = array(
+    'name' => 'SSH2 Server',
+    'driver' => 'ssh2',
+    'preferred' => '',
+    'hordeauth' => false,
+    'params' => array(
+        // The hostname/IP Address of the SSH server
+        'hostspec' => 'ssh2.example.com',
+        // The port number of the SSH server
+        'port' => 22,
+        // Set timeout (in seconds) for the SSH server. Default: 90 seconds
+        // 'timeout' => 90,
+        // If true and the POSIX extension is available the driver will map
+        // the user and group IDs returned from the SSH server with the local
+        // IDs from the local password file.  This is useful only if the SSH
+        // server is running on localhost or if the local user/group
+        // IDs are identical to the remote SSH server.
+        // 'maplocalids' => true,
+        // The default permissions to set for newly created folders and
+        // files.
+        // 'permissions' => '750'
+    ),
+    'loginparams' => array(
+        // Allow the user to change the SSH server
+        // 'hostspec' => 'Hostname',
+        // Allow the user to change the SSH port
+        // 'port' => 'Port'
+    ),
+    // 'root' => '',
+    // 'home' => '',
+    // 'createhome' => false,
+    // 'filter' => '^regex$',
+    // 'quota' => false,
+    'clipboard' => true,
+    'attributes' => array('type', 'name', 'edit', 'download', 'modified', 'size', 'permission', 'owner', 'group')
+);

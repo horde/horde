@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Max Kalika <max@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Gollem
+ * @author   Max Kalika <max@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 class Gollem
 {
@@ -24,44 +26,48 @@ class Gollem
     const SORT_DESCEND = 1;
 
     /**
+     * prepareMenu() cache.
+     *
+     * @var array
+     */
+    static private $_menu = null;
+
+    /**
      * Changes the current directory of the Gollem session to the supplied
      * value.
      *
      * @param string $dir  Directory name.
      *
-     * @return mixed  True on Success, PEAR_Error on failure.
+     * @throws Gollem_Exception
      */
     static public function setDir($dir)
     {
         $dir = Horde_Util::realPath($dir);
 
         if (!self::verifyDir($dir)) {
-            return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
+            throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         $GLOBALS['gollem_be']['dir'] = $dir;
 
         self::_setLabel();
-
-        return true;
     }
 
     /**
      * Changes the current directory of the Gollem session based on the
      * 'dir' form field.
      *
-     * @return mixed  True on Success, PEAR_Error on failure.
+     * @throws Gollem_Exception
      */
     static public function changeDir()
     {
         $dir = Horde_Util::getFormData('dir');
-        if ($dir !== null) {
+        if (is_null($dir)) {
+            self::_setLabel();
+        } else {
             if (strpos($dir, '/') !== 0) {
                 $dir = $GLOBALS['gollem_be']['dir'] . '/' . $dir;
             }
-            return self::setDir($dir);
-        } else {
-            self::_setLabel();
-            return true;
+            self::setDir($dir);
         }
     }
 
@@ -298,30 +304,23 @@ class Gollem
      * information, such as username, server, etc., that can be filled
      * in on the login form.
      *
-     * @return string  The logout URL with parameters added.
+     * @return Horde_Url  The logout URL with parameters added.
      */
     static public function logoutUrl()
     {
-        $params = array();
-        $url = 'login.php';
+        $url = Horde::url('login.php', true);
 
         if (!empty($GLOBALS['gollem_be']['params']['username'])) {
-            $params['username'] = $GLOBALS['gollem_be']['params']['username'];
+            $url->add('username', $GLOBALS['gollem_be']['params']['username']);
         } elseif (Horde_Util::getFormData('username')) {
-            $params['username'] = Horde_Util::getFormData('username');
+            $url->add('username', Horde_Util::getFormData('username'));
         }
 
         if (!empty($GLOBALS['gollem_be']['params']['port'])) {
-            $params['port'] = $GLOBALS['gollem_be']['params']['port'];
+            $url->add('port', $GLOBALS['gollem_be']['params']['port']);
         }
 
-        foreach ($params as $key => $val) {
-            if (!empty($val)) {
-                $url = Horde_Util::addParameter($url, $key, $val);
-            }
-        }
-
-        return Horde::url($url, true);
+        return $url;
     }
 
     /**
@@ -330,14 +329,14 @@ class Gollem
      * @param string $dir   The directory path.
      * @param string $name  The folder to create.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws Gollem_Exception
      * @throws VFS_Exception
      */
     static public function createFolder($dir, $name)
     {
         $totalpath = Horde_Util::realPath($dir . '/' . $name);
         if (!Gollem::verifyDir($totalpath)) {
-            return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $totalpath));
+            throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $totalpath));
         }
 
         /* The $name parameter may contain additional directories so we
@@ -352,8 +351,6 @@ class Gollem
         if (!empty($GLOBALS['gollem_be']['params']['permissions'])) {
             $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $GLOBALS['gollem_be']['params']['permissions']);
         }
-
-        return true;
     }
 
     /**
@@ -377,12 +374,13 @@ class Gollem
      * @param string $dir   The subdirectory name.
      * @param string $name  The folder name to delete.
      *
+     * @throws Gollem_Exception
      * @throws VFS_Exception
      */
     static public function deleteFolder($dir, $name)
     {
         if (!Gollem::verifyDir($dir)) {
-            return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
+            throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
 
         ($GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled')
@@ -396,12 +394,13 @@ class Gollem
      * @param string $dir   The directory name.
      * @param string $name  The filename to delete.
      *
+     * @throws Gollem_Exception
      * @throws VFS_Exception
      */
     static public function deleteFile($dir, $name)
     {
         if (!Gollem::verifyDir($dir)) {
-            return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
+            throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         $GLOBALS['gollem_vfs']->deleteFile($dir, $name);
     }
@@ -413,12 +412,13 @@ class Gollem
      * @param string $name        The filename to change permissions on.
      * @param string $permission  The permission mode to set.
      *
+     * @throws Gollem_Exception
      * @throws VFS_Exception
      */
     static public function changePermissions($dir, $name, $permission)
     {
         if (!Gollem::verifyDir($dir)) {
-            return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
+            throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $permission);
     }
@@ -575,30 +575,6 @@ class Gollem
         return (Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length($rootdir)) == $rootdir);
     }
 
-
-    /**
-     * Parse the 'columns' preference.
-     *
-     * @return array  The list of columns to be displayed.
-     */
-    static public function displayColumns()
-    {
-        $ret = array();
-        $lines = explode("\n", $GLOBALS['prefs']->getValue('columns'));
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if (!empty($line)) {
-                $columns = explode("\t", $line);
-                if (count($columns) > 1) {
-                    $source = array_splice($columns, 0, 1);
-                    $ret[$source[0]] = $columns;
-                }
-            }
-        }
-
-        return $ret;
-    }
-
     /**
      * Checks if a user has the specified permissions on the selected backend.
      *
@@ -610,11 +586,12 @@ class Gollem
      * @return boolean  Returns true if the user has permission, false if
      *                  they do not.
      */
-    static public function checkPermissions($filter, $permission = Horde_Perms::READ,
+    static public function checkPermissions($filter,
+                                            $permission = Horde_Perms::READ,
                                             $backend = null)
     {
         $userID = $GLOBALS['registry']->getAuth();
-        if ($backend === null) {
+        if (is_null($backend)) {
             $backend = $_SESSION['gollem']['backend_key'];
         }
 
@@ -648,9 +625,10 @@ class Gollem
             $parts = explode('/', $currdir);
             $parts_count = count($parts);
 
-            $label[] = Horde::link(Horde_Util::addParameter($url, 'dir', $root_dir), sprintf(_("Up to %s"), $root_dir_name)) . '[' . $root_dir_name . ']</a>';
+            $url = new Horde_Url($url);
+            $label[] = Horde::link($url->add('dir', $root_dir), sprintf(_("Up to %s"), $root_dir_name)) . '[' . $root_dir_name . ']</a>';
 
-            for ($i = 1; $i <= $parts_count; $i++) {
+            for ($i = 1; $i <= $parts_count; ++$i) {
                 $part = array_slice($parts, 0, $i);
                 $dir = implode('/', $part);
                 if ((strstr($dir, $root_dir) !== false) &&
@@ -658,7 +636,7 @@ class Gollem
                     if ($i == $parts_count) {
                         $label[] = $parts[($i - 1)];
                     } else {
-                        $label[] = Horde::link(Horde_Util::addParameter($url, 'dir', $dir), sprintf(_("Up to %s"), $dir)) . $parts[($i - 1)] . '</a>';
+                        $label[] = Horde::link($url->add('dir', $dir), sprintf(_("Up to %s"), $dir)) . $parts[($i - 1)] . '</a>';
                     }
                 }
             }
@@ -675,21 +653,22 @@ class Gollem
     static public function getMenu()
     {
         $menu = new Horde_Menu();
-        $menu->add(Horde_Util::addParameter(Horde::url('manager.php'), 'dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
+
+        $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
 
         if (!empty($_SESSION['gollem'])) {
             $backend_key = $_SESSION['gollem']['backend_key'];
             if ($GLOBALS['registry']->isAdmin()) {
-                $menu->add(Horde_Util::addParameter(Horde::url('permissions.php'), 'backend', $backend_key), _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'));
+                $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
             }
 
             if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
                 if ($GLOBALS['browser']->hasFeature('javascript')) {
                     $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
                 } else {
-                    $quota_url = Horde_Util::addParameter(Horde::url('quota.php'), 'backend', $backend_key);
+                    $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
                 }
-                $menu->add($quota_url, _("Check Quota"), 'info_icon.png', Horde_Themes::img(null, 'horde'));
+                $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
             }
         }
 
@@ -697,24 +676,42 @@ class Gollem
     }
 
     /**
-     * Outputs Gollem's menu to the current output stream.
+     * Build Gollem's list of menu items.
      */
-    static public function menu()
+    static public function prepareMenu()
     {
+        if (isset(self::$_menu)) {
+            return;
+        }
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('be_select', Gollem::backendSelect(), true);
+        $t->set('be_select', self::backendSelect(), true);
         if ($t->get('be_select')) {
         $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("_Change Server")) : '');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
-        $t->set('menu_string', Gollem::getMenu()->render());
+        $t->set('menu_string', self::getMenu()->render());
 
-        echo $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
+        self::$_menu = $t->fetch(GOLLEM_TEMPLATES . '/menu/menu.html');
+
+        /* Need to buffer sidebar output here, because it may add things like
+         * cookies which need to be sent before output begins. */
+        Horde::startBuffer();
         require HORDE_BASE . '/services/sidebar.php';
+        self::$_menu .= Horde::endBuffer();
+    }
+
+    /**
+     * Outputs Gollem's menu to the current output stream.
+     */
+    static public function menu()
+    {
+        self::prepareMenu();
+        echo self::$_menu;
     }
 
     /**

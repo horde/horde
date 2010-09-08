@@ -5,13 +5,17 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Amith Varghese <amith@xalan.com>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Ben Klang <bklang@alkaloid.net>
- * @package Gollem
+ * @author   Amith Varghese <amith@xalan.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Ben Klang <bklang@alkaloid.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 
 /* Determine the base directories. */
@@ -41,13 +45,6 @@ class Gollem_Application extends Horde_Registry_Application
      * @var string
      */
     public $version = 'H4 (2.0-git)';
-
-    /**
-     * Permissions cache.
-     *
-     * @var array
-     */
-    protected $_permsCache = array();
 
     /**
      * Gollem initialization.
@@ -80,8 +77,16 @@ class Gollem_Application extends Horde_Registry_Application
             return $this->_permsCache;
         }
 
-        $perms['tree']['gollem']['backends'] = false;
-        $perms['title']['gollem:backends'] = _("Backends");
+        $perms = array(
+            'tree' => array(
+                'gollem' => array(
+                    'backends' => false
+                )
+            ),
+            'title' => array(
+                'gollem:backends' => _("Backends")
+            )
+        );
 
         // Run through every backend.
         require GOLLEM_BASE . '/config/backends.php';
@@ -89,8 +94,6 @@ class Gollem_Application extends Horde_Registry_Application
             $perms['tree']['gollem']['backends'][$key] = false;
             $perms['title']['gollem:backends:' . $key] = $val['name'];
         }
-
-        $this->_permsCache = $perms;
 
         return $perms;
     }
@@ -125,7 +128,7 @@ class Gollem_Application extends Horde_Registry_Application
     {
         switch ($item) {
         case 'columnselect':
-            $cols = Gollem::displayColumns();
+            $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
             $sources = array();
 
             foreach ($GLOBALS['gollem_backends'] as $source => $info) {
@@ -157,32 +160,6 @@ class Gollem_Application extends Horde_Registry_Application
         }
 
         return '';
-    }
-
-    /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        switch ($item) {
-        case 'columnselect':
-            if (isset($ui->vars->sources)) {
-                $pref = array();
-                foreach (Horde_Serialize::unserialize($ui->vars->sources, Horde_Serialize::JSON) as $val) {
-                    $pref[] = implode("\t", array_merge($val[0], $val[1]));
-                }
-                $GLOBALS['prefs']->setValue('columns', implode("\n", $pref));
-                return true;
-            }
-            break;
-        }
-
-        return false;
     }
 
     /**

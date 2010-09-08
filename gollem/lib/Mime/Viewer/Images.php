@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Mime
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 class Gollem_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {

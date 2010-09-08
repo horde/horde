@@ -7,18 +7,20 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did notcan receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Max Kalika <max@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Gollem
+ * @author   Max Kalika <max@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
-$actionID = Horde_Util::getFormData('actionID');
 $backkey = $_SESSION['gollem']['backend_key'];
 $old_dir = Gollem::getDir();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Get permissions. */
 $delete_perms = Gollem::checkPermissions('backend', Horde_Perms::DELETE);
@@ -26,21 +28,22 @@ $edit_perms = Gollem::checkPermissions('backend', Horde_Perms::EDIT);
 $read_perms = Gollem::checkPermissions('backend', Horde_Perms::READ);
 
 /* Set directory. */
-if (is_a($result = Gollem::changeDir(), 'PEAR_Error')) {
-    $notification->push($result);
+try {
+    Gollem::changeDir();
+} catch (VFS_Exception $e) {
+    $notification->push($e);
 }
 
 /* Run through the action handlers. */
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'create_folder':
-    if ($edit_perms) {
-        if ($new_folder = Horde_Util::getPost('new_folder')) {
-            $result = Gollem::createFolder($old_dir, $new_folder);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result->getMessage(), 'horde.error');
-            } else {
-                $notification->push(_("New folder created: ") . $new_folder, 'horde.success');
-            }
+    if ($edit_perms &&
+        ($new_folder = Horde_Util::getPost('new_folder'))) {
+        try {
+            Gollem::createFolder($old_dir, $new_folder);
+            $notification->push(_("New folder created: ") . $new_folder, 'horde.success');
+        } catch (Gollem_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
     break;
@@ -51,11 +54,11 @@ case 'rename_items':
         $old = explode('|', Horde_Util::getPost('old_names'));
         if (!empty($new) && !empty($old) && (count($new) == count($old))) {
             for ($i = 0, $iMax = count($new); $i < $iMax; ++$i) {
-                $result = Gollem::renameItem($old_dir, $old[$i], $old_dir, $new[$i]);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push($result->getMessage(), 'horde.error');
-                } else {
+                try {
+                    Gollem::renameItem($old_dir, $old[$i], $old_dir, $new[$i]);
                     $notification->push(sprintf(_("\"%s\" renamed to \"%s\""), $old[$i], $new[$i]), 'horde.success');
+                } catch (Gollem_Exception $e) {
+                    $notification->push($e, 'horde.error');
                 }
             }
             Gollem::expireCache($old_dir);
@@ -72,29 +75,30 @@ case 'delete_items':
         if (is_array($items) && count($items)) {
             $chmod = Horde_Util::getPost('chmod');
             foreach ($items as $item) {
-                if (($actionID == 'chmod_modify') && $chmod) {
-                    if (!is_a(Gollem::changePermissions(Gollem::getDir(), $item, $chmod), 'PEAR_Error')) {
+                if (($vars->actionID == 'chmod_modify') && $chmod) {
+                    try {
+                        Gollem::changePermissions(Gollem::getDir(), $item, $chmod);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("Chmod done: ") . $item, 'horde.success');
-                    } else {
-                        $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $result->getMessage()), 'horde.error');
+                    } catch (Gollem_Exception $e) {
+                        $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
-                } elseif ($actionID == 'delete_items') {
-                    if ($GLOBALS['gollem_vfs']->isFolder($old_dir, $item)) {
-                        $result = Gollem::deleteFolder($old_dir, $item);
-                        if (is_a($result, 'PEAR_Error')) {
-                            $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $result->getMessage()), 'horde.error');
-                        } else {
+                } elseif ($vars->actionID == 'delete_items') {
+                    if ($gollem_vfs->isFolder($old_dir, $item)) {
+                        try {
+                            Gollem::deleteFolder($old_dir, $item);
                             Gollem::expireCache($old_dir);
                             $notification->push(_("Folder removed: ") . $item, 'horde.success');
+                        } catch (Gollem_Exception $e) {
+                            $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $e->getMessage()), 'horde.error');
                         }
                     } else {
-                        $result = Gollem::deleteFile($old_dir, $item);
-                        if (is_a($result, 'PEAR_Error')) {
-                            $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $result->getMessage()), 'horde.error');
-                        } else {
+                        try {
+                            Gollem::deleteFile($old_dir, $item);
                             Gollem::expireCache($old_dir);
                             $notification->push(_("File deleted: ") . $item, 'horde.success');
+                        } catch (Gollem_Exception $e) {
+                            $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $e->getMessage()), 'horde.error');
                         }
                     }
                 }
@@ -109,16 +113,15 @@ case 'upload_file':
             $val = 'file_upload_' . $i;
             if (isset($_FILES[$val]) && ($_FILES[$val]['error'] != 4)) {
                 try {
-                    $GLOBALS['browser']->wasFileUploaded($val);
+                    $browser->wasFileUploaded($val);
                     $filename = Horde_Util::dispelMagicQuotes($_FILES[$val]['name']);
-                    $res = Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
-                    if (is_a($res, 'PEAR_Error')) {
-                        $notification->push($res, 'horde.error');
-                    } else {
-                        Gollem::expireCache($old_dir);
-                        $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
-                    }
+
+                    Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
+                    Gollem::expireCache($old_dir);
+                    $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
                 } catch (Horde_Browser_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                } catch (Gollem_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
             }
@@ -128,8 +131,8 @@ case 'upload_file':
 
 case 'copy_items':
 case 'cut_items':
-    if ($edit_perms && !empty($GLOBALS['gollem_be']['clipboard'])) {
-        $action = ($actionID == 'copy_items') ? 'copy' : 'cut';
+    if ($edit_perms && !empty($gollem_be['clipboard'])) {
+        $action = ($vars->actionID == 'copy_items') ? 'copy' : 'cut';
         $items = Horde_Util::getPost('items');
 
         if (is_array($items) && count($items)) {
@@ -160,26 +163,27 @@ case 'cut_items':
 
 case 'clear_items':
 case 'paste_items':
-    if ($edit_perms && !empty($GLOBALS['gollem_be']['clipboard'])) {
+    if ($edit_perms && !empty($gollem_be['clipboard'])) {
         $items = Horde_Util::getPost('items');
         if (is_array($items) && count($items)) {
             foreach ($items as $val) {
                 if (isset($_SESSION['gollem']['clipboard'][$val])) {
                     $file = $_SESSION['gollem']['clipboard'][$val];
-                    if ($actionID == 'paste_items') {
-                        if ($file['action'] == 'cut') {
-                            $res = Gollem::moveFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
-                        } else {
-                            $res = Gollem::copyFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
-                        }
-                        if (is_a($res, 'PEAR_Error')) {
-                            $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $res->getMessage()), 'horde.error');
-                        } else {
+                    if ($vars->actionID == 'paste_items') {
+                        try {
+                            if ($file['action'] == 'cut') {
+                                Gollem::moveFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
+                            } else {
+                                Gollem::copyFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
+                            }
+
                             Gollem::expireCache($old_dir);
                             if ($file['action'] == 'cut') {
                                 Gollem::expireCache($file['path']);
                             }
                             $notification->push(sprintf(_("%s was successfully pasted."), $file['name'], $old_dir), 'horde.success');
+                        } catch (VFS_Exception $e) {
+                            $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $e->getMessage()), 'horde.error');
                         }
                     }
                     unset($_SESSION['gollem']['clipboard'][$val]);
@@ -191,14 +195,14 @@ case 'paste_items':
     break;
 
 case 'change_sortby':
-    if (($sortby = Horde_Util::getFormData('sortby')) !== null) {
-        $prefs->setValue('sortby', $sortby);
+    if (isset($vars->sortby)) {
+        $prefs->setValue('sortby', $vars->sortby);
     }
     break;
 
 case 'change_sortdir':
-    if (($sortdir = Horde_Util::getFormData('sortdir')) !== null) {
-        $prefs->setValue('sortdir', $sortdir);
+    if (isset($vars->sortdir)) {
+        $prefs->setValue('sortdir', $vars->sortdir);
     }
     break;
 }
@@ -207,61 +211,63 @@ case 'change_sortdir':
  * etc., to make sure we can catch any errors. */
 $currdir = Gollem::getDir();
 
-$list = Gollem::listFolder($currdir);
-if (is_a($list, 'PEAR_Error')) {
+try {
+    Gollem::listFolder($currdir);
+} catch (Gollem_Exception $e) {
     /* If this is a user's home directory, try autocreating it. */
     if ($currdir == Gollem::getHome()) {
-        if (is_a($created = Gollem::createFolder('', $currdir), 'PEAR_Error')) {
+        try {
+            Gollem::createFolder('', $currdir);
+            try {
+                $list = Gollem::listFolder($currdir);
+            } catch (Gollem_Exception $e) {
+                /* If that didn't work, fall back to the parent or the home
+                 * directory. */
+                $notification->push(sprintf(_("Permission denied to folder \"%s\": %s"), $currdir, $e->getMessage()), 'horde.error');
+
+                $loc = strrpos($currdir, '/');
+                Gollem::setDir(($loc !== false) ? substr($currdir, 0, $loc) : Gollem::getHome());
+                $currdir = Gollem::getDir();
+                $list = Gollem::listFolder($currdir);
+            }
+        } catch (Gollem_Exception $e) {
             $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
-        } else {
-            $list = Gollem::listFolder($currdir);
         }
-    }
-
-    /* If that didn't work, fall back to the parent or the home directory. */
-    if (is_a($list, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Permission denied to folder \"%s\": %s"), $currdir, $list->getMessage()), 'horde.error');
-
-        $loc = strrpos($currdir, '/');
-        Gollem::setDir(($loc !== false) ? substr($currdir, 0, $loc) : Gollem::getHome());
-        $currdir = Gollem::getDir();
-        $list = Gollem::listFolder($currdir);
     }
 }
 
 $numitem = count($list);
-$title = $GLOBALS['gollem_be']['label'];
+$title = $gollem_be['label'];
 
 /* Image links. */
-$image_dir = Horde_Themes::img(null, 'horde');
-$edit_img = Horde::img('edit.png', _("Edit"), null, $image_dir);
-$download_img = Horde::img('download.png', _("Download"), null, $image_dir);
+$edit_img = Horde::img('edit.png', _("Edit"));
+$download_img = Horde::img('download.png', _("Download"));
 $folder_img = Horde::img('folder.png', _("folder"));
 $symlink_img = Horde::img('folder_symlink.png', _("symlink"));
 
 /* Init some form vars. */
-$page = Horde_Util::getFormData('page', 0);
-$filter = Horde_Util::getFormData('filter', '');
+$page = isset($vars->page)
+    ? $vars->page
+    : 0;
 if (isset($_SESSION['gollem']['filter']) &&
-    $_SESSION['gollem']['filter'] != $filter) {
+    ($_SESSION['gollem']['filter'] != $vars->filter)) {
     $page = 0;
 }
-$_SESSION['gollem']['filter'] = $filter;
+$_SESSION['gollem']['filter'] = strval($vars->filter);
 
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
 $edit_url = Horde::url('edit.php');
 $manager_url = Horde::url('manager.php');
 
-$refresh_params = array('page' => $page);
-if ($filter) {
-    $refresh_params['filter'] = $filter;
+$refresh_url = $manager_url->copy()->add('page', $page);
+if ($vars->filter) {
+    $refresh_url->add('filter', $vars->filter);
 }
-$refresh_url = Horde_Util::addParameter($manager_url, $refresh_params);
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
-if (!empty($GLOBALS['gollem_be']['clipboard'])) {
+if (!empty($gollem_be['clipboard'])) {
     foreach ($_SESSION['gollem']['clipboard'] as $val) {
         if (($backkey == $val['backend']) && ($val['path'] == $currdir)) {
             $clipboard_files[$val['name']] = 1;
@@ -270,14 +276,16 @@ if (!empty($GLOBALS['gollem_be']['clipboard'])) {
 }
 
 /* Read the columns to display from the preferences. */
-$sources = Gollem::displayColumns();
-$columns = isset($sources[$backkey]) ? $sources[$backkey] : $GLOBALS['gollem_be']['attributes'];
+$sources = json_decode($prefs->getValue('columns'));
+$columns = isset($sources[$backkey])
+    ? $sources[$backkey]
+    : $gollem_be['attributes'];
 
 /* Prepare the template. */
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
-$attrib = $GLOBALS['gollem_vfs']->getModifiablePermissions();
+$attrib = $gollem_vfs->getModifiablePermissions();
 foreach (array('owner', 'group', 'all') as $val) {
     foreach (array('read', 'write', 'execute') as $val2) {
         $template->set($val . '_' . $val2, !$attrib[$val][$val2], true);
@@ -296,14 +304,14 @@ $template->set('action', $refresh_url);
 $template->set('forminput', Horde_Util::formInput());
 $template->set('dir', $currdir);
 $template->set('navlink', Gollem::directoryNavLink($currdir, $manager_url));
-$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), $GLOBALS['gollem_be']['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars($GLOBALS['gollem_be']['label'])), null, $image_dir) . '</a>');
+$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), $gollem_be['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars($gollem_be['label']))) . '</a>');
 
-$template->set('hasclipboard', !$edit_perms || !empty($GLOBALS['gollem_be']['clipboard']), true);
+$template->set('hasclipboard', !$edit_perms || !empty($gollem_be['clipboard']), true);
 if (!$template->get('hasclipboard') ||
     empty($_SESSION['gollem']['clipboard'])) {
     $template->set('clipboard', null);
 } else {
-    $template->set('clipboard', Horde::link(Horde_Util::addParameter(Horde::url('clipboard.php'), 'dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
+    $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
 }
 
 if ($edit_perms) {
@@ -350,8 +358,8 @@ if (is_array($list) && $numitem && $read_perms) {
 
     foreach ($list as $key => $val) {
         /* Check if a filter is not empty and filter matches filename. */
-        if (strlen($filter) &&
-            !preg_match('/' . preg_quote($filter, '/') . '/', $val['name'])) {
+        if (strlen($vars->filter) &&
+            !preg_match('/' . preg_quote($vars->filter, '/') . '/', $val['name'])) {
             continue;
         }
 
@@ -362,7 +370,7 @@ if (is_array($list) && $numitem && $read_perms) {
 
         $item = array(
             'date' => htmlspecialchars(strftime($prefs->getValue('date_format'), $val['date'])),
-            'date_sort' => (int)$val['date'],
+            'date_sort' => intval($val['date']),
             'dl' => false,
             'edit' => false,
             'group' => empty($val['group']) ? '-' : htmlspecialchars($val['group']),
@@ -397,8 +405,8 @@ if (is_array($list) && $numitem && $read_perms) {
         /* Create proper link. */
         switch ($val['type']) {
         case '**dir':
-            $url = Horde_Util::addParameter($manager_url, array('dir' => Gollem::subdirectory($currdir, $val['name'])));
-            $item['link'] = Horde::link($url) . '<strong>' . $name . '</strong></a>';
+            $url = $manager_url->copy()->add('dir', Gollem::subdirectory($currdir, $val['name']));
+            $item['link'] = $url->link() . '<strong>' . $name . '</strong></a>';
             break;
 
         case '**broken':
@@ -416,8 +424,8 @@ if (is_array($list) && $numitem && $read_perms) {
                     $dir = $currdir;
                 }
 
-                $url = Horde_Util::addParameter($manager_url, array('dir' => Gollem::subdirectory($dir, $name)));
-                $item['link'] = $item['name'] . ' -> <strong>' . Horde::link($url) . $val['link'] . '</a></strong>';
+                $url = $manager_url->copy()->add('dir', Gollem::subdirectory($dir, $name));
+                $item['link'] = $item['name'] . ' -> <strong>' . $url->link() . $val['link'] . '</a></strong>';
             } else {
                 $item['link'] = $item['name'] . ' -> ' . $val['link'];
             }
@@ -428,15 +436,27 @@ if (is_array($list) && $numitem && $read_perms) {
 
             // Edit link if possible.
             if (strpos($mime_type, 'text/') === 0) {
-                $url = Horde_Util::addParameter($edit_url, array('actionID' => 'edit_file', 'type' => $val['type'], 'file' => $val['name'], 'dir' => $currdir, 'driver' => $GLOBALS['gollem_be']['driver']));
+                $url = $edit_url->copy()->add(array(
+                    'actionID' => 'edit_file',
+                    'type' => $val['type'],
+                    'file' => $val['name'],
+                    'dir' => $currdir,
+                    'driver' => $gollem_be['driver']
+                ));
                 $item['edit'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $edit_img . '</a>';
             }
 
             // We can always download files.
-            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => $currdir, 'driver' => $GLOBALS['gollem_be']['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name'])) . $download_img . '</a>';
+            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => $currdir, 'driver' => $gollem_be['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name'])) . $download_img . '</a>';
 
             // Try a view link.
-            $url = Horde_Util::addParameter($view_url, array('actionID' => 'view_file', 'type' => $val['type'], 'file' => $val['name'], 'dir' => $currdir, 'driver' => $GLOBALS['gollem_be']['driver']));
+            $url = $view_url->copy()->add(array(
+                'actionID' => 'view_file',
+                'type' => $val['type'],
+                'file' => $val['name'],
+                'dir' => $currdir,
+                'driver' => $gollem_be['driver']
+            ));
             $item['link'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $name . '</a>';
             break;
         }
@@ -453,9 +473,13 @@ if (is_array($list) && $numitem && $read_perms) {
         $start = ($page * $perpage) + 1;
         $end = min($total, $start + $perpage - 1);
 
-        $vars = Horde_Variables::getDefaultVariables();
         $vars->set('page', $page);
-        $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $refresh_url, 'page_count' => 10, 'perpage' => $perpage));
+        $pager = new Horde_Core_Ui_Pager('page', $vars, array(
+            'num' => $total,
+            'url' => $refresh_url,
+            'page_count' => 10,
+            'perpage' => $perpage
+        ));
         $page_caption = $pager->render();
     }
 
@@ -537,7 +561,7 @@ if (is_array($list) && $numitem && $read_perms) {
             if ($sortby == $sort) {
                 $hdr['class'] = ($sortdir ? 'sortup' : 'sortdown');
             }
-            $hdr['label'] = '<a href="' . Horde_Util::addParameter($refresh_url, array('actionID' => 'change_sortby', 'sortby' => $sort)) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
+            $hdr['label'] = '<a href="' . $refresh_url->copy()->add(array('actionID' => 'change_sortby', 'sortby' => $sort)) . '" class="sortlink">' . htmlspecialchars($hdr['label']) . '</a>';
         }
 
         $headers[] = $hdr;
@@ -547,22 +571,21 @@ if (is_array($list) && $numitem && $read_perms) {
     $template->set('headers', $headers, true);
     $template->set('entry', $entry, true);
     $template->set('page_caption', $page_caption);
-    $template->set('filter_val', $filter);
+    $template->set('filter_val', $vars->filter);
     $template->set('checkall', Horde::getAccessKeyAndTitle(_("Check _All/None")));
 } else {
     $template->set('empty_dir', true, true);
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-$js_code = array(
-    'var warn_recursive = ' . intval($GLOBALS['prefs']->getValue('recursive_deletes') == 'warn'),
-);
-
 Horde::addScriptFile('manager.js', 'gollem');
 Horde::addScriptFile('tables.js', 'horde');
+Horde::addInlineJsVars(array(
+    '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
+));
 
+Gollem::prepareMenu();
 require GOLLEM_TEMPLATES . '/common-header.inc';
-Horde::addInlineScript(implode(';', $js_code));
 Gollem::menu();
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/manager/manager.html');

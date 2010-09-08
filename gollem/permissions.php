@@ -6,18 +6,24 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Vijay Mahrra <vijay.mahrra@es.easynet.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem', array('admin' => true));
 
 if (!Gollem::getBackends('all')) {
+    $notification->push(_("You need at least one backend defined to set permissions."), 'horde.error');
+
     $title = _("Gollem Backend Permissions Administration");
+    Gollem::prepareMenu();
     require GOLLEM_TEMPLATES . '/common-header.inc';
     Gollem::menu();
     Gollem::status();
-    $notification->push(_("You need at least one backend defined to set permissions."), 'horde.error');
-    $notification->notify();
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }
@@ -33,11 +39,13 @@ if ($perms->exists($backendTag)) {
     $perm_id = $perms->getPermissionId($permission);
 } else {
     $permission = $perms->newPermission($backendTag);
-    $result = $perms->addPermission($permission, $app);
-    if ($result instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Unable to create backend permission: %s"), $result->getMessage()), 'horde.error');
+    try {
+        $perms->addPermission($permission, $app);
+    } catch (Horde_Perms_Exception $e) {
+        $notification->push(sprintf(_("Unable to create backend permission: %s"), $e->getMessage()), 'horde.error');
         Horde::url('redirect.php', true)->redirect();
     }
+
     $perm_id = $perms->getPermissionId($permission);
     $notification->push(sprintf(_("Created empty permissions for \"%s\". You must explicitly grant access to this backend now."), $key), 'horde.warning');
 }
