@@ -868,6 +868,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ($this->_temp['parseresperr']['response'] == 'NO')) {
                 $this->_selected = null;
                 $this->_mode = 0;
+                $this->_exception($e->getMessage(), 'MAILBOX_NOOPEN');
             }
             throw $e;
         }

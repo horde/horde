@@ -15,6 +15,7 @@
 class Horde_Imap_Client_Exception extends Exception
 {
     /* Error message codes. */
+
     // Unspecified error (default)
     const UNSPECIFIED = 0;
 
@@ -63,6 +64,7 @@ class Horde_Imap_Client_Exception extends Exception
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
+
     // Login failures
 
     // Could not start mandatory TLS connection.
@@ -85,5 +87,11 @@ class Horde_Imap_Client_Exception extends Exception
 
     // Login requires privacy.
     const LOGIN_PRIVACYREQUIRED = 21;
+
+
+    // Mailbox access failures
+
+    // Could not open/access mailbox
+    const MAILBOX_NOOPEN = 22;
 
 }
