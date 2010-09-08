@@ -67,9 +67,13 @@ class Content_Objects_Manager
         $params = $objects;
         $params[] = $type;
 
-        $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
-        if ($ids) {
-            return $ids;
+        try {
+            $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
+            if ($ids) {
+                return $ids;
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
 
         return false;
@@ -107,20 +111,24 @@ class Content_Objects_Manager
         }
 
         // Get the ids for any objects that already exist.
-        if (count($objectName)) {
-            foreach ($this->_db->selectAll('SELECT object_id, object_name FROM ' . $this->_t('objects')
-                     . ' WHERE object_name IN (' . implode(',', array_map(array($this->_db, 'quote'), array_keys($objectName)))
-                     . ') AND type_id = ' . $type) as $row) {
+        try {
+            if (count($objectName)) {
+                foreach ($this->_db->selectAll('SELECT object_id, object_name FROM ' . $this->_t('objects')
+                         . ' WHERE object_name IN (' . implode(',', array_map(array($this->_db, 'quote'), array_keys($objectName)))
+                         . ') AND type_id = ' . $type) as $row) {
 
-                $objectIndex = $objectName[$row['object_name']];
-                unset($objectName[$row['object_name']]);
-                $objectIds[$objectIndex] = $row['object_id'];
+                    $objectIndex = $objectName[$row['object_name']];
+                    unset($objectName[$row['object_name']]);
+                    $objectIds[$objectIndex] = $row['object_id'];
+                }
             }
-        }
 
-        // Create any objects that didn't already exist
-        foreach ($objectName as $object => $objectIndex) {
-            $objectIds[$objectIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('objects') . ' (object_name, type_id) VALUES (' . $this->_db->quote($object) . ', ' . $type . ')');
+            // Create any objects that didn't already exist
+            foreach ($objectName as $object => $objectIndex) {
+                $objectIds[$objectIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('objects') . ' (object_name, type_id) VALUES (' . $this->_db->quote($object) . ', ' . $type . ')');
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
 
         return $objectIds;
