@@ -144,10 +144,6 @@ class IMP_Ui_Mailbox
      */
     public function getSize($size)
     {
-        if ($size < 1024) {
-            return $size;
-        }
-
         if (!isset($this->_cache['localeinfo'])) {
             $this->_cache['localeinfo'] = Horde_Nls::getLocaleInfo();
         }
