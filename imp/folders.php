@@ -47,10 +47,13 @@ $imp_folder = $injector->getInstance('IMP_Folder');
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
-/* $folder_list is already encoded in UTF7-IMAP. */
-$folder_list = isset($vars->folder_list)
-    ? $vars->folder_list
-    : array();
+/* $folder_list is already encoded in UTF7-IMAP, but entries are urlencoded. */
+$folder_list = array();
+if (isset($vars->folder_list)) {
+    foreach ($vars->folder_list as $val) {
+        $folder_list[] = IMP::formMbox($val, false);
+    }
+}
 
 /* META refresh time (might be altered by actionID). */
 $refresh_time = $prefs->getValue('refresh_time');
@@ -164,7 +167,7 @@ case 'create_folder':
     break;
 
 case 'rename_folder':
-    // $old_names already in UTF7-IMAP
+    // $old_names already in UTF7-IMAP, but may be URL encoded.
     $old_names = array_map('trim', explode("\n", $vars->old_names));
     $new_names = array_map('trim', explode("\n", $vars->new_names));
 
@@ -174,7 +177,8 @@ case 'rename_folder':
         ($iMax == count($old_names))) {
         $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
         for ($i = 0; $i < $iMax; ++$i) {
-            $old_ns = $imp_imap->getNamespace($old_names[$i]);
+            $old_name = IMP::formMbox($old_names[$i], false);
+            $old_ns = $imp_imap->getNamespace($old_name);
             $new = trim($new_names[$i], $old_ns['delimiter']);
 
             /* If this is a personal namespace, then anything goes as far as
@@ -186,7 +190,7 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $imp_folder->rename($old_names[$i], Horde_String::convertCharset($new, $charset, 'UTF7-IMAP'));
+            $imp_folder->rename($old_name, Horde_String::convertCharset($new, $charset, 'UTF7-IMAP'));
         }
     }
     break;
