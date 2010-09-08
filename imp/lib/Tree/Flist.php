@@ -182,7 +182,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
         if ($abbrev = $this->getOption('abbrev')) {
             $node = &$this->_nodes[$node_id];
             $orig_label = $node['label'];
-            $node['label'] = htmlspecialchars(Horde_String::abbreviate($node['orig_label'], $abbrev - ($node['indent'] * 2)));
+            $node['label'] = Horde_String::abbreviate($node['orig_label'], $abbrev - ($node['indent'] * 2));
         } else {
             $orig_label = null;
         }
