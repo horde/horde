@@ -1693,9 +1693,7 @@ HTML;
         }
 
         if ($error) {
-            $error = sprintf('Hook %s in application %s not called.', $hook, $app);
-            self::logMessage($error, 'DEBUG');
-            throw new Horde_Exception_HookNotSet($error);
+            throw new Horde_Exception_HookNotSet();
         }
 
         try {
