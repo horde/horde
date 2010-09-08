@@ -34,9 +34,9 @@
       <values>
        <value desc="None (use user's browser and 'dynamic_view'
        preference)"></value>
-       <value desc="IMP">imp</value>
-       <value desc="DIMP">dimp</value>
-       <value desc="MIMP">mimp</value>
+       <value desc="Traditional">imp</value>
+       <value desc="Dynamic">dimp</value>
+       <value desc="Mobile">mimp</value>
       </values>
      </configenum>
     </case>
