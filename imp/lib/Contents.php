@@ -461,7 +461,7 @@ class IMP_Contents
                 $ret[$mime_id]['status'] = array(
                     array(
                         'text' => array(
-                            _("This inline viewable part is empty.")
+                            _("This part is empty.")
                         )
                     )
                 );
