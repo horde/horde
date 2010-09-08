@@ -220,15 +220,6 @@ $this->applications['mnemo-menu'] = array(
     'menu_parent' => 'mnemo',
 );
 
-$this->applications['genie'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/genie',
-    'webroot' => $this->applications['horde']['webroot'] . '/genie',
-    'name' => _("Wishlist"),
-    'status' => 'active',
-    'provides' => 'wishlist',
-    'menu_parent' => 'organizing'
-);
-
 $this->applications['trean'] = array(
     'fileroot' => $this->applications['horde']['fileroot'] . '/trean',
     'webroot' => $this->applications['horde']['webroot'] . '/trean',
@@ -291,23 +282,6 @@ $this->applications['info'] = array(
     'status' => 'heading',
 );
 
-$this->applications['klutz'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/klutz',
-    'webroot' => $this->applications['horde']['webroot'] . '/klutz',
-    'name' => _("Comics"),
-    'status' => 'active',
-    'provides' => 'comics',
-    'menu_parent' => 'info'
-);
-
-$this->applications['mottle'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/mottle',
-    'webroot' => $this->applications['horde']['webroot'] . '/mottle',
-    'name' => _("MOTD"),
-    'status' => 'active',
-    'menu_parent' => 'info'
-);
-
 $this->applications['jonah'] = array(
     'fileroot' => $this->applications['horde']['fileroot'] . '/jonah',
     'webroot' => $this->applications['horde']['webroot'] . '/jonah',
@@ -323,45 +297,9 @@ $this->applications['jonah-menu'] = array(
     'menu_parent' => 'jonah',
 );
 
-$this->applications['goops'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/goops',
-    'webroot' => $this->applications['horde']['webroot'] . '/goops',
-    'name' => _("Search Engines"),
-    'status' => 'active',
-    'menu_parent' => 'info'
-);
-
 $this->applications['office'] = array(
     'name' => _("Office"),
     'status' => 'heading',
-);
-
-$this->applications['juno'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/juno',
-    'webroot' => $this->applications['horde']['webroot'] . '/juno',
-    'name' => _("Accounting"),
-    'status' => 'active',
-    'menu_parent' => 'office'
-);
-
-$this->applications['midas'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/midas',
-    'webroot' => $this->applications['horde']['webroot'] . '/midas',
-    'name' => _("Ads"),
-    'status' => 'active',
-    'menu_parent' => 'office'
-);
-
-$this->applications['sesha'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/sesha',
-    'webroot' => $this->applications['horde']['webroot'] . '/sesha',
-    'name' => _("Inventory"),
-    'status' => 'active',
-
-    // Uncomment this line if you want Sesha to provide queue and version
-    // names instead of Whups:
-    // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
-    'menu_parent' => 'office',
 );
 
 $this->applications['hermes'] = array(
@@ -441,46 +379,12 @@ $this->applications['agora'] = array(
     'menu_parent' => 'website'
 );
 
-$this->applications['ulaform'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/ulaform',
-    'webroot' => $this->applications['horde']['webroot'] . '/ulaform',
-    'name' => _("Forms"),
-    'status' => 'active',
-    'menu_parent' => 'website'
-);
-
-$this->applications['volos'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/volos',
-    'webroot' => $this->applications['horde']['webroot'] . '/volos',
-    'name' => _("Guestbook"),
-    'status' => 'active',
-    'menu_parent' => 'website'
-);
-
 $this->applications['ansel'] = array(
     'fileroot' => $this->applications['horde']['fileroot'] . '/ansel',
     'webroot' => $this->applications['horde']['webroot'] . '/ansel',
     'name' => _("Photos"),
     'status' => 'active',
     'provides' => 'images',
-    'menu_parent' => 'website'
-);
-
-$this->applications['scry'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/scry',
-    'webroot' => $this->applications['horde']['webroot'] . '/scry',
-    'name' => _("Polls"),
-    'status' => 'active',
-    'provides' => 'polls',
-    'menu_parent' => 'website'
-);
-
-$this->applications['merk'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/merk',
-    'webroot' => $this->applications['horde']['webroot'] . '/merk',
-    'name' => _("Shopping"),
-    'status' => 'active',
-    'provides' => 'shop',
     'menu_parent' => 'website'
 );
 
@@ -497,14 +401,6 @@ $this->applications['vilma'] = array(
     'fileroot' => $this->applications['horde']['fileroot'] . '/vilma',
     'webroot' => $this->applications['horde']['webroot'] . '/vilma',
     'name' => _("Mail Admin"),
-    'status' => 'active',
-    'menu_parent' => 'administration'
-);
-
-$this->applications['nic'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/nic',
-    'webroot' => $this->applications['horde']['webroot'] . '/nic',
-    'name' => _("Network Tools"),
     'status' => 'active',
     'menu_parent' => 'administration'
 );
