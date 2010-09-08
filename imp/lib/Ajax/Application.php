@@ -1912,7 +1912,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             try {
                 $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['notification']->push($e);
+                if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
+                    $GLOBALS['notification']->push(sprintf(_("Could not open mailbox \"%s\"."), $this->_vars->view), 'horde.error');
+                } else {
+                    $GLOBALS['notification']->push($e, 'horde.error');
+                }
                 return null;
             }
         }
