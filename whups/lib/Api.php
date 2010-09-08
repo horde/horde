@@ -609,15 +609,6 @@ class Whups_Api extends Horde_Registry_Api
     }
 
     /**
-     * Permissions available from Whups
-     *
-     * @return array  Permissions tree
-     */
-    public function perms()
-    {
-    }
-
-    /**
      * List cost objects
      *
      * @param array $criteria  The list criteria

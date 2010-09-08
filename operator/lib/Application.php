@@ -48,11 +48,6 @@ class Operator_Application extends Horde_Registry_Application
     public $driver = null;
 
     /**
-     * TODO
-     */
-    static protected $_perms = array();
-
-    /**
      * Initialization function.
      *
      * Global variables defined:
@@ -72,20 +67,16 @@ class Operator_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_perms)) {
-            return self::$_perms;
-        }
-
-        self::$_perms['tree']['operator']['accountcodes'] = false;
-        self::$_perms['title']['operator:accountcodes'] = _("Account Codes");
+        $perms['tree']['operator']['accountcodes'] = false;
+        $perms['title']['operator:accountcodes'] = _("Account Codes");
 
         $accountcodes = Operator::getAccountCodes();
         foreach ($accountcodes as $accountcode) {
-            self::$_perms['tree']['operator']['accountcodes'][$accountcode] = false;
-            self::$_perms['title']['operator:accountcodes:' . $accountcode] = $accountcode;
+            $perms['tree']['operator']['accountcodes'][$accountcode] = false;
+            $perms['title']['operator:accountcodes:' . $accountcode] = $accountcode;
         }
 
-        return self::$_perms;
+        return $perms;
     }
 
 }

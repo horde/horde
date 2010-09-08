@@ -47,13 +47,6 @@ class Wicked_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Permissions cache.
-     *
-     * @var array
-     */
-    protected $_permsCache = array();
-
-    /**
      * Wicked initialization.
      *
      * Global variables defined:
@@ -71,10 +64,6 @@ class Wicked_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty($this->_permsCache)) {
-            return $this->_permsCache;
-        }
-
         $perms['tree']['wicked']['pages'] = array();
         $perms['title']['wicked:pages'] = _("Pages");
 
@@ -93,10 +82,7 @@ class Wicked_Application extends Horde_Registry_Application
             ksort($perms['tree']['wicked']['pages']);
         }
 
-        $this->_permsCache = $perms;
-
         return $perms;
-
     }
 
 }

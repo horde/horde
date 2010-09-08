@@ -42,13 +42,6 @@ class Whups_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Permissions cache
-     *
-     * @var array
-     */
-    protected $_permsCache = array();
-
-    /**
      * Whups initialization.
      *
      * Global variables defined:
@@ -71,10 +64,6 @@ class Whups_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty($this->_permsCache)) {
-            return $this->_permsCache;
-        }
-
         /* Available Whups permissions. */
         $perms['tree']['whups']['admin'] = false;
         $perms['title']['whups:admin'] = _("Administration");
@@ -115,8 +104,6 @@ class Whups_Application extends Horde_Registry_Application
                 $perms['title']['whups:replies:' . $reply_id] = $type_name . ': ' . $reply['reply_name'];
             }
         }
-
-        $this->_permsCache = $perms;
 
         return $perms;
     }

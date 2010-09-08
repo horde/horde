@@ -68,11 +68,6 @@ class Shout_Application extends Horde_Registry_Application
     public $vfs = null;
 
     /**
-     * TODO
-     */
-    static protected $_perms = array();
-
-    /**
      * Initialization function.
      *
      * Global variables defined:
@@ -124,22 +119,18 @@ class Shout_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_perms)) {
-            return self::$_perms;
-        }
-
-        self::$_perms['tree']['shout']['superadmin'] = false;
-        self::$_perms['title']['shout:superadmin'] = _("Super Administrator");
+        $perms['tree']['shout']['superadmin'] = false;
+        $perms['title']['shout:superadmin'] = _("Super Administrator");
 
         $accounts = $this->storage->getAccounts();
 
-        self::$_perms['tree']['shout']['accounts'] = false;
-        self::$_perms['title']['shout:accounts'] = _("Accounts");
+        $perms['tree']['shout']['accounts'] = false;
+        $perms['title']['shout:accounts'] = _("Accounts");
 
         // Run through every contact source.
         foreach ($accounts as $code => $info) {
-            self::$_perms['tree']['shout']['accounts'][$code] = false;
-            self::$_perms['title']['shout:accounts:' . $code] = $info['name'];
+            $perms['tree']['shout']['accounts'][$code] = false;
+            $perms['title']['shout:accounts:' . $code] = $info['name'];
 
             foreach(
                 array(
@@ -148,12 +139,12 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                self::$_perms['tree']['shout']['accounts'][$code][$module] = false;
-                self::$_perms['title']["shout:accounts:$code:$module"] = $modname;
+                $perms['tree']['shout']['accounts'][$code][$module] = false;
+                $perms['title']["shout:accounts:$code:$module"] = $modname;
             }
         }
 
-        return self::$_perms;
+        return $perms;
     }
 
 

@@ -41,13 +41,6 @@ class Chora_Application extends Horde_Registry_Application
     public $version = 'H4 (3.0-git)';
 
     /**
-     * Permissions cache.
-     *
-     * @var array
-     */
-    protected $_permsCache = array();
-
-    /**
      * Initialization function.
      *
      * Global variables defined:
@@ -176,10 +169,6 @@ class Chora_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty($this->_permsCache)) {
-            return $this->_permsCache;
-        }
-
         $perms['tree']['chora']['sourceroots'] = false;
         $perms['title']['chora:sourceroots'] = _("Repositories");
 
@@ -189,8 +178,6 @@ class Chora_Application extends Horde_Registry_Application
             $perms['tree']['chora']['sourceroots'][$sourceroot] = false;
             $perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];
         }
-
-        $this->_permsCache = $perms;
 
         return $perms;
     }

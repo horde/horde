@@ -20,16 +20,11 @@ class Babel_Application extends Horde_Registry_Application
     {
         global $registry;
 
-        static $perms = array();
-        if (!empty($perms)) {
-        	return $perms;
-        }
-
         $perms['tree']['babel']['language'] = array();
         $perms['title']['babel:language'] = _("Languages");
         $perms['type']['babel:language']  = 'none';
 
-        foreach(Horde_Nls::$config['languages'] as $langcode => $langdesc) {
+        foreach($registry->nlsconfig['languages'] as $langcode => $langdesc) {
         	$perms['tree']['babel']['language'][$langcode] = false;
         	$perms['title']['babel:language:' . $langcode] = sprintf("%s (%s)", $langdesc, $langcode);
         	$perms['type']['babel:language:' . $langcode] = 'boolean';

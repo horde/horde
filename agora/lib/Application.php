@@ -44,21 +44,12 @@ class Agora_Application extends Horde_Registry_Application
     public $version = 'H4 (1.0-git)';
 
     /**
-     * TODO
-     */
-    static protected $_perms = array();
-
-    /**
      * Returns a list of available permissions.
      *
      * @return array  An array describing all available permissions.
      */
     public function perms()
     {
-        if (!empty(self::$_perms)) {
-            return self::$_perms;
-        }
-
         self::$_perms['tree']['agora']['admin'] = true;
         self::$_perms['title']['agora:admin'] = _("Admin");
         self::$_perms['title']['agora:forums'] = _("Forums");
@@ -67,7 +58,7 @@ class Agora_Application extends Horde_Registry_Application
             self::$_perms['title']['agora:forums:' . $scope] = $GLOBALS['registry']->get('name', $scope);
             self::$_perms['tree']['agora']['forums'][$scope] = false;
 
-            $forums = &Agora_Messages::singleton($scope);
+            $forums = Agora_Messages::singleton($scope);
             $forums_list = $forums->getBareForums();
             if (($forums_list instanceof PEAR_Error) || empty($forums_list)) {
                 continue;
@@ -77,7 +68,6 @@ class Agora_Application extends Horde_Registry_Application
                 self::$_perms['tree']['agora']['forums'][$scope][$id] = false;
                 self::$_perms['title']['agora:forums:' . $scope . ':' . $id] = $title;
             }
-
         }
 
         return self::$_perms;

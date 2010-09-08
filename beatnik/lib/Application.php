@@ -85,23 +85,15 @@ class Beatnik_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-    static $perms = array();
+        $perms['title']['beatnik:domains'] = _("Domains");
 
-    if (!empty($perms)) {
+        // Run through every domain
+        foreach ($beatnik->driver->getDomains() as $domain) {
+            $perms['tree']['beatnik']['domains'][$domain['zonename']] = false;
+            $perms['title']['beatnik:domains:' . $domain['zonename']] = $domain['zonename'];
+        }
+
         return $perms;
-    }
-
-    require_once dirname(__FILE__) . '/base.php';
-
-    $perms['title']['beatnik:domains'] = _("Domains");
-
-    // Run through every domain
-    foreach ($beatnik->driver->getDomains() as $domain) {
-        $perms['tree']['beatnik']['domains'][$domain['zonename']] = false;
-        $perms['title']['beatnik:domains:' . $domain['zonename']] = $domain['zonename'];
-    }
-
-    return $perms;
     }
 
     /**

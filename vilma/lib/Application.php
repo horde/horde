@@ -19,7 +19,6 @@ define('VILMA_BASE', dirname(__FILE__) . '/..');
 
 class Vilma_Application extends Horde_Registry_Application
 {
-
     public $driver = null;
     public $curdomain = null;
 
@@ -33,11 +32,6 @@ class Vilma_Application extends Horde_Registry_Application
 
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
         $perms['tree']['vilma']['superadmin'] = false;
         $perms['title']['vilma:superadmin'] = _("Super Administrator");
 

@@ -21,11 +21,6 @@ class News_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
         $perms['tree']['news']['admin'] = true;
         $perms['title']['news:admin'] = _("Admin");
 

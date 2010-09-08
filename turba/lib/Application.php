@@ -147,11 +147,6 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
         require TURBA_BASE . '/config/sources.php';
 
         $perms['tree']['turba']['sources'] = false;

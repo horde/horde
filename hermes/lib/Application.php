@@ -48,11 +48,6 @@ class Hermes_Application extends Horde_Registry_Application
     static public $driver = null;
 
     /**
-     * TODO
-     */
-    static protected $_perms = array();
-
-    /**
      * Initialization function.
      *
      * Global variables defined:
@@ -72,19 +67,15 @@ class Hermes_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_perms)) {
-            return self::$_perms;
-        }
+        $perms = array();
+        $perms['tree']['hermes']['review'] = array();
+        $perms['title']['hermes:review'] = _("Time Review Screen");
+        $perms['tree']['hermes']['deliverables'] = array();
+        $perms['title']['hermes:deliverables'] = _("Deliverables");
+        $perms['tree']['hermes']['invoicing'] = array();
+        $perms['title']['hermes:invoicing'] = _("Invoicing");
 
-        self::$_perms = array();
-        self::$_perms['tree']['hermes']['review'] = array();
-        self::$_perms['title']['hermes:review'] = _("Time Review Screen");
-        self::$_perms['tree']['hermes']['deliverables'] = array();
-        self::$_perms['title']['hermes:deliverables'] = _("Deliverables");
-        self::$_perms['tree']['hermes']['invoicing'] = array();
-        self::$_perms['title']['hermes:invoicing'] = _("Invoicing");
-
-        return self::$_perms;
+        return $perms;
     }
 
     /* Sidebar method. */

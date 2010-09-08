@@ -73,10 +73,6 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty($this->_permsCache)) {
-            return $this->_permsCache;
-        }
-
         $perms = array(
             'tree' => array(
                 'gollem' => array(
