@@ -550,8 +550,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             // Get all of this grouping's children. At day level, these are all
             // Ansel_Images.
             $children = $this->getGalleryChildren(Horde_Perms::SHOW);
-            $images = $this->_getArraySlice($children, $from, $count, true);
-            return $images;
+            return $this->_getArraySlice($children, $from, $count, true);
         } else {
             // We don't want to work with any images at this level in a DateMode
             // gallery.
