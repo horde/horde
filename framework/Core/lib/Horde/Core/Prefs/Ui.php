@@ -701,8 +701,12 @@ class Horde_Core_Prefs_Ui
                 foreach ($res['prefGroups'] as $pgroup) {
                     if (isset($pgroup['type']) &&
                         ($pgroup['type'] == 'identities')) {
-                        foreach ($pgroup['members'] as $member) {
-                            $this->prefs[$member] = $res['_prefs'][$member];
+                        foreach ($pgroup['members'] as $key => $member) {
+                            if (!$GLOBALS['prefs']->isLocked($member)) {
+                                $this->prefs[$member] = $res['_prefs'][$member];
+                            } else {
+                                unset($pgroup['members'][$key]);
+                            }
                         }
                         $pref_list = array_merge($pgroup['members'], $pref_list);
                     }
