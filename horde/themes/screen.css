@@ -1306,6 +1306,49 @@ div.GrowlerNoticeExit:hover {
     padding-top: 5px;
 }
 
+/* Uploader */
+.hordeUploaderHeader {
+}
+.hordeUploaderSubHeader {
+    border-bottom: thin solid #000;
+}
+.hordeUploaderFilelist {
+    height: 350px;
+    overflow: auto;
+}
+.hordeUploaderFilename {
+    float: left;
+    width: 200px;
+}
+.hordeUploaderFilestatus,
+.hordeUploaderFilesize,
+.hordeUploaderFileaction
+{
+   float: right;
+   text-align: right;
+}
+.hordeUploaderFilestatus,
+.hordeUploaderFilesize
+{
+    width: 80px;
+}
+.hordeUploaderFileaction
+{
+    width: 16px;
+}
+.hordeUploaderSuccess
+{
+    background-image: url("graphics/alerts/success.png");
+}
+.hordeUploaderError
+{
+    background-image: url("graphics/alerts/error.png");
+}
+.hordeUploaderRemove
+{
+    background-image: url("graphics/delete.png");
+}
+
 /* For in place editing */
 form.inplaceeditor-form {
     background: none;

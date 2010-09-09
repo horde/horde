@@ -374,3 +374,10 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     background: gray;
     color: #fff;
 }
+#anseluploader {
+    width: auto;
+    margin-top: 180px;
+}
+.uploaderContainer {
+    border: solid 1px #999999;
+}
