@@ -412,7 +412,7 @@ class IMP_Imap
     /* Static methods. */
 
     /**
-     * Loads the IMP server configuration from servers.php.
+     * Loads the IMP server configuration from backends.php.
      *
      * @param string $server  Returns this labeled entry only.
      *
@@ -422,7 +422,7 @@ class IMP_Imap
     static public function loadServerConfig($server = null)
     {
         try {
-            $servers = Horde::loadConfiguration('servers.php', 'servers', 'imp');
+            $servers = Horde::loadConfiguration('backends.php', 'servers', 'imp');
             if ($servers === null) {
                 $servers = false;
             }

@@ -13,7 +13,7 @@ class Luxor
     {
         global $sources, $sourceid, $source, $files, $index, $pathname;
 
-        require LUXOR_BASE . '/config/sources.php';
+        require LUXOR_BASE . '/config/backends.php';
 
         /* Default to the first source; overridden elsewhere if necessary. */
         $sourceid = Horde_Util::getFormData('source');

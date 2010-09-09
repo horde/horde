@@ -10,14 +10,14 @@ stored on the same LDAP server.
 This is not comprehensive, but it notes how some users have implemented
 personal LDAP address books.
 
-1. Configure ``turba/config/sources.php``.
+1. Configure ``turba/config/backends.php``.
 
    Note that OpenLDAP and some other LDAP servers use UTF8 to encode its data,
    so you should have ``encoding = 'utf8'`` set in the parameters for your
    LDAP address book source.
 
    There is an example of personal address books in
-   ``turba/config/sources.php.dist``.  You will have to modify it to to match
+   ``turba/config/backends.php.dist``.  You will have to modify it to to match
    the fields, settings, and schema of your LDAP server, but it's a solid
    place to start.
 

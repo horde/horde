@@ -21,7 +21,7 @@ class IMP_Hooks
      * IMP uses the following credentials:
      *   'password' - (string) The password for mail server authentication.
      *   'server' - (string) [optional] Use this server key (see
-     *              config/servers.php).
+     *              config/backends.php).
      *   'transparent' - (boolean) If $credentials['authMethod'] is
      *                   'transparent', and you would like IMP to use
      *                   the userId/credentials generated in the
@@ -601,7 +601,7 @@ class IMP_Hooks
     /**
      * Determine quota for a user.
      *
-     * @param array $params  Parameters for the function, set in servers.php.
+     * @param array $params  Parameters for the function, set in backends.php.
      *
      * @return array  Tuple with two members:
      * <pre>

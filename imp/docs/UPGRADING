@@ -98,7 +98,7 @@ All code relating to fetchmail has been removed (TODO: prefs/config?).
 Server configuration
 --------------------
 
-The format of servers.php has changed.
+The format of servers.php has changed and is renamed to backends.php.
 
 
 Maintenance Tasks

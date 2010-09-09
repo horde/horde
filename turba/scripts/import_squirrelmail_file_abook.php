@@ -64,7 +64,7 @@ foreach($files as $file) {
 
     // Reset $cfgSources for current user.
     unset($cfgSources);
-    include TURBA_BASE . '/config/sources.php';
+    include TURBA_BASE . '/config/backends.php';
     $cfgSources = Turba::getConfigFromShares($cfgSources);
     $cfgSources = Turba::permissionsFilter($cfgSources);
 

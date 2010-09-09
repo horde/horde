@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 
 // Re-load source config.
-require TURBA_BASE . '/config/sources.php';
+require TURBA_BASE . '/config/backends.php';
 
 // See if any of our sources are configured to use Horde_Share.
 if (empty($_SESSION['turba']['has_share'])) {

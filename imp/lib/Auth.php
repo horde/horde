@@ -23,7 +23,7 @@ class IMP_Auth
      *                            attempts to login to the cached session.
      * <pre>
      * 'password' - (string) The user password.
-     * 'server' - (string) The server key to use (from servers.php).
+     * 'server' - (string) The server key to use (from backends.php).
      * 'userId' - (string) The username.
      * </pre>
      *
@@ -182,7 +182,7 @@ class IMP_Auth
      *          namespace, quota, thread)
      * 'imap_ob' - (array) The serialized Horde_Imap_Client objects. Stored
      *             by server key.
-     * 'maildomain' - (string) See config/servers.php.
+     * 'maildomain' - (string) See config/backends.php.
      * 'notepadavail' - (boolean) Is listing of notepads available?
      * 'protocol' - (string) Either 'imap' or 'pop'.
      * 'rteavail' - (boolean) Is the HTML editor available?
@@ -199,7 +199,7 @@ class IMP_Auth
      * @param array $credentials  An array of login credentials.
      * <pre>
      * 'password' - (string) The user password.
-     * 'server' - (string) The server key to use (from servers.php).
+     * 'server' - (string) The server key to use (from backends.php).
      * 'userId' - (string) The username.
      * </pre>
      *

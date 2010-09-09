@@ -3,7 +3,7 @@
  * Implementation of IMP_Quota API for a generic hook function.  This
  * requires the quota hook to be set in config/hooks.php.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
+ * You must configure this driver in imp/config/backends.php.  The driver
  * supports the following parameters:
  * <pre>
  * 'params' - (array) Parameters to pass to the quota function.

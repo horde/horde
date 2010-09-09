@@ -292,10 +292,10 @@ Configuring IMP
    and behavior.  With the following exception, the defaults will be correct
    for most sites.
 
-   a. servers.php
+   a. backends.php
 
       You must be sure to list your IMAP/POP3 server names and configuration
-      information in ``servers.php``.
+      information in ``backends.php``.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of IMP.  Use the Horde ``Administration`` menu item to get to
@@ -372,7 +372,7 @@ Configuring IMP
    The test script will also allow you to test your connection to the mail
    server and provide some auto-detected configuration parameters that can
    then be inserted into the server configuration located in
-   ``imp/config/servers.php``.
+   ``imp/config/backends.php``.
 
    Next, use IMP to login to a known working IMAP or POP3 server.  Test at
    least the following:

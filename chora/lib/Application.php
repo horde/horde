@@ -52,7 +52,7 @@ class Chora_Application extends Horde_Registry_Application
         global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
         try {
-            $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
+            $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $GLOBALS['sourceroots'] = array();
@@ -173,7 +173,7 @@ class Chora_Application extends Horde_Registry_Application
         $perms['title']['chora:sourceroots'] = _("Repositories");
 
         // Run through every source repository
-        require dirname(__FILE__) . '/../config/sourceroots.php';
+        require dirname(__FILE__) . '/../config/backends.php';
         foreach ($sourceroots as $sourceroot => $srconfig) {
             $perms['tree']['chora']['sourceroots'][$sourceroot] = false;
             $perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];

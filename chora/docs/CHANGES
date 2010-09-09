@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Rename sourceroots.php to backends.php.
 [mms] Patchset page supports viewing a single patchset.
 [mms] Add configuration option to disable caching.
 [mms] Move log entries in annotate screen to an AJAX request.

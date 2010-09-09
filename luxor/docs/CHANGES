@@ -2,6 +2,7 @@
 v0.1
 ----
 
+[jan] Rename sources.php to backends.php.
 [ben] Better support for MS-SQL.
 [cjh] Support mod_rewrite style URLs in addition to GET.
 [mas] Change any output of <b> and <i> tags to <strong> and <em> for better

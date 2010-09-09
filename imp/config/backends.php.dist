@@ -282,7 +282,7 @@
  *            ADDED to the list of available namespaces returned by the
  *            server. (IMAP only)
  *
- * preferred: (string | array) Useful if you want to use the same servers.php
+ * preferred: (string | array) Useful if you want to use the same backends.php
  *            file for different machines. If the hostname of the IMP machine
  *            is identical to one of those in the preferred list, then that
  *            entry will be selected by default on the login screen. Otherwise

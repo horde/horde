@@ -123,7 +123,7 @@ class Turba_Api extends Horde_Registry_Api
         global $prefs;
 
         // Bring in a clean copy of sources.
-        require TURBA_BASE . '/config/sources.php';
+        require TURBA_BASE . '/config/backends.php';
 
         if (!empty($_SESSION['turba']['has_share'])) {
             $shares = Turba::listShares(true);

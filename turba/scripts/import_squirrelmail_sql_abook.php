@@ -61,7 +61,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         // Reset $cfgSources for current user.
         unset($cfgSources);
         $hasShares = false;
-        include TURBA_BASE . '/config/sources.php';
+        include TURBA_BASE . '/config/backends.php';
         foreach ($cfgSources as $key => $cfg) {
             if (!empty($cfg['use_shares'])) {
                 $has_share = true;

@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[jan] Rename servers.php to backends.php.
 [mms] Use alternate text part to generate reply/forward text when switching
       compose modes if user has not altered message text (DIMP).
 [mms] Improved login error reporting/logging in IMP (Request #9211).

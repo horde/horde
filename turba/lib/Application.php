@@ -70,7 +70,7 @@ class Turba_Application extends Horde_Registry_Application
 
         // Turba source and attribute configuration.
         $attributes = Horde::loadConfiguration('attributes.php', 'attributes', 'turba');
-        include TURBA_BASE . '/config/sources.php';
+        include TURBA_BASE . '/config/backends.php';
 
         /* UGLY UGLY UGLY - we should NOT be using this as a global
          * variable all over the place. */
@@ -147,7 +147,7 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        require TURBA_BASE . '/config/sources.php';
+        require TURBA_BASE . '/config/backends.php';
 
         $perms['tree']['turba']['sources'] = false;
         $perms['title']['turba:sources'] = _("Sources");
@@ -387,7 +387,7 @@ class Turba_Application extends Horde_Registry_Application
     public function removeUserData($user)
     {
         /* We need a clean copy of the $cfgSources array here.*/
-        require TURBA_BASE . '/config/sources.php';
+        require TURBA_BASE . '/config/backends.php';
 
         foreach ($cfgSources as $source) {
             if (empty($source['use_shares'])) {

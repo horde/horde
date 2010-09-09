@@ -56,7 +56,7 @@ class Turba_Driver implements Countable
 
     /**
      * Array of fields to search "approximately" (@see
-     * config/sources.php.dist).
+     * config/backends.php.dist).
      *
      * @var array
      */

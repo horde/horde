@@ -114,13 +114,13 @@ Configuring Chora
       for foo in *.dist; do cp $foo `basename $foo .dist`; done
 
    Documentation on the format of those files can be found in each file.  With
-   the exception of the ``conf.*`` (see below) and ``sourceroots.php`` files,
+   the exception of the ``conf.*`` (see below) and ``backends.php`` files,
    the other files in ``config/`` need only be modified if you wish to
    customize Chora's appearance or behavior, as the defaults will be correct
    for most sites.
 
    You must be sure to list your repository names and configuration
-   information in ``sourceroots.php``.
+   information in ``backends.php``.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Chora.  Use the Horde ``Administration`` menu item to get

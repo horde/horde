@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Rename sources.php to backends.php.
 [mjr] If default addressbook is not browsable, try one from the addressbook pref
       (Request: 6536).
 [jan] Add duplicate search and merging.

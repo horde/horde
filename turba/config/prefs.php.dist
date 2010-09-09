@@ -40,7 +40,7 @@ $_prefs['addressbookselect'] = array(
 
 // Address books to be displayed in the address book selection widget
 // and in the Browse menu item.  The address book name is stored using
-// the source key from sources.php (e.g. "localsql").
+// the source key from backends.php (e.g. "localsql").
 // You can provide default values this way:
 //   'value' => json_encode(array('source_one', 'source_two'))
 // If 'value' is empty (''), all address books that the user has permissions

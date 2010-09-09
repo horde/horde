@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: luxor/config/sources.php.dist,v 1.7 2005/10/13 12:21:09 jan Exp $
- *
  * This file contains all the configuration information for the various
  * sources to display. The following fields are defined:
  *
@@ -15,7 +13,9 @@
  *
  * 'restrictions'  : Array of perl-style regular expressions for those files
  *                   whose contents should be protected and not displayed.
-*/
+ *
+ * $Id$
+ */
 
 $sources['horde'] = array(
     'name' => 'Horde',

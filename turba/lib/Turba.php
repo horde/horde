@@ -366,7 +366,7 @@ class Turba {
      *
      * This will only sync shares that are unique to Horde (basically, a SQL
      * driver source for now).  Any backend that supports ACLs or similar
-     * mechanism should be configured from within sources.php or
+     * mechanism should be configured from within backends.php or
      * _horde_hook_share_* calls.
      *
      * @param array $sources  The default $cfgSources array.
@@ -502,7 +502,7 @@ class Turba {
     function getSourceFromShare($share)
     {
         // Require a fresh config file.
-        require TURBA_BASE . '/config/sources.php';
+        require TURBA_BASE . '/config/backends.php';
 
         $params = @unserialize($share->get('params'));
         $newConfig = $cfgSources[$params['source']];
