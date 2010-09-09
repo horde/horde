@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Part
+class Horde_Mime_Part implements Countable
 {
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
@@ -2099,6 +2099,18 @@ class Horde_Mime_Part
         }
 
         return $out;
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of message parts.
+     *
+     * @return integer  Number of message parts.
+     */
+    public function count()
+    {
+        return count($this->_parts);
     }
 
 }

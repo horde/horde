@@ -82,4 +82,42 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCountableImplementation()
+    {
+        $part = $this->_getTestPart();
+
+        $this->assertEquals(
+            3,
+            count($part)
+        );
+    }
+
+    protected function _getTestPart()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('multipart/mixed');
+
+        $part1 = new Horde_Mime_Part();
+        $part1->setType('text/plain');
+        $part1->setContents('Test');
+        $part->addPart($part1);
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('application/octet-stream');
+        $part->addPart($part2);
+
+        $part3 = new Horde_Mime_Part();
+        $part3->setType('multipart/mixed');
+        $part->addPart($part3);
+
+        $part3_1 = new Horde_Mime_Part();
+        $part3_1->setType('text/plain');
+        $part3_1->setContents('Test 2');
+        $part3->addPart($part3_1);
+
+        $part->buildMimeIds();
+
+        return $part;
+    }
+
 }
