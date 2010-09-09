@@ -148,7 +148,7 @@ class Horde_Mime_Address
             $emails[] = substr($string, $pos, $i - $pos);
         }
 
-        return $emails;
+        return array_map('trim', $emails);
     }
 
     /**
