@@ -644,3 +644,13 @@ div.mimeStatusMessage, div.mimePartInfo {
 #itipconflicts tr.itipnearcollision {
     background-color: #ee0;
 }
+
+/* Quota syles. */
+#quota {
+    border-collapse: collapse;
+    width: 100%;
+}
+#quota td {
+    padding: 3px;
+    vertical-align: middle;
+}
