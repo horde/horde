@@ -111,7 +111,7 @@ class Horde_Script_Files
         if (($file == 'popup.js') && ($app == 'horde')) {
             Horde::addInlineJsVars(array(
                 'Horde.popup_block_text' => _("A popup window could not be opened. Your browser may be blocking popups.")
-            ));
+            ), 'dom');
         }
 
         if ($file[0] == '/') {

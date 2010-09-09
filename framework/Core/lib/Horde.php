@@ -1768,13 +1768,15 @@ HTML;
     /**
      * Add inline javascript variable definitions to the output buffer.
      *
-     * @param array $data   Keys are the variable names, values are the data
-     *                      to JSON encode.  If the key begins with a '-', the
-     *                      data will be added to the output as-is.
-     * @param boolean $ret  If true, will return the list of variable
-     *                      definitions instead of outputting to page.
+     * @param array $data     Keys are the variable names, values are the data
+     *                        to JSON encode.  If the key begins with a '-', the
+     *                        data will be added to the output as-is.
+     * @param boolean $ret    If true, will return the list of variable
+     *                        definitions instead of outputting to page.
+     * @param string $onload  Wrap the definition in an onload handler?
+     *                        Either 'dom' (on dom:loaded), 'load'.
      */
-    static public function addInlineJsVars($data, $ret = false)
+    static public function addInlineJsVars($data, $ret = false, $onload = null)
     {
         $charset = $GLOBALS['registry']->getCharset();
         $out = array();
@@ -1792,7 +1794,7 @@ HTML;
         if ($ret) {
             return $out;
         } else {
-            self::addInlineScript($out);
+            self::addInlineScript($out, $onload);
         }
     }
 
