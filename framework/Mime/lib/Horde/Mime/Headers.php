@@ -399,7 +399,7 @@ class Horde_Mime_Headers
      * VALUE_STRING - Returns a string representation of the entire header.
      * VALUE_BASE - Returns a string representation of the base value of the
      *              header. If this is not a header that allows parameters,
-     *              this will be equivalent to VALUE_BASE.
+     *              this will be equivalent to VALUE_STRING.
      * VALUE_PARAMS - Returns the list of parameters for this header. If this
      *                is not a header that allows parameters, this will be
      *                an empty array.
@@ -540,6 +540,7 @@ class Horde_Mime_Headers
      * @param string $field  The header to return as an object.
      *
      * @return array  The object for the field requested.
+     * @see Horde_Mime_Address::parseAddressList()
      */
     public function getOb($field)
     {
