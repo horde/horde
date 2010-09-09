@@ -1510,7 +1510,7 @@
       <value desc="Never">never</value>
      </values>
     </configenum>
-    <configenum name="options" desc="Should we display options links in the
+    <configenum name="prefs" desc="Should we display preferences links in the
     menu? You still need to configure a preference backend in the
     &quot;Preference System&quot; section.">authenticated
      <values>

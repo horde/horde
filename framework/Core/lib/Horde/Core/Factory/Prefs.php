@@ -117,7 +117,7 @@ class Horde_Core_Factory_Prefs
                 if (empty($_SESSION['prefs_cache']['unavailable'])) {
                     $_SESSION['prefs_cache']['unavailable'] = true;
                     if (isset($GLOBALS['notification'])) {
-                        $GLOBALS['notification']->push(_("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default settings."));
+                        $GLOBALS['notification']->push(_("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
                 $this->_instances[$sig] = Horde_Prefs::factory('Session', $scope);

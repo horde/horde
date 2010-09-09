@@ -15,7 +15,7 @@
     <para>* grafische Auswertungsdiagramme</para>
 </entry>
 
-<entry id="fima-options" state="uptodate" md5="2b3e6590a64b91c50b73414ee604e2e9">
+<entry id="fima-prefs" state="uptodate" md5="2b3e6590a64b91c50b73414ee604e2e9">
 	<title>Fima: Einstellungen</title>
 	<heading>Aktive Konfiguration</heading>
 	<para>* Ihr aktives Buch: wählen Sie Ihr aktives Buch</para>
@@ -145,7 +145,7 @@
 	Für die vereinfachte Eingabe wird bei neuen Buchungen das Datum und Vermögenskonto vom darüberliegenden Eintrag kopiert, kann aber nachträglich geändert werden.
 	</para>
 	<para>
-	Ausgaben haben üblicherweise negative Beträge, können jedoch aus Komfort ohne negatives Vorzeichen eingegeben werden (siehe <ref module="fima" entry="fima-options">Oberflächen-Einstellungen: Ausgaben mit negativem Vorzeichen eingeben?</ref>). Bei Vermögensumlagen (Transfer von einem Vermögenskonto auf ein anderes) betrifft der eingegebene Betrag stets das gewählte Verm*genskonto (zB. -10 bedeutet eine Verminderung des gewählten Vermögenskontos um 10 und folglich eine Erhöhung um 10 des als Bewegungskonto ausgewählten Vermögenskontos).
+	Ausgaben haben üblicherweise negative Beträge, können jedoch aus Komfort ohne negatives Vorzeichen eingegeben werden (siehe <ref module="fima" entry="fima-prefs">Oberflächen-Einstellungen: Ausgaben mit negativem Vorzeichen eingeben?</ref>). Bei Vermögensumlagen (Transfer von einem Vermögenskonto auf ein anderes) betrifft der eingegebene Betrag stets das gewählte Verm*genskonto (zB. -10 bedeutet eine Verminderung des gewählten Vermögenskontos um 10 und folglich eine Erhöhung um 10 des als Bewegungskonto ausgewählten Vermögenskontos).
 	</para>
 	<tip>
 	Tipp: Bei der Eingabe neuer Buchungen können Konten auch ausgewählt werden, indem man einfach die Kontonummer auf der Tastatur eingibt anstatt die Listenfelder zu durchsuchen. Sie werden rasch die am häufigsten verwendeten Kontonummer kennen und sich so eine Menege Zeit bei der Eingabe neuer Buchungen sparen.
@@ -197,7 +197,7 @@
 	<para>* Enddatum: Ende des zu filternden Zeitraums</para>
 	<para>* Vermögenskonten: es werden Buchungen mit dem/den ausgewählten Konten als Vermögens- oder Bewegungskonto (bei Vermögensumlagen) gefiltert</para>
 	<para>* Bewegungskonten: es werden Buchungen mit dem/den ausgewählten Konten als Bewegungskonto gefiltert</para>
-	<para>* Anmerkung: Sie können Platzhalter beim Durchsuchen der Anmerkung verwenden (siehe <ref module="fima" entry="fima-options">Oberflächen-Einstellungen: Wählen Sie das Format für Platzhalter in der Textsuche</ref>).</para>
+	<para>* Anmerkung: Sie können Platzhalter beim Durchsuchen der Anmerkung verwenden (siehe <ref module="fima" entry="fima-prefs">Oberflächen-Einstellungen: Wählen Sie das Format für Platzhalter in der Textsuche</ref>).</para>
 	<para>* Anfangsbetrag: minimaler Betrag</para>
 	<para>* Endbetrag: maximaler Betrag</para>
 	<para>* a.o. Buchungen: alle oder keine a.o. Buchungen filtern; leer lassen um alle Buchungen zu erhalten</para>
@@ -344,7 +344,7 @@
 	Tipp: Die vierte Buchung ist eine Vermögensumlage, Person B hebt 1.000,00 vom Girokonto ab. Es wäre auch möglich gewesen die Transaktion aus Sicht des Girokontos zu tätigen, indem man Vermögens- und Bewegungskonto vertauscht und einen negativen Betrag eingibt.
 	</tip>
 	<tip>
-	Tipp: Aus Komfort ist es möglich Ausgaben ohne negativem Vorzeichen einzugeben (siehe <ref module="fima" entry="fima-options">Oberflächen-Einstellungen: Ausgaben mit negativem Vorzeichen eingeben?</ref>). Jedenfalls betrifft der eingegeben Betrag bei der vierten Transaktion (Vermögensumlage) stets das ausgewählte Vermögenskonto.
+	Tipp: Aus Komfort ist es möglich Ausgaben ohne negativem Vorzeichen einzugeben (siehe <ref module="fima" entry="fima-prefs">Oberflächen-Einstellungen: Ausgaben mit negativem Vorzeichen eingeben?</ref>). Jedenfalls betrifft der eingegeben Betrag bei der vierten Transaktion (Vermögensumlage) stets das ausgewählte Vermögenskonto.
 	</tip>
 	<tip>
 	Tipp: Kontrollieren Sie die Endbeträge der Vermögenskonten mit der Auswertung <ref module="fima" entry="reports-details">Vermögensübersicht</ref> (mit kumulierten Werten).

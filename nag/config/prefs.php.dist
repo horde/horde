@@ -6,42 +6,42 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change your task sorting and display options."),
+    'column' => _("General Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change your task sorting and display preferences."),
     'members' => array('tasklist_columns', 'sortby', 'altsortby', 'sortdir'),
 );
 
 $prefGroups['deletion'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Delete Confirmation"),
     'desc' => _("Delete button behaviour"),
     'members' => array('delete_opt'),
 );
 
 $prefGroups['tasks'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Task Defaults"),
     'desc' => _("Defaults for new tasks"),
     'members' => array('default_due', 'default_due_days', 'default_due_time'),
 );
 
 $prefGroups['share'] = array(
-    'column' => _("Task List and Share Options"),
+    'column' => _("Task List and Share Preferences"),
     'label' => _("Default Task List"),
     'desc' => _("Choose your default task list."),
     'members' => array('default_tasklist'),
 );
 
 $prefGroups['notification'] = array(
-    'column' => _("Task List and Share Options"),
+    'column' => _("Task List and Share Preferences"),
     'label' => _("Notifications"),
     'desc' => _("Choose if you want to be notified of task changes and task alarms."),
     'members' => array('task_notification', 'task_notification_exclude_self', 'task_alarms_select'),
 );
 
 $prefGroups['external'] = array(
-    'column'  => _("Task List and Share Options"),
+    'column'  => _("Task List and Share Preferences"),
     'label'   => _("External Data"),
     'desc'    => _("Show data from other applications or sources."),
     'members' => array('show_external'),

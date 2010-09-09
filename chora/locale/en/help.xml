@@ -19,10 +19,10 @@
     </para>
   </entry>
 
-  <entry id="options-button">
-    <title>Menu Buttons: Options</title>
+  <entry id="prefs-button">
+    <title>Menu Buttons: Preferences</title>
     <para>
-      The Options button lets you set some personal preferences to control the
+      The Preferences button lets you set some personal preferences to control the
       way Chora behaves.
     </para>
   </entry>

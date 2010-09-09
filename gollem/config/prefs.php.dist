@@ -10,7 +10,7 @@
 $prefGroups['display'] = array(
     'column' => _("User Interface"),
     'label' => _("File Display"),
-    'desc' => _("File display options."),
+    'desc' => _("File display preferences."),
     'members' => array(
         'show_dotfiles', 'sortdirsfirst', 'columnselect', 'sortby', 'sortdir',
         'perpage'

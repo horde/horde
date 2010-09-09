@@ -6,9 +6,9 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change display options such as how search results are sorted."),
+    'column' => _("General Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change display preferences such as how search results are sorted."),
     'members' => array(
         'sortby', 'sortdir', 'comment_sort_dir', 'whups_default_view',
         'summary_show_requested', 'summary_show_ticket_numbers',
@@ -17,13 +17,13 @@ $prefGroups['display'] = array(
 );
 
 $prefGroups['notification'] = array(
-    'column' => _("General Options"),
-    'label' => _("Notification Options"),
-    'desc' => _("Change options for email notifications of ticket activity."),
+    'column' => _("General Preferences"),
+    'label' => _("Notification Preferences"),
+    'desc' => _("Change preferences for email notifications of ticket activity."),
     'members' => array('email_others_only', 'email_comments_only'));
 
 $prefGroups['addressbooks'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('sourceselect'),

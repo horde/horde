@@ -6,21 +6,21 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change your note sorting and display options."),
+    'column' => _("General Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change your note sorting and display preferences."),
     'members' => array('show_notepad', 'sortby', 'sortdir')
 );
 
 $prefGroups['share'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Default Notepad"),
     'desc' => _("Choose your default Notepad."),
     'members' => array('default_notepad')
 );
 
 $prefGroups['deletion'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Delete Confirmation"),
     'desc' => _("Delete button behaviour"),
     'members' => array('delete_opt')

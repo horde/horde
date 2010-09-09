@@ -10,7 +10,7 @@
 		<para>El bot&#xF3;n Examinar le devuelve a la visualizaci&#xF3;n principal de archivos de Chora del dep&#xF3;sito por omisi&#xF3;n.</para>
 	</entry>
 
-	<entry id="options-button">
+	<entry id="prefs-button">
 		<title>Botones del men&#xFA;: Opciones</title>
 		<para>El bot&#xF3;n Opciones le permite configurar varias preferencias personales para controlar el comportamiento de Chora.</para>
 	</entry>

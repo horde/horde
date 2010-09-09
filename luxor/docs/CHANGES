@@ -18,7 +18,7 @@ v0.1
 [jan] Add German translation.
 [cjh] Add symbol search functionality.
 [cjh] Fix spacing of source code.
-[cjh] Add options to filter out certain directories and filenames.
+[cjh] Add settings to filter out certain directories and filenames.
 [jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
 [jan] Implement indexing and referencing.
 [jan] Initial port from LXR.

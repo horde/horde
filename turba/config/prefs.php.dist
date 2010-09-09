@@ -6,28 +6,28 @@
  */
 
 $prefGroups['addressbooks'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Address Books"),
     'desc' => _("Choose which address books to use."),
     'members' => array('default_dir', 'addressbookselect', 'sync_books'),
 );
 
 $prefGroups['columns'] = array(
-    'column' => _("Display Options"),
-    'label' => _("Column Options"),
+    'column' => _("Display Preferences"),
+    'label' => _("Column Preferences"),
     'desc' => _("Select which fields to display in the address lists."),
     'members' => array('columnselect'),
 );
 
 $prefGroups['display'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Display"),
-    'desc' => _("Select view to display by default and paging options."),
+    'desc' => _("Select view to display by default and paging preferences."),
     'members' => array('initial_page', 'maxpage', 'perpage'),
 );
 
 $prefGroups['format'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Name Format"),
     'desc' => _("Select which format to display names."),
     'members' => array('name_format', 'name_sort'),

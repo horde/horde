@@ -56,7 +56,7 @@ Kronolith é um calendário de interface Web. Em adição as funções necessár
     O item de menu <i>Novo Evento</i> permite você criar um novo evento para ser adicionado ao calendário.
     </para>
 </entry>
-  <entry id="menu-options" state="uptodate" md5="d7df2c0cda84c89c638d9d6e59307976">
+  <entry id="menu-prefs" state="uptodate" md5="d7df2c0cda84c89c638d9d6e59307976">
     <title>Menu: Opções</title>
     <heading>Opções</heading>
     <para>

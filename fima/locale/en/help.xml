@@ -15,13 +15,13 @@
     <para>* graphical report charts</para>
 </entry>
 
-<entry id="fima-options">
-	<title>Fima: Options</title>
+<entry id="fima-prefs">
+	<title>Fima: Preferences</title>
 	<heading>Active Configuration</heading>
 	<para>* Your active ledger: select your current ledger</para>
 	<para>* Your active posting type: select the current <ref module="fima" entry="postings-postingtypes">posting type</ref></para>
 	<para>* Closed by period: select the end of the period until which adding and editing postings will be locked; select &quot;None&quot; to keep all postings changeable</para>
-	<heading>Interface Options</heading>
+	<heading>Interface Preferences</heading>
 	<para>* Postings per page in the list view: enter the number of postings to display per page</para>
 	<para>* When displaying the posting, which page do you want to start on: first or last page</para>
 	<para>* Sort postings by: select the column which to sort postings by</para>
@@ -145,7 +145,7 @@
 	When adding new postings the date and asset account will be copied from the entry above for convenience, but may be changed later on.
 	</para>
 	<para>
-	Expenses usually are negative amounts, but may be entered without negative sign for convenience (see <ref module="fima" entry="fima-options">Interface Options: Enter expenses with negative sign?</ref>). However, when shifting assets (transfer from one asset account to another one) the entered value always applies to the selected asset account (eg. -10 means a decrease of the selected asset account by 10 and subsequently an increase by 10 of the asset account selected as posting account).
+	Expenses usually are negative amounts, but may be entered without negative sign for convenience (see <ref module="fima" entry="fima-prefs">Interface Preferences: Enter expenses with negative sign?</ref>). However, when shifting assets (transfer from one asset account to another one) the entered value always applies to the selected asset account (eg. -10 means a decrease of the selected asset account by 10 and subsequently an increase by 10 of the asset account selected as posting account).
 	</para>
 	<tip>
 	Tip: When entering new postings, it is possible to select accounts by simply typing the account number on the keyboard instead of browsing through the drop down field. In a short time you will know the most used account numbers and it will save you a lot of time entering new postings.
@@ -154,7 +154,7 @@
 	Tip: When entering new postings, it is possible to execute mathematical operations in the amount field. Simply type the mathematical expression (eg. 3+2*5) and the result will automatically be calculated.
 	</tip>
 	<tip>
-	Tip: In order to prevent adding or editing postings with a date in the past unintentionally, enter a closing period (see <ref module="fima" entry="fima-options">Options: Active Configuration: Closed by period</ref>).
+	Tip: In order to prevent adding or editing postings with a date in the past unintentionally, enter a closing period (see <ref module="fima" entry="fima-prefs">Preferences: Active Configuration: Closed by period</ref>).
 	</tip>
 	<tip>
 	Tip: When entering new postings for <ref module="fima" entry="postings-postingtypes">budget or forecast</ref>, it is possible to automatically create a set of similar postings for each month of a specific year. In the first row enter any date in the desired year, choose an asset and posting account and enter a description (optionally) and amount. Then press the button &quot;Autofill&quot; to copy the entered values down for alle months.
@@ -200,7 +200,7 @@
 	<para>* Date End: end of filter period</para>
 	<para>* Asset Accounts: postings with the selected account(s) as asset or posting account (when shifting assets) will be filtered</para>
 	<para>* Posting Accounts: postings with the selected account(s) as posting account will be filtered</para>
-	<para>* Description: you may use wildcards when search the description (see <ref module="fima" entry="fima-options">Interface Options: Select the format for wildcards for text search</ref>).</para>
+	<para>* Description: you may use wildcards when search the description (see <ref module="fima" entry="fima-prefs">Interface Preferences: Select the format for wildcards for text search</ref>).</para>
 	<para>* Amount Start: minimum amount</para>
 	<para>* Amount End: maximum amount</para>
 	<para>* e.o. Postings: filter all or none e.o. postings; leave empty to get all postings</para>
@@ -347,7 +347,7 @@
 	Tip: The fourth posting is a transaction for shifting assets, person B withdraws 1,000.00 from the giro account. It would have also been possible to look on the transaction from the perspective of the giro account by switching asset and posting account and enter a negative amount.
 	</tip>
 	<tip>
-	Tip: It is possible to enter expenses without negative sign for convenience (see <ref module="fima" entry="fima-options">Interface Options: Enter expenses with negative sign?</ref>). However, with the fourth transaction (shifting assets) the entered value always applies to the selected asset account.
+	Tip: It is possible to enter expenses without negative sign for convenience (see <ref module="fima" entry="fima-prefs">Interface Preferences: Enter expenses with negative sign?</ref>). However, with the fourth transaction (shifting assets) the entered value always applies to the selected asset account.
 	</tip>
 	<tip>
 	Tip: Control the final amounts of asset accounts by using the report <ref module="fima" entry="reports-details">Asset Overview</ref> (with cumulated values).

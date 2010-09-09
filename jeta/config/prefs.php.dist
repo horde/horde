@@ -6,16 +6,16 @@
  */
 
 $prefGroups['base'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Base Settings"),
     'desc' => _("Change your base settings."),
     'members' => array('host', 'port', 'sshdriver')
 );
 
 $prefGroups['sshtools'] = array(
-    'column' => _("Applet Options"),
-    'label' => _("SSHTools Options"),
-    'desc' => _("Options that control the behavior of the SSHTools applet."),
+    'column' => _("Applet Preferences"),
+    'label' => _("SSHTools Preferences"),
+    'desc' => _("Preferences that control the behavior of the SSHTools applet."),
     'members' => array('sshtools_auth', 'sshtools_connect_immediately',
                        'sshtools_connect_dialog',
                        'sshtools_disable_hostkey_verify',
@@ -25,9 +25,9 @@ $prefGroups['sshtools'] = array(
 );
 
 $prefGroups['jta'] = array(
-    'column' => _("Applet Options"),
-    'label' => _("JTA Options"),
-    'desc' => _("Options that control the behavior of the JTA applet."),
+    'column' => _("Applet Preferences"),
+    'label' => _("JTA Preferences"),
+    'desc' => _("Preferences that control the behavior of the JTA applet."),
     'members' => array('jta_detach', 'jta_detach_fullscreen',
                        'jta_detach_title', 'jta_detach_immediately',
                        'jta_detach_start', 'jta_detach_stop',

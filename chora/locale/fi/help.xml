@@ -12,7 +12,7 @@
       Selaa painike palauttaa sinut takaisin Chora oletusvaraston tiedostojen p&#xE4;&#xE4;n&#xE4;kym&#xE4;&#xE4;n.
     </para>
   </entry>
-  <entry id="options-button" md5="51f095602bb3e62703e72e7fe7fef996" state="uptodate">
+  <entry id="prefs-button" md5="51f095602bb3e62703e72e7fe7fef996" state="uptodate">
     <title>Valikkopainikkeet: Asetukset</title>
     <para>
       Napauttamalla Asetukset painiketta p&#xE4;&#xE4;set muuttamaan asetuksiasi.

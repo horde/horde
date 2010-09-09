@@ -238,7 +238,7 @@ class Horde_Registry_Application
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      * @param string $item             The preference name.
      *
-     * @return string  The HTML code to display on the options page.
+     * @return string  The HTML code to display on the preferences page.
      */
     // public function prefsSpecial($ui, $item) {}
 

@@ -159,11 +159,11 @@ class Horde_Menu
             $this->addAppLinks();
         }
 
-        /* Add settings link. */
+        /* Add preferences link. */
         if (($this->_mask & self::MASK_PREFS) &&
-            $this->showService('options') &&
-            ($url = Horde::getServiceLink('options', $app))) {
-            $this->add($url, _("_Options"), 'prefs.png');
+            $this->showService('prefs') &&
+            ($url = Horde::getServiceLink('prefs', $app))) {
+            $this->add($url, _("_Preferences"), 'prefs.png');
         }
 
         /* Add problem link. */
@@ -338,9 +338,8 @@ class Horde_Menu
      * <pre>
      * The following must be defined in Horde's menu config, or else they
      * won't be displayed in the menu:
-     * 'help', 'problem', 'logout', 'login', 'options'
+     * 'help', 'problem', 'logout', 'login', 'prefs'
      * </pre>
-     * @param boolean $override  Override Horde settings?
      *
      * @return boolean  True if the link is to be shown.
      */
@@ -348,7 +347,7 @@ class Horde_Menu
     {
         global $conf;
 
-        if (!in_array($type, array('help', 'problem', 'logout', 'login', 'options'))) {
+        if (!in_array($type, array('help', 'problem', 'logout', 'login', 'prefs'))) {
             return true;
         }
 

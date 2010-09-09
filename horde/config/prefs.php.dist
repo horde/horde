@@ -11,7 +11,7 @@
  *
  * $prefGroups
  * ===========
- * $prefGroups defines the options page in which a preference value will
+ * $prefGroups defines the preferences page in which a preference value will
  * appear in.
  *
  * Format:
@@ -28,8 +28,8 @@
  *                         Additionally, applications can define additional
  *                         identity information in their prefs.php file that
  *                         will be displayed after the Horde-wide settings.
- *          Empty - The default options screen.
- *        DEFAULT: The default options screen.
+ *          Empty - The default preferences screen.
+ *        DEFAULT: The default preferences screen.
  *
  * $_prefs
  * =======
@@ -40,13 +40,13 @@
  * The following are OPTIONAL values for each entry:
  *
  * advanced - (boolean) Mark pref as advanced - will only be displayed if user
- *            switches to advanced options mode.
+ *            switches to advanced preferences mode.
  *            VALUES:
- *              true: Advanced preference; hidden in basic options mode.
- *              false: Basic preference; shown regardless of options mode.
+ *              true: Advanced preference; hidden in basic preferences mode.
+ *              false: Basic preference; shown regardless of preferences mode.
  *            DEFAULT: false
  *
- * locked - (boolean) Allow preference to be changed from the options screen?
+ * locked - (boolean) Allow preference to be changed from the preferences screen?
  *          VALUES:
  *            true: Do not show this preference in the UI and don't allow
  *                  changing by any mechanism.
@@ -67,7 +67,7 @@
  *        DEFAULT: No help icon is displayed
  *
  * The UI display for a preference is controlled by the 'type' key. This key
- * controls how the preference is displayed on the options screen. If this
+ * controls how the preference is displayed on the preferences screen. If this
  * key is not present, the preference is treated as type 'implict'. The
  * following is the list of types, with a description of further keys used
  * for each type.
@@ -77,7 +77,7 @@
  * Provides a checkbox (yes/no) entry.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (integer) 0 (or false) for unchecked, 1 (or true) for checked.
  *             DEFAULT: 0
  *
@@ -86,7 +86,7 @@
  * Provides an enumeration (a/k/a selection) list in the UI.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
  *               DEFAULT: false
  *   'enum' - (array) The enumeration list. Keys will be used as the
@@ -126,7 +126,7 @@
  * to be selected.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
  *               DEFAULT: false
  *   'enum' - (array) The enumeration list. Keys will be used as the
@@ -141,7 +141,7 @@
  * preference are automatically converted to a number value.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (number) The preference value.
  *
  * 'password'
@@ -150,7 +150,7 @@
  * displayed to the screen).
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (string) The preference value.
  *
  * 'prefslink'
@@ -191,7 +191,7 @@
  * Provides a single-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (string) The preference value.
  *
  * 'textarea'
@@ -199,7 +199,7 @@
  * Provides a multi-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the options page.
+ *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (string) The preference value. Lines should be separated
  *             with the "\n" character.
  *
@@ -274,7 +274,7 @@ $_prefs['confirm_email'] = array(
 $prefGroups['forgotpass'] = array(
     'column' => _("Your Information"),
     'label' => _("Account Password"),
-    'desc' => _("Set options to allow you to reset your password if you ever forget it."),
+    'desc' => _("Set preferences to allow you to reset your password if you ever forget it."),
     'members' => array(
         'security_question', 'security_answer', 'alternate_email'
     )
@@ -311,7 +311,7 @@ $_prefs['alternate_email'] = array(
 $prefGroups['language'] = array(
     'column' => _("Your Information"),
     'label' => _("Locale and Time"),
-    'desc' => _("Set your preferred language, timezone and date options."),
+    'desc' => _("Set your preferred language, timezone and date preferences."),
     'members' => array(
         'language', 'timezone', 'twentyFour', 'date_format', 'first_week_day'
     )
@@ -418,12 +418,12 @@ $_prefs['category_colors'] = array(
 
 
 
-// *** Display Options Preferences ***
+// *** Display Preferences ***
 
 $prefGroups['display'] = array(
     'column' => _("Other Information"),
-    'label' => _("Display Options"),
-    'desc' => _("Set your startup application, color scheme, page refreshing, and other display options."),
+    'label' => _("Display Preferences"),
+    'desc' => _("Set your startup application, color scheme, page refreshing, and other display preferences."),
     'members' => array(
         'initial_application', 'show_last_login', 'theme',
         'summary_refresh_time', 'show_sidebar', 'sidebar_width',

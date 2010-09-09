@@ -26,7 +26,7 @@ if ($help_link) {
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 
-/* Suppress menus in options screen and indicate that notifications should use
+/* Suppress menus in prefs screen and indicate that notifications should use
  * the ajax mode. */
 $_SESSION['horde_notification']['override'] = array(
     KRONOLITH_BASE . '/lib/Notification/Listener/AjaxStatus.php',

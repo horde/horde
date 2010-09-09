@@ -456,7 +456,7 @@ HTML;
      * 'prefsapi
      * 'problem'
      * 'sidebar'
-     * 'options'
+     * 'prefs'
      * </pre>
      * @param string $app        The name of the current Horde application.
      *
@@ -504,10 +504,10 @@ HTML;
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
-        case 'options':
+        case 'prefs':
         case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url(($type == 'options') ? 'services/prefs.php' : 'services/prefs/', false, $opts);
+                $url = self::url(($type == 'prefs') ? 'services/prefs.php' : 'services/prefs/', false, $opts);
                 if (!is_null($app)) {
                     $url->add('app', $app);
                 }
@@ -1402,7 +1402,7 @@ HTML;
 
     /**
      * Determines the location of the system temporary directory. If a specific
-     * setting cannot be found, it defaults to /tmp.
+     * configuration cannot be found, it defaults to /tmp.
      *
      * @return string  A directory name that can be used for temp files.
      *                 Returns false if one could not be found.

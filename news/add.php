@@ -216,7 +216,7 @@ if ($conf['attributes']['attachments']) {
 
 if ($registry->isAdmin(array('permission' => 'news:admin'))) {
     $form->setSection('admin', _("Admin"), '', true);
-    $form->addVariable(_("News administrator options"), 'content', 'header', false);
+    $form->addVariable(_("News administrator settings"), 'content', 'header', false);
 
     if ($conf['attributes']['sponsored']) {
         $form->addVariable(_("Sponsored"), 'sponsored', 'boolean', false);

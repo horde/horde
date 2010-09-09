@@ -6,9 +6,9 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Other Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change display options such as how search results are sorted."),
+    'column' => _("Other Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change display preferences such as how search results are sorted."),
     'members' => array('hylax_default_view')
 );
 

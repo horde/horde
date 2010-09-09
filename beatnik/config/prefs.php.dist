@@ -4,14 +4,14 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Options"),
+    'column' => _("Preferences"),
     'label' => _("Display Preferences"),
     'desc' => _("Set default display parameters."),
     'members' => array('domain_groups', 'domains_perpage')
 );
 
 $prefGroups['defaults'] = array(
-    'column' => _("Options"),
+    'column' => _("Preferences"),
     'label' => _("Record Defaults"),
     'desc' => _("Set default record parameters."),
     'members' => array('default_ttl')

@@ -13,12 +13,12 @@ v4.0-cvs
 [mms] Remove reliance on PEAR Mail library.
 [jan] Send alarm emails again if the alarm has changed (Bug #8717).
 [mms] Add advanced preferences options screen.
-[mms] Complete rewrite of options UI display.
+[mms] Complete rewrite of preferences UI display.
 [mjr] Horde_Image can now act as an Iterator for multi-page images.
 [mms] Remove Horde_Cipher library.
 [mms] Add 'cssfiles' hook to add custom CSS files to a page.
-[jan] Add option to not automatically show all available shares.
-[jan] Add option to disallow world permissions for user shares.
+[jan] Add configuration to not automatically show all available shares.
+[jan] Add configuration to disallow world permissions for user shares.
 [jan] Store alarm dates in UTC (Bug #8381).
 [mms] Add abstracted AJAX interface (Request #4561).
 [mms] Update scriptaculous to v1.8.3.

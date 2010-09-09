@@ -15,16 +15,16 @@ if ($GLOBALS['conf']['avatar']['allow_avatars']) {
 }
 
 $prefGroups['display_forums'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Forums View"),
-    'desc' => _("Set your options for the forums view."),
+    'desc' => _("Set your preferences for the forums view."),
     'members' => array('forums_sortby', 'forums_sortdir', 'forums_per_page')
 );
 
 $prefGroups['display_threads'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Threads View"),
-    'desc' => _("Set your options for the threads view."),
+    'desc' => _("Set your preferences for the threads view."),
     'members' => array(
         'threads_sortby', 'threads_sortdir', 'threads_hot',
         'threads_per_page'
@@ -32,9 +32,9 @@ $prefGroups['display_threads'] = array(
 );
 
 $prefGroups['display_thread'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Single Thread View"),
-    'desc' => _("Set your options for the single thread view."),
+    'desc' => _("Set your preferences for the single thread view."),
     'members' => array(
         'thread_sortby', 'thread_sortdir', 'thread_view_bodies',
         'thread_per_page'
@@ -42,16 +42,16 @@ $prefGroups['display_thread'] = array(
 );
 
 $prefGroups['display_message'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Message View"),
-    'desc' => _("Set your options for the message view."),
+    'desc' => _("Set your preferences for the message view."),
     'members' => array('message_emoticons')
 );
 
 $prefGroups['display_comments'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("Comments view"),
-    'desc' => _("Set your options for the single thread view."),
+    'desc' => _("Set your preferences for the single thread view."),
     'members' => array(
         'comments_sortby', 'comments_sortdir', 'comments_view_bodies',
         'comments_per_page'

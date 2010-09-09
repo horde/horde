@@ -16,4 +16,4 @@ Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity()->confirmIdentity(Horde_Util::getFormData('h'));
 
-Horde::getServiceLink('options')->add('group', 'identities')->redirect();
+Horde::getServiceLink('prefs')->add('group', 'identities')->redirect();

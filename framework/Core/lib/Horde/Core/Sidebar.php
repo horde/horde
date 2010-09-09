@@ -72,11 +72,11 @@ class Horde_Core_Sidebar
             } catch (Horde_Exception $e) {}
         }
 
-        if (Horde_Menu::showService('options') &&
+        if (Horde_Menu::showService('prefs') &&
             !($injector->getInstance('Horde_Prefs')->getPrefs() instanceof Horde_Prefs_Session)) {
-            $menu['options'] = array(
+            $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
-                'name' => _("Options"),
+                'name' => _("Preferences"),
                 'status' => 'active'
             );
 
@@ -84,24 +84,24 @@ class Horde_Core_Sidebar
             $prefs_apps = $registry->listApps(array('active', 'admin'), true, Horde_Perms::READ);
 
             if (!empty($prefs_apps['horde'])) {
-                $menu['options_' . 'horde'] = array(
+                $menu['prefs_' . 'horde'] = array(
                     'icon' => $registry->get('icon', 'horde'),
-                    'menu_parent' => 'options',
-                    'name' => _("Global Options"),
+                    'menu_parent' => 'prefs',
+                    'name' => _("Global Preferences"),
                     'status' => 'active',
-                    'url' => Horde::getServiceLink('options', 'horde')
+                    'url' => Horde::getServiceLink('prefs', 'horde')
                 );
                 unset($prefs_apps['horde']);
             }
 
             asort($prefs_apps);
             foreach ($prefs_apps as $app => $params) {
-                $menu['options_' . $app] = array(
+                $menu['prefs_' . $app] = array(
                     'icon' => $registry->get('icon', $app),
-                    'menu_parent' => 'options',
+                    'menu_parent' => 'prefs',
                     'name' => $params['name'],
                     'status' => 'active',
-                    'url' => Horde::getServiceLink('options', $app)
+                    'url' => Horde::getServiceLink('prefs', $app)
                 );
             }
         }

@@ -6,9 +6,9 @@
  */
 
 $prefGroups['view'] = array(
-    'column' => _("Display Options"),
+    'column' => _("Display Preferences"),
     'label' => _("User Interface"),
-    'desc' => _("Select confirmation options, how to display the different views and choose default view."),
+    'desc' => _("Select confirmation preferences, how to display the different views and choose default view."),
     'members' => array(
         'dynamic_view', 'confirm_delete', 'defaultview', 'max_events',
         'time_between_days', 'week_start_monday', 'day_hour_start',
@@ -54,12 +54,12 @@ $prefGroups['notification'] = array(
 $prefGroups['freebusy'] = array(
     'column' => _("Calendars"),
     'label' => _("Free/Busy Information"),
-    'desc' => _("Set your Free/Busy calendars and your own and other users' Free/Busy options."),
+    'desc' => _("Set your Free/Busy calendars and your own and other users' Free/Busy preferences."),
     'members' => array('fb_url', 'fb_cals', 'freebusy_days'),
 );
 
 $prefGroups['addressbooks'] = array(
-    'column' => _("Other Options"),
+    'column' => _("Other Preferences"),
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('display_contact', 'sourceselect'),
@@ -305,7 +305,7 @@ $_prefs['freebusy_days'] = array(
 
 // By default, display all contacts in the address book when loading
 // the contacts screen.  If your default address book is large and
-// slow to display, you may want to disable and lock this option.
+// slow to display, you may want to disable and lock this preference.
 $_prefs['display_contact'] = array(
     'value' => 1,
     'shared' => true,

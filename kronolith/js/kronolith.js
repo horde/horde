@@ -27,7 +27,7 @@ KronolithCore = {
     viewLoading: [],
     fbLoading: 0,
     redBoxLoading: false,
-    inOptions: false,
+    inPrefs: false,
     date: Date.today(),
     tasktype: 'incomplete',
     growls: 0,
@@ -289,7 +289,7 @@ KronolithCore = {
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
-        if (this.inOptions && loc != 'options') {
+        if (this.inPrefs && loc != 'prefs') {
             this.redirect(window.location.href.sub(window.location.hash, '#' + fullloc), true);
             return;
         }
@@ -530,13 +530,13 @@ KronolithCore = {
             this.loadNextView();
             break;
 
-        case 'options':
+        case 'prefs':
             var url = Kronolith.conf.prefs_url;
             if (data) {
                 url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
             }
             this.addHistory(loc);
-            this.inOptions = true;
+            this.inPrefs = true;
             this.closeView('iframe');
             this.iframeContent(url);
             this.setTitle(Kronolith.text.prefs);
@@ -3973,14 +3973,14 @@ KronolithCore = {
             case 'kronolithEventAlarmPrefs':
                 this.closeRedBox();
                 this.go(this.lastLocation);
-                this.go('options', { app: 'kronolith', group: 'notification' });
+                this.go('prefs', { app: 'kronolith', group: 'notification' });
                 e.stop();
                 break;
 
             case 'kronolithTaskAlarmPrefs':
                 this.closeRedBox();
                 this.go(this.lastLocation);
-                this.go('options', { app: 'nag', group: 'notification' });
+                this.go('prefs', { app: 'nag', group: 'notification' });
                 e.stop();
                 break;
 
@@ -4156,8 +4156,8 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithOptions':
-                this.go('options');
+            case 'kronolithPrefs':
+                this.go('prefs');
                 e.stop();
                 return;
 

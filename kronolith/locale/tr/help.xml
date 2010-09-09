@@ -49,7 +49,7 @@ Ay sekmesi,şu anki geçerli seçilmiş günden başlayarak tüm ay'ı görünt�
 Yeni olay menüsü seçenekleri takvimde yeni olaylar oluşturmamıza izin verir.
 </para>
 </entry>
-  <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
+  <entry id="menu-prefs" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
 <title>Menu:seçenekler</title>
 <para>
 Seçenekler menüsü seçenekleri çoklu ve paylaşılan takvimleri yönetir ve Horde ve diğer Horde uygulamalarıyla etkileşim içindedir ve bize Kronolithin bakışını ve yorumlayışını kontrol etmemize izin verir.

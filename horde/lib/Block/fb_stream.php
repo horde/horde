@@ -121,7 +121,7 @@ class Horde_Block_Horde_fb_stream extends Horde_Block
         $facebook = $this->_facebook;
         $fbp = $this->_fbp;
         if (empty($fbp['sid'])) {
-            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
         }
 
         /* Add the client javascript / initialize it */
@@ -156,7 +156,7 @@ EOT;
             $status = $facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
 
             return $html;
         }

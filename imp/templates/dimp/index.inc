@@ -73,7 +73,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
     <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
-<?php if (Horde_Menu::showService('options')): ?>
+<?php if (Horde_Menu::showService('prefs')): ?>
     <?php echo _simpleButton('appoptions', _("_Options"), 'prefsIcon') ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('logout')): ?>

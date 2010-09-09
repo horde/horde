@@ -347,7 +347,7 @@ class IMP_Hooks
 //            return Horde::url('', false, array('app' => 'turba'));
 //
 //        case 'prefs':
-//            return Horde::getServiceLink('options', 'horde');
+//            return Horde::getServiceLink('prefs', 'horde');
 //
 //        default:
 //            return '';

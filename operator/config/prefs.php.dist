@@ -6,7 +6,7 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Options"),
+    'column' => _("General Preferences"),
     'label' => _("Display Preferences"),
     'desc' => _("Set default display parameters."),
     'members' => array('rowsperpage', 'resultlimit', 'columns')

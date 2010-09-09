@@ -42,7 +42,7 @@
     <title>Message Composition: Identity</title>
     <heading>Identity</heading>
     <para>
-    Choose the identity to send email as from a drop-down list of identities that you entered under <qt>Options-&gt;Personal Information</qt>.
+    Choose the identity to send email as from a drop-down list of identities that you entered under <qt>Preferences-&gt;Personal Information</qt>.
     </para>
 </entry>
 
@@ -335,7 +335,7 @@
     <title>PGP: Attach Public Key</title>
     <heading>Attach Public Key</heading>
     <para>
-    If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Options screen.
+    If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Preferences screen.
     </para>
 </entry>
 
@@ -637,14 +637,14 @@
 <entry id="prefs-rename_sentmail_monthly">
     <title>Preferences: Maintenance: Rename Sent-mail Folder Monthly</title>
     <para>
-    Turn this option on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
+    Turn this preference on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
     </para>
 </entry>
 
 <entry id="prefs-delete_sentmail_monthly">
     <title>Preferences: Maintenance: Delete Sent-mail Folder Monthly</title>
     <para>
-    Turn this option on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
+    Turn this preference on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
 </entry>
 
@@ -679,7 +679,7 @@
 <entry id="prefs-delete_attachments_monthly">
     <title>Preferences: Maintenance: Delete Linked Attachments Monthly</title>
     <para>
-    Turn this option on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
+    Turn this preference on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
 </entry>
 

@@ -4,21 +4,21 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change your sorting and display options."),
+    'column' => _("General Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change your sorting and display preferences."),
     'members' => array('initial_page', 'class_columns', 'sortby_class', 'sortdir_class', 'student_columns', 'sortby_student', 'sortdir_student', 'entry_details_wrap'),
 );
 
 $prefGroups['contactlists'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Contact Lists"),
     'desc' => _("Change your settings for automatically create contact lists."),
     'members' => $GLOBALS['conf']['addresses']['contact_list'] == 'user' ? array('contact_list', 'contact_list_name') : array(),
 );
 
 $prefGroups['marks'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Marks"),
     'desc' => _("Define a format for marks"),
     'members' => array('marks_roundby')

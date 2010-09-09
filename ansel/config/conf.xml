@@ -44,8 +44,8 @@
   </configsection>
  </configtab>
 
- <configtab name="vfs" desc="VFS and Photo Options">
-  <configheader>VFS Options</configheader>
+ <configtab name="vfs" desc="VFS and Photo">
+  <configheader>VFS Settings</configheader>
   <configsection name="images">
    <configvfs switchname="type" default="horde"/>
   </configsection>
@@ -68,7 +68,7 @@
     </configswitch>
   </configsection>
   <configsection name="image">
-   <configheader>Photo Generation Options</configheader>
+   <configheader>Photo Generation Settings</configheader>
    <configenum name="type" desc="What format should photos be generated in?
    Make sure that your server supports whichever format you choose!">
     <values>

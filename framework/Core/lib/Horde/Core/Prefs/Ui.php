@@ -302,9 +302,9 @@ class Horde_Core_Prefs_Ui
             }
 
             if ($prefs instanceof Horde_Prefs_Session) {
-                $notification->push(_("Your options have been updated for the duration of this session."), 'horde.success');
+                $notification->push(_("Your preferences have been updated for the duration of this session."), 'horde.success');
             } else {
-                $notification->push(_("Your options have been updated."), 'horde.success');
+                $notification->push(_("Your preferences have been updated."), 'horde.success');
             }
 
             $this->_loadPrefs($this->app);
@@ -324,7 +324,7 @@ class Horde_Core_Prefs_Ui
      */
     public function selfUrl($options = array())
     {
-        $url = Horde::getServiceLink('options', $this->app);
+        $url = Horde::getServiceLink('prefs', $this->app);
         if ($this->group) {
             $url->add('group', $this->group);
         }
@@ -372,11 +372,11 @@ class Horde_Core_Prefs_Ui
         }
 
         if (empty($columns) && empty($pref_list)) {
-            $notification->push(_("There are no options available."), 'horde.message');
+            $notification->push(_("There are no preferences available."), 'horde.message');
             $this->nobuttons = true;
         }
 
-        $options_link = Horde::getServiceLink('options');
+        $options_link = Horde::getServiceLink('prefs');
         $h_templates = $registry->get('templates', 'horde');
 
         $base = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -525,7 +525,7 @@ class Horde_Core_Prefs_Ui
 
         $content = Horde::endBuffer();
 
-        $title = _("User Options");
+        $title = _("User Preferences");
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
@@ -578,7 +578,7 @@ class Horde_Core_Prefs_Ui
             );
         }
         $t->set('apps', $tmp);
-        $t->set('header', htmlspecialchars(($this->app == 'horde') ? _("Global Options") : sprintf(_("Options for %s"), $registry->get('name', $this->app))));
+        $t->set('header', htmlspecialchars(($this->app == 'horde') ? _("Global Preferences") : sprintf(_("Preferences for %s"), $registry->get('name', $this->app))));
 
         if (empty($_SESSION['horde_prefs']['advanced'])) {
             $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));

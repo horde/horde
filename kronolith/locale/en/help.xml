@@ -19,7 +19,7 @@
     <title>Menu: Today</title>
     <para>
     The <i>Today</i> menu item will display your default view (month, week,
-    day, etc. as set in Options) for the current date.
+    day, etc. as set in Preferences) for the current date.
     </para>
 </entry>
 
@@ -72,13 +72,12 @@
     </para>
 </entry>
 
-<entry id="menu-options">
-    <title>Menu: Options</title>
+<entry id="menu-prefs">
+    <title>Menu: Preferences</title>
     <para>
-    The <i>Options</i> menu item allows you to set <i>Options</i> (or
-    preferences) that control the look and feel of Kronolith, Kronolith's
-    interaction with Horde and other Horde applications, and manage multiple
-    and shared calendars.
+    The <i>Preferences</i> menu item allows you to set <i>Preferences</i> that
+    control the look and feel of Kronolith, Kronolith's interaction with Horde
+    and other Horde applications, and manage multiple and shared calendars.
     </para>
 </entry>
 

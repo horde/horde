@@ -1,6 +1,6 @@
 <?php
 /**
- * Preferences/Options UI page.
+ * Preferences UI page.
  *
  * URL Parameters
  * --------------

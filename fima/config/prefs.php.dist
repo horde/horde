@@ -4,7 +4,7 @@
  */
 
 $prefGroups['share'] = array(
-    'column' => _("General Options"),
+    'column' => _("General Preferences"),
     'label' => _("Active Configuration"),
     'desc' => _("Choose your active Ledger and Posting Type."),
     'members' => array(
@@ -13,9 +13,9 @@ $prefGroups['share'] = array(
 );
 
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Interface Options"),
-    'desc' => _("Change the display and input options."),
+    'column' => _("General Preferences"),
+    'label' => _("Interface Preferences"),
+    'desc' => _("Change the display and input preferences."),
     'members' => array(
         'max_postings', 'startpage', 'sortby', 'altsortby', 'sortdir',
         'wildcard_format', 'amount_format', 'expenses_sign', 'delete_opt',

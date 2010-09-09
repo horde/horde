@@ -52,7 +52,7 @@ if ($token = Horde_Util::getFormData('auth_token')) {
             $stream = $facebook->streams->get('', array(), Horde_Util::getPost('oldest'), Horde_Util::getPost('newest'), $count, $filter);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
 
             return $html;
         }
@@ -69,7 +69,7 @@ if ($token = Horde_Util::getFormData('auth_token')) {
                 . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
 
                 return $html;
             }

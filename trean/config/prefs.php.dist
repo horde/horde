@@ -6,8 +6,8 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Other Options"),
-    'label' => _("Display Options"),
+    'column' => _("Other Preferences"),
+    'label' => _("Display Preferences"),
     'desc' => _("Set how to display bookmark listings and how to open links."),
     'members' => array('sortby', 'sortdir', 'show_folder_actions', 'show_in_new_window', 'expand_tree')
 );

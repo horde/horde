@@ -3,9 +3,9 @@
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 $prefGroups['display'] = array(
-    'column' => _("General Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change display options such as which view to display by default, how many photos to display on a page, and the default gallery style to use."),
+    'column' => _("General Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change display preferences such as which view to display by default, how many photos to display on a page, and the default gallery style to use."),
     'members' => array(
         'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
         'facesperpage', 'groupby', 'groupsperpage',
@@ -14,16 +14,16 @@ $prefGroups['display'] = array(
 );
 
 $prefGroups['metadata'] = array(
-    'column' => _("General Options"),
-    'label' => _("Tags and Metadata Options"),
-    'desc' => _("Change options dealing with tags and image metadata."),
+    'column' => _("General Preferences"),
+    'label' => _("Tags and Metadata Preferences"),
+    'desc' => _("Change preferences dealing with tags and image metadata."),
     'members' => array('showexif', 'exif_tags', 'exif_title')
 );
 
 $prefGroups['perms'] = array(
-    'column' => _("General Options"),
-    'label' => _("Permission Options"),
-    'desc' => _("Change your user permission options such as who can download original photos, and what permissions newly created galleries should have by default."),
+    'column' => _("General Preferences"),
+    'label' => _("Permission Preferences"),
+    'desc' => _("Change your user permission preferences such as who can download original photos, and what permissions newly created galleries should have by default."),
     'members' => array(
         'default_download', 'default_permissions', 'group_permissions',
         'guest_permissions'
@@ -31,9 +31,9 @@ $prefGroups['perms'] = array(
 );
 
 $prefGroups['watermark'] = array(
-    'column' => _("General Options"),
-    'label' => _("Watermark Options"),
-    'desc' => _("Change your watermark options."),
+    'column' => _("General Preferences"),
+    'label' => _("Watermark Preferences"),
+    'desc' => _("Change your watermark preferences."),
     'members' => array(
         'watermark_text', 'watermark_vertical', 'watermark_horizontal',
         'watermark_font', 'watermark_auto'

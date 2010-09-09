@@ -33,7 +33,7 @@
     <title>Menua: Gertaera berria</title>
     <para><i>Gertaera berria</i> menu-elementuaren bidez, gertaera berri bat jar dezakezu egutegian.</para></entry>
 
-<entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
+<entry id="menu-prefs" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
     <title>Menua: Aukerak</title>
     <para><i>Aukerak</i> menu-elementuaren bidez, Kronolith-en itxura eta izaera kontrolatzen duten <i>Aukerak</i> (edo hobespenak) ezar ditzakezu. Kronolith-ek interakzioa duenez Horde-rekin eta bestelako Horde aplikazioekin, hainbat egutegi eta egutegi partekatuak erabili ahal izango dituzu.</para></entry>
 

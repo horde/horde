@@ -1,6 +1,6 @@
 <?php
 /**
- * The News script to navigate source options.
+ * The News script to navigate source settings.
  *
  * Copyright 2007 Duck <duck@obala.net>
  *

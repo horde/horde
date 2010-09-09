@@ -10,9 +10,9 @@
 if (!isset($_SESSION['ingo']['script_generate']) ||
     $_SESSION['ingo']['script_generate']) {
     $prefGroups['script'] = array(
-        'column' => _("Other Options"),
+        'column' => _("Other Preferences"),
         'label' => _("Script Updating"),
-        'desc' => _("Options about script updating."),
+        'desc' => _("Preferences about script updating."),
         'members' => array('auto_update'));
 }
 

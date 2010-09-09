@@ -10,8 +10,8 @@
  *
  * prefGroups array
  * ----------------
- * $prefGroups are for display purposes when you press the options button.
- * The options choice will appear when you set your preferences driver
+ * $prefGroups are for display purposes when you press the preferences button.
+ * The preferences choice will appear when you set your preferences driver
  * in the horde/config/conf.php file.
  *
  * $prefGroups array definition:
@@ -94,7 +94,7 @@ try {
         $prefGroups['forgotpass'] = array(
             'column' => _("Your Information"),
             'label' => _("Account Password"),
-            'desc' => _("Set options to allow you to reset your password if you ever forget it."),
+            'desc' => _("Set preferences to allow you to reset your password if you ever forget it."),
             'members' => array('security_question', 'security_answer', 'alternate_email')
         );
     }
@@ -103,7 +103,7 @@ try {
 $prefGroups['language'] = array(
     'column' => _("Your Information"),
     'label' => _("Locale and Time"),
-    'desc' => _("Set your preferred language, timezone and date options."),
+    'desc' => _("Set your preferred language, timezone and date preferences."),
     'members' => array('language', 'timezone', 'twentyFour', 'date_format', 'first_week_day')
 );
 
@@ -116,8 +116,8 @@ $prefGroups['categories'] = array(
 
 $prefGroups['display'] = array(
     'column' => _("Other Information"),
-    'label' => _("Display Options"),
-    'desc' => _("Set your startup application, color scheme, page refreshing, and other display options."),
+    'label' => _("Display Preferences"),
+    'desc' => _("Set your startup application, color scheme, page refreshing, and other display preferences."),
     'members' => array('initial_application', 'show_last_login', 'theme',
                        'summary_refresh_time', 'show_sidebar', 'sidebar_width',
                        'moz_sidebar', 'menu_view', 'menu_refresh_time',
@@ -160,7 +160,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
 // Determine functionality of richtext editor
 $prefGroups['richtext'] = array(
     'column' => _("Other Information"),
-    'label' => _("Rich Text Editor Options"),
+    'label' => _("Rich Text Editor Preferences"),
     'desc' => _("Which plugins to enable for the Rich Text editor."),
     'members' => array('editor_plugins'),
 );
@@ -248,7 +248,7 @@ $_prefs['from_addr'] = array(
     'desc' =>  _("Your From: address:")
 );
 
-// Authentication Options
+// Authentication Preferences
 
 // credentials
 $_prefs['credentials'] = array(

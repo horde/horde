@@ -140,7 +140,7 @@ class Kronolith
                 'exception' => (string)Horde_Themes::img('exception-fff.png'),
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-            'prefs_url' => (string)Horde::getServiceLink('options', 'kronolith')->setRaw(true)->add('ajaxui', 1),
+            'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
@@ -302,7 +302,7 @@ class Kronolith
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'allday' => _("All day"),
             'more' => _("more..."),
-            'prefs' => _("Options"),
+            'prefs' => _("Preferences"),
             'shared' => _("Shared"),
             'no_url' => _("You must specify a URL."),
             'no_calendar_title' => _("The calendar title must not be empty."),
@@ -2245,7 +2245,7 @@ class Kronolith
 
         $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($event->creator);
         if (!$ident->getValue('from_addr')) {
-            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('options', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
 

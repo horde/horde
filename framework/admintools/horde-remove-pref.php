@@ -3,9 +3,9 @@
 /**
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
- * This script removes a pref from users' settings. Helps when a setting is
- * to be moved from locked = false, to locked = true and there have already
- * been prefs set by the users.
+ * This script removes a preference from users' preferences. Helps when a
+ * preference is to be moved from locked = false, to locked = true and there
+ * have already been preferences set by the users.
  *
  * @package admintools
  */

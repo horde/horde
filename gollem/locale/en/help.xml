@@ -20,8 +20,8 @@
     <para>
     By default, you can only delete directories that are empty, however you can enable the deletion of non-empty directories
     (recursive delete).  If you try to delete a non-empty directory without enabling this feature, deletion will fail with
-    an error.  To enable the deleting non-empty directories, click on Options, Settings and choose Yes from the drop down box
-    for the Delete Folders Recursively option.  This will enable the recursive delete option.
+    an error.  To enable the deleting non-empty directories, click on Preferences, File Actions and choose Yes from the drop down box
+    for the Delete Folders Recursively preference.  This will enable the recursive delete preference.
 
     In order to delete, cut or copy a directory or directories, you need to select at least one directory.
     After you select one or more directories using the checkboxes to the left of the item, select either Cut Items, Copy Items

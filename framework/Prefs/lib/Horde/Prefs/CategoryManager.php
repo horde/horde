@@ -154,7 +154,7 @@ JAVASCRIPT;
         unset($categories[$key]);
         $GLOBALS['prefs']->setValue('categories', implode('|', $categories));
 
-        // Remove any color settings for $category.
+        // Remove any color preferences for $category.
         $colors = self::colors();
         unset($colors[$category]);
         self::setColors($colors);
