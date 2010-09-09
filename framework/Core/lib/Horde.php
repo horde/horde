@@ -1680,19 +1680,12 @@ HTML;
         if (!class_exists($hook_class)) {
             try {
                 self::loadConfiguration('hooks.php', null, $app);
-            } catch (Horde_Exception $e) {
-                $error = true;
-            }
+            } catch (Horde_Exception $e) {}
         }
 
-        if (class_exists($hook_class)) {
-            $hook_ob = new $hook_class;
-            $error = !method_exists($hook_ob, $hook);
-        } else {
-            $error = true;
-        }
-
-        if ($error) {
+        if (!class_exists($hook_class) ||
+            !($hook_ob = new $hook_class) ||
+            !method_exists($hook_ob, $hook)) {
             throw new Horde_Exception_HookNotSet();
         }
 
