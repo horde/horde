@@ -83,7 +83,9 @@ var Horde_Uploader = Class.create({
                     up.unbind('UploadProgress', this.handlers.progress);
                     $(file.id).select('.hordeUploaderFilestatus').each(function(p) { $(p).update(result.error.message); });
                     $(file.id).setStyle({'fontWeight': 'bold', 'color': 'red'});
-                    $(file.id).select('.hordeUploaderFileaction').each(function(p) { $(p).addClassName(this._params['error_class']) }.bind(this));
+                    $(file.id).select('.hordeUploaderFileaction').each(function(p) {
+                        $(p).select('.hordeUploaderRemove').each(function(r) { r.remove(); });
+                        $(p).addClassName(this._params['error_class']) }.bind(this));
                 } else {
                     $(file.id).setStyle({'fontWeight': 'bold', 'color': 'green'});
                     $(file.id).select('.hordeUploaderFileaction').each(function(p) {
@@ -93,6 +95,10 @@ var Horde_Uploader = Class.create({
                 }
             } catch (Exception) {
                     up.unbind('UploadProgress', this.handlers.progress);
+                    $(file.id).select('.hordeUploaderFileaction').each(function(p) {
+                        $(p).select('.hordeUploaderRemove').each(function(r) { r.remove(); });
+                        $(p).update('&nbsp;').addClassName(this._params['error_class']);
+                    }.bind(this));
                     $(file.id).select('.hordeUploaderFilestatus').each(function(p) { $(p).update(Exception); });
             }
         }
