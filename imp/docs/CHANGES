@@ -143,7 +143,7 @@ v5.0-git
 [mms] Disable advanced functions if using POP3 driver (caching, on-demand
       filtering, searching, sorting) because it is too resource intensive.
 [mms] Use native PHP code for POP3 driver (c-client no longer required).
-[mms] All native IMP code now uses exceptions instead of PEAR_Errors.
+[mms] IMP code now uses Exceptions instead of PEAR_Errors.
 [mms] Fix wrong charset on filenames when stripping attachments (Bug #7220).
 [mms] Use effects queue to prevent issues with users clicking on effects
       elements too quickly.
