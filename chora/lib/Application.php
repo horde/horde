@@ -108,7 +108,7 @@ class Chora_Application extends Horde_Registry_Application
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            throw new Chora_Exception(_("Malformed URL"), '400 Bad Request');
+            throw new Chora_Exception(_("Malformed URL"));
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
@@ -154,11 +154,11 @@ class Chora_Application extends Horde_Registry_Application
 
         if (($sourcerootopts['type'] == 'cvs') &&
             !@is_dir($sourcerootopts['location'])) {
-            throw new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."), '500 Internal Server Error');
+            throw new Chora_Exception(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."));
         }
 
         if (Chora::isRestricted($where)) {
-            throw new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where), '403 Forbidden');
+            throw new Chora_Exception(sprintf(_("%s: Forbidden by server configuration"), $where));
         }
     }
 
