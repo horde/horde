@@ -13,20 +13,6 @@
  */
 class Shout_Ajax_Application extends Horde_Core_Ajax_Application
 {
-    protected $_responseType = 'json';
-    /**
-     * Returns a notification handler object to use to output any
-     * notification messages triggered by the action.
-     *
-     * @return Horde_Notification_Handler_Base   The notification handler.
-     */
-    public function notificationHandler()
-    {
-        // FIXME: Create Shout notification handler
-        //return $GLOBALS['kronolith_notify'];
-        return null;
-    }
-
     public function saveExtension()
     {
         try {
@@ -247,8 +233,4 @@ class Shout_Ajax_Application extends Horde_Core_Ajax_Application
         return true;
     }
 
-    public function responseType()
-    {
-        return $this->_responseType;
-    }
 }
