@@ -47,7 +47,6 @@ class Luxor_Application extends Horde_Registry_Application
     protected function _init()
     {
         // Luxor base libraries.
-        require_once LUXOR_BASE . '/lib/Luxor.php';
         Luxor::initialize();
     }
 

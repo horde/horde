@@ -47,7 +47,6 @@ class Pastie_Application extends Horde_Registry_Application
             $this->driver = Pastie_Driver::factory();
         } catch (Pastie_Exception $e) {
             $GLOBALS['notification']->notify($e);
-            return false;
         }
     }
 

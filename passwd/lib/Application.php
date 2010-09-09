@@ -33,15 +33,4 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
-class Passwd_Application extends Horde_Registry_Application
-{
-    /**
-     * Initialization function.
-     *
-     * Global variables defined:
-     */
-    protected function _init()
-    {
-
-    }
-}
+class Passwd_Application extends Horde_Registry_Application {}

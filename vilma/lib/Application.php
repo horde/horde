@@ -1,8 +1,8 @@
 <?php
 /**
- * Shout application interface.
+ * Vilma application interface.
  *
- * This file defines Shout's external API interface.
+ * This file defines Vilma's external API interface.
  *
  * Copyright 2006-2010 Alkaloid Networks <http://www.alkaloid.net/>
  *
@@ -24,9 +24,10 @@ class Vilma_Application extends Horde_Registry_Application
 
     protected function _init()
     {
-        $this->driver = &Vilma_Driver::singleton();
+        $this->driver = Vilma_Driver::singleton();
 
-        // Get the currently active domain, possibly storing a change into the session
+        // Get the currently active domain, possibly storing a change into the
+        // session
         $this->curdomain = Vilma::getCurDomain();
     }
 
