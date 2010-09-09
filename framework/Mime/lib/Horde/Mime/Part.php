@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Part implements Countable
+class Horde_Mime_Part implements ArrayAccess, Countable
 {
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
@@ -2099,6 +2099,28 @@ class Horde_Mime_Part implements Countable
         }
 
         return $out;
+    }
+
+    /* ArrayAccess methods. */
+
+    public function offsetExists($offset)
+    {
+        return ($this->getPart($offset) !== null);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->getPart($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->alterPart($offset, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $this->removePart($offset);
     }
 
     /* Countable methods. */

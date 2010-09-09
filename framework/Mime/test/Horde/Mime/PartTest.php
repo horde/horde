@@ -82,6 +82,44 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testArrayAccessImplementation()
+    {
+        $part = $this->_getTestPart();
+
+        $this->assertEquals(
+            true,
+            isset($part['1'])
+        );
+        $this->assertEquals(
+            false,
+            isset($part['4'])
+        );
+
+        $this->assertSame(
+            $part->getPart('1'),
+            $part['1']
+        );
+        $this->assertSame(
+            $part->getPart('3.1'),
+            $part['3.1']
+        );
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('text/plain');
+
+        $part['2'] = $part2;
+        $this->assertSame(
+            $part2,
+            $part->getPart('2')
+        );
+
+        unset($part['3']);
+        $this->assertEquals(
+            null,
+            $part->getPart('3')
+        );
+    }
+
     public function testCountableImplementation()
     {
         $part = $this->_getTestPart();
