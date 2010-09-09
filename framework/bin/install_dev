@@ -86,11 +86,25 @@ print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
 system(dirname(__FILE__) . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
 
+function link_app($app)
+{
+    print "LINKING " . $app . "\n";
+    symlink($GLOBALS['horde_git'] . '/' . $app, $GLOBALS['web_dir'] . '/' . $app);
+    file_put_contents($GLOBALS['horde_git'] . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $GLOBALS['web_dir'] . '\');');
+}
+
 print "\nLINKING applications to web directory " . $web_dir . "\n";
-foreach ($apps as $app) {
-    if (file_exists($horde_git . '/' . $app)) {
-        print "LINKING " . $app . "\n";
-        symlink($horde_git . '/' . $app, $web_dir . '/' . $app);
-        file_put_contents($horde_git . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $web_dir . '\');');
+if ($apps) {
+    foreach ($apps as $app) {
+        if (file_exists($horde_git . '/' . $app)) {
+            link_app($app);
+        }
+    }
+} else {
+    foreach (new DirectoryIterator($horde_git) as $it) {
+        if (!$it->isDot() && $it->isDir() && $it != 'horde' &&
+            is_dir($it->getPathname() . '/config')) {
+            link_app($it);
+        }
     }
 }
