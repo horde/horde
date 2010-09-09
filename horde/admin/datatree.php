@@ -14,7 +14,7 @@
 function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
 {
     $nodes = $datatree->getById(DATATREE_FORMAT_FLAT, $parent_id, true, $parent, 1);
-    $url = Horde::url('datatree.php');
+    $url = Horde::url('admin/datatree.php');
 
     foreach ($nodes as $id => $node) {
         if ($id != $parent_id) {

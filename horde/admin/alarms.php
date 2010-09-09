@@ -111,7 +111,7 @@ new Horde_View_Helper_Text($view);
 
 try {
     $alarms = $horde_alarm->globalAlarms();
-    $url = Horde::url('alarms.php');
+    $url = Horde::url('admin/alarms.php');
     foreach ($alarms as &$alarm) {
         $url->add('alarm', $alarm['id']);
         $alarm['edit_link'] = $url->link()
