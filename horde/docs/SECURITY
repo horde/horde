@@ -32,8 +32,8 @@ secure your cookies. You should even force session cookie usage in the Horde
 configuration, which is the default setting in all Horde versions now.
 
 If you want to use HTTPS connections, consider forcing users to HTTPS in the
-Horde setup. This will force cookies to be sent over secure connections only
-and helps to prevent sidejacking.
+Horde configuration. This will force cookies to be sent over secure connections
+only and helps to prevent sidejacking.
 
 If PHP sessions are set to use the ``files`` save_handler, then these files
 should be secured properly. Sites can increase security by setting the PHP

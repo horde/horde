@@ -117,8 +117,8 @@ below at Prerequisites_.
 
      http://your-server/horde/
 
-   Go to Adminstration => Setup => Horde
-   (Or navigate to http://your-server/horde/admin/setup)
+   Go to Administration => Configuration => Horde
+   (Or navigate to http://your-server/horde/admin/config)
 
 
 Prerequisites
@@ -257,8 +257,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       it needs to compile.
 
       You can also use the ImageMagick_ package to do these manipulations
-      instead.  See the ``Image Manipulation`` tab of the Horde setup for more
-      details.
+      instead.  See the ``Image Manipulation`` tab of the Horde configuration
+      for more details.
 
       .. _ImageMagick: http://www.imagemagick.org
 
@@ -642,7 +642,7 @@ Configuring Horde
                   backend will be administrator accounts.  Horde does
                   **NOT** have a default administrator account - all
                   users, including administrators, must exist in the
-                  actual authentication backend.  Click on ``Setup``
+                  actual authentication backend.  Click on ``Configuration``
                   in the ``Administration`` menu and configure Horde.
                   Start in the ``Authentication`` tab.
 
@@ -667,17 +667,17 @@ Configuring Horde
       - For a secure connection, select port 993.
       - Select the secure connection protocol to use, if desired.
 
-   Continue to configure Horde through all the tabs of the setup interface and
-   click on ``Generate Horde Configuration``. An important item that you
-   probably want to configure is the ``Database Settings``, which defines the
-   database configuration that is used, by default, for several different
-   Horde sub-systems.
+   Continue to configure Horde through all the tabs of the configuration
+   interface and click on ``Generate Horde Configuration``. An important item
+   that you probably want to configure is the ``Database Settings``, which
+   defines the database configuration that is used, by default, for several
+   different Horde sub-systems.
 
    Configuration of applications in ``registry.php`` is documented in the
    ``INSTALL`` file of each application.  Most applications require you to
    configure them with a "Horde administrator" account.  A Horde administrator
-   account is any normal Horde account that has been added to the
-   administrator list in the ``Authentication`` tab of the Horde setup.
+   account is any normal Horde account that has been added to the administrator
+   list in the ``Authentication`` tab of the Horde configuration.
 
    The other files in that directory need only be modified if you wish to
    customize Horde's appearance or behaviour -- the defaults will work at most
@@ -717,7 +717,7 @@ Configuring Horde
 
       Additionally, you can change the session handler of PHP to use any
       storage backend requested (e.g. SQL database) via the ``Custom Session
-      Handler`` tab in the Horde setup.
+      Handler`` tab in the Horde configuration.
 
    For more information about securing your webserver, PHP and Horde, see the
    `docs/SECURITY`_ file.
@@ -738,10 +738,10 @@ Temporary Files
 ===============
 
 Various Horde applications will generate temporary files in PHP's temporary
-directory (see the ``General`` tab in the Horde setup).  For various reasons,
-some of these files may not be removed when the user's session ends. To
-reclaim this disk space, it may be necessary to periodically delete these old
-temporary files.
+directory (see the ``General`` tab in the Horde configuration).  For various
+reasons, some of these files may not be removed when the user's session
+ends. To reclaim this disk space, it may be necessary to periodically delete
+these old temporary files.
 
 An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
 Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything

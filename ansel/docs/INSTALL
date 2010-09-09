@@ -121,10 +121,10 @@ To function properly, Ansel **requires** the following:
 6. The _`ImageMagick` software.
 
    If using the `ImageMagick software`_ you need to set the path to the
-   ``convert`` utility in Horde's setup screen
-   (``Administration/Setup/Horde/Image Manipulation``). You can alternatively
-   use the GD_ extension or the imagick_ extension, but one of these is
-   **required**.
+   ``convert`` utility in Horde's configuration screen
+   (``Administration/Configuration/Horde/Image Manipulation``). You can
+   alternatively use the GD_ extension or the imagick_ extension, but one of
+   these is **required**.
 
    .. _`ImageMagick software`: http://www.imagemagick.org/
 

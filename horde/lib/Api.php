@@ -23,8 +23,8 @@ class Horde_Api extends Horde_Registry_Api
     {
         $admin = array(
             'configuration' => array(
-                'link' => '%application%/admin/setup/',
-                'name' => _("_Setup"),
+                'link' => '%application%/admin/config/',
+                'name' => _("_Configuration"),
                 'icon' => Horde_Themes::img('config.png')
             ),
             'users' => array(

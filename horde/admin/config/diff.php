@@ -44,7 +44,7 @@ $diffs = array();
 /* Only bother to do anything if there is any config. */
 if (!empty($_SESSION['_config'])) {
     /* Set up the toggle button for inline/unified. */
-    $url = Horde::url('admin/setup/diff.php')->add('render', ($render_type == 'inline') ? 'unified' : 'inline');
+    $url = Horde::url('admin/config/diff.php')->add('render', ($render_type == 'inline') ? 'unified' : 'inline');
 
     if ($app = Horde_Util::getFormData('app')) {
         /* Handle a single app request. */
@@ -79,5 +79,5 @@ $template->set('diffs', $diffs, true);
 
 $title = _("Configuration Differences");
 require HORDE_TEMPLATES . '/common-header.inc';
-echo $template->fetch(HORDE_TEMPLATES . '/admin/setup/diff.html');
+echo $template->fetch(HORDE_TEMPLATES . '/admin/config/diff.html');
 require HORDE_TEMPLATES . '/common-footer.inc';

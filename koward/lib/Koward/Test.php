@@ -46,7 +46,7 @@ class Koward_Test extends Horde_Kolab_Test_Storage
 \$conf['portal']['fixed_blocks'] = array();
 \$conf['imsp']['enabled'] = false;
 
-/** Additional config variables required for a clean Horde setup */
+/** Additional config variables required for a clean Horde configuration */
 \$conf['session']['use_only_cookies'] = false;
 \$conf['session']['timeout'] = 0;
 \$conf['cookie']['path'] = '/';

@@ -1,8 +1,10 @@
 <?php
 /**
- * Generates upgrade scripts for Horde's setup. Currently allows the generation
- * of PHP upgrade scripts for conf.php files either as download or saved to the
- * server's temporary directory.
+ * Generates upgrade scripts for Horde's configuration.
+ *
+ * Currently allows the generation of PHP upgrade scripts for conf.php
+ * files either as download or saved to the server's temporary
+ * directory.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -21,19 +23,19 @@ $type = Horde_Util::getFormData('type');
 $save = Horde_Util::getFormData('save');
 $clean = Horde_Util::getFormData('clean');
 
-$filename = 'horde_setup_upgrade.php';
+$filename = 'horde_configuration_upgrade.php';
 
 /* Check if this is only a request to clean up. */
 if ($clean == 'tmp') {
     $tmp_dir = Horde::getTempDir();
     $path = Horde_Util::realPath($tmp_dir . '/' . $filename);
     if (@unlink($tmp_dir . '/' . $filename)) {
-        $notification->push(sprintf(_("Deleted setup upgrade script \"%s\"."), $path), 'horde.success');
+        $notification->push(sprintf(_("Deleted configuration upgrade script \"%s\"."), $path), 'horde.success');
     } else {
-        $notification->push(sprintf(_("Could not delete setup upgrade script \"%s\"."), Horde_Util::realPath($path)), 'horde.error');
+        $notification->push(sprintf(_("Could not delete configuration upgrade script \"%s\"."), Horde_Util::realPath($path)), 'horde.error');
     }
     $registry->clearCache();
-    Horde::url('admin/setup/index.php', true)->redirect();
+    Horde::url('admin/config/index.php', true)->redirect();
 }
 
 $data = '';
@@ -90,9 +92,9 @@ if ($fp = @fopen($tmp_dir . '/' . $filename, 'w')) {
     fwrite($fp, $data);
     fclose($fp);
     chmod($tmp_dir . '/' . $filename, 0777);
-    $notification->push(sprintf(_("Saved setup upgrade script to: \"%s\"."), $path), 'horde.success');
+    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success');
 } else {
-    $notification->push(sprintf(_("Could not save setup upgrade script to: \"%s\"."), $path), 'horde.error');
+    $notification->push(sprintf(_("Could not save configuration upgrade script to: \"%s\"."), $path), 'horde.error');
 }
 
-Horde::url('admin/setup/index.php', true)->redirect();
+Horde::url('admin/config/index.php', true)->redirect();
