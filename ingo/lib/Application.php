@@ -119,6 +119,44 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        try {
+            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+        }
+
+        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
+        }
+
+        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
+        }
+
+        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
+        }
+
+        if ($_SESSION['ingo']['script_generate'] &&
+            (!$GLOBALS['prefs']->isLocked('auto_update') ||
+             !$GLOBALS['prefs']->getValue('auto_update'))) {
+            $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
+        }
+
+        if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
+            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+        }
+    }
+
+    /**
      * Returns the specified permission for the given app permission.
      *
      * @param string $permission  The permission to check.
@@ -140,16 +178,6 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         return $allowed;
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Ingo::getMenu();
     }
 
     /**

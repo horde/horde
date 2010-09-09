@@ -354,8 +354,10 @@ if ($GLOBALS['registry']->getAuth()) {
 $export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
 $title = _("Import/Export Calendar");
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 foreach ($templates[$next_step] as $template) {

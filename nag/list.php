@@ -90,7 +90,8 @@ Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('quickfinder.js', 'horde');
 
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 echo '<div id="page">';
 
 if (!$prefs->isLocked('show_completed')) {

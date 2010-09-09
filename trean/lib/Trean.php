@@ -151,30 +151,6 @@ class Trean
     }
 
     /**
-     * Builds Trean's list of menu items.
-     */
-    function getMenu($returnType = 'object')
-    {
-        global $conf, $registry;
-
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
-
-        /* Import/Export. */
-        if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
-    /**
      * Returns the "Reason Phrase" associated with the given HTTP status code
      * according to rfc2616.
      */

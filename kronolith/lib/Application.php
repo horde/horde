@@ -89,6 +89,53 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $browser, $conf, $injector, $notification, $prefs, $registry;
+
+        /* Check here for guest calendars so that we don't get multiple
+         * messages after redirects, etc. */
+        if (!$registry->getAuth() && !count(Kronolith::listCalendars())) {
+            $notification->push(_("No calendars are available to guests."));
+        }
+
+        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
+        if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
+            (!empty($conf['hooks']['permsdenied']) ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
+            $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
+        }
+
+        if ($browser->hasFeature('dom')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'click_month' => true,
+                'click_week' => true,
+                'click_year' => true,
+                'full_weekdays' => true
+            ));
+            Horde::addScriptFile('goto.js', 'kronolith');
+            Horde::addInlineJsVars(array(
+                'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
+                'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
+                'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
+                'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
+            ));
+            $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
+        }
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+
+        /* Import/Export. */
+        if ($conf['menu']['import_export']) {
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+        }
+    }
+
+    /**
      * Returns the specified permission for the given app permission.
      *
      * @param string $permission  The permission to check.
@@ -286,18 +333,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
             } catch (Exception $e) {}
         }
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu($ui)
-    {
-        return Kronolith::getMenu();
     }
 
     /**

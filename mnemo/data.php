@@ -200,7 +200,7 @@ if (is_array($next_step)) {
 
 $title = _("Import/Export Notes");
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $notification->notify();
 
 if (isset($templates[$next_step])) {

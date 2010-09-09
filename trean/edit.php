@@ -239,7 +239,8 @@ case 'del_folder':
     $folder = &$trean_shares->getFolder($folderId);
     $title = _("Confirm Deletion");
     require TREAN_TEMPLATES . '/common-header.inc';
-    require TREAN_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
     require TREAN_TEMPLATES . '/edit/delete_folder_confirmation.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -279,7 +280,8 @@ if (!count($bookmarks) && !count($folder)) {
 $title = _("Edit Bookmark");
 require TREAN_TEMPLATES . '/common-header.inc';
 if (!Horde_Util::getFormData('popup')) {
-    require TREAN_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/edit/header.inc';
 

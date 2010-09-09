@@ -51,11 +51,11 @@ class Pastie_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
         return Pastie::getMenu();
     }

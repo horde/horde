@@ -42,13 +42,18 @@ class Jeta_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
-        return Jeta::getMenu();
+        $menu->addArray(array(
+            'class' => ((basename($_SERVER['PHP_SELF']) == 'index.php') ? 'current' : ''),
+            'icon' => 'jeta.png',
+            'text' => _("_Shell"),
+            'url' => Horde::url('index.php')
+        ));
     }
 
 }

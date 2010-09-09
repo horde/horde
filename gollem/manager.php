@@ -584,9 +584,9 @@ Horde::addInlineJsVars(array(
     '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
 ));
 
-Gollem::prepareMenu();
+$menu = Gollem::menu();
 require GOLLEM_TEMPLATES . '/common-header.inc';
-Gollem::menu();
+echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/manager/manager.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

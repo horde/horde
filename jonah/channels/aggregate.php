@@ -138,7 +138,7 @@ $main = Horde::endBuffer();
 
 $template = new Horde_Template();
 $template->set('main', $main);
-$template->set('menu', Jonah::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

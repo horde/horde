@@ -110,7 +110,7 @@ $template->set('listheaders', array(_("Story"), _("Date")));
 $template->set('stories', $stories, true);
 $template->set('read', true, true);
 $template->set('comments', $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages'), true);
-$template->set('menu', Jonah::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

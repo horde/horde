@@ -60,8 +60,8 @@ if ($form->validate()) {
 
 $title = _("Upload face photo");
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $tabs->render(Horde_Util::getGet('search_faces', 'image'));
 $form->renderActive(null, null, null, 'post');
 

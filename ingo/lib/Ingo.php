@@ -23,13 +23,6 @@ class Ingo
     const USER_HEADER = '++USER_HEADER++';
 
     /**
-     * prepareMenu() cache.
-     *
-     * @var Horde_Template
-     */
-    static private $_menuTemplate = null;
-
-    /**
      * hasSharePermission() cache.
      *
      * @var integer
@@ -415,52 +408,12 @@ class Ingo
     }
 
     /**
-     * Build Ingo's list of menu items.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    static public function getMenu()
-    {
-        $menu = new Horde_Menu();
-        try {
-            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-        }
-        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
-        }
-        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
-        }
-        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
-        }
-        if ($_SESSION['ingo']['script_generate'] &&
-            (!$GLOBALS['prefs']->isLocked('auto_update') ||
-             !$GLOBALS['prefs']->getValue('auto_update'))) {
-            $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
-        }
-        if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
-        }
-
-        return $menu;
-    }
-
-    /**
-     * Prepares and caches Ingo's list of menu items.
+     * Create ingo's menu.
      *
      * @return string  The menu text.
      */
-    static public function prepareMenu()
+    static public function menu()
     {
-        if (isset(self::$_menuTemplate)) {
-            return;
-        }
-
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
 
@@ -477,19 +430,15 @@ class Ingo
             $t->set('options', $options);
         }
 
-        $t->set('menu_string', self::getMenu()->render());
+        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
 
-        self::$_menuTemplate = $t;
-    }
+        $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
 
-    /**
-     * Outputs IMP's menu to the current output stream.
-     */
-    static public function menu()
-    {
-        self::prepareMenu();
-        echo self::$_menuTemplate->fetch(INGO_TEMPLATES . '/menu/menu.html');
+        /* Need to buffer sidebar output here, because it may add things like
+         * cookies which need to be sent before output begins. */
+        Horde::startBuffer();
         require HORDE_BASE . '/services/sidebar.php';
+        return $menu . Horde::endBuffer();
     }
 
     /**

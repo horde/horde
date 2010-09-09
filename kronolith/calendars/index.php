@@ -74,7 +74,9 @@ $delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Calendars");
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/calendar_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

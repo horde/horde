@@ -48,8 +48,10 @@ case 'EditEvent':
 }
 
 $title = $view->getTitle();
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::eventTabs($viewName, $view->event);

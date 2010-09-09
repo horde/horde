@@ -529,19 +529,12 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        if ($this->vars->ajaxui) {
-            $menu_out = '';
-        } else {
-            if ($registry->hasAppMethod($this->app, 'prefsMenu')) {
-                $menu = $registry->callAppMethod($this->app, 'prefsMenu', array('args' => array($this)));
-            }
-
-            /* Buffer this, as it may add javascript/stylesheets/meta tags to
-             * the document HEAD. */
-            Horde::startBuffer();
-            require $h_templates . '/menu/menu.inc';
-            $menu_out = Horde::endBuffer();
-        }
+        $menu_out = $this->vars->ajaxui
+            ? ''
+            : Horde::menu(array(
+                  'app' => $this->app,
+                  'mask' => Horde_Menu::MASK_HELP | Horde_Menu::MASK_LOGIN | Horde_Menu::MASK_PROBLEM
+              ));
 
         /* Get list of accessible applications. */
         $apps = array();

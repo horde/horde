@@ -69,7 +69,7 @@ if ($form->validate()) {
 
 /* Set up template variables. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
+$view->menu = Horde::menu();
 
 Horde::startBuffer()
 $form->renderActive(null, $vars, 'deleteforum.php', 'post');

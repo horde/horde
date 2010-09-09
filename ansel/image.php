@@ -336,7 +336,8 @@ case 'resizeedit':
    }
 
     require ANSEL_TEMPLATES . '/common-header.inc';
-    require ANSEL_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
 
     if ($actionID == 'cropedit') {
         require ANSEL_TEMPLATES . '/image/crop_image.inc';

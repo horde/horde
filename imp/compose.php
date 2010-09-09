@@ -1057,7 +1057,7 @@ if ($rtemode && !$redirect) {
 }
 
 if ($showmenu) {
-    IMP::prepareMenu();
+    $menu = IMP::menu();
 }
 Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
@@ -1065,7 +1065,7 @@ Horde::addScriptFile('md5.js', 'horde');
 require IMP_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript($js_code);
 if ($showmenu) {
-    IMP::menu();
+    echo $menu;
 }
 echo $template_output;
 require $registry->get('templates', 'horde') . '/common-footer.inc';

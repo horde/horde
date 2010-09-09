@@ -57,7 +57,7 @@ $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'fo
 $view = new Agora_View();
 $view->col_headers = $col_headers;
 $view->forums_list = $forums_list;
-$view->menu = Agora::getMenu('string');
+$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

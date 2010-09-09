@@ -74,10 +74,13 @@ Horde_Core_Ui_JsCalendar::init(array(
 ));
 
 $title = _("Add a new event");
+$menu = Horde::menu();
 Horde::addScriptFile('edit.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
+
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

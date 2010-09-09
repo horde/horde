@@ -97,11 +97,11 @@ $folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue',
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 Ingo::addNewFolderJs();
 $title = _("Blacklist Edit");
 require INGO_TEMPLATES . '/common-header.inc';
-Ingo::menu();
+echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/blacklist/blacklist.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

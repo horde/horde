@@ -80,13 +80,20 @@ class Trean_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
-        return Trean::getMenu();
+        $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
+
+        /* Import/Export. */
+        if ($GLOBALS['conf']['menu']['import_export']) {
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
+        }
     }
 
     /* Sidebar method. */

@@ -159,13 +159,29 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
-        return Gollem::getMenu();
+        $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
+
+        if (!empty($_SESSION['gollem'])) {
+            $backend_key = $_SESSION['gollem']['backend_key'];
+            if ($GLOBALS['registry']->isAdmin()) {
+                $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+            }
+
+            if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
+                if ($GLOBALS['browser']->hasFeature('javascript')) {
+                    $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                } else {
+                    $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
+                }
+                $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
+            }
+        }
     }
 
     /* Sidebar method. */

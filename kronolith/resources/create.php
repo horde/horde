@@ -38,8 +38,10 @@ if ($form->validate($vars)) {
     exit;
 }
 
+$menu = Horde::menu();
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'create.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

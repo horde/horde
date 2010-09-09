@@ -49,9 +49,9 @@ case 'show_active':
 }
 
 $title = _("Filter Script Display");
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 require INGO_TEMPLATES . '/common-header.inc';
-Ingo::menu();
+echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';
 if (!empty($script)) {

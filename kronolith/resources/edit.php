@@ -58,8 +58,10 @@ $vars->set('description', $resource->get('description'));
 $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
 
+$menu = Horde::menu();
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

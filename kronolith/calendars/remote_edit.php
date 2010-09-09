@@ -72,7 +72,9 @@ if (isset($calendar['color'])) {
 $vars->set('user', $username);
 $vars->set('password', $password);
 $title = $form->getTitle();
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'remote_edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

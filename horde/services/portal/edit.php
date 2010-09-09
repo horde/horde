@@ -35,7 +35,7 @@ if ($layout->updated()) {
 
 $title = _("My Portal Layout");
 require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/menu/menu.inc';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
 require HORDE_TEMPLATES . '/common-footer.inc';

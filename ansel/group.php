@@ -83,7 +83,8 @@ if ($groupby !== 'none') {
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/group/header.inc';
 foreach ($groups as $group) {
     require ANSEL_TEMPLATES . '/group/' . $groupby . '.inc';

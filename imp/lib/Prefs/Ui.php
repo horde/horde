@@ -566,18 +566,6 @@ class IMP_Prefs_Ui
         }
     }
 
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu($ui)
-    {
-        return IMP::getMenu();
-    }
-
     /* Accounts management handling. */
 
     /**

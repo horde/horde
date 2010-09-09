@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: mnemo/lib/Mnemo.php,v 1.86 2009/12/03 00:01:11 jan Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
@@ -14,7 +12,6 @@
  * Mnemo Base Class.
  *
  * @author  Jon Parise <jon@horde.org>
- * @since   Mnemo 1.0
  * @package Mnemo
  */
 class Mnemo {
@@ -464,39 +461,6 @@ class Mnemo {
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
-    }
-
-    /**
-     * Builds Mnemo's list of menu items.
-     */
-    public static function getMenu()
-    {
-        global $conf, $registry, $print_link;
-
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-
-        if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') === true ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
-            $menu->add(Horde::url(Horde_Util::addParameter('memo.php', 'actionID', 'add_memo')), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
-        }
-
-        /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
-
-        /* Import/Export */
-        if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
-        }
-
-        /* Print */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', Horde_Themes::img(null, 'horde'), '_blank', 'popup(this.href); return false;');
-        }
-
-            return $menu;
     }
 
 }

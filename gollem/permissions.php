@@ -20,9 +20,9 @@ if (!Gollem::getBackends('all')) {
     $notification->push(_("You need at least one backend defined to set permissions."), 'horde.error');
 
     $title = _("Gollem Backend Permissions Administration");
-    Gollem::prepareMenu();
+    $menu = Gollem::menu();
     require GOLLEM_TEMPLATES . '/common-header.inc';
-    Gollem::menu();
+    echo $menu;
     Gollem::status();
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;

@@ -59,7 +59,7 @@ if ($form->validate()) {
 
 /* Template object. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
+$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $form->renderActive(null, $vars, 'split.php', 'post');

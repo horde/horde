@@ -58,7 +58,7 @@ $template->set('channel_name', $channel['channel_name']);
 $template->set('format', $criteria['channel_format']);
 $template->set('options', $options);
 $template->set('stories', $news->renderChannel($criteria['channel_id'], $criteria['channel_format']));
-$template->set('menu', Jonah::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

@@ -4,11 +4,11 @@ class Crumb_Application extends Horde_Registry_Application
     public $version = 'H4 (0.1-git)';
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
         return Crumb::getMenu();
     }

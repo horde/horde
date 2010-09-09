@@ -20,7 +20,7 @@ Horde::addInlineScript(array(
 
 $title = _("Search");
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';
 require MNEMO_TEMPLATES . '/panel.inc';

@@ -52,7 +52,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
 
 $title = $form->getTitle();
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, 'delete.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

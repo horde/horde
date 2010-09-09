@@ -91,9 +91,9 @@ $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);
 
 $title = _("Forwards Edit");
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 require INGO_TEMPLATES . '/common-header.inc';
-Ingo::menu();
+echo $menu;
 Ingo::status();
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, 'forward.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -206,6 +206,68 @@ class IMP_Application extends Horde_Registry_Application
             : $allowed;
     }
 
+    /* Menu methods. */
+
+    /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $conf, $prefs, $registry;
+
+        $menu_search_url = Horde::url('search.php');
+        $menu_mailbox_url = Horde::url('mailbox.php');
+
+        $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
+
+        $menu->add(IMP::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
+
+        if ($_SESSION['imp']['protocol'] != 'pop') {
+            if ($prefs->getValue('use_trash') &&
+                $prefs->getValue('empty_trash_menu')) {
+                $mailbox = null;
+                if ($prefs->getValue('use_vtrash')) {
+                    $mailbox = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
+                } else {
+                    $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
+                    if (!is_null($trash_folder)) {
+                        $mailbox = $trash_folder;
+                    }
+                }
+
+                if (!empty($mailbox) &&
+                    !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
+                    $menu_trash_url = IMP::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
+                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
+                }
+            }
+
+            if (!empty($spam_folder) &&
+                $prefs->getValue('empty_spam_menu')) {
+                $menu_spam_url = IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
+                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
+            }
+        }
+
+        if (IMP::canCompose()) {
+            $menu->add(IMP::composeLink(array('mailbox' => IMP::$mailbox)), _("_New Message"), 'compose.png');
+        }
+
+        if ($conf['user']['allow_folders']) {
+            $menu->add(Horde::url('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
+        }
+
+        if ($_SESSION['imp']['protocol'] != 'pop') {
+            $menu->add($menu_search_url, _("_Search"), 'search.png');
+        }
+
+        if ($prefs->getValue('filter_menuitem')) {
+            $menu->add(Horde::url('filterprefs.php'), _("Fi_lters"), 'filters.png');
+        }
+    }
+
     /* Horde_Core_Auth_Application methods. */
 
     /**
@@ -444,18 +506,6 @@ class IMP_Application extends Horde_Registry_Application
     public function prefsCallback($ui)
     {
         $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu($ui)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsMenu($ui);
     }
 
     /* Sidebar method. */

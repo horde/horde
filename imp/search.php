@@ -187,11 +187,11 @@ Horde::addScriptFile('search.js', 'imp');
 if ($dimp_view) {
     $t->set('return_mailbox_val', sprintf(_("Return to %s"), htmlspecialchars($search_mailbox)));
 } else {
-    IMP::prepareMenu();
+    $menu = IMP::menu();
 }
 require IMP_TEMPLATES . '/common-header.inc';
 if (!$dimp_view) {
-    IMP::menu();
+    echo $menu;
 }
 IMP::status();
 

@@ -2925,55 +2925,6 @@ class Kronolith
     }
 
     /**
-     * Builds Kronolith's list of menu items.
-     */
-    public static function getMenu()
-    {
-        global $conf, $registry, $browser, $prefs;
-
-        /* Check here for guest calendars so that we don't get multiple
-         * messages after redirects, etc. */
-        if (!$GLOBALS['registry']->getAuth() &&
-            !count(Kronolith::listCalendars())) {
-            $GLOBALS['notification']->push(_("No calendars are available to guests."));
-        }
-
-        $menu = new Horde_Menu();
-
-        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
-        if (self::getDefaultCalendar(Horde_Perms::EDIT) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
-            $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
-        }
-        if ($browser->hasFeature('dom')) {
-            Horde_Core_Ui_JsCalendar::init(array(
-                'click_month' => true,
-                'click_week' => true,
-                'click_year' => true,
-                'full_weekdays' => true
-            ));
-            Horde::addScriptFile('goto.js', 'kronolith');
-            Horde::addInlineJsVars(array(
-                'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
-                'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
-                'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
-                'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
-            ));
-            $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
-        }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
-
-        /* Import/Export. */
-        if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
-        }
-
-        return $menu;
-    }
-
-    /**
      * Returns whether to display the ajax view.
      *
      * return boolean  True if the ajax view should be displayed.

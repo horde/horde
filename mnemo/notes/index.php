@@ -42,7 +42,7 @@ Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('quickfinder.js', 'horde', true);
 
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 require MNEMO_TEMPLATES . '/list/header.inc';
 
 if (count($memos)) {

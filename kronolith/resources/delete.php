@@ -48,8 +48,10 @@ if ($form->validate(new Horde_Variables($_POST))) {
     Horde::url('resources/', true)->redirect();
 }
 
+$menu = Horde::menu();
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'delete.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

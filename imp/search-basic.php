@@ -70,9 +70,9 @@ $t->set('s_fields', $s_fields);
 $t->set('f_fields', $f_fields);
 
 $title = _("Search");
-IMP::prepareMenu();
+$menu = IMP::menu();
 require IMP_TEMPLATES . '/common-header.inc';
-IMP::menu();
+echo $menu;
 IMP::status();
 
 if ($browser->hasFeature('javascript')) {

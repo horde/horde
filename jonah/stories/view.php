@@ -102,7 +102,7 @@ if ($conf['comments']['allow']) {
     $view_template->set('comments', false, true);
 }
 
-$view_template->set('menu', Jonah::getMenu('string'));
+$view_template->set('menu', Horde::menu());
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

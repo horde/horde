@@ -1,5 +1,5 @@
 <?php if (!empty($this->menu)): ?>
-    <div id="menu"><?php echo $this->menu; ?></div>
+<?php echo $this->menu; ?>
 <?php endif; ?>
 <?php echo $this->notify; ?>
 

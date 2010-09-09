@@ -83,13 +83,6 @@ class IMP
     static private $_delhide = null;
 
     /**
-     * prepareMenu() cache.
-     *
-     * @var string
-     */
-    static private $_menu = null;
-
-    /**
      * Returns the current view mode for IMP.
      *
      * @return string  Either 'dimp', 'imp', or 'mimp'.
@@ -423,78 +416,12 @@ class IMP
     }
 
     /**
-     * Build IMP's list of menu items.
+     * Build IMP's menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @return string  The menu output.
      */
-    static public function getMenu()
+    static public function menu()
     {
-        global $conf, $prefs, $registry;
-
-        $menu_search_url = Horde::url('search.php');
-        $menu_mailbox_url = Horde::url('mailbox.php');
-
-        $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
-
-        $menu = new Horde_Menu();
-
-        $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
-
-        if ($_SESSION['imp']['protocol'] != 'pop') {
-            if ($prefs->getValue('use_trash') &&
-                $prefs->getValue('empty_trash_menu')) {
-                $mailbox = null;
-                if ($prefs->getValue('use_vtrash')) {
-                    $mailbox = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
-                } else {
-                    $trash_folder = self::folderPref($prefs->getValue('trash_folder'), true);
-                    if (!is_null($trash_folder)) {
-                        $mailbox = $trash_folder;
-                    }
-                }
-
-                if (!empty($mailbox) &&
-                    !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
-                    $menu_trash_url = self::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
-                }
-            }
-
-            if (!empty($spam_folder) &&
-                $prefs->getValue('empty_spam_menu')) {
-                $menu_spam_url = self::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
-            }
-        }
-
-        if (self::canCompose()) {
-            $menu->add(self::composeLink(array('mailbox' => self::$mailbox)), _("_New Message"), 'compose.png');
-        }
-
-        if ($conf['user']['allow_folders']) {
-            $menu->add(Horde::url('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
-        }
-
-        if ($_SESSION['imp']['protocol'] != 'pop') {
-            $menu->add($menu_search_url, _("_Search"), 'search.png');
-        }
-
-        if ($prefs->getValue('filter_menuitem')) {
-            $menu->add(Horde::url('filterprefs.php'), _("Fi_lters"), 'filters.png');
-        }
-
-        return $menu;
-    }
-
-    /**
-     * Build IMP's list of menu items.
-     */
-    static public function prepareMenu()
-    {
-        if (isset(self::$_menu)) {
-            return;
-        }
-
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
@@ -509,24 +436,15 @@ class IMP
             $t->set('flist', self::flistSelect(array('selected' => self::$mailbox, 'inc_vfolder' => true)));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
-        $t->set('menu_string', self::getMenu()->render());
+        $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 
-        self::$_menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
+        $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
 
         /* Need to buffer sidebar output here, because it may add things like
          * cookies which need to be sent before output begins. */
         Horde::startBuffer();
         require HORDE_BASE . '/services/sidebar.php';
-        self::$_menu .= Horde::endBuffer();
-    }
-
-    /**
-     * Outputs IMP's menu to the current output stream.
-     */
-    static public function menu()
-    {
-        self::prepareMenu();
-        echo self::$_menu;
+        return $menu . Horde::endBuffer();
     }
 
     /**

@@ -2040,4 +2040,52 @@ HTML;
             (!$browser->hasFeature('issafari') || $browser->getMajor() >= 2);
     }
 
+    /**
+     * Generates the menu output.
+     *
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'app' - (string) The application to generate the menu for.
+     *         DEFAULT: current application
+     * 'mask' - (integer) The Horde_Menu mask to use.
+     *          DEFAULT: Horde_Menu::MASK_ALL
+     * 'menu_ob' - (boolean) If true, returns the menu object
+     *               DEFAULT: false (renders menu)
+     * </pre>
+     * @param string $app  The application to generate the menu for. Defaults
+     *                     to the current app.
+     *
+     * @return string|Horde_Menu  The menu output, or the menu object if
+     *                            'menu_ob' is true.
+     */
+    static public function menu(array $opts = array())
+    {
+        global $injector, $registry;
+
+        if (empty($opts['app'])) {
+            $opts['app'] = $registry->getApp();
+        }
+        if (!isset($opts['mask'])) {
+            $opts['mask'] = Horde_Menu::MASK_ALL;
+        }
+
+        $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
+
+        if (!in_array($registry->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
+            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), _("_Home"), 'horde.png');
+        }
+
+        $registry->callAppMethod($opts['app'], 'menu', array(
+            'args' => array($menu)
+        ));
+
+        if (!empty($opts['menu_ob'])) {
+            return $menu;
+        }
+
+        self::startBuffer();
+        require $registry->get('templates', 'horde') . '/menu/menu.inc';
+        return self::endBuffer();
+    }
+
 }

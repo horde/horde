@@ -59,7 +59,8 @@ Horde::addScriptFile('redbox.js', 'horde', true);
 $title = _("Browse");
 require TREAN_TEMPLATES . '/common-header.inc';
 if (!Horde_Util::getFormData('popup')) {
-    require TREAN_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/browse.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

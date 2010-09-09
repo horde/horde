@@ -68,8 +68,7 @@ $template = new Horde_Template();
 Horde::startBuffer();
 $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
 $template->set('main', Horde::endBuffer());
-
-$template->set('menu', Jonah::getMenu('string'));
+$template->set('menu', Horde::menu());
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

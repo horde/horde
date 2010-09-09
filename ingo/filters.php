@@ -135,10 +135,10 @@ $filter_list = $filters->getFilterList();
 
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('filters.js', 'ingo');
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 $title = _("Filter Rules");
 require INGO_TEMPLATES . '/common-header.inc';
-Ingo::menu();
+echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
 

@@ -43,9 +43,9 @@ $template->set('entry', $entry, true);
 
 $title = _("Clipboard");
 Horde::addScriptFile('tables.js', 'horde');
-Gollem::prepareMenu();
+$menu = Gollem::menu();
 require GOLLEM_TEMPLATES . '/common-header.inc';
-Gollem::menu();
+echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

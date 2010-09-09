@@ -292,18 +292,6 @@ class Chora
     }
 
     /**
-     * Build Chora's list of menu items.
-     *
-     * @return string  The menu HTML code.
-     */
-    static public function getMenu()
-    {
-        $menu = new Horde_Menu();
-        $menu->add(self::url('browsedir'), _("_Browse"), 'chora.png');
-        return $menu;
-    }
-
-    /**
      * Generate the link used for various file-based views.
      *
      * @param string $where    The current file path.

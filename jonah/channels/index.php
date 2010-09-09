@@ -83,7 +83,7 @@ $template->set('listheaders', array(array('attrs' => ' class="sortdown"', 'label
                                     array('attrs' => '', 'label' => _("Type")),
                                     array('attrs' => '', 'label' => _("Last Update"))));
 $template->set('channels', $channels, true);
-$template->set('menu', Jonah::getMenu('string'));
+$template->set('menu', Horde::menu());
 $template->set('search_img', Horde::img('search.png'));
 
 // Buffer the notifications and send to the template

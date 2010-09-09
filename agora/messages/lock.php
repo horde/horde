@@ -65,7 +65,7 @@ if ($form->validate()) {
 
 /* Set up template data. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
+$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $form->renderActive(null, $vars, 'lock.php', 'post');

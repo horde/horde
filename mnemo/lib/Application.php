@@ -68,6 +68,38 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $conf, $injector, $print_link;
+
+        $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
+        if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
+            (!empty($conf['hooks']['permsdenied']) ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') === true ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            $menu->add(Horde::url(Horde_Util::addParameter('memo.php', 'actionID', 'add_memo')), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
+        }
+
+        /* Search. */
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+
+        /* Import/Export */
+        if ($conf['menu']['import_export']) {
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+        }
+
+        /* Print */
+        if ($conf['menu']['print'] && isset($print_link)) {
+            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', Horde_Themes::img(null, 'horde'), '_blank', 'popup(this.href); return false;');
+        }
+    }
+
+    /**
      * Returns the specified permission for the given app permission.
      *
      * @param string $permission  The permission to check.
@@ -105,16 +137,6 @@ class Mnemo_Application extends Horde_Registry_Application
             }
             break;
         }
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Mnemo::getMenu();
     }
 
     /* Sidebar method. */

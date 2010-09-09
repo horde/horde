@@ -15,7 +15,8 @@ Horde::addInlineScript(array(
 
 $title = _("Search");
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
 require NAG_TEMPLATES . '/panel.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

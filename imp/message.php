@@ -674,7 +674,7 @@ if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_ta
     Horde::addScriptFile('redbox.js', 'horde');
 }
 
-IMP::prepareMenu();
+$menu = IMP::menu();
 Horde::noDnsPrefetch();
 
 require IMP_TEMPLATES . '/common-header.inc';
@@ -682,7 +682,7 @@ require IMP_TEMPLATES . '/common-header.inc';
 if (!empty($conf['maillog']['use_maillog'])) {
     IMP_Maillog::displayLog($envelope['message-id']);
 }
-IMP::menu();
+echo $menu;
 IMP::status();
 IMP::quota();
 

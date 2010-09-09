@@ -287,7 +287,8 @@ case 'empty':
         try {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
             require ANSEL_TEMPLATES . '/common-header.inc';
-            require ANSEL_TEMPLATES . '/menu.inc';
+            echo Horde::menu();
+            $notification->notify(array('listeners' => 'status'));
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
             require $registry->get('templates', 'horde') . '/common-footer.inc';
             exit;
@@ -359,6 +360,7 @@ $injector->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'GallerySlug
     'slug' => $gallery_slug
 ));
 Horde::addScriptFile('popup.js', 'horde');
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/gallery/gallery.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

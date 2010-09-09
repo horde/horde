@@ -78,7 +78,7 @@ if (isset($api_call)) {
     return $view->render('moderate.html.php');
 } else {
     $title = _("Messages Awaiting Moderation");
-    $view->menu = Agora::getMenu('string');
+    $view->menu = Horde::menu();
     Horde::addScriptFile('stripe.js', 'horde', true);
     require AGORA_TEMPLATES . '/common-header.inc';
     echo $view->render('moderate.html.php');

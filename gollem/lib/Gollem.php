@@ -26,13 +26,6 @@ class Gollem
     const SORT_DESCEND = 1;
 
     /**
-     * prepareMenu() cache.
-     *
-     * @var array
-     */
-    static private $_menu = null;
-
-    /**
      * Changes the current directory of the Gollem session to the supplied
      * value.
      *
@@ -646,44 +639,12 @@ class Gollem
     }
 
     /**
-     * Build Gollem's list of menu items.
+     * Build Gollem's menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @return string  Menu.
      */
-    static public function getMenu()
+    static public function menu()
     {
-        $menu = new Horde_Menu();
-
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
-
-        if (!empty($_SESSION['gollem'])) {
-            $backend_key = $_SESSION['gollem']['backend_key'];
-            if ($GLOBALS['registry']->isAdmin()) {
-                $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
-            }
-
-            if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
-                if ($GLOBALS['browser']->hasFeature('javascript')) {
-                    $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
-                } else {
-                    $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
-                }
-                $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
-            }
-        }
-
-        return $menu;
-    }
-
-    /**
-     * Build Gollem's list of menu items.
-     */
-    static public function prepareMenu()
-    {
-        if (isset(self::$_menu)) {
-            return;
-        }
-
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
         $t->set('forminput', Horde_Util::formInput());
@@ -694,24 +655,15 @@ class Gollem
             $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
-        $t->set('menu_string', self::getMenu()->render());
+        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
 
-        self::$_menu = $t->fetch(GOLLEM_TEMPLATES . '/menu/menu.html');
+        $menu = $t->fetch(GOLLEM_TEMPLATES . '/menu/menu.html');
 
         /* Need to buffer sidebar output here, because it may add things like
          * cookies which need to be sent before output begins. */
         Horde::startBuffer();
         require HORDE_BASE . '/services/sidebar.php';
-        self::$_menu .= Horde::endBuffer();
-    }
-
-    /**
-     * Outputs Gollem's menu to the current output stream.
-     */
-    static public function menu()
-    {
-        self::prepareMenu();
-        echo self::$_menu;
+        return $menu .= Horde::endBuffer();
     }
 
     /**

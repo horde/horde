@@ -74,6 +74,47 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        $img_dir = Horde_Themes::img();
+        $scope = Horde_Util::getGet('scope', 'agora');
+
+        /* Agora Home. */
+        $url = Horde::url('forums.php')->add('scope', $scope);
+        $menu->add($url, _("_Forums"), 'forums.png', $img_dir, null, null,
+                   dirname($_SERVER['PHP_SELF']) == $GLOBALS['registry']->get('webroot') && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
+        /* Thread list, if applicable. */
+        if (isset($GLOBALS['forum_id'])) {
+            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
+            if ($scope == 'agora' && $GLOBALS['registry']->getAuth()) {
+                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
+            }
+        }
+
+        if ($scope == 'agora' &&
+            Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
+            $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
+        }
+
+        if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
+            $url = Horde::url('moderate.php')->add('scope', $scope);
+            $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
+        }
+
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(Horde::url('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
+        }
+
+        $url = Horde::url('search.php')->add('scope', $scope);
+        $menu->add($url, _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+    }
+
+    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -115,16 +156,6 @@ class Agora_Application extends Horde_Registry_Application
         }
 
         return '';
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Agora::getMenu();
     }
 
 }

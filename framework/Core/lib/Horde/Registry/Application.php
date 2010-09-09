@@ -96,6 +96,15 @@ class Horde_Registry_Application
     {
     }
 
+    /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+    }
+
 
     // Functions called from Horde's API.
 
@@ -222,15 +231,6 @@ class Horde_Registry_Application
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
     // public function prefsCallback($ui) {}
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return Horde_Menu  The Horde_Menu object to display.
-     */
-    // public function prefsMenu($ui) {}
 
     /**
      * Generate code used to display a special preference.

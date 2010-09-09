@@ -364,10 +364,10 @@ if (!empty($newmsgs)) {
     }
 }
 
-IMP::prepareMenu();
+$menu = IMP::menu();
 Horde::metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 require IMP_TEMPLATES . '/common-header.inc';
-IMP::menu();
+echo $menu;
 IMP::status();
 IMP::quota();
 

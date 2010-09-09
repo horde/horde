@@ -7,15 +7,18 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-$title = _("Resource Groups");
-
-require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
+
+$menu = Horde::menu();
+$title = _("Resource Groups");
+
+require KRONOLITH_TEMPLATES . '/common-header.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
+
 $edit_url_base = Horde::url('resources/groups/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));
 

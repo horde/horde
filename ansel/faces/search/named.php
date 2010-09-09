@@ -34,6 +34,7 @@ $pager = new Horde_Core_Ui_Pager(
 );
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

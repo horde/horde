@@ -38,7 +38,7 @@ Horde::addScriptFile('popup.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 $title = _("Manage Notepads");
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/notepad_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

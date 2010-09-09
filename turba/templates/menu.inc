@@ -9,7 +9,7 @@
  </div>
 <?php endif; ?>
  <div class="leftFloat">
-  <?php echo Turba::getMenu()->render() ?>
+  <?php echo Horde::menu(array('menu_ob' => true))->render() ?>
  </div>
 </div>
 </form>

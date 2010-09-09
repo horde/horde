@@ -118,7 +118,8 @@ if (Horde_Util::getFormData('popup')) {
 $title = _("New Bookmark");
 require TREAN_TEMPLATES . '/common-header.inc';
 if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')) {
-    require TREAN_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/add.html.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

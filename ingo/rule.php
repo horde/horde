@@ -192,10 +192,10 @@ if (!$rule) {
 
 $title = $rule['name'];
 Horde::addScriptFile('rule.js', 'ingo');
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 Ingo::addNewFolderJs();
 require INGO_TEMPLATES . '/common-header.inc';
-Ingo::menu();
+echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/rule/header.inc';
 

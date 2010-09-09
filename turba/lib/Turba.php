@@ -608,32 +608,6 @@ class Turba {
     }
 
     /**
-     * Build Turba's list of menu items.
-     */
-    function getMenu()
-    {
-        $menu = new Horde_Menu();
-
-        if (!empty($_SESSION['turba']['has_share'])) {
-            $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba.png');
-        }
-        if ($GLOBALS['browse_source_count']) {
-            $menu->add(Horde::url('browse.php'), _("_Browse"), 'menu/browse.png', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'browse.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'addressbooks') || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') != '**search')) ? 'current' : '__noselection');
-        }
-        if (count($GLOBALS['addSources'])) {
-            $menu->add(Horde::url('add.php'), _("_New Contact"), 'menu/new.png');
-        }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'), null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'search.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], 'addressbooks/index.php') === false) || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') == '**search')) ? 'current' : null);
-
-        /* Import/Export */
-        if ($GLOBALS['conf']['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
-        }
-
-        return $menu;
-    }
-
-    /**
      * Add browse.js javascript to page.
      */
     public function addBrowseJs()

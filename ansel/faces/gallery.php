@@ -60,6 +60,7 @@ $title = sprintf(_("Searching for faces in %s"),Ansel::getUrlFor('view', array('
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('popup.js', 'horde');
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/gallery.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

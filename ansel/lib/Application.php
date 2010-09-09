@@ -99,6 +99,69 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $conf, $registry;
+
+        /* Browse/Search */
+        $menu->add(Horde::url('browse.php'), _("_Browse"),
+                   'browse.png', null, null, null,
+                   (($GLOBALS['prefs']->getValue('defaultview') == 'browse' &&
+                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
+                    (basename($_SERVER['PHP_SELF']) == 'browse.php'))
+                   ? 'current'
+                   : '__noselection');
+
+        $menu->add(Ansel::getUrlFor('view', array('view' => 'List')), _("_Galleries"),
+                   'galleries.png', null, null, null,
+                   (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' &&
+                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
+                    ((basename($_SERVER['PHP_SELF']) == 'group.php') &&
+                     Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
+                   ? 'current'
+                   : '__noselection'));
+
+        if ($GLOBALS['registry']->getAuth()) {
+            $url = Ansel::getUrlFor('view', array('owner' => $GLOBALS['registry']->getAuth(),
+                                    'groupby' => 'owner',
+                                    'view' => 'List'));
+            $menu->add($url, _("_My Galleries"), 'mygalleries.png', null, null,
+                       null,
+                       (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
+                       ? 'current' :
+                       '__noselection');
+        }
+
+        /* Let authenticated users create new galleries. */
+        if ($GLOBALS['registry']->isAdmin() ||
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $menu->add(Horde::url('gallery.php')->add('actionID', 'add'),
+                       _("_New Gallery"), 'add.png', null, null, null,
+                       (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
+                        Horde_Util::getFormData('actionID') == 'add')
+                       ? 'current'
+                       : '__noselection');
+        }
+
+        if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
+            $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
+        }
+
+        /* Print. */
+        if ($conf['menu']['print'] &&
+            ($pl = Horde_Util::nonInputVar('print_link'))) {
+            $menu->add($pl, _("_Print"), 'print.png',
+                       Horde_Themes::img(null, 'horde'), '_blank',
+                       Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
+        }
+    }
+
+    /**
      * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -160,16 +223,6 @@ class Ansel_Application extends Horde_Registry_Application
         }
 
         return false;
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Ansel::getMenu();
     }
 
 }

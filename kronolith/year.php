@@ -19,9 +19,11 @@ if (Kronolith::showAjaxView()) {
 
 $view = Kronolith::getView('Year');
 $title = $view->year;
+$menu = Horde::menu();
 
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::tabs();

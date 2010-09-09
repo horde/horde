@@ -180,7 +180,7 @@ default:
 }
 
 /* Set up the main template tags. */
-$view->menu = Agora::getMenu('string');
+$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

@@ -19,8 +19,10 @@ $view = Kronolith::getView('Month');
 $title = $view->date->strftime('%B %Y');
 
 Horde::addScriptFile('tooltips.js', 'horde');
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::tabs();

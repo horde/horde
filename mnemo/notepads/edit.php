@@ -55,7 +55,7 @@ $vars->set('name', $notepad->get('name'));
 $vars->set('description', $notepad->get('desc'));
 $title = $form->getTitle();
 require MNEMO_TEMPLATES . '/common-header.inc';
-require MNEMO_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

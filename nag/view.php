@@ -114,7 +114,8 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
 }
 
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 
 /* Set up alarm units and value. */
 $task_alarm = $task->alarm;

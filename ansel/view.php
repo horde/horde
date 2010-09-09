@@ -38,7 +38,8 @@ try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
     require ANSEL_TEMPLATES . '/common-header.inc';
-    require ANSEL_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -46,7 +47,8 @@ try {
 
 $title = $view->getTitle();
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $view_html = $view->html();
 echo $view_html;
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -183,7 +183,8 @@ EOH;
 
 $title = _("Import Bookmarks");
 require TREAN_TEMPLATES . '/common-header.inc';
-require TREAN_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 if (!$folders_exceeded || !$bookmarks_exceeded) {
     require TREAN_TEMPLATES . '/data/import.inc';
 }

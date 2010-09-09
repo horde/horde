@@ -233,48 +233,6 @@ class Agora {
         }
     }
 
-    function getMenu($returnType = 'object')
-    {
-        $menu = new Horde_Menu();
-        $img_dir = Horde_Themes::img();
-        $scope = Horde_Util::getGet('scope', 'agora');
-
-        /* Agora Home. */
-        $url = Horde_Util::addParameter(Horde::url('forums.php'), 'scope', $scope);
-        $menu->add($url, _("_Forums"), 'forums.png', $img_dir, null, null,
-                   dirname($_SERVER['PHP_SELF']) == $GLOBALS['registry']->get('webroot') && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-
-        /* Thread list, if applicable. */
-        if (isset($GLOBALS['forum_id'])) {
-            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
-            if ($scope == 'agora' && $GLOBALS['registry']->getAuth()) {
-                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::url('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
-            }
-        }
-
-        if ($scope == 'agora' && Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $menu->add(Horde::url('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
-        }
-
-        if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $url = Horde_Util::addParameter(Horde::url('moderate.php'), 'scope', $scope);
-            $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
-        }
-
-        if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
-        }
-
-        $url = Horde_Util::addParameter(Horde::url('search.php'), 'scope', $scope);
-        $menu->add($url, _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
     function validateAvatar($avatar_path)
     {
         if (!$GLOBALS['conf']['avatar']['allow_avatars'] || !$avatar_path) {

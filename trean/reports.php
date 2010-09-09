@@ -19,7 +19,8 @@ $drilldown = Horde_Util::getFormData('drilldown');
 $title = _("Reports");
 Horde::addScriptFile('stripe.js', 'horde', true);
 require TREAN_TEMPLATES . '/common-header.inc';
-require TREAN_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 
 if ($drilldown) {
     $bookmarks = $trean_shares->searchBookmarks(array(array('http_status', 'LIKE', substr($drilldown, 0, 1), array('begin' => true))));

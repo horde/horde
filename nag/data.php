@@ -247,7 +247,8 @@ foreach ($tasklists as $id => $tasklist) {
 
 $title = _("Import/Export Tasks");
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 
 foreach ($templates[$next_step] as $template) {
     require $template;

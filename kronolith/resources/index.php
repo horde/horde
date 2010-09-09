@@ -11,15 +11,18 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->redirect();
 }
 
-$title = _("Edit resources");
-
-require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
-
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
+
+$menu = Horde::menu();
+$title = _("Edit resources");
+
+require KRONOLITH_TEMPLATES . '/common-header.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
+
 $edit_url_base = Horde::url('resources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));
 $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));

@@ -231,39 +231,4 @@ class Jonah
         return array_shift(array_keys($types));
     }
 
-    /**
-     * Build Jonah's list of menu items.
-     */
-    static public function getMenu($returnType = 'object')
-    {
-        global $registry, $conf;
-
-        $menu = new Horde_Menu();
-
-        /* If authorized, show admin links. */
-        if (Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
-            $menu->addArray(array('url' => Horde::url('channels/index.php'), 'text' => _("_Feeds"), 'icon' => 'jonah.png'));
-        }
-        foreach ($conf['news']['enable'] as $channel_type) {
-            if (Jonah::checkPermissions($channel_type, Horde_Perms::EDIT)) {
-                $menu->addArray(array('url' => Horde::url('channels/edit.php'), 'text' => _("New Feed"), 'icon' => 'new.png'));
-                break;
-            }
-        }
-        if ($channel_id = Horde_Util::getFormData('channel_id')) {
-            $news = $GLOBALS['injector']->getInstance('Jonah_Driver');
-            $channel = $news->getChannel($channel_id);
-            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
-                Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
-                $menu->addArray(array('url' => Horde::url('stories/edit.php')->add('channel_id', (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
-            }
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
 }

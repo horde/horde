@@ -66,7 +66,8 @@ Horde::addScriptFile('dragdrop.js', 'horde');
 
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 ?>
 <h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
 <div class="instructions">

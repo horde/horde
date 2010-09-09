@@ -18,7 +18,8 @@ require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 $title = _("Search");
 require TREAN_TEMPLATES . '/common-header.inc';
-require TREAN_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 
 // Set up the search form.
 $vars = Horde_Variables::getDefaultVariables();

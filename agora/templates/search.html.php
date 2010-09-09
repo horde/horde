@@ -1,4 +1,4 @@
-<div id="menu"><?php echo $this->menu; ?></div>
+<?php echo $this->menu; ?>
 <?php echo $this->notify; ?>
 
 <?php if (!empty($this->searchResults)): ?>
