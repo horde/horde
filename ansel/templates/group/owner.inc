@@ -26,12 +26,14 @@ $link = Ansel::getUrlFor('view', array('groupby' => $groupby,
                                        'owner' => $group,
                                        'view' => 'List'))->link();
 
-$num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW,
-                                                                                                $group, null, false);
+$num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
+    ->getScope()
+    ->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $group, null, false);
+
 if ($num_galleries < 5) {
     $mini_galleries = $GLOBALS['injector']->
         getInstance('Ansel_Storage')->
-        getScope()->listGalleries(array('filter' => $group));
+        getScope()->listGalleries(array('filter' => $group, 'allLevels' => false));
 } else {
     $mini_galleries = $GLOBALS['injector']
         ->getInstance('Ansel_Storage')
@@ -42,7 +44,6 @@ if ($num_galleries < 5) {
 }
 $mini_galleries = array_values($mini_galleries);
 ?>
-
 <td class="galleryGroupsTile" width="<?php echo round(100 / $prefs->getValue('tilesperrow')) ?>%" valign="top">
  <table>
   <tr>
