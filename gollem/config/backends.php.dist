@@ -110,8 +110,6 @@ $backends['ftp'] = array(
         // IDs from the local password file.  This is useful only if the FTP
         // server is running on localhost or if the local user/group
         // IDs are identical to the remote FTP server.
-        // You must be running a version of Horde >= 3.1 for this parameter to
-        // have any effect.
         // 'maplocalids' => true,
         // The default permissions to set for newly created folders and files.
         // 'permissions' => '750'
