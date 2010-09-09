@@ -101,8 +101,8 @@ class Horde_Menu
      * 'icon' - (string) Filename of the image icon.
      * 'icon_path' - (string) Non-default directory path for icon.
      * 'onclick' - (string) Onclick javascript.
-     * 'text' - (string) Label.
      * 'target' - (string) HREF target parameter.
+     * 'text' - (string) Label.
      * 'url' - (string) Hyperlink.
      * </pre>
      *
@@ -116,7 +116,15 @@ class Horde_Menu
             $pos = count($this->_menu);
         }
 
-        $this->_menu[$pos] = $item;
+        $this->_menu[$pos] = array_merge(array(
+            'class' => '',
+            'icon' => '',
+            'icon_path' => null,
+            'onclick' => null,
+            'target' => '',
+            'text' => '',
+            'url' => ''
+        ), $item);
 
         return $pos;
     }
