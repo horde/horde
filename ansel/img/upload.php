@@ -42,7 +42,7 @@ $nojs = $view->handleNoJs();
 
 $title = _("Add Photo");
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 echo '<div class="header" id="galleryHeader"><span class="breadcrumbs">' . Ansel::getBreadCrumbs($gallery) . '</span></div>';
 require ANSEL_TEMPLATES . '/image/plupload.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
