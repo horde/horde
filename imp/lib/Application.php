@@ -222,7 +222,11 @@ class IMP_Application extends Horde_Registry_Application
 
         $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
 
-        $menu->add(IMP::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
+        $menu->addArray(array(
+            'icon' => 'folders/inbox.png',
+            'text' => _("_Inbox"),
+            'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
+        ));
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if ($prefs->getValue('use_trash') &&
@@ -240,31 +244,59 @@ class IMP_Application extends Horde_Registry_Application
                 if (!empty($mailbox) &&
                     !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
                     $menu_trash_url = IMP::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
+                    $menu->addArray(array(
+                        'class' => '__noselection',
+                        'icon' => 'empty_trash.png',
+                        'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')',
+                        'text' => _("Empty _Trash"),
+                        'url' => $menu_trash_url
+                    ));
                 }
             }
 
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
                 $menu_spam_url = IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
+                $menu->addArray(array(
+                    'class' => '__noselection',
+                    'icon' =>  'empty_spam.png',
+                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')',
+                    'text' => _("Empty _Spam"),
+                    'url' => $menu_spam_url
+                ));
             }
         }
 
         if (IMP::canCompose()) {
-            $menu->add(IMP::composeLink(array('mailbox' => IMP::$mailbox)), _("_New Message"), 'compose.png');
+            $menu->addArray(array(
+                'icon' => 'compose.png',
+                'text' =>  _("_New Message"),
+                'url' => IMP::composeLink(array('mailbox' => IMP::$mailbox))
+            ));
         }
 
         if ($conf['user']['allow_folders']) {
-            $menu->add(Horde::url('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
+            $menu->addArray(array(
+                'icon' => 'folders/folder.png',
+                'text' => _("_Folders"),
+                'url' => Horde::url('folders.php')->unique()
+            ));
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
-            $menu->add($menu_search_url, _("_Search"), 'search.png');
+            $menu->addArray(array(
+                'icon' => 'search.png',
+                'text' =>_("_Search"),
+                'url' => $menu_search_url
+            ));
         }
 
         if ($prefs->getValue('filter_menuitem')) {
-            $menu->add(Horde::url('filterprefs.php'), _("Fi_lters"), 'filters.png');
+            $menu->addArray(array(
+                'icon' => 'filters.png',
+                'text' => _("Fi_lters"),
+                'url' => Horde::url('filterprefs.php')
+            ));
         }
     }
 
