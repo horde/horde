@@ -372,7 +372,7 @@ class Horde_Core_Prefs_Ui
         }
 
         if (empty($columns) && empty($pref_list)) {
-            $notification->push(_("There are no preferences available."), 'horde.message');
+            $notification->push(_("There are no preferences available for this application."), 'horde.message');
             $this->nobuttons = true;
         }
 
