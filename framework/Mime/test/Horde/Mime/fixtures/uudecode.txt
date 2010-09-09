@@ -1,0 +1,15 @@
+
+Ignore this text.
+
+begin 644 test.txt
++5&5S="!S=')I;F<`
+`
+end
+
+More text to ignore.
+
+begin 755 test2.txt
+*,FYD('-T<FEN9P``
+`
+end
+

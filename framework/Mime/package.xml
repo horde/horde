@@ -70,11 +70,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="attachment.bin" role="test" />
        <file name="bug_325.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
+       <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
+      <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
-      <file name="bug_325.phpt" role="test" />
-      <file name="bug_4834.phpt" role="test" />
-      <file name="bug_6896.phpt" role="test" />
+      <file name="MagicTest.php" role="test" />
+      <file name="MimeTest.php" role="test" />
+      <file name="PartTest.php" role="test" />
       <file name="mail_001.phpt" role="test" />
       <file name="mail_002.phpt" role="test" />
       <file name="mail_003.phpt" role="test" />
@@ -84,10 +86,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="mail_007.phpt" role="test" />
       <file name="mail_008.phpt" role="test" />
       <file name="mail_dummy.inc" role="test" />
-      <file name="parse_001.phpt" role="test" />
-      <file name="parse_002.phpt" role="test" />
-      <file name="parse_003.phpt" role="test" />
-      <file name="rfc2231.phpt" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
