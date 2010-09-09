@@ -2029,7 +2029,7 @@ HTML;
     /**
      * Is an AJAX view supported/available on the current browser?
      *
-     * return boolean  True if the AJAX view can be displayed.
+     * @return boolean  True if the AJAX view can be displayed.
      */
     static public function ajaxAvailable()
     {
