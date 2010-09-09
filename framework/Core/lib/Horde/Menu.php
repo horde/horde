@@ -95,20 +95,19 @@ class Horde_Menu
     /**
      * Add an item to the menu array.
      *
-     * @param string $url        String containing the value for the hyperlink.
-     * @param string $text       String containing the label for this menu
-     *                           item.
-     * @param string $icon       String containing the filename of the image
-     *                           icon to display for this menu item.
-     * @param string $icon_path  If the icon lives in a non-default directory,
-     *                           where is it?
-     * @param string $target     If the link needs to open in another frame or
-     *                           window, what is its name?
-     * @param string $onclick    Onclick javascript, if desired.
-     * @param string $class      CSS class for the menu item.
+     * @param array $item  The item to add.  Valid keys:
+     * <pre>
+     * 'class' - (string) CSS classname.
+     * 'icon' - (string) Filename of the image icon.
+     * 'icon_path' - (string) Non-default directory path for icon.
+     * 'onclick' - (string) Onclick javascript.
+     * 'text' - (string) Label.
+     * 'target' - (string) HREF target parameter.
+     * 'url' - (string) Hyperlink.
+     * </pre>
      *
-     * @return integer  The id (NOT guaranteed to be an array index) of the item
-     *                  just added to the menu.
+     * @return integer  The id (NOT guaranteed to be an array index) of the
+     *                  item just added to the menu.
      */
     public function addArray($item)
     {
