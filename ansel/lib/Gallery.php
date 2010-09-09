@@ -165,6 +165,11 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             throw Ansel_Exception($e);
         }
 
+        /* Make sure we get rid of key image/stacks if no more images */
+        if (!$this->data['attribute_images']) {
+            $this->resetKeyImage();
+        }
+
         /* Need to expire the cache for the gallery that was changed */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
@@ -331,6 +336,19 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $image = $this->getImage($id);
             $image->deleteCache('all');
         }
+    }
+
+    /**
+     * Reset the gallery's key image. This will force Ansel to attempt to fetch
+     * a new key image the next time one is requested.
+     *
+     */
+    public function resetKeyImage()
+    {
+        $this->clearStacks();
+        $this->set('default', 0);
+        $this->set('default_type', 'auto');
+        $this->save();
     }
 
     /**
@@ -835,6 +853,9 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             if ($cnt == 1) {
                 /* Count is 1, and we are about to delete it */
                 $reset_has_subgalleries = true;
+                if (!$old->countImages()) {
+                    $old->resetKeyImage();
+                }
             }
         }
 

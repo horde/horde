@@ -91,10 +91,6 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
         $pager = new Horde_Core_Ui_Pager('page', $vars, $params);
 
-        // Note that we can't use Horde_Util::bufferOutput() here since the
-        // include file would be included inside that method's scope, and not
-        // this one.
-        //ob_start();
         Horde::startBuffer();
         if (!empty($this->view->api)) {
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');

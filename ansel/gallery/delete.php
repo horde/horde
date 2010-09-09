@@ -32,9 +32,7 @@ if ($galleryId) {
         } else {
             try {
                 $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($gallery);
-                $notification->push(sprintf(
-                    _("Successfully deleted %s."),
-                    $gallery->get('name')), 'horde.success');
+                $notification->push(sprintf(_("Successfully deleted %s."), $gallery->get('name')), 'horde.success');
             } catch (Ansel_Exception $e) {
                 $notification->push(sprintf(
                     _("There was a problem deleting %s: %s"),
