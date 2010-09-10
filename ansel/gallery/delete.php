@@ -38,6 +38,8 @@ if ($galleryId) {
                     _("There was a problem deleting %s: %s"),
                     $gallery->get('name'), $e->getMessage()),
                     'horde.error');
+            } catch (Horde_Exception_NotFound $e) {
+                Horde::logMessage($e, 'err');
             }
         }
 
