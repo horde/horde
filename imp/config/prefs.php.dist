@@ -661,7 +661,6 @@ $_prefs['forward_default'] = array(
 $_prefs['forward_format'] = array(
     'value' => 0,
     'advanced' => true,
-    'locked' => true,
     'type' => 'checkbox',
     'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
 );
