@@ -188,7 +188,7 @@ var DimpBase = {
                 }
 
                 // This catches the refresh case - no need to re-add to history
-                if (!Object.isUndefined(this.folder) && !this.search) {
+                if (!Object.isUndefined(this.folder)) {
                     this.setHash(loc);
                 }
             } else if (this.folder == f) {
@@ -345,13 +345,10 @@ var DimpBase = {
 
                 this.folder = f;
 
-                if (this.isSearch(f)) {
-                    if (!this.search || this.search.flag) {
-                        this._quicksearchDeactivate(!this.search);
-                    }
-                    $('refreshlink').show();
-                } else {
-                    $('refreshlink').hide();
+                if (!this.isSearch(f)) {
+                    $('searchbar').hide();
+                } else if (!this.search || this.search.flag) {
+                    $('qsearch').hide();
                 }
             }
         }
@@ -551,9 +548,18 @@ var DimpBase = {
                 l = this.viewport.getMetaData('label');
 
             this.setMessageListTitle();
-            if (!this.isSearch()) {
+
+            if (this.isSearch()) {
+                tmp = this.viewport.getMetaData('slabel');
+                if (tmp) {
+                    $('search_label').update(tmp.stripTags().escapeHTML());
+                }
+                [ $('search_edit') ].invoke(this.search ? 'hide' : 'show');
+                $('searchbar').show();
+            } else {
                 this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
             }
+
             this.updateTitle(this.viewport.getMetaData('noexist'));
 
             if (this.rownum) {
@@ -881,7 +887,7 @@ var DimpBase = {
                     mbox: this.folder,
                     not: menu.endsWith('_filternot')
                 };
-                this.loadMailbox(DIMP.conf.fsearchid);
+                this.go('folder:' + DIMP.conf.fsearchid);
             } else {
                 parentfunc(e);
             }
@@ -994,8 +1000,10 @@ var DimpBase = {
             // Label is HTML encoded - but this is not HTML code so unescape.
             label = this.viewport.getMetaData('label').unescapeHTML();
 
-        if (this.isSearch(null, true)) {
-            label += ' (' + this.search.label + ')';
+        if (this.isSearch()) {
+            if (this.isSearch(null, true)) {
+                label += ' (' + this.search.label + ')';
+            }
         } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {
@@ -1431,10 +1439,11 @@ var DimpBase = {
     },
 
     /* Folder list updates. */
-    poll: function(force)
+
+    // search = (boolean) If true, update search results as well.
+    poll: function(search)
     {
-        var args = {},
-            check = 'checkmaillink';
+        var args = {};
 
         // Reset poll folder counter.
         this.setPoll();
@@ -1448,12 +1457,11 @@ var DimpBase = {
             args = this.viewport.addRequestParams({});
         }
 
-        if (force) {
+        if (search) {
             args.set('forceUpdate', 1);
-            check = 'refreshlink';
         }
 
-        $(check).down('A').update('[' + DIMP.text.check + ']');
+        $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
         DimpCore.doAction('poll', args);
     },
 
@@ -1470,9 +1478,6 @@ var DimpBase = {
         }
 
         $('checkmaillink').down('A').update(DIMP.text.getmail);
-        if ($('refreshlink').visible()) {
-            $('refreshlink').down('A').update(DIMP.text.refresh);
-        }
     },
 
     _displayQuota: function(r)
@@ -1540,7 +1545,7 @@ var DimpBase = {
                 mbox: this.folder,
                 query: q
             };
-            this.loadMailbox(DIMP.conf.qsearchid);
+            this.go('folder:' + DIMP.conf.qsearchid);
         }
     },
 
@@ -1562,7 +1567,7 @@ var DimpBase = {
             this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
             if (!noload) {
-                this.loadMailbox(this.search ? this.search.mbox : 'INBOX');
+                this.go('folder:' + (this.search ? this.search.mbox : 'INBOX'));
             }
             this.viewport.deleteView(f);
             this.search = null;
@@ -1574,20 +1579,6 @@ var DimpBase = {
     {
         $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
-        if ($('qsearch_input').visible()) {
-            $('qsearch_close').hide().next().hide();
-        }
-    },
-
-    // hideall = (boolean) Hide entire searchbox?
-    _quicksearchDeactivate: function(hideall)
-    {
-        if (hideall) {
-            $('qsearch').hide();
-        } else {
-            $('qsearch_close').show().next().show();
-            $('qsearch_icon', 'qsearch_input').invoke('hide');
-        }
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1753,12 +1744,6 @@ var DimpBase = {
                         this.quicksearchClear();
                     }
                     e.stop();
-                }
-                break;
-
-            default:
-                if (elt.readAttribute('id') == 'qsearch_input') {
-                    $('qsearch_close').show();
                 }
                 break;
             }
@@ -1990,8 +1975,13 @@ var DimpBase = {
                 return;
 
             case 'checkmaillink':
-            case 'refreshlink':
-                this.poll(id == 'refreshlink');
+            case 'search_refresh':
+                this.poll(id == 'search_refresh');
+                e.stop();
+                return;
+
+            case 'search_edit':
+                this.go('search', { edit_query: this.folder });
                 e.stop();
                 return;
 
@@ -2100,18 +2090,7 @@ var DimpBase = {
                 }
                 break;
 
-            case 'qsearch':
-                if (e.element().readAttribute('id') != 'qsearch_icon') {
-                    elt.addClassName('qsearchFocus');
-                    if (!elt.hasClassName('qsearchActive')) {
-                        this._setQsearchText(false);
-                    }
-                    $('qsearch_input').focus();
-                }
-                break;
-
-            case 'qsearch_close':
-            case 'qsearch_close_filter':
+            case 'search_close':
                 this.quicksearchClear();
                 e.stop();
                 return;
@@ -2133,6 +2112,21 @@ var DimpBase = {
         }
 
         parentfunc(e);
+    },
+
+    mousedownHandler: function(e)
+    {
+        var elt;
+
+        if (e.findElement('#qsearch') &&
+            (e.element().readAttribute('id') != 'qsearch_icon')) {
+            elt = $('qsearch');
+            elt.addClassName('qsearchFocus');
+            if (!elt.hasClassName('qsearchActive')) {
+                this._setQsearchText(false);
+            }
+            $('qsearch_input').focus();
+        }
     },
 
     mouseoverHandler: function(e)
@@ -3004,7 +2998,6 @@ var DimpBase = {
 
         /* Store these text strings for updating purposes. */
         DIMP.text.getmail = $('checkmaillink').down('A').innerHTML;
-        DIMP.text.refresh = $('refreshlink').down('A').innerHTML;
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
@@ -3177,6 +3170,7 @@ DimpCore.onDoActionComplete = function(r) {
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(DimpBase));
+document.observe('mousedown', DimpBase.mousedownHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));

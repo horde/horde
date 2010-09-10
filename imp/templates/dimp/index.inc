@@ -62,7 +62,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <ul id="dimpbarActions">
     <?php echo _simpleButton('composelink', _("_New Message"), 'dimpactionCompose') ?>
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
-    <?php echo _simpleButton('refreshlink', _("_Refresh Search"), 'dimpactionRefresh', true) ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
 <?php if (!empty($_SESSION['imp']['filteravail'])): ?>
     <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
@@ -179,8 +178,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
-       <span class="closeImg" id="qsearch_close" style="display:none" title="<?php echo _("Clear Search") ?>"></span>
-       <span id="qsearch_close_filter" style="display:none">Clear Filter</span>
       </div>
 <?php endif; ?>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
@@ -196,6 +193,13 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
      </div>
+
+    <div id="searchbar" style="display:none">
+     <span id="search_label"></span>
+     <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
+     <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
+     <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+    </div>
 
      <div id="msglistHeader" class="item">
       <div class="msgStatus"></div>

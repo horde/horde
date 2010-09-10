@@ -35,17 +35,34 @@ class IMP_Views_ListMessages
 
             if (strlen($args['qsearchflag'])) {
                 $query->flag($args['qsearchflag'], empty($args['qsearchflagnot']));
+                $tmp = new stdClass;
+                $tmp->t = 'flag';
+                $tmp->v = $args['qsearchflag'];
+                $criteria = array($tmp);
+
                 $is_search = true;
             } elseif (strlen($args['qsearch'])) {
                 $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                $is_search = true;
+
                 switch ($field) {
                 case 'body':
                     $query->text($args['qsearch'], true);
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'body';
+                    $tmp->v = $args['qsearch'];
+                    $criteria = array($tmp);
                     break;
 
                 case 'from':
                 case 'subject':
                     $query->headerText($field, $args['qsearch']);
+
+                    $tmp = new stdClass;
+                    $tmp->t = $field;
+                    $tmp->v = $args['qsearch'];
+                    $criteria = array($tmp);
                     break;
 
                 case 'to':
@@ -57,23 +74,54 @@ class IMP_Views_ListMessages
 
                     $query->headerText('to', $args['qsearch']);
                     $query->orSearch(array($query2, $query3));
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'to';
+                    $tmp->v = $args['qsearch'];
+                    $criteria = array($tmp);
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'or';
+                    $criteria[] = $tmp;
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'cc';
+                    $tmp->v = $args['qsearch'];
+                    $criteria[] = $tmp;
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'or';
+                    $criteria[] = $tmp;
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'bcc';
+                    $tmp->v = $args['qsearch'];
+                    $criteria[] = $tmp;
                     break;
 
                 case 'all':
-                default:
                     $query->text($args['qsearch'], false);
+
+                    $tmp = new stdClass;
+                    $tmp->t = 'text';
+                    $tmp->v = $args['qsearch'];
+                    $criteria = array($tmp);
+                    break;
+
+                default:
+                    $is_search = false;
                     break;
                 }
-
-                $is_search = true;
             }
 
             /* Set the search in the IMP session. */
             if ($is_search) {
-                $GLOBALS['injector']->getInstance('IMP_Search')->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                $imp_search->createSearchQuery($query, array($args['qsearchmbox']), $criteria, _("Search Results"), $mbox);
             }
         } else {
-            $is_search = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            $is_search = $imp_search->isSearchMbox($mbox);
         }
 
         /* Set the current time zone. */
@@ -130,6 +178,12 @@ class IMP_Views_ListMessages
 
             /* Generate flag array. */
             $md->flags = array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('imap' => true, 'mailbox' => $is_search ? null : $mbox)));
+        }
+
+        /* The search query may have changed. */
+        if ($is_search &&
+            ($args['initial'] || strlen($args['qsearchmbox']))) {
+            $md->slabel = $imp_search->searchQueryText($mbox);
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();

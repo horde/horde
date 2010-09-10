@@ -39,7 +39,7 @@ div.msgSubject span.treeImg {
 }
 
 /* Fixes broken inline-block. */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #qsearch_close, #upload_wait, #noticerow .notices li {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #upload_wait, #noticerow .notices li {
     zoom: 1;
     *display: inline;
 }

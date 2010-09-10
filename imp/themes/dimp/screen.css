@@ -788,12 +788,9 @@ a.address:hover img {
 #qsearch form {
     display: inline;
 }
-#qsearch_icon, #qsearch_close {
-    cursor: pointer;
-    padding: 2px 0 0;
-}
 #qsearch_icon {
     background: #f3f3f3 url("../graphics/search.png") center no-repeat;
+    cursor: pointer;
     padding-top: 2px;
 }
 #qsearch_input {
@@ -802,11 +799,6 @@ a.address:hover img {
     margin-bottom: 1px;
     padding: 0 2px 0 0;
     width: 150px;
-}
-#qsearch_close_filter {
-    cursor: pointer;
-    padding-right: 3px;
-    vertical-align: middle;
 }
 .qsearchFocus, .qsearchFocus #qsearch_icon, .qsearchFocus #qsearch_input {
     background-color: #fff !important;
@@ -817,6 +809,21 @@ a.address:hover img {
 .qsearchMatch {
     font-weight: bold;
     text-decoration: underline;
+}
+
+#searchbar {
+    background-color: #ffa;
+    border: 1px solid gray;
+    padding: 3px 2px;
+}
+#search_close, #search_edit, #search_refresh {
+    cursor: pointer;
+    float: right;
+    margin-top: -1px;
+}
+#searchbar #search_label {
+    font-size: 90%;
+    font-weight: bold;
 }
 
 /* Redbox styles. */
@@ -851,7 +858,7 @@ a.address:hover img {
 }
 
 /* Images */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #qsearch_close {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -913,6 +920,9 @@ span.dimpactionSpellcheck {
 }
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
+}
+span.dimpactionEditsearch {
+    background-image: url("../graphics/edit.png");
 }
 
 /* Context menu images */

@@ -2,6 +2,6 @@
  * CSS corrections for WebKit.
  */
 
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #qsearch_close {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon {
     vertical-align: middle;
 }

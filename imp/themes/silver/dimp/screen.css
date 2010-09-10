@@ -74,6 +74,9 @@ span.dimpactionSpellcheck {
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
 }
+span.dimpactionEditsearch {
+    background-image: url("../graphics/edit.png");
+}
 
 /* Context menu images */
 #ctx_message_reply span.contextImg {
