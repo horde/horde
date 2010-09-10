@@ -123,8 +123,15 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
         $headers = $this->_sanitizeHeaders($headers);
         list(, $text_headers) = $this->prepareHeaders($headers);
 
+        if (is_resource($body)) {
+            rewind($body);
+            $body_txt = stream_get_contents($body);
+        } else {
+            $body_txt = $body;
+        }
+
         $this->sentMessages[] = array(
-            'body' => $body,
+            'body' => $body_txt,
             'headers' => $headers,
             'header_text' => $text_headers,
             'recipients' => $recipients
