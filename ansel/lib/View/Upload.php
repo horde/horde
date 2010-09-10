@@ -13,7 +13,17 @@
 
 class Ansel_View_Upload
 {
+    /**
+     *
+     * @var array
+     */
     protected $_params;
+
+    /**
+     *
+     * @var Ansel_Gallery
+     */
+    protected $_gallery;
 
     /**
      * Initialize the view. Needs the following parameters:
@@ -29,6 +39,7 @@ class Ansel_View_Upload
     public function __construct($params)
     {
         $this->_params = $params;
+        $this->_gallery = $this->_params['gallery'];
     }
 
     public function run()
@@ -85,7 +96,7 @@ EOT;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
-        $gallery = $this->_params['gallery'];
+
         if ($form->validate($vars)) {
             $valid = true;
             $uploaded = 0;
@@ -98,7 +109,6 @@ EOT;
                     continue;
                 }
 
-                /* Save new image. */
                 try {
                     $GLOBALS['browser']->wasFileUploaded('file' . $i);
                 } catch (Horde_Browser_Exception $e) {
@@ -119,122 +129,10 @@ EOT;
                                    'application/zip')) ||
                     Horde_Mime_Magic::filenameToMime($info['file' . $i]['name']) == 'application/zip') {
 
-                    /* See if we can use the zip extension for reading the file. */
-                    if (Horde_Util::extensionExists('zip')) {
-                        $zip = new ZipArchive();
-                        if ($zip->open($info['file' . $i]['file']) !== true) {
-                            $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $info['file' . $i]['file']), 'horde.error');
-                            continue;
-                        }
+                    $this->_handleZip($info['file' . $i]['name']);
 
-                        for ($z = 0; $z < $zip->numFiles; $z++) {
-                            $zinfo = $zip->statIndex($z);
-
-                            /* Skip some known metadata files. */
-                            $len = strlen($zinfo['name']);
-                            if ($zinfo['name'][$len - 1] == '/') {
-                                continue;
-                            }
-                            if ($zinfo['name'] == 'Thumbs.db') {
-                                continue;
-                            }
-                            if (strrpos($zinfo['name'], '.DS_Store') == ($len - 9)) {
-                                continue;
-                            }
-                            if (strrpos($zinfo['name'], '.localized') == ($len - 10)) {
-                                continue;
-                            }
-                            if (strpos($zinfo['name'], '__MACOSX/') !== false) {
-                                continue;
-                            }
-
-                            $stream = $zip->getStream($zinfo['name']);
-                            $zdata = stream_get_contents($stream);
-                            if (!strlen($zdata)) {
-                                $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $zinfo['name']), 'horde.error');
-                                break;
-                            }
-
-                            /* If we successfully got data, try adding the image */
-                            try {
-                                $image_id = $gallery->addImage(
-                                    array('image_filename' => $zinfo['name'],
-                                          'image_caption' => '',
-                                          'data' => $zdata));
-                                ++$uploaded;
-                                if ($conf['image']['autogen'] > count($image_ids)) {
-                                    $image_ids[] = $image_id;
-                                }
-                            } catch (Ansel_Exception $e) {
-                                $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id), 'horde.error');
-                            }
-                            unset($zdata);
-                        }
-                        $zip->close();
-                        unset($zip);
-                    } else {
-                        /* Receiving zip data, but extension not loaded */
-                        /* Read in the uploaded data. */
-                        $data = file_get_contents($info['file' . $i]['file']);
-
-                        /* Get the list of files in the zipfile. */
-                        try {
-                            $zip = Horde_Compress::factory('zip');
-                            $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
-                        } catch (Horde_Exception $e) {
-                            $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
-                            continue;
-                        }
-
-                        foreach ($files as $key => $zinfo) {
-                            /* Skip some known metadata files. */
-                            $len = strlen($zinfo['name']);
-                            if ($zinfo['name'][$len - 1] == '/') {
-                                continue;
-                            }
-                            if ($zinfo['name'] == 'Thumbs.db') {
-                                continue;
-                            }
-                            if (strrpos($zinfo['name'], '.DS_Store') == ($len - 9)) {
-                                continue;
-                            }
-                            if (strrpos($zinfo['name'], '.localized') == ($len - 10)) {
-                                continue;
-                            }
-                            if (strpos($zinfo['name'], '__MACOSX/') !== false) {
-                                continue;
-                            }
-
-                            try {
-                                $zdata = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_DATA,
-                                                                       'info' => $files,
-                                                                       'key' => $key));
-                            } catch (Horde_Exception $e) {
-                                $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
-                                break;
-                            }
-
-                            /* If we successfully got data, try adding the image */
-                            try {
-                                $image_id = $gallery->addImage(
-                                    array(
-                                        'image_filename' => $zinfo['name'],
-                                        'image_caption' => '',
-                                        'data' => $zdata)
-                                );
-                                ++$uploaded;
-                                if ($conf['image']['autogen'] > count($image_ids)) {
-                                    $image_ids[] = $image_id;
-                                }
-                            } catch (Ansel_Exception $e) {
-                                $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id), 'horde.error');
-                            }
-                            unset($zdata);
-                        }
-                        unset($zip);
-                        unset($data);
-                    }
                 } else {
+
                     /* Read in the uploaded data. */
                     $data = file_get_contents($info['file' . $i]['file']);
 
@@ -252,7 +150,7 @@ EOT;
                                         'data' => $data,
                                         'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
                     try {
-                        $image_id = $gallery->addImage($image_data, (bool)$vars->get('image' . $i . '_default'));
+                        $image_id = $this->_gallery->addImage($image_data, (bool)$vars->get('image' . $i . '_default'));
                         ++$uploaded;
                         $image_ids[] = $image_id;
                     } catch (Ansel_Exception $e) {
@@ -287,8 +185,8 @@ EOT;
             if ($valid) {
                 /* Return to the gallery view. */
                 Ansel::getUrlFor('view',
-                                 array('gallery' => $gallery_id,
-                                       'slug' => $gallery->get('slug'),
+                                 array('gallery' => $this->_gallery->getId(),
+                                       'slug' => $this->_gallery->get('slug'),
                                        'view' => 'Gallery',
                                        'page' => $page),
                                  true)->redirect();
@@ -328,28 +226,36 @@ EOT;
                     } else {
                         fclose($out);
                         header('Content-Type: application/json');
-                        echo('{"status" : "500", "file": "' . $temp. '", error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+                        echo('{"status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
                         exit;
                     }
                 }
+
                 // Don't know type. Try to deduce it.
                 if (!($type = Horde_Mime_Magic::analyzeFile($temp, isset($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null))) {
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
+
             } elseif (strpos($type, "multipart") !== false) {
                 // TODO:
             }
 
             /* Figure out what to do with the file */
-            if (in_array($type,
-                         array('x-extension/zip',
-                               'application/x-compressed',
-                               'application/x-zip-compressed',
-                               'application/zip'))) {
+            if (in_array($type, array('x-extension/zip',
+                                      'application/x-compressed',
+                                      'application/x-zip-compressed',
+                                      'application/zip')) ||
+                Horde_Mime_Magic::filenameToMime($temp) == 'application/zip') {
 
                 /* handle zip files */
+                try {
+                    $image_ids = $this->_handleZip($temp);
+                } catch (Ansel_Exception $e) {
+                    $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
+                }
+
                 header('Content-Type: application/json');
-                echo('{ "status" : "501", "error" : { "message": "Not implemented" }, "id" : "id" }');
+                echo('{ "status" : "200", "error" : {} }');
                 exit;
             } else {
                 /* Try and make sure the image is in a recognizeable
@@ -369,20 +275,128 @@ EOT;
                                     );
 
                 try {
-                    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(Horde_Util::getFormData('gallery'));
-                    $image_id = $gallery->addImage($image_data);
+                    $image_id = $this->_gallery->addImage($image_data);
                     $image_ids[] = $image_id;
                 } catch (Ansel_Exception $e) {
                     header('Content-Type: application/json');
                     echo('{ "status" : "400", "error" : { "message": "Not a valid, supported image file." }, "id" : "id" }');
                     exit;
                 }
-                
+
                 unset($data);
                 header('Content-Type: application/json');
-                echo('{ "status" : "200", "error" : {}, "id" : "id" }');
+                echo('{ "status" : "200", "error" : {} }');
                 exit;
             }
         }
     }
+
+    /**
+     * Indicates if the specified filename is a known meta file type.
+     *
+     * @param string $filename
+     *
+     * @return boolean
+     */
+    protected function _isMetaFile($filename)
+    {
+        /* Skip some known metadata files. */
+        $len = strlen($filename);
+        if ($filename[$len - 1] == '/' ||
+            $filename == 'Thumbs.db' ||
+            strrpos($filename, '.DS_Store') == ($len - 9) ||
+            strrpos($filename, '.localized') == ($len - 10) ||
+            strpos($filename, '__MACOSX/') !== false) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle extracting images from uploaded zip files.
+     *
+     * @param string $filename  The local path to the zip file.
+     *
+     * @return array  An array of the resulting image_ids.
+     * @throws Ansel_Exception
+     */
+    private function _handleZip($filename)
+    {
+        $image_ids = array();
+
+        /* See if we can use the zip extension for reading the file. */
+        if (Horde_Util::extensionExists('zip')) {
+            $zip = new ZipArchive();
+            if ($zip->open($filename) !== true) {
+                throw new Ansel_Exception(_("Could not open zip archive."));
+            }
+
+            /* Iterate the archive */
+            for ($z = 0; $z < $zip->numFiles; $z++) {
+                $zinfo = $zip->statIndex($z);
+                if ($this->_isMetaFile($zinfo['name'])) {
+                    continue;
+                }
+
+                /* Extract the image */
+                $stream = $zip->getStream($zinfo['name']);
+                $zdata = stream_get_contents($stream);
+                if (!strlen($zdata)) {
+                    throw new Ansel_Exception(_("Could not extract image data from zip archive."));
+                }
+
+                /* Save the image */
+                $image_id = $this->_gallery->addImage(array('image_filename' => $zinfo['name'],
+                                                     'image_caption' => '',
+                                                     'data' => $zdata));
+                $image_ids[] = $image_id;
+                unset($zdata);
+            }
+            $zip->close();
+            unset($zip);
+        } else {
+            /* Receiving zip data, but extension not loaded */
+            $data = file_get_contents($filename);
+
+            /* Get list of images */
+            try {
+                $zip = Horde_Compress::factory('zip');
+                $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
+            } catch (Horde_Exception $e) {
+                throw new Ansel_Exception($e);
+                continue;
+            }
+
+            /* Iterate the archive */
+            foreach ($files as $key => $zinfo) {
+                if ($this->_isMetaFile($zinfo['name'])) {
+                    continue;
+                }
+
+                /* Extract the image */
+                try {
+                    $zdata = $zip->decompress($data,
+                                              array('action' => Horde_Compress_Zip::ZIP_DATA,
+                                                    'info' => $files,
+                                                    'key' => $key));
+                } catch (Horde_Exception $e) {
+                    throw new Ansel_Exception($e);
+                }
+
+                /* Add the image */
+                $image_id = $this->_gallery->addImage(array('image_filename' => $zinfo['name'],
+                                                     'image_caption' => '',
+                                                     'data' => $zdata));
+                $image_ids[] = $image_id;
+                unset($zdata);
+            }
+            unset($zip);
+            unset($data);
+        }
+
+        return $image_ids;
+    }
+
 }
