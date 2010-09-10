@@ -1628,7 +1628,7 @@ class IMP_Compose
             $ret = array(
                 'body' => '',
                 'encoding' => '',
-                'format' => 'text'
+                'format' => $GLOBALS['prefs']->getValue('compose_html') ? 'html' : 'text'
             );
         }
 
