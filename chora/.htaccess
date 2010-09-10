@@ -5,5 +5,5 @@ Allow from all
     RewriteCond   %{REQUEST_FILENAME} !-d
     RewriteCond   %{REQUEST_FILENAME} !-f
     RewriteRule   ^browse/(.*)$ browsedir.php?f=$1 [QSA]
-    RewriteRule   ^([a-z-]+)/-/browse/(.*)$ browsedir.php?f=$2&rt=$1 [QSA]
+    RewriteRule   ^([a-z-\/]+)/-/browse/(.*)$ browsedir.php?f=$2&rt=$1 [QSA]
 </IfModule>
