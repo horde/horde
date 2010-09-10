@@ -145,11 +145,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_params = $params;
 
         // Encrypt password.
-        if (!is_null($this->_params['encryptKey'])) {
-            $secret = new Horde_Secret();
-            $this->_params['password'] = $secret->write($this->_getEncryptKey(), $this->_params['password']);
-            $this->_params['_passencrypt'] = true;
-        }
+        try {
+            $encrypt_key = $this->_getEncryptKey();
+            if (strlen($encrypt_key)) {
+                $secret = new Horde_Secret();
+                $this->_params['password'] = $secret->write($encrypt_key, $this->_params['password']);
+                $this->_params['_passencrypt'] = true;
+            }
+        } catch (Horde_Imap_Client_Exception $e) {}
 
         $this->_init();
     }
