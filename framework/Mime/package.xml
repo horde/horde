@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Moved viewer code to horde/Mime_Viewer package.
+ <notes>* Converted tests to PHPUnit.
+ * Moved viewer code to horde/Mime_Viewer package.
  * Removed Webcpp and Enscript viewers. Source code highlighting is now
  exclusively handled by the Srchighlight driver.
  * No need to generate Content-Transfer-Encoding header if part data is 7bit.
@@ -68,24 +69,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Mime">
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
-       <file name="bug_325.txt" role="test" />
+       <file name="flowed_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="MagicTest.php" role="test" />
+      <file name="MailTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="PartTest.php" role="test" />
-      <file name="mail_001.phpt" role="test" />
-      <file name="mail_002.phpt" role="test" />
-      <file name="mail_003.phpt" role="test" />
-      <file name="mail_004.phpt" role="test" />
-      <file name="mail_005.phpt" role="test" />
-      <file name="mail_006.phpt" role="test" />
-      <file name="mail_007.phpt" role="test" />
-      <file name="mail_008.phpt" role="test" />
-      <file name="mail_dummy.inc" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->

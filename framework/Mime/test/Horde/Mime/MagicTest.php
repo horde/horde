@@ -28,7 +28,7 @@ class Horde_Mime_MagicTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'text/plain',
-            Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/fixtures/bug_325.txt')
+            Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/fixtures/flowed_msg.txt')
         );
     }
 
