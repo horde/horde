@@ -717,43 +717,42 @@ class IMP_Search implements Serializable
         $text_array = array();
         foreach ($criteria as $rule) {
             $field = $rule->t;
-            $type = isset($searchfields[$field]['type'])
-                ? $searchfields[$field]['type']
-                : $field;
 
-            if ($field == 'or') {
-                $text .= implode(' ' . _("and") . ' ', $text_array) . ' ' . _("OR") . ' ';
-                $text_array = array();
-                continue;
-            }
-
-            switch ($searchfields[$field]['type']) {
+            switch ($field) {
             case 'flag':
                 if (isset($flagfields[$rule->v])) {
-                    $text_array[] = sprintf(_("flagged \"%s\""), $flagfields[$field]);
+                    $text_array[] = sprintf(_("flagged \"%s\""), $flagfields[$rule->v]);
                 }
                 break;
 
-            case 'customhdr':
-                $text_array[] = sprintf("%s for '%s'", $rule->v->h, ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v->s);
-                break;
-
-            case 'date':
-                $date_ob = new Horde_Date($rule->v);
-                $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], $date_ob->strftime("%x"));
-                break;
-
-            case 'within':
-                $text_array[] = sprintf("%s %u %s", $searchfields[$field]['label'], $rule->v->v, $rule->v->l == 'y' ? _("years") : ($rule->v->l == 'm' ? _("months") : _("days")));
-                break;
-
-            case 'size':
-                $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
+            case 'or':
+                $text .= implode(' ' . _("and") . ' ', $text_array) . ' ' . _("OR") . ' ';
+                $text_array = array();
                 break;
 
             default:
-                $text_array[] = sprintf("%s for '%s'", $searchfields[$field]['label'], ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v);
-                break;
+                switch ($searchfields[$field]['type']) {
+                case 'customhdr':
+                    $text_array[] = sprintf("%s for '%s'", $rule->v->h, ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v->s);
+                    break;
+
+                case 'date':
+                    $date_ob = new Horde_Date($rule->v);
+                    $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], $date_ob->strftime("%x"));
+                    break;
+
+                case 'within':
+                    $text_array[] = sprintf("%s %u %s", $searchfields[$field]['label'], $rule->v->v, $rule->v->l == 'y' ? _("years") : ($rule->v->l == 'm' ? _("months") : _("days")));
+                    break;
+
+                case 'size':
+                    $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
+                    break;
+
+                default:
+                    $text_array[] = sprintf("%s for '%s'", $searchfields[$field]['label'], ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v);
+                    break;
+                }
             }
         }
 
