@@ -636,13 +636,18 @@ class Horde_Mime_Headers implements Serializable
      */
     public function serialize()
     {
-        return serialize(array(
+        $data = array(
             // Serialized data ID.
             self::VERSION,
             $this->_headers,
-            $this->_eol,
-            $this->_agent
-        ));
+            $this->_eol
+        );
+
+        if (!is_null($this->_agent)) {
+            $data[] = $this->_agent;
+        }
+
+        return serialize($data);
     }
 
     /**
@@ -663,7 +668,9 @@ class Horde_Mime_Headers implements Serializable
 
         $this->_headers = $data[1];
         $this->_eol = $data[2];
-        $this->_agent = $data[3];
+        if (isset($data[3])) {
+            $this->_agent = $data[3];
+        }
     }
 
 }

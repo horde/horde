@@ -15,8 +15,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Search_Query
+class Horde_Imap_Client_Search_Query implements Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* Constants for dateSearch() */
     const DATE_BEFORE = 'BEFORE';
     const DATE_ON = 'ON';
@@ -579,6 +582,50 @@ class Horde_Imap_Client_Search_Query
     public function previousSearch($not = false)
     {
         $this->_search['prevsearch'] = $not;
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            // Serialized data ID.
+            self::VERSION,
+            $this->_search
+        );
+
+        if (!is_null($this->_charset)) {
+            $data[] = $this->_charset;
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_search = $data[1];
+        if (isset($data[2])) {
+            $this->_charset = $data[2];
+        }
     }
 
 }
