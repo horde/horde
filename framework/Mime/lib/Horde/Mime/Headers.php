@@ -13,8 +13,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Headers
+class Horde_Mime_Headers implements Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* Constants for getValue(). */
     const VALUE_STRING = 1;
     const VALUE_BASE = 2;
@@ -30,6 +33,14 @@ class Horde_Mime_Headers
 
     /**
      * The internal headers array.
+     *
+     * Keys are the lowercase header name.
+     * Values are:
+     * <pre>
+     * 'h' - The case-sensitive header name.
+     * 'p' - Parameters for this header.
+     * 'v' - The value of the header.
+     * </pre>
      *
      * @var array
      */
@@ -76,7 +87,7 @@ class Horde_Mime_Headers
         $ret = array();
 
         foreach ($this->_headers as $header => $ob) {
-            $val = is_array($ob['value']) ? $ob['value'] : array($ob['value']);
+            $val = is_array($ob['v']) ? $ob['v'] : array($ob['v']);
 
             foreach (array_keys($val) as $key) {
                 if (in_array($header, $address_keys) ) {
@@ -86,10 +97,10 @@ class Horde_Mime_Headers
                     } catch (Horde_Mime_Exception $e) {
                         $text = $val[$key];
                     }
-                } elseif (in_array($header, $mime) && !empty($ob['params'])) {
+                } elseif (in_array($header, $mime) && !empty($ob['p'])) {
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
-                    foreach ($ob['params'] as $name => $param) {
+                    foreach ($ob['p'] as $name => $param) {
                         foreach (Horde_Mime::encodeParam($name, $param, $charset, array('escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
@@ -102,14 +113,14 @@ class Horde_Mime_Headers
 
                 if (empty($options['nowrap'])) {
                     /* Remove any existing linebreaks and wrap the line. */
-                    $header_text = $ob['header'] . ': ';
+                    $header_text = $ob['h'] . ': ';
                     $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text)));
                 }
 
                 $val[$key] = $text;
             }
 
-            $ret[$ob['header']] = (count($val) == 1) ? reset($val) : $val;
+            $ret[$ob['h']] = (count($val) == 1) ? reset($val) : $val;
         }
 
         return $ret;
@@ -284,8 +295,9 @@ class Horde_Mime_Headers
         $lcHeader = Horde_String::lower($header);
 
         if (!isset($this->_headers[$lcHeader])) {
-            $this->_headers[$lcHeader] = array();
-            $this->_headers[$lcHeader]['header'] = $header;
+            $this->_headers[$lcHeader] = array(
+                'h' => $header
+            );
         }
         $ptr = &$this->_headers[$lcHeader];
 
@@ -302,17 +314,17 @@ class Horde_Mime_Headers
             }
         }
 
-        if (isset($ptr['value'])) {
-            if (!is_array($ptr['value'])) {
-                $ptr['value'] = array($ptr['value']);
+        if (isset($ptr['v'])) {
+            if (!is_array($ptr['v'])) {
+                $ptr['v'] = array($ptr['v']);
             }
-            $ptr['value'][] = $value;
+            $ptr['v'][] = $value;
         } else {
-            $ptr['value'] = $value;
+            $ptr['v'] = $value;
         }
 
         if (!empty($options['params'])) {
-            $ptr['params'] = $options['params'];
+            $ptr['p'] = $options['params'];
         }
     }
 
@@ -380,7 +392,7 @@ class Horde_Mime_Headers
     {
         $lcHeader = Horde_String::lower($header);
         return (isset($this->_headers[$lcHeader]))
-            ? $this->_headers[$lcHeader]['header']
+            ? $this->_headers[$lcHeader]['h']
             : null;
     }
 
@@ -417,10 +429,10 @@ class Horde_Mime_Headers
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['value']) && in_array($header, $this->singleFields(true)))
-            ? $ptr['value'][0]
-            : $ptr['value'];
-        $params = isset($ptr['params']) ? $ptr['params'] : array();
+        $base = (is_array($ptr['v']) && in_array($header, $this->singleFields(true)))
+            ? $ptr['v'][0]
+            : $ptr['v'];
+        $params = isset($ptr['p']) ? $ptr['p'] : array();
 
         switch ($type) {
         case self::VALUE_BASE:
@@ -613,6 +625,45 @@ class Horde_Mime_Headers
         }
 
         return $headers;
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            // Serialized data ID.
+            self::VERSION,
+            $this->_headers,
+            $this->_eol,
+            $this->_agent
+        ));
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_headers = $data[1];
+        $this->_eol = $data[2];
+        $this->_agent = $data[3];
     }
 
 }
