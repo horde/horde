@@ -47,6 +47,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Url.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Url">
+      <file name="AddTest.php" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="CallbackTest.php" role="test" />
+      <file name="RawTest.php" role="test" />
+      <file name="RedirectTest.php" role="test" />
+      <file name="RemoveTest.php" role="test" />
+     </dir> <!-- /test/Horde/Url -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
