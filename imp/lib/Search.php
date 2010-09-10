@@ -516,7 +516,7 @@ class IMP_Search implements Serializable
 
         if ($this->_saveVFolder) {
             $vfolders = $this->_getVFolderList();
-            $vfolders[$id] = $_SESSION['imp']['search'][$id];
+            $vfolders[$id] = $this->_search[$id];
             $this->_saveVFolderList($vfolders);
         }
 
@@ -686,8 +686,8 @@ class IMP_Search implements Serializable
     public function getSearchFolders($id)
     {
         $id = $this->_strip($id);
-        return isset($_SESSION['imp']['search'][$id]['f'])
-            ? $_SESSION['imp']['search'][$id]['f']
+        return isset($this->_search[$id]['f'])
+            ? $this->_search[$id]['f']
             : array();
     }
 
