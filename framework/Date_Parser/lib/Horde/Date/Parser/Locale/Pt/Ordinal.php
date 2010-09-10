@@ -1,10 +1,15 @@
 <?php
 class Horde_Date_Parser_Locale_Pt_Ordinal extends Horde_Date_Parser_Locale_Base_Ordinal
 {
-
+/*
     public $ordinalRegex = '/^(\d*)(\.|\xBA|\xAA|º|ª|st|nd|rd|th)?$/';
     public $ordinalDayRegex = '/^(0[1-9]|[12][0-9]|3[01])(\.|\xBA|\xAA|º|ª|st|nd|rd|th)?$/';
     public $ordinalMonthsRegex = '/^(0[1-9]|1[012])(\.|\xBA|\xAA|º|ª|st|nd|rd|th)?$/';
+*/
+    public $ordinalRegex = '/^(\d*)(st|nd|rd|th)$/';
+	public $ordinalDayRegex = '/^(\d*)(st|nd|rd|th)$/';
+	public $ordinalMonthsRegex = '/^(\d*)(st|nd|rd|th)$/';
+
 
     public function scan($tokens)
     {

@@ -4,7 +4,7 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
 
     public $monthNameScanner = array(
         '/^jan(eiro)?$/' => 'january',
-        '/^fev(reiro)?$/' => 'february',
+        '/^fev(ereiro)?$/' => 'february',
         '/^mar(co)?$/' => 'march',
         '/^abr(il)?$/' => 'april',
         '/^mai(o)?$/' => 'may',
@@ -18,6 +18,7 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
     );
 
 /*
+	public $monthNameScanner = array(
         '/^jan(\.|eiro)?$/' => 'january',
         '/^fev(\.|ereiro)?$/' => 'february',
         '/^mar(\.|(co))?$/' => 'march',
@@ -30,7 +31,7 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
         '/^out(\.|ubro)?$/' => 'october',
         '/^nov(\.|embro)?$/' => 'november',
         '/^dez(\.|embro)?$/' => 'december',
-
+	);
 */
 
     public $dayNameScanner = array(
@@ -38,16 +39,16 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
 		'/^ter$/' => 'tuesday',
 		'/^qua$/' => 'wednesday',
 		'/^qui$/' => 'thursday',
-        '/^sex$/' => 'friday',
+	'/^sex$/' => 'friday',
 		'/^sab$/' => 'saturday',
 		'/^dom$/' => 'sunday',
 		'/^segunda$/' => 'monday',
 		'/^terca$/' => 'tuesday',
 		'/^quarta$/' => 'wednesday',
-        '/^quinta$/' => 'thursday',
+	'/^quinta$/' => 'thursday',
 		'/^sexta$/' => 'friday',
-        '/^sab(ado)?$/' => 'saturday',
-        '/^dom(ingo)?$/' => 'sunday',
+		'/^sab(ado)?$/' => 'saturday',
+	'/^dom(ingo)?$/' => 'sunday',
     );
 
 /*
@@ -73,6 +74,7 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
 	    '/^afternoons?$/' => 'afternoon',
 	    '/^evenings?$/' => 'evening',
 	    '/^(night|nite)s?$/' => 'night',
+		//'/^horas?$/' => 'hour',				// hour: add Repeater dayPortion (JPC)
 	);
 
     public $unitScanner = array(
@@ -99,6 +101,8 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
     );
 
     public $timeRegex = '/^\d{1,2}(:?\d{2})?([\.:]?\d{2})?$/';
+	// 24h format
+	//public $timeRegex = '/^([01]?[0-9]|2[0-3])(:?([0-5][0-9]))?([\.:]?([0-5][0-9]))?$/';
 
     public function scan($tokens, $options)
     {
