@@ -545,6 +545,7 @@ implements Horde_Interfaces_Registry_Auth
                     (file_exists($app['fileroot'] . '/config/conf.xml') &&
                     !file_exists($app['fileroot'] . '/config/conf.php'))) {
                     $app['status'] = 'inactive';
+                    Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'INFO');
                 }
             }
 
