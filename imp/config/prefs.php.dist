@@ -13,7 +13,7 @@ $prefGroups['identities'] = array(
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'signature_html_select', 'sig_dashes', 'sig_first', 'save_sent_mail',
+        'sig_dashes', 'signature_html_select', 'sig_first', 'save_sent_mail',
         'sent_mail_folder', 'sentmailselect'
     ),
     'type' => 'identities'
@@ -54,6 +54,13 @@ $_prefs['signature'] = array(
     'desc' => _("Your signature:")
 );
 
+// precede the text signature with dashes ('-- ')?
+$_prefs['sig_dashes'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Precede your text signature with dashes ('-- ')?")
+);
+
 // User's HTML signature - UI widget
 $_prefs['signature_html_select'] = array(
     'type' => 'special'
@@ -62,13 +69,6 @@ $_prefs['signature_html_select'] = array(
 // User's HTML signature
 $_prefs['signature_html'] = array(
     'value' => ''
-);
-
-// precede the signature with dashes ('-- ')?
-$_prefs['sig_dashes'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Precede your signature with dashes ('-- ')?")
 );
 
 // signature before replies and forwards?
