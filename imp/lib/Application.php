@@ -79,7 +79,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
             Horde_Util::getFormData('composeCache')) {
-            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
+            $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
         }
     }
 
