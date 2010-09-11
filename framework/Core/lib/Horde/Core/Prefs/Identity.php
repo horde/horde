@@ -112,4 +112,35 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         $notification->push(sprintf(_("The email address %s has been added to your identities. You can close this window now."), $verified[$this->_prefnames['from_addr']]), 'horde.success');
     }
 
+    /**
+     * Returns the from address based on the chosen identity. If no
+     * address can be found it is built from the current user name and
+     * the specified maildomain.
+     *
+     * @param integer $ident  The identity to retrieve the address from.
+     *
+     * @return string  A valid from address.
+     */
+    public function getFromAddress($ident = null)
+    {
+        return $GLOBALS['prefs']->getValue('from_addr');
+    }
+
+    /**
+     * Returns the identity's id that matches the passed addresses.
+     *
+     * @param mixed $addresses     Either an array or a single string or a
+     *                             comma-separated list of email addresses.
+     * @param boolean $search_own  Search for a matching identity in own
+     *                             addresses also?
+     *
+     * @return integer  The id of the first identity that from or alias
+     *                  addresses match (one of) the passed addresses or
+     *                  null if none matches.
+     */
+    public function getMatchingIdentity($addresses, $search_own = true)
+    {
+        return null;
+    }
+
 }
