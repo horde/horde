@@ -314,8 +314,13 @@ class Horde_Template
         if (preg_match_all("/<gettext>(.+?)<\/gettext>/s", $this->_template, $matches, PREG_SET_ORDER)) {
             $replace = array();
             foreach ($matches as $val) {
-                $replace[$val[0]] = '<?php echo _(\'' . str_replace("'", "\\'", $val[1]) . '\'); ?>';
+                // eval gettext independently so we can embed tempate tags
+                $code = 'echo _(\'' . str_replace("'", "\\'", $val[1]) . '\');';
+                ob_start();
+                eval($code);
+                $replace[$val[0]] = ob_get_clean();
             }
+
             $this->_doReplace($replace);
         }
     }
