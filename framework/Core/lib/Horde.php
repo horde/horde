@@ -495,7 +495,8 @@ HTML;
                 ->remove('ajaxui');
 
         case 'login':
-            return self::url('login.php', false, $opts);
+            return self::url('login.php', false, $opts)
+                ->remove('ajaxui');
 
         case 'logintasks':
             return self::url('services/logintasks.php', false, $opts)
