@@ -184,6 +184,12 @@ class IMP_Views_ListMessages
         if ($is_search &&
             ($args['initial'] || strlen($args['qsearchmbox']))) {
             $md->slabel = $imp_search->searchQueryText($mbox);
+            if ($imp_search->isVFolder($mbox)) {
+                $md->vfolder = 1;
+                if (!$imp_search->isEditableVFolder($mbox)) {
+                    $md->noedit = 1;
+                }
+            }
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();

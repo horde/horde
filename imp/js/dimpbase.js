@@ -551,10 +551,19 @@ var DimpBase = {
 
             if (this.isSearch()) {
                 tmp = this.viewport.getMetaData('slabel');
+                if (this.viewport.getMetaData('vfolder')) {
+                    $('search_close').hide();
+                    if (tmp) {
+                        tmp = DIMP.text.vfolder.sub('%s', tmp);
+                    }
+                } else {
+                    $('search_close').show();
+                }
+
                 if (tmp) {
                     $('search_label').update(tmp.stripTags().escapeHTML());
                 }
-                [ $('search_edit') ].invoke(this.search ? 'hide' : 'show');
+                [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 $('searchbar').show();
             } else {
                 this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);

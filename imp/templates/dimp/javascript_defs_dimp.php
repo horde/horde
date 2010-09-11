@@ -147,6 +147,7 @@ $code['text'] = array(
     'rename_prompt' => _("Rename folder to:"),
     'search' => _("Search"),
     'verify' => _("Verifying..."),
+    'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
 );
 
