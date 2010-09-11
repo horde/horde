@@ -404,6 +404,7 @@ implements Horde_Interfaces_Registry_Auth
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $_SESSION = array();
+            $this->setupSessionHandler(false);
         } else {
             $this->setupSessionHandler();
             if ($session_flags & self::SESSION_READONLY) {
