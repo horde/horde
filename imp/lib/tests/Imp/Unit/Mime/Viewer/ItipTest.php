@@ -35,17 +35,144 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Imp_Unit_Mime_Viewer_ItipTest
 extends PHPUnit_Framework_TestCase
 {
+    private $_identity;
+    private $_identityId = 'default';
+    private $_mail;
+    private $_registryCharset = 'UTF-8';
+
     public function setUp()
     {
-        $GLOBALS['registry'] = new IMP_Stub_Registry();
-        $GLOBALS['browser'] = new IMP_Stub_Browser();
-        $GLOBALS['prefs'] = new IMP_Stub_Prefs();
-        $GLOBALS['injector'] = new IMP_Stub_Injector();
+        $browser = $this->getMock('Horde_Browser');
+        $browser->expects($this->any())
+            ->method('hasQuirk')
+            ->will($this->returnValue(false));
+        $browser->expects($this->any())
+            ->method('hasFeature')
+            ->will($this->returnValue(false));
+        $GLOBALS['browser'] = $browser;
+
+        $injector = $this->getMock('Horde_Injector', array(), array(), '', false);
+        $injector->expects($this->any())
+            ->method('getInstance')
+            ->will($this->returnCallback(array($this, '_injectorGetInstance')));
+        $GLOBALS['injector'] = $injector;
+
+        $prefs = $this->getMock('Horde_Prefs', array(), array(), '' , false);
+        $prefs->expects($this->any())
+            ->method('getValue')
+            ->will($this->returnCallback(array($this, '_prefsGetValue')));
+        $GLOBALS['prefs'] = $prefs;
+
+        $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
+        $registry->expects($this->any())
+            ->method('getCharset')
+            ->will($this->returnCallback(array($this, '_registryGetCharset')));
+        $registry->expects($this->any())
+            ->method('setCharset')
+            ->will($this->returnCallback(array($this, '_registrySetCharset')));
+        $GLOBALS['registry'] = $registry;
+
         $GLOBALS['conf']['server']['name'] = 'localhost';
         $_GET['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
         $_SESSION = array('imp' => array('view' => 'imp'));
     }
+
+    public function _injectorGetInstance($interface)
+    {
+        switch ($interface) {
+        case 'IMP_Identity':
+            if (!isset($this->_identity)) {
+                $identity = $this->getMock('Horde_Core_Prefs_Identity', array(), array(), '', false);
+                $identity->expects($this->any())
+                    ->method('setDefault')
+                    ->will($this->returnCallback(array($this, '_identitySetDefault')));
+                $identity->expects($this->any())
+                    ->method('getDefault')
+                    ->will($this->returnCallback(array($this, '_identityGetDefault')));
+                $identity->expects($this->any())
+                    ->method('getFromAddress')
+                    ->will($this->returnValue('test@example.org'));
+                $identity->expects($this->any())
+                    ->method('getValue')
+                    ->will($this->returnCallback(array($this, '_identityGetValue')));
+                $identity->expects($this->any())
+                    ->method('getMatchingIdentity')
+                    ->will($this->returnCallback(array($this, '_identityGetMatchingIdentity')));
+                $this->_identity = $identity;
+            }
+            return $this->_identity;
+
+        case 'IMP_Mail':
+            if (!isset($this->_mail)) {
+                $this->_mail = Horde_Mail::factory('Mock');
+            }
+            return $this->_mail;
+        }
+    }
+
+    public function _identityGetMatchingIdentity($mail)
+    {
+        if ($mail == 'test@example.org') {
+            return 'test';
+        }
+    }
+
+    public function _identitySetDefault($id)
+    {
+        if (($id != 'test') &&
+            ($id != 'other') &&
+            ($id != 'default')) {
+            throw new Exception("Unexpected default $id!");
+        }
+
+        $this->_identityId = $id;
+    }
+
+    public function _identityGetDefault()
+    {
+        return $this->_identityId;
+    }
+
+    public function _identityGetValue($value)
+    {
+        switch ($value) {
+        case 'fullname':
+            return 'Mr. Test';
+
+        case 'replyto_addr':
+            switch ($this->_identityId) {
+            case 'test':
+                return 'test@example.org';
+
+            case 'other':
+                return 'reply@example.org';
+            }
+        }
+    }
+
+    public function _prefsGetValue($pref)
+    {
+        switch ($pref) {
+        case 'date_format':
+            return '%x';
+
+        case 'twentyFour':
+            return true;
+        }
+    }
+
+    public function _registryGetCharset()
+    {
+        return $this->_registryCharset;
+    }
+
+    public function _registrySetCharset($charset)
+    {
+        $this->_registryCharset = $charset;
+    }
+
+    /* Begin tests */
 
     public function testAcceptingAnInvitationResultsInReplySent()
     {
@@ -449,7 +576,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('Tentative: Test Invitation', $this->_getMailHeaders()->getValue('Subject'));
     }
     public function testResultMimeMessageHeadersContainsReplyToForAlternateIdentity()
-    {  
+    {
       $_GET['identity'] = 'other';
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
@@ -516,11 +643,9 @@ extends PHPUnit_Framework_TestCase
     {
         $mail = '';
         if (isset($GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0])) {
-            $mail .= $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['header_text'] . "\n\n";
-            $body = $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['body'];
-            while (!feof($body)) {
-                $mail .= fread($body, 8192);
-            }
+            $mail .= $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['header_text'] .
+                "\n\n" .
+                $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['body'];
         }
         return $mail;
     }
