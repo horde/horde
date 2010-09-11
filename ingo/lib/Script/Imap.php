@@ -8,8 +8,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Ingo
  */
 class Ingo_Script_Imap extends Ingo_Script
 {
@@ -88,10 +90,11 @@ class Ingo_Script_Imap extends Ingo_Script
      * Perform the filtering specified in the rules.
      *
      * @param array $params  The parameter array. It MUST contain:
-     *                       - 'mailbox': The name of the mailbox to filter.
-     *                       - 'show_filter_msg': Show detailed filter status
-     *                          messages?
-     *                       - 'filter_seen': Only filter seen messages?
+     * <pre>
+     * 'filter_seen' - (boolean) Only filter seen messages?
+     * 'mailbox' - (string) The name of the mailbox to filter.
+     * 'show_filter_msg' - (boolean) Show detailed filter status messages?
+     * </pre>
      *
      * @return boolean  True if filtering performed, false if not.
      */

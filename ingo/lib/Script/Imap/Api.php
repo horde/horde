@@ -1,19 +1,23 @@
 <?php
 /**
- * The Ingo_Script_Imap_Api:: is the base driver class for Ingo_Script_Imap::.
+ * This file defines the base driver class for Ingo_Script_Imap::.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Ingo
  */
-class Ingo_Script_Imap_Api
+abstract class Ingo_Script_Imap_Api
 {
     /**
-     * TODO
+     * Configuration parameters.
+     *
+     * @var array
      */
     protected $_params;
 
