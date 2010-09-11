@@ -460,6 +460,7 @@ class Horde_Prefs_Ui
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('css_link', $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css');
+        $t->set('app_name', $GLOBALS['registry']->get('name', 'horde'));
 
         /* Check for facebook session */
         $fbp = unserialize($prefs->getValue('facebook'));
