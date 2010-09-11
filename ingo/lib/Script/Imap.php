@@ -101,7 +101,7 @@ class Ingo_Script_Imap extends Ingo_Script
     public function perform($params)
     {
         if (empty($params['api'])) {
-            $this->_api = Ingo_Script_Imap_Api::factory('live', $params);
+            $this->_api = Ingo_Script_Imap_Api::factory('Live', $params);
         } else {
             $this->_api = &$params['api'];
         }
@@ -162,7 +162,10 @@ class Ingo_Script_Imap extends Ingo_Script
 
                 /* Remove any indices that got in there by way of partial
                  * address match. */
-                $msgs = $this->_api->fetchEnvelope($indices);
+                if (!$msgs = $this->_api->fetchEnvelope($indices)) {
+                    continue;
+                }
+
                 foreach ($msgs as $k => $v) {
                     $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v['envelope']['from'], array('charset' => $this->_params['charset'])));
                     $found = false;
@@ -263,8 +266,9 @@ class Ingo_Script_Imap extends Ingo_Script
                         $ignore_ids = array_unique($indices + $ignore_ids);
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVE) {
                         /* We need to grab the overview first. */
-                        if ($params['show_filter_msg']) {
-                            $overview = $this->_api->fetchEnvelope($indices);
+                        if ($params['show_filter_msg'] &&
+                            !($overview = $this->_api->fetchEnvelope($indices))) {
+                            continue;
                         }
 
                         /* Move the messages to the requested mailbox. */
@@ -287,8 +291,9 @@ class Ingo_Script_Imap extends Ingo_Script
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
                         /* We need to grab the overview first. */
-                        if ($params['show_filter_msg']) {
-                            $overview = $this->_api->fetchEnvelope($indices);
+                        if ($params['show_filter_msg'] &&
+                            !($overview = $this->_api->fetchEnvelope($indices))) {
+                            continue;
                         }
 
                         /* Delete the messages now. */
@@ -313,7 +318,9 @@ class Ingo_Script_Imap extends Ingo_Script
 
                         /* Display notification message(s). */
                         if ($params['show_filter_msg']) {
-                            $overview = $this->_api->fetchEnvelope($indices);
+                            if (!($overview = $this->_api->fetchEnvelope($indices))) {
+                                continue;
+                            }
                             foreach ($overview as $msg) {
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
@@ -381,6 +388,7 @@ class Ingo_Script_Imap extends Ingo_Script
             $params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
             $ob->flag('\\seen', $params['filter_seen'] == Ingo_Script::FILTER_SEEN);
         }
+
         return $ob;
     }
 
