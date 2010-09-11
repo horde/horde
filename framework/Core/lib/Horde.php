@@ -512,6 +512,9 @@ HTML;
                 if (!is_null($app)) {
                     $url->add('app', $app);
                 }
+                if ($type == 'prefsapi') {
+                    $url->remove('ajaxui');
+                }
                 return $url;
             }
             break;
