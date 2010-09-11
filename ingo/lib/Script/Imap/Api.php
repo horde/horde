@@ -40,51 +40,39 @@ abstract class Ingo_Script_Imap_Api
 
     /**
      * TODO
+     *
+     * @return mixed
      */
-    public function deleteMessages($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function deleteMessages($indices);
+
+    /**
+     * TODO
+     *
+     * @return boolean
+     */
+    abstract public function moveMessages($indices, $folder);
+
+    /**
+     * TODO
+     *
+     * @return boolean
+     */
+    abstract public function copyMessages($indices, $folder);
 
     /**
      * TODO
      */
-    public function moveMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function setMessageFlags($indices, $flags);
 
     /**
      * TODO
      */
-    public function copyMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function fetchEnvelope($indices);
 
     /**
      * TODO
      */
-    public function setMessageFlags($indices, $flags)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function fetchEnvelope($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function search($query)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function search($query);
 
     /**
      * TODO
