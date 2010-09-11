@@ -60,7 +60,7 @@ class IMP_Imap_Tree_Element
     /**
      * Return information on a mailbox.
      *
-     * @param strimg $key  The data item to return.
+     * @param string $key  The data item to return.
      * <pre>
      * 'base_elt' - (array) A mailbox element array. See IMP_Imap_Tree#get().
      * 'children' - (boolean) Does the element have children?
