@@ -443,7 +443,7 @@ var KronolithEdit =
     // Converts a 12 hour based number to its 24 hour format
     convertTo24Hour: function(val, elt)
     {
-        if (KronolithVar.twentyFour) {
+        if (!KronolithVar.twentyFour) {
             if ($F(elt)) {
                 if (val != 12) {
                     val += 12;
