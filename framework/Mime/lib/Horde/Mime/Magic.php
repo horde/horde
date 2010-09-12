@@ -90,11 +90,11 @@ class Horde_Mime_Magic
 
         $map = self::_getMimeExtensionMap();
         for ($i = 0; $i <= $map['__MAXPERIOD__']; ++$i) {
-            $pos = strrpos(substr($filename, 0, $pos - 1), '.');
-            if ($pos === false) {
+            $npos = strrpos(substr($filename, 0, $pos - 1), '.');
+            if ($npos === false) {
                 break;
             }
-            ++$pos;
+            $pos = $npos + 1;
         }
 
         $type = ($pos === false) ? '' : self::extToMime(substr($filename, $pos));
