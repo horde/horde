@@ -19,12 +19,10 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cp -r ${WORKSPACE}/../../%2$s/workspace/%1$s/* ${WORKSPACE}/
-echo &quot;include_path = \&quot;.:${WORKSPACE}/../../%3$s/php\&quot;&quot; &gt; ${WORKSPACE}/php.ini
 rm -rf ${WORKSPACE}/deps
 mkdir ${WORKSPACE}/deps
-php -c php.ini ${WORKSPACE}/../../%3$s/horde-element --install=${WORKSPACE}/deps ${WORKSPACE}/../../%2$s/workspace/%1$s
-php -c php.ini ${WORKSPACE}/../../%3$s/horde-element --ciprebuild=${WORKSPACE} ${WORKSPACE}/../../%2$s/workspace/%1$s
-echo &quot;include_path = \&quot;.:${WORKSPACE}/lib:${WORKSPACE}/deps/pear/php:${WORKSPACE}/../../%3$s/php\&quot;&quot; &gt; ${WORKSPACE}/php.ini
+php -d include_path=&quot;.:${WORKSPACE}/../../%3$s/php&quot; ${WORKSPACE}/../../%3$s/horde-components --install=${WORKSPACE}/deps ${WORKSPACE}/../../%2$s/workspace/%1$s
+php -d include_path=&quot;.:${WORKSPACE}/../../%3$s/php&quot; ${WORKSPACE}/../../%3$s/horde-components --ciprebuild=${WORKSPACE} ${WORKSPACE}/../../%2$s/workspace/%1$s
     </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Ant>

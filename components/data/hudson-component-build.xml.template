@@ -1,5 +1,6 @@
 <project name="Kolab_Config" default="build" basedir=".">
  <property name="tooldir" location="${basedir}/../../%1$s"/>
+ <property name="incdirs" location="${basedir}/lib:${basedir}/deps/pear/php:${tooldir}/php"/>
 
  <target name="clean">
   <!-- Clean up -->
@@ -16,7 +17,7 @@
  <!-- Run unit tests and generate junit.xml and clover.xml -->
  <target name="phpunit">
   <exec executable="php" failonerror="true">
-    <arg line="-c php.ini ${tooldir}/phpunit" />
+    <arg line="-d include_path=${incdirs} ${tooldir}/phpunit" />
   </exec>
  </target>
 
@@ -34,7 +35,7 @@
  <!-- Generate jdepend.xml and software metrics charts -->
  <target name="pdepend">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/pdepend
+   <arg line="-d include_path=${incdirs} ${tooldir}/pdepend
               --jdepend-xml=${basedir}/build/logs/jdepend.xml
               --jdepend-chart=${basedir}/build/pdepend/dependencies.svg
               --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg
@@ -45,7 +46,7 @@
  <!-- Generate pmd.xml -->
  <target name="phpmd">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpmd
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpmd
               lib xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml" />
   </exec>
  </target>
@@ -53,7 +54,7 @@
  <!-- Generate pmd-cpd.xml -->
  <target name="phpcpd">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpcpd
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcpd
               --log-pmd ${basedir}/build/logs/pmd-cpd.xml lib" />
   </exec>
  </target>
@@ -61,7 +62,7 @@
  <!-- Generate checkstyle.xml -->
  <target name="phpcs">
   <exec executable="php" output="/dev/null">
-   <arg line="-c php.ini ${tooldir}/phpcs
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcs
               --report=checkstyle
               --report-file=${basedir}/build/logs/checkstyle.xml
               --standard=Horde
@@ -72,14 +73,14 @@
  <!-- Generate API documentation -->
  <target name="phpdoc">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpdoc --
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpdoc --
               -d lib -t build/api" />
   </exec>
  </target>
 
  <target name="phpcb">
   <exec executable="php">
-   <arg line="-c php.ini ${tooldir}/phpcb
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcb
               --log=${basedir}/build/logs
               --source=${basedir}/lib
               --output=${basedir}/build/code-browser" />
