@@ -13,8 +13,8 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // We accept the user name on the command-line.
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:k',
-                              array('help', 'username=', 'password=', 'dir=', 'keep'));
+$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:o:k',
+                              array('help', 'username=', 'password=', 'dir=', 'order=', 'keep'));
 
 if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
@@ -48,6 +48,11 @@ foreach ($opts as $opt) {
         $dir = $optValue;
         break;
 
+    case 'o':
+    case '--order':
+        $order = $optValue;
+        break;
+
     case 'h':
     case '--help':
         showHelp();
@@ -73,6 +78,11 @@ if (!empty($username) && !empty($password)) {
 
 if (empty($dir)) {
     $cli->fatal(_("You must specify a valid directory."));
+}
+
+if (!empty($order) && $order != 'date' && $order != 'name' && $order != 'random') {
+    showHelp();
+    exit;
 }
 
 $registry->setCharset('utf-8');
@@ -113,6 +123,44 @@ function emptyGalleryCheck($gallery)
         }
     }
 }
+
+/**
+ * Comparison function to sort randomly
+ */
+function randomCmp($a, $b)
+{
+   return 2*rand(0,1)-1;
+}
+
+/**
+ * Comparison function to sort based on modification time
+ */
+function dateCmp($a, $b)
+{
+   static $cache = array();
+   if (array_key_exists($a, $cache)) {
+      $ta = $cache[$a];
+   } else {
+      $ta = filemtime($a);
+      $cache[$a] = $ta;
+   }
+   if (array_key_exists($b, $cache)) {
+      $tb = $cache[$b];
+   } else {
+      $tb = filemtime($b);
+      $cache[$b] = $tb;
+   }
+   return ($a < $b) ? -1 : 1;
+}
+
+/**
+ * Comparison function to sort based on filename
+ */
+function nameCmp($a, $b)
+{
+   return strcmp($a, $b);
+}
+
 /**
  * Read all images from a directory into the currently selected
  * gallery.
@@ -125,6 +173,7 @@ function emptyGalleryCheck($gallery)
 function processDirectory($dir, $parent = null)
 {
     global $cli;
+    global $order;
 
     $dir = Horde_Util::realPath($dir);
     if (!is_dir($dir)) {
@@ -146,20 +195,23 @@ function processDirectory($dir, $parent = null)
             continue;
         }
         if (is_dir($dir . '/' . $entry)) {
-            $directories[] = $entry;
+            $directories[] = $dir . '/' . $entry;
         } else {
-            $files[] = $entry;
+            $files[] = $dir . '/' . $entry;
         }
     }
     closedir($h);
 
-    if ($files) {
-        chdir($dir);
+    if (!empty($order)) {
+        usort($files, $order.'Cmp');
+        usort($directories, $order.'Cmp');
+    }
 
+    if ($files) {
         // Process each file and upload to the gallery.
         $added_images = array();
         foreach ($files as $file) {
-            $image = Ansel::getImageFromFile($dir . '/' . $file);
+            $image = Ansel::getImageFromFile($file);
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $image_id = $gallery->addImage($image);
             $added_images[] = $file;
@@ -172,7 +224,7 @@ function processDirectory($dir, $parent = null)
     if ($directories) {
         $cli->message(_("Adding subdirectories:"), 'cli.message');
         foreach ($directories as $directory) {
-            processDirectory($dir . '/' . $directory, $gallery->id);
+            processDirectory($directory, $gallery->id);
         }
     }
 
@@ -190,10 +242,11 @@ function showHelp()
     $cli->writeln();
     $cli->writeln(_("Mandatory arguments to long options are mandatory for short options too."));
     $cli->writeln();
-    $cli->writeln(_("-h, --help                   Show this help"));
-    $cli->writeln(_("-d, --dir[=directory]        Recursively add all files from the directory, creating\n                             a gallery for each directory"));
-    $cli->writeln(_("-u, --username[=username]    Horde login username"));
-    $cli->writeln(_("-p, --password[=password]    Horde login password"));
-    $cli->writeln(_("-k, --keep                   Do not delete empty galleries after import is complete."));
+    $cli->writeln(_("-h, --help                      Show this help"));
+    $cli->writeln(_("-d, --dir[=directory]           Recursively add all files from the directory, \n                                creating a gallery for each directory"));
+    $cli->writeln(_("-u, --username[=username]       Horde login username"));
+    $cli->writeln(_("-p, --password[=password]       Horde login password"));
+    $cli->writeln(_("-o, --order=<name|date|random>  Sorting order criteria"));
+    $cli->writeln(_("-k, --keep                      Do not delete empty galleries after import is complete."));
     $cli->writeln();
 }
