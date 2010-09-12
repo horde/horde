@@ -177,6 +177,7 @@ Application Framework.</description>
        <file name="TextFilter.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Vfs.php" role="php" />
+       <file name="View.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
@@ -501,6 +502,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
+   <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
    <install as="Horde/Core/Mime/Viewer/Css.php" name="lib/Horde/Core/Mime/Viewer/Css.php" />

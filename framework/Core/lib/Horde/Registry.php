@@ -327,13 +327,20 @@ implements Horde_Interfaces_Registry_Auth
             'Horde_Kolab_Storage' => array(
                 'Horde_Core_Factory_KolabStorage',
                 'getStorage',
-            )
+            ),
+            'Horde_View' => array(
+                'Horde_Core_Factory_View',
+                'create',
+            ),
+            'Horde_View_Base' => array(
+                'Horde_Core_Factory_View',
+                'create',
+            ),
         );
 
         /* Define implementations. */
         $implementations = array(
             'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web',
-            'Horde_View_Base' => 'Horde_View',
         );
 
         /* Setup injector. */
