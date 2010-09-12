@@ -1,3 +1,5 @@
+<div id="anseluploader"></div>
+<?php echo $nojs; ?>
 <div class="anselWidgets">
     <div id="horizontal_carousel">
      <div class="anselWidget" style="height:150px;">
@@ -12,8 +14,6 @@
      </div>
     </div>
 </div>
-<div id="anseluploader"></div>
-<?php echo $nojs; ?>
 <script type="text/javascript">
 // <![CDATA[
 // Delay response

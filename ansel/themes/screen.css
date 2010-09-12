@@ -376,7 +376,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 }
 #anseluploader {
     width: auto;
-    margin-top: 180px;
 }
 .uploaderContainer {
     border: solid 1px #999999;
