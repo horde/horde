@@ -93,6 +93,7 @@ if ($dirList) {
 }
 
 /* Display all of the files in this directory */
+$readmes = array();
 if ($fileList) {
     echo '<tbody>';
     foreach ($fileList as $currFile) {
@@ -104,9 +105,13 @@ if ($fileList) {
         $lg = $currFile->queryLastLog();
         $realname = $currFile->queryName();
         $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
+        $currFile->mimeType = $mimeType;
+
+        if (Horde_String::lower(Horde_String::substr($realname, 0, 6)) == 'readme') {
+            $readmes[] = $currFile;
+        }
 
         $icon = $injector->getInstance('Horde_Mime_Viewer')->getIcon($mimeType);
-
         $author = Chora::showAuthorName($lg->queryAuthor());
         $filerev = $lg->queryRevision();
         $date = $lg->queryDate();
@@ -125,4 +130,10 @@ if ($fileList) {
 }
 
 echo '</table>';
+if ($readmes) {
+    $readmeCollection = new Chora_Readme_Collection($readmes);
+    $readmeFile = $readmeCollection->chooseReadme();
+    $readmeRenderer = new Chora_Renderer_File_Pretty($injector->createInstance('Horde_View_Base'), $readmeFile, $readmeFile->queryRevision());
+    echo $readmeRenderer->render();
+}
 require $registry->get('templates', 'horde') . '/common-footer.inc';

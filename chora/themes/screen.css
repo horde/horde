@@ -91,7 +91,7 @@ ul.revision li.tags {
 }
 
 /* Labels. */
-h3.revision_log, h3.checkout {
+h3.revision_log, h3.checkout, h3.file-view-header {
     background: #e9e9e9;
     display: inline;
     font-weight: bold;
@@ -182,11 +182,14 @@ ul.singlepsfiles li {
     color: red;
 }
 
-/* Checkout. */
-div.checkout {
+/* Checkout, File view */
+div.checkout, div.file-view-contents {
     padding: 3px;
     margin: 2px 5px 8px 5px;
     border: 1px solid #ddd;
+}
+div.file-view {
+    margin-top: 2em;
 }
 
 .attic {

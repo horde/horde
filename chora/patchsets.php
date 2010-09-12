@@ -56,13 +56,9 @@ if ($ps_id) {
 
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
-
-
-if ($ps_id) {
-    require CHORA_TEMPLATES . '/patchsets/header.inc';
-} else {
-    require CHORA_TEMPLATES . '/headerbar.inc';
-    require CHORA_TEMPLATES . '/patchsets/header.inc';
+require CHORA_TEMPLATES . '/headerbar.inc';
+require CHORA_TEMPLATES . '/patchsets/header.inc';
+if (!$ps_id) {
     require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 }
 
