@@ -878,6 +878,10 @@ abstract class Kronolith_Event
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
+        // Reset allday flag in case this has changed. Will be recalculated
+        // next time isAllDay() is called.
+        $this->allday = false;
+
         // Start and end date.
         try {
             $start = $vEvent->getAttribute('DTSTART');
