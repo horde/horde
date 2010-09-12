@@ -10,7 +10,13 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
-$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery((int)Horde_Util::getFormData('gallery'));
+try {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery((int)Horde_Util::getFormData('gallery'));
+} catch (Ansel_Exception $e) {
+    echo $e->getMessage();
+    Horde::logMessage($e->getMessage(), 'err');
+    exit;
+}
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied();
 }
