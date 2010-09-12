@@ -4156,7 +4156,7 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithPrefs':
+            case 'kronolithOptions':
                 this.go('prefs');
                 e.stop();
                 return;
