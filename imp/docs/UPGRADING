@@ -21,8 +21,7 @@ HTML GUI editor
 IMP only supports the CKeditor javascript HTML rich text editor.  Xinha is no
 longer supported.
 
-Button configuration is now stored in the prefs value 'ckeditor_buttons'. The
-old 'fckeditor_buttons' setting is no longer used and can be safely removed.
+Button configuration is now stored in the prefs value 'ckeditor_buttons'.
 
 
 Server Options
@@ -65,6 +64,7 @@ your ``config/prefs.php`` file and your preferences backend::
 
    alternative_display
    attachment_display
+   fckeditor_buttons
    filter_on_sidebar
    forward_bodytext
    nav_expanded_sidebar
