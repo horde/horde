@@ -62,7 +62,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
      *           DEFAULT: NONE (system default will be used)
      * </pre>
      */
-    protected function __construct($scope, $opts, $params);
+    protected function __construct($scope, $opts, $params)
     {
         /* If a valid server port has not been specified, set the default. */
         if (!isset($params['port']) || !is_int($params['port'])) {
