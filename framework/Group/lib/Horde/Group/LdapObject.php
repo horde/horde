@@ -23,12 +23,14 @@ class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
      */
     public function __construct($name, $parent = null)
     {
+        // FIXME!!!!
+        $conf = Horde::getDriverConfig('group', 'ldap');
         parent::__construct($name);
         if ($parent) {
-            $this->data['dn'] = Horde_String::lower($GLOBALS['conf']['group']['params']['gid']) . '=' . $name . ',' . $parent;
+            $this->data['dn'] = Horde_String::lower($conf['gid']) . '=' . $name . ',' . $parent;
         } else {
-            $this->data['dn'] = Horde_String::lower($GLOBALS['conf']['group']['params']['gid']) . '=' . $name .
-                ',' . Horde_String::lower($GLOBALS['conf']['group']['params']['basedn']);
+            $this->data['dn'] = Horde_String::lower($conf['gid']) . '=' . $name .
+                ',' . Horde_String::lower($conf['basedn']);
         }
     }
 
