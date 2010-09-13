@@ -142,18 +142,8 @@ class Horde_Group
             return $group;
         }
 
-        $group_driver = null;
-        $group_params = null;
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
-        if ($auth->hasCapability('groups')) {
-            $group_driver = $auth->getDriver();
-            $group_params = $auth;
-        } elseif (!empty($GLOBALS['conf']['group']['driver']) &&
-                  $GLOBALS['conf']['group']['driver'] != 'datatree') {
-            $group_driver = $GLOBALS['conf']['group']['driver'];
-            $group_params = Horde::getDriverConfig('group', $group_driver);
-        }
-
+        $group_driver = $GLOBALS['conf']['group']['driver'];
+        $group_params = Horde::getDriverConfig('group', $group_driver);
         self::_loadDriver($group_driver);
 
         $group = null;
