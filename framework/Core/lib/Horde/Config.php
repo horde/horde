@@ -725,7 +725,7 @@ class Horde_Config
 
             'writeas' => array(
                 'desc' => 'Bind to LDAP as which user when performing writes?',
-                'default' => $this->_default($ctx . '|user', 'search'),
+                'default' => $this->_default($ctx . '|writeas', 'search'),
                 'switch' => array(
                     'user' => array(
                         'desc' => 'Bind as the currently logged-in user',
