@@ -451,11 +451,11 @@ class Horde_Group_Ldap extends Horde_Group
             $group = $this->getGroupShortName($group);
 
             $res = @ldap_compare($this->_ds, $groupDN, $this->_params['gid'], $group);
-            if ($res === false) {
+            // $res is True if the group exists, false if not, -1 on error.
+            if ($res === -1) {
                 throw new Horde_Group_Exception(sprintf('Internal Error: An attribute must ALWAYS match itself: %s', @ldap_error($this->_ds)));
             }
-            // $res is True if the group exists, -1 if not, false never
-            $cache[$group] = ($res === true);
+            $cache[$group] = $res
         }
 
         return $cache[$group];
