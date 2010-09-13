@@ -191,15 +191,19 @@ class IMP_Application extends Horde_Registry_Application
             break;
 
         case 'max_folders':
+            $allowed = max($allowed);
+            if (empty($opts['value'])) {
+                return ($allowed > count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
+            }
+            break;
+
         case 'max_recipients':
         case 'max_timelimit':
             $allowed = max($allowed);
             break;
         }
 
-        return (($permission == 'max_folders') && empty($opts['value']))
-            ? $allowed > count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false))
-            : $allowed;
+        return $allowed;
     }
 
     /* Menu methods. */
@@ -211,12 +215,9 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry;
 
-        $menu_search_url = Horde::url('search.php');
         $menu_mailbox_url = Horde::url('mailbox.php');
-
-        $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
 
         $menu->addArray(array(
             'icon' => 'folders/inbox.png',
@@ -229,7 +230,7 @@ class IMP_Application extends Horde_Registry_Application
                 $prefs->getValue('empty_trash_menu')) {
                 $mailbox = null;
                 if ($prefs->getValue('use_vtrash')) {
-                    $mailbox = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
+                    $mailbox = $injector->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
                 } else {
                     $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
                     if (!is_null($trash_folder)) {
@@ -238,27 +239,26 @@ class IMP_Application extends Horde_Registry_Application
                 }
 
                 if (!empty($mailbox) &&
-                    !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
-                    $menu_trash_url = IMP::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
+                    !$injector->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
                     $menu->addArray(array(
                         'class' => '__noselection',
                         'icon' => 'empty_trash.png',
-                        'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')',
+                        'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $registry->getCharset()) . ')',
                         'text' => _("Empty _Trash"),
-                        'url' => $menu_trash_url
+                        'url' => IMP::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
                     ));
                 }
             }
 
+            $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
-                $menu_spam_url = IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
                 $menu->addArray(array(
                     'class' => '__noselection',
                     'icon' =>  'empty_spam.png',
-                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')',
+                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $registry->getCharset()) . ')',
                     'text' => _("Empty _Spam"),
-                    'url' => $menu_spam_url
+                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
                 ));
             }
         }
@@ -266,7 +266,7 @@ class IMP_Application extends Horde_Registry_Application
         if (IMP::canCompose()) {
             $menu->addArray(array(
                 'icon' => 'compose.png',
-                'text' =>  _("_New Message"),
+                'text' => _("_New Message"),
                 'url' => IMP::composeLink(array('mailbox' => IMP::$mailbox))
             ));
         }
@@ -283,7 +283,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'icon' => 'search.png',
                 'text' =>_("_Search"),
-                'url' => $menu_search_url
+                'url' => Horde::url('search.php')
             ));
         }
 
@@ -635,7 +635,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         $this->init();
         $this->mailboxesChanged();
-        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
     }
 
     /* Helper methods. */
@@ -646,6 +645,7 @@ class IMP_Application extends Horde_Registry_Application
     public function mailboxesChanged()
     {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
     }
 
 }
