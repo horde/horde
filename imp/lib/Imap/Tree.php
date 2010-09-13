@@ -1565,7 +1565,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                         ']&nbsp;|&nbsp|[' .
                         $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
                         ']';
-                    exit;
                 }
             }
 
