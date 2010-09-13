@@ -130,5 +130,6 @@ class Horde_View_Helper_UrlTest extends Horde_Test_Case
 
 class Horde_View_Helper_UrlTest_MockController extends Horde_Controller_Base
 {
-    public function getControllerName() { return 'mock'; }
+    public function processRequest(Horde_Controller_Request $request, Horde_Controller_Response $response) {
+    }
 }
