@@ -75,7 +75,7 @@ class Hermes_Application extends Horde_Registry_Application
                 'title' => _("Deliverables")
             ),
             'invoicing' => array(
-                'title' => _("Invoicing");
+                'title' => _("Invoicing")
             )
         );
     }
