@@ -433,7 +433,9 @@ var DimpBase = {
                 if (this.isSearch(null, true)) {
                     re = new RegExp("(" + $F('qsearch_input') + ")", "i");
                     [ 'from', 'subject' ].each(function(h) {
-                        r[h] = r[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
+                        if (r[h] !== null) {
+                            r[h] = r[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
+                        }
                     });
                 }
 
