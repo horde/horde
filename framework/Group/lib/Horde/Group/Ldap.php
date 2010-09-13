@@ -186,7 +186,7 @@ class Horde_Group_Ldap extends Horde_Group
         }
 
         $group = new Horde_Group_LdapObject($name, $parent);
-        $group->_fromAttributes($entry);
+        $group->fromAttributes($entry);
         $group->setGroupOb($this);
 
         return $group;
@@ -248,7 +248,7 @@ class Horde_Group_Ldap extends Horde_Group
             $attributes['dn'] = $result[0]['dn'];
 
             $group = new Horde_Group_LdapObject($this->getGroupName($dn));
-            $group->_fromAttributes($attributes);
+            $group->fromAttributes($attributes);
             $group->setGroupOb($this);
             $cache[$dn] = $group;
         }
@@ -285,7 +285,7 @@ class Horde_Group_Ldap extends Horde_Group
 
         $dn = $group->get('dn');
 
-        $entry = $group->_toAttributes();
+        $entry = $group->toAttributes();
         $success = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$success) {
@@ -306,7 +306,7 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function updateGroup(Horde_Group_DataTreeObject $group)
     {
-        $entry = $group->_toAttributes();
+        $entry = $group->toAttributes();
 
         /* Connect to the LDAP server. */
         $this->_connect();

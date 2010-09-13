@@ -60,7 +60,7 @@ class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
      *
      * @param array $attributes  The list of attributes from the backend.
      */
-    protected function _fromAttributes($attributes = array())
+    public function fromAttributes($attributes = array())
     {
         $this->data['users'] = array();
         foreach ($attributes as $key => $value) {
@@ -102,7 +102,7 @@ class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
      *
      * @return array  The entry array.
      */
-    protected function _toAttributes()
+    public function toAttributes()
     {
         $attributes = array();
         foreach ($this->data as $key => $value) {
