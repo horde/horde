@@ -624,6 +624,10 @@ class IMP_Contents
          * if we can guess a rendering type. */
         if (in_array($mime_type, array('application/octet-stream', 'application/base64'))) {
             $mime_type = Horde_Mime_Magic::filenameToMIME($mime_part->getName());
+            if ($mime_type != $mime_part->getType()) {
+                $mime_part = clone $mime_part;
+                $mime_part->setType($mime_type);
+            }
             $param_array['ctype'] = $mime_type;
         }
         $part['type'] = $mime_type;
@@ -651,7 +655,7 @@ class IMP_Contents
         }
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
-            $part['description'] = $this->canDisplay($id, self::RENDER_FULL)
+            $part['description'] = $this->canDisplay($mime_part, self::RENDER_FULL)
                 ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s"), $description), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
