@@ -10,13 +10,13 @@
   <generator><tag:jonah /></generator>
   <loop:stories>
   <item>
-     <title><tag:stories.story_title /></title>
-     <link><tag:stories.story_link /></link>
-     <description><tag:stories.story_desc /></description>
-     <content:encoded><![CDATA[<tag:stories.story_body />
+     <title><tag:stories.title /></title>
+     <link><tag:stories.permalink /></link>
+     <description><tag:stories.description /></description>
+     <content:encoded><![CDATA[<tag:stories.body />
 ]]></content:encoded>
      <pubDate><tag:stories.story_published /></pubDate>
-     <guid isPermaLink="true"><tag:stories.story_permalink /></guid>
+     <guid isPermaLink="true"><tag:stories.permalink /></guid>
   </item>
   </loop:stories>
  </channel>

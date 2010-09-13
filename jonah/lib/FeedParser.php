@@ -9,6 +9,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
+ * @deprecated Will be removed once the Aggregator app (Hippo) is started.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Jonah
  */

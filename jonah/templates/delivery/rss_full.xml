@@ -10,11 +10,11 @@
   <pubDate><tag:channel_updated /></pubDate>
   <loop:stories>
   <item>
-   <title><tag:stories.story_title /></title>
-   <description><tag:stories.story_desc /></description>
-   <content:encoded><![CDATA[<tag:stories.story_body />
+   <title><tag:stories.title /></title>
+   <description><tag:stories.description /></description>
+   <content:encoded><![CDATA[<tag:stories.body />
 ]]></content:encoded>
-   <link><tag:stories.story_link /></link>
+   <link><tag:stories.permalink /></link>
   </item>
   </loop:stories>
  </channel>

@@ -1,13 +1,23 @@
 <?php
 /**
- * $Horde: jonah/stories/share.php,v 1.33 2009/09/06 17:00:39 jan Exp $
- *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
+ *
+ * @package Jonah
  */
 
+/**
+ *
+ * @global <type> $conf
+ * @param <type> $story_part
+ * @param <type> $from
+ * @param <type> $recipients
+ * @param <type> $subject
+ * @param <type> $note
+ * @return <type>
+ */
 function _mail($story_part, $from, $recipients, $subject, $note)
 {
     global $conf;
@@ -40,33 +50,29 @@ function _mail($story_part, $from, $recipients, $subject, $note)
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah', array(
+Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
 ));
 
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
-
-$news = Jonah_News::factory();
-
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
 $channel_id = $vars->get('channel_id');
-$story_id = $vars->get('story_id');
+$story_id = $vars->get('id');
 
 if (!$conf['sharing']['allow']) {
     Horde::url('stories/view.php', true)
         ->add(array('story_id' => $story_id, 'channel_id' => $channel_id))
         ->redirect();
+    exit;
 }
 
-$story = $news->getStory($channel_id, $story_id);
+$story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id);
 if (is_a($story, 'PEAR_Error')) {
     $notification->push(sprintf(_("Error fetching story: %s"), $story->getMessage()), 'horde.warning');
     $story = '';
 }
-$vars->set('subject', $story['story_title']);
+$vars->set('subject', $story['title']);
 
 /* Set up the form. */
 $form = new Horde_Form($vars);
@@ -74,7 +80,7 @@ $title = _("Share Story");
 $form->setTitle($title);
 $form->setButtons(_("Send"));
 $form->addHidden('', 'channel_id', 'int', false);
-$form->addHidden('', 'story_id', 'int', false);
+$form->addHidden('', 'id', 'int', false);
 $v = &$form->addVariable(_("From"), 'from', 'email', true, false);
 if ($GLOBALS['registry']->getAuth()) {
     $v->setDefault($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getValue('from_addr'));
@@ -87,16 +93,21 @@ $form->addVariable(_("Message"), 'message', 'longtext', false, false, null, arra
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
 
-    $channel = $news->getChannel($channel_id);
+    $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
     if (empty($channel['channel_story_url'])) {
+<<<<<<< HEAD
+        $story_url = Horde::url('stories/view.php', true);
+        $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'id' => '%s'));
+=======
         $story_url = Horde::url('stories/view.php', true);
         $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'story_id' => '%s'));
+>>>>>>> master
     } else {
         $story_url = $channel['channel_story_url'];
     }
 
     $story_url = str_replace(array('%25c', '%25s'), array('%c', '%s'), $story_url);
-    $story_url = str_replace(array('%c', '%s', '&amp;'), array($channel_id, $story['story_id'], '&'), $story_url);
+    $story_url = str_replace(array('%c', '%s', '&amp;'), array($channel_id, $story['id'], '&'), $story_url);
 
     if ($info['include'] == 0) {
         require_once 'Horde/MIME/Part.php';
@@ -106,7 +117,7 @@ if ($form->validate($vars)) {
         $message_part->setContents($message_part->replaceEOL($story_url));
         $message_part->setDescription(_("Story Link"));
     } else {
-        $message_part = Jonah_News::getStoryAsMessage($story);
+        $message_part = Jonah::getStoryAsMessage($story);
     }
 
     $result = _mail($message_part, $info['from'], $info['recipients'],

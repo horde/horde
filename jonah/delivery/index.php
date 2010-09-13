@@ -1,15 +1,13 @@
 <?php
 /**
- * $Horde: jonah/delivery/index.php,v 1.27 2009/06/10 05:24:47 slusarz Exp $
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  *
  * @author Ben Klang <ben@alkaloid.net>
  */
-
 $parts = explode('/', Horde_Util::getPathInfo());
 $lastpart = null;
 $deliveryType = null;

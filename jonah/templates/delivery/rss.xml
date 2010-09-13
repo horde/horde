@@ -10,9 +10,9 @@
   <pubDate><tag:channel_updated /></pubDate>
   <loop:stories>
   <item>
-   <title><tag:stories.story_title /></title>
-   <description><tag:stories.story_desc /></description>
-   <link><tag:stories.story_link /></link>
+   <title><tag:stories.title /></title>
+   <description><tag:stories.description /></description>
+   <link><tag:stories.permalink /></link>
   </item>
   </loop:stories>
  </channel>

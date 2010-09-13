@@ -2,6 +2,11 @@
 /**
  * Jonah Base Class.
  *
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Eric Rechlin <eric@hpcalc.org>
  *
@@ -38,6 +43,8 @@ class Jonah
     /**
      * Obtain the list of stories from the passed in URI.
      *
+     * @deprecated Will be removed when external channels are removed.
+     *
      * @param string $url  The url to get the list of the channel's stories.
      */
     static public function readURL($url)
@@ -68,46 +75,13 @@ class Jonah
     }
 
     /**
-     * Returns a drop-down select box to choose which view to display.
-     *
-     * @param $name      Name to assign to select box.
-     * @param $selected  Currently selected item. (optional)
-     * @param $onchange  JavaScript onchange code. (optional)
-     *
-     * @return string Generated select box code
-     */
-    static public function buildViewWidget($name, $selected = 'standard', $onchange = '')
-    {
-        require JONAH_BASE . '/config/templates.php';
-
-        if ($onchange) {
-            $onchange = ' onchange="' . $onchange . '"';
-        }
-
-        $html = '<select name="' . $name . '"' . $onchange . '>' . "\n";
-        foreach ($templates as $key => $tinfo) {
-            $select = ($selected == $key) ? ' selected="selected"' : '';
-            $html .= '<option value="' . $key . '"' . $select . '>' . $tinfo['name'] . "</option>\n";
-        }
-        return $html . '</select>';
-    }
-
-    /**
+     * @deprecated Remove when external channels moved to hippo.
      */
     static public function getChannelTypeLabel($type)
     {
         switch ($type) {
         case Jonah::INTERNAL_CHANNEL:
             return _("Local Feed");
-
-        case Jonah::EXTERNAL_CHANNEL:
-            return _("External Feed");
-
-        case Jonah::AGGREGATED_CHANNEL:
-            return _("Aggregated Feed");
-
-        case Jonah::COMPOSITE_CHANNEL:
-            return _("Composite Feed");
         }
     }
 
@@ -140,7 +114,6 @@ class Jonah
 
         switch ($filter) {
         case 'internal_channels':
-        case 'external_channels':
             if (empty($in) || !$perms->exists('jonah:news:' . $filter . ':' . $in)) {
                 return $perms->hasPermission('jonah:news:' . $filter, $GLOBALS['registry']->getAuth(), $permission);
             } elseif (!is_array($in)) {
@@ -172,6 +145,7 @@ class Jonah
     }
 
     /**
+     * @deprecated Remove when external channels removed.
      *
      * @param string $type  The Jonah::* constant for the channel type.
      *
@@ -181,8 +155,6 @@ class Jonah
     {
         if ($type == Jonah::INTERNAL_CHANNEL) {
             return 'internal_channels';
-        } elseif ($type == Jonah::EXTERNAL_CHANNEL) {
-            return 'external_channels';
         }
     }
 
@@ -229,6 +201,29 @@ class Jonah
         /* The two most common body types have not been found, so just return
          * the first one that is in the array. */
         return array_shift(array_keys($types));
+    }
+
+    /**
+     * Returns the available channel types based on what was set in the
+     * configuration.
+     *
+     * @return array  The available news channel types.
+     */
+    static public function getAvailableTypes()
+    {
+        $types = array();
+
+        if (empty($GLOBALS['conf']['news']['enable'])) {
+            return $types;
+        }
+        if (in_array('internal', $GLOBALS['conf']['news']['enable'])) {
+            $types[Jonah::INTERNAL_CHANNEL] = _("Local Feed");
+        }
+        if (in_array('composite', $GLOBALS['conf']['news']['enable'])) {
+            $types[Jonah::COMPOSITE_CHANNEL] = _("Composite Feed");
+        }
+
+        return $types;
     }
 
 }

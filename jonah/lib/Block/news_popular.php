@@ -28,8 +28,7 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
                                   'type' => 'enum',
                                   'values' => array());
 
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels();
+        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
         foreach ($channels as  $channel) {
             if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL) {
                 $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
@@ -54,10 +53,10 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
 
     function _title()
     {
-        $news = Jonah_News::factory();
-        $channel = $news->getChannel($this->_params['source']);
-        if (is_a($channel, 'PEAR_Error')) {
-            return @htmlspecialchars($channel->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        try {
+            $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($this->_params['source']);
+        } catch (Exception $e) {
+            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         }
 
         if (!empty($channel['channel_link'])) {
@@ -78,7 +77,6 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
             return _("No feed specified.");
         }
 
-        $news = Jonah_News::factory();
         $params = $this->_params();
 
         $view = isset($this->_params['view']) ? $this->_params['view'] : 'standard';
@@ -87,7 +85,7 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
         }
 
 
-        return $news->renderChannel($this->_params['source'], $view, $this->_params['max'], 0, Jonah::ORDER_READ);
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->renderChannel($this->_params['source'], $view, $this->_params['max'], 0, Jonah::ORDER_READ);
     }
 
 }

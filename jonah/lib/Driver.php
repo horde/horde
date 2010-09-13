@@ -133,7 +133,7 @@ class Jonah_Driver
      *                stories from the given channel.
      * @throws InvalidArgumentException
      */
-    public function getStories($criteria)
+    public function getStories($criteria, $order = Jonah::ORDER_PUBLISHED)
     {
         // Convert a channel slug into a channel ID if necessary
         if (isset($criteria['channel']) && !isset($criteria['channel_id'])) {
@@ -171,84 +171,17 @@ class Jonah_Driver
             $criteria['tagIDs'] = array_merge($criteria['tagIDs'], $this->getTagIds($criteria['alltags']));
         }
 
-        return $this->_getStories($criteria);
-    }
-
-    /**
-     * Returns the most recent or all stories from a channel.
-     * This method is deprecated.
-     *
-     * @param integer $channel_id  The news channel to get stories from.
-     * @param integer $max         The maximum number of stories to get. If
-     *                             null, all stories will be returned.
-     * @param integer $from        The number of the story to start with.
-     * @param boolean $refresh     Force a refresh of stories in case this is
-     *                             an external channel.
-     * @param integer $date        The timestamp of the date to start with.
-     * @param boolean $unreleased  Return stories that have not yet been
-     *                             published?
-     *                             Defaults to false - only published stories.
-     * @param integer $order       How to order the results for internal
-     *                             channels. Possible values are the
-     *                             Jonah::ORDER_* constants.
-     *
-     * @return array  The specified number (or less, if there are fewer) of
-     *                stories from the given channel.
-     */
-    public function legacyGetStories($channel, $max = 10, $from = 0, $refresh = false,
-                                     $date = null, $unreleased = false,
-                                     $order = Jonah::ORDER_PUBLISHED)
-    {
-        global $conf, $registry;
-
-        $channel['channel_link'] = Horde::url('delivery/html.php', true, -1)->add('channel_id', $channel['channel_id']);
-        $stories = $this->_legacyGetStories($channel['channel_id'], $max, $from, $date, $unreleased, $order);
-        $date_format = $GLOBALS['prefs']->getValue('date_format');
-        $comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages');
-        foreach ($stories as $key => $story) {
-            $stories[$key]['story_link'] = $this->getStoryLink($channel, $story);
-            $stories[$key]['story_updated'] = $story['story_updated'];
-            $stories[$key]['story_updated_date'] = strftime($date_format, $story['story_updated']);
-            if ($comments) {
-                try {
-                    $stories[$key]['num_comments'] = $registry->call('forums/numMessages', array($story['story_id'], $registry->getApp()));
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e->getMessage(), 'ERR');
-                    $stories[$key]['num_comments'] = null;
-                }
-            }
-            $stories[$key] = array_merge($channel, $stories[$key]);
-        }
-
-        return $stories;
+        return $this->_getStories($criteria, $order);
     }
 
     /**
      * Save the provided story to storage.
      *
      * @param array $info  The story information array. Passed by reference so
-     *                     we can add/change the story_id when saved.
+     *                     we can add/change the id when saved.
      */
     public function saveStory(&$info)
     {
-        /* Used for checking whether to send out delivery or not. */
-        if (empty($info['story_published'])) {
-            /* Story is not being released. */
-            $deliver = false;
-        } elseif (empty($info['story_id'])) {
-            /* Story is new. */
-            $deliver = true;
-        } else {
-            /* Story is old, has it been released already? */
-            $oldstory = $this->getStory(null, $info['story_id']);
-            if ((empty($oldstory['story_published']) ||
-                 $oldstory['story_published'] > $oldstory['story_updated']) &&
-                $info['story_published'] <= time()) {
-                $deliver = true;
-            } else {
-                $deliver = false;
-            }
-        }
         $this->_saveStory($info);
     }
 
@@ -267,13 +200,13 @@ class Jonah_Driver
         $story = $this->_getStory($story_id, $read);
 
         /* Format story link. */
-        $story['story_link'] = $this->getStoryLink($channel, $story);
+        $story['link'] = $this->getStoryLink($channel, $story);
 
         /* Format dates. */
         $date_format = $GLOBALS['prefs']->getValue('date_format');
-        $story['story_updated_date'] = strftime($date_format, $story['story_updated']);
-        if (!empty($story['story_published'])) {
-            $story['story_published_date'] = strftime($date_format, $story['story_published']);
+        $story['updated_date'] = strftime($date_format, $story['updated']);
+        if (!empty($story['published'])) {
+            $story['published_date'] = strftime($date_format, $story['published']);
         }
 
         return $story;
@@ -289,14 +222,14 @@ class Jonah_Driver
      */
     public function getStoryLink($channel, $story)
     {
-        if ((empty($story['story_url']) || !empty($story['story_body'])) &&
+        if ((empty($story['url']) || !empty($story['body'])) &&
             !empty($channel['channel_story_url'])) {
             $url = $channel['channel_story_url'];
         } else {
-            $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'story_id' => '%s'))->setRaw(false);
+            $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'id' => '%s'))->setRaw(false);
         }
         return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
-                                         array('%c', '%s', $channel['channel_id'], $story['story_id']),
+                                         array('%c', '%s', $channel['channel_id'], $story['id']),
                                          $url));
     }
 
@@ -304,7 +237,7 @@ class Jonah_Driver
      */
     public function getChecksum($story)
     {
-        return md5($story['story_title'] . $story['story_desc']);
+        return md5($story['title'] . $story['description']);
     }
 
     /**
@@ -341,19 +274,15 @@ class Jonah_Driver
      *
      * @TODO: This doesn't belong in a storage driver class. Move it to a
      * view or possible a static method in Jonah::?
-     * 
+     *
      * @return string  The rendered story listing.
      */
     public function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
     {
         $channel = $this->getChannel($channel_id);
-        if (is_a($channel, 'PEAR_Error')) {
-            return sprintf(_("Error fetching feed: %s"), $channel->getMessage());
-        }
 
         include JONAH_BASE . '/config/templates.php';
-        $escape = !isset($templates[$tpl]['escape']) ||
-            !empty($templates[$tpl]['escape']);
+        $escape = !isset($templates[$tpl]['escape']) || !empty($templates[$tpl]['escape']);
         $template = new Horde_Template();
 
         if ($escape) {
@@ -362,18 +291,16 @@ class Jonah_Driver
         }
         $template->set('channel', $channel, true);
 
-        /* Get one story more than requested to see if there are more
-         * stories. */
+        /* Get one story more than requested to see if there are more stories. */
         if ($max !== null) {
-            $stories = $this->getStories($channel_id, $max + 1, $from, false, time(), false, $order);
-            if (is_a($stories, 'PEAR_Error')) {
-                return $stories->getMessage();
-            }
+            $stories = $this->getStories(
+                    array('channel_id' => $channel_id,
+                          'published' => true),
+                    $order);
         } else {
-            $stories = $this->getStories($channel_id, null, 0, false, time(), false, $order);
-            if (is_a($stories, 'PEAR_Error')) {
-                return $stories->getMessage();
-            }
+            $stories = $this->getStories(array('channel_id' => $channel_id,
+                                               'published' => true),
+                                         $order);
             $max = count($stories);
         }
 
@@ -439,13 +366,13 @@ class Jonah_Driver
      */
     protected function _escapeStories(&$value, $key)
     {
-        $value['story_title'] = htmlspecialchars($value['story_title']);
-        $value['story_desc'] = htmlspecialchars($value['story_desc']);
-        if (isset($value['story_link'])) {
-            $value['story_link'] = htmlspecialchars($value['story_link']);
+        $value['title'] = htmlspecialchars($value['title']);
+        $value['description'] = htmlspecialchars($value['description']);
+        if (isset($value['link'])) {
+            $value['link'] = htmlspecialchars($value['link']);
         }
-        if (empty($value['story_body_type']) || $value['story_body_type'] != 'richtext') {
-            $value['story_body'] = htmlspecialchars($value['story_body']);
+        if (empty($value['body_type']) || $value['body_type'] != 'richtext') {
+            $value['body'] = htmlspecialchars($value['body']);
         }
     }
 
@@ -454,7 +381,7 @@ class Jonah_Driver
      */
     protected function _escapeStoryDescriptions(&$value, $key)
     {
-        $value['story_desc'] = nl2br($value['story_desc']);
+        $value['description'] = nl2br($value['description']);
     }
 
     /**
@@ -470,15 +397,15 @@ class Jonah_Driver
         require_once 'Horde/MIME/Part.php';
 
         /* Add the story to the message based on the story's body type. */
-        switch ($story['story_body_type']) {
+        switch ($story['body_type']) {
         case 'richtext':
             /* Get a plain text version of a richtext story. */
-            $body_html = $story['story_body'];
+            $body_html = $story['body'];
             $body_text = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'html2text');
 
             /* Add description. */
-            $body_html = '<p>' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) . "</p>\n" . $body_html;
-            $body_text = Horde_String::wrap('  ' . $story['story_desc'], 70) . "\n\n" . $body_text;
+            $body_html = '<p>' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) . "</p>\n" . $body_html;
+            $body_text = Horde_String::wrap('  ' . $story['description'], 70) . "\n\n" . $body_text;
 
             /* Add the text version of the story to the base message. */
             $message_text = new MIME_Part('text/plain');
@@ -501,7 +428,7 @@ class Jonah_Driver
         case 'text':
             /* This is just a plain text story. */
             $message_text = new MIME_Part('text/plain');
-            $message_text->setContents($message_text->replaceEOL($story['story_desc'] . "\n\n" . $story['story_body']));
+            $message_text->setContents($message_text->replaceEOL($story['description'] . "\n\n" . $story['body']));
             $message_text->setCharset($GLOBALS['registry']->getCharset());
 
             return $message_text;

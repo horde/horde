@@ -8,25 +8,32 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
 ));
-$jonah = Horde_Registry::appInit('jonah');
 
+$m = new Horde_Routes_Mapper();
+
+require JONAH_BASE . '/config/routes.php';
 require JONAH_BASE . '/config/templates.php';
 
 // Grab, and hopefully match, the URL
-$url = Horde_Util::getPathInfo();
-parse_str($_SERVER['QUERY_STRING'], $args);
-Horde_Util::dispelMagicQuotes($args);
+$request = new Horde_Controller_Request_Http();
+$url = $request->getPath();
+
+$args = $request->getGetParams();
+$result = $m->match('/' . $url);
 
 $criteria = array();
-$result = $m->match($url);
-if (isset($result['controller']) && $result['controller'] == 'admin') {
-    // Insert admin controllers here.
-} elseif (isset($result['feed'])) {
+// @TODO: This should be handled by controller objects, but for now just use
+// a switch conditional until we move to Horde_Controller
+switch ($result['controller']) {
+case 'admin':
+    // TODO:
+    exit;
+case 'feed':
     // Default settings
     $defaults = array(
         'format' => 'html',
@@ -60,6 +67,8 @@ if (isset($result['controller']) && $result['controller'] == 'admin') {
                 break;
             }
 
+        // @TODO: These will be implemented as GData's categories, not as
+        // part of the route proper.
         case 'tag':
             $criteria['tags'] = array($result['value']);
             break;
@@ -145,7 +154,19 @@ if (isset($result['controller']) && $result['controller'] == 'admin') {
     }
 
     // Preserve remaining args
+    // @TODO: Don't think we need to preserve the query string once we get here.
     $criteria = array_merge($defaults, $args, $criteria);
+    $class = 'Jonah_View_Delivery' . $criteria['format'];
 
-    require dirname(__FILE__) . '/feed.php';
+    //@TODO: FIXME - format (html/rss/pdf) is dealt with by the view object we
+    // instantiate but html _currently_ needs a format. Think we'll just have to
+    // pick a default format to render when requested this way.
+    $criteria['format'] = 'standard';
+    $params = array('registry' => &$registry,
+                    'notification' => &$notification,
+                    'conf' => &$conf,
+                    'criteria' => &$criteria);
+    $view = new $class($params);
+    $view->run();
+    break;
 }

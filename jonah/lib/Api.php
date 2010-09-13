@@ -5,6 +5,12 @@
  * This file defines Jonah's external API interface. Other
  * applications can interact with Jonah through this API.
  *
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Jonah
  */
 class Jonah_Api extends Horde_Registry_Api
@@ -12,44 +18,47 @@ class Jonah_Api extends Horde_Registry_Api
     /**
      * Get a list of stored channels.
      *
-     * @param integer $type  The type of channel to filter for. Possible
-     *                       values are either Jonah::INTERNAL_CHANNEL
-     *                       to fetch only a list of internal channels,
-     *                       or Jonah::EXTERNAL_CHANNEL for only external.
-     *                       If null both channel types are returned.
-     *
-     * @return mixed         An array of channels or PEAR_Error on error.
+     * @return array An array of channels
      */
-    public function listFeeds($type = null)
+    public function listFeeds()
     {
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels($type);
-
-        return $channels;
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
     }
 
     /**
      * Return the requested stories
      *
-     * @param int $channel_id   The channel to get the stories from.
-     * @param int $max_stories  The maximum number of stories to get.
-     * @param int $start_at     The story number to start retrieving.
-     * @param int $order        How to order the results.
+     * @param integer $channel_id   The channel to get the stories from.
+     * @param array   $filter       Additional, optional filters.
+     *   <pre>
+     *     max_stories  The maximum number of stories to get.
+     *     start_at     The story number to start retrieving.
+     *     order        How to order the results.
+     *   </pre>
      *
-     * @return An array of story information | PEAR_Error
+     * @return array An array of story information
      */
-    public function stories($channel_id, $max_stories = 10, $start_at = 0,
-                            $order = 0)
+    public function stories($channel_id, $filter = array())
     {
-        $news = Jonah_News::factory();
-        $stories = $news->getStories($channel_id, $max_stories, $start_at, false,
-                                     time(), false, $order);
+        $filter = new Horde_Support_Array($filter);
+
+        $stories = $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->getStories(
+                array(
+                    'channel_id' => $channel_id,
+                    'limit' => $filter->get('max_stories', 10),
+                    'startnumber' => $filter->get('start_at', 0),
+                    'published' => true,
+                ),
+                $order
+        );
 
         foreach (array_keys($stories) as $s) {
-            if (empty($stories[$s]['story_body_type']) || $stories[$s]['story_body_type'] == 'text') {
-                $stories[$s]['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($stories[$s]['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+            if (empty($stories[$s]['body_type']) || $stories[$s]['body_type'] == 'text') {
+                $stories[$s]['body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($stories[$s]['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
             } else {
-                $stories[$s]['story_body_html'] = $stories[$s]['story_body'];
+                $stories[$s]['body_html'] = $stories[$s]['body'];
             }
         }
 
@@ -63,20 +72,15 @@ class Jonah_Api extends Horde_Registry_Api
      * @param integer $story_id    The story id to fetch.
      * @param boolean $read        Whether to update the read count.
      *
-     * @return mixed  An array of story data | PEAR_Error
+     * @return array  An array of story data
      */
     public function story($channel_id, $story_id, $read = true)
     {
-        $news = Jonah_News::factory();
-        $story = $news->getStory($channel_id, $story_id, $read);
-        if (is_a($story, 'PEAR_Error')) {
-            Horde::logMessage($story, 'ERR');
-            return false;
-        }
-        if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-            $story['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id, $read);
+        if (empty($story['body_type']) || $story['body_type'] == 'text') {
+            $story['body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         } else {
-            $story['story_body_html'] = $story['story_body'];
+            $story['body_html'] = $story['body'];
         }
 
         return $story;
@@ -94,14 +98,9 @@ class Jonah_Api extends Horde_Registry_Api
         if (!$GLOBALS['conf']['comments']['allow']) {
             return false;
         }
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory(null, $story_id);
 
-        $news = Jonah_News::factory();
-        $story = $news->getStory(null, $story_id);
-        if (is_a($story, 'PEAR_Error')) {
-            return false;
-        }
-
-        return $story['story_title'];
+        return $story['title'];
     }
 
     /**
@@ -123,12 +122,11 @@ class Jonah_Api extends Horde_Registry_Api
      *
      * @param array $channel_id  An optional array of channel_ids.
      *
-     * @return mixed  An array containing tag_name, and total | PEAR_Error
+     * @return array  An array containing tag_name, and total
      */
     public function listTagInfo($tags = array(), $channel_id = null)
     {
-        $news = Jonah_News::factory();
-        return $news->listTagInfo($tags, $channel_id);
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->listTagInfo($tags, $channel_id);
     }
 
     /**
@@ -136,46 +134,50 @@ class Jonah_Api extends Horde_Registry_Api
      *
      * @param array $names  An array of names to search for
      *
-     * @return mixed  An array of tag_name => tag_ids | PEAR_Error
+     * @return Array An array of tag_name => tag_ids
      */
     public function getTagIds($names)
     {
-        $news = Jonah_News::factory();
-        return $news->getTagIds($names);
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->getTagIds($names);
     }
 
     /**
      * Searches internal channels for stories tagged with all requested tags.
      * Returns an application-agnostic array (useful for when doing a tag search
-     * across multiple applications) containing the following keys:
-     * <pre>
-     *  'title'    - The title for this resource.
-     *  'desc'     - A terse description of this resource.
-     *  'view_url' - The URL to view this resource.
-     *  'app'      - The Horde application this resource belongs to.
-     * </pre>
+     * across multiple applications).
+     *
      *
      * The 'raw' story array can be returned instead by setting $raw = true.
      *
-     * @param array $names       An array of tag_names to search for (AND'd together).
-     * @param integer $max       The maximum number of stories to return.
-     * @param integer $from      The number of the story to start with.
-     * @param array $channel_id  An array of channel_ids to limit the search to.
-     * @param integer $order     How to order the results (a Jonah::ORDER_* constant)
+     * @param array $names       An array of tag_names to search for
+     *                           (AND'd together).
+     * @param array $filter      An array of optional filter parameters.
+     *   <pre>
+     *     max       The maximum number of stories to return.
+     *     from      The number of the story to start with.
+     *     channel_id  An array of channel_ids to limit the search to.
+     *     order     How to order the results (a Jonah::ORDER_* constant)
+     *  </pre>
      * @param boolean $raw       Return the raw story data?
      *
-     * @return mixed  An array of results | PEAR_Error
+     * @return  An array of results with the following structure:
+     *    <pre>
+     *      'title'    - The title for this resource.
+     *      'desc'     - A terse description of this resource.
+     *      'view_url' - The URL to view this resource.
+     *      'app'      - The Horde application this resource belongs to.
+     *    </pre>
      */
-    public function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
-                               $order = 0, $raw = false)
+    public function searchTags($names, $filter = array(), $raw = false)
     {
         global $registry;
 
-        $news = Jonah_News::factory();
-        $results = $news->searchTags($names, $max, $from, $channel_id, $order);
-        if (is_a($results, 'PEAR_Error')) {
-            return $results;
-        }
+        // @TODO: Refactor when moving tag to content_tagger
+        $filter = new Horde_Support_Array($filter);
+        $results = $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->searchTags($names, $filter->max, $filter->from, $filter->channel_id, $filter->order);
+
         $return = array();
         if ($raw) {
             // Requesting the raw story information as returned from searchTags,
@@ -183,26 +185,26 @@ class Jonah_Api extends Horde_Registry_Api
             // find useful.
             $comments = $GLOBALS['conf']['comments']['allow'] && $registry->hasMethod('forums/numMessages');
             foreach ($results as $story) {
-                if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-                    $story['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                if (empty($story['body_type']) || $story['body_type'] == 'text') {
+                    $story['body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
                 } else {
-                    $story['story_body_html'] = $story['story_body'];
+                    $story['body_html'] = $story['body'];
                 }
 
                 if ($comments) {
                     $story['num_comments'] = $registry->call('forums/numMessages',
-                                                             array($story['story_id'],
+                                                             array($story['id'],
                                                                    $registry->getApp()));
                 }
 
-                $return[$story['story_id']] = $story;
+                $return[$story['id']] = $story;
             }
         } else {
             foreach($results as $story) {
                 if (!empty($story)) {
-                    $return[] = array('title' => $story['story_title'],
-                                                        'desc' => $story['story_desc'],
-                                                        'view_url' => $story['story_link'],
+                    $return[] = array('title' => $story['title'],
+                                                        'desc' => $story['desc'],
+                                                        'view_url' => $story['link'],
                                                         'app' => 'jonah');
                 }
             }
@@ -219,14 +221,7 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function storyCount($channel_id)
     {
-        global $registry;
-
-        $results = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStoryCount($channel_id);
-        if (is_a($results, 'PEAR_Error')) {
-            return 0;
-        }
-
-        return $results;
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->getStoryCount($channel_id);
     }
 
 }

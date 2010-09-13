@@ -6,18 +6,17 @@ $block_name = _("Latest News");
  * This class extends Horde_Block:: to provide the api to embed news
  * in other Horde applications.
  *
- * Copyright 2002-2007 Roel Gloudemans <roel@gloudemans.info>
+ * Copyright 2002-2010 Roel Gloudemans <roel@gloudemans.info>
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  *
  * @author  Roel Gloudemans <roel@gloudemans.info>
- * @package Horde_Block
+ * @package Jonah
  */
-class Horde_Block_Jonah_latest extends Horde_Block {
-
+class Horde_Block_Jonah_latest extends Horde_Block
+{
     var $_app = 'jonah';
-
     var $_story = null;
 
     /**
@@ -28,8 +27,7 @@ class Horde_Block_Jonah_latest extends Horde_Block {
                                   'type' => 'enum',
                                   'values' => array());
 
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
+        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
         foreach ($channels as $channel) {
             $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
         }
@@ -55,13 +53,16 @@ class Horde_Block_Jonah_latest extends Horde_Block {
             return _("Latest News");
         }
 
-        $story = $this->_fetch();
-        return is_a($story, 'PEAR_Error')
-            ? @htmlspecialchars($story->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset())
-            : '<span class="storyDate">'
-                . @htmlspecialchars($story['story_updated_date'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
-                . '</span> '
-                . @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        try {
+            $story = $this->_fetch();
+        } catch (Exception $e) {
+            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        }
+
+        return '<span class="storyDate">'
+               . @htmlspecialchars($story['updated_date'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
+               . '</span> '
+               . @htmlspecialchars($story['title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
 
     /**
@@ -72,17 +73,17 @@ class Horde_Block_Jonah_latest extends Horde_Block {
             return _("No channel specified.");
         }
 
-        $story = $this->_fetch();
-        if (is_a($story, 'PEAR_Error')) {
-            return sprintf(_("Error fetching story: %s"), $story->getMessage());
+        try {
+            $story = $this->_fetch();
+        } catch (Exception $e) {
+            return sprintf(_("Error fetching story: %s"), $e->getMessage());
         }
 
-        if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-            $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        if (empty($story['body_type']) || $story['body_type'] == 'text') {
+            $story['body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
 
-        return '<p class="storySubtitle">' . htmlspecialchars($story['story_desc']) .
-            '</p><div class="storyBody">' . $story['story_body'] . '</div>';
+        return '<p class="storySubtitle">' . htmlspecialchars($story['description']) . '</p><div class="storyBody">' . $story['body'] . '</div>';
     }
 
     /**
@@ -95,9 +96,9 @@ class Horde_Block_Jonah_latest extends Horde_Block {
         }
 
         if (is_null($this->_story)) {
-            $news = Jonah_News::factory();
-            $this->_story = $news->getStory($this->_params['source'],
-                                            $news->getLatestStoryId($this->_params['source']),
+            $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
+            $this->_story = $driver->getStory($this->_params['source'],
+                                            $driver->getLatestStoryId($this->_params['source']),
                                             !empty($this->_params['countReads']));
         }
 

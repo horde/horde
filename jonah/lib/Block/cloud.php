@@ -21,11 +21,8 @@ class Horde_Block_jonah_cloud extends Horde_Block {
      */
     function _params()
     {
-        return array(
-            'results_url' => array(
-                'name' => _("Results URL"),
-                'type' => 'text',
-                'default' => Horde::url('stories/results.php?tag_id=@id@')));
+        return array();
+
     }
 
     function _title()
@@ -35,19 +32,19 @@ class Horde_Block_jonah_cloud extends Horde_Block {
 
     function _content()
     {
-        $news = Jonah_News::factory();
-
         /* Get the tags */
-        $tags = $news->listTagInfo();
+        $tags = $GLOBALS['injector']->getInstance('Jonah_Driver')->listTagInfo();
         if (count($tags)) {
-            $cloud = new Horde_Core_Ui_TagCloud();
+            $url = Horde::url('stories/results.php');
+            $cloud = new Horde_Ui_TagCloud();
             foreach ($tags as $id => $tag) {
-                $cloud->addElement($tag['tag_name'], str_replace(array('@id@', '@tag@'), array($id, $tag['tag_name']), $this->_params['results_url']), $tag['total']);
+                $cloud->addElement($tag['tag_name'], $url->copy()->add('tag_id', $id), $tag['total']);
             }
             $html = $cloud->buildHTML();
         } else {
             $html = '';
         }
+
         return $html;
     }
 

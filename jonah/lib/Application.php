@@ -51,31 +51,17 @@ class Jonah_Application extends Horde_Registry_Application
             'news' => array(
                 'title' => _("News")
             ),
-            'news:internal_channels' => array(
-                'title' => _("Internal Channels")
-            ),
-            'news:external_channels' => array(
-                'title' => _("External Channels")
+            'news:channels' => array(
+                'title' => _("Channels")
             )
         );
 
         /* Loop through internal channels and add them to the perms
          * titles. */
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
+        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
 
         foreach ($channels as $channel) {
-            $perms['news:internal_channels:' . $channel['channel_id']] = array(
-                'title' => $channel['channel_name']
-            );
-        }
-
-        /* Loop through external channels and add their ids to the
-         * perms. */
-        $channels = $news->getChannels(Jonah::EXTERNAL_CHANNEL);
-
-        foreach ($channels as $channel) {
-            $perms['news:external_channels:' . $channel['channel_id']] = array(
+            $perms['news:channels:' . $channel['channel_id']] = array(
                 'title' => $channel['channel_name']
             );
         }
@@ -142,13 +128,16 @@ class Jonah_Application extends Horde_Registry_Application
         }
 
         $url = Horde::url('stories/');
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels('internal');
-        if ($channels instanceof PEAR_Error) {
+        $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
+
+        try {
+            $channels = $driver->getChannels('internal');
+        } catch (Jonah_Exception $e) {
+            var_dump($e);
             return;
         }
-        $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
 
+        $channels = Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channels);
         foreach ($channels as $channel) {
             $tree->addNode(
                 $parent . $channel['channel_id'],

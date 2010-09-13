@@ -27,8 +27,7 @@ class Horde_Block_Jonah_news extends Horde_Block {
                                   'type' => 'enum',
                                   'values' => array());
 
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels();
+        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
         foreach ($channels as $channel) {
             $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
         }
@@ -57,10 +56,10 @@ class Horde_Block_Jonah_news extends Horde_Block {
 
     function _title()
     {
-        $news = Jonah_News::factory();
-        $channel = $news->getChannel($this->_params['source']);
-        if (is_a($channel, 'PEAR_Error')) {
-            return @htmlspecialchars($channel->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        try {
+            $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($this->_params['source']);
+        } catch (Jonah_Exception $e) {
+            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         }
 
         if (!empty($channel['channel_link'])) {
@@ -80,18 +79,13 @@ class Horde_Block_Jonah_news extends Horde_Block {
             return _("No feed specified.");
         }
 
-        $news = Jonah_News::factory();
-        $params = $this->_params();
-
         $view = isset($this->_params['view']) ? $this->_params['view'] : 'standard';
-        if (!isset($this->_params['max'])) {
-            $this->_params['max'] = $params['max']['default'];
-        }
-        if (!isset($this->_params['from'])) {
-            $this->_params['from'] = $params['from']['default'];
-        }
 
-        return $news->renderChannel($this->_params['source'], $view, $this->_params['max'], $this->_params['from']);
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->renderChannel(
+                $this->_params['source'],
+                $view,
+                $this->_params['max'],
+                $this->_params['from']);
     }
 
 }

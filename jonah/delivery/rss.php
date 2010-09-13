@@ -1,42 +1,41 @@
 <?php
 /**
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
 ));
 
-$news = Jonah_News::factory();
+$driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
 
-// See if the criteria has already been loaded by the index page
+/* See if the criteria has already been loaded by the index page */
 $criteria = Horde_Util::nonInputVar('criteria');
 if (!$criteria) {
-    $criteria = array();
-    $criteria['channel_id'] = Horde_Util::getFormData('channel_id');
-    $criteria['tag_id'] = Horde_Util::getFormData('tag_id');
-    $criteria['feed_type'] = basename(Horde_Util::getFormData('type'));
+    $criteria = array(
+        'channel_id' => Horde_Util::getFormData('channel_id'),
+        'tag_id' => Horde_Util::getFormData('tag_id'),
+        'feed_type' => basename(Horde_Util::getFormData('type'))
+    );
 }
 
+/* Default to RSS2 */
 if (empty($criteria['feed_type'])) {
-    // If not specified, default to RSS2
     $criteria['feed_type'] = 'rss2';
 }
 
 /* Fetch the channel info and the story list and check they are both valid.
  * Do a simple exit in case of errors. */
-
-
-$channel = $news->getChannel($criteria['channel_id']);
-if (is_a($channel, 'PEAR_Error')) {
-    Horde::logMessage($channel, 'ERR');
+try {
+    $channel = $driver->getChannel($criteria['channel_id']);
+} catch (Exception $e) {
+    Horde::logMessage($e, 'ERR');
     header('HTTP/1.0 404 Not Found');
     echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -48,19 +47,25 @@ if (is_a($channel, 'PEAR_Error')) {
     exit;
 }
 
-/* Check for a tag search. */
+/* Build search array */
+$search = array('channel_id' => $criteria['channel_id'],
+                'tags' => array($criteria['tag_id'],
+                'limit' => 10));
+
+/* Used in template for channel name */
 if (!empty($criteria['tag_id'])) {
-    $tag_name = array_shift($news->getTagNames(array($criteria['tag_id'])));
-    $stories = $news->searchTagsById(array($criteria['tag_id']), 10, 0, array($criteria['channel_id']));
-} else {
-    $stories = $news->getStories($criteria['channel_id'], 10, 0, false, time());
+    $tag_name = array_shift($driver->getTagNames(array($criteria['tag_id'])));
 }
-if (is_a($stories, 'PEAR_Error')) {
-    Horde::logMessage($stories, 'ERR');
+
+/* Fetch stories */
+try {
+    $stories = $driver->getStories($criteria);
+} catch (Exception $e) {
+    Horde::logMessage($e, 'ERR');
     $stories = array();
 }
 
-
+/* Build the template (@TODO: Use Horde_View) */
 $template = new Horde_Template();
 $template->set('charset', $GLOBALS['registry']->getCharset());
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
@@ -76,13 +81,12 @@ $template->set('channel_official', htmlspecialchars($channel['channel_official']
 $template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
 $template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
 foreach ($stories as &$story) {
-    $story['story_title'] = @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
-    $story['story_desc'] = @htmlspecialchars($story['story_desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
-    $story['story_link'] = htmlspecialchars($story['story_link']);
-    $story['story_permalink'] = (isset($story['story_permalink']) ? htmlspecialchars($story['story_permalink']) : '');
-    $story['story_published'] = htmlspecialchars(date('r', $story['story_published']));
-    if (!empty($story['story_body_type']) && $story['story_body_type'] == 'text') {
-        $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+    $story['title'] = @htmlspecialchars($story['title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    $story['description'] = @htmlspecialchars($story['description'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    $story['permalink'] = htmlspecialchars($story['permalink']);
+    $story['published'] = htmlspecialchars(date('r', $story['published']));
+    if (!empty($story['body_type']) && $story['body_type'] == 'text') {
+        $story['body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
     }
 }
 $template->set('stories', $stories);

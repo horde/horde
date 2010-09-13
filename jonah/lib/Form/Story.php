@@ -1,13 +1,9 @@
 <?php
 /**
+ * Form for editing a new Story.
+ *
  * @package Jonah
  */
-
-/**
- * Horde_Form
- */
-require_once 'Horde/Form.php';
-
 /**
  * Horde_Form_Action
  */
@@ -26,23 +22,27 @@ require_once 'Horde/Form/Action.php';
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Jonah
  */
-class StoryForm extends Horde_Form
+class Jonah_Form_Story extends Horde_Form
 {
     /**
      */
-    function StoryForm(&$vars)
+    function __construct(&$vars)
     {
-        parent::Horde_Form($vars, $vars->get('story_id') ? _("Edit Story") : _("Add New Story"));
+        parent::Horde_Form($vars, $vars->get('id') ? _("Edit Story") : _("Add New Story"));
 
         $this->setButtons(_("Save"), true);
-        $this->addHidden('', 'channel_id', 'int', false);
-        $this->addHidden('', 'story_id', 'int', false);
-        $this->addHidden('', 'story_read', 'int', false);
-        $this->addVariable(_("Story Title (Headline)"), 'story_title', 'text', true);
-        $this->addVariable(_("Short Description"), 'story_desc', 'longtext', true, false, null, array(2, 80));
+        $channel_id = $this->addHidden('', 'channel_id', 'int', false);
+        $channel = $vars->get('channel_id');
+        if ($channel) {
+            $channel_id->setDefault($channel_id);
+        }
+        $this->addHidden('', 'id', 'int', false);
+        $this->addHidden('', 'read', 'int', false);
+        $this->addVariable(_("Story Title (Headline)"), 'title', 'text', true);
+        $this->addVariable(_("Short Description"), 'description', 'longtext', true, false, null, array(2, 80));
         $this->addVariable(_("Publish Now?"), 'publish_now', 'boolean', false);
 
-        $published = $vars->get('story_published');
+        $published = $vars->get('published');
         if ($published) {
             $date_params = array(min(date('Y', $published), date('Y')),
                                  max(date('Y', $published), date('Y') + 10));
@@ -56,28 +56,28 @@ class StoryForm extends Horde_Form
         $t = &$this->addVariable('', 'publish_time', 'hourminutesecond', false);
         $t->setDefault($published);
 
-        $v = &$this->addVariable(_("Story body type"), 'story_body_type', 'enum', false, false, null, array(Jonah::getBodyTypes()));
+        $v = &$this->addVariable(_("Story body type"), 'body_type', 'enum', false, false, null, array(Jonah::getBodyTypes()));
         $v->setAction(Horde_Form_Action::factory('submit'));
         $v->setOption('trackchange', true);
 
         /* If no body type specified, default to one. */
-        $body_type = $vars->get('story_body_type');
+        $body_type = $vars->get('body_type');
         if (empty($body_type)) {
             $body_type = Jonah::getDefaultBodyType();
-            $vars->set('story_body_type', $body_type);
+            $vars->set('body_type', $body_type);
         }
 
         /* Set up the fields according to what the type of body requested. */
         if ($body_type == 'text') {
-            $this->addVariable(_("Full Story Text"), 'story_body', 'longtext', false, false, null, array(15, 80));
+            $this->addVariable(_("Full Story Text"), 'body', 'longtext', false, false, null, array(15, 80));
         } elseif ($body_type == 'richtext') {
-            $this->addVariable(_("Full Story Text"), 'story_body', 'longtext', false, false, null, array(20, 80, array('rte')));
+            $this->addVariable(_("Full Story Text"), 'body', 'longtext', false, false, null, array(20, 80, array('rte')));
         }
 
-        $this->addVariable(_("Tags"), 'story_tags', 'text', false, false, _("Enter keywords to tag this story, separated by commas"));
+        $this->addVariable(_("Tags"), 'tags', 'text', false, false, _("Enter keywords to tag this story, separated by commas"));
         /* Only show URL insertion if it has been enabled in config. */
         if (in_array('links', $GLOBALS['conf']['news']['story_types'])) {
-            $this->addVariable(_("Story URL"), 'story_url', 'text', false, false, _("If you enter a URL without a full story text, clicking on the story will send the reader straight to the URL, otherwise it will be shown at the end of the full story."));
+            $this->addVariable(_("Story URL"), 'url', 'text', false, false, _("If you enter a URL without a full story text, clicking on the story will send the reader straight to the URL, otherwise it will be shown at the end of the full story."));
         }
     }
 
@@ -89,9 +89,9 @@ class StoryForm extends Horde_Form
 
         /* Build release date. */
         if (!empty($info['publish_now'])) {
-            $info['story_published'] = time();
+            $info['published'] = time();
         } elseif (!empty($info['publish_date'])) {
-            $info['story_published'] = mktime(
+            $info['published'] = mktime(
                 (int)$info['publish_time']['hour'],
                 (int)$info['publish_time']['minute'],
                 0,
@@ -99,7 +99,7 @@ class StoryForm extends Horde_Form
                 date('j', $info['publish_date']),
                 date('Y', $info['publish_date']));
         } else {
-            $info['story_published'] = null;
+            $info['published'] = null;
         }
 
         unset($info['publish_now']);

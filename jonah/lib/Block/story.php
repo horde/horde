@@ -24,8 +24,7 @@ class Horde_Block_Jonah_story extends Horde_Block {
      */
     function _params()
     {
-        $news = Jonah_News::factory();
-        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
+        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
         $channel_choices = array();
         foreach ($channels as $channel) {
             $channel_choices[$channel['channel_id']] = $channel['channel_name'];
@@ -55,13 +54,15 @@ class Horde_Block_Jonah_story extends Horde_Block {
             return _("Story");
         }
 
-        $story = $this->_fetch();
-        return is_a($story, 'PEAR_Error')
-            ? @htmlspecialchars($story->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset())
-            : '<span class="storyDate">'
-                . @htmlspecialchars($story['story_updated_date'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
+        try {
+            $story = $this->_fetch();
+        } catch (Jonah_Exception $e) {
+            return htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        }
+        return '<span class="storyDate">'
+                . htmlspecialchars($story['updated_date'], ENT_COMPAT,$GLOBALS['registry']->getCharset())
                 . '</span> '
-                . @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+                . htmlspecialchars($story['title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
 
     /**
@@ -72,26 +73,26 @@ class Horde_Block_Jonah_story extends Horde_Block {
             return _("No story is selected.");
         }
 
-        $story = $this->_fetch();
-        if (is_a($story, 'PEAR_Error')) {
-            return sprintf(_("Error fetching story: %s"), $story->getMessage());
+        try {
+            $story = $this->_fetch();
+        } catch (Jonah_Exception $e) {
+            return sprintf(_("Error fetching story: %s"), $e->getMessage());
         }
 
-        if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-            $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        if (empty($story['body_type']) || $story['body_type'] == 'text') {
+            $story['body'] =  $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
 
         $tag_html = array();
-        foreach ($story['story_tags'] as $id => $tag) {
-            $link = Horde_Util::addParameter('results.php', array('tag_id' => $id, 'channel_id' => $this->_params['source']));
-            $tag_html[] = Horde::link($link) . $tag . '</a>';
+        foreach ($story['tags'] as $id => $tag) {
+            $tag_html[] = Horde::url('results.php')->add(array('tag_id' => $id, 'channel_id' => $this->_prams['source']))->link() . $tag . '</a>';
         }
 
         return '<p class="storyTags">' . _("Tags: ")
-            . implode(', ', $story['story_tags'])
+            . implode(', ', $story['tags'])
             . '</p><p class="storySubtitle">'
-            . htmlspecialchars($story['story_desc'])
-            . '</p><div class="storyBody">' . $story['story_body']
+            . htmlspecialchars($story['desc'])
+            . '</p><div class="storyBody">' . $story['body']
             . '</div>';
     }
 
@@ -101,10 +102,10 @@ class Horde_Block_Jonah_story extends Horde_Block {
     function _fetch()
     {
         if (is_null($this->_story)) {
-            $news = Jonah_News::factory();
-            $this->_story = $news->getStory($this->_params['source'],
-                                            $this->_params['story'],
-                                            $this->_params['countReads']);
+            $this->_story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory(
+                    $this->_params['source'],
+                    $this->_params['story'],
+                    !empty($this->_params['countReads']));
         }
 
         return $this->_story;
