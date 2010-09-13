@@ -37,7 +37,7 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
     /**
      * Main entry point for running the suite.
      */
-    public static function main()
+    public static function main($package = null, $file = null)
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
