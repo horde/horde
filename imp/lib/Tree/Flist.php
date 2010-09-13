@@ -107,7 +107,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                     $vfolder_list[] = array(
                         'l' => $injector->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
                         'sel' => (IMP::$mailbox == $id),
-                        'v' => IMP::formMbox($imp_search->createSearchID($id), true)
+                        'v' => IMP::formMbox($imp_search->createSearchId($id), true)
                     );
                 }
                 $t->set('vfolder', $vfolder_list);

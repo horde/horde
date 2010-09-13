@@ -117,7 +117,7 @@ case 'rs':
 
         /* Create the search query and reset the global mailbox variable. */
         $sq = $imp_search->createSearchQuery($query, array(IMP::$mailbox), array(), _("Search Results"));
-        IMP::setCurrentMailboxInfo($imp_search->createSearchID($sq));
+        IMP::setCurrentMailboxInfo($imp_search->createSearchId($sq));
 
         /* Need to re-calculate these values. */
         $readonly = $imp_imap->isReadOnly(IMP::$mailbox);

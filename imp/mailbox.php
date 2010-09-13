@@ -310,7 +310,7 @@ if (!$preview_tooltip) {
 
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 $vtrash = $imp_search->isVTrashFolder(IMP::$mailbox)
-    ? $imp_search->createSearchID($search_mbox)
+    ? $imp_search->createSearchId($search_mbox)
     : null;
 
 Horde::addInlineScript(array(

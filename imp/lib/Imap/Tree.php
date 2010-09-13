@@ -605,7 +605,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         $id = $this->_convertName($id, true);
         $vfolder_base = ($id == self::VFOLDER_KEY);
-        $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($id);
+        $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($id);
 
         if ($vfolder_base ||
             (isset($this->_tree[$search_id]) &&
@@ -1321,7 +1321,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $adds = $id = array();
 
         foreach ($id_list as $key => $val) {
-            $id[$GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($key)] = $val;
+            $id[$GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($key)] = $val;
         }
 
         foreach (array_keys($id) as $key) {

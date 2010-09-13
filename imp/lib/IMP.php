@@ -970,7 +970,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))));
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($vinbox_id))));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));

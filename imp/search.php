@@ -73,7 +73,7 @@ if ($vars->criteria_form) {
     }
 
     /* Redirect to the mailbox page. */
-    $id = $imp_search->createSearchID($id);
+    $id = $imp_search->createSearchId($id);
     if ($dimp_view) {
         /* Output javascript code to close the IFRAME and load the search
          * mailbox in DIMP. */

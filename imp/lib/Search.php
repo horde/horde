@@ -768,7 +768,7 @@ class IMP_Search implements Serializable
      */
     public function editUrl($id)
     {
-        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchID($this->_strip($id))));
+        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchId($id)));
     }
 
     /**
@@ -783,7 +783,7 @@ class IMP_Search implements Serializable
         return Horde::url('folders.php')->add(array(
             'actionID' => 'delete_search_query',
             'folders_token' => Horde::getRequestToken('imp.folders'),
-            'queryid' => $this->createSearchID($this->_strip($id))
+            'queryid' => $this->createSearchId($id)
         ));
     }
 
@@ -833,7 +833,7 @@ class IMP_Search implements Serializable
      *
      * @return string  The canonical search query ID.
      */
-    public function createSearchID($id)
+    public function createSearchId($id)
     {
         return self::MBOX_PREFIX . $this->_strip($id);
     }

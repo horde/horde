@@ -352,7 +352,7 @@ class IMP_Auth
             if (!$GLOBALS['prefs']->getValue('use_vinbox') &&
                 $imp_search->isVINBOXFolder($init_url)) {
                 $init_url = 'folders.php';
-            } elseif (($imp_search->createSearchID($init_url) == $init_url) &&
+            } elseif (($imp_search->createSearchId($init_url) == $init_url) &&
                       !$imp_search->isVFolder($init_url)) {
                 $init_url = 'INBOX';
                 if (!$GLOBALS['prefs']->isLocked('initial_page')) {
