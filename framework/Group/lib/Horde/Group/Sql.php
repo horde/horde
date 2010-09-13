@@ -438,7 +438,7 @@ class Horde_Group_Sql extends Horde_Group
         $query = 'SELECT COUNT(*) FROM horde_groups WHERE group_name = ?';
 
         try {
-            return (bool)$this->db->selectValue($query, $group);
+            return (bool)$this->db->selectValue($query, array($group));
         } catch (Horde_Db_Exception $e) {
             return false;
         }
