@@ -94,7 +94,7 @@ class Horde_Group_Ldap extends Horde_Group
 
         if (isset($this->_params['binddn'])) {
             $bind = @ldap_bind($this->_ds, $this->_params['binddn'],
-                               $this->_params['password']);
+                               $this->_params['bindpw']);
         } else {
             $bind = @ldap_bind($this->_ds);
         }
@@ -554,7 +554,7 @@ class Horde_Group_Ldap extends Horde_Group
 
             $search = @ldap_search($this->_ds, $this->_params['basedn'], $this->_filter, array($this->_params['gid']));
             if (!$search) {
-                throw new Horde_Group_Exception('Could not reach the LDAP server');
+                throw new Horde_Group_Exception('Could not search the LDAP server');
             }
 
             @ldap_sort($this->_ds, $search, $this->_params['gid']);
