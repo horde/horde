@@ -323,10 +323,7 @@ extends PHPUnit_Framework_TestCase
         );
         $mail = '';
         $mail .= $this->_transport->sentMessages[0]['header_text'] . "\n\n";
-        $body = $this->_transport->sentMessages[0]['body'];
-        while (!feof($body)) {
-            $mail .= fread($body, 8192);
-        }
+        $mail .= $this->_transport->sentMessages[0]['body'];
         $part = Horde_Mime_Part::parseMessage($mail);
         $this->assertEquals(2, count($part->getParts()));
     }
