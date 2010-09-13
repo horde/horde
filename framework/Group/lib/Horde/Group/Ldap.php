@@ -490,7 +490,8 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function getGroupParent($dn)
     {
-        if (@ldap_explode_dn($dn, 0) === false) {
+        $result = @ldap_explode_dn($dn, 0);
+        if ($result === false) {
             throw new Horde_Group_Exception('Invalid group ID passed (bad DN syntax)');
         }
 
@@ -514,7 +515,8 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function getGroupParentList($dn)
     {
-        if (@ldap_explode_dn($dn, 0) === false) {
+        $result = @ldap_explode_dn($dn, 0);
+        if ($result === false) {
             throw new Horde_Group_Exception('Invalid group ID passed (bad DN syntax)');
         }
 
