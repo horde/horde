@@ -1,7 +1,8 @@
 # The offical horde OID assigned by IANA is 13040.
 #
 # This schema depends on:
-#	- core.schema
+# - core.schema
+# - rfc2739.schema
 #
 #
 # Horde attribute branch 1.3.6.1.4.1.13040.2.1.*

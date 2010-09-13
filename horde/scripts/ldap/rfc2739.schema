@@ -1,6 +1,6 @@
 #
 # http://www.faqs.org/rfcs/rfc2739.html
-# 
+#
 # From the RFC:
 # The calCalURI contains the URI to a snapshot of the user's entire
 # default calendar. The calFBURL contains the URI to the user's default
@@ -88,10 +88,10 @@ attribute (1.2.840.113556.1.4.485
  )
 
 objectclass (1.2.840.113556.1.5.87
- NAME 'calEntry' 
+ NAME 'calEntry'
  DESC 'Calendering and Free Busy information'
  SUP top AUXILIARY
- MAY (calCalURI $ calFBURL $ calCAPURI $ calCalAdrURI $ 
+ MAY (calCalURI $ calFBURL $ calCAPURI $ calCalAdrURI $
       calOtherCalURIs $ calOtherFBURLs $ calOtherCAPURIs $
       calOtherCalAdrURIs
      )
