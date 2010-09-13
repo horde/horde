@@ -135,7 +135,7 @@ class Horde_Feed
         if (!$loaded) {
             $loaded = $doc->loadHTMLFile($filename);
             if (!$loaded) {
-                throw new Horde_Feed_Exception('File could not be read or parsed: ', libxml_get_last_error());
+                throw new Horde_Feed_Exception('File could not be read or parsed: ' . libxml_get_last_error());
             }
         }
 
