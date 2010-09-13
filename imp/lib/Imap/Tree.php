@@ -1029,9 +1029,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         }
 
         if ($changed) {
-            $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
-            $GLOBALS['injector']->getInstance('IMP_Search')->createVINBOXFolder();
-            $this->changed = true;
+            $this->_updatePollList();
         }
     }
 
@@ -1065,10 +1063,18 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         }
 
         if ($removed) {
-            $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
-            $GLOBALS['injector']->getInstance('IMP_Search')->createVINBOXFolder();
-            $this->changed = true;
+            $this->_updatePollList();
         }
+    }
+
+    /**
+     * Update the nav_poll preference.
+     */
+    protected function _updatePollList()
+    {
+        $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
+        $GLOBALS['injector']->getInstance('IMP_Search')->createVInbox();
+        $this->changed = true;
     }
 
     /**
