@@ -83,6 +83,16 @@ class Horde_Alarm_Object extends Horde_Alarm
     }
 
     /**
+     * Returns a list of all global alarms from the backend.
+     *
+     * @return array  A list of alarm hashes.
+     */
+    protected function _global()
+    {
+        return array();
+    }
+
+    /**
      * Returns an alarm hash from the backend.
      *
      * @param string $id    The alarm's unique id.
