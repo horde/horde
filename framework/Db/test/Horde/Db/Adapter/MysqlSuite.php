@@ -34,7 +34,9 @@ class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite
                 list($conn,) = $suite->getConnection();
                 $skip = false;
                 $conn->disconnect();
-            } catch (Exception $e) {var_dump($e); exit;}
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+            }
         }
 
         if ($skip) {
