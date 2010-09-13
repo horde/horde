@@ -174,7 +174,7 @@ class Horde_Group_Ldap extends Horde_Group
      * @return Horde_Group_LdapObject  A new group object.
      * @throws Horde_Exception
      */
-    public function newGroup(string $name, $parent = null)
+    public function newGroup($name, $parent = null)
     {
         try {
             $entry = Horde::callHook('groupldap', array($name, $parent));
