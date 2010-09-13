@@ -21,7 +21,7 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sidebarUpdate()
     {
-        return $sidebar->getInstance('Horde_Core_Sidebar')->getTree()->renderNodeDefinitions();
+        return $GLOBALS['injector']->getInstance('Horde_Core_Sidebar')->getTree()->renderNodeDefinitions();
     }
 
 }
