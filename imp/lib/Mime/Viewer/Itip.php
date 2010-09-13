@@ -562,11 +562,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         try {
             $attendees = $vevent->getAttribute('ATTENDEE');
+            $attendee_params = $vevent->getAttribute('ATTENDEE', true);
             if (!empty($attendees) && !is_array($attendees)) {
                 $attendees = array($attendees);
             }
         } catch (Horde_Icalendar_Exception $e) {}
-        $attendee_params = $vevent->getAttribute('ATTENDEE', true);
 
         switch ($method) {
         case 'PUBLISH':
