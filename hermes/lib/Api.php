@@ -145,9 +145,13 @@ class Hermes_Api extends Horde_Registry_Api
                     } else {
                         $time_data[$key]['_client_name'] = $row['client'];
                     }
-                    $column[$key] = $time_data[$key][$subtotal_column];
+                    if (!is_null($subtotal_column)) {
+                      $column[$key] = $time_data[$key][$subtotal_column];
+                    }
                 }
-                array_multisort($column, SORT_ASC, $time_data);
+                if (!is_null($subtotal_column)) {
+                    array_multisort($column, SORT_ASC, $time_data);
+                }
             }
 
             $total_hours = 0.0;
