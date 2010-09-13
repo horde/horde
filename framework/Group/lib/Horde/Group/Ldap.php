@@ -455,7 +455,7 @@ class Horde_Group_Ldap extends Horde_Group
             if ($res === -1) {
                 throw new Horde_Group_Exception(sprintf('Internal Error: An attribute must ALWAYS match itself: %s', @ldap_error($this->_ds)));
             }
-            $cache[$group] = $res
+            $cache[$group] = $res;
         }
 
         return $cache[$group];
