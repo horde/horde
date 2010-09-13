@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: mnemo/themes/categoryCSS.php,v 1.3 2009/12/04 17:42:25 jan Exp $
- *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -10,10 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('MNEMO_BASE', dirname(__FILE__) . '/..');
-require_once MNEMO_BASE . '/lib/Application.php';
-require_once 'Horde/Image.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('nag');
 
 header('Content-Type: text/css');
 
