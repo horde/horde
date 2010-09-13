@@ -354,6 +354,11 @@ class Horde_Core_Prefs_Ui
 
         if ($this->group) {
             $pref_list = $this->getChangeablePrefs($this->group);
+            if (empty($pref_list)) {
+                $this->group = '';
+                $this->generateUI();
+                return;
+            }
 
             /* Add necessary init stuff for identities pages. */
             if (isset($prefgroups[$this->group]['type']) &&
