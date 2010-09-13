@@ -303,7 +303,7 @@ class Horde_Group_Ldap extends Horde_Group
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function updateGroup(Horde_Group_DataTreeObject $group)
+    public function updateGroup(Horde_Group_LdapObject $group)
     {
         $entry = $group->toAttributes();
 

@@ -106,7 +106,8 @@ class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
      */
     public function toAttributes()
     {
-        $attributes = array();
+        $member = Horde_String::lower($GLOBALS['conf']['group']['params']['memberuid']);
+        $attributes = array($member => array());
         foreach ($this->data as $key => $value) {
             if ($key == 'users') {
                 foreach ($value as $user => $membership) {
@@ -114,7 +115,7 @@ class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
                         $user = $GLOBALS['conf']['auth']['params']['uid'] .
                             '=' . $user . ',' . $GLOBALS['conf']['auth']['params']['basedn'];
                     }
-                    $attributes[Horde_String::lower($GLOBALS['conf']['group']['params']['memberuid'])][] = $user;
+                    $attributes[$member][] = $user;
                 }
             } elseif ($key == 'email') {
                 if (!empty($value)) {
