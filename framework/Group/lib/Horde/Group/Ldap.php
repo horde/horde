@@ -35,8 +35,7 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function __construct($params)
     {
-        $this->_params = Horde::getDriverConfig('group', 'ldap');
-
+        $this->_params = $params;
         $this->_params['gid'] = Horde_String::lower($this->_params['gid']);
         $this->_params['memberuid'] = Horde_String::lower($this->_params['memberuid']);
         foreach ($this->_params['newgroup_objectclass'] as $key => $val) {
