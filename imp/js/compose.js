@@ -116,6 +116,7 @@ var ImpCompose = {
 
         case 'add_attachment':
         case 'save_draft':
+        case 'change_stationery':
             form = $('compose');
             $('actionID').setValue(actionID);
             break;
