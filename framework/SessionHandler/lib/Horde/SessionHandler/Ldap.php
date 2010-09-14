@@ -69,7 +69,7 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Base
      */
     protected function _close()
     {
-        $this->_ldap->done();
+        $this->_ldap->disconnect();
     }
 
     /**
