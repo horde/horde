@@ -50,13 +50,12 @@ class Jonah_Api extends Horde_Registry_Api
                     'limit' => $filter->get('max_stories', 10),
                     'startnumber' => $filter->get('start_at', 0),
                     'published' => true,
-                ),
-                $order
+                )
         );
 
         foreach (array_keys($stories) as $s) {
             if (empty($stories[$s]['body_type']) || $stories[$s]['body_type'] == 'text') {
-                $stories[$s]['body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($stories[$s]['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                $stories[$s]['body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($stories[$s]['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
             } else {
                 $stories[$s]['body_html'] = $stories[$s]['body'];
             }
