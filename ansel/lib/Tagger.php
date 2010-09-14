@@ -71,6 +71,10 @@ class Ansel_Tagger
      */
     public function tag($localId, $tags, $owner, $content_type = 'image')
     {
+        if (empty($tags)) {
+            return;
+        }
+
         if (!is_array($tags)) {
             $tags = $this->_tagger->splitTags($tags);
         }

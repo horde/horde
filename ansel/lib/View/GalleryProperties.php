@@ -252,7 +252,7 @@ class Ansel_View_GalleryProperties
                     $gallery->set('name', $gallery_name);
                 }
                 $gallery->set('desc', $gallery_desc);
-                $gallery->setTags(explode(',', $gallery_tags));
+                $gallery->setTags(!empty($gallery_tags) ? explode(',', $gallery_tags) : '');
                 //$gallery->set('style', $style);
                 $gallery->set('slug', $gallery_slug);
                 $gallery->set('age', $gallery_age);
@@ -318,7 +318,6 @@ class Ansel_View_GalleryProperties
                     'horde.warning');
                 $actionId = 'add';
                 $title = _("Adding A New Gallery");
-                break;
             }
 
             // Create the new gallery.
