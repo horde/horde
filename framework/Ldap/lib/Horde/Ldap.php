@@ -114,7 +114,7 @@ class Horde_Ldap
      * object as value.
      *
      * Since the RootDSE object itself may request a rootDSE object,
-     * {@link rootDse()} caches successful requests.
+     * {@link rootDSE()} caches successful requests.
      * Internally, Horde_Ldap needs several lookups to this object, so
      * caching increases performance significally.
      *
@@ -511,7 +511,7 @@ class Horde_Ldap
          * This is done via testing the extensions offered by the server.
          * The OID 1.3.6.1.4.1.1466.20037 tells whether TLS is supported. */
         try {
-            $rootDSE = $this->rootDse();
+            $rootDSE = $this->rootDSE();
         } catch (Exception $e) {
             throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supoported: ' . $e->getMessage(), $e->getCode());
         }
@@ -986,12 +986,12 @@ class Horde_Ldap
 
         /* Check to see if the server supports this version first.
          *
-         * TODO: Why is this so horribly slow? $this->rootDse() is
+         * TODO: Why is this so horribly slow? $this->rootDSE() is
          * very fast, as well as Horde_Ldap_RootDSE::fetch() seems
          * like a problem at copiyng the object inside PHP??
          * Additionally, this is not always reproducable... */
         if (!$force) {
-            $rootDSE = $this->rootDse();
+            $rootDSE = $this->rootDSE();
             $supported_versions = $rootDSE->getValue('supportedLDAPVersion');
             if (is_string($supported_versions)) {
                 $supported_versions = array($supported_versions);
@@ -1273,7 +1273,7 @@ class Horde_Ldap
      * @return Horde_Ldap_RootDSE Horde_Ldap_RootDSE object
      * @throws Horde_Ldap_Exception
      */
-    public function rootDse(array $attrs = array())
+    public function rootDSE(array $attrs = array())
     {
         $attrs_signature = serialize($attrs);
 
