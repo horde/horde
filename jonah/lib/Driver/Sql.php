@@ -850,7 +850,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     public function getTagNames($ids)
     {
         $sql = 'SELECT t.tag_name FROM jonah_tags as t WHERE t.tag_id IN(' . str_repeat('?,', count($ids) - 1) . '?)';
-        $tags = $this->_db->getCol($sql);
+        $tags = $this->_db->getCol($sql, 0, $ids);
         if ($tags instanceof PEAR_Error) {
             throw new Jonah_Exception($tags);
         }
