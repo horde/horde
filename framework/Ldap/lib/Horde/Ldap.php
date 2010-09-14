@@ -125,10 +125,6 @@ class Horde_Ldap
     /**
      * Constructor.
      *
-     * The usual way of getting Horde_Ldap to work is to call
-     * something like:
-     * <code>$ldap = Horde_Ldap::connect($ldap_config);</code>
-     *
      * @see $_config
      *
      * @param array $config Configuration array.
@@ -173,7 +169,7 @@ class Horde_Ldap
                 $this->_host_list = array($this->_config['hostspec']);
             } else {
                 $this->_host_list = array();
-                /* This will cause an error in performConnect(), so
+                /* This will cause an error in _connect(), so
                  * the user is notified about the failure. */
             }
         }
@@ -218,12 +214,12 @@ class Horde_Ldap
             $oldpw = $this->_config['searchpw'];
 
             /* Overwrite bind credentials in config so
-             * performConnect() knows about them. */
+             * _connect() knows about them. */
             $this->_config['searchdn'] = $dn;
             $this->_config['searchpw'] = $password;
 
             /* Try to connect with provided credentials. */
-            $msg = $this->performConnect();
+            $msg = $this->_connect();
 
             /* Reset to previous config. */
             $this->_config['searchdn'] = $olddn;
@@ -254,7 +250,7 @@ class Horde_Ldap
      *
      * @throws Horde_Ldap_Exception
      */
-    protected function performConnect()
+    protected function _connect()
     {
         /* Connecting is briefly described in RFC1777. Basicly it works like
          * this:
@@ -417,7 +413,7 @@ class Horde_Ldap
      * In case the connection to the LDAP service has dropped out for some
      * reason, this function will reconnect, and re-bind if a bind has been
      * attempted in the past.  It is probably most useful when the server list
-     * provided to the new() or connect() function is an array rather than a
+     * provided to the new() or _connect() function is an array rather than a
      * single host name, because in that case it will be able to connect to a
      * failover or secondary server in case the primary server goes down.
      *
@@ -430,7 +426,7 @@ class Horde_Ldap
      *
      * @throws Horde_Ldap_Exception
      */
-    protected function performReconnect()
+    protected function _reconnect()
     {
         /* Return if we are already connected. */
         if ($this->_link) {
@@ -444,7 +440,7 @@ class Horde_Ldap
         $this->_down_host_list = array();
 
         try {
-            $this->performConnect();
+            $this->_connect();
         } catch (Horde_Ldap_Exception $e) {
             $this->_config['current_backoff'] *= 2;
             if ($this->_config['current_backoff'] > $this->_config['max_backoff']) {
@@ -463,7 +459,7 @@ class Horde_Ldap
             }
 
             /* $this->_config['hostspec'] should have had the last connected
-             * host stored in it by performConnect().  Since we are unable to
+             * host stored in it by _connect().  Since we are unable to
              * bind to that host we can safely assume that it is down or has
              * some other problem. */
             $this->_down_host_list[] = $this->_config['hostspec'];
@@ -473,6 +469,14 @@ class Horde_Ldap
         /* At this stage we have connected, bound, and set up options, so we
          * have a known good LDAP server. Time to go home. */
         $this->_config['current_backoff'] = $this->_config['min_backoff'];
+    }
+
+    /**
+     * Closes the LDAP connection.
+     */
+    public function disconnect()
+    {
+        @ldap_close($this->_link);
     }
 
     /**
@@ -504,14 +508,6 @@ class Horde_Ldap
         if (!@ldap_start_tls($this->_link)) {
             throw new Horde_Ldap_Exception('TLS not started: ' . @ldap_error($this->_link));
         }
-    }
-
-    /**
-     * Closes the LDAP connection.
-     */
-    public function disconnect()
-    {
-        @ldap_close($this->_link);
     }
 
     /**
@@ -569,7 +565,7 @@ class Horde_Ldap
             /* The server has disconnected before trying the operation.  We
              * should try again, possibly with a different server. */
             $this->_link = false;
-            $this->performReconnect();
+            $this->_reconnect();
         }
     }
 
@@ -630,7 +626,7 @@ class Horde_Ldap
                 /* The server has disconnected before trying the operation.  We
                  * should try again, possibly with a different server. */
                 $this->_link = false;
-                $this->performReconnect();
+                $this->_reconnect();
             } elseif ($error_code == 66) {
                 /* Subentries present, server refused to delete.
                  * Deleting subentries is the clients responsibility, but since
@@ -728,7 +724,7 @@ class Horde_Ldap
                      * We should try again, possibly with a different
                      * server. */
                     $this->_link = false;
-                    $this->performReconnect();
+                    $this->_reconnect();
                 }
             }
         }
@@ -854,7 +850,7 @@ class Horde_Ldap
                     /* Errorcode 1 = LDAP_OPERATIONS_ERROR but we can try a
                      * reconnect. */
                     $this->_link = false;
-                    $this->performReconnect();
+                    $this->_reconnect();
                 } else {
                     $msg = "\nParameters:\nBase: $base\nFilter: $filter\nScope: $scope";
                     throw new Horde_Ldap_Exception($this->errorMessage($err) . $msg, $err);
@@ -1494,7 +1490,7 @@ class Horde_Ldap
                 if ($this->_link) {
                     return $this->_link;
                 }
-                $this->performReconnect();
+                $this->_reconnect();
             }
         }
         return $this->_link;
