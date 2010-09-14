@@ -657,18 +657,18 @@ class Turba_Api extends Horde_Registry_Api
                                 continue;
                             }
 
-                            $driver->add($content);
+                            $result = $driver->add($content);
                             if (!empty($content['category']) &&
                                 !in_array($content['category'], $categories)) {
                                     $cManager->add($content['category']);
                                     $categories[] = $content['category'];
-                                }
+                            }
                             $ids[] = $result;
                         }
                     }
+
                     return $ids;
                 }
-                break;
 
             case 'activesync':
                 $content = $driver->fromASContact($content);
@@ -690,7 +690,7 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Already Exists"));
         }
 
-        $driver->add($content);
+        $result = $driver->add($content);
 
         if (!empty($content['category']) &&
             !in_array($content['category'], $categories)) {
