@@ -721,11 +721,12 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     public function getStyle()
     {
         if (empty($this->data['attribute_style'])) {
-            $style = $GLOBALS['prefs']->getValue('default_gallerystyle');
+            $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         } else {
-            $style = $this->data['attribute_style'];
+            $style = unserialize($this->data['attribute_style']);
         }
-        return Ansel::getStyleDefinition($style);
+
+        return $style;
 
     }
 

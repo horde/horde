@@ -12,7 +12,7 @@ if (isset($language)) {
 <head>
 <?php
 
-$page_title = $registry->get('name');
+$page_title = $GLOBALS['registry']->get('name');
 if (!empty($title)) {
     $page_title .= ' :: ' . $title;
 }

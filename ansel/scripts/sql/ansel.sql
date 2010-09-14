@@ -68,7 +68,7 @@ CREATE TABLE ansel_shares (
     attribute_default INT,
     attribute_default_type VARCHAR(6),
     attribute_default_prettythumb TEXT,
-    attribute_style VARCHAR(255),
+    attribute_style TEXT,
     attribute_category VARCHAR(255) DEFAULT '' NOT NULL,
     attribute_last_modified INT,
     attribute_date_created INT,

@@ -94,7 +94,7 @@ class Ansel_Storage
         $attributes['default_type'] = isset($attributes['default_type']) ? $attributes['default_type'] : 'auto';
         $attributes['default'] = isset($attributes['default']) ? (int)$attributes['default'] : 0;
         $attributes['default_prettythumb'] = isset($attributes['default_prettythumb']) ? $attributes['default_prettythumb'] : '';
-        $attributes['style'] = isset($attributes['style']) ? $attributes['style'] : $GLOBALS['prefs']->getValue('default_gallerystyle');
+        $attributes['style'] = isset($attributes['style']) ? $attributes['style'] : '';//$GLOBALS['prefs']->getValue('default_gallerystyle');
         $attributes['date_created'] = time();
         $attributes['last_modified'] = $attributes['date_created'];
         $attributes['images'] = isset($attributes['images']) ? (int)$attributes['images'] : 0;
