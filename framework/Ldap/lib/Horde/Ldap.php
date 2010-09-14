@@ -235,8 +235,7 @@ class Horde_Ldap
             $msg = @ldap_bind($this->_link, $dn, $password);
         }
         if (!$msg) {
-            throw new Horde_Ldap_Exception('Bind failed: ' .
-                                           @ldap_error($this->_link),
+            throw new Horde_Ldap_Exception('Bind failed: ' . @ldap_error($this->_link),
                                            @ldap_errno($this->_link));
         }
     }
@@ -505,7 +504,8 @@ class Horde_Ldap
         }
 
         if (!@ldap_start_tls($this->_link)) {
-            throw new Horde_Ldap_Exception('TLS not started: ' . @ldap_error($this->_link));
+            throw new Horde_Ldap_Exception('TLS not started: ' . @ldap_error($this->_link),
+                                           @ldap_errno($this->_link));
         }
     }
 
