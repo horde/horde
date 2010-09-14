@@ -47,7 +47,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
     function execute()
     {
         $result = parent::execute();
-        if ($result instanvceof PEAR_Error) {
+        if ($result instanceof PEAR_Error) {
             return $result;
         }
 
