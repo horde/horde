@@ -749,7 +749,7 @@ class Horde_Ldap_Entry
          * Rename/move entry
          */
         if (false == is_null($this->_newdn)) {
-            if ($ldap->getLDAPVersion() !== 3) {
+            if ($ldap->getVersion() !== 3) {
                 throw new Horde_Ldap_Exception("Renaming/Moving an entry is only supported in LDAPv3");
             }
             // make dn relative to parent (needed for ldap rename)
@@ -798,7 +798,7 @@ class Horde_Ldap_Entry
         // DELETE
         foreach ($this->_changes["delete"] as $attr => $value) {
             // In LDAPv3 you need to specify the old values for deleting
-            if (is_null($value) && $ldap->getLDAPVersion() === 3) {
+            if (is_null($value) && $ldap->getVersion() === 3) {
                 $value = $this->_original[$attr];
             }
             if (false === @ldap_mod_del($link, $this->dn(), array($attr => $value))) {
@@ -972,7 +972,7 @@ class Horde_Ldap_Entry
      * Tells if the entry is consiedered as new (not present in the server)
      *
      * Please note, that this doesn't tell you if the entry is present on the server.
-     * Use {@link Horde_Ldap::dnExists()} to see if an entry is already there.
+     * Use {@link Horde_Ldap::exists()} to see if an entry is already there.
      *
      * @return boolean
      */

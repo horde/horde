@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing the Horde_Ldap class.
+ * The main Horde_Ldap class.
  *
  * @package   Ldap
  * @author    Tarjej Huse <tarjei@bergfald.no>
@@ -14,7 +14,6 @@
  * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  */
-
 class Horde_Ldap
 {
     /**
@@ -67,14 +66,14 @@ class Horde_Ldap
      *
      * @var array
      */
-    protected $_host_list = array();
+    protected $_hostList = array();
 
     /**
      * List of hosts that are known to be down.
      *
      * @var array
      */
-    protected $_down_host_list = array();
+    protected $_downHostList = array();
 
     /**
      * LDAP resource link.
@@ -97,7 +96,7 @@ class Horde_Ldap
      * @see registerSchemaCache()
      * @var string
      */
-    protected $_schema_cache;
+    protected $_schemaCache;
 
     /**
      * Cache for attribute encoding checks.
@@ -120,7 +119,7 @@ class Horde_Ldap
      *
      * @var array
      */
-    protected $_rootDSE_cache = array();
+    protected $_rootDSECache = array();
 
     /**
      * Constructor.
@@ -163,12 +162,12 @@ class Horde_Ldap
 
         /* Ensure the host list is an array. */
         if (is_array($this->_config['hostspec'])) {
-            $this->_host_list = $this->_config['hostspec'];
+            $this->_hostList = $this->_config['hostspec'];
         } else {
             if (strlen($this->_config['hostspec'])) {
-                $this->_host_list = array($this->_config['hostspec']);
+                $this->_hostList = array($this->_config['hostspec']);
             } else {
-                $this->_host_list = array();
+                $this->_hostList = array();
                 /* This will cause an error in _connect(), so
                  * the user is notified about the failure. */
             }
@@ -176,7 +175,7 @@ class Horde_Ldap
 
         /* Reset the down host list, which seems like a sensible thing
          * to do if the config is being reset for some reason. */
-        $this->_down_host_list = array();
+        $this->_downHostList = array();
     }
 
     /**
@@ -256,9 +255,9 @@ class Horde_Ldap
          * this:
          *  1. set up TCP connection
          *  2. secure that connection if neccessary
-         *  3a. setLDAPVersion to tell server which version we want to speak
+         *  3a. setVersion to tell server which version we want to speak
          *  3b. perform bind
-         *  3c. setLDAPVersion to tell server which version we want to speak
+         *  3c. setVersion to tell server which version we want to speak
          *      together with a test for supported versions
          *  4. set additional protocol options */
 
@@ -278,13 +277,13 @@ class Horde_Ldap
          * message is set. */
         $current_error = new Horde_Ldap_Exception('Unknown connection error');
 
-        /* Catch empty $_host_list arrays. */
-        if (!is_array($this->_host_list) || !count($this->_host_list)) {
+        /* Catch empty $_hostList arrays. */
+        if (!is_array($this->_hostList) || !count($this->_hostList)) {
             throw new Horde_Ldap_Exception('No servers configured');
         }
 
         /* Cycle through the host list. */
-        foreach ($this->_host_list as $host) {
+        foreach ($this->_hostList as $host) {
             /* Ensure we have a valid string for host name. */
             if (is_array($host)) {
                 $current_error = new Horde_Ldap_Exception('No Servers configured');
@@ -292,7 +291,7 @@ class Horde_Ldap
             }
 
             /* Skip this host if it is known to be down. */
-            if (in_array($host, $this->_down_host_list)) {
+            if (in_array($host, $this->_downHostList)) {
                 continue;
             }
 
@@ -304,7 +303,7 @@ class Horde_Ldap
             $this->_link = @ldap_connect($host, $this->_config['port']);
             if (!$this->_link) {
                 $current_error = new Horde_Ldap_Exception('Could not connect to ' .  $host . ':' . $this->_config['port']);
-                $this->_down_host_list[] = $host;
+                $this->_downHostList[] = $host;
                 continue;
             }
 
@@ -317,7 +316,7 @@ class Horde_Ldap
                 } catch (Horde_Ldap_Exception $e) {
                     $current_error           = $e;
                     $this->_link             = false;
-                    $this->_down_host_list[] = $host;
+                    $this->_downHostList[] = $host;
                     continue;
                 }
             }
@@ -331,10 +330,10 @@ class Horde_Ldap
              * only allow to read the LDAP rootDSE (which tells us the
              * supported protocol versions) with authenticated clients.
              * This may fail in which case we try again after binding.
-             * In this case, most probably the bind() or setLDAPVersion() call
+             * In this case, most probably the bind() or setVersion() call
              * below will also fail, providing error messages. */
             $version_set = false;
-            $this->setLDAPVersion(0, true);
+            $this->setVersion(0, true);
 
             /* Attempt to bind to the server. If we have credentials
              * configured, we try to use them, otherwise it's an anonymous
@@ -342,7 +341,7 @@ class Horde_Ldap
              * As stated by RFC 1777, the bind request should be the first
              * operation to be performed after the connection is established.
              * This may give an protocol error if the server does not support
-             * v2 binds and the above call to setLDAPVersion() failed.
+             * v2 binds and the above call to setVersion() failed.
              * If the above call failed, we try an v2 bind here and set the
              * version afterwards (with checking to the rootDSE). */
             try {
@@ -360,7 +359,7 @@ class Horde_Ldap
                 }
                 $this->_link             = false;
                 $current_error           = $e;
-                $this->_down_host_list[] = $host;
+                $this->_downHostList[] = $host;
                 continue;
             }
 
@@ -372,11 +371,11 @@ class Horde_Ldap
              * bound users to read the rootDSE. */
             if (!$version_set) {
                 try {
-                    $this->setLDAPVersion();
+                    $this->setVersion();
                 } catch (Exception $e) {
                     $current_error           = $e;
                     $this->_link             = false;
-                    $this->_down_host_list[] = $host;
+                    $this->_downHostList[] = $host;
                     continue;
                 }
             }
@@ -392,7 +391,7 @@ class Horde_Ldap
                     } catch (Exception $e) {
                         $current_error           = $e;
                         $this->_link             = false;
-                        $this->_down_host_list[] = $host;
+                        $this->_downHostList[] = $host;
                         continue 2;
                     }
                 }
@@ -437,7 +436,7 @@ class Horde_Ldap
         sleep($this->_config['current_backoff']);
 
         /* Retry all available connections. */
-        $this->_down_host_list = array();
+        $this->_downHostList = array();
 
         try {
             $this->_connect();
@@ -462,7 +461,7 @@ class Horde_Ldap
              * host stored in it by _connect().  Since we are unable to
              * bind to that host we can safely assume that it is down or has
              * some other problem. */
-            $this->_down_host_list[] = $this->_config['hostspec'];
+            $this->_downHostList[] = $this->_config['hostspec'];
             throw $e;
         }
 
@@ -927,7 +926,7 @@ class Horde_Ldap
      *
      * @return integer  The protocol version.
      */
-    public function getLDAPVersion()
+    public function getVersion()
     {
         if ($this->_link) {
             $version = $this->getOption('LDAP_OPT_PROTOCOL_VERSION');
@@ -949,7 +948,7 @@ class Horde_Ldap
      *
      * @throws Horde_Ldap_Exception
      */
-    public function setLDAPVersion($version = 0, $force = false)
+    public function setVersion($version = 0, $force = false)
     {
         if (!$version) {
             $version = $this->_config['version'];
@@ -985,7 +984,7 @@ class Horde_Ldap
      * @return boolean  True if the DN exists.
      * @throws Horde_Ldap_Exception
      */
-    public function dnExists($dn)
+    public function exists($dn)
     {
         if ($dn instanceof Horde_Ldap_Entry) {
              $dn = $dn->dn();
@@ -1099,7 +1098,7 @@ class Horde_Ldap
         }
 
         /* Cross directory move. */
-        if ($target_ldap->dnExists($newdn)) {
+        if ($target_ldap->exists($newdn)) {
             throw new Horde_Ldap_Exception('Unable to perform cross directory move: entry does exist in target directory');
         }
         $entry->dn($newdn);
@@ -1250,11 +1249,11 @@ class Horde_Ldap
 
         /* See if we need to fetch a fresh object, or if we already
          * requested this object with the same attributes. */
-        if (!isset($this->_rootDSE_cache[$attrs_signature])) {
-            $this->_rootDSE_cache[$attrs_signature] = Horde_Ldap_RootDSE::fetch($this, $attrs);
+        if (!isset($this->_rootDSECache[$attrs_signature])) {
+            $this->_rootDSECache[$attrs_signature] = Horde_Ldap_RootDSE::fetch($this, $attrs);
         }
 
-        return $this->_rootDSE_cache[$attrs_signature];
+        return $this->_rootDSECache[$attrs_signature];
     }
 
     /**
@@ -1272,8 +1271,8 @@ class Horde_Ldap
          * See registerSchemaCache() for more info on this.
          * FIXME: Convert to Horde_Cache */
         if ($this->_schema === null) {
-            if ($this->_schema_cache) {
-               $cached_schema = $this->_schema_cache->loadSchema();
+            if ($this->_schemaCache) {
+               $cached_schema = $this->_schemaCache->loadSchema();
                if ($cached_schema instanceof Horde_Ldap_Schema) {
                    $this->_schema = $cached_schema;
                }
@@ -1293,8 +1292,8 @@ class Horde_Ldap
 
             /* If schema caching is active, advise the cache to store
              * the schema. */
-            if ($this->_schema_cache) {
-                $this->_schema_cache->storeSchema($this->_schema);
+            if ($this->_schemaCache) {
+                $this->_schemaCache->storeSchema($this->_schema);
             }
         }
 
@@ -1341,7 +1340,7 @@ class Horde_Ldap
     public function registerSchemaCache($cache) {
         if (is_null($cache)
         || (is_object($cache) && in_array('Horde_Ldap_SchemaCache', class_implements($cache))) ) {
-            $this->_schema_cache = $cache;
+            $this->_schemaCache = $cache;
             return true;
         } else {
             throw new Horde_Ldap_Exception('Custom schema caching object is either no '.
