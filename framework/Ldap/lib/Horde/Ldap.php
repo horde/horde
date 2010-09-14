@@ -123,31 +123,6 @@ class Horde_Ldap
     protected $_rootDSE_cache = array();
 
     /**
-     * Configures Horde_Ldap, connects and binds.
-     *
-     * Use this method as starting point of using Horde_Ldap to
-     * establish a connection to your LDAP server.
-     *
-     * Static function that returns either an error object or the new
-     * Horde_Ldap object. Something like a factory. Takes a config
-     * array with the needed parameters.
-     *
-     * @todo better error handling for setConfig()?
-     *
-     * @param array $config  Configuration array
-     *
-     * @return Horde_Ldap  Horde_Ldap object
-     * @throws Horde_Ldap_Exception
-     */
-    public static function connect($config = array())
-    {
-        self::checkLDAPExtension();
-        $obj = new Horde_Ldap($config);
-        $obj->bind();
-        return $obj;
-    }
-
-    /**
      * Constructor.
      *
      * The usual way of getting Horde_Ldap to work is to call
