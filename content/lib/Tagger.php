@@ -675,6 +675,10 @@ class Content_Tagger
      */
     protected function _checkTags($tags, $create = true)
     {
+        if (empty($tags)) {
+            return array();
+        }
+
         if (!is_array($tags)) {
             $tags = array($tags);
         }
@@ -686,7 +690,7 @@ class Content_Tagger
         foreach ($tags as $tagIndex => $tag) {
             if (is_int($tag)) {
                 $tagIds[$tagIndex] = $tag;
-            } else {
+            } elseif (!empty($tag)) {
                 $tagText[$tag] = $tagIndex;
             }
         }
