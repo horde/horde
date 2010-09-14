@@ -45,6 +45,10 @@ try {
 
         $registry->authenticateFailure($app, $e);
     }
+} catch (Exception $e) {
+    // Uncaught exception.  Sending backtrace info back via AJAX is just a
+    // waste of time.
+    exit;
 }
 
 // Open an output buffer to ensure that we catch errors that might break JSON
