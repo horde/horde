@@ -194,10 +194,9 @@ class Ansel_View_GalleryProperties
                 'passwd' => $gallery->get('passwd'),
                 'parent' => !is_null($parent) ? $parent->getId() : $parent,
                 'id' => $gallery->getId(),
-                'owner' => $gallery->get('owner')
+                'owner' => $gallery->get('owner'),
+                'style' => $gallery->getStyle()
             );
-
-            //$gallery_thumbstyle = $gallery->get('style');
             $this->_title = sprintf(_("Modifying: %s"), $this->_properties['name']);
         } catch (Ansel_Exception $e) {
             $title = _("Unknown Gallery");

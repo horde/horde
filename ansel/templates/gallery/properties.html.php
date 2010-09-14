@@ -4,14 +4,9 @@
  * Expects the following properties to be set:
  * <pre>
  *   (string)action    The current actionID
- *   (int)parent       The parent id
- *   (int)id           The current gallery id, if not new.
  *   (Horde_Url)url    The return url
  *   (string)title     The form title
- *   (string)mode      The gallery mode
  *   (array)properties The gallery properties
- *
- *
  * </pre>
  */
 ?>
@@ -28,6 +23,8 @@
  <?php echo $this->h($this->title); ?>
 </h1>
 <table cellspacing="0" width="100%" class="striped headerbox">
+
+<!-- Parent -->
 <tr>
  <td align="right" valign="top"><strong><?php echo _("Gallery Parent") ?></strong>&nbsp;</td>
  <td>
@@ -39,16 +36,8 @@
   </select>
  </td>
 </tr>
-<?php if ($GLOBALS['prefs']->isLocked('default_gallerystyle')): ?>
-  <!--<input type="hidden" name="gallery_style" value="<?php //echo $GLOBALS['prefs']->getValue('default_gallerystyle') ?>" />';-->
-<?php else: ?>
-<tr>
-  <td align="right" valign="top"><strong><?php echo _("Style for this gallery") ?></strong>&nbsp;</td>
-  <td>
-   <?php //echo Ansel::getStyleSelect('gallery_style', $this->style) ?>
-  </td>
-</tr>
-<?php endif; ?>
+
+<!-- Display Mode -->
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Display Mode") ?></strong></td>
   <td>
@@ -58,18 +47,24 @@
     </select>
   </td>
 </tr>
+
+<!-- Display Name -->
 <tr>
   <td align="right" valign="top"><?php echo Horde::img('required.png') ?><strong><?php echo _("Gallery Display Name") ?></strong>&nbsp;</td>
   <td>
     <input name="gallery_name" id="gallery_name" type="text" value="<?php echo $this->h($this->properties['name']) ?>" size="50" maxlength="100" />
   </td>
 </tr>
+
+<!-- Description -->
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Gallery Description") ?></strong>&nbsp;</td>
   <td>
     <textarea name="gallery_desc" cols="50" rows="5"><?php echo $this->h($this->properties['desc']) ?></textarea>
   </td>
 </tr>
+
+<!-- Slug -->
 <tr>
   <td align="right" valign="top"><strong id="slug_flag"><?php echo _("Gallery Slug") ?></strong>&nbsp;</td>
   <td>
@@ -78,28 +73,31 @@
    <?php echo _("Slug names may contain only letters, numbers, @, or _ (underscore).") ?>
   </td>
  </tr>
+
+<!-- Tags -->
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Gallery Tags") ?></strong>&nbsp;</td>
   <td><input name="gallery_tags" type="text" value="<?php echo $this->h($this->properties['tags']) ?>" size="50" /><br />
    <?php echo _("Separate tags with commas."); ?>
  </td>
 </tr>
+
+<!-- Age Limit -->
 <?php if (!empty($conf['ages']['limits'])): ?>
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Gallery Ages") ?></strong>&nbsp;</td>
-  <td><select name="gallery_age">
-   <option value="0" <?php echo (empty($this->properties['age']) ? 'selected="selected"' : '') ?>><?php echo _("Allow all ages") ?></option>
-<?php
-    foreach ($GLOBALS['conf']['ages']['limits'] as $age) {
-        echo '<option value="' . $age . '"'
-                . ($this->properties['age'] == $age ? ' selected="selected"' : '' )
-                . '>' . sprintf(_("User must be over %d"), $age) . '</option>';
-    }
-?>
-</select>
- </td>
+  <td>
+   <select name="gallery_age">
+     <option value="0" <?php echo (empty($this->properties['age']) ? 'selected="selected"' : '') ?>><?php echo _("Allow all ages") ?></option>
+     <?php foreach ($GLOBALS['conf']['ages']['limits'] as $age): ?>
+       <option value="<?php echo $age ?>" <?php echo ($this->properties['age'] == $age ? ' selected="selected"' : '' ) ?>> <?php echo sprintf(_("User must be over %d"), $age) ?> </option>
+     <?php endforeach; ?>
+   </select>
+  </td>
 </tr>
 <?php endif; ?>
+
+<!-- Download ability -->
 <?php if ($GLOBALS['prefs']->isLocked('default_download')): ?>
   <input type="hidden" name="default_download" value="<?php echo $GLOABLS['prefs']->getValue('default_download') ?>" />';
 <?php else: ?>
@@ -114,12 +112,21 @@
     </td>
   </tr>
 <?php endif; ?>
+
+<!-- Password -->
 <?php if ($GLOBALS['registry']->getAuth() && $GLOBALS['registry']->getAuth() == $this->properties['owner']): ?>
   <tr>
     <td align="right" valign="top"><strong><?php echo _("Gallery Password") ?></strong>&nbsp;</td>
     <td><input name="gallery_passwd" type="password" value="<?php echo $this->h($this->properties['passwd']) ?>" size="50" /></td>
   </tr>
 <?php endif; ?>
+
+<!-- Gallery Style -->
+<tr>
+  <?php echo $this->renderPartial('styles'); ?>
+</tr>
+
+<!-- Submission -->
 <tr>
   <td></td>
   <td>
