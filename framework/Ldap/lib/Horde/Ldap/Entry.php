@@ -1,409 +1,346 @@
 <?php
 /**
- * File containing the Horde_Ldap_Entry interface class.
+ * Horde_Ldap_Entry represents an LDAP entry.
  *
- * PHP version 5
- *
- * @category  Net
- * @package   Horde_Ldap
+ * @package   Ldap
  * @author    Jan Wagner <wagner@netsols.de>
  * @author    Tarjej Huse <tarjei@bergfald.no>
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Ben Klang <ben@alkaloid.net>
- * @copyright 2009 The Horde Project, Tarjej Huse, Jan Wagner, Benedikt Hallinger
+ * @author    Jan Schneider <jan@horde.org>
+ * @copyright 2009-2010 The Horde Project
+ * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  */
-
-/**
- * Includes
- */
-#require_once 'PEAR.php';
-#require_once 'Util.php';
-
 class Horde_Ldap_Entry
 {
     /**
-     * Entry ressource identifier
+     * Entry resource identifier.
      *
-     * @access protected
-     * @var ressource
+     * @var resource
      */
-    protected $_entry = null;
+    protected $_entry;
 
     /**
-     * LDAP ressource identifier
+     * LDAP resource identifier.
      *
-     * @access protected
-     * @var ressource
+     * @var resource
      */
-    protected $_link = null;
+    protected $_link;
 
     /**
-     * Horde_Ldap object
+     * Horde_Ldap object.
      *
-     * This object will be used for updating and schema checking
+     * This object will be used for updating and schema checking.
      *
-     * @access protected
-     * @var object Horde_Ldap
+     * @var Horde_Ldap
      */
-    protected $_ldap = null;
+    protected $_ldap;
 
     /**
-     * Distinguished name of the entry
+     * Distinguished name of the entry.
      *
-     * @access protected
      * @var string
      */
-    protected $_dn = null;
+    protected $_dn;
 
     /**
-     * Attributes
+     * Attributes.
      *
-     * @access protected
      * @var array
      */
     protected $_attributes = array();
 
     /**
-     * Original attributes before any modification
+     * Original attributes before any modification.
      *
-     * @access protected
      * @var array
      */
     protected $_original = array();
 
-
     /**
-     * Map of attribute names
+     * Map of attribute names.
      *
-     * @access protected
      * @var array
      */
     protected $_map = array();
 
-
     /**
      * Is this a new entry?
      *
-     * @access protected
      * @var boolean
      */
     protected $_new = true;
 
     /**
-     * New distinguished name
+     * New distinguished name.
      *
-     * @access protected
      * @var string
      */
-    protected $_newdn = null;
+    protected $_newdn;
 
     /**
      * Shall the entry be deleted?
      *
-     * @access protected
      * @var boolean
      */
     protected $_delete = false;
 
     /**
-     * Map with changes to the entry
+     * Map with changes to the entry.
      *
-     * @access protected
      * @var array
      */
-    protected $_changes = array("add"     => array(),
-                                "delete"  => array(),
-                                "replace" => array()
-                               );
+    protected $_changes = array('add'     => array(),
+                                'delete'  => array(),
+                                'replace' => array());
+
     /**
-     * Internal Constructor
+     * Constructor.
      *
-     * Constructor of the entry. Sets up the distinguished name and the entries
-     * attributes.
-     * You should not call this method manually! Use {@link Horde_Ldap_Entry::createFresh()}
-     * or {@link Horde_Ldap_Entry::createConnected()} instead!
+     * Sets up the distinguished name and the entries attributes.
      *
-     * @param Horde_Ldap|ressource|array &$ldap Horde_Ldap object, ldap-link ressource or array of attributes
-     * @param string|ressource          $entry Either a DN or a LDAP-Entry ressource
+     * Use {@link Horde_Ldap_Entry::createFresh()} or {@link
+     * Horde_Ldap_Entry::createConnected()} to create Horde_Ldap_Entry objects.
      *
-     * @access protected
-     * @return none
+     * @param Horde_Ldap|resource|array $ldap Horde_Ldap object, LDAP
+     *                                        connection resource or
+     *                                        array of attributes.
+     * @param string|resource          $entry Either a DN or a LDAP entry
+     *                                        resource.
      */
-    protected function __construct(&$ldap, $entry = null)
+    protected function __construct($ldap, $entry = null)
     {
-        // set up entry resource or DN
+        /* Set up entry resource or DN. */
         if (is_resource($entry)) {
-            $this->_entry = &$entry;
+            $this->_entry = $entry;
         } else {
             $this->_dn = $entry;
         }
 
-        // set up LDAP link
+        /* Set up LDAP link. */
         if ($ldap instanceof Horde_Ldap) {
-            $this->_ldap = &$ldap;
+            $this->_ldap = $ldap;
             $this->_link = $ldap->getLink();
         } elseif (is_resource($ldap)) {
             $this->_link = $ldap;
         } elseif (is_array($ldap)) {
-            // Special case: here $ldap is an array of attributes,
-            // this means, we have no link. This is a "virtual" entry.
-            // We just set up the attributes so one can work with the object
-            // as expected, but an update() fails unless setLDAP() is called.
-            $this->setAttributes($ldap);
+            /* Special case: here $ldap is an array of attributes, this means,
+             * we have no link. This is a "virtual" entry.  We just set up the
+             * attributes so one can work with the object as expected, but an
+             * update() fails unless setLDAP() is called. */
+            $this->_loadAttributes($ldap);
         }
 
-        // if this is an entry existing in the directory,
-        // then set up as old and fetch attrs
+        /* If this is an entry existing in the directory, then set up as old
+         * and fetch attributes. */
         if (is_resource($this->_entry) && is_resource($this->_link)) {
             $this->_new = false;
             $this->_dn  = @ldap_get_dn($this->_link, $this->_entry);
-            $this->setAttributes();  // fetch attributes from server
+            /* Fetch attributes from server. */
+            $this->_loadAttributes();
         }
     }
 
     /**
-     * Creates a fresh entry that may be added to the directory later on
+     * Creates a fresh entry that may be added to the directory later.
      *
-     * Use this method, if you want to initialize a fresh entry.
-     *
-     * The method should be called statically: $entry = Horde_Ldap_Entry::createFresh();
-     * You should put a 'objectClass' attribute into the $attrs so the directory server
-     * knows which object you want to create. However, you may omit this in case you
-     * don't want to add this entry to a directory server.
+     * You should put a 'objectClass' attribute into the $attrs so the
+     * directory server knows which object you want to create. However, you may
+     * omit this in case you don't want to add this entry to a directory
+     * server.
      *
      * The attributes parameter is as following:
      * <code>
-     * $attrs = array( 'attribute1' => array('value1', 'value2'),
-     *                 'attribute2' => 'single value'
-     *          );
+     * $attrs = array('attribute1' => array('value1', 'value2'),
+     *                'attribute2' => 'single value');
      * </code>
      *
-     * @param string $dn    DN of the Entry
-     * @param array  $attrs Attributes of the entry
+     * @param string $dn    DN of the entry.
+     * @param array  $attrs Attributes of the entry.
      *
-     * @static
-     * @return Horde_Ldap_Entry|Horde_Ldap_Error
+     * @return Horde_Ldap_Entry
+     * @throws Horde_Ldap_Exception
      */
-    public static function createFresh($dn, $attrs = array())
+    public static function createFresh($dn, array $attrs = array())
     {
-        if (!is_array($attrs)) {
-            throw new Horde_Ldap_Exception("Unable to create fresh entry: Parameter \$attrs needs to be an array!");
-        }
-
-        $entry = new Horde_Ldap_Entry($attrs, $dn);
-        return $entry;
+        return new Horde_Ldap_Entry($attrs, $dn);
     }
 
     /**
-     * Creates a Horde_Ldap_Entry object out of an ldap entry resource
+     * Creates an entry object out of an LDAP entry resource.
      *
      * Use this method, if you want to initialize an entry object that is
      * already present in some directory and that you have read manually.
      *
-     * Please note, that if you want to create an entry object that represents
-     * some already existing entry, you should use {@link createExisting()}.
+     * @param Horde_Ldap $ldap Horde_Ldap object.
+     * @param resource  $entry PHP LDAP entry resource.
      *
-     * The method should be called statically: $entry = Horde_Ldap_Entry::createConnected();
-     *
-     * @param Horde_Ldap $ldap  Horde_LDA2 object
-     * @param resource  $entry PHP LDAP entry resource
-     *
-     * @static
-     * @return Horde_Ldap_Entry|Horde_Ldap_Error
+     * @return Horde_Ldap_Entry
+     * @throws Horde_Ldap_Exception
      */
-    public static function createConnected($ldap, $entry)
+    public static function createConnected(Horde_Ldap $ldap, $entry)
     {
-        if (!$ldap instanceof Horde_Ldap) {
-            throw new Horde_Ldap_Exception("Unable to create connected entry: Parameter \$ldap needs to be a Horde_Ldap object!");
-        }
         if (!is_resource($entry)) {
-            throw new Horde_Ldap_Exception("Unable to create connected entry: Parameter \$entry needs to be a ldap entry resource!");
+            throw new Horde_Ldap_Exception('Unable to create connected entry: Parameter $entry needs to be a ldap entry resource!');
         }
 
-        $entry = new Horde_Ldap_Entry($ldap, $entry);
+        return new Horde_Ldap_Entry($ldap, $entry);
+    }
+
+    /**
+     * Creates an entry object that is considered to exist already.
+     *
+     * Use this method, if you want to modify an already existing entry without
+     * fetching it first.  In most cases however, it is better to fetch the
+     * entry via Horde_Ldap::getEntry().
+     *
+     * You should take care if you construct entries manually with this because
+     * you may get weird synchronisation problems.  The attributes and values
+     * as well as the entry itself are considered existent which may produce
+     * errors if you try to modify an entry which doesn't really exist or if
+     * you try to overwrite some attribute with an value already present.
+     *
+     * The attributes parameter is as following:
+     * <code>
+     * $attrs = array('attribute1' => array('value1', 'value2'),
+     *                'attribute2' => 'single value');
+     * </code>
+     *
+     * @param string $dn    DN of the entry.
+     * @param array  $attrs Attributes of the entry.
+     *
+     * @return Horde_Ldap_Entry
+     * @throws Horde_Ldap_Exception
+     */
+    public static function createExisting($dn, array $attrs = array())
+    {
+        $entry = Horde_Ldap_Entry::createFresh($dn, $attrs);
+        $entry->markAsNew(false);
         return $entry;
     }
 
     /**
-     * Creates an Horde_Ldap_Entry object that is considered already existing
+     * Returns or sets the distinguished name of the entry.
      *
-     * Use this method, if you want to modify an already existing entry
-     * without fetching it first.
-     * In most cases however, it is better to fetch the entry via Horde_Ldap->getEntry()!
+     * If called without an argument the current (or the new DN if set) DN gets
+     * returned.
      *
-     * Please note that you should take care if you construct entries manually with this
-     * because you may get weird synchronisation problems.
-     * The attributes and values as well as the entry itself are considered existent
-     * which may produce errors if you try to modify an entry which doesn't really exist
-     * or if you try to overwrite some attribute with an value already present.
+     * If you provide an DN, this entry is moved to the new location specified
+     * if a DN existed.
      *
-     * This method is equal to calling createFresh() and after that markAsNew(FALSE).
+     * If the DN was not set, the DN gets initialized. Call {@link update()} to
+     * actually create the new entry in the directory.
      *
-     * The method should be called statically: $entry = Horde_Ldap_Entry::createExisting();
+     * To fetch the current active DN after setting a new DN but before an
+     * update(), you can use {@link currentDN()} to retrieve the DN that is
+     * currently active.
      *
-     * The attributes parameter is as following:
-     * <code>
-     * $attrs = array( 'attribute1' => array('value1', 'value2'),
-     *                 'attribute2' => 'single value'
-     *          );
-     * </code>
-     *
-     * @param string $dn    DN of the Entry
-     * @param array  $attrs Attributes of the entry
-     *
-     * @static
-     * @return Horde_Ldap_Entry|Horde_Ldap_Error
-     */
-    public static function createExisting($dn, $attrs = array())
-    {
-        if (!is_array($attrs)) {
-            throw new Horde_Ldap_Exception("Unable to create entry object: Parameter \$attrs needs to be an array!");
-        }
-
-        $entry = Horde_Ldap_Entry::createFresh($dn, $attrs);
-        if ($entry instanceof Horde_Ldap_Error) {
-            return $entry;
-        } else {
-            $entry->markAsNew(false);
-            return $entry;
-        }
-    }
-
-    /**
-     * Get or set the distinguished name of the entry
-     *
-     * If called without an argument the current (or the new DN if set) DN gets returned.
-     * If you provide an DN, this entry is moved to the new location specified if a DN existed.
-     * If the DN was not set, the DN gets initialized. Call {@link update()} to actually create
-     * the new Entry in the directory.
-     * To fetch the current active DN after setting a new DN but before an update(), you can use
-     * {@link currentDN()} to retrieve the DN that is currently active.
-     *
+     * @todo expect utf-8 data.
      * Please note that special characters (eg german umlauts) should be encoded using utf8_encode().
      * You may use {@link Horde_Ldap_Util::canonical_dn()} for properly encoding of the DN.
      *
-     * @param string $dn New distinguished name
+     * @param string $dn New distinguished name.
      *
-     * @access public
-     * @return string|true Distinguished name (or true if a new DN was provided)
+     * @return string Distinguished name.
      */
     public function dn($dn = null)
     {
-        if (false == is_null($dn)) {
+        if (!is_null($dn)) {
             if (is_null($this->_dn)) {
                 $this->_dn = $dn;
             } else {
                 $this->_newdn = $dn;
             }
-            return true;
+            return $dn;
         }
-        return (isset($this->_newdn) ? $this->_newdn : $this->currentDN());
+        return isset($this->_newdn) ? $this->_newdn : $this->currentDN();
     }
 
     /**
-     * Renames or moves the entry
+     * Sets the internal attributes array.
      *
-     * This is just a convinience alias to {@link dn()}
-     * to make your code more meaningful.
-     *
-     * @param string $newdn The new DN
-     *
-     * @return true
-     */
-    public function move($newdn)
-    {
-        return $this->dn($newdn);
-    }
-
-    /**
-     * Sets the internal attributes array
-     *
-     * This fetches the values for the attributes from the server.
-     * The attribute Syntax will be checked so binary attributes will be returned
+     * This method fetches the values for the attributes from the server.  The
+     * attribute syntax will be checked so binary attributes will be returned
      * as binary values.
      *
-     * Attributes may be passed directly via the $attributes parameter to setup this
-     * entry manually. This overrides attribute fetching from the server.
+     * Attributes may be passed directly via the $attributes parameter to setup
+     * this entry manually. This overrides attribute fetching from the server.
      *
-     * @param array $attributes Attributes to set for this entry
-     *
-     * @access protected
-     * @return void
+     * @param array $attributes Attributes to set for this entry.
      */
-    protected function setAttributes($attributes = null)
+    protected function _loadAttributes(array $attributes = null)
     {
-        /*
-         * fetch attributes from the server
-         */
-        if (is_null($attributes) && is_resource($this->_entry) && is_resource($this->_link)) {
-            // fetch schema
+        /* Fetch attributes from the server. */
+        if (is_null($attributes) &&
+            is_resource($this->_entry) &&
+            is_resource($this->_link)) {
+            /* Fetch schema. */
             if ($this->_ldap instanceof Horde_Ldap) {
-                $schema =& $this->_ldap->schema();
+                $schema = $this->_ldap->schema();
             }
-            // fetch attributes
-            $attributes = array();
-            do {
-                if (empty($attr)) {
-                    $ber  = null;
-                    $attr = @ldap_first_attribute($this->_link, $this->_entry, $ber);
-                } else {
-                    $attr = @ldap_next_attribute($this->_link, $this->_entry, $ber);
-                }
-                if ($attr) {
-                    $func = 'ldap_get_values'; // standard function to fetch value
 
-                    // Try to get binary values as binary data
-                    if ($schema instanceof Horde_Ldap_Schema) {
-                        if ($schema->isBinary($attr)) {
-                             $func = 'ldap_get_values_len';
-                        }
-                    }
-                    // fetch attribute value (needs error checking?)
-                    $attributes[$attr] = $func($this->_link, $this->_entry, $attr);
+            /* Fetch attributes. */
+            $attributes = array();
+            for ($attr = @ldap_first_attribute($this->_link, $this->_entry, $ber);
+                 $attr = @ldap_next_attribute($this->_link, $this->_entry, $ber);) {
+                /* Standard function to fetch value. */
+                $func = 'ldap_get_values';
+
+                /* Try to get binary values as binary data. */
+                if ($schema instanceof Horde_Ldap_Schema &&
+                    $schema->isBinary($attr)) {
+                    $func = 'ldap_get_values_len';
                 }
-            } while ($attr);
+
+                /* Fetch attribute value (needs error checking?) . */
+                $attributes[$attr] = $func($this->_link, $this->_entry, $attr);
+            }
         }
 
-        /*
-         * set attribute data directly, if passed
-         */
+        /* Set attribute data directly, if passed. */
         if (is_array($attributes) && count($attributes) > 0) {
-            if (isset($attributes["count"]) && is_numeric($attributes["count"])) {
-                unset($attributes["count"]);
+            if (isset($attributes['count']) &&
+                is_numeric($attributes['count'])) {
+                unset($attributes['count']);
             }
             foreach ($attributes as $k => $v) {
-                // attribute names should not be numeric
+                /* Attribute names should not be numeric. */
                 if (is_numeric($k)) {
                     continue;
                 }
-                // map generic attribute name to real one
-                $this->_map[strtolower($k)] = $k;
-                // attribute values should be in an array
+
+                /* Map generic attribute name to real one. */
+                $this->_map[Horde_String::lower($k)] = $k;
+
+                /* Attribute values should be in an array. */
                 if (false == is_array($v)) {
                     $v = array($v);
                 }
-                // remove the value count (comes from ldap server)
-                if (isset($v["count"])) {
-                    unset($v["count"]);
+
+                /* Remove the value count (comes from LDAP server). */
+                if (isset($v['count'])) {
+                    unset($v['count']);
                 }
                 $this->_attributes[$k] = $v;
             }
         }
 
-        // save a copy for later use
+        /* Save a copy for later use. */
         $this->_original = $this->_attributes;
     }
 
     /**
-     * Get the values of all attributes in a hash
+     * Returns the values of all attributes in a hash.
      *
      * The returned hash has the form
-     * <code>array('attributename' => 'single value',
-     *       'attributename' => array('value1', value2', value3'))</code>
+     * <code>
+     * array('attributename' => 'single value',
+     *       'attributename' => array('value1', value2', value3'))
+     * </code>
      *
-     * @access public
-     * @return array Hash of all attributes with their values
+     * @return array Hash of all attributes with their values.
+     * @throws Horde_Ldap_Exception
      */
     public function getValues()
     {
@@ -415,34 +352,35 @@ class Horde_Ldap_Entry
     }
 
     /**
-     * Get the value of a specific attribute
+     * Returns the value of a specific attribute.
      *
-     * The first parameter is the name of the attribute
+     * The first parameter is the name of the attribute.
+     *
      * The second parameter influences the way the value is returned:
-     * 'single': only the first value is returned as string
-     * 'all': all values including the value count are returned in an
-     *               array
-     * 'default': in all other cases an attribute value with a single value is
-     *            returned as string, if it has multiple values it is returned
-     *            as an array (without value count)
+     * - 'single': only the first value is returned as string.
+     * - 'all': all values including the value count are returned in an
+     *          array.
+     * In all other cases an attribute value with a single value is returned as
+     * string, if it has multiple values it is returned as an array (without
+     * value count).
      *
-     * @param string $attr   Attribute name
-     * @param string $option Option
+     * @param string $attr   Attribute name.
+     * @param string $option Option.
      *
-     * @access public
-     * @return string|array|PEAR_Error string, array or PEAR_Error
+     * @return string|array Attribute value(s).
+     * @throws Horde_Ldap_Exception
      */
     public function getValue($attr, $option = null)
     {
-        $attr = $this->getAttrName($attr);
+        $attr = $this->_getAttrName($attr);
 
-        if (false == array_key_exists($attr, $this->_attributes)) {
-            throw new Horde_Ldap_Exception("Unknown attribute ($attr) requested");
+        if (!array_key_exists($attr, $this->_attributes)) {
+            throw new Horde_Ldap_Exception('Unknown attribute (' . $attr . ') requested');
         }
 
         $value = $this->_attributes[$attr];
 
-        if ($option == "single" || (count($value) == 1 && $option != 'all')) {
+        if ($option == 'single' || (count($value) == 1 && $option != 'all')) {
             $value = array_shift($value);
         }
 
@@ -450,22 +388,9 @@ class Horde_Ldap_Entry
     }
 
     /**
-     * Alias function of getValue for perl-ldap interface
+     * Returns an array of attributes names.
      *
-     * @see getValue()
-     * @return string|array|PEAR_Error
-     */
-    public function get_value()
-    {
-        $args = func_get_args();
-        return call_user_func_array(array( &$this, 'getValue' ), $args);
-    }
-
-    /**
-     * Returns an array of attributes names
-     *
-     * @access public
-     * @return array Array of attribute names
+     * @return array Array of attribute names.
      */
     public function attributes()
     {
@@ -473,147 +398,150 @@ class Horde_Ldap_Entry
     }
 
     /**
-     * Returns whether an attribute exists or not
+     * Returns whether an attribute exists or not.
      *
-     * @param string $attr Attribute name
+     * @param string $attr Attribute name.
      *
-     * @access public
-     * @return boolean
+     * @return boolean True if the attribute exists.
      */
     public function exists($attr)
     {
-        $attr = $this->getAttrName($attr);
+        $attr = $this->_getAttrName($attr);
         return array_key_exists($attr, $this->_attributes);
     }
 
     /**
-     * Adds a new attribute or a new value to an existing attribute
+     * Adds new attributes or a new values to existing attributes.
      *
      * The paramter has to be an array of the form:
+     * <code>
      * array('attributename' => 'single value',
-     *       'attributename' => array('value1', 'value2))
-     * When the attribute already exists the values will be added, else the
-     * attribute will be created. These changes are local to the entry and do
-     * not affect the entry on the server until update() is called.
+     *       'attributename' => array('value1', 'value2'))
+     * </code>
      *
-     * Note, that you can add values of attributes that you haven't selected, but if
-     * you do so, {@link getValue()} and {@link getValues()} will only return the
-     * values you added, _NOT_ all values present on the server. To avoid this, just refetch
-     * the entry after calling {@link update()} or select the attribute.
+     * When the attribute already exists the values will be added, otherwise
+     * the attribute will be created. These changes are local to the entry and
+     * do not affect the entry on the server until update() is called.
      *
-     * @param array $attr Attributes to add
+     * You can add values of attributes that you haven't originally selected,
+     * but if you do so, {@link getValue()} and {@link getValues()} will only
+     * return the values you added, *NOT* all values present on the server. To
+     * avoid this, just refetch the entry after calling {@link update()} or
+     * select the attribute.
      *
-     * @access public
-     * @return true|Horde_Ldap_Error
+     * @param array $attr Attributes to add.
      */
-    public function add($attr = array())
+    public function add(array $attr = array())
     {
-        if (false == is_array($attr)) {
-            throw new Horde_Ldap_Exception("Parameter must be an array");
-        }
         foreach ($attr as $k => $v) {
-            $k = $this->getAttrName($k);
-            if (false == is_array($v)) {
-                // Do not add empty values
+            $k = $this->_getAttrName($k);
+            if (!is_array($v)) {
+                /* Do not add empty values. */
                 if ($v == null) {
                     continue;
                 } else {
                     $v = array($v);
                 }
             }
-            // add new values to existing attribute or add new attribute
+
+            /* Add new values to existing attribute or add new attribute. */
             if ($this->exists($k)) {
                 $this->_attributes[$k] = array_unique(array_merge($this->_attributes[$k], $v));
             } else {
                 $this->_map[strtolower($k)] = $k;
                 $this->_attributes[$k]      = $v;
             }
-            // save changes for update()
-            if (empty($this->_changes["add"][$k])) {
-                $this->_changes["add"][$k] = array();
+
+            /* Save changes for update(). */
+            if (empty($this->_changes['add'][$k])) {
+                $this->_changes['add'][$k] = array();
             }
-            $this->_changes["add"][$k] = array_unique(array_merge($this->_changes["add"][$k], $v));
+            $this->_changes['add'][$k] = array_unique(array_merge($this->_changes['add'][$k], $v));
         }
-        $return = true;
-        return $return;
     }
 
     /**
-     * Deletes an whole attribute or a value or the whole entry
+     * Deletes an attribute, a value or the whole entry.
      *
      * The parameter can be one of the following:
      *
-     * "attributename" - The attribute as a whole will be deleted
-     * array("attributename1", "attributename2) - All given attributes will be
-     *                                            deleted
-     * array("attributename" => "value") - The value will be deleted
-     * array("attributename" => array("value1", "value2") - The given values
-     *                                                      will be deleted
-     * If $attr is null or omitted , then the whole Entry will be deleted!
+     * - 'attributename': the attribute as a whole will be deleted.
+     * - array('attributename1', 'attributename2'): all specified attributes
+     *                                              will be deleted.
+     * - array('attributename' => 'value'): the specified attribute value will
+     *                                      be deleted.
+     * - array('attributename' => array('value1', 'value2'): The specified
+     *                                                       attribute values
+     *                                                       will be deleted.
+     * - null: the whole entry will be deleted.
      *
-     * These changes are local to the entry and do
-     * not affect the entry on the server until {@link update()} is called.
+     * These changes are local to the entry and do not affect the entry on the
+     * server until {@link update()} is called.
      *
-     * Please note that you must select the attribute (at $ldap->search() for example)
-     * to be able to delete values of it, Otherwise {@link update()} will silently fail
-     * and remove nothing.
+     * You must select the attribute (at $ldap->search() for example) to be
+     * able to delete values of it, Otherwise {@link update()} will silently
+     * fail and remove nothing.
      *
-     * @param string|array $attr Attributes to delete (NULL or missing to delete whole entry)
-     *
-     * @access public
-     * @return true
+     * @param string|array $attr Attributes to delete.
      */
     public function delete($attr = null)
     {
         if (is_null($attr)) {
             $this->_delete = true;
-            return true;
+            return;
         }
+
         if (is_string($attr)) {
             $attr = array($attr);
         }
-        // Make the assumption that attribute names cannot be numeric,
-        // therefore this has to be a simple list of attribute names to delete
+
+        /* Make the assumption that attribute names cannot be numeric,
+         * therefore this has to be a simple list of attribute names to
+         * delete. */
+        reset($attr);
         if (is_numeric(key($attr))) {
             foreach ($attr as $name) {
                 if (is_array($name)) {
-                    // someone mixed modes (list mode but specific values given!)
+                    /* Mixed modes (list mode but specific values given!). */
                     $del_attr_name = array_search($name, $attr);
                     $this->delete(array($del_attr_name => $name));
                 } else {
-                    // mark for update() if this attr was not marked before
-                    $name = $this->getAttrName($name);
+                    /* Mark for update() if this attribute was not marked
+                     before. */
+                    $name = $this->_getAttrName($name);
                     if ($this->exists($name)) {
-                        $this->_changes["delete"][$name] = null;
+                        $this->_changes['delete'][$name] = null;
                         unset($this->_attributes[$name]);
                     }
                 }
             }
         } else {
-            // Here we have a hash with "attributename" => "value to delete"
+            /* We have a hash with 'attributename' => 'value to delete'. */
             foreach ($attr as $name => $values) {
                 if (is_int($name)) {
-                    // someone mixed modes and gave us just an attribute name
+                    /* Mixed modes and gave us just an attribute name. */
                     $this->delete($values);
                 } else {
-                    // mark for update() if this attr was not marked before;
-                    // this time it must consider the selected values also
-                    $name = $this->getAttrName($name);
+                    /* Mark for update() if this attribute was not marked
+                     * before; this time it must consider the selected values
+                     * too. */
+                    $name = $this->_getAttrName($name);
                     if ($this->exists($name)) {
-                        if (false == is_array($values)) {
+                        if (!is_array($values)) {
                             $values = array($values);
                         }
-                        // save values to be deleted
-                        if (empty($this->_changes["delete"][$name])) {
-                            $this->_changes["delete"][$name] = array();
+                        /* Save values to be deleted. */
+                        if (empty($this->_changes['delete'][$name])) {
+                            $this->_changes['delete'][$name] = array();
                         }
-                        $this->_changes["delete"][$name] =
-                            array_unique(array_merge($this->_changes["delete"][$name], $values));
+                        $this->_changes['delete'][$name] =
+                            array_unique(array_merge($this->_changes['delete'][$name], $values));
                         foreach ($values as $value) {
-                            // find the key for the value that should be deleted
+                            /* Find the key for the value that should be
+                             * deleted. */
                             $key = array_search($value, $this->_attributes[$name]);
                             if (false !== $key) {
-                                // delete the value
+                                /* Delete the value. */
                                 unset($this->_attributes[$name][$key]);
                             }
                         }
@@ -621,48 +549,45 @@ class Horde_Ldap_Entry
                 }
             }
         }
-        $return = true;
-        return $return;
     }
 
     /**
-     * Replaces attributes or its values
+     * Replaces attributes or their values.
      *
      * The parameter has to an array of the following form:
-     * array("attributename" => "single value",
-     *       "attribute2name" => array("value1", "value2"),
-     *       "deleteme1" => null,
-     *       "deleteme2" => "")
-     * If the attribute does not yet exist it will be added instead (see also $force).
-     * If the attribue value is null, the attribute will de deleted.
+     * <code>
+     * array('attributename' => 'single value',
+     *       'attribute2name' => array('value1', 'value2'),
+     *       'deleteme1' => null,
+     *       'deleteme2' => '')
+     * </code>
      *
-     * These changes are local to the entry and do
-     * not affect the entry on the server until {@link update()} is called.
+     * If the attribute does not yet exist it will be added instead (see also
+     * $force). If the attribue value is null, the attribute will de deleted.
+     *
+     * These changes are local to the entry and do not affect the entry on the
+     * server until {@link update()} is called.
      *
      * In some cases you are not allowed to read the attributes value (for
      * example the ActiveDirectory attribute unicodePwd) but are allowed to
-     * replace the value. In this case replace() would assume that the attribute
-     * is not in the directory yet and tries to add it which will result in an
-     * LDAP_TYPE_OR_VALUE_EXISTS error.
-     * To force replace mode instead of add, you can set $force to true.
+     * replace the value. In this case replace() would assume that the
+     * attribute is not in the directory yet and tries to add it which will
+     * result in an LDAP_TYPE_OR_VALUE_EXISTS error. To force replace mode
+     * instead of add, you can set $force to true.
      *
-     * @param array $attr  Attributes to replace
-     * @param bool  $force Force replacing mode in case we can't read the attr value but are allowed to replace it
-     *
-     * @access public
-     * @return true|Horde_Ldap_Error
+     * @param array   $attr  Attributes to replace.
+     * @param boolean $force Force replacing mode in case we can't read the
+     *                       attribute value but are allowed to replace it.
      */
-    public function replace($attr = array(), $force = false)
+    public function replace(array $attr = array(), $force = false)
     {
-        if (false == is_array($attr)) {
-            throw new Horde_Ldap_Exception("Parameter must be an array");
-        }
         foreach ($attr as $k => $v) {
-            $k = $this->getAttrName($k);
-            if (false == is_array($v)) {
-                // delete attributes with empty values; treat ints as string
+            $k = $this->_getAttrName($k);
+            if (!is_array($v)) {
+                /* Delete attributes with empty values; treat integers as
+                 * string. */
                 if (is_int($v)) {
-                    $v = "$v";
+                    $v = (string)$v;
                 }
                 if ($v == null) {
                     $this->delete($k);
@@ -671,170 +596,137 @@ class Horde_Ldap_Entry
                     $v = array($v);
                 }
             }
-            // existing attributes will get replaced
+            /* Existing attributes will get replaced. */
             if ($this->exists($k) || $force) {
-                $this->_changes["replace"][$k] = $v;
+                $this->_changes['replace'][$k] = $v;
                 $this->_attributes[$k]         = $v;
             } else {
-                // new ones just get added
+                /* New ones just get added. */
                 $this->add(array($k => $v));
             }
         }
-        $return = true;
-        return $return;
     }
 
     /**
-     * Update the entry on the directory server
+     * Updates the entry on the directory server.
      *
-     * This will evaluate all changes made so far and send them
-     * to the directory server.
-     * Please note, that if you make changes to objectclasses wich
-     * have mandatory attributes set, update() will currently fail.
-     * Remove the entry from the server and readd it as new in such cases.
-     * This also will deal with problems with setting structural object classes.
+     * This will evaluate all changes made so far and send them to the
+     * directory server.
      *
-     * @param Horde_Ldap $ldap If passed, a call to setLDAP() is issued prior update, thus switching the LDAP-server. This is for perl-ldap interface compliance
+     * If you make changes to objectclasses wich have mandatory attributes set,
+     * update() will currently fail. Remove the entry from the server and readd
+     * it as new in such cases. This also will deal with problems with setting
+     * structural object classes.
      *
-     * @access public
-     * @return true|Horde_Ldap_Error
      * @todo Entry rename with a DN containing special characters needs testing!
+     *
+     * @throws Horde_Ldap_Exception
      */
-    public function update($ldap = null)
+    public function update()
     {
-        if ($ldap) {
-            try {
-                $msg = $this->setLDAP($ldap);
-            } catch (Exception $e) {
-                throw new Horde_Ldap_Exception('You passed an invalid $ldap variable to update()');
-            }
+        /* Ensure we have a valid LDAP object. */
+        $ldap = $this->getLDAP();
+        if (!($ldap instanceof Horde_Ldap)) {
+            throw new Horde_Ldap_Exception('The entries LDAP object is not valid');
         }
 
-        // ensure we have a valid LDAP object
-        $ldap =& $this->getLDAP();
-        if (!$ldap instanceof Horde_Ldap) {
-            throw new Horde_Ldap_Exception("The entries LDAP object is not valid");
-        }
-
-        // Get and check link
+        /* Get and check link. */
         $link = $ldap->getLink();
         if (!is_resource($link)) {
-            throw new Horde_Ldap_Exception("Could not update entry: internal LDAP link is invalid");
+            throw new Horde_Ldap_Exception('Could not update entry: internal LDAP link is invalid');
         }
 
-        /*
-         * Delete the entry
-         */
-        if (true === $this->_delete) {
+        /* Delete the entry. */
+        if ($this->_delete) {
             return $ldap->delete($this);
         }
 
-        /*
-         * New entry
-         */
-        if (true === $this->_new) {
+        /* New entry. */
+        if ($this->_new) {
             $msg = $ldap->add($this);
-
             $this->_new                = false;
             $this->_changes['add']     = array();
             $this->_changes['delete']  = array();
             $this->_changes['replace'] = array();
             $this->_original           = $this->_attributes;
-
-            $return = true;
-            return $return;
+            return;
         }
 
-        /*
-         * Rename/move entry
-         */
-        if (false == is_null($this->_newdn)) {
-            if ($ldap->getVersion() !== 3) {
-                throw new Horde_Ldap_Exception("Renaming/Moving an entry is only supported in LDAPv3");
+        /* Rename/move entry. */
+        if (!is_null($this->_newdn)) {
+            if ($ldap->getVersion() != 3) {
+                throw new Horde_Ldap_Exception('Renaming/Moving an entry is only supported in LDAPv3');
             }
-            // make dn relative to parent (needed for ldap rename)
+            /* Make DN relative to parent (needed for LDAP rename). */
             $parent = Horde_Ldap_Util::ldap_explode_dn($this->_newdn, array('casefolding' => 'none', 'reverse' => false, 'onlyvalues' => false));
-
             $child = array_shift($parent);
-            // maybe the dn consist of a multivalued RDN, we must build the dn in this case
-            // because the $child-RDN is an array!
+
+            /* Maybe the DN consist of a multivalued RDN, we must build the DN
+             * in this case because the $child RDN is an array. */
             if (is_array($child)) {
                 $child = Horde_Ldap_Util::canonical_dn($child);
             }
             $parent = Horde_Ldap_Util::canonical_dn($parent);
 
-            // rename/move
-            if (false == @ldap_rename($link, $this->_dn, $child, $parent, true)) {
-                throw new Horde_Ldap_Exception("Entry not renamed: " .
-                                               @ldap_error($link), @ldap_errno($link));
+            /* Rename/move. */
+            if (!@ldap_rename($link, $this->_dn, $child, $parent, true)) {
+                throw new Horde_Ldap_Exception('Entry not renamed: ' . @ldap_error($link), @ldap_errno($link));
             }
-            // reflect changes to local copy
+
+            /* Reflect changes to local copy. */
             $this->_dn    = $this->_newdn;
             $this->_newdn = null;
         }
 
-        /*
-         * Carry out modifications to the entry
-         */
-        // ADD
-        foreach ($this->_changes["add"] as $attr => $value) {
-            // if attribute exists, add new values
+        /* Carry out modifications to the entry. */
+        foreach ($this->_changes['add'] as $attr => $value) {
+            /* If attribute exists, add new values. */
             if ($this->exists($attr)) {
-                if (false === @ldap_mod_add($link, $this->dn(), array($attr => $value))) {
-                    throw new Horde_Ldap_Exception("Could not add new values to attribute $attr: " .
-                                                   @ldap_error($link), @ldap_errno($link));
+                if (!@ldap_mod_add($link, $this->dn(), array($attr => $value))) {
+                    throw new Horde_Ldap_Exception('Could not add new values to attribute ' . $attr . ': ' . @ldap_error($link), @ldap_errno($link));
                 }
             } else {
-                // new attribute
-                if (false === @ldap_modify($link, $this->dn(), array($attr => $value))) {
-                    throw new Horde_Ldap_Exception("Could not add new attribute $attr: " .
-                                                   @ldap_error($link), @ldap_errno($link));
+                /* New attribute. */
+                if (!@ldap_modify($link, $this->dn(), array($attr => $value))) {
+                    throw new Horde_Ldap_Exception('Could not add new attribute ' . $attr . ': ' . @ldap_error($link), @ldap_errno($link));
                 }
             }
-            // all went well here, I guess
-            unset($this->_changes["add"][$attr]);
+            unset($this->_changes['add'][$attr]);
         }
 
-        // DELETE
-        foreach ($this->_changes["delete"] as $attr => $value) {
-            // In LDAPv3 you need to specify the old values for deleting
-            if (is_null($value) && $ldap->getVersion() === 3) {
+        foreach ($this->_changes['delete'] as $attr => $value) {
+            /* In LDAPv3 you need to specify the old values for deleting. */
+            if (is_null($value) && $ldap->getVersion() == 3) {
                 $value = $this->_original[$attr];
             }
-            if (false === @ldap_mod_del($link, $this->dn(), array($attr => $value))) {
-                throw new Horde_Ldap_Exception("Could not delete attribute $attr: " .
-                                               @ldap_error($link), @ldap_errno($link));
+            if (!@ldap_mod_del($link, $this->dn(), array($attr => $value))) {
+                throw new Horde_Ldap_Exception('Could not delete attribute ' . $attr . ': ' . @ldap_error($link), @ldap_errno($link));
             }
-            unset($this->_changes["delete"][$attr]);
+            unset($this->_changes['delete'][$attr]);
         }
 
-        // REPLACE
-        foreach ($this->_changes["replace"] as $attr => $value) {
-            if (false === @ldap_modify($link, $this->dn(), array($attr => $value))) {
-                throw new Horde_Ldap_Exception("Could not replace attribute $attr values: " .
-                                               @ldap_error($link), @ldap_errno($link));
+        foreach ($this->_changes['replace'] as $attr => $value) {
+            if (!@ldap_modify($link, $this->dn(), array($attr => $value))) {
+                throw new Horde_Ldap_Exception('Could not replace attribute ' . $attr . ' values: ' . @ldap_error($link), @ldap_errno($link));
             }
-            unset($this->_changes["replace"][$attr]);
+            unset($this->_changes['replace'][$attr]);
         }
 
-        // all went well, so _original (server) becomes _attributes (local copy)
+        /* All went well, so $_attributes (local copy) becomes $_original
+         * (server). */
         $this->_original = $this->_attributes;
-
-        $return = true;
-        return $return;
     }
 
     /**
-     * Returns the right attribute name
+     * Returns the right attribute name.
      *
-     * @param string $attr Name of attribute
+     * @param string $attr Name of attribute.
      *
-     * @access protected
      * @return string The right name of the attribute
      */
-    protected function getAttrName($attr)
+    protected function _getAttrName($attr)
     {
-        $name = strtolower($attr);
+        $name = Horde_String::lower($attr);
         if (array_key_exists($name, $this->_map)) {
             $attr = $this->_map[$name];
         }
@@ -842,150 +734,125 @@ class Horde_Ldap_Entry
     }
 
     /**
-     * Returns a reference to the LDAP-Object of this entry
+     * Returns a reference to the LDAP-Object of this entry.
      *
-     * @access public
-     * @return Horde_Ldap|Horde_Ldap_Error   Reference to the Horde_Ldap Object (the connection) or Horde_Ldap_Error
+     * @return Horde_Ldap  Reference to the Horde_Ldap object (the connection).
+     * @throws Horde_Ldap_Exception
      */
-    public function &getLDAP()
+    public function getLDAP()
     {
-        if (!$this->_ldap instanceof Horde_Ldap) {
+        if (!($this->_ldap instanceof Horde_Ldap)) {
             throw new Horde_Ldap_Exception('LDAP is not a valid Horde_Ldap object');
-        } else {
-            return $this->_ldap;
         }
+        return $this->_ldap;
     }
 
     /**
-     * Sets a reference to the LDAP-Object of this entry
+     * Sets a reference to the LDAP object of this entry.
      *
-     * After setting a Horde_Ldap object, calling update() will use that object for
-     * updating directory contents. Use this to dynamicly switch directorys.
+     * After setting a Horde_Ldap object, calling update() will use that object
+     * for updating directory contents. Use this to dynamicly switch
+     * directories.
      *
-     * @param Horde_Ldap &$ldap Horde_Ldap object that this entry should be connected to
+     * @param Horde_Ldap $ldap  Horde_Ldap object that this entry should be
+     *                          connected to.
      *
-     * @access public
-     * @return true|Horde_Ldap_Error
+     * @throws Horde_Ldap_Exception
      */
-    public function setLDAP(&$ldap)
+    public function setLDAP(Horde_Ldap $ldap)
     {
-        if (!$ldap instanceof Horde_Ldap) {
-            throw new Horde_Ldap_Exception("LDAP is not a valid Horde_Ldap object");
-        } else {
-            $this->_ldap =& $ldap;
-            return true;
-        }
+        $this->_ldap = $ldap;
     }
 
     /**
-     * Marks the entry as new/existing.
+     * Marks the entry as new or existing.
      *
-     * If an Entry is marked as new, it will be added to the directory
-     * when calling {@link update()}.
-     * If the entry is marked as old ($mark = false), then the entry is
-     * assumed to be present in the directory server wich results in
-     * modification when calling {@link update()}.
+     * If an entry is marked as new, it will be added to the directory when
+     * calling {@link update()}.
      *
-     * @param boolean $mark Value to set, defaults to "true"
+     * If the entry is marked as old ($mark = false), then the entry is assumed
+     * to be present in the directory server wich results in modification when
+     * calling {@link update()}.
      *
-     * @return void
+     * @param boolean $mark Whether to mark the entry as new.
      */
     public function markAsNew($mark = true)
     {
-        $this->_new = ($mark)? true : false;
+        $this->_new = (bool)$mark;
     }
 
     /**
-     * Applies a regular expression onto a single- or multivalued attribute (like preg_match())
+     * Applies a regular expression onto a single- or multi-valued attribute
+     * (like preg_match()).
      *
-     * This method behaves like PHPs preg_match() but with some exceptions.
-     * If you want to retrieve match information, then you MUST pass the
-     * $matches parameter via reference! otherwise you will get no matches.
+     * This method behaves like PHP's preg_match() but with some exception.
      * Since it is possible to have multi valued attributes the $matches
      * array will have a additionally numerical dimension (one for each value):
      * <code>
      * $matches = array(
-     *         0 => array (usual preg_match() returnarray),
-     *         1 => array (usual preg_match() returnarray)
-     *     )
+     *         0 => array (usual preg_match() returned array),
+     *         1 => array (usual preg_match() returned array)
+     * )
      * </code>
-     * Please note, that $matches will be initialized to an empty array inside.
+     * $matches will always be initialized to an empty array inside.
      *
      * Usage example:
      * <code>
-     * $result = $entry->preg_match('/089(\d+)/', 'telephoneNumber', &$matches);
-     * if ( $result === true ){
-     *     echo "First match: ".$matches[0][1];   // Match of value 1, content of first bracket
-     * } else {
-     *     if ( Horde_Ldap::isError($result) ) {
-     *         echo "Error: ".$result->getMessage();
+     * try {
+     *     if ($entry->pregMatch('/089(\d+)/', 'telephoneNumber', $matches)) {
+     *         // Match of value 1, content of first bracket
+     *         echo 'First match: ' . $matches[0][1];
      *     } else {
-     *         echo "No match found.";
+     *         echo 'No match found.';
      *     }
+     * } catch (Horde_Ldap_Exception $e) {
+     *     echo 'Error: ' . $e->getMessage();
      * }
      * </code>
      *
-     * Please note that it is important to test for an Horde_Ldap_Error, because objects are
-     * evaluating to true by default, thus if an error occured, and you only check using "==" then
-     * you get misleading results. Use the "identical" (===) operator to test for matches to
-     * avoid this as shown above.
+     * @param string $regex     The regular expression.
+     * @param string $attr_name The attribute to search in.
+     * @param array  $matches   Array to store matches in.
      *
-     * @param string $regex     The regular expression
-     * @param string $attr_name The attribute to search in
-     * @param array  $matches   (optional, PASS BY REFERENCE!) Array to store matches in
-     *
-     * @return boolean|Horde_Ldap_Error  TRUE, if we had a match in one of the values, otherwise false. Horde_Ldap_Error in case something went wrong
+     * @return boolean  True if we had a match in one of the values.
+     * @throws Horde_Ldap_Exception
      */
-    public function pregMatch($regex, $attr_name, $matches = array())
+    public function pregMatch($regex, $attr_name, &$matches = array())
     {
-        $matches = array();
-
-        // fetch attribute values
+        /* Fetch attribute values. */
         $attr = $this->getValue($attr_name, 'all');
         unset($attr['count']);
 
-        // perform preg_match() on all values
+        /* Perform preg_match() on all values. */
         $match = false;
         foreach ($attr as $thisvalue) {
-            $matches_int = array();
             if (preg_match($regex, $thisvalue, $matches_int)) {
                 $match = true;
-                array_push($matches, $matches_int); // store matches in reference
+                array_push($matches, $matches_int);
             }
         }
+
         return $match;
     }
 
     /**
-     * Alias of {@link pregMatch()} for compatibility to Horde_LDAP 1
+     * Returns whether the entry is considered new (not present in the server).
      *
-     * @see pregMatch()
-     * @return boolean|Horde_Ldap_Error
-     */
-    public function preg_match()
-    {
-        $args = func_get_args();
-        return call_user_func_array(array( &$this, 'pregMatch' ), $args);
-    }
-
-    /**
-     * Tells if the entry is consiedered as new (not present in the server)
+     * This method doesn't tell you if the entry is really not present on the
+     * server. Use {@link Horde_Ldap::exists()} to see if an entry is already
+     * there.
      *
-     * Please note, that this doesn't tell you if the entry is present on the server.
-     * Use {@link Horde_Ldap::exists()} to see if an entry is already there.
-     *
-     * @return boolean
+     * @return boolean  True if this is considered a new entry.
      */
     public function isNew()
     {
         return $this->_new;
     }
 
-
     /**
      * Is this entry going to be deleted once update() is called?
      *
-     * @return boolean
+     * @return boolean  True if this entry is going to be deleted.
      */
     public function willBeDeleted()
     {
@@ -995,21 +862,21 @@ class Horde_Ldap_Entry
     /**
      * Is this entry going to be moved once update() is called?
      *
-     * @return boolean
+     * @return boolean  True if this entry is going to be move.
      */
     public function willBeMoved()
     {
-        return ($this->dn() !== $this->currentDN());
+        return $this->dn() !== $this->currentDN();
     }
 
     /**
-     * Returns always the original DN
+     * Returns always the original DN.
      *
-     * If an entry will be moved but {@link update()} was not called,
-     * {@link dn()} will return the new DN. This method however, returns
-     * always the current active DN.
+     * If an entry will be moved but {@link update()} was not called, {@link
+     * dn()} will return the new DN. This method however, returns always the
+     * current active DN.
      *
-     * @return string
+     * @return string  The current DN
      */
     public function currentDN()
     {
@@ -1017,13 +884,12 @@ class Horde_Ldap_Entry
     }
 
     /**
-     * Returns the attribute changes to be carried out once update() is called
+     * Returns the attribute changes to be carried out once update() is called.
      *
-     * @return array
+     * @return array  The due changes.
      */
     public function getChanges()
     {
         return $this->_changes;
     }
 }
-?>
