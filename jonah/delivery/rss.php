@@ -15,23 +15,26 @@ $jonah = Horde_Registry::appInit('jonah', array(
 
 $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
 
-/* See if the criteria has already been loaded by the index page */
+// See if the criteria has already been loaded by the index page
 $criteria = Horde_Util::nonInputVar('criteria');
 if (!$criteria) {
     $criteria = array(
         'channel_id' => Horde_Util::getFormData('channel_id'),
-        'tag_id' => Horde_Util::getFormData('tag_id'),
-        'feed_type' => basename(Horde_Util::getFormData('type'))
+        'tags' => array(Horde_Util::getFormData('tag_id')),
+        'feed_type' => basename(Horde_Util::getFormData('type')),
+        'limit' => 10,
     );
 }
 
-/* Default to RSS2 */
+// Default to RSS2
 if (empty($criteria['feed_type'])) {
     $criteria['feed_type'] = 'rss2';
 }
+// Only published stories
+$criteria['published'] = true;
 
-/* Fetch the channel info and the story list and check they are both valid.
- * Do a simple exit in case of errors. */
+// Fetch the channel info and the story list and check they are both valid.
+// Do a simple exit in case of errors.
 try {
     $channel = $driver->getChannel($criteria['channel_id']);
 } catch (Exception $e) {
@@ -47,17 +50,12 @@ try {
     exit;
 }
 
-/* Build search array */
-$search = array('channel_id' => $criteria['channel_id'],
-                'tags' => array($criteria['tag_id'],
-                'limit' => 10));
-
-/* Used in template for channel name */
+// Used in template for channel name
 if (!empty($criteria['tag_id'])) {
     $tag_name = array_shift($driver->getTagNames(array($criteria['tag_id'])));
 }
 
-/* Fetch stories */
+// Fetch stories
 try {
     $stories = $driver->getStories($criteria);
 } catch (Exception $e) {
@@ -65,7 +63,7 @@ try {
     $stories = array();
 }
 
-/* Build the template (@TODO: Use Horde_View) */
+// Build the template (@TODO: Use Horde_View)
 $template = new Horde_Template();
 $template->set('charset', $GLOBALS['registry']->getCharset());
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
