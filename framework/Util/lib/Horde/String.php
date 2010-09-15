@@ -606,7 +606,7 @@ class Horde_String
     static public function truncate($text, $length = 100)
     {
         return (self::length($text) > $length)
-            ? self::substr($text, 0, $length - 3) . ' ...'
+            ? rtrim(self::substr($text, 0, $length - 3)) . '...'
             : $text;
     }
 
@@ -622,7 +622,7 @@ class Horde_String
     static public function abbreviate($text, $length = 20)
     {
         return (self::length($text) > $length)
-            ? self::substr($text, 0, round(($length - 3) / 2)) . '...' . self::substr($text, (($length - 3) / 2) * -1)
+            ? rtrim(self::substr($text, 0, round(($length - 3) / 2))) . '...' . ltrim(self::substr($text, (($length - 3) / 2) * -1))
             : $text;
     }
 
