@@ -103,9 +103,6 @@ class Jonah_Driver
      *                                                           stories
      *                                                           published on or
      *                                                           before date
-     *                             'published-max' => Horde_Date Only return
-     *                                                         on or before this
-     *                                                         date
      *                             'tags' => array Array of tag names ANY of
      *                                             which may match the story to
      *                                             be included
