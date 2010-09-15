@@ -31,11 +31,11 @@ class Horde_Ldap
      * - filter:         default search filter.
      * - scope:          default search scope.
      * - auto_reconnect: if true, the class will automatically
-     * -                 attempt to reconnect to the LDAP server in certain
-     * -                 failure conditions when attempting a search, or other
-     * -                 LDAP operations.  Defaults to false.  Note that if you
-     * -                 set this to true, calls to search() may block
-     * -                 indefinitely if there is a catastrophic server failure.
+     *                   attempt to reconnect to the LDAP server in certain
+     *                   failure conditions when attempting a search, or other
+     *                   LDAP operations.  Defaults to false.  Note that if you
+     *                   set this to true, calls to search() may block
+     *                   indefinitely if there is a catastrophic server failure.
      * - min_backoff:    minimum reconnection delay period (in seconds).
      * - current_backof: initial reconnection delay period (in seconds).
      * - max_backoff:    maximum reconnection delay period (in seconds).
