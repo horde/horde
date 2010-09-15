@@ -377,6 +377,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
            'stories.story_updated AS updated, ' .
            'stories.story_read AS readcount ' .
            'FROM jonah_stories AS stories ' .
+           'JOIN jonah_stories_tags tags ON (stories.story_id = tags.story_id) ' .
            'WHERE stories.channel_id=?';
 
         $values = array($criteria['channel_id']);
@@ -397,6 +398,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if (isset($criteria['published-max'])) {
             $sql .= ' AND story_published <= ?';
             $values[] = $criteria['published-max']->timestamp();
+        }
+        if (isset($criteria['published'])) {
+            $sql .= ' AND story_published IS NOT NULL';
         }
 
         // Apply tag filtering
@@ -868,7 +872,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     public function getTagIds($names)
     {
         $sql = 'SELECT t.tag_name, t.tag_id FROM jonah_tags as t WHERE t.tag_name IN(' . str_repeat('?,', count($names) - 1) . '?)';
-        $tags = $this->_db->getAssoc($sql);
+        $tags = $this->_db->getAssoc($sql, false, $names);
         if ($tags instanceof PEAR_Error) {
             throw new Jonah_Exception($tags);
         }
