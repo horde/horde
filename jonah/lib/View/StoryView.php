@@ -41,7 +41,7 @@ class Jonah_View_StoryView extends Jonah_View_Base
         $cloud = new Horde_Core_Ui_TagCloud();
         $allTags = $driver->listTagInfo(array(), $channel_id);
         foreach ($allTags as $tag_id => $taginfo) {
-            $cloud->addElement($taginfo['tag_name'], Horde::url('results.php')->add(array('tag_id' => $tag_id, 'channel_id' => $channel_id)), $taginfo['total']);
+            $cloud->addElement($taginfo['tag_name'], Horde::url('stories/results.php')->add(array('tag_id' => $tag_id, 'channel_id' => $channel_id)), $taginfo['total']);
         }
 
         /* Prepare the story's tags for display */
