@@ -118,4 +118,5 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
 
         return $html;
     }
+
 }
