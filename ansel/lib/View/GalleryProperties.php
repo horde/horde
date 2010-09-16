@@ -238,7 +238,7 @@ class Ansel_View_GalleryProperties
             'thumbstyle' => Horde_Util::getFormData('thumbnail_style'),
             'background' => Horde_Util::getFormData('background_color'),
             // temporary hack
-            'widgets' => array('Actions' => array(),
+            'widgets' => array(
                  'Tags' => array('view' => 'gallery'),
                  'OtherGalleries' => array(),
                  'Geotag' => array(),

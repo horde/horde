@@ -13,7 +13,21 @@
 class Ansel_Style
 {
     /**
-     * Holds the style definition
+     * Holds the style definition. Currently supported properties are:
+     * <pre>
+     *   'thumbstyle'    -  The ImageGenerator to use for thumbnails,
+     *                      e.g. PolaroidThumb or RoundedThumb
+     *   'background'    -  The background color of the view area. If needed,
+     *                      generated images will contain this as their
+     *                      background color.
+     *   'gallery_view'  -  The GalleryRenderer type to use for the gallery
+     *                      view, e.g. GalleryLightbox or Gallery.
+     *   'widgets'       -  An array of widgets and their configuration values
+     *                      to display on the gallery view.
+     *                      e.g. Array('Geotag' => array(),
+     *                                 'Tags' => array('view' => 'gallery'))
+     *   'image_widgets' - @TODO: not yet implemented.
+     * </pre>
      *
      * @var array
      */
@@ -21,19 +35,24 @@ class Ansel_Style
 
     public function __construct($properties)
     {
+        $widgets = !empty($properties['widgets']) ? $properties['widgets'] : array();
+        unset($properties['widgets']);
         $this->_properties = array_merge(array('gallery_view' => 'Gallery',
-                                               'background' => 'none'),
-                                        $properties);
+                                               'background' => 'none',
+                                               'widgets' => array_merge(array('Actions' => array()), $widgets)),
+                                         $properties);
     }
 
     /**
-     * Return if this style requires PNG support in the browser.
+     * Return if this style requires PNG support in the browser. Assumes that
+     * any thumbstyle other than the traditional "Thumb", withOUT a background
+     * is considered to requre PNG support in the browser.
      *
      * @return boolean
      */
     public function requiresPng()
     {
-        return true;
+        return ($this->_properties['thumbstyle'] != 'Thumb' && $this->_properties['background'] == 'none');
     }
 
     public function getHash($view)
