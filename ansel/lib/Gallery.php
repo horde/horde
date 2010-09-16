@@ -728,7 +728,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         return $style;
-
     }
 
     /**
