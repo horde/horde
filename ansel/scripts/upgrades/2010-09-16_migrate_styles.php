@@ -30,7 +30,7 @@ $defaults = array(
 $rows = $ansel_db->queryAll($sql);
 $update = $ansel_db->prepare('UPDATE ansel_shares SET attribute_style=? WHERE share_id=?;');
 foreach ($rows as $row) {
-    if ($row[1] == 'ansel_default') {
+    if ($row[1] == 'ansel_default' || empty($styles[$row[1]])) {
         $newStyle = '';
     } else {
         $properties = array_merge($defaults, $styles[$row[1]]);
