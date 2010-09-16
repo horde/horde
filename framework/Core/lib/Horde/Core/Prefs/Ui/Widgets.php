@@ -30,6 +30,8 @@ class Horde_Core_Prefs_Ui_Widgets
      * @param array $data  Data items:
      * <pre>
      * 'mainlabel' - (string) Main label.
+     * 'no_up' - (boolean) [OPTIONAL] Disable movement of selected items
+     *           up/down.
      * 'selectlabel' - (array) Selected label.
      * 'sourcelabel' - (string) [OPTIONAL] Source selection label.
      * 'sources' - (array) List of sources - keys are source names. Each
@@ -90,8 +92,10 @@ class Horde_Core_Prefs_Ui_Widgets
         $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source")));
         $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source")));
 
-        $t->set('upimg', Horde::img('nav/up.png', _("Move up")));
-        $t->set('downimg', Horde::img('nav/down.png', _("Move down")));
+        if (empty($data['no_up'])) {
+            $t->set('upimg', Horde::img('nav/up.png', _("Move up")));
+            $t->set('downimg', Horde::img('nav/down.png', _("Move down")));
+        }
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/source.html');
     }
