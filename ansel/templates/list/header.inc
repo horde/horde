@@ -4,4 +4,4 @@
  </span>
  <?php echo @htmlspecialchars($list_title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) . ' ' . Horde::url($refresh_link)->link(array('title' => _("Refresh List"))) . Horde::img('reload.png', _("Refresh List")) . '</a>' ?>
 </div>
-<table width="100%" style="background:<?php echo $styleDef['background'] ?>;"><tr>
+<table width="100%" style="background:<?php echo $styleDef->background ?>;"><tr>

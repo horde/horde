@@ -50,7 +50,7 @@ function arrowHandler(e)
 <h1 class="header" id="PhotoName"><?php echo Ansel::getBreadCrumbs($this->gallery) ?></h1>
 <table style="width: 100%; border-collapse: collapse">
  <tr>
-  <td valign="top" style="background-color:<?php echo $this->_style['background']; ?>;">
+  <td valign="top" style="background-color:<?php echo $this->_style->background; ?>;">
     <?php
         $tempurl = new Horde_Url('#');
         $needSeperator = false;

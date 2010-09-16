@@ -2,7 +2,6 @@
 <div class="control anselActions" style="text-align: center">
 <div id="prevDiv"></div>
 <?php
-$style = $gallery->getStyle();
 $image_src = Ansel::getImageUrl($image_id, 'screen');
 
 echo $galleryurl->link() . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';

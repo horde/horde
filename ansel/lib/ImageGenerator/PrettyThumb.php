@@ -26,7 +26,7 @@ class Ansel_ImageGenerator_PrettyThumb extends Ansel_ImageGenerator
                 $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_image->gallery);
                 $styleDef = $gal->getStyle();
             } else {
-                $styleDef = Ansel::getStyleDefinition($this->_style);
+                $styleDef = $this->_style;
             }
 
             try {
@@ -34,7 +34,7 @@ class Ansel_ImageGenerator_PrettyThumb extends Ansel_ImageGenerator
                 $this->_image->addEffect('RoundCorners', array('border' => 2,
                                                                'bordercolor' => '#333'));
 
-                $this->_image->addEffect('DropShadow', array('background' => $styleDef['background'],
+                $this->_image->addEffect('DropShadow', array('background' => $styleDef->background,
                                                              'padding' => 5,
                                                              'distance' => 5,
                                                              'fade' => 3));

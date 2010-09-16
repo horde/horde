@@ -20,7 +20,7 @@ class Ansel_ImageGenerator_RoundedStack extends Ansel_ImageGenerator
         $style = $this->_params['style'];
         $params = array('width' => 100,
                         'height' => 100,
-                        'background' => $style['background']);
+                        'background' => $style->background);
 
         $baseImg = Ansel::getImageObject($params);
 
@@ -30,7 +30,7 @@ class Ansel_ImageGenerator_RoundedStack extends Ansel_ImageGenerator
                 array('images' => $imgobjs,
                       'resize_height' => $GLOBALS['conf']['thumbnail']['height'],
                       'padding' => 0,
-                      'background' => $style['background'],
+                      'background' => $style->background,
                       'type' => 'rounded'));
 
             $baseImg->applyEffects();

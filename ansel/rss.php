@@ -100,20 +100,18 @@ if (empty($rss)) {
         if (!count($images)) {
             $images = array();
         } else {
-            $style = $gallery->getStyle();
             $viewurl = Ansel::getUrlFor('view',
                                         array('view' => 'Gallery',
                                               'gallery' => $id),
                                         true);
-            $img = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($gallery->getKeyImage('ansel_default'));
+            $img = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')));
             $params = array('last_modified' => $gallery->get('last_modified'),
                             'name' => sprintf(_("%s on %s"),
                                               $gallery->get('name'),
                                               $conf['server']['name']),
                             'link' => $viewurl,
                             'desc' => $gallery->get('desc'),
-                            'image_url' => Ansel::getImageUrl($img->id, 'thumb',
-                                                              true, 'ansel_default'),
+                            'image_url' => Ansel::getImageUrl($img->id, 'thumb', true),
                             'image_alt' => $img->caption,
                             'image_link' => Ansel::getUrlFor('view',
                                                              array('image' => $img->id,
@@ -165,9 +163,7 @@ if (empty($rss)) {
                                                            true),
                                 'desc' => sprintf(_("Recently added photos by %s on %s"),
                                                   $name, $conf['server']['name']),
-                                'image_url' => Ansel::getImageUrl($images[0]->id,
-                                                                  'thumb', true,
-                                                                  'ansel_default'),
+                                'image_url' => Ansel::getImageUrl($images[0]->id, 'thumb', true),
                                 'image_alt' => $images[0]->caption,
                                 'image_link' => Ansel::getUrlFor(
                                     'view', array('image' => $images[0]->id,
@@ -200,9 +196,7 @@ if (empty($rss)) {
                                                        true),
                             'desc' => sprintf(_("Photos tagged with %s on %s"),
                                               $id, $conf['server']['name']),
-                            'image_url' => Ansel::getImageUrl($images[0]->id,
-                                                              'thumb', true,
-                                                              'ansel_default'),
+                            'image_url' => Ansel::getImageUrl($images[0]->id, 'thumb', true, 'ansel_default'),
                             'image_alt' => $images[0]->caption,
                             'image_link' => Ansel::getUrlFor('view',
                                                              array('view' => 'Image',

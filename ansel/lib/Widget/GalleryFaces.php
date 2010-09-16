@@ -61,7 +61,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
 
         // Check for existing faces for this gallery.
         $html = '<div style="display: block'
-            . ';background:' . $this->_style['background']
+            . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
 
         $images = $faces->getGalleryFaces($this->_view->resource->id);

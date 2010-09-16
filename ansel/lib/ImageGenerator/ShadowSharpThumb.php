@@ -26,13 +26,13 @@ class Ansel_ImageGenerator_ShadowSharpThumb extends Ansel_ImageGenerator
                 $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_image->gallery);
                 $styleDef = $gal->getStyle();
             } else {
-                $styleDef = Ansel::getStyleDefinition($this->_style);
+                $styleDef = $this->_style;
             }
 
             try {
                 $this->_image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
                 $this->_image->addEffect('DropShadow',
-                                         array('background' => $styleDef['background'],
+                                         array('background' => $styleDef->background,
                                                'padding' => 5,
                                                'distance' => 8,
                                                'fade' => 2));

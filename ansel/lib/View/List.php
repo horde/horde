@@ -237,8 +237,7 @@ class Ansel_View_List extends Ansel_View_Base
 
             // Get top-level / default gallery style.
             if (empty($this->_params['style'])) {
-                $style = Ansel::getStyleDefinition(
-                    $prefs->getValue('default_gallerystyle'));
+                $style = Ansel::getStyleDefinition($prefs->getValue('default_gallerystyle'));
             } else {
                 $style = Ansel::getStyleDefinition($this->_params['style']);
             }

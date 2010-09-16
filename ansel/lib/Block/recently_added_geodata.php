@@ -75,7 +75,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block
                       'slug' => $gallery->get('slug'),
                       'gallery' => $gallery->id,
                       'image' => $id,
-                      'gallery_view' => $style['gallery_view']), true);
+                      'gallery_view' => $style->gallery_view), true);
             $images[$key]['icon'] = (string)Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
             $images[$key]['link'] = (string)$url;
         }

@@ -225,8 +225,8 @@ class Ansel_Image Implements Iterator
     /**
      * Return the vfs path for this image.
      *
-     * @param string $view   The view we want.
-     * @param string $style  A named gallery style.
+     * @param string $view        The view we want.
+     * @param Ansel_Style $style  A named gallery style.
      *
      * @return string  The vfs path for this image.
      */
@@ -264,8 +264,8 @@ class Ansel_Image Implements Iterator
     /**
      * Loads the given view into memory.
      *
-     * @param string $view   Which view to load.
-     * @param string $style  The named gallery style.
+     * @param string $view        Which view to load.
+     * @param Ansel_Style $style  The gallery style.
      *
      * @return boolean
      * @throws Ansel_Exception
@@ -317,9 +317,9 @@ class Ansel_Image Implements Iterator
      * Check if an image view exists and returns the vfs name complete with
      * the hash directory name prepended if appropriate.
      *
-     * @param integer $id    Image id to check
-     * @param string $view   Which view to check for
-     * @param string $style  A named gallery style
+     * @param integer $id         Image id to check
+     * @param string $view        Which view to check for
+     * @param Ansel_Style $style  Style object
      *
      * @return mixed  False if image does not exists | string vfs name
      */
@@ -331,7 +331,7 @@ class Ansel_Image Implements Iterator
         }
 
         /* Get the VFS path. */
-        $view = Ansel_Gallery::getViewHash($view, $style);
+        $view = Ansel::getViewHash($view, $style);
 
         /* Can't call the various vfs methods here, since this method needs
         to be called statically */
@@ -355,8 +355,8 @@ class Ansel_Image Implements Iterator
     /**
      * Creates and caches the given view.
      *
-     * @param string $view  Which view to create.
-     * @param string $style  A named gallery style
+     * @param string $view         Which view to create.
+     * @param Ansel_Style  $style  A style object
      *
      * @return boolean
      * @throws Ansel_Exception
@@ -382,9 +382,8 @@ class Ansel_Image Implements Iterator
 
         $vHash = $this->getViewHash($view, $style);
         $this->_image->loadString($data);
-        $styleDef = Ansel::getStyleDefinition($style);
         if ($view == 'prettythumb') {
-            $viewType = $styleDef['thumbstyle'];
+            $viewType = $style->thumbstyle;
         } else {
             // Screen, Mini, Thumb
             $viewType = ucfirst($view);
@@ -396,8 +395,7 @@ class Ansel_Image Implements Iterator
             // It could be we don't support the requested effect, try
             // ansel_default before giving up.
             if ($view == 'prettythumb') {
-                // If we still fail, the exception gets thrown up the chain.
-                $iview = Ansel_ImageGenerator::factory('Thumb', array('image' => $this, 'style' => 'ansel_default'));
+                $iview = Ansel_ImageGenerator::factory('Thumb', array('image' => $this, 'style' => Ansel::getStyleDefinition('ansel_default')));
             } else {
                 // If it wasn't a prettythumb, then something else must be wrong
                 throw $e;
@@ -760,6 +758,9 @@ class Ansel_Image Implements Iterator
                 $deleted = array();
 
                 /* Need to generate hashes for each possible style */
+                // @TODO: Need to save the style hash to the share entry
+                //        since we don't require the use of predefined
+                //        style definitions now.
                 $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
                 foreach ($styles as $style)
                 {
@@ -816,8 +817,8 @@ class Ansel_Image Implements Iterator
     /**
      * Display the requested view.
      *
-     * @param string $view   Which view to display.
-     * @param string $style  Force use of this gallery style.
+     * @param string $view        Which view to display.
+     * @param Ansel_Style $style  Force use of this gallery style.
      *
      * @return void
      * @throws Horde_Exception_PermissionDenied, Ansel_Exception
@@ -1135,7 +1136,7 @@ class Ansel_Image Implements Iterator
      * Get the Ansel_View_Image_Thumb object
      *
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery object.
-     * @param string        $style   A named gallery style to use.
+     * @param Ansel_Style   $style   A gallery definition to use.
      * @param boolean       $mini    Force the use of a mini thumbnail?
      * @param array         $params  Any additional parameters the Ansel_Tile
      *                               object may need.
@@ -1147,8 +1148,6 @@ class Ansel_Image Implements Iterator
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
 
         return Ansel_Tile_Image::getTile($this, $style, $mini, $params);
@@ -1173,8 +1172,8 @@ class Ansel_Image Implements Iterator
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view        The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style  The style.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
@@ -1188,10 +1187,8 @@ class Ansel_Image Implements Iterator
         if (is_null($style)) {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
-        $view = md5($style['thumbstyle'] . '.' . $style['background']);
+        $view = md5($style->thumbstyle . '.' . $style->background);
 
         return $view;
     }

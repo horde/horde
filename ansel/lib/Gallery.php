@@ -456,7 +456,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      * Output the HTML for this gallery's tile.
      *
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery object
-     * @param string $style          A named gallery style to use.
+     * @param Ansel_Style $style     A style object to use.
      * @param boolean $mini          Force the use of a mini thumbnail?
      * @param array $params          Any additional parameters the Ansel_Tile
      *                               object may need.
@@ -466,8 +466,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
 
         return Ansel_Tile_Gallery::getTile($this, $style, $mini, $params);
@@ -578,33 +576,23 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Returns the key image for this gallery.
      *
-     * @param string $style  Force the use of this style, if it's available
-     *                       otherwise use whatever style is choosen for this
-     *                       gallery. If prettythumbs are not available then
-     *                       we always use ansel_default style.
+     * @param Ansel_Style $style  Force the use of this style, if it's available
+     *                            otherwise use whatever style is choosen for
+     *                            this gallery. If prettythumbs are not
+     *                            available then we always use ansel_default
+     *                            style.
      *
      * @return mixed  The image_id of the key image or false.
      */
     public function getKeyImage($style = null)
     {
-        /* Get the available styles */
-        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
-
-        /* Check for explicitly requested style */
-        if (!is_null($style)) {
-            $gal_style = Ansel::getStyleDefinition($style);
-        } else {
-            $gal_style = $this->getStyle();
-            if (!isset($styles[$gal_style['name']])) {
-                $gal_style = $styles['ansel_default'];
-            }
+        if (is_null($style)) {
+            $style = $this->getStyle();
         }
 
-        if (!empty($gal_style['default_galleryimage_type']) &&
-            $gal_style['default_galleryimage_type'] != 'plain') {
-
-            $thumbstyle = $gal_style['default_galleryimage_type'];
-            $styleHash = $this->getViewHash($thumbstyle, $gal_style['name']);
+        if ($style->default_galleryimage_type != 'plain') {
+            $thumbstyle = $style->default_galleryimage_type;
+            $styleHash = $style->getHash($thumbstyle);
 
             /* First check for the existence of a key image in the specified style */
             if (!empty($this->data['attribute_default_prettythumb'])) {
@@ -618,9 +606,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             }
 
             /* Don't already have one, must generate it. */
-            $params = array('gallery' => $this, 'style' => $gal_style);
+            //@TODO: Look at passing style both in params and the property...
+            $params = array('gallery' => $this, 'style' => $style);
             try {
-                $iview = Ansel_ImageGenerator::factory($gal_style['default_galleryimage_type'], $params);
+                $iview = Ansel_ImageGenerator::factory($style->default_galleryimage_type, $params);
                 $img = $iview->create();
 
                 // Note the gallery_id is negative for generated stacks
@@ -639,8 +628,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
                 Horde::logMessage($e->getMessage(), 'DEBUG');
-                if ($style != 'ansel_default') {
-                    return $this->getKeyImage('ansel_default');
+                if ($style->default_galleryimage_type != 'plain') {
+                    return $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
                 }
             }
         } else {
@@ -716,6 +705,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      * configured style is not available, use ansel_default.  If nothing has
      * been configured, the user's selected default is attempted.
      *
+     * @TODO: Verify availability of selected style and fallback to ansel_default
+     *
      * @return array  The style definition array.
      */
     public function getStyle()
@@ -733,15 +724,15 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view         The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style   The style.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
     public function getViewHash($view, $style = null)
     {
         if (empty($style)) {
-            $style = $this->data['attribute_style'];
+            $style = $this->getStyle();
         }
 
         return Ansel::getViewHash($view, $style);

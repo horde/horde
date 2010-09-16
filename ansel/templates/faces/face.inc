@@ -16,8 +16,7 @@
   </td>
   <td>
    <?php
-    $styleDef = Ansel::getStyleDefinition($prefs->getValue('default_gallerystyle'));
-    $style = $styleDef['name'];
+    $style = Ansel::getStyleDefinition($prefs->getValue('default_gallerystyle'));
     foreach (array_keys($face['galleries']) as $gallery_id) {
         foreach ($face['galleries'][$gallery_id] as $imageId) {
             echo '<div style="float: left; text-align: center;"><img src="' . Ansel::getImageUrl($imageId, 'thumb', false, $style) . '" style="padding: 5px;" alt="' . $imageId . '" /><br />';

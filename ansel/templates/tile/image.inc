@@ -1,4 +1,4 @@
-<?php echo '<div class="image-tile" id="imagetile_' . (int)$image->id . '">' . $view_url->link(array_merge(array('title' => $image->filename, 'onclick.raw' => $imgOnClick)), $imgAttributes) . '<img src="' . $thumb_url  . '" alt="' . htmlspecialchars($image->filename) . '" /></a>'; ?>
+<?php echo '<div class="image-tile" id="imagetile_' . (int)$image->id . '">' . $view_url->link(array_merge(array('title' => $image->filename, 'onclick.raw' => $imgOnClick), $imgAttributes)) . '<img src="' . $thumb_url  . '" alt="' . htmlspecialchars($image->filename) . '" /></a>'; ?>
  <div style="valign: bottom;">
  <div class="image-tile-caption" id="<?php echo (int)$image->id . 'caption'?>"><?php echo $imageCaption ?></div>
 <?php if ($GLOBALS['registry']->getAuth() || $option_select): ?>

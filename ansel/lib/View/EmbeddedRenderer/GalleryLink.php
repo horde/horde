@@ -72,7 +72,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
              * both were not passed in.
              */
             if ($thumbsize == 'thumb') {
-                $images[] = $gallery->getKeyImage('ansel_default');
+                $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
             } else {
                 // Default to gallery's defined style if not provided.
                 $gallery_style = empty($this->_params['style']) ?

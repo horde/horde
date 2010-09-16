@@ -36,14 +36,14 @@
 <div style="float:right:width:73%;">
 <?php endif; ?>
 <?php echo $this->_pager->render() ?>
-<table width="<?php echo ($this->countWidgets() ? 73 : 100) ?>%" style="background-color:<?php echo $style['background'] ?>;">
+<table width="<?php echo ($this->countWidgets() ? 73 : 100) ?>%" style="background-color:<?php echo $style->background ?>;">
  <tr>
  <?php
  $tilesperrow = $prefs->getValue('tilesperrow');
  $cellwidth = round(100 / $tilesperrow);
  $count = 0;
  foreach ($this->_galleryList as $galleryId => $gallery) {
-     echo '<td width="' . $width . '%" class="ansel-tile">' . $gallery->getTile(null, $style['name'], false, $this->_params) . '</td>';
+     echo '<td width="' . $width . '%" class="ansel-tile">' . $gallery->getTile(null, $style, false, $this->_params) . '</td>';
      if (!(++$count % $prefs->getValue('tilesperrow'))) {
          if ($count < $this->_numGalleries) {
              echo '</tr><tr>';

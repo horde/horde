@@ -15,7 +15,7 @@ class Ansel_Tile_DateGallery
      *
      * @param Ansel_DateGallery $dgallery  The Ansel_Gallery_Date we are
      *                                     displaying.
-     * @param array $style                 A style definition array.
+     * @param Ansel_Style $style           A style object.
      * @param boolean $mini                Force the use of a mini thumbail?
      * @param array $params                An array containing additional
      *                                     parameters. Currently,
@@ -71,13 +71,13 @@ class Ansel_Tile_DateGallery
                 $style = $dgallery->getStyle();
             }
 
-            $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
+            $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
             $gallery_image = Ansel::getImageUrl(
                 $dgallery->getKeyImage(),
-                $thumbstyle, true, $style['name']);
+                $thumbstyle,
+                true,
+                $style);
 
-            // No need to escape alt here since it's generated enitrely within
-            // horde from Horde_Date
             $gallery_image = '<img src="' . $gallery_image . '" alt="' . $caption . '" />' ;
         } else {
             $gallery_image = Horde::img('thumb-error.png');
@@ -88,7 +88,7 @@ class Ansel_Tile_DateGallery
             if (empty($params['style'])) {
                 $gstyle = $dgallery->getStyle();
             } else {
-                $gstyle = Ansel::getStyleDefinition($params['style']);
+                $gstyle = $params['style'];
             }
             $params = array('gallery' => $dgallery->id,
                             'view' => 'Gallery',
@@ -108,7 +108,7 @@ class Ansel_Tile_DateGallery
         $gallery_count = $dgallery->countImages(true);
 
         /* Background color is needed if displaying a mini tile */
-        $background_color = $style['background'];
+        $background_color = $style->background;
 
         Horde::startBuffer();
         include ANSEL_TEMPLATES . '/tile/dategallery' . ($mini ? 'mini' : '') . '.inc';

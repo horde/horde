@@ -89,7 +89,7 @@ class Ansel_Gallery_Decorator_Date
      * Output the HTML for this gallery's tile.
      *
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery object
-     * @param string $style          A named gallery style to use.
+     * @param Ansel_Style $style     A gallery style to use.
      * @param boolean $mini          Force the use of a mini thumbnail?
      * @param array $params          Any additional parameters the Ansel_Tile
      *                               object may need.
@@ -98,8 +98,6 @@ class Ansel_Gallery_Decorator_Date
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
 
         return Ansel_Tile_DateGallery::getTile($this, $style, $mini, $params);
@@ -148,10 +146,7 @@ class Ansel_Gallery_Decorator_Date
     /**
      * Returns the key image for this gallery.
      *
-     * @param string $style  Force the use of this style, if it's available
-     *                       otherwise use whatever style is choosen for this
-     *                       gallery. If prettythumbs are not available then
-     *                       we always use ansel_default style.
+     * @param Ansel_Style $style  Force the use of this style, if it's available
      *
      * @return mixed  The image_id of the key image or false.
      */

@@ -48,7 +48,6 @@ case 'save':
     }
 
     $notification->push(_("Captions Saved."), 'horde.success');
-    $style = $gallery->getStyle();
     Ansel::getUrlFor('view', array_merge(array('gallery' => $galleryId,
                                                'slug' => $gallery->get('slug'),
                                                'view' => 'Gallery'),

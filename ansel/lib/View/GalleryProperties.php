@@ -99,7 +99,6 @@ class Ansel_View_GalleryProperties
      */
     private function _output()
     {
-
         $view = new Horde_View(array('templatePath' => array(ANSEL_TEMPLATES . '/gallery',
                                                              ANSEL_TEMPLATES . '/gallery/partial',
                                                              ANSEL_TEMPLATES . '/gallery/layout')));
@@ -234,6 +233,21 @@ class Ansel_View_GalleryProperties
         $gallery_thumbstyle = Horde_Util::getFormData('gallery_style');
         $gallery_parent = Horde_Util::getFormData('gallery_parent');
 
+        // Style
+        $style = new Ansel_Style(array(
+            'thumbstyle' => Horde_Util::getFormData('thumbnail_style'),
+            'default_galleryimage_type' => 'PlainStack',//Horde_Util::getFormData('keyimage_type'),
+            'background' => Horde_Util::getFormData('background_color'),
+            // temporary hack
+            'widgets' => array('Actions' => array(),
+                 'Tags' => array('view' => 'gallery'),
+                 'OtherGalleries' => array(),
+                 'Geotag' => array(),
+                 'Links' => array(),
+                 'GalleryFaces' => array(),
+                 'OwnerFaces' => array())
+        ));
+
         // Double check for an empty string instead of null
         if (empty($gallery_parent)) {
             $gallery_parent = null;
@@ -252,7 +266,7 @@ class Ansel_View_GalleryProperties
                 }
                 $gallery->set('desc', $gallery_desc);
                 $gallery->setTags(!empty($gallery_tags) ? explode(',', $gallery_tags) : '');
-                //$gallery->set('style', $style);
+                $gallery->set('style', $style);
                 $gallery->set('slug', $gallery_slug);
                 $gallery->set('age', $gallery_age);
                 $gallery->set('download', $gallery_download);
@@ -261,7 +275,7 @@ class Ansel_View_GalleryProperties
                     $gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
                     $gallery->set('passwd', $gallery_passwd);
                 }
-
+                
                 // Did the parent change?
                 $old_parent = $gallery->getParent();
                 if (!is_null($old_parent)) {
@@ -328,7 +342,7 @@ class Ansel_View_GalleryProperties
                         array('name' => $gallery_name,
                               'desc' => $gallery_desc,
                               'tags' => explode(',', $gallery_tags),
-                              //'style' => $style,
+                              'style' => $style,
                               'slug' => $gallery_slug,
                               'age' => $gallery_age,
                               'download' => $gallery_download,

@@ -143,13 +143,13 @@ function downloadSelected()
     <?php if (!$this->numTiles): ?>
       <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
-      <table width="100%" style="background-color:<?php echo $this->style['background'] ?>;">
+      <table width="100%" style="background-color:<?php echo $this->style->background ?>;">
         <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $pager->render() ?></td></tr>
         <tr>
           <?php
           foreach ($this->children as $child) {
               echo '<td width="' . $cellwidth . '%" class="ansel-tile">'
-                  . $child->getTile($this->view->gallery, $this->style['name'], false, $this->view->getParams()) . '</td>';
+                  . $child->getTile($this->view->gallery, $this->style, false, $this->view->getParams()) . '</td>';
               if (!(++$count % $tilesperrow)) {
                 echo '</tr><tr>';
               }

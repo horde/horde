@@ -122,9 +122,7 @@
 <?php endif; ?>
 
 <!-- Gallery Style -->
-<tr>
-  <?php echo $this->renderPartial('styles'); ?>
-</tr>
+<?php echo $this->renderPartial('styles'); ?>
 
 <!-- Submission -->
 <tr>

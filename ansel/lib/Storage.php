@@ -861,7 +861,7 @@ class Ansel_Storage
      * from the same gallery.
      *
      * @param array $images        An array of image ids
-     * @param string $style        A named gallery style to force if requesting
+     * @param Ansel_Style $style   A gallery style to force if requesting
      *                             pretty thumbs.
      * @param boolean $full        Generate full urls
      * @param string $image_view   Which image view to use? screen, thumb etc..
@@ -874,7 +874,7 @@ class Ansel_Storage
     {
         $galleries = array();
         if (is_null($style)) {
-            $style = 'ansel_default';
+            $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         $json = array();

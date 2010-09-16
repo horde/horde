@@ -17,7 +17,7 @@ class Ansel_Tile_Image
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery for this image.
      *                               If null, will create a new instance of
      *                               the Ansel_Gallery
-     * @param array $style           A sytle definiition array.
+     * @param Ansel_Style $style     A sytle definiition array.
      * @param boolean $mini          Force the use of a mini thumbnail?
      * @param string $params         Any other paramaters needed by this tile
      *
@@ -43,7 +43,7 @@ class Ansel_Tile_Image
         }
 
         /* Override the thumbnail to mini or use style default? */
-        $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
+        $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
 
         /* URL for image properties/actions etc... */
         $image_url = Horde::url('image.php')->add(
@@ -92,7 +92,8 @@ class Ansel_Tile_Image
                 $date));
         }
 
-        $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style['name']);
+        $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style);
+
         $option_select = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
         $option_edit = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         $imgAttributes = (!empty($params['image_view_attributes']) ? $params['image_view_attributes'] : array());
@@ -115,6 +116,7 @@ class Ansel_Tile_Image
         Horde::startBuffer();
         // In-line caption editing if we have Horde_Perms::EDIT
         if ($option_edit) {
+            // @TODO: passing thumbstyle here doesn't look right to me.
             $geometry = $image->getDimensions($thumbstyle);
             $GLOBALS['injector']->createInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'EditCaption'), array(
                 'domid' => $image->id . 'caption',
