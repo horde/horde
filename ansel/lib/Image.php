@@ -753,24 +753,13 @@ class Ansel_Image Implements Iterator
             }
 
             if ($view == 'all' || $view == 'prettythumb') {
-
-                /* No need to try to delete a hash we already removed */
-                $deleted = array();
-
-                /* Need to generate hashes for each possible style */
-                // @TODO: Need to save the style hash to the share entry
-                //        since we don't require the use of predefined
-                //        style definitions now.
                 $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-                foreach ($styles as $style)
+                $hashes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getHashes();
+                foreach ($hashes as $hash)
                 {
-                    $hash =  md5($style['thumbstyle'] . '.' . $style['background']);
-                    if (empty($deleted[$hash]))
-                    {
-                        $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile(
-                            $this->getVFSPath($hash), $this->getVFSName($hash));
-                        $deleted[$hash] = true;
-                    }
+                    $GLOBALS['injector']->getInstance('Horde_Vfs')
+                        ->getVfs('images')
+                        ->deleteFile($this->getVFSPath($hash), $this->getVFSName($hash));
                 }
             }
         } catch (VFS_Exception $e) {}

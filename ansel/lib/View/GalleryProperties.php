@@ -364,6 +364,11 @@ class Ansel_View_GalleryProperties
 
         }
 
+        // Make sure that the style hash is recorded, ignoring non-styled thumbs
+        if ($style->thumbstyle != 'Thumb') {
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->ensureHash($gallery->getViewHash('prettythumb'));
+        }
+
         // Clear the OtherGalleries widget cache
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));

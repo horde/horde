@@ -1145,4 +1145,37 @@ class Ansel_Storage
         return implode(', ', $fields);
     }
 
+    /**
+     * Ensure the style hash is recorded in the database.
+     *
+     * @param string $hash  The hash to record.
+     *
+     * @return void
+     */
+    public function ensureHash($hash)
+    {
+        $query = $this->_db->prepare('SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?');
+        $results = $query->execute($hash);
+        if ($results instanceof PEAR_Error) {
+            throw new Ansel_Exception($results->getMessage());
+        }
+        if (!$results->fetchOne()) {
+            $query = $this->_db->prepare('INSERT INTO ansel_hashes (style_hash) VALUES(?)');
+            $results = $query->execute($hash);
+            if ($results instanceof PEAR_Error) {
+                throw new Ansel_Exception($results->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Get a list of all known styleHashes.
+     *
+     * @return array  An array of style hashes.
+     */
+    public function getHashes()
+    {
+        $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes;');
+    }
+
 }
