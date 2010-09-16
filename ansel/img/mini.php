@@ -32,4 +32,4 @@ if ($conf['vfs']['src'] == 'sendfile') {
     header('X-Sendfile: ' . $filename);
     exit;
 }
-$image->display('mini');
+$image->display('mini', Ansel::getStyleDefinition('ansel_default'));

@@ -22,7 +22,6 @@ class Ansel_Style
     public function __construct($properties)
     {
         $this->_properties = array_merge(array('gallery_view' => 'Gallery',
-                                               'default_galleryimage_type' => 'plain',
                                                'background' => 'none'),
                                         $properties);
     }
@@ -50,6 +49,16 @@ class Ansel_Style
 
     public function &__get($property)
     {
+        if ($property == 'keyimage_type') {
+            // Force the same type of effect for key image/stacks if available
+            $class = $this->_properties['thumbstyle'] . 'Stack';
+            if (!class_exists('Ansel_ImageGenerator_' . $class)) {
+                $class = 'Thumb';
+            }
+
+            return $class;
+        }
+
         return $this->_properties[$property];
     }
 

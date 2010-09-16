@@ -51,6 +51,16 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
     }
 
+    public function get($property)
+    {
+        $value = parent::get($property);
+        if ($property == 'style') {
+            $value = unserialize($value);
+        }
+
+        return $value;
+    }
+
     /**
      * Check for special capabilities of this gallery.
      *
@@ -590,8 +600,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $style = $this->getStyle();
         }
 
-        if ($style->default_galleryimage_type != 'plain') {
-            $thumbstyle = $style->default_galleryimage_type;
+        if ($style->keyimage_type != 'Thumb') {
+            $thumbstyle = $style->keyimage_type;
             $styleHash = $style->getHash($thumbstyle);
 
             /* First check for the existence of a key image in the specified style */
@@ -609,7 +619,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             //@TODO: Look at passing style both in params and the property...
             $params = array('gallery' => $this, 'style' => $style);
             try {
-                $iview = Ansel_ImageGenerator::factory($style->default_galleryimage_type, $params);
+                $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
 
                 // Note the gallery_id is negative for generated stacks
@@ -628,7 +638,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
                 Horde::logMessage($e->getMessage(), 'DEBUG');
-                if ($style->default_galleryimage_type != 'plain') {
+                if ($style->keyimage_type != 'plain') {
                     return $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
                 }
             }
@@ -893,6 +903,11 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
 
             $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
             $this->_setModeHelper($mode);
+        }
+
+        /* Need to serialize the style object */
+        if ($driver_key == 'attribute_style') {
+            $value = serialize($value);
         }
 
         $this->data[$driver_key] = $value;

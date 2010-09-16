@@ -236,7 +236,6 @@ class Ansel_View_GalleryProperties
         // Style
         $style = new Ansel_Style(array(
             'thumbstyle' => Horde_Util::getFormData('thumbnail_style'),
-            'default_galleryimage_type' => 'PlainStack',//Horde_Util::getFormData('keyimage_type'),
             'background' => Horde_Util::getFormData('background_color'),
             // temporary hack
             'widgets' => array('Actions' => array(),

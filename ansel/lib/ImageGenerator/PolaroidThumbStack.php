@@ -1,11 +1,11 @@
 <?php
 /**
- * ImageGenerator to create the gallery image stacks.
+ * ImageGenerator to create the gallery polaroid stacks.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageGenerator_PlainStack extends Ansel_ImageGenerator
+class Ansel_ImageGenerator_PolaroidThumbStack extends Ansel_ImageGenerator
 {
     public $need = array('PhotoStack');
 
@@ -27,13 +27,13 @@ class Ansel_ImageGenerator_PlainStack extends Ansel_ImageGenerator
                 'PhotoStack',
                 array('images' => $imgobjs,
                       'resize_height' => $GLOBALS['conf']['thumbnail']['height'],
-                      'padding' => 0,
+                      'padding' => 10,
                       'background' => $style->background,
-                      'type' => 'plain'));
-
+                      'type' => 'polaroid'));
             $baseImg->applyEffects();
             $baseImg->resize($GLOBALS['conf']['thumbnail']['width'],
                              $GLOBALS['conf']['thumbnail']['height']);
+
         } catch (Horde_Image_Exception $e) {
             throw new Ansel_Exception($e);
         }

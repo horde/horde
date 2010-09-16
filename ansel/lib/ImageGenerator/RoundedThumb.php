@@ -1,17 +1,17 @@
 <?php
 /**
- * ImageGenerator to create the shadowsharpthumb view (sharp corners, shadowed)
+ * ImageGenerator to create the prettythumb view (rounded, shadowed thumbnails).
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageGenerator_ShadowSharpThumb extends Ansel_ImageGenerator
+class Ansel_ImageGenerator_RoundedThumb extends Ansel_ImageGenerator
 {
-    public $need = array('DropShadow');
+    public $need = array('RoundCorners', 'DropShadow');
 
     /**
      *
-     * @return boolean
+     * @return Horde_Image
      */
     protected function _create()
     {
@@ -30,19 +30,19 @@ class Ansel_ImageGenerator_ShadowSharpThumb extends Ansel_ImageGenerator
             }
 
             try {
-                $this->_image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
-                $this->_image->addEffect('DropShadow',
-                                         array('background' => $styleDef->background,
-                                               'padding' => 5,
-                                               'distance' => 8,
-                                               'fade' => 2));
+                /* Apply the effects - continue on error, but be sure to log */
+                $this->_image->addEffect('RoundCorners', array('border' => 2,
+                                                               'bordercolor' => '#333'));
 
+                $this->_image->addEffect('DropShadow', array('background' => $styleDef->background,
+                                                             'padding' => 5,
+                                                             'distance' => 5,
+                                                             'fade' => 3));
                 if ($GLOBALS['conf']['thumbnail']['unsharp'] && Ansel::isAvailable('Unsharpmask')) {
                     $this->_image->addEffect('Unsharpmask',
                                              array('radius' => $GLOBALS['conf']['thumbnail']['radius'],
                                                    'threshold' => $GLOBALS['conf']['thumbnail']['threshold'],
                                                    'amount' => $GLOBALS['conf']['thumbnail']['amount']));
-                    $this->_image->applyEffects();
                 }
 
                 $this->_image->applyEffects();

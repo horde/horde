@@ -3,12 +3,23 @@
    <td>
     <select name="thumbnail_style">
       <option value="Thumb" selected="selected">Basic Thumbnails</option>
-      <option value="ShadowSharpThumb">Drop Shadows</option>
-      <option value="PrettyThumb">Rounded Corners</option>
+      <option value="ShadowThumb">Drop Shadows</option>
+      <option value="RoundedThumb">Rounded Corners</option>
       <option value="PolaroidThumb">Polaroids</option>
     </select>
    </td>
   </tr>
+<!--  <tr>
+   <td align="right" valign="top"><strong><?php echo _("Key Image Style"); ?></string></td>
+   <td>
+    <select name="keyimage_type">
+     <option value="Thumb">Basic Thumbnail</option>
+     <option value="PlainStack">Photo Stack</option>
+     <option value-="RoundedStack">Rounded Stack</option>
+     <option value="PolaroidStack">Polaroid Stack</option>
+    </select>
+   </td>
+  </tr>-->
   <tr>
    <td align="right" valign="top"><strong><?php echo _("Backgrond Color"); ?></string></td>
    <td>

@@ -6,7 +6,7 @@
  * @package Ansel
  *
  */
-class Ansel_ImageGenerator_RoundedStack extends Ansel_ImageGenerator
+class Ansel_ImageGenerator_RoundedThumbStack extends Ansel_ImageGenerator
  {
     public $need = array('PhotoStack');
 
