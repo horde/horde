@@ -377,7 +377,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
            'stories.story_updated AS updated, ' .
            'stories.story_read AS readcount ' .
            'FROM jonah_stories AS stories ' .
-           'JOIN jonah_stories_tags tags ON (stories.story_id = tags.story_id) ' .
+           'LEFT JOIN jonah_stories_tags tags ON (stories.story_id = tags.story_id) ' .
            'WHERE stories.channel_id=?';
 
         $values = array($criteria['channel_id']);
