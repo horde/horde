@@ -15,23 +15,17 @@
  */
 class Horde_Group_LdapObject extends Horde_Group_DataTreeObject
 {
-    /**
-     * Constructor.
-     *
-     * @param string $name    The name of this group.
-     * @param string $parent  The dn of the parent of this group.
-     */
-    public function __construct($name, $parent = null)
+    protected $_entry;
+
+    public function getEntry()
     {
-        // FIXME!!!!
-        $conf = Horde::getDriverConfig('group', 'ldap');
-        parent::__construct($name);
-        if ($parent) {
-            $this->data['dn'] = Horde_String::lower($conf['gid']) . '=' . $name . ',' . $parent;
-        } else {
-            $this->data['dn'] = Horde_String::lower($conf['gid']) . '=' . $name .
-                ',' . Horde_String::lower($conf['basedn']);
-        }
+        return $this->_entry;
+    }
+
+    public function setEntry(Horde_Ldap_Entry $entry)
+    {
+        $this->_entry = $entry;
+        $this->fromAttributes(array('dn' => $entry->dn()) + $entry->getValues());
     }
 
     /**

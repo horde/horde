@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
@@ -15,20 +16,62 @@
 class Horde_Group_Ldap extends Horde_Group
 {
     /**
-     * LDAP connection handle
+     * LDAP object.
+     *
+     * @var Horde_Ldap
      */
-    protected $_ds;
+    protected $_ldap;
 
     /**
      * Local copy of the global $conf['group']['params'] array. Simply
      * for coding convenience.
+     *
+     * @var array
      */
     protected $_params;
 
     /**
-     * Generated LDAP filter based on the config parameters
+     * LDAP filter based on the config parameters.
+     *
+     * @var Horde_Ldap_Filter
      */
     protected $_filter;
+
+    /**
+     * Local cache for already retrieved group objects, indexed by DN.
+     *
+     * @var array
+     */
+    protected $_dnCache = array();
+
+    /**
+     * Local cache for already retrieved group objects, indexed by group name.
+     *
+     * @var array
+     */
+    protected $_nameCache = array();
+
+    /**
+     * Local cache for already retrieved group names, indexed by DN.
+     *
+     * @var array|boolean
+     */
+    protected $_listCache = false;
+
+    /**
+     * Local cache for already retrieved group memberships, indexed by user
+     * name.
+     *
+     * @var array
+     */
+    protected $_userCache = array();
+
+    /**
+     * Local cache for already retrieved group users, indexed by group name.
+     *
+     * @var array
+     */
+    protected $_groupCache = array();
 
     /**
      * Constructor.
@@ -38,100 +81,34 @@ class Horde_Group_Ldap extends Horde_Group
         $this->_params = $params;
         $this->_params['gid'] = Horde_String::lower($this->_params['gid']);
         $this->_params['memberuid'] = Horde_String::lower($this->_params['memberuid']);
-        foreach ($this->_params['newgroup_objectclass'] as $key => $val) {
-            $this->_params['newgroup_objectclass'][$key] = Horde_String::lower($val);
+        foreach ($this->_params['newgroup_objectclass'] as &$val) {
+            $val = Horde_String::lower($val);
         }
 
         /* Generate LDAP search filter. */
         if (!empty($this->_params['filter'])) {
-            $this->_filter = $this->_params['filter'];
+            $this->_filter = Horde_Ldap_Filter::parse($this->_params['filter']);
         } elseif (!is_array($this->_params['objectclass'])) {
-            $this->_filter = 'objectclass=' . $this->_params['objectclass'];
+            $this->_filter = Horde_Ldap_Filter::create('objectclass', 'equals', $this->_params['objectclass']);
         } else {
-            $this->_filter = '';
+            $filters = array();
             foreach ($this->_params['objectclass'] as $objectclass) {
-                $this->_filter = '(&' . $this->_filter;
-                $this->_filter .= '(objectclass=' . $objectclass . '))';
+                $filters[] = Horde_Ldap_Filter::create('objectclass', 'equals', $objectclass);
+            }
+            if (count($filters) == 1) {
+                $this->_filter = $filters[0];
+            } else {
+                $this->_filter = Horde_Ldap_Filter::combine('and', $filters);
             }
         }
 
-        $this->_filter = Horde_String::lower($this->_filter);
+        /* Connect to server. */
+        $this->_ldap = new Horde_Ldap($this->_params);
     }
 
     /**
-     * Connects to the LDAP server.
-     *
-     * @throws Horde_Group_Exception
-     */
-    protected function _connect()
-    {
-        /* Connect to the LDAP server. */
-        $this->_ds = @ldap_connect($this->_params['hostspec']);
-        if (!$this->_ds) {
-            throw new Horde_Group_Exception('Could not reach the LDAP server');
-        }
-
-        if (!@ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION,
-                              $this->_params['version'])) {
-            Horde::logMessage(
-                sprintf('Set LDAP protocol version to %d failed: [%d] %s',
-                        $this->_params['version'],
-                        @ldap_errno($this->_ds),
-                        @ldap_error($this->_ds)),
-                'ERR');
-        }
-
-        /* Start TLS if we're using it. */
-        if (!empty($this->_params['tls'])) {
-            if (!@ldap_start_tls($this->_ds)) {
-                Horde::logMessage(
-                    sprintf('STARTTLS failed: [%d] %s',
-                            @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    'ERR');
-            }
-        }
-
-        if (isset($this->_params['binddn'])) {
-            $bind = @ldap_bind($this->_ds, $this->_params['binddn'],
-                               $this->_params['bindpw']);
-        } else {
-            $bind = @ldap_bind($this->_ds);
-        }
-
-        if (!$bind) {
-            throw new Horde_Group_Exception('Could not bind to LDAP server');
-        }
-    }
-
-    /**
-     * Recursively deletes $dn. $this->_ds MUST already be connected.
-     *
-     * @throws Horde_Group_Exception
-     */
-    protected function _recursive_delete($dn)
-    {
-        $search = @ldap_list($this->_ds, $dn, 'objectclass=*', array(''));
-        if (!$search) {
-            throw new Horde_Group_Exception('Could not reach the LDAP server');
-        }
-
-        $children = @ldap_get_entries($this->_ds, $search);
-        for ($i = 0; $i < $children['count']; $i++) {
-            $result = $this->_recursive_delete($children[$i]['dn']);
-            if (!$result) {
-                throw new Horde_Group_Exception(sprintf(__CLASS__ . ': Unable to delete group "%s". This is what the server said: %s', $this->getName($children[$i]['dn']), @ldap_error($this->_ds)));
-            }
-        }
-
-        if (!@ldap_delete($this->_ds, $dn)) {
-            throw new Horde_Group_Exception(sprintf(__CLASS__ . ': Unable to delete group "%s". This is what the server said: %s', $dn, @ldap_error($this->_ds)));
-        }
-    }
-
-    /**
-     * Searches existing groups for the highest gidnumber, and returns
-     * one higher.
+     * Searches existing groups for the highest gidnumber, and returns one
+     * higher.
      *
      * @return integer
      *
@@ -139,33 +116,26 @@ class Horde_Group_Ldap extends Horde_Group
      */
     protected function _nextGid()
     {
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        $search = @ldap_search($this->_ds, $this->_params['basedn'], $this->_filter);
-        if (!$search) {
-            throw new Horde_Group_Exception('Could not reach the LDAP server');
+        try {
+            $search = $this->_ldap->search($this->_params['basedn'], $this->_filter, array('attributes' => array('gidnumber')));
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
-        $result = @ldap_get_entries($this->_ds, $search);
-        @ldap_close($this->_ds);
-
-        if (!is_array($result) || (count($result) <= 1)) {
+        if (!$search->count()) {
             return 1;
         }
 
         $nextgid = 0;
-        for ($i = 0; $i < $result['count']; $i++) {
-            if ($result[$i]['gidnumber'][0] > $nextgid) {
-                $nextgid = $result[$i]['gidnumber'][0];
-            }
+        foreach ($search as $entry) {
+            $nextgid = max($nextgid, $entry->getValue('gidnumber', 'single'));
         }
 
         return $nextgid + 1;
     }
 
     /**
-     * Return a new group object.
+     * Returns a new group object.
      *
      * @param string $name    The group's name.
      * @param string $parent  The group's parent's ID (DN).
@@ -192,8 +162,8 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Return a group object corresponding to the named group, with the
-     * users and other data retrieved appropriately.
+     * Returns a group object corresponding to the named group, with the users
+     * and other data retrieved appropriately.
      *
      * @param string $name  The name of the group to retrieve.
      *
@@ -206,58 +176,40 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Return a group object corresponding to the given dn, with the
-     * users and other data retrieved appropriately.
+     * Returns a group object corresponding to the given DN, with the users and
+     * other data retrieved appropriately.
      *
-     * @param string $dn  The dn of the group to retrieve.
+     * @param string $dn  The DN of the group to retrieve.
      *
      * @return Horde_Group_LdapObject  The requested group.
      * @throws Horde_Group_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getGroupById($dn)
     {
-        static $cache = array();
-
-        if (!isset($cache[$dn])) {
-            /* Connect to the LDAP server. */
-            $this->_connect();
-
-            $search = @ldap_search($this->_ds, $dn, $this->_filter);
-            if (!$search) {
-                throw new Horde_Group_Exception('Could not reach the LDAP server');
-            }
-
-            $result = @ldap_get_entries($this->_ds, $search);
-            @ldap_close($this->_ds);
-            if (!is_array($result) || (count($result) <= 1)) {
-                throw new Horde_Group_Exception('Empty result');
-            }
-
-            $attributes = array();
-            for ($i = 0; $i < $result[0]['count']; $i++) {
-                if ($result[0][$result[0][$i]]['count'] > 1) {
-                    $attributes[$result[0][$i]] = array();
-                    for ($j = 0; $j < $result[0][$result[0][$i]]['count']; $j++) {
-                        $attributes[$result[0][$i]][] = $result[0][$result[0][$i]][$j];
-                    }
-                } else {
-                    $attributes[$result[0][$i]] = $result[0][$result[0][$i]][0];
-                }
-            }
-            $attributes['dn'] = $result[0]['dn'];
-
-            $group = new Horde_Group_LdapObject($this->getGroupName($dn));
-            $group->fromAttributes($attributes);
-            $group->setGroupOb($this);
-            $cache[$dn] = $group;
+        if (isset($this->_dnCache[$dn])) {
+            return $this->_dnCache[$dn];
         }
 
-        return $cache[$dn];
+        try {
+            $entry = $this->_ldap->getEntry($dn);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        $group = new Horde_Group_LdapObject($this->getGroupName($dn));
+        $group->setEntry($entry);
+        $group->setGroupOb($this);
+        $this->_dnCache[$dn] = $group;
+
+        return $group;
     }
 
     /**
-     * Get a globally unique ID for a group.  This really just returns the dn
-     * for the group, but is included for compatibility with the Group class.
+     * Returns a globally unique ID for a group.
+     *
+     * This really just returns the DN for the group, but is included for
+     * compatibility with the Group class.
      *
      * @param Horde_Group_LdapObject $group  The group.
      *
@@ -269,35 +221,30 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Add a group to the groups system.  The group must first be created with
-     * Group_ldap::newGroup(), and have any initial users added to it, before
-     * this function is called.
+     * Adds a group to the groups system.
+     *
+     * The group must first be created with Horde_Group_Ldap::newGroup(), and
+     * have any initial users added to it, before this function is called.
      *
      * @param Horde_Group_LdapObject $group  The new group object.
      *
      * @throws Horde_Group_Exception
      */
-    public function addGroup(Horde_Group_DataTreeObject $group)
+    public function addGroup(Horde_Group_LdapObject $group)
     {
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
         $dn = $group->get('dn');
-
-        $entry = $group->toAttributes();
-        $success = @ldap_add($this->_ds, $dn, $entry);
-
-        if (!$success) {
-            throw new Horde_Group_Exception(sprintf(__CLASS__ . ': Unable to add group "%s". This is what the server said: ', $group->getName()) . @ldap_error($this->_ds));
+        $entry = Horde_Ldap_Entry::createFresh($dn, $group->toAttributes());
+        try {
+            $this->_ldap->add($entry);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
-
-        @ldap_close($this->_ds);
     }
 
     /**
-     * Store updated data - users, etc. - of a group to the backend system.
+     * Stores updated data - users, etc. - of a group to the backend system.
      *
-     * @param Horde_Group_LdapObject $group  The group to update
+     * @param Horde_Group_LdapObject $group  The group to update.
      *
      * @throws Horde_Group_Exception
      * @throws Horde_History_Exception
@@ -305,20 +252,17 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function updateGroup(Horde_Group_LdapObject $group)
     {
-        $entry = $group->toAttributes();
-
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
+        $entry = $group->getEntry();
+        $attributes = $group->toAttributes();
         // Do not attempt to change an LDAP object's objectClasses
-        unset($entry['objectclass']);
+        unset($attributes['objectclass']);
 
-        $result = @ldap_modify($this->_ds, $group->getId(), $entry);
-        if (!$result) {
-            throw new Horde_Group_Exception(sprintf(__CLASS__ . ': Unable to update group "%s". This is what the server said: %s', $group->getName(), @ldap_error($this->_ds)));
+        try {
+            $entry->replace($attributes);
+            $entry->update();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
-
-        @ldap_close($this->_ds);
 
         /* Log the update of the group users on the history log. */
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -330,12 +274,10 @@ class Horde_Group_Ldap extends Horde_Group
 
         /* Log the group modification. */
         $history->log($guid, array('action' => 'modify'), true);
-
-        return $result;
     }
 
     /**
-     * Remove a group from the groups system permanently.
+     * Removes a group from the groups system permanently.
      *
      * @param Horde_Group_LdapObject $group  The group to remove.
      * @param boolean $force     Recursively delete children groups if true.
@@ -345,22 +287,15 @@ class Horde_Group_Ldap extends Horde_Group
     public function removeGroup(Horde_Group_DataTreeObject $group,
                                 $force = false)
     {
-        $dn = $group->getId();
-
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        if ($force) {
-            return $this->_recursive_delete($dn);
-        }
-
-        if (!@ldap_delete($this->_ds, $dn)) {
-            throw new Horde_Group_Exception(sprintf(__CLASS__ . ': Unable to delete group "%s". This is what the server said: %s', $dn, @ldap_error($this->_ds)));
+        try {
+            $this->_ldap->delete($group->getId(), $force);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
     }
 
     /**
-     * Retrieve the name of a group.
+     * Retrieves the name of a group.
      *
      * @param string $dn  The dn of the group to retrieve the name for.
      *
@@ -393,46 +328,48 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Retrieve the ID of the given group.
+     * Returns the ID of the given group.
      *
      * NOTE: If given a group name, this function can be unreliable if more
      * than one group exists with the same name.
      *
-     * @param mixed $group  Group object, or a group name (string).
+     * @param Horde_Group_LdapObject|string $group  Group object, or a group name.
      *
      * @return string  The group's ID.
      * @throws Horde_Group_Exception
      */
     public function getGroupId($group)
     {
-        static $cache = array();
-
         if ($group instanceof Horde_Group_LdapObject) {
             return $group->get('dn');
         }
 
-        if (!isset($cache[$group])) {
-            $this->_connect();
-            $search = @ldap_search($this->_ds, $this->_params['basedn'],
-                                   $this->_params['gid'] . '=' . $group,
-                                   array($this->_params['gid']));
-            if (!$search) {
-                throw new Horde_Group_Exception('Could not reach the LDAP server');
-            }
-
-            $result = @ldap_get_entries($this->_ds, $search);
-            @ldap_close($this->_ds);
-            if (!is_array($result) || (count($result) <= 1)) {
-                throw new Horde_Group_Exception('Empty result');
-            }
-            $cache[$group] = $result[0]['dn'];
+        if (isset($this->_nameCache[$group])) {
+            return $this->_nameCache[$group];
         }
 
-        return $cache[$group];
+        try {
+            $search = $this->_ldap->search(
+                $this->_params['basedn'],
+                Horde_Ldap_Filter::create($this->_params['gid'], 'equals', $group),
+                array('attributes' => array($this->_params['gid'])));
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+        if (!$search->count()) {
+            throw new Horde_Group_Exception('Empty result');
+        }
+        try {
+            $this->_nameCache[$group] = $search->shiftEntry()->dn();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        return $this->_nameCache[$group];
     }
 
     /**
-     * Check if a group exists in the system.
+     * Returns whether a group exists in the system.
      *
      * @param string $group  The group name to check for.
      *
@@ -441,32 +378,21 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function exists($group)
     {
-        static $cache = array();
-
-        if (!isset($cache[$group])) {
-            /* Connect to the LDAP server. */
-            $this->_connect();
-
-            $groupDN = $this->getGroupId($group);
-            $group = $this->getGroupShortName($group);
-
-            $res = @ldap_compare($this->_ds, $groupDN, $this->_params['gid'], $group);
-            // $res is True if the group exists, false if not, -1 on error.
-            if ($res === -1) {
-                throw new Horde_Group_Exception(sprintf('Internal Error: An attribute must ALWAYS match itself: %s', @ldap_error($this->_ds)));
-            }
-            $cache[$group] = $res;
+        try {
+            $ldapGroup = $this->getGroup($group);
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
         }
 
-        return $cache[$group];
+        return $ldapGroup->getName() == $group->getName();
     }
 
     /**
-     * Get a list of the parents of a child group.
+     * Returns a list of the parents of a child group.
      *
-     * @param string $dn  The fully qualified group dn
+     * @param string $dn  The fully qualified group DN.
      *
-     * @return array  Nested array of parents
+     * @return array  Nested array of parents.
      */
     public function getGroupParents($dn)
     {
@@ -480,11 +406,11 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Get the parent of the given group.
+     * Returns the parent of the given group.
      *
-     * @param string $dn  The dn of the child group.
+     * @param string $dn  The DN of the child group.
      *
-     * @return string  The dn of the parent group.
+     * @return string  The DN of the parent group.
      * @throws Horde_Group_Exception
      */
     public function getGroupParent($dn)
@@ -503,10 +429,10 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Get a list of parents all the way up to the root object for the given
-     * group.
+     * Returns a list of parents all the way up to the root object for the
+     * given group.
      *
-     * @param string $dn  The dn of the group.
+     * @param string $dn  The DN of the group.
      *
      * @return array  A flat list of all of the parents of the given group,
      *                hashed in $dn => $name format.
@@ -536,7 +462,7 @@ class Horde_Group_Ldap extends Horde_Group
     }
 
     /**
-     * Get a list of every group, in the format dn => groupname.
+     * Returns a list of every group, in the format dn => groupname.
      *
      * @param boolean $refresh  If true, the cached value is ignored and the
      *                          group list is refreshed from the group backend.
@@ -546,75 +472,55 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function listGroups($refresh = false)
     {
-        static $groups;
-
-        if ($refresh || is_null($groups)) {
-            /* Connect to the LDAP server. */
-            $this->_connect();
-
-            $search = @ldap_search($this->_ds, $this->_params['basedn'], $this->_filter, array($this->_params['gid']));
-            if (!$search) {
-                throw new Horde_Group_Exception('Could not search the LDAP server');
-            }
-
-            @ldap_sort($this->_ds, $search, $this->_params['gid']);
-
-            $result = @ldap_get_entries($this->_ds, $search);
-            @ldap_close($this->_ds);
-            if (!is_array($result) || (count($result) <= 1)) {
-                return array();
-            }
-
-            $groups = array();
-            for ($i = 0; $i < $result['count']; $i++) {
-                $groups[$result[$i]['dn']] = $this->getGroupName($result[$i]['dn']);
-            }
+        if ($this->_listCache !== false) {
+            return $this->_listCache;
         }
 
-        return $groups;
+        $this->_listCache = array();
+        try {
+            $search = $this->_ldap->search($this->_params['basedn'], $this->_filter, array($this->_params['gid']));
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        foreach ($search->sorted_as_struct(array($this->_params['gid'])) as $entry) {
+            $this->_listCache[$entry['dn']] = $this->getGroupName($entry['dn']);
+        }
+
+        return $this->_listCache;
     }
 
     /**
-     * Get a list of every user that is part of the specified group and any
+     * Returns a list of every user that is part of the specified group and any
      * of its subgroups.
      *
-     * @param string $dn  The dn of the parent group.
+     * @param string $dn  The DN of the parent group.
      *
      * @return array  The complete user list.
      * @throws Horde_Group_Exception
      */
     public function listAllUsers($dn)
     {
-        static $cache = array();
-
-        if (!isset($cache[$dn])) {
-            $this->_connect();
-
-            $search = @ldap_search($this->_ds, $dn, $this->_filter);
-            if (!$search) {
-                throw new Horde_Group_Exception(sprintf('Could not reach the LDAP server: %s', @ldap_error($this->_ds)));
-            }
-
-            $result = @ldap_get_entries($this->_ds, $search);
-            @ldap_close($this->_ds);
-            if (!is_array($result) || (count($result) <= 1)) {
-                // Not an error, we just don't have any users in this group.
-                return array();
-            }
-
-            $users = array();
-            for ($i = 0; $i < $result['count']; $i++) {
-                $users = array_merge($users, $this->listUsers($result[$i]['dn']));
-            }
-
-            $cache[$dn] = array_keys(array_flip($users));
+        if (isset($this->_groupCache[$dn])) {
+            return $this->_groupCache[$dn];
         }
 
-        return $cache[$dn];
+        try {
+            $search = $this->_ldap->search($dn, $this->_filter);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        $users = array();
+        foreach ($search as $dn => $entry) {
+            $users = array_merge($users, $this->listUsers($dn));
+        }
+
+        return $this->_groupCache[$dn] = array_keys(array_flip($users));
     }
 
     /**
-     * Get a list of every group that the given user is a member of.
+     * Returns a list of every group that the given user is a member of.
      *
      * @param string  $user          The user to get groups for.
      * @param boolean $parentGroups  Also return the parents of any groups?
@@ -624,46 +530,37 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function getGroupMemberships($user, $parentGroups = false)
     {
-        static $cache = array();
-
-        if (empty($cache[$user])) {
-            /* Connect to the LDAP server. */
-            $this->_connect();
-
-            // Set up search filter
-            $filter = '(' . $this->_params['memberuid'] . '=';
-            if ($GLOBALS['conf']['group']['params']['attrisdn']) {
-                $filter .= $GLOBALS['conf']['auth']['params']['uid'] . '=';
-            }
-            $filter .= $user;
-            if ($GLOBALS['conf']['group']['params']['attrisdn']) {
-                $filter .= ',' . $GLOBALS['conf']['auth']['params']['basedn'];
-            }
-            $filter .= ')';
-
-            // Perform search
-            $search = @ldap_search($this->_ds, $this->_params['basedn'], $filter);
-            if (!$search) {
-                throw new Horde_Group_Exception('Could not reach the LDAP server');
-            }
-
-            $result = @ldap_get_entries($this->_ds, $search);
-            @ldap_close($this->_ds);
-            if (!is_array($result) || (count($result) <= 1)) {
-                return array();
-            }
-
-            $groups = array();
-            $current_charset = $GLOBALS['registry']->getCharset();
-            for ($i = 0; $i < $result['count']; $i++) {
-                $utf8_dn = Horde_String::convertCharset($result[$i]['dn'], 'UTF-8', $current_charset);
-                $groups[$utf8_dn] = $this->getGroupName($utf8_dn);
-            }
-
-            $cache[$user] = $groups;
+        if (isset($this->_userCache[$user])) {
+            return $this->_userCache[$user];
         }
 
-        return $cache[$user];
+        // Set up search filter.
+        // TODO/FIXME/WTH?
+        $filter = '(' . $this->_params['memberuid'] . '=';
+        if ($GLOBALS['conf']['group']['params']['attrisdn']) {
+            $filter .= $GLOBALS['conf']['auth']['params']['uid'] . '=';
+        }
+        $filter .= $user;
+        if ($GLOBALS['conf']['group']['params']['attrisdn']) {
+            $filter .= ',' . $GLOBALS['conf']['auth']['params']['basedn'];
+        }
+        $filter .= ')';
+
+        // Perform search
+        try {
+            $search = $this->_ldap->search($this->_params['basedn'], $filter);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        $this->_userCache[$user] = array();
+        $current_charset = $GLOBALS['registry']->getCharset();
+        foreach ($search as $dn => $entry) {
+            $utf8_dn = Horde_String::convertCharset($dn, 'UTF-8', $current_charset);
+            $this->_userCache[$user][$utf8_dn] = $this->getGroupName($utf8_dn);
+        }
+
+        return $this->_userCache[$user];
     }
 
     /**
