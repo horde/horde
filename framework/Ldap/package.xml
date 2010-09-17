@@ -37,7 +37,7 @@
       <file name="Exception.php" role="php" />
       <file name="Filter.php" role="php" />
       <file name="LDIF.php" role="php" />
-      <file name="RootDSE.php" role="php" />
+      <file name="RootDse.php" role="php" />
       <file name="Schema.php" role="php" />
       <file name="Search.php" role="php" />
       <file name="Util.php" role="php" />
@@ -71,8 +71,8 @@
    <install as="Horde/Ldap/Entry.php" name="lib/Horde/Ldap/Entry.php" />
    <install as="Horde/Ldap/Exception.php" name="lib/Horde/Ldap/Exception.php" />
    <install as="Horde/Ldap/Filter.php" name="lib/Horde/Ldap/Filter.php" />
-   <install as="Horde/Ldap/LDIF.php" name="lib/Horde/Ldap/LDIF.php" />
-   <install as="Horde/Ldap/RootDSE.php" name="lib/Horde/Ldap/RootDSE.php" />
+   <install as="Horde/Ldap/Ldif.php" name="lib/Horde/Ldap/Ldif.php" />
+   <install as="Horde/Ldap/RootDse.php" name="lib/Horde/Ldap/RootDse.php" />
    <install as="Horde/Ldap/Schema.php" name="lib/Horde/Ldap/Schema.php" />
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
