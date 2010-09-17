@@ -41,3 +41,4 @@ changetype: modrdn
 newrdn: cn=foobartest
 deleteoldrdn: 1
 newsuperior: ou=newexample,dc=cno
+
