@@ -202,13 +202,13 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         // We need a test entry.
         $local_entry = Horde_Ldap_Entry::createFresh(
             'ou=Horde_Ldap_Test_modify,' . self::$ldapcfg['server']['basedn'],
-            array('objectClass'     => array('top','organizationalUnit'),
+            array('objectClass'     => array('top', 'organizationalUnit'),
                   'ou'              => 'Horde_Ldap_Test_modify',
                   'street'          => 'Beniroad',
                   'telephoneNumber' => array('1234', '5678'),
                   'postalcode'      => '12345',
                   'postalAddress'   => 'someAddress',
-                  'facsimileTelephoneNumber' => array('123', '456')));
+                  'st'              => array('State 1', 'State 2')));
         $ldap->add($local_entry);
         $this->assertTrue($ldap->exists($local_entry->dn()));
 
@@ -225,7 +225,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                 'add' => array('l' => 'someLocality'),
                 'delete' => array(
                     'postalcode',
-                    'facsimileTelephoneNumber' => array('123'))));
+                    'st' => array('State 1'))));
 
         // Perform those changes.
         $ldap->modify($local_entry, $changes);
@@ -235,18 +235,18 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                                         array('objectClass', 'ou',
                                               'postalAddress', 'street',
                                               'telephoneNumber', 'postalcode',
-                                              'facsimileTelephoneNumber', 'l',
-                                              'businessCategory', 'description'));
+                                              'st', 'l', 'businessCategory',
+                                              'description'));
         $this->assertType('Horde_Ldap_Entry', $actual_entry);
         $expected_attributes = array(
-            'objectClass'              => array('top', 'organizationalUnit'),
-            'ou'                       => 'Horde_Ldap_Test_modify',
-            'street'                   => 'Highway to Hell',
-            'l'                        => 'someLocality',
-            'telephoneNumber'          => array('345', '567'),
-            'businessCategory'         => array('foocat', 'barcat'),
-            'description'              => 'testval',
-            'facsimileTelephoneNumber' => '456'
+            'objectClass'      => array('top', 'organizationalUnit'),
+            'ou'               => 'Horde_Ldap_Test_modify',
+            'street'           => 'Highway to Hell',
+            'l'                => 'someLocality',
+            'telephoneNumber'  => array('345', '567'),
+            'businessCategory' => array('foocat', 'barcat'),
+            'description'      => 'testval',
+            'st'               => 'State 2'
         );
 
         $local_attributes  = $local_entry->getValues();
