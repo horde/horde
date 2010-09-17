@@ -66,8 +66,7 @@ implements Horde_Kolab_Server_Query_Interface
     {
         try {
             $filter = $this->_criteria->convert($this);
-            $result = $filter->asString();
-            return $result;
+            return (string)$filter;
         } catch (Horde_Kolab_Server_Exception $e) {
             return '';
         }

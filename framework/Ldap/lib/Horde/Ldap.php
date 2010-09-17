@@ -131,6 +131,7 @@ class Horde_Ldap
     public function __construct($config = array())
     {
         $this->setConfig($config);
+        $this->bind();
     }
 
     /**
@@ -344,7 +345,7 @@ class Horde_Ldap
              * If the above call failed, we try an v2 bind here and set the
              * version afterwards (with checking to the rootDSE). */
             try {
-                $msg = $this->bind();
+                $this->bind();
             } catch (Exception $e) {
                 /* The bind failed, discard link and save error msg.
                  * Then record the host as down and try next one. */
@@ -524,8 +525,8 @@ class Horde_Ldap
     public function add(Horde_Ldap_Entry $entry)
     {
         /* Rebind as the write DN. */
-        if (!empty($this->writedn)) {
-            $this->bind($this->writedn, $this->writepw);
+        if (!empty($this->_config['writedn'])) {
+            $this->bind($this->_config['writedn'], $this->_config['writepw']);
         }
 
         /* Continue attempting the add operation in a loop until we get a
@@ -541,7 +542,9 @@ class Horde_Ldap
             if (@ldap_add($link, $entry->dn(), $entry->getValues())) {
                 /* Entry successfully added, we should update its Horde_Ldap
                  * reference in case it is not set so far (fresh entry). */
-                if (!($entry->getLDAP() instanceof Horde_Ldap)) {
+                try {
+                    $entry->getLDAP();
+                } catch (Horde_Ldap_Exception $e) {
                     $entry->setLDAP($this);
                 }
                 /* Store that the entry is present inside the directory. */
@@ -552,13 +555,11 @@ class Horde_Ldap
             /* We have a failure.  What kind?  We may be able to reconnect and
              * try again. */
             $error_code = @ldap_errno($link);
-            $error_name = $this->errorMessage($error_code);
-
-            if ($error_name != 'LDAP_OPERATIONS_ERROR' |
+            if ($this->errorName($error_code) != 'LDAP_OPERATIONS_ERROR' |
                 !$this->_config['auto_reconnect']) {
                 /* Errors other than the above are just passed back to the user
                  * so he may react upon them. */
-                throw new Horde_Ldap_Exception('Could not add entry ' . $entry->dn() . ' ' . $error_name, $error_code);
+                throw new Horde_Ldap_Exception('Could not add entry ' . $entry->dn() . ': ' . ldap_err2str($error_code), $error_code);
             }
 
             /* The server has disconnected before trying the operation.  We
@@ -586,16 +587,17 @@ class Horde_Ldap
         }
 
         /* Re-bind as the write DN if not using searchdn credentials. */
-        if (!empty($this->writedn)) {
-            $this->bind($this->writedn, $this->writepw);
+        if (!empty($this->_config['writedn'])) {
+            $this->bind($this->_config['writedn'], $this->_config['writepw']);
         }
 
         /* Recursive delete searches for children and calls delete for them. */
         if ($recursive) {
             $result = @ldap_list($this->_link, $dn, '(objectClass=*)', array(null), 0, 0);
-            if (@ldap_count_entries($this->_link, $result)) {
+            if ($result && @ldap_count_entries($this->_link, $result)) {
                 for ($subentry = @ldap_first_entry($this->_link, $result);
-                     $subentry = @ldap_next_entry($this->_link, $subentry);) {
+                     $subentry;
+                     $subentry = @ldap_next_entry($this->_link, $subentry)) {
                     $this->delete(@ldap_get_dn($this->_link, $subentry), true);
                 }
             }
@@ -611,7 +613,8 @@ class Horde_Ldap
                 throw new Horde_Ldap_Exception('Could not add entry ' . $dn . ' no valid LDAP connection could be found.');
             }
 
-            if (@ldap_delete($link, $dn)) {
+            $s = @ldap_delete($link, $dn);
+            if ($s) {
                 /* Entry successfully deleted. */
                 return;
             }
@@ -619,24 +622,23 @@ class Horde_Ldap
             /* We have a failure.  What kind? We may be able to reconnect and
              * try again. */
             $error_code = @ldap_errno($link);
-            $error_name = $this->errorMessage($error_code);
-            if ($this->errorMessage($error_code) == 'LDAP_OPERATIONS_ERROR' &&
+            if ($this->errorName($error_code) == 'LDAP_OPERATIONS_ERROR' &&
                 $this->_config['auto_reconnect']) {
                 /* The server has disconnected before trying the operation.  We
                  * should try again, possibly with a different server. */
                 $this->_link = false;
                 $this->_reconnect();
-            } elseif ($error_code == 66) {
+            } elseif ($this->errorName($error_code) == 'LDAP_NOT_ALLOWED_ON_NONLEAF') {
                 /* Subentries present, server refused to delete.
                  * Deleting subentries is the clients responsibility, but since
                  * the user may not know of the subentries, we do not force
                  * that here but instead notify the developer so he may take
                  * actions himself. */
-                throw new Horde_Ldap_Exception('Could not delete entry ' . $dn . ' because of subentries. Use the recursive parameter to delete them.');
+                throw new Horde_Ldap_Exception('Could not delete entry ' . $dn . ' because of subentries. Use the recursive parameter to delete them.', $error_code);
             } else {
                 /* Errors other than the above catched are just passed back to
                  * the user so he may react upon them. */
-                throw new Horde_Ldap_Exception('Could not delete entry ' . $dn . ' ' . $error_name, $error_code);
+                throw new Horde_Ldap_Exception('Could not delete entry ' . $dn . ': ' . ldap_err2str($error_code), $error_code);
             }
         }
     }
@@ -681,8 +683,8 @@ class Horde_Ldap
     public function modify($entry, $parms = array())
     {
         /* Re-bind as the write DN. */
-        if (!empty($this->writedn)) {
-            $this->bind($this->writedn, $this->writepw);
+        if (!empty($this->_config['writedn'])) {
+            $this->bind($this->_config['writedn'], $this->_config['writepw']);
         }
 
         if (is_string($entry)) {
@@ -711,9 +713,9 @@ class Horde_Ldap
                     /* We have a failure.  What kind?  We may be able to
                      * reconnect and try again. */
                     $error_code = $e->getCode();
-                    $error_name = $this->errorMessage($error_code);
+                    $error_name = $this->errorName($error_code);
 
-                    if ($this->errorMessage($error_code) != 'LDAP_OPERATIONS_ERROR' ||
+                    if ($this->errorName($error_code) != 'LDAP_OPERATIONS_ERROR' ||
                         !$this->_config['auto_reconnect']) {
                         /* Errors other than the above catched are just passed
                          * back to the user so he may react upon them. */
@@ -784,7 +786,7 @@ class Horde_Ldap
         }
         if ($filter instanceof Horde_Ldap_Filter) {
             /* Convert Horde_Ldap_Filter to string representation. */
-            $filter = $filter->asString();
+            $filter = (string)$filter;
         }
 
         /* Setting search parameters.  */
@@ -832,27 +834,23 @@ class Horde_Ldap
                                       $sizelimit,
                                       $timelimit);
 
-            if ($err = @ldap_errno($link)) {
-                if ($err == 32) {
-                    /* Errorcode 32 = no such object, i.e. a nullresult. */
-                    return new Horde_Ldap_Search ($search, $this, $attributes);
+            if ($errno = @ldap_errno($link)) {
+                $err = $this->errorName($errno);
+                if ($err == 'LDAP_NO_SUCH_OBJECT' ||
+                    $err == 'LDAP_SIZELIMIT_EXCEEDED') {
+                    return new Horde_Ldap_Search($search, $this, $attributes);
                 }
-                if ($err == 4) {
-                    /* Errorcode 4 = sizelimit exeeded. */
-                    return new Horde_Ldap_Search ($search, $this, $attributes);
-                }
-                if ($err == 87) {
+                if ($err == 'LDAP_FILTER_ERROR') {
                     /* Bad search filter. */
-                    throw new Horde_Ldap_Exception($this->errorMessage($err) . '($filter)', $err);
+                    throw new Horde_Ldap_Exception(ldap_err2str($errno) . ' ($filter)', $errno);
                 }
-                if (($err == 1) && ($this->_config['auto_reconnect'])) {
-                    /* Errorcode 1 = LDAP_OPERATIONS_ERROR but we can try a
-                     * reconnect. */
+                if ($err == 'LDAP_OPERATIONS_ERROR' &&
+                    $this->_config['auto_reconnect']) {
                     $this->_link = false;
                     $this->_reconnect();
                 } else {
                     $msg = "\nParameters:\nBase: $base\nFilter: $filter\nScope: $scope";
-                    throw new Horde_Ldap_Exception($this->errorMessage($err) . $msg, $err);
+                    throw new Horde_Ldap_Exception(ldap_err2str($errno) . $msg, $errno);
                 }
             } else {
                 return new Horde_Ldap_Search($search, $this, $attributes);
@@ -881,12 +879,9 @@ class Horde_Ldap
         }
         $err = @ldap_errno($this->_link);
         if ($err) {
-            $msg = @ldap_err2str($err);
-        } else {
-            $err = 1000;
-            $msg = $this->errorMessage($err);
+            throw new Horde_Ldap_Exception(ldap_err2str($err), $err);
         }
-        throw new Horde_Ldap_Exception($msg, $err);
+        throw new Horde_Ldap_Exception('Unknown error');
     }
 
     /**
@@ -910,12 +905,9 @@ class Horde_Ldap
         }
         $err = @ldap_errno($this->_link);
         if ($err) {
-            $msg = @ldap_err2str($err);
-        } else {
-            $err = 1000;
-            $msg = $this->errorMessage($err);
+            throw new Horde_Ldap_Exception(ldap_err2str($err), $err);
         }
-        throw new Horde_Ldap_Exception($msg, $err);
+        throw new Horde_Ldap_Exception('Unknown error');
     }
 
     /**
@@ -956,10 +948,10 @@ class Horde_Ldap
 
         /* Check to see if the server supports this version first.
          *
-         * TODO: Why is this so horribly slow? $this->rootDSE() is
-         * very fast, as well as Horde_Ldap_RootDSE::fetch() seems
-         * like a problem at copiyng the object inside PHP??
-         * Additionally, this is not always reproducable... */
+         * TODO: Why is this so horribly slow? $this->rootDSE() is very fast,
+         * as well as Horde_Ldap_RootDse(). Seems like a problem at copying the
+         * object inside PHP??  Additionally, this is not always
+         * reproducable... */
         if (!$force) {
             $rootDSE = $this->rootDSE();
             $supported_versions = $rootDSE->getValue('supportedLDAPVersion');
@@ -968,6 +960,7 @@ class Horde_Ldap
             }
             $check_ok = in_array($version, $supported_versions);
         }
+        $check_ok = true;
 
         if ($force || $check_ok) {
             return $this->setOption('LDAP_OPT_PROTOCOL_VERSION', $version);
@@ -1009,11 +1002,11 @@ class Horde_Ldap
         if (@ldap_count_entries($this->_link, $result)) {
             return true;
         }
-        if (ldap_errno($this->_link) == 32) {
+        if ($this->errorName(@ldap_errno($this->_link)) == 'LDAP_NO_SUCH_OBJECT') {
             return false;
         }
-        if (ldap_errno($this->_link) != 0) {
-            throw new Horde_Ldap_Exception(ldap_error($this->_link), ldap_errno($this->_link));
+        if (@ldap_errno($this->_link)) {
+            throw new Horde_Ldap_Exception(@ldap_error($this->_link), @ldap_errno($this->_link));
         }
         return false;
     }
@@ -1161,7 +1154,7 @@ class Horde_Ldap
      *
      * @return string The description for the error.
      */
-    public function errorMessage($errorcode)
+    public static function errorName($errorcode)
     {
         $errorMessages = array(
             0x00 => 'LDAP_SUCCESS',
@@ -1240,7 +1233,7 @@ class Horde_Ldap
      *
      * @param array $attrs Array of attributes to search for.
      *
-     * @return Horde_Ldap_RootDSE Horde_Ldap_RootDSE object
+     * @return Horde_Ldap_RootDse Horde_Ldap_RootDse object
      * @throws Horde_Ldap_Exception
      */
     public function rootDSE(array $attrs = array())
@@ -1250,7 +1243,7 @@ class Horde_Ldap
         /* See if we need to fetch a fresh object, or if we already
          * requested this object with the same attributes. */
         if (!isset($this->_rootDSECache[$attrs_signature])) {
-            $this->_rootDSECache[$attrs_signature] = Horde_Ldap_RootDSE::fetch($this, $attrs);
+            $this->_rootDSECache[$attrs_signature] = new Horde_Ldap_RootDse($this, $attrs);
         }
 
         return $this->_rootDSECache[$attrs_signature];
@@ -1286,9 +1279,9 @@ class Horde_Ldap
             /* Store a temporary error message so subsequent calls to
              * schema() can detect that we are fetching the schema
              * already. Otherwise we will get an infinite loop at
-             * Horde_Ldap_Schema::fetch(). */
+             * Horde_Ldap_Schema. */
             $this->_schema = new Horde_Ldap_Exception('Schema not initialized');
-            $this->_schema = Horde_Ldap_Schema::fetch($this, $dn);
+            $this->_schema = new Horde_Ldap_Schema($this, $dn);
 
             /* If schema caching is active, advise the cache to store
              * the schema. */

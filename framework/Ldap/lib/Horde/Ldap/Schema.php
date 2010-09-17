@@ -1,36 +1,5 @@
 <?php
 /**
- * File containing the Horde_Ldap_Schema interface class.
- *
- * PHP version 5
- *
- * @category  Net
- * @package   Horde_Ldap
- * @author    Jan Wagner <wagner@netsols.de>
- * @author    Benedikt Hallinger <beni@php.net>
- * @copyright 2009 Jan Wagner, Benedikt Hallinger
- * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
- * @version   SVN: $Id: Schema.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Horde_Ldap/
- * @todo see the comment at the end of the file
- */
-
-/**
- * Syntax definitions
- *
- * Please don't forget to add binary attributes to isBinary() below
- * to support proper value fetching from Horde_Ldap_Entry
- */
-define('HORDE_LDAP_SYNTAX_BOOLEAN',            '1.3.6.1.4.1.1466.115.121.1.7');
-define('HORDE_LDAP_SYNTAX_DIRECTORY_STRING',   '1.3.6.1.4.1.1466.115.121.1.15');
-define('HORDE_LDAP_SYNTAX_DISTINGUISHED_NAME', '1.3.6.1.4.1.1466.115.121.1.12');
-define('HORDE_LDAP_SYNTAX_INTEGER',            '1.3.6.1.4.1.1466.115.121.1.27');
-define('HORDE_LDAP_SYNTAX_JPEG',               '1.3.6.1.4.1.1466.115.121.1.28');
-define('HORDE_LDAP_SYNTAX_NUMERIC_STRING',     '1.3.6.1.4.1.1466.115.121.1.36');
-define('HORDE_LDAP_SYNTAX_OID',                '1.3.6.1.4.1.1466.115.121.1.38');
-define('HORDE_LDAP_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
-
-/**
  * Load an LDAP Schema and provide information
  *
  * This class takes a Subschema entry, parses this information
@@ -38,36 +7,50 @@ define('HORDE_LDAP_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
  * inspired by perl-ldap( http://perl-ldap.sourceforge.net).
  * You will find portions of their implementation in here.
  *
- * @category Net
- * @package  Horde_Ldap
- * @author   Jan Wagner <wagner@netsols.de>
- * @author   Benedikt Hallinger <beni@php.net>
- * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Horde_Ldap2/
+ * @category  Horde
+ * @package   Ldap
+ * @author    Jan Wagner <wagner@netsols.de>
+ * @author    Benedikt Hallinger <beni@php.net>
+ * @author    Jan Schneider <jan@horde.org>
+ * @copyright 2009 Jan Wagner, Benedikt Hallinger
+ * @copyright 2010 The Horde Project
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  */
 class Horde_Ldap_Schema
 {
     /**
-     * Map of entry types to ldap attributes of subschema entry
+     * Syntax definitions.
      *
-     * @access public
+     * Please don't forget to add binary attributes to isBinary() below to
+     * support proper value fetching from Horde_Ldap_Entry.
+     */
+    const SYNTAX_BOOLEAN =            '1.3.6.1.4.1.1466.115.121.1.7';
+    const SYNTAX_DIRECTORY_STRING =   '1.3.6.1.4.1.1466.115.121.1.15';
+    const SYNTAX_DISTINGUISHED_NAME = '1.3.6.1.4.1.1466.115.121.1.12';
+    const SYNTAX_INTEGER =            '1.3.6.1.4.1.1466.115.121.1.27';
+    const SYNTAX_JPEG =               '1.3.6.1.4.1.1466.115.121.1.28';
+    const SYNTAX_NUMERIC_STRING =     '1.3.6.1.4.1.1466.115.121.1.36';
+    const SYNTAX_OID =                '1.3.6.1.4.1.1466.115.121.1.38';
+    const SYNTAX_OCTET_STRING =       '1.3.6.1.4.1.1466.115.121.1.40';
+
+    /**
+     * Map of entry types to LDAP attributes of subschema entry.
+     *
      * @var array
      */
     public $types = array(
-            'attribute'        => 'attributeTypes',
-            'ditcontentrule'   => 'dITContentRules',
-            'ditstructurerule' => 'dITStructureRules',
-            'matchingrule'     => 'matchingRules',
-            'matchingruleuse'  => 'matchingRuleUse',
-            'nameform'         => 'nameForms',
-            'objectclass'      => 'objectClasses',
-            'syntax'           => 'ldapSyntaxes'
-        );
+        'attribute'        => 'attributeTypes',
+        'ditcontentrule'   => 'dITContentRules',
+        'ditstructurerule' => 'dITStructureRules',
+        'matchingrule'     => 'matchingRules',
+        'matchingruleuse'  => 'matchingRuleUse',
+        'nameform'         => 'nameForms',
+        'objectclass'      => 'objectClasses',
+        'syntax'           => 'ldapSyntaxes' );
 
     /**
      * Array of entries belonging to this type
      *
-     * @access protected
      * @var array
      */
     protected $_attributeTypes    = array();
@@ -81,143 +64,139 @@ class Horde_Ldap_Schema
 
 
     /**
-     * hash of all fetched oids
+     * Hash of all fetched OIDs.
      *
-     * @access protected
      * @var array
      */
     protected $_oids = array();
 
     /**
-     * Tells if the schema is initialized
+     * Whether the schema is initialized.
      *
-     * @access protected
-     * @var boolean
      * @see parse(), get()
+     * @var boolean
      */
     protected $_initialized = false;
 
     /**
-     * Fetch the Schema from an LDAP connection
+     * Constructor.
      *
-     * @param Horde_Ldap $ldap LDAP connection
-     * @param string    $dn   (optional) Subschema entry dn
+     * Fetches the Schema from an LDAP connection.
      *
-     * @access public
-     * @return Horde_Ldap_Schema|Horde_Ldap_Error
+     * @param Horde_Ldap $ldap LDAP connection.
+     * @param string     $dn   Subschema entry DN.
+     *
+     * @throws Horde_Ldap_Exception
      */
-    public function fetch(Horde_Ldap $ldap, $dn = null)
+    public function __construct(Horde_Ldap $ldap, $dn = null)
     {
-        $schema_o = new Horde_Ldap_Schema();
-
         if (is_null($dn)) {
-            // get the subschema entry via root dse
+            // Get the subschema entry via rootDSE.
             $dse = $ldap->rootDSE(array('subschemaSubentry'));
-	    $base = $dse->getValue('subschemaSubentry', 'single');
-	    $dn = $base;
+            $base = $dse->getValue('subschemaSubentry', 'single');
+            $dn = $base;
         }
 
-        // Support for buggy LDAP servers (e.g. Siemens DirX 6.x) that incorrectly
-        // call this entry subSchemaSubentry instead of subschemaSubentry.
-        // Note the correct case/spelling as per RFC 2251.
+        // Support for buggy LDAP servers (e.g. Siemens DirX 6.x) that
+        // incorrectly call this entry subSchemaSubentry instead of
+        // subschemaSubentry. Note the correct case/spelling as per RFC 2251.
         if (is_null($dn)) {
-            // get the subschema entry via root dse
+            // Get the subschema entry via rootDSE.
             $dse = $ldap->rootDSE(array('subSchemaSubentry'));
-	    $base = $dse->getValue('subSchemaSubentry', 'single');
-	    $dn = $base;
+            $base = $dse->getValue('subSchemaSubentry', 'single');
+            $dn = $base;
         }
 
-        // Final fallback case where there is no subschemaSubentry attribute
-        // in the root DSE (this is a bug for an LDAP v3 server so report this
-        // to your LDAP vendor if you get this far).
+        // Final fallback in case there is no subschemaSubentry attribute in
+        // the root DSE (this is a bug for an LDAPv3 server so report this to
+        // your LDAP vendor if you get this far).
         if (is_null($dn)) {
             $dn = 'cn=Subschema';
         }
 
-        // fetch the subschema entry
+        // Fetch the subschema entry.
         $result = $ldap->search($dn, '(objectClass=*)',
-                                array('attributes' => array_values($schema_o->types),
-                                        'scope' => 'base'));
+                                array('attributes' => array_values($this->types),
+                                      'scope' => 'base'));
         $entry = $result->shiftEntry();
-        if (!$entry instanceof Horde_Ldap_Entry) {
+        if (!($entry instanceof Horde_Ldap_Entry)) {
             throw new Horde_Ldap_Exception('Could not fetch Subschema entry');
         }
 
-        $schema_o->parse($entry);
-        return $schema_o;
+        $this->parse($entry);
     }
 
     /**
-     * Return a hash of entries for the given type
+     * Returns a hash of entries for the given type.
      *
-     * Returns a hash of entry for th givene type. Types may be:
-     * objectclasses, attributes, ditcontentrules, ditstructurerules, matchingrules,
-     * matchingruleuses, nameforms, syntaxes
+     * Types may be: objectclasses, attributes, ditcontentrules,
+     * ditstructurerules, matchingrules, matchingruleuses, nameforms, syntaxes.
      *
-     * @param string $type Type to fetch
+     * @param string $type Type to fetch.
      *
-     * @access public
-     * @return array|Horde_Ldap_Error Array or Horde_Ldap_Error
+     * @return array
+     * @throws Horde_Ldap_Exception
      */
-    public function &getAll($type)
+    public function getAll($type)
     {
-        $map = array('objectclasses'     => &$this->_objectClasses,
-                     'attributes'        => &$this->_attributeTypes,
-                     'ditcontentrules'   => &$this->_dITContentRules,
-                     'ditstructurerules' => &$this->_dITStructureRules,
-                     'matchingrules'     => &$this->_matchingRules,
-                     'matchingruleuses'  => &$this->_matchingRuleUse,
-                     'nameforms'         => &$this->_nameForms,
-                     'syntaxes'          => &$this->_ldapSyntaxes );
+        $map = array('objectclasses'     => $this->_objectClasses,
+                     'attributes'        => $this->_attributeTypes,
+                     'ditcontentrules'   => $this->_dITContentRules,
+                     'ditstructurerules' => $this->_dITStructureRules,
+                     'matchingrules'     => $this->_matchingRules,
+                     'matchingruleuses'  => $this->_matchingRuleUse,
+                     'nameforms'         => $this->_nameForms,
+                     'syntaxes'          => $this->_ldapSyntaxes);
 
-        $key = strtolower($type);
-	if (!key_exists($key, $map)) {
-	  throw new Horde_Ldap_Exception("Unknown type $type");
-	}
+        $key = Horde_String::lower($type);
+        if (!isset($map[$key])) {
+            throw new Horde_Ldap_Exception("Unknown type $type");
+        }
+
         return $map[$key];
     }
 
     /**
-     * Return a specific entry
+     * Returns a specific entry.
      *
-     * @param string $type Type of name
-     * @param string $name Name or OID to fetch
+     * @param string $type Type of name.
+     * @param string $name Name or OID to fetch.
      *
-     * @access public
-     * @return mixed Entry or Horde_Ldap_Error
+     * @return mixed
+     * @throws Horde_Ldap_Exception
      */
-    public function &get($type, $name)
+    public function get($type, $name)
     {
-        if ($this->_initialized) {
-            $type = strtolower($type);
-            if (false == key_exists($type, $this->types)) {
-                throw new Horde_Ldap_Exception("No such type $type");
-            }
-
-            $name     = strtolower($name);
-            $type_var = &$this->{'_' . $this->types[$type]};
-
-            if (key_exists($name, $type_var)) {
-                return $type_var[$name];
-            } elseif (key_exists($name, $this->_oids) && $this->_oids[$name]['type'] == $type) {
-                return $this->_oids[$name];
-            } else {
-                throw new Horde_Ldap_Exception("Could not find $type $name");
-            }
-        } else {
-            $return = null;
-            return $return;
+        if (!$this->_initialized) {
+            return null;
         }
+
+        $type = Horde_String::lower($type);
+        if (!isset($this->types[$type])) {
+            throw new Horde_Ldap_Exception("No such type $type");
+        }
+
+        $name     = Horde_String::lower($name);
+        $type_var = $this->{'_' . $this->types[$type]};
+
+        if (isset($type_var[$name])) {
+            return $type_var[$name];
+        }
+        if (isset($this->_oids[$name]) &&
+            $this->_oids[$name]['type'] == $type) {
+            return $this->_oids[$name];
+        }
+        throw new Horde_Ldap_Exception("Could not find $type $name");
     }
 
 
     /**
-     * Fetches attributes that MAY be present in the given objectclass
+     * Fetches attributes that MAY be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass
+     * @param string $oc Name or OID of objectclass.
      *
-     * @access public
-     * @return array|Horde_Ldap_Error Array with attributes or Horde_Ldap_Error
+     * @return array Array with attributes.
+     * @throws Horde_Ldap_Exception
      */
     public function may($oc)
     {
@@ -225,12 +204,12 @@ class Horde_Ldap_Schema
     }
 
     /**
-     * Fetches attributes that MUST be present in the given objectclass
+     * Fetches attributes that MUST be present in the given objectclass.
      *
-     * @param string $oc Name or OID of objectclass
+     * @param string $oc Name or OID of objectclass.
      *
-     * @access public
-     * @return array|Horde_Ldap_Error Array with attributes or Horde_Ldap_Error
+     * @return array Array with attributes.
+     * @throws Horde_Ldap_Exception
      */
     public function must($oc)
     {
@@ -238,81 +217,76 @@ class Horde_Ldap_Schema
     }
 
     /**
-     * Fetches the given attribute from the given objectclass
+     * Fetches the given attribute from the given objectclass.
      *
-     * @param string $oc   Name or OID of objectclass
-     * @param string $attr Name of attribute to fetch
+     * @param string $oc   Name or OID of objectclass.
+     * @param string $attr Name of attribute to fetch.
      *
-     * @access protected
-     * @return array|Horde_Ldap_Error The attribute or Horde_Ldap_Error
+     * @return array The attribute.
+     * @throws Horde_Ldap_Exception
      */
     protected function _getAttr($oc, $attr)
     {
-        $oc = strtolower($oc);
-        if (key_exists($oc, $this->_objectClasses) && key_exists($attr, $this->_objectClasses[$oc])) {
+        $oc = Horde_String::lower($oc);
+        if (isset($this->_objectClasses[$oc]) &&
+            isset($this->_objectClasses[$oc][$attr])) {
             return $this->_objectClasses[$oc][$attr];
-        } elseif (key_exists($oc, $this->_oids) &&
-                $this->_oids[$oc]['type'] == 'objectclass' &&
-                key_exists($attr, $this->_oids[$oc])) {
-            return $this->_oids[$oc][$attr];
-        } else {
-            throw new Horde_Ldap_Exception("Could not find $attr attributes for $oc ");
         }
+        if (isset($this->_oids[$oc]) &&
+            $this->_oids[$oc]['type'] == 'objectclass' &&
+            isset($this->_oids[$oc][$attr])) {
+            return $this->_oids[$oc][$attr];
+        }
+        throw new Horde_Ldap_Exception("Could not find $attr attributes for $oc ");
     }
 
     /**
-     * Returns the name(s) of the immediate superclass(es)
+     * Returns the name(s) of the immediate superclass(es).
      *
-     * @param string $oc Name or OID of objectclass
+     * @param string $oc Name or OID of objectclass.
      *
-     * @access public
-     * @return array|Horde_Ldap_Error  Array of names or Horde_Ldap_Error
+     * @return array
+     * @throws Horde_Ldap_Exception
      */
     public function superclass($oc)
     {
         $o = $this->get('objectclass', $oc);
-        return (key_exists('sup', $o) ? $o['sup'] : array());
+        return isset($o['sup']) ? $o['sup'] : array();
     }
 
     /**
-     * Parses the schema of the given Subschema entry
+     * Parses the schema of the given subschema entry.
      *
-     * @param Horde_Ldap_Entry &$entry Subschema entry
-     *
-     * @access public
-     * @return void
+     * @param Horde_Ldap_Entry $entry Subschema entry.
      */
-    public function parse(&$entry)
+    public function parse($entry)
     {
         foreach ($this->types as $type => $attr) {
-            // initialize map type to entry
+            // Initialize map type to entry.
             $type_var          = '_' . $attr;
             $this->{$type_var} = array();
 
-            // get values for this type
-            if ($entry->exists($attr)) {
-                $values = $entry->getValue($attr);
-                if (is_array($values)) {
-                    foreach ($values as $value) {
+            if (!$entry->exists($attr)) {
+                continue;
+            }
 
-                        unset($schema_entry); // this was a real mess without it
-
-                        // get the schema entry
-                        $schema_entry = $this->_parse_entry($value);
-
-                        // set the type
-                        $schema_entry['type'] = $type;
-
-                        // save a ref in $_oids
-                        $this->_oids[$schema_entry['oid']] = &$schema_entry;
-
-                        // save refs for all names in type map
-                        $names = $schema_entry['aliases'];
-                        array_push($names, $schema_entry['name']);
-                        foreach ($names as $name) {
-                            $this->{$type_var}[strtolower($name)] = &$schema_entry;
-                        }
-                    }
+            // Get values for this type.
+            $values = $entry->getValue($attr);
+            if (!is_array($values)) {
+                continue;
+            }
+            foreach ($values as $value) {
+                // Get the schema entry.
+                $schema_entry = $this->_parse_entry($value);
+                // Set the type.
+                $schema_entry['type'] = $type;
+                // Save a ref in $_oids.
+                $this->_oids[$schema_entry['oid']] = $schema_entry;
+                // Save refs for all names in type map.
+                $names = $schema_entry['aliases'];
+                array_push($names, $schema_entry['name']);
+                foreach ($names as $name) {
+                    $this->{$type_var}[Horde_String::lower($name)] = $schema_entry;
                 }
             }
         }
@@ -320,16 +294,15 @@ class Horde_Ldap_Schema
     }
 
     /**
-     * Parses an attribute value into a schema entry
+     * Parses an attribute value into a schema entry.
      *
-     * @param string $value Attribute value
+     * @param string $value Attribute value.
      *
-     * @access protected
-     * @return array|false Schema entry array or false
+     * @return array Schema entry array.
      */
-    protected function &_parse_entry($value)
+    protected function _parse_entry($value)
     {
-        // tokens that have no value associated
+        // Tokens that have no value associated.
         $noValue = array('single-value',
                          'obsolete',
                          'collective',
@@ -338,147 +311,148 @@ class Horde_Ldap_Schema
                          'structural',
                          'auxiliary');
 
-        // tokens that can have multiple values
+        // Tokens that can have multiple values.
         $multiValue = array('must', 'may', 'sup');
 
-        $schema_entry = array('aliases' => array()); // initilization
+        // Get an array of tokens.
+        $tokens = $this->_tokenize($value);
 
-        $tokens = $this->_tokenize($value); // get an array of tokens
+        // Remove surrounding brackets.
+        if ($tokens[0] == '(') {
+            array_shift($tokens);
+        }
+        if ($tokens[count($tokens) - 1] == ')') {
+            array_pop($tokens);
+        }
 
-        // remove surrounding brackets
-        if ($tokens[0] == '(') array_shift($tokens);
-        if ($tokens[count($tokens) - 1] == ')') array_pop($tokens); // -1 doesnt work on arrays :-(
+        // First token is the oid.
+        $schema_entry = array('aliases' => array(),
+                              'oid' => array_shift($tokens));
 
-        $schema_entry['oid'] = array_shift($tokens); // first token is the oid
-
-        // cycle over the tokens until none are left
+        // Cycle over the tokens until none are left.
         while (count($tokens) > 0) {
-            $token = strtolower(array_shift($tokens));
+            $token = Horde_String::lower(array_shift($tokens));
             if (in_array($token, $noValue)) {
-                $schema_entry[$token] = 1; // single value token
+                // Single value token.
+                $schema_entry[$token] = 1;
             } else {
-                // this one follows a string or a list if it is multivalued
+                // Follow a string or a list if it is multivalued.
                 if (($schema_entry[$token] = array_shift($tokens)) == '(') {
-                    // this creates the list of values and cycles through the tokens
-                    // until the end of the list is reached ')'
+                    // Create the list of values and cycles through the tokens
+                    // until the end of the list is reached ')'.
                     $schema_entry[$token] = array();
                     while ($tmp = array_shift($tokens)) {
-                        if ($tmp == ')') break;
-                        if ($tmp != '$') array_push($schema_entry[$token], $tmp);
+                        if ($tmp == ')') {
+                            break;
+                        }
+                        if ($tmp != '$') {
+                            array_push($schema_entry[$token], $tmp);
+                        }
                     }
                 }
-                // create a array if the value should be multivalued but was not
-                if (in_array($token, $multiValue) && !is_array($schema_entry[$token])) {
+                // Create an array if the value should be multivalued but was
+                // not.
+                if (in_array($token, $multiValue) &&
+                    !is_array($schema_entry[$token])) {
                     $schema_entry[$token] = array($schema_entry[$token]);
                 }
             }
         }
-        // get max length from syntax
-        if (key_exists('syntax', $schema_entry)) {
+
+        // Get max length from syntax.
+        if (isset($schema_entry['syntax'])) {
             if (preg_match('/{(\d+)}/', $schema_entry['syntax'], $matches)) {
                 $schema_entry['max_length'] = $matches[1];
             }
         }
-        // force a name
+
+        // Force a name.
         if (empty($schema_entry['name'])) {
             $schema_entry['name'] = $schema_entry['oid'];
         }
-        // make one name the default and put the other ones into aliases
+
+        // Make one name the default and put the other ones into aliases.
         if (is_array($schema_entry['name'])) {
             $aliases                 = $schema_entry['name'];
             $schema_entry['name']    = array_shift($aliases);
             $schema_entry['aliases'] = $aliases;
         }
+
         return $schema_entry;
     }
 
     /**
-     * Tokenizes the given value into an array of tokens
+     * Tokenizes the given value into an array of tokens.
      *
-     * @param string $value String to parse
+     * @param string $value String to parse.
      *
-     * @access protected
-     * @return array Array of tokens
+     * @return array Array of tokens.
      */
     protected function _tokenize($value)
     {
-        $tokens  = array();       // array of tokens
-        $matches = array();       // matches[0] full pattern match, [1,2,3] subpatterns
+        /* Match one big pattern where only one of the three subpatterns
+         * matches.  We are interested in the subpatterns that matched. If it
+         * matched its value will be non-empty and so it is a token. Tokens may
+         * be round brackets, a string, or a string enclosed by ''. */
+        preg_match_all("/\s* (?:([()]) | ([^'\s()]+) | '((?:[^']+|'[^\s)])*)') \s*/x", $value, $matches);
 
-        // this one is taken from perl-ldap, modified for php
-        $pattern = "/\s* (?:([()]) | ([^'\s()]+) | '((?:[^']+|'[^\s)])*)') \s*/x";
-
-        /**
-          * This one matches one big pattern wherin only one of the three subpatterns matched
-          * We are interested in the subpatterns that matched. If it matched its value will be
-          * non-empty and so it is a token. Tokens may be round brackets, a string, or a string
-          * enclosed by '
-          */
-        preg_match_all($pattern, $value, $matches);
-
-        for ($i = 0; $i < count($matches[0]); $i++) {     // number of tokens (full pattern match)
-            for ($j = 1; $j < 4; $j++) {                  // each subpattern
-                if (null != trim($matches[$j][$i])) {     // pattern match in this subpattern
-                    $tokens[$i] = trim($matches[$j][$i]); // this is the token
+        $tokens  = array();
+        // Number of tokens (full pattern match).
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            // Each subpattern.
+            for ($j = 1; $j < 4; $j++) {
+                // Pattern match in this subpattern.
+                if (null != trim($matches[$j][$i])) {
+                    // This is the token.
+                    $tokens[$i] = trim($matches[$j][$i]);
                 }
             }
         }
+
         return $tokens;
     }
 
     /**
-     * Returns wether a attribute syntax is binary or not
+     * Returns wether a attribute syntax is binary or not.
      *
-     * This method gets used by Horde_Ldap_Entry to decide which
-     * PHP function needs to be used to fetch the value in the
-     * proper format (e.g. binary or string)
+     * This method is used by Horde_Ldap_Entry to decide which PHP function
+     * needs to be used to fetch the value in the proper format (e.g. binary or
+     * string).
      *
-     * @param string $attribute The name of the attribute (eg.: 'sn')
+     * @param string $attribute The name of the attribute (eg.: 'sn').
      *
-     * @access public
-     * @return boolean
+     * @return boolean  True if the attribute is a binary type.
      */
     public function isBinary($attribute)
     {
-        $return = false; // default to false
+        // All syntax that should be treaten as containing binary values.
+        $syntax_binary = array(self::SYNTAX_OCTET_STRING, self::SYNTAX_JPEG);
 
-        // This list contains all syntax that should be treaten as
-        // containing binary values
-        // The Syntax Definitons go into constants at the top of this page
-        $syntax_binary = array(
-                           HORDE_LDAP_SYNTAX_OCTET_STRING,
-                           HORDE_LDAP_SYNTAX_JPEG
-                         );
+        // Check Syntax.
+        try {
+            $attr_s = $this->get('attribute', $attribute);
+        } catch (Horde_Ldap_Exception $e) {
+            // Attribute not found in schema, consider attr not binary.
+            return false;
+        }
 
-        // Check Syntax
-	try {
-	  $attr_s = $this->get('attribute', $attribute);
-	} catch (Horde_Ldap_Exception $e) {
-            // Attribute not found in schema
-            $return = false; // consider attr not binary
-	}
-        if (isset($attr_s['syntax']) && in_array($attr_s['syntax'], $syntax_binary)) {
+        if (isset($attr_s['syntax']) &&
+            in_array($attr_s['syntax'], $syntax_binary)) {
             // Syntax is defined as binary in schema
-            $return = true;
-        } else {
-            // Syntax not defined as binary, or not found
-            // if attribute is a subtype, check superior attribute syntaxes
-            if (isset($attr_s['sup'])) {
-                foreach ($attr_s['sup'] as $superattr) {
-                    $return = $this->isBinary($superattr);
-                    if ($return) {
-                        break; // stop checking parents since we are binary
-                    }
+            return true;
+        }
+
+        // Syntax not defined as binary, or not found if attribute is a
+        // subtype, check superior attribute syntaxes.
+        if (isset($attr_s['sup'])) {
+            foreach ($attr_s['sup'] as $superattr) {
+                if ($this->isBinary($superattr)) {
+                    // Stop checking parents since we are binary.
+                    return true;
                 }
             }
         }
 
-        return $return;
+        return false;
     }
-
-    // [TODO] add method that allows us to see to which objectclasses a certain attribute belongs to
-    // it should return the result structured, e.g. sorted in "may" and "must". Optionally it should
-    // be able to return it just "flat", e.g. array_merge()d.
-    // We could use get_all() to achieve this easily, i think
 }
-?>

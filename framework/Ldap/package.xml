@@ -55,6 +55,14 @@
    <pearinstaller>
     <min>1.5.0</min>
    </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>

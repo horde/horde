@@ -277,7 +277,11 @@ class Horde_Ldap_Entry
             is_resource($this->_link)) {
             /* Fetch schema. */
             if ($this->_ldap instanceof Horde_Ldap) {
-                $schema = $this->_ldap->schema();
+                try {
+                    $schema = $this->_ldap->schema();
+                } catch (Horde_Ldap_Exception $e) {
+                    $schema = null;
+                }
             }
 
             /* Fetch attributes. */
@@ -626,9 +630,6 @@ class Horde_Ldap_Entry
     {
         /* Ensure we have a valid LDAP object. */
         $ldap = $this->getLDAP();
-        if (!($ldap instanceof Horde_Ldap)) {
-            throw new Horde_Ldap_Exception('The entries LDAP object is not valid');
-        }
 
         /* Get and check link. */
         $link = $ldap->getLink();
@@ -742,7 +743,7 @@ class Horde_Ldap_Entry
     public function getLDAP()
     {
         if (!($this->_ldap instanceof Horde_Ldap)) {
-            throw new Horde_Ldap_Exception('LDAP is not a valid Horde_Ldap object');
+            throw new Horde_Ldap_Exception('ldap property is not a valid Horde_Ldap object');
         }
         return $this->_ldap;
     }

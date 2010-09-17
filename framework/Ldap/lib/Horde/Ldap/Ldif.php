@@ -36,7 +36,7 @@
  * @see       http://www.ietf.org/rfc/rfc2849.txt
  * @todo      LDAPv3 controls are not implemented yet
  */
-class Horde_Ldap_LDIF
+class Horde_Ldap_Ldif
 {
     /**
      * Options.
@@ -183,7 +183,7 @@ class Horde_Ldap_LDIF
             return;
         }
 
-        switch ($imode) {
+        switch ($mode) {
         case 'r':
             if (!file_exists($file)) {
                 throw new Horde_Ldap_Exception('Unable to open ' . $file . ' for reading: file not found');

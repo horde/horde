@@ -1,132 +1,103 @@
 <?php
 /**
- * File containing the Horde_Ldap_Search interface class.
- *
- * PHP version 5
- *
- * @category  Net
- * @package   Horde_Ldap
- * @author    Tarjej Huse <tarjei@bergfald.no>
- * @author    Benedikt Hallinger <beni@php.net>
- * @copyright 2009 Tarjej Huse, Benedikt Hallinger
- * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
- * @version   SVN: $Id: Search.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Horde_Ldap/
- */
-
-/**
- * Includes
- */
-#require_once 'PEAR.php';
-
-/**
  * Result set of an LDAP search
  *
- * @category Net
- * @package  Horde_Ldap
- * @author   Tarjej Huse <tarjei@bergfald.no>
- * @author   Benedikt Hallinger <beni@php.net>
- * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Horde_Ldap2/
+ * @category  Horde
+ * @package   Ldap
+ * @author    Tarjej Huse <tarjei@bergfald.no>
+ * @author    Benedikt Hallinger <beni@php.net>
+ * @author    Jan Schneider <jan@horde.org>
+ * @copyright 2009 Jan Wagner, Benedikt Hallinger
+ * @copyright 2010 The Horde Project
+ * @license   http://www.gnu.org/copyleft/lesser.html LGPL
  */
 class Horde_Ldap_Search implements Iterator
 {
     /**
-     * Search result identifier
+     * Search result identifier.
      *
-     * @access protected
      * @var resource
      */
     protected $_search;
 
     /**
-     * LDAP resource link
+     * LDAP resource link.
      *
-     * @access protected
      * @var resource
      */
     protected $_link;
 
     /**
-     * Horde_Ldap object
+     * Horde_Ldap object.
      *
-     * A reference of the Horde_Ldap object for passing to Horde_Ldap_Entry
+     * A reference of the Horde_Ldap object for passing to Horde_Ldap_Entry.
      *
-     * @access protected
-     * @var object Horde_Ldap
+     * @var Horde_Ldap
      */
     protected $_ldap;
 
     /**
-     * Result entry identifier
+     * Result entry identifier.
      *
-     * @access protected
      * @var resource
      */
-    protected $_entry = null;
+    protected $_entry;
 
     /**
-     * The errorcode the search got
+     * The errorcode from the search.
      *
-     * Some errorcodes might be of interest, but might not be best handled as errors.
-     * examples: 4 - LDAP_SIZELIMIT_EXCEEDED - indicates a huge search.
-     *               Incomplete results are returned. If you just want to check if there's anything in the search.
-     *               than this is a point to handle.
-     *           32 - no such object - search here returns a count of 0.
+     * Some errorcodes might be of interest that should not be considered
+     * errors, for example:
+     * - 4: LDAP_SIZELIMIT_EXCEEDED - indicates a huge search. Incomplete
+     *      results are returned. If you just want to check if there is
+     *      anything returned by the search at all, this could be catched.
+     * - 32: no such object - search here returns a count of 0.
      *
-     * @access protected
-     * @var int
+     * @var integer
      */
-    protected $_errorCode = 0; // if not set - sucess!
+    protected $_errorCode = 0;
 
     /**
-     * Cache for all entries already fetched from iterator interface
+     * Cache for all entries already fetched from iterator interface.
      *
-     * @access protected
      * @var array
      */
     protected $_iteratorCache = array();
 
     /**
-     * What attributes we searched for
+     * Attributes we searched for.
      *
-     * The $attributes array contains the names of the searched attributes and gets
-     * passed from $Horde_Ldap->search() so the Horde_Ldap_Search object can tell
-     * what attributes was searched for ({@link searchedAttrs())
+     * This variable gets set from the constructor and can be retrieved through
+     * {@link searchedAttributes()}.
      *
-     * This variable gets set from the constructor and returned
-     * from {@link searchedAttrs()}
-     *
-     * @access protected
      * @var array
      */
     protected $_searchedAttrs = array();
 
     /**
-     * Cache variable for storing entries fetched internally
+     * Cache variable for storing entries fetched internally.
      *
-     * This currently is only used by {@link pop_entry()}
+     * This currently is only used by {@link pop_entry()}.
      *
-     * @access protected
      * @var array
      */
     protected $_entry_cache = false;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param resource           &$search    Search result identifier
-     * @param Horde_Ldap|resource &$ldap      Horde_Ldap object or just a LDAP-Link resource
-     * @param array              $attributes (optional) Array with searched attribute names. (see {@link $_searchedAttrs})
-     *
-     * @access public
+     * @param resource            $search     Search result identifier.
+     * @param Horde_Ldap|resource $ldap       Horde_Ldap object or a LDAP link
+     *                                        resource
+     * @param array               $attributes The searched attribute names,
+     *                                        see {@link $_searchedAttrs}.
      */
-    public function __construct(&$search, &$ldap, $attributes = array())
+    public function __construct($search, $ldap, $attributes = array())
     {
         $this->setSearch($search);
 
         if ($ldap instanceof Horde_Ldap) {
-            $this->_ldap =& $ldap;
+            $this->_ldap = $ldap;
             $this->setLink($this->_ldap->getLink());
         } else {
             $this->setLink($ldap);
@@ -140,158 +111,141 @@ class Horde_Ldap_Search implements Iterator
     }
 
     /**
-     * Returns an array of entry objects
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        @ldap_free_result($this->_search);
+    }
+
+    /**
+     * Returns all entries from the search result.
      *
-     * @return array Array of entry objects.
+     * @return array  All entries.
+     * @throws Horde_Ldap_Exception
      */
     public function entries()
     {
         $entries = array();
-
         while ($entry = $this->shiftEntry()) {
             $entries[] = $entry;
         }
-
         return $entries;
     }
 
     /**
-     * Get the next entry in the searchresult.
+     * Get the next entry from the search result.
      *
-     * This will return a valid Horde_Ldap_Entry object or false, so
-     * you can use this method to easily iterate over the entries inside
-     * a while loop.
+     * This will return a valid Horde_Ldap_Entry object or false, so you can
+     * use this method to easily iterate over the entries inside a while loop.
      *
-     * @return Horde_Ldap_Entry|false  Reference to Horde_Ldap_Entry object or false
+     * @return Horde_Ldap_Entry|false  Reference to Horde_Ldap_Entry object or
+     *                                 false if no more entries exist.
+     * @throws Horde_Ldap_Exception
      */
-    public function &shiftEntry()
+    public function shiftEntry()
     {
-        if ($this->count() == 0 ) {
-            $false = false;
-            return $false;
+        if (!$this->count()) {
+            return false;
         }
 
         if (is_null($this->_entry)) {
             $this->_entry = @ldap_first_entry($this->_link, $this->_search);
             $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
-            if ($entry instanceof Horde_Ldap_Error) $entry = false;
         } else {
             if (!$this->_entry = @ldap_next_entry($this->_link, $this->_entry)) {
-                $false = false;
-                return $false;
+                return false;
             }
             $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
-            if ($entry instanceof Horde_Ldap_Error) $entry = false;
         }
+
         return $entry;
     }
 
     /**
-     * Alias function of shiftEntry() for perl-ldap interface
+     * Retrieve the next entry in the search result, but starting from last
+     * entry.
      *
-     * @see shiftEntry()
-     * @return Horde_Ldap_Entry|false
-     */
-    public function shift_entry()
-    {
-        $args = func_get_args();
-        return call_user_func_array(array( &$this, 'shiftEntry' ), $args);
-    }
-
-    /**
-     * Retrieve the next entry in the searchresult, but starting from last entry
-     *
-     * This is the opposite to {@link shiftEntry()} and is also very useful
-     * to be used inside a while loop.
+     * This is the opposite to {@link shiftEntry()} and is also very useful to
+     * be used inside a while loop.
      *
      * @return Horde_Ldap_Entry|false
+     * @throws Horde_Ldap_Exception
      */
     public function popEntry()
     {
         if (false === $this->_entry_cache) {
-            // fetch entries into cache if not done so far
+            // Fetch entries into cache if not done so far.
             $this->_entry_cache = $this->entries();
         }
 
-        $return = array_pop($this->_entry_cache);
-        return (null === $return)? false : $return;
+        return count($this->_entry_cache) ? array_pop($this->_entry_cache) : false;
     }
 
     /**
-     * Alias function of popEntry() for perl-ldap interface
+     * Return entries sorted as array.
      *
-     * @see popEntry()
-     * @return Horde_Ldap_Entry|false
-     */
-    public function pop_entry()
-    {
-        $args = func_get_args();
-        return call_user_func_array(array( &$this, 'popEntry' ), $args);
-    }
-
-    /**
-     * Return entries sorted as array
+     * This returns a array with sorted entries and the values. Sorting is done
+     * with PHPs {@link array_multisort()}.
      *
-     * This returns a array with sorted entries and the values.
-     * Sorting is done with PHPs {@link array_multisort()}.
-     * This method relies on {@link as_struct()} to fetch the raw data of the entries.
+     * This method relies on {@link as_struct()} to fetch the raw data of the
+     * entries.
      *
      * Please note that attribute names are case sensitive!
      *
      * Usage example:
      * <code>
-     *   // to sort entries first by location, then by surename, but descending:
-     *   $entries = $search->sorted_as_struct(array('locality','sn'), SORT_DESC);
+     *   // To sort entries first by location, then by surname, but descending:
+     *   $entries = $search->sorted_as_struct(array('locality', 'sn'), SORT_DESC);
      * </code>
      *
-     * @param array $attrs Array of attribute names to sort; order from left to right.
-     * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
+     * @todo what about server side sorting as specified in
+     *       http://www.ietf.org/rfc/rfc2891.txt?
+     * @todo Nuke evil eval().
      *
-     * @return array|Horde_Ldap_Error   Array with sorted entries or error
-     * @todo what about server side sorting as specified in http://www.ietf.org/rfc/rfc2891.txt?
+     * @param array   $attrs Attribute names as sort criteria.
+     * @param integer $order Ordering direction, either constant SORT_ASC or
+     *                       SORT_DESC
+     *
+     * @return array Sorted entries.
+     * @throws Horde_Ldap_Exception
      */
-    public function sorted_as_struct($attrs = array('cn'), $order = SORT_ASC)
+    public function sorted_as_struct(array $attrs = array('cn'),
+                                     $order = SORT_ASC)
     {
-        /*
-         * Old Code, suitable and fast for single valued sorting
-         * This code should be used if we know that single valued sorting is desired,
-         * but we need some method to get that knowledge...
-         */
+        /* Old Code, suitable and fast for single valued sorting. This code
+         * should be used if we know that single valued sorting is desired, but
+         * we need some method to get that knowledge... */
         /*
         $attrs = array_reverse($attrs);
         foreach ($attrs as $attribute) {
-            if (!ldap_sort($this->_link, $this->_search, $attribute)){
-                $this->raiseError("Sorting failed for Attribute " . $attribute);
+            if (!ldap_sort($this->_link, $this->_search, $attribute)) {
+                throw new Horde_Ldap_Exception('Sorting failed for attribute ' . $attribute);
             }
         }
 
         $results = ldap_get_entries($this->_link, $this->_search);
 
-        unset($results['count']); //for tidier output
+        unset($results['count']);
         if ($order) {
             return array_reverse($results);
-        } else {
-            return $results;
-        }*/
-
-        /*
-         * New code: complete "client side" sorting
-         */
-        // first some parameterchecks
-        if (!is_array($attrs)) {
-            return PEAR::raiseError("Sorting failed: Parameterlist must be an array!");
         }
+        return $results;
+        */
+
+        /* New code: complete "client side" sorting */
+        // First some parameterchecks.
         if ($order != SORT_ASC && $order != SORT_DESC) {
-            return PEAR::raiseError("Sorting failed: sorting direction not understood! (neither constant SORT_ASC nor SORT_DESC)");
+            throw new Horde_Ldap_Exception('Sorting failed: sorting direction not understood! (neither constant SORT_ASC nor SORT_DESC)');
         }
 
-        // fetch the entries data
+        // Fetch the entries data.
         $entries = $this->as_struct();
 
-        // now sort each entries attribute values
-        // this is neccessary because later we can only sort by one value,
-        // so we need the highest or lowest attribute now, depending on the
-        // selected ordering for that specific attribute
+        // Now sort each entries attribute values.
+        // This is neccessary because later we can only sort by one value, so
+        // we need the highest or lowest attribute now, depending on the
+        // selected ordering for that specific attribute.
         foreach ($entries as $dn => $entry) {
             foreach ($entry as $attr_name => $attr_values) {
                 sort($entries[$dn][$attr_name]);
@@ -301,19 +255,20 @@ class Horde_Ldap_Search implements Iterator
             }
         }
 
-        // reformat entrys array for later use with array_multisort()
-        $to_sort = array(); // <- will be a numeric array similar to ldap_get_entries
+        // Reformat entries array for later use with
+        // array_multisort(). $to_sort will be a numeric array similar to
+        // ldap_get_entries().
+        $to_sort = array();
         foreach ($entries as $dn => $entry_attr) {
-            $row       = array();
-            $row['dn'] = $dn;
+            $row = array('dn' => $dn);
             foreach ($entry_attr as $attr_name => $attr_values) {
                 $row[$attr_name] = $attr_values;
             }
             $to_sort[] = $row;
         }
 
-        // Build columns for array_multisort()
-        // each requested attribute is one row
+        // Build columns for array_multisort(). Each requested attribute is one
+        // row.
         $columns = array();
         foreach ($attrs as $attr_name) {
             foreach ($to_sort as $key => $row) {
@@ -321,86 +276,81 @@ class Horde_Ldap_Search implements Iterator
             }
         }
 
-        // sort the colums with array_multisort, if there is something
-        // to sort and if we have requested sort columns
+        // Sort the colums with array_multisort() if there is something to sort
+        // and if we have requested sort columns.
         if (!empty($to_sort) && !empty($columns)) {
             $sort_params = '';
             foreach ($attrs as $attr_name) {
-                $sort_params .= '$columns[\''.$attr_name.'\'], '.$order.', ';
+                $sort_params .= '$columns[\'' . $attr_name . '\'], ' . $order . ', ';
             }
-            eval("array_multisort($sort_params \$to_sort);"); // perform sorting
+            eval("array_multisort($sort_params \$to_sort);");
         }
 
         return $to_sort;
     }
 
     /**
-     * Return entries sorted as objects
+     * Returns entries sorted as objects.
      *
-     * This returns a array with sorted Horde_Ldap_Entry objects.
-     * The sorting is actually done with {@link sorted_as_struct()}.
+     * This returns a array with sorted Horde_Ldap_Entry objects. The sorting
+     * is actually done with {@link sorted_as_struct()}.
      *
      * Please note that attribute names are case sensitive!
-     * Also note, that it is (depending on server capabilitys) possible to let
-     * the server sort your results. This happens through search controls
-     * and is described in detail at {@link http://www.ietf.org/rfc/rfc2891.txt}
+     *
+     * Also note that it is (depending on server capabilities) possible to let
+     * the server sort your results. This happens through search controls and
+     * is described in detail at {@link http://www.ietf.org/rfc/rfc2891.txt}
      *
      * Usage example:
      * <code>
-     *   // to sort entries first by location, then by surename, but descending:
-     *   $entries = $search->sorted(array('locality','sn'), SORT_DESC);
+     *   // To sort entries first by location, then by surname, but descending:
+     *   $entries = $search->sorted(array('locality', 'sn'), SORT_DESC);
      * </code>
      *
-     * @param array $attrs Array of sort attributes to sort; order from left to right.
-     * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
+     * @todo Entry object construction could be faster. Maybe we could use one
+     *       of the factories instead of fetching the entry again.
      *
-     * @return array|Horde_Ldap_Error   Array with sorted Horde_Ldap_Entries or error
-     * @todo Entry object construction could be faster. Maybe we could use one of the factorys instead of fetching the entry again
+     * @param array   $attrs Attribute names as sort criteria.
+     * @param integer $order Ordering direction, either constant SORT_ASC or
+     *                       SORT_DESC
+     *
+     * @return array Sorted entries.
+     * @throws Horde_Ldap_Exception
      */
     public function sorted($attrs = array('cn'), $order = SORT_ASC)
     {
         $return = array();
         $sorted = $this->sorted_as_struct($attrs, $order);
-        if (PEAR::isError($sorted)) {
-            return $sorted;
-        }
         foreach ($sorted as $key => $row) {
-            $entry = $this->_ldap->getEntry($row['dn'], $this->searchedAttrs());
-            if (!PEAR::isError($entry)) {
-                array_push($return, $entry);
-            } else {
-                return $entry;
-            }
+            $entry = $this->_ldap->getEntry($row['dn'], $this->searchedAttributes());
+            array_push($return, $entry);
         }
         return $return;
     }
 
     /**
-     * Return entries as array
+     * Returns entries as array.
      *
-     * This method returns the entries and the selected attributes values as
-     * array.
      * The first array level contains all found entries where the keys are the
-     * DNs of the entries. The second level arrays contian the entries attributes
-     * such that the keys is the lowercased name of the attribute and the values
-     * are stored in another indexed array. Note that the attribute values are stored
-     * in an array even if there is no or just one value.
+     * DNs of the entries. The second level arrays contian the entries
+     * attributes such that the keys is the lowercased name of the attribute
+     * and the values are stored in another indexed array. Note that the
+     * attribute values are stored in an array even if there is no or just one
+     * value.
      *
      * The array has the following structure:
      * <code>
-     * $return = array(
-     *           'cn=foo,dc=example,dc=com' => array(
-     *                                                'sn'       => array('foo'),
-     *                                                'multival' => array('val1', 'val2', 'valN')
-     *                                             )
-     *           'cn=bar,dc=example,dc=com' => array(
-     *                                                'sn'       => array('bar'),
-     *                                                'multival' => array('val1', 'valN')
-     *                                             )
-     *           )
+     * array(
+     *     'cn=foo,dc=example,dc=com' => array(
+     *         'sn'       => array('foo'),
+     *         'multival' => array('val1', 'val2', 'valN')),
+     *     'cn=bar,dc=example,dc=com' => array(
+     *         'sn'       => array('bar'),
+     *         'multival' => array('val1', 'valN')))
      * </code>
      *
-     * @return array      associative result array as described above
+     * @return array Associative result array as described above.
+     * @throws Horde_Ldap_Exception
      */
     public function as_struct()
     {
@@ -422,39 +372,34 @@ class Horde_Ldap_Search implements Iterator
     }
 
     /**
-     * Set the search objects resource link
+     * Sets the search objects resource link
      *
-     * @param resource &$search Search result identifier
-     *
-     * @access public
-     * @return void
+     * @param resource $search Search result identifier.
      */
-    public function setSearch(&$search)
+    public function setSearch($search)
     {
         $this->_search = $search;
     }
 
     /**
-     * Set the ldap ressource link
+     * Sets the LDAP resource link.
      *
-     * @param resource &$link Link identifier
-     *
-     * @access public
-     * @return void
+     * @param resource $link LDAP link identifier.
      */
-    public function setLink(&$link)
+    public function setLink($link)
     {
         $this->_link = $link;
     }
 
     /**
-     * Returns the number of entries in the searchresult
+     * Returns the number of entries in the search result.
      *
-     * @return int Number of entries in search.
+     * @return integer Number of found entries.
      */
     public function count()
     {
-        // this catches the situation where OL returned errno 32 = no such object!
+        // This catches the situation where OL returned errno 32 = no such
+        // object!
         if (!$this->_search) {
             return 0;
         }
@@ -462,9 +407,9 @@ class Horde_Ldap_Search implements Iterator
     }
 
     /**
-     * Get the errorcode the object got in its search.
+     * Returns the errorcode from the search.
      *
-     * @return int The ldap error number.
+     * @return integer The LDAP error number.
      */
     public function getErrorCode()
     {
@@ -472,55 +417,32 @@ class Horde_Ldap_Search implements Iterator
     }
 
     /**
-     * Destructor
+     * Returns the attribute names this search selected.
      *
-     * @access protected
-     */
-    public function _Horde_Ldap_Search()
-    {
-        @ldap_free_result($this->_search);
-    }
-
-    /**
-     * Closes search result
-     *
-     * @return void
-     */
-    public function done()
-    {
-        $this->_Horde_Ldap_Search();
-    }
-
-    /**
-     * Return the attribute names this search selected
+     * @see $_searchedAttrs
      *
      * @return array
-     * @see $_searchedAttrs
-     * @access protected
      */
-    protected function searchedAttrs()
+    protected function searchedAttributes()
     {
         return $this->_searchedAttrs;
     }
 
     /**
-     * Tells if this search exceeds a sizelimit
+     * Returns wheter this search exceeded a sizelimit.
      *
-     * @return boolean
+     * @return boolean  True if the size limit was exceeded.
      */
     public function sizeLimitExceeded()
     {
-        return ($this->getErrorCode() == 4);
+        return $this->getErrorCode() == 4;
     }
 
+    /* SPL Iterator interface methods. This interface allows to use
+     * Horde_Ldap_Search objects directly inside a foreach loop. */
 
-    /*
-     * SPL Iterator interface methods.
-     * This interface allows to use Horde_Ldap_Search
-     * objects directly inside a foreach loop!
-     */
     /**
-     * SPL Iterator interface: Return the current element.
+     * SPL Iterator interface: Returns the current element.
      *
      * The SPL Iterator interface allows you to fetch entries inside
      * a foreach() loop: <code>foreach ($search as $dn => $entry) { ...</code>
@@ -528,12 +450,14 @@ class Horde_Ldap_Search implements Iterator
      * Of course, you may call {@link current()}, {@link key()}, {@link next()},
      * {@link rewind()} and {@link valid()} yourself.
      *
-     * If the search throwed an error, it returns false.
-     * False is also returned, if the end is reached
-     * In case no call to next() was made, we will issue one,
-     * thus returning the first entry.
+     * If the search throwed an error, it returns false. False is also
+     * returned, if the end is reached.
+     *
+     * In case no call to next() was made, we will issue one, thus returning
+     * the first entry.
      *
      * @return Horde_Ldap_Entry|false
+     * @throws Horde_Ldap_Exception
      */
     public function current()
     {
@@ -542,70 +466,69 @@ class Horde_Ldap_Search implements Iterator
             reset($this->_iteratorCache);
         }
         $entry = current($this->_iteratorCache);
-        return ($entry instanceof Horde_Ldap_Entry)? $entry : false;
+        return $entry instanceof Horde_Ldap_Entry ? $entry : false;
     }
 
     /**
-     * SPL Iterator interface: Return the identifying key (DN) of the current entry.
+     * SPL Iterator interface: Returns the identifying key (DN) of the current
+     * entry.
      *
      * @see current()
-     * @return string|false DN of the current entry; false in case no entry is returned by current()
+     * @return string|false DN of the current entry; false in case no entry is
+     *                      returned by current().
      */
     public function key()
     {
         $entry = $this->current();
-        return ($entry instanceof Horde_Ldap_Entry)? $entry->dn() :false;
+        return $entry instanceof Horde_Ldap_Entry ? $entry->dn() :false;
     }
 
     /**
-     * SPL Iterator interface: Move forward to next entry.
+     * SPL Iterator interface: Moves forward to next entry.
      *
-     * After a call to {@link next()}, {@link current()} will return
-     * the next entry in the result set.
+     * After a call to {@link next()}, {@link current()} will return the next
+     * entry in the result set.
      *
      * @see current()
-     * @return void
+     * @throws Horde_Ldap_Exception
      */
     public function next()
     {
-        // fetch next entry.
-        // if we have no entrys anymore, we add false (which is
-        // returned by shiftEntry()) so current() will complain.
+        // Fetch next entry. If we have no entries anymore, we add false (which
+        // is returned by shiftEntry()) so current() will complain.
         if (count($this->_iteratorCache) - 1 <= $this->count()) {
             $this->_iteratorCache[] = $this->shiftEntry();
         }
 
-        // move on array pointer to current element.
-        // even if we have added all entries, this will
-        // ensure proper operation in case we rewind()
+        // Move array pointer to current element.  Even if we have added all
+        // entries, this will ensure proper operation in case we rewind().
         next($this->_iteratorCache);
     }
 
     /**
-     * SPL Iterator interface:  Check if there is a current element after calls to {@link rewind()} or {@link next()}.
+     * SPL Iterator interface: Checks if there is a current element after calls
+     * to {@link rewind()} or {@link next()}.
      *
      * Used to check if we've iterated to the end of the collection.
      *
      * @see current()
-     * @return boolean FALSE if there's nothing more to iterate over
+     * @return boolean False if there's nothing more to iterate over.
      */
     public function valid()
     {
-        return ($this->current() instanceof Horde_Ldap_Entry);
+        return $this->current() instanceof Horde_Ldap_Entry;
     }
 
     /**
-     * SPL Iterator interface: Rewind the Iterator to the first element.
+     * SPL Iterator interface: Rewinds the Iterator to the first element.
      *
-     * After rewinding, {@link current()} will return the first entry in the result set.
+     * After rewinding, {@link current()} will return the first entry in the
+     * result set.
      *
      * @see current()
-     * @return void
      */
     public function rewind()
     {
         reset($this->_iteratorCache);
     }
 }
-
-?>
