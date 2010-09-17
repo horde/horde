@@ -109,7 +109,7 @@ class Horde_Ldap_Util
                         $subrdn_v = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $subrdn_v);
                     }
                     if ($options['casefold'] == 'lower') {
-                        $subrdn_v = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $subrdn_v);
+                        $subrdn_v = preg_replace('/^(\w+=)/e', "Horde_String::lower('\\1')", $subrdn_v);
                     }
 
                     if ($options['onlyvalues']) {
@@ -132,7 +132,7 @@ class Horde_Ldap_Util
                     $value = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $value);
                 }
                 if ($options['casefold'] == 'lower') {
-                    $value = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $value);
+                    $value = preg_replace('/^(\w+=)/e', "Horde_String::lower('\\1')", $value);
                 }
 
                 if ($options['onlyvalues']) {
