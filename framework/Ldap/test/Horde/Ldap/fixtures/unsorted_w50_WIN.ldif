@@ -1,0 +1,42 @@
+#
+# This is a LDIF file to test reading capabilitys with WINDOWS line endings
+# It was created using options: sort=0, wrap=50
+#
+version: 1
+dn: cn=test1,ou=example,dc=cno
+cn: test1
+attr3: foo
+attr3: bar
+attr1: 12345
+attr4: brrrzztt
+objectclass: oc1
+attr2: 1234
+attr2: baz
+
+dn: cn=test blabla,ou=example,dc=cno
+cn: test blabla
+attr3: foo
+attr3: bar
+attr1: 12345
+attr4:: YmxhYmxh9uT8
+objectclass: oc2
+attr2: 1234
+attr2: baz
+verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
+ h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb
+ 5789thvngwr789cghm738
+
+dn:: Y249dGVzdCD25Pwsb3U9ZXhhbXBsZSxkYz1jbm8=
+cn:: dGVzdCD25Pw=
+attr3: foo
+attr3: bar
+attr1: 12345
+attr4:: YmxhYmxh9uT8
+objectclass: oc3
+attr2: 1234
+attr2: baz
+attr5:: ZW5kc3BhY2Ug
+attr6:: OmJhZGluaXRjaGFy
+
+dn:: OmNuPWVuZHNwYWNlLGRjPWNubyA=
+cn: endspace

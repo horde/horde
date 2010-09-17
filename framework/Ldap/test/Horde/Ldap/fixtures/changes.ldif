@@ -1,0 +1,43 @@
+#
+# This is a LDIF file to test writing changes of entries
+#
+#
+version: 1
+dn: cn=test1,ou=example,dc=cno
+changetype: modify
+delete: attr1
+-
+delete: attr2
+attr2: baz
+-
+delete: attr4
+-
+
+dn:: Y249dGVzdCD25Pwsb3U9ZXhhbXBsZSxkYz1jbm8=
+changetype: modify
+add: newattr
+newattr: foo
+-
+delete: attr3
+-
+replace: attr1
+attr1: newvaluefor1
+-
+replace: attr2
+attr2: newvalue1for2
+attr2: newvalue2for2
+-
+
+dn:: OmNuPWVuZHNwYWNlLGRjPWNubyA=
+changetype: delete
+
+dn: cn=foo,ou=example,dc=cno
+changetype: modrdn
+newrdn: cn=Bar
+deleteoldrdn: 1
+
+dn: cn=footest,ou=example,dc=cno
+changetype: modrdn
+newrdn: cn=foobartest
+deleteoldrdn: 1
+newsuperior: ou=newexample,dc=cno
