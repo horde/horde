@@ -999,21 +999,21 @@ class Horde_Ldap
      *       sure the attribute type exists.
      *
      * @param string $dn   DN of the entry that should be fetched.
-     * @param array  $attr Array of Attributes to select. If ommitted, all
+     * @param array  $attributes Array of Attributes to select. If ommitted, all
      *                     attributes are fetched.
      *
      * @return Horde_Ldap_Entry  A Horde_Ldap_Entry object.
      * @throws Horde_Ldap_Exception
      */
-    public function getEntry($dn, $attr = array())
+    public function getEntry($dn, $attributes = array())
     {
-        if (!is_array($attr)) {
-            $attr = array($attr);
+        if (!is_array($attributes)) {
+            $attributes = array($attributes);
         }
         $result = $this->search($dn, '(objectClass=*)',
-                                array('scope' => 'base', 'attributes' => $attr));
+                                array('scope' => 'base', 'attributes' => $attributes));
         if (!$result->count()) {
-            throw new Horde_Ldap_Exception('Could not fetch entry '.$dn.': no entry found');
+            throw new Horde_Exception_NotFound(sprintf('Could not fetch entry %s: no entry found', $dn));
         }
         $entry = $result->shiftEntry();
         if (!$entry) {
