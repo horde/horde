@@ -24,8 +24,8 @@ class Horde_Ldap
      * - port:           the server port.
      * - version:        LDAP version (defaults to 3).
      * - starttls:       when set, ldap_start_tls() is run after connecting.
-     * - searchpw:       password to use when searching LDAP.
-     * - seachdn:        the DN to bind as when searching.
+     * - binddn:         the DN to bind as when searching.
+     * - bindpw:         password to use when searching LDAP.
      * - basedn:         LDAP base.
      * - options:        hash of LDAP options to set.
      * - filter:         default search filter.
