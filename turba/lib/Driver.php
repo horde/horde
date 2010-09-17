@@ -2353,8 +2353,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'workCountry':
-                $message->businesscountry = Horde_String::convertCharset($hash['workCountry'], $charset, 'utf-8');
-                break;
+                $message->businesscountry = Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['workCountry']), $charset, 'utf-8');
 
             case 'homePhone':
                 /* Phone */
