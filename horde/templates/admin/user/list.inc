@@ -21,7 +21,7 @@
 <?php
 $remove = $auth->hasCapability('remove');
 $total = 0;
-$admin_url = Horde::url('user.php');
+$admin_url = Horde::url('admin/user.php');
 
 foreach ($users as $user):
     if ($total++ < $min || $total > $max) {
