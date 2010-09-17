@@ -47,11 +47,8 @@ class Horde_Ldap
         'port'            => 389,
         'version'         => 3,
         'starttls'        => false,
-        'searchdn'        => '',
-        'searchpw'        => '',
-        'writeas'         => 'search',
-        'writedn'         => '',
-        'writepw'         => '',
+        'binddn'        => '',
+        'bindpw'        => '',
         'basedn'          => '',
         'options'         => array(),
         'filter'          => '(objectClass=*)',
@@ -199,10 +196,10 @@ class Horde_Ldap
     {
         /* Fetch current bind credentials. */
         if (empty($dn)) {
-            $dn = $this->_config['searchdn'];
+            $dn = $this->_config['binddn'];
         }
         if (empty($password)) {
-            $password = $this->_config['searchpw'];
+            $password = $this->_config['bindpw'];
         }
 
         /* Connect first, if we haven't so far.  This will also bind
@@ -210,20 +207,20 @@ class Horde_Ldap
         if (!$this->_link) {
             /* Store old credentials so we can revert them later, then
              * overwrite config with new bind credentials. */
-            $olddn = $this->_config['searchdn'];
-            $oldpw = $this->_config['searchpw'];
+            $olddn = $this->_config['binddn'];
+            $oldpw = $this->_config['bindpw'];
 
             /* Overwrite bind credentials in config so
              * _connect() knows about them. */
-            $this->_config['searchdn'] = $dn;
-            $this->_config['searchpw'] = $password;
+            $this->_config['binddn'] = $dn;
+            $this->_config['bindpw'] = $password;
 
             /* Try to connect with provided credentials. */
             $msg = $this->_connect();
 
             /* Reset to previous config. */
-            $this->_config['searchdn'] = $olddn;
-            $this->_config['searchpw'] = $oldpw;
+            $this->_config['binddn'] = $olddn;
+            $this->_config['bindpw'] = $oldpw;
             return;
         }
 
@@ -349,13 +346,11 @@ class Horde_Ldap
             } catch (Exception $e) {
                 /* The bind failed, discard link and save error msg.
                  * Then record the host as down and try next one. */
-                if ($e->getCode() == 0x02 && !$version_set) {
+                if ($this->errorName($e->getCode()) == 'LDAP_PROTOCOL_ERROR' &&
+                    !$version_set) {
                     /* Provide a finer grained error message if protocol error
                      * arises because of invalid version. */
-                    $e = new Horde_Ldap_Exception($e->getMessage()
-                        . ' (could not set LDAP protocol version to '
-                        . $this->_config['version'].')',
-                        $e->getCode());
+                    $e = new Horde_Ldap_Exception($e->getMessage() . ' (could not set LDAP protocol version to ' . $this->_config['version'].')', $e->getCode());
                 }
                 $this->_link             = false;
                 $current_error           = $e;
@@ -524,11 +519,6 @@ class Horde_Ldap
      */
     public function add(Horde_Ldap_Entry $entry)
     {
-        /* Rebind as the write DN. */
-        if (!empty($this->_config['writedn'])) {
-            $this->bind($this->_config['writedn'], $this->_config['writepw']);
-        }
-
         /* Continue attempting the add operation in a loop until we get a
          * success, a definitive failure, or the world ends. */
         while (true) {
@@ -584,11 +574,6 @@ class Horde_Ldap
         }
         if (!is_string($dn)) {
             throw new Horde_Ldap_Exception('Parameter is not a string nor an entry object!');
-        }
-
-        /* Re-bind as the write DN if not using searchdn credentials. */
-        if (!empty($this->_config['writedn'])) {
-            $this->bind($this->_config['writedn'], $this->_config['writepw']);
         }
 
         /* Recursive delete searches for children and calls delete for them. */
@@ -682,11 +667,6 @@ class Horde_Ldap
      */
     public function modify($entry, $parms = array())
     {
-        /* Re-bind as the write DN. */
-        if (!empty($this->_config['writedn'])) {
-            $this->bind($this->_config['writedn'], $this->_config['writepw']);
-        }
-
         if (is_string($entry)) {
             $entry = $this->getEntry($entry);
         }

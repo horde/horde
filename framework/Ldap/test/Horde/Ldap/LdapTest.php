@@ -58,8 +58,8 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $lcfg = array('hostspec' => array('nonexistant.ldap.horde.org',
                                           self::$ldapcfg['server']['hostspec']),
                       'port'      => self::$ldapcfg['server']['port'],
-                      'writedn'    => self::$ldapcfg['server']['writedn'],
-                      'writepw'    => self::$ldapcfg['server']['writepw']);
+                      'binddn'    => self::$ldapcfg['server']['binddn'],
+                      'bindpw'    => self::$ldapcfg['server']['bindpw']);
         $ldap = new Horde_Ldap($lcfg);
     }
 

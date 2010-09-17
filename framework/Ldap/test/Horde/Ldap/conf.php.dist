@@ -4,8 +4,8 @@ $conf = array(
         'hostspec' => 'localhost',
         'port'     => 389,
         'basedn'   => 'ou=hordetest,dc=example,dc=com',
-        'writedn'  => 'cn=admin,dc=example,dc=com',
-        'writepw'  => 'secret'),
+        'binddn'  => 'cn=admin,dc=example,dc=com',
+        'bindpw'  => 'secret'),
     'capability' => array(
         'anonymous' => true,
         'tls'       => true),
