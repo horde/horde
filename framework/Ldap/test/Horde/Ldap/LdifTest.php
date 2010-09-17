@@ -107,7 +107,8 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
     /**
      * Removes the outfile.
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         @unlink($this->_outfile);
     }
 
