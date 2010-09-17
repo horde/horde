@@ -2333,7 +2333,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'homeCountry':
-                $message->homecountry = Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['homeCountry']), $charset, 'utf-8');
+                $message->homecountry = !empty($hash['homeCountry']) ? Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['homeCountry']), $charset, 'utf-8') : null;
                 break;
 
             case 'workStreet':
@@ -2353,7 +2353,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'workCountry':
-                $message->businesscountry = Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['workCountry']), $charset, 'utf-8');
+                $message->businesscountry = !empty($hash['workCountry']) ? Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['workCountry']), $charset, 'utf-8') : null;
 
             case 'homePhone':
                 /* Phone */
@@ -2527,7 +2527,7 @@ class Turba_Driver implements Countable
                 $country = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
             }
             $hash['homeCountry'] = $country;
-        } elseif (!$message->isGhosted('businesscountry')) {
+        } elseif (!$message->isGhosted('homecountry')) {
             $hash['homeCountry'] = null;
         }
 
