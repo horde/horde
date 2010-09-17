@@ -257,7 +257,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
                     } else {
                         $result['att'] = $filter_parts[0];
                         $result['log'] = $filter_parts[1];
-                        $val = Horde_Ldap_Util::unescape_filter_value($filter_parts[2]);
+                        $val = Horde_Ldap_Util::unescapeFilterValue($filter_parts[2]);
                         $result['val'] = $val[0];
                         return $result;
                     }

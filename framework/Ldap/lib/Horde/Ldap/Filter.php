@@ -106,7 +106,7 @@ class Horde_Ldap_Filter
      * If $escape is set to true then $value will be escaped. If set to false
      * then $value will be treaten as a raw filter value string.  You should
      * then escape it yourself using {@link
-     * Horde_Ldap_Util::escape_filter_value()}.
+     * Horde_Ldap_Util::escapeFilterValue()}.
      *
      * Examples:
      * <code>
@@ -134,7 +134,7 @@ class Horde_Ldap_Filter
                                   $escape = true)
     {
         if ($escape) {
-            $array = Horde_Ldap_Util::escape_filter_value(array($value));
+            $array = Horde_Ldap_Util::escapeFilterValue(array($value));
             $value = $array[0];
         }
 
@@ -385,7 +385,7 @@ class Horde_Ldap_Filter
         // [TODO]: Do we need to escape at all? what about *-chars user provide
         //         and that should remain special?  I think, those prevent
         //         escaping! We need to check against PERL Net::LDAP!
-        // $value_arr = Horde_Ldap_Util::escape_filter_value(array($filter_parts[2]));
+        // $value_arr = Horde_Ldap_Util::escapeFilterValue(array($filter_parts[2]));
         // $value     = $value_arr[0];
 
         return new Horde_Ldap_Filter(array('filter' => '(' . $filter_parts[0] . $filter_parts[1] . $filter_parts[2] . ')'));

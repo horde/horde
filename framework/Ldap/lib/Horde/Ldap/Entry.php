@@ -238,7 +238,7 @@ class Horde_Ldap_Entry
      *
      * @todo expect utf-8 data.
      * Please note that special characters (eg german umlauts) should be encoded using utf8_encode().
-     * You may use {@link Horde_Ldap_Util::canonical_dn()} for properly encoding of the DN.
+     * You may use {@link Horde_Ldap_Util::canonicalDN()} for properly encoding of the DN.
      *
      * @param string $dn New distinguished name.
      *
@@ -659,15 +659,15 @@ class Horde_Ldap_Entry
                 throw new Horde_Ldap_Exception('Renaming/Moving an entry is only supported in LDAPv3');
             }
             /* Make DN relative to parent (needed for LDAP rename). */
-            $parent = Horde_Ldap_Util::ldap_explode_dn($this->_newdn, array('casefolding' => 'none', 'reverse' => false, 'onlyvalues' => false));
+            $parent = Horde_Ldap_Util::explodeDN($this->_newdn, array('casefolding' => 'none', 'reverse' => false, 'onlyvalues' => false));
             $child = array_shift($parent);
 
             /* Maybe the DN consist of a multivalued RDN, we must build the DN
              * in this case because the $child RDN is an array. */
             if (is_array($child)) {
-                $child = Horde_Ldap_Util::canonical_dn($child);
+                $child = Horde_Ldap_Util::canonicalDN($child);
             }
-            $parent = Horde_Ldap_Util::canonical_dn($parent);
+            $parent = Horde_Ldap_Util::canonicalDN($parent);
 
             /* Rename/move. */
             if (!@ldap_rename($link, $this->_dn, $child, $parent, true)) {

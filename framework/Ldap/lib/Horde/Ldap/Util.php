@@ -34,7 +34,7 @@ class Horde_Ldap_Util
      * [NOT IMPLEMENTED] DNs might also contain values, which are the bytes of
      * the BER encoding of the X.500 AttributeValue rather than some LDAP
      * string syntax. These values are hex-encoded and prefixed with a #. To
-     * distinguish such BER values, ldap_explode_dn uses references to the
+     * distinguish such BER values, explodeDN uses references to the
      * actual values, e.g. '1.3.6.1.4.1.1466.0=#04024869,DC=example,DC=com' is
      * exploded to:
      * <code>
@@ -73,7 +73,7 @@ class Horde_Ldap_Util
      *
      * @return array   Parts of the exploded DN.
      */
-    public static function ldap_explode_dn($dn, array $options = array())
+    public static function explodeDN($dn, array $options = array())
     {
         if (!isset($options['onlyvalues'])) {
             $options['onlyvalues'] = false;
@@ -86,20 +86,20 @@ class Horde_Ldap_Util
         }
 
         // Escaping of DN and stripping of "OID.".
-        $dn = self::canonical_dn($dn, array('casefold' => $options['casefold']));
+        $dn = self::canonicalDN($dn, array('casefold' => $options['casefold']));
 
         // Splitting the DN.
         $dn_array = preg_split('/(?<=[^\\\\]),/', $dn);
 
         // Clear wrong splitting (possibly we have split too much).
         // Not clear, if this is neccessary here:
-        //$dn_array = self::_correct_dn_splitting($dn_array, ',');
+        //$dn_array = self::_correctDNSplitting($dn_array, ',');
 
         // Construct subarrays for multivalued RDNs and unescape DN value, also
         // convert to output format and apply casefolding.
         foreach ($dn_array as $key => $value) {
-            $value_u = self::unescape_dn_value($value);
-            $rdns    = self::split_rdn_multival($value_u[0]);
+            $value_u = self::unescapeDNValue($value);
+            $rdns    = self::splitRDNMultivalue($value_u[0]);
             // TODO: nuke code duplication
             if (count($rdns) > 1) {
                 // Multivalued RDN!
@@ -116,10 +116,10 @@ class Horde_Ldap_Util
                         preg_match('/(.+?)(?<!\\\\)=(.+)/', $subrdn_v, $matches);
                         $rdn_ocl         = $matches[1];
                         $rdn_val         = $matches[2];
-                        $unescaped       = self::unescape_dn_value($rdn_val);
+                        $unescaped       = self::unescapeDNValue($rdn_val);
                         $rdns[$subrdn_k] = $unescaped[0];
                     } else {
-                        $unescaped = self::unescape_dn_value($subrdn_v);
+                        $unescaped = self::unescapeDNValue($subrdn_v);
                         $rdns[$subrdn_k] = $unescaped[0];
                     }
                 }
@@ -139,10 +139,10 @@ class Horde_Ldap_Util
                     preg_match('/(.+?)(?<!\\\\)=(.+)/', $value, $matches);
                     $dn_ocl         = $matches[1];
                     $dn_val         = $matches[2];
-                    $unescaped      = self::unescape_dn_value($dn_val);
+                    $unescaped      = self::unescapeDNValue($dn_val);
                     $dn_array[$key] = $unescaped[0];
                 } else {
-                    $unescaped = self::unescape_dn_value($value);
+                    $unescaped = self::unescapeDNValue($value);
                     $dn_array[$key] = $unescaped[0];
                 }
             }
@@ -169,7 +169,7 @@ class Horde_Ldap_Util
      *
      * @return array  The escaped values.
      */
-    public static function escape_dn_value($values)
+    public static function escapeDNValue($values)
     {
         // Parameter validation.
         if (!is_array($values)) {
@@ -202,7 +202,7 @@ class Horde_Ldap_Util
     /**
      * Unescapes DN values according to RFC 2253.
      *
-     * Reverts the conversion done by escape_dn_value().
+     * Reverts the conversion done by escapeDNValue().
      *
      * Any escape sequence starting with a baskslash - hexpair or special
      * character - will be transformed back to the corresponding character.
@@ -211,7 +211,7 @@ class Horde_Ldap_Util
      *
      * @return array  Unescaped DN values.
      */
-    public static function unescape_dn_value($values)
+    public static function unescapeDNValue($values)
     {
         // Parameter validation.
         if (!is_array($values)) {
@@ -235,7 +235,7 @@ class Horde_Ldap_Util
     /**
      * Converts a DN into a canonical form.
      *
-     * DN can either be a string or an array as returned by ldap_explode_dn(),
+     * DN can either be a string or an array as returned by explodeDN(),
      * which is useful when constructing a DN.  The DN array may have be
      * indexed (each array value is a OCL=VALUE pair) or associative (array key
      * is OCL and value is VALUE).
@@ -270,7 +270,7 @@ class Horde_Ldap_Util
      *
      * @return boolean|string The canonical DN or false if the DN is not valid.
      */
-    public static function canonical_dn($dn, $options = array())
+    public static function canonicalDN($dn, $options = array())
     {
         if ($dn === '') {
             // Empty DN is valid.
@@ -293,7 +293,7 @@ class Horde_Ldap_Util
             $dn = preg_split('/(?<=[^\\\\])' . $options['separator'] . '/', $dn);
 
             // Clear wrong splitting (possibly we have split too much).
-            $dn = self::_correct_dn_splitting($dn, $options['separator']);
+            $dn = self::_correctDNSplitting($dn, $options['separator']);
         } else {
             // Is array, check if the array is indexed or associative.
             $assoc = false;
@@ -333,7 +333,7 @@ class Horde_Ldap_Util
                     if (!is_int($subkey)) {
                         $subval = $subkey . '=' . $subval;
                     }
-                    $subval_processed = self::canonical_dn($subval);
+                    $subval_processed = self::canonicalDN($subval);
                     if (false === $subval_processed) {
                         return false;
                     }
@@ -343,16 +343,16 @@ class Horde_Ldap_Util
                 $dn[$pos] = substr($dnval_new, 0, -1);
             } else {
                 // Try to split multivalued RDNs into array.
-                $rdns = self::split_rdn_multival($dnval);
+                $rdns = self::splitRDNMultivalue($dnval);
                 if (count($rdns) > 1) {
                     // Multivalued RDN was detected. The RDN value is expected
-                    // to be correctly split by split_rdn_multival(). It's time
+                    // to be correctly split by splitRDNMultivalue(). It's time
                     // to sort the RDN and build the DN.
                     $rdn_string = '';
                     // Sort RDN keys alphabetically.
                     sort($rdns, SORT_STRING);
                     foreach ($rdns as $rdn) {
-                        $subval_processed = self::canonical_dn($rdn);
+                        $subval_processed = self::canonicalDN($rdn);
                         if (false === $subval_processed) {
                             return false;
                         }
@@ -379,12 +379,12 @@ class Horde_Ldap_Util
                         if ($options['casefold'] == 'lower') {
                             $ocl = strtolower($ocl);
                         }
-                        $ocl = self::escape_dn_value(array($ocl));
+                        $ocl = self::escapeDNValue(array($ocl));
                         $ocl = $ocl[0];
                     }
 
                     // Escaping of DN value.
-                    $val = self::escape_dn_value(array($val));
+                    $val = self::escapeDNValue(array($val));
                     $val = str_replace('/', '\/', $val[0]);
 
                     $dn[$pos] = $ocl . '=' . $val;
@@ -412,7 +412,7 @@ class Horde_Ldap_Util
      *
      * @return array Escaped values.
      */
-    public static function escape_filter_value($values)
+    public static function escapeFilterValue($values)
     {
         // Parameter validation.
         if (!is_array($values)) {
@@ -442,7 +442,7 @@ class Horde_Ldap_Util
     /**
      * Unescapes the given values according to RFC 2254.
      *
-     * Reverses the conversion done by {@link escape_filter_value()}.
+     * Reverses the conversion done by {@link escapeFilterValue()}.
      *
      * Converts any sequences of a backslash followed by two hex digits into
      * the corresponding character.
@@ -451,7 +451,7 @@ class Horde_Ldap_Util
      *
      * @return array Unescaped values.
      */
-    public static function unescape_filter_value($values = array())
+    public static function unescapeFilterValue($values = array())
     {
         // Parameter validation.
         if (!is_array($values)) {
@@ -535,10 +535,10 @@ class Horde_Ldap_Util
      *
      * @return array The components of the multivalued RDN.
      */
-    public static function split_rdn_multival($rdn)
+    public static function splitRDNMultivalue($rdn)
     {
         $rdns = preg_split('/(?<!\\\\)\+/', $rdn);
-        $rdns = self::_correct_dn_splitting($rdns, '+');
+        $rdns = self::_correctDNSplitting($rdns, '+');
         return array_values($rdns);
     }
 
@@ -551,7 +551,7 @@ class Horde_Ldap_Util
      *
      * @return array Indexed array: 0=attribute name, 1=attribute value.
      */
-    public static function split_attribute_string($attr)
+    public static function splitAttributeString($attr)
     {
         return preg_split('/(?<!\\\\)=/', $attr, 2);
     }
@@ -564,7 +564,7 @@ class Horde_Ldap_Util
      *
      * @return array Corrected array.
      */
-    protected static function _correct_dn_splitting($dn = array(),
+    protected static function _correctDNSplitting($dn = array(),
                                                     $separator = ',')
     {
         foreach ($dn as $key => $dn_value) {

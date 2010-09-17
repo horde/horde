@@ -389,7 +389,7 @@ class Horde_Kolab_Server_Integration_MockTest extends Horde_Kolab_Server_Integra
     {
         foreach ($this->servers as $server) {
             $filter = '(&(objectClass=kolabGroupOfNames)(member='
-                . Horde_Ldap_Util::escape_filter_value('cn=The Administrator,dc=example,dc=org') . '))';
+                . Horde_Ldap_Util::escapeFilterValue('cn=The Administrator,dc=example,dc=org') . '))';
             $result = $server->search($filter, array());
             $this->assertTrue(!empty($result));
 

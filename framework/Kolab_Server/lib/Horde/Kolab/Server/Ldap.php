@@ -330,7 +330,7 @@ implements Horde_Kolab_Server_Interface
     public function getParentGuid($guid)
     {
         try {
-            $base = Horde_Ldap_Util::ldap_explode_dn(
+            $base = Horde_Ldap_Util::explodeDN(
                 $guid,
                 array(
                     'casefold' => 'none',
@@ -339,7 +339,7 @@ implements Horde_Kolab_Server_Interface
                 )
             );
             $id = array_shift($base);
-            $parent = Horde_Ldap_Util::canonical_dn(
+            $parent = Horde_Ldap_Util::canonicalDN(
                 $base, array('casefold' => 'none')
             );
         } catch (Horde_Ldap_Exception $e) {

@@ -120,7 +120,7 @@ class Horde_Ldap_Ldif
      *                      values:
      *                      - 'none':      No encoding.
      *                      - 'canonical': See {@link
-     *                                     Horde_Ldap_Util::canonical_dn()}.
+     *                                     Horde_Ldap_Util::canonicalDN()}.
      *                      - 'base64':    Use base64 (default).
      * - 'change' (boolean): Write entry changes to the LDIF file instead of
      *                       the entries itself. I.e. write LDAP operations
@@ -306,10 +306,10 @@ class Horde_Ldap_Ldif
             $this->_writeLine('changetype: delete');
         } elseif ($entry->willBeMoved()) {
             $this->_writeLine('changetype: modrdn');
-            $olddn     = Horde_Ldap_Util::ldap_explode_dn($entry->currentDN(), array('casefold' => 'none'));
+            $olddn     = Horde_Ldap_Util::explodeDN($entry->currentDN(), array('casefold' => 'none'));
             $oldrdn    = array_shift($olddn);
             $oldparent = implode(',', $olddn);
-            $newdn     = Horde_Ldap_Util::ldap_explode_dn($entry->dn(), array('casefold' => 'none'));
+            $newdn     = Horde_Ldap_Util::explodeDN($entry->dn(), array('casefold' => 'none'));
             $rdn       = array_shift($newdn);
             $parent    = implode(',', $newdn);
             $this->_writeLine('newrdn: ' . $rdn);
@@ -786,7 +786,7 @@ class Horde_Ldap_Ldif
         if ($this->_options['encode'] == 'base64') {
             $dn = $this->_convertDN($dn);
         } elseif ($this->_options['encode'] == 'canonical') {
-            $dn = Horde_Ldap_Util::canonical_dn($dn, array('casefold' => 'none'));
+            $dn = Horde_Ldap_Util::canonicalDN($dn, array('casefold' => 'none'));
         }
         $this->_writeLine($dn, 'Unable to write DN of entry ' . $this->_entrynum);
     }

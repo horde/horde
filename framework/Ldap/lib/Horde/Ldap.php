@@ -987,16 +987,16 @@ class Horde_Ldap
         }
 
         /* Make dn relative to parent. */
-        $base = Horde_Ldap_Util::ldap_explode_dn($dn, array('casefold' => 'none', 'reverse' => false, 'onlyvalues' => false));
+        $base = Horde_Ldap_Util::explodeDN($dn, array('casefold' => 'none', 'reverse' => false, 'onlyvalues' => false));
 
         $entry_rdn = array_shift($base);
         if (is_array($entry_rdn)) {
             /* Maybe the dn consist of a multivalued RDN. We must
              * build the dn in this case because the $entry_rdn is an
              * array. */
-            $filter_dn = Horde_Ldap_Util::canonical_dn($entry_rdn);
+            $filter_dn = Horde_Ldap_Util::canonicalDN($entry_rdn);
         }
-        $base = Horde_Ldap_Util::canonical_dn($base);
+        $base = Horde_Ldap_Util::canonicalDN($base);
 
         $result = @ldap_list($this->_link, $base, $entry_rdn, array(), 1, 1);
         if (@ldap_count_entries($this->_link, $result)) {
