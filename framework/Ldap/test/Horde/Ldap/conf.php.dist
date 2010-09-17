@@ -1,11 +1,11 @@
 <?php
 $conf = array(
     'server' => array(
-        'host'    => 'localhost',
-        'port'    => 389,
-        'basedn'  => 'ou=hordetest,dc=example,dc=com',
-        'writedn' => 'cn=admin,dc=example,dc=com',
-        'writepw' => 'secret'),
+        'hostspec' => 'localhost',
+        'port'     => 389,
+        'basedn'   => 'ou=hordetest,dc=example,dc=com',
+        'writedn'  => 'cn=admin,dc=example,dc=com',
+        'writepw'  => 'secret'),
     'capability' => array(
         'anonymous' => true,
         'tls'       => true),

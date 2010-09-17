@@ -37,29 +37,29 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
     public function testConnectAndPrivilegedBind()
     {
         // This connect is supposed to fail.
-        $lcfg = array('host' => 'nonexistant.ldap.horde.org');
+        $lcfg = array('hostspec' => 'nonexistant.ldap.horde.org');
         try {
             $ldap = new Horde_Ldap($lcfg);
             $this->fail('Horde_Ldap_Exception expected.');
         } catch (Horde_Ldap_Exception $e) {}
 
         // Failing with multiple hosts.
-        $lcfg = array('host' => array('nonexistant1.ldap.horde.org',
-                                      'nonexistant2.ldap.horde.org'));
+        $lcfg = array('hostspec' => array('nonexistant1.ldap.horde.org',
+                                          'nonexistant2.ldap.horde.org'));
         try {
             $ldap = new Horde_Ldap($lcfg);
             $this->fail('Horde_Ldap_Exception expected.');
         } catch (Horde_Ldap_Exception $e) {}
 
-        // Simple working connect and privilegued bind.
+        // Simple working connect and privileged bind.
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
 
         // Working connect and privileged bind with first host down.
-        $lcfg = array('host'   => array('nonexistant.ldap.horde.org',
-                                        self::$ldapcfg['server']['host']),
-                      'port'   => self::$ldapcfg['server']['port'],
-                      'binddn' => self::$ldapcfg['server']['binddn'],
-                      'bindpw' => self::$ldapcfg['server']['bindpw']);
+        $lcfg = array('hostspec' => array('nonexistant.ldap.horde.org',
+                                          self::$ldapcfg['server']['hostspec']),
+                      'port'      => self::$ldapcfg['server']['port'],
+                      'writedn'    => self::$ldapcfg['server']['writedn'],
+                      'writepw'    => self::$ldapcfg['server']['writepw']);
         $ldap = new Horde_Ldap($lcfg);
     }
 
@@ -73,8 +73,8 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         }
 
         // Simple working connect and anonymous bind.
-        $lcfg = array('host'   => self::$ldapcfg['server']['host'],
-                      'port'   => self::$ldapcfg['server']['port']);
+        $lcfg = array('hostspec' => self::$ldapcfg['server']['hostspec'],
+                      'port'     => self::$ldapcfg['server']['port']);
         $ldap = new Horde_Ldap($lcfg);
     }
 
