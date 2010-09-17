@@ -12,7 +12,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
     /**
      * Test escapeDNValue()
      */
-    public function testEscape_dn_value()
+    public function testEscapeDNValue()
     {
         $dnval    = '  ' . chr(22) . ' t,e+s"t,\\v<a>l;u#e=!    ';
         $expected = '\20\20\16 t\,e\+s\"t\,\\\\v\<a\>l\;u\#e\=!\20\20\20\20';
@@ -60,7 +60,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
     /**
      * Test escaping of filter values.
      */
-    public function testEscape_filter_value()
+    public function testEscapeFilterValue()
     {
         $expected  = 't\28e,s\29t\2av\5cal\1eue';
         $filterval = 't(e,s)t*v\\al' . chr(30) . 'ue';
@@ -137,7 +137,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
      * In addition to the above test of the basic split correction, we test
      * here the functionality of multivalued RDNs.
      */
-    public function testSplit_rdn_multival()
+    public function testSplitRDNMultivalue()
     {
         // One value.
         $rdn = 'CN=J. Smith';
@@ -196,7 +196,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
     /**
      * Tests attribute splitting ('foo=bar' => array('foo', 'bar'))
      */
-    public function testSplit_attribute_string()
+    public function testSplitAttributeString()
     {
         $attr_str = 'foo=bar';
 
@@ -221,7 +221,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
     /**
      * Tests Ldap_explode_dn()
      */
-    public function testLdap_explode_dn()
+    public function testExplodeDN()
     {
         $dn = 'OU=Sales+CN=J. Smith,dc=example,dc=net';
         $expected_casefold_none = array(
@@ -268,7 +268,7 @@ class Horde_Ldap_UtilTest extends PHPUnit_Framework_TestCase
      *
      * Note: This tests depend on the default options of canonicalDN().
      */
-    public function testCanonical_dn()
+    public function testCanonicalDN()
     {
         // Test empty dn (is valid according to RFC).
         $this->assertEquals('', Horde_Ldap_Util::canonicalDN(''));
