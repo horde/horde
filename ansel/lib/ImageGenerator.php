@@ -39,11 +39,11 @@ class Ansel_ImageGenerator
     protected $_dimensions = array();
 
     /**
-     * Cache the style information array
+     * Cache the style
      *
-     * @var array
+     * @var Ansel_Style
      */
-    protected $_style = array();
+    protected $_style;
 
     /**
      * Array of required, supported features for this ImageGenerator to work
@@ -51,6 +51,13 @@ class Ansel_ImageGenerator
      * @var array
      */
     public  $need = array();
+
+    /**
+     * Human readable title for this thumbnail style.
+     *
+     * @var string
+     */
+    public $title;
 
     /**
      * Const'r
@@ -93,7 +100,7 @@ class Ansel_ImageGenerator
      * @return Ansel_ImageGenerator
      * @throws Ansel_Exception
      */
-    function factory($type, $params = array())
+    static public function factory($type, $params = array())
     {
         $type = basename($type);
         $class = 'Ansel_ImageGenerator_' . $type;
