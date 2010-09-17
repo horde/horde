@@ -3,7 +3,8 @@
 */config/*.dist    ident
 
 # Ignore CRLF
-framework/iCalendar/docs/examples/*             -crlf
-framework/iCalendar/tests/fixtures/*            -crlf
-framework/iCalendar/tests/fixtures/vTimezone/*  -crlf
-turba/lib/tests/importCRLF.ldif                 -crlf
+framework/Icalendar/examples/Horde/Icalendar/*.ics            -crlf
+framework/Icalendar/examples/Horde/Icalendar/*.vcs            -crlf
+framework/Icalendar/tests/fixtures/vTimezone/*                -crlf
+framework/Ldap/test/Horde/Ldap/fixtures/unsorted_w50_WIN.ldif -crlf
+turba/lib/tests/importCRLF.ldif                               -crlf
