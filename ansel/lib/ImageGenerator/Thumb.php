@@ -7,6 +7,12 @@
  */
 class Ansel_ImageGenerator_Thumb extends Ansel_ImageGenerator
 {
+    public function __construct($params)
+    {
+        parent::__construct($params);
+        $this->title = _("Basic Thumbnails");
+    }
+
     /**
      *
      * @return Horde_Image

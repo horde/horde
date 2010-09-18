@@ -160,7 +160,7 @@ HEADER;
                       'slug' => $gallery->get('slug'),
                       'gallery' => $gallery->id,
                       'image' => $image->id,
-                      'gallery_view' => $style['gallery_view']));
+                      'gallery_view' => $style->gallery_view));
             $html .= '<tr><td>' . strftime('%x', $image->uploaded)
                 . '</td><td class="nowrap">'
                 . $url->link(

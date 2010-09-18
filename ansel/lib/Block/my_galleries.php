@@ -91,14 +91,13 @@ function previewImageMg(e, image_id)
 HEADER;
 
         foreach ($galleries as $gallery) {
-            $style = $gallery->getStyle();
             $url = Ansel::getUrlFor('view', array('view' => 'Gallery',
                                                   'slug' => $gallery->get('slug'),
                                                   'gallery' => $gallery->id),
                                     true);
             $html .= '<tr><td>'
                 . $url->link(array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
-                                   'onmouseover' => 'previewImageMg(event, ' . $gallery->getKeyImage('ansel_default') . ');'))
+                                   'onmouseover' => 'previewImageMg(event, ' . $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')) . ');'))
                 . @htmlspecialchars($gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '</a></td><td>'
                 . strftime($GLOBALS['prefs']->getValue('date_format'), $gallery->get('last_modified'))
                 . '</td><td>' . (int)$gallery->countImages(true) . '</td></tr>';

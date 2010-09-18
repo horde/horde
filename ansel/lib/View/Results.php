@@ -251,10 +251,9 @@ class Ansel_View_Results extends Ansel_View_Base
             }
             $rtaghtml .= '</ul>';
         }
-        $styleDef = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
-        $style = $styleDef['name'];
+        $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         $viewurl = Horde::url('view.php')->add(array('view' => 'Results',
-                                                                'actionID' => 'add'));
+                                                     'actionID' => 'add'));
 
         $vars = Horde_Variables::getDefaultVariables();
         $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);

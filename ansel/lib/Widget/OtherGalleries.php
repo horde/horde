@@ -77,7 +77,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
 
         $html = '<div style="display:'
             . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
-            . ';background:' . $this->_style['background']
+            . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
         foreach ($galleries as $gallery) {
@@ -89,7 +89,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gallery->getKeyImage('ansel_default'), 'mini', true);
+            $img = (string)Ansel::getImageUrl($gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', true);
             $link = Ansel::getUrlFor('view', array('gallery' => $gallery->id,
                                                    'slug' => $gallery->get('slug'),
                                                    'view' => 'Gallery'),
@@ -118,4 +118,5 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
 
         return $html;
     }
+
 }

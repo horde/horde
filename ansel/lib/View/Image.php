@@ -140,7 +140,7 @@ class Ansel_View_Image extends Ansel_View_Base
 
         $this->_style = (empty($this->_params['style']) ?
              $this->gallery->getStyle() :
-             Ansel::getStyleDefinition($this->_params['style']));
+             $this->_params['style']);
 
         /* Make sure the screen view is loaded and get the geometry */
         try {
@@ -201,7 +201,7 @@ class Ansel_View_Image extends Ansel_View_Base
         }
 
         /* Get the image src url */
-        $this->_urls['imgsrc'] = Ansel::getImageUrl($this->resource->id, 'screen', true, $this->_style['name']);
+        $this->_urls['imgsrc'] = Ansel::getImageUrl($this->resource->id, 'screen', true, $this->_style);
 
         /* And a self url. Can't use Horde::selfUrl() since that would ignore
          * pretty urls. */
@@ -289,7 +289,7 @@ class Ansel_View_Image extends Ansel_View_Base
                       'page' => $page_prev),
                 $this->_date));
         }
-        $prvImgUrl = Ansel::getImageUrl($prev, 'screen', true, $this->_style['name']);
+        $prvImgUrl = Ansel::getImageUrl($prev, 'screen', true, $this->_style);
 
         /* Next image link */
         if (!empty($this->_params['image_view_url'])) {
@@ -306,7 +306,7 @@ class Ansel_View_Image extends Ansel_View_Base
                       'page' => $page_next),
                 $this->_date));
         }
-        $nextImgUrl = Ansel::getImageUrl($next, 'screen', true, $this->_style['name']);
+        $nextImgUrl = Ansel::getImageUrl($next, 'screen', true, $this->_style);
 
         /* Slideshow link */
         if (!empty($this->_params['slideshow_link'])) {

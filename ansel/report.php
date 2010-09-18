@@ -32,7 +32,6 @@ if (($image_id = Horde_Util::getFormData('image')) !== null) {
                                          'gallery' => $gallery_id),
                                    true);
 } else {
-    $style = $gallery->getStyle();
     $return_url = Ansel::getUrlFor('view',
                                    array('gallery' => $gallery_id,
                                          'view' => 'Gallery'),

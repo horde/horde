@@ -256,7 +256,7 @@ abstract class Ansel_View_Base
                 $curimage = 0;
             }
 
-            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
+            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style),
                           htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()),
                           $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                           $image->id,

@@ -43,7 +43,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
 
         $results = $this->_faces->ownerFaces($this->_owner, 0, 12, true);
         $html .= '<div style="display: block'
-            . ';background:' . $this->_style['background']
+            . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
         foreach ($results as $face_id => $face) {
             $facename = htmlspecialchars($face['face_name']);

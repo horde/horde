@@ -86,7 +86,7 @@ $notification->notify(array('listeners' => 'status'));
  </form>
 </div>
 
-<div id="sortContainer" style="background:<?php echo $style['background'] ?>">
+<div id="sortContainer" style="background:<?php echo $style->background ?>">
 
 <?php
 $images = $gallery->getImages();
@@ -94,7 +94,7 @@ foreach ($images as $image) {
     $caption = empty($image->caption) ? htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()) : htmlspecialchars($image->caption, ENT_COMPAT, $GLOBALS['registry']->getCharset());
     echo '<div id="o_' . (int)$image->id . '"><a title="'
         . $caption . '" href="#">'
-        . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style['name']) . '" alt="' . htmlspecialchars($image->filename) . '" />'
+        . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . htmlspecialchars($image->filename) . '" />'
         . '</a></div>';
 }
 echo '</div>';

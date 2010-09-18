@@ -11,7 +11,16 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$style = Horde_Util::getFormData('style');
+$thumbstyle = Horde_Util::getFormData('t');
+$background = Horde_Util::getFormData('b');
+
+// Create a dummy style object with only what is needed to generate
+if ($thumbstyle && $background) {
+    $style = new Ansel_Style(array('thumbstyle' => $thumbstyle,
+                                   'background' => $background));
+} else {
+    $style = null;
+}
 $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage(Horde_Util::getFormData('image'));
 $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($image->gallery));
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {

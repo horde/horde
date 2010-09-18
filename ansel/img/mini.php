@@ -21,7 +21,7 @@ if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
-        $image->createView('mini', 'ansel_default');
+        $image->createView('mini', Ansel::getStyleDefinition('ansel_default'));
     } catch (Horde_Exception $e) {
         Horde::logMessage($e, 'ERR');
         exit;
@@ -32,4 +32,4 @@ if ($conf['vfs']['src'] == 'sendfile') {
     header('X-Sendfile: ' . $filename);
     exit;
 }
-$image->display('mini');
+$image->display('mini', Ansel::getStyleDefinition('ansel_default'));

@@ -14,7 +14,7 @@ class Ansel_Tile_Gallery
      * Outputs the html for a gallery tile.
      *
      * @param Ansel_Gallery $gallery  The Ansel_Gallery we are displaying.
-     * @param array $style            A style definition array.
+     * @param Ansel_Style $style      A style object.
      * @param boolean $mini           Force the use of a mini thumbail?
      * @param array $params           An array containing additional parameters.
      *                                Currently, gallery_view_url and
@@ -46,14 +46,15 @@ class Ansel_Tile_Gallery
             if (is_null($style)) {
                 $style = $gallery->getStyle();
             }
-            $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
-
+            $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
             if ($gallery->hasPasswd()) {
                 $gallery_image = Horde::img('gallery-locked.png');
             } else {
                 $gallery_image = Ansel::getImageUrl(
-                    $gallery->getKeyImage($style['name']),
-                    $thumbstyle, true, $style['name']);
+                    $gallery->getKeyImage($style),
+                    $thumbstyle,
+                    true,
+                    $style);
                 $gallery_image = '<img src="' . $gallery_image . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
             }
         } else {
@@ -62,11 +63,6 @@ class Ansel_Tile_Gallery
 
         /* Check for being called via the api and generate correct view links */
         if (!isset($params['gallery_view_url'])) {
-            if (empty($params['style'])) {
-                $gstyle = $gallery->getStyle();
-            } else {
-                $gstyle = Ansel::getStyleDefinition($params['style']);
-            }
             $view_link = Ansel::getUrlFor('view',
                                           array('gallery' => $gallery->id,
                                                 'view' => 'Gallery',
@@ -109,7 +105,7 @@ class Ansel_Tile_Gallery
         }
 
         $gallery_count = $gallery->countImages(true);
-        $background_color = $style['background'];
+        $background_color = $style->background;
 
         $date_format = $GLOBALS['prefs']->getValue('date_format');
         $created = _("Created:") . ' '

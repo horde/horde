@@ -50,7 +50,7 @@ $mini_galleries = array_values($mini_galleries);
 <?php for ($i = 0; $i < count($mini_galleries); ++$i): ?>
    <td align="center">
     <?php if ($mini_galleries[$i]->isOldEnough() && !$mini_galleries[$i]->hasPasswd()): ?>
-     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($mini_galleries[$i]->getKeyImage('ansel_default'), 'mini', false, 'ansel_default') ?>" alt="<?php echo $owner_title?>" /></a>
+     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($mini_galleries[$i]->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', false) ?>" alt="<?php echo $owner_title?>" /></a>
     <?php else: ?>
       <?php echo $link . Horde::img('gallery-locked-mini.png') ?></a>
     <?php endif; ?>

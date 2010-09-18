@@ -641,7 +641,12 @@ class Ansel_Api extends Horde_Registry_Api
                 throw new Ansel_Exception($e->getMessage());
             }
         } else {
-            $result = $image->load($view, $style);
+            if (!empty($params['style'])) {
+                $params['style'] = Ansel::getStyleDefinition($style);
+            } else {
+                $params['style'] = null;
+            }
+            $result = $image->load($view, $params['style']);
             $data = $image->_image->raw();
         }
 
@@ -776,6 +781,7 @@ class Ansel_Api extends Horde_Registry_Api
         if (!is_null($app)) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
+
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
         // Determine the default gallery when none is given. The first gallery
         // in the list is the default gallery.
@@ -794,6 +800,11 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         $images = $gallery->listImages();
+        if ($style) {
+            $style = Ansel::getStyleDefinition($style);
+        } else {
+            $style = $gallery->getStyle();
+        }
 
         $counter = 0;
         $imagelist = array();
@@ -839,6 +850,9 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages($galleries, $limit, $slugs);
         $imagelist = array();
+        if ($style) {
+            $style = Ansel::getStyleDefinition($style);
+        }
         foreach ($images as $image) {
             $id = $image->id;
             $imagelist[$id]['id'] = $id;
@@ -988,7 +1002,7 @@ class Ansel_Api extends Horde_Registry_Api
     }
 
     /**
-     * Get a list of all configured styles.
+     * Get a list of all pre-configured styles.
      *
      * @return hash of style definitions.
      */

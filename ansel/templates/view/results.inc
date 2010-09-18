@@ -100,7 +100,7 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCh
      <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
      <?php echo $this->_pager->render() ?>
-     <table width="100%" style="background-color:<?php echo $styleDef['background'] ?>;"><tr>
+     <table width="100%" style="background-color:<?php echo $style->background ?>;"><tr>
       <?php
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
@@ -124,7 +124,7 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCh
    <td width="20%" valign="top">
     <div id="anselWidgets">
      <?php if ($conf['tags']['relatedtags']): ?>
-      <div style="background-color:<?php echo $styleDef['background'] ?>;">
+      <div style="background-color:<?php echo $style->background ?>;">
        <h2 class="header tagTitle"><?php echo _("Related Tags") ?></h2>
        <div id="tags"><?php echo $rtaghtml ?></div>
       </div>

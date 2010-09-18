@@ -29,7 +29,7 @@ function stopSlideShow()
   </td>
  </tr>
 </table>
-<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $this->_style['background']; ?>;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $this->_style->background; ?>;">
  <tr>
   <td>
     <div class="slideControls">

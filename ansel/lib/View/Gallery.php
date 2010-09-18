@@ -100,8 +100,9 @@ class Ansel_View_Gallery extends Ansel_View_Base
         if (!empty($this->_params['gallery_view'])) {
             $renderer = $this->_params['gallery_view'];
         } else {
-            $renderer = (!empty($style['gallery_view'])) ? $style['gallery_view'] : 'Gallery';
+            $renderer = (!empty($style->gallery_view)) ? $style->gallery_view : 'Gallery';
         }
+
         /* Load the helper */
         $classname = 'Ansel_View_GalleryRenderer_' . basename($renderer);
         $this->_renderer = new $classname($this);

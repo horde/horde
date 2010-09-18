@@ -86,7 +86,6 @@ function changeRatio()
 <h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
 <div class="control anselActions" style="text-align: center">
 <?php
-$style = $gallery->getStyle();
 $image_src = Ansel::getImageUrl($image_id, 'full');
 
 echo $galleryurl->link() . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';

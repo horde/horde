@@ -1,16 +1,20 @@
 <?php
 /**
- * Configuration for the available gallery style
+ * Predefined gallery styles.  These are used to select a predefined set of
+ * styles on the gallery's property page. Style may then be tweaked by the
+ * gallery owner. The 'name' attribute is the name of they style that should be
+ * used if requesting an explicit style to overide the gallery's existing style
+ * when rendering via the API.
  *
  * Each entry *must* have:
- *
+ * <pre>
  * 'name'        =  The internal name of the style (this should match the
  *                  hash key).
  *
  * 'title'       =  This is the title to be displayed to the users.
  *
  * 'thumbstyle'  =  This is the type of thumbnail to use. This must match
- *                  an available Ansel_ImageView object in lib/ImageView.
+ *                  an available Ansel_ImageGenerator object.
  *
  * 'background'  =  The desired background color of the style. This will
  *                  set the background of both the photo display area inside
@@ -19,29 +23,13 @@
  *
  * The following are optional:
  *
- * requires_png               =  Specifies that the style should only be
- *                               available if both the Horde install uses PNG
- *                               photos *and* the currently requesting browser
- *                               has PNG transparency support.
- *
- * default_galleryimage_type  =  How to represent each gallery's default photo.
- *                               This must match an available Ansel_ImageView
- *                               object in lib/ImageView
- *                          create_serialized_styles.php
- * gallery_view               =  The Ansel_View_* subclass to use for gallery
- *                               views.
+ * gallery_view               =  The Ansel_View_GalleryRenderer to use for
+ *                               gallery rendering. [Gallery]
  *
  * widgets                    =  An array describing any Ansel_Widgets to
  *                               display on this gallery along with any
  *                               parameters the widget may need.
- *
- * hide                      =   Hide this style in the gallery propery page.
- *
- * falback                   -   Fall back to this gallery style if unable to
- *                               use this style (like if we don't have PNG
- *                               support)
- *
- * $Id$
+ * </pre>
  */
 
 // Just a time saver...
@@ -64,20 +52,16 @@ $styles['ansel_default'] = array(
 
 $styles['ansel_prettythumbs'] = array(
     'name' => 'ansel_prettythumbs',
-    'title' => _("Pretty Thumbnails (No Background)"),
-    'thumbstyle' => 'PrettyThumb',
-    'requires_png' => true,
-    // This really only looks good with ImageMagick, not GD.
-    'default_galleryimage_type' => 'RoundedStack',
+    'title' => _("Rounded Thumbnails (No Background)"),
+    'thumbstyle' => 'RoundedThumb',
     'background' => 'none',
     'widgets' => $widgets,
 );
 
 $styles['ansel_blackonwhite'] = array(
     'name' => 'ansel_blackonwhite',
-    'title' => _("Pretty Thumbnails (White Background)"),
-    'default_galleryimage_type' => 'RoundedStack',
-    'thumbstyle' => 'PrettyThumb',
+    'title' => _("Rounded Thumbnails (White Background)"),
+    'thumbstyle' => 'RoundedThumb',
     'background' => 'white',
     'widgets' => $widgets,
 );
@@ -85,9 +69,8 @@ $styles['ansel_blackonwhite'] = array(
 $styles['ansel_sharpshadowed'] = array(
     'name' => 'ansel_sharpshadowed',
     'title' => _("Shadowed Thumbnails (White Background)"),
-    'thumbstyle' => 'ShadowSharpThumb',
+    'thumbstyle' => 'ShadowThumb',
     'background' => 'white',
-    'default_galleryimage_type' => 'PlainStack',
     'widgets' => $widgets
 );
 
@@ -97,7 +80,6 @@ $styles['ansel_polaroid'] = array(
     'title' => _("Polaroid Style Thumbnails (White Background)"),
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'white',
-    'default_galleryimage_type' => 'PolaroidStack',
     'widgets' => $widgets,
 );
 
@@ -108,9 +90,8 @@ $styles['ansel_lightbox'] = array(
     'thumbstyle' => 'Thumb',
     'background' => 'white',
     'gallery_view' => 'GalleryLightbox',
-    'widgets' => $widgets,
+    'widgets' => $widgets
 );
-
 
 /* Lightbox image views with no background
  * (requires PNG) */
@@ -119,9 +100,8 @@ $styles['ansel_lightbox_png'] = array(
     'title' => _("A Lightbox Inspired Style (No Background)"),
     'thumbstyle' => 'Thumb',
     'background' => 'none',
-    'requires_png' => true,
     'gallery_view' => 'GalleryLightbox',
-    'widgets' => $widgets,
+    'widgets' => $widgets
 );
 
 /* Lightbox image views with no background and shadowed thumbs
@@ -129,14 +109,12 @@ $styles['ansel_lightbox_png'] = array(
 $styles['ansel_lightbox_shadowed_png'] = array(
     'name' => 'ansel_lightbox_shadowed_png',
     'title' => _("A Lightbox Inspired Style (Drop Shadows, No Background)"),
-    'thumbstyle' => 'ShadowSharpThumb',
+    'thumbstyle' => 'ShadowThumb',
     'background' => 'none',
-    'requires_png' => true,
     'gallery_view' => 'GalleryLightbox',
     'widgets' => $widgets,
     'fallback' => 'ansel_lightbox'
 );
-
 
 /* Same as above, but with Polaroid thumbnails/stacks
  * and no background (so required png support) */
@@ -145,10 +123,8 @@ $styles['ansel_lightbox_polaroid'] = array(
     'title' => _("Lightbox with Polaroids (No Background)"),
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'none',
-    'requires_png' => true,
-    'default_galleryimage_type' => 'PolaroidStack',
     'gallery_view' => 'GalleryLightbox',
-    'widgets' => $widgets,
+    'widgets' => $widgets
 );
 
 /* Simple styles with no Ansel_Widgets useful for rendering  on external sites
@@ -160,8 +136,7 @@ $styles['ansel_simple'] = array(
     'name' => 'ansel_simple',
     'title' => _("Simple"),
     'thumbstyle' => 'Thumb',
-    'background' => 'none',
-    'hide' => true,
+    'background' => 'none'
 );
 
 /* An API friendly lightbox style */
@@ -170,10 +145,7 @@ $styles['ansel_lightbox_simple'] = array(
     'title' => _("Simple Lightbox"),
     'thumbstyle' => 'Thumb',
     'background' => 'none',
-    'requires_png' => true,
-    'gallery_view' => 'GalleryLightbox',
-    'hide' => true,
-    'fallback' => 'ansel_simple'
+    'gallery_view' => 'GalleryLightbox'
 );
 
 /* Same as above, but with polaroid thumbnails */
@@ -182,9 +154,5 @@ $styles['ansel_lightbox_simple_polaroid'] = array(
     'title' => _("Lightbox with Polaroids (No Background)"),
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'none',
-    'requires_png' => true,
-    'default_galleryimage_type' => 'PolaroidStack',
-    'gallery_view' => 'GalleryLightbox',
-    'hide' => true,
-    'fallback' => 'ansel_simple'
+    'gallery_view' => 'GalleryLightbox'
 );

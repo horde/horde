@@ -5,7 +5,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageGenerator_PolaroidStack extends Ansel_ImageGenerator
+class Ansel_ImageGenerator_PolaroidThumbStack extends Ansel_ImageGenerator
 {
     public $need = array('PhotoStack');
 
@@ -19,7 +19,7 @@ class Ansel_ImageGenerator_PolaroidStack extends Ansel_ImageGenerator
         $style = $this->_params['style'];
         $params = array('width' => 100,
                         'height' => 100,
-                        'background' => $style['background']);
+                        'background' => $style->background);
 
         $baseImg = Ansel::getImageObject($params);
         try {
@@ -28,7 +28,7 @@ class Ansel_ImageGenerator_PolaroidStack extends Ansel_ImageGenerator
                 array('images' => $imgobjs,
                       'resize_height' => $GLOBALS['conf']['thumbnail']['height'],
                       'padding' => 10,
-                      'background' => $style['background'],
+                      'background' => $style->background,
                       'type' => 'polaroid'));
             $baseImg->applyEffects();
             $baseImg->resize($GLOBALS['conf']['thumbnail']['width'],

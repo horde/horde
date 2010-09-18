@@ -94,7 +94,8 @@ class Ansel_Storage
         $attributes['default_type'] = isset($attributes['default_type']) ? $attributes['default_type'] : 'auto';
         $attributes['default'] = isset($attributes['default']) ? (int)$attributes['default'] : 0;
         $attributes['default_prettythumb'] = isset($attributes['default_prettythumb']) ? $attributes['default_prettythumb'] : '';
-        $attributes['style'] = isset($attributes['style']) ? $attributes['style'] : $GLOBALS['prefs']->getValue('default_gallerystyle');
+        // No value for style now means to use the 'default_ansel' style as defined in styles.php
+        $attributes['style'] = isset($attributes['style']) ? $attributes['style'] : '';
         $attributes['date_created'] = time();
         $attributes['last_modified'] = $attributes['date_created'];
         $attributes['images'] = isset($attributes['images']) ? (int)$attributes['images'] : 0;
@@ -861,7 +862,7 @@ class Ansel_Storage
      * from the same gallery.
      *
      * @param array $images        An array of image ids
-     * @param string $style        A named gallery style to force if requesting
+     * @param Ansel_Style $style   A gallery style to force if requesting
      *                             pretty thumbs.
      * @param boolean $full        Generate full urls
      * @param string $image_view   Which image view to use? screen, thumb etc..
@@ -874,7 +875,7 @@ class Ansel_Storage
     {
         $galleries = array();
         if (is_null($style)) {
-            $style = 'ansel_default';
+            $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         $json = array();
@@ -1143,6 +1144,39 @@ class Ansel_Storage
         }
 
         return implode(', ', $fields);
+    }
+
+    /**
+     * Ensure the style hash is recorded in the database.
+     *
+     * @param string $hash  The hash to record.
+     *
+     * @return void
+     */
+    public function ensureHash($hash)
+    {
+        $query = $this->_db->prepare('SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?');
+        $results = $query->execute($hash);
+        if ($results instanceof PEAR_Error) {
+            throw new Ansel_Exception($results->getMessage());
+        }
+        if (!$results->fetchOne()) {
+            $query = $this->_db->prepare('INSERT INTO ansel_hashes (style_hash) VALUES(?)');
+            $results = $query->execute($hash);
+            if ($results instanceof PEAR_Error) {
+                throw new Ansel_Exception($results->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Get a list of all known styleHashes.
+     *
+     * @return array  An array of style hashes.
+     */
+    public function getHashes()
+    {
+        $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes;');
     }
 
 }

@@ -51,9 +51,9 @@ abstract class Ansel_View_GalleryRenderer_Base
     public $mode;
 
     /**
-     * The style definition array for this gallery.
+     * The style definition.
      *
-     * @var array
+     * @var Ansel_Style
      */
     public $style;
 
@@ -101,11 +101,18 @@ abstract class Ansel_View_GalleryRenderer_Base
     public $date = array();
 
     /**
+     * Human readable title for this view type
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
      * Constructor
      *
      * @param Ansel_View_Gallery  The view object for this renderer.
      */
-    public function __construct(Ansel_View_Gallery $view)
+    public function __construct($view)
     {
         $this->view = $view;
     }
@@ -140,15 +147,16 @@ abstract class Ansel_View_GalleryRenderer_Base
 
         /* Do we have an explicit style set? If not, use the gallery's */
         if (!empty($this->view->style)) {
-            $this->style = Ansel::getStyleDefinition($this->view->style);
+            $this->style = $this->view->style;
         } else {
             $this->style = $this->view->gallery->getStyle();
         }
 
         /* Include any widgets */
-        if (!empty($this->style['widgets']) && !$this->view->api) {
+        if (!empty($this->style->widgets) && !$this->view->api) {
+
             /* Special case widgets - these are built in */
-            if (array_key_exists('Actions', $this->style['widgets'])) {
+            if (array_key_exists('Actions', $this->style->widgets)) {
                 /* Don't show action widget if no actions */
                 if ($GLOBALS['registry']->getAuth() ||
                     !empty($conf['report_content']['driver']) &&
@@ -158,13 +166,13 @@ abstract class Ansel_View_GalleryRenderer_Base
 
                     $this->view->addWidget(Ansel_Widget::factory('Actions'));
                 }
-                unset($this->style['widgets']['Actions']);
+                unset($this->style->widgets['Actions']);
             }
 
             // Gallery widgets always receive an array of image ids for
             // the current page.
             $ids = $this->getChildImageIds();
-            foreach ($this->style['widgets'] as $wname => $wparams) {
+            foreach ($this->style->widgets as $wname => $wparams) {
                 $wparams = array_merge($wparams, array('images' => $ids));
                 $this->view->addWidget(Ansel_Widget::factory($wname, $wparams));
             }

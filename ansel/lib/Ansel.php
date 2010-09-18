@@ -363,11 +363,11 @@ class Ansel
      * Takes into account $conf['vfs']['direct'] and other
      * factors.
      *
-     * @param string $imageId  The id of the image.
-     * @param string $view     The view ('screen', 'thumb', 'prettythumb' or
-     *                         'full') to show.
-     * @param boolean $full    Return a path that includes the server name?
-     * @param string $style    Use this gallery style
+     * @param string $imageId     The id of the image.
+     * @param string $view        The view ('screen', 'thumb', 'prettythumb' or
+     *                            'full') to show.
+     * @param boolean $full       Return a path that includes the server name?
+     * @param Ansel_Style $style  Use this gallery style
      *
      * @return Horde_Url The image path.
      */
@@ -396,7 +396,7 @@ class Ansel
         // Default to ansel_default since we really only need to know the style
         // if we are requesting a 'prettythumb'
         if (is_null($style)) {
-            $style = 'ansel_default';
+            $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         // Don't load the image if the view exists
@@ -423,8 +423,10 @@ class Ansel
         if ($conf['vfs']['src'] != 'direct') {
             $params = array('image' => $imageId);
             if (!is_null($style)) {
-                $params['style'] = $style;
+                $params['t'] = $style->thumbstyle;
+                $params['b'] = $style->background;
             }
+
             return Horde::url('img/' . $view . '.php', $full)->add($params);
         }
 
@@ -669,8 +671,9 @@ class Ansel
      */
     static public function getStyleSelect($element_name, $selected = '')
     {
-        $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
+        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
+        // @TODO: Look at this code: probably duplicated in the binder above.
         /* No prettythumbs allowed at all by admin choice */
         if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
             $test = $styles;
@@ -702,52 +705,38 @@ class Ansel
     }
 
     /**
-     * Get a style definition for the requested named style
+     * Get a pre-defined style definition for the requested named style
      *
      * @param string $style  The name of the style to fetch
      *
-     * @return array  The definition of the requested style if it's available
-     *                otherwise, the ansel_default style is returned.
+     * @return Ansel_Style   The definition of the requested style if it's
+     *                       available, otherwise, the ansel_default style is
+     *                       returned.
      */
     static public function getStyleDefinition($style)
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
         if (isset($styles[$style])) {
-            $style_def = $styles[$style];
+            return new Ansel_Style($styles[$style]);
         } else {
-            $style_def = $styles['ansel_default'];
+            return  new Ansel_Style($styles['ansel_default']);
         }
-
-        /* Fill in defaults */
-        if (empty($style_def['gallery_view'])) {
-            $style_def['gallery_view'] = 'Gallery';
-        }
-        if (empty($style_def['default_galleryimage_type'])) {
-            $style_def['default_galleryimage_type'] = 'plain';
-        }
-        if (empty($style_def['requires_png'])) {
-            $style_def['requires_png'] = false;
-        }
-
-        return $style_def;
     }
 
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view        The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style  The style object.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
     static public function getViewHash($view, $style)
     {
-        $style = Ansel::getStyleDefinition($style);
-
         if ($view != 'screen' && $view != 'thumb' && $view != 'mini' &&
             $view != 'full') {
 
-            $view = md5($style['thumbstyle'] . '.' . $style['background']);
+            $view = md5($style->thumbstyle . '.' . $style->background);
         }
 
         return $view;
