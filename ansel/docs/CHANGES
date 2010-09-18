@@ -2,6 +2,8 @@
 v2.0-git
 --------
 
+[mjr] Gallery style properties are now directly editable per-gallery by the
+      gallery owner (Request #6003).
 [mjr] Move tag handling to Content_Tagger.
 [mjr] Support for multipage images (Request #6022).
 [mjr] Exif code removed and placed in Horde_Image_Exif
