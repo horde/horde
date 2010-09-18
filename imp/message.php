@@ -90,7 +90,12 @@ case 'undelete_message':
     if ($vars->actionID == 'undelete_message') {
         $imp_message->undelete($indices);
     } else {
-        $imp_message->delete($indices);
+        $imp_message->delete(
+            $indices,
+            array(
+                'mailboxob' => $imp_mailbox
+            )
+        );
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -112,7 +117,15 @@ case 'copy_message':
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, array('create' => $newMbox));
+        $imp_message->copy(
+            $targetMbox,
+            ($vars->actionID == 'move_message') ? 'move' : 'copy',
+            $indices,
+            array(
+                'create' => $newMbox,
+                'mailboxob' => $imp_mailbox
+            )
+        );
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -163,7 +176,13 @@ case 'add_address':
 case 'strip_all':
 case 'strip_attachment':
     try {
-        $imp_message->stripPart($indices, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
+        $imp_message->stripPart(
+            $indices,
+            ($vars->actionID == 'strip_all') ? null : $vars->imapid,
+            array(
+                'mailboxob' => $imp_mailbox
+            )
+        );
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);

@@ -50,6 +50,8 @@ class IMP_Message
      * <pre>
      * 'create' - (boolean) Should the target mailbox be created?
      *            DEFAULT: false
+     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     *               DEFAULT: No update.
      * </pre>
      *
      * @return boolean  True if successful, false if not.
@@ -131,9 +133,10 @@ class IMP_Message
                 try {
                     $imp_imap->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
-                    $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
-                    if (($action == 'move') && $imp_mailbox->isBuilt()) {
-                        $imp_mailbox->removeMsgs(new IMP_Indices($mbox, $msgIndices));
+                    if (($action == 'move') &&
+                        !empty($opts['mailboxob']) &&
+                        $opts['mailboxob']->isBuilt()) {
+                        $opts['mailboxob']->removeMsgs(new IMP_Indices($mbox, $msgIndices));
                     }
 
                     if ($spam_report) {
@@ -164,6 +167,8 @@ class IMP_Message
      * <pre>
      * 'keeplog' - (boolean) Should any history information of the message be
      *             kept?
+     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     *               DEFAULT: No update.
      * 'nuke' - (boolean) Override user preferences and nuke (i.e. permanently
      *          delete) the messages instead?
      * </pre>
@@ -232,9 +237,9 @@ class IMP_Message
                 try {
                     $imp_imap->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
 
-                    $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
-                    if ($imp_mailbox->isBuilt()) {
-                        $imp_mailbox->removeMsgs($imp_indices);
+                    if (!empty($options['mailboxob']) &&
+                        $options['mailboxob']->isBuilt()) {
+                        $options['mailboxob']->removeMsgs($imp_indices);
                     }
                 } catch (Horde_Imap_Client_Exception $e) {
                     // @todo Check for overquota error.
@@ -272,7 +277,12 @@ class IMP_Message
                 try {
                     $imp_imap->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
                     if ($expunge_now) {
-                        $this->expungeMailbox($imp_indices->indices());
+                        $this->expungeMailbox(
+                            $imp_indices->indices(),
+                            array(
+                                'mailboxob' => empty($opts['mailboxob']) ? null : $opts['mailboxob']
+                            )
+                        );
                     }
                 } catch (Horde_Imap_Client_Exception $e) {}
 
@@ -457,11 +467,16 @@ class IMP_Message
      * @param IMP_Indices $indices  An indices object.
      * @param string $partid        The MIME ID of the part to strip. All
      *                              parts are stripped if null.
+     * @param array $opts           Additional options:
+     * <pre>
+     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     *               DEFAULT: No update.
+     * </pre>
      *
      * @return IMP_Indices  Returns the new indices object.
      * @throws IMP_Exception
      */
-    public function stripPart($indices, $partid = null)
+    public function stripPart($indices, $partid = null, array $opts = array())
     {
         list($mbox, $uid) = $indices->getSingle();
         if (!$uid) {
@@ -566,15 +581,23 @@ class IMP_Message
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
-        $this->delete($indices, array('nuke' => true, 'keeplog' => true));
+        $this->delete($indices, array(
+            'keeplog' => true,
+            'mailboxob' => empty($opts['mailboxob']) ? null : $opts['mailboxob'],
+            'nuke' => true
+        ));
 
-        $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox, new IMP_Indices($mbox, $new_uid));
+        $indices_ob = new IMP_Indices($mbox, $new_uid);
+
+        if (!empty($opts['mailboxob'])) {
+            $opts['mailboxob']->setIndex($indices_ob);
+        }
 
         /* We need to replace the old index in the query string with the
          * new index. */
         $_SERVER['QUERY_STRING'] = str_replace($uid, $new_uid, $_SERVER['QUERY_STRING']);
 
-        return new IMP_Indices($mbox, $new_uid);
+        return $indices_ob;
     }
 
     /**
@@ -678,12 +701,14 @@ class IMP_Message
      * <pre>
      * 'list' - (boolean) Return a list of messages expunged.
      *          DEFAULT: false
+     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     *               DEFAULT: No update.
      * </pre>
      *
      * @return IMP_Indices  If 'list' option is true, an indices object
      *                      containing the messages that have been expunged.
      */
-    public function expungeMailbox($mbox_list, $options = array())
+    public function expungeMailbox($mbox_list, array $options = array())
     {
         $msg_list = !empty($options['list']);
 
@@ -721,9 +746,9 @@ class IMP_Message
             try {
                 $update_list[$key] = $imp_imap->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
 
-                $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($key);
-                if ($imp_mailbox->isBuilt()) {
-                    $imp_mailbox->removeMsgs(is_array($val) ? new IMP_Indices($key, $val) : true);
+                if (!empty($opts['mailboxob']) &&
+                    $opts['mailboxob']->isBuilt()) {
+                    $opts['mailboxob']->removeMsgs(is_array($val) ? new IMP_Indices($key, $val) : true);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
