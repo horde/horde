@@ -9,6 +9,12 @@ class Ansel_ImageGenerator_RoundedThumb extends Ansel_ImageGenerator
 {
     public $need = array('RoundCorners', 'DropShadow');
 
+    public function __construct($params)
+    {
+        parent::__construct($params);
+        $this->title = _("Rounded Corners");
+    }
+
     /**
      *
      * @return Horde_Image

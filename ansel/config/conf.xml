@@ -84,7 +84,8 @@
    0</configstring>
    <configboolean name="prettythumbs" desc="Allow the selection of gallery
    themes and generation of 'pretty' thumbnails?  This can be a performance
-    hit the first time the thumbnails are generated.">false</configboolean>
+    hit on some installations but is required for the generation of all but the
+    most basic image thumbnails." required="false">false</configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
    allowed to upload at once?">5</configstring>
    <configstring name="font" required="false" desc="What font would you like

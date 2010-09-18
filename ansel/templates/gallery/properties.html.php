@@ -69,7 +69,7 @@
   <td align="right" valign="top"><strong id="slug_flag"><?php echo _("Gallery Slug") ?></strong>&nbsp;</td>
   <td>
    <input name="gallery_slug" id="gallery_slug" type="text" value="<?php echo $this->h($this->properties['slug']) ?>" size="50" /><br />
-   <?php if ($GLOBALS['conf']['urls']['pretty'] == 'rewrite') echo _("Slugs allows direct access to this gallery by visiting:") . ': ' . Horde::url('gallery/slugname', true) ?><br />
+   <?php if ($GLOBALS['conf']['urls']['pretty'] == 'rewrite'): echo _("Slugs allows direct access to this gallery by visiting:") . ': ' . Horde::url('gallery/slugname', true) ?><br /> <?php endif; ?>
    <?php echo _("Slug names may contain only letters, numbers, @, or _ (underscore).") ?>
   </td>
  </tr>
@@ -122,7 +122,7 @@
 <?php endif; ?>
 
 <!-- Gallery Style -->
-<?php echo $this->renderPartial('styles'); ?>
+<?php if ($GLOBALS['conf']['image']['prettythumbs']) {echo $this->renderPartial('styles'); }?>
 
 <!-- Submission -->
 <tr>

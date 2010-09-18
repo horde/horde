@@ -11,12 +11,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
-/**
- * Description of GalleryProperties
- *
- * @author mrubinsk
- */
 class Ansel_View_GalleryProperties
 {
     /**
@@ -48,22 +42,6 @@ class Ansel_View_GalleryProperties
     public function __construct($params = array())
     {
         $this->_params = $params;
-
-        /*Gallery properties */
-        $this->_properties = array(
-            'name' => '',
-            'desc' => '',
-            'tags' => '',
-            'style' => '',
-            'slug' => '',
-            'age' => 0,
-            'download' => $GLOBALS['prefs']->getValue('default_download'),
-            'parent' => null,
-            'id' => null,
-            'mode' => 'Normal',
-            'passwd' => '',
-            'owner' => ''
-        );
     }
 
     /**
@@ -92,6 +70,25 @@ class Ansel_View_GalleryProperties
         }
     }
 
+    private function _loadDefaults()
+    {
+        /*Gallery properties */
+        $this->_properties = array(
+            'name' => '',
+            'desc' => '',
+            'tags' => '',
+            'style' => Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle')),
+            'slug' => '',
+            'age' => 0,
+            'download' => $GLOBALS['prefs']->getValue('default_download'),
+            'parent' => null,
+            'id' => null,
+            'mode' => 'Normal',
+            'passwd' => '',
+            'owner' => ''
+        );
+    }
+
     /**
      * Outputs the view to the browser.
      *
@@ -107,6 +104,8 @@ class Ansel_View_GalleryProperties
         $view->title = $this->_title;
         $view->action = $this->_params['actionID'];
         $view->url = $this->_params['url'];
+        $view->availableThumbs = $this->_thumbStyles();
+        $view->galleryViews = $this->_galleryViewStyles();
 
         Horde::addInlineScript(array('$("gallery_name").focus()'), 'dom');
         Horde::addScriptFile('stripe.js', 'horde');
@@ -132,6 +131,7 @@ class Ansel_View_GalleryProperties
      */
     private function _runNew()
     {
+        $this->_loadDefaults();
         $this->_title = _("Adding a New Gallery");
         $this->_properties['owner'] = $GLOBALS['registry']->getAuth();
     }
@@ -143,6 +143,8 @@ class Ansel_View_GalleryProperties
      */
     private function _runNewChild()
     {
+        $this->_loadDefaults();
+
         // Get the parent and make sure that it exists and that we have
         // permissions to add to it.
         $parentId = $this->_params['gallery'];
@@ -237,7 +239,8 @@ class Ansel_View_GalleryProperties
         $style = new Ansel_Style(array(
             'thumbstyle' => Horde_Util::getFormData('thumbnail_style'),
             'background' => Horde_Util::getFormData('background_color'),
-            // temporary hack
+            'gallery_view' => Horde_Util::getFormData('gallery_view'),
+            // temporary hack until widgets are also configurable.
             'widgets' => array(
                  'Tags' => array('view' => 'gallery'),
                  'OtherGalleries' => array(),
@@ -274,7 +277,7 @@ class Ansel_View_GalleryProperties
                     $gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
                     $gallery->set('passwd', $gallery_passwd);
                 }
-                
+
                 // Did the parent change?
                 $old_parent = $gallery->getParent();
                 if (!is_null($old_parent)) {
@@ -385,6 +388,51 @@ class Ansel_View_GalleryProperties
             $url = new Horde_Url($url);
         }
         $url->redirect();
+    }
+
+   /**
+    * Get a list of available, currently usable thumbnail styles.
+    *
+    * @return array  An array of Classnames => titles
+    */
+    protected function _thumbStyles()
+    {
+        // Iterate all available thumbstyles:
+        $dir = ANSEL_BASE . '/lib/ImageGenerator';
+        $files = scandir($dir);
+        $thumbs = array();
+        foreach ($files as $file) {
+            if (substr($file, -9) == 'Thumb.php') {
+                try {
+                    $generator = Ansel_ImageGenerator::factory(substr($file, 0, -4), array('style' => ''));
+                    $thumbs[substr($file, 0, -4)] = $generator->title;
+                } catch (Ansel_Exception $e) {}
+            }
+        }
+
+        return $thumbs;
+    }
+
+    /**
+     * Get a list of available Gallery View styles
+     *
+     * @return array
+     */
+    protected function _galleryViewStyles()
+    {
+        // Iterate all available thumbstyles:
+        $dir = ANSEL_BASE . '/lib/View/GalleryRenderer';
+        $files = scandir($dir);
+        $views = array();
+        foreach ($files as $file) {
+            if ($file != 'Base.php' && $file != '.' && $file != '..') {
+                $class = 'Ansel_View_GalleryRenderer_' . substr($file, 0, -4);
+                $view = new $class(null);
+                $views[substr($file, 0, -4)] = $view->title;
+            }
+        }
+
+        return $views;
     }
 }
 

@@ -9,6 +9,12 @@ class Ansel_ImageGenerator_PolaroidThumb extends Ansel_ImageGenerator
 {
     public $need = array('PolaroidImage');
 
+    public function __construct($params)
+    {
+        parent::__construct($params);
+        $this->title = _("Polaroids");
+    }
+
     /**
      *
      * @return Horde_Image

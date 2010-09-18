@@ -710,21 +710,32 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     }
 
     /**
-     * Return the style definition for this gallery. Returns the first available
-     * style in this order: Explicitly configured style if available, if
-     * configured style is not available, use ansel_default.  If nothing has
-     * been configured, the user's selected default is attempted.
-     *
-     * @TODO: Verify availability of selected style and fallback to ansel_default
+     * Return the style definition for this gallery.
      *
      * @return array  The style definition array.
      */
     public function getStyle()
     {
+        // No styles allowed per admin.
+        if (!$GLOBALS['conf']['image']['prettythumbs']) {
+            return Ansel::getStyleDefinition('ansel_default');
+        }
+
         if (empty($this->data['attribute_style'])) {
+            // No style configured, use user's prefered default
             $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         } else {
+            // Explicitly defined style
             $style = unserialize($this->data['attribute_style']);
+        }
+
+        // Check browser requirements. If we require PNG support, and do not
+        // have it, revert to the basic ansel_default style.
+        if ($style->requiresPng() &&
+            ($GLOBALS['browser']->hasQuirk('png_transparency') ||
+             $GLOBALS['conf']['image']['type'] != 'png')) {
+
+            return Ansel::getStyleDefinition('ansel_default');
         }
 
         return $style;

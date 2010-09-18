@@ -13,6 +13,13 @@
  */
 class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 {
+
+    public function __construct($view)
+    {
+        parent::__construct($view);
+        $this->title = _("Standard Gallery");
+    }
+
     /**
      * Perform any tasks that should be performed before the view is rendered.
      *

@@ -9,6 +9,12 @@ class Ansel_ImageGenerator_ShadowThumb extends Ansel_ImageGenerator
 {
     public $need = array('DropShadow');
 
+    public function __construct($params)
+    {
+        parent::__construct($params);
+        $this->title = _("Drop Shadows");
+    }
+
     /**
      *
      * @return boolean

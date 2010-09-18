@@ -1,6 +1,6 @@
 <?php
 /**
- * Binder for all available Ansel styles
+ * Binder for getting list of all available pre-defined styles.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -18,7 +18,7 @@ class Ansel_Injector_Binder_Styles Implements Horde_Injector_Binder
         if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
             $test = $styles;
             foreach ($test as $key => $style) {
-                if ($style['thumbstyle'] != 'thumb') {
+                if ($style['thumbstyle'] != 'Thumb') {
                     unset($styles[$key]);
                 }
             }

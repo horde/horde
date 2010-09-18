@@ -1,6 +1,21 @@
 <?php
 /**
- * Class to abstract the creation of various image views.
+ * Base class for the creation of various image views.
+ *
+ * New thumbnail generators can be dropped in and will be made available by
+ * Ansel providing:
+ *
+ *   1. The class name is as: Ansel_ImageGenerator_{type}Thumb and filename
+ *      matches, i.e. {type}Thumb.php where {type} is the unique name for your
+ *      thumbnail type.
+ *
+ *   2. Implements a _create() method that applies the effects to the image
+ *      (see existing generators for how this works).
+ *
+ *   3. If a matching "stack" generator is desired, that should be named
+ *      similarly: Ansel_ImageGenerator_{type}ThumbStack with matching filename:
+ *      {type}ThumbStack.php
+ *
  *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
@@ -109,8 +124,7 @@ class Ansel_ImageGenerator
         }
         if (class_exists($class)) {
             $view = new $class($params);
-            // Check that the image object supports what we need for the
-            // requested effect.
+            // Check that the image object supports what we need for the effect.
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
                     Horde::logMessage($err, 'ERR');
@@ -154,10 +168,10 @@ class Ansel_ImageGenerator
 
    /**
     * Utility function to return an array of Horde_Images to use in building a
-    * polaroid stack. Returns a random set of 5 images from the gallery, or the
+    * stack. Returns a random set of 5 images from the gallery, or the
     * explicitly set key image plus 4 others.
     *
-    * @return array of Horde_Images
+    * @return array An array of Horde_Image objects.
     */
     protected function _getStackImages()
     {
