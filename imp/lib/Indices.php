@@ -203,8 +203,9 @@ class IMP_Indices implements Countable, Iterator
 
     public function rewind()
     {
-        reset($this->_indices);
-        reset(current($this->_indices));
+        if (reset($this->_indices)) {
+            reset(current($this->_indices));
+        }
     }
 
     public function valid()
