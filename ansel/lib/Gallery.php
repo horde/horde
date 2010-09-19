@@ -220,7 +220,13 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Add an image to this gallery.
      *
-     * @param array $image_data  The image to add. Required keys include
+     * @param array $image_data  The image to add. Keys include:
+     *  <pre>
+     *    image_filename   - The filename of the image [REQUIRED].
+     *    data             - The binary image data [REQUIRED]
+     *    image_caption    - The caption/description. Defaults to filename.
+     *    image_type       - The MIME type of the image. Attempts to detect.
+     *  </pre>
      *                           'image_caption', and 'data'. Optional keys
      *                           include 'image_filename' and 'image_type'
      *
@@ -239,8 +245,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         $resetStack = false;
-        if (!isset($image_data['image_filename'])) {
-            $image_data['image_filename'] = 'Untitled';
+        if (empty($image_data['image_caption'])) {
+            $image_data['image_caption'] = $image_data['image_filename'];
         }
         $image_data['gallery_id'] = $this->id;
         $image_data['image_sort'] = $this->countImages();
