@@ -37,7 +37,7 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
         /* Check permissions. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticationFailure();
+            $registry->authenticateFailure();
         }
 
         try {

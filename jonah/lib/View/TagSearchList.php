@@ -32,7 +32,7 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
             $channel = $driver->getChannel($channel_id);
             if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::SHOW, $channel_id)) {
                 $notification->push(_("You are not authorised for this action."), 'horde.warning');
-                $registry->authenticationFailure();
+                $registry->authenticateFailure();
             }
             $channel_ids = array($channel_id);
         } else {

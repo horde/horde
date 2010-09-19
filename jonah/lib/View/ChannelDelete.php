@@ -45,7 +45,7 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
         /* Check permissions and deny if not allowed. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticationFailure();
+            $registry->authenticateFailure();
         }
 
         $title = sprintf(_("Delete News Channel \"%s\"?"), $vars->get('channel_name'));

@@ -44,7 +44,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Check permissions. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticationFailure();
+            $registry->authenticateFailure();
         }
 
         /* Check if a story is being edited. */
