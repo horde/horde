@@ -14,7 +14,7 @@ Horde_Registry::appInit('luxor');
 function printdir($dir)
 {
     $view = new Horde_View(array('templatePath' => LUXOR_TEMPLATES));
-    $view->addBuiltinHelpers();
+    $view->addHelper('Text');
     $dirlist = Luxor::dirExpand($dir);
     if (is_a($dirlist, 'PEAR_Error')) {
         $GLOBALS['notification']->push($dirlist, 'horde.error');

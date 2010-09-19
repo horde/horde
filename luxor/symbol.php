@@ -77,7 +77,7 @@ require LUXOR_TEMPLATES . '/common-header.inc';
 require LUXOR_TEMPLATES . '/menu.inc';
 
 $view = new Horde_View(array('templatePath' => LUXOR_TEMPLATES));
-$view->addBuiltinHelpers();
+$view->addHelper('Text');
 $view->title = $title;
 $view->declarations = $ds;
 $view->references = $rs;

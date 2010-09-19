@@ -71,7 +71,7 @@ class Jonah_View_StoryView extends Jonah_View_Base
                                                              JONAH_TEMPLATES . '/stories/partial',
                                                              JONAH_TEMPLATES . '/stories/layout')));
         $view->addHelper('Tag');
-        $view->addBuiltinHelpers();
+        $view->addHelper('Text');
         $view->tagcloud = $cloud->buildHTML();
         $view->story = $story;
 

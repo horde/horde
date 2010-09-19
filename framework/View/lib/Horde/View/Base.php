@@ -147,24 +147,6 @@ abstract class Horde_View_Base
     }
 
     /**
-     * Adds all of the built-in Horde_View_Helpers to this instance
-     *
-     * @todo We'll come up with a lazy-load strategy in the future.
-     */
-    public function addBuiltinHelpers()
-    {
-        $dir = dirname(__FILE__) . '/Helper';
-        foreach (new DirectoryIterator($dir) as $f) {
-            if ($f->isFile()) {
-                $helper = str_replace('.php', '', $f->getFilename());
-                if ($helper != 'Base') {
-                    $this->addHelper($helper);
-                }
-            }
-        }
-    }
-
-    /**
      * Adds to the stack of helpers in LIFO order.
      *
      * @param Horde_View_Helper $helper The helper instance to add. If this is a

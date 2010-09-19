@@ -33,7 +33,8 @@ class Horde_Core_Factory_View
     public function create(Horde_Injector $injector)
     {
         $view = new Horde_View();
-        $view->addBuiltinHelpers();
+        $view->addHelper('Tag');
+        $view->addHelper('Text');
         return $view;
     }
 }
