@@ -21,7 +21,7 @@ class Trean
             $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Horde_Auth::removeHook($GLOBALS['registry']->getAuth());
+                $name = $GLOBALS['registry']->getAuth();
             }
             $folder = $GLOBALS['trean_shares']->newFolder($GLOBALS['registry']->getAuth(), array('name' => sprintf(_("%s's Bookmarks"), $name)));
             $result = $GLOBALS['trean_shares']->addFolder($folder);
