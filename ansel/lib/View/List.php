@@ -242,7 +242,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $style = Ansel::getStyleDefinition($this->_params['style']);
             }
             $count = 0;
-            $width = round(100 / $prefs->getValue('tilesperrow'));
+            $width = round(100 / ($this->tilesperrow ? $this->tilesperrow : $prefs->getValue('tilesperrow')));
 
             Horde::startBuffer();
             include ANSEL_TEMPLATES . '/view/list.inc';
