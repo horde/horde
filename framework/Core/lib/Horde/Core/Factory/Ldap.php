@@ -84,6 +84,11 @@ class Horde_Core_Factory_Ldap
 
         try {
             $this->_instances[$sig] = new Horde_Ldap($config);
+            if (isset($config['bindas']) && $config['bindas'] == 'user') {
+                $this->_instances[$sig]->bind(
+                    $this->_instances[$sig]->findUserDN($GLOBALS['registry']->getAuth()),
+                    $GLOBALS['registry']->getAuthCredential('password'));
+            }
         } catch (Horde_Exception $e) {
             if ($pushed) {
                 $GLOBALS['registry']->popApp();
