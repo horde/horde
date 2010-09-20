@@ -111,8 +111,9 @@ abstract class Horde_Auth_Base
             $this->setCredential('credentials', $credentials);
             return true;
         } catch (Horde_Auth_Exception $e) {
-            if ($e->getCode()) {
-                $this->setError($e->getCode());
+            if (($code = $e->getCode()) &&
+                $code != Horde_Auth::REASON_MESSAGE) {
+                $this->setError($code);
             } else {
                 $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
             }
