@@ -2,7 +2,13 @@
  <input class="hidden" name="criteria_form" id="criteria_form" value="" />
 
  <h1 class="header">
-  <strong><if:edit_query_vfolder><gettext>Edit Virtual Folder</gettext><else:edit_query_vfolder><gettext>Search</gettext></else:edit_query_vfolder></if:edit_query_vfolder></strong>
+  <strong>
+<if:edit_query_vfolder>
+   <gettext>Edit Virtual Folder</gettext>
+<else:edit_query_vfolder>
+   <gettext>Search</gettext>
+</else:edit_query_vfolder></if:edit_query_vfolder>
+  </strong>
  </h1>
 
  <div id="recent_searches_div" class="smallheader leftAlign" style="display:none">
@@ -35,6 +41,10 @@
 <loop:clist>
     <option value="<tag:clist.val />"><tag:clist.label /></option>
 </loop:clist>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
+<loop:filterlist>
+    <option value="<tag:filterlist.val />"><tag:filterlist.label /></option>
+</loop:filterlist>
     <option value="" disabled="disabled">- - - - - - - - -</option>
 <loop:flist>
     <option value="<tag:flist.val />"><tag:flist.label /></option>
@@ -76,6 +86,7 @@
   <div class="item">
    <label for="search_type"><gettext>Type:</gettext></label>
    <select id="search_type" name="search_type">
+    <option value="filter"><gettext>Filter</gettext></option>
     <option value="vfolder"><gettext>Virtual Folder</gettext></option>
    </select>
   </div>

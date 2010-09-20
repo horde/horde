@@ -101,6 +101,13 @@ $criteria = array(
     ),
 );
 
+$filters = array(
+    'bulk' => array(
+        'label' => _("Bulk Messages"),
+        'type' => 'filter'
+    ),
+);
+
 /* Define some constants. */
 $constants = array(
     'date' => array(
@@ -209,6 +216,12 @@ if ($vars->criteria_form) {
             $c_list[] = new IMP_Search_Element_Or();
             break;
 
+        case 'bulk':
+            $c_list[] = new IMP_Search_Element_Bulk(
+                $val->n
+            );
+            break;
+
         case 'flag':
             /* Flag search. */
             $formdata = $imp_flags->parseFormId($val->v);
@@ -301,6 +314,7 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     }
 }
 
+/* Create the criteria list. */
 $c_list = $types = array();
 foreach ($criteria as $key => $val) {
     $c_list[] = array(
@@ -311,7 +325,18 @@ foreach ($criteria as $key => $val) {
 }
 $t->set('clist', $c_list);
 
-/* Create the flag_list. */
+/* Create the filter list. These are all-or-nothing searches. */
+$f_list = array();
+foreach ($filters as $key => $val) {
+    $f_list[] = array(
+        'val' => $key,
+        'label' => htmlspecialchars($val['label'])
+    );
+    $types[$key] = 'filter';
+}
+$t->set('filterlist', $f_list);
+
+/* Create the flag list. */
 $flag_set = array();
 foreach ($flist['set'] as $val) {
     $flag_set[] = array(

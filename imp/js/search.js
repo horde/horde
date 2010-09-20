@@ -48,6 +48,10 @@ var ImpSearch = {
             var crit = c.criteria;
 
             switch (c.element) {
+            case 'IMP_Search_Element_Bulk':
+                this.insertFilter('bulk', crit);
+                break;
+
             case 'IMP_Search_Element_Date':
                 this.insertDate(this.data.constants.index(crit.t), new Date(crit.d));
                 break;
@@ -146,6 +150,10 @@ var ImpSearch = {
 
             case 'within':
                 this.insertWithin(val);
+                break;
+
+            case 'filter':
+                this.insertFilter(val);
                 break;
 
             case 'flag':
@@ -282,6 +290,15 @@ var ImpSearch = {
         tmp[1].activate();
     },
 
+    insertFilter: function(id, not)
+    {
+        var tmp = [
+            new Element('EM').insert(this.getLabel(id)),
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+        ];
+        this.criteria[this.insertCriteria(tmp)] = { t: id };
+    },
+
     insertFlag: function(id, not)
     {
         var tmp = [
@@ -339,6 +356,11 @@ var ImpSearch = {
 
                     case 'within':
                         this.criteria[c].v = { l: $F($(c).down('SELECT')), v: parseInt($F($(c).down('INPUT')), 10) };
+                        data.push(this.criteria[c]);
+                        break;
+
+                    case 'filter':
+                        this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                         data.push(this.criteria[c]);
                         break;
 
