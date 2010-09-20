@@ -361,20 +361,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Get the list of searchable folders for the given search query.
-     *
-     * @param string $id  The search query id.
-     *
-     * @return array  The list of searchable folders.
-     */
-    public function getSearchMailboxes($id)
-    {
-        return isset($this[$id])
-            ? $this[$id]->mboxes
-            : array();
-    }
-
-    /**
      * Returns a link to edit a given search query.
      *
      * @param string $id  The search query id.

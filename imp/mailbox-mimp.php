@@ -247,7 +247,7 @@ if (!$search_mbox && IMP::threadSortAvailable(IMP::$mailbox)) {
 /* Add search link. */
 if ($_SESSION['imp']['protocol'] == 'imap') {
     if ($search_mbox) {
-        $orig_mbox = reset($imp_search->getSearchMailboxes(IMP::$mailbox));
+        $orig_mbox = reset($imp_search[IMP::$mailbox]->mboxes);
         $menu[] = array(sprintf(_("New Search in %s"), IMP::getLabel($orig_mbox)), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
     } else {
         $menu[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));

@@ -726,7 +726,7 @@ class IMP_Message
         foreach (array_keys($mbox_list) as $key) {
             if (!$imp_imap->isReadOnly($key)) {
                 if ($imp_search->isSearchMbox($key)) {
-                    foreach ($imp_search->getSearchMailboxes($key) as $skey) {
+                    foreach ($imp_search[$key]->mboxes as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
                     }
                 } else {
@@ -785,7 +785,7 @@ class IMP_Message
             }
 
             if ($imp_search->isVTrash($mbox)) {
-                $this->expungeMailbox(array_flip($imp_search->getSearchMailboxes($mbox)));
+                $this->expungeMailbox(array_flip($imp_search[$mbox]->mboxes));
                 $notification->push(_("Emptied all messages from Virtual Trash Folder."), 'horde.success');
                 continue;
             }

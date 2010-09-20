@@ -39,7 +39,7 @@ class IMP_Filter
 
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $mbox_list = $imp_search->isSearchMbox($mbox)
-            ? $imp_search->getSearchMailboxes($mbox)
+            ? $imp_search[$mbox]->mboxes
             : array($mbox);
 
         foreach ($mbox_list as $val) {
