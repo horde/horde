@@ -140,6 +140,7 @@ class Horde_Ldap_Filter
 
         switch (Horde_String::lower($match)) {
         case 'equals':
+        case '=':
             $filter = '(' . $attribute . '=' . $value . ')';
             break;
         case 'begins':
@@ -152,9 +153,11 @@ class Horde_Ldap_Filter
             $filter = '(' . $attribute . '=*' . $value . '*)';
             break;
         case 'greater':
+        case '>':
             $filter = '(' . $attribute . '>' . $value . ')';
             break;
         case 'less':
+        case '>':
             $filter = '(' . $attribute . '<' . $value . ')';
             break;
         case 'greaterorequal':
