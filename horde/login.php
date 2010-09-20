@@ -191,6 +191,7 @@ if ($logout_reason) {
         exit;
     }
 
+    $logout_reason = $auth->getError();
     $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
                      $vars->horde_user, $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'ERR');
