@@ -8,13 +8,15 @@
  * ---------------
  * 'criteria_form' - (string) JSON representation of the search query.
  * 'edit_query' - (string) The search query to edit.
- * 'edit_query_vfolder' - (string) The name of the vfolder being edited.
+ * 'edit_query_filter' - (string) The name of the filter being edited.
+ * 'edit_query_vfolder' - (string) The name of the virtual folder being
+ *                        edited.
  * 'folder_list' - (array) The list of folders to add to the query.
  * 'search_label' - (string) The label to use when saving the search.
  * 'search_mailbox' - (string) Use this mailbox as the default value.
  *                    DEFAULT: INBOX
- * 'search_save' - (integer) If set, save search.
- * 'search_type' - (string) The type of saved search ('vfolder').
+ * 'search_type' - (string) The type of saved search ('filter', 'vfolder').
+ *                 If empty, the search should not be saved.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -145,10 +147,10 @@ $flist = $imp_flags->getFlagList($search_mailbox);
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
 if ($vars->criteria_form) {
-    $criteria = Horde_Serialize::unserialize($vars->criteria_form, Horde_Serialize::JSON);
+    $c_data = Horde_Serialize::unserialize($vars->criteria_form, Horde_Serialize::JSON);
     $c_list = array();
 
-    foreach ($criteria as $val) {
+    foreach ($c_data as $val) {
         switch ($val->t) {
         case 'from':
         case 'to':
@@ -233,45 +235,74 @@ if ($vars->criteria_form) {
         }
     }
 
-    /* Save the search if requested. */
-    if ($vars->search_save) {
-        switch ($vars->search_type) {
-        case 'vfolder':
-            $q_ob = $imp_search->createQuery(
-                $c_list,
-                $vars->folder_list,
-                $vars->search_label,
-                IMP_Search::CREATE_VFOLDER,
-                IMP::formMbox($vars->edit_query_vfolder, false)
-            );
+    $redirect_dimp = true;
+    $redirect_target = false;
 
-            if ($vars->edit_query_vfolder) {
-                $notification->push(sprintf(_("Virtual Folder \"%s\" edited successfully."), $vars->search_label), 'horde.success');
-                if ($dimp_view) {
-                    IMP_Dimp::returnToDimp(strval($q_ob));
-                }
-                Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
-                exit;
-            }
+    switch ($vars->search_type) {
+    case 'filter':
+        $q_ob = $imp_search->createQuery(
+            $c_list,
+            array(),
+            $vars->search_label,
+            IMP_Search::CREATE_FILTER,
+            IMP::formMbox($vars->edit_query_filter, false)
+        );
 
-            $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $vars->search_label), 'horde.success');
-            break;
+        if ($vars->edit_query_filter) {
+            $notification->push(sprintf(_("Filter \"%s\" edited successfully."), $vars->search_label), 'horde.success');
+            $redirect_dimp = false;
+            $redirect_target = 'prefs';
+        } else {
+            $notification->push(sprintf(_("Filter \"%s\" created succesfully."), $vars->search_label), 'horde.success');
         }
-    } else {
-        /* Set the search in the session. */
+        break;
+
+    case 'vfolder':
+        $q_ob = $imp_search->createQuery(
+            $c_list,
+            $vars->folder_list,
+            $vars->search_label,
+            IMP_Search::CREATE_VFOLDER,
+            IMP::formMbox($vars->edit_query_vfolder, false)
+        );
+
+        if ($vars->edit_query_vfolder) {
+            $notification->push(sprintf(_("Virtual Folder \"%s\" edited successfully."), $vars->search_label), 'horde.success');
+            $redirect_target = 'prefs';
+        } else {
+            $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $vars->search_label), 'horde.success');
+            $redirect_target = 'mailbox';
+        }
+        break;
+
+    default:
         $q_ob = $imp_search->createQuery(
             $c_list,
             $vars->folder_list
         );
+        $redirect_target = 'mailbox';
+        break;
     }
 
     /* Redirect to the mailbox page. */
-    if ($dimp_view) {
-        IMP_Dimp::returnToDimp(strval($q_ob));
-    }
+    if ($redirect_target) {
+        if ($dimp_view && $redirect_dimp) {
+            IMP_Dimp::returnToDimp(strval($q_ob));
+            exit;
+        }
 
-    Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
-    exit;
+        switch ($redirect_target) {
+        case 'mailbox':
+            Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+            break;
+
+        case 'prefs':
+            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            break;
+        }
+
+        exit;
+    }
 }
 
 /* Preselect mailboxes. */
@@ -288,19 +319,30 @@ if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {
     $q_ob = $imp_search[$vars->edit_query];
     if ($imp_search->isVFolder($q_ob)) {
         if (!$imp_search->isVFolder($q_ob, true)) {
-            $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
+            $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
             Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
+        $t->set('edit_query', true);
         $t->set('edit_query_vfolder', IMP::formMbox($q_ob, true));
-        $t->set('search_label', htmlspecialchars($q_ob->label));
+    } elseif ($imp_search->isFilter($q_ob)) {
+        if (!$imp_search->isFilter($q_ob, true)) {
+            $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
+            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+        }
+        $t->set('edit_query', true);
+        $t->set('edit_query_filter', IMP::formMbox($q_ob, true));
+    }
 
+    if ($t->get('edit_query')) {
+        $t->set('search_label', htmlspecialchars($q_ob->label));
         $js_vars['ImpSearch.prefsurl'] = strval(Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
+
     $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
 } else {
     /* Process list of recent searches. */
     $rs = array();
-    $imp_search->setIteratorFilter(IMP_Search::LIST_SEARCH);
+    $imp_search->setIteratorFilter(IMP_Search::LIST_QUERY);
     foreach ($imp_search as $val) {
         $rs[$val->id] = array(
             'c' => $val->criteria,
@@ -348,10 +390,12 @@ foreach ($flist['set'] as $val) {
 $t->set('flist', $flag_set);
 
 /* Generate master folder list. */
-$tree = $injector->getInstance('IMP_Imap_Tree')->createTree('imp_search', array(
-    'checkbox' => true,
-));
-$t->set('tree', $tree->getTree());
+if (!$t->get('edit_query_filter')) {
+    $tree = $injector->getInstance('IMP_Imap_Tree')->createTree('imp_search', array(
+        'checkbox' => true,
+    ));
+    $t->set('tree', $tree->getTree());
+}
 
 Horde_Core_Ui_JsCalendar::init();
 Horde::addScriptFile('horde.js', 'horde');

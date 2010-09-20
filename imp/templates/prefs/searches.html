@@ -1,5 +1,7 @@
 <input type="hidden" name="searches_action" id="searches_action" />
 <input type="hidden" name="searches_data" id="searches_data" />
+
+<if:vfolders>
 <table class="searchesmanagement">
  <thead>
   <tr>
@@ -23,7 +25,7 @@
 </else:vfolders.enabled></if:vfolders.enabled>
    </td>
    <td class="enabled">
-    <input class="checkbox" type="checkbox" name="enable_<tag:vfolders.key />"<if:vfolders.enabled> checked="checked"</if:vfolders.enabled> />
+    <input class="checkbox" type="checkbox" name="enable_<tag:vfolders.key />"<if:vfolders.enabled> checked="checked"</if:vfolders.enabled><if:vfolders.enabled_locked> disabled="disabled"</if:vfolders.enabled_locked> />
    </td>
    <td>
 <if:vfolders.edit>
@@ -35,9 +37,52 @@
    </td>
   </tr>
   <tr>
-   <td colspan="3" class="fixed vfolderdescription">
+   <td colspan="3" class="fixed searchdescription">
     <tag:vfolders.description />
    </td>
 </loop:vfolders>
  </tbody>
 </table>
+</if:vfolders>
+
+<if:filters>
+<table class="searchesmanagement">
+ <thead>
+  <tr>
+   <td><gettext>Filter</gettext></td>
+   <td><gettext>Enabled?</gettext></td>
+   <td><gettext>Actions</gettext></td>
+  </tr>
+ </thead>
+ <tbody>
+<loop:filters>
+  <tr>
+   <td>
+    <tag:filters.label />
+   </td>
+   <td class="enabled">
+    <input class="checkbox" type="checkbox" name="enable_<tag:filters.key />"<if:filters.enabled> checked="checked"</if:filters.enabled><if:filters.enabled_locked> disabled="disabled"</if:filters.enabled_locked> />
+   </td>
+   <td>
+<if:filters.edit>
+    <a class="filteredit" href="<tag:filters.edit />"><span class="editImg"></span></a>
+    <a class="filterdelete" href="#"><span class="deleteImg"></span></a>
+<else:filters.edit>
+     <gettext>No Actions Available</gettext>
+</else:filters.edit></if:filters.edit>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="3" class="fixed searchdescription">
+    <tag:filters.description />
+   </td>
+</loop:filters>
+ </tbody>
+</table>
+</if:filters>
+
+<if:nosearches>
+<div>
+ <em><gettext>No Saved Searches Defined.</gettext></em>
+</div>
+</if:nosearches>

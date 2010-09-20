@@ -4,24 +4,37 @@
 <if:readonly><else:readonly>
 <if:use_pop><else:use_pop>
    <div class="leftFloat">
-    <form id="select<tag:id />">
-    <input type="hidden" name="mailbox" value="<tag:mailbox />" />
-    <label for="flag<tag:id />" class="hidden"><gettext>Mark Messages</gettext></label>
-    <select id="flag<tag:id />" name="flag">
-     <option value="" selected="selected"><gettext>Mark Messages</gettext></option>
-     <option value="" disabled="disabled">- - - - - - - -</option>
-     <option value=""><gettext>Mark as:</gettext></option>
+    <form class="navbarselect">
+     <label for="flag<tag:id />" class="hidden"><gettext>Mark Messages</gettext></label>
+     <select id="flag<tag:id />" name="flag">
+      <option value="" selected="selected"><gettext>Mark Messages</gettext></option>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option value=""><gettext>Mark as:</gettext></option>
 <loop:flaglist_set>
-     <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
+      <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
 </loop:flaglist_set>
-     <option value="" disabled="disabled">- - - - - - - -</option>
-     <option value=""><gettext>Unmark as:</gettext></option>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option value=""><gettext>Unmark as:</gettext></option>
 <loop:flaglist_unset>
-     <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
+      <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
 </loop:flaglist_unset>
-    </select>
+     </select>
     </form>
    </div>
+<if:filters>
+   <div class="leftFloat">
+    <form class="navbarselect">
+     <label for="filter<tag:id />" class="hidden"><gettext>Filter Messages</gettext></label>
+     <select id="filter<tag:id />" name="filter">
+      <option value="" selected="selected"><gettext>Filter Messages</gettext></option>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+<loop:filters>
+      <option value="<tag:filters.v />"><tag:filters.l /></option>
+</loop:filters>
+     </select>
+    </form>
+   </div>
+</if:filters>
 </else:use_pop></if:use_pop>
 <if:use_folders>
    <div class="leftFloat" style="padding-left:10px">

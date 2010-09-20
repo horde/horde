@@ -90,7 +90,7 @@ if (!$search_mbox) {
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 if ($readonly &&
-    in_array($actionID, array('delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'empty_mailbox', 'filter'))) {
+    in_array($actionID, array('delete_messages', 'undelete_messages', 'move_messages', 'flag_messages', 'filter_messages', 'empty_mailbox', 'filter'))) {
     $actionID = null;
 }
 
@@ -160,11 +160,19 @@ case 'copy_messages':
     break;
 
 case 'flag_messages':
-    $flag = Horde_Util::getPost('flag');
-    if ($flag && count($indices)) {
-        $flag = $imp_flags->parseFormId($flag);
+    if ($vars->flag && count($indices)) {
+        $flag = $imp_flags->parseFormId($vars->flag);
         $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $indices, $flag['set']);
     }
+    break;
+
+case 'filter_messages':
+    $filter = IMP::formMbox($vars->filter, false);
+    try {
+        $q_ob = $imp_search->applyFilter($filter, array(IMP::$mailbox));
+        Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
+        exit;
+    } catch (InvalidArgumentException $e) {}
     break;
 
 case 'hide_deleted':
@@ -466,6 +474,20 @@ if ($pageOb['msgcount']) {
         $tmp = $imp_flags->getFlagList($search_mbox ? null : IMP::$mailbox);
         $n_template->set('flaglist_set', $tmp['set']);
         $n_template->set('flaglist_unset', $tmp['unset']);
+
+        if (!$search_mbox) {
+            $filters = array();
+            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
+            foreach ($imp_search as $val) {
+                $filters[] = array(
+                    'l' => htmlspecialchars($val->label),
+                    'v' => IMP::formMbox(strval($val), true)
+                );
+            }
+            if (!empty($filters)) {
+                $n_template->set('filters', $filters);
+            }
+        }
 
         if ($n_template->get('use_folders')) {
             $n_template->set('move', Horde::widget('#', _("Move to folder"), 'widget moveAction', '', '', _("Move"), true));

@@ -1,0 +1,69 @@
+<?php
+/**
+ * This class provides a filter for bulk mail.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
+ */
+class IMP_Search_Filter_Bulk extends IMP_Search_Filter
+{
+    /**
+     * Can this query be edited?
+     *
+     * @var boolean
+     */
+    protected $_canEdit = false;
+
+    /**
+     * List of serialize entries not to save.
+     *
+     * @var array
+     */
+    protected $_nosave = array('i', 'l');
+
+    /**
+     * Constructor.
+     *
+     * The 'add', 'id', 'label', and 'mboxes' parameters are ignored.
+     *
+     * @see parent::__construct()
+     */
+    public function __construct(array $opts = array())
+    {
+        $this->enabled = empty($opts['disable']);
+
+        $this->add(new IMP_Search_Element_Bulk());
+
+        $this->_init();
+    }
+
+    /**
+     * Initialization tasks.
+     */
+    protected function _init()
+    {
+        $this->_id = 'filter_bulk';
+        $this->_label = _("Bulk Messages");
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        parent::unserialize($data);
+        $this->_init();
+    }
+
+}

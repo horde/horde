@@ -235,11 +235,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'searches':
-            if ($prefs->isLocked('vfolder')) {
-                $ui->suppress[] = 'searchesmanagement';
-            } else {
-                Horde::addScriptFile('searchesprefs.js', 'imp');
-            }
+            Horde::addScriptFile('searchesprefs.js', 'imp');
             break;
 
         case 'server':
@@ -1256,20 +1252,24 @@ class IMP_Prefs_Ui
      */
     protected function _searchesManagement()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        global $injector, $prefs;
+
+        $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-        $mailboxids = $out = array();
+        $imp_search = $injector->getInstance('IMP_Search');
+        $fout = $mailboxids = $vout = array();
         $view_mode = IMP::getViewMode();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+        $vfolder_locked = $prefs->isLocked('vfolder');
+
         foreach ($imp_search as $key => $val) {
             if (!$val->prefDisplay) {
                 continue;
             }
 
-            $editable = $imp_search->isVFolder($val, true);
+            $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
             $m_url = ($val->enabled && ($view_mode == 'imp'))
                 ? IMP::generateIMPUrl('mailbox.php', strval($val))->link(array('class' => 'vfolderenabled'))
                 : null;
@@ -1278,22 +1278,48 @@ class IMP_Prefs_Ui
                 $mailboxids['enable_' . $key] = strval($val);
             }
 
-            $out[] = array(
+            $vout[] = array(
                 'description' => Horde_String::truncate($val->querytext, 200),
                 'edit' => ($editable ? $imp_search->editUrl($val) : null),
                 'enabled' => $val->enabled,
+                'enabled_locked' => $vfolder_locked,
                 'key' => $key,
                 'label' => htmlspecialchars($val->label),
                 'm_url' => $m_url
             );
-
         }
-        $t->set('vfolders', $out);
+        $t->set('vfolders', $vout);
 
-        Horde::addInlineJsVars(array(
-            'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
-            'ImpSearchesPrefs.mailboxids' => $mailboxids
-        ));
+        $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER | IMP_Search::LIST_DISABLED);
+        $filter_locked = $prefs->isLocked('filter');
+
+        foreach ($imp_search as $key => $val) {
+            $editable = !$filter_locked && $imp_search->isFilter($val, true);
+
+            if ($view_mode == 'dimp') {
+                $mailboxids['enable_' . $key] = strval($val);
+            }
+
+            $fout[] = array(
+                'description' => Horde_String::truncate($val->querytext, 200),
+                'edit' => ($editable ? $imp_search->editUrl($val) : null),
+                'enabled' => $val->enabled,
+                'enabled_locked' => $filter_locked,
+                'key' => $key,
+                'label' => htmlspecialchars($val->label)
+            );
+        }
+        $t->set('filters', $fout);
+
+        if (empty($fout) && empty($vout)) {
+            $t->set('nosearches', true);
+        } else {
+            Horde::addInlineJsVars(array(
+                'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
+                'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
+                'ImpSearchesPrefs.mailboxids' => $mailboxids
+            ));
+        }
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/searches.html');
     }
@@ -1312,13 +1338,17 @@ class IMP_Prefs_Ui
             /* Remove 'enable_' prefix. */
             $key = substr($ui->vars->searches_data, 7);
             if ($ob = $imp_search[$key]) {
-                $GLOBALS['notification']->push(sprintf(_("Virtual Folder \"%s\" deleted."), $ob->label), 'horde.success');
+                if ($imp_search->isVFolder($ob)) {
+                    $GLOBALS['notification']->push(sprintf(_("Virtual Folder \"%s\" deleted."), $ob->label), 'horde.success');
+                } elseif ($imp_search->isFilter($ob)) {
+                    $GLOBALS['notification']->push(sprintf(_("Filter \"%s\" deleted."), $ob->label), 'horde.success');
+                }
                 unset($imp_search[$key]);
             }
             break;
 
         default:
-            /* Update enabled status. */
+            /* Update enabled status for Virtual Folders. */
             $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
             $vfolders = array();
 
@@ -1333,6 +1363,17 @@ class IMP_Prefs_Ui
                 }
             }
             $imp_search->setVFolders($vfolders);
+
+            /* Update enabled status for Filters. */
+            $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER | IMP_Search::LIST_DISABLED);
+            $filters = array();
+
+            foreach ($imp_search as $key => $val) {
+                $form_key = 'enable_' . $key;
+                $val->enabled = !empty($ui->vars->$form_key);
+                $filters[$key] = $val;
+            }
+            $imp_search->setFilters($filters);
             break;
         }
     }

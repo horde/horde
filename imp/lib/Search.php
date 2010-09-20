@@ -24,13 +24,15 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     const DIMP_QUICKSEARCH = 'dimpqsearch';
 
     /* Bitmask filters for iterator. */
-    const LIST_SEARCH = 1;
-    const LIST_VFOLDER = 2;
-    const LIST_DISABLED = 4;
+    const LIST_FILTER = 1;
+    const LIST_QUERY = 2;
+    const LIST_VFOLDER = 4;
+    const LIST_DISABLED = 8;
 
     /* Query creation types. */
-    const CREATE_QUERY = 1;
-    const CREATE_VFOLDER = 2;
+    const CREATE_FILTER = 1;
+    const CREATE_QUERY = 2;
+    const CREATE_VFOLDER = 3;
 
     /**
      * Has the object data changed?
@@ -63,6 +65,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @var array
      */
     protected $_search = array(
+        'filters' => array(),
         'query' => array(),
         'vfolders' => array()
     );
@@ -72,6 +75,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function init()
     {
+        $this->setFilters($this->getFilters(), false);
         $this->setVFolders($this->getVFolders(), false);
     }
 
@@ -197,8 +201,9 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id       Use as the mailbox ID.
      *
      * @return IMP_Search_Query  Returns the query object.
+     * @throws InvalidArgumentException
      */
-    public function createQuery($criteria, $mboxes, $label = null,
+    public function createQuery($criteria, $mboxes = array(), $label = null,
                                 $type = self::CREATE_QUERY, $id = null)
     {
         if (!is_null($id)) {
@@ -206,12 +211,22 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
 
         switch ($type) {
+        case self::CREATE_FILTER:
+            $cname = 'IMP_Search_Filter';
+            break;
+
         case self::CREATE_QUERY:
             $cname = 'IMP_Search_Query';
+            if (empty($mboxes)) {
+                throw new InvalidArgumentException('Search query requires at least one mailbox.');
+            }
             break;
 
         case self::CREATE_VFOLDER:
             $cname = 'IMP_Search_Vfolder';
+            if (empty($mboxes)) {
+                throw new InvalidArgumentException('Search query requires at least one mailbox.');
+            }
             break;
         }
 
@@ -223,6 +238,12 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         )));
 
         switch ($type) {
+        case self::CREATE_FILTER:
+            /* This will overwrite previous value, if it exists. */
+            $this->_search['filters'][$ob->id] = $ob;
+            $this->setFilters($this->_search['filters']);
+            break;
+
         case self::CREATE_QUERY:
             $this->_search['query'][$ob->id] = $ob;
             break;
@@ -237,6 +258,83 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         $this->changed = true;
 
         return $ob;
+    }
+
+    /**
+     * Obtains the list of filters for the current user.
+     *
+     * @return array  The list of filters.  Keys are mailbox IDs, values are
+     *                IMP_Search_Filter objects.
+     */
+    public function getFilters()
+    {
+        if ($f_list = $GLOBALS['prefs']->getValue('filter')) {
+            $f_list = @unserialize($f_list);
+        }
+
+        $filters = array();
+
+        if (is_array($f_list)) {
+            foreach ($f_list as $val) {
+                if ($val instanceof IMP_Search_Filter) {
+                    $filters[$val->id] = $val;
+                }
+            }
+        }
+
+        return $filters;
+    }
+
+    /**
+     * Saves the list of filters for the current user.
+     *
+     * @param array $filters  The filter list.
+     * @param boolean $save   Save the filter list to the preference backend?
+     */
+    public function setFilters($filters, $save = true)
+    {
+        if ($save) {
+            $GLOBALS['prefs']->setValue('filter', serialize(array_values($filters)));
+        }
+
+        $this->_search['filters'] = $filters;
+        $this->changed = true;
+    }
+
+    /**
+     * Is a mailbox a filter query?
+     *
+     * @param string $id         The mailbox ID.
+     * @param boolean $editable  Is this an editable (i.e. not built-in)
+     *                           filter query?
+     */
+    public function isFilter($id, $editable = false)
+    {
+        return (isset($this->_search['filters'][$this->_strip($id)]) &&
+                (!$editable || $this[$id]->canEdit));
+    }
+
+    /**
+     * Converts a filter to a search query and stores it in the local
+     * session.
+     *
+     * @param string $id     The mailbox ID of the filter.
+     * @param array $mboxes  The list of mailboxes to apply the filter on.
+     *
+     * @return IMP_Search_Query  The created query object.
+     * @throws InvalidArgumentException
+     */
+    public function applyFilter($id, array $mboxes)
+    {
+        if (!$this->isFilter($id)) {
+            throw new InvalidArgumentException('Invalid filter ID given.');
+        }
+
+        $q_ob = $this[$id]->toQuery($mboxes);
+        $this->_search['query'][$q_ob->id] = $q_ob;
+        $this->changed = true;
+
+        return $q_ob;
     }
 
     /**
@@ -416,17 +514,24 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     public function offsetExists($offset)
     {
         $id = $this->_strip($offset);
-        return (isset($this->_search['query'][$id]) ||
-                isset($this->_search['vfolders'][$id]));
+
+        foreach (array_keys($this->_search) as $key) {
+            if (isset($this->_search[$key][$id])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function offsetGet($offset)
     {
         $id = $this->_strip($offset);
-        if (isset($this->_search['query'][$id])) {
-            return $this->_search['query'][$id];
-        } elseif (isset($this->_search['vfolders'][$id])) {
-            return $this->_search['vfolders'][$id];
+
+        foreach (array_keys($this->_search) as $key) {
+            if (isset($this->_search[$key][$id])) {
+                return $this->_search[$key][$id];
+            }
         }
 
         return null;
@@ -447,12 +552,12 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         }
 
         $id = $this->_strip($offset);
-        if (isset($this->_search['query'][$id])) {
-            $this->_search['query'][$id] = $value;
-            return;
-        } elseif (isset($this->_search['vfolders'][$id])) {
-            $this->_search['vfolders'][$id] = $value;
-            return;
+
+        foreach (array_keys($this->_search) as $key) {
+            if (isset($this->_search[$key][$id])) {
+                $this->_search[$key][$id] = $value;
+                return;
+            }
         }
 
         throw new InvalidArgumentException('Creating search queries by array index is not supported. Use createQuery() instead.');
@@ -542,7 +647,8 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      *
      * @param integer $mask  A mask with the following possible elements:
      * <pre>
-     * IMP_Search::LIST_SEARCH
+     * IMP_Search::LIST_FILTER
+     * IMP_Search::LIST_QUERY
      * IMP_Search::LIST_VFOLDER
      * </pre>
      */
@@ -569,17 +675,18 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                 return true;
             }
 
+            if (($this->_filter & self::LIST_FILTER) &&
+                $this->isFilter($ob)) {
+                return true;
+            }
+
+            if (($this->_filter & self::LIST_QUERY) &&
+                $this->isQuery($ob)) {
+                return true;
+            }
+
             if (($this->_filter & self::LIST_VFOLDER) &&
                 $this->isVfolder($ob)) {
-                return true;
-            }
-
-            if (($this->_filter & self::LIST_SEARCH) &&
-                !$this->isVfolder($ob)) {
-                return true;
-            }
-
-            if ($this->isQuery($ob, true)) {
                 return true;
             }
         }

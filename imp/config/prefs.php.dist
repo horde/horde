@@ -397,6 +397,16 @@ $_prefs['vfolder'] = array(
     'value' => 'a:1:{i:0;C:25:"IMP_Search_Vfolder_Vinbox":175:{a:3:{s:1:"c";a:2:{i:0;C:23:"IMP_Search_Element_Flag":24:{[1,{"f":"\\seen","s":0}]}i:1;C:23:"IMP_Search_Element_Flag":27:{[1,{"f":"\\deleted","s":0}]}}s:1:"e";i:1;s:1:"v";i:1;}}}'
 );
 
+$_prefs['filter'] = array(
+    // 'value' => serialize(array(
+    //     // Bulk filter, enabled by default
+    //     new IMP_Search_Filter_Bulk(array(
+    //         'disable' => false
+    //     ))
+    // ))
+    'value' => 'a:1:{i:0;C:22:"IMP_Search_Filter_Bulk":88:{a:3:{s:1:"c";a:1:{i:0;C:23:"IMP_Search_Element_Bulk":5:{[1,0]}}s:1:"e";i:1;s:1:"v";i:1;}}}'
+);
+
 
 
 // *** Compose Preferences ***
