@@ -374,10 +374,10 @@ class Horde_Ldap_Util
                         $ocl = substr($ocl, 4);
                     } else {
                         if ($options['casefold'] == 'upper') {
-                            $ocl = strtoupper($ocl);
+                            $ocl = Horde_String::upper($ocl);
                         }
                         if ($options['casefold'] == 'lower') {
-                            $ocl = strtolower($ocl);
+                            $ocl = Horde_String::lower($ocl);
                         }
                         $ocl = self::escapeDNValue(array($ocl));
                         $ocl = $ocl[0];

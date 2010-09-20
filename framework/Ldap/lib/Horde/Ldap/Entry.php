@@ -453,7 +453,7 @@ class Horde_Ldap_Entry
             if ($this->exists($k)) {
                 $this->_attributes[$k] = array_unique(array_merge($this->_attributes[$k], $v));
             } else {
-                $this->_map[strtolower($k)] = $k;
+                $this->_map[Horde_String::lower($k)] = $k;
                 $this->_attributes[$k]      = $v;
             }
 
