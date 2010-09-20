@@ -544,7 +544,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * <pre>
      * IMP_Search::LIST_SEARCH
      * IMP_Search::LIST_VFOLDER
-     * IMP_Search::NO_BASIC_SEARCH.
      * </pre>
      */
     public function setIteratorFilter($mask = 0)
