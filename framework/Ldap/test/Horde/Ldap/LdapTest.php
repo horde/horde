@@ -417,7 +417,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         try {
             $ldap->getEntry('cn=notexistent,' . self::$ldapcfg['server']['basedn']);
             $this->fail('Horde_Ldap_Exception expected.');
-        } catch (Horde_Ldap_Exception $e) {}
+        } catch (Horde_Exception_NotFound $e) {}
     }
 
     /**
