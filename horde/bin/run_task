@@ -5,7 +5,8 @@
  *
  * Usage: run_task -a [app] -t [taskname] -u [username]
  *   Taskname is the name of the file in the application's SystemTask/Task
- *   directory - this script will automatically build the full class name.
+ *   directory without the .php extension - this script will automatically
+ *   build the full class name.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -59,7 +60,7 @@ if (empty($username)) {
     exit;
 }
 
-Horde_Auth::setAuth($username, array());
+$registry->setAuth($username, array());
 $registry->pushApp($app, array('check_perms' => false));
 
 $class = $app . '_LoginTasks_SystemTask_' . $taskname;
