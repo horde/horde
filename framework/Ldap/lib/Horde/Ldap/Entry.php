@@ -729,10 +729,7 @@ class Horde_Ldap_Entry
     protected function _getAttrName($attr)
     {
         $name = Horde_String::lower($attr);
-        if (array_key_exists($name, $this->_map)) {
-            $attr = $this->_map[$name];
-        }
-        return $attr;
+        return isset($this->_map[$name]) ? $this->_map[$name] : $attr;
     }
 
     /**
