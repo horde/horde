@@ -50,10 +50,10 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->any())
-            ->method('as_struct')
+            ->method('asArray')
             ->will($this->returnValue(array(array('dn' => 'test'))));
         $result->expects($this->any())
             ->method('count')
@@ -162,7 +162,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')
@@ -209,7 +209,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadAttributesThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')

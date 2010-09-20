@@ -72,6 +72,6 @@ implements Horde_Kolab_Server_Result_Interface
      */
     public function asArray()
     {
-        return $this->_search->as_struct();
+        return $this->_search->asArray();
     }
 }

@@ -188,7 +188,7 @@ class Horde_Ldap_Search implements Iterator
      * This returns a array with sorted entries and the values. Sorting is done
      * with PHPs {@link array_multisort()}.
      *
-     * This method relies on {@link as_struct()} to fetch the raw data of the
+     * This method relies on {@link asArray()} to fetch the raw data of the
      * entries.
      *
      * Please note that attribute names are case sensitive!
@@ -196,7 +196,7 @@ class Horde_Ldap_Search implements Iterator
      * Usage example:
      * <code>
      *   // To sort entries first by location, then by surname, but descending:
-     *   $entries = $search->sorted_as_struct(array('locality', 'sn'), SORT_DESC);
+     *   $entries = $search->sortedAsArray(array('locality', 'sn'), SORT_DESC);
      * </code>
      *
      * @todo what about server side sorting as specified in
@@ -210,7 +210,7 @@ class Horde_Ldap_Search implements Iterator
      * @return array Sorted entries.
      * @throws Horde_Ldap_Exception
      */
-    public function sorted_as_struct(array $attrs = array('cn'),
+    public function sortedAsArray(array $attrs = array('cn'),
                                      $order = SORT_ASC)
     {
         /* Old Code, suitable and fast for single valued sorting. This code
@@ -240,7 +240,7 @@ class Horde_Ldap_Search implements Iterator
         }
 
         // Fetch the entries data.
-        $entries = $this->as_struct();
+        $entries = $this->asArray();
 
         // Now sort each entries attribute values.
         // This is neccessary because later we can only sort by one value, so
@@ -293,7 +293,7 @@ class Horde_Ldap_Search implements Iterator
      * Returns entries sorted as objects.
      *
      * This returns a array with sorted Horde_Ldap_Entry objects. The sorting
-     * is actually done with {@link sorted_as_struct()}.
+     * is actually done with {@link sortedAsArray()}.
      *
      * Please note that attribute names are case sensitive!
      *
@@ -320,7 +320,7 @@ class Horde_Ldap_Search implements Iterator
     public function sorted($attrs = array('cn'), $order = SORT_ASC)
     {
         $return = array();
-        $sorted = $this->sorted_as_struct($attrs, $order);
+        $sorted = $this->sortedAsArray($attrs, $order);
         foreach ($sorted as $key => $row) {
             $entry = $this->_ldap->getEntry($row['dn'], $this->searchedAttributes());
             array_push($return, $entry);
@@ -352,7 +352,7 @@ class Horde_Ldap_Search implements Iterator
      * @return array Associative result array as described above.
      * @throws Horde_Ldap_Exception
      */
-    public function as_struct()
+    public function asArray()
     {
         $return  = array();
         $entries = $this->entries();

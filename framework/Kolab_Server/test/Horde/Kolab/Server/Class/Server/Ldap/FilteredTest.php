@@ -53,10 +53,10 @@ class Horde_Kolab_Server_Class_Server_Ldap_FilteredTest extends Horde_Kolab_Serv
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->any())
-            ->method('as_struct')
+            ->method('asArray')
             ->will($this->returnValue(array(array('dn' => 'test'))));
         $result->expects($this->any())
             ->method('count')

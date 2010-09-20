@@ -469,7 +469,7 @@ class Horde_Group_Ldap extends Horde_Group
             throw new Horde_Group_Exception($e);
         }
 
-        foreach ($search->sorted_as_struct(array($this->_params['gid'])) as $entry) {
+        foreach ($search->sortedAsArray(array($this->_params['gid'])) as $entry) {
             $this->_listCache[$entry['dn']] = $this->getGroupName($entry['dn']);
         }
 

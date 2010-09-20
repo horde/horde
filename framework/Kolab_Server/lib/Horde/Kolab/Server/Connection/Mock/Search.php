@@ -70,7 +70,7 @@ extends Horde_Ldap_Search
      *
      * @return array The resulting array.
      */
-    public function as_struct()
+    public function asArray()
     {
         return $this->_result;
     }

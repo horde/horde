@@ -391,7 +391,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $this->_params['basedn'],
                 Horde_Ldap_Filter::build($this->_params),
                 $params)
-                ->as_struct();
+                ->asArray();
             $uid = Horde_String::lower($this->_params['uid']);
             foreach ($search as $val) {
                 $userlist[] = $val[$uid][0];

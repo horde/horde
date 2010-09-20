@@ -68,10 +68,10 @@ class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server
     public function testMethodAsarrayHasResultArrayWithTheSearchResults()
     {
         $search = $this->getMock(
-            'Horde_Ldap_Search', array('as_struct'), array(), '', false
+            'Horde_Ldap_Search', array('asArray'), array(), '', false
         );
         $search->expects($this->exactly(1))
-            ->method('as_struct')
+            ->method('asArray')
             ->will($this->returnValue(array('a' => 'a')));
         $result = new Horde_Kolab_Server_Result_Ldap($search);
         $this->assertEquals(array('a' => 'a'), $result->asArray());
