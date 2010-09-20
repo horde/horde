@@ -227,25 +227,19 @@ class IMP_Application extends Horde_Registry_Application
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if ($prefs->getValue('use_trash') &&
+                ($trash_folder = $prefs->getValue('trash_folder')) &&
                 $prefs->getValue('empty_trash_menu')) {
-                $mailbox = null;
-                if ($prefs->getValue('use_vtrash')) {
-                    $mailbox = $injector->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
-                } else {
-                    $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
-                    if (!is_null($trash_folder)) {
-                        $mailbox = $trash_folder;
-                    }
-                }
+                $imp_search = $injector->getInstance('IMP_Search');
+                $trash_folder = IMP::folderPref($trash_folder, true);
 
-                if (!empty($mailbox) &&
-                    !$injector->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
+                if ($injector->getInstance('IMP_Search')->isVTrash($trash_folder) ||
+                    !$injector->getInstance('IMP_Imap')->getOb()->isReadOnly($trash_folder)) {
                     $menu->addArray(array(
                         'class' => '__noselection',
                         'icon' => 'empty_trash.png',
                         'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $registry->getCharset()) . ')',
                         'text' => _("Empty _Trash"),
-                        'url' => IMP::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
+                        'url' => IMP::generateIMPUrl($menu_mailbox_url, $trash_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
                     ));
                 }
             }
@@ -645,7 +639,6 @@ class IMP_Application extends Horde_Registry_Application
     public function mailboxesChanged()
     {
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
-        $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
     }
 
 }

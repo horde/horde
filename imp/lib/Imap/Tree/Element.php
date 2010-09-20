@@ -116,8 +116,7 @@ class IMP_Imap_Tree_Element
                 : IMP::displayFolder($this->value);
 
         case 'editvfolder':
-            return ($this->vfolder &&
-                $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($this->value));
+            return $GLOBALS['injector']->getInstance('IMP_Search')->isVFolder($this->value, true);
 
         case 'is_open':
             return $this->_treeob->isOpen($this->_mbox);
@@ -177,10 +176,8 @@ class IMP_Imap_Tree_Element
             case 'INBOX':
             case $this->_eltCache['draft']:
             case $this->_eltCache['spam']:
-                return true;
-
             case $this->_eltCache['trash']:
-                return (!$GLOBALS['prefs']->getValue('use_vtrash'));
+                return true;
 
             default:
                 return in_array($this->value, $this->_eltCache['sent']);
@@ -189,12 +186,7 @@ class IMP_Imap_Tree_Element
             return false;
 
         case 'specialvfolder':
-            if (!$this->vfolder) {
-                return false;
-            }
-            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            return ($imp_search->isVTrashFolder($this->value) ||
-                    $imp_search->isVINBOXFolder($this->value));
+            return !$GLOBALS['injector']->getInstance('IMP_Search')->isVFolder($this->value, true);
 
         case 'sub':
             return $this->_treeob->isSubscribed($this->_mbox);
@@ -243,16 +235,9 @@ class IMP_Imap_Tree_Element
                 break;
 
             case $this->_eltCache['trash']:
-                if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                    $info->alt = _("Mailbox");
-                    $info->icon = $this->is_open
-                        ? 'folders/open.png'
-                        : 'folders/folder.png';
-                } else {
-                    $info->alt = _("Trash folder");
-                    $info->class = 'trashImg';
-                    $info->icon = 'folders/trash.png';
-                }
+                $info->alt = _("Trash folder");
+                $info->class = 'trashImg';
+                $info->icon = 'folders/trash.png';
                 break;
 
             case $this->_eltCache['draft']:
@@ -288,12 +273,12 @@ class IMP_Imap_Tree_Element
             /* Virtual folders. */
             if ($this->vfolder) {
                 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-                if ($imp_search->isVTrashFolder($this->_mbox['v'])) {
-                    $info->alt = _("Virtual Trash Folder");
+                if ($imp_search->isVTrash($this->_mbox['v'])) {
+                    $info->alt = $imp_search[$this->_mbox['v']]->label;
                     $info->class = 'trashImg';
                     $info->icon = 'folders/trash.png';
-                } elseif ($imp_search->isVINBOXFolder($this->_mbox['v'])) {
-                    $info->alt = _("Virtual INBOX Folder");
+                } elseif ($imp_search->isVinbox($this->_mbox['v'])) {
+                    $info->alt = $imp_search[$this->_mbox['v']]->label;
                     $info->class = 'inboxImg';
                     $info->icon = 'folders/inbox.png';
                 }

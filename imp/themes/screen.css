@@ -371,34 +371,44 @@ div.msgflags.flagDeleted, span.contextImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 
-/* Accounts/flag management (prefs) styles. */
-table.accountsmanagement, table.flagmanagement {
+/* Prefs management styles. */
+table.accountsmanagement, table.flagmanagement, table.searchesmanagement {
     padding-bottom: 10px;
 }
-table.accountsmanagement td, table.flagmanagement td {
+table.accountsmanagement td, table.flagmanagement td, table.searchesmanagement td {
     padding-right: 12px;
 }
-table.accountsmanagement thead td, table.flagmanagement thead td {
+table.accountsmanagement thead td, table.flagmanagement thead td, table.searchesmanagement thead td {
     font-weight: bold;
     text-decoration: underline;
+}
+
+table.accountsmanagement td.required, .accountsNotSecure {
+    color: red;
+}
+table.accountsmanagement td.noneconfigured {
+    font-style: italic;
+}
+.accountsSecure {
+    color: green;
 }
 
 table.flagmanagement div.flagUser {
     border: 1px solid gray;
     margin-right: 2px;
 }
-
-table.accountsmanagement td.required, .accountsNotSecure {
-    color: red;
-}
-.accountsSecure {
-    color: green;
-}
 table.flagmanagement tbody td.flagicon {
     text-align: center;
 }
-table.accountsmanagement td.noneconfigured {
-    font-style: italic;
+
+table.searchesmanagement td.vfolderdescription {
+    background-color: #ffa;
+    width: 500px;
+}
+table.searchesmanagement .vfolderenabled {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* Prefs styles. */
@@ -597,7 +607,7 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 
 /* Other images. */
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .folderImg, .foldersImg, .searchuiImg, .reloadImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .folderImg, .foldersImg, .searchuiImg, .reloadImg, .editImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -630,6 +640,9 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 .reloadImg {
     background-image: url("graphics/reload.png");
+}
+.editImg {
+    background-image: url("graphics/edit.png");
 }
 
 /* iTip styles. */

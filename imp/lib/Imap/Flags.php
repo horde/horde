@@ -438,6 +438,31 @@ class IMP_Imap_Flags
     }
 
     /**
+     * Given a flag/set combo, returns the text label.
+     *
+     * @param string $name  Flag name.
+     * @param boolean $set  Search for set flag?
+     *
+     * @return string  The text label.
+     */
+    public function getLabel($name, $set)
+    {
+        $flist = $this->getList();
+
+        if (!isset($flist[$name])) {
+            return '';
+        }
+
+        if (!empty($flist[$name]['n'])) {
+            $set = !$set;
+        }
+
+        return $set
+            ? $flist[$name]['l']
+            : sprintf(_("Not %s"), $flist[$name]['l']);
+    }
+
+    /**
      * Determines the colors for an entry.
      *
      * @param string $key  The flag key.

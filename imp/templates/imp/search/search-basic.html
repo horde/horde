@@ -12,27 +12,29 @@
    <select name="search_criteria">
     <option value=""><gettext>None</gettext></option>
     <option value="" disabled="disabled">- - - - - - - - - -</option>
-<loop:s_fields>
-    <option value="<tag:s_fields.val />"><tag:s_fields.label /></option>
-</loop:s_fields>
+    <option value="from"><gettext>From</gettext></option>
+    <option value="recip"><gettext>Recipients (To/Cc/Bcc)</gettext></option>
+    <option value="subject"><gettext>Subject</gettext></option>
+    <option value="body"><gettext>Message Body</gettext></option>
+    <option value="text"><gettext>Entire Message</gettext></option>
    </select>
-   <span<if:hide_criteria> style="display:none"</if:hide_criteria>>
-    <input type="text" name="search_criteria_text" size="30" />
-    <input type="checkbox" class="checkbox" name="search_criteria_not" />
-    <label for="search_criteria_not"><gettext>Do NOT Match</gettext></label>
-   </span>
+   <input type="text" name="search_criteria_text" size="30" />
+   <input type="checkbox" class="checkbox" name="search_criteria_not" />
+   <label for="search_criteria_not"><gettext>Do NOT Match</gettext></label>
   </td>
  </tr>
  <tr>
   <td class="searchUILabel"><gettext>Search Flags:</gettext></td>
   <td>
-   <select name="search_flags">
+   <select name="search_criteria_flag">
     <option value=""><gettext>None</gettext></option>
     <option value="" disabled="disabled">- - - - - - - - - -</option>
-<loop:f_fields>
-    <option value="<tag:f_fields.val />"><tag:f_fields.label /></option>
-</loop:f_fields>
+<loop:flist>
+    <option value="<tag:flist.val />"><tag:flist.label /></option>
+</loop:flist>
    </select>
+   <input type="checkbox" class="checkbox" name="search_criteria_flag_not" />
+   <label for="search_criteria_flag_not"><gettext>Do NOT Match</gettext></label>
   </td>
  </tr>
 <if:advsearch>

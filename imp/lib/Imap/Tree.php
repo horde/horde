@@ -235,9 +235,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
-        $this->insertVFolders($GLOBALS['injector']->getInstance('IMP_Search')->listQueries(IMP_Search::LIST_VFOLDER));
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
+        $this->updateVFolders(iterator_to_array($imp_search));
     }
-
 
     /**
      * Returns the list of mailboxes on the server.
@@ -1073,7 +1074,6 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     protected function _updatePollList()
     {
         $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_cache['poll']));
-        $GLOBALS['injector']->getInstance('IMP_Search')->createVInbox();
         $this->changed = true;
     }
 
@@ -1306,54 +1306,44 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Inserts virtual folders into the tree.
+     * Updates the virtual folder list in the tree.
      *
-     * @param array $id_list  An array with the folder IDs to add as the key
-     *                        and the labels as the value.
+     * @param array $vfolders  A list of IMP_Search_VFolder objects.
      */
-    public function insertVFolders($id_list)
+    public function updateVFolders($vfolders)
     {
-        if (empty($id_list) ||
-            empty($GLOBALS['conf']['user']['allow_folders'])) {
+        /* Clear old entries. */
+        if (isset($this->_parent[self::VFOLDER_KEY])) {
+            foreach ($this->_parent[self::VFOLDER_KEY] as $key) {
+                unset($this->_tree[$key]);
+            }
+            unset($this->_parent[self::VFOLDER_KEY]);
+            $this->changed = true;
+        }
+
+        if (empty($GLOBALS['conf']['user']['allow_folders'])) {
             return;
         }
 
-        $adds = $id = array();
-
-        foreach ($id_list as $key => $val) {
-            $id[$GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($key)] = $val;
-        }
-
-        foreach (array_keys($id) as $key) {
-            $id_key = self::VFOLDER_KEY . $this->_delimiter . $key;
-            if (!isset($this->_tree[$id_key])) {
-                $adds[] = $id_key;
+        foreach ($vfolders as $val) {
+            if ($val->enabled) {
+                $key = strval($val);
+                $this->insert(self::VFOLDER_KEY . $this->_delimiter . $key);
+                $this->_tree[$key]['l'] = $val->label;
             }
         }
 
-        if (empty($adds)) {
-            return;
-        }
-
-        $this->insert($adds);
-
-        foreach ($id as $key => $val) {
-            $this->_tree[$key]['l'] = $val;
-        }
-
         /* Sort the Virtual Folder list in the object, if necessary. */
-        if (!$this->_needSort($this->_tree[self::VFOLDER_KEY])) {
-            return;
+        if (isset($this->_tree[self::VFOLDER_KEY]) &&
+            $this->_needSort($this->_tree[self::VFOLDER_KEY])) {
+            $vsort = array();
+            foreach ($this->_parent[self::VFOLDER_KEY] as $val) {
+                $vsort[$val] = $this->_tree[$val]['l'];
+            }
+            natcasesort($vsort);
+            $this->_parent[self::VFOLDER_KEY] = array_keys($vsort);
+            $this->_setNeedSort($this->_tree[self::VFOLDER_KEY], false);
         }
-
-        $vsort = array();
-        foreach ($this->_parent[self::VFOLDER_KEY] as $val) {
-            $vsort[$val] = $this->_tree[$val]['l'];
-        }
-        natcasesort($vsort);
-        $this->_parent[self::VFOLDER_KEY] = array_keys($vsort);
-        $this->_setNeedSort($this->_tree[self::VFOLDER_KEY], false);
-        $this->changed = true;
     }
 
     /**
@@ -1558,12 +1548,9 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             if ($val->vfolder) {
                 $checkbox .= ' disabled="disabled"';
 
-                if (!empty($opts['editvfolder']) && $val->editvfolder) {
-                    $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                if (!empty($opts['editvfolder']) && $val->container) {
                     $after = '&nbsp[' .
-                        $imp_search->deleteUrl($val->value)->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>'.
-                        ']&nbsp;|&nbsp|[' .
-                        $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                        Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
                         ']';
                 }
             }

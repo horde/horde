@@ -80,6 +80,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
         $this->_buildIndents($this->_root_nodes);
 
+        $filter = $injector->createInstance('Horde_Text_Filter');
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
@@ -100,16 +101,18 @@ class IMP_Tree_Flist extends Horde_Tree_Select
         /* Virtual folders. */
         if ($this->getOption('inc_vfolder')) {
             $imp_search = $injector->getInstance('IMP_Search');
-            $vfolders = $imp_search->listQueries(IMP_Search::LIST_VFOLDER);
-            if (!empty($vfolders)) {
-                $vfolder_list = array();
-                foreach ($vfolders as $id => $val) {
-                    $vfolder_list[] = array(
-                        'l' => $injector->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
-                        'sel' => (IMP::$mailbox == $id),
-                        'v' => IMP::formMbox($imp_search->createSearchId($id), true)
-                    );
-                }
+            $vfolder_list = array();
+
+            $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
+            foreach ($imp_search as $val) {
+                $vfolder_list[] = array(
+                    'l' => $filter->filter($val->label, 'space2html', array('encode' => true)),
+                    'sel' => (IMP::$mailbox == strval($val)),
+                    'v' => IMP::formMbox(strval($val), true)
+                );
+            }
+
+            if (!empty($vfolder_list)) {
                 $t->set('vfolder', $vfolder_list);
             }
         }
@@ -124,7 +127,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                     $tasklist_list = array();
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
-                            'l' => $injector->getInstance('Horde_Text_Filter')->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
+                            'l' => $filter->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
                             'v' => IMP::formMbox(IMP::TASKLIST_EDIT . $id, true)
                         );
                     }
@@ -143,7 +146,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
                     $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
-                            'l' => $injector->getInstance('Horde_Text_Filter')->filter($notepad->get('name'), 'space2html', array('encode' => true)),
+                            'l' => $filter->filter($notepad->get('name'), 'space2html', array('encode' => true)),
                             'v' => IMP::formMbox(IMP::NOTEPAD_EDIT . $id, true)
                         );
                     }

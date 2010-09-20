@@ -194,11 +194,12 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     protected function _upgradeVirtualFolders()
     {
-        if ($GLOBALS['prefs']->isDefault('vfolder')) {
-            return;
-        }
+        global $prefs;
 
-        $vfolders = $GLOBALS['prefs']->getValue('vfolder');
+        $use_vinbox = $prefs->getValue('use_vinbox');
+        $use_vtrash = $prefs->getValue('use_vtrash');
+
+        $vfolders = $prefs->getValue('vfolder');
         if (!empty($vfolders)) {
             $vfolders = @unserialize($vfolders);
         }
@@ -207,15 +208,31 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             return;
         }
 
-        $imp_ui_search = new IMP_Ui_Search();
+        if ($prefs->isDefault('vfolder') || is_object(reset($vfolders))) {
+            foreach ($vfolders as $val) {
+                if (!is_null($use_vinbox) &&
+                    ($val instanceof IMP_Search_Vfolder_Vinbox)) {
+                    $val->enabled = (bool)$use_vinbox;
+                } elseif (!is_null($use_vtrash) &&
+                          ($val instanceof IMP_Search_Vfolder_Vtrash)) {
+                    $val->enabled = (bool)$use_vtrash;
+                    $prefs->setValue('trash_folder', strval($val));
+                }
+            }
+            $prefs->setValue('vfolder', serialize($vfolders));
+            return;
+        }
+
+        $new_vfolders = array();
+        if ($use_vinbox) {
+            $new_vfolders[] = new IMP_Search_Vfolder_Vinbox();
+        }
+        if ($use_vtrash) {
+            $vtrash = $new_vfolders[] = new IMP_Search_Vfolder_Vtrash();
+            $prefs->setValue('trash_folder', strval($vtrash));
+        }
 
         foreach ($vfolders as $id => $vfolder) {
-            /* If this is already a stdClass object, we have already
-             * upgraded. */
-            if (is_object($vfolder)) {
-                return;
-            }
-
             $ui = $vfolder['uiinfo'];
 
             $or_match = ($ui['match'] == 'or');
@@ -237,10 +254,12 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 }
             }
 
-            $rules = array();
-
             foreach ($ui['field'] as $key => $val) {
-                $tmp = new stdClass;
+                $ob = new IMP_Search_Vfolder(array(
+                    'enabled' => true,
+                    'label' => $ui['vfolder_label'],
+                    'mboxes' => $ui['folders']
+                ));
 
                 switch ($val) {
                 case 'from':
@@ -248,27 +267,44 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 case 'cc':
                 case 'bcc':
                 case 'subject':
+                    $ob->add(new IMP_Search_Element_Header(
+                        $ui['text'][$key],
+                        $val,
+                        !empty($ui['text_not'][$key])
+                    ));
+                    break;
+
                 case 'body':
                 case 'text':
-                    $tmp->t = $val;
-                    $tmp->v = $ui['text'][$key];
-                    $tmp->n = !empty($ui['text_not'][$key]);
+                    $ob->add(new IMP_Search_Element_Text(
+                        $ui['text'][$key],
+                        ($val == 'body'),
+                        !empty($ui['text_not'][$key])
+                    ));
                     break;
 
                 case 'date_on':
                 case 'date_until':
                 case 'date_since':
-                    $tmp->t = $val;
-                    $tmp->v = new stdClass;
-                    $tmp->v->y = $ui['date'][$key]['year'];
-                    $tmp->v->m = $ui['date'][$key]['month'] - 1;
-                    $tmp->v->d = $ui['date'][$key]['day'];
+                    if ($val == 'date_on') {
+                        $type = IMP_Search_Element_Date::DATE_ON;
+                    } elseif ($val == 'date_until') {
+                        $type = IMP_Search_Element_Date::DATE_BEFORE;
+                    } else {
+                        $type = IMP_Search_Element_Date::DATE_SINCE;
+                    }
+                    $ob->add(new IMP_Search_Element_Date(
+                        new DateTime($ui['date'][$key]['year'] . '-' . $ui['date'][$key]['month'] . '-' . $ui['date'][$key]['day']),
+                        $type
+                    ));
                     break;
 
                 case 'size_smaller':
                 case 'size_larger':
-                    $tmp->t = $val;
-                    $tmp->v = $ui['text'][$key];
+                    $ob->add(new IMP_Search_Element_Size(
+                        $ui['text'][$key],
+                        $val == 'size_larger'
+                    ));
                     break;
 
                 case 'seen':
@@ -279,26 +315,29 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 case 'unflagged':
                 case 'deleted':
                 case 'undeleted':
-                    $tmp->t = 'flag';
-                    $tmp->v = (strpos($val, 'un') === false)
-                        ? '\\' . $val
-                        : '0\\\\' . substr($val, 2);
+                    if (strpos($val, 'un') === false) {
+                        $ob->add(new IMP_Search_Element_Flag(
+                            $val,
+                            true
+                        ));
+                    } else {
+                        $ob->add(new IMP_Search_Element_Flag(
+                            substr($val, 2),
+                            false
+                        ));
+                    }
                     break;
                 }
 
-                $rules[] = $tmp;
-
                 if ($or_match) {
-                    $tmp = new stdClass;
-                    $tmp->t = 'or';
-                    $rules[] = $tmp;
+                    $ob->add(new IMP_Search_Element_Or());
                 }
             }
 
-            /* This will overwrite the existing entry. */
-            $query = $imp_ui_search->createQuery($rules);
-            $GLOBALS['injector']->getInstance('IMP_Search')->addVFolder($query, $ui['folders'], $rules, $ui['vfolder_label'], $id);
+            $new_vfolders[] = $ob;
         }
+
+        $GLOBALS['injector']->getInstance('IMP_Search')->setVFolders($new_vfolders);
     }
 
 }

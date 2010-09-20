@@ -100,14 +100,6 @@ case 'delete_folder':
     }
     break;
 
-case 'delete_search_query':
-    if ($vars->queryid) {
-        $imp_search = $injector->getInstance('IMP_Search');
-        $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($vars->queryid)), 'horde.success');
-        $imp_search->deleteSearchQuery($vars->queryid);
-    }
-    break;
-
 case 'download_folder':
 case 'download_folder_zip':
     if (!empty($folder_list)) {

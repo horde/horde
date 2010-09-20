@@ -1,0 +1,43 @@
+<input type="hidden" name="searches_action" id="searches_action" />
+<input type="hidden" name="searches_data" id="searches_data" />
+<table class="searchesmanagement">
+ <thead>
+  <tr>
+   <td><gettext>Virtual Folder</gettext></td>
+   <td><gettext>Enabled?</gettext></td>
+   <td><gettext>Actions</gettext></td>
+  </tr>
+ </thead>
+ <tbody>
+<loop:vfolders>
+  <tr>
+   <td>
+<if:vfolders.enabled>
+<if:vfolders.m_url>
+    <tag:vfolders.m_url /><tag:vfolders.label /></a>
+<else:vfolders.m_url>
+    <span class="vfolderenabled"><tag:vfolders.label /></span>
+</else:vfolders.m_url></if:vfolders.m_url>
+<else:vfolders.enabled>
+    <tag:vfolders.label />
+</else:vfolders.enabled></if:vfolders.enabled>
+   </td>
+   <td class="enabled">
+    <input class="checkbox" type="checkbox" name="enable_<tag:vfolders.key />"<if:vfolders.enabled> checked="checked"</if:vfolders.enabled> />
+   </td>
+   <td>
+<if:vfolders.edit>
+    <a class="vfolderedit" href="<tag:vfolders.edit />"><span class="editImg"></span></a>
+    <a class="vfolderdelete" href="#"><span class="deleteImg"></span></a>
+<else:vfolders.edit>
+     <gettext>No Actions Available</gettext>
+</else:vfolders.edit></if:vfolders.edit>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="3" class="fixed vfolderdescription">
+    <tag:vfolders.description />
+   </td>
+</loop:vfolders>
+ </tbody>
+</table>

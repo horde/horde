@@ -112,12 +112,12 @@ case 's':
 case 'rs':
     if (!empty($vars->search) &&
         ($_SESSION['imp']['protocol'] == 'imap')) {
-        $query = new Horde_Imap_Client_Search_Query();
-        $query->text($vars->search, false);
-
         /* Create the search query and reset the global mailbox variable. */
-        $sq = $imp_search->createSearchQuery($query, array(IMP::$mailbox), array(), _("Search Results"));
-        IMP::setCurrentMailboxInfo($imp_search->createSearchId($sq));
+        $q_ob = $imp_search->createQuery(
+            array(new IMP_Search_Element_Text($vars->search, false)),
+            array(IMP::$mailbox)
+        );
+        IMP::setCurrentMailboxInfo(strval($q_ob));
 
         /* Need to re-calculate these values. */
         $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
@@ -215,7 +215,7 @@ $search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&
     !$prefs->getValue('use_trash') &&
-    !$imp_search->isVINBOXFolder(IMP::$mailbox)) {
+    !$imp_search->isVinbox(IMP::$mailbox)) {
     $menu[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
 }
 
@@ -247,7 +247,7 @@ if (!$search_mbox && IMP::threadSortAvailable(IMP::$mailbox)) {
 /* Add search link. */
 if ($_SESSION['imp']['protocol'] == 'imap') {
     if ($search_mbox) {
-        $orig_mbox = reset($imp_search->getSearchFolders(IMP::$mailbox));
+        $orig_mbox = reset($imp_search->getSearchMailboxes(IMP::$mailbox));
         $menu[] = array(sprintf(_("New Search in %s"), IMP::getLabel($orig_mbox)), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));
     } else {
         $menu[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));

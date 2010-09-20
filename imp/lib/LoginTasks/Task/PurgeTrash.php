@@ -35,36 +35,41 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        global $injector, $notification, $prefs;
+
         /* If we aren't using a Trash folder or if there is no Trash
            folder set, just return. */
-        $trash_folder = IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true);
-        if (!$GLOBALS['prefs']->getValue('use_trash') || !$trash_folder) {
+        if (!$prefs->getValue('use_trash') ||
+            !($trash_folder = $prefs->getValue('trash_folder'))) {
             return false;
         }
+        $trash_folder = IMP::folderPref($trash_folder, true);
 
         /* Make sure the Trash folder exists. */
-        if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($trash_folder)) {
+        $imp_search = $injector->getInstance('IMP_Search');
+        if ($imp_search->isVTrash($trash_folder) ||
+            !$injector->getInstance('IMP_Folder')->exists($trash_folder)) {
             return false;
         }
 
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_trash_keep'.  If a message has a
            timestamp prior to this value, it will be deleted. */
-        $del_time = new Horde_Date(time() - ($GLOBALS['prefs']->getValue('purge_trash_keep') * 86400));
+        $del_time = new Horde_Date(time() - ($prefs->getValue('purge_trash_keep') * 86400));
 
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $trash_folder);
+        $msg_ids = $imp_search->runQuery($query, $trash_folder);
 
         /* Go through the message list and delete the messages. */
-        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
-            $msgcount = count($msg_ids);
-            $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
-            return true;
+        if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
+            return false;
         }
 
-        return false;
+        $msgcount = count($msg_ids);
+        $notification->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
+        return true;
     }
 
     /**

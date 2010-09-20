@@ -117,9 +117,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
 
-        if ($imp_search->isEditableVFolder($this->_vars->mbox)) {
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($this->_vars->mbox)), 'horde.success');
-            $imp_search->deleteSearchQuery($this->_vars->mbox);
+        if ($imp_search->isVFolder($this->_vars->mbox, true)) {
+            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search[$this->_vars->mbox]->label), 'horde.success');
+            unset($imp_search[$this->_vars->mbox]);
             $result = true;
         } else {
             $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($this->_vars->mbox));
@@ -2122,7 +2122,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->po = 1;
         }
         if ($elt->vfolder) {
-            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($elt->value) ? 2 : 1;
+            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isVFolder($elt->value, true) ? 2 : 1;
         }
         if (!$elt->sub) {
             $ob->un = 1;

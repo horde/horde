@@ -186,17 +186,22 @@ class IMP_Message
 
         $trash = IMP::folderPref($prefs->getValue('trash_folder'), true);
         $use_trash = $prefs->getValue('use_trash');
-        $use_vtrash = $prefs->getValue('use_vtrash');
-        if ($use_trash && !$use_vtrash && empty($trash)) {
+        if ($use_trash && empty($trash)) {
             $notification->push(_("Cannot move messages to Trash - no Trash mailbox set in preferences."), 'horde.error');
             return false;
         }
 
-        $return_value = 0;
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $maillog_update = (empty($options['keeplog']) && !empty($conf['maillog']['use_maillog']));
+        $return_value = 0;
 
         /* Check for Trash folder. */
-        $use_trash_folder = !$this->_usepop && empty($options['nuke']) && !$use_vtrash && $use_trash;
+        $use_trash_folder = $use_vtrash = false;
+        if (!$this->_usepop && empty($options['nuke']) && $use_trash) {
+            $use_vtrash = $imp_search->isVTrash($trash);
+            $use_trash_folder = !$use_vtrash;
+        }
+
         if ($use_trash_folder) {
             $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
@@ -262,20 +267,18 @@ class IMP_Message
                 if ($this->_usepop ||
                     !empty($options['nuke']) ||
                     ($use_trash && ($mbox == $trash)) ||
-                    ($use_vtrash && ($GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox)))) {
+                    ($imp_search->isVTrash($mbox))) {
                     /* Purge messages immediately. */
                     $expunge_now = true;
-                } else {
+                } elseif ($use_vtrash) {
                     /* If we are using virtual trash, we must mark the message
-                     * as seen or else it will appear as an 'unseen' message for
-                     * purposes of new message counts. */
-                    if ($use_vtrash) {
-                        $del_flags[] = '\\seen';
-                    }
+                     * as seen or else it will appear as an 'unseen' message
+                     * for purposes of new message counts. */
+                    $del_flags[] = '\\seen';
                 }
 
                 try {
-                    $imp_imap->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
+                    $imp_imap->store($mbox, array('add' => $del_flags, 'ids' => $msgIndices));
                     if ($expunge_now) {
                         $this->expungeMailbox(
                             $imp_indices->indices(),
@@ -564,7 +567,7 @@ class IMP_Message
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
-            if ($GLOBALS['injector']->getInstance('IMP_Search')->isVINBOXFolder($mbox) &&
+            if ($GLOBALS['injector']->getInstance('IMP_Search')->isVinbox($mbox) &&
                 ($pos = array_search('\\seen', $res['flags']))) {
                 unset($res['flags'][$pos]);
             }
@@ -723,7 +726,7 @@ class IMP_Message
         foreach (array_keys($mbox_list) as $key) {
             if (!$imp_imap->isReadOnly($key)) {
                 if ($imp_search->isSearchMbox($key)) {
-                    foreach ($imp_search->getSearchFolders($key) as $skey) {
+                    foreach ($imp_search->getSearchMailboxes($key) as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
                     }
                 } else {
@@ -781,8 +784,8 @@ class IMP_Message
                 continue;
             }
 
-            if ($imp_search->isVTrashFolder($mbox)) {
-                $this->expungeMailbox(array_flip($imp_search->getSearchFolders($mbox)));
+            if ($imp_search->isVTrash($mbox)) {
+                $this->expungeMailbox(array_flip($imp_search->getSearchMailboxes($mbox)));
                 $notification->push(_("Emptied all messages from Virtual Trash Folder."), 'horde.success');
                 continue;
             }

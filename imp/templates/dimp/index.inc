@@ -73,7 +73,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
-    <?php echo _simpleButton('appoptions', _("_Options"), 'prefsIcon') ?>
+    <?php echo _simpleButton('appprefs', _("Preferences"), 'prefsIcon') ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('logout')): ?>
     <?php echo _simpleButton('applogout', _("_Log Out"), 'logoutIcon') ?>
@@ -384,6 +384,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div><?php echo _("No actions available") ?></div>
 </div>
 
+<div class="context" id="ctx_vcontainer" style="display:none">
+ <a id="ctx_vcontainer_edit"><span class="contextImg"></span><?php echo _("Edit Virtual Folders") ?></a>
+</div>
+
 <div class="context" id="ctx_vfolder" style="display:none">
  <a id="ctx_vfolder_edit"><span class="contextImg"></span><?php echo _("Edit Virtual Folder") ?></a>
  <a id="ctx_vfolder_delete"><span class="contextImg"></span><?php echo _("Delete Virtual Folder") ?></a>
@@ -505,7 +509,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_qsearchby_all"><?php echo _("Entire Message") ?></a>
  <a id="ctx_qsearchby_body"><?php echo _("Body") ?></a>
  <a id="ctx_qsearchby_from"><?php echo _("From") ?></a>
- <a id="ctx_qsearchby_to"><?php echo _("To") ?></a>
+ <a id="ctx_qsearchby_recip"><?php echo _("Recipients (To/Cc/Bcc)") ?></a>
  <a id="ctx_qsearchby_subject"><?php echo _("Subject") ?></a>
 </div>
 <?php endif; ?>

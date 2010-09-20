@@ -348,16 +348,9 @@ class IMP_Auth
                 : $GLOBALS['prefs']->getValue('initial_page');
 
             $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-
-            if (!$GLOBALS['prefs']->getValue('use_vinbox') &&
-                $imp_search->isVINBOXFolder($init_url)) {
-                $init_url = 'folders.php';
-            } elseif (($imp_search->createSearchId($init_url) == $init_url) &&
-                      !$imp_search->isVFolder($init_url)) {
+            if ($imp_search->isSearchMbox($init_url) &&
+                (!$imp_search[$init_url]->enabled)) {
                 $init_url = 'INBOX';
-                if (!$GLOBALS['prefs']->isLocked('initial_page')) {
-                    $GLOBALS['prefs']->setValue('initial_page', $init_url);
-                }
             }
 
             switch ($init_url) {

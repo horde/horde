@@ -33,29 +33,65 @@ $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
 /* If search_basic_mbox is set, we are processing the search query. */
-if ($vars->search_basic_mailbox) {
-    $imp_ui_search = new IMP_Ui_Search();
-    $id = $imp_ui_search->processBasicSearch($vars->search_mailbox, $vars->search_criteria, $vars->search_criteria_text, $vars->search_criteria_not, $vars->search_flags);
+if ($vars->search_basic_mbox) {
+    $c_list = array();
 
-    /* Redirect to the mailbox screen. */
-    Horde::url('mailbox.php', true)->add('mailbox', $imp_search->createSearchId($id))->redirect();
-}
+    if ($vars->search_criteria_text) {
+        switch ($vars->search_criteria) {
+        case 'from':
+        case 'subject':
+            $c_list[] = new IMP_Search_Element_Header(
+                $vars->search_criteria_text,
+                $vars->search_criteria,
+                $vars->search_criteria_not
+            );
+            break;
 
-$f_fields = $s_fields = array();
+        case 'recip':
+            $c_list[] = new IMP_Search_Element_Recipient(
+                $vars->search_criteria_text,
+                $vars->search_criteria_not
+            );
+            break;
 
-foreach ($imp_search->searchFields() as $key => $val) {
-    if (!in_array($val['type'], array('customhdr', 'date', 'within'))) {
-        $s_fields[] = array(
-            'val' => $key,
-            'label' => $val['label']
+        case 'body':
+        case 'text':
+            $c_list[] = new IMP_Search_Element_Text(
+                $vars->search_criteria_text,
+                ($vars->search_criteria == 'body'),
+                $vars->search_criteria_not
+            );
+        break;
+        }
+    }
+
+    if ($vars->search_criteria_flag) {
+        $formdata = $injector->getInstance('IMP_Imap_Flags')->parseFormId($vars->search_criteria_flag);
+        $c_list[] = new IMP_Search_Element_Flag(
+            $formdata['flag'],
+            ($formdata['set'] && !$vars->search_criteria_flag_not)
         );
     }
+
+    /* Store the search in the session. */
+    $q_ob = $imp_search->createQuery(
+        $c_list,
+        array($vars->search_basic_mbox),
+        null,
+        IMP_Search::CREATE_QUERY,
+        IMP_Search::BASIC_SEARCH
+    );
+
+    /* Redirect to the mailbox screen. */
+    Horde::url('mailbox.php', true)->add('mailbox', strval($q_ob))->redirect();
 }
 
-foreach ($imp_search->flagFields() as $key => $val) {
-    $f_fields[] = array(
-        'val' => $key,
-        'label' => $val
+$flist = $injector->getInstance('IMP_Imap_Flags')->getFlagList($vars->search_mailbox);
+$flag_set = array();
+foreach ($flist['set'] as $val) {
+    $flag_set[] = array(
+        'val' => $val['f'],
+        'label' => $val['l']
     );
 }
 
@@ -66,8 +102,7 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::url('search-basic.php'));
 $t->set('mbox', htmlspecialchars($vars->search_mailbox));
 $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFolder($vars->search_mailbox))));
-$t->set('s_fields', $s_fields);
-$t->set('f_fields', $f_fields);
+$t->set('flist', $flag_set);
 
 $title = _("Search");
 $menu = IMP::menu();

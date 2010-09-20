@@ -113,20 +113,8 @@ $prefGroups['server'] = array(
     'label' => _("Server and Folder Information"),
     'desc' => _("Change mail server and folder settings."),
     'members' => array(
-        'use_vinbox', 'subscribe', 'draftsselect', 'trashselect', 'spamselect'
+        'subscribe', 'draftsselect', 'trashselect', 'spamselect'
     )
-);
-
-// display Virtual INBOX?
-$_prefs['use_vinbox'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Display Virtual Inbox?")
-);
-
-// virtual inbox identifier
-$_prefs['vinbox_id'] = array(
-    'value' => ''
 );
 
 // use IMAP subscribe?
@@ -187,10 +175,6 @@ $_prefs['spam_folder'] = array(
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
     // necessary conversion.
     // 'value' => Horde_String::convertCharset('Spam', null, 'UTF7-IMAP')
-);
-
-$_prefs['vfolder'] = array(
-    'value' => ''
 );
 
 
@@ -379,6 +363,38 @@ $_prefs['accountsmanagement'] = array(
 $_prefs['accounts'] = array(
     // 'value' = json_encode(array())
     'value' => '[]'
+);
+
+
+
+// *** Saved Searches Preferences ***
+
+$prefGroups['searches'] = array(
+    'column' => _("General Preferences"),
+    'label' => _("Saved Searches"),
+    'desc' => _("Manage your saved searches"),
+    'members' => array(
+        'searchesmanagement'
+    )
+);
+
+// UI for saved searches management.
+$_prefs['searchesmanagement'] = array(
+    'type' => 'special'
+);
+
+$_prefs['vfolder'] = array(
+    // 'value' => serialize(array(
+    //     // Virtual Inbox, enabled by default.
+    //     new IMP_Search_Vfolder_Vinbox(array(
+    //         'disabled' => false
+    //     )),
+    //     // Virtual Trash, disabled by default.
+    //     new IMP_Search_Vfolder_Vtrash(array(
+    //         'disabled' => true
+    //     ))
+    // ))
+    'value' => 'a:1:{i:0;C:25:"IMP_Search_Vfolder_Vinbox":175:{a:3:{s:1:"c";a:2:{i:0;C:23:"IMP_Search_Element_Flag":24:{[1,{"f":"\\seen","s":0}]}i:1;C:23:"IMP_Search_Element_Flag":27:{[1,{"f":"\\deleted","s":0}]}}s:1:"e";i:1;s:1:"v";i:1;}}}'
 );
 
 
@@ -919,16 +935,6 @@ $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("When deleting messages, move them to your Trash folder instead of marking them as deleted?")
-);
-
-// use Virtual Trash folder
-$_prefs['use_vtrash'] = array(
-    'value' => 0
-);
-
-// virtual trash folder identifier
-$_prefs['vtrash_id'] = array(
-    'value' => ''
 );
 
 // display the 'Empty Trash' link in the menubar?

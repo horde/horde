@@ -68,6 +68,10 @@ your ``config/prefs.php`` file and your preferences backend::
    filter_on_sidebar
    forward_bodytext
    nav_expanded_sidebar
+   use_vinbox
+   use_vtrash
+   vinbox_id
+   vtrash_id
 
 
 Hooks

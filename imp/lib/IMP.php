@@ -106,9 +106,11 @@ class IMP
      */
     static public function getLabel($mbox)
     {
-        if (!($label = $GLOBALS['injector']->getInstance('IMP_Search')->getLabel($mbox))) {
-            $label = self::displayFolder($mbox);
-        }
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
+        $label = ($ob = $imp_search[$mbox])
+            ? $ob->label
+            : self::displayFolder($mbox);
 
         try {
             return Horde::callHook('mbox_label', array($mbox, $label), 'imp');
@@ -642,16 +644,22 @@ class IMP
      */
     static public function hideDeletedMsgs($mbox, $force = false)
     {
+        global $injector, $prefs;
+
         $delhide = &self::$_delhide;
 
         if (is_null($delhide) || $force) {
-            if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                $delhide = !$GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox);
+            $imp_search = $injector->getInstance('IMP_Search');
+            $use_trash = $prefs->getValue('use_trash');
+
+            if ($use_trash &&
+                $imp_search->isVTrash($prefs->getValue('trash_folder'))) {
+                $delhide = !$imp_search->isVTrash($mbox);
             } else {
                 $sortpref = self::getSort();
-                $delhide = ($GLOBALS['prefs']->getValue('delhide') &&
-                            !$GLOBALS['prefs']->getValue('use_trash') &&
-                            ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox) ||
+                $delhide = ($prefs->getValue('delhide') &&
+                            !$use_trash &&
+                            ($injector->getInstance('IMP_Search')->isSearchMbox($mbox) ||
                              ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD)));
             }
         }
@@ -802,11 +810,8 @@ class IMP
          * Horde_Imap_Client_Socket has a built-in ORDEREDSUBJECT
          * implementation. We will always prefer REFERENCES, but will fallback
          * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
-        return ($_SESSION['imp']['protocol'] == 'imap') &&
-               !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox) &&
-               (!$GLOBALS['prefs']->getValue('use_trash') ||
-                !$GLOBALS['prefs']->getValue('use_vtrash') ||
-                $GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox));
+        return (($_SESSION['imp']['protocol'] == 'imap') &&
+                !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox));
     }
 
     /**
@@ -967,10 +972,11 @@ class IMP
             }
             $t->set('folders', $folders);
 
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
             if (($_SESSION['imp']['protocol'] != 'pop') &&
-                $GLOBALS['prefs']->getValue('use_vinbox') &&
-                ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchId($vinbox_id))));
+                ($vinbox = $imp_search['vinbox']) &&
+                $vinbox->enabled) {
+                $t->set('vinbox', self::generateIMPUrl('mailbox.php', strval($vinbox))->link());
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));

@@ -7,7 +7,7 @@
 
 var ImpSearch = {
     // The following variables are defined in search.php:
-    //   data, text
+    //   data, i_criteria, recent, selected, text
     criteria: {},
     saved_searches: {},
 
@@ -45,36 +45,51 @@ var ImpSearch = {
         this.resetCriteria();
 
         criteria.each(function(c) {
-            if (c.t == 'or') {
+            var crit = c.criteria;
+
+            switch (c.element) {
+            case 'IMP_Search_Element_Date':
+                this.insertDate(this.data.constants.index(crit.t), new Date(crit.d));
+                break;
+
+            case 'IMP_Search_Element_Flag':
+                this.insertFlag(crit.f, !crit.s);
+                break;
+
+            case 'IMP_Search_Element_Header':
+                switch (crit.h) {
+                case 'from':
+                case 'to':
+                case 'cc':
+                case 'bcc':
+                case 'subject':
+                    this.insertText(crit.h.capitalize(), crit.t, crit.n);
+                    break;
+
+                default:
+                    this.insertCustomHdr({ h: crit.h.capitalize(), s: crit.t }, crit.n);
+                    break;
+                }
+                break;
+
+            case 'IMP_Search_Element_Or':
                 this.insertOr();
-                return;
-            }
-
-            switch (this.data.types[c.t]) {
-            case 'header':
-            case 'body':
-            case 'text':
-                this.insertText(c.t, c.v, c.n);
                 break;
 
-            case 'customhdr':
-                this.insertCustomHdr(c.v, c.n);
+            case 'IMP_Search_Element_Recipient':
+                this.insertText('recip', crit.t, crit.n);
                 break;
 
-            case 'size':
-                this.insertSize(c.t, c.v);
+            case 'IMP_Search_Element_Size':
+                this.insertSize(crit.s ? 'size_larger' : 'size_smaller', crit.l);
                 break;
 
-            case 'date':
-                this.insertDate(c.t, c.v);
+            case 'IMP_Search_Element_Text':
+                this.insertText(crit.b ? 'body' : 'text', crit.t, crit.n);
                 break;
 
-            case 'within':
-                this.insertWithin(c.t, c.v);
-                break;
-
-            case 'flag':
-                this.insertFlag(c.v);
+            case 'IMP_Search_Element_Within':
+                this.insertWithin(crit.o ? 'older' : 'younger', { l: this.data.constants.index(crit.t), v: crit.v });
                 break;
             }
         }, this);
@@ -90,12 +105,6 @@ var ImpSearch = {
                 i.checked = true;
             }
         });
-    },
-
-    updateSavedSearches: function(label, type)
-    {
-        $('search_label').setValue(label);
-        // TODO: type
     },
 
     changeHandler: function(e)
@@ -119,7 +128,6 @@ var ImpSearch = {
 
             switch (this.data.types[val]) {
             case 'header':
-            case 'body':
             case 'text':
                 this.insertText(val);
                 break;
@@ -242,12 +250,15 @@ var ImpSearch = {
 
     insertDate: function(id, data)
     {
-        var d = (data ? new Date(data.y, data.m, data.d) : new Date()),
-            tmp = [
+        if (!data) {
+            data = new Date();
+        }
+
+        var tmp = [
                 new Element('EM').insert(this.getLabel(id)),
                 new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
             ];
-        this.replaceDate(this.insertCriteria(tmp), id, d);
+        this.replaceDate(this.insertCriteria(tmp), id, data);
     },
 
     replaceDate: function(id, type, d)
@@ -271,11 +282,12 @@ var ImpSearch = {
         tmp[1].activate();
     },
 
-    insertFlag: function(id)
+    insertFlag: function(id, not)
     {
         var tmp = [
             new Element('EM').insert(this.text.flag),
-            this.getLabel(id).slice(0, -2)
+            this.getLabel(id).slice(0, -2),
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
@@ -301,7 +313,6 @@ var ImpSearch = {
 
                     switch (this.data.types[this.criteria[c].t]) {
                     case 'header':
-                    case 'body':
                     case 'text':
                         this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                         this.criteria[c].v = $F($(c).down('INPUT[type=text]'));
@@ -332,7 +343,12 @@ var ImpSearch = {
                         break;
 
                     case 'flag':
-                        data.push({ t: 'flag', v: this.criteria[c].t });
+                        this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
+                        data.push({
+                            n: this.criteria[c].n,
+                            t: 'flag',
+                            v: this.criteria[c].t
+                        });
                         break;
                     }
                 }, this);
@@ -378,6 +394,15 @@ var ImpSearch = {
                 e.stop();
                 return;
 
+            case 'search_edit_query_cancel':
+                e.stop();
+                if (this.data.dimp) {
+                    window.parent.DimpBase.go('folder:');
+                } else {
+                    document.location.href = this.prefsurl;
+                }
+                return;
+
             default:
                 if (elt.hasClassName('arrowExpanded') ||
                     elt.hasClassName('arrowCollapsed')) {
@@ -413,10 +438,37 @@ var ImpSearch = {
     {
         var id = e.findElement('TR').identify();
         this.replaceDate(id, this.criteria[id].t, e.memo);
+    },
+
+    onDomLoad: function()
+    {
+        if (!this.data) {
+            this.onDomLoad.bind(this).defer();
+            return;
+        }
+
+        this.data.constants.date = $H(this.data.constants.date);
+        this.data.constants.within = $H(this.data.constants.within);
+
+        if (this.recent) {
+            this.updateRecentSearches(this.recent);
+            this.recent = null;
+        }
+
+        if (this.selected) {
+            this.updateSelectedFolders(this.selected);
+            this.selected = null;
+        }
+
+        if (this.i_criteria) {
+            this.updateSearchCriteria(this.i_criteria);
+            this.i_criteria = null;
+        }
     }
 
 };
 
 document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
 document.observe('click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
+document.observe('dom:loaded', ImpSearch.onDomLoad.bindAsEventListener(ImpSearch));
 document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));

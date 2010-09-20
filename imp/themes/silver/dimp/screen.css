@@ -124,7 +124,7 @@ span.dimpactionEditsearch {
 #ctx_folder_create span.contextImg, #ctx_container_create span.contextImg, #ctx_folderopts_new span.contextImg {
     background-image: url("../graphics/folders/create.png");
 }
-#ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg, #ctx_vfolder_edit span.contextImg {
+#ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg, #ctx_vcontainer_edit span.contextImg, #ctx_vfolder_edit span.contextImg {
     background-image: url("../graphics/folders/edit.png");
 }
 #ctx_folder_delete span.contextImg, #ctx_vfolder_delete span.contextImg {

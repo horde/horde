@@ -32,13 +32,13 @@
     <option value="" disabled="disabled">- - - - - - - - -</option>
     <option value="or" style="display:none"><gettext>Add OR clause</gettext></option>
     <option value="" disabled="disabled" style="display:none">- - - - - - - - -</option>
-<loop:s_fields>
-    <option value="<tag:s_fields.val />"><tag:s_fields.label /></option>
-</loop:s_fields>
+<loop:clist>
+    <option value="<tag:clist.val />"><tag:clist.label /></option>
+</loop:clist>
     <option value="" disabled="disabled">- - - - - - - - -</option>
-<loop:f_fields>
-    <option value="<tag:f_fields.val />"><tag:f_fields.label /></option>
-</loop:f_fields>
+<loop:flist>
+    <option value="<tag:flist.val />"><tag:flist.label /></option>
+</loop:flist>
    </select>
   </div>
  </div>
@@ -48,8 +48,8 @@
   <span class="searchuiImg arrowCollapsed"></span>
   <gettext>Search Folders</gettext>
   <span class="searchuiFoldersActions" style="display:none">
-   <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
-   <a id="link_sel_none" href="#"><gettext>Select none</gettext></a>
+   [ <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
+   <a id="link_sel_none" href="#"><gettext>Select none</gettext></a> ]
   </span>
  </div>
 
@@ -66,7 +66,9 @@
 
  <div style="display:none">
 <if:edit_query_vfolder>
-  <input type="hidden" name="edit_query_vfolder" value="" />
+  <input type="hidden" name="search_save" id="search_save" value="1" />
+  <input type="hidden" name="search_type" value="vfolder" />
+  <input type="hidden" name="edit_query_vfolder" value="<tag:edit_query_vfolder />" />
 <else:edit_query_vfolder>
   <div class="item">
    <input type="checkbox" class="checkbox" id="search_save" name="search_save" /> <label for="search_save"><gettext>Save search?</gettext></label>
@@ -79,14 +81,19 @@
   </div>
 </else:edit_query_vfolder></if:edit_query_vfolder>
   <div class="item">
-   <label for="search_label"><gettext>Label:</gettext></label> <input type="text" name="search_label" id="search_label" />
+   <label for="search_label"><gettext>Label:</gettext></label> <input type="text" name="search_label" id="search_label"<if:search_label> value="<tag:search_label />"</if:search_label> />
   </div>
  </div>
 </if:virtualfolder>
 
  <div class="searchuiButtons">
-  <input type="button" id="search_submit" class="button" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
+<if:edit_query_vfolder>
+  <input type="button" id="search_submit" class="button" value="<gettext>Save</gettext>" />
+  <input type="button" id="search_edit_query_cancel" class="button" value="<gettext>Cancel</gettext>" />
+<else:edit_query_vfolder>
+  <input type="button" id="search_submit" class="button" value="<gettext>Submit</gettext>" />
   <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
+</else:edit_query_vfolder></if:edit_query_vfolder>
 <if:return_mailbox_val>
   <input type="button" id="search_dimp_return" class="button" value="<tag:return_mailbox_val />" />
 </if:return_mailbox_val>

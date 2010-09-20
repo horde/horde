@@ -31,14 +31,13 @@ class IMP_Views_ListMessages
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
             /* Create the search query. */
-            $query = new Horde_Imap_Client_Search_Query();
+            $c_list = array();
 
             if (strlen($args['qsearchflag'])) {
-                $query->flag($args['qsearchflag'], empty($args['qsearchflagnot']));
-                $tmp = new stdClass;
-                $tmp->t = 'flag';
-                $tmp->v = $args['qsearchflag'];
-                $criteria = array($tmp);
+                $c_list[] = new IMP_Search_Element_Flag(
+                    $args['qsearchflag'],
+                    empty($args['qsearchflagnot'])
+                );
 
                 $is_search = true;
             } elseif (strlen($args['qsearch'])) {
@@ -46,66 +45,26 @@ class IMP_Views_ListMessages
                 $is_search = true;
 
                 switch ($field) {
+                case 'all':
                 case 'body':
-                    $query->text($args['qsearch'], true);
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'body';
-                    $tmp->v = $args['qsearch'];
-                    $criteria = array($tmp);
+                    $c_list[] = new IMP_Search_Element_Text(
+                        $args['qsearch'],
+                        ($field == 'body')
+                    );
                     break;
 
                 case 'from':
                 case 'subject':
-                    $query->headerText($field, $args['qsearch']);
-
-                    $tmp = new stdClass;
-                    $tmp->t = $field;
-                    $tmp->v = $args['qsearch'];
-                    $criteria = array($tmp);
+                    $c_list[] = new IMP_Search_Element_Header(
+                        $args['qsearch'],
+                        $field
+                    );
                     break;
 
-                case 'to':
-                    $query2 = new Horde_Imap_Client_Search_Query();
-                    $query2->headerText('cc', $args['qsearch']);
-
-                    $query3 = new Horde_Imap_Client_Search_Query();
-                    $query3->headerText('bcc', $args['qsearch']);
-
-                    $query->headerText('to', $args['qsearch']);
-                    $query->orSearch(array($query2, $query3));
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'to';
-                    $tmp->v = $args['qsearch'];
-                    $criteria = array($tmp);
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'or';
-                    $criteria[] = $tmp;
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'cc';
-                    $tmp->v = $args['qsearch'];
-                    $criteria[] = $tmp;
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'or';
-                    $criteria[] = $tmp;
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'bcc';
-                    $tmp->v = $args['qsearch'];
-                    $criteria[] = $tmp;
-                    break;
-
-                case 'all':
-                    $query->text($args['qsearch'], false);
-
-                    $tmp = new stdClass;
-                    $tmp->t = 'text';
-                    $tmp->v = $args['qsearch'];
-                    $criteria = array($tmp);
+                case 'recip':
+                    $c_list[] = new IMP_Search_Element_Recipient(
+                        $args['qsearch']
+                    );
                     break;
 
                 default:
@@ -114,10 +73,16 @@ class IMP_Views_ListMessages
                 }
             }
 
-            /* Set the search in the IMP session. */
+            /* Store the search in the session. */
             if ($is_search) {
                 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-                $imp_search->createSearchQuery($query, array($args['qsearchmbox']), $criteria, _("Search Results"), $mbox);
+                $imp_search->createQuery(
+                    $c_list,
+                    array($args['qsearchmbox']),
+                    null,
+                    false,
+                    $mbox
+                );
             }
         } else {
             $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
@@ -183,10 +148,10 @@ class IMP_Views_ListMessages
         /* The search query may have changed. */
         if ($is_search &&
             ($args['initial'] || strlen($args['qsearchmbox']))) {
-            $md->slabel = $imp_search->searchQueryText($mbox);
+            $md->slabel = $imp_search[$mbox]->querytext;
             if ($imp_search->isVFolder($mbox)) {
                 $md->vfolder = 1;
-                if (!$imp_search->isEditableVFolder($mbox)) {
+                if (!$imp_search->isVFolder($mbox, true)) {
                     $md->noedit = 1;
                 }
             }

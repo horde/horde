@@ -372,7 +372,7 @@ class IMP_Mailbox implements Countable
             if ($count &&
                 $this->_searchmbox &&
                 ($type == 'unseen') &&
-                $GLOBALS['injector']->getInstance('IMP_Search')->isVINBOXFolder($this->_mailbox)) {
+                $GLOBALS['injector']->getInstance('IMP_Search')->isVinbox($this->_mailbox)) {
                 return count($this);
             }
 

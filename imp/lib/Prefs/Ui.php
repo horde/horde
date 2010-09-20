@@ -18,7 +18,6 @@ class IMP_Prefs_Ui
     const PREF_FOLDER_PAGE = 'folders.php';
     const PREF_NO_FOLDER = "nofolder\0";
     const PREF_SPECIALUSE = "specialuse\0";
-    const PREF_VTRASH = "vtrash\0";
 
     /**
      * Cached folder list.
@@ -235,6 +234,14 @@ class IMP_Prefs_Ui
             }
             break;
 
+        case 'searches':
+            if ($prefs->isLocked('vfolder')) {
+                $ui->suppress[] = 'searchesmanagement';
+            } else {
+                Horde::addScriptFile('searchesprefs.js', 'imp');
+            }
+            break;
+
         case 'server':
             $code = array();
 
@@ -250,8 +257,7 @@ class IMP_Prefs_Ui
                 $code['spam'] = _("Enter the name for your new spam folder.");
             }
 
-            if (!$prefs->isLocked('trash_folder') &&
-                !$prefs->isLocked('use_vtrash')) {
+            if (!$prefs->isLocked('trash_folder')) {
                 $code['trash'] = _("Enter the name for your new trash folder.");
             } else {
                 $ui->suppress[] = 'trashselect';
@@ -324,8 +330,9 @@ class IMP_Prefs_Ui
 
         /* Hide appropriate prefGroups. */
         if ($pop3) {
-            $ui->suppressGroups[] = 'server';
             $ui->suppressGroups[] = 'flags';
+            $ui->suppressGroups[] = 'searches';
+            $ui->suppressGroups[] = 'server';
         }
 
         try {
@@ -350,6 +357,10 @@ class IMP_Prefs_Ui
         if (!Horde_Util::extensionExists('openssl') ||
             !isset($conf['openssl']['path'])) {
             $ui->suppressGroups[] = 'smime';
+        }
+
+        if (empty($conf['user']['allow_folders'])) {
+            $ui->suppressGroups[] = 'searches';
         }
 
         // TODO: For now, disable this group since accounts code has not
@@ -391,6 +402,9 @@ class IMP_Prefs_Ui
 
         case 'pgppublickey':
             return $this->_pgpPublicKey($ui);
+
+        case 'searchesmanagement':
+            return $this->_searchesManagement();
 
         case 'sentmailselect':
             return $this->_sentmail();
@@ -469,6 +483,10 @@ class IMP_Prefs_Ui
             $this->_updatePgpPublicKey($ui);
             return false;
 
+        case 'searchesmanagement':
+            $this->_updateSearchesManagement($ui);
+            return false;
+
         case 'sentmailselect':
             return $this->_updateSentmail($ui);
 
@@ -515,8 +533,7 @@ class IMP_Prefs_Ui
          * trash is active. */
         if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
             $prefs->getValue('use_trash') &&
-            !$prefs->getValue('trash_folder') &&
-            !$prefs->getValue('use_vtrash')) {
+            !$prefs->getValue('trash_folder')) {
             $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
         }
 
@@ -535,9 +552,6 @@ class IMP_Prefs_Ui
             if ($prefs->isDirty('use_trash')) {
                 $ui->suppress = array_diff($ui->suppress, array('trashselect', 'empty_trash_menu'));
             }
-            if ($prefs->isDirty('use_vtrash')) {
-                $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
-            }
             break;
 
         case 'dimp':
@@ -555,10 +569,6 @@ class IMP_Prefs_Ui
             break;
 
         case 'server':
-            if ($prefs->isDirty('use_vinbox')) {
-                $GLOBALS['injector']->getInstance('IMP_Search')->init(true);
-            }
-
             if ($prefs->isDirty('subscribe')) {
                 $GLOBALS['registry']->getApiInstance('imp', 'application')->mailboxesChanged();
             }
@@ -1237,6 +1247,91 @@ class IMP_Prefs_Ui
         }
     }
 
+    /* Saved Searches management. */
+
+    /**
+     * Create code for saved searches management.
+     *
+     * @return string  HTML UI code.
+     */
+    protected function _searchesManagement()
+    {
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $mailboxids = $out = array();
+        $view_mode = IMP::getViewMode();
+
+        $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+        foreach ($imp_search as $key => $val) {
+            if (!$val->prefDisplay) {
+                continue;
+            }
+
+            $editable = $imp_search->isVFolder($val, true);
+            $m_url = ($val->enabled && ($view_mode == 'imp'))
+                ? IMP::generateIMPUrl('mailbox.php', strval($val))->link(array('class' => 'vfolderenabled'))
+                : null;
+
+            if ($view_mode == 'dimp') {
+                $mailboxids['enable_' . $key] = strval($val);
+            }
+
+            $out[] = array(
+                'description' => Horde_String::truncate($val->querytext, 200),
+                'edit' => ($editable ? $imp_search->editUrl($val) : null),
+                'enabled' => $val->enabled,
+                'key' => $key,
+                'label' => htmlspecialchars($val->label),
+                'm_url' => $m_url
+            );
+
+        }
+        $t->set('vfolders', $out);
+
+        Horde::addInlineJsVars(array(
+            'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
+            'ImpSearchesPrefs.mailboxids' => $mailboxids
+        ));
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/searches.html');
+    }
+
+    /**
+     * Update Saved Searches related preferences.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    protected function _updateSearchesManagement($ui)
+    {
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
+        switch ($ui->vars->searches_action) {
+        case 'delete':
+            /* Remove 'enable_' prefix. */
+            $key = substr($ui->vars->searches_data, 7);
+            if ($ob = $imp_search[$key]) {
+                $GLOBALS['notification']->push(sprintf(_("Virtual Folder \"%s\" deleted."), $ob->label), 'horde.success');
+                unset($imp_search[$key]);
+            }
+            break;
+
+        default:
+            /* Update enabled status. */
+            $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
+            $vfolders = array();
+
+            foreach ($imp_search as $key => $val) {
+                $form_key = 'enable_' . $key;
+                $val->enabled = !empty($ui->vars->$form_key);
+                $vfolders[$key] = $val;
+            }
+            $imp_search->setVFolders($vfolders);
+            break;
+        }
+    }
+
     /* Sentmail selection. */
 
     /**
@@ -1699,21 +1794,27 @@ class IMP_Prefs_Ui
      */
     protected function _trash()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        global $injector, $prefs;
 
-        $use_vtrash = $GLOBALS['prefs']->getValue('use_vtrash');
+        $imp_search = $injector->getInstance('IMP_Search');
+        $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
+
+        $t = $injector->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('trash', _("Trash folder:")));
         $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
-        $t->set('vtrash', IMP::formMbox(self::PREF_VTRASH, true));
-        $t->set('vtrash_select', $use_vtrash);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
-            'selected' => ($use_vtrash ? null : IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true))
+            'selected' => $trash_folder
         )));
         $t->set('special_use', $this->_getSpecialUse(IMP_Folder::$specialUse['trash']));
+
+        if (!$prefs->isLocked('vfolder') || $imp_search['vtrash']->enabled) {
+            $t->set('vtrash', IMP::formMbox($imp_search->createSearchId('vtrash'), true));
+            $t->set('vtrash_select', $imp_search->isVTrash($trash_folder));
+        }
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/trash.html');
     }
@@ -1727,23 +1828,16 @@ class IMP_Prefs_Ui
      */
     protected function _updateTrash($ui)
     {
-        global $prefs;
-
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $trash = IMP::formMbox($ui->vars->trash, false);
 
-        if ($trash == self::PREF_VTRASH) {
-            if (!$prefs->isLocked('use_vtrash')) {
-                $prefs->setValue('use_vtrash', 1);
-                $prefs->setValue('trash_folder', '');
-                return true;
-            }
-        } elseif ($this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, 'trash', $ui)) {
-            $prefs->setValue('use_vtrash', 0);
-            $prefs->setDirty('trash_folder', true);
-            return true;
+        if (!$GLOBALS['prefs']->isLocked('vfolder')) {
+            $vtrash = $imp_search['vtrash'];
+            $vtrash->enabled = $imp_search->isVTrash($trash);
+            $imp_search['vtrash'] = $vtrash;
         }
 
-        return false;
+        return $this->_updateSpecialFolders('trash_folder', $trash, $ui->vars->trash_new, 'trash', $ui);
     }
 
     /* Utility functions. */

@@ -157,13 +157,12 @@ var DimpBase = {
 
         /* If switching from options, we need to reload page to pick up any
          * prefs changes. */
-        if (this.folder === null &&
-            loc != 'options' &&
-            $('appoptions') &&
-            $('appoptions').hasClassName('on')) {
+        if (loc != 'prefs' &&
+            $('appprefs') &&
+            $('appprefs').hasClassName('on')) {
             $('dimpPage').hide();
             $('dimpLoading').show();
-            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + loc, true);
+            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + escape(loc), true);
         }
 
         if (loc.startsWith('compose:')) {
@@ -180,6 +179,10 @@ var DimpBase = {
 
         if (loc.startsWith('folder:')) {
             f = loc.substring(7);
+            if (f.empty()) {
+                f = this.folder;
+            }
+
             if (this.folder != f || !$('dimpmain_folder').visible()) {
                 this.highlightSidebar(this.getFolderId(f));
                 if (!$('dimpmain_folder').visible()) {
@@ -200,7 +203,6 @@ var DimpBase = {
         }
 
         f = this.folder;
-        this.folder = null;
         $('dimpmain_folder').hide();
         $('dimpmain_portal').update(DIMP.text.loading).show();
 
@@ -239,11 +241,12 @@ var DimpBase = {
             DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
-        case 'options':
-            this.highlightSidebar('appoptions');
+        case 'prefs':
+            // data: Extra parameters to add to prefs URL.
+            this.highlightSidebar('appprefs');
             this.setHash(loc);
             DimpCore.setTitle(DIMP.text.prefs);
-            this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
+            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_PREFS_IMP, data));
             break;
         }
     },
@@ -871,10 +874,14 @@ var DimpBase = {
             this.go('search', tmp);
             break;
 
+        case 'ctx_vcontainer_edit':
+            this.go('prefs', { group: 'searches' });
+            break;
+
         case 'ctx_qsearchby_all':
         case 'ctx_qsearchby_body':
         case 'ctx_qsearchby_from':
-        case 'ctx_qsearchby_to':
+        case 'ctx_qsearchby_recip':
         case 'ctx_qsearchby_subject':
             DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
@@ -2008,7 +2015,7 @@ var DimpBase = {
                 return;
 
             case 'appportal':
-            case 'appoptions':
+            case 'appprefs':
                 this.go(id.substring(3));
                 e.stop();
                 return;
@@ -2365,12 +2372,13 @@ var DimpBase = {
             switch (li.retrieve('ftype')) {
             case 'container':
             case 'scontainer':
+            case 'vcontainer':
                 e.stop();
                 break;
 
             case 'folder':
             case 'special':
-            case 'virtual':
+            case 'vfolder':
                 e.stop();
                 return this.go('folder:' + li.retrieve('mbox'));
             }
@@ -2498,7 +2506,7 @@ var DimpBase = {
         }
 
         if (ob.v) {
-            ftype = ob.co ? 'scontainer' : 'virtual';
+            ftype = ob.co ? 'vcontainer' : 'vfolder';
             title = label;
         } else if (ob.co) {
             if (ob.n) {
@@ -2612,20 +2620,23 @@ var DimpBase = {
         case 'container':
         case 'folder':
             new Drag(li, this._folderDragConfig);
-            DimpCore.addContextMenu({
-                id: fid,
-                type: ftype
-            });
             break;
 
         case 'scontainer':
-        case 'virtual':
-            DimpCore.addContextMenu({
-                id: fid,
-                type: (ob.v == 2) ? 'vfolder' : 'noactions'
-            });
+            ftype = 'noactions';
+            break;
+
+        case 'vfolder':
+            if (ob.v == 1) {
+                ftype = 'noactions';
+            }
             break;
         }
+
+        DimpCore.addContextMenu({
+            id: fid,
+            type: ftype
+        });
     },
 
     deleteFolder: function(folder)
