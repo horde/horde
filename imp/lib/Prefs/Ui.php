@@ -879,7 +879,7 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('drafts', _("Drafts folder:")));
-        $t->set('nofolder', self::PREF_NO_FOLDER);
+        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
@@ -1555,7 +1555,7 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $t->set('label', Horde::label('spam', _("Spam folder:")));
-        $t->set('nofolder', self::PREF_NO_FOLDER);
+        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
             'new_folder' => true,
@@ -1705,8 +1705,8 @@ class IMP_Prefs_Ui
         $use_vtrash = $GLOBALS['prefs']->getValue('use_vtrash');
 
         $t->set('label', Horde::label('trash', _("Trash folder:")));
-        $t->set('nofolder', self::PREF_NO_FOLDER);
-        $t->set('vtrash', self::PREF_VTRASH);
+        $t->set('nofolder', IMP::formMbox(self::PREF_NO_FOLDER, true));
+        $t->set('vtrash', IMP::formMbox(self::PREF_VTRASH, true));
         $t->set('vtrash_select', $use_vtrash);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
