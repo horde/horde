@@ -218,13 +218,13 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $dn = $this->_findDN($userId);
 
         /* Attempt to bind to the LDAP server as the user. */
-        $bind = clone $this->_ldap;
         try {
-            if (!$bind->bind($dn, $credentials['password'])) {
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-            }
+            $this->_ldap->bind($dn, $credentials['password']);
         } catch (Horde_Ldap_Exception $e) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+            if (Horde_Ldap::errorName($e->getCode() == 'LDAP_INVALID_CREDENTIALS')) {
+                throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+            }
+            throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
         }
 
         if ($this->_params['password_expiration'] == 'yes') {
