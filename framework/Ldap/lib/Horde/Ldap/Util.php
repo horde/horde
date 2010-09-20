@@ -251,7 +251,7 @@ class Horde_Ldap_Util
      *   the attribute type names are in alphabetical order.
      *
      * $options is a list of name/value pairs, valid options are:
-
+     *
      * - casefold:  Controls case folding of attribute type names. Attribute
      *              values are not affected by this option. The default is to
      *              uppercase. Valid values are:

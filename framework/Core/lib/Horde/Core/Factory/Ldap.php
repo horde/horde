@@ -81,6 +81,7 @@ class Horde_Core_Factory_Ldap
         if (!isset($config['user'])) {
             $config['user'] = $config;
         }
+        $config['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         try {
             $this->_instances[$sig] = new Horde_Ldap($config);

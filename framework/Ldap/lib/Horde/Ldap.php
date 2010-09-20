@@ -42,6 +42,7 @@ class Horde_Ldap
      * - min_backoff:    minimum reconnection delay period (in seconds).
      * - current_backof: initial reconnection delay period (in seconds).
      * - max_backoff:    maximum reconnection delay period (in seconds).
+     * - cache           a Horde_Cache instance for caching schema requests.
      *
      * @var array
      */
@@ -60,7 +61,8 @@ class Horde_Ldap
         'auto_reconnect'  => false,
         'min_backoff'     => 1,
         'current_backoff' => 1,
-        'max_backoff'     => 32);
+        'max_backoff'     => 32,
+        'cache'           => null);
 
     /**
      * List of hosts we try to establish a connection to.
@@ -1273,86 +1275,34 @@ class Horde_Ldap
      */
     public function schema($dn = null)
     {
-        /* If a schema caching object is registered, we use that to fetch
-         * a schema object.
-         * See registerSchemaCache() for more info on this.
-         * FIXME: Convert to Horde_Cache */
-        if ($this->_schema === null) {
-            if ($this->_schemaCache) {
-               $cached_schema = $this->_schemaCache->loadSchema();
-               if ($cached_schema instanceof Horde_Ldap_Schema) {
-                   $this->_schema = $cached_schema;
-               }
-            }
+        /* If a schema caching object is registered, we use that to fetch a
+         * schema object. */
+        $key = 'Horde_Ldap_Schema_' . md5(serialize(array($this->_config['hostspec'], $this->_config['port'], $dn)));
+        if (!$this->_schema && $this->_config['cache']) {
+            $this->_schema = $this->_config['cache']->get($key);
         }
 
-        /* Fetch schema, if not tried before and no cached version
-         * available.  If we are already fetching the schema, we will
-         * skip fetching. */
-        if ($this->_schema === null) {
-            /* Store a temporary error message so subsequent calls to
-             * schema() can detect that we are fetching the schema
-             * already. Otherwise we will get an infinite loop at
-             * Horde_Ldap_Schema. */
+        /* Fetch schema, if not tried before and no cached version available.
+         * If we are already fetching the schema, we will skip fetching. */
+        if (!$this->_schema) {
+            /* Store a temporary error message so subsequent calls to schema()
+             * can detect that we are fetching the schema already. Otherwise we
+             * will get an infinite loop at Horde_Ldap_Schema. */
             $this->_schema = new Horde_Ldap_Exception('Schema not initialized');
             $this->_schema = new Horde_Ldap_Schema($this, $dn);
 
-            /* If schema caching is active, advise the cache to store
-             * the schema. */
-            if ($this->_schemaCache) {
-                $this->_schemaCache->storeSchema($this->_schema);
+            /* If schema caching is active, advise the cache to store the
+             * schema. */
+            if ($this->_config['cache']) {
+                $this->_config['cache']->set($key, $this->_schema);
             }
         }
 
         if ($this->_schema instanceof Horde_Ldap_Exception) {
             throw $this->_schema;
         }
-        return $this->_schema;
-    }
 
-    /**
-     * Enable/disable persistent schema caching
-     *
-     * Sometimes it might be useful to allow your scripts to cache
-     * the schema information on disk, so the schema is not fetched
-     * every time the script runs which could make your scripts run
-     * faster.
-     *
-     * This method allows you to register a custom object that
-     * implements your schema cache. Please see the SchemaCache interface
-     * (SchemaCache.interface.php) for informations on how to implement this.
-     * To unregister the cache, pass null as $cache parameter.
-     *
-     * For ease of use, Horde_Ldap provides a simple file based cache
-     * which is used in the example below. You may use this, for example,
-     * to store the schema in a linux tmpfs which results in the schema
-     * beeing cached inside the RAM which allows nearly instant access.
-     * <code>
-     *    // Create the simple file cache object that comes along with Horde_Ldap
-     *    $mySchemaCache_cfg = array(
-     *      'path'    =>  '/tmp/Horde_Ldap_Schema.cache',
-     *      'max_age' =>  86400   // max age is 24 hours (in seconds)
-     *    );
-     *    $mySchemaCache = new Horde_Ldap_SimpleFileSchemaCache($mySchemaCache_cfg);
-     *    $ldap = new Horde_Ldap::connect(...);
-     *    $ldap->registerSchemaCache($mySchemaCache); // enable caching
-     *    // now each call to $ldap->schema() will get the schema from disk!
-     * </code>
-     *
-     * @param Horde_Ldap_SchemaCache|null $cache Object implementing the Horde_Ldap_SchemaCache interface
-     *
-     * @return true|Horde_Ldap_Error
-     * FIXME: Convert to Horde_Cache
-     */
-    public function registerSchemaCache($cache) {
-        if (is_null($cache)
-        || (is_object($cache) && in_array('Horde_Ldap_SchemaCache', class_implements($cache))) ) {
-            $this->_schemaCache = $cache;
-            return true;
-        } else {
-            throw new Horde_Ldap_Exception('Custom schema caching object is either no '.
-                'valid object or does not implement the Horde_Ldap_SchemaCache interface!');
-        }
+        return $this->_schema;
     }
 
     /**
