@@ -23,7 +23,7 @@ class Horde_Ldap
      *                   several hosts to try).
      * - port:           the server port.
      * - version:        LDAP version (defaults to 3).
-     * - starttls:       when set, ldap_start_tls() is run after connecting.
+     * - tls:            when set, ldap_start_tls() is run after connecting.
      * - binddn:         the DN to bind as when searching.
      * - bindpw:         password to use when searching LDAP.
      * - basedn:         LDAP base.
@@ -49,7 +49,7 @@ class Horde_Ldap
         'hostspec'        => 'localhost',
         'port'            => 389,
         'version'         => 3,
-        'starttls'        => false,
+        'tls'             => false,
         'binddn'          => '',
         'bindpw'          => '',
         'basedn'          => '',
@@ -311,7 +311,7 @@ class Horde_Ldap
             /* If we're supposed to use TLS, do so before we try to bind, as
              * some strict servers only allow binding via secure
              * connections. */
-            if ($this->_config['starttls']) {
+            if ($this->_config['tls']) {
                 try {
                     $this->startTLS();
                 } catch (Horde_Ldap_Exception $e) {

@@ -313,13 +313,7 @@
 
     <case name="ldap" desc="LDAP authentication">
      <configsection name="params">
-      <configldap switchname="driverconfig">
-       <configenum name="scope" desc="Search scope">sub
-        <values>
-         <value desc="Subtree search">sub</value>
-         <value desc="One level">one</value>
-        </values>
-       </configenum>
+      <configldap switchname="driverconfig" excludebind="user">
        <configstring name="sizelimit" required="false" desc="Size limit for
        listing users on large directories"/>
        <configboolean name="ad" desc="Is this an AD server?">
@@ -343,16 +337,13 @@
          <value>ssha</value>
         </values>
        </configenum>
-
        <configlist name="newuser_objectclass" desc="What objectclasses should a
        new user account be member of? These objectclasses should cover the
        cn,sn,userPassword attributes as well as the username search key">
        shadowAccount,inetOrgPerson</configlist>
-
        <configstring name="filter" desc="The LDAP RFC formatted filter used
-         to search for users.">(objectclass=*)
+         to search for users.">(objectclass=shadowAccount)
        </configstring>
-
        <configswitch name="password_expiration" desc="Enable the creating of
        accounts with expiring passwords? (Note: New users should have the
        shadowAccount objectclass)">no
@@ -826,7 +817,8 @@
      <case name="Ldap" desc="LDAP">
       <configsection name="params">
        <configldap switchname="driverconfig">
-        <configstring name="uid" desc="The username search key"/>
+        <configstring name="uid" desc="The username search key for finding
+        preferences">uid</configstring>
        </configldap>
       </configsection>
      </case>
@@ -903,18 +895,20 @@
        a new group be member of? These objectclasses should cover the mail and
        gidnumber attributes as well as the group search key">
        posixGroup,hordeGroup</configlist>
-       <configswitch name="filter_type" desc="How to specify a filter for the
-       group lists">objectclass
-        <case name="objectclass" desc="One or more objectclass filters">
-         <configlist name="objectclass" desc="The objectclass filter used to
-         search for groups. Can be a single objectclass or a list.">
-         posixGroup</configlist>
-        </case>
-        <case name="free" desc="A complete LDAP filter expression">
-         <configstring name="filter" desc="The LDAP RFC formatted filter used
-         to search for groups."/>
-        </case>
-       </configswitch>
+       <configsection name="search">
+        <configswitch name="filter_type" desc="How to specify a filter for the
+        group lists">objectclass
+         <case name="objectclass" desc="One or more objectclass filters">
+          <configlist name="objectclass" desc="The objectclass filter used to
+          search for groups. Can be a single objectclass or a list.">
+          posixGroup</configlist>
+         </case>
+         <case name="filter" desc="A complete LDAP filter expression">
+          <configstring name="filter" desc="The LDAP RFC formatted filter used
+          to search for groups."/>
+         </case>
+        </configswitch>
+       </configsection>
       </configldap>
      </configsection>
     </case>

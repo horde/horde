@@ -389,7 +389,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             $search = $this->_ldap->search(
                 $this->_params['basedn'],
-                Horde_Ldap_Filter::build($this->_params),
+                Horde_Ldap_Filter::build(array('filter' => $this->_params['filter'])),
                 $params)
                 ->asArray();
             $uid = Horde_String::lower($this->_params['uid']);

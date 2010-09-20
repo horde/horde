@@ -677,25 +677,18 @@ class Horde_Config
                 'default' => $this->_default($ctx . '|hostspec', '')
             ),
 
-            'searchdn' => array(
-                '_type' => 'text',
+            'port' => array(
+                '_type' => 'int',
                 'required' => false,
-                'desc' => 'DN used to bind to LDAP for searches (blank for anonymous)',
-                'default' => $this->_default($ctx . '|searchdn', '')
+                'desc' => 'Port on which LDAP is listening, if non-standard',
+                'default' => $this->_default($ctx . '|port', null)
             ),
 
-            'searchpw' => array(
-                '_type' => 'text',
+            'tls' => array(
+                '_type' => 'boolean',
                 'required' => false,
-                'desc' => 'Password for search bind DN (blank for anonymous)',
-                'default' => $this->_default($ctx . '|searchpw', '')
-            ),
-
-            'basedn' => array(
-                '_type' => 'text',
-                'required' => true,
-                'desc' => 'Base DN',
-                'default' => $this->_default($ctx . '|basedn', '')
+                'desc' => 'Use TLS to connect to the server?',
+                'default' => $this->_default($ctx . '|tls', false)
             ),
 
             'version' => array(
@@ -716,20 +709,55 @@ class Horde_Config
                 'default' => $this->_default($ctx . '|version', 3)
             ),
 
-            'port' => array(
-                '_type' => 'int',
-                'required' => false,
-                'desc' => 'Port on which LDAP is listening, if non-standard',
-                'default' => $this->_default($ctx . '|port', null)
-            ),
-
-            'writeas' => array(
-                'desc' => 'Bind to LDAP as which user when performing writes?',
-                'default' => $this->_default($ctx . '|writeas', 'search'),
+            'bindas' => array(
+                'desc' => 'Bind to LDAP as which user?',
+                'default' => $this->_default($ctx . '|bindas', 'admin'),
                 'switch' => array(
+                    'anon' => array(
+                        'desc' => 'Bind anonymously',
+                        'fields' => array()
+                    ),
                     'user' => array(
                         'desc' => 'Bind as the currently logged-in user',
-                        'fields' => array()
+                        'fields' => array(
+                            'user' => array(
+                                'uid' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'The username search key (set to samaccountname for AD).',
+                                    'default' => $this->_default($ctx . '|user|uid', 'uid')
+                                ),
+                                'filter_type' => array(
+                                    'required' => false,
+                                    'desc' => 'How to specify a filter for the user lists.',
+                                    'default' => $this->_default($ctx . '|user|filter_type', 'objectclass'),
+                                    'switch' => array(
+                                        'filter' => array(
+                                            'desc' => 'LDAP filter string',
+                                            'fields' => array(
+                                                'filter' => array(
+                                                    '_type' => 'text',
+                                                    'required' => true,
+                                                    'desc' => 'The LDAP filter string used to search for users.',
+                                                    'default' => $this->_default($ctx . '|user|filter', '(objectClass=*)')
+                                                ),
+                                            ),
+                                        ),
+                                        'objectclass' => array(
+                                            'desc' => 'List of objectClasses',
+                                            'fields' => array(
+                                                'objectclass' => array(
+                                                    '_type' => 'stringlist',
+                                                    'required' => true,
+                                                    'desc' => 'The objectclass filter used to search for users. Can be a single objectclass or a comma-separated list.',
+                                                    'default' => implode(', ', $this->_default($ctx . '|user|objectclass', array('*')))
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                     'admin' => array(
                         'desc' => 'Bind with administrative/system credentials',
@@ -737,38 +765,27 @@ class Horde_Config
                             'binddn' => array(
                                 '_type' => 'text',
                                 'required' => true,
-                                'desc' => 'DN used to bind to LDAP for writes',
-                                'default' => $this->_default($ctx . '|writeas', '')
+                                'desc' => 'DN used to bind to LDAP',
+                                'default' => $this->_default($ctx . '|binddn', '')
                             ),
                             'bindpw' => array(
                                 '_type' => 'text',
                                 'required' => true,
-                                'desc' => 'Password for write bind DN',
-                                'default' => $this->_default($ctx . '|writepw', '')
+                                'desc' => 'Password for bind DN',
+                                'default' => $this->_default($ctx . '|bindpw', '')
                             )
                         )
                     ),
-                    'search' => array(
-                        'desc' => 'Use same credentials as used for LDAP searches',
-                        'fields' => array()
-                    )
                 )
             ),
-
-            'tls' => array(
-                '_type' => 'boolean',
-                'required' => false,
-                'desc' => 'Use TLS to connect to the server?',
-                'default' => $this->_default($ctx . '|tls', false)
-            ),
-
-            'ca' => array(
-                '_type' => 'text',
-                'required' => false,
-                'desc' => 'Certification Authority to use for SSL connections',
-                'default' => $this->_default($ctx . '|ca', '')
-            )
         );
+
+        if (isset($node) && $node->getAttribute('excludebind')) {
+            $excludes = explode(',', $node->getAttribute('excludebind'));
+            foreach ($excludes as $exclude) {
+                unset($fields['bindas']['switch'][$exclude]);
+            }
+        }
 
         if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
             return array(
@@ -787,6 +804,24 @@ class Horde_Config
             );
         }
 
+        $standardFields = array(
+            'basedn' => array(
+                '_type' => 'text',
+                'required' => true,
+                'desc' => 'Base DN',
+                'default' => $this->_default($ctx . '|basedn', '')
+            ),
+            'scope' => array(
+                '_type' => 'enum',
+                'required' => true,
+                'desc' => 'Search scope',
+                'default' => $this->_default($ctx . '|scope', ''),
+                'values' => array(
+                    'sub' => 'Subtree search',
+                    'one' => 'One level'),
+            ),
+        );
+
         list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
         $config = array(
             'desc' => 'Driver configuration',
@@ -795,11 +830,11 @@ class Horde_Config
             'switch' => array(
                 'horde' => array(
                     'desc' => 'Horde defaults',
-                    'fields' => array()
+                    'fields' => $standardFields,
                 ),
                 'custom' => array(
                     'desc' => 'Custom parameters',
-                    'fields' => $fields
+                    'fields' => $fields + $standardFields,
                 )
             )
         );
