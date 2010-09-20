@@ -71,36 +71,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     }
 
     /**
-     * Find the user dn.
-     *
-     * @param string $userId  The userId to find.
-     *
-     * @return string  The user's full DN
-     * @throws Horde_Auth_Exception
-     */
-    protected function _findDN($userId)
-    {
-        /* Search for the user's full DN. */
-        $filter = $this->_getParamFilter();
-        $filter = '(&(' . $this->_params['uid'] . '=' . $userId . ')' .
-                  $filter . ')';
-
-        try {
-            $search = $this->_ldap->search(null, $filter, array('attributes' => array($this->_params['uid'])));
-        } catch (Horde_Ldap_Exception $e) {
-            throw new Horde_Auth_Exception('Could not search the LDAP server.');
-        }
-
-        if (!$search->count()) {
-            throw new Horde_Auth_Exception('Empty result.');
-        }
-
-        $entry = $search->shiftEntry();
-
-        return $entry->currentDN();
-    }
-
-    /**
      * Checks for shadowLastChange and shadowMin/Max support and returns their
      * values.  We will also check for pwdLastSet if Active Directory is
      * support is requested.  For this check to succeed we need to be bound
@@ -215,7 +185,13 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     {
         /* Search for the user's full DN. */
         $this->_ldap->bind();
-        $dn = $this->_findDN($userId);
+        try {
+            $dn = $this->_ldap->findUserDN($userId);
+        } catch (Horde_Exception_NotFound $e) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        } catch (Horde_Exception_Ldap $e) {
+            throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+        }
 
         /* Attempt to bind to the LDAP server as the user. */
         try {
@@ -315,7 +291,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         if (is_null($dn)) {
             /* Search for the user's full DN. */
-            $dn = $this->_findDN($userId);
+            try {
+                $dn = $this->_ldap->findUserDN($userId);
+            } catch (Horde_Exception_Ldap $e) {
+                throw new Horde_Auth_Exception($e);
+            }
         }
 
         try {
@@ -347,7 +327,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         if (is_null($olddn)) {
             /* Search for the user's full DN. */
-            $dn = $this->_findDN($oldID);
+            try {
+                $dn = $this->_ldap->findUserDN($oldID);
+            } catch (Horde_Exception_Ldap $e) {
+                throw new Horde_Auth_Exception($e);
+            }
 
             $olddn = $dn;
             $newdn = preg_replace('/uid=.*?,/', 'uid=' . $newID . ',', $dn, 1);
@@ -393,8 +377,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        $filter = $this->_getParamFilter();
-
         $params = array(
             'attributes' => array($this->_params['uid']),
             'scope' => $this->_params['scope'],
@@ -405,7 +387,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
          * Note: You cannot override a server-side limit with this. */
         $userlist = array();
         try {
-            $search = $this->_ldap->search($this->_params['basedn'], $filter, $params)->as_struct();
+            $search = $this->_ldap->search(
+                $this->_params['basedn'],
+                Horde_Ldap_Filter::build($this->_params),
+                $params)
+                ->as_struct();
             $uid = Horde_String::lower($this->_params['uid']);
             foreach ($search as $val) {
                 $userlist[] = $val[$uid][0];
@@ -414,31 +400,4 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         return $userlist;
     }
-
-    /**
-     * Return a formatted LDAP filter as configured within the parameters.
-     *
-     * @return string  LDAP search filter
-     */
-    protected function _getParamFilter()
-    {
-        if (!empty($this->_params['filter'])) {
-            $filter = $this->_params['filter'];
-        } elseif (!is_array($this->_params['objectclass'])) {
-            $filter = 'objectclass=' . $this->_params['objectclass'];
-        } else {
-            $filter = '';
-            if (count($this->_params['objectclass']) > 1) {
-                $filter = '(&' . $filter;
-                foreach ($this->_params['objectclass'] as $objectclass) {
-                    $filter .= '(objectclass=' . $objectclass . ')';
-                }
-                $filter .= ')';
-            } elseif (count($this->_params['objectclass']) == 1) {
-                $filter = '(objectClass=' . $this->_params['objectclass'][0] . ')';
-            }
-        }
-        return $filter;
-    }
-
 }

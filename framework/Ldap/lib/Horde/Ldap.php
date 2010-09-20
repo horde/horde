@@ -30,6 +30,9 @@ class Horde_Ldap
      * - options:        hash of LDAP options to set.
      * - filter:         default search filter.
      * - scope:          default search scope.
+     * - user:           configuration parameters for {@link findUserDN()},
+     *                   must contain 'uid', and 'filter' or 'objectclass'
+     *                   entries.
      * - auto_reconnect: if true, the class will automatically
      *                   attempt to reconnect to the LDAP server in certain
      *                   failure conditions when attempting a search, or other
@@ -47,12 +50,13 @@ class Horde_Ldap
         'port'            => 389,
         'version'         => 3,
         'starttls'        => false,
-        'binddn'        => '',
-        'bindpw'        => '',
+        'binddn'          => '',
+        'bindpw'          => '',
         'basedn'          => '',
         'options'         => array(),
         'filter'          => '(objectClass=*)',
         'scope'           => 'sub',
+        'user'            => array(),
         'auto_reconnect'  => false,
         'min_backoff'     => 1,
         'current_backoff' => 1,
@@ -836,6 +840,36 @@ class Horde_Ldap
                 return new Horde_Ldap_Search($search, $this, $attributes);
             }
         }
+    }
+
+    /**
+     * Returns the DN of a user.
+     *
+     * The purpose is to quickly find the full DN of a user so it can be used
+     * to re-bind as this user. This method requires the 'user' configuration
+     * parameter to be set.
+     *
+     * @param string $user  The user to find.
+     *
+     * @return string  The user's full DN.
+     * @throws Horde_Ldap_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function findUserDN($user)
+    {
+        $filter = Horde_Ldap_Filter::combine(
+            'and',
+            array(Horde_Ldap_Filter::build($this->_config['user']),
+                  Horde_Ldap_Filter::create($this->_config['user']['uid'], 'equals', $user)));
+        $search = $this->search(
+            null,
+            $filter,
+            array('attributes' => array($this->_config['user']['uid'])));
+        if (!$search->count()) {
+            throw new Horde_Exception_NotFound();
+        }
+        $entry = $search->shiftEntry();
+        return $entry->currentDN();
     }
 
     /**

@@ -75,17 +75,15 @@ class Horde_Core_Factory_Ldap
 
         $config = $this->getConfig($type);
 
-        /* Determine if we are using the base LDAP config. */
-        if (isset($config['driverconfig']) &&
-            ($config['driverconfig'] == 'horde')) {
-            $this->_instances[$sig] = $this->getLdap();
-            return $this->_instances[$sig];
+        /* BC check for old configuration without 'user' setting, so that
+         administrators can still log in through LDAP and update the
+         configuration. */
+        if (!isset($config['user'])) {
+            $config['user'] = $config;
         }
 
         try {
             $this->_instances[$sig] = new Horde_Ldap($config);
-            // Establish the connection so it is available when searching later
-            $this->_instances[$sig]->bind();
         } catch (Horde_Exception $e) {
             if ($pushed) {
                 $GLOBALS['registry']->popApp();
