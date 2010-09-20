@@ -86,21 +86,7 @@ class Horde_Group_Ldap extends Horde_Group
         }
 
         /* Generate LDAP search filter. */
-        if (!empty($this->_params['filter'])) {
-            $this->_filter = Horde_Ldap_Filter::parse($this->_params['filter']);
-        } elseif (!is_array($this->_params['objectclass'])) {
-            $this->_filter = Horde_Ldap_Filter::create('objectclass', 'equals', $this->_params['objectclass']);
-        } else {
-            $filters = array();
-            foreach ($this->_params['objectclass'] as $objectclass) {
-                $filters[] = Horde_Ldap_Filter::create('objectclass', 'equals', $objectclass);
-            }
-            if (count($filters) == 1) {
-                $this->_filter = $filters[0];
-            } else {
-                $this->_filter = Horde_Ldap_Filter::combine('and', $filters);
-            }
-        }
+        $this->_filter = Horde_Ldap_Filter::build($this->_params);
 
         /* Connect to server. */
         $this->_ldap = new Horde_Ldap($this->_params);

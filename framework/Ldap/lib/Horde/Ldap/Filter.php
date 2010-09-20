@@ -253,6 +253,38 @@ class Horde_Ldap_Filter
     }
 
     /**
+     * Builds a filter (commonly for objectClass attributes) from different
+     * configuration options.
+     *
+     * @param array $params  Hash with configuration options that build the
+     *                       search filter. Possible hash keys:
+     *                       - 'filter': An LDAP filter string.
+     *                       - 'objectclass' (string): An objectClass name.
+     *                       - 'objectclass' (array): A list of objectClass
+     *                                                names.
+     *
+     * @return Horde_Ldap_Filter  A filter matching the specified criteria.
+     * @throws Horde_Ldap_Exception
+     */
+    public static function build(array $params)
+    {
+        if (!empty($params['filter'])) {
+            return Horde_Ldap_Filter::parse($params['filter']);
+        }
+        if (!is_array($params['objectclass'])) {
+            return Horde_Ldap_Filter::create('objectclass', 'equals', $params['objectclass']);
+        }
+        $filters = array();
+        foreach ($params['objectclass'] as $objectclass) {
+            $filters[] = Horde_Ldap_Filter::create('objectclass', 'equals', $objectclass);
+        }
+        if (count($filters) == 1) {
+            return $filters[0];
+        }
+        return Horde_Ldap_Filter::combine('and', $filters);
+    }
+
+    /**
      * Parses a string into a Horde_Ldap_Filter object.
      *
      * @todo Leaf-mode: Do we need to escape at all? what about *-chars? Check
