@@ -259,17 +259,19 @@ class Horde_Ldap_Filter
      * Builds a filter (commonly for objectClass attributes) from different
      * configuration options.
      *
-     * @param array $params  Hash with configuration options that build the
-     *                       search filter. Possible hash keys:
-     *                       - 'filter': An LDAP filter string.
-     *                       - 'objectclass' (string): An objectClass name.
-     *                       - 'objectclass' (array): A list of objectClass
-     *                                                names.
+     * @param array $params    Hash with configuration options that build the
+     *                         search filter. Possible hash keys:
+     *                         - 'filter': An LDAP filter string.
+     *                         - 'objectclass' (string): An objectClass name.
+     *                         - 'objectclass' (array): A list of objectClass
+     *                                                  names.
+     * @param string $operator How to combine mutliple 'objectclass' entries.
+     *                         'and' or 'or'.
      *
      * @return Horde_Ldap_Filter  A filter matching the specified criteria.
      * @throws Horde_Ldap_Exception
      */
-    public static function build(array $params)
+    public static function build(array $params, $operator = 'and')
     {
         if (!empty($params['filter'])) {
             return Horde_Ldap_Filter::parse($params['filter']);
@@ -284,7 +286,7 @@ class Horde_Ldap_Filter
         if (count($filters) == 1) {
             return $filters[0];
         }
-        return Horde_Ldap_Filter::combine('and', $filters);
+        return Horde_Ldap_Filter::combine($operator, $filters);
     }
 
     /**
