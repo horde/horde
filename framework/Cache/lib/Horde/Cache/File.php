@@ -156,9 +156,11 @@ class Horde_Cache_File extends Horde_Cache_Base
             // This may result in duplicate entries in horde_cache_gc, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
-            $fp = fopen($this->_dir . '/horde_cache_gc', 'a');
-            fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
-            fclose($fp);
+            $fp = @fopen($this->_dir . '/horde_cache_gc', 'a');
+            if ($fp) {
+                fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
+                fclose($fp);
+            }
         }
     }
 
