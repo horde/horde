@@ -721,6 +721,18 @@ class Horde_Config
                         'desc' => 'Bind as the currently logged-in user',
                         'fields' => array(
                             'user' => array(
+                                'binddn' => array(
+                                    '_type' => 'text',
+                                    'required' => false,
+                                    'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
+                                    'default' => $this->_default($ctx . '|binddn', '')
+                                ),
+                                'bindpw' => array(
+                                    '_type' => 'text',
+                                    'required' => false,
+                                    'desc' => 'Password for bind DN',
+                                    'default' => $this->_default($ctx . '|bindpw', '')
+                                ),
                                 'uid' => array(
                                     '_type' => 'text',
                                     'required' => true,
