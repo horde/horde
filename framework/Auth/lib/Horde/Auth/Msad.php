@@ -8,6 +8,8 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
+ * @todo Use Horde_Ldap
+ *
  * @author   Francois Helly <fhelly@bebop-design.net>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
