@@ -439,7 +439,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $url = trim($this->_getUrl(), '/') . '/' . $event->id;
         try {
-            $response = $this->_getClient()->put($url, $ical->exportvCalendar());
+            $response = $this->_getClient()->put($url, $ical->exportvCalendar(), array('Content-Type' => 'text/calendar'));
         } catch (Horde_Http_Exception $e) {
             Horde::logMessage($e, 'INFO');
             throw new Kronolith_Exception($e);
