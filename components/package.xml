@@ -60,6 +60,9 @@
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
+     <dir name="Pear">
+      <file name="InstallLocation.php" role="php" />
+     </dir> <!-- /lib/Components/Pear -->
      <dir name="Runner">
       <file name="Installer.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
@@ -72,6 +75,7 @@
      <file name="Exception.php" role="php" />
      <file name="Module.php" role="php" />
      <file name="Modules.php" role="php" />
+     <file name="Output.php" role="php" />
     </dir> <!-- /lib/Components -->
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
@@ -129,6 +133,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Cli</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Injector</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -153,6 +161,7 @@
    <install as="Components/Exception.php" name="lib/Components/Exception.php" />
    <install as="Components/Module.php" name="lib/Components/Module.php" />
    <install as="Components/Modules.php" name="lib/Components/Modules.php" />
+   <install as="Components/Output.php" name="lib/Components/Output.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
@@ -160,6 +169,7 @@
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
+   <install as="Components/Pear/InstallLocation.php" name="lib/Components/Pear/InstallLocation.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="horde-components" name="script/horde-components.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />

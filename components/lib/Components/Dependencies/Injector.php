@@ -51,4 +51,14 @@ implements Components_Dependencies
     {
         return $this->getInstance('Components_Runner_Installer');
     }
+
+    /**
+     * Returns the output handler.
+     *
+     * @return Components_Output The output handler.
+     */
+    public function getOutput()
+    {
+        return $this->getInstance('Components_Output');
+    }
 }

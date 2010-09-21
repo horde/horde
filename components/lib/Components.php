@@ -59,8 +59,13 @@ class Components
             $parser->parserError($e->getMessage());
             return;
         }
-        foreach ($modules as $module) {
-            $module->handle($config);
+        try {
+            foreach ($modules as $module) {
+                $module->handle($config);
+            }
+        } catch (Components_Exception $e) {
+            $dependencies->getOutput()->fail($e->getMessage());
+            return;
         }
     }
 

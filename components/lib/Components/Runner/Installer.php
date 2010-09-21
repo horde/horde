@@ -34,46 +34,50 @@ class Components_Runner_Installer
     /**
      * The configuration for the current job.
      *
-     * @param Components_Config
+     * @var Components_Config
      */
     private $_config;
+
+    /**
+     * The install location.
+     *
+     * @var Components_Pear_InstallLocation
+     */
+    private $_location;
 
     /**
      * Constructor.
      *
      * @param Components_Config $config The configuration for the current job.
+     * @param Components_Pear_InstallLocation $location Represents the install
+     *                                                  location and its
+     *                                                  corresponding configuration.
      */
-    public function __construct(Components_Config $config)
-    {
+    public function __construct(
+        Components_Config $config,
+        Components_Pear_InstallLocation $location
+    ) {
         $this->_config = $config;
+        $this->_location = $location;
     }
 
     public function run()
     {
         $options = $this->_config->getOptions();
-        $pear = new PEAR();
-        $pear->setErrorHandling(PEAR_ERROR_DIE);
-
-        $pearrc = $options['install'] . DIRECTORY_SEPARATOR . '.pearrc';
-        $command_config = new PEAR_Command_Config(new PEAR_Frontend_CLI(), new stdClass);
-        $command_config->doConfigCreate(
-            'config-create', array(), array($options['install'], $pearrc)
-        );
-
-        $pear_config = new PEAR_Config($pearrc);
-        $GLOBALS['_PEAR_Config_instance'] = $pear_config;
-
-        $channel = new PEAR_Command_Channels(
-            new PEAR_Frontend_CLI(),
-            $pear_config
-        );
-        $channel->doDiscover('channel-discover', array(), array('pear.horde.org'));
-        $channel->doDiscover('channel-discover', array(), array('pear.phpunit.de'));
-
-        $installer = new PEAR_Command_Install(
-            new PEAR_Frontend_CLI(),
-            $pear_config
-        );
+        $location = realpath($options['install']);
+        if (!$location) {
+            $location = $options['install'];
+        }
+        $this->_location->setLocation($location, '.pearrc');
+        $pear_config = $this->_location->getPearConfig();
+        if (!empty($options['channelxmlpath'])) {
+            $this->_location->setChannelDirectory($options['channelxmlpath']);
+        } else if (!empty($options['sourcepath'])) {
+            $this->_location->setChannelDirectory($options['sourcepath']);
+        }
+        if (!empty($options['sourcepath'])) {
+            $this->_location->setSourceDirectory($options['sourcepath']);
+        }
 
         $arguments = $this->_config->getArguments();
         $element = basename(realpath($arguments[0]));
@@ -82,8 +86,6 @@ class Components_Runner_Installer
         $this->_run = array();
 
         $this->_installHordeDependency(
-            $installer,
-            $pear_config,
             $root_path,
             $element
         );
@@ -92,19 +94,11 @@ class Components_Runner_Installer
     /**
      * Install a Horde dependency from the current tree (the framework).
      *
-     * @param PEAR_Command_Install $installer   Installs the dependency.
-     * @param PEAR_Config          $pear_config The configuration of the PEAR
-     *                                          environment in which the
-     *                                          dependency will be installed.
-     * @param string               $root_path   Root path to the Horde framework.
-     * @param string               $dependency  Package name of the dependency.
+     * @param string $root_path   Root path to the Horde framework.
+     * @param string $dependency  Package name of the dependency.
      */
-    private function _installHordeDependency(
-        PEAR_Command_Install $installer,
-        PEAR_Config $pear_config,
-        $root_path,
-        $dependency
-    ) {
+    private function _installHordeDependency($root_path, $dependency)
+    {
         $package_file = $root_path . DIRECTORY_SEPARATOR
             . $dependency . DIRECTORY_SEPARATOR . 'package.xml';
         if (!file_exists($package_file)) {
@@ -113,46 +107,38 @@ class Components_Runner_Installer
         }
 
         $parser = new PEAR_PackageFile_Parser_v2();
-        $parser->setConfig($pear_config);
+        $parser->setConfig($this->_location->getPearConfig());
         $pkg = $parser->parse(file_get_contents($package_file), $package_file);
 
         $dependencies = $pkg->getDeps();
         foreach ($dependencies as $dependency) {
             if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
+                $this->_location->provideChannel($dependency['channel']);
                 $key = $dependency['channel'] . '/' . $dependency['name'];
                 if (in_array($key, $this->_run)) {
                     continue;
                 }
-                $installer->doInstall(
-                    'install',
-                    array(
-                        'force' => true,
-                        'channel' => $dependency['channel'],
-                    ),
-                    array($dependency['name'])
+                $this->_location->addPackageFromPackage(
+                    $dependency['channel'], $dependency['name']
                 );
                 $this->_run[] = $key;
             } else if (isset($dependency['channel'])) {
+                $this->_location->provideChannel($dependency['channel']);
                 $key = $dependency['channel'] . '/' . $dependency['name'];
                 if (in_array($key, $this->_run)) {
                     continue;
                 }
                 $this->_run[] = $key;
-                $this->_installHordeDependency(
-                    $installer,
-                    $pear_config,
-                    $root_path,
-                    $dependency['name']
-                );
+                $this->_installHordeDependency($root_path, $dependency['name']);
             }
         }
         if (in_array($package_file, $this->_run)) {
             return;
         }
-        $installer->doInstall(
-            'install',
-            array('nodeps' => true),
-            array($package_file)
+
+        $this->_location->provideChannel($pkg->getChannel());
+        $this->_location->addPackageFromSource(
+            $package_file
         );
         $this->_run[] = $package_file;
     }

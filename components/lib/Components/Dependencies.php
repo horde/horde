@@ -35,4 +35,11 @@ interface Components_Dependencies
      * @return Components_Runner_Installer The installer.
      */
     public function getRunnerInstaller();
+
+    /**
+     * Returns the output handler.
+     *
+     * @return Components_Output The output handler.
+     */
+    public function getOutput();
 }

@@ -59,6 +59,27 @@ implements Components_Config
         Horde_Argv_Parser $parser
     ) {
         $this->_parser = $parser;
+
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-q',
+                '--quiet',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Reduce output to a minimum'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-v',
+                '--verbose',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Reduce output to a maximum'
+                )
+            )
+        );
     }
 
     /**

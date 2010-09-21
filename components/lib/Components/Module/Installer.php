@@ -63,7 +63,23 @@ extends Components_Module_Base
                 '--install',
                 array(
                     'action' => 'store',
-                    'help'   => 'install the element into the specified absolute INSTALL location'
+                    'help'   => 'Install the element into the specified absolute INSTALL location'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-S',
+                '--sourcepath',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Location of downloaded PEAR packages. Specifying this path allows you to avoid accessing the network for installing new packages.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-X',
+                '--channelxmlpath',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Location of static channel XML descriptions. These files need to be named CHANNEL.channel.xml (e.g. pear.php.net.channel.xml). Specifying this path allows you to avoid accessing the network for installing new channels. If this is not specified but SOURCEPATH is given then SOURCEPATH will be checked for such channel XML files.'
                 )
             ),
         );
