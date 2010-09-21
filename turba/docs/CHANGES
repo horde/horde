@@ -14,6 +14,8 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
+[jan] Correctly export FN vCard property if 'alternative_name' is set, but not
+      'name' (Bug #9207).
 [jan] Fix import of addresses from LDIF (Axel Jurak, Bug #9215).
 [jan] Speed up browsing of long address books.
 
