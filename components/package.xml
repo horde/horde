@@ -80,7 +80,9 @@
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="script">
-    <file name="horde-components.php" role="script" />
+    <file name="horde-components.php" role="script">
+     <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    </file>
    </dir> <!-- /script -->
    <dir name="test">
     <dir name="Components">
