@@ -584,6 +584,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         if ($dav = $response->getHeader('dav')) {
             /* Check for DAV support. */
+            if (is_array($dav)) {
+                $dav = implode (',', $dav);
+            }
             $this->_davSupport = preg_split('/,\s*/', $dav);
             if (!in_array('3', $this->_davSupport)) {
                 throw new Kronolith_Exception(_("This remote server only supports an outdated WebDAV protocol."));
