@@ -254,8 +254,10 @@ class Kronolith_FreeBusy
      */
     public static function getUrl($email)
     {
-        $sources = $GLOBALS['prefs']->getValue('search_sources');
-        $sources = empty($sources) ? array() : explode("\t", $sources);
+        $sources = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (empty($sources)) {
+            $sources = array();
+        }
 
         try {
             $result = $GLOBALS['registry']->call('contacts/getField',
