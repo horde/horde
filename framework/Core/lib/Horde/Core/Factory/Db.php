@@ -145,6 +145,10 @@ class Horde_Core_Factory_Db
         $class = 'Horde_Db_Adapter_' . $adapter;
 
         if (class_exists($class)) {
+            unset($config['read'],
+                  $config['write_db'],
+                  $config['hostspec'],
+                  $config['splitread']);
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
