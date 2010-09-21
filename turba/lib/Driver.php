@@ -2188,7 +2188,9 @@ class Turba_Driver implements Countable
                 break;
 
             case 'BDAY':
-                if (!empty($item['value'])) {
+                if (empty($item['value'])) {
+                    $hash['birthday'] = '';
+                } else {
                     $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
                 }
                 break;
