@@ -1084,7 +1084,7 @@ class IMP_Compose
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version"), $nls_charset, $charset));
+            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), $nls_charset, $charset));
 
             /* Add default font CSS information here. The data comes to us
              * with no HTML body tag - so simply wrap the data in a body
@@ -1105,7 +1105,7 @@ class IMP_Compose
 
             $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
-            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version"), $nls_charset, $charset));
+            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), $nls_charset, $charset));
 
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
