@@ -14,6 +14,7 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
+[jan] Fix import of addresses from LDIF (Axel Jurak, Bug #9215).
 [jan] Speed up browsing of long address books.
 
 
