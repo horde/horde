@@ -314,7 +314,10 @@ class Horde_Config
                 }
             } elseif (isset($configitem['_type'])) {
                 $val = $formvars->getExists($configname, $wasset);
-                if (!$wasset) {
+                if (!$wasset &&
+                    ((array_key_exists('is_default', $configitem) && $configitem['is_default'])
+                     || !array_key_exists('is_default', $configitem))) {
+
                     $val = isset($configitem['default']) ? $configitem['default'] : null;
                 }
 
