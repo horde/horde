@@ -43,13 +43,15 @@ class IMP_Search_Filter extends IMP_Search_Query
      * Creates a query object from this filter.
      *
      * @param array $mboxes  The list of mailboxes to apply the filter to.
+     * @param string $id     The query ID to use.
      *
      * @return IMP_Search_Query  A query object.
      */
-    public function toQuery(array $mboxes)
+    public function toQuery(array $mboxes, $id = null)
     {
         return new IMP_Search_Query(array(
             'add' => $this->_criteria,
+            'id' => $id,
             'label' => $this->label,
             'mboxes' => $mboxes
         ));

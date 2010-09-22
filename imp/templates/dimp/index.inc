@@ -471,6 +471,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 </div>
 
+<div class="context" id="ctx_filter" style="display:none">
+</div>
+
 <div class="context" id="ctx_flag" style="display:none">
 </div>
 
@@ -487,6 +490,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>
+ <a id="ctx_qsearchopts_filter"><?php echo _("Filter By") ?></a>
  <a id="ctx_qsearchopts_flag"><?php echo _("Show Only") ?></a>
  <a id="ctx_qsearchopts_flagnot"><?php echo _("Don't Show") ?></a>
  <div class="sep"></div>

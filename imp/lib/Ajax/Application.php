@@ -1947,12 +1947,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'change' => $change,
             'initial' => $this->_vars->initial,
             'mbox' => $this->_vars->view,
+            'qsearch' => $this->_vars->qsearch,
+            'qsearchfilter' => $this->_vars->qsearchfilter,
+            'qsearchflag' => $this->_vars->qsearchflag,
+            'qsearchflagnot' => $this->_vars->qsearchflagnot,
+            'qsearchmbox' => $this->_vars->qsearchmbox,
             'rangeslice' => $this->_vars->rangeslice,
             'requestid' => $this->_vars->requestid,
-            'qsearch' => $this->_vars->qsearch,
-            'qsearchflag' => $this->_vars->qsearchflag,
-            'qsearchmbox' => $this->_vars->qsearchmbox,
-            'qsearchflagnot' => $this->_vars->qsearchflagnot,
             'sortby' => $this->_vars->sortby,
             'sortdir' => $this->_vars->sortdir
         );

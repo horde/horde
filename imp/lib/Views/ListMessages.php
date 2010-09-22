@@ -30,59 +30,65 @@ class IMP_Views_ListMessages
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
-            /* Create the search query. */
-            $c_list = array();
-
-            if (strlen($args['qsearchflag'])) {
-                $c_list[] = new IMP_Search_Element_Flag(
-                    $args['qsearchflag'],
-                    empty($args['qsearchflagnot'])
-                );
-
-                $is_search = true;
-            } elseif (strlen($args['qsearch'])) {
-                $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
-                $is_search = true;
-
-                switch ($field) {
-                case 'all':
-                case 'body':
-                    $c_list[] = new IMP_Search_Element_Text(
-                        $args['qsearch'],
-                        ($field == 'body')
-                    );
-                    break;
-
-                case 'from':
-                case 'subject':
-                    $c_list[] = new IMP_Search_Element_Header(
-                        $args['qsearch'],
-                        $field
-                    );
-                    break;
-
-                case 'recip':
-                    $c_list[] = new IMP_Search_Element_Recipient(
-                        $args['qsearch']
-                    );
-                    break;
-
-                default:
-                    $is_search = false;
-                    break;
-                }
-            }
-
-            /* Store the search in the session. */
-            if ($is_search) {
+            if (strlen($args['qsearchfilter'])) {
                 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-                $imp_search->createQuery(
-                    $c_list,
-                    array($args['qsearchmbox']),
-                    null,
-                    IMP_Search::CREATE_QUERY,
-                    $mbox
-                );
+                $imp_search->applyFilter($args['qsearchfilter'], array($args['qsearchmbox']), $mbox);
+                $is_search = true;
+            } else {
+                /* Create the search query. */
+                $c_list = array();
+
+                if (strlen($args['qsearchflag'])) {
+                    $c_list[] = new IMP_Search_Element_Flag(
+                        $args['qsearchflag'],
+                        empty($args['qsearchflagnot'])
+                    );
+
+                    $is_search = true;
+                } elseif (strlen($args['qsearch'])) {
+                    $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                    $is_search = true;
+
+                    switch ($field) {
+                    case 'all':
+                    case 'body':
+                        $c_list[] = new IMP_Search_Element_Text(
+                            $args['qsearch'],
+                            ($field == 'body')
+                        );
+                        break;
+
+                    case 'from':
+                    case 'subject':
+                        $c_list[] = new IMP_Search_Element_Header(
+                            $args['qsearch'],
+                            $field
+                        );
+                    break;
+
+                    case 'recip':
+                        $c_list[] = new IMP_Search_Element_Recipient(
+                            $args['qsearch']
+                        );
+                        break;
+
+                    default:
+                        $is_search = false;
+                        break;
+                    }
+                }
+
+                /* Store the search in the session. */
+                if ($is_search) {
+                    $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                    $imp_search->createQuery(
+                        $c_list,
+                        array($args['qsearchmbox']),
+                        null,
+                        IMP_Search::CREATE_QUERY,
+                        $mbox
+                    );
+                }
             }
         } else {
             $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');

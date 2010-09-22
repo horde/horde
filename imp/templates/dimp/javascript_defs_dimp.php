@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$app_urls = $code = $flags = array();
+$app_urls = $code = $filters = $flags = array();
 
 foreach (IMP_Dimp::menuList() as $app) {
     $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
@@ -21,6 +21,15 @@ foreach ($dimp_block_list as $block) {
         if (empty($app_urls[$app])) {
             $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
         }
+    }
+}
+
+/* Generate filter array. */
+$imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+$imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
+foreach (iterator_to_array($imp_search) as $key => $val) {
+    if ($val->enabled) {
+        $filters[$key] = $val->label;
     }
 }
 
@@ -59,6 +68,9 @@ $code['conf'] = array_filter(array(
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
+    'filters' => $filters,
+    /* Needed to maintain flag ordering. */
+    'filters_o' => array_keys($filters),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
         : array_map(array('IMP_Dimp', 'appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),

@@ -320,17 +320,22 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      *
      * @param string $id     The mailbox ID of the filter.
      * @param array $mboxes  The list of mailboxes to apply the filter on.
+     * @param string $mid    Use as the mailbox ID.
      *
      * @return IMP_Search_Query  The created query object.
      * @throws InvalidArgumentException
      */
-    public function applyFilter($id, array $mboxes)
+    public function applyFilter($id, array $mboxes, $mid = null)
     {
         if (!$this->isFilter($id)) {
             throw new InvalidArgumentException('Invalid filter ID given.');
         }
 
-        $q_ob = $this[$id]->toQuery($mboxes);
+        if (!is_null($mid)) {
+            $mid = $this->_strip($mid);
+        }
+
+        $q_ob = $this[$id]->toQuery($mboxes, $mid);
         $this->_search['query'][$q_ob->id] = $q_ob;
         $this->changed = true;
 

@@ -350,7 +350,7 @@ var DimpBase = {
 
                 if (!this.isSearch(f)) {
                     $('searchbar').hide();
-                } else if (!this.search || this.search.flag) {
+                } else if (!this.search || !this.search.qsearch) {
                     $('qsearch').hide();
                 }
             }
@@ -488,8 +488,15 @@ var DimpBase = {
                 var p = $H();
                 if (this.folderswitch && this.isSearch(id, true)) {
                     p.set('qsearchmbox', this.search.mbox);
-                    if (this.search.flag) {
-                        p.update({ qsearchflag: this.search.flag, qsearchflagnot: Number(this.convertFlag(this.search.flag, this.search.not)) });
+                    if (this.search.filter) {
+                        p.update({
+                            qsearchfilter: this.search.filter
+                        });
+                    } else if (this.search.flag) {
+                        p.update({
+                            qsearchflag: this.search.flag,
+                            qsearchflagnot: Number(this.convertFlag(this.search.flag, this.search.not))
+                        });
                     } else {
                         p.set('qsearch', $F('qsearch_input'));
                     }
@@ -895,7 +902,14 @@ var DimpBase = {
             break;
 
         default:
-            if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
+            if (menu == 'ctx_qsearchopts_filter') {
+                this.search = {
+                    filter: elt.retrieve('filter'),
+                    label: this.viewport.getMetaData('label'),
+                    mbox: this.folder
+                }
+                this.go('folder:' + DIMP.conf.fsearchid);
+            } else if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.retrieve('flag');
                 this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
             } else if (menu.endsWith('_flag') || menu.endsWith('_flagnot')) {
@@ -1008,6 +1022,13 @@ var DimpBase = {
             parentfunc(e);
             break;
         }
+    },
+
+    contextAddFilter: function(filter, label)
+    {
+        var a = new Element('A').insert(label.escapeHTML());
+        $('ctx_filter').insert(a);
+        a.store('filter', filter);
     },
 
     contextAddFlag: function(flag, f)
@@ -1581,6 +1602,7 @@ var DimpBase = {
             this.search = {
                 label: this.viewport.getMetaData('label'),
                 mbox: this.folder,
+                qsearch: true,
                 query: q
             };
             this.go('folder:' + DIMP.conf.qsearchid);
@@ -3034,8 +3056,14 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
+            DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_filter');
             DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag');
             DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag');
+
+            /* Create flag entries. */
+            DIMP.conf.filters_o.each(function(f) {
+                this.contextAddFilter(f, DIMP.conf.filters[f]);
+            }, this);
         }
 
         /* Store these text strings for updating purposes. */
