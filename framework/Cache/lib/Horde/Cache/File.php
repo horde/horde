@@ -134,11 +134,17 @@ class Horde_Cache_File extends Horde_Cache_Base
      * Attempts to store data to the filesystem.
      *
      * @param string $key        Cache key.
-     * @param mixed $data        Data to store in the cache. (MUST BE A STRING)
+     * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
+     *
+     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Data must be a string.');
+        }
+
         $filename = $this->_keyToFile($key, true);
         $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
         if (isset($this->_params['umask'])) {
@@ -146,7 +152,7 @@ class Horde_Cache_File extends Horde_Cache_Base
         }
 
         if (file_put_contents($tmp_file, $data) === false) {
-            return;
+            throw new Horde_Cache_Exception('Cannot write to cache directory ' . $this->_dir);
         }
 
         @rename($tmp_file, $filename);

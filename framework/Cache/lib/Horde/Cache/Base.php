@@ -92,6 +92,8 @@ abstract class Horde_Cache_Base
      *                           data becomes available for garbage
      *                           collection.  If null use the default Horde GC
      *                           time.  If 0 will not be GC'd.
+     *
+     * @throws Horde_Cache_Exception
      */
     abstract public function set($key, $data, $lifetime = null);
 

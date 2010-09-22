@@ -136,12 +136,18 @@ class Horde_Cache_Sql extends Horde_Cache_Base
      * Attempts to store data.
      *
      * @param string $key        Cache key.
-     * @param mixed $data        Data to store in the cache. (MUST BE A STRING)
+     * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Maximum data life span or 0 for a
      *                           non-expiring object.
+     *
+     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Data must be a string.');
+        }
+
         $okey = $key;
         $key = hash('md5', $key);
 
@@ -171,7 +177,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         try {
             $this->_db->insert($query, $values);
-        } catch (Horde_Db_Exception $e) {}
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Cache_Exception($e);
+        }
     }
 
     /**
