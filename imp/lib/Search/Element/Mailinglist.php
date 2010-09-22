@@ -49,7 +49,7 @@ class IMP_Search_Element_Mailinglist extends IMP_Search_Element
      */
     public function queryText()
     {
-        return ($this->_data ? _("not") . ' ' : '') . _("Mailing List Message");
+        return ($this->_data ? _("not") . ' ' : '') . _("Mailing List Messages");
     }
 
 }
