@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add personal recipient message filter (Request #8659).
 [mms] Add mailing list message filter (Request #8659).
 [mms] Add ability to define search criteria to be applied to any mailbox
       (Request #8659).

@@ -84,6 +84,10 @@ var ImpSearch = {
                 this.insertOr();
                 break;
 
+            case 'IMP_Search_Element_Personal':
+                this.insertFilter('personal', crit);
+                break;
+
             case 'IMP_Search_Element_Recipient':
                 this.insertText('recip', crit.t, crit.n);
                 break;

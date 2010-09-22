@@ -112,6 +112,10 @@ $filters = array(
         'label' => _("Mailing List Messages"),
         'type' => 'filter'
     ),
+    'personal' => array(
+        'label' => _("Personal Messages"),
+        'type' => 'filter'
+    ),
 );
 
 /* Define some constants. */
@@ -230,6 +234,12 @@ if ($vars->criteria_form) {
 
         case 'mailinglist':
             $c_list[] = new IMP_Search_Element_Mailinglist(
+                $val->n
+            );
+            break;
+
+        case 'personal':
+            $c_list[] = new IMP_Search_Element_Personal(
                 $val->n
             );
             break;

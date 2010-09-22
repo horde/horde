@@ -408,7 +408,7 @@ $_prefs['filter'] = array(
     //         'disable' => false
     //     ))
     // ))
-    'value' => 'a:2:{i:0;C:22:"IMP_Search_Filter_Bulk":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:1;C:29:"IMP_Search_Filter_Mailinglist":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}}'
+    'value' => 'a:3:{i:0;C:22:"IMP_Search_Filter_Bulk":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:1;C:29:"IMP_Search_Filter_Mailinglist":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}i:2;C:26:"IMP_Search_Filter_Personal":30:{a:2:{s:1:"e";i:1;s:1:"v";i:1;}}}'
 );
 
 
