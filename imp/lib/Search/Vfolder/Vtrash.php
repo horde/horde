@@ -12,15 +12,8 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder
+class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
 {
-    /**
-     * Can this query be edited?
-     *
-     * @var boolean
-     */
-    public $canEdit = false;
-
     /**
      * Display this virtual folder in the preferences screen?
      *
@@ -29,38 +22,17 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder
     public $prefDisplay = false;
 
     /**
-     * List of serialize entries not to save.
-     *
-     * @var array
-     */
-    protected $_nosave = array('i', 'l', 'm');
-
-    /**
-     * Constructor.
-     *
-     * The 'add', 'id', 'label', and 'mboxes' parameters are not honored.
-     *
-     * @see parent::__construct()
-     */
-    public function __construct(array $opts = array())
-    {
-        $this->enabled = empty($opts['disable']);
-
-        $this->add(new IMP_Search_Element_Flag(
-            '\\deleted',
-            true
-        ));
-
-        $this->_init();
-    }
-
-    /**
      * Initialization tasks.
      */
     protected function _init()
     {
         $this->_id = 'vtrash';
         $this->_label = _("Virtual Trash");
+
+        $this->add(new IMP_Search_Element_Flag(
+            '\\deleted',
+            true
+        ));
     }
 
     /**
@@ -77,19 +49,6 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder
         }
 
         return parent::__get($name);
-    }
-
-    /**
-     * Unserialization.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
-     */
-    public function unserialize($data)
-    {
-        parent::unserialize($data);
-        $this->_init();
     }
 
 }

@@ -12,32 +12,15 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder
+class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder_Builtin
 {
     /**
-     * Can this query be edited?
-     *
-     * @var boolean
+     * Initialization tasks.
      */
-    protected $_canEdit = false;
-
-    /**
-     * List of serialize entries not to save.
-     *
-     * @var array
-     */
-    protected $_nosave = array('i', 'l', 'm');
-
-    /**
-     * Constructor.
-     *
-     * The 'add', 'id', 'label', and 'mboxes' parameters are not honored.
-     *
-     * @see parent::__construct()
-     */
-    public function __construct(array $opts = array())
+    protected function _init()
     {
-        $this->enabled = empty($opts['disable']);
+        $this->_id = 'vinbox';
+        $this->_label = _("Virtual Inbox");
 
         $this->add(new IMP_Search_Element_Flag(
             '\\seen',
@@ -47,17 +30,6 @@ class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder
             '\\deleted',
             false
         ));
-
-        $this->_init();
-    }
-
-    /**
-     * Initialization tasks.
-     */
-    protected function _init()
-    {
-        $this->_id = 'vinbox';
-        $this->_label = _("Virtual Inbox");
     }
 
     /**
@@ -74,19 +46,6 @@ class IMP_Search_Vfolder_Vinbox extends IMP_Search_Vfolder
         }
 
         return parent::__get($name);
-    }
-
-    /**
-     * Unserialization.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
-     */
-    public function unserialize($data)
-    {
-        parent::unserialize($data);
-        $this->_init();
     }
 
 }
