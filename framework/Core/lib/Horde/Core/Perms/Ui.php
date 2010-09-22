@@ -349,7 +349,7 @@ class Horde_Core_Perms_Ui
         $perm_val = $permission->getGroupPermissions();
         $this->_form->setSection('groups', _("Groups"), Horde::img('group.png'), false);
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group_list = $groups->listGroups();
         } catch (Horde_Group_Exception $e) {
             $GLOBALS['notification']->push($e);

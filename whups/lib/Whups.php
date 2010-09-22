@@ -500,7 +500,7 @@ class Whups {
     function getOwnerCriteria($user)
     {
         $criteria = array('user:' . $user);
-        $groups = Horde_Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
@@ -576,7 +576,7 @@ class Whups {
                 }
             } elseif ($type == 'group') {
                 try {
-                    $groups = Horde_Group::singleton();
+                    $groups = $GLOBALS['injector']->getInstance('Horde_Group');
                     $group = $groups->getGroupById($user);
 
                     $results[$user]['user'] = $group->getShortName();

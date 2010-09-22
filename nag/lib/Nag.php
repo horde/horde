@@ -823,7 +823,7 @@ class Nag
             throw new Nag_Exception($e);
         }
 
-        $groups = Horde_Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         $recipients = array();
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
         $from = $identity->getDefaultFromAddress(true);

@@ -230,7 +230,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         /* Remove user from all groups */
-        $groups = Horde_Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         try {
             $allGroups = $groups->getGroupMemberships($user);
             foreach (array_keys($allGroups) as $id) {
@@ -306,7 +306,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->newGroup($name, $parent);
             $groups->addGroup($group);
         } catch (Horde_Group_Exception $e) {
@@ -328,7 +328,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             $groups->removeGroup($group, true);
         } catch (Horde_Group_Exception $e) {
@@ -351,7 +351,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             $group->addUser($user);
         } catch (Horde_Group_Exception $e) {
@@ -374,7 +374,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             foreach ($users as $user) {
                 $group->addUser($user, false);
@@ -400,7 +400,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             $group->removeUser($user);
         } catch (Horde_Group_Exception $e) {
@@ -423,7 +423,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             foreach ($users as $user) {
                 $group->removeUser($user, false);
@@ -449,7 +449,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $group = $groups->getGroup($name);
             return $group->listUsers();
         } catch (Horde_Group_Exception $e) {
@@ -605,7 +605,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groupId = $groups->getGroupId($groupName);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
@@ -674,7 +674,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groupId = $groups->getGroupId($groupName);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);

@@ -207,7 +207,7 @@ class Folks_Hooks
 
     public function prelogin($app)
     {
-        $group = Horde_Group::singleton();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
         $user_uid = $GLOBALS['registry']->getAuth();
 
         switch ($app) {

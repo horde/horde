@@ -1176,7 +1176,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $group = Horde_Group::singleton();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
         $alarm_list = array();
         $time = new Horde_Date($time);
         $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];

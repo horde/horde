@@ -204,7 +204,7 @@ class Ansel_Storage
             }
 
             if ($perms) {
-                $groups = Horde_Group::singleton();
+                $groups = $GLOBALS['injector']->getInstance('Horde_Group');
                 $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                 if (count($group_list)) {
                     foreach ($group_list as $group_id => $group_name) {

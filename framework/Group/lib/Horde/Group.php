@@ -119,64 +119,16 @@ class Horde_Group
             $params = Horde::getDriverConfig('group', $driver);
         }
 
-        $class = self::_loadDriver($driver);
+        if (!$driver) {
+            $class = __CLASS__;
+        } else {
+            $class = __CLASS__ . '_' . Horde_String::ucfirst(Horde_String::lower(basename($driver)));
+        }
         if (class_exists($class)) {
             return new $class($params);
         }
 
         throw new Horde_Group_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Group instance.
-     * It will only create a new instance if no Group instance
-     * currently exists.
-     *
-     * @return Group  The concrete Group reference, or false on an error.
-     */
-    public static function singleton()
-    {
-        static $group;
-
-        if (isset($group)) {
-            return $group;
-        }
-
-        $group_driver = $GLOBALS['conf']['group']['driver'];
-        $group_params = Horde::getDriverConfig('group', $group_driver);
-        self::_loadDriver($group_driver);
-
-        $group = null;
-        if (!empty($GLOBALS['conf']['group']['cache'])) {
-            $session = new Horde_SessionObjects();
-            $group = $session->query('horde_group');
-        }
-
-        if (!$group) {
-            $group = self::factory($group_driver, $group_params);
-        }
-
-        if (!empty($GLOBALS['conf']['group']['cache'])) {
-            register_shutdown_function(array($group, 'shutdown'));
-        }
-
-        return $group;
-    }
-
-    /**
-     */
-    protected static function _loadDriver($driver)
-    {
-        if (!$driver) {
-            $class = __CLASS__;
-        } else {
-            $driver = ucfirst(strtolower(basename($driver)));
-            $class = __CLASS__ . '_' . $driver;
-            if (!class_exists($class)) {
-            }
-        }
-
-        return $class;
     }
 
     /**

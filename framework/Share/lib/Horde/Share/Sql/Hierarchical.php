@@ -215,7 +215,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                 // If the user has any group memberships, check for those also.
                 // @TODO: Inject the group driver
                 try {
-                    $group = Horde_Group::singleton();
+                    $group = $GLOBALS['injector']->getInstance('Horde_Group');
                     $groups = $group->getGroupMemberships($userid, true);
                     if ($groups) {
                         // (name == perm_groups and key in ($groups) and val & $perm)

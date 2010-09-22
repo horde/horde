@@ -25,7 +25,7 @@ class AddCommentForm extends Horde_Form {
         /* Group restrictions. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin')) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {

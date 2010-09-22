@@ -388,7 +388,7 @@ class Horde_Perms
         if (isset($permission->data['groups']) &&
             is_array($permission->data['groups']) &&
             count($permission->data['groups'])) {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
 
             $composite_perm = null;
             $type = $permission->get('type');
