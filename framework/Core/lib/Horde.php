@@ -1667,6 +1667,9 @@ HTML;
      * Call a Horde hook, handling all of the necessary lookups and parsing
      * of the hook code.
      *
+     * WARNING: Throwing exceptions is expensive, so use callHook() with care
+     * and cache the results if you going to use the results more than once.
+     *
      * @param string $hook  The function to call.
      * @param array  $args  An array of any arguments to pass to the hook
      *                      function.
@@ -1681,7 +1684,8 @@ HTML;
         $error = false;
         $hook_class = $app . '_Hooks';
 
-        if (empty(self::$_hooksLoaded[$app]) && !class_exists($hook_class, false)) {
+        if (empty(self::$_hooksLoaded[$app]) &&
+            !class_exists($hook_class, false)) {
             try {
                 self::loadConfiguration('hooks.php', null, $app);
             } catch (Horde_Exception $e) {}

@@ -617,6 +617,10 @@ to a Horde_Exception before throwing.
 When throwing a Horde_Exception the error message provided should not be
 localized.
 
+Throwing exceptions is expensive, so use them carefully for logic flow. You
+should cache results of Horde::callHook() calls for example, if you expect them
+to not exist.
+
 
 Existence checking
 ==================
