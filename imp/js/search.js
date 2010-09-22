@@ -76,6 +76,10 @@ var ImpSearch = {
                 }
                 break;
 
+            case 'IMP_Search_Element_Mailinglist':
+                this.insertFilter('mailinglist', crit);
+                break;
+
             case 'IMP_Search_Element_Or':
                 this.insertOr();
                 break;

@@ -108,6 +108,10 @@ $filters = array(
         'label' => _("Bulk Messages"),
         'type' => 'filter'
     ),
+    'mailinglist' => array(
+        'label' => _("Mailing List Messages"),
+        'type' => 'filter'
+    ),
 );
 
 /* Define some constants. */
@@ -220,6 +224,12 @@ if ($vars->criteria_form) {
 
         case 'bulk':
             $c_list[] = new IMP_Search_Element_Bulk(
+                $val->n
+            );
+            break;
+
+        case 'mailinglist':
+            $c_list[] = new IMP_Search_Element_Mailinglist(
                 $val->n
             );
             break;
