@@ -96,7 +96,7 @@ class Horde_Core_Factory_Prefs
         $sig = hash('md5', serialize($opts));
 
         if (isset($this->_instances[$sig])) {
-            $this->_instances[$sig]->setScope($scope);
+            $this->_instances[$sig]->retrieve($scope);
         } else {
             switch ($driver) {
             case 'Ldap':
