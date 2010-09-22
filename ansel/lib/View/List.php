@@ -85,7 +85,7 @@ class Ansel_View_List extends Ansel_View_Base
         } else {
             $this->_page = Horde_Util::getFormData('page', 0);
         }
-        $this->_g_perPage = $prefs->getValue('tilesperpage');
+        $this->_g_perPage = $this->tilesperpage ? $this->tilesperpage : $prefs->getValue('tilesperpage');
 
         // If we are calling from the api, we can just pass a list of gallery
         // ids instead of doing grouping stuff.
@@ -235,6 +235,7 @@ class Ansel_View_List extends Ansel_View_Base
                                                        'page' => $this->_page));
             }
 
+            $tilesperrow = $this->tilesperrow ? $this->tilesperrow : $prefs->getValue('tilesperrow');
             // Get top-level / default gallery style.
             if (empty($this->_params['style'])) {
                 $style = Ansel::getStyleDefinition($prefs->getValue('default_gallerystyle'));
@@ -242,7 +243,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $style = Ansel::getStyleDefinition($this->_params['style']);
             }
             $count = 0;
-            $width = round(100 / ($this->tilesperrow ? $this->tilesperrow : $prefs->getValue('tilesperrow')));
+            $width = round(100 / $tilesperrow);
 
             Horde::startBuffer();
             include ANSEL_TEMPLATES . '/view/list.inc';

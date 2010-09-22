@@ -39,18 +39,16 @@
 <table width="<?php echo ($this->countWidgets() ? 73 : 100) ?>%" style="background-color:<?php echo $style->background ?>;">
  <tr>
  <?php
- $tilesperrow = $prefs->getValue('tilesperrow');
  $cellwidth = round(100 / $tilesperrow);
  $count = 0;
  foreach ($this->_galleryList as $galleryId => $gallery) {
      echo '<td width="' . $width . '%" class="ansel-tile">' . $gallery->getTile(null, $style, false, $this->_params) . '</td>';
-     if (!(++$count % $prefs->getValue('tilesperrow'))) {
+     if (!(++$count % $tilesperrow)) {
          if ($count < $this->_numGalleries) {
              echo '</tr><tr>';
          }
      }
  }
- $tilesperrow = $prefs->getValue('tilesperrow');
  while ($count++ % $tilesperrow) {
      echo '<td width="' . $width . '%">&nbsp;</td>';
  } ?>
