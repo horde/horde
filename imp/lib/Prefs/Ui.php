@@ -1324,8 +1324,13 @@ class IMP_Prefs_Ui
 
             foreach ($imp_search as $key => $val) {
                 $form_key = 'enable_' . $key;
-                $val->enabled = !empty($ui->vars->$form_key);
-                $vfolders[$key] = $val;
+
+                /* Only change enabled status for virtual folders displayed
+                 * on the preferences screen. */
+                if (isset($ui->vars->$form_key)) {
+                    $val->enabled = !empty($ui->vars->$form_key);
+                    $vfolders[$key] = $val;
+                }
             }
             $imp_search->setVFolders($vfolders);
             break;
