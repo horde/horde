@@ -405,6 +405,10 @@ class Horde_Block_Collection
      */
     public function getParams($app, $block)
     {
+        if (!isset($this->_blocks[$app][$block])) {
+            return array();
+        }
+
         if (!isset($this->_blocks[$app][$block]['params'])) {
             $blockOb = $this->getBlock($app, $block);
             $this->_blocks[$app][$block]['params'] = $blockOb->getParams();
