@@ -421,7 +421,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         global $kronolith_shares;
         $target = $kronolith_shares->getShare($newCalendar);
-        $folder = $target->get('folder');
+        $folder = $target->getId();
 
         $result = $this->_store->move($eventId, $folder);
         if ($result) {
