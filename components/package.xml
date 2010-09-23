@@ -57,6 +57,7 @@
       <file name="Base.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="DevPackage.php" role="php" />
+      <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
@@ -169,6 +170,7 @@
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
+   <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
    <install as="Components/Pear/InstallLocation.php" name="lib/Components/Pear/InstallLocation.php" />

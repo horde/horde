@@ -1,7 +1,6 @@
 <?php
 /**
- * The Components_Dependencies:: interface is a central broker for
- * providing the dependencies to the different application parts.
+ * Components_Pear_Package:: provides package handling mechanisms.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * The Components_Dependencies:: interface is a central broker for
- * providing the dependencies to the different application parts.
+ * Components_Pear_Package:: provides package handling mechanisms.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -27,26 +25,40 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-interface Components_Dependencies
+class Components_Pear_Package
 {
     /**
-     * Returns the distribution handler for a package.
+     * The output handler.
      *
-     * @return Components_Runner_Distribute The distribution handler.
+     * @param Component_Output
      */
-    public function getRunnerDistribute();
+    private $_output;
 
     /**
-     * Returns the installer for a package.
+     * The package representation.
      *
-     * @return Components_Runner_Installer The installer.
+     * @param PEAR_PackageFile_v2
      */
-    public function getRunnerInstaller();
+    private $_package;
 
     /**
-     * Returns the output handler.
+     * Constructor.
      *
-     * @return Components_Output The output handler.
+     * @param Component_Output $output The output handler.
      */
-    public function getOutput();
+    public function __construct(Components_Output $output)
+    {
+        $this->_output = $output;
+    }
+
+    /**
+     * Define the package to work on.
+     *
+     * @param string $package_xml_patch Path to the package.xml file.
+     *
+     * @return NULL
+     */
+    public function setPackage($package_xml_path)
+    {
+    }
 }
