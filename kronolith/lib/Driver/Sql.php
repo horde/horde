@@ -229,8 +229,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * Lists all events in the time range, optionally restricting results to
      * only events with alarms.
      *
-     * @param Horde_Date $startInterval  Start of range date object.
-     * @param Horde_Date $endInterval    End of range data object.
+     * @param Horde_Date $startDate     Start of range date object.
+     * @param Horde_Date $endDate        End of range data object.
      * @param boolean $showRecurrence    Return every instance of a recurring
      *                                   event? If false, will only return
      *                                   recurring events once inside the
@@ -240,6 +240,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
+     * @param boolean $hideExceptions    Hide events that represent exceptions
+     *                                   to a recurring event (baseid is set)?
      * @param boolean $fetchTags         Whether to fetch tags for all events
      *
      * @return array  Events in the given time range.
