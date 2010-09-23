@@ -36,7 +36,6 @@ v4.0-cvs
 [mms] Use Gnumeric package to render MS Excel files.
 [mms] Use AbiWord package to render MS Word files.
 [cjh] Remove sapdb session handler backend.
-[mms] Update FCKeditor to v2.6.4.
 [jan] Add share locking (Alfonso Marín Marín <almarin@um.es>).
 [cjh] Remove javascript popup alarms.
 [cjh] Update the Auth_passwd driver's add/update/remove user
