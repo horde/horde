@@ -2023,7 +2023,12 @@ abstract class Kronolith_Event
                         // Convert IDN hosts to ASCII.
                         if (Horde_Util::extensionExists('idn')) {
                             $old_error = error_reporting(0);
-                            $url['host'] = idn_to_ascii(Horde_String::convertCharset($url['host'], $GLOBALS['registry']->getCharset(), 'UTF-8'));
+                            $url['host'] = Horde_String::convertCharset($url['host'], $GLOBALS['registry']->getCharset(), 'UTF-8');
+                            if (function_exists('idn_to_ascii')) {
+                                $url['host'] = idn_to_ascii($url['host']);
+                            } elseif (function_exists('idn_punycode_encode')) {
+                                $url['host'] = idn_punycode_encode($url['host']);
+                            }
                             error_reporting($old_error);
                         } elseif (Horde_Mime::is8bit($url['host'])) {
                             //throw new Kronolith_Exception(_("Invalid character in URL."));
