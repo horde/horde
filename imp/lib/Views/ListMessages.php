@@ -148,12 +148,14 @@ class IMP_Views_ListMessages
         /* The search query may have changed. */
         if ($is_search &&
             ($args['initial'] || strlen($args['qsearchmbox']))) {
-            $md->slabel = $imp_search[$mbox]->querytext;
             if ($imp_search->isVFolder($mbox)) {
+                $md->slabel = $imp_search[$mbox]->label;
                 $md->vfolder = 1;
                 if (!$imp_search->isVFolder($mbox, true)) {
                     $md->noedit = 1;
                 }
+            } else {
+                $md->slabel = $imp_search[$mbox]->querytext;
             }
         }
 
