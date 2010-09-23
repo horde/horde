@@ -71,11 +71,12 @@ class Ansel_Tile_Image
         if (!empty($params['image_view_src'])) {
             $view_url = Ansel::getImageUrl($image->id, 'screen', true);
         } elseif (empty($params['image_view_url'])) {
-            $view_url = $img_view_url;
+            $view_url = new Horde_Url($img_view_url);
         } else {
-            $view_url = str_replace(array('%i', '%g', '%s'),
-                                    array($image->id, $image->gallery, $parent->get('slug')),
-                                    urldecode($params['image_view_url']));
+            $view_url = new Horde_Url(
+                str_replace(array('%i', '%g', '%s'),
+                            array($image->id, $image->gallery, $parent->get('slug')),
+                            urldecode($params['image_view_url'])));
 
             // If we override the view_url, assume we want to override this also
             $img_view_url = $view_url;
