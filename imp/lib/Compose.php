@@ -277,10 +277,11 @@ class IMP_Compose
      */
     protected function _saveDraftServer($data)
     {
-        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
+        $drafts_mbox = $GLOBALS['prefs']->getValue('drafts_folder');
         if (empty($drafts_mbox)) {
             throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
         }
+        $drafts_mbox = IMP::folderPref($drafts_mbox, true);
 
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
@@ -299,7 +300,6 @@ class IMP_Compose
          * set the $MDNSent keyword. However, IMP doesn't write MDN headers
          * until send time so no need to set the flag here. */
 
-        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
         $old_uid = $this->getMetadata('draft_uid');
 
         /* Add the message to the mailbox. */

@@ -98,10 +98,10 @@ $compose_disable = !IMP::canCompose();
 
 /* Determine if mailboxes are readonly. */
 $readonly_drafts = $readonly_sentmail = false;
-$draft = IMP::folderPref($prefs->getValue('drafts_folder'), true);
+$draft = $prefs->getValue('drafts_folder');
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 if (!empty($draft)) {
-    $readonly_drafts = $imp_imap->isReadOnly($draft);
+    $readonly_drafts = $imp_imap->isReadOnly(IMP::folderPref($draft, true));
 }
 $readonly_sentmail = $imp_imap->isReadOnly($sent_mail_folder);
 if ($readonly_sentmail) {

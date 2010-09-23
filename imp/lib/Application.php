@@ -244,7 +244,7 @@ class IMP_Application extends Horde_Registry_Application
                 }
             }
 
-            $spam_folder = IMP::folderPref($prefs->getValue('spam_folder'), true);
+            $spam_folder = $prefs->getValue('spam_folder');
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
                 $menu->addArray(array(
@@ -252,7 +252,7 @@ class IMP_Application extends Horde_Registry_Application
                     'icon' =>  'empty_spam.png',
                     'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $registry->getCharset()) . ')',
                     'text' => _("Empty _Spam"),
-                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
+                    'url' => IMP::generateIMPUrl($menu_mailbox_url, IMP::folderPref($spam_folder, true))->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
                 ));
             }
         }

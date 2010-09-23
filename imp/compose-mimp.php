@@ -59,14 +59,15 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
     $identity->setDefault($vars->identity);
 }
 
-$draft = IMP::folderPref($prefs->getValue('drafts_folder'), true);
+$draft = $prefs->getValue('drafts_folder');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
 
 /* Determine if mailboxes are readonly. */
+$readonly_drafts = false;
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
-$readonly_drafts = empty($draft)
-    ? false
-    : $imp_imap->isReadOnly($draft);
+if (!empty($draft)) {
+    $readonly_drafts = $imp_imap->isReadOnly(IMP::folderPref($draft, true));
+}
 $save_sent_mail = $imp_imap->isReadOnly($sent_mail_folder)
     ? false
     : $prefs->getValue('save_sent_mail');
