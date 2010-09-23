@@ -1005,14 +1005,9 @@ class IMP_Compose
         }
 
         // Convert IDN hosts to ASCII.
-        if (Horde_Util::extensionExists('idn')) {
+        if (function_exists('idn_to_ascii')) {
             $old_error = error_reporting(0);
-            $host = Horde_String::convertCharset($host, $GLOBALS['registry']->getCharset(), 'UTF-8');
-            if (function_exists('idn_to_ascii')) {
-                $host = idn_to_ascii($host);
-            } elseif (function_exists('idn_punycode_encode')) {
-                $host = idn_punycode_encode($host);
-            }
+            $host = idn_to_ascii(Horde_String::convertCharset($host, $GLOBALS['registry']->getCharset(), 'UTF-8'));
             error_reporting($old_error);
         } elseif (Horde_Mime::is8bit($ob['mailbox'], $GLOBALS['registry']->getCharset())) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
