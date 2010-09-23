@@ -700,7 +700,7 @@ class Ansel_Api extends Horde_Registry_Api
      * @param string $app  Application scope to use, if not the default.
      * @param array $slugs An array of gallery slugs.
      *
-     * @return mixed  An array of gallery data arrays | PEAR_Error
+     * @return array An array of gallery data arrays
      */
     public function getGalleries($ids = array(), $app = null, $slugs = array())
     {
