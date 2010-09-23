@@ -7,6 +7,30 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
+
+/**
+ * Translates old style array from Ansel 1.x to Ansel 2.x.
+ *
+ * @param array $properties
+ */
+function translate_generators($properties)
+{
+    $thumb_map = array(
+        'thumb' => 'Thumb',
+        'prettythumb' => 'RoundedThumb',
+        'shadowsharpthumb' => 'ShadowThumb',
+        'polaroidthumb' => 'PolaroidThumb');
+
+    $properties['thumbstyle'] = $thumb_map[$properties['thumbstyle']];
+    unset($properties['requires_png']);
+    unset($properties['name']);
+    unset($properties['title']);
+    unset($properties['hide']);
+    unset($properties['default_galleryimage_type']);
+
+    return $properties;
+}
+
 $debug = false;
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
@@ -40,10 +64,10 @@ foreach ($rows as $row) {
         $newStyle = '';
     } else {
         $properties = array_merge($defaults, $styles[$row[1]]);
-        unset($properties['requires_png']);
-        unset($properties['name']);
-        unset($properties['title']);
-        unset($properties['hide']);
+
+        // Translate previous generator names:
+        $properties = translate_generators($properties);
+
         $newStyle = serialize(new Ansel_Style($properties));
     }
     if ($debug) {
