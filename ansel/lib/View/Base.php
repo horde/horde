@@ -124,6 +124,8 @@ abstract class Ansel_View_Base
      *
      * @return Ansel_Gallery  The requested Ansel_Gallery object
      * @throws Horde_Exception
+     * @throws InvalidArgumentException
+     *
      */
     protected function _getGallery($galleryId = null, $slug = '')
     {
@@ -133,15 +135,20 @@ abstract class Ansel_View_Base
         }
 
         if (empty($galleryId) && empty($slug)) {
-            throw new Horde_Exception(_("No gallery specified"));
+            throw new InvalidArgumentException(_("No gallery specified"));
         }
 
         // If we have a slug, use it.
-        if (!empty($slug)) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGalleryBySlug($slug);
-        } else {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
+        try {
+            if (!empty($slug)) {
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGalleryBySlug($slug);
+            } else {
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
+            }
+        } catch (Ansel_Exception $e) {
+            throw new Horde_Exception_NotFound($e->getmessage());
         }
+
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }

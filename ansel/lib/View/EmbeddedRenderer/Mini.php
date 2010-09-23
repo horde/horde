@@ -50,7 +50,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         } else {
             try {
                 $this->gallery = $this->_getGallery($gallery_id, $gallery_slug);
-            } catch (Horde_Exception $e) {
+            } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 exit;
             }
