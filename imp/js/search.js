@@ -11,18 +11,28 @@ var ImpSearch = {
     criteria: {},
     saved_searches: {},
 
-    _getAll: function()
+    getAll: function()
     {
         return $('search_form').getInputs(null, 'folder_list[]');
     },
 
     selectFolders: function(checked)
     {
-        this._getAll().each(function(e) {
+        this.getAll().each(function(e) {
             if (!e.disabled) {
                 e.checked = Boolean(checked);
             }
         });
+    },
+
+    showOr: function(show)
+    {
+        var or = $('search_criteria_add').down('[value="or"]');
+        if (show) {
+            or.show().next().show();
+        } else {
+            or.hide().next().hide();
+        }
     },
 
     updateRecentSearches: function(searches)
@@ -132,13 +142,13 @@ var ImpSearch = {
         switch (elt.readAttribute('id')) {
         case 'recent_searches':
             this.updateSearchCriteria(this.saved_searches[$F(elt)]);
-            if (!$('search_criteria_table').up().visible()) {
-                this._toggleHeader($('search_criteria_table').up().previous());
+            if (!$('search_criteria').up().visible()) {
+                this.toggleHeader($('search_criteria').up().previous());
             }
             elt.clear();
             break;
 
-        case 'search_criteria':
+        case 'search_criteria_add':
             if (val == 'or') {
                 this.insertOr();
                 break;
@@ -182,56 +192,74 @@ var ImpSearch = {
 
     getLabel: function(id)
     {
-        return $('search_criteria').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
     },
 
-    deleteCriteria: function(tr)
+    deleteCriteria: function(div)
     {
-        delete this.criteria[tr.identify()];
-        tr.remove();
-        if ($('search_criteria_table').childElements().size()) {
-            $('search_criteria_table').down('TR TD').update('');
-        } else {
-            $('search_criteria').down('[value="or"]').hide().next().hide();
+        var first, keys;
+
+        delete this.criteria[div.identify()];
+        div.remove();
+
+        keys = $('search_criteria').childElements().pluck('id');
+        if (keys.size()) {
+            first = keys.first();
+
+            if (this.criteria[first].t && this.criteria[first].t == 'or') {
+                $(first).remove();
+                delete this.criteria[first];
+                keys = [];
+            } else if ($(first).down().hasClassName('join')) {
+                $(first).down().remove();
+            }
+        }
+
+        if (!keys.size()) {
+            this.showOr(false);
         }
     },
 
     resetCriteria: function()
     {
-        $('search_criteria_table').childElements().each(this.deleteCriteria.bind(this));
+        $('search_criteria').childElements().invoke('remove');
+        this.criteria = {};
+        this.showOr(false);
     },
 
-    insertCriteria: function(tds, or)
+    insertCriteria: function(tds)
     {
-        var tr = new Element('TR'),
-            td = new Element('TD');
+        var div = new Element('DIV', { className: 'searchCriteriaId' }),
+            div2 = new Element('DIV', { className: 'searchCriteriaElement' });
 
-        if (!or &&
-            $('search_criteria_table').childElements().size() &&
-            this.criteria[$('search_criteria_table').childElements().last().readAttribute('id')].t != 'or') {
-            tds.unshift(new Element('EM', { className: 'join' }).insert(this.text.and));
-        } else {
-            tds.unshift('');
-            if (!or) {
-                $('search_criteria').down('[value="or"]').show().next().show();
+        if ($('search_criteria').childElements().size()) {
+            if (this.criteria[$('search_criteria').childElements().last().readAttribute('id')].t != 'or') {
+                div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
             }
+        } else {
+            this.showOr(true);
         }
 
+        div.insert(div2);
+
         tds.each(function(node) {
-            tr.insert(td.clone(false).insert(node));
+            div2.insert(node);
         });
 
-        tds.shift();
+        div2.insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
 
-        tr.childElements().last().insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
-        $('search_criteria').clear();
-        $('search_criteria_table').insert(tr);
-        return tr.identify();
+        $('search_criteria_add').clear();
+        $('search_criteria').insert(div);
+
+        return div.identify();
     },
 
     insertOr: function()
     {
-        this.criteria[this.insertCriteria([ new Element('EM', { className: 'join' }).insert(this.text.or + ' ') ], true)] = { t: 'or' };
+        var div = new Element('DIV').insert(new Element('EM', { className: 'join joinOr' }).insert('--&nbsp;' + this.text.or + '&nbsp;--'));
+        $('search_criteria_add').clear();
+        $('search_criteria').insert(div);
+        this.criteria[div.identify()] = { t: 'or' };
     },
 
     insertText: function(id, text, not)
@@ -239,7 +267,7 @@ var ImpSearch = {
         var tmp = [
             new Element('EM').insert(this.getLabel(id)),
             new Element('INPUT', { type: 'text', size: 25 }).setValue(text),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
         tmp[1].activate();
@@ -323,17 +351,17 @@ var ImpSearch = {
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
 
-    _submit: function()
+    submit: function()
     {
         var data = [], tmp;
 
         if ($('search_folders_hdr') &&
-            !this._getAll().findAll(function(i) { return i.checked; }).size()) {
+            !this.getAll().findAll(function(i) { return i.checked; }).size()) {
             alert(this.text.need_folder);
         } else if ($F('search_type') && !$('search_label').present()) {
             alert(this.text.need_label);
         } else {
-            tmp = $('search_criteria_table').childElements().pluck('id');
+            tmp = $('search_criteria').childElements().pluck('id');
             if (tmp.size()) {
                 tmp.each(function(c) {
                     var tmp2;
@@ -411,7 +439,7 @@ var ImpSearch = {
 
             switch (id) {
             case 'search_submit':
-                this._submit();
+                this.submit();
                 e.stop();
                 return;
 
@@ -443,13 +471,13 @@ var ImpSearch = {
             default:
                 if (elt.hasClassName('arrowExpanded') ||
                     elt.hasClassName('arrowCollapsed')) {
-                    this._toggleHeader(elt.up());
+                    this.toggleHeader(elt.up());
                 } else if (elt.hasClassName('searchuiDelete')) {
-                    this.deleteCriteria(elt.up('TR'));
+                    this.deleteCriteria(elt.up('DIV.searchCriteriaId'));
                     e.stop();
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {
-                    Horde_Calendar.open(elt.identify(), this.criteria[elt.up('TR').identify()].v);
+                    Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchCriteriaId').identify()].v);
                     e.stop();
                     return;
                 }
@@ -460,7 +488,7 @@ var ImpSearch = {
         }
     },
 
-    _toggleHeader: function(elt)
+    toggleHeader: function(elt)
     {
         elt.down().toggle().next().toggle().up().next().toggle();
         if (elt.readAttribute('id') == 'search_folders_hdr') {
@@ -473,7 +501,7 @@ var ImpSearch = {
 
     calendarSelectHandler: function(e)
     {
-        var id = e.findElement('TR').identify();
+        var id = e.findElement('DIV.searchCriteriaId').identify();
         this.replaceDate(id, this.criteria[id].t, e.memo);
     },
 
