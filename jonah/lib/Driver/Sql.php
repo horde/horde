@@ -345,26 +345,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _getStories($criteria, $order = Jonah::ORDER_PUBLISHED)
     {
-        // Assuming this was to save the extra tag queries, but this will not
-        // work, it will only return stories that have been tagged.
-//        $sql = 'SELECT DISTINCT(tags.story_id) AS id, ' .
-//               'stories.channel_id, ' .
-//               'stories.story_author AS author, ' .
-//               'stories.story_title AS title, ' .
-//               'stories.story_desc AS description, ' .
-//               'stories.story_body_type AS body_type, ' .
-//               'stories.story_body AS body, ' .
-//               'stories.story_url AS url, ' .
-//               'stories.story_permalink AS permalink, ' .
-//               'stories.story_published AS published, ' .
-//               'stories.story_updated AS updated, ' .
-//               'stories.story_read AS readcount ' .
-//               'FROM jonah_stories_tags AS tags ' .
-//               'LEFT JOIN jonah_stories AS stories ON ' .
-//               'tags.story_id = stories.story_id ' .
-//               'WHERE stories.channel_id=?';
-
-        $sql = 'SELECT stories.story_id AS id, ' .
+        $sql = 'SELECT DISTINCT(stories.story_id) AS id, ' .
            'stories.channel_id, ' .
            'stories.story_author AS author, ' .
            'stories.story_title AS title, ' .
