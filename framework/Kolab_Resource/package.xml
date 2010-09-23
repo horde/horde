@@ -62,11 +62,13 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Resource">
-       <dir name="Integration">
-        <file name="ResourceTest.php" role="test" />
-       </dir> <!-- /test/Horde/Kolab/Resource/Integration -->
-       <file name="phpunit.xml" role="test" />
+       <dir name="fixtures">
+        <file name="recur_invitation.eml" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Resource/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
        <file name="TestCase.php" role="test" />
+       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Kolab/Resource -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
@@ -129,9 +131,11 @@
    <install as="Horde/Kolab/Resource/Reply.php" name="lib/Horde/Kolab/Resource/Reply.php" />
    <install as="Horde/Kolab/Resource/Freebusy/Kolab.php" name="lib/Horde/Kolab/Resource/Freebusy/Kolab.php" />
    <install as="Horde/Kolab/Resource/Freebusy/Mock.php" name="lib/Horde/Kolab/Resource/Freebusy/Mock.php" />
-   <install as="Horde/Kolab/Resource/phpunit.xml" name="test/Horde/Kolab/Resource/phpunit.xml" />
+   <install as="Horde/Kolab/Resource/fixtures/recur_invitation.eml" name="test/Horde/Kolab/Resource/fixtures/recur_invitation.eml" />
+   <install as="Horde/Kolab/Resource/AllTests.php" name="test/Horde/Kolab/Resource/AllTests.php" />
+   <install as="Horde/Kolab/Resource/Autoload.php" name="test/Horde/Kolab/Resource/Autoload.php" />
    <install as="Horde/Kolab/Resource/TestCase.php" name="test/Horde/Kolab/Resource/TestCase.php" />
-   <install as="Horde/Kolab/Resource/Integration/ResourceTest.php" name="test/Horde/Kolab/Resource/Integration/ResourceTest.php" />
+   <install as="Horde/Kolab/Resource/phpunit.xml" name="test/Horde/Kolab/Resource/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
