@@ -30,13 +30,6 @@
 interface Components_Dependencies
 {
     /**
-     * Returns the distribution handler for a package.
-     *
-     * @return Components_Runner_Distribute The distribution handler.
-     */
-    public function getRunnerDistribute();
-
-    /**
      * Returns the installer for a package.
      *
      * @return Components_Runner_Installer The installer.

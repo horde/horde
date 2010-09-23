@@ -99,7 +99,6 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'calling the package with the install option and a Horde element':
             $_SERVER['argv'] = array(
                 'horde-components',
-                '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
                 '--install=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/../../'
             );
