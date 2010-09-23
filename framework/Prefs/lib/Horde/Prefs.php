@@ -253,10 +253,6 @@ class Horde_Prefs
 
         $result = $this->_setValue($pref, $val, true, $convert);
 
-        if ($this->_opts['logger']) {
-            $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
-        }
-
         if ($result && $this->isDirty($pref)) {
             $scope = $this->_getPreferenceScope($pref);
             $this->_cacheUpdate($scope, array($pref));
@@ -296,8 +292,6 @@ class Horde_Prefs
      */
     protected function _setValue($pref, $val, $dirty = true, $convert = true)
     {
-        global $conf;
-
         if ($convert) {
             $val = $this->convertToDriver($val);
         }
@@ -331,6 +325,10 @@ class Horde_Prefs
 
         // Finally, copy into the $_scopes array.
         $this->_scopes[$this->_getPreferenceScope($pref)][$pref] = $this->_prefs[$pref];
+
+        if ($this->_opts['logger']) {
+            $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
+        }
 
         return true;
     }
