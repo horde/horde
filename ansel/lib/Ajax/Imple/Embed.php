@@ -36,9 +36,12 @@ class Ansel_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
         if (!class_exists($class)) {
             throw new Horde_Exception(sprintf("Class definition for %s not found.", $class));
         }
-        $view = new $class($args);
-        header('Content-Type: script/javascript');
-        return $view->html();
+
+        try {
+            $view = new $class($args);
+            header('Content-Type: script/javascript');
+            return $view->html();
+        } catch (Exception $e) {}
     }
 
 }
