@@ -444,10 +444,23 @@ class Jonah_Driver_Sql extends Jonah_Driver
             //@TODO
             break;
         }
-
+        $limit = 0;
+        if (isset($criteria['limit'])) {
+            $limit = $criteria['limit'];
+        }
+        if (isset($criteria['startnumber']) && isset($criteria['endnumber'])) {
+            $limit = min($criteria['endnumber'] - $criteria['startnumber'], $criteria['limit']);
+        }
+        $start = isset($criteria['startnumber']) ? $criteria['startnumber'] : 0;
         Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
-        $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
-
+        if ($limit || $start != 0) {
+            $rows = $this->_db->limitQuery($sql, $start, $limit, $values    );
+            while ($rows->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+                $results[] = $row;
+            }
+        } else {
+            $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        }
         if ($results instanceof PEAR_Error) {
             throw new Jonah_Exception($results);
         }
