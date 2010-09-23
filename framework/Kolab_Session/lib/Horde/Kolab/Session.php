@@ -18,9 +18,9 @@
  * information in the Kolab session handler as reading this data is expensive
  * and it is sufficient to read it once per session.
  *
- * The users account id needs to be provided from the outside via an instance of
- * Horde_Interfaces_Registry_Auth::. Any additional Kolab user data relevant for
- * the user session should be accessed via the Horde_Kolab_Session class.
+ * The users account id needs to be provided from the outside. Any
+ * additional Kolab user data relevant for the user session should be
+ * accessed via the Horde_Kolab_Session class.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *

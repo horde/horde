@@ -42,10 +42,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodIsvalidHasPostconditionThatAnInvalidSessionGetsLogged()
     {
-        $auth = $this->getMock('Horde_Interfaces_Registry_Auth');
-        $auth->expects($this->exactly(2))
-            ->method('getAuth')
-            ->will($this->returnValue('auth@example.org'));
+        $auth = 'auth@example.org';
         $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->exactly(2))
             ->method('getMail')

@@ -117,15 +117,16 @@ class Horde_Core_Factory_KolabSession
     /**
      * Return the session validation driver.
      *
-     * @param Horde_Kolab_Session      $session The session to validate.
-     * @param Horde_Kolab_Session_Auth_Interface $auth    The auth handler.
+     * @param Horde_Kolab_Session $session The session to validate.
+     * @param mixed               $auth    The user ID or false if no user is
+     *                                     logged in.
      *
      * @return Horde_Kolab_Session_Valid_Interface The driver for validating
      *                                             sessions.
      */
     public function getSessionValidator(
         Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Auth_Interface $auth
+        $auth
     ) {
         $configuration = $this->_injector->getInstance('Horde_Kolab_Session_Configuration');
 
@@ -154,7 +155,7 @@ class Horde_Core_Factory_KolabSession
     ) {
         return $this->getSessionValidator(
             $session,
-            $this->_injector->getInstance('Horde_Kolab_Session_Auth_Interface')
+            $this->_injector->getInstance('Horde_Registry')->getAuth()
         )->isValid();
     }
 

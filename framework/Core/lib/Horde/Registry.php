@@ -17,7 +17,6 @@
  * @package  Core
  */
 class Horde_Registry
-implements Horde_Interfaces_Registry_Auth
 {
     /* Session flags. */
     const SESSION_NONE = 1;

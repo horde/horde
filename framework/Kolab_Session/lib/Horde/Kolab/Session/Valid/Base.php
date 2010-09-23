@@ -38,20 +38,20 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Provides authentication information for this object.
      *
-     * @var Horde_Interfaces_Registry_Auth
+     * @var mixed The user ID or false if no user is logged in.
      */
     private $_auth;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session            $session The session that should be
-     *                                                validated.
-     * @param Horde_Interfaces_Registry_Auth $auth    The authentication handler.
+     * @param Horde_Kolab_Session $session The session that should be validated.
+     * @param mixed               $auth    The user ID or false if no user is
+     *                                     logged in.
      */
     public function __construct(
         Horde_Kolab_Session $session,
-        Horde_Interfaces_Registry_Auth $auth
+        $auth
     ) {
         $this->_session = $session;
         $this->_auth    = $auth;
@@ -69,7 +69,7 @@ implements Horde_Kolab_Session_Valid_Interface
     public function isValid($user = null)
     {
         $mail = $this->_session->getMail();
-        if ($this->_auth->getAuth() != $mail) {
+        if ($this->_auth != $mail) {
             return false;
         }
         if (empty($user)) {
@@ -95,8 +95,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Interfaces_Registry_Auth The auth driver set for this
-     * validator.
+     * @return mixed The user ID or false if no user is logged in.
      */
     public function getAuth()
     {
