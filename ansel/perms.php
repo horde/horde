@@ -18,7 +18,7 @@ $fieldsList = array(
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$groups = Horde_Group::singleton();
+$groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $form = null;

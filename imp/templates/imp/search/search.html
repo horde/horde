@@ -2,7 +2,17 @@
  <input class="hidden" name="criteria_form" id="criteria_form" value="" />
 
  <h1 class="header">
-  <strong><if:edit_query_vfolder><gettext>Edit Virtual Folder</gettext><else:edit_query_vfolder><gettext>Search</gettext></else:edit_query_vfolder></if:edit_query_vfolder></strong>
+  <strong>
+<if:edit_query_vfolder>
+   <gettext>Edit Virtual Folder</gettext>
+<else:edit_query_vfolder>
+<if:edit_query_filter>
+   <gettext>Edit Filter</gettext>
+<else:edit_query_filter>
+   <gettext>Search</gettext>
+</else:edit_query_filter></if:edit_query_filter>
+</else:edit_query_vfolder></if:edit_query_vfolder>
+  </strong>
  </h1>
 
  <div id="recent_searches_div" class="smallheader leftAlign" style="display:none">
@@ -36,6 +46,10 @@
     <option value="<tag:clist.val />"><tag:clist.label /></option>
 </loop:clist>
     <option value="" disabled="disabled">- - - - - - - - -</option>
+<loop:filterlist>
+    <option value="<tag:filterlist.val />"><tag:filterlist.label /></option>
+</loop:filterlist>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
 <loop:flist>
     <option value="<tag:flist.val />"><tag:flist.label /></option>
 </loop:flist>
@@ -43,6 +57,7 @@
   </div>
  </div>
 
+<if:edit_query_filter><else:edit_query_filter>
  <div class="smallheader leftAlign" id="search_folders_hdr">
   <span class="searchuiImg arrowExpanded" style="display:none"></span>
   <span class="searchuiImg arrowCollapsed"></span>
@@ -56,6 +71,7 @@
  <div class="item" id="search_folders_tree" style="display:none">
   <tag:tree />
  </div>
+</else:edit_query_filter></if:edit_query_filter>
 
 <if:virtualfolder>
  <div class="smallheader leftAlign">
@@ -66,19 +82,22 @@
 
  <div style="display:none">
 <if:edit_query_vfolder>
-  <input type="hidden" name="search_save" id="search_save" value="1" />
-  <input type="hidden" name="search_type" value="vfolder" />
+  <input type="hidden" id="search_type" name="search_type" value="vfolder" />
   <input type="hidden" name="edit_query_vfolder" value="<tag:edit_query_vfolder />" />
 <else:edit_query_vfolder>
-  <div class="item">
-   <input type="checkbox" class="checkbox" id="search_save" name="search_save" /> <label for="search_save"><gettext>Save search?</gettext></label>
-  </div>
+<if:edit_query_filter>
+  <input type="hidden" id="search_type" name="search_type" value="filter" />
+  <input type="hidden" name="edit_query_filter" value="<tag:edit_query_filter />" />
+<else:edit_query_filter>
   <div class="item">
    <label for="search_type"><gettext>Type:</gettext></label>
    <select id="search_type" name="search_type">
+    <option value="" selected="selected">- - - - - -</option>
+    <option value="filter"><gettext>Filter</gettext></option>
     <option value="vfolder"><gettext>Virtual Folder</gettext></option>
    </select>
   </div>
+</else:edit_query_filter></if:edit_query_filter>
 </else:edit_query_vfolder></if:edit_query_vfolder>
   <div class="item">
    <label for="search_label"><gettext>Label:</gettext></label> <input type="text" name="search_label" id="search_label"<if:search_label> value="<tag:search_label />"</if:search_label> />
@@ -87,13 +106,13 @@
 </if:virtualfolder>
 
  <div class="searchuiButtons">
-<if:edit_query_vfolder>
+<if:edit_query>
   <input type="button" id="search_submit" class="button" value="<gettext>Save</gettext>" />
   <input type="button" id="search_edit_query_cancel" class="button" value="<gettext>Cancel</gettext>" />
-<else:edit_query_vfolder>
+<else:edit_query>
   <input type="button" id="search_submit" class="button" value="<gettext>Submit</gettext>" />
   <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
-</else:edit_query_vfolder></if:edit_query_vfolder>
+</else:edit_query></if:edit_query>
 <if:return_mailbox_val>
   <input type="button" id="search_dimp_return" class="button" value="<tag:return_mailbox_val />" />
 </if:return_mailbox_val>

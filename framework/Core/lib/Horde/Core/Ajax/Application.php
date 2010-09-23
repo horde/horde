@@ -137,7 +137,7 @@ abstract class Horde_Core_Ajax_Application
     {
         $result = new stdClass;
         try {
-            $horde_groups = Horde_Group::singleton();
+            $horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groups = empty($GLOBALS['conf']['share']['any_group'])
                 ? $horde_groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
                 : $horde_groups->listGroups();

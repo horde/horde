@@ -1650,13 +1650,16 @@ class Turba_Driver implements Countable
         }
 
         if (!$formattedname && (!$fields || isset($fields['FN']))) {
-            if (!empty($this->alternativeName) &&
+            if ($object->getValue('name')) {
+                $val = $object->getValue('name');
+            } elseif (!empty($this->alternativeName) &&
                 isset($hash[$this->alternativeName])) {
                 $val = $hash[$this->alternativeName];
-            } elseif (isset($hash['lastname'])) {
-                $val = empty($hash['firstname']) ? $hash['lastname'] : $hash['firstname'] . ' ' . $hash['lastname'];
             } else {
                 $val = '';
+            }
+            if ($version != '2.1') {
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
             $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
         }
@@ -2188,7 +2191,9 @@ class Turba_Driver implements Countable
                 break;
 
             case 'BDAY':
-                if (!empty($item['value'])) {
+                if (empty($item['value'])) {
+                    $hash['birthday'] = '';
+                } else {
                     $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
                 }
                 break;

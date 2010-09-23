@@ -6,7 +6,8 @@
  */
 
 var ImpSearchesPrefs = {
-    // Variables set by other code: confirm_delete_vfolder, mailboxids
+    // Variables set by PHP script: confirm_delete_filter,
+    //     confirm_delete_vfolder, mailboxids
 
     clickHandler: function(e)
     {
@@ -17,7 +18,13 @@ var ImpSearchesPrefs = {
         var elt = e.element();
 
         while (Object.isElement(elt)) {
-            if (elt.hasClassName('vfolderdelete')) {
+            if (elt.hasClassName('filterdelete')) {
+                if (window.confirm(this.confirm_delete_filter)) {
+                    this._sendData('delete', elt.up().previous('.enabled').down('INPUT').readAttribute('name'));
+                }
+                e.stop();
+                return;
+            } else if (elt.hasClassName('vfolderdelete')) {
                 if (window.confirm(this.confirm_delete_vfolder)) {
                     this._sendData('delete', elt.up().previous('.enabled').down('INPUT').readAttribute('name'));
                 }

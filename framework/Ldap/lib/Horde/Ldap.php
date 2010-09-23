@@ -62,7 +62,8 @@ class Horde_Ldap
         'min_backoff'     => 1,
         'current_backoff' => 1,
         'max_backoff'     => 32,
-        'cache'           => null);
+        'cache'           => false,
+        'cachettl'        => 3600);
 
     /**
      * List of hosts we try to establish a connection to.
@@ -1279,7 +1280,10 @@ class Horde_Ldap
          * schema object. */
         $key = 'Horde_Ldap_Schema_' . md5(serialize(array($this->_config['hostspec'], $this->_config['port'], $dn)));
         if (!$this->_schema && $this->_config['cache']) {
-            $this->_schema = $this->_config['cache']->get($key);
+            $schema = $this->_config['cache']->get($key, $this->_config['cachettl']);
+            if ($schema) {
+                $this->_schema = @unserialize($schema);
+            }
         }
 
         /* Fetch schema, if not tried before and no cached version available.
@@ -1294,7 +1298,7 @@ class Horde_Ldap
             /* If schema caching is active, advise the cache to store the
              * schema. */
             if ($this->_config['cache']) {
-                $this->_config['cache']->set($key, $this->_schema);
+                $this->_config['cache']->set($key, serialize($this->_schema), $this->_config['cachettl']);
             }
         }
 

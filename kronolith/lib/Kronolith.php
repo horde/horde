@@ -1177,7 +1177,7 @@ class Kronolith
                 }
 
                 try {
-                    $groups = Horde_Group::singleton();
+                    $groups = $GLOBALS['injector']->getInstance('Horde_Group');
                     $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                     if (count($group_list)) {
                         $perm = $share->getPermission();
@@ -1962,7 +1962,7 @@ class Kronolith
             // Notify users that have been added.
             if ($GLOBALS['conf']['share']['notify'] &&
                 !isset($current[$group]) && $has_perms) {
-                $groupOb = Horde_Group::singleton()->getGroupById($group);
+                $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
                     try {
                         $message = Horde::callHook('shareGroupNotification', array($group, $share));
@@ -2390,7 +2390,7 @@ class Kronolith
             throw new Kronolith_Exception('Unknown event action: ' . $action);
         }
 
-        $groups = Horde_Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         $calendar = $event->calendar;
         $recipients = array();
         try {

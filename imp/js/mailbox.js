@@ -24,9 +24,17 @@ var ImpMailbox = {
 
     submit: function(actID)
     {
-        if (!this.anySelected()) {
-            alert(IMP.text.mailbox_submit);
-            return;
+        switch (actID) {
+        case 'filter_messages':
+            // No-op
+            break;
+
+        default:
+            if (!this.anySelected()) {
+                alert(IMP.text.mailbox_submit);
+                return;
+            }
+            break;
         }
 
         switch (actID) {
@@ -160,6 +168,17 @@ var ImpMailbox = {
         }
     },
 
+    filterMessages: function(form)
+    {
+        var f1 = $('filter1'), f2 = $('filter2');
+
+        if ((form == 1 && $F(f1) != "") ||
+            (form == 2 && $F(f2) != "")) {
+            $('messages').down('[name=filter]').setValue((form == 1) ? $F(f1) : $F(f2));
+            this.submit('filter_messages');
+        }
+    },
+
     getMessage: function(id, offset)
     {
         if (!offset) {
@@ -186,6 +205,8 @@ var ImpMailbox = {
         if (id) {
             if (id.startsWith('flag')) {
                 this.flagMessages(id.substring(4));
+            } else if (id.startsWith('filter')) {
+                this.filterMessages(id.substring(6));
             } else if (id.startsWith('targetMailbox')) {
                 this.updateFolders(id.substring(13));
             }
@@ -365,7 +386,7 @@ var ImpMailbox = {
 
     submitHandler: function(e)
     {
-        if (e.element().readAttribute('id').startsWith('select')) {
+        if (e.element().hasClassName('navbarselect')) {
             e.stop();
         }
     }

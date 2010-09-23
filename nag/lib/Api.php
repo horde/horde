@@ -1428,7 +1428,7 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         $storage = Nag_Driver::singleton();
-        $group = Horde_Group::singleton();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
         $alarm_list = array();
         $tasklists = is_null($user) ? array_keys($GLOBALS['nag_shares']->listAllShares()) :  $GLOBALS['display_tasklists'];
 

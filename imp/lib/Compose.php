@@ -277,10 +277,11 @@ class IMP_Compose
      */
     protected function _saveDraftServer($data)
     {
-        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
+        $drafts_mbox = $GLOBALS['prefs']->getValue('drafts_folder');
         if (empty($drafts_mbox)) {
             throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
         }
+        $drafts_mbox = IMP::folderPref($drafts_mbox, true);
 
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
@@ -299,7 +300,6 @@ class IMP_Compose
          * set the $MDNSent keyword. However, IMP doesn't write MDN headers
          * until send time so no need to set the flag here. */
 
-        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
         $old_uid = $this->getMetadata('draft_uid');
 
         /* Add the message to the mailbox. */
@@ -1005,7 +1005,7 @@ class IMP_Compose
         }
 
         // Convert IDN hosts to ASCII.
-        if (Horde_Util::extensionExists('idn')) {
+        if (function_exists('idn_to_ascii')) {
             $old_error = error_reporting(0);
             $host = idn_to_ascii(Horde_String::convertCharset($host, $GLOBALS['registry']->getCharset(), 'UTF-8'));
             error_reporting($old_error);
@@ -1084,7 +1084,7 @@ class IMP_Compose
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version"), $nls_charset, $charset));
+            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), $nls_charset, $charset));
 
             /* Add default font CSS information here. The data comes to us
              * with no HTML body tag - so simply wrap the data in a body
@@ -1105,7 +1105,7 @@ class IMP_Compose
 
             $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
-            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version"), $nls_charset, $charset));
+            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), $nls_charset, $charset));
 
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
@@ -1538,7 +1538,7 @@ class IMP_Compose
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
                    '<blockquote type="cite" style="background-color:#f0f0f0;border-left:1px solid blue;padding-left:1em;">' .
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
-                   '</blockquote>' .
+                   '</blockquote><br />' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
             $msg_text['mode'] = 'html';
         } else {

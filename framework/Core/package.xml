@@ -123,6 +123,7 @@ Application Framework.</description>
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
        <file name="Facebook.php" role="php" />
+       <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
@@ -452,6 +453,7 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Dns.php" name="lib/Horde/Core/Binder/Dns.php" />
    <install as="Horde/Core/Binder/Editor.php" name="lib/Horde/Core/Binder/Editor.php" />
    <install as="Horde/Core/Binder/Facebook.php" name="lib/Horde/Core/Binder/Facebook.php" />
+   <install as="Horde/Core/Binder/Group.php" name="lib/Horde/Core/Binder/Group.php" />
    <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
    <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
    <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />

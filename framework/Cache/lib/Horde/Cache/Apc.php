@@ -34,15 +34,21 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      * Attempts to store an object to the cache.
      *
      * @param string $key        Cache key (identifier).
-     * @param mixed $data        Data to store in the cache.
+     * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
+     *
+     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Data must be a string.');
+        }
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
-        apc_store($key . '_expire', time(), $lifetime);
-        apc_store($key, $data, $lifetime);
+        if (apc_store($key . '_expire', time(), $lifetime)) {
+            apc_store($key, $data, $lifetime);
+        }
     }
 
     /**

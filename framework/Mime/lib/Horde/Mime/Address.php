@@ -52,7 +52,7 @@ class Horde_Mime_Address
         $host = ltrim($host, '@');
         if ((!isset($opts['idn']) || !$opts['idn']) &&
             (stripos($host, 'xn--') === 0) &&
-            Horde_Util::extensionExists('idn')) {
+            function_exists('idn_to_utf8')) {
             $host = Horde_String::convertCharset(idn_to_utf8($host), 'UTF-8');
         }
 

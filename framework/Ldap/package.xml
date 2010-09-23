@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2010-02-12</date>
- <time>23:18:58</time>
+ <date>2010-09-21</date>
+ <time>23:28:57</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -36,7 +36,7 @@
       <file name="Entry.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Filter.php" role="php" />
-      <file name="LDIF.php" role="php" />
+      <file name="Ldif.php" role="php" />
       <file name="RootDse.php" role="php" />
       <file name="Schema.php" role="php" />
       <file name="Search.php" role="php" />
@@ -45,6 +45,33 @@
      <file name="Ldap.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Ldap">
+      <dir name="fixtures">
+       <file name="changes.ldif" role="test" />
+       <file name="malformed_encoding.ldif" role="test" />
+       <file name="malformed_syntax.ldif" role="test" />
+       <file name="malformed_wrapping.ldif" role="test" />
+       <file name="sorted_w40.ldif" role="test" />
+       <file name="sorted_w50.ldif" role="test" />
+       <file name="unsorted_w30.ldif" role="test" />
+       <file name="unsorted_w50.ldif" role="test" />
+       <file name="unsorted_w50_WIN.ldif" role="test" />
+      </dir> <!-- /test/Horde/Ldap/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="EntryTest.php" role="test" />
+      <file name="ExampleTest.php" role="test" />
+      <file name="FilterTest.php" role="test" />
+      <file name="LdapTest.php" role="test" />
+      <file name="LdifTest.php" role="test" />
+      <file name="SearchTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+      <file name="UtilTest.php" role="test" />
+     </dir> <!-- /test/Horde/Ldap -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -76,6 +103,25 @@
    <install as="Horde/Ldap/Schema.php" name="lib/Horde/Ldap/Schema.php" />
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
+   <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
+   <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
+   <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
+   <install as="Horde/Ldap/ExampleTest.php" name="test/Horde/Ldap/ExampleTest.php" />
+   <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
+   <install as="Horde/Ldap/LdapTest.php" name="test/Horde/Ldap/LdapTest.php" />
+   <install as="Horde/Ldap/LdifTest.php" name="test/Horde/Ldap/LdifTest.php" />
+   <install as="Horde/Ldap/SearchTest.php" name="test/Horde/Ldap/SearchTest.php" />
+   <install as="Horde/Ldap/TestBase.php" name="test/Horde/Ldap/TestBase.php" />
+   <install as="Horde/Ldap/UtilTest.php" name="test/Horde/Ldap/UtilTest.php" />
+   <install as="Horde/Ldap/fixtures/changes.ldif" name="test/Horde/Ldap/fixtures/changes.ldif" />
+   <install as="Horde/Ldap/fixtures/malformed_encoding.ldif" name="test/Horde/Ldap/fixtures/malformed_encoding.ldif" />
+   <install as="Horde/Ldap/fixtures/malformed_syntax.ldif" name="test/Horde/Ldap/fixtures/malformed_syntax.ldif" />
+   <install as="Horde/Ldap/fixtures/malformed_wrapping.ldif" name="test/Horde/Ldap/fixtures/malformed_wrapping.ldif" />
+   <install as="Horde/Ldap/fixtures/sorted_w40.ldif" name="test/Horde/Ldap/fixtures/sorted_w40.ldif" />
+   <install as="Horde/Ldap/fixtures/sorted_w50.ldif" name="test/Horde/Ldap/fixtures/sorted_w50.ldif" />
+   <install as="Horde/Ldap/fixtures/unsorted_w30.ldif" name="test/Horde/Ldap/fixtures/unsorted_w30.ldif" />
+   <install as="Horde/Ldap/fixtures/unsorted_w50.ldif" name="test/Horde/Ldap/fixtures/unsorted_w50.ldif" />
+   <install as="Horde/Ldap/fixtures/unsorted_w50_WIN.ldif" name="test/Horde/Ldap/fixtures/unsorted_w50_WIN.ldif" />
   </filelist>
  </phprelease>
  <changelog>
@@ -88,7 +134,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-02-12</date>
+   <date>2010-09-21</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
 * Forked from PEAR-Net_LDAP2-2.0.7.

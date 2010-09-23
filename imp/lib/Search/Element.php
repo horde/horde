@@ -65,12 +65,10 @@ abstract class IMP_Search_Element implements Serializable
      */
     public function serialize()
     {
-        return empty($this->_data)
-            ? null
-            : json_encode(array(
-                  self::VERSION,
-                  $this->_data
-              ));
+        return json_encode(array(
+            self::VERSION,
+            $this->_data
+        ));
     }
 
     /**
@@ -82,10 +80,6 @@ abstract class IMP_Search_Element implements Serializable
      */
     public function unserialize($data)
     {
-        if (empty($data)) {
-            return;
-        }
-
         $data = json_decode($data);
         if (!is_array($data) ||
             !isset($data[0]) ||

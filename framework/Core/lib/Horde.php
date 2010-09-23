@@ -1667,6 +1667,9 @@ HTML;
      * Call a Horde hook, handling all of the necessary lookups and parsing
      * of the hook code.
      *
+     * WARNING: Throwing exceptions is expensive, so use callHook() with care
+     * and cache the results if you going to use the results more than once.
+     *
      * @param string $hook  The function to call.
      * @param array  $args  An array of any arguments to pass to the hook
      *                      function.
@@ -1678,21 +1681,12 @@ HTML;
      */
     static public function callHook($hook, $args = array(), $app = 'horde')
     {
-        $error = false;
-        $hook_class = $app . '_Hooks';
-
-        if (!class_exists($hook_class)) {
-            try {
-                self::loadConfiguration('hooks.php', null, $app);
-            } catch (Horde_Exception $e) {}
-        }
-
-        if (!class_exists($hook_class) ||
-            !($hook_ob = new $hook_class) ||
-            !method_exists($hook_ob, $hook)) {
+        if (!self::hookExists($hook, $app)) {
             throw new Horde_Exception_HookNotSet();
         }
 
+        $hook_class = $app . '_Hooks';
+        $hook_ob = new $hook_class;
         try {
             self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
             return call_user_func_array(array($hook_ob, $hook), $args);
@@ -1700,6 +1694,45 @@ HTML;
             self::logMessage($e, 'ERR');
             throw $e;
         }
+    }
+
+    /**
+     * Returns whether a hook exists.
+     *
+     * Use this if you have to call a hook many times and expect the hook to
+     * not exist.
+     *
+     * @param string $hook  The function to call.
+     * @param string $app   The hook application.
+     *
+     * @return boolean  True if the hook exists.
+     */
+    static public function hookExists($hook, $app = 'horde')
+    {
+        $hook_class = $app . '_Hooks';
+
+        if (!isset(self::$_hooksLoaded[$app])) {
+            self::$_hooksLoaded[$app] = false;
+            if (!class_exists($hook_class, false)) {
+                try {
+                    self::loadConfiguration('hooks.php', null, $app);
+                    self::$_hooksLoaded[$app] = array();
+                } catch (Horde_Exception $e) {}
+            }
+        }
+
+        if (self::$_hooksLoaded[$app] === false) {
+            return false;
+        }
+
+        if (!isset(self::$_hooksLoaded[$app][$hook])) {
+            self::$_hooksLoaded[$app][$hook] =
+                class_exists($hook_class, false) &&
+                ($hook_ob = new $hook_class) &&
+                method_exists($hook_ob, $hook);
+        }
+
+        return self::$_hooksLoaded[$app][$hook];
     }
 
     /**

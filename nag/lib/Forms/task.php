@@ -53,7 +53,7 @@ class Nag_TaskForm extends Horde_Form {
         $users = $share->listUsers(Horde_Perms::READ);
         $groups = $share->listGroups(Horde_Perms::READ);
         if (count($groups)) {
-            $horde_group = Horde_Group::singleton();
+            $horde_group = $GLOBALS['injector']->getInstance('Horde_Group');
             foreach ($groups as $group) {
                 $users = array_merge($users,
                                      $horde_group->listAllUsers($group));

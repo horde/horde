@@ -211,7 +211,7 @@ class CreateStep4Form extends Horde_Form {
         $this->addHidden('', 'deferred_attachment', 'text', false);
 
         /* Groups. */
-        $groups = Horde_Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         if ($conf['prefs']['assign_all_groups']) {
             $mygroups = $groups->listGroups();
         } else {

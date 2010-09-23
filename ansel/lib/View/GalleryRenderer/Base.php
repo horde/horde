@@ -145,9 +145,10 @@ abstract class Ansel_View_GalleryRenderer_Base
         /* Fetch the children */
         $this->fetchChildren($this->view->force_grouping);
 
-        /* Do we have an explicit style set? If not, use the gallery's */
+        // Do we have an explicit style set from the API?
+        //  If not, use the gallery's
         if (!empty($this->view->style)) {
-            $this->style = $this->view->style;
+            $this->style = Ansel::getStyleDefinition($this->view->style);
         } else {
             $this->style = $this->view->gallery->getStyle();
         }

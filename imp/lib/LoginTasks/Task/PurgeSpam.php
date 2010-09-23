@@ -37,10 +37,11 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function execute()
     {
         /* If there is no Spam folder set, just return. */
-        $spam_folder = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
+        $spam_folder = $GLOBALS['prefs']->getValue('spam_folder');
         if (!$spam_folder) {
             return false;
         }
+        $spam_folder = IMP::folderPref($spam_folder, true);
 
         /* Make sure the Spam folder exists. */
         if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($spam_folder)) {

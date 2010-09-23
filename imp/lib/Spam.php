@@ -204,9 +204,9 @@ class IMP_Spam
                     break;
 
                 case 2:
-                    $targetMbox = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
+                    $targetMbox = $GLOBALS['prefs']->getValue('spam_folder');
                     if ($targetMbox) {
-                        if (!$imp_message->copy($targetMbox, 'move', $indices, array('create' => true))) {
+                        if (!$imp_message->copy(IMP::folderPref($targetMbox, true), 'move', $indices, array('create' => true))) {
                             $result = 0;
                         }
                     } else {

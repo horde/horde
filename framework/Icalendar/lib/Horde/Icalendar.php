@@ -642,8 +642,16 @@ class Horde_Icalendar
                                 $paramValue = $paramValue[0];
                             }
                         }
-                        if (preg_match('/"([^"]*)"/', $paramValue, $parts)) {
-                            $paramValue = $parts[1];
+                        if (is_string($paramValue)) {
+                            if (preg_match('/"([^"]*)"/', $paramValue, $parts)) {
+                                $paramValue = $parts[1];
+                            }
+                        } else {
+                            foreach ($paramValue as $k => $tmp) {
+                                if (preg_match('/"([^"]*)"/', $tmp, $parts)) {
+                                    $paramValue[$k] = $parts[1];
+                                }
+                            }
                         }
                         $params[$paramName] = $paramValue;
                     }

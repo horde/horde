@@ -1,6 +1,6 @@
 <?php
 $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
-$horde_groups = Horde_Group::singleton();
+$horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
 
 $groups = array();
 try {

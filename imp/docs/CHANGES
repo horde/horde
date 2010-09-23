@@ -2,6 +2,13 @@
 v5.0-git
 --------
 
+[mms] Add personal recipient message filter (Request #8659).
+[mms] Add mailing list message filter (Request #8659).
+[mms] Add ability to define search criteria to be applied to any mailbox
+      (Request #8659).
+[mms] Use recipient search (To/Cc/Bcc) by default instead of To search.
+[mms] Virtual folders now editable via a preferences group.
+[mms] Search code has been entirely rewritten.
 [jan] Rename servers.php to backends.php.
 [mms] Use alternate text part to generate reply/forward text when switching
       compose modes if user has not altered message text (DIMP).

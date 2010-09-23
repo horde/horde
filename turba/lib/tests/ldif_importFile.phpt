@@ -3,7 +3,11 @@ Import Simple LDIF file, LF terminated
 --FILE--
 <?php
 
-error_reporting(E_ALL);
+if (defined('E_DEPRECATED')) {
+    error_reporting(E_ALL & ~constant('E_DEPRECATED'));
+} else {
+    error_reporting(E_ALL);
+}
 
 require 'Horde.php';
 require 'Horde/Data.php';

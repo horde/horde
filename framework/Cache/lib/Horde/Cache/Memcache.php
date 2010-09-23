@@ -104,9 +104,15 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      * @param string $key        Cache key.
      * @param mixed $data        Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
+     *
+     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Data must be a string.');
+        }
+
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
 

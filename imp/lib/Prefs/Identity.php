@@ -290,6 +290,21 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     }
 
     /**
+     * Returns a list of all e-mail addresses from all identities, including
+     * both from addresses and tie addreses.
+     *
+     * @return array  A list of e-mail addresses.
+     */
+    public function getAllIdentityAddresses()
+    {
+        /* Combine the keys (which contain the e-mail addresses). */
+        return array_merge(
+            array_keys($identity->getAllFromAddresses(true)),
+            array_keys($identity->getAllTieAddresses())
+        );
+    }
+
+    /**
      * Returns the list of identities with the default identity positioned
      * last.
      *

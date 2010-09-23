@@ -628,7 +628,7 @@ class Trean_Bookmarks
                             array('field' => 'value', 'op' => '&', 'test' => $perm)))));
 
             // If the user has any group memberships, check for those also.
-            $group = Horde_Group::singleton();
+            $group = $GLOBALS['injector']->getInstance('Horde_Group');
             $groups = $group->getGroupMemberships($userid, true);
             if (is_array($groups) && count($groups)) {
                 // (name == perm_groups and key in ($groups) and val & $perm)

@@ -77,14 +77,20 @@ class Horde_Cache_Stack extends Horde_Cache_Base
      * Attempts to store an object in the cache.
      *
      * @param string $key        Object ID used as the caching key.
-     * @param mixed $data        Data to store in the cache.
+     * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Object lifetime - i.e. the time before the
      *                           data becomes available for garbage
      *                           collection.  If null use the default Horde GC
      *                           time.  If 0 will not be GC'd.
+     *
+     * @throws Horde_Cache_Exception
      */
     public function set($key, $data, $lifetime = null)
     {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Data must be a string.');
+        }
+
         /* Do writes in *reverse* order - it is OK if a write to one of the
          * non-master backends fails. */
         $master = true;

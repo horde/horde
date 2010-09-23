@@ -90,7 +90,7 @@ class GroupCriterionForm extends Horde_Form {
         $this->addHidden('', 'edit', 'boolean', false);
 
         try {
-            $groups = Horde_Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $grouplist = $groups->listGroups();
         } catch (Horde_Group_Exception $e) {
             $grouplist = array();

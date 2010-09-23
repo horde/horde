@@ -345,26 +345,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _getStories($criteria, $order = Jonah::ORDER_PUBLISHED)
     {
-        // Assuming this was to save the extra tag queries, but this will not
-        // work, it will only return stories that have been tagged.
-//        $sql = 'SELECT DISTINCT(tags.story_id) AS id, ' .
-//               'stories.channel_id, ' .
-//               'stories.story_author AS author, ' .
-//               'stories.story_title AS title, ' .
-//               'stories.story_desc AS description, ' .
-//               'stories.story_body_type AS body_type, ' .
-//               'stories.story_body AS body, ' .
-//               'stories.story_url AS url, ' .
-//               'stories.story_permalink AS permalink, ' .
-//               'stories.story_published AS published, ' .
-//               'stories.story_updated AS updated, ' .
-//               'stories.story_read AS readcount ' .
-//               'FROM jonah_stories_tags AS tags ' .
-//               'LEFT JOIN jonah_stories AS stories ON ' .
-//               'tags.story_id = stories.story_id ' .
-//               'WHERE stories.channel_id=?';
-
-        $sql = 'SELECT stories.story_id AS id, ' .
+        $sql = 'SELECT DISTINCT(stories.story_id) AS id, ' .
            'stories.channel_id, ' .
            'stories.story_author AS author, ' .
            'stories.story_title AS title, ' .
@@ -463,10 +444,24 @@ class Jonah_Driver_Sql extends Jonah_Driver
             //@TODO
             break;
         }
-
+        $limit = 0;
+        if (isset($criteria['limit'])) {
+            $limit = $criteria['limit'];
+        }
+        if (isset($criteria['startnumber']) && isset($criteria['endnumber'])) {
+            $limit = min($criteria['endnumber'] - $criteria['startnumber'], $criteria['limit']);
+        }
+        $start = isset($criteria['startnumber']) ? $criteria['startnumber'] : 0;
         Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
-        $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
-
+        if ($limit || $start != 0) {
+            $results = array();
+            $rows = $this->_db->limitQuery($sql, $start, $limit, $values    );
+            while ($rows->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+                $results[] = $row;
+            }
+        } else {
+            $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        }
         if ($results instanceof PEAR_Error) {
             throw new Jonah_Exception($results);
         }

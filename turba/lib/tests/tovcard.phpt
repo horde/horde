@@ -6,7 +6,7 @@ Turba_Driver::toVcard() test.
 require dirname(__FILE__) . '/../Object.php';
 require dirname(__FILE__) . '/../Driver.php';
 
-$attributes = array(
+$contact = array(
   'name' => 'Jan Schneider�',
   'namePrefix' => 'Mr.',
   'firstname' => 'Jan',
@@ -41,9 +41,21 @@ $attributes = array(
 );
 
 $driver = new Turba_Driver(array());
-$object = new Turba_Object($driver, $attributes);
+$object = new Turba_Object($driver, $contact);
 $vcard = $driver->tovCard($object, '2.1');
 echo $vcard->exportvCalendar() . "\n";
+$vcard = $driver->tovCard($object, '3.0');
+echo $vcard->exportvCalendar() . "\n";
+
+// Test for bug #9207
+@define('TURBA_BASE', '/non/existant');
+$driver->alternativeName = 'company';
+$driver->map['name'] = array('fields' => array('namePrefix', 'firstname',
+                                               'middlenames', 'lastname',
+                                               'nameSuffix'),
+                             'format' => '%s %s %s %s %s');
+unset($contact['name']);
+$object = new Turba_Object($driver, $contact);
 $vcard = $driver->tovCard($object, '3.0');
 echo $vcard->exportvCalendar();
 
@@ -98,6 +110,33 @@ PHOTO;ENCODING=b;TYPE=image/png:wolQTkcNChoKAAAADUlIRFIAAAAJAAAACQIDAAAAwp3
  Dv8OuwoMAAAAJUExURcK6ABZmZmYAAADCjMK1w4xCAAAAAXRSTlMAQMOmw5hmAAAAGklEQVQIW2
  NgAMKBBgYmRgEIZmHCgWABRjAGAQAVZgDDoQfDtsKjw7wAAAAASUVORMKuQmDCgg==
 N:Schneiderö;Jan;K.;Mr.;
+ORG:Horde Project;äöü
+ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
+ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Dänemark
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+EMAIL:jan@horde.org
+NICKNAME:yunosh
+LABEL;TYPE=HOME:Schönestr. 15\n33604 Bielefeld
+TEL;TYPE=HOME:+49 521 555123
+TEL;TYPE=WORK:+49 521 555456
+TEL;TYPE=CELL:+49 177 555123
+TEL;TYPE=FAX:+49 521 555789
+TEL;TYPE=PAGER:+49 123 555789
+BDAY:1971-10-01
+TITLE:Senior Developer (äöü)
+ROLE:Developer (äöü)
+NOTE:A German guy (äöü)
+URL:http://janschneider.de
+TZ;VALUE=text:Europe/Berlin
+GEO:52.516276;13.377778
+PHOTO;ENCODING=b;TYPE=image/png:wolQTkcNChoKAAAADUlIRFIAAAAJAAAACQIDAAAAwp3
+ Dv8OuwoMAAAAJUExURcK6ABZmZmYAAADCjMK1w4xCAAAAAXRSTlMAQMOmw5hmAAAAGklEQVQIW2
+ NgAMKBBgYmRgEIZmHCgWABRjAGAQAVZgDDoQfDtsKjw7wAAAAASUVORMKuQmDCgg==
+N:Schneiderö;Jan;K.;Mr.;
+FN:Mr. Jan K. Schneiderö
 ORG:Horde Project;äöü
 ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
 ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Dänemark

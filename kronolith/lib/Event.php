@@ -2021,7 +2021,7 @@ abstract class Kronolith_Event
                     }
                     if (isset($url['host'])) {
                         // Convert IDN hosts to ASCII.
-                        if (Horde_Util::extensionExists('idn')) {
+                        if (function_exists('idn_to_ascii')) {
                             $old_error = error_reporting(0);
                             $url['host'] = idn_to_ascii(Horde_String::convertCharset($url['host'], $GLOBALS['registry']->getCharset(), 'UTF-8'));
                             error_reporting($old_error);

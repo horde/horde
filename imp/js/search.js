@@ -48,6 +48,10 @@ var ImpSearch = {
             var crit = c.criteria;
 
             switch (c.element) {
+            case 'IMP_Search_Element_Bulk':
+                this.insertFilter('bulk', crit);
+                break;
+
             case 'IMP_Search_Element_Date':
                 this.insertDate(this.data.constants.index(crit.t), new Date(crit.d));
                 break;
@@ -72,8 +76,16 @@ var ImpSearch = {
                 }
                 break;
 
+            case 'IMP_Search_Element_Mailinglist':
+                this.insertFilter('mailinglist', crit);
+                break;
+
             case 'IMP_Search_Element_Or':
                 this.insertOr();
+                break;
+
+            case 'IMP_Search_Element_Personal':
+                this.insertFilter('personal', crit);
                 break;
 
             case 'IMP_Search_Element_Recipient':
@@ -97,7 +109,13 @@ var ImpSearch = {
 
     updateSelectedFolders: function(folders)
     {
-        var tmp = $('search_folders_hdr').next();
+        var tmp = $('search_folders_hdr');
+
+        if (!tmp) {
+            return;
+        }
+
+        tmp = tmp.next();
         this.selectFolders(false);
         folders.each(function(f) {
             var i = tmp.down('INPUT[value=' + f + ']');
@@ -146,6 +164,10 @@ var ImpSearch = {
 
             case 'within':
                 this.insertWithin(val);
+                break;
+
+            case 'filter':
+                this.insertFilter(val);
                 break;
 
             case 'flag':
@@ -282,6 +304,15 @@ var ImpSearch = {
         tmp[1].activate();
     },
 
+    insertFilter: function(id, not)
+    {
+        var tmp = [
+            new Element('EM').insert(this.getLabel(id)),
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+        ];
+        this.criteria[this.insertCriteria(tmp)] = { t: id };
+    },
+
     insertFlag: function(id, not)
     {
         var tmp = [
@@ -296,9 +327,10 @@ var ImpSearch = {
     {
         var data = [], tmp;
 
-        if (!this._getAll().findAll(function(i) { return i.checked; }).size()) {
+        if ($('search_folders_hdr') &&
+            !this._getAll().findAll(function(i) { return i.checked; }).size()) {
             alert(this.text.need_folder);
-        } else if ($F('search_save') && !$('search_label').present()) {
+        } else if ($F('search_type') && !$('search_label').present()) {
             alert(this.text.need_label);
         } else {
             tmp = $('search_criteria_table').childElements().pluck('id');
@@ -339,6 +371,11 @@ var ImpSearch = {
 
                     case 'within':
                         this.criteria[c].v = { l: $F($(c).down('SELECT')), v: parseInt($F($(c).down('INPUT')), 10) };
+                        data.push(this.criteria[c]);
+                        break;
+
+                    case 'filter':
+                        this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                         data.push(this.criteria[c]);
                         break;
 

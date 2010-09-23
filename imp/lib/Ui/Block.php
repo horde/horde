@@ -44,7 +44,7 @@ class IMP_Ui_Block
 
         $mbox_url = ($mode == 'imp')
             ? Horde::url('mailbox.php')
-            : Horde::url('')->setAnchor('folder');
+            : Horde::url('#')->setAnchor('folder');
 
         foreach ($poll as $folder) {
             if (isset($status[$folder]) &&

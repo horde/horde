@@ -263,12 +263,18 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
 
                 switch ($val) {
                 case 'from':
-                case 'to':
                 case 'cc':
                 case 'bcc':
                 case 'subject':
                     $ob->add(new IMP_Search_Element_Header(
                         $ui['text'][$key],
+                        $val,
+                        !empty($ui['text_not'][$key])
+                    ));
+                    break;
+
+                case 'to':
+                    $ob->add(new IMP_Search_Element_Recipient(
                         $val,
                         !empty($ui['text_not'][$key])
                     ));

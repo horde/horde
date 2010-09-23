@@ -16,13 +16,6 @@
 class Horde_Group_Ldap extends Horde_Group
 {
     /**
-     * LDAP object.
-     *
-     * @var Horde_Ldap
-     */
-    protected $_ldap;
-
-    /**
      * Local copy of the global $conf['group']['params'] array. Simply
      * for coding convenience.
      *
@@ -87,9 +80,6 @@ class Horde_Group_Ldap extends Horde_Group
 
         /* Generate LDAP search filter. */
         $this->_filter = Horde_Ldap_Filter::build(isset($this->_params['search']) ? $this->_params['search'] : $this->_params);
-
-        /* Connect to server. */
-        $this->_ldap = new Horde_Ldap($this->_params);
     }
 
     /**
@@ -103,7 +93,7 @@ class Horde_Group_Ldap extends Horde_Group
     protected function _nextGid()
     {
         try {
-            $search = $this->_ldap->search($this->_params['basedn'], $this->_filter, array('attributes' => array('gidnumber')));
+            $search = $this->_params['ldap']->search($this->_params['basedn'], $this->_filter, array('attributes' => array('gidnumber')));
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -178,7 +168,7 @@ class Horde_Group_Ldap extends Horde_Group
         }
 
         try {
-            $entry = $this->_ldap->getEntry($dn);
+            $entry = $this->_params['ldap']->getEntry($dn);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -221,7 +211,7 @@ class Horde_Group_Ldap extends Horde_Group
         $dn = $group->get('dn');
         $entry = Horde_Ldap_Entry::createFresh($dn, $group->toAttributes());
         try {
-            $this->_ldap->add($entry);
+            $this->_params['ldap']->add($entry);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -274,7 +264,7 @@ class Horde_Group_Ldap extends Horde_Group
                                 $force = false)
     {
         try {
-            $this->_ldap->delete($group->getId(), $force);
+            $this->_params['ldap']->delete($group->getId(), $force);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -335,7 +325,7 @@ class Horde_Group_Ldap extends Horde_Group
         }
 
         try {
-            $search = $this->_ldap->search(
+            $search = $this->_params['ldap']->search(
                 $this->_params['basedn'],
                 Horde_Ldap_Filter::create($this->_params['gid'], 'equals', $group),
                 array('attributes' => array($this->_params['gid'])));
@@ -464,7 +454,7 @@ class Horde_Group_Ldap extends Horde_Group
 
         $this->_listCache = array();
         try {
-            $search = $this->_ldap->search($this->_params['basedn'], $this->_filter, array($this->_params['gid']));
+            $search = $this->_params['ldap']->search($this->_params['basedn'], $this->_filter, array($this->_params['gid']));
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -492,7 +482,7 @@ class Horde_Group_Ldap extends Horde_Group
         }
 
         try {
-            $search = $this->_ldap->search($dn, $this->_filter);
+            $search = $this->_params['ldap']->search($dn, $this->_filter);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -534,7 +524,7 @@ class Horde_Group_Ldap extends Horde_Group
 
         // Perform search
         try {
-            $search = $this->_ldap->search($this->_params['basedn'], $filter);
+            $search = $this->_params['ldap']->search($this->_params['basedn'], $filter);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
