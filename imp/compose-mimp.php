@@ -66,9 +66,11 @@ $sent_mail_folder = $identity->getValue('sent_mail_folder');
 $readonly_drafts = false;
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 if (!empty($draft)) {
-    $readonly_drafts = $imp_imap->isReadOnly(IMP::folderPref($draft, true));
+    $draft = IMP::folderPref($draft, true);
+    $readonly_drafts = $imp_folder->exists($draft) &&
+        $imp_imap->isReadOnly($draft);
 }
-$save_sent_mail = $imp_imap->isReadOnly($sent_mail_folder)
+$save_sent_mail = ($imp_folder->exists($sent_mail_folder) && $imp_imap->isReadOnly($sent_mail_folder))
     ? false
     : $prefs->getValue('save_sent_mail');
 
