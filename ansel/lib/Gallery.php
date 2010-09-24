@@ -732,7 +732,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         } else {
             // Explicitly defined style
-            $style = unserialize($this->data['attribute_style']);
+            $style = @unserialize($this->data['attribute_style']);
+            if (!$style) {
+                $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
+            }
         }
 
         // Check browser requirements. If we require PNG support, and do not
