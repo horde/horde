@@ -70,9 +70,7 @@ class Kronolith_View_Week {
         }
         $endDate = new Horde_Date($day);
         try {
-            $allevents = Kronolith::listEvents($this->startDate, $endDate,
-                                               $GLOBALS['display_calendars'],
-                                               true, false, false);
+            $allevents = Kronolith::listEvents($this->startDate, $endDate);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             $allevents = array();

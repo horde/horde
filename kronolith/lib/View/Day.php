@@ -42,9 +42,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                     $this,
                     new Horde_Date(array('year' => $this->year,
                                          'month' => $this->month,
-                                         'mday' => $this->mday)),
-                    $GLOBALS['display_calendars'],
-                    true, false, false);
+                                         'mday' => $this->mday)));
                 $this->_events = array_shift($events);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
