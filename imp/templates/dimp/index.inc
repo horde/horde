@@ -17,9 +17,6 @@ $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 // Quota information
 $show_quota = (isset($_SESSION['imp']['imap']['quota']) && is_array($_SESSION['imp']['imap']['quota']));
 
-// Get the list of available IMAP flags
-$flag_list = $injector->getInstance('IMP_Imap_Flags')->getList(array('imap' => true));
-
 // Get application folders list.
 $application_folders = array();
 foreach (IMP_Dimp::menuList() as $app) {
@@ -397,13 +394,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_message_resume" style="display:none"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="contextImg"></span><?php echo _("Forward") ?></a>
-<?php if (!empty($flag_list)): ?>
- <div>
+ <div id="ctx_message_flagopts" style="display:none">
   <div class="sep"></div>
   <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
   <a id="ctx_message_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
-<?php endif; ?>
  <div class="sep"></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
  <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Report as Spam") ?></a>
@@ -448,13 +443,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_preview_show"><span class="contextImg"></span><?php echo _("Show Preview") ?></a>
  <a id="oa_layout_horiz"><span class="contextImg"></span><?php echo _("Horizontal Layout") ?></a>
  <a id="oa_layout_vert"><span class="contextImg"></span><?php echo _("Vertical Layout") ?></a>
-<?php if (!empty($flag_list)): ?>
- <div>
+ <div id="oa_flagopts" style="display:none">
   <div class="sep"></div>
   <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
   <a id="oa_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
-<?php endif; ?>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
  <div>
@@ -478,13 +471,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 </div>
 
-<?php if (!empty($flag_list)): ?>
 <div class="context" id="ctx_flag" style="display:none">
-<?php foreach ($flag_list as $key => $val): ?>
- <a flag="<?php echo htmlspecialchars($key) ?>"><span class="contextImg <?php echo htmlspecialchars($val['c']) ?>"<?php echo ($val['t'] == 'imapp') ? ' style="background:' . htmlspecialchars($val['b']) . '"' : '' ?>></span><?php echo htmlspecialchars($val['l']) ?></a>
-<?php endforeach; ?>
 </div>
-<?php endif; ?>
 
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>

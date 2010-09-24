@@ -33,7 +33,9 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('fgc
         'l' => $val['l'],
         'n' => isset($val['n']) ? $val['n'] : null,
         // Indicate if this is a user *P*ref flag
-        'p' => intval($val['t'] == 'imapp')
+        'p' => intval($val['t'] == 'imapp'),
+        // Indicate if this is a flag that can be *S*earched for
+        's' => intval(in_array($val['t'], array('imapp', 'imapu')))
     ));
 }
 
@@ -61,6 +63,8 @@ $code['conf'] = array_filter(array(
         ? array()
         : array_map(array('IMP_Dimp', 'appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
     'flags' => $flags,
+    /* Needed to maintain flag ordering. */
+    'flags_o' => array_keys($flags),
     'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),

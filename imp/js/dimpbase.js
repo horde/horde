@@ -643,7 +643,7 @@ var DimpBase = {
             $('ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
             if (flags.size()) {
                 $('ctx_flag').childElements().each(function(c) {
-                    [ c ].invoke(flags.include(c.readAttribute('flag')) ? 'show' : 'hide');
+                    [ c ].invoke(flags.include(c.retrieve('flag')) ? 'show' : 'hide');
                 });
             }
         }.bindAsEventListener(this));
@@ -896,11 +896,11 @@ var DimpBase = {
 
         default:
             if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
-                flag = elt.readAttribute('flag');
+                flag = elt.retrieve('flag');
                 this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
             } else if (menu.endsWith('_filter') || menu.endsWith('_filternot')) {
                 this.search = {
-                    flag: elt.readAttribute('flag'),
+                    flag: elt.retrieve('flag'),
                     label: this.viewport.getMetaData('label'),
                     mbox: this.folder,
                     not: menu.endsWith('_filternot')
@@ -1008,6 +1008,26 @@ var DimpBase = {
             parentfunc(e);
             break;
         }
+    },
+
+    contextAddFlag: function(flag, f)
+    {
+        var a = new Element('A'),
+            style = {};
+
+        if (f.p) {
+            style.backgroundColor = f.b.escapeHTML();
+        }
+
+        $('ctx_flag').insert(
+            a.insert(
+                new Element('SPAN', { className: 'contextImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
+            ).insert(
+                f.l.escapeHTML()
+            )
+        );
+
+        a.store('flag', flag);
     },
 
     // nodefer - (boolean) If true, don't defer updating if folder element
@@ -3056,6 +3076,13 @@ var DimpBase = {
             }
         });
         DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
+
+        /* Create flag entries. */
+        DIMP.conf.flags_o.each(function(f) {
+            if (DIMP.conf.flags[f].s) {
+                this.contextAddFlag(f, DIMP.conf.flags[f]);
+            }
+        }, this);
 
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
