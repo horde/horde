@@ -187,6 +187,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                          $hasAlarm = false, $json = false,
                                          $coverDates = true)
     {
+        if (!is_null($startDate)) {
+            $startDate = clone $startDate;
+            $startDate->hour = $startDate->min = $startDate->sec = 0;
+        }
+        if (!is_null($endDate)) {
+            $endDate = clone $endDate;
+            $endDate->hour = 23;
+            $endDate->min = $endDate->sec = 59;
+        }
+
         /* Build report query. */
         $xml = new XMLWriter();
         $xml->openMemory();
@@ -210,9 +220,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $xml->writeAttribute('name', 'VCALENDAR');
         $xml->startElement('C:comp-filter');
         $xml->writeAttribute('name', 'VEVENT');
-        $xml->startElement('C:time-range');
-        $xml->writeAttribute('start', $startDate->toiCalendar());
-        $xml->writeAttribute('end', $endDate->toiCalendar());
+        if (!is_null($startDate) ||
+            !is_null($endDate)) {
+            $xml->startElement('C:time-range');
+            if (!is_null($startDate)) {
+                $xml->writeAttribute('start', $startDate->toiCalendar());
+            }
+            if (!is_null($endDate)) {
+                $xml->writeAttribute('end', $endDate->toiCalendar());
+            }
+        }
         $xml->endDocument();
 
         $url = $this->_getUrl();
