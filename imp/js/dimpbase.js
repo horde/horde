@@ -898,12 +898,12 @@ var DimpBase = {
             if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.retrieve('flag');
                 this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
-            } else if (menu.endsWith('_filter') || menu.endsWith('_filternot')) {
+            } else if (menu.endsWith('_flag') || menu.endsWith('_flagnot')) {
                 this.search = {
                     flag: elt.retrieve('flag'),
                     label: this.viewport.getMetaData('label'),
                     mbox: this.folder,
-                    not: menu.endsWith('_filternot')
+                    not: menu.endsWith('_flagnot')
                 };
                 this.go('folder:' + DIMP.conf.fsearchid);
             } else {
@@ -3034,8 +3034,8 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
-            DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_flag');
-            DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
+            DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag');
+            DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag');
         }
 
         /* Store these text strings for updating purposes. */
