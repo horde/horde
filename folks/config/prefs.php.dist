@@ -100,10 +100,12 @@ $_prefs['log_account_changes'] = array(
 );
 
 $apps = array();
+/*
 foreach ($GLOBALS['registry']->listApps() as $app) {
     $apps[$app] = $GLOBALS['registry']->get('name', $app);
 }
 asort($apps);
+*/
 
 $_prefs['log_scopes'] = array(
     'value' => 'a:0:{}',
