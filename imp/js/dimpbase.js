@@ -314,12 +314,9 @@ var DimpBase = {
     composeMailbox: function(type)
     {
         var sel = this.viewport.getSelected();
-        if (!sel.size()) {
-            return;
+        if (sel.size()) {
+            DimpCore.compose(type, { uids: sel });
         }
-        sel.get('dataob').each(function(s) {
-            DimpCore.compose(type, { folder: s.view, uid: s.imapuid });
-        });
     },
 
     loadMailbox: function(f, opts)
@@ -1994,9 +1991,9 @@ var DimpBase = {
         }
 
         if (elt) {
-            tmp = this.viewport.createSelection('domid', elt.identify()).get('dataob').first();
-            if (tmp.draft && this.viewport.getMetaData('drafts')) {
-                DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid })
+            tmp = this.viewport.createSelection('domid', elt.identify()).get('dataob');
+            if (tmp.first().draft && this.viewport.getMetaData('drafts')) {
+                DimpCore.compose('resume', { uids: tmp });
             } else {
                 this.msgWindow(tmp);
             }

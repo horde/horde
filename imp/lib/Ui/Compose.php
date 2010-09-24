@@ -210,21 +210,41 @@ class IMP_Ui_Compose
     }
 
     /**
-     * Get the IMP_Contents:: object for a Mailbox/UID.
+     * Create the IMP_Contents objects needed to create a message.
      *
-     * @param IMP_Indices $indices  An indices object.
+     * @param Horde_Variables $vars  The variables object.
      *
-     * @return boolean|IMP_Contents  The contents object, or false on error.
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws IMP_Exception
      */
-    public function getIMPContents($indices)
+    public function getContents($vars = null)
     {
-        try {
-            return $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
-        } catch (IMP_Exception $e) {
-            $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
+        $ob = null;
+
+        if (is_null($vars)) {
+            /* IMP: compose.php */
+            $indices = new IMP_Indices(IMP::$thismailbox, IMP::$uid);
+        } elseif ($vars->folder && $vars->uid) {
+            /* DIMP: compose-dimp.php */
+            $indices = new IMP_Indices($vars->folder, $vars->uid);
         }
 
-        return false;
+        if (!is_null($ob)) {
+            try {
+                $ob = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
+            } catch (Horde_Exception $e) {}
+        }
+
+        if (is_null($ob)) {
+            if (!is_null($vars)) {
+                $vars->folder = $vars->uid = null;
+                $vars->type = 'new';
+            }
+
+            throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
+        }
+
+        return $ob;
     }
 
     /**

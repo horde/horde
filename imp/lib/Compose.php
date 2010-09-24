@@ -1619,7 +1619,10 @@ class IMP_Compose
 
         if ($attach &&
             in_array($type, array('forward_attach', 'forward_both'))) {
-            $this->attachIMAPMessage(new IMP_Indices($contents));
+            try {
+                $this->attachImapMessage(new IMP_Indices($contents));
+            } catch (IMP_Exception $e) {
+            }
         }
 
         if (in_array($type, array('forward_body', 'forward_both'))) {
@@ -1788,9 +1791,10 @@ class IMP_Compose
      *
      * @param IMP_Indices $indices  An indices object.
      *
-     * @return mixed  String or false.
+     * @return string  Subject string.
+     * @throws IMP_Exception
      */
-    public function attachIMAPMessage($indices)
+    public function attachImapMessage($indices)
     {
         if (!count($indices)) {
             return false;
@@ -1808,12 +1812,8 @@ class IMP_Compose
              $part->setName(_("Forwarded Message"));
              $part->setContents($contents->fullMessageText(array('stream' => true)));
 
-             try {
-                 $this->addMIMEPartAttachment($part);
-             } catch (IMP_Compose_Exception $e) {
-                 $GLOBALS['notification']->push($e);
-                 return false;
-            }
+             // Throws IMP_Compose_Exception.
+             $this->addMIMEPartAttachment($part);
         }
 
         if ($attached == 1) {
@@ -1823,9 +1823,9 @@ class IMP_Compose
                 $name = Horde_String::truncate($name, 80);
             }
             return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($name, array('keepblob' => true));
-        } else {
-            return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
+
+        return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
     }
 
     /**

@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Allow multiple messages to be forwarded in a single outgoing message
+      (DIMP) (Request #9132).
 [mms] Add personal recipient message filter (Request #8659).
 [mms] Add mailing list message filter (Request #8659).
 [mms] Add ability to define search criteria to be applied to any mailbox

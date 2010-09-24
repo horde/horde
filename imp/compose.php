@@ -211,10 +211,14 @@ if ($_SESSION['imp']['file_upload']) {
 $title = _("New Message");
 switch ($vars->actionID) {
 case 'mailto':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $contents = $imp_ui->getContents();
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
-    $imp_headers = $imp_contents->getHeaderOb();
+
+    $imp_headers = $contents->getHeaderOb();
     $header['to'] = '';
     if ($vars->mailto) {
         $header['to'] = $imp_headers->getValue('to');
@@ -262,11 +266,14 @@ case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $contents = $imp_ui->getContents();
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
 
-    $reply_msg = $imp_compose->replyMessage($vars->actionID, $imp_contents, $vars->to);
+    $reply_msg = $imp_compose->replyMessage($vars->actionID, $contents, $vars->to);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
@@ -298,11 +305,14 @@ case 'forward_attach':
 case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
+    try {
+        $contents = $imp_ui->getContents();
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
 
-    $fwd_msg = $imp_compose->forwardMessage($vars->actionID, $imp_contents);
+    $fwd_msg = $imp_compose->forwardMessage($vars->actionID, $contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];
@@ -312,11 +322,13 @@ case 'forward_both':
     break;
 
 case 'redirect_compose':
-    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
-        break;
+    try {
+        $contents = $imp_ui->getContents();
+        $imp_compose->redirectMessage($contents);
+        $title = _("Redirect");
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-    $imp_compose->redirectMessage($imp_contents);
-    $title = _("Redirect");
     break;
 
 case 'redirect_send':
@@ -481,9 +493,12 @@ case 'send_message':
     exit;
 
 case 'fwd_digest':
-    if (isset($vars->fwddigest) &&
-        (($subject_header = $imp_compose->attachIMAPMessage(new IMP_Indices($vars->fwddigest))) !== false)) {
-        $header['subject'] = $subject_header;
+    if (isset($vars->fwddigest)) {
+        try {
+            $header['subject'] = $imp_compose->attachImapMessage(new IMP_Indices($vars->fwddigest));
+        } catch (IMP_Compose_Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
     }
     break;
 

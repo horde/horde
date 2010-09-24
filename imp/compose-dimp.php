@@ -15,6 +15,7 @@
  * 'type' - TODO
  * 'to' - TODO
  * 'uid' - TODO
+ * 'uids' - TODO
  * </pre>
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
@@ -60,35 +61,26 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
     $identity->setDefault($vars->identity);
 }
 
-/* Initialize the IMP_Compose:: object. */
+/* Init objects. */
 $imp_compose = $injector->getInstance('IMP_Compose')->getOb();
-
-/* Init IMP_Ui_Compose:: object. */
 $imp_ui = new IMP_Ui_Compose();
 
 $show_editor = false;
 $title = _("New Message");
-
-if (in_array($vars->type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'forward_redirect', 'resume'))) {
-    if (!$vars->uid || !$vars->folder) {
-        $vars->type = 'new';
-    }
-
-    try {
-        $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($vars->folder, $vars->uid));
-    } catch (Horde_Exception $e) {
-        $notification->push(_("Requested message not found."), 'horde.error');
-        $vars->uid = $vars->folder = null;
-        $vars->type = 'new';
-    }
-}
 
 switch ($vars->type) {
 case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents, $header['to']);
+    try {
+        $contents = $imp_ui->getContents($vars);
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
+        break;
+    }
+
+    $reply_msg = $imp_compose->replyMessage($vars->type, reset($contents), $header['to']);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
@@ -119,30 +111,64 @@ case 'forward_attach':
 case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
-    $fwd_msg = $imp_compose->forwardMessage($vars->type, $imp_contents);
-    $msg = $fwd_msg['body'];
-    $header = $fwd_msg['headers'];
-    $header['replytype'] = 'forward';
-    $title = $header['title'];
-    if ($fwd_msg['format'] == 'html') {
-        $show_editor = true;
-    }
-    if ($vars->type == 'forward_auto') {
-        $fillform_opts['auto'] = $fwd_msg['type'];
-    }
-    $vars->type = 'forward';
+    if ($vars->uids) {
+        if (!in_array($vars->type, array('forward_attach', 'forward_auto'))) {
+            $notification->push(_("Multiple messages can only be forwarded as attachments."), 'horde.warning');
+        }
 
-    if (!$prefs->isLocked('default_identity') &&
-        !is_null($fwd_msg['identity'])) {
-        $identity->setDefault($fwd_msg['identity']);
+        try {
+            $header = array(
+                'replytype' => 'forward',
+                'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
+            );
+        } catch (IMP_Compose_Exception $e) {
+            $notification->push($e, 'horde.error');
+            break;
+        }
+
+        $rte = $show_editor = ($prefs->getValue('compose_html') && $_SESSION['imp']['rteavail']);
+    } else {
+    if (!($contents = $imp_ui->getContents($vars))) {
+        break;
     }
+    try {
+        $contents = $imp_ui->getContents($vars);
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
+        break;
+    }
+
+        $fwd_msg = $imp_compose->forwardMessage($vars->type, $contents);
+        $msg = $fwd_msg['body'];
+        $header = $fwd_msg['headers'];
+        $header['replytype'] = 'forward';
+        $title = $header['title'];
+        if ($fwd_msg['format'] == 'html') {
+            $show_editor = true;
+        }
+        if ($vars->type == 'forward_auto') {
+            $fillform_opts['auto'] = $fwd_msg['type'];
+        }
+
+        if (!$prefs->isLocked('default_identity') &&
+            !is_null($fwd_msg['identity'])) {
+            $identity->setDefault($fwd_msg['identity']);
+        }
+    }
+
+    $vars->type = 'forward';
     break;
 
 case 'forward_redirect':
-    $imp_compose->redirectMessage($imp_contents);
-    $get_sig = false;
-    $title = _("Redirect");
-    $vars->type = 'redirect';
+    try {
+        $contents = $imp_ui->getContents($vars);
+        $imp_compose->redirectMessage(reset($contents));
+        $get_sig = false;
+        $title = _("Redirect");
+        $vars->type = 'redirect';
+    } catch (IMP_Compose_Exception $e) {
+        $notification->push($e, 'horde.error');
+    }
     break;
 
 case 'resume':
@@ -175,7 +201,6 @@ if ($vars->type == 'redirect') {
 } else {
     $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
     $imp_ui->attachSpellChecker();
-
     $sig = $identity->getSignature($show_editor ? 'html' : 'text');
     if ($get_sig && !empty($sig)) {
         if ($identity->getValue('sig_first')) {

@@ -263,12 +263,23 @@ var DimpCore = {
 
     compose: function(type, args)
     {
-        var url = DIMP.conf.URI_COMPOSE;
-        args = args || {};
+        var params = {};
         if (type) {
-            args.type = type;
+            params.type = type;
         }
-        this.popupWindow(this.addURLParam(url, args), 'compose' + new Date().getTime());
+
+        if (type.startsWith('forward') || !args.uids) {
+            if (type.startsWith('forward')) {
+                params.uids = this.toRangeString(this.selectionToRange(args.uids));
+            }
+            this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
+        } else {
+            args.uids.get('dataob').each(function(d) {
+                params.folder = d.view;
+                params.uid = d.imapuid;
+                this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
+            }, this);
+        }
     },
 
     popupWindow: function(url, name, onload)
