@@ -4,7 +4,7 @@ div.mnemo-stickies {
     font-size:100%;
     color:#fff;
 }
-div.mnemo-stickies ul, li {
+div.mnemo-stickies ul, div.mnemo-stickies li {
     list-style: none;
 }
 div.mnemo-stickies ul {
