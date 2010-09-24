@@ -80,7 +80,7 @@ class IMP_Views_ListMessages
                     $c_list,
                     array($args['qsearchmbox']),
                     null,
-                    false,
+                    IMP_Search::CREATE_QUERY,
                     $mbox
                 );
             }
