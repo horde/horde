@@ -312,7 +312,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
-        $fontsize = self::getFontSize($fontsize);
+        $fontsize = Horde_Image::getFontSize($fontsize);
         $pixel = new ImagickPixel($color);
         $draw = new ImagickDraw();
         $draw->setFillColor($pixel);

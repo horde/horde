@@ -298,7 +298,7 @@ class Horde_Image_Im extends Horde_Image_Base
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
         $string = addslashes('"' . $string . '"');
-        $fontsize = self::getFontSize($fontsize);
+        $fontsize = Horde_Image::getFontSize($fontsize);
         $this->_postSrcOperations[] = "-fill $color " . (!empty($font) ? "-font $font" : '') . " -pointsize $fontsize -gravity northwest -draw \"text $x,$y $string\" -fill none";
     }
 

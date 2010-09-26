@@ -8,7 +8,7 @@
  * @package Horde_Image
  */
 
-require_once dirname(__FILE__) . '/../../../horde/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Putting these here so they don't interfere with timing/memory data when
@@ -21,6 +21,12 @@ $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
 switch ($test) {
+case 'liquid':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'img4.jpg'));
+    $image->addEffect('LiquidResize', array('ratio' => true, 'width' => 612, 'height' => 340, 'delta_x' => 3, 'rigidity' => 0));
+    $image->display();
+    break;
 
 case 'multipage':
     $time = xdebug_time_index();

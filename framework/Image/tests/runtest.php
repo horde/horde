@@ -3,7 +3,7 @@
  * Test harness for generating the test images for Horde_Image tests
  */
 
-require_once dirname(__FILE__) . '/../../../horde/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $allTests = array(
@@ -31,9 +31,10 @@ $allTests = array(
     'testRoundstackBlueBG' => 'Thumbnail stack, rounded corners on a blue background',
     'testPolaroidstackTransparentBG' => 'Polaroid stack on a transparent background.',
     'testPolaroidstackBlueBG' => 'Polaroid stack on a blue background',
-    //'testInitialStateAfterLoad' => 'Initial state after loading an existing image.',
+    'testInitialStateAfterLoad' => 'Initial state after loading an existing image.',
     'testResize' => 'Test resize method.',
     'multipage' => 'Test Multipage tiffs',
+    'liquid' => 'Test Seam Carving',
 );
 ?>
 <html>
@@ -44,9 +45,10 @@ $allTests = array(
 <table width="50%">
  <thead><td>Effect</td><td>Im</td><td>Imagick</td></thead>
 <?php
+$url = new Horde_Url('im.php');
 foreach ($allTests as $name => $description) {
-    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>' .
-    '<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td></tr>';
+    echo '<tr><td text-align="top">' . $description . '</td><td><img src="' . $url->copy()->add('test', $name) . '" /></td>' .
+    '<td text-align="top"><img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Imagick')) . '" /></td></tr>';
 }
 echo '</table>';
 ?></body></html>

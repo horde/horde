@@ -58,6 +58,7 @@ Initial Horde 4 package
         <file name="RoundCorners.php" role="php" />
         <file name="TextWatermark.php" role="php" />
         <file name="Unsharpmask.php" role="php" />
+        <file name="LiquidResize.php" role="php" />
        </dir> <!-- /lib/Horde/Image/Effect/Im -->
        <dir name="Imagick">
         <file name="Border.php" role="php" />
@@ -68,6 +69,7 @@ Initial Horde 4 package
         <file name="RoundCorners.php" role="php" />
         <file name="TextWatermark.php" role="php" />
         <file name="Unsharpmask.php" role="php" />
+        <file name="LiquidResize.php" role="php" />
        </dir> <!-- /lib/Horde/Image/Effect/Imagick -->
        <file name="Border.php" role="php" />
       </dir> <!-- /lib/Horde/Image/Effect -->
@@ -162,6 +164,7 @@ Initial Horde 4 package
    <install as="Horde/Image/Effect/Im/RoundCorners.php" name="lib/Horde/Image/Effect/Im/RoundCorners.php" />
    <install as="Horde/Image/Effect/Im/TextWatermark.php" name="lib/Horde/Image/Effect/Im/TextWatermark.php" />
    <install as="Horde/Image/Effect/Im/Unsharpmask.php" name="lib/Horde/Image/Effect/Im/Unsharpmask.php" />
+   <install as="Horde/Image/Effect/Im/LiquidResize.php" name="lib/Horde/Image/Effect/Im/LiquidResize.php" />
    <install as="Horde/Image/Effect/Imagick/Border.php" name="lib/Horde/Image/Effect/Imagick/Border.php" />
    <install as="Horde/Image/Effect/Imagick/Composite.php" name="lib/Horde/Image/Effect/Imagick/Composite.php" />
    <install as="Horde/Image/Effect/Imagick/DropShadow.php" name="lib/Horde/Image/Effect/Imagick/DropShadow.php" />
@@ -170,6 +173,7 @@ Initial Horde 4 package
    <install as="Horde/Image/Effect/Imagick/RoundCorners.php" name="lib/Horde/Image/Effect/Imagick/RoundCorners.php" />
    <install as="Horde/Image/Effect/Imagick/TextWatermark.php" name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" />
    <install as="Horde/Image/Effect/Imagick/Unsharpmask.php" name="lib/Horde/Image/Effect/Imagick/Unsharpmask.php" />
+   <install as="Horde/Image/Effect/Imagick/LiquidResize.php" name="lib/Horde/Image/Effect/Imagick/LiquidResize.php" />
    <install as="Horde/Image/Exif/Base.php" name="lib/Horde/Image/Exif/Base.php" />
    <install as="Horde/Image/Exif/Bundled.php" name="lib/Horde/Image/Exif/Bundled.php" />
    <install as="Horde/Image/Exif/Exiftool.php" name="lib/Horde/Image/Exif/Exiftool.php" />
