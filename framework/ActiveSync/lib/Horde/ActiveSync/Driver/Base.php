@@ -129,7 +129,7 @@ abstract class Horde_ActiveSync_Driver_Base
         if (empty($params['state_basic']) ||
             !($params['state_basic'] instanceof Horde_ActiveSync_State_Base)) {
 
-            throw new Horde_ActiveSync_Exception('Missing required state object');
+            throw new InvalidArgumentException('Missing required state object');
         }
 
         /* Create a stub if we don't have a useable logger. */

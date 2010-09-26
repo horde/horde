@@ -33,7 +33,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     public function __construct($params = array())
     {
         if (empty($params['registry'])) {
-            throw new Horde_ActiveSync_Exception('Missing required Horde_Registry object.');
+            throw new InvalidArgumentException('Missing required Horde_Registry object.');
         }
 
         $this->_registry = $params['registry'];

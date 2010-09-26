@@ -51,7 +51,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     {
         parent::__construct($params);
         if (empty($this->_params['connector'])) {
-            throw new Horde_ActiveSync_Exception('Missing required connector object.');
+            throw new InvalidArgumentException('Missing required connector object.');
         }
         $this->_connector = $params['connector'];
     }
