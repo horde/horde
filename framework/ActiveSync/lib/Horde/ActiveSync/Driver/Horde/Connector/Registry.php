@@ -47,23 +47,13 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @return array
      */
-    public function calendar_listEvents($startstamp, $endstamp)
+    public function calendar_listUids($startstamp, $endstamp)
     {
         try {
-            $result = $this->_registry->calendar->listEvents(
-                    $startstamp,   // Start
-                    $endstamp,     // End
-                    null,          // Calendar
-                    false,         // Recurrence
-                    false,         // Alarms only
-                    false,         // Show remote
-                    true,          // Hide exception events
-                    false,         // Don't return multi-day events on *each* day
-                    true);         // Return Tags
+            return $this->_registry->calendar->listUids($startstamp, $endstamp);
         } catch (Exception $e) {
             return array();
         }
-        return $result;
     }
 
     /**
@@ -172,9 +162,9 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @return array of contact UIDs
      */
-    public function contacts_list()
+    public function contacts_listUids()
     {
-        return $this->_registry->contacts->listContacts();
+        return $this->_registry->contacts->listUids();
     }
 
     /**
@@ -278,11 +268,11 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @return array  An array of task uids.
      */
-    public function tasks_listTasks()
+    public function tasks_listUids()
     {
         $app = $this->horde_hasInterface('tasks');
         $tasklist = $this->horde_getPref($app, 'default_tasklist');
-        return $this->_registry->tasks->listTaskUids($tasklist);
+        return $this->_registry->tasks->listUids($tasklist);
     }
 
     public function tasks_listTaskLists()

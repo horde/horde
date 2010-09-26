@@ -211,21 +211,19 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
 
             try {
-                $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
+                $events = $this->_connector->calendar_listUids($startstamp, $endstamp);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return array();
             }
-            foreach ($events as $day) {
-                foreach($day as $e) {
-                    $messages[] = $this->_smartStatMessage($folderid, $e->uid, false);
-                }
+            foreach ($events as $uid) {
+                $messages[] = $this->_smartStatMessage($folderid, $uid, false);
             }
             break;
 
         case self::CONTACTS_FOLDER:
             try {
-                $contacts = $this->_connector->contacts_list();
+                $contacts = $this->_connector->contacts_listUids();
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return array();
@@ -238,7 +236,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         case self::TASKS_FOLDER:
             try {
-                $tasks = $this->_connector->tasks_listTasks();
+                $tasks = $this->_connector->tasks_listUids();
             } catch (Horde_Exception $e) {
                $this->_logger->err($e->getMessage());
                return array();
@@ -279,15 +277,10 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
                 try {
-                    $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
+                    $adds = $this->_connector->calendar_listUids($startstamp, $endstamp);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return array();
-                }
-                foreach ($events as $day) {
-                    foreach($day as $e) {
-                        $adds[] = $e->uid;
-                    }
                 }
                 $edits = $deletes = array();
             } else {
@@ -307,7 +300,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             /* Can't use History for first sync */
             if ($from_ts == 0) {
                 try {
-                    $adds = $this->_connector->contacts_list();
+                    $adds = $this->_connector->contacts_listUids();
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return array();
@@ -328,7 +321,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             /* Can't use History for first sync */
             if ($from_ts == 0) {
                 try {
-                    $adds = $this->_connector->tasks_listTasks();
+                    $adds = $this->_connector->tasks_listUids();
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return array();
