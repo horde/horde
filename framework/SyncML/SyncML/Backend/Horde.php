@@ -109,11 +109,6 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         global $registry;
 
-        $apimap = array('calendar' => 'listEvents',
-                        'contacts' => 'listContacts',
-                        'tasks' => 'listTasks',
-                        'notes' => 'listNotes');
-
         $adds = $mods = $dels = array();
         $database = $this->_normalize($databaseURI);
         $slowsync = $from_ts == 0;
@@ -135,10 +130,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                     }
                     $start = new Horde_Date($start);
                     $this->logMessage('Slow-syncing all events starting from ' . (string)$start, 'DEBUG');
-                    $data = $registry->{$database}->{$apimap[$database]}(
+                    $data = $registry->{$database}->listUids(
                                 SyncML_Backend::getParameter($databaseURI, 'source'), $start);
                 } else {
-                    $data = $registry->{$database}->{$apimap[$database]}(
+                    $data = $registry->{$database}->listUids(
                                 SyncML_Backend::getParameter($databaseURI, 'source'));
                 }
             } else {

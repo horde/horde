@@ -643,7 +643,7 @@ class Nag_Api extends Horde_Registry_Api
      * @return array             An array of UIDs for all tasks
      *                           the user can access.
      */
-    public function listTaskUids($tasklist = null)
+    public function listUids($tasklist = null)
     {
         if (!isset($GLOBALS['conf']['storage']['driver'])) {
             return PEAR::raiseError(_("Not configured"));

@@ -437,6 +437,9 @@ class Kronolith_Api extends Horde_Registry_Api
 
     /**
      * Returns the ids of all the events that happen within a time period.
+     * Only includes recurring events once per time period, and does not include
+     * events that represent exceptions, making this method useful for syncing
+     * purposes. For more control, use the listEvents method.
      *
      * @param string $calendar      The calendar to check for events.
      * @param object $startstamp    The start of the time range.
@@ -456,7 +459,14 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $events = Kronolith::getDriver(null, $calendar)
-            ->listEvents(new Horde_Date($startstamp), new Horde_Date($endstamp));
+            ->listEvents(new Horde_Date($startstamp),
+                         new Horde_Date($endstamp),
+                         false,  // recurrence
+                         false,  // alarm
+                         false,  // no json cache
+                         false,  // Don't cover dates
+                         true,   // Hide exceptions
+                         false); // No tags
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {

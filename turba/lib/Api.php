@@ -434,7 +434,7 @@ class Turba_Api extends Horde_Registry_Api
      * @return array  An array of UIDs for all contacts the user can access.
      * @throws Turba_Exception
      */
-    public function listContacts($sources = null)
+    public function listUids($sources = null)
     {
         global $cfgSources, $prefs;
 

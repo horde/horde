@@ -92,7 +92,7 @@ class Mnemo_Api extends Horde_Registry_Api
      *
      * @return array  An array of UIDs for all notes the user can access.
      */
-    public function listNotes($notepad = null)
+    public function listUids($notepad = null)
     {
         global $conf;
 
