@@ -1995,7 +1995,7 @@ var DimpBase = {
             if (tmp.first().draft && this.viewport.getMetaData('drafts')) {
                 DimpCore.compose('resume', { uids: tmp });
             } else {
-                this.msgWindow(tmp);
+                this.msgWindow(tmp.first());
             }
             e.stop();
         }
