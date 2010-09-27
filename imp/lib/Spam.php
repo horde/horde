@@ -23,6 +23,8 @@ class IMP_Spam
      * @param string $action        Either 'spam' or 'notspam'.
      * @param array $opts           Additional options:
      * <pre>
+     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     *               DEFAULT: No update.
      * 'noaction' - (boolean) Don't perform any action after reporting?
      *              DEFAULT: false
      * </pre>
@@ -183,6 +185,11 @@ class IMP_Spam
         }
         $notification->push($msg, 'horde.message');
 
+        $mbox_args = array();
+        if (isset($opts['mailboxob'])) {
+            $mbox_args['mailboxob'] = $opts['mailboxob'];
+        }
+
         /* Delete/move message after report. */
         switch ($action) {
         case 'spam':
@@ -191,7 +198,7 @@ class IMP_Spam
                 $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 switch ($result) {
                 case 1:
-                    $msg_count = $imp_message->delete($indices);
+                    $msg_count = $imp_message->delete($indices, $mbox_args);
                     if ($msg_count === false) {
                         $result = 0;
                     } else {
@@ -206,7 +213,7 @@ class IMP_Spam
                 case 2:
                     $targetMbox = $GLOBALS['prefs']->getValue('spam_folder');
                     if ($targetMbox) {
-                        if (!$imp_message->copy(IMP::folderPref($targetMbox, true), 'move', $indices, array('create' => true))) {
+                        if (!$imp_message->copy(IMP::folderPref($targetMbox, true), 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
                             $result = 0;
                         }
                     } else {
@@ -222,7 +229,7 @@ class IMP_Spam
             if (empty($opts['noaction']) &&
                 ($result = $GLOBALS['prefs']->getValue('move_ham_after_report'))) {
                 $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
-                if (!$imp_message->copy('INBOX', 'move', $indices)) {
+                if (!$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
                     $result = 0;
                 }
             }

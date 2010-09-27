@@ -50,9 +50,8 @@ case 'u':
     if ($readonly) {
         break;
     }
-    $index_ob = $imp_mailbox->getIMAPIndex();
     $msg_index = $imp_mailbox->getMessageIndex();
-    $imp_indices = new IMP_Indices($index_ob['mailbox'], $index_ob['uid']);
+    $imp_indices = new IMP_Indices($imp_mailbox);
     $imp_message = $injector->getInstance('IMP_Message');
 
     if ($vars->a == 'd') {
@@ -71,10 +70,8 @@ case 'u':
 // 'ri' = report innocent
 case 'rs':
 case 'ri':
-    $index_ob = $imp_mailbox->getIMAPIndex();
     $msg_index = $imp_mailbox->getMessageIndex();
-
-    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($index_ob['mailbox'], $index_ob['uid']), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
+    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $vars->a == 'rs' ? 'spam' : 'innocent', array('mailboxob' => $imp_mailbox)) === 1);
     break;
 
 // 'pa' = part action
