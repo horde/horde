@@ -322,7 +322,7 @@ class Horde_Url
             throw new Horde_Url_Exception('Redirect failed: URL is empty.');
         }
 
-        header('Location: ' . strval($this->setRaw(true)));
+        header('Location: ' . $url);
         exit;
     }
 
