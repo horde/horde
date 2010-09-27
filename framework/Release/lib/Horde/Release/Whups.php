@@ -95,15 +95,13 @@ class Horde_Release_Whups
      */
     protected function _listQueues()
     {
-        $method = 'tickets.listQueues';
-        $result = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method,
-                                     null, array('user' => $this->_params['user'],
-                                                 'pass' => $this->_params['pass']));
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($result);
-        }
-
-        return $result->result;
+        return Horde_Rpc::request('jsonrpc',
+                                  $this->_params['url'],
+                                  'tickets.listQueues',
+                                  null,
+                                  array('user' => $this->_params['user'],
+                                        'pass' => $this->_params['pass']))
+            ->result;
     }
 
 }
