@@ -1,8 +1,7 @@
 <?php
 /**
  * This class implements the Horde_Image:: API for the PHP GD
- * extension. It mainly provides some utility functions, such as the
- * ability to make pixels, for now.
+ * extension.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -34,7 +33,6 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * GD Image resource for the current image data.
      *
-     * @TODO: Having this protected probably breaks effects
      * @var resource
      */
     protected $_im;
@@ -145,10 +143,11 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
+     * Get numeric font size from textual description
      *
+     * @param string $font  The textual size description
      *
-     * @param $font
-     * @return unknown_type
+     * @return integer
      */
     private function _getFont($font)
     {
@@ -174,11 +173,9 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Load the image data from a string.
      *
-     * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
      *
      * @return void
-     * @throws Horde_Image_Exception
      */
     public function loadString($image_data)
     {
@@ -454,7 +451,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      *                            the text.
      * @param string  $fontsize   The font (size) to use.
      *
-     * @return @TODO
+     * @return boolean
      */
     public function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0, $fontsize = 'small')
     {
