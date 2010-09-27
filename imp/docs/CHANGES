@@ -204,6 +204,7 @@ v5.0-git
 v4.3.8-cvs
 ----------
 
+[jan] SECURITY: Properly escape user input in Fetchmail configuration.
 [mms] Fix updating POP3 indices when using mailbox caching (Bug #8035).
 [jan] Include "anyone" user when listing users in the ACL screen (Bug #9135).
 [mms] Turn DNS prefetching off when displaying untrusted message content
