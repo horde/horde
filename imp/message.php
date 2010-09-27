@@ -227,6 +227,11 @@ try {
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($uid)));
 } catch (Horde_Imap_Client_Exception $e) {
+    $fetch_ret = null;
+}
+
+if (is_null($fetch_ret) || !isset($fetch_ret[$uid]['headertext'])) {
+    _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;
 }
