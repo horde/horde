@@ -466,7 +466,7 @@ class Horde_Release
                 die("\nThere was an error running the command\n$cmd\n");
             }
             print "Installing framework packages\n";
-            passthru("install_framework --copy --src ./$directory/framework --dest ./$directory/lib", $result);
+            passthru("install_framework --copy --src ./$directory/framework --horde /tmp --dest ./$directory/lib", $result);
             if ($result) {
                 exit;
             }
