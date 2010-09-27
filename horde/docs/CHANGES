@@ -49,6 +49,7 @@ v4.0-cvs
 v3.3.9-cvs
 ----------
 
+[jan] Add token protection to preference forms.
 [mms] Fix generating RFC 2231 parameters with charset information (Bug #9212).
 [mms] On invalid token during logout, redirect to initial page (Bug #7669).
 [mjr] Don't allow fixed blocks to be changed to another type (Bug #9141).

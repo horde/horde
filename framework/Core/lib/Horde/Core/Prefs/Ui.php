@@ -189,6 +189,15 @@ class Horde_Core_Prefs_Ui
             return;
         }
 
+        if ($this->vars->actionID) {
+            try {
+                Horde::checkRequestToken('horde.prefs', $this->vars->horde_prefs_token);
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push($e);
+                return;
+            }
+        }
+
         switch ($this->vars->actionID) {
         case 'update_prefs':
             if (isset($this->prefGroups[$this->group]['type']) &&
@@ -592,6 +601,7 @@ class Horde_Core_Prefs_Ui
             $t->set('app', htmlspecialchars($this->app));
             $t->set('group', htmlspecialchars($this->group));
             $t->set('label', htmlspecialchars($this->prefGroups[$this->group]['label']));
+            $t->set('token', Horde::getRequestToken('horde_prefs'));
 
             // Search for previous and next groups.
             if (count($prefgroups) > 1) {
