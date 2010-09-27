@@ -661,7 +661,8 @@ class Horde_Release
         $mail->setBody($body, 'utf-8', false);
         $mail->addHeaders($headers);
         try {
-            $mail->send(Mail::factory($this->_options['mailer']['type'], $this->_options['mailer']['params']));
+            $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
+            $mail->send(new $class($this->_options['mailer']['params']));
         } catch (Horde_Mime_Exception $e) {
             print $e->getMessage() . "\n";
         }
