@@ -752,10 +752,11 @@ $prefGroups['viewing'] = array(
     'label' => _("Message Viewing"),
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
-        'filtering', 'strip_attachments', 'html_image_replacement',
-        'html_image_addrbook', 'highlight_text', 'highlight_simple_markup',
-        'show_quoteblocks', 'dim_signature', 'emoticons', 'parts_display',
-        'mail_hdr', 'default_msg_charset', 'disposition_send_mdn'
+        'filtering', 'strip_attachments', 'alternative_display',
+        'html_image_replacement', 'html_image_addrbook', 'highlight_text',
+        'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
+        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
+        'disposition_send_mdn'
     )
 );
 
@@ -772,6 +773,18 @@ $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Show an icon to allow stripping of attachments from messages?"));
+
+// multipart/alternative part display choice
+$_prefs['alternative_display'] = array(
+    'value' => 'html',
+    'advanced' => true,
+    'type' => 'enum',
+    'enum' => array(
+        'html' => _("HTML part"),
+        'text' => _("Plaintext part")
+    ),
+    'desc' => _("For messages with alternative representations of the text part, which part should we display?")
+);
 
 // Replace image tags in inline viewed HTML messages with blank images?
 $_prefs['html_image_replacement'] = array(

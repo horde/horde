@@ -62,19 +62,21 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
      * Render out the currently set contents.
      *
      * @param boolean $inline        Are we viewing inline?
-     * @param boolean $prefer_plain  For MIMP, prefer text/plain part over
-     *                               all others.
+     * @param boolean $prefer_plain  Prefer text/plain part over all others.
      *
      * @return array  See parent::render().
      */
-    protected function _IMPrender($inline, $prefer_plain = true)
+    protected function _IMPrender($inline, $prefer_plain = null)
     {
         $base_id = $this->_mimepart->getMimeId();
         $subparts = $this->_mimepart->contentTypeMap();
 
         $base_ids = $display_ids = $ret = array();
 
-        $is_mimp = (IMP::getViewMode() == 'mimp');
+        if (is_null($prefer_plain) &&
+            ($GLOBALS['prefs']->getValue('alternative_display') == 'text')) {
+            $prefer_plain = true;
+        }
 
         /* Look for a displayable part. RFC: show the LAST choice that can be
          * displayed inline. If an alternative is itself a multipart, the user
@@ -85,20 +87,22 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         foreach ($subparts as $mime_id => $type) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
-                $this->getConfigParam('imp_contents')->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL)) {
-                if (!$is_mimp ||
-                    !$prefer_plain ||
-                    ($type == 'text/plain')) {
-                    $display_ids[strval($mime_id)] = true;
-                }
+                $this->getConfigParam('imp_contents')->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL) &&
+                /* Show HTML if $prefer_plain is false-y or if
+                 * alternative_display is not 'html'. */
+                (!$prefer_plain ||
+                 (($type != 'text/html') &&
+                  (strpos($type, 'text/') === 0)))) {
+                $display_ids[strval($mime_id)] = true;
             }
         }
 
         /* If we found no IDs, return now. */
         if (empty($display_ids)) {
-            if ($is_mimp && $prefer_plain) {
+            if ($prefer_plain && (IMP::getViewMode() == 'mimp')) {
                 return $this->_IMPRender($inline, false);
             }
+
             $ret[$base_id] = array(
                 'data' => '',
                 'status' => array(

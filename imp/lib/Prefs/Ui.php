@@ -313,6 +313,7 @@ class IMP_Prefs_Ui
             $v = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mock_part);
 
             if (!$v->canRender('inline')) {
+                $ui->suppress[] = 'alternative_display';
                 $ui->suppress[] = 'html_image_replacement';
                 $ui->suppress[] = 'html_image_addrbook';
             }

@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add preference to control displayed content for multipart/alternative
+      parts (Request #6711).
 [mms] Allow multiple messages to be forwarded in a single outgoing message
       (DIMP) (Request #9132).
 [mms] Add personal recipient message filter (Request #8659).
