@@ -85,13 +85,6 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
 
         $fileCount = count($zipInfo);
 
-        /* Determine maximum file name length. */
-        $max_array = array();
-        foreach ($zipInfo as $val) {
-            $max_array[] = strlen($val['name']);
-        }
-        $maxlen = empty($max_array) ? 0 : max($max_array);
-
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
             $name = _("unnamed");
@@ -107,7 +100,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
                 " bytes\n" .
                 sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
                 "\n\n" .
-                Horde_String::pad(_("File Name"), $maxlen, ' ', STR_PAD_RIGHT) .
+                str_repeat(' ', 15) .
                 Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
@@ -120,14 +113,14 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
                     'encode' => true,
                     'encode_all' => true
                 )
-            ) . str_repeat('-', 59 + $maxlen) . "\n";
+            ) . str_repeat('-', 74) . "\n";
 
         foreach ($zipInfo as $key => $val) {
             $ratio = (empty($val['size']))
                 ? 0
                 : 100 * ($val['csize'] / $val['size']);
 
-            $val['name'] = Horde_String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
+            $val['name'] = Horde_String::pad(Horde_String::truncate($val['name'], 15), 15, ' ', STR_PAD_RIGHT);
             $val['attr'] = Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT);
             $val['size'] = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
             $val['date'] = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
@@ -153,7 +146,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
         }
 
         return $this->_renderReturn(
-            nl2br($text . str_repeat('-', 59 + $maxlen) . "\n</span></td></tr></table>"),
+            nl2br($text . str_repeat('-', 74) . "\n</span></td></tr></table>"),
             'text/html; charset=' . $charset
         );
     }
