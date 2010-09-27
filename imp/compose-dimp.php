@@ -80,7 +80,7 @@ case 'reply_list':
         break;
     }
 
-    $reply_msg = $imp_compose->replyMessage($vars->type, reset($contents), $header['to']);
+    $reply_msg = $imp_compose->replyMessage($vars->type, $contents, $header['to']);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
@@ -128,9 +128,7 @@ case 'forward_both':
 
         $rte = $show_editor = ($prefs->getValue('compose_html') && $_SESSION['imp']['rteavail']);
     } else {
-    if (!($contents = $imp_ui->getContents($vars))) {
-        break;
-    }
+
     try {
         $contents = $imp_ui->getContents($vars);
     } catch (IMP_Compose_Exception $e) {
@@ -162,7 +160,7 @@ case 'forward_both':
 case 'forward_redirect':
     try {
         $contents = $imp_ui->getContents($vars);
-        $imp_compose->redirectMessage(reset($contents));
+        $imp_compose->redirectMessage($contents);
         $get_sig = false;
         $title = _("Redirect");
         $vars->type = 'redirect';

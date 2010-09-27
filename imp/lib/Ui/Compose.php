@@ -219,7 +219,7 @@ class IMP_Ui_Compose
      */
     public function getContents($vars = null)
     {
-        $ob = null;
+        $indices = $ob = null;
 
         if (is_null($vars)) {
             /* IMP: compose.php */
@@ -229,7 +229,7 @@ class IMP_Ui_Compose
             $indices = new IMP_Indices($vars->folder, $vars->uid);
         }
 
-        if (!is_null($ob)) {
+        if (!is_null($indices)) {
             try {
                 $ob = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
             } catch (Horde_Exception $e) {}
