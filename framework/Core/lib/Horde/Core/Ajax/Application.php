@@ -124,14 +124,17 @@ abstract class Horde_Core_Ajax_Application
      */
     public function logOut()
     {
-        Horde::redirect(Horde::getServiceLink('logout', $this->_app)->setRaw(true));
-        exit;
+        Horde::getServiceLink('logout', $this->_app)->setRaw(true)->redirect();
     }
 
     /**
-     * Returns a hash of group IDs and group names that the user has access to.
+     * Returns a hash of group IDs and group names that the user has access
+     * to.
      *
-     * @return array  Groups hash.
+     * @return object  Object with the following properties:
+     * <pre>
+     * 'groups' - (array) Groups hash.
+     * </pre>
      */
     public function listGroups()
     {
@@ -148,6 +151,7 @@ abstract class Horde_Core_Ajax_Application
         } catch (Horde_Group_Exception $e) {
             Horde::logMessage($e);
         }
+
         return $result;
     }
 
@@ -155,10 +159,16 @@ abstract class Horde_Core_Ajax_Application
      * Parses a valid email address out of a complete address string.
      *
      * Variables used:
-     * - mbox (string): The name of the new mailbox.
-     * - parent (string): The parent mailbox.
+     * <pre>
+     * 'mbox' - (string) The name of the new mailbox.
+     * 'parent' - (string) The parent mailbox.
+     * </pre>
      *
-     * @return string  The parsed email address.
+     * @return object  Object with the following properties:
+     * <pre>
+     * 'email' - (string) The parsed email address.
+     * </pre>
+     *
      * @throws Horde_Exception
      * @throws Horde_Mail_Exception
      */
@@ -173,14 +183,20 @@ abstract class Horde_Core_Ajax_Application
         if (!count($res)) {
             throw new Horde_Exception(_("No valid email address found"));
         }
-        return (object)array('email' => Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host));
+
+        return (object)array(
+            'email' => Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host)
+        );
     }
 
     /**
      * Loads a chunk of PHP code (usually an HTML template) from the
      * application's templates directory.
      *
-     * @return string  A chunk of PHP output.
+     * @return object  Object with the following properties:
+     * <pre>
+     * 'chunk' - (string) A chunk of PHP output.
+     * </pre>
      */
     public function chunkContent()
     {
