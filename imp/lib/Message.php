@@ -50,7 +50,7 @@ class IMP_Message
      * <pre>
      * 'create' - (boolean) Should the target mailbox be created?
      *            DEFAULT: false
-     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
      *               DEFAULT: No update.
      * </pre>
      *
@@ -167,7 +167,7 @@ class IMP_Message
      * <pre>
      * 'keeplog' - (boolean) Should any history information of the message be
      *             kept?
-     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
      *               DEFAULT: No update.
      * 'nuke' - (boolean) Override user preferences and nuke (i.e. permanently
      *          delete) the messages instead?
@@ -472,7 +472,7 @@ class IMP_Message
      *                              parts are stripped if null.
      * @param array $opts           Additional options:
      * <pre>
-     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
      *               DEFAULT: No update.
      * </pre>
      *
@@ -704,7 +704,7 @@ class IMP_Message
      * <pre>
      * 'list' - (boolean) Return a list of messages expunged.
      *          DEFAULT: false
-     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
      *               DEFAULT: No update.
      * </pre>
      *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Binder for IMP_Mailbox::.
+ * Binder for IMP_Mailbox_List::.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,13 +12,13 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Injector_Binder_Mailbox implements Horde_Injector_Binder
+class IMP_Injector_Binder_MailboxList implements Horde_Injector_Binder
 {
     /**
      */
     public function create(Horde_Injector $injector)
     {
-        return new IMP_Injector_Factory_Mailbox($injector);
+        return new IMP_Injector_Factory_MailboxList($injector);
     }
 
     /**

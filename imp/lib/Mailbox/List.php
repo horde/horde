@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Mailbox:: class contains all code related to handling a mailbox
+ * This class contains code related to generating and handling a mailbox
  * message list.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -13,8 +13,18 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Mailbox implements Countable
+class IMP_Mailbox_List implements Countable, Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
+    /**
+     * Has the internal message list changed?
+     *
+     * @var boolean
+     */
+    public $changed = false;
+
     /**
      * The mailbox to work with.
      *
@@ -23,11 +33,18 @@ class IMP_Mailbox implements Countable
     protected $_mailbox;
 
     /**
-     * The location in the sorted array we are at.
+     * Is this a search malbox?
      *
-     * @var integer
+     * @var boolean
      */
-    protected $_arrayIndex = null;
+    protected $_searchmbox;
+
+    /**
+     * The list of additional variables to serialize.
+     *
+     * @var array
+     */
+    protected $_slist = array();
 
     /**
      * The array of sorted indices.
@@ -45,13 +62,6 @@ class IMP_Mailbox implements Countable
     protected $_sortedMbox = array();
 
     /**
-     * Is this a search malbox?
-     *
-     * @var boolean
-     */
-    protected $_searchmbox;
-
-    /**
      * The Horde_Imap_Client_Thread object for the mailbox.
      *
      * @var Horde_Imap_Client_Thread
@@ -59,59 +69,14 @@ class IMP_Mailbox implements Countable
     protected $_threadob = null;
 
     /**
-     * Has the internal message list changed?
-     *
-     * @var boolean
-     */
-    protected $_changed = false;
-
-    /**
      * Constructor.
      *
-     * @param string $mailbox       The mailbox to work with.
-     * @param IMP_Indices $indices  An indices object.
+     * @param string $mailbox  The mailbox to work with.
      */
-    public function __construct($mailbox, $indices = null)
+    public function __construct($mailbox)
     {
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox);
-
-        if (is_null($indices)) {
-            unset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-        } else {
-            /* Try to rebuild sorted information from the session cache. */
-            if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
-                $tmp = json_decode($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-                $this->_sorted = $this->_searchmbox ? $tmp->s : $tmp;
-                $this->_sortedMbox = $this->_searchmbox ? $tmp->m : array();
-            }
-            $this->setIndex($indices);
-        }
-
-        register_shutdown_function(array($this, 'shutdown'));
-    }
-
-    /**
-     * Cache mailbox information if viewing in standard (IMP) message mode.
-     * Needed to keep navigation consistent when moving through the message
-     * list, and to ensure messages aren't marked as missing in search
-     * mailboxes (e.g. if search is dependent on unseen flag).
-     */
-    public function shutdown()
-    {
-        if ($this->_changed &&
-            ($_SESSION['imp']['view'] == 'imp')) {
-            /* Casting $_sorted to integers saves a significant amount of
-             * space when json_encoding (no need to quote every value). Only
-             * can do for IMAP though (since POP3 UIDs are not limited to
-             * integers). */
-            $sorted = ($_SESSION['imp']['protocol'] == 'pop')
-                ? $this->_sorted
-                : array_map('intval', $this->_sorted);
-            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = $this->_searchmbox
-                ? json_encode(array('m' => $this->_sortedMbox, 's' => $sorted))
-                : json_encode($sorted);
-        }
     }
 
     /**
@@ -281,7 +246,7 @@ class IMP_Mailbox implements Countable
             return;
         }
 
-        $this->_changed = true;
+        $this->changed = true;
         $this->_sorted = $this->_sortedMbox = array();
         $query = null;
 
@@ -408,51 +373,6 @@ class IMP_Mailbox implements Countable
     }
 
     /**
-     * Returns the current message array index. If the array index has
-     * run off the end of the message array, will return the last index.
-     *
-     * @return integer  The message array index.
-     */
-    public function getMessageIndex()
-    {
-        return is_null($this->_arrayIndex) ? 1 : $this->_arrayIndex + 1;
-    }
-
-    /**
-     * Checks to see if the current index is valid.
-     * This function is only useful if an index was passed to the constructor.
-     *
-     * @return boolean  True if index is valid, false if not.
-     */
-    public function isValidIndex($rebuild = true)
-    {
-        return !is_null($this->_arrayIndex);
-    }
-
-    /**
-     * Returns IMAP mbox/UID information on a message.
-     *
-     * @param integer $offset  The offset from the current message.
-     *
-     * @return array  Array with the following entries:
-     * <pre>
-     * 'mailbox' - (string) The mailbox.
-     * 'uid' - (integer) The message UID.
-     * </pre>
-     */
-    public function getIMAPIndex($offset = 0)
-    {
-        $index = $this->_arrayIndex + $offset;
-
-        return isset($this->_sorted[$index])
-            ? array(
-                  'mailbox' => ($this->_searchmbox ? $this->_sortedMbox[$index] : $this->_mailbox),
-                  'uid' => $this->_sorted[$index]
-              )
-            : array();
-    }
-
-    /**
      * Using the preferences and the current mailbox, determines the messages
      * to view on the current page.
      *
@@ -521,7 +441,7 @@ class IMP_Mailbox implements Countable
             $ret['pagecount'] = 1;
         }
 
-        $ret['index'] = ($this->_searchmbox) ? ($ret['begin'] - 1) : $this->_arrayIndex;
+        $ret['index'] = $ret['begin'] - 1;
 
         /* If there are no viewable messages, check for deleted messages in
            the mailbox. */
@@ -592,35 +512,6 @@ class IMP_Mailbox implements Countable
     }
 
     /**
-     * Updates the message array index.
-     *
-     * @param mixed $data  If an integer, the number of messages to increase
-     *                     array index by. If an indices object, sets array
-     *                     index to the index value.
-     */
-    public function setIndex($data)
-    {
-        if ($data instanceof IMP_Indices) {
-            list($mailbox, $uid) = $data->getSingle();
-            $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
-            if (empty($this->_arrayIndex)) {
-                $this->_rebuild(true);
-                $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
-            }
-        } elseif (!is_null($this->_arrayIndex)) {
-            $index = $this->_arrayIndex += $data;
-            if (isset($this->_sorted[$this->_arrayIndex])) {
-                $this->_rebuild();
-            } else {
-                $this->_rebuild(true);
-                $this->_arrayIndex = isset($this->_sorted[$index])
-                    ? $index
-                    : null;
-            }
-        }
-    }
-
-    /**
      * Get the Horde_Imap_Client_Thread object for the current mailbox.
      *
      * @return Horde_Imap_Client_Thread  The thread object for the current
@@ -648,8 +539,7 @@ class IMP_Mailbox implements Countable
      */
     protected function _rebuild($force = false)
     {
-        if ($force ||
-            (!is_null($this->_arrayIndex) && !$this->getIMAPIndex(1))) {
+        if ($force) {
             $this->_sorted = null;
             $this->_buildMailbox();
         }
@@ -720,16 +610,18 @@ class IMP_Mailbox implements Countable
      *
      * @param mixed $indices  An IMP_Indices object or true to remove all
      *                        messages in the mailbox.
+     *
+     * @return boolean  True if the message was removed from the mailbox.
      */
     public function removeMsgs($indices)
     {
         if ($indices === true) {
             $this->_rebuild(true);
-            return;
+            return false;
         }
 
         if (!count($indices)) {
-            return;
+            return false;
         }
 
         /* Remove the current entry and recalculate the range. */
@@ -741,17 +633,14 @@ class IMP_Mailbox implements Countable
             }
         }
 
+        $this->changed = true;
         $this->_sorted = array_values($this->_sorted);
-        $this->_changed = true;
         if ($this->_searchmbox) {
             $this->_sortedMbox = array_values($this->_sortedMbox);
         }
-
         $this->_threadob = null;
 
-        /* Update the current array index to its new position in the message
-         * array. */
-        $this->setIndex(0);
+        return true;
     }
 
     /**
@@ -787,6 +676,66 @@ class IMP_Mailbox implements Countable
     {
         $this->_buildMailbox();
         return count($this->_sorted);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            'm' => $this->_mailbox,
+            's' => $this->_searchmbox,
+            'v' => self::VERSION
+        );
+
+        if (!is_null($this->_sorted)) {
+            $data['so'] = $this->_sorted;
+            if (!empty($this->_sortedmbox)) {
+                $data['som'] = $this->_sortedmbox;
+            }
+        }
+
+        foreach ($this->_slist as $val) {
+            $data[$val] = $this->$val;
+        }
+
+        return json_encode($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = json_decode($data, true);
+        if (!is_array($data) ||
+            !isset($data['v']) ||
+            ($data['v'] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_mailbox = $data['m'];
+        $this->_searchmbox = $data['s'];
+
+        if (isset($data['so'])) {
+            $this->_sorted = $data['so'];
+            if (isset($data['som'])) {
+                $this->_sortedmbox = $data['som'];
+            }
+        }
+
+        foreach ($this->_slist as $val) {
+            $this->$val = $data[$val];
+        }
     }
 
 }

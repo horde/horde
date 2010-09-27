@@ -23,7 +23,7 @@ class IMP_Spam
      * @param string $action        Either 'spam' or 'notspam'.
      * @param array $opts           Additional options:
      * <pre>
-     * 'mailboxob' - (IMP_Mailbox) Update this mailbox object.
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox list object.
      *               DEFAULT: No update.
      * 'noaction' - (boolean) Don't perform any action after reporting?
      *              DEFAULT: false

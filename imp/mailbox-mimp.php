@@ -127,7 +127,7 @@ case 'rs':
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox);
+$imp_mailbox = $injector->getInstance('IMP_Mailbox_List')->getList(IMP::$mailbox);
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */

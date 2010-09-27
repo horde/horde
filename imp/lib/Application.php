@@ -99,7 +99,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Imap' => 'IMP_Injector_Binder_Imap',
             'IMP_Imap_Tree' => 'IMP_Injector_Binder_Imaptree',
             'IMP_Mail' => 'IMP_Injector_Binder_Mail',
-            'IMP_Mailbox' => 'IMP_Injector_Binder_Mailbox',
+            'IMP_Mailbox_List' => 'IMP_Injector_Binder_MailboxList',
             'IMP_Mime_Viewer' => 'IMP_Injector_Binder_MimeViewer',
             'IMP_Quota' => 'IMP_Injector_Binder_Quota',
             'IMP_Search' => 'IMP_Injector_Binder_Search',

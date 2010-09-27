@@ -108,7 +108,7 @@ class IMP_Views_ListMessages
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
+        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox_List')->getList($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 
@@ -379,11 +379,11 @@ class IMP_Views_ListMessages
     /**
      * Obtains IMAP overview data for a given set of message UIDs.
      *
-     * @param IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
-     * @param string $folder            The current folder.
-     * @param array $msglist            The list of message sequence numbers
-     *                                  to process.
-     * @param boolean $search           Is this a search mbox?
+     * @param IMP_Mailbox_List $imp_mailbox  The mailbox list  object.
+     * @param string $folder                 The current folder.
+     * @param array $msglist                 The list of message sequence
+     *                                       numbers to process.
+     * @param boolean $search                Is this a search mbox?
      *
      * @return array  TODO
      * @throws Horde_Exception

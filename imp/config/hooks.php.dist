@@ -272,9 +272,9 @@ class IMP_Hooks
      * mailbox.
      *
      * @param array $data   The overview information for a message as returned
-     *                      from the IMP_Mailbox::getMailboxArray() call (see
-     *                      lib/Mailbox.php for documentation on the structure
-     *                      of the array).
+     *                      from the IMP_Mailbox_List::getMailboxArray() call
+     *                      (see lib/Mailbox/List.php for documentation on the
+     *                      structure of the array).
      * @param string $mode  Either 'imp' or 'dimp'.
      *
      * @return array  An array of additional flags to add. These flags must be
