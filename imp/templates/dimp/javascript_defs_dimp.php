@@ -84,7 +84,7 @@ $code['conf'] = array_filter(array(
     'pop3' => intval((isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop'))),
     'popup_height' => 610,
     'popup_width' => 820,
-    'preview_pref' => ($GLOBALS['prefs']->getValue('dimp_show_preview') ? $GLOBALS['prefs']->getValue('dimp_show_preview') : 'horiz'),
+    'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
