@@ -23,6 +23,8 @@ class Horde_Image_Effect
      */
     protected $_image = null;
 
+    protected $_logger;
+
     /**
      * Effect constructor.
      *
@@ -49,6 +51,11 @@ class Horde_Image_Effect
     public function setImageObject(&$image)
     {
         $this->_image = &$image;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
     }
 
     public function factory($type, $driver, $params)
@@ -83,6 +90,10 @@ class Horde_Image_Effect
             $effect = new $class($params);
         } else {
             throw new Horde_Image_Exception(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+        }
+
+        if (!empty($params['logger'])) {
+            $effect->setLogger($params['logger']);
         }
 
         return $effect;

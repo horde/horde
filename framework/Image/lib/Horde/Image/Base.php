@@ -338,6 +338,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     public function addEffect($type, $params)
     {
         $class = str_replace('Horde_Image_', '', get_class($this));
+        $params['logger'] = $this->_logger;
         $effect = Horde_Image_Effect::factory($type, $class, $params);
         $effect->setImageObject($this);
         return $effect->apply();
