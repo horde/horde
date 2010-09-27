@@ -453,7 +453,6 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
-     * 'prefsapi
      * 'problem'
      * 'sidebar'
      * 'prefs'
@@ -506,14 +505,10 @@ HTML;
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
         case 'prefs':
-        case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url(($type == 'prefs') ? 'services/prefs.php' : 'services/prefs/', false, $opts);
+                $url = self::url('services/prefs.php', false, $opts);
                 if (!is_null($app)) {
                     $url->add('app', $app);
-                }
-                if ($type == 'prefsapi') {
-                    $url->remove('ajaxui');
                 }
                 return $url;
             }

@@ -3001,7 +3001,7 @@ var DimpBase = {
     /* Pref updating function. */
     _updatePrefs: function(pref, value)
     {
-        new Ajax.Request(DimpCore.addURLParam(DIMP.conf.URI_PREFS), { parameters: { pref: pref, value: value } });
+        DimpCore.doAction('setPrefValue', { pref: pref, value: value });
     },
 
     /* Onload function. */

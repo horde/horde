@@ -15,10 +15,9 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::getServiceLink('prefsapi', 'skoli') ?>';
     try {
         column = column.substring(1);
-        new Ajax.Request(baseurl, { parameters: { pref: 'sortby', value: encodeURIComponent(column) } });
+        new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'skoli')->url ?>setPrefValue', { parameters: { pref: 'sortby', value: column } });
     } catch (e) {}
 }
 

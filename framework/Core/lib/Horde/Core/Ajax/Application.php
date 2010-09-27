@@ -211,4 +211,20 @@ abstract class Horde_Core_Ajax_Application
         return $result;
     }
 
+    /**
+     * Sets a preference value.
+     *
+     * Variables used:
+     * <pre>
+     * 'pref' - (string) The preference name.
+     * 'value' - (mixed) The preference value.
+     * </pre>
+     *
+     * @return boolean  True on success.
+     */
+    public function setPrefValue()
+    {
+        return $GLOBALS['prefs']->setValue($this->_vars->pref, $this->_vars->value);
+    }
+
 }

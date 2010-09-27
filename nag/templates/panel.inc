@@ -34,7 +34,7 @@ function sbarToggle()
         Element.addClassName(document.body, 'rightPanel');
     }
 
-    new Ajax.Request('<?php echo Horde::getServiceLink('prefsapi', 'nag') ?>', { parameters: { pref: 'show_panel', value: pref_value } });
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'nag')->url ?>setPrefValue', { parameters: { pref: 'show_panel', value: pref_value } });
 }
 
 document.observe('dom:loaded', function() {
