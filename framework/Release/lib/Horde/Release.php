@@ -548,9 +548,9 @@ class Horde_Release
                          'changelog' => $this->notes['fm']['changes']);
 
         if (is_array($this->notes['fm']['focus'])) {
-            $version['tag_list'] = implode(', ', $this->notes['fm']['focus']);
-        } else {
             $version['tag_list'] = $this->notes['fm']['focus'];
+        } else {
+            $version['tag_list'] = array($this->notes['fm']['focus']);
         }
 
         // Params to update the various project links on FM
@@ -676,6 +676,7 @@ class Horde_Release
     protected function _fmPublish($params)
     {
         $key = $this->_options['fm']['user_token'];
+        $params['tag_list'] = implode(', ', $params['tag_list']);
         $fm_params = array('auth_code' => $key,
                            'release' => $params);
         $http = new Horde_Http_Client();
