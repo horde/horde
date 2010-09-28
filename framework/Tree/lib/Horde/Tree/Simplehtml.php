@@ -83,19 +83,20 @@ class Horde_Tree_Simplehtml extends Horde_Tree_Base
         }
         $output .= str_repeat('&nbsp;', $node['indent'] * 2);
 
-        if (isset($node['children'])) {
-            $output .= '[' .
-                $this->_generateUrlTag($node_id) .
-                ($node['expanded'] ? '-' : '+') .
-                '</a>]&nbsp;';
-        }
-
         $output .= empty($node['url'])
             ? $node['label']
             : '<a href="' . strval($node['url']) . '">' . $node['label'] . '</a>';
         if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
             $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_RIGHT]);
         }
+
+        if (isset($node['children'])) {
+            $output .= '&nbsp;[' .
+                $this->_generateUrlTag($node_id) .
+                ($node['expanded'] ? '-' : '+') .
+                '</a>]';
+        }
+
         $output .= '</div>';
 
         if (isset($node['children']) && $node['expanded']) {
