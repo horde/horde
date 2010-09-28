@@ -10,7 +10,7 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class Page {
+class Wicked_Page {
 
     /**
      * Display modes supported by this page. Possible modes:
@@ -186,7 +186,7 @@ class Page {
      */
     function getCurrentPage()
     {
-        return Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
+        return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
                              Horde_Util::getFormData('version'),
                              Horde_Util::getFormData('referrer'));
     }

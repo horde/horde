@@ -10,7 +10,7 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class StandardPage extends Page {
+class StandardPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.

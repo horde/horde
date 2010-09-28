@@ -19,7 +19,7 @@ require_once WICKED_BASE . '/lib/Page.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class DeletePage extends Page {
+class DeletePage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -56,7 +56,7 @@ class DeletePage extends Page {
      */
     function preDisplay()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         if (!$page->allows(WICKED_MODE_REMOVE)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
@@ -70,7 +70,7 @@ class DeletePage extends Page {
     function display()
     {
         $version = Horde_Util::getFormData('version');
-        $page = Page::getPage($this->referrer(), $version);
+        $page = Wicked_Page::getPage($this->referrer(), $version);
         if (!$page->isValid()) {
             Wicked::url('WikiHome', true)->redirect();
         }
@@ -124,7 +124,7 @@ class DeletePage extends Page {
     function handleAction()
     {
         $pagename = $this->referrer();
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if ($page->allows(WICKED_MODE_REMOVE)) {
             $version = Horde_Util::getFormData('version');
             if (empty($version)) {

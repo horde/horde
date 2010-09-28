@@ -15,7 +15,7 @@ if (!($text = Horde_Util::getFormData('page_text'))) {
     exit;
 }
 
-$page = new Page();
+$page = new Wicked_Page();
 $wiki = &$page->getProcessor();
 $text = $wiki->transform($text);
 

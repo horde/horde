@@ -45,7 +45,7 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function getPageInfo($pagename)
     {
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -81,7 +81,7 @@ class Wicked_Api extends Horde_Registry_Api
         $info = array();
 
         foreach ($pagenames as $pagename) {
-            $page = Page::getPage($pagename);
+            $page = Wicked_Page::getPage($pagename);
             if (is_a($page, 'PEAR_Error')) {
                 return $page;
             }
@@ -107,7 +107,7 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function getPageHistory($pagename)
     {
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -146,7 +146,7 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function display($pagename)
     {
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -166,7 +166,7 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function renderPage($pagename, $format = 'Plain')
     {
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -195,7 +195,7 @@ class Wicked_Api extends Horde_Registry_Api
     public function edit($pagename, $text, $changelog = '',
                          $minorchange = false)
     {
-        $page = Page::getPage($pagename);
+        $page = Wicked_Page::getPage($pagename);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -275,7 +275,7 @@ class Wicked_Api extends Horde_Registry_Api
     {
         global $wicked;
 
-        $page = Page::getPage($pagename, $version);
+        $page = Wicked_Page::getPage($pagename, $version);
 
         if (!$page->allows(WICKED_MODE_CONTENT)) {
             return PEAR::raiseError(_("Permission denied."));

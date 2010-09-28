@@ -14,7 +14,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Wicked
  */
-class AttachedFiles extends Page {
+class AttachedFiles extends Wicked_Page {
 
     /**
      * Display modes supported by this page.

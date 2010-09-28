@@ -13,7 +13,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class RecentChanges extends Page {
+class RecentChanges extends Wicked_Page {
 
     /**
      * Display modes supported by this page.

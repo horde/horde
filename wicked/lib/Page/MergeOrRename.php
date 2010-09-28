@@ -13,7 +13,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Jason M. Felice <eraserhd@speakeasy.net>
  * @package Wicked
  */
-class MergeOrRename extends Page {
+class MergeOrRename extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -59,7 +59,7 @@ class MergeOrRename extends Page {
             if (!parent::allows(WICKED_MODE_REMOVE)) {
                 return false;
             }
-            $page = Page::getPage($this->referrer());
+            $page = Wicked_Page::getPage($this->referrer());
             if ($page->isLocked(Wicked::lockUser())) {
                 return false;
             }
@@ -178,7 +178,7 @@ class MergeOrRename extends Page {
             return;
         }
 
-        $sourcePage = Page::getPage($referrer);
+        $sourcePage = Wicked_Page::getPage($referrer);
         if (is_a($sourcePage, 'PEAR_Error')) {
             $notification->push(sprintf(_("Failed to retrieve \"%s\": %s"),
                                         $referrer, $sourcePage->getMessage()),
@@ -190,7 +190,7 @@ class MergeOrRename extends Page {
             return;
         }
 
-        $destPage = Page::getPage($new_name);
+        $destPage = Wicked_Page::getPage($new_name);
         if (!is_a($destPage, 'PEAR_Error') && !is_a($destPage, 'AddPage')) {
             // Destination page exists.
             if ($collision != 'merge') {

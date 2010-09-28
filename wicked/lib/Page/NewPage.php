@@ -19,7 +19,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class NewPage extends Page {
+class NewPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -85,7 +85,7 @@ class NewPage extends Page {
     {
         // Load the page template.
         if ($this->_template) {
-            $page = Page::getPage($this->_template);
+            $page = Wicked_Page::getPage($this->_template);
             $page_text = $page->getText();
         } else {
             $page_text = '';

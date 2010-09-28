@@ -19,7 +19,7 @@ require_once WICKED_BASE . '/lib/Page.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Wicked
  */
-class EditPage extends Page {
+class EditPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -58,7 +58,7 @@ class EditPage extends Page {
     function allows($mode)
     {
         if ($mode == WICKED_MODE_EDIT) {
-            $page = Page::getPage($this->referrer());
+            $page = Wicked_Page::getPage($this->referrer());
             if ($page->isLocked(Wicked::lockUser())) {
                 return false;
             }
@@ -86,7 +86,7 @@ class EditPage extends Page {
             Wicked::url($this->referrer(), true)->redirect();
         }
         if ($this->allows(WICKED_MODE_LOCKING)) {
-            $page = Page::getPage($this->referrer());
+            $page = Wicked_Page::getPage($this->referrer());
             if ($page->isLocked()) {
                 $page->unlock();
             }
@@ -104,7 +104,7 @@ class EditPage extends Page {
      */
     function display()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         $page_text = Horde_Util::getFormData('page_text');
         if (is_null($page_text)) {
             $page_text = $page->getText();
@@ -131,19 +131,19 @@ class EditPage extends Page {
 
     function isLocked()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         return $page->isLocked();
     }
 
     function getLockRequestor()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockRequestor();
     }
 
     function getLockTime()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockTime();
     }
 
@@ -151,7 +151,7 @@ class EditPage extends Page {
     {
         global $notification, $conf;
 
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         if (!$this->allows(WICKED_MODE_EDIT)) {
             $notification->push(sprintf(_("You don't have permission to edit \"%s\"."), $page->pageName()));
         } else {

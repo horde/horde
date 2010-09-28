@@ -14,7 +14,7 @@ require_once WICKED_BASE . '/lib/Sync.php';
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class SyncPages extends Page {
+class SyncPages extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -91,7 +91,7 @@ class SyncPages extends Page {
             if (isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
                 continue;
             }
-            $page = Page::getPage($pageName);
+            $page = Wicked_Page::getPage($pageName);
             if (is_a($page, 'PEAR_Error')) {
                 return $page;
             }
@@ -115,7 +115,7 @@ class SyncPages extends Page {
             }
 
             // Compare checksum
-            $page = Page::getPage($pageName);
+            $page = Wicked_Page::getPage($pageName);
             if (is_a($page, 'PEAR_Error')) {
                 return $page;
             } elseif (md5($page->getText()) == $_SESSION['wicked']['sync']['pages'][$pageName]['page_checksum']) {
@@ -316,7 +316,7 @@ class SyncPages extends Page {
      */
     function getLocalPageInfo($pageName)
     {
-        $page = Page::getPage($pageName);
+        $page = Wicked_Page::getPage($pageName);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -359,7 +359,7 @@ class SyncPages extends Page {
             return $text;
         }
 
-        $page = Page::getPage($pageName);
+        $page = Wicked_Page::getPage($pageName);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
@@ -400,7 +400,7 @@ class SyncPages extends Page {
      */
     function upload($pageName)
     {
-        $page = Page::getPage($pageName);
+        $page = Wicked_Page::getPage($pageName);
         if (is_a($page, 'PEAR_Error')) {
             $GLOBALS['notification']->push($page);
             return $page;

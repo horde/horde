@@ -14,7 +14,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
  * @author Ben Chavet <ben@horde.org>
  * @package Wicked
  */
-class Search extends Page {
+class Search extends Wicked_Page {
 
     /**
      * Display modes supported by this page.

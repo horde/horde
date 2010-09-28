@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
-$page = Page::getCurrentPage();
+$page = Wicked_Page::getCurrentPage();
 if (is_a($page, 'PEAR_Error')) {
     $notification->push(_("Internal error viewing requested page"), 'horde.error');
     Wicked::url('WikiHome', true)->redirect();

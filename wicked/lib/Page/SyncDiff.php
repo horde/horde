@@ -55,7 +55,7 @@ class SyncDiff extends SyncPages {
             return $remote;
         }
 
-        $page = Page::getPage($this->_pageName);
+        $page = Wicked_Page::getPage($this->_pageName);
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }

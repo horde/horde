@@ -13,7 +13,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class RevertPage extends Page {
+class RevertPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -50,7 +50,7 @@ class RevertPage extends Page {
      */
     function preDisplay()
     {
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         if (!$page->allows(WICKED_MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
@@ -64,7 +64,7 @@ class RevertPage extends Page {
     function display()
     {
         $version = Horde_Util::getFormData('version');
-        $page = Page::getPage($this->referrer(), $version);
+        $page = Wicked_Page::getPage($this->referrer(), $version);
         $msg = sprintf(_("Are you sure you want to revert to version %s of this page?"), $version);
 ?>
 <form method="post" name="revertform" action="<?php echo Wicked::url('RevertPage') ?>">
@@ -110,14 +110,14 @@ class RevertPage extends Page {
     {
         global $notification;
 
-        $page = Page::getPage($this->referrer());
+        $page = Wicked_Page::getPage($this->referrer());
         if ($page->allows(WICKED_MODE_EDIT)) {
             $version = Horde_Util::getPost('version');
             if (empty($version)) {
                 $notification->push(sprintf(_("Can't revert to an unknown version.")), 'horde.error');
                 Wicked::url($this->referrer(), true)->redirect();
             }
-            $oldpage = Page::getPage($this->referrer(), $version);
+            $oldpage = Wicked_Page::getPage($this->referrer(), $version);
             $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
                 substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
             $page->updateText($oldpage->getText(), 'Revert', $minor);
