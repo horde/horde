@@ -9,8 +9,15 @@ v2.0-git
 
 
 ----------
-v1.2.5-cvs
+v1.2.6-cvs
 ----------
+
+
+
+
+------
+v1.2.5
+------
 
 [jan] Fix procmail vacation rule if no dates are set (Gaudenz Steinlin
       <gaudenz@debian.org>, Bug #8982).

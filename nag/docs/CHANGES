@@ -14,8 +14,15 @@ v3.0-git
 
 
 ----------
-v2.3.6-cvs
+v2.3.7-cvs
 ----------
+
+
+
+
+------
+v2.3.6
+------
 
 [jan] Remove stray closing tag when displaying the date of completion.
 [mjr] Do not remove history entries when removing user data (Bug #8755).

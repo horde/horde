@@ -203,8 +203,15 @@ v5.0-git
 
 
 ----------
-v4.3.8-cvs
+v4.3.9-cvs
 ----------
+
+
+
+
+------
+v4.3.8
+------
 
 [jan] SECURITY: Properly escape user input in Fetchmail configuration.
 [mms] Fix updating POP3 indices when using mailbox caching (Bug #8035).
@@ -2481,8 +2488,15 @@ OLD DIMP CHANGELOG
 ==================
 
 ----------
-v1.1.5-cvs
+v1.1.6-cvs
 ----------
+
+
+
+
+------
+v1.1.5
+------
 
 [mms] SECURITY: XSS - Make sure mailbox name displayed on mailbox page is
       properly encoded (Bug #9240).

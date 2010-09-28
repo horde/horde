@@ -10,8 +10,15 @@ v2.0-git
 
 
 ----------
-v1.1.2-cvs
+v1.1.3-cvs
 ----------
+
+
+
+
+------
+v1.1.2
+------
 
 [mjr] Fix issue where subgalleries would become invisible in certain conditions.
 [mjr] Fix parsing gps data in certain locales (Bug #9180).

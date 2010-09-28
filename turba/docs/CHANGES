@@ -10,9 +10,17 @@ v3.0-git
       individually instead of returning only the categories available
       (Request #8504).
 
+
 ----------
-v2.3.5-cvs
+v2.3.6-cvs
 ----------
+
+
+
+
+------
+v2.3.5
+------
 
 [jan] Correctly export FN vCard property if 'alternative_name' is set, but not
       'name' (Bug #9207).

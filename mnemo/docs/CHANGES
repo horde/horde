@@ -7,8 +7,15 @@ v3.0-cvs
 
 
 ----------
-v2.2.4-cvs
+v2.2.5-cvs
 ----------
+
+
+
+
+------
+v2.2.4
+------
 
 [mjr] Do not remove history entries when removing user data (Bug #8755).
 
@@ -26,6 +33,7 @@ v2.2.2
 ------
 
 [mms] Upgrade prototype.js to v1.6.1.
+[jan] Fix synchronization with output compression enabled (Bug #7769).
 [jan] Add passphrase confirmation field (Bug #7379).
 [cjh] Work around BC break with Horde versions before 3.2 (Bug #7820).
 [cjh] Add URL access to notes by "starts-with" search on the note title.
