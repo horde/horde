@@ -1515,7 +1515,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 break;
 
             case 'Simplehtml':
-                $is_open = true;
+                $is_open = $val->is_open;
                 $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
                 break;
             }
