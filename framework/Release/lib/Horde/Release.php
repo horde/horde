@@ -548,9 +548,9 @@ class Horde_Release
                          'changelog' => $this->notes['fm']['changes']);
 
         if (is_array($this->notes['fm']['focus'])) {
-            $version['tag_list'] = $this->notes['fm']['focus'];
+            $version['tag_list'] = implode(', ', $this->notes['fm']['focus']);
         } else {
-            $version['tag_list'] = array($this->notes['fm']['focus']);
+            $version['tag_list'] = $this->notes['fm']['focus'];
         }
 
         // Params to update the various project links on FM
