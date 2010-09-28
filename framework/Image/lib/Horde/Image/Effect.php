@@ -58,7 +58,7 @@ class Horde_Image_Effect
         $this->_logger = $logger;
     }
 
-    public function factory($type, $driver, $params)
+    static public function factory($type, $driver, $params)
     {
         if (is_array($type)) {
             list($app, $type) = $type;
@@ -86,9 +86,11 @@ class Horde_Image_Effect
                 @include_once $path;
             }
         }
+        
         if (class_exists($class)) {
             $effect = new $class($params);
         } else {
+            $params['logger']->err(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
             throw new Horde_Image_Exception(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
         }
 

@@ -175,7 +175,7 @@ Initial Horde 4 package
    <install as="Horde/Image/Effect/Imagick/TextWatermark.php" name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" />
    <install as="Horde/Image/Effect/Imagick/Unsharpmask.php" name="lib/Horde/Image/Effect/Imagick/Unsharpmask.php" />
    <install as="Horde/Image/Effect/Imagick/LiquidResize.php" name="lib/Horde/Image/Effect/Imagick/LiquidResize.php" />
-   <isntall as="Horde/Image/Effect/Imagick/SmartCrop.php" name="lib/Horde/Image/Effect/Imagick/SmartCrop.php" />
+   <install as="Horde/Image/Effect/Imagick/SmartCrop.php" name="lib/Horde/Image/Effect/Imagick/SmartCrop.php" />
    <install as="Horde/Image/Exif/Base.php" name="lib/Horde/Image/Exif/Base.php" />
    <install as="Horde/Image/Exif/Bundled.php" name="lib/Horde/Image/Exif/Bundled.php" />
    <install as="Horde/Image/Exif/Exiftool.php" name="lib/Horde/Image/Exif/Exiftool.php" />

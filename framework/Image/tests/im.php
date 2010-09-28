@@ -15,18 +15,34 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 // profiling.
 $driver = Horde_Util::getFormData('driver', 'Im');
 $test = Horde_Util::getFormData('test');
+
+// Don't use horde config since we might be configured for Imagick only.
 $convert = trim(`which convert`);
 $identify = trim(`which identify`);
+
 $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
 switch ($test) {
+case 'smart':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'img4.jpg'));
+    $image->addEffect('SmartCrop', array('width' => 100, 'height' => 100));
+    $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+    exit;
+
 case 'liquid':
     $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img4.jpg'));
     $image->addEffect('LiquidResize', array('ratio' => true, 'width' => 612, 'height' => 340, 'delta_x' => 3, 'rigidity' => 0));
     $image->display();
-    break;
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+    exit;
 
 case 'multipage':
     $time = xdebug_time_index();
@@ -40,7 +56,9 @@ case 'multipage':
             $first = false;
         }
     }
-    logThis($test, $time, xdebug_peak_memory_usage());
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
 
 case 'testInitialState':
     // Solid blue background color - basically tests initial state of the
@@ -465,9 +483,10 @@ function getImageObject($params = array())
 
     $context = array('tmpdir' => Horde::getTempDir(),
                      'convert' => $GLOBALS['convert'],
-                     'logger' => $GLOBALS['logger'],
+                     'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
                      'identify' => $GLOBALS['identify']);
     $params['context'] = $context;
+
     return Horde_Image::factory($GLOBALS['driver'], $params);
 }
 

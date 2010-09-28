@@ -27,6 +27,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
 
     public function apply()
     {
+        mt_srand(1);
         $this->_params = new Horde_Support_Array($this->_params);
        
         // Existing geometry
@@ -34,6 +35,9 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $w0 = $geometry['width'];
         $h0 = $geometry['height'];
 
+        $w = $this->_params->width;
+        $h = $this->_params->height;
+        
         // @TODO: Parameterize these
         $r = 1;         // radius of edge filter
         $nk = 9;        // scale count: number of crop sizes to try
@@ -43,7 +47,12 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $ar = $this->_params->width / $this->_params->height;
 
         // Existing AR
-        $ar0 = $w0/$h0;
+        $ar0 = $w0 / $h0;
+
+        $this->_logger->debug(sprintf("SmartCrop: %d x %d => %d x %d ", $w0, $h0, $w, $h));
+        $this->_logger->debug('OAR: ' . $ar0);
+        $this->_logger->debug('TAR: ' . $ar);
+
 
         // Compute COE
         $img = $this->_image->imagick->clone();
@@ -51,31 +60,24 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $img->modulateImage(100,0,100);
         $img->blackThresholdImage("#0f0f0f");
 
-        // Get a 1x1 iterator (only way to get a single pixel's info without
-        // iterating the entire row.
         $xcenter = $ycenter = $sum = 0;
         $n = 100000;
         for ($k = 0; $k < $n; $k++) {
             $i = mt_rand(0, $w0 - 1);
             $j = mt_rand(0, $h0 - 1);
-            // A single pixel iterator!
-            $itr = $img->getPixelRegionIterator($i, $j, 1, 1);
-            foreach ($itr as $row => $pixels) {
-                foreach ($pixels as $col => $pixel) {
-                    $val = $pixel->getColor();
-                }
-            }
-
+            $pixel = $img->getImagePixelColor($i, $j);
+            $val = $pixel->getColor();
+            $val = $val['b'];
             $sum += $val;
-            $xcenter += ($i + 1) * $val;
-            $ycenter += ($j + 1) * $val;
+            $xcenter = $xcenter + ($i + 1) * $val;
+            $ycenter = $ycenter + ($j + 1) * $val;
         }
-
         $xcenter /= $sum;
         $ycenter /= $sum;
-
+        $this->_logger->debug('COE: ' . $xcenter . 'x' . $ycenter);
+        
         // crop source img to target AR
-        if ($w0/$h0 > $ar) {
+        if ($w0 / $h0 > $ar) {
             // source AR wider than target
             // crop width to target AR
             $wcrop0 = round($ar * $h0);
@@ -121,18 +123,15 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
             if ($ycrop+$hcrop > $h0) {
                 $ycrop = $h0 - $hcrop;
             }
+            $this->_logger->debug("crop: $wcrop, $hcrop, $xcrop, $ycrop");
 
             $beta = 0;
             for ($c = 0; $c < $n; $c++) {
                 $i = mt_rand(0, $wcrop - 1);
                 $j = mt_rand(0, $hcrop - 1);
-                $itr = $img->getPixelRegionIterator($xcrop + $i, $ycrop + $j, 1, 1);
-                foreach ($itr as $row => $pixels) {
-                    foreach ($pixels as $col => $pixel) {
-                        $val = $pixel->getColor();
-                    }
-                }
-                $beta += $val & 0xFF;
+                $pixel = $img->getImagePixelColor($xcrop + $i, $ycrop + $j);
+                $val = $pixel->getColor();
+                $beta += $val['b'];// & 0xFF;
             }
 
             $area = $wcrop * $hcrop;
@@ -140,6 +139,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
 
             // best image found, save the params
             if ($betanorm > $maxbetanorm) {
+                $this->_logger->debug('Found best');
                 $maxbetanorm = $betanorm;
                 $maxparam['w'] = $wcrop;
                 $maxparam['h'] = $hcrop;
@@ -148,6 +148,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
             }
         }
 
+        $this->_logger->debug('Cropping');
         // Crop to best
         $this->_image->imagick->cropImage($maxparam['w'],
                                           $maxparam['h'],
