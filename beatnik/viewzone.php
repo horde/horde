@@ -38,6 +38,7 @@ foreach ($fields as $field_id => $field) {
 $img_dir = Horde_Themes::img(null, 'horde');
 $delete = Horde_Util::addParameter(Horde::url('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $edit = Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$autogen = Horde_Util::addParameter(Horde::url('autogenerate.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $rectypes = Beatnik::getRecTypes();
 
 require BEATNIK_TEMPLATES . '/view/header.inc';
