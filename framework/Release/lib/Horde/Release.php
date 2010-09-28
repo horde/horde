@@ -337,14 +337,12 @@ class Horde_Release
         $module = $this->_options['module'];
         $all_caps_module = strtoupper($module);
         print "Updating CHANGES file for $module\n";
+        $version = 'v' . $this->_newSourceVersionStringPlain;
 
         // construct the filenames
         $filename_only = 'CHANGES';
         $filename = $this->_directoryName . '/docs/' . $filename_only;
         $newfilename = $filename . '.new';
-
-        $version = 'v' . substr($this->_newSourceVersionStringPlain, 0, strpos($this->_newSourceVersionString, '-'));
-
         $oldfp = fopen($filename, 'r');
         $newfp = fopen($newfilename, 'w');
         fwrite($newfp, str_repeat('-', strlen($version)) . "\n$version\n" .
