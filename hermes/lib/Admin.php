@@ -180,7 +180,7 @@ class EditClientStep2Form extends Horde_Form {
         }
 
         $this->addHidden('', 'client', 'text', true, true);
-        $name = &$this->addVariable(_("Client"), 'name', $stype, false, true, false, null, $type_params);
+        $name = &$this->addVariable(_("Client"), 'name', $stype, false, true, null, $type_params);
         $name->setDefault($info['name']);
 
         $enterdescription = &$this->addVariable(sprintf(_("Should users enter descriptions of their timeslices for this client? If not, the description will automatically be \"%s\"."), _("See Attached Timesheet")), 'enterdescription', 'boolean', true);
