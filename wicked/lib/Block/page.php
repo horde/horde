@@ -19,13 +19,13 @@ class Horde_Block_Wicked_page extends Horde_Block
 
     protected function _title()
     {
-        $page = Page::getPage($this->_params['page']);
+        $page = Wicked_Page::getPage($this->_params['page']);
         return htmlspecialchars($page->pageName());
     }
 
     protected function _content()
     {
-        $page = Page::getPage($this->_params['page']);
+        $page = Wicked_Page::getPage($this->_params['page']);
         return $page->render(WICKED_MODE_BLOCK);
     }
 
