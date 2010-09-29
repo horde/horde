@@ -896,23 +896,16 @@ class SyncML_Device_sync4j extends SyncML_Device {
                       'BusyStatus' => 2);
         $alarm = $end = null;
         $start = $content->getAttribute('DTSTART');
-        if ($start) {
-            if (!empty($start['params']['VALUE']) &&
-                $start['params']['VALUE'] == 'DATE') {
-                $hash['AllDayEvent'] = 1;
-                $hash['Start'] = sprintf('%04d-%02d-%02d',
-                                         $start['value']['year'],
-                                         $start['value']['month'],
-                                         $start['value']['mday']);
-                $start = mktime(0, 0, 0,
-                                $start['value']['month'],
-                                $start['value']['mday'],
-                                $start['value']['year']);
-            } else {
-                $hash['AllDayEvent'] = 0;
-                $hash['Start'] = Horde_Icalendar::_exportDateTime($start);
-                $start = $start;
-            }
+        $start_params = $content->getAttribute('DTSTART', true);
+        if (!empty($start_params[0]['VALUE']) &&
+            $start_params[0]['VALUE'] == 'DATE') {
+            $hash['AllDayEvent'] = 1;
+            $hash['Start'] = $start->format('Y-m-d');
+            $start = $start->datestamp();
+        } else {
+            $hash['AllDayEvent'] = 0;
+            $hash['Start'] = Horde_Icalendar::_exportDateTime($start);
+            $start = $start->timestamp();
         }
 
         foreach ($content->getAllAttributes() as $item) {
@@ -1028,6 +1021,10 @@ class SyncML_Device_sync4j extends SyncML_Device {
                     }
                 }
 
+                $hash['Interval'] = isset($rdata['INTERVAL'])
+                    ? $rdata['INTERVAL']
+                    : 1;
+
                 switch (Horde_String::upper($rdata['FREQ'])) {
                 case 'DAILY':
                     $hash['RecurrenceType'] = 0;
@@ -1061,12 +1058,9 @@ class SyncML_Device_sync4j extends SyncML_Device {
                         $hash['DayOfMonth'] = date('j', $start);
                     }
                     $hash['MonthOfYear'] = date('n', $start);
+                    unset($hash['Interval']);
                     break;
                 }
-
-                $hash['Interval'] = isset($rdata['INTERVAL'])
-                    ? $rdata['INTERVAL']
-                    : 1;
 
                 if (isset($rdata['UNTIL'])) {
                     $hash['NoEndDate'] = 0;
