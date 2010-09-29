@@ -925,7 +925,7 @@ class IMP_Contents
      * @param string $type   The type to use (overrides the MIME ID if $id is
      *                       a MIME part).
      *
-     * @return boolean  True if the part can be displayed.
+     * @return integer  The RENDER_ constant of the allowable display.
      */
     public function canDisplay($part, $mask, $type = null)
     {
@@ -946,15 +946,12 @@ class IMP_Contents
             return self::RENDER_FULL;
         }
 
-        $inline = null;
-        if (($mask & self::RENDER_INLINE) &&
-            ($inline = $viewer->canRender('inline'))) {
-            return self::RENDER_INLINE;
-        }
-
-        if (($mask & self::RENDER_INLINE_DISP_NO) &&
-            (($inline === true) ||
-             (is_null($inline) && $viewer->canRender('inline')))) {
+        if ($mask & self::RENDER_INLINE) {
+            if ($viewer->canRender('inline')) {
+                return self::RENDER_INLINE;
+            }
+        } elseif (($mask & self::RENDER_INLINE_DISP_NO) &&
+                  $viewer->canRender('inline')) {
             return self::RENDER_INLINE_DISP_NO;
         }
 
