@@ -52,8 +52,15 @@ hook.
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
-The 'append_trailer', 'cache_folders', 'limit_factor', 'prepend_header', and
-'sort_limit' configuration options have been removed.
+The following configuration options have been removed:
+
+   append_trailer
+   cache_folders
+   limit_factor
+   prepend_header
+   show_account_colors
+   size_limit
+   sort_limit
 
 
 Preferences
@@ -66,6 +73,8 @@ your ``config/prefs.php`` file and your preferences backend::
    attachment_display
    auto_delete_drafts
    fckeditor_buttons
+   fetchmail_link
+   fetchmail_menu
    filter_on_sidebar
    forward_bodytext
    nav_expanded_sidebar
@@ -97,13 +106,13 @@ The following hooks have been renamed:
 Fetchmail
 ---------
 
-All code relating to fetchmail has been removed (TODO: prefs/config?).
+All code relating to fetchmail has been removed.
 
 
 Server configuration
 --------------------
 
-The format of servers.php has changed and is renamed to backends.php.
+The format of servers.php has changed and has been renamed to backends.php.
 
 
 Maintenance Tasks
@@ -114,6 +123,7 @@ TODO
 
 Flags
 -----
+
 The list of available IMAP Flags/Keywords is now configurable via the
 'msgflags' preference.
 
@@ -123,6 +133,10 @@ by the various message action functions instead.
 
 
 CSS
+---
+
+TODO
+
 
 
 Upgrading IMP From 4.1.x To 4.2.x
