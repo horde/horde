@@ -1199,7 +1199,7 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences such as how many messages you see on each page and how messages are sorted."),
     'members' => array(
         'mailbox_start', 'sortby', 'sortdir', 'sortdate', 'max_msgs',
-        'from_link', 'time_format', 'atc_flag'
+        'from_link', 'atc_flag'
     )
 );
 
@@ -1285,20 +1285,6 @@ $_prefs['from_link'] = array(
         2 => _("Do not generate a link in the From: column")
     ),
     'desc' => _("The From: column of the message should be linked:")
-);
-
-// Time format for messages dated today
-$_prefs['time_format'] = array(
-    'value' => '%X',
-    'type' => 'enum',
-    'enum' => array(
-        '%X' => strftime('%X'),
-        '%H:%M:%S' => strftime('%H:%M:%S'),
-        '%I:%M:%S %p' => strftime('%I:%M:%S %p'),
-        '%H:%M' => strftime('%H:%M'),
-        '%I:%M%p' => strftime('%I:%M%p'),
-    ),
-    'desc' => _("Format of message dates in the mailbox view for messages dated today")
 );
 
 // Display attachment information in mailbox list.
