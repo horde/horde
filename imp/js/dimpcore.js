@@ -268,7 +268,7 @@ var DimpCore = {
             params.type = type;
         }
 
-        if (type.startsWith('forward') || !args.uids) {
+        if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
                 params.uids = this.toRangeString(this.selectionToRange(args.uids));
             }
