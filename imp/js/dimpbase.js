@@ -609,23 +609,31 @@ var DimpBase = {
                     }
                 }
 
-                if (this.viewport.getMetaData('spam')) {
-                    if (!DIMP.conf.spam_spammbox) {
-                        spam = 'hide';
-                    }
-                } else if (DIMP.conf.ham_spammbox) {
-                    ham = 'hide';
-                }
+                if (this.viewport.getMetaData('drafts')) {
+                    $('button_resume').show();
+                    $('button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
+                } else {
+                    $('button_resume').hide();
+                    $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
 
-                if ($('button_ham')) {
-                    [ $('button_ham').up(), $('ctx_message_ham') ].invoke(ham);
-                }
-                if ($('button_spam')) {
-                    [ $('button_spam').up(), $('ctx_message_spam') ].invoke(spam);
+                    if (this.viewport.getMetaData('spam')) {
+                        if (!DIMP.conf.spam_spammbox) {
+                            spam = 'hide';
+                        }
+                    } else if (DIMP.conf.ham_spammbox) {
+                        ham = 'hide';
+                    }
+
+                    if ($('button_ham')) {
+                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke(ham);
+                    }
+                    if ($('button_spam')) {
+                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke(spam);
+                    }
                 }
 
                 /* Read-only changes. 'oa_setflag' is handled elsewhere. */
-                tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN').concat($('ctx_message_deleted', 'ctx_message_setflag', 'ctx_message_undeleted'));
+                tmp = [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_setflag', 'ctx_message_undeleted'));
 
                 if (this.viewport.getMetaData('readonly')) {
                     tmp.compact().invoke('hide');
@@ -2069,6 +2077,11 @@ var DimpBase = {
             case 'button_reply':
                 this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward_auto');
                 break;
+
+            case 'button_resume':
+                this.composeMailbox('resume');
+                e.stop();
+                return;
 
             case 'button_ham':
             case 'button_spam':

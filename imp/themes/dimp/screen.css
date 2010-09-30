@@ -928,6 +928,9 @@ span.dimpactionDrafts {
 span.dimpactionEditsearch {
     background-image: url("../graphics/edit.png");
 }
+span.dimpactionResume {
+    background-image: url("../graphics/mail_draft.png");
+}
 
 /* Context menu images */
 #ctx_message_reply span.contextImg {
