@@ -704,8 +704,7 @@ $prefGroups['drafts'] = array(
     'label' => _("Message Drafts"),
     'desc' => _("Configure how to deal with message drafts."),
     'members' => array(
-        'draftsselect', 'close_draft', 'unseen_drafts', 'auto_save_drafts',
-        'auto_delete_drafts'
+        'draftsselect', 'close_draft', 'unseen_drafts', 'auto_save_drafts'
     )
 );
 
@@ -734,13 +733,6 @@ $_prefs['auto_save_drafts'] = array(
         5 => _("Every 5 minutes")
     ),
     'desc' => _("Save drafts automatically while composing?"),
-);
-
-// delete draft after resume & send?
-$_prefs['auto_delete_drafts'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Automatically delete draft after successfully resuming and sending message?")
 );
 
 

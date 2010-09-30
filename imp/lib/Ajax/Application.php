@@ -1623,8 +1623,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Remove any auto-saved drafts. */
-        if ($GLOBALS['prefs']->getValue('auto_save_drafts') ||
-            $GLOBALS['prefs']->getValue('auto_delete_drafts')) {
+        if ($GLOBALS['prefs']->getValue('auto_save_drafts')) {
             $result->draft_delete = 1;
         }
 
