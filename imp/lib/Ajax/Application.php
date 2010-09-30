@@ -282,6 +282,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function listMailboxes()
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
+        /* This might be a long running operation. */
+        if ($vars->initial) {
+            session_write_close();
+        }
+
         $initreload = ($this->_vars->initial || $this->_vars->reload);
         $result = new stdClass;
 
@@ -353,6 +359,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $quota = $this->_getQuota();
         if (!is_null($quota)) {
             $result->quota = $quota;
+        }
+
+        if ($vars->initial) {
+            session_start();
         }
 
         return $result;
@@ -580,8 +590,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } elseif ($changed ||
                   $this->_vars->rangeslice ||
                   !$this->_vars->checkcache) {
+            /* Ticket #7422: Listing messages may be a long-running operation,
+             * so close the session while we are doing it to prevent
+             * deadlocks. */
+            session_write_close();
+
             $result = new stdClass;
             $result->ViewPort = $this->_viewPortData($changed);
+
+            /* Reopen the session. */
+            session_start();
         } else {
             $result = false;
         }
@@ -1935,10 +1953,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _viewPortData($change)
     {
-        // Ticket #7422: Listing messages may be a long-running operation,
-        // so close the session while we are doing it to prevent deadlocks.
-        session_write_close();
-
         $args = array(
             'applyfilter' => $this->_vars->applyfilter,
             'cache' => $this->_vars->cache,
@@ -1979,12 +1993,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $list_msg = new IMP_Views_ListMessages();
-        $msgs = $list_msg->listMessages($args);
-
-        // Reopen the session.
-        session_start();
-
-        return $msgs;
+        return $list_msg->listMessages($args);
     }
 
     /**
