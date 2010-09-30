@@ -15,6 +15,9 @@
  */
 class IMP_Ui_Mailbox
 {
+     const DATE_FORCE = 1;
+     const DATE_FULL = 2;
+
     /**
      * The current mailbox.
      *
@@ -190,19 +193,27 @@ class IMP_Ui_Mailbox
     /**
      * Formats the date header.
      *
-     * @param integer $date  The UNIX timestamp.
+     * @param integer $date    The UNIX timestamp.
+     * @param integer $format  Mask of formatting options:
+     * <pre>
+     * IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead of
+     *                              time formatting, for all dates.
+     * IMP_Mailbox_Ui::DATE_FULL - Use full representation of date, including
+     *                             time information.
+     * </pre>
      *
      * @return string  The formatted date header.
      */
-    public function getDate($date)
+    public function getDate($date, $format = 0)
     {
         if (empty($date)) {
             return _("Unknown Date");
         }
 
-        if (!isset($this->_cache['today_start'])) {
-            $this->_cache['today_start'] = strtotime('today');
-            $this->_cache['today_end'] = strtotime('today + 1 day');
+        if (!($format & self::DATE_FORCE) &&
+            !isset($this->_cache['today_start'])) {
+            $this->_cache['today_start'] = new DateTime('today');
+            $this->_cache['today_end'] = new DateTime('today + 1 day');
         }
 
         try {
@@ -220,10 +231,16 @@ class IMP_Ui_Mailbox
         }
         $udate = $d->format('U');
 
-        if (($udate < $this->_cache['today_start']) ||
-            ($udate > $this->_cache['today_end'])) {
+        if (($format & self::DATE_FORCE) ||
+            ($udate < $this->_cache['today_start']->format('U')) ||
+            ($udate > $this->_cache['today_end']->format('U'))) {
             /* Not today, use the date. */
-            return strftime($GLOBALS['prefs']->getValue('date_format'), $udate);
+            if ($format & self::DATE_FULL) {
+                return strftime($GLOBALS['prefs']->getValue('date_format'), $udate) .
+                    ' [' . strftime($GLOBALS['prefs']->getValue('time_format'), $udate) . ']';
+            }
+
+            return strftime($GLOBALS['prefs']->getValue('date_format_mini'), $udate);
         }
 
         /* Else, it's today, use the time. */

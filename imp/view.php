@@ -231,6 +231,12 @@ case 'print_attach':
             $headers = array();
             foreach ($basic_headers as $key => $val) {
                 if ($hdr_val = $headerob->getValue($key)) {
+                    /* Format date string. */
+                    if ($key == 'date') {
+                        $imp_ui_mbox = new IMP_Ui_Mailbox();
+                        $hdr_val = $imp_ui_mbox->getDate($hdr_val, IMP_Ui_Mailbox::DATE_FORCE | IMP_Ui_Mailbox::DATE_FULL);
+                    }
+
                     $headers[] = array(
                         'header' => htmlspecialchars($val),
                         'value' => htmlspecialchars($hdr_val)
