@@ -609,7 +609,7 @@ var DimpBase = {
                     }
                 }
 
-                if (this.folder == DIMP.conf.spam_mbox) {
+                if (this.viewport.getMetaData('spam')) {
                     if (!DIMP.conf.spam_spammbox) {
                         spam = 'hide';
                     }

@@ -142,6 +142,8 @@ class IMP_Views_ListMessages
                 if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) {
                     $md->drafts = 1;
                 }
+            } elseif ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)) {
+                $md->spam = 1;
             }
             if ($is_search) {
                 $md->search = 1;

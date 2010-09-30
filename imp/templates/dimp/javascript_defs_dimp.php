@@ -120,7 +120,6 @@ $code['conf'] = array_filter(array(
             'v' => Horde_Imap_Client::SORT_SIZE
         )
     ),
-    'spam_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
     'splitbar_pos' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
 
