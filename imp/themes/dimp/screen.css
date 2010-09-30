@@ -657,9 +657,14 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 4px 4px 0 4px;
 }
 .msgwrite span.loadingImg {
-    float: right;
-    margin-left: 3px;
+    display: -moz-inline-stack;
+    display: inline-block;
     padding: 1px;
+    position: relative;
+    right: 28px;
+    filter: alpha(opacity=75);
+    -moz-opacity: .75;
+    opacity: .75;
 }
 
 #noticerow .notices li {

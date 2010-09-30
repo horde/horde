@@ -101,22 +101,22 @@ $compose_link->pathInfo = 'addAttachment';
    <tr id="sendto">
     <td class="label"><span><?php echo _("To: ") ?></span></td>
     <td>
-     <span id="to_loading_img" class="loadingImg" style="display:none"></span>
      <textarea id="to" name="to" rows="1" cols="75"></textarea>
+     <span id="to_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
    <tr id="sendcc" style="display:none">
     <td class="label"><span><?php echo _("Cc: ") ?></span></td>
     <td>
-     <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
      <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
+     <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
    <tr id="sendbcc" style="display:none">
     <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
     <td>
-     <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
      <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
+     <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
    <tr>
@@ -170,8 +170,8 @@ $compose_link->pathInfo = 'addAttachment';
   <tr id="redirect_sendto">
    <td class="label"><span><?php echo _("To: ") ?></span></td>
    <td>
-    <span id="redirect_to_loading_img" class="loadingImg" style="display:none"></span>
     <textarea id="redirect_to" name="redirect_to" rows="1" cols="75"></textarea>
+    <span id="redirect_to_loading_img" class="loadingImg" style="display:none"></span>
    </td>
   </tr>
  </table>
