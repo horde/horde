@@ -375,7 +375,7 @@ class IMP_Compose
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => $compose_html,
-            'toflowed' => true
+            'toflowed' => false
         ));
 
         if (empty($msg_text)) {
@@ -2535,7 +2535,7 @@ class IMP_Compose
      * <pre>
      * 'html' - (boolean) Return text/html part, if available.
      * 'replylimit' - (boolean) Enforce length limits?
-     * 'toflowed' - (boolean) Convert to flowed?
+     * 'toflowed' - (boolean) Do flowed conversion?
      * </pre>
      *
      * @return mixed  Null if bodypart not found, or array with the following
@@ -2608,9 +2608,11 @@ class IMP_Compose
                 $msg = preg_replace("/\s*\n/U", "\n", $msg);
             }
 
-            if (!empty($options['toflowed'])) {
+            if (isset($options['toflowed'])) {
                 $flowed = new Horde_Text_Flowed($msg);
-                $msg = $flowed->toFlowed(true);
+                $msg = $options['toflowed']
+                    ? $flowed->toFlowed(true)
+                    : $flowed->toFlowed(false, array('nowrap' => true));
             }
         }
 
