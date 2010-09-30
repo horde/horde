@@ -227,6 +227,8 @@ class IMP_Ui_Compose
         } elseif ($vars->folder && $vars->uid) {
             /* DIMP: compose-dimp.php */
             $indices = new IMP_Indices($vars->folder, $vars->uid);
+        } elseif ($vars->uids) {
+            $indices = new IMP_Indices($vars->uids);
         }
 
         if (!is_null($indices)) {

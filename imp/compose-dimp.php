@@ -111,7 +111,11 @@ case 'forward_attach':
 case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
-    if ($vars->uids) {
+    $indices = $vars->uids
+        ? new IMP_Indices($vars->uids)
+        : null;
+
+    if ($indices && (count($indices) > 1)) {
         if (!in_array($vars->type, array('forward_attach', 'forward_auto'))) {
             $notification->push(_("Multiple messages can only be forwarded as attachments."), 'horde.warning');
         }
@@ -128,13 +132,12 @@ case 'forward_both':
 
         $rte = $show_editor = ($prefs->getValue('compose_html') && $_SESSION['imp']['rteavail']);
     } else {
-
-    try {
-        $contents = $imp_ui->getContents($vars);
-    } catch (IMP_Compose_Exception $e) {
-        $notification->push($e, 'horde.error');
-        break;
-    }
+        try {
+            $contents = $imp_ui->getContents($vars);
+        } catch (IMP_Compose_Exception $e) {
+            $notification->push($e, 'horde.error');
+            break;
+        }
 
         $fwd_msg = $imp_compose->forwardMessage($vars->type, $contents);
         $msg = $fwd_msg['body'];
