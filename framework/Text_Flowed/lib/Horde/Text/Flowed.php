@@ -13,8 +13,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Text
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Flowed
  */
 class Horde_Text_Flowed
 {
@@ -103,7 +105,7 @@ class Horde_Text_Flowed
     }
 
     /**
-     * Set whether to format test using DelSp.
+     * Set whether to format text using DelSp.
      *
      * @param boolean $delsp  Use DelSp?
      */
