@@ -450,6 +450,17 @@ class IMP_Compose
     }
 
     /**
+     * Does this message have any drafts associated with it?
+     *
+     * @return boolean  True if draft messages exist.
+     */
+    public function hasDrafts()
+    {
+        return (!empty($this->_metadata['draft_uid']) ||
+                !empty($this->_metadata['draft_uid_resume']));
+    }
+
+    /**
      * Builds and sends a MIME message.
      *
      * @param string $body     The message body.
