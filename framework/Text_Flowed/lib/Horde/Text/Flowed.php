@@ -159,14 +159,19 @@ class Horde_Text_Flowed
      * text as described in RFC 2646.
      *
      * @param boolean $quote  Add level of quoting to each line?
+     * @param array $opts     Additional options:
+     * <pre>
+     * 'nowrap' - (boolean) If true, does not wrap unquoted lines.
+     *            DEFAULT: false
+     * </pre>
      *
      * @return string  The text converted to RFC 2646 'flowed' format.
      */
-    public function toFlowed($quote = false)
+    public function toFlowed($quote = false, array $opts = array())
     {
         $txt = '';
 
-        $this->_reformat(true, $quote);
+        $this->_reformat(true, $quote, empty($opts['nowrap']));
         reset($this->_output);
         while (list(,$line) = each($this->_output)) {
             $txt .= $line['text'] . "\n";
@@ -181,8 +186,9 @@ class Horde_Text_Flowed
      *
      * @param boolean $toflowed  Convert to flowed?
      * @param boolean $quote     Add level of quoting to each line?
+     * @param boolean $wrap      Wrap unquoted lines?
      */
-    protected function _reformat($toflowed, $quote)
+    protected function _reformat($toflowed, $quote, $wrap = true)
     {
         $format_type = implode('|', array($toflowed, $quote));
         if ($format_type == $this->_formattype) {
@@ -262,7 +268,9 @@ class Horde_Text_Flowed
             if (empty($line)) {
                 /* Line is empty. */
                 $this->_output[] = array('text' => $quotestr, 'level' => $num_quotes);
-            } elseif (empty($this->_maxlength) || ((Horde_String::length($line, $this->_charset) + $num_quotes) <= $this->_maxlength)) {
+            } elseif ((!$wrap && !$num_quotes) ||
+                      empty($this->_maxlength) ||
+                      ((Horde_String::length($line, $this->_charset) + $num_quotes) <= $this->_maxlength)) {
                 /* Line does not require rewrapping. */
                 $this->_output[] = array('text' => $quotestr . $this->_stuff($line, $num_quotes, $toflowed), 'level' => $num_quotes);
             } else {

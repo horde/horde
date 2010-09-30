@@ -45,6 +45,28 @@ class Horde_Text_Flowed_FlowedTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testFlowedWrap()
+    {
+        $text = <<<EOT
+>this is a long line this is a long line this is a long line this is a long line this is a long line this is a long line
+this is a long line this is a long line this is a long line this is a long line this is a long line this is a long line
+EOT;
+        $expected = <<<EOT
+> this is a long line this is a long line this is a long line this is a 
+> long line this is a long line this is a long line
+this is a long line this is a long line this is a long line this is a long line this is a long line this is a long line
+
+EOT;
+
+        $flowed = new Horde_Text_Flowed($text);
+        $flowed->setMaxLength(70);
+        $this->assertEquals(
+            $expected,
+            $flowed->toFlowed(false, array('nowrap' => true))
+        );
+
+    }
+
     public function testFlowedToFixed()
     {
         $flowed = new Horde_Text_Flowed(">line 1 \n>line 2 \n>line 3");
