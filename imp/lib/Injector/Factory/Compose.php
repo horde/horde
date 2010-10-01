@@ -49,6 +49,8 @@ class IMP_Injector_Factory_Compose
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -73,6 +75,27 @@ class IMP_Injector_Factory_Compose
         }
 
         return $this->_instances[$cacheid];
+    }
+
+    /**
+     * Tasks to perform on shutdown.
+     */
+    public function shutdown()
+    {
+        $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
+
+        foreach ($this->_instances as $key => $val) {
+            switch ($val->changed) {
+            case 'changed':
+                $val->changed = '';
+                $obs->overwrite($key, $val, false);
+                break;
+
+            case 'deleted':
+                $obs->prune($key);
+                break;
+            }
+        }
     }
 
 }

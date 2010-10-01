@@ -25,6 +25,14 @@ class IMP_Compose
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
     /**
+     * Mark as changed for purposes of storing in the session.
+     * Either empty, 'changed', or 'deleted'.
+     *
+     * @var string
+     */
+    public $changed = '';
+
+    /**
      * The cached attachment data.
      *
      * @var array
@@ -75,13 +83,6 @@ class IMP_Compose
     protected $_cacheid;
 
     /**
-     * Mark as modified for purposes of storing in the session.
-     *
-     * @var boolean
-     */
-    protected $_modified = false;
-
-    /**
      * Constructor.
      *
      * @param string $cacheid  The cache ID string.
@@ -89,28 +90,6 @@ class IMP_Compose
     public function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
-        $this->__wakeup();
-    }
-
-    /**
-     * Code to run on unserialize().
-     */
-    public function __wakeup()
-    {
-        register_shutdown_function(array($this, 'shutdown'));
-    }
-
-    /**
-     * Store a serialized version of ourself in the current session on
-     * shutdown.
-     */
-    public function shutdown()
-    {
-        if ($this->_modified) {
-            $this->_modified = false;
-            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-            $obs->overwrite($this->_cacheid, $this, false);
-        }
     }
 
     /**
@@ -143,8 +122,8 @@ class IMP_Compose
         $GLOBALS['injector']->getInstance('IMP_Message')->delete($uids, array('nuke' => true));
 
         $this->deleteAllAttachments();
-        $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-        $obs->prune($this->_cacheid);
+
+        $this->changed = 'deleted';
     }
 
     /**
@@ -311,7 +290,7 @@ class IMP_Compose
             }
 
             $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, reset($ids));
-            $this->_modified = true;
+            $this->changed = 'changed';
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
             return _("The draft was not successfully saved.");
@@ -439,7 +418,7 @@ class IMP_Compose
         }
 
         $this->_metadata['draft_uid_resume'] = $indices;
-        $this->_modified = true;
+        $this->changed = 'changed';
 
         return array(
             'header' => $header,
@@ -1323,7 +1302,7 @@ class IMP_Compose
         if (!$this->getMetadata('reply_type')) {
             $this->_metadata['mailbox'] = $contents->getMailbox();
             $this->_metadata['uid'] = $contents->getUid();
-            $this->_modified = true;
+            $this->changed = 'changed';
 
             /* Set the message-id related headers. */
             if (($msg_id = $h->getValue('message-id'))) {
@@ -1470,7 +1449,7 @@ class IMP_Compose
         if (!isset($this->_metadata['reply_type']) ||
             ($reply_type != $this->_metadata['reply_type'])) {
             $this->_metadata['reply_type'] = $reply_type;
-            $this->_modified = true;
+            $this->changed = 'changed';
         }
 
         return array_merge(array(
@@ -1616,7 +1595,7 @@ class IMP_Compose
         $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
         $this->_metadata['reply_type'] = 'forward';
         $this->_metadata['forward_type'] = $type;
-        $this->_modified = true;
+        $this->changed = 'changed';
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
@@ -1726,7 +1705,7 @@ class IMP_Compose
         $this->_metadata['mailbox'] = $contents->getMailbox();
         $this->_metadata['reply_type'] = 'redirect';
         $this->_metadata['uid'] = $contents->getUid();
-        $this->_modified = true;
+        $this->changed = 'changed';
     }
 
     /**
@@ -2067,7 +2046,7 @@ class IMP_Compose
             );
         }
 
-        $this->_modified = true;
+        $this->changed = 'changed';
 
         /* Add the size information to the counter. */
         $this->_size += $part->getBytes();
@@ -2118,7 +2097,7 @@ class IMP_Compose
 
             unset($this->_cache[$val]);
 
-            $this->_modified = true;
+            $this->changed = 'changed';
         }
 
         return $names;
@@ -2145,7 +2124,7 @@ class IMP_Compose
     {
         if (isset($this->_cache[$number])) {
             $this->_cache[$number]['part']->setDescription($params['description']);
-            $this->_modified = true;
+            $this->changed = 'changed';
         }
     }
 
