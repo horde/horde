@@ -149,6 +149,9 @@ class IMP_Views_Compose
                 $t->set('encrypt', IMP::ENCRYPT_NONE);
             }
 
+            $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
+            $t->set('stationery', count($stationery));
+
             $select_list = array();
             foreach ($identity->getSelectList() as $id => $from) {
                 $select_list[] = array(

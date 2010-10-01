@@ -142,6 +142,22 @@ var DimpCompose = {
                 : l.l;
         }
 
+        /* Stationery switch. */
+        if (id == 's') {
+            DimpCore.doAction('stationery', {
+                html: Number(IMP_Compose_Base.editor_on),
+                id: s,
+                identity: $F('identity'),
+                text: (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage'))
+            }, {
+                ajaxopts: { asynchronous: false },
+                callback: function(r) {
+                    this.setBodyText(r.response.text);
+                }.bind(this)
+            });
+            return;
+        }
+
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
@@ -1040,6 +1056,15 @@ var DimpCompose = {
                 label: 'encrypt_label'
             });
             this.setPopdownLabel('e', $F('encrypt'));
+        }
+
+        /* Create stationery list. */
+        if (DIMP.conf_compose.stationery) {
+            this.createPopdown('s', {
+                base: $('stationery_label').up(),
+                data: DIMP.conf_compose.stationery,
+                label: 'stationery_label'
+            });
         }
 
         // Automatically resize compose address fields.

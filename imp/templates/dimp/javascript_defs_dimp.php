@@ -225,6 +225,18 @@ if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-
         }
         $code['conf_compose']['encrypt'] = $encrypt;
     }
+
+    $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
+    if (count($stationery)) {
+        $slist = array();
+        foreach ($stationery as $key => $val) {
+            $slist[] = array(
+                'l' => htmlspecialchars($val['n']),
+                'v' => intval($key)
+            );
+        }
+        $code['conf_compose']['stationery'] = $slist;
+    }
 }
 
 Horde::addInlineScript(array(

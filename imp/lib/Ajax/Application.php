@@ -1229,6 +1229,41 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Load stationery.
+     *
+     * Variables used:
+     * <pre>
+     * 'html' - (integer) In HTML compose mode?
+     * 'id' - (integer) The stationery entry to use.
+     * 'identity' - (integer) The current identity.
+     * 'text' - (string) The message body text.
+     * </pre>
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     * 'text' - (string) The new message text.
+     * </pre>
+     */
+    public function stationery()
+    {
+        global $injector, $notification, $prefs;
+
+        $identity = $injector->getInstance('IMP_Identity');
+        if (isset($this->_vars->identity) &&
+            !$prefs->isLocked('default_identity')) {
+            $identity->setDefault($this->_vars->identity);
+        }
+        $stationery = $injector->getInstance('IMP_Compose_Stationery');
+
+        $result = new stdClass;
+        $result->text = $stationery->getContent($this->_vars->id, $identity, strval($this->_vars->text), $this->_vars->html);
+
+        $notification->push(sprintf(_("Loaded stationery \"%s\"."), $stationery[$this->_vars->id]['n']), 'horde.message');
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Delete a draft.
      *
      * Variables used:
