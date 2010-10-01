@@ -110,7 +110,7 @@ class IMP_Dimp
         $fwd_list = array();
 
         if (count($imp_compose)) {
-            foreach ($imp_compose->getAttachments() as $atc_num => $data) {
+            foreach ($imp_compose as $atc_num => $data) {
                 $mime = $data['part'];
 
                 $fwd_list[] = array(

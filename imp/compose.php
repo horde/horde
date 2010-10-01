@@ -184,21 +184,19 @@ if ($_SESSION['imp']['file_upload']) {
     $deleteList = Horde_Util::getPost('delattachments', array());
 
     /* Update the attachment information. */
-    foreach (array_keys($imp_compose->getAttachments()) as $i) {
-        if (!in_array($i, $deleteList)) {
-            $description = $vars->get('file_description_' . $i);
-            $imp_compose->updateAttachment($i, array('description' => $description));
+    foreach ($imp_compose as $key => $val) {
+        if (!in_array($key, $deleteList)) {
+            $val['part']->setDescription($vars->get('file_description_' . $key));
+            $imp_compose[$key] = $val;
         }
     }
 
     /* Delete attachments. */
-    if (!empty($deleteList)) {
-        $filenames = $imp_compose->deleteAttachment($deleteList);
+    foreach ($deleteList as $val) {
         if ($notify) {
-            foreach ($filenames as $val) {
-                $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
-            }
+            $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
         }
+        unset($imp_compose[$val]);
     }
 
     /* Add new attachments. */
@@ -1025,7 +1023,7 @@ if ($redirect) {
         if ($t->get('numberattach')) {
             $atc = array();
             $v = $injector->getInstance('Horde_Mime_Viewer');
-            foreach ($imp_compose->getAttachments() as $atc_num => $data) {
+            foreach ($imp_compose as $atc_num => $data) {
                 $mime = $data['part'];
                 $type = $mime->getType();
 

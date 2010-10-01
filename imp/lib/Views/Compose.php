@@ -59,7 +59,7 @@ class IMP_Views_Compose
             $result['js'] = array_merge($result['js'], $imp_ui->identityJs());
 
             if ($t->get('composeCache') && count($imp_compose)) {
-                foreach ($imp_compose->getAttachments() as $num => $atc) {
+                foreach ($imp_compose as $num => $atc) {
                     $mime = $atc['part'];
                     $opts = Horde_Serialize::serialize(array(
                         'name' => $mime->getName(true),

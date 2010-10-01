@@ -382,7 +382,7 @@ if ($_SESSION['imp']['file_upload']) {
     try {
         if (Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
             $t->set('attach', true);
-            if ($atc_list = $imp_compose->getAttachments()) {
+            if (count($imp_compose)) {
                 $imp_ui_mbox = new IMP_Ui_Mailbox();
                 $t->set('attach_data', sprintf("%s [%s] - %s", htmlspecialchars($atc_list[0]['part']->getName()), htmlspecialchars($atc_list[0]['part']->getType()), $imp_ui_mbox->getSize($atc_list[0]['part']->getBytes())));
             }

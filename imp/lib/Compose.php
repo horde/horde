@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Compose implements Countable
+class IMP_Compose implements ArrayAccess, Countable, Iterator
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -1132,7 +1132,7 @@ class IMP_Compose implements Countable
                 $base = new Horde_Mime_Part();
                 $base->setType('multipart/mixed');
                 $base->addPart($textpart);
-                foreach (array_keys($this->_cache) as $id) {
+                foreach ($this as $id => $val) {
                     $base->addPart($this->buildAttachment($id));
                 }
             }
@@ -2052,89 +2052,13 @@ class IMP_Compose implements Countable
     }
 
     /**
-     * Delete attached files.
-     *
-     * @param mixed $number  Either a single integer or an array of integers
-     *                       corresponding to the attachment position.
-     *
-     * @return array  The list of deleted filenames (MIME encoded).
-     */
-    public function deleteAttachment($number)
-    {
-        $names = array();
-
-        if (!is_array($number)) {
-            $number = array($number);
-        }
-
-        foreach ($number as $val) {
-            if (!isset($this->_cache[$val])) {
-                continue;
-            }
-
-            $atc = &$this->_cache[$val];
-
-            switch ($atc['filetype']) {
-            case 'vfs':
-                /* Delete from VFS. */
-                try {
-                    $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
-                    $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
-                } catch (VFS_Exception $e) {}
-                break;
-
-            case 'file':
-                /* Delete from filesystem. */
-                @unlink($filename);
-                break;
-            }
-
-            $names[] = $atc['part']->getName(true);
-
-            /* Remove the size information from the counter. */
-            $this->_size -= $atc['part']->getBytes();
-
-            unset($this->_cache[$val]);
-
-            $this->changed = 'changed';
-        }
-
-        return $names;
-    }
-
-    /**
      * Deletes all attachments.
      */
     public function deleteAllAttachments()
     {
-        $this->deleteAttachment(array_keys($this->_cache));
-    }
-
-    /**
-     * Updates information in a specific attachment.
-     *
-     * @param integer $number  The attachment to update.
-     * @param array $params    An array of update information.
-     * <pre>
-     * 'description'  --  The Content-Description value.
-     * </pre>
-     */
-    public function updateAttachment($number, $params)
-    {
-        if (isset($this->_cache[$number])) {
-            $this->_cache[$number]['part']->setDescription($params['description']);
-            $this->changed = 'changed';
+        foreach ($this as $key => $val) {
+            unset($this[$key]);
         }
-    }
-
-    /**
-     * Returns the list of current attachments.
-     *
-     * @return array  The list of attachments.
-     */
-    public function getAttachments()
-    {
-        return $this->_cache;
     }
 
     /**
@@ -2156,24 +2080,23 @@ class IMP_Compose implements Countable
      */
     public function buildAttachment($id)
     {
-        $part = $this->_cache[$id]['part'];
+        $atc = $this[$id];
 
-        switch ($this->_cache[$id]['filetype']) {
+        switch ($atc['filetype']) {
         case 'vfs':
-            // TODO: Use streams
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
-                $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
+                $atc['part']->setContents($vfs->readFile(self::VFS_ATTACH_PATH, $atc['filename']));
             } catch (VFS_Exception $e) {}
             break;
 
         case 'file':
-            $fp = fopen($this->_cache[$id]['filename'], 'r');
-            $part->setContents($fp);
+            $fp = fopen($atc['filename'], 'r');
+            $atc['part']->setContents($fp);
             fclose($fp);
         }
 
-        return $part;
+        return $atc['part'];
     }
 
     /**
@@ -2460,7 +2383,7 @@ class IMP_Compose implements Countable
             $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', $GLOBALS['registry']->getCharset(), $charset);
         }
 
-        foreach ($this->getAttachments() as $att) {
+        foreach ($this as $att) {
             $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att['part']->getName()));
 
             try {
@@ -2774,7 +2697,7 @@ class IMP_Compose implements Countable
 
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             try {
-                $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
+                $data = $vfs->readFile(self::VFS_DRAFTS_PATH, $filename);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
             } catch (VFS_Exception $e) {
                 return;
@@ -2897,6 +2820,57 @@ class IMP_Compose implements Countable
         return $search;
     }
 
+    /* ArrayAccess methods. */
+
+    public function offsetExists($offset)
+    {
+        return isset($this->_cache[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return isset($this->_cache[$offset])
+            ? $this->_cache[$offset]
+            : null;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->_cache[$offset] = $value;
+        $this->changed = 'changed';
+    }
+
+    public function offsetUnset($offset)
+    {
+        if (!isset($this->_cache[$offset])) {
+            return;
+        }
+
+        $atc = &$this->_cache[$offset];
+
+        switch ($atc['filetype']) {
+        case 'file':
+            /* Delete from filesystem. */
+            @unlink($filename);
+            break;
+
+        case 'vfs':
+            /* Delete from VFS. */
+            try {
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+                $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
+            } catch (VFS_Exception $e) {}
+            break;
+        }
+
+        /* Remove the size information from the counter. */
+        $this->_size -= $atc['part']->getBytes();
+
+        unset($this->_cache[$offset]);
+
+        $this->changed = 'changed';
+    }
+
     /* Countable methods. */
 
     /**
@@ -2907,6 +2881,33 @@ class IMP_Compose implements Countable
     public function count()
     {
         return count($this->_cache);
+    }
+
+    /* Iterator methods. */
+
+    public function current()
+    {
+        return current($this->_cache);
+    }
+
+    public function key()
+    {
+        return key($this->_cache);
+    }
+
+    public function next()
+    {
+        next($this->_cache);
+    }
+
+    public function rewind()
+    {
+        reset($this->_cache);
+    }
+
+    public function valid()
+    {
+        return (key($this->_cache) !== null);
     }
 
 }
