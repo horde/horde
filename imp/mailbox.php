@@ -410,7 +410,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
                 $edit_search = _("Edit Search Query");
             } else {
                 /* Basic search results. */
-                $search_mailbox = reset($imp_search[IMP::$mailbox]->mboxes);
+                $search_mailbox = $imp_search[IMP::$mailbox]->mboxes[0];
                 $hdr_template->set('search_url', Horde::url('search-basic.php')->add('search_mailbox', $search_mailbox));
                 $hdr_template->set('searchclose', IMP::generateIMPUrl('mailbox.php', $search_mailbox));
             }
