@@ -31,10 +31,8 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* Set the current identity. */
 $identity = $injector->getInstance('IMP_Identity');
-if (!$prefs->isLocked('default_identity')) {
-    if (!is_null($vars->identity)) {
-        $identity->setDefault($vars->identity);
-    }
+if (!$prefs->isLocked('default_identity') && !is_null($vars->identity)) {
+    $identity->setDefault($vars->identity);
 }
 
 /* Catch submits if javascript is not present. */
@@ -123,8 +121,9 @@ try {
     $notification->push($e);
 }
 
-/* Init IMP_Ui_Compose:: object. */
+/* Init objects. */
 $imp_ui = new IMP_Ui_Compose();
+$stationery = $injector->getInstance('IMP_Compose_Stationery');
 
 /* Set the default charset & encoding.
  * $charset - charset to use when sending messages
@@ -153,25 +152,6 @@ if ($_SESSION['imp']['rteavail']) {
         } else {
             $oldrtemode = $vars->oldrtemode;
             $get_sig = false;
-        }
-    }
-}
-
-/* Load stationery. */
-$stationery_list = array();
-if (!$prefs->isLocked('stationery')) {
-    $stationery = null;
-    $all_stationery = @unserialize($prefs->getValue('stationery', false));
-    if (is_array($all_stationery)) {
-        $all_stationery = Horde_String::convertCharset($all_stationery, $prefs->getCharset());
-        foreach ($all_stationery as $id => $choice) {
-            if (($choice['t'] == 'plain') ||
-                (($choice['t'] == 'html') && $rtemode)) {
-                if ($rtemode && $choice['t'] == 'plain') {
-                    $choice['c'] = $imp_compose->text2html($choice['c']);
-                }
-                $stationery_list[$id] = $choice;
-            }
         }
     }
 }
@@ -536,28 +516,12 @@ case 'selectlist_process':
     break;
 
 case 'change_stationery':
-    if (empty($stationery_list)) {
+    if (!count($stationery)) {
         break;
     }
-    $stationery = $vars->stationery;
-    if (strlen($stationery)) {
-        $stationery = (int)$stationery;
-        $stationery_content = $stationery_list[$stationery]['c'];
-        $msg = strval($vars->message);
-        if (strpos($stationery_content, '%s') !== false) {
-            $sig = $identity->getSignature();
-            if ($rtemode) {
-                $sig = $imp_compose->text2html($sig);
-                $stationery_content = $imp_compose->text2html($stationery_content);
-            }
-            $msg = str_replace(array("\r\n", $sig), array("\n", ''), $msg);
-            $stationery_content = str_replace('%s', $sig, $stationery_content);
-        }
-        if (strpos($stationery_content, '%c') === false) {
-            $msg .= $stationery_content;
-        } else {
-            $msg = str_replace('%c', $msg, $stationery_content);
-        }
+
+    if (isset($vars->stationery)) {
+        $msg = $stationery->getContent(intval($vars->stationery), $identity, strval($vars->message), $rtemode);
     }
     $get_sig = false;
     break;
@@ -865,12 +829,16 @@ if ($redirect) {
         $t->set('pri_opt', $priority_option);
     }
 
-    $t->set('stationery', !empty($stationery_list));
+    $t->set('stationery', count($stationery));
     if ($t->get('stationery')) {
         $t->set('stationery_label', Horde::label('stationery', _("Stationery")));
         $stationeries = array();
-        foreach ($stationery_list as $id => $choice) {
-            $stationeries[] = array('val' => $id, 'label' => $choice['n'], 'selected' => ($stationery === $id));
+        foreach ($stationery as $id => $choice) {
+            $stationeries[] = array(
+                'label' => $choice['n'],
+                'selected' => ($stationery === $id),
+                'val' => $id
+            );
         }
         $t->set('stationeries', $stationeries);
     }

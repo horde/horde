@@ -1720,8 +1720,9 @@ class IMP_Prefs_Ui
     protected function _stationeryManagement($ui)
     {
         $ob = $this->_parseStationeryVars($ui);
+        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
 
-        if ($ob->stationery['t'] == 'html') {
+        if ($ob->type == 'html') {
             $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('id' => 'content'));
         }
 
@@ -1729,7 +1730,7 @@ class IMP_Prefs_Ui
         $t->setOption('gettext', true);
 
         $slist = array();
-        foreach ($ob->stationery_list as $key => $choice) {
+        foreach ($stationery as $key => $choice) {
             $slist[] = array(
                 'selected' => ($ob->selected === $key),
                 'text' => $choice['n'] . ' ' . ($choice['t'] == 'html' ? _("(HTML)") : _("(Plain Text)")),
@@ -1738,15 +1739,16 @@ class IMP_Prefs_Ui
         }
         $t->set('slist', $slist);
 
-        $t->set('selected', strlen($ob->selected));
-        $t->set('last_type', $ob->stationery['t']);
+        $t->set('selected', $ob->selected);
+        $t->set('show_delete', ($ob->selected != -1));
+        $t->set('last_type', $ob->type);
         $t->set('name_label', Horde::label('name', _("Stationery name:")));
-        $t->set('name', $ob->stationery['n']);
+        $t->set('name', $ob->name);
         $t->set('type_label', Horde::label('name', _("Stationery type:")));
-        $t->set('plain', $ob->stationery['t'] == 'plain');
-        $t->set('html', $ob->stationery['t'] == 'html');
+        $t->set('plain', $ob->type == 'plain');
+        $t->set('html', $ob->type == 'html');
         $t->set('content_label', Horde::label('content', _("Stationery:")));
-        $t->set('content', $ob->stationery['c']);
+        $t->set('content', $ob->content);
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/stationery.html');
     }
@@ -1758,31 +1760,34 @@ class IMP_Prefs_Ui
      */
     protected function _updateStationeryManagement($ui)
     {
+        $ob = $this->_parseStationeryVars($ui);
+        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
         $updated = false;
 
         if ($ui->vars->delete) {
             /* Delete stationery. */
-            $ob = $this->_parseStationeryVars($ui);
-
-            if (isset($ob->stationery_list[$ob->selected])) {
-                $updated = sprintf(_("The stationery \"%s\" has been deleted."), $ob->stationery_list[$ob->selected]['n']);
-                unset($ob->stationery_list[$ob->selected]);
+            if (isset($stationery[$ob->selected])) {
+                $updated = sprintf(_("The stationery \"%s\" has been deleted."), $stationery[$ob->selected]['n']);
+                unset($stationery[$ob->selected]);
             }
         } elseif ($ui->vars->save) {
             /* Saving stationery. */
-            $ob = $this->_parseStationeryVars($ui);
+            $entry = array(
+                'c' => $ob->content,
+                'n' => $ob->name,
+                't' => $ob->type
+            );
 
-            if (strlen($ob->selected)) {
-                $ob->stationery_list[$ob->selected] = $ob->stationery;
-                $updated = sprintf(_("The stationery \"%s\" has been updated."), $ob->stationery['n']);
+            if ($ob->selected == -1) {
+                $stationery[] = $entry;
+                $updated = sprintf(_("The stationery \"%s\" has been added."), $ob->name);
             } else {
-                $ob->stationery_list[] = $ob->stationery;
-                $updated = sprintf(_("The stationery \"%s\" has been added."), $ob->stationery['n']);
+                $stationery[$ob->selected] = $entry;
+                $updated = sprintf(_("The stationery \"%s\" has been updated."), $ob->name);
             }
         }
 
         if ($updated) {
-            $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset(array_values($ob->stationery_list), $GLOBALS['registry']->getCharset(), $GLOBALS['prefs']->getCharset())), false);
             $GLOBALS['notification']->push($updated, 'horde.success');
         }
     }
@@ -1794,40 +1799,47 @@ class IMP_Prefs_Ui
      *
      * @return object  Object with the following properties:
      * <pre>
+     * 'content' - (string) Content.
+     * 'name' - (string) Name.
      * 'selected' - (integer) The currently selected value.
-     * 'stationery' - (array) The current stationery entry.
-     * 'stationery_list' - (array) The list of all stationery values.
+     * 'type' - (string) Type.
      * </pre>
      */
     protected function _parseStationeryVars($ui)
     {
-        $ob = new stdClass;
-
-        $ob->selected = strlen($ui->vars->stationery)
+        $selected = strlen($ui->vars->stationery)
             ? intval($ui->vars->stationery)
-            : null;
+            : -1;
+        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
 
-        $stationery_list = @unserialize($GLOBALS['prefs']->getValue('stationery', false));
-        $ob->stationery_list = is_array($stationery_list)
-            ? Horde_String::convertCharset($stationery_list, $GLOBALS['prefs']->getCharset())
-            : array();
+        if ($ui->vars->last_selected == $selected) {
+            $content = strval($ui->vars->content);
+            $name = strval($ui->vars->name);
+            $type = isset($ui->vars->type)
+                ? $ui->vars->type
+                : 'plain';
 
-        $content = strval($ui->vars->content);
-        $type = isset($ui->vars->type)
-            ? $ui->vars->type
-            : 'plain';
-
-        if ($content && ($ui->vars->last_type != $type)) {
-            $content = ($type == 'plain')
-                ? $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($content, 'Html2text')
-                : nl2br(htmlspecialchars(htmlspecialchars($content)));
+            if ($content && ($ui->vars->last_type != $type)) {
+                $content = ($type == 'plain')
+                    ? $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($content, 'Html2text')
+                    : IMP_Compose::text2html($content);
+            }
+        } elseif ($selected == -1) {
+            $content = $name = '';
+            $type = 'plain';
+        } else {
+            $entry = $stationery[$selected];
+            $content = $entry['c'];
+            $name = $entry['n'];
+            $type = $entry['t'];
         }
 
-        $ob->stationery = array(
-            'c' => $content,
-            'n' => strval($ui->vars->name),
-            't' => $type
-        );
+
+        $ob = new stdClass;
+        $ob->content = $content;
+        $ob->name = $name;
+        $ob->selected = $selected;
+        $ob->type = $type;
 
         return $ob;
     }

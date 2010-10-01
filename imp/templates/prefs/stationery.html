@@ -1,3 +1,4 @@
+<input type="hidden" name="last_selected" value="<tag:selected />" />
 <input type="hidden" name="last_type" value="<tag:last_type />" />
 
 <div>
@@ -45,7 +46,7 @@
 
 <div>
  <input type="submit" name="save" class="button" value="<gettext>Save Stationery</gettext>" />
-<if:selected>
+<if:show_delete>
  <input type="submit" name="delete" class="button" value="<gettext>Delete Stationery</gettext>" />
-</if:selected>
+</if:show_delete>
 </div>
