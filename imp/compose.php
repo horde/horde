@@ -609,7 +609,7 @@ $cancel_url = '';
 if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page
      * and delete the attachments. */
-    if ($imp_compose->numberOfAttachments()) {
+    if (count($imp_compose)) {
         $cancel_url = Horde::selfUrl()->setRaw(true)->add(array(
             'actionID' => 'cancel_compose',
             'composeCache' => $composeCacheID,
@@ -619,7 +619,7 @@ if ($isPopup) {
 } else {
     /* If the attachments cache is not empty, we must reload this page and
        delete the attachments. */
-    if ($imp_compose->numberOfAttachments()) {
+    if (count($imp_compose)) {
         $cancel_url = $imp_ui->mailboxReturnUrl(Horde::selfUrl()->setRaw(true))->add(array(
             'actionID' => 'cancel_compose',
             'composeCache' => $composeCacheID
@@ -1021,7 +1021,7 @@ if ($redirect) {
             $t->set('attach_options', $attach_options);
         }
 
-        $t->set('numberattach', $imp_compose->numberOfAttachments());
+        $t->set('numberattach', count($imp_compose));
         if ($t->get('numberattach')) {
             $atc = array();
             $v = $injector->getInstance('Horde_Mime_Viewer');

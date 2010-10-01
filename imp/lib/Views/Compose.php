@@ -58,8 +58,7 @@ class IMP_Views_Compose
             $imp_ui = $injector->getInstance('IMP_Ui_Compose');
             $result['js'] = array_merge($result['js'], $imp_ui->identityJs());
 
-            if ($t->get('composeCache') &&
-                $imp_compose->numberOfAttachments()) {
+            if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose->getAttachments() as $num => $atc) {
                     $mime = $atc['part'];
                     $opts = Horde_Serialize::serialize(array(

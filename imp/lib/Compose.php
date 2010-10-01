@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Compose
+class IMP_Compose implements Countable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -632,7 +632,6 @@ class IMP_Compose
                 $imp_message->flag(array('\\answered'), $reply_uid);
                 $imp_message->flag(array('\\flagged'), $reply_uid, false);
                 break;
-
             }
         }
 
@@ -1115,7 +1114,7 @@ class IMP_Compose
 
         /* Add attachments now. */
         $attach_flag = true;
-        if (empty($options['noattach']) && $this->numberOfAttachments()) {
+        if (empty($options['noattach']) && count($this)) {
             if (($this->_linkAttach &&
                  $GLOBALS['conf']['compose']['link_attachments']) ||
                 !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
@@ -2139,16 +2138,6 @@ class IMP_Compose
     }
 
     /**
-     * Returns the number of attachments currently in this message.
-     *
-     * @return integer  The number of attachments in this message.
-     */
-    public function numberOfAttachments()
-    {
-        return count($this->_cache);
-    }
-
-    /**
      * Returns the size of the attachments in bytes.
      *
      * @return integer  The size of the attachments (in bytes).
@@ -2301,7 +2290,7 @@ class IMP_Compose
     public function additionalAttachmentsAllowed()
     {
         return empty($GLOBALS['conf']['compose']['attach_count_limit']) ||
-               ($GLOBALS['conf']['compose']['attach_count_limit'] - $this->numberOfAttachments());
+               ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
     }
 
     /**
@@ -2906,6 +2895,18 @@ class IMP_Compose
         }
 
         return $search;
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of attachments currently in this message.
+     *
+     * @return integer  The number of attachments in this message.
+     */
+    public function count()
+    {
+        return count($this->_cache);
     }
 
 }
