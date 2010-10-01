@@ -89,10 +89,13 @@ class IMP_Injector_Factory_Compose
             case 'changed':
                 $val->changed = '';
                 $obs->overwrite($key, $val, false);
+
+                $_SESSION['imp']['cache']['compose'][$key] = 1;
                 break;
 
             case 'deleted':
                 $obs->prune($key);
+                unset($_SESSION['imp']['cache']['compose'][$key]);
                 break;
             }
         }

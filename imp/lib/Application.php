@@ -145,6 +145,19 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
+    /**
+     * Tasks to perform at logout.
+     */
+    public function logout()
+    {
+        /* Clean up dangling IMP_Compose objects. */
+        if (!empty($_SESSION['imp']['cache']['compose'])) {
+            foreach (array_keys($_SESSION['imp']['cache']['compose']) as $key) {
+                $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($key)->destroy('cancel');
+            }
+        }
+    }
+
     /* Horde permissions. */
 
     /**
