@@ -725,7 +725,7 @@ class IMP_Hooks
     /**
      * DIMP: Allow additional information to be added to the array that is
      * passed to the message text display template:
-     *   imp/templates/dimp/chunks/message.php.
+     *   imp/templates/dimp/message/message.html.
      *
      * @param array $msg  The current entry array (see the showMessage()
      *                    function in lib/Views/ShowMessage.php for the

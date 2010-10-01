@@ -1,0 +1,156 @@
+<body>
+ <div id="dimpLoading"><gettext>Loading...</gettext></div>
+ <div id="pageContainer" style="display:none">
+  <div id="msgData">
+   <div class="dimpActions dimpActionsMsg">
+    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
+    <div>
+     <tag:reply_button />
+    </div>
+    <div>
+     <tag:forward_button />
+    </div>
+<if:spam_button>
+    <div>
+     <tag:spam_button />
+    </div>
+</if:spam_button>
+<if:ham_button>
+    <div>
+     <tag:ham_button />
+    </div>
+</if:ham_button>
+<if:delete_button>
+    <div>
+     <tag:ham_button />
+    </div>
+</if:delete_button>
+   </div>
+
+   <div class="msgfullread">
+    <div class="msgHeaders">
+     <div id="msgHeaders">
+      <div class="dimpOptions">
+<if:view_source />
+       <div>
+        <span id="msg_view_source">
+         <span class="iconImg"></span>
+         <a><gettext>View Source</gettext></a>
+        </span>
+       </div>
+</if:view_source />
+       <div>
+        <span>
+         <span class="iconImg saveAsImg"></span>
+         <a href="<tag:save_as />"><gettext>Save</gettext></a>
+        </span>
+       </div>
+      </div>
+      <div id="msgHeadersContent">
+       <table>
+        <thead>
+         <tr>
+          <td class="label"><gettext>Subject</gettext>:</td>
+          <td class="subject"><tag:subject /></td>
+         </tr>
+<loop:hdrs>
+         <tr<if:hdrs.id> id="<tag:hdrs.id />"</if:hdrs.id>>
+          <td class="label"><tag:hdrs.label />:</td>
+          <td><tag:hdrs.val /></td>
+         </tr>
+</loop:hdrs>
+<if:atc_label>
+         <tr id="msgAtc">
+          <td class="label" id="partlist_toggle">
+           <span class="iconImg attachmentImg attachmentImage"></span>
+<if:atc_list>
+           <span id="partlist_col" class="iconImg"></span>
+           <span id="partlist_exp" class="iconImg" style="display:none"></span>
+</if:atc_list>
+          </td>
+          <td>
+           <span class="atcLabel"><tag:atc_label /></span>
+           <tag:atc_download />
+<if:atc_list>
+           <div id="partlist" style="display:none">
+            <table>
+             <tag:atc_list />
+            </table>
+           </div>
+</if:atc_list>
+          </td>
+         </tr>
+</if:atc_label>
+         <tr id="msgLogInfo" style="display:none">
+          <td class="label" id="msgloglist_toggle">
+           <span class="iconImg" id="msgloglist_col"></span>
+           <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
+          </td>
+          <td>
+           <div>
+            <span class="msgLogLabel"><gettext>Message Log</gettext></span>
+           </div>
+           <div id="msgloglist" style="display:none">
+            <ul></ul>
+           </div>
+          </td>
+         </tr>
+        </thead>
+       </table>
+      </div>
+     </div>
+    </div>
+    <div class="messageBody">
+     <tag:msgtext />
+    </div>
+   </div>
+  </div>
+
+<if:html>
+  <div id="qreply" style="display:none">
+   <div class="header">
+    <div class="headercloseimg" id="compose_close">
+     <span class="closeImg" title="X"></span>
+    </div>
+    <div>
+     <gettext>Message:</gettext>
+     <tag:subject />
+    </div>
+   </div>
+   <tag:html />
+  </div>
+ </div>
+
+ <div class="context" id="ctx_replypopdown" style="display:none">
+  <a id="ctx_reply_reply"><span class="contextImg"></span><gettext>To Sender</gettext></a>
+  <a id="ctx_reply_reply_all"><span class="contextImg"></span><gettext>To All</gettext></a>
+<if:reply_list>
+  <a id="ctx_reply_reply_list"><span class="contextImg"></span><gettext>To List</gettext></a>
+</if:reply_list>
+ </div>
+
+ <div class="context" id="ctx_forwardpopdown" style="display:none;">
+<if:forward_select>
+  <a id="ctx_forward_attach"><span class="contextImg"></span><gettext>As Attachment</gettext></a>
+  <a id="ctx_forward_body"><span class="contextImg"></span><gettext>In Body Text</gettext></a>
+  <a id="ctx_forward_both"><span class="contextImg"></span><gettext>Attachment and Body Text</gettext></a>
+  <div class="sep"></div>
+</if:forward_select>
+  <a id="ctx_forward_redirect"><span class="contextImg"></span><gettext>Redirect</gettext></a>
+ </div>
+</if:html>
+
+ <div class="context" id="ctx_contacts" style="display:none">
+  <a id="ctx_contacts_new"><span class="contextImg"></span><gettext>New Message</gettext></a>
+  <a id="ctx_contacts_add"><span class="contextImg"></span><gettext>Add to Address Book</gettext></a>
+ </div>
+
+ <div style="display:none">
+  <span id="largeaddrspan">
+   <span class="largeaddrtoggle">
+    <span class="largeaddrlist">[<gettext>Show Addresses - %d recipients</gettext>]</span>
+    <span class="largeaddrlist" style="display:none">[<gettext>Hide Addresses</gettext>]</span>
+   </span>
+   <span class="dispaddrlist" style="display:none"></span>
+  </span>
+ </div>

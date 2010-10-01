@@ -18,13 +18,21 @@ var DimpCompose = {
 
     confirmCancel: function()
     {
+        var cc,
+            sbd = $('send_button_redirect');
+
         if (window.confirm(DIMP.text_compose.cancel)) {
             if ((this.is_popup || DIMP.conf_compose.popup) &&
                 DimpCore.base &&
                 !DIMP.conf_compose.qreply) {
                 DimpCore.base.focus();
             }
-            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
+
+            cc = (sbd && sbd.visible())
+                ? $F('composeCacheRedirect')
+                : $F('composeCache');
+
+            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: cc }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }

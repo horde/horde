@@ -251,7 +251,7 @@ if (!($prefs->isLocked('default_encrypt')) &&
 
 IMP::status();
 IMP_Dimp::header($title, $scripts);
-echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');
+echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 echo "</body>\n</html>";

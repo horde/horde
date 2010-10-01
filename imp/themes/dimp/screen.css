@@ -624,6 +624,14 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     font-weight: bold;
 }
 
+#writemsg input.checkbox {
+    margin-right: 2px;
+}
+
+#priority_label, #encrypt_label {
+    margin-left: 2px;
+}
+
 .msgwrite {
     background: #e2e2e2 url("../graphics/backhead_r.png") repeat-x;
     border: 1px #b9b9b3 solid;

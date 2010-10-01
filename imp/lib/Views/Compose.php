@@ -33,31 +33,32 @@ class IMP_Views_Compose
      */
     static public function showCompose($args)
     {
+        global $conf, $injector, $prefs, $registry;
+
         $result = array(
             'html' => '',
             'js' => array(),
             'jsonload' => array()
         );
 
-        $compose_html = $redirect = $rte = false;
+        $t = $injector->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
 
-        if (empty($args['composeCache'])) {
-            $composeCache = null;
-        } else {
-            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($args['composeCache']);
-            $composeCache = $args['composeCache'];
+        if (!empty($args['composeCache'])) {
+            $imp_compose = $injector->getInstance('IMP_Compose')->getOb($args['composeCache']);
+            $t->set('composeCache', $args['composeCache']);
         }
 
         if (empty($args['redirect'])) {
             /* Load Identity. */
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-            $selected_identity = $identity->getDefault();
+            $identity = $injector->getInstance('IMP_Identity');
+            $t->set('selected_identity', intval($identity->getDefault()));
 
             /* Generate identities list. */
-            $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
+            $imp_ui = $injector->getInstance('IMP_Ui_Compose');
             $result['js'] = array_merge($result['js'], $imp_ui->identityJs());
 
-            if ($composeCache &&
+            if ($t->get('composeCache') &&
                 $imp_compose->numberOfAttachments()) {
                 foreach ($imp_compose->getAttachments() as $num => $atc) {
                     $mime = $atc['part'];
@@ -66,7 +67,7 @@ class IMP_Views_Compose
                         'num' => intval($num),
                         'size' => $mime->getSize(),
                         'type' => $mime->getType()
-                    ), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset());
+                    ), Horde_Serialize::JSON, $registry->getCharset());
                     $result['jsonload'][] = 'DimpCompose.addAttach(' . $opts . ')';
                 }
             }
@@ -76,16 +77,16 @@ class IMP_Views_Compose
             }
 
             if ($_SESSION['imp']['rteavail']) {
-                $compose_html = $GLOBALS['prefs']->getValue('compose_html');
-                $rte = true;
+                $t->set('compose_html', $prefs->getValue('compose_html'));
+                $t->set('rte', true);
 
-                $imp_ui->initRTE(!$compose_html);
+                $imp_ui->initRTE(!$t->get('compose_html'));
             }
 
             /* Create list for sent-mail selection. */
-            if (!empty($GLOBALS['conf']['user']['select_sentmail_folder']) &&
-                !$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
-                $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+            if (!empty($conf['user']['select_sentmail_folder']) &&
+                !$prefs->isLocked('sent_mail_folder')) {
+                $imp_folder = $injector->getInstance('IMP_Folder');
 
                 /* Check to make sure the sent-mail folders are created - they
                  * need to exist to show up in drop-down list. */
@@ -97,7 +98,7 @@ class IMP_Views_Compose
                 }
 
                 $flist = array();
-                $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
                 foreach ($imaptree as $val) {
                     $tmp = array(
@@ -114,17 +115,70 @@ class IMP_Views_Compose
                     'DIMP.conf_compose.flist' => $flist
                 ), true));
             }
+
+            $compose_link = Horde::getServiceLink('ajax', 'imp');
+            $compose_link->pathInfo = 'addAttachment';
+            $t->set('compose_link', $compose_link);
+
+            $t->set('send_button', IMP_Dimp::actionButton(array(
+                'icon' => 'Forward',
+                'id' => 'send_button',
+                'title' => _("Send")
+            )));
+            $t->set('spell_button', IMP_Dimp::actionButton(array(
+                'icon' => 'Spellcheck',
+                'id' => 'spellcheck',
+                'title' => _("Check Spelling")
+            )));
+            $t->set('draft_button', IMP_Dimp::actionButton(array(
+                'icon' => 'Drafts',
+                'id' => 'draft_button',
+                'title' => _("Save as Draft")
+            )));
+
+            $d_read = $prefs->getValue('disposition_request_read');
+            if ($conf['compose']['allow_receipts'] &&
+                ($d_read != 'never')) {
+                $t->set('read_receipt', true);
+                $t->set('read_receipt_set', $d_read != 'ask');
+            }
+
+            $t->set('save_sent_mail', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
+            $t->set('priority', $prefs->getValue('set_priority'));
+            if (!$prefs->isLocked('default_encrypt') &&
+                ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
+                $t->set('encrypt', IMP::ENCRYPT_NONE);
+            }
+
+            $select_list = array();
+            foreach ($identity->getSelectList() as $id => $from) {
+                $select_list[] = array(
+                    'label' => htmlspecialchars($from),
+                    'sel' => ($id == $t->get('selected_identity')),
+                    'val' => htmlspecialchars($id)
+                );
+            }
+            $t->set('select_list', $select_list);
+
+            $save_attach = $prefs->getValue('save_attachments');
+            if (strpos($save_attach, 'prompt') !== false) {
+                $t->set('save_attach', true);
+                $t->set('save_attach_set', strpos($save_attach, 'yes') !== false);
+            }
         } else {
             $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
                 '-DIMP.conf_compose.redirect' => 1
             ), true));
-            $redirect = true;
         }
 
-        // Buffer output so that we can return a string from this function
-        Horde::startBuffer();
-        require IMP_TEMPLATES . '/dimp/chunks/compose.php';
-        $result['html'] .= Horde::endBuffer();
+        $t->set('compose_enable', IMP::canCompose());
+        $t->set('forminput', Horde_Util::formInput());
+        $t->set('redirect_button', IMP_Dimp::actionButton(array(
+            'icon' => 'Forward',
+            'id' => 'send_button_redirect',
+            'title' => _("Redirect")
+        )));
+        $result['html'] = $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');
 
         return $result;
     }
