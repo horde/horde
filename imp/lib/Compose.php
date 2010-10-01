@@ -1789,7 +1789,11 @@ class IMP_Compose
     protected function _getMatchingIdentity($h)
     {
         $msgAddresses = array();
-        foreach (array('to', 'cc', 'bcc') as $val) {
+
+        /* Bug #9271: Check 'from' address first; if replying to a message
+         * originally sent by user, this should be the identity used for the
+         * reply also. */
+        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
             $msgAddresses[] = $h->getValue($val);
         }
 
