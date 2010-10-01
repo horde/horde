@@ -167,15 +167,25 @@ class IMP_Spam
         /* Report what we've done. */
         if ($report_count == 1) {
             $hdrs = $imp_contents->getHeaderOb();
-            $subject = Horde_String::truncate($hdrs->getValue('subject'), 30);
+            if ($subject = $hdrs->getValue('subject')) {
+                $subject = Horde_String::truncate($subject, 30);
+            } elseif ($from = $hdrs->getValue('from')) {
+                $from = Horde_String::truncate($from, 30);
+            } else {
+                $subject = '[' . _("No Subject") . ']';
+            }
 
             switch ($action) {
             case 'spam':
-                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                $msg = $subject
+                    ? sprintf(_("The message \"%s\" has been reported as spam."), $subject)
+                    : sprintf(_("The message from \"%s\" has been reported as spam."), $from);
                 break;
 
             case 'notspam':
-                $msg = sprintf(_("The message \"%s\" has been reported as innocent."), $subject);
+                $msg = $subject
+                    ? sprintf(_("The message \"%s\" has been reported as innocent."), $subject)
+                    : sprintf(_("The message from \"%s\" has been reported as innocent."), $from);
                 break;
             }
         } elseif ($action == 'spam') {
