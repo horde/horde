@@ -1697,6 +1697,15 @@ class Horde_Registry
      */
     public function clearAuth($destroy = true)
     {
+        /* Do logout tasks. */
+        if (!empty($_SESSION['horde_auth']['app'])) {
+            foreach (array_keys($_SESSION['horde_auth']['app']) as $app) {
+                try {
+                    $this->callAppMethod($app, 'logout');
+                } catch (Horde_Exception $e) {}
+            }
+        }
+
         unset($_SESSION['horde_auth']);
 
         /* Remove the user's cached preferences if they are present. */

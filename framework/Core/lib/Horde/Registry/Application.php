@@ -109,6 +109,11 @@ class Horde_Registry_Application
     // Functions called from Horde's API.
 
     /**
+     * Tasks to perform at logout.
+     */
+    // public function logout()
+
+    /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.
