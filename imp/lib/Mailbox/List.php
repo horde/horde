@@ -695,8 +695,8 @@ class IMP_Mailbox_List implements Countable, Serializable
 
         if (!is_null($this->_sorted)) {
             $data['so'] = $this->_sorted;
-            if (!empty($this->_sortedmbox)) {
-                $data['som'] = $this->_sortedmbox;
+            if (!empty($this->_sortedMbox)) {
+                $data['som'] = $this->_sortedMbox;
             }
         }
 
@@ -729,7 +729,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         if (isset($data['so'])) {
             $this->_sorted = $data['so'];
             if (isset($data['som'])) {
-                $this->_sortedmbox = $data['som'];
+                $this->_sortedMbox = $data['som'];
             }
         }
 
