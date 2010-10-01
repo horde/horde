@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
- * @category IMP
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html GPL
- * @package  Tree
+ * @package  IMP
  */
 class IMP_Tree_Flist extends Horde_Tree_Select
 {
