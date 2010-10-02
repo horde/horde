@@ -1,5 +1,5 @@
 <?php
-$auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
+$auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
 $horde_groups = $GLOBALS['injector']->getInstance('Horde_Group');
 
 $groups = array();

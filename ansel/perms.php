@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $groups = $injector->getInstance('Horde_Group');
-$auth = $injector->getInstance('Horde_Auth')->getAuth();
+$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
 
 $form = null;
 $reload = false;

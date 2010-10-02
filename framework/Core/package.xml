@@ -111,7 +111,7 @@ Application Framework.</description>
       <dir name="Binder">
        <file name="AjaxFactory.php" role="php" />
        <file name="Alarm.php" role="php" />
-       <file name="Auth.php" role="php" />
+       <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
        <file name="CacheFactory.php" role="php" />
        <file name="Crypt.php" role="php" />
@@ -435,7 +435,7 @@ Application Framework.</description>
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
    <install as="Horde/Core/Binder/AjaxFactory.php" name="lib/Horde/Core/Binder/AjaxFactory.php" />
    <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
-   <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
+   <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
    <install as="Horde/Core/Binder/CacheFactory.php" name="lib/Horde/Core/Binder/CacheFactory.php" />
    <install as="Horde/Core/Binder/Crypt.php" name="lib/Horde/Core/Binder/Crypt.php" />

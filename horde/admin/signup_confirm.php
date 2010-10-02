@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../lib/base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure signups are enabled before proceeding
-$auth = $injector->getInstance('Horde_Auth')->getAuth();
+$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     throw new Horde_Exception(_("User Registration has been disabled for this site."));

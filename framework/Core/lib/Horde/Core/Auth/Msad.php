@@ -25,7 +25,7 @@ class Horde_Core_Auth_Msad extends Horde_Auth_Msad
      */
     public function addUser($userId, $credentials)
     {
-        list($userId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->runHook($userId, $credentials, 'preauthenticate', 'admin');
+        list($userId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth()->runHook($userId, $credentials, 'preauthenticate', 'admin');
 
         parent::addUser($userId, $credentials);
     }
@@ -41,7 +41,7 @@ class Horde_Core_Auth_Msad extends Horde_Auth_Msad
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        list($oldId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->runHook($oldId, $credentials, 'preauthenticate', 'admin');
+        list($oldId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth()->runHook($oldId, $credentials, 'preauthenticate', 'admin');
 
         parent::updateUser($oldID, $newID, $credentials);
     }
@@ -55,7 +55,7 @@ class Horde_Core_Auth_Msad extends Horde_Auth_Msad
      */
     public function removeUser($userId)
     {
-        list($userId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->runHook($userId, array(), 'preauthenticate', 'admin');
+        list($userId, $credentials) = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth()->runHook($userId, array(), 'preauthenticate', 'admin');
 
         parent::removeUser($userId, isset($credentials['ldap']) ? $credentials['ldap']['dn'] : null);
     }

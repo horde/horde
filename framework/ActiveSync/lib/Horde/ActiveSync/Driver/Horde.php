@@ -67,7 +67,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     {
         $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
         parent::logon($username, $password, $domain);
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
 
         return $auth->authenticate($username, array('password' => $password));
     }

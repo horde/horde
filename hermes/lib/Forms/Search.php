@@ -164,7 +164,7 @@ class SearchForm extends Horde_Form {
         $criteria = array();
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             if (!empty($info['employees'])) {
-                $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
+                $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
                 if (!$auth->hasCapability('list')) {
                     $criteria['employee'] = explode(',', $info['employees']);
                 } else {
