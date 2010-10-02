@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Horde_Support
  */
-class Horde_Support_StringStream
+class Horde_Support_StringStream implements Horde_Stream_Wrapper_StringStream
 {
     /**
      * @var string
