@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2010-10-02</date>
- <time>23:26:36</time>
+ <time>23:49:26</time>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -190,6 +190,56 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="js/syntaxhighlighter/LGPL-LICENSE" name="js/syntaxhighlighter/LGPL-LICENSE" />
+   <install as="js/syntaxhighlighter/MIT-LICENSE" name="js/syntaxhighlighter/MIT-LICENSE" />
+   <install as="js/syntaxhighlighter/scripts/shAutoloader.js" name="js/syntaxhighlighter/scripts/shAutoloader.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushAppleScript.js" name="js/syntaxhighlighter/scripts/shBrushAppleScript.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushAS3.js" name="js/syntaxhighlighter/scripts/shBrushAS3.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushBash.js" name="js/syntaxhighlighter/scripts/shBrushBash.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushColdFusion.js" name="js/syntaxhighlighter/scripts/shBrushColdFusion.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushCpp.js" name="js/syntaxhighlighter/scripts/shBrushCpp.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushCSharp.js" name="js/syntaxhighlighter/scripts/shBrushCSharp.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushCss.js" name="js/syntaxhighlighter/scripts/shBrushCss.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushDelphi.js" name="js/syntaxhighlighter/scripts/shBrushDelphi.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushDiff.js" name="js/syntaxhighlighter/scripts/shBrushDiff.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushErlang.js" name="js/syntaxhighlighter/scripts/shBrushErlang.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushGroovy.js" name="js/syntaxhighlighter/scripts/shBrushGroovy.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushJava.js" name="js/syntaxhighlighter/scripts/shBrushJava.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushJavaFX.js" name="js/syntaxhighlighter/scripts/shBrushJavaFX.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushJScript.js" name="js/syntaxhighlighter/scripts/shBrushJScript.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushPerl.js" name="js/syntaxhighlighter/scripts/shBrushPerl.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushPhp.js" name="js/syntaxhighlighter/scripts/shBrushPhp.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushPlain.js" name="js/syntaxhighlighter/scripts/shBrushPlain.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushPowerShell.js" name="js/syntaxhighlighter/scripts/shBrushPowerShell.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushPython.js" name="js/syntaxhighlighter/scripts/shBrushPython.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushRuby.js" name="js/syntaxhighlighter/scripts/shBrushRuby.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushSass.js" name="js/syntaxhighlighter/scripts/shBrushSass.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushScala.js" name="js/syntaxhighlighter/scripts/shBrushScala.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushSql.js" name="js/syntaxhighlighter/scripts/shBrushSql.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushVb.js" name="js/syntaxhighlighter/scripts/shBrushVb.js" />
+   <install as="js/syntaxhighlighter/scripts/shBrushXml.js" name="js/syntaxhighlighter/scripts/shBrushXml.js" />
+   <install as="js/syntaxhighlighter/scripts/shCore.js" name="js/syntaxhighlighter/scripts/shCore.js" />
+   <install as="js/syntaxhighlighter/scripts/shLegacy.js" name="js/syntaxhighlighter/scripts/shLegacy.js" />
+   <install as="js/syntaxhighlighter/src/shAutoloader.js" name="js/syntaxhighlighter/src/shAutoloader.js" />
+   <install as="js/syntaxhighlighter/src/shCore.js" name="js/syntaxhighlighter/src/shCore.js" />
+   <install as="js/syntaxhighlighter/src/shLegacy.js" name="js/syntaxhighlighter/src/shLegacy.js" />
+   <install as="js/syntaxhighlighter/styles/shCore.css" name="js/syntaxhighlighter/styles/shCore.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreDefault.css" name="js/syntaxhighlighter/styles/shCoreDefault.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreDjango.css" name="js/syntaxhighlighter/styles/shCoreDjango.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreEclipse.css" name="js/syntaxhighlighter/styles/shCoreEclipse.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreEmacs.css" name="js/syntaxhighlighter/styles/shCoreEmacs.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreFadeToGrey.css" name="js/syntaxhighlighter/styles/shCoreFadeToGrey.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreMDUltra.css" name="js/syntaxhighlighter/styles/shCoreMDUltra.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreMidnight.css" name="js/syntaxhighlighter/styles/shCoreMidnight.css" />
+   <install as="js/syntaxhighlighter/styles/shCoreRDark.css" name="js/syntaxhighlighter/styles/shCoreRDark.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeDefault.css" name="js/syntaxhighlighter/styles/shThemeDefault.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeDjango.css" name="js/syntaxhighlighter/styles/shThemeDjango.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeEclipse.css" name="js/syntaxhighlighter/styles/shThemeEclipse.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeEmacs.css" name="js/syntaxhighlighter/styles/shThemeEmacs.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeFadeToGrey.css" name="js/syntaxhighlighter/styles/shThemeFadeToGrey.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeMDUltra.css" name="js/syntaxhighlighter/styles/shThemeMDUltra.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeMidnight.css" name="js/syntaxhighlighter/styles/shThemeMidnight.css" />
+   <install as="js/syntaxhighlighter/styles/shThemeRDark.css" name="js/syntaxhighlighter/styles/shThemeRDark.css" />
    <install as="Horde/Mime/Viewer.php" name="lib/Horde/Mime/Viewer.php" />
    <install as="Horde/Mime/Viewer/Audio.php" name="lib/Horde/Mime/Viewer/Audio.php" />
    <install as="Horde/Mime/Viewer/Base.php" name="lib/Horde/Mime/Viewer/Base.php" />
