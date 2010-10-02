@@ -115,7 +115,7 @@ class Wicked
                     $cellclass = '__noselection';
                 }
 
-                $url = Horde_Util::addParameter(Wicked::url($pagename), 'referrer', $referrer);
+                $url = Horde_Util::addParameter(self::url($pagename), 'referrer', $referrer);
                 $menu->add($url, $pages[$pagename], $pagename . '.png', null, null, null, $cellclass);
             }
         }
