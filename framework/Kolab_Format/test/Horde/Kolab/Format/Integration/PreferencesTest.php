@@ -36,17 +36,6 @@ require_once 'Horde/Autoloader.php';
 class Horde_Kolab_Format_Integration_PreferencesTest
 extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $GLOBALS['registry']->setCharset('utf-8');
-    }
-
     /**
      * Test preferences format conversion.
      *

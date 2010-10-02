@@ -36,16 +36,6 @@ class Horde_Kolab_Format_Integration_MimeAttrTest
 extends PHPUnit_Framework_TestCase
 {
     /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $GLOBALS['registry']->setCharset('utf-8');
-    }
-
-    /**
      * Test retrieving the document name.
      *
      * @return NULL

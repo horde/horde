@@ -109,8 +109,6 @@ class Horde_Kolab_Filter_Configuration
             require_once $values['config'];
         }
 
-        Horde_Nls::setCharset('utf-8');
-
         if (!empty($conf['kolab']['filter']['locale_path'])
             && !empty($conf['kolab']['filter']['locale'])) {
             Horde_Nls::setTextdomain('Kolab_Filter', $conf['kolab']['filter']['locale_path'], Horde_Nls::getCharset());

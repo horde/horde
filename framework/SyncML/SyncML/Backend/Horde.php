@@ -34,22 +34,6 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     }
 
     /**
-     * Sets the charset.
-     *
-     * All data passed to the backend uses this charset and data returned from
-     * the backend must use this charset, too.
-     *
-     * @param string $charset  A valid charset.
-     */
-    function setCharset($charset)
-    {
-        parent::setCharset($charset);
-
-        $GLOBALS['registry']->setCharset($this->getCharset());
-        Horde_String::setDefaultCharset($this->getCharset());
-    }
-
-    /**
      * Sets the user used for this session.
      *
      * @param string $user  A user name.

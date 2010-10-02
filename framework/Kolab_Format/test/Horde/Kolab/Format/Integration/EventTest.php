@@ -35,19 +35,6 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Format_Integration_EventTest
 extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $GLOBALS['registry']->setCharset('utf-8');
-        Horde_String::setDefaultCharset('iso-8859-1');
-    }
-
-
     /**
      * Test for https://www.intevation.de/roundup/kolab/issue3525
      *

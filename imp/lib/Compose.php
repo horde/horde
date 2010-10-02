@@ -2175,13 +2175,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             '/%r/' => $h->getValue('date'),
 
             /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), $GLOBALS['registry']->getExternalCharset()),
+            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), 'UTF-8'),
 
             /* Date in locale's default. */
-            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), $GLOBALS['registry']->getExternalCharset()),
+            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), 'UTF-8'),
 
             /* Date and time in locale's default. */
-            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), $GLOBALS['registry']->getExternalCharset()),
+            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), 'UTF-8'),
 
             /* Message-ID. */
             '/%m/' => $message_id,

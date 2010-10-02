@@ -2160,59 +2160,12 @@ class Horde_Registry
      */
     public function getCharset($original = false)
     {
-        /* Get cached results. */
-        $cacheKey = intval($original);
-        $charset = $this->_cachedCharset($cacheKey);
-        if (!is_null($charset)) {
-            return $charset;
-        }
-
         if ($original) {
-            $charset = empty($this->nlsconfig['charsets'][$GLOBALS['language']])
+            return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
                 ? 'ISO-8859-1'
                 : $this->nlsconfig['charsets'][$GLOBALS['language']];
-        } elseif ($GLOBALS['browser']->hasFeature('utf') &&
-                  (Horde_Util::extensionExists('iconv') ||
-                   Horde_Util::extensionExists('mbstring'))) {
-            $charset = 'UTF-8';
         }
-
-        if (is_null($charset)) {
-            $charset = $this->getExternalCharset();
-        }
-
-        $this->_cachedCharset($cacheKey, $charset);
-
-        return $charset;
-    }
-
-    /**
-     * Returns the current charset of the environment
-     *
-     * @return string  The character set that should be used with the current
-     *                 locale settings.
-     */
-    public function getExternalCharset()
-    {
-        /* Get cached results. */
-        $charset = $this->_cachedCharset(2);
-        if (!is_null($charset)) {
-            return $charset;
-        }
-
-        $lang_charset = setlocale(LC_ALL, 0);
-        if ((strpos($lang_charset, ';') === false) &&
-            (strpos($lang_charset, '/') === false)) {
-            $lang_charset = explode('.', $lang_charset);
-            if ((count($lang_charset) == 2) && !empty($lang_charset[1])) {
-                $this->_cachedCharset(2, $lang_charset[1]);
-                return $lang_charset[1];
-            }
-        }
-
-        return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
-            ? 'ISO-8859-1'
-            : $this->nlsconfig['charsets'][$GLOBALS['language']];
+        return 'UTF-8';
     }
 
     /**
@@ -2311,37 +2264,6 @@ class Horde_Registry
     }
 
     /**
-     * Sets the UI charset.
-     *
-     * In general, the applied charset is automatically determined by browser
-     * language and browser capabilities and there's no need to manually call
-     * setCharset. However for headless (RPC) operations the charset may be
-     * set manually to ensure correct character conversion in the backend.
-     *
-     * @param string $charset  The new UI charset.
-     */
-    public function setCharset($charset)
-    {
-        $this->_cachedCharset(0, $charset);
-    }
-
-    /**
-     * Sets the charset and reloads the whole NLS environment.
-     *
-     * When setting the charset, the gettext catalogs have to be reloaded too,
-     * to match the new charset, among other things. This method takes care of
-     * all this.
-     *
-     * @param string $charset  The new UI charset.
-     */
-    public function setCharsetEnvironment($charset)
-    {
-        unset($GLOBALS['language']);
-        $this->setCharset($charset);
-        $this->setLanguageEnvironment();
-    }
-
-    /**
      * Sets the language.
      *
      * @param string $lang  The language abbreviation.
@@ -2364,22 +2286,8 @@ class Horde_Registry
         }
         $GLOBALS['language'] = $lang;
 
-        /* First try language with the current charset. */
-        $lang_charset = $lang . '.' . $this->getCharset();
-        if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
-            /* Next try language with its default charset. */
-            $charset = empty($this->nlsconfig['charsets'][$lang])
-                ? 'ISO-8859-1'
-                : $this->nlsconfig['charsets'][$lang];
-            $lang_charset = $lang . '.' . $charset;
-            $this->_cachedCharset(0, $charset);
-            if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
-                /* At last try language solely. */
-                $lang_charset = $lang;
-                setlocale(LC_ALL, $lang_charset);
-            }
-        }
-
+        $lang_charset = $lang . '.UTF-8';
+        setlocale(LC_ALL, $lang_charset);
         @putenv('LC_ALL=' . $lang_charset);
         @putenv('LANG=' . $lang_charset);
         @putenv('LANGUAGE=' . $lang_charset);
@@ -2407,7 +2315,6 @@ class Horde_Registry
             $app,
             $this->get('fileroot', $app) . '/locale'
         );
-        Horde_String::setDefaultCharset($this->getCharset());
     }
 
     /**

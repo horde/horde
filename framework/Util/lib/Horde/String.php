@@ -20,7 +20,7 @@ class Horde_String
      *
      * @var string
      */
-    static protected $_charset = 'iso-8859-1';
+    static protected $_charset = 'UTF-8';
 
     /**
      * lower() cache.
@@ -35,22 +35,6 @@ class Horde_String
      * @var array
      */
     static protected $_uppers = array();
-
-    /**
-     * Sets a default charset that the methods will use if none is explicitly
-     * specified.
-     *
-     * @param string $charset  The charset to use as the default one.
-     */
-    static public function setDefaultCharset($charset)
-    {
-        self::$_charset = $charset;
-        if (Horde_Util::extensionExists('mbstring')) {
-            $old_error = error_reporting(0);
-            mb_regex_encoding(self::_mbstringCharset($charset));
-            error_reporting($old_error);
-        }
-    }
 
     /**
      * Converts a string from one charset to another.

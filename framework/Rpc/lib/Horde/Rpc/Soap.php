@@ -48,8 +48,6 @@ class Horde_Rpc_Soap extends Horde_Rpc
      */
     public function __construct($request, $params = array())
     {
-        $GLOBALS['registry']->setCharset('UTF-8');
-
         parent::__construct($request, $params);
 
         if (!empty($params['allowedTypes'])) {

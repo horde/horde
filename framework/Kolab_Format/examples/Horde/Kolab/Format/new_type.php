@@ -60,8 +60,6 @@ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
     }
 }
 
-$registry->setCharset('utf-8');
-
 /** Generate the format handler */
 $format = Horde_Kolab_Format::factory('Xml', 'String');
 

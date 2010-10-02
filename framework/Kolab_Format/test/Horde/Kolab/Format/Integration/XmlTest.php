@@ -36,17 +36,6 @@ class Horde_Kolab_Format_Integration_XmlTest
 extends PHPUnit_Framework_TestCase
 {
     /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $GLOBALS['registry']->setCharset('utf-8');
-    }
-
-
-    /**
      * Check the preparation of the basic XML structure
      *
      * @return NULL

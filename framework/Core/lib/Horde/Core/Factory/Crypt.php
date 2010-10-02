@@ -60,7 +60,6 @@ class Horde_Core_Factory_Crypt
         $params = array_merge(array(
             'charset' => $registry->getCharset(),
             'email_charset' => $registry->getEmailCharset(),
-            'external_charset' => $registry->getExternalCharset(),
             'temp' => Horde::getTempDir()
         ), $params);
 

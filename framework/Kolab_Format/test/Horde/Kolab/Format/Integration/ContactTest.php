@@ -36,16 +36,6 @@ class Horde_Kolab_Format_Integration_ContactTest
 extends PHPUnit_Framework_TestCase
 {
     /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        $GLOBALS['registry']->setCharset('utf-8');
-    }
-
-    /**
      * Test storing single mail addresses.
      *
      * @return NULL

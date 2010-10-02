@@ -28,9 +28,6 @@ require_once 'Horde/Kolab/Resource/Itip.php';
 require_once 'Horde/Kolab/Resource/Reply.php';
 require_once 'Horde/Kolab/Resource/Freebusy.php';
 
-require_once 'Horde/String.php';
-Horde_String::setDefaultCharset('utf-8');
-
 // What actions we can take when receiving an event request
 define('RM_ACT_ALWAYS_ACCEPT',              'ACT_ALWAYS_ACCEPT');
 define('RM_ACT_REJECT_IF_CONFLICTS',        'ACT_REJECT_IF_CONFLICTS');

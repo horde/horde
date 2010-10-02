@@ -47,9 +47,6 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
             return;
         }
 
-        /** @todo: FIXME -> required for namespace handling */
-        $GLOBALS['registry']->setCharset('UTF8');
-
         /** Setup group handler */
         require_once 'Horde/Group.php';
         require_once 'Horde/Group/mock.php';

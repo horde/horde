@@ -87,10 +87,6 @@ foreach (array('host', 'user', 'pass', 'port', 'protocol', 'folder') as $opt) {
     }
 }
 
-// Set charset to UTF-8 for most flexible conversion between email charset and
-// backend charset.
-$registry->setCharsetEnvironment('UTF-8');
-
 // Read and parse the message.
 $messages = array();
 $imap = @imap_open(sprintf('{%s:%d/%s}%s',

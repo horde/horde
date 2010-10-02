@@ -49,8 +49,6 @@ extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('The Horde_Date_Recurrence class is missing.');
         }
 
-        $GLOBALS['registry']->setCharset('utf-8');
-
         $this->_oldTimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
     }

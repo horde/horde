@@ -26,18 +26,6 @@
 class Horde_Rpc_Jsonrpc extends Horde_Rpc
 {
     /**
-     * Constructor.
-     *
-     * @param array $config  A hash containing any additional configuration or
-     *                       connection parameters this class might need.
-     */
-    function __construct($request, $params = array())
-    {
-        parent::__construct($request, $params);
-        $GLOBALS['registry']->setCharsetEnvironment('UTF-8');
-    }
-
-    /**
      * Returns the Content-Type of the response.
      *
      * @return string  The MIME Content-Type of the RPC response.

@@ -71,8 +71,6 @@ class Horde_Crypt
      *             DEFAULT: NONE
      * 'email_charset' - (string) The default email charset.
      *                   DEFAULT: NONE
-     * 'external_charset' - (string) The default external charset.
-     *                      DEFAULT: NONE
      * 'temp' - (string) [REQUIRED] Location of temporary directory.
      * </pre>
      *
@@ -89,7 +87,6 @@ class Horde_Crypt
         $this->_params = array_merge(array(
             'charset' => null,
             'email_charset' => null,
-            'external_charset' => null,
         ), $params);
     }
 

@@ -12,9 +12,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'none'));
 
-// We want to always generate UTF-8 iCalendar data.
-$registry->setCharset('UTF-8');
-
 // Determine the username to show free/busy time for.
 $cal = Horde_Util::getFormData('c');
 $user = Horde_Util::getFormData('u');

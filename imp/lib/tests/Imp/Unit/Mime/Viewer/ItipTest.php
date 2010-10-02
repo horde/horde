@@ -67,9 +67,6 @@ extends PHPUnit_Framework_TestCase
         $registry->expects($this->any())
             ->method('getCharset')
             ->will($this->returnCallback(array($this, '_registryGetCharset')));
-        $registry->expects($this->any())
-            ->method('setCharset')
-            ->will($this->returnCallback(array($this, '_registrySetCharset')));
         $GLOBALS['registry'] = $registry;
 
         $GLOBALS['conf']['server']['name'] = 'localhost';
@@ -165,11 +162,6 @@ extends PHPUnit_Framework_TestCase
     public function _registryGetCharset()
     {
         return $this->_registryCharset;
-    }
-
-    public function _registrySetCharset($charset)
-    {
-        $this->_registryCharset = $charset;
     }
 
     /* Begin tests */
