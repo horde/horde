@@ -956,7 +956,7 @@ HTML;
             $url = $protocol . '://' . $server_name;
         }
 
-        if (isset($puri['path']) && $puri['path'][0] == '/') {
+        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/') {
             $url .= $puri['path'];
         } else {
             $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
