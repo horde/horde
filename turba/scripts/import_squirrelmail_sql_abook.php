@@ -38,7 +38,7 @@ $handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label 
 if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
-$turba_shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
+$turba_shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
 $user = null;
 $count = 0;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {

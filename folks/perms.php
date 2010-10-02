@@ -11,7 +11,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$shares = $injector->getInstance('Horde_Share')->getScope();
+$shares = $injector->getInstance('Horde_Share_Factory')->getScope();
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 

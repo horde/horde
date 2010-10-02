@@ -32,6 +32,6 @@ $conf = &$GLOBALS['conf'];
 Horde::compressOutput();
 
 // Create a share instance.
-$GLOBALS['skoli_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
+$GLOBALS['skoli_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
 
 Skoli::initialize();

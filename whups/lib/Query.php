@@ -876,7 +876,7 @@ class Whups_QueryManager {
      */
     function Whups_QueryManager()
     {
-        $this->_shareManager = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
+        $this->_shareManager = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
     }
 
     /**

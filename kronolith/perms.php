@@ -21,7 +21,7 @@ if (!empty($conf['share']['no_sharing'])) {
     throw new Horde_Exception('Permission denied.');
 }
 
-$shares = $injector->getInstance('Horde_Share')->getScope();
+$shares = $injector->getInstance('Horde_Share_Factory')->getScope();
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 

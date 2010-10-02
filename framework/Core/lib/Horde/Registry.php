@@ -296,7 +296,7 @@ class Horde_Registry
             'Horde_Service_Facebook' => 'Horde_Core_Binder_Facebook',
             'Horde_Service_Twitter' => 'Horde_Core_Binder_Twitter',
             'Horde_SessionHandler' => 'Horde_Core_Binder_SessionHandler',
-            'Horde_Share' => 'Horde_Core_Binder_Share',
+            'Horde_Share_Factory' => 'Horde_Core_Binder_ShareFactory',
             'Horde_Template' => 'Horde_Core_Binder_Template',
             'Horde_Text_Filter' => 'Horde_Core_Binder_TextFilter',
             'Horde_Tree' => 'Horde_Core_Binder_Tree',

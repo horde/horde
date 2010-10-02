@@ -476,7 +476,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to add shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->newShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -505,7 +505,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exceptionr(_("You are not allowed to delete shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -532,7 +532,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to list shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         $share_list = &$shares->listShares($userName, Horde_Perms::SHOW, $userName);
         $myshares = array();
@@ -561,7 +561,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -598,7 +598,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -640,7 +640,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -667,7 +667,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -707,7 +707,7 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::EDIT => 'edit',
             Horde_Perms::DELETE => 'delete');
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -749,7 +749,7 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::EDIT => 'edit',
             Horde_Perms::DELETE => 'delete');
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -786,7 +786,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to list users of shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
@@ -820,7 +820,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to list groups of shares."));
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);

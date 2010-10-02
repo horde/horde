@@ -140,7 +140,7 @@ Application Framework.</description>
        <file name="Prefs.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
-       <file name="Share.php" role="php" />
+       <file name="ShareFactory.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="Token.php" role="php" />
@@ -466,7 +466,7 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Prefs.php" name="lib/Horde/Core/Binder/Prefs.php" />
    <install as="Horde/Core/Binder/Secret.php" name="lib/Horde/Core/Binder/Secret.php" />
    <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
-   <install as="Horde/Core/Binder/Share.php" name="lib/Horde/Core/Binder/Share.php" />
+   <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
    <install as="Horde/Core/Binder/TextFilter.php" name="lib/Horde/Core/Binder/TextFilter.php" />
    <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
