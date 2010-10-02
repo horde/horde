@@ -21,8 +21,8 @@ class MergeOrRename extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_EDIT => true,
-        WICKED_MODE_DISPLAY => true);
+        Wicked::MODE_EDIT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're displaying similar pages to.
@@ -55,8 +55,8 @@ class MergeOrRename extends Wicked_Page {
      */
     function allows($mode)
     {
-        if ($mode == WICKED_MODE_EDIT) {
-            if (!parent::allows(WICKED_MODE_REMOVE)) {
+        if ($mode == Wicked::MODE_EDIT) {
+            if (!parent::allows(Wicked::MODE_REMOVE)) {
                 return false;
             }
             $page = Wicked_Page::getPage($this->referrer());
@@ -184,7 +184,7 @@ class MergeOrRename extends Wicked_Page {
                                         $referrer, $sourcePage->getMessage()),
                                 'horde.error');
             return;
-        } elseif (!$this->allows(WICKED_MODE_EDIT)) {
+        } elseif (!$this->allows(Wicked::MODE_EDIT)) {
             $notification->push(sprintf(_("You do not have permission to edit \"%s\""),
                                         $referrer), 'horde.error');
             return;
@@ -199,7 +199,7 @@ class MergeOrRename extends Wicked_Page {
                                             $new_name), 'horde.error');
                 return;
             }
-            if (!$destPage->allows(WICKED_MODE_EDIT)) {
+            if (!$destPage->allows(Wicked::MODE_EDIT)) {
                 $notification->push(sprintf(_("You do not have permission to edit \"%s\""),
                                             $new_name), 'horde.error');
                 return;
@@ -246,7 +246,7 @@ class MergeOrRename extends Wicked_Page {
                 'Subject' => '[' . $registry->get('name') . '] renamed: ' . $referrer . ', ' . $new_name));
         }
 
-        $wikiWord = '/^' . WICKED_REGEXP_WIKIWORD . '$/';
+        $wikiWord = '/^' . Wicked::REGEXP_WIKIWORD . '$/';
 
         // We don't check permissions on these pages since we want references
         // to be fixed even if the user doing the editing couldn't fix that

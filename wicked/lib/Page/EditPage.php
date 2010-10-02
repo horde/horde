@@ -27,8 +27,8 @@ class EditPage extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true,
-        WICKED_MODE_EDIT => true);
+        Wicked::MODE_DISPLAY => true,
+        Wicked::MODE_EDIT => true);
 
     /**
      * The page that we're editing.
@@ -41,7 +41,7 @@ class EditPage extends Wicked_Page {
     {
         $this->_referrer = $referrer;
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
-            $this->supportedModes[WICKED_MODE_LOCKING] = $this->supportedModes[WICKED_MODE_UNLOCKING] = true;
+            $this->supportedModes[Wicked::MODE_LOCKING] = $this->supportedModes[Wicked::MODE_UNLOCKING] = true;
         }
     }
 
@@ -57,7 +57,7 @@ class EditPage extends Wicked_Page {
      */
     function allows($mode)
     {
-        if ($mode == WICKED_MODE_EDIT) {
+        if ($mode == Wicked::MODE_EDIT) {
             $page = Wicked_Page::getPage($this->referrer());
             if ($page->isLocked(Wicked::lockUser())) {
                 return false;
@@ -82,10 +82,10 @@ class EditPage extends Wicked_Page {
      */
     function preDisplay()
     {
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
-        if ($this->allows(WICKED_MODE_LOCKING)) {
+        if ($this->allows(Wicked::MODE_LOCKING)) {
             $page = Wicked_Page::getPage($this->referrer());
             if ($page->isLocked()) {
                 $page->unlock();
@@ -152,7 +152,7 @@ class EditPage extends Wicked_Page {
         global $notification, $conf;
 
         $page = Wicked_Page::getPage($this->referrer());
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             $notification->push(sprintf(_("You don't have permission to edit \"%s\"."), $page->pageName()));
         } else {
             if (!empty($GLOBALS['conf']['wicked']['captcha']) &&
@@ -183,7 +183,7 @@ class EditPage extends Wicked_Page {
                 }
             }
 
-            if ($page->allows(WICKED_MODE_UNLOCKING)) {
+            if ($page->allows(Wicked::MODE_UNLOCKING)) {
                 $result = $page->unlock();
                 if (is_a($result, 'PEAR_Error')) {
                     $GLOBALS['notification']->push(sprintf(_("Page failed to unlock: %s"), $result->getMessage()), 'horde.error');

@@ -20,7 +20,7 @@ class RevertPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(WICKED_MODE_DISPLAY => true);
+    var $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming reversion for.
@@ -51,7 +51,7 @@ class RevertPage extends Wicked_Page {
     function preDisplay()
     {
         $page = Wicked_Page::getPage($this->referrer());
-        if (!$page->allows(WICKED_MODE_EDIT)) {
+        if (!$page->allows(Wicked::MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
     }
@@ -111,7 +111,7 @@ class RevertPage extends Wicked_Page {
         global $notification;
 
         $page = Wicked_Page::getPage($this->referrer());
-        if ($page->allows(WICKED_MODE_EDIT)) {
+        if ($page->allows(Wicked::MODE_EDIT)) {
             $version = Horde_Util::getPost('version');
             if (empty($version)) {
                 $notification->push(sprintf(_("Can't revert to an unknown version.")), 'horde.error');

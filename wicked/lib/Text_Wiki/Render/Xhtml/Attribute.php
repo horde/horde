@@ -24,7 +24,7 @@ class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {
 
             // We should do full wiki formatting, I guess, but there isn't
             // a convenient way to do it.
-            if (preg_match('/^(' . WICKED_REGEXP_WIKIWORD . ')$/',
+            if (preg_match('/^(' . Wicked::REGEXP_WIKIWORD . ')$/',
                            $attribute['value'], $matches)) {
                 $vlink = array('page' => $matches[1],
                                'anchor' => '',

@@ -17,7 +17,7 @@ if (!function_exists('separator')) {
 
 separator(true);
 
-if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
+if ($this->allows(Wicked::MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('EditPage'),
                               'referrer', $this->pageName());
@@ -26,7 +26,7 @@ if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
 }
 
 if ($this->isLocked()) {
-    if ($this->allows(WICKED_MODE_UNLOCKING)) {
+    if ($this->allows(Wicked::MODE_UNLOCKING)) {
         separator();
         echo Horde::widget(Horde_Util::removeParameter(
                                $this->pageUrl(null, 'unlock'),
@@ -35,7 +35,7 @@ if ($this->isLocked()) {
                            'widget', '', '', _("Un_lock"));
     }
 } else {
-    if ($this->allows(WICKED_MODE_LOCKING)) {
+    if ($this->allows(Wicked::MODE_LOCKING)) {
         separator();
         echo Horde::widget(Horde_Util::removeParameter(
                                $this->pageUrl(null, 'lock'),
@@ -45,7 +45,7 @@ if ($this->isLocked()) {
     }
 }
 
-if ($this->allows(WICKED_MODE_REMOVE)) {
+if ($this->allows(Wicked::MODE_REMOVE)) {
     separator();
     $params = array('referrer' => $this->pageName());
     if ($this->isOld()) {
@@ -56,7 +56,7 @@ if ($this->allows(WICKED_MODE_REMOVE)) {
                        'widget', '', '', _("_Delete"));
 }
 
-if ($this->allows(WICKED_MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
+if ($this->allows(Wicked::MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
                               'referrer', $this->pageName());
@@ -80,7 +80,7 @@ $url = Horde_Util::addParameter(Wicked::url('AttachedFiles'),
 echo Horde::widget($url, _("Attachments"), 'widget', '', '',
                    _("Attachments"));
 
-if ($this->allows(WICKED_MODE_HISTORY)) {
+if ($this->allows(Wicked::MODE_HISTORY)) {
     separator();
     echo Horde::widget(Horde_Util::removeParameter($this->pageUrl('history.php'),
                                              'version'),

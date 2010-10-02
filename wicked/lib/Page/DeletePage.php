@@ -26,7 +26,7 @@ class DeletePage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(WICKED_MODE_DISPLAY => true);
+    var $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming deletion for.
@@ -57,7 +57,7 @@ class DeletePage extends Wicked_Page {
     function preDisplay()
     {
         $page = Wicked_Page::getPage($this->referrer());
-        if (!$page->allows(WICKED_MODE_REMOVE)) {
+        if (!$page->allows(Wicked::MODE_REMOVE)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
     }
@@ -125,7 +125,7 @@ class DeletePage extends Wicked_Page {
     {
         $pagename = $this->referrer();
         $page = Wicked_Page::getPage($pagename);
-        if ($page->allows(WICKED_MODE_REMOVE)) {
+        if ($page->allows(Wicked::MODE_REMOVE)) {
             $version = Horde_Util::getFormData('version');
             if (empty($version)) {
                 $GLOBALS['wicked']->removeAllVersions($pagename);

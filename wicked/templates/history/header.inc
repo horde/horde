@@ -12,9 +12,9 @@
  <tr class="item">
   <th align="left" width="1%"><?php echo _("Version") ?></th>
 
-<?php if ($this->allows(WICKED_MODE_REMOVE)): ?>
+<?php if ($this->allows(Wicked::MODE_REMOVE)): ?>
   <th align="center" class="nowrap" style="width:1%"><?php echo Horde::img('delete.png', _("Delete Version")) ?></th>
-<?php endif; if ($this->allows(WICKED_MODE_EDIT)): ?>
+<?php endif; if ($this->allows(Wicked::MODE_EDIT)): ?>
   <th align="center" class="nowrap" style="width:1%"><?php echo Horde::img('edit.png', _("Edit Version")) ?></th>
 
   <th align="center" class="nowrap" style="width:1%"><?php echo Horde::img('restore.png', _("Restore Version")) ?></th>

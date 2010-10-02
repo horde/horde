@@ -26,7 +26,7 @@ class Horde_Block_Wicked_page extends Horde_Block
     protected function _content()
     {
         $page = Wicked_Page::getPage($this->_params['page']);
-        return $page->render(WICKED_MODE_BLOCK);
+        return $page->render(Wicked::MODE_BLOCK);
     }
 
     protected function _params()

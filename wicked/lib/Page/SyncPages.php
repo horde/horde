@@ -20,7 +20,7 @@ class SyncPages extends Wicked_Page {
      * Display modes supported by this page.
      */
     var $supportedModes = array(
-        WICKED_MODE_CONTENT => true);
+        Wicked::MODE_CONTENT => true);
 
     /**
      * Sync driver
@@ -364,7 +364,7 @@ class SyncPages extends Wicked_Page {
             return $page;
         }
 
-        if (!$page->allows(WICKED_MODE_EDIT)) {
+        if (!$page->allows(Wicked::MODE_EDIT)) {
             return PEAR::RaiseError(sprintf(_("You don't have permission to edit \"%s\"."), $pageName));
         }
 

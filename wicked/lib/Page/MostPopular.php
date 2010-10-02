@@ -21,8 +21,8 @@ class MostPopular extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_DISPLAY => true);
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * Render this page in Content mode.

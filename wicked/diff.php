@@ -43,7 +43,7 @@ if ($v1 == '?') {
 
 /* Kick back to the display page if we're not allowed to diff this
  * page. */
-if (!$page->allows(WICKED_MODE_DIFF)) {
+if (!$page->allows(Wicked::MODE_DIFF)) {
     Wicked::url($page->pageName(), true)
         ->add('actionID', 'diff')
         ->redirect();
@@ -52,5 +52,5 @@ if (!$page->allows(WICKED_MODE_DIFF)) {
 $title = sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version());
 require WICKED_TEMPLATES . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
-$page->render(WICKED_MODE_DIFF, $v1);
+$page->render(Wicked::MODE_DIFF, $v1);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

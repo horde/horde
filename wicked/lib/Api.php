@@ -199,7 +199,7 @@ class Wicked_Api extends Horde_Registry_Api
         if (is_a($page, 'PEAR_Error')) {
             return $page;
         }
-        if (!$page->allows(WICKED_MODE_EDIT)) {
+        if (!$page->allows(Wicked::MODE_EDIT)) {
             return PEAR::RaiseError(sprintf(_("You don't have permission to edit \"%s\"."), $pagename));
         }
         if ($GLOBALS['conf']['wicked']['require_change_log'] &&
@@ -277,7 +277,7 @@ class Wicked_Api extends Horde_Registry_Api
 
         $page = Wicked_Page::getPage($pagename, $version);
 
-        if (!$page->allows(WICKED_MODE_CONTENT)) {
+        if (!$page->allows(Wicked::MODE_CONTENT)) {
             return PEAR::raiseError(_("Permission denied."));
         }
 

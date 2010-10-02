@@ -207,7 +207,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
          * actually refer to $pagename. */
 
         $patterns = array('/\(\(' . preg_quote($pagename, '/') . '(?:\|[^)]+)?\)\)/');
-        if (preg_match('/^' . WICKED_REGEXP_WIKIWORD . '$/', $pagename)) {
+        if (preg_match('/^' . Wicked::REGEXP_WIKIWORD . '$/', $pagename)) {
             $patterns[] = '/\b' . preg_quote($pagename, '/') . '\b/';
         }
 

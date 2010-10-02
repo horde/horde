@@ -18,11 +18,11 @@ class StandardPage extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true,
-        WICKED_MODE_EDIT => true,
-        WICKED_MODE_REMOVE => true,
-        WICKED_MODE_HISTORY => true,
-        WICKED_MODE_DIFF => true);
+        Wicked::MODE_DISPLAY => true,
+        Wicked::MODE_EDIT => true,
+        Wicked::MODE_REMOVE => true,
+        Wicked::MODE_HISTORY => true,
+        Wicked::MODE_DIFF => true);
 
     /**
      * A Horde_Locks instance for un-/locking this page.
@@ -106,7 +106,7 @@ class StandardPage extends Wicked_Page {
         }
 
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
-            $this->supportedModes[WICKED_MODE_LOCKING] = $this->supportedModes[WICKED_MODE_UNLOCKING] = true;
+            $this->supportedModes[Wicked::MODE_LOCKING] = $this->supportedModes[Wicked::MODE_UNLOCKING] = true;
             $this->_locks = $GLOBALS['injector']->getInstance('Horde_Lock');
             $locks = $this->_locks->getLocks('wicked', $pagename, Horde_Lock::TYPE_EXCLUSIVE);
             if ($locks) {
@@ -128,13 +128,13 @@ class StandardPage extends Wicked_Page {
     function allows($mode)
     {
         switch ($mode) {
-        case WICKED_MODE_EDIT:
+        case Wicked::MODE_EDIT:
             if ($this->isLocked()) {
                 return Wicked::lockUser() == $this->_lock['lock_owner'];
             }
             break;
 
-        case WICKED_MODE_LOCKING:
+        case Wicked::MODE_LOCKING:
             if ($GLOBALS['browser']->isRobot()) {
                 return false;
             }
@@ -146,7 +146,7 @@ class StandardPage extends Wicked_Page {
             }
             break;
 
-        case WICKED_MODE_UNLOCKING:
+        case Wicked::MODE_UNLOCKING:
             if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }

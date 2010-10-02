@@ -27,8 +27,8 @@ class NewPage extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true,
-        WICKED_MODE_EDIT => true);
+        Wicked::MODE_DISPLAY => true,
+        Wicked::MODE_EDIT => true);
 
     /**
      * The page that we're creating.
@@ -71,7 +71,7 @@ class NewPage extends Wicked_Page {
             Wicked::url('', true)->redirect();
         }
 
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
         }
     }
@@ -118,7 +118,7 @@ class NewPage extends Wicked_Page {
     {
         global $notification, $wicked;
 
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             $notification->push(sprintf(_("You don't have permission to create \"%s\"."), $this->referrer()));
         } else {
             $text = Horde_Util::getPost('page_text');

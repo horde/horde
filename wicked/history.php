@@ -17,7 +17,7 @@ if (is_a($page, 'PEAR_Error')) {
     Wicked::url('WikiHome', true)->redirect();
 }
 
-if (!$page->allows(WICKED_MODE_HISTORY)) {
+if (!$page->allows(Wicked::MODE_HISTORY)) {
     /* Redirect to display page and force it to display an error. */
     Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
@@ -25,5 +25,5 @@ if (!$page->allows(WICKED_MODE_HISTORY)) {
 $title = sprintf(_("History: %s"), $page->pageName());
 require WICKED_TEMPLATES . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
-$page->render(WICKED_MODE_HISTORY);
+$page->render(Wicked::MODE_HISTORY);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

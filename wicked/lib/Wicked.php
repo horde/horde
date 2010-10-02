@@ -1,37 +1,48 @@
 <?php
-// Modes we might be displaying a page in.
-/** Display mode. */
-define('WICKED_MODE_DISPLAY', 0);
+/**
+ * Wicked Base Class.
+ *
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Tyler Colbert <tyler@colberts.us>
+ * @package Wicked
+ */
+class Wicked
+{
+    /** Display mode. */
+    const MODE_DISPLAY = 0;
 
-/** The edit screen. */
-define('WICKED_MODE_EDIT', 1);
+    /** The edit screen. */
+    const MODE_EDIT = 1;
 
-/** Page can be removed. */
-define('WICKED_MODE_REMOVE', 2);
+    /** Page can be removed. */
+    const MODE_REMOVE = 2;
 
-/** Display the page history. */
-define('WICKED_MODE_HISTORY', 3);
+    /** Display the page history. */
+    const MODE_HISTORY = 3;
 
-/** Diff two versions of the page. */
-define('WICKED_MODE_DIFF', 4);
+    /** Diff two versions of the page. */
+    const MODE_DIFF = 4;
 
-/** Page can be locked. */
-define('WICKED_MODE_LOCKING', 7);
+    /** Page can be locked. */
+    const MODE_LOCKING = 7;
 
-/** Page can be unlocked. */
-define('WICKED_MODE_UNLOCKING', 8);
+    /** Page can be unlocked. */
+    const MODE_UNLOCKING = 8;
 
-/** The ability to add a page. */
-define('WICKED_MODE_CREATE', 9);
+    /** The ability to add a page. */
+    const MODE_CREATE = 9;
 
-/** Raw content mode. */
-define('WICKED_MODE_CONTENT', 10);
+    /** Raw content mode. */
+    const MODE_CONTENT = 10;
 
-/** Like display, but for a block. */
-define('WICKED_MODE_BLOCK', 11);
+    /** Like display, but for a block. */
+    const MODE_BLOCK = 11;
 
-/** Our wiki word regexp (needed many places). */
-define('WICKED_REGEXP_WIKIWORD',
+    /** Our wiki word regexp (needed many places).
        "(!?" .                       // START WikiPage pattern (1)
        "[A-Z\xc0-\xde]" .            // 1 upper
        "[A-Za-z0-9\xc0-\xfe]*" .     // 0+ alpha or digit
@@ -46,22 +57,11 @@ define('WICKED_REGEXP_WIKIWORD',
                                      // colon, dot
        "[-_A-Za-z0-9\xc0-\xfe]" .    // 1 dash, alpha, digit, or underscore
        ")?)?)");                     // end subpatterns (/4)(/3)(/2)
+     */
+    const REGEXP_WIKIWORD = "(!?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*[a-z0-9\xdf-\xfe]+[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*)((\#[A-Za-z0-9\xc0-\xfe]([-_A-Za-z0-9\xc0-\xfe:.]*[-_A-Za-z0-9\xc0-\xfe])?)?)";
 
-/** Where we store our attachments in VFS. */
-define('WICKED_VFS_ATTACH_PATH', '.horde/wicked/attachments');
-
-/**
- * Wicked Base Class.
- *
- * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @package Wicked
- */
-class Wicked {
+    /** Where we store our attachments in VFS. */
+    const WICKED_VFS_ATTACH_PATH = '.horde/wicked/attachments';
 
     /**
      * Puts together the URL to a Wicked page. Uses mod_rewrite or GET
@@ -73,7 +73,7 @@ class Wicked {
      *
      * @return string  The URL of $page.
      */
-    function url($page, $full = false, $append_session = 0)
+    public static function url($page, $full = false, $append_session = 0)
     {
         global $conf;
 
@@ -89,7 +89,7 @@ class Wicked {
     /**
      * Build Wicked's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    public static function getMenu($returnType = 'object')
     {
         global $conf, $page;
 
@@ -134,7 +134,7 @@ class Wicked {
      * @param string $message  The message text to send out.
      * @param array $headers   Additional headers to add to the email.
      */
-    function mail($message, $headers = array())
+    public static function mail($message, $headers = array())
     {
         global $conf, $registry;
 
@@ -201,7 +201,7 @@ class Wicked {
      *
      * @return string  A CAPTCHA string.
      */
-    function getCAPTCHA($new = false)
+    public static function getCAPTCHA($new = false)
     {
         if ($new || empty($_SESSION['wickedSession']['CAPTCHA'])) {
             $_SESSION['wickedSession']['CAPTCHA'] = '';
@@ -218,7 +218,7 @@ class Wicked {
      *
      * @return string  The user name used for locking.
      */
-    function lockUser()
+    public static function lockUser()
     {
         return $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $GLOBALS['browser']->getIPAddress();
     }

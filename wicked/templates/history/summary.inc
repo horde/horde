@@ -1,6 +1,6 @@
 <tr>
  <td><?php echo Horde::link($page->pageUrl(), sprintf(_("Display Version %s"), $page->version())) . htmlspecialchars($page->version()) ?></a></td>
-<?php if ($this->allows(WICKED_MODE_REMOVE)): ?>
+<?php if ($this->allows(Wicked::MODE_REMOVE)): ?>
  <td style="text-align:center">
 <?php
 $text = sprintf(_("Delete Version %s"), $page->version());
@@ -9,7 +9,7 @@ $url = Horde_Util::addParameter(Wicked::url('DeletePage'), array('referrer' => $
 echo Horde::link($url, $text) . Horde::img('delete.png', $text) . '</a>';
 ?>
  </td>
-<?php endif; if ($this->allows(WICKED_MODE_EDIT)): ?>
+<?php endif; if ($this->allows(Wicked::MODE_EDIT)): ?>
  <td style="text-align:center">
 <?php
 if ($show_edit) {

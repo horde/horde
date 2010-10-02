@@ -22,10 +22,10 @@ class AttachedFiles extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_EDIT => true,
-        WICKED_MODE_REMOVE => true,
-        WICKED_MODE_DISPLAY => true);
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_EDIT => true,
+        Wicked::MODE_REMOVE => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * The page for which we'd like to manipulate attachments.
@@ -86,7 +86,7 @@ class AttachedFiles extends Wicked_Page {
                       'version' => $attach['attachment_majorversion'] . '.'
                                    . $attach['attachment_minorversion']));
 
-            $attachments[$idx]['delete_form'] = $this->allows(WICKED_MODE_REMOVE);
+            $attachments[$idx]['delete_form'] = $this->allows(Wicked::MODE_REMOVE);
 
             $this->_page['change_author'] = $attachments[$idx]['change_author'];
             $attachments[$idx]['change_author'] = $this->author();
@@ -136,9 +136,9 @@ class AttachedFiles extends Wicked_Page {
         sort($files);
         $template->set('files', $files);
         $template->set('canUpdate',
-                       $this->allows(WICKED_MODE_EDIT) && count($files),
+                       $this->allows(Wicked::MODE_EDIT) && count($files),
                        true);
-        $template->set('canAttach', $this->allows(WICKED_MODE_EDIT), true);
+        $template->set('canAttach', $this->allows(Wicked::MODE_EDIT), true);
         if ($conf['wicked']['require_change_log']) {
             $template->set('requireChangelog', true, true);
         } else {
@@ -186,7 +186,7 @@ class AttachedFiles extends Wicked_Page {
 
         // See if we're supposed to delete an attachment.
         if ($cmd == 'delete' && $filename && $version) {
-            if (!$this->allows(WICKED_MODE_REMOVE)) {
+            if (!$this->allows(Wicked::MODE_REMOVE)) {
                 $notification->push(_("You do not have permission to delete attachments from this page."), 'horde.error');
                 return;
             }
@@ -228,7 +228,7 @@ class AttachedFiles extends Wicked_Page {
             return;
         }
 
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             $notification->push(
                 sprintf(_("You do not have permission to edit \"%s\""),
                         $this->referrer()),

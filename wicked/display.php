@@ -20,7 +20,7 @@ if (is_a($page, 'PEAR_Error')) {
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'lock':
-    if (!$page->allows(WICKED_MODE_LOCKING)) {
+    if (!$page->allows(Wicked::MODE_LOCKING)) {
         $notification->push(_("You are not allowed to lock this page"),
                             'horde.error');
         break;
@@ -33,7 +33,7 @@ case 'lock':
     break;
 
 case 'unlock':
-    if (!$page->allows(WICKED_MODE_UNLOCKING)) {
+    if (!$page->allows(Wicked::MODE_UNLOCKING)) {
         $notification->push(_("You are not allowed to unlock this page"),
                             'horde.error');
     }
@@ -48,7 +48,7 @@ case 'unlock':
     break;
 
 case 'history':
-    if ($page->allows(WICKED_MODE_HISTORY)) {
+    if ($page->allows(Wicked::MODE_HISTORY)) {
         /* Redirect to history page. */
         Horde::url('history.php')
             ->add('page', $page->pageName())
@@ -62,7 +62,7 @@ case 'special':
     break;
 
 case 'export':
-    if (!$page->allows(WICKED_MODE_DISPLAY)) {
+    if (!$page->allows(Wicked::MODE_DISPLAY)) {
         $notification->push(_("You don't have permission to view this page."),
                             'horde.error');
         if ($page->pageName() == 'WikiHome') {
@@ -106,7 +106,7 @@ default:
     $wicked->logPageView($page->pageName());
 }
 
-if (!$page->allows(WICKED_MODE_DISPLAY)) {
+if (!$page->allows(Wicked::MODE_DISPLAY)) {
     $notification->push(_("You don't have permission to view this page."),
                         'horde.error');
     if ($page->pageName() == 'WikiHome') {
@@ -116,7 +116,7 @@ if (!$page->allows(WICKED_MODE_DISPLAY)) {
 }
 
 $params = Horde_Util::getFormData('params');
-$page->preDisplay(WICKED_MODE_DISPLAY, $params);
+$page->preDisplay(Wicked::MODE_DISPLAY, $params);
 
 if (!isset($_SESSION['wickedSession']['history'])) {
     $_SESSION['wickedSession']['history'] = array();
@@ -129,7 +129,7 @@ if ($page->isLocked()) {
 $title = $page->pageTitle();
 require WICKED_TEMPLATES . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
-$page->render(WICKED_MODE_DISPLAY, $params);
+$page->render(Wicked::MODE_DISPLAY, $params);
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
 if (is_a($page, 'StandardPage') &&

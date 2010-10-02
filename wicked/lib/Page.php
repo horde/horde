@@ -15,15 +15,15 @@ class Wicked_Page {
     /**
      * Display modes supported by this page. Possible modes:
      *
-     *   WICKED_MODE_CONTENT
-     *   WICKED_MODE_DISPLAY
-     *   WICKED_MODE_EDIT
-     *   WICKED_MODE_REMOVE
-     *   WICKED_MODE_HISTORY
-     *   WICKED_MODE_DIFF
-     *   WICKED_MODE_LOCKING
-     *   WICKED_MODE_UNLOCKING
-     *   WICKED_MODE_CREATE
+     *   Wicked::MODE_CONTENT
+     *   Wicked::MODE_DISPLAY
+     *   Wicked::MODE_EDIT
+     *   Wicked::MODE_REMOVE
+     *   Wicked::MODE_HISTORY
+     *   Wicked::MODE_DIFF
+     *   Wicked::MODE_LOCKING
+     *   Wicked::MODE_UNLOCKING
+     *   Wicked::MODE_CREATE
      *
      * @var array
      */
@@ -102,7 +102,7 @@ class Wicked_Page {
         $pagePerms = $this->getPermissions();
 
         switch ($mode) {
-        case WICKED_MODE_CREATE:
+        case Wicked::MODE_CREATE:
             // Special mode for pages that don't exist yet - generic
             // to all pages.
             if ($browser->isRobot()) {
@@ -123,7 +123,7 @@ class Wicked_Page {
             }
             break;
 
-        case WICKED_MODE_EDIT:
+        case Wicked::MODE_EDIT:
             if ($browser->isRobot()) {
                 return false;
             }
@@ -137,7 +137,7 @@ class Wicked_Page {
             }
             break;
 
-        case WICKED_MODE_REMOVE:
+        case Wicked::MODE_REMOVE:
             if ($browser->isRobot()) {
                 return false;
             }
@@ -225,7 +225,7 @@ class Wicked_Page {
         }
 
         $page = new StandardPage($pagename);
-        if ($page->isValid() || !$page->allows(WICKED_MODE_EDIT)) {
+        if ($page->isValid() || !$page->allows(Wicked::MODE_EDIT)) {
             return $page;
         }
 
@@ -460,7 +460,7 @@ class Wicked_Page {
 
             $this->_proc->setFormatConf('Xhtml', 'charset', $GLOBALS['registry']->getCharset());
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
-            $create = $this->allows(WICKED_MODE_CREATE) ? 1 : 0;
+            $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
             $linkConf = array(
                 'pages' => $wicked->getPages(),
                 'view_url' => $view_url,
@@ -492,22 +492,22 @@ class Wicked_Page {
     function render($mode, $params = null)
     {
         switch ($mode) {
-        case WICKED_MODE_CONTENT:
+        case Wicked::MODE_CONTENT:
             return $this->content($params);
 
-        case WICKED_MODE_DISPLAY:
+        case Wicked::MODE_DISPLAY:
             return $this->display($params);
 
-        case WICKED_MODE_BLOCK:
+        case Wicked::MODE_BLOCK:
             return $this->block($params);
 
-        case WICKED_MODE_REMOVE:
+        case Wicked::MODE_REMOVE:
             return $this->remove();
 
-        case WICKED_MODE_HISTORY:
+        case Wicked::MODE_HISTORY:
             return $this->history();
 
-        case WICKED_MODE_DIFF:
+        case Wicked::MODE_DIFF:
             return $this->diff($params);
 
         default:

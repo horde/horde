@@ -13,13 +13,13 @@ class StdHistoryPage extends StandardPage {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true,
-        WICKED_MODE_EDIT => false,
-        WICKED_MODE_REMOVE => true,
-        WICKED_MODE_HISTORY => true,
-        WICKED_MODE_DIFF => true,
-        WICKED_MODE_LOCKING => false,
-        WICKED_MODE_UNLOCKING => false);
+        Wicked::MODE_DISPLAY => true,
+        Wicked::MODE_EDIT => false,
+        Wicked::MODE_REMOVE => true,
+        Wicked::MODE_HISTORY => true,
+        Wicked::MODE_DIFF => true,
+        Wicked::MODE_LOCKING => false,
+        Wicked::MODE_UNLOCKING => false);
 
     /**
      * Construct a standard history page class to represent an old

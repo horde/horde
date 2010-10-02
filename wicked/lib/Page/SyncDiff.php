@@ -19,8 +19,8 @@ class SyncDiff extends SyncPages {
      * Display modes supported by this page.
      */
     var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_DISPLAY => true);
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * Sync driver

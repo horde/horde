@@ -21,7 +21,7 @@ class AddPage extends Wicked_Page {
      * @var array
      */
     var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true);
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * The page to confirm creation of.
