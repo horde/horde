@@ -113,7 +113,6 @@ Application Framework.</description>
        <file name="Alarm.php" role="php" />
        <file name="Auth.php" role="php" />
        <file name="AuthSignup.php" role="php" />
-       <file name="Cache.php" role="php" />
        <file name="CacheFactory.php" role="php" />
        <file name="Crypt.php" role="php" />
        <file name="Data.php" role="php" />
@@ -439,7 +438,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
    <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
-   <install as="Horde/Core/Binder/Cache.php" name="lib/Horde/Core/Binder/Cache.php" />
    <install as="Horde/Core/Binder/CacheFactory.php" name="lib/Horde/Core/Binder/CacheFactory.php" />
    <install as="Horde/Core/Binder/Crypt.php" name="lib/Horde/Core/Binder/Crypt.php" />
    <install as="Horde/Core/Binder/Data.php" name="lib/Horde/Core/Binder/Data.php" />

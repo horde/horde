@@ -269,7 +269,6 @@ class Horde_Registry
             'Horde_Alarm' => 'Horde_Core_Binder_Alarm',
             'Horde_Auth' => 'Horde_Core_Binder_Auth',
             // 'Horde_Browser' - initialized below
-            'Horde_Cache' => 'Horde_Core_Binder_Cache',
             'Horde_Cache_Factory' => 'Horde_Core_Binder_CacheFactory',
             'Horde_Core_Auth_Signup' => 'Horde_Core_Binder_AuthSignup',
             'Horde_Crypt' => 'Horde_Core_Binder_Crypt',
@@ -308,6 +307,10 @@ class Horde_Registry
 
         /* Define factories. */
         $factories = array(
+            'Horde_Cache' => array(
+                'Horde_Core_Factory_Cache',
+                'getCache',
+            ),
             'Horde_Controller_Request' => array(
                 'Horde_Core_Factory_Request',
                 'create',

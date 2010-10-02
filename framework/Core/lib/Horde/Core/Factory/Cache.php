@@ -121,5 +121,4 @@ class Horde_Core_Factory_Cache
 
         return $this->_instances[$driver];
     }
-
 }
