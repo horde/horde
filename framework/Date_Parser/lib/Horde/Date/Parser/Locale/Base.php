@@ -210,7 +210,9 @@ class Horde_Date_Parser_Locale_Base
      */
     public function postTokenize($tokens)
     {
-        if (!count($tokens)) { return $tokens; }
+        if (!count($tokens)) {
+            return $tokens;
+        }
 
         // First rule: if the first token is a separator, remove it from the
         // list of tokens we consider in tokensToSpan().
@@ -228,7 +230,9 @@ class Horde_Date_Parser_Locale_Base
 
     public function initDefinitions()
     {
-        if ($this->definitions) { return; }
+        if ($this->definitions) {
+            return;
+        }
 
         $this->definitions = array(
             'time' => array(
