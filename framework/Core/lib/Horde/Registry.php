@@ -278,6 +278,7 @@ class Horde_Registry
             'Horde_Db_Adapter_Base' => 'Horde_Core_Binder_DbBase',
             'Horde_Db_Pear' => 'Horde_Core_Binder_DbPear',
             'Horde_Editor' => 'Horde_Core_Binder_Editor',
+            'Horde_Group' => 'Horde_Core_Binder_Group',
             'Horde_History' => 'Horde_Core_Binder_History',
             'Horde_Http_Client' => 'Horde_Core_Binder_HttpClient',
             'Horde_Ldap' => 'Horde_Core_Binder_Ldap',
