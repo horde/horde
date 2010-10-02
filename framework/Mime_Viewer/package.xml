@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
+Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter: http://alexgorbatchev.com/SyntaxHighlighter/
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -126,7 +126,7 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
        <file name="Security.php" role="php" />
        <file name="Simple.php" role="php" />
        <file name="Smil.php" role="php" />
-       <file name="SyntaxHighlighter.php" role="php" />
+       <file name="Syntaxhighlighter.php" role="php" />
        <file name="Tgz.php" role="php" />
        <file name="Tnef.php" role="php" />
        <file name="Wordperfect.php" role="php" />
@@ -264,7 +264,7 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
    <install as="Horde/Mime/Viewer/Security.php" name="lib/Horde/Mime/Viewer/Security.php" />
    <install as="Horde/Mime/Viewer/Simple.php" name="lib/Horde/Mime/Viewer/Simple.php" />
    <install as="Horde/Mime/Viewer/Smil.php" name="lib/Horde/Mime/Viewer/Smil.php" />
-   <install as="Horde/Mime/Viewer/SyntaxHighlighter.php" name="lib/Horde/Mime/Viewer/SyntaxHighlighter.php" />
+   <install as="Horde/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Mime/Viewer/Tgz.php" name="lib/Horde/Mime/Viewer/Tgz.php" />
    <install as="Horde/Mime/Viewer/Tnef.php" name="lib/Horde/Mime/Viewer/Tnef.php" />
    <install as="Horde/Mime/Viewer/Wordperfect.php" name="lib/Horde/Mime/Viewer/Wordperfect.php" />
@@ -296,7 +296,7 @@ Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlig
    <date>2010-10-02</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
+Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter: http://alexgorbatchev.com/SyntaxHighlighter/
    </notes>
   </release>
  </changelog>

@@ -108,13 +108,6 @@ class Horde_Core_Factory_MimeViewer
         ));
 
         switch ($config['driver']) {
-        case 'Css':
-            if ($config['app'] == 'horde') {
-                $driver = 'Horde_Core_Mime_Viewer_Css';
-            }
-            $params['registry'] = $GLOBALS['registry'];
-            break;
-
         case 'Deb':
         case 'Rpm':
             $params['monospace'] = 'fixed';
@@ -136,6 +129,13 @@ class Horde_Core_Factory_MimeViewer
         case 'Report':
         case 'Security':
             $params['viewer_callback'] = array($this, 'getViewerCallback');
+            break;
+
+        case 'Syntaxhighlighter':
+            if ($config['app'] == 'horde') {
+                $driver = 'Horde_Core_Mime_Viewer_Syntaxhighlighter';
+            }
+            $params['registry'] = $GLOBALS['registry'];
             break;
 
         case 'Tgz':

@@ -190,7 +190,7 @@ Application Framework.</description>
       </dir> <!-- /lib/Horde/Core/LoginTasks -->
       <dir name="Mime">
        <dir name="Viewer">
-        <file name="Css.php" role="php" />
+        <file name="Syntaxhighlighter.php" role="php" />
         <file name="Vcard.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Mime/Viewer -->
       </dir> <!-- /lib/Horde/Core/Mime -->
@@ -503,7 +503,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
-   <install as="Horde/Core/Mime/Viewer/Css.php" name="lib/Horde/Core/Mime/Viewer/Css.php" />
+   <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
    <install as="Horde/Core/Notification/Hordelog.php" name="lib/Horde/Core/Notification/Hordelog.php" />
    <install as="Horde/Core/Notification/Status.php" name="lib/Horde/Core/Notification/Status.php" />
