@@ -95,10 +95,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
     {
         $html = $this->_cleanHTML($this->_mimepart->getContents(), array('inline' => true));
 
-        return array(
-            'data' => Horde_String::convertCharset($html, $this->_mimepart->getCharset(), $this->getConfigParam('charset')),
-            'status' => array(),
-            'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
+        return $this->_renderReturn(
+            Horde_String::convertCharset($html, $this->_mimepart->getCharset(), $this->getConfigParam('charset')),
+            'type' => 'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

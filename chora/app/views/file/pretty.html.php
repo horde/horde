@@ -10,6 +10,7 @@ if (strpos($this->mimeType, 'text/plain') !== false) {
     echo Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
 } elseif ($this->pretty->canRender('inline')) {
     $data = $this->pretty->render('inline');
+    $data = reset($data);
     echo $data['data'];
 } else {
     echo Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
