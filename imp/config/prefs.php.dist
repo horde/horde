@@ -709,11 +709,12 @@ $_prefs['close_draft'] = array(
 // save drafts as seen or unseen
 $_prefs['unseen_drafts'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Save drafts as unseen?")
 );
 
-// auto-save drafts? value is in minutes, 0 == don't save.
+// auto-save drafts? value is in minutes, 0 = don't save.
 $_prefs['auto_save_drafts'] = array(
     'value' => 5,
     'advanced' => true,
