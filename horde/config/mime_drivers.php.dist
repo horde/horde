@@ -79,34 +79,6 @@ $mime_drivers = array(
         )
     ),
 
-    /* PHP pretty-print code display. */
-    'php' => array(
-        'inline' => true,
-        'handles' => array(
-            'application/x-php',
-            'x-extension/phps',
-            'x-extension/php3s',
-            'application/x-httpd-php',
-            'application/x-httpd-php3',
-            'application/x-httpd-phps'
-        ),
-        'icons' => array(
-            'default' => 'php.png'
-        )
-    ),
-
-    /* CSS pretty-print display. */
-    'css' => array(
-        'inline' => true,
-        'handles' => array(
-            'text/css',
-            'x-extension/css'
-        ),
-        'icons' => array(
-            'default' => 'html.png'
-        )
-    ),
-
     /* HTML display. */
     'html' => array(
         // NOTE: Inline HTML viewing is DISABLED by default.
@@ -144,11 +116,9 @@ $mime_drivers = array(
         )
     ),
 
-    /* Source-highlight driver.
-     * http://www.gnu.org/software/src-highlite/ */
-    'srchighlite' => array(
-        // Disabled by default
-        'disable' => true,
+    /* SyntaxHighlighter driver.
+     * http://alexgorbatchev.com/SyntaxHighlighter/ */
+    'syntaxhighlighter' => array(
         'inline' => true,
         'handles' => array(
             'application/x-httpd-php',
@@ -173,27 +143,30 @@ $mime_drivers = array(
             'text/x-chdr',
             'text/x-csrc',
             'text/x-diff',
-            'text/x-emacs-lisp',
-            'text/x-fortran',
             'text/x-java',
-            'text/x-pascal',
             'text/x-patch',
             'text/x-sql',
             'text/x-tex',
             'text/xml',
-            'x-extension/asm',
             'x-extension/bat',
+            'x-extension/c',
+            'x-extension/cpp',
             'x-extension/cs',
             'x-extension/css',
-            'x-extension/f77',
-            'x-extension/f90',
-            'x-extension/for',
-            'x-extension/ftn',
+            'x-extension/html',
+            'x-extension/js',
+            'x-extension/perl',
+            'x-extension/php',
             'x-extension/php3s',
             'x-extension/phps',
-            'x-extension/rc',
+            'x-extension/pl',
+            'x-extension/py',
+            'x-extension/python',
+            'x-extension/rb',
+            'x-extension/ruby',
             'x-extension/vb',
-            'x-extension/vba'
+            'x-extension/vba',
+            'x-extension/xml',
         ),
         'icons' => array(
             'default'                   => 'text.png',
@@ -217,14 +190,21 @@ $mime_drivers = array(
             'text/x-java'               => 'source-java.png',
             'text/x-sql'                => 'sql.png',
             'text/xml'                  => 'xml.png',
+            'x-extension/bash'          => 'shell.png',
+            'x-extension/c'             => 'source-c.png',
+            'x-extension/cpp'           => 'source-c.png',
+            'x-extension/cs'            => 'source-c.png',
             'x-extension/css'           => 'html.png',
+            'x-extension/html'          => 'html.png',
+            'x-extension/js'            => 'script-js.png',
+            'x-extension/php'           => 'php.png',
             'x-extension/php3s'         => 'php.png',
             'x-extension/phps'          => 'php.png',
-            'x-extension/rc'            => 'xml.png'
+            'x-extension/py'            => 'source-python.png',
+            'x-extension/python'        => 'source-python.png',
+            'x-extension/sh'            => 'shell.png',
+            'x-extension/xml'           => 'xml.png'
         ),
-
-        // REQUIRED: Location of the source-highlight binary
-        'location' => '/usr/bin/source-highlight'
     ),
 
     /* Tar file display.

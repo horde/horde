@@ -14,9 +14,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-07-25</date>
+ <date>2010-10-02</date>
  <version>
-  <release>0.1.0</release>
+  <release>0.2.0</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -24,7 +24,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial package.
+ <notes>Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
  </notes>
  <contents>
   <dir name="/">
@@ -47,7 +47,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/Mime/Viewer/Ooo -->
        <file name="Audio.php" role="php" />
        <file name="Base.php" role="php" />
-       <file name="Css.php" role="php" />
        <file name="Deb.php" role="php" />
        <file name="Default.php" role="php" />
        <file name="Enriched.php" role="php" />
@@ -59,7 +58,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Msword.php" role="php" />
        <file name="Ooo.php" role="php" />
        <file name="Pdf.php" role="php" />
-       <file name="Php.php" role="php" />
        <file name="Plain.php" role="php" />
        <file name="Rar.php" role="php" />
        <file name="Report.php" role="php" />
@@ -70,8 +68,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Security.php" role="php" />
        <file name="Simple.php" role="php" />
        <file name="Smil.php" role="php" />
-       <file name="Source.php" role="php" />
-       <file name="Srchighlite.php" role="php" />
+       <file name="SyntaxHighlighter.php" role="php" />
        <file name="Tgz.php" role="php" />
        <file name="Tnef.php" role="php" />
        <file name="Wordperfect.php" role="php" />
@@ -86,7 +83,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Mime">
       <dir name="Viewer">
        <file name="url.phpt" role="test" />
-       <file name="viewer_php.phpt" role="test" />
       </dir> <!-- /test/Horde/Mime/Viewer -->
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
@@ -149,7 +145,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
    <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
    <install name="lib/Horde/Mime/Viewer/Base.php" as="Horde/Mime/Viewer/Base.php" />
-   <install name="lib/Horde/Mime/Viewer/Css.php" as="Horde/Mime/Viewer/Css.php" />
    <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
    <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
    <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
@@ -161,7 +156,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Msword.php" as="Horde/Mime/Viewer/Msword.php" />
    <install name="lib/Horde/Mime/Viewer/Ooo.php" as="Horde/Mime/Viewer/Ooo.php" />
    <install name="lib/Horde/Mime/Viewer/Pdf.php" as="Horde/Mime/Viewer/Pdf.php" />
-   <install name="lib/Horde/Mime/Viewer/Php.php" as="Horde/Mime/Viewer/Php.php" />
    <install name="lib/Horde/Mime/Viewer/Plain.php" as="Horde/Mime/Viewer/Plain.php" />
    <install name="lib/Horde/Mime/Viewer/Rar.php" as="Horde/Mime/Viewer/Rar.php" />
    <install name="lib/Horde/Mime/Viewer/Report.php" as="Horde/Mime/Viewer/Report.php" />
@@ -172,8 +166,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Security.php" as="Horde/Mime/Viewer/Security.php" />
    <install name="lib/Horde/Mime/Viewer/Simple.php" as="Horde/Mime/Viewer/Simple.php" />
    <install name="lib/Horde/Mime/Viewer/Smil.php" as="Horde/Mime/Viewer/Smil.php" />
-   <install name="lib/Horde/Mime/Viewer/Source.php" as="Horde/Mime/Viewer/Source.php" />
-   <install name="lib/Horde/Mime/Viewer/Srchighlite.php" as="Horde/Mime/Viewer/Srchighlite.php" />
+   <install name="lib/Horde/Mime/Viewer/SyntaxHighlighter.php" as="Horde/Mime/Viewer/SyntaxHighlighter.php" />
    <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
    <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
    <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
