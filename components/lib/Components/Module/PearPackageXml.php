@@ -92,12 +92,13 @@ implements Components_Module
                 'include' => '*',
                 'dir_roles' =>
                 array(
-                    'lib'       => 'php',
                     'doc'       => 'doc',
                     'example'   => 'doc',
+                    'js'        => 'horde',
+                    'lib'       => 'php',
+                    'migration' => 'data',
                     'script'    => 'script',
                     'test'      => 'test',
-                    'migration' => 'data',
                 ),
             )
         );
@@ -130,6 +131,11 @@ implements Components_Module
             case 'data':
                 $package->addInstallAs(
                     $file['attribs']['name'], $components[1]
+                );
+            break;
+            case 'js':
+                $package->addInstallAs(
+                    $file['attribs']['name'], $file['attribs']['name']
                 );
             break;
             case 'migration':
