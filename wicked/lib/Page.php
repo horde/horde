@@ -461,12 +461,14 @@ class Wicked_Page {
             $this->_proc->setFormatConf('Xhtml', 'charset', $GLOBALS['registry']->getCharset());
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
             $create = $this->allows(WICKED_MODE_CREATE) ? 1 : 0;
-            $linkConf = array('pages' => $wicked->getPages(),
-                              'view_url' => $view_url,
-                              'new_url' => $create ? $view_url : false,
-                              'new_text_pos' => false,
-                              'css_new' => 'newpage',
-                              'ext_chars' => true);
+            $linkConf = array(
+                'pages' => $wicked->getPages(),
+                'view_url' => $view_url,
+                'new_url' => $create ? $view_url : false,
+                'new_text_pos' => false,
+                'css_new' => 'newpage',
+                'ext_chars' => true,
+            );
 
             $this->_proc->setRenderConf('Xhtml', 'Wikilink', $linkConf);
             $this->_proc->setRenderConf('Xhtml', 'Freelink', $linkConf);

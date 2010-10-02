@@ -5,7 +5,10 @@ require_once 'Text/Wiki/Render/Xhtml/Code.php';
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code {
+class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code
+{
+    protected $_shLoaded = false;
+    protected $_shBrushes = array();
 
     /**
      * Renders a token into text matching the requested format.
@@ -18,32 +21,74 @@ class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code {
     function token($options)
     {
         $type = $options['attr']['type'];
+        switch ($type) {
+        case 'php':
+        case 'htmlphp':
+            $type = 'php';
+            $brush = 'Php';
+            break;
 
-        if ($type == 'php' || $type == 'htmlphp') {
-            $search1 = '|<pre><code><span style="color: ?#000000">\n<span style="color: ?#0000BB">&lt;\?php\n\n?|';
-            $replace1 = '<pre><code><span style="color:#0000BB">';
-            $search2 = '|<span style="color: ?#0000BB">\?&gt;</span>\n</span></code></pre>|';
+        case 'xml':
+        case 'html':
+        case 'xhtml':
+        case 'xslt':
+            $brush = 'Xml';
+            break;
 
-            if ($type == 'htmlphp') {
-                $options['attr']['type'] = 'php';
-                $options['text'] = "\n?>" . $options['text'] . "<?php\n";
-                $search1 = substr($search1, 0, -1) . '\?&gt;\n?</span>|';
-                $replace1 = '<pre><code>';
-                $search2 = '|<span style="color: ?#0000BB">&lt;\?php\n\n\?&gt;</span>\n</span></code></pre>|';
-            }
-        } else {
-            $search1 = '|<pre><code>\n|';
-            $replace1 = "<pre><code>";
-            $search2 = '|</code></pre>|';
+        case 'bash':
+        case 'shell':
+            $brush = 'Bash';
+            break;
+
+        case 'diff':
+        case 'patch':
+        case 'pas':
+            $brush = 'Diff';
+            break;
+
+        case 'css':
+            $brush = 'Css';
+            break;
+
+        case 'c':
+        case 'cpp':
+            $brush = 'Cpp';
+            break;
+
+        case 'java':
+            $brush = 'Java';
+            break;
+
+        case 'js':
+        case 'jscript':
+        case 'javascript':
+            $brush = 'JScript';
+            break;
+
+        default:
+            return parent::token($options);
         }
 
-        $text = parent::token($options);
+        if (!$this->_shLoaded) {
+            Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
+            Horde::addInlineScript(array(
+                'SyntaxHighlighter.defaults[\'toolbar\'] = false;',
+                'SyntaxHighlighter.all();',
+            ), 'dom');
+            $this->_shLoaded = true;
 
-        $text = preg_replace(array($search1, $search2),
-                             array($replace1, '</span></code></pre>'),
-                             $text);
+            $sh_js_fs = $GLOBALS['injector']->getInstance('Horde_Registry')->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
+            $sh_js_uri = Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
+            Horde_Themes::includeStylesheetFiles(array('additional' => array(
+                array('f' => $sh_js_fs . 'shCoreEclipse.css', 'u' => $sh_js_uri . 'shCoreEclipse.css'),
+                array('f' => $sh_js_fs . 'shThemeEclipse.css', 'u' => $sh_js_uri . 'shThemeEclipse.css'),
+            )));
+        }
+        if (empty($this->_shBrushes[$brush])) {
+            Horde::addScriptFile('syntaxhighlighter/scripts/shBrush' . $brush . '.js', 'horde', true);
+            $this->_shBrushes[$brush] = true;
+        }
 
-        return $text;
+        return '<pre class="brush: ' . $type . '">' . htmlspecialchars($options['text']) . '</pre>';
     }
-
 }
