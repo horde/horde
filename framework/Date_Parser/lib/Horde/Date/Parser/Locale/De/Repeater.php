@@ -28,8 +28,8 @@ class Horde_Date_Parser_Locale_De_Repeater extends Horde_Date_Parser_Locale_Base
 
     public $dayPortionScanner = array(
         '/^vormittags?$/' => 'morning',
-        '/^morgens?$/' => 'morning',
-        '/^afternoons?$/' => 'afternoon',
+        '/^(morgens?|früh)$/' => 'morning',
+        '/^nachmittags?$/' => 'afternoon',
         '/^abends?$/' => 'evening',
         '/^nachts?$/' => 'night',
     );
