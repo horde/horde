@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Mime_Viewer</name>
  <channel>pear.horde.org</channel>
  <summary>Horde MIME Viewer Library</summary>
- <description>Provides rendering drivers for MIME data.
- </description>
+ <description>Provides rendering drivers for MIME data.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
@@ -15,6 +11,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
  <date>2010-10-02</date>
+ <time>23:26:36</time>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -24,10 +21,71 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
+ <notes>
+Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="js">
+    <dir name="syntaxhighlighter">
+     <dir name="scripts">
+      <file name="shAutoloader.js" role="horde" />
+      <file name="shBrushAppleScript.js" role="horde" />
+      <file name="shBrushAS3.js" role="horde" />
+      <file name="shBrushBash.js" role="horde" />
+      <file name="shBrushColdFusion.js" role="horde" />
+      <file name="shBrushCpp.js" role="horde" />
+      <file name="shBrushCSharp.js" role="horde" />
+      <file name="shBrushCss.js" role="horde" />
+      <file name="shBrushDelphi.js" role="horde" />
+      <file name="shBrushDiff.js" role="horde" />
+      <file name="shBrushErlang.js" role="horde" />
+      <file name="shBrushGroovy.js" role="horde" />
+      <file name="shBrushJava.js" role="horde" />
+      <file name="shBrushJavaFX.js" role="horde" />
+      <file name="shBrushJScript.js" role="horde" />
+      <file name="shBrushPerl.js" role="horde" />
+      <file name="shBrushPhp.js" role="horde" />
+      <file name="shBrushPlain.js" role="horde" />
+      <file name="shBrushPowerShell.js" role="horde" />
+      <file name="shBrushPython.js" role="horde" />
+      <file name="shBrushRuby.js" role="horde" />
+      <file name="shBrushSass.js" role="horde" />
+      <file name="shBrushScala.js" role="horde" />
+      <file name="shBrushSql.js" role="horde" />
+      <file name="shBrushVb.js" role="horde" />
+      <file name="shBrushXml.js" role="horde" />
+      <file name="shCore.js" role="horde" />
+      <file name="shLegacy.js" role="horde" />
+     </dir> <!-- /js/syntaxhighlighter/scripts -->
+     <dir name="src">
+      <file name="shAutoloader.js" role="horde" />
+      <file name="shCore.js" role="horde" />
+      <file name="shLegacy.js" role="horde" />
+     </dir> <!-- /js/syntaxhighlighter/src -->
+     <dir name="styles">
+      <file name="shCore.css" role="horde" />
+      <file name="shCoreDefault.css" role="horde" />
+      <file name="shCoreDjango.css" role="horde" />
+      <file name="shCoreEclipse.css" role="horde" />
+      <file name="shCoreEmacs.css" role="horde" />
+      <file name="shCoreFadeToGrey.css" role="horde" />
+      <file name="shCoreMDUltra.css" role="horde" />
+      <file name="shCoreMidnight.css" role="horde" />
+      <file name="shCoreRDark.css" role="horde" />
+      <file name="shThemeDefault.css" role="horde" />
+      <file name="shThemeDjango.css" role="horde" />
+      <file name="shThemeEclipse.css" role="horde" />
+      <file name="shThemeEmacs.css" role="horde" />
+      <file name="shThemeFadeToGrey.css" role="horde" />
+      <file name="shThemeMDUltra.css" role="horde" />
+      <file name="shThemeMidnight.css" role="horde" />
+      <file name="shThemeRDark.css" role="horde" />
+     </dir> <!-- /js/syntaxhighlighter/styles -->
+     <file name="LGPL-LICENSE" role="horde" />
+     <file name="MIT-LICENSE" role="horde" />
+    </dir> <!-- /js/syntaxhighlighter -->
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
@@ -132,46 +190,64 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Mime/Viewer/Ooo/common.xsl" as="Horde/Mime/Viewer/Ooo/common.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" as="Horde/Mime/Viewer/Ooo/global_document.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" as="Horde/Mime/Viewer/Ooo/main_html.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" as="Horde/Mime/Viewer/Ooo/palm.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" as="Horde/Mime/Viewer/Ooo/style_header.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table.xsl" as="Horde/Mime/Viewer/Ooo/table.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" as="Horde/Mime/Viewer/Ooo/table_cells.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" as="Horde/Mime/Viewer/Ooo/table_columns.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
-   <install name="lib/Horde/Mime/Viewer/Base.php" as="Horde/Mime/Viewer/Base.php" />
-   <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
-   <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
-   <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
-   <install name="lib/Horde/Mime/Viewer/Exception.php" as="Horde/Mime/Viewer/Exception.php" />
-   <install name="lib/Horde/Mime/Viewer/Html.php" as="Horde/Mime/Viewer/Html.php" />
-   <install name="lib/Horde/Mime/Viewer/Images.php" as="Horde/Mime/Viewer/Images.php" />
-   <install name="lib/Horde/Mime/Viewer/Msexcel.php" as="Horde/Mime/Viewer/Msexcel.php" />
-   <install name="lib/Horde/Mime/Viewer/Mspowerpoint.php" as="Horde/Mime/Viewer/Mspowerpoint.php" />
-   <install name="lib/Horde/Mime/Viewer/Msword.php" as="Horde/Mime/Viewer/Msword.php" />
-   <install name="lib/Horde/Mime/Viewer/Ooo.php" as="Horde/Mime/Viewer/Ooo.php" />
-   <install name="lib/Horde/Mime/Viewer/Pdf.php" as="Horde/Mime/Viewer/Pdf.php" />
-   <install name="lib/Horde/Mime/Viewer/Plain.php" as="Horde/Mime/Viewer/Plain.php" />
-   <install name="lib/Horde/Mime/Viewer/Rar.php" as="Horde/Mime/Viewer/Rar.php" />
-   <install name="lib/Horde/Mime/Viewer/Report.php" as="Horde/Mime/Viewer/Report.php" />
-   <install name="lib/Horde/Mime/Viewer/Rfc822.php" as="Horde/Mime/Viewer/Rfc822.php" />
-   <install name="lib/Horde/Mime/Viewer/Richtext.php" as="Horde/Mime/Viewer/Richtext.php" />
-   <install name="lib/Horde/Mime/Viewer/Rpm.php" as="Horde/Mime/Viewer/Rpm.php" />
-   <install name="lib/Horde/Mime/Viewer/Rtf.php" as="Horde/Mime/Viewer/Rtf.php" />
-   <install name="lib/Horde/Mime/Viewer/Security.php" as="Horde/Mime/Viewer/Security.php" />
-   <install name="lib/Horde/Mime/Viewer/Simple.php" as="Horde/Mime/Viewer/Simple.php" />
-   <install name="lib/Horde/Mime/Viewer/Smil.php" as="Horde/Mime/Viewer/Smil.php" />
-   <install name="lib/Horde/Mime/Viewer/SyntaxHighlighter.php" as="Horde/Mime/Viewer/SyntaxHighlighter.php" />
-   <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
-   <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
-   <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
-   <install name="lib/Horde/Mime/Viewer/Zip.php" as="Horde/Mime/Viewer/Zip.php" />
-   <install name="lib/Horde/Mime/Viewer.php" as="Horde/Mime/Viewer.php" />
+   <install as="Horde/Mime/Viewer.php" name="lib/Horde/Mime/Viewer.php" />
+   <install as="Horde/Mime/Viewer/Audio.php" name="lib/Horde/Mime/Viewer/Audio.php" />
+   <install as="Horde/Mime/Viewer/Base.php" name="lib/Horde/Mime/Viewer/Base.php" />
+   <install as="Horde/Mime/Viewer/Deb.php" name="lib/Horde/Mime/Viewer/Deb.php" />
+   <install as="Horde/Mime/Viewer/Default.php" name="lib/Horde/Mime/Viewer/Default.php" />
+   <install as="Horde/Mime/Viewer/Enriched.php" name="lib/Horde/Mime/Viewer/Enriched.php" />
+   <install as="Horde/Mime/Viewer/Exception.php" name="lib/Horde/Mime/Viewer/Exception.php" />
+   <install as="Horde/Mime/Viewer/Html.php" name="lib/Horde/Mime/Viewer/Html.php" />
+   <install as="Horde/Mime/Viewer/Images.php" name="lib/Horde/Mime/Viewer/Images.php" />
+   <install as="Horde/Mime/Viewer/Msexcel.php" name="lib/Horde/Mime/Viewer/Msexcel.php" />
+   <install as="Horde/Mime/Viewer/Mspowerpoint.php" name="lib/Horde/Mime/Viewer/Mspowerpoint.php" />
+   <install as="Horde/Mime/Viewer/Msword.php" name="lib/Horde/Mime/Viewer/Msword.php" />
+   <install as="Horde/Mime/Viewer/Ooo.php" name="lib/Horde/Mime/Viewer/Ooo.php" />
+   <install as="Horde/Mime/Viewer/Pdf.php" name="lib/Horde/Mime/Viewer/Pdf.php" />
+   <install as="Horde/Mime/Viewer/Plain.php" name="lib/Horde/Mime/Viewer/Plain.php" />
+   <install as="Horde/Mime/Viewer/Rar.php" name="lib/Horde/Mime/Viewer/Rar.php" />
+   <install as="Horde/Mime/Viewer/Report.php" name="lib/Horde/Mime/Viewer/Report.php" />
+   <install as="Horde/Mime/Viewer/Rfc822.php" name="lib/Horde/Mime/Viewer/Rfc822.php" />
+   <install as="Horde/Mime/Viewer/Richtext.php" name="lib/Horde/Mime/Viewer/Richtext.php" />
+   <install as="Horde/Mime/Viewer/Rpm.php" name="lib/Horde/Mime/Viewer/Rpm.php" />
+   <install as="Horde/Mime/Viewer/Rtf.php" name="lib/Horde/Mime/Viewer/Rtf.php" />
+   <install as="Horde/Mime/Viewer/Security.php" name="lib/Horde/Mime/Viewer/Security.php" />
+   <install as="Horde/Mime/Viewer/Simple.php" name="lib/Horde/Mime/Viewer/Simple.php" />
+   <install as="Horde/Mime/Viewer/Smil.php" name="lib/Horde/Mime/Viewer/Smil.php" />
+   <install as="Horde/Mime/Viewer/SyntaxHighlighter.php" name="lib/Horde/Mime/Viewer/SyntaxHighlighter.php" />
+   <install as="Horde/Mime/Viewer/Tgz.php" name="lib/Horde/Mime/Viewer/Tgz.php" />
+   <install as="Horde/Mime/Viewer/Tnef.php" name="lib/Horde/Mime/Viewer/Tnef.php" />
+   <install as="Horde/Mime/Viewer/Wordperfect.php" name="lib/Horde/Mime/Viewer/Wordperfect.php" />
+   <install as="Horde/Mime/Viewer/Zip.php" name="lib/Horde/Mime/Viewer/Zip.php" />
+   <install as="Horde/Mime/Viewer/Ooo/common.xsl" name="lib/Horde/Mime/Viewer/Ooo/common.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/global_document.xsl" name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/main_html.xsl" name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/palm.xsl" name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/style_header.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/table.xsl" name="lib/Horde/Mime/Viewer/Ooo/table.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/table_cells.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/table_columns.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/table_rows.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" />
+   <install as="Horde/Mime/Viewer/url.phpt" name="test/Horde/Mime/Viewer/url.phpt" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Replaced external or PHP-based syntax highlighters with javascript SyntaxHighlighter
+   </notes>
+  </release>
+ </changelog>
 </package>
