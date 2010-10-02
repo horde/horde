@@ -160,6 +160,18 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $this->connect();
     }
 
+    /**
+     * Returns an adaptor option set through the constructor.
+     *
+     * @param string $option  The option to return.
+     *
+     * @return mixed  The option value or null if option doesn't exist or is
+     *                not set.
+     */
+    public function getOption($option)
+    {
+        return isset($this->_config[$option]) ? $this->_config[$option] : null;
+    }
 
     /*##########################################################################
     # Dependency setters/getters
