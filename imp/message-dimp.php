@@ -183,7 +183,7 @@ if (isset($show_msg_result['atc_label'])) {
 $t->set('msgtext', $show_msg_result['msgtext']);
 
 if (!$disable_compose) {
-    $t->set('html', $compose_result['html']) {
+    $t->set('html', $compose_result['html']);
     $t->set('reply_list', $show_msg_result['list_info']['exists']);
     $t->set('forward_select', !$prefs->isLocked('forward_default'));
 }
