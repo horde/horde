@@ -119,7 +119,7 @@ class Ansel_Tile_Image
         if ($option_edit) {
             // @TODO: passing thumbstyle here doesn't look right to me.
             $geometry = $image->getDimensions($thumbstyle);
-            $GLOBALS['injector']->createInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'EditCaption'), array(
+            $GLOBALS['injector']->createInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'EditCaption'), array(
                 'domid' => $image->id . 'caption',
                 'id' => $image->id,
                 'width' => $geometry['width']
