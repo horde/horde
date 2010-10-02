@@ -88,7 +88,8 @@ class Nag_Application extends Horde_Registry_Application
              $injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
+                Horde::addScriptFile('redbox.js', 'horde', true);
+                $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
 
