@@ -1486,13 +1486,11 @@ ViewPort_Buffer = Class.create({
         }
 
         if (opts.update || opts.reset) {
-            this.uidlist = l;
-            this.rowlist = $H();
-        } else {
-            this.uidlist = this.uidlist.size() ? this.uidlist.merge(l) : l;
+            this.resetRowlist();
         }
 
         l.each(function(o) {
+            this.data.get(o.key).VP_rownum = o.value;
             this.rowlist.set(o.value, o.key);
         }, this);
 
@@ -1537,7 +1535,7 @@ ViewPort_Buffer = Class.create({
 
     isNearingLimit: function(offset)
     {
-        if (this.uidlist.size() != this.getMetaData('total_rows')) {
+        if (this.rowlist.size() != this.getMetaData('total_rows')) {
             if (offset != 0 &&
                 this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
@@ -1566,7 +1564,6 @@ ViewPort_Buffer = Class.create({
                 if (!e.VP_domid) {
                     e.VP_domid = 'VProw_' + (++this.vp.id);
                 }
-                e.VP_rownum = this.uidlist.get(u);
                 e.VP_id = u;
                 return e;
             }
@@ -1575,7 +1572,7 @@ ViewPort_Buffer = Class.create({
 
     getAllUIDs: function()
     {
-        return this.uidlist.keys();
+        return this.rowlist.values();
     },
 
     getAllRows: function()
@@ -1644,12 +1641,11 @@ ViewPort_Buffer = Class.create({
                 var id = this.rowlist.get(n), r;
                 if (rownums.include(n)) {
                     this.data.unset(id);
-                    this.uidlist.unset(id);
                     rowsubtract++;
                 } else if (rowsubtract) {
                     r = n - rowsubtract;
                     this.rowlist.set(r, id);
-                    this.uidlist.set(id, r);
+                    this.data.get(id).VP_rownum = r;
                 }
                 if (n > newsize) {
                     this.rowlist.unset(n);
@@ -1660,10 +1656,7 @@ ViewPort_Buffer = Class.create({
 
     removeData: function(uids)
     {
-        uids.each(function(u) {
-            this.data.unset(u);
-            this.uidlist.unset(u);
-        }, this);
+        uids.each(this.data.unset.bind(this.data));
     },
 
     resetRowlist: function()
@@ -1675,10 +1668,9 @@ ViewPort_Buffer = Class.create({
     {
         this.data = $H();
         this.mdata = $H({ total_rows: 0 });
-        this.rowlist = $H();
         this.selected = new ViewPort_Selection(this);
-        this.uidlist = $H();
         this.usermdata = $H();
+        this.resetRowlist();
     },
 
     getMetaData: function(id)
