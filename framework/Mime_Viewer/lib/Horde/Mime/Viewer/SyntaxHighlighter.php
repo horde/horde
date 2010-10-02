@@ -15,8 +15,8 @@
  */
 class Horde_Mime_Viewer_SyntaxHighlighter extends Horde_Mime_Viewer_Base
 {
-    protected $_shLoaded = false;
-    protected $_shBrushes = array();
+    protected static $_shLoaded = false;
+    protected static $_shBrushes = array();
 
     /**
      * This driver's display capabilities.
@@ -55,13 +55,13 @@ class Horde_Mime_Viewer_SyntaxHighlighter extends Horde_Mime_Viewer_Base
         $language = $this->_mimeTypeToLanguage($mimeType);
         $brush = $this->_languageToBrush($language);
 
-        if (!$this->_shLoaded) {
+        if (!self::$_shLoaded) {
             Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
             Horde::addInlineScript(array(
-                'SyntaxHighlighter.defaults[\'toolbar\'] = false;',
-                'SyntaxHighlighter.all();',
+                'SyntaxHighlighter.defaults[\'toolbar\'] = false',
+                'SyntaxHighlighter.all()',
             ), 'dom');
-            $this->_shLoaded = true;
+            self::$_shLoaded = true;
 
             $sh_js_fs = $GLOBALS['injector']->getInstance('Horde_Registry')->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
             $sh_js_uri = Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
@@ -70,9 +70,9 @@ class Horde_Mime_Viewer_SyntaxHighlighter extends Horde_Mime_Viewer_Base
                 array('f' => $sh_js_fs . 'shThemeEclipse.css', 'u' => $sh_js_uri . 'shThemeEclipse.css'),
             )));
         }
-        if (empty($this->_shBrushes[$brush])) {
+        if (empty(self::$_shBrushes[$brush])) {
             Horde::addScriptFile('syntaxhighlighter/scripts/shBrush' . $brush . '.js', 'horde', true);
-            $this->_shBrushes[$brush] = true;
+            self::$_shBrushes[$brush] = true;
         }
 
         $results = '<pre class="brush: ' . $language . '">' . htmlspecialchars($this->_mimepart->getContents(), ENT_QUOTES, $this->getConfigParam('charset')) . '</pre>';
@@ -99,8 +99,11 @@ class Horde_Mime_Viewer_SyntaxHighlighter extends Horde_Mime_Viewer_Base
      */
     protected function _mimeTypeToLanguage($type)
     {
+        $type = str_replace('x-unknown', 'x-extension', $type);
+
         switch ($type) {
         case 'application/x-javascript':
+        case 'x-extension/javascript':
         case 'x-extension/js':
             return 'js';
 
