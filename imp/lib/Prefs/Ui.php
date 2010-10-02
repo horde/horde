@@ -586,7 +586,7 @@ class IMP_Prefs_Ui
     {
         $ui->nobuttons = true;
 
-        Horde::addInlineHsVars(array(
+        Horde::addInlineJsVars(array(
             'ImpAccountsPrefs.confirm_delete' => _("Are you sure you want to delete this account?")
         ));
 
