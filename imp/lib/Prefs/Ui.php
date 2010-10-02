@@ -394,6 +394,9 @@ class IMP_Prefs_Ui
         case 'initialpageselect':
             return $this->_initialPage();
 
+        case 'mailto_handler':
+            return $this->_mailtoHandler();
+
         case 'pgpprivatekey':
             return $this->_pgpPrivateKey($ui);
 
@@ -1051,6 +1054,36 @@ class IMP_Prefs_Ui
         $t->set('label', Horde::label('initial_page', _("View or mailbox to display after login:")));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/initialpage.html');
+    }
+
+    /* Mailto: handler. */
+
+    /**
+     * Create code for the mailto handler link.
+     *
+     * @return string  HTML UI code.
+     */
+    protected function _mailtoHandler()
+    {
+        Horde::addInlineScript(array(
+            'if (!Object.isUndefined(navigator.registerProtocolHandler))' .
+            '$("mailto_handler").show().down("A").observe("click", function() {' .
+                'navigator.registerProtocolHandler("mailto","' .
+                Horde::url('compose.php', true)->setRaw(true)->add(array(
+                    'actionID' => 'mailto_link',
+                    'to' => ''
+                )) .
+                '%s","' . $GLOBALS['registry']->get('name') . '");' .
+            '})'
+        ), 'dom');
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        $t->set('desc', sprintf(_("Click here to open all mailto: links using %s."), $GLOBALS['registry']->get('name')));
+        $t->set('img', Horde::img('compose.png'));
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/mailto.html');
     }
 
     /* PGP Private Key management. */

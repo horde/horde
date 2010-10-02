@@ -430,14 +430,7 @@ $prefGroups['compose'] = array(
 
 // Link to add a Firefox 3 mailto: handler
 $_prefs['mailto_handler'] = array(
-    'type' => 'link',
-    'img' => 'compose.png',
-    'xurl' => 'javascript:if(typeof navigator.registerProtocolHandler==\'undefined\')alert(\''
-        . addslashes(_("Your browser does not support this feature."))
-        . '\');else navigator.registerProtocolHandler(\'mailto\',\''
-        . Horde::url('compose.php', true)->setRaw(true)->add(array('actionID' => 'mailto_link', 'to' => ''))
-        . '%s\',\'' . $GLOBALS['registry']->get('name') . '\');',
-    'desc' => sprintf(_("Click here to open all mailto: links in %s."), $GLOBALS['registry']->get('name'))
+    'type' => 'special'
 );
 
 // Show Cc: field?
