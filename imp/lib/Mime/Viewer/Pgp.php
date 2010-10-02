@@ -205,7 +205,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
                     /* Ask for the correct passphrase if this is encrypted
                      * symmetrically. */
-                    $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('imp', 'PassphraseDialog'), array(
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('imp', 'PassphraseDialog'), array(
                         'params' => array(
                             'symmetricid' => $symmetric_id
                         ),
@@ -240,7 +240,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                     if (is_null($personal_pass)) {
                         /* Ask for the private key's passphrase if this is
                          * encrypted asymmetrically. */
-                        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('imp', 'PassphraseDialog'), array(
+                        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('imp', 'PassphraseDialog'), array(
                             'type' => 'pgpPersonal'
                         ));
                         $status[] = Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getPassphraseId())) . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';

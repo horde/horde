@@ -2090,7 +2090,7 @@ class Kronolith
     public static function embedCode($calendar)
     {
         /* Get the base url */
-        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith', 'Embed'), array(
+        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'Embed'), array(
             'calendar' => $calendar,
             'container' => 'kronolithCal',
             'view' => 'month'

@@ -61,7 +61,7 @@ $vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName
 $vars->set('system', is_null($calendar->get('owner')));
 $title = $form->getTitle();
 
-$injector->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith', 'TagAutoCompleter'), array(
+$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'TagAutoCompleter'), array(
     'triggerId' => 'tags'
 ));
 

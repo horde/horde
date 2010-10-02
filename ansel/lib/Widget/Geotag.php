@@ -75,7 +75,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
 
-        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'ImageSaveGeotag'));
+        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'ImageSaveGeotag'));
         $impleUrl = $imple->getUrl();
 
         $permsEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);

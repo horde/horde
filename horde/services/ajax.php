@@ -37,7 +37,7 @@ try {
     if ($action != 'logOut') {
         /* Handle session timeouts when they come from an AJAX request. */
         if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-            $ajax = $injector->getInstance('Horde_Ajax')->getAjax($app, Horde_Variables::getDefaultVariables());
+            $ajax = $injector->getInstance('Horde_Ajax_Factory')->getAjax($app, Horde_Variables::getDefaultVariables());
             $notification->push(str_replace('&amp;', '&', $registry->getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
             Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
             exit;
@@ -55,7 +55,7 @@ try {
 // encoding.
 ob_start();
 
-$ajax = $injector->getInstance('Horde_Ajax')->getAjax($app, Horde_Variables::getDefaultVariables(), $action);
+$ajax = $injector->getInstance('Horde_Ajax_Factory')->getAjax($app, Horde_Variables::getDefaultVariables(), $action);
 try {
     $result = $ajax->doAction();
 } catch (Exception $e) {

@@ -420,7 +420,7 @@ if ($event->alarm) {
  <td colspan="4">
    <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? htmlspecialchars($tags) : '')?>" size="40" />
    <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-   <?php $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->uid)); ?>
+   <?php $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->uid)); ?>
  </td>
 </tr>
 <!-- spacer -->
