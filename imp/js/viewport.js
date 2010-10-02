@@ -1583,6 +1583,24 @@ ViewPort_Buffer = Class.create({
         return this.rowlist.keys();
     },
 
+    domidsToUIDs: function(ids)
+    {
+        var i = 0,
+            idsize = ids.size(),
+            uids = [];
+
+        this.data.each(function(d) {
+            if (d.value.VP_domid && ids.include(d.value.VP_domid)) {
+                uids.push(d.key);
+                if (++i == idsize) {
+                    throw $break;
+                }
+            }
+        });
+
+        return uids;
+    },
+
     rowsToUIDs: function(rows)
     {
         return rows.collect(this.rowlist.get.bind(this.rowlist)).compact();
@@ -1732,7 +1750,7 @@ ViewPort_Selection = Class.create({
             // Fall-through
 
         case 'domid':
-            return this._search({ VP_domid: { equal: d } }, this.buffer.getData(this.buffer.getAllUIDs())).get('uid');
+            return this.buffer.domidsToUIDs(d);
 
         case 'rownum':
             return this.buffer.rowsToUIDs(d);
