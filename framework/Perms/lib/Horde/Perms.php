@@ -60,31 +60,6 @@ class Horde_Perms
     static protected $_itaCache = array();
 
     /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param string $driver  The type of the concrete subclass to return.
-     *                        The class name is based on the perms driver
-     *                        ($driver).  The code is dynamically included.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return Horde_Perms  The newly created concrete instance.
-     * @throws Horde_Perms_Exception
-     */
-    static public function factory($driver = null, $params = null)
-    {
-        $class = is_null($driver)
-            ? __CLASS__
-            : __CLASS__ . '_' . ucfirst(basename($driver));
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Perms_Exception('Unknown driver: ' . $driver);
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters:

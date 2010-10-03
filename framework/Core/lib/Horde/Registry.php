@@ -282,7 +282,6 @@ class Horde_Registry
             'Horde_Memcache' => 'Horde_Core_Binder_Memcache',
             'Horde_Mime_Viewer' => 'Horde_Core_Binder_MimeViewer',
             'Horde_Notification' => 'Horde_Core_Binder_Notification',
-            'Horde_Perms' => 'Horde_Core_Binder_Perms',
             'Horde_Prefs' => 'Horde_Core_Binder_Prefs',
             'Horde_Prefs_Identity' => 'Horde_Core_Binder_Identity',
             // 'Horde_Registry' - initialized below
@@ -336,6 +335,10 @@ class Horde_Registry
             ),
             'Horde_Lock' => array(
                 'Horde_Core_Factory_Lock',
+                'create',
+            ),
+            'Horde_Perms' => array(
+                'Horde_Core_Factory_Perms',
                 'create',
             ),
             'Horde_View' => array(

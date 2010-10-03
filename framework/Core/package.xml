@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-02</date>
- <time>22:07:42</time>
+ <time>22:28:34</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -132,7 +132,6 @@ Application Framework.</description>
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
-       <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
@@ -170,6 +169,7 @@ Application Framework.</description>
        <file name="Lock.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="MimeViewer.php" role="php" />
+       <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Share.php" role="php" />
@@ -453,7 +453,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
    <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
-   <install as="Horde/Core/Binder/Perms.php" name="lib/Horde/Core/Binder/Perms.php" />
    <install as="Horde/Core/Binder/Prefs.php" name="lib/Horde/Core/Binder/Prefs.php" />
    <install as="Horde/Core/Binder/Secret.php" name="lib/Horde/Core/Binder/Secret.php" />
    <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
@@ -487,6 +486,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Lock.php" name="lib/Horde/Core/Factory/Lock.php" />
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
+   <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
