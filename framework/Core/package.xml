@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-02</date>
- <time>21:51:26</time>
+ <time>22:07:42</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -111,6 +111,7 @@ Application Framework.</description>
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
        <file name="Alarm.php" role="php" />
+       <file name="Auth.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
        <file name="Crypt.php" role="php" />
@@ -263,9 +264,6 @@ Application Framework.</description>
    <dir name="test">
     <dir name="Horde">
      <dir name="Core">
-      <dir name="Binder">
-       <file name="CacheTest.php" role="test" />
-      </dir> <!-- /test/Horde/Core/Binder -->
       <dir name="Factory">
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
@@ -404,8 +402,8 @@ Application Framework.</description>
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
-   <install as="js/spellchecker.js" name="js/spellchecker.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
+   <install as="js/spellchecker.js" name="js/spellchecker.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
@@ -434,6 +432,7 @@ Application Framework.</description>
    <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
    <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
+   <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
    <install as="Horde/Core/Binder/Crypt.php" name="lib/Horde/Core/Binder/Crypt.php" />
@@ -535,7 +534,6 @@ Application Framework.</description>
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
    <install as="Horde/Core/url.phpt" name="test/Horde/Core/url.phpt" />
-   <install as="Horde/Core/Binder/CacheTest.php" name="test/Horde/Core/Binder/CacheTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
   </filelist>
