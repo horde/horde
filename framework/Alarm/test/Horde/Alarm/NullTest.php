@@ -15,7 +15,7 @@ class Horde_Alarm_NullTest extends PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        self::$alarm = Horde_Alarm::factory('Null');
+        self::$alarm = new Horde_Alarm_Null();
     }
 
     /**

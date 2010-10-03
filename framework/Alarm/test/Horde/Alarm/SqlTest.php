@@ -32,7 +32,7 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
             require $config;
         }
         if (!isset($conf['alarm']['test'])) {
-            $this->markTestSkipped('No configuration for Horde_Alarm test.');
+            self::markTestSkipped('No configuration for Horde_Alarm test.');
             return;
         }
 
@@ -53,7 +53,9 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        self::$alarm = Horde_Alarm::factory('Sql', self::$pearConf);
+        self::$alarm = new Horde_Alarm_Sql(self::$pearConf);
+        self::$alarm->initilize();
+        self::$alarm->gc();
     }
 
     /**

@@ -24,7 +24,7 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
             return;
         }
 
-        self::$alarm = Horde_Alarm::factory('Object');
+        self::$alarm = new Horde_Alarm_Object();
         $now = time();
         $hash = array('id' => 'personalalarm',
                       'user' => 'john',

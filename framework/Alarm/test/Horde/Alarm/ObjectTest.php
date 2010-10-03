@@ -15,7 +15,7 @@ class Horde_Alarm_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        self::$alarm = Horde_Alarm::factory('Object');
+        self::$alarm = new Horde_Alarm_Object();
     }
 
     /**
