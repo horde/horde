@@ -90,24 +90,24 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Add IMP-specific binders. */
         $binders = array(
-            'IMP_AuthImap' => 'IMP_Injector_Binder_AuthImap',
-            'IMP_Compose' => 'IMP_Injector_Binder_Compose',
-            'IMP_Contents' => 'IMP_Injector_Binder_Contents',
-            'IMP_Crypt_Pgp' => 'IMP_Injector_Binder_Pgp',
-            'IMP_Crypt_Smime' => 'IMP_Injector_Binder_Smime',
-            'IMP_Identity' => 'IMP_Injector_Binder_Identity',
-            'IMP_Imap' => 'IMP_Injector_Binder_Imap',
-            'IMP_Imap_Tree' => 'IMP_Injector_Binder_Imaptree',
-            'IMP_Mail' => 'IMP_Injector_Binder_Mail',
-            'IMP_Mailbox_List' => 'IMP_Injector_Binder_MailboxList',
-            'IMP_Mime_Viewer' => 'IMP_Injector_Binder_MimeViewer',
-            'IMP_Quota' => 'IMP_Injector_Binder_Quota',
-            'IMP_Search' => 'IMP_Injector_Binder_Search',
-            'IMP_Sentmail' => 'IMP_Injector_Binder_Sentmail'
+            'IMP_AuthImap' => new IMP_Injector_Binder_AuthImap(),
+            'IMP_Compose' => new IMP_Injector_Binder_Compose(),
+            'IMP_Contents' => new IMP_Injector_Binder_Contents(),
+            'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
+            'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
+            'IMP_Identity' => new IMP_Injector_Binder_Identity(),
+            'IMP_Imap' => new IMP_Injector_Binder_Imap(),
+            'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
+            'IMP_Mail' => new IMP_Injector_Binder_Mail(),
+            'IMP_Mailbox_List' => new IMP_Injector_Binder_MailboxList(),
+            'IMP_Mime_Viewer' => new IMP_Injector_Binder_MimeViewer(),
+            'IMP_Quota' => new IMP_Injector_Binder_Quota(),
+            'IMP_Search' => new IMP_Injector_Binder_Search(),
+            'IMP_Sentmail' => new IMP_Injector_Binder_Sentmail()
         );
 
         foreach ($binders as $key => $val) {
-            $GLOBALS['injector']->addOndemandBinder($key, $val);
+            $GLOBALS['injector']->addBinder($key, $val);
         }
 
         // Set default message character set.

@@ -264,36 +264,34 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
-            'Horde_Auth_Factory' => 'Horde_Core_Binder_AuthFactory',
-            // 'Horde_Browser' - initialized below
-            'Horde_Core_Auth_Signup' => 'Horde_Core_Binder_AuthSignup',
-            'Horde_Crypt' => 'Horde_Core_Binder_Crypt',
-            'Horde_Data' => 'Horde_Core_Binder_Data',
-            'Horde_Db' => 'Horde_Core_Binder_Db',
-            'Horde_Db_Adapter' => 'Horde_Core_Binder_DbBase',
-            'Horde_Db_Pear' => 'Horde_Core_Binder_DbPear',
-            'Horde_Group' => 'Horde_Core_Binder_Group',
-            'Horde_History' => 'Horde_Core_Binder_History',
-            'Horde_Http_Client' => 'Horde_Core_Binder_HttpClient',
-            'Horde_Ldap' => 'Horde_Core_Binder_Ldap',
-            'Horde_Log_Logger' => 'Horde_Core_Binder_Logger',
-            'Horde_LoginTasks' => 'Horde_Core_Binder_LoginTasks',
-            'Horde_Mail' => 'Horde_Core_Binder_Mail',
-            'Horde_Memcache' => 'Horde_Core_Binder_Memcache',
-            'Horde_Mime_Viewer' => 'Horde_Core_Binder_MimeViewer',
-            'Horde_Notification' => 'Horde_Core_Binder_Notification',
-            'Horde_Prefs_Identity' => 'Horde_Core_Binder_Identity',
-            // 'Horde_Registry' - initialized below
-            'Horde_Secret' => 'Horde_Core_Binder_Secret',
-            'Horde_Service_Facebook' => 'Horde_Core_Binder_Facebook',
-            'Horde_SessionHandler' => 'Horde_Core_Binder_SessionHandler',
-            'Horde_Share_Factory' => 'Horde_Core_Binder_ShareFactory',
-            'Horde_Template' => 'Horde_Core_Binder_Template',
-            'Horde_Text_Filter' => 'Horde_Core_Binder_TextFilter',
-            'Horde_Tree' => 'Horde_Core_Binder_Tree',
-            'Horde_Token' => 'Horde_Core_Binder_Token',
-            'Horde_Vfs' => 'Horde_Core_Binder_Vfs',
-            'Horde_Rpc_ActiveSync' => 'Horde_Core_Binder_ActiveSync'
+            'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
+            'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
+            'Horde_Crypt' => new Horde_Core_Binder_Crypt(),
+            'Horde_Data' => new Horde_Core_Binder_Data(),
+            'Horde_Db' => new Horde_Core_Binder_Db(),
+            'Horde_Db_Adapter' => new Horde_Core_Binder_DbBase(),
+            'Horde_Db_Pear' => new Horde_Core_Binder_DbPear(),
+            'Horde_History' => new Horde_Core_Binder_History(),
+            'Horde_Http_Client' => new Horde_Core_Binder_HttpClient(),
+            'Horde_Ldap' => new Horde_Core_Binder_Ldap(),
+            'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
+            'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
+            'Horde_Mail' => new Horde_Core_Binder_Mail(),
+            'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
+            'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
+            'Horde_Notification' => new Horde_Core_Binder_Notification(),
+            'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
+            'Horde_Rpc_ActiveSync' => new Horde_Core_Binder_ActiveSync(),
+            'Horde_Secret' => new Horde_Core_Binder_Secret(),
+            'Horde_Service_Facebook' => new Horde_Core_Binder_Facebook(),
+            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter(),
+            'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
+            'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
+            'Horde_Template' => new Horde_Core_Binder_Template(),
+            'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
+            'Horde_Tree' => new Horde_Core_Binder_Tree(),
+            'Horde_Token' => new Horde_Core_Binder_Token(),
+            'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
         );
 
         /* Define factories. */
@@ -365,7 +363,7 @@ class Horde_Registry
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         foreach ($binders as $key => $val) {
-            $injector->addOndemandBinder($key, $val);
+            $injector->addBinder($key, $val);
         }
         foreach ($factories as $key => $val) {
             $injector->bindFactory($key, $val[0], $val[1]);

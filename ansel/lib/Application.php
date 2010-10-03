@@ -66,12 +66,12 @@ class Ansel_Application extends Horde_Registry_Application
         }
 
         $binders = array(
-            'Ansel_Styles' => 'Ansel_Injector_Binder_Styles',
-            'Ansel_Faces' => 'Ansel_Injector_Binder_Faces',
-            'Ansel_Storage' => 'Ansel_Injector_Binder_Storage'
+            'Ansel_Styles' => new Ansel_Injector_Binder_Styles(),
+            'Ansel_Faces' => new Ansel_Injector_Binder_Faces(),
+            'Ansel_Storage' => new Ansel_Injector_Binder_Storage()
         );
         foreach ($binders as $interface => $binder) {
-            $GLOBALS['injector']->addOndemandBinder($interface, $binder);
+            $GLOBALS['injector']->addBinder($interface, $binder);
         }
 
         // Create db, share, and vfs instances.

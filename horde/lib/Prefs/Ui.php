@@ -450,6 +450,7 @@ class Horde_Prefs_Ui
     {
         global $prefs;
 
+        /* Horde_Service_Facebook */
         try {
             $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
@@ -764,6 +765,7 @@ class Horde_Prefs_Ui
     {
         global $prefs;
 
+        /* Horde_Service_Facebook */
         try {
             $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
