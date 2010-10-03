@@ -34,7 +34,7 @@ while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
         if (!is_null($creator)) {
             echo "$count\n";
         }
-        $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
             'cache' => false,
             'user' => $row['event_creator_id']
         ));

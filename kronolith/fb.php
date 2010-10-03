@@ -31,7 +31,7 @@ $key = 'kronolith.fb.' . ($user ? 'u.' . $user : 'c.' . $cal);
 $fb = $cache->get($key, 360);
 if (!$fb) {
     if ($user) {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('kronolith', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('kronolith', array(
             'cache' => false,
             'user' => $user
         ));

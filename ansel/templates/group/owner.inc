@@ -3,7 +3,7 @@ if ($group == $GLOBALS['registry']->getAuth()) {
     $owner_title = _("My Galleries");
     $custom = '';
 } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-    $uprefs = $injector->getInstance('Horde_Prefs')->getPrefs('ansel', array(
+    $uprefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('ansel', array(
         'cache' => false,
         'user' => $group
     ));

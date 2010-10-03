@@ -34,7 +34,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _retrieve($field, $readonly = false)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ingo', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('ingo', array(
             'cache' => false,
             'user' => Ingo::getUser()
         ));
@@ -131,7 +131,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _store($ob)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ingo', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('ingo', array(
             'cache' => false,
             'user' => Ingo::getUser()
         ));

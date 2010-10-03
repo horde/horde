@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-02</date>
- <time>22:28:34</time>
+ <time>22:52:58</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -110,6 +110,7 @@ Application Framework.</description>
        </dir> <!-- /lib/Horde/Core/Autoloader/Callback -->
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
+       <file name="Alarm.php" role="php" />
        <file name="Auth.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
@@ -131,7 +132,6 @@ Application Framework.</description>
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
-       <file name="Prefs.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
        <file name="ShareFactory.php" role="php" />
@@ -431,6 +431,7 @@ Application Framework.</description>
    <install as="Horde/Core/Auth/Signup/SqlObject.php" name="lib/Horde/Core/Auth/Signup/SqlObject.php" />
    <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
+   <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
    <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
@@ -452,7 +453,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
    <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
-   <install as="Horde/Core/Binder/Prefs.php" name="lib/Horde/Core/Binder/Prefs.php" />
    <install as="Horde/Core/Binder/Secret.php" name="lib/Horde/Core/Binder/Secret.php" />
    <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
    <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />

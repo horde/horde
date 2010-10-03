@@ -282,7 +282,6 @@ class Horde_Registry
             'Horde_Memcache' => 'Horde_Core_Binder_Memcache',
             'Horde_Mime_Viewer' => 'Horde_Core_Binder_MimeViewer',
             'Horde_Notification' => 'Horde_Core_Binder_Notification',
-            'Horde_Prefs' => 'Horde_Core_Binder_Prefs',
             'Horde_Prefs_Identity' => 'Horde_Core_Binder_Identity',
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => 'Horde_Core_Binder_Secret',
@@ -1404,7 +1403,7 @@ class Horde_Registry
             );
         }
 
-        $prefs = $injector->getInstance('Horde_Prefs')->getPrefs($app, $opts);
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs($app, $opts);
     }
 
     /**
@@ -1729,7 +1728,7 @@ class Horde_Registry
         unset($_SESSION['horde_auth']);
 
         /* Remove the user's cached preferences if they are present. */
-        $GLOBALS['injector']->getInstance('Horde_Prefs')->clearCache();
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
 
         if ($destroy) {
             session_destroy();
@@ -2118,7 +2117,7 @@ class Horde_Registry
 
         /* Reload preferences for the new user. */
         unset($GLOBALS['prefs']);
-        $GLOBALS['injector']->getInstance('Horde_Prefs')->clearCache();
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
         $this->loadPrefs();
 
         $this->setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);

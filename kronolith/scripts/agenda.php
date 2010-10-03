@@ -59,7 +59,7 @@ function send_agendas()
 
     // Loop through the users and generate an agenda for them
     foreach ($users as $user) {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('kronolith', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('kronolith', array(
             'user' => $user
         ));
         $agenda_calendars = $prefs->getValue('daily_agenda');

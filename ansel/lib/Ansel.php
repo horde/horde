@@ -580,7 +580,7 @@ class Ansel
             } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ansel', array(
+                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('ansel', array(
                     'cache' => false,
                     'user' => $owner
                 ));

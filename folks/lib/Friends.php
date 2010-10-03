@@ -143,7 +143,7 @@ class Folks_Friends {
             return (boolean)$GLOBALS['prefs']->getValue('friends_approval');
         }
 
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('folks', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('folks', array(
             'cache' => false,
             'user' => $GLOBALS['registry']->convertUsername($user, true)
         ));

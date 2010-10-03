@@ -82,7 +82,7 @@ class Horde_Core_Factory_Identity
             if (isset($prefs) && ($params['user'] == $registry->getAuth())) {
                 $params['prefs'] = $prefs;
             } else {
-                $params['prefs'] = $injector->getInstance('Horde_Prefs')->getPrefs($registry->getApp(), array(
+                $params['prefs'] = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs($registry->getApp(), array(
                     'cache' => false,
                     'user' => $user
                 ));
