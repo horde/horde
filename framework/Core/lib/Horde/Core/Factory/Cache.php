@@ -62,7 +62,7 @@ class Horde_Core_Factory_Cache
         if (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
         } elseif (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'cache');
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
         }
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
@@ -95,6 +95,6 @@ class Horde_Core_Factory_Cache
             $classname = 'Horde_Cache_Null';
         }
 
-        return $classname;       
+        return $classname;
     }
 }

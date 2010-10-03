@@ -104,7 +104,7 @@ class Horde_Core_Factory_Prefs
                 break;
 
             case 'Sql':
-                $params['db'] = $this->_injector->getInstance('Horde_Db')->getDb();
+                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 // @todo All DB's use UTF-8(?) Does not seem to be a way to
                 // get this information from Horde_Db_Adapter.
                 $opts['charset'] = 'UTF-8';

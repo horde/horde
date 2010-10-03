@@ -29,7 +29,7 @@ class Horde_Core_Factory_Alarm
 {
     /**
      * Return a Horde_Alarm instance
-     * 
+     *
      */
     public function create(Horde_Injector $injector)
     {
@@ -40,9 +40,8 @@ class Horde_Core_Factory_Alarm
         $params = Horde::getDriverConfig('alarms', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'alarm');
-            $config = $injector->getInstance('Horde_Db')->getConfig('alarm');
-            $params['charset'] = $config['charset'];
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            $params['charset'] = 'UTF-8';
         }
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');

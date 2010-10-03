@@ -1,7 +1,7 @@
 <?php
 /**
  * Factory for creating Horde_Perms objects
- * 
+ *
  * Copyright 2010 Horde LLC <http://horde.org>
  *
  * @category Horde
@@ -23,7 +23,7 @@ class Horde_Core_Factory_Perms
             : array();
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'perms');
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
         }
 
         $params['cache'] = $injector->getInstance('Horde_Cache');

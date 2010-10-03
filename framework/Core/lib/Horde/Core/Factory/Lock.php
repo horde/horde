@@ -3,7 +3,7 @@
  * Factory for creating Horde_Lock objects
  *
  * Copyright 2010 Horde LLC <http://horde.org>
- * 
+ *
  * @category Horde
  * @package  Core
  */
@@ -30,7 +30,7 @@ class Horde_Core_Factory_Lock
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'lock');
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
         }
 
         $driver = Horde_String::ucfirst(basename($driver));
