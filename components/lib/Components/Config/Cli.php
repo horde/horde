@@ -80,6 +80,16 @@ implements Components_Config
                 )
             )
         );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-N',
+                '--nocolor',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Avoid colors in the output'
+                )
+            )
+        );
     }
 
     /**
