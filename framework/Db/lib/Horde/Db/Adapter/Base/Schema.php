@@ -803,8 +803,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     protected function _clearTableCache($tableName)
     {
-        $this->_cache->set("tables/columns/$tableName", null);
-        $this->_cache->set("tables/indexes/$tableName", null);
+        $this->_cache->set("tables/columns/$tableName", '');
+        $this->_cache->set("tables/indexes/$tableName", '');
     }
-
 }
