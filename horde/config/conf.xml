@@ -1257,8 +1257,8 @@
    <configheader>Custom Session Handler Settings</configheader>
    <configswitch name="type" desc="What sessionhandler driver should we
    use?">Builtin
-    <case name="Builtin" desc="Use the default PHP session handler (file-based by
-    default)">
+    <case name="Builtin" desc="Use the default PHP session handler (file-based
+    by default)">
      <configdescription>
       If you have configured a custom session extension in php.ini, such as
       native memcache sessions, then you should use this option. Horde doesn't
@@ -1274,11 +1274,6 @@
       <configstring name="write" desc="Your write() function"/>
       <configstring name="destroy" desc="Your destroy() function"/>
       <configstring name="gc" desc="Your gc() function"/>
-     </configsection>
-    </case>
-    <case name="Ldap" desc="LDAP">
-     <configsection name="params">
-      <configldap switchname="driverconfig"/>
      </configsection>
     </case>
     <case name="Memcache" desc="Memcache only">

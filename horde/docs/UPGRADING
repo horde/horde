@@ -49,6 +49,8 @@ Removed support for dBase, Frontbase, and mSQL database servers.
 
 Removed support for krb5 authentication driver.
 
+Removed LDAP session handler.
+
 Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Srchighlite' instead.
 
 The registry.php file has changed ('status' => 'sidebar').
