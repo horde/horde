@@ -365,7 +365,7 @@ class Horde_Registry
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         foreach ($binders as $key => $val) {
-            $injector->addBinder($key, $val);
+            $injector->addOndemandBinder($key, $val);
         }
         foreach ($factories as $key => $val) {
             $injector->bindFactory($key, $val[0], $val[1]);
