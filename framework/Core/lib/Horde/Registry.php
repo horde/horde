@@ -352,7 +352,7 @@ class Horde_Registry
                 'create',
             ),
             'Net_DNS_Resolver' => array(
-                'Horde_Core_Binder_Dns',
+                'Horde_Core_Factory_Dns',
                 'create',
             ),
         );
