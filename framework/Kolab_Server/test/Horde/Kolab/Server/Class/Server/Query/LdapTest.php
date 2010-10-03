@@ -83,7 +83,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($equals, $this->structure);
         $this->assertEquals(
             '(equals=equals)',
-            $query->convertEquals($equals)->asString()
+            (string)$query->convertEquals($equals)
         );
     }
 
@@ -96,7 +96,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($begins, $this->structure);
         $this->assertEquals(
             '(begins=begins*)',
-            $query->convertBegins($begins)->asString()
+            (string)$query->convertBegins($begins)
         );
     }
 
@@ -109,7 +109,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($ends, $this->structure);
         $this->assertEquals(
             '(ends=*ends)',
-            $query->convertEnds($ends)->asString()
+            (string)$query->convertEnds($ends)
         );
     }
 
@@ -122,7 +122,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($contains, $this->structure);
         $this->assertEquals(
             '(contains=*contains*)',
-            $query->convertContains($contains)->asString()
+            (string)$query->convertContains($contains)
         );
     }
 
@@ -135,7 +135,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($less, $this->structure);
         $this->assertEquals(
             '(less<less)',
-            $query->convertLess($less)->asString()
+            (string)$query->convertLess($less)
         );
     }
 
@@ -148,7 +148,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($greater, $this->structure);
         $this->assertEquals(
             '(greater>greater)',
-            $query->convertGreater($greater)->asString()
+            (string)$query->convertGreater($greater)
         );
     }
 
@@ -161,7 +161,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($approx, $this->structure);
         $this->assertEquals(
             '(approx~=approx)',
-            $query->convertApprox($approx)->asString()
+            (string)$query->convertApprox($approx)
         );
     }
 
@@ -175,7 +175,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($not, $this->structure);
         $this->assertEquals(
             '(!(equals=equals))',
-            $query->convertNot($not)->asString()
+            (string)$query->convertNot($not)
         );
     }
 
@@ -190,7 +190,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($and, $this->structure);
         $this->assertEquals(
             '(&(internal=equals)(internal=contains))',
-            $query->convertAnd($and)->asString()
+            (string)$query->convertAnd($and)
         );
     }
 
@@ -205,7 +205,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($or, $this->structure);
         $this->assertEquals(
             '(|(internal=equals)(internal=contains))',
-            $query->convertOr($or)->asString()
+            (string)$query->convertOr($or)
         );
     }
 
@@ -216,7 +216,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         $query = new Horde_Kolab_Server_Query_Ldap($or, $this->structure);
 
         try {
-            $query->convertOr($or)->asString();
+            (string)$query->convertOr($or);
             $this->fail('No exception!');
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertEquals(Horde_Kolab_Server_Exception::INVALID_QUERY, $e->getCode());
