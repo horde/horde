@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-03</date>
- <time>13:34:55</time>
+ <time>13:41:03</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -122,7 +122,6 @@ Application Framework.</description>
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
-       <file name="Ldap.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
@@ -442,7 +441,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
    <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
    <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
-   <install as="Horde/Core/Binder/Ldap.php" name="lib/Horde/Core/Binder/Ldap.php" />
    <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
    <install as="Horde/Core/Binder/LoginTasks.php" name="lib/Horde/Core/Binder/LoginTasks.php" />
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />

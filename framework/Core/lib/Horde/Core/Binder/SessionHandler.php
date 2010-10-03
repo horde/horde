@@ -24,7 +24,7 @@ class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
         } elseif (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
         } elseif (strcasecmp($driver, 'Ldap') === 0) {
-            $params['ldap'] = $injector->getInstances('Horde_Ldap')->getLdap('horde', 'sessionhandler');
+            $params['ldap'] = $injector->getInstances('Horde_Core_Factory_Ldap')->getLdap('horde', 'sessionhandler');
         }
 
         $logger = $injector->getInstance('Horde_Log_Logger');

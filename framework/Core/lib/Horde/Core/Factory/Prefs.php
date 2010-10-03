@@ -100,7 +100,7 @@ class Horde_Core_Factory_Prefs
         } else {
             switch ($driver) {
             case 'Ldap':
-                //$params['ldap'] = $this->_injector->getInstance('Horde_Ldap')->getLdap('horde', 'ldap');
+                $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
                 break;
 
             case 'Sql':

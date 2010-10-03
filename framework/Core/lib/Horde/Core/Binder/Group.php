@@ -17,7 +17,7 @@ class Horde_Core_Binder_Group implements Horde_Injector_Binder
             $driver = $GLOBALS['conf']['group']['driver'];
             $params = Horde::getDriverConfig('group', $driver);
             if ($driver == 'ldap') {
-                $params['ldap'] = $injector->getInstance('Horde_Ldap')->getLdap('horde', 'group');
+                $params['ldap'] = $injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'group');
             }
             $group = Horde_Group::factory($driver, $params);
         }
