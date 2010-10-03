@@ -118,7 +118,6 @@ Application Framework.</description>
        <file name="Db.php" role="php" />
        <file name="DbBase.php" role="php" />
        <file name="DbPear.php" role="php" />
-       <file name="Dns.php" role="php" />
        <file name="Facebook.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
@@ -158,6 +157,7 @@ Application Framework.</description>
        <file name="Data.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="DbPear.php" role="php" />
+       <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
@@ -439,7 +439,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Db.php" name="lib/Horde/Core/Binder/Db.php" />
    <install as="Horde/Core/Binder/DbBase.php" name="lib/Horde/Core/Binder/DbBase.php" />
    <install as="Horde/Core/Binder/DbPear.php" name="lib/Horde/Core/Binder/DbPear.php" />
-   <install as="Horde/Core/Binder/Dns.php" name="lib/Horde/Core/Binder/Dns.php" />
    <install as="Horde/Core/Binder/Facebook.php" name="lib/Horde/Core/Binder/Facebook.php" />
    <install as="Horde/Core/Binder/Group.php" name="lib/Horde/Core/Binder/Group.php" />
    <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
@@ -475,6 +474,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
    <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
+   <install as="Horde/Core/Factory/Dns.php" name="lib/Horde/Core/Factory/Dns.php" />
    <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />
    <install as="Horde/Core/Factory/HttpClient.php" name="lib/Horde/Core/Factory/HttpClient.php" />
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
