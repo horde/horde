@@ -87,7 +87,7 @@ if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         . Horde::img('delete-small.png', _("Remove Tag"))
         . '</a>';
 }
-$GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'TagActions'), array(
+$GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'TagActions'), array(
     'action' => 'delete',
     'resource' => $id,
     'tagId' => $tag_id,
@@ -102,11 +102,11 @@ $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('k
       <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
       <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
      <?php
-      $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'TagAutoCompleter'), array(
+      $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'TagAutoCompleter'), array(
           'id' => $id,
           'triggerId' => 'newtags-input_' . $id
       ));
-      $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'TagActions'), array(
+      $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'TagActions'), array(
           'action' => 'add',
           'resource' => $id,
           'triggerId' => 'newtags-button',

@@ -915,7 +915,7 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'Embed'), $options);
+        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'Embed'), $options);
 
        return '<script type="text/javascript" src="' . $imple->getUrl() . '"></script><div id="' . $domid . '"></div>';
     }

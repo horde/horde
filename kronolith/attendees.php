@@ -266,7 +266,7 @@ $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'
 $vfb_html = $attendee_view->render($date);
 
 // Add the ContactAutoCompleter
-$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('kronolith', 'ContactAutoCompleter'), array(
+$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'ContactAutoCompleter'), array(
     'triggerId' => 'newAttendees'
 ));
 

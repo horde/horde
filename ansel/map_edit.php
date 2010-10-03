@@ -66,7 +66,7 @@ $returnLink = Ansel::getUrlFor('view', array('view' => 'Image',
                                              'gallery' => $gallery->id));
 $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" alt="[thumbnail]" />';
 /* Url for geotag ajax helper */
-$gt = $injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'ImageSaveGeotag'));
+$gt = $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ImageSaveGeotag'));
 $gtUrl = $gt->getUrl();
 
 $loadingImg = Horde::img('loading.gif', _("Loading..."));
@@ -139,7 +139,7 @@ $html = <<<EOT
 </script>
 EOT;
 /* Autocompleter for locations we already have in our DB */
-$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'LocationAutoCompleter'), array(
+$injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'LocationAutoCompleter'), array(
     'map' => 'mapEdit',
     'resultsId' => 'locationInput_results',
     'triggerId' => 'locationInput'

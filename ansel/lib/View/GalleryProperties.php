@@ -112,7 +112,7 @@ class Ansel_View_GalleryProperties
         Horde::addScriptFile('popup.js', 'horde');
 
         /* Attach the slug check action to the form */
-        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'GallerySlugCheck'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'GallerySlugCheck'), array(
             'bindTo' => 'gallery_slug',
             'slug' => $this->_properties['slug']
         ));

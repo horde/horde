@@ -93,7 +93,7 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
     array('kronolith', 'TagAutoCompleter'),
     array(
         'box' => 'kronolithEventACBox',
@@ -103,7 +103,7 @@ $injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(
     )
 );
 
-$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
     array('kronolith', 'TagAutoCompleter'),
     array(
         'box' => 'kronolithCalendarinternalACBox',
@@ -114,7 +114,7 @@ $injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(
     )
 );
 
-$injector->getInstance('Horde_Ajax_Imple_Factory')->getImple(
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
     array('kronolith', 'ContactAutoCompleter'),
     array(
         'box' => 'kronolithAttendeesACBox',

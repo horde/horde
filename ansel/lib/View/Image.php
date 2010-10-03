@@ -364,7 +364,7 @@ class Ansel_View_Image extends Ansel_View_Base
             /* In line caption editing */
             if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $geometry = $this->resource->getDimensions();
-                $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'EditCaption'), array(
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'EditCaption'), array(
                     'width' => $geometry['width'],
                     'domid' => "Caption",
                     'id' => $this->resource->id

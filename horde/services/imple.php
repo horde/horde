@@ -65,7 +65,7 @@ if (isset($args['impleApp'])) {
     $impleargs = array($args['impleApp'], $impleName);
 }
 
-$imple = $injector->getInstance('Horde_Ajax_Imple_Factory')->getImple($impleargs, array(), true);
+$imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($impleargs, array(), true);
 $result = $imple->handle($args, $post);
 
 $ct = empty($_SERVER['Content-Type'])

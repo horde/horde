@@ -109,7 +109,6 @@ Application Framework.</description>
        </dir> <!-- /lib/Horde/Core/Autoloader/Callback -->
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
-       <file name="AjaxFactory.php" role="php" />
        <file name="Alarm.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
@@ -125,7 +124,6 @@ Application Framework.</description>
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
-       <file name="ImpleFactory.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />

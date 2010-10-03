@@ -54,7 +54,7 @@ class Horde_Core_Factory_Ajax
      * @return Horde_Core_Ajax_Application  The requested instance.
      * @throws Horde_Exception
      */
-    public function getAjax($app, $vars, $action = null)
+    public function create($app, $vars, $action = null)
     {
         $class = $app . '_Ajax_Application';
 

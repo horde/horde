@@ -101,7 +101,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         }
 
         Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'ToggleOtherGalleries'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ToggleOtherGalleries'), array(
             'bindTo' => 'othergalleries'
         ));
 

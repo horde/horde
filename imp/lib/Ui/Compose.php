@@ -81,7 +81,7 @@ class IMP_Ui_Compose
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
         }
     }
 
@@ -113,7 +113,7 @@ class IMP_Ui_Compose
             )
         );
 
-        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple('SpellChecker', $args);
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', $args);
     }
 
     /**
@@ -312,7 +312,7 @@ class IMP_Ui_Compose
             break;
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('imp', 'PassphraseDialog'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
             'onload' => true,
             'params' => $params,
             'type' => $type

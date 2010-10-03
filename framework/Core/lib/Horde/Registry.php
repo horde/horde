@@ -264,8 +264,6 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
-            'Horde_Ajax_Factory' => 'Horde_Core_Binder_AjaxFactory',
-            'Horde_Ajax_Imple_Factory' => 'Horde_Core_Binder_ImpleFactory',
             'Horde_Alarm' => 'Horde_Core_Binder_Alarm',
             'Horde_Auth_Factory' => 'Horde_Core_Binder_AuthFactory',
             // 'Horde_Browser' - initialized below
@@ -303,6 +301,7 @@ class Horde_Registry
             'Horde_Token' => 'Horde_Core_Binder_Token',
             'Horde_Vfs' => 'Horde_Core_Binder_Vfs',
             'Net_DNS_Resolver' => 'Horde_Core_Binder_Dns',
+            'Horde_Rpc_ActiveSync' => 'Horde_Core_Binder_ActiveSync'
         );
 
         /* Define factories. */

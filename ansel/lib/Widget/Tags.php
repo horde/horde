@@ -40,7 +40,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             Horde::startBuffer();
             /* Attach the Ajax action */
-            $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('ansel', 'TagActions'), array(
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'TagActions'), array(
                 'bindTo' => array('add' => 'tagbutton'),
                 'gallery' => $this->_view->gallery->id,
                 'image' => $image_id

@@ -25,7 +25,7 @@ class Horde_Core_Ui_VarRenderer_whups extends Horde_Core_Ui_VarRenderer_Html {
     {
         $name = $var->getVarName();
 
-        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple_Factory')->getImple(array('whups', 'ContactAutoCompleter'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('whups', 'ContactAutoCompleter'), array(
             'triggerId' => $name
         ));
 

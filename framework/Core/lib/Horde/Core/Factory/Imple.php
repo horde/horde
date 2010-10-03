@@ -58,7 +58,7 @@ class Horde_Core_Factory_Imple
      * @return Horde_Core_Ajax_Imple  The newly created instance.
      * @throws Horde_Exception
      */
-    public function getImple($driver, array $params = array(),
+    public function create($driver, array $params = array(),
                              $noattach = false)
     {
         if (is_array($driver)) {
