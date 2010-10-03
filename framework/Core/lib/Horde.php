@@ -1166,8 +1166,6 @@ HTML;
     {
         if (!empty($title)) {
             $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title)))) . '&lt;/pre&gt;';
-            error_reporting($old_error);
-
             self::addScriptFile('tooltips.js', 'horde');
         }
 
