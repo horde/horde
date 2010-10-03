@@ -64,7 +64,7 @@ function importPrefs()
 
     $GLOBALS['registry']->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
-    $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
+    $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
         'cache' => false,
         'user' => $user
     ));

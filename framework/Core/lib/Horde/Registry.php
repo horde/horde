@@ -1399,7 +1399,7 @@ class Horde_Registry
             );
         }
 
-        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs($app, $opts);
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create($app, $opts);
     }
 
     /**

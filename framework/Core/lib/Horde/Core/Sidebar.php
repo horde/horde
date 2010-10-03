@@ -73,7 +73,7 @@ class Horde_Core_Sidebar
         }
 
         if (Horde_Menu::showService('prefs') &&
-            !($injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs() instanceof Horde_Prefs_Session)) {
+            !($injector->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
                 'name' => _("Preferences"),

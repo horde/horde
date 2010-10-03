@@ -63,7 +63,7 @@ class Horde_Core_Factory_Prefs
      *
      * @return Horde_Prefs  The singleton instance.
      */
-    public function getPrefs($scope = 'horde', array $opts = array())
+    public function create($scope = 'horde', array $opts = array())
     {
         if (empty($GLOBALS['conf']['prefs']['driver']) ||
             !empty($opts['session'])) {

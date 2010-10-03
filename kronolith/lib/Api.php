@@ -1218,7 +1218,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if ($alarm_user == $current_user) {
                         $prefs = $GLOBALS['prefs'];
                     } else {
-                        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('kronolith', array(
+                        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
                             'cache' => false,
                             'user' => $alarm_user
                         ));

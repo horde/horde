@@ -2553,7 +2553,7 @@ class Kronolith
      */
     public static function _notificationPref($user, $mode, $calendar = null)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('kronolith', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
             'cache' => false,
             'user' => $user
         ));

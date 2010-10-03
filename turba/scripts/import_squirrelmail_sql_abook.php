@@ -53,7 +53,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         $cli->message('Importing ' . $user . '\'s address book');
 
         // Reset user prefs
-        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('turba', array(
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('turba', array(
             'cache' => false,
             'user' => $user
         ));

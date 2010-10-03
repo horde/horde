@@ -220,7 +220,7 @@ class Horde_Api extends Horde_Registry_Api
         $haveError = false;
 
         /* Remove user's prefs */
-        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
             'user' => $user
         ));
         try {

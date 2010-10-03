@@ -57,7 +57,7 @@ foreach($files as $file) {
 
     // Reset user prefs
     unset($prefs);
-    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('turba', array(
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('turba', array(
         'cache' => false,
         'user' => $user
     ));

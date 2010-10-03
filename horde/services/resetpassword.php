@@ -34,7 +34,7 @@ $can_validate = false;
 /* If a username has been supplied try fetching the prefs stored info. */
 if ($username = $vars->get('username')) {
     $username = Horde_Auth::addHook($username);
-    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
         'cache' => false,
         'user' => $username
     ));

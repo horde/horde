@@ -149,7 +149,7 @@ class Ansel_View_List extends Ansel_View_Base
             if ($this->_owner == $GLOBALS['registry']->getAuth() && empty($this->_params['api'])) {
                 return  _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('ansel', array(
+                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ansel', array(
                     'cache' => false,
                     'owner' => $this->_owner
                 ));

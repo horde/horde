@@ -1454,7 +1454,7 @@ class Nag_Api extends Horde_Registry_Api
                 $users = array($user);
             }
             foreach ($users as $alarm_user) {
-                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('nag', array(
+                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
                     'cache' => false,
                     'user' => $alarm_user
                 ));

@@ -1068,7 +1068,7 @@ class Nag
      */
     public static function _notificationPref($user, $mode, $tasklist = null)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->getPrefs('nag', array(
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
             'cache' => false,
             'user' => $user
         ));

@@ -57,7 +57,7 @@ foreach($files as $file) {
     $cli->message('Importing ' . $user . '\'s preferences');
 
     // Reset user prefs
-    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
         'cache' => false,
         'user' => $user
     ));

@@ -70,7 +70,7 @@ if ($conf['compose']['link_attachments_notify']) {
 
             /* Load $mail_user's preferences so that we can use their
              * locale information for the notification message. */
-            $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->getPrefs('horde', array(
+            $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
                 'cache' => false,
                 'user' => $mail_user
             ));
