@@ -18,7 +18,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 $vars = Horde_Variables::getDefaultVariables();
 
 // Get text, uppercase, add start/stop characters.
-$text = '*' . Horde_String::upper($vars->get('barcode', 'test'), true) . '*';
+$text = '*' . Horde_String::upper($vars->get('barcode', 'test'), true, 'UTF-8') . '*';
 $textlen = strlen($text);
 
 $height = $vars->get('h', 40);

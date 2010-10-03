@@ -31,7 +31,7 @@ class Horde_Array_Sort_Helper
      */
     public function compare($a, $b)
     {
-        return strcoll(Horde_String::lower($a[$this->key], true), Horde_String::lower($b[$this->key], true));
+        return strcoll(Horde_String::lower($a[$this->key], true, 'UTF-8'), Horde_String::lower($b[$this->key], true, 'UTF-8'));
     }
 
     /**
@@ -45,7 +45,7 @@ class Horde_Array_Sort_Helper
      */
     public function reverseCompare($a, $b)
     {
-        return strcoll(Horde_String::lower($b[$this->key], true), Horde_String::lower($a[$this->key], true));
+        return strcoll(Horde_String::lower($b[$this->key], true, 'UTF-8'), Horde_String::lower($a[$this->key], true, 'UTF-8'));
     }
 
     /**
@@ -58,7 +58,7 @@ class Horde_Array_Sort_Helper
      */
     public function compareKeys($a, $b)
     {
-        return strcoll(Horde_String::lower($a, true), Horde_String::lower($b, true));
+        return strcoll(Horde_String::lower($a, true, 'UTF-8'), Horde_String::lower($b, true, 'UTF-8'));
     }
 
     /**
@@ -71,7 +71,7 @@ class Horde_Array_Sort_Helper
      */
     public function reverseCompareKeys($a, $b)
     {
-        return strcoll(Horde_String::lower($b, true), Horde_String::lower($a, true));
+        return strcoll(Horde_String::lower($b, true, 'UTF-8'), Horde_String::lower($a, true, 'UTF-8'));
     }
 
 }

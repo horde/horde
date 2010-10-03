@@ -177,10 +177,10 @@ class Turba_List implements Countable
 
             case 'text':
                 if (!isset($a->sortValue[$field])) {
-                    $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true);
+                    $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true, 'UTF-8');
                 }
                 if (!isset($b->sortValue[$field])) {
-                    $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true);
+                    $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true, 'UTF-8');
                 }
 
                 // Use strcoll for locale-safe comparisons.

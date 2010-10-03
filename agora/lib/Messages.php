@@ -2121,7 +2121,7 @@ class Agora_Messages {
         }
 
         if (!empty($filter['author'])) {
-            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author'], 'UTF-8'));
+            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author']));
         }
 
         /* Sort by result column. */

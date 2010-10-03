@@ -16,13 +16,6 @@
 class Horde_String
 {
     /**
-     * Default charset.
-     *
-     * @var string
-     */
-    static protected $_charset = 'UTF-8';
-
-    /**
      * lower() cache.
      *
      * @var array
@@ -47,9 +40,7 @@ class Horde_String
      * @param mixed $input  The data to be converted. If $input is an an array,
      *                      the array's values get converted recursively.
      * @param string $from  The string's current charset.
-     * @param string $to    The charset to convert the string to. If not
-     *                      specified, the global variable $_charset will
-     *                      be used.
+     * @param string $to    The charset to convert the string to.
      *
      * @return mixed  The converted input data.
      */
@@ -195,7 +186,7 @@ class Horde_String
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
                 if (is_null($charset)) {
-                    $charset = self::$_charset;
+                    throw new InvalidArgumentException('$charset argument must not be null');
                 }
                 $old_error = error_reporting(0);
                 $ret = mb_strtolower($string, self::_mbstringCharset($charset));
@@ -233,7 +224,7 @@ class Horde_String
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
                 if (is_null($charset)) {
-                    $charset = self::$_charset;
+                    throw new InvalidArgumentException('$charset argument must not be null');
                 }
                 $old_error = error_reporting(0);
                 $ret = mb_strtoupper($string, self::_mbstringCharset($charset));
@@ -293,7 +284,7 @@ class Horde_String
      * @return string  The string's part.
      */
     static public function substr($string, $start, $length = null,
-                                  $charset = null)
+                                  $charset = 'UTF-8')
     {
         if (is_null($length)) {
             $length = self::length($string, $charset) - $start;
@@ -305,10 +296,6 @@ class Horde_String
 
         /* Try iconv. */
         if (Horde_Util::extensionExists('iconv')) {
-            if (is_null($charset)) {
-                $charset = self::$_charset;
-            }
-
             $old_error = error_reporting(0);
             $ret = iconv_substr($string, $start, $length, $charset);
             error_reporting($old_error);
@@ -321,9 +308,6 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            if (is_null($charset)) {
-                $charset = self::$_charset;
-            }
             $old_error = error_reporting(0);
             $ret = mb_substr($string, $start, $length, self::_mbstringCharset($charset));
             error_reporting($old_error);
@@ -346,11 +330,8 @@ class Horde_String
      *
      * @return integer  The string's length.
      */
-    static public function length($string, $charset = null)
+    static public function length($string, $charset == 'UTF-8')
     {
-        if (is_null($charset)) {
-            $charset = self::$_charset;
-        }
         $charset = self::lower($charset);
 
         if ($charset == 'utf-8' || $charset == 'utf8') {
@@ -382,13 +363,9 @@ class Horde_String
      *
      * @return integer  The position of first occurrence.
      */
-    static public function pos($haystack, $needle, $offset = 0,
-                               $charset = null)
+    static public function pos($haystack, $needle, $offset, $charset = 'UTF-8')
     {
         if (Horde_Util::extensionExists('mbstring')) {
-            if (is_null($charset)) {
-                $charset = self::$_charset;
-            }
             $track_errors = ini_set('track_errors', 1);
             $old_error = error_reporting(0);
             $ret = mb_strpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
