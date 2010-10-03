@@ -49,6 +49,13 @@ class Components_Output
     private $_quiet;
 
     /**
+     * Did the user request to avoid colored output?
+     *
+     * @var boolean
+     */
+    private $_nocolor;
+
+    /**
      * Constructor.
      *
      * @param Horde_Cli         $cli    The CLI handler.
@@ -62,6 +69,7 @@ class Components_Output
         $options = $config->getOptions();
         $this->_verbose = !empty($options['verbose']);
         $this->_quiet = !empty($options['quiet']);
+        $this->_nocolor = !empty($options['nocolor']);
     }
 
     public function ok($text)
@@ -69,7 +77,10 @@ class Components_Output
         if ($this->_quiet) {
             return;
         }
-        $this->_cli->message($text, 'cli.success');
+        $this->_cli->message(
+            $text,
+            $this->_getType('cli.success')
+        );
     }
 
     public function warn($text)
@@ -77,7 +88,10 @@ class Components_Output
         if ($this->_quiet) {
             return;
         }
-        $this->_cli->message($text, 'cli.warning');
+        $this->_cli->message(
+            $text,
+            $this->_getType('cli.warning')
+        );
     }
 
     public function fail($text)
@@ -90,12 +104,46 @@ class Components_Output
         if (!$this->_verbose) {
             return;
         }
-        $this->_cli->message('-------------------------------------------------', 'cli.message');
-        $this->_cli->message('PEAR output START', 'cli.message');
-        $this->_cli->message('-------------------------------------------------', 'cli.message');
+        $this->_cli->message(
+            '-------------------------------------------------',
+            $this->_getType('cli.message')
+        );
+        $this->_cli->message(
+            'PEAR output START',
+            $this->_getType('cli.message')
+        );
+        $this->_cli->message(
+            '-------------------------------------------------',
+            $this->_getType('cli.message')
+        );
         $this->_cli->writeln($text);
-        $this->_cli->message('-------------------------------------------------', 'cli.message');
-        $this->_cli->message('PEAR output END', 'cli.message');
-        $this->_cli->message('-------------------------------------------------', 'cli.message');
+        $this->_cli->message(
+            '-------------------------------------------------',
+            $this->_getType('cli.message')
+        );
+        $this->_cli->message(
+            'PEAR output END',
+            $this->_getType('cli.message')
+        );
+        $this->_cli->message(
+            '-------------------------------------------------',
+            $this->_getType('cli.message')
+        );
+    }
+
+    /**
+     * Modify the type for the --nocolor switch.
+     *
+     * @param string $type The message to rewrite.
+     *
+     * @return string The message type that should be used for the output.
+     */
+    private function _getType($type)
+    {
+        if ($this->_nocolor) {
+            return '';
+        } else {
+            return $type;
+        }
     }
 }
