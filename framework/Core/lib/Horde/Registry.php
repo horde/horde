@@ -317,7 +317,7 @@ class Horde_Registry
                 'getRequestConfiguration',
             ),
             'Horde_Editor' => array(
-                'Horde_Core_Factor_Editor',
+                'Horde_Core_Factory_Editor',
                 'create',
             ),
             'Horde_Kolab_Server_Composite' => array(
