@@ -294,7 +294,6 @@ class Horde_Registry
             'Horde_Tree' => 'Horde_Core_Binder_Tree',
             'Horde_Token' => 'Horde_Core_Binder_Token',
             'Horde_Vfs' => 'Horde_Core_Binder_Vfs',
-            'Net_DNS_Resolver' => 'Horde_Core_Binder_Dns',
             'Horde_Rpc_ActiveSync' => 'Horde_Core_Binder_ActiveSync'
         );
 
@@ -350,6 +349,10 @@ class Horde_Registry
             ),
             'Horde_View_Base' => array(
                 'Horde_Core_Factory_View',
+                'create',
+            ),
+            'Net_DNS_Resolver' => array(
+                'Horde_Core_Binder_Dns',
                 'create',
             ),
         );
