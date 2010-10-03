@@ -121,11 +121,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      */
     public function column($name, $type, $options = array())
     {
-        if ($this[$name]) {
-            $column = $this[$name];
-        } else {
-            $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
-        }
+        $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
 
         $column->setLimit(isset($options['limit'])         ? $options['limit']     : null);
         $column->setPrecision(isset($options['precision']) ? $options['precision'] : null);
