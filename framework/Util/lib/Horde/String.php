@@ -330,7 +330,7 @@ class Horde_String
      *
      * @return integer  The string's length.
      */
-    static public function length($string, $charset == 'UTF-8')
+    static public function length($string, $charset = 'UTF-8')
     {
         $charset = self::lower($charset);
 
