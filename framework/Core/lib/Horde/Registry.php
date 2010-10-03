@@ -277,7 +277,6 @@ class Horde_Registry
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
             'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
             'Horde_Mail' => new Horde_Core_Binder_Mail(),
-            'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
@@ -330,6 +329,10 @@ class Horde_Registry
             ),
             'Horde_Lock' => array(
                 'Horde_Core_Factory_Lock',
+                'create',
+            ),
+            'Horde_Memcache' => array(
+                'Horde_Core_Factory_Memcache',
                 'create',
             ),
             'Horde_Perms' => array(
