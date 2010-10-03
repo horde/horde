@@ -27,7 +27,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     // @todo - add logger instance
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = $this->sharedFixture->getConnection();
+        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
 
         $table = $this->_conn->createTable('unit_tests');
           $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));

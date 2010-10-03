@@ -26,7 +26,7 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends PHPUnit_Framework_Tes
 {
     protected function setUp()
     {
-        list($this->_conn,) = $this->sharedFixture->getConnection();
+        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
     }
 
     protected function tearDown()
@@ -120,5 +120,4 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends PHPUnit_Framework_Tes
         $col->setDefault('test');
         $this->assertEquals('"col_name" varchar(255) DEFAULT \'test\'', $col->toSql());
     }
-
 }

@@ -287,5 +287,4 @@ class Horde_Db_Adapter_Mysql_ColumnTest extends PHPUnit_Framework_TestCase
         $col = new Horde_Db_Adapter_Mysql_Column('name', '', 'blob(255)');
         $this->assertEquals('', $col->getDefault());
     }
-
 }

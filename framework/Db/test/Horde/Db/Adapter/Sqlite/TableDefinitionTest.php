@@ -26,7 +26,7 @@ class Horde_Db_Adapter_Sqlite_TableDefinitionTest extends PHPUnit_Framework_Test
 {
     protected function setUp()
     {
-        list($this->_conn,) = $this->sharedFixture->getConnection();
+        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
     }
 
     protected function tearDown()
@@ -83,5 +83,4 @@ class Horde_Db_Adapter_Sqlite_TableDefinitionTest extends PHPUnit_Framework_Test
     public function testOffsetUnset()
     {
     }
-
 }

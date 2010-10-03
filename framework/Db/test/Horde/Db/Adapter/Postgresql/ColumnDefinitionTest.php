@@ -26,7 +26,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 {
     protected function setUp()
     {
-        list($this->_conn,) = $this->sharedFixture->getConnection();
+        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
     }
 
     public function testConstruct()

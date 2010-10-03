@@ -87,7 +87,6 @@ class Horde_Db_Adapter_MysqlSuite extends PHPUnit_Framework_TestSuite
 
     protected function setUp()
     {
-        $this->sharedFixture = $this;
+        Horde_Db_AllTests::$connFactory = $this;
     }
-
 }
