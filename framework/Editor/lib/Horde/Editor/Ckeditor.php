@@ -15,8 +15,6 @@
 class Horde_Editor_Ckeditor extends Horde_Editor
 {
     /**
-     * Constructor.
-     *
      * @param array $params  The following configuration parameters:
      * <pre>
      * 'basic' - (boolean) Load "basic" editor (a small javascript stub that
@@ -29,17 +27,15 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      *               instead be stored for access via getJS().
      * </pre>
      */
-    public function __construct(array $params = array())
+    public function initialize(array $params = array())
     {
-        $params = array_merge(array(
-            'config' => array()
-        ), $params);
-
-        parent::__construct($params);
-
         if (!$this->supportedByBrowser()) {
             return;
         }
+
+        $params = array_merge(array(
+            'config' => array()
+        ), $params);
 
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
@@ -90,5 +86,4 @@ class Horde_Editor_Ckeditor extends Horde_Editor
             return false;
         }
     }
-
 }

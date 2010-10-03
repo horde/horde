@@ -593,7 +593,7 @@ if ($form->validate()) {
 
 // Add editor now to avoud JS error notifications no redirect
 foreach ($conf['attributes']['languages'] as $key) {
-    $injector->getInstance('Horde_Editor')->getEditor('Ckeditor', array('id' => 'content_' . $key));
+    $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content_' . $key));
 }
 
 require_once NEWS_TEMPLATES . '/common-header.inc';

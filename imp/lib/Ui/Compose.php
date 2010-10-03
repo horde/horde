@@ -154,7 +154,7 @@ class IMP_Ui_Compose
      */
     public function initRTE($basic = false)
     {
-        $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('basic' => $basic));
+        $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('basic' => $basic));
 
         $font_family = $GLOBALS['prefs']->getValue('compose_html_font_family');
         if (!$font_family) {

@@ -319,6 +319,10 @@ class Horde_Registry
                 'Horde_Core_Controller_RequestMapper',
                 'getRequestConfiguration',
             ),
+            'Horde_Editor' => array(
+                'Horde_Core_Factor_Editor',
+                'create',
+            ),
             'Horde_Kolab_Server_Composite' => array(
                 'Horde_Core_Factory_KolabServer',
                 'getComposite',

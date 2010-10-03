@@ -30,31 +30,6 @@ class Horde_Editor
     protected $_js = '';
 
     /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param string $driver  The type of concrete subclass to return.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return Horde_Editor  The newly created concrete instance.
-     * @throws Horde_Editor_Exception.
-     */
-    static public function factory($driver = null, $params = null)
-    {
-        $driver = ucfirst(basename($driver));
-        if (empty($driver) || (strcmp($driver, 'None') == 0)) {
-            return new Horde_Editor();
-        }
-
-        $class = __CLASS__ . '_' . $driver;
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Editor_Exception('Driver ' . $driver . ' not found');
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  The following configuration parameters:
@@ -62,11 +37,13 @@ class Horde_Editor
      * 'browser' - (Horde_Browser) A browser object.
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(Horde_Browser $browser)
     {
-        if (isset($params['browser'])) {
-            $this->_browser = $params['browser'];
-        }
+        $this->_browser = $params['browser'];
+    }
+
+    public function initialize(array $params = array())
+    {
     }
 
     /**
@@ -88,21 +65,4 @@ class Horde_Editor
     {
         return false;
     }
-
-    /**
-     * List the available editors.
-     *
-     * @return array  List of available editors.
-     */
-    static public function availableEditors()
-    {
-        $eds = array();
-
-        foreach (glob(dirname(__FILE__) . '/Editor/*.php') as $val) {
-            $eds[] = basename($val, '.php');
-        }
-
-        return $eds;
-    }
-
 }

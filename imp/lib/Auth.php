@@ -460,8 +460,7 @@ class IMP_Auth
 
         /* Is the HTML editor available? */
         $imp_ui = new IMP_Ui_Compose();
-        $editor = $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('no_notify' => true));
-        $sess['rteavail'] = $editor->supportedByBrowser();
+        $sess['rteavail'] = $GLOBALS['injector']->getInstance('Horde_Editor')->supportedByBrowser();
 
         /* Determine view. */
         $setcookie = false;

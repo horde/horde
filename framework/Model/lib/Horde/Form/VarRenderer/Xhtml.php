@@ -156,7 +156,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                         htmlspecialchars($var->getValue($vars)));
 
         if ($var->type->hasHelper('rte')) {
-            $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => $var->getVarName()));
+            $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => $var->getVarName()));
         }
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {

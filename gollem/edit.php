@@ -53,7 +53,7 @@ case 'edit_file':
     }
 
     if ($mime_type == 'text/html') {
-        $injector->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => 'content'));
+        $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
     require GOLLEM_TEMPLATES . '/common-header.inc';
     Gollem::status();

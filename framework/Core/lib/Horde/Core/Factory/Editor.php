@@ -54,22 +54,8 @@ class Horde_Core_Factory_Editor
      * @return Horde_Editor  The singleton editor instance.
      * @throws Horde_Editor_Exception
      */
-    public function getEditor($driver, $params = array())
+    public function create()
     {
-        $browser = $this->_injector->getInstance('Horde_Browser');
-        if (!$browser->hasFeature('rte')) {
-            return Horde_Editor::factory();
-        }
-
-        $params = array_merge(
-            Horde::getDriverConfig('editor', $driver),
-            $params,
-            array(
-                'browser' => $browser
-            )
-        );
-
-        return Horde_Editor::factory($driver, $params);
+        return $this->_injector->getInstance('Horde_Editor_Ckeditor');
     }
-
 }
