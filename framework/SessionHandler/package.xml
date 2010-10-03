@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-05-20</date>
- <time>23:49:31</time>
+ <date>2010-10-03</date>
+ <time>14:24:25</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -50,17 +50,15 @@
     <dir name="Horde">
      <dir name="SessionHandler">
       <file name="Builtin.php" role="php" />
-      <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="External.php" role="php" />
-      <file name="Ldap.php" role="php" />
       <file name="Memcache.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="Stack.php" role="php" />
-     </dir> <!-- /lib/Horde/SessionHandler -->
+     </dir> <!-- //lib/Horde/SessionHandler -->
      <file name="SessionHandler.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -99,10 +97,8 @@
   <filelist>
    <install as="Horde/SessionHandler.php" name="lib/Horde/SessionHandler.php" />
    <install as="Horde/SessionHandler/Builtin.php" name="lib/Horde/SessionHandler/Builtin.php" />
-   <install as="Horde/SessionHandler/Base.php" name="lib/Horde/SessionHandler/Base.php" />
    <install as="Horde/SessionHandler/Exception.php" name="lib/Horde/SessionHandler/Exception.php" />
    <install as="Horde/SessionHandler/External.php" name="lib/Horde/SessionHandler/External.php" />
-   <install as="Horde/SessionHandler/Ldap.php" name="lib/Horde/SessionHandler/Ldap.php" />
    <install as="Horde/SessionHandler/Memcache.php" name="lib/Horde/SessionHandler/Memcache.php" />
    <install as="Horde/SessionHandler/Sql.php" name="lib/Horde/SessionHandler/Sql.php" />
    <install as="Horde/SessionHandler/Stack.php" name="lib/Horde/SessionHandler/Stack.php" />
@@ -172,17 +168,17 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-05-20</date>
+   <date>2010-10-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Abstracted memcache persistent-backend code into &apos;Stack&apos; driver.
- * Renamed &apos;none&apos; driver to &apos;Builtin&apos;.
- * Now throws Horde_SessionHandler_Exception.
- * Split driver code into abstract class.
- * Use horde/Db to access SQL databases.
- * Do not rely on Horde::logMessage().
- * Removed Horde-specific session counting script.
- * Initial Horde 4 package.
+* Renamed &apos;none&apos; driver to &apos;Builtin&apos;.
+* Now throws Horde_SessionHandler_Exception.
+* Split driver code into abstract class.
+* Use horde/Db to access SQL databases.
+* Do not rely on Horde::logMessage().
+* Removed Horde-specific session counting script.
+* Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

@@ -1,10 +1,26 @@
 <?php
 /**
+ * Factory for creating Horde_SessionHandler objects.
+ *
+ * Copyright 2010 Horde LLC <http://horde.org>
+ *
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
+class Horde_Core_Factory_SessionHandler
 {
+    /**
+     * Attempts to return a concrete instance based on $driver.
+     *
+     * @param string $driver  The type of concrete subclass to return
+     *                        (case-insensitive).
+     * @param array $params   A hash containing any additional configuration or
+     *                        connection parameters a subclass might need.
+     *
+     * @return Horde_SessionHandler_Driver  The newly created concrete
+     *                                      instance.
+     * @throws Horde_SessionHandler_Exception
+     */
     public function create(Horde_Injector $injector)
     {
         global $conf;
@@ -55,12 +71,14 @@ class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
         $params['logger'] = $logger;
         $params['parse'] = array($this, 'readSessionData');
 
-        return Horde_SessionHandler::factory($driver, $params);
-    }
+        $driver = basename(strtolower($driver));
+        $class = 'Horde_SessionHandler_' . ucfirst($driver);
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_SessionHandler_Exception('Driver not found: ' . $driver);
     }
 
     /**

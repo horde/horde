@@ -279,7 +279,6 @@ class Horde_Registry
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
-            'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
@@ -1677,7 +1676,7 @@ class Horde_Registry
 
         /* We want to create an instance here, not get, since we may be
          * destroying the previous instances in the page. */
-        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
+        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_Core_Factory_SessionHandler');
 
         if ($start) {
             session_start();
