@@ -283,7 +283,6 @@ class Horde_Registry
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
             'Horde_Service_Facebook' => new Horde_Core_Binder_Facebook(),
-            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter(),
             'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
