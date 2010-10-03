@@ -39,7 +39,7 @@ class Horde_Editor
      */
     public function __construct(Horde_Browser $browser)
     {
-        $this->_browser = $params['browser'];
+        $this->_browser = $browser;
     }
 
     public function initialize(array $params = array())
