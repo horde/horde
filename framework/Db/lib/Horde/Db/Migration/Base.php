@@ -66,6 +66,7 @@ class Horde_Db_Migration_Base
      */
     public function __call($method, $args)
     {
+        $a = array();
         foreach ($args as $arg) {
             if (is_array($arg)) {
                 $vals = array();
