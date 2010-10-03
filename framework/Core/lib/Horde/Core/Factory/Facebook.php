@@ -3,7 +3,7 @@
  * @category Horde
  * @package Core
  */
-class Horde_Core_Binder_Facebook implements Horde_Injector_Binder
+class Horde_Core_Factory_Facebook
 {
     public function create(Horde_Injector $injector)
     {
@@ -24,8 +24,4 @@ class Horde_Core_Binder_Facebook implements Horde_Injector_Binder
         return new Horde_Service_Facebook($apikey, $secret, $context);
     }
 
-    public function equals (Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

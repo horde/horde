@@ -282,7 +282,6 @@ class Horde_Registry
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
-            'Horde_Service_Facebook' => new Horde_Core_Binder_Facebook(),
             'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
@@ -312,6 +311,10 @@ class Horde_Registry
             ),
             'Horde_Editor' => array(
                 'Horde_Core_Factory_Editor',
+                'create',
+            ),
+            'Horde_Facebook' => array(
+                'Horde_Core_Factory_Facebook',
                 'create',
             ),
             'Horde_Kolab_Server_Composite' => array(
