@@ -19,7 +19,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        try {
+        $tableList = $this->tables();
+
+        if (!in_array('ansel_images', $tableList)) {
             // Create: ansel_images
             $t = $this->createTable('ansel_images', array('primaryKey' => 'image_id'));
             $t->column('image_id', 'bigint', array('null' => false));
@@ -40,11 +42,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $this->addIndex('ansel_images', array('image_id', 'gallery_id'));
             $this->addIndex('ansel_images', array('image_uploaded_date'));
             $this->addIndex('ansel_images', array('image_original_date'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_images, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_image_attributes', $tableList)) {
             // Create: ansel_image_attributes
             //$t = $this->createTable('ansel_image_attributes', array('primaryKey' => 'image_id, attr_name'));
             $t = $this->createTable('ansel_image_attributes');
@@ -53,11 +53,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $t->column('attr_value', 'string', array('limit' => 255));
             $t->end();
             $this->addIndex('ansel_image_attributes', array('image_id'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_image_attributes, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_faces', $tableList)) {
             // Create: ansel_faces
             $t = $this->createTable('ansel_faces', array('primaryKey' => 'face_id'));
             $t->column('face_id', 'bigint', array('null' => false));
@@ -72,11 +70,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $t->end();
             $this->addIndex('ansel_faces', array('image_id'));
             $this->addIndex('ansel_faces', array('gallery_id'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_faces, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_faces_index', $tableList)) {
             // Create: ansel_faces_index
             $t = $this->createTable('ansel_faces_index');
             $t->column('face_id', 'bigint', array('null' => false));
@@ -89,11 +85,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             // at least in mysql
             //$this->addIndex('ansel_faces_index', array('index_part (30)'));
             $this->addIndex('ansel_faces_index', array('index_position'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_faces_index, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_shares', $tableList)) {
             // Create: ansel_shares
             $t = $this->createTable('ansel_shares', array('primaryKey' => 'share_id'));
             $t->column('share_id', 'bigint', array('null' => false));
@@ -128,11 +122,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $this->addIndex('ansel_shares', array('perm_guest'));
             $this->addIndex('ansel_shares', array('attribute_category'));
             $this->addIndex('ansel_shares', array('share_parents'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_shares, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_shares_groups', $tableList)) {
             // Create: ansel_shares_groups
             $t = $this->createTable('ansel_shares_groups');
             $t->column('share_id', 'bigint', array('null' => false));
@@ -143,11 +135,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $this->addIndex('ansel_shares_groups', array('share_id'));
             $this->addIndex('ansel_shares_groups', array('group_uid'));
             $this->addIndex('ansel_shares_groups', array('perm'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_shares_groups, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_shares_users', $tableList)) {
             // Create: ansel_shares_users
             $t = $this->createTable('ansel_shares_users');
             $t->column('share_id', 'bigint', array('null' => false));
@@ -158,11 +148,9 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $this->addIndex('ansel_shares_users', array('share_id'));
             $this->addIndex('ansel_shares_users', array('user_uid'));
             $this->addIndex('ansel_shares_users', array('perm'));
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_shares_users, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_images_geolocation', $tableList)) {
             // Create: ansel_images_geolocation
             $t = $this->createTable('ansel_images_geolocation', array('primaryKey' => 'image_id'));
             $t->column('image_id', 'bigint', array('null' => false));
@@ -170,38 +158,30 @@ class AnselBaseTables extends Horde_Db_Migration_Base
             $t->column('image_longitude', 'string', array('limit' => 32));
             $t->column('image_location', 'string', array('limit' => 255));
             $t->end();
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_images_geolocation, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_tags', $tableList)) {
             // Create: ansel_tags (Deprecated in 2.0)
             $t = $this->createTable('ansel_tags', array('primaryKey' => 'tag_id'));
             $t->column('tag_id', 'integer', array('null' => false));
             $t->column('tag_name', 'string', array('limit' => 255, 'null' => false));
             $t->end();
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_tags, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_galleries_tags', $tableList)) {
             // Create: ansel_galleries_tags (Deprecated in 2.0)
             $t = $this->createTable('ansel_galleries_tags');
             $t->column('gallery_id', 'integer', array('null' => false));
             $t->column('tag_id', 'integer', array('null' => false));
             $t->end();
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_galleries_tags, perhaps it already exists: ' . $e->getMessage());
         }
 
-        try {
+        if (!in_array('ansel_images_tags', $tableList)) {
             // Create: ansel_images_tags (Deprecated in 2.0)
             $t = $this->createTable('ansel_images_tags');
             $t->column('image_id', 'integer', array('null' => false));
             $t->column('tag_id', 'integer', array('null' => false));
             $t->end();
-        } catch (Horde_Db_Exception $e) {
-            $this->log('Error creating ansel_images_tags, perhaps it already exists: ' . $e->getMessage());
         }
     }
 
