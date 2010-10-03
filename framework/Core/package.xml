@@ -139,7 +139,6 @@ Application Framework.</description>
        <file name="TextFilter.php" role="php" />
        <file name="Token.php" role="php" />
        <file name="Tree.php" role="php" />
-       <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Controller">
@@ -175,6 +174,7 @@ Application Framework.</description>
        <file name="Share.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="Tree.php" role="php" />
+       <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
@@ -460,7 +460,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/TextFilter.php" name="lib/Horde/Core/Binder/TextFilter.php" />
    <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
    <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
-   <install as="Horde/Core/Binder/Twitter.php" name="lib/Horde/Core/Binder/Twitter.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
@@ -492,6 +491,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
+   <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
