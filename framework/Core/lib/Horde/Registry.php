@@ -287,7 +287,6 @@ class Horde_Registry
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => 'Horde_Core_Binder_Secret',
             'Horde_Service_Facebook' => 'Horde_Core_Binder_Facebook',
-            'Horde_Service_Twitter' => 'Horde_Core_Binder_Twitter',
             'Horde_SessionHandler' => 'Horde_Core_Binder_SessionHandler',
             'Horde_Share_Factory' => 'Horde_Core_Binder_ShareFactory',
             'Horde_Template' => 'Horde_Core_Binder_Template',
@@ -339,6 +338,10 @@ class Horde_Registry
             ),
             'Horde_Perms' => array(
                 'Horde_Core_Factory_Perms',
+                'create',
+            ),
+            'Horde_Service_Twitter' => array(
+                'Horde_Core_Factory_Twitter',
                 'create',
             ),
             'Horde_View' => array(

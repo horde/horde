@@ -39,10 +39,4 @@ class Horde_Core_Factory_Perms
 
         throw new Horde_Perms_Exception('Unknown driver: ' . $driver);
     }
-
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
-
 }

@@ -6,7 +6,7 @@
  * @category Horde
  * @package Core
  */
-class Horde_Core_Binder_Twitter implements Horde_Injector_Binder
+class Horde_Core_Factory_Twitter
 {
     public function create(Horde_Injector $injector)
     {
@@ -41,10 +41,5 @@ class Horde_Core_Binder_Twitter implements Horde_Injector_Binder
         } else {
             throw new Horde_Service_Twitter_Exception(_("No OAuth Key or Secret found for the Twitter API"));
         }
-    }
-
-    public function equals (Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 }
