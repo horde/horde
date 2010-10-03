@@ -1056,7 +1056,7 @@ implements Horde_Kolab_Storage_Folder
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
         $part->setName('Kolab Groupware Information');
-        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n", 'UTF-8'));
+        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n"));
         $part->setCharset('UTF-8');
 
         $part->setTransferEncoding('quoted-printable');

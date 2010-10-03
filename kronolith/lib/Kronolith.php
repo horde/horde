@@ -79,7 +79,7 @@ class Kronolith
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=' . 'UTF-8');
+            header('Content-type: text/html; charset=UTF-8');
             header('Vary: Accept-Language');
         }
 
@@ -333,7 +333,7 @@ class Kronolith
         // Maps
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, 'UTF-8') . ';');
+        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON) . ';');
     }
 
     /**
@@ -2316,7 +2316,7 @@ class Kronolith
             /* Build the iCalendar data */
             $iCal = new Horde_Icalendar();
             $iCal->setAttribute('METHOD', $method);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), 'UTF-8', 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 // Recurring event instance deletion, need to specify the

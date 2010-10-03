@@ -662,7 +662,7 @@ if ($pageOb['mode'] == 'edit') {
     /* Add current date in first field if no postings. */
     foreach ($postings as $key => $value) {
         if ($value['date'] == '') {
-            $js_onload[] = '$("date1").setValue(' . Horde_Serialize::serialize(strftime($datefmt), Horde_Serialize::JSON, 'UTF-8') . ')';
+            $js_onload[] = '$("date1").setValue(' . Horde_Serialize::serialize(strftime($datefmt), Horde_Serialize::JSON) . ')';
         }
         break;
     }

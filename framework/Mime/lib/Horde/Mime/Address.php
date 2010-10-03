@@ -31,8 +31,7 @@ class Horde_Mime_Address
      * @param string $personal  Personal name phrase.
      * @param array $opts  Additional options:
      * <pre>
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
+     * 'idn' - (boolean) Decode IDN domain names (Punycode/RFC 3490).
      *         Requires the PECL idn module.
      *         DEFAULT: true
      * </pre>
@@ -53,7 +52,7 @@ class Horde_Mime_Address
         if ((!isset($opts['idn']) || !$opts['idn']) &&
             (stripos($host, 'xn--') === 0) &&
             function_exists('idn_to_utf8')) {
-            $host = Horde_String::convertCharset(idn_to_utf8($host), 'UTF-8');
+            $host = idn_to_utf8($host);
         }
 
         $address .= self::encode($mailbox, 'address') . '@' . $host;

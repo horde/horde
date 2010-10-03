@@ -32,13 +32,6 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
     protected $_mail;
 
     /**
-     * The message charset.
-     *
-     * @var string
-     */
-    protected $_charset;
-
-    /**
      * Constructor.
      *
      * @param array $params  Any parameters that the handler might need.
@@ -46,11 +39,10 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      *                       - identity: An identity factory that implements
      *                                   getIdentity().
      *                       - mail: A Horde_Mail_Transport instance.
-     *                       - charset: The charset of the messages.
      */
     public function __construct(array $params = null)
     {
-        foreach (array('identity', 'mail', 'charset') as $param) {
+        foreach (array('identity', 'mail') as $param) {
             if (!isset($params[$param])) {
                 throw new Horde_Alarm_Exception('Parameter \'' . $param . '\' missing.');
             }
@@ -63,7 +55,6 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
         }
         $this->_identity = $params['identity'];
         $this->_mail     = $params['mail'];
-        $this->_charset  = $params['charset'];
     }
 
     /**
@@ -93,10 +84,10 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
             'body' => empty($alarm['params']['mail']['body']) ? $alarm['text'] : $alarm['params']['mail']['body'],
             'to' => $email,
             'from' => $email,
-            'charset' => $this->_charset
+            'charset' => 'UTF-8'
         ));
         $mail->addHeader('Auto-Submitted', 'auto-generated');
-        $mail->addHeader('X-Horde-Alarm', $alarm['title'], $this->_charset);
+        $mail->addHeader('X-Horde-Alarm', $alarm['title'], 'UTF-8');
         $mail->send($this->_mail);
 
         $alarm['internal']['mail']['sent'] = true;

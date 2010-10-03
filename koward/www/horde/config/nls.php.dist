@@ -125,7 +125,6 @@ $nls['charsets']['bg_BG'] = 'windows-1251';
 $nls['charsets']['bs_BA'] = 'ISO-8859-2';
 $nls['charsets']['cs_CZ'] = 'ISO-8859-2';
 $nls['charsets']['el_GR'] = 'ISO-8859-7';
-$nls['charsets']['eu_ES'] = 'UTF-8';
 $nls['charsets']['fa_IR'] = 'UTF-8';
 $nls['charsets']['he_IL'] = 'UTF-8';
 $nls['charsets']['hu_HU'] = 'ISO-8859-2';

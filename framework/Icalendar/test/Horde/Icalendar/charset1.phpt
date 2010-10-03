@@ -40,7 +40,7 @@ STATUS:NEEDS ACTION
 END:VEVENT
 END:VCALENDAR';
 
-$ical->parseVCalendar($data, 'VCALENDAR', 'UTF-8');
+$ical->parseVCalendar($data, 'VCALENDAR');
 $event = $ical->getComponent(0);
 var_dump($event->getAttribute('SUMMARY'));
 

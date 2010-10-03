@@ -34,4 +34,4 @@ if ($block instanceof PEAR_Error) {
     }
 }
 
-echo Horde_Serialize::serialize($block_data, Horde_Serialize::JSON, 'UTF-8');
+echo Horde_Serialize::serialize($block_data, Horde_Serialize::JSON);

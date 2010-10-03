@@ -785,7 +785,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $share = $kronolith_shares->getShare($event->calendar);
 
             $iCal = new Horde_Icalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), 'UTF-8', 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
 
             // Create a new vEvent.
             $iCal->addComponent($event->toiCalendar($iCal));
@@ -835,9 +835,9 @@ class Kronolith_Api extends Horde_Registry_Api
             $share = $kronolith_shares->getShare($calendar);
 
             $iCal = new Horde_Icalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), 'UTF-8', 'UTF-8'));
+            $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             if (strlen($share->get('desc'))) {
-                $iCal->setAttribute('X-WR-CALDESC', Horde_String::convertCharset($share->get('desc'), 'UTF-8', 'UTF-8'));
+                $iCal->setAttribute('X-WR-CALDESC', $share->get('desc'));
             }
 
             foreach ($events as $dayevents) {

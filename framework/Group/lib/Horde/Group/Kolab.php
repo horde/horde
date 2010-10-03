@@ -304,10 +304,8 @@ class Horde_Group_Kolab extends Horde_Group_Ldap
             }
 
             $groups = array();
-            $current_charset = 'UTF-8';
             for ($i = 0; $i < $result['count']; $i++) {
-                $utf8_dn = Horde_String::convertCharset($result[$i]['dn'], 'UTF-8', $current_charset);
-                $groups[$utf8_dn] = $this->getGroupName($utf8_dn);
+                $groups[$result[$i]['dn']] = $this->getGroupName($result[$i]['dn']);
             }
 
             $cache[$user] = $groups;

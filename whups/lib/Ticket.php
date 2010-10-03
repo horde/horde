@@ -740,8 +740,6 @@ class Whups_Ticket {
         $message_file .= '.txt';
 
         /* Prepare message text. */
-        $message = Horde_String::convertCharset(file_get_contents($message_file),
-                                          'UTF-8');
         $message = str_replace(
             array('@@ticket_url@@',
                   '@@table@@',
@@ -751,7 +749,7 @@ class Whups_Ticket {
             array($url, $table, $dont_reply,
                   strftime($GLOBALS['prefs']->getValue('date_format')),
                   $name),
-            $message);
+            file_get_contents($message_file));
 
         /* Include Re: if the ticket isn't new for easy
          * filtering/eyeballing. */

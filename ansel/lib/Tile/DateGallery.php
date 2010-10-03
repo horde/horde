@@ -104,7 +104,7 @@ class Ansel_Tile_DateGallery
 
         /* Variables used in the template file */
         $image_link = $view_link . $gallery_image . '</a>';
-        $text_link = $view_link . htmlspecialchars($caption, ENT_COMPAT, 'UTF-8') . '</a>';
+        $text_link = $view_link . htmlspecialchars($caption) . '</a>';
         $gallery_count = $dgallery->countImages(true);
 
         /* Background color is needed if displaying a mini tile */

@@ -30,8 +30,7 @@ class Ingo_SieveTest extends Ingo_TestBase {
                   'maxwhitelist' => 3));
         $GLOBALS['ingo_script'] = Ingo_Script::factory(
             'sieve',
-            array('charset' => 'UTF-8',
-                  'spam_compare' => 'string',
+            array('spam_compare' => 'string',
                   'spam_header' => 'X-Spam-Level',
                   'spam_char' => '*',
                   'date_format' => '%x',

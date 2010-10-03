@@ -23,13 +23,6 @@ class Horde_Core_Ui_VarRenderer
     protected $_params;
 
     /**
-     * Charset to use for output.
-     *
-     * @var string
-     */
-    protected $_charset;
-
-    /**
      * Constructs a new renderer.
      *
      * @param array $params  The name of the variable which will track this UI
@@ -38,7 +31,6 @@ class Horde_Core_Ui_VarRenderer
     public function __construct($params = array())
     {
         $this->_params = $params;
-        $this->_charset = 'UTF-8';
     }
 
     /**

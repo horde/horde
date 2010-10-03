@@ -107,8 +107,8 @@ class MergeOrRename extends Wicked_Page {
         }
 
         foreach ($references as $key => $page) {
-            $references[$key]['page_url'] = @htmlspecialchars(Wicked::url($page['page_name']), ENT_QUOTES, 'UTF-8');
-            $references[$key]['page_name'] = @htmlspecialchars($page['page_name'], ENT_QUOTES, 'UTF-8');
+            $references[$key]['page_url'] = htmlspecialchars(Wicked::url($page['page_name']));
+            $references[$key]['page_name'] = htmlspecialchars($page['page_name']);
 
             // Since the page name can have [ and ] and other special
             // characters in it, and we don't want the browser or PHP decoding

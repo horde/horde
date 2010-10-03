@@ -57,12 +57,12 @@ class Horde_Block_Jonah_story extends Horde_Block {
         try {
             $story = $this->_fetch();
         } catch (Jonah_Exception $e) {
-            return htmlspecialchars($e->getMessage(), ENT_COMPAT, 'UTF-8');
+            return htmlspecialchars($e->getMessage());
         }
         return '<span class="storyDate">'
-                . htmlspecialchars($story['updated_date'], ENT_COMPAT,'UTF-8')
+                . htmlspecialchars($story['updated_date'])
                 . '</span> '
-                . htmlspecialchars($story['title'], ENT_COMPAT, 'UTF-8');
+                . htmlspecialchars($story['title']);
     }
 
     /**

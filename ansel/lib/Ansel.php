@@ -610,7 +610,7 @@ class Ansel
 
         // Check for an active image
         if (!empty($image_id)) {
-            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename, ENT_COMPAT, 'UTF-8') . '</span>';
+            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
         }
@@ -635,7 +635,7 @@ class Ansel
         }
 
         if (!empty($owner_title)) {
-            $owner_title = htmlspecialchars($owner_title, ENT_COMPAT, 'UTF-8');
+            $owner_title = htmlspecialchars($owner_title);
             $levels++;
             if ($gallery) {
                 $nav = $separator . Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))->link() . $owner_title . '</a>' . $nav;

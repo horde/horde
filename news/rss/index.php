@@ -22,7 +22,7 @@ if (!$rss) {
     $title = $registry->get('name', 'horde');
 
     $read_url = Horde::url('read.php', true, -1);
-    $rss = '<?xml version="1.0" encoding="' . 'UTF-8' . '" ?>
+    $rss = '<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0">
         <channel>
         <title>' . htmlspecialchars($title) . '</title>

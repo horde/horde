@@ -46,13 +46,6 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
-        $charset = 'UTF-8';
-
-        // Write to stdin.
-        if ($this->_encoding) {
-            $input = Horde_String::convertCharset($input, $charset, $this->_encoding);
-        }
-
         // The '^' character tells aspell to spell check the entire line.
         fwrite($pipes[0], '^' . $input);
         fclose($pipes[0]);
@@ -76,14 +69,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
         proc_close($process);
 
         if (strlen($out) === 0) {
-            if ($this->_encoding) {
-                $err = Horde_String::convertCharset($err, $this->_encoding, $charset);
-            }
             throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
-        }
-
-        if ($this->_encoding) {
-            $out = Horde_String::convertCharset($out, $this->_encoding, $charset);
         }
 
         // Parse output.
@@ -126,7 +112,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
      */
     protected function _cmd()
     {
-        $args = '';
+        $args = '--encoding=UTF-8';
 
         switch ($this->_suggestMode) {
         case self::SUGGEST_FAST:
@@ -141,17 +127,13 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             $args .= ' --sug-mode=normal';
         }
 
-        if ($this->_encoding) {
-            $args .= ' --encoding=' . escapeshellarg($this->_encoding);
-        }
-
         $args .= ' --lang=' . escapeshellarg($this->_locale);
 
         if ($this->_html) {
             $args .= ' -H';
         }
 
-        return sprintf('%s -a %s', 'aspell', $args);
+        return 'aspell -a ' . $args;
     }
 
 }

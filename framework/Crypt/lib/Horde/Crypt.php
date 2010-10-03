@@ -67,8 +67,6 @@ class Horde_Crypt
      *
      * @param array $params  Configuration parameters:
      * <pre>
-     * 'charset' - (string) The default charset.
-     *             DEFAULT: NONE
      * 'email_charset' - (string) The default email charset.
      *                   DEFAULT: NONE
      * 'temp' - (string) [REQUIRED] Location of temporary directory.
@@ -85,7 +83,6 @@ class Horde_Crypt
         $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
 
         $this->_params = array_merge(array(
-            'charset' => null,
             'email_charset' => null,
         ), $params);
     }

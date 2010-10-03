@@ -21,7 +21,6 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        Horde_String::setDefaultCharset('UTF-8');
         $this->ical = new Horde_Icalendar();
         $this->_oldTimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');

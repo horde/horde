@@ -182,13 +182,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     var $_http_status = "200 OK";
 
     /**
-     * encoding of property values passed in
-     *
-     * @var string
-     */
-    var $_prop_encoding = "utf-8";
-
-    /**
      * Copy of $_SERVER superglobal array
      *
      * Derived classes may extend the constructor to
@@ -588,7 +581,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Handle certain standard properties specially
         if (in_array('displayname', $properties['DAV:'])) {
-            $props[] = $this->mkprop('displayname', Horde_String::convertCharset($item['name'], 'UTF-8', 'UTF-8'));
+            $props[] = $this->mkprop('displayname', $item['name']);
             unset($properties['DAV:']['displayname']);
         }
         if (in_array('getlastmodified', $properties['DAV:'])) {
@@ -1535,7 +1528,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                         default:
                             $propstats[$i]['D:prop']['D:'. $prop['name']] = $prop['val'];
                             #echo "     <D:$prop[name]>"
-                            #    . $this->_prop_encode(htmlspecialchars($prop['val']))
+                            #    . htmlspecialchars($prop['val'])
                             #    .     "</D:$prop[name]>\n";
                             break;
                         }
@@ -1636,7 +1629,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
             if ($responsedescr) {
                 echo "  <D:responsedescription>".
-                    $this->_prop_encode(htmlspecialchars($responsedescr)).
+                    htmlspecialchars($responsedescr).
                     "</D:responsedescription>\n";
             }
 
@@ -2780,25 +2773,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     function _urldecode($path)
     {
         return rawurldecode($path);
-    }
-
-    /**
-     * UTF-8 encode property values if not already done so
-     *
-     * @param  string  text to encode
-     * @return string  utf-8 encoded text
-     */
-    function _prop_encode($text)
-    {
-        switch (strtolower($this->_prop_encoding)) {
-        case "utf-8":
-            return $text;
-        case "iso-8859-1":
-        case "iso-8859-15":
-        case "latin-1":
-        default:
-            return utf8_encode($text);
-        }
     }
 
     /**

@@ -461,7 +461,7 @@ class Kolab {
             return $default;
         }
 
-        return Horde_String::convertCharset($element->get_content(), 'utf-8');
+        return $element->get_content();
     }
 
     function getVal($name, $default = 0)
@@ -526,7 +526,7 @@ class Kolab {
 
     function &setElemStr(&$parent, $name, $value = '')
     {
-        return $this->setElemVal($parent, $name, Horde_String::convertCharset($value, 'UTF-8', 'utf-8'));
+        return $this->setElemVal($parent, $name, $value);
     }
 
     function &setVal($name, $value = '')

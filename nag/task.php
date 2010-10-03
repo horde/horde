@@ -71,7 +71,7 @@ case 'add_task':
         try {
             $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
         } catch (Horde_Exception_HookNotSet $e) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')), ENT_COMPAT, 'UTF-8');
+            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
         }
         $notification->push($message, 'horde.error', array('content.raw'));
         Horde::url('list.php', true)->redirect();

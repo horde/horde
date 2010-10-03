@@ -53,7 +53,6 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'charset' => 'ISO-8859-1',
         'class' => 'fixed',
         'emails' => false,
         'linkurls' => false,
@@ -61,21 +60,6 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         'parselevel' => 0,
         'space2html' => false
     );
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Any parameters that the filter instance needs.
-     */
-    public function __construct($params = array())
-    {
-        parent::__construct($params);
-
-        // Use ISO-8859-1 instead of US-ASCII
-        if (Horde_String::lower($this->_params['charset']) == 'us-ascii') {
-            $this->_params['charset'] = 'iso-8859-1';
-        }
-    }
 
     /**
      * Executes any code necessary before applying the filter patterns.
@@ -92,7 +76,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         }
 
         if ($this->_params['parselevel'] == self::NOHTML_NOBREAK) {
-            return @htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
+            return htmlspecialchars($text);
         }
 
         if ($this->_params['parselevel'] < self::NOHTML) {
@@ -124,12 +108,12 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
 
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
         $old_error = error_reporting(0);
-        $text2 = htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
+        $text2 = htmlspecialchars($text);
 
         /* Bad charset input in may result in an empty string. If so, try
          * using the default charset encoding instead. */
         if (!$text2) {
-            $text2 = htmlspecialchars($text, ENT_COMPAT);
+            $text2 = htmlspecialchars($text);
         }
         $text = $text2;
         error_reporting($old_error);

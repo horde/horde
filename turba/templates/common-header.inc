@@ -1,7 +1,7 @@
 <?php
 global $language;
 if (isset($language)) {
-    header('Content-type: text/html; charset=' . 'UTF-8');
+    header('Content-type: text/html; charset=UTF-8');
     header('Vary: Accept-Language');
 }
 ?>

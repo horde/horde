@@ -70,7 +70,6 @@ class Horde_Core_Factory_Alarm
         $handler_params = array(
             'identity' => $injector->getInstance('Horde_Prefs_Identity'),
             'mail' => $injector->getInstance('Horde_Mail'),
-            'charset' => 'UTF-8'
         );
         $alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));
 

@@ -89,7 +89,7 @@ abstract class Horde_Core_Auth_Signup_Base
                 'body' => $message,
                 'to' => $conf['signup']['email'],
                 'from' => $conf['signup']['email'],
-                'subject' => 'UTF-8'));
+                'charset' => 'UTF-8'));
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         }
     }

@@ -40,5 +40,5 @@ if ($show_restore) {
  <td style="text-align:center"><input type="submit" class="button" value="<?php echo htmlspecialchars($page->version()) ?>" onclick="if (document.diff.v1[<?php echo $i ?>].checked) return false; document.diff.v2.value = '<?php echo htmlspecialchars($pversion) ?>';" /></td>
 <?php endif; ?>
 
- <td><?php echo @htmlspecialchars($page->changeLog(), ENT_COMPAT, 'UTF-8') ?></td>
+ <td><?php echo htmlspecialchars($page->changeLog()) ?></td>
 </tr>

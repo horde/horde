@@ -13,6 +13,10 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
 {
     public static function tearDownAfterClass()
     {
+        if (!self::$ldapcfg) {
+            return;
+        }
+
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
         $clean = array('cn=Horde_Ldap_TestEntry,',
                        'ou=Horde_Ldap_Test_subdelete,',

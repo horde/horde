@@ -540,20 +540,12 @@ class Horde_Icalendar
      *
      * @param string $text     The data to parse.
      * @param string $base     The type of the base object.
-     * @param string $charset  The encoding charset for $text. Defaults to
-     *                         utf-8 for new format, iso-8859-1 for old format.
-     * @param boolean $clear   If true clears the iCal object before parsing.
      *
      * @return boolean  True on successful import, false otherwise.
      * @throws Horde_Icalendar_Exception
      */
-    public function parsevCalendar($text, $base = 'VCALENDAR',
-                                   $charset = null, $clear = true)
+    public function parsevCalendar($text, $base = 'VCALENDAR')
     {
-        if ($clear) {
-            $this->clear();
-        }
-
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
             $vCal = $matches[1];
@@ -579,7 +571,7 @@ class Horde_Icalendar
                 if ($component === false) {
                     throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
                 }
-                $component->parsevCalendar($data, $type, $charset);
+                $component->parsevCalendar($data, $type);
 
                 $this->addComponent($component);
 
@@ -597,7 +589,7 @@ class Horde_Icalendar
                 if ($component === false) {
                     throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
                 }
-                $component->parsevCalendar($data, $type, $charset);
+                $component->parsevCalendar($data, $type);
 
                 $this->addComponent($component);
 
@@ -665,15 +657,9 @@ class Horde_Icalendar
                     $value = quoted_printable_decode($value);
                     if (isset($params['CHARSET'])) {
                         $value = Horde_String::convertCharset($value, $params['CHARSET']);
-                    } else {
-                        $value = Horde_String::convertCharset($value, empty($charset) ? ($this->oldFormat ? 'iso-8859-1' : 'utf-8') : $charset);
-                    }
+                     }
                 } elseif (isset($params['CHARSET'])) {
                     $value = Horde_String::convertCharset($value, $params['CHARSET']);
-                } else {
-                    // As per RFC 2279, assume UTF8 if we don't have an
-                    // explicit charset parameter.
-                    $value = Horde_String::convertCharset($value, empty($charset) ? ($this->oldFormat ? 'iso-8859-1' : 'utf-8') : $charset);
                 }
 
                 // Get timezone info for date fields from $params.
@@ -1092,7 +1078,7 @@ class Horde_Icalendar
                 $attr_string = $name . $params_str . ':' . $value;
                 if (!$this->oldFormat) {
                     $attr_string = Horde_String::wordwrap($attr_string, 75, $this->_newline . ' ',
-                                                    true, 'utf-8', true);
+                                                          true, 'utf-8', true);
                 }
                 $result .= $attr_string . $this->_newline;
             }

@@ -84,9 +84,9 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array(
             $new_id,
             Horde_String::convertCharset($name, 'UTF-8',
-                                   $this->_params['charset']),
+                                         $this->_params['charset']),
             Horde_String::convertCharset($description, 'UTF-8',
-                                   $this->_params['charset']),
+                                         $this->_params['charset']),
             $slug,
             $email);
         Horde::logMessage(
@@ -114,9 +114,9 @@ class Whups_Driver_sql extends Whups_Driver {
                  ' (type_id, type_name, type_description) VALUES (?, ?, ?)';
         $values = array($new_id,
                         Horde_String::convertCharset($name, 'UTF-8',
-                                               $this->_params['charset']),
+                                                     $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
-                                               $this->_params['charset']));
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addType(): query="%s"; values="%s"',
                     $query, implode(',', $values)), 'DEBUG');
@@ -143,11 +143,11 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($new_id,
                         $typeId,
                         Horde_String::convertCharset($name, 'UTF-8',
-                                               $this->_params['charset']),
+                                                     $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
-                                               $this->_params['charset']),
+                                                     $this->_params['charset']),
                         Horde_String::convertCharset($category, 'UTF-8',
-                                               $this->_params['charset']));
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addState(): query="%s"; values="%s"',
                     $query, implode(',', $values)), 'DEBUG');
@@ -174,9 +174,9 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($new_id,
                         $typeId,
                         Horde_String::convertCharset($name, 'UTF-8',
-                                               $this->_params['charset']),
+                                                     $this->_params['charset']),
                         Horde_String::convertCharset($description, 'UTF-8',
-                                               $this->_params['charset']));
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addPriority(): query="%s"; values="%s"',
                     $query, implode(',', $values)), 'DEBUG');

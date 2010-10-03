@@ -19,7 +19,7 @@ if (!$rss) {
     $list = News::getLastComments(50);
     $title = _("Last comments");
 
-    $rss = '<?xml version="1.0" encoding="' . 'UTF-8' . '" ?>
+    $rss = '<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
     <title>' . htmlspecialchars($title) . '</title>
@@ -47,5 +47,5 @@ if (!$rss) {
     $cache->set($cache_key, $rss);
 }
 
-header('Content-type: text/xml; charset=' . 'UTF-8');
+header('Content-type: text/xml; charset=UTF-8');
 echo $rss;

@@ -57,10 +57,7 @@ if ($setup == 'conf' && $type == 'php') {
 
         $data .= 'if ($fp = @fopen(\'' . $path . '/conf.php\', \'w\')) {' . "\n";
         $data .= '    fwrite($fp, \'';
-        $data .= Horde_String::convertCharset(str_replace(array('\\', '\''),
-                                                    array('\\\\', '\\\''),
-                                                    $php),
-                                        'UTF-8', 'iso-8859-1');
+        $data .= str_replace(array('\\', '\''), array('\\\\', '\\\''), $php);
         $data .= '\');' . "\n";
         $data .= '    fclose($fp);' . "\n";
         $data .= '    echo \'' . sprintf('Saved %s configuration.', $app) . '\' . "\n";' . "\n";

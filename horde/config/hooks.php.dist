@@ -287,8 +287,6 @@ class Horde_Hooks
 //        $ldapServer = 'ldap.example.com';
 //        $ldapPort = '389';
 //        $searchBase = 'ou=people,o=example.com';
-//        $ldapcharset = 'utf-8';
-//        $outputcharset = 'UTF-8';
 //
 //        $ds = @ldap_connect($ldapServer, $ldapPort);
 //
@@ -311,7 +309,6 @@ class Horde_Hooks
 //
 //        ldap_close($ds);
 //
-//        $name = Horde_String::convertCharset($name, $ldapcharset, $outputcharset);
 //        return empty($name) ? $user : $name;
 //    }
 

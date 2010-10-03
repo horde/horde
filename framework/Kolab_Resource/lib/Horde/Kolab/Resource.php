@@ -560,7 +560,7 @@ class Kolab_Resource
 
             Horde::logMessage(sprintf('Sending confirmation of cancelation to %s', $organiser), 'WARNING');
 
-            $body = new MIME_Part('text/plain', Horde_String::wrap($body, 76, "\n", 'utf-8'), 'utf-8');
+            $body = new MIME_Part('text/plain', Horde_String::wrap($body, 76));
             $mime = &MIME_Message::convertMimePart($body);
             $mime->setTransferEncoding('quoted-printable');
             $mime->transferEncodeContents();

@@ -43,13 +43,6 @@ implements Iterator
     protected $_namespaces = array();
 
     /**
-     * The characterset this module uses to communicate with the outside world.
-     *
-     * @var string
-     */
-    protected $_charset;
-
-    /**
      * A prefix in the shared namespaces that will be ignored/removed.
      *
      * @var string
@@ -84,7 +77,6 @@ implements Iterator
      */
     public function __construct()
     {
-        $this->_charset = 'UTF-8';
         if (empty($this->_primaryPersonalNamespace)) {
             $personal = null;
             foreach ($this->_namespaces as $namespace) {
@@ -135,7 +127,7 @@ implements Iterator
      */
     public function getCharset()
     {
-        return $this->_charset;
+        throw new Exception('This method is deprecated, assume UTF-8');
     }
 
     /**
@@ -147,7 +139,7 @@ implements Iterator
      */
     public function getTitle($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getTitle($name);
     }
 
@@ -160,7 +152,7 @@ implements Iterator
      */
     public function getOwner($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getOwner($name);
     }
 
@@ -173,7 +165,7 @@ implements Iterator
      */
     public function getSubpath($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
         return $this->matchNamespace($name)->getSubpath($name);
     }
 
@@ -194,7 +186,7 @@ implements Iterator
             array_unshift($path, $this->_primaryPersonalNamespace->getName());
             $namespace = $this->_primaryPersonalNamespace;
         }
-        return Horde_String::convertCharset($namespace->generateName($path), $this->_charset, 'UTF7-IMAP');
+        return Horde_String::convertCharset($namespace->generateName($path), 'UTF-8', 'UTF7-IMAP');
     }
 
     function rewind()

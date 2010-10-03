@@ -299,7 +299,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         $this->_encodeAttributes($attributes);
 
         if (!@ldap_add($this->_ds, Horde_String::convertCharset($dn, 'UTF-8', $this->_params['charset']), $attributes)) {
-            throw new Turba_Exception('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . ']).' . "Charset:" . 'UTF-8');
+            throw new Turba_Exception('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . ']).' . "Charset:UTF-8');
         }
     }
 

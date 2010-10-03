@@ -27,11 +27,7 @@ class Kronolith_View_ExportEvent {
         if ($event->calendarType == 'internal') {
             try {
                 $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
-                $iCal->setAttribute(
-                    'X-WR-CALNAME',
-                    Horde_String::convertCharset($share->get('name'),
-                                                 'UTF-8',
-                                                 'utf-8'));
+                $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             } catch (Exception $e) {
             }
         }
@@ -41,7 +37,7 @@ class Kronolith_View_ExportEvent {
 
         $GLOBALS['browser']->downloadHeaders(
             $event->getTitle() . '.ics',
-            'text/calendar; charset=' . 'UTF-8',
+            'text/calendar; charset=UTF-8',
             true, strlen($content));
         echo $content;
         exit;

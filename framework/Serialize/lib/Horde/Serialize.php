@@ -248,11 +248,7 @@ class Horde_Serialize
             $data = self::serialize($data, array(self::UTF7, self::BASIC), $params);
             break;
 
-        // $params = Source character set
         case self::JSON:
-            if (!empty($params)) {
-                $data = Horde_String::convertCharset($data, $params, 'UTF-8');
-            }
             $tmp = json_encode($data);
 
             /* Basic error handling attempts. Requires PHP 5.3+.

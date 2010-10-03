@@ -523,7 +523,7 @@ class Kronolith_Application extends Horde_Registry_Application
                     $tree->addNode(
                         $parent . $calId . $event->id,
                         $parent,
-                        htmlspecialchars($event->getTitle(), ENT_COMPAT, 'UTF-8'),
+                        htmlspecialchars($event->getTitle()),
                         1,
                         false,
                         array(

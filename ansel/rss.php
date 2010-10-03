@@ -263,10 +263,9 @@ if (empty($rss)) {
         }
     }
 
-    $charset = 'UTF-8';
     $xsl = $registry->get('themesuri') . '/feed-rss.xsl';
-    $stream_name = @htmlspecialchars($params['name'], ENT_COMPAT, 'UTF-8');
-    $stream_desc = @htmlspecialchars($params['desc'], ENT_COMPAT, 'UTF-8');
+    $stream_name = htmlspecialchars($params['name']);
+    $stream_desc = htmlspecialchars($params['desc']);
     $stream_updated = htmlspecialchars(date('r', $params['last_modified']));
     $stream_official = htmlspecialchars($params['link']);
     $image_url = htmlspecialchars($params['image_url']);

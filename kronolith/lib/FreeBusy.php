@@ -194,13 +194,11 @@ class Kronolith_FreeBusy
                 $contentType = $http->getResponseHeader('Content-Type');
                 if ($contentType && strpos($contentType, ';') !== false) {
                     list(,$charset,) = explode(';', $contentType);
-                    $charset = trim(str_replace('charset=', '', $charset));
-                } else {
-                    $charset = 'UTF-8';
+                    $data = Horde_String::convertCharset($data, trim(str_replace('charset=', '', $charset)), 'UTF-8');
                 }
 
                 $vCal = new Horde_Icalendar();
-                $vCal->parsevCalendar($data, 'VCALENDAR', $charset);
+                $vCal->parsevCalendar($data, 'VCALENDAR');
                 $components = $vCal->getComponents();
 
                 $vCal = new Horde_Icalendar();

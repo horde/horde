@@ -35,12 +35,10 @@ case 'send':
         break;
     }
 
-    $charset = 'UTF-8';
-
     /* Create the text part. */
     $textpart = new Horde_Mime_Part();
     $textpart->setType('text/plain');
-    $textpart->setCharset($charset);
+    $textpart->setCharset('UTF-8');
     $textpart->setContents(_("You have been sent an Ecard. To view the Ecard, you must be able to view text/html messages in your mail reader. If you are viewing this message, then most likely your mail reader does not support viewing text/html messages."));
 
     /* Create the multipart/related part. */
@@ -50,7 +48,7 @@ case 'send':
     /* Create the HTML part. */
     $htmlpart = new Horde_Mime_Part();
     $htmlpart->setType('text/html');
-    $htmlpart->setCharset($charset);
+    $htmlpart->setCharset('UTF-8');
 
     /* The image part */
     $imgpart = new Horde_Mime_Part();
@@ -73,7 +71,7 @@ case 'send':
     $alternative->addPart($related);
 
     /* Add them to the mail message */
-    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => $charset));
+    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => 'UTF-8'));
     $alt->setBasePart($alternative);
 
     /* Send. */

@@ -31,7 +31,6 @@ class Ingo_ProcmailTest extends Ingo_TestBase {
         $GLOBALS['ingo_script'] = Ingo_Script::factory(
             'procmail',
             array('path_style' => 'mbox',
-                  'charset' => 'UTF-8',
                   'spam_compare' => 'string',
                   'spam_header' => 'X-Spam-Level',
                   'spam_char' => '*'));

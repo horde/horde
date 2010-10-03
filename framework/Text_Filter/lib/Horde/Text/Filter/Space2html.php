@@ -28,7 +28,6 @@ class Horde_Text_Filter_Space2html extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'charset' => 'ISO-8859-1',
         'encode' => false,
         'encode_all' => false
     );
@@ -43,7 +42,7 @@ class Horde_Text_Filter_Space2html extends Horde_Text_Filter_Base
     public function preProcess($text)
     {
         if ($this->_params['encode']) {
-            $text = @htmlspecialchars($text, ENT_COMPAT, $this->_params['charset']);
+            $text = htmlspecialchars($text);
         }
         return $text;
     }

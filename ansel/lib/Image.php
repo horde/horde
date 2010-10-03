@@ -1206,7 +1206,7 @@ class Ansel_Image Implements Iterator
                 $output[$field] = $value;
             } else {
                 $description = isset($data['description']) ? $data['description'] : $field;
-                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '</td>';
+                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value) . '</td>';
             }
         }
 

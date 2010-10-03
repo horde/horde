@@ -555,8 +555,6 @@ HTML;
      */
     static public function sendHTTPResponse($data, $ct)
     {
-        $charset = 'UTF-8';
-
         // Output headers and encoded response.
         switch ($ct) {
         case 'json':
@@ -574,13 +572,13 @@ HTML;
              *
              * Finally, add prototypejs security delimiters to returned
              * JSON. */
-            $s_data = Horde_String::convertCharset(str_replace("\00", '', self::escapeJson($data, array('charset' => $charset))), $charset, 'UTF-8');
+            $s_data = str_replace("\00", '', self::escapeJson($data));
 
             if ($ct == 'json') {
                 header('Content-Type: application/json');
                 echo $s_data;
             } else {
-                header('Content-Type: text/html; charset=' . $charset);
+                header('Content-Type: text/html; charset=UTF-8');
                 echo htmlspecialchars($s_data);
             }
             break;
@@ -589,7 +587,7 @@ HTML;
         case 'plain':
         case 'xml':
             $s_data = is_string($data) ? $data : $data->response;
-            header('Content-Type: text/' . $ct . '; charset=' . $charset);
+            header('Content-Type: text/' . $ct . '; charset=UTF-8');
             echo $s_data;
             break;
 
@@ -606,8 +604,6 @@ HTML;
      * @param mixed $data     The data to JSON-ify.
      * @param array $options  Additional options:
      * <pre>
-     * 'charset' - (string) The charset of $data.
-     *             DEFAULT: Horde_Registry::getCharset()
      * 'nodelimit' - (boolean) Don't add security delimiters?
      *               DEFAULT: false
      * 'urlencode' - (boolean) URL encode the json string
@@ -618,7 +614,7 @@ HTML;
      */
     static public function escapeJson($data, array $options = array())
     {
-        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? 'UTF-8' : $options['charset']);
+        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON);
         if (empty($options['nodelimit'])) {
             $json = '/*-secure-' . $json . '*/';
         }
@@ -1135,16 +1131,9 @@ HTML;
         }
         if (!empty($title)) {
             if ($escape) {
-                $charset = 'UTF-8';
-                $old_error = error_reporting(0);
                 $title = str_replace(
                     array("\r", "\n"), '',
-                    htmlspecialchars(
-                        nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
-                        ENT_QUOTES, $charset));
-
-                error_reporting($old_error);
-
+                    htmlspecialchars(nl2br(htmlspecialchars($title))));
                 /* Remove double encoded entities. */
                 $title = preg_replace('/&amp;([a-z]+|(#\d+));/i', '&\\1;', $title);
             }
@@ -1176,9 +1165,7 @@ HTML;
                                        $attributes = array())
     {
         if (!empty($title)) {
-            $charset = 'UTF-8';
-            $old_error = error_reporting(0);
-            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
+            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title)))) . '&lt;/pre&gt;';
             error_reporting($old_error);
 
             self::addScriptFile('tooltips.js', 'horde');
@@ -1276,11 +1263,9 @@ HTML;
      */
     static public function img($src, $alt = '', $attr = '')
     {
-        $charset = 'UTF-8';
-
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            return @htmlspecialchars($alt, ENT_COMPAT, $charset);
+            return htmlspecialchars($alt);
         }
 
         /* If no directory has been specified, get it from the registry. */
@@ -1297,7 +1282,7 @@ HTML;
         $img = '<img';
         $old_error = error_reporting(0);
         foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
+            $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
         }
         error_reporting($old_error);
 
@@ -1319,11 +1304,9 @@ HTML;
      */
     static public function fullSrcImg($src, $options = array())
     {
-        $charset = 'UTF-8';
-
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            return @htmlspecialchars($alt, ENT_COMPAT, $charset);
+            return htmlspecialchars($alt);
         }
 
         /* If no directory has been specified, get it from the registry. */
@@ -1341,11 +1324,9 @@ HTML;
         if (!empty($options['attr'])) {
             /* Build all of the tag attributes. */
             if (is_array($options['attr'])) {
-                $old_error = error_reporting(0);
                 foreach ($options['attr'] as $attribute => $value) {
-                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
+                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
                 }
-                error_reporting($old_error);
             }
             /* If the user supplied a pre-built string of attributes, add
              * that. */
@@ -1601,10 +1582,7 @@ HTML;
         if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()])) {
             /* Prefix parenthesis with the UTF-8 representation of the LRO
              * (Left-to-Right-Override) Unicode codepoint U+202D. */
-            $prefix = ('UTF-8' == 'UTF-8')
-                ? "\xe2\x80\xad"
-                : '';
-            return $stripped_label . $prefix . '(<span class="accessKey">'
+            return $stripped_label . "\xe2\x80\xad" . '(<span class="accessKey">'
                 . strtoupper($accessKey) . '</span>' . ')';
         }
 
@@ -1801,14 +1779,13 @@ HTML;
      */
     static public function addInlineJsVars($data, $ret = false, $onload = null)
     {
-        $charset = 'UTF-8';
         $out = array();
 
         foreach ($data as $key => $val) {
             if ($key[0] == '-') {
                 $key = substr($key, 1);
             } else {
-                $val = Horde_Serialize::serialize($val, Horde_Serialize::JSON, $charset);
+                $val = Horde_Serialize::serialize($val, Horde_Serialize::JSON);
             }
 
             $out[] = $key . '=' . $val;

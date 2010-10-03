@@ -68,7 +68,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block
                 return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
 
-            $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, 'UTF-8');
+            $name = htmlspecialchars($gallery->get('name'));
             $style = $gallery->getStyle();
             $viewurl = Ansel::getUrlFor('view',
                                         array('slug' => $gallery->get('slug'),
@@ -144,8 +144,7 @@ HEADER;
                               'view' => 'Gallery'),
                 true);
             $galleryLink = $galleryLink->link()
-                . @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
-                                    'UTF-8')
+                . htmlspecialchars($gallery->get('name'))
                 . '</a>';
 
             $caption = substr($image->caption, 0, 30);
@@ -166,9 +165,7 @@ HEADER;
                 . $url->link(
                     array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
                           'onmouseover' => 'previewImage(event, ' . $image->id . ');'))
-                . @htmlspecialchars(
-                    strlen($caption) ? $caption : $image->filename,
-                    ENT_COMPAT, 'UTF-8')
+                . htmlspecialchars(strlen($caption) ? $caption : $image->filename)
                 . '</a></td><td class="nowrap">' . $galleryLink . '</td></tr>';
         }
         $html .= '</tbody></table>';

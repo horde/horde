@@ -6,8 +6,6 @@
  * Filter parameters:
  * ------------------
  * <pre>
- * 'charset' - (string) The charset of the text.
- *             DEFAULT: UTF-8
  * 'noprefetch' - (boolean) Disable DNS pre-fetching? See:
  *                https://developer.mozilla.org/En/Controlling_DNS_prefetching
  *                DEFAULT: false
@@ -45,7 +43,6 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'charset' => 'UTF-8',
         'noprefetch' => false,
         'return_document' => false,
         'return_dom' => false,
@@ -100,7 +97,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     public function postProcess($text)
     {
         try {
-            $dom = new Horde_Domhtml($text, $this->_params['charset']);
+            $dom = new Horde_Domhtml($text, 'UTF-8');
         } catch (Exception $e) {
             return $text;
         }
@@ -138,7 +135,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             }
         }
 
-        return Horde_String::convertCharset($text, $dom->encoding, $this->_params['charset']);
+        return Horde_String::convertCharset($text, $dom->encoding, 'UTF-8');
     }
 
     /**

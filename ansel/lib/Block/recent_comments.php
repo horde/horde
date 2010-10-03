@@ -64,7 +64,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
             }
             // Build the gallery name.
             if (isset($this->_params['gallery'])) {
-                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, 'UTF-8');
+                $name = htmlspecialchars($gallery->get('name'));
             }
             $viewurl = Ansel::getUrlFor('view',
                                         array('gallery' => $gallery->id,

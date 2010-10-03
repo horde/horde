@@ -280,7 +280,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($this->_params['email_charset']);
-        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), $this->_params['charset'], $this->_params['email_charset']));
+        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');

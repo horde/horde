@@ -100,7 +100,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
             $value = $this->valueBeforeTypeCast($this->object(), $options);
         }
 
-        return $this->contentTag('textarea', htmlentities($value, ENT_QUOTES, 'utf-8'), $options);
+        return $this->contentTag('textarea', htmlentities($value), $options);
     }
 
     public function toCheckBoxTag($options = array(), $checkedValue = '1', $uncheckedValue = '0')

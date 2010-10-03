@@ -2317,15 +2317,11 @@ class Horde_Registry
      * @param string $app        The application name.
      * @param string $directory  The directory where the application's
      *                           LC_MESSAGES directory resides.
-     * @param string $charset    The charset.
      */
-    public function setTextdomain($app, $directory, $charset = 'UTF-8')
+    public function setTextdomain($app, $directory)
     {
         bindtextdomain($app, $directory);
         textdomain($app);
-        if (!Horde::contentSent()) {
-            header('Content-Type: text/html; charset=' . $charset);
-        }
     }
 
     /**

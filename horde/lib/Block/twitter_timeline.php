@@ -158,7 +158,7 @@ EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Get the user's most recent tweet */
-        $latestStatus = htmlspecialchars($this->_profile->status->text, ENT_COMPAT, 'UTF-8');
+        $latestStatus = htmlspecialchars($this->_profile->status->text);
 
         /* Build the UI */
         $html = '<div style="padding: 0 8px 8px">'

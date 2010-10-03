@@ -672,12 +672,11 @@ class Nag
             return Horde::link($GLOBALS['registry']->call(
                                    'mail/compose',
                                    array(array('to' => $email))))
-                . @htmlspecialchars($fullname . ' <' . $email . '>',
-                                    ENT_COMPAT, 'UTF-8')
+                . htmlspecialchars($fullname . ' <' . $email . '>')
                 . '</a>';
         }
 
-        return @htmlspecialchars($fullname, ENT_COMPAT, 'UTF-8');
+        return htmlspecialchars($fullname);
     }
 
     /**

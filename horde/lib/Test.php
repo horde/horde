@@ -353,7 +353,7 @@ class Horde_Test
         error_reporting(E_ALL);
 
         /* Set character encoding. */
-        header('Content-type: text/html; charset=utf-8');
+        header('Content-type: text/html; charset=UTF-8');
         header('Vary: Accept-Language');
     }
 

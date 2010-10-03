@@ -272,7 +272,7 @@ Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
 söllicitüdin fäücibüs mäüris ämet.
 EOT
 ,
-            Horde_String::wordwrap($string, 75, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string));
         $this->assertEquals(
 <<<EOT
 Lörem ipsüm dölör sit ämet,
@@ -281,7 +281,7 @@ Lörem ipsüm dölör sit ämet,
   mäüris ämet.
 EOT
 ,
-            Horde_String::wordwrap($string, 30, "\n  ", false, 'utf-8'));
+            Horde_String::wordwrap($string, 30, "\n  "));
 
         // Test existing line breaks.
         $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit.\nAliqüäm söllicitüdin fäücibüs mäüris ämet.";
@@ -291,7 +291,7 @@ Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit.
 Aliqüäm söllicitüdin fäücibüs mäüris ämet.
 EOT
 ,
-            Horde_String::wordwrap($string, 75, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string));
         $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm\nsöllicitüdin fäücibüs mäüris ämet.";
         $this->assertEquals(
 <<<EOT
@@ -299,7 +299,7 @@ Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
 söllicitüdin fäücibüs mäüris ämet.
 EOT
 ,
-            Horde_String::wordwrap($string, 75, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string));
         $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin\nfäücibüs mäüris ämet.";
         $this->assertEquals(
 <<<EOT
@@ -308,7 +308,7 @@ söllicitüdin
 fäücibüs mäüris ämet.
 EOT
 ,
-            Horde_String::wordwrap($string, 75, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string));
 
         // Test overlong words and word cut.
         $string = "Löremipsümdölörsitämet, cönsectetüerädipiscingelit.";
@@ -318,7 +318,7 @@ Löremipsümdölörsitämet,
 cönsectetüerädipiscingelit.
 EOT
 ,
-            Horde_String::wordwrap($string, 15, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string, 15));
         $string = "Löremipsümdölörsitämet, cönsectetüerädipiscingelit.";
         $this->assertEquals(
 <<<EOT
@@ -328,7 +328,7 @@ cönsectetüerädi
 piscingelit.
 EOT
 ,
-            Horde_String::wordwrap($string, 15, "\n", true, 'utf-8'));
+            Horde_String::wordwrap($string, 15, "\n", true));
 
         // Test whitespace at wrap width.
         $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing";
@@ -338,14 +338,14 @@ Lörem ipsüm dölör sit ämet,
 cönsectetüer ädipiscing
 EOT
 ,
-            Horde_String::wordwrap($string, 27, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string, 27));
         $this->assertEquals(
 <<<EOT
 Lörem ipsüm dölör sit ämet,
 cönsectetüer ädipiscing
 EOT
 ,
-            Horde_String::wordwrap($string, 28, "\n", false, 'utf-8'));
+            Horde_String::wordwrap($string, 28));
 
         // Test line folding.
         $string = "Löremipsümdölörsitämet, cönsectetüerädipiscingelit.";

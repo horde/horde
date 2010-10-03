@@ -450,8 +450,7 @@ class DataTree_sql extends DataTree {
         if (is_a($name, 'PEAR_Error')) {
             return null;
         } else {
-            $name = Horde_String::convertCharset($name, $this->_params['charset'],
-                                           'UTF-8');
+            $name = Horde_String::convertCharset($name, $this->_params['charset'], 'UTF-8');
             // Get the parent names, if any.
             $parent = $this->getParentById($id);
             if ($parent && !is_a($parent, 'PEAR_Error') &&
@@ -1019,7 +1018,7 @@ class DataTree_sql extends DataTree {
                 /* Convert old data to the new format. */
                 if ($row[1] == Horde_Serialize::BASIC) {
                     $data[$id] = Horde_String::convertCharset($data[$id],
-                                                        $GLOBALS['registry']->getLanguageCharset());
+                                                              $GLOBALS['registry']->getLanguageCharset());
                 }
 
                 $data[$id] = (is_null($data[$id]) || !is_array($data[$id]))
@@ -1103,8 +1102,8 @@ class DataTree_sql extends DataTree {
             $rows = $this->_db->getAll($query, DB_FETCHMODE_ASSOC);
             for ($i = 0; $i < count($rows); $i++) {
                 $rows[$i]['value'] = Horde_String::convertCharset($rows[$i]['value'],
-                                                            $this->_params['charset'],
-                                                            'UTF-8');
+                                                                  $this->_params['charset'],
+                                                                  'UTF-8');
             }
             return $rows;
         }

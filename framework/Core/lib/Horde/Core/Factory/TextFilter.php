@@ -138,18 +138,6 @@ class Horde_Core_Factory_TextFilter
             break;
         }
 
-        /* Add charset information, if needed. */
-        if (!isset($params['charset'])) {
-            switch ($lc_driver) {
-            case 'cleanhtml':
-            case 'html2text':
-            case 'space2html':
-            case 'text2html':
-                $params['charset'] = 'UTF-8';
-                break;
-            }
-        }
-
         return array($driver, $params);
     }
 

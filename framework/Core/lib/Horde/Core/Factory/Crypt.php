@@ -58,7 +58,6 @@ class Horde_Core_Factory_Crypt
         global $registry;
 
         $params = array_merge(array(
-            'charset' => 'UTF-8',
             'email_charset' => $registry->getEmailCharset(),
             'temp' => Horde::getTempDir()
         ), $params);

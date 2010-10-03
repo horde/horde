@@ -566,7 +566,7 @@ class Agora_Messages {
                                    strftime($GLOBALS['prefs']->getValue('date_format'), $message['message_timestamp']))
             . "\n-------------------------------------------------------\n"
             . $message['body'];
-        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ", 'UTF-8');
+        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ");
 
         return $message;
     }
@@ -993,7 +993,7 @@ class Agora_Messages {
         foreach ($messages as $id => &$message) {
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, 'UTF-8');
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
             $message['message_date'] = $this->dateFormat($message['message_timestamp']);
             if ($format) {
                 $message['body'] = $this->formatBody($this->convertFromDriver($message['body']));
@@ -1147,7 +1147,7 @@ class Agora_Messages {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, 'UTF-8');
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
             $message['message_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')filter($this->convertFromDriver($message['body']), 'highlightquotes');
             if ($message['attachments']) {
                 $message['message_attachment'] = $this->getAttachmentLink($id);

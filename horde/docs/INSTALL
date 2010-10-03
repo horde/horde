@@ -232,9 +232,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    c. UTF-8 support ``--enable-mbstring``
 
-      If these extensions are enabled, Horde can support multibyte character
-      sets like UTF-8 (meaning that content with any charset can be viewed
-      with any translation).
+      If these extensions are enabled, Horde can better support
+      multibyte character sets like UTF-8.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv

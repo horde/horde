@@ -40,4 +40,4 @@ if (!$filename) {
     $filename = _("contact");
 }
 
-$injector->getInstance('Horde_Data')->getData('Vcard')->exportFile($filename . '.vcf', array($driver->tovCard($object, '2.1', null, true)), 'UTF-8');
+$injector->getInstance('Horde_Data')->getData('Vcard')->exportFile($filename . '.vcf', array($driver->tovCard($object, '2.1', null, true)));

@@ -31,7 +31,6 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
      */
     protected $_params = array(
         'body_only' => false,
-        'charset' => 'us-ascii',
         'size' => false
     );
 
@@ -62,17 +61,10 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
             'wrap' => 0
         );
 
-        if (strtolower($this->_params['charset']) == 'us-ascii') {
-            $tidy = @tidy_parse_string($text, $tidy_config, 'ascii');
-            $tidy->cleanRepair();
-            $text = tidy_get_output($tidy);
-        } else {
-            $tidy = @tidy_parse_string(Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8'), $tidy_config, 'utf8');
-            $tidy->cleanRepair();
-            $text = Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $this->_params['charset']);
-        }
+        $tidy = @tidy_parse_string($text, $tidy_config, 'utf8');
+        $tidy->cleanRepair();
 
-        return $text;
+        return tidy_get_output($tidy);
     }
 
 }

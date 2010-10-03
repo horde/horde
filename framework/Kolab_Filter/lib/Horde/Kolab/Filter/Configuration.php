@@ -111,7 +111,7 @@ class Horde_Kolab_Filter_Configuration
 
         if (!empty($conf['kolab']['filter']['locale_path'])
             && !empty($conf['kolab']['filter']['locale'])) {
-            Horde_Nls::setTextdomain('Kolab_Filter', $conf['kolab']['filter']['locale_path'], Horde_Nls::getCharset());
+            Horde_Nls::setTextdomain('Kolab_Filter', $conf['kolab']['filter']['locale_path']);
             setlocale(LC_ALL, $conf['kolab']['filter']['locale']);
         }
 

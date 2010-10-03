@@ -335,10 +335,7 @@ Links:
 [3] mailto:jane.doe@example.com
 EOT;
 
-        $filter = Horde_Text_Filter::filter($html, 'Html2text', array(
-            'charset' => 'UTF-8',
-            'width' => 70
-        ));
+        $filter = Horde_Text_Filter::filter($html, 'Html2text', array('width' => 70));
 
         $this->assertEquals($text, $filter);
     }

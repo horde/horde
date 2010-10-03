@@ -95,13 +95,11 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
         $contentType = $http->getResponseHeader('Content-Type');
         if ($contentType && strpos($contentType, ';') !== false) {
             list(,$charset,) = explode(';', $contentType);
-            $charset         = trim(str_replace('charset=', '', $charset));
-        } else {
-            $charset = 'UTF-8';
+            $vfb_text = Horde_String::convertCharset($vfb_text, trim(str_replace('charset=', '', $charset)), 'UTF-8');
         }
 
         $iCal = new Horde_Icalendar();
-        $iCal->parsevCalendar($vfb_text, 'VCALENDAR', $charset);
+        $iCal->parsevCalendar($vfb_text, 'VCALENDAR');
 
         $vfb = &$iCal->findComponent('VFREEBUSY');
 

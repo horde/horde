@@ -1,7 +1,5 @@
 <?php
 
-$charset = 'UTF-8';
-
 /* Variables used in core javascript files. */
 $var = array(
     'URI_AJAX' => Horde::getServiceLink('ajax', 'gollem')->url,
@@ -29,6 +27,6 @@ $gettext = array_map('addslashes', array(
 
 ?>
 <script type="text/javascript">//<![CDATA[
-var GollemVar = <?php echo Horde_Serialize::encode($var, Horde_Serialize::SERIALIZE_JSON, $charset) ?>;
-var GollemText = <?php echo Horde_Serialize::encode($gettext, Horde_Serialize::SERIALIZE_JSON, $charset) ?>;
+var GollemVar = <?php echo Horde_Serialize::encode($var, Horde_Serialize::SERIALIZE_JSON) ?>;
+var GollemText = <?php echo Horde_Serialize::encode($gettext, Horde_Serialize::SERIALIZE_JSON) ?>;
 //]]></script>

@@ -972,10 +972,6 @@ class Turba_Driver implements Countable
                 continue;
             }
 
-            if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-            }
-
             switch ($key) {
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
@@ -1641,10 +1637,6 @@ class Turba_Driver implements Countable
             Horde_Icalendar_Vcard::N_SUFFIX => isset($hash['nameSuffix']) ? $hash['nameSuffix'] : '',
         );
         $val = implode(';', $a);
-        if ($version != '2.1') {
-            $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-            $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
-        }
         if (!$fields || isset($fields['N'])) {
             $vcard->setAttribute('N', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $a);
         }
@@ -1657,9 +1649,6 @@ class Turba_Driver implements Countable
                 $val = $hash[$this->alternativeName];
             } else {
                 $val = '';
-            }
-            if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
         }
@@ -1675,10 +1664,6 @@ class Turba_Driver implements Countable
         }
         if (count($org) && (!$fields || isset($fields['ORG']))) {
             $val = implode(';', $org);
-            if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-                $org = Horde_String::convertCharset($org, 'UTF-8', 'utf-8');
-            }
             $vcard->setAttribute('ORG', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $org);
         }
 
@@ -1733,8 +1718,6 @@ class Turba_Driver implements Countable
                 }
             } else {
                 $params = array('TYPE' => '');
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1788,8 +1771,6 @@ class Turba_Driver implements Countable
                 }
             } else {
                 $params = array('TYPE' => 'HOME');
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1843,8 +1824,6 @@ class Turba_Driver implements Countable
                 }
             } else {
                 $params = array('TYPE' => 'WORK');
-                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
-                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -2287,32 +2266,31 @@ class Turba_Driver implements Countable
     public function toASContact(Turba_Object $object)
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
-        $charset = 'UTF-8';
         $hash = $object->getAttributes();
         foreach ($hash as $field => $value) {
             switch ($field) {
             case 'name':
-                $message->fileas = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->fileas = $value;
                 break;
 
             case 'lastname':
-                $message->lastname = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->lastname = $value;
                 break;
 
             case 'firstname':
-                $message->firstname = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->firstname = $value;
                 break;
 
             case 'middlenames':
-                $message->middlename = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->middlename = $value;
                 break;
 
             case 'namePrefix':
-                $message->title = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->title = $value;
                 break;
 
             case 'nameSuffix':
-                $message->suffix = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->suffix = $value;
                 break;
 
             case 'photo':
@@ -2322,43 +2300,43 @@ class Turba_Driver implements Countable
             case 'homeStreet':
                 /* Address (TODO: check for a single home/workAddress field
                  * instead) */
-                $message->homestreet = Horde_String::convertCharset($hash['homeStreet'], $charset, 'utf-8');
+                $message->homestreet = $hash['homeStreet'];
                 break;
 
             case 'homeCity':
-                $message->homecity = Horde_String::convertCharset($hash['homeCity'], $charset, 'utf-8');
+                $message->homecity = $hash['homeCity'];
                 break;
 
             case 'homeProvince':
-                $message->homestate = Horde_String::convertCharset($hash['homeProvince'], $charset, 'utf-8');
+                $message->homestate = $hash['homeProvince'];
                 break;
 
             case 'homePostalCode':
-                $message->homepostalcode = Horde_String::convertCharset($hash['homePostalCode'], $charset, 'utf-8');
+                $message->homepostalcode = $hash['homePostalCode'];
                 break;
 
             case 'homeCountry':
-                $message->homecountry = !empty($hash['homeCountry']) ? Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['homeCountry']), $charset, 'utf-8') : null;
+                $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
                 break;
 
             case 'workStreet':
-                $message->businessstreet = Horde_String::convertCharset($hash['workStreet'], $charset, 'utf-8');
+                $message->businessstreet = $hash['workStreet'];
                 break;
 
             case 'workCity':
-                $message->businesscity = Horde_String::convertCharset($hash['workCity'], $charset, 'utf-8');
+                $message->businesscity = $hash['workCity'];
                 break;
 
             case 'workProvince':
-                $message->businessstate = Horde_String::convertCharset($hash['workProvince'], $charset, 'utf-8');
+                $message->businessstate = $hash['workProvince'];
                 break;
 
             case 'workPostalCode':
-                $message->businesspostalcode = Horde_String::convertCharset($hash['workPostalCode'], $charset, 'utf-8');
+                $message->businesspostalcode = $hash['workPostalCode'];
                 break;
 
             case 'workCountry':
-                $message->businesscountry = !empty($hash['workCountry']) ? Horde_String::convertCharset(Horde_Nls::getCountryISO($hash['workCountry']), $charset, 'utf-8') : null;
+                $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
 
             case 'homePhone':
                 /* Phone */
@@ -2385,28 +2363,28 @@ class Turba_Driver implements Countable
                 break;
 
             case 'title':
-                $message->jobtitle = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->jobtitle = $value;
                 break;
 
             case 'company':
-                $message->companyname = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->companyname = $value;
                 break;
 
             case 'departnemt':
-                $message->department = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->department = $value;
                 break;
 
             case 'category':
                 // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
-                $message->categories = explode(';', Horde_String::convertCharset($value, $charset, 'utf-8'));
+                $message->categories = explode(';', $value);
                 break;
 
             case 'spouse':
-                $message->spouse = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->spouse = $value);
                 break;
             case 'notes':
                 /* Assume no truncation - AS server will truncate as needed */
-                $message->body = Horde_String::convertCharset($value, $charset, 'utf-8');
+                $message->body = $value;
                 $message->bodysize = strlen($message->body);
                 $message->bodytruncated = false;
                 break;
@@ -2428,7 +2406,7 @@ class Turba_Driver implements Countable
         }
 
         if (empty($this->fileas)) {
-            $message->fileas = Horde_String::convertCharset(Turba::formatName($object), $charset, 'utf-8');
+            $message->fileas = Turba::formatName($object);
         }
 
         return $message;
@@ -2446,7 +2424,6 @@ class Turba_Driver implements Countable
     public function fromASContact($message)
     {
         $hash = array();
-        $charset = 'UTF-8';
         $formattedname = false;
 
         $textMap = array(
@@ -2474,7 +2451,7 @@ class Turba_Driver implements Countable
         );
         foreach ($textMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
-                $hash[$turbaField] = Horde_String::convertCharset($message->{$asField}, 'utf-8', $charset);
+                $hash[$turbaField] = $message->{$asField};
             }
         }
 
@@ -2505,7 +2482,7 @@ class Turba_Driver implements Countable
 
         /* Categories */
         if (count($message->categories)) {
-            $hash['category'] = Horde_String::convertCharset(implode('|', $message->categories), 'utf-8', $charset);
+            $hash['category'] = implode('|', $message->categories);
         } elseif (!$message->isGhosted('categories')) {
             $hash['category'] = '';
         }
@@ -2529,7 +2506,7 @@ class Turba_Driver implements Countable
         if (!empty($message->homecountry)) {
             $country = array_search($message->homecountry, $countries);
             if ($country === false) {
-                $country = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
+                $country = $message->homecountry;
             }
             $hash['homeCountry'] = $country;
         } elseif (!$message->isGhosted('homecountry')) {
@@ -2539,7 +2516,7 @@ class Turba_Driver implements Countable
         if (!empty($message->businesscountry)) {
             $country = array_search($message->businesscountry, $countries);
             if ($country === false) {
-                $country = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
+                $country = $message->businesscountry;
             }
             $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {

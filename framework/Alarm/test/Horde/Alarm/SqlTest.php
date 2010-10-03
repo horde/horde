@@ -9,6 +9,7 @@
 
 class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 {
+    protected static $skip = false;
     protected static $pearConf;
     protected static $db;
     protected static $migrator;
@@ -32,7 +33,7 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
             require $config;
         }
         if (!isset($conf['alarm']['test'])) {
-            self::markTestSkipped('No configuration for Horde_Alarm test.');
+            self::$skip = true;
             return;
         }
 
@@ -48,7 +49,16 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        self::$migrator->down();
+        if (self::$migrator) {
+            self::$migrator->down();
+        }
+    }
+
+    public function setUp()
+    {
+        if (self::$skip) {
+            $this->markTestSkipped('No configuration for Horde_Alarm test.');
+        }
     }
 
     public function testFactory()

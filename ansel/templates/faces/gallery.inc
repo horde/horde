@@ -32,7 +32,7 @@
 <?php echo $pager->render() ?>
 <script type="text/javascript">
 //<![CDATA[
-var imgids = <?php echo Horde_Serialize::serialize($imageids, Horde_Serialize::JSON, 'UTF-8'); ?>;
+var imgids = <?php echo Horde_Serialize::serialize($imageids, Horde_Serialize::JSON); ?>;
 
 function proccessImageFaces(image_id, reget) {
     var url = '<?php echo Horde::url('faces/image.php'); ?>';

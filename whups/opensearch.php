@@ -20,9 +20,7 @@ $name = $registry->get('name', 'whups') . ' (' . $url . ')';
 $icon = base64_encode(file_get_contents($registry->get('themesfs', 'whups') . '/graphics/whups.png'));
 
 // Charset.
-$charset = 'UTF-8';
-
-header('Content-Type: text/xml; charset=' . $charset);
+header('Content-Type: text/xml; charset=UTF-8');
 echo <<<PAYLOAD
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
   <ShortName>$name</ShortName>

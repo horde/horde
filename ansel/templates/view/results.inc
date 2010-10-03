@@ -66,7 +66,7 @@ $allLink = (!empty($this->_owner)) ? Horde::selfUrl()->add(array('view' => 'Resu
 if ($total) {
     echo '<span class="rightFloat">' . ($total > $this->_perPage ? sprintf(_("%d to %d of %d Items"), $this->_pagestart, $this->_pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
 }
-echo htmlspecialchars($this->getTitle(), ENT_COMPAT, 'UTF-8') . $this->_search->getTagTrail();
+echo htmlspecialchars($this->getTitle()) . $this->_search->getTagTrail();
 ?>
 </div>
 

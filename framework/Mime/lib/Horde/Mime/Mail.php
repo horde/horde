@@ -205,7 +205,7 @@ class Horde_Mime_Mail
     public function setBody($body, $charset = 'iso-8859-1', $wrap = false)
     {
         if ($wrap) {
-            $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
+            $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap);
         }
         $this->_body = new Horde_Mime_Part();
         $this->_body->setType('text/plain');

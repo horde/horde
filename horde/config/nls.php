@@ -118,7 +118,6 @@ $horde_nls_config = array(
         'cs_CZ' => 'ISO-8859-2',
         'el_GR' => 'ISO-8859-7',
         'et_EE' => 'ISO-8859-13',
-        'eu_ES' => 'UTF-8',
         'fa_IR' => 'UTF-8',
         'he_IL' => 'UTF-8',
         'hu_HU' => 'ISO-8859-2',

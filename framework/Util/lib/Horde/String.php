@@ -471,7 +471,6 @@ class Horde_String
      * @param string $break          Character(s) to use when breaking lines.
      * @param boolean $cut           Whether to cut inside words if a line
      *                               can't be wrapped.
-     * @param string $charset        Character set to use when breaking lines.
      * @param boolean $line_folding  Whether to apply line folding rules per
      *                               RFC 822 or similar. The correct break
      *                               characters including leading whitespace
@@ -480,21 +479,13 @@ class Horde_String
      * @return string  String containing the wrapped text.
      */
     static public function wordwrap($string, $width = 75, $break = "\n",
-                                    $cut = false, $charset = null,
-                                    $line_folding = false)
+                                    $cut = false, $line_folding = false)
     {
-        /* Get the user's default character set if none passed in. */
-        if (is_null($charset)) {
-            $charset = self::$_charset;
-        }
-
-        $charset = self::_mbstringCharset($charset);
-        $string = self::convertCharset($string, $charset, 'utf-8');
         $wrapped = '';
 
-        while (self::length($string, 'utf-8') > $width) {
-            $line = self::substr($string, 0, $width, 'utf-8');
-            $string = self::substr($string, self::length($line, 'utf-8'), null, 'utf-8');
+        while (self::length($string, 'UTF-8') > $width) {
+            $line = self::substr($string, 0, $width, 'UTF-8');
+            $string = self::substr($string, self::length($line, 'UTF-8'), null, 'UTF-8');
 
             // Make sure didn't cut a word, unless we want hard breaks anyway.
             if (!$cut && preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)) {
@@ -538,7 +529,7 @@ class Horde_String
             $wrapped .= $line;
         }
 
-        return self::convertCharset($wrapped . $string, 'utf-8', $charset);
+        return $wrapped . $string;
     }
 
     /**
@@ -547,7 +538,6 @@ class Horde_String
      * @param string $text        String containing the text to wrap.
      * @param integer $length     Wrap $text at this number of characters.
      * @param string $break_char  Character(s) to use when breaking lines.
-     * @param string $charset     Character set to use when breaking lines.
      * @param boolean $quote      Ignore lines that are wrapped with the '>'
      *                            character (RFC 2646)? If true, we don't
      *                            remove any padding whitespace at the end of
@@ -556,7 +546,7 @@ class Horde_String
      * @return string  String containing the wrapped text.
      */
     static public function wrap($text, $length = 80, $break_char = "\n",
-                                $charset = null, $quote = false)
+                                $quote = false)
     {
         $paragraphs = array();
 
@@ -570,7 +560,7 @@ class Horde_String
                 if ($input != '-- ') {
                     $input = rtrim($input);
                 }
-                $line = self::wordwrap($input, $length, $break_char, false, $charset);
+                $line = self::wordwrap($input, $length, $break_char);
             }
 
             $paragraphs[] = $line;

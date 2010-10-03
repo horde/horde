@@ -188,7 +188,7 @@ class Horde_Itip_Response
         $body = new Horde_Mime_Part();
         $body->setType('text/plain');
         $options->prepareMessageMimePart($body);
-        $body->setContents(Horde_String::wrap($type->getMessage(), 76, "\n"));
+        $body->setContents(Horde_String::wrap($type->getMessage(), 76));
 
         $message->addPart($body);
         $message->addPart($ics);

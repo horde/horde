@@ -65,22 +65,21 @@ try {
 
 // Build the template (@TODO: Use Horde_View)
 $template = new Horde_Template();
-$template->set('charset', 'UTF-8');
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 if (!empty($criteria['tag_id'])) {
-    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, @htmlspecialchars($channel['channel_name'], ENT_COMPAT, 'UTF-8')));
+    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, htmlspecialchars($channel['channel_name'])));
 } else {
-    $template->set('channel_name', @htmlspecialchars($channel['channel_name'], ENT_COMPAT, 'UTF-8'));
+    $template->set('channel_name', htmlspecialchars($channel['channel_name']));
 }
-$template->set('channel_desc', @htmlspecialchars($channel['channel_desc'], ENT_COMPAT, 'UTF-8'));
+$template->set('channel_desc', htmlspecialchars($channel['channel_desc']));
 $template->set('channel_updated', htmlspecialchars(date('r', $channel['channel_updated'])));
 $template->set('channel_official', htmlspecialchars($channel['channel_official']));
 $template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
 $template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::url('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
 foreach ($stories as &$story) {
-    $story['title'] = @htmlspecialchars($story['title'], ENT_COMPAT, 'UTF-8');
-    $story['description'] = @htmlspecialchars($story['description'], ENT_COMPAT, 'UTF-8');
+    $story['title'] = htmlspecialchars($story['title']);
+    $story['description'] = htmlspecialchars($story['description']);
     $story['permalink'] = htmlspecialchars($story['permalink']);
     $story['published'] = htmlspecialchars(date('r', $story['published']));
     if (!empty($story['body_type']) && $story['body_type'] == 'text') {
