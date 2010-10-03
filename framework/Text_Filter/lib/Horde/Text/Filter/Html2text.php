@@ -8,7 +8,6 @@
  *            DOMDocument object and the DOMNode object. If the callback
  *            returns non-null, add this text to the output and skip further
  *            processing of the node.
- * charset - (string) The charset of the text.
  * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *

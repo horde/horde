@@ -470,8 +470,8 @@ class Ansel_Storage
             Horde::logMessage($image, 'ERR');
             throw new Ansel_Exception($image);
         } else {
-            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset']);
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset']);
+            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $this->_images[$id] = new Ansel_Image($image);
 
             return $this->_images[$id];
@@ -626,8 +626,8 @@ class Ansel_Storage
 
         $return = array();
         while ($image = $images->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset']);
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset']);
+            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8'
+            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $return[$image['image_id']] = new Ansel_Image($image);
             $this->_images[(int)$image['image_id']] = &$return[$image['image_id']];
         }
@@ -730,8 +730,8 @@ class Ansel_Storage
         }
 
         while ($image = $images->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset']);
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset']);
+            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $results[] = new Ansel_Image($image);
         }
         $images->free();

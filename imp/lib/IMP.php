@@ -393,7 +393,7 @@ class IMP
             }
         }
 
-        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP');
+        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
 
         return $cache[$folder];
     }

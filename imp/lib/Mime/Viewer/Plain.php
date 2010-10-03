@@ -78,7 +78,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         // Convert to the local charset.
         if ($inline) {
-            $text = Horde_String::convertCharset($text, $charset, $this->getConfigParam('charset'));
+            $text = Horde_String::convertCharset($text, $charset, 'UTF-8');
             $charset = $this->getConfigParam('charset');
         }
         $type = 'text/html; charset=' . $charset;
@@ -274,7 +274,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
                     $part2 = new Horde_Mime_Part();
                     $part2->setType('application/pgp-signature');
-                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset));
+                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset, 'UTF-8'));
                     // A true pgp-signature part would only contain the
                     // detached signature. However, we need to carry around
                     // the entire armored text to verify correctly. Use a
@@ -304,7 +304,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _parseUUencode()
     {
-        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), 'UTF-8');
 
         $files = Horde_Mime::uudecode($text);
         if (empty($files)) {
@@ -353,7 +353,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         );
 
         return '<div class="fixed">' .
-            $this->_textFilter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset(), $this->getConfigParam('charset')), array_keys($filters), array_values($filters)) .
+            $this->_textFilter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset(), 'UTF-8'), array_keys($filters), array_values($filters)) .
             ' [...]</div>';
     }
 

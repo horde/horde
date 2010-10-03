@@ -647,7 +647,7 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset']);
+        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
     }
 
     /**

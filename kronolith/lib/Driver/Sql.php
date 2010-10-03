@@ -929,7 +929,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset']);
+        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
     }
 
     /**

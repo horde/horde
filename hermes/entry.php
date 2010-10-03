@@ -19,7 +19,7 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
     $timers = @unserialize($prefs->getValue('running_timers', false));
     if ($timers && isset($timers[$timer_id])) {
-        $tname = Horde_String::convertCharset($timers[$timer_id]['name'], $prefs->getCharset());
+        $tname = Horde_String::convertCharset($timers[$timer_id]['name'], $prefs->getCharset(), 'UTF-8');
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
         $vars->set('hours', round((float)(time() - $timer_id) / 3600, 2));
         if ($prefs->getValue('add_description')) {

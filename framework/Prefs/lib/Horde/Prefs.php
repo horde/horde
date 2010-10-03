@@ -115,7 +115,6 @@ class Horde_Prefs
      * 'sizecallback' - (callback) If set, called when setting a value in
      *                  the backend.
      *                  DEFAULT: NONE
-     * 'uicharset' - (string) UI charset. [REQUIRED]
      * 'user' - (string) The name of the user who owns this set of
      *          preferences.
      *          DEFAULT: NONE
@@ -154,7 +153,7 @@ class Horde_Prefs
      */
     protected function __construct($scope, $opts, $params)
     {
-        foreach (array('charset', 'uicharset') as $val) {
+        foreach (array('charset') as $val) {
             if (!isset($opts[$val])) {
                 throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
             }
@@ -637,7 +636,7 @@ class Horde_Prefs
     {
         return is_bool($value)
             ? $value
-            : Horde_String::convertCharset($value, $this->getCharset(), $this->_opts['uicharset']);
+            : Horde_String::convertCharset($value, $this->getCharset(), 'UTF-8');
     }
 
     /**
@@ -651,7 +650,7 @@ class Horde_Prefs
     {
         return is_bool($value)
             ? $value
-            : Horde_String::convertCharset($value, $this->_opts['uicharset'], $this->getCharset());
+            : Horde_String::convertCharset($value, 'UTF-8', $this->getCharset());
     }
 
     /**

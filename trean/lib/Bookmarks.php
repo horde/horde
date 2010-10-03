@@ -112,7 +112,8 @@ class Trean_Bookmarks
                                              'bookmark_' . $criterion[0],
                                              $criterion[1],
                                              Horde_String::convertCharset($criterion[2],
-                                                                    $GLOBALS['conf']['sql']['charset']),
+                                                                          $GLOBALS['conf']['sql']['charset'],
+                                                                          'UTF-8'),
                                              true,
                                              isset($criterion[3]) ? $criterion[3] : array());
             $clauses[] = $clause[0];
@@ -545,7 +546,7 @@ class Trean_Bookmarks
             foreach ($bookmark as $key => $value)
             if (!empty($value) && !is_numeric($value)) {
                 $cvBookmarks[$key] = Horde_String::convertCharset(
-                    $value, $GLOBALS['conf']['sql']['charset']);
+                    $value, $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             } else {
                 $cvBookmarks[$key] = $value;
             }

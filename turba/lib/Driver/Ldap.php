@@ -299,7 +299,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         $this->_encodeAttributes($attributes);
 
         if (!@ldap_add($this->_ds, Horde_String::convertCharset($dn, 'UTF-8', $this->_params['charset']), $attributes)) {
-            throw new Turba_Exception('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . ']).' . "Charset:UTF-8');
+            throw new Turba_Exception('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . '])');
         }
     }
 
@@ -507,7 +507,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             foreach ($fields as $field) {
                 $field_l = Horde_String::lower($field);
                 if ($field == 'dn') {
-                    $result[$field] = Horde_String::convertCharset($entry[$field_l], $this->_params['charset']);
+                    $result[$field] = Horde_String::convertCharset($entry[$field_l], $this->_params['charset'], 'UTF-8');
                 } else {
                     $result[$field] = '';
                     if (!empty($entry[$field_l])) {
@@ -515,7 +515,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                             if (!empty($result[$field])) {
                                 $result[$field] .= $this->_params['multiple_entry_separator'];
                             }
-                            $result[$field] .= Horde_String::convertCharset($entry[$field_l][$j], $this->_params['charset']);
+                            $result[$field] .= Horde_String::convertCharset($entry[$field_l][$j], $this->_params['charset'], 'UTF-8');
                         }
 
                         /* If schema checking is enabled check the

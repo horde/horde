@@ -1018,7 +1018,8 @@ class DataTree_sql extends DataTree {
                 /* Convert old data to the new format. */
                 if ($row[1] == Horde_Serialize::BASIC) {
                     $data[$id] = Horde_String::convertCharset($data[$id],
-                                                              $GLOBALS['registry']->getLanguageCharset());
+                                                              $GLOBALS['registry']->getLanguageCharset(),
+                                                              'UTF-8');
                 }
 
                 $data[$id] = (is_null($data[$id]) || !is_array($data[$id]))
@@ -1041,7 +1042,7 @@ class DataTree_sql extends DataTree {
                                                  'UTF-8');
             /* Convert old data to the new format. */
             if ($row['datatree_serialized'] == Horde_Serialize::BASIC) {
-                $data = Horde_String::convertCharset($data, $GLOBALS['registry']->getLanguageCharset());
+                $data = Horde_String::convertCharset($data, $GLOBALS['registry']->getLanguageCharset(), 'UTF-8');
             }
             return (is_null($data) || !is_array($data)) ? array() : $data;
         }
@@ -1213,7 +1214,7 @@ class DataTree_sql extends DataTree {
                             return $result;
                         }
                         while ($row = $result->fetchRow()) {
-                            $rows[$row[0]] = Horde_String::convertCharset($row[1], $this->_params['charset']);
+                            $rows[$row[0]] = Horde_String::convertCharset($row[1], $this->_params['charset'], 'UTF-8');
                         }
                     }
 
@@ -1249,7 +1250,7 @@ class DataTree_sql extends DataTree {
 
         $rows = array();
         while ($row = $result->fetchRow()) {
-            $rows[$row[0]] = Horde_String::convertCharset($row[1], $this->_params['charset']);
+            $rows[$row[0]] = Horde_String::convertCharset($row[1], $this->_params['charset'], 'UTF-8');
         }
 
         return $rows;

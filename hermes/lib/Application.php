@@ -144,7 +144,7 @@ class Hermes_Application extends Horde_Registry_Application
                     $tree->addNode(
                         $parent . '__timer_' . $i,
                         $parent,
-                        Horde_String::convertCharset($timer['name'], $prefs->getCharset()) . sprintf(" (%s)", $hours),
+                        Horde_String::convertCharset($timer['name'], $prefs->getCharset(), 'UTF-8') . sprintf(" (%s)", $hours),
                         1,
                         false,
                         array(

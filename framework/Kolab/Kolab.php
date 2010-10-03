@@ -568,7 +568,7 @@ class Kolab {
      */
     function decodeImapFolderName($name)
     {
-        return Horde_String::convertCharset($name, 'UTF7-IMAP');
+        return Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
     }
 
     /**

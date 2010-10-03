@@ -119,8 +119,8 @@ foreach ($messages as $message) {
     $params[] = makeParents($message['thread'], $message['message_id']);
     $params[] = ($message['thread'] == $message['message_id']) ? 0 : $message['thread'];
     $params[] = $message['author'];
-    $params[] = Horde_String::convertCharset($message['subject'], $conf['sql']['charset']);
-    $params[] = Horde_String::convertCharset($message['body'], $conf['sql']['charset']);
+    $params[] = Horde_String::convertCharset($message['subject'], $conf['sql']['charset'], 'UTF-8');
+    $params[] = Horde_String::convertCharset($message['body'], $conf['sql']['charset'], 'UTF-8');
     $params[] = $message['datestamp'];
     $params[] = 0;
     $params[] = $message['ip'];

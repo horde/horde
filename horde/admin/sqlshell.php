@@ -62,14 +62,14 @@ if (isset($result)) {
             if ($first) {
                 echo '<tr>';
                 foreach ($row as $key => $val) {
-                    echo '<th align="left">' . (!strlen($key) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($key, $conf['sql']['charset']))) . '</th>';
+                    echo '<th align="left">' . (!strlen($key) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($key, $conf['sql']['charset'], 'UTF-8'))) . '</th>';
                 }
                 echo '</tr>';
                 $first = false;
             }
             echo '<tr>';
             foreach ($row as $val) {
-                echo '<td class="fixed">' . (!strlen($val) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($val, $conf['sql']['charset']))) . '</td>';
+                echo '<td class="fixed">' . (!strlen($val) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8'))) . '</td>';
             }
             echo '</tr>';
         }
@@ -83,7 +83,7 @@ if (isset($result)) {
                 echo '<tr><th align="left">' . (isset($description) ? htmlspecialchars($description) : '&nbsp;') . '</th></tr>';
                 $first = false;
             }
-            echo '<tr><td class="fixed">' . (!strlen($val) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($val, $conf['sql']['charset']))) . '</td></tr>';
+            echo '<tr><td class="fixed">' . (!strlen($val) ? '&nbsp;' : htmlspecialchars(Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8'))) . '</td></tr>';
         }
         echo '</table>';
     } else {

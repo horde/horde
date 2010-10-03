@@ -373,7 +373,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
 
         /* Decrypt note if requested. */
         $encrypted = false;
-        $body = Horde_String::convertCharset($row['memo_body'], $this->_params['charset']);
+        $body = Horde_String::convertCharset($row['memo_body'], $this->_params['charset'], 'UTF-8');
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
             $encrypted = true;
             if (empty($passphrase)) {
@@ -395,10 +395,10 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         /* Create a new task based on $row's values. */
         return array('memolist_id' => $row['memo_owner'],
                      'memo_id' => $row['memo_id'],
-                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_params['charset']),
-                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_params['charset']),
+                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_params['charset'], 'UTF-8'),
+                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_params['charset'], 'UTF-8'),
                      'body' => $body,
-                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_params['charset']),
+                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_params['charset'], 'UTF-8'),
                      'encrypted' => $encrypted);
     }
 

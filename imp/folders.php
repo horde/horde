@@ -30,7 +30,6 @@ if (!$conf['user']['allow_folders']) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
-$charset = 'UTF-8';
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get the base URL for this page. */
@@ -131,7 +130,7 @@ case 'import_mbox':
     if ($vars->import_folder) {
         try {
             $browser->wasFileUploaded('mbox_upload', _("mailbox file"));
-            $res = $imp_folder->importMbox(Horde_String::convertCharset($vars->import_folder, $charset, 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
+            $res = $imp_folder->importMbox(Horde_String::convertCharset($vars->import_folder, 'UTF-8', 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
             $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES['mbox_upload']['name']));
             if ($res === false) {
                 $notification->push(sprintf(_("There was an error importing %s."), $mbox_name), 'horde.error');
@@ -150,7 +149,7 @@ case 'import_mbox':
 case 'create_folder':
     if ($vars->new_mailbox) {
         try {
-            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), Horde_String::convertCharset($vars->new_mailbox, $charset, 'UTF7-IMAP'));
+            $new_mailbox = $imaptree->createMailboxName(array_shift($folder_list), Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP'));
             $imp_folder->create($new_mailbox, $subscribe);
         } catch (Horde_Exception $e) {
             $notification->push($e);
@@ -182,7 +181,7 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $imp_folder->rename($old_name, Horde_String::convertCharset($new, $charset, 'UTF7-IMAP'));
+            $imp_folder->rename($old_name, Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
         }
     }
     break;
@@ -343,7 +342,7 @@ if ($_SESSION['imp']['file_upload'] && ($vars->actionID == 'import_mbox')) {
     $i_template->setOption('gettext', true);
     $i_template->set('folders_url', $folders_url_ob);
     $i_template->set('import_folder', $folder_list[0]);
-    $i_template->set('folder_name', htmlspecialchars(Horde_String::convertCharset($folder_list[0], 'UTF7-IMAP'), ENT_COMPAT, $charset));
+    $i_template->set('folder_name', htmlspecialchars(Horde_String::convertCharset($folder_list[0], 'UTF7-IMAP', 'UTF-8')));
     $i_template->set('folders_token', $folders_token);
     echo $i_template->fetch(IMP_TEMPLATES . '/imp/folders/import.html');
     require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -656,10 +656,10 @@ class Horde_Icalendar
 
                     $value = quoted_printable_decode($value);
                     if (isset($params['CHARSET'])) {
-                        $value = Horde_String::convertCharset($value, $params['CHARSET']);
+                        $value = Horde_String::convertCharset($value, $params['CHARSET'], 'UTF-8');
                      }
                 } elseif (isset($params['CHARSET'])) {
-                    $value = Horde_String::convertCharset($value, $params['CHARSET']);
+                    $value = Horde_String::convertCharset($value, $params['CHARSET'], 'UTF-8');
                 }
 
                 // Get timezone info for date fields from $params.

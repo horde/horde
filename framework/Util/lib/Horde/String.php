@@ -53,16 +53,11 @@ class Horde_String
      *
      * @return mixed  The converted input data.
      */
-    static public function convertCharset($input, $from, $to = null, $force = false)
+    static public function convertCharset($input, $from, $to, $force = false)
     {
         /* Don't bother converting numbers. */
         if (is_numeric($input)) {
             return $input;
-        }
-
-        /* Get the user's default character set if none passed in. */
-        if (is_null($to)) {
-            $to = self::$_charset;
         }
 
         /* If the from and to character sets are identical, return now. */

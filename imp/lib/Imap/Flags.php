@@ -117,7 +117,7 @@ class IMP_Imap_Flags
         foreach ($avail_flags as $key) {
             if (!isset($this->_flags[$key])) {
                 /* Keywords might be UTF7-IMAP encoded. */
-                $ret[$key] = $this->_createEntry(Horde_String::convertCharset($key, 'UTF7-IMAP'));
+              $ret[$key] = $this->_createEntry(Horde_String::convertCharset($key, 'UTF7-IMAP', 'UTF-8'));
                 $ret[$key]['flag'] = $key;
                 $this->_tempflags[$key] = $ret[$key];
             } else {

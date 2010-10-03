@@ -1096,7 +1096,7 @@ function field_sql2php($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "Horde_String::convertCharset(\$row['".$field["name"]."'], \$this->_params['charset'])";
+        return "Horde_String::convertCharset(\$row['".$field["name"]."'], \$this->_params['charset'], 'UTF-8')";
 
     // Integer types
     case 'bit':

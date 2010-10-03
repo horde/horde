@@ -142,8 +142,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 $ob->setVacationEnd((int)$data['vacation_end']);
                 $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']), false);
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
-                $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset']));
-                $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset']));
+                $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset'], 'UTF-8'));
+                $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset'], 'UTF-8'));
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);

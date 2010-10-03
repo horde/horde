@@ -69,11 +69,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
             $data[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
-                'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset']),
+                'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset'], 'UTF-8'),
                 'action' => (int)$row['rule_action'],
-                'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset']),
+                'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset'], 'UTF-8'),
                 'flags' => (int)$row['rule_flags'],
-                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset']),
+                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset'], 'UTF-8'),
                 'combine' => (int)$row['rule_combine'],
                 'stop' => (bool)$row['rule_stop'],
                 'disable' => !(bool)$row['rule_active']);

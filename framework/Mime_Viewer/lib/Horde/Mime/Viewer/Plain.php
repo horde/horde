@@ -61,7 +61,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
      */
     protected function _renderInline()
     {
-        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), $this->getConfigParam('charset'));
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), 'UTF-8');
 
         /* Check for 'flowed' text data. */
         $data = ($this->_mimepart->getContentTypeParameter('format') == 'flowed')
@@ -70,7 +70,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $data,
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 

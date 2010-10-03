@@ -1201,7 +1201,7 @@ class Ansel_Image Implements Iterator
             if (!isset($attributes[$field])) {
                 continue;
             }
-            $value = Horde_Image_Exif::getHumanReadable($field, Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset']));
+            $value = Horde_Image_Exif::getHumanReadable($field, Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8'));
             if (!$format) {
                 $output[$field] = $value;
             } else {

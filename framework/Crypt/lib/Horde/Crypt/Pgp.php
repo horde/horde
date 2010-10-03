@@ -947,7 +947,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $charset = $lang_charset[1];
                 }
             }
-            throw new Horde_Crypt_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset), $errno));
+            throw new Horde_Crypt_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset, 'UTF-8'), $errno));
         }
     }
 

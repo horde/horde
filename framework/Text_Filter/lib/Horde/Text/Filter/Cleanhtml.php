@@ -6,8 +6,6 @@
  * <pre>
  * body_only - (boolean) Only return the body data?
  *             DEFAULT: Return the whole HTML document
- * charset - (string) The charset of the text.
- *           DEFAULT: US-ASCII
  * size - (integer) Only filter if data is below this size.
  *        DEFAULT: No default
  * </pre>

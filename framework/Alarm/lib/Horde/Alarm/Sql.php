@@ -407,7 +407,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _fromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset']);
+        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
     }
 
     /**

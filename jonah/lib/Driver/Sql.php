@@ -119,7 +119,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             throw new Jonah_Exception($result);
         }
         for ($i = 0; $i < count($result); $i++) {
-            $result[$i]['channel_name'] = Horde_String::convertCharset($result[$i]['channel_name'], $this->_params['charset']);
+            $result[$i]['channel_name'] = Horde_String::convertCharset($result[$i]['channel_name'], $this->_params['charset'], 'UTF-8');
         }
 
         return $result;

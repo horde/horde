@@ -197,7 +197,6 @@ class IMP_Hooks
 //    public function pre_sent($message, $headers)
 //    {
 //        // Example: Add custom headers to outgoing message.
-//        $charset = 'UTF-8';
 //        $custom_hdrs = array();
 //        $hdr_charset = $message->getHeaderCharset();
 //
@@ -213,7 +212,7 @@ class IMP_Hooks
 //        $custom_hdrs['X-Remote-Browser'] = $_SERVER['HTTP_USER_AGENT'];
 //
 //        foreach ($custom_hdrs as $key => $val) {
-//            $headers->addHeader($key, Horde_String::convertCharset($val, $charset, $hdr_charset));
+//            $headers->addHeader($key, Horde_String::convertCharset($val, 'UTF-8', $hdr_charset));
 //        }
 //    }
 

@@ -494,13 +494,13 @@ class Fima_Driver_sql extends Fima_Driver {
                      'owner' => $row['account_owner'],
                      'number' => sprintf('%\'04d', $row['account_number']),
                      'type' => $row['account_type'],
-                     'name' => Horde_String::convertCharset($row['account_name'], $this->_params['charset']),
+                     'name' => Horde_String::convertCharset($row['account_name'], $this->_params['charset'], 'UTF-8'),
                      'eo' => $row['account_eo'],
-                     'desc' => Horde_String::convertCharset($row['account_desc'], $this->_params['charset']),
+                     'desc' => Horde_String::convertCharset($row['account_desc'], $this->_params['charset'], 'UTF-8'),
                      'closed' => $row['account_closed'],
                      'label' => trim($row['account_number'] . ' ' .
                                 (($parent === null) ? '' : $parent['name'] . ' - ') .
-                                Horde_String::convertCharset($row['account_name'], $this->_params['charset'])),
+                                Horde_String::convertCharset($row['account_name'], $this->_params['charset'], 'UTF-8')),
                      'parent_id' => ($parent === null) ? null : $parent['account_id'],
                      'parent_number' => ($parent === null) ? '' : $parent['number'],
                      'parent_name' => ($parent === null) ? '' : $parent['name']);
@@ -686,7 +686,7 @@ class Fima_Driver_sql extends Fima_Driver {
                      'date' => $row['posting_date'],
                      'asset' => $row['posting_asset'],
                      'account' => $row['posting_account'],
-                     'desc' => Horde_String::convertCharset($row['posting_desc'], $this->_params['charset']),
+                     'desc' => Horde_String::convertCharset($row['posting_desc'], $this->_params['charset'], 'UTF-8'),
                      'amount' => $row['posting_amount'],
                      'eo' => (int)(bool)$row['posting_eo']);
     }

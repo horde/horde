@@ -451,13 +451,13 @@ class Nag_Driver_Sql extends Nag_Driver {
         return array(
             'tasklist_id' => $row['task_owner'],
             'task_id' => $row['task_id'],
-            'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset']),
+            'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset'], 'UTF-8'),
             'parent' => $row['task_parent'],
             'owner' => $row['task_creator'],
             'assignee' => $row['task_assignee'],
-            'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset']),
-            'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset']),
-            'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset']),
+            'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset'], 'UTF-8'),
+            'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset'], 'UTF-8'),
+            'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset'], 'UTF-8'),
             'start' => $row['task_start'],
             'due' => $row['task_due'],
             'priority' => $row['task_priority'],
@@ -465,7 +465,7 @@ class Nag_Driver_Sql extends Nag_Driver {
             'completed' => $row['task_completed'],
             'completed_date' => isset($row['task_completed_date']) ? $row['task_completed_date'] : null,
             'alarm' => $row['task_alarm'],
-            'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset']),
+            'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
             'private' => $row['task_private']
         );
     }

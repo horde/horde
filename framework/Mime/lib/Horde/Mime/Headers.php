@@ -613,7 +613,7 @@ class Horde_Mime_Headers implements Serializable
                 continue;
             }
             if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
-                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset);
+                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset, 'UTF-8');
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {

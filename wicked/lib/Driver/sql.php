@@ -838,7 +838,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
      */
     function _convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->getCharset());
+        return Horde_String::convertCharset($value, $this->getCharset(), 'UTF-8');
     }
 
     /**

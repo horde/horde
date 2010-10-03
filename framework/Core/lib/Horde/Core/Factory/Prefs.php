@@ -81,7 +81,6 @@ class Horde_Core_Factory_Prefs
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
             'sizecallback' => ((isset($GLOBALS['conf']['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
-            'uicharset' => 'UTF-8',
             'user' => ''
         ), $opts);
         ksort($opts);

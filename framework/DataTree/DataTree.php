@@ -659,7 +659,7 @@ class DataTree {
         $cids = array();
         foreach ($data as $id => $cat) {
             if (!is_null($charset)) {
-                $cat[1] = Horde_String::convertCharset($cat[1], $charset);
+                $cat[1] = Horde_String::convertCharset($cat[1], $charset, 'UTF-8');
             }
             $cids[$cat[0]] = $cat[1];
             $cparents[$cat[0]] = $cat[2];
