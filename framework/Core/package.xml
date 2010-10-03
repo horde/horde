@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-07-01</date>
- <time>12:29:52</time>
+ <date>2010-10-02</date>
+ <time>21:51:26</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -34,7 +34,8 @@ Application Framework.</description>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde::addInlineJsVars().
+ <notes>
+* Add Horde::addInlineJsVars().
  * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
  * Absorb horde/Ui package.
  * Absorb horde/Ajax package.
@@ -67,8 +68,8 @@ Application Framework.</description>
     <file name="open_html_helper.js" role="horde" />
     <file name="prefs.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
-    <file name="spellchecker.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
+    <file name="spellchecker.js" role="horde" />
     <file name="tooltips.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -79,11 +80,11 @@ Application Framework.</description>
      <dir name="Core">
       <dir name="Ajax">
        <dir name="Imple">
-        <file name="AutoCompleter.php" role="php" />
-        <file name="SpellChecker.php" role="php" />
         <dir name="Geocoder">
          <file name="Geonames.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
+        <file name="AutoCompleter.php" role="php" />
+        <file name="SpellChecker.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
@@ -124,10 +125,10 @@ Application Framework.</description>
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
        <file name="Ldap.php" role="php" />
-       <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
+       <file name="Mapper.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
@@ -165,6 +166,7 @@ Application Framework.</description>
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
        <file name="Ldap.php" role="php" />
+       <file name="Lock.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Prefs.php" role="php" />
@@ -203,7 +205,6 @@ Application Framework.</description>
        <file name="Identity.php" role="php" />
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
-      <file name="Sidebar.php" role="php" />
       <dir name="Text">
        <dir name="Filter">
         <file name="Bbcode.php" role="php" />
@@ -232,6 +233,7 @@ Application Framework.</description>
        <file name="VarRenderer.php" role="php" />
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
+      <file name="Sidebar.php" role="php" />
      </dir> <!-- /lib/Horde/Core -->
      <dir name="Exception">
       <file name="HookNotSet.php" role="php" />
@@ -413,11 +415,12 @@ Application Framework.</description>
    <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
+   <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
+   <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
+   <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
-   <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
-   <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
@@ -445,10 +448,10 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
    <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
    <install as="Horde/Core/Binder/Ldap.php" name="lib/Horde/Core/Binder/Ldap.php" />
-   <install as="Horde/Core/Binder/Lock.php" name="lib/Horde/Core/Binder/Lock.php" />
    <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
    <install as="Horde/Core/Binder/LoginTasks.php" name="lib/Horde/Core/Binder/LoginTasks.php" />
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
+   <install as="Horde/Core/Binder/Mapper.php" name="lib/Horde/Core/Binder/Mapper.php" />
    <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
    <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
@@ -459,8 +462,8 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
    <install as="Horde/Core/Binder/TextFilter.php" name="lib/Horde/Core/Binder/TextFilter.php" />
-   <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
    <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
+   <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
    <install as="Horde/Core/Binder/Twitter.php" name="lib/Horde/Core/Binder/Twitter.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
@@ -482,6 +485,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
    <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
    <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
+   <install as="Horde/Core/Factory/Lock.php" name="lib/Horde/Core/Factory/Lock.php" />
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
@@ -501,7 +505,6 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />
    <install as="Horde/Core/Prefs/Ui.php" name="lib/Horde/Core/Prefs/Ui.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
-   <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
@@ -509,8 +512,6 @@ Application Framework.</description>
    <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
    <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
    <install as="Horde/Core/Tree/Simplehtml.php" name="lib/Horde/Core/Tree/Simplehtml.php" />
-   <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
-   <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />
@@ -520,6 +521,8 @@ Application Framework.</description>
    <install as="Horde/Core/Ui/TagCloud.php" name="lib/Horde/Core/Ui/TagCloud.php" />
    <install as="Horde/Core/Ui/VarRenderer.php" name="lib/Horde/Core/Ui/VarRenderer.php" />
    <install as="Horde/Core/Ui/Widget.php" name="lib/Horde/Core/Ui/Widget.php" />
+   <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
+   <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
    <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
@@ -528,6 +531,13 @@ Application Framework.</description>
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
    <install as="Horde/Themes/Image.php" name="lib/Horde/Themes/Image.php" />
    <install as="Horde/Themes/Sound.php" name="lib/Horde/Themes/Sound.php" />
+   <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
+   <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
+   <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
+   <install as="Horde/Core/url.phpt" name="test/Horde/Core/url.phpt" />
+   <install as="Horde/Core/Binder/CacheTest.php" name="test/Horde/Core/Binder/CacheTest.php" />
+   <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
+   <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -571,10 +581,14 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-07-01</date>
+   <date>2010-10-02</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Import application auth driver from horde/Auth.
+* Add Horde::addInlineJsVars().
+ * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
+ * Absorb horde/Ui package.
+ * Absorb horde/Ajax package.
+ * Import application auth driver from horde/Auth.
  * Import signup code from horde/Auth.
  * Import Horde backend driver from horde/LoginTasks.
  * Import perms UI handling class from horde/Perms.

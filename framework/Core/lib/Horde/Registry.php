@@ -278,7 +278,6 @@ class Horde_Registry
             'Horde_History' => 'Horde_Core_Binder_History',
             'Horde_Http_Client' => 'Horde_Core_Binder_HttpClient',
             'Horde_Ldap' => 'Horde_Core_Binder_Ldap',
-            'Horde_Lock' => 'Horde_Core_Binder_Lock',
             'Horde_Log_Logger' => 'Horde_Core_Binder_Logger',
             'Horde_LoginTasks' => 'Horde_Core_Binder_LoginTasks',
             'Horde_Mail' => 'Horde_Core_Binder_Mail',
@@ -332,6 +331,10 @@ class Horde_Registry
             'Horde_Kolab_Storage' => array(
                 'Horde_Core_Factory_KolabStorage',
                 'getStorage',
+            ),
+            'Horde_Lock' => array(
+                'Horde_Core_Factory_Lock',
+                'create',
             ),
             'Horde_View' => array(
                 'Horde_Core_Factory_View',

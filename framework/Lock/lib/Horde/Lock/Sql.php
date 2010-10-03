@@ -19,16 +19,16 @@
  * );
  * </pre>
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * @author   Ben Klang <ben@alkaloid.net>
+ * @author   Ben Klang <bklang@horde.org>
  * @category Horde
  * @package  Lock
  */
-class Horde_Lock_Sql extends Horde_Lock_Base
+class Horde_Lock_Sql extends Horde_Lock
 {
     /**
      * Handle for the current database connection.
