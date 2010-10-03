@@ -22,14 +22,6 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($binder, $injector->getBinder('BOUND_INTERFACE'));
     }
 
-    public function testOndemandBoundBinder()
-    {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $binder = new Horde_Injector_Binder_Mock();
-        $injector->addOndemandBinder('BOUND_INTERFACE', 'Horde_Injector_Binder_Mock');
-        $this->assertNotSame($binder, $injector->getBinder('BOUND_INTERFACE'));
-    }
-
     public function testShouldProvideMagicFactoryMethodForBinderAddition()
     {
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
