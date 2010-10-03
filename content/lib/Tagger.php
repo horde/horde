@@ -32,7 +32,7 @@ class Content_Tagger
 {
     /**
      * Database connection
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -77,7 +77,7 @@ class Content_Tagger
     /**
      * Constructor
      */
-    public function __construct(Horde_Db_Adapter_Base $db,
+    public function __construct(Horde_Db_Adapter $db,
                                 Content_Users_Manager $userManager,
                                 Content_Types_Manager $typeManager,
                                 Content_Objects_Manager $objectManager)

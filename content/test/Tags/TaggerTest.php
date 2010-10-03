@@ -21,7 +21,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
-        $injector->setInstance('Horde_Db_Adapter_Base', $db);
+        $injector->setInstance('Horde_Db_Adapter', $db);
 
         $this->tagger = $injector->getInstance('Content_Tagger');
 

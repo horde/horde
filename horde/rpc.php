@@ -102,7 +102,7 @@ case 'ActiveSync':
     }
 
     $state_params = $conf['activesync']['state']['params'];
-    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
+    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter');
     $stateMachine = new Horde_ActiveSync_State_History($state_params);
     $params['registry'] = $registry;
     $driver_params = array(

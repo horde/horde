@@ -15,7 +15,7 @@ class Horde_Group_Sql extends Horde_Group
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     public $db;
 

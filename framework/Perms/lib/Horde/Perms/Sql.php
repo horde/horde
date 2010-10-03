@@ -24,7 +24,7 @@ class Horde_Perms_Sql extends Horde_Perms
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -48,7 +48,7 @@ class Horde_Perms_Sql extends Horde_Perms
      * @param array $params  Configuration parameters (in addition to base
      *                       Horde_Perms parameters):
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the perms table.
      *           DEFAULT: 'horde_perms'
      * </pre>

@@ -6,10 +6,10 @@
 class Horde_Core_Binder_DbBase implements Horde_Injector_Binder
 {
     /**
-     * Returns the Horde_Db_Adapter_Base object for the default Horde DB/SQL
+     * Returns the Horde_Db_Adapter object for the default Horde DB/SQL
      * configuration.
      *
-     * @return Horde_Db_Adapter_Base
+     * @return Horde_Db_Adapter
      * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)

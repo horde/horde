@@ -23,7 +23,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -32,7 +32,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @param array $params  Configuration parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the tokens table in 'database'.
      *           DEFAULT: 'horde_alarms'
      * </pre>

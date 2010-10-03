@@ -1,7 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based factory for creating Horde_Db_Adapter_Base
- * objects.
+ * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * A Horde_Injector:: based factory for creating Horde_Db_Adapter_Base
- * objects.
+ * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -60,7 +58,7 @@ class Horde_Core_Factory_Db
      * @param mixed $type  The type. If this is an array, this is used as
      *                     the configuration array.
      *
-     * @return Horde_Db_Adapter_Base  The singleton instance.
+     * @return Horde_Db_Adapter  The singleton instance.
      * @throws Horde_Exception
      * @throws Horde_Db_Exception
      */

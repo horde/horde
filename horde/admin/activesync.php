@@ -21,7 +21,7 @@ if (empty($conf['activesync']['enabled'])) {
 }
 
 $state_params = array_merge($conf['activesync']['state']['params'], array(
-    'db' => $injector->getInstance('Horde_Db_Adapter_Base')
+    'db' => $injector->getInstance('Horde_Db_Adapter')
 ));
 $stateMachine = new Horde_ActiveSync_State_History($state_params);
 $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));

@@ -23,7 +23,7 @@ $scope = $cli->prompt('Enter value for pref_scope:');
 $name = $cli->prompt('Enter value for pref_name:');
 
 /* Open the database. */
-$db = $injector->getInstance('Horde_Db_Adapter_Base');
+$db = $injector->getInstance('Horde_Db_Adapter');
 
 if ($live) {
     $sql = 'DELETE FROM horde_prefs WHERE pref_scope = ? AND pref_name = ?';

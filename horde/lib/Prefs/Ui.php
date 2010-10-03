@@ -377,7 +377,7 @@ class Horde_Prefs_Ui
         }
 
         $state_params = array_merge($GLOBALS['conf']['activesync']['state']['params'], array(
-            'db' => $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')
+            'db' => $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
         ));
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
         $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
@@ -733,7 +733,7 @@ class Horde_Prefs_Ui
     protected function _updateActiveSyncManagement($ui)
     {
         $state_params = $GLOBALS['conf']['activesync']['state']['params'];
-        $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+        $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
         $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if ($ui->vars->wipeid) {

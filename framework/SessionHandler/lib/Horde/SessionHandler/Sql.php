@@ -19,7 +19,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler_Base
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -28,7 +28,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the sessions table.
      *           DEFAULT: 'horde_sessionhandler'
      * </pre>

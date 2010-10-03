@@ -26,7 +26,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -42,7 +42,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the SQL table.
      *           DEFAULT: 'skeleton_foo'
      * </pre>

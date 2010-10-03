@@ -21,7 +21,7 @@ class Content_Objects_Manager
     /**
      * Database adapter
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -44,7 +44,7 @@ class Content_Objects_Manager
     /**
      * Constructor
      */
-    public function __construct(Horde_Db_Adapter_Base $db, Content_Types_Manager $typeManager)
+    public function __construct(Horde_Db_Adapter $db, Content_Types_Manager $typeManager)
     {
         $this->_db = $db;
         $this->_typeManager = $typeManager;

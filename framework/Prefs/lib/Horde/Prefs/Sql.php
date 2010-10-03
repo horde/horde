@@ -21,7 +21,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -33,7 +33,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
      * @param array $params  A hash containing any additional configuration
      *                       or connection parameters a subclass might need.
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the prefs table.
      *           DEFAULT: 'horde_prefs'
      * </pre>

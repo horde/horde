@@ -31,7 +31,7 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
     /**
      * Database handle for saving changes.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -48,10 +48,10 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
     /**
      * Sets the helper functions within the object.
      *
-     * @param Horde_Cache $cache         The cache object.
-     * @param Horde_Db_Adapter_Base $db  The database object.
+     * @param Horde_Cache $cache    The cache object.
+     * @param Horde_Db_Adapter $db  The database object.
      */
-    public function setObs(Horde_Cache $cache, Horde_Db_Adapter_Base $db)
+    public function setObs(Horde_Cache $cache, Horde_Db_Adapter $db)
     {
         $this->_cache = $cache;
         $this->_db = $db;

@@ -16,7 +16,7 @@ Horde_Registry::appInit('horde', array(
     'cli' => true
 ));
 
-$dbh = $injector->getInstance('Horde_Db_Base');
+$dbh = $injector->getInstance('Horde_Db_Adapter');
 
 // read sql file for statements to run
 $statements = new Horde_Db_StatementParser($_SERVER['argv'][1]);

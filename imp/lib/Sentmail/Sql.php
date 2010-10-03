@@ -37,7 +37,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -46,7 +46,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the sentmail table.
      *           DEFAULT: 'imp_sentmail'
      * </pre>

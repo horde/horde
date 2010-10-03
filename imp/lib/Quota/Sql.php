@@ -20,7 +20,7 @@ class IMP_Quota_Sql extends IMP_Quota_Base
     /**
      * DB object.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -29,7 +29,7 @@ class IMP_Quota_Sql extends IMP_Quota_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'query_quota' - (string) SQL query which returns single row/column with
      *                 user quota (in bytes). %u is replaced with current user
      *                 name, %U with the user name without the domain part, %d

@@ -27,7 +27,7 @@ class Horde_Token_Sql extends Horde_Token_Base
     /**
      * Handle for the database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -36,7 +36,7 @@ class Horde_Token_Sql extends Horde_Token_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the tokens table.
      *           DEFAULT: 'horde_tokens'
      * 'timeout' - (integer) The period (in seconds) after which an id is

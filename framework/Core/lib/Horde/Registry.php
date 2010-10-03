@@ -270,7 +270,7 @@ class Horde_Registry
             'Horde_Crypt' => 'Horde_Core_Binder_Crypt',
             'Horde_Data' => 'Horde_Core_Binder_Data',
             'Horde_Db' => 'Horde_Core_Binder_Db',
-            'Horde_Db_Adapter_Base' => 'Horde_Core_Binder_DbBase',
+            'Horde_Db_Adapter' => 'Horde_Core_Binder_DbBase',
             'Horde_Db_Pear' => 'Horde_Core_Binder_DbPear',
             'Horde_Group' => 'Horde_Core_Binder_Group',
             'Horde_History' => 'Horde_Core_Binder_History',

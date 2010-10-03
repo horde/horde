@@ -36,7 +36,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -44,7 +44,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * Constructor
      *
      * @param array $params  Parameters:
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] Database object.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] Database object.
      * <pre>
      * 'encryption' - (string) The encryption to use to store the password in
      *                the table (e.g. plain, crypt, md5-hex, md5-base64, smd5,

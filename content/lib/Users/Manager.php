@@ -32,7 +32,7 @@ class Content_Users_Manager
         'users' => 'rampage_users',
     );
 
-    public function __construct(Horde_Db_Adapter_Base $db)
+    public function __construct(Horde_Db_Adapter $db)
     {
         $this->_db = $db;
     }

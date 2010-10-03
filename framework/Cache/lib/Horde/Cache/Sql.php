@@ -33,7 +33,7 @@ class Horde_Cache_Sql extends Horde_Cache
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -42,7 +42,7 @@ class Horde_Cache_Sql extends Horde_Cache
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the cache table.
      *           DEFAULT: 'horde_cache'
      * </pre>

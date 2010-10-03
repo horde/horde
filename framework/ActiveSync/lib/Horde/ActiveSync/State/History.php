@@ -67,7 +67,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * DB handle
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     protected $_db;
 
@@ -94,7 +94,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function __construct($params = array())
     {
         parent::__construct($params);
-        if (empty($this->_params['db']) || !($this->_params['db'] instanceof Horde_Db_Adapter_Base)) {
+        if (empty($this->_params['db']) || !($this->_params['db'] instanceof Horde_Db_Adapter)) {
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 

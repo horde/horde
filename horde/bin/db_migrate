@@ -49,7 +49,7 @@ if (!empty($args[1])) {
 // Run
 $dir = $registry->get('fileroot', $app) . '/migration/';
 
-$db = $injector->getInstance('Horde_Db_Adapter_Base');
+$db = $injector->getInstance('Horde_Db_Adapter');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
 

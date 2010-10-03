@@ -33,7 +33,7 @@ class Horde_Lock_Sql extends Horde_Lock
     /**
      * Handle for the current database connection.
      *
-     * @var Horde_Db_Adapter_Base
+     * @var Horde_Db_Adapter
      */
     private $_db;
 
@@ -42,7 +42,7 @@ class Horde_Lock_Sql extends Horde_Lock
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the lock table in 'database'.
      *           DEFAULT: 'horde_locks'
      * </pre>
