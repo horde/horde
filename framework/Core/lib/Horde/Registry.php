@@ -281,7 +281,6 @@ class Horde_Registry
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
-            'Horde_Rpc_ActiveSync' => new Horde_Core_Binder_ActiveSync(),
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
             'Horde_Service_Facebook' => new Horde_Core_Binder_Facebook(),
             'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter(),
