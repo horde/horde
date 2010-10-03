@@ -152,7 +152,7 @@ class Kronolith
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          Horde_Nls::getLangInfo(D_FMT)),
-            'time_format' => $prefs->getValue('time_format'),
+            'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                               'confirmed' => self::STATUS_CONFIRMED,
                               'cancelled' => self::STATUS_CANCELLED,
