@@ -141,7 +141,7 @@ class Horde_Routes_Mapper
 
     /**
      * Cache
-     * @var Horde_Cache_Base
+     * @var Horde_Cache
      */
     public $cache;
 
@@ -314,11 +314,11 @@ class Horde_Routes_Mapper
     }
 
     /**
-     * Set an optional Horde_Cache_Base object for the created rules.
+     * Set an optional Horde_Cache object for the created rules.
      *
-     * @param Horde_Cache_Base $cache Cache object
+     * @param Horde_Cache $cache Cache object
      */
-    public function setCache(Horde_Cache_Base $cache)
+    public function setCache(Horde_Cache $cache)
     {
         $this->cache = $cache;
     }

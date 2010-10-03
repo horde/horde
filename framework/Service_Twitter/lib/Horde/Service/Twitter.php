@@ -85,7 +85,7 @@ class Horde_Service_Twitter
         $this->_request->setTwitter($this);
     }
 
-    public function setCache(Horde_Cache_Base $cache)
+    public function setCache(Horde_Cache $cache)
     {
         $this->_responseCache = $cache;
     }

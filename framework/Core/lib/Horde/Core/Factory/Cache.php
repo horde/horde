@@ -37,7 +37,7 @@ class Horde_Core_Factory_Cache
      *             DEFAULT: false
      * </pre>
      *
-     * @return Horde_Cache_Base  The singleton instance.
+     * @return Horde_Cache
      * @throws Horde_Cache_Exception
      */
     public function create(Horde_Injector $injector)

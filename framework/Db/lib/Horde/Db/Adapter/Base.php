@@ -68,7 +68,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Cache object.
      *
-     * @var Horde_Cache_Base
+     * @var Horde_Cache
      */
     protected $_cache;
 
@@ -170,15 +170,15 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      *
      * @inject
      *
-     * @var Horde_Cache_Base $logger  The cache object.
+     * @var Horde_Cache $logger  The cache object.
      */
-    public function setCache(Horde_Cache_Base $cache)
+    public function setCache(Horde_Cache $cache)
     {
         $this->_cache = $cache;
     }
 
     /**
-     * @return Horde_Cache_Base
+     * @return Horde_Cache
      */
     public function getCache()
     {
