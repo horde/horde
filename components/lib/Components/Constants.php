@@ -34,7 +34,7 @@ class Components_Constants
         if (strpos(self::DATA_DIR, '@data_dir') === 0) {
             return join(
                 DIRECTORY_SEPARATOR,
-                array(dirname(__FILE__), '..', '..', '..', 'data')
+                array(dirname(__FILE__), '..', '..', 'data')
             );
         }
         return self::DATA_DIR . DIRECTORY_SEPARATOR . 'Components';
