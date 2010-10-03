@@ -220,7 +220,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function addColumn($tableName, $columnName, $type, $options=array())
     {
-        /* Ignore ':autoincrement' - it is handled automatically my SQLite
+        /* Ignore ':autoincrement' - it is handled automatically by SQLite
          * for any 'INTEGER PRIMARY KEY' column. */
         if ($this->transactionStarted()) {
             throw new Horde_Db_Exception('Cannot add columns to a SQLite database while inside a transaction');
