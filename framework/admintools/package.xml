@@ -35,9 +35,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <contents>
   <dir name="/">
    <file name="horde-base.php" role="script" />
-   <file name="horde-create-sequence.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
    <file name="horde-remove-pref.php" role="script">
     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
    </file>
@@ -59,7 +56,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="horde-base.php" as="horde-base.php" />
-   <install name="horde-create-sequence.php" as="horde-create-sequence.php" />
    <install name="horde-remove-pref.php" as="horde-remove-pref.php" />
    <install name="horde-sql-shell.php" as="horde-sql-shell.php" />
   </filelist>

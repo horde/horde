@@ -285,10 +285,6 @@ class Horde_Test
             'path' => 'Date/Calc.php',
             'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
         ),
-        'DB' => array(
-            'error' => 'You will need DB if you are using SQL.',
-            'function' => '_checkPearDbVersion'
-        ),
         'HTTP_Request' => array(
             'error' => 'Parts of Horde (Jonah, the XML-RPC client/server) use the HTTP_Request library to retrieve URLs and do other HTTP requests.'
         ),
@@ -651,18 +647,6 @@ class Horde_Test
     {
         return !(ini_get('session.gc_probability') &&
                  ini_get('session.gc_divisor'));
-    }
-
-    /**
-     * Additional check for PEAR DB module for its version.
-     *
-     * @return string  Returns error string on error.
-     */
-    protected function _checkPearDbVersion()
-    {
-        if (!defined('DB_PORTABILITY_LOWERCASE')) {
-            return 'Your version of DB is not recent enough.';
-        }
     }
 
     /**

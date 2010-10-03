@@ -230,8 +230,8 @@ class Folks_Hooks
                 || $group->userIsInGroup($user_uid, 1, false)
                 || $group->userIsInGroup($user_uid, 2, false)) {
 
-                $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
-                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
+                $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
+                $password = $db->selectValue('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
 
                 $try = $GLOBALS['registry']->callByPackage('imp', 'authenticate', array($user_uid, array('password' => $password)));
                 if ($try) {
@@ -271,10 +271,10 @@ class Folks_Hooks
             throw new Horde_Exception(_("Username can contain only alphanumeric characters, underscore and minus."));
         }
 
-        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
+        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
 
         $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
-        $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
+        $result = $db->selectOne($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($result);
@@ -294,11 +294,11 @@ class Folks_Hooks
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
-     public function signup_addextra($userID, $extra)
-     {
+    public function signup_addextra($userID, $extra)
+    {
         global $conf;
 
-        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
+        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
         $fields = array();
         $values = array();
         foreach ($extra as $field => $value) {
@@ -316,10 +316,7 @@ class Folks_Hooks
         $query  = 'UPDATE folks_users SET ' . implode(' = ?, ', $fields) . ' = ? '
                     . '  WHERE user_uid = ?';
 
-        $result = $_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($result);
-        }
+        $result = $db->update($query, $values);
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
@@ -335,11 +332,11 @@ class Folks_Hooks
 
         $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
         if ($result instanceof PEAR_Error) {
-            $_db->query('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
+            $db->delete('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
         }
 
         return $result;
-     }
+    }
 
 // This is an example of a post-push hook; it is called right after an
 // application is pushed successfully onto the app stack. Here we check
