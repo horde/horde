@@ -51,7 +51,7 @@ Removed support for krb5 authentication driver.
 
 Removed LDAP session handler.
 
-Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Srchighlite' instead.
+Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Syntaxhandler' instead.
 
 The registry.php file has changed ('status' => 'sidebar').
 
