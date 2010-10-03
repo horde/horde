@@ -8,7 +8,7 @@
  * @package  Core
  */
 
-class Horde_Core_Factory_Lock extends Horde_Core_Factory
+class Horde_Core_Factory_Lock
 {
     /**
      * Attempts to return a concrete instance based on the configured driver.
