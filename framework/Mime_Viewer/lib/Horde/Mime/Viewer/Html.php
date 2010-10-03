@@ -97,7 +97,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             Horde_String::convertCharset($html, $this->_mimepart->getCharset(), 'UTF-8'),
-            'type' => 'text/html; charset=UTF-8'
+            'text/html; charset=UTF-8'
         );
     }
 
