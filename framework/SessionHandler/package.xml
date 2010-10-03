@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Removed LDAP driver
 * Abstracted memcache persistent-backend code into &apos;Stack&apos; driver.
 * Renamed &apos;none&apos; driver to &apos;Builtin&apos;.
 * Now throws Horde_SessionHandler_Exception.

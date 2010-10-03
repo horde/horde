@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[bak] Remove LDAP driver from Horde_SessionHandler
 [jan] Require mandatory UTF-8 support for both servers and clients.
 [jan] Renamed Setup to Configuration and Options to Preferences.
 [mms] Moved sidebar code out of block/portal code (Request #9160).
