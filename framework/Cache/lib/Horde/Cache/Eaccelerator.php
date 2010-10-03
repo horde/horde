@@ -12,14 +12,14 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Eaccelerator extends Horde_Cache_Base
+class Horde_Cache_Eaccelerator extends Horde_Cache
 {
-     /**
-      * Construct a new Horde_Cache object.
-      *
-      * @param array $params  Parameter array.
-      * @throws Horde_Cache_Exception
-      */
+    /**
+     * Construct a new Horde_Cache object.
+     *
+     * @param array $params  Parameter array.
+     * @throws Horde_Cache_Exception
+     */
     public function __construct($params = array())
     {
         if (!function_exists('eaccelerator_gc')) {
@@ -119,5 +119,4 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
             eaccelerator_rm($key . '_expire');
         }
     }
-
 }

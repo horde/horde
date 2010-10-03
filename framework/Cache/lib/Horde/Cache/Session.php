@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Session extends Horde_Cache_Base
+class Horde_Cache_Session extends Horde_Cache
 {
     /**
      * Pointer to the session entry.
@@ -123,5 +123,4 @@ class Horde_Cache_Session extends Horde_Cache_Base
 
         return false;
     }
-
 }

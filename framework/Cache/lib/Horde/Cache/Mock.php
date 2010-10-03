@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Cache
  */
-class Horde_Cache_Mock extends Horde_Cache_Base
+class Horde_Cache_Mock extends Horde_Cache
 {
     /**
      * The storage location for this cache.

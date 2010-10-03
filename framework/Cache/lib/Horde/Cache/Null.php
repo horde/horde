@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Null extends Horde_Cache_Base
+class Horde_Cache_Null extends Horde_Cache
 {
     /**
      * Attempts to retrieve a piece of cached data and return it to
@@ -69,5 +69,4 @@ class Horde_Cache_Null extends Horde_Cache_Base
     {
         return false;
     }
-
 }

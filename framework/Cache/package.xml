@@ -34,7 +34,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>* Added Horde_Cache_Session::.
- * Horde_Cache_Base::set() no longer returns a boolean result.
+ * Horde_Cache::set() no longer returns a boolean result.
  * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
  * Initial Horde 4 package.</notes>
@@ -47,7 +47,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
     <dir name="Horde">
      <dir name="Cache">
       <file name="Apc.php" role="php" />
-      <file name="Base.php" role="php" />
       <file name="Eaccelerator.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
@@ -105,7 +104,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
  <phprelease>
   <filelist>
    <install name="lib/Horde/Cache/Apc.php" as="Horde/Cache/Apc.php" />
-   <install name="lib/Horde/Cache/Base.php" as="Horde/Cache/Base.php" />
    <install name="lib/Horde/Cache/Eaccelerator.php" as="Horde/Cache/Eaccelerator.php" />
    <install name="lib/Horde/Cache/Exception.php" as="Horde/Cache/Exception.php" />
    <install name="lib/Horde/Cache/File.php" as="Horde/Cache/File.php" />

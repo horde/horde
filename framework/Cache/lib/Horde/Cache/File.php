@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_File extends Horde_Cache_Base
+class Horde_Cache_File extends Horde_Cache
 {
     /**
      * The location of the temp directory.
@@ -299,6 +299,4 @@ class Horde_Cache_File extends Horde_Cache_Base
         }
         $d->close();
     }
-
 }
-

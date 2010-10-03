@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Stack extends Horde_Cache_Base
+class Horde_Cache_Stack extends Horde_Cache
 {
     /**
      * Stack of cache drivers.
@@ -27,12 +27,9 @@ class Horde_Cache_Stack extends Horde_Cache_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'stack' - (array) [REQUIRED] A list of cache drivers to loop
+     * 'stack' - (array) [REQUIRED] An array of Cache instances to loop
      *           through, in order of priority. The last entry is considered
      *           the 'master' driver, for purposes of writes.
-     *           Each value should contain an array with two keys: 'driver', a
-     *           string value with the Cache driver to use, and 'params',
-     *           containing any parameters needed by this driver.
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -42,13 +39,9 @@ class Horde_Cache_Stack extends Horde_Cache_Base
         if (!isset($params['stack'])) {
             throw new InvalidArgumentException('Missing stack parameter.');
         }
-
-        foreach ($params['stack'] as $val) {
-            $this->_stack[] = Horde_Cache::factory($val['driver'], $val['params']);
-        }
+        $this->_stack[] = $params['stack'];
 
         unset($params['stack']);
-
         parent::__construct($params);
     }
 
@@ -152,5 +145,4 @@ class Horde_Cache_Stack extends Horde_Cache_Base
 
         return $success;
     }
-
 }

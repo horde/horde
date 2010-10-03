@@ -37,7 +37,10 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
             /* Since IMAP tree generation is so expensive/time-consuming,
              * fallback to storing in the session even if no permanent cache
              * backend is setup. */
-            $cache = $injector->getInstance('Horde_Cache_Factory')->getCache(array('session' => true));
+            $cache = $injector->getInstance('Horde_Cache');
+            if ($cache instanceof Horde_Cache_Null) {
+                $cache = $injector->getInstance('Horde_Cache_Session');
+            }
             try {
                 $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
             } catch (Exception $e) {
@@ -61,7 +64,10 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
     {
         /* Only need to store the object if the tree has changed. */
         if ($instance->changed) {
-            $cache = $this->_injector->getInstance('Horde_Cache_Factory')->getCache(array('session' => true));
+            $cache = $this->_injector->getInstance('Horde_Cache');
+            if ($cache instanceof Horde_Cache_Null) {
+                $cache = $this->_injector->getInstance('Horde_Cache_Session');
+            }
             $cache->set($_SESSION['imp']['cache']['tree'], serialize($instance), 86400);
         }
     }
@@ -70,5 +76,4 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
     {
         return false;
     }
-
 }

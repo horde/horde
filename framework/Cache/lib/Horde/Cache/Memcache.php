@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Memcache extends Horde_Cache_Base
+class Horde_Cache_Memcache extends Horde_Cache
 {
     /**
      * Memcache object.
@@ -151,5 +151,4 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
 
         return $this->_memcache->delete($key);
     }
-
 }

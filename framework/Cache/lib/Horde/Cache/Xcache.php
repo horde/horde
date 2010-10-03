@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Xcache extends Horde_Cache_Base
+class Horde_Cache_Xcache extends Horde_Cache
 {
     /**
      * Attempts to retrieve a piece of cached data and return it to the caller.
@@ -106,5 +106,4 @@ class Horde_Cache_Xcache extends Horde_Cache_Base
             xcache_unset($key);
         }
     }
-
 }

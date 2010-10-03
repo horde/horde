@@ -28,7 +28,7 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Sql extends Horde_Cache_Base
+class Horde_Cache_Sql extends Horde_Cache
 {
     /**
      * Handle for the current database connection.
@@ -252,5 +252,4 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         return true;
     }
-
 }
