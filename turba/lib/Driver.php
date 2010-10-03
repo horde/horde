@@ -2380,7 +2380,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'spouse':
-                $message->spouse = $value);
+                $message->spouse = $value;
                 break;
             case 'notes':
                 /* Assume no truncation - AS server will truncate as needed */
