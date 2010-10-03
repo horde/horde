@@ -142,7 +142,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         Horde::addScriptFile('twitterclient.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
-            Horde.twitter{$instance} = new Horde_Twitter({
+            Horde['twitter{$instance}'] = new Horde_Twitter({
                instanceid: '{$instance}',
                getmore: '{$instance}_getmore',
                input: '{$instance}_newStatus',
