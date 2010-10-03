@@ -307,7 +307,7 @@ class Turba_Driver_Imsp extends Turba_Driver
             } catch (Turba_Exception $e) {}
         }
 
-        unset($attributes['__type'], unset($attributes['fullname']);
+        unset($attributes['__type'], $attributes['fullname']);
         if (!$this->params['contact_ownership']) {
             unset($attributes['__owner']);
         }

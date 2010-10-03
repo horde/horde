@@ -298,7 +298,7 @@ class Turba_Driver_Kolab_Wrapper_Old extends Turba_Driver_Kolab_Wrapper
             $contact = $this->_buildContact($result);
             $card = array();
             foreach ($fields as $field) {
-                $card[$field] = isset($contact[$field]
+                $card[$field] = isset($contact[$field])
                     ? $contact[$field]
                     : '';
             }
