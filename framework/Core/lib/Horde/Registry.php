@@ -2323,9 +2323,6 @@ class Horde_Registry
     {
         bindtextdomain($app, $directory);
         textdomain($app);
-
-        $this->_cachedCharset(0, bind_textdomain_codeset($app, $charset));
-
         if (!Horde::contentSent()) {
             header('Content-Type: text/html; charset=' . $charset);
         }
@@ -2366,27 +2363,4 @@ class Horde_Registry
             ? $trans_lang
             : $this->nlsconfig['aliases'][$trans_lang];
     }
-
-
-    /**
-     * Sets or returns the charset used under certain conditions.
-     *
-     * @param integer $index   The ID of a cache slot. 0 for the UI charset, 1
-     *                         for the translation charset and 2 for the
-     *                         external charset.
-     * @param string $charset  If specified, this charset will be stored in
-     *                         the given cache slot. Otherwise the content of
-     *                         the specified cache slot will be returned.
-     */
-    protected function _cachedCharset($index, $charset = null)
-    {
-        if (is_null($charset)) {
-            return isset($this->_nlscache['charset'][$index])
-                ? $this->_nlscache['charset'][$index]
-                : null;
-        }
-
-        $this->_nlscache['charset'][$index] = $charset;
-    }
-
 }
