@@ -18,10 +18,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>rsync -avz ${WORKSPACE}/../../%2$s/workspace/%1$s/* ${WORKSPACE}/ --exclude="build.xml" --delete-after
-mkdir ${WORKSPACE}/deps
+      <command>rsync -avz --exclude="build.xml" --delete-after ${WORKSPACE}/../../%2$s/workspace/%1$s/* ${WORKSPACE}/
+mkdir -p ${WORKSPACE}/deps
 php -d include_path=&quot;.:${WORKSPACE}/../../%3$s/php&quot; ${WORKSPACE}/../../%3$s/horde-components --install=${WORKSPACE}/deps -N ${WORKSPACE}/../../%2$s/workspace/%1$s
-php -d include_path=&quot;.:${WORKSPACE}/../../%3$s/php&quot; ${WORKSPACE}/../../%3$s/horde-components --ciprebuild=${WORKSPACE} ${WORKSPACE}/../../%2$s/workspace/%1$s
+php -d include_path=&quot;.:${WORKSPACE}/../../%3$s/php&quot; ${WORKSPACE}/../../%3$s/horde-components --ciprebuild=${WORKSPACE} --pearrc=${WORKSPACE}/../../%3$s/../.pearrc ${WORKSPACE}/../../%2$s/workspace/%1$s
     </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Ant>
