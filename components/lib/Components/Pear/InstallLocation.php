@@ -170,6 +170,9 @@ class Components_Pear_InstallLocation
         if (!file_exists($this->_config_file)) {
             $this->createPearConfig();
         }
+        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
+            $GLOBALS['_PEAR_Config_instance'] = false;
+        }
         return PEAR_Config::singleton($this->_config_file);
     }
 
