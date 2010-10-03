@@ -74,12 +74,7 @@ extends PHPUnit_Extensions_Story_TestCase
                 '--help',
                 dirname(__FILE__) . '/fixture/empty'
             );
-            ob_start();
-            $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
-            Components::main($parameters);
-            $world['output'] = ob_get_contents();
-            ob_end_clean();
+            $world['output'] = $this->_callStrictComponents();
             break;
         case 'calling the package with the packagexml option and a Horde element':
             $_SERVER['argv'] = array(
@@ -87,29 +82,52 @@ extends PHPUnit_Extensions_Story_TestCase
                 '--packagexml',
                 dirname(__FILE__) . '/fixture/simple'
             );
-            ob_start();
-            $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
-            $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
-            Components::main($parameters);
-            error_reporting($old_errorreporting);
-            $world['output'] = ob_get_contents();
-            ob_end_clean();
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the packagexml option and the path':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--packagexml',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callStrictComponents();
+            break;
+        case 'calling the package with the cisetup option and paths':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--cisetup=' . $arguments[0],
+                $arguments[1]
+            );
+            $world['output'] = $this->_callStrictComponents();
+            break;
+        case 'calling the package with the cisetup, pearrc options and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--cisetup=' . $tmp,
+                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the ciprebuild, pearrc options and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--ciprebuild=' . $tmp,
+                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
             break;
         case 'calling the package with the install option and a Horde element':
             $_SERVER['argv'] = array(
                 'horde-components',
+                '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
                 '--install=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/../../'
             );
-            ob_start();
-            $parameters = array();
-            $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
-            $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
-            Components::main($parameters);
-            error_reporting($old_errorreporting);
-            $world['output'] = ob_get_contents();
-            ob_end_clean();
+            $world['output'] = $this->_callUnstrictComponents();
             break;
         default:
             return $this->notImplemented($action);
@@ -158,6 +176,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'the help will contain the option':
+            $this->assertRegExp(
+                '/' . $arguments[0] . '/',
+                $world['output']
+            );
+            break;
         case 'the new package.xml of the Horde element will be printed.':
             $this->assertRegExp(
                 '/<file name="New.php" role="php" \/>/',
@@ -180,7 +204,6 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             break;
         case 'the non-Horde dependencies of the Horde element will get installed from the network.':
-            var_dump($world['output']);
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
@@ -212,6 +235,28 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
+        case 'the CI configuration will be installed.':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'config.xml'
+                )
+            );
+            break;
+        case 'the CI build script will be installed.':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'build.xml'
+                )
+            );
+            break;
+        case 'the call will fail with':
+            $this->assertContains(
+                $arguments[0],
+                $world['output']
+            );
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -241,5 +286,42 @@ extends PHPUnit_Extensions_Story_TestCase
             reset($objects);
             rmdir($dir);
         }
-    } 
+    }
+
+    private function _callStrictComponents(array $parameters = array())
+    {
+        return $this->_callComponents($parameters, array($this, '_callStrict'));
+    }
+
+    private function _callUnstrictComponents(array $parameters = array())
+    {
+        return $this->_callComponents($parameters, array($this, '_callUnstrict'));
+    }
+
+    private function _callComponents(array $parameters, $callback)
+    {
+        ob_start();
+        $parameters['cli']['parser']['class'] = 'Components_Stub_Parser';
+        $parameters['dependencies'] = new Components_Dependencies_Injector();
+        $parameters['dependencies']->setInstance(
+            'Horde_Cli',
+            new Components_Stub_Cli()
+        );
+        call_user_func_array($callback, array($parameters));
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    }
+
+    private function _callUnstrict(array $parameters)
+    {
+        $old_errorreporting = error_reporting(E_ALL & ~E_STRICT);
+        $this->_callStrict($parameters);
+        error_reporting($old_errorreporting);
+    }
+
+    private function _callStrict(array $parameters)
+    {
+        Components::main($parameters);
+    }
 }

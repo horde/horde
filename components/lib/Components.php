@@ -47,10 +47,9 @@ class Components
             && $parameters['dependencies'] instanceOf Components_Dependencies) {
             $dependencies = $parameters['dependencies'];
         } else {
-            $dependencies = new Components_Dependencies_Injector(
-                $config
-            );
+            $dependencies = new Components_Dependencies_Injector();
         }
+        $dependencies->initConfig($config);
         $modules = self::_prepareModules($dependencies);
         $config->handleModules($modules);
         try {

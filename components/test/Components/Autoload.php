@@ -30,6 +30,10 @@ if (!spl_autoload_functions()) {
     );
 }
 
+if (!class_exists('Components')) {
+    set_include_path(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+}
+
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
 
@@ -38,4 +42,5 @@ error_reporting(E_ALL | E_STRICT);
 require_once dirname(__FILE__) . '/StoryTestCase.php';
 
 /** Load stubs */
+require_once dirname(__FILE__) . '/Stub/Cli.php';
 require_once dirname(__FILE__) . '/Stub/Parser.php';

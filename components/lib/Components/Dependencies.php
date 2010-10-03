@@ -30,6 +30,29 @@
 interface Components_Dependencies
 {
     /**
+     * Initial configuration setup.
+     *
+     * @param Components_Config $config The configuration.
+     *
+     * @return NULL
+     */
+    public function initConfig(Components_Config $config);
+
+    /**
+     * Returns the continuous integration setup handler.
+     *
+     * @return Components_Runner_CiSetup The CI setup handler.
+     */
+    public function getRunnerCiSetup();
+
+    /**
+     * Returns the distribution handler for a package.
+     *
+     * @return Components_Runner_Distribute The distribution handler.
+     */
+    public function getRunnerDistribute();
+
+    /**
      * Returns the installer for a package.
      *
      * @return Components_Runner_Installer The installer.

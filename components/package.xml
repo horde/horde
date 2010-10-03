@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-09-06</date>
- <time>09:33:23</time>
+ <date>2010-10-03</date>
+ <time>19:38:19</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -57,20 +57,22 @@
       <file name="Base.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="DevPackage.php" role="php" />
+      <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
       <file name="InstallLocation.php" role="php" />
+      <file name="Package.php" role="php" />
      </dir> <!-- /lib/Components/Pear -->
      <dir name="Runner">
+      <file name="CiSetup.php" role="php" />
+      <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
-     <file name="Constants.php" role="php">
-      <replace from="@data_dir@" to="data_dir" type="pear-config"/>
-     </file>
+     <file name="Constants.php" role="php" />
      <file name="Dependencies.php" role="php" />
      <file name="Exception.php" role="php" />
      <file name="Module.php" role="php" />
@@ -80,9 +82,7 @@
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="script">
-    <file name="horde-components.php" role="script">
-     <replace from="@php_dir@" to="php_dir" type="pear-config"/>
-    </file>
+    <file name="horde-components.php" role="script" />
    </dir> <!-- /script -->
    <dir name="test">
     <dir name="Components">
@@ -100,9 +100,15 @@
       </dir> <!-- /test/Components/fixture/simple -->
      </dir> <!-- /test/Components/fixture -->
      <dir name="Integration">
+      <dir name="Components">
+       <dir name="Module">
+        <file name="CiSetupTest.php" role="test" />
+       </dir> <!-- /test/Components/Integration/Components/Module -->
+      </dir> <!-- /test/Components/Integration/Components -->
       <file name="ComponentsTest.php" role="test" />
      </dir> <!-- /test/Components/Integration -->
      <dir name="Stub">
+      <file name="Cli.php" role="test" />
       <file name="Parser.php" role="test" />
      </dir> <!-- /test/Components/Stub -->
      <file name="AllTests.php" role="test" />
@@ -112,6 +118,7 @@
     </dir> <!-- /test/Components -->
    </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
+   <file name="TODO" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -169,9 +176,13 @@
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
+   <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
    <install as="Components/Pear/InstallLocation.php" name="lib/Components/Pear/InstallLocation.php" />
+   <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
+   <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
+   <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="horde-components" name="script/horde-components.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
@@ -184,6 +195,8 @@
    <install as="Components/fixture/simple/lib/New.php" name="test/Components/fixture/simple/lib/New.php" />
    <install as="Components/fixture/simple/lib/Second.php" name="test/Components/fixture/simple/lib/Second.php" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
+   <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
+   <install as="Components/Stub/Cli.php" name="test/Components/Stub/Cli.php" />
    <install as="Components/Stub/Parser.php" name="test/Components/Stub/Parser.php" />
   </filelist>
  </phprelease>
@@ -197,7 +210,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-09-06</date>
+   <date>2010-10-03</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

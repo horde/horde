@@ -33,13 +33,42 @@ implements Components_Dependencies
 {
     /**
      * Constructor.
-     *
-     * @param Components_Config $config The configuration.
      */
-    public function __construct(Components_Config $config)
+    public function __construct()
     {
         parent::__construct(new Horde_Injector_TopLevel());
+    }
+
+    /**
+     * Initial configuration setup.
+     *
+     * @param Components_Config $config The configuration.
+     *
+     * @return NULL
+     */
+    public function initConfig(Components_Config $config)
+    {
         $this->setInstance('Components_Config', $config);
+    }
+
+    /**
+     * Returns the continuous integration setup handler.
+     *
+     * @return Components_Runner_CiSetup The CI setup handler.
+     */
+    public function getRunnerCiSetup()
+    {
+        return $this->getInstance('Components_Runner_CiSetup');
+    }
+
+    /**
+     * Returns the distribution handler for a package.
+     *
+     * @return Components_Runner_Distribute The distribution handler.
+     */
+    public function getRunnerDistribute()
+    {
+        return $this->getInstance('Components_Runner_Distribute');
     }
 
     /**

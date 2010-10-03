@@ -78,7 +78,43 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function theThePOptionProvidesAnUpdatedPackageXml()
+    public function thePOptionFailsWithoutAValidPackagePath()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the packagexml option and the path', '')
+            ->then('the call will fail with', 'Please specify the path of the PEAR package!');
+    }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionFailsWithoutAValidDirectoryPath()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the packagexml option and the path',
+                dirname(dirname(__FILE__)) . '/fixture/DOESNOTEXIST'
+            )
+            ->then('the call will fail with', 'specifies no directory');
+    }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionFailsWithoutAValidPackage()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the packagexml option and the path',
+                dirname(dirname(__FILE__)) . '/fixture'
+            )
+            ->then('the call will fail with', 'There is no package.xml at');
+    }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Components setup')
             ->when('calling the package with the packagexml option and a Horde element')
