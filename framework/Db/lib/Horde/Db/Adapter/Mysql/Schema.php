@@ -367,6 +367,21 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Get the name of the index
+     *
+     * @param   string  $tableName
+     * @param   array   $options
+     */
+    public function indexName($tableName, $options=array())
+    {
+        $indexName = parent::indexName($tableName, $options);
+        if (strlen($indexName) > 64) {
+            $indexName = substr($indexName, 0, 64);
+        }
+        return $indexName;
+    }
+
+    /**
      * SHOW VARIABLES LIKE 'name'
      *
      * @param   string  $name
