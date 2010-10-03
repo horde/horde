@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-03</date>
- <time>11:10:02</time>
+ <time>11:32:12</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -130,7 +130,6 @@ Application Framework.</description>
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
-       <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
        <file name="ShareFactory.php" role="php" />
        <file name="Template.php" role="php" />
@@ -170,6 +169,7 @@ Application Framework.</description>
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
+       <file name="Secret.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="Tree.php" role="php" />
@@ -450,7 +450,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
    <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
-   <install as="Horde/Core/Binder/Secret.php" name="lib/Horde/Core/Binder/Secret.php" />
    <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
    <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
@@ -486,6 +485,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
+   <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
