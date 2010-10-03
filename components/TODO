@@ -1,0 +1,17 @@
+======================
+ Components TODO List
+======================
+
+ - Allow turning off colors [x]
+
+ - Document usage
+
+ - Fail on missing dependencies in a decent way
+
+ - Allow offline installs
+
+ - Allow absolute/relative paths as arguments
+
+ - Do not copy on syncing from the horde framework packages [x]
+
+ - Produce an HTML dependency graph.
