@@ -264,7 +264,6 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
-            'Horde_Alarm' => 'Horde_Core_Binder_Alarm',
             'Horde_Auth_Factory' => 'Horde_Core_Binder_AuthFactory',
             // 'Horde_Browser' - initialized below
             'Horde_Core_Auth_Signup' => 'Horde_Core_Binder_AuthSignup',
@@ -303,6 +302,10 @@ class Horde_Registry
 
         /* Define factories. */
         $factories = array(
+            'Horde_Alarm' => array(
+                'Horde_Core_Factory_Alarm',
+                'create'
+            ),
             'Horde_Cache' => array(
                 'Horde_Core_Factory_Cache',
                 'create',
