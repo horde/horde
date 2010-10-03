@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Lock
  */
-class Horde_Lock
+abstract class Horde_Lock
 {
     /* Class constants. */
     const TYPE_EXCLUSIVE = 1;

@@ -34,7 +34,7 @@ class Horde_Core_Factory_Lock
         }
 
         $driver = Horde_String::ucfirst(basename($driver));
-        $class = __CLASS__ . '_' . $driver;
+        $class = 'Horde_Lock_' . $driver;
 
         if (class_exists($class)) {
             return new $class($params);
