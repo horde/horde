@@ -147,7 +147,7 @@ class IMP_Spam
 
                     /* Send the message. */
                     try {
-                        $imp_compose->sendMessage($to, $spam_headers, $mime, $GLOBALS['registry']->getCharset());
+                        $imp_compose->sendMessage($to, $spam_headers, $mime, 'UTF-8');
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
                         Horde::logMessage($e, 'ERR');

@@ -97,8 +97,8 @@ case 'getPage':
         /* These are all referencing the *original* tweet */
         $view->profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
         $view->profileImg = $tweetObj->user->profile_image_url;
-        $view->authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
-        $view->authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $view->authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, 'UTF-8');
+        $view->authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, 'UTF-8');
         $view->createdAt = $tweetObj->created_at;
         $view->clientText = $filter->filter($tweet->source, 'xss');
         $view->tweet = $tweet;

@@ -59,15 +59,15 @@ class Horde_Block_Jonah_news extends Horde_Block {
         try {
             $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($this->_params['source']);
         } catch (Jonah_Exception $e) {
-            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, 'UTF-8');
         }
 
         if (!empty($channel['channel_link'])) {
             $title = Horde::link(htmlspecialchars($channel['channel_link']), '', '', '_blank')
-                . @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
+                . @htmlspecialchars($channel['channel_name'], ENT_COMPAT, 'UTF-8')
                 . '</a>';
         } else {
-            $title = @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+            $title = @htmlspecialchars($channel['channel_name'], ENT_COMPAT, 'UTF-8');
         }
 
         return $title;

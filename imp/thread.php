@@ -81,7 +81,7 @@ if ($mode == 'thread') {
     $imp_indices = new IMP_Indices(IMP::$mailbox, $thread);
 }
 
-$charset = $registry->getCharset();
+$charset = 'UTF-8';
 $imp_ui = new IMP_Ui_Message();
 
 foreach ($imp_indices->indices() as $mbox => $idxlist) {

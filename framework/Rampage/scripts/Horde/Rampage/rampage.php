@@ -1214,7 +1214,7 @@ function field_get_quoted($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), $GLOBALS['registry']->getCharset(), \$this->_params['charset'])";
+        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), 'UTF-8', \$this->_params['charset'])";
 
     // Integer types
     case 'bit':

@@ -77,11 +77,11 @@ class Horde_Core_Factory_Prefs
 
         $opts = array_merge(array(
             'cache' => true,
-            'charset' => $GLOBALS['registry']->getCharset(),
+            'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
             'sizecallback' => ((isset($GLOBALS['conf']['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
-            'uicharset' => $GLOBALS['registry']->getCharset(),
+            'uicharset' => 'UTF-8',
             'user' => ''
         ), $opts);
         ksort($opts);

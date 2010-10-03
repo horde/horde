@@ -56,7 +56,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         $body = new Horde_Mime_Part();
         $body->setType('text/plain');
         $body->setContents(Horde_String::wrap($message, 76, "\n"));
-        $body->setCharset($GLOBALS['registry']->getCharset());
+        $body->setCharset('UTF-8');
 
         $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Horde_Mail'));
 

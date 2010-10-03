@@ -64,7 +64,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 /* Convert rules from the old format. */
                 $data = @unserialize($prefs->getValue('rules'));
             } else {
-                $data = Horde_String::convertCharset($data, $prefs->getCharset(), $GLOBALS['registry']->getCharset());
+                $data = Horde_String::convertCharset($data, $prefs->getCharset(), 'UTF-8');
             }
             if ($data) {
                 $ob->setFilterlist($data);
@@ -145,7 +145,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
             return $prefs->setValue('blacklist', serialize($data));
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), $GLOBALS['registry']->getCharset(), $prefs->getCharset())), false);
+            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), 'UTF-8', $prefs->getCharset())), false);
 
         case self::ACTION_FORWARD:
             $data = array(

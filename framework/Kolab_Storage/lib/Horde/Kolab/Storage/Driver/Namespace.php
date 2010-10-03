@@ -84,7 +84,7 @@ implements Iterator
      */
     public function __construct()
     {
-        $this->_charset = $GLOBALS['registry']->getCharset();
+        $this->_charset = 'UTF-8';
         if (empty($this->_primaryPersonalNamespace)) {
             $personal = null;
             foreach ($this->_namespaces as $namespace) {

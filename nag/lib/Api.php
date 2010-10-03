@@ -1060,7 +1060,7 @@ class Nag_Api extends Horde_Registry_Api
             $share = $GLOBALS['nag_shares']->getShare($tasklist);
 
             $iCal = new Horde_iCalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), 'UTF-8', 'utf-8'));
 
             $tasks->reset();
             while ($task = $tasks->each()) {

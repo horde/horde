@@ -54,7 +54,7 @@ function send_agendas()
     $runtime = new Horde_Date($runtime);
     $default_timezone = date_default_timezone_get();
     $kronolith_driver = Kronolith::getDriver();
-    $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/agenda', 'encoding' => $GLOBALS['registry']->getCharset()));
+    $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/agenda', 'encoding' => 'UTF-8'));
     new Horde_View_Helper_Text($view);
 
     // Loop through the users and generate an agenda for them
@@ -135,7 +135,7 @@ function send_agendas()
             array('subject' => sprintf(_("Your daily agenda for %s"), $view->date),
                   'to' => $email,
                   'from' => $GLOBALS['conf']['reminder']['from_addr'],
-                  'charset' => $GLOBALS['registry']->getCharset()));
+                  'charset' => 'UTF-8'));
         $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
         try {
             $mime_mail->addRecipients($email);
@@ -145,12 +145,12 @@ function send_agendas()
         $multipart->setType('multipart/alternative');
         $bodyText = new Horde_Mime_Part();
         $bodyText->setType('text/plain');
-        $bodyText->setCharset($GLOBALS['registry']->getCharset());
+        $bodyText->setCharset('UTF-8');
         $bodyText->setContents($view->render('notification.plain.php'));
         $multipart->addPart($bodyText);
         $bodyHtml = new Horde_Mime_Part();
         $bodyHtml->setType('text/html');
-        $bodyHtml->setCharset($GLOBALS['registry']->getCharset());
+        $bodyHtml->setCharset('UTF-8');
         $bodyHtml->setContents($view->render('notification.html.php'));
         $multipart->addPart($bodyHtml);
         $mime_mail->setBasePart($multipart);

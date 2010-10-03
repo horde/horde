@@ -382,7 +382,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $header = array(
             'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to'), array('charset' => $charset)),
             'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc'), array('charset' => $charset)),
@@ -556,7 +556,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $mdn->addMdnRequestHeaders($barefrom);
         }
 
-        $browser_charset = $GLOBALS['registry']->getCharset();
+        $browser_charset = 'UTF-8';
 
         $headers->addHeader('From', Horde_String::convertCharset($header['from'], $browser_charset, $charset));
 
@@ -687,7 +687,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append(Horde_String::convertCharset($opts['sent_folder'], $GLOBALS['registry']->getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append(Horde_String::convertCharset($opts['sent_folder'], 'UTF-8', 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -787,7 +787,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 try {
                     $error = Horde::callHook('perms_denied', array('imp:max_timelimit'));
                 } catch (Horde_Exception_HookNotSet $e) {
-                    $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $GLOBALS['conf']['sentmail']['params']['limit_period']), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+                    $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $GLOBALS['conf']['sentmail']['params']['limit_period']), ENT_COMPAT, 'UTF-8');
                 }
                 throw new IMP_Compose_Exception($error);
             }
@@ -802,7 +802,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Properly encode the addresses we're sending to. */
         try {
-            $email = Horde_Mime::encodeAddress($email, is_null($message) ? $GLOBALS['registry']->getCharset() : $message->getHeaderCharset(), $_SESSION['imp']['maildomain']);
+            $email = Horde_Mime::encodeAddress($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset(), $_SESSION['imp']['maildomain']);
 
             /* Validate the recipient addresses. */
             Horde_Mime_Address::parseAddressList($email, array(
@@ -837,7 +837,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         try {
-            $r_array = Horde_Mime::encodeAddress($recipients, $GLOBALS['registry']->getCharset(), $_SESSION['imp']['maildomain']);
+            $r_array = Horde_Mime::encodeAddress($recipients, 'UTF-8', $_SESSION['imp']['maildomain']);
             $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
         } catch (Horde_Mime_Exception $e) {}
 
@@ -972,7 +972,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     try {
                         $message = Horde::callHook('perms_denied', array('imp:max_recipients'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+                        $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, 'UTF-8');
                     }
                     throw new IMP_Compose_Exception($message);
                 }
@@ -996,9 +996,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         // Convert IDN hosts to ASCII.
         if (function_exists('idn_to_ascii')) {
             $old_error = error_reporting(0);
-            $host = idn_to_ascii(Horde_String::convertCharset($host, $GLOBALS['registry']->getCharset(), 'UTF-8'));
+            $host = idn_to_ascii(Horde_String::convertCharset($host, 'UTF-8', 'UTF-8'));
             error_reporting($old_error);
-        } elseif (Horde_Mime::is8bit($ob['mailbox'], $GLOBALS['registry']->getCharset())) {
+        } elseif (Horde_Mime::is8bit($ob['mailbox'], 'UTF-8')) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
         }
 
@@ -1033,7 +1033,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     protected function _createMimeMessage($to, $body, $charset,
                                           $options = array())
     {
-        $nls_charset = $GLOBALS['registry']->getCharset();
+        $nls_charset = 'UTF-8';
         $body = Horde_String::convertCharset($body, $nls_charset, $charset);
 
         if (!empty($options['html'])) {
@@ -1293,7 +1293,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             'subject' => ''
         );
 
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = 'reply';
@@ -1487,7 +1487,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             );
         }
 
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $h = $contents->getHeaderOb();
 
         $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
@@ -1655,7 +1655,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $h = $contents->getHeaderOb();
 
         $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array(
-            'charset' => $GLOBALS['registry']->getCharset()
+            'charset' => 'UTF-8'
         ));
 
         $msg_pre = "\n----- " .
@@ -1733,10 +1733,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $resent_headers->addHeader('Resent-To', $recip['header']['to']);
         $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
 
-        $header_text = trim($resent_headers->toString(array('encode' => $GLOBALS['registry']->getCharset()))) . "\n" . trim($contents->getHeaderOb(false));
+        $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
 
         $to = $this->_prepSendMessage($recipients);
-        $hdr_array = $headers->toArray(array('charset' => $GLOBALS['registry']->getCharset()));
+        $hdr_array = $headers->toArray(array('charset' => 'UTF-8'));
         $hdr_array['_raw'] = $header_text;
 
         try {
@@ -1800,7 +1800,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
              $headerob = $contents->getHeaderOb();
 
              $part = new Horde_Mime_Part();
-             $part->setCharset($GLOBALS['registry']->getCharset());
+             $part->setCharset('UTF-8');
              $part->setType('message/rfc822');
              $part->setName(_("Forwarded Message"));
              $part->setContents($contents->fullMessageText(array('stream' => true)));
@@ -1830,7 +1830,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     protected function _getMsgHeaders($h)
     {
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $tmp = array();
 
         if (($ob = $h->getValue('date'))) {
@@ -1912,12 +1912,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if ($part->getPrimaryType() == 'text') {
             if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
                 $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
-                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : $GLOBALS['registry']->getCharset());
+                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
             } else {
-                $part->setCharset($GLOBALS['registry']->getCharset());
+                $part->setCharset('UTF-8');
             }
         } else {
-            $part->setHeaderCharset($GLOBALS['registry']->getCharset());
+            $part->setHeaderCharset('UTF-8');
         }
         $part->setName($filename);
         $part->setBytes($_FILES[$name]['size']);
@@ -2373,14 +2373,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
         $charset = $part->getCharset();
 
-        $trailer = Horde_String::convertCharset(_("Attachments"), $GLOBALS['registry']->getCharset(), $charset);
+        $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
 
         if ($prefs->getValue('delete_attachments_monthly')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
             $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
-            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', $GLOBALS['registry']->getCharset(), $charset);
+            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', 'UTF-8', $charset);
         }
 
         foreach ($this as $att) {
@@ -2464,7 +2464,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $part = $contents->getMIMEPart($body_id);
         $type = $part->getType();
         $part_charset = $part->getCharset();
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
 
         $msg = Horde_String::convertCharset($part->getContents(), $part_charset, $charset);
 
@@ -2560,7 +2560,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $part = new Horde_Mime_Part();
         $part->setType('text/x-vcard');
-        $part->setCharset($GLOBALS['registry']->getCharset());
+        $part->setCharset('UTF-8');
         $part->setContents($vcard);
         $part->setName((strlen($name) ? $name : 'vcard') . '.vcf');
         $this->_attachVCard = $part;

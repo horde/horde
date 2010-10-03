@@ -744,7 +744,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'atc' => isset($ob['structure']) ? $ob['structure'] : null,
         'div' => true,
         'flags' => $ob['flags'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $registry->getCharset())),
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8')),
         'priority' => $ob['headers']
     ));
 
@@ -791,7 +791,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the From: Header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => $registry->getCharset()));
+    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => 'UTF-8'));
     $msg['from'] = $getfrom['from'];
     $msg['fullfrom'] = $getfrom['fullfrom'];
     switch ($fromlinkstyle) {

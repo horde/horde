@@ -496,9 +496,9 @@ class Ansel_Storage
                 Horde::logMessage($update, 'ERR');
                 throw new Ansel_Exception($update);
             }
-            $result = $update->execute(array(Horde_String::convertCharset($image->filename, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+            $result = $update->execute(array(Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                                              $image->type,
-                                             Horde_String::convertCharset($image->caption, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                                              $image->sort,
                                              $image->originalDate,
                                              $image->lat,
@@ -536,9 +536,9 @@ class Ansel_Storage
         /* Perform the INSERT */
         $result = $insert->execute(array($image_id,
                                          $image->gallery,
-                                         Horde_String::convertCharset($image->filename, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         Horde_String::convertCharset($image->filename, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                                          $image->type,
-                                         Horde_String::convertCharset($image->caption, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         Horde_String::convertCharset($image->caption, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                                          $image->uploaded,
                                          $image->sort,
                                          $image->originalDate,
@@ -571,7 +571,7 @@ class Ansel_Storage
     public function saveImageAttribute($image_id, $attribute, $value)
     {
         $insert = $this->_db->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
-        $result = $insert->execute(array($image_id, $attribute, Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset'])));
+        $result = $insert->execute(array($image_id, $attribute, Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset'])));
         if ($result instanceof PEAR_Error) {
             throw new Ansel_Exception($result);
         }
@@ -899,7 +899,7 @@ class Ansel_Storage
 
             if ($galleries[$gallery_id]['perm']) {
                 $data = array((string)Ansel::getImageUrl($image->id, $image_view, $full, $style),
-                    htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()),
+                    htmlspecialchars($image->filename, ENT_COMPAT, 'UTF-8'),
                     $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                     $image->id,
                     0);
@@ -925,7 +925,7 @@ class Ansel_Storage
         }
 
         if (count($json)) {
-            return Horde_Serialize::serialize($json, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset());
+            return Horde_Serialize::serialize($json, Horde_Serialize::JSON, 'UTF-8');
         } else {
             return '';
         }

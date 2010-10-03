@@ -462,7 +462,7 @@ class Wicked_Driver {
      */
     function getCharset()
     {
-        return $GLOBALS['registry']->getCharset();
+        return 'UTF-8';
     }
 
     /**

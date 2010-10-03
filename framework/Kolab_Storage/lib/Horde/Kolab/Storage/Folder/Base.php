@@ -902,7 +902,7 @@ implements Horde_Kolab_Storage_Folder
                 $part = new Horde_Mime_Part();
                 $part->setType(isset($data['type']) ? $data['type'] : null);
                 $part->setContents(isset($data['content']) ? $data['content'] : file_get_contents($data['path']));
-                $part->setCharset($GLOBALS['registry']->getCharset());
+                $part->setCharset('UTF-8');
                 $part->setTransferEncoding('quoted-printable');
                 $part->setDisposition('attachment');
                 $part->setName($attachment);
@@ -925,7 +925,7 @@ implements Horde_Kolab_Storage_Folder
             $part = new Horde_Mime_Part();
             $part->setType($handlers[$type]->getMimeType());
             $part->setContents($new_content);
-            $part->setCharset($GLOBALS['registry']->getCharset());
+            $part->setCharset('UTF-8');
             $part->setTransferEncoding('quoted-printable');
             $part->setDisposition($handlers[$type]->getDisposition());
             $part->setDispositionParameter('x-kolab-type', $type);
@@ -1056,8 +1056,8 @@ implements Horde_Kolab_Storage_Folder
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
         $part->setName('Kolab Groupware Information');
-        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n", $GLOBALS['registry']->getCharset()));
-        $part->setCharset($GLOBALS['registry']->getCharset());
+        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n", 'UTF-8'));
+        $part->setCharset('UTF-8');
 
         $part->setTransferEncoding('quoted-printable');
         $mime_message->addPart($part);

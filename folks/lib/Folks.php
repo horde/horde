@@ -235,7 +235,7 @@ class Folks {
      */
     static public function sendMail($to, $subject, $body, $attaches = array())
     {
-        $mail = new Horde_Mime_Mail(array('subject' => $subject, 'body' => $body, 'to' => $to, 'from' => $GLOBALS['conf']['support'], 'charset' => $GLOBALS['registry']->getCharset()));
+        $mail = new Horde_Mime_Mail(array('subject' => $subject, 'body' => $body, 'to' => $to, 'from' => $GLOBALS['conf']['support'], 'charset' => 'UTF-8'));
 
         $mail->addHeader('User-Agent', 'Folks ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
@@ -243,7 +243,7 @@ class Folks {
 
         foreach ($attaches as $file) {
             if (file_exists($file)) {
-                $mail->addAttachment($file, null, null, $GLOBALS['registry']->getCharset());
+                $mail->addAttachment($file, null, null, 'UTF-8');
             }
         }
 

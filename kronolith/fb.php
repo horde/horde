@@ -59,7 +59,7 @@ if (!$fb) {
 }
 
 $browser->downloadHeaders(($user ? $user : $cal) . '.vfb',
-                          'text/calendar; charset=' . $GLOBALS['registry']->getCharset(),
+                          'text/calendar; charset=' . 'UTF-8',
                           true,
                           strlen($fb));
 echo $fb;

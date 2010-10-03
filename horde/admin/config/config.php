@@ -55,7 +55,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     }
     if ($fp = @fopen($path . '/conf.php', 'w')) {
         /* Can write, so output to file. */
-        fwrite($fp, Horde_String::convertCharset($php, $GLOBALS['registry']->getCharset(), 'iso-8859-1'));
+        fwrite($fp, Horde_String::convertCharset($php, 'UTF-8', 'iso-8859-1'));
         fclose($fp);
         $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
         $registry->clearCache();

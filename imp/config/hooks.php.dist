@@ -197,7 +197,7 @@ class IMP_Hooks
 //    public function pre_sent($message, $headers)
 //    {
 //        // Example: Add custom headers to outgoing message.
-//        $charset = $GLOBALS['registry']->getCharset();
+//        $charset = 'UTF-8';
 //        $custom_hdrs = array();
 //        $hdr_charset = $message->getHeaderCharset();
 //
@@ -287,7 +287,7 @@ class IMP_Hooks
 //        // the same domain.
 //        $flags = array();
 //
-//        $from_ob = Horde_Mime_Address::getAddressesFromObject($data['envelope']['from'], array('charset' => $GLOBALS['registry']->getCharset()));
+//        $from_ob = Horde_Mime_Address::getAddressesFromObject($data['envelope']['from'], array('charset' => 'UTF-8'));
 //        if (!empty($from_ob) &&
 //            (strcasecmp($from_ob[0]['host'], 'example.com') === 0)) {
 //            /* The '$indomain' flag in this example must have already been

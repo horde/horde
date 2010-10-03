@@ -48,7 +48,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
         foreach ($imaptree as $k => $v) {
             foreach ($sent_mail_folders as $folder) {
                 if (preg_match('/^' . str_replace('/', '\/', $folder) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
-                    $folder_array[$k] = Horde_String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0, $regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+                    $folder_array[$k] = Horde_String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0, $regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), 'UTF-8', 'UTF7-IMAP');
                 }
             }
         }

@@ -59,12 +59,12 @@ $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 $cache_key = 'trean_rss_' . Horde_Auth::getAuth() . '_' . ($folderId === null ? 'all' : $folderId);
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {
-    $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . 'UTF-8' . '" ?>
     <rss version="2.0">
         <channel>
         <title>' . htmlspecialchars($folderId == null ? $registry->get('name') : $folder->get('name')) . '</title>
         <language>' . $registry->preferredLang() . '</language>
-        <charset>' . $GLOBALS['registry']->getCharset() . '</charset>
+        <charset>' . 'UTF-8' . '</charset>
         <lastBuildDate>' . date('Y-m-d H:i:s') . '</lastBuildDate>
         <image>
             <url>http://' . $_SERVER['SERVER_NAME'] . $registry->get('webroot') . '/themes/graphics/favicon.ico</url>

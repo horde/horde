@@ -52,7 +52,7 @@ class Horde_Block_ansel_recent_faces extends Horde_Block
         $results = $faces->allFaces(0, $this->_params['limit']);
         $html = '';
         foreach ($results as $face_id => $face) {
-            $facename = htmlspecialchars($face['face_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+            $facename = htmlspecialchars($face['face_name'], ENT_COMPAT, 'UTF-8');
             $html .= '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $facename . '">'
                     . '<img src="' . $faces->getFaceUrl($face['image_id'], $face_id)
                     . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facename  . '" /></a>';

@@ -420,7 +420,7 @@ class IMP_Contents
                                 'text' => $status
                             )
                         ),
-                        'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                        'type' => 'text/html; charset=' . 'UTF-8'
                     )
                 );
             }
@@ -471,7 +471,7 @@ class IMP_Contents
             /* If this is a text/* part, AND the browser does not support
              * UTF-8, give the user a link to open the part in a new window
              * with the correct character set. */
-            $default_charset = Horde_String::upper($GLOBALS['registry']->getCharset());
+            $default_charset = Horde_String::upper('UTF-8');
             if ($default_charset !== 'UTF-8') {
                 $charset_upper = Horde_String::upper($mime_part->getCharset());
                 if (($charset_upper != 'US-ASCII') &&
@@ -533,7 +533,7 @@ class IMP_Contents
         // Retrieve 3x the size of $maxlen of bodytext data. This should
         // account for any content-encoding & HTML tags.
         $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
 
         $ptext = Horde_String::convertCharset($pmime->getContents(), $pmime->getCharset(), $charset);
 
@@ -711,7 +711,7 @@ class IMP_Contents
             (strpos($id, '.') === false)) {
             if ($mask & self::SUMMARY_STRIP_LINK) {
                 $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')') . '</a>';
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, 'UTF-8') . ')') . '</a>';
             } else {
                 $part['strip'] = Horde::link('#', _("Strip Attachment"), 'deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
             }

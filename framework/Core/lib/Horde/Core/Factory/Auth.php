@@ -126,7 +126,7 @@ class Horde_Core_Factory_Auth
                     $params['backend'] = $this->getOb($params['backend']['driver'], $params['backend']['params']);
                 }
 
-                $params['charset'] = $GLOBALS['registry']->getCharset();
+                $params['charset'] = 'UTF-8';
                 break;
 
             case 'http_remote':
@@ -136,7 +136,7 @@ class Horde_Core_Factory_Auth
                 break;
 
             case 'imap':
-                $params['charset'] = $GLOBALS['registry']->getCharset();
+                $params['charset'] = 'UTF-8';
                 break;
 
             case 'kolab':

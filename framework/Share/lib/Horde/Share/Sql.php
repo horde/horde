@@ -917,7 +917,7 @@ class Horde_Share_Sql extends Horde_Share
         foreach ($data as $key => $value) {
             if (substr($key, 0, 9) == 'attribute') {
                 $data[$key] = Horde_String::convertCharset(
-                    $data[$key], $GLOBALS['registry']->getCharset(), $this->_params['charset']);
+                    $data[$key], 'UTF-8', $this->_params['charset']);
             }
         }
 

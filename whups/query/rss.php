@@ -55,7 +55,7 @@ foreach (array_keys($tickets) as $i) {
 }
 
 $template = $injector->createInstance('Horde_Template');
-$template->set('charset', $GLOBALS['registry']->getCharset());
+$template->set('charset', 'UTF-8');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', htmlspecialchars($whups_query->name ? $whups_query->name : _("Query Results")));

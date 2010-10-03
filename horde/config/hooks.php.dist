@@ -288,7 +288,7 @@ class Horde_Hooks
 //        $ldapPort = '389';
 //        $searchBase = 'ou=people,o=example.com';
 //        $ldapcharset = 'utf-8';
-//        $outputcharset = $GLOBALS['registry']->getCharset();
+//        $outputcharset = 'UTF-8';
 //
 //        $ds = @ldap_connect($ldapServer, $ldapPort);
 //
@@ -582,7 +582,7 @@ class Horde_Hooks
 //        $fields = $values = array();
 //        foreach ($extra as $field => $value) {
 //            $fields[] = 'object_' . Horde_String::lower($field);
-//            $values[] = $db->quote(Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']));
+//            $values[] = $db->quote(Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset']));
 //        }
 //        $fields[] = 'object_id';
 //        $values[] = $db->quote($userId);

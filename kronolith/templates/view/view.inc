@@ -26,7 +26,7 @@
 <!-- owner -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("Owner") ?>&nbsp;&nbsp;</strong></td>
- <td><?php echo @htmlspecialchars($owner, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?> </td>
+ <td><?php echo @htmlspecialchars($owner, ENT_COMPAT, 'UTF-8') ?> </td>
 </tr>
 <?php endif; ?>
 
@@ -74,14 +74,14 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <?php if (isset($created)): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></td>
+  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, 'UTF-8') ?></td>
 </tr>
 <?php endif; ?>
 
 <?php if (isset($modified)): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></td>
+  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, 'UTF-8') ?></td>
 </tr>
 <?php endif; ?>
 

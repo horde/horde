@@ -272,10 +272,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
             $values = array(
                 implode("\n", $ob->getVacationAddresses()),
                 Horde_String::convertCharset($ob->getVacationSubject(),
-                                       $GLOBALS['registry']->getCharset(),
+                                       'UTF-8',
                                        $this->_params['charset']),
                 Horde_String::convertCharset($ob->getVacationReason(),
-                                       $GLOBALS['registry']->getCharset(),
+                                       'UTF-8',
                                        $this->_params['charset']),
                 (int)$ob->getVacationDays(),
                 (int)$ob->getVacationStart(),

@@ -213,7 +213,7 @@ try {
                 }
             }
         }
-        echo '<input type="hidden" name="_formvars" value="' . @htmlspecialchars(serialize($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()) . '" />';
+        echo '<input type="hidden" name="_formvars" value="' . @htmlspecialchars(serialize($vars), ENT_QUOTES, 'UTF-8') . '" />';
     }
 
     function renderFormActive(&$form, &$vars)

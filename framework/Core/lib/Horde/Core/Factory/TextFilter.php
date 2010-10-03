@@ -145,7 +145,7 @@ class Horde_Core_Factory_TextFilter
             case 'html2text':
             case 'space2html':
             case 'text2html':
-                $params['charset'] = $GLOBALS['registry']->getCharset();
+                $params['charset'] = 'UTF-8';
                 break;
             }
         }

@@ -83,7 +83,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         array_unshift($values,
                       (int)$info['channel_id'],
-                      Horde_String::convertCharset($info['channel_name'], $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                      Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
                       (int)$info['channel_type'],
                       isset($info['channel_desc']) ? $info['channel_desc'] : null,
                       isset($info['channel_interval']) ? (int)$info['channel_interval'] : null,
@@ -253,10 +253,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
         array_unshift($values,
                       (int)$info['id'],
                       (int)$info['channel_id'],
-                      Horde_String::convertCharset($info['title'], $GLOBALS['registry']->getCharset(), $this->_params['charset']),
-                      Horde_String::convertCharset($info['description'], $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                      Horde_String::convertCharset($info['title'], 'UTF-8', $this->_params['charset']),
+                      Horde_String::convertCharset($info['description'], 'UTF-8', $this->_params['charset']),
                       $info['body_type'],
-                      isset($info['body']) ? Horde_String::convertCharset($info['body'], $GLOBALS['registry']->getCharset(), $this->_params['charset']) : null,
+                      isset($info['body']) ? Horde_String::convertCharset($info['body'], 'UTF-8', $this->_params['charset']) : null,
                       isset($info['url']) ? $info['url'] : null,
                       isset($info['published']) ? (int)$info['published'] : null,
                       time(),
@@ -283,13 +283,13 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _convertFromBackend($story)
     {
-        $story['title'] = Horde_String::convertCharset($story['title'], $this->_params['charset'], $GLOBALS['registry']->getCharset());
-        $story['description'] = Horde_String::convertCharset($story['description'], $this->_params['charset'], $GLOBALS['registry']->getCharset());
+        $story['title'] = Horde_String::convertCharset($story['title'], $this->_params['charset'], 'UTF-8');
+        $story['description'] = Horde_String::convertCharset($story['description'], $this->_params['charset'], 'UTF-8');
         if (isset($story['body'])) {
-            $story['body'] = Horde_String::convertCharset($story['body'], $this->_params['charset'], $GLOBALS['registry']->getCharset());
+            $story['body'] = Horde_String::convertCharset($story['body'], $this->_params['charset'], 'UTF-8');
         }
         if (isset($story['tags'])) {
-            $story['tags'] = Horde_String::convertCharset($story['tags'], $this->_params['charset'], $GLOBALS['registry']->getCharset());
+            $story['tags'] = Horde_String::convertCharset($story['tags'], $this->_params['charset'], 'UTF-8');
         }
 
         return $story;

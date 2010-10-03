@@ -179,7 +179,7 @@ class Wicked
                                           $conf['wicked']['notify_address'],
                                           'from' => $from . '<' . $from_addr
                                           . '>',
-                                          'charset' => $GLOBALS['registry']->getCharset()));
+                                          'charset' => 'UTF-8'));
         $mail->addHeader('User-Agent', 'Wicked ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('Precedence', 'bulk');
         $mail->addHeader('Auto-Submitted', 'auto-replied');

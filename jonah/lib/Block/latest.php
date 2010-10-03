@@ -56,13 +56,13 @@ class Horde_Block_Jonah_latest extends Horde_Block
         try {
             $story = $this->_fetch();
         } catch (Exception $e) {
-            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+            return @htmlspecialchars($e->getMessage(), ENT_COMPAT, 'UTF-8');
         }
 
         return '<span class="storyDate">'
-               . @htmlspecialchars($story['updated_date'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
+               . @htmlspecialchars($story['updated_date'], ENT_COMPAT, 'UTF-8')
                . '</span> '
-               . @htmlspecialchars($story['title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+               . @htmlspecialchars($story['title'], ENT_COMPAT, 'UTF-8');
     }
 
     /**

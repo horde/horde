@@ -30,7 +30,7 @@ if (!$conf['user']['allow_folders']) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
-$charset = $registry->getCharset();
+$charset = 'UTF-8';
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get the base URL for this page. */

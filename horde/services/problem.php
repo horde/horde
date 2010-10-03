@@ -108,7 +108,7 @@ case 'send_problem_report':
                                               'body' => $body,
                                               'to' => $conf['problems']['email'],
                                               'from' => $email,
-                                              'charset' => $GLOBALS['registry']->getCharset()));
+                                              'charset' => 'UTF-8'));
             $mail->addHeader('Sender', 'horde-problem@' . $conf['problems']['maildomain']);
 
             /* Add attachment. */

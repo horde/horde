@@ -26,7 +26,7 @@ function preview()
 </div>
 
 <div style="padding:8px">
- <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></textarea>
+ <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, 'UTF-8') ?></textarea>
 </div>
 
 </form>

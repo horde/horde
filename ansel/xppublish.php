@@ -17,7 +17,7 @@ if (empty($cmd)) {
     $publisher->sendRegFile(
         $registry->getApp() . '-' . $conf['server']['name'],
         $registry->get('name'),
-        Horde_String::convertCharset(sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']), $registry->getCharset(), $registry->getCharset(true)),
+        Horde_String::convertCharset(sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']), 'UTF-8', $registry->getLanguageCharset()),
         Horde::url('xppublish.php', true, -1)->add('cmd', 'publish'),
         Horde::url(Horde_Themes::img('favicon.ico'), true, -1));
     exit;

@@ -44,7 +44,7 @@ if (Horde_Util::getFormData('list-tables')) {
     }
 
     // Parse out the query results.
-    $result = $db->execute(Horde_String::convertCharset($command, $GLOBALS['registry']->getCharset(), $conf['sql']['charset']));
+    $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
 }
 
 if (isset($result)) {

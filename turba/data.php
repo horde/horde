@@ -278,7 +278,7 @@ case 'export':
                         } elseif ($attributes[$field]['type'] == 'datetime') {
                             $row[$field] = strftime('%Y-%m-%d %R', $attribute);
                         } else {
-                        $row[$field] = Horde_String::convertCharset($attribute, $GLOBALS['registry']->getCharset(), $params['charset']);
+                        $row[$field] = Horde_String::convertCharset($attribute, 'UTF-8', $params['charset']);
                         }
                     }
                 }
@@ -349,7 +349,7 @@ case Horde_Data::IMPORT_FILE:
         try {
             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
         } catch (Horde_Exception_HookNotSet $e) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title), ENT_COMPAT, 'UTF-8');
         }
         $notification->push($message, 'horde.error', array('content.raw'));
         $error = true;
@@ -552,7 +552,7 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
             $charsets[$charset] = $charset;
         }
     }
-    $my_charset = $GLOBALS['registry']->getCharset(true);
+    $my_charset = $GLOBALS['registry']->getLanguageCharset();
 }
 
 foreach ($templates[$next_step] as $template) {

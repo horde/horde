@@ -65,7 +65,7 @@ if ($vars->searched || $prefs->getValue('display_contact')) {
 $selected_addresses = array();
 foreach (explode('|', $vars->sa) as $addr) {
     if (strlen(trim($addr))) {
-        $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, $registry->getCharset());
+        $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, 'UTF-8');
     }
 }
 
@@ -92,11 +92,11 @@ $a_list = array();
 foreach ($addresses as $addr) {
     if (!empty($addr['email'])) {
         if (strpos($addr['email'], ',') !== false) {
-            $a_list[] = @htmlspecialchars(Horde_Mime_Address::encode($addr['name'], 'personal') . ': ' . $addr['email'] . ';', ENT_QUOTES, $registry->getCharset());
+            $a_list[] = @htmlspecialchars(Horde_Mime_Address::encode($addr['name'], 'personal') . ': ' . $addr['email'] . ';', ENT_QUOTES, 'UTF-8');
         } else {
             $mbox_host = explode('@', $addr['email']);
             if (isset($mbox_host[1])) {
-                $a_list[] = @htmlspecialchars(Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $addr['name']), ENT_QUOTES, $registry->getCharset());
+                $a_list[] = @htmlspecialchars(Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $addr['name']), ENT_QUOTES, 'UTF-8');
             }
         }
     }

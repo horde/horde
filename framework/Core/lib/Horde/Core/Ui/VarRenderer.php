@@ -38,7 +38,7 @@ class Horde_Core_Ui_VarRenderer
     public function __construct($params = array())
     {
         $this->_params = $params;
-        $this->_charset = $GLOBALS['registry']->getCharset();
+        $this->_charset = 'UTF-8';
     }
 
     /**

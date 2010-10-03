@@ -400,7 +400,7 @@ class IMP_Views_ListMessages
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => true, 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $imp_ui = new IMP_Ui_Mailbox($folder);
         $no_flags_hook = false;
 

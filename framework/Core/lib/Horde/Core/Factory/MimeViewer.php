@@ -100,7 +100,7 @@ class Horde_Core_Factory_MimeViewer
             : $config['app'] . '_Mime_Viewer_' . $config['driver'];
 
         $params = array_merge($config, array(
-            'charset' => $GLOBALS['registry']->getCharset(),
+            'charset' => 'UTF-8',
             // TODO: Logging
             // 'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'temp_file' => array('Horde', 'getTempFile'),

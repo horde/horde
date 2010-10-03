@@ -344,7 +344,7 @@ class IMP_Ui_Compose
                 // Sent mail display name
                 'smf_display' => IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
                 // Bcc addresses to add
-                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => $GLOBALS['registry']->getCharset()))
+                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
             );
         }
 

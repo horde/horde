@@ -2152,20 +2152,14 @@ class Horde_Registry
     /**
      * Returns the charset for the current language.
      *
-     * @param boolean $original  If true returns the original charset of the
-     *                           translation, the actually used one otherwise.
-     *
      * @return string  The character set that should be used with the current
      *                 locale settings.
      */
-    public function getCharset($original = false)
+    public function getLanguageCharset()
     {
-        if ($original) {
-            return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
-                ? 'ISO-8859-1'
-                : $this->nlsconfig['charsets'][$GLOBALS['language']];
-        }
-        return 'UTF-8';
+        return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
+            ? 'ISO-8859-1'
+            : $this->nlsconfig['charsets'][$GLOBALS['language']];
     }
 
     /**
@@ -2325,14 +2319,10 @@ class Horde_Registry
      *                           LC_MESSAGES directory resides.
      * @param string $charset    The charset.
      */
-    public function setTextdomain($app, $directory, $charset = null)
+    public function setTextdomain($app, $directory, $charset = 'UTF-8')
     {
         bindtextdomain($app, $directory);
         textdomain($app);
-
-        if (is_null($charset)) {
-            $charset = $this->getCharset();
-        }
 
         $this->_cachedCharset(0, bind_textdomain_codeset($app, $charset));
 

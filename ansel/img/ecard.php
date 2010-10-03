@@ -35,7 +35,7 @@ case 'send':
         break;
     }
 
-    $charset = $GLOBALS['registry']->getCharset();
+    $charset = 'UTF-8';
 
     /* Create the text part. */
     $textpart = new Horde_Mime_Part();
@@ -59,7 +59,7 @@ case 'send':
     $img_tag = '<img src="cid:' . $imgpart->setContentID() . '" /><p />';
     $comments = $htmlpart->replaceEOL(Horde_Util::getFormData('ecard_comments'));
     if (!Horde_Util::getFormData('rtemode')) {
-        $comments = '<pre>' . htmlspecialchars($comments, ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '</pre>';
+        $comments = '<pre>' . htmlspecialchars($comments, ENT_COMPAT, 'UTF-8') . '</pre>';
     }
     $htmlpart->setContents('<html>' . $img_tag . $comments . '</html>');
     $related->setContentTypeParameter('start', $htmlpart->setContentID());

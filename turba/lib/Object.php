@@ -248,7 +248,7 @@ class Turba_Object {
                         . ' '
                         . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
                         . ' '
-                        . @htmlspecialchars($by, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+                        . @htmlspecialchars($by, ENT_COMPAT, 'UTF-8');
                 }
             }
         } catch (Exception $e) {

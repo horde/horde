@@ -20,7 +20,7 @@ class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code
         $part->setContents($options['text']);
         $part->setType("x-extension/$type");
 
-        $viewer = new Horde_Core_Mime_Viewer_Syntaxhighlighter($part, array('registry' => $GLOBALS['registry'], 'charset' => $GLOBALS['registry']->getCharset()));
+        $viewer = new Horde_Core_Mime_Viewer_Syntaxhighlighter($part, array('registry' => $GLOBALS['registry'], 'charset' => 'UTF-8'));
         $data = $viewer->render('inline');
         $data = reset($data);
         return $data['data'];

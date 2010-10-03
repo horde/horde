@@ -309,7 +309,7 @@ class Folks_Hooks
                 $value = hash('md5', $value);
             }
             $fields[] = 'user_' . Horde_String::lower($field);
-            $values[] = Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $conf['sql']['charset']);
+            $values[] = Horde_String::convertCharset($value, 'UTF-8', $conf['sql']['charset']);
         }
 
         $values[] = $userID;

@@ -60,7 +60,7 @@ if ($setup == 'conf' && $type == 'php') {
         $data .= Horde_String::convertCharset(str_replace(array('\\', '\''),
                                                     array('\\\\', '\\\''),
                                                     $php),
-                                        $GLOBALS['registry']->getCharset(), 'iso-8859-1');
+                                        'UTF-8', 'iso-8859-1');
         $data .= '\');' . "\n";
         $data .= '    fclose($fp);' . "\n";
         $data .= '    echo \'' . sprintf('Saved %s configuration.', $app) . '\' . "\n";' . "\n";

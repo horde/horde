@@ -103,7 +103,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         }
 
         Horde::addInlineScript(array(
-            'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')'
+            'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, 'UTF-8') . ')'
         ), 'dom');
 
         return '<div id="' . $this->_instance . '"></div>';

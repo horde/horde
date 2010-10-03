@@ -46,7 +46,7 @@ if ($perms->hasAppPermission('max_events') !== true &&
     try {
         $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
     } catch (Horde_Exception_HookNotSet $e) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, 'UTF-8');
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
@@ -182,7 +182,7 @@ case 'export':
             $calNames[] = $share->get('name');
         }
 
-        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), $GLOBALS['registry']->getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), 'UTF-8', 'utf-8'));
         $data = $iCal->exportvCalendar();
         $browser->downloadHeaders(_("events.ics"), 'text/calendar', false, strlen($data));
         echo $data;
@@ -264,7 +264,7 @@ if (is_array($next_step)) {
             try {
                 $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, 'UTF-8');
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;
@@ -340,7 +340,7 @@ if (is_array($next_step)) {
 if (Horde_Util::getFormData('import_ajax')) {
     $stack = $notification->notify(array('listeners' => 'status', 'raw' => true));
     if ($stack) {
-        Horde::addInlineScript('window.parent.KronolithCore.showNotifications(window.parent.$A(' . Horde_Serialize::serialize($stack, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . '));');
+        Horde::addInlineScript('window.parent.KronolithCore.showNotifications(window.parent.$A(' . Horde_Serialize::serialize($stack, Horde_Serialize::JSON, 'UTF-8') . '));');
     }
     Horde::addInlineScript('window.parent.$(window.name).remove();');
     Horde::outputInlineScript();

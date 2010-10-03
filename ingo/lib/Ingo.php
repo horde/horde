@@ -153,7 +153,7 @@ class Ingo
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP')))
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP')))
             : false;
     }
 
@@ -457,7 +457,7 @@ class Ingo
         if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
             Horde::addScriptFile('new_folder.js', 'ingo');
             Horde::addInlineScript(array(
-                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, 'UTF-8')
             ));
         }
     }

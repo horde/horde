@@ -83,9 +83,9 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'VALUES (?, ?, ?, ?, ?)';
         $values = array(
             $new_id,
-            Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+            Horde_String::convertCharset($name, 'UTF-8',
                                    $this->_params['charset']),
-            Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+            Horde_String::convertCharset($description, 'UTF-8',
                                    $this->_params['charset']),
             $slug,
             $email);
@@ -113,9 +113,9 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'INSERT INTO whups_types' .
                  ' (type_id, type_name, type_description) VALUES (?, ?, ?)';
         $values = array($new_id,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addType(): query="%s"; values="%s"',
@@ -142,11 +142,11 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'state_description, state_category) VALUES (?, ?, ?, ?, ?)';
         $values = array($new_id,
                         $typeId,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($category, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($category, 'UTF-8',
                                                $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addState(): query="%s"; values="%s"',
@@ -173,9 +173,9 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'priority_name, priority_description) VALUES (?, ?, ?, ?)';
         $values = array($new_id,
                         $typeId,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addPriority(): query="%s"; values="%s"',
@@ -212,9 +212,9 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'version_name, version_description, version_active) VALUES (?, ?, ?, ?, ?)';
         $values = array((int)$new_id,
                         (int)$queueId,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         (int)$active);
         Horde::logMessage(
@@ -251,9 +251,9 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'reply_name, reply_text) VALUES (?, ?, ?, ?)';
         $values = array($type,
                         $new_id,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($text, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($text, 'UTF-8',
                                                $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addReply(): query="%s"; values="%s"',
@@ -296,7 +296,7 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'ticket_timestamp, ticket_due, version_id)'
             . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $values = array($ticketId,
-                        Horde_String::convertCharset($summary, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($summary, 'UTF-8',
                                                $this->_params['charset']),
                         $requester,
                         $type,
@@ -407,7 +407,7 @@ class Whups_Driver_sql extends Whups_Driver {
                                     array((int)$id,
                                           (int)$ticket_id,
                                           $creator,
-                                          Horde_String::convertCharset($comment, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                                          Horde_String::convertCharset($comment, 'UTF-8', $this->_params['charset']),
                                           time()));
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, 'ERR');
@@ -458,7 +458,7 @@ class Whups_Driver_sql extends Whups_Driver {
             }
 
             $query .= $this->_map[$field] . ' = ?, ';
-            $values[] = Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
+            $values[] = Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
         }
 
         /* Don't try to execute an empty query (if we didn't find any updates
@@ -1384,10 +1384,10 @@ class Whups_Driver_sql extends Whups_Driver {
                      . 'queue_description = ?, queue_versioned = ?, '
                      . 'queue_slug = ?, queue_email = ? WHERE queue_id = ?';
             $values = array(Horde_String::convertCharset($name,
-                                                   $GLOBALS['registry']->getCharset(),
+                                                   'UTF-8',
                                                    $this->_params['charset']),
                             Horde_String::convertCharset($description,
-                                                   $GLOBALS['registry']->getCharset(),
+                                                   'UTF-8',
                                                    $this->_params['charset']),
                             (empty($versioned) ? 0 : 1),
                             $slug,
@@ -1674,9 +1674,9 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $query = 'UPDATE whups_types' .
                  ' SET type_name = ?, type_description = ? WHERE type_id = ?';
-        $values = array(Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']),
                         $typeId);
         Horde::logMessage(
@@ -1822,11 +1822,11 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $query = 'UPDATE whups_states SET state_name = ?, '
             . 'state_description = ?, state_category = ? WHERE state_id = ?';
-        $values = array(Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($category, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($category, 'UTF-8',
                                                $this->_params['charset']),
                         $stateId);
         Horde::logMessage(
@@ -1929,7 +1929,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($query->id, serialize($query->parameters),
                             serialize($query->query));
         }
-        $values = Horde_String::convertCharset($values, $GLOBALS['registry']->getCharset(),
+        $values = Horde_String::convertCharset($values, 'UTF-8',
                                          $this->_params['charset']);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::saveQuery(): query="%s"; values="%s"',
@@ -2047,9 +2047,9 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'UPDATE whups_priorities' .
                  ' SET priority_name = ?, priority_description = ?' .
                  ' WHERE priority_id = ?';
-        $values = array(Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']),
                         $priorityId);
         Horde::logMessage(
@@ -2151,9 +2151,9 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'UPDATE whups_versions SET version_name = ?, '
             . 'version_description = ?, version_active = ? '
             . 'WHERE version_id = ?';
-        $values = array(Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($description, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                $this->_params['charset']),
                         (int)$active,
                         (int)$versionId);
@@ -2233,9 +2233,9 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $query = 'UPDATE whups_replies SET reply_name = ?, '
             . 'reply_text = ? WHERE reply_id = ?';
-        $values = array(Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($text, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($text, 'UTF-8',
                                                $this->_params['charset']),
                         $reply);
         Horde::logMessage(
@@ -2376,13 +2376,13 @@ class Whups_Driver_sql extends Whups_Driver {
             . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
         $values = array($new_id,
                         $type_id,
-                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($desc, 'UTF-8',
                                                $this->_params['charset']),
                         $type,
                         serialize(
-                            Horde_String::convertCharset($params, $GLOBALS['registry']->getCharset(),
+                            Horde_String::convertCharset($params, 'UTF-8',
                                                    $this->_params['charset'])),
                         (int)($required == 'on'));
 
@@ -2405,14 +2405,14 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'SET attribute_name = ?, attribute_description = ?, '
             . 'attribute_type = ?, attribute_params = ?, '
             . 'attribute_required = ? WHERE attribute_id = ?';
-        $values = array(Horde_String::convertCharset($newname, $GLOBALS['registry']->getCharset(),
+        $values = array(Horde_String::convertCharset($newname, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($newdesc, $GLOBALS['registry']->getCharset(),
+                        Horde_String::convertCharset($newdesc, 'UTF-8',
                                                $this->_params['charset']),
                         $newtype,
                         serialize(
                             Horde_String::convertCharset($newparams,
-                                                   $GLOBALS['registry']->getCharset(),
+                                                   'UTF-8',
                                                    $this->_params['charset'])),
                         (int)($newrequired == 'on'),
                         $attribute_id);
@@ -2607,7 +2607,7 @@ class Whups_Driver_sql extends Whups_Driver {
     function _setAttributeValue($ticket_id, $attribute_id, $attribute_value)
     {
         $db_attribute_value = Horde_String::convertCharset((string)$attribute_value,
-                                                     $GLOBALS['registry']->getCharset(),
+                                                     'UTF-8',
                                                      $this->_params['charset']);
 
         $this->_write_db->autoCommit(false);
@@ -2808,7 +2808,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 time(),
                 (string)$user,
                 $type,
-                Horde_String::convertCharset((string)$value, $GLOBALS['registry']->getCharset(),
+                Horde_String::convertCharset((string)$value, 'UTF-8',
                                        $this->_params['charset']),
                 (int)$value);
             Horde::logMessage(

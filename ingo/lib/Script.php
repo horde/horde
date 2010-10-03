@@ -127,7 +127,7 @@ class Ingo_Script
             $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
         }
         if (!isset($params['charset'])) {
-            $params['charset'] = $GLOBALS['registry']->getCharset();
+            $params['charset'] = 'UTF-8';
         }
         if ($script == 'Sieve') {
             if (!isset($params['date_format'])) {

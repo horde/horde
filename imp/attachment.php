@@ -99,7 +99,7 @@ if ($conf['compose']['link_attachments_notify']) {
 
                 $msg = new Horde_Mime_Part();
                 $msg->setType('text/plain');
-                $msg->setCharset($registry->getCharset());
+                $msg->setCharset('UTF-8');
 
                 $d_url = new Horde_Url(Horde::selfUrl(true, false, true));
                 $msg->setContents(Horde_String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), $d_url->add('d', $id))));

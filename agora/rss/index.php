@@ -24,7 +24,7 @@ if (!$rss) {
     $forums = Agora_Messages::singleton($scope);
     $forums_list = $forums->getForums(0, true, 'forum_name', 0);
 
-    $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . 'UTF-8' . '" ?>
     <rss version="2.0">
         <channel>
         <title>' . htmlspecialchars($title) . '</title>
@@ -50,5 +50,5 @@ if (!$rss) {
     $cache->set($cache_key, $rss);
 }
 
-header('Content-type: text/xml; charset=' . $GLOBALS['registry']->getCharset());
+header('Content-type: text/xml; charset=' . 'UTF-8');
 echo $rss;

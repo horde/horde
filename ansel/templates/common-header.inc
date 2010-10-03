@@ -1,6 +1,6 @@
 <?php
 if (isset($language)) {
-    header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
+    header('Content-type: text/html; charset=' . 'UTF-8');
     header('Vary: Accept-Language');
 }
 ?>
@@ -21,7 +21,7 @@ Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
 ?>
-<title><?php echo htmlspecialchars($page_title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></title>
+<title><?php echo htmlspecialchars($page_title, ENT_COMPAT, 'UTF-8') ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php echo Ansel::stylesheetLinks() ?>
 <?php echo Horde::wrapInlineScript(Ansel::initJSVars());?>

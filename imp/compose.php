@@ -202,8 +202,8 @@ case 'mailto':
         $header['to'] = $imp_headers->getValue('to');
     }
     if (empty($header['to'])) {
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'), array('charset' => $registry->getCharset()))) ||
-        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to'), array('charset' => $registry->getCharset())));
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('from'), array('charset' => 'UTF-8'))) ||
+        ($header['to'] = Horde_Mime_Address::addrArray2String($imp_headers->getOb('reply-to'), array('charset' => 'UTF-8')));
     }
     break;
 
@@ -367,7 +367,7 @@ case 'send_message':
     if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
         if (!$readonly_drafts) {
             try {
-                $result = $imp_compose->saveDraft($header, $message, $registry->getCharset(), $rtemode);
+                $result = $imp_compose->saveDraft($header, $message, 'UTF-8', $rtemode);
 
                 /* Closing draft if requested by preferences. */
                 if ($vars->actionID == 'save_draft') {
@@ -618,7 +618,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
 if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
-    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses(), array('charset' => $registry->getCharset()));
+    $header['bcc'] = Horde_Mime_Address::addrArray2String($identity->getBccAddresses(), array('charset' => 'UTF-8'));
 }
 
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {

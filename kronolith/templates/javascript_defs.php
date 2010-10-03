@@ -3,7 +3,7 @@
  * JavaScript variables for the traditional interface.
  */
 
-$charset = $GLOBALS['registry']->getCharset();
+$charset = 'UTF-8';
 $currentDate = Kronolith::currentDate();
 
 /* Variables used in core javascript files. */

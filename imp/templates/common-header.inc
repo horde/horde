@@ -19,7 +19,7 @@ default:
 }
 
 if (isset($GLOBALS['language'])) {
-    header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
+    header('Content-type: text/html; charset=' . 'UTF-8');
     header('Vary: Accept-Language');
 }
 ?>

@@ -555,7 +555,7 @@ HTML;
      */
     static public function sendHTTPResponse($data, $ct)
     {
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
 
         // Output headers and encoded response.
         switch ($ct) {
@@ -618,7 +618,7 @@ HTML;
      */
     static public function escapeJson($data, array $options = array())
     {
-        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? $GLOBALS['registry']->getCharset() : $options['charset']);
+        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? 'UTF-8' : $options['charset']);
         if (empty($options['nodelimit'])) {
             $json = '/*-secure-' . $json . '*/';
         }
@@ -1135,7 +1135,7 @@ HTML;
         }
         if (!empty($title)) {
             if ($escape) {
-                $charset = $GLOBALS['registry']->getCharset();
+                $charset = 'UTF-8';
                 $old_error = error_reporting(0);
                 $title = str_replace(
                     array("\r", "\n"), '',
@@ -1176,7 +1176,7 @@ HTML;
                                        $attributes = array())
     {
         if (!empty($title)) {
-            $charset = $GLOBALS['registry']->getCharset();
+            $charset = 'UTF-8';
             $old_error = error_reporting(0);
             $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
             error_reporting($old_error);
@@ -1276,7 +1276,7 @@ HTML;
      */
     static public function img($src, $alt = '', $attr = '')
     {
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
@@ -1319,7 +1319,7 @@ HTML;
      */
     static public function fullSrcImg($src, $options = array())
     {
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
@@ -1575,7 +1575,7 @@ HTML;
      */
     static public function stripAccessKey($label)
     {
-        $multibyte = isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getCharset(true)]);
+        $multibyte = isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()]);
         return preg_replace('/_([A-Za-z])/',
                             $multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1',
                             $label);
@@ -1598,10 +1598,10 @@ HTML;
             return $stripped_label;
         }
 
-        if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getCharset(true)])) {
+        if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()])) {
             /* Prefix parenthesis with the UTF-8 representation of the LRO
              * (Left-to-Right-Override) Unicode codepoint U+202D. */
-            $prefix = ($GLOBALS['registry']->getCharset() == 'UTF-8')
+            $prefix = ('UTF-8' == 'UTF-8')
                 ? "\xe2\x80\xad"
                 : '';
             return $stripped_label . $prefix . '(<span class="accessKey">'
@@ -1801,7 +1801,7 @@ HTML;
      */
     static public function addInlineJsVars($data, $ret = false, $onload = null)
     {
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $out = array();
 
         foreach ($data as $key => $val) {

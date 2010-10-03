@@ -41,7 +41,7 @@
 
 function _sanitizeName($name)
 {
-    return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), 'UTF-8')), ' _'), 'UTF-8');
+    return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', Horde_String::convertCharset($name, 'UTF-8', 'UTF-8')), ' _'), 'UTF-8');
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';

@@ -1,6 +1,6 @@
 <?php
 
-$charset = $GLOBALS['registry']->getCharset();
+$charset = 'UTF-8';
 
 /* Variables used in core javascript files. */
 $var = array(

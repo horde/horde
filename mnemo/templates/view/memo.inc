@@ -30,14 +30,14 @@ if (!$print_view) {
 <?php if (isset($created)): ?>
 <tr>
   <td align="right"><strong><?php echo _("Created") ?></strong>&nbsp;</td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></td>
+  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, 'UTF-8') ?></td>
 </tr>
 <?php endif; ?>
 
 <?php if (isset($modified)): ?>
 <tr>
   <td align="right"><strong><?php echo _("Last Modified") ?></strong>&nbsp;</td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></td>
+  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, 'UTF-8') ?></td>
 </tr>
 <?php endif; ?>
 

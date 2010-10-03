@@ -72,7 +72,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        $new = Horde_String::convertCharset($this->_vars->mbox, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+        $new = Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP');
         try {
             $new = $imptree->createMailboxName($this->_vars->parent, $new);
 
@@ -165,7 +165,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = false;
 
         try {
-            $new = Horde_String::convertCharset($imptree->createMailboxName($this->_vars->new_parent, $this->_vars->new_name), $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+            $new = Horde_String::convertCharset($imptree->createMailboxName($this->_vars->new_parent, $this->_vars->new_name), 'UTF-8', 'UTF7-IMAP');
 
             if (($this->_vars->old_name != $new) &&
                 $GLOBALS['injector']->getInstance('IMP_Folder')->rename($this->_vars->old_name, $new)) {
@@ -1847,7 +1847,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $res = $imp_compose->saveDraft($headers, $this->_vars->message, $GLOBALS['registry']->getCharset(), $this->_vars->html);
+            $res = $imp_compose->saveDraft($headers, $this->_vars->message, 'UTF-8', $this->_vars->html);
             if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
             } else {

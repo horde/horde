@@ -964,7 +964,7 @@ class Turba_Driver implements Countable
         $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
         $charset = ($version == '2.1')
-            ? array('CHARSET' => $GLOBALS['registry']->getCharset())
+            ? array('CHARSET' => 'UTF-8')
             : array();
 
         foreach ($hash as $key => $val) {
@@ -973,7 +973,7 @@ class Turba_Driver implements Countable
             }
 
             if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
             }
 
             switch ($key) {
@@ -1642,8 +1642,8 @@ class Turba_Driver implements Countable
         );
         $val = implode(';', $a);
         if ($version != '2.1') {
-            $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
-            $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
+            $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
+            $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
         }
         if (!$fields || isset($fields['N'])) {
             $vcard->setAttribute('N', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $a);
@@ -1659,7 +1659,7 @@ class Turba_Driver implements Countable
                 $val = '';
             }
             if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
         }
@@ -1676,8 +1676,8 @@ class Turba_Driver implements Countable
         if (count($org) && (!$fields || isset($fields['ORG']))) {
             $val = implode(';', $org);
             if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
-                $org = Horde_String::convertCharset($org, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
+                $org = Horde_String::convertCharset($org, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ORG', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $org);
         }
@@ -1729,12 +1729,12 @@ class Turba_Driver implements Countable
             if ($version == '2.1') {
                 $params = array();
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => '');
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
+                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1784,12 +1784,12 @@ class Turba_Driver implements Countable
             if ($version == '2.1') {
                 $params = array('HOME' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => 'HOME');
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
+                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1839,12 +1839,12 @@ class Turba_Driver implements Countable
             if ($version == '2.1') {
                 $params = array('WORK' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => 'WORK');
-                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, 'UTF-8', 'utf-8');
+                $a = Horde_String::convertCharset($a, 'UTF-8', 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -2287,7 +2287,7 @@ class Turba_Driver implements Countable
     public function toASContact(Turba_Object $object)
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $hash = $object->getAttributes();
         foreach ($hash as $field => $value) {
             switch ($field) {
@@ -2446,7 +2446,7 @@ class Turba_Driver implements Countable
     public function fromASContact($message)
     {
         $hash = array();
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = 'UTF-8';
         $formattedname = false;
 
         $textMap = array(

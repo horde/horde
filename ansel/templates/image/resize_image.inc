@@ -29,7 +29,7 @@ function resetImage()
     document.slider.setValue(<?php echo $geometry['height'] ?>);
 }
 </script>
-<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
+<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, 'UTF-8') ?></h1>
 <div class="control anselActions" style="text-align: center">
 <?php
 $image_src = Ansel::getImageUrl($image_id, 'full');

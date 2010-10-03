@@ -72,7 +72,7 @@ if ($form->validate()) {
         'body' => $url . "\n\n" . $registry->getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
         'to' => $emails,
         'from' => $emails[0],
-        'charset' => $GLOBALS['registry']->getCharset()));
+        'charset' => 'UTF-8'));
     $mail->addHeader('User-Agent', 'Agora ' . $registry->getVersion());
     $mail->send($injector->getInstance('Horde_Mail'));
 

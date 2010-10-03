@@ -181,7 +181,7 @@ class IMP_Imap_Flags
 
         /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword). Convert
          * whitespace to underscore. */
-        $key = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'));
+        $key = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), 'UTF-8', 'UTF7-IMAP'));
         if (!isset($this->_flags[$key])) {
             $entry = $this->_createEntry($label);
 

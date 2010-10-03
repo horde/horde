@@ -71,5 +71,5 @@ $code = array(
 );
 
 Horde::addInlineScript(array(
-    'var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+    'var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, 'UTF-8')
 ), null, true);

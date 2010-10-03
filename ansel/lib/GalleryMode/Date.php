@@ -111,7 +111,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $trail[] = array('title' => _("All dates"), 'navdata' => $navdata);
         }
 
-        $text = htmlspecialchars($this->_gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $text = htmlspecialchars($this->_gallery->get('name'), ENT_COMPAT, 'UTF-8');
         $navdata = array('view' => 'Gallery',
                          'gallery' => $this->_gallery->id,
                          'slug' => $this->_gallery->get('slug'));

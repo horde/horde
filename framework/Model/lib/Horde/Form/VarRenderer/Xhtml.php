@@ -91,7 +91,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
             . 'id="%2$s" value="%3$s"%4$s%5$s%6$s />',
             ($var->isDisabled() ? ' form-input-disabled" ' : ''),
             $var->getVarName(),
-            htmlspecialchars($var->getValue($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()),
+            htmlspecialchars($var->getValue($vars), ENT_QUOTES, 'UTF-8'),
             ($var->isDisabled() ? ' disabled="disabled" ' : ''),
             ($var->type->maxlength ? ' maxlength="' . $var->type->maxlength . '"' : ''),
             $this->_getActionScripts($form, $var)
@@ -113,7 +113,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
         return sprintf(
             '<input type="text" class="form-input-phone" name="%1$s" id="%1$s" value="%2$s" %3$s%4$s />',
             $var->getVarName(),
-            htmlspecialchars($var->getValue($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()),
+            htmlspecialchars($var->getValue($vars), ENT_QUOTES, 'UTF-8'),
             ($var->isDisabled() ? ' disabled="disabled" ' : ''),
             $this->_getActionScripts($form, $var)
         );
@@ -128,7 +128,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
     {
         return sprintf('    <input type="text" class="form-input-ipaddress" name="%1$s" id="%1$s" value="%2$s" %3$s%4$s />',
                        $var->getVarName(),
-                       htmlspecialchars($var->getValue($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()),
+                       htmlspecialchars($var->getValue($vars), ENT_QUOTES, 'UTF-8'),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
                );
@@ -459,7 +459,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
         $prompt = $var->type->prompt;
         $htmlchars = $var->getOption('htmlchars');
         if ($prompt) {
-            $prompt = '<option value="">' . ($htmlchars ? htmlspecialchars($prompt, ENT_QUOTES, $GLOBALS['registry']->getCharset()) : $prompt) . '</option>';
+            $prompt = '<option value="">' . ($htmlchars ? htmlspecialchars($prompt, ENT_QUOTES, 'UTF-8') : $prompt) . '</option>';
         }
         return sprintf('    <select name="%1$s" id="%1$s"%2$s>%3$s%4$s    </select>',
                $var->getVarName(),
@@ -488,7 +488,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
         /* Hidden tag to store the current first level. */
         $html = sprintf('    <input type="hidden" name="%1$s[old]" id="%1$s[old]" value="%2$s" />',
                         $varname,
-                        htmlspecialchars($selected['1'], ENT_QUOTES, $GLOBALS['registry']->getCharset()));
+                        htmlspecialchars($selected['1'], ENT_QUOTES, 'UTF-8'));
 
         /* First level. */
         $values_1 = Horde_Array::valuesToKeys(array_keys($values));
@@ -497,7 +497,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                          'if (this.value) { document.' . $form->getName() . '.formname.value=\'\';' . 'document.' . $form->getName() . '.submit() }',
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . htmlspecialchars($prompts[0], ENT_QUOTES, $GLOBALS['registry']->getCharset()) . '</option>';
+            $html .= '<option value="">' . htmlspecialchars($prompts[0], ENT_QUOTES, 'UTF-8') . '</option>';
         }
         $html .= $this->_selectOptions($values_1, $selected['1']);
         $html .= '    </select>';
@@ -507,7 +507,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                          $varname,
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . htmlspecialchars($prompts[1], ENT_QUOTES, $GLOBALS['registry']->getCharset()) . '</option>';
+            $html .= '<option value="">' . htmlspecialchars($prompts[1], ENT_QUOTES, 'UTF-8') . '</option>';
         }
         $values_2 = array();
         if (!empty($selected['1'])) {
@@ -779,7 +779,7 @@ EOT;
     function _renderVarDisplayDefault($form, $var, $vars)
     {
         return nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES,
-            $GLOBALS['registry']->getCharset()));
+            'UTF-8'));
     }
 
     function _renderVarDisplay_html($form, $var, $vars)
@@ -823,7 +823,7 @@ EOT;
             return Horde::link($mail_link, $email_val)
                 . htmlspecialchars($display_email) . '</a>';
         } else {
-            return nl2br(htmlspecialchars($display_email, ENT_QUOTES, $GLOBALS['registry']->getCharset()));
+            return nl2br(htmlspecialchars($display_email, ENT_QUOTES, 'UTF-8'));
         }
     }
 
@@ -854,7 +854,7 @@ EOT;
         if (count($values) == 0) {
             return _("No values");
         } elseif (isset($values[$value]) && $value != '') {
-            return htmlspecialchars($values[$value], ENT_QUOTES, $GLOBALS['registry']->getCharset());
+            return htmlspecialchars($values[$value], ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -864,7 +864,7 @@ EOT;
         if (count($values) == 0) {
             return _("No values");
         } elseif (isset($values[$var->getValue($vars)])) {
-            return htmlspecialchars($values[$var->getValue($vars)], ENT_QUOTES, $GLOBALS['registry']->getCharset());
+            return htmlspecialchars($values[$var->getValue($vars)], ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -881,7 +881,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, $GLOBALS['registry']->getCharset());
+            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -898,7 +898,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, $GLOBALS['registry']->getCharset());
+            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -1069,7 +1069,7 @@ EOT;
             }
         }
 
-        $html = nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()));
+        $html = nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES, 'UTF-8'));
         if (!empty($mapurl)) {
             $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc) . '</a>';
         }
@@ -1107,7 +1107,7 @@ EOT;
     function _renderVarDisplay_invalid($form, $var, $vars)
     {
         return '<p class="form-error form-inline">'
-                . htmlspecialchars($var->type->message, ENT_QUOTES, $GLOBALS['registry']->getCharset())
+                . htmlspecialchars($var->type->message, ENT_QUOTES, 'UTF-8')
                 . '</p>';
     }
 
@@ -1226,7 +1226,7 @@ EOT;
                 $selected = '';
             }
             $result .= '        <option value="';
-            $result .= ($htmlchars) ? htmlspecialchars($value, ENT_QUOTES, $GLOBALS['registry']->getCharset()) : $value;
+            $result .= ($htmlchars) ? htmlspecialchars($value, ENT_QUOTES, 'UTF-8') : $value;
             $result .= '"' . $selected . '>';
             $result .= ($htmlchars) ? htmlspecialchars($display) : $display;
             $result .= "</option>\n";
@@ -1246,7 +1246,7 @@ EOT;
                 $selected = '';
             }
             $result .= " <option value=\""
-                . htmlspecialchars($value, ENT_QUOTES, $GLOBALS['registry']->getCharset())
+                . htmlspecialchars($value, ENT_QUOTES, 'UTF-8')
                 . "\"$selected>" . htmlspecialchars($display) . "</option>\n";
         }
 

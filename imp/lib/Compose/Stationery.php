@@ -34,7 +34,7 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
     {
         $slist = @unserialize($GLOBALS['prefs']->getValue('stationery', false));
         $this->_stationery = is_array($slist)
-            ? Horde_String::convertCharset($slist, $GLOBALS['prefs']->getCharset(), $GLOBALS['registry']->getCharset())
+            ? Horde_String::convertCharset($slist, $GLOBALS['prefs']->getCharset(), 'UTF-8')
             : array();
     }
 
@@ -59,7 +59,7 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
             switch ($this[$id]['t']) {
             case 'html':
                 if (!$html) {
-                    $s_content = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($s_content, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset()));
+                    $s_content = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($s_content, 'Html2text', array('charset' => 'UTF-8'));
                 }
                 break;
 
@@ -84,7 +84,7 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
      */
     protected function _save()
     {
-        $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset($this->_stationery, $GLOBALS['registry']->getCharset(), $GLOBALS['prefs']->getCharset())), false);
+        $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset($this->_stationery, 'UTF-8', $GLOBALS['prefs']->getCharset())), false);
     }
 
     /* ArrayAccess methods. */

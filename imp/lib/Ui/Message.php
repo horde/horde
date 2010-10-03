@@ -132,7 +132,7 @@ class IMP_Ui_Message
                 $GLOBALS['conf']['server']['name'],
                 $GLOBALS['injector']->getInstance('IMP_Mail'),
                 array(
-                    'charset' => $GLOBALS['registry']->getCharset(),
+                    'charset' => 'UTF-8',
                     'from_addr' => $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity()->getDefaultFromAddress()
                 )
             );
@@ -329,7 +329,7 @@ class IMP_Ui_Message
             } catch (Horde_Exception $e) {}
         }
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => $registry->getCharset())) as $ob) {
+        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
             if (isset($ob['groupname'])) {
                 $group_array = array();
                 foreach ($ob['addresses'] as $ad) {

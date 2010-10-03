@@ -1095,7 +1095,7 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
 
                 Horde::addInlineScript(array(
-                    '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                    '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
             } else {
                 $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
@@ -1108,7 +1108,7 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
 
                 Horde::addInlineScript(array(
-                    '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                    '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
 
                 if ($_SESSION['imp']['file_upload']) {
@@ -1432,7 +1432,7 @@ class IMP_Prefs_Ui
 
         $sent_mail_folder = IMP::formMbox($ui->vars->sent_mail_folder, false);
         if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
-            $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+            $sent_mail_folder = Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP');
         } elseif (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
             $sent_mail_folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (($sent_mail_folder == self::PREF_DEFAULT) &&
@@ -1491,7 +1491,7 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
 
                 Horde::addInlineScript(array(
-                    '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                    '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
             } elseif ($_SESSION['imp']['file_upload']) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
@@ -1928,7 +1928,7 @@ class IMP_Prefs_Ui
         if (strpos($folder, self::PREF_SPECIALUSE) === 0) {
             $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (!empty($new)) {
-            $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+            $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
             $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
             if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
                 $folder = null;

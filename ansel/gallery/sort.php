@@ -69,7 +69,7 @@ require ANSEL_TEMPLATES . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 ?>
-<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
+<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, 'UTF-8') ?></h1>
 <div class="instructions">
  <form action="sort.php" method="post">
   <?php echo Horde_Util::formInput() ?>
@@ -91,7 +91,7 @@ $notification->notify(array('listeners' => 'status'));
 <?php
 $images = $gallery->getImages();
 foreach ($images as $image) {
-    $caption = empty($image->caption) ? htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()) : htmlspecialchars($image->caption, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    $caption = empty($image->caption) ? htmlspecialchars($image->filename, ENT_COMPAT, 'UTF-8') : htmlspecialchars($image->caption, ENT_COMPAT, 'UTF-8');
     echo '<div id="o_' . (int)$image->id . '"><a title="'
         . $caption . '" href="#">'
         . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style) . '" alt="' . htmlspecialchars($image->filename) . '" />'

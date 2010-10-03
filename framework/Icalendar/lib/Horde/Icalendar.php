@@ -1049,7 +1049,7 @@ class Horde_Icalendar
                         // Add CHARSET as well. At least the synthesis client
                         // gets confused otherwise
                         if (empty($params['CHARSET'])) {
-                            $params['CHARSET'] = $GLOBALS['registry']->getCharset();
+                            $params['CHARSET'] = 'UTF-8';
                             $params_str .= ';CHARSET=' . $params['CHARSET'];
                         }
                     }

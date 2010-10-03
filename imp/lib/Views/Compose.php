@@ -66,7 +66,7 @@ class IMP_Views_Compose
                         'num' => intval($num),
                         'size' => $mime->getSize(),
                         'type' => $mime->getType()
-                    ), Horde_Serialize::JSON, $registry->getCharset());
+                    ), Horde_Serialize::JSON, 'UTF-8');
                     $result['jsonload'][] = 'DimpCompose.addAttach(' . $opts . ')';
                 }
             }

@@ -406,13 +406,13 @@ class Jonah_Driver
 
             /* Add the text version of the story to the base message. */
             $message_text = new MIME_Part('text/plain');
-            $message_text->setCharset($GLOBALS['registry']->getCharset());
+            $message_text->setCharset('UTF-8');
             $message_text->setContents($message_text->replaceEOL($body_text));
             $message_text->setDescription(_("Plaintext Version of Story"));
 
             /* Add an HTML version of the story to the base message. */
             $message_html = new MIME_Part('text/html', Horde_String::wrap($body_html),
-                                          $GLOBALS['registry']->getCharset(), 'inline');
+                                          'UTF-8', 'inline');
             $message_html->setDescription(_("HTML Version of Story"));
 
             /* Add the two parts as multipart/alternative. */
@@ -426,7 +426,7 @@ class Jonah_Driver
             /* This is just a plain text story. */
             $message_text = new MIME_Part('text/plain');
             $message_text->setContents($message_text->replaceEOL($story['description'] . "\n\n" . $story['body']));
-            $message_text->setCharset($GLOBALS['registry']->getCharset());
+            $message_text->setCharset('UTF-8');
 
             return $message_text;
         }

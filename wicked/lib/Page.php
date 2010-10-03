@@ -458,7 +458,7 @@ class Wicked_Page {
                 $this->_proc->deleteRule('Embed');
             }
 
-            $this->_proc->setFormatConf('Xhtml', 'charset', $GLOBALS['registry']->getCharset());
+            $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
             $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
             $linkConf = array(

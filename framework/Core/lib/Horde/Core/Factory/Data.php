@@ -59,7 +59,7 @@ class Horde_Core_Factory_Data
         $params['vars'] = Horde_Variables::getDefaultVariables();
 
         if (strcasecmp($driver, 'csv') === 0) {
-            $params['charset'] = $GLOBALS['registry']->getCharset();
+            $params['charset'] = 'UTF-8';
         }
 
         return Horde_Data::factory($driver, $params);

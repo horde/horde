@@ -138,7 +138,7 @@ class IMP
 
         $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
 
-        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, 'UTF-8');
 
         try {
             if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
@@ -387,7 +387,7 @@ class IMP
                 stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }
@@ -1026,7 +1026,7 @@ class IMP
     static public function formMbox($mbox, $to)
     {
         return $to
-            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, $GLOBALS['registry']->getCharset())
+            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, 'UTF-8')
             : rawurldecode($mbox);
     }
 

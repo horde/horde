@@ -170,7 +170,7 @@ class IMP_Dimp
     static public function returnToDimp($mailbox = '')
     {
         print '<html><head>' .
-            Horde::wrapInlineScript(array('window.parent.DimpBase.go(' . Horde_Serialize::serialize('folder:' . strval($mailbox), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')')) .
+            Horde::wrapInlineScript(array('window.parent.DimpBase.go(' . Horde_Serialize::serialize('folder:' . strval($mailbox), Horde_Serialize::JSON, 'UTF-8') . ')')) .
             '</head></html>';
         exit;
     }

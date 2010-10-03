@@ -673,11 +673,11 @@ class Nag
                                    'mail/compose',
                                    array(array('to' => $email))))
                 . @htmlspecialchars($fullname . ' <' . $email . '>',
-                                    ENT_COMPAT, $GLOBALS['registry']->getCharset())
+                                    ENT_COMPAT, 'UTF-8')
                 . '</a>';
         }
 
-        return @htmlspecialchars($fullname, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        return @htmlspecialchars($fullname, ENT_COMPAT, 'UTF-8');
     }
 
     /**
@@ -1003,7 +1003,7 @@ class Nag
                 break;
             }
 
-            $mail->addHeader('Subject', $subject . ' ' . $task->name, $GLOBALS['registry']->getCharset());
+            $mail->addHeader('Subject', $subject . ' ' . $task->name, 'UTF-8');
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
@@ -1015,7 +1015,7 @@ class Nag
                         $message .= "\n\n" . _("Task description:") . "\n\n" . $task->desc;
                     }
 
-                    $mail->setBody($message, $GLOBALS['registry']->getCharset());
+                    $mail->setBody($message, 'UTF-8');
                     $mail->clearRecipients();
                     $mail->addRecipients($df_recipients);
 
