@@ -292,6 +292,9 @@ class Horde_Cli
         case 'cli.message':
             $type_message = $this->blue('[  INFO  ] ');
             break;
+
+        default:
+            $type_message = '';
         }
 
         $this->writeln($type_message . $message);
