@@ -431,7 +431,6 @@ Application Framework.</description>
    <install as="Horde/Core/Auth/Signup/SqlObject.php" name="lib/Horde/Core/Auth/Signup/SqlObject.php" />
    <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
-   <install as="Horde/Core/Binder/AjaxFactory.php" name="lib/Horde/Core/Binder/AjaxFactory.php" />
    <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
@@ -447,7 +446,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
    <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
    <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
-   <install as="Horde/Core/Binder/ImpleFactory.php" name="lib/Horde/Core/Binder/ImpleFactory.php" />
    <install as="Horde/Core/Binder/Ldap.php" name="lib/Horde/Core/Binder/Ldap.php" />
    <install as="Horde/Core/Binder/Lock.php" name="lib/Horde/Core/Binder/Lock.php" />
    <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
