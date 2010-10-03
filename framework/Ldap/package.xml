@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2010-09-21</date>
- <time>23:28:57</time>
+ <date>2010-10-03</date>
+ <time>14:25:41</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -62,7 +62,6 @@
       <file name="AllTests.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="EntryTest.php" role="test" />
-      <file name="ExampleTest.php" role="test" />
       <file name="FilterTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="LdifTest.php" role="test" />
@@ -106,7 +105,6 @@
    <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
    <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
    <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
-   <install as="Horde/Ldap/ExampleTest.php" name="test/Horde/Ldap/ExampleTest.php" />
    <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
    <install as="Horde/Ldap/LdapTest.php" name="test/Horde/Ldap/LdapTest.php" />
    <install as="Horde/Ldap/LdifTest.php" name="test/Horde/Ldap/LdifTest.php" />
@@ -134,7 +132,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-09-21</date>
+   <date>2010-10-03</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
 * Forked from PEAR-Net_LDAP2-2.0.7.
