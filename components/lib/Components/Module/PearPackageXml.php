@@ -80,6 +80,10 @@ implements Components_Module
         $pear = new PEAR();
         $pear->setErrorHandling(PEAR_ERROR_DIE);
 
+        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
+            $GLOBALS['_PEAR_Config_instance'] = false;
+        }
+
         $package = PEAR_PackageFileManager2::importOptions(
             $package_file,
             array(
