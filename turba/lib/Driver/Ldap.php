@@ -159,9 +159,9 @@ class Turba_Driver_Ldap extends Turba_Driver
                     $filter .= '(&' . $this->_buildSearchQuery($vals) . ')';
                 }
             }
-        } else {
+        } elseif (!empty($this->_params['objectclass'])) {
             /* Filter on objectclass. */
-            $filter = $this->_buildObjectclassFilter();
+            $filter = Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
         }
 
         /* Add source-wide filters, which are _always_ AND-ed. */
@@ -220,7 +220,11 @@ class Turba_Driver_Ldap extends Turba_Driver
             return array();
         }
 
-        $filter = $this->_buildObjectclassFilter();
+        if (empty($this->_params['objectclass'])) {
+            $filter = null;
+        } else {
+            $filter = (string)Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
+        }
 
         /* Four11 (at least) doesn't seem to return 'cn' if you don't
          * ask for 'sn' as well. Add 'sn' implicitly. */
@@ -345,7 +349,11 @@ class Turba_Driver_Ldap extends Turba_Driver
         /* Get the old entry so that we can access the old
          * values. These are needed so that we can delete any
          * attributes that have been removed by using ldap_mod_del. */
-        $filter = $this->_buildObjectclassFilter();
+        if (empty($this->_params['objectclass'])) {
+            $filter = null;
+        } else {
+            $filter = (string)Horde_Ldap_Filter::build($this->_params['objectclass'], 'or');
+        }
         $oldres = @ldap_read($this->_ds, Horde_String::convertCharset($object_id, 'UTF-8', $this->_params['charset']), $filter, array_merge(array_keys($attributes), array('objectclass')));
         $info = ldap_get_attributes($this->_ds, ldap_first_entry($this->_ds, $oldres));
 
@@ -597,30 +605,6 @@ class Turba_Driver_Ldap extends Turba_Driver
     }
 
     /**
-     * Build an LDAP filter based on the objectclass parameter.
-     *
-     * @return string  An LDAP filter.
-     */
-    protected function _buildObjectclassFilter()
-    {
-        $filter = '';
-
-        if (!empty($this->_params['objectclass'])) {
-            if (!is_array($this->_params['objectclass'])) {
-                $filter = '(objectclass=' . $this->_params['objectclass'] . ')';
-            } else {
-                $filter = '(|';
-                foreach ($this->_params['objectclass'] as $objectclass) {
-                    $filter .= '(objectclass=' . $objectclass . ')';
-                }
-                $filter .= ')';
-            }
-        }
-
-        return $filter;
-    }
-
-    /**
      * Returns a list of required attributes.
      *
      * @param array $objectclasses  List of objectclasses that should be
@@ -633,7 +617,7 @@ class Turba_Driver_Ldap extends Turba_Driver
     protected function _checkRequiredAttributes($objectclasses)
     {
        $retval = array();
-       $schema = $this->_getSchema();
+       $schema = $this->_ldap->schema();
 
        foreach ($objectclasses as $oc) {
            if (Horde_String::lower($oc) == 'top') {
@@ -708,7 +692,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     protected function _getSyntax($att)
     {
-        $schema = $this->_getSchema();
+        $schema = $this->_ldap->schema();
 
         if (!isset($this->_syntaxCache[$att])) {
             $attv = $schema->get('attribute', $att);
@@ -719,35 +703,4 @@ class Turba_Driver_Ldap extends Turba_Driver
 
         return $this->_syntaxCache[$att];
     }
-
-    /**
-     * Returns an LDAP_Schema object that containts the LDAP schema.
-     *
-     * @return Net_LDAP_Schema  Returns a reference to the ldap schema object.
-     * @throws Turba_Exception
-     */
-    protected function _getSchema()
-    {
-        /* Check if the cached schema is valid, */
-        if (isset($this->_schema)) {
-            return $this->_schema;
-        }
-
-        if (!class_exists('Net_LDAP')) {
-            throw new Turba_Exception(_('You must have the Net_LDAP PEAR library installed to use the schema check function.'));
-        }
-
-        $config = array(
-            'host' => $this->_params['server'],
-            'port' => $this->_params['port']
-        );
-
-        $ldap = new Net_LDAP($config);
-        $ldap->_link = $this->_ds;
-
-        $this->_schema = $ldap->schema();
-
-        return $this->_schema;
-    }
-
 }
