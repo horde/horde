@@ -4,23 +4,22 @@
 
  - Document usage
 
- - Fail on missing dependencies in a decent way
+ - Allow specifying the template file for the CI setup that should be used.
 
  - Allow offline installs
 
- - Allow absolute/relative paths as arguments
+ - Add module for an initial empty PEAR template
 
- - Do not copy on syncing from the horde framework packages [x]
+ - Fix variable replacements when updating the package.xml
 
  - Produce an HTML dependency graph.
-
- - Add module for an initial empty PEAR template
 
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
  - Add a release helper module.
 
- - Fix variable replacements when updating the package.xml
+ - Allow absolute/relative paths as arguments
 
- - Allow specifying the template file for the CI setup that should be used.
+ - Fail on missing dependencies in a decent way
+
