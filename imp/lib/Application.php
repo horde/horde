@@ -91,7 +91,6 @@ class IMP_Application extends Horde_Registry_Application
         /* Add IMP-specific binders. */
         $binders = array(
             'IMP_AuthImap' => new IMP_Injector_Binder_AuthImap(),
-            'IMP_Contents' => new IMP_Injector_Binder_Contents(),
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),

@@ -68,7 +68,7 @@ if ($vars->actionID == 'compose_attach_preview') {
     if (!$vars->uid || !$vars->mailbox) {
         exit;
     }
-    $contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
 }
 
 /* Run through action handlers */

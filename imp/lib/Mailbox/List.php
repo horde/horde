@@ -194,7 +194,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                           !in_array('\\seen', $v['flags'])))) {
                         if (empty($preview_info[$k])) {
                             try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $k));
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $k));
                                 $prev = $imp_contents->generatePreview();
                                 $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
                                 if (!is_null($cache)) {

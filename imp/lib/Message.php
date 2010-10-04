@@ -339,7 +339,7 @@ class IMP_Message
 
         foreach ($indices as $folder => $index) {
             /* Fetch the message contents. */
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($folder, $index));
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($folder, $index));
 
             /* Fetch the message headers. */
             $imp_headers = $imp_contents->getHeaderOb();
@@ -494,7 +494,7 @@ class IMP_Message
 
         $uidvalidity = $imp_imap->checkUidvalidity($mbox);
 
-        $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
+        $contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create($indices);
         $message = $contents->getMIMEMessage();
         $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 

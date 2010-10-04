@@ -316,7 +316,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         global $injector, $prefs;
 
         try {
-            $contents = $injector->getInstance('IMP_Contents')->getOb($indices);
+            $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create($indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -409,7 +409,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
+                    $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
@@ -1793,7 +1793,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $attached = 0;
         foreach ($indices as $mbox => $idx) {
             ++$attached;
-             $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
+             $contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
              $headerob = $contents->getHeaderOb();
 
              $part = new Horde_Mime_Part();
@@ -2714,7 +2714,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function getContentsOb()
     {
         return $this->getMetadata('reply_type')
-            ? $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
+            ? $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
     }
 

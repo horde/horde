@@ -102,7 +102,7 @@ case 'process_import_personal_certs':
 
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
-    $contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
     $mime_part = $contents->getMIMEPart($vars->mime_id);
     if (empty($mime_part)) {
         throw new IMP_Exception('Cannot retrieve public key from message.');

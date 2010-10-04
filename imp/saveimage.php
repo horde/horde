@@ -21,7 +21,7 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Run through the action handlers. */
 switch ($vars->actionID) {
 case 'save_image':
-    $contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($vars->mbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
     $mime_part = $contents->getMIMEPart($vars->id);
     $image_data = array(
         'data' => $mime_part->getContents(),

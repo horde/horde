@@ -35,23 +35,6 @@ class IMP_Injector_Factory_Contents
     private $_instances = array();
 
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
-    /**
      * Return the IMP_Contents:: instance.
      *
      * @param IMP_Indices $indices  An indices object.
@@ -59,7 +42,7 @@ class IMP_Injector_Factory_Contents
      * @return IMP_Contents  The singleton contents instance.
      * @throws IMP_Exception
      */
-    public function getOb($indices)
+    public function create($indices)
     {
         $key = strval($indices);
 

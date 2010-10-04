@@ -94,7 +94,7 @@ foreach ($imp_indices->indices() as $mbox => $idxlist) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
+        $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);

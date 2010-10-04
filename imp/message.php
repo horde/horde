@@ -207,7 +207,7 @@ $uid = $index_array['uid'];
 
 /* Parse the message. */
 try {
-    $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imp_mailbox));
+    $imp_contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
     $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');

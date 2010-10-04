@@ -1816,7 +1816,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($this->_vars->imp_compose);
         if (!($imp_contents = $imp_compose->getContentsOb())) {
             $imp_contents = $this->_vars->uid
-                ? $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($this->_vars->uid))
+                ? $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($this->_vars->uid))
                 : null;
         }
 

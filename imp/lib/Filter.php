@@ -119,7 +119,7 @@ class IMP_Filter
 
         /* Get the list of from addresses. */
         foreach ($indices as $mbox => $idx) {
-            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
+            $contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
             $hdr = $contents->getHeaderOb();
             $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
         }

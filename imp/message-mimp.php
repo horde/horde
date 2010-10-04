@@ -118,7 +118,7 @@ $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
 try {
-    $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imp_mailbox));
+    $imp_contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
     IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
 }
