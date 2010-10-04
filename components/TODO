@@ -2,8 +2,6 @@
  Components TODO List
 ======================
 
- - Allow turning off colors [x]
-
  - Document usage
 
  - Fail on missing dependencies in a decent way
@@ -24,3 +22,5 @@
  - Add a release helper module.
 
  - Fix variable replacements when updating the package.xml
+
+ - Allow specifying the template file for the CI setup that should be used.
