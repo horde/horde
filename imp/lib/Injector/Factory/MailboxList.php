@@ -38,21 +38,12 @@ class IMP_Injector_Factory_MailboxList
     );
 
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
      * Constructor.
      *
      * @param Horde_Injector $injector  The injector to use.
      */
     public function __construct(Horde_Injector $injector)
     {
-        $this->_injector = $injector;
-
         register_shutdown_function(array($this, 'shutdown'));
     }
 
