@@ -8,7 +8,7 @@ if (strpos('@php_dir@', '@php_dir') === 0) {
  * We are heavily relying on the PEAR libraries which are not clean with regard
  * to E_STRICT.
  */
-error_reporting(E_ALL & ~E_STRICT);
+error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 
 require_once 'Horde/Autoloader/Default.php';
 Components::main();
