@@ -103,15 +103,8 @@ class Horde_Cache_File extends Horde_Cache
     }
 
     /**
-     * Attempts to retrieve cached data from the filesystem and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the data in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         if (!$this->exists($key, $lifetime)) {
             /* Nothing cached, return failure. */
@@ -123,28 +116,14 @@ class Horde_Cache_File extends Horde_Cache
         if (!$size) {
             return '';
         }
-        $old_error = error_reporting(0);
-        $data = file_get_contents($filename);
-        error_reporting($old_error);
 
-        return $data;
+        return @file_get_contents($filename);
     }
 
     /**
-     * Attempts to store data to the filesystem.
-     *
-     * @param string $key        Cache key.
-     * @param string $data       Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
-
         $filename = $this->_keyToFile($key, true);
         $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
         if (isset($this->_params['umask'])) {
@@ -185,18 +164,15 @@ class Horde_Cache_File extends Horde_Cache
 
         /* Key exists in the cache */
         if (file_exists($filename)) {
-            /* 0 means no expire. */
-            if ($lifetime == 0) {
+            /* 0 means no expire.
+             * Also, If the file was been created after the supplied value,
+             * the data is valid (fresh). */
+            if (($lifetime == 0) ||
+                (time() - $lifetime <= filemtime($filename))) {
                 return true;
             }
 
-            /* If the file was been created after the supplied value,
-             * the data is valid (fresh). */
-            if (time() - $lifetime <= filemtime($filename)) {
-                return true;
-            } else {
-                @unlink($filename);
-            }
+            @unlink($filename);
         }
 
         return false;
@@ -299,4 +275,5 @@ class Horde_Cache_File extends Horde_Cache
         }
         $d->close();
     }
+
 }

@@ -46,37 +46,18 @@ class Horde_Cache_Session extends Horde_Cache
     }
 
     /**
-     * Attempts to retrieve a piece of cached data and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
-        if ($this->exists($key, $lifetime)) {
-            return $this->_sess[$key]['d'];
-        }
-
-        return false;
+        return $this->exists($key, $lifetime)
+            ? $this->_sess[$key]['d']
+            : false;
     }
 
     /**
-     * Attempts to store an object to the cache.
-     *
-     * @param string $key        Cache key (identifier).
-     * @param string $data       Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
         $this->_sess[$key] = array(
             'd' => $data,
             'l' => $this->_getLifetime($lifetime)
@@ -123,4 +104,5 @@ class Horde_Cache_Session extends Horde_Cache
 
         return false;
     }
+
 }

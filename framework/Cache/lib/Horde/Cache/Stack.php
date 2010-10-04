@@ -46,44 +46,23 @@ class Horde_Cache_Stack extends Horde_Cache
     }
 
     /**
-     * Attempts to retrieve a cached object and return it to the
-     * caller.
-     *
-     * @param string $key        Object ID to query.
-     * @param integer $lifetime  Lifetime of the object in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         foreach ($this->_stack as $val) {
             $result = $val->get($key, $lifetime);
             if ($result !== false) {
-                break;
+                return $result;
             }
         }
 
-        return $result;
+        return false;
     }
 
     /**
-     * Attempts to store an object in the cache.
-     *
-     * @param string $key        Object ID used as the caching key.
-     * @param string $data       Data to store in the cache.
-     * @param integer $lifetime  Object lifetime - i.e. the time before the
-     *                           data becomes available for garbage
-     *                           collection.  If null use the default Horde GC
-     *                           time.  If 0 will not be GC'd.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
-
         /* Do writes in *reverse* order - it is OK if a write to one of the
          * non-master backends fails. */
         $master = true;
@@ -145,4 +124,5 @@ class Horde_Cache_Stack extends Horde_Cache
 
         return $success;
     }
+
 }

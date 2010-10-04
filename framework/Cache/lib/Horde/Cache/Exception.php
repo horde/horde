@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Cache package.
+ * Exception handler for the horde/Cache package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,6 +11,4 @@
  * @category Horde
  * @package  Cache
  */
-class Horde_Cache_Exception extends Horde_Exception_Prior
-{
-}
+class Horde_Cache_Exception extends Horde_Exception_Prior {}

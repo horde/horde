@@ -60,15 +60,8 @@ class Horde_Cache_Memcache extends Horde_Cache
     }
 
     /**
-     * Attempts to retrieve cached data from the memcache and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the data in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
         if (isset($this->_expirecache[$key])) {
@@ -99,20 +92,9 @@ class Horde_Cache_Memcache extends Horde_Cache
     }
 
     /**
-     * Attempts to store data to the memcache.
-     *
-     * @param string $key        Cache key.
-     * @param mixed $data        Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
-
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
 
@@ -151,4 +133,5 @@ class Horde_Cache_Memcache extends Horde_Cache
 
         return $this->_memcache->delete($key);
     }
+
 }

@@ -22,6 +22,7 @@ abstract class Horde_Cache
      * @var array
      */
     protected $_params = array(
+        'compress' => false,
         'lifetime' => 86400,
         'prefix' => '',
     );
@@ -38,6 +39,9 @@ abstract class Horde_Cache
      *
      * @param array $params  Parameter array:
      * <pre>
+     * 'compress' - (boolean) Compress data? Requires the 'lzf' PECL
+     *              extension.
+     *              DEFAULT: false
      * 'lifetime' - (integer) Lifetime of data, in seconds.
      *              DEFAULT: 86400 seconds
      * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
@@ -48,6 +52,10 @@ abstract class Horde_Cache
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
+        }
+
+        if (!empty($params['compress']) && !extension_loaded('lzf')) {
+            unset($params['compress']);
         }
 
         $this->_params = array_merge($this->_params, $params);
@@ -73,18 +81,30 @@ abstract class Horde_Cache
     }
 
     /**
-     * Attempts to retrieve a cached object and return it to the
-     * caller.
+     * Retrieve cached data.
      *
      * @param string $key        Object ID to query.
      * @param integer $lifetime  Lifetime of the object in seconds.
      *
      * @return mixed  Cached data, or false if none was found.
      */
-    abstract public function get($key, $lifetime = 1);
+    public function get($key, $lifetime = 1)
+    {
+        $res = $this->_get($key, $lifetime);
+
+        return ($this->_params['compress'] && ($res !== false))
+            // lzf_decompress() returns false on error
+            ? lzf_decompress($res)
+            : $res;
+    }
 
     /**
-     * Attempts to store an object in the cache.
+     * @see get()
+     */
+    abstract protected function _get($key, $lifetime);
+
+    /**
+     * Store an object in the cache.
      *
      * @param string $key        Object ID used as the caching key.
      * @param mixed $data        Data to store in the cache.
@@ -95,7 +115,23 @@ abstract class Horde_Cache
      *
      * @throws Horde_Cache_Exception
      */
-    abstract public function set($key, $data, $lifetime = null);
+    public function set($key, $data, $lifetime = null)
+    {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Cache data must be a string.');
+        }
+
+        if ($this->_params['compress']) {
+            $data = lzf_compress($data);
+        }
+
+        $res = $this->_set($key, $data, $lifetime);
+    }
+
+    /**
+     * @see set()
+     */
+    abstract protected function _set($key, $data, $lifetime);
 
     /**
      * Checks if a given key exists in the cache, valid for the given
@@ -128,4 +164,5 @@ abstract class Horde_Cache
     {
         return is_null($lifetime) ? $this->_params['lifetime'] : $lifetime;
     }
+
 }

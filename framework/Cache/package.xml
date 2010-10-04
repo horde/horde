@@ -33,7 +33,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added Horde_Cache_Session::.
+ <notes>* Add option to transparently compress cache data using lzf.
+ * Added Horde_Cache_Session::.
  * Horde_Cache::set() no longer returns a boolean result.
  * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
@@ -92,6 +93,11 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    <package>
     <name>Memcache</name>
     <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>lzf</name>
+    <channel>pecl.php.net</channel>
+    <recommended>1.5.2</recommended>
    </package>
    <extension>
     <name>apc</name>

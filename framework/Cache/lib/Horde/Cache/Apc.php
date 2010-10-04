@@ -15,15 +15,8 @@
 class Horde_Cache_Apc extends Horde_Cache
 {
     /**
-     * Attempts to retrieve a piece of cached data and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
@@ -31,19 +24,9 @@ class Horde_Cache_Apc extends Horde_Cache
     }
 
     /**
-     * Attempts to store an object to the cache.
-     *
-     * @param string $key        Cache key (identifier).
-     * @param string $data       Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
         if (apc_store($key . '_expire', time(), $lifetime)) {
@@ -64,7 +47,7 @@ class Horde_Cache_Apc extends Horde_Cache
     {
         $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
-        return (apc_fetch($key) === false) ? false : true;
+        return (apc_fetch($key) !== false);
     }
 
     /**
@@ -104,4 +87,5 @@ class Horde_Cache_Apc extends Horde_Cache
             apc_delete($key . '_expire');
         }
     }
+
 }

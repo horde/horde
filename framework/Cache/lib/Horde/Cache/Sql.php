@@ -84,15 +84,8 @@ class Horde_Cache_Sql extends Horde_Cache
     }
 
     /**
-     * Attempts to retrieve cached data.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Maximum age of the data in seconds or
-     *                           0 for any object.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         $okey = $key;
         $key = hash('md5', $key);
@@ -133,21 +126,9 @@ class Horde_Cache_Sql extends Horde_Cache
     }
 
     /**
-     * Attempts to store data.
-     *
-     * @param string $key        Cache key.
-     * @param string $data       Data to store in the cache.
-     * @param integer $lifetime  Maximum data life span or 0 for a
-     *                           non-expiring object.
-     *
-     * @throws Horde_Cache_Exception
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        if (!is_string($data)) {
-            throw new Horde_Cache_Exception('Data must be a string.');
-        }
-
         $okey = $key;
         $key = hash('md5', $key);
 
@@ -252,4 +233,5 @@ class Horde_Cache_Sql extends Horde_Cache
 
         return true;
     }
+
 }
