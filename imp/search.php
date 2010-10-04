@@ -208,8 +208,8 @@ if ($vars->criteria_form) {
         case 'older':
         case 'younger':
             $c_list[] = new IMP_Search_Element_Within(
-                $val->v,
-                $constants['within'][$val->l]
+                $val->v->v,
+                $constants['within'][$val->v->l],
                 ($val->t == 'older')
             );
             break;
