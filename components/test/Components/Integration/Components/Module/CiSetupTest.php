@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Components package.
+ * Test the CI setup module.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../../../Autoload.php';
 
 /**
- * Test the Components package.
+ * Test the CI setup module.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
