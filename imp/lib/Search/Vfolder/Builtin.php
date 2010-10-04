@@ -33,7 +33,7 @@ abstract class IMP_Search_Vfolder_Builtin extends IMP_Search_Vfolder
      *
      * The 'add', 'id', 'label', and 'mboxes' parameters are not honored.
      *
-     * @see parent::__construct()
+     * @see __construct()
      */
     public function __construct(array $opts = array())
     {

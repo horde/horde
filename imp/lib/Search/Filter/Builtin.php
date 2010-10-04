@@ -33,7 +33,7 @@ abstract class IMP_Search_Filter_Builtin extends IMP_Search_Filter
      *
      * The 'add', 'id', 'label', and 'mboxes' parameters are ignored.
      *
-     * @see parent::__construct()
+     * @see __construct()
      */
     public function __construct(array $opts = array())
     {

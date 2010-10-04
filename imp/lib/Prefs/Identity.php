@@ -36,7 +36,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
      *
-     * @see Horde_Prefs_Identity::__construct()
+     * @see __construct()
      */
     public function __construct($params)
     {
@@ -512,7 +512,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     /**
      * Returns a property from one of the identities.
      *
-     * @see Horde_Prefs_Identity::getValue()
+     * @see getValue()
      */
     public function getValue($key, $identity = null)
     {
@@ -525,7 +525,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     /**
      * Sets a property with a specified value.
      *
-     * @see Horde_Prefs_Identity::getValue()
+     * @see setValue()
      */
     public function setValue($key, $val, $identity = null)
     {

@@ -80,7 +80,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      * Using the preferences and the current mailbox, determines the messages
      * to view on the current page.
      *
-     * @see parent::buildMailboxPage()
+     * @see buildMailboxPage()
      */
     public function buildMailboxPage($page = 0, $start = 0, $opts = array())
     {

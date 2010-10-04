@@ -27,7 +27,7 @@ class IMP_Indices implements Countable, Iterator
      *
      * Parameters are the same as add().
      *
-     * @see IMP_Indices::add()
+     * @see add()
      */
     public function __construct()
     {

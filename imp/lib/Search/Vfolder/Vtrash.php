@@ -39,7 +39,7 @@ class IMP_Search_Vfolder_Vtrash extends IMP_Search_Vfolder_Builtin
      * Get object properties.
      * Only create mailbox list on demand.
      *
-     * @see parent::__get()
+     * @see __get()
      */
     public function __get($name)
     {
