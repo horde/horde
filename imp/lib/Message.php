@@ -105,7 +105,7 @@ class IMP_Message
             break;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         foreach ($indices->indices() as $mbox => $msgIndices) {
             $error = null;
@@ -211,7 +211,7 @@ class IMP_Message
             }
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         foreach ($indices->indices() as $mbox => $msgIndices) {
             $error = null;
@@ -486,7 +486,7 @@ class IMP_Message
             return;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         if ($imp_imap->isReadOnly($mbox)) {
             throw new IMP_Exception(_("Cannot strip the MIME part as the mailbox is read-only."));
@@ -624,7 +624,7 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         foreach ($indices->indices() as $mbox => $msgIndices) {
             $error = null;
@@ -679,7 +679,7 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         foreach ($mboxes as $val) {
             try {
@@ -719,7 +719,7 @@ class IMP_Message
             return $msg_list ? new IMP_Indices() : null;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $process_list = $update_list = array();
 
@@ -770,7 +770,7 @@ class IMP_Message
     {
         global $notification, $prefs;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $trash_folder = ($prefs->getValue('use_trash'))
             ? IMP::folderPref($prefs->getValue('trash_folder'), true)
@@ -824,7 +824,7 @@ class IMP_Message
     public function sizeMailbox($mbox, $formatted = true)
     {
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($mbox, array(Horde_Imap_Client::FETCH_SIZE => true), array('sequence' => true));
+            $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mbox, array(Horde_Imap_Client::FETCH_SIZE => true), array('sequence' => true));
 
             $size = 0;
             reset($res);

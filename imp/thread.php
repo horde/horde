@@ -27,7 +27,7 @@ $mode = $vars->mode
     ? $vars->mode
     : 'thread';
 
-$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 $imp_mailbox = $injector->getInstance('IMP_Mailbox_List')->getListTrack(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 
 $error = false;

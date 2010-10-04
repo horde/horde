@@ -32,7 +32,7 @@ class IMP_Ui_Block
             $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         /* Get list of mailboxes to poll. */
         $poll = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true);

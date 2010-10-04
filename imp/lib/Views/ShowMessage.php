@@ -109,7 +109,7 @@ class IMP_Views_ShowMessage
         /* Get envelope/header information. We don't use flags in this
          * view. */
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($mailbox, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($uid)));

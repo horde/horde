@@ -97,7 +97,7 @@ class IMP_Imap_Flags
             try {
                 /* Make sure we are in R/W mailbox mode (SELECT). No flags are
                  * allowed in EXAMINE mode. */
-                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
                 $imp_imap->openMailbox($options['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
                 $status = $imp_imap->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
 
@@ -181,7 +181,7 @@ class IMP_Imap_Flags
 
         /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword). Convert
          * whitespace to underscore. */
-        $key = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), 'UTF-8', 'UTF7-IMAP'));
+        $key = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), 'UTF-8', 'UTF7-IMAP'));
         if (!isset($this->_flags[$key])) {
             $entry = $this->_createEntry($label);
 

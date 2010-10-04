@@ -215,7 +215,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         /* Add information necessary to log replies/forwards when finally
          * sent. */
         if ($this->getMetadata('reply_type')) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
                     'type' => $_SESSION['imp']['protocol'],
@@ -283,7 +283,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
+            $ids = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
@@ -399,7 +399,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($val) {
-            $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->crerate();
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {
@@ -685,7 +685,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->append($opts['sent_folder'], array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -1316,7 +1316,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
@@ -1595,7 +1595,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $subject = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
             $header['title'] = _("Forward") . ': ' . $subject;
             $header['subject'] = 'Fwd: ' . $subject;
         } else {
@@ -1812,7 +1812,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             } else {
                 $name = Horde_String::truncate($name, 80);
             }
-            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
         }
 
         return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);

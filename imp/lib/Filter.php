@@ -111,7 +111,7 @@ class IMP_Filter
         }
 
         $addr = array();
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         foreach (array_keys($indices) as $mbox) {
             $imp_imap->checkUidvalidity($mbox);

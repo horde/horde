@@ -94,7 +94,6 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),
-            'IMP_Imap' => new IMP_Injector_Binder_Imap(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
             'IMP_Mail' => new IMP_Injector_Binder_Mail(),
             'IMP_Mailbox_List' => new IMP_Injector_Binder_MailboxList(),
@@ -244,7 +243,7 @@ class IMP_Application extends Horde_Registry_Application
                 $trash_folder = IMP::folderPref($trash_folder, true);
 
                 if ($injector->getInstance('IMP_Search')->isVTrash($trash_folder) ||
-                    !$injector->getInstance('IMP_Imap')->getOb()->isReadOnly($trash_folder)) {
+                    !$injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly($trash_folder)) {
                     $menu->addArray(array(
                         'class' => '__noselection',
                         'icon' => 'empty_trash.png',

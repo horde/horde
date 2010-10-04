@@ -39,7 +39,7 @@ class IMP_Block_Newmail extends Horde_Block
                 : $this->_params['msgs_shown'];
 
             try {
-                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch('INBOX', array(
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch('INBOX', array(
                     Horde_Imap_Client::FETCH_ENVELOPE => true
                 ), array('ids' => array_slice($indices, 0, $shown)));
                 reset($fetch_ret);

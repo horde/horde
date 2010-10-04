@@ -36,7 +36,7 @@ class IMP_Injector_Binder_Mail implements Horde_Injector_Binder
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
-            $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
             $params['username'] = $imap_ob->getParam('username');
             $params['password'] = $imap_ob->getParam('password');
         }

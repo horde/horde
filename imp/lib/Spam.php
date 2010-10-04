@@ -43,7 +43,7 @@ class IMP_Spam
             return 0;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $report_count = $result = 0;
 
         foreach ($indices->indices() as $mbox => $msgIndices) {

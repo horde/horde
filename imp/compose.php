@@ -98,7 +98,7 @@ $compose_disable = !IMP::canCompose();
 $imp_folder = $injector->getInstance('IMP_Folder');
 $readonly_drafts = $readonly_sentmail = false;
 $draft = $prefs->getValue('drafts_folder');
-$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 if (!empty($draft)) {
     $draft = IMP::folderPref($draft, true);
     $readonly_drafts = $imp_folder->exists($draft) &&

@@ -35,31 +35,14 @@ class IMP_Injector_Factory_Imap
     private $_instances = array();
 
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
-    /**
      * Return the IMP_Imap:: instance.
      *
      * @param string $id  The server ID.
      *
-     * @return IMP_Imap  The singleton contents instance.
+     * @return IMP_Imap  The singleton instance.
      * @throws IMP_Exception
      */
-    public function getOb($id = null)
+    public function create($id = null)
     {
         if (is_null($id)) {
             $id = isset($_SESSION['imp'])

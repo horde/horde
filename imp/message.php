@@ -30,7 +30,7 @@ $registry->setTimeZone();
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
 if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox))) {
-    $injector->getInstance('IMP_Imap')->getOb()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+    $injector->getInstance('IMP_Injector_Factory_Imap')->create()->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Make sure we have a valid index. */
@@ -59,7 +59,7 @@ if ($vars->actionID) {
 }
 
 /* Determine if mailbox is readonly. */
-$peek = $readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly(IMP::$mailbox);
+$peek = $readonly = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
 if ($readonly &&
     in_array($vars->actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
     $vars->actionID = null;
@@ -219,10 +219,10 @@ try {
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
+    $flags_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($uid)));
-    $fetch_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
+    $fetch_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($uid)));

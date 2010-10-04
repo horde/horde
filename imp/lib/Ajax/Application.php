@@ -452,7 +452,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = new stdClass;
         $result->poll = array();
 
-        foreach ($GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+        foreach ($GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
             $result->poll[$key] = intval($val['unseen']);
         }
 
@@ -506,7 +506,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if ($this->_vars->add) {
             $imptree->addPollList($this->_vars->mbox);
             try {
-                if ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->_vars->mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
+                if ($info = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->status($this->_vars->mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
                     $result->poll = array($this->_vars->mbox => intval($info['unseen']));
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
@@ -1444,7 +1444,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_vars->view, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($this->_vars->view, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($this->_vars->uid)));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -1875,7 +1875,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _checkUidvalidity($result = false)
     {
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->checkUidvalidity($this->_vars->view);
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->checkUidvalidity($this->_vars->view);
         } catch (IMP_Exception $e) {
             if (!is_object($result)) {
                 $result = new stdClass;
@@ -1967,7 +1967,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
                 if ($e->getCode() == Horde_Imap_Client_Exception::MAILBOX_NOOPEN) {
                     $GLOBALS['notification']->push(sprintf(_("Could not open mailbox \"%s\"."), $this->_vars->view), 'horde.error');

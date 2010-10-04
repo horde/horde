@@ -23,7 +23,7 @@ if (!$vars->uid || !$vars->folder) {
 
 $imp_ui = new IMP_Ui_Message();
 $js_onload = $js_vars = array();
-$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($vars->folder);
+$readonly = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly($vars->folder);
 
 switch ($vars->actionID) {
 case 'strip_attachment':

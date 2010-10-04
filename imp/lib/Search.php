@@ -157,7 +157,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function imapSearch($mailbox, $query, $opts = array())
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         /* If doing a from/to search, use display sorting if possible.
          * Although there is a fallback to a PHP-based display sort, for

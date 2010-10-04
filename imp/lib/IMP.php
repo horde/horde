@@ -356,7 +356,7 @@ class IMP
             return $cache[$folder];
         }
 
-        $ns_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getNamespace($folder);
+        $ns_info = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespace($folder);
         $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
 
         /* Substitute any translated prefix text. */
@@ -556,7 +556,7 @@ class IMP
      */
     static public function folderPref($folder, $append)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $def_ns = $imp_imap->defaultNamespace();
         $empty_ns = $imp_imap->getNamespace('');
 

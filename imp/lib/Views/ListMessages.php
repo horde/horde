@@ -167,7 +167,7 @@ class IMP_Views_ListMessages
             }
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         /* These entries may change during a session, so always need to
          * update them. */

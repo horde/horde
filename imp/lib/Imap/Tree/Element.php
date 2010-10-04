@@ -155,7 +155,7 @@ class IMP_Imap_Tree_Element
             $info->unseen = 0;
 
             try {
-                if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->value, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->status($this->value, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
                     if (!empty($msgs_info['recent'])) {
                         $info->recent = intval($msgs_info['recent']);
                     }

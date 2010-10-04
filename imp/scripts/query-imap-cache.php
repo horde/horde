@@ -42,7 +42,7 @@ foreach ($options[0] as $val) {
     }
 }
 
-$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 
 if (is_null($server)) {
     /* Set first entry to 1, not 0. */

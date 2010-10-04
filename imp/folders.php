@@ -166,7 +166,7 @@ case 'rename_folder':
     if (!empty($new_names) &&
         !empty($old_names) &&
         ($iMax == count($old_names))) {
-        $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
         for ($i = 0; $i < $iMax; ++$i) {
             $old_name = IMP::formMbox($old_names[$i], false);
             $old_ns = $imp_imap->getNamespace($old_name);
@@ -246,7 +246,7 @@ case 'folders_empty_mailbox_confirm':
             }
 
             try {
-                $elt_info = $injector->getInstance('IMP_Imap')->getOb()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
+                $elt_info = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 $elt_info = null;
             }
@@ -415,7 +415,7 @@ if (!empty($imaptree->recent)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
     foreach ($imaptree->recent as $mbox => $nm) {
-        $injector->getInstance('IMP_Imap')->getOb()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+        $injector->getInstance('IMP_Injector_Factory_Imap')->create()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
     IMP::newmailAlerts($imaptree->recent);

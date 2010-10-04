@@ -63,7 +63,7 @@ if (!Horde_Util::nonInputVar('from_message_page')) {
 
 $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Imap_Flags');
-$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 $indices = new IMP_Indices($vars->indices);
 
 /* Run through the action handlers */

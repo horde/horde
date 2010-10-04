@@ -55,7 +55,7 @@ class IMP_Folder
             }
 
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->deleteMailbox($folder);
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->deleteMailbox($folder);
                 $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), IMP::displayFolder($folder)), 'horde.success');
                 $deleted[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
@@ -144,7 +144,7 @@ class IMP_Folder
 
         /* Attempt to create the mailbox. */
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->createMailbox($folder, array('special_use' => $special_use));
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->createMailbox($folder, array('special_use' => $special_use));
         } catch (Horde_Imap_Client_Exception $e) {
             $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
@@ -178,7 +178,7 @@ class IMP_Folder
         }
 
         try {
-            $ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->listMailboxes($folder, array('flat' => true));
+            $ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listMailboxes($folder, array('flat' => true));
             return !empty($ret);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
@@ -219,7 +219,7 @@ class IMP_Folder
         $all_folders = array_merge(array($old), array_keys(iterator_to_array($imaptree)));
 
         try {
-            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->renameMailbox($old, $new);
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->renameMailbox($old, $new);
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
@@ -263,7 +263,7 @@ class IMP_Folder
 
         foreach (array_filter($folders) as $folder) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->subscribeMailbox($folder, true);
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->subscribeMailbox($folder, true);
                 $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
@@ -303,7 +303,7 @@ class IMP_Folder
                 $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), IMP::displayFolder($folder)), 'horde.error');
             } else {
                 try {
-                    $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->subscribeMailbox($folder, false);
+                    $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->subscribeMailbox($folder, false);
                     $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
@@ -344,7 +344,7 @@ class IMP_Folder
 
         foreach ($folder_list as $folder) {
             try {
-                $status = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
@@ -352,7 +352,7 @@ class IMP_Folder
                 /* Download one message at a time to save on memory
                  * overhead. */
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($folder, array(
+                    $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($folder, array(
                         Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true, 'stream' => true),
                         Horde_Imap_Client::FETCH_ENVELOPE => true,
                         Horde_Imap_Client::FETCH_DATE => true,
@@ -397,7 +397,7 @@ class IMP_Folder
     {
         $message = '';
         $msgcount = 0;
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         $fd = fopen($mbox, 'r');
         while (!feof($fd)) {

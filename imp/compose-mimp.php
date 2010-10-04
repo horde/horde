@@ -64,7 +64,7 @@ $sent_mail_folder = $identity->getValue('sent_mail_folder');
 
 /* Determine if mailboxes are readonly. */
 $readonly_drafts = false;
-$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
 if (!empty($draft)) {
     $draft = IMP::folderPref($draft, true);
     $readonly_drafts = $imp_folder->exists($draft) &&

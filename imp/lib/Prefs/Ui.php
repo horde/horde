@@ -1473,7 +1473,7 @@ class IMP_Prefs_Ui
             $sent_mail_folder = $sm_default;
         }
 
-        $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sent_mail_folder);
+        $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($sent_mail_folder);
 
         if ($sent_mail_folder) {
             $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
@@ -1962,7 +1962,7 @@ class IMP_Prefs_Ui
             $folder = substr($folder, strlen(self::PREF_SPECIALUSE));
         } elseif (!empty($new)) {
             $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
-            $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
+            $folder = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($new);
             if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'), array($type => true))) {
                 $folder = null;
             }
@@ -1983,7 +1983,7 @@ class IMP_Prefs_Ui
     protected function _getSpecialUse($use)
     {
         if (is_null($this->_cache)) {
-            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
+            $this->_cache = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array(
                 'attributes' => true,
                 'special_use' => true,
                 'sort' => true

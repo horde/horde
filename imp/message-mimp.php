@@ -34,7 +34,7 @@ if (!$imp_mailbox->isValidIndex()) {
     IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('a', 'm')->redirect();
 }
 
-$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly(IMP::$mailbox);
+$readonly = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly(IMP::$mailbox);
 
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
@@ -100,10 +100,10 @@ $uid = $index_ob['uid'];
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
+    $flags_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($uid)));
-    $fetch_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
+    $fetch_ret = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
     ), array('ids' => array($uid)));

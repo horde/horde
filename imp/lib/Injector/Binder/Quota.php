@@ -32,14 +32,14 @@ class IMP_Injector_Binder_Quota implements Horde_Injector_Binder
 
         switch (Horde_String::lower($driver)) {
         case 'imap':
-            $params['imap_ob'] = $injector->getInstance('IMP_Imap')->getOb();
+            $params['imap_ob'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
             $params['mbox'] = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox)
                 ? 'INBOX'
                 : IMP::$mailbox;
             break;
 
         case 'maildir':
-            $params['username'] = $injector->getInstance('IMP_Imap')->getOb()->getParam('username');
+            $params['username'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->getParam('username');
             break;
 
         case 'sql':

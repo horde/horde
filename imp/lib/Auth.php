@@ -43,7 +43,7 @@ class IMP_Auth
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -153,7 +153,7 @@ class IMP_Auth
         }
 
         $auth_id = $GLOBALS['registry']->getAuth();
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         $msg = sprintf(
             $msg . ' %s [%s]%s to {%s:%s%s}',
@@ -218,7 +218,7 @@ class IMP_Auth
         );
 
         /* Load the server configuration. */
-        $ptr = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->loadServerConfig($credentials['server']);
+        $ptr = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->loadServerConfig($credentials['server']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
@@ -300,7 +300,7 @@ class IMP_Auth
      */
     static protected function _canAutoLogin($server_key = null, $force = false)
     {
-        if (($servers = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->loadServerConfig()) === false) {
+        if (($servers = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->loadServerConfig()) === false) {
             return false;
         }
 
@@ -385,7 +385,7 @@ class IMP_Auth
 
         $sess = &$_SESSION['imp'];
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $ptr = $imp_imap->loadServerConfig($sess['server_key']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
