@@ -30,13 +30,6 @@ class Horde_Core_Factory_Cache
     /**
      * Return the Horde_Cache:: instance.
      *
-     * @param array $opts  Options:
-     * <pre>
-     * 'session' - (boolean) Fallback to session driver, instead of null
-     *             driver, if no cache config is found.
-     *             DEFAULT: false
-     * </pre>
-     *
      * @return Horde_Cache
      * @throws Horde_Cache_Exception
      */
@@ -97,4 +90,5 @@ class Horde_Core_Factory_Cache
 
         return $classname;
     }
+
 }
