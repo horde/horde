@@ -111,7 +111,7 @@ if ($readonly_sentmail) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = $injector->getInstance('IMP_Compose')->getOb($vars->composeCache);
+$imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 $imp_compose->userLinkAttachments((bool) $vars->link_attachments);
 

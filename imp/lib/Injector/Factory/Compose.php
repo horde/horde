@@ -61,12 +61,12 @@ class IMP_Injector_Factory_Compose
      * @return IMP_Compose  The singleton compose instance.
      * @throws IMP_Exception
      */
-    public function getOb($cacheid = null)
+    public function create($cacheid = null)
     {
         if (empty($cacheid)) {
             $cacheid = strval(new Horde_Support_Randomid());
         } elseif (!isset($this->_instances[$cacheid])) {
-            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
+            $obs = $this->_injector->getInstance('Horde_SessionObjects');
             $this->_instances[$cacheid] = $obs->query($cacheid);
         }
 
@@ -82,7 +82,7 @@ class IMP_Injector_Factory_Compose
      */
     public function shutdown()
     {
-        $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
+        $obs = $this->_injector->getInstance('Horde_SessionObjects');
 
         foreach ($this->_instances as $key => $val) {
             switch ($val->changed) {

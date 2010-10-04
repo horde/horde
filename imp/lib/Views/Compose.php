@@ -45,7 +45,7 @@ class IMP_Views_Compose
         $t->setOption('gettext', true);
 
         if (!empty($args['composeCache'])) {
-            $imp_compose = $injector->getInstance('IMP_Compose')->getOb($args['composeCache']);
+            $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($args['composeCache']);
             $t->set('composeCache', $args['composeCache']);
         }
 

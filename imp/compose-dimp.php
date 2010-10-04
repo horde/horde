@@ -62,7 +62,7 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
 }
 
 /* Init objects. */
-$imp_compose = $injector->getInstance('IMP_Compose')->getOb();
+$imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create();
 $imp_ui = new IMP_Ui_Compose();
 
 $show_editor = false;

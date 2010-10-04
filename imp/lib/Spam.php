@@ -119,7 +119,7 @@ class IMP_Spam
                     }
 
                     if (!isset($imp_compose)) {
-                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb();
+                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create();
                         try {
                             $from_line = $GLOBALS['injector']->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {

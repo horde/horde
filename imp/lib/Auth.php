@@ -504,7 +504,7 @@ class IMP_Auth
         }
 
         /* Check for drafts due to session timeouts. */
-        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->recoverSessionExpireDraft();
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create()->recoverSessionExpireDraft();
 
         self::_logMessage(true);
     }

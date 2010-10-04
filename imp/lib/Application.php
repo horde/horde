@@ -79,7 +79,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
             Horde_Util::getFormData('composeCache')) {
-            $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
         }
     }
 
@@ -91,7 +91,6 @@ class IMP_Application extends Horde_Registry_Application
         /* Add IMP-specific binders. */
         $binders = array(
             'IMP_AuthImap' => new IMP_Injector_Binder_AuthImap(),
-            'IMP_Compose' => new IMP_Injector_Binder_Compose(),
             'IMP_Contents' => new IMP_Injector_Binder_Contents(),
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
@@ -153,7 +152,7 @@ class IMP_Application extends Horde_Registry_Application
         /* Clean up dangling IMP_Compose objects. */
         if (!empty($_SESSION['imp']['cache']['compose'])) {
             foreach (array_keys($_SESSION['imp']['cache']['compose']) as $key) {
-                $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($key)->destroy('cancel');
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
             }
         }
     }
