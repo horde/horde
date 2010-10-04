@@ -296,6 +296,10 @@ class Horde_Registry
                 'Horde_Core_Factory_Cache',
                 'create',
             ),
+            'Horde_Cache_Session' => array(
+                'Horde_Core_Factory_Cache',
+                'createSession',
+            ),
             'Horde_Controller_Request' => array(
                 'Horde_Core_Factory_Request',
                 'create',

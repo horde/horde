@@ -42,6 +42,25 @@ class Horde_Core_Factory_Cache
             $driver = 'Null';
         }
 
+        return $this->_create($driver, $injector);
+    }
+
+    /**
+     * Return the Horde_Cache_Session:: instance.
+     *
+     * @return Horde_Cache_Session
+     * @throws Horde_Cache_Exception
+     */
+    public function createSession(Horde_Injector $injector)
+    {
+        return $this->_create('Session', $injector);
+    }
+
+    /**
+     * @see create()
+     */
+    private function _create($driver, $injector)
+    {
         $params = Horde::getDriverConfig('cache', $driver);
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
             $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
@@ -80,6 +99,8 @@ class Horde_Core_Factory_Cache
         return new $classname($params);
     }
 
+    /**
+     */
     protected function _driverToClassname($driver)
     {
         $driver = ucfirst(basename($driver));
