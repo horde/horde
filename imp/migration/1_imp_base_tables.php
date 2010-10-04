@@ -20,19 +20,23 @@ class ImpBaseTables extends Horde_Db_Migration_Base
     public function up()
     {
         // Create: imp_sentmail
-        $t = $this->createTable('imp_sentmail', array('primaryKey' => 'sentmail_id'));
-        $t->column('sentmail_id', 'bigint', array('null' => false));
-        $t->column('sentmail_who', 'string', array('limit' => 255, 'null' => false));
-        $t->column('sentmail_ts', 'bigint', array('null' => false));
-        $t->column('sentmail_messageid', 'string', array('limit' => 255, 'null' => false));
-        $t->column('sentmail_action', 'string', array('limit' => 32, 'null' => false));
-        $t->column('sentmail_recipient', 'string', array('limit' => 255, 'null' => false));
-        $t->column('sentmail_success', 'integer', array('null' => false));
-        $t->end();
+        $tableList = $this->tables();
+        if (!in_array('imp_sentmail', $tableList)) {
+            $t = $this->createTable('imp_sentmail', array('primaryKey' => false));
+            $t->column('sentmail_id', 'bigint', array('null' => false));
+            $t->column('sentmail_who', 'string', array('limit' => 255, 'null' => false));
+            $t->column('sentmail_ts', 'bigint', array('null' => false));
+            $t->column('sentmail_messageid', 'string', array('limit' => 255, 'null' => false));
+            $t->column('sentmail_action', 'string', array('limit' => 32, 'null' => false));
+            $t->column('sentmail_recipient', 'string', array('limit' => 255, 'null' => false));
+            $t->column('sentmail_success', 'integer', array('null' => false));
+            $t->primaryKey(array('sentmail_id'));
+            $t->end();
 
-        $this->addIndex('imp_sentmail', array('sentmail_ts'));
-        $this->addIndex('imp_sentmail', array('sentmail_who'));
-        $this->addIndex('imp_sentmail', array('sentmail_success'));
+            $this->addIndex('imp_sentmail', array('sentmail_ts'));
+            $this->addIndex('imp_sentmail', array('sentmail_who'));
+            $this->addIndex('imp_sentmail', array('sentmail_success'));
+        }
     }
 
     /**
