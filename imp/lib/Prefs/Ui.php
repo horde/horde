@@ -310,7 +310,7 @@ class IMP_Prefs_Ui
 
             $mock_part = new Horde_Mime_Part();
             $mock_part->setType('text/html');
-            $v = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mock_part);
+            $v = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mock_part);
 
             if (!$v->canRender('inline')) {
                 $ui->suppress[] = 'alternative_display';

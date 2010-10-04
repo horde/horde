@@ -56,16 +56,15 @@ class IMP_Injector_Factory_MimeViewer
      * @return Horde_Mime_Viewer_Base  The newly created instance.
      * @throws Horde_Mime_Viewer_Exception
      */
-    public function getViewer(Horde_Mime_Part $mime,
-                              IMP_Contents $contents = null,
-                              $type = null)
+    public function create(Horde_Mime_Part $mime,
+                           IMP_Contents $contents = null, $type = null)
     {
         list($driver, $params) = $this->_injector->getInstance('Horde_Mime_Viewer')->getViewerConfig($type ? $type : $mime->getType(), 'imp');
 
         switch ($driver) {
         case 'Report':
         case 'Security':
-            $params['viewer_callback'] = array($this, 'getViewerCallback');
+            $params['viewer_callback'] = array($this, 'createCallback');
             break;
         }
 
@@ -88,10 +87,10 @@ class IMP_Injector_Factory_MimeViewer
      * @return Horde_Mime_Viewer_Base  The newly created instance.
      * @throws Horde_Mime_Viewer_Exception
      */
-    public function getViewerCallback(Horde_Mime_Viewer_Base $viewer,
-                                      Horde_Mime_Part $mime, $type)
+    public function createCallback(Horde_Mime_Viewer_Base $viewer,
+                                   Horde_Mime_Part $mime, $type)
     {
-        return $this->getViewer($mime, $viewer->getConfigParam('imp_contents'), $type);
+        return $this->create($mime, $viewer->getConfigParam('imp_contents'), $type);
     }
 
 }

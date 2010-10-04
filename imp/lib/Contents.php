@@ -385,7 +385,7 @@ class IMP_Contents
             ? null
             : $options['type'];
 
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this, $type);
 
         switch ($mode) {
         case self::RENDER_FULL:
@@ -678,7 +678,7 @@ class IMP_Contents
         if ($is_atc &&
             $download_zip &&
             ($part['bytes'] > 204800)) {
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this, $mime_type);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
                 $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
             }
@@ -896,7 +896,7 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this);
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
@@ -931,7 +931,7 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($part, $this, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($part, $this, $type);
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;
