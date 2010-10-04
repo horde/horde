@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-03</date>
- <time>14:23:47</time>
+ <date>2010-10-04</date>
+ <time>14:21:49</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -127,7 +127,6 @@ Application Framework.</description>
        <file name="Mail.php" role="php" />
        <file name="Mapper.php" role="php" />
        <file name="MimeViewer.php" role="php" />
-       <file name="Notification.php" role="php" />
        <file name="ShareFactory.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
@@ -164,6 +163,7 @@ Application Framework.</description>
        <file name="LoginTasks.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
+       <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
@@ -446,7 +446,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
    <install as="Horde/Core/Binder/Mapper.php" name="lib/Horde/Core/Binder/Mapper.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
-   <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
    <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
    <install as="Horde/Core/Binder/TextFilter.php" name="lib/Horde/Core/Binder/TextFilter.php" />
@@ -479,6 +478,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/Memcache.php" name="lib/Horde/Core/Factory/Memcache.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
+   <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
    <install as="Horde/Core/Factory/Perms.php" name="lib/Horde/Core/Factory/Perms.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
@@ -575,7 +575,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-03</date>
+   <date>2010-10-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde::addInlineJsVars().
