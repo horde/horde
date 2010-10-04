@@ -249,10 +249,12 @@ class Components_Pear_InstallLocation
 
     private function getInstallationHandler()
     {
-        return new PEAR_Command_Install(
+        $installer = new PEAR_Command_Install(
             new PEAR_Frontend_CLI(),
             $this->getPearConfig()
         );
+        $installer->setErrorHandling(PEAR_ERROR_EXCEPTION);
+        return $installer;
     }
 
     /**
