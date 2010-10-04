@@ -120,6 +120,28 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the cisetup, pearrc, template options and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--cisetup=' . $tmp,
+                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
+                '--templatedir=' . dirname(__FILE__) . '/fixture/templates',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the ciprebuild, pearrc, template options and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--ciprebuild=' . $tmp,
+                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
+                '--templatedir=' . dirname(__FILE__) . '/fixture/templates',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the install option and a Horde element':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -246,6 +268,24 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the CI build script will be installed.':
             $this->assertTrue(
                 file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'build.xml'
+                )
+            );
+            break;
+        case 'the CI configuration will be installed according to the specified template.':
+            $this->assertEquals(
+                "CONFIG.XML\n",
+                file_get_contents(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'config.xml'
+                )
+            );
+            break;
+        case 'the CI build script will be installed according to the specified template.':
+            $this->assertEquals(
+                "BUILD.XML\n",
+                file_get_contents(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'build.xml'
                 )

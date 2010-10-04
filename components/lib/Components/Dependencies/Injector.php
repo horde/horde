@@ -62,6 +62,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the continuous integration pre-build handler.
+     *
+     * @return Components_Runner_CiPrebuild The CI pre-build handler.
+     */
+    public function getRunnerCiPrebuild()
+    {
+        return $this->getInstance('Components_Runner_CiPrebuild');
+    }
+
+    /**
      * Returns the distribution handler for a package.
      *
      * @return Components_Runner_Distribute The distribution handler.

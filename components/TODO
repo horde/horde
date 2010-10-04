@@ -4,9 +4,7 @@
 
  - Document usage
 
- - Allow specifying the template file for the CI setup that should be used.
-
- - Allow offline installs
+ - Allow offline installs and testing
 
  - Add module for an initial empty PEAR template
 
@@ -19,7 +17,10 @@
 
  - Add a release helper module.
 
+ - Maybe prefix the job names of packages from the framework with Horde_
+
  - Allow absolute/relative paths as arguments
 
  - Fail on missing dependencies in a decent way
 
+ - WWW frontend

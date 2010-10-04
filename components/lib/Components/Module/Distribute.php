@@ -66,14 +66,6 @@ extends Components_Module_Base
                     'help'   => 'Prepare the component package in the specified DISTRIBUTE location'
                 )
             ),
-            new Horde_Argv_Option(
-                '-t',
-                '--template',
-                array(
-                    'action' => 'store',
-                    'help'   => 'Location of a template that will be rewritten into the final package definition.'
-                )
-            ),
         );
     }
 

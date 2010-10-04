@@ -94,4 +94,30 @@ extends Components_StoryTestCase
             )
             ->then('the CI build script will be installed.');
     }
+
+    /**
+     * @scenario
+     */
+    public function theCisetupOptionCreatesABaseCiConfigurationForAComponentFromAUserTemplate()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the cisetup, pearrc, template options and path',
+                dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
+            )
+            ->then('the CI configuration will be installed according to the specified template.');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theCiprebuildOptionCreatesABaseCiConfigurationForAComponentFromAUserTemplate()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the ciprebuild, pearrc, template options and path',
+                dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
+            )
+            ->then('the CI build script will be installed according to the specified template.');
+    }
 }

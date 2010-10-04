@@ -90,6 +90,16 @@ implements Components_Config
                 )
             )
         );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-t',
+                '--templatedir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Location of a template directory that contains template definitions (see the data directory of this package to get an impression of which templates are available).'
+                )
+            )
+        );
     }
 
     /**

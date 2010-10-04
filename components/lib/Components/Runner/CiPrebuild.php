@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Runner_CiSetup:: prepares a continuous integration setup for a
+ * Components_Runner_CiPrebuild:: prepares a continuous integration setup for a
  * component.
  *
  * PHP version 5
@@ -13,7 +13,7 @@
  */
 
 /**
- * Components_Runner_CiSetup:: prepares a continuous integration setup for a
+ * Components_Runner_CiPrebuild:: prepares a continuous integration setup for a
  * component.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Runner_CiSetup
+class Components_Runner_CiPrebuild
 {
     /**
      * The configuration for the current job.
@@ -106,12 +106,21 @@ class Components_Runner_CiSetup
 
         $in = file_get_contents(
             $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-config.xml.template',
+            . DIRECTORY_SEPARATOR . 'hudson-component-build.xml.template',
             'r'
         );
         file_put_contents(
-            $options['cisetup'] . DIRECTORY_SEPARATOR . 'config.xml',
-            sprintf($in, $origin, 'horde', $options['toolsdir'], $description)
+            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'build.xml',
+            sprintf($in, $options['toolsdir'])
+        );
+        $in = file_get_contents(
+            $this->_config_application->getTemplateDirectory()
+            . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml.template',
+            'r'
+        );
+        file_put_contents(
+            $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'phpunit.xml',
+            sprintf($in, $name, $test_path)
         );
     }
 }

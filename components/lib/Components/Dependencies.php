@@ -46,6 +46,13 @@ interface Components_Dependencies
     public function getRunnerCiSetup();
 
     /**
+     * Returns the continuous integration pre-build handler.
+     *
+     * @return Components_Runner_CiPrebuild The CI pre-build handler.
+     */
+    public function getRunnerCiPrebuild();
+
+    /**
      * Returns the distribution handler for a package.
      *
      * @return Components_Runner_Distribute The distribution handler.
