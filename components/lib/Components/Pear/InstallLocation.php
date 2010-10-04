@@ -293,27 +293,47 @@ class Components_Pear_InstallLocation
     public function addPackageFromPackage($channel, $package)
     {
         $installer = $this->getInstallationHandler();
-        $this->_output->warn(
-            sprintf(
-                'Adding package %s via network.',
-                $package
-            )
-        );
-        ob_start();
-        $installer->doInstall(
-            'install',
-            array(
-                //'force' => true,
-                'channel' => $channel,
-            ),
-            array($package)
-        );
-        $this->_output->pear(ob_get_clean());
+        if ($local = $this->_identifyMatchingLocalPackage($package)) {
+            ob_start();
+            $installer->doInstall(
+                'install',
+                array(
+                    'offline' => true
+                ),
+                array($local)
+            );
+            $this->_output->pear(ob_get_clean());
+        } else {
+            $this->_output->warn(
+                sprintf(
+                    'Adding package %s via network.',
+                    $package
+                )
+            );
+            ob_start();
+            $installer->doInstall(
+                'install',
+                array(
+                    'channel' => $channel,
+                ),
+                array($package)
+            );
+        }
         $this->_output->ok(
             sprintf(
                 'Successfully added package %s',
                 $package
             )
         );
+    }
+
+    private function _identifyMatchingLocalPackage($package)
+    {
+        foreach (new DirectoryIterator($this->_source_directory) as $file) {
+            if (preg_match('/' . $package . '-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
+                return $file->getPathname();
+            }
+        }
+        return false;
     }
 }

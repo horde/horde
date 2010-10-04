@@ -4,8 +4,6 @@
 
  - Document usage
 
- - Allow offline installs and testing
-
  - Add module for an initial empty PEAR template
 
  - Fix variable replacements when updating the package.xml

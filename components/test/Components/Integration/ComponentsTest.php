@@ -131,27 +131,4 @@ extends Components_StoryTestCase
      * understand.
      */
 
-    /**
-     * @scenario
-     */
-    public function theInstallerModuleAddsTheIOptionInTheHelpOutput()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the help option')
-            ->then('the help will contain the "i" option.');
-    }
-
-    /**
-     * @scenario
-     */
-    public function theTheIOptionInstallsThePackageFromTheCurrentTree()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the install option and a Horde element')
-            ->then('a new PEAR configuration file will be installed')
-            ->and('the PEAR package will be installed')
-            ->and('the non-Horde dependencies of the Horde element will get installed from the network.')
-            ->and('the Horde dependencies of the Horde element will get installed from the current tree.')
-            ->and('the Components library will be installed');
-    }
 }

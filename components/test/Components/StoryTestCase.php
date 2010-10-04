@@ -142,12 +142,13 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the install option and a Horde element':
+        case 'calling the package with the install option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
+                '--sourcepath=' . dirname(__FILE__) . '/fixture/packages',
                 '--install=' . $this->_getTemporaryDirectory(),
-                dirname(__FILE__) . '/../../'
+                dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
@@ -215,7 +216,7 @@ extends PHPUnit_Extensions_Story_TestCase
                 file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . '.pearrc')
             );
             break;
-        case 'the PEAR package will be installed':
+        case 'the dummy PEAR package will be installed':
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
@@ -225,25 +226,23 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
-        case 'the non-Horde dependencies of the Horde element will get installed from the network.':
+        case 'the non-Horde dependencies of the component will get installed':
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'pear' . DIRECTORY_SEPARATOR 
                     . 'php' . DIRECTORY_SEPARATOR
-                    . 'PEAR' . DIRECTORY_SEPARATOR
-                    . 'PackageFileManager2.php'
+                    . 'Console.php'
                 )
             );
             break;
-        case 'the Horde dependencies of the Horde element will get installed from the current tree.':
+        case 'the Horde dependencies of the component will get installed from the current tree':
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'pear' . DIRECTORY_SEPARATOR 
                     . 'php' . DIRECTORY_SEPARATOR
-                    . 'Horde' . DIRECTORY_SEPARATOR
-                    . 'Autoloader.php'
+                    . 'Dependency.php'
                 )
             );
             break;
@@ -257,12 +256,28 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
+        case 'the component will be installed':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'pear' . DIRECTORY_SEPARATOR 
+                    . 'php' . DIRECTORY_SEPARATOR
+                    . 'Install.php'
+                )
+            );
+            break;
         case 'the CI configuration will be installed.':
             $this->assertTrue(
                 file_exists(
                     $this->_temp_dir . DIRECTORY_SEPARATOR
                     . 'config.xml'
                 )
+            );
+            break;
+        case 'the installation requires no network access.':
+            $this->assertNotContains(
+                'network',
+                $world['output']
             );
             break;
         case 'the CI build script will be installed.':
