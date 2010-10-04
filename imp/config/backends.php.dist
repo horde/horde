@@ -95,17 +95,6 @@
  *        caching should be enabled on these servers.
  *
  *        The following optional configuration items are available:
- *          'compress' - (string) Should the contents of the cache files be
- *                       compressed before they are stored? This results in
- *                       reduced memory usage when retrieving the data at the
- *                       expense of slightly increased CPU usage. Either
- *                       false (no compression - DEFAULT), 'gzip' or 'lzf'.
- *                       'gzip' provides greater compression, and is generally
- *                       built into PHP, but is slower. 'lzf' requires
- *                       installation of a separate PECL module and provides
- *                       less compression but is extremely fast (within 5% of
- *                       regular string operations).  If available, 'lzf' is
- *                       HIGHLY RECOMMENDED.
  *          'lifetime' - (integer) The lifetime, in seconds, of the cached
  *                       data.
  *          'slicesize' - (integer) The number of messages stored in each

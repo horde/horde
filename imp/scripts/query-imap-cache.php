@@ -122,6 +122,8 @@ $opts = array(
     0 => 'Exit'
 );
 
+$use_lzf = (!empty($conf['cache']['compress']) && Horde_Util::extensionExists('lzf'));
+
 while (true) {
     $cli->writeln();
 
@@ -173,21 +175,16 @@ while (true) {
                 $cli->message('Mailbox: ' . $cli->green($mbox));
                 $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
 
-                $gzip_size = $lzf_size = $total_size = 0;
+                $lzf_size = $total_size = 0;
                 foreach ($ob->cache->get($mbox, $res, null) as $val) {
                     $data = serialize($val);
                     $total_size += strlen($data);
-                    if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
-                        $gzip_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::GZ_COMPRESS));
-                    }
-                    if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
-                        $lzf_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::LZF));
+                    if ($use_lzf) {
+                        $lzf_size += strlen(lzf_compress($data));
                     }
                 }
+
                 $cli->message('Approximate size (bytes): ' . $total_size);
-                if (!empty($gzip_size)) {
-                    $cli->message('Approximate size - GZIP (bytes): ' . $gzip_size . ' [' . $cli->red(100 - round($gzip_size / $total_size * 100, 1) . '% savings') . ']');
-                }
                 if (!empty($lzf_size)) {
                     $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
                 }
@@ -231,12 +228,9 @@ while (true) {
 
             $data = serialize($res[$uid]);
             $cli->message('Approximate size (bytes): ' . strlen($data));
-            if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
-                $gzip_size = strlen(Horde_Serialize::serialize($data, Horde_Serialize::GZ_COMPRESS));
-                $cli->message('Approximate size - GZIP (bytes): ' . $gzip_size . ' [' . $cli->red(100 - round($gzip_size / $total_size * 100, 1) . '% savings]') . '');
-            }
-            if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
-                $lzf_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::LZF));
+
+            if ($use_lzf) {
+                $lzf_size += strlen(lzf_compress($data));
                 $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 -round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
             }
 

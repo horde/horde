@@ -190,7 +190,6 @@ class IMP_Imap
 
         return array(
             'cacheob' => $ob,
-            'compress' => empty($config['compress']) ? false : $config['compress'],
             'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
             'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
         );

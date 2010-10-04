@@ -115,10 +115,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-     <name>Serialize</name>
-     <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Stream_Filter</name>
     <channel>pear.horde.org</channel>
    </package>

@@ -115,13 +115,11 @@ class Horde_Imap_Client
      *
      * Optional Parameters:
      * --------------------
-     * cache - (array) If set, caches data from fetch() calls. Requires
-     *         Horde_Cache and Horde_Serialize to be installed. The array can
-     *         contain the following keys (see Horde_Imap_Client_Cache:: for
-     *         default values):
+     * cache - (array) If set, caches data from fetch() calls. Requires the
+     *         horde/Cache package to be installed. The array can contain the
+     *         following keys (see Horde_Imap_Client_Cache:: for default
+     *         values):
      *   cacheob - [REQUIRED] (Horde_Cache) The cache object to use.
-     *   compress - [OPTIONAL] (string) Compression to use on the cached data.
-     *              VALUES: false, 'gzip' or 'lzf'.
      *   fields - [OPTIONAL] (array) The fetch criteria to cache. If not
      *            defined, all cacheable data is cached. The following is a
      *            list of criteria that can be cached:

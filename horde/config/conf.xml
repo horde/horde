@@ -1046,6 +1046,8 @@
      </configsection>
     </case>
    </configswitch>
+   <configboolean name="compress" required="false" desc="Compress cached
+   data? Requires the 'lzf' PECL package to be installed">true</configboolean>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found
    in this driver, we will fall back to accessing the persistent backend. This
