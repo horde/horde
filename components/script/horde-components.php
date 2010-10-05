@@ -8,10 +8,10 @@ if (strpos('@php_dir@', '@php_dir') === 0) {
  * We are heavily relying on the PEAR libraries which are not clean with regard
  * to E_STRICT.
  */
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    error_reporting(E_ALL & ~E_STRICT);
-} else {
+if (defined('E_DEPRECATED')) {
     error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
+} else {
+    error_reporting(E_ALL & ~E_STRICT);
 }
 
 require_once 'Horde/Autoloader/Default.php';
