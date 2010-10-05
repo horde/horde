@@ -98,7 +98,8 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      *
      * @param mixed $data  If an integer, the number of messages to increase
      *                     array index by. If an indices object, sets array
-     *                     index to the index value.
+     *                     index to the index value. If null, rebuilds the
+     *                     internal index.
      */
     public function setIndex($data)
     {
@@ -109,7 +110,10 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
                 $this->_rebuild(true);
                 $this->_index = $this->getArrayIndex($uid, $mailbox);
             }
-        } elseif (!is_null($this->_index)) {
+        } elseif (is_null($this->_index)) {
+            $this->_index = null;
+            $this->_rebuild(true);
+        } else {
             $index = $this->_index += $data;
             if (isset($this->_sorted[$this->_index])) {
                 $this->_rebuild();

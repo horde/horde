@@ -749,7 +749,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->ViewPort = $this->_viewPortData(true);
             } else {
                 $result->ViewPort = new stdClass;
-                $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox_List')->getList($this->_vars->view)->getCacheID($this->_vars->view);
+                $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($this->_vars->view)->getCacheID($this->_vars->view);
                 $result->ViewPort->view = $this->_vars->view;
             }
             return $result;
@@ -943,7 +943,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result = $this->_checkUidvalidity($result);
             } elseif (!$change) {
                 /* Only update cacheid info if it changed. */
-                $cacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox_List')->getList($this->_vars->view)->getCacheID($this->_vars->view);
+                $cacheid = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($this->_vars->view)->getCacheID($this->_vars->view);
                 if ($cacheid != $this->_vars->cacheid) {
                     $result->ViewPort = new stdClass;
                     $result->ViewPort->updatecacheid = $cacheid;
@@ -1929,7 +1929,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox_List')->getList($this->_vars->view)->getCacheID($this->_vars->view);
+            $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($this->_vars->view)->getCacheID($this->_vars->view);
             $result->ViewPort->view = $this->_vars->view;
         }
 
@@ -1978,7 +1978,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return ($GLOBALS['injector']->getInstance('IMP_Mailbox_List')->getList($this->_vars->view)->getCacheID($this->_vars->view) != $this->_vars->cacheid);
+        return ($GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($this->_vars->view)->getCacheID($this->_vars->view) != $this->_vars->cacheid);
     }
 
     /**

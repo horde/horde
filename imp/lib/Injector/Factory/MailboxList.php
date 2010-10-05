@@ -32,10 +32,7 @@ class IMP_Injector_Factory_MailboxList
      *
      * @var array
      */
-    private $_instances = array(
-        'list' => array(),
-        'track' => array()
-    );
+    private $_instances = array();
 
     /**
      * Constructor.
@@ -48,54 +45,52 @@ class IMP_Injector_Factory_MailboxList
     }
 
     /**
-     * Return the IMP_Mailbox_List:: instance.
-     *
-     * @param string $mailbox  The mailbox name.
-     *
-     * @return IMP_Mailbox_List  The singleton mailbox instance.
-     * @throws IMP_Exception
-     */
-    public function getList($mailbox)
-    {
-        if (!isset($this->_instances['list'][$mailbox])) {
-            $this->_instances['list'][$mailbox] = new IMP_Mailbox_List($mailbox);
-        }
-
-        return $this->_instances['list'][$mailbox];
-    }
-
-    /**
-     * Return the IMP_Mailbox_List_Track:: instance.
+     * Return the mailbox list instance.
+     * For IMP/MIMP, returns an IMP_Mailbox_List_Track object.
+     * For DIMP, returns an IMP_Mailbox_List object.
      *
      * @param string $mailbox       The mailbox name.
      * @param IMP_Indices $indices  An indices object.
      *
-     *
-     * @return IMP_Mailbox_List_Track  The singleton mailbox instance.
+     * @return IMP_Mailbox_List  The singleton instance.
      * @throws IMP_Exception
      */
-    public function getListTrack($mailbox, $indices = null)
+    public function create($mailbox, $indices = null)
     {
-        if (!isset($this->_instances['track'][$mailbox])) {
-            $ob = null;
-            if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
-                try {
-                    $ob = @unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-                } catch (Exception $e) {}
+        $mode = IMP::getViewMode();
+
+        if (!isset($this->_instances[$mailbox])) {
+            switch ($mode) {
+            case 'dimp':
+                $ob = new IMP_Mailbox_List($mailbox);
+                break;
+
+            case 'imp':
+            case 'mimp':
+                $ob = null;
+                if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
+                    try {
+                        $ob = @unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
+                    } catch (Exception $e) {}
+                }
+
+                if (!$ob) {
+                    $ob = new IMP_Mailbox_List_Track($mailbox);
+                }
+                break;
             }
 
-            if (!$ob) {
-                $ob = new IMP_Mailbox_List_Track($mailbox);
-            }
-
-            $this->_instances['track'][$mailbox] = $ob;
+            $this->_instances[$mailbox] = $ob;
         }
 
-        if (!is_null($indices)) {
-            $this->_instances['track'][$mailbox]->setIndex($indices);
+        switch ($mode) {
+        case 'imp':
+        case 'mimp':
+            $this->_instances[$mailbox]->setIndex($indices);
+            break;
         }
 
-        return $this->_instances['track'][$mailbox];
+        return $this->_instances[$mailbox];
     }
 
     /**
@@ -103,13 +98,18 @@ class IMP_Injector_Factory_MailboxList
      */
     public function shutdown()
     {
-        /* Cache mailbox information if viewing in standard (IMP) message
-         * mode. Needed to keep navigation consistent when moving through the
-         * message list, and to ensure messages aren't marked as missing in
-         * search mailboxes (e.g. if search is dependent on unseen flag). */
-        foreach ($this->_instances['track'] as $key => $val) {
-            if ($val->changed) {
-                $_SESSION['imp']['cache']['imp_mailbox'][$key] = serialize($val);
+        switch (IMP::getViewMode()) {
+        case 'imp':
+        case 'mimp':
+            /* Cache mailbox information if viewing in standard (IMP) message
+             * mode. Needed to keep navigation consistent when moving through
+             * the message list, and to ensure messages aren't marked as
+             * missing in search mailboxes (e.g. if search is dependent on
+             * unseen flag). */
+            foreach ($this->_instances as $key => $val) {
+                if ($val->changed) {
+                    $_SESSION['imp']['cache']['imp_mailbox'][$key] = serialize($val);
+                }
             }
         }
     }
