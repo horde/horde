@@ -299,8 +299,8 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     {
         /* Combine the keys (which contain the e-mail addresses). */
         return array_merge(
-            array_keys($identity->getAllFromAddresses(true)),
-            array_keys($identity->getAllTieAddresses())
+            array_keys($this->getAllFromAddresses(true)),
+            array_keys($this->getAllTieAddresses())
         );
     }
 
