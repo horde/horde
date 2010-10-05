@@ -67,7 +67,7 @@ class Horde_Db_Adapter_Mssql_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      */
-    public function tables()
+    public function tables($name = null)
     {
         return 'SELECT name FROM sysobjects WHERE type = \'U\' ORDER BY name';
     }
