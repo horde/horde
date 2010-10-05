@@ -103,6 +103,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      */
     function __construct($collection, $layout = array())
     {
+        parent::__construct();
         $this->_collection = $collection;
         $this->_layout = $layout;
         $this->_editUrl = Horde::selfUrl();

@@ -41,6 +41,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
     public function __construct($layout = array(), $editUrl = '',
                                 $viewUrl = '')
     {
+        parent::__construct();
         $this->_layout = $layout;
         $this->_editUrl = $editUrl;
         $this->_viewUrl = $viewUrl;
