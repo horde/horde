@@ -509,7 +509,7 @@ case 'previewrotate270':
                      $image->filename);
 
     require ANSEL_TEMPLATES . '/common-header.inc';
-    require ANSEL_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
     require ANSEL_TEMPLATES . '/image/preview_image.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
@@ -736,7 +736,7 @@ case 'previewcrop':
         $params = $x1 . '.' . $y1 . '.' . $x2 . '.' . $y2;
 
         require ANSEL_TEMPLATES . '/common-header.inc';
-        require ANSEL_TEMPLATES . '/menu.inc';
+        echo Horde::menu();
         require ANSEL_TEMPLATES . '/image/preview_cropimage.inc';
         require $registry->get('templates', 'horde') . '/common-footer.inc';
     }
@@ -759,7 +759,7 @@ default:
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
 $form->renderActive($renderer, $vars, 'image.php', 'post',
                     'multipart/form-data');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
