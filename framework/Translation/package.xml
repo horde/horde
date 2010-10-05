@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Translation</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde translation library</summary>
+ <description>.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-10-05</date>
+ <time>13:12:56</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Translation">
+      <file name="Gettext.php" role="php" />
+     </dir> <!-- //lib/Horde/Translation -->
+     <file name="Translation.php" role="php" />
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Translation.php" name="lib/Horde/Translation.php" />
+   <install as="Horde/Translation/Gettext.php" name="lib/Horde/Translation/Gettext.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
