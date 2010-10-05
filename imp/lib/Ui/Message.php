@@ -226,15 +226,17 @@ class IMP_Ui_Message
         $output = '';
 
         /* Split the incoming data by the ',' character. */
-        foreach (preg_split("/,/", $data) as $entry) {
+        foreach (explode(',', $data) as $orig_entry) {
+            $entry = Horde_Mime_Address::trimAddress($orig_entry);
+
             /* Get the data inside of the brackets. If there is no brackets,
              * then return the raw text. */
-            if (!preg_match("/\<([^\>]+)\>/", $entry, $matches)) {
-                return trim($entry);
+            if (trim($orig_entry) == $entry) {
+                return $entry;
             }
 
             /* Remove all whitespace from between brackets (RFC 2369 [2]). */
-            $match = preg_replace("/\s+/", '', $matches[1]);
+            $match = preg_replace("/\s+/", '', $entry);
 
             /* Determine if there are any comments. */
             preg_match("/(\(.+\))/", $entry, $comments);
@@ -250,21 +252,22 @@ class IMP_Ui_Message
                 if (!empty($comments[1])) {
                     $output .= '&nbsp;' . $comments[1];
                 }
-                break;
-            } elseif (empty($data['email'])) {
-                if ($url = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($match, 'linkurls')) {
-                    if (!empty($opts['raw'])) {
-                        return $match;
-                    }
-                    $output = $url;
-                    if (!empty($comments[1])) {
-                        $output .= '&nbsp;' . $comments[1];
-                    }
-                    break;
-                } else {
-                    /* Use this entry unless we can find a better one. */
-                    $output = $match;
+
+                return $output;
+            } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($match, 'linkurls')) {
+                if (!empty($opts['raw'])) {
+                    return $match;
                 }
+
+                $output = $url;
+                if (!empty($comments[1])) {
+                    $output .= '&nbsp;' . $comments[1];
+                }
+
+                return $output;
+            } else {
+                /* Use this entry unless we can find a better one. */
+                $output = $match;
             }
         }
 
