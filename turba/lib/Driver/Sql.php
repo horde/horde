@@ -357,7 +357,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query, 'DEBUG');
+        Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query . 'Values: ' . print_r($values, true), 'DEBUG');
 
         $result = $this->_db->getAll($query, $values);
         if ($result instanceof PEAR_Error) {
