@@ -69,7 +69,7 @@ class Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $this->_content,
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 

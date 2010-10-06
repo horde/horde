@@ -34,9 +34,7 @@ class Horde_Mime_Viewer_Base
      *
      * @var array
      */
-    protected $_required = array(
-        'charset'
-    );
+    protected $_required = array();
 
     /**
      * This driver's display capabilities.
@@ -71,7 +69,6 @@ class Horde_Mime_Viewer_Base
      *                                    rendered.
      * @param array $conf                 Configuration:
      * <pre>
-     * 'charset' - (string) The local UI charset. [REQUIRED]
      * 'temp_file' - (callback) A callback function that returns a temporary
      *               filename.  Is passed one parameter: a prefix string.
      *                DEFAULT: Uses Horde_Util::getTempFile().

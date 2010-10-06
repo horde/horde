@@ -71,7 +71,7 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             file_get_contents($tmp_out),
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 

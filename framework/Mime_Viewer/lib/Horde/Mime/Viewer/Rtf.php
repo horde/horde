@@ -76,7 +76,7 @@ class Horde_Mime_Viewer_Rtf extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $data,
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 

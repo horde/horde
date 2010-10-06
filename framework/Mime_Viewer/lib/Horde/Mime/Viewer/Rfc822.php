@@ -82,7 +82,7 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             (empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . $this->_textFilter(implode("<br />\n", $header_output), 'emails') . '</div>')),
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 

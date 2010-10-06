@@ -90,7 +90,7 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
             '<span ' .
             ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
             htmlspecialchars($data) . '</span>',
-            'text/html; charset=' . $this->getConfigParam('charset')
+            'text/html; charset=UTF-8'
         );
     }
 
