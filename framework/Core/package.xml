@@ -123,7 +123,6 @@ Application Framework.</description>
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
        <file name="Logger.php" role="php" />
-       <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mapper.php" role="php" />
        <file name="MimeViewer.php" role="php" />
@@ -442,7 +441,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
    <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
    <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
-   <install as="Horde/Core/Binder/LoginTasks.php" name="lib/Horde/Core/Binder/LoginTasks.php" />
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
    <install as="Horde/Core/Binder/Mapper.php" name="lib/Horde/Core/Binder/Mapper.php" />
    <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />

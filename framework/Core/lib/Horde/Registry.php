@@ -274,7 +274,6 @@ class Horde_Registry
             'Horde_History' => new Horde_Core_Binder_History(),
             'Horde_Http_Client' => new Horde_Core_Binder_HttpClient(),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
-            'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
             'Horde_Mail' => new Horde_Core_Binder_Mail(),
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
@@ -1252,11 +1251,10 @@ class Horde_Registry
         }
 
         /* Do login tasks. */
-        if ($checkPerms) {
-            $tasks = $GLOBALS['injector']->getInstance('Horde_LoginTasks')->getLoginTasks($app);
-            if (!empty($options['logintasks'])) {
-                $tasks->runTasks(false, Horde::selfUrl(true, true, true));
-            }
+        if ($checkPerms &&
+            ($tasks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_LoginTasks')->create($app)) &&
+            !empty($options['logintasks'])) {
+            $tasks->runTasks(false, Horde::selfUrl(true, true, true));
         }
 
         return true;

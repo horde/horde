@@ -35,31 +35,19 @@ class Horde_Core_Factory_LoginTasks
     private $_instances = array();
 
     /**
-     * The injector.
-     *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * Constructor.
-     *
-     * @param Horde_Injector $injector  The injector to use.
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
-    /**
      * Return the Horde_LoginTasks:: instance.
      *
      * @param string $app  The current application.
      *
-     * @return Horde_LoginTasks  The singleton instance.
+     * @return Horde_LoginTasks|boolean  The singleton instance. Returns false
+     *                                   if logintasks not available.
      */
-    public function getLoginTasks($app)
+    public function create($app)
     {
+        if (!$GLOBALS['registry']->getAuth()) {
+            return false;
+        }
+
         if (!isset($this->_instances[$app])) {
             $this->_instances[$app] = new Horde_LoginTasks(new Horde_Core_LoginTasks_Backend_Horde($app));
         }
