@@ -18,7 +18,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
     {
         $GLOBALS['registry']->pushApp('ansel');
         $this->changeColumn('ansel_shares', 'attribute_style', 'text');
-        
+
         // Create: ansel_hashes
         $tableList = $this->tables();
         if (!in_array('ansel_hashes', $tableList)) {
@@ -26,7 +26,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
             $t->column('style_hash', 'string', array('limit' => 255));
             $t->end();
         }
-        
+
         // Make sure we have the full styles array.
         require ANSEL_BASE . '/config/styles.php';
 
@@ -72,8 +72,14 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
         }
     }
 
+    /**
+     * Downgrade, though all style information will be lost and reverted to
+     * 'ansel_default'.
+     */
     public function down()
     {
+        $sql = "UPDATE ansel_shares set attribute_style = 'ansel_default'";
+        $this->_connection->execute($sql);
         $this->changeColumn('ansel_shares', 'attribute_style', 'string',  array('limit' => 255));
         $this->dropTable('ansel_hashes');
     }

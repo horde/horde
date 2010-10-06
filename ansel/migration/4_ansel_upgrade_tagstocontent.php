@@ -56,7 +56,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
 
     public function down()
     {
-        // TODO
+        // Not supported. One way upgrade.
     }
 
 }
