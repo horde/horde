@@ -35,7 +35,7 @@ class Horde_Core_Factory_Twitter
 
             //$twitter->setCache($injector->getInstance('Horde_Cache'));
             $twitter->setLogger($injector->getInstance('Horde_Log_Logger'));
-            $twitter->setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client')->getClient());
+            $twitter->setHttpClient($injector->getInstance('Horde_Http_Client')->getClient());
 
             return $twitter;
         } else {

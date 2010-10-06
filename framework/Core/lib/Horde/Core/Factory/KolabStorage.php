@@ -105,7 +105,7 @@ class Horde_Core_Factory_KolabStorage
 
         $master = new Horde_Kolab_Storage_Driver_Imap(
             $imap,
-            $GLOBALS['injector']->getInstance('Horde_Group')
+            $this->_injector->getInstance('Horde_Group')
         );
 
         return new Horde_Kolab_Storage(
