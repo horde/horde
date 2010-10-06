@@ -31,21 +31,10 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 {
-    public function testNoTasksAreRanIfNoUserIsAuthenticated()
+    public function testTheTasksAreRun()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(array('Horde_LoginTasks_Stub_Task'));
-        $tasks->runTasks();
-        $this->assertEquals(
-            array(),
-            Horde_LoginTasks_Stub_Task::$executed
-        );
-    }
-
-    public function testTheTasksAreRanIfTheUserIsAuthenticated()
-    {
-        Horde_LoginTasks_Stub_Task::$executed = array();
-        $tasks = $this->_getLoginTasks(array('Horde_LoginTasks_Stub_Task'), true);
         $tasks->runTasks();
         $this->assertEquals(
             'Horde_LoginTasks_Stub_Task',
@@ -56,7 +45,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testNoTasksAreRanIfTheTasklistIsEmpty()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $tasks = $this->_getLoginTasks(array(), true);
+        $tasks = $this->_getLoginTasks();
         $tasks->runTasks();
         $this->assertEquals(
             array(),
@@ -67,7 +56,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     public function testNoTasksAreRanIfTheTasklistIsCompleted()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
-        $tasks = $this->_getLoginTasks(array('Horde_LoginTasks_Stub_Task'), true);
+        $tasks = $this->_getLoginTasks(array('Horde_LoginTasks_Stub_Task'));
         $tasks->runTasks();
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks->runTasks();
@@ -84,8 +73,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             array(
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
-            ),
-            true
+            )
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -102,7 +90,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Year'), true, $date
+            array('Horde_LoginTasks_Stub_Year'),
+            $date
         );
         $this->assertEquals(
             array(),
@@ -113,7 +102,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Year'), true, $date
+            array('Horde_LoginTasks_Stub_Year'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -127,7 +117,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Month'), true, $date
+            array('Horde_LoginTasks_Stub_Month'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -139,7 +130,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Month'), true, $date
+            array('Horde_LoginTasks_Stub_Month'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -153,7 +145,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Week'), true, $date
+            array('Horde_LoginTasks_Stub_Week'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -165,7 +158,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Week'), true, $date
+            array('Horde_LoginTasks_Stub_Week'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -179,7 +173,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Day'), true, $date
+            array('Horde_LoginTasks_Stub_Day'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -191,7 +186,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Day'), true, $date
+            array('Horde_LoginTasks_Stub_Day'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -205,7 +201,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Task'), true, $date
+            array('Horde_LoginTasks_Stub_Task'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -218,7 +215,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     {
         Horde_LoginTasks_Stub_First::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_First'), true, false
+            array('Horde_LoginTasks_Stub_First')
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -229,7 +226,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         Horde_LoginTasks_Stub_Task::$executed = array();
         $date = getdate();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_First'), true, $date
+            array('Horde_LoginTasks_Stub_First'),
+            $date
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -242,7 +240,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     {
         Horde_LoginTasks_Stub_Once::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Once'), true, false
+            array('Horde_LoginTasks_Stub_Once'
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -252,7 +250,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Once'), true, true
+            array('Horde_LoginTasks_Stub_Once'),
+            true
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -268,9 +267,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             array(
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
-            ),
-            true,
-            false
+            )
         );
         $tasks->runTasks();
         $this->assertEquals(
@@ -289,9 +286,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             array(
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
-            ),
-            true,
-            false
+            )
         );
         $tasks->runTasks();
         $this->assertTrue(Horde_LoginTasks_Stub_Backend::$lastRun['test'] > time() - 10);
@@ -305,8 +300,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
                 'Horde_LoginTasks_Stub_Notice',
-            ),
-            true
+            )
         );
         $tasks->runTasks(false, null);
         $this->assertEquals(
@@ -326,8 +320,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
                 'Horde_LoginTasks_Stub_Notice',
-            ),
-            true
+            )
         );
         $this->assertContains(
             'URL',
@@ -343,8 +336,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Task',
                 'Horde_LoginTasks_Stub_High',
                 'Horde_LoginTasks_Stub_Notice',
-            ),
-            true
+            )
         );
         $tasks->runTasks(false, null);
         $tasklist = $tasks->displayTasks();
@@ -363,8 +355,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_High',
                 'Horde_LoginTasks_Stub_Notice',
                 'Horde_LoginTasks_Stub_NoticeTwo',
-            ),
-            true
+            )
         );
         $tasks->runTasks(false, null);
         $tasklist = $tasks->displayTasks();
@@ -391,8 +382,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_High',
                 'Horde_LoginTasks_Stub_Notice',
                 'Horde_LoginTasks_Stub_NoticeTwo',
-            ),
-            true
+            )
         );
         $tasks->runTasks(false, null);
         Horde_LoginTasks_Stub_Task::$executed = array();
@@ -413,8 +403,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             array(
                 'Horde_LoginTasks_Stub_Confirm',
                 'Horde_LoginTasks_Stub_Notice',
-            ),
-            true
+            )
         );
         $tasks->runTasks(false, 'redirect');
         $tasks->displayTasks();
@@ -445,8 +434,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_TaskTwo',
                 'Horde_LoginTasks_Stub_ConfirmThree',
                 'Horde_LoginTasks_Stub_NoticeTwo',
-            ),
-            true
+            )
         );
         $this->assertContains(
             'URL',
@@ -611,8 +599,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    private function _getLoginTasks(array $tasks = array(),
-                                    $authenticated = false, $last_run = false)
+    private function _getLoginTasks(array $tasks = array(), $last_run = false)
     {
         $last_time = $last_run;
         if ($last_time && !is_bool($last_time)) {
@@ -634,7 +621,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         }
 
         return new Horde_LoginTasks(
-            new Horde_LoginTasks_Stub_Backend($tasklist, $authenticated, $last_time)
+            new Horde_LoginTasks_Stub_Backend($tasklist, $last_time)
         );
     }
 

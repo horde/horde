@@ -4,23 +4,15 @@ class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
 {
     static public $lastRun;
 
-    private $_authenticated;
     private $_tasklist;
     private $_tasklistCache = false;
 
-    public function __construct(array $tasks, $authenticated = false,
-                                $last_run = false)
+    public function __construct(array $tasks, $last_run = false)
     {
         $this->_tasklist = $tasks;
-        $this->_authenticated = $authenticated;
         if ($last_run !== true) {
             self::$lastRun = $last_run;
         }
-    }
-
-    public function isAuthenticated()
-    {
-        return $this->_authenticated;
     }
 
     public function getTasklistFromCache()

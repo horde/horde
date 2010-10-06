@@ -18,13 +18,6 @@
 abstract class Horde_LoginTasks_Backend
 {
     /**
-     * Is the current session authenticated?
-     *
-     * @return boolean  True if the user is authenticated, false otherwise.
-     */
-    abstract public function isAuthenticated();
-
-    /**
      * Retrieve a cached tasklist if it exists.
      *
      * @return Horde_LoginTasks_Tasklist|boolean  The cached task list or

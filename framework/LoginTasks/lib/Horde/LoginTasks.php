@@ -66,10 +66,6 @@ class Horde_LoginTasks
     {
         $this->_backend = $backend;
 
-        if (!$this->_backend->isAuthenticated()) {
-            return;
-        }
-
         /* Retrieves a cached tasklist or make sure one is created. */
         $this->_tasklist = $this->_backend->getTasklistFromCache();
 
