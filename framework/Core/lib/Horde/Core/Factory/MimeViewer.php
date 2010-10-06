@@ -115,6 +115,7 @@ class Horde_Core_Factory_MimeViewer
 
         case 'Html':
             $params['browser'] = $GLOBALS['browser'];
+            $params['external_callback'] = array('Horde', 'externalUrl');
             break;
 
         case 'Ooo':

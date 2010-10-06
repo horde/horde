@@ -57,7 +57,11 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
      *                                    rendered.
      * @param array $conf                 Configuration:
      * <pre>
-     * 'browser' - (Horde_Browser) A browser object.
+     * browser - (Horde_Browser) A browser object.
+     * external_callback - (callback) A callback function that a href URL is
+     *                     passed through. The function must take the original
+     *                     URL as the first parameter.
+     *                     DEFAULT: No callback
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -204,8 +208,10 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                                 $child->setAttribute('style', ($child->hasAttribute('style') ? rtrim($child->getAttribute('style'), '; ') . ';' : '') . $this->_phishCss);
                             }
 
-                            /* Try to derefer all external references. */
-                            $child->setAttribute('href', Horde::externalUrl($val->value));
+                            if (isset($this->_params['external_callback'])) {
+                                /* Try to derefer all external references. */
+                                $child->setAttribute('href', call_user_func($this->_params['external_callback'], $val->value));
+                            }
                         }
                     }
                 }
