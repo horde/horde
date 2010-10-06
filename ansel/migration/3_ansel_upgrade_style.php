@@ -50,7 +50,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
         foreach ($rows as $row) {
             // Make sure we haven't already migrated
             if (@unserialize($row['attribute_style']) instanceof Ansel_Style) {
-                $this->announce('Skipping share ' . $row[0] . ', already migrated.', 'cli.message');
+                $this->announce('Skipping share ' . $row['attribute_style'] . ', already migrated.', 'cli.message');
                 continue;
             }
             if (empty($styles[$row['attribute_style']])) {
