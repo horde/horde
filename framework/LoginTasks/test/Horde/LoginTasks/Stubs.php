@@ -33,10 +33,6 @@ class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
         $this->_tasklistCache = $tasklist;
     }
 
-    public function registerShutdown($shutdown)
-    {
-    }
-
     public function getTasks()
     {
         return $this->_tasklist;

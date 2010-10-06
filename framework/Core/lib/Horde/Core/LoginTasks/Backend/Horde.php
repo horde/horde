@@ -69,16 +69,6 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
     }
 
     /**
-     * Register the shutdown handler.
-     *
-     * @param array $shutdown  The shutdown function.
-     */
-    public function registerShutdown($shutdown)
-    {
-        register_shutdown_function($shutdown);
-    }
-
-    /**
      * Get the class names of the task classes that need to be performed.
      *
      * @return array  An array of class names.

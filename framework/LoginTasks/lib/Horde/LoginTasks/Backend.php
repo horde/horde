@@ -42,13 +42,6 @@ abstract class Horde_LoginTasks_Backend
     abstract public function storeTasklistInCache($tasklist);
 
     /**
-     * Register the shutdown handler.
-     *
-     * @param array $shutdown  The shutdown function.
-     */
-    abstract public function registerShutdown($shutdown);
-
-    /**
      * Get the class names of the task classes that need to be performed.
      *
      * @return array  An array of class names.
