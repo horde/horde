@@ -75,22 +75,22 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasks()
     {
+        $app_list = array($this->_app);
+        $tasks = array();
+
         switch ($this->_app) {
         case 'horde':
-            $app_list = isset($_SESSION['horde_logintasks']['horde'])
-                ? array()
-                : array('horde');
+            if (isset($_SESSION['horde_logintasks']['horde'])) {
+                return $tasks;
+            }
             break;
 
         default:
-            $app_list = array($this->_app);
             if (!isset($_SESSION['horde_logintasks']['horde'])) {
                 array_unshift($app_list, 'horde');
             }
             break;
         }
-
-        $tasks = array();
 
         foreach ($app_list as $app) {
             foreach (array_merge($GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
@@ -111,11 +111,10 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
     public function getLastRun()
     {
         $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
-        if (!is_array($lasttask_pref)) {
-            $lasttask_pref = array();
-        }
 
-        return $lasttask_pref;
+        return is_array($lasttask_pref)
+            ? $lasttask_pref
+            : array();
     }
 
     /**
@@ -142,7 +141,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
             $lasttasks['horde'] = time();
             $_SESSION['horde_logintasks']['horde'] = true;
         }
-        $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
+        $this->setLastRun($lasttasks);
     }
 
     /**
@@ -165,4 +164,5 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
     {
         return Horde::getServiceLink('logintasks', $this->_app);
     }
+
 }

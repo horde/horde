@@ -302,7 +302,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Notice',
             )
         );
-        $tasks->runTasks(false, null);
+        $tasks->runTasks(false);
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_High',
@@ -324,7 +324,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(false, null)
+            (string) $tasks->runTasks(false)
         );
     }
 
@@ -338,7 +338,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Notice',
             )
         );
-        $tasks->runTasks(false, null);
+        $tasks->runTasks(false);
         $tasklist = $tasks->displayTasks();
         $this->assertEquals(
             'Horde_LoginTasks_Stub_Notice',
@@ -357,7 +357,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_NoticeTwo',
             )
         );
-        $tasks->runTasks(false, null);
+        $tasks->runTasks(false);
         $tasklist = $tasks->displayTasks();
         $classes = array();
         foreach ($tasklist as $task) {
@@ -384,10 +384,10 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_NoticeTwo',
             )
         );
-        $tasks->runTasks(false, null);
+        $tasks->runTasks(false);
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks->displayTasks();
-        $tasks->runTasks(true, null);
+        $tasks->runTasks(true);
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_Notice',

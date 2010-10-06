@@ -31,8 +31,6 @@ abstract class Horde_LoginTasks_SystemTask
 
     /**
      * Do login task (if it has been confirmed).
-     *
-     * @return boolean  Whether the login task was successful.
      */
     abstract public function execute();
 
