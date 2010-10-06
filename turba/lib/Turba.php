@@ -444,7 +444,7 @@ class Turba {
             if ($GLOBALS['registry']->getAuth() && empty($defaults[$source])) {
                 // User's default share is missing.
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 } catch (Turba_Exception $e) {
                     $notification->push($driver, 'horde.error');
                     continue;
