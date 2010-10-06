@@ -46,7 +46,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
 
         foreach (array_keys($sortpref) as $key) {
-            if ($imp_search[$key]) {
+            if ($imp_search->isSearchMbox($key) && !$imp_search[$key]) {
                 unset($sortpref[$key]);
                 $update = true;
             }
