@@ -91,8 +91,10 @@ class Horde_Prefs_Identity
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'])))) {
+        if (!($this->_identities = unserialize($this->_prefs->getValue($this->_prefnames['identities'], false)))) {
             $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
+        } elseif (is_array($this->_identities)) {
+            $this->_identities = $this->_prefs->convertFromDriver($this->_identities);
         }
 
         $this->setDefault($this->_prefs->getValue($this->_prefnames['default_identity']));
