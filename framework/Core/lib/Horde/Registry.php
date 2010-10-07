@@ -248,11 +248,6 @@ class Horde_Registry
             'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls'
         );
 
-        /* Define binders. */
-        $binders = array(
-            'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-        );
-
         /* Define factories. */
         $factories = array(
             'Horde_Alarm' => array(
@@ -274,6 +269,10 @@ class Horde_Registry
             'Horde_Controller_RequestConfiguration' => array(
                 'Horde_Core_Controller_RequestMapper',
                 'getRequestConfiguration',
+            ),
+            'Horde_Core_Auth_Signup' => array(
+                'Horde_Core_Factory_AuthSignup',
+                'create',
             ),
             'Horde_Db_Adapter' => array(
                 'Horde_Core_Factory_DbBase',
@@ -373,9 +372,6 @@ class Horde_Registry
         /* Setup injector. */
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
-        foreach ($binders as $key => $val) {
-            $injector->addBinder($key, $val);
-        }
         foreach ($factories as $key => $val) {
             $injector->bindFactory($key, $val[0], $val[1]);
         }

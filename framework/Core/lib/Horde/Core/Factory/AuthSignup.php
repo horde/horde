@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_AuthSignup implements Horde_Injector_Binder
+class Horde_Core_Factory_AuthSignup
 {
     public function create(Horde_Injector $injector)
     {
@@ -12,11 +12,6 @@ class Horde_Core_Binder_AuthSignup implements Horde_Injector_Binder
             : $GLOBALS['conf']['signup']['driver'];
 
         return Horde_Core_Auth_Signup::factory($driver, $GLOBALS['conf']['signup']['params']);
-    }
-
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 
 }
