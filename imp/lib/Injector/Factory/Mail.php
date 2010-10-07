@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for IMP's configuration of Horde_Mail::.
+ * A Horde_Injector based factory for IMP's configuration of Horde_Mail::
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based factory for IMP's configuration of Horde_Mail::
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,11 +22,16 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_Mail implements Horde_Injector_Binder
+class IMP_Injector_Factory_Mail
 {
     /**
+     * Return the Horde_Mail instance.
+     *
+     * @return Horde_Mail  The singleton instance.
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
@@ -46,13 +63,8 @@ class IMP_Injector_Binder_Mail implements Horde_Injector_Binder
         if (class_exists($class)) {
             return new $class($params);
         }
+
         throw new Horde_Exception('Unable to find class for transport ' . $transport);
     }
 
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

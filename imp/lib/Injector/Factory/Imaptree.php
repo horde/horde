@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for IMP_Imap_Tree::.
+ * A Horde_Injector based factory for the IMP_Imap_Tree object.
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based factory for the IMP_Imap_Tree object.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,27 +22,22 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
+class IMP_Injector_Factory_Imaptree
 {
     /**
-     * Injector.
+     * Return the IMP_Imap_Tree object.
      *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * If an IMP_Imap_Tree object is currently stored in the cache, re-create
-     * that object.  Else, create a new instance.
+     * @return IMP_Imap_Tree  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
-        $this->_injector = $injector;
-
         $instance = null;
 
+        /* If an IMP_Imap_Tree object is currently stored in the cache,
+         * re-create that object.  Else, create a new instance. */
         if (empty($_SESSION['imp']['cache']['tree'])) {
             $_SESSION['imp']['cache']['tree'] = strval(new Horde_Support_Randomid());
         } else {
@@ -52,28 +59,27 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
             $instance = new IMP_Imap_Tree();
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $instance);
+        register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
 
         return $instance;
     }
 
     /**
      * Store serialized version of object in the current session.
+     *
+     * @param IMP_Imap_Tree $instance   Tree object.
+     * @param Horde_Injector $injector  Injector object.
      */
-    public function shutdown($instance)
+    public function shutdown($instance, $injector)
     {
         /* Only need to store the object if the tree has changed. */
         if ($instance->changed) {
-            $cache = $this->_injector->getInstance('Horde_Cache');
+            $cache = $injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $cache = $this->_injector->getInstance('Horde_Cache_Session');
+                $cache = $injector->getInstance('Horde_Cache_Session');
             }
             $cache->set($_SESSION['imp']['cache']['tree'], serialize($instance), 86400);
         }
     }
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

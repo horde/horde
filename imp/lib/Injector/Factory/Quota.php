@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for IMP_Quota::.
+ * A Horde_Injector based factory for the IMP_Quota object.
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based factory for the IMP_Quota object.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,11 +22,15 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_Quota implements Horde_Injector_Binder
+class IMP_Injector_Factory_Quota
 {
     /**
+     * Return the IMP_Quota instance.
+     *
+     * @return IMP_Quota  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
@@ -48,13 +64,6 @@ class IMP_Injector_Binder_Quota implements Horde_Injector_Binder
         }
 
         return IMP_Quota::factory($driver, $params);
-    }
-
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 
 }

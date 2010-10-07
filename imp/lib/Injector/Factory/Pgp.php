@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for IMP_Crypt_Pgp.
+ * A Horde_Injector based factory for the IMP_Crypt_Pgp object.
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based factory for the IMP_Crypt_Pgp object.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,11 +22,15 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_Pgp implements Horde_Injector_Binder
+class IMP_Injector_Factory_Pgp
 {
     /**
+     * Return the IMP_Crypt_Pgp instance.
+     *
+     * @return IMP_Crypt_Pgp  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
@@ -30,13 +46,6 @@ class IMP_Injector_Binder_Pgp implements Horde_Injector_Binder
         }
 
         return $injector->getInstance('Horde_Core_Factory_Crypt')->create('IMP_Crypt_Pgp', $params);
-    }
-
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 
 }

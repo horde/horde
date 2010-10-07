@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for Horde_Auth_Imap:: that uses IMP configuration.
+ * A Horde_Injector based Horde_Auth_Imap:: factory.
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based Horde_Auth_Imap:: factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,18 +22,22 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_AuthImap implements Horde_Injector_Binder
+class IMP_Injector_Factory_AuthImap
 {
     /**
+     * Return the Horde_Auth_Imap:: instance that uses IMP configuration.
+     *
+     * @return Horde_Auth_Imap  The singleton instance.
      * @throws IMP_Exception
      */
     public function create(Horde_Injector $injector)
     {
         $params = $GLOBALS['registry']->callByPackage('imp', 'server');
         if (is_null($params)) {
-            throw new IMP_Exception('No mail parameters found.');
+            throw new IMP_Exception('No server parameters found.');
         }
 
         $params = array_merge(
@@ -39,13 +55,6 @@ class IMP_Injector_Binder_AuthImap implements Horde_Injector_Binder
         }
 
         return Horde_Auth::factory('imap', $params);
-    }
-
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 
 }

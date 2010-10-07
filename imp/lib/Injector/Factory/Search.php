@@ -1,6 +1,18 @@
 <?php
 /**
- * Binder for IMP_Search::.
+ * A Horde_Injector based factory for the IMP_Search object.
+ *
+ * PHP version 5
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
+ */
+
+/**
+ * A Horde_Injector based factory for the IMP_Search object.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,27 +22,18 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
-class IMP_Injector_Binder_Search implements Horde_Injector_Binder
+class IMP_Injector_Factory_Search
 {
     /**
-     * Injector.
+     * Return the IMP_Search instance.
      *
-     * @var Horde_Injector
-     */
-    private $_injector;
-
-    /**
-     * If an IMP_Search object is currently stored in the session, re-create
-     * that object. Else, create a new instance.
-     *
-     * @param Horde_Injecton $injector  Parent injector.
+     * @return IMP_Search  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
-        $this->_injector = $injector;
-
         $instance = null;
 
         if (!empty($_SESSION['imp']['search'])) {
@@ -45,27 +48,23 @@ class IMP_Injector_Binder_Search implements Horde_Injector_Binder
             $instance = new IMP_Search();
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $instance);
+        register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
 
         return $instance;
     }
 
     /**
      * Store serialized version of object in the current session.
+     *
+     * @param IMP_Search $instance      Tree object.
+     * @param Horde_Injector $injector  Injector object.
      */
-    public function shutdown($instance)
+    public function shutdown($instance, $injector)
     {
         /* Only need to store the object if the object has changed. */
         if ($instance->changed) {
             $_SESSION['imp']['search'] = serialize($instance);
         }
-    }
-
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
     }
 
 }

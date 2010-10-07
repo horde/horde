@@ -88,21 +88,21 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        /* Add IMP-specific binders. */
-        $binders = array(
-            'IMP_AuthImap' => new IMP_Injector_Binder_AuthImap(),
-            'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
-            'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
-            'IMP_Identity' => new IMP_Injector_Binder_Identity(),
-            'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
-            'IMP_Mail' => new IMP_Injector_Binder_Mail(),
-            'IMP_Quota' => new IMP_Injector_Binder_Quota(),
-            'IMP_Search' => new IMP_Injector_Binder_Search(),
-            'IMP_Sentmail' => new IMP_Injector_Binder_Sentmail()
+        /* Add IMP-specific factories. */
+        $factories = array(
+            'IMP_AuthImap' => 'IMP_Injector_Factory_AuthImap',
+            'IMP_Crypt_Pgp' => 'IMP_Injector_Factory_Pgp',
+            'IMP_Crypt_Smime' => 'IMP_Injector_Factory_Smime',
+            'IMP_Identity' => 'IMP_Injector_Factory_Identity',
+            'IMP_Imap_Tree' => 'IMP_Injector_Factory_Imaptree',
+            'IMP_Mail' => 'IMP_Injector_Factory_Mail',
+            'IMP_Quota' => 'IMP_Injector_Factory_Quota',
+            'IMP_Search' => 'IMP_Injector_Factory_Search',
+            'IMP_Sentmail' => 'IMP_Injector_Factory_Sentmail'
         );
 
-        foreach ($binders as $key => $val) {
-            $GLOBALS['injector']->addBinder($key, $val);
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
 
         // Set default message character set.
