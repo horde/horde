@@ -268,7 +268,6 @@ class Horde_Registry
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
             'Horde_Mail' => new Horde_Core_Binder_Mail(),
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
-            'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
