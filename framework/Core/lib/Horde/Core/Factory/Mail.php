@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_Mail implements Horde_Injector_Binder
+class Horde_Core_Factory_Mail
 {
     public function create(Horde_Injector $injector)
     {
@@ -28,8 +28,4 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
         throw new Horde_Exception('Unable to find class for transport ' . $transport);
     }
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

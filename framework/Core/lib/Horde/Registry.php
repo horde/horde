@@ -265,7 +265,6 @@ class Horde_Registry
         $binders = array(
             'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-            'Horde_Mail' => new Horde_Core_Binder_Mail(),
             'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Share_Factory' => new Horde_Core_Binder_ShareFactory(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
@@ -334,6 +333,10 @@ class Horde_Registry
             ),
             'Horde_Lock' => array(
                 'Horde_Core_Factory_Lock',
+                'create',
+            ),
+            'Horde_Mail' => array(
+                'Horde_Core_Factory_Mail',
                 'create',
             ),
             'Horde_Memcache' => array(
