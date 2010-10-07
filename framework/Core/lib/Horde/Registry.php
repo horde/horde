@@ -50,13 +50,6 @@ class Horde_Registry
     protected $_regmtime;
 
     /**
-     * Indicate that a new session ID has been generated for this page load.
-     *
-     * @var boolean
-     */
-    protected $_cleansession = false;
-
-    /**
      * Stack of in-use applications.
      *
      * @var array
@@ -92,13 +85,6 @@ class Horde_Registry
     public $nlsconfig = array();
 
     /**
-     * The session handler object.
-     *
-     * @var Horde_SessionHandler
-     */
-    public $sessionHandler = null;
-
-    /**
      * Application bootstrap initialization.
      * Solves chicken-and-egg problem - need a way to init Horde environment
      * from application without an active Horde_Registry object.
@@ -115,6 +101,7 @@ class Horde_Registry
      *   $notification - Horde_Notification object
      *   $prefs - Horde_Prefs object
      *   $registry - Horde_Registry object
+     *   $session - Horde_Session object
      *
      * @param string $app  The application to initialize.
      * @param array $args  Optional arguments:
@@ -452,16 +439,16 @@ class Horde_Registry
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $_SESSION = array();
-            $this->setupSessionHandler(false);
+            $GLOBALS['session'] = $session = new Horde_Session(false);
         } else {
-            $this->setupSessionHandler();
+            $GLOBALS['session'] = $session = new Horde_Session();
             if ($session_flags & self::SESSION_READONLY) {
-                /* Close the session immediately so no changes can be
-                   made but values are still available. */
-                session_write_close();
+                /* Close the session immediately so no changes can be made but
+                   values are still available. */
+                $session->close();
             }
         }
+        $injector->setInstance('Horde_Session', $session);
 
         /* Always need to load applications information. */
         $this->_loadApplicationsCache($vhost);
@@ -1663,66 +1650,15 @@ class Horde_Registry
     }
 
     /**
-     * Sets a custom session handler up, if there is one.
-     *
-     * The custom session handler object will be contained in the
-     * $sessionHandler public member variable.
-     *
-     * @param boolean $start  Initiate the session?
-     *
-     * @throws Horde_Exception
-     */
-    public function setupSessionHandler($start = true)
-    {
-        global $conf;
-
-        ini_set('url_rewriter.tags', 0);
-        if (empty($conf['session']['use_only_cookies'])) {
-            ini_set('session.use_only_cookies', 0);
-        } else {
-            ini_set('session.use_only_cookies', 1);
-            if (!empty($conf['cookie']['domain']) &&
-                (strpos($conf['server']['name'], '.') === false)) {
-                throw new Horde_Exception('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.');
-            }
-        }
-
-        session_set_cookie_params(
-            $conf['session']['timeout'],
-            $conf['cookie']['path'],
-            $conf['cookie']['domain'],
-            $conf['use_ssl'] == 1 ? 1 : 0
-        );
-        session_cache_limiter(is_null($this->initParams['session_cache_limiter']) ? $conf['session']['cache_limiter'] : $this->initParams['session_cache_limiter']);
-        session_name(urlencode($conf['session']['name']));
-
-        /* We want to create an instance here, not get, since we may be
-         * destroying the previous instances in the page. */
-        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_Core_Factory_SessionHandler');
-
-        if ($start) {
-            session_start();
-        }
-    }
-
-    /**
      * Destroys any existing session on login and make sure to use a new
      * session ID, to avoid session fixation issues. Should be called before
      * checking a login.
      */
     public function getCleanSession()
     {
-        if ($this->_cleansession) {
-            return;
-        }
-
-        // Make sure to force a completely new session ID and clear all
-        // session data.
-        session_regenerate_id(true);
-        session_unset();
-
-        /* Reset cookie timeouts, if necessary. */
-        if (!empty($GLOBALS['conf']['session']['timeout'])) {
+        if ($GLOBALS['session']->clean() &&
+            !empty($GLOBALS['conf']['session']['timeout'])) {
+            /* Reset cookie timeouts, if necessary. */
             $app = $this->getApp();
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             if ($secret->clearKey($app)) {
@@ -1730,8 +1666,6 @@ class Horde_Registry
             }
             $secret->setKey('auth');
         }
-
-        $this->_cleansession = true;
     }
 
     /**
@@ -1756,8 +1690,7 @@ class Horde_Registry
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
 
         if ($destroy) {
-            session_destroy();
-            $this->_cleansession = true;
+            $GLOBALS['session']->destroy();
         }
     }
 

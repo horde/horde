@@ -25,7 +25,7 @@ Horde_Registry::appInit('horde', array(
 ));
 
 try {
-    $sessions = $registry->sessionHandler->getSessionsInfo();
+    $sessions = $session->sessionHandler->getSessionsInfo();
 } catch (Horde_SessionHandler_Exception $e) {
     $cli->fatal('Session counting is not supported with the current session handler.');
 }

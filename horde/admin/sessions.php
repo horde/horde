@@ -22,7 +22,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<h1 class="header">' . _("Current Sessions");
 try {
-    $session_info = $registry->sessionHandler->getSessionsInfo();
+    $session_info = $session->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .
          '<ul class="headerbox linedRow">';

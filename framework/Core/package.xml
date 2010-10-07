@@ -34,8 +34,8 @@ Application Framework.</description>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
-* Add Horde::addInlineJsVars().
+ <notes> * Add Horde_Session.
+ * Add Horde::addInlineJsVars().
  * Remove Horde::nocacheUrl() and Horde::url() (Ticket #9160).
  * Absorb horde/Ui package.
  * Absorb horde/Ajax package.
@@ -247,6 +247,7 @@ Application Framework.</description>
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
      <file name="Registry.php" role="php" />
+     <file name="Session.php" role="php" />
      <file name="Themes.php" role="php" />
     </dir> <!-- /lib/Horde -->
     <file name="Horde.php" role="php" />
@@ -401,6 +402,7 @@ Application Framework.</description>
    <install as="Horde/Help.php" name="lib/Horde/Help.php" />
    <install as="Horde/Menu.php" name="lib/Horde/Menu.php" />
    <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
+   <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />

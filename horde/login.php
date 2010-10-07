@@ -138,7 +138,7 @@ if ($logout_reason) {
         _addAnchor($logout_url, 'url', $vars, $url_anchor)->redirect();
     }
 
-    $registry->setupSessionHandler();
+    $session->setup();
     $registry->setLanguageEnvironment($language, $vars->app);
 
     /* Hook to preselect the correct language in the widget. */
