@@ -43,6 +43,15 @@ class Horde_LoginTasks_Tasklist
     protected $_tasks = array();
 
     /**
+     * THe list of system tasks to run during this login.
+     *
+     * @see $_tasks
+     *
+     * @var array
+     */
+    protected $_stasks = array();
+
+    /**
      * Current task location pointer.
      *
      * @var integer
@@ -56,14 +65,18 @@ class Horde_LoginTasks_Tasklist
      */
     public function addTask($task)
     {
-        switch ($task->priority) {
-        case Horde_LoginTasks::PRIORITY_HIGH:
-            array_unshift($this->_tasks, $task);
-            break;
+        if ($task instanceof Horde_LoginTasks_SystemTask) {
+            $this->_stasks[] = $task;
+        } else {
+            switch ($task->priority) {
+            case Horde_LoginTasks::PRIORITY_HIGH:
+                array_unshift($this->_tasks, $task);
+                break;
 
-        case Horde_LoginTasks::PRIORITY_NORMAL:
-            $this->_tasks[] = $task;
-            break;
+            case Horde_LoginTasks::PRIORITY_NORMAL:
+                $this->_tasks[] = $task;
+                break;
+            }
         }
     }
 
@@ -77,6 +90,14 @@ class Horde_LoginTasks_Tasklist
     public function ready($advance = false)
     {
         $tmp = array();
+
+        /* Always loop through system tasks first. */
+        foreach ($this->_stasks as $key => $val) {
+            if (!$val->skip()) {
+                $tmp[] = $val;
+                unset($this->_stasks[$key]);
+            }
+        }
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
@@ -130,7 +151,8 @@ class Horde_LoginTasks_Tasklist
      */
     public function isDone()
     {
-        return ($this->_ptr == count($this->_tasks));
+        return (empty($this->_stasks) &&
+                ($this->_ptr == count($this->_tasks)));
     }
 
 }

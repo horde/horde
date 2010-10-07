@@ -71,8 +71,10 @@ if (!class_exists($class)) {
     }
 }
 
-
 $ob = new $class();
-$ob->execute();
-
-$cli->message('Completed task.', 'cli.success');
+if (($ob instanceof Horde_LoginTasks_SystemTask) && $ob->skip()) {
+    $cli->message('System task was skipped.', 'cli.warning');
+} else {
+    $ob->execute();
+    $cli->message('Completed task.', 'cli.success');
+}

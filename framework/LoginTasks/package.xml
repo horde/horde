@@ -21,7 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed horde/Core and horde/Util dependency.
+ <notes>* Add ability to dynamically skip system tasks.
+ * Removed horde/Core and horde/Util dependency.
  * Added system tasks.
  * Added ONCE interval.
  * Renamed Maintenance:: -&gt; Horde_LoginTasks::.

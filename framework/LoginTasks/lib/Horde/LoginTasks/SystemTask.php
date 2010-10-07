@@ -34,4 +34,15 @@ abstract class Horde_LoginTasks_SystemTask
      */
     abstract public function execute();
 
+    /**
+     * Skip the current task?  If true, will not run on this access but
+     * will attempt to run on the next access.
+     *
+     * @return boolean  Skip the current task?
+     */
+    public function skip()
+    {
+        return false;
+    }
+
 }

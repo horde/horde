@@ -27,7 +27,6 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     public function execute()
     {
         $this->_upgradeAbookPrefs();
-        $this->_upgradeExpireImapCache();
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
         $this->_upgradeSortPrefs();
@@ -65,23 +64,6 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 $prefs->setValue('search_fields', $fields);
             }
         }
-    }
-
-    /**
-     * Expire existing IMAP cache.
-     */
-    protected function _upgradeExpireImapCache()
-    {
-        try {
-            $ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->ob;
-            $ob->login();
-
-            $mboxes = $ob->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
-
-            foreach ($mboxes as $val) {
-                $ob->cache->deleteMailbox($val);
-            }
-        } catch (Exception $e) {}
     }
 
     /**
