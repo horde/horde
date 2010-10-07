@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_Logger implements Horde_Injector_Binder
+class Horde_Core_Factory_Logger
 {
     public function create(Horde_Injector $injector)
     {
@@ -71,8 +71,4 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
         return new Horde_Core_Log_Logger($handler);
     }
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }
