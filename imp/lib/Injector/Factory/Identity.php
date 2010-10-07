@@ -34,7 +34,7 @@ class IMP_Injector_Factory_Identity
      */
     public function create(Horde_Injector $injector)
     {
-        return $injector->getInstance('Horde_Prefs_Identity')->getIdentity(null, 'imp');
+        return $injector->getInstance('Horde_Core_Factory_Identity')->create(null, 'imp');
     }
 
 }
