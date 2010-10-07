@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory
+class Horde_Core_Factory_History
 {
     public function create(Horde_Injector $injector)
     {
