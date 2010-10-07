@@ -22,7 +22,8 @@ class WickedBaseTables extends Horde_Db_Migration_Base
         $tableList = $this->tables();
 
         if (!in_array('wicked_pages', $tableList)) {
-            $t = $this->createTable('wicked_pages', array('primaryKey' => 'page_id'));
+            $t = $this->createTable('wicked_pages', array('primaryKey' => false));
+            $t->column('page_id', 'bigint', array('null' => false));
             $t->column('page_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('page_text', 'text');
             $t->column('page_hits', 'integer', array('default' => 0));
@@ -31,6 +32,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
             $t->column('version_created', 'integer', array('null' => false));
             $t->column('change_author', 'string');
             $t->column('change_log', 'text');
+            $t->primaryKey('page_id');
             $t->end();
 
             $this->addIndex('wicked_pages', array('page_name'), array('unique' => true));
