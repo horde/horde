@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Util
  */
-class Horde_Variables
+class Horde_Variables implements Countable, Iterator
 {
     /**
      * Array of form variables.
@@ -84,16 +84,6 @@ class Horde_Variables
             }
             $this->_sanitized = true;
         }
-    }
-
-    /**
-     * Return the number of form variables.
-     *
-     * @return integer  The count of variables.
-     */
-    public function count()
-    {
-        return count($this->_vars);
     }
 
     /**
@@ -321,6 +311,42 @@ class Horde_Variables
         $value = isset($array[$varname]) ? $array[$varname] : null;
 
         return !is_null($value);
+    }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        return count($this->_vars);
+    }
+
+    /* Iterator methods. */
+
+    public function current()
+    {
+        return current($this->_vars);
+    }
+
+    public function key()
+    {
+        return key($this->_vars);
+    }
+
+    public function next()
+    {
+        next($this->_vars);
+    }
+
+    public function rewind()
+    {
+        reset($this->_vars);
+    }
+
+    public function valid()
+    {
+        return (key($this->_vars) !== null);
     }
 
 }
