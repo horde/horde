@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_Template implements Horde_Injector_Binder
+class Horde_Core_Factory_Template
 {
     public function create(Horde_Injector $injector)
     {
@@ -13,8 +13,4 @@ class Horde_Core_Binder_Template implements Horde_Injector_Binder
         ));
     }
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

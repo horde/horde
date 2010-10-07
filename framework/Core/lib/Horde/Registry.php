@@ -348,6 +348,10 @@ class Horde_Registry
                 'Horde_Core_Factory_Twitter',
                 'create',
             ),
+            'Horde_Template' => array(
+                'Horde_Core_Factory_Template',
+                'create',
+            ),
             'Horde_Token' => array(
                 'Horde_Core_Factory_Token',
                 'create',
