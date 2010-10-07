@@ -51,6 +51,7 @@ v4.0-cvs
 v3.3.10-cvs
 -----------
 
+[mms] Fix memcache cache regression introduced in v3.3.9 (Bug #9279).
 [jan] Fix SyncML page sometimes deleting more anchors than selected.
 
 
