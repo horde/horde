@@ -163,7 +163,7 @@ EOT;
         /* Build the UI */
         $html = '<div style="padding: 0 8px 8px">'
            . '<div class="fbgreybox"><textarea rows="2" style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus">' . $defaultText . '</textarea>'
-           . '<a class="button" onclick="Horde.twitter[\'' . $instance . '\'].updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Tweet") . '</a><span id="' . $instance . '_counter" style="color: rgb(204, 204, 204);margin-left:6px;">140</span>  <span id="' . $instance . '_inReplyTo"></span>'
+           . '<a class="button" onclick="Horde[\'twitter' . $instance . '\'].updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Tweet") . '</a><span id="' . $instance . '_counter" style="color: rgb(204, 204, 204);margin-left:6px;">140</span>  <span id="' . $instance . '_inReplyTo"></span>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="" style="margin: 10px;"><strong>' . _("Latest") . '</strong> ' . $latestStatus . ' - <span class="fbstreaminfo">' . Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) . '</span></div></div>';
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="' . $instance . '_twitter_body">';
