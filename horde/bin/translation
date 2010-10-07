@@ -63,7 +63,7 @@ function usage()
             $c->writeln('  -l, --locale=ll_CC     Use this locale.');
             $c->writeln('  -m, --module=MODULE    Create a PO file only for this (Horde) module.');
             $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/po directory).');
+            $c->writeln('                         one (compendium.po in the horde/locale directory).');
             $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
             break;
         case 'make':
@@ -71,7 +71,7 @@ function usage()
             $c->writeln('  -m, --module=MODULE    Build MO files only for this (Horde) module.');
             $c->writeln('  -c, --compendium=FILE  Merge new translations to this compendium file');
             $c->writeln('                         instead of the default one (compendium.po in the');
-            $c->writeln('                         horde/po directory.');
+            $c->writeln('                         horde/locale directory.');
             $c->writeln('  -n, --no-compendium    Don\'t merge new translations to the compendium.');
             $c->writeln('  -s, --statistics       Save translation statistics in a local file.');
             break;
@@ -84,14 +84,14 @@ function usage()
             $c->writeln('  -l, --locale=ll_CC     Use this locale.');
             $c->writeln('  -m, --module=MODULE    Merge PO files only for this (Horde) module.');
             $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/po directory).');
+            $c->writeln('                         one (compendium.po in the horde/locale directory).');
             $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
             break;
         case 'update':
             $c->writeln('  -l, --locale=ll_CC     Use this locale.');
             $c->writeln('  -m, --module=MODULE    Update only this (Horde) module.');
             $c->writeln('  -c, --compendium=FILE  Use this compendium file instead of the default');
-            $c->writeln('                         one (compendium.po in the horde/po directory).');
+            $c->writeln('                         one (compendium.po in the horde/locale directory).');
             $c->writeln('  -n, --no-compendium    Don\'t use a compendium.');
             break;
         }
@@ -624,7 +624,7 @@ function init()
             $sh .= $silence;
         }
         if (!empty($lang) && !OS_WINDOWS) {
-            $pofile = $dirs[$i] . '/po/' . $lang . '.po';
+            $pofile = $dir . $lang . '.po';
             $sh .= "; sed 's/PACKAGE package/$package package/' $pofile " .
                    "| sed 's/PACKAGE VERSION/$package $version/' " .
                    "| sed 's/messages for PACKAGE/messages for $package/' " .
@@ -756,12 +756,12 @@ function make()
             /* Compile MO file. */
             $sh = $GLOBALS['msgfmt'] . ' --statistics -o "' . $targetdir . DS . $apps[$i] . '.mo" ';
             if ($apps[$i] != 'horde') {
-                $horde_po = $dirs[$horde] . DS . 'po' . DS . $locale . '.po';
+                $horde_po = $dirs[$horde] . DS . 'locale' . DS . $locale . DS . 'LC_MESSAGES/horde.po';
                 if (!is_readable($horde_po)) {
                     $c->message(sprintf('The Horde PO file for the locale %s does not exist:', $locale), 'cli.warning');
                     $c->writeln($horde_po);
                     $c->writeln();
-                    $sh .= '"' . $dirs[$i] . DS . 'po' . DS . $locale . '.po"';
+                    $sh .= '"' . $targetdir . DS . $apps[$i] . '.po"';
                 } else {
                     $comm = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$pofile\"";
                     $sh = $comm . " \"$horde_po\" | $sh -";
