@@ -103,7 +103,7 @@ class Ansel_Tile_Image
                 ? str_replace('%i', $image->id, $params['image_onclick'])
                 : '');
 
-        $imageCaption = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(
+        $imageCaption = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
             $image->caption, 'text2html',
             array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 

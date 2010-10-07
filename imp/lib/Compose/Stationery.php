@@ -59,7 +59,7 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
             switch ($this[$id]['t']) {
             case 'html':
                 if (!$html) {
-                    $s_content = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($s_content, 'Html2text', array('charset' => 'UTF-8'));
+                    $s_content = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($s_content, 'Html2text', array('charset' => 'UTF-8'));
                 }
                 break;
 

@@ -300,7 +300,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             Horde::addScriptFile('open_html_helper.js', 'horde');
 
             if ($var->type->hasHelper('emoticons')) {
-                $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('emoticons');
+                $filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->create('emoticons');
                 $icon_list = array();
 
                 foreach (array_flip($filter->getIcons()) as $icon => $string) {

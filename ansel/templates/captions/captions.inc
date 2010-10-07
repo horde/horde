@@ -12,7 +12,7 @@
 
 <?php if ($gallery->get('desc')): ?>
 <p class="box">
- <?php echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+ <?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </p>
 <?php endif; ?>
 

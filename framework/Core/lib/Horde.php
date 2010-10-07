@@ -316,7 +316,7 @@ HTML;
                         /* Separate JS files with a newline since some
                          * compressors may strip trailing terminators. */
                         try {
-                            $out .= $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
+                            $out .= $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
                         } catch (Horde_Exception $e) {
                             $out .= $js_text . "\n";
                         }

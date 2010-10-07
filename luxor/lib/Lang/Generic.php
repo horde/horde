@@ -170,7 +170,7 @@ class Luxor_Lang_Generic extends Luxor_Lang
         global $index, $sourceid;
 
         // Make sure spacing is correct.
-        $code = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($code, 'space2html', array('encode' => true, 'encode_all' => true));
+        $code = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($code, 'space2html', array('encode' => true, 'encode_all' => true));
 
         // Split all the symbols.
         preg_match_all('/(^|[^\w\#&])([\w~][\w]*)\b/', $code, $match);

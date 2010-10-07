@@ -21,7 +21,7 @@
 if (strpos($mime_type, 'text/plain') !== false) {
     $data = $pretty->render('inline');
     $data = reset($data);
-    echo '<div class="fixed">' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data['data'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . '</div>';
+    echo '<div class="fixed">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data['data'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . '</div>';
 } elseif (strpos($mime_type, 'image/') !== false) {
     echo Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
 } elseif ($pretty->canRender('inline')) {

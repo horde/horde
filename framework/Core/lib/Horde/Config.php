@@ -418,7 +418,7 @@ class Horde_Config
                 continue;
             }
             $name = $node->getAttribute('name');
-            $desc = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($node->getAttribute('desc'), 'linkurls');
+            $desc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($node->getAttribute('desc'), 'linkurls');
             $required = !($node->getAttribute('required') == 'false');
             $quote = !($node->getAttribute('quote') == 'false');
 
@@ -434,7 +434,7 @@ class Horde_Config
 
                 $conf[$name] = array(
                     '_type' => 'description',
-                    'desc' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($this->_default($curctx, $this->_getNodeOnlyText($node)), 'linkurls')
+                    'desc' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->_default($curctx, $this->_getNodeOnlyText($node)), 'linkurls')
                 );
                 break;
 

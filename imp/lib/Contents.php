@@ -537,7 +537,7 @@ class IMP_Contents
         $ptext = Horde_String::convertCharset($pmime->getContents(), $pmime->getCharset(), 'UTF-8');
 
         if ($pmime->getType() == 'text/html') {
-            $ptext = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($ptext, 'Html2text');
+            $ptext = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($ptext, 'Html2text');
         }
 
         $this->_build = $oldbuild;

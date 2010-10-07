@@ -75,7 +75,7 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
             }
 
             $storage->modify($memo['memo_id'], $memo['desc'], $pref_value);
-            return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
                 $pref_value,
                 'text2html',
                 array('parselevel' => Horde_Text_Filter_Text2html::MICRO));

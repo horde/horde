@@ -86,7 +86,7 @@ if ($dirList) {
             continue;
         }
         $url = Chora::url('browsedir', $where . '/' . $currentDir . '/', $branchArgs);
-        $currDir = $injector->getInstance('Horde_Text_Filter')->filter($currentDir, 'space2html', array('encode' => true, 'encode_all' => true));
+        $currDir = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($currentDir, 'space2html', array('encode' => true, 'encode_all' => true));
         require CHORA_TEMPLATES . '/directory/dir.inc';
     }
     echo '</tbody>';
@@ -118,7 +118,7 @@ if ($fileList) {
         $log = $lg->queryLog();
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
-        $name = $injector->getInstance('Horde_Text_Filter')->filter($realname, 'space2html', array('encode' => true, 'encode_all' => true));
+        $name = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($realname, 'space2html', array('encode' => true, 'encode_all' => true));
         $url = Chora::url('browsefile', $fileName, $branchArgs);
         $readableDate = Chora::readableTime($date);
         if ($log) {

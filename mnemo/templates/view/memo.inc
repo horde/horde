@@ -56,7 +56,7 @@ if (!$print_view) {
    </div>
 <?php else: ?>
    <div class="noteBody">
-    <?php $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)); try { $body = Horde::callHook('format_description', array($body), 'mnemo', $body); } catch (Horde_Exception_HookNotSet $e) {} echo $body; ?>
+    <?php $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)); try { $body = Horde::callHook('format_description', array($body), 'mnemo', $body); } catch (Horde_Exception_HookNotSet $e) {} echo $body; ?>
    </div>
 <?php endif; ?>
   </td>

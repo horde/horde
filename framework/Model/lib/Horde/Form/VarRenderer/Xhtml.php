@@ -164,7 +164,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
             Horde::addScriptFile('open_html_helper.js', 'horde');
             $imgId = $var->getVarName() . 'ehelper';
             if ($var->type->hasHelper('emoticons')) {
-                $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('emoticons');
+                $filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->create('emoticons');
                 $icon_list = array();
 
                 foreach (array_flip($filter->getIcons()) as $icon => $string) {

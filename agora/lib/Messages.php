@@ -1063,7 +1063,7 @@ class Agora_Messages {
             $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body, $filters, $filters_params);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, $filters, $filters_params);
     }
 
     /**
@@ -1148,7 +1148,7 @@ class Agora_Messages {
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
             $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
-            $message['message_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')filter($this->convertFromDriver($message['body']), 'highlightquotes');
+            $message['message_body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')filter($this->convertFromDriver($message['body']), 'highlightquotes');
             if ($message['attachments']) {
                 $message['message_attachment'] = $this->getAttachmentLink($id);
             }

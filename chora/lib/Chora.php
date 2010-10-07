@@ -60,7 +60,7 @@ class Chora
                 if (!empty($onb)) {
                     $url = $url->add('onb', $onb);
                 }
-                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
+                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
             }
         }
 
@@ -460,7 +460,7 @@ class Chora
      */
     static public function formatLogMessage($log)
     {
-        $log = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $log = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 
         return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
             ? $log

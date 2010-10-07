@@ -30,7 +30,7 @@ class Jonah_View_StoryPdf extends Jonah_View
 
         // Convert the body from HTML to text if necessary.
         if (!empty($story['body_type']) && $story['body_type'] == 'richtext') {
-            $story['body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['body'], 'html2text');
+            $story['body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'html2text');
         }
 
         // Set up the PDF object.

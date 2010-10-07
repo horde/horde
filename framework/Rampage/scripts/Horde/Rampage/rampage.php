@@ -850,7 +850,7 @@ function render_field($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "nl2br(Horde_Text::linkUrls(\$GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(\$zitem['$n'], 'space2html', array('encode' => true)), false, 'text'))";
+        return "nl2br(Horde_Text::linkUrls(\$GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(\$zitem['$n'], 'space2html', array('encode' => true)), false, 'text'))";
 
     case 'bool':
     case 'boolean':

@@ -29,7 +29,7 @@ foreach ($fl->queryLogs() as $lg) {
 }
 arsort($stats);
 
-$title = sprintf(_("Statistics for %s"), $injector->getInstance('Horde_Text_Filter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
+$title = sprintf(_("Statistics for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
 Horde::addScriptFile('tables.js', 'horde');
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

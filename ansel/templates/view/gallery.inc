@@ -109,7 +109,7 @@ function downloadSelected()
 </div>
 <?php if ($this->view->gallery->get('desc')): ?>
     <div id="galleryDescription" class="gallery-desc">
-    <?php echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($this->view->gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+    <?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->view->gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
     </div>
 <?php endif; ?>
 <table cellspacing="0" width="100%">

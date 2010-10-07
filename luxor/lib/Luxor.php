@@ -193,7 +193,7 @@ class Luxor
             file_exists($filename = $files->toReal($path . '/README.txt'))) {
             $contents = file_get_contents($filename);
 
-            return $table_head . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($contents, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . $table_foot;
+            return $table_head . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($contents, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . $table_foot;
         } elseif ($filename = file_exists($files->toReal($path . '/README.html'))) {
             global $mime_drivers, $mime_drivers_map;
             $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
@@ -362,7 +362,7 @@ class Luxor
         $res = '';
         foreach ($lines as $line) {
             $res .= !empty($res) ? "\n" : '';
-            $res .= $pre . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($line, 'space2html', array('encode' => true, 'encode_all' => true)) . $post;
+            $res .= $pre . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($line, 'space2html', array('encode' => true, 'encode_all' => true)) . $post;
         }
         return $res;
     }

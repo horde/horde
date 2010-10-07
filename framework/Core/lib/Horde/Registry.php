@@ -253,7 +253,6 @@ class Horde_Registry
             'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
-            'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
             'Horde_Tree' => new Horde_Core_Binder_Tree(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
         );

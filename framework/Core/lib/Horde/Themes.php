@@ -82,7 +82,7 @@ class Horde_Themes
                 /* Use CSS tidy to clean up file. */
                 if ($conf['cachecssparams']['compress'] == 'php') {
                     try {
-                        $out = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($out, 'csstidy');
+                        $out = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
                     } catch (Horde_Exception $e) {}
                 }
 

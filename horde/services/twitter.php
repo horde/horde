@@ -81,7 +81,7 @@ case 'getPage':
         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
         $view->addHelper('Tag');
 
-        $filter = $injector->getInstance('Horde_Text_Filter');
+        $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
          /* links */
         $body = $filter->filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));

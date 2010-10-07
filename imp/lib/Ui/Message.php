@@ -254,7 +254,7 @@ class IMP_Ui_Message
                 }
 
                 return $output;
-            } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($match, 'linkurls')) {
+            } elseif ($url = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($match, 'linkurls')) {
                 if (!empty($opts['raw'])) {
                     return $match;
                 }
@@ -641,7 +641,7 @@ class IMP_Ui_Message
      */
     public function getDisplaySubject($subject)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject)), 'text2html', array(
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject)), 'text2html', array(
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));
     }

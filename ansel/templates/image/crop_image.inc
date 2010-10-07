@@ -120,7 +120,7 @@ echo $selfUrl->copy()->add('actionID', 'resizeedit')->link() . Horde::img('image
     <?php echo '<img src="' . $image_src . '" id="edit_image" alt="[image]" />' ?>
   </div>
   <br />
-    <?php $caption = $image->caption ? $image->caption : $image->filename; echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+    <?php $caption = $image->caption ? $image->caption : $image->filename; echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </div>
 <div style="text-align:center;width:25%;float:left;position:relative;">
 <form method="post" action="<?php echo $imageurl->copy()->add('actionID', 'previewcrop');?>">

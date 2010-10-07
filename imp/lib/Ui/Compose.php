@@ -386,7 +386,7 @@ class IMP_Ui_Compose
                 ? array($this, 'htmlSigCallback')
                 : null;
 
-            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array(
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'Html2text', array(
                 'callback' => $callback,
                 'wrap' => false
             ));

@@ -423,7 +423,7 @@ class Nag_Task {
      */
     function getFormattedDescription()
     {
-        $desc = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($this->desc, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $desc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->desc, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             return Horde::callHook('format_description', array($desc), 'nag');
         } catch (Horde_Exception_HookNotSet $e) {

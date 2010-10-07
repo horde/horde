@@ -1854,7 +1854,7 @@ class IMP_Prefs_Ui
 
             if ($content && ($ui->vars->last_type != $type)) {
                 $content = ($type == 'plain')
-                    ? $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($content, 'Html2text')
+                    ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($content, 'Html2text')
                     : IMP_Compose::text2html($content);
             }
         } elseif ($selected == -1) {

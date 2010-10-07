@@ -78,5 +78,5 @@ echo $selfUrl->copy()->add(array('actionID' => 'resizeedit'))->link() . Horde::i
 <div style="width: 100%;float:left;text-align: center;padding-top:10px;">
  <?php echo '<img src="' . $image_src . '" id="edit_image" alt="[image]" />' ?>
  <br />
- <?php $caption = $image->caption ? $image->caption : $image->filename; echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+ <?php $caption = $image->caption ? $image->caption : $image->filename; echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </div>

@@ -50,7 +50,7 @@ if (Horde_Util::getFormData('show_image')) {
 }
 
 // Display the wrapper page for the image.
-$title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Text_Filter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
+$title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
 $extraLink = Chora::getFileViews($where, 'cvsgraph');
 
 require CHORA_TEMPLATES . '/common-header.inc';

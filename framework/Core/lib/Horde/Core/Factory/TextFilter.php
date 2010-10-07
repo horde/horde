@@ -55,7 +55,7 @@ class Horde_Core_Factory_TextFilter
      * @return Horde_Text_Filter_Base  The singleton instance.
      * @throws Horde_Text_Filter_Exception
      */
-    public function getFilter($driver, array $params = array())
+    public function create($driver, array $params = array())
     {
         list($driver, $params) = $this->_getDriver($driver, $params);
         return Horde_Text_Filter::factory($driver, $params);

@@ -123,7 +123,7 @@ class Horde_Block_Horde_fortune extends Horde_Block
                 . $this->_params['offend']
                 . ' ' . implode(' ', $this->_params['fortune']);
             return '<span class="fixed"><small>'
-                . nl2br($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(shell_exec($cmdLine), array('space2html'), array(array('encode' => true))))
+                . nl2br($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(shell_exec($cmdLine), array('space2html'), array(array('encode' => true))))
                 . '</small></span>';
         } else {
             return '';

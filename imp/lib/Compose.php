@@ -1035,7 +1035,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
+            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
         }
 
         /* Get trailer text (if any). */
@@ -1089,7 +1089,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     '</body>';
             }
 
-            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
+            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $charset));
 
@@ -2474,9 +2474,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($mode == 'html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_styles' => true, 'strip_style_attributes' => false)));
+            $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_styles' => true, 'strip_style_attributes' => false)));
         } elseif ($type == 'text/html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'Html2text');
+            $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Html2text');
             $type = 'text/plain';
         }
 
@@ -2635,7 +2635,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     static public function text2html($msg)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'Text2html', array(
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
             'always_mailto' => true,
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));

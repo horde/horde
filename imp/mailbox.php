@@ -777,7 +777,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             }
 
             if (!$preview_tooltip) {
-                $ptext = $injector->getInstance('Horde_Text_Filter')->filter($ptext, 'text2html', array(
+                $ptext = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($ptext, 'text2html', array(
                     'parselevel' => Horde_Text_Filter_Text2html::NOHTML
                 ));
             }

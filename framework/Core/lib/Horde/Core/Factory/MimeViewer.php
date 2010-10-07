@@ -104,7 +104,7 @@ class Horde_Core_Factory_MimeViewer
             // TODO: Logging
             // 'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'temp_file' => array('Horde', 'getTempFile'),
-            'text_filter' => array($this->_injector->getInstance('Horde_Text_Filter'), 'filter')
+            'text_filter' => array($this->_injector->getInstance('Horde_Core_Factory_TextFilter'), 'filter')
         ));
 
         switch ($config['driver']) {

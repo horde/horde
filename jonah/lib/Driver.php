@@ -398,10 +398,10 @@ class Jonah_Driver
         case 'richtext':
             /* Get a plain text version of a richtext story. */
             $body_html = $story['body'];
-            $body_text = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'html2text');
+            $body_text = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html, 'html2text');
 
             /* Add description. */
-            $body_html = '<p>' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) . "</p>\n" . $body_html;
+            $body_html = '<p>' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) . "</p>\n" . $body_html;
             $body_text = Horde_String::wrap('  ' . $story['description'], 70) . "\n\n" . $body_text;
 
             /* Add the text version of the story to the base message. */

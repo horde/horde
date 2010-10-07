@@ -106,7 +106,7 @@ function arrowHandler(e)
      <?php echo Horde::img('blank.gif', '', array('id' => 'photodiv', 'width' => $this->_geometry['width'], 'height' => $this->_geometry['height'])) ?>
      <div id="CaptionContainer" style="width:<?php echo $this->_geometry['width']?>px;">
      <p id="Caption" style="display:none;">
-       <?php echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($this->resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+       <?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
      </p>
      </div>
     </div>
