@@ -111,7 +111,7 @@ if ($fileList) {
             $readmes[] = $currFile;
         }
 
-        $icon = $injector->getInstance('Horde_Mime_Viewer')->getIcon($mimeType);
+        $icon = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mimeType);
         $author = Chora::showAuthorName($lg->queryAuthor());
         $filerev = $lg->queryRevision();
         $date = $lg->queryDate();

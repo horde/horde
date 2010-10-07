@@ -645,7 +645,7 @@ class IMP_Contents
         }
 
         /* Get part's icon. */
-        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
+        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
 
         /* Get part's description. */
         $description = $mime_part->getDescription(true);

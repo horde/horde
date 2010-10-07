@@ -63,7 +63,7 @@ case 'view_file':
     $mime_part->setName($filename);
     $mime_part->buildMimeIds();
 
-    $content = $injector->getInstance('Horde_Mime_Viewer')->getViewer($mime_part)->render('full');
+    $content = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     $body = $content[1]['data'];
 
     $browser->downloadHeaders($filename, $content[1]['type'], true, strlen($body));

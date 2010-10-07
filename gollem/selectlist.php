@@ -127,7 +127,7 @@ if (is_array($info['list']) &&
             $item['graphic'] = $folder_img;
         } else {
             if (empty($icon_cache[$val['type']])) {
-                $icon_cache[$val['type']] = $injector->getInstance('Horde_Mime_Viewer')->getIcon($val['type']);
+                $icon_cache[$val['type']] = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($val['type']);
             }
             $item['graphic'] = $icon_cache[$val['type']];
         }

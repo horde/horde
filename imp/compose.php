@@ -993,7 +993,7 @@ if ($redirect) {
         $t->set('numberattach', count($imp_compose));
         if ($t->get('numberattach')) {
             $atc = array();
-            $v = $injector->getInstance('Horde_Mime_Viewer');
+            $v = $injector->getInstance('Horde_Core_Factory_MimeViewer');
             foreach ($imp_compose as $atc_num => $data) {
                 $mime = $data['part'];
                 $type = $mime->getType();

@@ -109,7 +109,7 @@ function printfile_raw($pathname)
 
     $mime_part = new Horde_Mime_Part(Horde_Mime_Magic::filenameToMime($pathname), $data);
     $mime_part->setName($pathname);
-    $viewer = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime_part);
+    $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
 
     if ($viewer->getType() == 'text/plain') {
         return '<pre class="fixed">' . htmlspecialchars($viewer->render()) . '</pre>';

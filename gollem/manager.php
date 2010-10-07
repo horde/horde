@@ -397,7 +397,7 @@ if (is_array($list) && $numitem && $read_perms) {
             $item['graphic'] = $folder_img;
         } else {
             if (empty($icon_cache[$val['type']])) {
-                $icon_cache[$val['type']] = Horde::img($injector->getInstance('Horde_Mime_Viewer')->getIcon(Horde_Mime_Magic::extToMime($val['type'])), '', '', '');
+                $icon_cache[$val['type']] = Horde::img($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon(Horde_Mime_Magic::extToMime($val['type'])), '', '', '');
             }
             $item['graphic'] = $icon_cache[$val['type']];
         }

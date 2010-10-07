@@ -1656,7 +1656,7 @@ class Agora_Messages {
         $html = '<br />';
         $view_url = Horde::url('view.php');
         foreach ($files as $file_id => $file) {
-            $mime_icon = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon($file['file_type']);
+            $mime_icon = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
             $tooltip = $title . "\n" . sprintf(_("size: %s"), $this->formatSize($file['file_size'])) . "\n" . sprintf(_("type: %s"), $file['file_type']);
             $url = Horde_Util::addParameter($view_url, array('forum_id' => $this->_forum_id,

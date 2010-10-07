@@ -198,6 +198,8 @@ class AnselBaseTables extends Horde_Db_Migration_Base
      */
     public function down()
     {
+        $tableList = $this->tables();
+
         $this->dropTable('ansel_images');
         $this->dropTable('ansel_image_attributes');
         $this->dropTable('ansel_faces');
@@ -206,9 +208,15 @@ class AnselBaseTables extends Horde_Db_Migration_Base
         $this->dropTable('ansel_shares_groups');
         $this->dropTable('ansel_shares_users');
         $this->dropTable('ansel_images_geolocation');
-        $this->dropTable('ansel_tags');
-        $this->dropTable('ansel_galleries_tags');
-        $this->dropTable('ansel_images_tags');
+        if (in_array('ansel_tags', $tableList)) {
+            $this->dropTable('ansel_tags');
+        }
+        if (in_array('ansel_galleries_tags', $tableList)) {
+            $this->dropTable('ansel_galleries_tags');
+        }
+        if (in_array('ansel_images_tags', $tableList)) {
+            $this->dropTable('ansel_images_tags');
+        }
     }
 
 }

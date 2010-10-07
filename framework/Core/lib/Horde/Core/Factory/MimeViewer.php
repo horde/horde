@@ -67,7 +67,7 @@ class Horde_Core_Factory_MimeViewer
      * @return Horde_Mime_Viewer_Base  The newly created instance.
      * @throws Horde_Mime_Viewer_Exception
      */
-    public function getViewer(Horde_Mime_Part $mime, array $opts = array())
+    public function create(Horde_Mime_Part $mime, array $opts = array())
     {
         $app = isset($opts['app'])
             ? $opts['app']

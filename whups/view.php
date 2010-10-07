@@ -62,7 +62,7 @@ case 'view_file':
     $mime_part->setContents($data);
     $mime_part->setName($filename);
 
-    $ret = $injector->getInstance('Horde_Mime_Viewer')->getViewer($mime_part)->render('full');
+    $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     reset($ret);
     $key = key($ret);
 
