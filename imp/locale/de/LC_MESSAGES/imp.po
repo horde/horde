@@ -3807,7 +3807,7 @@ msgstr "Als kein Spam melden"
 #: message.php:533 mailbox.php:549 message-mimp.php:301
 #: templates/dimp/index.inc:393
 msgid "Report as Spam"
-msgstr "Als Spam _melden"
+msgstr "Als Spam melden"
 
 #: compose.php:934
 msgid "Request a _Read Receipt"
