@@ -306,20 +306,20 @@ case 'export':
 
     switch ($exportType) {
     case Horde_Data::EXPORT_CSV:
-        $injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_OUTLOOKCSV:
-        $injector->getInstance('Horde_Data')->getData('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
         exit;
 
     case Horde_Data::EXPORT_TSV:
-        $injector->getInstance('Horde_Data')->getData('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_VCARD:
     case 'vcard30':
-        $injector->getInstance('Horde_Data')->getData('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
         exit;
 
     case 'ldif':
@@ -386,7 +386,7 @@ if (!$error && !empty($import_format)) {
                 'cleanup' => '_cleanupData'
             ));
         } else {
-            $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
+            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
         }
     } catch (Turba_Exception $e) {
         $notification->push(_("This file format is not supported."), 'horde.error');

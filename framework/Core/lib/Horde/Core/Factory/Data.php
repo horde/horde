@@ -53,7 +53,7 @@ class Horde_Core_Factory_Data
      * @return Horde_Data_Driver  The instance.
      * @throws Horde_Data_Exception
      */
-    public function getData($driver, array $params = array())
+    public function create($driver, array $params = array())
     {
         $params['browser'] = $this->_injector->getInstance('Horde_Browser');
         $params['vars'] = Horde_Variables::getDefaultVariables();
