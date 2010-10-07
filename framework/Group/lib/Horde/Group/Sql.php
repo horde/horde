@@ -25,7 +25,7 @@ class Horde_Group_Sql extends Horde_Group
     public function __construct($params)
     {
         $this->_params = $params;
-        $this->db = $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'group');
+        $this->db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'group');
     }
 
     /**

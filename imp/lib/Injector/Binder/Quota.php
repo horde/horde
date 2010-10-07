@@ -43,7 +43,7 @@ class IMP_Injector_Binder_Quota implements Horde_Injector_Binder
             break;
 
         case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Db')->getDb('imp', $params);
+            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', $params);
             break;
         }
 

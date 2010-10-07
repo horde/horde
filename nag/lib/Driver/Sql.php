@@ -481,7 +481,7 @@ class Nag_Driver_Sql extends Nag_Driver {
             $this->_params['table'] = 'nag_tasks';
         }
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db')->getDb('nag', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('nag', 'storage');
 
         return true;
     }

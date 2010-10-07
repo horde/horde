@@ -62,7 +62,7 @@ class Horde_Core_Factory_Db
      * @throws Horde_Exception
      * @throws Horde_Db_Exception
      */
-    public function getDb($app = 'horde', $type = null)
+    public function create($app = 'horde', $type = null)
     {
         $sig = hash('md5', serialize($app . '|' . $type));
 

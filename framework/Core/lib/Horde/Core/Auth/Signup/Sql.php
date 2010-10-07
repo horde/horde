@@ -50,7 +50,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
             serialize($signup->getData())
         );
 
-        $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'signup')->insert($query, $values);
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->insert($query, $values);
     }
 
     /**
@@ -71,7 +71,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($user);
 
-        return (bool)$GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'signup')->selectValue($query, $values);
+        return (bool)$GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->selectValue($query, $values);
     }
 
     /**
@@ -90,7 +90,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($username);
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'signup')->selectOne($query, $values);
+        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->selectOne($query, $values);
         if (empty($result)) {
             throw new Horde_Exception(sprintf(_("User \"%s\" does not exist."), $username));
         }
@@ -112,7 +112,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
         $query = 'SELECT * FROM ' . $this->_params['table'] .
                  ' ORDER BY signup_date';
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'signup')->selectAll($query);
+        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->selectAll($query);
         if (empty($result)) {
             return array();
         }
@@ -140,7 +140,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($username);
 
-        $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'signup')->delete($query, $values);
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->delete($query, $values);
     }
 
     /**
