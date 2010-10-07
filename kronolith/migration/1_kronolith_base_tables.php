@@ -100,12 +100,12 @@ class KronolithBaseTables extends Horde_Db_Migration_Base
             $t = $this->createTable('kronolith_shares_users');
 
             $t->column('share_id', 'integer', array('null' => false));
-            $t->column('user_id', 'string', array('limit' => 255));
+            $t->column('user_uid', 'string', array('limit' => 255));
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
             $this->addIndex('kronolith_shares_users', 'share_id');
-            $this->addIndex('kronolith_shares_users', 'user_id');
+            $this->addIndex('kronolith_shares_users', 'user_uid');
             $this->addIndex('kronolith_shares_users', 'perm');
         }
     }
