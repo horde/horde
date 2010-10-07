@@ -81,7 +81,7 @@ class Turba_Application extends Horde_Registry_Application
             if (!empty($cfg['use_shares'])) {
                 // Create a share instance.
                 $_SESSION['turba']['has_share'] = true;
-                $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+                $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
                 $cfgSources = Turba::getConfigFromShares($cfgSources);
                 break;
             }

@@ -42,7 +42,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function getGroupOwner($group)
     {
-        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         try {
             $share = $GLOBALS['folks_shares']->getShareById($group);
@@ -57,7 +57,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     protected function _getGroups()
     {
-        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
         $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
 
         $list = array();
@@ -79,7 +79,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(_("A group names cannot be empty"));
         }
 
-        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
         $share = $GLOBALS['folks_shares']->getShareById($group);
 
         // Only owners of a group can delete them
@@ -107,7 +107,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function removeGroup($group)
     {
-        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $share = $GLOBALS['folks_shares']->getShareById($group);
         if ($share instanceof PEAR_Error) {
@@ -158,7 +158,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(sprintf(_("You already have a group named \"%s\"."), $name));
         }
 
-        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $share = $GLOBALS['folks_shares']->newShare(strval(new Horde_Support_Uuid()));
 

@@ -56,7 +56,7 @@ class Horde_Core_Factory_Share
      * @return Horde_Share  The Horde_Share instance.
      * @throws Horde_Exception
      */
-    public function getScope($app = null, $driver = null)
+    public function create($app = null, $driver = null)
     {
         if (empty($driver)) {
             $driver = $GLOBALS['conf']['share']['driver'];

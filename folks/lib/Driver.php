@@ -463,7 +463,7 @@ class Folks_Driver {
 
         // Delete groups
         if ($GLOBALS['conf']['friends']) {
-            $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+            $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
             $groups = $shares->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, true);
             foreach ($groups as $share) {
                 $result = $shares->removeShare($share);

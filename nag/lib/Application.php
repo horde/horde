@@ -51,7 +51,7 @@ class Nag_Application extends Horde_Registry_Application
         $GLOBALS['registry']->setTimeZone();
 
         // Create a share instance.
-        $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Nag::initialize();
     }

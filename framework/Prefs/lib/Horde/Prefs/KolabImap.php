@@ -38,7 +38,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs_Base
             return;
         }
 
-        $shares = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope('h-prefs');
+        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('h-prefs');
         $default = $shares->getDefaultShare();
         if ($default instanceof PEAR_Error) {
             if ($this->_opts['logger']) {

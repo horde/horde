@@ -64,7 +64,7 @@ class Ingo_Application extends Horde_Registry_Application
         // Create shares if necessary.
         $transport = Ingo::getTransport();
         if ($transport->supportShares()) {
-            $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+            $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
             /* If personal share doesn't exist then create it. */

@@ -399,7 +399,7 @@ class Mnemo {
      */
     public static function initialize()
     {
-        $GLOBALS['mnemo_shares'] = $GLOBALS['injector']->getInstance('Horde_Share_Factory')->getScope();
+        $GLOBALS['mnemo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         // Update the preference for which notepads to display. If the
         // user doesn't have any selected notepads for view then fall
