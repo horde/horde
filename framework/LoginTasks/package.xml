@@ -21,7 +21,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Core dependency.
+ <notes>* Removed horde/Core and horde/Util dependency.
  * Added system tasks.
  * Added ONCE interval.
  * Renamed Maintenance:: -&gt; Horde_LoginTasks::.
@@ -61,10 +61,6 @@
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Util</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
  </dependencies>
  <phprelease>

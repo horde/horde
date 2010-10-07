@@ -7,15 +7,20 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
+$vars = Horde_Variables::getDefaultVariables();
+
 /* If no 'module' parameter passed in, die with an error. */
-if (!($app = basename(Horde_Util::getFormData('app')))) {
+if (!($app = basename($vars->app))) {
     throw new Horde_Exception('Do not directly access logintasks.php.');
 }
 
@@ -26,7 +31,19 @@ if (!($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($
 }
 
 /* If we are through with tasks, this call will redirect to application. */
-$tasks->runTasks(Horde_Util::getPost('logintasks_page'));
+$confirmed = array();
+if ($vars->logintasks_page) {
+    foreach ($vars as $key => $val) {
+        if ($val && (strpos($key, 'logintasks_confirm_') === 0)) {
+            $confirmed[] = $key;
+        }
+    }
+}
+
+$tasks->runTasks(array(
+    'confirmed' => $confirmed,
+    'user_confirmed' => $vars->logintasks_page
+));
 
 /* Create the Horde_Template item. */
 $template = $injector->createInstance('Horde_Template');

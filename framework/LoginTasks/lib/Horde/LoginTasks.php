@@ -151,11 +151,7 @@ class Horde_LoginTasks
             }
 
             if ($addtask) {
-                if ($ob instanceof Horde_LoginTasks_SystemTask) {
-                    $ob->execute();
-                } else {
-                    $this->_tasklist->addTask($ob);
-                }
+                $this->_tasklist->addTask($ob);
             }
         }
 
@@ -172,25 +168,36 @@ class Horde_LoginTasks
      * login and will redirect to the login tasks page if necessary.  This is
      * the function that should be called from the application upon login.
      *
-     * @param boolean $confirmed  If true, indicates that any pending actions
-     *                            have been confirmed by the user.
-     * @param string $url         The URL to redirect to when finished.
+     * @param array $opts  Options:
+     * <pre>
+     * confirmed - (array) The list of confirmed tasks.
+     * url - (string) The URL to redirect to when finished.
+     * user_confirmed - (boolean) If true, indicates that any pending actions
+     *                  have been confirmed by the user.
+     * </pre>
      */
-    public function runTasks($confirmed = false, $url = null)
+    public function runTasks(array $opts = array())
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
             return;
         }
 
+        $opts = array_merge(array(
+            'confirmed' => array(),
+            'url' => null,
+            'user_confirmed' => false
+        ), $opts);
+
         if (empty($this->_tasklist->target)) {
-            $this->_tasklist->target = $url;
+            $this->_tasklist->target = $opts['url'];
         }
 
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $confirmed) as $key => $val) {
-            if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
-                Horde_Util::getFormData('logintasks_confirm_' . $key)) {
+        foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $opts['user_confirmed']) as $key => $val) {
+            if (($val instanceof Horde_LoginTasks_SystemTask) ||
+                in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
+                in_array($key, $opts['confirmed'])) {
                 $val->execute();
             }
         }
@@ -213,14 +220,14 @@ class Horde_LoginTasks
             return $this->_backend->redirect($url);
         }
 
-        if ((!$processed || $confirmed) && $this->_tasklist->needDisplay()) {
+        if ((!$processed || $opts['user_confirmed']) &&
+            $this->_tasklist->needDisplay()) {
             return $this->_backend->redirect($this->getLoginTasksUrl());
         }
     }
 
     /**
      * Generate the list of tasks that need to be displayed.
-     *
      * This is the function called from the login tasks page every time it
      * is loaded.
      *
