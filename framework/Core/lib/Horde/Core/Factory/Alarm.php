@@ -68,7 +68,7 @@ class Horde_Core_Factory_Alarm
         */
 
         $handler_params = array(
-            'identity' => $injector->getInstance('Horde_Prefs_Identity'),
+            'identity' => $injector->getInstance('Horde_Core_Factory_Identity'),
             'mail' => $injector->getInstance('Horde_Mail'),
         );
         $alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));

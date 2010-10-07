@@ -70,7 +70,7 @@ class Ingo_Application extends Horde_Registry_Application
             /* If personal share doesn't exist then create it. */
             $signature = $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth();
             if (!$GLOBALS['ingo_shares']->exists($signature)) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
                     $name = $GLOBALS['registry']->getAuth('original');

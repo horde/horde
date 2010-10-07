@@ -127,7 +127,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         /* Make sure we have at least one address. */
         if (empty($info['addresses'])) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             /* Remove empty lines. */
             $info['addresses'] = preg_replace('/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
             if (empty($addresses)) {

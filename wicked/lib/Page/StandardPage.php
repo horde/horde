@@ -265,8 +265,8 @@ class StandardPage extends Wicked_Page {
         $requestor = $this->_lock['lock_owner'];
         if ($requestor) {
             $name = $GLOBALS['injector']
-                ->getInstance('Horde_Prefs_Identity')
-                ->getIdentity($requestor)
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create($requestor)
                 ->getValue('fullname');
             if (!strlen($name)) {
                 $name = $requestor;

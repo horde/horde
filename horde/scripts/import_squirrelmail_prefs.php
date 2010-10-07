@@ -26,7 +26,7 @@ function savePrefs($user, $basename, $prefs_cache)
 
     // Import identities
     if (isset($prefs_cache['identities']) && $prefs_cache['identities'] > 1) {
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user, 'imp');
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user, 'imp');
         // Intentionally off-by-one
         for ($i = 1; $i < $prefs_cache['identities']; $i++) {
             $new_identity = array('id' => 'Identity #' . ($i + 1),

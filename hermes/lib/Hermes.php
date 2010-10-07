@@ -137,7 +137,7 @@ class Hermes {
             if (isset($namecache[$emp])) {
                 $emp = $namecache[$emp];
             } else {
-                $ident = $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($emp);
+                $ident = $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($emp);
                 $fullname = $ident->getValue('fullname');
                 if ($fullname) {
                     $namecache[$emp] = $emp = $fullname;
@@ -176,7 +176,7 @@ class Hermes {
 
         $employees = array();
         foreach ($users as $user) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
             $label = $identity->getValue('fullname');
             if (empty($label)) {
                 $label = $user;

@@ -45,7 +45,7 @@ class Kronolith_View_EditEvent {
             exit;
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         if ($this->event->hasPermission(Horde_Perms::EDIT)) {
             $calendar_id = $this->event->calendarType . '_' . $this->event->calendar;

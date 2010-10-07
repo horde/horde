@@ -982,7 +982,7 @@ class Ansel_Image Implements Iterator
             $font = $GLOBALS['prefs']->getValue('watermark_font');
         }
         if (empty($watermark)) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
                 $name = $GLOBALS['registry']->getAuth();

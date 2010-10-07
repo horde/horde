@@ -63,7 +63,7 @@ $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';
 echo Horde::menu();
 echo '<div id="menuBottom">';
-echo htmlspecialchars($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getName());
+echo htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getName());
 if (!$prefs->isLocked('portal_layout')) {
     echo ' | <a href="' . Horde::url('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
 }

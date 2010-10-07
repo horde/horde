@@ -133,7 +133,7 @@ class IMP_Ui_Message
                 $GLOBALS['injector']->getInstance('IMP_Mail'),
                 array(
                     'charset' => 'UTF-8',
-                    'from_addr' => $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity()->getDefaultFromAddress()
+                    'from_addr' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
             IMP_Maillog::log('mdn', $msg_id, 'displayed');

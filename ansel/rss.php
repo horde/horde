@@ -147,7 +147,7 @@ if (empty($rss)) {
                  Horde::logMessage($e->getMessage(), 'ERR');
             }
             if (count($images)) {
-                $owner = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($id);
+                $owner = $injector->getInstance('Horde_Core_Factory_Identity')->create($id);
                 $name = $owner->getValue('fullname');
                 $author = $owner->getValue('from_addr');
                 if (!$name) {

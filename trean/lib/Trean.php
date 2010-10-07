@@ -18,7 +18,7 @@ class Trean
     {
         // Make sure "My Bookmarks" folder exists
         if ($GLOBALS['registry']->getAuth() && !$GLOBALS['trean_shares']->exists($GLOBALS['registry']->getAuth())) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = $GLOBALS['registry']->getAuth();

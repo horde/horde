@@ -69,7 +69,7 @@ function send_agendas()
         }
 
         // Try to find an email address for the user.
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getDefaultFromAddress(true);
 
         // Check if user has a timezone pref, and set it. Otherwise, make

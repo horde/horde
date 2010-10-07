@@ -586,7 +586,7 @@ class Ansel
                 ));
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($owner);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;

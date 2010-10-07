@@ -735,7 +735,7 @@ class Horde_Core_Prefs_Ui
      */
     protected function _identityHeader($members)
     {
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity(null, $this->app);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create(null, $this->app);
         $default_identity = $identity->getDefault();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -807,7 +807,7 @@ class Horde_Core_Prefs_Ui
     {
         global $conf, $notification, $prefs;
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity(null, $this->app);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create(null, $this->app);
 
         if ($this->vars->delete_identity) {
             $id = intval($this->vars->id);

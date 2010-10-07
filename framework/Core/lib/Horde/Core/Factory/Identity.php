@@ -61,7 +61,7 @@ class Horde_Core_Factory_Identity
      * @return Horde_Identity  The singleton identity instance.
      * @throws Horde_Exception
      */
-    public function getIdentity($user = null, $driver = null)
+    public function create($user = null, $driver = null)
     {
         global $injector, $prefs, $registry;
 

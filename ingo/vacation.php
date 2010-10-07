@@ -103,7 +103,7 @@ $form->appendButtons(_("Return to Rules List"));
 
 /* Make sure we have at least one address. */
 if (!$vacation->getVacationAddresses()) {
-    $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
+    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
     $addresses = implode("\n", $identity->getAll('from_addr'));
     /* Remove empty lines. */
     $addresses = preg_replace('/\n+/', "\n", $addresses);

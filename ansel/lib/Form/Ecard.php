@@ -23,7 +23,7 @@ class Ansel_Form_Ecard extends Horde_Form {
         if (empty($user)) {
             $this->addVariable(_("Use the following return address:"), 'ecard_retaddr', 'text', true);
         } else {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $from_addr = $identity->getDefaultFromAddress();
             $vars->set('ecard_retaddr', $from_addr);
             $this->addHidden('', 'ecard_retaddr', 'text', true);

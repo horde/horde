@@ -74,7 +74,7 @@ $view = new Agora_View();
 if (!$view_bodies) {
     /* Get the author's avatar. */
     if ($conf['avatar']['allow_avatars']) {
-        $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($message['message_author']);
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($message['message_author']);
         $avatar_path = $identity->getValue('avatar_path');
         $message_author_avatar = Agora::validateAvatar($avatar_path) ? Agora::getAvatarUrl($avatar_path) : false;
         $view->message_author_avatar = $message_author_avatar;

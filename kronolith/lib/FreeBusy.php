@@ -68,7 +68,7 @@ class Kronolith_FreeBusy
         }
 
         /* Get the Identity for the owner of the share. */
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
         if (empty($mail) && empty($cn)) {

@@ -1150,7 +1150,7 @@ class Kronolith
         if ($GLOBALS['registry']->getAuth() &&
             !count($GLOBALS['display_calendars']) &&
             !$GLOBALS['kronolith_shares']->exists($GLOBALS['registry']->getAuth())) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = $GLOBALS['registry']->getAuth('original');
@@ -1271,7 +1271,7 @@ class Kronolith
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -1290,7 +1290,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($uid);
             $emails[$uid] = $ident->getValue('from_addr');
             if (empty($emails[$uid])) {
                 $emails[$uid] = $uid;
@@ -1308,7 +1308,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($uid);
 
             $addrs = $ident->getAll('from_addr');
             $addrs[] = $uid;
@@ -1731,8 +1731,8 @@ class Kronolith
 
         if ($GLOBALS['conf']['share']['notify']) {
             $identity = $GLOBALS['injector']
-                ->getInstance('Horde_Prefs_Identity')
-                ->getIdentity();
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create();
             $userName = $identity->getName();
             $mail = new Horde_Mime_Mail(
                 array('from' => $identity->getDefaultFromAddress(true),
@@ -1755,8 +1755,8 @@ class Kronolith
                 $share->save();
                 if ($GLOBALS['conf']['share']['notify']) {
                     $to = $GLOBALS['injector']
-                        ->getInstance('Horde_Prefs_Identity')
-                        ->getIdentity($new_owner)
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($new_owner)
                         ->getDefaultFromAddress(true);
                     try {
                         $message = Horde::callHook('shareOwnerNotification', array($new_owner, $share));
@@ -1910,8 +1910,8 @@ class Kronolith
             if ($GLOBALS['conf']['share']['notify'] &&
                 !isset($current[$user]) && $has_perms) {
                 $to = $GLOBALS['injector']
-                    ->getInstance('Horde_Prefs_Identity')
-                    ->getIdentity($user)
+                    ->getInstance('Horde_Core_Factory_Identity')
+                    ->create($user)
                     ->getDefaultFromAddress(true);
                 try {
                     $message = Horde::callHook('shareUserNotification', array($user, $share));
@@ -2247,7 +2247,7 @@ class Kronolith
             return;
         }
 
-        $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($event->creator);
+        $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($event->creator);
         if (!$ident->getValue('from_addr')) {
             $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
@@ -2403,7 +2403,7 @@ class Kronolith
             throw new Kronolith_Exception($e);
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         $owner = $share->get('owner');
         if ($owner) {
@@ -2437,7 +2437,7 @@ class Kronolith
             if (!$vals) {
                 continue;
             }
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;

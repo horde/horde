@@ -113,7 +113,6 @@ Application Framework.</description>
        <file name="Auth.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
-       <file name="Identity.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mapper.php" role="php" />
@@ -426,7 +425,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
-   <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
    <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
    <install as="Horde/Core/Binder/Mapper.php" name="lib/Horde/Core/Binder/Mapper.php" />

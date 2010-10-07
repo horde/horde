@@ -465,7 +465,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function getIdentity()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($this->data['share_owner']);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($this->data['share_owner']);
     }
 
     /**

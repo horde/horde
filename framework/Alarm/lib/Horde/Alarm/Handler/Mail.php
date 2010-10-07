@@ -47,7 +47,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
                 throw new Horde_Alarm_Exception('Parameter \'' . $param . '\' missing.');
             }
         }
-        if (!method_exists($params['identity'], 'getIdentity')) {
+        if (!method_exists($params['identity'], 'create')) {
             throw new Horde_Alarm_Exception('Parameter \'identity\' does not implement getIdentity().');
         }
         if (!($params['mail'] instanceof Horde_Mail_Transport)) {

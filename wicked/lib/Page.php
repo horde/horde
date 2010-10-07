@@ -257,7 +257,7 @@ class Wicked_Page {
             return _("Guest");
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($modify);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($modify);
         $name = $identity->getValue('fullname');
         if (!empty($name)) {
             $modify = $name;

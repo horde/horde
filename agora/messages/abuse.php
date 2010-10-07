@@ -54,7 +54,7 @@ if ($form->validate()) {
     /* Collect moderators emails, and send them the notify */
     $emails = array();
     foreach ($forum['moderators'] as $moderator) {
-        $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($moderator);
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($moderator);
         $address = $identity->getValue('from_addr');
         if (!empty($address)) {
             $emails[] = $address;

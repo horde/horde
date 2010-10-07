@@ -83,7 +83,7 @@ $form->addHidden('', 'channel_id', 'int', false);
 $form->addHidden('', 'id', 'int', false);
 $v = &$form->addVariable(_("From"), 'from', 'email', true, false);
 if ($GLOBALS['registry']->getAuth()) {
-    $v->setDefault($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getValue('from_addr'));
+    $v->setDefault($injector->getInstance('Horde_Core_Factory_Identity')->create()->getValue('from_addr'));
 }
 $form->addVariable(_("To"), 'recipients', 'email', true, false, _("Separate multiple email addresses with commas."), true);
 $form->addVariable(_("Subject"), 'subject', 'text', true);

@@ -75,7 +75,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 'user' => $mail_user
             ));
 
-            $mail_identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($mail_user);
+            $mail_identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */

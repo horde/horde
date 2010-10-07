@@ -569,7 +569,7 @@ class Whups {
                         }
                     } catch (Horde_Mime_Exception $e) {}
                 } else {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
 
                     $results[$user]['name'] = $identity->getValue('fullname');
                     $results[$user]['email'] = $identity->getValue('from_addr');

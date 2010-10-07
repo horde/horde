@@ -212,7 +212,7 @@ class Whups_Mail {
 
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
                 $addrs = $identity->getAll('from_addr');
                 foreach ($addrs as $addr) {
                     if (strcasecmp($from, $addr) == 0) {

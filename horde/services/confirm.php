@@ -14,6 +14,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity()->confirmIdentity(Horde_Util::getFormData('h'));
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create()->confirmIdentity(Horde_Util::getFormData('h'));
 
 Horde::getServiceLink('prefs')->add('group', 'identities')->redirect();

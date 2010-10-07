@@ -213,7 +213,7 @@ class Mnemo {
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -443,7 +443,7 @@ class Mnemo {
 
                 /* If the user's personal notepad doesn't exist, then create it. */
                 if (!$GLOBALS['mnemo_shares']->exists($GLOBALS['registry']->getAuth())) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
                         $name = $GLOBALS['registry']->getAuth();

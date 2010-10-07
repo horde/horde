@@ -24,7 +24,7 @@ $subscribe_url = Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/'
     . ($tasklist->get('owner') ? $tasklist->get('owner') : '')
     . '/' . $tasklist->getName() . '.ics';
 
-$identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($tasklist->get('owner'));
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($tasklist->get('owner'));
 $owner_name = $identity->getValue('fullname');
 if (trim($owner_name) == '') {
     $owner_name = $registry->getAuth('original');

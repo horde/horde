@@ -55,7 +55,7 @@ class Ansel_Report {
      */
     function _getUserEmail($user = null)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user)->getValue('from_addr');
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user)->getValue('from_addr');
     }
 
     /**
