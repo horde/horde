@@ -47,8 +47,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     public function __construct($params = array())
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'ingo', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'ingo', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'ingo', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'ingo', 'storage');
 
         $this->_params = array_merge($params, array(
             'table_rules' => 'ingo_rules',

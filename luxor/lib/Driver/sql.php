@@ -512,7 +512,7 @@ class Luxor_Driver_sql extends Luxor_Driver {
     function _connect()
     {
         if (!$this->_connected) {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'luxor', 'storage');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'luxor', 'storage');
             $this->_connected = true;
         }
 

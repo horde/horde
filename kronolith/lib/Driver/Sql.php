@@ -885,8 +885,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function initialize()
     {
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'kronolith', 'calendar');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'kronolith', 'calendar');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'kronolith', 'calendar');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'kronolith', 'calendar');
         } catch (Horde_Exception $e) {
             throw new Kronolith_Exception($e);
         }

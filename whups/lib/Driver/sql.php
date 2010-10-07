@@ -2869,8 +2869,8 @@ class Whups_Driver_sql extends Whups_Driver {
      */
     function initialise()
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'whups', 'tickets');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'whups', 'tickets');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'whups', 'tickets');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'whups', 'tickets');
 
         return true;
     }

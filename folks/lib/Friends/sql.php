@@ -206,8 +206,8 @@ class Folks_Friends_sql extends Folks_Friends {
             'friends' => 'folks_friends'
         ), $this->_params);
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'folks', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'folks', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'folks', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'folks', 'storage');
 
         return true;
     }

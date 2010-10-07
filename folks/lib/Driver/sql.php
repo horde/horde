@@ -571,8 +571,8 @@ class Folks_Driver_sql extends Folks_Driver {
      */
     private function _connect()
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'folks', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'folks', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'folks', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'folks', 'storage');
 
         return true;
     }

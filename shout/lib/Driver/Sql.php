@@ -720,8 +720,8 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         if (!$this->_connected) {
             try {
-                $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'shout', $this->_params['class']);
-                $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'shout', $this->_params['class']);
+                $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'shout', $this->_params['class']);
+                $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'shout', $this->_params['class']);
             } catch (Horde_Exception $e) {
                 throw new Shout_Exception($e);
             }

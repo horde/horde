@@ -51,8 +51,8 @@ class Kronolith_Storage_sql extends Kronolith_Storage
     public function initialize()
     {
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'kronolith', 'storage');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'kronolith', 'storage');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'kronolith', 'storage');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'kronolith', 'storage');
         } catch (Horde_Exception $e) {
             throw new Kronolith_Exception($e);
         }

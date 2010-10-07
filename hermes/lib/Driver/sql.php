@@ -701,7 +701,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
             return true;
         }
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'hermes', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'hermes', 'storage');
 
         return true;
     }

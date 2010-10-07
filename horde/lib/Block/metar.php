@@ -46,7 +46,7 @@ class Horde_Block_Horde_metar extends Horde_Block
             global $conf;
 
             // Get locations from the database.
-            $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
+            $db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
 
             $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
             if (is_a($result, 'PEAR_Error')) {

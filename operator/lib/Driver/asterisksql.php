@@ -339,8 +339,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             return true;
         }
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'operator', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'operator', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'operator', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'operator', 'storage');
 
         return true;
     }

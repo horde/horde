@@ -53,8 +53,8 @@ class Turba_Driver_Sql extends Turba_Driver
     protected function _init()
     {
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'turba', $this->_params);
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'turba', $this->_params);
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'turba', $this->_params);
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'turba', $this->_params);
         } catch (Horde_Exception $e) {
             throw new Turba_Exception($e);
         }

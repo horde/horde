@@ -62,7 +62,7 @@ class Horde_Core_Factory_DbPear
      * @return DB  The singleton DB instance.
      * @throws Horde_Exception
      */
-    public function getDb($type = 'rw', $app = 'horde', $type = null)
+    public function create($type = 'rw', $app = 'horde', $type = null)
     {
         global $registry;
 
@@ -85,7 +85,7 @@ class Horde_Core_Factory_DbPear
         if ((($type == 'read') && empty($config['splitread'])) ||
             (isset($config['driverconfig']) &&
              ($config['driverconfig'] == 'horde'))) {
-            $this->_instances[$sig] = $this->getDb($type);
+            $this->_instances[$sig] = $this->create($type);
             return $this->_instances[$sig];
         }
 

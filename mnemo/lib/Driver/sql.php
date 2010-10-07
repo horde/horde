@@ -59,8 +59,8 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      */
     function initialize()
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'mnemo', 'storage');
-        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'mnemo', 'storage');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'mnemo', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'mnemo', 'storage');
 
         $this->_params = array_merge(array(
             'table' => 'mnemo_memos'

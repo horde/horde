@@ -890,7 +890,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
 
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'jonah', 'news');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'jonah', 'news');
         } catch (Horde_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }

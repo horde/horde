@@ -17,7 +17,7 @@ VALUES
     (?, ?, ?, ?)
 ';
 
-$db = $injector->getInstance('Horde_Db_Pear')->getDb();
+$db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
 
 foreach ($p->getTree() as $id => $row) {
     if ($id == -1) {

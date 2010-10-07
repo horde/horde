@@ -1264,7 +1264,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         global $registry;
 
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'vilma', 'storage');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'vilma', 'storage');
         } catch (Horde_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }

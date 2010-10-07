@@ -239,8 +239,8 @@ class Pastie_Driver_Sql extends Pastie_Driver
     protected function _connect()
     {
         if (!$this->_connected) {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'pastie', 'storage');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'pastie', 'storage');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'pastie', 'storage');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'pastie', 'storage');
             $this->_connected = true;
         }
     }

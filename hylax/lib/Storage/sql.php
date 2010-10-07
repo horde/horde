@@ -373,7 +373,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
 
     function initialise()
     {
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'hylax', 'sql');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'hylax', 'sql');
 
         return true;
     }
