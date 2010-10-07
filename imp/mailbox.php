@@ -34,7 +34,9 @@ function _outputSummaries($msgs)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'imp'
+));
 
 $registry->setTimeZone();
 

@@ -15,7 +15,10 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('session_control' => 'netscape'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'imp',
+    'session_control' => 'netscape'
+));
 
 $registry->setTimeZone();
 

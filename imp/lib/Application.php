@@ -120,6 +120,8 @@ class IMP_Application extends Horde_Registry_Application
 
         switch (IMP::getViewMode()) {
         case 'dimp':
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] != 'dimp'));
             $GLOBALS['notification']->addType('status', 'dimp.*', 'IMP_Notification_Event_Status');
             break;
 
@@ -130,7 +132,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'imp':
             $redirect = (!empty($this->initParams['impmode']) &&
-                         ($this->initParams['impmode'] == 'dimp'));
+                         ($this->initParams['impmode'] != 'imp'));
             $GLOBALS['notification']->attach('audio');
             break;
         }

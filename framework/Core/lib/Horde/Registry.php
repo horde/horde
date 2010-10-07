@@ -205,6 +205,7 @@ class Horde_Registry
 
         $classname = __CLASS__;
         $registry = $GLOBALS['registry'] = new $classname($s_ctrl);
+        $registry->initialApp = $app;
 
         $appob = $registry->getApiInstance($app, 'application');
         $appob->initParams = $args;
@@ -224,8 +225,6 @@ class Horde_Registry
 
             $registry->authenticateFailure($app, $e);
         }
-
-        $registry->initialApp = $app;
 
         if ($args['timezone']) {
             $registry->setTimeZone();

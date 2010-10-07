@@ -14,7 +14,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'imp'
+));
 
 /* This is an IMP-only script. */
 if ($_SESSION['imp']['view'] != 'imp') {
