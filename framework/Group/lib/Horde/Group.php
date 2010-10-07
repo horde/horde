@@ -190,7 +190,7 @@ class Horde_Group
      * @return Horde_Group_DataTreeObject  A new group object.
      * @throws Horde_Group_Exception
      */
-    public function newGroup(string $name, $parent = self::ROOT)
+    public function newGroup($name, $parent = self::ROOT)
     {
         if ($parent != self::ROOT) {
             $name = $this->getGroupName($parent) . ':' . DataTree::encodeName($name);
@@ -508,8 +508,8 @@ class Horde_Group
     public function listGroups($refresh = false)
     {
         if ($refresh || !isset($this->_groupList)) {
-            $this->_groupList = $this->_datatree->get(DATATREE_FORMAT_FLAT, GROUP_ROOT, true);
-            unset($this->_groupList[GROUP_ROOT]);
+            $this->_groupList = $this->_datatree->get(DATATREE_FORMAT_FLAT, self::ROOT, true);
+            unset($this->_groupList[self::ROOT]);
         }
 
         return $this->_groupList;
