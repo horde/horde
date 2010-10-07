@@ -18,7 +18,7 @@ class Horde_Core_Factory_Facebook
         $secret = $conf['facebook']['secret'];
 
         /* Create required objects */
-        $context = array('http_client' => $injector->getInstance('Horde_Http_Client')->getClient(),
+        $context = array('http_client' => $injector->getInstance('Horde_Core_Factory_HttpClient')->create(),
                          'http_request' => $injector->getInstance('Horde_Controller_Request_Http'));
 
         return new Horde_Service_Facebook($apikey, $secret, $context);

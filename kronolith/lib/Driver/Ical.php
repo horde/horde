@@ -748,8 +748,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         $this->_client = $GLOBALS['injector']
-            ->getInstance('Horde_Http_Client')
-            ->getClient($options);
+            ->getInstance('Horde_Core_Factory_HttpClient')
+            ->create($options);
 
         return $this->_client;
     }

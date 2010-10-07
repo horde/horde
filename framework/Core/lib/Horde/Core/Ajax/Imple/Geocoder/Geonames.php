@@ -59,7 +59,7 @@ class Horde_Core_Ajax_Imple_Geocoder_Geonames extends Horde_Core_Ajax_Imple
             $url = $url->add(array('lat' => $args['lat'], 'lng' => $args['lon']));
         }
 
-        $client = $GLOBALS['injector']->getInstance('Horde_Http_Client')->getClient();
+        $client = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
         try {
             $response = $client->get($url);
         } catch (Horde_Http_Exception $e) {

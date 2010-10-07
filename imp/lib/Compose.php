@@ -2286,8 +2286,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         $client = $GLOBALS['injector']
-          ->getInstance('Horde_Http_Client')
-          ->getClient();
+          ->getInstance('Horde_Core_Factory_HttpClient')
+          ->create();
         $img_data = $img_parts = array();
 
         /* Go through list of results, download the image, and create

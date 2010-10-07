@@ -118,7 +118,7 @@ class Horde_Config
             throw new Horde_Exception('SimpleXML not available.');
         }
 
-        $http = $GLOBALS['injector']->getInstance('Horde_Http_Client')->getClient();
+        $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
         $response = $http->get($this->_versionUrl);
         if ($response->code != 200) {
             throw new Horde_Exception('Unexpected response from server.');

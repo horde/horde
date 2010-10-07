@@ -89,8 +89,8 @@ class Horde_Block_Horde_feed extends Horde_Block
 
         try {
             $client = $GLOBALS['injector']
-              ->getInstance('Horde_Http_Client')
-              ->getClient();
+              ->getInstance('Horde_Core_Factory_HttpClient')
+              ->create();
             $feed = Horde_Feed::readUri($this->_params['uri'], $client);
             $cache->set($key, serialize($feed));
             $this->_feed = $feed;

@@ -30,7 +30,7 @@ class Horde_Core_Factory_HttpClient
      * @return Horde_Http_Client  Client object.
      * @throws Horde_Http_Client_Exception
      */
-    public function getClient(array $opts = array())
+    public function create(array $opts = array())
     {
         global $conf;
 
