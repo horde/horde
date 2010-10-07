@@ -160,7 +160,7 @@ case 'export':
             }
         }
 
-        $injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_ICALENDAR:
@@ -182,7 +182,7 @@ case 'export':
             $calNames[] = $share->get('name');
         }
 
-        $iCal->setAttribute('X-WR-CALNAME', implode(', ', $calNames)));
+        $iCal->setAttribute('X-WR-CALNAME', implode(', ', $calNames));
         $data = $iCal->exportvCalendar();
         $browser->downloadHeaders(_("events.ics"), 'text/calendar', false, strlen($data));
         echo $data;
@@ -199,7 +199,7 @@ case Horde_Data::IMPORT_FILE:
 if (!$error && $import_format) {
     $data = null;
     try {
-        $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
 
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;
