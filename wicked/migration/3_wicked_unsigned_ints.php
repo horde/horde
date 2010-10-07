@@ -19,7 +19,7 @@ class WickedUnsignedInts extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('wicked_pages', 'page_id', 'integer', array('auto_increment' => true, 'null' => false, 'unsigned' => true));
+        $this->changeColumn('wicked_pages', 'page_id', 'integer', array('autoincrement' => true, 'null' => false, 'unsigned' => true));
         $this->changeColumn('wicked_pages', 'page_hits', 'integer', array('default' => 0, 'unsigned' => true));
         $this->changeColumn('wicked_pages', 'page_majorversion', 'integer', array('null' => false, 'unsigned' => true));
         $this->changeColumn('wicked_pages', 'page_minorversion', 'integer', array('null' => false, 'unsigned' => true));

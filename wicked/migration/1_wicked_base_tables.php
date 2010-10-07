@@ -23,7 +23,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('wicked_pages', $tableList)) {
             $t = $this->createTable('wicked_pages', array('primaryKey' => false));
-            $t->column('page_id', 'bigint', array('null' => false));
+            $t->column('page_id', 'integer', array('null' => false));
             $t->column('page_name', 'string', array('limit' => 100, 'null' => false));
             $t->column('page_text', 'text');
             $t->column('page_hits', 'integer', array('default' => 0));
