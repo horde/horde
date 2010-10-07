@@ -113,7 +113,6 @@ Application Framework.</description>
        <file name="Auth.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
-       <file name="DbBase.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
@@ -143,6 +142,7 @@ Application Framework.</description>
        <file name="Crypt.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Db.php" role="php" />
+       <file name="DbBase.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
@@ -428,7 +428,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
-   <install as="Horde/Core/Binder/DbBase.php" name="lib/Horde/Core/Binder/DbBase.php" />
    <install as="Horde/Core/Binder/DbPear.php" name="lib/Horde/Core/Binder/DbPear.php" />
    <install as="Horde/Core/Binder/Group.php" name="lib/Horde/Core/Binder/Group.php" />
    <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
@@ -454,6 +453,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
    <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
+   <install as="Horde/Core/Factory/DbBase.php" name="lib/Horde/Core/Factory/DbBase.php" />
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
    <install as="Horde/Core/Factory/Dns.php" name="lib/Horde/Core/Factory/Dns.php" />
    <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />

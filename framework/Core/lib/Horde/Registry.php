@@ -265,7 +265,6 @@ class Horde_Registry
         $binders = array(
             'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-            'Horde_Db_Adapter' => new Horde_Core_Binder_DbBase(),
             'Horde_Db_Pear' => new Horde_Core_Binder_DbPear(),
             'Horde_History' => new Horde_Core_Binder_History(),
             'Horde_Http_Client' => new Horde_Core_Binder_HttpClient(),
@@ -301,6 +300,10 @@ class Horde_Registry
             'Horde_Controller_RequestConfiguration' => array(
                 'Horde_Core_Controller_RequestMapper',
                 'getRequestConfiguration',
+            ),
+            'Horde_Db_Adapter' => array(
+                'Horde_Core_Factory_DbBase',
+                'create',
             ),
             'Horde_Editor' => array(
                 'Horde_Core_Factory_Editor',
