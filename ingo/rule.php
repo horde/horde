@@ -113,11 +113,9 @@ case 'rule_delete':
     $rule['stop'] = $vars->stop;
 
     $rule['flags'] = 0;
-    $flags = $vars->flags || array();
-    if (!empty($flags)) {
-        foreach ($flags as $val) {
-            $rule['flags'] |= $val;
-        }
+    $flags = empty($vars->flags) ? array() : $vars->flags;
+    foreach ($flags as $val) {
+        $rule['flags'] |= $val;
     }
 
     /* Update the timestamp for the rules. */
