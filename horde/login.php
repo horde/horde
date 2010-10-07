@@ -68,7 +68,7 @@ if (!$is_auth) {
 }
 
 /* Get an Auth object. */
-$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth(($is_auth && $vars->app) ? $vars->app : null);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create(($is_auth && $vars->app) ? $vars->app : null);
 
 /* Build the list of necessary login parameters. */
 $loginparams = array(

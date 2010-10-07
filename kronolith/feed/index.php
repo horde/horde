@@ -38,7 +38,7 @@ if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) 
                    sprintf(_("Permission denied for the requested feed (%s)."),
                            htmlspecialchars($calendar)));
     } else {
-        $auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $user = $_SERVER['PHP_AUTH_USER'];
             $pass = $_SERVER['PHP_AUTH_PW'];

@@ -287,7 +287,7 @@ class Horde_Core_Perms_Ui
         /* Users permissions. */
         $perm_val = $permission->getUserPermissions();
         $this->_form->setSection('users', _("Individual Users"), Horde::img('user.png'), false);
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if ($auth->hasCapability('list')) {
             /* The auth driver has list capabilities so set up an array which
              * the matrix field type will recognise to set up an enum box for

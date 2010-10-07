@@ -81,7 +81,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
 
         /* Authenticate the user if possible. */
         if ($this->_argv->user) {
-            $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+            $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
             if (!$auth->authenticate($this->_argv->user,
                                      array('password' => $this->_argv->pass))) {
                 throw new InvalidArgumentException('Failed to log in!');

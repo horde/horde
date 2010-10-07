@@ -163,7 +163,7 @@ class Hermes {
      */
     public static function getEmployeesType($enumtype = 'multienum')
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->hasCapability('list')) {
             return array('text', array());
         }

@@ -115,7 +115,7 @@ class Horde_Rpc
         }
 
         // @TODO: inject this
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         $serverVars = $this->_request->getServerVars();
         if ($serverVars['PHP_AUTH_USER']) {
             $user = $serverVars['PHP_AUTH_USER'];

@@ -14,7 +14,7 @@
 $folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
-$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$GLOBALS['registry']->getAuth() &&
     (!isset($_SERVER['PHP_AUTH_USER']) ||
      !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {

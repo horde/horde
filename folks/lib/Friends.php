@@ -220,7 +220,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->exists($user)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
@@ -289,7 +289,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->exists($friend)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $friend));
         }

@@ -250,7 +250,6 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
-            'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
         );
 
@@ -1344,7 +1343,7 @@ class Horde_Registry
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
         if (!$this->isAuthenticated(array('app' => $app, 'notransparent' => !empty($params['notransparent']))) &&
-            $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth($app)->requireAuth() &&
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->requireAuth() &&
             ($perms != Horde_Perms::SHOW)) {
             return false;
         }
@@ -1758,7 +1757,7 @@ class Horde_Registry
             if (!$this->getAuth()) {
                 $this->getCleanSession();
             }
-            return $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth($app)->transparent();
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent();
         }
 
         return false;
@@ -1828,7 +1827,7 @@ class Horde_Registry
         if (!isset($options['reason'])) {
             // TODO: This only returns the error for Horde-wide
             // authentication, not for application auth.
-            $options['reason'] = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth()->getError();
+            $options['reason'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->getError();
         }
 
         if (empty($options['app']) ||
@@ -1851,7 +1850,7 @@ class Horde_Registry
             $params['logout_reason'] = $options['reason'];
             if ($options['reason'] == Horde_Auth::REASON_MESSAGE) {
                 $params['logout_msg'] = empty($options['msg'])
-                    ? $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth()->getError(true)
+                    ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->getError(true)
                     : $options['msg'];
             }
         }
@@ -2087,7 +2086,7 @@ class Horde_Registry
      */
     public function checkExistingAuth()
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
             !empty($_SESSION['horde_auth']['remoteAddr']) &&

@@ -77,7 +77,7 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
         Horde::logMessage($error, 'ERR');

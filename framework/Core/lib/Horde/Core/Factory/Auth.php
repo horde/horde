@@ -59,7 +59,7 @@ class Horde_Core_Factory_Auth
      * @return Horde_Auth_Base  The singleton instance.
      * @throws Horde_Auth_Exception
      */
-    public function getAuth($app = null)
+    public function create($app = null)
     {
         if (is_null($app)) {
             $app = 'horde';

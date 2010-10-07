@@ -208,7 +208,7 @@ class Whups_Mail {
      */
     static protected function _findAuthUser($from)
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth_Factory')->getAuth();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {

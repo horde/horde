@@ -12,7 +12,7 @@
 
 require_once dirname(__FILE__) . '/tabs.php';
 
-$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Make sure signups are enabled before proceeding
 if ($conf['signup']['allow'] !== true ||

@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 // Make sure auth backend allows passwords to be reset.
-$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
     Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();

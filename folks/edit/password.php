@@ -16,7 +16,7 @@ require_once 'tabs.php';
 
 /*
 // Make sure auth backend allows passwords to be updated.
-$auth = $injector->getInstance('Horde_Auth_Factory')->getAuth();
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
     $registry->authenticateFailure('folks');
