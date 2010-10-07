@@ -351,6 +351,10 @@ class Horde_Registry
                 'Horde_Core_Factory_Perms',
                 'create',
             ),
+            'Horde_Routes_Mapper' => array(
+                'Horde_Core_Factory_Mapper',
+                'create',
+            ),
             'Horde_Secret' => array(
                 'Horde_Core_Factory_Secret',
                 'create',
