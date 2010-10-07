@@ -59,7 +59,7 @@ class IMP_Injector_Factory_MimeViewer
     public function create(Horde_Mime_Part $mime,
                            IMP_Contents $contents = null, $type = null)
     {
-        list($driver, $params) = $this->_injector->getInstance('Horde_Mime_Viewer')->getViewerConfig($type ? $type : $mime->getType(), 'imp');
+        list($driver, $params) = $this->_injector->getInstance('Horde_Core_Factory_MimeViewer')->getViewerConfig($type ? $type : $mime->getType(), 'imp');
 
         switch ($driver) {
         case 'Report':
