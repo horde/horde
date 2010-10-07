@@ -40,7 +40,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
             : 'ckeditor_basic.js';
-        $ck_path = $GLOBALS['registry']->get('jsuri', 'horde') . '/ckeditor/';
+        $ck_path = $GLOBALS['registry']->get('jsuri', 'horde') . '/';
 
         /* Globally disable spell check as you type. */
         $params['config']['scayt_autoStartup'] = false;
@@ -55,7 +55,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         } else {
             $this->_js = '<script type="text/javascript" src="' . htmlspecialchars($ck_path) . $ck_file . '"></script>';
             if (isset($params['id'])) {
-                $this->_js .= Horde::wrapInlineScript(array('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ')'), 'load');
+                $this->_js .= Horde::wrapInlineScript(array('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ');config.toolbar_Full.push(["Code"]);'), 'load');
             }
         }
     }

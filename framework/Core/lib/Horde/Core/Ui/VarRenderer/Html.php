@@ -290,7 +290,10 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                         @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
 
         if ($var->type->hasHelper('rte')) {
-            $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => $varname, 'relativelinks' => $var->type->hasHelper('relativelinks')));
+            $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(
+                array('id' => $varname,
+                      'relativelinks' => $var->type->hasHelper('relativelinks'),
+                      'config' => array('extraPlugins' => 'syntaxhighlight')));
         }
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {

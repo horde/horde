@@ -26,6 +26,22 @@ class Jonah_View_StoryView extends Jonah_View_Base
     {
         extract($this->_params, EXTR_REFS);
 
+        Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
+        Horde::addInlineScript(array(
+            'SyntaxHighlighter.defaults[\'toolbar\'] = false',
+            'SyntaxHighlighter.all()',
+        ), 'dom');
+
+        // TODO: Need a way to figure out what language the code block is...
+        // probably a regex to look for the <pre brush="php"> tags?
+        $sh_js_fs = $GLOBALS['registry']->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
+        $sh_js_uri = Horde::url($GLOBALS['registry']->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
+        Horde_Themes::includeStylesheetFiles(array('additional' => array(
+            array('f' => $sh_js_fs . 'shCoreEclipse.css', 'u' => $sh_js_uri . 'shCoreEclipse.css'),
+            array('f' => $sh_js_fs . 'shThemeEclipse.css', 'u' => $sh_js_uri . 'shThemeEclipse.css'),
+        )));
+        Horde::addScriptFile('syntaxhighlighter/scripts/shBrush' . 'php' . '.js', 'horde', true);
+
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {
             $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
