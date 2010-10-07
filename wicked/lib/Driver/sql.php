@@ -622,12 +622,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
         Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
         Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query, 'DEBUG');
 
-        $this->_db->insert($query, $values);
-
-        /* Return an error immediately if the query failed. */
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Wicked_Exception($e);
         }
 
         /* Now move on to updating the record. */
@@ -660,17 +659,15 @@ class Wicked_Driver_sql extends Wicked_Driver {
     {
         static $pageNames;
         if (!isset($pageNames) || $no_cache) {
-            $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
-
+            $query = 'SELECT page_name FROM ' . $this->_params['table'];
             Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query, 'DEBUG');
-
-            $result = $this->_db->selectValues($query);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            try {
+                $result = $this->_db->selectValues($query);
+            } catch (Horde_Db_Exception $e) {
+                throw new Wicked_Exception($e);
             }
             $pageNames = $this->_convertFromDriver($result);
         }
-
         if ($special) {
             return $pageNames + $this->getSpecialPages();
         }
