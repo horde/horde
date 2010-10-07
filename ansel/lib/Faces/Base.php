@@ -44,7 +44,7 @@ class Ansel_Faces_Base
             $image->load('screen');
 
             // Make sure we have an on-disk copy of the file.
-            $file = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('screen'),
+            $file = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'),
                                                     $image->getVFSName('screen'));
         } else {
             $file = $image;
@@ -347,7 +347,7 @@ class Ansel_Faces_Base
     {
         $vfspath = Ansel_Faces::getVFSPath($image_id) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
-        if (!$GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->exists($vfspath, $vfsname)) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $vfsname)) {
             if (!$create) {
                 return false;
             }
@@ -389,7 +389,7 @@ class Ansel_Faces_Base
         $vfsname = $face_id . Ansel_Faces::getExtension();
         $img = Ansel::getImageObject();
         try {
-            $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($vfspath, $vfsname);
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($vfspath, $vfsname);
         } catch (VFS_Exception $e) {
             throw new Horde_Exception_Prior($e);
         }
@@ -624,7 +624,7 @@ class Ansel_Faces_Base
         $path = Ansel_Faces::getVFSPath($image->id);
         $image->getHordeImage()->resize(50, 50, false);
         try {
-            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->writeData(
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
                 $path . 'faces',
                 $face_id . $ext,
                 $image->getHordeImage()->raw(),
@@ -654,7 +654,7 @@ class Ansel_Faces_Base
         }
 
         // Ensure we have an on-disk file to read the signature from.
-        $path  = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile(
+        $path  = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
             Ansel_Faces::getVFSPath($image_id) . '/faces',
             $face_id . Ansel_Faces::getExtension());
 

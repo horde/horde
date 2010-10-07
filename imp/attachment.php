@@ -34,7 +34,7 @@ if (!$vars->mail_user || !$vars->$time_stamp || !$vars->file_name) {
 
 // Initialize the VFS.
 try {
-    $vfsroot = $injector->getInstance('Horde_Vfs')->getVfs();
+    $vfsroot = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 } catch (VFS_Exception $e) {
     throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }

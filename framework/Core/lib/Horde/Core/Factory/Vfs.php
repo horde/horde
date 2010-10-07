@@ -54,7 +54,7 @@ class Horde_Core_Factory_Vfs
      *
      * @return VFS  The VFS object
      */
-    public function getVfs($scope = 'horde')
+    public function create($scope = 'horde')
     {
         if (empty($this->_instances[$scope])) {
             $params = $this->getConfig($scope);

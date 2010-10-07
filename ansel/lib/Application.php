@@ -81,7 +81,7 @@ class Ansel_Application extends Horde_Registry_Application
         $GLOBALS['injector']->bindImplementation('Ansel_Config', 'Ansel_Config');
 
         /* Set a logger for the Vfs */
-        $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
     }
 
     /**

@@ -35,7 +35,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         /* Do garbage collection on compose VFS data. */
         if ($GLOBALS['conf']['compose']['use_vfs']) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
                 VFS_GC::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
             } catch (VFS_Exception $e) {}
         }

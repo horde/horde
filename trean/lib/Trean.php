@@ -210,7 +210,7 @@ class Trean
 
         // Initialize VFS.
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
             if ($bookmark->favicon
                 && $vfs->exists('.horde/trean/favicons/', $bookmark->favicon)) {
                 return Horde_Util::addParameter(Horde::url('favicon.php'),

@@ -635,7 +635,7 @@ class Ansel_Api extends Horde_Registry_Api
 
             /* Try reading the data */
             try {
-                $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($image->getVFSPath('full'), $image->getVFSName('full'));
+                $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($image->getVFSPath('full'), $image->getVFSName('full'));
             } catch (VFS_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Ansel_Exception($e->getMessage());

@@ -34,7 +34,7 @@ case 'vfs':
     /* Getting a file from Horde's VFS. */
     $path = Horde_Util::getFormData('p');
     try {
-        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
         $file_data = $vfs->read($path, $file);
     } catch (VFS_Exception $e) {
         Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), 'ERR');

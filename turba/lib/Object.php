@@ -467,7 +467,7 @@ class Turba_Object {
     {
         if (!isset($this->_vfs)) {
             try {
-                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('documents');
+                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('documents');
             } catch (Horde_Exception $e) {
                 throw new Turba_Exception($e);
             }

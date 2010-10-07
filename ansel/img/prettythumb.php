@@ -36,7 +36,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
         Horde::logMessage($e, 'ERR');
         exit;
     }
-    $filename = $injector->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
+    $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
     header('Content-Type: ' . $image->getType('prettythumb'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);

@@ -36,7 +36,7 @@ foreach ($opts as $opt) {
     }
 }
 
-$vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+$vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
 $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
 

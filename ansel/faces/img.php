@@ -30,7 +30,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
 
     // We definitely have an image for the face.
     try {
-        $filename = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile(
+        $filename = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
             Ansel_Faces::getVFSPath($face['image_id']) . 'faces',
             $face_id . Ansel_Faces::getExtension());
     } catch (VFS_Exception $e) {

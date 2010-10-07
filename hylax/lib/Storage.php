@@ -33,7 +33,7 @@ class Hylax_Storage {
     function Hylax_Storage($params)
     {
         $this->_params = $params;
-        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
     }
 
     function saveFaxData($data, $type = '.ps')

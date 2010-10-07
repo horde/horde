@@ -70,7 +70,7 @@ class Folks_Driver {
     {
         global $conf;
 
-        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
@@ -118,7 +118,7 @@ class Folks_Driver {
      */
     public function deleteImage($user)
     {
-        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $GLOBALS['conf']['images']['image_type'];

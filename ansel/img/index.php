@@ -19,7 +19,7 @@ if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
 /* Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file header */
 if ($conf['vfs']['src'] == 'sendfile') {
-    $filename = $injector->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));
+    $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));
     header('Content-Type: ' . $image->getType('screen'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);

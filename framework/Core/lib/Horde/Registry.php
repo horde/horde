@@ -252,8 +252,6 @@ class Horde_Registry
         $binders = array(
             'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-            'Horde_Template' => new Horde_Core_Binder_Template(),
-            'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
         );
 
         /* Define factories. */

@@ -500,7 +500,7 @@ class Whups_Driver_sql extends Whups_Driver {
 
         if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
             } catch (VFS_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }
@@ -1219,7 +1219,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 return $attachments;
             }
 
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
             while ($attachment = $attachments->fetchRow(DB_FETCHMODE_ASSOC)) {
                 $dir = WHUPS_VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
                 if ($vfs->exists($dir, $attachment['log_value'])) {

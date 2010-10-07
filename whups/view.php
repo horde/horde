@@ -38,7 +38,7 @@ if (!count(Whups::permissionsFilter($whups_driver->getHistory($id), 'comment', H
 }
 
 try {
-    $vfs = $injector->getInstance('Horde_Vfs')->getVfs();
+    $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 } catch (Horde_Exception $e) {
     throw new Horde_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
 }
