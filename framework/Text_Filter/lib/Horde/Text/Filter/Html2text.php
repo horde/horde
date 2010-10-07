@@ -45,6 +45,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     protected $_params = array(
         'callback' => null,
+        'charset' => 'UTF-8',
         'width' => 75
     );
 
@@ -92,8 +93,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     public function postProcess($text)
     {
         try {
-            $dom = new Horde_Domhtml($text, 'UTF-8');
-            $text = $this->_node($dom->dom, $dom->dom);
+            $dom = new Horde_Domhtml($text, $this->_params['charset']);
+            $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), null, $this->_params['charset']);
             $dom_convert = true;
         } catch (Exception $e) {
             $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
@@ -109,7 +110,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             if ($dom_convert &&
                 $this->_params['_bq'] &&
                 class_exists('Horde_Text_Flowed')) {
-                $flowed = new Horde_Text_Flowed($text, 'UTF-8');
+                $flowed = new Horde_Text_Flowed($text, $this->_params['charset']);
                 $flowed->setOptLength($this->_params['width']);
                 $text = $flowed->toFlowed();
             } else {
