@@ -308,6 +308,10 @@ class Horde_Registry
                 'Horde_Core_Factory_Editor',
                 'create',
             ),
+            'Horde_Group' => array(
+                'Horde_Core_Factory_Group',
+                'create',
+            ),
             'Horde_Service_Facebook' => array(
                 'Horde_Core_Factory_Facebook',
                 'create',

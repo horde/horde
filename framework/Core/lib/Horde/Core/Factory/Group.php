@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Factory_Group implements Horde_Injector_Binder
+class Horde_Core_Factory_Group
 {
     public function create(Horde_Injector $injector)
     {
