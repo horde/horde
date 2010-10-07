@@ -29,7 +29,7 @@ class IMP_Injector_Binder_Pgp implements Horde_Injector_Binder
             }
         }
 
-        return $injector->getInstance('Horde_Crypt')->getCrypt('IMP_Crypt_Pgp', $params);
+        return $injector->getInstance('Horde_Core_Factory_Crypt')->create('IMP_Crypt_Pgp', $params);
     }
 
     /**

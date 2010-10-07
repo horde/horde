@@ -105,7 +105,7 @@ class Mnemo_Driver {
             return;
         }
 
-        $this->_pgp = $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('pgp', array(
+        $this->_pgp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('pgp', array(
             'program' => $GLOBALS['conf']['utils']['gnupg']
         ));
     }

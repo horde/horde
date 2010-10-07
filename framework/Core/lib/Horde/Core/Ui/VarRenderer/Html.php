@@ -1329,7 +1329,7 @@ EOT;
             return '';
         }
         return '<pre>' .
-            $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('Pgp', $var->type->getPGPParams())->pgpPrettyKey($key) .
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('Pgp', $var->type->getPGPParams())->pgpPrettyKey($key) .
             '</pre>';
     }
 
@@ -1339,7 +1339,7 @@ EOT;
         if (empty($cert)) {
             return '';
         }
-        return $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('Smime', $var->type->getSMIMEParams())->certToHTML($cert);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('Smime', $var->type->getSMIMEParams())->certToHTML($cert);
     }
 
     protected function _renderVarDisplay_country($form, &$var, &$vars)

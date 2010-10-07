@@ -18,7 +18,7 @@ class IMP_Injector_Binder_Smime implements Horde_Injector_Binder
      */
     public function create(Horde_Injector $injector)
     {
-        return $injector->getInstance('Horde_Crypt')->getCrypt('IMP_Crypt_Smime');
+        return $injector->getInstance('Horde_Core_Factory_Crypt')->create('IMP_Crypt_Smime');
     }
 
     /**

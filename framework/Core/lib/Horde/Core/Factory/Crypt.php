@@ -53,7 +53,7 @@ class Horde_Core_Factory_Crypt
      * @return Horde_Crypt  The instance.
      * @throws Horde_Exception
      */
-    public function getCrypt($driver, $params = array())
+    public function create($driver, $params = array())
     {
         global $registry;
 

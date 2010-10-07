@@ -265,7 +265,6 @@ class Horde_Registry
         $binders = array(
             'Horde_Auth_Factory' => new Horde_Core_Binder_AuthFactory(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
-            'Horde_Crypt' => new Horde_Core_Binder_Crypt(),
             'Horde_Data' => new Horde_Core_Binder_Data(),
             'Horde_Db' => new Horde_Core_Binder_Db(),
             'Horde_Db_Adapter' => new Horde_Core_Binder_DbBase(),
