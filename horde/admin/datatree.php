@@ -31,7 +31,7 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 require_once 'Horde/DataTree.php';
 
-$tree = $injector->getInstance('Horde_Tree')->getTree('datatree', 'Javascript', array(
+$tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('datatree', 'Javascript', array(
     'alternate' => true
 ));
 

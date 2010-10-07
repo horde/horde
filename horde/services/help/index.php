@@ -71,7 +71,7 @@ case 'sidebar':
     $tabs->addTab(_("Sea_rch"), $sidebar_url, 'search');
 
     /* Set up the tree. */
-    $tree = $injector->getInstance('Horde_Tree')->getTree('horde_menu', 'Javascript');
+    $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('horde_menu', 'Javascript');
     $tree->setOption(array('target' => 'help_main'));
 
     $contents = '';

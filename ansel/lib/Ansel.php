@@ -91,7 +91,7 @@ class Ansel
             ->getScope()
             ->listGalleries($params);
 
-        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('gallery_tree', 'Select');
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
 
         /* Remove the ignored gallery, make sure it's also not the selected
          * gallery */

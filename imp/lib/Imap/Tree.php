@@ -1482,7 +1482,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             $tree = $name;
             $parent = $opts['parent'];
         } else {
-            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, $opts['render_type'], array(
+            $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array(
                 'alternate' => true,
                 'lines' => true,
                 'lines_base' => true,

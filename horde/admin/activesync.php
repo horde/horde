@@ -85,7 +85,7 @@ $device_node = array('icon' => strval(Horde_Themes::img('mobile.png')));
 $user_node = array('icon' => strval(Horde_Themes::img('user.png')));
 $users = array();
 
-$tree = $injector->getInstance('Horde_Tree')->getTree('admin_devices', 'Javascript', array(
+$tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('admin_devices', 'Javascript', array(
     'alternate' => true
 ));
 

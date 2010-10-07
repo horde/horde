@@ -118,7 +118,7 @@ $folders = Trean::listFolders(Horde_Perms::READ);
 if (!is_a($folders, 'PEAR_Error')) {
     $params = array('icon' => 'folder.png',
                     'iconopen' => 'folderopen.png');
-    $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('folder_tree', 'Javascript');
+    $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('folder_tree', 'Javascript');
     $tree->setOption(array('alternate' => true));
     $expand = $prefs->getValue('expand_tree');
     if ($expand == 'none') {

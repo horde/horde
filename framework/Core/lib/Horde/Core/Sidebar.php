@@ -123,7 +123,7 @@ class Horde_Core_Sidebar
         }
 
         // Set up the tree.
-        $tree = $injector->getInstance('Horde_Tree')->getTree('horde_sidebar', 'Javascript', array('jsvar' => 'HordeSidebar.tree'));
+        $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('horde_sidebar', 'Javascript', array('jsvar' => 'HordeSidebar.tree'));
 
         foreach ($menu as $app => $params) {
             switch ($params['status']) {

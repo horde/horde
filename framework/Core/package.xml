@@ -113,7 +113,6 @@ Application Framework.</description>
        <file name="Auth.php" role="php" />
        <file name="AuthFactory.php" role="php" />
        <file name="AuthSignup.php" role="php" />
-       <file name="Tree.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Controller">
@@ -424,7 +423,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
    <install as="Horde/Core/Binder/AuthFactory.php" name="lib/Horde/Core/Binder/AuthFactory.php" />
    <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
-   <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />

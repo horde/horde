@@ -66,7 +66,7 @@ class Horde_Core_Factory_Tree
      * @return Horde_Tree_Base  The singleton instance.
      * @throws Horde_Tree_Exception
      */
-    public function getTree($name, $renderer, array $params = array())
+    public function create($name, $renderer, array $params = array())
     {
         $lc_renderer = Horde_String::lower($renderer);
         $id = $name . '|' . $lc_renderer;

@@ -64,7 +64,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $owner = $this->_view->gallery->get('owner');
 
         /* Set up the tree */
-        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
             $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')

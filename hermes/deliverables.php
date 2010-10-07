@@ -88,7 +88,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
         throw new Hermes_Exception($deliverables);
     }
 
-    $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('deliverables', 'Javascript');
+    $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('deliverables', 'Javascript');
     $tree->setOption(array('class'       => 'item',
                            'alternate'   => true));
 

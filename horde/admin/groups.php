@@ -215,7 +215,7 @@ $edit_img = Horde::img('edit.png', _("Edit Group"));
 $delete_img = Horde::img('delete.png', _("Delete Group"));
 
 /* Set up the tree. */
-$tree = $injector->getInstance('Horde_Tree')->getTree('admin_groups', 'Javascript', array(
+$tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('admin_groups', 'Javascript', array(
     'alternate' => true,
     'hideHeaders' => true
 ));

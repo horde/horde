@@ -75,7 +75,7 @@ class Horde_Core_Perms_Ui
         $blank_img = Horde::img('blank.gif', '', array('width' => 16, 'height' => 16));
 
         /* Set up the tree. */
-        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('perms_ui', 'Javascript', array(
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('perms_ui', 'Javascript', array(
             'alternate' => true,
             'hideHeaders' => true
         ));
