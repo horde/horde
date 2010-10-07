@@ -101,7 +101,6 @@ Application Framework.</description>
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
        <file name="Shibboleth.php" role="php" />
-       <file name="Signup.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
       <dir name="Autoloader">
        <dir name="Callback">
@@ -406,7 +405,6 @@ Application Framework.</description>
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
    <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
-   <install as="Horde/Core/Auth/Signup.php" name="lib/Horde/Core/Auth/Signup.php" />
    <install as="Horde/Core/Auth/Signup/Base.php" name="lib/Horde/Core/Auth/Signup/Base.php" />
    <install as="Horde/Core/Auth/Signup/Form.php" name="lib/Horde/Core/Auth/Signup/Form.php" />
    <install as="Horde/Core/Auth/Signup/Null.php" name="lib/Horde/Core/Auth/Signup/Null.php" />

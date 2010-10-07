@@ -11,7 +11,11 @@ class Horde_Core_Factory_AuthSignup
             ? 'Null'
             : $GLOBALS['conf']['signup']['driver'];
 
-        return Horde_Core_Auth_Signup::factory($driver, $GLOBALS['conf']['signup']['params']);
+        $class = 'Horde_Core_Auth_Signup_' . Horde_String::ucfirst($driver);
+        if (class_exists($class)) {
+            return new $class($GLOBALS['conf']['signup']['params']);
+        }
+        throw new Horde_Exception($class . ' driver not found');
     }
 
 }
