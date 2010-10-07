@@ -32,7 +32,7 @@ class WickedBaseTables extends Horde_Db_Migration_Base
             $t->column('version_created', 'integer', array('null' => false));
             $t->column('change_author', 'string');
             $t->column('change_log', 'text');
-            $t->primaryKey('page_id');
+            $t->primaryKey(array('page_id'));
             $t->end();
 
             $this->addIndex('wicked_pages', array('page_name'), array('unique' => true));
