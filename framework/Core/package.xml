@@ -129,7 +129,6 @@ Application Framework.</description>
        <file name="ShareFactory.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
-       <file name="Token.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
@@ -170,6 +169,7 @@ Application Framework.</description>
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="TextFilter.php" role="php" />
+       <file name="Token.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
@@ -447,7 +447,6 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/ShareFactory.php" name="lib/Horde/Core/Binder/ShareFactory.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
    <install as="Horde/Core/Binder/TextFilter.php" name="lib/Horde/Core/Binder/TextFilter.php" />
-   <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
    <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
    <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
@@ -484,6 +483,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
+   <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />

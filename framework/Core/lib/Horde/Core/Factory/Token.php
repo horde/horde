@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Binder_Token implements Horde_Injector_Binder
+class Horde_Core_Factory_Token
 {
     public function create(Horde_Injector $injector)
     {
@@ -22,12 +22,12 @@ class Horde_Core_Binder_Token implements Horde_Injector_Binder
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        return Horde_Token::factory($driver, $params);
-    }
+        $class = 'Horde_Token_' . ucfirst($driver);
+        if (class_exists($class)) {
+            return new $class($params);
+        }
 
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
+        throw new Horde_Token_Exception('Driver ' . $driver . ' not found.');
     }
 
 }
