@@ -364,6 +364,11 @@ Application Framework.</description>
     <name>Tree</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>lzf</name>
+    <channel>pecl.php.net</channel>
+    <recommended>1.5.2</recommended>
+   </package>
   </optional>
  </dependencies>
  <usesrole>

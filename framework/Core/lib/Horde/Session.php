@@ -30,12 +30,23 @@ class Horde_Session implements ArrayAccess
     private $_cleansession = false;
 
     /**
+     * Use LZF compression?
+     * We use LZF compression on arrays and objects. Compressing numbers and
+     * most strings is not enought of an benefit for the overhead.
+     *
+     * @var boolean
+     */
+    private $_lzf = false;
+
+    /**
      * Constructor.
      *
      * @param boolean $start  Initiate the session?
      */
     public function __construct($start = true)
     {
+        $this->_lzf = Horde_Util::extensionExists('lzf');
+
         $this->setup($start);
     }
 
@@ -155,13 +166,19 @@ class Horde_Session implements ArrayAccess
             }
         }
 
-        if (isset($_SESSION['_s'][$ob->key])) {
-            return ($_SESSION['_s'][$ob->key] == 's')
-                ? @unserialize($_SESSION[$ob->app][$ob->name])
-                : json_decode($_SESSION[$ob->app][$ob->name], true);
+        $data = $_SESSION[$ob->app][$ob->name];
+
+        if (!isset($_SESSION['_s'][$ob->key])) {
+            return $data;
         }
 
-        return $_SESSION[$ob->app][$ob->name];
+        if ($this->_lzf) {
+            $data = lzf_decompress($data);
+        }
+
+        return ($_SESSION['_s'][$ob->key] == 's')
+            ? @unserialize($data)
+            : json_decode($data, true);
     }
 
     /**
@@ -175,14 +192,20 @@ class Horde_Session implements ArrayAccess
          * always convert to string representations so that the object/array
          * does not need to be rebuilt every time the session is reloaded. */
         if (is_object($value)) {
-            $_SESSION[$ob->app][$ob->name] = serialize($value);
+            $value = serialize($value);
+            if ($this->_lzf) {
+                $value = lzf_compress($value);
+            }
             $_SESSION['_s'][$ob->key] = 's';
         } elseif (is_array($value)) {
-            $_SESSION[$ob->app][$ob->name] = json_encode($value);
+            $value = json_encode($value);
+            if ($this->_lzf) {
+                $value = lzf_compress($value);
+            }
             $_SESSION['_s'][$ob->key] = 'j';
-        } else {
-            $_SESSION[$ob->app][$ob->name] = $value;
         }
+
+        $_SESSION[$ob->app][$ob->name] = $value;
     }
 
     /**
