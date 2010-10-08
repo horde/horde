@@ -49,26 +49,6 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         $language = $this->_mimeTypeToLanguage($mimeType);
         $brush = $this->_languageToBrush($language);
 
-        if (!$this->_shLoaded) {
-            Horde::addScriptFile('syntaxhighlighter/scripts/shCore.js', 'horde', true);
-            Horde::addInlineScript(array(
-                'SyntaxHighlighter.defaults[\'toolbar\'] = false;',
-                'SyntaxHighlighter.all();',
-            ), 'dom');
-            $this->_shLoaded = true;
-
-            $sh_js_fs = $GLOBALS['injector']->getInstance('Horde_Registry')->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
-            $sh_js_uri = Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
-            Horde_Themes::includeStylesheetFiles(array('additional' => array(
-                array('f' => $sh_js_fs . 'shCoreEclipse.css', 'u' => $sh_js_uri . 'shCoreEclipse.css'),
-                array('f' => $sh_js_fs . 'shThemeEclipse.css', 'u' => $sh_js_uri . 'shThemeEclipse.css'),
-            )));
-        }
-        if (empty($this->_shBrushes[$brush])) {
-            Horde::addScriptFile('syntaxhighlighter/scripts/shBrush' . $brush . '.js', 'horde', true);
-            $this->_shBrushes[$brush] = true;
-        }
-
         $results = '<pre class="brush: ' . $language . '">' . htmlspecialchars($this->_mimepart->getContents()) . '</pre>';
         return $this->_renderReturn(
             $results,
