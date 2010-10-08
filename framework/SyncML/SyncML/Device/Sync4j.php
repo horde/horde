@@ -900,12 +900,17 @@ class SyncML_Device_sync4j extends SyncML_Device {
         if (!empty($start_params[0]['VALUE']) &&
             $start_params[0]['VALUE'] == 'DATE') {
             $hash['AllDayEvent'] = 1;
-            $hash['Start'] = $start->format('Y-m-d');
-            $start = $start->datestamp();
+            $hash['Start'] = sprintf('%04d-%02d-%02d',
+                                     $start['year'],
+                                     $start['month'],
+                                     $start['mday']);
+            $start = mktime(0, 0, 0,
+                            $start['month'],
+                            $start['mday'],
+                            $start['year']);
         } else {
             $hash['AllDayEvent'] = 0;
             $hash['Start'] = Horde_Icalendar::_exportDateTime($start);
-            $start = $start->timestamp();
         }
 
         foreach ($content->getAllAttributes() as $item) {
@@ -1098,7 +1103,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             } else {
                 // Parse VALARM components.
                 foreach ($content->getComponents() as $component) {
-                    if ($component->getType != 'vAlarm' ||
+                    if ($component->getType() != 'vAlarm' ||
                         is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
                         is_array($trigger) ||
                         empty($trigger)) {
