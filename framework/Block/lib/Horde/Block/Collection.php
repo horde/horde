@@ -63,9 +63,10 @@ class Horde_Block_Collection
      */
     public function __construct($apps = array())
     {
+        global $session;
+
         $signature = serialize($apps);
-        if (isset($_SESSION['horde']['blocks'][$signature])) {
-            $this->_blocks = &$_SESSION['horde']['blocks'][$signature];
+        if ($this->_blocks = $session['horde:blocks/' . $signature]) {
             return;
         }
 
@@ -107,7 +108,7 @@ class Horde_Block_Collection
         }
 
         uksort($this->_blocks, array($this, 'sortBlockCollection'));
-        $_SESSION['horde']['blocks'][$signature] = &$this->_blocks;
+        $session['horde:blocks/' . $signature] = $this->_blocks;
     }
 
     /**

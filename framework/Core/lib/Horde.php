@@ -356,7 +356,8 @@ HTML;
     static public function getRequestToken($slug)
     {
         $token = Horde_Token::generateId($slug);
-        $_SESSION['horde_form_secrets'][$token] = time();
+        $GLOBALS['session']['horde:form_secrets/' . $token] = time();
+
         return $token;
     }
 
@@ -370,11 +371,13 @@ HTML;
      */
     static public function checkRequestToken($slug, $token)
     {
-        if (empty($_SESSION['horde_form_secrets'][$token])) {
+        global $conf, $session;
+
+        if (!isset($session['horde:form_secrets/' . $token])) {
             throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
         }
 
-        if (($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
+        if (($session['horde:form_secrets/' . $token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
             throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
         }
     }

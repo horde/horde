@@ -157,7 +157,7 @@ class Horde_Core_Prefs_Ui
                 if (!$GLOBALS['prefs']->isLocked($pref) &&
                     !in_array($pref, $this->suppress) &&
                     (empty($this->prefs[$pref]['advanced']) ||
-                     !empty($_SESSION['horde_prefs']['advanced'])) &&
+                     $GLOBALS['session']['horde:prefs_advanced']) &&
                     ((!empty($this->prefs[$pref]['type']) &&
                      ($this->prefs[$pref]['type'] != 'implicit')))) {
                     $prefs[] = $pref;
@@ -177,7 +177,7 @@ class Horde_Core_Prefs_Ui
         /* Toggle Advanced/Basic mode. */
         if (!empty($this->vars->show_advanced) ||
             !empty($this->vars->show_basic)) {
-            $_SESSION['horde_prefs']['advanced'] = !empty($this->vars->show_advanced);
+            $GLOBALS['session']['horde:prefs_advanced'] = !empty($this->vars->show_advanced);
         }
 
         if (!$this->group || !$this->groupIsEditable($this->group)) {
@@ -587,7 +587,7 @@ class Horde_Core_Prefs_Ui
         $t->set('apps', $tmp);
         $t->set('header', htmlspecialchars(($this->app == 'horde') ? _("Global Preferences") : sprintf(_("Preferences for %s"), $registry->get('name', $this->app))));
 
-        if (empty($_SESSION['horde_prefs']['advanced'])) {
+        if ($GLOBALS['session']['horde:prefs_advanced'])) {
             $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
         } else {
             $t->set('basic', $this->selfUrl()->add('show_basic', 1));
