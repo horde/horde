@@ -322,10 +322,11 @@ class Horde_Browser_Imode
      *   $ua = new Browser_imode($_SERVER['HTTP_USER_AGENT']);
      *
      * @param string $input  The user agent to match.
+     *
+     * @throws Horde_Browser_Exception
      */
     public function __construct($input)
     {
-        $_error = 0;
         $temp = explode('/', $input);
 
         $this->_user_agent = $input;
@@ -343,7 +344,7 @@ class Horde_Browser_Imode
         $this->_extra = $matches[3];
 
         if (!($this->_data[$this->_model])) {
-            $_error = PEAR::raiseError('Unknown User Agent');
+            throw new Horde_Browser_Exception('Unknown User Agent');
         }
     }
 

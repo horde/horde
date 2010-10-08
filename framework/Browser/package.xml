@@ -25,7 +25,8 @@ about the current user&apos;s browser and its capabilities.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove Horde_Browser::escapeJSCode().
+ <notes>* Remove PEAR dependency.
+ * Remove Horde_Browser::escapeJSCode().
  * Add Horde_Browser_Exception::.
  * Initial Horde 4 package.</notes>
  <contents>
@@ -50,16 +51,14 @@ about the current user&apos;s browser and its capabilities.
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
-  <optional>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
