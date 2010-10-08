@@ -248,56 +248,28 @@ class Horde_Registry
             'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls'
         );
 
-        /* Define factories. */
+        /* Define factories. By default, uses the 'create' method in the given
+         * classname (string). If other function needed, define as the
+         * second element in an array. */
         $factories = array(
-            'Horde_Alarm' => array(
-                'Horde_Core_Factory_Alarm',
-                'create'
-            ),
-            'Horde_Cache' => array(
-                'Horde_Core_Factory_Cache',
-                'create',
-            ),
+            'Horde_Alarm' => 'Horde_Core_Factory_Alarm',
+            'Horde_Cache' => 'Horde_Core_Factory_Cache',
             'Horde_Cache_Session' => array(
                 'Horde_Core_Factory_Cache',
                 'createSession',
             ),
-            'Horde_Controller_Request' => array(
-                'Horde_Core_Factory_Request',
-                'create',
-            ),
+            'Horde_Controller_Request' => 'Horde_Core_Factory_Request',
             'Horde_Controller_RequestConfiguration' => array(
                 'Horde_Core_Controller_RequestMapper',
                 'getRequestConfiguration',
             ),
-            'Horde_Core_Auth_Signup' => array(
-                'Horde_Core_Factory_AuthSignup',
-                'create',
-            ),
-            'Horde_Db_Adapter' => array(
-                'Horde_Core_Factory_DbBase',
-                'create',
-            ),
-            'Horde_Editor' => array(
-                'Horde_Core_Factory_Editor',
-                'create',
-            ),
-            'Horde_Group' => array(
-                'Horde_Core_Factory_Group',
-                'create',
-            ),
-            'Horde_History' => array(
-                'Horde_Core_Factory_History',
-                'create',
-            ),
-            'Horde_Log_Logger' => array(
-                'Horde_Core_Factory_Logger',
-                'create',
-            ),
-            'Horde_Service_Facebook' => array(
-                'Horde_Core_Factory_Facebook',
-                'create',
-            ),
+            'Horde_Core_Auth_Signup' => 'Horde_Core_Factory_AuthSignup',
+            'Horde_Db_Adapter' => 'Horde_Core_Factory_DbBase',
+            'Horde_Editor' => 'Horde_Core_Factory_Editor',
+            'Horde_Group' => 'Horde_Core_Factory_Group',
+            'Horde_History' => 'Horde_Core_Factory_History',
+            'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
+            'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
             'Horde_Kolab_Server_Composite' => array(
                 'Horde_Core_Factory_KolabServer',
                 'getComposite',
@@ -310,58 +282,19 @@ class Horde_Registry
                 'Horde_Core_Factory_KolabStorage',
                 'getStorage',
             ),
-            'Horde_Lock' => array(
-                'Horde_Core_Factory_Lock',
-                'create',
-            ),
-            'Horde_Mail' => array(
-                'Horde_Core_Factory_Mail',
-                'create',
-            ),
-            'Horde_Memcache' => array(
-                'Horde_Core_Factory_Memcache',
-                'create',
-            ),
-            'Horde_Notification' => array(
-                'Horde_Core_Factory_Notification',
-                'create',
-            ),
-            'Horde_Perms' => array(
-                'Horde_Core_Factory_Perms',
-                'create',
-            ),
-            'Horde_Routes_Mapper' => array(
-                'Horde_Core_Factory_Mapper',
-                'create',
-            ),
-            'Horde_Secret' => array(
-                'Horde_Core_Factory_Secret',
-                'create',
-            ),
-            'Horde_Service_Twitter' => array(
-                'Horde_Core_Factory_Twitter',
-                'create',
-            ),
-            'Horde_Template' => array(
-                'Horde_Core_Factory_Template',
-                'create',
-            ),
-            'Horde_Token' => array(
-                'Horde_Core_Factory_Token',
-                'create',
-            ),
-            'Horde_View' => array(
-                'Horde_Core_Factory_View',
-                'create',
-            ),
-            'Horde_View_Base' => array(
-                'Horde_Core_Factory_View',
-                'create',
-            ),
-            'Net_DNS_Resolver' => array(
-                'Horde_Core_Factory_Dns',
-                'create',
-            ),
+            'Horde_Lock' => 'Horde_Core_Factory_Lock',
+            'Horde_Mail' => 'Horde_Core_Factory_Mail',
+            'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
+            'Horde_Notification' => 'Horde_Core_Factory_Notification',
+            'Horde_Perms' => 'Horde_Core_Factory_Perms',
+            'Horde_Routes_Mapper' => 'Horde_Core_Factory_Mapper',
+            'Horde_Secret' => 'Horde_Core_Factory_Secret',
+            'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
+            'Horde_Template' => 'Horde_Core_Factory_Template',
+            'Horde_Token' => 'Horde_Core_Factory_Token',
+            'Horde_View' => 'Horde_Core_Factory_View',
+            'Horde_View_Base' => 'Horde_Core_Factory_View',
+            'Net_DNS_Resolver' => 'Horde_Core_Factory_Dns',
         );
 
         /* Define implementations. */
@@ -373,6 +306,9 @@ class Horde_Registry
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         foreach ($factories as $key => $val) {
+            if (is_string($val)) {
+                $val = array($val, 'create');
+            }
             $injector->bindFactory($key, $val[0], $val[1]);
         }
         foreach ($implementations as $key => $val) {
