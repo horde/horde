@@ -1098,7 +1098,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             } else {
                 // Parse VALARM components.
                 foreach ($content->getComponents() as $component) {
-                    if ($component->getType != 'vAlarm') ||
+                    if ($component->getType != 'vAlarm' ||
                         is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
                         is_array($trigger) ||
                         empty($trigger)) {
