@@ -175,7 +175,7 @@ class Horde_Registry
         switch ($args['session_control']) {
         case 'netscape':
             // Chicken/egg: Browser object doesn't exist yet.
-            $browser = new Horde_Browser();
+            $browser = new Horde_Core_Browser();
             if ($browser->isBrowser('mozilla')) {
                 session_cache_limiter('private, must-revalidate');
             }
@@ -253,6 +253,7 @@ class Horde_Registry
          * second element in an array. */
         $factories = array(
             'Horde_Alarm' => 'Horde_Core_Factory_Alarm',
+            'Horde_Browser' => 'Horde_Core_Factory_Browser',
             'Horde_Cache' => 'Horde_Core_Factory_Cache',
             'Horde_Cache_Session' => array(
                 'Horde_Core_Factory_Cache',

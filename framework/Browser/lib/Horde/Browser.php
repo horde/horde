@@ -383,34 +383,6 @@ class Horde_Browser
                 $this->setQuirk('png_transparency');
             }
 
-            /* IE 6 (pre-SP1) and 5.5 (pre-SP1) have buggy compression.
-             * The versions affected are as follows:
-             * 6.00.2462.0000  Internet Explorer 6 Public Preview (Beta)
-             * 6.00.2479.0006  Internet Explorer 6 Public Preview (Beta) Refresh
-             * 6.00.2600.0000  Internet Explorer 6 (Windows XP)
-             * 5.50.3825.1300  Internet Explorer 5.5 Developer Preview (Beta)
-             * 5.50.4030.2400  Internet Explorer 5.5 & Internet Tools Beta
-             * 5.50.4134.0100  Internet Explorer 5.5 for Windows Me (4.90.3000)
-             * 5.50.4134.0600  Internet Explorer 5.5
-             * 5.50.4308.2900  Internet Explorer 5.5 Advanced Security Privacy Beta
-             *
-             * See:
-             * ====
-             * http://support.microsoft.com/kb/164539;
-             * http://support.microsoft.com/default.aspx?scid=kb;en-us;Q312496)
-             * http://support.microsoft.com/default.aspx?scid=kb;en-us;Q313712
-             */
-            $ie_vers = $this->getIEVersion();
-            $buggy_list = array(
-                '6,00,2462,0000', '6,0,2462,0', '6,00,2479,0006',
-                '6,0,2479,0006', '6,00,2600,0000', '6,0,2600,0',
-                '5,50,3825,1300', '5,50,4030,2400', '5,50,4134,0100',
-                '5,50,4134,0600', '5,50,4308,2900'
-            );
-            if (!is_null($ie_vers) && in_array($ie_vers, $buggy_list)) {
-                $this->setQuirk('buggy_compression');
-            }
-
             /* Some Handhelds have their screen resolution in the user
              * agent string, which we can use to look for mobile
              * agents. */
@@ -1191,30 +1163,6 @@ class Horde_Browser
         }
 
         return in_array($subtype, $this->_images);
-    }
-
-    /**
-     * Sets the IE version in the session.
-     *
-     * @param string $ver  The IE Version string.
-     */
-    public function setIEVersion($ver)
-    {
-        $_SESSION['horde_browser'] = array(
-            'ie_version' => $ver
-        );
-    }
-
-    /**
-     * Returns the IE version stored in the session, if available.
-     *
-     * @return mixed  The IE Version string or null if no string is stored.
-     */
-    public function getIEVersion()
-    {
-        return isset($_SESSION['horde_browser']['ie_version'])
-            ? $_SESSION['horde_browser']['ie_version']
-            : null;
     }
 
 }

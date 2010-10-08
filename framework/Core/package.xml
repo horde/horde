@@ -118,6 +118,7 @@ Application Framework.</description>
        <file name="Ajax.php" role="php" />
        <file name="Alarm.php" role="php" />
        <file name="Auth.php" role="php" />
+       <file name="Browser.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Crypt.php" role="php" />
        <file name="Data.php" role="php" />
@@ -214,6 +215,7 @@ Application Framework.</description>
        <file name="VarRenderer.php" role="php" />
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
+      <file name="Browser.php" role="php" />
       <file name="Sidebar.php" role="php" />
      </dir> <!-- /lib/Horde/Core -->
      <dir name="Exception">
@@ -400,6 +402,7 @@ Application Framework.</description>
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
+   <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
@@ -424,6 +427,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Ajax.php" name="lib/Horde/Core/Factory/Ajax.php" />
    <install as="Horde/Core/Factory/Alarm.php" name="lib/Horde/Core/Factory/Alarm.php" />
    <install as="Horde/Core/Factory/Auth.php" name="lib/Horde/Core/Factory/Auth.php" />
+   <install as="Horde/Core/Factory/Browser.php" name="lib/Horde/Core/Factory/Browser.php" />
    <install as="Horde/Core/Factory/Cache.php" name="lib/Horde/Core/Factory/Cache.php" />
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
    <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
