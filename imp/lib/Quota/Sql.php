@@ -69,7 +69,6 @@ class IMP_Quota_Sql extends IMP_Quota_Base
      */
     public function getQuota()
     {
-        $user = $_SESSION['imp']['user'];
         $quota = array(
             'limit' => 0,
             'usage' => 0
@@ -78,10 +77,10 @@ class IMP_Quota_Sql extends IMP_Quota_Base
         if (empty($this->_params['query_quota'])) {
             Horde::logMessage(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
         } else {
-            @list($bare_user, $domain) = explode('@', $user, 2);
+            @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
-                                 array($this->_db->quote($user),
-                                       $this->_db->quote($user),
+                                 array($this->_db->quote($this->_params['username']),
+                                       $this->_db->quote($this->_params['username']),
                                        $this->_db->quote($bare_user),
                                        $this->_db->quote($domain)),
                                  $this->_params['query_quota']);
@@ -97,10 +96,10 @@ class IMP_Quota_Sql extends IMP_Quota_Base
         if (empty($this->_params['query_used'])) {
             Horde::logMessage(__CLASS__ . ': query_used SQL query not set.', 'ERR');
         } else {
-            @list($bare_user, $domain) = explode('@', $user, 2);
+            @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
-                                 array($this->_db->quote($user),
-                                       $this->_db->quote($user),
+                                 array($this->_db->quote($this->_params['username']),
+                                       $this->_db->quote($this->_params['username']),
                                        $this->_db->quote($bare_user),
                                        $this->_db->quote($domain)),
                                  $this->_params['query_used']);

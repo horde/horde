@@ -1,6 +1,7 @@
 <?php
 /**
- * The IMP_Quota_Base:: class is the abstract class that all driver
+ * The IMP_Quota_Base:: class is the abstract class that all drivers inherit
+ * from.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -34,6 +35,7 @@ abstract class IMP_Quota_Base
      *            strings will be passed through sprintf().
      * 'unit' - (string) What storage unit the quota messages should be
      *          displayed in. Either 'GB', 'MB', or 'KB'.
+     * 'username' - (string) The username to query.
      * </pre>
      */
     public function __construct(array $params = array())

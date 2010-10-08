@@ -157,8 +157,8 @@
  *           DRIVER: 'hook'
  *                   Use the quota hook to handle quotas (see
  *                   imp/config/hooks.php).
- *           PARAMS: 'params' - [array] Parameters to pass to the quota
- *                              hook function.
+ *           PARAMS: Any parameters defined here will be passed to the quota
+ *                   hook function.
  *
  *           DRIVER: 'imap'
  *                   Use the IMAP QUOTA extension to handle quotas.

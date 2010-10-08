@@ -73,12 +73,12 @@ class IMP_Quota_Command extends IMP_Quota_Base
     public function getQuota()
     {
         if (empty($this->_params['partition'])) {
-            $passwd_array = posix_getpwnam($_SESSION['imp']['user']);
+            $passwd_array = posix_getpwnam($this->_params['username']);
             list($junk, $search_string, $junk) = explode('/', $passwd_array['dir']);
         } else {
             $search_string = $this->_params['partition'];
         }
-        $cmdline = $this->_params['quota_path'] . ' -u ' . escapeshellarg($_SESSION['imp']['user']) . ' | ' . escapeshellcmd($this->_params['grep_path']) . ' ' . escapeshellarg($search_string);
+        $cmdline = $this->_params['quota_path'] . ' -u ' . escapeshellarg($this->_params['username']) . ' | ' . escapeshellcmd($this->_params['grep_path']) . ' ' . escapeshellarg($search_string);
         exec($cmdline, $quota_data, $return_code);
         if (($return_code == 0) && (count($quota_data) == 1)) {
             $quota = split("[[:blank:]]+", trim($quota_data[0]));

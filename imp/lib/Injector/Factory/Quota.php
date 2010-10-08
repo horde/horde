@@ -54,14 +54,12 @@ class IMP_Injector_Factory_Quota
                 : IMP::$mailbox;
             break;
 
-        case 'maildir':
-            $params['username'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->getParam('username');
-            break;
-
         case 'sql':
             $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', $params);
             break;
         }
+
+        $params['username'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->getParam('username');
 
         return IMP_Quota::factory($driver, $params);
     }

@@ -29,16 +29,13 @@ class IMP_Quota_Maildir extends IMP_Quota_Base
      *          that location.
      *          E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
      *          DEFAULT: ''
-     * 'username' - (string) Username to substitute into the string.
-     *              DEFAULT: none
      * </pre>
      */
     public function __construct($params = array())
     {
         parent::__construct(array_merge(array(
             'msg_count' => false,
-            'path' => '',
-            'username' => ''
+            'path' => ''
         ), $params));
     }
 

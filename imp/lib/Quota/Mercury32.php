@@ -65,7 +65,7 @@ class IMP_Quota_Mercury32 extends IMP_Quota_Base
         $quota = 0;
 
         try {
-            $di = new DirectoryIterator($this->_params['mail_user_folder'] . '/' . $_SESSION['imp']['user'] . '/');
+            $di = new DirectoryIterator($this->_params['mail_user_folder'] . '/' . $this->_params['username'] . '/');
         } catch (UnexpectedValueException $e) {
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }

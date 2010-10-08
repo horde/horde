@@ -612,10 +612,14 @@ class IMP_Hooks
 //    {
 //        // Example #1: Sample function for returning the quota.
 //        // Uses the PECL ssh2 extension.
-//        $host = $_SESSION['imp']['server'];
-//        $user = $_SESSION['imp']['user'];
-//        $pass = $GLOBALS['registry']->getAuthCredential('password');
-//        $command = $params[0];
+//        // Requires the 'command' parameter to be defined in backends.php,
+//        // which defines the quota reporting function to run on the SSH
+//        // host.
+//        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+//        $host = $imap_ob->ob->getParam('hostspec');
+//        $user = $params['host'];
+//        $pass = $imap_ob->ob->getParam('password');
+//        $command = $params['command'];
 //
 //        $session = ssh2_connect($host);
 //        if (!$session) {
