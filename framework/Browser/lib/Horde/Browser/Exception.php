@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Browser package.
+ * Exception handler for the horde/Browser package.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Browser
+ * @package  Browser
  */
 class Horde_Browser_Exception extends Horde_Exception
 {

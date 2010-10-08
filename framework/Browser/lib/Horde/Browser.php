@@ -16,7 +16,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @package  Horde_Browser
+ * @package  Browser
  */
 class Horde_Browser
 {
