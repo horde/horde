@@ -67,14 +67,13 @@ class IMP_Injector_Factory_MailboxList
 
             case 'imp':
             case 'mimp':
-                $ob = null;
-                if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
-                    try {
-                        $ob = @unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-                    } catch (Exception $e) {}
+                try {
+                    $ob = $GLOBALS['session']['imp:imp_mailbox/' . $mailbox];
+                } catch (Exception $e) {
+                    $ob = null;
                 }
 
-                if (!$ob) {
+                if (is_null($ob)) {
                     $ob = new IMP_Mailbox_List_Track($mailbox);
                 }
                 break;
@@ -108,7 +107,7 @@ class IMP_Injector_Factory_MailboxList
              * unseen flag). */
             foreach ($this->_instances as $key => $val) {
                 if ($val->changed) {
-                    $_SESSION['imp']['cache']['imp_mailbox'][$key] = serialize($val);
+                    $GLOBALS['session']['imp:imp_mailbox/' . $key] = $val;
                 }
             }
         }

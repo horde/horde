@@ -29,7 +29,7 @@ if (empty($conf['user']['allow_folders'])) {
 
 /* Decide whether or not to show all the unsubscribed folders */
 $subscribe = $prefs->getValue('subscribe');
-$showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
+$showAll = (!$subscribe || $session['imp:showunsub']);
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
@@ -38,7 +38,7 @@ $mask = 0;
 /* Toggle subscribed view, if necessary. */
 if ($subscribe && Horde_Util::getFormData('ts')) {
     $showAll = !$showAll;
-    $_SESSION['imp']['showunsub'] = $showAll;
+    $session['imp:showunsub'] = $showAll;
     $imptree->showUnsubscribed($showAll);
     if ($showAll) {
         $mask |= IMP_Imap_Tree::FLIST_UNSUB;

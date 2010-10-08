@@ -119,7 +119,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
         /* Add the list of editable tasklists to the list. */
         if ($this->getOption('inc_tasklists') &&
-            !empty($_SESSION['imp']['tasklistavail'])) {
+            $GLOBALS['session']['imp:tasklistavail']) {
             try {
                 $tasklists = $registry->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
 
@@ -138,7 +138,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
 
         /* Add the list of editable notepads to the list. */
         if ($this->getOption('inc_notepads') &&
-            !empty($_SESSION['imp']['notepadavail'])) {
+            $GLOBALS['session']['imp:notepadavail']) {
             try {
                 $notepads = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
 

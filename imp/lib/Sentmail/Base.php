@@ -48,7 +48,7 @@ abstract class IMP_Sentmail_Base
         }
 
         foreach ($recipients as $addresses) {
-            $addresses = Horde_Mime_Address::bareAddress($addresses, $_SESSION['imp']['maildomain'], true);
+            $addresses = Horde_Mime_Address::bareAddress($addresses, $GLOBALS['session']['imp:maildomain'], true);
             foreach ($addresses as $recipient) {
                 $this->_log($action, $message_id, $recipient, $success);
             }

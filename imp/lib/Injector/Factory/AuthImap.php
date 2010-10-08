@@ -40,9 +40,11 @@ class IMP_Injector_Factory_AuthImap
             throw new IMP_Exception('No server parameters found.');
         }
 
+        $aparams = $GLOBALS['session']['imp:imap_admin;array'];
+
         $params = array_merge(
             $params,
-            $_SESSION['imp']['imap']['admin']['params'],
+            (isset($aparams['params']) ? $aparams['params'] : array()),
             array(
                 'default_user' => $GLOBALS['registry']->getAuth(),
                 'logger' => $injector->getInstance('Horde_Log_Logger')

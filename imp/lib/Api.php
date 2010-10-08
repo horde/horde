@@ -181,12 +181,13 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
-        $imap_obj = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+
         return array(
-            'hostspec' => $imap_obj->getParam('hostspec'),
-            'port' => $imap_obj->getParam('port'),
-            'protocol' => $_SESSION['imp']['protocol'],
-            'secure' => $imap_obj->getParam('secure')
+            'hostspec' => $imap_ob->ob->getParam('hostspec'),
+            'port' => $imap_ob->ob->getParam('port'),
+            'protocol' => $GLOBALS['session']['imp:protocol'],
+            'secure' => $imap_ob->ob->getParam('secure')
         );
     }
 
@@ -227,7 +228,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return array();
         }
 

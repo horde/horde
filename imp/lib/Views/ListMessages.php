@@ -100,7 +100,7 @@ class IMP_Views_ListMessages
 
         /* Run filters now. */
         if (!$is_search &&
-            !empty($_SESSION['imp']['filteravail']) &&
+            $GLOBALS['session']['imp:filteravail'] &&
             !empty($args['applyfilter']) ||
             (($mbox == 'INBOX') &&
              $GLOBALS['prefs']->getValue('filter_on_display'))) {
@@ -409,7 +409,7 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'imapuid' => (($_SESSION['imp']['protocol'] == 'pop') ? $ob['uid'] : intval($ob['uid'])),
+                'imapuid' => (($GLOBALS['session']['imp:protocol'] == 'pop') ? $ob['uid'] : intval($ob['uid'])),
                 'view' => $ob['mailbox'],
             );
 

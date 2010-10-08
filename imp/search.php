@@ -135,7 +135,7 @@ $constants = array(
 /* Load basic search if javascript is not enabled or searching is not allowed
  * (basic page will do the required redirection in the latter case). */
 if (!$browser->hasFeature('javascript') ||
-    ($_SESSION['imp']['protocol'] == 'pop')) {
+    ($session['imp:protocol'] == 'pop')) {
     require IMP_BASE . '/search-basic.php';
     exit;
 }
@@ -144,7 +144,7 @@ $imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = Horde_Variables::getDefaultVariables();
 
-$dimp_view = ($_SESSION['imp']['view'] == 'dimp');
+$dimp_view = ($session['imp:view'] == 'dimp');
 $js_vars = array();
 $search_mailbox = isset($vars->search_mailbox)
     ? $vars->search_mailbox
@@ -332,7 +332,7 @@ $js_vars['ImpSearch.selected'] = array($search_mailbox);
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::url('search.php'));
-$t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
+$t->set('virtualfolder', $session['imp:protocol'] != 'pop');
 
 /* Determine if we are editing a search query. */
 if ($vars->edit_query && $imp_search->isSearchMbox($vars->edit_query)) {

@@ -19,11 +19,11 @@ Horde_Registry::appInit('imp', array(
 ));
 
 /* This is an IMP-only script. */
-if ($_SESSION['imp']['view'] != 'imp') {
+if ($session['imp:view'] != 'imp') {
     exit;
 }
 
-if ($_SESSION['imp']['protocol'] == 'pop') {
+if ($session['imp:protocol'] == 'pop') {
     $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
     $from_message_page = true;
     $actionID = $start = null;

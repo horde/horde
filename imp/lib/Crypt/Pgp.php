@@ -394,12 +394,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        if (!isset($_SESSION['imp']['cache']['pgp'][$type][$id])) {
+        if (!($cache = $GLOBALS['session']['imp:pgp']) ||
+            !isset($cache[$type][$id])) {
             return null;
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return $secret->read($secret->getKey('imp'), $_SESSION['imp']['cache']['pgp'][$type][$id]);
+        return $secret->read($secret->getKey('imp'), $cache[$type][$id]);
     }
 
     /**
@@ -423,7 +424,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $_SESSION['imp']['cache']['pgp'][$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
+
+        $cache = $GLOBALS['session']['imp:pgp;array'];
+        $cache[$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
+        $GLOBALS['session']['imp:pgp'] = $cache;
+
         return true;
     }
 
@@ -438,10 +443,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function unsetPassphrase($type, $id = null)
     {
-        if (($type == 'symmetric') && !is_null($id)) {
-            unset($_SESSION['imp']['cache']['pgp']['symmetric'][$id]);
-        } else {
-            unset($_SESSION['imp']['cache']['pgp'][$type]);
+        if ($cache = $GLOBALS['session']['imp:pgp']) {
+            if (($type == 'symmetric') && !is_null($id)) {
+                unset($cache['symmetric'][$id]);
+            } else {
+                unset($cache[$type]);
+            }
+            $GLOBALS['session']['imp:pgp'] = $cache;
         }
     }
 
@@ -516,7 +524,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_Mime_Address::bareAddress($val, $_SESSION['imp']['maildomain'], true);
+            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']['imp:maildomain'], true);
             $key_addr = array_pop($addrOb);
 
             /* Get the public key for the address. */

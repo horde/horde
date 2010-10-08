@@ -164,7 +164,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      */
     public function __construct()
     {
-        if ($_SESSION['imp']['protocol'] == 'imap') {
+        if ($GLOBALS['session']['imp:protocol'] == 'imap') {
             $ns = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
@@ -181,9 +181,11 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      */
     public function init()
     {
-        $unsubmode = (($_SESSION['imp']['protocol'] == 'pop') ||
-                      !$GLOBALS['prefs']->getValue('subscribe') ||
-                      $_SESSION['imp']['showunsub']);
+        global $conf, $injector, $prefs, $session;
+
+        $unsubmode = (($session['imp:protocol'] == 'pop') ||
+                      !$prefs->getValue('subscribe') ||
+                      $session['imp:showunsub']);
 
         /* Reset class variables to the defaults. */
         $this->changed = true;
@@ -201,16 +203,15 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
 
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
-        if (empty($GLOBALS['conf']['user']['allow_folders']) ||
-            ($_SESSION['imp']['protocol'] == 'pop')) {
+        if (empty($conf['user']['allow_folders']) ||
+            ($session['imp:protocol'] == 'pop')) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
 
         /* Add namespace elements. */
         foreach ($this->_namespaces as $key => $val) {
-            if ($val['type'] != 'personal' &&
-                $GLOBALS['prefs']->getValue('tree_view')) {
+            if (($val['type'] != 'personal') && $prefs->getValue('tree_view')) {
                 $elt = $this->_makeElt(
                     ($val['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY,
                     self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
@@ -235,7 +236,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $imp_search = $injector->getInstance('IMP_Search');
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER);
         $this->updateVFolders(iterator_to_array($imp_search));
     }
@@ -334,7 +335,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             ? $label
             : substr($label, $pos + 1);
 
-        if ($_SESSION['imp']['protocol'] != 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
             try {
                 $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
             } catch (Horde_Exception_HookNotSet $e) {}

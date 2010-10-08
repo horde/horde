@@ -81,7 +81,7 @@ $code['conf'] = array_filter(array(
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
-    'pop3' => intval((isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop'))),
+    'pop3' => intval($GLOBALS['session']['imp:protocol'] == 'pop'),
     'popup_height' => 610,
     'popup_width' => 820,
     'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),

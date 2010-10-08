@@ -75,7 +75,7 @@ class IMP_Views_Compose
                 $result['js'][] = 'DIMP.conf_compose.qreply = 1';
             }
 
-            if ($_SESSION['imp']['rteavail']) {
+            if ($GLOBALS['session']['imp:rteavail']) {
                 $t->set('compose_html', $prefs->getValue('compose_html'));
                 $t->set('rte', true);
 

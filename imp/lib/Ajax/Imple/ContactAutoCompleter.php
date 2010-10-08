@@ -40,7 +40,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
             ? 0
             : $GLOBALS['conf']['compose']['ac_browser'];
 
-        if ($ac_browser && !isset($_SESSION['imp']['cache']['ac_ajax'])) {
+        if ($ac_browser && empty($GLOBALS['session']['imp:ac_ajax'])) {
             $success = $use_ajax = true;
             $sparams = IMP::getAddressbookSearchParams();
             foreach ($sparams['fields'] as $val) {
@@ -55,10 +55,10 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
                 $addrlist = IMP_Compose::getAddressList();
                 $use_ajax = count($addrlist) > $ac_browser;
             }
-            $_SESSION['imp']['cache']['ac_ajax'] = $use_ajax;
+            $GLOBALS['session']['imp:ac_ajax'] = $use_ajax;
         }
 
-        if (!$ac_browser || $_SESSION['imp']['cache']['ac_ajax']) {
+        if (!$ac_browser || $GLOBALS['session']['imp:ac_ajax']) {
             $ret['ajax'] = 'ContactAutoCompleter';
             $ret['params']['minChars'] = intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
         } else {

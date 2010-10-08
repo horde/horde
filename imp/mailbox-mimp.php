@@ -110,8 +110,7 @@ case 's':
 
 // 'rs' = run search
 case 'rs':
-    if (!empty($vars->search) &&
-        ($_SESSION['imp']['protocol'] == 'imap')) {
+    if (!empty($vars->search) && ($session['imp:protocol'] == 'imap')) {
         /* Create the search query and reset the global mailbox variable. */
         $q_ob = $imp_search->createQuery(
             array(new IMP_Search_Element_Text($vars->search, false)),
@@ -245,7 +244,7 @@ if (!$search_mbox && IMP::threadSortAvailable(IMP::$mailbox)) {
 }
 
 /* Add search link. */
-if ($_SESSION['imp']['protocol'] == 'imap') {
+if ($session['imp:protocol'] == 'imap') {
     if ($search_mbox) {
         $orig_mbox = reset($imp_search[IMP::$mailbox]->mboxes);
         $menu[] = array(sprintf(_("New Search in %s"), IMP::getLabel($orig_mbox)), IMP::generateIMPUrl('mailbox-mimp.php', $orig_mbox)->add('a', 's'));

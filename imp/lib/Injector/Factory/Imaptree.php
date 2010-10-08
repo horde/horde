@@ -34,13 +34,13 @@ class IMP_Injector_Factory_Imaptree
      */
     public function create(Horde_Injector $injector)
     {
+        global $session;
+
         $instance = null;
 
         /* If an IMP_Imap_Tree object is currently stored in the cache,
          * re-create that object.  Else, create a new instance. */
-        if (empty($_SESSION['imp']['cache']['tree'])) {
-            $_SESSION['imp']['cache']['tree'] = strval(new Horde_Support_Randomid());
-        } else {
+        if (isset($session['imp:tree'])) {
             /* Since IMAP tree generation is so expensive/time-consuming,
              * fallback to storing in the session even if no permanent cache
              * backend is setup. */
@@ -48,11 +48,14 @@ class IMP_Injector_Factory_Imaptree
             if ($cache instanceof Horde_Cache_Null) {
                 $cache = $injector->getInstance('Horde_Cache_Session');
             }
+
             try {
-                $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
+                $instance = @unserialize($cache->get($session['imp:tree'], 86400));
             } catch (Exception $e) {
                 Horde::logMessage('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
             }
+        } else {
+            $session['imp:tree'] = strval(new Horde_Support_Randomid());
         }
 
         if (!($instance instanceof IMP_Imap_Tree)) {
@@ -78,7 +81,7 @@ class IMP_Injector_Factory_Imaptree
             if ($cache instanceof Horde_Cache_Null) {
                 $cache = $injector->getInstance('Horde_Cache_Session');
             }
-            $cache->set($_SESSION['imp']['cache']['tree'], serialize($instance), 86400);
+            $cache->set($GLOBALS['session']['imp:tree'], serialize($instance), 86400);
         }
     }
 

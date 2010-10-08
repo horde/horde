@@ -34,21 +34,18 @@ class IMP_Injector_Factory_Search
      */
     public function create(Horde_Injector $injector)
     {
-        $instance = null;
-
-        if (!empty($_SESSION['imp']['search'])) {
-            try {
-                $instance = @unserialize($_SESSION['imp']['search']);
-            } catch (Exception $e) {
-                Horde::logMessage('Could not unserialize stored IMP_Search object.', 'DEBUG');
-            }
+        try {
+            $instance = $GLOBALS['session']['imp:search'];
+        } catch (Exception $e) {
+            Horde::logMessage('Could not unserialize stored IMP_Search object.', 'DEBUG');
+            $instance = null;
         }
 
         if (is_null($instance)) {
             $instance = new IMP_Search();
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $instance, $injector);
+        register_shutdown_function(array($this, 'shutdown'), $instance);
 
         return $instance;
     }
@@ -56,14 +53,13 @@ class IMP_Injector_Factory_Search
     /**
      * Store serialized version of object in the current session.
      *
-     * @param IMP_Search $instance      Tree object.
-     * @param Horde_Injector $injector  Injector object.
+     * @param IMP_Search $instance  Search object.
      */
-    public function shutdown($instance, $injector)
+    public function shutdown($instance)
     {
         /* Only need to store the object if the object has changed. */
         if ($instance->changed) {
-            $_SESSION['imp']['search'] = serialize($instance);
+            $GLOBALS['session']['imp:search'] = $instance;
         }
     }
 

@@ -44,10 +44,8 @@ class IMP_Injector_Factory_Imap
      */
     public function create($id = null)
     {
-        if (is_null($id)) {
-            $id = isset($_SESSION['imp'])
-                ? $_SESSION['imp']['server_key']
-                : 'default';
+        if (is_null($id) && !($id = $GLOBALS['session']['imp:server_key'])) {
+            $id = 'default';
         }
 
         if (!isset($this->_instances[$id])) {

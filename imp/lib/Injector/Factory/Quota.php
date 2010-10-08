@@ -31,12 +31,18 @@ class IMP_Injector_Factory_Quota
      * Return the IMP_Quota instance.
      *
      * @return IMP_Quota  The singleton instance.
+     * @throws IMP_Exception
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = $_SESSION['imp']['imap']['quota']['driver'];
-        $params = isset($_SESSION['imp']['imap']['quota']['params'])
-            ? $_SESSION['imp']['imap']['quota']['params']
+        $qparams = $GLOBALS['session']['imp:imap_quota'];
+
+        if (!isset($qparams['driver'])) {
+            throw new IMP_Exception('Quota config missing driver parameter.');
+        }
+        $driver = $qparams['driver'];
+        $params = isset($qparams['params'])
+            ? $qparams['params']
             : array();
 
         /* If 'password' exists in params, it has been encrypted in the
@@ -46,9 +52,11 @@ class IMP_Injector_Factory_Quota
             $params['password'] = $secret->read($secret->getKey('imp'), $params['password']);
         }
 
+        $imap_ob = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+
         switch (Horde_String::lower($driver)) {
         case 'imap':
-            $params['imap_ob'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
+            $params['imap_ob'] = $imap_ob;
             $params['mbox'] = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox)
                 ? 'INBOX'
                 : IMP::$mailbox;
@@ -59,7 +67,7 @@ class IMP_Injector_Factory_Quota
             break;
         }
 
-        $params['username'] = $injector->getInstance('IMP_Injector_Factory_Imap')->create()->getParam('username');
+        $params['username'] = $imap_ob->getParam('username');
 
         return IMP_Quota::factory($driver, $params);
     }

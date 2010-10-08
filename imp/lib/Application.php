@@ -65,7 +65,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (empty($_SESSION['imp']['imap']['admin'])) {
+        if (!$GLOBALS['session']['imp:imap_admin']) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
     }
@@ -148,10 +148,8 @@ class IMP_Application extends Horde_Registry_Application
     public function logout()
     {
         /* Clean up dangling IMP_Compose objects. */
-        if (!empty($_SESSION['imp']['cache']['compose'])) {
-            foreach (array_keys($_SESSION['imp']['cache']['compose']) as $key) {
-                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
-            }
+        foreach (array_keys($GLOBALS['session']['imp:compose_cache;array']) as $key) {
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
         }
     }
 
@@ -235,7 +233,7 @@ class IMP_Application extends Horde_Registry_Application
             'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
         ));
 
-        if ($_SESSION['imp']['protocol'] != 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
             if ($prefs->getValue('use_trash') &&
                 ($trash_folder = $prefs->getValue('trash_folder')) &&
                 $prefs->getValue('empty_trash_menu')) {
@@ -283,7 +281,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($_SESSION['imp']['protocol'] != 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
             $menu->addArray(array(
                 'icon' => 'search.png',
                 'text' =>_("_Search"),
@@ -392,7 +390,7 @@ class IMP_Application extends Horde_Registry_Application
         ));
 
         if ($new_session) {
-            $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view'])
+            $GLOBALS['session']['imp:select_view'] = empty($credentials['imp_select_view'])
                 ? ''
                 : $credentials['imp_select_view'];
         }
@@ -586,7 +584,7 @@ class IMP_Application extends Horde_Registry_Application
             )
         );
 
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return;
         }
 

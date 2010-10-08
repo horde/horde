@@ -73,8 +73,8 @@ class IMP_Imap
     public function shutdown()
     {
         /* Only need to serialize object once a session. */
-        if ($this->ob && isset($_SESSION['imp'])) {
-            $_SESSION['imp']['imap_ob'][$this->_serverkey] = serialize($this->ob);
+        if ($this->ob) {
+            $GLOBALS['session']['imp:imap_ob/' . $this->_serverkey] = $this->ob;
         }
     }
 
@@ -86,24 +86,23 @@ class IMP_Imap
      */
     protected function _loadImapObject()
     {
+        global $session;
+
         if (!is_null($this->ob)) {
             return true;
         }
 
-        if (empty($_SESSION['imp']) ||
-            empty($_SESSION['imp']['imap_ob'][$this->_serverkey])) {
-            return false;
-        }
-
         try {
-            $this->ob = @unserialize($_SESSION['imp']['imap_ob'][$this->_serverkey]);
+            if (!($this->ob = $GLOBALS['session']['imp:imap_ob/' . $this->_serverkey])) {
+                return false;
+            }
         } catch (Exception $e) {
             /* Throw fatal error here - should never reach here and if we
              * do, we are out of luck. */
             throw new IMP_Exception(_("Could not acquire mail server credentials from the session."));
         }
 
-        $this->_postcreate($_SESSION['imp']['protocol']);
+        $this->_postcreate($session['imp:protocol']);
 
         return true;
     }
@@ -238,7 +237,7 @@ class IMP_Imap
             /* This check can only be done for regular IMAP mailboxes. */
             // TODO: POP3 also?
             if (!$res &&
-                ($_SESSION['imp']['protocol'] == 'imap') &&
+                ($GLOBALS['session']['imp:protocol'] == 'imap') &&
                 !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox)) {
                 try {
                     $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
@@ -263,18 +262,19 @@ class IMP_Imap
      */
     public function checkUidvalidity($mailbox)
     {
+        global $session;
+
         // TODO: POP3 also?
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($session['imp:protocol'] == 'pop') {
             return;
         }
 
         if (!isset($this->_uidvalid[$mailbox])) {
             $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            $ptr = &$_SESSION['imp']['cache'];
-            $val = isset($ptr['uidvalid'][$mailbox])
-                ? $ptr['uidvalid'][$mailbox]
+            $val = isset($session['imp:uidvalid/' . $mailbox])
+                ? $session['imp:uidvalid/' . $mailbox]
                 : null;
-            $ptr['uidvalid'][$mailbox] = $status['uidvalidity'];
+            $session['imp:uidvalid/' . $mailbox] = $status['uidvalidity'];
 
             $this->_uidvalid[$mailbox] = (!is_null($val) && ($status['uidvalidity'] != $val));
         }
@@ -283,7 +283,7 @@ class IMP_Imap
             throw new IMP_Exception(_("Mailbox structure on server has changed."));
         }
 
-        return $_SESSION['imp']['cache']['uidvalid'][$mailbox];
+        return $session['imp:uidvalid/' . $mailbox];
     }
 
     /**
@@ -294,7 +294,7 @@ class IMP_Imap
     public function getNamespaceList()
     {
         try {
-            return $this->ob->getNamespaces(!empty($_SESSION['imp']['imap']['namespace']) ? $_SESSION['imp']['imap']['namespace'] : array());
+            return $this->ob->getNamespaces($GLOBALS['session']['imp:imap_namespace;array']);
         } catch (Horde_Imap_Client_Exception $e) {
             // @todo Error handling
             return array();
@@ -313,7 +313,7 @@ class IMP_Imap
      */
     public function getNamespace($mailbox = null, $personal = false)
     {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return null;
         }
 
@@ -343,7 +343,7 @@ class IMP_Imap
      */
     public function defaultNamespace()
     {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return null;
         }
 

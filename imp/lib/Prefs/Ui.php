@@ -51,8 +51,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'delmove':
-            if (isset($_SESSION['imp']['protocol']) &&
-                ($_SESSION['imp']['protocol'] == 'pop')) {
+            if ($GLOBALS['session']['imp:protocol'] == 'pop') {
                 $tmp = $ui->prefs['delete_spam_after_report']['enum'];
                 unset($tmp[2]);
                 $ui->override['delete_spam_after_report'] = $tmp;
@@ -68,9 +67,9 @@ class IMP_Prefs_Ui
      */
     public function prefsInit($ui)
     {
-        global $conf, $prefs, $registry;
+        global $conf, $prefs, $registry, $session;
 
-        $pop3 = (isset($_SESSION['imp']['protocol']) && ($_SESSION['imp']['protocol'] == 'pop'));
+        $pop3 = ($session['imp:protocol'] == 'pop');
 
         switch ($ui->group) {
         case 'accounts':
@@ -148,7 +147,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'filters':
-            if (empty($_SESSION['imp']['filteravail'])) {
+            if (!$session['imp:filteravail']) {
                 $ui->suppress[] = 'filter_on_login';
                 $ui->suppress[] = 'filter_on_display';
                 $ui->suppress[] = 'filter_any_mailbox';
@@ -182,7 +181,7 @@ class IMP_Prefs_Ui
             }
 
             if ($prefs->isLocked('signature_html') ||
-                empty($_SESSION['imp']['rteavail'])) {
+                !$session['imp:rteavail']) {
                 $ui->suppress[] = 'signature_html_select';
             } else {
                 Horde::addScriptFile('signaturehtml.js', 'imp');
@@ -527,14 +526,14 @@ class IMP_Prefs_Ui
      */
     public function prefsCallback($ui)
     {
-        global $prefs;
+        global $notification, $prefs, $registry, $session;
 
         /* Always check to make sure we have a valid trash folder if delete to
          * trash is active. */
         if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
             $prefs->getValue('use_trash') &&
             !$prefs->getValue('trash_folder')) {
-            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
+            $notification->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
         }
 
         switch ($ui->group) {
@@ -543,7 +542,7 @@ class IMP_Prefs_Ui
                 $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
                 $prefs->setValue('maildomain', $maildomain);
                 if (!empty($maildomain)) {
-                    $_SESSION['imp']['maildomain'] = $maildomain;
+                    $session['imp:maildomain'] = $maildomain;
                 }
             }
             break;
@@ -556,7 +555,7 @@ class IMP_Prefs_Ui
 
         case 'dimp':
             if ($prefs->isDirty('dynamic_view')) {
-                $_SESSION['imp']['view'] = $prefs->getValue('dynamic_view')
+                $session['imp:view'] = $prefs->getValue('dynamic_view')
                     ? 'dimp'
                     : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
             }
@@ -564,13 +563,13 @@ class IMP_Prefs_Ui
 
         case 'display':
             if ($prefs->isDirty('tree_view')) {
-                $GLOBALS['registry']->getApiInstance('imp', 'application')->mailboxesChanged();
+                $registry->getApiInstance('imp', 'application')->mailboxesChanged();
             }
             break;
 
         case 'server':
             if ($prefs->isDirty('subscribe')) {
-                $GLOBALS['registry']->getApiInstance('imp', 'application')->mailboxesChanged();
+                $registry->getApiInstance('imp', 'application')->mailboxesChanged();
             }
             break;
         }
@@ -749,9 +748,7 @@ class IMP_Prefs_Ui
 
         $t->set('canedit', $canEdit);
 
-        if (empty($_SESSION['imp']['imap']['admin'])) {
-            $t->set('noadmin', true);
-        } else {
+        if ($session['imp:imap_admin']) {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
@@ -762,6 +759,8 @@ class IMP_Prefs_Ui
                 $new_user[] = htmlspecialchars($user);
             }
             $t->set('new_user', $new_user);
+        } else {
+            $t->set('noadmin', true);
         }
 
         $rightsval = array();
@@ -1144,7 +1143,7 @@ class IMP_Prefs_Ui
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
 
-                if ($_SESSION['imp']['file_upload']) {
+                if ($GLOBALS['session']['imp:file_upload']) {
                     $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                     Horde::addInlineScript(array(
                         '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
@@ -1244,7 +1243,7 @@ class IMP_Prefs_Ui
             $t->set('pubkey_list', $plist);
         }
 
-        if ($_SESSION['imp']['file_upload']) {
+        if ($GLOBALS['session']['imp:file_upload']) {
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
@@ -1526,7 +1525,7 @@ class IMP_Prefs_Ui
                 Horde::addInlineScript(array(
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
-            } elseif ($_SESSION['imp']['file_upload']) {
+            } elseif ($GLOBALS['session']['imp:file_upload']) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
 
@@ -1598,7 +1597,7 @@ class IMP_Prefs_Ui
             $t->set('pubkey_list', $plist);
         }
 
-        if ($_SESSION['imp']['file_upload']) {
+        if ($GLOBALS['session']['imp:file_upload']) {
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
@@ -1705,7 +1704,7 @@ class IMP_Prefs_Ui
 
         if (isset($data['sources'])) {
             $prefs->setValue('search_sources', $data['sources']);
-            unset($_SESSION['imp']['cache']['ac_ajax']);
+            unset($GLOBALS['session']['imp:ac_ajax']);
             $updated = true;
         }
 

@@ -82,6 +82,8 @@ class IMP_Injector_Factory_Compose
      */
     public function shutdown()
     {
+        $cache = $GLOBALS['session']['imp:compose_cache:array'];
+        $changed = false;
         $obs = $this->_injector->getInstance('Horde_SessionObjects');
 
         foreach ($this->_instances as $key => $val) {
@@ -89,15 +91,21 @@ class IMP_Injector_Factory_Compose
             case 'changed':
                 $val->changed = '';
                 $obs->overwrite($key, $val, false);
-
-                $_SESSION['imp']['cache']['compose'][$key] = 1;
+                $cache[$key] = 1;
+                $changed = true;
                 break;
 
             case 'deleted':
                 $obs->prune($key);
-                unset($_SESSION['imp']['cache']['compose'][$key]);
+                unset($cache[$key]);
+                $changed = true;
                 break;
             }
+
+        }
+
+        if ($changed) {
+            $GLOBALS['session']['imp:compose_cache'] = $cache;
         }
     }
 

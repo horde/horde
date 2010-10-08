@@ -32,7 +32,7 @@ class IMP_Message
      */
     public function __construct()
     {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             $this->_usepop = true;
         }
     }

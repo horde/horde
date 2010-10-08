@@ -39,7 +39,7 @@ class Horde_Block_imp_summary extends Horde_Block
     protected function _content()
     {
         $imp_ui = new IMP_Ui_Block();
-        list($html_out, $newmsgs) = $imp_ui->folderSummary($_SESSION['imp']['view']);
+        list($html_out, $newmsgs) = $imp_ui->folderSummary($GLOBALS['session']['imp:view']);
 
         $html = '<table cellspacing="0" width="100%">';
 

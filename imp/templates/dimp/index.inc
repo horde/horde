@@ -15,7 +15,7 @@ $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
 // Quota information
-$show_quota = (isset($_SESSION['imp']['imap']['quota']) && is_array($_SESSION['imp']['imap']['quota']));
+$show_quota = $session['imp:imap_quota'];
 
 // Get application folders list.
 $application_folders = array();
@@ -60,7 +60,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <?php echo _simpleButton('composelink', _("_New Message"), 'dimpactionCompose') ?>
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
-<?php if (!empty($_SESSION['imp']['filteravail'])): ?>
+<?php if ($session['imp:filteravail']): ?>
     <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
 <?php endif; ?>
    </ul>
@@ -110,7 +110,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </ul>
     </div>
 <?php endif; ?>
-<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
+<?php if ($session['imp:protocol'] != 'pop'): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -169,7 +169,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div class="dimpActions">
-<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
+<?php if ($session['imp:protocol'] != 'pop'): ?>
       <div id="qsearch">
        <span id="qsearch_icon"></span>
        <form action="#" method="post">
@@ -487,7 +487,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
 </div>
 
-<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
+<?php if ($session['imp:protocol'] != 'pop'): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>

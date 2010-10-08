@@ -101,7 +101,7 @@ foreach (array_keys($display_hdrs) as $val) {
 }
 
 /* Add attachment. */
-if ($_SESSION['imp']['file_upload'] &&
+if ($session['imp:file_upload'] &&
     !$imp_compose->addFilesFromUpload('upload_', $vars->a == _("Expand Names")) &&
     ($vars->a != _("Expand Names"))) {
     $vars->a = null;
@@ -378,7 +378,7 @@ $t->set('hdrs', $hdrs);
 $t->set('title', $title);
 
 /* Activate advanced compose attachments UI? */
-if ($_SESSION['imp']['file_upload']) {
+if ($session['imp:file_upload']) {
     try {
         if (Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
             $t->set('attach', true);

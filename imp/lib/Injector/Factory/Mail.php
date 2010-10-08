@@ -42,9 +42,7 @@ class IMP_Injector_Factory_Mail
 
         /* Force the SMTP host and port value to the current SMTP server if
          * one has been selected for this connection. */
-        if (!empty($_SESSION['imp']['smtp'])) {
-            $params = array_merge($params, $_SESSION['imp']['smtp']);
-        }
+        $params = array_merge($params, $GLOBALS['session']['imp:smtp;array']);
 
         /* If SMTP authentication has been requested, use either the username
          * and password provided in the configuration or populate the username

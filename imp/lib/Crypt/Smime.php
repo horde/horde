@@ -134,7 +134,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     protected function _encryptParameters($address)
     {
         /* We can only encrypt if we are sending to a single person. */
-        $addrOb = Horde_Mime_Address::bareAddress($address, $_SESSION['imp']['maildomain'], true);
+        $addrOb = Horde_Mime_Address::bareAddress($address, $GLOBALS['session']['imp:maildomain'], true);
         $key_addr = array_pop($addrOb);
 
         $public_key = $this->getPublicKey($key_addr);
@@ -265,24 +265,23 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function getPassphrase()
     {
+        global $session;
+
         $private_key = $GLOBALS['prefs']->getValue('smime_private_key');
         if (empty($private_key)) {
             return false;
         }
 
-        if (isset($_SESSION['imp']['smime']['passphrase'])) {
+        if (isset($session['imp:smime_passphrase'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            return $secret->read($secret->getKey('imp'), $_SESSION['imp']['smime']['passphrase']);
-        } elseif (isset($_SESSION['imp']['smime']['null_passphrase'])) {
-            return ($_SESSION['imp']['smime']['null_passphrase']) ? null : false;
-        } else {
-            $result = $this->verifyPassphrase($private_key, null);
-            if (!isset($_SESSION['imp']['smime'])) {
-                $_SESSION['imp']['smime'] = array();
-            }
-            $_SESSION['imp']['smime']['null_passphrase'] = ($result) ? null : false;
-            return $_SESSION['imp']['smime']['null_passphrase'];
+            return $secret->read($secret->getKey('imp'), $session['imp:smime_passphrase']);
+        } elseif (!isset($session['imp:smime_null_passphrase'])) {
+            $session['imp:smime_null_passphrase'] = ($this->verifyPassphrase($private_key, null)
+                ? null
+                : false;
         }
+
+        return $session['imp:smime_null_passphrase'];
     }
 
     /**
@@ -298,12 +297,8 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             return false;
         }
 
-        if (!isset($_SESSION['imp']['smime'])) {
-            $_SESSION['imp']['smime'] = array();
-        }
-
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $_SESSION['imp']['smime']['passphrase'] = $secret->write($secret->getKey('imp'), $passphrase);
+        $GLOBALS['session']['imp:smime_passphrase'] = $secret->write($secret->getKey('imp'), $passphrase);
 
         return true;
     }
@@ -313,7 +308,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function unsetPassphrase()
     {
-        unset($_SESSION['imp']['smime']['null_passphrase'], $_SESSION['imp']['smime']['passphrase']);
+        global $session;
+
+        unset($session['imp:smime_null_passphrase'], $session['imp:smime_passphrase']);
     }
 
     /**

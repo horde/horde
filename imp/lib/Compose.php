@@ -193,7 +193,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $addr = $headers[$k];
                 if ($session) {
                     try {
-                        Horde_Mime::encodeAddress(self::formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
+                        Horde_Mime::encodeAddress(self::formatAddr($addr), $charset, $GLOBALS['session']['imp:maildomain']);
                     } catch (Horde_Mime_Exception $e) {
                         throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
                     }
@@ -218,7 +218,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
             try {
                 $imap_url = $imp_imap->getUtils()->createUrl(array(
-                    'type' => $_SESSION['imp']['protocol'],
+                    'type' => $GLOBALS['session']['imp:protocol'],
                     'username' => $imp_imap->getParam('username'),
                     'hostspec' => $imp_imap->getParam('hostspec'),
                     'mailbox' => $this->getMetadata('mailbox'),
@@ -241,7 +241,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         return $base->toString(array(
-            'defserver' => $session ? $_SESSION['imp']['maildomain'] : null,
+            'defserver' => $session ? $GLOBALS['session']['imp:maildomain'] : null,
             'headers' => $draft_headers
         ));
     }
@@ -332,7 +332,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $reply_type = 'forward';
         }
 
-        if ($_SESSION['imp']['view'] == 'mimp') {
+        if ($GLOBALS['session']['imp:view'] == 'mimp') {
             $compose_html = false;
         } elseif ($prefs->getValue('compose_html')) {
             $compose_html = true;
@@ -403,7 +403,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {
-                if (($imap_url['type'] == $_SESSION['imp']['protocol']) &&
+                if (($imap_url['type'] == $GLOBALS['session']['imp:protocol']) &&
                     ($imap_url['username'] == $imp_imap->getParam('username')) &&
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should
@@ -491,7 +491,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $_SESSION['imp']['maildomain']);
+        $barefrom = Horde_Mime_Address::bareAddress($header['from'], $GLOBALS['session']['imp:maildomain']);
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
         $recipients = implode(', ', $recip['list']);
 
@@ -669,7 +669,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             /* Generate the message string. */
-            $fcc = $mime_message->toString(array('defserver' => $_SESSION['imp']['maildomain'], 'headers' => $headers, 'stream' => true));
+            $fcc = $mime_message->toString(array('defserver' => $GLOBALS['session']['imp:maildomain'], 'headers' => $headers, 'stream' => true));
 
             $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
@@ -800,11 +800,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Properly encode the addresses we're sending to. */
         try {
-            $email = Horde_Mime::encodeAddress($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset(), $_SESSION['imp']['maildomain']);
+            $email = Horde_Mime::encodeAddress($email, is_null($message) ? 'UTF-8' : $message->getHeaderCharset(), $GLOBALS['session']['imp:maildomain']);
 
             /* Validate the recipient addresses. */
             Horde_Mime_Address::parseAddressList($email, array(
-                'defserver' => $_SESSION['imp']['maildomain'],
+                'defserver' => $GLOBALS['session']['imp:maildomain'],
                 'validate' => true
             ));
         } catch (Horde_Mime_Exception $e) {
@@ -835,7 +835,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         try {
-            $r_array = Horde_Mime::encodeAddress($recipients, 'UTF-8', $_SESSION['imp']['maildomain']);
+            $r_array = Horde_Mime::encodeAddress($recipients, 'UTF-8', $GLOBALS['session']['imp:maildomain']);
             $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
         } catch (Horde_Mime_Exception $e) {}
 
@@ -988,7 +988,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         // Make sure we have a valid host.
         $host = trim($ob['host']);
         if (empty($host)) {
-            $host = $_SESSION['imp']['maildomain'];
+            $host = $GLOBALS['session']['imp:maildomain'];
         }
 
         // Convert IDN hosts to ASCII.
@@ -1504,7 +1504,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $msg_post = '';
         }
 
-        if ($_SESSION['imp']['view'] == 'mimp') {
+        if ($GLOBALS['session']['imp:view'] == 'mimp') {
             $compose_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = ($opts['format'] == 'html');
@@ -1660,7 +1660,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             " -----\n" . $this->_getMsgHeaders($h) . "\n";
         $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
-        if ($_SESSION['imp']['view'] == 'mimp') {
+        if ($GLOBALS['session']['imp:view'] == 'mimp') {
             $compose_html = false;
         } elseif (!empty($opts['format'])) {
             $compose_html = ($opts['format'] == 'html');
@@ -2220,7 +2220,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function maxAttachmentSize()
     {
-        $size = $_SESSION['imp']['file_upload'];
+        $size = $GLOBALS['session']['imp:file_upload'];
 
         if (!empty($GLOBALS['conf']['compose']['attach_size_limit'])) {
             return min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
@@ -2444,7 +2444,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $body_id = null;
         $mode = 'text';
 
-        if (!empty($options['html']) && $_SESSION['imp']['rteavail']) {
+        if (!empty($options['html']) && $GLOBALS['session']['imp:rteavail']) {
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
                 $mode = 'html';

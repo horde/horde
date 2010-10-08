@@ -241,7 +241,7 @@ if (is_null($fetch_ret) || !isset($fetch_ret[$uid]['headertext'])) {
 $envelope = $fetch_ret[$uid]['envelope'];
 $flags = $flags_ret[$uid]['flags'];
 $mime_headers = reset($fetch_ret[$uid]['headertext']);
-$use_pop = ($_SESSION['imp']['protocol'] == 'pop');
+$use_pop = ($session['imp:protocol'] == 'pop');
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::getLabel(IMP::$mailbox);

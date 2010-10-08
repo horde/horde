@@ -37,11 +37,11 @@ class IMP_Imap_Acl
      */
     public function __construct()
     {
-        if ($_SESSION['imp']['protocol'] != 'imap') {
+        if ($GLOBALS['session']['imp:protocol'] != 'imap') {
             throw new IMP_Exception(_("ACL requires an IMAP server."));
         }
 
-        if (empty($_SESSION['imp']['imap']['acl'])) {
+        if (!$GLOBALS['session']['imp:imap_acl']) {
             throw new IMP_Exception(_("ACLs not configured for this server."));
         }
 
