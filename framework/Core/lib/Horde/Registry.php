@@ -1922,7 +1922,17 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $_SESSION['horde_auth']['app'][$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
+        $entry = $secret->write($secret->getKey('auth'), serialize($credentials));
+
+        if (isset($_SESSION['horde_auth']['credentials'])) {
+            $base_app = $_SESSION['horde_auth']['credentials'];
+            if (isset($_SESSION['horde_auth']['app'][$base_app]) &&
+                ($_SESSION['horde_auth']['app'][$base_app] == $entry)) {
+                $entry = null;
+            }
+        }
+
+        $_SESSION['horde_auth']['app'][$app] = $entry;
     }
 
     /**
@@ -1938,8 +1948,15 @@ class Horde_Registry
             return false;
         }
 
+        $base_app = $_SESSION['horde_auth']['credentials'];
         if (is_null($app)) {
-            $app = $_SESSION['horde_auth']['credentials'];
+            $app = $base_app;
+        }
+
+        if (empty($_SESSION['horde_auth']['app'][$app])) {
+            return ($base_app != $app)
+                ? $this->_getAuthCredentials($app)
+                : false;
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
