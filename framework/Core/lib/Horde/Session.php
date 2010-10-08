@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Session
+class Horde_Session implements ArrayAccess
 {
     /**
      * The session handler object.
@@ -27,7 +27,7 @@ class Horde_Session
      *
      * @var boolean
      */
-    protected $_cleansession = false;
+    private $_cleansession = false;
 
     /**
      * Constructor.
@@ -76,6 +76,12 @@ class Horde_Session
 
         if ($start) {
             session_start();
+
+            /* Create internal data arrays. */
+            if (!isset($_SESSION['_s'])) {
+                /* Is this key serialized? */
+                $_SESSION['_s'] = array();
+            }
         }
     }
 
@@ -111,12 +117,135 @@ class Horde_Session
     }
 
     /**
-     * Destroy the current session.
+     * Destroy session data.
      */
     public function destroy()
     {
         session_destroy();
         $this->_cleansession = true;
+    }
+
+    /* ArrayAccess methods. */
+
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        $ob = $this->_parseOffset($offset);
+
+        return isset($_SESSION[$ob->app][$ob->name]);
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        $ob = $this->_parseOffset($offset);
+
+        if (!isset($_SESSION[$ob->app][$ob->name])) {
+            switch ($ob->type) {
+            case 'array':
+                return array();
+
+            case 'object':
+                return new stdClass;
+
+            default:
+                return null;
+            }
+        }
+
+        if (isset($_SESSION['_s'][$ob->key])) {
+            return ($_SESSION['_s'][$ob->key] == 's')
+                ? @unserialize($_SESSION[$ob->app][$ob->name])
+                : json_decode($_SESSION[$ob->app][$ob->name], true);
+        }
+
+        return $_SESSION[$ob->app][$ob->name];
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        $ob = $this->_parseOffset($offset);
+
+        /* Each particular piece of session data is generally not used on any
+         * given page load.  Thus, for arrays ans objects, it is beneficial to
+         * always convert to string representations so that the object/array
+         * does not need to be rebuilt every time the session is reloaded. */
+        if (is_object($value)) {
+            $_SESSION[$ob->app][$ob->name] = serialize($value);
+            $_SESSION['_s'][$ob->key] = 's';
+        } elseif (is_array($value)) {
+            $_SESSION[$ob->app][$ob->name] = json_encode($value);
+            $_SESSION['_s'][$ob->key] = 'j';
+        } else {
+            $_SESSION[$ob->app][$ob->name] = $value;
+        }
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        $ob = $this->_parseOffset($offset);
+
+        if (isset($_SESSION[$ob->app])) {
+            if (!strlen($ob->key)) {
+                foreach (array_keys($_SESSION[$ob->app]) as $key) {
+                    unset($_SESSION['_s'][$key]);
+                }
+                unset($_SESSION[$ob->app]);
+            } elseif (isset($_SESSION[$ob->app][$ob->name])) {
+                unset($_SESSION[$ob->app][$ob->name], $_SESSION['_s'][$ob->key]);
+            }
+        }
+    }
+
+    /* ArrayAccess helper methods. */
+
+    /**
+     * Parses a session variable identifier.
+     * Format:
+     * <pre>
+     * [app:]name[;default]
+     *
+     * app - Application name.
+     *       DEFAULT: horde
+     * default - Default value type to return if value doesn't exist.
+     *           Valid types: array, object
+     *           DEFAULT: none
+     * </pre>
+     *
+     * @return object  Object with the following properties:
+     * <pre>
+     * app - Application name.
+     * key - Offset key.
+     * name - Variable name.
+     * type - Variable type.
+     * </pre>
+     */
+    private function _parseOffset($offset)
+    {
+        $ob = new stdClass;
+
+        $parts = explode(':', $offset);
+        if (isset($parts[1])) {
+            $ob->app = $parts[0];
+            $type = explode(';', $parts[1]);
+        } else {
+            $ob->app = 'horde';
+            $type = explode(';', $parts[0]);
+        }
+
+        $ob->name = $type[0];
+        $ob->key = $ob->app . ':' . $ob->name;
+        $ob->type = isset($type[1])
+            ? $type[1]
+            : 'scalar';
+
+        return $ob;
     }
 
 }
