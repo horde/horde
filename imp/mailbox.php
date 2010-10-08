@@ -83,7 +83,7 @@ if ($actionID && ($actionID != 'message_missing')) {
  * the RECENT flag. */
 if (!$search_mbox) {
     try {
-        $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
     } catch (Horde_Imap_Client_Exception $e) {
         $actionID = null;
     }
@@ -361,7 +361,7 @@ Horde::addScriptFile('mailbox.js', 'imp');
 if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
-    $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->ob->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
     if ($vars->newmail) {
         /* Newmail alerts. */
