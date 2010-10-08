@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Browser
  */
-class Horde_Browser_imode
+class Horde_Browser_Imode
 {
     /**
      * Device data. From http://www.nttdocomo.co.jp/i/tag/s5.html#5_1
