@@ -23,7 +23,7 @@ class IngoBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('ingo_rules', $tableList)) {
             $t = $this->createTable('ingo_rules', array('primaryKey' => false));
-            $t->column('rule_id', 'bigint', array('null' => false));
+            $t->column('rule_id', 'integer', array('null' => false));
             $t->column('rule_owner', 'string', array('limit' => 255, 'null' => false));
             $t->column('rule_name', 'string', array('limit' => 255, 'null' => false));
             $t->column('rule_action', 'integer', array('null' => false));

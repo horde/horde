@@ -19,7 +19,7 @@ class IngoUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->changeColumn('ingo_rules', 'rule_id', 'bigint', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('ingo_rules', 'rule_id', 'integer', array('null' => false, 'autoincrement' => true));
         $this->changeColumn('ingo_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true));
     }
 
@@ -29,7 +29,7 @@ class IngoUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->changeColumn('ingo_rules', 'rule_id', 'bigint', array('null' => false));
+        $this->changeColumn('ingo_rules', 'rule_id', 'integer', array('null' => false));
         $this->changeColumn('ingo_shares', 'share_id', 'integer', array('null' => false));
     }
 
