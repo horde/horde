@@ -95,7 +95,7 @@ class ObjectController extends Koward_Controller_Application
                 $this->submit_url = $this->urlFor(array('controller' => 'object',
                                                         'action' => 'delete',
                                                         'id' => $this->params->id,
-                                                        'token' => $this->koward->getRequestToken('object.delete')));
+                                                        'token' => Horde::getRequestToken('object.delete')));
                 $this->return_url = $this->urlFor(array('controller' => 'object',
                                                         'action' => 'listall'));
 
@@ -105,7 +105,7 @@ class ObjectController extends Koward_Controller_Application
                     } else {
                         $token = $this->params->token;
                     }
-                    $this->koward->checkRequestToken('object.delete', $token);
+                    Horde::checkRequestToken('object.delete', $token);
                     $result = $this->object->delete();
                     if ($result === true) {
                         $this->koward->notification->push(sprintf(_("Successfully deleted the object \"%s\""),
@@ -159,7 +159,7 @@ class ObjectController extends Koward_Controller_Application
                             } else {
                                 $token = $this->params->token;
                             }
-                            $this->koward->checkRequestToken('object.' . $this->params->oaction, $token);
+                            Horde::checkRequestToken('object.' . $this->params->oaction, $token);
 
                             $action = $this->params->oaction;
                             $result = $this->object->$action();
@@ -193,7 +193,7 @@ class ObjectController extends Koward_Controller_Application
                                                                     'action' => 'view',
                                                                     'id' => $this->params->id,
                                                                     'action' => $action,
-                                                                    'token' => $this->koward->getRequestToken('object.' . $action)));
+                                                                    'token' => Horde::getRequestToken('object.' . $action)));
                             $this->return_url = $this->urlFor(array('controller' => 'object',
                                                                     'action' => 'view',
                                                                     'id' => $this->params->id));

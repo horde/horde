@@ -64,32 +64,4 @@ class Koward_KowardTest extends Koward_Test
         $this->assertType('Horde_Kolab_Server_Object', $this->koward->getObject('cn=Gunnar Wrobel,dc=example,dc=org'));
     }
 
-    /**
-     * Verify token processing mechanisms.
-     *
-     * @return NULL
-     */
-    public function testToken()
-    {
-        // Get the token.
-        $token = $this->koward->getRequestToken('test');
-        // Checking it should be fine.
-        $this->koward->checkRequestToken('test', $token);
-        // Now we set the token to a value that will be considered a timeout.
-        $_SESSION['horde_form_secrets'][$token] = time() - 100000;
-        try {
-            $this->koward->checkRequestToken('test', $token);
-            $this->fail('The rquest token is still valid which was not expected.');
-        } catch (Horde_Exception $e) {
-            $this->assertContains(_("This request cannot be completed because the link you followed or the form you submitted was only valid for"), $e->getMessage());
-        }
-        // Now we remove the token
-        unset($_SESSION['horde_form_secrets'][$token]);
-        try {
-            $this->koward->checkRequestToken('test', $token);
-            $this->fail('The rquest token is still valid which was not expected.');
-        } catch (Horde_Exception $e) {
-            $this->assertEquals(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."), $e->getMessage());
-        }
-    }
 }
