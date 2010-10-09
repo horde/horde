@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Form</name>
+ <name>Form</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Form API</summary>
  <description>The Horde_Form:: package provides form rendering, validation, and other functionality for the Horde Application Framework.
@@ -55,13 +55,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
