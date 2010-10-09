@@ -31,8 +31,8 @@
     </div>
     <?php endif; ?>
     <div class="hordeSmStreaminfo">
-      <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde.twitter' . $this->instanceid . '.buildReply(\'' . $this->tweet->id . '\', \'' . $this->tweet->user->screen_name . '\', \'' . $this->tweet->user->name . '\'); return false;')) .  _("Reply") ?></a>
-      &nbsp;|&nbsp; <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde.twitter' . $this->instanceid . '.retweet(\'' . $this->tweet->id . '\'); return false;')) . _("Retweet") ?></a>
+      <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde[\'twitter' . $this->instanceid . '\'].buildReply(\'' . $this->tweet->id . '\', \'' . $this->tweet->user->screen_name . '\', \'' . $this->tweet->user->name . '\'); return false;')) .  _("Reply") ?></a>
+      &nbsp;|&nbsp; <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde[\'twitter' . $this->instanceid . '\'].retweet(\'' . $this->tweet->id . '\'); return false;')) . _("Retweet") ?></a>
     </div>
     <div class="clear">&nbsp;</div>
   </div>
