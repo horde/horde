@@ -44,8 +44,8 @@ class Horde_Block_ansel_recently_added extends Horde_Block
                              'default' => 10),
         );
 
-        if ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
+        if ($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+            foreach ($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
                     $params['gallery']['values'][$id] = $gal->get('name');
                 }
@@ -98,7 +98,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block
 
         // Retrieve the images, but protect against very large values for limit.
         try {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages(
+            $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImages(
             $galleries, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
@@ -130,7 +130,7 @@ function previewImage(e, image_id) {
 HEADER;
 
         foreach ($results as $image) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
 
             // Don't show locked galleries in the block.
             if (!$gallery->isOldEnough() || $gallery->hasPasswd()) {
@@ -187,9 +187,9 @@ HEADER;
         /* Get the gallery object and cache it. */
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_params['gallery']);
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->_params['gallery']);
         } else {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRandomGallery();
         }
 
         if (empty($this->_gallery)) {

@@ -169,7 +169,7 @@ class Ansel_Faces_Base
         // should be encapsulated by the shares driver and not parsed from
         // an internally generated query string fragment. Will need to split
         // this out into two seperate operations somehow.
-        $share = substr($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->getShareCriteria(
+        $share = substr($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShareCriteria(
             $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f, '
@@ -209,7 +209,7 @@ class Ansel_Faces_Base
     {
         // add gallery permission
         // FIXME: Ditto on the REALLY ugly hack comment from above!
-        $share = substr($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->getShareCriteria(
+        $share = substr($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShareCriteria(
             $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT COUNT(*) FROM ansel_faces f, '
@@ -352,7 +352,7 @@ class Ansel_Faces_Base
                 return false;
             }
             $data = $this->getFaceById($face_id, true);
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
 
             // Actually create the image.
             $this->createView(
@@ -445,8 +445,8 @@ class Ansel_Faces_Base
      */
     public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2, $name = '')
     {
-        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image);
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+        $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
         }
@@ -534,8 +534,8 @@ class Ansel_Faces_Base
     {
         // get image if ID is passed
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image);
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
             }
@@ -730,7 +730,7 @@ class Ansel_Faces_Base
      */
     public function getFromGallery($gallery_id, $create = false, $force = false)
     {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception(sprintf("Access denied editing gallery \"%s\".", $gallery->get('name')));
         }

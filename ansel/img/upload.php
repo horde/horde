@@ -13,7 +13,7 @@ Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
 try {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();

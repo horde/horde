@@ -49,8 +49,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         if (empty($this->view->api)) {
             $option_edit = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
             $option_select = $option_delete = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
-            $option_move = ($option_delete && $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries(Horde_Perms::EDIT));
-            $option_copy = ($option_edit && $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries(Horde_Perms::EDIT));
+            $option_move = ($option_delete && $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries(Horde_Perms::EDIT));
+            $option_copy = ($option_edit && $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries(Horde_Perms::EDIT));
 
             /* See if we requested a show_actions change */
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {

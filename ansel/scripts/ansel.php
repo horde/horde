@@ -102,12 +102,12 @@ if (!empty($username) && !empty($password)) {
 
 // Choose the gallery to add to (or use the created one).
 if (!empty($galleryId)) {
-    if (!$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->galleryExists($galleryId)) {
+    if (!$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($galleryId)) {
         $error = sprintf(_("Invalid gallery \"%s\" specified."), $galleryId);
         Horde::logMessage($error, 'WARN');
         $cli->fatal($error);
     } else {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $error = sprintf(_("Access denied adding photos to \"%s\"."), $galleryId);
             Horde::logMessage($error, 'WARN');
@@ -128,7 +128,7 @@ if (!empty($createGallery)) {
                         'desc' => $gallery_desc,
                         'owner' => $gallery_owner);
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery($attributes, null, $parent);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery($attributes, null, $parent);
     } catch (Ansel_Exception $e) {
         $galleryId = null;
         $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
@@ -150,11 +150,11 @@ if (!empty($list)) {
 
         $images = array_keys($images);
         foreach ($images as $id) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
             $cli->writeln(str_pad($image->filename, 30) . $image->getVFSPath() . '/' . $id);
         }
     } else {
-        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries();
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->listGalleries();
         $cli->message(_("Listing Gallery/Name"), 'cli.success');
         $cli->writeln();
         foreach ($galleries as $id => $gallery) {

@@ -87,7 +87,7 @@ if (!empty($order) && $order != 'date' && $order != 'name' && $order != 'random'
 
 $gallery_id = processDirectory($dir);
 if (!$keepEmpties) {
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
     emptyGalleryCheck($gallery);
 }
 exit;
@@ -101,22 +101,22 @@ function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
         $children = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getScope()
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
             ->listGalleries(array('parent' => $gallery));
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);
             if (!$child->countImages() && !$child->hasSubGalleries()) {
-                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($child);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($child);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $child->get('name')), 'cli.success');
             }
 
             // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery->getId());
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery->getId());
             // Now that any empty children are removed, see if we are empty
             if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
-                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($gallery);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($gallery);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')), 'cli.success');
             }
         }
@@ -182,7 +182,7 @@ function processDirectory($dir, $parent = null)
     // Create a gallery for this directory level.
     $name = basename($dir);
     $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery(array('name' => $name), null, $parent);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery(array('name' => $name), null, $parent);
     $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
 
     // Read all the files into an array.

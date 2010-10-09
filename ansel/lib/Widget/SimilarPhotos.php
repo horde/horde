@@ -49,7 +49,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
      */
     public function _getRelatedImages()
     {
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
 
         $html = '';
         $args = array('typeId' => 'image',
@@ -60,7 +60,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
             $i = 0;
             foreach ($results as $result) {
                 $img = $result['image'];
-                $rGal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($img->gallery);
+                $rGal = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($img->gallery);
                 if ($rGal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ))
                 $html .= Ansel::getUrlFor(
                         'view',

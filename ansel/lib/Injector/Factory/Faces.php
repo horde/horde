@@ -1,13 +1,13 @@
 <?php
 /**
- * Binder for Ansel_Faces
+ * Factory for Ansel_Faces
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
  */
-class Ansel_Injector_Binder_Faces Implements Horde_Injector_Binder
+class Ansel_Injector_Factory_Faces
 {
     public function create (Horde_Injector $injector)
     {
@@ -18,10 +18,4 @@ class Ansel_Injector_Binder_Faces Implements Horde_Injector_Binder
         return new $class_name($params);
     }
 
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

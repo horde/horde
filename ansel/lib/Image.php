@@ -505,11 +505,11 @@ class Ansel_Image Implements Iterator
         /* Existing image, just save and exit */
         if ($this->id) {
             /* Save image details */
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
+            return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
         }
 
         /* New image, need to save the image files */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
 
         /* The EXIF functions require a stream, so we need to save before we read */
         $this->_writeData();
@@ -538,7 +538,7 @@ class Ansel_Image Implements Iterator
 
         /* Save again if EXIF changed any values */
         if (!empty($needUpdate)) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
+            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
         }
 
         return $this->id;
@@ -655,7 +655,7 @@ class Ansel_Image Implements Iterator
 
         /* Save attributes. */
         foreach ($exif_fields as $name => $value) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImageAttribute($this->id, $name, $value);
+            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImageAttribute($this->id, $name, $value);
             $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
         }
 
@@ -754,7 +754,7 @@ class Ansel_Image Implements Iterator
 
             if ($view == 'all' || $view == 'prettythumb') {
                 $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-                $hashes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getHashes();
+                $hashes = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getHashes();
                 foreach ($hashes as $hash)
                 {
                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
@@ -816,7 +816,7 @@ class Ansel_Image Implements Iterator
     {
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->gallery);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->gallery);
             if ($gallery instanceof PEAR_Error) {
                 throw new Ansel_Exception($gallery);
             }
@@ -1093,7 +1093,7 @@ class Ansel_Image Implements Iterator
         if (count($this->_tags)) {
             return $this->_tags;
         }
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->gallery);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->gallery);
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($this->id, 'image');
         } else {
@@ -1111,7 +1111,7 @@ class Ansel_Image Implements Iterator
      */
     public function setTags($tags)
     {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($this->gallery));
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
@@ -1174,7 +1174,7 @@ class Ansel_Image Implements Iterator
         }
 
         if (is_null($style)) {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($this->gallery));
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
         }
         $view = md5($style->thumbstyle . '.' . $style->background);
@@ -1192,7 +1192,7 @@ class Ansel_Image Implements Iterator
      */
     public function getAttributes($format = false)
     {
-        $attributes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImageAttributes($this->id);
+        $attributes = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageAttributes($this->id);
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
         $fields = Horde_Image_Exif::getFields($exif);
         $output = array();

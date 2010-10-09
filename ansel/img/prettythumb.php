@@ -21,8 +21,8 @@ if ($thumbstyle && $background) {
 } else {
     $style = null;
 }
-$image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage(Horde_Util::getFormData('image'));
-$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($image->gallery));
+$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(Horde_Util::getFormData('image'));
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($image->gallery));
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }

@@ -65,13 +65,13 @@ class Ansel_Application extends Horde_Registry_Application
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
 
-        $binders = array(
-            'Ansel_Styles' => new Ansel_Injector_Binder_Styles(),
-            'Ansel_Faces' => new Ansel_Injector_Binder_Faces(),
-            'Ansel_Storage' => new Ansel_Injector_Binder_Storage()
+        $factories = array(
+            'Ansel_Styles' => array('Ansel_Injector_Factory_Styles', 'create'),
+            'Ansel_Faces' => array('Ansel_Injector_Factory_Faces', 'create'),
+            'Ansel_Storage' => array('Ansel_Injector_Factory_Storage', 'create'),
         );
-        foreach ($binders as $interface => $binder) {
-            $GLOBALS['injector']->addBinder($interface, $binder);
+        foreach ($factories as $interface => $v) {
+            $GLOBALS['injector']->bindFactory($interface, $v[0], $v[1]);
         }
 
         // Create db, share, and vfs instances.

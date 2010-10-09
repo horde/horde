@@ -40,8 +40,8 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
                         'type' => 'enum',
                         'default' => '__random',
                         'values' => array('all' => 'All')));
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
-        if ($storage->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
+        if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
             foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
                 $params['gallery']['values'][$id] = $gal->get('name');
             }
@@ -121,7 +121,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
 
         foreach ($results as $comment) {
             try {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($comment['image_id']);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($comment['image_id']);
                 $url = Ansel::getUrlFor('view',
                                         array('view' => 'Image',
                                               'gallery' => abs($image->gallery),
@@ -163,9 +163,9 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         // Get the gallery object and cache it.
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_params['gallery']);
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->_params['gallery']);
         } else {
-            $this->_gallery =$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
+            $this->_gallery =$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRandomGallery();
         }
 
         if (empty($this->_gallery)) {

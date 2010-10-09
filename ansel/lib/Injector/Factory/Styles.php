@@ -1,13 +1,13 @@
 <?php
 /**
- * Binder for getting list of all available pre-defined styles.
+ * Factory for getting list of all available pre-defined styles.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Ansel
  */
-class Ansel_Injector_Binder_Styles Implements Horde_Injector_Binder
+class Ansel_Injector_Factory_Styles
 {
     public function create (Horde_Injector $injector)
     {
@@ -43,10 +43,4 @@ class Ansel_Injector_Binder_Styles Implements Horde_Injector_Binder
         return $styles;
     }
 
-    /**
-     */
-    public function equals(Horde_Injector_Binder $binder)
-    {
-        return false;
-    }
 }

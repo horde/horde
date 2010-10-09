@@ -79,7 +79,7 @@ if ($results instanceof PEAR_Error) {
 $image_ids = $results->fetchAll(MDB2_FETCHMODE_ASSOC);
 $results->free();
 foreach (array_values($image_ids) as $image_id) {
-    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id['image_id']);
+    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id['image_id']);
     $results = $image->exifToTags($exif_fields);
     $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
 }

@@ -29,7 +29,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         /* Pass on up the chain */
         parent::__construct($attributes);
-        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares);
+        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
         $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
         $this->_setModeHelper($mode);
     }
@@ -137,7 +137,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         // Check for slug uniqueness
-        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->slugExists($this->data['attribute_slug']);
+        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->slugExists($this->data['attribute_slug']);
         if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
             throw InvalidArgumentException(
                 sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
@@ -257,7 +257,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         /* Check for a supported multi-page image */
         if ($image->isMultiPage() === true) {
             $params['name'] = $image->getImagePageCount() . ' page image: ' . $image->filename;
-            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery($params, $this->getPermission(), $this->getId());
+            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery($params, $this->getPermission(), $this->getId());
             $i = 1;
             foreach ($image as $page) {
                 $page->caption = sprintf(_("Page %d"), $i++);
@@ -551,7 +551,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function getRecentImages($limit = 10)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages(array($this->id),
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImages(array($this->id),
                                                           $limit);
     }
 
@@ -564,7 +564,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function &getImage($id)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
     }
 
     /**
@@ -665,8 +665,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                 /* Fall through to a key image of a sub gallery. */
                 try {
                     $galleries = $GLOBALS['injector']
-                        ->getInstance('Ansel_Storage')
-                        ->getScope()
+                        ->getInstance('Ansel_Injector_Factory_Storage')
+                        ->create()
                         ->listGalleries(array('parent' => $this, 'allLevels' => false));
 
                     foreach ($galleries as $galleryId => $gallery) {
@@ -856,7 +856,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         /* Make sure we have a gallery object */
         if (!is_null($parent) && !($parent instanceof Ansel_Gallery)) {
-            $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($parent);
+            $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($parent);
         }
 
         /* Check this now since we don't know if we are updating the DB or not */
@@ -986,7 +986,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
 
     public function __wakeup()
     {
-        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares);
+        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
         $mode = $this->get('view_mode');
         $this->_setModeHelper($mode);
     }

@@ -39,7 +39,7 @@ if ($form->validate()) {
     } else {
         require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($face['gallery_id']);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($face['gallery_id']);
 
         $face_link = Horde::url('faces/face.php', true)->add(
                 array('name' => $vars->get('person'),

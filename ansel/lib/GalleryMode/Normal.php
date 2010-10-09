@@ -37,7 +37,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         $galleries = array();
         $num_galleries = 0;
         if ($this->hasSubGalleries()) {
-            $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+            $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
             $num_galleries = $storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
@@ -109,8 +109,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             return $this->_gallery->data['attribute_images'];
         }
 
-        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getScope()
+        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+                ->create()
                 ->countGalleries($GLOBALS['registry']->getAuth(),
                                  $perm, null,
                                  $this->_gallery, false);
@@ -134,8 +134,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->getScope()
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
             ->listImages($this->_gallery->id, $from, $count);
     }
 
@@ -166,7 +166,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             }
         }
 
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->setImagesGallery($ids, $gallery->id);
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->setImagesGallery($ids, $gallery->id);
         $this->_gallery->updateImageCount(count($ids), false);
         $gallery->updateImageCount(count($ids), true);
 
@@ -215,7 +215,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         } catch (VFS_Exception $e) {}
 
         /* Delete from storage */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeImage($image->id);
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeImage($image->id);
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
         }
@@ -262,8 +262,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function getImages($from = 0, $count = 0)
     {
-        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')
-            ->getScope()
+        $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
             ->getImages(array('gallery_id' => $this->_gallery->id,
                               'count' => $count,
                               'from' => $from));
@@ -295,8 +295,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
             $galleries = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getScope()
+                ->getInstance('Ansel_Injector_Factory_Storage')
+                ->create()
                 ->listGalleries(array('parent' => $this->_gallery));
 
             foreach ($galleries as $galleryId => $gallery) {

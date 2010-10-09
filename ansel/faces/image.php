@@ -24,7 +24,7 @@ $result = $faces->getImageFacesData($image_id);
 // Attempt to get faces from the picture if we don't already have results,
 // or if we were asked to explicitly try again.
 if (($reload || empty($result))) {
-    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
+    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
     try {
         $image->createView('screen');
         $result = $faces->getFromPicture($image_id, $autocreate);

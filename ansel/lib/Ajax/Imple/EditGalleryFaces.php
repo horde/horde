@@ -29,7 +29,7 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
         $autocreate = true;
         $result = $faces->getImageFacesData($image_id);
         if (empty($result)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($this->_params['image_id']);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($this->_params['image_id']);
             $image->createView('screen');
             $result = $faces->getFromPicture($this->_params['image_id'], $autocreate);
         }
@@ -67,7 +67,7 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
                 // Attempt to get faces from the picture if we don't already have results,
                 // or if we were asked to explicitly try again.
                 if (($reload || empty($result))) {
-                    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
+                    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
                     $image->createView('screen');
                     $result = $faces->getFromPicture($image_id, $autocreate);
                 }
@@ -89,8 +89,8 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
             case 'delete':
                 // delete - deletes a single face from an image.
                 $face_id = (int)$post['face'];
-                $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
-                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+                $image = &$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('Access denied editing the photo.');
                 }
@@ -107,8 +107,8 @@ class Ansel_Ajax_Imple_EditGalleryFaces extends Horde_Ajax_Imple_Base
                 }
 
                 $name = $post['facename'];
-                $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
-                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+                $image = &$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('You are not allowed to edit this photo');
                 }

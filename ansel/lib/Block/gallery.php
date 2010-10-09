@@ -49,7 +49,7 @@ class Horde_Block_ansel_gallery extends Horde_Block
                             'type' => 'checkbox',
                             'default' => true));
 
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
         if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
             foreach ($storage->listGalleries() as $gal) {
                 $params['gallery']['values'][$gal->id] = $gal->get('name');
@@ -139,9 +139,9 @@ class Horde_Block_ansel_gallery extends Horde_Block
 
         // Get the gallery object and cache it.
         if (isset($this->_params['gallery']) && $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_params['gallery']);
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->_params['gallery']);
         } else {
-            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRandomGallery();
         }
 
         // Protect at least a little bit against getting an empty gallery. We

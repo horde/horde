@@ -54,11 +54,11 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 
         /* Get the resource owner */
         if ($type == 'gallery') {
-            $resource = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($id);
+            $resource = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($id);
             $parent = $resource;
         } else {
-            $resource = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
-            $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($resource->gallery);
+            $resource = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+            $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($resource->gallery);
         }
 
         switch ($action) {

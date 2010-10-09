@@ -149,8 +149,8 @@ class Ansel_ImageGenerator
     protected function _getGalleryWithImages($parent)
     {
         $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getScope()
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
             ->listGalleries(array('parent' => $parent, 'allLevels' => false));
 
         foreach ($galleries as $gallery) {

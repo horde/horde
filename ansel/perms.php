@@ -27,13 +27,13 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(Horde_Util::getFormData('cid'));
+        $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
         $perm = &$share->getPermission();
     } catch (Horde_Share_Exception $e) {
         if (($share_name = Horde_Util::getFormData('share')) !== null) {
             try {
-                $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->getShare($share_name);
+                $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShare($share_name);
                 $form = 'edit.inc';
                 $perm = $share->getPermission();
             } catch (Horde_Share_Exception $e) {
@@ -51,7 +51,7 @@ case 'edit':
 case 'editform':
 case 'editforminherit':
     try {
-        $share = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(Horde_Util::getFormData('cid'));
+        $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('cid'));
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     }
@@ -251,8 +251,8 @@ if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
     $children = $GLOBALS['injector']
-        ->getInstance('Ansel_Storage')
-        ->getScope()
+        ->getInstance('Ansel_Injector_Factory_Storage')
+        ->create()
         ->listGalleries(array('perm' => Horde_Perms::READ,
                               'parent' => $share));
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));

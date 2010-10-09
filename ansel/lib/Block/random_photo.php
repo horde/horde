@@ -44,7 +44,7 @@ class Horde_Block_ansel_random_photo extends Horde_Block
      */
     protected function _content()
     {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRandomGallery();
         if (!$gallery) {
             return _("There are no photo galleries available.");
         }

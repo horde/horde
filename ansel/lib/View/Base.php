@@ -141,9 +141,9 @@ abstract class Ansel_View_Base
         // If we have a slug, use it.
         try {
             if (!empty($slug)) {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGalleryBySlug($slug);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleryBySlug($slug);
             } else {
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
             }
         } catch (Ansel_Exception $e) {
             throw new Horde_Exception_NotFound($e->getmessage());

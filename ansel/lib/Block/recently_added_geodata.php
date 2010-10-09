@@ -53,14 +53,14 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block
     protected function _content()
     {
         try {
-            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
             $id = $image['image_id'];
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image['gallery_id']);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image['gallery_id']);
 
             /* Don't show locked galleries in the block. */
             if (!$gallery->isOldEnough() || $gallery->hasPasswd()) {

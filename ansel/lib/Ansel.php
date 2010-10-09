@@ -87,8 +87,8 @@ class Ansel
     {
         $params = new Horde_Support_Array($params);
         $galleries = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getScope()
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
             ->listGalleries($params);
 
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
@@ -204,8 +204,8 @@ class Ansel
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($data['image']);
-                        $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($data['gallery']);
+                        $i = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($data['image']);
+                        $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($data['gallery']);
                         if ($g->get('view_mode') == 'Date') {
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
@@ -405,7 +405,7 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($imageId);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
@@ -541,7 +541,7 @@ class Ansel
     {
         global $prefs;
 
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
         $groupby = Horde_Util::getFormData('groupby', $prefs->getValue('groupby'));
         $owner = Horde_Util::getFormData('owner');
         $image_id = (int)Horde_Util::getFormData('image');
@@ -871,11 +871,11 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
             // If we didn't select an entire gallery, check the download
             // size for each image.
             if (!isset($view)) {
-                $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+                $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
                 $v = $g->canDownload() ? 'full' : 'screen';
             } else {
                 $v = $view;

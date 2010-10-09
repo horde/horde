@@ -33,7 +33,7 @@ class Ansel_Injector_Factory_Storage
      *
      * @return Ansel_Storage
      */
-    public function getScope()
+    public function create()
     {
         $scope = $this->_injector->getInstance('Ansel_Config')->get('scope');
         if (empty($this->_instances[$scope])) {
