@@ -16,9 +16,9 @@ class AnselUpgradeAutoIncrement extends Horde_Db_Migration_Base
 {
     public function up()
     {
-        $this->changeColumn('ansel_images', 'image_id', 'bigint', array('null' => false, 'autoincrement' => true));
-        $this->changeColumn('ansel_faces', 'face_id', 'bigint', array('null' => false, 'autoincrement' => true));
-        $this->changeColumn('ansel_shares', 'share_id', 'bigint', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('ansel_images', 'image_id', 'integer', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('ansel_faces', 'face_id', 'integer', array('null' => false, 'autoincrement' => true));
+        $this->changeColumn('ansel_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => true));
         $this->changeColumn('ansel_tags', 'tag_id', 'integer', array('null' => false, 'autoincrement' => true));
     }
 
@@ -26,9 +26,9 @@ class AnselUpgradeAutoIncrement extends Horde_Db_Migration_Base
     {
         $tableList = $this->tables();
 
-        $this->changeColumn('ansel_images', 'image_id', 'bigint', array('null' => false, 'autoincrement' => false));
-        $this->changeColumn('ansel_faces', 'face_id', 'bigint', array('null' => false, 'autoincrement' => false));
-        $this->changeColumn('ansel_shares', 'share_id', 'bigint', array('null' => false, 'autoincrement' => false));
+        $this->changeColumn('ansel_images', 'image_id', 'integer', array('null' => false, 'autoincrement' => false));
+        $this->changeColumn('ansel_faces', 'face_id', 'integer', array('null' => false, 'autoincrement' => false));
+        $this->changeColumn('ansel_shares', 'share_id', 'integer', array('null' => false, 'autoincrement' => false));
 
         if (in_array('ansel_tags', $tableList)) {
             $this->changeColumn('ansel_tags', 'tag_id', 'integer', array('null' => false, 'autoincrement' => false));
