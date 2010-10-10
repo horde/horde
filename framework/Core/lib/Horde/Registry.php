@@ -255,10 +255,6 @@ class Horde_Registry
             'Horde_Alarm' => 'Horde_Core_Factory_Alarm',
             'Horde_Browser' => 'Horde_Core_Factory_Browser',
             'Horde_Cache' => 'Horde_Core_Factory_Cache',
-            'Horde_Cache_Session' => array(
-                'Horde_Core_Factory_Cache',
-                'createSession',
-            ),
             'Horde_Controller_Request' => 'Horde_Core_Factory_Request',
             'Horde_Controller_RequestConfiguration' => array(
                 'Horde_Core_Controller_RequestMapper',
