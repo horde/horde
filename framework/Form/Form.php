@@ -160,6 +160,9 @@ class Horde_Form {
             throw new Horde_Exception(sprintf('Nonexistant class "%s" for field type "%s"', $type_class, $type));
         }
         $type_ob = new $type_class();
+        if (!$params) {
+            $params = array();
+        }
         call_user_func_array(array($type_ob, 'init'), $params);
         return $type_ob;
     }

@@ -596,7 +596,7 @@ class Horde_Form_Type_longtext extends Horde_Form_Type_text {
                 'cols'   => array('label' => _("Number of columns"),
                                   'type'  => 'int'),
                 'helper' => array('label' => _("Helpers"),
-                                  'type'  => 'array')));
+                                  'type'  => 'stringarray')));
     }
 
 }
