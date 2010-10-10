@@ -528,7 +528,10 @@ class Horde_Vcs
             }
         }
 
-        if (!$ob) { $ob = new $class($filename, $opts); }
+        if (empty($ob) || !$ob) {
+            $ob = new $class($filename, $opts);
+
+        }
         $ob->setRepository($this);
         $ob->applySort(self::SORT_AGE);
 
@@ -555,7 +558,10 @@ class Horde_Vcs
             }
         }
 
-        if (!$ob) { $ob = new $class($rev); }
+        if (empty($ob) || !$ob) {
+            $ob = new $class($rev);
+
+        }
         $ob->setRepository($this);
         $ob->setFile($fl);
 
