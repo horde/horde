@@ -919,8 +919,9 @@ HTML;
 
         $puri = parse_url($uri);
         $url = '';
+        $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
 
-        if ($full && !isset($puri['scheme'])) {
+        if ($full && !isset($puri['scheme']) && !preg_match('|^([\w+-]{1,20})://|', $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
             $server_port = $GLOBALS['conf']['server']['port'];
@@ -955,10 +956,11 @@ HTML;
             $url = $protocol . '://' . $server_name;
         }
 
-        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/') {
+        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
             $url .= $puri['path'];
+        } elseif (isset($puri['path']) && preg_match('|^([\w+-]{1,20})://|', $webroot)) {
+            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
         } else {
-            $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
 
