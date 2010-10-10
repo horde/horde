@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_External extends Horde_SessionHandler_Base
+class Horde_SessionHandler_External extends Horde_SessionHandler
 {
     /**
      * Constructor.

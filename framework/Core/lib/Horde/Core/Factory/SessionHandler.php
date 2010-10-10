@@ -81,44 +81,4 @@ class Horde_Core_Factory_SessionHandler
         throw new Horde_SessionHandler_Exception('Driver not found: ' . $driver);
     }
 
-    /**
-     * Reads session data to determine if it contains Horde authentication
-     * credentials.
-     *
-     * @param string $session_data  The session data.
-     *
-     * @return array  An array of the user's sesion information if
-     *                authenticated or false.  The following information is
-     *                returned: userid, timestamp, remoteAddr, browser, apps.
-     */
-    public function readSessionData($session_data)
-    {
-        if (empty($session_data) ||
-            (($pos = strpos($session_data, 'horde_auth|')) === false)) {
-            return false;
-        }
-
-        $pos += 11;
-        $endpos = $pos + 1;
-
-        while ($endpos !== false) {
-            $endpos = strpos($session_data, '|', $endpos);
-            $data = @unserialize(substr($session_data, $pos, $endpos));
-            if (is_array($data)) {
-                return empty($data)
-                    ? false
-                    : array(
-                        'apps' => empty($data['app']) ? array('horde') : array_keys($data['app']),
-                        'browser' => $data['browser'],
-                        'remoteAddr' => $data['remoteAddr'],
-                        'timestamp' => $data['timestamp'],
-                        'userid' => $data['userId']
-                    );
-            }
-            ++$endpos;
-        }
-
-        return false;
-    }
-
 }

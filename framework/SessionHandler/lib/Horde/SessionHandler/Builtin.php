@@ -13,7 +13,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Base
+class Horde_SessionHandler_Builtin extends Horde_SessionHandler
 {
     /**
      * Directory with session files.

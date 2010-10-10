@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Memcache extends Horde_SessionHandler_Base
+class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 {
     /**
      * Memcache object.

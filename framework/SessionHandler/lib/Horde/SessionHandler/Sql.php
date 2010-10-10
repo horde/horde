@@ -14,7 +14,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Sql extends Horde_SessionHandler_Base
+class Horde_SessionHandler_Sql extends Horde_SessionHandler
 {
     /**
      * Handle for the current database connection.

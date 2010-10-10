@@ -83,7 +83,7 @@ class Horde_Session implements ArrayAccess
 
         /* We want to create an instance here, not get, since we may be
          * destroying the previous instances in the page. */
-        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_Core_Factory_SessionHandler');
+        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
 
         if ($start) {
             session_start();

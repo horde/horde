@@ -14,7 +14,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Stack extends Horde_SessionHandler_Base
+class Horde_SessionHandler_Stack extends Horde_SessionHandler
 {
     /**
      * Stack of sessionhandlers.
