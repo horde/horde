@@ -59,8 +59,8 @@ class KronolithBaseTables extends Horde_Db_Migration_Base
             $t->column('vfb_serialized', 'text', array('null' => false));
             $t->end();
 
-            $this->addIndex('kronolith_storage', 'vfb_owner');
-            $this->addIndex('kronolith_storage', 'vfb_email');
+            $this->addIndex('kronolith_storage', array('vfb_owner'));
+            $this->addIndex('kronolith_storage', array('vfb_email'));
         }
 
         if (!in_array('kronolith_shares', $tableList)) {
@@ -77,11 +77,11 @@ class KronolithBaseTables extends Horde_Db_Migration_Base
             $t->primaryKey(array('share_id'));
             $t->end();
 
-            $this->addIndex('kronolith_shares', 'share_name');
-            $this->addIndex('kronolith_shares', 'share_owner');
-            $this->addIndex('kronolith_shares', 'perm_creator');
-            $this->addIndex('kronolith_shares', 'perm_default');
-            $this->addIndex('kronolith_shares', 'perm_guest');
+            $this->addIndex('kronolith_shares', array('share_name'));
+            $this->addIndex('kronolith_shares', array('share_owner'));
+            $this->addIndex('kronolith_shares', array('perm_creator'));
+            $this->addIndex('kronolith_shares', array('perm_default'));
+            $this->addIndex('kronolith_shares', array('perm_guest'));
         }
 
         if (!in_array('kronolith_shares_groups', $tableList)) {
@@ -91,9 +91,9 @@ class KronolithBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('kronolith_shares_groups', 'share_id');
-            $this->addIndex('kronolith_shares_groups', 'group_uid');
-            $this->addIndex('kronolith_shares_groups', 'perm');
+            $this->addIndex('kronolith_shares_groups', array('share_id'));
+            $this->addIndex('kronolith_shares_groups', array('group_uid'));
+            $this->addIndex('kronolith_shares_groups', array('perm'));
         }
 
         if (!in_array('kronolith_shares_users', $tableList)) {
@@ -104,9 +104,9 @@ class KronolithBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('kronolith_shares_users', 'share_id');
-            $this->addIndex('kronolith_shares_users', 'user_uid');
-            $this->addIndex('kronolith_shares_users', 'perm');
+            $this->addIndex('kronolith_shares_users', array('share_id'));
+            $this->addIndex('kronolith_shares_users', array('user_uid'));
+            $this->addIndex('kronolith_shares_users', array('perm'));
         }
     }
 

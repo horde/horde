@@ -44,9 +44,9 @@ class NagBaseTables extends Horde_Db_Migration_Base
             $t->primaryKey(array('task_id'));
             $t->end();
 
-            $this->addIndex('nag_tasks', 'task_owner');
-            $this->addIndex('nag_tasks', 'task_uid');
-            $this->addIndex('nag_tasks', 'task_start');
+            $this->addIndex('nag_tasks', array('task_owner'));
+            $this->addIndex('nag_tasks', array('task_uid'));
+            $this->addIndex('nag_tasks', array('task_start'));
         }
 
         if (!in_array('nag_shares', $tableList)) {
@@ -64,11 +64,11 @@ class NagBaseTables extends Horde_Db_Migration_Base
             $t->primaryKey(array('share_id'));
             $t->end();
 
-            $this->addIndex('nag_shares', 'share_name');
-            $this->addIndex('nag_shares', 'share_owner');
-            $this->addIndex('nag_shares', 'perm_creator');
-            $this->addIndex('nag_shares', 'perm_default');
-            $this->addIndex('nag_shares', 'perm_guest');
+            $this->addIndex('nag_shares', array('share_name'));
+            $this->addIndex('nag_shares', array('share_owner'));
+            $this->addIndex('nag_shares', array('perm_creator'));
+            $this->addIndex('nag_shares', array('perm_default'));
+            $this->addIndex('nag_shares', array('perm_guest'));
         }
 
         if (!in_array('nag_shares_groups', $tableList)) {
@@ -78,9 +78,9 @@ class NagBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('limit' => 2, 'null' => false));
             $t->end();
 
-            $this->addIndex('nag_shares_groups', 'share_id');
-            $this->addIndex('nag_shares_groups', 'group_uid');
-            $this->addIndex('nag_shares_groups', 'perm');
+            $this->addIndex('nag_shares_groups', array('share_id'));
+            $this->addIndex('nag_shares_groups', array('group_uid'));
+            $this->addIndex('nag_shares_groups', array('perm'));
         }
 
         if (!in_array('nag_shares_users', $tableList)) {
@@ -90,9 +90,9 @@ class NagBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('limit' => 2, 'null' => false));
             $t->end();
 
-            $this->addIndex('nag_shares_users', 'share_id');
-            $this->addIndex('nag_shares_users', 'user_uid');
-            $this->addIndex('nag_shares_users', 'perm');
+            $this->addIndex('nag_shares_users', array('share_id'));
+            $this->addIndex('nag_shares_users', array('user_uid'));
+            $this->addIndex('nag_shares_users', array('perm'));
         }
     }
 

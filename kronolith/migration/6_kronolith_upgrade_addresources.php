@@ -32,8 +32,8 @@ class KronolithUpgradeAddResources extends Horde_Db_Migration_Base
             $t->primaryKey(array('resource_id'));
             $t->end();
 
-            $this->addIndex('kronolith_resources', 'resource_calendar');
-            $this->addIndex('kronolith_resources', 'resource_type');
+            $this->addIndex('kronolith_resources', array('resource_calendar'));
+            $this->addIndex('kronolith_resources', array('resource_type'));
         }
     }
 

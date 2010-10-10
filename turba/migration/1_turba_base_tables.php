@@ -93,11 +93,11 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
             $t->primaryKey(array('share_id'));
             $t->end();
 
-            $this->addIndex('turba_shares', 'share_name');
-            $this->addIndex('turba_shares', 'share_owner');
-            $this->addIndex('turba_shares', 'perm_creator');
-            $this->addIndex('turba_shares', 'perm_default');
-            $this->addIndex('turba_shares', 'perm_guest');
+            $this->addIndex('turba_shares', array('share_name'));
+            $this->addIndex('turba_shares', array('share_owner'));
+            $this->addIndex('turba_shares', array('perm_creator'));
+            $this->addIndex('turba_shares', array('perm_default'));
+            $this->addIndex('turba_shares', array('perm_guest'));
         }
 
         if (!in_array('turba_shares_groups', $tableList)) {
@@ -107,9 +107,9 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('turba_shares_groups', 'share_id');
-            $this->addIndex('turba_shares_groups', 'group_uid');
-            $this->addIndex('turba_shares_groups', 'perm');
+            $this->addIndex('turba_shares_groups', array('share_id'));
+            $this->addIndex('turba_shares_groups', array('group_uid'));
+            $this->addIndex('turba_shares_groups', array('perm'));
         }
 
         if (!in_array('turba_shares_users', $tableList)) {
@@ -120,9 +120,9 @@ class TurbaBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('turba_shares_users', 'share_id');
-            $this->addIndex('turba_shares_users', 'user_uid');
-            $this->addIndex('turba_shares_users', 'perm');
+            $this->addIndex('turba_shares_users', array('share_id'));
+            $this->addIndex('turba_shares_users', array('user_uid'));
+            $this->addIndex('turba_shares_users', array('perm'));
         }
     }
 

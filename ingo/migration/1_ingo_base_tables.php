@@ -93,11 +93,11 @@ class IngoBaseTables extends Horde_Db_Migration_Base
             $t->primaryKey(array('share_id'));
             $t->end();
 
-            $this->addIndex('ingo_shares', 'share_name');
-            $this->addIndex('ingo_shares', 'share_owner');
-            $this->addIndex('ingo_shares', 'perm_creator');
-            $this->addIndex('ingo_shares', 'perm_default');
-            $this->addIndex('ingo_shares', 'perm_guest');
+            $this->addIndex('ingo_shares', array('share_name'));
+            $this->addIndex('ingo_shares', array('share_owner'));
+            $this->addIndex('ingo_shares', array('perm_creator'));
+            $this->addIndex('ingo_shares', array('perm_default'));
+            $this->addIndex('ingo_shares', array('perm_guest'));
         }
 
         if (!in_array('ingo_shares_groups', $tableList)) {
@@ -107,8 +107,8 @@ class IngoBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('ingo_shares_groups', 'share_id');
-            $this->addIndex('ingo_shares_groups', 'group_uid');
+            $this->addIndex('ingo_shares_groups', array('share_id'));
+            $this->addIndex('ingo_shares_groups', array('group_uid'));
             $this->addIndex('ingo_shares_groups', 'perm');
         }
 
@@ -119,9 +119,9 @@ class IngoBaseTables extends Horde_Db_Migration_Base
             $t->column('perm', 'integer', array('null' => false));
             $t->end();
 
-            $this->addIndex('ingo_shares_users', 'share_id');
-            $this->addIndex('ingo_shares_users', 'user_uid');
-            $this->addIndex('ingo_shares_users', 'perm');
+            $this->addIndex('ingo_shares_users', array('share_id'));
+            $this->addIndex('ingo_shares_users', array('user_uid'));
+            $this->addIndex('ingo_shares_users', array('perm'));
         }
 
     }
