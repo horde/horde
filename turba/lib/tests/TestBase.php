@@ -249,8 +249,8 @@ class Turba_TestBase extends PHPUnit_Framework_TestCase {
     {
         /* Turba_Driver::search() is coupled with authentication global
          * state. */
-        $_SESSION['__auth'] = array('authenticated' => true,
-                                    'userId' => '1');
+        //$_SESSION['__auth'] = array('authenticated' => true,
+        //                            'userId' => '1');
         $this->assertEqual('1', $GLOBALS['registry']->getAuth());
     }
 

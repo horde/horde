@@ -51,18 +51,17 @@ Horde_Registry::appInit('turba');
 /* Verify if the search mode variable is passed in form or is registered in
  * the session. Always use basic search by default. */
 if (Horde_Util::getFormData('search_mode')) {
-    $_SESSION['turba']['search_mode'] = Horde_Util::getFormData('search_mode');
+    $session['turba:search_mode'] = Horde_Util::getFormData('search_mode');
 }
-if (!isset($_SESSION['turba']['search_mode']) ||
-    !in_array($_SESSION['turba']['search_mode'], array('basic', 'advanced', 'duplicate'))) {
-    $_SESSION['turba']['search_mode'] = 'basic';
+if (!in_array($session['turba:search_mode'], array('basic', 'advanced', 'duplicate'))) {
+    $session['turba:search_mode'] = 'basic';
 }
 
 /* Get the current source. */
 $addressBooks = Turba::getAddressBooks();
 $editableAddressBooks = Turba::getAddressBooks(Horde_Perms::EDIT & Horde_Perms::DELETE,
                                                array('require_add' => true));
-if ($_SESSION['turba']['search_mode'] == 'duplicate') {
+if ($session['turba:search_mode'] == 'duplicate') {
     $addressBooks = $editableAddressBooks;
 }
 $source = Horde_Util::getFormData('source', $default_source);
@@ -94,7 +93,7 @@ try {
 
 if ($driver) {
     $map = $driver->getCriteria();
-    if ($_SESSION['turba']['search_mode'] == 'advanced') {
+    if ($session['turba:search_mode'] == 'advanced') {
         $criteria = array();
         foreach (array_keys($map) as $key) {
             if ($key != '__key') {
@@ -112,7 +111,7 @@ if ($driver) {
     /* Only try to perform a search if we actually have search criteria. */
     if ((is_array($criteria) && count($criteria)) ||
         !empty($val) ||
-        ($_SESSION['turba']['search_mode'] == 'duplicate' &&
+        ($session['turba:search_mode'] == 'duplicate' &&
          (Horde_Util::getFormData('search') ||
           Horde_Util::getFormData('dupe') ||
           count($addressBooks) == 1))) {
@@ -132,7 +131,7 @@ if ($driver) {
                 'params' => serialize(array(
                     'type' => 'vbook',
                     'source' => $source,
-                    'criteria' => $_SESSION['turba']['search_mode'] == 'basic' ? array($criteria => $val) : $criteria
+                    'criteria' => $session['turba:search_mode'] == 'basic' ? array($criteria => $val) : $criteria
                 ))
             );
 
@@ -152,7 +151,7 @@ if ($driver) {
         }
 
         /* Perform a search. */
-        if ($_SESSION['turba']['search_mode'] == 'duplicate') {
+        if ($session['turba:search_mode'] == 'duplicate') {
             try {
                 $duplicates = $driver->searchDuplicates();
                 $dupe = Horde_Util::getFormData('dupe');
@@ -164,9 +163,9 @@ if ($driver) {
             }
         } else {
             try {
-                if ((($_SESSION['turba']['search_mode'] == 'basic') &&
+                if ((($session['turba:search_mode'] == 'basic') &&
                      ($results = $driver->search(array($criteria => $val)))) ||
-                    (($_SESSION['turba']['search_mode'] == 'advanced') &&
+                    (($session['turba:search_mode'] == 'advanced') &&
                      ($results = $driver->search($criteria)))) {
                     /* Read the columns to display from the preferences. */
                     $sources = Turba::getColumns();
@@ -228,14 +227,14 @@ $searchView->criteria = $criteria;
 $searchView->value = $val;
 
 /* The form footer and vbook section. */
-if ($_SESSION['turba']['search_mode'] != 'duplicate') {
+if ($session['turba:search_mode'] != 'duplicate') {
     $vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
-    $vbookView->hasShare = !empty($_SESSION['turba']['has_share']);
+    $vbookView->hasShare = isset($session['turba:has_share']);
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
 }
 
-switch ($_SESSION['turba']['search_mode']) {
+switch ($session['turba:search_mode']) {
 case 'basic':
     $title = _("Basic Search");
     Horde::addInlineScript(array(
@@ -265,10 +264,10 @@ if (isset($view) && is_object($view)) {
 
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $tabs->render($_SESSION['turba']['search_mode']);
+echo $tabs->render($session['turba:search_mode']);
 echo $headerView->render('header');
-echo $searchView->render($_SESSION['turba']['search_mode']);
-if ($_SESSION['turba']['search_mode'] != 'duplicate') {
+echo $searchView->render($session['turba:search_mode']);
+if ($session['turba:search_mode'] != 'duplicate') {
     echo $vbookView->render('vbook');
 }
 if (isset($view) && is_object($view)) {

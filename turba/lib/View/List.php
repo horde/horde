@@ -143,7 +143,7 @@ class Turba_View_List implements Countable
 
     function display()
     {
-        global $prefs, $default_source, $copymove_source_options;
+        global $prefs, $session, $default_source, $copymove_source_options;
 
         $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($default_source);
 
@@ -177,7 +177,7 @@ class Turba_View_List implements Countable
             $listHtml = $this->getPage($numDisplayed, $min, $max);
 
             $crit = array();
-            if ($_SESSION['turba']['search_mode'] == 'advanced') {
+            if ($session['turba:search_mode'] == 'advanced') {
                 $map = $driver->getCriteria();
                 foreach ($map as $key => $value) {
                     if ($key != '__key') {

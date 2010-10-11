@@ -37,7 +37,7 @@ class Turba_LoginTasks_SystemTask_UpgradePrefs extends Horde_LoginTasks_SystemTa
     {
         global $registry;
 
-        if (!empty($_SESSION['turba']['has_share'])) {
+        if ($GLOBALS['session']['turba:has_share']) {
             $this->_doAddressbooks();
             $this->_doColumns();
             $this->_doAddSource();

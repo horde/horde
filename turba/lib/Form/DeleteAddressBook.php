@@ -64,8 +64,8 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
             throw new Turba_Exception($e);
         }
 
-        if (isset($_SESSION['turba']['source']) && $_SESSION['turba']['source'] == Horde_Util::getFormData('deleteshare')) {
-            unset($_SESSION['turba']['source']);
+        if ($GLOBALS['session']['turba:source'] == Horde_Util::getFormData('deleteshare')) {
+            unset($GLOBALS['session']['turba:source']);
         }
 
         $abooks = json_decode($GLOBALS['prefs']->getValue('addressbooks'));

@@ -120,12 +120,12 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getDefaultShare()
     {
-        global $prefs;
+        global $prefs, $session;
 
         // Bring in a clean copy of sources.
         require TURBA_BASE . '/config/backends.php';
 
-        if (!empty($_SESSION['turba']['has_share'])) {
+        if ($session['turba:has_share']) {
             $shares = Turba::listShares(true);
             foreach ($shares as $uid => $share) {
                 $params = @unserialize($share->get('params'));
@@ -182,7 +182,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        global $registry, $cfgSources;
+        global $registry, $session, $cfgSources;
 
         // Default properties.
         if (!$properties) {
@@ -257,7 +257,7 @@ class Turba_Api extends Horde_Registry_Api
             } else {
                 // Assume $parts[0] is a valid username and we need to list their
                 // shared addressbooks.
-                if (empty($_SESSION['turba']['has_share'])) {
+                if (!$session['turba:has_share']) {
                     // No backends are configured to provide shares
                     return array();
                 }

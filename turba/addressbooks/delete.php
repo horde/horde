@@ -13,7 +13,7 @@ Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
-if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) {
+if (!$GLOBALS['registry']->getAuth() || !$session['turba:has_share']) {
     require TURBA_BASE . '/'
         . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
     exit;

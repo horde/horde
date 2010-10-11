@@ -25,7 +25,7 @@ class Turba_Hooks
      */
 //     public function default_dir($username = null)
 //     {
-//         if (!$username || empty($_SESSION['turba']['has_share'])) {
+//         if (!$username || !$GLOBALS['session']['turba:has_share']) {
 //             return;
 //         }
 //

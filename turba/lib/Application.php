@@ -80,7 +80,7 @@ class Turba_Application extends Horde_Registry_Application
         foreach ($cfgSources as $key => $cfg) {
             if (!empty($cfg['use_shares'])) {
                 // Create a share instance.
-                $_SESSION['turba']['has_share'] = true;
+                $GLOBALS['session']['turba:has_share'] = true;
                 $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
                 $cfgSources = Turba::getConfigFromShares($cfgSources);
                 break;
@@ -93,9 +93,9 @@ class Turba_Application extends Horde_Registry_Application
         // Build the directory sources select widget.
         $default_source = Horde_Util::nonInputVar('source');
         if (empty($default_source)) {
-            $default_source = empty($_SESSION['turba']['source'])
-                ? Turba::getDefaultAddressBook()
-                : $_SESSION['turba']['source'];
+            if (!($default_source = $GLOBALS['session']['turba:source'])) {
+                $default_source = Turba::getDefaultAddressBook();
+            }
             $default_source = Horde_Util::getFormData('source', $default_source);
         }
 
@@ -119,7 +119,7 @@ class Turba_Application extends Horde_Registry_Application
         if (empty($cfgSources[$default_source]['browse'])) {
             $default_source = Turba::getDefaultAddressBook();
         }
-        $_SESSION['turba']['source'] = $default_source;
+        $GLOBALS['session']['turba:source'] = $default_source;
         $GLOBALS['default_source'] = $default_source;
 
         /* Only set $add_source_options if there is at least one editable
@@ -176,7 +176,7 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        if (!empty($_SESSION['turba']['has_share'])) {
+        if ($GLOBALS['session']['turba:has_share']) {
             $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba.png');
         }
 
@@ -429,7 +429,7 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         /* Only attempt share removal if we have shares configured */
-        if (empty($_SESSION['turba']['has_share'])) {
+        if (!$GLOBALS['session']['turba:has_share']) {
             return;
         }
 
