@@ -461,7 +461,7 @@ class Horde_Registry
      */
     public function clearCache()
     {
-        unset($_SESSION['_registry']);
+        unset($GLOBALS['session']['horde:registry/']);
         $this->_saveCacheVar('api', true);
         $this->_saveCacheVar('appcache', true);
     }
@@ -1518,7 +1518,7 @@ class Horde_Registry
             }
         } else {
             $data = serialize($this->_cache[$name]);
-            $_SESSION['_registry']['md5'][$name] = $md5sum = hash('md5', $data);
+            $GLOBALS['session']['horde:registry/' . $name] = $md5sum = hash('md5', $data);
             $id = $this->_getCacheId($name, false) . '|' . $md5sum;
             if ($ob->set($id, $data, 86400)) {
                 Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, 'DEBUG');
@@ -1570,8 +1570,8 @@ class Horde_Registry
 
         if (!$md5) {
             return $id;
-        } elseif (isset($_SESSION['_registry']['md5'][$name])) {
-            return $id . '|' . $_SESSION['_registry']['md5'][$name];
+        } elseif ($hash = $GLOBALS['session']['horde:registry/' . $name]) {
+            return $id . '|' . $hash;
         }
 
         return false;

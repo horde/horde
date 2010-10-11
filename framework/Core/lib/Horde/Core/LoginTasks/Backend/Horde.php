@@ -51,10 +51,11 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasklistFromCache()
     {
-        if (isset($_SESSION['horde_logintasks'][$this->_app])) {
-            return @unserialize($_SESSION['horde_logintasks'][$this->_app]);
-        }
-        return false;
+        global $session;
+
+        return isset($session['horde:logintasks/' . $this->_app])
+            ? @unserialize($session['horde:logintasks/' . $this->_app])
+            : false;
     }
 
     /**
@@ -65,7 +66,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function storeTasklistInCache($tasklist)
     {
-        $_SESSION['horde_logintasks'][$this->_app] = serialize($tasklist);
+        $GLOBALS['session']['horde:logintasks/' . $this->_app] = serialize($tasklist);
     }
 
     /**
@@ -75,18 +76,20 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasks()
     {
+        global $session;
+
         $app_list = array($this->_app);
         $tasks = array();
 
         switch ($this->_app) {
         case 'horde':
-            if (isset($_SESSION['horde_logintasks']['horde'])) {
+            if (isset($session['horde:logintasks/horde'])) {
                 return $tasks;
             }
             break;
 
         default:
-            if (!isset($_SESSION['horde_logintasks']['horde'])) {
+            if (!isset($session['horde:logintasks/horde'])) {
                 array_unshift($app_list, 'horde');
             }
             break;
@@ -134,12 +137,14 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function markLastRun()
     {
+        global $session;
+
         $lasttasks = $this->getLastRun();
         $lasttasks[$this->_app] = time();
         if (($this->_app != 'horde') &&
-            !isset($_SESSION['horde_logintasks']['horde'])) {
+            !isset($session['horde:logintasks/horde'])) {
             $lasttasks['horde'] = time();
-            $_SESSION['horde_logintasks']['horde'] = true;
+            $session['horde:logintasks/horde'] = true;
         }
         $this->setLastRun($lasttasks);
     }
