@@ -35,7 +35,6 @@ about the current user&apos;s browser and its capabilities.
     <dir name="Horde">
      <dir name="Browser">
       <file name="Exception.php" role="php" />
-      <file name="Imode.php" role="php" />
      </dir> <!-- /lib/Horde/Browser -->
      <file name="Browser.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -63,7 +62,6 @@ about the current user&apos;s browser and its capabilities.
  <phprelease>
   <filelist>
    <install name="lib/Horde/Browser/Exception.php" as="Horde/Browser/Exception.php" />
-   <install name="lib/Horde/Browser/Imode.php" as="Horde/Browser/Imode.php" />
    <install name="lib/Horde/Browser.php" as="Horde/Browser.php" />
   </filelist>
  </phprelease>
