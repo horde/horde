@@ -717,10 +717,10 @@ Double Quotes:
   * Should be used in the gettext shortcut ``_("")`` format.
   * Use with care, as many correct looking strings are really invalid.
 
-The following are all incorrect::
+The following are incorrect::
 
     echo "Today is the $date['day'] of $date['month']"
-    $_SESSION[index] = $_SESSION["old_index"];
+    $foo[index] = $foo["old_index"];
 
 .. _sprintf: http://www.php.net/sprintf
 

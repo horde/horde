@@ -120,18 +120,19 @@ case 'getPage':
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
     $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
-} elseif (!empty($_SESSION['twitter_request_secret'])) {
+} elseif ($r_secret = $session->retrieve('twitter_request_secret'])) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $_SESSION['twitter_request_secret']);
+        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $r_secret);
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';
         require HORDE_TEMPLATES . '/common-footer.inc';
         exit;
     }
+
     /* Clear the temporary request secret */
-    $_SESSION['twitter_request_secret'] = '';
+    $session->purge('twitter_request_secret');
     if ($auth_token === false || empty($auth_token)) {
         // We had a request secret, but something went wrong. maybe navigated
         // back here between requests?

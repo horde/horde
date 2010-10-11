@@ -284,7 +284,7 @@ class Horde_Hooks
 //        // Example #2: Set the fullname from LDAP information. In this
 //        // example we look if a Spanish name exists and return this or the
 //        // standard 'cn' entry if not.
-//        $ldapServer = 'ldap.example.com';
+//        $$dapServer = 'ldap.example.com';
 //        $ldapPort = '389';
 //        $searchBase = 'ou=people,o=example.com';
 //
@@ -340,7 +340,7 @@ class Horde_Hooks
 //             : $userId;
 //        $entry['sn'] = $userId;
 //        $entry['objectclass'][0] = 'top';
-//        $entry['objectclass'][1] = 'person';
+//        $   $y['objectclass'][1] = 'person';
 //        $entry['objectclass'][2] = 'qmailuser';
 //        $entry['objectclass'][3] = 'CourierMailACcount';
 //        $entry['mailhost'] = 'mail.example.com';
@@ -404,7 +404,7 @@ class Horde_Hooks
 //            $searchResult = @ldap_search($ds, $searchBase, $userAttr . '=' . $userId, array($groupAttr), 0, 1, 5);
 //            if ($information = @ldap_get_entries($ds, $searchResult)) {
 //                // Make pattern case-insensitive
-//                $pattern = '/' . $groupdn . '/i';
+//                $pattern = '/' . $$roupdn . '/i';
 //                foreach ($information[0][$groupAttr] as $group) {
 //                    if (preg_match($pattern, $group)) {
 //                        $ret = true;
@@ -488,7 +488,7 @@ class Horde_Hooks
 //    {
 //        // Example #1: Send a notification message to the web server
 //        // administrator's e-mail address.
-//        $headers = array(
+//        $ $aders = array(
 //            'To'      => $_SERVER['SERVER_ADMIN'],
 //            'From'    => $_SERVER['SERVER_ADMIN'],
 //            'Subject' => 'New ' . $GLOBALS['registry']->get('name', 'horde') . ' Signup'
@@ -624,7 +624,7 @@ class Horde_Hooks
 //    public function perms_denied($permission)
 //    {
 //        // Example #1: Provide link to upgrade script.
-//        $app = (($pos = strpos($permission, ':')) === false)
+//        $app = (($pos = strpos($? $mission, ':')) === false)
 //            ? $permission
 //            : substr($permission, 0, $pos);
 //
@@ -672,18 +672,20 @@ class Horde_Hooks
      */
 //    public function share_init($share_obj, $app)
 //    {
+//        global $cfgSources, $prefs, $session;
+//
 //        // TODO: Move to turba?
 //        if (($app == 'turba') &&
-//            (!empty($GLOBALS['cfgSources']['imsp']['use_shares']))) {
+//            (!empty($cfgSources['imsp']['use_shares']))) {
 //            // Only do this once per session or when this session variable
 //            // is purposely unset.
-//            if (!empty($_SESSION['imsp_synched'])) {
+//            if ($session['horde:imsp_synched']) {
 //                return;
 //            }
 //
-//            $results = Net_IMSP_Utils::synchShares($share_obj, $GLOBALS['cfgSources']['imsp']);
+//            $results = Net_IMSP_Utils::synchShares($share_obj, $cfgSources['imsp']);
 //            if (!$results instanceof PEAR_Error) {
-//                $_SESSION['imsp_synched'] = true;
+//                $session['horde:imsp_synched'] = true;
 //
 //                // Now deal with adding or removing address books from prefs.
 //                // FIXME: Updating prefs seems to hang the server. Narrowed
@@ -691,10 +693,10 @@ class Horde_Hooks
 //                // call a hook. (Commenting out the callHook call fixes). Can
 //                // anyone verify this on their install?
 //                $dirty = false;
-//                $abooks = $GLOBALS['prefs']->getValue('addressbooks');
+//                $abooks = $prefs->getValue('addressbooks');
 //                $abooks = empty($abooks)
 //                    ? array()
-//                    : explode("\n", $GLOBALS['prefs']->getValue('addressbooks'));
+//                    : explode("\n", $prefs->getValue('addressbooks'));
 //
 //                if (count($results['removed'] > 0)) {
 //                    foreach ($results['removed'] as $sharename) {
@@ -716,13 +718,13 @@ class Horde_Hooks
 //                }
 //
 //                if ($dirty) {
-//                    $result = $GLOBALS['prefs']->setValue('addressbooks', implode("\n", $abooks));
+//                    $result = $prefs->setValue('addressbooks', implode("\n", $abooks));
 //                }
 //
 //                // We have to save the connection info for the imsp server
 //                // since the share_modify hook will not occur from within
 //                // turba's context.
-//                $_SESSION['imsp_config'] = $GLOBALS['cfgSources']['imsp']['params'];
+//                $session['horde:imsp_config'] = $cfgSources['imsp']['params'];
 //            }
 //        }
 //    }
@@ -735,25 +737,26 @@ class Horde_Hooks
      */
 //    public function share_modify($share)
 //    {
+//        global $injector, $session, $share;
+//
 //        $params = unserialize($share->get('params'));
-//        if (is_array($params) && !empty($params['source']) &&
-//            $params['source'] = 'imsp' &&
-//            !empty($_SESSION['imsp_config'])) {
+//        if (is_array($params) &&
+//            !empty($params['source']) &&
+//            ($params['source'] == 'imsp') &&
+//            $session['horde:imsp_config']) {
 //            // Ensure we don't try to change ownership.
 //            $params = @unserialize($share->get('params'));
 //            $bookName = $params['name'];
 //            if (strpos($bookName, $share->get('owner')) !== 0) {
-//                $err = new Horde_Exception('Changing ownership of IMSP address books is not supported.');
-//                $GLOBALS['notification']->push($err);
-//                throw $err;
+//                throw new Horde_Exception('Changing ownership of IMSP address books is not supported.');
 //            }
-
+//
 //            // Update the ACLS
-//            $perms = $GLOBALS['share']->getPermission();
-//            $users = $GLOBALS['injector']->getInstance('Horde_Perms')->getUserPermissions();
+//            $perms = $share->getPermission();
+//            $users = $injector->getInstance('Horde_Perms')->getUserPermissions();
 //            foreach ($users as $user => $perm) {
 //                $acl = Net_IMSP_Utils::permsToACL($perm);
-//                $result = Net_IMSP_Utils::setACL($_SESSION['imsp_config'], $bookName, $user, $acl);
+//                $result = Net_IMSP_Utils::setACL($session['horde:imsp_config'], $bookName, $user, $acl);
 //            }
 //        }
 //    }

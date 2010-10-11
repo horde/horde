@@ -580,7 +580,7 @@ class Horde_Prefs_Ui
                 //require HORDE_TEMPLATES . '/common-footer.inc';
                 exit;
             }
-            $_SESSION['twitter_request_secret'] = $results->secret;
+            $GLOBALS['session']->store($results->secret, false, 'twitter_request_secret');
 
             $t->set('appname', $registry->get('name'));
             $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');

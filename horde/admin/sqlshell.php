@@ -25,6 +25,8 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 <?php
 
 $db = $injector->getInstance('Horde_Db_Adapter');
+$q_cache_id = Horde_Session::DATA . ':sql_query_cache;array';
+$q_cache = $session[$q_cache_id];
 
 if (Horde_Util::getFormData('list-tables')) {
     $description = 'LIST TABLES';
@@ -32,16 +34,12 @@ if (Horde_Util::getFormData('list-tables')) {
     $command = null;
 } elseif ($command = trim(Horde_Util::getFormData('sql'))) {
     // Keep a cache of prior queries for convenience.
-    if (!isset($_SESSION['_sql_query_cache'])) {
-        $_SESSION['_sql_query_cache'] = array();
+    if (($key = array_search($command, $q_cache)) !== false) {
+        unset($q_cache[$key]);
     }
-    if (($key = array_search($command, $_SESSION['_sql_query_cache'])) !== false) {
-        unset($_SESSION['_sql_query_cache'][$key]);
-    }
-    array_unshift($_SESSION['_sql_query_cache'], $command);
-    while (count($_SESSION['_sql_query_cache']) > 20) {
-        array_pop($_SESSION['_sql_query_cache']);
-    }
+    $q_cache[] = $command;
+    $q_cache = array_slice($q_cache, -20);
+    $session[$q_cache_id] = $q_cache;
 
     // Parse out the query results.
     $result = $db->execute(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
@@ -92,11 +90,10 @@ if (isset($result)) {
 }
 ?>
 
-<?php if (isset($_SESSION['_sql_query_cache']) &&
-          count($_SESSION['_sql_query_cache'])): ?>
+<?php if (count($q_cache)): ?>
   <label for="query_cache" class="hidden"><?php echo ("Query cache") ?></label>
   <select id="query_cache" name="query_cache" onchange="document.sqlshell.sql.value = document.sqlshell.query_cache[document.sqlshell.query_cache.selectedIndex].value;">
-  <?php foreach ($_SESSION['_sql_query_cache'] as $query): ?>
+  <?php foreach ($q_cache as $query): ?>
     <option value="<?php echo htmlspecialchars($query) ?>"><?php echo htmlspecialchars($query) ?></option>
   <?php endforeach; ?>
   </select>
