@@ -25,16 +25,18 @@ class Horde_Core_Ui_Language {
      */
     static public function render()
     {
+        global $prefs, $registry, $session;
+
         $html = '';
 
-        if (!$GLOBALS['prefs']->isLocked('language')) {
-            $_SESSION['horde_language'] = $GLOBALS['registry']->preferredLang();
+        if (!$prefs->isLocked('language')) {
+            $session['horde:language'] = $registry->preferredLang();
             $html = sprintf('<form name="language" action="%s">',
-                            Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/language.php', false, -1));
+                            Horde::url($registry->get('webroot', 'horde') . '/services/language.php', false, -1));
             $html .= '<input type="hidden" name="url" value="' . @htmlspecialchars(Horde::selfUrl(false, false, true)) . '" />';
             $html .= '<select name="new_lang" onchange="document.language.submit()">';
-            foreach ($GLOBALS['registry']->nlsconfig['languages'] as $key => $val) {
-                $sel = ($key == $_SESSION['horde_language']) ? ' selected="selected"' : '';
+            foreach ($registry->nlsconfig['languages'] as $key => $val) {
+                $sel = ($key == $session['horde:language']) ? ' selected="selected"' : '';
                 $html .= "<option value=\"$key\"$sel>$val</option>";
             }
             $html .= '</select></form>';

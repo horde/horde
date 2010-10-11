@@ -2112,8 +2112,8 @@ class Horde_Registry
         } elseif (!empty($lang) && $this->isValidLang($lang)) {
             $language = $lang;
         /* Check if we have a language set in the session */
-        } elseif (isset($_SESSION['horde_language'])) {
-            $language = $_SESSION['horde_language'];
+        } elseif (isset($GLOBALS['session']['horde:language'])) {
+            $language = $GLOBALS['session']['horde:language'];
         /* Use site-wide default, if one is defined */
         } elseif (!empty($this->nlsconfig['defaults']['language'])) {
             $language = $this->nlsconfig['defaults']['language'];
@@ -2184,7 +2184,7 @@ class Horde_Registry
             $lang = $this->preferredLang();
         }
 
-        $_SESSION['horde_language'] = $lang;
+        $GLOBALS['session']['horde:language'] = $lang;
 
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
