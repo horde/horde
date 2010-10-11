@@ -77,6 +77,6 @@ class Horde_Translation_Gettext implements Horde_Translation
     {
         return $this->_gettext
           ? dngettext($this->_domain, $singular, $plural, $number)
-          : ($number == 1 ? $singular : $plural);
+          : ($number > 1 ? $plural : $singular);
     }
 }
