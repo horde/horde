@@ -397,12 +397,12 @@ class Horde_Registry
 
         /* Initialize notification object. Always attach status listener by
          * default. Default status listener can be overriden through the
-         * $_SESSION['horde_notification']['override'] variable. */
+         * 'notification_override' session variable. */
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         if (Horde_Util::getFormData('ajaxui') &&
-            isset($_SESSION['horde_notification']['override'])) {
-            require_once $_SESSION['horde_notification']['override'][0];
-            $GLOBALS['notification']->attach('status', null, $_SESSION['horde_notification']['override'][1]);
+            ($override = $session['horde:notification_override'])) {
+            require_once $override[0];
+            $GLOBALS['notification']->attach('status', null, $override[1]);
         } else {
             $GLOBALS['notification']->attach('status');
         }

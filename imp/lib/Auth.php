@@ -486,8 +486,7 @@ class IMP_Auth
 
         /* Indicate that notifications should use AJAX mode. */
         if ($session['imp:view'] == 'dimp') {
-            // TODO
-            $_SESSION['horde_notification']['override'] = array(
+            $GLOBALS['session']['horde:notification_override'] = array(
                 IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',
                 'IMP_Notification_Listener_AjaxStatus'
             );
