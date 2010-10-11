@@ -1603,22 +1603,22 @@ class Horde_Registry
      */
     public function clearAuth($destroy = true)
     {
+        global $session;
+
         /* Do logout tasks. */
-        if (!empty($_SESSION['horde_auth']['app'])) {
-            foreach (array_keys($_SESSION['horde_auth']['app']) as $app) {
-                try {
-                    $this->callAppMethod($app, 'logout');
-                } catch (Horde_Exception $e) {}
-            }
+        foreach (array_keys($session['horde:auth_app/']) as $app) {
+            try {
+                $this->callAppMethod($app, 'logout');
+            } catch (Horde_Exception $e) {}
         }
 
-        unset($_SESSION['horde_auth']);
+        unset($session['horde:auth'], $session['horde:auth_app/']);
 
         /* Remove the user's cached preferences if they are present. */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
 
         if ($destroy) {
-            $GLOBALS['session']->destroy();
+            $session->destroy();
         }
     }
 
@@ -1678,7 +1678,7 @@ class Horde_Registry
         /* Check for cached authentication results. */
         if ($this->getAuth() &&
             (($app == 'horde') ||
-             isset($_SESSION['horde_auth']['app'][$app]))) {
+             isset($GLOBALS['session']['horde:auth_app/' . $app]))) {
             return $this->checkExistingAuth();
         }
 
@@ -1825,17 +1825,18 @@ class Horde_Registry
      */
     public function getAuth($format = null)
     {
+        global $session;
+
         if ($format == 'original') {
-            return empty($_SESSION['horde_auth']['authId'])
-                ? false
-                : $_SESSION['horde_auth']['authId'];
+            return isset($session['horde:auth/authId'])
+                ? $session['horde:auth/authId']
+                : false;
         }
 
-        if (empty($_SESSION['horde_auth']['userId'])) {
+        $user = $session['horde:auth/userId'];
+        if (is_null($user)) {
             return false;
         }
-
-        $user = $_SESSION['horde_auth']['userId'];
 
         switch ($format) {
         case 'bare':
@@ -1860,7 +1861,7 @@ class Horde_Registry
      */
     public function passwordChangeRequested()
     {
-        return !empty($_SESSION['horde_auth']['change']);
+        return (bool)$GLOBALS['session']['horde:auth/change'];
     }
 
     /**
@@ -1900,6 +1901,8 @@ class Horde_Registry
      */
     public function setAuthCredential($credential, $value = null, $app = null)
     {
+        global $session;
+
         if (!$this->getAuth()) {
             return;
         }
@@ -1921,15 +1924,12 @@ class Horde_Registry
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
         $entry = $secret->write($secret->getKey('auth'), serialize($credentials));
 
-        if (isset($_SESSION['horde_auth']['credentials'])) {
-            $base_app = $_SESSION['horde_auth']['credentials'];
-            if (isset($_SESSION['horde_auth']['app'][$base_app]) &&
-                ($_SESSION['horde_auth']['app'][$base_app] == $entry)) {
-                $entry = null;
-            }
+        if (($base_app = $session['horde:auth/credentials']) &&
+            ($session['horde:auth_app/' . $base_app] == $entry)) {
+            $entry = null;
         }
 
-        $_SESSION['horde_auth']['app'][$app] = $entry;
+        $session['horde:auth_app/' . $app] = $entry;
     }
 
     /**
@@ -1941,48 +1941,51 @@ class Horde_Registry
      */
     protected function _getAuthCredentials($app)
     {
-        if (!isset($_SESSION['horde_auth']['app'])) {
+        global $session;
+
+        $base_app = $session['horde:auth/credentials'];
+        if (is_null($base_app)) {
             return false;
         }
 
-        $base_app = $_SESSION['horde_auth']['credentials'];
         if (is_null($app)) {
             $app = $base_app;
         }
 
-        if (empty($_SESSION['horde_auth']['app'][$app])) {
+        if (!isset($session['horde:auth_app/' . $app])) {
             return ($base_app != $app)
                 ? $this->_getAuthCredentials($app)
                 : false;
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return @unserialize($secret->read($secret->getKey('auth'), $_SESSION['horde_auth']['app'][$app]));
+        return @unserialize($secret->read($secret->getKey('auth'), $session['horde:auth_app/' . $app]));
     }
 
     /**
-     * Sets a variable in the session saying that authorization has succeeded,
+     * Sets data in the session saying that authorization has succeeded,
      * note which userId was authorized, and note when the login took place.
      *
      * If a user name hook was defined in the configuration, it gets applied
      * to the $userId at this point.
      *
-     * Horde authentication data is stored in the session in the 'horde_auth'
-     * array key.  That key has the following structure:
+     * Horde authentication data is stored in the session in the 'auth' and
+     * 'auth_app' array keys.  The 'auth' key has the following members:
      * <pre>
-     * 'app' - (array) Application-specific authentication. Keys are the
-     *         app names, values are an array containing credentials. If true,
-     *         application does not require any specific credentials.
-     * 'authId' - (string) The username used during the original
-                  authentication.
+     * 'authId' - (string) The username used during the original auth.
      * 'browser' - (string) The remote browser string.
      * 'change' - (boolean) Is a password change requested?
-     * 'credentials' - (string) The 'app' entry that contains the Horde
+     * 'credentials' - (string) The 'auth_app' entry that contains the Horde
      *                 credentials.
      * 'remoteAddr' - (string) The remote IP address of the user.
      * 'timestamp' - (integer) The login time.
      * 'userId' - (string) The unique Horde username.
      * </pre>
+     *
+     * The auth_app key contains application-specific authentication.
+     * Session subkeys are the app names, values are an array containing
+     * credentials. If the value is true, application does not require any
+     * specific credentials.
      *
      * @param string $authId      The userId that has been authorized.
      * @param array $credentials  The credentials of the user.
@@ -1997,7 +2000,11 @@ class Horde_Registry
      */
     public function setAuth($authId, $credentials, array $options = array())
     {
-        $app = empty($options['app']) ? 'horde' : $options['app'];
+        global $session;
+
+        $app = empty($options['app'])
+            ? 'horde'
+            : $options['app'];
 
         if ($this->getAuth()) {
             /* Store app credentials. */
@@ -2005,16 +2012,17 @@ class Horde_Registry
             return;
         }
 
-        $_SESSION['horde_auth'] = array(
-            'app' => array(),
-            'authId' => $authId,
-            'browser' => $GLOBALS['browser']->getAgentString(),
-            'change' => !empty($options['change']),
-            'credentials' => $app,
-            'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
-            'timestamp' => time(),
-            'userId' => $this->convertUsername(trim($authId), true)
-        );
+        $session['horde:auth/authId'] = $authId;
+        $session['horde:auth/browser'] = $GLOBALS['browser']->getAgentString();
+        if (!empty($options['change'])) {
+            $session['horde:auth/change'] = 1;
+        }
+        $session['horde:auth/credentials'] = $app;
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $session['horde:auth/remoteAddr'] = $_SERVER['REMOTE_ADDR'];
+        }
+        $session['horde:auth/timestamp'] = time();
+        $session['horde:auth/userId'] = $this->convertUsername(trim($authId), true);
 
         $this->setAuthCredential($credentials, null, $app);
 
@@ -2033,17 +2041,19 @@ class Horde_Registry
      */
     public function checkExistingAuth()
     {
+        global $session;
+
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
-            !empty($_SESSION['horde_auth']['remoteAddr']) &&
-            ($_SESSION['horde_auth']['remoteAddr'] != $_SERVER['REMOTE_ADDR'])) {
+            ($remoteaddr = $session['horde:auth/remoteAddr']) &&
+            ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
             $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
             return false;
         }
 
         if (!empty($GLOBALS['conf']['auth']['checkbrowser']) &&
-            ($_SESSION['horde_auth']['browser'] != $GLOBALS['browser']->getAgentString())) {
+            ($session['horde:auth/browser'] != $GLOBALS['browser']->getAgentString())) {
             $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
             return false;
         }
