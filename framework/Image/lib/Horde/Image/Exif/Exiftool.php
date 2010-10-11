@@ -21,12 +21,11 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 
     public function __construct($params)
     {
-        parent::__construct($params);
-        if (!empty($this->_params['exiftool'])) {
-            $this->_exiftool = $this->_params['exiftool'];
-        } else {
+        if (empty($this->_params['exiftool'])) {
             throw new InvalidArgumentException('Missing required exiftool path');
         }
+        parent::__construct($params);
+        $this->_exiftool = $this->_params['exiftool'];
     }
 
     /**
@@ -51,8 +50,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
         $command = '-j' . $tags . ' ' . $image;
         $results = json_decode($this->_execute($command));
         if (is_array($results)) {
-            $exif_results = $this->_processData((array)array_pop($results));
-            return $exif_results;
+            return $this->_processData((array)array_pop($results));
         }
 
         throw new Horde_Image_Exception('Unknown error running exiftool command');

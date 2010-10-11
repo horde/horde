@@ -14,14 +14,11 @@ class Horde_Image_Exif_Php extends Horde_Image_Exif_Base
 {
     public function getData($image)
     {
-        $exif = @exif_read_data($image, 0, false);
-
-        return $this->_processData($exif);
+        return $this->_processData(@exif_read_data($image, 0, false));
     }
 
     public function supportedCategories()
     {
         return array('EXIF');
     }
-
 }
