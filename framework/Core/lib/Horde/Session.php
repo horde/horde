@@ -148,6 +148,29 @@ class Horde_Session implements ArrayAccess
         $this->_cleansession = true;
     }
 
+    /**
+     * Return the list of subkeys for a master key.
+     *
+     * @param object $ob  See _parseOffset().
+     *
+     * @return array  Subkeyname (keys) and session variable name (values).
+     */
+    private function _subkeys($ob)
+    {
+        $ret = array();
+
+        if (isset($_SESSION[$ob->app]) &&
+            ($ob->name[strlen($ob->name) - 1] == '/')) {
+            foreach (array_keys($_SESSION[$ob->app]) as $k) {
+                if (strpos($k, $ob->name) === 0) {
+                    $ret[substr($k, strlen($ob->name))] = $k;
+                }
+            }
+        }
+
+        return $ret;
+    }
+
     /* Session object storage. */
 
     /**
@@ -238,6 +261,15 @@ class Horde_Session implements ArrayAccess
         $ob = $this->_parseOffset($offset);
 
         if (!isset($_SESSION[$ob->app][$ob->name])) {
+            $subkeys = $this->_subkeys($ob);
+            if (!empty($subkeys)) {
+                $ret = array();
+                foreach ($subkeys as $k => $v) {
+                    $ret[$k] = $this[$v];
+                }
+                return $ret;
+            }
+
             switch ($ob->type) {
             case 'array':
                 return array();
@@ -322,6 +354,10 @@ class Horde_Session implements ArrayAccess
                     $_SESSION[self::PRUNE][$ob->key],
                     $_SESSION[self::SERIALIZED][$ob->key]
                 );
+            } else {
+                foreach ($this->_subkeys($ob) as $val) {
+                    unset($this[$val]);
+                }
             }
         }
     }
@@ -332,13 +368,16 @@ class Horde_Session implements ArrayAccess
      * Parses a session variable identifier.
      * Format:
      * <pre>
-     * [app:]name[;default]
+     * [app:]name[/subkey][;default]
      *
      * app - Application name.
      *       DEFAULT: horde
      * default - Default value type to return if value doesn't exist.
      *           Valid types: array, object
      *           DEFAULT: none
+     * subkey - Indicate that this entry is a subkey of the master name key.
+     *          Requesting a session key with a trailing '/' will retrieve all
+     *          subkeys of the given master key.
      * </pre>
      *
      * @return object  Object with the following properties:
