@@ -752,6 +752,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
      */
     public function getHashForPath($path)
     {
+        $this->_ensureInitialized();
         return $this->_files[$path]['dstSha1'];
     }
 
