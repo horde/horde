@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs
+class Horde_Prefs implements ArrayAccess
 {
     /** Preference is administratively locked. */
     const LOCKED = 1;
@@ -805,6 +805,28 @@ class Horde_Prefs
                 }
             }
         }
+    }
+
+    /* ArrayAccess methods. */
+
+    public function offsetExists($offset)
+    {
+        return !is_null($this->getValue($offset));
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->getValue($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->setValue($offset, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $this->remove($offset);
     }
 
 }
