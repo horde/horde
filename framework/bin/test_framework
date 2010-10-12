@@ -15,8 +15,6 @@ require_once 'PHPUnit/TextUI/Command.php';
 set_include_path(dirname(dirname(dirname(__FILE__))) . '/lib:' . get_include_path());
 require 'Horde/Autoloader/Default.php';
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-
 $_SERVER['argv'][] = 'horde_test_runner';
 $_SERVER['argv'][] = __FILE__;
 define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
