@@ -284,7 +284,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
         /* This might be a long running operation. */
-        if ($vars->initial) {
+        if ($this->_vars->initial) {
             session_write_close();
         }
 
@@ -361,7 +361,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->quota = $quota;
         }
 
-        if ($vars->initial) {
+        if ($this->_vars->initial) {
             session_start();
         }
 
