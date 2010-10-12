@@ -4,16 +4,22 @@
 
  - Document usage
 
- - Add module for an initial empty PEAR template
-
  - Fix variable replacements when updating the package.xml
 
+ - Do the distribution runner.
+
+ - Add module for generating component documentation.
+
  - Produce an HTML dependency graph.
+
+ - Add module for an initial empty PEAR template
 
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
  - Add a release helper module.
+
+ - Allow downloading documentation from the wiki.
 
  - Maybe prefix the job names of packages from the framework with Horde_
 
