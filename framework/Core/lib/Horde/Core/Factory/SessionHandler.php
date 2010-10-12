@@ -69,6 +69,10 @@ class Horde_Core_Factory_SessionHandler
         }
 
         $params['logger'] = $logger;
+        $params['modified'] = array(
+            'get' => array($this, 'getModified'),
+            'set' => array($this, 'setModified')
+        );
         $params['parse'] = array($this, 'readSessionData');
 
         $driver = basename(strtolower($driver));
@@ -79,6 +83,20 @@ class Horde_Core_Factory_SessionHandler
         }
 
         throw new Horde_SessionHandler_Exception('Driver not found: ' . $driver);
+    }
+
+    /**
+     */
+    public function getModified()
+    {
+        return $GLOBALS['session']['horde:session_mod'];
+    }
+
+    /**
+     */
+    public function setModified($date)
+    {
+        $GLOBALS['session']['horde:session_mod'] = $date;
     }
 
 }

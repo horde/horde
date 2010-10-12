@@ -50,19 +50,17 @@ abstract class Horde_SessionHandler
     protected $_logger;
 
     /**
-     * Session variable name.
-     *
-     * @var string
-     */
-    protected $_session = 'horde_sh';
-
-    /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
      * 'logger' - (Horde_Log_Logger) A logger instance.
      *            DEFAULT: No logging
+     * 'modified' - (array) Callbacks used to store the session last modified
+     *              value.  Needs to define two keys: 'get' and 'set'. 'get'
+     *              returns the last modified value, 'set' receives the last
+     *              modified value as the only parameter.
+     *              DEFAULT: Not saved
      * 'noset' - (boolean) If true, don't set the save handler.
      *           DEFAULT: false
      * 'parse' - (callback) A callback function that parses session
@@ -83,7 +81,9 @@ abstract class Horde_SessionHandler
 
         $this->_params = $params;
 
-        register_shutdown_function(array($this, 'shutdown'));
+        if (isset($this->_params['modified'])) {
+            register_shutdown_function(array($this, 'shutdown'));
+        }
 
         if (empty($this->_params['noset'])) {
             ini_set('session.save_handler', 'user');
@@ -124,10 +124,8 @@ abstract class Horde_SessionHandler
     public function shutdown()
     {
         $curr_time = time();
-
-        if (!isset($_SESSION[$this->_session]) ||
-            ($curr_time >= $_SESSION[$this->_session])) {
-            $_SESSION[$this->_session] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+        if ($curr_time >= intval(call_user_func($this->_params['modified']['get']))) {
+            call_user_func($this->_params['modified']['set'], $curr_time + (ini_get('session.gc_maxlifetime') / 2));
             $this->_force = true;
         }
     }
