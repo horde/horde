@@ -100,43 +100,64 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callStrictComponents();
             break;
-        case 'calling the package with the cisetup, pearrc options and path':
+        case 'calling the package with the cisetup, toolsdir options and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--toolsdir=/DUMMY_TOOLS',
+                '--cisetup=' . $arguments[0],
+                $arguments[1]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the cisetup, toolsdir, pearrc options and path':
             $tmp = $this->_getTemporaryDirectory();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--cisetup=' . $tmp,
+                '--toolsdir=/DUMMY_TOOLS',
                 '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
                 $arguments[0]
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the ciprebuild, pearrc options and path':
+        case 'calling the package with the ciprebuild option and path':
             $tmp = $this->_getTemporaryDirectory();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--ciprebuild=' . $tmp,
-                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
                 $arguments[0]
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the cisetup, pearrc, template options and path':
+        case 'calling the package with the ciprebuild, toolsdir option and path':
+            $tmp = $this->_getTemporaryDirectory();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--ciprebuild=' . $tmp,
+                '--toolsdir=/DUMMY_TOOLS',
+                $arguments[0]
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the cisetup, toolsdir, pearrc, template options and path':
             $tmp = $this->_getTemporaryDirectory();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--cisetup=' . $tmp,
+                '--toolsdir=/DUMMY_TOOLS',
                 '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
                 '--templatedir=' . dirname(__FILE__) . '/fixture/templates',
                 $arguments[0]
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
-        case 'calling the package with the ciprebuild, pearrc, template options and path':
+        case 'calling the package with the ciprebuild, toolsdir, template options and path':
             $tmp = $this->_getTemporaryDirectory();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--ciprebuild=' . $tmp,
-                '--pearrc=' . $tmp . DIRECTORY_SEPARATOR . '.pearrc',
+                '--toolsdir=/DUMMY_TOOLS',
                 '--templatedir=' . dirname(__FILE__) . '/fixture/templates',
                 $arguments[0]
             );

@@ -42,6 +42,13 @@ class Components_Pear_Package
     private $_environment;
 
     /**
+     * The path to the package XML file.
+     *
+     * @param string
+     */
+    private $_package_xml_path;
+
+    /**
      * The package representation.
      *
      * @param PEAR_PackageFile_v2
@@ -86,18 +93,13 @@ class Components_Pear_Package
     /**
      * Define the package to work on.
      *
-     * @param string $package_xml_patch Path to the package.xml file.
+     * @param string $package_xml_path Path to the package.xml file.
      *
      * @return NULL
      */
-    public function setPackage($package_xml_path)
+    public function setPackageXml($package_xml_path)
     {
-        $config = $this->getEnvironment()->getPearConfig();
-        $pkg = new PEAR_PackageFile($config);
-        $this->_package_file = $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL);
-        if ($this->_package_file instanceOf PEAR_Error) {
-            throw new Components_Exception($this->_package_file->getMessage());
-        }
+        $this->_package_xml_path = $package_xml_path;
     }
 
     /**
@@ -107,10 +109,27 @@ class Components_Pear_Package
      */
     public function getPackageFile()
     {
-        if ($this->_environment === null || $this->_package_file === null) {
+        if ($this->_environment === null || $this->_package_xml_path === null) {
             throw new Components_Exception('You need to set the environment and the path to the package file first!');
+        }
+        if ($this->_package_file === null) {
+            $config = $this->getEnvironment()->getPearConfig();
+            $pkg = new PEAR_PackageFile($config);
+            $this->_package_file = $pkg->fromPackageFile($this->_package_xml_path, PEAR_VALIDATE_NORMAL);
+            if ($this->_package_file instanceOf PEAR_Error) {
+                throw new Components_Exception($this->_package_file->getMessage());
+            }
         }
         return $this->_package_file;
     }
 
+    /**
+     * Return the description for this package.
+     *
+     * @return string The package description.
+     */
+    public function getDescription()
+    {
+        return $this->getPackageFile()->getDescription();
+    }
 }

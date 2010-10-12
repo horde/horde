@@ -138,6 +138,11 @@ class Components_Pear_InstallLocation
 
     public function createPearConfig()
     {
+        if (empty($this->_config_file)) {
+            throw new Components_Exception(
+                'Set the path to the PEAR environment first!'
+            );
+        }
         if (file_exists($this->_config_file)) {
             throw new Components_Exception(
                 sprintf(
@@ -162,16 +167,20 @@ class Components_Pear_InstallLocation
 
     public function getPearConfig()
     {
+        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
+            $GLOBALS['_PEAR_Config_instance'] = false;
+        }
         if (empty($this->_config_file)) {
-            throw new Components_Exception(
-                'Set the path to the install location first!'
-            );
+            $config = PEAR_Config::singleton();
+            if (!$config->validConfiguration()) {
+                throw new Components_Exception(
+                    'Set the path to the PEAR environment first!'
+                );
+            }
+            return $config;
         }
         if (!file_exists($this->_config_file)) {
             $this->createPearConfig();
-        }
-        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
-            $GLOBALS['_PEAR_Config_instance'] = false;
         }
         return PEAR_Config::singleton($this->_config_file);
     }

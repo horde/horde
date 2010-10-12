@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Module_PearPackageXml
-implements Components_Module
+extends Components_Module_Base
 {
     public function getOptionGroupTitle()
     {
@@ -68,106 +68,7 @@ implements Components_Module
         $options = $config->getOptions();
         if (!empty($options['packagexml']) ||
             !empty($options['updatexml'])) {
-            $this->run($config);
+            $this->_dependencies->getRunnerPearPackageXml()->run();
         }
-    }
-
-    public function run(Components_Config $config)
-    {
-        $arguments = $config->getArguments();
-        $package_file = $arguments[0] . '/package.xml';
-
-        $pear = new PEAR();
-        $pear->setErrorHandling(PEAR_ERROR_DIE);
-
-        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
-            $GLOBALS['_PEAR_Config_instance'] = false;
-        }
-
-        $package = PEAR_PackageFileManager2::importOptions(
-            $package_file,
-            array(
-                'packagedirectory' => $arguments[0],
-                'filelistgenerator' => 'file',
-                'clearcontents' => false,
-                'clearchangelog' => false,
-                'simpleoutput' => true,
-                'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                'include' => '*',
-                'dir_roles' =>
-                array(
-                    'doc'       => 'doc',
-                    'example'   => 'doc',
-                    'js'        => 'horde',
-                    'lib'       => 'php',
-                    'migration' => 'data',
-                    'script'    => 'script',
-                    'test'      => 'test',
-                ),
-            )
-        );
-
-        if ($package instanceOf PEAR_Error) {
-            throw new Components_Exception($package->getMessage());
-        }
-        /**
-         * @todo: Looks like this throws away any <replace /> tags we have in
-         * the content list. Needs to be fixed.
-         */
-        $package->generateContents();
-
-        /**
-         * This is required to clear the <phprelease><filelist></filelist></phprelease>
-         * section.
-         */
-        $package->setPackageType('php');
-
-        $contents = $package->getContents();
-        $files = $contents['dir']['file'];
-
-        foreach ($files as $file) {
-            $components = explode('/', $file['attribs']['name'], 2);
-            switch ($components[0]) {
-            case 'doc':
-            case 'example':
-            case 'lib':
-            case 'test':
-            case 'data':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $components[1]
-                );
-            break;
-            case 'js':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $file['attribs']['name']
-                );
-            break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
-                $package->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
-                );
-                break;
-            case 'script':
-                $filename = basename($file['attribs']['name']);
-                if (substr($filename, strlen($filename) - 4)) {
-                    $filename = substr($filename, 0, strlen($filename) - 4);
-                }
-                $package->addInstallAs(
-                    $file['attribs']['name'], $filename
-                );
-                break;
-            }
-        }
-
-        $options = $config->getOptions();
-        if (!empty($options['packagexml'])) {
-            $package->debugPackageFile();
-        }
-        if (!empty($options['updatexml'])) {
-            $package->writePackageFile();
-        }
-
     }
 }

@@ -58,11 +58,25 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function theCisetupOptionsFailsWithoutAValidPearrcOption()
+    public function theCisetupOptionsFailsWithoutAValidToolsdirOption()
     {
         $this->given('the default Components setup')
             ->when(
                 'calling the package with the cisetup option and paths',
+                'test',
+                dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
+            )
+            ->then('the call will fail with', 'You are required to set the path to a PEAR tool environment.');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theCisetupOptionsFailsWithoutAValidPearrcOption()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the cisetup, toolsdir options and path',
                 'test',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
             )
@@ -76,7 +90,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when(
-                'calling the package with the cisetup, pearrc options and path',
+                'calling the package with the cisetup, toolsdir, pearrc options and path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
             )
             ->then('the CI configuration will be installed.');
@@ -85,11 +99,24 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function theCisetupOptionCreatesATemplateBaseCiBuildScriptForAComponent()
+    public function theCiprebuildOptionsFailsWithoutAValidToolsdirOption()
     {
         $this->given('the default Components setup')
             ->when(
-                'calling the package with the ciprebuild, pearrc options and path',
+                'calling the package with the ciprebuild option and path',
+                dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
+            )
+            ->then('the call will fail with', 'You are required to set the path to a PEAR tool environment.');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theCiprebuildOptionCreatesATemplateBaseCiBuildScriptForAComponent()
+    {
+        $this->given('the default Components setup')
+            ->when(
+                'calling the package with the ciprebuild, toolsdir option and path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
             )
             ->then('the CI build script will be installed.');
@@ -102,7 +129,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when(
-                'calling the package with the cisetup, pearrc, template options and path',
+                'calling the package with the cisetup, toolsdir, pearrc, template options and path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
             )
             ->then('the CI configuration will be installed according to the specified template.');
@@ -115,7 +142,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when(
-                'calling the package with the ciprebuild, pearrc, template options and path',
+                'calling the package with the ciprebuild, toolsdir, template options and path',
                 dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture/simple'
             )
             ->then('the CI build script will be installed according to the specified template.');

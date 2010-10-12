@@ -37,6 +37,7 @@ implements Components_Dependencies
     public function __construct()
     {
         parent::__construct(new Horde_Injector_TopLevel());
+        $this->setInstance('Components_Dependencies', $this);
     }
 
     /**
@@ -89,6 +90,16 @@ implements Components_Dependencies
     public function getRunnerInstaller()
     {
         return $this->getInstance('Components_Runner_Installer');
+    }
+
+    /**
+     * Returns the package XML handler for a package.
+     *
+     * @return Components_Runner_PearPackageXml The package XML handler.
+     */
+    public function getRunnerPearPackageXml()
+    {
+        return $this->getInstance('Components_Runner_PearPackageXml');
     }
 
     /**

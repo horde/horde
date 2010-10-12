@@ -44,83 +44,66 @@ class Components_Runner_CiPrebuild
     private $_config_application;
 
     /**
-     * The package handler.
+     * The factory for PEAR handlers.
      *
-     * @var Components_Pear_Package
+     * @var Components_Factory
      */
-    private $_package;
+    private $_factory;
 
     /**
      * Constructor.
      *
-     * @param Components_Config               $config   The configuration for the
-     *                                                  current job.
-     * @param Components_Config_Application   $cfgapp   The application
-     *                                                  configuration.
-     * @param Components_Pear_InstallLocation $location Represents the install
-     *                                                  location and its
-     *                                                  corresponding configuration.
-     * @param Components_Pear_Package         $package  Package handler.
+     * @param Components_Config              $config  The configuration for the
+     *                                                current job.
+     * @param Components_Config_Application  $cfgapp  The application
+     *                                                configuration.
+     * @param Components_Pear_Factory        $factory Generator for all
+     *                                                required PEAR components.
      */
     public function __construct(
         Components_Config $config,
         Components_Config_Application $cfgapp,
-        Components_Pear_InstallLocation $location,
-        Components_Pear_Package $package
+        Components_Pear_Factory $factory
     ) {
         $this->_config             = $config;
         $this->_config_application = $cfgapp;
-        $this->_location           = $location;
-        $this->_package            = $package;
+        $this->_factory            = $factory;
     }
 
     public function run()
     {
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
-        $pkgfile = $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml';
-        $name = basename($arguments[0]);
-        if (basename(dirname($arguments[0])) == 'framework') {
-            $origin = 'framework' . DIRECTORY_SEPARATOR . $name;
-        } else {
-            $origin = $name;
-        }
-        $test_path = strtr($name, '_', '/');
 
         if (!isset($options['toolsdir'])) {
-            $options['toolsdir'] = 'php-hudson-tools/workspace/pear/pear';
-        }
-        if (!isset($options['pearrc'])) {
             throw new Components_Exception(
-                'You are required to set the path to a PEAR environment for this package'
+                'You are required to set the path to a PEAR tool environment.'
             );
         }
 
-        $this->_location->setLocation(
-            dirname($options['pearrc']),
-            basename($options['pearrc'])
-        );
-        $this->_package->setEnvironment($this->_location);
-        $this->_package->setPackage($pkgfile);
-        $description = $this->_package->getPackageFile()->getDescription();
-
-        $in = file_get_contents(
-            $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-build.xml.template',
-            'r'
-        );
         file_put_contents(
             $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'build.xml',
-            sprintf($in, $options['toolsdir'])
+            sprintf(
+                file_get_contents(
+                    $this->_config_application->getTemplateDirectory()
+                    . DIRECTORY_SEPARATOR . 'hudson-component-build.xml.template',
+                    'r'
+                ),
+                $options['toolsdir']
+            )
         );
-        $in = file_get_contents(
-            $this->_config_application->getTemplateDirectory()
-            . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml.template',
-            'r'
-        );
+
         file_put_contents(
             $options['ciprebuild'] . DIRECTORY_SEPARATOR . 'phpunit.xml',
-            sprintf($in, $name, $test_path)
+            sprintf(
+                file_get_contents(
+                    $this->_config_application->getTemplateDirectory()
+                    . DIRECTORY_SEPARATOR . 'hudson-component-phpunit.xml.template',
+                    'r'
+                ),
+                basename($arguments[0]),
+                strtr(basename($arguments[0]), '_', '/')
+            )
         );
     }
 }

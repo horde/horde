@@ -67,6 +67,13 @@ interface Components_Dependencies
     public function getRunnerInstaller();
 
     /**
+     * Returns the package XML handler for a package.
+     *
+     * @return Components_Runner_PearPackageXml The package XML handler.
+     */
+    public function getRunnerPearPackageXml();
+
+    /**
      * Returns the output handler.
      *
      * @return Components_Output The output handler.
