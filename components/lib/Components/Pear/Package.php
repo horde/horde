@@ -56,6 +56,13 @@ class Components_Pear_Package
     private $_package_file;
 
     /**
+     * The writeable package representation.
+     *
+     * @param PEAR_PackageFileManager2
+     */
+    private $_package_rw_file;
+
+    /**
      * Constructor.
      *
      * @param Component_Output $output The output handler.
@@ -107,11 +114,9 @@ class Components_Pear_Package
      *
      * @return PEAR_PackageFile
      */
-    public function getPackageFile()
+    private function _getPackageFile()
     {
-        if ($this->_environment === null || $this->_package_xml_path === null) {
-            throw new Components_Exception('You need to set the environment and the path to the package file first!');
-        }
+        $this->_checkSetup();
         if ($this->_package_file === null) {
             $config = $this->getEnvironment()->getPearConfig();
             $pkg = new PEAR_PackageFile($config);
@@ -124,12 +129,153 @@ class Components_Pear_Package
     }
 
     /**
+     * Return a writeable PEAR Package representation.
+     *
+     * @return PEAR_PackageFileManager2
+     */
+    private function _getPackageRwFile()
+    {
+        $this->_checkSetup();
+        if ($this->_package_rw_file === null) {
+            /**
+             * Ensure we setup the PEAR_Config according to the PEAR environment
+             * the user set.
+             */
+            $this->getEnvironment()->getPearConfig();
+
+            if (!class_exists('PEAR_PackageFileManager2')) {
+                throw new Components_Exception(
+                    'The Package "PEAR_PackageFileManager2" is missing in the PEAR environment. Please install it so that you can run this action.'
+                );
+            }
+
+            $this->_package_rw_file = PEAR_PackageFileManager2::importOptions(
+                $this->_package_xml_path,
+                array(
+                    'packagedirectory' => dirname($this->_package_xml_path),
+                    'filelistgenerator' => 'file',
+                    'clearcontents' => false,
+                    'clearchangelog' => false,
+                    'simpleoutput' => true,
+                    'ignore' => array('*~', 'conf.php', 'CVS/*'),
+                    'include' => '*',
+                    'dir_roles' =>
+                    array(
+                        'doc'       => 'doc',
+                        'example'   => 'doc',
+                        'js'        => 'horde',
+                        'lib'       => 'php',
+                        'migration' => 'data',
+                        'script'    => 'script',
+                        'test'      => 'test',
+                    ),
+                )
+            );
+
+            if ($this->_package_rw_file instanceOf PEAR_Error) {
+                throw new Components_Exception($this->_package_file->getMessage());
+            }
+        }
+        return $this->_package_rw_file;
+    }
+
+    /**
+     * Validate that the required parameters for providing the package definition are set.
+     *
+     * @return NULL
+     *
+     * @throws Components_Exception In case some settings are missing.
+     */
+    private function _checkSetup()
+    {
+        if ($this->_environment === null || $this->_package_xml_path === null) {
+            throw new Components_Exception('You need to set the environment and the path to the package file first!');
+        }
+    }
+
+    /**
      * Return the description for this package.
      *
      * @return string The package description.
      */
     public function getDescription()
     {
-        return $this->getPackageFile()->getDescription();
+        return $this->_getPackageFile()->getDescription();
     }
+
+    private function _getUpdatedPackageFile()
+    {
+        $package = $this->_getPackageRwFile();
+        /**
+         * @todo: Looks like this throws away any <replace /> tags we have in
+         * the content list. Needs to be fixed.
+         */
+        $package->generateContents();
+
+        /**
+         * This is required to clear the <phprelease><filelist></filelist></phprelease>
+         * section.
+         */
+        $package->setPackageType('php');
+
+        $contents = $package->getContents();
+        $files = $contents['dir']['file'];
+
+        foreach ($files as $file) {
+            $components = explode('/', $file['attribs']['name'], 2);
+            switch ($components[0]) {
+            case 'doc':
+            case 'example':
+            case 'lib':
+            case 'test':
+            case 'data':
+                $package->addInstallAs(
+                    $file['attribs']['name'], $components[1]
+                );
+            break;
+            case 'js':
+                $package->addInstallAs(
+                    $file['attribs']['name'], $file['attribs']['name']
+                );
+            break;
+            case 'migration':
+                $components = explode('/', $components[1]);
+                array_splice($components, count($components) - 1, 0, 'migration');
+                $package->addInstallAs(
+                    $file['attribs']['name'], implode('/', $components)
+                );
+                break;
+            case 'script':
+                $filename = basename($file['attribs']['name']);
+                if (substr($filename, strlen($filename) - 4)) {
+                    $filename = substr($filename, 0, strlen($filename) - 4);
+                }
+                $package->addInstallAs(
+                    $file['attribs']['name'], $filename
+                );
+                break;
+            }
+        }
+        return $package;
+    }
+
+    /**
+     * Output the updated package.xml file.
+     *
+     * @return NULL
+     */
+    public function printUpdatedPackageFile()
+    {
+        $this->_getUpdatedPackageFile()->debugPackageFile();
+    }    
+
+    /**
+     * Write the updated package.xml file to disk.
+     *
+     * @return NULL
+     */
+    public function writeUpdatedPackageFile()
+    {
+        $this->_getUpdatedPackageFile()->writePackageFile();
+    }    
 }

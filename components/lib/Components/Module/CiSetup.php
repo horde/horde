@@ -67,14 +67,6 @@ extends Components_Module_Base
                     'help'   => 'the path to the PEAR installation holding the required analysis tools'
                 )
             ),
-            new Horde_Argv_Option(
-                '-R',
-                '--pearrc',
-                array(
-                    'action' => 'store',
-                    'help'   => 'the path to the configuration of the PEAR installation'
-                )
-            ),
         );
     }
 

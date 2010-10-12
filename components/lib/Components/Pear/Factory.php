@@ -77,5 +77,19 @@ class Components_Pear_Factory
         return $package;
     }
 
+    /**
+     * Create a package representation for the default PEAR environment.
+     *
+     * @param string $package_file The path of the package XML file.
+     *
+     * @return NULL
+     */
+    public function createPackageForDefaultLocation($package_file)
+    {
+        $package = $this->_dependencies->getInstance('Components_Pear_Package');
+        $package->setEnvironment($this->_dependencies->getInstance('Components_Pear_InstallLocation'));
+        $package->setPackageXml($package_file);
+        return $package;
+    }
 
 }

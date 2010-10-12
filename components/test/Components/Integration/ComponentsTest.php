@@ -44,27 +44,6 @@ extends Components_StoryTestCase
             ->when('calling the package with the help option')
             ->then('the help will be displayed');
     }
-
-    /**
-     * @scenario
-     */
-    public function thePearpackagexmlModuleAddsThePOptionInTheHelpOutput()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the help option')
-            ->then('the help will contain the "p" option.');
-    }
-
-    /**
-     * @scenario
-     */
-    public function thePearpackagexmlModuleAddsTheUOptionInTheHelpOutput()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the help option')
-            ->then('the help will contain the "u" option.');
-    }
-
     /**
      * @scenario
      */
@@ -74,61 +53,5 @@ extends Components_StoryTestCase
             ->when('calling the package with the help option')
             ->then('the help will contain the "d" option.');
     }
-
-    /**
-     * @scenario
-     */
-    public function thePOptionFailsWithoutAValidPackagePath()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and the path', '')
-            ->then('the call will fail with', 'Please specify the path of the PEAR package!');
-    }
-
-    /**
-     * @scenario
-     */
-    public function thePOptionFailsWithoutAValidDirectoryPath()
-    {
-        $this->given('the default Components setup')
-            ->when(
-                'calling the package with the packagexml option and the path',
-                dirname(dirname(__FILE__)) . '/fixture/DOESNOTEXIST'
-            )
-            ->then('the call will fail with', 'specifies no directory');
-    }
-
-    /**
-     * @scenario
-     */
-    public function thePOptionFailsWithoutAValidPackage()
-    {
-        $this->given('the default Components setup')
-            ->when(
-                'calling the package with the packagexml option and the path',
-                dirname(dirname(__FILE__)) . '/fixture'
-            )
-            ->then('the call will fail with', 'There is no package.xml at');
-    }
-
-    /**
-     * @scenario
-     */
-    public function thePOptionProvidesAnUpdatedPackageXml()
-    {
-        $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde element')
-            ->then('the new package.xml of the Horde element will be printed.');
-    }
-
-    /**
-     * @todo Test (and fix) the reactions to three more scenarios:
-     *  - invalid XML in the package.xml (e.g. tag missing)
-     *  - empty file list
-     *  - file list with just one entry.
-     *
-     * All three scenarios yield errors which are still hard to
-     * understand.
-     */
 
 }

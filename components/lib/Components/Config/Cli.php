@@ -100,6 +100,16 @@ implements Components_Config
                 )
             )
         );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-R',
+                '--pearrc',
+                array(
+                    'action' => 'store',
+                    'help'   => 'the path to the configuration of the PEAR installation you want to use for all PEAR based actions (leave empty to use your system default PEAR environment).'
+                )
+            )
+        );
     }
 
     /**

@@ -37,121 +37,47 @@ class Components_Runner_PearPackageXml
     private $_config;
 
     /**
-     * The package handler.
+     * The factory for PEAR handlers.
      *
-     * @var Components_Pear_Package
+     * @var Components_Factory
      */
-    private $_package;
+    private $_factory;
 
     /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current job.
-     * @param Components_Pear_Package $package Package handler.
+     * @param Components_Pear_Factory $factory Generator for all
+     *                                         required PEAR components.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Package $package
+        Components_Pear_Factory $factory
     ) {
         $this->_config  = $config;
-        $this->_package = $package;
+        $this->_factory = $factory;
     }
 
     public function run()
     {
         $arguments = $this->_config->getArguments();
-        $package_file = $arguments[0] . '/package.xml';
-
-        $pear = new PEAR();
-        $pear->setErrorHandling(PEAR_ERROR_DIE);
-
-        if (!isset($GLOBALS['_PEAR_Config_instance'])) {
-            $GLOBALS['_PEAR_Config_instance'] = false;
-        }
-
-        $package = PEAR_PackageFileManager2::importOptions(
-            $package_file,
-            array(
-                'packagedirectory' => $arguments[0],
-                'filelistgenerator' => 'file',
-                'clearcontents' => false,
-                'clearchangelog' => false,
-                'simpleoutput' => true,
-                'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                'include' => '*',
-                'dir_roles' =>
-                array(
-                    'doc'       => 'doc',
-                    'example'   => 'doc',
-                    'js'        => 'horde',
-                    'lib'       => 'php',
-                    'migration' => 'data',
-                    'script'    => 'script',
-                    'test'      => 'test',
-                ),
-            )
-        );
-
-        if ($package instanceOf PEAR_Error) {
-            throw new Components_Exception($package->getMessage());
-        }
-        /**
-         * @todo: Looks like this throws away any <replace /> tags we have in
-         * the content list. Needs to be fixed.
-         */
-        $package->generateContents();
-
-        /**
-         * This is required to clear the <phprelease><filelist></filelist></phprelease>
-         * section.
-         */
-        $package->setPackageType('php');
-
-        $contents = $package->getContents();
-        $files = $contents['dir']['file'];
-
-        foreach ($files as $file) {
-            $components = explode('/', $file['attribs']['name'], 2);
-            switch ($components[0]) {
-            case 'doc':
-            case 'example':
-            case 'lib':
-            case 'test':
-            case 'data':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $components[1]
-                );
-            break;
-            case 'js':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $file['attribs']['name']
-                );
-            break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
-                $package->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
-                );
-                break;
-            case 'script':
-                $filename = basename($file['attribs']['name']);
-                if (substr($filename, strlen($filename) - 4)) {
-                    $filename = substr($filename, 0, strlen($filename) - 4);
-                }
-                $package->addInstallAs(
-                    $file['attribs']['name'], $filename
-                );
-                break;
-            }
+        if (isset($options['pearrc'])) {
+            $package = $this->_factory->createPackageForInstallLocation(
+                $arguments[0] . '/package.xml',
+                $options['pearrc']
+            );
+        } else {
+            $package = $this->_factory->createPackageForDefaultLocation(
+                $arguments[0] . '/package.xml'
+            );
         }
 
         $options = $this->_config->getOptions();
         if (!empty($options['packagexml'])) {
-            $package->debugPackageFile();
+            $package->printUpdatedPackageFile();
         }
         if (!empty($options['updatexml'])) {
-            $package->writePackageFile();
+            $package->writeUpdatedPackageFile();
         }
 
     }
