@@ -25,7 +25,7 @@
   <active>yes</active>
  </lead>
  <date>2010-10-12</date>
- <time>14:38:25</time>
+ <time>22:18:04</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -129,10 +129,22 @@
        </dir> <!-- /test/Components/fixture/pear/PEAR -->
       </dir> <!-- /test/Components/fixture/pear -->
       <dir name="simple">
+       <dir name="js">
+        <file name="test.js" role="test" />
+       </dir> <!-- /test/Components/fixture/simple/js -->
        <dir name="lib">
         <file name="New.php" role="test" />
         <file name="Second.php" role="test" />
+        <file name="Stays.php" role="test" />
        </dir> <!-- /test/Components/fixture/simple/lib -->
+       <dir name="migration">
+        <file name="test.sql" role="test" />
+       </dir> <!-- /test/Components/fixture/simple/migration -->
+       <dir name="script">
+        <file name="other_script" role="test" />
+        <file name="script.php" role="test" />
+        <file name="shell_script.sh" role="test" />
+       </dir> <!-- /test/Components/fixture/simple/script -->
       </dir> <!-- /test/Components/fixture/simple -->
       <dir name="templates">
        <file name="hudson-component-build.xml.template" role="test" />
@@ -245,8 +257,14 @@
    <install as="Components/fixture/packages/PEAR-1.9.1.tgz" name="test/Components/fixture/packages/PEAR-1.9.1.tgz" />
    <install as="Components/fixture/pear/Console_Getopt/lib/Console.php" name="test/Components/fixture/pear/Console_Getopt/lib/Console.php" />
    <install as="Components/fixture/pear/PEAR/lib/PEAR.php" name="test/Components/fixture/pear/PEAR/lib/PEAR.php" />
+   <install as="Components/fixture/simple/js/test.js" name="test/Components/fixture/simple/js/test.js" />
    <install as="Components/fixture/simple/lib/New.php" name="test/Components/fixture/simple/lib/New.php" />
    <install as="Components/fixture/simple/lib/Second.php" name="test/Components/fixture/simple/lib/Second.php" />
+   <install as="Components/fixture/simple/lib/Stays.php" name="test/Components/fixture/simple/lib/Stays.php" />
+   <install as="Components/fixture/simple/migration/test.sql" name="test/Components/fixture/simple/migration/test.sql" />
+   <install as="Components/fixture/simple/script/other_script" name="test/Components/fixture/simple/script/other_script" />
+   <install as="Components/fixture/simple/script/script.php" name="test/Components/fixture/simple/script/script.php" />
+   <install as="Components/fixture/simple/script/shell_script.sh" name="test/Components/fixture/simple/script/shell_script.sh" />
    <install as="Components/fixture/templates/hudson-component-build.xml.template" name="test/Components/fixture/templates/hudson-component-build.xml.template" />
    <install as="Components/fixture/templates/hudson-component-config.xml.template" name="test/Components/fixture/templates/hudson-component-config.xml.template" />
    <install as="Components/fixture/templates/hudson-component-phpunit.xml.template" name="test/Components/fixture/templates/hudson-component-phpunit.xml.template" />
