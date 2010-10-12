@@ -2244,6 +2244,11 @@ class Horde_Registry
     {
         bindtextdomain($app, $directory);
         textdomain($app);
+
+        /* The existence of this function depends on the platform. */
+        if (function_exists('bind_textdomain_codeset')) {
+            bind_textdomain_codeset($app, 'UTF-8');
+        }
     }
 
     /**
