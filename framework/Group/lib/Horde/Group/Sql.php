@@ -640,8 +640,9 @@ class Horde_Group_Sql extends Horde_Group
      */
     public function getGroupMemberships($user, $parentGroups = false)
     {
-        if (isset($_SESSION['horde']['groups']['m'][$user][$parentGroups])) {
-            return $_SESSION['horde']['groups']['m'][$user][$parentGroups];
+        $id = implode('|', array($user, $parentGroups));
+        if (isset($GLOBALS['session']['horde:groups_m/' . $id])) {
+            return $GLOBALS['session']['horde:groups_m/' . $id];
         }
 
         $sql = 'SELECT g.group_uid AS group_uid, g.group_name AS group_name FROM horde_groups g, horde_groups_members m '
@@ -663,7 +664,7 @@ class Horde_Group_Sql extends Horde_Group
             }
         }
 
-        $_SESSION['horde']['groups']['m'][$user][$parentGroups] = $groups;
+        $GLOBALS['session']['horde:groups_m/' . $id] = $groups;
 
         return $groups;
     }
@@ -680,8 +681,9 @@ class Horde_Group_Sql extends Horde_Group
      */
     public function userIsInGroup($user, $gid, $subgroups = true)
     {
-        if (isset($_SESSION['horde']['groups']['i'][$user][$subgroups][$gid])) {
-            return $_SESSION['horde']['groups']['i'][$user][$subgroups][$gid];
+        $id = implode('|', array($user, $subgroups, $gid));
+        if (isset($GLOBALS['session']['horde:groups_i/' . $id])) {
+            return $GLOBALS['session']['horde:groups_i/' . $id];
         }
 
         if ($subgroups) {
@@ -703,7 +705,8 @@ class Horde_Group_Sql extends Horde_Group
 
         }
 
-        $_SESSION['horde']['groups']['i'][$user][$subgroups][$gid] = (bool)$result;
+        $GLOBALS['session']['horde:groups_i/' . $id] = (bool)$result;
+
         return (bool)$result;
     }
 
