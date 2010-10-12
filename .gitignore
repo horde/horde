@@ -45,6 +45,7 @@ framework/Ldap/test/Horde/Ldap/conf.php
 /horde/libs/
 /horde/static/*.*
 /horde/static/gc_*
+/horde/locale/compendium.po
 
 # Ignore locally defined config
 */config/*.old
