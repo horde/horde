@@ -216,6 +216,9 @@ class Components_Pear_Package
         $contents = $contents['dir']['file'];
         $taskfiles = array();
         foreach ($contents as $file) {
+            if (!isset($file['attribs'])) {
+                continue;
+            }
             $atts = $file['attribs'];
             unset($file['attribs']);
             if (count($file)) {
@@ -247,8 +250,8 @@ class Components_Pear_Package
                         $logger,
                         ''
                     );
-                    switch ($tag) {
-                    case 'replace':
+                    switch ($taskname) {
+                    case 'PEAR_Task_Replace_rw':
                         $task->setInfo(
                             $raw['attribs']['from'],
                             $raw['attribs']['to'],
@@ -256,7 +259,7 @@ class Components_Pear_Package
                         );
                         break;
                     default:
-                        throw new Components_Exceptions(
+                        throw new Components_Exception(
                             sprintf('Unsupported task type %s!', $tag)
                         );
                     }
@@ -316,7 +319,7 @@ class Components_Pear_Package
                 break;
             case 'script':
                 $filename = basename($file['attribs']['name']);
-                if (substr($filename, strlen($filename) - 4)) {
+                if (substr($filename, strlen($filename) - 4) == '.php') {
                     $filename = substr($filename, 0, strlen($filename) - 4);
                 }
                 $package->addInstallAs(

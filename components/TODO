@@ -4,8 +4,6 @@
 
  - Document usage
 
- - Fix variable replacements when updating the package.xml
-
  - Do the distribution runner.
 
  - Add module for generating component documentation.

@@ -28,6 +28,9 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <file name="Old.php" role="php" />
+    <file name="Stays.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
    </dir> <!-- /lib -->
   </dir> <!-- / -->
  </contents>
@@ -44,6 +47,7 @@
  <phprelease>
   <filelist>
    <install as="Old.php" name="lib/Old.php" />
+   <install as="Stays.php" name="lib/Stays.php" />
   </filelist>
  </phprelease>
  <changelog>

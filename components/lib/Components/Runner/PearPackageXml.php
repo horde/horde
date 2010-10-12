@@ -61,6 +61,8 @@ class Components_Runner_PearPackageXml
     public function run()
     {
         $arguments = $this->_config->getArguments();
+        $options = $this->_config->getOptions();
+
         if (isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForInstallLocation(
                 $arguments[0] . '/package.xml',
@@ -72,7 +74,6 @@ class Components_Runner_PearPackageXml
             );
         }
 
-        $options = $this->_config->getOptions();
         if (!empty($options['packagexml'])) {
             $package->printUpdatedPackageFile();
         }

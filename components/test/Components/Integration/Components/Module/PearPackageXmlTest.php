@@ -98,9 +98,42 @@ extends Components_StoryTestCase
     public function thePOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Components setup')
-            ->when('calling the package with the packagexml option and a Horde element')
+            ->when('calling the package with the packagexml option and a Horde component')
             ->then('the new package.xml of the Horde element will be printed.');
     }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionWithThePearrcOptionProvidesAnUpdatedPackageXml()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the pearrc, the packagexml option, and a Horde component')
+            ->then('the new package.xml of the Horde element will be printed.');
+    }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionProvidesAnUpdatedPackageXmlWhichRetainsReplaceTasks()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the packagexml option and a Horde component')
+            ->then('the new package.xml of the Horde component will retain all "replace" tasks.');
+    }
+
+    /**
+     * @scenario
+     */
+    public function thePOptionProvidesAnUpdatedPackageXmlWithDefaultInstallLocations()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the packagexml option and a Horde component')
+            ->then('the new package.xml will install java script files in a default location')
+            ->and('the new package.xml will install migration files in a default location')
+            ->and('the new package.xml will install script files in a default location');
+    }
+
 
     /**
      * @todo Test (and fix) the reactions to three more scenarios:

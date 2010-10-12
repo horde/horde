@@ -76,9 +76,18 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callStrictComponents();
             break;
-        case 'calling the package with the packagexml option and a Horde element':
+        case 'calling the package with the packagexml option and a Horde component':
             $_SERVER['argv'] = array(
                 'horde-components',
+                '--packagexml',
+                dirname(__FILE__) . '/fixture/simple'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the pearrc, the packagexml option, and a Horde component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--pearrc=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
                 '--packagexml',
                 dirname(__FILE__) . '/fixture/simple'
             );
@@ -229,6 +238,38 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the new package.xml of the Horde element will be printed.':
             $this->assertRegExp(
                 '/<file name="New.php" role="php" \/>/',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml of the Horde component will retain all "replace" tasks.':
+            $this->assertRegExp(
+                '#<tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />#',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml will install java script files in a default location':
+            $this->assertRegExp(
+                '#<install as="js/test.js" name="js/test.js" />#',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml will install migration files in a default location':
+            $this->assertRegExp(
+                '#<install as="migration/test.sql" name="migration/test.sql" />#',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml will install script files in a default location':
+            $this->assertRegExp(
+                '#<install as="other_script" name="script/other_script" />#',
+                $world['output']
+            );
+            $this->assertRegExp(
+                '#<install as="shell_script.sh" name="script/shell_script.sh" />#',
+                $world['output']
+            );
+            $this->assertRegExp(
+                '#<install as="script" name="script/script.php" />#',
                 $world['output']
             );
             break;
