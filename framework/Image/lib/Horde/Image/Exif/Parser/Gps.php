@@ -1,30 +1,31 @@
 <?php
 /**
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package Horde_Image
+ * @package  Image
  */
 
 /**
-    Exifer
-    Extracts EXIF information from digital photos.
-
-    Copyright © 2003 Jake Olefsky
-    http://www.offsky.com/software/exif/index.php
-    jake@olefsky.com
-
-    Please see exif.php for the complete information about this software.
-
-    ------------
-
-    This program is free software; you can redistribute it and/or modify it under the terms of
-    the GNU General Public License as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
-*/
+ * Exifer
+ * Extracts EXIF information from digital photos.
+ *
+ * Copyright © 2003 Jake Olefsky
+ * http://www.offsky.com/software/exif/index.php
+ * jake@olefsky.com
+ *
+ * ------------
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details. http://www.gnu.org/copyleft/gpl.html
+ */
 class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
 {
     /**
@@ -33,55 +34,83 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
      * @param unknown_type $tag
      * @return string
      */
-    static protected function _lookupTag($tag)
+    protected function _lookupTag($tag)
     {
         switch($tag) {
-            case "0000": return "Version";
-            case "0001": return "LatitudeRef";              //north or south
-            case "0002": return "Latitude";				    //dd mm.mm or dd mm ss
-            case "0003": return "LongitudeRef";		        //east or west
-            case "0004": return "Longitude";				//dd mm.mm or dd mm ss
-            case "0005": return "AltitudeRef";			    //sea level or below sea level
-            case "0006": return "Altitude";					//positive rational number
-            case "0007": return "Time";						//three positive rational numbers
-            case "0008": return "Satellite";				//text string up to 999 bytes long
-            case "0009": return "ReceiveStatus";			//in progress or interop
-            case "000a": return "MeasurementMode";		    //2D or 3D
-            case "000b": return "MeasurementPrecision";	    //positive rational number
-            case "000c": return "SpeedUnit";				//KPH, MPH, knots
-            case "000d": return "ReceiverSpeed";			//positive rational number
-            case "000e": return "MovementDirectionRef";	    //true or magnetic north
-            case "000f": return "MovementDirection";		//positive rational number
-            case "0010": return "ImageDirectionRef";		//true or magnetic north
-            case "0011": return "ImageDirection";			//positive rational number
-            case "0012": return "GeodeticSurveyData";		//text string up to 999 bytes long
-            case "0013": return "DestLatitudeRef";		    //north or south
-            case "0014": return "DestinationLatitude";		//three positive rational numbers
-            case "0015": return "DestLongitudeRef";		    //east or west
-            case "0016": return "DestinationLongitude";		//three positive rational numbers
-            case "0017": return "DestBearingRef";			//true or magnetic north
-            case "0018": return "DestinationBearing";		//positive rational number
-            case "0019": return "DestDistanceRef";		    //km, miles, knots
-            case "001a": return "DestinationDistance";	    //positive rational number
-            case "001b": return "ProcessingMethod";
-            case "001c": return "AreaInformation";
-            case "001d": return "Datestamp";			    //text string 10 bytes long
-            case "001e": return "DifferentialCorrection";  //integer in range 0-65535
-            default: return "unknown:".$tag;
+        case '0000': return 'Version';
+        //north or south
+        case '0001': return 'LatitudeRef';
+        //dd mm.mm or dd mm ss
+        case '0002': return 'Latitude';
+        //east or west
+        case '0003': return 'LongitudeRef';
+        //dd mm.mm or dd mm ss
+        case '0004': return 'Longitude';
+        //sea level or below sea level
+        case '0005': return 'AltitudeRef';
+        //positive rational number
+        case '0006': return 'Altitude';
+        //three positive rational numbers
+        case '0007': return 'Time';
+        //text string up to 999 bytes long
+        case '0008': return 'Satellite';
+			//in progress or interop
+        case '0009': return 'ReceiveStatus';
+		//2D or 3D
+        case '000a': return 'MeasurementMode';
+        //positive rational number
+        case '000b': return 'MeasurementPrecision';
+        //KPH, MPH, knots
+        case '000c': return 'SpeedUnit';
+			//positive rational number
+        case '000d': return 'ReceiverSpeed';
+        //true or magnetic north
+        case '000e': return 'MovementDirectionRef';
+        //positive rational number
+        case '000f': return 'MovementDirection';
+        //true or magnetic north
+        case '0010': return 'ImageDirectionRef';
+			//positive rational number
+        case '0011': return 'ImageDirection';
+        //text string up to 999 bytes long
+        case '0012': return 'GeodeticSurveyData';
+		//north or south
+        case '0013': return 'DestLatitudeRef';
+        //three positive rational numbers
+        case '0014': return 'DestinationLatitude';
+		//east or west
+        case '0015': return 'DestLongitudeRef';
+        //three positive rational numbers
+        case '0016': return 'DestinationLongitude';
+			//true or magnetic north
+        case '0017': return 'DestBearingRef';
+        //positive rational number
+        case '0018': return 'DestinationBearing';
+		//km, miles, knots
+        case '0019': return 'DestDistanceRef';
+        //positive rational number
+        case '001a': return 'DestinationDistance';
+        case '001b': return 'ProcessingMethod';
+        case '001c': return 'AreaInformation';
+        //text string 10 bytes long
+        case '001d': return 'Datestamp';
+        //integer in range 0-65535
+        case '001e': return 'DifferentialCorrection';
+        default: return 'unknown: ' . $tag;
         }
-
     }
 
     /**
      * Formats a rational number
      */
-    static protected function _rational($data, $intel)
+    protected function _rational($data, $intel)
     {
-
         if ($intel == 1) {
-            $top = hexdec(substr($data, 8, 8)); 	//intel stores them bottom-top
+            //intel stores them bottom-top
+            $top = hexdec(substr($data, 8, 8));
         } else {
-            $top = hexdec(substr($data, 0, 8));		//motorola stores them top-bottom
+            //motorola stores them top-bottom
+            $top = hexdec(substr($data, 0, 8));
         }
 
         if ($intel == 1) {
@@ -90,12 +119,12 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             $bottom = hexdec(substr($data, 8, 8));
         }
 
-        if ($bottom!=0) {
+        if ($bottom != 0) {
             $data = $top / $bottom;
         } elseif ($top == 0) {
             $data = 0;
         } else {
-            $data = $top . "/" . $bottom;
+            $data = $top . '/' . $bottom;
         }
 
         return $data;
@@ -104,23 +133,28 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
     /**
      * Formats Data for the data type
      */
-    static protected function _formatData($type, $tag, $intel, $data)
+    protected function _formatData($type, $tag, $intel, $data)
     {
-
-        if($type == "ASCII") {
+        switch ($type) {
+        case 'ASCII':
             // Latitude Reference, Longitude Reference
-            if ($tag == "0001" || $tag == "0003") {
+            if ($tag == '0001' || $tag == '0003') {
                 $data = ($data{1} == $data{2} && $data{1} == $data{3}) ? $data{0} : $data;
             }
-        } elseif ($type == "URATIONAL" || $type == "SRATIONAL") {
+            break;
+
+        case 'URATIONAL':
+        case 'SRATIONAL':
             $data = bin2hex($data);
-            if ($intel ==1 ) {
+            if ($intel == 1) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             if ($intel == 1) {
-                $top = hexdec(substr($data, 8, 8)); //intel stores them bottom-top
+                //intel stores them bottom-top
+                $top = hexdec(substr($data, 8, 8));
             } else {
-                $top = hexdec(substr($data, 0, 8));	//motorola stores them top-bottom
+                //motorola stores them top-bottom
+                $top = hexdec(substr($data, 0, 8));
             }
 
             if ($intel == 1) {
@@ -129,70 +163,95 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
                 $bottom = hexdec(substr($data, 8, 8));
             }
 
-            if ($type == "SRATIONAL" && $top > 2147483647) {
-                 // make the number signed instead of unsigned
+            if ($type == 'SRATIONAL' && $top > 2147483647) {
+                // make the number signed instead of unsigned
                 $top = $top - 4294967296;
             }
 
-            //Latitude, Longitude
-            if ($tag=="0002" || $tag=="0004") {
+            switch ($tag) {
+            case '0002':
+            case '0004':
+                //Latitude, Longitude
                 if ($intel == 1) {
-                    $seconds = self::_rational(substr($data, 0, 16), $intel);
-                    $hour = self::_rational(substr($data, 32, 16), $intel);
+                    $seconds = $this->_rational(substr($data, 0, 16), $intel);
+                    $hour = $this->_rational(substr($data, 32, 16), $intel);
                 } else {
-                    $hour = self::_rational(substr($data, 0, 16), $intel);
-                    $seconds = self::_rational(substr($data, 32, 16), $intel);
+                    $hour = $this->_rational(substr($data, 0, 16), $intel);
+                    $seconds = $this->_rational(substr($data, 32, 16), $intel);
                 }
-                $minutes = self::_rational(substr($data, 16, 16), $intel);
+                $minutes = $this->_rational(substr($data, 16, 16), $intel);
                 $data = array($hour, $minutes, $seconds);
-            } elseif ($tag == "0007") { //Time
-                $seconds = self::_rational(substr($data, 0, 16), $intel);
-                $minutes = self::_rational(substr($data, 16, 16), $intel);
-                $hour = self::_rational(substr($data, 32, 16), $intel);
-                $data = $hour . ":" . $minutes . ":" . $seconds;
-            } else {
+                break;
+
+            case '0007':
+                //Time
+                $seconds = $this->_rational(substr($data, 0, 16), $intel);
+                $minutes = $this->_rational(substr($data, 16, 16), $intel);
+                $hour = $this->_rational(substr($data, 32, 16), $intel);
+                $data = $hour . ':' . $minutes . ':' . $seconds;
+                break;
+
+            default:
                 if ($bottom != 0) {
                     $data = $top / $bottom;
                 } elseif ($top == 0) {
                     $data = 0;
                 } else {
-                    $data = $top . "/" . $bottom;
+                    $data = $top . '/' . $bottom;
                 }
-                if ($tag == "0006") {
+                if ($tag == '0006') {
                     $data .= 'm';
                 }
+                break;
             }
-        } elseif ($type == "USHORT" || $type == "SSHORT" || $type == "ULONG" ||
-                  $type == "SLONG" || $type == "FLOAT" || $type == "DOUBLE") {
+            break;
 
+        case 'USHORT':
+        case 'SSHORT':
+        case 'ULONG':
+        case 'SLONG':
+        case 'FLOAT':
+        case 'DOUBLE':
             $data = bin2hex($data);
             if ($intel == 1) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             $data = hexdec($data);
-        } elseif ($type == "UNDEFINED") {
-        } elseif ($type == "UBYTE") {
+            break;
+
+        case 'UNDEFINED':
+            break;
+
+        case 'UBYTE':
             $data = bin2hex($data);
             if ($intel == 1) {
                 $num = Horde_Image_Exif::intel2Moto($data);
             }
-            if ($tag == "0000") { // VersionID
-                $data =  hexdec(substr($data, 0, 2))
-                         . '.' . hexdec(substr($data, 2, 2))
-                         . '.' . hexdec(substr($data, 4, 2))
-                         . '.'. hexdec(substr($data, 6, 2));
-            } elseif ($tag == "0005") { // Altitude Reference
-                if ($data == "00000000") {
+            switch ($tag) {
+            case '0000':
+                // VersionID
+                $data = hexdec(substr($data, 0, 2))
+                    . '.' . hexdec(substr($data, 2, 2))
+                    . '.' . hexdec(substr($data, 4, 2))
+                    . '.'. hexdec(substr($data, 6, 2));
+                break;
+            case '0005':
+                // Altitude Reference
+                if ($data == '00000000') {
                     $data = 'Above Sea Level';
-                } elseif ($data == "01000000") {
+                } elseif ($data == '01000000') {
                     $data = 'Below Sea Level';
                 }
+                break;
             }
-        } else {
+            break;
+
+        default:
             $data = bin2hex($data);
             if ($intel == 1) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
+            break;
         }
 
         return $data;
@@ -200,19 +259,20 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
 
     /**
      * GPS Special data section
-     * Useful websites
-     * http://drewnoakes.com/code/exif/sampleOutput.html
-     * http://www.geosnapper.com
+     *
+     * @see http://drewnoakes.com/code/exif/sampleOutput.html
+     * @see http://www.geosnapper.com
      */
-    static public function parse($block,&$result,$offset,$seek, $globalOffset)
+    public function parse($block, &$result, $offset, $seek, $globalOffset)
     {
-        if ($result['Endien'] == "Intel") {
+        if ($result['Endien'] == 'Intel') {
             $intel = 1;
         } else {
             $intel = 0;
         }
 
-        //offsets are from TIFF header which is 12 bytes from the start of the file
+        //offsets are from TIFF header which is 12 bytes from the start of the
+        //file
         $v = fseek($seek, $globalOffset + $offset);
         if ($v == -1) {
             $result['Errors'] = $result['Errors']++;
@@ -235,7 +295,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $tag = Horde_Image_Exif::intel2Moto($tag);
             }
-            $tag_name = self::_lookupTag($tag);
+            $tag_name = $this->_lookupTag($tag);
 
             //2 byte datatype
             $type = bin2hex(substr($block, $place, 2));
@@ -243,7 +303,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            self::_lookupType($type, $size);
+            $this->_lookupType($type, $size);
 
             //4 byte number of elements
             $count = bin2hex(substr($block, $place, 4));
@@ -264,7 +324,8 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
                 if ($intel == 1) {
                     $value = Horde_Image_Exif::intel2Moto($value);
                 }
-                //offsets are from TIFF header which is 12 bytes from the start of the file
+                //offsets are from TIFF header which is 12 bytes from the start
+                //of the file
                 $v = fseek($seek, $globalOffset + hexdec($value));
                 if ($v == 0) {
                     $data = fread($seek, $bytesofdata);
@@ -272,8 +333,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
                     $result['Errors'] = $result['Errors']++;
                 }
             }
-            $result['GPS' . $tag_name] = self::_formatData($type, $tag, $intel, $data);
+            $result['GPS' . $tag_name] = $this->_formatData($type, $tag, $intel, $data);
         }
     }
-
 }

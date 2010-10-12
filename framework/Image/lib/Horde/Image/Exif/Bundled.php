@@ -408,33 +408,38 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         switch ($tag_name) {
         case 'MakerNote':
             $make = Horde_String::lower($result['IFD0']['Make']);
+            $parser = null;
             if (strpos($make, 'nikon') !== false) {
-                Horde_Image_Exif_Parser_Nikon::parse($data, $result);
+                $parser = new Horde_Image_Exif_Parser_Nikon();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'olympus') !== false) {
-                Horde_Image_Exif_Parser_Olympus::parse($data, $result, $seek, $globalOffset);
+                $parser = new Horde_Image_Exif_Parser_Olympus();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'canon') !== false) {
-                Horde_Image_Exif_Parser_Canon::parse($data, $result, $seek, $globalOffset);
+                $parser = new Horde_Image_Exif_Parser_Canon();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'fujifilm') !== false) {
-                Horde_Image_Exif_Parser_Fujifilm::parse($data, $result);
+                $parser = new Horde_Image_Exif_Parser_Fujifilm();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'sanyo') !== false) {
-                Horde_Image_Exif_Parser_Sanyo::parse($data, $result, $seek, $globalOffset);
+                $parser = new Horde_Image_Exif_Parser_Sanyo();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'panasonic') !== false) {
-                Horde_Image_Exif_Parser_Panasonic::parse($data, $result, $seek, $globalOffset);
+                $parser = new Horde_Image_Exif_Parser_Panasonic();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } else {
                 $result[$ifd_name]['KnownMaker'] = 0;
+            }
+            if ($parser) {
+                $parser->parse($data, $result, $seek, $globalOffset);
             }
             break;
 
         case 'GPSInfoOffset':
             $formated_data = $this->_formatData($type, $tag, $intel, $data);
             $result[$ifd_name]['GPSInfo'] = $formated_data;
-            Horde_Image_Exif_Parser_Gps::parse($data, $result, $formated_data, $seek, $globalOffset);
+            $parser = new Horde_Image_Exif_Parser_Gps();
+            $parser->parse($data, $result, $formated_data, $seek, $globalOffset);
             break;
 
         default:

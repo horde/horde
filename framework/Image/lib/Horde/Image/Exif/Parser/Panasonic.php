@@ -1,36 +1,37 @@
 <?php
 /**
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package Horde_Image
+ * @package  Image
  */
 
 /**
- *   Exifer
- *   Extracts EXIF information from digital photos.
+ * Exifer
+ * Extracts EXIF information from digital photos.
  *
- *   Copyright 2003 Jake Olefsky
- *   http://www.offsky.com/software/exif/index.php
- *   jake@olefsky.com
+ * Copyright © 2003 Jake Olefsky
+ * http://www.offsky.com/software/exif/index.php
+ * jake@olefsky.com
  *
- *   Please see exif.php for the complete information about this software.
+ * ------------
  *
- *   ------------
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- *   This program is free software; you can redistribute it and/or modify it under the terms of
- *   the GNU General Public License as published by the Free Software Foundation; either version 2
- *   of the License, or (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- *   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *   See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details. http://www.gnu.org/copyleft/gpl.html
  */
 class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
 {
     /**
      * Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
      */
-    static protected function _lookupTag($tag)
+    protected function _lookupTag($tag)
     {
         switch ($tag) {
         case '0001': $tag = 'Quality'; break;
@@ -64,272 +65,424 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
     /**
      * Formats Data for the data type
      */
-    static protected function _formatData($type,$tag,$intel,$data)
+    protected function _formatData($type, $tag, $intel, $data)
     {
-        if ($type == 'UBYTE' || $type == 'SBYTE') {
+        switch ($type) {
+        case 'UBYTE':
+        case 'SBYTE':
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             $data = hexdec($data);
-            if ($tag == '000f') { //AFMode
-                if ($data == 256) {
+            if ($tag == '000f') {
+                //AFMode
+                switch ($data) {
+                case 256:
                     $data = _("9-area-focusing");
-                } elseif ($data == 16) {
+                    break;
+                case 16:
                     $data = _("1-area-focusing");
-                } elseif ($data == 4096) {
+                    break;
+                case 4096:
                     $data = _("3-area-focusing (High speed)");
-                } elseif ($data == 4112) {
+                    break;
+                case 4112:
                     $data = _("1-area-focusing (High speed)");
-                } elseif ($data == 16) {
+                    break;
+                case 16:
                     $data = _("1-area-focusing");
-                } elseif ($data == 1) {
+                    break;
+                case 1:
                     $data = _("Spot-focusing");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
             }
+            break;
 
-        } elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+        case 'URATIONAL':
+        case 'SRATIONAL':
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             $top = hexdec(substr($data, 8, 8));
             $bottom = hexdec(substr($data, 0, 8));
-            if ($bottom!=0) {
+            if ($bottom != 0) {
                 $data = $top / $bottom;
             } elseif ($top == 0) {
                 $data = 0;
             } else {
                 $data = $top . '/' . $bottom;
             }
+            break;
 
-        } elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' ||
-                  $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
-
+        case 'USHORT':
+        case  'SSHORT':
+        case 'ULONG':
+        case 'SLONG':
+        case 'FLOAT':
+        case 'DOUBLE':
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
 
             $data = hexdec($data);
-            if ($tag == '0001') { //Image Quality
-                if ($data == 2) {
+            switch ($tag) {
+            case '0001':
+                //Image Quality
+                switch ($data) {
+                case 2:
                     $data = _("High");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("Standard");
-                } elseif ($data == 6) {
+                    break;
+                case 6:
                     $data = _("Very High");
-                } elseif ($data == 7) {
+                    break;
+                case 7:
                     $data = _("RAW");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0003') { //White Balance
-                if ($data == 1) {
+                break;
+
+            case '0003':
+                //White Balance
+                switch ($data) {
+                case 1:
                     $data = _("Auto");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Daylight");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("Cloudy");
-                } elseif ($data == 4) {
+                    break;
+                case 4:
                     $data = _("Halogen");
-                } elseif ($data == 5) {
+                    break;
+                case 5:
                     $data = _("Manual");
-                } elseif ($data == 8) {
+                    break;
+                case 8:
                     $data = _("Flash");
-                } elseif ($data == 10) {
+                    break;
+                case 10:
                     $data = _("Black and White");
-                } elseif ($data == 11) {
+                    break;
+                case 11:
                     $data = _("Manual");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown(%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag=='0007') { //Focus Mode
-                if ($data == 1) {
+                break;
+
+            case '0007':
+                //Focus Mode
+                switch ($data) {
+                case 1:
                     $data = _("Auto");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Manual");
-                } elseif ($data == 4) {
+                    break;
+                case 4:
                     $data = _("Auto, Focus button");
-                } elseif ($data == 5) {
+                    break;
+                case 5:
                     $data = _("Auto, Continuous");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown(%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '001a') { //Image Stabilizer
-                if ($data == 2) {
+                break;
+
+            case '001a':
+                //Image Stabilizer
+                switch ($data) {
+                case 2:
                     $data = _("Mode 1");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("Off");
-                } elseif ($data == 4) {
+                    break;
+                case 4:
                     $data = _("Mode 2");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown(%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '001c') { //Macro mode
-                if ($data == 1) {
+                break;
+
+            case '001c':
+                //Macro mode
+                switch ($data) {
+                case 1:
                     $data = _("On");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Off");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown(%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '001f') { //Shooting Mode
-                if ($data == 1) {
+                break;
+
+            case '001f':
+                //Shooting Mode
+                switch ($data) {
+                case 1:
                     $data = _("Normal");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Portrait");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("Scenery");
-                } elseif ($data == 4) {
+                    break;
+                case 4:
                     $data = _("Sports");
-                } elseif ($data == 5) {
+                    break;
+                case 5:
                     $data = _("Night Portrait");
-                } elseif ($data == 6) {
+                    break;
+                case 6:
                     $data = _("Program");
-                } elseif ($data == 7) {
+                    break;
+                case 7:
                     $data = _("Aperture Priority");
-                } elseif ($data == 8) {
+                    break;
+                case 8:
                     $data = _("Shutter Priority");
-                } elseif ($data == 9) {
+                    break;
+                case 9:
                     $data = _("Macro");
-                } elseif ($data == 11) {
+                    break;
+                case 11:
                     $data = _("Manual");
-                } elseif ($data == 13) {
+                    break;
+                case 13:
                     $data = _("Panning");
-                } elseif ($data == 14) {
+                    break;
+                case 14:
                     $data = _("Simple");
-                } elseif ($data == 18) {
+                    break;
+                case 18:
                     $data = _("Fireworks");
-                } elseif ($data == 19) {
+                    break;
+                case 19:
                     $data = _("Party");
-                } elseif ($data == 20) {
+                    break;
+                case 20:
                     $data = _("Snow");
-                } elseif ($data == 21) {
+                    break;
+                case 21:
                     $data = _("Night Scenery");
-                } elseif ($data == 22) {
+                    break;
+                case 22:
                     $data = _("Food");
-                } elseif ($data == 23) {
+                    break;
+                case 23:
                     $data = _("Baby");
-                } elseif ($data == 27) {
+                    break;
+                case 27:
                     $data = _("High Sensitivity");
-                } elseif ($data == 29) {
+                    break;
+                case 29:
                     $data = _("Underwater");
-                } elseif ($data == 33) {
+                    break;
+                case 33:
                     $data = _("Pet");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown(%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0020') { //Audio
-                if ($data == 1) {
+                break;
+
+            case '0020':
+                //Audio
+                switch ($data) {
+                case 1:
                     $data = _("Yes");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("No");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0023') { //White Balance Bias
+                break;
+
+            case '0023':
+                //White Balance Bias
                 $data = $data . ' EV';
-            }
-            if ($tag == '0024') { //Flash Bias
+                break;
+
+            case '0024':
+                //Flash Bias
                 $data = $data;
-            }
-            if ($tag == '0028') { //Colour Effect
-                if ($data == 1) {
+                break;
+
+            case '0028':
+                //Colour Effect
+                switch ($data) {
+                case 1:
                     $data = _("Off");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Warm");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("Cool");
-                } elseif ($data == 4) {
+                    break;
+                case 4:
                     $data = _("Black and White");
-                } elseif ($data == 5) {
+                    break;
+                case 5:
                     $data = _("Sepia");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '002a') { //Burst Mode
-                if ($data == 0) {
+                break;
+
+            case '002a':
+                //Burst Mode
+                switch ($data) {
+                case 0:
                     $data = _("Off");
-                } elseif ($data == 1) {
+                    break;
+                case 1:
                     $data = _("Low/High Quality");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("Infinite");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '002c') { //Contrast
-                if ($data == 0) {
+                break;
+
+            case '002c':
+                //Contrast
+                switch ($data) {
+                case 0:
                     $data = _("Standard");
-                } elseif ($data == 1) {
+                    break;
+                case 1:
                     $data = _("Low");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("High");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '002d') { //Noise Reduction
-                if ($data == 0) {
+                break;
+
+            case '002d':
+                //Noise Reduction
+                switch ($data) {
+                case 0:
                     $data = _("Standard");
-                } elseif ($data == 1) {
+                    break;
+                case 1:
                     $data = _("Low");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("High");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '002e') { //Self Timer
-                if ($data == 1) {
+                break;
+
+            case '002e':
+                //Self Timer
+                switch ($data) {
+                case 1:
                     $data = _("Off");
-                } elseif ($data == 2) {
+                    break;
+                case 2:
                     $data = _("10s");
-                } elseif ($data == 3) {
+                    break;
+                case 3:
                     $data = _("2s");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0030') { //Rotation
-                if ($data == 1) {
+                break;
+
+            case '0030':
+                //Rotation
+                switch ($data) {
+                case 1:
                     $data = _("Horizontal (normal)");
-                } elseif ($data == 6) {
+                    break;
+                case 6:
                     $data = _("Rotate 90 CW");
-                } elseif ($data == 8) {
+                    break;
+                case 8:
                     $data = _("Rotate 270 CW");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0032') { //Color Mode
-                if ($data == 0) {
+                break;
+
+            case '0032':
+                //Color Mode
+                switch ($data) {
+                case 0:
                     $data = _("Normal");
-                } elseif ($data == 1) {
+                    break;
+                case 1:
                     $data = _("Natural");
-                } else {
+                    break;
+                default:
                     $data = sprintf(_("Unknown (%s)"), $data);
+                    break;
                 }
-            }
-            if ($tag == '0036') { //Travel Day
+                break;
+
+            case '0036':
+                //Travel Day
                 $data = $data;
+                break;
             }
-        } elseif ($type != "UNDEFINED") {
+            break;
+
+        case 'UNDEFINED':
+            break;
+
+        default:
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
+            break;
         }
 
         return $data;
@@ -338,52 +491,53 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
     /**
      * Panasonic Special data section
      */
-     static public function parse($block, &$result)
+     public function parse($block, &$result)
      {
-        $intel = 1;
+        $intel = true;
         $model = $result['IFD0']['Model'];
-        $place = 8; //current place
+        //current place
+        $place = 8;
         $offset = 8;
 
         $num = bin2hex(substr($block, $place, 4));
         $place += 4;
 
-        if ($intel == 1) {
+        if ($intel) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
         $result['SubIFD']['MakerNote']['Offset'] = hexdec($num);
 
         //Get number of tags (2 bytes)
         $num = bin2hex(substr($block, $place, 2));
-        $place+=2;
+        $place += 2;
 
-        if ($intel == 1) {
+        if ($intel) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
         $result['SubIFD']['MakerNote']['MakerNoteNumTags'] = hexdec($num);
 
         //loop thru all tags  Each field is 12 bytes
-        for($i = 0; $i < hexdec($num); $i++) {
+        for ($i = 0; $i < hexdec($num); $i++) {
             //2 byte tag
             $tag = bin2hex(substr($block, $place, 2));
             $place += 2;
-            if ($intel == 1) {
+            if ($intel) {
                 $tag = Horde_Image_Exif::intel2Moto($tag);
             }
-            $tag_name = self::_lookupTag($tag);
+            $tag_name = $this->_lookupTag($tag);
 
             //2 byte type
             $type = bin2hex(substr($block, $place, 2));
             $place += 2;
-            if ($intel == 1) {
+            if ($intel) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            self::_lookupType($type, $size);
+            $this->_lookupType($type, $size);
 
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));
             $place += 4;
-            if ($intel == 1) {
+            if ($intel) {
                 $count = Horde_Image_Exif::intel2Moto($count);
             }
             $bytesofdata = $size * hexdec($count);
@@ -396,15 +550,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 $data = $value;
             } else {
                 $value = bin2hex($value);
-                if ($intel == 1) {
+                if ($intel) {
                     $value = Horde_Image_Exif::intel2Moto($value);
                 }
                 $data = substr($block, hexdec($value) - $offset, $bytesofdata * 2);
             }
-            $formated_data = self::_formatData($type, $tag, $intel, $data);
+            $formated_data = $this->_formatData($type, $tag, $intel, $data);
             $result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
         }
-
     }
-
 }

@@ -1,37 +1,37 @@
 <?php
 /**
- *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @package Horde_Image
+ * @package  Image
  */
 
 /**
- *   Exifer
- *   Extracts EXIF information from digital photos.
+ * Exifer
+ * Extracts EXIF information from digital photos.
  *
- *   Copyright 2003 Jake Olefsky
- *   http://www.offsky.com/software/exif/index.php
- *   jake@olefsky.com
+ * Copyright © 2003 Jake Olefsky
+ * http://www.offsky.com/software/exif/index.php
+ * jake@olefsky.com
  *
- *   Please see exif.php for the complete information about this software.
+ * ------------
  *
- *   ------------
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- *   This program is free software; you can redistribute it and/or modify it under the terms of
- *   the GNU General Public License as published by the Free Software Foundation; either version 2
- *   of the License, or (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- *   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *   See the GNU General Public License for more details. http://www.gnu.org/copyleft/gpl.html
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details. http://www.gnu.org/copyleft/gpl.html
  */
 class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
 {
     /**
-     *Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
+     * Looks up the name of the tag for the MakerNote (Depends on Manufacturer)
      */
-    static protected function _lookupTag($tag)
+    protected function _lookupTag($tag)
     {
         switch($tag) {
         case '0001': $tag = 'Settings 1'; break;
@@ -42,7 +42,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
         case '0009': $tag = 'OwnerName'; break;
         case '000c': $tag = 'CameraSerialNumber'; break;
         case '000f': $tag = 'CustomFunctions'; break;
-        default: $tag = sprintf(_("Unknown: (%s)"), $tag); break;
+        default:     $tag = sprintf(_("Unknown: (%s)"), $tag); break;
         }
 
         return $tag;
@@ -51,13 +51,17 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
     /**
      * Formats Data for the data type
      */
-    static protected function _formatData($type, $tag, $intel, $data, $exif, &$result)
+    protected function _formatData($type, $tag, $intel, $data, $exif, &$result)
     {
         $place = 0;
 
-        if ($type == 'ASCII') {
+        switch ($type) {
+        case 'ASCII':
             $result = $data = str_replace('\0', '', $data);
-        } elseif ($type == 'URATIONAL' || $type == 'SRATIONAL') {
+            break;
+
+        case 'URATIONAL':
+        case 'SRATIONAL':
             $data = bin2hex($data);
             if ($intel == 1) {
                 $data = Horde_Image_Exif::intel2Moto($data);
@@ -72,20 +76,28 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $data = $top . '/' . $bottom;
             }
 
-            if ($tag == '0204') { //DigitalZoom
+            if ($tag == '0204') {
+                //DigitalZoom
                 $data = $data . 'x';
             }
-        } elseif ($type == 'USHORT' || $type == 'SSHORT' || $type == 'ULONG' ||
-                  $type == 'SLONG' || $type == 'FLOAT' || $type == 'DOUBLE') {
-
+        case 'USHORT':
+        case 'SSHORT':
+        case 'ULONG':
+        case 'SLONG':
+        case 'FLOAT':
+        case 'DOUBLE':
             $data = bin2hex($data);
             $result['RAWDATA'] = $data;
 
-            if ($tag == '0001') { //first chunk
+            // TODO: split this code up
+            switch ($tag) {
+            case '0001':
+                //first chunk
                 $result['Bytes'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;
                 if ($result['Bytes'] != strlen($data) / 2) {
-                    return $result; //Bad chunk
+                    //Bad chunk
+                    return $result;
                 }
                 $result['Macro'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//1
@@ -325,8 +337,10 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                     default: $result['FocusMode'] = _("Unknown");
                     }
                 }
+                break;
 
-            } elseif ($tag=='0004') { //second chunk
+            case '0004':
+                //second chunk
                 $result['Bytes']=hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//0
                 if ($result['Bytes'] != strlen($data) / 2) {
@@ -424,38 +438,49 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $result['SubjectDistance'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//19
                 $result['SubjectDistance'] .= '/100 m';
+                break;
 
-            } elseif ($tag=='0008') { //image number
+            case '0008':
+                //image number
                 if ($intel == 1) {
                     $data = Horde_Image_Exif::intel2Moto($data);
                 }
                 $data = hexdec($data);
                 $result = round($data / 10000) . '-' . $data % 10000;
-            } elseif ($tag == '000c') { //camera serial number
+                break;
+
+            case '000c':
+                //camera serial number
                 if ($intel == 1) {
                     $data = Horde_Image_Exif::intel2Moto($data);
                 }
                 $data = hexdec($data);
                 $result = '#' . bin2hex(substr($data, 0, 16)) . substr($data, 16, 16);
+                break;
             }
+            break;
 
-        } elseif ($type != 'UNDEFINED') {
-            $data = bin2hex($data);
-            if ($intel == 1) {
-                $data = Horde_Image_Exif::intel2Moto($data);
+        default:
+            if ($type != 'UNDEFINED') {
+                $data = bin2hex($data);
+                if ($intel == 1) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
             }
+            break;
         }
 
         return $data;
     }
 
     /**
-     * Cannon Special data section
-     * Useful:  http://www.burren.cx/david/canon.html
-     * http://www.burren.cx/david/canon.html
-     * http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
+     * Canon Special data section.
+     *
+     * @see http://www.burren.cx/david/canon.html
+     * @see http://www.burren.cx/david/canon.html
+     * @see http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
      */
-    static public function parse($block, &$result, $seek, $globalOffset)
+    public function parse($block, &$result, $seek, $globalOffset)
     {
         $place = 0; //current place
         if ($result['Endien'] == 'Intel') {
@@ -476,13 +501,13 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
 
         //loop thru all tags  Each field is 12 bytes
         for ($i = 0; $i < hexdec($num); $i++) {
-             //2 byte tag
+            //2 byte tag
             $tag = bin2hex(substr($block, $place, 2));
             $place += 2;
             if ($intel == 1) {
                 $tag = Horde_Image_Exif::intel2Moto($tag);
             }
-            $tag_name = self::_lookupTag($tag);
+            $tag_name = $this->_lookupTag($tag);
 
             //2 byte type
             $type = bin2hex(substr($block, $place, 2));
@@ -490,7 +515,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            self::_lookupType($type, $size);
+            $this->_lookupType($type, $size);
 
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));
@@ -504,7 +529,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 return; //if this value is 0 or less then we have read all the tags we can
             }
 
-                //4 byte value of data or pointer to data
+            //4 byte value of data or pointer to data
             $value = substr($block, $place, 4);
             $place += 4;
 
@@ -515,7 +540,9 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 if ($intel == 1) {
                     $value = Horde_Image_Exif::intel2Moto($value);
                 }
-                $v = fseek($seek, $globalOffset+hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
+                //offsets are from TIFF header which is 12 bytes from the start
+                //of the file
+                $v = fseek($seek, $globalOffset + hexdec($value));
                 $exiferFileSize = 0;
                 if ($v == 0 && $bytesofdata < $exiferFileSize) {
                     $data = fread($seek, $bytesofdata);
@@ -526,11 +553,10 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                     $data = '';
                 }
             }
-            $result['SubIFD']['MakerNote'][$tag_name] = ''; // insure the index exists
-            $formated_data = self::_formatData($type, $tag, $intel, $data, $result, $result['SubIFD']['MakerNote'][$tag_name]);
+            // Ensure the index exists.
+            $result['SubIFD']['MakerNote'][$tag_name] = '';
+            $formated_data = $this->_formatData($type, $tag, $intel, $data, $result, $result['SubIFD']['MakerNote'][$tag_name]);
             $result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
         }
-
     }
-
 }
