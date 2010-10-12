@@ -215,7 +215,7 @@ function get_languages($dir)
     return $langs;
 }
 
-function search_applications()
+function search_modules()
 {
     $dirs = array();
     if (is_dir(HORDE_BASE . DS . 'locale')) {
@@ -231,9 +231,22 @@ function search_applications()
                 $sub = opendir($dir);
                 if ($sub) {
                     while ($subentry = readdir($sub)) {
-                        if ($subentry == 'locale' && is_dir($dir . DS . $subentry)) {
+                        if ($subentry == 'locale' &&
+                            is_dir($dir . DS . $subentry)) {
                             $dirs[] = $dir;
                             break;
+                        }
+                        if ($entry == 'framework') {
+                            $framework = opendir($dir . DS . $subentry);
+                            if ($framework) {
+                                while ($package = readdir($framework)) {
+                                    if ($package == 'locale' &&
+                                        is_dir($dir . DS . $subentry . DS . $package)) {
+                                        $dirs[] = $dir . DS . $subentry;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -249,7 +262,7 @@ function strip_horde($file)
     if (is_array($file)) {
         return array_map('strip_horde', $file);
     } else {
-        return str_replace(BASE . DS, '', $file);
+        return str_replace(array(BASE . DS, 'framework/'), array('', 'Horde_'), $file);
     }
 }
 
@@ -282,8 +295,7 @@ function xtract()
         chdir($dirs[$i]);
         $files = array();
         if ($apps[$i] == 'horde') {
-            $files = search_ext('(php|inc)', '../framework');
-            $files[] = 'config/nls.php';
+            $files = array('config/nls.php');
         }
         $files = array_merge($files, search_ext('(php|inc)'));
         $files = array_filter($files, create_function('$file', 'return substr($file, 0, 9) != "." . DS . "config" . DS;'));
@@ -296,7 +308,7 @@ function xtract()
         }
         $tmp_file = $file . '.tmp.pot';
         $sh = $GLOBALS['xgettext'] . ' --language=' . $language .
-            ' --from-code=iso-8859-1 --keyword=_ --sort-output --copyright-holder="Horde Project" --msgid-bugs-address="dev@lists.horde.org" --files-from=' . $file . '.list --output=' . $tmp_file;
+            ' --from-code=iso-8859-1 --keyword=_ --keyword=ngettext --keyword=t --keyword=n --sort-output --copyright-holder="Horde Project" --msgid-bugs-address="dev@lists.horde.org" --files-from=' . $file . '.list --output=' . $tmp_file;
         if ($debug) {
             $sh .= $silence;
         }
@@ -519,7 +531,7 @@ function status()
 
 function compendium()
 {
-    global $cmd_options, $dirs, $debug, $test, $c, $silence;
+    global $cmd_options, $dirs, $apps, $debug, $test, $c, $silence;
 
     $dir = HORDE_BASE . DS . 'locale' . DS;
     $add = '';
@@ -607,7 +619,9 @@ function init()
             continue;
         }
         $package = ucfirst($apps[$i]);
-        $version = $registry->getVersion($apps[$i]);
+        $version = substr($apps[$i], 0, 6) == 'Horde_'
+            ? ''
+            : ' ' . $registry->getVersion($apps[$i]);
         printf('Initializing module %s... ', $apps[$i]);
         $dir = $dirs[$i] . DS . 'locale' . DS;
         $pot = $dir . $apps[$i] . '.pot';
@@ -618,15 +632,22 @@ function init()
         }
         $sh = $GLOBALS['msginit'] . ' --no-translator -i ' . $pot;
         if (!empty($lang)) {
-            $sh .= ' -o ' . $dir . $lang . '.po --locale=' . $lang;
+            $lcdir = $dir . $lang . DS . 'LC_MESSAGES';
+            $pofile = $lcdir . DS . $apps[$i] . '.po';
+            $sh .= ' -o ' . $pofile . ' --locale=' . $lang;
+            if (!is_dir($lcdir) && !System::mkdir('-p ' . $lcdir)) {
+                $c->message(sprintf('Could not create locale directory for locale %s:', $locale), 'cli.warning');
+                $c->writeln($lcdir);
+                $c->writeln();
+                continue;
+            }
         }
         if (!$debug) {
             $sh .= $silence;
         }
         if (!empty($lang) && !OS_WINDOWS) {
-            $pofile = $dir . $lang . '.po';
-            $sh .= "; sed 's/PACKAGE package/$package package/' $pofile " .
-                   "| sed 's/PACKAGE VERSION/$package $version/' " .
+            $sh .= "; sed 's/PACKAGE package/$package module/' $pofile " .
+                   "| sed 's/PACKAGE VERSION/$package$version/' " .
                    "| sed 's/messages for PACKAGE/messages for $package/' " .
                    "| sed 's/Language-Team: none/Language-Team: i18n@lists.horde.org/' " .
                    "> $pofile.tmp";
@@ -754,8 +775,9 @@ function make()
             }
 
             /* Compile MO file. */
-            $sh = $GLOBALS['msgfmt'] . ' --statistics -o "' . $targetdir . DS . $apps[$i] . '.mo" ';
-            if ($apps[$i] != 'horde') {
+            $sh = $GLOBALS['msgfmt'] . ' --statistics -o "' . $targetdir . $apps[$i] . '.mo" ';
+            if ($apps[$i] != 'horde' &&
+                substr($apps[$i], 0, 6) != 'Horde_') {
                 $horde_po = $dirs[$horde] . DS . 'locale' . DS . $locale . DS . 'LC_MESSAGES/horde.po';
                 if (!is_readable($horde_po)) {
                     $c->message(sprintf('The Horde PO file for the locale %s does not exist:', $locale), 'cli.warning');
@@ -787,21 +809,24 @@ function make()
                 $messages = array(0, 0, 0, $last_update);
                 if (preg_match('/(\d+) translated/', $out[0], $match)) {
                     $messages[0] = $match[1];
-                    if (isset($horde_msg[$locale])) {
+                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        isset($horde_msg[$locale])) {
                         $messages[0] -= $horde_msg[$locale][0];
                         if ($messages[0] < 0) $messages[0] = 0;
                     }
                 }
                 if (preg_match('/(\d+) fuzzy/', $out[0], $match)) {
                     $messages[1] = $match[1];
-                    if (isset($horde_msg[$locale])) {
+                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        isset($horde_msg[$locale])) {
                         $messages[1] -= $horde_msg[$locale][1];
                         if ($messages[1] < 0) $messages[1] = 0;
                     }
                 }
                 if (preg_match('/(\d+) untranslated/', $out[0], $match)) {
                     $messages[2] = $match[1];
-                    if (isset($horde_msg[$locale])) {
+                    if (substr($apps[$i], 0, 6) != 'Horde_' &&
+                        isset($horde_msg[$locale])) {
                         $messages[2] -= $horde_msg[$locale][2];
                         if ($messages[2] < 0) $messages[2] = 0;
                     }
@@ -896,6 +921,7 @@ function cleanup($keep_untranslated = false)
         if (empty($lang)) {
             $langs = get_languages($dirs[$i]);
         } else {
+            $c->writeln(sprintf($po, $lang));
             if (!file_exists(sprintf($po, $lang))) {
                 $c->writeln('Skipped...');
                 $c->writeln();
@@ -1448,11 +1474,11 @@ if (array_key_exists($cmd, $options_list)) {
     }
 }
 
-/* Searching applications */
+/* Searching modules */
 check_binaries();
 
-$c->writeln(sprintf('Searching Horde applications in %s', BASE));
-$dirs = search_applications();
+$c->writeln(sprintf('Searching Horde modules in %s', BASE));
+$dirs = search_modules();
 
 if ($debug) {
     $c->writeln('Found directories:');
@@ -1461,7 +1487,7 @@ if ($debug) {
 
 $apps = strip_horde($dirs);
 $apps[0] = 'horde';
-$c->writeln(wordwrap(sprintf('Found applications: %s', implode(', ', $apps))));
+$c->writeln(wordwrap(sprintf('Found modules: %s', implode(', ', $apps))));
 $c->writeln();
 
 switch ($cmd) {
