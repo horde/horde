@@ -2083,7 +2083,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         case 'vfs':
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-                $atc['part']->setContents($vfs->readFile(self::VFS_ATTACH_PATH, $atc['filename']));
+                $atc['part']->setContents($vfs->read(self::VFS_ATTACH_PATH, $atc['filename']));
             } catch (VFS_Exception $e) {}
             break;
 
@@ -2692,7 +2692,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             try {
-                $data = $vfs->readFile(self::VFS_DRAFTS_PATH, $filename);
+                $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
                 $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
             } catch (VFS_Exception $e) {
                 return;
