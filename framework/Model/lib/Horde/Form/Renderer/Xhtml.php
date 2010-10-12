@@ -276,10 +276,10 @@ try {
     function submit($submit = null, $reset = false)
     {
         if (is_null($submit) || empty($submit)) {
-            $submit = _("Submit");
+            $submit = $this->_dict->t("Submit");
         }
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = $this->_dict->t("Reset");
         }
         $this->_renderSubmit($submit, $reset);
     }
@@ -295,7 +295,7 @@ try {
         }
         if ($this->_requiredLegend) {
             echo '<div class="form-error-example">' . $this->_requiredMarker
-                . ' &#61; ' . _("Required Field") . '</div>'."\n";
+                . ' &#61; ' . $this->_dict->t("Required Field") . '</div>'."\n";
         }
     }
 

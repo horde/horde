@@ -77,8 +77,8 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         $method = str_replace('.', '/', 'phpgw.' . $method);
 
         if (!$registry->hasMethod($method)) {
-            Horde::logMessage(sprintf(_("Method \"%s\" is not defined"), $method), 'NOTICE');
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            Horde::logMessage(sprintf($this->_dict->t("Method \"%s\" is not defined"), $method), 'NOTICE');
+            return sprintf($this->_dict->t("Method \"%s\" is not defined"), $method);
         }
 
         // Try to resume a session
@@ -96,7 +96,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
             Horde::logMessage("rpc call $method allowed", 'NOTICE');
             return $registry->call($method, $params);
         } else {
-            return PEAR::raiseError(_("You did not authenticate."), 'horde.error');
+            return PEAR::raiseError($this->_dict->t("You did not authenticate."), 'horde.error');
             // return parent::authorize();
             // error 9 "access denied"
         }
@@ -155,9 +155,9 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Rpc_Exception($result);
         } elseif ($http->getResponseCode() != 200) {
-            throw new Horde_Rpc_Exception(_("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode());
+            throw new Horde_Rpc_Exception($this->_dict->t("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode());
         } elseif (strpos($http->getResponseBody(), '<?xml') === false) {
-            throw new Horde_Rpc_Exception(_("No valid XML data returned:") . "\n" . $http->getResponseBody());
+            throw new Horde_Rpc_Exception($this->_dict->t("No valid XML data returned:") . "\n" . $http->getResponseBody());
         } else {
             $response = @xmlrpc_decode(substr($http->getResponseBody(), strpos($http->getResponseBody(), '<?xml')));
             if (is_array($response) && isset($response['faultString'])) {

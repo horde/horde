@@ -43,10 +43,10 @@ class VFS_ISOWriter_mkisofs extends VFS_ISOWriter {
         }
 
         if ($res === false) {
-            return PEAR::raiseError(_("Unable to run 'mkisofs'."));
+            return PEAR::raiseError($this->_dict->t("Unable to run 'mkisofs'."));
         }
         if ($ec != 0) {
-            return PEAR::raiseError(sprintf(_("mkisofs error code %d while making ISO."), $ec));
+            return PEAR::raiseError(sprintf($this->_dict->t("mkisofs error code %d while making ISO."), $ec));
         }
     }
 

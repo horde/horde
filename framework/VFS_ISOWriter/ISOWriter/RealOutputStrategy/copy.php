@@ -45,7 +45,7 @@ class VFS_ISOWriter_RealOutputStrategy_copy extends VFS_ISOWriter_RealOutputStra
             }
 
             if (empty($tmp)) {
-                return PEAR::raiseError(_("Cannot find a temporary directory."));
+                return PEAR::raiseError($this->_dict->t("Cannot find a temporary directory."));
             }
 
             $this->_tempFilename = tempnam($tmp, 'iso');

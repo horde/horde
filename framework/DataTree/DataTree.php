@@ -121,7 +121,7 @@ class DataTree {
         $children = $this->getNumberOfChildren($object);
         if ($children) {
             /* TODO: remove children if $force == true */
-            return PEAR::raiseError(sprintf(ngettext("Cannot remove, %d child exists.", "Cannot remove, %d children exist.", count($children)), count($children)));
+            return PEAR::raiseError(sprintf('Cannot remove, %d children exist.', count($children)));
         }
 
         $id = $this->getId($object);

@@ -42,6 +42,8 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
+        parent::__construct($params);
+
         foreach (array('identity', 'mail') as $param) {
             if (!isset($params[$param])) {
                 throw new Horde_Alarm_Exception('Parameter \'' . $param . '\' missing.');
@@ -113,7 +115,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      */
     public function getDescription()
     {
-        return _("Email");
+        return $this->_dict->t("Email");
     }
 
     /**
@@ -133,7 +135,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
         return array(
             'email' => array(
                 'type' => 'text',
-                'desc' => _("Email address (optional)"),
+                'desc' => $this->_dict->t("Email address (optional)"),
                 'required' => false));
     }
 }

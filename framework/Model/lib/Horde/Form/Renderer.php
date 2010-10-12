@@ -42,14 +42,29 @@ abstract class Horde_Form_Renderer {
     var $_encodeTitle = true;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Construct a new Horde_Form_Renderer::.
      *
      * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:<code>
-     *                       'encode_title': @see $_encodeTitle</code>
+     *                       Possible keys:
+     *                       - 'encode_title': @see $_encodeTitle
+     *                       - 'translation': (object) A translation handler
+     *                                        implementing Horde_Translation.
      */
     function __construct($params = array())
     {
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Model', dirname(__FILE__) . '/../../../locale');
+        }
+
         if (isset($params['encode_title'])) {
             $this->encodeTitle($params['encode_title']);
         }
@@ -63,14 +78,14 @@ abstract class Horde_Form_Renderer {
     {
         if ($submit === true || is_null($submit) || empty($submit)) {
             /* Default to 'Submit'. */
-            $submit = array(_("Submit"));
+            $submit = array($this->_dict->t("Submit"));
         } elseif (!is_array($submit)) {
             /* Default to array if not passed. */
             $submit = array($submit);
         }
         /* Only if $reset is strictly true insert default 'Reset'. */
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = $this->_dict->t("Reset");
         }
 
         $this->_submit = $submit;

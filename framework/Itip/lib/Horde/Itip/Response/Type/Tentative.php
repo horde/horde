@@ -46,7 +46,7 @@ extends Horde_Itip_Response_Type_Base
      */
     public function getShortSubject()
     {
-        return _("Tentative");
+        return $this->_dict->t("Tentative");
     }
 
     /**
@@ -59,7 +59,7 @@ extends Horde_Itip_Response_Type_Base
     public function getShortMessage($is_update = false)
     {
         return $is_update
-            ? _("has tentatively accepted the update to the following event")
-            : _("has tentatively accepted the invitation to the following event");
+            ? $this->_dict->t("has tentatively accepted the update to the following event")
+            : $this->_dict->t("has tentatively accepted the invitation to the following event");
     }
 }

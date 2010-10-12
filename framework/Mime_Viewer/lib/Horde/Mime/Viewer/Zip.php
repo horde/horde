@@ -87,7 +87,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
 
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
-            $name = _("unnamed");
+            $name = $this->_dict->t("unnamed");
         }
 
         $monospace = $this->getConfigParam('monospace');
@@ -95,17 +95,17 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
         $text = '<table><tr><td align="left"><span ' .
             ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
             $this->_textFilter(
-                _("Archive Name") . ': ' . $name . "\n" .
-                _("Archive File Size") . ': ' . strlen($contents) .
+                $this->_dict->t("Archive Name") . ': ' . $name . "\n" .
+                $this->_dict->t("Archive File Size") . ': ' . strlen($contents) .
                 " bytes\n" .
-                sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
+                sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
                 "\n\n" .
                 str_repeat(' ', 15) .
-                Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Attributes"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Size"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Modified Date"), 19, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Method"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Ratio"), 10, ' ', STR_PAD_LEFT) .
                 "\n",
                 'Space2html',
                 array(

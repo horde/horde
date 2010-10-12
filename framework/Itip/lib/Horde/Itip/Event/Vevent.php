@@ -42,14 +42,28 @@ implements Horde_Itip_Event
     private $_vevent;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
      * @param Horde_Icalendar_Vevent $vevent The iCalendar object that will be
      *                                       wrapped by this instance.
+     * @param Horde_Translation      $dict   A translation handler
+     *                                       implementing Horde_Translation.
      */
-    public function __construct(Horde_Icalendar_Vevent $vevent)
+    public function __construct(Horde_Icalendar_Vevent $vevent, $dict = null)
     {
         $this->_vevent = $vevent;
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Itip', dirname(__FILE__) . '/../../../../locale');
+        }
     }
 
     /**
@@ -89,7 +103,7 @@ implements Horde_Itip_Event
      */
     public function getSummary()
     {
-        return $this->_vevent->getAttributeDefault('SUMMARY', _("No summary available"));
+        return $this->_vevent->getAttributeDefault('SUMMARY', $this->_dict->t("No summary available"));
     }
 
     /**

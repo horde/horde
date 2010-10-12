@@ -93,34 +93,34 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
 
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
-            $name = _("unnamed");
+            $name = $this->_dict->t("unnamed");
         }
 
         $monospace = $this->getConfigParam('monospace');
 
         $text = '<table><tr><td align="left"><span ' .
             ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
-            $this->_textFilter(_("Archive Name") . ':  ' . $name, 'Space2html', array(
+            $this->_textFilter($this->_dict->t("Archive Name") . ':  ' . $name, 'Space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'Space2html', array(
+            $this->_textFilter($this->_dict->t("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'Space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'Space2html', array(
+            $this->_textFilter(sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'Space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) .
             "\n\n" .
             $this->_textFilter(
-                str_pad(_("File Name"), 62, ' ', STR_PAD_RIGHT) .
-                str_pad(_("Attributes"), 15, ' ', STR_PAD_LEFT) .
-                str_pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                str_pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT),
+                str_pad($this->_dict->t("File Name"), 62, ' ', STR_PAD_RIGHT) .
+                str_pad($this->_dict->t("Attributes"), 15, ' ', STR_PAD_LEFT) .
+                str_pad($this->_dict->t("Size"), 10, ' ', STR_PAD_LEFT) .
+                str_pad($this->_dict->t("Modified Date"), 19, ' ', STR_PAD_LEFT),
                 'Space2html',
                 array(
                     'charset' => $charset,

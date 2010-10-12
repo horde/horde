@@ -23,6 +23,13 @@ class Horde_Core_Ui_JsCalendar
     static protected $_initRun = false;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    static protected $_coreDict;
+
+    /**
      * Output the necessary javascript code to allow display of the calendar
      * widget.
      *
@@ -48,6 +55,8 @@ class Horde_Core_Ui_JsCalendar
             return;
         }
         self::$_initRun = true;
+
+        self::$_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
 
         $params = array_merge(array(
             'click_month' => false,
@@ -88,13 +97,13 @@ class Horde_Core_Ui_JsCalendar
     static public function weekdays()
     {
         return array(
-            _("Su"),
-            _("Mo"),
-            _("Tu"),
-            _("We"),
-            _("Th"),
-            _("Fr"),
-            _("Sa")
+            self::$_coreDict->t("Su"),
+            self::$_coreDict->t("Mo"),
+            self::$_coreDict->t("Tu"),
+            self::$_coreDict->t("We"),
+            self::$_coreDict->t("Th"),
+            self::$_coreDict->t("Fr"),
+            self::$_coreDict->t("Sa")
         );
     }
 
@@ -106,13 +115,13 @@ class Horde_Core_Ui_JsCalendar
     static public function fullWeekdays()
     {
         return array(
-            _("Sunday"),
-            _("Monday"),
-            _("Tuesday"),
-            _("Wednesday"),
-            _("Thursday"),
-            _("Friday"),
-            _("Saturday"),
+            self::$_coreDict->t("Sunday"),
+            self::$_coreDict->t("Monday"),
+            self::$_coreDict->t("Tuesday"),
+            self::$_coreDict->t("Wednesday"),
+            self::$_coreDict->t("Thursday"),
+            self::$_coreDict->t("Friday"),
+            self::$_coreDict->t("Saturday"),
         );
     }
 
@@ -124,18 +133,18 @@ class Horde_Core_Ui_JsCalendar
     static public function months()
     {
         return array(
-            _("January"),
-            _("February"),
-            _("March"),
-            _("April"),
-            _("May"),
-            _("June"),
-            _("July"),
-            _("August"),
-            _("September"),
-            _("October"),
-            _("November"),
-            _("December")
+            self::$_coreDict->t("January"),
+            self::$_coreDict->t("February"),
+            self::$_coreDict->t("March"),
+            self::$_coreDict->t("April"),
+            self::$_coreDict->t("May"),
+            self::$_coreDict->t("June"),
+            self::$_coreDict->t("July"),
+            self::$_coreDict->t("August"),
+            self::$_coreDict->t("September"),
+            self::$_coreDict->t("October"),
+            self::$_coreDict->t("November"),
+            self::$_coreDict->t("December")
         );
     }
 

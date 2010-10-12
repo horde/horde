@@ -95,7 +95,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                             $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                         }
                     } catch (Horde_Exception $e) {
-                        $header = _("Error");
+                        $header = $this->_dict->t("Error");
                         $content = $e->getMessage();
                         ob_start();
                         include $tplDir . '/portal/block.inc';

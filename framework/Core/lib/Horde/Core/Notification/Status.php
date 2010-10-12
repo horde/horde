@@ -14,6 +14,13 @@
 class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
 {
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Constructor.
      *
      * @param mixed $data   Message: either a string or an Exception or
@@ -23,6 +30,8 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
      */
     public function __construct($data, $type = null, array $flags = array())
     {
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+
         if (empty($type)) {
             $type = ($data instanceof PEAR_Error || $data instanceof Exception)
                 ? 'horde.error'
@@ -65,15 +74,15 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
                     return $e->getMessage();
                 }
                 $opts = array(
-                    '-1' => _("Dismiss"),
-                    '5' => _("5 minutes"),
-                    '15' => _("15 minutes"),
-                    '60' => _("1 hour"),
-                    '360' => _("6 hours"),
-                    '1440' => _("1 day")
+                    '-1' => $this->_coreDict->t("Dismiss"),
+                    '5' => $this->_coreDict->t("5 minutes"),
+                    '15' => $this->_coreDict->t("15 minutes"),
+                    '60' => $this->_coreDict->t("1 hour"),
+                    '360' => $this->_coreDict->t("6 hours"),
+                    '1440' => $this->_coreDict->t("1 day")
                 );
                 $id = 'snooze_' . md5($alarm['id']);
-                $text .= ' <small onmouseover="if(typeof ' . $id . '_t!=\'undefined\')clearTimeout(' . $id . '_t);Element.show(\'' . $id . '\')" onmouseout="' . $id . '_t=setTimeout(function(){Element.hide(\'' . $id . '\')},500)">[' . _("Snooze...") . '<span id="' . $id . '" style="display:none"> ';
+                $text .= ' <small onmouseover="if(typeof ' . $id . '_t!=\'undefined\')clearTimeout(' . $id . '_t);Element.show(\'' . $id . '\')" onmouseout="' . $id . '_t=setTimeout(function(){Element.hide(\'' . $id . '\')},500)">[' . $this->_coreDict->t("Snooze...") . '<span id="' . $id . '" style="display:none"> ';
                 $first = true;
                 foreach ($opts as $minutes => $desc) {
                     if (!$first) {
@@ -86,30 +95,30 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
             }
 
             $img = 'alerts/alarm.png';
-            $label = _("Alarm");
+            $label = $this->_coreDict->t("Alarm");
             break;
 
         case 'horde.error':
             $img = 'alerts/error.png';
-            $label = _("Error");
+            $label = $this->_coreDict->t("Error");
             $text = parent::__toString();
             break;
 
         case 'horde.message':
             $img = 'alerts/message.png';
-            $label = _("Message");
+            $label = $this->_coreDict->t("Message");
             $text = parent::__toString();
             break;
 
         case 'horde.success':
             $img = 'alerts/success.png';
-            $label = _("Success");
+            $label = $this->_coreDict->t("Success");
             $text = parent::__toString();
             break;
 
         case 'horde.warning':
             $img = 'alerts/warning.png';
-            $label = _("Warning");
+            $label = $this->_coreDict->t("Warning");
             $text = parent::__toString();
             break;
 

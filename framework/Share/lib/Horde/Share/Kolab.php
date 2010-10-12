@@ -78,7 +78,7 @@ class Horde_Share_kolab extends Horde_Share
         case 'nag':
             return 'task';
         default:
-            throw new Horde_Share_Exception(sprintf(_("The Horde/Kolab integration engine does not support \"%s\""), $app));
+            throw new Horde_Share_Exception(sprintf($this->_dict->t("The Horde/Kolab integration engine does not support \"%s\""), $app));
         }
     }
 
@@ -114,7 +114,7 @@ class Horde_Share_kolab extends Horde_Share
 
         /** Does the folder exist? */
         if (!$folder->exists()) {
-            throw new Horde_Share_Exception(sprintf(_("Share \"%s\" does not exist."), $object));
+            throw new Horde_Share_Exception(sprintf($this->_dict->t("Share \"%s\" does not exist."), $object));
         }
 
         /** Create the object from the folder */

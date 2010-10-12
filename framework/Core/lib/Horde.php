@@ -104,8 +104,9 @@ class Horde
     {
         $admin = $GLOBALS['registry']->isAdmin();
         $cli = Horde_Cli::runningFromCLI();
+        $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
 
-        $errortext = '<h1>' . _("A fatal error has occurred") . '</h1>';
+        $errortext = '<h1>' . $dict->t("A fatal error has occurred") . '</h1>';
 
         if (($error instanceof PEAR_Error) ||
             (is_object($error) && method_exists($error, 'getMessage'))) {
@@ -123,12 +124,12 @@ class Horde
             $backtrace = new Horde_Support_Backtrace($trace);
             $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
             if (is_object($error)) {
-                $errortext .= '<h3>' . _("Details") . '</h3>';
-                $errortext .= '<h4>' . _("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                $errortext .= '<h3>' . $dict->t("Details") . '</h3>';
+                $errortext .= '<h4>' . $dict->t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
                 $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
             }
         } elseif ($log) {
-            $errortext .= '<h3>' . _("Details have been logged for the administrator.") . '</h3>';
+            $errortext .= '<h3>' . $dict->t("Details have been logged for the administrator.") . '</h3>';
         }
 
         // Log the error via logMessage() if requested.
@@ -374,11 +375,13 @@ HTML;
         global $conf, $session;
 
         if (!isset($session['horde:form_secrets/' . $token])) {
-            throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
+            throw new Horde_Exception($dict->t("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
         }
 
         if (($session['horde:form_secrets/' . $token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
-            throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
+            throw new Horde_Exception(sprintf($dict->t("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
         }
     }
 
@@ -671,7 +674,8 @@ HTML;
     static public function requireSecureConnection()
     {
         if (!self::isConnectionSecure()) {
-            throw new Horde_Exception(_("The encryption features require a secure web connection."));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
+            throw new Horde_Exception($dict->t("The encryption features require a secure web connection."));
         }
     }
 
@@ -862,18 +866,20 @@ HTML;
         $fileroot = isset($registry) ? $registry->get('fileroot') : '';
 
         if (!is_array($params) || !count($params)) {
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
             throw new Horde_Exception(
-                sprintf(_("No configuration information specified for %s."), $name) . "\n\n" .
-                sprintf(_("The file %s should contain some %s settings."),
+                sprintf($dict->t("No configuration information specified for %s."), $name) . "\n\n" .
+                sprintf($dict->t("The file %s should contain some %s settings."),
                     $fileroot . '/config/' . $file,
                     sprintf("%s['%s']['params']", $variable, $driver)));
         }
 
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
+                $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
                 throw new Horde_Exception(
-                    sprintf(_("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
-                    sprintf(_("The file %s should contain a %s setting."),
+                    sprintf($dict->t("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
+                    sprintf($dict->t("The file %s should contain a %s setting."),
                         $fileroot . '/config/' . $file,
                         sprintf("%s['%s']['params']['%s']", $variable, $driver, $field)));
             }
@@ -1608,8 +1614,9 @@ HTML;
         $ak = self::getAccessKey($label, $nocheck);
         $attributes = 'title="' . self::stripAccessKey($label);
         if (!empty($ak)) {
-            $attributes .= sprintf(_(" (Accesskey %s)"), strtoupper($ak));
-            $attributes .= '" accesskey="' . $ak;
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
+            $attributes .= sprintf($dict->t(" (Accesskey %s)"), strtoupper($ak))
+              . '" accesskey="' . $ak;
         }
 
         return $attributes . '"';
@@ -2077,7 +2084,8 @@ HTML;
         $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
 
         if (!in_array($registry->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
-            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), _("_Home"), 'horde.png');
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
+            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), $dict->t("_Home"), 'horde.png');
         }
 
         $registry->callAppMethod($opts['app'], 'menu', array(

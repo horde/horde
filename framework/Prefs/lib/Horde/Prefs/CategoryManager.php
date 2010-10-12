@@ -33,8 +33,11 @@ class Horde_Prefs_CategoryManager
     /**
      * TODO
      */
-    static public function getSelect($id, $current = null)
+    static public function getSelect($id, $current = null, $dict = null)
     {
+        if (!$dict) {
+            $dict = new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../../locale');
+        }
         $categories = self::get();
         $colors = self::colors();
         $fgcolors = self::fgColors();
@@ -45,13 +48,13 @@ class Horde_Prefs_CategoryManager
         if (!in_array($current, $categories) && !empty($current)) {
             $curr_html = htmlspecialchars($current);
             $html .= '<option value="*new*' . $curr_html . '">'
-                . sprintf(_("Use Current: %s"), $curr_html)
+                . sprintf($dict->t("Use Current: %s"), $curr_html)
                 . '</option>'
                 . '<option value="" disabled="disabled">- - - - - - - - -</option>';
         }
 
         if (!$GLOBALS['prefs']->isLocked('categories')) {
-            $html .= '<option value="*new*">' . _("New Category")
+            $html .= '<option value="*new*">' . $dict->t("New Category")
                 . "</option>\n"
                 . '<option value="" disabled="disabled">- - - - - - - - -</option>';
         }
@@ -60,7 +63,7 @@ class Horde_Prefs_CategoryManager
         $html .= '<option value="" style="background:'
             . $colors['_unfiled_'] . ';color:' . $fgcolors['_unfiled_'] . '"'
             . (empty($current) ? ' selected="selected">' : '>')
-            . htmlspecialchars(_("Unfiled")) . '</option>';
+            . htmlspecialchars($dict->t("Unfiled")) . '</option>';
 
         foreach ($categories as $name) {
             $name_html = htmlspecialchars($name);
@@ -77,10 +80,13 @@ class Horde_Prefs_CategoryManager
     /**
      * TODO
      */
-    static public function getJavaScript($formname, $elementname)
+    static public function getJavaScript($formname, $elementname, $dict = null)
     {
-        $prompt = addslashes(_("Please type the new category name:"));
-        $error = addslashes(_("You must type a new category name."));
+        if (!$dict) {
+            $dict = new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../../locale');
+        }
+        $prompt = addslashes($dict->t("Please type the new category name:"));
+        $error = addslashes($dict->t("You must type a new category name."));
 
         return <<<JAVASCRIPT
 

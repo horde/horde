@@ -63,13 +63,13 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
         $headers = Horde_Mime_Headers::parseHeaders($text);
 
         $header_array = array(
-            'date' => _("Date"),
-            'from' => _("From"),
-            'to' => _("To"),
-            'cc' => _("Cc"),
-            'bcc' => _("Bcc"),
-            'reply-to' => _("Reply-To"),
-            'subject' => _("Subject")
+            'date' => $this->_dict->t("Date"),
+            'from' => $this->_dict->t("From"),
+            'to' => $this->_dict->t("To"),
+            'cc' => $this->_dict->t("Cc"),
+            'bcc' => $this->_dict->t("Bcc"),
+            'reply-to' => $this->_dict->t("Reply-To"),
+            'subject' => $this->_dict->t("Subject")
         );
         $header_output = array();
 

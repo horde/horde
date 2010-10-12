@@ -30,12 +30,26 @@ class Horde_Mime_Mdn
     protected $_msgtext = false;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
      * @param Horde_Mime_Headers $mime_headers  A headers object.
+     * @param Horde_Translation $dict           A translation handler
+     *                                          implementing Horde_Translation.
      */
-    public function __construct(Horde_Mime_Headers $headers)
+    public function __construct(Horde_Mime_Headers $headers, $dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Mime', dirname(__FILE__) . '/../../../locale');
+        }
         $this->_headers = $headers;
     }
 
@@ -185,7 +199,7 @@ class Horde_Mime_Mdn
             $msg_headers->addHeader('From', $opts['from_addr']);
         }
         $msg_headers->addHeader('To', $this->getMdnReturnAddr());
-        $msg_headers->addHeader('Subject', _("Disposition Notification"));
+        $msg_headers->addHeader('Subject', $this->_dict->t("Disposition Notification"));
 
         /* MDNs are a subtype of 'multipart/report'. */
         $msg = new Horde_Mime_Part();
@@ -196,7 +210,7 @@ class Horde_Mime_Mdn
         $part_one = new Horde_Mime_Part('text/plain');
         $part_one->setCharset($opts['charset']);
         if ($type == 'displayed') {
-            $contents = sprintf(_("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
+            $contents = sprintf($this->_dict->t("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
             $flowed = new Horde_Text_Flowed($contents, $opts['charset']);
             $flowed->setDelSp(true);
             $part_one->setContentTypeParameter('format', 'flowed');

@@ -34,6 +34,13 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
     protected $_imageUrl;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Constructor.
      *
      * @param Horde_Mime_Part $mime_part  The object with the data to be
@@ -50,6 +57,8 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
+
         $this->_required = array_merge($this->_required, array(
             'browser',
             'notification',
@@ -99,11 +108,11 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $data = $this->_mimepart->getContents();
         $html = '';
         $import_msg = null;
-        $title = _("vCard");
+        $title = $this->_coreDict->t("vCard");
 
         $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
-            $notification->push(_("There was an error reading the contact data."), 'horde.error');
+            $notification->push($this->_coreDict->t("There was an error reading the contact data."), 'horde.error');
         }
 
         if (Horde_Util::getFormData('import') &&
@@ -117,11 +126,11 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                         $contacts = $registry->call('contacts/import', array($c, null, $source));
                         ++$count;
                     } catch (Horde_Exception $e) {
-                        $notification->push(_("There was an error importing the contact data:") . ' ' . $e->getMessage(), 'horde.error');
+                        $notification->push($this->_coreDict->t("There was an error importing the contact data:") . ' ' . $e->getMessage(), 'horde.error');
                     }
                 }
             }
-            $notification->push(sprintf(ngettext(
+            $notification->push(sprintf($this->_coreDict->n(
                 "%d contact was successfully added to your address book.",
                 "%d contacts were successfully added to your address book.",
                 $count),
@@ -145,18 +154,18 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
 
             $n = $vc->printableName();
             if (!empty($n)) {
-                $html .= $this->_row(_("Name"), $n);
+                $html .= $this->_row($this->_coreDict->t("Name"), $n);
             }
 
             try {
-                $html .= $this->_row(_("Alias"), implode("\n", $vc->getAttributeValues('ALIAS')));
+                $html .= $this->_row($this->_coreDict->t("Alias"), implode("\n", $vc->getAttributeValues('ALIAS')));
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {
                 $birthdays = $vc->getAttributeValues('BDAY');
                 $birthday = new Horde_Date($birthdays[0]);
                 $html .= $this->_row(
-                    _("Birthday"),
+                    $this->_coreDict->t("Birthday"),
                     $birthday->strftime($prefs->getValue('date_format')));
             } catch (Horde_Icalendar_Exception $e) {}
 
@@ -164,7 +173,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             foreach ($photos as $p => $photo) {
                 if (isset($photo['params']['VALUE']) &&
                     Horde_String::upper($photo['params']['VALUE']) == 'URI') {
-                    $html .= $this->_row(_("Photo"),
+                    $html .= $this->_row($this->_coreDict->t("Photo"),
                                          '<img src="' . htmlspecialchars($photo['value']) . '" />',
                                          false);
                 } elseif (isset($photo['params']['ENCODING']) &&
@@ -172,11 +181,11 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                           isset($photo['params']['TYPE'])) {
                     if ($browser->hasFeature('datauri') === true ||
                         $browser->hasFeature('datauri') >= strlen($photo['value'])) {
-                        $html .= $this->_row(_("Photo"),
+                        $html .= $this->_row($this->_coreDict->t("Photo"),
                                              '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
                                              false);
                     } elseif ($this->_imageUrl) {
-                        $html .= $this->_row(_("Photo"),
+                        $html .= $this->_row($this->_coreDict->t("Photo"),
                                              '<img src="' . htmlspecialchars($this->_imageUrl->add(array('c' => $i, 'p' => $p))) . '" />',
                                              false);
                     }
@@ -196,36 +205,36 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 foreach ($label['params']['TYPE'] as $type) {
                     switch(Horde_String::upper($type)) {
                     case 'HOME':
-                        $types[] = _("Home Address");
+                        $types[] = $this->_coreDict->t("Home Address");
                         break;
 
                     case 'WORK':
-                        $types[] = _("Work Address");
+                        $types[] = $this->_coreDict->t("Work Address");
                         break;
 
                     case 'DOM':
-                        $types[] = _("Domestic Address");
+                        $types[] = $this->_coreDict->t("Domestic Address");
                         break;
 
                     case 'INTL':
-                        $types[] = _("International Address");
+                        $types[] = $this->_coreDict->t("International Address");
                         break;
 
                     case 'POSTAL':
-                        $types[] = _("Postal Address");
+                        $types[] = $this->_coreDict->t("Postal Address");
                         break;
 
                     case 'PARCEL':
-                        $types[] = _("Parcel Address");
+                        $types[] = $this->_coreDict->t("Parcel Address");
                         break;
 
                     case 'PREF':
-                        $types[] = _("Preferred Address");
+                        $types[] = $this->_coreDict->t("Preferred Address");
                         break;
                     }
                 }
                 if (!count($types)) {
-                    $types = array(_("Address"));
+                    $types = array($this->_coreDict->t("Address"));
                 }
                 $html .= $this->_row(implode('/', $types), $label['value']);
             }
@@ -260,36 +269,36 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 foreach ($item['params']['TYPE'] as $type) {
                     switch(Horde_String::upper($type)) {
                     case 'HOME':
-                        $types[] = _("Home Address");
+                        $types[] = $this->_coreDict->t("Home Address");
                         break;
 
                     case 'WORK':
-                        $types[] = _("Work Address");
+                        $types[] = $this->_coreDict->t("Work Address");
                         break;
 
                     case 'DOM':
-                        $types[] = _("Domestic Address");
+                        $types[] = $this->_coreDict->t("Domestic Address");
                         break;
 
                     case 'INTL':
-                        $types[] = _("International Address");
+                        $types[] = $this->_coreDict->t("International Address");
                         break;
 
                     case 'POSTAL':
-                        $types[] = _("Postal Address");
+                        $types[] = $this->_coreDict->t("Postal Address");
                         break;
 
                     case 'PARCEL':
-                        $types[] = _("Parcel Address");
+                        $types[] = $this->_coreDict->t("Parcel Address");
                         break;
 
                     case 'PREF':
-                        $types[] = _("Preferred Address");
+                        $types[] = $this->_coreDict->t("Preferred Address");
                         break;
                     }
                 }
                 if (!count($types)) {
-                    $types = array(_("Address"));
+                    $types = array($this->_coreDict->t("Address"));
                 }
                 $html .= $this->_row(implode('/', $types), implode("\n", $a));
             }
@@ -306,19 +315,19 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     }
                 }
                 if (isset($number['params']['FAX'])) {
-                    $html .= $this->_row(_("Fax"), $number['value']);
+                    $html .= $this->_row($this->_coreDict->t("Fax"), $number['value']);
                 } else {
                     if (isset($number['params']['HOME'])) {
-                        $html .= $this->_row(_("Home Phone"),
+                        $html .= $this->_row($this->_coreDict->t("Home Phone"),
                                              $number['value']);
                     } elseif (isset($number['params']['WORK'])) {
-                        $html .= $this->_row(_("Work Phone"),
+                        $html .= $this->_row($this->_coreDict->t("Work Phone"),
                                              $number['value']);
                     } elseif (isset($number['params']['CELL'])) {
-                        $html .= $this->_row(_("Cell Phone"),
+                        $html .= $this->_row($this->_coreDict->t("Cell Phone"),
                                              $number['value']);
                     } else {
-                        $html .= $this->_row(_("Phone"),
+                        $html .= $this->_row($this->_coreDict->t("Phone"),
                                              $number['value']);
                     }
                 }
@@ -352,36 +361,36 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             }
 
             if (count($emails)) {
-                $html .= $this->_row(_("Email"), implode("\n", $emails), false);
+                $html .= $this->_row($this->_coreDict->t("Email"), implode("\n", $emails), false);
             }
 
             try {
                 $title = $vc->getAttributeValues('TITLE');
-                $html .= $this->_row(_("Title"), $title[0]);
+                $html .= $this->_row($this->_coreDict->t("Title"), $title[0]);
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {
                 $role = $vc->getAttributeValues('ROLE');
-                $html .= $this->_row(_("Role"), $role[0]);
+                $html .= $this->_row($this->_coreDict->t("Role"), $role[0]);
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {
                 $org = $vc->getAttributeValues('ORG');
-                $html .= $this->_row(_("Company"), $org[0]);
+                $html .= $this->_row($this->_coreDict->t("Company"), $org[0]);
                 if (isset($org[1])) {
-                    $html .= $this->_row(_("Department"), $org[1]);
+                    $html .= $this->_row($this->_coreDict->t("Department"), $org[1]);
                 }
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {
                 $notes = $vc->getAttributeValues('NOTE');
-                $html .= $this->_row(_("Notes"), $notes[0]);
+                $html .= $this->_row($this->_coreDict->t("Notes"), $notes[0]);
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {
                 $url = $vc->getAttributeValues('URL');
                 $html .= $this->_row(
-                    _("URL"),
+                    $this->_coreDict->t("URL"),
                     '<a href="' . htmlspecialchars($url[0])
                         . '" target="_blank">' . htmlspecialchars($url[0])
                         . '</a>',
@@ -403,9 +412,9 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             if (count($sources) > 1) {
                 $html .=
                     '<input type="submit" class="button" name="import" value="'
-                    . _("Add to address book:") . '" />'
+                    . $this->_coreDict->t("Add to address book:") . '" />'
                     . '<label for="add_source" class="hidden">'
-                    . _("Address Book") . '</label>'
+                    . $this->_coreDict->t("Address Book") . '</label>'
                     . '<select id="add_source" name="source">';
                 foreach ($sources as $key => $label) {
                     $selected = ($key == $prefs->getValue('add_source'))
@@ -418,7 +427,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 reset($sources);
                 $html .=
                     '<input type="submit" class="button" name="import" value="'
-                    . _("Add to my address book") . '" />'
+                    . $this->_coreDict->t("Add to my address book") . '" />'
                     . '<input type="hidden" name="source" value="'
                     . htmlspecialchars(key($sources)) . '" />';
             }

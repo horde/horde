@@ -181,7 +181,8 @@ abstract class Horde_Core_Ajax_Application
         }
         $res = $rfc822->parseAddressList($this->_vars->email, $params);
         if (!count($res)) {
-            throw new Horde_Exception(_("No valid email address found"));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+            throw new Horde_Exception($dict->t("No valid email address found"));
         }
 
         return (object)array(

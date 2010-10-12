@@ -251,16 +251,23 @@ class Horde_LoginTasks
     /**
      * Labels for the class constants.
      *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
+     *
      * @return array  A mapping of constant to gettext string.
      */
-    static public function getLabels()
+    static public function getLabels($dict = null)
     {
+        if (!$dict) {
+            $dict = new Horde_Translation_Gettext('Horde_LoginTasks', dirname(__FILE__) . '/../../locale');
+        }
+
         return array(
-            self::YEARLY => _("Yearly"),
-            self::MONTHLY => _("Monthly"),
-            self::WEEKLY => _("Weekly"),
-            self::DAILY => _("Daily"),
-            self::EVERY => _("Every Login")
+            self::YEARLY => $dict->t("Yearly"),
+            self::MONTHLY => $dict->t("Monthly"),
+            self::WEEKLY => $dict->t("Weekly"),
+            self::DAILY => $dict->t("Daily"),
+            self::EVERY => $dict->t("Every Login")
         );
     }
 

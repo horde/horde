@@ -17,6 +17,13 @@
 class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 {
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Constructor.
      *
      * TODO
@@ -29,6 +36,8 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
         ), $config);
 
         parent::__construct($name, $vars, $config);
+
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
 
         // @todo Make sure 'url' argument is a Horde_Url object.
         if (!($this->_config['url'] instanceof Horde_Url)) {
@@ -74,7 +83,7 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 
             $prev_text = isset($this->_config['previousHTML'])
                 ? $this->_config['previousHTML']
-                : htmlspecialchars(_("<Previous"));
+                : htmlspecialchars($this->_coreDict->t("<Previous"));
 
             $html .= Horde::link($link, '', 'prev') . $prev_text . '</a>';
         }
@@ -117,7 +126,7 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 
             $next_text = isset($this->_config['nextHTML'])
                 ? $this->_config['nextHTML']
-                : htmlspecialchars(_("Next>"));
+                : htmlspecialchars($this->_coreDict->t("Next>"));
 
             $html .= ' ' . Horde::link($link, '', 'next') . $next_text . '</a>';
         }

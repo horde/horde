@@ -308,6 +308,8 @@ class Horde_Template
 
     /**
      * Parses gettext tags.
+     *
+     * @todo Convert to use Horde_Translation.
      */
     protected function _parseGettext()
     {

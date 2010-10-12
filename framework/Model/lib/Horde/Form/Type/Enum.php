@@ -25,7 +25,7 @@ class Horde_Form_Type_Enum extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && $value == '' && !isset($this->_values[$value])) {
-            $message = _("This field is required.");
+            $message = $this->_dict->t("This field is required.");
             return false;
         }
 
@@ -34,7 +34,7 @@ class Horde_Form_Type_Enum extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Invalid data.");
+        $message = $this->_dict->t("Invalid data.");
         return false;
     }
 

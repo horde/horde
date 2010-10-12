@@ -5,17 +5,32 @@
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Horde_Form
  */
-abstract class Horde_Form_Type {
-
+abstract class Horde_Form_Type
+{
     protected $_properties = array();
+
+    /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
 
     /**
      * Type constructor. Takes a hash of key/value parameters.
      *
      * @param array $properties Any type properties to initialize.
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      */
-    public function __construct($properties = array())
+    public function __construct($properties = array(), $dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Model', dirname(__FILE__) . '/../../../locale');
+        }
+
         $this->_properties = array();
         $vars = array_keys(get_object_vars($this));
         foreach ($vars as $var) {

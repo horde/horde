@@ -388,7 +388,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
         if (isset($conf['kolab']['filter']['unauthenticated_from_insert'])) {
             $fmt = $conf['kolab']['filter']['unauthenticated_from_insert'];
         } else {
-            $fmt = _("(UNTRUSTED, sender <%s> is not authenticated)");
+            $fmt = '(UNTRUSTED, sender <%s> is not authenticated)';
         }
 
         $adrs = imap_rfc822_parse_adrlist($fromhdr, $domains[0]);

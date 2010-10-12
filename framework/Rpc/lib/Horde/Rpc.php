@@ -64,17 +64,30 @@ class Horde_Rpc
     protected $_logger;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * RPC server constructor.
      *
      * @param Horde_Controller_Request_Http  The request object
      *
-     * @param array $config  A hash containing any additional configuration or
+     * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
      * @return Horde_Rpc  An RPC server instance.
      */
     public function __construct($request, $params = array())
     {
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Rpc', dirname(__FILE__) . '/../../locale');
+        }
+
         // Create a stub if we don't have a useable logger.
         if (isset($params['logger'])
             && is_callable(array($params['logger'], 'log'))) {

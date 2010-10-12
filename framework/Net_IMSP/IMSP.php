@@ -65,6 +65,13 @@ class Net_IMSP {
     var $_logBuffer                  = array();
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor function.
      *
      * @param array $params Hash containing server parameters.
@@ -74,11 +81,14 @@ class Net_IMSP {
         if (is_array($params) && !empty($params['server'])) {
             $this->imsp_server = $params['server'];
         }
-
         if (is_array($params) && !empty($params['port'])) {
             $this->imsp_port = $params['port'];
         }
-
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Net_IMSP', dirname(__FILE__) . '/locale');
+        }
     }
 
     /**
@@ -445,7 +455,7 @@ class Net_IMSP {
             return new $class($params);
         }
 
-         throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+         throw new Horde_Exception(sprintf($this->_dict->t("Unable to load the definition of %s."), $class));
     }
 
     /**

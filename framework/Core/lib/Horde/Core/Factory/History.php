@@ -9,7 +9,8 @@ class Horde_Core_Factory_History
     {
         if (empty($GLOBALS['conf']['sql']['phptype']) ||
             ($GLOBALS['conf']['sql']['phptype'] == 'none')) {
-            throw new Horde_Exception(_("The History system is disabled."));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+            throw new Horde_Exception($dict->t("The History system is disabled."));
         }
 
         $ob = Horde_History::factory('Sql', $GLOBALS['conf']['sql']);

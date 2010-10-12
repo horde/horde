@@ -73,7 +73,7 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
             $data = file_get_contents($tmp_out);
             $type = 'text/html';
         } else {
-            $data = _("Unable to translate this Word document");
+            $data = $this->_dict->t("Unable to translate this Word document");
             $type = 'text/plain';
         }
 

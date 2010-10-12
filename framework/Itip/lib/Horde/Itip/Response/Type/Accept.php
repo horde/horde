@@ -46,7 +46,7 @@ extends Horde_Itip_Response_Type_Base
      */
     public function getShortSubject()
     {
-        return _("Accepted");
+        return $this->_dict->t("Accepted");
     }
 
     /**
@@ -59,7 +59,7 @@ extends Horde_Itip_Response_Type_Base
     public function getShortMessage($is_update = false)
     {
         return $is_update
-            ? _("has accepted the update to the following event")
-            : _("has accepted the invitation to the following event");
+            ? $this->_dict->t("has accepted the update to the following event")
+            : $this->_dict->t("has accepted the invitation to the following event");
     }
 }

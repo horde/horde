@@ -203,7 +203,7 @@ class Horde_Rpc_Soap_Caller {
 
         if (!empty($this->_params['allowedMethods']) &&
             !in_array($method, $this->_params['allowedMethods'])) {
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            return sprintf($this->_dict->t("Method \"%s\" is not defined"), $method);
         }
 
         $GLOBALS['__horde_rpc_PhpSoap']['lastMethodCalled'] = $method;
@@ -211,7 +211,7 @@ class Horde_Rpc_Soap_Caller {
             !empty($params) ? $params : array();
 
         if (!$GLOBALS['registry']->hasMethod($method)) {
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            return sprintf($this->_dict->t("Method \"%s\" is not defined"), $method);
         }
 
         return $GLOBALS['registry']->call($method, $params);

@@ -41,6 +41,8 @@ class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
+        parent::__construct($params);
+
         /*
         if (!isset($params['notification'])) {
             throw new Horde_Alarm_Exception('Parameter \'notification\' missing.');
@@ -76,7 +78,7 @@ class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
      */
     public function getDescription()
     {
-        return _("Inline");
+        return $this->_dict->t("Inline");
     }
 
     /**
@@ -96,7 +98,7 @@ class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
         return array(
             'sound' => array(
                 'type' => 'sound',
-                'desc' => _("Play a sound?"),
+                'desc' => $this->_dict->t("Play a sound?"),
                 'required' => false));
     }
 }

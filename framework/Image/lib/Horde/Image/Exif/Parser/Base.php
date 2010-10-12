@@ -6,6 +6,28 @@
 class Horde_Image_Exif_Parser_Base
 {
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
+     */
+    public function __construct($dict = null)
+    {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Image', dirname(__FILE__) . '/../../../../../locale');
+        }
+    }
+
+    /**
      *
      * @param $type
      * @param $size

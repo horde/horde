@@ -7,7 +7,7 @@ class Horde_Form_Type_Time extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value) && ((string)(double)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = $this->_dict->t("This field is required.");
             return false;
         }
 
@@ -15,7 +15,7 @@ class Horde_Form_Type_Time extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field may only contain numbers and the colon.");
+        $message = $this->_dict->t("This field may only contain numbers and the colon.");
         return false;
     }
 

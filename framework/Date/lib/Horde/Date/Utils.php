@@ -7,7 +7,6 @@
  * @package  Horde_Date
  */
 
-
 /**
  * @category Horde
  * @package  Horde_Date
@@ -66,43 +65,50 @@ class Horde_Date_Utils
      * Returns a relative, natural language representation of a timestamp
      * TODO: Wider range of values ... maybe future time as well?
      *
-     * @param integer $timestamp   The timestamp.
-     * @param string $date_format  Format to display date if timestamp is more
-     *                             then 1 day old.
-     * @param string $time_format  Format to display time if timestamp is 1 day
-     *                             old.
+     * @param integer $timestamp       The timestamp.
+     * @param string $date_format      Format to display date if timestamp is
+     *                                 more then 1 day old.
+     * @param string $time_format      Format to display time if timestamp is 1
+     *                                 day old.
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      *
      * @return string  The relative time (i.e. 2 minutes ago)
      */
-    public static function relativeDateTime($timestamp, $date_format = '%x', $time_format = '%X')
+    public static function relativeDateTime($timestamp, $date_format = '%x',
+                                            $time_format = '%X', $dict = null)
     {
+        if (!$dict) {
+            $dict = new Horde_Translation_Gettext('Horde_Date', dirname(__FILE__) . '/../../../locale');
+        }
+
         $delta = time() - $timestamp;
         if ($delta < 60) {
-            return sprintf(ngettext("%d second ago", "%d seconds ago", $delta), $delta);
+            return sprintf($dict->n("%d second ago", "%d seconds ago", $delta), $delta);
         }
         $delta = round($delta / 60);
         if ($delta < 60) {
-            return sprintf(ngettext("%d minute ago", "%d minutes ago", $delta), $delta);
+            return sprintf($dict->n("%d minute ago", "%d minutes ago", $delta), $delta);
         }
 
         $delta = round($delta / 60);
         if ($delta < 24) {
-            return sprintf(ngettext("%d hour ago", "%d hours ago", $delta), $delta);
+            return sprintf($dict->n("%d hour ago", "%d hours ago", $delta), $delta);
         }
 
         if ($delta > 24 && $delta < 48) {
             $date = new Horde_Date($timestamp);
-            return sprintf(_("yesterday at %s"), $date->strftime($time_format));
+            return sprintf($dict->t("yesterday at %s"), $date->strftime($time_format));
         }
 
         $delta = round($delta / 24);
         if ($delta < 7) {
-            return sprintf(_("%d days ago"), $delta);
+            return sprintf($dict->t("%d days ago"), $delta);
         }
 
         if (round($delta / 7) < 5) {
             $delta = round($delta / 7);
-            return sprintf(ngettext("%d week ago", "%d weeks ago", $delta), $delta);
+            return sprintf($dict->n("%d week ago", "%d weeks ago", $delta), $delta);
         }
 
         // Default to the user specified date format.

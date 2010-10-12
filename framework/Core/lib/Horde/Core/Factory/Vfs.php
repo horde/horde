@@ -78,7 +78,8 @@ class Horde_Core_Factory_Vfs
         global $conf;
 
         if (($name !== 'horde') && !isset($conf[$name]['type'])) {
-            throw new Horde_Exception(_("You must configure a VFS backend."));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+            throw new Horde_Exception($dict->t("You must configure a VFS backend."));
         }
 
         $vfs = ($name == 'horde' || $conf[$name]['type'] == 'horde')

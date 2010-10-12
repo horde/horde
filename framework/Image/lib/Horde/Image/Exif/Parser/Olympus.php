@@ -115,7 +115,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
                 case 1:  $data = 'SQ'; break;
                 case 2:  $data = 'HQ'; break;
                 case 3:  $data = 'SHQ'; break;
-                default: $data = _("Unknown") . ': ' . $data; break;
+                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
                 }
                 break;
             case '0202':
@@ -123,7 +123,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
                 switch ($data) {
                 case 0:  $data = 'Normal'; break;
                 case 1:  $data = 'Macro'; break;
-                default: $data = _("Unknown") . ': ' . $data; break;
+                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
                 }
                 break;
             }

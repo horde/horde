@@ -35,10 +35,26 @@ class Horde_Block_UI
     protected $_vars = null;
 
     /**
-     * Constructor.
+     * Translation provider.
+     *
+     * @var Horde_Translation
      */
-    public function __construct()
+    protected $_dict;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Hash with configuration data. Possible values:
+     *                       - 'translation': A translation handler
+     *                                        implementing Horde_Translation.
+     */
+    public function __construct($params = array())
     {
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Block', dirname(__FILE__) . '/../../../locale');
+        }
         $this->_blocks = Horde_Block_Collection::singleton();
     }
 
@@ -70,7 +86,7 @@ class Horde_Block_UI
 
         if (!($this->_form instanceof Horde_Form)) {
             /* No existing valid form object set so set up a new one. */
-            $this->setForm(new Horde_Form($this->_vars, _("Edit Block")));
+            $this->setForm(new Horde_Form($this->_vars, $this->_dict->t("Edit Block")));
         }
 
         /* Get the current value of the block selection. */
@@ -78,7 +94,7 @@ class Horde_Block_UI
 
         /* Field to select apps. */
         $apps = $this->_blocks->getBlocksList();
-        $v = $this->_form->addVariable(_("Application"), $field . '[app]', 'enum', true, false, null, array($apps));
+        $v = $this->_form->addVariable($this->_dict->t("Application"), $field . '[app]', 'enum', true, false, null, array($apps));
         $v->setOption('trackchange', true);
 
         if (empty($value['app'])) {

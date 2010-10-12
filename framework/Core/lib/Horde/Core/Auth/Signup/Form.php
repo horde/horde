@@ -20,15 +20,23 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
     protected $_useFormToken = true;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Constructor
      *
      * @var params Horde_Variables  TODO
      */
     public function __construct(&$vars)
     {
-        parent::__construct($vars, sprintf(_("%s Sign Up"), $GLOBALS['registry']->get('name')));
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
+        parent::__construct($vars, sprintf($this->_coreDict->t("%s Sign Up"), $GLOBALS['registry']->get('name')));
 
-        $this->setButtons(_("Sign up"), true);
+        $this->setButtons($this->_coreDict->t("Sign up"), true);
 
         $this->addHidden('', 'url', 'text', false);
 
@@ -39,10 +47,10 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
 
         if (!empty($extra)) {
             if (!isset($extra['user_name'])) {
-                $this->addVariable(_("Choose a username"), 'user_name', 'text', true);
+                $this->addVariable($this->_coreDict->t("Choose a username"), 'user_name', 'text', true);
             }
             if (!isset($extra['password'])) {
-                $this->addVariable(_("Choose a password"), 'password', 'passwordconfirm', true, false, _("type the password twice to confirm"));
+                $this->addVariable($this->_coreDict->t("Choose a password"), 'password', 'passwordconfirm', true, false, $this->_coreDict->t("type the password twice to confirm"));
             }
             foreach ($extra as $field_name => $field) {
                 $readonly = isset($field['readonly']) ? $field['readonly'] : null;
@@ -55,8 +63,8 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
                                    $desc, $field_params);
             }
         } else {
-            $this->addVariable(_("Choose a username"), 'user_name', 'text', true);
-            $this->addVariable(_("Choose a password"), 'password', 'passwordconfirm', true, false, _("type the password twice to confirm"));
+            $this->addVariable($this->_coreDict->t("Choose a username"), 'user_name', 'text', true);
+            $this->addVariable($this->_coreDict->t("Choose a password"), 'password', 'passwordconfirm', true, false, $this->_coreDict->t("type the password twice to confirm"));
         }
     }
 

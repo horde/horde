@@ -30,6 +30,21 @@ class Horde_Script_Files
     protected $_included = array();
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../locale');
+    }
+
+    /**
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include.
      *
@@ -110,7 +125,7 @@ class Horde_Script_Files
         // Add localized string for popup.js
         if (($file == 'popup.js') && ($app == 'horde')) {
             Horde::addInlineJsVars(array(
-                'Horde.popup_block_text' => _("A popup window could not be opened. Your browser may be blocking popups.")
+                'Horde.popup_block_text' => $this->_coreDict->t("A popup window could not be opened. Your browser may be blocking popups.")
             ), 'dom');
         }
 

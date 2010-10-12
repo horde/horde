@@ -10,7 +10,7 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
  */
-class VFS_ISOWriter_RealOutputStrategy {
+abstract class VFS_ISOWriter_RealOutputStrategy {
 
     /**
      * The VFS to which we will write the file.
@@ -27,16 +27,31 @@ class VFS_ISOWriter_RealOutputStrategy {
     var $_targetFile;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor
      *
      * @param object &$targetVfs        The VFS to which we will write the
      *                                  file.
      * @param string $targetFile        The path and name of file to write.
+     * @param array $params  Hash with configuration data. Possible values:
+     *                       - 'translation': A translation handler
+     *                                        implementing Horde_Translation.
      */
-    function VFS_ISOWriter_RealOutputStrategy(&$targetVfs, $targetFile)
+    function VFS_ISOWriter_RealOutputStrategy(&$targetVfs, $targetFile, $params = array())
     {
         $this->_targetVfs = &$targetVfs;
         $this->_targetFile = $targetFile;
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/../locale');
+        }
     }
 
     /**
@@ -62,7 +77,7 @@ class VFS_ISOWriter_RealOutputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($targetVfs, $targetFile);
         } else {
-            $strategy = PEAR::raiseError(sprintf(_("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf($this->_dict->t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 
@@ -72,23 +87,14 @@ class VFS_ISOWriter_RealOutputStrategy {
     /**
      * Get a real filesystem filename we can write to.
      *
-     * @abstract
      * @return string   The filename or PEAR_Error on failure.
      */
-    function getRealFilename()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function getRealFilename();
 
     /**
      * Indicate that we're done writing to the real file.
      *
-     * @abstract
      * @return mixed    Null or PEAR_Error on failure.
      */
-    function finished()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
-
+    abstract public function finished();
 }

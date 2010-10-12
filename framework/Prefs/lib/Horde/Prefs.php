@@ -99,26 +99,32 @@ class Horde_Prefs implements ArrayAccess
     protected $_hooks = array();
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to return.
      * @param string $scope  The scope for this set of preferences.
      * @param array $opts    Additional options:
-     * <pre>
-     * 'cache' - (boolean) Should caching be used?
-     *           DEFAULT: false
-     * 'charset' - (string) Default charset. [REQUIRED]
-     * 'logger' - (Horde_Log_Logger) Logging object.
-     *            DEFAULT: NONE
-     * 'password' - (string) The password associated with 'user'.
-     *              DEFAULT: NONE
-     * 'sizecallback' - (callback) If set, called when setting a value in
-     *                  the backend.
-     *                  DEFAULT: NONE
-     * 'user' - (string) The name of the user who owns this set of
-     *          preferences.
-     *          DEFAULT: NONE
-     * </pre>
+     *                       - 'cache': (boolean) Should caching be used?
+     *                                  DEFAULT: false
+     *                       - 'charset': (string) Default charset. [REQUIRED]
+     *                       - 'logger': (Horde_Log_Logger) Logging object.
+     *                                   DEFAULT: NONE
+     *                       - 'password': (string) The password associated
+     *                                     with 'user'. DEFAULT: NONE
+     *                       - 'sizecallback': (callback) If set, called when
+     *                                         setting a value in the backend.
+     *                                         DEFAULT: NONE
+     *                       - 'user': (string) The name of the user who owns
+     *                                 this set of preferences. DEFAULT: NONE
+     *                       - 'translation': (object) A translation handler
+     *                                        implementing Horde_Translation.
      * @param array $params  A hash containing any additional configuration
      *                       or connection parameters a subclass might need.
      *
@@ -162,6 +168,12 @@ class Horde_Prefs implements ArrayAccess
         $this->_opts = array_merge($this->_opts, $opts);
         $this->_params = $params;
         $this->_scope = $scope;
+
+        if (isset($this->_opts['translation'])) {
+            $this->_dict = $this->_opts['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../locale');
+        }
 
         // Create a unique key that's safe to use for caching even if we want
         // another user's preferences later, then register the cache array in

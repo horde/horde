@@ -46,7 +46,7 @@ extends Horde_Itip_Response_Type_Base
      */
     public function getShortSubject()
     {
-        return _("Declined");
+        return $this->_dict->t("Declined");
     }
 
     /**
@@ -59,7 +59,7 @@ extends Horde_Itip_Response_Type_Base
     public function getShortMessage($is_update = false)
     {
         return $is_update
-            ? _("has declined the update to the following event")
-            : _("has declined the invitation to the following event");
+            ? $this->_dict->t("has declined the update to the following event")
+            : $this->_dict->t("has declined the invitation to the following event");
     }
 }

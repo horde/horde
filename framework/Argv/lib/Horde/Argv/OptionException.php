@@ -20,7 +20,7 @@ class Horde_Argv_OptionException extends Horde_Argv_Exception
     {
         $this->optionId = (string)$option;
         if ($this->optionId) {
-            parent::__construct(sprintf(_("option %s: %s"), $this->optionId, $msg));
+            parent::__construct(sprintf('option %s: %s', $this->optionId, $msg));
         } else {
             parent::__construct($msg);
         }

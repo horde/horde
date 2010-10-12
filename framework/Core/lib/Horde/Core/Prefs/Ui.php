@@ -91,12 +91,21 @@ class Horde_Core_Prefs_Ui
     public $nobuttons = false;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Constructor.
      *
      * @param Horde_Variables $vars  Form variables.
      */
     public function __construct($vars)
     {
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+
         $this->app = isset($vars->app)
             ? $vars->app
             : $this->getDefaultApp();
@@ -247,7 +256,7 @@ class Horde_Core_Prefs_Ui
                 if (isset($enum[$this->vars->$pref])) {
                     $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
-                    $notification->push(_("An illegal value was specified."), 'horde.error');
+                    $notification->push($this->_coreDict->t("An illegal value was specified."), 'horde.error');
                 }
                 break;
 
@@ -263,7 +272,7 @@ class Horde_Core_Prefs_Ui
                         if (isset($enum[$val])) {
                             $set[] = $val;
                         } else {
-                            $notification->push(_("An illegal value was specified."), 'horde.error');
+                            $notification->push($this->_coreDict->t("An illegal value was specified."), 'horde.error');
                             break 2;
                         }
                     }
@@ -275,9 +284,9 @@ class Horde_Core_Prefs_Ui
             case 'number':
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
-                    $notification->push(_("This value must be a number."), 'horde.error');
+                    $notification->push($this->_coreDict->t("This value must be a number."), 'horde.error');
                 } elseif (empty($num)) {
-                    $notification->push(_("This number must be non-zero."), 'horde.error');
+                    $notification->push($this->_coreDict->t("This number must be non-zero."), 'horde.error');
                 } else {
                     $updated |= $save->setValue($pref, $num);
                 }
@@ -311,9 +320,9 @@ class Horde_Core_Prefs_Ui
             }
 
             if ($prefs instanceof Horde_Prefs_Session) {
-                $notification->push(_("Your preferences have been updated for the duration of this session."), 'horde.success');
+                $notification->push($this->_coreDict->t("Your preferences have been updated for the duration of this session."), 'horde.success');
             } else {
-                $notification->push(_("Your preferences have been updated."), 'horde.success');
+                $notification->push($this->_coreDict->t("Your preferences have been updated."), 'horde.success');
             }
 
             $this->_loadPrefs($this->app);
@@ -386,7 +395,7 @@ class Horde_Core_Prefs_Ui
         }
 
         if (empty($columns) && empty($pref_list)) {
-            $notification->push(_("There are no preferences available for this application."), 'horde.message');
+            $notification->push($this->_coreDict->t("There are no preferences available for this application."), 'horde.message');
             $this->nobuttons = true;
         }
 
@@ -539,7 +548,7 @@ class Horde_Core_Prefs_Ui
 
         $content = Horde::endBuffer();
 
-        $title = _("User Preferences");
+        $title = $this->_coreDict->t("User Preferences");
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
@@ -585,7 +594,7 @@ class Horde_Core_Prefs_Ui
             );
         }
         $t->set('apps', $tmp);
-        $t->set('header', htmlspecialchars(($this->app == 'horde') ? _("Global Preferences") : sprintf(_("Preferences for %s"), $registry->get('name', $this->app))));
+        $t->set('header', htmlspecialchars(($this->app == 'horde') ? $this->_coreDict->t("Global Preferences") : sprintf($this->_coreDict->t("Preferences for %s"), $registry->get('name', $this->app))));
 
         if ($GLOBALS['session']['horde:prefs_advanced']) {
             $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
@@ -745,8 +754,8 @@ class Horde_Core_Prefs_Ui
             $t->set('default_identity', intval($default_identity));
             $identities = array($default_identity);
         } else {
-            $t->set('defaultid', _("Your default identity:"));
-            $t->set('label', Horde::label('identity', _("Select the identity you want to change:")));
+            $t->set('defaultid', $this->_coreDict->t("Your default identity:"));
+            $t->set('label', Horde::label('identity', $this->_coreDict->t("Select the identity you want to change:")));
             $identities = $identity->getAll('id');
         }
 
@@ -813,7 +822,7 @@ class Horde_Core_Prefs_Ui
             $id = intval($this->vars->id);
             $deleted_identity = $identity->delete($id);
             $this->_loadPrefs($this->app);
-            $notification->push(sprintf(_("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
+            $notification->push(sprintf($this->_coreDict->t("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
             return;
         }
 
@@ -827,7 +836,7 @@ class Horde_Core_Prefs_Ui
             if ($new_default != $old_default) {
                 $identity->setDefault($new_default);
                 $old_default = $new_default;
-                $notification->push(_("Your default identity has been changed."), 'horde.success');
+                $notification->push($this->_coreDict->t("Your default identity has been changed."), 'horde.success');
 
                 /* Need to immediately save, since we may short-circuit
                  * saving the identities below. */
@@ -859,7 +868,7 @@ class Horde_Core_Prefs_Ui
             try {
                 $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
             } catch (Horde_Exception $e) {
-                $notification->push(_("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
+                $notification->push($this->_coreDict->t("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
                 Horde::logMessage($e, 'ERR');
             }
         } else {

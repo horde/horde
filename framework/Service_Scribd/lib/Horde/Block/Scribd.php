@@ -6,6 +6,34 @@ class Horde_Block_Horde_Scribd extends Horde_Block {
 
     var $_app = 'horde';
 
+    /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_localDict;
+
+    /**
+     * Constructor.
+     *
+     * @param array|boolean $params  Any parameters the block needs. If false,
+     *                               the default parameter will be used.
+     * @param integer $row           The block row.
+     * @param integer $col           The block column.
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
+     */
+    public function __construct($params = array(), $row = null, $col = null,
+                                $dict = null)
+    {
+        parent::__construct($params, $row, $col, $dict);
+        if ($dict) {
+            $this->_localDict = $dict;
+        } else {
+            $this->_localDict = new Horde_Translation_Gettext('Horde_Service_Scribd', dirname(__FILE__) . '/../../../locale');
+        }
+    }
+
     function _params()
     {
     }
@@ -17,7 +45,7 @@ class Horde_Block_Horde_Scribd extends Horde_Block {
      */
     function _title()
     {
-        return _("Scribd Documents");
+        return $this->_localDict->t("Scribd Documents");
     }
 
     /**

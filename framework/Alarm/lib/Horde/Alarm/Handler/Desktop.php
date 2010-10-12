@@ -43,6 +43,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function __construct(array $params = null)
     {
+        parent::__construct($params);
         /*
         if (!isset($params['js_notify'])) {
             throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
@@ -82,6 +83,6 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      */
     public function getDescription()
     {
-        return _("Desktop notification (with certain browsers)");
+        return $this->_dict->t("Desktop notification (with certain browsers)");
     }
 }

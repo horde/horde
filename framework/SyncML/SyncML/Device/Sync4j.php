@@ -611,7 +611,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             $components = $iCal->getComponents();
             if (!is_array($components) || count($components) == 0) {
                 $a = array(
-                    'Body' => _("Error converting notes."));
+                    'Body' => $GLOBALS['backend']->t("Error converting notes."));
             } else {
                 $a = array(
                     'Body' => $components[0]->getAttribute('BODY'),

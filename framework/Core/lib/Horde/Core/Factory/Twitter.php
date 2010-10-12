@@ -39,7 +39,8 @@ class Horde_Core_Factory_Twitter
 
             return $twitter;
         } else {
-            throw new Horde_Service_Twitter_Exception(_("No OAuth Key or Secret found for the Twitter API"));
+            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+            throw new Horde_Service_Twitter_Exception($dict->t("No OAuth Key or Secret found for the Twitter API"));
         }
     }
 }

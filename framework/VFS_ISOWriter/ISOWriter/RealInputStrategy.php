@@ -11,7 +11,7 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
  */
-class VFS_ISOWriter_RealInputStrategy {
+abstract class VFS_ISOWriter_RealInputStrategy {
 
     /**
      * A reference to the source VFS we want to read.
@@ -21,39 +21,43 @@ class VFS_ISOWriter_RealInputStrategy {
     var $_sourceVfs = null;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * The root directory within the source VFS
      *
      * @var string
      */
     var $_sourceRoot;
 
-    function VFS_ISOWriter_RealInputStrategy(&$sourceVfs, $sourceRoot)
+    function VFS_ISOWriter_RealInputStrategy(&$sourceVfs, $sourceRoot, $params = array())
     {
         $this->_sourceVfs = &$sourceVfs;
         $this->_sourceRoot = &$sourceRoot;
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/../locale');
+        }
     }
 
     /**
      * Get a real path to the input tree.
      *
-     * @abstract
      * @return mixed    A string with the real path, or PEAR_Error on failure.
      */
-    function getRealPath()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function getRealPath();
 
     /**
      * Indicate we are finished with this input strategy.
      *
-     * @abstract
      * @return mixed        Null or PEAR_Error on failure.
      */
-    function finished()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function finished();
 
     /**
      * Decide which strategy to use to get a real FS and create it.
@@ -78,7 +82,7 @@ class VFS_ISOWriter_RealInputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($sourceVfs, $sourceRoot);
         } else {
-            $strategy = PEAR::raiseError(sprintf(_("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf($this->_dict->t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 

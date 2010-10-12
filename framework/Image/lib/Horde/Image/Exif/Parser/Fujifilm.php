@@ -33,7 +33,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
      */
     protected function _lookupTag($tag)
     {
-        switch($tag) {
+        switch ($tag) {
         case '0000': return 'Version';
         case '1000': return 'Quality';
         case '1001': return 'Sharpness';
@@ -74,7 +74,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
         case 'URATIONAL':
         case 'SRATIONAL':
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             $top = hexdec(substr($data, 8, 8));
@@ -100,7 +100,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
         case 'FLOAT':
         case 'DOUBLE':
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             $data = hexdec($data);
@@ -109,137 +109,137 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
             case '1001':
                 //Sharpness
                 switch ($data) {
-                case 1:  $data = _("Soft"); break;
-                case 2:  $data = _("Soft"); break;
-                case 3:  $data = _("Normal"); break;
-                case 4:  $data = _("Hard"); break;
-                case 5:  $data = _("Hard"); break;
-                default: $data = _("Unknown") . ': ' . $data; break;
+                case 1:  $data = $this->_dict->t("Soft"); break;
+                case 2:  $data = $this->_dict->t("Soft"); break;
+                case 3:  $data = $this->_dict->t("Normal"); break;
+                case 4:  $data = $this->_dict->t("Hard"); break;
+                case 5:  $data = $this->_dict->t("Hard"); break;
+                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '1002':
                 //WhiteBalance
                 switch ($data) {
-                case 0:    $data = _("Auto"); break;
-                case 256:  $data = _("Daylight"); break;
-                case 512:  $data = _("Cloudy"); break;
-                case 768:  $data = _("DaylightColor-fluorescence"); break;
-                case 769:  $data = _("DaywhiteColor-fluorescence"); break;
-                case 770:  $data = _("White-fluorescence"); break;
-                case 1024: $data = _("Incandescense"); break;
-                case 3840: $data = _("Custom"); break;
-                default:   $data = _("Unknown") . ': ' . $data; break;
+                case 0:    $data = $this->_dict->t("Auto"); break;
+                case 256:  $data = $this->_dict->t("Daylight"); break;
+                case 512:  $data = $this->_dict->t("Cloudy"); break;
+                case 768:  $data = $this->_dict->t("DaylightColor-fluorescence"); break;
+                case 769:  $data = $this->_dict->t("DaywhiteColor-fluorescence"); break;
+                case 770:  $data = $this->_dict->t("White-fluorescence"); break;
+                case 1024: $data = $this->_dict->t("Incandescense"); break;
+                case 3840: $data = $this->_dict->t("Custom"); break;
+                default:   $data = $this->_dict->t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '1003':
                 //Color
                 switch ($data) {
-                case 0:   $data = _("Chroma Saturation Normal(STD)"); break;
-                case 256: $data = _("Chroma Saturation High"); break;
-                case 512: $data = _("Chroma Saturation Low(ORG)"); break;
-                default:  $data = _("Unknown: ") . $data; break;
+                case 0:   $data = $this->_dict->t("Chroma Saturation Normal(STD)"); break;
+                case 256: $data = $this->_dict->t("Chroma Saturation High"); break;
+                case 512: $data = $this->_dict->t("Chroma Saturation Low(ORG)"); break;
+                default:  $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1004':
                 //Tone
                 switch ($data) {
-                case 0: $data = _("Contrast Normal(STD)"); break;
-                case 256: $data = _("Contrast High(HARD)"); break;
-                case 512: $data = _("Contrast Low(ORG)"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0: $data = $this->_dict->t("Contrast Normal(STD)"); break;
+                case 256: $data = $this->_dict->t("Contrast High(HARD)"); break;
+                case 512: $data = $this->_dict->t("Contrast Low(ORG)"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1010':
                 //FlashMode
                 switch ($data) {
-                case 0:  $data = _("Auto"); break;
-                case 1:  $data = _("On"); break;
-                case 2:  $data = _("Off"); break;
-                case 3:  $data = _("Red-Eye Reduction"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Auto"); break;
+                case 1:  $data = $this->_dict->t("On"); break;
+                case 2:  $data = $this->_dict->t("Off"); break;
+                case 3:  $data = $this->_dict->t("Red-Eye Reduction"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1020':
                 //Macro
                 switch ($data) {
-                case 0:  $data = _("Off"); break;
-                case 1:  $data = _("On"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Off"); break;
+                case 1:  $data = $this->_dict->t("On"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1021':
                 //FocusMode
                 switch ($data) {
-                case 0:  $data = _("Auto"); break;
-                case 1:  $data = _("Manual"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Auto"); break;
+                case 1:  $data = $this->_dict->t("Manual"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1030':
                 //SlowSync
                 switch ($data) {
-                case 0:  $data = _("Off"); break;
-                case 1:  $data = _("On"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Off"); break;
+                case 1:  $data = $this->_dict->t("On"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1031':
                 //PictureMode
                 switch ($data) {
-                case 0:  $data = _("Auto"); break;
-                case 1:  $data = _("Portrait"); break;
-                case 2:  $data = _("Landscape"); break;
-                case 4:  $data = _("Sports"); break;
-                case 5:  $data = _("Night"); break;
-                case 6:  $data = _("Program AE"); break;
-                case 256:  $data = _("Aperture Prority AE"); break;
-                case 512:  $data = _("Shutter Priority"); break;
-                case 768:  $data = _("Manual Exposure"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Auto"); break;
+                case 1:  $data = $this->_dict->t("Portrait"); break;
+                case 2:  $data = $this->_dict->t("Landscape"); break;
+                case 4:  $data = $this->_dict->t("Sports"); break;
+                case 5:  $data = $this->_dict->t("Night"); break;
+                case 6:  $data = $this->_dict->t("Program AE"); break;
+                case 256:  $data = $this->_dict->t("Aperture Prority AE"); break;
+                case 512:  $data = $this->_dict->t("Shutter Priority"); break;
+                case 768:  $data = $this->_dict->t("Manual Exposure"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1100':
                 //ContinuousTakingBracket
                 switch ($data) {
-                case 0:  $data = _("Off"); break;
-                case 1:  $data = _("On"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Off"); break;
+                case 1:  $data = $this->_dict->t("On"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1300':
                 //BlurWarning
                 switch ($data) {
-                case 0:  $data = _("No Warning"); break;
-                case 1:  $data = _("Warning"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("No Warning"); break;
+                case 1:  $data = $this->_dict->t("Warning"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1301':
                 //FocusWarning
                 switch ($data) {
-                case 0:  $data = _("Auto Focus Good"); break;
-                case 1:  $data = _("Out of Focus"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("Auto Focus Good"); break;
+                case 1:  $data = $this->_dict->t("Out of Focus"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1302':
                 //AEWarning
                 switch ($data) {
-                case 0:  $data = _("AE Good"); break;
-                case 1:  $data = _("Over Exposure"); break;
-                default: $data = _("Unknown: ") . $data; break;
+                case 0:  $data = $this->_dict->t("AE Good"); break;
+                case 1:  $data = $this->_dict->t("Over Exposure"); break;
+                default: $data = $this->_dict->t("Unknown: ") . $data; break;
                 }
                 break;
             }
@@ -247,7 +247,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
 
         default:
             $data = bin2hex($data);
-            if ($intel == 1) {
+            if ($intel) {
                 $data = Horde_Image_Exif::intel2Moto($data);
             }
             break;
@@ -264,7 +264,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
      */
     public function parse($block, &$result)
     {
-        $intel = 1;
+        $intel = true;
         $model = $result['IFD0']['Model'];
 
         //current place
@@ -273,7 +273,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
 
         $num = bin2hex(substr($block, $place, 4));
         $place += 4;
-        if ($intel == 1) {
+        if ($intel) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
         $result['SubIFD']['MakerNote']['Offset'] = hexdec($num);
@@ -281,7 +281,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
         //Get number of tags (2 bytes)
         $num = bin2hex(substr($block, $place, 2));
         $place += 2;
-        if ($intel == 1) {
+        if ($intel) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
         $result['SubIFD']['MakerNote']['MakerNoteNumTags'] = hexdec($num);
@@ -291,7 +291,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
             //2 byte tag
             $tag = bin2hex(substr($block, $place, 2));
             $place += 2;
-            if ($intel == 1) {
+            if ($intel) {
                 $tag = Horde_Image_Exif::intel2Moto($tag);
             }
             $tag_name = $this->_lookupTag($tag);
@@ -299,7 +299,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
             //2 byte type
             $type = bin2hex(substr($block, $place, 2));
             $place += 2;
-            if ($intel == 1) {
+            if ($intel) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
             $this->_lookupType($type, $size);
@@ -307,7 +307,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));
             $place += 4;
-            if ($intel == 1) {
+            if ($intel) {
                 $count = Horde_Image_Exif::intel2Moto($count);
             }
             $bytesofdata = $size * hexdec($count);
@@ -320,7 +320,7 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
                 $data = $value;
             } else {
                 $value = bin2hex($value);
-                if ($intel == 1) {
+                if ($intel) {
                     $value = Horde_Image_Exif::intel2Moto($value);
                 }
                 $data = substr($block, hexdec($value) - $offset, $bytesofdata * 2);

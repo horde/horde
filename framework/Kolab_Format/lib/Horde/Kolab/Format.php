@@ -54,7 +54,7 @@ abstract class Horde_Kolab_Format
             $driver = call_user_func(array($class, 'factory'), $object_type,
                                      $params);
         } else {
-            throw new Horde_Kolab_Format_Exception(sprintf(_("Failed to load Kolab Format driver %s"),
+            throw new Horde_Kolab_Format_Exception(sprintf('Failed to load Kolab Format driver %s',
                                               $format_type));
         }
 

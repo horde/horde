@@ -76,12 +76,26 @@ class Horde_Nls_Geoip
     protected $_fh;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
-     * @param string $datafile  The location of the GeoIP database.
+     * @param string $datafile         The location of the GeoIP database.
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      */
-    public function __construct($datafile)
+    public function __construct($datafile, $dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Nls', dirname(__FILE__) . '/../../../locale');
+        }
         $this->_datafile = $datafile;
     }
 
@@ -321,11 +335,11 @@ class Horde_Nls_Geoip
         $code = Horde_String::upper($code);
 
         $geoip_codes = array(
-            'AP' => _("Asia/Pacific Region"),
-            'EU' => _("Europe"),
-            'A1' => _("Anonymous Proxy"),
-            'A2' => _("Satellite Provider"),
-            'O1' => _("Other")
+            'AP' => $this->_dict->t("Asia/Pacific Region"),
+            'EU' => $this->_dict->t("Europe"),
+            'A1' => $this->_dict->t("Anonymous Proxy"),
+            'A2' => $this->_dict->t("Satellite Provider"),
+            'O1' => $this->_dict->t("Other")
         );
 
         return isset($geoip_codes[$code])

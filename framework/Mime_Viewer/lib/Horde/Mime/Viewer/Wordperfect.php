@@ -72,7 +72,7 @@ class Horde_Mime_Viewer_Wordperfect extends Horde_Mime_Viewer_Base
 
         $data = file_exists($tmp_output)
             ? file_get_contents($tmp_output)
-            : _("Unable to translate this WordPerfect document");
+            : $this->_dict->t("Unable to translate this WordPerfect document");
 
         return $this->_renderReturn(
             $data,

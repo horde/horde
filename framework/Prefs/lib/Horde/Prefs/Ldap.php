@@ -139,7 +139,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                 if ($this->_opts['logger']) {
                     $this->_opts['logger']->log(sprintf('Setting referral callback failed: [%d] %s', @ldap_errno($conn), @ldap_error($conn)), 'WARN');
                 }
-                throw new Horde_Prefs_Exception(_("Internal LDAP error.  Details have been logged for the administrator."), @ldap_errno($conn));
+                throw new Horde_Prefs_Exception($this->_dict->t("Internal LDAP error.  Details have been logged for the administrator."), @ldap_errno($conn));
             }
         }
 

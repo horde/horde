@@ -51,18 +51,33 @@ implements Horde_Itip_Response_Type
     private $_comment;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
-     * @param Horde_Itip_Resource $resource The invited resource. 
-     * @param string              $comment  A comment for the subject line.
+     * @param Horde_Itip_Resource $resource  The invited resource. 
+     * @param string              $comment   A comment for the subject line.
+     * @param Horde_Translation   $dict      A translation handler
+     *                                       implementing Horde_Translation.
      */
     public function __construct(
         Horde_Itip_Resource $resource,
-        $comment = null
+        $comment = null,
+        $dict = null
     )
     {
         $this->_resource = $resource;
         $this->_comment  = $comment;
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Itip', dirname(__FILE__) . '/../../../../../locale');
+        }
     }
 
     /**

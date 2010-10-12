@@ -213,9 +213,10 @@ class Horde_Help
             return '';
         }
 
+        $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../locale');
         $url = Horde::getServiceLink('help', $module)->add('topic', $topic);
-        return $url->link(array('title' => _("Help"), 'class' => 'helplink', 'target' => 'hordehelpwin', 'onclick' => Horde::popupJs($url, array('urlencode' => true)) . 'return false;'))
-            . Horde::img('help.png', _("Help")) . '</a>';
+        return $url->link(array('title' => $dict->t("Help"), 'class' => 'helplink', 'target' => 'hordehelpwin', 'onclick' => Horde::popupJs($url, array('urlencode' => true)) . 'return false;'))
+            . Horde::img('help.png', $dict->t("Help")) . '</a>';
     }
 
 

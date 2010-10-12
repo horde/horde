@@ -186,11 +186,11 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
 
         if ($result === true) {
-            throw new Horde_Crypt_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Message Verified Successfully but the signer's certificate could not be verified."));
         } elseif ($result == -1) {
-            throw new Horde_Crypt_Exception(_("Verification failed - an unknown error has occurred."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Verification failed - an unknown error has occurred."));
         } else {
-            throw new Horde_Crypt_Exception(_("Verification failed - this message may have been tampered with."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Verification failed - this message may have been tampered with."));
         }
 
         $ob->cert = file_get_contents($output);
@@ -228,7 +228,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return $ret;
         }
 
-        throw new Horde_Crypt_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."));
+        throw new Horde_Crypt_Exception($this->_dict->t("OpenSSL error: Could not extract data from signed S/MIME part."));
     }
 
     /**
@@ -249,7 +249,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
 
         $smime_sign = $mime_message->getPart('2');
-        $smime_sign->setDescription(_("S/MIME Cryptographic Signature"));
+        $smime_sign->setDescription($this->_dict->t("S/MIME Cryptographic Signature"));
         $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
@@ -280,7 +280,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($this->_params['email_charset']);
-        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
+        $msg->setDescription(Horde_String::convertCharset($this->_dict->t("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
@@ -308,7 +308,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Crypt_Exception(_("A public S/MIME key is required to encrypt a message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A public S/MIME key is required to encrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -327,7 +327,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
         }
 
-        throw new Horde_Crypt_Exception(_("Could not S/MIME encrypt message."));
+        throw new Horde_Crypt_Exception($this->_dict->t("Could not S/MIME encrypt message."));
     }
 
     /**
@@ -357,7 +357,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Crypt_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input/output/certificates. */
@@ -388,7 +388,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         if (!$res) {
-            throw new Horde_Crypt_Exception(_("Could not S/MIME sign message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Could not S/MIME sign message."));
         }
 
         $data = file_get_contents($output);
@@ -419,7 +419,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Crypt_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -437,7 +437,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return file_get_contents($output);
         }
 
-        throw new Horde_Crypt_Exception(_("Could not decrypt S/MIME data."));
+        throw new Horde_Crypt_Exception($this->_dict->t("Could not decrypt S/MIME data."));
     }
 
     /**
@@ -471,45 +471,45 @@ class Horde_Crypt_Smime extends Horde_Crypt
     {
         /* Common Fields */
         $fieldnames = array(
-            'Email' => _("Email Address"),
-            'CommonName' => _("Common Name"),
-            'Organisation' => _("Organisation"),
-            'OrganisationalUnit' => _("Organisational Unit"),
-            'Country' => _("Country"),
-            'StateOrProvince' => _("State or Province"),
-            'Location' => _("Location"),
-            'StreetAddress' => _("Street Address"),
-            'TelephoneNumber' => _("Telephone Number"),
-            'Surname' => _("Surname"),
-            'GivenName' => _("Given Name")
+            'Email' => $this->_dict->t("Email Address"),
+            'CommonName' => $this->_dict->t("Common Name"),
+            'Organisation' => $this->_dict->t("Organisation"),
+            'OrganisationalUnit' => $this->_dict->t("Organisational Unit"),
+            'Country' => $this->_dict->t("Country"),
+            'StateOrProvince' => $this->_dict->t("State or Province"),
+            'Location' => $this->_dict->t("Location"),
+            'StreetAddress' => $this->_dict->t("Street Address"),
+            'TelephoneNumber' => $this->_dict->t("Telephone Number"),
+            'Surname' => $this->_dict->t("Surname"),
+            'GivenName' => $this->_dict->t("Given Name")
         );
 
         /* Netscape Extensions */
         $fieldnames += array(
-            'netscape-cert-type' => _("Netscape certificate type"),
-            'netscape-base-url' => _("Netscape Base URL"),
-            'netscape-revocation-url' => _("Netscape Revocation URL"),
-            'netscape-ca-revocation-url' => _("Netscape CA Revocation URL"),
-            'netscape-cert-renewal-url' => _("Netscape Renewal URL"),
-            'netscape-ca-policy-url' => _("Netscape CA policy URL"),
-            'netscape-ssl-server-name' => _("Netscape SSL server name"),
-            'netscape-comment' => _("Netscape certificate comment")
+            'netscape-cert-type' => $this->_dict->t("Netscape certificate type"),
+            'netscape-base-url' => $this->_dict->t("Netscape Base URL"),
+            'netscape-revocation-url' => $this->_dict->t("Netscape Revocation URL"),
+            'netscape-ca-revocation-url' => $this->_dict->t("Netscape CA Revocation URL"),
+            'netscape-cert-renewal-url' => $this->_dict->t("Netscape Renewal URL"),
+            'netscape-ca-policy-url' => $this->_dict->t("Netscape CA policy URL"),
+            'netscape-ssl-server-name' => $this->_dict->t("Netscape SSL server name"),
+            'netscape-comment' => $this->_dict->t("Netscape certificate comment")
         );
 
         /* X590v3 Extensions */
         $fieldnames += array(
-            'id-ce-extKeyUsage' => _("X509v3 Extended Key Usage"),
-            'id-ce-basicConstraints' => _("X509v3 Basic Constraints"),
-            'id-ce-subjectAltName' => _("X509v3 Subject Alternative Name"),
-            'id-ce-subjectKeyIdentifier' => _("X509v3 Subject Key Identifier"),
-            'id-ce-certificatePolicies' => _("Certificate Policies"),
-            'id-ce-CRLDistributionPoints' => _("CRL Distribution Points"),
-            'id-ce-keyUsage' => _("Key Usage")
+            'id-ce-extKeyUsage' => $this->_dict->t("X509v3 Extended Key Usage"),
+            'id-ce-basicConstraints' => $this->_dict->t("X509v3 Basic Constraints"),
+            'id-ce-subjectAltName' => $this->_dict->t("X509v3 Subject Alternative Name"),
+            'id-ce-subjectKeyIdentifier' => $this->_dict->t("X509v3 Subject Key Identifier"),
+            'id-ce-certificatePolicies' => $this->_dict->t("Certificate Policies"),
+            'id-ce-CRLDistributionPoints' => $this->_dict->t("CRL Distribution Points"),
+            'id-ce-keyUsage' => $this->_dict->t("Key Usage")
         );
 
         $cert_details = $this->parseCert($cert);
         if (!is_array($cert_details)) {
-            return '<pre class="fixed">' . _("Unable to extract certificate details") . '</pre>';
+            return '<pre class="fixed">' . $this->_dict->t("Unable to extract certificate details") . '</pre>';
         }
         $certificate = $cert_details['certificate'];
 
@@ -517,7 +517,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         /* Subject (a/k/a Certificate Owner) */
         if (isset($certificate['subject'])) {
-            $text .= "<strong>" . _("Certificate Owner") . ":</strong>\n";
+            $text .= "<strong>" . $this->_dict->t("Certificate Owner") . ":</strong>\n";
 
             foreach ($certificate['subject'] as $key => $value) {
                 if (isset($fieldnames[$key])) {
@@ -531,7 +531,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         /* Issuer */
         if (isset($certificate['issuer'])) {
-            $text .= "<strong>" . _("Issuer") . ":</strong>\n";
+            $text .= "<strong>" . $this->_dict->t("Issuer") . ":</strong>\n";
 
             foreach ($certificate['issuer'] as $key => $value) {
                 if (isset($fieldnames[$key])) {
@@ -544,14 +544,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         /* Dates  */
-        $text .= "<strong>" . _("Validity") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Not Before"), strftime("%x %X", $certificate['validity']['notbefore']));
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Not After"), strftime("%x %X", $certificate['validity']['notafter']));
+        $text .= "<strong>" . $this->_dict->t("Validity") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Not Before"), strftime("%x %X", $certificate['validity']['notbefore']));
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Not After"), strftime("%x %X", $certificate['validity']['notafter']));
         $text .= "\n";
 
         /* Certificate Owner - Public Key Info */
-        $text .= "<strong>" . _("Public Key Info") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
+        $text .= "<strong>" . $this->_dict->t("Public Key Info") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
         if ($certificate['subjectPublicKeyInfo']['algorithm'] == 'rsaEncryption') {
             if (Horde_Util::extensionExists('bcmath')) {
                 $modulus = $certificate['subjectPublicKeyInfo']['subjectPublicKey']['modulus'];
@@ -569,7 +569,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     str_pad($modulus_hex, 256, '0', STR_PAD_RIGHT);
                 }
 
-                $text .= "&nbsp;&nbsp;" . sprintf(_("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
+                $text .= "&nbsp;&nbsp;" . sprintf($this->_dict->t("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
 
                 $modulus_str = '';
 
@@ -580,20 +580,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     $modulus_str .= substr($modulus_hex, $i, 2) . ':';
                 }
 
-                $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", _("Modulus"), $modulus_str);
+                $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Modulus"), $modulus_str);
             }
 
-            $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", _("Exponent"), $certificate['subjectPublicKeyInfo']['subjectPublicKey']['publicExponent']);
+            $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Exponent"), $certificate['subjectPublicKeyInfo']['subjectPublicKey']['publicExponent']);
         }
         $text .= "\n";
 
         /* X509v3 extensions */
         if (isset($certificate['extensions'])) {
-            $text .= "<strong>" . _("X509v3 extensions") . ":</strong>\n";
+            $text .= "<strong>" . $this->_dict->t("X509v3 extensions") . ":</strong>\n";
 
             foreach ($certificate['extensions'] as $key => $value) {
                 if (is_array($value)) {
-                    $value = _("Unsupported Extension");
+                    $value = $this->_dict->t("Unsupported Extension");
                 }
                 if (isset($fieldnames[$key])) {
                     $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], wordwrap($value, 40, "\n&nbsp;&nbsp;&nbsp;&nbsp;"));
@@ -606,20 +606,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         /* Certificate Details */
-        $text .= "<strong>" . _("Certificate Details") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", _("Version"), $certificate['version']);
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", _("Serial Number"), $certificate['serialNumber']);
+        $text .= "<strong>" . $this->_dict->t("Certificate Details") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", $this->_dict->t("Version"), $certificate['version']);
+        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", $this->_dict->t("Serial Number"), $certificate['serialNumber']);
 
         foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
-            $label = sprintf(_("%s Fingerprint"), Horde_String::upper($hash));
+            $label = sprintf($this->_dict->t("%s Fingerprint"), Horde_String::upper($hash));
             $fingerprint_str = '';
             for ($i = 0, $f_len = strlen($fingerprint); $i < $f_len; $i += 2) {
                 $fingerprint_str .= substr($fingerprint, $i, 2) . ':';
             }
             $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, $fingerprint_str);
         }
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Signature Algorithm"), $cert_details['signatureAlgorithm']);
-        $text .= sprintf("&nbsp;&nbsp;%s:", _("Signature"));
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", $this->_dict->t("Signature Algorithm"), $cert_details['signatureAlgorithm']);
+        $text .= sprintf("&nbsp;&nbsp;%s:", $this->_dict->t("Signature"));
 
         $sig_str = '';
         for ($i = 0, $s_len = strlen($cert_details['signature']); $i < $s_len; ++$i) {
@@ -841,13 +841,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     }
                     $cert_details['certificate']['extensions'][$oid] = $newVal;
                 } else {
-                    $cert_details['certificate']['extensions'][$oid] = _("Unsupported Extension");
+                    $cert_details['certificate']['extensions'][$oid] = $this->_dict->t("Unsupported Extension");
                 }
                 break;
 
             case 'id-ce-basicConstraints':
             case 'default':
-                $cert_details['certificate']['extensions'][$oid] = _("Unsupported Extension");
+                $cert_details['certificate']['extensions'][$oid] = $this->_dict->t("Unsupported Extension");
                 break;
             }
         }
@@ -1132,7 +1132,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      */
     protected function _decryptSignature($text, $params)
     {
-        throw new Horde_Crypt_Exception('_decryptSignature() ' . _("not yet implemented"));
+        throw new Horde_Crypt_Exception('_decryptSignature() ' . $this->_dict->t("not yet implemented"));
     }
 
     /**
@@ -1143,7 +1143,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function checkForOpenSSL()
     {
         if (!Horde_Util::extensionExists('openssl')) {
-            throw new Horde_Crypt_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
+            throw new Horde_Crypt_Exception($this->_dict->t("The openssl module is required for the Horde_Crypt_Smime:: class."));
         }
     }
 
@@ -1214,7 +1214,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $this->checkForOpenSSL();
 
         if (!isset($params['sslpath'])) {
-            throw new Horde_Crypt_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
+            throw new Horde_Crypt_Exception($this->_dict->t("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
         }
         $sslpath = escapeshellcmd($params['sslpath']);
 
@@ -1248,12 +1248,12 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
             pclose($fd);
         } else {
-            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Error while talking to smime binary."));
         }
 
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
-            throw new Horde_Crypt_Exception(_("Password incorrect"));
+            throw new Horde_Crypt_Exception($this->_dict->t("Password incorrect"));
         }
 
         /* Extract the client public key next. */
@@ -1266,7 +1266,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Error while talking to smime binary."));
         }
 
         $ob->public = trim(file_get_contents($output));
@@ -1281,7 +1281,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Error while talking to smime binary."));
         }
 
         $ob->certs = trim(file_get_contents($output));

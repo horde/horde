@@ -7,7 +7,7 @@ class Horde_Form_Type_Color extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value)) {
-            $message = _("This field is required.");
+            $message = $this->_dict->t("This field is required.");
             return false;
         }
 
@@ -15,7 +15,7 @@ class Horde_Form_Type_Color extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
+        $message = $this->_dict->t("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
         return false;
     }
 

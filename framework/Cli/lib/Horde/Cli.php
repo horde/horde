@@ -119,13 +119,29 @@ class Horde_Cli
     );
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
      *
      * The constructor must not be called after init().
+     *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      */
-    public function __construct()
+    public function __construct($dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Cli', dirname(__FILE__) . '/../../locale');
+        }
+
         $this->_console = $this->runningFromCLI();
 
         if ($this->_console) {
@@ -319,7 +335,7 @@ class Horde_Cli
         }
         $this->writeln($this->red('===================='));
         $this->writeln();
-        $this->writeln($this->red(_("Fatal Error:")));
+        $this->writeln($this->red($this->_dict->t("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
         $this->writeln((string)$backtrace);
@@ -353,7 +369,7 @@ class Horde_Cli
                 foreach ($choices as $key => $choice) {
                     $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
                 }
-                $this->writeln(_("Type your choice: "), true);
+                $this->writeln($this->_dict->t("Type your choice: "), true);
                 @ob_flush();
 
                 // Get the user choice.
@@ -364,7 +380,7 @@ class Horde_Cli
                 if (isset($choices[$response])) {
                     return $response;
                 } else {
-                    $this->writeln($this->red(sprintf(_("\"%s\" is not a valid choice."), $response)));
+                    $this->writeln($this->red(sprintf($this->_dict->t("\"%s\" is not a valid choice."), $response)));
                 }
             } else {
                 @ob_flush();

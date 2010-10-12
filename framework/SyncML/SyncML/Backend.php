@@ -252,6 +252,13 @@ class SyncML_Backend {
     var $_backendMode;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    public $dict;
+
+    /**
      * Constructor.
      *
      * Sets up the default logging mechanism.
@@ -268,6 +275,8 @@ class SyncML_Backend {
      *                                      debug_dir.
      *                       - log_level:   Only log entries with at least
      *                                      this level. Defaults to 'INFO'.
+     *                       - 'translation': A translation handler
+     *                                        implementing Horde_Translation.
      */
     function SyncML_Backend($params)
     {
@@ -277,6 +286,11 @@ class SyncML_Backend {
         $this->_debugFiles = !empty($params['debug_files']);
         if (isset($params['log_level'])) {
             $this->_logLevel = $params['log_level'];
+        }
+        if (isset($params['translation'])) {
+            $this->dict = $params['translation'];
+        } else {
+            $this->dict = new Horde_Translation_Gettext('SyncML', dirname(__FILE__) . '/../locale');
         }
 
         $this->logMessage('Backend of class ' . get_class($this) . ' created', 'DEBUG');

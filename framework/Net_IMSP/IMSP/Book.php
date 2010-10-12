@@ -50,6 +50,13 @@ class Net_IMSP_Book {
     var $_params;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor function.
      *
      * @param array $params Hash containing IMSP parameters.
@@ -57,6 +64,11 @@ class Net_IMSP_Book {
     function Net_IMSP_Book($params)
     {
         $this->_params = $params;
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Net_IMSP', dirname(__FILE__) . '/../locale');
+        }
     }
 
     /**
@@ -1293,7 +1305,7 @@ class Net_IMSP_Book {
         if (isset($this->_imsp)) {
             return $this->_imsp->setLogger($params);
         } else {
-            return PEAR::raiseError(_("The IMSP log could not be initialized."));
+            return PEAR::raiseError($this->_dict->t("The IMSP log could not be initialized."));
         }
     }
 

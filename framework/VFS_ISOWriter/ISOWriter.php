@@ -10,7 +10,8 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
  */
-class VFS_ISOWriter {
+abstract class VFS_ISOWriter
+{
 
     /**
      * A VFS object used for reading the source files
@@ -34,6 +35,13 @@ class VFS_ISOWriter {
     var $_params = array();
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructs a new VFS_ISOWriter object
      *
      * @param array $params  A hash containing parameters.
@@ -43,19 +51,19 @@ class VFS_ISOWriter {
         $this->_sourceVfs = &$sourceVfs;
         $this->_targetVfs = &$targetVfs;
         $this->_params = $params;
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/locale');
+        }
     }
 
     /**
      * Create the ISO image
      *
-     * @abstract
-     *
      * @return mixed  Null or PEAR_Error on failure.
      */
-    function process()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function process();
 
     /**
      * Attempt to create a concrete VFS_ISOWriter subclass.
@@ -82,7 +90,7 @@ class VFS_ISOWriter {
     function &factory(&$sourceVfs, &$targetVfs, $params)
     {
         if (empty($params['targetFile'])) {
-            return PEAR::raiseError(_("Cannot proceed without 'targetFile' parameter."));
+            return PEAR::raiseError($this->_dict->t("Cannot proceed without 'targetFile' parameter."));
         }
         if (empty($params['sourceRoot'])) {
             $params['sourceRoot'] = '/';
@@ -97,7 +105,7 @@ class VFS_ISOWriter {
             return $isowriter;
         }
 
-        return PEAR::raiseError(_("No available strategy for making ISO images."));
+        return PEAR::raiseError($this->_dict->t("No available strategy for making ISO images."));
     }
 
 }

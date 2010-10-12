@@ -1005,7 +1005,7 @@ class Horde_Browser
     public function wasFileUploaded($field, $name = null)
     {
         if (is_null($name)) {
-            $name = _("file");
+            $name = 'file';
         }
 
         if (!($uploadSize = self::allowFileUploads())) {

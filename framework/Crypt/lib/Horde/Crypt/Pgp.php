@@ -222,9 +222,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
-            $msg = _("Public/Private keypair not generated successfully.");
+            $msg = $this->_dict->t("Public/Private keypair not generated successfully.");
             if (!empty($result->stderr)) {
-                $msg .= ' ' . _("Returned error message:") . ' ' . $result->stderr;
+                $msg .= ' ' . $this->_dict->t("Returned error message:") . ' ' . $result->stderr;
             }
             throw new Horde_Crypt_Exception($msg);
         }
@@ -421,10 +421,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (!empty($packet_info['signature'])) {
             /* Making the property names the same width for all
              * localizations .*/
-            $leftrow = array(_("Name"), _("Key Type"), _("Key Creation"),
-                             _("Expiration Date"), _("Key Length"),
-                             _("Comment"), _("E-Mail"), _("Hash-Algorithm"),
-                             _("Key ID"), _("Key Fingerprint"));
+            $leftrow = array($this->_dict->t("Name"), $this->_dict->t("Key Type"), $this->_dict->t("Key Creation"),
+                             $this->_dict->t("Expiration Date"), $this->_dict->t("Key Length"),
+                             $this->_dict->t("Comment"), $this->_dict->t("E-Mail"), $this->_dict->t("Hash-Algorithm"),
+                             $this->_dict->t("Key ID"), $this->_dict->t("Key Fingerprint"));
             $leftwidth = array_map('strlen', $leftrow);
             $maxwidth  = max($leftwidth) + 2;
             array_walk($leftrow, array($this, '_pgpPrettyKeyFormatter'), $maxwidth);
@@ -444,15 +444,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 $fingerprint = isset($fingerprints[$key_info['keyid']]) ? $fingerprints[$key_info['keyid']] : null;
 
                 $msg .= $leftrow[0] . (isset($key_info['name']) ? stripcslashes($key_info['name']) : '') . "\n"
-                    . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? _("Public Key") : _("Private Key")) . "\n"
+                    . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? $this->_dict->t("Public Key") : $this->_dict->t("Private Key")) . "\n"
                     . $leftrow[2] . strftime("%D", $key_info['key_created']) . "\n"
-                    . $leftrow[3] . (empty($key_info['key_expires']) ? '[' . _("Never") . ']' : strftime("%D", $key_info['key_expires'])) . "\n"
+                    . $leftrow[3] . (empty($key_info['key_expires']) ? '[' . $this->_dict->t("Never") . ']' : strftime("%D", $key_info['key_expires'])) . "\n"
                     . $leftrow[4] . $key_info['key_size'] . " Bytes\n"
-                    . $leftrow[5] . (empty($key_info['comment']) ? '[' . _("None") . ']' : $key_info['comment']) . "\n"
-                    . $leftrow[6] . (empty($key_info['email']) ? '[' . _("None") . ']' : $key_info['email']) . "\n"
-                    . $leftrow[7] . (empty($key_info['micalg']) ? '[' . _("Unknown") . ']' : $key_info['micalg']) . "\n"
-                    . $leftrow[8] . (empty($key_info['keyid']) ? '[' . _("Unknown") . ']' : $key_info['keyid']) . "\n"
-                    . $leftrow[9] . (empty($fingerprint) ? '[' . _("Unknown") . ']' : $fingerprint) . "\n\n";
+                    . $leftrow[5] . (empty($key_info['comment']) ? '[' . $this->_dict->t("None") . ']' : $key_info['comment']) . "\n"
+                    . $leftrow[6] . (empty($key_info['email']) ? '[' . $this->_dict->t("None") . ']' : $key_info['email']) . "\n"
+                    . $leftrow[7] . (empty($key_info['micalg']) ? '[' . $this->_dict->t("Unknown") . ']' : $key_info['micalg']) . "\n"
+                    . $leftrow[8] . (empty($key_info['keyid']) ? '[' . $this->_dict->t("Unknown") . ']' : $key_info['keyid']) . "\n"
+                    . $leftrow[9] . (empty($fingerprint) ? '[' . $this->_dict->t("Unknown") . ']' : $fingerprint) . "\n\n";
             }
         }
 
@@ -656,7 +656,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* Get e-mail address of public key. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature']['id1']['email'])) {
-            throw new Horde_Crypt_Exception(_("Could not determine the recipient's e-mail address."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Could not determine the recipient's e-mail address."));
         }
 
         /* Encrypt a test message. */
@@ -756,7 +756,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             return substr($start, 0, $length);
         }
 
-        throw new Horde_Crypt_Exception(_("Could not obtain public key from the keyserver."));
+        throw new Horde_Crypt_Exception($this->_dict->t("Could not obtain public key from the keyserver."));
     }
 
     /**
@@ -779,7 +779,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         try {
             $this->getPublicKeyserver($info['keyid'], $server, $timeout);
         } catch (Horde_Crypt_Exception $e) {
-            throw new Horde_Crypt_Exception(_("Key already exists on the public keyserver."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Key already exists on the public keyserver."));
         }
 
         /* Connect to the public keyserver. _connectKeyserver() */
@@ -845,7 +845,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             }
         }
 
-        throw new Horde_Crypt_Exception(_("Could not obtain public key from the keyserver."));
+        throw new Horde_Crypt_Exception($this->_dict->t("Could not obtain public key from the keyserver."));
     }
 
     /**
@@ -936,7 +936,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         } while (++$connRefuse < self::KEYSERVER_REFUSE);
 
         if ($errno == 0) {
-            throw new Horde_Crypt_Exception(_("Connection refused to the public keyserver."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Connection refused to the public keyserver."));
         } else {
             $charset = 'UTF-8';
             $lang_charset = setlocale(LC_ALL, 0);
@@ -947,7 +947,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $charset = $lang_charset[1];
                 }
             }
-            throw new Horde_Crypt_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset, 'UTF-8'), $errno));
+            throw new Horde_Crypt_Exception(sprintf($this->_dict->t("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset, 'UTF-8'), $errno));
         }
     }
 
@@ -1129,7 +1129,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', empty($params['symmetric']) ? null : $params['passphrase'], true, true);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Crypt_Exception(_("Could not PGP encrypt message: ") . $error);
+            throw new Horde_Crypt_Exception($this->_dict->t("Could not PGP encrypt message: ") . $error);
         }
 
         return $result->output;
@@ -1161,7 +1161,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !isset($params['passphrase'])) {
-            throw new Horde_Crypt_Exception(_("A public PGP key, private PGP key, and passphrase are required to sign a message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A public PGP key, private PGP key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input. */
@@ -1198,7 +1198,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', $params['passphrase'], true, true);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Crypt_Exception(_("Could not PGP sign message: ") . $error);
+            throw new Horde_Crypt_Exception($this->_dict->t("Could not PGP sign message: ") . $error);
         }
 
         return $result->output;
@@ -1237,7 +1237,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Check for required parameters. */
         if (!isset($params['passphrase']) && empty($params['no_passphrase'])) {
-            throw new Horde_Crypt_Exception(_("A passphrase is required to decrypt a message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A passphrase is required to decrypt a message."));
         }
 
         /* Create temp files. */
@@ -1273,7 +1273,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         }
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Crypt_Exception(_("Could not decrypt PGP data: ") . $error);
+            throw new Horde_Crypt_Exception($this->_dict->t("Could not decrypt PGP data: ") . $error);
         }
 
         /* Create the return object. */
@@ -1304,11 +1304,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Crypt_Exception(_("A public PGP key is required to verify a signed message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("A public PGP key is required to verify a signed message."));
         }
         if (($params['type'] === 'detached-signature') &&
             !isset($params['signature'])) {
-            throw new Horde_Crypt_Exception(_("The detached PGP signature block is required to verify the signed message."));
+            throw new Horde_Crypt_Exception($this->_dict->t("The detached PGP signature block is required to verify the signed message."));
         }
 
         $good_sig_flag = 0;
@@ -1403,7 +1403,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $pgp_sign->setType('application/pgp-signature');
         $pgp_sign->setCharset($this->_params['email_charset']);
         $pgp_sign->setDisposition('inline');
-        $pgp_sign->setDescription(Horde_String::convertCharset(_("PGP Digital Signature"), 'UTF-8', $this->_params['email_charset']));
+        $pgp_sign->setDescription(Horde_String::convertCharset($this->_dict->t("PGP Digital Signature"), 'UTF-8', $this->_params['email_charset']));
         $pgp_sign->setContents($msg_sign, array('encoding' => '7bit'));
 
         /* Get the algorithim information from the signature. Since we are
@@ -1447,7 +1447,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part->setType('multipart/encrypted');
         $part->setCharset($this->_params['email_charset']);
         $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-        $part->setDescription(Horde_String::convertCharset(_("PGP Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
+        $part->setDescription(Horde_String::convertCharset($this->_dict->t("PGP Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
         $part->setContents("This message is in MIME format and has been PGP encrypted.\n");
 
         $part1 = new Horde_Mime_Part();
@@ -1490,7 +1490,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part->setContents("This message is in MIME format and has been PGP signed and encrypted.\n");
 
         $part->setCharset($this->_params['email_charset']);
-        $part->setDescription(Horde_String::convertCharset(_("PGP Signed/Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
+        $part->setDescription(Horde_String::convertCharset($this->_dict->t("PGP Signed/Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
 
         return $part;
     }
@@ -1508,7 +1508,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part = new Horde_Mime_Part();
         $part->setType('application/pgp-keys');
         $part->setCharset($this->_params['email_charset']);
-        $part->setDescription(Horde_String::convertCharset(_("PGP Public Key"), 'UTF-8', $this->_params['email_charset']));
+        $part->setDescription(Horde_String::convertCharset($this->_dict->t("PGP Public Key"), 'UTF-8', $this->_params['email_charset']));
         $part->setContents($key, array('encoding' => '7bit'));
 
         return $part;
@@ -1581,7 +1581,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     }
                 }
             } else {
-                throw new Horde_Crypt_Exception(_("Error while talking to pgp binary."));
+                throw new Horde_Crypt_Exception($this->_dict->t("Error while talking to pgp binary."));
             }
         } elseif ($mode == 'r') {
             if ($fp = popen($cmdline, 'r')) {
@@ -1589,7 +1589,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $data->stdout .= fgets($fp, 1024);
                 }
             } else {
-                throw new Horde_Crypt_Exception(_("Error while talking to pgp binary."));
+                throw new Horde_Crypt_Exception($this->_dict->t("Error while talking to pgp binary."));
             }
         }
         pclose($fp);
@@ -1641,7 +1641,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* If the key is empty, something went wrong. */
         if (empty($results->output)) {
-            throw new Horde_Crypt_Exception(_("Revocation key not generated successfully."));
+            throw new Horde_Crypt_Exception($this->_dict->t("Revocation key not generated successfully."));
         }
 
         return $results->output;

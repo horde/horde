@@ -14,7 +14,14 @@ class Horde_Kolab_FreeBusy_Report {
 
     var $_errors = array();
 
-    function Horde_Kolab_FreeBusy_Report()
+    /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    function Horde_Kolab_FreeBusy_Report($params = array())
     {
         if (PHP_SAPI == 'cli') {
             $this->_break = "\n";
@@ -25,24 +32,30 @@ class Horde_Kolab_FreeBusy_Report {
             /** Don't report notices */
             error_reporting(E_ALL & ~E_NOTICE);
         }
+
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Kolab_FreeBusy', dirname(__FILE__) . '/../../../../locale');
+        }
     }
 
     function start()
     {
-        echo _("Starting to regenerate the free/busy cache...");
+        echo $this->_dict->t("Starting to regenerate the free/busy cache...");
         $this->linebreak(2);
     }
 
     function success($calendar)
     {
-        echo sprintf(_("Successfully regenerated calendar \"%s\"!"),
+        echo sprintf($this->_dict->t("Successfully regenerated calendar \"%s\"!"),
                      $calendar);
         $this->linebreak(1);
     }
 
     function failure($calendar, $error)
     {
-        $this->_errors[] = sprintf(_("Failed regenerating calendar %s: %s"),
+        $this->_errors[] = sprintf($this->_dict->t("Failed regenerating calendar %s: %s"),
                                    $calendar, $error->getMessage());
     }
 
@@ -50,7 +63,7 @@ class Horde_Kolab_FreeBusy_Report {
     {
         if (!empty($this->_errors)) {
             $this->linebreak(1);
-            echo _("Errors:");
+            echo $this->_dict->t("Errors:");
             $this->linebreak(1);
             foreach ($this->_errors as $error) {
                 echo $error;
@@ -58,7 +71,7 @@ class Horde_Kolab_FreeBusy_Report {
             return false;
         } else {
             $this->linebreak(1);
-            echo _("Successfully regenerated all calendar caches!");
+            echo $this->_dict->t("Successfully regenerated all calendar caches!");
             $this->linebreak(1);
             return true;
         }

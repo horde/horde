@@ -261,7 +261,7 @@ class VFS_sql_file extends VFS_file
 
         if (!@rename($this->_getNativePath($oldpath, $oldname), $this->_getNativePath($newpath, $newname))) {
             $this->_db->query(sprintf('UPDATE %s SET vfs_path = ?, vfs_name = ? WHERE vfs_path = ? AND vfs_name = ?', $this->_params['table']), array($oldpath, $oldname, $newpath, $newname));
-            return PEAR::raiseError(_("Unable to rename VFS file."));
+            return PEAR::raiseError($this->_dict->t("Unable to rename VFS file."));
         }
     }
 

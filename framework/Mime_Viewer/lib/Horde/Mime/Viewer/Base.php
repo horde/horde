@@ -63,24 +63,39 @@ class Horde_Mime_Viewer_Base
     );
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
      * @param Horde_Mime_Part $mime_part  The object with the data to be
      *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'temp_file' - (callback) A callback function that returns a temporary
-     *               filename.  Is passed one parameter: a prefix string.
-     *                DEFAULT: Uses Horde_Util::getTempFile().
-     * 'text_filter' - (callback) A callback function used to filter text.
-     *                 Is called the same as Horde_Text_Filter::filter().
-     *                 DEFAULT: Uses Horde_Text_Filter::filter().
-     * </pre>
+     * @param array $conf
+     *     Configuration:
+     *     - 'temp_file': (callback) A callback function that returns a
+     *                    temporary filename.  Is passed one parameter: a
+     *                     prefix string. DEFAULT: Uses
+     *                     Horde_Util::getTempFile().
+     *     - 'text_filter': (callback) A callback function used to filter text.
+     *                      Is called the same as Horde_Text_Filter::filter().
+     *                      DEFAULT: Uses Horde_Text_Filter::filter().
+     *     - 'translation': (object) A translation handler implementing
+     *                      Horde_Translation.
      *
      * @throws InvalidArgumentException
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
+        if (isset($conf['translation'])) {
+            $this->_dict = $conf['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Mime_Viewer', dirname(__FILE__) . '/../../../../locale');
+        }
+
         foreach ($this->_required as $val) {
             if (!isset($conf[$val])) {
                 throw new InvalidArgumentException(__CLASS__ . ': Missing configuration value (' . $val . ')');

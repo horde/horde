@@ -18,6 +18,13 @@
  */
 class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlightquotes
 {
+    /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
      /**
      * Constructor.
      *
@@ -38,6 +45,8 @@ class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlight
         ), $params);
 
         parent::__construct($params);
+
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
 
         if (!$this->_params['noJS'] && $this->_params['outputJS']) {
             Horde::addScriptFile('prototype.js', 'horde');
@@ -61,9 +70,9 @@ class Horde_Core_Text_Filter_Highlightquotes extends Horde_Text_Filter_Highlight
         return (($this->_params['citeblock']) ? '<br />' : '') .
             '<div class="toggleQuoteParent">' .
             '<span ' . ($this->_params['outputJS'] ? 'onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" ' : '') .
-            'class="widget toggleQuoteShow"' . ($this->_params['hideBlocks'] ? '' : ' style="display:none"') . '>' . htmlspecialchars(sprintf(_("[Show Quoted Text - %d lines]"), $qcount)) . '</span>' .
+            'class="widget toggleQuoteShow"' . ($this->_params['hideBlocks'] ? '' : ' style="display:none"') . '>' . htmlspecialchars(sprintf($this->_coreDict->t("[Show Quoted Text - %d lines]"), $qcount)) . '</span>' .
             '<span ' . ($this->_params['outputJS'] ? 'onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" ' : "") .
-            'class="widget toggleQuoteHide"' . ($this->_params['hideBlocks'] ? ' style="display:none"' : '') . '>' . htmlspecialchars(_("[Hide Quoted Text]")) . '</span>';
+            'class="widget toggleQuoteHide"' . ($this->_params['hideBlocks'] ? ' style="display:none"' : '') . '>' . htmlspecialchars($this->_coreDict->t("[Hide Quoted Text]")) . '</span>';
     }
 
     /**

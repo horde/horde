@@ -570,10 +570,10 @@ class VFS_smb extends VFS
         foreach ($out as $line) {
             if (strpos($line, 'NT_STATUS_NO_SUCH_FILE') !== false ||
                 strpos($line, 'NT_STATUS_OBJECT_NAME_NOT_FOUND') !== false) {
-                $err = _("No such file");
+                $err = $this->_dict->t("No such file");
                 break;
             } elseif (strpos($line, 'NT_STATUS_ACCESS_DENIED') !== false) {
-                $err = _("Permission Denied");
+                $err = $this->_dict->t("Permission Denied");
                 break;
             }
         }

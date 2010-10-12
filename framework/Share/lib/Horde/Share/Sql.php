@@ -207,7 +207,7 @@ class Horde_Share_Sql extends Horde_Share
             Horde::logMessage($data, 'ERR');
             throw new Horde_Share_Exception($data->getMessage());
         } elseif (empty($data)) {
-            throw new Horde_Share_Exception(sprintf(_("Share \"%s\" does not exist."), $name));
+            throw new Horde_Share_Exception(sprintf($this->_dict->t("Share \"%s\" does not exist."), $name));
         }
         $stmt->free();
         $results->free();
@@ -269,7 +269,7 @@ class Horde_Share_Sql extends Horde_Share
             Horde::logMessage($data, 'ERR');
             throw new Horde_Share_Exception($data->getMessage());
         } elseif (empty($data)) {
-            throw new Horde_Share_Exception(sprintf(_("Share ID %d does not exist."), $id));
+            throw new Horde_Share_Exception(sprintf($this->_dict->t("Share ID %d does not exist."), $id));
         }
 
         $stmt->free();

@@ -340,7 +340,7 @@ class DataTree_sql extends DataTree {
             return $parents;
         }
         if (empty($parents)) {
-            return PEAR::raiseError(_("Object not found."), null, null, null, 'DataTree ids ' . implode(', ', $ids) . ' not found.');
+            return PEAR::raiseError('Object not found.', null, null, null, 'DataTree ids ' . implode(', ', $ids) . ' not found.');
         }
 
         $ids = array();
@@ -588,7 +588,7 @@ class DataTree_sql extends DataTree {
         }
 
         if (parent::exists($fullname)) {
-            return PEAR::raiseError(sprintf(_("\"%s\" already exists"), $fullname));
+            return PEAR::raiseError(sprintf('"%s" already exists', $fullname));
         }
 
         $query = 'INSERT INTO ' . $this->_params['table'] .
@@ -692,7 +692,7 @@ class DataTree_sql extends DataTree {
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             } elseif (count($order) != $result) {
-                return PEAR::raiseError(_("Cannot reorder, number of entries supplied for reorder does not match number stored."));
+                return PEAR::raiseError('Cannot reorder, number of entries supplied for reorder does not match number stored.');
             }
 
             $o_key = 0;
@@ -767,7 +767,7 @@ class DataTree_sql extends DataTree {
                     }
                 }
             } else {
-                return PEAR::raiseError(sprintf(_("Cannot remove, %d children exist."), count($children)));
+                return PEAR::raiseError(sprintf('Cannot remove, %d children exist.', count($children)));
             }
         }
 

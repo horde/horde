@@ -27,6 +27,29 @@ class Net_IMSP_Auth {
      */
     var $_imsp;
 
+    /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
+     * Constructor function.
+     *
+     * @param array $params  Hash with configuration data. Possible values:
+     *                       - 'translation': A translation handler
+     *                                        implementing Horde_Translation.
+     */
+    public function __construct($params = array())
+    {
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Net_IMSP', dirname(__FILE__) . '/../locale');
+        }
+    }
+
      /**
      * Attempts to login to IMSP server.
      *
@@ -118,7 +141,7 @@ class Net_IMSP_Auth {
             return new $class();
         }
 
-        throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+        throw new Horde_Exception(sprintf($this->_dict->t("Unable to load the definition of %s."), $class));
     }
 
     /**

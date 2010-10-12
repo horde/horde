@@ -14,6 +14,13 @@
 class Horde_Compress
 {
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to
@@ -42,6 +49,21 @@ class Horde_Compress
         }
 
         throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
+     */
+    public function __construct($dict = null)
+    {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Compress', dirname(__FILE__) . '/../../locale');
+        }
     }
 
     /**

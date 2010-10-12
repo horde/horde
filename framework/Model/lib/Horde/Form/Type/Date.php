@@ -14,7 +14,7 @@ class Horde_Form_Type_Date extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = _("This field is required.");
+                $message = $this->_dict->t("This field is required.");
             }
         }
 
@@ -43,15 +43,15 @@ class Horde_Form_Type_Date extends Horde_Form_Type {
                                                    date('j'), date('n'),
                                                    date('Y'));
         if ($ago < -1) {
-            return sprintf(_(" (%s days ago)"), $diffdays);
+            return sprintf($this->_dict->t(" (%s days ago)"), $diffdays);
         } elseif ($ago == -1) {
-            return _(" (yesterday)");
+            return $this->_dict->t(" (yesterday)");
         } elseif ($ago == 0) {
-            return _(" (today)");
+            return $this->_dict->t(" (today)");
         } elseif ($ago == 1) {
-            return _(" (tomorrow)");
+            return $this->_dict->t(" (tomorrow)");
         } else {
-            return sprintf(_(" (in %s days)"), $diffdays);
+            return sprintf($this->_dict->t(" (in %s days)"), $diffdays);
         }
     }
 

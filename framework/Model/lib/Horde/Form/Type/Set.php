@@ -27,7 +27,7 @@ class Horde_Form_Type_Set extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Invalid data.");
+        $message = $this->_dict->t("Invalid data.");
         return false;
     }
 
@@ -48,7 +48,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
         if (empty($value) && ((string)(int)$value !== $value)) {
             if ($var->required) {
-                $message = _("This field is required.");
+                $message = $this->_dict->t("This field is required.");
                 return false;
             } else {
                 return true;
@@ -59,7 +59,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
             return true;
         }
 
-        $message = _("Invalid data.");
+        $message = $this->_dict->t("Invalid data.");
         return false;
     }
 

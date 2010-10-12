@@ -27,13 +27,25 @@ class Horde_Kolab_FreeBusy_View {
     var $_data;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
      * @param array $data The data to display
      */
-    function Horde_Kolab_FreeBusy_View(&$data)
+    function Horde_Kolab_FreeBusy_View(&$data, $params = array())
     {
         $this->_data = $data;
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Kolab_FreeBusy', dirname(__FILE__) . '/../../../../locale');
+        }
     }
 
     /**
@@ -203,9 +215,9 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $message = sprintf(_("The requested URL %s was not found on this server."), $url);
+        $message = sprintf($this->_dict->t("The requested URL %s was not found on this server."), $url);
 
-        $this->_errorPage($error, $headers, _("404 Not Found"), _("Not found"), $message);
+        $this->_errorPage($error, $headers, $this->_dict->t("404 Not Found"), $this->_dict->t("Not found"), $message);
     }
 
     /**
@@ -226,8 +238,8 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         $headers = array('WWW-Authenticate: Basic realm="freebusy-' . $email_domain . '"',
                          'HTTP/1.0 401 Unauthorized');
 
-        $this->_errorPage($error, $headers, _("401 Unauthorized"), _("Unauthorized"),
-                  _("You are not authorized to access the requested URL."));
+        $this->_errorPage($error, $headers, $this->_dict->t("401 Unauthorized"), $this->_dict->t("Unauthorized"),
+                  $this->_dict->t("You are not authorized to access the requested URL."));
     }
 
     /**
@@ -243,7 +255,7 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $this->_errorPage($error, $headers, _("500 Server Error"), _("Error"),
+        $this->_errorPage($error, $headers, $this->_dict->t("500 Server Error"), $this->_dict->t("Error"),
                   htmlentities($$url));
     }
 

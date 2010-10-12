@@ -79,25 +79,25 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //AFMode
                 switch ($data) {
                 case 256:
-                    $data = _("9-area-focusing");
+                    $data = $this->_dict->t("9-area-focusing");
                     break;
                 case 16:
-                    $data = _("1-area-focusing");
+                    $data = $this->_dict->t("1-area-focusing");
                     break;
                 case 4096:
-                    $data = _("3-area-focusing (High speed)");
+                    $data = $this->_dict->t("3-area-focusing (High speed)");
                     break;
                 case 4112:
-                    $data = _("1-area-focusing (High speed)");
+                    $data = $this->_dict->t("1-area-focusing (High speed)");
                     break;
                 case 16:
-                    $data = _("1-area-focusing");
+                    $data = $this->_dict->t("1-area-focusing");
                     break;
                 case 1:
-                    $data = _("Spot-focusing");
+                    $data = $this->_dict->t("Spot-focusing");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
             }
@@ -137,19 +137,19 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Image Quality
                 switch ($data) {
                 case 2:
-                    $data = _("High");
+                    $data = $this->_dict->t("High");
                     break;
                 case 3:
-                    $data = _("Standard");
+                    $data = $this->_dict->t("Standard");
                     break;
                 case 6:
-                    $data = _("Very High");
+                    $data = $this->_dict->t("Very High");
                     break;
                 case 7:
-                    $data = _("RAW");
+                    $data = $this->_dict->t("RAW");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -158,31 +158,31 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //White Balance
                 switch ($data) {
                 case 1:
-                    $data = _("Auto");
+                    $data = $this->_dict->t("Auto");
                     break;
                 case 2:
-                    $data = _("Daylight");
+                    $data = $this->_dict->t("Daylight");
                     break;
                 case 3:
-                    $data = _("Cloudy");
+                    $data = $this->_dict->t("Cloudy");
                     break;
                 case 4:
-                    $data = _("Halogen");
+                    $data = $this->_dict->t("Halogen");
                     break;
                 case 5:
-                    $data = _("Manual");
+                    $data = $this->_dict->t("Manual");
                     break;
                 case 8:
-                    $data = _("Flash");
+                    $data = $this->_dict->t("Flash");
                     break;
                 case 10:
-                    $data = _("Black and White");
+                    $data = $this->_dict->t("Black and White");
                     break;
                 case 11:
-                    $data = _("Manual");
+                    $data = $this->_dict->t("Manual");
                     break;
                 default:
-                    $data = sprintf(_("Unknown(%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -191,19 +191,19 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Focus Mode
                 switch ($data) {
                 case 1:
-                    $data = _("Auto");
+                    $data = $this->_dict->t("Auto");
                     break;
                 case 2:
-                    $data = _("Manual");
+                    $data = $this->_dict->t("Manual");
                     break;
                 case 4:
-                    $data = _("Auto, Focus button");
+                    $data = $this->_dict->t("Auto, Focus button");
                     break;
                 case 5:
-                    $data = _("Auto, Continuous");
+                    $data = $this->_dict->t("Auto, Continuous");
                     break;
                 default:
-                    $data = sprintf(_("Unknown(%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -212,16 +212,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Image Stabilizer
                 switch ($data) {
                 case 2:
-                    $data = _("Mode 1");
+                    $data = $this->_dict->t("Mode 1");
                     break;
                 case 3:
-                    $data = _("Off");
+                    $data = $this->_dict->t("Off");
                     break;
                 case 4:
-                    $data = _("Mode 2");
+                    $data = $this->_dict->t("Mode 2");
                     break;
                 default:
-                    $data = sprintf(_("Unknown(%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -230,13 +230,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Macro mode
                 switch ($data) {
                 case 1:
-                    $data = _("On");
+                    $data = $this->_dict->t("On");
                     break;
                 case 2:
-                    $data = _("Off");
+                    $data = $this->_dict->t("Off");
                     break;
                 default:
-                    $data = sprintf(_("Unknown(%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -245,70 +245,70 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Shooting Mode
                 switch ($data) {
                 case 1:
-                    $data = _("Normal");
+                    $data = $this->_dict->t("Normal");
                     break;
                 case 2:
-                    $data = _("Portrait");
+                    $data = $this->_dict->t("Portrait");
                     break;
                 case 3:
-                    $data = _("Scenery");
+                    $data = $this->_dict->t("Scenery");
                     break;
                 case 4:
-                    $data = _("Sports");
+                    $data = $this->_dict->t("Sports");
                     break;
                 case 5:
-                    $data = _("Night Portrait");
+                    $data = $this->_dict->t("Night Portrait");
                     break;
                 case 6:
-                    $data = _("Program");
+                    $data = $this->_dict->t("Program");
                     break;
                 case 7:
-                    $data = _("Aperture Priority");
+                    $data = $this->_dict->t("Aperture Priority");
                     break;
                 case 8:
-                    $data = _("Shutter Priority");
+                    $data = $this->_dict->t("Shutter Priority");
                     break;
                 case 9:
-                    $data = _("Macro");
+                    $data = $this->_dict->t("Macro");
                     break;
                 case 11:
-                    $data = _("Manual");
+                    $data = $this->_dict->t("Manual");
                     break;
                 case 13:
-                    $data = _("Panning");
+                    $data = $this->_dict->t("Panning");
                     break;
                 case 14:
-                    $data = _("Simple");
+                    $data = $this->_dict->t("Simple");
                     break;
                 case 18:
-                    $data = _("Fireworks");
+                    $data = $this->_dict->t("Fireworks");
                     break;
                 case 19:
-                    $data = _("Party");
+                    $data = $this->_dict->t("Party");
                     break;
                 case 20:
-                    $data = _("Snow");
+                    $data = $this->_dict->t("Snow");
                     break;
                 case 21:
-                    $data = _("Night Scenery");
+                    $data = $this->_dict->t("Night Scenery");
                     break;
                 case 22:
-                    $data = _("Food");
+                    $data = $this->_dict->t("Food");
                     break;
                 case 23:
-                    $data = _("Baby");
+                    $data = $this->_dict->t("Baby");
                     break;
                 case 27:
-                    $data = _("High Sensitivity");
+                    $data = $this->_dict->t("High Sensitivity");
                     break;
                 case 29:
-                    $data = _("Underwater");
+                    $data = $this->_dict->t("Underwater");
                     break;
                 case 33:
-                    $data = _("Pet");
+                    $data = $this->_dict->t("Pet");
                     break;
                 default:
-                    $data = sprintf(_("Unknown(%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -317,13 +317,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Audio
                 switch ($data) {
                 case 1:
-                    $data = _("Yes");
+                    $data = $this->_dict->t("Yes");
                     break;
                 case 2:
-                    $data = _("No");
+                    $data = $this->_dict->t("No");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -342,22 +342,22 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Colour Effect
                 switch ($data) {
                 case 1:
-                    $data = _("Off");
+                    $data = $this->_dict->t("Off");
                     break;
                 case 2:
-                    $data = _("Warm");
+                    $data = $this->_dict->t("Warm");
                     break;
                 case 3:
-                    $data = _("Cool");
+                    $data = $this->_dict->t("Cool");
                     break;
                 case 4:
-                    $data = _("Black and White");
+                    $data = $this->_dict->t("Black and White");
                     break;
                 case 5:
-                    $data = _("Sepia");
+                    $data = $this->_dict->t("Sepia");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -366,16 +366,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Burst Mode
                 switch ($data) {
                 case 0:
-                    $data = _("Off");
+                    $data = $this->_dict->t("Off");
                     break;
                 case 1:
-                    $data = _("Low/High Quality");
+                    $data = $this->_dict->t("Low/High Quality");
                     break;
                 case 2:
-                    $data = _("Infinite");
+                    $data = $this->_dict->t("Infinite");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -384,16 +384,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Contrast
                 switch ($data) {
                 case 0:
-                    $data = _("Standard");
+                    $data = $this->_dict->t("Standard");
                     break;
                 case 1:
-                    $data = _("Low");
+                    $data = $this->_dict->t("Low");
                     break;
                 case 2:
-                    $data = _("High");
+                    $data = $this->_dict->t("High");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -402,16 +402,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Noise Reduction
                 switch ($data) {
                 case 0:
-                    $data = _("Standard");
+                    $data = $this->_dict->t("Standard");
                     break;
                 case 1:
-                    $data = _("Low");
+                    $data = $this->_dict->t("Low");
                     break;
                 case 2:
-                    $data = _("High");
+                    $data = $this->_dict->t("High");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -420,16 +420,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Self Timer
                 switch ($data) {
                 case 1:
-                    $data = _("Off");
+                    $data = $this->_dict->t("Off");
                     break;
                 case 2:
-                    $data = _("10s");
+                    $data = $this->_dict->t("10s");
                     break;
                 case 3:
-                    $data = _("2s");
+                    $data = $this->_dict->t("2s");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -438,16 +438,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Rotation
                 switch ($data) {
                 case 1:
-                    $data = _("Horizontal (normal)");
+                    $data = $this->_dict->t("Horizontal (normal)");
                     break;
                 case 6:
-                    $data = _("Rotate 90 CW");
+                    $data = $this->_dict->t("Rotate 90 CW");
                     break;
                 case 8:
-                    $data = _("Rotate 270 CW");
+                    $data = $this->_dict->t("Rotate 270 CW");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -456,13 +456,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Color Mode
                 switch ($data) {
                 case 0:
-                    $data = _("Normal");
+                    $data = $this->_dict->t("Normal");
                     break;
                 case 1:
-                    $data = _("Natural");
+                    $data = $this->_dict->t("Natural");
                     break;
                 default:
-                    $data = sprintf(_("Unknown (%s)"), $data);
+                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
                     break;
                 }
                 break;

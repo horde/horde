@@ -51,15 +51,31 @@ class Horde_Block
     protected $_app;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Constructor.
      *
      * @param array|boolean $params  Any parameters the block needs. If false,
      *                               the default parameter will be used.
      * @param integer $row           The block row.
      * @param integer $col           The block column.
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      */
-    public function __construct($params = array(), $row = null, $col = null)
+    public function __construct($params = array(), $row = null, $col = null,
+                                $dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Block', dirname(__FILE__) . '/../../locale');
+        }
+
         // @todo: we can't simply merge the default values and stored values
         // because empty parameter values are not stored at all, so they would
         // always be overwritten by the defaults.

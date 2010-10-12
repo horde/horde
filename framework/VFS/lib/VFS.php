@@ -84,6 +84,13 @@ class VFS
     protected $_vfsSize = null;
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_dict;
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to return. This
@@ -114,6 +121,11 @@ class VFS
      */
     public function __construct($params = array())
     {
+        if (isset($params['translation'])) {
+            $this->_dict = $params['translation'];
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_VFS', dirname(__FILE__) . '/../locale');
+        }
         $this->setParams(array(
             'user' => '',
             'vfs_quotalimit' => -1,

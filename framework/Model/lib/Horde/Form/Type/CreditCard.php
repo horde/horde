@@ -7,7 +7,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if (empty($value) && $var->required) {
-            $message = _("This field is required.");
+            $message = $this->_dict->t("This field is required.");
             return false;
         }
 
@@ -15,7 +15,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
             /* getCardType() will also verify the checksum. */
             $type = $this->getCardType($value);
             if ($type === false || $type == 'unknown') {
-                $message = _("This does not seem to be a valid card number.");
+                $message = $this->_dict->t("This does not seem to be a valid card number.");
                 return false;
             }
         }

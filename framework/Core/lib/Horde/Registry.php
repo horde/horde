@@ -64,6 +64,13 @@ class Horde_Registry
     protected $_apis = array();
 
     /**
+     * Translation provider.
+     *
+     * @var Horde_Translation
+     */
+    protected $_coreDict;
+
+    /**
      * Hash storing information on each registry-aware application.
      *
      * @var array
@@ -386,13 +393,14 @@ class Horde_Registry
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
+        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../locale');
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
-            throw new Horde_Exception(_("This system is currently deactivated."));
+            throw new Horde_Exception($this->_coreDict->t("This system is currently deactivated."));
         }
 
         /* Initialize notification object. Always attach status listener by
@@ -1040,7 +1048,7 @@ class Horde_Registry
         }
 
         if (!isset($this->applications[$app])) {
-            throw new Horde_Exception(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
+            throw new Horde_Exception(sprintf($this->_coreDict->t("\"%s\" is not configured in the Horde Registry."), $app));
         }
 
         return str_replace('%application%', $this->applications[$app]['fileroot'], $path);
@@ -1138,7 +1146,7 @@ class Horde_Registry
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                throw new Horde_Exception(sprintf($this->_coreDict->t('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
             }
         }
 
@@ -1373,7 +1381,7 @@ class Horde_Registry
         }
 
         return ($parameter == 'name')
-            ? _($pval)
+            ? $this->_coreDict->t($pval)
             : $pval;
     }
 
@@ -1492,7 +1500,7 @@ class Horde_Registry
             return $this->applications[$app]['webroot'] . '/' . (isset($this->applications[$app]['initial_page']) ? $this->applications[$app]['initial_page'] : '');
         }
 
-        throw new Horde_Exception(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
+        throw new Horde_Exception(sprintf($this->_coreDict->t("\"%s\" is not configured in the Horde Registry."), $app));
     }
 
     /**
@@ -1706,7 +1714,7 @@ class Horde_Registry
     {
         if (Horde_Cli::runningFromCLI()) {
             $cli = new Horde_Cli();
-            $cli->fatal(_("You are not authenticated."));
+            $cli->fatal($this->_coreDict->t("You are not authenticated."));
         }
 
         if (is_null($e)) {

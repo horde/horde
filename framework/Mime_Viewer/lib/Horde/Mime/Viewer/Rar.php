@@ -75,36 +75,36 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Base
 
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
-            $name = _("unnamed");
+            $name = $this->_dict->t("unnamed");
         }
 
         $monospace = $this->getConfigParam('monospace');
 
         $text = '<table><tr><td align="left"><span ' .
             ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
-            $this->_textFilter(_("Archive Name") . ':  ' . $name, 'space2html', array(
+            $this->_textFilter($this->_dict->t("Archive Name") . ':  ' . $name, 'space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array(
+            $this->_textFilter($this->_dict->t("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array(
+            $this->_textFilter(sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true
             )) .
             "\n\n" .
             $this->_textFilter(
-                Horde_String::pad(_("File Name"), 50, ' ', STR_PAD_RIGHT) .
-                Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT),
+                Horde_String::pad($this->_dict->t("File Name"), 50, ' ', STR_PAD_RIGHT) .
+                Horde_String::pad($this->_dict->t("Attributes"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Size"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Modified Date"), 19, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Method"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($this->_dict->t("Ratio"), 10, ' ', STR_PAD_LEFT),
                 'space2html',
                 array(
                     'charset' => $charset,

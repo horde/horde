@@ -194,11 +194,12 @@ class Horde_File_Csv
             }
         }
 
+        $dict = new Horde_Translation_Gettext('Horde_File_Csv', dirname(__FILE__) . '/../../../locale');
         if (count($fields) < $conf['fields']) {
-            self::warning(sprintf(_("Wrong number of fields in line %d. Expected %d, found %d."), self::_line(), $conf['fields'], count($fields)));
+            self::warning(sprintf($dict->t("Wrong number of fields in line %d. Expected %d, found %d."), self::_line(), $conf['fields'], count($fields)));
             $fields = array_merge($fields, array_fill(0, $conf['fields'] - count($fields), ''));
         } elseif (count($fields) > $conf['fields']) {
-            self::warning(sprintf(_("More fields found in line %d than the expected %d."), self::_line(), $conf['fields']));
+            self::warning(sprintf($dict->t("More fields found in line %d than the expected %d."), self::_line(), $conf['fields']));
             array_splice($fields, $conf['fields']);
         }
 
