@@ -276,7 +276,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             return $secret->read($secret->getKey('imp'), $session['imp:smime_passphrase']);
         } elseif (!isset($session['imp:smime_null_passphrase'])) {
-            $session['imp:smime_null_passphrase'] = ($this->verifyPassphrase($private_key, null)
+            $session['imp:smime_null_passphrase'] = $this->verifyPassphrase($private_key, null)
                 ? null
                 : false;
         }
