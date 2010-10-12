@@ -666,7 +666,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                         return $result;
                     }
                     $tasklist = $tasklists[$tasklistId];
-                    $_SESSION['all_external_calendars']['tasks/' . $tasklistId] = new Kronolith_Calendar_External(array('api' => 'tasks', 'name' => $tasklist->get('name')));
+                    //$GLOBALS['session']['kronolith:all_external_calendars']['tasks/' . $tasklistId] = new Kronolith_Calendar_External(array('api' => 'tasks', 'name' => $tasklist->get('name')));
                     $GLOBALS['display_external_calendars'][] = 'tasks/' . $tasklistId;
                     $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
                     Kronolith::readPermsForm($tasklist);

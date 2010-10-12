@@ -51,9 +51,9 @@ function switchDateView(view, date)
 </tr>
 
 <!-- attendees -->
-<?php $i = 0; if (empty($_SESSION['kronolith']['attendees'])): ?>
+<?php $i = 0; if (empty($GLOBALS['session']['kronolith:attendees'])): ?>
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
-<?php else: foreach ($_SESSION['kronolith']['attendees'] as $email => $status): ?>
+<?php else: foreach ($GLOBALS['session']['kronolith:attendees'] as $email => $status): ?>
  <tr>
   <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
   <td><?php echo htmlspecialchars(empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
@@ -147,7 +147,7 @@ function switchDateView(view, date)
 <div>
  <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
  <input type="submit" class="button" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
- <?php if (!empty($_SESSION['kronolith']['attendees'])): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
+ <?php if (!empty($GLOBALS['session']['kronolith:attendees'])): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
 
 <br />

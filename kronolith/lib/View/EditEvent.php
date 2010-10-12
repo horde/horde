@@ -58,8 +58,8 @@ class Kronolith_View_EditEvent {
             } catch (Exception $e) {
             }
         }
-        $_SESSION['kronolith']['attendees'] = $this->event->attendees;
-        $_SESSION['kronolith']['resources'] = $this->event->getResources();
+        $GLOBALS['session']['kronolith:attendees'] = $this->event->attendees;
+        $GLOBALS['session']['kronolith:resources'] = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;

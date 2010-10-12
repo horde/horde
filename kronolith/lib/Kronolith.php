@@ -935,11 +935,6 @@ class Kronolith
             $_SERVER['REQUEST_TIME'] = time();
         }
 
-        /* Initialize Kronolith session if we don't have one */
-        if (!isset($_SESSION['kronolith'])) {
-            $_SESSION['kronolith'] = array();
-        }
-
         /* Fetch display preferences. */
         $GLOBALS['display_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
         $GLOBALS['display_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_remote_cals'));
@@ -965,9 +960,10 @@ class Kronolith
          * back to an available calendar. An empty string passed in this
          * parameter will clear any existing session value.*/
         if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
-            $_SESSION['kronolith']['display_cal'] = $calendarId;
+            $GLOBALS['session']['kronolith:display_cal'] = $calendarId;
         }
-        if (!empty($_SESSION['kronolith']['display_cal'])) {
+
+        if (isset($GLOBALS['session']['kronolith:display_cal'])) {
             /* Specifying a value for display_cal is always to make sure
              * that only the specified calendars are shown. Use the
              * "toggle_calendar" argument  to toggle the state of a single
@@ -977,7 +973,7 @@ class Kronolith
             $GLOBALS['display_external_calendars'] = array();
             $GLOBALS['display_resource_calendars'] = array();
             $GLOBALS['display_holidays'] = array();
-            $calendars = $_SESSION['kronolith']['display_cal'];
+            $calendars = $sessino['kronolith:display_cal'];
             if (!is_array($calendars)) {
                 $calendars = array($calendars);
             }
@@ -1102,12 +1098,14 @@ class Kronolith
 
         /* Get a list of external calendars. */
         $GLOBALS['all_external_calendars'] = array();
-        if (isset($_SESSION['all_external_calendars'])) {
-            foreach ($_SESSION['all_external_calendars'] as $calendar) {
+        if (isset($GLOBALS['session']['kronolith:all_external_calendars'])) {
+            foreach ($GLOBALS['session']['kronolith:all_external_calendars'] as $calendar) {
                 $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
+            $ext_cals = $GLOBALS['session']['kronolith:all_external_calendars;array'];
+
             foreach ($apis as $api) {
                 if (!$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
                     continue;
@@ -1121,11 +1119,15 @@ class Kronolith
 
                 foreach ($categories as $name => $description) {
                     $GLOBALS['all_external_calendars'][$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description));
-                    $_SESSION['all_external_calendars'][] = array('a' => $api,
-                                                                  'n' => $name,
-                                                                  'd' => $description);
+                    $ext_cals[] = array(
+                        'a' => $api,
+                        'n' => $name,
+                        'd' => $description
+                    );
                 }
             }
+
+            $GLOBALS['session']['kronolith:all_external_calendars'] = $ext_cals;
         }
 
         /* Make sure all the external calendars still exist. */
@@ -2199,26 +2201,15 @@ class Kronolith
      */
     public static function attendeeList()
     {
-        $attendees = array();
-
         /* Attendees */
-        if (isset($_SESSION['kronolith']['attendees']) &&
-            is_array($_SESSION['kronolith']['attendees'])) {
-
-            $attendees = array();
-            foreach ($_SESSION['kronolith']['attendees'] as $email => $attendee) {
-                $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
-            }
-
+        $attendees = array();
+        foreach ($GLOBALS['session']['kronolith:attendees;array'] as $email => $attendee) {
+            $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
         }
 
         /* Resources */
-        if (isset($_SESSION['kronolith']['resources']) &&
-            is_array($_SESSION['kronolith']['resources'])) {
-
-            foreach ($_SESSION['kronolith']['resources'] as $resource) {
-                $attendees[] = $resource['name'];
-            }
+        foreach ($GLOBALS['session']['kronolith:resources;array'] as $resource) {
+            $attendees[] = $resource['name'];
         }
 
         return implode(', ', $attendees);

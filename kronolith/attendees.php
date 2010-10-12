@@ -15,16 +15,9 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Get the current attendees array from the session cache.
-$attendees = (isset($_SESSION['kronolith']['attendees']) &&
-              is_array($_SESSION['kronolith']['attendees']))
-    ? $_SESSION['kronolith']['attendees']
-    : array();
+$attendees = $session['kronolith:attendees;array'];
+$resources = $session['kronolith:resources;array'];
 $editAttendee = null;
-
-$resources = (isset($_SESSION['kronolith']['resources']) &&
-              is_array($_SESSION['kronolith']['resources']))
-    ? $_SESSION['kronolith']['resources']
-    : array();
 
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');
@@ -43,7 +36,7 @@ case 'add':
 
     $newAttendees = Kronolith::parseAttendees($newAttendees);
     if ($newAttendees) {
-        $_SESSION['kronolith']['attendees'] = $attendees + $newAttendees;
+        $session['kronolith:attendees'] = $attendees + $newAttendees;
     }
 
     // Any new resources?
@@ -62,7 +55,7 @@ case 'add':
             'name'       => $resource->get('name'),
         );
 
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
 
     if (Horde_Util::getFormData('addNewClose')) {
@@ -85,7 +78,7 @@ case 'edit':
                    : ' <' . $actionValue . '>'));
         }
         unset($attendees[$actionValue]);
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -94,7 +87,7 @@ case 'remove':
     $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         unset($attendees[$actionValue]);
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -102,7 +95,7 @@ case 'removeResource':
     // Remove the specified resource
     if (isset($resources[$actionValue])) {
         unset($resources[$actionValue]);
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -111,7 +104,7 @@ case 'changeResourceResp':
     list($partval, $partname) = explode(' ', $actionValue, 2);
     if (isset($resources[$partname])) {
         $resources[$partname]['response'] = $partval;
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -121,7 +114,7 @@ case 'changeatt':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['attendance'] = $partval;
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -131,7 +124,7 @@ case 'changeResourceAtt':
     $partname = Horde_String::lower($partname);
     if (isset($resources[$partname])) {
         $resources[$partname]['attendance'] = $partval;
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -141,7 +134,7 @@ case 'changeresp':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['response'] = $partval;
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -166,7 +159,7 @@ case 'dismiss':
 
 case 'clear':
     // Remove all the attendees and resources.
-    $_SESSION['kronolith']['attendees'] = $_SESSION['kronolith']['resources'] = array();
+    unset($session['kronolith:attendees'], $session['kronolith:resources']);
     break;
 }
 
@@ -216,7 +209,7 @@ try {
 }
 
 // Add the Free/Busy information for each attendee.
-foreach ($_SESSION['kronolith']['attendees'] as $email => $status) {
+foreach ($session['kronolith:attendees;array'] as $email => $status) {
     if (strpos($email, '@') !== false &&
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {

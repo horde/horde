@@ -2043,30 +2043,12 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        $attendees = Horde_Util::getFormData('attendees');
-        if (isset($_SESSION['kronolith']['attendees']) && is_array($_SESSION['kronolith']['attendees'])) {
-            $this->attendees = $_SESSION['kronolith']['attendees'];
-            if ($attendees) {
-                if ($attendees = Kronolith::parseAttendees(trim($attendees))) {
-                    $this->attendees = $attendees;
-                }
-            }
-        } else {
-            if ($attendees) {
-                if ($attendees = Kronolith::parseAttendees(trim($attendees))) {
-                    $this->attendees = $attendees;
-                }
-            } else {
-                $attendees = array();
-            }
-
-            $this->attendees = $attendees;
-        }
+        $this->attendees = ($attendees = Horde_Util::getFormData('attendees'))
+            ? $attendees
+            : $session['kronolith:attendees;array'];
 
         // Resources
-        if (isset($_SESSION['kronolith']['resources']) && is_array($_SESSION['kronolith']['resources'])) {
-            $this->_resources = $_SESSION['kronolith']['resources'];
-        }
+        $this->_resources = $session['kronolith:resources;array'];
 
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the
