@@ -25,10 +25,13 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 
     /**
      * Constructor.
+     *
+     * @see Horde_Prefs_Identity::__construct()
      */
-    public function __construct()
+    public function __construct($params = array())
     {
         $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
+        parent::__construct($params);
     }
 
     /**
