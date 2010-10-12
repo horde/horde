@@ -84,16 +84,16 @@ class Horde_Date_Utils
 
         $delta = time() - $timestamp;
         if ($delta < 60) {
-            return sprintf($dict->n("%d second ago", "%d seconds ago", $delta), $delta);
+            return sprintf($dict->ngettext("%d second ago", "%d seconds ago", $delta), $delta);
         }
         $delta = round($delta / 60);
         if ($delta < 60) {
-            return sprintf($dict->n("%d minute ago", "%d minutes ago", $delta), $delta);
+            return sprintf($dict->ngettext("%d minute ago", "%d minutes ago", $delta), $delta);
         }
 
         $delta = round($delta / 60);
         if ($delta < 24) {
-            return sprintf($dict->n("%d hour ago", "%d hours ago", $delta), $delta);
+            return sprintf($dict->ngettext("%d hour ago", "%d hours ago", $delta), $delta);
         }
 
         if ($delta > 24 && $delta < 48) {
@@ -108,7 +108,7 @@ class Horde_Date_Utils
 
         if (round($delta / 7) < 5) {
             $delta = round($delta / 7);
-            return sprintf($dict->n("%d week ago", "%d weeks ago", $delta), $delta);
+            return sprintf($dict->ngettext("%d week ago", "%d weeks ago", $delta), $delta);
         }
 
         // Default to the user specified date format.

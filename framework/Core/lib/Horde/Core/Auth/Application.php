@@ -580,7 +580,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             isset($GLOBALS['notification']) &&
             ($expire = $this->_base->getCredential('expire'))) {
             $toexpire = ($expire - time()) / 86400;
-            $GLOBALS['notification']->push(sprintf($this->_coreDict->n("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
+            $GLOBALS['notification']->push(sprintf($this->_coreDict->ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
         }
 
         if ($this->hasCapability('authenticatecallback')) {

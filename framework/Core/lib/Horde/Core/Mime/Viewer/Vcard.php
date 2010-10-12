@@ -130,7 +130,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     }
                 }
             }
-            $notification->push(sprintf($this->_coreDict->n(
+            $notification->push(sprintf($this->_coreDict->ngettext(
                 "%d contact was successfully added to your address book.",
                 "%d contacts were successfully added to your address book.",
                 $count),

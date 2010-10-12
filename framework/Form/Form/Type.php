@@ -641,7 +641,7 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
             $message = $this->_dict->t("This field is required.");
         } elseif ($length > $this->_chars) {
             $valid = false;
-            $message = sprintf($this->_dict->n("There are too many characters in this field. You have entered %d character; ", "There are too many characters in this field. You have entered %d characters; ", $length), $length)
+            $message = sprintf($this->_dict->ngettext("There are too many characters in this field. You have entered %d character; ", "There are too many characters in this field. You have entered %d characters; ", $length), $length)
                 . sprintf($this->_dict->t("you must enter less than %d."), $this->_chars);
         }
 

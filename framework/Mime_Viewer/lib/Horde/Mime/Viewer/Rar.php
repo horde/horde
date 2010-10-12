@@ -92,7 +92,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Base
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array(
+            $this->_textFilter(sprintf($this->_dict->ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true

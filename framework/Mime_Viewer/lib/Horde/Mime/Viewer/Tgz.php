@@ -110,7 +110,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
                 'encode' => true,
                 'encode_all' => true
             )) . "\n" .
-            $this->_textFilter(sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'Space2html', array(
+            $this->_textFilter(sprintf($this->_dict->ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'Space2html', array(
                 'charset' => $charset,
                 'encode' => true,
                 'encode_all' => true

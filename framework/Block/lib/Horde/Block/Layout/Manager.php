@@ -242,7 +242,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                     try {
                         $message = Horde::callHook('perms_denied', array('horde:max_blocks'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $message = htmlspecialchars(sprintf($this->_dict->n("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks));
+                        $message = htmlspecialchars(sprintf($this->_dict->ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks));
                     }
                     $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
                     break;

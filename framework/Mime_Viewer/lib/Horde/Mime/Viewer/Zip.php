@@ -98,7 +98,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
                 $this->_dict->t("Archive Name") . ': ' . $name . "\n" .
                 $this->_dict->t("Archive File Size") . ': ' . strlen($contents) .
                 " bytes\n" .
-                sprintf($this->_dict->n("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
+                sprintf($this->_dict->ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
                 "\n\n" .
                 str_repeat(' ', 15) .
                 Horde_String::pad($this->_dict->t("Attributes"), 10, ' ', STR_PAD_LEFT) .

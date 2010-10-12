@@ -73,7 +73,7 @@ class Horde_Translation_Gettext implements Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    public function n($singular, $plural, $number)
+    public function ngettext($singular, $plural, $number)
     {
         return $this->_gettext
           ? dngettext($this->_domain, $singular, $plural, $number)
