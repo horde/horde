@@ -7,11 +7,9 @@ class Horde_Core_Factory_Group
 {
     public function create(Horde_Injector $injector)
     {
-        $group = null;
-        if (!empty($GLOBALS['conf']['group']['cache'])) {
-            $session = new Horde_SessionObjects();
-            $group = $session->query('horde_group');
-        }
+        $group = empty($GLOBALS['conf']['group']['cache'])
+            ? null
+            : $GLOBALS['session']->retrieve('horde_group');
 
         if (!$group) {
             $driver = $GLOBALS['conf']['group']['driver'];

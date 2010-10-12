@@ -132,10 +132,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
-   <package>
-    <name>SessionObjects</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </optional>
  </dependencies>
  <phprelease>

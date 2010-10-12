@@ -1144,9 +1144,8 @@ class IMP_Prefs_Ui
                 ), 'dom');
 
                 if ($GLOBALS['session']['imp:file_upload']) {
-                    $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                     Horde::addInlineScript(array(
-                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                     ), 'dom');
                 }
 
@@ -1247,11 +1246,10 @@ class IMP_Prefs_Ui
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
-                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
 
                 Horde::addInlineScript(array(
-                    '$("import_pgp_public").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                    '$("import_pgp_public").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), 'dom');
             }
         }
@@ -1526,11 +1524,10 @@ class IMP_Prefs_Ui
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
             } elseif ($GLOBALS['session']['imp:file_upload']) {
-                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
 
                 Horde::addInlineScript(array(
-                    '$("import_smime_personal").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                    '$("import_smime_personal").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), 'dom');
             }
         }
@@ -1601,11 +1598,10 @@ class IMP_Prefs_Ui
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
-                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
 
                 Horde::addInlineScript(array(
-                    '$("import_smime_public").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                    '$("import_smime_public").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), 'dom');
             }
         }

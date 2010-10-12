@@ -72,8 +72,8 @@ class Horde_Core_Factory_Share
         }
 
         if (!empty($GLOBALS['conf']['share']['cache'])) {
-            $cache_sig = 'horde_share_' . $app . '_' . $driver . '1';
-            $ob = $this->_injector->getInstance('Horde_SessionObjects')->query($cache_sig);
+            $cache_sig = 'horde_share/' . $app . '/' . $driver . '1';
+            $ob = $GLOBALS['session']->retrieve($cache_sig);
         }
 
         if (empty($ob)) {
@@ -102,7 +102,7 @@ class Horde_Core_Factory_Share
      */
     public function shutdown($sig, $share)
     {
-        $this->_injector->getInstance('Horde_SessionObjects')->overwrite($sig, $share, false);
+        $GLOBALS['session']->store($share, false, $sig);
     }
 
 }

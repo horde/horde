@@ -66,8 +66,7 @@ class IMP_Injector_Factory_Compose
         if (empty($cacheid)) {
             $cacheid = strval(new Horde_Support_Randomid());
         } elseif (!isset($this->_instances[$cacheid])) {
-            $obs = $this->_injector->getInstance('Horde_SessionObjects');
-            $this->_instances[$cacheid] = $obs->query($cacheid);
+            $this->_instances[$cacheid] = $GLOBALS['session']->retrieve($cacheid);
         }
 
         if (empty($this->_instances[$cacheid])) {
@@ -82,22 +81,23 @@ class IMP_Injector_Factory_Compose
      */
     public function shutdown()
     {
-        $cache = $GLOBALS['session']['imp:compose_cache:array'];
+        global $session;
+
+        $cache = $session['imp:compose_cache:array'];
         $changed = false;
-        $obs = $this->_injector->getInstance('Horde_SessionObjects');
 
         foreach ($this->_instances as $key => $val) {
             switch ($val->changed) {
             case 'changed':
                 $val->changed = '';
-                $obs->overwrite($key, $val, false);
+                $session->store($val, false, $key);
                 $cache[$key] = 1;
                 $changed = true;
                 break;
 
             case 'deleted':
-                $obs->prune($key);
                 unset($cache[$key]);
+                $session->purge($key);
                 $changed = true;
                 break;
             }

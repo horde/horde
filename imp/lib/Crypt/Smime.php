@@ -500,9 +500,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function reloadWindow($reload)
     {
-        $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-        $href = $cacheSess->query($reload);
-        $cacheSess->prune($reload);
+        global $session;
+
+        $href = $session[$reload];
+        unset($session[$reload]);
         echo Horde::wrapInlineScript(array(
             'opener.focus();',
             'opener.location.href="' . $href . '";',

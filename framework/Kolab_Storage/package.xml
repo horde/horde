@@ -236,10 +236,6 @@
     <min>0.1.0</min>
    </package>
    <package>
-    <name>Horde_SessionObjects</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Horde_MIME</name>
     <channel>pear.horde.org</channel>
    </package>

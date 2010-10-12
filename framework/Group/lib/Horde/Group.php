@@ -147,7 +147,8 @@ class Horde_Group
      */
     public function shutdown()
     {
-        $GLOBALS['injector']->getInstance('Horde_SessionObjects')->overwrite('horde_group', $this, false);
+        // TODO: Mve to core.
+        $GLOBALS['session']->store($this, false, 'horde_group');
     }
 
     /**

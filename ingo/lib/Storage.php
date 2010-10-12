@@ -108,17 +108,11 @@ class Ingo_Storage
      */
     public function shutdown()
     {
-        $cache = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-
         /* Store the current objects. */
         foreach ($this->_cache as $key => $val) {
-            if (!$val['mod'] && isset($_SESSION['ingo']['storage'][$key])) {
-                continue;
+            if ($val['mod'] || !isset($_SESSION['ingo']['storage'][$key])) {
+                $_SESSION['ingo']['storage'][$key] = $GLOBALS['session']->store($val['ob'], false);
             }
-            if (isset($_SESSION['ingo']['storage'][$key])) {
-                $cache->setPruneFlag($_SESSION['ingo']['storage'][$key], true);
-            }
-            $_SESSION['ingo']['storage'][$key] = $cache->storeOid($val['ob'], false);
         }
     }
 
@@ -138,13 +132,12 @@ class Ingo_Storage
         /* Don't cache if using shares. */
         if ($cache && empty($GLOBALS['ingo_shares'])) {
             if (!isset($this->_cache[$field])) {
-                $this->_cache[$field] = array('mod' => false);
-                if (isset($_SESSION['ingo']['storage'][$field])) {
-                    $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-                    $this->_cache[$field]['ob'] = $cacheSess->query($_SESSION['ingo']['storage'][$field]);
-                } else {
-                    $this->_cache[$field]['ob'] = $this->_retrieve($field, $readonly);
-                }
+                $this->_cache[$field] = array(
+                    'mod' => false,
+                    'ob' => isset($_SESSION['ingo']['storage'][$field])
+                        ? $GLOBALS['session'][$_SESSION['ingo']['storage'][$field]]
+                        : $this->_retrieve($field, $readonly)
+                );
             }
             $ob = $this->_cache[$field]['ob'];
         } else {
