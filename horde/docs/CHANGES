@@ -2,6 +2,8 @@
 v4.0-cvs
 --------
 
+[jan] Translations for the framework packages are now bundled with those
+      packages.
 [bak] Remove LDAP driver from Horde_SessionHandler
 [jan] Require mandatory UTF-8 support for both servers and clients.
 [jan] Renamed Setup to Configuration and Options to Preferences.
