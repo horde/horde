@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-03</date>
- <time>19:38:19</time>
+ <date>2010-10-12</date>
+ <time>14:38:25</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -48,6 +48,7 @@
    <dir name="lib">
     <dir name="Components">
      <dir name="Config">
+      <file name="Application.php" role="php" />
       <file name="Cli.php" role="php" />
      </dir> <!-- /lib/Components/Config -->
      <dir name="Dependencies">
@@ -62,18 +63,21 @@
       <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
+      <file name="Factory.php" role="php" />
       <file name="InstallLocation.php" role="php" />
       <file name="Package.php" role="php" />
      </dir> <!-- /lib/Components/Pear -->
      <dir name="Runner">
+      <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
+      <file name="PearPackageXml.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Config.php" role="php" />
      <file name="Configs.php" role="php" />
      <file name="Constants.php" role="php">
-      <replace from="@data_dir@" to="data_dir" type="pear-config"/>
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
      </file>
      <file name="Dependencies.php" role="php" />
      <file name="Exception.php" role="php" />
@@ -85,7 +89,7 @@
    </dir> <!-- /lib -->
    <dir name="script">
     <file name="horde-components.php" role="script">
-     <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
    </dir> <!-- /script -->
    <dir name="test">
@@ -96,17 +100,52 @@
        <file name="pear.php.net.channel.xml" role="test" />
        <file name="pear.phpunit.de.channel.xml" role="test" />
       </dir> <!-- /test/Components/fixture/channels -->
+      <dir name="framework">
+       <dir name="Dependency">
+        <dir name="lib">
+         <file name="Dependency.php" role="test" />
+        </dir> <!-- /test/Components/fixture/framework/Dependency/lib -->
+       </dir> <!-- /test/Components/fixture/framework/Dependency -->
+       <dir name="Install">
+        <dir name="lib">
+         <file name="Install.php" role="test" />
+        </dir> <!-- /test/Components/fixture/framework/Install/lib -->
+       </dir> <!-- /test/Components/fixture/framework/Install -->
+      </dir> <!-- /test/Components/fixture/framework -->
+      <dir name="packages">
+       <file name="Console_Getopt-1.9.1.tgz" role="test" />
+       <file name="PEAR-1.9.1.tgz" role="test" />
+      </dir> <!-- /test/Components/fixture/packages -->
+      <dir name="pear">
+       <dir name="Console_Getopt">
+        <dir name="lib">
+         <file name="Console.php" role="test" />
+        </dir> <!-- /test/Components/fixture/pear/Console_Getopt/lib -->
+       </dir> <!-- /test/Components/fixture/pear/Console_Getopt -->
+       <dir name="PEAR">
+        <dir name="lib">
+         <file name="PEAR.php" role="test" />
+        </dir> <!-- /test/Components/fixture/pear/PEAR/lib -->
+       </dir> <!-- /test/Components/fixture/pear/PEAR -->
+      </dir> <!-- /test/Components/fixture/pear -->
       <dir name="simple">
        <dir name="lib">
         <file name="New.php" role="test" />
         <file name="Second.php" role="test" />
        </dir> <!-- /test/Components/fixture/simple/lib -->
       </dir> <!-- /test/Components/fixture/simple -->
+      <dir name="templates">
+       <file name="hudson-component-build.xml.template" role="test" />
+       <file name="hudson-component-config.xml.template" role="test" />
+       <file name="hudson-component-phpunit.xml.template" role="test" />
+      </dir> <!-- /test/Components/fixture/templates -->
      </dir> <!-- /test/Components/fixture -->
      <dir name="Integration">
       <dir name="Components">
        <dir name="Module">
         <file name="CiSetupTest.php" role="test" />
+        <file name="InstallerTest.php" role="test" />
+        <file name="PearPackageXmlTest.php" role="test" />
        </dir> <!-- /test/Components/Integration/Components/Module -->
       </dir> <!-- /test/Components/Integration/Components -->
       <file name="ComponentsTest.php" role="test" />
@@ -175,6 +214,7 @@
    <install as="Components/Module.php" name="lib/Components/Module.php" />
    <install as="Components/Modules.php" name="lib/Components/Modules.php" />
    <install as="Components/Output.php" name="lib/Components/Output.php" />
+   <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
@@ -183,11 +223,14 @@
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/PearPackageXml.php" name="lib/Components/Module/PearPackageXml.php" />
+   <install as="Components/Pear/Factory.php" name="lib/Components/Pear/Factory.php" />
    <install as="Components/Pear/InstallLocation.php" name="lib/Components/Pear/InstallLocation.php" />
    <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
+   <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
+   <install as="Components/Runner/PearPackageXml.php" name="lib/Components/Runner/PearPackageXml.php" />
    <install as="horde-components" name="script/horde-components.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
@@ -196,10 +239,21 @@
    <install as="Components/fixture/channels/pear.horde.org.channel.xml" name="test/Components/fixture/channels/pear.horde.org.channel.xml" />
    <install as="Components/fixture/channels/pear.php.net.channel.xml" name="test/Components/fixture/channels/pear.php.net.channel.xml" />
    <install as="Components/fixture/channels/pear.phpunit.de.channel.xml" name="test/Components/fixture/channels/pear.phpunit.de.channel.xml" />
+   <install as="Components/fixture/framework/Dependency/lib/Dependency.php" name="test/Components/fixture/framework/Dependency/lib/Dependency.php" />
+   <install as="Components/fixture/framework/Install/lib/Install.php" name="test/Components/fixture/framework/Install/lib/Install.php" />
+   <install as="Components/fixture/packages/Console_Getopt-1.9.1.tgz" name="test/Components/fixture/packages/Console_Getopt-1.9.1.tgz" />
+   <install as="Components/fixture/packages/PEAR-1.9.1.tgz" name="test/Components/fixture/packages/PEAR-1.9.1.tgz" />
+   <install as="Components/fixture/pear/Console_Getopt/lib/Console.php" name="test/Components/fixture/pear/Console_Getopt/lib/Console.php" />
+   <install as="Components/fixture/pear/PEAR/lib/PEAR.php" name="test/Components/fixture/pear/PEAR/lib/PEAR.php" />
    <install as="Components/fixture/simple/lib/New.php" name="test/Components/fixture/simple/lib/New.php" />
    <install as="Components/fixture/simple/lib/Second.php" name="test/Components/fixture/simple/lib/Second.php" />
+   <install as="Components/fixture/templates/hudson-component-build.xml.template" name="test/Components/fixture/templates/hudson-component-build.xml.template" />
+   <install as="Components/fixture/templates/hudson-component-config.xml.template" name="test/Components/fixture/templates/hudson-component-config.xml.template" />
+   <install as="Components/fixture/templates/hudson-component-phpunit.xml.template" name="test/Components/fixture/templates/hudson-component-phpunit.xml.template" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
+   <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
+   <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
    <install as="Components/Stub/Cli.php" name="test/Components/Stub/Cli.php" />
    <install as="Components/Stub/Parser.php" name="test/Components/Stub/Parser.php" />
   </filelist>
@@ -214,7 +268,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-03</date>
+   <date>2010-10-12</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

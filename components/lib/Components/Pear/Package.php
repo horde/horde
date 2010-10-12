@@ -203,14 +203,83 @@ class Components_Pear_Package
         return $this->_getPackageFile()->getDescription();
     }
 
-    private function _getUpdatedPackageFile()
+    /**
+     * Update the content listing of the provided package.
+     *
+     * @param PEAR_PackageFileManager2 $package The package to update.
+     *
+     * @return NULL
+     */
+    private function _updateContents(PEAR_PackageFileManager2 $package)
     {
-        $package = $this->_getPackageRwFile();
+        $contents = $package->getContents();
+        $contents = $contents['dir']['file'];
+        $taskfiles = array();
+        foreach ($contents as $file) {
+            $atts = $file['attribs'];
+            unset($file['attribs']);
+            if (count($file)) {
+                $taskfiles[$atts['name']] = $file;
+            }
+        }
+
         /**
          * @todo: Looks like this throws away any <replace /> tags we have in
          * the content list. Needs to be fixed.
          */
         $package->generateContents();
+
+        $updated = $package->getContents();
+        $updated = $updated['dir']['file'];
+        foreach ($updated as $file) {
+            if (isset($taskfiles[$file['attribs']['name']])) {
+                foreach ($taskfiles[$file['attribs']['name']] as $tag => $raw) {
+                    $taskname = $package->getTask($tag) . '_rw';
+                    if (!class_exists($taskname)) {
+                        throw new Components_Exception(
+                            sprintf('Read/write task %s is missing!', $taskname)
+                        );
+                    }
+                    $logger = new stdClass;
+                    $task = new $taskname(
+                        $package,
+                        $this->getEnvironment()->getPearConfig(),
+                        $logger,
+                        ''
+                    );
+                    switch ($tag) {
+                    case 'replace':
+                        $task->setInfo(
+                            $raw['attribs']['from'],
+                            $raw['attribs']['to'],
+                            $raw['attribs']['type']
+                        );
+                        break;
+                    default:
+                        throw new Components_Exceptions(
+                            sprintf('Unsupported task type %s!', $tag)
+                        );
+                    }
+                    $task->init(
+                        $raw,
+                        $file['attribs']
+                    );
+                    $package->addTaskToFile($file['attribs']['name'], $task);
+                }
+            }
+        }
+    }
+
+    /**
+     * Return an updated package description.
+     *
+     * @return PEAR_PackageFileManager2 The updated package.
+     */
+    private function _getUpdatedPackageFile()
+    {
+        $package = $this->_getPackageRwFile();
+
+        $this->_updateContents($package);
 
         /**
          * This is required to clear the <phprelease><filelist></filelist></phprelease>
@@ -277,5 +346,6 @@ class Components_Pear_Package
     public function writeUpdatedPackageFile()
     {
         $this->_getUpdatedPackageFile()->writePackageFile();
+        $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
     }    
 }
