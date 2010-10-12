@@ -59,7 +59,7 @@ class Horde_Form {
         if (isset($params['translation'])) {
             $this->_dict = $params['translation'];
         } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Form', dirname(__FILE__) . '/../locale');
+            $this->_dict = new Horde_Translation_Gettext('Horde_Form', dirname(__FILE__) . '/locale');
         }
 
     }
