@@ -454,13 +454,16 @@ class Horde_Cli
      * Either use the singleton() method to retrieve a Horde_Cli object after
      * calling init(), or don't call init() statically.
      *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
+     *
      * @return Horde_Cli  A Horde_Cli instance.
      */
-    static public function init()
+    static public function init($dict = null)
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = new self();
+        $cli = new self($dict);
 
         @set_time_limit(0);
         ob_implicit_flush(true);
