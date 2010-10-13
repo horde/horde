@@ -379,29 +379,19 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
      * @var array
      */
     protected $_branches = array();
+    
+    private $_initialized;
 
-    /**
-     * Create a repository file object, and give it information about
-     * what its parent directory and repository objects are.
-     *
-     * @param TODO $rep    TODO
-     * @param string $fl   Full path to this file.
-     * @param array $opts  TODO
-     *
-     * @throws Horde_Vcs_Exception
-     */
-    public function __construct($rep, $fl, $opts = array())
+    protected function _init()
     {
-        parent::__construct($rep, $fl, $opts);
-
         /* Check that we are actually in the filesystem. */
-        $file = $this->queryFullPath();
+        $file = $this->_dir . '/' . $this->_name;
         if (!is_file($file)) {
             throw new Horde_Vcs_Exception('File Not Found: ' . $file);
         }
 
         $ret_array = array();
-        $cmd = escapeshellcmd($rep->getPath('rlog')) . ($this->_quicklog ? ' -r' : '') . ' ' . escapeshellarg($file);
+        $cmd = escapeshellcmd($this->_rep->getPath('rlog')) . ($this->_quicklog ? ' -r' : '') . ' ' . escapeshellarg($file);
         exec($cmd, $ret_array, $retval);
 
         if ($retval) {
@@ -416,7 +406,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
             case 'init':
                 if (strpos($line, 'head: ') === 0) {
                     $this->_branches['HEAD'] = substr($line, 6);
-                    $this->_revlist['HEAD'] = $rep->getRevisionRange($this, '1.1', $this->_branches['HEAD']);
+                    $this->_revlist['HEAD'] = $this->_rep->getRevisionRange($this, '1.1', $this->_branches['HEAD']);
                 } elseif (strpos($line, 'branch:') === 0) {
                     $state = 'rev';
                 }
@@ -454,7 +444,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     (strpos($line, '----------------------------') === false)) {
                     $this->_accum[] = $line;
                 } elseif (count($this->_accum)) {
-                    $log = $rep->getLogObject($this, null);
+                    $log = $this->_rep->getLogObject($this, null);
                     $rev = $log->queryRevision();
                     $onbranch = false;
                     $onhead = (substr_count($rev, '.') == 1);
@@ -462,7 +452,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     // Determine branch information.
                     if ($onhead) {
                         $onbranch = (empty($this->_branch) || $this->_branch == 'HEAD') ||
-                            ($rep->cmp($branches[$this->_branch], $rev) === 1);
+                            ($this->_rep->cmp($branches[$this->_branch], $rev) === 1);
                     } elseif ($this->_branch != 'HEAD') {
                         foreach ($branches as $key => $val) {
                             if (strpos($rev, $val) === 0) {
@@ -470,7 +460,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                                 $log->setBranch($key);
                                 if (!isset($this->_branches[$key])) {
                                     $this->_branches[$key] = $rev;
-                                    $this->_revlist[$key] = $rep->getRevisionRange($this, '1.1', $rev);
+                                    $this->_revlist[$key] = $this->_rep->getRevisionRange($this, '1.1', $rev);
                                 }
                                 break;
                             }
@@ -486,6 +476,22 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                 }
                 break;
             }
+        }
+    }
+
+    protected function _ensureRevisionsInitialized()
+    {
+        if(!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
+    }
+
+    protected function _ensureLogsInitialized()
+    {
+        if(!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
         }
     }
 
@@ -590,14 +596,11 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
      */
     protected $_branch;
 
-    /**
-     * Constructor.
-     */
-    public function __construct($rep, $fl, $rev)
-    {
-        parent::__construct($rep, $fl, $rev);
+    private $_initialized;
 
-        $raw = $fl->getAccum();
+    protected function _init()
+    {
+       $raw = $this->_file->getAccum();
 
         /* Initialise a simple state machine to parse the output of rlog */
         $state = 'init';
@@ -649,7 +652,15 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
 
         /* Assume the rest of the lines are the log message */
         $this->_log = implode("\n", $raw);
-        $this->_tags = $fl->queryRevsym($this->_rev);
+        $this->_tags = $this->_file->queryRevsym($this->_rev);
+    }
+
+    protected function _ensureInitialized()
+    {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
     }
 
     /**
