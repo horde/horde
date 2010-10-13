@@ -73,10 +73,9 @@ class Components_Helper_Tree
     /**
      * Install the tree of packages into the specified environment.
      *
-     * @param string                          $package_file Path to the package file
-     *                                                      representing the element
-     *                                                      at the root of the
-     *                                                      dependency tree.
+     * @param string $package_file Path to the package file representing the element
+     *                             at the root of the dependency tree.
+     *
      * @return NULL
      */
     public function installTreeInEnvironment($package_file) {
@@ -84,6 +83,26 @@ class Components_Helper_Tree
             ->installInTree(
                 new Components_Helper_InstallationRun($this->_environment)
             );
+    }
+
+    /**
+     * List the dependency tree for the specified root package element.
+     *
+     * @param string           $package_file Path to the package file representing
+     *                                       the element at the root of the
+     *                                       dependency tree.
+     * @param Component_Output $output       The output handler.
+     *
+     * @return NULL
+     */
+    public function listDependencyTree(
+        $package_file,
+        Components_Output $output
+    ) {
+        $run = new Components_Helper_ListRun($output);
+        $this->_getHordeChildElement($package_file)
+            ->listDependencies($run, 0);
+        $run->finish();
     }
 
     /**
@@ -104,7 +123,10 @@ class Components_Helper_Tree
                     . 'framework' . DIRECTORY_SEPARATOR . $dependency['name']
                     . DIRECTORY_SEPARATOR . 'package.xml';
             }
-            $children[] = $this->_getHordeChildElement($package_file);
+            $children[] = $this->_getHordeChildElement(
+                $package_file,
+                isset($dependency['optional']) && $dependency['optional'] == 'no'
+            );
         }
         return $children;
     }
@@ -112,19 +134,19 @@ class Components_Helper_Tree
     /**
      * Return a Horde child element.
      *
-     * @param string $package_file                         Path to the package
-     *                                                     file representing the
-     *                                                     element at the root
-     *                                                     of the dependency tree.
+     * @param string  $package_file Path to the package file representing the
+     *                              element at the root of the dependency tree.
+     * @param boolean $required     Is this a required element?
      * @return NULL
      */
-    private function _getHordeChildElement($package_file)
+    private function _getHordeChildElement($package_file, $required = true)
     {
         return new Components_Helper_Tree_Element(
             $this->_factory->createPackageForEnvironment(
                 $package_file, $this->_environment
             ),
             $package_file,
+            $required,
             $this
         );
     }

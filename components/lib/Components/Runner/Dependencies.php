@@ -1,7 +1,6 @@
 <?php
 /**
- * Components_Runner_Installer:: installs a Horde component including its
- * dependencies.
+ * Components_Runner_Dependencies:: lists a tree of dependencies.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * Components_Runner_Installer:: installs a Horde component including its
- * dependencies.
+ * Components_Runner_Dependencies:: lists a tree of dependencies.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -27,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Runner_Installer
+class Components_Runner_Dependencies
 {
     /**
      * The configuration for the current job.
@@ -44,34 +42,40 @@ class Components_Runner_Installer
     private $_factory;
 
     /**
+     * The output handler.
+     *
+     * @param Component_Output
+     */
+    private $_output;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current
      *                                         job.
      * @param Components_Pear_Factory $factory The factory for PEAR
      *                                         dependencies.
+     * @param Component_Output        $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Pear_Factory $factory,
+        Components_Output $output
     ) {
         $this->_config = $config;
         $this->_factory = $factory;
+        $this->_output = $output;
     }
 
     public function run()
     {
         $options = $this->_config->getOptions();
-        $environment = realpath($options['install']);
-        if (!$environment) {
-            $environment = $options['install'];
-        }
         $arguments = $this->_config->getArguments();
         $this->_factory
-            ->createTreeHelper(
-                $environment, dirname(realpath($arguments[0])), $options
-            )->installTreeInEnvironment(
-                realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml'
+            ->createSimpleTreeHelper(dirname(realpath($arguments[0])))
+            ->listDependencyTree(
+                realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml',
+                $this->_output
             );
     }
 }

@@ -83,6 +83,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the dependency list handler for a package.
+     *
+     * @return Components_Runner_Dependencies The dependency handler.
+     */
+    public function getRunnerDependencies()
+    {
+        return $this->getInstance('Components_Runner_Dependencies');
+    }
+
+    /**
      * Returns the installer for a package.
      *
      * @return Components_Runner_Installer The installer.

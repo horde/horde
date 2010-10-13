@@ -182,6 +182,32 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the list dependencies option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the verbose list dependencies option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the quiet list dependencies option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--quiet',
+                '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -220,12 +246,6 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the help will contain the "d" option.':
             $this->assertRegExp(
                 '/-d,\s*--devpackage/',
-                $world['output']
-            );
-            break;
-        case 'the help will contain the "i" option.':
-            $this->assertRegExp(
-                '/-i\s*INSTALL,\s*--install=INSTALL/',
                 $world['output']
             );
             break;
@@ -371,6 +391,18 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the call will fail with':
             $this->assertContains(
                 $arguments[0],
+                $world['output']
+            );
+            break;
+        case 'the non-Horde dependencies of the component will be listed':
+            $this->assertContains(
+                'Console_Getopt',
+                $world['output']
+            );
+            break;
+        case 'the Horde dependencies of the component will be listed':
+            $this->assertContains(
+                'Dependency',
                 $world['output']
             );
             break;

@@ -44,6 +44,13 @@ class Components_Helper_Tree_Element
     private $_package_file;
 
     /**
+     * Is this a required element?
+     *
+     * @var boolean
+     */
+    private $_required;
+
+    /**
      * The parent tree for this child.
      *
      * @var Components_Helper_Tree
@@ -55,15 +62,18 @@ class Components_Helper_Tree_Element
      *
      * @param Components_Pear_Package $package      The root of the dependency tree.
      * @param string                  $package_file The path to the package file.
+     * @param boolean                 $required     Is this a required element?
      * @param Components_Helper_Tree  $tree         The parent tree for this child.
      */
     public function __construct(
         Components_Pear_Package $package,
         $package_file,
+        $required,
         Components_Helper_Tree $tree
     ) {
         $this->_package = $package;
         $this->_package_file = $package_file;
+        $this->_required = $required;
         $this->_tree = $tree;
     }
 
@@ -91,4 +101,33 @@ class Components_Helper_Tree_Element
         }
         $run->installHordePackageOnce($this->_package_file);
     }
+
+    /**
+     * List the dependency tree for this package.
+     *
+     * @param Components_Helper_ListRun $run    The current listing run.
+     * @param int                       $level  The current list level.
+     * @param string                    $parent The name of the parent element.
+     *
+     * @return NULL
+     */
+    public function listDependencies(
+        Components_Helper_ListRun $run,
+        $level,
+        $parent = ''
+    ) {
+        if ($run->listHordePackage($this->_package, $level, $parent, $this->_required)) {
+            foreach ($this->_package->listAllExternalDependencies() as $dependency) {
+                $run->listExternalPackage($dependency, $level + 1);
+            }
+            foreach (
+                $this->_tree->getChildren(
+                    $this->_package->listAllHordeDependencies()
+                ) as $child
+            ) {
+                $child->listDependencies($run, $level + 1, $this->_package->getName());
+            }
+        }
+    }
+
 }

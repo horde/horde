@@ -179,6 +179,16 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the name for this package.
+     *
+     * @return string The package name.
+     */
+    public function getName()
+    {
+        return $this->_getPackageFile()->getName();
+    }
+
+    /**
      * Return the description for this package.
      *
      * @return string The package description.

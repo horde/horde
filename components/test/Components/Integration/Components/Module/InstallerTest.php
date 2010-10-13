@@ -42,7 +42,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the "i" option.');
+            ->then('the help will contain the option', '-i\s*INSTALL,\s*--install=INSTALL');
     }
 
     /**

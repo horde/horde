@@ -72,6 +72,42 @@ class Components_Output
         $this->_nocolor = !empty($options['nocolor']);
     }
 
+    public function bold($text)
+    {
+        if ($this->_nocolor) {
+            $this->_cli->writeln($text);
+        } else {
+            $this->_cli->writeln($this->_cli->bold($text));
+        }
+    }
+
+    public function blue($text)
+    {
+        if ($this->_nocolor) {
+            $this->_cli->writeln($text);
+        } else {
+            $this->_cli->writeln($this->_cli->blue($text));
+        }
+    }
+
+    public function green($text)
+    {
+        if ($this->_nocolor) {
+            $this->_cli->writeln($text);
+        } else {
+            $this->_cli->writeln($this->_cli->green($text));
+        }
+    }
+
+    public function yellow($text)
+    {
+        if ($this->_nocolor) {
+            $this->_cli->writeln($text);
+        } else {
+            $this->_cli->writeln($this->_cli->yellow($text));
+        }
+    }
+
     public function ok($text)
     {
         if ($this->_quiet) {
@@ -145,5 +181,15 @@ class Components_Output
         } else {
             return $type;
         }
+    }
+
+    public function isVerbose()
+    {
+        return $this->_verbose;
+    }
+
+    public function isQuiet()
+    {
+        return $this->_quiet;
     }
 }

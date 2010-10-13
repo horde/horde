@@ -8,8 +8,6 @@
 
  - Add module for generating component documentation.
 
- - Produce an HTML dependency graph.
-
  - Add module for an initial empty PEAR template
 
  - Add a commit module that automatically adds a changelog entry in
