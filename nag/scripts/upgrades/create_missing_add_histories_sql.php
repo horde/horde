@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)

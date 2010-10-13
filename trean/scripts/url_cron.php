@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * $Horde: trean/scripts/check_links.php,v 1.30 2009/01/06 18:02:14 jan Exp $

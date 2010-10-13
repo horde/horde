@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Tests all .wbxml files in ../docs/examples/ by decoding them and
